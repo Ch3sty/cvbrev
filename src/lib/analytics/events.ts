@@ -80,6 +80,31 @@ interface SampleIntervju {
  * Eventnamn till egenskaper. Lägg till nya event här, inte som fria strängar
  * i komponenterna, så att namnen förblir sökbara.
  */
+/** pass_klart och riktat_klart (testmotorn, text- och sifferpassen). */
+export interface PassKlart {
+  typ: 'pass' | 'riktat'
+  variant: 'grund' | 'niva'
+  niva_fore: number | null
+  niva_efter: number | null
+  ratt: number
+  antal: number
+  over_tid: number
+  tid_s: number
+  /** Frågor hon sett förut (friskhet 1 till 3), ur sessionens meta. */
+  ateranvanda: number
+  /** Svar som räknades mot nivån (utan upprepade; 0 för riktade pass). */
+  raknade: number
+  /**
+   * Antal rätt per band ur urvalet (spec 19.4 punkt 5): ger 60/20/20 väntat
+   * 4 till 5 av 9 på egen nivå? Null i sessioner utan band.
+   */
+  band_ratt: { under: number; nara: number; over: number } | null
+  /** matris, verbal eller numerisk (beställning omgång 2, B3). */
+  test_kind?: string
+  niva?: string
+  familj?: string | null
+}
+
 export interface AnalyticsEvents {
   article_viewed: ClusterContext & { slug: string }
   article_cta_shown: ClusterContext & { slug?: string; position: CtaPosition; variant?: string }
@@ -334,25 +359,9 @@ export interface AnalyticsEvents {
     /** Antal frågor ur smakprovet som räknades in i mätningen (spec 14.5). */
     smakprov: number
   }
-  pass_klart: {
-    typ: 'pass' | 'riktat'
-    variant: 'grund' | 'niva'
-    niva_fore: number | null
-    niva_efter: number | null
-    ratt: number
-    antal: number
-    over_tid: number
-    tid_s: number
-    /** Frågor hon sett förut (friskhet 1 till 3), ur sessionens meta. */
-    ateranvanda: number
-    /** Svar som räknades mot nivån (utan upprepade; 0 för riktade pass). */
-    raknade: number
-    /**
-     * Antal rätt per band ur urvalet (spec 19.4 punkt 5): ger 60/20/20 väntat
-     * 4 till 5 av 9 på egen nivå? Null i sessioner utan band.
-     */
-    band_ratt: { under: number; nara: number; over: number } | null
-  }
+  pass_klart: PassKlart
+  /** Riktat text- eller sifferpass (beställning omgång 2, B3). Riktade matrispass skjuter pass_klart med typ riktat. */
+  riktat_klart: PassKlart
   ommatning_klar: { niva: number; delta: number }
   generalrepetition_klar: { format: string; ratt: number; antal: number; test_kind?: string; obesvarade?: number; fran?: string | null }
   kalibreringsfraga_svarad: { fraga_id: string; typ: string; correct: boolean }

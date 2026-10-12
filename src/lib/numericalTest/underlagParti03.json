@@ -1,0 +1,4637 @@
+[
+  {
+    "id": "ng-17-hemtjanst-besok",
+    "title": "Hemtjänstens besök",
+    "type": "table",
+    "topic": "Äldreomsorg",
+    "difficulty": 1,
+    "contextText": "Tabellen visar hemtjänstens planerade besök under en vecka i fyra områden. Ett besök tar i genomsnitt 25 minuter. 1 timme är 60 minuter.",
+    "dataTable": {
+      "headers": [
+        "Område",
+        "Brukare",
+        "Besök per vecka",
+        "Personal i tjänst"
+      ],
+      "rows": [
+        [
+          "Centrum",
+          "51",
+          "612",
+          "14"
+        ],
+        [
+          "Norr",
+          "35",
+          "455",
+          "11"
+        ],
+        [
+          "Söder",
+          "52",
+          "598",
+          "15"
+        ],
+        [
+          "Väster",
+          "29",
+          "348",
+          "9"
+        ]
+      ],
+      "caption": "Planerade besök under en vecka"
+    },
+    "enhetsbyte": "minuter till timmar",
+    "p_prior": 0.7,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "questions": [
+      {
+        "id": "ng-17-q01",
+        "passageId": "ng-17-hemtjanst-besok",
+        "questionNumber": 1,
+        "questionText": "Hur många besök gör hemtjänsten sammanlagt i Norr och Söder under en vecka?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "1 210 besök",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "612 + 598",
+              "varde": 1210
+            }
+          },
+          {
+            "id": "b",
+            "text": "803 besök",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "455 + 348",
+              "varde": 803
+            }
+          },
+          {
+            "id": "c",
+            "text": "143 besök",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "598 - 455",
+              "varde": 143
+            }
+          },
+          {
+            "id": "d",
+            "text": "1 053 besök",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Besök i Norr och Söder",
+              "uttryck": "455 + 598",
+              "varde": 1053
+            }
+          ],
+          "visning": "1 053 besök",
+          "precision": 0
+        },
+        "explanation": "Besök i Norr och Söder: 455 + 598 = 1 053. Svaret blir 1 053 besök."
+      },
+      {
+        "id": "ng-17-q02",
+        "passageId": "ng-17-hemtjanst-besok",
+        "questionNumber": 2,
+        "questionText": "Hur många besök får en brukare i Centrum i genomsnitt per vecka?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "11,5 besök",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "598 / 52",
+              "varde": 11.5
+            }
+          },
+          {
+            "id": "b",
+            "text": "43,7 besök",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "612 / 14",
+              "varde": 43.7143
+            }
+          },
+          {
+            "id": "c",
+            "text": "12,0 besök",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "13,0 besök",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "455 / 35",
+              "varde": 13
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Besök per brukare i Centrum",
+              "uttryck": "612 / 51",
+              "varde": 12
+            }
+          ],
+          "visning": "12,0 besök",
+          "precision": 1
+        },
+        "explanation": "Besök per brukare i Centrum: 612 / 51 = 12. Svaret blir 12,0 besök."
+      },
+      {
+        "id": "ng-17-q03",
+        "passageId": "ng-17-hemtjanst-besok",
+        "questionNumber": 3,
+        "questionText": "Hur många timmar tar besöken i Väster sammanlagt under en vecka?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "145 timmar",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "8 700 timmar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "348 * 25",
+              "varde": 8700
+            }
+          },
+          {
+            "id": "c",
+            "text": "190 timmar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "455 * 25 / 60",
+              "varde": 189.5833
+            }
+          },
+          {
+            "id": "d",
+            "text": "12 timmar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "29 * 25 / 60",
+              "varde": 12.0833
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Besökstid i minuter",
+              "uttryck": "348 * 25",
+              "varde": 8700
+            },
+            {
+              "text": "Omräknat till timmar",
+              "uttryck": "8700 / 60",
+              "varde": 145
+            }
+          ],
+          "visning": "145 timmar",
+          "precision": 0
+        },
+        "explanation": "Besökstid i minuter: 348 · 25 = 8 700. Omräknat till timmar: 8 700 / 60 = 145. Svaret blir 145 timmar."
+      },
+      {
+        "id": "ng-17-q04",
+        "passageId": "ng-17-hemtjanst-besok",
+        "questionNumber": 4,
+        "questionText": "Hur många procent av alla besök under veckan görs i Söder?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "29,7 %",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "42,3 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "598 / (2013 - 598) * 100",
+              "varde": 42.2615
+            }
+          },
+          {
+            "id": "c",
+            "text": "30,4 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "612 / 2013 * 100",
+              "varde": 30.4024
+            }
+          },
+          {
+            "id": "d",
+            "text": "31,1 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "52 / (51 + 35 + 52 + 29) * 100",
+              "varde": 31.1377
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Alla besök under veckan",
+              "uttryck": "612 + 455 + 598 + 348",
+              "varde": 2013
+            },
+            {
+              "text": "Söders andel",
+              "uttryck": "598 / 2013 * 100",
+              "varde": 29.7069
+            }
+          ],
+          "visning": "29,7 %",
+          "precision": 1
+        },
+        "explanation": "Alla besök under veckan: 612 + 455 + 598 + 348 = 2 013. Söders andel: 598 / 2 013 · 100 = 29,707. Svaret blir 29,7 %."
+      }
+    ]
+  },
+  {
+    "id": "ng-18-lagrets-inleveranser",
+    "title": "Lagrets inleveranser",
+    "type": "table",
+    "topic": "Lager och logistik",
+    "difficulty": 1,
+    "contextText": "Tabellen visar ett lagers inleveranser från fyra leverantörer under oktober. En pall väger i genomsnitt 420 kg. 1 ton är 1 000 kg.",
+    "dataTable": {
+      "headers": [
+        "Leverantör",
+        "Leveranser",
+        "Pallar",
+        "Försenade leveranser"
+      ],
+      "rows": [
+        [
+          "Nordgods",
+          "18",
+          "342",
+          "3"
+        ],
+        [
+          "Bergs Frukt",
+          "24",
+          "408",
+          "6"
+        ],
+        [
+          "Kustlast",
+          "12",
+          "276",
+          "1"
+        ],
+        [
+          "Mellanfrakt",
+          "15",
+          "255",
+          "4"
+        ]
+      ],
+      "caption": "Inleveranser i oktober"
+    },
+    "enhetsbyte": "kg till ton",
+    "p_prior": 0.7,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "questions": [
+      {
+        "id": "ng-18-q01",
+        "passageId": "ng-18-lagrets-inleveranser",
+        "questionNumber": 1,
+        "questionText": "Hur många pallar innehöll en leverans från Kustlast i genomsnitt?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "17 pallar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "408 / 24",
+              "varde": 17
+            }
+          },
+          {
+            "id": "b",
+            "text": "23 pallar",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "264 pallar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "276 - 12",
+              "varde": 264
+            }
+          },
+          {
+            "id": "d",
+            "text": "19 pallar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "342 / 18",
+              "varde": 19
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Pallar per leverans",
+              "uttryck": "276 / 12",
+              "varde": 23
+            }
+          ],
+          "visning": "23 pallar",
+          "precision": 0
+        },
+        "explanation": "Pallar per leverans: 276 / 12 = 23. Svaret blir 23 pallar."
+      },
+      {
+        "id": "ng-18-q02",
+        "passageId": "ng-18-lagrets-inleveranser",
+        "questionNumber": 2,
+        "questionText": "Hur många procent av leveranserna från Bergs Frukt var försenade?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "27 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "4 / 15 * 100",
+              "varde": 26.6667
+            }
+          },
+          {
+            "id": "b",
+            "text": "33 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "6 / (24 - 6) * 100",
+              "varde": 33.3333
+            }
+          },
+          {
+            "id": "c",
+            "text": "1 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "6 / 408 * 100",
+              "varde": 1.4706
+            }
+          },
+          {
+            "id": "d",
+            "text": "25 %",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Försenade delat med alla leveranser",
+              "uttryck": "6 / 24 * 100",
+              "varde": 25
+            }
+          ],
+          "visning": "25 %",
+          "precision": 0
+        },
+        "explanation": "Försenade delat med alla leveranser: 6 / 24 · 100 = 25. Svaret blir 25 %."
+      },
+      {
+        "id": "ng-18-q03",
+        "passageId": "ng-18-lagrets-inleveranser",
+        "questionNumber": 3,
+        "questionText": "Hur många ton vägde pallarna från Nordgods sammanlagt i oktober?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "8 ton",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "18 * 420 / 1000",
+              "varde": 7.56
+            }
+          },
+          {
+            "id": "b",
+            "text": "171 ton",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "408 * 420 / 1000",
+              "varde": 171.36
+            }
+          },
+          {
+            "id": "c",
+            "text": "144 ton",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "143 640 ton",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "342 * 420",
+              "varde": 143640
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Vikt i kg",
+              "uttryck": "342 * 420",
+              "varde": 143640
+            },
+            {
+              "text": "Omräknat till ton",
+              "uttryck": "143640 / 1000",
+              "varde": 143.64
+            }
+          ],
+          "visning": "144 ton",
+          "precision": 0
+        },
+        "explanation": "Vikt i kg: 342 · 420 = 143 640. Omräknat till ton: 143 640 / 1 000 = 143,64. Svaret blir 144 ton."
+      },
+      {
+        "id": "ng-18-q04",
+        "passageId": "ng-18-lagrets-inleveranser",
+        "questionNumber": 4,
+        "questionText": "Hur många procent av alla pallar i oktober kom från Mellanfrakt?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "19,9 %",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "21,5 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "276 / 1281 * 100",
+              "varde": 21.5457
+            }
+          },
+          {
+            "id": "c",
+            "text": "24,9 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "255 / (1281 - 255) * 100",
+              "varde": 24.8538
+            }
+          },
+          {
+            "id": "d",
+            "text": "21,7 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "15 / (18 + 24 + 12 + 15) * 100",
+              "varde": 21.7391
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Alla pallar i oktober",
+              "uttryck": "342 + 408 + 276 + 255",
+              "varde": 1281
+            },
+            {
+              "text": "Mellanfrakts andel",
+              "uttryck": "255 / 1281 * 100",
+              "varde": 19.9063
+            }
+          ],
+          "visning": "19,9 %",
+          "precision": 1
+        },
+        "explanation": "Alla pallar i oktober: 342 + 408 + 276 + 255 = 1 281. Mellanfrakts andel: 255 / 1 281 · 100 = 19,906. Svaret blir 19,9 %."
+      }
+    ]
+  },
+  {
+    "id": "ng-19-skolans-franvaro",
+    "title": "Frånvaro per klass",
+    "type": "table",
+    "topic": "Skola",
+    "difficulty": 1,
+    "contextText": "Tabellen visar frånvaron i fyra klasser på en grundskola under en period med 40 skoldagar. En skoldag har 6 lektioner. En frånvarodag betyder att en elev var borta en hel dag.",
+    "dataTable": {
+      "headers": [
+        "Klass",
+        "Elever",
+        "Frånvarodagar totalt",
+        "Varav ogiltig frånvaro"
+      ],
+      "rows": [
+        [
+          "7A",
+          "28",
+          "86",
+          "12"
+        ],
+        [
+          "7B",
+          "26",
+          "121",
+          "18"
+        ],
+        [
+          "8A",
+          "30",
+          "96",
+          "9"
+        ],
+        [
+          "8B",
+          "25",
+          "138",
+          "21"
+        ]
+      ],
+      "caption": "Frånvaro under 40 skoldagar"
+    },
+    "enhetsbyte": "dagar till lektioner",
+    "p_prior": 0.7,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "questions": [
+      {
+        "id": "ng-19-q01",
+        "passageId": "ng-19-skolans-franvaro",
+        "questionNumber": 1,
+        "questionText": "Hur många frånvarodagar hade klasserna i årskurs 7 sammanlagt?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "30 dagar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "12 + 18",
+              "varde": 30
+            }
+          },
+          {
+            "id": "b",
+            "text": "259 dagar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "121 + 138",
+              "varde": 259
+            }
+          },
+          {
+            "id": "c",
+            "text": "234 dagar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "96 + 138",
+              "varde": 234
+            }
+          },
+          {
+            "id": "d",
+            "text": "207 dagar",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Frånvaro i 7A och 7B",
+              "uttryck": "86 + 121",
+              "varde": 207
+            }
+          ],
+          "visning": "207 dagar",
+          "precision": 0
+        },
+        "explanation": "Frånvaro i 7A och 7B: 86 + 121 = 207. Svaret blir 207 dagar."
+      },
+      {
+        "id": "ng-19-q02",
+        "passageId": "ng-19-skolans-franvaro",
+        "questionNumber": 2,
+        "questionText": "Räkna elevdagar som antal elever gånger antal skoldagar. Hur många procent av elevdagarna i 7B var eleverna frånvarande?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "1,7 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "18 / 1040 * 100",
+              "varde": 1.7308
+            }
+          },
+          {
+            "id": "b",
+            "text": "11,6 %",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "7,7 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "86 / (28 * 40) * 100",
+              "varde": 7.6786
+            }
+          },
+          {
+            "id": "d",
+            "text": "13,2 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "121 / (1040 - 121) * 100",
+              "varde": 13.1665
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Elevdagar i 7B",
+              "uttryck": "26 * 40",
+              "varde": 1040
+            },
+            {
+              "text": "Frånvaro i procent",
+              "uttryck": "121 / 1040 * 100",
+              "varde": 11.6346
+            }
+          ],
+          "visning": "11,6 %",
+          "precision": 1
+        },
+        "explanation": "Elevdagar i 7B: 26 · 40 = 1 040. Frånvaro i procent: 121 / 1 040 · 100 = 11,635. Svaret blir 11,6 %."
+      },
+      {
+        "id": "ng-19-q03",
+        "passageId": "ng-19-skolans-franvaro",
+        "questionNumber": 3,
+        "questionText": "Hur många av frånvarodagarna i årskurs 8 var giltig frånvaro?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "177 dagar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "86 + 121 - 12 - 18",
+              "varde": 177
+            }
+          },
+          {
+            "id": "b",
+            "text": "234 dagar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "96 + 138",
+              "varde": 234
+            }
+          },
+          {
+            "id": "c",
+            "text": "204 dagar",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "264 dagar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "96 + 138 + 9 + 21",
+              "varde": 264
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Frånvaro i 8A och 8B",
+              "uttryck": "96 + 138",
+              "varde": 234
+            },
+            {
+              "text": "Minus den ogiltiga frånvaron",
+              "uttryck": "234 - 9 - 21",
+              "varde": 204
+            }
+          ],
+          "visning": "204 dagar",
+          "precision": 0
+        },
+        "explanation": "Frånvaro i 8A och 8B: 96 + 138 = 234. Minus den ogiltiga frånvaron: 234 - 9 - 21 = 204. Svaret blir 204 dagar."
+      },
+      {
+        "id": "ng-19-q04",
+        "passageId": "ng-19-skolans-franvaro",
+        "questionNumber": 4,
+        "questionText": "Hur många lektioner missade eleverna i 7A sammanlagt?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "86 lektioner",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "86",
+              "varde": 86
+            }
+          },
+          {
+            "id": "b",
+            "text": "726 lektioner",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "121 * 6",
+              "varde": 726
+            }
+          },
+          {
+            "id": "c",
+            "text": "516 lektioner",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "72 lektioner",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "12 * 6",
+              "varde": 72
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Frånvarodagar gånger lektioner per dag",
+              "uttryck": "86 * 6",
+              "varde": 516
+            }
+          ],
+          "visning": "516 lektioner",
+          "precision": 0
+        },
+        "explanation": "Frånvarodagar gånger lektioner per dag: 86 · 6 = 516. Svaret blir 516 lektioner."
+      }
+    ]
+  },
+  {
+    "id": "ng-20-fardtjanst-resor",
+    "title": "Färdtjänstens resor",
+    "type": "graph",
+    "topic": "Kommunal service",
+    "difficulty": 1,
+    "contextText": "Diagrammet visar hur många färdtjänstresor som gjordes i en kommun per månad under första halvåret. Kommunen betalar i genomsnitt 290 kr per resa. 1 tkr är 1 000 kr.",
+    "chartData": {
+      "chartType": "line",
+      "title": "Färdtjänstresor per månad",
+      "unit": "",
+      "xAxisLabel": "Månad",
+      "yAxisLabel": "Antal resor",
+      "showValues": true,
+      "data": [
+        {
+          "x": "Jan",
+          "y": 640
+        },
+        {
+          "x": "Feb",
+          "y": 590
+        },
+        {
+          "x": "Mar",
+          "y": 710
+        },
+        {
+          "x": "Apr",
+          "y": 760
+        },
+        {
+          "x": "Maj",
+          "y": 820
+        },
+        {
+          "x": "Jun",
+          "y": 680
+        }
+      ]
+    },
+    "enhetsbyte": "kr till tkr",
+    "p_prior": 0.7,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "questions": [
+      {
+        "id": "ng-20-q01",
+        "passageId": "ng-20-fardtjanst-resor",
+        "questionNumber": 1,
+        "questionText": "Hur många fler resor gjordes i maj än i januari?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "1 460 resor",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "820 + 640",
+              "varde": 1460
+            }
+          },
+          {
+            "id": "b",
+            "text": "180 resor",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "60 resor",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "820 - 760",
+              "varde": 60
+            }
+          },
+          {
+            "id": "d",
+            "text": "120 resor",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "760 - 640",
+              "varde": 120
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Maj minus januari",
+              "uttryck": "820 - 640",
+              "varde": 180
+            }
+          ],
+          "visning": "180 resor",
+          "precision": 0
+        },
+        "explanation": "Maj minus januari: 820 - 640 = 180. Svaret blir 180 resor."
+      },
+      {
+        "id": "ng-20-q02",
+        "passageId": "ng-20-fardtjanst-resor",
+        "questionNumber": 2,
+        "questionText": "Med hur många procent ökade antalet resor från februari till april?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "22 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "170 / 760 * 100",
+              "varde": 22.3684
+            }
+          },
+          {
+            "id": "b",
+            "text": "20 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(710 - 590) / 590 * 100",
+              "varde": 20.339
+            }
+          },
+          {
+            "id": "c",
+            "text": "29 %",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "129 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "760 / 590 * 100",
+              "varde": 128.8136
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Ökning i antal resor",
+              "uttryck": "760 - 590",
+              "varde": 170
+            },
+            {
+              "text": "Ökning i procent av februari",
+              "uttryck": "170 / 590 * 100",
+              "varde": 28.8136
+            }
+          ],
+          "visning": "29 %",
+          "precision": 0
+        },
+        "explanation": "Ökning i antal resor: 760 - 590 = 170. Ökning i procent av februari: 170 / 590 · 100 = 28,814. Svaret blir 29 %."
+      },
+      {
+        "id": "ng-20-q03",
+        "passageId": "ng-20-fardtjanst-resor",
+        "questionNumber": 3,
+        "questionText": "Hur mycket betalade kommunen för resorna i juni, i tkr?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "197 200,0 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "680 * 290",
+              "varde": 197200
+            }
+          },
+          {
+            "id": "b",
+            "text": "197,2 tkr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "237,8 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "820 * 290 / 1000",
+              "varde": 237.8
+            }
+          },
+          {
+            "id": "d",
+            "text": "205,9 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "710 * 290 / 1000",
+              "varde": 205.9
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Kostnad i kr",
+              "uttryck": "680 * 290",
+              "varde": 197200
+            },
+            {
+              "text": "Omräknat till tkr",
+              "uttryck": "197200 / 1000",
+              "varde": 197.2
+            }
+          ],
+          "visning": "197,2 tkr",
+          "precision": 1
+        },
+        "explanation": "Kostnad i kr: 680 · 290 = 197 200. Omräknat till tkr: 197 200 / 1 000 = 197,2. Svaret blir 197,2 tkr."
+      },
+      {
+        "id": "ng-20-q04",
+        "passageId": "ng-20-fardtjanst-resor",
+        "questionNumber": 4,
+        "questionText": "Hur många resor gjordes i genomsnitt per månad under halvåret?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "4 200 resor",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "640 + 590 + 710 + 760 + 820 + 680",
+              "varde": 4200
+            }
+          },
+          {
+            "id": "b",
+            "text": "840 resor",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "4200 / 5",
+              "varde": 840
+            }
+          },
+          {
+            "id": "c",
+            "text": "647 resor",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(640 + 590 + 710) / 3",
+              "varde": 646.6667
+            }
+          },
+          {
+            "id": "d",
+            "text": "700 resor",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Alla resor under halvåret",
+              "uttryck": "640 + 590 + 710 + 760 + 820 + 680",
+              "varde": 4200
+            },
+            {
+              "text": "Genomsnitt per månad",
+              "uttryck": "4200 / 6",
+              "varde": 700
+            }
+          ],
+          "visning": "700 resor",
+          "precision": 0
+        },
+        "explanation": "Alla resor under halvåret: 640 + 590 + 710 + 760 + 820 + 680 = 4 200. Genomsnitt per månad: 4 200 / 6 = 700. Svaret blir 700 resor."
+      }
+    ]
+  },
+  {
+    "id": "ng-21-snorojning",
+    "title": "Snöröjning i januari",
+    "type": "table",
+    "topic": "Gator och vägar",
+    "difficulty": 1,
+    "contextText": "Tabellen visar kommunens snöröjning under januari i fyra distrikt. Entreprenören tar 1 150 kr per maskintimme. 1 tkr är 1 000 kr.",
+    "dataTable": {
+      "headers": [
+        "Distrikt",
+        "Vägar (km)",
+        "Utryckningar",
+        "Maskintimmar"
+      ],
+      "rows": [
+        [
+          "Centrum",
+          "42",
+          "14",
+          "186"
+        ],
+        [
+          "Öster",
+          "65",
+          "11",
+          "232"
+        ],
+        [
+          "Väster",
+          "58",
+          "9",
+          "174"
+        ],
+        [
+          "Landsbygd",
+          "120",
+          "7",
+          "315"
+        ]
+      ],
+      "caption": "Snöröjning i januari"
+    },
+    "enhetsbyte": "kr till tkr",
+    "p_prior": 0.7,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "questions": [
+      {
+        "id": "ng-21-q01",
+        "passageId": "ng-21-snorojning",
+        "questionNumber": 1,
+        "questionText": "Hur mycket kostade snöröjningen i Öster i januari, i tkr?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "266 800,0 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "232 * 1150",
+              "varde": 266800
+            }
+          },
+          {
+            "id": "b",
+            "text": "266,8 tkr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "213,9 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "186 * 1150 / 1000",
+              "varde": 213.9
+            }
+          },
+          {
+            "id": "d",
+            "text": "200,1 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "174 * 1150 / 1000",
+              "varde": 200.1
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Kostnad i kr",
+              "uttryck": "232 * 1150",
+              "varde": 266800
+            },
+            {
+              "text": "Omräknat till tkr",
+              "uttryck": "266800 / 1000",
+              "varde": 266.8
+            }
+          ],
+          "visning": "266,8 tkr",
+          "precision": 1
+        },
+        "explanation": "Kostnad i kr: 232 · 1 150 = 266 800. Omräknat till tkr: 266 800 / 1 000 = 266,8. Svaret blir 266,8 tkr."
+      },
+      {
+        "id": "ng-21-q02",
+        "passageId": "ng-21-snorojning",
+        "questionNumber": 2,
+        "questionText": "Hur många maskintimmar gick det i genomsnitt åt per utryckning i Landsbygd?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "3 timmar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "315 / 120",
+              "varde": 2.625
+            }
+          },
+          {
+            "id": "b",
+            "text": "21 timmar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "232 / 11",
+              "varde": 21.0909
+            }
+          },
+          {
+            "id": "c",
+            "text": "19 timmar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "174 / 9",
+              "varde": 19.3333
+            }
+          },
+          {
+            "id": "d",
+            "text": "45 timmar",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Maskintimmar per utryckning",
+              "uttryck": "315 / 7",
+              "varde": 45
+            }
+          ],
+          "visning": "45 timmar",
+          "precision": 0
+        },
+        "explanation": "Maskintimmar per utryckning: 315 / 7 = 45. Svaret blir 45 timmar."
+      },
+      {
+        "id": "ng-21-q03",
+        "passageId": "ng-21-snorojning",
+        "questionNumber": 3,
+        "questionText": "Hur många procent av alla maskintimmar i januari gick till Landsbygd?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "53,2 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "315 / (907 - 315) * 100",
+              "varde": 53.2095
+            }
+          },
+          {
+            "id": "b",
+            "text": "25,6 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "232 / 907 * 100",
+              "varde": 25.5788
+            }
+          },
+          {
+            "id": "c",
+            "text": "34,7 %",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "42,1 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "120 / (42 + 65 + 58 + 120) * 100",
+              "varde": 42.1053
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Alla maskintimmar",
+              "uttryck": "186 + 232 + 174 + 315",
+              "varde": 907
+            },
+            {
+              "text": "Landsbygdens andel",
+              "uttryck": "315 / 907 * 100",
+              "varde": 34.7299
+            }
+          ],
+          "visning": "34,7 %",
+          "precision": 1
+        },
+        "explanation": "Alla maskintimmar: 186 + 232 + 174 + 315 = 907. Landsbygdens andel: 315 / 907 · 100 = 34,73. Svaret blir 34,7 %."
+      },
+      {
+        "id": "ng-21-q04",
+        "passageId": "ng-21-snorojning",
+        "questionNumber": 4,
+        "questionText": "Nästa vinter höjer entreprenören priset per maskintimme med 8 %. Vad hade snöröjningen i Väster kostat i januari med det nya priset, i tkr?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "216,1 tkr",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "200,1 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "174 * 1150 / 1000",
+              "varde": 200.1
+            }
+          },
+          {
+            "id": "c",
+            "text": "201,5 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "174 * (1150 + 8) / 1000",
+              "varde": 201.492
+            }
+          },
+          {
+            "id": "d",
+            "text": "231,0 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "186 * 1242 / 1000",
+              "varde": 231.012
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Nytt pris per maskintimme",
+              "uttryck": "1150 * (1 + 8 / 100)",
+              "varde": 1242
+            },
+            {
+              "text": "Kostnad i Väster i tkr",
+              "uttryck": "174 * 1242 / 1000",
+              "varde": 216.108
+            }
+          ],
+          "visning": "216,1 tkr",
+          "precision": 1
+        },
+        "explanation": "Nytt pris per maskintimme: 1 150 · (1 + 8 / 100) = 1 242. Kostnad i Väster i tkr: 174 · 1 242 / 1 000 = 216,108. Svaret blir 216,1 tkr."
+      }
+    ]
+  },
+  {
+    "id": "ng-22-bageriets-limpor",
+    "title": "Bageriets limpor",
+    "type": "graph",
+    "topic": "Livsmedel och produktion",
+    "difficulty": 1,
+    "contextText": "Diagrammet visar hur många limpor ett bageri bakade per dag under en vecka. Bageriet har stängt på söndagar. Varje limpa kräver 450 gram mjöl, och 1 kg är 1 000 gram. En limpa säljs för 48 kr.",
+    "chartData": {
+      "chartType": "bar",
+      "title": "Bakade limpor per dag",
+      "unit": "",
+      "yAxisLabel": "Antal limpor",
+      "data": [
+        {
+          "label": "Måndag",
+          "value": 320
+        },
+        {
+          "label": "Tisdag",
+          "value": 280
+        },
+        {
+          "label": "Onsdag",
+          "value": 300
+        },
+        {
+          "label": "Torsdag",
+          "value": 340
+        },
+        {
+          "label": "Fredag",
+          "value": 460
+        },
+        {
+          "label": "Lördag",
+          "value": 520
+        }
+      ]
+    },
+    "enhetsbyte": "gram till kg",
+    "p_prior": 0.7,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "questions": [
+      {
+        "id": "ng-22-q01",
+        "passageId": "ng-22-bageriets-limpor",
+        "questionNumber": 1,
+        "questionText": "Hur många kg mjöl gick åt till fredagens limpor?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "207 kg",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "207 000 kg",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "460 * 450",
+              "varde": 207000
+            }
+          },
+          {
+            "id": "c",
+            "text": "234 kg",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "520 * 450 / 1000",
+              "varde": 234
+            }
+          },
+          {
+            "id": "d",
+            "text": "153 kg",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "340 * 450 / 1000",
+              "varde": 153
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Mjöl i gram",
+              "uttryck": "460 * 450",
+              "varde": 207000
+            },
+            {
+              "text": "Omräknat till kg",
+              "uttryck": "207000 / 1000",
+              "varde": 207
+            }
+          ],
+          "visning": "207 kg",
+          "precision": 0
+        },
+        "explanation": "Mjöl i gram: 460 · 450 = 207 000. Omräknat till kg: 207 000 / 1 000 = 207. Svaret blir 207 kg."
+      },
+      {
+        "id": "ng-22-q02",
+        "passageId": "ng-22-bageriets-limpor",
+        "questionNumber": 2,
+        "questionText": "Hur många procent fler limpor bakades på lördagen än på torsdagen?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "13 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(520 - 460) / 460 * 100",
+              "varde": 13.0435
+            }
+          },
+          {
+            "id": "b",
+            "text": "153 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "520 / 340 * 100",
+              "varde": 152.9412
+            }
+          },
+          {
+            "id": "c",
+            "text": "35 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "180 / 520 * 100",
+              "varde": 34.6154
+            }
+          },
+          {
+            "id": "d",
+            "text": "53 %",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Skillnad i limpor",
+              "uttryck": "520 - 340",
+              "varde": 180
+            },
+            {
+              "text": "Skillnad i procent av torsdagen",
+              "uttryck": "180 / 340 * 100",
+              "varde": 52.9412
+            }
+          ],
+          "visning": "53 %",
+          "precision": 0
+        },
+        "explanation": "Skillnad i limpor: 520 - 340 = 180. Skillnad i procent av torsdagen: 180 / 340 · 100 = 52,941. Svaret blir 53 %."
+      },
+      {
+        "id": "ng-22-q03",
+        "passageId": "ng-22-bageriets-limpor",
+        "questionNumber": 3,
+        "questionText": "Hur mycket mer sålde bageriet limpor för på lördagen än på måndagen, i kr? Räkna med att alla limpor såldes.",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "40 320 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "(520 + 320) * 48",
+              "varde": 40320
+            }
+          },
+          {
+            "id": "b",
+            "text": "200 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "520 - 320",
+              "varde": 200
+            }
+          },
+          {
+            "id": "c",
+            "text": "9 600 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "2 880 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(520 - 460) * 48",
+              "varde": 2880
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Skillnad i limpor",
+              "uttryck": "520 - 320",
+              "varde": 200
+            },
+            {
+              "text": "Skillnad i kr",
+              "uttryck": "200 * 48",
+              "varde": 9600
+            }
+          ],
+          "visning": "9 600 kr",
+          "precision": 0
+        },
+        "explanation": "Skillnad i limpor: 520 - 320 = 200. Skillnad i kr: 200 · 48 = 9 600. Svaret blir 9 600 kr."
+      },
+      {
+        "id": "ng-22-q04",
+        "passageId": "ng-22-bageriets-limpor",
+        "questionNumber": 4,
+        "questionText": "Hur många limpor bakade bageriet i genomsnitt per öppetdag?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "370 limpor",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "317 limpor",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "2220 / 7",
+              "varde": 317.1429
+            }
+          },
+          {
+            "id": "c",
+            "text": "2 220 limpor",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "320 + 280 + 300 + 340 + 460 + 520",
+              "varde": 2220
+            }
+          },
+          {
+            "id": "d",
+            "text": "340 limpor",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(320 + 280 + 300 + 340 + 460) / 5",
+              "varde": 340
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Alla limpor under veckan",
+              "uttryck": "320 + 280 + 300 + 340 + 460 + 520",
+              "varde": 2220
+            },
+            {
+              "text": "Genomsnitt per öppetdag",
+              "uttryck": "2220 / 6",
+              "varde": 370
+            }
+          ],
+          "visning": "370 limpor",
+          "precision": 0
+        },
+        "explanation": "Alla limpor under veckan: 320 + 280 + 300 + 340 + 460 + 520 = 2 220. Genomsnitt per öppetdag: 2 220 / 6 = 370. Svaret blir 370 limpor."
+      }
+    ]
+  },
+  {
+    "id": "ng-23-sjukhustvatt",
+    "title": "Sjukhusets tvätt",
+    "type": "table",
+    "topic": "Hälso- och sjukvård",
+    "difficulty": 1,
+    "contextText": "Tabellen visar hur mycket tvätt fyra avdelningar på ett sjukhus skickade till tvätteriet under en månad med 30 dagar. Tvätteriet tar 18 kr per kg. 1 tkr är 1 000 kr.",
+    "dataTable": {
+      "headers": [
+        "Avdelning",
+        "Vårdplatser",
+        "Tvätt (kg)",
+        "Tvätt föregående månad (kg)"
+      ],
+      "rows": [
+        [
+          "Kirurgi",
+          "32",
+          "4 860",
+          "4 520"
+        ],
+        [
+          "Medicin",
+          "40",
+          "5 520",
+          "5 610"
+        ],
+        [
+          "Ortopedi",
+          "24",
+          "3 150",
+          "2 980"
+        ],
+        [
+          "Barn",
+          "18",
+          "1 980",
+          "2 040"
+        ]
+      ],
+      "caption": "Tvätt per avdelning"
+    },
+    "enhetsbyte": "kr till tkr",
+    "p_prior": 0.7,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "questions": [
+      {
+        "id": "ng-23-q01",
+        "passageId": "ng-23-sjukhustvatt",
+        "questionNumber": 1,
+        "questionText": "Hur många kg tvätt skickade Medicin per vårdplats under månaden?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "138 kg",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "152 kg",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "4860 / 32",
+              "varde": 151.875
+            }
+          },
+          {
+            "id": "c",
+            "text": "140 kg",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "5610 / 40",
+              "varde": 140.25
+            }
+          },
+          {
+            "id": "d",
+            "text": "131 kg",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "3150 / 24",
+              "varde": 131.25
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Tvätt per vårdplats",
+              "uttryck": "5520 / 40",
+              "varde": 138
+            }
+          ],
+          "visning": "138 kg",
+          "precision": 0
+        },
+        "explanation": "Tvätt per vårdplats: 5 520 / 40 = 138. Svaret blir 138 kg."
+      },
+      {
+        "id": "ng-23-q02",
+        "passageId": "ng-23-sjukhustvatt",
+        "questionNumber": 2,
+        "questionText": "Med hur många procent ökade Ortopedis tvätt jämfört med föregående månad?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "5,4 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "170 / 3150 * 100",
+              "varde": 5.3968
+            }
+          },
+          {
+            "id": "b",
+            "text": "105,7 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "3150 / 2980 * 100",
+              "varde": 105.7047
+            }
+          },
+          {
+            "id": "c",
+            "text": "5,7 %",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "7,5 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(4860 - 4520) / 4520 * 100",
+              "varde": 7.5221
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Ökning i kg",
+              "uttryck": "3150 - 2980",
+              "varde": 170
+            },
+            {
+              "text": "Ökning i procent av föregående månad",
+              "uttryck": "170 / 2980 * 100",
+              "varde": 5.7047
+            }
+          ],
+          "visning": "5,7 %",
+          "precision": 1
+        },
+        "explanation": "Ökning i kg: 3 150 - 2 980 = 170. Ökning i procent av föregående månad: 170 / 2 980 · 100 = 5,705. Svaret blir 5,7 %."
+      },
+      {
+        "id": "ng-23-q03",
+        "passageId": "ng-23-sjukhustvatt",
+        "questionNumber": 3,
+        "questionText": "Vad kostade tvätten för Kirurgi under månaden, i tkr?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "81,4 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "4520 * 18 / 1000",
+              "varde": 81.36
+            }
+          },
+          {
+            "id": "b",
+            "text": "87,5 tkr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "99,4 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "5520 * 18 / 1000",
+              "varde": 99.36
+            }
+          },
+          {
+            "id": "d",
+            "text": "87 480,0 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "4860 * 18",
+              "varde": 87480
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Kostnad i kr",
+              "uttryck": "4860 * 18",
+              "varde": 87480
+            },
+            {
+              "text": "Omräknat till tkr",
+              "uttryck": "87480 / 1000",
+              "varde": 87.48
+            }
+          ],
+          "visning": "87,5 tkr",
+          "precision": 1
+        },
+        "explanation": "Kostnad i kr: 4 860 · 18 = 87 480. Omräknat till tkr: 87 480 / 1 000 = 87,48. Svaret blir 87,5 tkr."
+      },
+      {
+        "id": "ng-23-q04",
+        "passageId": "ng-23-sjukhustvatt",
+        "questionNumber": 4,
+        "questionText": "Hur många kg tvätt skickade de fyra avdelningarna sammanlagt i genomsnitt per dag under månaden?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "15 510 kg",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "4860 + 5520 + 3150 + 1980",
+              "varde": 15510
+            }
+          },
+          {
+            "id": "b",
+            "text": "505 kg",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "(4520 + 5610 + 2980 + 2040) / 30",
+              "varde": 505
+            }
+          },
+          {
+            "id": "c",
+            "text": "451 kg",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(4860 + 5520 + 3150) / 30",
+              "varde": 451
+            }
+          },
+          {
+            "id": "d",
+            "text": "517 kg",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "All tvätt under månaden",
+              "uttryck": "4860 + 5520 + 3150 + 1980",
+              "varde": 15510
+            },
+            {
+              "text": "Genomsnitt per dag",
+              "uttryck": "15510 / 30",
+              "varde": 517
+            }
+          ],
+          "visning": "517 kg",
+          "precision": 0
+        },
+        "explanation": "All tvätt under månaden: 4 860 + 5 520 + 3 150 + 1 980 = 15 510. Genomsnitt per dag: 15 510 / 30 = 517. Svaret blir 517 kg."
+      }
+    ]
+  },
+  {
+    "id": "ng-24-vardcentral-samtal",
+    "title": "Vårdcentralens telefonrådgivning",
+    "type": "graph",
+    "topic": "Hälso- och sjukvård",
+    "difficulty": 1,
+    "contextText": "Diagrammet visar hur många samtal en vårdcentrals telefonrådgivning tog emot per dag under en vecka. Ett samtal tar i genomsnitt 6 minuter. 1 timme är 60 minuter.",
+    "chartData": {
+      "chartType": "bar",
+      "title": "Samtal per dag",
+      "unit": "",
+      "yAxisLabel": "Antal samtal",
+      "data": [
+        {
+          "label": "Måndag",
+          "value": 380
+        },
+        {
+          "label": "Tisdag",
+          "value": 290
+        },
+        {
+          "label": "Onsdag",
+          "value": 260
+        },
+        {
+          "label": "Torsdag",
+          "value": 270
+        },
+        {
+          "label": "Fredag",
+          "value": 240
+        }
+      ]
+    },
+    "enhetsbyte": "minuter till timmar",
+    "p_prior": 0.7,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "questions": [
+      {
+        "id": "ng-24-q01",
+        "passageId": "ng-24-vardcentral-samtal",
+        "questionNumber": 1,
+        "questionText": "Hur många timmar tog måndagens samtal sammanlagt?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "63 timmar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "380 / 6",
+              "varde": 63.3333
+            }
+          },
+          {
+            "id": "b",
+            "text": "29 timmar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "290 * 6 / 60",
+              "varde": 29
+            }
+          },
+          {
+            "id": "c",
+            "text": "2 280 timmar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "380 * 6",
+              "varde": 2280
+            }
+          },
+          {
+            "id": "d",
+            "text": "38 timmar",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Samtalstid i minuter",
+              "uttryck": "380 * 6",
+              "varde": 2280
+            },
+            {
+              "text": "Omräknat till timmar",
+              "uttryck": "2280 / 60",
+              "varde": 38
+            }
+          ],
+          "visning": "38 timmar",
+          "precision": 0
+        },
+        "explanation": "Samtalstid i minuter: 380 · 6 = 2 280. Omräknat till timmar: 2 280 / 60 = 38. Svaret blir 38 timmar."
+      },
+      {
+        "id": "ng-24-q02",
+        "passageId": "ng-24-vardcentral-samtal",
+        "questionNumber": 2,
+        "questionText": "Hur många procent av veckans samtal kom på måndagen?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "16,7 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "240 / 1440 * 100",
+              "varde": 16.6667
+            }
+          },
+          {
+            "id": "b",
+            "text": "20,1 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "290 / 1440 * 100",
+              "varde": 20.1389
+            }
+          },
+          {
+            "id": "c",
+            "text": "35,8 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "380 / (1440 - 380) * 100",
+              "varde": 35.8491
+            }
+          },
+          {
+            "id": "d",
+            "text": "26,4 %",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Veckans samtal",
+              "uttryck": "380 + 290 + 260 + 270 + 240",
+              "varde": 1440
+            },
+            {
+              "text": "Måndagens andel",
+              "uttryck": "380 / 1440 * 100",
+              "varde": 26.3889
+            }
+          ],
+          "visning": "26,4 %",
+          "precision": 1
+        },
+        "explanation": "Veckans samtal: 380 + 290 + 260 + 270 + 240 = 1 440. Måndagens andel: 380 / 1 440 · 100 = 26,389. Svaret blir 26,4 %."
+      },
+      {
+        "id": "ng-24-q03",
+        "passageId": "ng-24-vardcentral-samtal",
+        "questionNumber": 3,
+        "questionText": "Hur många färre samtal kom på fredagen än på tisdagen?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "530 samtal",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "290 + 240",
+              "varde": 530
+            }
+          },
+          {
+            "id": "b",
+            "text": "30 samtal",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "290 - 260",
+              "varde": 30
+            }
+          },
+          {
+            "id": "c",
+            "text": "140 samtal",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "380 - 240",
+              "varde": 140
+            }
+          },
+          {
+            "id": "d",
+            "text": "50 samtal",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Tisdag minus fredag",
+              "uttryck": "290 - 240",
+              "varde": 50
+            }
+          ],
+          "visning": "50 samtal",
+          "precision": 0
+        },
+        "explanation": "Tisdag minus fredag: 290 - 240 = 50. Svaret blir 50 samtal."
+      },
+      {
+        "id": "ng-24-q04",
+        "passageId": "ng-24-vardcentral-samtal",
+        "questionNumber": 4,
+        "questionText": "På onsdagen delade 5 sjuksköterskor lika på samtalen. Hur många minuter talade varje sjuksköterska i telefon den dagen?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "1 560 minuter",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "260 * 6",
+              "varde": 1560
+            }
+          },
+          {
+            "id": "b",
+            "text": "312 minuter",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "324 minuter",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "270 * 6 / 5",
+              "varde": 324
+            }
+          },
+          {
+            "id": "d",
+            "text": "5 minuter",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "260 * 6 / 5 / 60",
+              "varde": 5.2
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Samtalstid i minuter",
+              "uttryck": "260 * 6",
+              "varde": 1560
+            },
+            {
+              "text": "Per sjuksköterska",
+              "uttryck": "1560 / 5",
+              "varde": 312
+            }
+          ],
+          "visning": "312 minuter",
+          "precision": 0
+        },
+        "explanation": "Samtalstid i minuter: 260 · 6 = 1 560. Per sjuksköterska: 1 560 / 5 = 312. Svaret blir 312 minuter."
+      }
+    ]
+  },
+  {
+    "id": "ng-25-byggets-material",
+    "title": "Materialbeställning till ett radhusbygge",
+    "type": "table",
+    "topic": "Bygg",
+    "difficulty": 1,
+    "contextText": "Tabellen visar materialbeställningen till ett radhusbygge och hur mycket som har levererats hittills. Priserna är utan moms. Momsen är 25 %.",
+    "dataTable": {
+      "headers": [
+        "Material",
+        "Enhet",
+        "Beställt antal",
+        "Pris per enhet (kr)",
+        "Levererat hittills"
+      ],
+      "rows": [
+        [
+          "Gipsskivor",
+          "skiva",
+          "640",
+          "89",
+          "480"
+        ],
+        [
+          "Reglar",
+          "meter",
+          "2 400",
+          "24",
+          "2 400"
+        ],
+        [
+          "Isolering",
+          "rulle",
+          "180",
+          "315",
+          "120"
+        ],
+        [
+          "Takpannor",
+          "styck",
+          "5 200",
+          "14",
+          "3 900"
+        ]
+      ],
+      "caption": "Beställt och levererat material"
+    },
+    "ovanvant": [
+      "rad Reglar"
+    ],
+    "p_prior": 0.7,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "questions": [
+      {
+        "id": "ng-25-q01",
+        "passageId": "ng-25-byggets-material",
+        "questionNumber": 1,
+        "questionText": "Vad kostar alla beställda gipsskivor sammanlagt, utan moms?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "729 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "640 + 89",
+              "varde": 729
+            }
+          },
+          {
+            "id": "b",
+            "text": "72 800 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "5200 * 14",
+              "varde": 72800
+            }
+          },
+          {
+            "id": "c",
+            "text": "42 720 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "480 * 89",
+              "varde": 42720
+            }
+          },
+          {
+            "id": "d",
+            "text": "56 960 kr",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Antal gånger pris",
+              "uttryck": "640 * 89",
+              "varde": 56960
+            }
+          ],
+          "visning": "56 960 kr",
+          "precision": 0
+        },
+        "explanation": "Antal gånger pris: 640 · 89 = 56 960. Svaret blir 56 960 kr."
+      },
+      {
+        "id": "ng-25-q02",
+        "passageId": "ng-25-byggets-material",
+        "questionNumber": 2,
+        "questionText": "Hur många procent av den beställda isoleringen har levererats?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "33 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "(180 - 120) / 180 * 100",
+              "varde": 33.3333
+            }
+          },
+          {
+            "id": "b",
+            "text": "75 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "480 / 640 * 100",
+              "varde": 75
+            }
+          },
+          {
+            "id": "c",
+            "text": "67 %",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "40 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "120 / (120 + 180) * 100",
+              "varde": 40
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Levererat delat med beställt",
+              "uttryck": "120 / 180 * 100",
+              "varde": 66.6667
+            }
+          ],
+          "visning": "67 %",
+          "precision": 0
+        },
+        "explanation": "Levererat delat med beställt: 120 / 180 · 100 = 66,667. Svaret blir 67 %."
+      },
+      {
+        "id": "ng-25-q03",
+        "passageId": "ng-25-byggets-material",
+        "questionNumber": 3,
+        "questionText": "Vad kostar alla beställda takpannor inklusive moms?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "91 000 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "18 200 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "5200 * 14 * 25 / 100",
+              "varde": 18200
+            }
+          },
+          {
+            "id": "c",
+            "text": "68 250 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "3900 * 14 * 1.25",
+              "varde": 68250
+            }
+          },
+          {
+            "id": "d",
+            "text": "72 800 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "5200 * 14",
+              "varde": 72800
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Pris utan moms",
+              "uttryck": "5200 * 14",
+              "varde": 72800
+            },
+            {
+              "text": "Med 25 % moms",
+              "uttryck": "72800 * (1 + 25 / 100)",
+              "varde": 91000
+            }
+          ],
+          "visning": "91 000 kr",
+          "precision": 0
+        },
+        "explanation": "Pris utan moms: 5 200 · 14 = 72 800. Med 25 % moms: 72 800 · (1 + 25 / 100) = 91 000. Svaret blir 91 000 kr."
+      },
+      {
+        "id": "ng-25-q04",
+        "passageId": "ng-25-byggets-material",
+        "questionNumber": 4,
+        "questionText": "Vad kostar de gipsskivor som ännu inte har levererats, utan moms?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "42 720 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "480 * 89",
+              "varde": 42720
+            }
+          },
+          {
+            "id": "b",
+            "text": "14 240 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "56 960 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "640 * 89",
+              "varde": 56960
+            }
+          },
+          {
+            "id": "d",
+            "text": "18 900 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(180 - 120) * 315",
+              "varde": 18900
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Skivor som återstår",
+              "uttryck": "640 - 480",
+              "varde": 160
+            },
+            {
+              "text": "Kostnad",
+              "uttryck": "160 * 89",
+              "varde": 14240
+            }
+          ],
+          "visning": "14 240 kr",
+          "precision": 0
+        },
+        "explanation": "Skivor som återstår: 640 - 480 = 160. Kostnad: 160 · 89 = 14 240. Svaret blir 14 240 kr."
+      }
+    ]
+  },
+  {
+    "id": "ng-26-paketombud",
+    "title": "Paketombudets utlämningar",
+    "type": "graph",
+    "topic": "Handel och service",
+    "difficulty": 1,
+    "contextText": "Diagrammet visar hur många paket ett paketombud i en mataffär lämnade ut per månad under årets första åtta månader. Ombudet får 9 kr i ersättning per utlämnat paket.",
+    "chartData": {
+      "chartType": "line",
+      "title": "Utlämnade paket per månad",
+      "unit": "",
+      "xAxisLabel": "Månad",
+      "yAxisLabel": "Antal paket",
+      "showValues": true,
+      "data": [
+        {
+          "x": "Jan",
+          "y": 410
+        },
+        {
+          "x": "Feb",
+          "y": 390
+        },
+        {
+          "x": "Mar",
+          "y": 450
+        },
+        {
+          "x": "Apr",
+          "y": 470
+        },
+        {
+          "x": "Maj",
+          "y": 430
+        },
+        {
+          "x": "Jun",
+          "y": 520
+        },
+        {
+          "x": "Jul",
+          "y": 560
+        },
+        {
+          "x": "Aug",
+          "y": 610
+        }
+      ]
+    },
+    "p_prior": 0.7,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "questions": [
+      {
+        "id": "ng-26-q01",
+        "passageId": "ng-26-paketombud",
+        "questionNumber": 1,
+        "questionText": "Med hur många procent ökade antalet utlämnade paket från maj till augusti?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "142 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "610 / 430 * 100",
+              "varde": 141.8605
+            }
+          },
+          {
+            "id": "b",
+            "text": "17 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(610 - 520) / 520 * 100",
+              "varde": 17.3077
+            }
+          },
+          {
+            "id": "c",
+            "text": "42 %",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "30 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "180 / 610 * 100",
+              "varde": 29.5082
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Ökning i paket",
+              "uttryck": "610 - 430",
+              "varde": 180
+            },
+            {
+              "text": "Ökning i procent av maj",
+              "uttryck": "180 / 430 * 100",
+              "varde": 41.8605
+            }
+          ],
+          "visning": "42 %",
+          "precision": 0
+        },
+        "explanation": "Ökning i paket: 610 - 430 = 180. Ökning i procent av maj: 180 / 430 · 100 = 41,861. Svaret blir 42 %."
+      },
+      {
+        "id": "ng-26-q02",
+        "passageId": "ng-26-paketombud",
+        "questionNumber": 2,
+        "questionText": "Hur mycket ersättning fick ombudet för juni och juli sammanlagt?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "1 080 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "520 + 560",
+              "varde": 1080
+            }
+          },
+          {
+            "id": "b",
+            "text": "10 530 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(560 + 610) * 9",
+              "varde": 10530
+            }
+          },
+          {
+            "id": "c",
+            "text": "8 550 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(430 + 520) * 9",
+              "varde": 8550
+            }
+          },
+          {
+            "id": "d",
+            "text": "9 720 kr",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Paket juni och juli",
+              "uttryck": "520 + 560",
+              "varde": 1080
+            },
+            {
+              "text": "Ersättning",
+              "uttryck": "1080 * 9",
+              "varde": 9720
+            }
+          ],
+          "visning": "9 720 kr",
+          "precision": 0
+        },
+        "explanation": "Paket juni och juli: 520 + 560 = 1 080. Ersättning: 1 080 · 9 = 9 720. Svaret blir 9 720 kr."
+      },
+      {
+        "id": "ng-26-q03",
+        "passageId": "ng-26-paketombud",
+        "questionNumber": 3,
+        "questionText": "Hur många paket lämnade ombudet i genomsnitt ut per månad under januari till april?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "530 paket",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(430 + 520 + 560 + 610) / 4",
+              "varde": 530
+            }
+          },
+          {
+            "id": "b",
+            "text": "573 paket",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "1720 / 3",
+              "varde": 573.3333
+            }
+          },
+          {
+            "id": "c",
+            "text": "430 paket",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "1 720 paket",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "410 + 390 + 450 + 470",
+              "varde": 1720
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Paket januari till april",
+              "uttryck": "410 + 390 + 450 + 470",
+              "varde": 1720
+            },
+            {
+              "text": "Genomsnitt per månad",
+              "uttryck": "1720 / 4",
+              "varde": 430
+            }
+          ],
+          "visning": "430 paket",
+          "precision": 0
+        },
+        "explanation": "Paket januari till april: 410 + 390 + 450 + 470 = 1 720. Genomsnitt per månad: 1 720 / 4 = 430. Svaret blir 430 paket."
+      },
+      {
+        "id": "ng-26-q04",
+        "passageId": "ng-26-paketombud",
+        "questionNumber": 4,
+        "questionText": "Hur många fler paket lämnades ut i augusti än i januari?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "50 paket",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "610 - 560",
+              "varde": 50
+            }
+          },
+          {
+            "id": "b",
+            "text": "1 020 paket",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "610 + 410",
+              "varde": 1020
+            }
+          },
+          {
+            "id": "c",
+            "text": "150 paket",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "560 - 410",
+              "varde": 150
+            }
+          },
+          {
+            "id": "d",
+            "text": "200 paket",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Augusti minus januari",
+              "uttryck": "610 - 410",
+              "varde": 200
+            }
+          ],
+          "visning": "200 paket",
+          "precision": 0
+        },
+        "explanation": "Augusti minus januari: 610 - 410 = 200. Svaret blir 200 paket."
+      }
+    ]
+  },
+  {
+    "id": "ng-27-hotellets-belaggning",
+    "title": "Hotellets beläggning",
+    "type": "table",
+    "topic": "Besöksnäring",
+    "difficulty": 1,
+    "contextText": "Tabellen visar ett hotells uthyrda rum under fyra sommarmånader. Hotellet har 85 rum. En rumsnatt är ett rum uthyrt en natt, och snittpriset är priset per uthyrd rumsnatt. Beläggningen är uthyrda rumsnätter i procent av alla möjliga rumsnätter. 1 tkr är 1 000 kr.",
+    "dataTable": {
+      "headers": [
+        "Månad",
+        "Dagar",
+        "Uthyrda rumsnätter",
+        "Snittpris (kr)",
+        "Avbokningar"
+      ],
+      "rows": [
+        [
+          "Maj",
+          "31",
+          "1 870",
+          "1 140",
+          "64"
+        ],
+        [
+          "Juni",
+          "30",
+          "2 160",
+          "1 290",
+          "81"
+        ],
+        [
+          "Juli",
+          "31",
+          "2 380",
+          "1 350",
+          "97"
+        ],
+        [
+          "Augusti",
+          "31",
+          "1 950",
+          "1 180",
+          "58"
+        ]
+      ],
+      "caption": "Uthyrda rum maj till augusti"
+    },
+    "enhetsbyte": "kr till tkr",
+    "p_prior": 0.7,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "questions": [
+      {
+        "id": "ng-27-q01",
+        "passageId": "ng-27-hotellets-belaggning",
+        "questionNumber": 1,
+        "questionText": "Hur stor var beläggningen i juni?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "84,7 %",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "82,0 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "2160 / (85 * 31) * 100",
+              "varde": 81.9734
+            }
+          },
+          {
+            "id": "c",
+            "text": "3,2 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "81 / 2550 * 100",
+              "varde": 3.1765
+            }
+          },
+          {
+            "id": "d",
+            "text": "90,3 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "2380 / (85 * 31) * 100",
+              "varde": 90.3226
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Möjliga rumsnätter i juni",
+              "uttryck": "85 * 30",
+              "varde": 2550
+            },
+            {
+              "text": "Beläggning",
+              "uttryck": "2160 / 2550 * 100",
+              "varde": 84.7059
+            }
+          ],
+          "visning": "84,7 %",
+          "precision": 1
+        },
+        "explanation": "Möjliga rumsnätter i juni: 85 · 30 = 2 550. Beläggning: 2 160 / 2 550 · 100 = 84,706. Svaret blir 84,7 %."
+      },
+      {
+        "id": "ng-27-q02",
+        "passageId": "ng-27-hotellets-belaggning",
+        "questionNumber": 2,
+        "questionText": "Hur stora var rumsintäkterna i juli, i tkr?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "3 213 tkr",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "3 213 000 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "2380 * 1350",
+              "varde": 3213000
+            }
+          },
+          {
+            "id": "c",
+            "text": "2 786 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "2160 * 1290 / 1000",
+              "varde": 2786.4
+            }
+          },
+          {
+            "id": "d",
+            "text": "2 301 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "1950 * 1180 / 1000",
+              "varde": 2301
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Intäkter i kr",
+              "uttryck": "2380 * 1350",
+              "varde": 3213000
+            },
+            {
+              "text": "Omräknat till tkr",
+              "uttryck": "3213000 / 1000",
+              "varde": 3213
+            }
+          ],
+          "visning": "3 213 tkr",
+          "precision": 0
+        },
+        "explanation": "Intäkter i kr: 2 380 · 1 350 = 3 213 000. Omräknat till tkr: 3 213 000 / 1 000 = 3 213. Svaret blir 3 213 tkr."
+      },
+      {
+        "id": "ng-27-q03",
+        "passageId": "ng-27-hotellets-belaggning",
+        "questionNumber": 3,
+        "questionText": "Med hur många procent sjönk snittpriset från juli till augusti?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "14,4 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "170 / 1180 * 100",
+              "varde": 14.4068
+            }
+          },
+          {
+            "id": "b",
+            "text": "12,6 %",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "18,1 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "(2380 - 1950) / 2380 * 100",
+              "varde": 18.0672
+            }
+          },
+          {
+            "id": "d",
+            "text": "4,4 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(1350 - 1290) / 1350 * 100",
+              "varde": 4.4444
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Sänkning i kr",
+              "uttryck": "1350 - 1180",
+              "varde": 170
+            },
+            {
+              "text": "Sänkning i procent av juli",
+              "uttryck": "170 / 1350 * 100",
+              "varde": 12.5926
+            }
+          ],
+          "visning": "12,6 %",
+          "precision": 1
+        },
+        "explanation": "Sänkning i kr: 1 350 - 1 180 = 170. Sänkning i procent av juli: 170 / 1 350 · 100 = 12,593. Svaret blir 12,6 %."
+      },
+      {
+        "id": "ng-27-q04",
+        "passageId": "ng-27-hotellets-belaggning",
+        "questionNumber": 4,
+        "questionText": "Hur många rumsnätter hyrdes ut i genomsnitt per dag i maj?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "62 rumsnätter",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "1870 / 30",
+              "varde": 62.3333
+            }
+          },
+          {
+            "id": "b",
+            "text": "72 rumsnätter",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "2160 / 30",
+              "varde": 72
+            }
+          },
+          {
+            "id": "c",
+            "text": "37 rumsnätter",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "1140 / 31",
+              "varde": 36.7742
+            }
+          },
+          {
+            "id": "d",
+            "text": "60 rumsnätter",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Rumsnätter per dag",
+              "uttryck": "1870 / 31",
+              "varde": 60.3226
+            }
+          ],
+          "visning": "60 rumsnätter",
+          "precision": 0
+        },
+        "explanation": "Rumsnätter per dag: 1 870 / 31 = 60,323. Svaret blir 60 rumsnätter."
+      }
+    ]
+  },
+  {
+    "id": "ng-28-folktandvarden",
+    "title": "Folktandvårdens patienter",
+    "type": "graph",
+    "topic": "Tandvård",
+    "difficulty": 1,
+    "contextText": "Diagrammet visar hur många patienter fyra kliniker inom folktandvården tog emot under ett kvartal. Ett kvartal är 3 månader, och varje klinik hade öppet 60 dagar under kvartalet.",
+    "chartData": {
+      "chartType": "bar",
+      "title": "Patienter per klinik under kvartalet",
+      "unit": "",
+      "yAxisLabel": "Antal patienter",
+      "data": [
+        {
+          "label": "Ekbacken",
+          "value": 840
+        },
+        {
+          "label": "Hagaby",
+          "value": 690
+        },
+        {
+          "label": "Strand",
+          "value": 960
+        },
+        {
+          "label": "Åsen",
+          "value": 510
+        }
+      ]
+    },
+    "enhetsbyte": "kvartal till månader",
+    "p_prior": 0.7,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "questions": [
+      {
+        "id": "ng-28-q01",
+        "passageId": "ng-28-folktandvarden",
+        "questionNumber": 1,
+        "questionText": "Hur många patienter tog kliniken Strand emot i genomsnitt per månad under kvartalet?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "320 patienter",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "2 880 patienter",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "960 * 3",
+              "varde": 2880
+            }
+          },
+          {
+            "id": "c",
+            "text": "280 patienter",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "840 / 3",
+              "varde": 280
+            }
+          },
+          {
+            "id": "d",
+            "text": "16 patienter",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "960 / 60",
+              "varde": 16
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Patienter per månad",
+              "uttryck": "960 / 3",
+              "varde": 320
+            }
+          ],
+          "visning": "320 patienter",
+          "precision": 0
+        },
+        "explanation": "Patienter per månad: 960 / 3 = 320. Svaret blir 320 patienter."
+      },
+      {
+        "id": "ng-28-q02",
+        "passageId": "ng-28-folktandvarden",
+        "questionNumber": 2,
+        "questionText": "Hur många procent fler patienter tog Ekbacken emot än Hagaby?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "21,7 %",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "121,7 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "840 / 690 * 100",
+              "varde": 121.7391
+            }
+          },
+          {
+            "id": "c",
+            "text": "39,1 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(960 - 690) / 690 * 100",
+              "varde": 39.1304
+            }
+          },
+          {
+            "id": "d",
+            "text": "17,9 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "150 / 840 * 100",
+              "varde": 17.8571
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Skillnad i patienter",
+              "uttryck": "840 - 690",
+              "varde": 150
+            },
+            {
+              "text": "Skillnad i procent av Hagaby",
+              "uttryck": "150 / 690 * 100",
+              "varde": 21.7391
+            }
+          ],
+          "visning": "21,7 %",
+          "precision": 1
+        },
+        "explanation": "Skillnad i patienter: 840 - 690 = 150. Skillnad i procent av Hagaby: 150 / 690 · 100 = 21,739. Svaret blir 21,7 %."
+      },
+      {
+        "id": "ng-28-q03",
+        "passageId": "ng-28-folktandvarden",
+        "questionNumber": 3,
+        "questionText": "Hur många procent av alla patienter under kvartalet tog Åsen emot?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "28,0 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "840 / 3000 * 100",
+              "varde": 28
+            }
+          },
+          {
+            "id": "b",
+            "text": "17,0 %",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "23,0 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "690 / 3000 * 100",
+              "varde": 23
+            }
+          },
+          {
+            "id": "d",
+            "text": "20,5 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "510 / (3000 - 510) * 100",
+              "varde": 20.4819
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Alla patienter",
+              "uttryck": "840 + 690 + 960 + 510",
+              "varde": 3000
+            },
+            {
+              "text": "Åsens andel",
+              "uttryck": "510 / 3000 * 100",
+              "varde": 17
+            }
+          ],
+          "visning": "17,0 %",
+          "precision": 1
+        },
+        "explanation": "Alla patienter: 840 + 690 + 960 + 510 = 3 000. Åsens andel: 510 / 3 000 · 100 = 17. Svaret blir 17,0 %."
+      },
+      {
+        "id": "ng-28-q04",
+        "passageId": "ng-28-folktandvarden",
+        "questionNumber": 4,
+        "questionText": "Regionen räknar med att antalet patienter vid Hagaby ökar med 12 % nästa kvartal. Hur många patienter blir det då?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "571 patienter",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "510 * (1 + 12 / 100)",
+              "varde": 571.2
+            }
+          },
+          {
+            "id": "b",
+            "text": "702 patienter",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "690 + 12",
+              "varde": 702
+            }
+          },
+          {
+            "id": "c",
+            "text": "773 patienter",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "83 patienter",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "690 * 12 / 100",
+              "varde": 82.8
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Ökning i patienter",
+              "uttryck": "690 * 12 / 100",
+              "varde": 82.8
+            },
+            {
+              "text": "Nytt antal",
+              "uttryck": "690 + 82.8",
+              "varde": 772.8
+            }
+          ],
+          "visning": "773 patienter",
+          "precision": 0
+        },
+        "explanation": "Ökning i patienter: 690 · 12 / 100 = 82,8. Nytt antal: 690 + 82,8 = 772,8. Svaret blir 773 patienter."
+      }
+    ]
+  },
+  {
+    "id": "ng-29-flyttfirman",
+    "title": "Flyttfirmans uppdrag",
+    "type": "table",
+    "topic": "Tjänsteföretag",
+    "difficulty": 1,
+    "contextText": "Tabellen visar fyra uppdrag som en flyttfirma utförde under en vecka. Firman tar 595 kr per arbetad timme och flyttare, utan moms. Alla flyttare är på plats hela tiden.",
+    "dataTable": {
+      "headers": [
+        "Uppdrag",
+        "Flyttare",
+        "Timmar på plats",
+        "Körsträcka (km)",
+        "Kartonger"
+      ],
+      "rows": [
+        [
+          "Lägenhet Söder",
+          "3",
+          "5",
+          "18",
+          "64"
+        ],
+        [
+          "Villa Ängby",
+          "4",
+          "7",
+          "42",
+          "120"
+        ],
+        [
+          "Kontor Hamnen",
+          "6",
+          "6",
+          "12",
+          "210"
+        ],
+        [
+          "Radhus Berga",
+          "3",
+          "8",
+          "66",
+          "95"
+        ]
+      ],
+      "caption": "Veckans uppdrag"
+    },
+    "p_prior": 0.7,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "questions": [
+      {
+        "id": "ng-29-q01",
+        "passageId": "ng-29-flyttfirman",
+        "questionNumber": 1,
+        "questionText": "Vad kostade uppdraget Villa Ängby, utan moms?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "14 280 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "3 * 8 * 595",
+              "varde": 14280
+            }
+          },
+          {
+            "id": "b",
+            "text": "21 420 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "6 * 6 * 595",
+              "varde": 21420
+            }
+          },
+          {
+            "id": "c",
+            "text": "16 660 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "4 165 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "7 * 595",
+              "varde": 4165
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Arbetade timmar",
+              "uttryck": "4 * 7",
+              "varde": 28
+            },
+            {
+              "text": "Kostnad",
+              "uttryck": "28 * 595",
+              "varde": 16660
+            }
+          ],
+          "visning": "16 660 kr",
+          "precision": 0
+        },
+        "explanation": "Arbetade timmar: 4 · 7 = 28. Kostnad: 28 · 595 = 16 660. Svaret blir 16 660 kr."
+      },
+      {
+        "id": "ng-29-q02",
+        "passageId": "ng-29-flyttfirman",
+        "questionNumber": 2,
+        "questionText": "Hur många kartonger bar varje flyttare i genomsnitt på uppdraget Kontor Hamnen?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "35 kartonger",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "30 kartonger",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "120 / 4",
+              "varde": 30
+            }
+          },
+          {
+            "id": "c",
+            "text": "32 kartonger",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "95 / 3",
+              "varde": 31.6667
+            }
+          },
+          {
+            "id": "d",
+            "text": "204 kartonger",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "210 - 6",
+              "varde": 204
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Kartonger per flyttare",
+              "uttryck": "210 / 6",
+              "varde": 35
+            }
+          ],
+          "visning": "35 kartonger",
+          "precision": 0
+        },
+        "explanation": "Kartonger per flyttare: 210 / 6 = 35. Svaret blir 35 kartonger."
+      },
+      {
+        "id": "ng-29-q03",
+        "passageId": "ng-29-flyttfirman",
+        "questionNumber": 3,
+        "questionText": "Hur många procent av veckans körsträcka gällde uppdraget Radhus Berga?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "19 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "95 / (64 + 120 + 210 + 95) * 100",
+              "varde": 19.4274
+            }
+          },
+          {
+            "id": "b",
+            "text": "92 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "66 / (138 - 66) * 100",
+              "varde": 91.6667
+            }
+          },
+          {
+            "id": "c",
+            "text": "48 %",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "30 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "42 / 138 * 100",
+              "varde": 30.4348
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Veckans körsträcka",
+              "uttryck": "18 + 42 + 12 + 66",
+              "varde": 138
+            },
+            {
+              "text": "Radhus Bergas andel",
+              "uttryck": "66 / 138 * 100",
+              "varde": 47.8261
+            }
+          ],
+          "visning": "48 %",
+          "precision": 0
+        },
+        "explanation": "Veckans körsträcka: 18 + 42 + 12 + 66 = 138. Radhus Bergas andel: 66 / 138 · 100 = 47,826. Svaret blir 48 %."
+      },
+      {
+        "id": "ng-29-q04",
+        "passageId": "ng-29-flyttfirman",
+        "questionNumber": 4,
+        "questionText": "Hur många timmar arbetade flyttarna sammanlagt under veckan, alla flyttare inräknade?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "416 timmar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "(3 + 4 + 6 + 3) * (5 + 7 + 6 + 8)",
+              "varde": 416
+            }
+          },
+          {
+            "id": "b",
+            "text": "103 timmar",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "26 timmar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "5 + 7 + 6 + 8",
+              "varde": 26
+            }
+          },
+          {
+            "id": "d",
+            "text": "79 timmar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "3 * 5 + 4 * 7 + 6 * 6",
+              "varde": 79
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Flyttare gånger timmar, summerat",
+              "uttryck": "3 * 5 + 4 * 7 + 6 * 6 + 3 * 8",
+              "varde": 103
+            }
+          ],
+          "visning": "103 timmar",
+          "precision": 0
+        },
+        "explanation": "Flyttare gånger timmar, summerat: 3 · 5 + 4 · 7 + 6 · 6 + 3 · 8 = 103. Svaret blir 103 timmar."
+      }
+    ]
+  },
+  {
+    "id": "ng-30-tjansteresor",
+    "title": "Tjänsteresor med egen bil",
+    "type": "table",
+    "topic": "Kontor och administration",
+    "difficulty": 1,
+    "contextText": "Tabellen visar tjänsteresor med egen bil för fyra avdelningar under ett kvartal. Arbetsgivaren betalar 25 kr i milersättning per mil. 1 mil är 10 km.",
+    "dataTable": {
+      "headers": [
+        "Avdelning",
+        "Resor",
+        "Körda km",
+        "Parkeringsavgifter (kr)"
+      ],
+      "rows": [
+        [
+          "Ekonomi",
+          "14",
+          "860",
+          "1 120"
+        ],
+        [
+          "Fastighet",
+          "38",
+          "3 240",
+          "2 560"
+        ],
+        [
+          "Försäljning",
+          "52",
+          "6 180",
+          "4 890"
+        ],
+        [
+          "IT",
+          "9",
+          "410",
+          "380"
+        ]
+      ],
+      "caption": "Tjänsteresor under kvartalet"
+    },
+    "enhetsbyte": "km till mil",
+    "p_prior": 0.7,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "questions": [
+      {
+        "id": "ng-30-q01",
+        "passageId": "ng-30-tjansteresor",
+        "questionNumber": 1,
+        "questionText": "Hur mycket milersättning betalades till Fastighet under kvartalet?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "2 150 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "860 / 10 * 25",
+              "varde": 2150
+            }
+          },
+          {
+            "id": "b",
+            "text": "6 400 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "2560 / 10 * 25",
+              "varde": 6400
+            }
+          },
+          {
+            "id": "c",
+            "text": "8 100 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "81 000 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "3240 * 25",
+              "varde": 81000
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Körda mil",
+              "uttryck": "3240 / 10",
+              "varde": 324
+            },
+            {
+              "text": "Milersättning",
+              "uttryck": "324 * 25",
+              "varde": 8100
+            }
+          ],
+          "visning": "8 100 kr",
+          "precision": 0
+        },
+        "explanation": "Körda mil: 3 240 / 10 = 324. Milersättning: 324 · 25 = 8 100. Svaret blir 8 100 kr."
+      },
+      {
+        "id": "ng-30-q02",
+        "passageId": "ng-30-tjansteresor",
+        "questionNumber": 2,
+        "questionText": "Hur många km var en resa för Försäljning i genomsnitt?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "12 km",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "6180 / 52 / 10",
+              "varde": 11.8846
+            }
+          },
+          {
+            "id": "b",
+            "text": "119 km",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "94 km",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "4890 / 52",
+              "varde": 94.0385
+            }
+          },
+          {
+            "id": "d",
+            "text": "85 km",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "3240 / 38",
+              "varde": 85.2632
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Km per resa",
+              "uttryck": "6180 / 52",
+              "varde": 118.8462
+            }
+          ],
+          "visning": "119 km",
+          "precision": 0
+        },
+        "explanation": "Km per resa: 6 180 / 52 = 118,846. Svaret blir 119 km."
+      },
+      {
+        "id": "ng-30-q03",
+        "passageId": "ng-30-tjansteresor",
+        "questionNumber": 3,
+        "questionText": "Hur många procent av alla körda km under kvartalet stod Försäljning för?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "46,0 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "52 / (14 + 38 + 52 + 9) * 100",
+              "varde": 46.0177
+            }
+          },
+          {
+            "id": "b",
+            "text": "137,0 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "6180 / (10690 - 6180) * 100",
+              "varde": 137.0288
+            }
+          },
+          {
+            "id": "c",
+            "text": "30,3 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "3240 / 10690 * 100",
+              "varde": 30.3087
+            }
+          },
+          {
+            "id": "d",
+            "text": "57,8 %",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Alla körda km",
+              "uttryck": "860 + 3240 + 6180 + 410",
+              "varde": 10690
+            },
+            {
+              "text": "Försäljnings andel",
+              "uttryck": "6180 / 10690 * 100",
+              "varde": 57.811
+            }
+          ],
+          "visning": "57,8 %",
+          "precision": 1
+        },
+        "explanation": "Alla körda km: 860 + 3 240 + 6 180 + 410 = 10 690. Försäljnings andel: 6 180 / 10 690 · 100 = 57,811. Svaret blir 57,8 %."
+      },
+      {
+        "id": "ng-30-q04",
+        "passageId": "ng-30-tjansteresor",
+        "questionNumber": 4,
+        "questionText": "Vad kostade IT:s tjänsteresor sammanlagt, milersättning och parkeringsavgifter inräknade?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "1 025 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "410 / 10 * 25",
+              "varde": 1025
+            }
+          },
+          {
+            "id": "b",
+            "text": "1 405 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "10 630 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "410 * 25 + 380",
+              "varde": 10630
+            }
+          },
+          {
+            "id": "d",
+            "text": "3 270 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "860 / 10 * 25 + 1120",
+              "varde": 3270
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Milersättning",
+              "uttryck": "410 / 10 * 25",
+              "varde": 1025
+            },
+            {
+              "text": "Med parkeringsavgifter",
+              "uttryck": "1025 + 380",
+              "varde": 1405
+            }
+          ],
+          "visning": "1 405 kr",
+          "precision": 0
+        },
+        "explanation": "Milersättning: 410 / 10 · 25 = 1 025. Med parkeringsavgifter: 1 025 + 380 = 1 405. Svaret blir 1 405 kr."
+      }
+    ]
+  },
+  {
+    "id": "ng-31-forskolans-barn",
+    "title": "Förskolans inskrivna barn",
+    "type": "graph",
+    "topic": "Förskola",
+    "difficulty": 1,
+    "contextText": "Diagrammet visar hur många barn som var inskrivna på en förskola den första dagen i varje månad från januari till juni. Förskolan har plats för 120 barn. Kommunen betalar förskolan 11 400 kr per inskrivet barn och månad. 1 tkr är 1 000 kr.",
+    "chartData": {
+      "chartType": "line",
+      "title": "Inskrivna barn per månad",
+      "unit": "",
+      "xAxisLabel": "Månad",
+      "yAxisLabel": "Antal barn",
+      "showValues": true,
+      "data": [
+        {
+          "x": "Jan",
+          "y": 96
+        },
+        {
+          "x": "Feb",
+          "y": 98
+        },
+        {
+          "x": "Mar",
+          "y": 103
+        },
+        {
+          "x": "Apr",
+          "y": 108
+        },
+        {
+          "x": "Maj",
+          "y": 112
+        },
+        {
+          "x": "Jun",
+          "y": 104
+        }
+      ]
+    },
+    "enhetsbyte": "kr till tkr",
+    "p_prior": 0.7,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "questions": [
+      {
+        "id": "ng-31-q01",
+        "passageId": "ng-31-forskolans-barn",
+        "questionNumber": 1,
+        "questionText": "Hur många procent av platserna var fyllda i april?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "90 %",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "93 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "112 / 120 * 100",
+              "varde": 93.3333
+            }
+          },
+          {
+            "id": "c",
+            "text": "111 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "120 / 108 * 100",
+              "varde": 111.1111
+            }
+          },
+          {
+            "id": "d",
+            "text": "10 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "(120 - 108) / 120 * 100",
+              "varde": 10
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Inskrivna delat med platser",
+              "uttryck": "108 / 120 * 100",
+              "varde": 90
+            }
+          ],
+          "visning": "90 %",
+          "precision": 0
+        },
+        "explanation": "Inskrivna delat med platser: 108 / 120 · 100 = 90. Svaret blir 90 %."
+      },
+      {
+        "id": "ng-31-q02",
+        "passageId": "ng-31-forskolans-barn",
+        "questionNumber": 2,
+        "questionText": "Med hur många procent ökade antalet inskrivna barn från januari till maj?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "16,7 %",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "14,3 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "16 / 112 * 100",
+              "varde": 14.2857
+            }
+          },
+          {
+            "id": "c",
+            "text": "16,0 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "112 - 96",
+              "varde": 16
+            }
+          },
+          {
+            "id": "d",
+            "text": "8,3 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(104 - 96) / 96 * 100",
+              "varde": 8.3333
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Ökning i antal barn",
+              "uttryck": "112 - 96",
+              "varde": 16
+            },
+            {
+              "text": "Ökning i procent av januari",
+              "uttryck": "16 / 96 * 100",
+              "varde": 16.6667
+            }
+          ],
+          "visning": "16,7 %",
+          "precision": 1
+        },
+        "explanation": "Ökning i antal barn: 112 - 96 = 16. Ökning i procent av januari: 16 / 96 · 100 = 16,667. Svaret blir 16,7 %."
+      },
+      {
+        "id": "ng-31-q03",
+        "passageId": "ng-31-forskolans-barn",
+        "questionNumber": 3,
+        "questionText": "Hur mycket betalade kommunen förskolan för mars, i tkr?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "1 174,2 tkr",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "1 174 200,0 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "103 * 11400",
+              "varde": 1174200
+            }
+          },
+          {
+            "id": "c",
+            "text": "1 117,2 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "98 * 11400 / 1000",
+              "varde": 1117.2
+            }
+          },
+          {
+            "id": "d",
+            "text": "1 368,0 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "120 * 11400 / 1000",
+              "varde": 1368
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Ersättning i kr",
+              "uttryck": "103 * 11400",
+              "varde": 1174200
+            },
+            {
+              "text": "Omräknat till tkr",
+              "uttryck": "1174200 / 1000",
+              "varde": 1174.2
+            }
+          ],
+          "visning": "1 174,2 tkr",
+          "precision": 1
+        },
+        "explanation": "Ersättning i kr: 103 · 11 400 = 1 174 200. Omräknat till tkr: 1 174 200 / 1 000 = 1 174,2. Svaret blir 1 174,2 tkr."
+      },
+      {
+        "id": "ng-31-q04",
+        "passageId": "ng-31-forskolans-barn",
+        "questionNumber": 4,
+        "questionText": "Hur många barn var i genomsnitt inskrivna per månad under januari till mars?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "74 barn",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "297 / 4",
+              "varde": 74.25
+            }
+          },
+          {
+            "id": "b",
+            "text": "99 barn",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "103 barn",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(98 + 103 + 108) / 3",
+              "varde": 103
+            }
+          },
+          {
+            "id": "d",
+            "text": "297 barn",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "96 + 98 + 103",
+              "varde": 297
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Januari till mars",
+              "uttryck": "96 + 98 + 103",
+              "varde": 297
+            },
+            {
+              "text": "Genomsnitt per månad",
+              "uttryck": "297 / 3",
+              "varde": 99
+            }
+          ],
+          "visning": "99 barn",
+          "precision": 0
+        },
+        "explanation": "Januari till mars: 96 + 98 + 103 = 297. Genomsnitt per månad: 297 / 3 = 99. Svaret blir 99 barn."
+      }
+    ]
+  },
+  {
+    "id": "ng-32-stadbolaget",
+    "title": "Städbolagets lokaler",
+    "type": "table",
+    "topic": "Fastighet och service",
+    "difficulty": 1,
+    "contextText": "Tabellen visar fyra lokaler som ett städbolag städar. Städtiden anges i minuter per städtillfälle. 1 timme är 60 minuter. Bolaget tar 480 kr per städtimme.",
+    "dataTable": {
+      "headers": [
+        "Lokal",
+        "Yta (kvm)",
+        "Städtillfällen per vecka",
+        "Minuter per tillfälle"
+      ],
+      "rows": [
+        [
+          "Kontoret",
+          "640",
+          "5",
+          "150"
+        ],
+        [
+          "Tandläkaren",
+          "220",
+          "5",
+          "75"
+        ],
+        [
+          "Gymmet",
+          "900",
+          "7",
+          "180"
+        ],
+        [
+          "Butiken",
+          "380",
+          "6",
+          "96"
+        ]
+      ],
+      "caption": "Lokaler och städtid"
+    },
+    "enhetsbyte": "minuter till timmar",
+    "p_prior": 0.7,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "questions": [
+      {
+        "id": "ng-32-q01",
+        "passageId": "ng-32-stadbolaget",
+        "questionNumber": 1,
+        "questionText": "Hur många timmar städar bolaget på Gymmet under en vecka?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "1 260 timmar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "7 * 180",
+              "varde": 1260
+            }
+          },
+          {
+            "id": "b",
+            "text": "21 timmar",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "3 timmar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "180 / 60",
+              "varde": 3
+            }
+          },
+          {
+            "id": "d",
+            "text": "10 timmar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "6 * 96 / 60",
+              "varde": 9.6
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Städtid i minuter",
+              "uttryck": "7 * 180",
+              "varde": 1260
+            },
+            {
+              "text": "Omräknat till timmar",
+              "uttryck": "1260 / 60",
+              "varde": 21
+            }
+          ],
+          "visning": "21 timmar",
+          "precision": 0
+        },
+        "explanation": "Städtid i minuter: 7 · 180 = 1 260. Omräknat till timmar: 1 260 / 60 = 21. Svaret blir 21 timmar."
+      },
+      {
+        "id": "ng-32-q02",
+        "passageId": "ng-32-stadbolaget",
+        "questionNumber": 2,
+        "questionText": "Vad kostar en veckas städning av Butiken?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "3 000 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "5 * 75 / 60 * 480",
+              "varde": 3000
+            }
+          },
+          {
+            "id": "b",
+            "text": "4 608 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "768 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "96 / 60 * 480",
+              "varde": 768
+            }
+          },
+          {
+            "id": "d",
+            "text": "276 480 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "6 * 96 * 480",
+              "varde": 276480
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Städtimmar per vecka",
+              "uttryck": "6 * 96 / 60",
+              "varde": 9.6
+            },
+            {
+              "text": "Kostnad",
+              "uttryck": "9.6 * 480",
+              "varde": 4608
+            }
+          ],
+          "visning": "4 608 kr",
+          "precision": 0
+        },
+        "explanation": "Städtimmar per vecka: 6 · 96 / 60 = 9,6. Kostnad: 9,6 · 480 = 4 608. Svaret blir 4 608 kr."
+      },
+      {
+        "id": "ng-32-q03",
+        "passageId": "ng-32-stadbolaget",
+        "questionNumber": 3,
+        "questionText": "Hur många procent större yta har Gymmet än Kontoret?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "28,9 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "260 / 900 * 100",
+              "varde": 28.8889
+            }
+          },
+          {
+            "id": "b",
+            "text": "140,6 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "900 / 640 * 100",
+              "varde": 140.625
+            }
+          },
+          {
+            "id": "c",
+            "text": "136,8 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(900 - 380) / 380 * 100",
+              "varde": 136.8421
+            }
+          },
+          {
+            "id": "d",
+            "text": "40,6 %",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Skillnad i kvm",
+              "uttryck": "900 - 640",
+              "varde": 260
+            },
+            {
+              "text": "Skillnad i procent av Kontoret",
+              "uttryck": "260 / 640 * 100",
+              "varde": 40.625
+            }
+          ],
+          "visning": "40,6 %",
+          "precision": 1
+        },
+        "explanation": "Skillnad i kvm: 900 - 640 = 260. Skillnad i procent av Kontoret: 260 / 640 · 100 = 40,625. Svaret blir 40,6 %."
+      },
+      {
+        "id": "ng-32-q04",
+        "passageId": "ng-32-stadbolaget",
+        "questionNumber": 4,
+        "questionText": "Hur många kvm städar bolaget sammanlagt under en vecka på Tandläkaren och Butiken?",
+        "difficulty": 1,
+        "options": [
+          {
+            "id": "a",
+            "text": "600 kvm",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "220 + 380",
+              "varde": 600
+            }
+          },
+          {
+            "id": "b",
+            "text": "5 480 kvm",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "640 * 5 + 380 * 6",
+              "varde": 5480
+            }
+          },
+          {
+            "id": "c",
+            "text": "3 380 kvm",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "6 600 kvm",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "(220 + 380) * (5 + 6)",
+              "varde": 6600
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Yta gånger städtillfällen, summerat",
+              "uttryck": "220 * 5 + 380 * 6",
+              "varde": 3380
+            }
+          ],
+          "visning": "3 380 kvm",
+          "precision": 0
+        },
+        "explanation": "Yta gånger städtillfällen, summerat: 220 · 5 + 380 · 6 = 3 380. Svaret blir 3 380 kvm."
+      }
+    ]
+  }
+]

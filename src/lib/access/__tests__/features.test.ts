@@ -11,8 +11,8 @@ import {
 const SCOPES: Scope[] = ['cv', 'tester', 'allt']
 
 describe('FEATURES', () => {
-  it('har de tio funktionerna ur avsnitt 5 plus LinkedIn-profilen och intervjuprovet', () => {
-    expect(ALLA_FEATURES).toHaveLength(12)
+  it('har de tio funktionerna ur avsnitt 5 plus LinkedIn-profilen, intervjuprovet och text- och sifferpassen', () => {
+    expect(ALLA_FEATURES).toHaveLength(13)
   })
 
   it('ger Allt varje funktion', () => {

@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verbalt expert, parti 03</title>
+<style>
+  :root { --bg: #fafaf9; --kort: #ffffff; --text: #1c1917; --dampad: #57534e; --linje: #e7e5e4; --accent: #ea580c;
+    --ratt: #15803d; --ratt-bg: #dcfce7; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0c0a09; --kort: #1c1917; --text: #f5f5f4; --dampad: #a8a29e; --linje: #292524; --accent: #fb923c;
+      --ratt: #86efac; --ratt-bg: #14532d; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  h3 { font-size: 1.15rem; margin: 2px 0; }
+  .ingress, .sammanfattning, .meta { color: var(--dampad); }
+  .sammanfattning { font-size: .92rem; }
+  code { font-size: .85em; overflow-wrap: anywhere; }
+  .innehall { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 8px; }
+  .innehall a { font-size: .8rem; color: var(--dampad); text-decoration: none; border: 1px solid var(--linje); border-radius: 999px; padding: 2px 10px; }
+  .text { background: var(--kort); border: 1px solid var(--linje); border-radius: 12px; padding: 18px 16px; margin: 20px 0; }
+  .id { font: 600 .78rem/1.2 ui-monospace, Consolas, monospace; color: var(--accent); margin: 0; overflow-wrap: anywhere; }
+  .meta { margin: 0; font-size: .88rem; }
+  .brodtext { margin: 14px 0 6px; padding: 14px; border-left: 3px solid var(--linje); background: var(--bg); border-radius: 6px; }
+  .fragelista { list-style: none; padding: 0; margin: 12px 0 0; }
+  .fraga { border-top: 1px solid var(--linje); padding: 12px 0 4px; }
+  .fraga-text { margin: 0; font-weight: 600; }
+  .nr { display: inline-block; min-width: 1.6em; color: var(--dampad); }
+  .etiketter { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+  .typ { font-size: .78rem; border-radius: 999px; padding: 1px 10px; border: 1px solid var(--linje); color: var(--dampad); }
+  .alt { list-style: none; padding: 0; margin: 6px 0 8px; }
+  .alt li { display: flex; gap: 8px; align-items: baseline; padding: 6px 10px; border-radius: 8px; margin: 2px 0; }
+  .alt li.ratt { background: var(--ratt-bg); color: var(--ratt); font-weight: 600; }
+  .bokstav { font: 600 .85rem ui-monospace, Consolas, monospace; min-width: 1.2em; color: var(--dampad); }
+  .alt li.ratt .bokstav { color: var(--ratt); }
+  .facit { margin-left: auto; font-size: .75rem; border: 1px solid currentColor; border-radius: 999px; padding: 0 8px; white-space: nowrap; }
+  .forklaring { margin: 0 0 8px; font-size: .94rem; color: var(--dampad); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Verbalt expert, parti 03</h1>
+  <p class="ingress">Kandidatunderlag för granskning. Inget här ligger i den skarpa banken. Per underlag: id, antal ord, texten och de fyra frågorna med frågetyp, alternativ (rätt markerat) och förklaringen som läses upp i genomgången.</p>
+  <p class="sammanfattning">8 underlag, 32 frågor, 101 till 116 ord. Rätt bokstav: a 8, b 8, c 8, d 8. Frågetyper: felslut 6, antagande 8, metod eller struktur 4, försvaga 6, slutsats 5, stärka 3. Rätt alternativ är längst i 3 av 32 frågor. Källa: <code>src/lib/verbalTestExpert/kandidater/parti-03.json</code></p>
+  <nav class="innehall"><a href="#verbexp-p13">verbexp-p13</a><a href="#verbexp-p14">verbexp-p14</a><a href="#verbexp-p15">verbexp-p15</a><a href="#verbexp-p16">verbexp-p16</a><a href="#verbexp-p17">verbexp-p17</a><a href="#verbexp-p18">verbexp-p18</a><a href="#verbexp-p19">verbexp-p19</a><a href="#verbexp-p20">verbexp-p20</a></nav>
+  
+    <article class="text" id="verbexp-p13">
+      <header>
+        <p class="id">verbexp-p13</p>
+        <h3>Säljarnas utbildning</h3>
+        <p class="meta">Argumentationsanalys · 115 ord · svårighet 3 · skriven 2026-10-12, parti 03</p>
+      </header>
+      <div class="brodtext">Ett försäljningsbolag har gått igenom bakgrunden hos sina tjugo mest framgångsrika säljare de senaste tre åren. Sexton av dem, alltså 80 procent, har en ekonomexamen. Försäljningschefen ser ett tydligt mönster och föreslår att bolaget från och med nästa rekrytering bara anställer säljare med ekonomexamen. Hon menar att examen uppenbarligen ger något som andra vägar in i yrket saknar, och att kravet därför kommer att höja säljkårens resultat. Hon påpekar också att flera av de sexton själva lyfter fram utbildningen som avgörande i sina medarbetarsamtal. I analysen ingår inga uppgifter om de säljare som inte hör till toppgruppen. Av personalregistret framgår dock att bolaget i många år har rekryterat nästan uteslutande från ekonomprogrammen på två lärosäten.</div>
+      <ol class="fragelista">
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">1</span>Vilket felslut gör försäljningschefen?</p>
+          <p class="etiketter"><span class="typ">Felslut</span></p>
+          <ol class="alt">
+            <li class=""><span class="bokstav">a</span>Hon drar slutsatsen ur ett enda säljår</li>
+            <li class=""><span class="bokstav">b</span>Hon låter säljarnas egna ord avgöra frågan</li>
+            <li class="ratt"><span class="bokstav">c</span>Hon jämför inte med andelen bland alla säljare<span class="facit">Rätt</span></li>
+            <li class=""><span class="bokstav">d</span>Hon förutsätter att toppsäljarna kommer att stanna</li>
+          </ol>
+          <p class="forklaring">Det är den sista meningen som avgör. Bolaget har i många år nästan bara anställt ekonomer, så 80 procent i toppgruppen kan vara precis samma andel som bland alla säljare. Alternativ b lockar eftersom säljarna själva lyfter fram utbildningen, men det är ett stödjande inslag och inte det som bär förslaget.</p>
+        </li>
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">2</span>Vilket antagande måste gälla för att förslaget ska vara välgrundat?</p>
+          <p class="etiketter"><span class="typ">Antagande</span></p>
+          <ol class="alt">
+            <li class="ratt"><span class="bokstav">a</span>Att ekonomer är fler i toppen än bland övriga<span class="facit">Rätt</span></li>
+            <li class=""><span class="bokstav">b</span>Att toppsäljarna har varit anställda lika länge</li>
+            <li class=""><span class="bokstav">c</span>Att ekonomprogrammen tar emot fler sökande än förr</li>
+            <li class=""><span class="bokstav">d</span>Att ekonomprogrammen är lika bra på båda lärosätena</li>
+          </ol>
+          <p class="forklaring">Förslaget vilar på påståendet att examen ger något som andra vägar saknar. Det kräver att ekonomer är överrepresenterade bland de bästa jämfört med resten av säljkåren. Den som väljer b fastnar i en detalj: slutsatsen faller inte för att anställningstiden skiljer sig mellan säljarna.</p>
+        </li>
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">3</span>Vilken uppgift behöver försäljningschefen främst ta fram för att pröva sitt förslag?</p>
+          <p class="etiketter"><span class="typ">Metod eller struktur</span></p>
+          <ol class="alt">
+            <li class=""><span class="bokstav">a</span>Hur nöjda toppsäljarna är med sin utbildning</li>
+            <li class=""><span class="bokstav">b</span>Hur länge de sexton har haft sin ekonomexamen</li>
+            <li class=""><span class="bokstav">c</span>Vilka kurser som ingår i de två ekonomprogrammen</li>
+            <li class="ratt"><span class="bokstav">d</span>Andelen med ekonomexamen bland övriga säljare<span class="facit">Rätt</span></li>
+          </ol>
+          <p class="forklaring">Meningen om att analysen saknar uppgifter om säljarna utanför toppgruppen pekar ut luckan. Först när andelen bland de övriga är känd går det att säga om 80 procent är högt eller helt väntat. Svar a kan verka relevant, men nöjdhet med en utbildning säger ingenting om vad den gör för försäljningen.</p>
+        </li>
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">4</span>Vilket av följande skulle försvaga förslaget mest?</p>
+          <p class="etiketter"><span class="typ">Försvaga</span></p>
+          <ol class="alt">
+            <li class=""><span class="bokstav">a</span>Toppsäljarna har i snitt högre lön än övriga</li>
+            <li class="ratt"><span class="bokstav">b</span>Nio av tio säljare i bolaget har ekonomexamen<span class="facit">Rätt</span></li>
+            <li class=""><span class="bokstav">c</span>Konkurrenterna ställer samma krav på examen</li>
+            <li class=""><span class="bokstav">d</span>Försäljningen steg i hela bolaget förra året</li>
+          </ol>
+          <p class="forklaring">Om nio av tio säljare har ekonomexamen är 80 procent i toppgruppen till och med lägre än väntat, och mönstret försvinner. Det knyter an till meningen om rekryteringen från ekonomprogrammen. Att konkurrenterna ställer samma krav, som i alternativ c, säger ingenting om vad examen faktiskt betyder för resultaten.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="verbexp-p14">
+      <header>
+        <p class="id">verbexp-p14</p>
+        <h3>Enkäten om cykelbanan</h3>
+        <p class="meta">Argumentationsanalys · 109 ord · svårighet 3 · skriven 2026-10-12, parti 03</p>
+      </header>
+      <div class="brodtext">Trafiknämnden i en mellanstor kommun vill bygga om en av infartslederna och ta två bilfiler i anspråk för en bred cykelbana. För att pröva förankringen lade förvaltningen ut en webbenkät under tre veckor. Länken spreds framför allt via den lokala cykelföreningens nyhetsbrev och dess sida i sociala medier. Totalt svarade 2 400 personer, och 78 procent av dem var positiva till förslaget. Nämndens ordförande skriver i sin skrivelse att en klar majoritet av kommunens invånare därmed står bakom ombyggnaden. Hon framhåller att antalet svar är det högsta kommunen någonsin har fått i en enkät, och att resultatet därför är särskilt tillförlitligt. Hon föreslår att bygget ska påbörjas nästa vår.</div>
+      <ol class="fragelista">
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">1</span>Vilket antagande måste ordföranden göra för att kunna dra sin slutsats?</p>
+          <p class="etiketter"><span class="typ">Antagande</span></p>
+          <ol class="alt">
+            <li class=""><span class="bokstav">a</span>Att cyklister bor i alla delar av kommunen</li>
+            <li class="ratt"><span class="bokstav">b</span>Att de som svarade liknar invånarna i stort<span class="facit">Rätt</span></li>
+            <li class=""><span class="bokstav">c</span>Att bilisterna kan välja en annan infartsled</li>
+            <li class=""><span class="bokstav">d</span>Att enkäten var öppen tillräckligt länge</li>
+          </ol>
+          <p class="forklaring">Steget från 78 procent av de svarande till en majoritet av invånarna kräver att de svarande speglar befolkningen. Meningen om att länken spreds via cykelföreningen gör just det tveksamt. Alternativ d låter rimligt, men oavsett om enkäten låg ute i tre veckor eller sex ändras inte vilka som nåddes av länken.</p>
+        </li>
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">2</span>Vilket fynd skulle försvaga ordförandens slutsats mest?</p>
+          <p class="etiketter"><span class="typ">Försvaga</span></p>
+          <ol class="alt">
+            <li class=""><span class="bokstav">a</span>Antalet svar var högre än i förra årets enkät</li>
+            <li class=""><span class="bokstav">b</span>Cykelbanan beräknas kosta mindre än väntat</li>
+            <li class=""><span class="bokstav">c</span>Många svarande skrev långa och genomtänkta svar</li>
+            <li class="ratt"><span class="bokstav">d</span>De flesta svar kom via föreningens länk<span class="facit">Rätt</span></li>
+          </ol>
+          <p class="forklaring">Om de flesta svaren kom via cykelföreningen består urvalet till stor del av människor som redan cyklar, och då säger 78 procent lite om kommunen som helhet. Det frestande svaret är a, som ser ut att handla om tillförlitlighet, men fler svar rättar inte till ett snett urval.</p>
+        </li>
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">3</span>Vilket felslut gör ordföranden när hon talar om tillförlitligheten?</p>
+          <p class="etiketter"><span class="typ">Felslut</span></p>
+          <ol class="alt">
+            <li class="ratt"><span class="bokstav">a</span>Hon tar ett stort antal svar som ett gott urval<span class="facit">Rätt</span></li>
+            <li class=""><span class="bokstav">b</span>Hon tolkar ett samband i tid som ett orsakssamband</li>
+            <li class=""><span class="bokstav">c</span>Hon avfärdar kritiken genom att angripa kritikerna</li>
+            <li class=""><span class="bokstav">d</span>Hon påstår att det bara finns två möjliga vägar</li>
+          </ol>
+          <p class="forklaring">Avgörande är meningen om att antalet svar är rekordhögt och att resultatet därför är särskilt tillförlitligt. Många svar från fel grupp blir inte mer representativa för att de är många. Alternativ b kan locka eftersom texten nämner en tidsperiod, men ordföranden drar ingen slutsats om orsak och verkan.</p>
+        </li>
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">4</span>Vilken slutsats har stöd i texten?</p>
+          <p class="etiketter"><span class="typ">Slutsats</span></p>
+          <ol class="alt">
+            <li class=""><span class="bokstav">a</span>En majoritet av invånarna vill ha cykelbanan</li>
+            <li class=""><span class="bokstav">b</span>Bilisterna i kommunen är emot ombyggnaden</li>
+            <li class="ratt"><span class="bokstav">c</span>Merparten av de svarande stödde förslaget<span class="facit">Rätt</span></li>
+            <li class=""><span class="bokstav">d</span>Enkäten besvarades främst av cyklister</li>
+          </ol>
+          <p class="forklaring">Det enda texten slår fast är att 78 procent av de 2 400 som svarade var positiva. Svar d ligger nära till hands, men texten säger bara hur länken spreds, inte vilka som faktiskt svarade. Alternativ a är just det steg i ordförandens resonemang som inte håller.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="verbexp-p15">
+      <header>
+        <p class="id">verbexp-p15</p>
+        <h3>Handledaren och provresultaten</h3>
+        <p class="meta">Argumentationsanalys · 110 ord · svårighet 3 · skriven 2026-10-12, parti 03</p>
+      </header>
+      <div class="brodtext">Efter förra årets nationella prov valde utbildningsförvaltningen ut de tio skolor i länet som hade lägst resultat i matematik. Skolorna fick under hösten stöd av en särskild handledare som arbetade med lärarnas lektionsplanering. I årets prov förbättrades de tio skolornas genomsnitt med sju procentenheter, medan länet som helhet låg kvar på samma nivå. Förvaltningschefen skriver i sin rapport att resultatet visar att handledningen fungerar, och hon föreslår att alla skolor i länet ska få samma stöd från nästa termin. Hon understryker att förbättringen var större än vad någon annan insats har gett tidigare. I en bilaga till rapporten nämns att skolornas resultat brukar variera kraftigt från ett år till nästa.</div>
+      <ol class="fragelista">
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">1</span>Vilken svaghet i förvaltningschefens resonemang väger tyngst?</p>
+          <p class="etiketter"><span class="typ">Felslut</span></p>
+          <ol class="alt">
+            <li class=""><span class="bokstav">a</span>Hon bygger slutsatsen på ett enda ämne</li>
+            <li class=""><span class="bokstav">b</span>Hon förlitar sig på handledarens egen bedömning</li>
+            <li class=""><span class="bokstav">c</span>Hon jämför enbart med äldre insatser i det egna länet</li>
+            <li class="ratt"><span class="bokstav">d</span>Hon bortser från att svaga år ofta följs av bättre<span class="facit">Rätt</span></li>
+          </ol>
+          <p class="forklaring">Nyckeln är meningen i bilagan om att resultaten brukar variera kraftigt mellan åren. Skolor som väljs ut för att de låg allra lägst ett visst år tenderar att närma sig mitten året efter, med eller utan insats. Alternativ c lockar, men jämförelsen med äldre insatser är inte det som gör slutsatsen osäker.</p>
+        </li>
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">2</span>Vilket tillägg skulle stärka förvaltningschefens slutsats mest?</p>
+          <p class="etiketter"><span class="typ">Stärka</span></p>
+          <ol class="alt">
+            <li class=""><span class="bokstav">a</span>Lärarna på de tio skolorna uppskattade handledaren mycket</li>
+            <li class=""><span class="bokstav">b</span>Årets prov bedömdes som något lättare än förra</li>
+            <li class="ratt"><span class="bokstav">c</span>Liknande skolor utan handledare låg kvar på samma nivå<span class="facit">Rätt</span></li>
+            <li class=""><span class="bokstav">d</span>Handledaren har arbetat i skolans värld i tjugo år</li>
+          </ol>
+          <p class="forklaring">En jämförelsegrupp av lika svaga skolor utan stöd visar hur mycket de hade stigit ändå. Står de still blir handledningen den rimliga förklaringen till de sju procentenheterna. Den som väljer a tar fel på vad som mäts: att lärarna uppskattade handledaren säger inget om elevernas resultat.</p>
+        </li>
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">3</span>Vilket antagande krävs för påståendet att handledningen fungerar?</p>
+          <p class="etiketter"><span class="typ">Antagande</span></p>
+          <ol class="alt">
+            <li class=""><span class="bokstav">a</span>Att alla skolor i länet har samma behov av stöd</li>
+            <li class="ratt"><span class="bokstav">b</span>Att lyftet inte hade kommit ändå<span class="facit">Rätt</span></li>
+            <li class=""><span class="bokstav">c</span>Att matematik är länets viktigaste ämne i skolan</li>
+            <li class=""><span class="bokstav">d</span>Att handledaren kan anställas för fler skolor</li>
+          </ol>
+          <p class="forklaring">Påståendet att handledningen fungerar kräver att de sju procentenheterna inte hade kommit ändå, och meningen om den kraftiga variationen mellan åren gör just det osäkert. Alternativ a gäller förslaget att ge alla skolor stöd, inte frågan om handledningen faktiskt gav lyftet.</p>
+        </li>
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">4</span>Hur borde förvaltningen ha lagt upp insatsen för att kunna avgöra om den fungerar?</p>
+          <p class="etiketter"><span class="typ">Metod eller struktur</span></p>
+          <ol class="alt">
+            <li class="ratt"><span class="bokstav">a</span>Lotta vilka svaga skolor som får stöd<span class="facit">Rätt</span></li>
+            <li class=""><span class="bokstav">b</span>Välja ut de tio skolor som hade högst resultat</li>
+            <li class=""><span class="bokstav">c</span>Låta handledaren själv utvärdera sitt eget arbete</li>
+            <li class=""><span class="bokstav">d</span>Mäta resultaten först efter fem år med stödet</li>
+          </ol>
+          <p class="forklaring">Lottas skolorna mellan stöd och inget stöd drabbas båda grupperna lika av den variation som bilagan beskriver, och skillnaden mellan dem visar effekten. Svaret d kan verka grundligt, men en längre väntan utan jämförelsegrupp löser inte problemet att svaga skolor ofta stiger ändå.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="verbexp-p16">
+      <header>
+        <p class="id">verbexp-p16</p>
+        <h3>Det egna ruttverktyget</h3>
+        <p class="meta">Argumentationsanalys · 110 ord · svårighet 3 · skriven 2026-10-12, parti 03</p>
+      </header>
+      <div class="brodtext">Ett logistikföretag har i två år byggt ett eget verktyg för ruttplanering. Projektet har hittills kostat 14 miljoner kronor och är försenat. En ny kalkyl visar att det behövs ytterligare 9 miljoner för att göra verktyget klart. En färdig tjänst med motsvarande funktioner går att hyra för 2 miljoner kronor om året, och avtalet kan sägas upp med kort varsel. Projektägaren vill ändå fortsätta. Han skriver till ledningen att det vore ett slöseri att kasta bort de 14 miljoner som redan har satsats, och att personalen har lagt ner för mycket arbete för att ge upp nu. Han lägger till att ett eget verktyg ger företaget kontroll över sina data.</div>
+      <ol class="fragelista">
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">1</span>Vilket påstående följer av uppgifterna i texten?</p>
+          <p class="etiketter"><span class="typ">Slutsats</span></p>
+          <ol class="alt">
+            <li class="ratt"><span class="bokstav">a</span>Slutförandet kostar mer än tre års hyra<span class="facit">Rätt</span></li>
+            <li class=""><span class="bokstav">b</span>Det egna verktyget blir billigare på sikt</li>
+            <li class=""><span class="bokstav">c</span>Projektet har kostat mer än vad som budgeterades</li>
+            <li class=""><span class="bokstav">d</span>Den hyrda tjänsten saknar viktiga funktioner</li>
+          </ol>
+          <p class="forklaring">Kalkylen säger 9 miljoner till för att bli klar, och hyran är 2 miljoner om året, alltså 6 miljoner på tre år. Alternativ c ligger nära eftersom texten säger att projektet är försenat, men den nämner ingen budget som har överskridits.</p>
+        </li>
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">2</span>Vilket felslut präglar projektägarens huvudskäl?</p>
+          <p class="etiketter"><span class="typ">Felslut</span></p>
+          <ol class="alt">
+            <li class=""><span class="bokstav">a</span>Han bygger sitt skäl på en enda kunds åsikt</li>
+            <li class="ratt"><span class="bokstav">b</span>Han låter redan gjorda utgifter styra valet<span class="facit">Rätt</span></li>
+            <li class=""><span class="bokstav">c</span>Han förväxlar ett samband i tid med en orsak</li>
+            <li class=""><span class="bokstav">d</span>Han hänvisar till sin egen ställning i bolaget</li>
+          </ol>
+          <p class="forklaring">Meningen om att det vore slöseri att kasta bort de 14 miljonerna avgör. De pengarna är borta vad ledningen än väljer, så de bör inte påverka beslutet framåt. Den som väljer d tänker på att han är projektägare, men han åberopar aldrig sin ställning som skäl.</p>
+        </li>
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">3</span>Vilket av följande försvagar projektägarens ståndpunkt mest?</p>
+          <p class="etiketter"><span class="typ">Försvaga</span></p>
+          <ol class="alt">
+            <li class=""><span class="bokstav">a</span>Personalen i projektet vill helst fortsätta arbetet själv</li>
+            <li class=""><span class="bokstav">b</span>Verktyget har fått goda omdömen i tidiga tester</li>
+            <li class="ratt"><span class="bokstav">c</span>Den hyrda tjänsten ger också full tillgång till data<span class="facit">Rätt</span></li>
+            <li class=""><span class="bokstav">d</span>Logistikbranschen växer snabbt i hela Norden</li>
+          </ol>
+          <p class="forklaring">Det enda skälet i texten som pekar framåt är den sista meningen om kontroll över data. Ger den hyrda tjänsten samma tillgång faller också det skälet. Alternativ a kan se ut som ett argument i frågan, men personalens vilja stöder snarast projektägaren och kan inte försvaga honom.</p>
+        </li>
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">4</span>Vilket antagande krävs för att en fortsättning ska vara det bättre valet?</p>
+          <p class="etiketter"><span class="typ">Antagande</span></p>
+          <ol class="alt">
+            <li class=""><span class="bokstav">a</span>Att de 14 miljonerna går att få tillbaka senare</li>
+            <li class=""><span class="bokstav">b</span>Att personalen har gjort ett gott arbete hittills</li>
+            <li class=""><span class="bokstav">c</span>Att förarna snabbt kan lära sig ett nytt verktyg</li>
+            <li class="ratt"><span class="bokstav">d</span>Att eget verktyg ger värden som hyran inte ger<span class="facit">Rätt</span></li>
+          </ol>
+          <p class="forklaring">Eftersom uppgifterna visar att det är billigare att hyra måste det egna verktyget ge något som täcker mellanskillnaden, till exempel den kontroll över data som nämns sist. Svar b lockar, men ett gott arbete hittills gör inte de återstående 9 miljonerna mer lönsamma.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="verbexp-p17">
+      <header>
+        <p class="id">verbexp-p17</p>
+        <h3>Den nya bedömningsmallen</h3>
+        <p class="meta">Argumentationsanalys · 115 ord · svårighet 3 · skriven 2026-10-12, parti 03</p>
+      </header>
+      <div class="brodtext">Inför lönerevisionen har HR-avdelningen tagit fram en ny mall för att bedöma medarbetarnas prestationer. Chefer som har använt mallen under våren är mycket nöjda, och personalchefen vill nu göra den obligatorisk i hela koncernen. I sitt förslag förklarar hon varför mallen är rättvis. De medarbetare som får höga poäng enligt mallen är de som presterar bäst, skriver hon. Och att det är just de som presterar bäst framgår av att de får höga poäng när mallen används. Hon tillägger att mallen har tagits fram i samråd med fackliga företrädare och att den tar kortare tid att fylla i än den gamla blanketten. Någon jämförelse med andra mått på prestation, som försäljning eller kundomdömen, redovisas inte.</div>
+      <ol class="fragelista">
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">1</span>Hur är personalchefens argument för att mallen är rättvis uppbyggt?</p>
+          <p class="etiketter"><span class="typ">Metod eller struktur</span></p>
+          <ol class="alt">
+            <li class=""><span class="bokstav">a</span>Det stöder sig på vad fackliga företrädare tycker</li>
+            <li class=""><span class="bokstav">b</span>Det drar en allmän slutsats ur vårens försök</li>
+            <li class="ratt"><span class="bokstav">c</span>Det använder mallen för att bevisa mallen<span class="facit">Rätt</span></li>
+            <li class=""><span class="bokstav">d</span>Det jämför mallen med den gamla blanketten</li>
+          </ol>
+          <p class="forklaring">De två meningarna i mitten avgör: höga poäng visar vilka som presterar bäst, och att de presterar bäst visas av de höga poängen. Mallen får alltså intyga sig själv. Alternativ a lockar eftersom facket nämns, men samrådet används inte som skäl för att mallen är rättvis.</p>
+        </li>
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">2</span>Vilket antagande gör personalchefen utan att pröva det?</p>
+          <p class="etiketter"><span class="typ">Antagande</span></p>
+          <ol class="alt">
+            <li class=""><span class="bokstav">a</span>Att cheferna har använt mallen på rätt sätt</li>
+            <li class=""><span class="bokstav">b</span>Att den gamla blanketten var orättvis</li>
+            <li class=""><span class="bokstav">c</span>Att facket godkänner den slutliga versionen av mallen</li>
+            <li class="ratt"><span class="bokstav">d</span>Att mallens poäng speglar verklig prestation<span class="facit">Rätt</span></li>
+          </ol>
+          <p class="forklaring">Hela förslaget förutsätter att poängen mäter hur bra någon faktiskt presterar, och den sista meningen visar att ingen har prövat det. Svar b kan verka underförstått, men personalchefen behöver inte anse att den gamla blanketten var orättvis för att påstå att den nya är rättvis.</p>
+        </li>
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">3</span>Vilket av följande skulle bäst ge mallen det stöd som saknas?</p>
+          <p class="etiketter"><span class="typ">Stärka</span></p>
+          <ol class="alt">
+            <li class=""><span class="bokstav">a</span>Fler chefer säger sig vara nöjda med mallen</li>
+            <li class="ratt"><span class="bokstav">b</span>Poängen stämmer med försäljning och kundomdömen<span class="facit">Rätt</span></li>
+            <li class=""><span class="bokstav">c</span>Mallen tar ännu kortare tid i nästa version</li>
+            <li class=""><span class="bokstav">d</span>Medarbetarna med höga poäng tycker att mallen är bra</li>
+          </ol>
+          <p class="forklaring">Den sista meningen pekar ut bristen: inget annat mått på prestation redovisas. Stämmer poängen med försäljning och kundomdömen får mallen stöd utifrån i stället för från sig själv. Den som väljer a får bara mer av samma slags stöd, alltså nöjda chefer, som redan finns.</p>
+        </li>
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">4</span>Vilken slutsats kan man dra av texten?</p>
+          <p class="etiketter"><span class="typ">Slutsats</span></p>
+          <ol class="alt">
+            <li class="ratt"><span class="bokstav">a</span>Det är inte visat att mallen mäter prestation<span class="facit">Rätt</span></li>
+            <li class=""><span class="bokstav">b</span>Mallen ger orättvisa bedömningar av medarbetarna</li>
+            <li class=""><span class="bokstav">c</span>Facket har godkänt att mallen blir obligatorisk</li>
+            <li class=""><span class="bokstav">d</span>Den gamla blanketten var mer rättvis än den nya</li>
+          </ol>
+          <p class="forklaring">Argumentet för rättvisan går runt i en cirkel, och enligt den sista meningen finns ingen jämförelse med andra mått, så frågan är öppen. Alternativ b går för långt åt andra hållet: att något inte är bevisat betyder inte att motsatsen är sann.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="verbexp-p18">
+      <header>
+        <p class="id">verbexp-p18</p>
+        <h3>Effektivast i regionen</h3>
+        <p class="meta">Argumentationsanalys · 101 ord · svårighet 3 · skriven 2026-10-12, parti 03</p>
+      </header>
+      <div class="brodtext">En enhet som handlägger ansökningar om bostadsbidrag har jämförts med regionens övriga enheter. Jämförelsen mäter effektivitet som kostnad per avgjort ärende, och enheten hamnade på första plats med lägst kostnad. Enhetschefen sammanfattar resultatet i ett nyhetsbrev till medarbetarna. Vi är regionens mest effektiva enhet, skriver hon. En effektiv handläggning är en handläggning som ger de sökande bästa möjliga service. Alltså är det hos oss som de sökande får bäst service i hela regionen. Hon föreslår att andra enheter ska studera enhetens arbetssätt. I samma jämförelse redovisas också att enheten har regionens högsta andel överklagade beslut och den längsta svarstiden i telefon.</div>
+      <ol class="fragelista">
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">1</span>Vilket felslut gör enhetschefen?</p>
+          <p class="etiketter"><span class="typ">Felslut</span></p>
+          <ol class="alt">
+            <li class=""><span class="bokstav">a</span>Hon generaliserar från en enda handläggare</li>
+            <li class="ratt"><span class="bokstav">b</span>Ordet effektiv byter betydelse på vägen<span class="facit">Rätt</span></li>
+            <li class=""><span class="bokstav">c</span>Hon hänvisar till en auktoritet utan sakkunskap</li>
+            <li class=""><span class="bokstav">d</span>Hon ser bara två möjliga förklaringar</li>
+          </ol>
+          <p class="forklaring">I jämförelsen betyder effektiv låg kostnad per ärende, men i meningen om bästa möjliga service betyder samma ord något helt annat. Slutsatsen bygger på att de två betydelserna blandas ihop. Alternativ c lockar eftersom en jämförelse åberopas, men den används för kostnaden och inte som en auktoritet.</p>
+        </li>
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">2</span>Vilket antagande krävs för att slutsatsen om servicen ska hålla?</p>
+          <p class="etiketter"><span class="typ">Antagande</span></p>
+          <ol class="alt">
+            <li class="ratt"><span class="bokstav">a</span>Att låg kostnad per ärende ger bättre service<span class="facit">Rätt</span></li>
+            <li class=""><span class="bokstav">b</span>Att de andra enheterna har fler ansökningar</li>
+            <li class=""><span class="bokstav">c</span>Att jämförelsen har gjorts av en oberoende part</li>
+            <li class=""><span class="bokstav">d</span>Att de sökande vet vilken enhet de tillhör</li>
+          </ol>
+          <p class="forklaring">För att kliva från lägst kostnad till bäst service måste låg kostnad i sig leda till bättre service, och det säger texten ingenting om. Svar c kan låta viktigt, men även en helt oberoende jämförelse mätte bara kostnad och inte service.</p>
+        </li>
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">3</span>Vilken slutsats stöds av uppgifterna i jämförelsen?</p>
+          <p class="etiketter"><span class="typ">Slutsats</span></p>
+          <ol class="alt">
+            <li class=""><span class="bokstav">a</span>Enheten ger de sökande bäst service i regionen</li>
+            <li class=""><span class="bokstav">b</span>Andra enheter borde arbeta på samma sätt</li>
+            <li class=""><span class="bokstav">c</span>Enheten har för få anställda för sitt uppdrag</li>
+            <li class="ratt"><span class="bokstav">d</span>Enheten har lägst kostnad per avgjort ärende<span class="facit">Rätt</span></li>
+          </ol>
+          <p class="forklaring">Jämförelsen mäter bara kostnad per avgjort ärende, och där kom enheten först, så det är vad uppgifterna bär. Den som väljer c läser in något i svarstiderna, men texten säger ingenting om bemanningen och svarstiden kan ha andra orsaker.</p>
+        </li>
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">4</span>Vilken uppgift i texten försvagar enhetschefens slutsats mest?</p>
+          <p class="etiketter"><span class="typ">Försvaga</span></p>
+          <ol class="alt">
+            <li class=""><span class="bokstav">a</span>Att hon föreslår att andra enheter studerar dem</li>
+            <li class=""><span class="bokstav">b</span>Att jämförelsen bara gäller den egna regionen</li>
+            <li class="ratt"><span class="bokstav">c</span>Att enheten har flest överklagade beslut<span class="facit">Rätt</span></li>
+            <li class=""><span class="bokstav">d</span>Att nyhetsbrevet riktar sig till medarbetarna</li>
+          </ol>
+          <p class="forklaring">Den sista meningen avgör: regionens högsta andel överklagade beslut och längst svarstid talar emot att de sökande får bäst service. Alternativ b kan verka som en invändning, men chefen påstår bara att enheten är bäst i regionen, så avgränsningen motsäger henne inte.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="verbexp-p19">
+      <header>
+        <p class="id">verbexp-p19</p>
+        <h3>De fem bästa konsulterna</h3>
+        <p class="meta">Argumentationsanalys · 116 ord · svårighet 3 · skriven 2026-10-12, parti 03</p>
+      </header>
+      <div class="brodtext">Ett konsultbolag ska bemanna ett stort och tidspressat uppdrag åt en bank. Uppdragsansvarig föreslår att teamet ska bestå av de fem konsulter som fick högst individuella betyg i förra årets utvärdering. Varje person är den bästa i sin roll, skriver hon, och därför blir detta det starkaste team som bolaget kan ställa upp. Två av de fem har tidigare lett egna uppdrag och är vana att fatta besluten själva. Ingen av dem har arbetat tillsammans med någon av de andra fyra. Den individuella utvärderingen mäter hur väl konsulten löser sina egna uppgifter, men inte hur väl konsulten samarbetar. I förra årets största uppdrag var det ett team med blandade betyg som fick bäst omdöme av kunden.</div>
+      <ol class="fragelista">
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">1</span>Vilket antagande vilar förslaget på?</p>
+          <p class="etiketter"><span class="typ">Antagande</span></p>
+          <ol class="alt">
+            <li class=""><span class="bokstav">a</span>Att banken kräver erfarna konsulter i teamet</li>
+            <li class=""><span class="bokstav">b</span>Att kunden har valt bolaget för dess pris</li>
+            <li class=""><span class="bokstav">c</span>Att utvärderingen gjordes av samma chefer</li>
+            <li class="ratt"><span class="bokstav">d</span>Att goda individer också blir ett gott team<span class="facit">Rätt</span></li>
+          </ol>
+          <p class="forklaring">Ordet därför i den tredje meningen visar steget: eftersom var och en är bäst blir helheten bäst. Det håller bara om goda individer också fungerar bra tillsammans. Alternativ a kan låta rimligt för ett stort uppdrag, men förslaget kräver inte att banken ställer något sådant krav.</p>
+        </li>
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">2</span>Vilket felslut gör uppdragsansvarig?</p>
+          <p class="etiketter"><span class="typ">Felslut</span></p>
+          <ol class="alt">
+            <li class=""><span class="bokstav">a</span>Hon tar ett samband i tid för ett orsakssamband</li>
+            <li class="ratt"><span class="bokstav">b</span>Hon tror att delarnas styrka blir helhetens<span class="facit">Rätt</span></li>
+            <li class=""><span class="bokstav">c</span>Hon avfärdar ett förslag genom att förvränga det</li>
+            <li class=""><span class="bokstav">d</span>Hon låter en enda kunds omdöme avgöra frågan</li>
+          </ol>
+          <p class="forklaring">Hon går från att varje person är bäst i sin roll till att teamet blir bäst, alltså från delarna till helheten. Svar d lockar eftersom ett kundomdöme nämns, men det är en uppgift som talar emot henne och inget hon själv bygger på.</p>
+        </li>
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">3</span>Vilken uppgift i texten försvagar förslaget mest?</p>
+          <p class="etiketter"><span class="typ">Försvaga</span></p>
+          <ol class="alt">
+            <li class="ratt"><span class="bokstav">a</span>Utvärderingen mäter inte samarbete<span class="facit">Rätt</span></li>
+            <li class=""><span class="bokstav">b</span>Uppdraget är både stort och tidspressat</li>
+            <li class=""><span class="bokstav">c</span>Två av konsulterna har lett egna uppdrag</li>
+            <li class=""><span class="bokstav">d</span>Uppdragsansvarig valde ut de fem själv</li>
+          </ol>
+          <p class="forklaring">Meningen om att den individuella utvärderingen inte mäter samarbete slår mot själva grunden, eftersom betygen inte säger något om hur de fem fungerar ihop. Alternativ c är också en varningsflagga, men att två är vana att bestämma själva är en möjlig friktion och inget som rubbar hela underlaget.</p>
+        </li>
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">4</span>Vilket tillägg skulle stärka förslaget mest?</p>
+          <p class="etiketter"><span class="typ">Stärka</span></p>
+          <ol class="alt">
+            <li class=""><span class="bokstav">a</span>De fem har högre lön än bolagets genomsnitt</li>
+            <li class=""><span class="bokstav">b</span>Banken har bett om de mest erfarna konsulterna</li>
+            <li class="ratt"><span class="bokstav">c</span>Konsulter med höga betyg samarbetar oftast väl<span class="facit">Rätt</span></li>
+            <li class=""><span class="bokstav">d</span>Uppdraget ska slutföras före årsskiftet</li>
+          </ol>
+          <p class="forklaring">Förslagets svaga punkt är steget från goda individer till ett gott team, och en uppgift om att högt betygsatta konsulter oftast samarbetar väl fyller just den luckan. Den som väljer b får en önskan från banken, men den säger inget om hur teamet kommer att fungera.</p>
+        </li>
+      </ol>
+    </article>
+    <article class="text" id="verbexp-p20">
+      <header>
+        <p class="id">verbexp-p20</p>
+        <h3>Leverantörens förseningar</h3>
+        <p class="meta">Argumentationsanalys · 112 ord · svårighet 3 · skriven 2026-10-12, parti 03</p>
+      </header>
+      <div class="brodtext">Inköpschefen i ett byggföretag vill säga upp avtalet med en av de största leverantörerna av armeringsjärn. Hon resonerar så här i ett mejl till ledningen. Leverantörer som hamnar i ekonomisk kris börjar nästan alltid försena sina leveranser, eftersom de inte längre har råd att hålla lager. Vår leverantör har försenat tre leveranser under det senaste kvartalet. Alltså är leverantören på väg in i en ekonomisk kris, och vi bör byta innan den går i konkurs. Hon tillägger att en konkurs mitt i ett pågående projekt skulle bli mycket dyr. Hon nämner inte att hamnen där leverantören tar emot sitt stål var stängd i två veckor under kvartalet på grund av en strejk.</div>
+      <ol class="fragelista">
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">1</span>Hur är inköpschefens resonemang uppbyggt?</p>
+          <p class="etiketter"><span class="typ">Metod eller struktur</span></p>
+          <ol class="alt">
+            <li class="ratt"><span class="bokstav">a</span>Hon går från en följd tillbaka till en enda orsak<span class="facit">Rätt</span></li>
+            <li class=""><span class="bokstav">b</span>Hon prövar flera orsaker och väljer den troligaste</li>
+            <li class=""><span class="bokstav">c</span>Hon bygger på en expert som har granskat bolaget</li>
+            <li class=""><span class="bokstav">d</span>Hon jämför leverantören med andra leverantörer</li>
+          </ol>
+          <p class="forklaring">Regeln i texten säger att kris leder till förseningar. Hon ser förseningar och sluter sig till kris, alltså går hon baklänges från följden till en av flera möjliga orsaker. Alternativ b lockar eftersom det låter som noggrann analys, men hon prövar aldrig någon annan förklaring.</p>
+        </li>
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">2</span>Vilken slutsats följer av inköpschefens premisser?</p>
+          <p class="etiketter"><span class="typ">Slutsats</span></p>
+          <ol class="alt">
+            <li class=""><span class="bokstav">a</span>Leverantören kommer att gå i konkurs i år</li>
+            <li class=""><span class="bokstav">b</span>Leverantören är på väg in i en ekonomisk kris</li>
+            <li class="ratt"><span class="bokstav">c</span>Förseningar kan vara ett tecken på kris<span class="facit">Rätt</span></li>
+            <li class=""><span class="bokstav">d</span>Strejken orsakade alla tre förseningarna</li>
+          </ol>
+          <p class="forklaring">Meningen om att leverantörer i kris nästan alltid försenar sina leveranser gör förseningar till ett möjligt tecken, inget mer. Svar b är hennes egen slutsats och lockar därför, men förseningar kan ha andra orsaker och då följer krisen inte.</p>
+        </li>
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">3</span>Vilken uppgift skulle försvaga slutsatsen mest?</p>
+          <p class="etiketter"><span class="typ">Försvaga</span></p>
+          <ol class="alt">
+            <li class=""><span class="bokstav">a</span>Leverantören har höjt sina priser i år</li>
+            <li class="ratt"><span class="bokstav">b</span>Alla tre förseningarna inföll under strejken<span class="facit">Rätt</span></li>
+            <li class=""><span class="bokstav">c</span>Byggföretaget köper mer stål än förra året</li>
+            <li class=""><span class="bokstav">d</span>Leverantören har bytt vd under kvartalet</li>
+          </ol>
+          <p class="forklaring">Den sista meningen nämner strejken i hamnen men inte när förseningarna inträffade. Föll alla tre inom de två veckorna finns en annan förklaring som räcker, och då saknar krisen stöd. Alternativ d kan väcka misstankar, men ett vd-byte säger ingenting om varför leveranserna blev sena.</p>
+        </li>
+        <li class="fraga">
+          <p class="fraga-text"><span class="nr">4</span>Vilket antagande behöver inköpschefen för att slutsatsen om en kris ska hålla?</p>
+          <p class="etiketter"><span class="typ">Antagande</span></p>
+          <ol class="alt">
+            <li class=""><span class="bokstav">a</span>Att leverantören inte har några andra kunder</li>
+            <li class=""><span class="bokstav">b</span>Att ett byte av leverantör går att göra snabbt</li>
+            <li class=""><span class="bokstav">c</span>Att armeringsjärn är dyrare än förra året</li>
+            <li class="ratt"><span class="bokstav">d</span>Att inget annat förklarar förseningarna<span class="facit">Rätt</span></li>
+          </ol>
+          <p class="forklaring">Eftersom förseningar kan ha många orsaker krävs att inget annat, som strejken i hamnen, förklarar dem. Den som väljer b blandar ihop två saker: det antagandet gäller rådet att byta leverantör och inte frågan om leverantören är på väg in i en kris.</p>
+        </li>
+      </ol>
+    </article>
+</main>
+</body>
+</html>

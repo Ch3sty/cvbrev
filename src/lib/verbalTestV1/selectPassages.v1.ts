@@ -14,6 +14,8 @@ import type { Question } from './types.v1';
 export const POOL = questionBank as Question[];
 /** Version 2 (src/lib/tester/underlagVersion.ts): de frysta texterna plus parti 02. */
 export const POOL_V2 = [...POOL, ...(parti02 as unknown as Question[])];
+/** Version 3: grund har inget parti 03, så samma som version 2. */
+export const POOL_V3 = POOL_V2;
 
 // Antal passager som dras per session. Hålls konstant så maxpoäng inte
 // varierar med bankens storlek (4 påståenden × PASSAGES_PER_SESSION).
@@ -49,7 +51,7 @@ export function selectPassagesForSession(
   count: number = PASSAGES_PER_SESSION,
   version: UnderlagVersion = 1
 ): Question[] {
-  const shuffled = [...(version === 2 ? POOL_V2 : POOL)];
+  const shuffled = [...(version === 3 ? POOL_V3 : version === 2 ? POOL_V2 : POOL)];
   const rng = mulberry32(hashString(sessionId));
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(rng() * (i + 1));

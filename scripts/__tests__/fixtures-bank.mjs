@@ -80,3 +80,41 @@ export function numerisk() {
     ],
   }];
 }
+
+// Expertformatet (argumentationsanalys): två underlag om 100 ord, fyra frågor
+// av fyra typer, rätt bokstav a, b, c, d i varje underlag och det rätta
+// alternativet aldrig längst.
+export function verbalExpert() {
+  const underlag = (nr, amne) => {
+    const pid = `verbexp-p9${nr}`;
+    const fraga = (n, typ, questionText, ratt, alternativ, explanation) => ({
+      id: `${pid}-q0${n}`, passageId: pid, questionNumber: n, questionText, difficulty: 3, typ,
+      options: alternativ.map((text, i) => ({ id: 'abcd'[i], text, isCorrect: 'abcd'[i] === ratt })),
+      correctAnswerId: ratt, explanation,
+    });
+    return {
+      id: pid, title: `Fixtur ${amne}`, type: 'word_problem', topic: 'Argumentationsanalys', difficulty: 3,
+      contextText: `${meningar(amne, 9)} Chefen drar därför slutsatsen att ordningen ska gälla överallt.`,
+      p_prior: 0.45, kalla: 'fixtur',
+      questions: [
+        fraga(1, 'felslut', 'Vilket felslut begår chefen?', 'a', ['Ett fall får stå för alla', 'Hon angriper personen bakom kritiken', 'Hon hänvisar till en känd expert', 'Hon målar upp bara två vägar framåt'],
+          'Meningen om att ordningen ska gälla överallt avgör, eftersom slutsatsen vilar på ett enda fall. Alternativ b lockar men ingen person angrips i texten.'),
+        fraga(2, 'antagande', 'Vilket antagande krävs för slutsatsen?', 'b', ['Att ordningen redan gäller överallt', 'Att fallet liknar de andra', 'Att chefen har lång erfarenhet av frågan', 'Att kritikerna saknar egna förslag'],
+          'Slutsatsen kräver att det beskrivna fallet liknar resten av verksamheten. Alternativ a stämmer inte, eftersom texten säger att ordningen ännu inte gäller överallt.'),
+        fraga(3, 'försvaga', 'Vad försvagar slutsatsen mest?', 'c', ['Att chefen är ny på sin post i år', 'Att ordningen har ett bra namn', 'Att andra delar arbetar helt olika', 'Att många gillar den nuvarande ordningen'],
+          'Om andra delar arbetar helt olika går fallet inte att föra över, vilket träffar slutsatsen. Alternativ a handlar om chefen som person och rör inte resonemanget alls.'),
+        fraga(4, 'slutsats', 'Vilken slutsats följer av texten?', 'd', ['Ordningen fungerar överallt i landet', 'Kritikerna har fel i sak om ordningen', 'Chefen har prövat ordningen själv i år', 'Ordningen beskrivs i ett fall'],
+          'Texten beskriver ordningen i ett enda fall och mer än så följer inte. Alternativ a går längre än texten, som aldrig visar hur det fungerar på andra platser.'),
+      ],
+    };
+  };
+  const andra = underlag(1, 'taxan');
+  // Byt plats så att rätt bokstav blir d, c, b, a i det andra underlaget.
+  andra.questions = andra.questions.map((q) => {
+    const omv = { a: 'd', b: 'c', c: 'b', d: 'a' };
+    const options = [...q.options].reverse().map((o, i) => ({ ...o, id: 'abcd'[i] }));
+    const explanation = q.explanation.replace(/Alternativ ([a-d])/, (_, x) => `Alternativ ${omv[x]}`);
+    return { ...q, options, correctAnswerId: omv[q.correctAnswerId], explanation };
+  });
+  return [underlag(0, 'schemat'), andra];
+}

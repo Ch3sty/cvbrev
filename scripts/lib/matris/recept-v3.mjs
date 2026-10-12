@@ -64,12 +64,17 @@ export const STRUKNA = new Set(beslutFiler.flatMap((f) => (lasBeslut(f).strukna 
 export const GODKANDA = new Set(beslutFiler.flatMap((f) => lasBeslut(f).godkanda ?? []).filter((id) => !STRUKNA.has(id)));
 const ejStrukna = (r) => !STRUKNA.has(r.id);
 
+// Alla recept med löpnummer, strukna inräknade: bank 3.1 läser de strukna
+// recepten härifrån och bygger om dem under nya löpnummer.
+const ALLA_RECEPT = new Map();
 function lista(prefix, rader) {
   const raknare = {};
-  return rader.map(([familj, byggare, p, difficulty, recept, p_prior]) => {
+  const alla = rader.map(([familj, byggare, p, difficulty, recept, p_prior]) => {
     raknare[familj] = (raknare[familj] ?? 0) + 1;
     return { id: `${prefix}-${KORT[familj]}-${String(raknare[familj]).padStart(2, '0')}`, familj, byggare, p: { ...p, family: familj }, difficulty, recept, p_prior, v3: true };
-  }).filter(ejStrukna);
+  });
+  alla.forEach((r) => ALLA_RECEPT.set(r.id, r));
+  return alla.filter(ejStrukna);
 }
 
 const upprepa = (n, f) => Array.from({ length: n }, (_, i) => f(i));
@@ -199,7 +204,7 @@ export const AVANCERAD_V3 = lista('v7a-v3', [
 // P6 och P8 är band plus; en överlagring ersätter over-07 och en spegling
 // fyller volymen (planen 5.5, fyllnad ur samma byggare).
 const plusFalt = { difficulty: 4, band: 'plus', p_prior: 0.3 };
-export const EXPERT_V3 = [
+const EXPERT_V3_ALLA = [
   { id: 'v7e-v3-over-01', familj: 'overlagring', byggare: 'overlagring', p: { format: 'tile', op: 'xor', axel: 'kolumn' }, difficulty: 4, recept: 'overlagring', p_prior: 0.45, v3: true },
   { id: 'v7e-v3-speg-01', familj: 'spegling', byggare: 'spegling', p: { format: 'tile', m1: 'A', m2: 'D', axel: 'rad' }, difficulty: 4, recept: 'spegling', p_prior: 0.45, v3: true },
   // P6: fyllningen i schackmönster. På diagonalen blir den en funktion av ett
@@ -220,7 +225,9 @@ export const EXPERT_V3 = [
   ...upprepa(8, (i) => ({ id: `v7e-v3-over-${String(i + 4).padStart(2, '0')}`, familj: 'overlagring', byggare: 'dubbelOverlagring', p: { format: i % 2 ? 'ray' : 'sektor', v3: true }, difficulty: 4, recept: 'overlagring-dubbel', p_prior: 0.45, v3: true })),
   ...[['tile', 'xor', 'rad'], ['sektor', 'diff-ab', 'kolumn'], ['ray', 'xor', 'rad'], ['tile', 'snitt', 'kolumn']].map(([format, op, axel], i) => ({ id: `v7e-v3-over-${String(i + 12).padStart(2, '0')}`, familj: 'overlagring', byggare: 'overlagring', p: { format, op, axel }, difficulty: 4, recept: 'overlagring', p_prior: 0.45, v3: true })),
   ...[['tile', 'H', 'A', 'kolumn'], ['tile', 'D', 'V', 'rad'], ['sektor', 'H', 'V', 'rad'], ['sektor', 'V', 'H', 'kolumn']].map(([format, m1, m2, axel], i) => ({ id: `v7e-v3-speg-${String(i + 2).padStart(2, '0')}`, familj: 'spegling', byggare: 'spegling', p: { format, m1, m2, axel }, difficulty: 4, recept: 'spegling', p_prior: 0.45, v3: true })),
-].filter(ejStrukna);
+];
+EXPERT_V3_ALLA.forEach((r) => ALLA_RECEPT.set(r.id, r));
+export const EXPERT_V3 = EXPERT_V3_ALLA.filter(ejStrukna);
 
 const K = 'src/lib/logicTestV7/kandidater';
 export const V3_KANDIDATER = {
@@ -228,3 +235,51 @@ export const V3_KANDIDATER = {
   avancerad: { recept: AVANCERAD_V3, ut: `${K}/avancerad-v3-parti-01.v7.json` },
   expert: { recept: EXPERT_V3, ut: `${K}/expert-v3-parti-01.v7.json` },
 };
+
+// ---------------------------------------------------------------- bank 3.1
+// De 15 strukna i omgång 2 (beslut-omgang2.json, granskning-omgang2.md,
+// beställningen omgång 2 C1). Varje ersättare tar den strukna frågans
+// recept under ett nytt löpnummer och får fran_version: 4.
+//
+//   M2-pil-tre och M3-balans-sida: samma rutnät (seed = det strukna id:t,
+//     försöket låst till det som gav rutnätet), alternativen byggs om med en
+//     nära miss per regel och två som bryter alla regler, så att facit inte
+//     går att rösta fram (S11, röstningen).
+//   over-15: samma rutnät, och facit är inte ensamt om sitt antal fyllda
+//     rutor (en annan enskild ruta i stället för facit plus en ruta).
+//   over-02, plus-over-18 och -20: samma rutnät, nya alternativ utan facit
+//     som centrum (S11 för mängder, fel på expert).
+//   Grund vand-03, vand-13 och antal-05: samma recept, nytt rutnät (seed =
+//     det nya id:t) utan delade rader mot frågorna i samma recept.
+//
+// forsokFran: det första försöket (rng(`${seed}#${n}`)) som ger den
+// strukna frågans rutnät, uppmätt mot kandidatfilerna i 773480d3.
+import { PLUS } from './recept-plus.mjs';
+const ALLA_PLUS = new Map(PLUS.map((r) => [r.id, r]));
+const ersatt = (gammalt, nyttId, extra = {}) => {
+  const rc = ALLA_RECEPT.get(gammalt) ?? ALLA_PLUS.get(gammalt);
+  if (!rc) throw new Error(`bank 3.1: inget recept för ${gammalt}`);
+  return { ...rc, id: nyttId, ersatter: gammalt, fran_version: 4, ...extra };
+};
+const sammaRutnat = (gammalt, n) => ({ seed: gammalt, forsokFran: n, forsok: n + 1 });
+// En nära miss per regel och två som bryter alla, med olika fel i rörelsen.
+const PIL_TRE = { sammansattning: { olikaFel: ['vinkel'] } };
+// Sidan är en regel för båda formerna: nära missen byter sida på båda.
+const BALANS_TRE = { sammansattning: { grupper: [['pos-square'], ['pos-circle'], ['sida-square', 'sida-circle']], olikaFel: ['pos-square', 'pos-circle'], helGrupp: true } };
+export const BANK_3_1 = [
+  ...[12, 13, 14, 15, 16, 17].map((n) => ersatt(`v7a-v3-byte-${n}`, `v7a-v3-byte-${n + 6}`, { ...sammaRutnat(`v7a-v3-byte-${n}`, 0), ...PIL_TRE })),
+  ersatt('v7a-v3-tva-05', 'v7a-v3-tva-07', { ...sammaRutnat('v7a-v3-tva-05', 0), ...BALANS_TRE }),
+  ersatt('v7a-v3-tva-06', 'v7a-v3-tva-08', { ...sammaRutnat('v7a-v3-tva-06', 0), ...BALANS_TRE }),
+  ersatt('v7e-v3-over-15', 'v7e-v3-over-16', { ...sammaRutnat('v7e-v3-over-15', 0), ingenUnikStorlek: true, p: { ...ALLA_RECEPT.get('v7e-v3-over-15').p, flytta: true } }),
+  ersatt('v7e-v3-over-02', 'v7e-v3-over-17', { ...sammaRutnat('v7e-v3-over-02', 0), ingenUnikStorlek: true }),
+  // Plus: recept och p_prior som vid befordran av parti 01 (P4 0,35).
+  ersatt('v7e-plus-over-18', 'v7e-plus-over-21', { ...sammaRutnat('v7e-plus-over-18', 0), recept: 'P4', p_prior: 0.35, v3: true, ingenUnikStorlek: true }),
+  ersatt('v7e-plus-over-20', 'v7e-plus-over-22', { ...sammaRutnat('v7e-plus-over-20', 5), recept: 'P4', p_prior: 0.35, v3: true, ingenUnikStorlek: true }),
+  ersatt('v7g-v3-vand-03', 'v7g-v3-vand-15'),
+  ersatt('v7g-v3-vand-13', 'v7g-v3-vand-16'),
+  // antal-05 med konstant riktning går inte att bygga om: med 1 till 4 streck
+  // finns åtta rutnät, och vart och ett delar två rader med antal-03 eller
+  // antal-04. Ersättaren har riktningen på diagonalen (som på avancerad).
+  ersatt('v7g-v3-antal-05', 'v7g-v3-antal-06', { p: { ...ALLA_RECEPT.get('v7g-v3-antal-05').p, riktning: 'diagonal' } }),
+];
+export const UT_3_1 = `${K}/bank-3-1.v7.json`;

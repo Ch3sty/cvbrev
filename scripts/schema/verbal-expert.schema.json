@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jobbcoach.ai/schema/verbal-expert.schema.json",
+  "title": "Verbal expert, argumentationsanalys",
+  "description": "Ett underlag med fyra flervalsfrågor om fyra alternativ, samma form som verbalTestExpert/questionBank.json plus frivilliga fält. Dokumentation: valideringen görs i scripts/validate-verbal-bank.mjs --niva=expert (regel 1 till 9).",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "title", "type", "topic", "difficulty", "contextText", "questions"],
+    "properties": {
+      "id": { "type": "string", "pattern": "^verbexp-p\\d{2}$" },
+      "title": { "type": "string" },
+      "type": { "const": "word_problem" },
+      "topic": { "const": "Argumentationsanalys" },
+      "difficulty": { "type": "integer", "minimum": 1, "maximum": 3 },
+      "contextText": { "type": "string", "description": "90 till 170 ord: ett resonemang med slutsats, skäl och en dold svaghet" },
+      "questions": {
+        "type": "array",
+        "minItems": 4,
+        "maxItems": 4,
+        "items": {
+          "type": "object",
+          "required": ["id", "questionText", "options", "correctAnswerId", "explanation"],
+          "properties": {
+            "id": { "type": "string", "pattern": "^verbexp-p\\d{2}-q0[1-4]$", "description": "underlagets id plus -q01 till -q04 i ordning" },
+            "passageId": { "type": "string", "description": "samma som underlagets id" },
+            "questionNumber": { "type": "integer", "minimum": 1, "maximum": 4 },
+            "questionText": { "type": "string" },
+            "difficulty": { "type": "integer", "minimum": 1, "maximum": 3 },
+            "typ": {
+              "enum": ["felslut", "antagande", "försvaga", "stärka", "slutsats", "metod", "struktur"],
+              "description": "frivilligt; minst tre olika per underlag, metod och struktur räknas som en. Utan typ gissas den ur frågetexten."
+            },
+            "options": {
+              "type": "array",
+              "minItems": 4,
+              "maxItems": 4,
+              "description": "olika texter, inget alternativ mer än dubbelt så långt som det kortaste, exakt ett isCorrect",
+              "items": {
+                "type": "object",
+                "required": ["id", "text", "isCorrect"],
+                "properties": {
+                  "id": { "enum": ["a", "b", "c", "d"] },
+                  "text": { "type": "string" },
+                  "isCorrect": { "type": "boolean" }
+                }
+              }
+            },
+            "correctAnswerId": { "enum": ["a", "b", "c", "d"], "description": "samma som alternativet med isCorrect" },
+            "explanation": { "type": "string", "description": "minst 15 ord; säger vilken mening som avgör och varför minst ett fel alternativ inte håller" }
+          }
+        }
+      },
+      "kalla": { "type": "string" },
+      "p_prior": { "type": "number", "minimum": 0.05, "maximum": 0.95 }
+    }
+  }
+}

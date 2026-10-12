@@ -22,6 +22,8 @@ import { bankVersion, medBankversion, type BankVersion } from '@/lib/logicTestV7
 import { hamtaUndantag, uteslut, type Undantag } from '@/lib/admin/undantag'
 import { hittaTraningsfraga, familjFor } from '@/lib/traning/bank.server'
 import { TRANINGS_TEST_TYPER } from '@/lib/traning/tillgang'
+import { VN_PASS_TEST_TYPER, kindForTestTyp } from '@/lib/tester/pass-typer'
+import { lasTraningsmeta } from '@/lib/traning/historik'
 import type { SessionRad } from '@/lib/traning/historik'
 import { byggFordelning, type Fordelning } from './fordelning'
 import { KLASSISKA, type KlassisktTest } from './katalog'
@@ -125,22 +127,30 @@ export async function hamtaVarDuStar(admin: Klient, userId: string, tester: read
 }
 
 /** Logikens familjer och tempot ur motorns sessioner (de senaste 200). */
-export async function hamtaMotordata(admin: Klient, userId: string): Promise<Pick<DinUtvecklingData, 'familjer' | 'tempo'>> {
+export async function hamtaMotordata(admin: Klient, userId: string): Promise<Pick<DinUtvecklingData, 'familjer' | 'tempo' | 'passPerTyp'>> {
   const { data, error } = await admin
     .from('logic_test_v4_sessions')
     .select('id, test_type, meta, answers, created_at, completed_at')
     .eq('user_id', userId)
-    .in('test_type', [...TRANINGS_TEST_TYPER])
+    .in('test_type', [...TRANINGS_TEST_TYPER, ...VN_PASS_TEST_TYPER])
     .not('completed_at', 'is', null)
     .order('completed_at', { ascending: false })
-    .limit(200)
+    .limit(400)
   if (error) throw error
-  const rader = (data ?? []) as SessionRad[]
-  if (rader.length === 0) return { familjer: null, tempo: null }
+  const alla = (data ?? []) as SessionRad[]
+  // Pass per testtyp (beställning omgång 2, B3); text- och sifferpassen hålls annars utanför matrisens räkning.
+  const passPerTyp = { matris: 0, verbal: 0, numerisk: 0 }
+  for (const r of alla) {
+    const kind = kindForTestTyp(r.test_type)
+    if (kind) passPerTyp[kind] += 1
+    else if (['pass', 'riktat'].includes(lasTraningsmeta(r.meta)?.typ ?? '')) passPerTyp.matris += 1
+  }
+  const rader = alla.filter((r) => !kindForTestTyp(r.test_type))
+  if (rader.length === 0) return { familjer: null, tempo: null, passPerTyp }
   const familjer = byggFamiljer(rader, (id) => {
     const q = hittaTraningsfraga(id)
     return q ? familjFor(q) : null
   })
-  return { familjer: familjer.length ? familjer : null, tempo: byggTempo(rader) }
+  return { familjer: familjer.length ? familjer : null, tempo: byggTempo(rader), passPerTyp }
 }
 

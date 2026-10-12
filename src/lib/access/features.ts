@@ -21,6 +21,8 @@ export type Feature =
   | 'cv_analysis_full'
   | 'letter_download'
   | 'tests_above_base'
+  /** Text- och sifferpassen (beställning omgång 2, B3): samma scope som tests_above_base. */
+  | 'test_daily_pass'
   | 'test_exam_mode'
   | 'test_history'
   | 'chat_unlimited'
@@ -42,6 +44,7 @@ export const FEATURES: Record<Feature, readonly Scope[]> = {
   cv_analysis_full: ['cv', 'allt'],
   letter_download: ['cv', 'allt'],
   tests_above_base: ['tester', 'allt'],
+  test_daily_pass: ['tester', 'allt'],
   test_exam_mode: ['tester', 'allt'],
   test_history: ['tester', 'allt'],
   chat_unlimited: ['allt'],

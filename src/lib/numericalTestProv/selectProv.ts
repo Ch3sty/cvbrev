@@ -7,12 +7,27 @@ import bankV1 from '@/lib/numericalTest/questionBank.json';
 import bankV2 from '@/lib/numericalTestV2/questionBank.json';
 import bankExpert from '@/lib/numericalTestExpert/questionBank.json';
 import type { Passage } from '@/lib/numericalTest/types';
+import { getAllPassages as grundAlla } from '@/lib/numericalTest/validator';
+import { getAllPassages as avanceradAlla } from '@/lib/numericalTestV2/validator';
+import type { UnderlagVersion } from '@/lib/tester/underlagVersion';
 import { blandaPassagernasAlternativ } from '@/lib/numericalTest/blandaAlternativ';
 
 export const POOL_V1 = bankV1 as unknown as Passage[];
 export const POOL_V2 = bankV2 as unknown as Passage[];
 export const POOL_EXPERT = bankExpert as unknown as Passage[];
-export const PROV_MERGED_BANK: Passage[] = [...POOL_V1, ...POOL_V2, ...POOL_EXPERT];
+/**
+ * Provets pool per nivå och underlagsversion (src/lib/tester/underlagVersion.ts).
+ * Provet läste bara de frysta bankerna i version 1 och 2; version 3 drar ur
+ * bankerna plus parti 02 och parti 03. Expert har inget nytt parti.
+ */
+export function poolFor(niva: 'grund' | 'avancerad' | 'expert', version: UnderlagVersion = 1): Passage[] {
+  if (niva === 'expert') return POOL_EXPERT;
+  if (version === 3) return niva === 'grund' ? grundAlla(3) : (avanceradAlla(3) as unknown as Passage[]);
+  return niva === 'grund' ? POOL_V1 : POOL_V2;
+}
+
+/** Alla underlag i alla versioner, för uppslag av facit per passage-id. */
+export const PROV_MERGED_BANK: Passage[] = [...grundAlla(3), ...(avanceradAlla(3) as unknown as Passage[]), ...POOL_EXPERT];
 
 // Provet mixar alla tre nivåer: 3 grund + 3 avancerad + 3 expert = 9 passager (36 frågor).
 export const PROV_PER_LEVEL = 3;
@@ -48,12 +63,12 @@ function shuffle<T>(arr: T[], rng: () => number): T[] {
   return out;
 }
 
-export function selectProvPassagesForSession(sessionId: string): Passage[] {
+export function selectProvPassagesForSession(sessionId: string, version: UnderlagVersion = 1): Passage[] {
   const pickRng = mulberry32(hashString(sessionId));
   const pick = (pool: Passage[]) =>
     shuffle(pool, pickRng).slice(0, Math.min(PROV_PER_LEVEL, pool.length));
 
-  const selected = [...pick(POOL_V1), ...pick(POOL_V2), ...pick(POOL_EXPERT)];
+  const selected = [...pick(poolFor('grund', version)), ...pick(poolFor('avancerad', version)), ...pick(poolFor('expert', version))];
   const orderRng = mulberry32(hashString(sessionId + ':order'));
   // Alternativen blandas per session och fråga; svaren lagras som id.
   return blandaPassagernasAlternativ(shuffle(selected, orderRng), sessionId);

@@ -103,3 +103,31 @@ describe('PassFlode', () => {
     expect(screen.getByRole('heading', { level: 1 }).textContent).toMatch(/^9 av 9 rätt\./)
   })
 })
+
+describe('passets rubrik (beställning omgång 2, C4)', () => {
+  const rubrik = () => document.querySelector('[data-pass-shell] header p span')?.textContent ?? ''
+
+  it('rubriken är passets tema och densamma på fråga 1 och 5, i ett pass med blandade familjer', () => {
+    const d = p1()
+    const vy = { ...d.fixtur.vy, tema: 'rotation-med-byte', besvarade: [], aterkoppling: {}, aktuell: 0 }
+    const api = fixturApi({ ...d.fixtur, vy, fordrojning: 0 })
+    const a = render(<PassFlode api={api} vy={vy} betalande initial={{ idx: 0 }} forhandsvisning />)
+    const forsta = rubrik()
+    a.unmount()
+    render(<PassFlode api={api} vy={vy} betalande initial={{ idx: 4 }} forhandsvisning />)
+    expect(screen.getByText('5 / 9')).toBeInTheDocument()
+    expect(rubrik()).toBe(forsta)
+    expect(forsta).toBe('Vrider sig och byter utseende')
+  })
+
+  it('utan tema står "Blandade mönster" på varje fråga', () => {
+    const d = p1()
+    const vy = { ...d.fixtur.vy, tema: null, besvarade: [], aterkoppling: {}, aktuell: 0 }
+    const api = fixturApi({ ...d.fixtur, vy, fordrojning: 0 })
+    for (const idx of [0, 4]) {
+      const r = render(<PassFlode api={api} vy={vy} betalande initial={{ idx }} forhandsvisning />)
+      expect(rubrik()).toBe('Blandade mönster')
+      r.unmount()
+    }
+  })
+})

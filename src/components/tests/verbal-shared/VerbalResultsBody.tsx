@@ -6,6 +6,7 @@
  * färgade kort. Ingen rörelse utöver att en rad viks ut.
  */
 
+import { visningstitel } from '@/lib/tester/titel';
 import { KNAPP_PRIMAR_SMAL, KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
@@ -158,7 +159,7 @@ function PassageReview({
           const stats = correctPerPassage[i];
           const isOpen = openIndex === i;
           const isAllCorrect = stats.correct === stats.total && stats.answered === stats.total;
-          const cleanTitle = p.title.replace(/^PASSAGE\s+\d+\s*[-]\s*/i, '');
+          const cleanTitle = visningstitel(p.title);
 
           return (
             <li key={p.id}>

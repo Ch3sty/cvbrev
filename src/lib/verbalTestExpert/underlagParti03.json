@@ -1,0 +1,1122 @@
+[
+  {
+    "id": "verbexp-p13",
+    "title": "Säljarnas utbildning",
+    "type": "word_problem",
+    "topic": "Argumentationsanalys",
+    "difficulty": 3,
+    "p_prior": 0.45,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "contextText": "Ett försäljningsbolag har gått igenom bakgrunden hos sina tjugo mest framgångsrika säljare de senaste tre åren. Sexton av dem, alltså 80 procent, har en ekonomexamen. Försäljningschefen ser ett tydligt mönster och föreslår att bolaget från och med nästa rekrytering bara anställer säljare med ekonomexamen. Hon menar att examen uppenbarligen ger något som andra vägar in i yrket saknar, och att kravet därför kommer att höja säljkårens resultat. Hon påpekar också att flera av de sexton själva lyfter fram utbildningen som avgörande i sina medarbetarsamtal. I analysen ingår inga uppgifter om de säljare som inte hör till toppgruppen. Av personalregistret framgår dock att bolaget i många år har rekryterat nästan uteslutande från ekonomprogrammen på två lärosäten.",
+    "questions": [
+      {
+        "id": "verbexp-p13-q01",
+        "passageId": "verbexp-p13",
+        "questionNumber": 1,
+        "questionText": "Vilket felslut gör försäljningschefen?",
+        "difficulty": 3,
+        "typ": "felslut",
+        "options": [
+          {
+            "id": "a",
+            "text": "Hon drar slutsatsen ur ett enda säljår",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Hon låter säljarnas egna ord avgöra frågan",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Hon jämför inte med andelen bland alla säljare",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Hon förutsätter att toppsäljarna kommer att stanna",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "c",
+        "explanation": "Det är den sista meningen som avgör. Bolaget har i många år nästan bara anställt ekonomer, så 80 procent i toppgruppen kan vara precis samma andel som bland alla säljare. Alternativ b lockar eftersom säljarna själva lyfter fram utbildningen, men det är ett stödjande inslag och inte det som bär förslaget."
+      },
+      {
+        "id": "verbexp-p13-q02",
+        "passageId": "verbexp-p13",
+        "questionNumber": 2,
+        "questionText": "Vilket antagande måste gälla för att förslaget ska vara välgrundat?",
+        "difficulty": 3,
+        "typ": "antagande",
+        "options": [
+          {
+            "id": "a",
+            "text": "Att ekonomer är fler i toppen än bland övriga",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Att toppsäljarna har varit anställda lika länge",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att ekonomprogrammen tar emot fler sökande än förr",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att ekonomprogrammen är lika bra på båda lärosätena",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Förslaget vilar på påståendet att examen ger något som andra vägar saknar. Det kräver att ekonomer är överrepresenterade bland de bästa jämfört med resten av säljkåren. Den som väljer b fastnar i en detalj: slutsatsen faller inte för att anställningstiden skiljer sig mellan säljarna."
+      },
+      {
+        "id": "verbexp-p13-q03",
+        "passageId": "verbexp-p13",
+        "questionNumber": 3,
+        "questionText": "Vilken roll spelar uppgiften om medarbetarsamtalen i försäljningschefens argument?",
+        "difficulty": 3,
+        "typ": "struktur",
+        "options": [
+          {
+            "id": "a",
+            "text": "Den är det huvudsakliga beviset för att examen ger resultat",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Den stöder förslaget utan att kunna bära det",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Den talar emot förslaget",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Den visar att toppsäljarna kommer att stanna",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Uppgiften om medarbetarsamtalen är ett stödjande inslag. Att de sexton själva lyfter fram sin utbildning säger inget om hur säljare utan examen presterar, så det huvudsakliga beviset är fortfarande jämförelsen med övriga säljare, och den saknas i analysen. Alternativ a lockar eftersom samtalen är det enda i texten som låter som ett belägg från verkligheten."
+      },
+      {
+        "id": "verbexp-p13-q04",
+        "passageId": "verbexp-p13",
+        "questionNumber": 4,
+        "questionText": "Vilket av följande skulle försvaga förslaget mest?",
+        "difficulty": 3,
+        "typ": "försvaga",
+        "options": [
+          {
+            "id": "a",
+            "text": "Toppsäljarna har i snitt högre lön än övriga",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Nio av tio säljare i bolaget har ekonomexamen",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Konkurrenterna ställer samma krav på examen",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Försäljningen steg i hela bolaget förra året",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Om nio av tio säljare har ekonomexamen är 80 procent i toppgruppen till och med lägre än väntat, och mönstret försvinner. Det knyter an till meningen om rekryteringen från ekonomprogrammen. Att konkurrenterna ställer samma krav, som i alternativ c, säger ingenting om vad examen faktiskt betyder för resultaten."
+      }
+    ]
+  },
+  {
+    "id": "verbexp-p14",
+    "title": "Enkäten om cykelbanan",
+    "type": "word_problem",
+    "topic": "Argumentationsanalys",
+    "difficulty": 3,
+    "p_prior": 0.45,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "contextText": "Trafiknämnden i en mellanstor kommun vill bygga om en av infartslederna och ta två bilfiler i anspråk för en bred cykelbana. För att pröva förankringen lade förvaltningen ut en webbenkät under tre veckor. Länken spreds framför allt via den lokala cykelföreningens nyhetsbrev och dess sida i sociala medier. Totalt svarade 2 400 personer, och 78 procent av dem var positiva till förslaget. Nämndens ordförande skriver i sin skrivelse att en klar majoritet av kommunens invånare därmed står bakom ombyggnaden. Hon framhåller att antalet svar är det högsta kommunen någonsin har fått i en enkät, och att resultatet därför är särskilt tillförlitligt. Hon föreslår att bygget ska påbörjas nästa vår.",
+    "questions": [
+      {
+        "id": "verbexp-p14-q01",
+        "passageId": "verbexp-p14",
+        "questionNumber": 1,
+        "questionText": "Vilket antagande måste ordföranden göra för att kunna dra sin slutsats?",
+        "difficulty": 3,
+        "typ": "antagande",
+        "options": [
+          {
+            "id": "a",
+            "text": "Att cyklister bor i alla delar av kommunen",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Att de som svarade liknar invånarna i stort",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Att bilisterna kan välja en annan infartsled",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att enkäten var öppen tillräckligt länge",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Steget från 78 procent av de svarande till en majoritet av invånarna kräver att de svarande speglar befolkningen. Meningen om att länken spreds via cykelföreningen gör just det tveksamt. Alternativ d låter rimligt, men oavsett om enkäten låg ute i tre veckor eller sex ändras inte vilka som nåddes av länken."
+      },
+      {
+        "id": "verbexp-p14-q02",
+        "passageId": "verbexp-p14",
+        "questionNumber": 2,
+        "questionText": "Vilket fynd skulle försvaga ordförandens slutsats mest?",
+        "difficulty": 3,
+        "typ": "försvaga",
+        "options": [
+          {
+            "id": "a",
+            "text": "Antalet svar var högre än i förra årets enkät",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Cykelbanan beräknas kosta mindre än väntat",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Många svarande skrev långa och genomtänkta svar",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "De flesta svar kom via föreningens länk",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "explanation": "Om de flesta svaren kom via cykelföreningen består urvalet till stor del av människor som redan cyklar, och då säger 78 procent lite om kommunen som helhet. Det frestande svaret är a, som ser ut att handla om tillförlitlighet, men fler svar rättar inte till ett snett urval."
+      },
+      {
+        "id": "verbexp-p14-q03",
+        "passageId": "verbexp-p14",
+        "questionNumber": 3,
+        "questionText": "Vilket felslut gör ordföranden när hon talar om tillförlitligheten?",
+        "difficulty": 3,
+        "typ": "felslut",
+        "options": [
+          {
+            "id": "a",
+            "text": "Hon tar ett stort antal svar som ett gott urval",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Hon tolkar ett samband i tid som ett orsakssamband",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Hon avfärdar kritiken genom att angripa kritikerna",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Hon påstår att det bara finns två möjliga vägar",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Avgörande är meningen om att antalet svar är rekordhögt och att resultatet därför är särskilt tillförlitligt. Många svar från fel grupp blir inte mer representativa för att de är många. Alternativ b kan locka eftersom texten nämner en tidsperiod, men ordföranden drar ingen slutsats om orsak och verkan."
+      },
+      {
+        "id": "verbexp-p14-q04",
+        "passageId": "verbexp-p14",
+        "questionNumber": 4,
+        "questionText": "Vilken slutsats har stöd i texten?",
+        "difficulty": 3,
+        "typ": "slutsats",
+        "options": [
+          {
+            "id": "a",
+            "text": "En majoritet av invånarna vill ha cykelbanan",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Bilisterna i kommunen är emot ombyggnaden",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Merparten av de svarande stödde förslaget",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Enkäten besvarades främst av cyklister",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "c",
+        "explanation": "Det enda texten slår fast är att 78 procent av de 2 400 som svarade var positiva. Svar d ligger nära till hands, men texten säger bara hur länken spreds, inte vilka som faktiskt svarade. Alternativ a är just det steg i ordförandens resonemang som inte håller."
+      }
+    ]
+  },
+  {
+    "id": "verbexp-p15",
+    "title": "Handledaren och provresultaten",
+    "type": "word_problem",
+    "topic": "Argumentationsanalys",
+    "difficulty": 3,
+    "p_prior": 0.45,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "contextText": "Efter förra årets nationella prov valde utbildningsförvaltningen ut de tio skolor i länet som hade lägst resultat i matematik. Skolorna fick under hösten stöd av en särskild handledare som arbetade med lärarnas lektionsplanering. I årets prov förbättrades de tio skolornas genomsnitt med sju procentenheter, medan länet som helhet låg kvar på samma nivå. Förvaltningschefen skriver i sin rapport att resultatet visar att handledningen fungerar, och hon föreslår att alla skolor i länet ska få samma stöd från nästa termin. Hon understryker att förbättringen var större än vad någon annan insats har gett tidigare. I en bilaga till rapporten nämns att skolornas resultat brukar variera kraftigt från ett år till nästa.",
+    "questions": [
+      {
+        "id": "verbexp-p15-q01",
+        "passageId": "verbexp-p15",
+        "questionNumber": 1,
+        "questionText": "Vilken svaghet i förvaltningschefens resonemang väger tyngst?",
+        "difficulty": 3,
+        "typ": "felslut",
+        "options": [
+          {
+            "id": "a",
+            "text": "Hon bygger slutsatsen på ett enda ämne",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Hon förlitar sig på handledarens egen bedömning",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Hon jämför enbart med äldre insatser i det egna länet",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Hon bortser från att svaga år ofta följs av bättre",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "explanation": "Nyckeln är meningen i bilagan om att resultaten brukar variera kraftigt mellan åren. Skolor som väljs ut för att de låg allra lägst ett visst år tenderar att närma sig mitten året efter, med eller utan insats. Alternativ c lockar, men jämförelsen med äldre insatser är inte det som gör slutsatsen osäker."
+      },
+      {
+        "id": "verbexp-p15-q02",
+        "passageId": "verbexp-p15",
+        "questionNumber": 2,
+        "questionText": "Vilket tillägg skulle stärka förvaltningschefens slutsats mest?",
+        "difficulty": 3,
+        "typ": "stärka",
+        "options": [
+          {
+            "id": "a",
+            "text": "Lärarna på de tio skolorna uppskattade handledaren mycket",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Årets prov bedömdes som något lättare än förra",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Liknande skolor utan handledare låg kvar på samma nivå",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Handledaren har arbetat i skolans värld i tjugo år",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "c",
+        "explanation": "En jämförelsegrupp av lika svaga skolor utan stöd visar hur mycket de hade stigit ändå. Står de still blir handledningen den rimliga förklaringen till de sju procentenheterna. Den som väljer a tar fel på vad som mäts: att lärarna uppskattade handledaren säger inget om elevernas resultat."
+      },
+      {
+        "id": "verbexp-p15-q03",
+        "passageId": "verbexp-p15",
+        "questionNumber": 3,
+        "questionText": "Vilket antagande krävs för påståendet att handledningen fungerar?",
+        "difficulty": 3,
+        "typ": "antagande",
+        "options": [
+          {
+            "id": "a",
+            "text": "Att alla skolor i länet har samma behov av stöd",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Att lyftet inte hade kommit ändå",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Att matematik är länets viktigaste ämne i skolan",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att handledaren kan anställas för fler skolor",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Påståendet att handledningen fungerar kräver att de sju procentenheterna inte hade kommit ändå, och meningen om den kraftiga variationen mellan åren gör just det osäkert. Alternativ a gäller förslaget att ge alla skolor stöd, inte frågan om handledningen faktiskt gav lyftet."
+      },
+      {
+        "id": "verbexp-p15-q04",
+        "passageId": "verbexp-p15",
+        "questionNumber": 4,
+        "questionText": "Hur borde förvaltningen ha lagt upp insatsen för att kunna avgöra om den fungerar?",
+        "difficulty": 3,
+        "typ": "metod",
+        "options": [
+          {
+            "id": "a",
+            "text": "Lotta vilka svaga skolor som får stöd",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Välja ut de tio skolor som hade högst resultat",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Låta handledaren själv utvärdera sitt eget arbete",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Mäta resultaten först efter fem år med stödet",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Lottas skolorna mellan stöd och inget stöd drabbas båda grupperna lika av den variation som bilagan beskriver, och skillnaden mellan dem visar effekten. Svaret d kan verka grundligt, men en längre väntan utan jämförelsegrupp löser inte problemet att svaga skolor ofta stiger ändå."
+      }
+    ]
+  },
+  {
+    "id": "verbexp-p16",
+    "title": "Det egna ruttverktyget",
+    "type": "word_problem",
+    "topic": "Argumentationsanalys",
+    "difficulty": 3,
+    "p_prior": 0.45,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "contextText": "Ett logistikföretag har i två år byggt ett eget verktyg för ruttplanering. Projektet har hittills kostat 14 miljoner kronor och är försenat. En ny kalkyl visar att det behövs ytterligare 9 miljoner för att göra verktyget klart. En färdig tjänst med motsvarande funktioner går att hyra för 2 miljoner kronor om året, och avtalet kan sägas upp med kort varsel. Projektägaren vill ändå fortsätta. Han skriver till ledningen att det vore ett slöseri att kasta bort de 14 miljoner som redan har satsats, och att personalen har lagt ner för mycket arbete för att ge upp nu. Han lägger till att ett eget verktyg ger företaget kontroll över sina data.",
+    "questions": [
+      {
+        "id": "verbexp-p16-q01",
+        "passageId": "verbexp-p16",
+        "questionNumber": 1,
+        "questionText": "Vilket påstående följer av uppgifterna i texten?",
+        "difficulty": 3,
+        "typ": "slutsats",
+        "options": [
+          {
+            "id": "a",
+            "text": "Slutförandet kostar mer än tre års hyra",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Det egna verktyget blir billigare på sikt",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Projektet har kostat mer än vad som budgeterades",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Den hyrda tjänsten saknar viktiga funktioner",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Kalkylen säger 9 miljoner till för att bli klar, och hyran är 2 miljoner om året, alltså 6 miljoner på tre år. Alternativ c ligger nära eftersom texten säger att projektet är försenat, men den nämner ingen budget som har överskridits."
+      },
+      {
+        "id": "verbexp-p16-q02",
+        "passageId": "verbexp-p16",
+        "questionNumber": 2,
+        "questionText": "Vilket felslut präglar projektägarens huvudskäl?",
+        "difficulty": 3,
+        "typ": "felslut",
+        "options": [
+          {
+            "id": "a",
+            "text": "Han bygger sitt skäl på en enda kunds åsikt",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Han låter redan gjorda utgifter styra valet",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Han förväxlar ett samband i tid med en orsak",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Han hänvisar till sin egen ställning i bolaget",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Meningen om att det vore slöseri att kasta bort de 14 miljonerna avgör. De pengarna är borta vad ledningen än väljer, så de bör inte påverka beslutet framåt. Den som väljer d tänker på att han är projektägare, men han åberopar aldrig sin ställning som skäl."
+      },
+      {
+        "id": "verbexp-p16-q03",
+        "passageId": "verbexp-p16",
+        "questionNumber": 3,
+        "questionText": "Vilket av följande försvagar projektägarens ståndpunkt mest?",
+        "difficulty": 3,
+        "typ": "försvaga",
+        "options": [
+          {
+            "id": "a",
+            "text": "Personalen i projektet vill helst fortsätta arbetet själv",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Verktyget har fått goda omdömen i tidiga tester",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Den hyrda tjänsten ger också full tillgång till data",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Logistikbranschen växer snabbt i hela Norden",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "c",
+        "explanation": "Det enda skälet i texten som pekar framåt är den sista meningen om kontroll över data. Ger den hyrda tjänsten samma tillgång faller också det skälet. Alternativ a kan se ut som ett argument i frågan, men personalens vilja stöder snarast projektägaren och kan inte försvaga honom."
+      },
+      {
+        "id": "verbexp-p16-q04",
+        "passageId": "verbexp-p16",
+        "questionNumber": 4,
+        "questionText": "Vilket antagande krävs för att en fortsättning ska vara det bättre valet?",
+        "difficulty": 3,
+        "typ": "antagande",
+        "options": [
+          {
+            "id": "a",
+            "text": "Att de 14 miljonerna går att få tillbaka senare",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Att personalen har gjort ett gott arbete hittills",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att förarna snabbt kan lära sig ett nytt verktyg",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att eget verktyg ger värden som hyran inte ger",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "explanation": "Eftersom uppgifterna visar att det är billigare att hyra måste det egna verktyget ge något som täcker mellanskillnaden, till exempel den kontroll över data som nämns sist. Svar b lockar, men ett gott arbete hittills gör inte de återstående 9 miljonerna mer lönsamma."
+      }
+    ]
+  },
+  {
+    "id": "verbexp-p17",
+    "title": "Den nya bedömningsmallen",
+    "type": "word_problem",
+    "topic": "Argumentationsanalys",
+    "difficulty": 3,
+    "p_prior": 0.45,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "contextText": "Inför lönerevisionen har HR-avdelningen tagit fram en ny mall för att bedöma medarbetarnas prestationer. Chefer som har använt mallen under våren är mycket nöjda, och personalchefen vill nu göra den obligatorisk i hela koncernen. I sitt förslag förklarar hon varför mallen är rättvis. De medarbetare som får höga poäng enligt mallen är de som presterar bäst, skriver hon. Och att det är just de som presterar bäst framgår av att de får höga poäng när mallen används. Hon tillägger att mallen har tagits fram i samråd med fackliga företrädare och att den tar kortare tid att fylla i än den gamla blanketten. Någon jämförelse med andra mått på prestation, som försäljning eller kundomdömen, redovisas inte.",
+    "questions": [
+      {
+        "id": "verbexp-p17-q01",
+        "passageId": "verbexp-p17",
+        "questionNumber": 1,
+        "questionText": "Hur är personalchefens argument för att mallen är rättvis uppbyggt?",
+        "difficulty": 3,
+        "typ": "struktur",
+        "options": [
+          {
+            "id": "a",
+            "text": "Det stöder sig på vad fackliga företrädare tycker",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Det drar en allmän slutsats ur vårens försök",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Det använder mallen för att bevisa mallen",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Det jämför mallen med den gamla blanketten",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "c",
+        "explanation": "De två meningarna i mitten avgör: höga poäng visar vilka som presterar bäst, och att de presterar bäst visas av de höga poängen. Mallen får alltså intyga sig själv. Alternativ a lockar eftersom facket nämns, men samrådet används inte som skäl för att mallen är rättvis."
+      },
+      {
+        "id": "verbexp-p17-q02",
+        "passageId": "verbexp-p17",
+        "questionNumber": 2,
+        "questionText": "Vilket antagande gör personalchefen utan att pröva det?",
+        "difficulty": 3,
+        "typ": "antagande",
+        "options": [
+          {
+            "id": "a",
+            "text": "Att cheferna har använt mallen på rätt sätt",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Att den gamla blanketten var orättvis",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att facket godkänner den slutliga versionen av mallen",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att mallens poäng speglar verklig prestation",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "explanation": "Hela förslaget förutsätter att poängen mäter hur bra någon faktiskt presterar, och den sista meningen visar att ingen har prövat det. Svar b kan verka underförstått, men personalchefen behöver inte anse att den gamla blanketten var orättvis för att påstå att den nya är rättvis."
+      },
+      {
+        "id": "verbexp-p17-q03",
+        "passageId": "verbexp-p17",
+        "questionNumber": 3,
+        "questionText": "Vilket av följande skulle bäst ge mallen det stöd som saknas?",
+        "difficulty": 3,
+        "typ": "stärka",
+        "options": [
+          {
+            "id": "a",
+            "text": "Fler chefer säger sig vara nöjda med mallen",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Poängen stämmer med försäljning och kundomdömen",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Mallen tar ännu kortare tid i nästa version",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Medarbetarna med höga poäng tycker att mallen är bra",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Den sista meningen pekar ut bristen: inget annat mått på prestation redovisas. Stämmer poängen med försäljning och kundomdömen får mallen stöd utifrån i stället för från sig själv. Den som väljer a får bara mer av samma slags stöd, alltså nöjda chefer, som redan finns."
+      },
+      {
+        "id": "verbexp-p17-q04",
+        "passageId": "verbexp-p17",
+        "questionNumber": 4,
+        "questionText": "Vilken slutsats kan man dra av texten?",
+        "difficulty": 3,
+        "typ": "slutsats",
+        "options": [
+          {
+            "id": "a",
+            "text": "Det är inte visat att mallen mäter prestation",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Mallen ger orättvisa bedömningar av medarbetarna",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Facket har godkänt att mallen blir obligatorisk",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Den gamla blanketten var mer rättvis än den nya",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Argumentet för rättvisan går runt i en cirkel, och enligt den sista meningen finns ingen jämförelse med andra mått, så frågan är öppen. Alternativ b går för långt åt andra hållet: att något inte är bevisat betyder inte att motsatsen är sann."
+      }
+    ]
+  },
+  {
+    "id": "verbexp-p18",
+    "title": "Effektivast i regionen",
+    "type": "word_problem",
+    "topic": "Argumentationsanalys",
+    "difficulty": 3,
+    "p_prior": 0.45,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "contextText": "En enhet som handlägger ansökningar om bostadsbidrag har jämförts med regionens övriga enheter. Jämförelsen mäter effektivitet som kostnad per avgjort ärende, och enheten hamnade på första plats med lägst kostnad. Enhetschefen sammanfattar resultatet i ett nyhetsbrev till medarbetarna. Vi är regionens mest effektiva enhet, skriver hon. En effektiv handläggning är en handläggning som ger de sökande bästa möjliga service. Alltså är det hos oss som de sökande får bäst service i hela regionen. Hon föreslår att andra enheter ska studera enhetens arbetssätt. I samma jämförelse redovisas också att enheten har regionens högsta andel överklagade beslut och den längsta svarstiden i telefon.",
+    "questions": [
+      {
+        "id": "verbexp-p18-q01",
+        "passageId": "verbexp-p18",
+        "questionNumber": 1,
+        "questionText": "Vilket felslut gör enhetschefen?",
+        "difficulty": 3,
+        "typ": "felslut",
+        "options": [
+          {
+            "id": "a",
+            "text": "Hon generaliserar från en enda handläggare",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Ordet effektiv byter betydelse på vägen",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Hon hänvisar till en auktoritet utan sakkunskap",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Hon ser bara två möjliga förklaringar",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "I jämförelsen betyder effektiv låg kostnad per ärende, men i meningen om bästa möjliga service betyder samma ord något helt annat. Slutsatsen bygger på att de två betydelserna blandas ihop. Alternativ c lockar eftersom en jämförelse åberopas, men den används för kostnaden och inte som en auktoritet."
+      },
+      {
+        "id": "verbexp-p18-q02",
+        "passageId": "verbexp-p18",
+        "questionNumber": 2,
+        "questionText": "Vilket antagande krävs för att slutsatsen om servicen ska hålla?",
+        "difficulty": 3,
+        "typ": "antagande",
+        "options": [
+          {
+            "id": "a",
+            "text": "Att låg kostnad per ärende ger bättre service",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Att de andra enheterna har fler ansökningar",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att jämförelsen har gjorts av en oberoende part",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att de sökande vet vilken enhet de tillhör",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "För att kliva från lägst kostnad till bäst service måste låg kostnad i sig leda till bättre service, och det säger texten ingenting om. Svar c kan låta viktigt, men även en helt oberoende jämförelse mätte bara kostnad och inte service."
+      },
+      {
+        "id": "verbexp-p18-q03",
+        "passageId": "verbexp-p18",
+        "questionNumber": 3,
+        "questionText": "Vilken slutsats stöds av uppgifterna i jämförelsen?",
+        "difficulty": 3,
+        "typ": "slutsats",
+        "options": [
+          {
+            "id": "a",
+            "text": "Enheten ger de sökande bäst service i regionen",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Andra enheter borde arbeta på samma sätt",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Enheten har för få anställda för sitt uppdrag",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Enheten har lägst kostnad per avgjort ärende",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "explanation": "Jämförelsen mäter bara kostnad per avgjort ärende, och där kom enheten först, så det är vad uppgifterna bär. Den som väljer c läser in något i svarstiderna, men texten säger ingenting om bemanningen och svarstiden kan ha andra orsaker."
+      },
+      {
+        "id": "verbexp-p18-q04",
+        "passageId": "verbexp-p18",
+        "questionNumber": 4,
+        "questionText": "Vilken uppgift i texten försvagar enhetschefens slutsats mest?",
+        "difficulty": 3,
+        "typ": "försvaga",
+        "options": [
+          {
+            "id": "a",
+            "text": "Att hon föreslår att andra enheter studerar dem",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Att jämförelsen bara gäller den egna regionen",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att enheten har högst andel överklagade beslut",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Att nyhetsbrevet riktar sig till medarbetarna",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "c",
+        "explanation": "Den sista meningen avgör: regionens högsta andel överklagade beslut och längst svarstid talar emot att de sökande får bäst service. Alternativ b kan verka som en invändning, men chefen påstår bara att enheten är bäst i regionen, så avgränsningen motsäger henne inte."
+      }
+    ]
+  },
+  {
+    "id": "verbexp-p19",
+    "title": "De fem bästa konsulterna",
+    "type": "word_problem",
+    "topic": "Argumentationsanalys",
+    "difficulty": 3,
+    "p_prior": 0.45,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "contextText": "Ett konsultbolag ska bemanna ett stort och tidspressat uppdrag åt en bank. Uppdragsansvarig föreslår att teamet ska bestå av de fem konsulter som fick högst individuella betyg i förra årets utvärdering. Varje person är den bästa i sin roll, skriver hon, och därför blir detta det starkaste team som bolaget kan ställa upp. Två av de fem har tidigare lett egna uppdrag och är vana att fatta besluten själva. Ingen av dem har arbetat tillsammans med någon av de andra fyra. Den individuella utvärderingen mäter hur väl konsulten löser sina egna uppgifter, men inte hur väl konsulten samarbetar. I förra årets största uppdrag var det ett team med blandade betyg som fick bäst omdöme av kunden.",
+    "questions": [
+      {
+        "id": "verbexp-p19-q01",
+        "passageId": "verbexp-p19",
+        "questionNumber": 1,
+        "questionText": "Vilket antagande vilar förslaget på?",
+        "difficulty": 3,
+        "typ": "antagande",
+        "options": [
+          {
+            "id": "a",
+            "text": "Att banken kräver erfarna konsulter i teamet",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Att kunden har valt bolaget för dess pris",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att utvärderingen gjordes av samma chefer",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att goda individer också blir ett gott team",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "explanation": "Ordet därför i den tredje meningen visar steget: eftersom var och en är bäst blir helheten bäst. Det håller bara om goda individer också fungerar bra tillsammans. Alternativ a kan låta rimligt för ett stort uppdrag, men förslaget kräver inte att banken ställer något sådant krav."
+      },
+      {
+        "id": "verbexp-p19-q02",
+        "passageId": "verbexp-p19",
+        "questionNumber": 2,
+        "questionText": "Vilket felslut gör uppdragsansvarig?",
+        "difficulty": 3,
+        "typ": "felslut",
+        "options": [
+          {
+            "id": "a",
+            "text": "Hon tar ett samband i tid för ett orsakssamband",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Hon tror att delarnas styrka blir helhetens",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Hon avfärdar ett förslag genom att förvränga det",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Hon låter en enda kunds omdöme avgöra frågan",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Hon går från att varje person är bäst i sin roll till att teamet blir bäst, alltså från delarna till helheten. Svar d lockar eftersom ett kundomdöme nämns, men det är en uppgift som talar emot henne och inget hon själv bygger på."
+      },
+      {
+        "id": "verbexp-p19-q03",
+        "passageId": "verbexp-p19",
+        "questionNumber": 3,
+        "questionText": "Vilken uppgift i texten försvagar förslaget mest?",
+        "difficulty": 3,
+        "typ": "försvaga",
+        "options": [
+          {
+            "id": "a",
+            "text": "Utvärderingen mäter inte samarbete",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Uppdraget är både stort och tidspressat",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Två av konsulterna har lett egna uppdrag",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Uppdragsansvarig valde ut de fem själv",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Meningen om att den individuella utvärderingen inte mäter samarbete slår mot själva grunden, eftersom betygen inte säger något om hur de fem fungerar ihop. Alternativ c är också en varningsflagga, men att två är vana att bestämma själva är en möjlig friktion och inget som rubbar hela underlaget."
+      },
+      {
+        "id": "verbexp-p19-q04",
+        "passageId": "verbexp-p19",
+        "questionNumber": 4,
+        "questionText": "Vilket tillägg skulle stärka förslaget mest?",
+        "difficulty": 3,
+        "typ": "stärka",
+        "options": [
+          {
+            "id": "a",
+            "text": "De fem har högre lön än bolagets genomsnitt",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Banken har bett om de mest erfarna konsulterna",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Konsulter med höga betyg samarbetar oftast väl",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Uppdraget ska slutföras före årsskiftet",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "c",
+        "explanation": "Förslagets svaga punkt är steget från goda individer till ett gott team, och en uppgift om att högt betygsatta konsulter oftast samarbetar väl fyller just den luckan. Den som väljer b får en önskan från banken, men den säger inget om hur teamet kommer att fungera."
+      }
+    ]
+  },
+  {
+    "id": "verbexp-p20",
+    "title": "Leverantörens förseningar",
+    "type": "word_problem",
+    "topic": "Argumentationsanalys",
+    "difficulty": 3,
+    "p_prior": 0.45,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "contextText": "Inköpschefen i ett byggföretag vill säga upp avtalet med en av de största leverantörerna av armeringsjärn. Hon resonerar så här i ett mejl till ledningen. Leverantörer som hamnar i ekonomisk kris börjar nästan alltid försena sina leveranser, eftersom de inte längre har råd att hålla lager. Vår leverantör har försenat tre leveranser under det senaste kvartalet. Alltså är leverantören på väg in i en ekonomisk kris, och vi bör byta innan den går i konkurs. Hon tillägger att en konkurs mitt i ett pågående projekt skulle bli mycket dyr. Hon nämner inte att hamnen där leverantören tar emot sitt stål var stängd i två veckor under kvartalet på grund av en strejk.",
+    "questions": [
+      {
+        "id": "verbexp-p20-q01",
+        "passageId": "verbexp-p20",
+        "questionNumber": 1,
+        "questionText": "Hur är inköpschefens resonemang uppbyggt?",
+        "difficulty": 3,
+        "typ": "struktur",
+        "options": [
+          {
+            "id": "a",
+            "text": "Hon går från en följd tillbaka till en enda orsak",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "Hon prövar flera orsaker och väljer den troligaste",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Hon bygger på en expert som har granskat bolaget",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Hon jämför leverantören med andra leverantörer",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "a",
+        "explanation": "Regeln i texten säger att kris leder till förseningar. Hon ser förseningar och sluter sig till kris, alltså går hon baklänges från följden till en av flera möjliga orsaker. Alternativ b lockar eftersom det låter som noggrann analys, men hon prövar aldrig någon annan förklaring."
+      },
+      {
+        "id": "verbexp-p20-q02",
+        "passageId": "verbexp-p20",
+        "questionNumber": 2,
+        "questionText": "Vilken slutsats följer av inköpschefens premisser?",
+        "difficulty": 3,
+        "typ": "slutsats",
+        "options": [
+          {
+            "id": "a",
+            "text": "Leverantören kommer att gå i konkurs i år",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Leverantören är på väg in i en ekonomisk kris",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Förseningar kan vara ett tecken på kris",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "Strejken orsakade alla tre förseningarna",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "c",
+        "explanation": "Meningen om att leverantörer i kris nästan alltid försenar sina leveranser gör förseningar till ett möjligt tecken, inget mer. Svar b är hennes egen slutsats och lockar därför, men förseningar kan ha andra orsaker och då följer krisen inte."
+      },
+      {
+        "id": "verbexp-p20-q03",
+        "passageId": "verbexp-p20",
+        "questionNumber": 3,
+        "questionText": "Vilken uppgift skulle försvaga slutsatsen mest?",
+        "difficulty": 3,
+        "typ": "försvaga",
+        "options": [
+          {
+            "id": "a",
+            "text": "Leverantören har höjt sina priser i år",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Alla tre förseningarna inföll under strejken",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Byggföretaget köper mer stål än förra året",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Leverantören har bytt vd under kvartalet",
+            "isCorrect": false
+          }
+        ],
+        "correctAnswerId": "b",
+        "explanation": "Den sista meningen nämner strejken i hamnen men inte när förseningarna inträffade. Föll alla tre inom de två veckorna finns en annan förklaring som räcker, och då saknar krisen stöd. Alternativ d kan väcka misstankar, men ett vd-byte säger ingenting om varför leveranserna blev sena."
+      },
+      {
+        "id": "verbexp-p20-q04",
+        "passageId": "verbexp-p20",
+        "questionNumber": 4,
+        "questionText": "Vilket antagande behöver inköpschefen för att slutsatsen om en kris ska hålla?",
+        "difficulty": 3,
+        "typ": "antagande",
+        "options": [
+          {
+            "id": "a",
+            "text": "Att leverantören inte har några andra kunder",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Att ett byte av leverantör går att göra snabbt",
+            "isCorrect": false
+          },
+          {
+            "id": "c",
+            "text": "Att armeringsjärn är dyrare än förra året",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Att inget annat förklarar förseningarna",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "explanation": "Eftersom förseningar kan ha många orsaker krävs att inget annat, som strejken i hamnen, förklarar dem. Den som väljer b blandar ihop två saker: det antagandet gäller rådet att byta leverantör och inte frågan om leverantören är på väg in i en kris."
+      }
+    ]
+  }
+]

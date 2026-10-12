@@ -18,6 +18,7 @@ import { UnsavedAnswerBanner } from '@/components/tests/prov/UnsavedAnswerBanner
 import { fetchProvSession } from '@/components/tests/prov/provSession';
 import { getTestConfig } from '@/app/dashboard/tester/testConfig';
 import { selectProvPassagesForSession } from '@/lib/verbalTestProv/selectProv';
+import { underlagsVersion, type UnderlagVersion } from '@/lib/tester/underlagVersion';
 import type { UserAnswer } from '@/lib/verbalTestV1/types.v1';
 
 // Tidsgränsen bor i testConfig, så copyn och koden aldrig glider isär
@@ -47,9 +48,12 @@ export default function VerbalProvSession({ sessionId: sessionIdProp }: Props) {
   const [statementStartTime, setStatementStartTime] = useState(Date.now());
   const finishedRef = useRef(false);
 
+  // Underlagsversionen läses ur sessionen (src/lib/tester/underlagVersion.ts).
+  // Tills den är läst används version 1; rehydreringen byter och börjar om.
+  const [version, setVersion] = useState<UnderlagVersion>(1);
   const questions = useMemo(
-    () => (sessionId ? selectProvPassagesForSession(sessionId) : []),
-    [sessionId]
+    () => (sessionId ? selectProvPassagesForSession(sessionId, version) : []),
+    [sessionId, version]
   );
 
   useEffect(() => {
@@ -73,6 +77,10 @@ export default function VerbalProvSession({ sessionId: sessionIdProp }: Props) {
     const hydrate = async () => {
       const session = await fetchProvSession('/api/verbalTestProv/session', sessionId);
       if (cancelled) return;
+      if (session && underlagsVersion(session.meta) !== version) {
+        setVersion(underlagsVersion(session.meta));
+        return;
+      }
       if (session?.completed_at) {
         // Redan avslutat prov → direkt till resultatet. Behåll laddvyn tills
         // navigeringen sker.
@@ -127,7 +135,7 @@ export default function VerbalProvSession({ sessionId: sessionIdProp }: Props) {
       cancelled = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sessionId]);
+  }, [sessionId, version]);
 
   const currentPassage = questions[currentPassageIndex];
   const currentAnswers = answers[currentPassage?.id] || [];

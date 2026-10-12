@@ -87,6 +87,16 @@ export const VALBARA_EXPERT_V3 = ALLA_EXPERT.filter((q) => valbarI(q as Versions
  */
 export const BANK_VERSION: BankVersion = 3;
 export type BankVersion = 1 | 2 | 3;
+/**
+ * Versionen testmotorn väljer ur (bank 3.1, beställning omgång 2 C1):
+ * TRANINGSBANK, dagens pass, riktade pass, Nivåkollen och logikens
+ * övningsprov. De sparar urvalet i meta, så versionen behöver inte stå på
+ * sessionen. Klassiska test står kvar på BANK_VERSION (3), så deras
+ * sessioner och percentilen rörs inte. Frågor med fran_version: 4 är de 15
+ * ombyggda ur omgång 2.
+ */
+export const TRANINGSVERSION = 4;
+
 /** Meta som sätts på nya klassiska sessioner tillsammans med blandningen. */
 export const BANK_VERSION_META = { bank_version: BANK_VERSION } as const;
 

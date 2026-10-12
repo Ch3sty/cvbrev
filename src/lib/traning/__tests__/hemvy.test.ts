@@ -171,10 +171,10 @@ describe('tillstånden med konceptets exempeltal', () => {
     const m = modell('1t')
     expect(m.tillstand).toBe('annat_test')
     expect(m.vagg.rubrik).toBe('14 dagar till siffertestet')
-    expect(m.vagg.rad).toBe('Nivå, kurva och dagliga pass finns i dag för figurer och mönster. Siffror och text får det senare.')
+    expect(m.vagg.rad).toBe('Nivå och kurva följer figurer och mönster. För siffror och text finns ett kort pass varje dag.')
     expect(m.vagg.kurva).toBeUndefined()
     expect(m.vagg.planbild).toBeUndefined()
-    expect(m.lyft).toMatchObject({ eyebrow: 'Första passet', titel: 'Gör siffertestet', text: 'Resultat och genomgång direkt. Vi säger till när passen finns.' })
+    expect(m.lyft).toMatchObject({ eyebrow: 'Första passet', titel: 'Gör siffertestet', text: 'Resultat och genomgång direkt. Testet säger också om passen börjar på grund eller avancerad.' })
     expect(m.lyft.handling).toMatchObject({ typ: 'lank', text: 'Starta siffertestet', href: '/dashboard/tester/numeriskt-test' })
     const fler = m.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'fler')
     const figurer = fler && fler.typ === 'rader' ? fler.rader.find((r) => r.titel === 'Figurer och mönster') : null

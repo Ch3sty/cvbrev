@@ -32,6 +32,7 @@ export type ServerEventName =
   /** Testmotorn, /api/traning/pass/complete (spec-rummen avsnitt 7). */
   | 'nivamatning_klar'
   | 'pass_klart'
+  | 'riktat_klart'
   | 'ommatning_klar'
   | 'generalrepetition_klar'
   /** Kalibreringsfrågan i pass och övningsprov (riktlinjer-tester-v2 2.4). */

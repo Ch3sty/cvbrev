@@ -11,6 +11,13 @@
  *   npx tsx scripts/perf-inloggat.ts --filter tester     # bara routes som matchar
  *   npx tsx scripts/perf-inloggat.ts --filter =dashboard # exakt ett namn
  *   npx tsx scripts/perf-inloggat.ts --json ut.json      # spara resultatet
+ *   npx tsx scripts/perf-inloggat.ts --samtycke          # som en inloggad som redan svarat på cookies
+ *
+ * Utan --samtycke mäts en ny webbläsare: cookie-bannern klonas in när sidan
+ * är ledig och blir på glesa vyer (provet: en matris i svg, lite text)
+ * själva LCP-elementet, och tiden blir då bannerns. Med flaggan sätts
+ * samtyckescookien (cvBrevCookieConsent=true) före sidan, som för den som
+ * svarade vid registreringen. Kör båda och redovisa båda.
  *
  * Kräver att `npx next build` har körts och att en produktionsserver kör på
  * porten (`npx next start -p 5200`). Mätningen emulerar Pixel 7 med 3x
@@ -307,6 +314,10 @@ async function main() {
       for (let i = 0, n = 0; i < payload.length; i += CHUNK, n++) {
         await page.setCookie({ name: `${cookieNamn}.${n}`, value: payload.slice(i, i + CHUNK), url: bas, path: '/' });
       }
+    }
+
+    if (process.argv.includes('--samtycke')) {
+      await page.setCookie({ name: 'cvBrevCookieConsent', value: 'true', url: bas, path: '/' });
     }
 
     await page.evaluateOnNewDocument(() => {

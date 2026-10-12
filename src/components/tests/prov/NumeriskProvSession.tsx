@@ -18,6 +18,7 @@ import QuestionDisplay from '@/components/tests/numerical-shared/QuestionDisplay
 import { useRobustAnswerSaving } from '@/components/tests/prov/useRobustAnswerSaving';
 import { UnsavedAnswerBanner } from '@/components/tests/prov/UnsavedAnswerBanner';
 import { fetchProvSession } from '@/components/tests/prov/provSession';
+import { underlagsVersion, type UnderlagVersion } from '@/lib/tester/underlagVersion';
 
 interface Props {
   /** Sessionen som körs. Routen har redan packat upp params. */
@@ -40,9 +41,12 @@ export default function NumeriskProvSession({ sessionId: sessionIdProp }: Props)
   // omladdning aldrig ger mer provtid. Null tills rehydreringen svarat.
   const [startedAt, setStartedAt] = useState<string | null>(null);
 
+  // Underlagsversionen läses ur sessionen (src/lib/tester/underlagVersion.ts).
+  // Tills den är läst används version 1; rehydreringen byter och börjar om.
+  const [version, setVersion] = useState<UnderlagVersion>(1);
   useEffect(() => {
-    setPassages(selectProvPassagesForSession(sessionIdProp));
-  }, [sessionIdProp]);
+    setPassages(selectProvPassagesForSession(sessionIdProp, version));
+  }, [sessionIdProp, version]);
 
   /* ------------------------- Rehydrering vid mount ------------------------- */
 
@@ -58,6 +62,10 @@ export default function NumeriskProvSession({ sessionId: sessionIdProp }: Props)
     const hydrate = async () => {
       const session = await fetchProvSession('/api/numericalTestProv/session', sessionId);
       if (cancelled) return;
+      if (session && underlagsVersion(session.meta) !== version) {
+        setVersion(underlagsVersion(session.meta));
+        return;
+      }
       if (session?.completed_at) {
         // Redan avslutat prov → direkt till resultatet. Behåll laddvyn tills
         // navigeringen sker.

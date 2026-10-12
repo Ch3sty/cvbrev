@@ -29,6 +29,7 @@ import SektRubrik from '@/components/rum/SektRubrik'
 import {
   DorrBrev,
   DorrJobb,
+  IkonCheck,
   IkonChev,
   IkonKalender,
   SymMatris,
@@ -75,6 +76,13 @@ function SymbolFor({ s }: { s: Symbol }) {
 function HogerFor({ h }: { h: Hoger }) {
   if (h.typ === 'chev') return <IkonChev size={20} className="text-ink-3" />
   if (h.typ === 'las') return <LasChip feature={h.feature} text={h.text} plats={h.plats} />
+  if (h.typ === 'bock')
+    return (
+      <span className="inline-flex min-h-11 items-center gap-1.5 text-[13px] font-medium text-koppar-ink">
+        <IkonCheck size={18} aria-hidden="true" />
+        <span>{h.text}</span>
+      </span>
+    )
   return (
     <Link href={h.href} className={`${LANK} inline-flex min-h-11 items-center whitespace-nowrap text-[13px]`}>
       {h.text}

@@ -1,3 +1,4 @@
+import { visningstitel } from '@/lib/tester/titel';
 interface PassageDisplayProps {
   title: string;
   text: string;
@@ -35,7 +36,7 @@ export function PassageDisplay({
         {DIFFICULTY_LABELS[difficulty]}
       </p>
 
-      <h2 className="mt-1 text-kort text-ink-1">{title}</h2>
+      <h2 className="mt-1 text-kort text-ink-1">{visningstitel(title)}</h2>
 
       <div className="mt-4 flex-1 overflow-y-auto border-t border-kant pt-4">
         <p className="whitespace-pre-wrap text-base leading-[26px] text-ink-1">{text}</p>

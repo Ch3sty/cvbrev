@@ -1,0 +1,1630 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Numeriskt parti 02</title>
+<style>
+:root { --text: #1c1917; --dim: #57534e; --linje: #e7e5e4; --yta: #fafaf9; --kort: #ffffff; --accent: #c2410c; --ratt: #15803d; --ratt-yta: #f0fdf4; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--yta); color: var(--text); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 860px; margin: 0 auto; padding: 24px 16px 64px; }
+h1 { font-size: 1.6rem; margin: 0 0 4px; }
+h2 { font-size: 1.25rem; margin: 40px 0 12px; padding-bottom: 6px; border-bottom: 2px solid var(--accent); }
+h3 { font-size: 1.1rem; margin: 0 0 8px; }
+h4 { font-size: 0.95rem; margin: 0 0 6px; display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; }
+.ingress, .summa { color: var(--dim); margin: 4px 0; }
+nav { margin: 16px 0; display: flex; flex-wrap: wrap; gap: 6px; }
+nav a { font-size: 0.8rem; color: var(--accent); text-decoration: none; border: 1px solid var(--linje); background: var(--kort); padding: 2px 8px; border-radius: 999px; }
+.underlag { background: var(--kort); border: 1px solid var(--linje); border-radius: 10px; padding: 16px; margin: 0 0 20px; }
+.pid, .qid { font: 0.75rem ui-monospace, Consolas, monospace; color: var(--dim); font-weight: 400; }
+.antal { font-size: 0.75rem; color: var(--dim); font-weight: 400; }
+.meta { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px 12px; margin: 0 0 10px; }
+.meta div { min-width: 0; }
+.meta dt { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--dim); }
+.meta dd { margin: 0; font-size: 0.9rem; overflow-wrap: anywhere; }
+.inledning { margin: 0 0 12px; }
+.diagramtyp { font-size: 0.85rem; color: var(--dim); margin: 0 0 6px; }
+.rulla { overflow-x: auto; margin: 0 0 16px; }
+table { border-collapse: collapse; font-size: 0.85rem; min-width: 100%; }
+caption { text-align: left; font-size: 0.8rem; color: var(--dim); padding-bottom: 4px; }
+th, td { border: 1px solid var(--linje); padding: 4px 8px; text-align: right; white-space: nowrap; }
+thead th { background: var(--yta); text-align: left; white-space: normal; vertical-align: bottom; }
+tbody th { text-align: left; font-weight: 500; }
+.fraga { border-top: 1px solid var(--linje); padding: 12px 0 4px; }
+.fragetext { margin: 0 0 8px; }
+.alternativ { list-style: none; padding: 0; margin: 0 0 8px; display: grid; gap: 4px; }
+.alternativ li { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; padding: 6px 8px; border: 1px solid var(--linje); border-radius: 6px; }
+.alternativ li.ratt { border-color: var(--ratt); background: var(--ratt-yta); }
+.bokstav { font-weight: 600; width: 1.2em; }
+.svar { font-weight: 600; min-width: 6em; }
+.typ { font-size: 0.75rem; color: var(--accent); }
+.ratt-etikett { font-size: 0.75rem; color: var(--ratt); font-weight: 600; }
+.uttryck { flex-basis: 100%; font: 0.8rem ui-monospace, Consolas, monospace; color: var(--dim); overflow-wrap: anywhere; padding-left: calc(1.2em + 10px); }
+details summary { cursor: pointer; font-size: 0.85rem; color: var(--dim); }
+.steg { margin: 6px 0; padding-left: 20px; font-size: 0.9rem; }
+.steg .uttryck { padding-left: 0; }
+.visning { font-size: 0.8rem; color: var(--dim); margin: 0 0 8px; }
+@media (max-width: 480px) { .underlag { padding: 12px; } h1 { font-size: 1.35rem; } }
+</style>
+</head>
+<body>
+<main>
+<h1>Numeriskt parti 02</h1>
+<p class="ingress">Kandidater för testansvarigs granskning. Skapad 2026-10-12 ur <code>src/lib/numericalTestV2/kandidater/parti-03.json</code> och <code>src/lib/numericalTestV2/kandidater/parti-03-grund.json</code>. Rätt svar är grönmarkerat; varje fel alternativ visar misstagstypen och uttrycket som ger det.</p>
+<p class="summa"><strong>Avancerad</strong>: 8 underlag, 5 tabeller och 3 diagram (stapeldiagram, linjediagram, stapeldiagram), 32 frågor, 1 med 1 steg, 23 med 2 steg, 8 med 3 steg.</p>
+<p class="summa"><strong>Grund</strong>: 16 underlag, 10 tabeller och 6 diagram (linjediagram, stapeldiagram, stapeldiagram, linjediagram, stapeldiagram, linjediagram), 64 frågor, 20 med 1 steg, 44 med 2 steg, 0 med 3 steg.</p>
+<nav><a href="#na-17-ambulansuppdrag">na-17</a><a href="#na-18-vattenforbrukning">na-18</a><a href="#na-19-vuxenutbildning">na-19</a><a href="#na-20-hamnens-containrar">na-20</a><a href="#na-21-lonerevision">na-21</a><a href="#na-22-influensavaccin">na-22</a><a href="#na-23-skadearenden">na-23</a><a href="#na-24-gatubelaggning">na-24</a><a href="#ng-17-hemtjanst-besok">ng-17</a><a href="#ng-18-lagrets-inleveranser">ng-18</a><a href="#ng-19-skolans-franvaro">ng-19</a><a href="#ng-20-fardtjanst-resor">ng-20</a><a href="#ng-21-snorojning">ng-21</a><a href="#ng-22-bageriets-limpor">ng-22</a><a href="#ng-23-sjukhustvatt">ng-23</a><a href="#ng-24-vardcentral-samtal">ng-24</a><a href="#ng-25-byggets-material">ng-25</a><a href="#ng-26-paketombud">ng-26</a><a href="#ng-27-hotellets-belaggning">ng-27</a><a href="#ng-28-folktandvarden">ng-28</a><a href="#ng-29-flyttfirman">ng-29</a><a href="#ng-30-tjansteresor">ng-30</a><a href="#ng-31-forskolans-barn">ng-31</a><a href="#ng-32-stadbolaget">ng-32</a></nav>
+<h2>Avancerad</h2>
+<article class="underlag" id="na-17-ambulansuppdrag">
+<h3>Ambulansens uppdrag per station <span class="pid">na-17-ambulansuppdrag</span></h3>
+<dl class="meta"><div><dt>Typ</dt><dd>tabell</dd></div><div><dt>Ämne</dt><dd>Akutsjukvård</dd></div><div><dt>Oanvänt</dt><dd>kolumn Medianrespons prio 1 (min)</dd></div><div><dt>Enhetsbyte</dt><dd>minuter till timmar</dd></div><div><dt>Förhandsvärde</dt><dd>0,55</dd></div></dl>
+<p class="inledning">Tabellen visar ambulansverksamheten i en region under ett år med fyra stationer. Medeltiden är tiden från larm till att ambulansen är ledig igen. Responstiden är tiden från larm till att ambulansen är på plats. En ambulanstimme kostar regionen 2 850 kr. 1 timme är 60 minuter, och 1 mkr är 1 000 000 kr. Året räknas som 52 veckor.</p>
+<div class="rulla"><table>
+<caption>Uppdrag under året per station</caption>
+<thead><tr><th>Station</th><th>Uppdrag</th><th>Varav prio 1</th><th>Medeltid per uppdrag (min)</th><th>Medianrespons prio 1 (min)</th><th>Ambulanser</th></tr></thead>
+<tbody><tr><th scope="row">Norrby</th><td>6 240</td><td>1 810</td><td>74</td><td>11</td><td>4</td></tr>
+<tr><th scope="row">Åstad</th><td>4 380</td><td>1 150</td><td>96</td><td>17</td><td>3</td></tr>
+<tr><th scope="row">Kustvik</th><td>2 910</td><td>640</td><td>118</td><td>23</td><td>2</td></tr>
+<tr><th scope="row">Centrala</th><td>9 860</td><td>3 420</td><td>57</td><td>9</td><td>6</td></tr></tbody>
+</table></div>
+<section class="fraga">
+<h4><span class="qid">na-17-q01</span> Fråga 1 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Vad kostade Åstads uppdrag regionen under året, räknat i ambulanstimmar? Svara i mkr.</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">12,5 mkr</span><span class="typ">steg saknas</span><div class="uttryck">4 380 · 2 850 / 1 000 / 1 000 = 12,483</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">16,3 mkr</span><span class="typ">fel rad</span><div class="uttryck">2 910 · 118 / 60 · 2 850 / 1 000 / 1 000 = 16,311</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">1 198,4 mkr</span><span class="typ">fel enhet</span><div class="uttryck">4 380 · 96 · 2 850 / 1 000 / 1 000 = 1 198,368</div></li>
+<li class="ratt"><span class="bokstav">d</span><span class="svar">20,0 mkr</span><span class="ratt-etikett">Rätt svar</span></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Ambulanstimmar i Åstad</span><div class="uttryck">4 380 · 96 / 60 = 7 008</div></li>
+<li><span>Kostnad i mkr</span><div class="uttryck">7 008 · 2 850 / 1 000 / 1 000 = 19,973</div></li></ol>
+<p class="visning">Visning 20,0 mkr, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">na-17-q02</span> Fråga 2 <span class="antal">3 steg</span></h4>
+<p class="fragetext">Hur många procent av alla uppdrag i regionen var prio 1?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">28,0 %</span><span class="typ">fel räknesätt</span><div class="uttryck">(1 810 / 6 240 + 1 150 / 4 380 + 640 / 2 910 + 3 420 / 9 860) / 4 · 100 = 27,985</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">34,7 %</span><span class="typ">fel rad</span><div class="uttryck">3 420 / 9 860 · 100 = 34,686</div></li>
+<li class="ratt"><span class="bokstav">c</span><span class="svar">30,0 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">d</span><span class="svar">42,9 %</span><span class="typ">fel bas</span><div class="uttryck">7 020 / (23 390 - 7 020) · 100 = 42,883</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Alla uppdrag</span><div class="uttryck">6 240 + 4 380 + 2 910 + 9 860 = 23 390</div></li>
+<li><span>Alla prio 1</span><div class="uttryck">1 810 + 1 150 + 640 + 3 420 = 7 020</div></li>
+<li><span>Andel prio 1</span><div class="uttryck">7 020 / 23 390 · 100 = 30,013</div></li></ol>
+<p class="visning">Visning 30,0 %, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">na-17-q03</span> Fråga 3 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många uppdrag gjorde varje ambulans i Kustvik i genomsnitt per vecka?</p>
+<ol class="alternativ"><li class="ratt"><span class="bokstav">a</span><span class="svar">28,0 uppdrag</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">b</span><span class="svar">56,0 uppdrag</span><span class="typ">steg saknas</span><div class="uttryck">2 910 / 52 = 55,962</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">31,6 uppdrag</span><span class="typ">fel rad</span><div class="uttryck">9 860 / 6 / 52 = 31,603</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">6,2 uppdrag</span><span class="typ">fel kolumn</span><div class="uttryck">640 / 2 / 52 = 6,154</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Uppdrag per ambulans under året</span><div class="uttryck">2 910 / 2 = 1 455</div></li>
+<li><span>Per vecka</span><div class="uttryck">1 455 / 52 = 27,981</div></li></ol>
+<p class="visning">Visning 28,0 uppdrag, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">na-17-q04</span> Fråga 4 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många procent längre var medeltiden per uppdrag i Kustvik än i Centrala?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">52 %</span><span class="typ">fel bas</span><div class="uttryck">61 / 118 · 100 = 51,695</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">207 %</span><span class="typ">fel räknesätt</span><div class="uttryck">118 / 57 · 100 = 207,018</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">156 %</span><span class="typ">fel kolumn</span><div class="uttryck">(23 - 9) / 9 · 100 = 155,556</div></li>
+<li class="ratt"><span class="bokstav">d</span><span class="svar">107 %</span><span class="ratt-etikett">Rätt svar</span></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Skillnad i minuter</span><div class="uttryck">118 - 57 = 61</div></li>
+<li><span>Skillnad i procent av Centrala</span><div class="uttryck">61 / 57 · 100 = 107,018</div></li></ol>
+<p class="visning">Visning 107 %, 0 decimaler</p>
+</details>
+</section>
+</article>
+<article class="underlag" id="na-18-vattenforbrukning">
+<h3>Vattenförbrukning per område <span class="pid">na-18-vattenforbrukning</span></h3>
+<dl class="meta"><div><dt>Typ</dt><dd>tabell</dd></div><div><dt>Ämne</dt><dd>Vatten och avlopp</dd></div><div><dt>Oanvänt</dt><dd>kolumn Ledningsnät (km)</dd></div><div><dt>Enhetsbyte</dt><dd>kubikmeter till liter</dd></div><div><dt>Förhandsvärde</dt><dd>0,55</dd></div></dl>
+<p class="inledning">Tabellen visar vattenförbrukningen i fyra delar av en kommun. Förbrukningen anges i kubikmeter, och 1 kubikmeter är 1 000 liter. År 2025 hade 365 dagar. Kommunens taxa är 32 kr per kubikmeter, och 1 mkr är 1 000 000 kr.</p>
+<div class="rulla"><table>
+<caption>Vattenförbrukning per område</caption>
+<thead><tr><th>Område</th><th>Invånare</th><th>Hushåll</th><th>Förbrukning 2024 (kubikmeter)</th><th>Förbrukning 2025 (kubikmeter)</th><th>Ledningsnät (km)</th></tr></thead>
+<tbody><tr><th scope="row">Strandby</th><td>8 400</td><td>3 900</td><td>486 000</td><td>471 000</td><td>62</td></tr>
+<tr><th scope="row">Bergsäng</th><td>12 200</td><td>5 300</td><td>742 000</td><td>812 000</td><td>88</td></tr>
+<tr><th scope="row">Gamla stan</th><td>5 200</td><td>3 100</td><td>298 000</td><td>305 000</td><td>41</td></tr>
+<tr><th scope="row">Mossen</th><td>3 900</td><td>1 600</td><td>251 000</td><td>247 000</td><td>57</td></tr></tbody>
+</table></div>
+<section class="fraga">
+<h4><span class="qid">na-18-q01</span> Fråga 1 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många liter vatten förbrukade en invånare i Bergsäng i genomsnitt per dag under 2025?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">420 liter</span><span class="typ">fel kolumn</span><div class="uttryck">812 000 · 1 000 / 5 300 / 365 = 419,747</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">167 liter</span><span class="typ">fel kolumn</span><div class="uttryck">742 000 · 1 000 / 12 200 / 365 = 166,629</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">66 557 liter</span><span class="typ">steg saknas</span><div class="uttryck">812 000 · 1 000 / 12 200 = 66 557,377</div></li>
+<li class="ratt"><span class="bokstav">d</span><span class="svar">182 liter</span><span class="ratt-etikett">Rätt svar</span></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Liter per invånare under året</span><div class="uttryck">812 000 · 1 000 / 12 200 = 66 557,377</div></li>
+<li><span>Per dag</span><div class="uttryck">66 557,377 / 365 = 182,349</div></li></ol>
+<p class="visning">Visning 182 liter, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">na-18-q02</span> Fråga 2 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Med hur många procent ökade förbrukningen i Bergsäng från 2024 till 2025?</p>
+<ol class="alternativ"><li class="ratt"><span class="bokstav">a</span><span class="svar">9,4 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">b</span><span class="svar">8,6 %</span><span class="typ">fel bas</span><div class="uttryck">70 000 / 812 000 · 100 = 8,621</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">2,3 %</span><span class="typ">fel rad</span><div class="uttryck">(305 000 - 298 000) / 298 000 · 100 = 2,349</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">109,4 %</span><span class="typ">fel räknesätt</span><div class="uttryck">812 000 / 742 000 · 100 = 109,434</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Ökning i kubikmeter</span><div class="uttryck">812 000 - 742 000 = 70 000</div></li>
+<li><span>Ökning i procent av 2024</span><div class="uttryck">70 000 / 742 000 · 100 = 9,434</div></li></ol>
+<p class="visning">Visning 9,4 %, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">na-18-q03</span> Fråga 3 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur stora var kommunens vattenintäkter från Gamla stan och Mossen sammanlagt 2025, i mkr?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">9,8 mkr</span><span class="typ">steg saknas</span><div class="uttryck">305 000 · 32 / 1 000 / 1 000 = 9,76</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">24,8 mkr</span><span class="typ">fel rad</span><div class="uttryck">(305 000 + 471 000) · 32 / 1 000 / 1 000 = 24,832</div></li>
+<li class="ratt"><span class="bokstav">c</span><span class="svar">17,7 mkr</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">d</span><span class="svar">17 664,0 mkr</span><span class="typ">fel enhet</span><div class="uttryck">552 000 · 32 / 1 000 = 17 664</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Förbrukning i kubikmeter</span><div class="uttryck">305 000 + 247 000 = 552 000</div></li>
+<li><span>Intäkter i mkr</span><div class="uttryck">552 000 · 32 / 1 000 / 1 000 = 17,664</div></li></ol>
+<p class="visning">Visning 17,7 mkr, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">na-18-q04</span> Fråga 4 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur mycket betalade ett hushåll i Gamla stan i genomsnitt för vattnet under 2025?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">3 076 kr</span><span class="typ">fel kolumn</span><div class="uttryck">298 000 · 32 / 3 100 = 3 076,129</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">1 877 kr</span><span class="typ">fel kolumn</span><div class="uttryck">305 000 · 32 / 5 200 = 1 876,923</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">3 865 kr</span><span class="typ">fel rad</span><div class="uttryck">471 000 · 32 / 3 900 = 3 864,615</div></li>
+<li class="ratt"><span class="bokstav">d</span><span class="svar">3 148 kr</span><span class="ratt-etikett">Rätt svar</span></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Intäkter från Gamla stan i kr</span><div class="uttryck">305 000 · 32 = 9 760 000</div></li>
+<li><span>Per hushåll</span><div class="uttryck">9 760 000 / 3 100 = 3 148,387</div></li></ol>
+<p class="visning">Visning 3 148 kr, 0 decimaler</p>
+</details>
+</section>
+</article>
+<article class="underlag" id="na-19-vuxenutbildning">
+<h3>Yrkesutbildningar inom vuxenutbildningen <span class="pid">na-19-vuxenutbildning</span></h3>
+<dl class="meta"><div><dt>Typ</dt><dd>tabell</dd></div><div><dt>Ämne</dt><dd>Utbildning</dd></div><div><dt>Oanvänt</dt><dd>kolumn Veckor</dd></div><div><dt>Enhetsbyte</dt><dd>procent till antal</dd></div><div><dt>Förhandsvärde</dt><dd>0,55</dd></div></dl>
+<p class="inledning">Tabellen visar fyra yrkesutbildningar inom kommunens vuxenutbildning under ett läsår. Andelen godkända avser de som påbörjade utbildningen. Kostnaden anges i tkr per utbildningsplats för hela läsåret, och 1 mkr är 1 000 tkr.</p>
+<div class="rulla"><table>
+<caption>Yrkesutbildningar under läsåret</caption>
+<thead><tr><th>Utbildning</th><th>Platser</th><th>Sökande</th><th>Påbörjade</th><th>Godkända (%)</th><th>Kostnad per plats (tkr)</th><th>Veckor</th></tr></thead>
+<tbody><tr><th scope="row">Undersköterska</th><td>60</td><td>214</td><td>55</td><td>80</td><td>86</td><td>40</td></tr>
+<tr><th scope="row">Barnskötare</th><td>32</td><td>96</td><td>30</td><td>70</td><td>64</td><td>34</td></tr>
+<tr><th scope="row">Lagerlogistik</th><td>28</td><td>61</td><td>25</td><td>76</td><td>72</td><td>20</td></tr>
+<tr><th scope="row">Elektriker</th><td>20</td><td>118</td><td>20</td><td>85</td><td>148</td><td>60</td></tr></tbody>
+</table></div>
+<section class="fraga">
+<h4><span class="qid">na-19-q01</span> Fråga 1 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många deltagare blev godkända på de fyra utbildningarna sammanlagt? Räkna om procenten till antal personer.</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">109 personer</span><span class="typ">fel kolumn</span><div class="uttryck">60 · 80 / 100 + 32 · 70 / 100 + 28 · 76 / 100 + 20 · 85 / 100 = 108,68</div></li>
+<li class="ratt"><span class="bokstav">b</span><span class="svar">101 personer</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">c</span><span class="svar">130 personer</span><span class="typ">steg saknas</span><div class="uttryck">55 + 30 + 25 + 20 = 130</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">311 personer</span><span class="typ">fel enhet</span><div class="uttryck">80 + 70 + 76 + 85 = 311</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Godkända undersköterskor och barnskötare</span><div class="uttryck">55 · 80 / 100 + 30 · 70 / 100 = 65</div></li>
+<li><span>Plus lagerlogistik och elektriker</span><div class="uttryck">65 + 25 · 76 / 100 + 20 · 85 / 100 = 101</div></li></ol>
+<p class="visning">Visning 101 personer, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">na-19-q02</span> Fråga 2 <span class="antal">3 steg</span></h4>
+<p class="fragetext">Vad kostade utbildningsplatserna för undersköterskor och elektriker sammanlagt, i mkr?</p>
+<ol class="alternativ"><li class="ratt"><span class="bokstav">a</span><span class="svar">8,1 mkr</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">b</span><span class="svar">7,2 mkr</span><span class="typ">fel rad</span><div class="uttryck">(60 · 86 + 32 · 64) / 1 000 = 7,208</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">7,7 mkr</span><span class="typ">fel kolumn</span><div class="uttryck">(55 · 86 + 20 · 148) / 1 000 = 7,69</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">8 120,0 mkr</span><span class="typ">fel enhet</span><div class="uttryck">60 · 86 + 20 · 148 = 8 120</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Kostnad för undersköterskor i tkr</span><div class="uttryck">60 · 86 = 5 160</div></li>
+<li><span>Plus elektriker i tkr</span><div class="uttryck">5 160 + 20 · 148 = 8 120</div></li>
+<li><span>Omräknat till mkr</span><div class="uttryck">8 120 / 1 000 = 8,12</div></li></ol>
+<p class="visning">Visning 8,1 mkr, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">na-19-q03</span> Fråga 3 <span class="antal">3 steg</span></h4>
+<p class="fragetext">Räkna i sökande per plats. Hur många procent fler sökande per plats hade elektrikerutbildningen än barnskötarutbildningen?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">23 %</span><span class="typ">steg saknas</span><div class="uttryck">(118 - 96) / 96 · 100 = 22,917</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">84 %</span><span class="typ">fel kolumn</span><div class="uttryck">(118 / 20 - 96 / 30) / (96 / 30) · 100 = 84,375</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">49 %</span><span class="typ">fel bas</span><div class="uttryck">(5,9 - 3) / 5,9 · 100 = 49,153</div></li>
+<li class="ratt"><span class="bokstav">d</span><span class="svar">97 %</span><span class="ratt-etikett">Rätt svar</span></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Elektriker, sökande per plats</span><div class="uttryck">118 / 20 = 5,9</div></li>
+<li><span>Barnskötare, sökande per plats</span><div class="uttryck">96 / 32 = 3</div></li>
+<li><span>Skillnad i procent av barnskötarna</span><div class="uttryck">(5,9 - 3) / 3 · 100 = 96,667</div></li></ol>
+<p class="visning">Visning 97 %, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">na-19-q04</span> Fråga 4 <span class="antal">3 steg</span></h4>
+<p class="fragetext">Hur mycket kostade varje godkänd undersköterska i genomsnitt, i tkr?</p>
+<ol class="alternativ"><li class="ratt"><span class="bokstav">a</span><span class="svar">117 tkr</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">b</span><span class="svar">94 tkr</span><span class="typ">fel kolumn</span><div class="uttryck">60 · 86 / 55 = 93,818</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">86 tkr</span><span class="typ">fel bas</span><div class="uttryck">60 · 86 / 60 = 86</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">98 tkr</span><span class="typ">fel rad</span><div class="uttryck">32 · 64 / (30 · 70 / 100) = 97,524</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Kostnad för alla platser i tkr</span><div class="uttryck">60 · 86 = 5 160</div></li>
+<li><span>Antal godkända</span><div class="uttryck">55 · 80 / 100 = 44</div></li>
+<li><span>Kostnad per godkänd</span><div class="uttryck">5 160 / 44 = 117,273</div></li></ol>
+<p class="visning">Visning 117 tkr, 0 decimaler</p>
+</details>
+</section>
+</article>
+<article class="underlag" id="na-20-hamnens-containrar">
+<h3>Hamnens containrar <span class="pid">na-20-hamnens-containrar</span></h3>
+<dl class="meta"><div><dt>Typ</dt><dd>diagram (stapeldiagram)</dd></div><div><dt>Ämne</dt><dd>Sjöfart och logistik</dd></div><div><dt>Oanvänt</dt><dd>stapel Syd 2024</dd></div><div><dt>Enhetsbyte</dt><dd>kr till mkr</dd></div><div><dt>Förhandsvärde</dt><dd>0,55</dd></div></dl>
+<p class="inledning">Diagrammet visar hur många containrar som lastades och lossades vid hamnens tre kajer under 2024 och 2025. Värdena anges i tusental containrar. Hamnen har öppet 360 dagar per år och tar ut en avgift på 1 360 kr per container. 1 mkr är 1 000 000 kr.</p>
+<p class="diagramtyp">Stapeldiagram, "Containrar per kaj och år (tusental)", y-axel "Tusental containrar"</p>
+<div class="rulla"><table>
+<thead><tr><th>Stapel</th><th>Värde</th></tr></thead>
+<tbody><tr><th scope="row">Norr 2024</th><td>46</td></tr>
+<tr><th scope="row">Norr 2025</th><td>52</td></tr>
+<tr><th scope="row">Syd 2024</th><td>38</td></tr>
+<tr><th scope="row">Syd 2025</th><td>35</td></tr>
+<tr><th scope="row">Väst 2024</th><td>21</td></tr>
+<tr><th scope="row">Väst 2025</th><td>27</td></tr></tbody>
+</table></div>
+<section class="fraga">
+<h4><span class="qid">na-20-q01</span> Fråga 1 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur mycket fick hamnen i avgifter för containrarna vid kaj Norr under 2025, i mkr?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">70 720,0 mkr</span><span class="typ">fel enhet</span><div class="uttryck">52 000 · 1 360 / 1 000 = 70 720</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">62,6 mkr</span><span class="typ">fel kolumn</span><div class="uttryck">46 · 1 000 · 1 360 / 1 000 / 1 000 = 62,56</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">47,6 mkr</span><span class="typ">fel rad</span><div class="uttryck">35 · 1 000 · 1 360 / 1 000 / 1 000 = 47,6</div></li>
+<li class="ratt"><span class="bokstav">d</span><span class="svar">70,7 mkr</span><span class="ratt-etikett">Rätt svar</span></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Antal containrar</span><div class="uttryck">52 · 1 000 = 52 000</div></li>
+<li><span>Avgifter i mkr</span><div class="uttryck">52 000 · 1 360 / 1 000 / 1 000 = 70,72</div></li></ol>
+<p class="visning">Visning 70,7 mkr, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">na-20-q02</span> Fråga 2 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Med hur många procent ökade antalet containrar vid kaj Väst från 2024 till 2025?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">22,2 %</span><span class="typ">fel bas</span><div class="uttryck">6 / 27 · 100 = 22,222</div></li>
+<li class="ratt"><span class="bokstav">b</span><span class="svar">28,6 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">c</span><span class="svar">128,6 %</span><span class="typ">fel räknesätt</span><div class="uttryck">27 / 21 · 100 = 128,571</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">13,0 %</span><span class="typ">fel rad</span><div class="uttryck">(52 - 46) / 46 · 100 = 13,044</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Ökning i tusental</span><div class="uttryck">27 - 21 = 6</div></li>
+<li><span>Ökning i procent av 2024</span><div class="uttryck">6 / 21 · 100 = 28,571</div></li></ol>
+<p class="visning">Visning 28,6 %, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">na-20-q03</span> Fråga 3 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många containrar hanterade hamnen i genomsnitt per öppetdag under 2025, alla tre kajer?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">292 containrar</span><span class="typ">fel kolumn</span><div class="uttryck">(46 + 38 + 21) · 1 000 / 360 = 291,667</div></li>
+<li class="ratt"><span class="bokstav">b</span><span class="svar">317 containrar</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">c</span><span class="svar">114 000 containrar</span><span class="typ">steg saknas</span><div class="uttryck">(52 + 35 + 27) · 1 000 = 114 000</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">219 containrar</span><span class="typ">fel rad</span><div class="uttryck">(52 + 27) · 1 000 / 360 = 219,444</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Containrar 2025 i tusental</span><div class="uttryck">52 + 35 + 27 = 114</div></li>
+<li><span>Per öppetdag</span><div class="uttryck">114 · 1 000 / 360 = 316,667</div></li></ol>
+<p class="visning">Visning 317 containrar, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">na-20-q04</span> Fråga 4 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många procent av hamnens containrar under 2025 hanterades vid kaj Norr?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">83,9 %</span><span class="typ">fel bas</span><div class="uttryck">52 / (35 + 27) · 100 = 83,871</div></li>
+<li class="ratt"><span class="bokstav">b</span><span class="svar">45,6 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">c</span><span class="svar">43,8 %</span><span class="typ">fel kolumn</span><div class="uttryck">46 / (46 + 38 + 21) · 100 = 43,81</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">30,7 %</span><span class="typ">fel rad</span><div class="uttryck">35 / 114 · 100 = 30,702</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Containrar 2025 i tusental</span><div class="uttryck">52 + 35 + 27 = 114</div></li>
+<li><span>Norrs andel</span><div class="uttryck">52 / 114 · 100 = 45,614</div></li></ol>
+<p class="visning">Visning 45,6 %, 1 decimaler</p>
+</details>
+</section>
+</article>
+<article class="underlag" id="na-21-lonerevision">
+<h3>Årets lönerevision <span class="pid">na-21-lonerevision</span></h3>
+<dl class="meta"><div><dt>Typ</dt><dd>tabell</dd></div><div><dt>Ämne</dt><dd>Lön och personal</dd></div><div><dt>Oanvänt</dt><dd>kolumn Sjukfrånvaro (%)</dd></div><div><dt>Enhetsbyte</dt><dd>kr till mkr</dd></div><div><dt>Förhandsvärde</dt><dd>0,55</dd></div></dl>
+<p class="inledning">Tabellen visar resultatet av årets lönerevision i en region för fyra yrkesgrupper. Lönerna är månadslöner i kr före skatt. Arbetsgivaren betalar dessutom sociala avgifter på 31,42 % av lönen. Ett år har 12 månadslöner, och 1 mkr är 1 000 000 kr.</p>
+<div class="rulla"><table>
+<caption>Medellön före och efter revisionen</caption>
+<thead><tr><th>Yrkesgrupp</th><th>Anställda</th><th>Medellön före (kr)</th><th>Medellön efter (kr)</th><th>Sjukfrånvaro (%)</th></tr></thead>
+<tbody><tr><th scope="row">Undersköterskor</th><td>420</td><td>31 800</td><td>32 900</td><td>7,4</td></tr>
+<tr><th scope="row">Sjuksköterskor</th><td>260</td><td>42 600</td><td>44 300</td><td>5,1</td></tr>
+<tr><th scope="row">Läkare</th><td>85</td><td>78 400</td><td>80 900</td><td>3,2</td></tr>
+<tr><th scope="row">Administratörer</th><td>140</td><td>33 500</td><td>34 500</td><td>4,6</td></tr></tbody>
+</table></div>
+<section class="fraga">
+<h4><span class="qid">na-21-q01</span> Fråga 1 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Med hur många procent höjdes medellönen för sjuksköterskor?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">3,5 %</span><span class="typ">fel rad</span><div class="uttryck">(32 900 - 31 800) / 31 800 · 100 = 3,459</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">104,0 %</span><span class="typ">fel räknesätt</span><div class="uttryck">44 300 / 42 600 · 100 = 103,991</div></li>
+<li class="ratt"><span class="bokstav">c</span><span class="svar">4,0 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">d</span><span class="svar">3,8 %</span><span class="typ">fel bas</span><div class="uttryck">1 700 / 44 300 · 100 = 3,838</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Höjning i kr</span><div class="uttryck">44 300 - 42 600 = 1 700</div></li>
+<li><span>Höjning i procent av lönen före</span><div class="uttryck">1 700 / 42 600 · 100 = 3,991</div></li></ol>
+<p class="visning">Visning 4,0 %, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">na-21-q02</span> Fråga 2 <span class="antal">3 steg</span></h4>
+<p class="fragetext">Hur mycket ökade regionens lönekostnad för undersköterskor under ett år, sociala avgifter inräknade? Svara i mkr.</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">5,5 mkr</span><span class="typ">steg saknas</span><div class="uttryck">462 000 · 12 / 1 000 / 1 000 = 5,544</div></li>
+<li class="ratt"><span class="bokstav">b</span><span class="svar">7,3 mkr</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">c</span><span class="svar">0,6 mkr</span><span class="typ">fel enhet</span><div class="uttryck">462 000 · (1 + 31,42 / 100) / 1 000 / 1 000 = 0,607</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">1,7 mkr</span><span class="typ">fel räknesätt</span><div class="uttryck">5 544 000 · 31,42 / 100 / 1 000 / 1 000 = 1,742</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Höjning per månad för hela gruppen i kr</span><div class="uttryck">(32 900 - 31 800) · 420 = 462 000</div></li>
+<li><span>Per år i kr</span><div class="uttryck">462 000 · 12 = 5 544 000</div></li>
+<li><span>Med sociala avgifter i mkr</span><div class="uttryck">5 544 000 · (1 + 31,42 / 100) / 1 000 / 1 000 = 7,286</div></li></ol>
+<p class="visning">Visning 7,3 mkr, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">na-21-q03</span> Fråga 3 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många procent högre var läkarnas medellön än undersköterskornas efter revisionen?</p>
+<ol class="alternativ"><li class="ratt"><span class="bokstav">a</span><span class="svar">146 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">b</span><span class="svar">83 %</span><span class="typ">fel rad</span><div class="uttryck">(80 900 - 44 300) / 44 300 · 100 = 82,619</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">246 %</span><span class="typ">fel räknesätt</span><div class="uttryck">80 900 / 32 900 · 100 = 245,897</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">59 %</span><span class="typ">fel bas</span><div class="uttryck">48 000 / 80 900 · 100 = 59,333</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Skillnad i kr</span><div class="uttryck">80 900 - 32 900 = 48 000</div></li>
+<li><span>Skillnad i procent av undersköterskornas lön</span><div class="uttryck">48 000 / 32 900 · 100 = 145,897</div></li></ol>
+<p class="visning">Visning 146 %, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">na-21-q04</span> Fråga 4 <span class="antal">3 steg</span></h4>
+<p class="fragetext">Vad blev medellönen efter revisionen för alla anställda i de fyra yrkesgrupperna tillsammans?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">36 788 kr</span><span class="typ">fel rad</span><div class="uttryck">(420 · 32 900 + 260 · 44 300 + 140 · 34 500) / (420 + 260 + 140) = 36 787,805</div></li>
+<li class="ratt"><span class="bokstav">b</span><span class="svar">40 931 kr</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">c</span><span class="svar">39 543 kr</span><span class="typ">fel kolumn</span><div class="uttryck">(420 · 31 800 + 260 · 42 600 + 85 · 78 400 + 140 · 33 500) / 905 = 39 542,541</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">48 150 kr</span><span class="typ">fel bas</span><div class="uttryck">(32 900 + 44 300 + 80 900 + 34 500) / 4 = 48 150</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Lönesumma per månad efter revisionen</span><div class="uttryck">420 · 32 900 + 260 · 44 300 + 85 · 80 900 + 140 · 34 500 = 37 042 500</div></li>
+<li><span>Alla anställda</span><div class="uttryck">420 + 260 + 85 + 140 = 905</div></li>
+<li><span>Medellön</span><div class="uttryck">37 042 500 / 905 = 40 930,939</div></li></ol>
+<p class="visning">Visning 40 931 kr, 0 decimaler</p>
+</details>
+</section>
+</article>
+<article class="underlag" id="na-22-influensavaccin">
+<h3>Influensavaccinationer per månad <span class="pid">na-22-influensavaccin</span></h3>
+<dl class="meta"><div><dt>Typ</dt><dd>diagram (linjediagram)</dd></div><div><dt>Ämne</dt><dd>Folkhälsa</dd></div><div><dt>Oanvänt</dt><dd>punkt Jan 2025</dd></div><div><dt>Enhetsbyte</dt><dd>minuter till timmar</dd></div><div><dt>Förhandsvärde</dt><dd>0,55</dd></div></dl>
+<p class="inledning">Diagrammet visar hur många influensavaccinationer en vårdcentral gav per månad under två säsonger. Av alla vaccinationer gick 70 % till patienter som är 65 år eller äldre, och vårdcentralen har 4 700 listade patienter i den åldern. En vaccination tar 8 minuter för sjuksköterskan, och 1 timme är 60 minuter. Regionen betalar vårdcentralen 310 kr per vaccination. 1 tkr är 1 000 kr.</p>
+<p class="diagramtyp">Linjediagram, "Influensavaccinationer per månad", y-axel "Antal vaccinationer", x-axel "Månad"</p>
+<div class="rulla"><table>
+<thead><tr><th>Punkt</th><th>Värde</th></tr></thead>
+<tbody><tr><th scope="row">Okt 2024</th><td>920</td></tr>
+<tr><th scope="row">Nov 2024</th><td>640</td></tr>
+<tr><th scope="row">Dec 2024</th><td>330</td></tr>
+<tr><th scope="row">Jan 2025</th><td>120</td></tr>
+<tr><th scope="row">Okt 2025</th><td>980</td></tr>
+<tr><th scope="row">Nov 2025</th><td>710</td></tr>
+<tr><th scope="row">Dec 2025</th><td>290</td></tr>
+<tr><th scope="row">Jan 2026</th><td>140</td></tr></tbody>
+</table></div>
+<section class="fraga">
+<h4><span class="qid">na-22-q01</span> Fråga 1 <span class="antal">3 steg</span></h4>
+<p class="fragetext">Hur många procent av de listade patienterna som är 65 år eller äldre vaccinerades under säsongen oktober 2025 till januari 2026?</p>
+<ol class="alternativ"><li class="ratt"><span class="bokstav">a</span><span class="svar">31,6 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">b</span><span class="svar">45,1 %</span><span class="typ">steg saknas</span><div class="uttryck">2 120 / 4 700 · 100 = 45,106</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">29,9 %</span><span class="typ">fel kolumn</span><div class="uttryck">(920 + 640 + 330 + 120) · 70 / 100 / 4 700 · 100 = 29,936</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">29,5 %</span><span class="typ">fel rad</span><div class="uttryck">(980 + 710 + 290) · 70 / 100 / 4 700 · 100 = 29,489</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Vaccinationer under säsongen</span><div class="uttryck">980 + 710 + 290 + 140 = 2 120</div></li>
+<li><span>Varav 65 år eller äldre</span><div class="uttryck">2 120 · 70 / 100 = 1 484</div></li>
+<li><span>Andel av de listade</span><div class="uttryck">1 484 / 4 700 · 100 = 31,575</div></li></ol>
+<p class="visning">Visning 31,6 %, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">na-22-q02</span> Fråga 2 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Med hur många procent fler vaccinationer gav vårdcentralen i november 2025 än i november 2024?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">110,9 %</span><span class="typ">fel räknesätt</span><div class="uttryck">710 / 640 · 100 = 110,938</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">6,5 %</span><span class="typ">fel rad</span><div class="uttryck">(980 - 920) / 920 · 100 = 6,522</div></li>
+<li class="ratt"><span class="bokstav">c</span><span class="svar">10,9 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">d</span><span class="svar">9,9 %</span><span class="typ">fel bas</span><div class="uttryck">70 / 710 · 100 = 9,859</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Skillnad i antal</span><div class="uttryck">710 - 640 = 70</div></li>
+<li><span>Skillnad i procent av november 2024</span><div class="uttryck">70 / 640 · 100 = 10,938</div></li></ol>
+<p class="visning">Visning 10,9 %, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">na-22-q03</span> Fråga 3 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många timmar lade sjuksköterskorna på vaccinationer i oktober 2025?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">7 840 timmar</span><span class="typ">fel enhet</span><div class="uttryck">980 · 8 = 7 840</div></li>
+<li class="ratt"><span class="bokstav">b</span><span class="svar">131 timmar</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">c</span><span class="svar">123 timmar</span><span class="typ">fel kolumn</span><div class="uttryck">920 · 8 / 60 = 122,667</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">95 timmar</span><span class="typ">fel rad</span><div class="uttryck">710 · 8 / 60 = 94,667</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Tid i minuter</span><div class="uttryck">980 · 8 = 7 840</div></li>
+<li><span>Omräknat till timmar</span><div class="uttryck">7 840 / 60 = 130,667</div></li></ol>
+<p class="visning">Visning 131 timmar, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">na-22-q04</span> Fråga 4 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur mycket betalade regionen för vaccinationerna från oktober till december 2024, i tkr?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">613,8 tkr</span><span class="typ">fel kolumn</span><div class="uttryck">(980 + 710 + 290) · 310 / 1 000 = 613,8</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">585 900,0 tkr</span><span class="typ">fel enhet</span><div class="uttryck">1 890 · 310 = 585 900</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">623,1 tkr</span><span class="typ">fel rad</span><div class="uttryck">(920 + 640 + 330 + 120) · 310 / 1 000 = 623,1</div></li>
+<li class="ratt"><span class="bokstav">d</span><span class="svar">585,9 tkr</span><span class="ratt-etikett">Rätt svar</span></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Vaccinationer oktober till december 2024</span><div class="uttryck">920 + 640 + 330 = 1 890</div></li>
+<li><span>Ersättning i tkr</span><div class="uttryck">1 890 · 310 / 1 000 = 585,9</div></li></ol>
+<p class="visning">Visning 585,9 tkr, 1 decimaler</p>
+</details>
+</section>
+</article>
+<article class="underlag" id="na-23-skadearenden">
+<h3>Försäkringsbolagets skadeärenden <span class="pid">na-23-skadearenden</span></h3>
+<dl class="meta"><div><dt>Typ</dt><dd>diagram (stapeldiagram)</dd></div><div><dt>Ämne</dt><dd>Försäkring</dd></div><div><dt>Oanvänt</dt><dd>stapel Storm 2024</dd></div><div><dt>Enhetsbyte</dt><dd>tkr till mkr</dd></div><div><dt>Förhandsvärde</dt><dd>0,55</dd></div></dl>
+<p class="inledning">Diagrammet visar hur många skadeärenden ett regionalt försäkringsbolag hanterade per skadetyp under 2024 och 2025. Den genomsnittliga ersättningen per ärende 2025 var 47 tkr för vattenskada, 28 tkr för inbrott, 212 tkr för brand och 19 tkr för storm. 1 mkr är 1 000 tkr. En handläggare på heltid hanterar i genomsnitt 160 ärenden per år.</p>
+<p class="diagramtyp">Stapeldiagram, "Skadeärenden per typ och år", y-axel "Antal ärenden"</p>
+<div class="rulla"><table>
+<thead><tr><th>Stapel</th><th>Värde</th></tr></thead>
+<tbody><tr><th scope="row">Vattenskada 2024</th><td>840</td></tr>
+<tr><th scope="row">Vattenskada 2025</th><td>910</td></tr>
+<tr><th scope="row">Inbrott 2024</th><td>360</td></tr>
+<tr><th scope="row">Inbrott 2025</th><td>310</td></tr>
+<tr><th scope="row">Brand 2024</th><td>95</td></tr>
+<tr><th scope="row">Brand 2025</th><td>110</td></tr>
+<tr><th scope="row">Storm 2024</th><td>420</td></tr>
+<tr><th scope="row">Storm 2025</th><td>180</td></tr></tbody>
+</table></div>
+<section class="fraga">
+<h4><span class="qid">na-23-q01</span> Fråga 1 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur mycket betalade bolaget i ersättning för vattenskador under 2025, i mkr?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">42 770,0 mkr</span><span class="typ">fel enhet</span><div class="uttryck">910 · 47 = 42 770</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">8,7 mkr</span><span class="typ">fel rad</span><div class="uttryck">310 · 28 / 1 000 = 8,68</div></li>
+<li class="ratt"><span class="bokstav">c</span><span class="svar">42,8 mkr</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">d</span><span class="svar">39,5 mkr</span><span class="typ">fel kolumn</span><div class="uttryck">840 · 47 / 1 000 = 39,48</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Ersättning i tkr</span><div class="uttryck">910 · 47 = 42 770</div></li>
+<li><span>Omräknat till mkr</span><div class="uttryck">42 770 / 1 000 = 42,77</div></li></ol>
+<p class="visning">Visning 42,8 mkr, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">na-23-q02</span> Fråga 2 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många procent av bolagets samlade ersättning under 2025 gick till brandskador?</p>
+<ol class="alternativ"><li class="ratt"><span class="bokstav">a</span><span class="svar">29,8 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">b</span><span class="svar">25,8 %</span><span class="typ">fel rad</span><div class="uttryck">95 · 212 / 78 190 · 100 = 25,758</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">7,3 %</span><span class="typ">fel kolumn</span><div class="uttryck">110 / (910 + 310 + 110 + 180) · 100 = 7,285</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">42,5 %</span><span class="typ">fel bas</span><div class="uttryck">110 · 212 / (78 190 - 110 · 212) · 100 = 42,501</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Samlad ersättning 2025 i tkr</span><div class="uttryck">910 · 47 + 310 · 28 + 110 · 212 + 180 · 19 = 78 190</div></li>
+<li><span>Brandens andel</span><div class="uttryck">110 · 212 / 78 190 · 100 = 29,825</div></li></ol>
+<p class="visning">Visning 29,8 %, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">na-23-q03</span> Fråga 3 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Med hur många procent minskade antalet inbrottsärenden från 2024 till 2025?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">86,1 %</span><span class="typ">fel räknesätt</span><div class="uttryck">310 / 360 · 100 = 86,111</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">16,1 %</span><span class="typ">fel bas</span><div class="uttryck">50 / 310 · 100 = 16,129</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">15,8 %</span><span class="typ">fel rad</span><div class="uttryck">(110 - 95) / 95 · 100 = 15,79</div></li>
+<li class="ratt"><span class="bokstav">d</span><span class="svar">13,9 %</span><span class="ratt-etikett">Rätt svar</span></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Minskning i ärenden</span><div class="uttryck">360 - 310 = 50</div></li>
+<li><span>Minskning i procent av 2024</span><div class="uttryck">50 / 360 · 100 = 13,889</div></li></ol>
+<p class="visning">Visning 13,9 %, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">na-23-q04</span> Fråga 4 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många handläggare på heltid behövdes för alla skadeärenden under 2025?</p>
+<ol class="alternativ"><li class="ratt"><span class="bokstav">a</span><span class="svar">9,4 handläggare</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">b</span><span class="svar">7,5 handläggare</span><span class="typ">fel rad</span><div class="uttryck">(910 + 110 + 180) / 160 = 7,5</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">8,3 handläggare</span><span class="typ">fel rad</span><div class="uttryck">(910 + 310 + 110) / 160 = 8,313</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">10,7 handläggare</span><span class="typ">fel kolumn</span><div class="uttryck">(840 + 360 + 95 + 420) / 160 = 10,719</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Ärenden 2025</span><div class="uttryck">910 + 310 + 110 + 180 = 1 510</div></li>
+<li><span>Handläggare på heltid</span><div class="uttryck">1 510 / 160 = 9,438</div></li></ol>
+<p class="visning">Visning 9,4 handläggare, 1 decimaler</p>
+</details>
+</section>
+</article>
+<article class="underlag" id="na-24-gatubelaggning">
+<h3>Ny beläggning på kommunens gator <span class="pid">na-24-gatubelaggning</span></h3>
+<dl class="meta"><div><dt>Typ</dt><dd>tabell</dd></div><div><dt>Ämne</dt><dd>Gator och vägar</dd></div><div><dt>Oanvänt</dt><dd>kolumn Klagomål förra året</dd></div><div><dt>Enhetsbyte</dt><dd>km till meter</dd></div><div><dt>Förhandsvärde</dt><dd>0,55</dd></div></dl>
+<p class="inledning">Tabellen visar kommunens plan för ny asfalt på fyra typer av gator under nästa år. Bredden är den genomsnittliga körbanebredden i meter, och priset anges i kr per kvadratmeter ny asfalt. 1 km är 1 000 meter, och 1 mkr är 1 000 000 kr.</p>
+<div class="rulla"><table>
+<caption>Plan för ny beläggning</caption>
+<thead><tr><th>Gatutyp</th><th>Gatunät (km)</th><th>Planerad beläggning (km)</th><th>Bredd (m)</th><th>Pris (kr per kvm)</th><th>Klagomål förra året</th></tr></thead>
+<tbody><tr><th scope="row">Huvudgator</th><td>46</td><td>6,4</td><td>9,5</td><td>285</td><td>212</td></tr>
+<tr><th scope="row">Lokalgator</th><td>138</td><td>11,2</td><td>6,0</td><td>240</td><td>341</td></tr>
+<tr><th scope="row">Gång och cykel</th><td>92</td><td>8,5</td><td>3,5</td><td>195</td><td>128</td></tr>
+<tr><th scope="row">Industrigator</th><td>24</td><td>2,6</td><td>7,5</td><td>310</td><td>47</td></tr></tbody>
+</table></div>
+<section class="fraga">
+<h4><span class="qid">na-24-q01</span> Fråga 1 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Vad kostar den planerade beläggningen av huvudgatorna, i mkr?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">124,5 mkr</span><span class="typ">fel kolumn</span><div class="uttryck">46 · 1 000 · 9,5 · 285 / 1 000 / 1 000 = 124,545</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">1,8 mkr</span><span class="typ">steg saknas</span><div class="uttryck">6,4 · 1 000 · 285 / 1 000 / 1 000 = 1,824</div></li>
+<li class="ratt"><span class="bokstav">c</span><span class="svar">17,3 mkr</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">d</span><span class="svar">17 328,0 mkr</span><span class="typ">fel enhet</span><div class="uttryck">60 800 · 285 / 1 000 = 17 328</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Yta i kvadratmeter</span><div class="uttryck">6,4 · 1 000 · 9,5 = 60 800</div></li>
+<li><span>Kostnad i mkr</span><div class="uttryck">60 800 · 285 / 1 000 / 1 000 = 17,328</div></li></ol>
+<p class="visning">Visning 17,3 mkr, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">na-24-q02</span> Fråga 2 <span class="antal">1 steg</span></h4>
+<p class="fragetext">Hur många procent av lokalgatornas gatunät får ny beläggning?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">13,9 %</span><span class="typ">fel rad</span><div class="uttryck">6,4 / 46 · 100 = 13,913</div></li>
+<li class="ratt"><span class="bokstav">b</span><span class="svar">8,1 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">c</span><span class="svar">0,1 %</span><span class="typ">fel enhet</span><div class="uttryck">11,2 / 138 = 0,081</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">8,8 %</span><span class="typ">fel bas</span><div class="uttryck">11,2 / (138 - 11,2) · 100 = 8,833</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Planerad beläggning delat med gatunätet</span><div class="uttryck">11,2 / 138 · 100 = 8,116</div></li></ol>
+<p class="visning">Visning 8,1 %, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">na-24-q03</span> Fråga 3 <span class="antal">3 steg</span></h4>
+<p class="fragetext">Hur många procent av den totala ytan ny asfalt nästa år hamnar på lokalgator?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">61,1 %</span><span class="typ">fel bas</span><div class="uttryck">67 200 / (177 250 - 67 200) · 100 = 61,063</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">46,0 %</span><span class="typ">fel kolumn</span><div class="uttryck">138 / (46 + 138 + 92 + 24) · 100 = 46</div></li>
+<li class="ratt"><span class="bokstav">c</span><span class="svar">37,9 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">d</span><span class="svar">34,3 %</span><span class="typ">fel rad</span><div class="uttryck">60 800 / 177 250 · 100 = 34,302</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Yta på lokalgator i kvadratmeter</span><div class="uttryck">11,2 · 1 000 · 6,0 = 67 200</div></li>
+<li><span>All ny yta i kvadratmeter</span><div class="uttryck">6,4 · 1 000 · 9,5 + 11,2 · 1 000 · 6,0 + 8,5 · 1 000 · 3,5 + 2,6 · 1 000 · 7,5 = 177 250</div></li>
+<li><span>Lokalgatornas andel</span><div class="uttryck">67 200 / 177 250 · 100 = 37,913</div></li></ol>
+<p class="visning">Visning 37,9 %, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">na-24-q04</span> Fråga 4 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Vad kostar hela beläggningsplanen för nästa år, i mkr?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">45 302,3 mkr</span><span class="typ">fel enhet</span><div class="uttryck">45 302 250 / 1 000 = 45 302,25</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">39,3 mkr</span><span class="typ">fel rad</span><div class="uttryck">(6,4 · 1 000 · 9,5 · 285 + 11,2 · 1 000 · 6,0 · 240 + 8,5 · 1 000 · 3,5 · 195) / 1 000 / 1 000 = 39,257</div></li>
+<li class="ratt"><span class="bokstav">c</span><span class="svar">45,3 mkr</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">d</span><span class="svar">441,9 mkr</span><span class="typ">fel kolumn</span><div class="uttryck">(46 · 1 000 · 9,5 · 285 + 138 · 1 000 · 6,0 · 240 + 92 · 1 000 · 3,5 · 195 + 24 · 1 000 · 7,5 · 310) / 1 000 / 1 000 = 441,855</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Kostnad i kr</span><div class="uttryck">6,4 · 1 000 · 9,5 · 285 + 11,2 · 1 000 · 6,0 · 240 + 8,5 · 1 000 · 3,5 · 195 + 2,6 · 1 000 · 7,5 · 310 = 45 302 250</div></li>
+<li><span>Omräknat till mkr</span><div class="uttryck">45 302 250 / 1 000 / 1 000 = 45,302</div></li></ol>
+<p class="visning">Visning 45,3 mkr, 1 decimaler</p>
+</details>
+</section>
+</article>
+<h2>Grund</h2>
+<article class="underlag" id="ng-17-hemtjanst-besok">
+<h3>Hemtjänstens besök <span class="pid">ng-17-hemtjanst-besok</span></h3>
+<dl class="meta"><div><dt>Typ</dt><dd>tabell</dd></div><div><dt>Ämne</dt><dd>Äldreomsorg</dd></div><div><dt>Oanvänt</dt><dd>inget</dd></div><div><dt>Enhetsbyte</dt><dd>minuter till timmar</dd></div><div><dt>Förhandsvärde</dt><dd>0,7</dd></div></dl>
+<p class="inledning">Tabellen visar hemtjänstens planerade besök under en vecka i fyra områden. Ett besök tar i genomsnitt 25 minuter. 1 timme är 60 minuter.</p>
+<div class="rulla"><table>
+<caption>Planerade besök under en vecka</caption>
+<thead><tr><th>Område</th><th>Brukare</th><th>Besök per vecka</th><th>Personal i tjänst</th></tr></thead>
+<tbody><tr><th scope="row">Centrum</th><td>51</td><td>612</td><td>14</td></tr>
+<tr><th scope="row">Norr</th><td>35</td><td>455</td><td>11</td></tr>
+<tr><th scope="row">Söder</th><td>52</td><td>598</td><td>15</td></tr>
+<tr><th scope="row">Väster</th><td>29</td><td>348</td><td>9</td></tr></tbody>
+</table></div>
+<section class="fraga">
+<h4><span class="qid">ng-17-q01</span> Fråga 1 <span class="antal">1 steg</span></h4>
+<p class="fragetext">Hur många besök gör hemtjänsten sammanlagt i Norr och Söder under en vecka?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">1 210 besök</span><span class="typ">fel rad</span><div class="uttryck">612 + 598 = 1 210</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">803 besök</span><span class="typ">fel rad</span><div class="uttryck">455 + 348 = 803</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">143 besök</span><span class="typ">fel räknesätt</span><div class="uttryck">598 - 455 = 143</div></li>
+<li class="ratt"><span class="bokstav">d</span><span class="svar">1 053 besök</span><span class="ratt-etikett">Rätt svar</span></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Besök i Norr och Söder</span><div class="uttryck">455 + 598 = 1 053</div></li></ol>
+<p class="visning">Visning 1 053 besök, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-17-q02</span> Fråga 2 <span class="antal">1 steg</span></h4>
+<p class="fragetext">Hur många besök får en brukare i Centrum i genomsnitt per vecka?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">11,5 besök</span><span class="typ">fel rad</span><div class="uttryck">598 / 52 = 11,5</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">43,7 besök</span><span class="typ">fel kolumn</span><div class="uttryck">612 / 14 = 43,714</div></li>
+<li class="ratt"><span class="bokstav">c</span><span class="svar">12,0 besök</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">d</span><span class="svar">13,0 besök</span><span class="typ">fel rad</span><div class="uttryck">455 / 35 = 13</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Besök per brukare i Centrum</span><div class="uttryck">612 / 51 = 12</div></li></ol>
+<p class="visning">Visning 12,0 besök, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-17-q03</span> Fråga 3 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många timmar tar besöken i Väster sammanlagt under en vecka?</p>
+<ol class="alternativ"><li class="ratt"><span class="bokstav">a</span><span class="svar">145 timmar</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">b</span><span class="svar">8 700 timmar</span><span class="typ">fel enhet</span><div class="uttryck">348 · 25 = 8 700</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">190 timmar</span><span class="typ">fel rad</span><div class="uttryck">455 · 25 / 60 = 189,583</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">12 timmar</span><span class="typ">fel kolumn</span><div class="uttryck">29 · 25 / 60 = 12,083</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Besökstid i minuter</span><div class="uttryck">348 · 25 = 8 700</div></li>
+<li><span>Omräknat till timmar</span><div class="uttryck">8 700 / 60 = 145</div></li></ol>
+<p class="visning">Visning 145 timmar, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-17-q04</span> Fråga 4 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många procent av alla besök under veckan görs i Söder?</p>
+<ol class="alternativ"><li class="ratt"><span class="bokstav">a</span><span class="svar">29,7 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">b</span><span class="svar">42,3 %</span><span class="typ">fel bas</span><div class="uttryck">598 / (2 013 - 598) · 100 = 42,262</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">30,4 %</span><span class="typ">fel rad</span><div class="uttryck">612 / 2 013 · 100 = 30,402</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">31,1 %</span><span class="typ">fel kolumn</span><div class="uttryck">52 / (51 + 35 + 52 + 29) · 100 = 31,138</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Alla besök under veckan</span><div class="uttryck">612 + 455 + 598 + 348 = 2 013</div></li>
+<li><span>Söders andel</span><div class="uttryck">598 / 2 013 · 100 = 29,707</div></li></ol>
+<p class="visning">Visning 29,7 %, 1 decimaler</p>
+</details>
+</section>
+</article>
+<article class="underlag" id="ng-18-lagrets-inleveranser">
+<h3>Lagrets inleveranser <span class="pid">ng-18-lagrets-inleveranser</span></h3>
+<dl class="meta"><div><dt>Typ</dt><dd>tabell</dd></div><div><dt>Ämne</dt><dd>Lager och logistik</dd></div><div><dt>Oanvänt</dt><dd>inget</dd></div><div><dt>Enhetsbyte</dt><dd>kg till ton</dd></div><div><dt>Förhandsvärde</dt><dd>0,7</dd></div></dl>
+<p class="inledning">Tabellen visar ett lagers inleveranser från fyra leverantörer under oktober. En pall väger i genomsnitt 420 kg. 1 ton är 1 000 kg.</p>
+<div class="rulla"><table>
+<caption>Inleveranser i oktober</caption>
+<thead><tr><th>Leverantör</th><th>Leveranser</th><th>Pallar</th><th>Försenade leveranser</th></tr></thead>
+<tbody><tr><th scope="row">Nordgods</th><td>18</td><td>342</td><td>3</td></tr>
+<tr><th scope="row">Bergs Frukt</th><td>24</td><td>408</td><td>6</td></tr>
+<tr><th scope="row">Kustlast</th><td>12</td><td>276</td><td>1</td></tr>
+<tr><th scope="row">Mellanfrakt</th><td>15</td><td>255</td><td>4</td></tr></tbody>
+</table></div>
+<section class="fraga">
+<h4><span class="qid">ng-18-q01</span> Fråga 1 <span class="antal">1 steg</span></h4>
+<p class="fragetext">Hur många pallar innehöll en leverans från Kustlast i genomsnitt?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">17 pallar</span><span class="typ">fel rad</span><div class="uttryck">408 / 24 = 17</div></li>
+<li class="ratt"><span class="bokstav">b</span><span class="svar">23 pallar</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">c</span><span class="svar">264 pallar</span><span class="typ">fel räknesätt</span><div class="uttryck">276 - 12 = 264</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">19 pallar</span><span class="typ">fel rad</span><div class="uttryck">342 / 18 = 19</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Pallar per leverans</span><div class="uttryck">276 / 12 = 23</div></li></ol>
+<p class="visning">Visning 23 pallar, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-18-q02</span> Fråga 2 <span class="antal">1 steg</span></h4>
+<p class="fragetext">Hur många procent av leveranserna från Bergs Frukt var försenade?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">27 %</span><span class="typ">fel rad</span><div class="uttryck">4 / 15 · 100 = 26,667</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">33 %</span><span class="typ">fel bas</span><div class="uttryck">6 / (24 - 6) · 100 = 33,333</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">1 %</span><span class="typ">fel kolumn</span><div class="uttryck">6 / 408 · 100 = 1,471</div></li>
+<li class="ratt"><span class="bokstav">d</span><span class="svar">25 %</span><span class="ratt-etikett">Rätt svar</span></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Försenade delat med alla leveranser</span><div class="uttryck">6 / 24 · 100 = 25</div></li></ol>
+<p class="visning">Visning 25 %, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-18-q03</span> Fråga 3 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många ton vägde pallarna från Nordgods sammanlagt i oktober?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">8 ton</span><span class="typ">fel kolumn</span><div class="uttryck">18 · 420 / 1 000 = 7,56</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">171 ton</span><span class="typ">fel rad</span><div class="uttryck">408 · 420 / 1 000 = 171,36</div></li>
+<li class="ratt"><span class="bokstav">c</span><span class="svar">144 ton</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">d</span><span class="svar">143 640 ton</span><span class="typ">fel enhet</span><div class="uttryck">342 · 420 = 143 640</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Vikt i kg</span><div class="uttryck">342 · 420 = 143 640</div></li>
+<li><span>Omräknat till ton</span><div class="uttryck">143 640 / 1 000 = 143,64</div></li></ol>
+<p class="visning">Visning 144 ton, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-18-q04</span> Fråga 4 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många procent av alla pallar i oktober kom från Mellanfrakt?</p>
+<ol class="alternativ"><li class="ratt"><span class="bokstav">a</span><span class="svar">19,9 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">b</span><span class="svar">21,5 %</span><span class="typ">fel rad</span><div class="uttryck">276 / 1 281 · 100 = 21,546</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">24,9 %</span><span class="typ">fel bas</span><div class="uttryck">255 / (1 281 - 255) · 100 = 24,854</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">21,7 %</span><span class="typ">fel kolumn</span><div class="uttryck">15 / (18 + 24 + 12 + 15) · 100 = 21,739</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Alla pallar i oktober</span><div class="uttryck">342 + 408 + 276 + 255 = 1 281</div></li>
+<li><span>Mellanfrakts andel</span><div class="uttryck">255 / 1 281 · 100 = 19,906</div></li></ol>
+<p class="visning">Visning 19,9 %, 1 decimaler</p>
+</details>
+</section>
+</article>
+<article class="underlag" id="ng-19-skolans-franvaro">
+<h3>Frånvaro per klass <span class="pid">ng-19-skolans-franvaro</span></h3>
+<dl class="meta"><div><dt>Typ</dt><dd>tabell</dd></div><div><dt>Ämne</dt><dd>Skola</dd></div><div><dt>Oanvänt</dt><dd>inget</dd></div><div><dt>Enhetsbyte</dt><dd>dagar till lektioner</dd></div><div><dt>Förhandsvärde</dt><dd>0,7</dd></div></dl>
+<p class="inledning">Tabellen visar frånvaron i fyra klasser på en grundskola under en period med 40 skoldagar. En skoldag har 6 lektioner. En frånvarodag betyder att en elev var borta en hel dag.</p>
+<div class="rulla"><table>
+<caption>Frånvaro under 40 skoldagar</caption>
+<thead><tr><th>Klass</th><th>Elever</th><th>Frånvarodagar totalt</th><th>Varav ogiltig frånvaro</th></tr></thead>
+<tbody><tr><th scope="row">7A</th><td>28</td><td>86</td><td>12</td></tr>
+<tr><th scope="row">7B</th><td>26</td><td>121</td><td>18</td></tr>
+<tr><th scope="row">8A</th><td>30</td><td>96</td><td>9</td></tr>
+<tr><th scope="row">8B</th><td>25</td><td>138</td><td>21</td></tr></tbody>
+</table></div>
+<section class="fraga">
+<h4><span class="qid">ng-19-q01</span> Fråga 1 <span class="antal">1 steg</span></h4>
+<p class="fragetext">Hur många frånvarodagar hade klasserna i årskurs 7 sammanlagt?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">30 dagar</span><span class="typ">fel kolumn</span><div class="uttryck">12 + 18 = 30</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">259 dagar</span><span class="typ">fel rad</span><div class="uttryck">121 + 138 = 259</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">234 dagar</span><span class="typ">fel rad</span><div class="uttryck">96 + 138 = 234</div></li>
+<li class="ratt"><span class="bokstav">d</span><span class="svar">207 dagar</span><span class="ratt-etikett">Rätt svar</span></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Frånvaro i 7A och 7B</span><div class="uttryck">86 + 121 = 207</div></li></ol>
+<p class="visning">Visning 207 dagar, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-19-q02</span> Fråga 2 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Räkna elevdagar som antal elever gånger antal skoldagar. Hur många procent av elevdagarna i 7B var eleverna frånvarande?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">1,7 %</span><span class="typ">fel kolumn</span><div class="uttryck">18 / 1 040 · 100 = 1,731</div></li>
+<li class="ratt"><span class="bokstav">b</span><span class="svar">11,6 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">c</span><span class="svar">7,7 %</span><span class="typ">fel rad</span><div class="uttryck">86 / (28 · 40) · 100 = 7,679</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">13,2 %</span><span class="typ">fel bas</span><div class="uttryck">121 / (1 040 - 121) · 100 = 13,167</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Elevdagar i 7B</span><div class="uttryck">26 · 40 = 1 040</div></li>
+<li><span>Frånvaro i procent</span><div class="uttryck">121 / 1 040 · 100 = 11,635</div></li></ol>
+<p class="visning">Visning 11,6 %, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-19-q03</span> Fråga 3 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många av frånvarodagarna i årskurs 8 var giltig frånvaro?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">177 dagar</span><span class="typ">fel rad</span><div class="uttryck">86 + 121 - 12 - 18 = 177</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">234 dagar</span><span class="typ">steg saknas</span><div class="uttryck">96 + 138 = 234</div></li>
+<li class="ratt"><span class="bokstav">c</span><span class="svar">204 dagar</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">d</span><span class="svar">264 dagar</span><span class="typ">fel räknesätt</span><div class="uttryck">96 + 138 + 9 + 21 = 264</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Frånvaro i 8A och 8B</span><div class="uttryck">96 + 138 = 234</div></li>
+<li><span>Minus den ogiltiga frånvaron</span><div class="uttryck">234 - 9 - 21 = 204</div></li></ol>
+<p class="visning">Visning 204 dagar, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-19-q04</span> Fråga 4 <span class="antal">1 steg</span></h4>
+<p class="fragetext">Hur många lektioner missade eleverna i 7A sammanlagt?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">86 lektioner</span><span class="typ">fel enhet</span><div class="uttryck">86 = 86</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">726 lektioner</span><span class="typ">fel rad</span><div class="uttryck">121 · 6 = 726</div></li>
+<li class="ratt"><span class="bokstav">c</span><span class="svar">516 lektioner</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">d</span><span class="svar">72 lektioner</span><span class="typ">fel kolumn</span><div class="uttryck">12 · 6 = 72</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Frånvarodagar gånger lektioner per dag</span><div class="uttryck">86 · 6 = 516</div></li></ol>
+<p class="visning">Visning 516 lektioner, 0 decimaler</p>
+</details>
+</section>
+</article>
+<article class="underlag" id="ng-20-fardtjanst-resor">
+<h3>Färdtjänstens resor <span class="pid">ng-20-fardtjanst-resor</span></h3>
+<dl class="meta"><div><dt>Typ</dt><dd>diagram (linjediagram)</dd></div><div><dt>Ämne</dt><dd>Kommunal service</dd></div><div><dt>Oanvänt</dt><dd>inget</dd></div><div><dt>Enhetsbyte</dt><dd>kr till tkr</dd></div><div><dt>Förhandsvärde</dt><dd>0,7</dd></div></dl>
+<p class="inledning">Diagrammet visar hur många färdtjänstresor som gjordes i en kommun per månad under första halvåret. Kommunen betalar i genomsnitt 290 kr per resa. 1 tkr är 1 000 kr.</p>
+<p class="diagramtyp">Linjediagram, "Färdtjänstresor per månad", y-axel "Antal resor", x-axel "Månad"</p>
+<div class="rulla"><table>
+<thead><tr><th>Punkt</th><th>Värde</th></tr></thead>
+<tbody><tr><th scope="row">Jan</th><td>640</td></tr>
+<tr><th scope="row">Feb</th><td>590</td></tr>
+<tr><th scope="row">Mar</th><td>710</td></tr>
+<tr><th scope="row">Apr</th><td>760</td></tr>
+<tr><th scope="row">Maj</th><td>820</td></tr>
+<tr><th scope="row">Jun</th><td>680</td></tr></tbody>
+</table></div>
+<section class="fraga">
+<h4><span class="qid">ng-20-q01</span> Fråga 1 <span class="antal">1 steg</span></h4>
+<p class="fragetext">Hur många fler resor gjordes i maj än i januari?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">1 460 resor</span><span class="typ">fel räknesätt</span><div class="uttryck">820 + 640 = 1 460</div></li>
+<li class="ratt"><span class="bokstav">b</span><span class="svar">180 resor</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">c</span><span class="svar">60 resor</span><span class="typ">fel rad</span><div class="uttryck">820 - 760 = 60</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">120 resor</span><span class="typ">fel rad</span><div class="uttryck">760 - 640 = 120</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Maj minus januari</span><div class="uttryck">820 - 640 = 180</div></li></ol>
+<p class="visning">Visning 180 resor, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-20-q02</span> Fråga 2 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Med hur många procent ökade antalet resor från februari till april?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">22 %</span><span class="typ">fel bas</span><div class="uttryck">170 / 760 · 100 = 22,368</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">20 %</span><span class="typ">fel rad</span><div class="uttryck">(710 - 590) / 590 · 100 = 20,339</div></li>
+<li class="ratt"><span class="bokstav">c</span><span class="svar">29 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">d</span><span class="svar">129 %</span><span class="typ">fel räknesätt</span><div class="uttryck">760 / 590 · 100 = 128,814</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Ökning i antal resor</span><div class="uttryck">760 - 590 = 170</div></li>
+<li><span>Ökning i procent av februari</span><div class="uttryck">170 / 590 · 100 = 28,814</div></li></ol>
+<p class="visning">Visning 29 %, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-20-q03</span> Fråga 3 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur mycket betalade kommunen för resorna i juni, i tkr?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">197 200,0 tkr</span><span class="typ">fel enhet</span><div class="uttryck">680 · 290 = 197 200</div></li>
+<li class="ratt"><span class="bokstav">b</span><span class="svar">197,2 tkr</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">c</span><span class="svar">237,8 tkr</span><span class="typ">fel rad</span><div class="uttryck">820 · 290 / 1 000 = 237,8</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">205,9 tkr</span><span class="typ">fel rad</span><div class="uttryck">710 · 290 / 1 000 = 205,9</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Kostnad i kr</span><div class="uttryck">680 · 290 = 197 200</div></li>
+<li><span>Omräknat till tkr</span><div class="uttryck">197 200 / 1 000 = 197,2</div></li></ol>
+<p class="visning">Visning 197,2 tkr, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-20-q04</span> Fråga 4 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många resor gjordes i genomsnitt per månad under halvåret?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">4 200 resor</span><span class="typ">steg saknas</span><div class="uttryck">640 + 590 + 710 + 760 + 820 + 680 = 4 200</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">840 resor</span><span class="typ">fel bas</span><div class="uttryck">4 200 / 5 = 840</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">647 resor</span><span class="typ">fel rad</span><div class="uttryck">(640 + 590 + 710) / 3 = 646,667</div></li>
+<li class="ratt"><span class="bokstav">d</span><span class="svar">700 resor</span><span class="ratt-etikett">Rätt svar</span></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Alla resor under halvåret</span><div class="uttryck">640 + 590 + 710 + 760 + 820 + 680 = 4 200</div></li>
+<li><span>Genomsnitt per månad</span><div class="uttryck">4 200 / 6 = 700</div></li></ol>
+<p class="visning">Visning 700 resor, 0 decimaler</p>
+</details>
+</section>
+</article>
+<article class="underlag" id="ng-21-snorojning">
+<h3>Snöröjning i januari <span class="pid">ng-21-snorojning</span></h3>
+<dl class="meta"><div><dt>Typ</dt><dd>tabell</dd></div><div><dt>Ämne</dt><dd>Gator och vägar</dd></div><div><dt>Oanvänt</dt><dd>inget</dd></div><div><dt>Enhetsbyte</dt><dd>kr till tkr</dd></div><div><dt>Förhandsvärde</dt><dd>0,7</dd></div></dl>
+<p class="inledning">Tabellen visar kommunens snöröjning under januari i fyra distrikt. Entreprenören tar 1 150 kr per maskintimme. 1 tkr är 1 000 kr.</p>
+<div class="rulla"><table>
+<caption>Snöröjning i januari</caption>
+<thead><tr><th>Distrikt</th><th>Vägar (km)</th><th>Utryckningar</th><th>Maskintimmar</th></tr></thead>
+<tbody><tr><th scope="row">Centrum</th><td>42</td><td>14</td><td>186</td></tr>
+<tr><th scope="row">Öster</th><td>65</td><td>11</td><td>232</td></tr>
+<tr><th scope="row">Väster</th><td>58</td><td>9</td><td>174</td></tr>
+<tr><th scope="row">Landsbygd</th><td>120</td><td>7</td><td>315</td></tr></tbody>
+</table></div>
+<section class="fraga">
+<h4><span class="qid">ng-21-q01</span> Fråga 1 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur mycket kostade snöröjningen i Öster i januari, i tkr?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">266 800,0 tkr</span><span class="typ">fel enhet</span><div class="uttryck">232 · 1 150 = 266 800</div></li>
+<li class="ratt"><span class="bokstav">b</span><span class="svar">266,8 tkr</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">c</span><span class="svar">213,9 tkr</span><span class="typ">fel rad</span><div class="uttryck">186 · 1 150 / 1 000 = 213,9</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">200,1 tkr</span><span class="typ">fel rad</span><div class="uttryck">174 · 1 150 / 1 000 = 200,1</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Kostnad i kr</span><div class="uttryck">232 · 1 150 = 266 800</div></li>
+<li><span>Omräknat till tkr</span><div class="uttryck">266 800 / 1 000 = 266,8</div></li></ol>
+<p class="visning">Visning 266,8 tkr, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-21-q02</span> Fråga 2 <span class="antal">1 steg</span></h4>
+<p class="fragetext">Hur många maskintimmar gick det i genomsnitt åt per utryckning i Landsbygd?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">3 timmar</span><span class="typ">fel kolumn</span><div class="uttryck">315 / 120 = 2,625</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">21 timmar</span><span class="typ">fel rad</span><div class="uttryck">232 / 11 = 21,091</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">19 timmar</span><span class="typ">fel rad</span><div class="uttryck">174 / 9 = 19,333</div></li>
+<li class="ratt"><span class="bokstav">d</span><span class="svar">45 timmar</span><span class="ratt-etikett">Rätt svar</span></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Maskintimmar per utryckning</span><div class="uttryck">315 / 7 = 45</div></li></ol>
+<p class="visning">Visning 45 timmar, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-21-q03</span> Fråga 3 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många procent av alla maskintimmar i januari gick till Landsbygd?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">53,2 %</span><span class="typ">fel bas</span><div class="uttryck">315 / (907 - 315) · 100 = 53,21</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">25,6 %</span><span class="typ">fel rad</span><div class="uttryck">232 / 907 · 100 = 25,579</div></li>
+<li class="ratt"><span class="bokstav">c</span><span class="svar">34,7 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">d</span><span class="svar">42,1 %</span><span class="typ">fel kolumn</span><div class="uttryck">120 / (42 + 65 + 58 + 120) · 100 = 42,105</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Alla maskintimmar</span><div class="uttryck">186 + 232 + 174 + 315 = 907</div></li>
+<li><span>Landsbygdens andel</span><div class="uttryck">315 / 907 · 100 = 34,73</div></li></ol>
+<p class="visning">Visning 34,7 %, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-21-q04</span> Fråga 4 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Nästa vinter höjer entreprenören priset per maskintimme med 8 %. Vad hade snöröjningen i Väster kostat i januari med det nya priset, i tkr?</p>
+<ol class="alternativ"><li class="ratt"><span class="bokstav">a</span><span class="svar">216,1 tkr</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">b</span><span class="svar">200,1 tkr</span><span class="typ">steg saknas</span><div class="uttryck">174 · 1 150 / 1 000 = 200,1</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">201,5 tkr</span><span class="typ">fel räknesätt</span><div class="uttryck">174 · (1 150 + 8) / 1 000 = 201,492</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">231,0 tkr</span><span class="typ">fel rad</span><div class="uttryck">186 · 1 242 / 1 000 = 231,012</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Nytt pris per maskintimme</span><div class="uttryck">1 150 · (1 + 8 / 100) = 1 242</div></li>
+<li><span>Kostnad i Väster i tkr</span><div class="uttryck">174 · 1 242 / 1 000 = 216,108</div></li></ol>
+<p class="visning">Visning 216,1 tkr, 1 decimaler</p>
+</details>
+</section>
+</article>
+<article class="underlag" id="ng-22-bageriets-limpor">
+<h3>Bageriets limpor <span class="pid">ng-22-bageriets-limpor</span></h3>
+<dl class="meta"><div><dt>Typ</dt><dd>diagram (stapeldiagram)</dd></div><div><dt>Ämne</dt><dd>Livsmedel och produktion</dd></div><div><dt>Oanvänt</dt><dd>inget</dd></div><div><dt>Enhetsbyte</dt><dd>gram till kg</dd></div><div><dt>Förhandsvärde</dt><dd>0,7</dd></div></dl>
+<p class="inledning">Diagrammet visar hur många limpor ett bageri bakade per dag under en vecka. Bageriet har stängt på söndagar. Varje limpa kräver 450 gram mjöl, och 1 kg är 1 000 gram. En limpa säljs för 48 kr.</p>
+<p class="diagramtyp">Stapeldiagram, "Bakade limpor per dag", y-axel "Antal limpor"</p>
+<div class="rulla"><table>
+<thead><tr><th>Stapel</th><th>Värde</th></tr></thead>
+<tbody><tr><th scope="row">Måndag</th><td>320</td></tr>
+<tr><th scope="row">Tisdag</th><td>280</td></tr>
+<tr><th scope="row">Onsdag</th><td>300</td></tr>
+<tr><th scope="row">Torsdag</th><td>340</td></tr>
+<tr><th scope="row">Fredag</th><td>460</td></tr>
+<tr><th scope="row">Lördag</th><td>520</td></tr></tbody>
+</table></div>
+<section class="fraga">
+<h4><span class="qid">ng-22-q01</span> Fråga 1 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många kg mjöl gick åt till fredagens limpor?</p>
+<ol class="alternativ"><li class="ratt"><span class="bokstav">a</span><span class="svar">207 kg</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">b</span><span class="svar">207 000 kg</span><span class="typ">fel enhet</span><div class="uttryck">460 · 450 = 207 000</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">234 kg</span><span class="typ">fel rad</span><div class="uttryck">520 · 450 / 1 000 = 234</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">153 kg</span><span class="typ">fel rad</span><div class="uttryck">340 · 450 / 1 000 = 153</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Mjöl i gram</span><div class="uttryck">460 · 450 = 207 000</div></li>
+<li><span>Omräknat till kg</span><div class="uttryck">207 000 / 1 000 = 207</div></li></ol>
+<p class="visning">Visning 207 kg, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-22-q02</span> Fråga 2 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många procent fler limpor bakades på lördagen än på torsdagen?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">13 %</span><span class="typ">fel rad</span><div class="uttryck">(520 - 460) / 460 · 100 = 13,044</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">153 %</span><span class="typ">fel räknesätt</span><div class="uttryck">520 / 340 · 100 = 152,941</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">35 %</span><span class="typ">fel bas</span><div class="uttryck">180 / 520 · 100 = 34,615</div></li>
+<li class="ratt"><span class="bokstav">d</span><span class="svar">53 %</span><span class="ratt-etikett">Rätt svar</span></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Skillnad i limpor</span><div class="uttryck">520 - 340 = 180</div></li>
+<li><span>Skillnad i procent av torsdagen</span><div class="uttryck">180 / 340 · 100 = 52,941</div></li></ol>
+<p class="visning">Visning 53 %, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-22-q03</span> Fråga 3 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur mycket mer sålde bageriet limpor för på lördagen än på måndagen, i kr? Räkna med att alla limpor såldes.</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">40 320 kr</span><span class="typ">fel räknesätt</span><div class="uttryck">(520 + 320) · 48 = 40 320</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">200 kr</span><span class="typ">steg saknas</span><div class="uttryck">520 - 320 = 200</div></li>
+<li class="ratt"><span class="bokstav">c</span><span class="svar">9 600 kr</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">d</span><span class="svar">2 880 kr</span><span class="typ">fel rad</span><div class="uttryck">(520 - 460) · 48 = 2 880</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Skillnad i limpor</span><div class="uttryck">520 - 320 = 200</div></li>
+<li><span>Skillnad i kr</span><div class="uttryck">200 · 48 = 9 600</div></li></ol>
+<p class="visning">Visning 9 600 kr, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-22-q04</span> Fråga 4 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många limpor bakade bageriet i genomsnitt per öppetdag?</p>
+<ol class="alternativ"><li class="ratt"><span class="bokstav">a</span><span class="svar">370 limpor</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">b</span><span class="svar">317 limpor</span><span class="typ">fel bas</span><div class="uttryck">2 220 / 7 = 317,143</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">2 220 limpor</span><span class="typ">steg saknas</span><div class="uttryck">320 + 280 + 300 + 340 + 460 + 520 = 2 220</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">340 limpor</span><span class="typ">fel rad</span><div class="uttryck">(320 + 280 + 300 + 340 + 460) / 5 = 340</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Alla limpor under veckan</span><div class="uttryck">320 + 280 + 300 + 340 + 460 + 520 = 2 220</div></li>
+<li><span>Genomsnitt per öppetdag</span><div class="uttryck">2 220 / 6 = 370</div></li></ol>
+<p class="visning">Visning 370 limpor, 0 decimaler</p>
+</details>
+</section>
+</article>
+<article class="underlag" id="ng-23-sjukhustvatt">
+<h3>Sjukhusets tvätt <span class="pid">ng-23-sjukhustvatt</span></h3>
+<dl class="meta"><div><dt>Typ</dt><dd>tabell</dd></div><div><dt>Ämne</dt><dd>Hälso- och sjukvård</dd></div><div><dt>Oanvänt</dt><dd>inget</dd></div><div><dt>Enhetsbyte</dt><dd>kr till tkr</dd></div><div><dt>Förhandsvärde</dt><dd>0,7</dd></div></dl>
+<p class="inledning">Tabellen visar hur mycket tvätt fyra avdelningar på ett sjukhus skickade till tvätteriet under en månad med 30 dagar. Tvätteriet tar 18 kr per kg. 1 tkr är 1 000 kr.</p>
+<div class="rulla"><table>
+<caption>Tvätt per avdelning</caption>
+<thead><tr><th>Avdelning</th><th>Vårdplatser</th><th>Tvätt (kg)</th><th>Tvätt föregående månad (kg)</th></tr></thead>
+<tbody><tr><th scope="row">Kirurgi</th><td>32</td><td>4 860</td><td>4 520</td></tr>
+<tr><th scope="row">Medicin</th><td>40</td><td>5 520</td><td>5 610</td></tr>
+<tr><th scope="row">Ortopedi</th><td>24</td><td>3 150</td><td>2 980</td></tr>
+<tr><th scope="row">Barn</th><td>18</td><td>1 980</td><td>2 040</td></tr></tbody>
+</table></div>
+<section class="fraga">
+<h4><span class="qid">ng-23-q01</span> Fråga 1 <span class="antal">1 steg</span></h4>
+<p class="fragetext">Hur många kg tvätt skickade Medicin per vårdplats under månaden?</p>
+<ol class="alternativ"><li class="ratt"><span class="bokstav">a</span><span class="svar">138 kg</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">b</span><span class="svar">152 kg</span><span class="typ">fel rad</span><div class="uttryck">4 860 / 32 = 151,875</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">140 kg</span><span class="typ">fel kolumn</span><div class="uttryck">5 610 / 40 = 140,25</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">131 kg</span><span class="typ">fel rad</span><div class="uttryck">3 150 / 24 = 131,25</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Tvätt per vårdplats</span><div class="uttryck">5 520 / 40 = 138</div></li></ol>
+<p class="visning">Visning 138 kg, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-23-q02</span> Fråga 2 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Med hur många procent ökade Ortopedis tvätt jämfört med föregående månad?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">5,4 %</span><span class="typ">fel bas</span><div class="uttryck">170 / 3 150 · 100 = 5,397</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">105,7 %</span><span class="typ">fel räknesätt</span><div class="uttryck">3 150 / 2 980 · 100 = 105,705</div></li>
+<li class="ratt"><span class="bokstav">c</span><span class="svar">5,7 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">d</span><span class="svar">7,5 %</span><span class="typ">fel rad</span><div class="uttryck">(4 860 - 4 520) / 4 520 · 100 = 7,522</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Ökning i kg</span><div class="uttryck">3 150 - 2 980 = 170</div></li>
+<li><span>Ökning i procent av föregående månad</span><div class="uttryck">170 / 2 980 · 100 = 5,705</div></li></ol>
+<p class="visning">Visning 5,7 %, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-23-q03</span> Fråga 3 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Vad kostade tvätten för Kirurgi under månaden, i tkr?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">81,4 tkr</span><span class="typ">fel kolumn</span><div class="uttryck">4 520 · 18 / 1 000 = 81,36</div></li>
+<li class="ratt"><span class="bokstav">b</span><span class="svar">87,5 tkr</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">c</span><span class="svar">99,4 tkr</span><span class="typ">fel rad</span><div class="uttryck">5 520 · 18 / 1 000 = 99,36</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">87 480,0 tkr</span><span class="typ">fel enhet</span><div class="uttryck">4 860 · 18 = 87 480</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Kostnad i kr</span><div class="uttryck">4 860 · 18 = 87 480</div></li>
+<li><span>Omräknat till tkr</span><div class="uttryck">87 480 / 1 000 = 87,48</div></li></ol>
+<p class="visning">Visning 87,5 tkr, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-23-q04</span> Fråga 4 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många kg tvätt skickade de fyra avdelningarna sammanlagt i genomsnitt per dag under månaden?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">15 510 kg</span><span class="typ">steg saknas</span><div class="uttryck">4 860 + 5 520 + 3 150 + 1 980 = 15 510</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">505 kg</span><span class="typ">fel kolumn</span><div class="uttryck">(4 520 + 5 610 + 2 980 + 2 040) / 30 = 505</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">451 kg</span><span class="typ">fel rad</span><div class="uttryck">(4 860 + 5 520 + 3 150) / 30 = 451</div></li>
+<li class="ratt"><span class="bokstav">d</span><span class="svar">517 kg</span><span class="ratt-etikett">Rätt svar</span></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>All tvätt under månaden</span><div class="uttryck">4 860 + 5 520 + 3 150 + 1 980 = 15 510</div></li>
+<li><span>Genomsnitt per dag</span><div class="uttryck">15 510 / 30 = 517</div></li></ol>
+<p class="visning">Visning 517 kg, 0 decimaler</p>
+</details>
+</section>
+</article>
+<article class="underlag" id="ng-24-vardcentral-samtal">
+<h3>Vårdcentralens telefonrådgivning <span class="pid">ng-24-vardcentral-samtal</span></h3>
+<dl class="meta"><div><dt>Typ</dt><dd>diagram (stapeldiagram)</dd></div><div><dt>Ämne</dt><dd>Hälso- och sjukvård</dd></div><div><dt>Oanvänt</dt><dd>inget</dd></div><div><dt>Enhetsbyte</dt><dd>minuter till timmar</dd></div><div><dt>Förhandsvärde</dt><dd>0,7</dd></div></dl>
+<p class="inledning">Diagrammet visar hur många samtal en vårdcentrals telefonrådgivning tog emot per dag under en vecka. Ett samtal tar i genomsnitt 6 minuter. 1 timme är 60 minuter.</p>
+<p class="diagramtyp">Stapeldiagram, "Samtal per dag", y-axel "Antal samtal"</p>
+<div class="rulla"><table>
+<thead><tr><th>Stapel</th><th>Värde</th></tr></thead>
+<tbody><tr><th scope="row">Måndag</th><td>380</td></tr>
+<tr><th scope="row">Tisdag</th><td>290</td></tr>
+<tr><th scope="row">Onsdag</th><td>260</td></tr>
+<tr><th scope="row">Torsdag</th><td>270</td></tr>
+<tr><th scope="row">Fredag</th><td>240</td></tr></tbody>
+</table></div>
+<section class="fraga">
+<h4><span class="qid">ng-24-q01</span> Fråga 1 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många timmar tog måndagens samtal sammanlagt?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">63 timmar</span><span class="typ">fel räknesätt</span><div class="uttryck">380 / 6 = 63,333</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">29 timmar</span><span class="typ">fel rad</span><div class="uttryck">290 · 6 / 60 = 29</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">2 280 timmar</span><span class="typ">fel enhet</span><div class="uttryck">380 · 6 = 2 280</div></li>
+<li class="ratt"><span class="bokstav">d</span><span class="svar">38 timmar</span><span class="ratt-etikett">Rätt svar</span></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Samtalstid i minuter</span><div class="uttryck">380 · 6 = 2 280</div></li>
+<li><span>Omräknat till timmar</span><div class="uttryck">2 280 / 60 = 38</div></li></ol>
+<p class="visning">Visning 38 timmar, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-24-q02</span> Fråga 2 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många procent av veckans samtal kom på måndagen?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">16,7 %</span><span class="typ">fel rad</span><div class="uttryck">240 / 1 440 · 100 = 16,667</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">20,1 %</span><span class="typ">fel rad</span><div class="uttryck">290 / 1 440 · 100 = 20,139</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">35,8 %</span><span class="typ">fel bas</span><div class="uttryck">380 / (1 440 - 380) · 100 = 35,849</div></li>
+<li class="ratt"><span class="bokstav">d</span><span class="svar">26,4 %</span><span class="ratt-etikett">Rätt svar</span></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Veckans samtal</span><div class="uttryck">380 + 290 + 260 + 270 + 240 = 1 440</div></li>
+<li><span>Måndagens andel</span><div class="uttryck">380 / 1 440 · 100 = 26,389</div></li></ol>
+<p class="visning">Visning 26,4 %, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-24-q03</span> Fråga 3 <span class="antal">1 steg</span></h4>
+<p class="fragetext">Hur många färre samtal kom på fredagen än på tisdagen?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">530 samtal</span><span class="typ">fel räknesätt</span><div class="uttryck">290 + 240 = 530</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">30 samtal</span><span class="typ">fel rad</span><div class="uttryck">290 - 260 = 30</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">140 samtal</span><span class="typ">fel rad</span><div class="uttryck">380 - 240 = 140</div></li>
+<li class="ratt"><span class="bokstav">d</span><span class="svar">50 samtal</span><span class="ratt-etikett">Rätt svar</span></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Tisdag minus fredag</span><div class="uttryck">290 - 240 = 50</div></li></ol>
+<p class="visning">Visning 50 samtal, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-24-q04</span> Fråga 4 <span class="antal">2 steg</span></h4>
+<p class="fragetext">På onsdagen delade 5 sjuksköterskor lika på samtalen. Hur många minuter talade varje sjuksköterska i telefon den dagen?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">1 560 minuter</span><span class="typ">steg saknas</span><div class="uttryck">260 · 6 = 1 560</div></li>
+<li class="ratt"><span class="bokstav">b</span><span class="svar">312 minuter</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">c</span><span class="svar">324 minuter</span><span class="typ">fel rad</span><div class="uttryck">270 · 6 / 5 = 324</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">5 minuter</span><span class="typ">fel enhet</span><div class="uttryck">260 · 6 / 5 / 60 = 5,2</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Samtalstid i minuter</span><div class="uttryck">260 · 6 = 1 560</div></li>
+<li><span>Per sjuksköterska</span><div class="uttryck">1 560 / 5 = 312</div></li></ol>
+<p class="visning">Visning 312 minuter, 0 decimaler</p>
+</details>
+</section>
+</article>
+<article class="underlag" id="ng-25-byggets-material">
+<h3>Materialbeställning till ett radhusbygge <span class="pid">ng-25-byggets-material</span></h3>
+<dl class="meta"><div><dt>Typ</dt><dd>tabell</dd></div><div><dt>Ämne</dt><dd>Bygg</dd></div><div><dt>Oanvänt</dt><dd>rad Reglar</dd></div><div><dt>Enhetsbyte</dt><dd>inget</dd></div><div><dt>Förhandsvärde</dt><dd>0,7</dd></div></dl>
+<p class="inledning">Tabellen visar materialbeställningen till ett radhusbygge och hur mycket som har levererats hittills. Priserna är utan moms. Momsen är 25 %.</p>
+<div class="rulla"><table>
+<caption>Beställt och levererat material</caption>
+<thead><tr><th>Material</th><th>Enhet</th><th>Beställt antal</th><th>Pris per enhet (kr)</th><th>Levererat hittills</th></tr></thead>
+<tbody><tr><th scope="row">Gipsskivor</th><td>skiva</td><td>640</td><td>89</td><td>480</td></tr>
+<tr><th scope="row">Reglar</th><td>meter</td><td>2 400</td><td>24</td><td>2 400</td></tr>
+<tr><th scope="row">Isolering</th><td>rulle</td><td>180</td><td>315</td><td>120</td></tr>
+<tr><th scope="row">Takpannor</th><td>styck</td><td>5 200</td><td>14</td><td>3 900</td></tr></tbody>
+</table></div>
+<section class="fraga">
+<h4><span class="qid">ng-25-q01</span> Fråga 1 <span class="antal">1 steg</span></h4>
+<p class="fragetext">Vad kostar alla beställda gipsskivor sammanlagt, utan moms?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">729 kr</span><span class="typ">fel räknesätt</span><div class="uttryck">640 + 89 = 729</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">72 800 kr</span><span class="typ">fel rad</span><div class="uttryck">5 200 · 14 = 72 800</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">42 720 kr</span><span class="typ">fel kolumn</span><div class="uttryck">480 · 89 = 42 720</div></li>
+<li class="ratt"><span class="bokstav">d</span><span class="svar">56 960 kr</span><span class="ratt-etikett">Rätt svar</span></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Antal gånger pris</span><div class="uttryck">640 · 89 = 56 960</div></li></ol>
+<p class="visning">Visning 56 960 kr, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-25-q02</span> Fråga 2 <span class="antal">1 steg</span></h4>
+<p class="fragetext">Hur många procent av den beställda isoleringen har levererats?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">33 %</span><span class="typ">fel räknesätt</span><div class="uttryck">(180 - 120) / 180 · 100 = 33,333</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">75 %</span><span class="typ">fel rad</span><div class="uttryck">480 / 640 · 100 = 75</div></li>
+<li class="ratt"><span class="bokstav">c</span><span class="svar">67 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">d</span><span class="svar">40 %</span><span class="typ">fel bas</span><div class="uttryck">120 / (120 + 180) · 100 = 40</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Levererat delat med beställt</span><div class="uttryck">120 / 180 · 100 = 66,667</div></li></ol>
+<p class="visning">Visning 67 %, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-25-q03</span> Fråga 3 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Vad kostar alla beställda takpannor inklusive moms?</p>
+<ol class="alternativ"><li class="ratt"><span class="bokstav">a</span><span class="svar">91 000 kr</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">b</span><span class="svar">18 200 kr</span><span class="typ">fel räknesätt</span><div class="uttryck">5 200 · 14 · 25 / 100 = 18 200</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">68 250 kr</span><span class="typ">fel kolumn</span><div class="uttryck">3 900 · 14 · 1,25 = 68 250</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">72 800 kr</span><span class="typ">steg saknas</span><div class="uttryck">5 200 · 14 = 72 800</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Pris utan moms</span><div class="uttryck">5 200 · 14 = 72 800</div></li>
+<li><span>Med 25 % moms</span><div class="uttryck">72 800 · (1 + 25 / 100) = 91 000</div></li></ol>
+<p class="visning">Visning 91 000 kr, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-25-q04</span> Fråga 4 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Vad kostar de gipsskivor som ännu inte har levererats, utan moms?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">42 720 kr</span><span class="typ">fel kolumn</span><div class="uttryck">480 · 89 = 42 720</div></li>
+<li class="ratt"><span class="bokstav">b</span><span class="svar">14 240 kr</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">c</span><span class="svar">56 960 kr</span><span class="typ">steg saknas</span><div class="uttryck">640 · 89 = 56 960</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">18 900 kr</span><span class="typ">fel rad</span><div class="uttryck">(180 - 120) · 315 = 18 900</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Skivor som återstår</span><div class="uttryck">640 - 480 = 160</div></li>
+<li><span>Kostnad</span><div class="uttryck">160 · 89 = 14 240</div></li></ol>
+<p class="visning">Visning 14 240 kr, 0 decimaler</p>
+</details>
+</section>
+</article>
+<article class="underlag" id="ng-26-paketombud">
+<h3>Paketombudets utlämningar <span class="pid">ng-26-paketombud</span></h3>
+<dl class="meta"><div><dt>Typ</dt><dd>diagram (linjediagram)</dd></div><div><dt>Ämne</dt><dd>Handel och service</dd></div><div><dt>Oanvänt</dt><dd>inget</dd></div><div><dt>Enhetsbyte</dt><dd>inget</dd></div><div><dt>Förhandsvärde</dt><dd>0,7</dd></div></dl>
+<p class="inledning">Diagrammet visar hur många paket ett paketombud i en mataffär lämnade ut per månad under årets första åtta månader. Ombudet får 9 kr i ersättning per utlämnat paket.</p>
+<p class="diagramtyp">Linjediagram, "Utlämnade paket per månad", y-axel "Antal paket", x-axel "Månad"</p>
+<div class="rulla"><table>
+<thead><tr><th>Punkt</th><th>Värde</th></tr></thead>
+<tbody><tr><th scope="row">Jan</th><td>410</td></tr>
+<tr><th scope="row">Feb</th><td>390</td></tr>
+<tr><th scope="row">Mar</th><td>450</td></tr>
+<tr><th scope="row">Apr</th><td>470</td></tr>
+<tr><th scope="row">Maj</th><td>430</td></tr>
+<tr><th scope="row">Jun</th><td>520</td></tr>
+<tr><th scope="row">Jul</th><td>560</td></tr>
+<tr><th scope="row">Aug</th><td>610</td></tr></tbody>
+</table></div>
+<section class="fraga">
+<h4><span class="qid">ng-26-q01</span> Fråga 1 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Med hur många procent ökade antalet utlämnade paket från maj till augusti?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">142 %</span><span class="typ">fel räknesätt</span><div class="uttryck">610 / 430 · 100 = 141,861</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">17 %</span><span class="typ">fel rad</span><div class="uttryck">(610 - 520) / 520 · 100 = 17,308</div></li>
+<li class="ratt"><span class="bokstav">c</span><span class="svar">42 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">d</span><span class="svar">30 %</span><span class="typ">fel bas</span><div class="uttryck">180 / 610 · 100 = 29,508</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Ökning i paket</span><div class="uttryck">610 - 430 = 180</div></li>
+<li><span>Ökning i procent av maj</span><div class="uttryck">180 / 430 · 100 = 41,861</div></li></ol>
+<p class="visning">Visning 42 %, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-26-q02</span> Fråga 2 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur mycket ersättning fick ombudet för juni och juli sammanlagt?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">1 080 kr</span><span class="typ">steg saknas</span><div class="uttryck">520 + 560 = 1 080</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">10 530 kr</span><span class="typ">fel rad</span><div class="uttryck">(560 + 610) · 9 = 10 530</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">8 550 kr</span><span class="typ">fel rad</span><div class="uttryck">(430 + 520) · 9 = 8 550</div></li>
+<li class="ratt"><span class="bokstav">d</span><span class="svar">9 720 kr</span><span class="ratt-etikett">Rätt svar</span></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Paket juni och juli</span><div class="uttryck">520 + 560 = 1 080</div></li>
+<li><span>Ersättning</span><div class="uttryck">1 080 · 9 = 9 720</div></li></ol>
+<p class="visning">Visning 9 720 kr, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-26-q03</span> Fråga 3 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många paket lämnade ombudet i genomsnitt ut per månad under januari till april?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">530 paket</span><span class="typ">fel rad</span><div class="uttryck">(430 + 520 + 560 + 610) / 4 = 530</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">573 paket</span><span class="typ">fel bas</span><div class="uttryck">1 720 / 3 = 573,333</div></li>
+<li class="ratt"><span class="bokstav">c</span><span class="svar">430 paket</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">d</span><span class="svar">1 720 paket</span><span class="typ">steg saknas</span><div class="uttryck">410 + 390 + 450 + 470 = 1 720</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Paket januari till april</span><div class="uttryck">410 + 390 + 450 + 470 = 1 720</div></li>
+<li><span>Genomsnitt per månad</span><div class="uttryck">1 720 / 4 = 430</div></li></ol>
+<p class="visning">Visning 430 paket, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-26-q04</span> Fråga 4 <span class="antal">1 steg</span></h4>
+<p class="fragetext">Hur många fler paket lämnades ut i augusti än i januari?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">50 paket</span><span class="typ">fel rad</span><div class="uttryck">610 - 560 = 50</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">1 020 paket</span><span class="typ">fel räknesätt</span><div class="uttryck">610 + 410 = 1 020</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">150 paket</span><span class="typ">fel rad</span><div class="uttryck">560 - 410 = 150</div></li>
+<li class="ratt"><span class="bokstav">d</span><span class="svar">200 paket</span><span class="ratt-etikett">Rätt svar</span></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Augusti minus januari</span><div class="uttryck">610 - 410 = 200</div></li></ol>
+<p class="visning">Visning 200 paket, 0 decimaler</p>
+</details>
+</section>
+</article>
+<article class="underlag" id="ng-27-hotellets-belaggning">
+<h3>Hotellets beläggning <span class="pid">ng-27-hotellets-belaggning</span></h3>
+<dl class="meta"><div><dt>Typ</dt><dd>tabell</dd></div><div><dt>Ämne</dt><dd>Besöksnäring</dd></div><div><dt>Oanvänt</dt><dd>inget</dd></div><div><dt>Enhetsbyte</dt><dd>kr till tkr</dd></div><div><dt>Förhandsvärde</dt><dd>0,7</dd></div></dl>
+<p class="inledning">Tabellen visar ett hotells uthyrda rum under fyra sommarmånader. Hotellet har 85 rum. En rumsnatt är ett rum uthyrt en natt, och snittpriset är priset per uthyrd rumsnatt. Beläggningen är uthyrda rumsnätter i procent av alla möjliga rumsnätter. 1 tkr är 1 000 kr.</p>
+<div class="rulla"><table>
+<caption>Uthyrda rum maj till augusti</caption>
+<thead><tr><th>Månad</th><th>Dagar</th><th>Uthyrda rumsnätter</th><th>Snittpris (kr)</th><th>Avbokningar</th></tr></thead>
+<tbody><tr><th scope="row">Maj</th><td>31</td><td>1 870</td><td>1 140</td><td>64</td></tr>
+<tr><th scope="row">Juni</th><td>30</td><td>2 160</td><td>1 290</td><td>81</td></tr>
+<tr><th scope="row">Juli</th><td>31</td><td>2 380</td><td>1 350</td><td>97</td></tr>
+<tr><th scope="row">Augusti</th><td>31</td><td>1 950</td><td>1 180</td><td>58</td></tr></tbody>
+</table></div>
+<section class="fraga">
+<h4><span class="qid">ng-27-q01</span> Fråga 1 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur stor var beläggningen i juni?</p>
+<ol class="alternativ"><li class="ratt"><span class="bokstav">a</span><span class="svar">84,7 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">b</span><span class="svar">82,0 %</span><span class="typ">fel bas</span><div class="uttryck">2 160 / (85 · 31) · 100 = 81,973</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">3,2 %</span><span class="typ">fel kolumn</span><div class="uttryck">81 / 2 550 · 100 = 3,177</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">90,3 %</span><span class="typ">fel rad</span><div class="uttryck">2 380 / (85 · 31) · 100 = 90,323</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Möjliga rumsnätter i juni</span><div class="uttryck">85 · 30 = 2 550</div></li>
+<li><span>Beläggning</span><div class="uttryck">2 160 / 2 550 · 100 = 84,706</div></li></ol>
+<p class="visning">Visning 84,7 %, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-27-q02</span> Fråga 2 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur stora var rumsintäkterna i juli, i tkr?</p>
+<ol class="alternativ"><li class="ratt"><span class="bokstav">a</span><span class="svar">3 213 tkr</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">b</span><span class="svar">3 213 000 tkr</span><span class="typ">fel enhet</span><div class="uttryck">2 380 · 1 350 = 3 213 000</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">2 786 tkr</span><span class="typ">fel rad</span><div class="uttryck">2 160 · 1 290 / 1 000 = 2 786,4</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">2 301 tkr</span><span class="typ">fel rad</span><div class="uttryck">1 950 · 1 180 / 1 000 = 2 301</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Intäkter i kr</span><div class="uttryck">2 380 · 1 350 = 3 213 000</div></li>
+<li><span>Omräknat till tkr</span><div class="uttryck">3 213 000 / 1 000 = 3 213</div></li></ol>
+<p class="visning">Visning 3 213 tkr, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-27-q03</span> Fråga 3 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Med hur många procent sjönk snittpriset från juli till augusti?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">14,4 %</span><span class="typ">fel bas</span><div class="uttryck">170 / 1 180 · 100 = 14,407</div></li>
+<li class="ratt"><span class="bokstav">b</span><span class="svar">12,6 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">c</span><span class="svar">18,1 %</span><span class="typ">fel kolumn</span><div class="uttryck">(2 380 - 1 950) / 2 380 · 100 = 18,067</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">4,4 %</span><span class="typ">fel rad</span><div class="uttryck">(1 350 - 1 290) / 1 350 · 100 = 4,444</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Sänkning i kr</span><div class="uttryck">1 350 - 1 180 = 170</div></li>
+<li><span>Sänkning i procent av juli</span><div class="uttryck">170 / 1 350 · 100 = 12,593</div></li></ol>
+<p class="visning">Visning 12,6 %, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-27-q04</span> Fråga 4 <span class="antal">1 steg</span></h4>
+<p class="fragetext">Hur många rumsnätter hyrdes ut i genomsnitt per dag i maj?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">62 rumsnätter</span><span class="typ">fel bas</span><div class="uttryck">1 870 / 30 = 62,333</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">72 rumsnätter</span><span class="typ">fel rad</span><div class="uttryck">2 160 / 30 = 72</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">37 rumsnätter</span><span class="typ">fel kolumn</span><div class="uttryck">1 140 / 31 = 36,774</div></li>
+<li class="ratt"><span class="bokstav">d</span><span class="svar">60 rumsnätter</span><span class="ratt-etikett">Rätt svar</span></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Rumsnätter per dag</span><div class="uttryck">1 870 / 31 = 60,323</div></li></ol>
+<p class="visning">Visning 60 rumsnätter, 0 decimaler</p>
+</details>
+</section>
+</article>
+<article class="underlag" id="ng-28-folktandvarden">
+<h3>Folktandvårdens patienter <span class="pid">ng-28-folktandvarden</span></h3>
+<dl class="meta"><div><dt>Typ</dt><dd>diagram (stapeldiagram)</dd></div><div><dt>Ämne</dt><dd>Tandvård</dd></div><div><dt>Oanvänt</dt><dd>inget</dd></div><div><dt>Enhetsbyte</dt><dd>kvartal till månader</dd></div><div><dt>Förhandsvärde</dt><dd>0,7</dd></div></dl>
+<p class="inledning">Diagrammet visar hur många patienter fyra kliniker inom folktandvården tog emot under ett kvartal. Ett kvartal är 3 månader, och varje klinik hade öppet 60 dagar under kvartalet.</p>
+<p class="diagramtyp">Stapeldiagram, "Patienter per klinik under kvartalet", y-axel "Antal patienter"</p>
+<div class="rulla"><table>
+<thead><tr><th>Stapel</th><th>Värde</th></tr></thead>
+<tbody><tr><th scope="row">Ekbacken</th><td>840</td></tr>
+<tr><th scope="row">Hagaby</th><td>690</td></tr>
+<tr><th scope="row">Strand</th><td>960</td></tr>
+<tr><th scope="row">Åsen</th><td>510</td></tr></tbody>
+</table></div>
+<section class="fraga">
+<h4><span class="qid">ng-28-q01</span> Fråga 1 <span class="antal">1 steg</span></h4>
+<p class="fragetext">Hur många patienter tog kliniken Strand emot i genomsnitt per månad under kvartalet?</p>
+<ol class="alternativ"><li class="ratt"><span class="bokstav">a</span><span class="svar">320 patienter</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">b</span><span class="svar">2 880 patienter</span><span class="typ">fel räknesätt</span><div class="uttryck">960 · 3 = 2 880</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">280 patienter</span><span class="typ">fel rad</span><div class="uttryck">840 / 3 = 280</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">16 patienter</span><span class="typ">fel enhet</span><div class="uttryck">960 / 60 = 16</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Patienter per månad</span><div class="uttryck">960 / 3 = 320</div></li></ol>
+<p class="visning">Visning 320 patienter, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-28-q02</span> Fråga 2 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många procent fler patienter tog Ekbacken emot än Hagaby?</p>
+<ol class="alternativ"><li class="ratt"><span class="bokstav">a</span><span class="svar">21,7 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">b</span><span class="svar">121,7 %</span><span class="typ">fel räknesätt</span><div class="uttryck">840 / 690 · 100 = 121,739</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">39,1 %</span><span class="typ">fel rad</span><div class="uttryck">(960 - 690) / 690 · 100 = 39,13</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">17,9 %</span><span class="typ">fel bas</span><div class="uttryck">150 / 840 · 100 = 17,857</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Skillnad i patienter</span><div class="uttryck">840 - 690 = 150</div></li>
+<li><span>Skillnad i procent av Hagaby</span><div class="uttryck">150 / 690 · 100 = 21,739</div></li></ol>
+<p class="visning">Visning 21,7 %, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-28-q03</span> Fråga 3 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många procent av alla patienter under kvartalet tog Åsen emot?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">28,0 %</span><span class="typ">fel rad</span><div class="uttryck">840 / 3 000 · 100 = 28</div></li>
+<li class="ratt"><span class="bokstav">b</span><span class="svar">17,0 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">c</span><span class="svar">23,0 %</span><span class="typ">fel rad</span><div class="uttryck">690 / 3 000 · 100 = 23</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">20,5 %</span><span class="typ">fel bas</span><div class="uttryck">510 / (3 000 - 510) · 100 = 20,482</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Alla patienter</span><div class="uttryck">840 + 690 + 960 + 510 = 3 000</div></li>
+<li><span>Åsens andel</span><div class="uttryck">510 / 3 000 · 100 = 17</div></li></ol>
+<p class="visning">Visning 17,0 %, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-28-q04</span> Fråga 4 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Regionen räknar med att antalet patienter vid Hagaby ökar med 12 % nästa kvartal. Hur många patienter blir det då?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">571 patienter</span><span class="typ">fel rad</span><div class="uttryck">510 · (1 + 12 / 100) = 571,2</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">702 patienter</span><span class="typ">fel räknesätt</span><div class="uttryck">690 + 12 = 702</div></li>
+<li class="ratt"><span class="bokstav">c</span><span class="svar">773 patienter</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">d</span><span class="svar">83 patienter</span><span class="typ">steg saknas</span><div class="uttryck">690 · 12 / 100 = 82,8</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Ökning i patienter</span><div class="uttryck">690 · 12 / 100 = 82,8</div></li>
+<li><span>Nytt antal</span><div class="uttryck">690 + 82,8 = 772,8</div></li></ol>
+<p class="visning">Visning 773 patienter, 0 decimaler</p>
+</details>
+</section>
+</article>
+<article class="underlag" id="ng-29-flyttfirman">
+<h3>Flyttfirmans uppdrag <span class="pid">ng-29-flyttfirman</span></h3>
+<dl class="meta"><div><dt>Typ</dt><dd>tabell</dd></div><div><dt>Ämne</dt><dd>Tjänsteföretag</dd></div><div><dt>Oanvänt</dt><dd>inget</dd></div><div><dt>Enhetsbyte</dt><dd>inget</dd></div><div><dt>Förhandsvärde</dt><dd>0,7</dd></div></dl>
+<p class="inledning">Tabellen visar fyra uppdrag som en flyttfirma utförde under en vecka. Firman tar 595 kr per arbetad timme och flyttare, utan moms. Alla flyttare är på plats hela tiden.</p>
+<div class="rulla"><table>
+<caption>Veckans uppdrag</caption>
+<thead><tr><th>Uppdrag</th><th>Flyttare</th><th>Timmar på plats</th><th>Körsträcka (km)</th><th>Kartonger</th></tr></thead>
+<tbody><tr><th scope="row">Lägenhet Söder</th><td>3</td><td>5</td><td>18</td><td>64</td></tr>
+<tr><th scope="row">Villa Ängby</th><td>4</td><td>7</td><td>42</td><td>120</td></tr>
+<tr><th scope="row">Kontor Hamnen</th><td>6</td><td>6</td><td>12</td><td>210</td></tr>
+<tr><th scope="row">Radhus Berga</th><td>3</td><td>8</td><td>66</td><td>95</td></tr></tbody>
+</table></div>
+<section class="fraga">
+<h4><span class="qid">ng-29-q01</span> Fråga 1 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Vad kostade uppdraget Villa Ängby, utan moms?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">14 280 kr</span><span class="typ">fel rad</span><div class="uttryck">3 · 8 · 595 = 14 280</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">21 420 kr</span><span class="typ">fel rad</span><div class="uttryck">6 · 6 · 595 = 21 420</div></li>
+<li class="ratt"><span class="bokstav">c</span><span class="svar">16 660 kr</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">d</span><span class="svar">4 165 kr</span><span class="typ">steg saknas</span><div class="uttryck">7 · 595 = 4 165</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Arbetade timmar</span><div class="uttryck">4 · 7 = 28</div></li>
+<li><span>Kostnad</span><div class="uttryck">28 · 595 = 16 660</div></li></ol>
+<p class="visning">Visning 16 660 kr, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-29-q02</span> Fråga 2 <span class="antal">1 steg</span></h4>
+<p class="fragetext">Hur många kartonger bar varje flyttare i genomsnitt på uppdraget Kontor Hamnen?</p>
+<ol class="alternativ"><li class="ratt"><span class="bokstav">a</span><span class="svar">35 kartonger</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">b</span><span class="svar">30 kartonger</span><span class="typ">fel rad</span><div class="uttryck">120 / 4 = 30</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">32 kartonger</span><span class="typ">fel rad</span><div class="uttryck">95 / 3 = 31,667</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">204 kartonger</span><span class="typ">fel räknesätt</span><div class="uttryck">210 - 6 = 204</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Kartonger per flyttare</span><div class="uttryck">210 / 6 = 35</div></li></ol>
+<p class="visning">Visning 35 kartonger, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-29-q03</span> Fråga 3 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många procent av veckans körsträcka gällde uppdraget Radhus Berga?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">19 %</span><span class="typ">fel kolumn</span><div class="uttryck">95 / (64 + 120 + 210 + 95) · 100 = 19,427</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">92 %</span><span class="typ">fel bas</span><div class="uttryck">66 / (138 - 66) · 100 = 91,667</div></li>
+<li class="ratt"><span class="bokstav">c</span><span class="svar">48 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">d</span><span class="svar">30 %</span><span class="typ">fel rad</span><div class="uttryck">42 / 138 · 100 = 30,435</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Veckans körsträcka</span><div class="uttryck">18 + 42 + 12 + 66 = 138</div></li>
+<li><span>Radhus Bergas andel</span><div class="uttryck">66 / 138 · 100 = 47,826</div></li></ol>
+<p class="visning">Visning 48 %, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-29-q04</span> Fråga 4 <span class="antal">1 steg</span></h4>
+<p class="fragetext">Hur många timmar arbetade flyttarna sammanlagt under veckan, alla flyttare inräknade?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">416 timmar</span><span class="typ">fel räknesätt</span><div class="uttryck">(3 + 4 + 6 + 3) · (5 + 7 + 6 + 8) = 416</div></li>
+<li class="ratt"><span class="bokstav">b</span><span class="svar">103 timmar</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">c</span><span class="svar">26 timmar</span><span class="typ">steg saknas</span><div class="uttryck">5 + 7 + 6 + 8 = 26</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">79 timmar</span><span class="typ">fel rad</span><div class="uttryck">3 · 5 + 4 · 7 + 6 · 6 = 79</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Flyttare gånger timmar, summerat</span><div class="uttryck">3 · 5 + 4 · 7 + 6 · 6 + 3 · 8 = 103</div></li></ol>
+<p class="visning">Visning 103 timmar, 0 decimaler</p>
+</details>
+</section>
+</article>
+<article class="underlag" id="ng-30-tjansteresor">
+<h3>Tjänsteresor med egen bil <span class="pid">ng-30-tjansteresor</span></h3>
+<dl class="meta"><div><dt>Typ</dt><dd>tabell</dd></div><div><dt>Ämne</dt><dd>Kontor och administration</dd></div><div><dt>Oanvänt</dt><dd>inget</dd></div><div><dt>Enhetsbyte</dt><dd>km till mil</dd></div><div><dt>Förhandsvärde</dt><dd>0,7</dd></div></dl>
+<p class="inledning">Tabellen visar tjänsteresor med egen bil för fyra avdelningar under ett kvartal. Arbetsgivaren betalar 25 kr i milersättning per mil. 1 mil är 10 km.</p>
+<div class="rulla"><table>
+<caption>Tjänsteresor under kvartalet</caption>
+<thead><tr><th>Avdelning</th><th>Resor</th><th>Körda km</th><th>Parkeringsavgifter (kr)</th></tr></thead>
+<tbody><tr><th scope="row">Ekonomi</th><td>14</td><td>860</td><td>1 120</td></tr>
+<tr><th scope="row">Fastighet</th><td>38</td><td>3 240</td><td>2 560</td></tr>
+<tr><th scope="row">Försäljning</th><td>52</td><td>6 180</td><td>4 890</td></tr>
+<tr><th scope="row">IT</th><td>9</td><td>410</td><td>380</td></tr></tbody>
+</table></div>
+<section class="fraga">
+<h4><span class="qid">ng-30-q01</span> Fråga 1 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur mycket milersättning betalades till Fastighet under kvartalet?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">2 150 kr</span><span class="typ">fel rad</span><div class="uttryck">860 / 10 · 25 = 2 150</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">6 400 kr</span><span class="typ">fel kolumn</span><div class="uttryck">2 560 / 10 · 25 = 6 400</div></li>
+<li class="ratt"><span class="bokstav">c</span><span class="svar">8 100 kr</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">d</span><span class="svar">81 000 kr</span><span class="typ">fel enhet</span><div class="uttryck">3 240 · 25 = 81 000</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Körda mil</span><div class="uttryck">3 240 / 10 = 324</div></li>
+<li><span>Milersättning</span><div class="uttryck">324 · 25 = 8 100</div></li></ol>
+<p class="visning">Visning 8 100 kr, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-30-q02</span> Fråga 2 <span class="antal">1 steg</span></h4>
+<p class="fragetext">Hur många km var en resa för Försäljning i genomsnitt?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">12 km</span><span class="typ">fel enhet</span><div class="uttryck">6 180 / 52 / 10 = 11,885</div></li>
+<li class="ratt"><span class="bokstav">b</span><span class="svar">119 km</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">c</span><span class="svar">94 km</span><span class="typ">fel kolumn</span><div class="uttryck">4 890 / 52 = 94,039</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">85 km</span><span class="typ">fel rad</span><div class="uttryck">3 240 / 38 = 85,263</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Km per resa</span><div class="uttryck">6 180 / 52 = 118,846</div></li></ol>
+<p class="visning">Visning 119 km, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-30-q03</span> Fråga 3 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många procent av alla körda km under kvartalet stod Försäljning för?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">46,0 %</span><span class="typ">fel kolumn</span><div class="uttryck">52 / (14 + 38 + 52 + 9) · 100 = 46,018</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">137,0 %</span><span class="typ">fel bas</span><div class="uttryck">6 180 / (10 690 - 6 180) · 100 = 137,029</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">30,3 %</span><span class="typ">fel rad</span><div class="uttryck">3 240 / 10 690 · 100 = 30,309</div></li>
+<li class="ratt"><span class="bokstav">d</span><span class="svar">57,8 %</span><span class="ratt-etikett">Rätt svar</span></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Alla körda km</span><div class="uttryck">860 + 3 240 + 6 180 + 410 = 10 690</div></li>
+<li><span>Försäljnings andel</span><div class="uttryck">6 180 / 10 690 · 100 = 57,811</div></li></ol>
+<p class="visning">Visning 57,8 %, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-30-q04</span> Fråga 4 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Vad kostade IT:s tjänsteresor sammanlagt, milersättning och parkeringsavgifter inräknade?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">1 025 kr</span><span class="typ">steg saknas</span><div class="uttryck">410 / 10 · 25 = 1 025</div></li>
+<li class="ratt"><span class="bokstav">b</span><span class="svar">1 405 kr</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">c</span><span class="svar">10 630 kr</span><span class="typ">fel enhet</span><div class="uttryck">410 · 25 + 380 = 10 630</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">3 270 kr</span><span class="typ">fel rad</span><div class="uttryck">860 / 10 · 25 + 1 120 = 3 270</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Milersättning</span><div class="uttryck">410 / 10 · 25 = 1 025</div></li>
+<li><span>Med parkeringsavgifter</span><div class="uttryck">1 025 + 380 = 1 405</div></li></ol>
+<p class="visning">Visning 1 405 kr, 0 decimaler</p>
+</details>
+</section>
+</article>
+<article class="underlag" id="ng-31-forskolans-barn">
+<h3>Förskolans inskrivna barn <span class="pid">ng-31-forskolans-barn</span></h3>
+<dl class="meta"><div><dt>Typ</dt><dd>diagram (linjediagram)</dd></div><div><dt>Ämne</dt><dd>Förskola</dd></div><div><dt>Oanvänt</dt><dd>inget</dd></div><div><dt>Enhetsbyte</dt><dd>kr till tkr</dd></div><div><dt>Förhandsvärde</dt><dd>0,7</dd></div></dl>
+<p class="inledning">Diagrammet visar hur många barn som var inskrivna på en förskola den första dagen i varje månad från januari till juni. Förskolan har plats för 120 barn. Kommunen betalar förskolan 11 400 kr per inskrivet barn och månad. 1 tkr är 1 000 kr.</p>
+<p class="diagramtyp">Linjediagram, "Inskrivna barn per månad", y-axel "Antal barn", x-axel "Månad"</p>
+<div class="rulla"><table>
+<thead><tr><th>Punkt</th><th>Värde</th></tr></thead>
+<tbody><tr><th scope="row">Jan</th><td>96</td></tr>
+<tr><th scope="row">Feb</th><td>98</td></tr>
+<tr><th scope="row">Mar</th><td>103</td></tr>
+<tr><th scope="row">Apr</th><td>108</td></tr>
+<tr><th scope="row">Maj</th><td>112</td></tr>
+<tr><th scope="row">Jun</th><td>104</td></tr></tbody>
+</table></div>
+<section class="fraga">
+<h4><span class="qid">ng-31-q01</span> Fråga 1 <span class="antal">1 steg</span></h4>
+<p class="fragetext">Hur många procent av platserna var fyllda i april?</p>
+<ol class="alternativ"><li class="ratt"><span class="bokstav">a</span><span class="svar">90 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">b</span><span class="svar">93 %</span><span class="typ">fel rad</span><div class="uttryck">112 / 120 · 100 = 93,333</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">111 %</span><span class="typ">fel bas</span><div class="uttryck">120 / 108 · 100 = 111,111</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">10 %</span><span class="typ">fel räknesätt</span><div class="uttryck">(120 - 108) / 120 · 100 = 10</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Inskrivna delat med platser</span><div class="uttryck">108 / 120 · 100 = 90</div></li></ol>
+<p class="visning">Visning 90 %, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-31-q02</span> Fråga 2 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Med hur många procent ökade antalet inskrivna barn från januari till maj?</p>
+<ol class="alternativ"><li class="ratt"><span class="bokstav">a</span><span class="svar">16,7 %</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">b</span><span class="svar">14,3 %</span><span class="typ">fel bas</span><div class="uttryck">16 / 112 · 100 = 14,286</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">16,0 %</span><span class="typ">steg saknas</span><div class="uttryck">112 - 96 = 16</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">8,3 %</span><span class="typ">fel rad</span><div class="uttryck">(104 - 96) / 96 · 100 = 8,333</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Ökning i antal barn</span><div class="uttryck">112 - 96 = 16</div></li>
+<li><span>Ökning i procent av januari</span><div class="uttryck">16 / 96 · 100 = 16,667</div></li></ol>
+<p class="visning">Visning 16,7 %, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-31-q03</span> Fråga 3 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur mycket betalade kommunen förskolan för mars, i tkr?</p>
+<ol class="alternativ"><li class="ratt"><span class="bokstav">a</span><span class="svar">1 174,2 tkr</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">b</span><span class="svar">1 174 200,0 tkr</span><span class="typ">fel enhet</span><div class="uttryck">103 · 11 400 = 1 174 200</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">1 117,2 tkr</span><span class="typ">fel rad</span><div class="uttryck">98 · 11 400 / 1 000 = 1 117,2</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">1 368,0 tkr</span><span class="typ">fel bas</span><div class="uttryck">120 · 11 400 / 1 000 = 1 368</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Ersättning i kr</span><div class="uttryck">103 · 11 400 = 1 174 200</div></li>
+<li><span>Omräknat till tkr</span><div class="uttryck">1 174 200 / 1 000 = 1 174,2</div></li></ol>
+<p class="visning">Visning 1 174,2 tkr, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-31-q04</span> Fråga 4 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många barn var i genomsnitt inskrivna per månad under januari till mars?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">74 barn</span><span class="typ">fel bas</span><div class="uttryck">297 / 4 = 74,25</div></li>
+<li class="ratt"><span class="bokstav">b</span><span class="svar">99 barn</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">c</span><span class="svar">103 barn</span><span class="typ">fel rad</span><div class="uttryck">(98 + 103 + 108) / 3 = 103</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">297 barn</span><span class="typ">steg saknas</span><div class="uttryck">96 + 98 + 103 = 297</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Januari till mars</span><div class="uttryck">96 + 98 + 103 = 297</div></li>
+<li><span>Genomsnitt per månad</span><div class="uttryck">297 / 3 = 99</div></li></ol>
+<p class="visning">Visning 99 barn, 0 decimaler</p>
+</details>
+</section>
+</article>
+<article class="underlag" id="ng-32-stadbolaget">
+<h3>Städbolagets lokaler <span class="pid">ng-32-stadbolaget</span></h3>
+<dl class="meta"><div><dt>Typ</dt><dd>tabell</dd></div><div><dt>Ämne</dt><dd>Fastighet och service</dd></div><div><dt>Oanvänt</dt><dd>inget</dd></div><div><dt>Enhetsbyte</dt><dd>minuter till timmar</dd></div><div><dt>Förhandsvärde</dt><dd>0,7</dd></div></dl>
+<p class="inledning">Tabellen visar fyra lokaler som ett städbolag städar. Städtiden anges i minuter per städtillfälle. 1 timme är 60 minuter. Bolaget tar 480 kr per städtimme.</p>
+<div class="rulla"><table>
+<caption>Lokaler och städtid</caption>
+<thead><tr><th>Lokal</th><th>Yta (kvm)</th><th>Städtillfällen per vecka</th><th>Minuter per tillfälle</th></tr></thead>
+<tbody><tr><th scope="row">Kontoret</th><td>640</td><td>5</td><td>150</td></tr>
+<tr><th scope="row">Tandläkaren</th><td>220</td><td>5</td><td>75</td></tr>
+<tr><th scope="row">Gymmet</th><td>900</td><td>7</td><td>180</td></tr>
+<tr><th scope="row">Butiken</th><td>380</td><td>6</td><td>96</td></tr></tbody>
+</table></div>
+<section class="fraga">
+<h4><span class="qid">ng-32-q01</span> Fråga 1 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många timmar städar bolaget på Gymmet under en vecka?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">1 260 timmar</span><span class="typ">fel enhet</span><div class="uttryck">7 · 180 = 1 260</div></li>
+<li class="ratt"><span class="bokstav">b</span><span class="svar">21 timmar</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">c</span><span class="svar">3 timmar</span><span class="typ">steg saknas</span><div class="uttryck">180 / 60 = 3</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">10 timmar</span><span class="typ">fel rad</span><div class="uttryck">6 · 96 / 60 = 9,6</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Städtid i minuter</span><div class="uttryck">7 · 180 = 1 260</div></li>
+<li><span>Omräknat till timmar</span><div class="uttryck">1 260 / 60 = 21</div></li></ol>
+<p class="visning">Visning 21 timmar, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-32-q02</span> Fråga 2 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Vad kostar en veckas städning av Butiken?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">3 000 kr</span><span class="typ">fel rad</span><div class="uttryck">5 · 75 / 60 · 480 = 3 000</div></li>
+<li class="ratt"><span class="bokstav">b</span><span class="svar">4 608 kr</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">c</span><span class="svar">768 kr</span><span class="typ">steg saknas</span><div class="uttryck">96 / 60 · 480 = 768</div></li>
+<li class=""><span class="bokstav">d</span><span class="svar">276 480 kr</span><span class="typ">fel enhet</span><div class="uttryck">6 · 96 · 480 = 276 480</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Städtimmar per vecka</span><div class="uttryck">6 · 96 / 60 = 9,6</div></li>
+<li><span>Kostnad</span><div class="uttryck">9,6 · 480 = 4 608</div></li></ol>
+<p class="visning">Visning 4 608 kr, 0 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-32-q03</span> Fråga 3 <span class="antal">2 steg</span></h4>
+<p class="fragetext">Hur många procent större yta har Gymmet än Kontoret?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">28,9 %</span><span class="typ">fel bas</span><div class="uttryck">260 / 900 · 100 = 28,889</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">140,6 %</span><span class="typ">fel räknesätt</span><div class="uttryck">900 / 640 · 100 = 140,625</div></li>
+<li class=""><span class="bokstav">c</span><span class="svar">136,8 %</span><span class="typ">fel rad</span><div class="uttryck">(900 - 380) / 380 · 100 = 136,842</div></li>
+<li class="ratt"><span class="bokstav">d</span><span class="svar">40,6 %</span><span class="ratt-etikett">Rätt svar</span></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Skillnad i kvm</span><div class="uttryck">900 - 640 = 260</div></li>
+<li><span>Skillnad i procent av Kontoret</span><div class="uttryck">260 / 640 · 100 = 40,625</div></li></ol>
+<p class="visning">Visning 40,6 %, 1 decimaler</p>
+</details>
+</section>
+<section class="fraga">
+<h4><span class="qid">ng-32-q04</span> Fråga 4 <span class="antal">1 steg</span></h4>
+<p class="fragetext">Hur många kvm städar bolaget sammanlagt under en vecka på Tandläkaren och Butiken?</p>
+<ol class="alternativ"><li class=""><span class="bokstav">a</span><span class="svar">600 kvm</span><span class="typ">steg saknas</span><div class="uttryck">220 + 380 = 600</div></li>
+<li class=""><span class="bokstav">b</span><span class="svar">5 480 kvm</span><span class="typ">fel rad</span><div class="uttryck">640 · 5 + 380 · 6 = 5 480</div></li>
+<li class="ratt"><span class="bokstav">c</span><span class="svar">3 380 kvm</span><span class="ratt-etikett">Rätt svar</span></li>
+<li class=""><span class="bokstav">d</span><span class="svar">6 600 kvm</span><span class="typ">fel räknesätt</span><div class="uttryck">(220 + 380) · (5 + 6) = 6 600</div></li></ol>
+<details open><summary>Stegen</summary>
+<ol class="steg"><li><span>Yta gånger städtillfällen, summerat</span><div class="uttryck">220 · 5 + 380 · 6 = 3 380</div></li></ol>
+<p class="visning">Visning 3 380 kvm, 0 decimaler</p>
+</details>
+</section>
+</article>
+</main>
+</body>
+</html>

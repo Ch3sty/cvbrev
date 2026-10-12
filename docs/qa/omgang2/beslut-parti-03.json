@@ -1,0 +1,57 @@
+{
+  "datum": "2026-10-12",
+  "granskare": "testansvarig",
+  "godkanda": [
+    "ng-17-hemtjanst-besok",
+    "ng-18-lagrets-inleveranser",
+    "ng-19-skolans-franvaro",
+    "ng-20-fardtjanst-resor",
+    "ng-21-snorojning",
+    "ng-22-bageriets-limpor",
+    "ng-23-sjukhustvatt",
+    "ng-24-vardcentral-samtal",
+    "ng-25-byggets-material",
+    "ng-26-paketombud",
+    "ng-27-hotellets-belaggning",
+    "ng-28-folktandvarden",
+    "ng-29-flyttfirman",
+    "ng-30-tjansteresor",
+    "ng-31-forskolans-barn",
+    "ng-32-stadbolaget",
+    "na-17-ambulansuppdrag",
+    "na-18-vattenforbrukning",
+    "na-19-vuxenutbildning",
+    "na-20-hamnens-containrar",
+    "na-21-lonerevision",
+    "na-22-influensavaccin",
+    "na-23-skadearenden",
+    "na-24-gatubelaggning",
+    "verbexp-p13",
+    "verbexp-p14",
+    "verbexp-p15",
+    "verbexp-p16",
+    "verbexp-p17",
+    "verbexp-p18",
+    "verbexp-p19",
+    "verbexp-p20"
+  ],
+  "strukna": [],
+  "villkor": [
+    {
+      "id": "na-19-vuxenutbildning",
+      "andring": "contextText får meningen \"Kommunen betalar för alla platser, även de som inte fylls.\" efter meningen om kostnaden per plats. Annars kan q02 och q04 räknas på påbörjade i stället för platser."
+    },
+    {
+      "id": "na-23-q04",
+      "andring": "Frågan skrivs om till \"Hur många heltidstjänster som handläggare krävdes för alla skadeärenden under 2025?\" och enheten i alla fyra alternativ blir \"heltidstjänster\" (9,4 heltidstjänster). Facit och distraktorer oförändrade."
+    },
+    {
+      "id": "verbexp-p13-q03",
+      "andring": "Byts: tre av fyra frågor (q01, q03, q04) faller på samma uppgift, andelen ekonomer bland övriga säljare. Ny q03, typ struktur: \"Vilken roll spelar uppgiften om medarbetarsamtalen i försäljningschefens argument?\" a \"Den är det huvudsakliga beviset för att examen ger resultat\", b \"Den stöder förslaget utan att kunna bära det\" (rätt), c \"Den talar emot förslaget\", d \"Den visar att toppsäljarna kommer att stanna\". Förklaring: det är ett stödjande inslag; att de sexton själva lyfter fram sin utbildning säger inget om hur säljare utan examen presterar, så det huvudsakliga beviset är fortfarande jämförelsen med övriga säljare, och den saknas. Alternativ a lockar eftersom det är det enda i texten som låter som ett belägg från verkligheten."
+    },
+    {
+      "id": "verbexp-p18-q04",
+      "andring": "Alternativ c ändras till \"Att enheten har högst andel överklagade beslut\" så att det stämmer med textens \"högsta andel\" (antal och andel är inte samma sak)."
+    }
+  ]
+}

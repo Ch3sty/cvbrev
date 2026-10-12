@@ -49,6 +49,7 @@ import Nivaerna from './Nivaerna'
 import VarDuTappar from './VarDuTappar'
 import Tempo from './Tempo'
 import SmaMultiplar from './SmaMultiplar'
+import PassPerTyp from './PassPerTyp'
 import type { DinUtvecklingData } from './typer'
 
 export type { DinUtvecklingData } from './typer'
@@ -142,6 +143,7 @@ export default function DinUtveckling({ data, topprad, flikar }: DinUtvecklingPr
           <Nivaerna perTest={data.perTest} hasHistory={data.hasHistory} lyft className="order-3 lg:order-2 lg:-mt-[30px]" />
           <VarDuTappar familjer={data.familjer} className="order-4" />
           <Tempo tempo={data.tempo} className="order-5" />
+          <PassPerTyp pass={data.passPerTyp ?? null} className="order-5" />
           <SmaMultiplar perTest={data.perTest} className="order-6 lg:col-span-2" />
         </div>
       </Golv>

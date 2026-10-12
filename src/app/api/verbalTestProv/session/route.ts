@@ -1,3 +1,4 @@
+import { UNDERLAG_META } from '@/lib/tester/underlagVersion';
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
@@ -36,7 +37,7 @@ export async function POST() {
 
     const { data: session, error: createError } = await testSkrivKlient()
       .from('logic_test_v4_sessions')
-      .insert({ user_id: user.id, test_type: TEST_TYPE, answers: [] })
+      .insert({ user_id: user.id, test_type: TEST_TYPE, answers: [], meta: UNDERLAG_META })
       .select()
       .single();
 

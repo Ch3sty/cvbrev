@@ -124,6 +124,9 @@ function textMangd(dim, R, F, seq) {
   const nSak = rutnamn(dim, sak);
   if (ext.length === 1 && sak.length === 0) return nExt ? `Rutan ${nExt[0]} är fylld fast den inte ska vara det.` : `${artikel(sing)} ${sing} för mycket.`;
   if (sak.length === 1 && ext.length === 0) return nSak ? `Rutan ${nSak[0]} saknas.` : `${artikel(sing)} ${sing} saknas.`;
+  // En ruta flyttad (bank 3.1, bara fran_version 4 och senare så att de
+  // befintliga texterna står kvar): rätt antal, fel ruta vald.
+  if (version4 && ext.length === 1 && sak.length === 1 && nExt && nSak) return `Fel ruta är vald: rutan ${nExt[0]} är fylld i stället för rutan ${nSak[0]}.`;
   if (seq && eF.length !== eR.length) {
     const storlekar = new Set(seq.map((v) => element(dim, v).length));
     if (storlekar.size === 1) return `Antalet ${plur} ändras aldrig.`;
@@ -420,9 +423,13 @@ function rattNamn(regel) {
  * misstag[] för en fråga. Varje fel alternativ får en mening, det rätta en
  * tom sträng. Saknas förklaring blir posten null.
  */
+// Sätts av misstagFor under en fråga med fran_version 4 eller senare.
+let version4 = false;
 export function misstagFor(q, t = tolka(q)) {
   const manuella = MANUELLA[q.id];
-  const maskinellt = misstagMaskinellt(q, t);
+  version4 = (q.fran_version ?? 0) >= 4;
+  let maskinellt;
+  try { maskinellt = misstagMaskinellt(q, t); } finally { version4 = false; }
   return manuella ? maskinellt.map((x, i) => (i === q.correctAnswer ? '' : manuella[i] ?? x)) : maskinellt;
 }
 
@@ -514,6 +521,13 @@ function misstagMaskinellt(q, t) {
       // Hela rutan kopierad från en grannruta
       if (lika(opt, q.grid[2][1])) return t.kind === 'balanceline' ? 'Samma som rutan till vänster. Formerna har varken flyttat eller bytt sida.' : 'Samma som rutan till vänster.';
       if (lika(opt, q.grid[1][2])) return 'Samma som rutan ovanför.';
+      // Bank 3.1 (fran_version 4): på balanslinjen kan en distraktor bryta
+      // både läget och sidan för båda formerna. En mening per form.
+      if (t.kind === 'balanceline' && q.fran_version >= 4 && !texter.some((x) => !x) && unika.length === 4) {
+        const perForm = (s) => [...new Set(fel.filter((id) => id.endsWith(s)).map((id) => textFor(q, t, id, F(id))))];
+        const [kv, ci] = [perForm('square'), perForm('circle')];
+        if (kv.length === 2 && ci.length === 2) return `${slaIhop(kv[0], kv[1])} ${slaIhop(ci[0], ci[1])}`;
+      }
       return null;
     }
     if (unika.length === 2) return slaIhop(unika[0], unika[1]);

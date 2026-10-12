@@ -1,11 +1,13 @@
 import type { TestAnswer, QuestionType } from './types';
 import questionBank from './questionBank.json';
 import parti02 from './underlagParti02.json';
+import parti03 from './underlagParti03.json';
 import type { Passage } from './types';
 
 const frysta = questionBank as Passage[];
 // Rättningen hittar alla underlag, oavsett sessionens underlagsversion.
-const passages = [...frysta, ...(parti02 as unknown as Passage[])];
+const medParti02 = [...frysta, ...(parti02 as unknown as Passage[])];
+const passages = [...medParti02, ...(parti03 as unknown as Passage[])];
 
 export function validateAnswer(
   passageId: string,
@@ -101,7 +103,7 @@ export function getPassageById(passageId: string): Passage | undefined {
   return passages.find((p) => p.id === passageId);
 }
 
-/** Urvalets pool: version 1 de frysta underlagen, version 2 plus parti 02 (src/lib/tester/underlagVersion.ts). */
-export function getAllPassages(version: 1 | 2 = 1): Passage[] {
-  return version === 2 ? passages : frysta;
+/** Urvalets pool: version 1 de frysta underlagen, version 2 plus parti 02, version 3 plus parti 03 (src/lib/tester/underlagVersion.ts). */
+export function getAllPassages(version: 1 | 2 | 3 = 1): Passage[] {
+  return version === 3 ? passages : version === 2 ? medParti02 : frysta;
 }

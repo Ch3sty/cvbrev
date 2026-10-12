@@ -1,5 +1,6 @@
 'use client';
 
+import { visningstitel } from '@/lib/tester/titel';
 import { splitIntoParagraphs } from './splitParagraphs';
 
 interface PassageDisplayProps {
@@ -22,7 +23,7 @@ export default function PassageDisplay({
   passageNumber,
 }: PassageDisplayProps) {
   // Strippa "PASSAGE X, "-prefix från titeln
-  const cleanTitle = title.replace(/^PASSAGE\s+\d+\s*[--]\s*/i, '');
+  const cleanTitle = visningstitel(title);
 
   return (
     <section className="rounded-xl border border-kant bg-panel p-4 sm:p-5">

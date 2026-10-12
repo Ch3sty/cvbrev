@@ -587,6 +587,7 @@ export const FEATURE_ETIKETT: Record<Feature, string> = {
   cv_analysis_full: 'Hela CV-analysen',
   letter_download: 'Brevnedladdning',
   tests_above_base: 'Testnivå över grundnivån',
+  test_daily_pass: 'Text- och sifferpass varje dag',
   test_exam_mode: 'Övningsprov mot klockan',
   test_history: 'Din testhistorik',
   chat_unlimited: 'Fler meddelanden i chatten',
