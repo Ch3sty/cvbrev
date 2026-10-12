@@ -1,0 +1,34 @@
+{
+ "andrade": [
+  "fs-e-vaxl-01",
+  "fs-e-vaxl-03",
+  "fs-e-vaxl-05",
+  "fs-e-vaxl-07"
+ ],
+ "nya": [
+  {
+   "id": "fs-e-flera-05",
+   "ersatter": "fs-e-flera-04"
+  },
+  {
+   "id": "fs-e-flera-06"
+  },
+  {
+   "id": "fs-e-antal-04",
+   "ersatter": "fs-e-antal-03"
+  },
+  {
+   "id": "fs-e-antal-05"
+  },
+  {
+   "id": "fs-e-antal-06"
+  },
+  {
+   "id": "fs-e-antal-07"
+  }
+ ],
+ "strukna": [
+  "fs-e-flera-04",
+  "fs-e-antal-03"
+ ]
+}

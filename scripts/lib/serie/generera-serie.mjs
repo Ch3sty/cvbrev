@@ -167,6 +167,16 @@ export function byggAlternativ(r, mall, regler, meta, { pos, forsok = mall.niva 
       const alla = val.filter((k) => k.bryter.length === regelIds.length);
       if (new Set(alla.map((k) => regelIds.map((i) => stable(k.v[i])).join('|'))).size < 2) return false;
     }
+    // Granskning 02, F6: högst två av fem bryter en konstant, och varje regel har
+    // en nära miss bland dem som håller konstanterna. Bara expert: på avancerad
+    // F5 (en regeldimension med S12:s nåbara mängd) finns för få rena
+    // distraktorer för att fem ska klara S5 och S6 med högst två konstantbrott.
+    // Högst två i den strikta halvan; annars tre, som i fs-e-vaxl-09 som
+    // testansvarig släppte (granskning 02, F6), när raden inte ger fler rena.
+    if (expert && val.filter((k) => k.konst.length > 0).length > (strikt ? 2 : 3)) return false;
+    // Med en konstant: krav. Utan (F6 med tre regler): rekommendation, prövas i den strikta halvan.
+    const harKonstant = ids.length > regelIds.length;
+    if (expert && (harKonstant || strikt)) for (const i of regelIds) if (!val.some((k) => k.konst.length === 0 && k.bryter.length === 1 && k.bryter[0] === i)) return false;
     if (strikt) {
       // Konstantbrotten sprids över olika konstanter när primitiven har flera.
       const konstanter = ids.filter((i) => !regelIds.includes(i));

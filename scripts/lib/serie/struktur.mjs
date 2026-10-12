@@ -10,7 +10,7 @@
 //   radNyckel       de fem visade och facit per dimension (dubblettkontroll).
 // =============================================================================
 
-import { dimNyckel, mod } from './celler-serie.mjs';
+import { dimNyckel, lasCell, mod } from './celler-serie.mjs';
 
 const steg8 = (k) => mod(k, 8);
 
@@ -32,4 +32,17 @@ export function strukturNyckel(q) {
 
 export function radNyckel(q) {
   return [...q.rad, q.options[q.correctAnswer]].map(dimNyckel).join('¦');
+}
+
+/**
+ * Lägesraden (granskning 02, F7): de fem visade lägena eller vinklarna i
+ * ordning, oavsett form- eller fyllningsfas. Två frågor på samma nivå får
+ * inte dela den. Null när frågan inte har någon rörlig lägesdimension.
+ */
+const LAGESDIMENSIONER = ['vinkel', 'satellit', 'start', 'ylage', 'kvinkel'];
+export function lagesNyckel(q) {
+  const rorliga = LAGESDIMENSIONER.filter((id) => q.regler?.dims?.[id] && q.regler.dims[id].regel !== 'konstant');
+  if (!rorliga.length) return null;
+  const v = q.rad.map((c) => lasCell(c)?.v);
+  return rorliga.map((id) => `${id}:${v.map((x) => x?.[id]).join(',')}`).join('|');
 }

@@ -13,6 +13,7 @@ const avancerad = las('avancerad')
 const expert = las('expert')
 const avancerad1 = las('omgang1/avancerad')
 const expert1 = las('omgang1/expert')
+const expert2 = las('omgang2/expert')
 // @ts-ignore ren JavaScript
 import * as S from '../../../../scripts/lib/serie/sparrar.mjs'
 // @ts-ignore ren JavaScript
@@ -154,5 +155,14 @@ describe('figurseriernas spärrar', () => {
     expect(byggCell('duo-kant-symbol', { ylage: 0, ksymbol: 'dot' })).toBeTruthy()
     const z = { id: 'x', rad: [0, 1, 2, 3, 4].map((v) => byggCell('duo-kant-symbol', { ylage: v, ksymbol: 'dot' })), options: [] }
     expect(S.fs6(z).join()).toMatch(/ksymbol = dot utanför gränserna/)
+  })
+
+  it('S14 med konstanter: omgång 2:s fs-e-vaxl-05 saknar nära miss på vinkeln bland dem som håller spetsen, vaxl-09 släpps', () => {
+    expect(S.s14(hitta(expert2 as Q[], (x) => x.id === 'fs-e-vaxl-05')).join()).toMatch(/S14 balans, ingen nära miss på vinkel bland dem som håller konstanterna/)
+    expect(S.s14(hitta(expert2 as Q[], (x) => x.id === 'fs-e-vaxl-09'))).toEqual([])
+  })
+
+  it('S15 grupp-antal: antal i cykel på sektorhjulet (omgång 2:s fs-e-antal-03)', () => {
+    expect(S.s15(hitta(expert2 as Q[], (x) => x.id === 'fs-e-antal-03'))).toEqual(['fs-e-antal-03: S15 grupp-antal, antalet går i cykel på en grupprimitiv'])
   })
 })

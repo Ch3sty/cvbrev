@@ -132,7 +132,7 @@ export function analysera(q, lasta) {
   // antalsdistraktor finns utan kopia, och "rätt antal, fel plats" räknas som
   // nära miss (granskning 01, avsnitt 4 punkt 6).
   const minskande = regel.filter((id) => utanRen(dims.find((x) => x.id === id), q.regler.dims[id], facit[id]));
-  return { R: regel, alternativ, minskande };
+  return { R: regel, alternativ, minskande, harKonstant: dims.some((d) => !regel.includes(d.id)) };
 }
 
 /** Antal vid gränsen: nästa steg efter facit går utanför primitivens gränser. */
@@ -162,6 +162,8 @@ export function kravFel(a, niva) {
     // Nära miss: exakt en regel fel, inga konstanter fel (granskning 01, 4.5).
     const nara = dist.filter((x) => x.bryter.length === 1 && x.konst.length === 0).length;
     if (a.R.length >= 2 && nara < 1) fel.push('ingen nära miss (bryter exakt en regel)');
+    // Granskning 02, F6: en nära miss per regel bland dem som håller konstanterna.
+    if (a.harKonstant) for (const id of a.R) if (!dist.some((x) => x.konst.length === 0 && x.bryter.length === 1 && x.bryter[0] === id)) fel.push(`ingen nära miss på ${id} bland dem som håller konstanterna`);
     const alla = dist.filter((x) => x.bryter.length === a.R.length);
     if (new Set(alla.map((x) => x.felVarden)).size < 2) fel.push('färre än två distraktorer bryter alla regler med olika fel');
   }

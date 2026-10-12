@@ -2068,7 +2068,7 @@
   "difficulty": 1,
   "p_prior": 0.72,
   "title": "Strecken, en regel",
-  "rule": "Ett streck till kommer till medurs i varje steg.",
+  "rule": "Ett streck till läggs till medurs i varje steg.",
   "rad": [
    {
     "kind": "ray",
@@ -2794,7 +2794,7 @@
   "difficulty": 1,
   "p_prior": 0.72,
   "title": "Strecken, en regel",
-  "rule": "Ett streck till kommer till medurs i varje steg.",
+  "rule": "Ett streck till läggs till medurs i varje steg.",
   "rad": [
    {
     "kind": "ray",

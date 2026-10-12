@@ -173,7 +173,7 @@ async function main() {
   const res = await p.evaluate(() => document.body.innerText)
   logg('resultatet visar 10 av 15', /10 av 15 rätt/.test(res), {})
   await bild(p, 'resultat', true)
-  const tappade = /Var du tappade/.test(res)
+  const tappade = /Var du tappade/i.test(res)
   logg('Var du tappade per familj', tappade, {})
 
   // Genomgången

@@ -34,8 +34,12 @@
 //                     fem distraktorer; expert har minst en nära miss och två som
 //                     bryter alla regler med olika värden (granskning 01, 4.5)
 //
-// Frågor som testansvarig godkände i granskning 01, innan S12 skärptes och
-// S14 fanns, står i GODKANDA_FORE_OMGANG2: för dem är S12 och S14 upplysning.
+//   S15 grupp_antal   antal i cykel på strålar, sektorhjul eller 3×3-kant
+//                     (granskning 02, F8)
+//
+// Frågor som testansvarig godkänt (granskning 01 och 02) står i GODKANDA:
+// för dem är S12, S14 och S15 upplysning, eftersom spärrarna skärptes efter
+// beslutet.
 // =============================================================================
 
 import { PRIM, lasCell, dimNyckel, giltigt, stable } from './celler-serie.mjs';
@@ -52,6 +56,16 @@ export const GODKANDA_FORE_OMGANG2 = new Set([
   'fs-a-vaxl-01', 'fs-a-vaxl-02', 'fs-a-vaxl-04', 'fs-a-vaxl-05', 'fs-a-vaxl-06', 'fs-a-vaxl-08', 'fs-a-vaxl-09', 'fs-a-vaxl-10',
   'fs-e-vrid-03', 'fs-e-vrid-04', 'fs-e-fyll-04', 'fs-e-fyll-05', 'fs-e-vaxl-02', 'fs-e-vaxl-09',
 ]);
+
+/** Godkända i granskning 02 (beslut-02.json). */
+export const GODKANDA_OMGANG2 = new Set([
+  'fs-g-vrid-11', 'fs-g-antal-01', 'fs-g-antal-04', 'fs-g-antal-10', 'fs-g-antal-13', 'fs-g-vax-03', 'fs-g-vax-06',
+  'fs-a-antal-02', 'fs-a-antal-04', 'fs-a-antal-05', 'fs-a-antal-07', 'fs-a-flera-01', 'fs-a-flera-03', 'fs-a-vaxl-03', 'fs-a-vaxl-07',
+  'fs-e-vrid-01', 'fs-e-vrid-02', 'fs-e-vax-01', 'fs-e-vax-02', 'fs-e-vax-03', 'fs-e-vand-04', 'fs-e-vand-05', 'fs-e-vand-06', 'fs-e-vand-07',
+  'fs-e-vand-08', 'fs-e-vand-09', 'fs-e-fyll-01', 'fs-e-fyll-02', 'fs-e-fyll-03', 'fs-e-flera-03', 'fs-e-vaxl-04', 'fs-e-vaxl-06', 'fs-e-vaxl-10',
+]);
+/** Godkända i granskning 01 eller 02: de skärpta spärrarna är upplysning för dem. */
+export const GODKANDA = new Set([...GODKANDA_FORE_OMGANG2, ...GODKANDA_OMGANG2]);
 
 export const MIN_PERIOD = 6;
 const BOKSTAV = 'ABCDEF';
@@ -249,7 +263,8 @@ export function s12(q) {
 /** S14 balans (granskning 01, F5). */
 export function s14(q) {
   const regel = regelDims(q);
-  if (regel.length < 2) return [];
+  if (regel.length < 2 && q.niva === 'grund') return [];
+  if (regel.length === 0) return [];
   const fel = [];
   const V = q.options.map((o) => lasCell(o)?.v);
   if (V.some((v) => !v)) return [];
@@ -258,13 +273,31 @@ export function s14(q) {
   const ids = PRIM[q.regler.prim].dims.map((d) => d.id);
   const bryter = (v) => regel.filter((id) => stable(v[id]) !== stable(f[id]));
   const konst = (v) => ids.filter((id) => !regel.includes(id) && stable(v[id]) !== stable(f[id]));
-  for (const id of regel) if (dist.every((x) => bryter(x.v).includes(id))) fel.push(`${q.id}: S14 balans, alla fem distraktorer bryter ${id}; den regeln ensam löser frågan`);
+  for (const id of regel) if (regel.length >= 2 && dist.every((x) => bryter(x.v).includes(id))) fel.push(`${q.id}: S14 balans, alla fem distraktorer bryter ${id}; den regeln ensam löser frågan`);
+  // Konstanten är en gratis kontroll (granskning 02, F6). Spärren är nära
+  // missen per regel bland dem som håller konstanterna; att högst två av fem
+  // bryter en konstant är generatorns krav på nya frågor (generera-serie.mjs),
+  // eftersom fs-e-vaxl-09 med tre konstantbrott ska släppas.
   if (arExpert(q)) {
-    if (!dist.some((x) => bryter(x.v).length === 1 && konst(x.v).length === 0)) fel.push(`${q.id}: S14 balans, ingen nära miss (exakt en regel fel, inga konstanter fel)`);
+    // Bland dem som håller alla konstanter har varje regel en nära miss (granskning 02, F6).
+    // Gäller frågor med minst en konstant; på F6 med tre regler och ingen
+    // konstant är en nära miss per regel en rekommendation (granskning 02, 5.5).
+    const harKonstant = ids.some((id) => !regel.includes(id));
+    if (harKonstant) for (const id of regel) if (!dist.some((x) => konst(x.v).length === 0 && bryter(x.v).length === 1 && bryter(x.v)[0] === id)) fel.push(`${q.id}: S14 balans, ingen nära miss på ${id} bland dem som håller konstanterna`);
     const alla = dist.filter((x) => bryter(x.v).length === regel.length);
-    if (new Set(alla.map((x) => regel.map((id) => stable(x.v[id])).join('|'))).size < 2) fel.push(`${q.id}: S14 balans, färre än två distraktorer bryter alla regler med olika värden`);
+    if (regel.length >= 2 && new Set(alla.map((x) => regel.map((id) => stable(x.v[id])).join('|'))).size < 2) fel.push(`${q.id}: S14 balans, färre än två distraktorer bryter alla regler med olika värden`);
   }
   return fel;
+}
+
+/**
+ * S15 grupp-antal: antalet på en grupprimitiv (strålar, sektorhjul, 3×3-kant)
+ * får bara gå i steg, aldrig i cykel; gruppens läge blir annars tvetydigt
+ * (granskning 02, F8).
+ */
+export function s15(q) {
+  const r = q.regler?.dims?.antal;
+  return ['stralar', 'sektor', 'block'].includes(q.regler?.prim) && r?.regel === 'cykel' ? [`${q.id}: S15 grupp-antal, antalet går i cykel på en grupprimitiv`] : [];
 }
 
 /** S13: en regel vars dimension har samma värde i alla sex alternativ. */
@@ -285,8 +318,8 @@ export function sparrFelSerie(q) {
   const s = s11(q);
   fel.push(...s.fel);
   const info = [...s.info];
-  const nya = [...s12(q), ...s14(q)];
-  if (GODKANDA_FORE_OMGANG2.has(q.id)) info.push(...nya.map((x) => `${x} (godkänd i granskning 01)`));
+  const nya = [...s12(q), ...s14(q), ...s15(q)];
+  if (GODKANDA.has(q.id)) info.push(...nya.map((x) => `${x} (godkänd i granskning 01 eller 02)`));
   else fel.push(...nya);
   return { fel, info };
 }

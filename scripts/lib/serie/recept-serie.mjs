@@ -100,7 +100,8 @@ export const MALLAR = [
       { namn: 'orbital-steg-mitt', family: 'vandring', regler: (r) => ({ prim: 'orbital', dims: { satellit: steg(r8(r), valj(r, UDDA)), mitt: cykelOlika(r, ['filled', 'open'], 2) } }) },
       { namn: 'stralar-kvart-antal', family: 'antal', regler: (r) => ({ prim: 'stralar', dims: { start: steg(r8(r), valj(r, KVART)), antal: antalSteg(r, 2, 7) } }) },
       { namn: 'sektor-kvart-antal', family: 'antal', regler: (r) => ({ prim: 'sektor', dims: { start: steg(r8(r), valj(r, KVART)), antal: antalSteg(r, 1, 7) } }) },
-      { namn: 'sektor-steg-antalcykel', family: 'antal', regler: (r) => ({ prim: 'sektor', dims: { start: steg(r8(r), valj(r, UDDA)), antal: cykelOlika(r, [1, 2, 3, 4], valj(r, [2, 3])) } }) },
+      // sektor-steg-antalcykel utgår (granskning 02, F8): antal på en
+      // grupprimitiv går bara i steg, aldrig i cykel (S15).
       {
         namn: 'grundform-form-fyllning', family: 'fyllning',
         regler: (r) => {
@@ -139,6 +140,7 @@ export const MALLAR = [
       // pil och duo kant + symbol (en kantprick, ingen antalsdimension).
       { namn: 'duo-kant-form-tre', family: 'vandring', regler: (r) => ({ prim: 'duo-kant-form', dims: { ylage: valj(r, [vaxande(r), vaxelvis(r)]), kform: cykelOlika(r, ['circle', 'square', 'diamond'], 3), kfyll: cykelOlika(r, ['none', 'black'], 2) } }) },
       { namn: 'duo-orbital-form-tre', family: 'fyllning', regler: (r) => ({ prim: 'duo-orbital-form', dims: { ylage: valj(r, [vaxande(r), vaxelvis(r)]), kform: cykelOlika(r, ['circle', 'square', 'diamond'], 3), kfyll: cykelOlika(r, ['none', 'black'], 2) } }) },
+      { namn: 'duo-kant-form-flera', family: 'flera', regler: (r) => ({ prim: 'duo-kant-form', dims: { ylage: valj(r, [vaxande(r), vaxelvis(r)]), kform: cykelOlika(r, ['circle', 'square', 'diamond'], 3), kfyll: cykelOlika(r, ['none', 'black'], 2) } }) },
       { namn: 'duo-orbital-form-flera', family: 'flera', regler: (r) => ({ prim: 'duo-orbital-form', dims: { ylage: valj(r, [vaxande(r), vaxelvis(r)]), kform: cykelOlika(r, ['circle', 'square', 'diamond'], 3), kfyll: cykelOlika(r, ['none', 'black'], 2) } }) },
     ],
   },
@@ -149,9 +151,11 @@ export const MALLAR = [
       { namn: 'orbital-vaxelvis-tretakt', family: 'vaxelvis', regler: (r) => ({ prim: 'orbital', dims: { satellit: vaxelvis(r), mitt: cykel(((x, y) => [x, y, y])(...blanda(r, ['filled', 'open']))) } }) },
       { namn: 'duo-orbital-form-tretakt', family: 'vaxelvis', regler: (r) => ({ prim: 'duo-orbital-form', dims: { ylage: vaxelvis(r), kform: cykelOlika(r, ['circle', 'square', 'diamond'], 3), kfyll: konst(valj(r, ['none', 'black'])) } }) },
       { namn: 'duo-kant-symbol-tretakt', family: 'vaxelvis', regler: (r) => ({ prim: 'duo-kant-symbol', dims: { ylage: vaxelvis(r), ksymbol: cykelOlika(r, ['plus', 'minus', 'cross', 'ring'], 3) } }) },
-      // Antalet i tretakt (högst tre värden) mot sektorernas växelvisa start:
-      // antal-familjen på expert efter att duo-kant-antal strukits (granskning 01).
-      { namn: 'sektor-vaxelvis-antal', family: 'antal', regler: (r) => ({ prim: 'sektor', dims: { start: vaxelvis(r), antal: cykel(blanda(r, [1, 2, 3])) } }) },
+      // Antal-familjen på expert (granskning 02, F8): start växelvis och antal
+      // i steg plus eller minus ett, aldrig cykel. Startens jämna serie tar ett
+      // halvt varv (4), så att läget upprepas och inte går i takt med antalet.
+      { namn: 'sektor-vaxelvis-antalsteg', family: 'antal', regler: (r) => ({ prim: 'sektor', dims: { start: vaxelvis(r, [4, 1, 2, 3, -1, -2, -3]), antal: antalSteg(r, 1, 7) } }) },
+      { namn: 'stralar-vaxelvis-antalsteg', family: 'antal', regler: (r) => ({ prim: 'stralar', dims: { start: vaxelvis(r, [4, 1, 2, 3, -1, -2, -3]), antal: antalSteg(r, 2, 7) } }) },
     ],
   },
 ];

@@ -24,7 +24,7 @@
 import { MALLAR, P_PRIOR_SPANN, FAMILJER } from './lib/serie/recept-serie.mjs';
 import { PRIM } from './lib/serie/celler-serie.mjs';
 import { sparrFelSerie } from './lib/serie/sparrar.mjs';
-import { strukturNyckel, radNyckel } from './lib/serie/struktur.mjs';
+import { strukturNyckel, radNyckel, lagesNyckel } from './lib/serie/struktur.mjs';
 import { lasFiler, reglerFel } from './lib/serie/kontroll.mjs';
 
 const fel = [];
@@ -36,6 +36,8 @@ const MALL = Object.fromEntries(MALLAR.map((m) => [m.id, m]));
 const filer = lasFiler(process.argv.slice(2));
 const allaId = new Map();
 const allaRader = new Map();
+// Lägesraden per nivå (granskning 02, F7): samma fem lägen i samma ordning bara en gång.
+const lagesrader = new Map();
 
 for (const { fil, fragor } of filer) {
   if (!Array.isArray(fragor)) { fel.push(`${fil}: inte en lista`); continue; }
@@ -78,6 +80,12 @@ for (const { fil, fragor } of filer) {
     const rk = radNyckel(q);
     if (allaRader.has(rk)) f(`samma rad som ${allaRader.get(rk)}`);
     allaRader.set(rk, q.id);
+    const lk = lagesNyckel(q);
+    if (lk) {
+      const k = `${q.niva}|${lk}`;
+      if (lagesrader.has(k)) f(`samma lägesrad som ${lagesrader.get(k)} (granskning 02, F7)`);
+      lagesrader.set(k, q.id);
+    }
     (perNiva[q.niva] ??= []).push(q);
   }
   // Per mall och nivå, när filen bär en hel nivå.

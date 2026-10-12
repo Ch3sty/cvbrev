@@ -59,7 +59,7 @@ for (const mall of MALLAR) {
   let variant = null;
   let perVariant = 0;
   while (gjorda < mall.antal) {
-    if (++forsok > 20000) throw new Error(`${mall.id}: fick bara ${gjorda} av ${mall.antal}`);
+    if (++forsok > 60000) throw new Error(`${mall.id}: fick bara ${gjorda} av ${mall.antal}`);
     if (!variant || perVariant >= 80) { variant = mall.varianter[v++ % mall.varianter.length]; perVariant = 0; }
     perVariant++;
     if ((perGrupp[PRIM[variant.regler(mulberry32(1)).prim].grupp] ?? 0) >= tak) { perVariant = 80; continue; }
