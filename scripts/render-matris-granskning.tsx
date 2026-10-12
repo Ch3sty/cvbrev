@@ -30,6 +30,10 @@ import { analysera, radPerAlternativ } from './lib/matris/distraktorer.mjs';
 //                     fler regler vad varje alternativ bryter. PNG-namnet är
 //                     {recept}-{id}.png.
 //   --bara=a,b,c      med --fil: bara de angivna frågorna (granskningsomgång)
+//   --notera=<f.json> { id: { granska, ersatter } }: vad som granskas per
+//                     fråga (till exempel "alternativen" eller "hela frågan")
+//                     och vilken struken fråga den ersätter, som märke i
+//                     kortet och som tabell överst i index.html (bank 3.1)
 // Flaggor (spec-rummen 15.10 och 15.11):
 //   --ringar          bara frågor med ringceller (alla nivåer, pensionerade märkta)
 //   --fragor=a,b,c    bara de angivna frågorna (kan kombineras med --ringar)
@@ -40,6 +44,8 @@ const FRAGOR = (ARGS.find((a) => a.startsWith('--fragor='))?.slice('--fragor='.l
 const ALLA = ARGS.includes('--alla');
 const BARA_HTML = ARGS.includes('--html');
 const FIL = ARGS.find((a) => a.startsWith('--fil='))?.slice('--fil='.length) ?? null;
+const NOTERA_FIL = ARGS.find((a) => a.startsWith('--notera='))?.slice('--notera='.length) ?? null;
+const NOTERA: Record<string, { granska: string; ersatter?: string }> = NOTERA_FIL ? JSON.parse(readFileSync(NOTERA_FIL, 'utf8')) : {};
 const BARA = new Set((ARGS.find((a) => a.startsWith('--bara='))?.slice('--bara='.length) ?? '').split(',').filter(Boolean));
 type V3Fraga = LayeredQuestion & { band?: string; mekanism?: string; recept?: string; p_prior?: number };
 mkdirSync(UT, { recursive: true });
@@ -84,7 +90,7 @@ function kort(q: LayeredQuestion, niva: string, kalla: string) {
   matt.set(q.id, m);
   const over = m.noder > MAX_NODER_PER_FRAGA || m.bytes > MAX_BYTES_PER_FRAGA;
   return `<article id="${q.id}">
-    <header><div class="id">${q.id} <span class="${over ? 'varn' : 'matt'}">${m.noder} noder · ${(m.bytes / 1024).toFixed(1)} kB</span></div><div class="meta">${niva} · ${NAMN[q.family ?? ''] ?? q.family} · svårighet ${q.difficulty} · ${kalla}${mall}</div><h2>${esc(q.title)}</h2>${FIL ? distraktorRad(b) : ''}</header>
+    <header><div class="id">${q.id} <span class="${over ? 'varn' : 'matt'}">${m.noder} noder · ${(m.bytes / 1024).toFixed(1)} kB</span></div><div class="meta">${niva} · ${NAMN[q.family ?? ''] ?? q.family} · svårighet ${q.difficulty} · ${kalla}${mall}</div><h2>${esc(q.title)}</h2>${NOTERA[q.id] ? `<p class="granska">Granska: ${esc(NOTERA[q.id].granska)}${NOTERA[q.id].ersatter ? ` · ersätter ${esc(NOTERA[q.id].ersatter!)}` : ''}</p>` : ''}${FIL ? distraktorRad(b) : ''}</header>
     <div class="grid">${celler.join('')}</div>
     <div class="alts">${alt.join('')}</div>
     <p class="regel">${esc(q.rule)}</p>
@@ -112,6 +118,7 @@ article{width:360px}
 .regel{margin:12px 0 4px;font-size:13px;line-height:18px;color:#4A4A55}
 .misstag{margin:0;padding-left:0;list-style:none;font-size:12px;line-height:17px;color:#1A1A1F}
 .band{margin:-6px 0 10px;font-size:12px;line-height:17px;color:#4A4A55;background:#F4F3F0;border:1px solid #E3E1DC;border-radius:8px;padding:6px 8px}
+.granska{margin:-6px 0 10px;font-size:12px;font-weight:600;color:#A8491A}
 .misstag li{margin:2px 0} .misstag em{color:#A8491A;font-style:normal} .misstag .varn{color:#985A08}
 `;
 
@@ -168,7 +175,8 @@ for (const v of valda) {
 const summering = `<section class="summa"><h2>Noder och bytes per fråga (V11: högst ${MAX_NODER_PER_FRAGA} noder och ${MAX_BYTES_PER_FRAGA / 1024} kB)</h2><table>${[...perBank]
   .map(([k, b]) => `<tr><td>${k}</td><td>${b.n} frågor</td><td>max ${b.noder} noder (${b.id})</td><td>max ${(b.bytes / 1024).toFixed(1)} kB</td></tr>`)
   .join('')}</table></section>`;
-const html = `<!doctype html><html lang="sv"><head><meta charset="utf-8"><title>Matrisgranskning</title><style>${CSS}.summa{padding:16px;font-size:12px}.summa td{padding:2px 8px 2px 0}</style></head><body>${summering}${artiklar.join('\n')}</body></html>`;
+const noteringar = Object.keys(NOTERA).length ? `<section class="summa"><h2>Vad som granskas</h2><table>${valda.filter((v) => NOTERA[v.q.id]).map((v) => `<tr><td><a href="#${v.q.id}">${v.q.id}</a></td><td>${esc(NOTERA[v.q.id].ersatter ?? '')}</td><td>${esc(NOTERA[v.q.id].granska)}</td></tr>`).join('')}</table></section>` : '';
+const html = `<!doctype html><html lang="sv"><head><meta charset="utf-8"><title>Matrisgranskning</title><style>${CSS}.summa{padding:16px;font-size:12px}.summa td{padding:2px 8px 2px 0}</style></head><body>${noteringar}${summering}${artiklar.join('\n')}</body></html>`;
 const htmlFil = path.resolve(UT, 'index.html');
 writeFileSync(htmlFil, html);
 

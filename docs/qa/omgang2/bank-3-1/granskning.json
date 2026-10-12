@@ -1,0 +1,62 @@
+{
+  "v7a-v3-byte-18": {
+    "ersatter": "v7a-v3-byte-12",
+    "granska": "alternativen (samma rutnät som den strukna frågan)"
+  },
+  "v7a-v3-byte-19": {
+    "ersatter": "v7a-v3-byte-13",
+    "granska": "alternativen (samma rutnät som den strukna frågan)"
+  },
+  "v7a-v3-byte-20": {
+    "ersatter": "v7a-v3-byte-14",
+    "granska": "alternativen (samma rutnät som den strukna frågan)"
+  },
+  "v7a-v3-byte-21": {
+    "ersatter": "v7a-v3-byte-15",
+    "granska": "alternativen (samma rutnät som den strukna frågan)"
+  },
+  "v7a-v3-byte-22": {
+    "ersatter": "v7a-v3-byte-16",
+    "granska": "alternativen (samma rutnät som den strukna frågan)"
+  },
+  "v7a-v3-byte-23": {
+    "ersatter": "v7a-v3-byte-17",
+    "granska": "alternativen (samma rutnät som den strukna frågan)"
+  },
+  "v7a-v3-tva-07": {
+    "ersatter": "v7a-v3-tva-05",
+    "granska": "alternativen (samma rutnät som den strukna frågan)"
+  },
+  "v7a-v3-tva-08": {
+    "ersatter": "v7a-v3-tva-06",
+    "granska": "alternativen (samma rutnät som den strukna frågan)"
+  },
+  "v7e-v3-over-16": {
+    "ersatter": "v7e-v3-over-15",
+    "granska": "alternativen (samma rutnät som den strukna frågan)"
+  },
+  "v7e-v3-over-17": {
+    "ersatter": "v7e-v3-over-02",
+    "granska": "alternativen (samma rutnät som den strukna frågan)"
+  },
+  "v7e-plus-over-21": {
+    "ersatter": "v7e-plus-over-18",
+    "granska": "alternativen (samma rutnät som den strukna frågan)"
+  },
+  "v7e-plus-over-22": {
+    "ersatter": "v7e-plus-over-20",
+    "granska": "alternativen (samma rutnät som den strukna frågan)"
+  },
+  "v7g-v3-vand-15": {
+    "ersatter": "v7g-v3-vand-03",
+    "granska": "hela frågan (nytt rutnät)"
+  },
+  "v7g-v3-vand-16": {
+    "ersatter": "v7g-v3-vand-13",
+    "granska": "hela frågan (nytt rutnät)"
+  },
+  "v7g-v3-antal-06": {
+    "ersatter": "v7g-v3-antal-05",
+    "granska": "hela frågan (nytt rutnät, strecken skiftar riktning på diagonalen)"
+  }
+}

@@ -103,5 +103,22 @@
     "v7e-plus-p3-22",
     "v7e-plus-p3-23",
     "v7e-plus-p3-24"
+  ],
+  "src/lib/logicTestV7/kandidater/bank-3-1.v7.json": [
+    "v7a-v3-byte-18",
+    "v7a-v3-byte-19",
+    "v7a-v3-byte-20",
+    "v7a-v3-byte-21",
+    "v7a-v3-byte-22",
+    "v7a-v3-byte-23",
+    "v7a-v3-tva-07",
+    "v7a-v3-tva-08",
+    "v7e-v3-over-16",
+    "v7e-v3-over-17",
+    "v7e-plus-over-21",
+    "v7e-plus-over-22",
+    "v7g-v3-vand-15",
+    "v7g-v3-vand-16",
+    "v7g-v3-antal-06"
   ]
 }

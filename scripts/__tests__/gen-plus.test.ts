@@ -4,6 +4,7 @@ import { bygg, key, mjukNyckel, arHoger } from '../lib/matris/generera.mjs'
 import { PLUS, UT } from '../lib/matris/recept-plus.mjs'
 import { upptagnaRutnat, strukturFel } from '../lib/matris/kor-generator.mjs'
 import { facitRuta0, kandidatKrav } from '../lib/matris/kontroll.mjs'
+import { STRUKNA } from '../lib/matris/recept-v3.mjs'
 
 describe('generatorn för svår plus', () => {
   it('ett upptaget rutnät ger ett nytt försök och ett annat rutnät', () => {
@@ -19,7 +20,8 @@ describe('generatorn för svår plus', () => {
     const fil = JSON.parse(readFileSync(UT, 'utf8'))
     const upptagna = upptagnaRutnat(UT)
     expect(fil).toHaveLength(40)
-    for (const q of fil) expect(upptagna.has(key(q.grid))).toBe(false)
+    // Strukna frågors rutnät får återanvändas (bank 3.1 bygger om plus-over-18 och -20 på samma rutnät).
+    for (const q of fil) if (!STRUKNA.has(q.id)) expect(upptagna.has(key(q.grid))).toBe(false)
     const mjuka = fil.map((q: { mekanism: string }) => mjukNyckel(q))
     expect(new Set(mjuka).size).toBe(40)
   })

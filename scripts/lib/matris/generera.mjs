@@ -18,7 +18,7 @@ import { misstagFor, urvalsText } from './misstag.mjs';
 import { tolka, familjFor } from './tolka.mjs';
 import { analysera, plusFel, tomFigur, facitUdda, eliminerbara } from './distraktorer.mjs';
 import { radvisRotation, radvisBlock, radvis2x2, radvisBalans, antalEgenRiktning, dubbelOverlagring } from './generera-v3.mjs';
-import { sparrFel, dimNyckel, utseendeNyckel, s11Majoritet, delarRader } from './sparrar.mjs';
+import { sparrFel, dimNyckel, utseendeNyckel, s11Majoritet, s11Rostning, delarRader } from './sparrar.mjs';
 
 export const key = (c) => stable(c);
 const sortNum = (a) => [...a].sort((x, y) => x - y);
@@ -522,6 +522,10 @@ export function overlagring(r, p) {
   for (const o of Object.keys(OPF)) if (o !== op) kand.push(mk(OPF[o](A, B)));
   kand.push(mk(OPF['diff-ab'](B, A)), mk(A), mk(B));
   for (let x = 0; x < N; x++) { const s = new Set(C); if (s.has(x)) s.delete(x); else s.add(x); if (s.size) kand.push(mk(s)); }
+  // p.flytta (bank 3.1, over-15): ett element flyttat till en annan plats,
+  // lika många element som facit. Läggs sist så att slumpen och de övriga
+  // kandidaterna är desamma.
+  if (p.flytta) for (const x of C) for (let y = 0; y < N; y++) if (!C.has(y)) { const s = new Set(C); s.delete(x); s.add(y); kand.push(mk(s)); }
   const [t, a, b] = axel === 'kolumn' ? ['Den tredje rutan i varje rad', 'den första', 'den andra'] : ['Den nedersta rutan i varje kolumn', 'den översta', 'den mittersta'];
   const rule = OPTEXT[op](t, a, b);
   const TIT = { union: 'Allt tillsammans', xor: 'Bara det som skiljer', snitt: 'Bara det gemensamma', 'diff-ab': 'Det som blir kvar' };
@@ -894,10 +898,19 @@ export { BYGGARE };
 //     majoritet per egenskap
 //   - plus: distraktorkraven (minst tre nära miss, varje regel bruten, högst
 //     en kopia, inga två lika fel)
+//   - grund och avancerad: facit går inte att rösta fram (S11, röstningen)
+//   - bank 3.1, sammansattning 'nara-per-regel': exakt en nära miss per
+//     regel och resten bryter alla regler (granskningen av omgång 2)
+//   - bank 3.1, ingenUnikStorlek: i en mängd eller ett block har minst en
+//     distraktor lika många element som facit (over-15 i omgång 2)
 // Returnerar index i kand, eller null.
 // =============================================================================
 const POS_SYNLIGA = [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2], [2, 0], [2, 1]];
-function valjFem(prov, t, kand, m, { plus, expert }) {
+/** Antalet element i en mängd eller ett 3×3-block, per sådan dimension. */
+function storlekar(c) {
+  return (dimsFor(c) ?? []).filter((d) => d.mangd || d.tile).map((d) => `${d.id}=${d.tile ? [...Array(9).keys()].filter((i) => (d.varde >> i) & 1).length : (d.varde ?? []).length}`);
+}
+function valjFem(prov, t, kand, m, { plus, expert, sammansattning = null, ingenUnikStorlek = false }) {
   const synliga = new Set(POS_SYNLIGA.map(([r, c]) => dimNyckel(prov.grid[r][c])));
   const facitKopia = synliga.has(dimNyckel(prov.options[0]));
   const an = analysera(prov, t);
@@ -954,11 +967,32 @@ function valjFem(prov, t, kand, m, { plus, expert }) {
       for (const p of R) {
         const bryter = val.filter((x) => x.a?.bryter.includes(p));
         if (bryter.length < 2) return false;
-        if (!expert && !bryter.some((x) => x.a.bryter.length === 1)) return false;
+        if (!expert && !sammansattning && !bryter.some((x) => x.a.bryter.length === 1)) return false;
       }
       if (expert && !val.some((x) => x.a?.naraMiss)) return false;
     }
     if (expert && s11Majoritet(q).length) return false;
+    if (!expert && tackning && s11Rostning(q, t).length) return false;
+    if (sammansattning) {
+      // En regel kan omfatta flera poster (balanslinjen: sidan gäller både
+      // kvadraten och cirkeln). Nära miss för en grupp bryter exakt gruppens
+      // poster; de övriga bryter något i varje grupp, och skiljer sig åt i
+      // olikaFel (fel i rörelsen).
+      const G = sammansattning.grupper ?? R.map((p) => [p]);
+      const naraFor = (x, g) => x.a && x.a.bryter.length === g.length && g.every((p) => x.a.bryter.includes(p));
+      const brytAlla = (x) => x.a && G.every((g) => (sammansattning.helGrupp ? g.every((p) => x.a.bryter.includes(p)) : g.some((p) => x.a.bryter.includes(p))));
+      for (const g of G) if (val.filter((x) => naraFor(x, g)).length !== 1) return false;
+      const alla = val.filter(brytAlla);
+      if (alla.length !== val.length - G.length) return false;
+      if (sammansattning.olikaFel) {
+        const fel = alla.map((x) => sammansattning.olikaFel.map((id) => vKey(t.dimsVy(kand[x.i]).find((d) => d.id === id)?.varde)).join('|'));
+        if (new Set(fel).size !== fel.length) return false;
+      }
+    }
+    if (ingenUnikStorlek) {
+      const f = storlekar(prov.options[0]);
+      if (f.some((x) => !val.some((y) => storlekar(kand[y.i]).includes(x)))) return false;
+    }
     if (plus) {
       const dist = val.map((x) => x.a);
       const a2 = {
@@ -973,6 +1007,21 @@ function valjFem(prov, t, kand, m, { plus, expert }) {
     }
     return true;
   };
+  // Sammansättningen given (bank 3.1): sök direkt bland en nära miss per
+  // grupp gånger par av distraktorer som bryter alla, i byggarens ordning.
+  // Texterna får inte upprepas.
+  if (sammansattning) {
+    const G = sammansattning.grupper ?? R.map((p) => [p]);
+    const nara = G.map((g) => info.filter((x) => x.a && x.a.bryter.length === g.length && g.every((p) => x.a.bryter.includes(p))));
+    const alla = info.filter((x) => x.a && G.every((g) => (sammansattning.helGrupp ? g.every((p) => x.a.bryter.includes(p)) : g.some((p) => x.a.bryter.includes(p)))));
+    const kart = nara.reduce((acc, l) => acc.flatMap((v) => l.map((x) => [...v, x])), [[]]);
+    for (const n of kart) for (let i = 0; i < alla.length; i++) for (let j = i + 1; j < alla.length; j++) {
+      const val = [...n, alla[i], alla[j]];
+      if (new Set(val.map((x) => x.text)).size < val.length) continue;
+      if (ok(val)) return val.map((x) => x.i);
+    }
+    return null;
+  }
   for (const [maxSamma, maxUtanfor] of [[1, 0], [2, 0], [1, 1], [2, 1], [2, 2], [2, 3]]) {
     provade = 0;
     const val = [];
@@ -1005,13 +1054,15 @@ function valjFem(prov, t, kand, m, { plus, expert }) {
  * `utseenden`). Frågan får fran_version: 3 och recept.
  */
 // recept.seed: bygg med en annan frågas slump (samma rutnät som en struken
-// fråga, nya alternativ; granskningen av omgång 1). `kvar`: frågorna per
+// fråga, nya alternativ; granskningen av omgång 1). recept.forsokFran och
+// recept.forsok låser försöket (bank 3.1: exakt det försök som gav den
+// strukna frågans rutnät). recept.fran_version: standard 3. `kvar`: frågorna per
 // recept som redan finns, för spärren mot delade rader.
 export function byggV3(recept, upptagna = new Set(), { utseenden = new Map(), mjuka = null, kvar = new Map() } = {}) {
   const fel = [];
   const plus = recept.band === 'plus';
   const fackKrock = (c) => c && c.kind === 'balanceline' && new Set(c.items.map((i) => `${i.posX}:${i.side}`)).size !== c.items.length;
-  for (let forsok = 0; forsok < (recept.forsok ?? 300); forsok++) {
+  for (let forsok = recept.forsokFran ?? 0; forsok < (recept.forsok ?? 300); forsok++) {
     const r = rng(`${recept.seed ?? recept.id}#${forsok}`);
     const b = BYGGARE[recept.byggare](r, recept.p);
     if (!b) { fel.push(`försök ${forsok}: byggaren gav inget rutnät`); continue; }
@@ -1029,7 +1080,7 @@ export function byggV3(recept, upptagna = new Set(), { utseenden = new Map(), mj
       if (fackKrock(c)) continue;
       sett.add(k); kand.push(c);
     }
-    const prov = { id: recept.id, title: b.title, rule: b.rule, grid: b.grid, options: [b.facit, ...kand], correctAnswer: 0, fran_version: 3, ...(plus ? { band: 'plus' } : {}) };
+    const prov = { id: recept.id, title: b.title, rule: b.rule, grid: b.grid, options: [b.facit, ...kand], correctAnswer: 0, fran_version: recept.fran_version ?? 3, ...(plus ? { band: 'plus' } : {}) };
     const t = tolka(prov);
     if (!t.ok || t.tvetydig.length) { fel.push(`försök ${forsok}: ${t.ok ? 'tvetydig ' + t.tvetydig.map((x) => x.dim + ' ' + x.regler.join('/')).join('; ') : 'ingen regel för ' + (t.saknar ?? [t.orsak]).join(', ')}`); continue; }
     if (t.traffar.length !== 1) { fel.push(`försök ${forsok}: ${t.traffar.length} kandidater stämmer med regeln`); continue; }
@@ -1040,13 +1091,13 @@ export function byggV3(recept, upptagna = new Set(), { utseenden = new Map(), mj
     const fNyckel = dimNyckel(b.facit);
     if (!['latin-antal', 'latin-form'].includes(b.family) && b.grid.flat().some((c) => c && dimNyckel(c) === fNyckel)) { fel.push(`försök ${forsok}: facit är en kopia av en synlig ruta`); continue; }
     const expert = plus || /^v7e-/.test(recept.id);
-    const valda = valjFem(prov, t, kand, m, { plus, expert });
+    const valda = valjFem(prov, t, kand, m, { plus, expert, sammansattning: recept.sammansattning, ingenUnikStorlek: recept.ingenUnikStorlek });
     if (!valda) { fel.push(`försök ${forsok}: inga fem distraktorer klarar spärrarna`); continue; }
     const pos = Math.floor(r() * 6);
     const options = valda.map((i) => kand[i]); options.splice(pos, 0, b.facit);
     const q = { id: recept.id, title: b.title, rule: b.rule, difficulty: recept.difficulty, family: b.family, grid: b.grid, options, correctAnswer: pos };
     if (plus) Object.assign(q, { band: 'plus', mekanism: recept.mekanism });
-    Object.assign(q, { p_prior: recept.p_prior, recept: recept.recept, fran_version: 3 });
+    Object.assign(q, { p_prior: recept.p_prior, recept: recept.recept, fran_version: recept.fran_version ?? 3 });
     const sig = key(q.grid);
     if (upptagna.has(sig)) { fel.push(`försök ${forsok}: samma rutnät som en annan fråga`); continue; }
     const mjuk = mjuka ? mjukNyckel(q) : null;
