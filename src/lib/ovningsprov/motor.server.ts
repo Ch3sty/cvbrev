@@ -31,6 +31,7 @@ import { captureServer } from '@/lib/analytics/server';
 import { lasBehorighet } from '@/lib/traning/motor.server';
 import { dagSthlm, type Dag } from '@/lib/traning/datum';
 import { visningstitel } from '@/lib/tester/titel';
+import { lasSeddaUnderlag } from '@/lib/tester/sedda.server';
 import { ovningsformat, ovningsformatUrNyckel } from './format';
 import {
   OVNINGSPROV_TEST_TYPE,
@@ -374,7 +375,7 @@ export async function skapaOvningsprov(args: {
   idag?: Dag;
 }): Promise<SkapaOvning> {
   const idag = args.idag ?? dagSthlm();
-  const [beh, planRes, sessRes] = await Promise.all([
+  const [beh, planRes, sessRes, seddaAlla] = await Promise.all([
     lasBehorighet(args.supabase, args.userId),
     args.admin.from('test_planer').select('*').eq('user_id', args.userId).maybeSingle(),
     args.admin
@@ -384,6 +385,11 @@ export async function skapaOvningsprov(args: {
       .eq('test_type', OVNINGSPROV_TEST_TYPE[args.typ])
       .order('created_at', { ascending: false })
       .limit(20),
+    // Det hon haft i alla källor (klassiska test, provet, passen, övningsprov), sedda.server.ts.
+    lasSeddaUnderlag(args.admin, args.userId, args.typ).catch((e) => {
+      console.error('[ovningsprov] sedda underlag', e);
+      return null;
+    }),
   ]);
   // Övningsprovet ingår i Premium på alla tre testtyper (riktlinjerna 1.7).
   if (!beh.harProvlage) return { ok: false, status: 402, fel: 'betalvagg' };
@@ -403,7 +409,7 @@ export async function skapaOvningsprov(args: {
 
   const plan = (planRes.error ? null : planRes.data) as { leverantor?: string | null; variant?: string | null } | null;
   const f = ovningsformat(args.typ, plan?.leverantor ?? null, plan?.variant ?? null);
-  const sedda = new Set(rader.flatMap((r) => lasMeta(r.meta)?.delar ?? []));
+  const sedda = new Set([...rader.flatMap((r) => lasMeta(r.meta)?.delar ?? []), ...(seddaAlla?.sedda.keys() ?? [])]);
   const seed = `${args.userId}:${idag}:${rader.length}:${args.typ}`;
   const delar = valjDelar(args.typ, seed, sedda, UNDERLAG_VERSION);
   const meta: OvningsMeta = {

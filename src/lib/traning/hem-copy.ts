@@ -82,15 +82,16 @@ export const HEM = {
       `${versal(talord(12 - n))} nya figuruppgifter ovanpå de ${talord(n)} från smakprovet. Efteråt vet du din nivå.`,
   },
   /**
-   * 1t (19.3 fråga 2): bara siffror eller bara text valt. Passen finns i dag
-   * bara för figurer och mönster; hemvyn erbjuder det valda testet.
+   * 1t (19.3 fråga 2): bara siffror eller bara text valt. Nivå och kurva
+   * finns för figurer och mönster; för siffror och text finns textpasset och
+   * sifferpasset (beställning omgång 2, B2) under det valda testet.
    */
   annatTest: {
-    rad: 'Nivå, kurva och dagliga pass finns i dag för figurer och mönster. Siffror och text får det senare.',
+    rad: 'Nivå och kurva följer figurer och mönster. För siffror och text finns ett kort pass varje dag.',
     eyebrow: 'Första passet',
     titelSiffror: 'Gör siffertestet',
     titelText: 'Gör texttestet',
-    text: 'Resultat och genomgång direkt. Vi säger till när passen finns.',
+    text: 'Resultat och genomgång direkt. Testet säger också om passen börjar på grund eller avancerad.',
     knappSiffror: 'Starta siffertestet',
     knappText: 'Starta texttestet',
   },
@@ -322,6 +323,18 @@ export const HEM = {
     ordEj: 'Inte gjort än. Korta texter med frågor om vad som stämmer.',
     personlighetKlar: (datum: string) => `Profil klar ${datum}. Inga rätta svar, ingen nivå.`,
     personlighetEj: 'Inga rätta svar, ingen nivå. Se hur profilen tolkas.',
+  },
+  /** Text- och sifferpassen under dagens pass (beställning omgång 2, B2). */
+  vnPass: {
+    rubrik: 'Fler pass i dag',
+    textpass: 'Textpass',
+    sifferpass: 'Sifferpass',
+    textMeta: 'En text, fyra påståenden. Cirka tre minuter.',
+    sifferMeta: 'Ett underlag, fyra frågor. Cirka fem minuter.',
+    gjortMeta: 'Gjort i dag.',
+    gjort: 'Gjort',
+    starta: 'Starta',
+    last: 'Ingår i Premium',
   },
   jobbsok: {
     /** Radens titel: rummets namn (beslut-hemvy 2026-10-11 punkt 2). */

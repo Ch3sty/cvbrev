@@ -87,6 +87,8 @@ export type Handling =
 export type Hoger =
   | { typ: 'lank'; text: string; href: string }
   | { typ: 'las'; text: string; feature: Betalvagg; plats: BetalvaggPlats }
+  /** Gjort i dag: en bock i koppar och ordet för skärmläsaren. */
+  | { typ: 'bock'; text: string }
   | { typ: 'chev' };
 
 export type Symbol = 'matris' | 'siffror' | 'ord' | 'person' | 'jobb' | 'brev';
@@ -369,6 +371,37 @@ function flerTester(inp: FlerTesterIn, testtyper: readonly string[], medFigurer:
     lank: { text: HEM.flerTester.alla, href: TRANING_RUTT.alla },
     rader: rader.map(({ _typ: _, ...r }) => r),
   };
+}
+
+/**
+ * Textpasset och sifferpasset under dagens pass (beställning omgång 2, B2):
+ * en rad per vald testtyp, bock när passet är gjort i dag, låst med
+ * "Ingår i Premium" för gratis. Null när planen inte har verbalt eller
+ * numeriskt.
+ */
+export function vnPassSektion(s: Traningsstatus, testtyper: readonly string[]): Sektion | null {
+  const betalande = s.behorighet?.harOvanGrund ?? false;
+  const V = HEM.vnPass;
+  const rader: RadModell[] = [];
+  for (const kind of ['verbal', 'numerisk'] as const) {
+    if (!testtyper.includes(kind)) continue;
+    const gjord = s.vnPassIdag?.[kind] ?? false;
+    const titel = kind === 'verbal' ? V.textpass : V.sifferpass;
+    const meta = gjord ? V.gjortMeta : kind === 'verbal' ? V.textMeta : V.sifferMeta;
+    rader.push({
+      titel,
+      meta,
+      symbol: kind === 'verbal' ? 'ord' : 'siffror',
+      svag: !gjord,
+      hoger: gjord
+        ? { typ: 'bock', text: V.gjort }
+        : betalande
+          ? { typ: 'lank', text: V.starta, href: kind === 'verbal' ? TRANING_RUTT.textpass : TRANING_RUTT.sifferpass }
+          : { typ: 'las', text: V.last, feature: 'tests_above_base', plats: 'dag2' },
+      label: betalande ? undefined : `${titel}. ${meta} ${V.last}. ${lastAria()}`,
+    });
+  }
+  return rader.length ? { typ: 'rader', nyckel: 'vnpass', rubrik: V.rubrik, rader } : null;
 }
 
 /**
@@ -674,7 +707,7 @@ export function byggHemvy(inp: HemIn): HemModell {
         text: A.text,
         handling: { typ: 'lank', text: siffror ? A.knappSiffror : A.knappText, href: siffror ? TRANING_RUTT.siffror : TRANING_RUTT.text },
       },
-      sektioner: [flerTester(inp.flerTester, testtyper, true), jobb],
+      sektioner: [...(vnPassSektion(s, testtyper) ? [vnPassSektion(s, testtyper)!] : []), flerTester(inp.flerTester, testtyper, true), jobb],
     };
   }
 
@@ -878,6 +911,8 @@ export function byggHemvy(inp: HemIn): HemModell {
     const imorgon = imorgonText(s);
     if (imorgon) sektioner.push({ typ: 'status', nyckel: 'imorgon', text: imorgon, ton: 'koppar' });
   }
+  const vnPass = vnPassSektion(s, testtyper);
+  if (vnPass) sektioner.push(vnPass);
   const tempo = !efterPass && betalande ? tempoSektion(s) : null;
   if (tempo) sektioner.push(tempo);
   const tappar = varDuTappar(s, betalande, s.aktivitet.pass === 0);

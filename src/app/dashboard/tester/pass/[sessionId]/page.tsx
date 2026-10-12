@@ -8,6 +8,8 @@
 import { notFound } from 'next/navigation'
 import PassFlode from '@/components/traning/PassFlode'
 import { hamtaSession, sessionsvy } from '@/lib/traning/motor.server'
+import { hamtaVnPass, vnPassVy } from '@/lib/tester/pass.server'
+import VnPassFlode from '@/components/traning/vnpass/VnPassFlode'
 import { testSkrivKlient } from '@/lib/tests/skrivKlient'
 import { passSida } from '../sida.server'
 
@@ -17,8 +19,15 @@ export default async function PassSessionSida({ params }: { params: Promise<{ se
   const { sessionId } = await params
   if (!UUID.test(sessionId)) notFound()
   const { userId, betalande } = await passSida()
-  const rad = await hamtaSession(testSkrivKlient(), userId, sessionId)
+  const admin = testSkrivKlient()
+  const rad = await hamtaSession(admin, userId, sessionId)
   const vy = rad ? sessionsvy(rad) : null
-  if (!vy) notFound()
+  if (!vy) {
+    // Text- och sifferpassen har samma adress (beställning omgång 2, B3).
+    const vn = await hamtaVnPass(admin, userId, sessionId)
+    const vnVy = vn ? vnPassVy(vn) : null
+    if (!vnVy) notFound()
+    return <VnPassFlode vy={vnVy} />
+  }
   return <PassFlode vy={vy} betalande={betalande} />
 }

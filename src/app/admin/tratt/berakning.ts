@@ -269,6 +269,7 @@ export const FEATURE_NAMN: Record<Feature, string> = {
   cv_analysis_full: 'Full CV-analys',
   letter_download: 'Ladda ned brev',
   tests_above_base: 'Tester över grundnivå',
+  test_daily_pass: 'Text- och sifferpass',
   test_exam_mode: 'Provläge',
   test_history: 'Testhistorik',
   chat_unlimited: 'Jobbcoachen, fler meddelanden',

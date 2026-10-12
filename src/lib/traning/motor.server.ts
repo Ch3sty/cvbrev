@@ -84,6 +84,8 @@ import { arPassTid, fragaEfterProvet, type PassTid } from './testplan';
 import type { FragaStatistik } from './svarighet';
 import { formatForPlan, PROVFORMAT, raknaTempo, type Provformat, type Tempo } from './tempo';
 import { beslutaTillgang, TEST_TYPE, TRANINGS_TEST_TYPER, type Begard, type TillgangBeslut } from './tillgang';
+import { VN_PASS_TEST_TYPER, kindForTestTyp, type VnKind } from '@/lib/tester/pass-typer';
+import type { SlutfordSession } from './milstolpar';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Klient = SupabaseClient<any, any, any>;
@@ -128,6 +130,17 @@ export interface Lage {
   milstolpar: { nyckel: string; nadd_at: string; visad_at: string | null }[];
   statistik: Map<string, FragaStatistik>;
   bank: BankFragaInfo[];
+  /**
+   * Slutförda text- och sifferpass (beställning omgång 2, B2): räknas i
+   * dagsringen, serien och Första veckan, aldrig i matrisnivån, kurvan,
+   * sträckregeln eller familjerna. Typ 'pass' (riktade också).
+   */
+  andraPass: (SlutfordSession & { kind: VnKind })[];
+}
+
+/** Matrisens slutförda sessioner och text- och sifferpassen, för dagarna. */
+export function allaPassDagar(lage: Pick<Lage, 'slutforda' | 'andraPass'>): SlutfordSession[] {
+  return [...lage.slutforda, ...lage.andraPass.map(({ dag, typ }) => ({ dag, typ }))];
 }
 
 function numeriskt(v: unknown): number | null {
@@ -150,7 +163,7 @@ export async function lasLage(admin: Klient, userId: string, idag: Dag = dagSthl
       .from('logic_test_v4_sessions')
       .select('id, test_type, meta, answers, created_at, completed_at')
       .eq('user_id', userId)
-      .in('test_type', MATRIS_TYPER)
+      .in('test_type', [...MATRIS_TYPER, ...VN_PASS_TEST_TYPER])
       .order('created_at', { ascending: false })
       .limit(400),
     admin.from('test_milstolpar').select('nyckel, nadd_at, visad_at').eq('user_id', userId),
@@ -190,7 +203,12 @@ export async function lasLage(admin: Klient, userId: string, idag: Dag = dagSthl
     statistik.set(s.fraga_id, { antal: s.antal, ratt: s.ratt });
   }
 
-  const rader = (sessRes.data ?? []) as SessionRad[];
+  const allaRader = (sessRes.data ?? []) as SessionRad[];
+  // Text- och sifferpassen läses i samma rundtur men hålls utanför matrisens rader.
+  const rader = allaRader.filter((r) => !kindForTestTyp(r.test_type));
+  const andraPass = allaRader
+    .filter((r) => kindForTestTyp(r.test_type) && r.completed_at)
+    .map((r) => ({ dag: dagSthlm(r.completed_at as string), typ: 'pass' as const, kind: kindForTestTyp(r.test_type) as VnKind }));
   return {
     idag,
     plan,
@@ -200,6 +218,7 @@ export async function lasLage(admin: Klient, userId: string, idag: Dag = dagSthl
     milstolpar: (milRes.data ?? []) as Lage['milstolpar'],
     statistik,
     bank: bankInfo(statistik),
+    andraPass,
   };
 }
 
@@ -1005,7 +1024,7 @@ export async function slutforTraning(args: {
   const punkterEfter = nyPunkt
     ? [...lage.punkter.filter((p) => !(p.dag === nyPunkt.dag && p.typ === nyPunkt.typ)), nyPunkt]
     : lage.punkter;
-  const sessionerEfter = [...lage.slutforda, { dag: idag, typ: meta.typ }];
+  const sessionerEfter = [...allaPassDagar(lage), { dag: idag, typ: meta.typ }];
   const nya = nyaMilstolpar({
     sessioner: sessionerEfter,
     punkter: punkterEfter,
@@ -1101,6 +1120,7 @@ export async function slutforTraning(args: {
     void captureServer('ommatning_klar', args.userId, { niva: niva_efter, delta: fore != null ? Math.round((niva_efter - fore) * 10) / 10 : 0 });
   } else if (meta.typ === 'pass' || meta.typ === 'riktat') {
     void captureServer('pass_klart', args.userId, {
+      test_kind: 'matris',
       typ: meta.typ,
       variant: meta.variant,
       niva_fore: fore,
@@ -1174,6 +1194,8 @@ export interface Traningsstatus {
   /** Märken som nåtts men inte visats (kvitto K1). */
   ovisade: string[];
   dagensPassGjort: boolean;
+  /** Text- och sifferpasset gjort i dag (beställning omgång 2, B2). Saknas i äldre fixturer. */
+  vnPassIdag?: { verbal: boolean; numerisk: boolean };
   dagarKvar: number | null;
   /** Dag 1 till 7 efter mätningen, för kvittot K1. Satt när Första veckan nåtts (spec 14.3). */
   forstaVeckan: ReturnType<typeof forstaVeckanSammanfattning> | null;
@@ -1261,12 +1283,14 @@ export async function hamtaTraningsstatus(args: {
   const [lage, beh] = await Promise.all([lasLage(args.admin, args.userId, idag), lasBehorighet(args.supabase, args.userId)]);
   const betalande = beh.harOvanGrund;
   const format = formatForPlan(lage.plan?.leverantor, lage.plan?.variant);
-  const aktiva = aktivaDagar(lage.slutforda);
+  // Dagarna räknar alla pass, text- och sifferpassen med (beställning omgång 2, B2).
+  const allaDagar = allaPassDagar(lage);
+  const aktiva = aktivaDagar(allaDagar);
   const prov = lage.plan?.provdatum ?? null;
   const start = forstaMatningen(lage.punkter)?.dag ?? null;
 
   const nya = nyaMilstolpar({
-    sessioner: lage.slutforda,
+    sessioner: allaDagar,
     punkter: lage.punkter,
     provdatum: prov,
     idag,
@@ -1317,11 +1341,15 @@ export async function hamtaTraningsstatus(args: {
     varDuTappar: { svagaste: familjer.svagaste, langsamma: familjer.langsamma },
     milstolpar,
     ovisade: milstolpar.filter((m) => !m.visad_at).map((m) => m.nyckel),
-    dagensPassGjort: lage.slutforda.some((s) => s.dag === idag && (s.typ === 'pass' || s.typ === 'riktat' || s.typ === 'general')),
+    dagensPassGjort: allaDagar.some((s) => s.dag === idag && (s.typ === 'pass' || s.typ === 'riktat' || s.typ === 'general')),
+    vnPassIdag: {
+      verbal: lage.andraPass.some((p) => p.kind === 'verbal' && p.dag === idag),
+      numerisk: lage.andraPass.some((p) => p.kind === 'numerisk' && p.dag === idag),
+    },
     dagarKvar: prov ? dagarMellan(idag, prov) : null,
     forstaVeckan:
       start && milstolpar.some((m) => m.nyckel === 'forsta_veckan')
-        ? forstaVeckanSammanfattning(start, lage.slutforda)
+        ? forstaVeckanSammanfattning(start, allaDagar)
         : null,
     fragaEfterProvet: fragaEfterProvet(lage.plan, idag),
     start: (() => {

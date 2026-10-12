@@ -19,6 +19,7 @@ import { featureRequiredBody } from '@/lib/quota/quotaService';
 import { TEST_CONFIGS, examLimitMs } from '@/app/dashboard/tester/testConfig';
 import { arTraningsTestTyp, featureForTraningsTyp } from '@/lib/traning/tillgang';
 import { arOvningsprovTestTyp } from '@/lib/ovningsprov/typer';
+import { arVnPassTestTyp } from '@/lib/tester/pass-typer';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnySupabase = SupabaseClient<any, any, any>;
@@ -56,6 +57,8 @@ export function featureForTestType(testType: string): Feature | null {
   if (arTraningsTestTyp(testType)) return featureForTraningsTyp(testType);
   // Övningsprovet mot klockan i verbalt och numeriskt (Testerna v2 1.9).
   if (arOvningsprovTestTyp(testType)) return 'test_exam_mode';
+  // Text- och sifferpassen och deras riktade pass (beställning omgång 2, B3).
+  if (arVnPassTestTyp(testType)) return 'test_daily_pass';
   const nyckel = ALIAS[testType] ?? testType;
   return FEATURE_BY_TEST_TYPE[nyckel] ?? null;
 }

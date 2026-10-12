@@ -15,6 +15,16 @@ export function passHref(typ: PassTyp, opt?: { family?: string | null; format?: 
   return `/dashboard/tester/pass?${q.toString()}`;
 }
 
+/**
+ * Textpasset och sifferpasset (beställning omgång 2, B3), med familj ett
+ * riktat pass: /dashboard/tester/pass?typ=textpass&family=kvantor.
+ */
+export function vnPassHref(kind: 'verbal' | 'numerisk', familj?: string | null): string {
+  const q = new URLSearchParams({ typ: kind === 'verbal' ? 'textpass' : 'sifferpass' });
+  if (familj) q.set('family', familj);
+  return `/dashboard/tester/pass?${q.toString()}`;
+}
+
 /** Sessionens egen adress: återupptagning, omladdning och genomgången (P4). */
 export function sessionHref(sessionId: string): string {
   return `/dashboard/tester/pass/${encodeURIComponent(sessionId)}`;
@@ -69,6 +79,8 @@ export const TRANING_RUTT = {
   matning: passHref('matning'),
   pass: passHref('pass'),
   riktat: (family: string) => passHref('riktat', { family }),
+  textpass: vnPassHref('verbal'),
+  sifferpass: vnPassHref('numerisk'),
   /** Övningsprovet går alltid via startarket (riktlinjerna 5.1). */
   general: ovningsprovHref('logik'),
   /** Passflödets egen start av logikens övningsprov, bara från startarket. */

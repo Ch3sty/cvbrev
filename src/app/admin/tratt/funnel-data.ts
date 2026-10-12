@@ -413,6 +413,13 @@ const SANNA_KALLOR: Array<{
     tabell: 'ai_conversations',
     tidskolumn: 'created_at',
   },
+  // Pass per vecka per testtyp (beställning omgång 2, B3). Undantagna konton bort som överallt här.
+  { nyckel: 'pass_matris', etikett: 'Pass, figurer', tabell: 'logic_test_v4_sessions', tidskolumn: 'completed_at', filter: { test_type: 'matrislogik-pass' } },
+  { nyckel: 'riktat_matris', etikett: 'Riktade pass, figurer', tabell: 'logic_test_v4_sessions', tidskolumn: 'completed_at', filter: { test_type: 'matrislogik-riktat' } },
+  { nyckel: 'pass_verbal', etikett: 'Textpass', tabell: 'logic_test_v4_sessions', tidskolumn: 'completed_at', filter: { test_type: 'verbal-pass' } },
+  { nyckel: 'riktat_verbal', etikett: 'Riktade textpass', tabell: 'logic_test_v4_sessions', tidskolumn: 'completed_at', filter: { test_type: 'verbal-riktat' } },
+  { nyckel: 'pass_numerisk', etikett: 'Sifferpass', tabell: 'logic_test_v4_sessions', tidskolumn: 'completed_at', filter: { test_type: 'numerisk-pass' } },
+  { nyckel: 'riktat_numerisk', etikett: 'Riktade sifferpass', tabell: 'logic_test_v4_sessions', tidskolumn: 'completed_at', filter: { test_type: 'numerisk-riktat' } },
   {
     nyckel: 'ansokningar',
     etikett: 'Sökta tjänster loggade',
@@ -435,6 +442,12 @@ const TEST_ETIKETT: Record<string, string> = {
   'verbal-resonemang-expert': 'Verbal, expert',
   'verbal-resonemang-prov': 'Verbal, prov',
   'personlighet-grund': 'Personlighet',
+  'matrislogik-pass': 'Matrislogik, pass',
+  'matrislogik-riktat': 'Matrislogik, riktat pass',
+  'verbal-pass': 'Verbal, textpass',
+  'verbal-riktat': 'Verbal, riktat textpass',
+  'numerisk-pass': 'Numerisk, sifferpass',
+  'numerisk-riktat': 'Numerisk, riktat sifferpass',
 };
 
 export function testEtikett(typ: string): string {
