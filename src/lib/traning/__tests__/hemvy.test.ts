@@ -124,6 +124,17 @@ describe('tillstånden med konceptets exempeltal', () => {
     const cp = c.sektioner.find((s) => s.typ === 'rader' && s.nyckel === 'provdagen')
     if (cp && cp.typ === 'rader') expect(cp.rader[0].meta).toMatch(/ Ligger i planen \d+ [a-zåäö]+ och dagen före provet\.$/)
   })
+  it('1c och 1g: Test och datum nås på mobil under det lyfta kortet, 1b behåller Inför provet', () => {
+    for (const ram of ['1c', '1g'] as const) {
+      const m = modell(ram)
+      const mobil = m.sektioner.filter((s) => s.typ !== 'tempo' && s.lankBaraMobil)
+      expect(mobil, ram).toHaveLength(1)
+      const s = mobil[0]
+      expect(s.typ === 'status' && s.lank, ram).toMatchObject({ text: 'Ändra datum', href: '/dashboard/tester/installningar?steg=3' })
+    }
+    const b = modell('1b')
+    expect(b.sektioner.filter((s) => s.typ !== 'tempo' && s.lankBaraMobil).map((s) => (s.typ === 'tempo' ? '' : s.nyckel))).toEqual(['provdagen'])
+  })
   it('1c, 1d och 1e', () => {
     const c = modell('1c')
     expect(c.vagg.rubrik).toBe('I övermorgon: Matrigma')

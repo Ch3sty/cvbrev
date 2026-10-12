@@ -52,9 +52,29 @@ const KONTON = fs.existsSync(`${SCRATCH}/qa-matris-konton.json`)
   ? JSON.parse(fs.readFileSync(`${SCRATCH}/qa-matris-konton.json`, 'utf8'))
   : {}
 
-const BANK = {
-  grund: JSON.parse(fs.readFileSync('src/lib/logicTestV7/questionBankGrund.v7.json', 'utf8')),
-  expert: JSON.parse(fs.readFileSync('src/lib/logicTestV7/questionBankExpert.v7.json', 'utf8')),
+// Samma pooler som poolFor i src/lib/logicTestV7/selectQuestions.v7.ts:
+// version 1 (ingen bank_version i meta) drar ur de frusna bankerna, version 2
+// och 3 ur alla frågor på nivån som är valbara i versionen.
+const lasBank = (f) => JSON.parse(fs.readFileSync(`src/lib/logicTestV7/${f}`, 'utf8'))
+const BANK_V1 = { grund: lasBank('questionBankGrund.v7.json'), expert: lasBank('questionBankExpert.v7.json') }
+const ALLA = {
+  grund: [...BANK_V1.grund, ...lasBank('questionBankGrund3c.v7.json'), ...lasBank('questionBankGrundV3.v7.json')],
+  expert: [
+    ...BANK_V1.expert,
+    ...lasBank('questionBankExpert3c.v7.json'),
+    ...lasBank('questionBankExpertV3.v7.json'),
+    ...lasBank('questionBankExpertPlus.v7.json'),
+  ],
+}
+const valbarI = (q, v) => q.pensionerad !== true && (q.fran_version ?? 1) <= v && (q.pensionerad_fran ?? Infinity) > v
+/** Poolen en session drar ur, efter nivå och meta.bank_version. */
+function pool(nivaNamn, meta) {
+  const v = meta?.bank_version === 3 ? 3 : meta?.bank_version === 2 ? 2 : 1
+  return v === 1 ? BANK_V1[nivaNamn] : ALLA[nivaNamn].filter((q) => valbarI(q, v))
+}
+async function sessionsMeta(tabell, kol, id) {
+  const { data } = await admin.from(tabell).select('meta').eq(kol, id).maybeSingle()
+  return data?.meta ?? null
 }
 
 const [floede, ...args] = process.argv.slice(2)
@@ -162,7 +182,7 @@ async function avtryck(p) {
 }
 
 async function valdBokstav(p) {
-  return p.$$eval('button[aria-label^="Svarsalternativ"][aria-pressed="true"]', (b) =>
+  return p.$$eval('button[aria-label^="Svarsalternativ"][aria-pressed="true"], button[aria-label^="Svarsalternativ"][aria-checked="true"]', (b) =>
     b.filter((e) => e.offsetParent !== null).map((e) => e.getAttribute('aria-label').slice(-1))
   )
 }
@@ -213,7 +233,7 @@ async function testFlode(p) {
   await vantaText(p, /Välj rätt svar/i)
   await vanta(800)
   await bild(p, 'fraga-1')
-  const fv = forvantat(BANK[niva], sessionId, 15, BLANDAD)
+  const fv = forvantat(pool(niva, await sessionsMeta('logic_test_v4_sessions', 'id', sessionId)), sessionId, 15, BLANDAD)
   logg('session startad', true, {
     sessionId,
     rattPosition: fv.map((f) => bokstav(f.rattVisat)).join(''),
@@ -343,7 +363,7 @@ async function smakprovFlode(p) {
   await vanta(600)
   await bild(p, 'fraga-1')
   if (!token) throw new Error('fick ingen token')
-  const fv = forvantat(BANK.grund, token, 5, BLANDAD)
+  const fv = forvantat(pool('grund', await sessionsMeta('anon_test_sessions', 'token', token)), token, 5, BLANDAD)
   logg('smakprov startat', true, { token, rattPosition: fv.map((f) => bokstav(f.rattVisat)).join('') })
   const klick = fv.map((f, i) => (i < 3 ? f.rattVisat : (f.rattVisat + 1) % 6))
   for (let i = 0; i < 5; i++) {
@@ -408,7 +428,7 @@ async function gammalFlode(p) {
   await p.keyboard.press('ArrowRight')
   await p.keyboard.press('ArrowRight')
   await vanta(400)
-  const fv = forvantat(BANK.grund, konto.gammalPagaende, 15, false)
+  const fv = forvantat(pool('grund', await sessionsMeta('logic_test_v4_sessions', 'id', konto.gammalPagaende)), konto.gammalPagaende, 15, false)
   const svar = vantaSvar(p)
   await klickaAlternativ(p, fv[2].rattVisat)
   await svar

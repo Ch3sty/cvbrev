@@ -60,7 +60,10 @@ export default async function FragaSida({ params }: Sidprops) {
       </PageHeader>
 
       <SectionCard rubrik="Frågan">
-        <div className="space-y-4" data-admin-fraga={id}>
+        {/* Testens paneler (lösningen, förklaringen, regelpanelen) står på
+            --ton, som bara finns i rummen. Adminen har inget rum: tonen blir
+            adminens insänkta fält, som i adminens övriga paneler. */}
+        <div className="space-y-4 [--ton-ink:var(--ink-2)] [--ton:var(--insunken)]" data-admin-fraga={id}>
           {fraga}
         </div>
       </SectionCard>

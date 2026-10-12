@@ -119,7 +119,17 @@ export type Sektion =
       lankBaraMobil?: boolean;
       rader: RadModell[];
     }
-  | { typ: 'status'; nyckel: string; text: string; ton: 'neutral' | 'koppar'; lank?: { text: string; href: string } };
+  | {
+      typ: 'status';
+      nyckel: string;
+      text: string;
+      ton: 'neutral' | 'koppar';
+      lank?: { text: string; href: string };
+      /** Länken bara under lg (kontextlänken i toppraden på dator). */
+      lankBaraMobil?: boolean;
+      /** Hela raden bara under lg. */
+      baraMobil?: boolean;
+    };
 
 export interface Tal {
   varde: string;
@@ -605,6 +615,24 @@ function kontext(s: Traningsstatus): { text: string; href: string } | null {
   return t ? { text: t, href: TRANING_RUTT.installningarSteg(3) } : null;
 }
 
+/**
+ * På mobil lämnar kontexten ("Alva Logic, 25 okt") toppraden. I 1b bär
+ * Inför provet-sektionen länken; i lägen utan den sektionen (1c, 1g) bär
+ * första statusraden länken till Test och datum, och finns ingen statusrad
+ * får länken en egen rad, bara på mobil. Allt står under det lyfta kortet, så
+ * kopparknappen flyttar inte.
+ */
+function kontextPaMobil(sektioner: Sektion[], s: Traningsstatus): void {
+  const k = kontext(s);
+  if (!k || !s.plan?.provdatum) return;
+  if (sektioner.some((x) => x.typ !== 'tempo' && x.lankBaraMobil)) return;
+  const lank = { text: HEM.provdagen.andraDatum, href: k.href };
+  const i = sektioner.findIndex((x) => x.typ === 'status' && !x.lank);
+  const st = i >= 0 ? sektioner[i] : null;
+  if (st && st.typ === 'status') sektioner[i] = { ...st, lank, lankBaraMobil: true };
+  else sektioner.push({ typ: 'status', nyckel: 'kontext', text: k.text, ton: 'neutral', lank, baraMobil: true });
+}
+
 /* ------------------------------------------------------------ modellen */
 
 export function byggHemvy(inp: HemIn): HemModell {
@@ -836,6 +864,7 @@ export function byggHemvy(inp: HemIn): HemModell {
       });
     }
     sektioner.push(...vnLista, { typ: 'status', nyckel: 'infor', text: HEM.infor.status, ton: 'koppar' }, fler, jobb);
+    kontextPaMobil(sektioner, s);
     return {
       tillstand: 'infor',
       ram: '1c',
@@ -949,6 +978,8 @@ export function byggHemvy(inp: HemIn): HemModell {
   if (!efterPass) sektioner.push(provdagenSektion(s, behorig.harProvlage));
   if (!efterPass) sektioner.push(fler);
   sektioner.push(jobb);
+
+  if (efterPass) kontextPaMobil(sektioner, s);
 
   let ram = utanDatum ? '1h' : !s.format.namn ? '1i' : '1b';
   if (efterPass) ram = '1g';

@@ -118,7 +118,19 @@ function EttTal({ tal }: { tal: Tal }) {
   )
 }
 
-function Statusrad({ text, ton, lank, barn }: { text: string; ton: 'neutral' | 'koppar'; lank?: { text: string; href: string }; barn?: React.ReactNode }) {
+function Statusrad({
+  text,
+  ton,
+  lank,
+  lankKlass,
+  barn,
+}: {
+  text: string
+  ton: 'neutral' | 'koppar'
+  lank?: { text: string; href: string }
+  lankKlass?: string
+  barn?: React.ReactNode
+}) {
   return (
     <div className="flex min-h-11 items-center justify-between gap-3 rounded-xl border border-kant bg-papper px-4 py-3 text-sm leading-5 text-ink-1">
       <span className="flex min-w-0 items-center gap-2.5">
@@ -126,7 +138,7 @@ function Statusrad({ text, ton, lank, barn }: { text: string; ton: 'neutral' | '
         <span>{text}</span>
       </span>
       {lank ? (
-        <Link href={lank.href} className={`${LANK} inline-flex min-h-11 shrink-0 items-center text-[13px]`}>
+        <Link href={lank.href} className={`${LANK} inline-flex min-h-11 shrink-0 items-center text-[13px]${lankKlass ? ` ${lankKlass}` : ''}`}>
           {lank.text}
         </Link>
       ) : null}
@@ -193,8 +205,8 @@ function SektionFor({ s, forstaRad, spann }: { s: Sektion; forstaRad: boolean; s
   // Statusrader går alltid i en egen rad över hela bredden (avvikelse 5).
   if (s.typ === 'status') {
     return (
-      <div className="lg:order-3 lg:col-span-3">
-        <Statusrad text={s.text} ton={s.ton} lank={s.lank} />
+      <div className={s.baraMobil ? 'lg:hidden' : 'lg:order-3 lg:col-span-3'}>
+        <Statusrad text={s.text} ton={s.ton} lank={s.lank} lankKlass={s.lankBaraMobil ? 'lg:hidden' : undefined} />
       </div>
     )
   }
