@@ -1,0 +1,2960 @@
+[
+ {
+  "id": "dd-e-d3-01",
+  "niva": "expert",
+  "typ": "D3",
+  "family": "inte_plats",
+  "difficulty": 3,
+  "p_prior": 0.4,
+  "intro": "Fem kollegor står i en rad på plats 1 till 5, räknat från vänster.",
+  "villkor": [
+   "Åsa står inte på plats 5.",
+   "Åsa står inte på plats 3.",
+   "Filip står någonstans till vänster om Lisa.",
+   "Filip står inte bredvid Jonas.",
+   "Åsa står inte på plats 2."
+  ],
+  "fraga": "Om Alva står på plats 1, vilket är då omöjligt?",
+  "options": [
+   "Jonas står på plats 4.",
+   "Jonas står inte bredvid Lisa.",
+   "Åsa står direkt till vänster om Jonas.",
+   "Jonas står på plats 5.",
+   "Lisa står direkt till vänster om Åsa."
+  ],
+  "correctAnswer": 0,
+  "etiketter": [
+   "Går inte ihop med villkoren när Alva står på plats 1.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren."
+  ],
+  "forklaring": [
+   "Utgå från att Alva står på plats 1.",
+   "\"Åsa står inte på plats 5\", \"Åsa står inte på plats 3\" och \"Åsa står inte på plats 2\" går bara ihop om Åsa står på plats 4.",
+   "\"Filip står någonstans till vänster om Lisa\" och \"Filip står inte bredvid Jonas\" går bara ihop om Filip står på plats 2.",
+   "När Filip har plats 2 lämnar \"Filip står inte bredvid Jonas\" bara plats 5 åt Jonas.",
+   "Kvar är plats 3, så där står Lisa."
+  ],
+  "schema": {
+   "namn": [
+    "Alva",
+    "Filip",
+    "Lisa",
+    "Åsa",
+    "Jonas"
+   ]
+  },
+  "formell": {
+   "tema": "personer",
+   "namn": [
+    "Alva",
+    "Filip",
+    "Jonas",
+    "Lisa",
+    "Åsa"
+   ],
+   "villkor": [
+    {
+     "typ": "inte_plats",
+     "a": 4,
+     "k": 5
+    },
+    {
+     "typ": "inte_plats",
+     "a": 4,
+     "k": 3
+    },
+    {
+     "typ": "vanster_om",
+     "a": 1,
+     "b": 3
+    },
+    {
+     "typ": "inte_granne",
+     "a": 1,
+     "b": 2
+    },
+    {
+     "typ": "inte_plats",
+     "a": 4,
+     "k": 2
+    }
+   ],
+   "antagande": {
+    "typ": "plats",
+    "a": 0,
+    "k": 1
+   },
+   "fraga": {
+    "form": "omojlig"
+   },
+   "alternativ": [
+    {
+     "typ": "plats",
+     "a": 2,
+     "k": 4
+    },
+    {
+     "typ": "inte_granne",
+     "a": 2,
+     "b": 3
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 4,
+     "b": 2
+    },
+    {
+     "typ": "plats",
+     "a": 2,
+     "k": 5
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 3,
+     "b": 4
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-e-d3-02",
+  "niva": "expert",
+  "typ": "D3",
+  "family": "ordning",
+  "difficulty": 3,
+  "p_prior": 0.4,
+  "intro": "Sex kollegor håller en presentation var, i en turordning med plats 1 till 6. Plats 1 till 3 går på måndagen och plats 4 till 6 på tisdagen.",
+  "villkor": [
+   "Sven står inte på plats 5.",
+   "Cilla går före Dan.",
+   "Cilla går före Sven.",
+   "Nora står på plats 1.",
+   "Cilla och Dan går samma dag."
+  ],
+  "fraga": "Om Jenny står på plats 6, vilket är då omöjligt?",
+  "options": [
+   "Mats står på plats 5.",
+   "Cilla och Sven går samma dag.",
+   "Sven står på plats 4.",
+   "Dan står på plats 3.",
+   "Sven går före Mats."
+  ],
+  "correctAnswer": 1,
+  "etiketter": [
+   "Går ihop med villkoren.",
+   "Går inte ihop med villkoren när Jenny står på plats 6.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren."
+  ],
+  "forklaring": [
+   "Utgå från att Jenny står på plats 6.",
+   "\"Nora står på plats 1\" ger Nora plats 1.",
+   "\"Sven står inte på plats 5\", \"Cilla går före Sven\" och \"Cilla och Dan går samma dag\" går bara ihop om Sven står på plats 4.",
+   "\"Cilla och Dan går samma dag\" går bara ihop om Mats står på plats 5.",
+   "\"Cilla går före Dan\" ger Cilla plats 2.",
+   "Kvar är plats 3, så där står Dan."
+  ],
+  "schema": {
+   "namn": [
+    "Nora",
+    "Cilla",
+    "Dan",
+    "Sven",
+    "Mats",
+    "Jenny"
+   ]
+  },
+  "formell": {
+   "tema": "turordning",
+   "namn": [
+    "Cilla",
+    "Dan",
+    "Jenny",
+    "Mats",
+    "Nora",
+    "Sven"
+   ],
+   "villkor": [
+    {
+     "typ": "inte_plats",
+     "a": 5,
+     "k": 5
+    },
+    {
+     "typ": "ordning",
+     "a": 0,
+     "b": 1
+    },
+    {
+     "typ": "ordning",
+     "a": 0,
+     "b": 5
+    },
+    {
+     "typ": "plats",
+     "a": 4,
+     "k": 1
+    },
+    {
+     "typ": "samma_grupp",
+     "a": 0,
+     "b": 1
+    }
+   ],
+   "antagande": {
+    "typ": "plats",
+    "a": 2,
+    "k": 6
+   },
+   "fraga": {
+    "form": "omojlig"
+   },
+   "alternativ": [
+    {
+     "typ": "plats",
+     "a": 3,
+     "k": 5
+    },
+    {
+     "typ": "samma_grupp",
+     "a": 0,
+     "b": 5
+    },
+    {
+     "typ": "plats",
+     "a": 5,
+     "k": 4
+    },
+    {
+     "typ": "plats",
+     "a": 1,
+     "k": 3
+    },
+    {
+     "typ": "ordning",
+     "a": 5,
+     "b": 3
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-e-d3-03",
+  "niva": "expert",
+  "typ": "D3",
+  "family": "vanster_om",
+  "difficulty": 3,
+  "p_prior": 0.4,
+  "intro": "Fem pärmar i olika färger ligger på en hylla, på plats 1 till 5 räknat från vänster.",
+  "villkor": [
+   "Den gröna pärmen ligger någonstans till vänster om den lila pärmen.",
+   "Den vita pärmen ligger inte på plats 2.",
+   "Den gröna pärmen ligger inte bredvid den svarta pärmen.",
+   "Den svarta pärmen ligger inte på plats 4.",
+   "Den svarta pärmen ligger inte bredvid den vita pärmen."
+  ],
+  "fraga": "Om den lila pärmen ligger på plats 3, vilket är då omöjligt?",
+  "options": [
+   "Den gröna pärmen ligger bredvid den lila pärmen.",
+   "Den lila pärmen ligger inte bredvid den vita pärmen.",
+   "Den gröna pärmen ligger någonstans till vänster om den vita pärmen.",
+   "Den blå pärmen ligger direkt till vänster om den svarta pärmen.",
+   "Den vita pärmen ligger på plats 1."
+  ],
+  "correctAnswer": 2,
+  "etiketter": [
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går inte ihop med villkoren när den lila pärmen ligger på plats 3.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren."
+  ],
+  "forklaring": [
+   "Utgå från att den lila pärmen ligger på plats 3.",
+   "\"Den gröna pärmen ligger någonstans till vänster om den lila pärmen\", \"Den gröna pärmen ligger inte bredvid den svarta pärmen\" och \"Den svarta pärmen ligger inte på plats 4\" går bara ihop om den svarta pärmen ligger på plats 5.",
+   "\"Den vita pärmen ligger inte på plats 2\" och \"Den svarta pärmen ligger inte bredvid den vita pärmen\" går bara ihop om den vita pärmen ligger på plats 1.",
+   "När den lila pärmen har plats 3 lämnar \"Den gröna pärmen ligger någonstans till vänster om den lila pärmen\" bara plats 2 åt den gröna pärmen.",
+   "Kvar är plats 4, så där ligger den blå pärmen."
+  ],
+  "schema": {
+   "namn": [
+    "Vit",
+    "Grön",
+    "Lila",
+    "Blå",
+    "Svart"
+   ]
+  },
+  "formell": {
+   "tema": "saker",
+   "namn": [
+    "blå",
+    "grön",
+    "lila",
+    "svart",
+    "vit"
+   ],
+   "villkor": [
+    {
+     "typ": "vanster_om",
+     "a": 1,
+     "b": 2
+    },
+    {
+     "typ": "inte_plats",
+     "a": 4,
+     "k": 2
+    },
+    {
+     "typ": "inte_granne",
+     "a": 1,
+     "b": 3
+    },
+    {
+     "typ": "inte_plats",
+     "a": 3,
+     "k": 4
+    },
+    {
+     "typ": "inte_granne",
+     "a": 3,
+     "b": 4
+    }
+   ],
+   "antagande": {
+    "typ": "plats",
+    "a": 2,
+    "k": 3
+   },
+   "fraga": {
+    "form": "omojlig"
+   },
+   "alternativ": [
+    {
+     "typ": "granne",
+     "a": 1,
+     "b": 2
+    },
+    {
+     "typ": "inte_granne",
+     "a": 2,
+     "b": 4
+    },
+    {
+     "typ": "vanster_om",
+     "a": 1,
+     "b": 4
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 0,
+     "b": 3
+    },
+    {
+     "typ": "plats",
+     "a": 4,
+     "k": 1
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-e-d3-04",
+  "niva": "expert",
+  "typ": "D3",
+  "family": "inte_plats",
+  "difficulty": 3,
+  "p_prior": 0.4,
+  "intro": "Sex kollegor står i en rad på plats 1 till 6, räknat från vänster.",
+  "villkor": [
+   "Maja står inte bredvid Åsa.",
+   "Filip står inte på plats 1.",
+   "Åsa står inte på plats 1.",
+   "Erik står någonstans till vänster om Olle.",
+   "Filip står bredvid Åsa.",
+   "Maja står direkt till vänster om Olle."
+  ],
+  "fraga": "Om Maja står på plats 4, vilket är då omöjligt?",
+  "options": [
+   "Filip står direkt till vänster om Maja.",
+   "Filip står på plats 3.",
+   "Erik står bredvid Åsa.",
+   "Olle står på plats 6.",
+   "Erik står direkt till vänster om Åsa."
+  ],
+  "correctAnswer": 3,
+  "etiketter": [
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går inte ihop med villkoren när Maja står på plats 4.",
+   "Går ihop med villkoren."
+  ],
+  "forklaring": [
+   "Utgå från att Maja står på plats 4.",
+   "När Maja har plats 4 lämnar \"Maja står direkt till vänster om Olle\" bara plats 5 åt Olle.",
+   "\"Erik står någonstans till vänster om Olle\" och \"Filip står bredvid Åsa\" går bara ihop om Dan står på plats 6.",
+   "\"Maja står inte bredvid Åsa\" och \"Åsa står inte på plats 1\" går bara ihop om Åsa står på plats 2.",
+   "\"Filip står inte på plats 1\" ger Filip plats 3.",
+   "Kvar är plats 1, så där står Erik."
+  ],
+  "schema": {
+   "namn": [
+    "Erik",
+    "Åsa",
+    "Filip",
+    "Maja",
+    "Olle",
+    "Dan"
+   ]
+  },
+  "formell": {
+   "tema": "personer",
+   "namn": [
+    "Dan",
+    "Erik",
+    "Filip",
+    "Maja",
+    "Olle",
+    "Åsa"
+   ],
+   "villkor": [
+    {
+     "typ": "inte_granne",
+     "a": 3,
+     "b": 5
+    },
+    {
+     "typ": "inte_plats",
+     "a": 2,
+     "k": 1
+    },
+    {
+     "typ": "inte_plats",
+     "a": 5,
+     "k": 1
+    },
+    {
+     "typ": "vanster_om",
+     "a": 1,
+     "b": 4
+    },
+    {
+     "typ": "granne",
+     "a": 2,
+     "b": 5
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 3,
+     "b": 4
+    }
+   ],
+   "antagande": {
+    "typ": "plats",
+    "a": 3,
+    "k": 4
+   },
+   "fraga": {
+    "form": "omojlig"
+   },
+   "alternativ": [
+    {
+     "typ": "direkt_vanster_om",
+     "a": 2,
+     "b": 3
+    },
+    {
+     "typ": "plats",
+     "a": 2,
+     "k": 3
+    },
+    {
+     "typ": "granne",
+     "a": 1,
+     "b": 5
+    },
+    {
+     "typ": "plats",
+     "a": 4,
+     "k": 6
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 1,
+     "b": 5
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-e-d3-05",
+  "niva": "expert",
+  "typ": "D3",
+  "family": "ordning",
+  "difficulty": 3,
+  "p_prior": 0.4,
+  "intro": "Sex kollegor håller en presentation var, i en turordning med plats 1 till 6. Plats 1 till 3 går på måndagen och plats 4 till 6 på tisdagen.",
+  "villkor": [
+   "Cilla går före Lisa.",
+   "Lisa och Per går samma dag.",
+   "Cilla går före Erik.",
+   "Vera går före Cilla.",
+   "Per går före Lisa."
+  ],
+  "fraga": "Om Nils står på plats 6, vilket är då omöjligt?",
+  "options": [
+   "Per står på plats 4.",
+   "Erik står på plats 3.",
+   "Vera står på plats 1.",
+   "Cilla står på plats 2.",
+   "Per går före Erik."
+  ],
+  "correctAnswer": 4,
+  "etiketter": [
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går inte ihop med villkoren när Nils står på plats 6."
+  ],
+  "forklaring": [
+   "Utgå från att Nils står på plats 6.",
+   "Om Lisa står på plats 3 går \"Cilla går före Lisa\", \"Lisa och Per går samma dag\" och \"Vera går före Cilla\" inte ihop. Alltså står Lisa på plats 5.",
+   "När Lisa har plats 5 lämnar \"Lisa och Per går samma dag\" bara plats 4 åt Per.",
+   "\"Cilla går före Erik\" och \"Vera går före Cilla\" går bara ihop om Cilla står på plats 2.",
+   "När Cilla har plats 2 lämnar \"Cilla går före Erik\" bara plats 3 åt Erik.",
+   "Kvar är plats 1, så där står Vera."
+  ],
+  "schema": {
+   "namn": [
+    "Vera",
+    "Cilla",
+    "Erik",
+    "Per",
+    "Lisa",
+    "Nils"
+   ]
+  },
+  "formell": {
+   "tema": "turordning",
+   "namn": [
+    "Cilla",
+    "Erik",
+    "Lisa",
+    "Nils",
+    "Per",
+    "Vera"
+   ],
+   "villkor": [
+    {
+     "typ": "ordning",
+     "a": 0,
+     "b": 2
+    },
+    {
+     "typ": "samma_grupp",
+     "a": 2,
+     "b": 4
+    },
+    {
+     "typ": "ordning",
+     "a": 0,
+     "b": 1
+    },
+    {
+     "typ": "ordning",
+     "a": 5,
+     "b": 0
+    },
+    {
+     "typ": "ordning",
+     "a": 4,
+     "b": 2
+    }
+   ],
+   "antagande": {
+    "typ": "plats",
+    "a": 3,
+    "k": 6
+   },
+   "fraga": {
+    "form": "omojlig"
+   },
+   "alternativ": [
+    {
+     "typ": "plats",
+     "a": 4,
+     "k": 4
+    },
+    {
+     "typ": "plats",
+     "a": 1,
+     "k": 3
+    },
+    {
+     "typ": "plats",
+     "a": 5,
+     "k": 1
+    },
+    {
+     "typ": "plats",
+     "a": 0,
+     "k": 2
+    },
+    {
+     "typ": "ordning",
+     "a": 4,
+     "b": 1
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-e-d3-06",
+  "niva": "expert",
+  "typ": "D3",
+  "family": "inte_granne",
+  "difficulty": 3,
+  "p_prior": 0.4,
+  "intro": "Sex pärmar i olika färger ligger på en hylla, på plats 1 till 6 räknat från vänster.",
+  "villkor": [
+   "Den gröna pärmen ligger inte på plats 1.",
+   "Den blå pärmen ligger någonstans till vänster om den röda pärmen.",
+   "Den röda pärmen ligger inte bredvid den vita pärmen.",
+   "Den gröna pärmen ligger någonstans till vänster om den röda pärmen.",
+   "Den röda pärmen ligger inte bredvid den svarta pärmen."
+  ],
+  "fraga": "Om den svarta pärmen ligger på plats 5, vilket är då omöjligt?",
+  "options": [
+   "Den vita pärmen ligger någonstans till vänster om den röda pärmen.",
+   "Den lila pärmen ligger på plats 4.",
+   "Den blå pärmen ligger direkt till vänster om den gröna pärmen.",
+   "Den blå pärmen ligger på plats 1.",
+   "Den blå pärmen ligger inte bredvid den röda pärmen."
+  ],
+  "correctAnswer": 0,
+  "etiketter": [
+   "Går inte ihop med villkoren när den svarta pärmen ligger på plats 5.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren."
+  ],
+  "forklaring": [
+   "Utgå från att den svarta pärmen ligger på plats 5.",
+   "\"Den gröna pärmen ligger inte på plats 1\", \"Den gröna pärmen ligger någonstans till vänster om den röda pärmen\" och \"Den röda pärmen ligger inte bredvid den svarta pärmen\" går bara ihop om den gröna pärmen ligger på plats 2.",
+   "\"Den blå pärmen ligger någonstans till vänster om den röda pärmen\" och \"Den röda pärmen ligger inte bredvid den svarta pärmen\" går bara ihop om den blå pärmen ligger på plats 1.",
+   "När den svarta pärmen har plats 5 lämnar \"Den röda pärmen ligger inte bredvid den svarta pärmen\" bara plats 3 åt den röda pärmen.",
+   "När den röda pärmen har plats 3 lämnar \"Den röda pärmen ligger inte bredvid den vita pärmen\" bara plats 6 åt den vita pärmen.",
+   "Kvar är plats 4, så där ligger den lila pärmen."
+  ],
+  "schema": {
+   "namn": [
+    "Blå",
+    "Grön",
+    "Röd",
+    "Lila",
+    "Svart",
+    "Vit"
+   ]
+  },
+  "formell": {
+   "tema": "saker",
+   "namn": [
+    "blå",
+    "grön",
+    "lila",
+    "röd",
+    "svart",
+    "vit"
+   ],
+   "villkor": [
+    {
+     "typ": "inte_plats",
+     "a": 1,
+     "k": 1
+    },
+    {
+     "typ": "vanster_om",
+     "a": 0,
+     "b": 3
+    },
+    {
+     "typ": "inte_granne",
+     "a": 3,
+     "b": 5
+    },
+    {
+     "typ": "vanster_om",
+     "a": 1,
+     "b": 3
+    },
+    {
+     "typ": "inte_granne",
+     "a": 3,
+     "b": 4
+    }
+   ],
+   "antagande": {
+    "typ": "plats",
+    "a": 4,
+    "k": 5
+   },
+   "fraga": {
+    "form": "omojlig"
+   },
+   "alternativ": [
+    {
+     "typ": "vanster_om",
+     "a": 5,
+     "b": 3
+    },
+    {
+     "typ": "plats",
+     "a": 2,
+     "k": 4
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 0,
+     "b": 1
+    },
+    {
+     "typ": "plats",
+     "a": 0,
+     "k": 1
+    },
+    {
+     "typ": "inte_granne",
+     "a": 0,
+     "b": 3
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-e-d3-07",
+  "niva": "expert",
+  "typ": "D3",
+  "family": "granne",
+  "difficulty": 3,
+  "p_prior": 0.4,
+  "intro": "Fem kollegor står i en rad på plats 1 till 5, räknat från vänster.",
+  "villkor": [
+   "Mats står bredvid Sara.",
+   "Sara står någonstans till vänster om Nora.",
+   "Mats står inte bredvid Nora.",
+   "Mats står inte på plats 2.",
+   "Nora står bredvid Rut."
+  ],
+  "fraga": "Om Karin står på plats 1, vilket är då omöjligt?",
+  "options": [
+   "Rut står direkt till vänster om Nora.",
+   "Karin står direkt till vänster om Rut.",
+   "Sara står direkt till vänster om Mats.",
+   "Mats står direkt till vänster om Rut.",
+   "Nora står på plats 5."
+  ],
+  "correctAnswer": 1,
+  "etiketter": [
+   "Går ihop med villkoren.",
+   "Går inte ihop med villkoren när Karin står på plats 1.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren."
+  ],
+  "forklaring": [
+   "Utgå från att Karin står på plats 1.",
+   "Om Mats står på plats 5 går \"Mats står bredvid Sara\" och \"Sara står någonstans till vänster om Nora\" inte ihop. Alltså står Mats på plats 3.",
+   "När Mats har plats 3 lämnar \"Mats står inte bredvid Nora\" bara plats 5 åt Nora.",
+   "När Nora har plats 5 lämnar \"Nora står bredvid Rut\" bara plats 4 åt Rut.",
+   "Kvar är plats 2, så där står Sara."
+  ],
+  "schema": {
+   "namn": [
+    "Karin",
+    "Sara",
+    "Mats",
+    "Rut",
+    "Nora"
+   ]
+  },
+  "formell": {
+   "tema": "personer",
+   "namn": [
+    "Karin",
+    "Mats",
+    "Nora",
+    "Rut",
+    "Sara"
+   ],
+   "villkor": [
+    {
+     "typ": "granne",
+     "a": 1,
+     "b": 4
+    },
+    {
+     "typ": "vanster_om",
+     "a": 4,
+     "b": 2
+    },
+    {
+     "typ": "inte_granne",
+     "a": 1,
+     "b": 2
+    },
+    {
+     "typ": "inte_plats",
+     "a": 1,
+     "k": 2
+    },
+    {
+     "typ": "granne",
+     "a": 2,
+     "b": 3
+    }
+   ],
+   "antagande": {
+    "typ": "plats",
+    "a": 0,
+    "k": 1
+   },
+   "fraga": {
+    "form": "omojlig"
+   },
+   "alternativ": [
+    {
+     "typ": "direkt_vanster_om",
+     "a": 3,
+     "b": 2
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 0,
+     "b": 3
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 4,
+     "b": 1
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 1,
+     "b": 3
+    },
+    {
+     "typ": "plats",
+     "a": 2,
+     "k": 5
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-e-d3-08",
+  "niva": "expert",
+  "typ": "D3",
+  "family": "inte_plats",
+  "difficulty": 3,
+  "p_prior": 0.4,
+  "intro": "Sex kollegor håller en presentation var, i en turordning med plats 1 till 6. Plats 1 till 3 går på måndagen och plats 4 till 6 på tisdagen.",
+  "villkor": [
+   "Sven står inte på plats 2.",
+   "Rut står på plats 3.",
+   "Viktor står inte på plats 4.",
+   "Eva och Lisa går samma dag.",
+   "Eva och Viktor går samma dag."
+  ],
+  "fraga": "Om Eva står på plats 6, vilket är då omöjligt?",
+  "options": [
+   "Viktor står på plats 5.",
+   "Lisa går före Viktor.",
+   "Lisa står på plats 5.",
+   "Sven går före Gun.",
+   "Lisa står på plats 4."
+  ],
+  "correctAnswer": 2,
+  "etiketter": [
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går inte ihop med villkoren när Eva står på plats 6.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren."
+  ],
+  "forklaring": [
+   "Utgå från att Eva står på plats 6.",
+   "\"Rut står på plats 3\" ger Rut plats 3.",
+   "\"Viktor står inte på plats 4\" och \"Eva och Viktor går samma dag\" går bara ihop om Viktor står på plats 5.",
+   "När Eva har plats 6 lämnar \"Eva och Lisa går samma dag\" bara plats 4 åt Lisa.",
+   "\"Sven står inte på plats 2\" ger Sven plats 1.",
+   "Kvar är plats 2, så där står Gun."
+  ],
+  "schema": {
+   "namn": [
+    "Sven",
+    "Gun",
+    "Rut",
+    "Lisa",
+    "Viktor",
+    "Eva"
+   ]
+  },
+  "formell": {
+   "tema": "turordning",
+   "namn": [
+    "Eva",
+    "Gun",
+    "Lisa",
+    "Rut",
+    "Sven",
+    "Viktor"
+   ],
+   "villkor": [
+    {
+     "typ": "inte_plats",
+     "a": 4,
+     "k": 2
+    },
+    {
+     "typ": "plats",
+     "a": 3,
+     "k": 3
+    },
+    {
+     "typ": "inte_plats",
+     "a": 5,
+     "k": 4
+    },
+    {
+     "typ": "samma_grupp",
+     "a": 0,
+     "b": 2
+    },
+    {
+     "typ": "samma_grupp",
+     "a": 0,
+     "b": 5
+    }
+   ],
+   "antagande": {
+    "typ": "plats",
+    "a": 0,
+    "k": 6
+   },
+   "fraga": {
+    "form": "omojlig"
+   },
+   "alternativ": [
+    {
+     "typ": "plats",
+     "a": 5,
+     "k": 5
+    },
+    {
+     "typ": "ordning",
+     "a": 2,
+     "b": 5
+    },
+    {
+     "typ": "plats",
+     "a": 2,
+     "k": 5
+    },
+    {
+     "typ": "ordning",
+     "a": 4,
+     "b": 1
+    },
+    {
+     "typ": "plats",
+     "a": 2,
+     "k": 4
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-e-d3-09",
+  "niva": "expert",
+  "typ": "D3",
+  "family": "vanster_om",
+  "difficulty": 3,
+  "p_prior": 0.4,
+  "intro": "Fem pärmar i olika färger ligger på en hylla, på plats 1 till 5 räknat från vänster.",
+  "villkor": [
+   "Den blå pärmen ligger någonstans till vänster om den gröna pärmen.",
+   "Den svarta pärmen ligger någonstans till vänster om den lila pärmen.",
+   "Den gröna pärmen ligger inte på plats 5.",
+   "Den gröna pärmen ligger bredvid den lila pärmen.",
+   "Den blå pärmen ligger inte på plats 2."
+  ],
+  "fraga": "Om den lila pärmen ligger på plats 4, vilket är då omöjligt?",
+  "options": [
+   "Den blå pärmen ligger direkt till vänster om den svarta pärmen.",
+   "Den svarta pärmen ligger direkt till vänster om den gröna pärmen.",
+   "Den blå pärmen ligger bredvid den svarta pärmen.",
+   "Den vita pärmen ligger på plats 1.",
+   "Den svarta pärmen ligger på plats 2."
+  ],
+  "correctAnswer": 3,
+  "etiketter": [
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går inte ihop med villkoren när den lila pärmen ligger på plats 4.",
+   "Går ihop med villkoren."
+  ],
+  "forklaring": [
+   "Utgå från att den lila pärmen ligger på plats 4.",
+   "\"Den gröna pärmen ligger inte på plats 5\" och \"Den gröna pärmen ligger bredvid den lila pärmen\" går bara ihop om den gröna pärmen ligger på plats 3.",
+   "\"Den blå pärmen ligger någonstans till vänster om den gröna pärmen\" och \"Den blå pärmen ligger inte på plats 2\" går bara ihop om den blå pärmen ligger på plats 1.",
+   "När den lila pärmen har plats 4 lämnar \"Den svarta pärmen ligger någonstans till vänster om den lila pärmen\" bara plats 2 åt den svarta pärmen.",
+   "Kvar är plats 5, så där ligger den vita pärmen."
+  ],
+  "schema": {
+   "namn": [
+    "Blå",
+    "Svart",
+    "Grön",
+    "Lila",
+    "Vit"
+   ]
+  },
+  "formell": {
+   "tema": "saker",
+   "namn": [
+    "blå",
+    "grön",
+    "lila",
+    "svart",
+    "vit"
+   ],
+   "villkor": [
+    {
+     "typ": "vanster_om",
+     "a": 0,
+     "b": 1
+    },
+    {
+     "typ": "vanster_om",
+     "a": 3,
+     "b": 2
+    },
+    {
+     "typ": "inte_plats",
+     "a": 1,
+     "k": 5
+    },
+    {
+     "typ": "granne",
+     "a": 1,
+     "b": 2
+    },
+    {
+     "typ": "inte_plats",
+     "a": 0,
+     "k": 2
+    }
+   ],
+   "antagande": {
+    "typ": "plats",
+    "a": 2,
+    "k": 4
+   },
+   "fraga": {
+    "form": "omojlig"
+   },
+   "alternativ": [
+    {
+     "typ": "direkt_vanster_om",
+     "a": 0,
+     "b": 3
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 3,
+     "b": 1
+    },
+    {
+     "typ": "granne",
+     "a": 0,
+     "b": 3
+    },
+    {
+     "typ": "plats",
+     "a": 4,
+     "k": 1
+    },
+    {
+     "typ": "plats",
+     "a": 3,
+     "k": 2
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-e-d3-10",
+  "niva": "expert",
+  "typ": "D3",
+  "family": "inte_granne",
+  "difficulty": 3,
+  "p_prior": 0.4,
+  "intro": "Sex kollegor står i en rad på plats 1 till 6, räknat från vänster.",
+  "villkor": [
+   "Eva står bredvid Rasmus.",
+   "Bea står inte bredvid Dan.",
+   "Cilla står inte bredvid Eva.",
+   "Cilla står någonstans till vänster om Rasmus.",
+   "Eva står någonstans till vänster om Bea."
+  ],
+  "fraga": "Om Dan står på plats 6, vilket är då omöjligt?",
+  "options": [
+   "Cilla står bredvid Rasmus.",
+   "Eva står på plats 3.",
+   "Rasmus står på plats 2.",
+   "Eva står direkt till vänster om Bea.",
+   "Rasmus står bredvid Tove."
+  ],
+  "correctAnswer": 4,
+  "etiketter": [
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går inte ihop med villkoren när Dan står på plats 6."
+  ],
+  "forklaring": [
+   "Utgå från att Dan står på plats 6.",
+   "Om Cilla står på plats 3 går \"Eva står bredvid Rasmus\", \"Cilla står någonstans till vänster om Rasmus\" och \"Eva står någonstans till vänster om Bea\" inte ihop. Alltså står Cilla på plats 1.",
+   "\"Bea står inte bredvid Dan\", \"Cilla står inte bredvid Eva\" och \"Eva står någonstans till vänster om Bea\" går bara ihop om Bea står på plats 4.",
+   "\"Eva står bredvid Rasmus\" går bara ihop om Tove står på plats 5.",
+   "När Cilla har plats 1 lämnar \"Cilla står inte bredvid Eva\" bara plats 3 åt Eva.",
+   "Kvar är plats 2, så där står Rasmus."
+  ],
+  "schema": {
+   "namn": [
+    "Cilla",
+    "Rasmus",
+    "Eva",
+    "Bea",
+    "Tove",
+    "Dan"
+   ]
+  },
+  "formell": {
+   "tema": "personer",
+   "namn": [
+    "Bea",
+    "Cilla",
+    "Dan",
+    "Eva",
+    "Rasmus",
+    "Tove"
+   ],
+   "villkor": [
+    {
+     "typ": "granne",
+     "a": 3,
+     "b": 4
+    },
+    {
+     "typ": "inte_granne",
+     "a": 0,
+     "b": 2
+    },
+    {
+     "typ": "inte_granne",
+     "a": 1,
+     "b": 3
+    },
+    {
+     "typ": "vanster_om",
+     "a": 1,
+     "b": 4
+    },
+    {
+     "typ": "vanster_om",
+     "a": 3,
+     "b": 0
+    }
+   ],
+   "antagande": {
+    "typ": "plats",
+    "a": 2,
+    "k": 6
+   },
+   "fraga": {
+    "form": "omojlig"
+   },
+   "alternativ": [
+    {
+     "typ": "granne",
+     "a": 1,
+     "b": 4
+    },
+    {
+     "typ": "plats",
+     "a": 3,
+     "k": 3
+    },
+    {
+     "typ": "plats",
+     "a": 4,
+     "k": 2
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 3,
+     "b": 0
+    },
+    {
+     "typ": "granne",
+     "a": 4,
+     "b": 5
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-e-d3-11",
+  "niva": "expert",
+  "typ": "D3",
+  "family": "samma_grupp",
+  "difficulty": 3,
+  "p_prior": 0.4,
+  "intro": "Sex kollegor håller en presentation var, i en turordning med plats 1 till 6. Plats 1 till 3 går på måndagen och plats 4 till 6 på tisdagen.",
+  "villkor": [
+   "Ulla går före Dan.",
+   "Frida går före Bea.",
+   "Bea och Ulla går samma dag.",
+   "Nora står inte på plats 2.",
+   "Sara står på plats 1."
+  ],
+  "fraga": "Om Dan står på plats 5, vilket är då omöjligt?",
+  "options": [
+   "Bea går före Dan.",
+   "Frida går före Nora.",
+   "Nora står på plats 3.",
+   "Frida står på plats 2.",
+   "Bea står på plats 6."
+  ],
+  "correctAnswer": 0,
+  "etiketter": [
+   "Går inte ihop med villkoren när Dan står på plats 5.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren."
+  ],
+  "forklaring": [
+   "Utgå från att Dan står på plats 5.",
+   "\"Sara står på plats 1\" ger Sara plats 1.",
+   "Om Bea står på plats 3 går \"Frida går före Bea\" och \"Bea och Ulla går samma dag\" inte ihop. Alltså står Bea på plats 6.",
+   "När Bea har plats 6 lämnar \"Bea och Ulla går samma dag\" bara plats 4 åt Ulla.",
+   "\"Nora står inte på plats 2\" ger Nora plats 3.",
+   "Kvar är plats 2, så där står Frida."
+  ],
+  "schema": {
+   "namn": [
+    "Sara",
+    "Frida",
+    "Nora",
+    "Ulla",
+    "Dan",
+    "Bea"
+   ]
+  },
+  "formell": {
+   "tema": "turordning",
+   "namn": [
+    "Bea",
+    "Dan",
+    "Frida",
+    "Nora",
+    "Sara",
+    "Ulla"
+   ],
+   "villkor": [
+    {
+     "typ": "ordning",
+     "a": 5,
+     "b": 1
+    },
+    {
+     "typ": "ordning",
+     "a": 2,
+     "b": 0
+    },
+    {
+     "typ": "samma_grupp",
+     "a": 0,
+     "b": 5
+    },
+    {
+     "typ": "inte_plats",
+     "a": 3,
+     "k": 2
+    },
+    {
+     "typ": "plats",
+     "a": 4,
+     "k": 1
+    }
+   ],
+   "antagande": {
+    "typ": "plats",
+    "a": 1,
+    "k": 5
+   },
+   "fraga": {
+    "form": "omojlig"
+   },
+   "alternativ": [
+    {
+     "typ": "ordning",
+     "a": 0,
+     "b": 1
+    },
+    {
+     "typ": "ordning",
+     "a": 2,
+     "b": 3
+    },
+    {
+     "typ": "plats",
+     "a": 3,
+     "k": 3
+    },
+    {
+     "typ": "plats",
+     "a": 2,
+     "k": 2
+    },
+    {
+     "typ": "plats",
+     "a": 0,
+     "k": 6
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-e-d3-12",
+  "niva": "expert",
+  "typ": "D3",
+  "family": "inte_plats",
+  "difficulty": 3,
+  "p_prior": 0.4,
+  "intro": "Sex pärmar i olika färger ligger på en hylla, på plats 1 till 6 räknat från vänster.",
+  "villkor": [
+   "Den vita pärmen ligger på plats 5.",
+   "Den röda pärmen ligger inte på plats 2.",
+   "Den lila pärmen ligger inte på plats 3.",
+   "Den svarta pärmen ligger direkt till vänster om den vita pärmen.",
+   "Den röda pärmen ligger inte på plats 3."
+  ],
+  "fraga": "Om den gröna pärmen ligger på plats 1, vilket är då omöjligt?",
+  "options": [
+   "Den gröna pärmen ligger bredvid den lila pärmen.",
+   "Den svarta pärmen ligger någonstans till vänster om den lila pärmen.",
+   "Den lila pärmen ligger direkt till vänster om den blå pärmen.",
+   "Den gröna pärmen ligger direkt till vänster om den lila pärmen.",
+   "Den lila pärmen ligger någonstans till vänster om den blå pärmen."
+  ],
+  "correctAnswer": 1,
+  "etiketter": [
+   "Går ihop med villkoren.",
+   "Går inte ihop med villkoren när den gröna pärmen ligger på plats 1.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren."
+  ],
+  "forklaring": [
+   "Utgå från att den gröna pärmen ligger på plats 1.",
+   "\"Den vita pärmen ligger på plats 5\" ger den vita pärmen plats 5.",
+   "När den vita pärmen har plats 5 lämnar \"Den svarta pärmen ligger direkt till vänster om den vita pärmen\" bara plats 4 åt den svarta pärmen.",
+   "\"Den röda pärmen ligger inte på plats 2\" och \"Den röda pärmen ligger inte på plats 3\" går bara ihop om den röda pärmen ligger på plats 6.",
+   "\"Den lila pärmen ligger inte på plats 3\" ger den lila pärmen plats 2.",
+   "Kvar är plats 3, så där ligger den blå pärmen."
+  ],
+  "schema": {
+   "namn": [
+    "Grön",
+    "Lila",
+    "Blå",
+    "Svart",
+    "Vit",
+    "Röd"
+   ]
+  },
+  "formell": {
+   "tema": "saker",
+   "namn": [
+    "blå",
+    "grön",
+    "lila",
+    "röd",
+    "svart",
+    "vit"
+   ],
+   "villkor": [
+    {
+     "typ": "plats",
+     "a": 5,
+     "k": 5
+    },
+    {
+     "typ": "inte_plats",
+     "a": 3,
+     "k": 2
+    },
+    {
+     "typ": "inte_plats",
+     "a": 2,
+     "k": 3
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 4,
+     "b": 5
+    },
+    {
+     "typ": "inte_plats",
+     "a": 3,
+     "k": 3
+    }
+   ],
+   "antagande": {
+    "typ": "plats",
+    "a": 1,
+    "k": 1
+   },
+   "fraga": {
+    "form": "omojlig"
+   },
+   "alternativ": [
+    {
+     "typ": "granne",
+     "a": 1,
+     "b": 2
+    },
+    {
+     "typ": "vanster_om",
+     "a": 4,
+     "b": 2
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 2,
+     "b": 0
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 1,
+     "b": 2
+    },
+    {
+     "typ": "vanster_om",
+     "a": 2,
+     "b": 0
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-e-d3-13",
+  "niva": "expert",
+  "typ": "D3",
+  "family": "inte_granne",
+  "difficulty": 3,
+  "p_prior": 0.4,
+  "intro": "Fem kollegor står i en rad på plats 1 till 5, räknat från vänster.",
+  "villkor": [
+   "Vera står bredvid Åsa.",
+   "Anna står inte på plats 1.",
+   "Ulf står inte bredvid Vera.",
+   "Anna står inte bredvid Vera.",
+   "Vera står inte på plats 5."
+  ],
+  "fraga": "Om Åsa står på plats 4, vilket är då omöjligt?",
+  "options": [
+   "Ulf står på plats 1.",
+   "Ulf står någonstans till vänster om Maja.",
+   "Maja står bredvid Åsa.",
+   "Ulf står direkt till vänster om Maja.",
+   "Maja står bredvid Ulf."
+  ],
+  "correctAnswer": 2,
+  "etiketter": [
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går inte ihop med villkoren när Åsa står på plats 4.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren."
+  ],
+  "forklaring": [
+   "Utgå från att Åsa står på plats 4.",
+   "\"Vera står bredvid Åsa\" och \"Vera står inte på plats 5\" går bara ihop om Vera står på plats 3.",
+   "\"Anna står inte på plats 1\" och \"Anna står inte bredvid Vera\" går bara ihop om Anna står på plats 5.",
+   "När Vera har plats 3 lämnar \"Ulf står inte bredvid Vera\" bara plats 1 åt Ulf.",
+   "Kvar är plats 2, så där står Maja."
+  ],
+  "schema": {
+   "namn": [
+    "Ulf",
+    "Maja",
+    "Vera",
+    "Åsa",
+    "Anna"
+   ]
+  },
+  "formell": {
+   "tema": "personer",
+   "namn": [
+    "Anna",
+    "Maja",
+    "Ulf",
+    "Vera",
+    "Åsa"
+   ],
+   "villkor": [
+    {
+     "typ": "granne",
+     "a": 3,
+     "b": 4
+    },
+    {
+     "typ": "inte_plats",
+     "a": 0,
+     "k": 1
+    },
+    {
+     "typ": "inte_granne",
+     "a": 2,
+     "b": 3
+    },
+    {
+     "typ": "inte_granne",
+     "a": 0,
+     "b": 3
+    },
+    {
+     "typ": "inte_plats",
+     "a": 3,
+     "k": 5
+    }
+   ],
+   "antagande": {
+    "typ": "plats",
+    "a": 4,
+    "k": 4
+   },
+   "fraga": {
+    "form": "omojlig"
+   },
+   "alternativ": [
+    {
+     "typ": "plats",
+     "a": 2,
+     "k": 1
+    },
+    {
+     "typ": "vanster_om",
+     "a": 2,
+     "b": 1
+    },
+    {
+     "typ": "granne",
+     "a": 1,
+     "b": 4
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 2,
+     "b": 1
+    },
+    {
+     "typ": "granne",
+     "a": 1,
+     "b": 2
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-e-d3-14",
+  "niva": "expert",
+  "typ": "D3",
+  "family": "samma_grupp",
+  "difficulty": 3,
+  "p_prior": 0.4,
+  "intro": "Sex kollegor håller en presentation var, i en turordning med plats 1 till 6. Plats 1 till 3 går på måndagen och plats 4 till 6 på tisdagen.",
+  "villkor": [
+   "Kim och Leo går samma dag.",
+   "Dan och Leo går samma dag.",
+   "Kim går före Leo.",
+   "Nils går före Mats.",
+   "Kim står inte på plats 4."
+  ],
+  "fraga": "Om Åsa står på plats 3, vilket är då omöjligt?",
+  "options": [
+   "Nils står på plats 1.",
+   "Mats står på plats 2.",
+   "Dan går före Leo.",
+   "Mats står på plats 5.",
+   "Dan går före Kim."
+  ],
+  "correctAnswer": 3,
+  "etiketter": [
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går inte ihop med villkoren när Åsa står på plats 3.",
+   "Går ihop med villkoren."
+  ],
+  "forklaring": [
+   "Utgå från att Åsa står på plats 3.",
+   "Om Kim står på plats 1 går \"Kim och Leo går samma dag\" och \"Dan och Leo går samma dag\" inte ihop. Alltså står Kim på plats 5.",
+   "När Kim har plats 5 lämnar \"Kim går före Leo\" bara plats 6 åt Leo.",
+   "När Leo har plats 6 lämnar \"Dan och Leo går samma dag\" bara plats 4 åt Dan.",
+   "\"Nils går före Mats\" ger Mats plats 2.",
+   "Kvar är plats 1, så där står Nils."
+  ],
+  "schema": {
+   "namn": [
+    "Nils",
+    "Mats",
+    "Åsa",
+    "Dan",
+    "Kim",
+    "Leo"
+   ]
+  },
+  "formell": {
+   "tema": "turordning",
+   "namn": [
+    "Dan",
+    "Kim",
+    "Leo",
+    "Mats",
+    "Nils",
+    "Åsa"
+   ],
+   "villkor": [
+    {
+     "typ": "samma_grupp",
+     "a": 1,
+     "b": 2
+    },
+    {
+     "typ": "samma_grupp",
+     "a": 0,
+     "b": 2
+    },
+    {
+     "typ": "ordning",
+     "a": 1,
+     "b": 2
+    },
+    {
+     "typ": "ordning",
+     "a": 4,
+     "b": 3
+    },
+    {
+     "typ": "inte_plats",
+     "a": 1,
+     "k": 4
+    }
+   ],
+   "antagande": {
+    "typ": "plats",
+    "a": 5,
+    "k": 3
+   },
+   "fraga": {
+    "form": "omojlig"
+   },
+   "alternativ": [
+    {
+     "typ": "plats",
+     "a": 4,
+     "k": 1
+    },
+    {
+     "typ": "plats",
+     "a": 3,
+     "k": 2
+    },
+    {
+     "typ": "ordning",
+     "a": 0,
+     "b": 2
+    },
+    {
+     "typ": "plats",
+     "a": 3,
+     "k": 5
+    },
+    {
+     "typ": "ordning",
+     "a": 0,
+     "b": 1
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-e-d3-15",
+  "niva": "expert",
+  "typ": "D3",
+  "family": "inte_plats",
+  "difficulty": 3,
+  "p_prior": 0.4,
+  "intro": "Fem pärmar i olika färger ligger på en hylla, på plats 1 till 5 räknat från vänster.",
+  "villkor": [
+   "Den svarta pärmen ligger någonstans till vänster om den blå pärmen.",
+   "Den lila pärmen ligger inte bredvid den röda pärmen.",
+   "Den lila pärmen ligger inte på plats 4.",
+   "Den lila pärmen ligger bredvid den vita pärmen.",
+   "Den lila pärmen ligger inte på plats 3."
+  ],
+  "fraga": "Om den röda pärmen ligger på plats 1, vilket är då omöjligt?",
+  "options": [
+   "Den blå pärmen ligger direkt till vänster om den vita pärmen.",
+   "Den svarta pärmen ligger på plats 2.",
+   "Den blå pärmen ligger bredvid den vita pärmen.",
+   "Den blå pärmen ligger på plats 3.",
+   "Den lila pärmen ligger direkt till vänster om den vita pärmen."
+  ],
+  "correctAnswer": 4,
+  "etiketter": [
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går inte ihop med villkoren när den röda pärmen ligger på plats 1."
+  ],
+  "forklaring": [
+   "Utgå från att den röda pärmen ligger på plats 1.",
+   "\"Den lila pärmen ligger inte bredvid den röda pärmen\", \"Den lila pärmen ligger inte på plats 4\" och \"Den lila pärmen ligger inte på plats 3\" går bara ihop om den lila pärmen ligger på plats 5.",
+   "När den lila pärmen har plats 5 lämnar \"Den lila pärmen ligger bredvid den vita pärmen\" bara plats 4 åt den vita pärmen.",
+   "\"Den svarta pärmen ligger någonstans till vänster om den blå pärmen\" ger den blå pärmen plats 3.",
+   "Kvar är plats 2, så där ligger den svarta pärmen."
+  ],
+  "schema": {
+   "namn": [
+    "Röd",
+    "Svart",
+    "Blå",
+    "Vit",
+    "Lila"
+   ]
+  },
+  "formell": {
+   "tema": "saker",
+   "namn": [
+    "blå",
+    "lila",
+    "röd",
+    "svart",
+    "vit"
+   ],
+   "villkor": [
+    {
+     "typ": "vanster_om",
+     "a": 3,
+     "b": 0
+    },
+    {
+     "typ": "inte_granne",
+     "a": 1,
+     "b": 2
+    },
+    {
+     "typ": "inte_plats",
+     "a": 1,
+     "k": 4
+    },
+    {
+     "typ": "granne",
+     "a": 1,
+     "b": 4
+    },
+    {
+     "typ": "inte_plats",
+     "a": 1,
+     "k": 3
+    }
+   ],
+   "antagande": {
+    "typ": "plats",
+    "a": 2,
+    "k": 1
+   },
+   "fraga": {
+    "form": "omojlig"
+   },
+   "alternativ": [
+    {
+     "typ": "direkt_vanster_om",
+     "a": 0,
+     "b": 4
+    },
+    {
+     "typ": "plats",
+     "a": 3,
+     "k": 2
+    },
+    {
+     "typ": "granne",
+     "a": 0,
+     "b": 4
+    },
+    {
+     "typ": "plats",
+     "a": 0,
+     "k": 3
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 1,
+     "b": 4
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-e-d3-16",
+  "niva": "expert",
+  "typ": "D3",
+  "family": "direkt_vanster_om",
+  "difficulty": 3,
+  "p_prior": 0.4,
+  "intro": "Sex kollegor står i en rad på plats 1 till 6, räknat från vänster.",
+  "villkor": [
+   "Karin står inte på plats 3.",
+   "Per står bredvid Vera.",
+   "Karin står direkt till vänster om Frida.",
+   "Eva står direkt till vänster om Carl.",
+   "Vera står någonstans till vänster om Per."
+  ],
+  "fraga": "Om Eva står på plats 1, vilket är då omöjligt?",
+  "options": [
+   "Carl står på plats 4.",
+   "Per står på plats 4.",
+   "Karin står bredvid Per.",
+   "Carl står bredvid Vera.",
+   "Per står direkt till vänster om Karin."
+  ],
+  "correctAnswer": 0,
+  "etiketter": [
+   "Går inte ihop med villkoren när Eva står på plats 1.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren."
+  ],
+  "forklaring": [
+   "Utgå från att Eva står på plats 1.",
+   "När Eva har plats 1 lämnar \"Eva står direkt till vänster om Carl\" bara plats 2 åt Carl.",
+   "\"Karin står inte på plats 3\", \"Karin står direkt till vänster om Frida\" och \"Vera står någonstans till vänster om Per\" går bara ihop om Vera står på plats 3.",
+   "När Vera har plats 3 lämnar \"Per står bredvid Vera\" bara plats 4 åt Per.",
+   "\"Karin står direkt till vänster om Frida\" ger Frida plats 6.",
+   "Kvar är plats 5, så där står Karin."
+  ],
+  "schema": {
+   "namn": [
+    "Eva",
+    "Carl",
+    "Vera",
+    "Per",
+    "Karin",
+    "Frida"
+   ]
+  },
+  "formell": {
+   "tema": "personer",
+   "namn": [
+    "Carl",
+    "Eva",
+    "Frida",
+    "Karin",
+    "Per",
+    "Vera"
+   ],
+   "villkor": [
+    {
+     "typ": "inte_plats",
+     "a": 3,
+     "k": 3
+    },
+    {
+     "typ": "granne",
+     "a": 4,
+     "b": 5
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 3,
+     "b": 2
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 1,
+     "b": 0
+    },
+    {
+     "typ": "vanster_om",
+     "a": 5,
+     "b": 4
+    }
+   ],
+   "antagande": {
+    "typ": "plats",
+    "a": 1,
+    "k": 1
+   },
+   "fraga": {
+    "form": "omojlig"
+   },
+   "alternativ": [
+    {
+     "typ": "plats",
+     "a": 0,
+     "k": 4
+    },
+    {
+     "typ": "plats",
+     "a": 4,
+     "k": 4
+    },
+    {
+     "typ": "granne",
+     "a": 3,
+     "b": 4
+    },
+    {
+     "typ": "granne",
+     "a": 0,
+     "b": 5
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 4,
+     "b": 3
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-e-d3-17",
+  "niva": "expert",
+  "typ": "D3",
+  "family": "inte_plats",
+  "difficulty": 3,
+  "p_prior": 0.4,
+  "intro": "Sex kollegor håller en presentation var, i en turordning med plats 1 till 6. Plats 1 till 3 går på måndagen och plats 4 till 6 på tisdagen.",
+  "villkor": [
+   "Bo står inte på plats 5.",
+   "Sara står inte på plats 3.",
+   "Gun går före Nora.",
+   "Rut går före Sara.",
+   "Bo och Nora går samma dag."
+  ],
+  "fraga": "Om Gun står på plats 4, vilket är då omöjligt?",
+  "options": [
+   "Nora går före Bo.",
+   "Rut står på plats 2.",
+   "Bo står på plats 6.",
+   "Nora står på plats 5.",
+   "Rut går före Jonas."
+  ],
+  "correctAnswer": 1,
+  "etiketter": [
+   "Går ihop med villkoren.",
+   "Går inte ihop med villkoren när Gun står på plats 4.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren."
+  ],
+  "forklaring": [
+   "Utgå från att Gun står på plats 4.",
+   "\"Bo står inte på plats 5\", \"Gun går före Nora\" och \"Bo och Nora går samma dag\" går bara ihop om Bo står på plats 6.",
+   "När Gun har plats 4 lämnar \"Gun går före Nora\" bara plats 5 åt Nora.",
+   "\"Sara står inte på plats 3\" och \"Rut går före Sara\" går bara ihop om Rut står på plats 1.",
+   "\"Sara står inte på plats 3\" ger Sara plats 2.",
+   "Kvar är plats 3, så där står Jonas."
+  ],
+  "schema": {
+   "namn": [
+    "Rut",
+    "Sara",
+    "Jonas",
+    "Gun",
+    "Nora",
+    "Bo"
+   ]
+  },
+  "formell": {
+   "tema": "turordning",
+   "namn": [
+    "Bo",
+    "Gun",
+    "Jonas",
+    "Nora",
+    "Rut",
+    "Sara"
+   ],
+   "villkor": [
+    {
+     "typ": "inte_plats",
+     "a": 0,
+     "k": 5
+    },
+    {
+     "typ": "inte_plats",
+     "a": 5,
+     "k": 3
+    },
+    {
+     "typ": "ordning",
+     "a": 1,
+     "b": 3
+    },
+    {
+     "typ": "ordning",
+     "a": 4,
+     "b": 5
+    },
+    {
+     "typ": "samma_grupp",
+     "a": 0,
+     "b": 3
+    }
+   ],
+   "antagande": {
+    "typ": "plats",
+    "a": 1,
+    "k": 4
+   },
+   "fraga": {
+    "form": "omojlig"
+   },
+   "alternativ": [
+    {
+     "typ": "ordning",
+     "a": 3,
+     "b": 0
+    },
+    {
+     "typ": "plats",
+     "a": 4,
+     "k": 2
+    },
+    {
+     "typ": "plats",
+     "a": 0,
+     "k": 6
+    },
+    {
+     "typ": "plats",
+     "a": 3,
+     "k": 5
+    },
+    {
+     "typ": "ordning",
+     "a": 4,
+     "b": 2
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-e-d3-18",
+  "niva": "expert",
+  "typ": "D3",
+  "family": "vanster_om",
+  "difficulty": 3,
+  "p_prior": 0.4,
+  "intro": "Sex pärmar i olika färger ligger på en hylla, på plats 1 till 6 räknat från vänster.",
+  "villkor": [
+   "Den gröna pärmen ligger bredvid den lila pärmen.",
+   "Den svarta pärmen ligger inte på plats 2.",
+   "Den röda pärmen ligger någonstans till vänster om den svarta pärmen.",
+   "Den lila pärmen ligger bredvid den vita pärmen.",
+   "Den blå pärmen ligger på plats 6."
+  ],
+  "fraga": "Om den gröna pärmen ligger på plats 3, vilket är då omöjligt?",
+  "options": [
+   "Den lila pärmen ligger på plats 2.",
+   "Den lila pärmen ligger direkt till vänster om den gröna pärmen.",
+   "Den lila pärmen ligger någonstans till vänster om den vita pärmen.",
+   "Den vita pärmen ligger direkt till vänster om den lila pärmen.",
+   "Den vita pärmen ligger någonstans till vänster om den lila pärmen."
+  ],
+  "correctAnswer": 2,
+  "etiketter": [
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går inte ihop med villkoren när den gröna pärmen ligger på plats 3.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren."
+  ],
+  "forklaring": [
+   "Utgå från att den gröna pärmen ligger på plats 3.",
+   "\"Den blå pärmen ligger på plats 6\" ger den blå pärmen plats 6.",
+   "Om den lila pärmen ligger på plats 4 går \"Den svarta pärmen ligger inte på plats 2\", \"Den röda pärmen ligger någonstans till vänster om den svarta pärmen\" och \"Den lila pärmen ligger bredvid den vita pärmen\" inte ihop. Alltså ligger den lila pärmen på plats 2.",
+   "När den lila pärmen har plats 2 lämnar \"Den lila pärmen ligger bredvid den vita pärmen\" bara plats 1 åt den vita pärmen.",
+   "\"Den röda pärmen ligger någonstans till vänster om den svarta pärmen\" ger den röda pärmen plats 4.",
+   "Kvar är plats 5, så där ligger den svarta pärmen."
+  ],
+  "schema": {
+   "namn": [
+    "Vit",
+    "Lila",
+    "Grön",
+    "Röd",
+    "Svart",
+    "Blå"
+   ]
+  },
+  "formell": {
+   "tema": "saker",
+   "namn": [
+    "blå",
+    "grön",
+    "lila",
+    "röd",
+    "svart",
+    "vit"
+   ],
+   "villkor": [
+    {
+     "typ": "granne",
+     "a": 1,
+     "b": 2
+    },
+    {
+     "typ": "inte_plats",
+     "a": 4,
+     "k": 2
+    },
+    {
+     "typ": "vanster_om",
+     "a": 3,
+     "b": 4
+    },
+    {
+     "typ": "granne",
+     "a": 2,
+     "b": 5
+    },
+    {
+     "typ": "plats",
+     "a": 0,
+     "k": 6
+    }
+   ],
+   "antagande": {
+    "typ": "plats",
+    "a": 1,
+    "k": 3
+   },
+   "fraga": {
+    "form": "omojlig"
+   },
+   "alternativ": [
+    {
+     "typ": "plats",
+     "a": 2,
+     "k": 2
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 2,
+     "b": 1
+    },
+    {
+     "typ": "vanster_om",
+     "a": 2,
+     "b": 5
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 5,
+     "b": 2
+    },
+    {
+     "typ": "vanster_om",
+     "a": 5,
+     "b": 2
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-e-d3-19",
+  "niva": "expert",
+  "typ": "D3",
+  "family": "granne",
+  "difficulty": 3,
+  "p_prior": 0.4,
+  "intro": "Fem kollegor står i en rad på plats 1 till 5, räknat från vänster.",
+  "villkor": [
+   "Per står inte på plats 3.",
+   "Maja står inte på plats 4.",
+   "Maja står bredvid Ulla.",
+   "Per står någonstans till vänster om Maja.",
+   "Lisa står bredvid Per."
+  ],
+  "fraga": "Om Olga står på plats 1, vilket är då omöjligt?",
+  "options": [
+   "Ulla står direkt till vänster om Maja.",
+   "Lisa står någonstans till vänster om Ulla.",
+   "Lisa står direkt till vänster om Ulla.",
+   "Maja står på plats 3.",
+   "Per står direkt till vänster om Lisa."
+  ],
+  "correctAnswer": 3,
+  "etiketter": [
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går inte ihop med villkoren när Olga står på plats 1.",
+   "Går ihop med villkoren."
+  ],
+  "forklaring": [
+   "Utgå från att Olga står på plats 1.",
+   "Om Lisa står på plats 5 går \"Per står någonstans till vänster om Maja\" och \"Lisa står bredvid Per\" inte ihop. Alltså står Lisa på plats 3.",
+   "\"Maja står bredvid Ulla\" går bara ihop om Per står på plats 2.",
+   "\"Maja står inte på plats 4\" ger Maja plats 5.",
+   "Kvar är plats 4, så där står Ulla."
+  ],
+  "schema": {
+   "namn": [
+    "Olga",
+    "Per",
+    "Lisa",
+    "Ulla",
+    "Maja"
+   ]
+  },
+  "formell": {
+   "tema": "personer",
+   "namn": [
+    "Lisa",
+    "Maja",
+    "Olga",
+    "Per",
+    "Ulla"
+   ],
+   "villkor": [
+    {
+     "typ": "inte_plats",
+     "a": 3,
+     "k": 3
+    },
+    {
+     "typ": "inte_plats",
+     "a": 1,
+     "k": 4
+    },
+    {
+     "typ": "granne",
+     "a": 1,
+     "b": 4
+    },
+    {
+     "typ": "vanster_om",
+     "a": 3,
+     "b": 1
+    },
+    {
+     "typ": "granne",
+     "a": 0,
+     "b": 3
+    }
+   ],
+   "antagande": {
+    "typ": "plats",
+    "a": 2,
+    "k": 1
+   },
+   "fraga": {
+    "form": "omojlig"
+   },
+   "alternativ": [
+    {
+     "typ": "direkt_vanster_om",
+     "a": 4,
+     "b": 1
+    },
+    {
+     "typ": "vanster_om",
+     "a": 0,
+     "b": 4
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 0,
+     "b": 4
+    },
+    {
+     "typ": "plats",
+     "a": 1,
+     "k": 3
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 3,
+     "b": 0
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-e-d3-20",
+  "niva": "expert",
+  "typ": "D3",
+  "family": "ordning",
+  "difficulty": 3,
+  "p_prior": 0.4,
+  "intro": "Sex kollegor håller en presentation var, i en turordning med plats 1 till 6. Plats 1 till 3 går på måndagen och plats 4 till 6 på tisdagen.",
+  "villkor": [
+   "Lisa och Ulla går samma dag.",
+   "Eva går före Rasmus.",
+   "Lisa går före Åsa.",
+   "Bea går före Rasmus.",
+   "Eva står inte på plats 5."
+  ],
+  "fraga": "Om Åsa står på plats 2, vilket är då omöjligt?",
+  "options": [
+   "Bea står på plats 5.",
+   "Rasmus står på plats 6.",
+   "Eva står på plats 4.",
+   "Eva går före Bea.",
+   "Lisa står på plats 3."
+  ],
+  "correctAnswer": 4,
+  "etiketter": [
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går inte ihop med villkoren när Åsa står på plats 2."
+  ],
+  "forklaring": [
+   "Utgå från att Åsa står på plats 2.",
+   "När Åsa har plats 2 lämnar \"Lisa går före Åsa\" bara plats 1 åt Lisa.",
+   "När Lisa har plats 1 lämnar \"Lisa och Ulla går samma dag\" bara plats 3 åt Ulla.",
+   "\"Eva går före Rasmus\" och \"Eva står inte på plats 5\" går bara ihop om Eva står på plats 4.",
+   "\"Bea går före Rasmus\" ger Bea plats 5.",
+   "Kvar är plats 6, så där står Rasmus."
+  ],
+  "schema": {
+   "namn": [
+    "Lisa",
+    "Åsa",
+    "Ulla",
+    "Eva",
+    "Bea",
+    "Rasmus"
+   ]
+  },
+  "formell": {
+   "tema": "turordning",
+   "namn": [
+    "Bea",
+    "Eva",
+    "Lisa",
+    "Rasmus",
+    "Ulla",
+    "Åsa"
+   ],
+   "villkor": [
+    {
+     "typ": "samma_grupp",
+     "a": 2,
+     "b": 4
+    },
+    {
+     "typ": "ordning",
+     "a": 1,
+     "b": 3
+    },
+    {
+     "typ": "ordning",
+     "a": 2,
+     "b": 5
+    },
+    {
+     "typ": "ordning",
+     "a": 0,
+     "b": 3
+    },
+    {
+     "typ": "inte_plats",
+     "a": 1,
+     "k": 5
+    }
+   ],
+   "antagande": {
+    "typ": "plats",
+    "a": 5,
+    "k": 2
+   },
+   "fraga": {
+    "form": "omojlig"
+   },
+   "alternativ": [
+    {
+     "typ": "plats",
+     "a": 0,
+     "k": 5
+    },
+    {
+     "typ": "plats",
+     "a": 3,
+     "k": 6
+    },
+    {
+     "typ": "plats",
+     "a": 1,
+     "k": 4
+    },
+    {
+     "typ": "ordning",
+     "a": 1,
+     "b": 0
+    },
+    {
+     "typ": "plats",
+     "a": 2,
+     "k": 3
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-e-d3-21",
+  "niva": "expert",
+  "typ": "D3",
+  "family": "vanster_om",
+  "difficulty": 3,
+  "p_prior": 0.4,
+  "intro": "Fem pärmar i olika färger ligger på en hylla, på plats 1 till 5 räknat från vänster.",
+  "villkor": [
+   "Den vita pärmen ligger inte på plats 3.",
+   "Den vita pärmen ligger inte på plats 1.",
+   "Den blå pärmen ligger någonstans till vänster om den lila pärmen.",
+   "Den vita pärmen ligger någonstans till vänster om den lila pärmen.",
+   "Den blå pärmen ligger inte på plats 1."
+  ],
+  "fraga": "Om den röda pärmen ligger på plats 5, vilket är då omöjligt?",
+  "options": [
+   "Den blå pärmen ligger någonstans till vänster om den svarta pärmen.",
+   "Den blå pärmen ligger på plats 3.",
+   "Den lila pärmen ligger bredvid den röda pärmen.",
+   "Den svarta pärmen ligger direkt till vänster om den vita pärmen.",
+   "Den vita pärmen ligger direkt till vänster om den blå pärmen."
+  ],
+  "correctAnswer": 0,
+  "etiketter": [
+   "Går inte ihop med villkoren när den röda pärmen ligger på plats 5.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren."
+  ],
+  "forklaring": [
+   "Utgå från att den röda pärmen ligger på plats 5.",
+   "\"Den vita pärmen ligger inte på plats 3\", \"Den vita pärmen ligger inte på plats 1\" och \"Den vita pärmen ligger någonstans till vänster om den lila pärmen\" går bara ihop om den vita pärmen ligger på plats 2.",
+   "\"Den blå pärmen ligger någonstans till vänster om den lila pärmen\" och \"Den blå pärmen ligger inte på plats 1\" går bara ihop om den blå pärmen ligger på plats 3.",
+   "När den blå pärmen har plats 3 lämnar \"Den blå pärmen ligger någonstans till vänster om den lila pärmen\" bara plats 4 åt den lila pärmen.",
+   "Kvar är plats 1, så där ligger den svarta pärmen."
+  ],
+  "schema": {
+   "namn": [
+    "Svart",
+    "Vit",
+    "Blå",
+    "Lila",
+    "Röd"
+   ]
+  },
+  "formell": {
+   "tema": "saker",
+   "namn": [
+    "blå",
+    "lila",
+    "röd",
+    "svart",
+    "vit"
+   ],
+   "villkor": [
+    {
+     "typ": "inte_plats",
+     "a": 4,
+     "k": 3
+    },
+    {
+     "typ": "inte_plats",
+     "a": 4,
+     "k": 1
+    },
+    {
+     "typ": "vanster_om",
+     "a": 0,
+     "b": 1
+    },
+    {
+     "typ": "vanster_om",
+     "a": 4,
+     "b": 1
+    },
+    {
+     "typ": "inte_plats",
+     "a": 0,
+     "k": 1
+    }
+   ],
+   "antagande": {
+    "typ": "plats",
+    "a": 2,
+    "k": 5
+   },
+   "fraga": {
+    "form": "omojlig"
+   },
+   "alternativ": [
+    {
+     "typ": "vanster_om",
+     "a": 0,
+     "b": 3
+    },
+    {
+     "typ": "plats",
+     "a": 0,
+     "k": 3
+    },
+    {
+     "typ": "granne",
+     "a": 1,
+     "b": 2
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 3,
+     "b": 4
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 4,
+     "b": 0
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-e-d3-22",
+  "niva": "expert",
+  "typ": "D3",
+  "family": "inte_plats",
+  "difficulty": 3,
+  "p_prior": 0.4,
+  "intro": "Sex kollegor står i en rad på plats 1 till 6, räknat från vänster.",
+  "villkor": [
+   "Åsa står inte på plats 2.",
+   "Åsa står någonstans till vänster om Dan.",
+   "Lisa står inte på plats 3.",
+   "Hanna står bredvid Nils.",
+   "Hanna står direkt till vänster om Sara."
+  ],
+  "fraga": "Om Sara står på plats 6, vilket är då omöjligt?",
+  "options": [
+   "Åsa står direkt till vänster om Lisa.",
+   "Sara står bredvid Åsa.",
+   "Lisa står direkt till vänster om Dan.",
+   "Lisa står på plats 2.",
+   "Dan står inte bredvid Åsa."
+  ],
+  "correctAnswer": 1,
+  "etiketter": [
+   "Går ihop med villkoren.",
+   "Går inte ihop med villkoren när Sara står på plats 6.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren."
+  ],
+  "forklaring": [
+   "Utgå från att Sara står på plats 6.",
+   "När Sara har plats 6 lämnar \"Hanna står direkt till vänster om Sara\" bara plats 5 åt Hanna.",
+   "När Hanna har plats 5 lämnar \"Hanna står bredvid Nils\" bara plats 4 åt Nils.",
+   "\"Åsa står någonstans till vänster om Dan\" och \"Lisa står inte på plats 3\" går bara ihop om Dan står på plats 3.",
+   "\"Åsa står inte på plats 2\" ger Åsa plats 1.",
+   "Kvar är plats 2, så där står Lisa."
+  ],
+  "schema": {
+   "namn": [
+    "Åsa",
+    "Lisa",
+    "Dan",
+    "Nils",
+    "Hanna",
+    "Sara"
+   ]
+  },
+  "formell": {
+   "tema": "personer",
+   "namn": [
+    "Dan",
+    "Hanna",
+    "Lisa",
+    "Nils",
+    "Sara",
+    "Åsa"
+   ],
+   "villkor": [
+    {
+     "typ": "inte_plats",
+     "a": 5,
+     "k": 2
+    },
+    {
+     "typ": "vanster_om",
+     "a": 5,
+     "b": 0
+    },
+    {
+     "typ": "inte_plats",
+     "a": 2,
+     "k": 3
+    },
+    {
+     "typ": "granne",
+     "a": 1,
+     "b": 3
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 1,
+     "b": 4
+    }
+   ],
+   "antagande": {
+    "typ": "plats",
+    "a": 4,
+    "k": 6
+   },
+   "fraga": {
+    "form": "omojlig"
+   },
+   "alternativ": [
+    {
+     "typ": "direkt_vanster_om",
+     "a": 5,
+     "b": 2
+    },
+    {
+     "typ": "granne",
+     "a": 4,
+     "b": 5
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 2,
+     "b": 0
+    },
+    {
+     "typ": "plats",
+     "a": 2,
+     "k": 2
+    },
+    {
+     "typ": "inte_granne",
+     "a": 0,
+     "b": 5
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-e-d3-23",
+  "niva": "expert",
+  "typ": "D3",
+  "family": "inte_plats",
+  "difficulty": 3,
+  "p_prior": 0.4,
+  "intro": "Sex kollegor håller en presentation var, i en turordning med plats 1 till 6. Plats 1 till 3 går på måndagen och plats 4 till 6 på tisdagen.",
+  "villkor": [
+   "Vera står inte på plats 2.",
+   "Dan och Vera går samma dag.",
+   "Åsa går före Erik.",
+   "Gun och Åsa går samma dag.",
+   "Åsa står inte på plats 4."
+  ],
+  "fraga": "Om Dan står på plats 3, vilket är då omöjligt?",
+  "options": [
+   "Vera går före Jonas.",
+   "Jonas står på plats 2.",
+   "Gun står på plats 1.",
+   "Gun står på plats 4.",
+   "Vera står på plats 1."
+  ],
+  "correctAnswer": 2,
+  "etiketter": [
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går inte ihop med villkoren när Dan står på plats 3.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren."
+  ],
+  "forklaring": [
+   "Utgå från att Dan står på plats 3.",
+   "\"Vera står inte på plats 2\" och \"Dan och Vera går samma dag\" går bara ihop om Vera står på plats 1.",
+   "\"Åsa går före Erik\" och \"Gun och Åsa går samma dag\" går bara ihop om Jonas står på plats 2.",
+   "\"Åsa går före Erik\" och \"Åsa står inte på plats 4\" går bara ihop om Erik står på plats 6.",
+   "\"Åsa står inte på plats 4\" ger Åsa plats 5.",
+   "Kvar är plats 4, så där står Gun."
+  ],
+  "schema": {
+   "namn": [
+    "Vera",
+    "Jonas",
+    "Dan",
+    "Gun",
+    "Åsa",
+    "Erik"
+   ]
+  },
+  "formell": {
+   "tema": "turordning",
+   "namn": [
+    "Dan",
+    "Erik",
+    "Gun",
+    "Jonas",
+    "Vera",
+    "Åsa"
+   ],
+   "villkor": [
+    {
+     "typ": "inte_plats",
+     "a": 4,
+     "k": 2
+    },
+    {
+     "typ": "samma_grupp",
+     "a": 0,
+     "b": 4
+    },
+    {
+     "typ": "ordning",
+     "a": 5,
+     "b": 1
+    },
+    {
+     "typ": "samma_grupp",
+     "a": 2,
+     "b": 5
+    },
+    {
+     "typ": "inte_plats",
+     "a": 5,
+     "k": 4
+    }
+   ],
+   "antagande": {
+    "typ": "plats",
+    "a": 0,
+    "k": 3
+   },
+   "fraga": {
+    "form": "omojlig"
+   },
+   "alternativ": [
+    {
+     "typ": "ordning",
+     "a": 4,
+     "b": 3
+    },
+    {
+     "typ": "plats",
+     "a": 3,
+     "k": 2
+    },
+    {
+     "typ": "plats",
+     "a": 2,
+     "k": 1
+    },
+    {
+     "typ": "plats",
+     "a": 2,
+     "k": 4
+    },
+    {
+     "typ": "plats",
+     "a": 4,
+     "k": 1
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-e-d3-24",
+  "niva": "expert",
+  "typ": "D3",
+  "family": "vanster_om",
+  "difficulty": 3,
+  "p_prior": 0.4,
+  "intro": "Sex pärmar i olika färger ligger på en hylla, på plats 1 till 6 räknat från vänster.",
+  "villkor": [
+   "Den svarta pärmen ligger inte på plats 6.",
+   "Den vita pärmen ligger någonstans till vänster om den röda pärmen.",
+   "Den blå pärmen ligger bredvid den röda pärmen.",
+   "Den gröna pärmen ligger någonstans till vänster om den lila pärmen.",
+   "Den blå pärmen ligger inte bredvid den svarta pärmen."
+  ],
+  "fraga": "Om den röda pärmen ligger på plats 2, vilket är då omöjligt?",
+  "options": [
+   "Den svarta pärmen ligger direkt till vänster om den lila pärmen.",
+   "Den gröna pärmen ligger direkt till vänster om den svarta pärmen.",
+   "Den blå pärmen ligger direkt till vänster om den gröna pärmen.",
+   "Den lila pärmen ligger på plats 4.",
+   "Den lila pärmen ligger på plats 6."
+  ],
+  "correctAnswer": 3,
+  "etiketter": [
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går ihop med villkoren.",
+   "Går inte ihop med villkoren när den röda pärmen ligger på plats 2.",
+   "Går ihop med villkoren."
+  ],
+  "forklaring": [
+   "Utgå från att den röda pärmen ligger på plats 2.",
+   "När den röda pärmen har plats 2 lämnar \"Den vita pärmen ligger någonstans till vänster om den röda pärmen\" bara plats 1 åt den vita pärmen.",
+   "När den röda pärmen har plats 2 lämnar \"Den blå pärmen ligger bredvid den röda pärmen\" bara plats 3 åt den blå pärmen.",
+   "\"Den gröna pärmen ligger någonstans till vänster om den lila pärmen\" och \"Den blå pärmen ligger inte bredvid den svarta pärmen\" går bara ihop om den gröna pärmen ligger på plats 4.",
+   "\"Den svarta pärmen ligger inte på plats 6\" ger den svarta pärmen plats 5.",
+   "Kvar är plats 6, så där ligger den lila pärmen."
+  ],
+  "schema": {
+   "namn": [
+    "Vit",
+    "Röd",
+    "Blå",
+    "Grön",
+    "Svart",
+    "Lila"
+   ]
+  },
+  "formell": {
+   "tema": "saker",
+   "namn": [
+    "blå",
+    "grön",
+    "lila",
+    "röd",
+    "svart",
+    "vit"
+   ],
+   "villkor": [
+    {
+     "typ": "inte_plats",
+     "a": 4,
+     "k": 6
+    },
+    {
+     "typ": "vanster_om",
+     "a": 5,
+     "b": 3
+    },
+    {
+     "typ": "granne",
+     "a": 0,
+     "b": 3
+    },
+    {
+     "typ": "vanster_om",
+     "a": 1,
+     "b": 2
+    },
+    {
+     "typ": "inte_granne",
+     "a": 0,
+     "b": 4
+    }
+   ],
+   "antagande": {
+    "typ": "plats",
+    "a": 3,
+    "k": 2
+   },
+   "fraga": {
+    "form": "omojlig"
+   },
+   "alternativ": [
+    {
+     "typ": "direkt_vanster_om",
+     "a": 4,
+     "b": 2
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 1,
+     "b": 4
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 0,
+     "b": 1
+    },
+    {
+     "typ": "plats",
+     "a": 2,
+     "k": 4
+    },
+    {
+     "typ": "plats",
+     "a": 2,
+     "k": 6
+    }
+   ]
+  },
+  "fran_version": 1
+ }
+]

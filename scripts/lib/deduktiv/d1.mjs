@@ -1,0 +1,468 @@
+// scripts/lib/deduktiv/d1.mjs
+// =============================================================================
+// D1, premisskedjor (beställningen omgång 3, B1): 24 uppgifter skrivna för
+// hand av Opus F. Varje premiss och varje alternativ har sin text och sin
+// formella form (mangdmodell.mjs); validatorn räknar fram statusen och fäller
+// uppgiften om den inte stämmer med rollen här. Rollerna: ett nödvändigt
+// (facit), två obestämda (rimliga men inte nödvändiga), ett omöjligt.
+//
+// Formen: [typ, x, y] för alla, inga, nagra, nagra_inte; [typ, individ, x]
+// för ar, ar_inte. En premiss kan ha flera formella satser.
+// =============================================================================
+
+const S = (typ, a, b) => (typ === 'ar' || typ === 'ar_inte' ? { typ, i: a, x: b } : { typ, x: a, y: b });
+const P = (text, ...satser) => ({ text, formell: satser.map((s) => S(...s)) });
+const A = (roll, text, sats) => ({ roll, text, formell: S(...sats) });
+
+export const D1 = [
+  {
+    termer: ['natt', 'tillagg', 'tvadelar', 'recep'],
+    individer: [],
+    premisser: [
+      P('Alla som arbetar natt får tillägg.', ['alla', 'natt', 'tillagg']),
+      P('Alla som får tillägg får lönebeskedet i två delar.', ['alla', 'tillagg', 'tvadelar']),
+      P('Ingen i receptionen får lönebeskedet i två delar.', ['inga', 'recep', 'tvadelar']),
+    ],
+    alternativ: [
+      A('nodvandig', 'Ingen i receptionen arbetar natt.', ['inga', 'recep', 'natt']),
+      A('obestamd', 'Alla som får lönebeskedet i två delar arbetar natt.', ['alla', 'tvadelar', 'natt']),
+      A('obestamd', 'Några som får tillägg arbetar inte natt.', ['nagra_inte', 'tillagg', 'natt']),
+      A('omojlig', 'Någon i receptionen får tillägg.', ['nagra', 'recep', 'tillagg']),
+    ],
+    forklaring: [
+      'Alla som arbetar natt får tillägg, och alla som får tillägg får lönebeskedet i två delar.',
+      'Ingen i receptionen får lönebeskedet i två delar. Alltså får ingen i receptionen tillägg, och ingen där arbetar natt.',
+    ],
+  },
+  {
+    termer: ['ledning', 'budget', 'konsult'],
+    individer: ['olle'],
+    premisser: [
+      P('Alla som sitter i ledningsgruppen har sett budgeten.', ['alla', 'ledning', 'budget']),
+      P('Ingen konsult har sett budgeten.', ['inga', 'konsult', 'budget']),
+      P('Olle har sett budgeten.', ['ar', 'olle', 'budget']),
+    ],
+    alternativ: [
+      A('nodvandig', 'Olle är inte konsult.', ['ar_inte', 'olle', 'konsult']),
+      A('obestamd', 'Olle sitter i ledningsgruppen.', ['ar', 'olle', 'ledning']),
+      A('obestamd', 'Alla som har sett budgeten sitter i ledningsgruppen.', ['alla', 'budget', 'ledning']),
+      A('omojlig', 'Någon konsult sitter i ledningsgruppen.', ['nagra', 'konsult', 'ledning']),
+    ],
+    forklaring: [
+      'Ingen konsult har sett budgeten. Olle har sett budgeten. Alltså är Olle inte konsult.',
+      'Att Olle har sett budgeten säger inte att han sitter i ledningsgruppen: villkoren säger bara att ledningsgruppen har sett den, inte att bara de har gjort det.',
+    ],
+  },
+  {
+    termer: ['ny', 'nyckel', 'ekon', 'konsult'],
+    individer: [],
+    premisser: [
+      P('Alla i ekonomigruppen har nyckel till arkivet.', ['alla', 'ekon', 'nyckel']),
+      P('Ingen nyanställd har nyckel till arkivet.', ['inga', 'ny', 'nyckel']),
+      P('Några konsulter är nyanställda.', ['nagra', 'konsult', 'ny']),
+    ],
+    alternativ: [
+      A('nodvandig', 'Några konsulter är inte med i ekonomigruppen.', ['nagra_inte', 'konsult', 'ekon']),
+      A('obestamd', 'Alla konsulter är nyanställda.', ['alla', 'konsult', 'ny']),
+      A('obestamd', 'Några konsulter har nyckel till arkivet.', ['nagra', 'konsult', 'nyckel']),
+      A('omojlig', 'Någon nyanställd är med i ekonomigruppen.', ['nagra', 'ny', 'ekon']),
+    ],
+    forklaring: [
+      'Alla i ekonomigruppen har nyckel, och ingen nyanställd har det. Alltså är ingen nyanställd med i ekonomigruppen.',
+      'Några konsulter är nyanställda, och de konsulterna är då inte med i ekonomigruppen.',
+    ],
+  },
+  {
+    termer: ['leder', 'kurs', 'deltid', 'chef'],
+    individer: ['pia'],
+    premisser: [
+      P('Alla som leder ett projekt går kursen i budget.', ['alla', 'leder', 'kurs']),
+      P('Ingen som arbetar deltid går kursen i budget.', ['inga', 'deltid', 'kurs']),
+      P('Pia är chef och arbetar deltid.', ['ar', 'pia', 'chef'], ['ar', 'pia', 'deltid']),
+    ],
+    alternativ: [
+      A('nodvandig', 'Pia leder inget projekt.', ['ar_inte', 'pia', 'leder']),
+      A('obestamd', 'Ingen chef leder ett projekt.', ['inga', 'chef', 'leder']),
+      A('obestamd', 'Alla chefer arbetar deltid.', ['alla', 'chef', 'deltid']),
+      A('omojlig', 'Pia går kursen i budget.', ['ar', 'pia', 'kurs']),
+    ],
+    forklaring: [
+      'Pia arbetar deltid, och ingen som arbetar deltid går kursen i budget. Alltså går Pia inte kursen.',
+      'Alla som leder ett projekt går kursen. Pia går den inte, alltså leder hon inget projekt.',
+    ],
+  },
+  {
+    termer: ['lager', 'truck', 'sakerhet'],
+    individer: [],
+    premisser: [
+      P('Några på lagret har truckkort.', ['nagra', 'lager', 'truck']),
+      P('Alla med truckkort har gått säkerhetsutbildningen.', ['alla', 'truck', 'sakerhet']),
+    ],
+    alternativ: [
+      A('nodvandig', 'Några på lagret har gått säkerhetsutbildningen.', ['nagra', 'lager', 'sakerhet']),
+      A('obestamd', 'Alla på lagret har truckkort.', ['alla', 'lager', 'truck']),
+      A('obestamd', 'Några som har gått säkerhetsutbildningen arbetar inte på lagret.', ['nagra_inte', 'sakerhet', 'lager']),
+      A('omojlig', 'Ingen på lagret har gått säkerhetsutbildningen.', ['inga', 'lager', 'sakerhet']),
+    ],
+    forklaring: [
+      'Några på lagret har truckkort. Alla med truckkort har gått säkerhetsutbildningen. Alltså har de på lagret som har truckkort gått utbildningen.',
+    ],
+  },
+  {
+    termer: ['fredag', 'lang', 'styrelse', 'kund'],
+    individer: [],
+    premisser: [
+      P('Inga möten på fredagar är längre än en timme.', ['inga', 'fredag', 'lang']),
+      P('Alla styrelsemöten är längre än en timme.', ['alla', 'styrelse', 'lang']),
+      P('Några kundmöten hålls på fredagar.', ['nagra', 'kund', 'fredag']),
+    ],
+    alternativ: [
+      A('nodvandig', 'Några kundmöten är inte styrelsemöten.', ['nagra_inte', 'kund', 'styrelse']),
+      A('obestamd', 'Inga kundmöten är längre än en timme.', ['inga', 'kund', 'lang']),
+      A('obestamd', 'Alla möten som är längre än en timme är styrelsemöten.', ['alla', 'lang', 'styrelse']),
+      A('omojlig', 'Något styrelsemöte hålls på en fredag.', ['nagra', 'styrelse', 'fredag']),
+    ],
+    forklaring: [
+      'Alla styrelsemöten är längre än en timme, och inga möten på fredagar är det. Alltså hålls inga styrelsemöten på fredagar.',
+      'Några kundmöten hålls på fredagar. De kundmötena är då inte styrelsemöten.',
+    ],
+  },
+  {
+    termer: ['skydd', 'miljo', 'verkstad'],
+    individer: ['erik'],
+    premisser: [
+      P('Alla som sitter i skyddskommittén har gått arbetsmiljökursen.', ['alla', 'skydd', 'miljo']),
+      P('Erik arbetar i verkstaden och har inte gått arbetsmiljökursen.', ['ar', 'erik', 'verkstad'], ['ar_inte', 'erik', 'miljo']),
+    ],
+    alternativ: [
+      A('nodvandig', 'Erik sitter inte i skyddskommittén.', ['ar_inte', 'erik', 'skydd']),
+      A('obestamd', 'Ingen i verkstaden sitter i skyddskommittén.', ['inga', 'verkstad', 'skydd']),
+      A('obestamd', 'Några i verkstaden har gått arbetsmiljökursen.', ['nagra', 'verkstad', 'miljo']),
+      A('omojlig', 'Alla i verkstaden har gått arbetsmiljökursen.', ['alla', 'verkstad', 'miljo']),
+    ],
+    forklaring: [
+      'Alla i skyddskommittén har gått arbetsmiljökursen. Erik har inte gått den. Alltså sitter Erik inte i skyddskommittén.',
+      'Villkoren säger inget om de andra i verkstaden.',
+    ],
+  },
+  {
+    termer: ['tillf', 'server', 'reg'],
+    individer: [],
+    premisser: [
+      P('Inga tillfälliga passerkort öppnar serverrummet.', ['inga', 'tillf', 'server']),
+      P('Alla kort som öppnar serverrummet är registrerade hos it-avdelningen.', ['alla', 'server', 'reg']),
+      P('Några registrerade kort är tillfälliga.', ['nagra', 'reg', 'tillf']),
+    ],
+    alternativ: [
+      A('nodvandig', 'Några registrerade kort öppnar inte serverrummet.', ['nagra_inte', 'reg', 'server']),
+      A('obestamd', 'Alla tillfälliga kort är registrerade.', ['alla', 'tillf', 'reg']),
+      A('obestamd', 'Några tillfälliga kort är inte registrerade.', ['nagra_inte', 'tillf', 'reg']),
+      A('omojlig', 'Alla registrerade kort öppnar serverrummet.', ['alla', 'reg', 'server']),
+    ],
+    forklaring: [
+      'Några registrerade kort är tillfälliga, och inga tillfälliga kort öppnar serverrummet. Alltså finns registrerade kort som inte öppnar serverrummet.',
+    ],
+  },
+  {
+    termer: ['kund', 'finska', 'finland', 'kvall'],
+    individer: [],
+    premisser: [
+      P('Några på kundtjänst talar finska.', ['nagra', 'kund', 'finska']),
+      P('Alla som talar finska tar samtalen från Finland.', ['alla', 'finska', 'finland']),
+      P('Ingen som tar samtalen från Finland arbetar kvällar.', ['inga', 'finland', 'kvall']),
+    ],
+    alternativ: [
+      A('nodvandig', 'Några på kundtjänst arbetar inte kvällar.', ['nagra_inte', 'kund', 'kvall']),
+      A('obestamd', 'Ingen på kundtjänst arbetar kvällar.', ['inga', 'kund', 'kvall']),
+      A('obestamd', 'Alla som tar samtalen från Finland talar finska.', ['alla', 'finland', 'finska']),
+      A('omojlig', 'Någon som talar finska arbetar kvällar.', ['nagra', 'finska', 'kvall']),
+    ],
+    forklaring: [
+      'Alla som talar finska tar samtalen från Finland, och ingen av dem arbetar kvällar.',
+      'Några på kundtjänst talar finska. De arbetar alltså inte kvällar.',
+    ],
+  },
+  {
+    termer: ['prakt', 'attest', 'pl', 'ekon'],
+    individer: ['hugo'],
+    premisser: [
+      P('Ingen praktikant får attestera fakturor.', ['inga', 'prakt', 'attest']),
+      P('Alla projektledare får attestera fakturor.', ['alla', 'pl', 'attest']),
+      P('Hugo är praktikant på ekonomiavdelningen.', ['ar', 'hugo', 'prakt'], ['ar', 'hugo', 'ekon']),
+    ],
+    alternativ: [
+      A('nodvandig', 'Hugo är inte projektledare.', ['ar_inte', 'hugo', 'pl']),
+      A('obestamd', 'Ingen på ekonomiavdelningen är projektledare.', ['inga', 'ekon', 'pl']),
+      A('obestamd', 'Alla som får attestera fakturor är projektledare.', ['alla', 'attest', 'pl']),
+      A('omojlig', 'Alla på ekonomiavdelningen får attestera fakturor.', ['alla', 'ekon', 'attest']),
+    ],
+    forklaring: [
+      'Hugo är praktikant och får alltså inte attestera fakturor.',
+      'Alla projektledare får attestera. Alltså är Hugo inte projektledare.',
+    ],
+  },
+  {
+    termer: ['plan3', 'tavla', 'stor', 'skarm'],
+    individer: [],
+    premisser: [
+      P('Alla rum på plan tre har whiteboardtavla.', ['alla', 'plan3', 'tavla']),
+      P('Inga rum med whiteboardtavla har plats för fler än tolv.', ['inga', 'tavla', 'stor']),
+      P('Några rum på plan tre har skärm.', ['nagra', 'plan3', 'skarm']),
+    ],
+    alternativ: [
+      A('nodvandig', 'Några rum med skärm har inte plats för fler än tolv.', ['nagra_inte', 'skarm', 'stor']),
+      A('obestamd', 'Alla rum med skärm ligger på plan tre.', ['alla', 'skarm', 'plan3']),
+      A('obestamd', 'Några rum med plats för fler än tolv har skärm.', ['nagra', 'stor', 'skarm']),
+      A('omojlig', 'Något rum på plan tre har plats för fler än tolv.', ['nagra', 'plan3', 'stor']),
+    ],
+    forklaring: [
+      'Alla rum på plan tre har whiteboardtavla, och inga rum med tavla har plats för fler än tolv.',
+      'Några rum på plan tre har skärm. De rummen har alltså inte plats för fler än tolv.',
+    ],
+  },
+  {
+    termer: ['el', 'bevis', 'malmo'],
+    individer: ['ida'],
+    premisser: [
+      P('Alla elektriker har behörighetsbevis.', ['alla', 'el', 'bevis']),
+      P('Några med behörighetsbevis arbetar i Malmö.', ['nagra', 'bevis', 'malmo']),
+      P('Ida är elektriker.', ['ar', 'ida', 'el']),
+    ],
+    alternativ: [
+      A('nodvandig', 'Ida har behörighetsbevis.', ['ar', 'ida', 'bevis']),
+      A('obestamd', 'Ida arbetar i Malmö.', ['ar', 'ida', 'malmo']),
+      A('obestamd', 'Några elektriker arbetar i Malmö.', ['nagra', 'el', 'malmo']),
+      A('omojlig', 'Ingen med behörighetsbevis är elektriker.', ['inga', 'bevis', 'el']),
+    ],
+    forklaring: [
+      'Alla elektriker har behörighetsbevis. Ida är elektriker. Alltså har Ida behörighetsbevis.',
+      'Att några med behörighetsbevis arbetar i Malmö säger inget om just Ida.',
+    ],
+  },
+  {
+    termer: ['dyr', 'utan', 'dator', 'mobel'],
+    individer: [],
+    premisser: [
+      P('Inga beställningar över 50 000 kronor går igenom utan chefens underskrift.', ['inga', 'dyr', 'utan']),
+      P('Alla datorbeställningar är på över 50 000 kronor.', ['alla', 'dator', 'dyr']),
+      P('Några möbelbeställningar går igenom utan chefens underskrift.', ['nagra', 'mobel', 'utan']),
+    ],
+    alternativ: [
+      A('nodvandig', 'Några möbelbeställningar är inte på över 50 000 kronor.', ['nagra_inte', 'mobel', 'dyr']),
+      A('obestamd', 'Inga möbelbeställningar är på över 50 000 kronor.', ['inga', 'mobel', 'dyr']),
+      A('obestamd', 'Alla beställningar över 50 000 kronor gäller datorer.', ['alla', 'dyr', 'dator']),
+      A('omojlig', 'Någon datorbeställning går igenom utan chefens underskrift.', ['nagra', 'dator', 'utan']),
+    ],
+    forklaring: [
+      'Några möbelbeställningar går igenom utan chefens underskrift.',
+      'Ingen beställning över 50 000 kronor gör det. Alltså är de möbelbeställningarna inte på över 50 000 kronor.',
+    ],
+  },
+  {
+    termer: ['bonus', 'mal', 'overtid'],
+    individer: [],
+    premisser: [
+      P('Några som har nått sitt mål får bonus.', ['nagra', 'mal', 'bonus']),
+      P('Några som har nått sitt mål har arbetat övertid.', ['nagra', 'mal', 'overtid']),
+      P('Ingen som har arbetat övertid får bonus.', ['inga', 'overtid', 'bonus']),
+    ],
+    alternativ: [
+      A('nodvandig', 'Några som har nått sitt mål har inte arbetat övertid.', ['nagra_inte', 'mal', 'overtid']),
+      A('obestamd', 'Alla som får bonus har nått sitt mål.', ['alla', 'bonus', 'mal']),
+      A('obestamd', 'Några som får bonus har inte nått sitt mål.', ['nagra_inte', 'bonus', 'mal']),
+      A('omojlig', 'Alla som har nått sitt mål har arbetat övertid.', ['alla', 'mal', 'overtid']),
+    ],
+    forklaring: [
+      'Några som har nått sitt mål får bonus, och ingen som har arbetat övertid får bonus.',
+      'De som har nått sitt mål och får bonus har alltså inte arbetat övertid.',
+    ],
+  },
+  {
+    termer: ['norr', 'mandag', 'kyl', 'tung'],
+    individer: [],
+    premisser: [
+      P('Inga leveranser till Norrland sker på måndagar.', ['inga', 'norr', 'mandag']),
+      P('Alla kylda leveranser sker på måndagar.', ['alla', 'kyl', 'mandag']),
+      P('Några leveranser till Norrland är tunga.', ['nagra', 'norr', 'tung']),
+    ],
+    alternativ: [
+      A('nodvandig', 'Några tunga leveranser är inte kylda.', ['nagra_inte', 'tung', 'kyl']),
+      A('obestamd', 'Inga tunga leveranser sker på måndagar.', ['inga', 'tung', 'mandag']),
+      A('obestamd', 'Alla leveranser på måndagar är kylda.', ['alla', 'mandag', 'kyl']),
+      A('omojlig', 'Någon leverans till Norrland är kyld.', ['nagra', 'norr', 'kyl']),
+    ],
+    forklaring: [
+      'Alla kylda leveranser sker på måndagar, och inga leveranser till Norrland gör det. Alltså är ingen leverans till Norrland kyld.',
+      'Några leveranser till Norrland är tunga. De är alltså inte kylda.',
+    ],
+  },
+  {
+    termer: ['ny', 'mentor', 'traff'],
+    individer: ['nora'],
+    premisser: [
+      P('Alla nyanställda får en mentor.', ['alla', 'ny', 'mentor']),
+      P('Alla som får en mentor träffar personalavdelningen första veckan.', ['alla', 'mentor', 'traff']),
+      P('Nora är nyanställd.', ['ar', 'nora', 'ny']),
+    ],
+    alternativ: [
+      A('nodvandig', 'Nora träffar personalavdelningen första veckan.', ['ar', 'nora', 'traff']),
+      A('obestamd', 'Alla som träffar personalavdelningen första veckan är nyanställda.', ['alla', 'traff', 'ny']),
+      A('obestamd', 'Några som får en mentor är inte nyanställda.', ['nagra_inte', 'mentor', 'ny']),
+      A('omojlig', 'Nora får ingen mentor.', ['ar_inte', 'nora', 'mentor']),
+    ],
+    forklaring: [
+      'Nora är nyanställd och får alltså en mentor.',
+      'Alla som får en mentor träffar personalavdelningen första veckan. Alltså gör Nora det.',
+    ],
+  },
+  {
+    termer: ['hemma', 'park', 'salj', 'ledning'],
+    individer: [],
+    premisser: [
+      P('Ingen som arbetar hemma har parkeringstillstånd.', ['inga', 'hemma', 'park']),
+      P('Några i säljteamet arbetar hemma.', ['nagra', 'salj', 'hemma']),
+      P('Alla i ledningen har parkeringstillstånd.', ['alla', 'ledning', 'park']),
+    ],
+    alternativ: [
+      A('nodvandig', 'Några i säljteamet har inte parkeringstillstånd.', ['nagra_inte', 'salj', 'park']),
+      A('obestamd', 'Ingen i säljteamet har parkeringstillstånd.', ['inga', 'salj', 'park']),
+      A('obestamd', 'Några i säljteamet sitter i ledningen.', ['nagra', 'salj', 'ledning']),
+      A('omojlig', 'Någon i ledningen arbetar hemma.', ['nagra', 'ledning', 'hemma']),
+    ],
+    forklaring: [
+      'Några i säljteamet arbetar hemma, och ingen som arbetar hemma har parkeringstillstånd.',
+      'Alltså finns det några i säljteamet som saknar tillstånd. Om resten av teamet säger villkoren inget.',
+    ],
+  },
+  {
+    termer: ['avtal', 'sekretess', 'epost'],
+    individer: ['offerten'],
+    premisser: [
+      P('Alla dokument i mappen Avtal är sekretessmärkta.', ['alla', 'avtal', 'sekretess']),
+      P('Inga sekretessmärkta dokument får skickas med vanlig e-post.', ['inga', 'sekretess', 'epost']),
+      P('Offerten ligger i mappen Avtal.', ['ar', 'offerten', 'avtal']),
+    ],
+    alternativ: [
+      A('nodvandig', 'Offerten får inte skickas med vanlig e-post.', ['ar_inte', 'offerten', 'epost']),
+      A('obestamd', 'Alla sekretessmärkta dokument ligger i mappen Avtal.', ['alla', 'sekretess', 'avtal']),
+      A('obestamd', 'Några sekretessmärkta dokument ligger inte i mappen Avtal.', ['nagra_inte', 'sekretess', 'avtal']),
+      A('omojlig', 'Offerten är inte sekretessmärkt.', ['ar_inte', 'offerten', 'sekretess']),
+    ],
+    forklaring: [
+      'Offerten ligger i mappen Avtal och är alltså sekretessmärkt.',
+      'Inga sekretessmärkta dokument får skickas med vanlig e-post. Alltså får offerten inte det.',
+    ],
+  },
+  {
+    termer: ['var', 'distans', 'stor', 'oblig'],
+    individer: [],
+    premisser: [
+      P('Några av vårens kurser hålls på distans.', ['nagra', 'var', 'distans']),
+      P('Ingen kurs på distans har fler än tjugo deltagare.', ['inga', 'distans', 'stor']),
+      P('Alla obligatoriska kurser har fler än tjugo deltagare.', ['alla', 'oblig', 'stor']),
+    ],
+    alternativ: [
+      A('nodvandig', 'Några av vårens kurser är inte obligatoriska.', ['nagra_inte', 'var', 'oblig']),
+      A('obestamd', 'Ingen av vårens kurser har fler än tjugo deltagare.', ['inga', 'var', 'stor']),
+      A('obestamd', 'Alla kurser med fler än tjugo deltagare är obligatoriska.', ['alla', 'stor', 'oblig']),
+      A('omojlig', 'Någon obligatorisk kurs hålls på distans.', ['nagra', 'oblig', 'distans']),
+    ],
+    forklaring: [
+      'Alla obligatoriska kurser har fler än tjugo deltagare, och ingen kurs på distans har det. Alltså hålls ingen obligatorisk kurs på distans.',
+      'Några av vårens kurser hålls på distans. De är alltså inte obligatoriska.',
+    ],
+  },
+  {
+    termer: ['styr', 'chef', 'ledar'],
+    individer: [],
+    premisser: [
+      P('Några i styrgruppen är inte chefer.', ['nagra_inte', 'styr', 'chef']),
+      P('Alla i styrgruppen har gått ledarprogrammet.', ['alla', 'styr', 'ledar']),
+    ],
+    alternativ: [
+      A('nodvandig', 'Några som har gått ledarprogrammet är inte chefer.', ['nagra_inte', 'ledar', 'chef']),
+      A('obestamd', 'Alla chefer har gått ledarprogrammet.', ['alla', 'chef', 'ledar']),
+      A('obestamd', 'Några chefer sitter i styrgruppen.', ['nagra', 'chef', 'styr']),
+      A('omojlig', 'Alla som har gått ledarprogrammet är chefer.', ['alla', 'ledar', 'chef']),
+    ],
+    forklaring: [
+      'Några i styrgruppen är inte chefer, och alla i styrgruppen har gått ledarprogrammet.',
+      'De som inte är chefer har alltså också gått programmet.',
+    ],
+  },
+  {
+    termer: ['lon', 'tyst', 'ekon'],
+    individer: ['gun'],
+    premisser: [
+      P('Alla som arbetar med lön har tystnadsplikt.', ['alla', 'lon', 'tyst']),
+      P('Gun har inte tystnadsplikt.', ['ar_inte', 'gun', 'tyst']),
+      P('Några på ekonomiavdelningen arbetar med lön.', ['nagra', 'ekon', 'lon']),
+    ],
+    alternativ: [
+      A('nodvandig', 'Gun arbetar inte med lön.', ['ar_inte', 'gun', 'lon']),
+      A('obestamd', 'Gun arbetar inte på ekonomiavdelningen.', ['ar_inte', 'gun', 'ekon']),
+      A('obestamd', 'Alla på ekonomiavdelningen har tystnadsplikt.', ['alla', 'ekon', 'tyst']),
+      A('omojlig', 'Ingen på ekonomiavdelningen har tystnadsplikt.', ['inga', 'ekon', 'tyst']),
+    ],
+    forklaring: [
+      'Alla som arbetar med lön har tystnadsplikt. Gun har den inte. Alltså arbetar Gun inte med lön.',
+      'Var Gun arbetar säger villkoren inget om.',
+    ],
+  },
+  {
+    termer: ['pool', 'el', 'gammal', 'salj'],
+    individer: ['roda'],
+    premisser: [
+      P('Alla bilar i bilpoolen är elbilar.', ['alla', 'pool', 'el']),
+      P('Ingen elbil är äldre än fem år.', ['inga', 'el', 'gammal']),
+      P('Den röda bilen är äldre än fem år.', ['ar', 'roda', 'gammal']),
+    ],
+    alternativ: [
+      A('nodvandig', 'Den röda bilen är inte med i bilpoolen.', ['ar_inte', 'roda', 'pool']),
+      A('obestamd', 'Alla elbilar är med i bilpoolen.', ['alla', 'el', 'pool']),
+      A('obestamd', 'Den röda bilen ska säljas.', ['ar', 'roda', 'salj']),
+      A('omojlig', 'Den röda bilen är en elbil.', ['ar', 'roda', 'el']),
+    ],
+    forklaring: [
+      'Den röda bilen är äldre än fem år, och ingen elbil är det. Alltså är den röda bilen ingen elbil.',
+      'Alla bilar i bilpoolen är elbilar. Alltså är den röda bilen inte med i bilpoolen.',
+    ],
+  },
+  {
+    termer: ['intro', 'tvaar', 'ombud'],
+    individer: [],
+    premisser: [
+      P('Alla som håller i introduktionen har arbetat här i minst två år.', ['alla', 'intro', 'tvaar']),
+      P('Några som har arbetat här i minst två år är skyddsombud.', ['nagra', 'tvaar', 'ombud']),
+      P('Inget skyddsombud håller i introduktionen.', ['inga', 'ombud', 'intro']),
+    ],
+    alternativ: [
+      A('nodvandig', 'Några som har arbetat här i minst två år håller inte i introduktionen.', ['nagra_inte', 'tvaar', 'intro']),
+      A('obestamd', 'Alla skyddsombud har arbetat här i minst två år.', ['alla', 'ombud', 'tvaar']),
+      A('obestamd', 'Några skyddsombud har inte arbetat här i minst två år.', ['nagra_inte', 'ombud', 'tvaar']),
+      A('omojlig', 'Alla som har arbetat här i minst två år håller i introduktionen.', ['alla', 'tvaar', 'intro']),
+    ],
+    forklaring: [
+      'Några som har arbetat här i minst två år är skyddsombud, och inget skyddsombud håller i introduktionen.',
+      'Alltså finns det några med minst två år som inte håller i den.',
+    ],
+  },
+  {
+    termer: ['fredag', 'vikarie', 'lunch'],
+    individer: ['anna'],
+    premisser: [
+      P('Ingen som har pass på fredag är vikarie.', ['inga', 'fredag', 'vikarie']),
+      P('Alla som har pass på fredag får lunchen betald.', ['alla', 'fredag', 'lunch']),
+      P('Anna har pass på fredag.', ['ar', 'anna', 'fredag']),
+    ],
+    alternativ: [
+      A('nodvandig', 'Anna är inte vikarie.', ['ar_inte', 'anna', 'vikarie']),
+      A('obestamd', 'Alla som får lunchen betald har pass på fredag.', ['alla', 'lunch', 'fredag']),
+      A('obestamd', 'Ingen vikarie får lunchen betald.', ['inga', 'vikarie', 'lunch']),
+      A('omojlig', 'Anna får inte lunchen betald.', ['ar_inte', 'anna', 'lunch']),
+    ],
+    forklaring: [
+      'Anna har pass på fredag, och ingen som har pass på fredag är vikarie. Alltså är Anna inte vikarie.',
+    ],
+  },
+];
