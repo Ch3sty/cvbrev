@@ -136,3 +136,66 @@ describe('numerisk validering, regel för regel', () => {
     })
   }
 })
+
+describe('verbal validering, expert (argumentationsanalys)', () => {
+  const E = (data: unknown, opt: Record<string, unknown> = {}): Rapport => verbal(data, { niva: 'expert', ...opt })
+  const q = (d: any, p: number, i: number) => d[p].questions[i]
+  it('fixturen klarar allt', () => {
+    const r = E(fx.verbalExpert())
+    expect(r.fel).toEqual([])
+    expect(r.varningar).toEqual([])
+  })
+  const fall: [number, (d: any) => void, 'fel' | 'varning'][] = [
+    [1, (d) => { d[0].type = 'table' }, 'fel'],
+    [1, (d) => { d[0].topic = 'Arbetsliv' }, 'fel'],
+    [1, (d) => { d[0].questions.pop() }, 'fel'],
+    [1, (d) => { q(d, 0, 0).options.pop() }, 'fel'],
+    [1, (d) => { q(d, 0, 0).options[1].isCorrect = true }, 'fel'],
+    [1, (d) => { q(d, 0, 0).correctAnswerId = 'b' }, 'fel'],
+    [2, (d) => { d[0].id = 'verbexp-90' }, 'fel'],
+    [2, (d) => { q(d, 0, 1).id = 'verbexp-p90-q05' }, 'fel'],
+    [2, (d) => { q(d, 0, 1).id = 'verbexp-p91-q02' }, 'fel'],
+    [2, (d) => { d[1].id = d[0].id }, 'fel'],
+    [3, (d) => { d[0].contextText = d[0].contextText.split(' ').slice(0, 80).join(' ') }, 'fel'],
+    [3, (d) => { d[0].contextText = d[0].contextText + ' ' + d[0].contextText }, 'fel'],
+    [4, (d) => { q(d, 0, 0).explanation = 'Meningen om ordningen avgör, eftersom ett fall får stå för alla.' }, 'fel'],
+    [4, (d) => { q(d, 0, 0).explanation = 'Meningen om att ordningen ska gälla överallt avgör, eftersom slutsatsen vilar på ett enda fall som får stå för alla.' }, 'varning'],
+    [5, (d) => { q(d, 0, 0).typ = 'gissning' }, 'fel'],
+    [5, (d) => { q(d, 0, 2).typ = 'felslut'; q(d, 0, 3).typ = 'antagande' }, 'fel'],
+    [6, (d) => { q(d, 0, 1).options[2].text = 'Att fallet liknar de andra.' }, 'fel'],
+    [6, (d) => { q(d, 0, 2).options[1].text = 'Ett namn' }, 'fel'],
+    [7, (d) => { for (const p of d) for (const x of p.questions) x.options.find((o: any) => o.isCorrect).text += ' och det gäller i alla lägen här' }, 'fel'],
+    [8, (d) => { d[0].title = 'Fixtur — ett' }, 'fel'],
+    [8, (d) => { q(d, 1, 3).options[0].text = 'Varje statement i texten är sant' }, 'fel'],
+    [9, (d) => {
+      for (const p of d) for (const x of p.questions) {
+        const r = x.options.find((o: any) => o.isCorrect); const a = x.options[0]
+        ;[r.text, a.text] = [a.text, r.text]; r.isCorrect = false; a.isCorrect = true; x.correctAnswerId = 'a'
+        x.explanation = x.explanation.replace(/Alternativ [a-d]/, 'Det andra alternativet')
+      }
+    }, 'varning'],
+  ]
+  for (const [regel, andra, typ] of fall) {
+    it(`regel ${regel} fäller (${typ})`, () => {
+      const d = fx.verbalExpert()
+      andra(d)
+      const r = E(d)
+      expect(typ === 'fel' ? regler(r) : varn(r)).toContain(regel)
+    })
+  }
+  it('id som finns i en annan bank fälls', () => {
+    expect(regler(E(fx.verbalExpert(), { andraIds: new Set(['verbexp-p90-q03']) }))).toContain(2)
+  })
+  it('fel på underlag som redan finns i banken blir upplysning', () => {
+    const d = fx.verbalExpert()
+    d[0].contextText = d[0].contextText.split(' ').slice(0, 60).join(' ')
+    const r = E(d, { befintliga: new Set(['verbexp-p90']) })
+    expect(regler(r)).not.toContain(3)
+    expect(varn(r)).toContain(3)
+  })
+  it('utan typ gissas frågetypen ur frågetexten', () => {
+    const d = fx.verbalExpert()
+    for (const x of d[0].questions) delete x.typ
+    expect(regler(E(d))).not.toContain(5)
+  })
+})
