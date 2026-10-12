@@ -62,7 +62,10 @@ export const ADMIN_NAV: AdminNavGroup[] = [
   },
   {
     label: 'Innehåll',
-    items: [{ label: 'Innehåll', href: '/admin/innehall' }],
+    items: [
+      { label: 'Innehåll', href: '/admin/innehall' },
+      { label: 'Frågor', href: '/admin/fragor' },
+    ],
   },
   {
     label: 'Inställningar',

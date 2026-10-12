@@ -33,9 +33,10 @@ export async function POST(request: Request) {
       .gte('created_at', sedan);
     if (!rakna && (count ?? 0) >= RAPPORT_PER_DAG) return fel(429, 'for_manga');
     let { error } = await a.admin.from('fraga_rapporter').insert(rad);
-    // Figurserier före migreringen 20261012130000: kontrollvillkoret känner
-    // inte figurserie. Spara som matris; id:t fs-... skiljer dem åt.
-    if (error?.code === '23514' && rad.test_kind === 'figurserie') {
+    // Figurserier före migreringen 20261012130000 och deduktiv före
+    // 20261012160000: kontrollvillkoret känner inte testtypen. Spara som
+    // matris; id:t fs-... eller dd-... skiljer dem åt.
+    if (error?.code === '23514' && (rad.test_kind === 'figurserie' || rad.test_kind === 'deduktiv')) {
       ({ error } = await a.admin.from('fraga_rapporter').insert({ ...rad, test_kind: 'matris' }));
     }
     if (error) console.warn('[fraga-rapport] sparades inte, loggas här:', error.code ?? error.message, JSON.stringify(rad));

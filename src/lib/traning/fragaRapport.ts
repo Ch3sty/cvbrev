@@ -10,7 +10,9 @@ export type RapportOrsak = (typeof RAPPORT_ORSAKER)[number];
 // figurserie: omgång 2 (beställningen A2). Kräver migreringen
 // 20261012130000_fraga_rapporter_figurserie.sql; före den sparas rapporten
 // med test_kind matris (rutten), id:t fs-... skiljer dem åt.
-export const RAPPORT_TEST_KIND = ['matris', 'verbal', 'numerisk', 'figurserie'] as const;
+// deduktiv: omgång 3 (B1). Kräver 20261012160000_deduktiv_test_kind.sql; före
+// den sparas rapporten med test_kind matris, id:t dd-... skiljer dem åt.
+export const RAPPORT_TEST_KIND = ['matris', 'verbal', 'numerisk', 'figurserie', 'deduktiv'] as const;
 export type RapportTestKind = (typeof RAPPORT_TEST_KIND)[number];
 
 /** Högst så många rapporter per konto och dag (svensk tid). */
