@@ -1,1 +1,4772 @@
-[]
+[
+  {
+    "id": "v7e-plus-over-03",
+    "title": "Bara det som skiljer, vridet",
+    "rule": "Den tredje rutan i varje rad visar det som finns i bara en av den första och den andra (det gemensamma försvinner), vridet 135 grader moturs.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            4,
+            5
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            3
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            3
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            3,
+            4
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            4,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            2,
+            5
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          2,
+          4,
+          5,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          2,
+          5,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          3,
+          5,
+          6
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          2,
+          4,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          2,
+          4,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          6
+        ]
+      }
+    ],
+    "correctAnswer": 3,
+    "band": "plus",
+    "mekanism": "P4",
+    "p_prior": 0.35,
+    "misstag": [
+      "Lägger ihop rätt, men mönstret ska också vridas 135 grader moturs.",
+      "Vrider åt fel håll.",
+      "Vrider rätt håll men ett halvt varv för långt.",
+      "",
+      "Vridningen stämmer, men tar med det som finns i båda. Det gemensamma ska bort.",
+      "Vridningen stämmer, men visar bara det gemensamma. Det ska bort, resten ska med."
+    ],
+    "fran_version": 3,
+    "recept": "P4"
+  },
+  {
+    "id": "v7e-plus-over-04",
+    "title": "Bara det som skiljer, vridet",
+    "rule": "Den nedersta rutan i varje kolumn visar det som finns i bara en av den översta och den mittersta (det gemensamma försvinner), vridet 45 grader moturs.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            3,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            2,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            3,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            3,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            2,
+            4
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            6,
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          2,
+          6
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          2,
+          3,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          6
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          5,
+          7
+        ]
+      }
+    ],
+    "correctAnswer": 5,
+    "band": "plus",
+    "mekanism": "P4",
+    "p_prior": 0.35,
+    "misstag": [
+      "Lägger ihop rätt, men mönstret ska också vridas 45 grader moturs.",
+      "Vrider åt fel håll.",
+      "Vrider rätt håll men ett halvt varv för långt.",
+      "Vridningen stämmer, men tar med det som finns i båda. Det gemensamma ska bort.",
+      "Vridningen stämmer, men visar bara det gemensamma. Det ska bort, resten ska med.",
+      ""
+    ],
+    "fran_version": 3,
+    "recept": "P4"
+  },
+  {
+    "id": "v7e-plus-over-05",
+    "title": "Bara det som skiljer, vridet",
+    "rule": "Den nedersta rutan i varje kolumn visar det som finns i bara en av den översta och den mittersta (det gemensamma försvinner), vridet 135 grader medurs.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            5,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            4,
+            5
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            3,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            4,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            5
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            5,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            2,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            3,
+            4,
+            5,
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          3,
+          5
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          2,
+          6
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          2,
+          4
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          4,
+          6
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          4,
+          6
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1
+        ]
+      }
+    ],
+    "correctAnswer": 3,
+    "band": "plus",
+    "mekanism": "P4",
+    "p_prior": 0.35,
+    "misstag": [
+      "Lägger ihop rätt, men mönstret ska också vridas 135 grader medurs.",
+      "Vrider åt fel håll.",
+      "Vrider rätt håll men ett halvt varv för långt.",
+      "",
+      "Vridningen stämmer, men tar med det som finns i båda. Det gemensamma ska bort.",
+      "Vridningen stämmer, men visar bara det gemensamma. Det ska bort, resten ska med."
+    ],
+    "fran_version": 3,
+    "recept": "P4"
+  },
+  {
+    "id": "v7e-plus-over-07",
+    "title": "Det som blir kvar, vridet",
+    "rule": "Den tredje rutan i varje rad visar det som finns i den första men inte i den andra, vridet 45 grader medurs.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            3,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            3,
+            4
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            3
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            4
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            4
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            4,
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          6
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          5,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          3,
+          5
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          2,
+          5,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          5,
+          7
+        ]
+      }
+    ],
+    "correctAnswer": 3,
+    "band": "plus",
+    "mekanism": "P4",
+    "p_prior": 0.35,
+    "misstag": [
+      "Lägger ihop rätt, men mönstret ska också vridas 45 grader medurs.",
+      "Vrider åt fel håll.",
+      "Vrider rätt håll men ett halvt varv för långt.",
+      "",
+      "Vridningen stämmer, men tar med allt. Det som finns i den andra rutan i raden ska bort.",
+      "Vridningen stämmer, men tar med det som bara finns i den andra rutan i raden. Det ska bort."
+    ],
+    "fran_version": 3,
+    "recept": "P4"
+  },
+  {
+    "id": "v7e-plus-over-17",
+    "title": "Bara det som skiljer, vridet",
+    "rule": "Den tredje rutan i varje rad visar det som finns i bara en av den första och den andra (det gemensamma försvinner), vridet 45 grader medurs.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            2,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            3
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            3,
+            4
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            3,
+            4,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            4,
+            5
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            2,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            6
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          2,
+          3,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          7
+        ]
+      }
+    ],
+    "correctAnswer": 3,
+    "band": "plus",
+    "mekanism": "P4",
+    "p_prior": 0.35,
+    "misstag": [
+      "Lägger ihop rätt, men mönstret ska också vridas 45 grader medurs.",
+      "Vrider åt fel håll.",
+      "Vrider rätt håll men ett halvt varv för långt.",
+      "",
+      "Vridningen stämmer, men tar med det som finns i båda. Det gemensamma ska bort.",
+      "Vridningen stämmer, men visar bara det gemensamma. Det ska bort, resten ska med."
+    ],
+    "fran_version": 3,
+    "recept": "P4"
+  },
+  {
+    "id": "v7e-plus-over-19",
+    "title": "Det som blir kvar, vridet",
+    "rule": "Den tredje rutan i varje rad visar det som finns i den första men inte i den andra, vridet 45 grader moturs.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            3,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            3,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            5
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            5,
+            6
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          2
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          3,
+          4
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          4,
+          5,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          5,
+          7
+        ]
+      }
+    ],
+    "correctAnswer": 3,
+    "band": "plus",
+    "mekanism": "P4",
+    "p_prior": 0.35,
+    "misstag": [
+      "Lägger ihop rätt, men mönstret ska också vridas 45 grader moturs.",
+      "Vrider åt fel håll.",
+      "Vrider rätt håll men ett halvt varv för långt.",
+      "",
+      "Vridningen stämmer, men tar med allt. Det som finns i den andra rutan i raden ska bort.",
+      "Vridningen stämmer, men tar med det som bara finns i den andra rutan i raden. Det ska bort."
+    ],
+    "fran_version": 3,
+    "recept": "P4"
+  },
+  {
+    "id": "v7e-plus-over-09",
+    "title": "Bara det som skiljer, vridet",
+    "rule": "Den tredje rutan i varje rad visar det som finns i bara en av den första och den andra (det gemensamma försvinner), vridet 45 grader moturs.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            3,
+            6
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            2,
+            4
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            4,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            4,
+            6
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            5,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            3,
+            6,
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "ray",
+        "rays": [
+          3,
+          5,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          0,
+          4,
+          6
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          2,
+          4,
+          6
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          0,
+          2,
+          6
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          2,
+          4,
+          5,
+          6
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          5
+        ]
+      }
+    ],
+    "correctAnswer": 2,
+    "band": "plus",
+    "mekanism": "P5",
+    "p_prior": 0.35,
+    "misstag": [
+      "Lägger ihop rätt, men mönstret ska också vridas 45 grader moturs.",
+      "Vrider åt fel håll.",
+      "",
+      "Vrider rätt håll men ett halvt varv för långt.",
+      "Vridningen stämmer, men tar med det som finns i båda. Det gemensamma ska bort.",
+      "Vridningen stämmer, men visar bara det gemensamma. Det ska bort, resten ska med."
+    ],
+    "fran_version": 3,
+    "recept": "P5"
+  },
+  {
+    "id": "v7e-plus-over-10",
+    "title": "Bara det som skiljer, vridet",
+    "rule": "Den tredje rutan i varje rad visar det som finns i bara en av den första och den andra (det gemensamma försvinner), vridet 45 grader medurs.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            3,
+            6
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            3,
+            4
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            2,
+            5,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            2,
+            4
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            3,
+            5
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            4,
+            5
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            2,
+            5
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "ray",
+        "rays": [
+          0,
+          1,
+          2,
+          4
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          0,
+          1,
+          3,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          1,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          1,
+          2,
+          3,
+          5,
+          6
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          1,
+          2,
+          3,
+          5
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          6
+        ]
+      }
+    ],
+    "correctAnswer": 4,
+    "band": "plus",
+    "mekanism": "P5",
+    "p_prior": 0.35,
+    "misstag": [
+      "Lägger ihop rätt, men mönstret ska också vridas 45 grader medurs.",
+      "Vrider åt fel håll.",
+      "Vrider rätt håll men ett halvt varv för långt.",
+      "Vridningen stämmer, men tar med det som finns i båda. Det gemensamma ska bort.",
+      "",
+      "Vridningen stämmer, men visar bara det gemensamma. Det ska bort, resten ska med."
+    ],
+    "fran_version": 3,
+    "recept": "P5"
+  },
+  {
+    "id": "v7e-plus-over-11",
+    "title": "Bara det som skiljer, vridet",
+    "rule": "Den tredje rutan i varje rad visar det som finns i bara en av den första och den andra (det gemensamma försvinner), vridet 135 grader moturs.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            2,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            5,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            1,
+            4
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            2,
+            5
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            2,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            4,
+            5
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            4,
+            6
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "ray",
+        "rays": [
+          1,
+          5,
+          6
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          2,
+          3,
+          6
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          2,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          1,
+          2,
+          3,
+          6
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          1
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          2,
+          6
+        ]
+      }
+    ],
+    "correctAnswer": 1,
+    "band": "plus",
+    "mekanism": "P5",
+    "p_prior": 0.35,
+    "misstag": [
+      "Lägger ihop rätt, men mönstret ska också vridas 135 grader moturs.",
+      "",
+      "Vrider rätt håll men ett halvt varv för långt.",
+      "Vridningen stämmer, men tar med det som finns i båda. Det gemensamma ska bort.",
+      "Vridningen stämmer, men visar bara det gemensamma. Det ska bort, resten ska med.",
+      "Vridningen stämmer, men ett streck saknas."
+    ],
+    "fran_version": 3,
+    "recept": "P5"
+  },
+  {
+    "id": "v7e-plus-over-12",
+    "title": "Bara det som skiljer, vridet",
+    "rule": "Den nedersta rutan i varje kolumn visar det som finns i bara en av den översta och den mittersta (det gemensamma försvinner), vridet 45 grader medurs.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            1,
+            3
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            4,
+            5
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            4,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            4,
+            6
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            4,
+            5
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            1,
+            4,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            2,
+            6,
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "ray",
+        "rays": [
+          0,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          0,
+          1,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          0,
+          1,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          5
+        ]
+      }
+    ],
+    "correctAnswer": 1,
+    "band": "plus",
+    "mekanism": "P5",
+    "p_prior": 0.35,
+    "misstag": [
+      "Lägger ihop rätt, men mönstret ska också vridas 45 grader medurs.",
+      "",
+      "Vrider åt fel håll.",
+      "Vrider rätt håll men ett halvt varv för långt.",
+      "Vridningen stämmer, men tar med det som finns i båda. Det gemensamma ska bort.",
+      "Vridningen stämmer, men visar bara det gemensamma. Det ska bort, resten ska med."
+    ],
+    "fran_version": 3,
+    "recept": "P5"
+  },
+  {
+    "id": "v7e-plus-over-13",
+    "title": "Bara det som skiljer, vridet",
+    "rule": "Den nedersta rutan i varje kolumn visar det som finns i bara en av den översta och den mittersta (det gemensamma försvinner), vridet 135 grader moturs.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            3,
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            2,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            1,
+            3
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            2,
+            3,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            2,
+            4
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            3,
+            4,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            2,
+            3,
+            4,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            4,
+            6
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "ray",
+        "rays": [
+          0,
+          1,
+          4,
+          6
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          1,
+          3,
+          4,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          1,
+          2,
+          5,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          0,
+          1,
+          3,
+          5,
+          6
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          0
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          1,
+          3,
+          5,
+          6
+        ]
+      }
+    ],
+    "correctAnswer": 5,
+    "band": "plus",
+    "mekanism": "P5",
+    "p_prior": 0.35,
+    "misstag": [
+      "Lägger ihop rätt, men mönstret ska också vridas 135 grader moturs.",
+      "Vrider åt fel håll.",
+      "Vrider rätt håll men ett halvt varv för långt.",
+      "Vridningen stämmer, men tar med det som finns i båda. Det gemensamma ska bort.",
+      "Vridningen stämmer, men visar bara det gemensamma. Det ska bort, resten ska med.",
+      ""
+    ],
+    "fran_version": 3,
+    "recept": "P5"
+  },
+  {
+    "id": "v7e-plus-over-14",
+    "title": "Det som blir kvar, vridet",
+    "rule": "Den tredje rutan i varje rad visar det som finns i den första men inte i den andra, vridet 135 grader medurs.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            2,
+            3,
+            5
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            2,
+            3,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            0
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            2,
+            6
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            4,
+            5
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            2,
+            5,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            5
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "ray",
+        "rays": [
+          2,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          2,
+          5
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          4,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          1,
+          6
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          0,
+          2,
+          3,
+          5
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          3
+        ]
+      }
+    ],
+    "correctAnswer": 1,
+    "band": "plus",
+    "mekanism": "P5",
+    "p_prior": 0.35,
+    "misstag": [
+      "Lägger ihop rätt, men mönstret ska också vridas 135 grader medurs.",
+      "",
+      "Vrider åt fel håll.",
+      "Vrider rätt håll men ett halvt varv för långt.",
+      "Vridningen stämmer, men tar med allt. Det som finns i den andra rutan i raden ska bort.",
+      "Vridningen stämmer, men drar bort åt fel håll."
+    ],
+    "fran_version": 3,
+    "recept": "P5"
+  },
+  {
+    "id": "v7e-plus-over-15",
+    "title": "Det som blir kvar, vridet",
+    "rule": "Den tredje rutan i varje rad visar det som finns i den första men inte i den andra, vridet 135 grader moturs.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            5
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            5,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            5
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            2,
+            4,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            2,
+            5
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            4
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            2,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            2,
+            5,
+            6
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "ray",
+        "rays": [
+          4,
+          5
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          0,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          2,
+          3
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          0,
+          1
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          2,
+          3,
+          4,
+          5,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    ],
+    "correctAnswer": 0,
+    "band": "plus",
+    "mekanism": "P5",
+    "p_prior": 0.35,
+    "misstag": [
+      "",
+      "Lägger ihop rätt, men mönstret ska också vridas 135 grader moturs.",
+      "Två fel ger samma figur här: antingen läggs rutorna ihop rätt men mönstret är vridet åt fel håll, eller så stämmer vridningen men drar bort åt fel håll.",
+      "Vrider rätt håll men ett halvt varv för långt.",
+      "Vridningen stämmer, men tar med allt. Det som finns i den andra rutan i raden ska bort.",
+      "Vridningen stämmer, men tar med det som bara finns i den andra rutan i raden. Det ska bort."
+    ],
+    "fran_version": 3,
+    "recept": "P5"
+  },
+  {
+    "id": "v7e-plus-over-16",
+    "title": "Det som blir kvar, vridet",
+    "rule": "Den nedersta rutan i varje kolumn visar det som finns i den översta men inte i den mittersta, vridet 135 grader medurs.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            3,
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            2,
+            3
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            3,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            4,
+            5,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            2,
+            5,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            4
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            6
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "ray",
+        "rays": [
+          0,
+          3
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          3,
+          6
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          0,
+          5
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          2,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          0,
+          1,
+          3,
+          5,
+          6
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          0,
+          1,
+          3,
+          6
+        ]
+      }
+    ],
+    "correctAnswer": 1,
+    "band": "plus",
+    "mekanism": "P5",
+    "p_prior": 0.35,
+    "misstag": [
+      "Lägger ihop rätt, men mönstret ska också vridas 135 grader medurs.",
+      "",
+      "Vrider åt fel håll.",
+      "Vrider rätt håll men ett halvt varv för långt.",
+      "Vridningen stämmer, men tar med allt. Det som finns i den mittersta rutan i kolumnen ska bort.",
+      "Vridningen stämmer, men tar med det som bara finns i den mittersta rutan i kolumnen. Det ska bort."
+    ],
+    "fran_version": 3,
+    "recept": "P5"
+  },
+  {
+    "id": "v7e-plus-p1-25",
+    "title": "Form, fyllning och schackmönster",
+    "rule": "Varje rad och varje kolumn har exakt en cirkel, en kvadrat och en triangel, och exakt en ofylld, en grå och en svart. Formen och fyllningen följer var sin ordning. Symbolen växlar mellan plus och minus som ett schackmönster, så att två rutor bredvid varandra aldrig har samma symbol.",
+    "difficulty": 4,
+    "family": "latin-flera",
+    "grid": [
+      [
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "minus",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "plus",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "minus",
+          "baseFill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "plus",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "minus",
+          "baseFill": "black"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "plus",
+          "baseFill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "minus",
+          "baseFill": "black"
+        },
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "plus",
+          "baseFill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "minus",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "triangle",
+        "symbol": "minus",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "plus",
+        "baseFill": "black"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "plus",
+        "baseFill": "black"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "minus",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "triangle",
+        "symbol": "plus",
+        "baseFill": "black"
+      }
+    ],
+    "correctAnswer": 4,
+    "band": "plus",
+    "mekanism": "P1",
+    "p_prior": 0.45,
+    "recept": "P1",
+    "fran_version": 3,
+    "misstag": [
+      "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en kvadrat.",
+      "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en triangel.",
+      "Symbolen har inte växlat. Tredje raden och tredje kolumnen har redan en svart.",
+      "Tredje raden och tredje kolumnen har redan en kvadrat och en svart. Symbolen har inte växlat.",
+      "",
+      "Tredje raden och tredje kolumnen har redan en triangel och en svart. Symbolen har inte växlat."
+    ]
+  },
+  {
+    "id": "v7e-plus-p1-26",
+    "title": "Form, fyllning och schackmönster",
+    "rule": "Varje rad och varje kolumn har exakt en cirkel, en kvadrat och en romb, och exakt en ofylld, en grå och en svart. Formen och fyllningen följer var sin ordning. Symbolen växlar mellan prick och kryss som ett schackmönster, så att två rutor bredvid varandra aldrig har samma symbol.",
+    "difficulty": 4,
+    "family": "latin-flera",
+    "grid": [
+      [
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "cross",
+          "baseFill": "black"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "dot",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "cross",
+          "baseFill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "cross",
+          "baseFill": "black"
+        },
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "dot",
+          "baseFill": "gray"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "cross",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "dot",
+        "baseFill": "black"
+      },
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "cross",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "cross",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "dot",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "dot",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "cross",
+        "baseFill": "black"
+      }
+    ],
+    "correctAnswer": 5,
+    "band": "plus",
+    "mekanism": "P1",
+    "p_prior": 0.45,
+    "recept": "P1",
+    "fran_version": 3,
+    "misstag": [
+      "Grundformen stämmer, men symbolen har inte växlat.",
+      "Tredje raden och tredje kolumnen har redan en romb och en ofylld.",
+      "Tredje raden och tredje kolumnen har redan en romb och en grå.",
+      "Tredje raden och tredje kolumnen har redan en kvadrat och en ofylld. Symbolen har inte växlat.",
+      "Tredje raden och tredje kolumnen har redan en kvadrat och en grå. Symbolen har inte växlat.",
+      ""
+    ]
+  },
+  {
+    "id": "v7e-plus-p1-27",
+    "title": "Form, fyllning och schackmönster",
+    "rule": "Varje rad och varje kolumn har exakt en cirkel, en triangel och en romb, och exakt en ofylld, en grå och en svart. Formen och fyllningen följer var sin ordning. Symbolen växlar mellan plus och prick som ett schackmönster, så att två rutor bredvid varandra aldrig har samma symbol.",
+    "difficulty": 4,
+    "family": "latin-flera",
+    "grid": [
+      [
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "plus",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "dot",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "plus",
+          "baseFill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "dot",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "plus",
+          "baseFill": "black"
+        },
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "dot",
+          "baseFill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "plus",
+          "baseFill": "black"
+        },
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "stack",
+        "base": "triangle",
+        "symbol": "plus",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "plus",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "dot",
+        "baseFill": "black"
+      },
+      {
+        "kind": "stack",
+        "base": "triangle",
+        "symbol": "dot",
+        "baseFill": "black"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "plus",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "dot",
+        "baseFill": "black"
+      }
+    ],
+    "correctAnswer": 4,
+    "band": "plus",
+    "mekanism": "P1",
+    "p_prior": 0.45,
+    "recept": "P1",
+    "fran_version": 3,
+    "misstag": [
+      "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en triangel.",
+      "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en romb.",
+      "Symbolen har inte växlat. Tredje raden och tredje kolumnen har redan en svart.",
+      "Tredje raden och tredje kolumnen har redan en triangel och en svart. Symbolen har inte växlat.",
+      "",
+      "Tredje raden och tredje kolumnen har redan en romb och en svart. Symbolen har inte växlat."
+    ]
+  },
+  {
+    "id": "v7e-plus-p1-28",
+    "title": "Form, fyllning och schackmönster",
+    "rule": "Varje rad och varje kolumn har exakt en kvadrat, en triangel och en romb, och exakt en ofylld, en grå och en svart. Formen och fyllningen följer var sin ordning. Symbolen växlar mellan minus och prick som ett schackmönster, så att två rutor bredvid varandra aldrig har samma symbol.",
+    "difficulty": 4,
+    "family": "latin-flera",
+    "grid": [
+      [
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "minus",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "dot",
+          "baseFill": "black"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "minus",
+          "baseFill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "minus",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "dot",
+          "baseFill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "minus",
+          "baseFill": "black"
+        },
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "dot",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "triangle",
+        "symbol": "minus",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "triangle",
+        "symbol": "minus",
+        "baseFill": "black"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "dot",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "minus",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "dot",
+        "baseFill": "black"
+      }
+    ],
+    "correctAnswer": 4,
+    "band": "plus",
+    "mekanism": "P1",
+    "p_prior": 0.45,
+    "recept": "P1",
+    "fran_version": 3,
+    "misstag": [
+      "Grundformen stämmer, men symbolen har inte växlat.",
+      "Tredje raden och tredje kolumnen har redan en triangel och en ofylld.",
+      "Tredje raden och tredje kolumnen har redan en triangel och en svart.",
+      "Tredje raden och tredje kolumnen har redan en kvadrat och en ofylld. Symbolen har inte växlat.",
+      "",
+      "Tredje raden och tredje kolumnen har redan en kvadrat och en svart. Symbolen har inte växlat."
+    ]
+  },
+  {
+    "id": "v7e-plus-p1-29",
+    "title": "Form, fyllning och schackmönster",
+    "rule": "Varje rad och varje kolumn har exakt en cirkel, en kvadrat och en romb, och exakt en ofylld, en grå och en svart. Formen och fyllningen följer var sin ordning. Symbolen växlar mellan plus och kryss som ett schackmönster, så att två rutor bredvid varandra aldrig har samma symbol.",
+    "difficulty": 4,
+    "family": "latin-flera",
+    "grid": [
+      [
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "cross",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "plus",
+          "baseFill": "black"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "cross",
+          "baseFill": "gray"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "plus",
+          "baseFill": "black"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "cross",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "plus",
+          "baseFill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "cross",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "plus",
+          "baseFill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "cross",
+        "baseFill": "black"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "cross",
+        "baseFill": "black"
+      },
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "cross",
+        "baseFill": "black"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "plus",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "plus",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "plus",
+        "baseFill": "gray"
+      }
+    ],
+    "correctAnswer": 0,
+    "band": "plus",
+    "mekanism": "P1",
+    "p_prior": 0.45,
+    "recept": "P1",
+    "fran_version": 3,
+    "misstag": [
+      "",
+      "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en cirkel.",
+      "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en romb.",
+      "Symbolen har inte växlat. Tredje raden och tredje kolumnen har redan en grå.",
+      "Tredje raden och tredje kolumnen har redan en cirkel och en grå. Symbolen har inte växlat.",
+      "Tredje raden och tredje kolumnen har redan en romb och en grå. Symbolen har inte växlat."
+    ]
+  },
+  {
+    "id": "v7e-plus-p1-30",
+    "title": "Form, fyllning och schackmönster",
+    "rule": "Varje rad och varje kolumn har exakt en cirkel, en kvadrat och en triangel, och exakt en ofylld, en grå och en svart. Formen och fyllningen följer var sin ordning. Symbolen växlar mellan minus och prick som ett schackmönster, så att två rutor bredvid varandra aldrig har samma symbol.",
+    "difficulty": 4,
+    "family": "latin-flera",
+    "grid": [
+      [
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "minus",
+          "baseFill": "black"
+        },
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "minus",
+          "baseFill": "gray"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "dot",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "minus",
+          "baseFill": "black"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "dot",
+          "baseFill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "minus",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "dot",
+          "baseFill": "gray"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "stack",
+        "base": "triangle",
+        "symbol": "dot",
+        "baseFill": "black"
+      },
+      {
+        "kind": "stack",
+        "base": "triangle",
+        "symbol": "minus",
+        "baseFill": "black"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "minus",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "minus",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "dot",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "dot",
+        "baseFill": "gray"
+      }
+    ],
+    "correctAnswer": 1,
+    "band": "plus",
+    "mekanism": "P1",
+    "p_prior": 0.45,
+    "recept": "P1",
+    "fran_version": 3,
+    "misstag": [
+      "Grundformen stämmer, men symbolen har inte växlat.",
+      "",
+      "Tredje raden och tredje kolumnen har redan en kvadrat och en ofylld.",
+      "Tredje raden och tredje kolumnen har redan en kvadrat och en grå.",
+      "Tredje raden och tredje kolumnen har redan en cirkel och en ofylld. Symbolen har inte växlat.",
+      "Tredje raden och tredje kolumnen har redan en cirkel och en grå. Symbolen har inte växlat."
+    ]
+  },
+  {
+    "id": "v7e-plus-p1-31",
+    "title": "Form, fyllning och schackmönster",
+    "rule": "Varje rad och varje kolumn har exakt en cirkel, en triangel och en romb, och exakt en ofylld, en grå och en svart. Formen och fyllningen följer var sin ordning. Symbolen växlar mellan minus och plus som ett schackmönster, så att två rutor bredvid varandra aldrig har samma symbol.",
+    "difficulty": 4,
+    "family": "latin-flera",
+    "grid": [
+      [
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "plus",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "minus",
+          "baseFill": "black"
+        },
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "plus",
+          "baseFill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "minus",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "plus",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "minus",
+          "baseFill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "plus",
+          "baseFill": "black"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "minus",
+          "baseFill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "stack",
+        "base": "triangle",
+        "symbol": "minus",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "plus",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "plus",
+        "baseFill": "black"
+      },
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "minus",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "triangle",
+        "symbol": "plus",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "minus",
+        "baseFill": "black"
+      }
+    ],
+    "correctAnswer": 4,
+    "band": "plus",
+    "mekanism": "P1",
+    "p_prior": 0.45,
+    "recept": "P1",
+    "fran_version": 3,
+    "misstag": [
+      "Grundformen stämmer, men symbolen har inte växlat.",
+      "Tredje raden och tredje kolumnen har redan en cirkel och en ofylld.",
+      "Tredje raden och tredje kolumnen har redan en cirkel och en svart.",
+      "Tredje raden och tredje kolumnen har redan en romb och en ofylld. Symbolen har inte växlat.",
+      "",
+      "Tredje raden och tredje kolumnen har redan en romb och en svart. Symbolen har inte växlat."
+    ]
+  },
+  {
+    "id": "v7e-plus-p1-32",
+    "title": "Form, fyllning och schackmönster",
+    "rule": "Varje rad och varje kolumn har exakt en cirkel, en kvadrat och en romb, och exakt en ofylld, en grå och en svart. Formen och fyllningen följer var sin ordning. Symbolen växlar mellan minus och kryss som ett schackmönster, så att två rutor bredvid varandra aldrig har samma symbol.",
+    "difficulty": 4,
+    "family": "latin-flera",
+    "grid": [
+      [
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "cross",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "minus",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "cross",
+          "baseFill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "minus",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "cross",
+          "baseFill": "black"
+        },
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "minus",
+          "baseFill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "cross",
+          "baseFill": "black"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "minus",
+          "baseFill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "cross",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "cross",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "cross",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "minus",
+        "baseFill": "black"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "minus",
+        "baseFill": "black"
+      },
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "minus",
+        "baseFill": "black"
+      }
+    ],
+    "correctAnswer": 0,
+    "band": "plus",
+    "mekanism": "P1",
+    "p_prior": 0.45,
+    "recept": "P1",
+    "fran_version": 3,
+    "misstag": [
+      "",
+      "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en kvadrat.",
+      "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en romb.",
+      "Symbolen har inte växlat. Tredje raden och tredje kolumnen har redan en svart.",
+      "Tredje raden och tredje kolumnen har redan en kvadrat och en svart. Symbolen har inte växlat.",
+      "Tredje raden och tredje kolumnen har redan en romb och en svart. Symbolen har inte växlat."
+    ]
+  },
+  {
+    "id": "v7e-plus-p2-17",
+    "title": "Form, symbol och schackmönster",
+    "rule": "Varje rad och varje kolumn har exakt en cirkel, en kvadrat och en triangel, och exakt en med plus, en med minus och en med prick. Formen och symbolen följer var sin ordning. Fyllningen växlar mellan ofylld och grå som ett schackmönster, så att två rutor bredvid varandra aldrig har samma fyllning.",
+    "difficulty": 4,
+    "family": "latin-flera",
+    "grid": [
+      [
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "plus",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "minus",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "dot",
+          "baseFill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "dot",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "plus",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "minus",
+          "baseFill": "gray"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "minus",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "dot",
+          "baseFill": "gray"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "plus",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "minus",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "dot",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "plus",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "minus",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "dot",
+        "baseFill": "gray"
+      }
+    ],
+    "correctAnswer": 0,
+    "band": "plus",
+    "mekanism": "P2",
+    "p_prior": 0.45,
+    "recept": "P2",
+    "fran_version": 3,
+    "misstag": [
+      "",
+      "Grundformen stämmer, men tredje raden och tredje kolumnen har redan ett minus.",
+      "Grundformen stämmer, men tredje raden och tredje kolumnen har redan en prick.",
+      "Tredje raden och tredje kolumnen har redan en kvadrat. Fyllningen har inte växlat mellan ofylld och grå.",
+      "Tredje raden och tredje kolumnen har redan en kvadrat och ett minus. Fyllningen har inte växlat mellan ofylld och grå.",
+      "Tredje raden och tredje kolumnen har redan en kvadrat och en prick. Fyllningen har inte växlat mellan ofylld och grå."
+    ]
+  },
+  {
+    "id": "v7e-plus-p2-18",
+    "title": "Form, symbol och schackmönster",
+    "rule": "Varje rad och varje kolumn har exakt en cirkel, en kvadrat och en romb, och exakt en med plus, en med prick och en med kryss. Formen och symbolen följer var sin ordning. Fyllningen växlar mellan ofylld och grå som ett schackmönster, så att två rutor bredvid varandra aldrig har samma fyllning.",
+    "difficulty": 4,
+    "family": "latin-flera",
+    "grid": [
+      [
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "plus",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "cross",
+          "baseFill": "gray"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "cross",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "plus",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "dot",
+          "baseFill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "dot",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "cross",
+          "baseFill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "plus",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "dot",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "cross",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "plus",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "dot",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "cross",
+        "baseFill": "none"
+      }
+    ],
+    "correctAnswer": 0,
+    "band": "plus",
+    "mekanism": "P2",
+    "p_prior": 0.45,
+    "recept": "P2",
+    "fran_version": 3,
+    "misstag": [
+      "",
+      "Grundformen stämmer, men tredje raden och tredje kolumnen har redan en prick.",
+      "Grundformen stämmer, men tredje raden och tredje kolumnen har redan ett kryss.",
+      "Tredje raden och tredje kolumnen har redan en cirkel. Fyllningen har inte växlat mellan ofylld och grå.",
+      "Tredje raden och tredje kolumnen har redan en cirkel och en prick. Fyllningen har inte växlat mellan ofylld och grå.",
+      "Tredje raden och tredje kolumnen har redan en cirkel och ett kryss. Fyllningen har inte växlat mellan ofylld och grå."
+    ]
+  },
+  {
+    "id": "v7e-plus-p2-19",
+    "title": "Form, symbol och schackmönster",
+    "rule": "Varje rad och varje kolumn har exakt en cirkel, en triangel och en romb, och exakt en med minus, en med prick och en med ring. Formen och symbolen följer var sin ordning. Fyllningen växlar mellan ofylld och grå som ett schackmönster, så att två rutor bredvid varandra aldrig har samma fyllning.",
+    "difficulty": 4,
+    "family": "latin-flera",
+    "grid": [
+      [
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "minus",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "dot",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "ring",
+          "baseFill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "ring",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "minus",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "dot",
+          "baseFill": "gray"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "ring",
+          "baseFill": "gray"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "stack",
+        "base": "triangle",
+        "symbol": "dot",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "triangle",
+        "symbol": "minus",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "triangle",
+        "symbol": "ring",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "minus",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "dot",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "ring",
+        "baseFill": "gray"
+      }
+    ],
+    "correctAnswer": 1,
+    "band": "plus",
+    "mekanism": "P2",
+    "p_prior": 0.45,
+    "recept": "P2",
+    "fran_version": 3,
+    "misstag": [
+      "Grundformen stämmer, men tredje raden och tredje kolumnen har redan en prick.",
+      "",
+      "Grundformen stämmer, men tredje raden och tredje kolumnen har redan en ring.",
+      "Tredje raden och tredje kolumnen har redan en cirkel. Fyllningen har inte växlat mellan ofylld och grå.",
+      "Tredje raden och tredje kolumnen har redan en cirkel och en prick. Fyllningen har inte växlat mellan ofylld och grå.",
+      "Tredje raden och tredje kolumnen har redan en cirkel och en ring. Fyllningen har inte växlat mellan ofylld och grå."
+    ]
+  },
+  {
+    "id": "v7e-plus-p2-20",
+    "title": "Form, symbol och schackmönster",
+    "rule": "Varje rad och varje kolumn har exakt en cirkel, en kvadrat och en romb, och exakt en med plus, en med kryss och en med ring. Formen och symbolen följer var sin ordning. Fyllningen växlar mellan ofylld och grå som ett schackmönster, så att två rutor bredvid varandra aldrig har samma fyllning.",
+    "difficulty": 4,
+    "family": "latin-flera",
+    "grid": [
+      [
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "ring",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "cross",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "plus",
+          "baseFill": "gray"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "cross",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "plus",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "ring",
+          "baseFill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "plus",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "ring",
+          "baseFill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "cross",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "cross",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "plus",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "cross",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "plus",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "plus",
+        "baseFill": "none"
+      }
+    ],
+    "correctAnswer": 3,
+    "band": "plus",
+    "mekanism": "P2",
+    "p_prior": 0.45,
+    "recept": "P2",
+    "fran_version": 3,
+    "misstag": [
+      "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en kvadrat.",
+      "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en romb.",
+      "Tredje raden och tredje kolumnen har redan ett plus. Fyllningen har inte växlat mellan ofylld och grå.",
+      "",
+      "Tredje raden och tredje kolumnen har redan en kvadrat och ett plus. Fyllningen har inte växlat mellan ofylld och grå.",
+      "Tredje raden och tredje kolumnen har redan en romb och ett plus. Fyllningen har inte växlat mellan ofylld och grå."
+    ]
+  },
+  {
+    "id": "v7e-plus-p2-21",
+    "title": "Form, symbol och schackmönster",
+    "rule": "Varje rad och varje kolumn har exakt en kvadrat, en triangel och en romb, och exakt en med plus, en med minus och en med ring. Formen och symbolen följer var sin ordning. Fyllningen växlar mellan ofylld och grå som ett schackmönster, så att två rutor bredvid varandra aldrig har samma fyllning.",
+    "difficulty": 4,
+    "family": "latin-flera",
+    "grid": [
+      [
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "plus",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "ring",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "minus",
+          "baseFill": "gray"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "ring",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "minus",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "plus",
+          "baseFill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "minus",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "plus",
+          "baseFill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "ring",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "triangle",
+        "symbol": "ring",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "ring",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "minus",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "triangle",
+        "symbol": "minus",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "minus",
+        "baseFill": "none"
+      }
+    ],
+    "correctAnswer": 0,
+    "band": "plus",
+    "mekanism": "P2",
+    "p_prior": 0.45,
+    "recept": "P2",
+    "fran_version": 3,
+    "misstag": [
+      "",
+      "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en triangel.",
+      "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en romb.",
+      "Tredje raden och tredje kolumnen har redan ett minus. Fyllningen har inte växlat mellan ofylld och grå.",
+      "Tredje raden och tredje kolumnen har redan en triangel och ett minus. Fyllningen har inte växlat mellan ofylld och grå.",
+      "Tredje raden och tredje kolumnen har redan en romb och ett minus. Fyllningen har inte växlat mellan ofylld och grå."
+    ]
+  },
+  {
+    "id": "v7e-plus-p2-22",
+    "title": "Form, symbol och schackmönster",
+    "rule": "Varje rad och varje kolumn har exakt en cirkel, en kvadrat och en romb, och exakt en med minus, en med kryss och en med ring. Formen och symbolen följer var sin ordning. Fyllningen växlar mellan ofylld och grå som ett schackmönster, så att två rutor bredvid varandra aldrig har samma fyllning.",
+    "difficulty": 4,
+    "family": "latin-flera",
+    "grid": [
+      [
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "ring",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "cross",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "minus",
+          "baseFill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "cross",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "minus",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "ring",
+          "baseFill": "gray"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "minus",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "ring",
+          "baseFill": "gray"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "cross",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "cross",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "minus",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "minus",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "minus",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "cross",
+        "baseFill": "none"
+      }
+    ],
+    "correctAnswer": 5,
+    "band": "plus",
+    "mekanism": "P2",
+    "p_prior": 0.45,
+    "recept": "P2",
+    "fran_version": 3,
+    "misstag": [
+      "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en kvadrat.",
+      "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en romb.",
+      "Tredje raden och tredje kolumnen har redan ett minus. Fyllningen har inte växlat mellan ofylld och grå.",
+      "Tredje raden och tredje kolumnen har redan en kvadrat och ett minus. Fyllningen har inte växlat mellan ofylld och grå.",
+      "Tredje raden och tredje kolumnen har redan en romb och ett minus. Fyllningen har inte växlat mellan ofylld och grå.",
+      ""
+    ]
+  },
+  {
+    "id": "v7e-plus-p2-23",
+    "title": "Form, symbol och schackmönster",
+    "rule": "Varje rad och varje kolumn har exakt en cirkel, en triangel och en romb, och exakt en med plus, en med prick och en med ring. Formen och symbolen följer var sin ordning. Fyllningen växlar mellan ofylld och grå som ett schackmönster, så att två rutor bredvid varandra aldrig har samma fyllning.",
+    "difficulty": 4,
+    "family": "latin-flera",
+    "grid": [
+      [
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "ring",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "plus",
+          "baseFill": "gray"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "diamond",
+          "symbol": "plus",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "ring",
+          "baseFill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "plus",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "ring",
+          "baseFill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "dot",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "triangle",
+        "symbol": "dot",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "plus",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "plus",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "triangle",
+        "symbol": "plus",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "diamond",
+        "symbol": "dot",
+        "baseFill": "gray"
+      }
+    ],
+    "correctAnswer": 5,
+    "band": "plus",
+    "mekanism": "P2",
+    "p_prior": 0.45,
+    "recept": "P2",
+    "fran_version": 3,
+    "misstag": [
+      "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en cirkel.",
+      "Symbolen stämmer, men tredje raden och tredje kolumnen har redan en triangel.",
+      "Tredje raden och tredje kolumnen har redan ett plus. Fyllningen har inte växlat mellan ofylld och grå.",
+      "Tredje raden och tredje kolumnen har redan en cirkel och ett plus. Fyllningen har inte växlat mellan ofylld och grå.",
+      "Tredje raden och tredje kolumnen har redan en triangel och ett plus. Fyllningen har inte växlat mellan ofylld och grå.",
+      ""
+    ]
+  },
+  {
+    "id": "v7e-plus-p2-24",
+    "title": "Form, symbol och schackmönster",
+    "rule": "Varje rad och varje kolumn har exakt en cirkel, en kvadrat och en triangel, och exakt en med minus, en med prick och en med ring. Formen och symbolen följer var sin ordning. Fyllningen växlar mellan ofylld och grå som ett schackmönster, så att två rutor bredvid varandra aldrig har samma fyllning.",
+    "difficulty": 4,
+    "family": "latin-flera",
+    "grid": [
+      [
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "ring",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "dot",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "minus",
+          "baseFill": "gray"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "circle",
+          "symbol": "minus",
+          "baseFill": "none"
+        },
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "ring",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "dot",
+          "baseFill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "stack",
+          "base": "square",
+          "symbol": "dot",
+          "baseFill": "gray"
+        },
+        {
+          "kind": "stack",
+          "base": "triangle",
+          "symbol": "minus",
+          "baseFill": "none"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "minus",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "dot",
+        "baseFill": "gray"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "ring",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "minus",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "square",
+        "symbol": "dot",
+        "baseFill": "none"
+      },
+      {
+        "kind": "stack",
+        "base": "circle",
+        "symbol": "ring",
+        "baseFill": "gray"
+      }
+    ],
+    "correctAnswer": 5,
+    "band": "plus",
+    "mekanism": "P2",
+    "p_prior": 0.45,
+    "recept": "P2",
+    "fran_version": 3,
+    "misstag": [
+      "Grundformen stämmer, men tredje raden och tredje kolumnen har redan ett minus.",
+      "Grundformen stämmer, men tredje raden och tredje kolumnen har redan en prick.",
+      "Tredje raden och tredje kolumnen har redan en kvadrat. Fyllningen har inte växlat mellan ofylld och grå.",
+      "Tredje raden och tredje kolumnen har redan en kvadrat och ett minus. Fyllningen har inte växlat mellan ofylld och grå.",
+      "Tredje raden och tredje kolumnen har redan en kvadrat och en prick. Fyllningen har inte växlat mellan ofylld och grå.",
+      ""
+    ]
+  },
+  {
+    "id": "v7e-plus-p3-17",
+    "title": "Riktning, längd och spets",
+    "rule": "Varje rad och varje kolumn har pilen i var och en av de tre riktningarna exakt en gång. Längden växlar mellan lång och kort som ett schackmönster. Spetsen är öppen på diagonalen från övre vänstra hörnet till nedre högra, annars fylld.",
+    "difficulty": 4,
+    "family": "latin-flera",
+    "grid": [
+      [
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 90,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 225,
+          "length": "short",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 90,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 225,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "long",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 225,
+          "length": "short",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "long",
+          "head": "filled"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "vector",
+        "angle": 90,
+        "length": "short",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 90,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 225,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 225,
+        "length": "long",
+        "head": "filled"
+      }
+    ],
+    "correctAnswer": 0,
+    "band": "plus",
+    "mekanism": "P3",
+    "p_prior": 0.45,
+    "recept": "P3",
+    "fran_version": 3,
+    "misstag": [
+      "",
+      "Vridningen stämmer, men pilarna på diagonalen från övre vänstra hörnet till nedre högra har öppen spets.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar uppåt. Längden har inte växlat mellan lång och kort.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar snett nedåt vänster. Längden har inte växlat mellan lång och kort.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar uppåt. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har öppen spets.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar snett nedåt vänster. Längden har inte växlat mellan lång och kort. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har öppen spets."
+    ]
+  },
+  {
+    "id": "v7e-plus-p3-18",
+    "title": "Riktning, längd och spets",
+    "rule": "Varje rad och varje kolumn har pilen i var och en av de tre riktningarna exakt en gång. Längden växlar mellan lång och kort som ett schackmönster. Spetsen är fylld på diagonalen från övre vänstra hörnet till nedre högra, annars öppen.",
+    "difficulty": 4,
+    "family": "latin-flera",
+    "grid": [
+      [
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 45,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 135,
+          "length": "long",
+          "head": "open"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 45,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 135,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "short",
+          "head": "open"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 135,
+          "length": "long",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "short",
+          "head": "open"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "vector",
+        "angle": 45,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 135,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 45,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 135,
+        "length": "short",
+        "head": "open"
+      }
+    ],
+    "correctAnswer": 3,
+    "band": "plus",
+    "mekanism": "P3",
+    "p_prior": 0.45,
+    "recept": "P3",
+    "fran_version": 3,
+    "misstag": [
+      "Vridningen stämmer, men pilarna på diagonalen från övre vänstra hörnet till nedre högra har fylld spets.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar uppåt. Längden har inte växlat mellan lång och kort.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar snett nedåt höger. Längden har inte växlat mellan lång och kort.",
+      "",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar uppåt. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har fylld spets.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar snett nedåt höger. Längden har inte växlat mellan lång och kort. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har fylld spets."
+    ]
+  },
+  {
+    "id": "v7e-plus-p3-19",
+    "title": "Riktning, längd och spets",
+    "rule": "Varje rad och varje kolumn har pilen i var och en av de tre riktningarna exakt en gång. Längden växlar mellan lång och kort som ett schackmönster. Spetsen är öppen på diagonalen från övre vänstra hörnet till nedre högra, annars fylld.",
+    "difficulty": 4,
+    "family": "latin-flera",
+    "grid": [
+      [
+        {
+          "kind": "vector",
+          "angle": 90,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 315,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "short",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 315,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 90,
+          "length": "long",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "short",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 90,
+          "length": "long",
+          "head": "filled"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "vector",
+        "angle": 315,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 315,
+        "length": "short",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 90,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 90,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "long",
+        "head": "filled"
+      }
+    ],
+    "correctAnswer": 2,
+    "band": "plus",
+    "mekanism": "P3",
+    "p_prior": 0.45,
+    "recept": "P3",
+    "fran_version": 3,
+    "misstag": [
+      "Vridningen stämmer, men pilarna på diagonalen från övre vänstra hörnet till nedre högra har öppen spets.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar uppåt. Längden har inte växlat mellan lång och kort.",
+      "",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar åt höger. Längden har inte växlat mellan lång och kort.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar åt höger. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har öppen spets.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar uppåt. Längden har inte växlat mellan lång och kort. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har öppen spets."
+    ]
+  },
+  {
+    "id": "v7e-plus-p3-20",
+    "title": "Riktning, längd och spets",
+    "rule": "Varje rad och varje kolumn har pilen i var och en av de tre riktningarna exakt en gång. Längden växlar mellan lång och kort som ett schackmönster. Spetsen är fylld på diagonalen från övre vänstra hörnet till nedre högra, annars öppen.",
+    "difficulty": 4,
+    "family": "latin-flera",
+    "grid": [
+      [
+        {
+          "kind": "vector",
+          "angle": 315,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 90,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 45,
+          "length": "long",
+          "head": "open"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 90,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 45,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 315,
+          "length": "short",
+          "head": "open"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 45,
+          "length": "long",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 315,
+          "length": "short",
+          "head": "open"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "vector",
+        "angle": 90,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 90,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 45,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 315,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 315,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 45,
+        "length": "short",
+        "head": "open"
+      }
+    ],
+    "correctAnswer": 0,
+    "band": "plus",
+    "mekanism": "P3",
+    "p_prior": 0.45,
+    "recept": "P3",
+    "fran_version": 3,
+    "misstag": [
+      "",
+      "Vridningen stämmer, men pilarna på diagonalen från övre vänstra hörnet till nedre högra har fylld spets.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar snett uppåt höger. Längden har inte växlat mellan lång och kort.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar snett uppåt vänster. Längden har inte växlat mellan lång och kort.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar snett uppåt vänster. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har fylld spets.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar snett uppåt höger. Längden har inte växlat mellan lång och kort. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har fylld spets."
+    ]
+  },
+  {
+    "id": "v7e-plus-p3-21",
+    "title": "Riktning, längd och spets",
+    "rule": "Varje rad och varje kolumn har pilen i var och en av de tre riktningarna exakt en gång. Längden växlar mellan lång och kort som ett schackmönster. Spetsen är öppen på diagonalen från övre vänstra hörnet till nedre högra, annars fylld.",
+    "difficulty": 4,
+    "family": "latin-flera",
+    "grid": [
+      [
+        {
+          "kind": "vector",
+          "angle": 135,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 270,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "short",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 270,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 135,
+          "length": "long",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 0,
+          "length": "short",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 135,
+          "length": "long",
+          "head": "filled"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "vector",
+        "angle": 270,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 135,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 135,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 270,
+        "length": "short",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 0,
+        "length": "long",
+        "head": "filled"
+      }
+    ],
+    "correctAnswer": 4,
+    "band": "plus",
+    "mekanism": "P3",
+    "p_prior": 0.45,
+    "recept": "P3",
+    "fran_version": 3,
+    "misstag": [
+      "Vridningen stämmer, men pilarna på diagonalen från övre vänstra hörnet till nedre högra har öppen spets.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar uppåt. Längden har inte växlat mellan lång och kort.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar snett nedåt höger. Längden har inte växlat mellan lång och kort.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar snett nedåt höger. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har öppen spets.",
+      "",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar uppåt. Längden har inte växlat mellan lång och kort. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har öppen spets."
+    ]
+  },
+  {
+    "id": "v7e-plus-p3-22",
+    "title": "Riktning, längd och spets",
+    "rule": "Varje rad och varje kolumn har pilen i var och en av de tre riktningarna exakt en gång. Längden växlar mellan lång och kort som ett schackmönster. Spetsen är fylld på diagonalen från övre vänstra hörnet till nedre högra, annars öppen.",
+    "difficulty": 4,
+    "family": "latin-flera",
+    "grid": [
+      [
+        {
+          "kind": "vector",
+          "angle": 135,
+          "length": "short",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 90,
+          "length": "long",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 225,
+          "length": "short",
+          "head": "open"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 90,
+          "length": "long",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 225,
+          "length": "short",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 135,
+          "length": "long",
+          "head": "open"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 225,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 135,
+          "length": "long",
+          "head": "open"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "vector",
+        "angle": 90,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 90,
+        "length": "short",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 135,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 225,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 135,
+        "length": "short",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 225,
+        "length": "long",
+        "head": "open"
+      }
+    ],
+    "correctAnswer": 0,
+    "band": "plus",
+    "mekanism": "P3",
+    "p_prior": 0.45,
+    "recept": "P3",
+    "fran_version": 3,
+    "misstag": [
+      "",
+      "Vridningen stämmer, men pilarna på diagonalen från övre vänstra hörnet till nedre högra har fylld spets.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar snett nedåt höger. Längden har inte växlat mellan lång och kort.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar snett nedåt vänster. Längden har inte växlat mellan lång och kort.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar snett nedåt höger. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har fylld spets.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar snett nedåt vänster. Längden har inte växlat mellan lång och kort. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har fylld spets."
+    ]
+  },
+  {
+    "id": "v7e-plus-p3-23",
+    "title": "Riktning, längd och spets",
+    "rule": "Varje rad och varje kolumn har pilen i var och en av de tre riktningarna exakt en gång. Längden växlar mellan lång och kort som ett schackmönster. Spetsen är öppen på diagonalen från övre vänstra hörnet till nedre högra, annars fylld.",
+    "difficulty": 4,
+    "family": "latin-flera",
+    "grid": [
+      [
+        {
+          "kind": "vector",
+          "angle": 270,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 45,
+          "length": "short",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "long",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 45,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 270,
+          "length": "long",
+          "head": "filled"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 45,
+          "length": "short",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 270,
+          "length": "long",
+          "head": "filled"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "vector",
+        "angle": 180,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 45,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 270,
+        "length": "long",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 180,
+        "length": "short",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 270,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 45,
+        "length": "long",
+        "head": "filled"
+      }
+    ],
+    "correctAnswer": 3,
+    "band": "plus",
+    "mekanism": "P3",
+    "p_prior": 0.45,
+    "recept": "P3",
+    "fran_version": 3,
+    "misstag": [
+      "Vridningen stämmer, men pilarna på diagonalen från övre vänstra hörnet till nedre högra har öppen spets.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar snett uppåt höger. Längden har inte växlat mellan lång och kort.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar åt vänster. Längden har inte växlat mellan lång och kort.",
+      "",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar åt vänster. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har öppen spets.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar snett uppåt höger. Längden har inte växlat mellan lång och kort. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har öppen spets."
+    ]
+  },
+  {
+    "id": "v7e-plus-p3-24",
+    "title": "Riktning, längd och spets",
+    "rule": "Varje rad och varje kolumn har pilen i var och en av de tre riktningarna exakt en gång. Längden växlar mellan lång och kort som ett schackmönster. Spetsen är fylld på diagonalen från övre vänstra hörnet till nedre högra, annars öppen.",
+    "difficulty": 4,
+    "family": "latin-flera",
+    "grid": [
+      [
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "short",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 135,
+          "length": "long",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 270,
+          "length": "short",
+          "head": "open"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 135,
+          "length": "long",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 270,
+          "length": "short",
+          "head": "filled"
+        },
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "long",
+          "head": "open"
+        }
+      ],
+      [
+        {
+          "kind": "vector",
+          "angle": 270,
+          "length": "short",
+          "head": "open"
+        },
+        {
+          "kind": "vector",
+          "angle": 180,
+          "length": "long",
+          "head": "open"
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "vector",
+        "angle": 135,
+        "length": "short",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 180,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 270,
+        "length": "long",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 135,
+        "length": "short",
+        "head": "filled"
+      },
+      {
+        "kind": "vector",
+        "angle": 180,
+        "length": "short",
+        "head": "open"
+      },
+      {
+        "kind": "vector",
+        "angle": 270,
+        "length": "long",
+        "head": "open"
+      }
+    ],
+    "correctAnswer": 3,
+    "band": "plus",
+    "mekanism": "P3",
+    "p_prior": 0.45,
+    "recept": "P3",
+    "fran_version": 3,
+    "misstag": [
+      "Vridningen stämmer, men pilarna på diagonalen från övre vänstra hörnet till nedre högra har fylld spets.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar nedåt. Längden har inte växlat mellan lång och kort.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar åt vänster. Längden har inte växlat mellan lång och kort.",
+      "",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar nedåt. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har fylld spets.",
+      "Tredje raden och tredje kolumnen har redan en pil som pekar åt vänster. Längden har inte växlat mellan lång och kort. Pilarna på diagonalen från övre vänstra hörnet till nedre högra har fylld spets."
+    ]
+  }
+]

@@ -1,0 +1,701 @@
+{
+  "beskrivning": "Sammanslagna beslut för bank_version 3 (beslut-grund-avancerad, beslut-expert-verbal-numerisk, beslut-omgang2; senaste beslutet gäller per id).",
+  "kallor": [
+    "beslut-grund-avancerad.json",
+    "beslut-expert-verbal-numerisk.json",
+    "beslut-omgang2.json"
+  ],
+  "godkanda": [
+    "v7g-v3-vrid-01",
+    "v7g-v3-vrid-02",
+    "v7g-v3-vrid-03",
+    "v7g-v3-vrid-04",
+    "v7g-v3-vrid-05",
+    "v7g-v3-vrid-06",
+    "v7g-v3-vrid-07",
+    "v7g-v3-vrid-08",
+    "v7g-v3-vrid-09",
+    "v7g-v3-vrid-10",
+    "v7g-v3-vrid-11",
+    "v7g-v3-vrid-12",
+    "v7g-v3-vrid-13",
+    "v7g-v3-vrid-14",
+    "v7g-v3-vrid-15",
+    "v7g-v3-vrid-16",
+    "v7g-v3-vrid-17",
+    "v7g-v3-vrid-18",
+    "v7g-v3-vrid-19",
+    "v7g-v3-vrid-20",
+    "v7g-v3-vrid-22",
+    "v7g-v3-vand-01",
+    "v7g-v3-vand-02",
+    "v7g-v3-vand-04",
+    "v7g-v3-vand-05",
+    "v7g-v3-vand-06",
+    "v7g-v3-vand-07",
+    "v7g-v3-vand-08",
+    "v7g-v3-vand-09",
+    "v7g-v3-vand-10",
+    "v7g-v3-vand-11",
+    "v7g-v3-rot-01",
+    "v7g-v3-rot-02",
+    "v7g-v3-rot-03",
+    "v7g-v3-rot-04",
+    "v7g-v3-rot-05",
+    "v7g-v3-rot-06",
+    "v7g-v3-rot-07",
+    "v7g-v3-rot-08",
+    "v7g-v3-rot-09",
+    "v7g-v3-rot-10",
+    "v7g-v3-rot-11",
+    "v7g-v3-rot-12",
+    "v7g-v3-rot-13",
+    "v7g-v3-tva-01",
+    "v7g-v3-tva-02",
+    "v7g-v3-tva-03",
+    "v7g-v3-tva-04",
+    "v7g-v3-antal-01",
+    "v7g-v3-antal-02",
+    "v7g-v3-antal-03",
+    "v7g-v3-antal-04",
+    "v7g-v3-lform-01",
+    "v7g-v3-lform-02",
+    "v7g-v3-lform-03",
+    "v7g-v3-lform-04",
+    "v7g-v3-lform-05",
+    "v7g-v3-lform-06",
+    "v7g-v3-lform-07",
+    "v7g-v3-lform-08",
+    "v7g-v3-lform-09",
+    "v7g-v3-lant-01",
+    "v7g-v3-lant-02",
+    "v7g-v3-lant-03",
+    "v7g-v3-lant-04",
+    "v7g-v3-lant-05",
+    "v7g-v3-lant-06",
+    "v7g-v3-lant-07",
+    "v7g-v3-lant-08",
+    "v7g-v3-speg-01",
+    "v7g-v3-speg-02",
+    "v7g-v3-speg-03",
+    "v7g-v3-over-01",
+    "v7g-v3-over-02",
+    "v7g-v3-over-03",
+    "v7g-v3-over-04",
+    "v7g-v3-lfler-01",
+    "v7a-v3-vand-11",
+    "v7a-v3-rot-01",
+    "v7a-v3-rot-02",
+    "v7a-v3-rot-03",
+    "v7a-v3-rot-04",
+    "v7a-v3-rot-05",
+    "v7a-v3-rot-06",
+    "v7a-v3-rot-07",
+    "v7a-v3-rot-08",
+    "v7a-v3-rot-09",
+    "v7a-v3-rot-10",
+    "v7a-v3-antal-02",
+    "v7a-v3-antal-03",
+    "v7a-v3-lform-01",
+    "v7a-v3-lform-02",
+    "v7a-v3-lform-03",
+    "v7a-v3-lform-04",
+    "v7a-v3-lant-01",
+    "v7a-v3-speg-01",
+    "v7a-v3-over-01",
+    "v7a-v3-over-02",
+    "v7a-v3-over-03",
+    "v7a-v3-lfler-01",
+    "v7e-plus-over-03",
+    "v7e-plus-over-04",
+    "v7e-plus-over-05",
+    "v7e-plus-over-07",
+    "v7e-plus-over-17",
+    "v7e-plus-over-19",
+    "v7e-plus-over-09",
+    "v7e-plus-over-10",
+    "v7e-plus-over-11",
+    "v7e-plus-over-12",
+    "v7e-plus-over-13",
+    "v7e-plus-over-14",
+    "v7e-plus-over-15",
+    "v7e-plus-over-16",
+    "v7e-v3-over-01",
+    "v7e-v3-over-03",
+    "v7e-v3-speg-01",
+    "va-09-bemanningsforetag",
+    "va-10-provanstallning",
+    "va-11-arbetsmiljoverkets-inspektioner",
+    "va-12-regional-kompetensforsorjning",
+    "va-13-kommunal-matlagning",
+    "va-14-larlingsutbildning",
+    "va-15-cykelinfrastruktur",
+    "va-16-digital-journalforing",
+    "vg-01-friskvardsbidrag",
+    "vg-02-arbetsplatstraffar",
+    "vg-03-meroppna-bibliotek",
+    "vg-04-skolskjuts",
+    "vg-05-matavfall",
+    "vg-06-folkhogskola",
+    "vg-07-elsparkcyklar",
+    "vg-08-sjukanmalan",
+    "vg-09-hushallsbudget",
+    "vg-10-e-legitimation",
+    "vg-11-allemansratten",
+    "vg-12-ideellt-arbete",
+    "na-09-bemanning-skift",
+    "na-10-rekryteringskostnad",
+    "na-11-fakturering-kvartal",
+    "na-12-fordonsbransle",
+    "na-13-vardplatser",
+    "na-14-skolskjuts",
+    "na-15-kundtjanst-arenden",
+    "na-16-energieffektivisering",
+    "ng-01-kafeets-forsaljning",
+    "ng-02-bibliotekets-utlan",
+    "ng-03-gymmets-medlemmar",
+    "ng-04-lunchportioner",
+    "ng-05-hyrcyklar",
+    "ng-06-kontorsmaterial",
+    "ng-07-parkeringshuset",
+    "ng-08-overtid",
+    "v7g-v3-byte-07",
+    "v7g-v3-byte-08",
+    "v7g-v3-byte-09",
+    "v7g-v3-byte-10",
+    "v7g-v3-byte-11",
+    "v7g-v3-byte-12",
+    "v7g-v3-vrid-23",
+    "v7g-v3-vand-14",
+    "v7a-v3-vrid-20",
+    "v7a-v3-vrid-21",
+    "v7a-v3-vrid-22",
+    "v7a-v3-vrid-23",
+    "v7a-v3-vrid-24",
+    "v7a-v3-vrid-25",
+    "v7a-v3-vrid-26",
+    "v7a-v3-vrid-27",
+    "v7a-v3-vrid-28",
+    "v7a-v3-vrid-29",
+    "v7a-v3-vrid-30",
+    "v7a-v3-vrid-31",
+    "v7a-v3-vrid-32",
+    "v7a-v3-vrid-33",
+    "v7a-v3-vrid-34",
+    "v7a-v3-vrid-35",
+    "v7a-v3-vrid-36",
+    "v7a-v3-vrid-37",
+    "v7a-v3-vrid-38",
+    "v7a-v3-vand-12",
+    "v7a-v3-vand-13",
+    "v7a-v3-vand-14",
+    "v7a-v3-vand-15",
+    "v7a-v3-vand-16",
+    "v7a-v3-vand-17",
+    "v7a-v3-vand-18",
+    "v7a-v3-vand-19",
+    "v7a-v3-vand-20",
+    "v7a-v3-vand-21",
+    "v7a-v3-vand-22",
+    "v7a-v3-vand-23",
+    "v7a-v3-vand-24",
+    "v7a-v3-vand-25",
+    "v7a-v3-vand-26",
+    "v7a-v3-vrid-39",
+    "v7a-v3-vrid-40",
+    "v7a-v3-antal-04",
+    "v7e-v3-tva-01",
+    "v7e-v3-tva-02",
+    "v7e-v3-tva-03",
+    "v7e-v3-tva-04",
+    "v7e-v3-over-04",
+    "v7e-v3-over-05",
+    "v7e-v3-over-06",
+    "v7e-v3-over-07",
+    "v7e-v3-over-08",
+    "v7e-v3-over-09",
+    "v7e-v3-over-10",
+    "v7e-v3-over-11",
+    "v7e-v3-over-12",
+    "v7e-v3-over-13",
+    "v7e-v3-over-14",
+    "v7e-v3-speg-02",
+    "v7e-v3-speg-03",
+    "v7e-v3-speg-04",
+    "v7e-v3-speg-05",
+    "v7e-plus-p1-25",
+    "v7e-plus-p1-26",
+    "v7e-plus-p1-27",
+    "v7e-plus-p1-28",
+    "v7e-plus-p1-29",
+    "v7e-plus-p1-30",
+    "v7e-plus-p1-31",
+    "v7e-plus-p1-32",
+    "v7e-plus-p2-17",
+    "v7e-plus-p2-18",
+    "v7e-plus-p2-19",
+    "v7e-plus-p2-20",
+    "v7e-plus-p2-21",
+    "v7e-plus-p2-22",
+    "v7e-plus-p2-23",
+    "v7e-plus-p2-24",
+    "v7e-plus-p3-17",
+    "v7e-plus-p3-18",
+    "v7e-plus-p3-19",
+    "v7e-plus-p3-20",
+    "v7e-plus-p3-21",
+    "v7e-plus-p3-22",
+    "v7e-plus-p3-23",
+    "v7e-plus-p3-24"
+  ],
+  "strukna": [
+    {
+      "id": "v7g-v3-vand-03",
+      "skal": "Delar två rader och facit med v7g-v3-vand-01 (rad 2 är vand-01:s rad 1, rad 3 identisk inklusive facit). Den med högst löpnummer stryks."
+    },
+    {
+      "id": "v7g-v3-vand-13",
+      "skal": "Delar två rader och facit med v7g-v3-vand-07 (rad 2 är vand-07:s rad 1, rad 3 identisk inklusive facit). Den med högst löpnummer stryks."
+    },
+    {
+      "id": "v7g-v3-antal-05",
+      "skal": "Delar två rader med v7g-v3-antal-04 (antal-05:s rad 2 är antal-04:s rad 3 med facit, rad 3 är antal-04:s rad 2). Olika facit, men två delade rader räcker. Den med högst löpnummer stryks."
+    },
+    {
+      "id": "v7g-v3-byte-01",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7g-v3-byte-02",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7g-v3-byte-03",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7g-v3-byte-04",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7g-v3-byte-05",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7g-v3-byte-06",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7g-v3-vrid-21",
+      "skal": "nära dubblett av v7g-v3-vrid-15: rad 1 och rad 3 identiska, samma facit (S10 missar fallet)"
+    },
+    {
+      "id": "v7g-v3-vand-12",
+      "skal": "nära dubblett av v7g-v3-vand-06: rad 1 och rad 3 identiska, samma facit"
+    },
+    {
+      "id": "v7a-v3-vrid-01",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-02",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-03",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-04",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-05",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-06",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-07",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-08",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-09",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-10",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-11",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-12",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-13",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-14",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-15",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-16",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-17",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-18",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-19",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-byte-01",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-byte-02",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-byte-03",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-byte-04",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-byte-05",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-byte-06",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-byte-07",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg; schack längs raden är dessutom en vanlig växling, så frågan är enrad även med rättade distraktorer. Byggs om som M2-orbital-diagonal eller latin"
+    },
+    {
+      "id": "v7a-v3-byte-08",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg; schack längs raden är dessutom en vanlig växling, så frågan är enrad även med rättade distraktorer. Byggs om som M2-orbital-diagonal eller latin"
+    },
+    {
+      "id": "v7a-v3-byte-09",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg; schack längs raden är dessutom en vanlig växling, så frågan är enrad även med rättade distraktorer. Byggs om som M2-orbital-diagonal eller latin"
+    },
+    {
+      "id": "v7a-v3-byte-10",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg; schack längs raden är dessutom en vanlig växling, så frågan är enrad även med rättade distraktorer. Byggs om som M2-orbital-diagonal eller latin"
+    },
+    {
+      "id": "v7a-v3-byte-11",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg; schack längs raden är dessutom en vanlig växling, så frågan är enrad även med rättade distraktorer. Byggs om som M2-orbital-diagonal eller latin"
+    },
+    {
+      "id": "v7a-v3-vand-01",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vand-02",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vand-03",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vand-04",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vand-05",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vand-06",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vand-07",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vand-08",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vand-09",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vand-10",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-tva-01",
+      "skal": "identiskt recept som grund (samma (d,k)-par, samma sidor, ordagrant samma regeltext); planens tredje regel på avancerad (sida i schack) saknas, p_prior 0,5 mot grunds 0,62 för samma konstruktion"
+    },
+    {
+      "id": "v7a-v3-tva-02",
+      "skal": "identiskt recept som grund (samma (d,k)-par, samma sidor, ordagrant samma regeltext); planens tredje regel på avancerad (sida i schack) saknas, p_prior 0,5 mot grunds 0,62 för samma konstruktion"
+    },
+    {
+      "id": "v7a-v3-tva-03",
+      "skal": "identiskt recept som grund (samma (d,k)-par, samma sidor, ordagrant samma regeltext); planens tredje regel på avancerad (sida i schack) saknas, p_prior 0,5 mot grunds 0,62 för samma konstruktion"
+    },
+    {
+      "id": "v7a-v3-tva-04",
+      "skal": "identiskt recept som grund (samma (d,k)-par, samma sidor, ordagrant samma regeltext); planens tredje regel på avancerad (sida i schack) saknas, p_prior 0,5 mot grunds 0,62 för samma konstruktion"
+    },
+    {
+      "id": "v7a-v3-antal-01",
+      "skal": "planen 2.5 säger antalSumma med riktning som växlar per rad; byggd utan växling, tre av fem distraktorer har en riktning som aldrig förekommer i rutnätet och stryks utan att regeln lästs; p_prior 0,6 ohållbar"
+    },
+    {
+      "id": "v7e-plus-over-18",
+      "skal": "S11, facit som ensamt centrum bland mängderna. Godkändes innan spärren fanns; stryks för konsekvens. Samma rutnät, nya distraktorer, nytt löpnummer."
+    },
+    {
+      "id": "v7e-plus-over-20",
+      "skal": "S11, facit som ensamt centrum bland mängderna. Godkändes innan spärren fanns; stryks för konsekvens. Samma rutnät, nya distraktorer, nytt löpnummer."
+    },
+    {
+      "id": "v7e-v3-over-02",
+      "skal": "S11, facit som ensamt centrum bland mängderna (samma fel som fällde P8 i omgång 1). Godkändes innan spärren fanns; stryks för konsekvens. Ny seed."
+    },
+    {
+      "id": "v7e-plus-p1-17",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer."
+    },
+    {
+      "id": "v7e-plus-p1-18",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer."
+    },
+    {
+      "id": "v7e-plus-p1-19",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer."
+    },
+    {
+      "id": "v7e-plus-p1-20",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer."
+    },
+    {
+      "id": "v7e-plus-p1-21",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer."
+    },
+    {
+      "id": "v7e-plus-p1-22",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer."
+    },
+    {
+      "id": "v7e-plus-p1-23",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer."
+    },
+    {
+      "id": "v7e-plus-p1-24",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer."
+    },
+    {
+      "id": "v7e-plus-p2-10",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (triangel), så en regel av tre behöver aldrig läsas."
+    },
+    {
+      "id": "v7e-plus-p2-11",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (kvadrat), så en regel av tre behöver aldrig läsas."
+    },
+    {
+      "id": "v7e-plus-p2-12",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (minus), så en regel av tre behöver aldrig läsas."
+    },
+    {
+      "id": "v7e-plus-p2-13",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (prick), så en regel av tre behöver aldrig läsas."
+    },
+    {
+      "id": "v7e-plus-p2-14",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (plus), så en regel av tre behöver aldrig läsas."
+    },
+    {
+      "id": "v7e-plus-p2-15",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (minus), så en regel av tre behöver aldrig läsas."
+    },
+    {
+      "id": "v7e-plus-p2-16",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (romb), så en regel av tre behöver aldrig läsas."
+    },
+    {
+      "id": "v7e-plus-p2-09",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (romb), så en regel av tre behöver aldrig läsas."
+    },
+    {
+      "id": "v7e-plus-p3-10",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (pil åt höger), så latinregeln behöver aldrig läsas. Vänsterförskjutningen och S8-undantaget godkänns."
+    },
+    {
+      "id": "v7e-plus-p3-11",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (pil snett uppåt höger), så latinregeln behöver aldrig läsas. Vänsterförskjutningen och S8-undantaget godkänns."
+    },
+    {
+      "id": "v7e-plus-p3-12",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (pil uppåt), så latinregeln behöver aldrig läsas. Vänsterförskjutningen och S8-undantaget godkänns."
+    },
+    {
+      "id": "v7e-plus-p3-13",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (pil snett uppåt höger), så latinregeln behöver aldrig läsas. Vänsterförskjutningen och S8-undantaget godkänns."
+    },
+    {
+      "id": "v7e-plus-p3-14",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (pil uppåt), så latinregeln behöver aldrig läsas. Vänsterförskjutningen och S8-undantaget godkänns."
+    },
+    {
+      "id": "v7e-plus-p3-15",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (pil uppåt), så latinregeln behöver aldrig läsas. Vänsterförskjutningen och S8-undantaget godkänns."
+    },
+    {
+      "id": "v7e-plus-p3-16",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (pil uppåt), så latinregeln behöver aldrig läsas. Vänsterförskjutningen och S8-undantaget godkänns."
+    },
+    {
+      "id": "v7e-plus-p3-09",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (pil snett uppåt höger), så latinregeln behöver aldrig läsas. Vänsterförskjutningen och S8-undantaget godkänns."
+    },
+    {
+      "id": "v7e-plus-p6-01",
+      "skal": "S11 majoritetsgenväg: fyra av fem distraktorer faller på majoritet i fyllning och cirkelns läge, kvar två varav den ena är kopia av ruta 0. Mekanismen är två latinska kvadrater plus schack (samma styrka som P2, inte tre läsningar): behåll rutnätet, bygg om distraktorerna, band expert, p_prior 0,45."
+    },
+    {
+      "id": "v7e-plus-p6-02",
+      "skal": "S11 majoritetsgenväg: fyra av fem distraktorer faller på majoritet i fyllning och cirkelns läge, kvar två varav den ena är kopia av ruta 0. Mekanismen är två latinska kvadrater plus schack (samma styrka som P2, inte tre läsningar): behåll rutnätet, bygg om distraktorerna, band expert, p_prior 0,45."
+    },
+    {
+      "id": "v7e-plus-p6-03",
+      "skal": "S11 majoritetsgenväg: fyra av fem distraktorer faller på majoritet i fyllning och cirkelns läge, kvar två varav den ena är kopia av ruta 0. Mekanismen är två latinska kvadrater plus schack (samma styrka som P2, inte tre läsningar): behåll rutnätet, bygg om distraktorerna, band expert, p_prior 0,45."
+    },
+    {
+      "id": "v7e-plus-p6-04",
+      "skal": "S11 majoritetsgenväg: fyra av fem distraktorer faller på majoritet i fyllning och cirkelns läge, kvar två varav den ena är kopia av ruta 0. Mekanismen är två latinska kvadrater plus schack (samma styrka som P2, inte tre läsningar): behåll rutnätet, bygg om distraktorerna, band expert, p_prior 0,45."
+    },
+    {
+      "id": "v7e-plus-p8-01",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-02",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-03",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-04",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-05",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-06",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-07",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-08",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-09",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-10",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-11",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-12",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-13",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-14",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-15",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-16",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7a-v3-byte-12",
+      "skal": "S11 majoritetsgenväg i alla tre regelstyrda egenskaper: facits vinkel, längd och spets är var för sig vanligast bland de sex alternativen (3, 4 och 4 av 6), så majoritetsröstning per egenskap ger facit utan att någon regel lästs. Rutnätet håller; bygg om distraktorerna som på plus: vinkel ensam, längd ensam, spets ensam och två som bryter alla tre (olika vinkelfel), så att varje egenskap landar på 3 mot 3. Nytt löpnummer."
+    },
+    {
+      "id": "v7a-v3-byte-13",
+      "skal": "S11 majoritetsgenväg i alla tre regelstyrda egenskaper: facits vinkel, längd och spets är var för sig vanligast bland de sex alternativen (3, 4 och 4 av 6), så majoritetsröstning per egenskap ger facit utan att någon regel lästs. Rutnätet håller; bygg om distraktorerna som på plus: vinkel ensam, längd ensam, spets ensam och två som bryter alla tre (olika vinkelfel), så att varje egenskap landar på 3 mot 3. Nytt löpnummer."
+    },
+    {
+      "id": "v7a-v3-byte-14",
+      "skal": "S11 majoritetsgenväg i alla tre regelstyrda egenskaper: facits vinkel, längd och spets är var för sig vanligast bland de sex alternativen (3, 4 och 4 av 6), så majoritetsröstning per egenskap ger facit utan att någon regel lästs. Rutnätet håller; bygg om distraktorerna som på plus: vinkel ensam, längd ensam, spets ensam och två som bryter alla tre (olika vinkelfel), så att varje egenskap landar på 3 mot 3. Nytt löpnummer."
+    },
+    {
+      "id": "v7a-v3-byte-15",
+      "skal": "S11 majoritetsgenväg i alla tre regelstyrda egenskaper: facits vinkel, längd och spets är var för sig vanligast bland de sex alternativen (3, 4 och 4 av 6), så majoritetsröstning per egenskap ger facit utan att någon regel lästs. Rutnätet håller; bygg om distraktorerna som på plus: vinkel ensam, längd ensam, spets ensam och två som bryter alla tre (olika vinkelfel), så att varje egenskap landar på 3 mot 3. Nytt löpnummer."
+    },
+    {
+      "id": "v7a-v3-byte-16",
+      "skal": "S11 majoritetsgenväg i alla tre regelstyrda egenskaper: facits vinkel, längd och spets är var för sig vanligast bland de sex alternativen (3, 4 och 4 av 6), så majoritetsröstning per egenskap ger facit utan att någon regel lästs. Rutnätet håller; bygg om distraktorerna som på plus: vinkel ensam, längd ensam, spets ensam och två som bryter alla tre (olika vinkelfel), så att varje egenskap landar på 3 mot 3. Nytt löpnummer."
+    },
+    {
+      "id": "v7a-v3-byte-17",
+      "skal": "S11 majoritetsgenväg i alla tre regelstyrda egenskaper: facits vinkel, längd och spets är var för sig vanligast bland de sex alternativen (3, 4 och 4 av 6), så majoritetsröstning per egenskap ger facit utan att någon regel lästs. Rutnätet håller; bygg om distraktorerna som på plus: vinkel ensam, längd ensam, spets ensam och två som bryter alla tre (olika vinkelfel), så att varje egenskap landar på 3 mot 3. Nytt löpnummer."
+    },
+    {
+      "id": "v7a-v3-tva-05",
+      "skal": "S11 majoritetsgenväg: facits värde är vanligast (4 av 6) i kvadratens läge, cirkelns läge och sidan, så majoritetsröstning ger facit utan regel. Mekanismen med sidan i schack godtas som tredje regel. Bygg om distraktorerna: kvadratläge ensamt, cirkelläge ensamt, sidan ensam (båda formerna byter) och två som bryter alla tre. Nytt löpnummer, samma rutnät."
+    },
+    {
+      "id": "v7a-v3-tva-06",
+      "skal": "S11 majoritetsgenväg: facits värde är vanligast (4 av 6) i kvadratens läge, cirkelns läge och sidan, så majoritetsröstning ger facit utan regel. Mekanismen med sidan i schack godtas som tredje regel. Bygg om distraktorerna: kvadratläge ensamt, cirkelläge ensamt, sidan ensam (båda formerna byter) och två som bryter alla tre. Nytt löpnummer, samma rutnät."
+    },
+    {
+      "id": "v7e-v3-over-15",
+      "skal": "Unik egenskap: facit är det enda alternativet med en enda fylld ruta (alternativen har 5/4/3/3/1/2), så den som vet att snittet blir litet pekar på det minsta utan att räkna. Samma rutnät, byt distraktorn F (facit plus en ruta) mot en annan enskild ruta med texten att fel ruta valts. Nytt löpnummer."
+    }
+  ]
+}

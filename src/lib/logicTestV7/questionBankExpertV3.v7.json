@@ -1,1 +1,3330 @@
-[]
+[
+  {
+    "id": "v7e-v3-over-01",
+    "title": "Bara det som skiljer",
+    "rule": "Den tredje rutan i varje rad visar det som finns i bara en av den första och den andra. Det som finns i båda försvinner.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "tile",
+          "pattern": 12
+        },
+        {
+          "kind": "tile",
+          "pattern": 83
+        },
+        {
+          "kind": "tile",
+          "pattern": 95
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 114
+        },
+        {
+          "kind": "tile",
+          "pattern": 338
+        },
+        {
+          "kind": "tile",
+          "pattern": 288
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 44
+        },
+        {
+          "kind": "tile",
+          "pattern": 113
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "tile",
+        "pattern": 93
+      },
+      {
+        "kind": "tile",
+        "pattern": 125
+      },
+      {
+        "kind": "tile",
+        "pattern": 32
+      },
+      {
+        "kind": "tile",
+        "pattern": 44
+      },
+      {
+        "kind": "tile",
+        "pattern": 113
+      },
+      {
+        "kind": "tile",
+        "pattern": 92
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.45,
+    "recept": "overlagring",
+    "fran_version": 3,
+    "misstag": [
+      "",
+      "Tar med det som finns i båda. Det gemensamma ska bort.",
+      "Visar bara det gemensamma. Det ska bort, resten ska med.",
+      "Kopierar den första rutan i raden.",
+      "Kopierar den andra rutan i raden.",
+      "Rutan uppe till vänster saknas."
+    ]
+  },
+  {
+    "id": "v7e-v3-speg-01",
+    "title": "Två speglingar i rad",
+    "rule": "Den mittersta rutan i varje kolumn är den översta speglad i diagonalen från övre högra hörnet. Den nedersta är den mittersta speglad i diagonalen från övre vänstra hörnet.",
+    "difficulty": 4,
+    "family": "spegling",
+    "grid": [
+      [
+        {
+          "kind": "tile",
+          "pattern": 43
+        },
+        {
+          "kind": "tile",
+          "pattern": 275
+        },
+        {
+          "kind": "tile",
+          "pattern": 408
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 418
+        },
+        {
+          "kind": "tile",
+          "pattern": 305
+        },
+        {
+          "kind": "tile",
+          "pattern": 153
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 424
+        },
+        {
+          "kind": "tile",
+          "pattern": 401
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "tile",
+        "pattern": 153
+      },
+      {
+        "kind": "tile",
+        "pattern": 408
+      },
+      {
+        "kind": "tile",
+        "pattern": 180
+      },
+      {
+        "kind": "tile",
+        "pattern": 51
+      },
+      {
+        "kind": "tile",
+        "pattern": 30
+      },
+      {
+        "kind": "tile",
+        "pattern": 50
+      }
+    ],
+    "correctAnswer": 3,
+    "p_prior": 0.45,
+    "recept": "spegling",
+    "fran_version": 3,
+    "misstag": [
+      "Samma som rutan ovanför. Den andra speglingen saknas.",
+      "Kopierar den översta rutan i kolumnen.",
+      "Speglar i fel linje.",
+      "",
+      "Vrider i stället för att spegla.",
+      "Rutan uppe till vänster saknas."
+    ]
+  },
+  {
+    "id": "v7e-v3-over-03",
+    "title": "Bara det som skiljer",
+    "rule": "Den tredje rutan i varje rad visar det som finns i bara en av den första och den andra. Det som finns i båda försvinner.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            5
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            4
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            2,
+            4,
+            5
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            2
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            3
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            3
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            3
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            3,
+            5
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          3,
+          5
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          5
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          3
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          3
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          3,
+          5
+        ]
+      }
+    ],
+    "correctAnswer": 1,
+    "p_prior": 0.45,
+    "recept": "overlagring",
+    "fran_version": 3,
+    "misstag": [
+      "Tar med det som finns i båda. Det gemensamma ska bort.",
+      "",
+      "Visar bara det gemensamma. Det ska bort, resten ska med.",
+      "En svart sektor saknas.",
+      "Kopierar den första rutan i raden.",
+      "Kopierar den andra rutan i raden."
+    ]
+  },
+  {
+    "id": "v7e-v3-tva-01",
+    "title": "Två former och en fyllning",
+    "rule": "Kvadraten står ovanför linjen och flyttar ett steg åt höger för varje steg åt höger i raden. Varje rad börjar ett steg åt höger från raden ovanför. Cirkeln står under linjen och flyttar ett steg åt vänster för varje steg åt höger i raden. Varje rad börjar ett steg åt höger från raden ovanför. Kommer en form till kanten fortsätter den från andra sidan. Kvadraten växlar mellan grå och ofylld som ett schackmönster.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "square",
+              "fill": "gray"
+            },
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        },
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "square",
+              "fill": "none"
+            },
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        },
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "square",
+              "fill": "gray"
+            },
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "square",
+              "fill": "none"
+            },
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        },
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "square",
+              "fill": "gray"
+            },
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        },
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "square",
+              "fill": "none"
+            },
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "square",
+              "fill": "gray"
+            },
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        },
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "square",
+              "fill": "none"
+            },
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "square",
+            "fill": "gray"
+          },
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
+        ]
+      },
+      {
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "square",
+            "fill": "gray"
+          },
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
+        ]
+      },
+      {
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "square",
+            "fill": "gray"
+          },
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
+        ]
+      },
+      {
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "square",
+            "fill": "none"
+          },
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
+        ]
+      },
+      {
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "square",
+            "fill": "none"
+          },
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
+        ]
+      },
+      {
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "square",
+            "fill": "none"
+          },
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
+        ]
+      }
+    ],
+    "correctAnswer": 1,
+    "p_prior": 0.45,
+    "recept": "P6-balans",
+    "fran_version": 3,
+    "misstag": [
+      "Cirkeln står rätt, men kvadraten har flyttat åt fel håll.",
+      "",
+      "Kvadraten står rätt, men cirkeln har inte flyttat.",
+      "Cirkeln har inte flyttat. Kvadratens fyllning har inte bytt.",
+      "Kvadraten har flyttat åt fel håll. Kvadratens fyllning har inte bytt.",
+      "Kvadraten har flyttat åt fel håll. Cirkeln har inte flyttat. Kvadratens fyllning har inte bytt."
+    ]
+  },
+  {
+    "id": "v7e-v3-tva-02",
+    "title": "Två former och en fyllning",
+    "rule": "Kvadraten står ovanför linjen och flyttar ett steg åt vänster för varje steg åt höger i raden. Varje rad börjar ett steg åt höger från raden ovanför. Cirkeln står under linjen och flyttar ett steg åt vänster för varje steg åt höger i raden. Varje rad börjar ett steg åt vänster från raden ovanför. Kommer en form till kanten fortsätter den från andra sidan. Kvadraten växlar mellan ofylld och grå som ett schackmönster.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "square",
+              "fill": "none"
+            },
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        },
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "square",
+              "fill": "gray"
+            },
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        },
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "square",
+              "fill": "none"
+            },
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "square",
+              "fill": "gray"
+            },
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        },
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "square",
+              "fill": "none"
+            },
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        },
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "square",
+              "fill": "gray"
+            },
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "square",
+              "fill": "none"
+            },
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        },
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "square",
+              "fill": "gray"
+            },
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "square",
+            "fill": "none"
+          },
+          {
+            "posX": 0,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
+        ]
+      },
+      {
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "square",
+            "fill": "none"
+          },
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
+        ]
+      },
+      {
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "square",
+            "fill": "gray"
+          },
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
+        ]
+      },
+      {
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "square",
+            "fill": "none"
+          },
+          {
+            "posX": 0,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
+        ]
+      },
+      {
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "square",
+            "fill": "gray"
+          },
+          {
+            "posX": 0,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
+        ]
+      },
+      {
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "square",
+            "fill": "gray"
+          },
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "circle",
+            "fill": "gray"
+          }
+        ]
+      }
+    ],
+    "correctAnswer": 3,
+    "p_prior": 0.45,
+    "recept": "P6-balans",
+    "fran_version": 3,
+    "misstag": [
+      "Cirkeln står rätt, men kvadraten har inte flyttat.",
+      "Kvadraten står rätt, men cirkeln har inte flyttat.",
+      "Cirkeln har inte flyttat. Kvadratens fyllning har inte bytt.",
+      "",
+      "Kvadraten har inte flyttat. Kvadratens fyllning har inte bytt.",
+      "Kvadraten och cirkeln har inte flyttat. Kvadratens fyllning har inte bytt."
+    ]
+  },
+  {
+    "id": "v7e-v3-tva-03",
+    "title": "Två former och en fyllning",
+    "rule": "Kvadraten står under linjen och flyttar ett steg åt höger för varje steg åt höger i raden. Varje rad börjar ett steg åt vänster från raden ovanför. Cirkeln står ovanför linjen och flyttar ett steg åt höger för varje steg åt höger i raden. Varje rad börjar ett steg åt höger från raden ovanför. Kommer en form till kanten fortsätter den från andra sidan. Kvadraten växlar mellan grå och ofylld som ett schackmönster.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "square",
+              "fill": "gray"
+            },
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        },
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "square",
+              "fill": "none"
+            },
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        },
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "square",
+              "fill": "gray"
+            },
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "square",
+              "fill": "none"
+            },
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        },
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "square",
+              "fill": "gray"
+            },
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        },
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "square",
+              "fill": "none"
+            },
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "square",
+              "fill": "gray"
+            },
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        },
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "square",
+              "fill": "none"
+            },
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "square",
+            "fill": "gray"
+          },
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
+        ]
+      },
+      {
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "square",
+            "fill": "gray"
+          },
+          {
+            "posX": 1,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
+        ]
+      },
+      {
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "square",
+            "fill": "none"
+          },
+          {
+            "posX": 1,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
+        ]
+      },
+      {
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "square",
+            "fill": "gray"
+          },
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
+        ]
+      },
+      {
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "square",
+            "fill": "none"
+          },
+          {
+            "posX": 0,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
+        ]
+      },
+      {
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "square",
+            "fill": "none"
+          },
+          {
+            "posX": 1,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
+        ]
+      }
+    ],
+    "correctAnswer": 3,
+    "p_prior": 0.45,
+    "recept": "P6-balans",
+    "fran_version": 3,
+    "misstag": [
+      "Cirkeln står rätt, men kvadraten har flyttat åt fel håll.",
+      "Kvadraten står rätt, men cirkeln har flyttat åt fel håll.",
+      "Cirkeln har flyttat åt fel håll. Kvadratens fyllning har inte bytt.",
+      "",
+      "Kvadraten har flyttat åt fel håll. Kvadratens fyllning har inte bytt.",
+      "Kvadraten och cirkeln har flyttat åt fel håll. Kvadratens fyllning har inte bytt."
+    ]
+  },
+  {
+    "id": "v7e-v3-tva-04",
+    "title": "Två former och en fyllning",
+    "rule": "Kvadraten står under linjen och flyttar ett steg åt vänster för varje steg åt höger i raden. Varje rad börjar ett steg åt vänster från raden ovanför. Cirkeln står ovanför linjen och flyttar ett steg åt höger för varje steg åt höger i raden. Varje rad börjar ett steg åt vänster från raden ovanför. Kommer en form till kanten fortsätter den från andra sidan. Kvadraten växlar mellan ofylld och grå som ett schackmönster.",
+    "difficulty": 4,
+    "family": "tva-rorelser",
+    "grid": [
+      [
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "square",
+              "fill": "none"
+            },
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        },
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "square",
+              "fill": "gray"
+            },
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        },
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "square",
+              "fill": "none"
+            },
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 1,
+              "side": "below",
+              "shape": "square",
+              "fill": "gray"
+            },
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        },
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "square",
+              "fill": "none"
+            },
+            {
+              "posX": 1,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        },
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "square",
+              "fill": "gray"
+            },
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 0,
+              "side": "below",
+              "shape": "square",
+              "fill": "none"
+            },
+            {
+              "posX": 2,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        },
+        {
+          "kind": "balanceline",
+          "items": [
+            {
+              "posX": 2,
+              "side": "below",
+              "shape": "square",
+              "fill": "gray"
+            },
+            {
+              "posX": 0,
+              "side": "above",
+              "shape": "circle",
+              "fill": "gray"
+            }
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "square",
+            "fill": "none"
+          },
+          {
+            "posX": 1,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
+        ]
+      },
+      {
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "square",
+            "fill": "none"
+          },
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
+        ]
+      },
+      {
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "square",
+            "fill": "gray"
+          },
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
+        ]
+      },
+      {
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "square",
+            "fill": "gray"
+          },
+          {
+            "posX": 1,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
+        ]
+      },
+      {
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 1,
+            "side": "below",
+            "shape": "square",
+            "fill": "none"
+          },
+          {
+            "posX": 1,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
+        ]
+      },
+      {
+        "kind": "balanceline",
+        "items": [
+          {
+            "posX": 2,
+            "side": "below",
+            "shape": "square",
+            "fill": "gray"
+          },
+          {
+            "posX": 2,
+            "side": "above",
+            "shape": "circle",
+            "fill": "gray"
+          }
+        ]
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.45,
+    "recept": "P6-balans",
+    "fran_version": 3,
+    "misstag": [
+      "Cirkeln står rätt, men kvadraten har inte flyttat.",
+      "Kvadraten står rätt, men cirkeln har flyttat åt fel håll.",
+      "Cirkeln har flyttat åt fel håll. Kvadratens fyllning har inte bytt.",
+      "Kvadraten har inte flyttat. Kvadratens fyllning har inte bytt.",
+      "",
+      "Kvadraten har inte flyttat. Cirkeln har flyttat åt fel håll. Kvadratens fyllning har inte bytt."
+    ]
+  },
+  {
+    "id": "v7e-v3-over-04",
+    "title": "Bara det som skiljer, åt två håll",
+    "rule": "Den tredje rutan i varje rad visar det som finns i bara en av de två första. Det gemensamma försvinner. Samma sak gäller nedåt: den nedersta rutan i varje kolumn visar det som finns i bara en av de två ovanför.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            4,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            4,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            3
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            4,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            3,
+            4,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            3,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            6,
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          3,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          6
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          3,
+          6
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          3,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          3,
+          4,
+          6
+        ]
+      }
+    ],
+    "correctAnswer": 4,
+    "p_prior": 0.45,
+    "recept": "overlagring-dubbel",
+    "fran_version": 3,
+    "misstag": [
+      "Tar med det som finns i båda. Det gemensamma ska bort.",
+      "Visar bara det gemensamma. Det ska bort, resten ska med.",
+      "Kopierar den första rutan i raden.",
+      "Kopierar den andra rutan i raden.",
+      "",
+      "Samma som rutan ovanför."
+    ]
+  },
+  {
+    "id": "v7e-v3-over-05",
+    "title": "Bara det som skiljer, åt två håll",
+    "rule": "Den tredje rutan i varje rad visar det som finns i bara en av de två första. Det gemensamma försvinner. Samma sak gäller nedåt: den nedersta rutan i varje kolumn visar det som finns i bara en av de två ovanför.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            2,
+            4
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            4,
+            6
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            2,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            4,
+            5,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            4,
+            5
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            2,
+            5,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            5,
+            6
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "ray",
+        "rays": [
+          2,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          2,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          5
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          1,
+          2,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          2,
+          5,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          5,
+          6
+        ]
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.45,
+    "recept": "overlagring-dubbel",
+    "fran_version": 3,
+    "misstag": [
+      "",
+      "Tar med det som finns i båda. Det gemensamma ska bort.",
+      "Visar bara det gemensamma. Det ska bort, resten ska med.",
+      "Ett streck för mycket.",
+      "Kopierar den första rutan i raden.",
+      "Kopierar den andra rutan i raden."
+    ]
+  },
+  {
+    "id": "v7e-v3-over-06",
+    "title": "Bara det som skiljer, åt två håll",
+    "rule": "Den tredje rutan i varje rad visar det som finns i bara en av de två första. Det gemensamma försvinner. Samma sak gäller nedåt: den nedersta rutan i varje kolumn visar det som finns i bara en av de två ovanför.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            5
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            5,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            3,
+            4,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            4,
+            5
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            3,
+            5,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            3,
+            4,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            2,
+            4
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          2,
+          3,
+          4,
+          6
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          2,
+          4
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          2,
+          3,
+          4,
+          6
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          2,
+          4
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          3,
+          5,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          3,
+          6
+        ]
+      }
+    ],
+    "correctAnswer": 5,
+    "p_prior": 0.45,
+    "recept": "overlagring-dubbel",
+    "fran_version": 3,
+    "misstag": [
+      "Tar med det som finns i båda. Det gemensamma ska bort.",
+      "Visar bara det gemensamma. Det ska bort, resten ska med.",
+      "Kopierar den första rutan i raden.",
+      "Kopierar den andra rutan i raden.",
+      "Samma som rutan ovanför.",
+      ""
+    ]
+  },
+  {
+    "id": "v7e-v3-over-07",
+    "title": "Bara det som skiljer, åt två håll",
+    "rule": "Den tredje rutan i varje rad visar det som finns i bara en av de två första. Det gemensamma försvinner. Samma sak gäller nedåt: den nedersta rutan i varje kolumn visar det som finns i bara en av de två ovanför.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            3,
+            4
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            3,
+            4,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            3,
+            4
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            3,
+            5
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            1,
+            4,
+            5
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            3,
+            4,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            4,
+            5
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "ray",
+        "rays": [
+          4
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          0,
+          3,
+          5,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          3,
+          4,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          0,
+          4,
+          5
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          0,
+          1,
+          4,
+          5
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          0,
+          3,
+          5
+        ]
+      }
+    ],
+    "correctAnswer": 1,
+    "p_prior": 0.45,
+    "recept": "overlagring-dubbel",
+    "fran_version": 3,
+    "misstag": [
+      "Visar bara det gemensamma. Det ska bort, resten ska med.",
+      "",
+      "Kopierar den första rutan i raden.",
+      "Kopierar den andra rutan i raden.",
+      "Samma som rutan ovanför.",
+      "Ett streck saknas."
+    ]
+  },
+  {
+    "id": "v7e-v3-over-08",
+    "title": "Bara det som skiljer, åt två håll",
+    "rule": "Den tredje rutan i varje rad visar det som finns i bara en av de två första. Det gemensamma försvinner. Samma sak gäller nedåt: den nedersta rutan i varje kolumn visar det som finns i bara en av de två ovanför.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            3,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            2,
+            3
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            4,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            4,
+            5,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            2,
+            3,
+            5
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            3,
+            4,
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          3
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          2,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          2,
+          4,
+          5,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          2,
+          3,
+          5
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          3,
+          4,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          2,
+          4,
+          7
+        ]
+      }
+    ],
+    "correctAnswer": 2,
+    "p_prior": 0.45,
+    "recept": "overlagring-dubbel",
+    "fran_version": 3,
+    "misstag": [
+      "Visar bara det gemensamma. Det ska bort, resten ska med.",
+      "En svart sektor för mycket.",
+      "",
+      "Kopierar den första rutan i raden.",
+      "Kopierar den andra rutan i raden.",
+      "En svart sektor saknas."
+    ]
+  },
+  {
+    "id": "v7e-v3-over-09",
+    "title": "Bara det som skiljer, åt två håll",
+    "rule": "Den tredje rutan i varje rad visar det som finns i bara en av de två första. Det gemensamma försvinner. Samma sak gäller nedåt: den nedersta rutan i varje kolumn visar det som finns i bara en av de två ovanför.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            4,
+            5,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            4,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            4,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            3,
+            4,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            3
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            3,
+            5
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "ray",
+        "rays": [
+          5
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          3,
+          5
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          0,
+          3
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          3,
+          4,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          3,
+          4,
+          6,
+          7
+        ]
+      }
+    ],
+    "correctAnswer": 5,
+    "p_prior": 0.45,
+    "recept": "overlagring-dubbel",
+    "fran_version": 3,
+    "misstag": [
+      "Visar bara det gemensamma. Det ska bort, resten ska med.",
+      "Kopierar den första rutan i raden.",
+      "Kopierar den andra rutan i raden.",
+      "Samma som rutan ovanför.",
+      "Ett streck saknas.",
+      ""
+    ]
+  },
+  {
+    "id": "v7e-v3-over-10",
+    "title": "Bara det som skiljer, åt två håll",
+    "rule": "Den tredje rutan i varje rad visar det som finns i bara en av de två första. Det gemensamma försvinner. Samma sak gäller nedåt: den nedersta rutan i varje kolumn visar det som finns i bara en av de två ovanför.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            5,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            5
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            2
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            5
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            2,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            2,
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          2,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          2
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          2,
+          6
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          2,
+          7
+        ]
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.45,
+    "recept": "overlagring-dubbel",
+    "fran_version": 3,
+    "misstag": [
+      "",
+      "Tar med det som finns i båda. Det gemensamma ska bort.",
+      "Visar bara det gemensamma. Det ska bort, resten ska med.",
+      "En svart sektor för mycket.",
+      "Kopierar den första rutan i raden.",
+      "Kopierar den andra rutan i raden."
+    ]
+  },
+  {
+    "id": "v7e-v3-over-11",
+    "title": "Bara det som skiljer, åt två håll",
+    "rule": "Den tredje rutan i varje rad visar det som finns i bara en av de två första. Det gemensamma försvinner. Samma sak gäller nedåt: den nedersta rutan i varje kolumn visar det som finns i bara en av de två ovanför.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            4,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            2,
+            4
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            2,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            2,
+            4,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            2,
+            3,
+            6
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            3,
+            4,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            2,
+            6
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            3,
+            4,
+            6
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "ray",
+        "rays": [
+          6
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          2,
+          6
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          1,
+          3,
+          4,
+          6
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          3,
+          4,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          1,
+          2,
+          4
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ],
+    "correctAnswer": 5,
+    "p_prior": 0.45,
+    "recept": "overlagring-dubbel",
+    "fran_version": 3,
+    "misstag": [
+      "Visar bara det gemensamma. Det ska bort, resten ska med.",
+      "Kopierar den första rutan i raden.",
+      "Kopierar den andra rutan i raden.",
+      "Samma som rutan ovanför.",
+      "Ett streck saknas.",
+      ""
+    ]
+  },
+  {
+    "id": "v7e-v3-over-12",
+    "title": "Bara det som skiljer",
+    "rule": "Den nedersta rutan i varje kolumn visar det som finns i bara en av den översta och den mittersta. Det som finns i båda försvinner.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "tile",
+          "pattern": 321
+        },
+        {
+          "kind": "tile",
+          "pattern": 264
+        },
+        {
+          "kind": "tile",
+          "pattern": 89
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 294
+        },
+        {
+          "kind": "tile",
+          "pattern": 156
+        },
+        {
+          "kind": "tile",
+          "pattern": 274
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 103
+        },
+        {
+          "kind": "tile",
+          "pattern": 404
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "tile",
+        "pattern": 347
+      },
+      {
+        "kind": "tile",
+        "pattern": 331
+      },
+      {
+        "kind": "tile",
+        "pattern": 16
+      },
+      {
+        "kind": "tile",
+        "pattern": 89
+      },
+      {
+        "kind": "tile",
+        "pattern": 274
+      },
+      {
+        "kind": "tile",
+        "pattern": 330
+      }
+    ],
+    "correctAnswer": 1,
+    "p_prior": 0.45,
+    "recept": "overlagring",
+    "fran_version": 3,
+    "misstag": [
+      "Tar med det som finns i båda. Det gemensamma ska bort.",
+      "",
+      "Visar bara det gemensamma. Det ska bort, resten ska med.",
+      "Kopierar den översta rutan i kolumnen.",
+      "Kopierar den mittersta rutan i kolumnen.",
+      "Rutan uppe till vänster saknas."
+    ]
+  },
+  {
+    "id": "v7e-v3-over-13",
+    "title": "Det som blir kvar",
+    "rule": "Den tredje rutan i varje rad visar det som finns i den första men inte i den andra.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            2,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            3,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            5
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            4
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            2,
+            5
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          2,
+          4,
+          5
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          2,
+          4,
+          5
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          4
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          2,
+          5
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          2,
+          5
+        ]
+      }
+    ],
+    "correctAnswer": 3,
+    "p_prior": 0.45,
+    "recept": "overlagring",
+    "fran_version": 3,
+    "misstag": [
+      "Tar med allt. Det som finns i den andra rutan i raden ska bort.",
+      "Tar med det som bara finns i den andra rutan i raden. Det ska bort.",
+      "Visar det gemensamma. Det är just det som ska bort.",
+      "",
+      "Drar bort åt fel håll.",
+      "Kopierar den andra rutan i raden."
+    ]
+  },
+  {
+    "id": "v7e-v3-over-14",
+    "title": "Bara det som skiljer",
+    "rule": "Den nedersta rutan i varje kolumn visar det som finns i bara en av den översta och den mittersta. Det som finns i båda försvinner.",
+    "difficulty": 4,
+    "family": "overlagring",
+    "grid": [
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            4,
+            6
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            2,
+            5
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            1,
+            4
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            5,
+            7
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            1,
+            2,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "ray",
+          "rays": [
+            0,
+            6
+          ]
+        },
+        {
+          "kind": "ray",
+          "rays": [
+            2,
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "ray",
+        "rays": [
+          2,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          1,
+          2,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          1
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          2,
+          6
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          1,
+          7
+        ]
+      },
+      {
+        "kind": "ray",
+        "rays": [
+          1,
+          2,
+          6
+        ]
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.45,
+    "recept": "overlagring",
+    "fran_version": 3,
+    "misstag": [
+      "",
+      "Tar med det som finns i båda. Det gemensamma ska bort.",
+      "Visar bara det gemensamma. Det ska bort, resten ska med.",
+      "Ett streck saknas.",
+      "Kopierar den översta rutan i kolumnen.",
+      "Kopierar den mittersta rutan i kolumnen."
+    ]
+  },
+  {
+    "id": "v7e-v3-speg-02",
+    "title": "Två speglingar i rad",
+    "rule": "Den andra rutan i varje rad är den första speglad i en lodrät linje (vänster och höger byter plats). Den tredje är den andra speglad i diagonalen från övre högra hörnet.",
+    "difficulty": 4,
+    "family": "spegling",
+    "grid": [
+      [
+        {
+          "kind": "tile",
+          "pattern": 208
+        },
+        {
+          "kind": "tile",
+          "pattern": 400
+        },
+        {
+          "kind": "tile",
+          "pattern": 25
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 89
+        },
+        {
+          "kind": "tile",
+          "pattern": 308
+        },
+        {
+          "kind": "tile",
+          "pattern": 23
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 408
+        },
+        {
+          "kind": "tile",
+          "pattern": 240
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "tile",
+        "pattern": 240
+      },
+      {
+        "kind": "tile",
+        "pattern": 408
+      },
+      {
+        "kind": "tile",
+        "pattern": 90
+      },
+      {
+        "kind": "tile",
+        "pattern": 51
+      },
+      {
+        "kind": "tile",
+        "pattern": 153
+      },
+      {
+        "kind": "tile",
+        "pattern": 91
+      }
+    ],
+    "correctAnswer": 2,
+    "p_prior": 0.45,
+    "recept": "spegling",
+    "fran_version": 3,
+    "misstag": [
+      "Samma som rutan till vänster. Den andra speglingen saknas.",
+      "Kopierar den första rutan i raden.",
+      "",
+      "Speglar i fel linje.",
+      "Vrider i stället för att spegla.",
+      "Rutan uppe till vänster är fylld fast den inte ska vara det."
+    ]
+  },
+  {
+    "id": "v7e-v3-speg-03",
+    "title": "Två speglingar i rad",
+    "rule": "Den mittersta rutan i varje kolumn är den översta speglad i diagonalen från övre vänstra hörnet. Den nedersta är den mittersta speglad i en vågrät linje (upp och ner byter plats).",
+    "difficulty": 4,
+    "family": "spegling",
+    "grid": [
+      [
+        {
+          "kind": "tile",
+          "pattern": 242
+        },
+        {
+          "kind": "tile",
+          "pattern": 200
+        },
+        {
+          "kind": "tile",
+          "pattern": 312
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 188
+        },
+        {
+          "kind": "tile",
+          "pattern": 38
+        },
+        {
+          "kind": "tile",
+          "pattern": 402
+        }
+      ],
+      [
+        {
+          "kind": "tile",
+          "pattern": 314
+        },
+        {
+          "kind": "tile",
+          "pattern": 416
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "tile",
+        "pattern": 402
+      },
+      {
+        "kind": "tile",
+        "pattern": 312
+      },
+      {
+        "kind": "tile",
+        "pattern": 150
+      },
+      {
+        "kind": "tile",
+        "pattern": 210
+      },
+      {
+        "kind": "tile",
+        "pattern": 120
+      },
+      {
+        "kind": "tile",
+        "pattern": 151
+      }
+    ],
+    "correctAnswer": 2,
+    "p_prior": 0.45,
+    "recept": "spegling",
+    "fran_version": 3,
+    "misstag": [
+      "Samma som rutan ovanför. Den andra speglingen saknas.",
+      "Kopierar den översta rutan i kolumnen.",
+      "",
+      "Speglar i fel linje.",
+      "Vrider i stället för att spegla.",
+      "Rutan uppe till vänster är fylld fast den inte ska vara det."
+    ]
+  },
+  {
+    "id": "v7e-v3-speg-04",
+    "title": "Två speglingar i rad",
+    "rule": "Den mittersta rutan i varje kolumn är den översta speglad i en lodrät linje (vänster och höger byter plats). Den nedersta är den mittersta speglad i en vågrät linje (upp och ner byter plats).",
+    "difficulty": 4,
+    "family": "spegling",
+    "grid": [
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            2,
+            5
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            4
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            3
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            3,
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            4,
+            6,
+            7
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            4,
+            5
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          4,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          3
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          5,
+          6
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          5,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          4,
+          5,
+          7
+        ]
+      }
+    ],
+    "correctAnswer": 5,
+    "p_prior": 0.45,
+    "recept": "spegling",
+    "fran_version": 3,
+    "misstag": [
+      "Samma som rutan ovanför. Den andra speglingen saknas.",
+      "Kopierar den översta rutan i kolumnen.",
+      "Vrider i stället för att spegla.",
+      "Vrider i stället för att spegla.",
+      "En svart sektor saknas.",
+      ""
+    ]
+  },
+  {
+    "id": "v7e-v3-speg-05",
+    "title": "Två speglingar i rad",
+    "rule": "Den andra rutan i varje rad är den första speglad i en vågrät linje (upp och ner byter plats). Den tredje är den andra speglad i en lodrät linje (vänster och höger byter plats).",
+    "difficulty": 4,
+    "family": "spegling",
+    "grid": [
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            2,
+            4
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            1,
+            2,
+            3,
+            7
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            4,
+            5,
+            6
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            3
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            4,
+            5
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            0,
+            1,
+            4
+          ]
+        },
+        {
+          "kind": "sectorwheel",
+          "filled": [
+            2,
+            3,
+            7
+          ]
+        },
+        null
+      ]
+    ],
+    "options": [
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          4,
+          5
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          2,
+          3,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          0,
+          1,
+          4
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          1,
+          5,
+          6
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          2,
+          6,
+          7
+        ]
+      },
+      {
+        "kind": "sectorwheel",
+        "filled": [
+          4,
+          5
+        ]
+      }
+    ],
+    "correctAnswer": 0,
+    "p_prior": 0.45,
+    "recept": "spegling",
+    "fran_version": 3,
+    "misstag": [
+      "",
+      "Samma som rutan till vänster. Den andra speglingen saknas.",
+      "Kopierar den första rutan i raden.",
+      "Vrider i stället för att spegla.",
+      "Vrider i stället för att spegla.",
+      "En svart sektor saknas."
+    ]
+  }
+]

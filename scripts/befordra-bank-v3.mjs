@@ -28,7 +28,8 @@ import { readFileSync, writeFileSync } from 'node:fs';
 const arg = (n) => process.argv.find((a) => a.startsWith(`--${n}=`))?.slice(n.length + 3) ?? null;
 const beslutFil = arg('beslut');
 if (!beslutFil) { console.error('Ange --beslut=<fil> med { "godkanda": [...] }'); process.exit(2); }
-const godkanda = new Set(JSON.parse(readFileSync(beslutFil, 'utf8')).godkanda ?? []);
+// Bara matrisfrågor (id v7…); verbala och numeriska underlag i samma beslutsfil befordras av befordra-underlag.mjs.
+const godkanda = new Set((JSON.parse(readFileSync(beslutFil, 'utf8')).godkanda ?? []).filter((id) => /^v7/.test(id)));
 
 const K = 'src/lib/logicTestV7/kandidater';
 const D = 'src/lib/logicTestV7';

@@ -55,8 +55,13 @@ const DK4 = [[1, 1], [2, 5], [1, 2], [3, 6], [2, 1], [5, 5], [3, 3], [6, 7]];
 // recept läggs sist och får nästa löpnummer.
 import { readdirSync, readFileSync, existsSync } from 'node:fs';
 const BESLUT = 'docs/qa/bank-v3';
-export const STRUKNA = new Set(existsSync(BESLUT) ? readdirSync(BESLUT).filter((f) => /^beslut-.*\.json$/.test(f)).flatMap((f) => (JSON.parse(readFileSync(`${BESLUT}/${f}`, 'utf8')).strukna ?? []).map((x) => x.id)) : []);
-export const GODKANDA = new Set(existsSync(BESLUT) ? readdirSync(BESLUT).filter((f) => /^beslut-.*\.json$/.test(f)).flatMap((f) => JSON.parse(readFileSync(`${BESLUT}/${f}`, 'utf8')).godkanda ?? []) : []);
+// beslut.json (sammanslagen, senaste beslutet per id) gäller när den finns;
+// annars alla beslut-*.json, där ett senare beslut i filnamnsordning inte
+// räknas (använd beslut.json när besluten skiljer sig).
+const beslutFiler = existsSync(BESLUT) ? (existsSync(`${BESLUT}/beslut.json`) ? ['beslut.json'] : readdirSync(BESLUT).filter((f) => /^beslut-.*\.json$/.test(f))) : [];
+const lasBeslut = (f) => JSON.parse(readFileSync(`${BESLUT}/${f}`, 'utf8'));
+export const STRUKNA = new Set(beslutFiler.flatMap((f) => (lasBeslut(f).strukna ?? []).map((x) => x.id)));
+export const GODKANDA = new Set(beslutFiler.flatMap((f) => lasBeslut(f).godkanda ?? []).filter((id) => !STRUKNA.has(id)));
 const ejStrukna = (r) => !STRUKNA.has(r.id);
 
 function lista(prefix, rader) {

@@ -47,6 +47,7 @@ import { stable, vKey } from './lib/matris/celler.mjs';
 import { sparrFel, s1, s3, s5, s9, arEnrad, kvotFel, facitrutaAndelar } from './lib/matris/sparrar.mjs';
 import { ALLA_BANKFILER, valbarI, lasBanker, pool, las } from './lib/matris/version.mjs';
 import { eliminerbara } from './lib/matris/distraktorer.mjs';
+import { STRUKNA } from './lib/matris/recept-v3.mjs';
 
 const ALLA = ALLA_BANKFILER.filter((f) => existsSync(f));
 const filer = process.argv[2] ? [process.argv[2]] : ALLA;
@@ -203,7 +204,7 @@ if (!process.argv[2]) {
     const nyaId = new Set(nivaer.flatMap((n) => v3[n].map((q) => q.id)));
     const prognos = Object.fromEntries(nivaer.map((n) => [n, [
       ...v3[n],
-      ...kand.filter((q) => !nyaId.has(q.id) && (q.fran_version === 3 || (q.band === 'plus' && q.mekanism && /^P[45]$/.test(q.mekanism)))).filter((q) => (q.band === 'plus' ? 'expert' : nivaFor(q)) === n),
+      ...kand.filter((q) => !nyaId.has(q.id) && !STRUKNA.has(q.id) && (q.fran_version === 3 || (q.band === 'plus' && q.mekanism && /^P[45]$/.test(q.mekanism)))).filter((q) => (q.band === 'plus' ? 'expert' : nivaFor(q)) === n),
     ]]));
     tabell('version 3, prognos med kandidaterna (P1 till P3 ur parti 03, P4 och P5 ur parti 01)', prognos);
     for (const n of nivaer) kvotFel(prognos[n], n).forEach((x) => console.log(`  · prognos: ${x}`));

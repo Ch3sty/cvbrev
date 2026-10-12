@@ -184,10 +184,9 @@ const REGEL_KOPPLAD = new Set(['latin', 'diagonal']);
  * Frågor som testansvarig godkände i omgång 1, innan S11 och S12 fanns, och
  * som bryter dem. De står kvar med beslutet; nya frågor får aldrig det här.
  */
-export const GODKANDA_FORE_S11 = Object.fromEntries([
-  ...['v7g-v3-lant-03', 'v7g-v3-lant-04', 'v7g-v3-lant-06', 'v7g-v3-lant-07', 'v7a-v3-lant-01'].map((id) => [id, 'godkänd i omgång 1 (strålar på andra platser, S12)']),
-  ...['v7e-v3-over-02', 'v7e-plus-over-18', 'v7e-plus-over-20'].map((id) => [id, 'godkänd i omgång 1 (centrum bland mängderna, S11)']),
-]);
+// Granskningen av omgång 2: de fem latin-antal klarar S12 när den räknar
+// antalet (se nedan), och de tre med facit som centrum ströks. Listan är tom.
+export const GODKANDA_FORE_S11 = {};
 const arSchack = (r) => r.regel === 'periodisk' && r.info?.p === 2;
 
 /**
@@ -228,6 +227,25 @@ export function s11Majoritet(q) {
 }
 
 /**
+ * S11, röstningen (granskningen av omgång 2): facits värde är strikt
+ * vanligast bland alternativen i varje egenskap som har en regel. Då ger
+ * majoritetsröstning per egenskap hela facit utan att en regel lästs.
+ * Gäller frågor med två eller fler regler.
+ */
+export function s11Rostning(q, t = tolka(q)) {
+  if (!t?.ok) return [];
+  const dims = [...new Set(regelLista(t).map((p) => p.dim))];
+  if (dims.length < 2) return [];
+  const vanligast = (id) => {
+    const v = q.options.map((o) => vKey(t.dimsVy(o).find((d) => d.id === id)?.varde));
+    const n = new Map(); v.forEach((x) => n.set(x, (n.get(x) ?? 0) + 1));
+    const f = n.get(v[q.correctAnswer]);
+    return [...n.entries()].every(([k, c]) => k === v[q.correctAnswer] || c < f);
+  };
+  return dims.every(vanligast) ? [`${q.id}: S11 facits värde är vanligast i alla regelstyrda egenskaper (${dims.join(', ')}), facit går att rösta fram`] : [];
+}
+
+/**
  * S12 utanför: i en dimension som styrs av en latinsk kvadrat, ett
  * schackmönster eller en diagonal bär en distraktor ett värde som saknas i
  * de åtta synliga rutorna. Returnerar antalet sådana distraktorer.
@@ -235,10 +253,14 @@ export function s11Majoritet(q) {
 export function utanforDistraktorer(q, t = tolka(q)) {
   if (!t?.ok) return [];
   const dims = Object.entries(t.regel).filter(([, r]) => REGEL_KOPPLAD.has(r.regel) || arSchack(r)).map(([id]) => id);
+  // I latin-antal är antalet regeln; var strålarna eller sektorerna sitter är
+  // dekoration (granskningen av omgång 2). Där jämförs antalet.
+  const antal = q.family === 'latin-antal';
+  const nyckel = (cell, id) => { const v = t.dimsVy(cell).find((d) => d.id === id)?.varde; return antal && Array.isArray(v) ? `n${v.length}` : vKey(v); };
   const ut = new Set();
   for (const id of dims) {
-    const synliga = new Set(POS.map(([r, c]) => vKey(t.dimsVy(q.grid[r][c]).find((d) => d.id === id)?.varde)));
-    q.options.forEach((o, i) => { if (i !== q.correctAnswer && !synliga.has(vKey(t.dimsVy(o).find((d) => d.id === id)?.varde))) ut.add(i); });
+    const synliga = new Set(POS.map(([r, c]) => nyckel(q.grid[r][c], id)));
+    q.options.forEach((o, i) => { if (i !== q.correctAnswer && !synliga.has(nyckel(o, id))) ut.add(i); });
   }
   return [...ut];
 }
@@ -302,6 +324,9 @@ export function sparrFel(q, { t = tolka(q), geometri = true } = {}) {
   fel.push(...(fore ? [] : s12(q, t)), ...s13(q, t));
   const maj = fore ? [] : s11Majoritet(q);
   if (n === 'expert') fel.push(...maj); else info.push(...maj);
+  // Skärpningen efter omgång 2: är facits värde vanligast i varje
+  // regelstyrd egenskap samtidigt går hela facit att rösta fram. Fel på alla nivåer.
+  if (n !== 'expert' && !fore) fel.push(...s11Rostning(q, t));
   if (fore) info.push(`${q.id}: S11 och S12 räknas inte, ${fore}`);
   const enrad = arEnrad(q);
   if (enrad && (n === 'expert')) fel.push(`${q.id}: S4 facit följer av rad 3 ensam`);

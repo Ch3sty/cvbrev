@@ -85,7 +85,7 @@ export const VALBARA_EXPERT_V3 = ALLA_EXPERT.filter((q) => valbarI(q as Versions
  * TRANINGSBANK). Slås till 3 av scripts/befordra-bank-v3.mjs när de
  * granskade frågorna ligger i V3-filerna och kontrollerna är gröna.
  */
-export const BANK_VERSION: BankVersion = 2;
+export const BANK_VERSION: BankVersion = 3;
 export type BankVersion = 1 | 2 | 3;
 /** Meta som sätts på nya klassiska sessioner tillsammans med blandningen. */
 export const BANK_VERSION_META = { bank_version: BANK_VERSION } as const;
