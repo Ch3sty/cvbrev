@@ -64,7 +64,7 @@ interface RouteDef {
   namn: string;
   budget: Budget;
   /** Slås upp i databasen först, till exempel ett brev-id. */
-  dynamisk?: 'letter' | 'application' | 'testSession' | 'testResult' | 'serieSession' | 'serieResult';
+  dynamisk?: 'letter' | 'application' | 'testSession' | 'testResult' | 'serieSession' | 'serieResult' | 'figurpass' | 'figurprov';
   /**
    * Våg 3b:s förhandsvisning (fixturer, ingen databas). Finns bara när
    * servern startats med TRANING_FORHANDSVISNING=1; mäts bara med
@@ -115,6 +115,10 @@ const ROUTES: RouteDef[] = [
   { path: '/dashboard/tester/figurserier-grund', namn: 'figurserier testsida', budget: 'lista' },
   { path: '/dashboard/tester/figurserier-grund/test/ID', namn: 'figurserier uppgift', budget: 'flode', dynamisk: 'serieSession' },
   { path: '/dashboard/tester/figurserier-grund/test/ID/results', namn: 'figurserier resultat', budget: 'flode', dynamisk: 'serieResult' },
+  // Omgång 3: figurpasset (pågående: frågesidan), övningsprovets startark och provet.
+  { path: '/dashboard/tester/pass/ID', namn: 'figurpass uppgift', budget: 'flode', dynamisk: 'figurpass' },
+  { path: '/dashboard/tester/ovningsprov/figurer', namn: 'tester/ovningsprov figurer', budget: 'flode' },
+  { path: '/dashboard/tester/ovningsprov/figurer/ID', namn: 'figurprov uppgift', budget: 'flode', dynamisk: 'figurprov' },
 
   // Flödessidor och deras steg. Stegen bär tyngst innehåll och mäts var för sig.
   { path: '/dashboard/skapa-brev', namn: 'skapa-brev', budget: 'flode' },
@@ -247,12 +251,18 @@ async function main() {
         .limit(1),
     ]);
 
+  const [{ data: figurpass }, { data: figurprov }] = await Promise.all([
+    sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'figurserie-pass').is('completed_at', null).limit(1),
+    sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'figurserie-prov').limit(1),
+  ]);
   const [{ data: serie }, { data: serieKlar }] = await Promise.all([
     sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'figurserier-grund').is('completed_at', null).limit(1),
     sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'figurserier-grund').not('completed_at', 'is', null).limit(1),
   ]);
   const idPerTyp: Record<string, string | null> = {
     serieSession: serie?.[0]?.id ?? null,
+    figurpass: figurpass?.[0]?.id ?? null,
+    figurprov: figurprov?.[0]?.id ?? null,
     serieResult: serieKlar?.[0]?.id ?? null,
     letter: brev?.[0]?.id ?? null,
     application: ansokningar?.[0]?.id ?? null,
