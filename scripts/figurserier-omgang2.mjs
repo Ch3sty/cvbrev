@@ -94,7 +94,10 @@ for (const q0 of filer) {
   const q = { ...q0, regler: utanYantal(q0.regler) };
   const mall = MALL[q.recept];
   if (godkanda.has(q.id)) {
-    const k = q.regler.prim === 'grundform' ? grundformText(q) : q;
+    const g = q.regler.prim === 'grundform' ? grundformText(q) : q;
+    // "kommer" står inte i figurseriernas texter (beställningen A7): läggs till.
+    const lagg = (t) => t.replace(/ kommer till /g, ' läggs till ');
+    const k = { ...g, rule: lagg(g.rule), misstag: g.misstag.map(lagg) };
     ut[mall.niva].push(k);
     lista.godkanda.push(q.id);
     rader.add(radNyckel(k));

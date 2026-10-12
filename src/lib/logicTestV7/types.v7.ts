@@ -152,7 +152,7 @@ export type BalanceLineCell = {
 };
 
 // =============================================================================
-// 14. DUO — figurseriernas sammansatta primitiv (figurserier-spec.md 3.2)
+// 14. DUO: figurseriernas sammansatta primitiv (figurserier-spec.md 3.2)
 // =============================================================================
 // Ett ytterelement och ett kärnelement i koncentriska zoner: kärnan ritas inom
 // målad radie 14,5 från centrum, ytterelementets innerkant ligger aldrig

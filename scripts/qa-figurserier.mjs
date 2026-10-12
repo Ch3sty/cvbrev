@@ -82,9 +82,11 @@ function urval(pool, sessionId, n = 15) {
 }
 const rattVisat = (sessionId, q) => blandadPermutation(alternativSeed(sessionId, q.id), q.options.length).indexOf(q.correctAnswer)
 
+let SIDA = null
 async function main() {
   const browser = await puppeteer.launch({ executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe', headless: true })
   const p = await browser.newPage()
+  SIDA = p
   const mobil = bredd === '360'
   await p.setViewport(mobil ? { width: 360, height: 800, deviceScaleFactor: 2, isMobile: true, hasTouch: true } : { width: 1280, height: 860, deviceScaleFactor: 1 })
   await p.emulateMediaFeatures([{ name: 'prefers-color-scheme', value: tema === 'morkt' ? 'dark' : 'light' }])
@@ -156,8 +158,8 @@ async function main() {
     await p.waitForFunction((n) => document.body.innerText.includes(`Uppgift ${n}`), { timeout: 30000 }, i + 1)
     const ratt = rattVisat(sid, fragor[i])
     const val = i < 10 ? ratt : (ratt + 1) % 6
-    const knappar = await p.$$('[data-serie-alt] [role="radio"]')
-    await knappar[val].click()
+    await p.waitForFunction(() => [...document.querySelectorAll('[data-serie-alt] [role="radio"]')].every((b) => !b.disabled), { timeout: 30000 })
+    await p.evaluate((i) => document.querySelectorAll('[data-serie-alt] [role="radio"]')[i].click(), val)
     await vanta(450)
     if (i === 0) await bild(p, 'uppgift-1-svarad')
   }
@@ -200,7 +202,8 @@ main()
     logg('klart', fel.length === 0, { fel })
     process.exit(fel.length ? 1 : 0)
   })
-  .catch((e) => {
+  .catch(async (e) => {
+    if (SIDA) await bild(SIDA, 'avbrutet', true)
     logg('avbrutet', false, { fel: String(e).slice(0, 500) })
     process.exit(1)
   })

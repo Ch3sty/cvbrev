@@ -27,7 +27,7 @@ function info(prim, id) {
     case 'orbital.satellit': return { slag: 'ga', subj: 'Pricken', var: 'runt cirkeln' };
     case 'orbital.mitt': return { slag: 'kat', subj: 'Mittpunkten', namn: (v) => (v === 'filled' ? 'fylld' : 'ofylld') };
     case 'stralar.start': return { slag: 'vrid', subj: 'Strecken' };
-    case 'stralar.antal': return { slag: 'antal', elem: ['streck', 'streck'], ett: true, lagg: 'Ett streck till kommer till medurs', ta: 'Det sista strecket medurs försvinner' };
+    case 'stralar.antal': return { slag: 'antal', elem: ['streck', 'streck'], ett: true, lagg: 'Ett streck till läggs till medurs', ta: 'Det sista strecket medurs försvinner' };
     case 'sektor.start': return { slag: 'vrid', subj: 'De svarta sektorerna' };
     case 'sektor.antal': return { slag: 'antal', elem: ['svart sektor', 'svarta sektorer'], lagg: 'En sektor till blir svart medurs', ta: 'Den sista svarta sektorn medurs blir vit' };
     case 'block.start': return { slag: 'ga', subj: 'De svarta rutorna', subjEn: 'Den svarta rutan', var: 'längs kanten' };
@@ -41,7 +41,7 @@ function info(prim, id) {
     case 'duo.ylage': return duoKant
       ? { slag: 'ga', subj: 'Pricken', subjFler: 'Prickarna', var: 'längs kanten' }
       : { slag: 'ga', subj: 'Pricken', var: 'runt banan' };
-    case 'duo.yantal': return { slag: 'antal', elem: ['prick', 'prickar'], lagg: 'En prick till kommer till medurs längs kanten', ta: 'Den sista pricken medurs försvinner' };
+    case 'duo.yantal': return { slag: 'antal', elem: ['prick', 'prickar'], lagg: 'En prick till läggs till medurs längs kanten', ta: 'Den sista pricken medurs försvinner' };
     case 'duo.kvinkel': return { slag: 'vrid', subj: 'Pilen i mitten', pekar: true };
     case 'duo.kform': return { slag: 'kat', subj: 'Formen i mitten', namn: (v) => FORM[v], substantiv: true };
     case 'duo.kfyll': return { slag: 'kat', subj: 'Formen i mitten', namn: (v) => FYLL[v] };

@@ -329,7 +329,7 @@
   "difficulty": 2,
   "p_prior": 0.55,
   "title": "Strecken, två regler",
-  "rule": "Strecken vrids 90 grader moturs i varje steg. Ett streck till kommer till medurs i varje steg.",
+  "rule": "Strecken vrids 90 grader moturs i varje steg. Ett streck till läggs till medurs i varje steg.",
   "rad": [
    {
     "kind": "ray",

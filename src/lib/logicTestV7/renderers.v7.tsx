@@ -810,7 +810,7 @@ const BalanceLineRenderer: React.FC<{ cell: BalanceLineCell }> = ({ cell }) => {
 };
 
 // =============================================================================
-// 14. DUO — figurseriernas sammansatta primitiv (figurserier-spec.md 3.2)
+// 14. DUO: figurseriernas sammansatta primitiv (figurserier-spec.md 3.2)
 // =============================================================================
 // Ett ytterelement (kant eller orbital) och ett kärnelement (pil, form eller
 // symbol) i koncentriska zoner. Måtten ur geometri.json nyckeln serie, som
