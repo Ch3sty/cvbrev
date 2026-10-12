@@ -1,8 +1,10 @@
 'use client'
 
 /**
- * Raden "Dölj hjälpen" i profilen (skiss Provbladet, avsnitt 4: "Dölj
- * hjälpen" tar bort hjälpen helt tills man slår på den igen i profilen).
+ * Raden "Dölj hjälpen" (skiss Provbladet, avsnitt 4: "Dölj hjälpen" tar bort
+ * hjälpen helt tills man slår på den igen). Sedan 2026-10-13 står raden i
+ * kortet Utseende på Inställningar (skiss-installningar-2026-10-12), som en
+ * rad under segmentet, inte som eget kort.
  * Växeln är på när hjälpen är dold. Valet sparas i profiles.hjalp_dold och
  * i localStorage (src/lib/traning/hjalp.ts).
  */
@@ -16,17 +18,15 @@ function Rad() {
   const { dold, dolj, visa } = useHjalp()
   const titelId = 'hjalp-dold-titel'
   return (
-    <section id="hjalp" className="scroll-mt-24 rounded-xl border border-kant bg-papper">
-      <div className="flex min-h-14 items-center justify-between gap-4 px-4 py-3 sm:px-5">
-        <div className="min-w-0">
-          <h2 id={titelId} className="text-kort text-ink-1">
-            {HJALP_UI.profilTitel}
-          </h2>
-          <p className="mt-0.5 text-meta text-ink-3">{HJALP_UI.profilText}</p>
-        </div>
-        <ToggleSwitch checked={dold} onChange={(v) => (v ? dolj() : visa())} labelledBy={titelId} />
+    <div id="hjalp" className="flex min-h-14 scroll-mt-24 items-center justify-between gap-4 py-2">
+      <div className="min-w-0">
+        <p id={titelId} className="text-sm font-medium leading-5 text-ink-1">
+          {HJALP_UI.profilTitel}
+        </p>
+        <p className="mt-0.5 text-meta text-ink-3">{HJALP_UI.profilText}</p>
       </div>
-    </section>
+      <ToggleSwitch checked={dold} onChange={(v) => (v ? dolj() : visa())} labelledBy={titelId} />
+    </div>
   )
 }
 

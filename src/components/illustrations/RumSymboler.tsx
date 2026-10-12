@@ -193,6 +193,43 @@ export function IkonPenna(p: IkonProps24) {
   )
 }
 
+/*
+ * Utseendets tre lägen (skiss-installningar-2026-10-12, #i-enhet, #i-sol,
+ * #i-mane): segmentet i avatarmenyn. Samma stil som dörrarna, stroke 1,75,
+ * en ifylld yta i currentColor på enheten.
+ */
+
+/** Följer systemet: skärmen med foten, ena hörnet fyllt (#i-enhet). */
+export function IkonEnhet(p: IkonProps24) {
+  return (
+    <Ikon24 {...p}>
+      <rect x="3" y="4.5" width="18" height="12.5" rx="2.5" />
+      <path d="M3 11h9V4.5" opacity=".55" />
+      <path d="M12 17v3M8.5 20.5h7" />
+      <path d="M3 11h9v6H5.5A2.5 2.5 0 0 1 3 14.5z" fill="currentColor" stroke="none" opacity=".35" />
+    </Ikon24>
+  )
+}
+
+/** Ljust: solen (#i-sol). */
+export function IkonSol(p: IkonProps24) {
+  return (
+    <Ikon24 {...p}>
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M5.6 18.4l1.8-1.8M16.6 7.4l1.8-1.8" />
+    </Ikon24>
+  )
+}
+
+/** Mörkt: månen (#i-mane). */
+export function IkonMane(p: IkonProps24) {
+  return (
+    <Ikon24 {...p}>
+      <path d="M19.5 14.5A8 8 0 0 1 9.5 4.5a8 8 0 1 0 10 10z" />
+    </Ikon24>
+  )
+}
+
 /* ------------------------------------------------------------ 48 px */
 
 /** Matrislogik (#s-matris): rutnät med figurer, kopparfältet är den tomma rutan. */

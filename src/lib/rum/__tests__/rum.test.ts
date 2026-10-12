@@ -26,6 +26,7 @@ describe('rumForPath (spec-rummen avsnitt 5)', () => {
   it('kontot är grafit', () => {
     expect(rumForPath('/dashboard/profil')).toBe('neutral')
     expect(rumForPath('/dashboard/profil/prenumeration')).toBe('neutral')
+    expect(rumForPath('/dashboard/installningar')).toBe('neutral')
     expect(rumForPath('/dashboard/valj-spar')).toBe('neutral')
     expect(rumForPath('/dashboard/kontakt')).toBe('neutral')
     expect(rumForPath('/dashboard/bugg-feedback')).toBe('neutral')
@@ -47,6 +48,8 @@ describe('rumForPath (spec-rummen avsnitt 5)', () => {
 
   it('ett prefix som bara liknar räknas inte', () => {
     expect(rumForPath('/dashboard/testerna')).toBe('jobb')
+    // Testrummets egen sida Test och datum är inte kontots Inställningar.
+    expect(rumForPath('/dashboard/tester/installningar')).toBe('tran')
     expect(rumForPath('/dashboard/profilen')).toBe('jobb')
   })
 })

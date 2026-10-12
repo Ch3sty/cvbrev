@@ -2,28 +2,28 @@
 
 /**
  * "Hoppa till" (docs/design/profil-registrering-2026-09-24.html, Del A):
- * ankarlänkar till profilens fyra sektioner, 44 px höga. Understrykningen i
- * ink-1 följer sektionen som syns (IntersectionObserver), aldrig orange.
- * Inte sticky: under en sticky topprad på 412 px hade den tagit 100 px.
+ * ankarlänkar till sidans sektioner, 44 px höga. Understrykningen i ink-1
+ * följer sektionen som syns (IntersectionObserver), aldrig orange. Inte
+ * sticky: under en sticky topprad på 412 px hade den tagit 100 px.
+ * Används av Profil (CV-uppgifter, Personliga brev, Jobbsök) och
+ * Inställningar (Utseende, Mejl, Prenumeration, Konto).
  */
 
 import { useEffect, useState } from 'react'
 import { PROFIL } from '../profil-copy'
 
-export type ProfilSektion = 'cv' | 'personliga-brev' | 'jobbsok' | 'konto'
-
 export interface HoppaTillProps {
-  sektioner: { id: ProfilSektion; etikett: string }[]
+  sektioner: readonly { id: string; etikett: string }[]
 }
 
 export default function HoppaTill({ sektioner }: HoppaTillProps) {
-  const [aktiv, setAktiv] = useState<ProfilSektion>(sektioner[0]?.id ?? 'cv')
+  const [aktiv, setAktiv] = useState<string>(sektioner[0]?.id ?? '')
 
   useEffect(() => {
     if (typeof IntersectionObserver === 'undefined') return
     const obs = new IntersectionObserver(
       (poster) => {
-        const synlig = poster.filter((p) => p.isIntersecting).map((p) => p.target.id as ProfilSektion)
+        const synlig = poster.filter((p) => p.isIntersecting).map((p) => p.target.id)
         if (synlig.length) setAktiv(synlig[0])
       },
       { rootMargin: '-40% 0px -55% 0px' }

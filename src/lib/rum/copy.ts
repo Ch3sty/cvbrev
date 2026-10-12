@@ -74,7 +74,8 @@ export const UNDERSIDA = {
   bliUpptackt: 'Bli upptäckt',
   profil: 'Profil',
   prenumeration: 'Prenumeration',
-  utseende: 'Utseende',
+  /** Kontots och appens val (skiss-installningar-2026-10-12). */
+  installningar: 'Inställningar',
 } as const
 
 /**
@@ -108,7 +109,10 @@ export const NAV = {
   sidomeny: 'Sidomeny',
 } as const
 
-/** Utseende-väljaren på profilen (spec 4.3 och 9, våg 1b). */
+/**
+ * Utseende-väljaren (spec 4.3 och 9, våg 1b): segmentet i avatarmenyn och
+ * sektionen på Inställningar (skiss-installningar-2026-10-12).
+ */
 export const UTSEENDE = {
   rubrik: 'Utseende',
   val: {
@@ -116,6 +120,10 @@ export const UTSEENDE = {
     ljust: 'Ljust',
     morkt: 'Mörkt',
   },
+  /** Raden under menyns symboler, före valet i klartext: "Utseende: Ljust". */
+  rad: 'Utseende:',
+  /** Sektionens underrad på Inställningar. Valet sparas per enhet. */
+  under: 'Gäller den här enheten.',
 } as const
 
 /**
@@ -150,6 +158,7 @@ export const RUBRIK = {
   bliUpptackt: UNDERSIDA.bliUpptackt,
   profil: UNDERSIDA.profil,
   prenumeration: UNDERSIDA.prenumeration,
+  installningar: UNDERSIDA.installningar,
   inforIntervjun: UNDERSIDA.inforIntervjun,
   arbetsstil: 'Din arbetsstil',
   meddelanden: 'Meddelanden',
