@@ -74,6 +74,16 @@ export default function GoogleSignInButton({
       // Vid lyckat anrop navigerar webbläsaren bort, så loading står kvar.
     } catch (err) {
       console.error('[GoogleSignInButton] OAuth-fel:', err)
+      if (signup) {
+        const kod = (err as { code?: unknown } | null)?.code
+        capture('signup_failed', {
+          method: 'google',
+          steg: 'oauth_start',
+          felkod: typeof kod === 'string' && kod ? kod.slice(0, 80) : 'oauth_start_failed',
+          intent: signup.intent,
+          entry: signup.entry,
+        })
+      }
       setError(errorText)
       setLoading(false)
     }

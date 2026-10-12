@@ -25,6 +25,8 @@ export type ServerEventName =
   | 'onboarding_completed'
   /** Bara från Google-callbacken; lösenordskonton skjuts av RegisterKontoSteg. */
   | 'signup_completed'
+  /** Google-callbacken när koden saknas eller växlingen misslyckas. */
+  | 'signup_failed'
   /** /api/profile/contact när en egen dokumentadress sparas. */
   | 'document_email_changed'
   /** /api/profile/contact när namn, telefon eller ort i dokumenten ändras. */
@@ -106,6 +108,27 @@ export function captureServer<E extends ServerEventName>(
   } catch (error: unknown) {
     console.warn(`[POSTHOG] ${event} kastade:`, (error as Error)?.message ?? error)
     return Promise.resolve()
+  }
+}
+
+/** Namnet på PostHogs egen cookie för projektet, ph_<token>_posthog. */
+export function posthogCookieNamn(): string | null {
+  const token = process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN
+  return token ? `ph_${token}_posthog` : null
+}
+
+/**
+ * Besökarens distinct_id ur PostHogs cookie, så att en serverhändelse före
+ * inloggningen (Google-callbackens signup_failed) landar på samma anonyma
+ * person som klientens händelser. Null när cookien saknas eller är trasig.
+ */
+export function distinctIdUrCookie(varde: string | undefined | null): string | null {
+  if (!varde) return null
+  try {
+    const json = JSON.parse(decodeURIComponent(varde)) as { distinct_id?: unknown }
+    return typeof json.distinct_id === 'string' && json.distinct_id ? json.distinct_id : null
+  } catch {
+    return null
   }
 }
 

@@ -93,7 +93,7 @@ export const GRATISRADER = {
   /** GR1, mallgalleriet, över listan. */
   mallar: `${FREE_TEMPLATE_COUNT} mallar ingår i gratisnivån`,
   /** GR2, testhubben. Sant i båda gaterna (spec-rummen 23.3). */
-  tester: 'Nivåkollen och ett första pass ingår',
+  tester: 'Nivåkollen och ett grundpass samma dag ingår',
   /** GR3, CV-analysen, under poängen. */
   analys: 'Poängen och det tyngsta fyndet ingår',
   /** GR4, brevflödet. */

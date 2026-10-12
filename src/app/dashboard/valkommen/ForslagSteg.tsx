@@ -14,9 +14,15 @@
  *
  * Mätregel (saas-lead 2026-09-24): fyra veckor efter deploy, över 85 procent
  * Börja gratis och under 5 procent till kassan byter primärknapp, inget annat.
+ *
+ * Valet tester (undersökningen 2026-10-12): en ny användare som ville göra
+ * tester möttes av Premium som rubrik och lämnade. Här leder den gratis vägen
+ * med en enda kopparknapp, "Kolla min nivå, 8 min", som går in i planen
+ * (Test och datum) och vidare till Nivåkollen. Premium står under som
+ * information med köpet som textlänk, aldrig som en andra knapp.
  */
 
-import { KNAPP_SEKUNDAR } from '@/components/shell/knappar'
+import { KNAPP_SEKUNDAR, LANK } from '@/components/shell/knappar'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -27,7 +33,7 @@ import { capture } from '@/lib/analytics/events'
 import { paketNamn } from '@/lib/plans/plans'
 import { kopstegHref } from '@/lib/onboarding/steps'
 import { INTENTS, type SignupEntry, type SignupIntent } from '@/components/registrering/intent'
-import { STEG3 } from '@/components/registrering/registrering-copy'
+import { STEG3, STEG3_TESTER } from '@/components/registrering/registrering-copy'
 
 export interface ForslagStegProps {
   intent: SignupIntent
@@ -85,6 +91,56 @@ export default function ForslagSteg({ intent, fornamn, entry = 'direkt' }: Forsl
     [busy, track, intent, landning, router]
   )
 
+  if (intent === 'tester') {
+    const T = STEG3_TESTER
+    return (
+      <FlowShell
+        title={STEG3.topp}
+        step={3}
+        totalSteps={3}
+        onExit={() => void valj('free')}
+        utanTillbaka
+        smal
+        primaryLabel={T.knapp}
+        onPrimary={() => void valj('free')}
+        primaryBusy={busy === 'gratis'}
+        busyLabel={STEG3.busy}
+      >
+        <div>
+          <p className="text-steg uppercase text-ink-3">{STEG3.steg}</p>
+          <h2 className="mt-1 font-display text-[26px] font-bold leading-[31px] tracking-[-0.025em] text-ink-1">
+            {T.rubrik(fornamn)}
+          </h2>
+          <p className="mt-1 text-sm leading-[22px] text-ink-2">{T.under}</p>
+
+          <GratisRuta etikett={T.gratisEtikett} rader={T.gratis} />
+
+          <section className="mt-6" aria-label={T.premiumEyebrow}>
+            <p className="text-steg uppercase text-ink-3">{T.premiumEyebrow}</p>
+            <div className="mt-2">
+              <SparKort
+                Scen={SCEN[intent]}
+                rubrik={copy.kortRubrik}
+                namn={paketNamn(plan)}
+                duFar={copy.rader}
+                prisText={copy.prisText}
+                pris={STEG3.pris(plan)}
+              />
+            </div>
+            <button
+              type="button"
+              onClick={() => void valj('purchase')}
+              disabled={busy !== null}
+              className={`${LANK} mt-1 inline-flex min-h-11 items-center disabled:cursor-not-allowed`}
+            >
+              {busy === 'kop' ? STEG3.busy : T.kop()}
+            </button>
+          </section>
+        </div>
+      </FlowShell>
+    )
+  }
+
   return (
     <FlowShell
       title={STEG3.topp}
@@ -129,19 +185,7 @@ export default function ForslagSteg({ intent, fornamn, entry = 'direkt' }: Forsl
           />
         </div>
 
-        <section className="mt-3 rounded-xl border border-kant bg-papper px-4 py-3" aria-label={STEG3.gratisEtikett}>
-          <p className="text-steg uppercase text-ink-3">{STEG3.gratisEtikett}</p>
-          <ul className="mt-1.5 grid gap-1 text-[13px] leading-[18px] text-ink-2">
-            {copy.gratis.map((rad) => (
-              <li key={rad} className="flex gap-2">
-                <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="mt-px shrink-0" aria-hidden="true">
-                  <path d="M4 10.5l4 4 8-9" />
-                </svg>
-                <span>{rad}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+        <GratisRuta etikett={STEG3.gratisEtikett} rader={copy.gratis} />
 
         <Link
           href="/dashboard/profil/prenumeration"
@@ -151,5 +195,24 @@ export default function ForslagSteg({ intent, fornamn, entry = 'direkt' }: Forsl
         </Link>
       </div>
     </FlowShell>
+  )
+}
+
+/** Rutan med vad gratis ger för valet, med bock per rad. */
+function GratisRuta({ etikett, rader }: { etikett: string; rader: readonly string[] }) {
+  return (
+    <section className="mt-3 rounded-xl border border-kant bg-papper px-4 py-3" aria-label={etikett}>
+      <p className="text-steg uppercase text-ink-3">{etikett}</p>
+      <ul className="mt-1.5 grid gap-1 text-[13px] leading-[18px] text-ink-2">
+        {rader.map((rad) => (
+          <li key={rad} className="flex gap-2">
+            <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="mt-px shrink-0" aria-hidden="true">
+              <path d="M4 10.5l4 4 8-9" />
+            </svg>
+            <span>{rad}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
   )
 }
