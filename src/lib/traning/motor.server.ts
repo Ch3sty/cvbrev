@@ -1039,7 +1039,9 @@ export async function slutforTraning(args: {
   const statistik = blandad
     ? svar
         .filter((s) => raknas.has(s.q_id))
-        .map((s) => ({ fraga_id: s.q_id, test_kind: 'matris', correct: s.correct, tid_s: s.time_spent, selected: s.selected }))
+        // typ följer kontraktet. Före migreringen 20261012100000 läser
+        // uppdatera_fraga_statistik inte fältet, så det är ofarligt i båda lägena.
+        .map((s) => ({ fraga_id: s.q_id, test_kind: 'matris', correct: s.correct, tid_s: s.time_spent, selected: s.selected, typ: s.q_id === kalibrering ? 'kalibrering' : meta.typ }))
     : null;
 
   const { data, error } = await args.admin.rpc('slutfor_traningssession', {
