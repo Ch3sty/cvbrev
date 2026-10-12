@@ -149,7 +149,7 @@ describe('deduktivens spärrar', () => {
     expect(foljder).toContain('Med Lisa på plats 3 går villkor 1, 2 och 4 inte ihop. Alltså står Lisa på plats 5.')
     expect(foljder.some((t: string) => t.startsWith('Med') && /Det låser/.test(t))).toBe(false)
     const f = q.formell
-    const fk = forklara({ tema: f.tema, namn: f.namn, villkor: f.villkor, antagande: f.antagande })
+    const fk: Q = forklara({ tema: f.tema, namn: f.namn, villkor: f.villkor, antagande: f.antagande })
     expect(stegFel(f, fk.formella)).toEqual([])
     // Ett lås som inte följer ur stegets villkor fälls.
     const las = fk.formella.findIndex((x: Q) => x.typ === 'las' && x.villkor.length === 1)
