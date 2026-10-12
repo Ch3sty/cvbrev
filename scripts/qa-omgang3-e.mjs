@@ -50,7 +50,7 @@ const UT = 'docs/qa/omgang3-e/klicktest'
 const spara = (d) => fs.writeFileSync(FIL, JSON.stringify(d, null, 2))
 const las = () => (fs.existsSync(FIL) ? JSON.parse(fs.readFileSync(FIL, 'utf8')) : {})
 const vanta = (ms) => new Promise((r) => setTimeout(r, ms))
-const KONTON = { gratis: { premium: false, lev: 'aon' }, aon: { premium: true, lev: 'aon' }, aon2: { premium: true, lev: 'aon' }, shl: { premium: true, lev: 'shl' } }
+const KONTON = { gratis: { premium: false, lev: 'aon' }, aon: { premium: true, lev: 'aon' }, aon2: { premium: true, lev: 'aon' }, aon3: { premium: true, lev: 'aon' }, shl: { premium: true, lev: 'shl' } }
 
 async function skapa() {
   const ut = las()
