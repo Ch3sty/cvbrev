@@ -51,8 +51,8 @@ describe('provformaten', () => {
     // Testansvarig 2026-10-11, punkt 6: tiden är verifierad. Adaptiv Matrigmas
     // antal är vår simulering och står kvar med cirka.
     expect(PROVFORMAT.alva).toMatchObject({ verifierad: true, cirka: false })
-    // Omgång 2: Aons tal saknar källa i repo; formatet står kvar för gamla sessioner.
-    expect(PROVFORMAT.aon).toMatchObject({ verifierad: false, cirka: true })
+    // Omgång 3 (A4): Aons tal belagda (beslut-testansvarig.md 6), med cirka; väljs för figurserierna.
+    expect(PROVFORMAT.aon).toMatchObject({ verifierad: true, cirka: true, kalla: 'beslut-testansvarig.md 6' })
     expect(PROVFORMAT.matrigma_adaptiv).toMatchObject({ verifierad: true, cirka: true })
     expect(PROVFORMAT.matrigma_klassisk).toMatchObject({ verifierad: false, cirka: true })
     expect(PROVFORMAT.shl).toMatchObject({ verifierad: false, cirka: true })

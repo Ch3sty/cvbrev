@@ -27,7 +27,9 @@ import NumericalTable from '@/components/tests/numerical-shared/NumericalTable'
 import NumericalChart, { type ChartConfig } from '@/components/tests/numerical-shared/NumericalChart'
 import { FRAGA, RESULTAT } from '@/lib/ovningsprov/copy'
 import { ovningsResultat } from '@/lib/ovningsprov/resultat'
-import type { NumeriskDel, Ovningsvy, VerbalDel } from '@/lib/ovningsprov/typer'
+import type { FigurDel, NumeriskDel, Ovningsvy, VerbalDel } from '@/lib/ovningsprov/typer'
+import { FigurserieAlternativ, FigurserieBryter, FigurserieRad, SerieMiniatyr } from '@/components/tests/serie/FigurserieRad'
+import { FIGUR_PASS_COPY } from '@/lib/tester/pass-copy'
 import { TRANING_RUTT } from '@/lib/traning/rutter'
 import { useFlodeLage } from '../PassShell'
 import Klocka from './Klocka'
@@ -180,7 +182,8 @@ export default function OvningsprovFlode({ vy: start, dagarKvar, datum }: Ovning
 
   const p = vy.punkter[idx]
   const verbal = vy.typ === 'verbal'
-  const delar = vy.delar as (VerbalDel | NumeriskDel)[]
+  const figurer = vy.typ === 'figurer'
+  const delar = vy.delar as (VerbalDel | NumeriskDel | FigurDel)[]
   const del = p ? delar.find((d) => d.id === p.del) ?? null : null
   const iDelAntal = p ? vy.punkter.filter((x) => x.del === p.del).length : 0
   const sista = idx === vy.punkter.length - 1
@@ -214,7 +217,7 @@ export default function OvningsprovFlode({ vy: start, dagarKvar, datum }: Ovning
         <div className="flex justify-between pt-1 text-[12px] leading-4 text-ink-3">
           <span>{p && vy.format.delar ? FRAGA.delMeta(vy.format.delar.ord, p.delNr, vy.format.delar.antal) : null}</span>
           <span>
-            {hoppad >= 0 ? FRAGA.hoppade(vy.typ, hoppad + 1) : !verbal && p?.iDel === 1 ? FRAGA.rakning : p ? FRAGA.punktMeta(vy.typ, idx + 1) : null}
+            {hoppad >= 0 ? FRAGA.hoppade(vy.typ, hoppad + 1) : !verbal && !figurer && p?.iDel === 1 ? FRAGA.rakning : p ? FRAGA.punktMeta(vy.typ, idx + 1) : null}
           </span>
         </div>
       </div>
@@ -237,7 +240,9 @@ export default function OvningsprovFlode({ vy: start, dagarKvar, datum }: Ovning
             </section>
           ) : null}
           {p && del && fas === 'fraga' ? (
-            verbal ? (
+            figurer ? (
+              <Figurer del={del as FigurDel} nr={idx + 1} vald={vald} onValj={valj} />
+            ) : verbal ? (
               <Verbalt del={del as VerbalDel} punkt={Number(p.punkt)} iDel={p.iDel} antal={iDelAntal} vald={vald} onValj={valj} />
             ) : (
               <Numeriskt del={del as NumeriskDel} fragaId={p.punkt} iDel={p.iDel} antal={iDelAntal} vald={vald} onValj={valj} />
@@ -385,8 +390,83 @@ function Numeriskt({
   )
 }
 
+/**
+ * En figurserie i provet (omgång 3, A4; spec 15.5): frågeraden, raden och
+ * alternativen eller de sex i bryter mönstret. Ingen hjälprad och ingen
+ * återkoppling; valet ritas i bläck och står kvar tills provet lämnas in.
+ */
+function Figurer({ del, nr, vald, onValj }: { del: FigurDel; nr: number; vald: string | null; onValj: (v: string) => void }) {
+  const valt = vald == null ? null : Number(vald)
+  const bryter = del.form === 'bryter'
+  return (
+    <div className="serie-kolumn w-full space-y-3.5" data-figurprov={del.form}>
+      <p className="flex items-baseline justify-between gap-3 text-[13px] leading-[18px] text-ink-3">
+        <span className="whitespace-nowrap">Uppgift {nr}</span>
+        <b className="text-right text-sm font-semibold text-ink-1">{bryter ? FIGUR_PASS_COPY.fraga.bryter : FIGUR_PASS_COPY.fraga.harnast}</b>
+      </p>
+      {bryter ? (
+        <FigurserieBryter rad={del.rad} vald={valt} onValj={(i) => onValj(String(i))} />
+      ) : (
+        <>
+          <FigurserieRad rad={del.rad} />
+          <FigurserieAlternativ options={del.options} valt={valt} onValj={(i) => onValj(String(i))} />
+        </>
+      )}
+    </div>
+  )
+}
+
+/** Genomgången för figurserier: varje miss med miniatyren, facit i raden, regeln och misstaget. */
+function FigurGenomgang({ vy }: { vy: Ovningsvy }) {
+  const G = RESULTAT.genomgang
+  const per = new Map((vy.delar as FigurDel[]).map((d) => [d.id, d]))
+  const missar = (vy.genomgang ?? []).filter((g) => !g.korrekt)
+  return (
+    <>
+      {missar.map((g) => {
+        const p = vy.punkter.find((x) => x.nyckel === g.nyckel)
+        const d = per.get(g.nyckel)
+        if (!p || !d) return null
+        const ratt = Number(g.ratt)
+        const valt = g.svar == null ? null : Number(g.svar)
+        const bryter = d.form === 'bryter'
+        return (
+          <article
+            key={g.nyckel}
+            className={`serie-kolumn rounded-2xl border bg-papper p-4 ${g.svar === null ? 'border-dashed border-kant-stark' : 'border-kant'}`}
+            data-genomgang-punkt
+          >
+            <div className="flex items-center gap-3">
+              <SerieMiniatyr rad={d.rad} form={d.form} ratt={bryter ? ratt : null} fast />
+              <p className="min-w-0">
+                <b className="block text-[15px] font-semibold leading-5 text-ink-1">{G.punkt(vy.typ, p.delNr, p.iDel, 'underlag')}</b>
+                {bryter ? <span className="block text-[13px] leading-[18px] text-ink-3">{G.bryterEtikett}</span> : null}
+              </p>
+            </div>
+            <div className="mt-3 space-y-3">
+              {bryter ? (
+                <FigurserieBryter rad={d.rad} vald={valt} ratt={ratt} disabled />
+              ) : (
+                <>
+                  <FigurserieRad rad={d.rad} facit={d.options[ratt]} />
+                  <FigurserieAlternativ options={d.options} valt={valt} ratt={ratt} disabled />
+                </>
+              )}
+            </div>
+            {g.svar === null ? <p className="mt-3 text-sm leading-5 text-ink-2">{G.obesvarad}</p> : null}
+            <p className="mt-3 text-ey uppercase text-ink-3">{G.regel}</p>
+            {g.forklaring ? <p className="mt-1 text-sm leading-[21px] text-ink-1">{g.forklaring}</p> : null}
+            {g.misstag ? <p className="mt-1.5 text-sm leading-[21px] text-ink-2">{g.misstag}</p> : null}
+          </article>
+        )
+      })}
+    </>
+  )
+}
+
 /** Genomgången under resultatet: varje fel och obesvarad punkt som ett provblad. */
 function Genomgang({ vy }: { vy: Ovningsvy }) {
+  if (vy.typ === 'figurer') return <FigurGenomgang vy={vy} />
   const G = RESULTAT.genomgang
   const ord = vy.format.delar?.ord ?? 'underlag'
   const per = new Map(vy.punkter.map((p) => [p.nyckel, p]))

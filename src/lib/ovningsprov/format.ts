@@ -18,21 +18,23 @@
 import { paketKort } from '@/lib/plans/plans';
 import { formatForPlan, PROVFORMAT, type FormatNyckel, type Provformat } from '@/lib/traning/tempo';
 
-export type Provtyp = 'logik' | 'verbal' | 'numerisk';
-export const PROVTYPER: readonly Provtyp[] = ['logik', 'verbal', 'numerisk'];
+export type Provtyp = 'logik' | 'verbal' | 'numerisk' | 'figurer';
+export const PROVTYPER: readonly Provtyp[] = ['logik', 'verbal', 'numerisk', 'figurer'];
 
 export function arProvtyp(v: unknown): v is Provtyp {
-  return v === 'logik' || v === 'verbal' || v === 'numerisk';
+  return v === 'logik' || v === 'verbal' || v === 'numerisk' || v === 'figurer';
 }
 
 export type Enhet = 'uppgifter' | 'påståenden' | 'frågor';
 
 export type FormatNyckelVN = 'verbal_shl' | 'verbal_eget' | 'numerisk_shl' | 'numerisk_eget';
+/** Figurseriernas övningsprov (beställning omgång 3, A4). */
+export type FormatNyckelFigur = 'figurer_aon' | 'figurer_eget';
 
 export interface Ovningsformat {
   typ: Provtyp;
   /** Logik: PROVFORMAT-nyckeln. Verbalt och numeriskt: verbal_shl, numerisk_eget ... */
-  nyckel: FormatNyckel | FormatNyckelVN;
+  nyckel: FormatNyckel | FormatNyckelVN | FormatNyckelFigur;
   /** Namnet efter "Samma format som". Null: vårt format. */
   namn: string | null;
   antal: number;
@@ -82,7 +84,7 @@ const NUMERISK_BAS = {
 export const ANMARKNING = {
   logik: {
     shl: 'SHL Verify G+ blandar siffror, slutledning och figurer. Övningsprovet övar figurdelen.',
-    aon: 'Aon scales ix använder figurserier, inte rutnät. Övningsprovet övar tempot med matriser.',
+    aon: 'Aon scales ix använder figurserier, inte rutnät. Övningsprovet i Aons format ligger under Figurserier.',
   },
   verbal: {
     shl: 'Svaren sant, falskt eller går inte att avgöra, som i SHL Verify verbal.',
@@ -96,6 +98,13 @@ export const ANMARKNING = {
     matrigma: 'Assessio har inget numeriskt test. Får du bara Matrigma behöver du inte öva det här.',
     alva: 'Alva har inget numeriskt test. Får du bara Alva Logic behöver du inte öva det här.',
   },
+  /** Copy-omgang3 3.2. */
+  figurer: {
+    aon: 'Aon scales ix blandar rader att fortsätta med figurer som bryter mönstret. Övningsprovet gör samma sak, hälften var.',
+    shl: 'SHL Verify G+ blandar siffror, slutledning och figurer. Övningsprovet övar figurdelen.',
+    matrigma: 'Assessio har inga figurserier. Får du bara Matrigma behöver du inte öva det här.',
+    alva: 'Alva har inga figurserier. Får du bara Alva Logic behöver du inte öva det här.',
+  },
   okand: 'Vet du leverantören så byter vi format.',
 } as const;
 
@@ -105,6 +114,23 @@ export const OVNINGSFORMAT_VN: Readonly<Record<FormatNyckelVN, Omit<Ovningsforma
   numerisk_shl: { ...NUMERISK_BAS, nyckel: 'numerisk_shl', namn: 'SHL Verify numerisk', cirka: true },
   numerisk_eget: { ...NUMERISK_BAS, nyckel: 'numerisk_eget', namn: null, cirka: false },
 };
+
+/**
+ * Figurserier (beställning omgång 3, A4): Aons tal ur PROVFORMAT.aon (20 på 5
+ * minuter, cirka), övriga vårt format 20 på 15 minuter. Hälften härnäst,
+ * hälften bryter mönstret när bryterbanken når golvet.
+ */
+const FIGUR_BAS = { typ: 'figurer' as const, antal: 20, adaptiv: false, tidsform: 'total' as const, enhet: 'uppgifter' as const, delar: null };
+export const OVNINGSFORMAT_FIGUR: Readonly<Record<FormatNyckelFigur, Omit<Ovningsformat, 'anmarkning' | 'okandLeverantor'>>> = {
+  figurer_aon: { ...FIGUR_BAS, nyckel: 'figurer_aon', namn: PROVFORMAT.aon.namn, antal: PROVFORMAT.aon.antal, minuter: PROVFORMAT.aon.minuter, budget_s: PROVFORMAT.aon.budget_s, cirka: PROVFORMAT.aon.cirka },
+  figurer_eget: { ...FIGUR_BAS, nyckel: 'figurer_eget', namn: null, minuter: 15, budget_s: 45, cirka: false },
+};
+
+function figurformat(leverantor: string | null | undefined): Ovningsformat {
+  if (leverantor === 'aon') return { ...OVNINGSFORMAT_FIGUR.figurer_aon, anmarkning: ANMARKNING.figurer.aon, okandLeverantor: false };
+  const lev = leverantor === 'shl' || leverantor === 'matrigma' || leverantor === 'alva' ? leverantor : null;
+  return { ...OVNINGSFORMAT_FIGUR.figurer_eget, anmarkning: lev ? ANMARKNING.figurer[lev] : null, okandLeverantor: !lev };
+}
 
 export function arFormatNyckelVN(v: unknown): v is FormatNyckelVN {
   return typeof v === 'string' && v in OVNINGSFORMAT_VN;
@@ -139,6 +165,7 @@ export function ovningsformat(
   variant?: string | null
 ): Ovningsformat {
   if (typ === 'logik') return franLogik(formatForPlan(leverantor, variant));
+  if (typ === 'figurer') return figurformat(leverantor);
   const nyckel: FormatNyckelVN = leverantor === 'shl' ? `${typ}_shl` : `${typ}_eget`;
   const lev = leverantor === 'shl' || leverantor === 'aon' || leverantor === 'matrigma' || leverantor === 'alva' ? leverantor : null;
   return { ...OVNINGSFORMAT_VN[nyckel], anmarkning: lev ? ANMARKNING[typ][lev] : null };
@@ -149,6 +176,7 @@ export function ovningsformatUrNyckel(typ: Provtyp, nyckel: string): Ovningsform
   // Gamla sessioner med meta.format aon ritas som förut (omgång 2, A7).
   if (typ === 'logik' && nyckel === 'aon') return franLogik(PROVFORMAT.aon);
   if (typ === 'logik') return franLogik(formatForPlan(nyckelTillLeverantor(nyckel), nyckel === 'matrigma_adaptiv' ? 'adaptiv' : null));
+  if (typ === 'figurer') return nyckel === 'figurer_aon' ? figurformat('aon') : { ...OVNINGSFORMAT_FIGUR.figurer_eget, anmarkning: null, okandLeverantor: false };
   return arFormatNyckelVN(nyckel) ? { ...OVNINGSFORMAT_VN[nyckel], anmarkning: null } : ovningsformat(typ, null);
 }
 

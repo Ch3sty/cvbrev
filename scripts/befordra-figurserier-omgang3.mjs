@@ -7,8 +7,9 @@
 //   kandidater/bryter-{grund,avancerad}.json  -> bankBryter{Grund,Avancerad}.json
 //   kandidater/parti2-{grund,avancerad}.json  -> bankParti2{Grund,Avancerad}.json
 //
-// Bara id i beslutets godkanda, plus TEXTBYTE: de två B1-blocken som strök för
-// texten och kom tillbaka med samma id efter textbytet (granskning avsnitt 3).
+// Bara id i godkanda i beslut.json och beslut-tillagg.json (granskning avsnitt
+// 9: textbytet i B1 block och de fyra ersättarna). Textvillkoren i tillägget
+// är redan inkörda i kandidatfilerna.
 // Felar under golvet (12 bryter per nivå) och om kedjan inte är grön.
 // De klassiska nivåtestens banker (serie_version 1) rörs inte.
 //
@@ -21,8 +22,8 @@ import { execFileSync } from 'node:child_process';
 const K = 'src/lib/figurserierV1/kandidater';
 const B = 'src/lib/figurserierV1';
 const beslut = JSON.parse(readFileSync('docs/qa/omgang3-e/beslut.json', 'utf8'));
-const TEXTBYTE = ['fsb-g-antal-03', 'fsb-g-antal-07'];
-const ja = new Set([...beslut.godkanda, ...TEXTBYTE]);
+const tillagg = JSON.parse(readFileSync('docs/qa/omgang3-e/beslut-tillagg.json', 'utf8'));
+const ja = new Set([...beslut.godkanda, ...tillagg.godkanda]);
 const GOLV_BRYTER = 12;
 
 const par = [

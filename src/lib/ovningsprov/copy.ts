@@ -11,14 +11,15 @@ import { paketKort, paketNamn, prisPeriod, SALD_PLAN, kopKnapp } from '@/lib/pla
 import { talord, versal } from '@/lib/traning/copy';
 import { antalTid, formatTitel, type Ovningsformat, type Provtyp } from './format';
 
-export const TYP_NAMN: Record<Provtyp, string> = { logik: 'Logik', verbal: 'Verbalt', numerisk: 'Numeriskt' };
-const TYP_GEMEN: Record<Provtyp, string> = { logik: 'logik', verbal: 'verbalt', numerisk: 'numeriskt' };
+export const TYP_NAMN: Record<Provtyp, string> = { logik: 'Logik', verbal: 'Verbalt', numerisk: 'Numeriskt', figurer: 'Figurserier' };
+const TYP_GEMEN: Record<Provtyp, string> = { logik: 'logik', verbal: 'verbalt', numerisk: 'numeriskt', figurer: 'figurserier' };
 
 /** Ordet för en uppgift i texterna. */
 export const PUNKT_ORD: Record<Provtyp, { en: string; flera: string; best: string; bestFlera: string }> = {
   logik: { en: 'uppgift', flera: 'uppgifter', best: 'uppgiften', bestFlera: 'uppgifterna' },
   verbal: { en: 'påstående', flera: 'påståenden', best: 'påståendet', bestFlera: 'påståendena' },
   numerisk: { en: 'fråga', flera: 'frågor', best: 'frågan', bestFlera: 'frågorna' },
+  figurer: { en: 'uppgift', flera: 'uppgifter', best: 'uppgiften', bestFlera: 'uppgifterna' },
 };
 
 export const START = {
@@ -40,6 +41,9 @@ export const START = {
   reglerAria: 'Tre regler',
   efterLogik: 'Resultatet blir en punkt på kurvan med samma vikt som en nivåkoll. Genomgången med alla uppgifter kommer direkt efteråt.',
   efter: 'Genomgången med rätt svar och förklaring kommer direkt efteråt.',
+  /** Figurserier (copy-omgang3 3.3). */
+  efterFigurer: 'Genomgången med regeln och rätt svar vid varje uppgift visas direkt efteråt.',
+  tvaFormer: 'Två sorters uppgifter: fortsätt raden, eller hitta figuren som bryter mönstret. Frågan står över varje uppgift.',
   knapp: 'Starta övningsprovet',
   startar: 'Startar provet',
   avbryt: 'Avbryter du sparas inget resultat.',
@@ -71,7 +75,7 @@ export const FRAGA = {
   titel: 'Övningsprov',
   undertitel: (f: Ovningsformat) =>
     f.namn
-      ? `${f.namn.replace(/^SHL Verify (verbal|numerisk)$/, 'SHL Verify')}s format`
+      ? `${f.namn.replace(/^SHL Verify (verbal|numerisk)$/, 'SHL Verify')}${/[sxz]$/.test(f.namn) ? '' : 's'} format`
       : f.delar
         ? `Vårt format, ${f.delar.antal} ${f.delar.ord}`
         : 'Vårt format',
@@ -118,15 +122,17 @@ export const RESULTAT = {
   tidenRackte: 'Tiden räckte',
   allaBesvarade: (typ: Provtyp) => `alla ${PUNKT_ORD[typ].flera} besvarade`,
   /** Väggens mening för verbalt och numeriskt, utan nivå (ingen nivåskala finns för dem än). */
-  mening: (obesvarade: number, andelBesvaradeRatt: number, svagast: string | null) => {
+  mening: (obesvarade: number, andelBesvaradeRatt: number, svagast: string | null, typ?: Provtyp) => {
     if (obesvarade > 0) {
       return andelBesvaradeRatt >= 0.75
-        ? 'Tiden var det som fattades, inte reglerna. De obesvarade kostar lika mycket som ett fel, så gissa hellre nästa gång.'
+        ? typ === 'figurer'
+          ? 'Tiden var det som fattades, inte mönstren. De obesvarade kostar lika mycket som ett fel, så gissa hellre nästa gång.'
+          : 'Tiden var det som fattades, inte reglerna. De obesvarade kostar lika mycket som ett fel, så gissa hellre nästa gång.'
         : 'Både tiden och några av svaren drog ned. Genomgången visar vilka, och tempot under den var tiden tog slut.';
     }
     return svagast
       ? `Det som skiljer nu är ${svagast.toLowerCase()}. Missarna står i genomgången.`
-      : 'Alla rätt inom tiden. Nästa steg är samma prov på kortare tid.';
+      : 'Alla rätt inom tiden. Nästa steg är ett nytt övningsprov i morgon, på kortare tid.';
   },
   genomgang: {
     rub: 'Genomgång',
@@ -149,7 +155,9 @@ export const RESULTAT = {
     ditt: (svar: string) => `Ditt svar: ${svar}`,
     ratt: (svar: string) => `Rätt: ${svar}`,
     punkt: (typ: Provtyp, delNr: number, iDel: number, ord: 'texter' | 'underlag') =>
-      `${ord === 'texter' ? 'Text' : 'Underlag'} ${delNr}, ${PUNKT_ORD[typ].en} ${iDel}`,
+      typ === 'figurer' ? `Uppgift ${delNr}` : `${ord === 'texter' ? 'Text' : 'Underlag'} ${delNr}, ${PUNKT_ORD[typ].en} ${iDel}`,
+    bryterEtikett: 'Bryter mönstret',
+    regel: 'Regeln',
   },
   tappade: {
     rub: 'Var du tappade i provet',

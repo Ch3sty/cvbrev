@@ -18,7 +18,7 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
 export default async function OvningsprovSessionSida({ params }: { params: Promise<{ typ: string; sessionId: string }> }) {
   const { typ, sessionId } = await params
-  if (typ !== 'verbal' && typ !== 'numerisk') notFound()
+  if (typ !== 'verbal' && typ !== 'numerisk' && typ !== 'figurer') notFound()
   if (!UUID.test(sessionId)) notFound()
   const { userId } = await passSida()
   const admin = testSkrivKlient()

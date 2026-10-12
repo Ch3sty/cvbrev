@@ -133,3 +133,13 @@ Strukna (6): fsb-g-antal-03 och 07 (texten påstår vridning som blocket inte ka
 ## 8. Data mot bedömning
 
 Data: facit, vridningar, speglingar, lägen, serier och vilka egenskaper brytaren delar med de fem är räknade ur kandidatfilerna och stämda mot bilderna; sammanfallet i F9 är räknat i alla sexton F5 (sex nya, tio i banken). Bedömning: att en falsk regeltext fäller på grund (kandidaten lär sig av texten), att tärningsmönstret i B1 kant är läsbart när uppgiften är att räkna, att en överflödig växling är fel nivå (F9), och att samma regel med annan start är en upprepning. Prövbart i klicktestet: antal-04 och 08 mot övriga B1, 180-gradersfallen i B3 mot 90-gradersfallen, och B4:s lösningsgrad mot p_prior 0,48.
+
+## 9. Tillägg 2026-10-12 (ATT-GRANSKA-tillagg, `beslut-tillagg.json`)
+
+Textbytet i B1 håller: antal-03 (A har fem, de fem har fyra) och antal-07 (C har fyra, de fem har tre) stämmer mot rutorna och säger inget om vridning. Godkända.
+
+Ersättarna: fs-g-antal-17 (kanten nedåt från sex, en ruta i taget medurs, E med en ruta) är entydig och är inte antal-14 med annan start. Godkänd. fs-a-vaxl-11 (facit 270, fällan B 315), vaxl-12 (facit sydväst, fällan A öst) och vaxl-13 (facit nordväst med pil 135, fällan A syd) har alla första seriens förlängning som ren distraktor och minst två rena. Godkända. Villkor i vaxl-12: C står i sydost, två steg bortom facit med regeltextens eget steg, så misstaget ska säga två steg, inte ett. Bara text.
+
+F9 mot banken: fs-e-vrid-02 och fs-e-antal-04 är lösbara på fel sätt. I vrid-02 ger 45, 270, 135 förlängd 0 grader, som är facit, och längd och spets löper över hela raden, så B nås utan växlingen. I antal-04 ger start 2, 4, 6 förlängd 0, som är facit, och antalet löper över raden; den enda växlande dimensionen sammanfaller. Samma princip som avsnitt 5: regeln som ger nivån prövas aldrig. Strukna, ersättare med samma id. Expert går från 32 till 30 mot golvet 28, så ingen lucka i provet under tiden.
+
+Data: vinklar, startlägen och facit är räknade ur bankExpert.json och kandidatfilerna; vaxl-12 kontrollerad mot SVG-koordinaterna. Bedömning: att en överflödig växling är fel nivå även när andra regler bär facit.

@@ -1085,7 +1085,8 @@
     }
    }
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "pensionerad_fran": 2
  },
  {
   "id": "fs-e-vax-02",
@@ -4340,7 +4341,8 @@
     }
    }
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "pensionerad_fran": 2
  },
  {
   "id": "fs-e-antal-05",

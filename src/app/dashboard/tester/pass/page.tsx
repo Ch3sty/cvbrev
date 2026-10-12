@@ -14,6 +14,7 @@
 
 import PassFlode from '@/components/traning/PassFlode'
 import VnPassFlode from '@/components/traning/vnpass/VnPassFlode'
+import FigurPassFlode from '@/components/traning/figurpass/FigurPassFlode'
 import type { Begard } from '@/lib/traning/tillgang'
 import { passSida } from './sida.server'
 
@@ -33,6 +34,11 @@ export default async function PassStartSida({
     const kind = typ === 'textpass' ? 'verbal' : 'numerisk'
     const familj = forsta(sp.family)
     return <VnPassFlode key={`${kind}|${familj ?? ''}`} start={{ kind, familj }} />
+  }
+  // Figurpasset (beställning omgång 3, A3).
+  if (typ === 'figurpass') {
+    await passSida()
+    return <FigurPassFlode key="figurpass" starta />
   }
   const begard: Begard = TYPER.includes(typ as Begard) ? (typ as Begard) : 'pass'
   const { betalande } = await passSida()

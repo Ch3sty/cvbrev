@@ -93,3 +93,70 @@ export const VN_PASS_COPY = {
   missar: (n: number) => (n === 1 ? 'en miss' : `${talord(n)} missar`),
   versal,
 } as const;
+
+/**
+ * Figurpassets texter (copy-omgang3.md 2.2 och 2.3). Samma form som
+ * VN_PASS_COPY; nivån står som ord i toppraden, aldrig som tal.
+ */
+export const FIGUR_PASS_COPY = {
+  namn: 'Figurpass',
+  topp: {
+    titel: 'Figurpass',
+    rad: (niva: VnNiva) => `Dagens figurpass, ${NIVA_NAMN[niva].toLowerCase()}`,
+    avsluta: 'Avsluta passet',
+  },
+  fraga: {
+    uppgift: (n: number, av: number) => `Uppgift ${n} av ${av}`,
+    svarAria: 'Ditt svar',
+    harnast: 'Vilken figur kommer härnäst?',
+    bryter: 'Vilken figur bryter mönstret?',
+    bryterHjalp: 'Fem följer samma regel. Ordningen spelar ingen roll.',
+  },
+  aterkoppling: {
+    ratt: 'Rätt',
+    fel: 'Inte rätt',
+    regel: 'Regeln',
+    misstag: 'Ditt misstag',
+    vetInte: 'Vet inte, visa regeln',
+    vetInteRad: 'Vet inte',
+  },
+  knapp: {
+    nasta: 'Nästa',
+    visaResultat: 'Visa resultatet',
+    genomga: 'Gå igenom passet',
+    tillResultatet: 'Till resultatet',
+    foregaende: 'Föregående',
+    ovaFamiljen: 'Öva den här familjen',
+    tillbaka: 'Tillbaka till Rekryteringstester',
+    forsokIgen: 'Försök igen',
+  },
+  fel: {
+    hamta: 'Passet gick inte att hämta.',
+    hamtaRad: 'Försök igen. Dina pass är sparade, ingenting försvann.',
+    svar: 'Svaret gick inte att spara. Inget är förlorat, försök igen.',
+    avslut: 'Resultatet gick inte att räkna fram. Svaren är sparade, försök igen.',
+    betalvagg: 'Figurpasset ingår i Premium.',
+    betalvaggRad: 'Fyra figurserier varje dag, med regeln förklarad efter varje svar.',
+  },
+  laddar: {
+    session: 'Hämtar passet',
+    resultat: 'Räknar fram resultatet',
+  },
+  resultat: {
+    eyebrow: 'Figurpasset klart',
+    rubrik: (ratt: number, antal: number) => `${ratt} av ${antal} rätt.`,
+    ringAria: (ratt: number, antal: number) => `${ratt} av ${antal} rätt`,
+    tempoRubrik: 'Tempot',
+    tempo: (tid: number, budget: number) =>
+      tid <= budget ? 'Inom tiden provet ger per uppgift.' : 'Över tiden provet ger per uppgift. Tempot växer med passen.',
+    tempoAria: (tidPer: number, budgetPer: number) => `Tid ${tidPer} sekunder per uppgift mot provets ${budgetPer}`,
+    budgetEtikett: 'provets tid',
+    tid: (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`,
+    tappadeRubrik: 'Var du tappade',
+    tappadeMeta: (ratt: number, antal: number) => `${ratt} av ${antal} rätt i passen`,
+    upprepad: 'Du har sett den här raden förut. Den räknas inte i statistiken.',
+    expertRad: 'Expertnivån: gör nivåtestet.',
+    imorgon: 'I morgon: ett nytt figurpass.',
+    ingenNiva: 'Figurpasset påverkar inte nivån på skalan. Den mäts i Nivåkollen.',
+  },
+} as const;

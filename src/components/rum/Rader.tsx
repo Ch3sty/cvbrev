@@ -28,9 +28,14 @@ export interface RadProps {
    * (beslut-hemvy 2026-10-11, avvikelse 4). Mobil oförändrad.
    */
   hogerUnder?: boolean
+  /**
+   * Under lg: ett chip till höger står under metan, vänsterställt i textens
+   * kolumn (figurserier-spec 15.3), så att metan inte bryts i fem rader.
+   */
+  chipUnder?: boolean
 }
 
-export function Rad({ symbol, svag, titel, meta, stapel, hoger, href, hogerUnder }: RadProps) {
+export function Rad({ symbol, svag, titel, meta, stapel, hoger, href, hogerUnder, chipUnder }: RadProps) {
   const innehall = (
     <>
       {symbol ? (
@@ -51,11 +56,15 @@ export function Rad({ symbol, svag, titel, meta, stapel, hoger, href, hogerUnder
         ) : null}
       </span>
       {hoger ? (
-        <span className={`shrink-0${hogerUnder ? ` lg:-mt-2 lg:w-full${symbol ? ' lg:pl-[52px]' : ''}` : ''}`}>{hoger}</span>
+        <span
+          className={`shrink-0${hogerUnder ? ` lg:-mt-2 lg:w-full${symbol ? ' lg:pl-[52px]' : ''}` : ''}${chipUnder ? ` max-lg:-mt-1 max-lg:w-full${symbol ? ' max-lg:pl-[52px]' : ''}` : ''}`}
+        >
+          {hoger}
+        </span>
       ) : null}
     </>
   )
-  const klass = `flex min-h-14 items-center gap-3 px-4 py-3${hogerUnder && hoger ? ' lg:flex-wrap' : ''}`
+  const klass = `flex min-h-14 items-center gap-3 px-4 py-3${hogerUnder && hoger ? ' lg:flex-wrap' : ''}${chipUnder && hoger ? ' max-lg:flex-wrap' : ''}`
   if (href) {
     return (
       <Link href={href} className={klass}>

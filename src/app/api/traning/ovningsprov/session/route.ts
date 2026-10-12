@@ -23,7 +23,7 @@ export async function POST(request: Request) {
   if (!a.ok) return a.svar;
   const k = ((await lasKropp(request)) ?? {}) as Record<string, unknown>;
   const typ = k.typ as OvningsTyp;
-  if (typ !== 'verbal' && typ !== 'numerisk') return fel(400, 'ogiltig_typ');
+  if (typ !== 'verbal' && typ !== 'numerisk' && typ !== 'figurer') return fel(400, 'ogiltig_typ');
   const fran = (FRAN as readonly unknown[]).includes(k.fran) ? (k.fran as (typeof FRAN)[number]) : null;
   try {
     const r = await skapaOvningsprov({ supabase: a.supabase, admin: a.admin, userId: a.userId, typ, fran });

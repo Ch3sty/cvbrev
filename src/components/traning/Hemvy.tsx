@@ -33,7 +33,7 @@ import {
   IkonChev,
   IkonKalender,
   SymMatris,
-  SymOrd,
+  SymOrd, SymFigurer,
   SymPerson,
   SymPlan,
   SymSiffror,
@@ -56,6 +56,8 @@ function SymbolFor({ s }: { s: Symbol }) {
       return <SymSiffror size={40} />
     case 'ord':
       return <SymOrd size={40} />
+    case 'figurer':
+      return <SymFigurer size={40} />
     case 'person':
       return <SymPerson size={40} />
     case 'jobb':
@@ -90,10 +92,11 @@ function HogerFor({ h }: { h: Hoger }) {
   )
 }
 
-function RadFor({ r, smal }: { r: RadModell; smal?: boolean }) {
+function RadFor({ r, smal, chipUnder }: { r: RadModell; smal?: boolean; chipUnder?: boolean }) {
   return (
     <Rad
       hogerUnder={smal && r.hoger?.typ !== 'chev'}
+      chipUnder={chipUnder && r.hoger?.typ === 'las'}
       symbol={r.symbol ? <SymbolFor s={r.symbol} /> : undefined}
       svag={r.svag}
       titel={r.titel}
@@ -228,7 +231,8 @@ function SektionFor({ s, forstaRad, spann }: { s: Sektion; forstaRad: boolean; s
         ) : null}
         {s.rader.map((r) => (
           // I en tredjedelsspalt står högersidan under metan (avvikelse 4).
-          <RadFor key={r.titel} r={r} smal={!forstaRad && !spann} />
+          // Passraderna: chipet under metan på mobil (figurserier-spec 15.3).
+          <RadFor key={r.titel} r={r} smal={!forstaRad && !spann} chipUnder={s.nyckel === 'vnpass'} />
         ))}
       </Rader>
     </div>

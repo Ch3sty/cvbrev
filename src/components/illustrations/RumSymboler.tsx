@@ -214,6 +214,19 @@ export function SymMatris(p: IlluProps) {
   )
 }
 
+/** Figurer (#s-figurer, spec 15.3): en remsa med tre rutor, triangel och kvadrat, luckan sist i koppar. */
+export function SymFigurer(p: IlluProps) {
+  return (
+    <IlluSvg box={48} {...p}>
+      <rect x="4" y="15" width="40" height="18" rx="5" fill="none" stroke="currentColor" strokeWidth="2" />
+      <path d="M17.3 15v18M30.6 15v18" stroke="currentColor" strokeWidth="1.5" opacity=".5" />
+      <path d="M10.7 19.5l3.6 6.2h-7.2z" fill="currentColor" />
+      <rect x="21.6" y="21.6" width="4.8" height="4.8" rx="1" fill="currentColor" />
+      <rect x="33.6" y="19.6" width="8" height="8" rx="2" fill="none" stroke={K} strokeWidth="2" strokeDasharray="3 2.5" />
+    </IlluSvg>
+  )
+}
+
 /** Siffror (#s-siffror): tabell och staplar, den höga stapeln i koppar. */
 export function SymSiffror(p: IlluProps) {
   return (

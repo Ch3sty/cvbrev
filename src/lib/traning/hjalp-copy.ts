@@ -136,7 +136,7 @@ export const HJALP_RUTOR: Record<HjalpId, HjalpRutaText> = {
     id: 'B10',
     grupp: 'B',
     rubrik: 'Figurserier: vad är det?',
-    text: 'Du ser fem figurer i rad och en lucka sist. Figurerna följer en eller flera regler, som en vridning, ett antal som växer eller två serier som turas om, och du väljer figuren som kommer härnäst. Samma format som figurserierna i SHL Verify och Aon scales ix. Läs raden från vänster och sätt ord på regeln innan du tittar på alternativen.',
+    text: 'Du ser fem figurer i rad och en lucka sist. Figurerna följer en eller flera regler, som en vridning, ett antal som växer eller två serier som turas om, och du väljer figuren som kommer härnäst. I en del uppgifter är det tvärtom: sex figurer, ingen lucka, och du letar efter den som bryter mot regeln de andra fem följer. Där spelar ordningen ingen roll. Samma format som figurserierna i SHL Verify och Aon scales ix. Läs raden från vänster och sätt ord på regeln innan du tittar på alternativen.',
   },
 
   C1: {

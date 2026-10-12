@@ -154,8 +154,50 @@ export function FigurserieAlternativ({
   )
 }
 
-/** Miniatyren i resultatets genomgångslista (spec 8): en remsa med sex rutor, luckan i papper-2. */
-export function SerieMiniatyr({ rad, className }: { rad: LayeredCell[]; className?: string }) {
+/**
+ * Miniatyren i resultatets genomgångslista (spec 8 och 15.2): en remsa med sex
+ * rutor, aldrig två rader. Härnäst: fem figurer och luckan sist i papper-2.
+ * Bryter: sex figurer, brytaren i koppar-bläck med kopparram, inga bokstäver,
+ * ingen nedtoning. `fast` ger 24 px-rutorna (.minifig) med lyfta linjer.
+ */
+export function SerieMiniatyr({
+  rad,
+  className,
+  form = 'harnast',
+  ratt = null,
+  fast = false,
+}: {
+  rad: LayeredCell[]
+  className?: string
+  form?: 'harnast' | 'bryter'
+  /** Brytarens index i raden (bryter). */
+  ratt?: number | null
+  fast?: boolean
+}) {
+  if (fast) {
+    return (
+      <span className={cn('matrisyta minifig', className)} aria-hidden="true" data-minifig={form}>
+        {rad.map((c, i) =>
+          form === 'bryter' && i === ratt ? (
+            <i key={i} className="bryter">
+              <span className="ratt-fylld">
+                <FigurV7 cell={c} />
+              </span>
+            </i>
+          ) : (
+            <i key={i}>
+              <FigurV7 cell={c} />
+            </i>
+          )
+        )}
+        {form === 'harnast' ? (
+          <i className="lucka">
+            <LuckaV7 />
+          </i>
+        ) : null}
+      </span>
+    )
+  }
   return (
     <span className={cn('matrisyta grid grid-cols-6 overflow-hidden rounded-md border border-kant bg-papper', className)} aria-hidden="true">
       {rad.map((c, i) => (

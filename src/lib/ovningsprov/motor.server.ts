@@ -31,10 +31,15 @@ import { captureServer } from '@/lib/analytics/server';
 import { lasBehorighet } from '@/lib/traning/motor.server';
 import { dagSthlm, type Dag } from '@/lib/traning/datum';
 import { visningstitel } from '@/lib/tester/titel';
-import { lasSeddaUnderlag } from '@/lib/tester/sedda.server';
+import { lasSeddaUnderlag, seddaFigurerUrRader, seddaFigurTestTyper, type SeddRad } from '@/lib/tester/sedda.server';
+import { genomgaFigur, hittaFigurFraga, visaFigur, figurPermutation } from '@/lib/figurserierV1/fragor.server';
+import { bryterPool, harnastPool } from '@/lib/figurserierV1/select';
+import { serieFamiljNamn } from '@/lib/figurserierV1/familjer';
+import { tillOriginal } from '@/lib/logicTestV7/blanda';
 import { ovningsformat, ovningsformatUrNyckel } from './format';
 import {
   OVNINGSPROV_TEST_TYPE,
+  type FigurDel,
   type Genomgangspunkt,
   type NumeriskDel,
   type OvningsTyp,
@@ -142,6 +147,7 @@ export const URVAL = {
  * underlagsversionens (version 1: de frysta bankerna, som förut).
  */
 export function valjDelar(typ: OvningsTyp, seed: string, sedda: ReadonlySet<string> = new Set(), version: UnderlagVersion = 1): string[] {
+  if (typ === 'figurer') return valjFigurDelar(seed, sedda);
   if (typ === 'verbal') {
     return [
       ...valj(verbalPool('grund', version), URVAL.verbal.grund, `${seed}:grund`, sedda),
@@ -155,6 +161,32 @@ export function valjDelar(typ: OvningsTyp, seed: string, sedda: ReadonlySet<stri
   ].map((p) => p.id);
 }
 
+/**
+ * Figurseriernas 20 (beställning omgång 3, A4): räknat över hela provet 6
+ * grund, 10 avancerad och 4 expert, hälften bryter mönstret när bryterbanken
+ * når golvet (härnäst 2 + 4 + 4, bryter 4 + 6), annars 20 härnäst. Fast
+ * ordning, de svåraste sist; inom en nivå blandas formerna seedat. Det hon
+ * haft (klassiska test, figurpass, övningsprov) väljs sist.
+ */
+export const FIGUR_URVAL = {
+  medBryter: { harnast: { grund: 2, avancerad: 4, expert: 4 }, bryter: { grund: 4, avancerad: 6 } },
+  utanBryter: { harnast: { grund: 6, avancerad: 10, expert: 4 }, bryter: { grund: 0, avancerad: 0 } },
+} as const;
+
+export function valjFigurDelar(seed: string, sedda: ReadonlySet<string> = new Set()): string[] {
+  const bryterFinns = bryterPool('grund').length > 0 && bryterPool('avancerad').length > 0;
+  const u = bryterFinns ? FIGUR_URVAL.medBryter : FIGUR_URVAL.utanBryter;
+  const niva = (n: 'grund' | 'avancerad') =>
+    blanda(
+      [
+        ...valj(harnastPool(n), u.harnast[n], `${seed}:${n}:h`, sedda),
+        ...(u.bryter[n] ? valj(bryterPool(n), u.bryter[n], `${seed}:${n}:b`, sedda) : []),
+      ],
+      `${seed}:${n}:ordning`
+    );
+  return [...niva('grund'), ...niva('avancerad'), ...valj(harnastPool('expert'), u.harnast.expert, `${seed}:expert`, sedda)].map((q) => q.id);
+}
+
 // Uppslaget täcker alla versioner: delarnas id står i meta.
 const VERBAL_PER_ID = new Map<string, VerbalPassage>(VERBAL_ALLA.map((p) => [p.id, p]));
 const NUM_PER_ID = new Map<string, NumeriskPassage>(NUM_ALLA.map((p) => [p.id, p]));
@@ -165,7 +197,9 @@ export const rubrikUtanNummer = visningstitel;
 export function punkterFor(typ: OvningsTyp, delar: readonly string[]): Punkt[] {
   const ut: Punkt[] = [];
   delar.forEach((id, d) => {
-    if (typ === 'verbal') {
+    if (typ === 'figurer') {
+      ut.push({ nyckel: id, del: id, punkt: id, delNr: d + 1, iDel: 1 });
+    } else if (typ === 'verbal') {
       const p = VERBAL_PER_ID.get(id);
       p?.statements.forEach((_, i) => ut.push({ nyckel: `${id}:${i}`, del: id, punkt: String(i), delNr: d + 1, iDel: i + 1 }));
     } else {
@@ -177,7 +211,16 @@ export function punkterFor(typ: OvningsTyp, delar: readonly string[]): Punkt[] {
 }
 
 /** Klientens form av delarna, utan facit. Numeriska alternativ blandas per session och fråga. */
-function klientDelar(typ: OvningsTyp, delar: readonly string[], seed: string): VerbalDel[] | NumeriskDel[] {
+function klientDelar(typ: OvningsTyp, delar: readonly string[], seed: string): VerbalDel[] | NumeriskDel[] | FigurDel[] {
+  if (typ === 'figurer') {
+    return delar
+      .map((id) => hittaFigurFraga(id))
+      .filter((q): q is NonNullable<typeof q> => !!q)
+      .map((q) => {
+        const v = visaFigur(q, seed);
+        return { id: q.id, form: v.form ?? 'harnast', rad: v.rad, options: v.options };
+      });
+  }
   if (typ === 'verbal') {
     return delar
       .map((id) => VERBAL_PER_ID.get(id))
@@ -202,7 +245,11 @@ function klientDelar(typ: OvningsTyp, delar: readonly string[], seed: string): V
 }
 
 /** Rätt svar och förklaring för en punkt. */
-function facit(typ: OvningsTyp, p: Punkt): { ratt: string; forklaring: string | null } | null {
+function facit(typ: OvningsTyp, p: Punkt, seed = ''): { ratt: string; forklaring: string | null } | null {
+  if (typ === 'figurer') {
+    const q = hittaFigurFraga(p.del);
+    return q ? { ratt: String(genomgaFigur(q, seed).rattVisat), forklaring: q.rule } : null;
+  }
   if (typ === 'verbal') {
     const s = VERBAL_PER_ID.get(p.del)?.statements[Number(p.punkt)];
     return s ? { ratt: s.correctAnswer, forklaring: s.explanation ?? null } : null;
@@ -214,6 +261,11 @@ function facit(typ: OvningsTyp, p: Punkt): { ratt: string; forklaring: string | 
 /** Är svaret ett giltigt svar på punkten? */
 export function giltigtSvar(typ: OvningsTyp, p: Punkt, svar: unknown): svar is string {
   if (typeof svar !== 'string') return false;
+  if (typ === 'figurer') {
+    const q = hittaFigurFraga(p.del);
+    const n = q ? (q.form === 'bryter' ? q.rad.length : q.options.length) : 0;
+    return /^\d$/.test(svar) && Number(svar) < n;
+  }
   if (typ === 'verbal') return (VERBALA_SVAR as readonly string[]).includes(svar);
   const q = NUM_PER_ID.get(p.del)?.questions.find((x) => x.id === p.punkt);
   return !!q && q.options.some((o) => o.id === svar);
@@ -223,7 +275,7 @@ export function giltigtSvar(typ: OvningsTyp, p: Punkt, svar: unknown): svar is s
 
 export function lasMeta(v: unknown): OvningsMeta | null {
   const m = v as Partial<OvningsMeta> | null;
-  if (!m || m.ovningsprov !== 1 || (m.typ !== 'verbal' && m.typ !== 'numerisk') || !Array.isArray(m.delar)) return null;
+  if (!m || m.ovningsprov !== 1 || (m.typ !== 'verbal' && m.typ !== 'numerisk' && m.typ !== 'figurer') || !Array.isArray(m.delar)) return null;
   return m as OvningsMeta;
 }
 
@@ -250,7 +302,7 @@ const UNDERLAGSTYP_NAMN: Record<string, string> = {
 /** Resultatet ur svaren och tiden. Ren, för tester. */
 export function raknaResultat(args: {
   typ: OvningsTyp;
-  meta: Pick<OvningsMeta, 'delar' | 'tidsgrans_s' | 'del_budget_s'>;
+  meta: Pick<OvningsMeta, 'delar' | 'tidsgrans_s' | 'del_budget_s'> & { seed?: string };
   svar: readonly SparatSvar[];
   startad: string;
   avslutad: string;
@@ -263,13 +315,17 @@ export function raknaResultat(args: {
   const delar = new Map<string, { ratt: number; antal: number; obesvarade: number; tid_s: number }>();
 
   for (const p of punkter) {
-    const f = facit(typ, p);
+    const f = facit(typ, p, meta.seed ?? '');
     if (!f) continue;
     const s = perNyckel.get(p.nyckel) ?? null;
     const korrekt = !!s && s.svar === f.ratt;
-    genomgang.push({ nyckel: p.nyckel, svar: s?.svar ?? null, ratt: f.ratt, korrekt, forklaring: f.forklaring, tid_s: s?.tid ?? 0 });
+    const fq = typ === 'figurer' ? hittaFigurFraga(p.del) : undefined;
+    const misstag = fq && s && !korrekt ? fq.misstag[tillOriginal(figurPermutation(fq, meta.seed ?? ''), Number(s.svar))] || null : null;
+    genomgang.push({ nyckel: p.nyckel, svar: s?.svar ?? null, ratt: f.ratt, korrekt, forklaring: f.forklaring, tid_s: s?.tid ?? 0, ...(typ === 'figurer' ? { misstag } : {}) });
     const grupp =
-      typ === 'verbal' ? SVARSTYP_NAMN[f.ratt] : UNDERLAGSTYP_NAMN[NUM_PER_ID.get(p.del)?.type ?? ''] ?? 'Underlag';
+      typ === 'figurer'
+        ? serieFamiljNamn(fq?.family) ?? 'Figurserier'
+        : typ === 'verbal' ? SVARSTYP_NAMN[f.ratt] : UNDERLAGSTYP_NAMN[NUM_PER_ID.get(p.del)?.type ?? ''] ?? 'Underlag';
     const g = grupper.get(grupp) ?? { ratt: 0, antal: 0 };
     g.antal += 1;
     if (korrekt) g.ratt += 1;
@@ -287,7 +343,9 @@ export function raknaResultat(args: {
   const tid_s = Math.max(0, Math.min(meta.tidsgrans_s, Math.round((slut - start) / 1000)));
   const ratt = genomgang.filter((g) => g.korrekt).length;
   const titel = (id: string) =>
-    typ === 'verbal' ? rubrikUtanNummer(VERBAL_PER_ID.get(id)?.title ?? id) : visningstitel(NUM_PER_ID.get(id)?.title ?? id);
+    typ === 'figurer'
+      ? `Uppgift ${meta.delar.indexOf(id) + 1}`
+      : typ === 'verbal' ? rubrikUtanNummer(VERBAL_PER_ID.get(id)?.title ?? id) : visningstitel(NUM_PER_ID.get(id)?.title ?? id);
 
   return {
     genomgang,
@@ -386,7 +444,7 @@ export async function skapaOvningsprov(args: {
       .order('created_at', { ascending: false })
       .limit(20),
     // Det hon haft i alla källor (klassiska test, provet, passen, övningsprov), sedda.server.ts.
-    lasSeddaUnderlag(args.admin, args.userId, args.typ).catch((e) => {
+    (args.typ === 'figurer' ? lasSeddaFigurer(args.admin, args.userId) : lasSeddaUnderlag(args.admin, args.userId, args.typ)).catch((e) => {
       console.error('[ovningsprov] sedda underlag', e);
       return null;
     }),
@@ -420,7 +478,7 @@ export async function skapaOvningsprov(args: {
     minuter: f.minuter,
     tidsgrans_s: f.minuter * 60,
     budget_s: f.budget_s,
-    del_budget_s: f.delar?.budget_s ?? f.budget_s * 4,
+    del_budget_s: f.delar?.budget_s ?? (args.typ === 'figurer' ? f.budget_s : f.budget_s * 4),
     delar,
     seed,
     dag: idag,
@@ -437,6 +495,19 @@ export async function skapaOvningsprov(args: {
   const vy = ovningsvy(data as Rad);
   if (!vy) throw new Error('övningsprovets meta gick inte att läsa');
   return { ok: true, vy };
+}
+
+/** Figurserierna hon haft (omgång 3, A4): klassiska test, figurpass och övningsprov. */
+async function lasSeddaFigurer(admin: Klient, userId: string): Promise<{ sedda: Map<string, Dag> }> {
+  const { data, error } = await admin
+    .from('logic_test_v4_sessions')
+    .select('id, test_type, meta, created_at')
+    .eq('user_id', userId)
+    .in('test_type', seddaFigurTestTyper())
+    .order('created_at', { ascending: false })
+    .limit(300);
+  if (error) throw error;
+  return { sedda: seddaFigurerUrRader((data ?? []) as SeddRad[]) };
 }
 
 /* ---------------------------------- Svaret --------------------------------- */

@@ -91,7 +91,7 @@ export type Hoger =
   | { typ: 'bock'; text: string }
   | { typ: 'chev' };
 
-export type Symbol = 'matris' | 'siffror' | 'ord' | 'person' | 'jobb' | 'brev';
+export type Symbol = 'matris' | 'siffror' | 'ord' | 'figurer' | 'person' | 'jobb' | 'brev';
 
 export interface RadModell {
   titel: string;
@@ -379,6 +379,12 @@ function flerTester(inp: FlerTesterIn, testtyper: readonly string[], medFigurer:
  * "Ingår i Premium" för gratis. Null när planen inte har verbalt eller
  * numeriskt.
  */
+/** Ska figurpassraden stå? (beställning omgång 3, A3) */
+export function visaFigurpass(s: Pick<Traningsstatus, 'figurserieGjord' | 'plan'>, testtyper: readonly string[]): boolean {
+  const lev = s.plan?.leverantor ?? null;
+  return testtyper.includes('figurserie') || !!s.figurserieGjord || lev === 'aon' || lev === 'shl';
+}
+
 export function vnPassSektion(s: Traningsstatus, testtyper: readonly string[]): Sektion | null {
   const betalande = s.behorighet?.harOvanGrund ?? false;
   const V = HEM.vnPass;
@@ -399,6 +405,26 @@ export function vnPassSektion(s: Traningsstatus, testtyper: readonly string[]): 
           ? { typ: 'lank', text: V.starta, href: kind === 'verbal' ? TRANING_RUTT.textpass : TRANING_RUTT.sifferpass }
           : { typ: 'las', text: V.last, feature: 'tests_above_base', plats: 'dag2' },
       label: betalande ? undefined : `${titel}. ${meta} ${V.last}. ${lastAria()}`,
+    });
+  }
+  // Figurpasset (beställning omgång 3, A3): när planen har figurserier, när
+  // hon gjort ett klassiskt figurserietest, eller när planens leverantör har
+  // figurserier i sitt test (Aon scales ix, SHL Verify G+). Nivån som ord,
+  // aldrig tal: på avancerad står "Expertnivån: gör nivåtestet" i metan.
+  if (visaFigurpass(s, testtyper)) {
+    const gjord = s.vnPassIdag?.figurserie ?? false;
+    const meta = gjord ? V.gjortMeta : s.figurNiva === 'avancerad' ? V.expertRad : V.figurMeta;
+    rader.push({
+      titel: V.figurpass,
+      meta,
+      symbol: 'figurer',
+      svag: !gjord,
+      hoger: gjord
+        ? { typ: 'bock', text: V.gjort }
+        : betalande
+          ? { typ: 'lank', text: V.starta, href: TRANING_RUTT.figurpass }
+          : { typ: 'las', text: V.last, feature: 'tests_above_base', plats: 'dag2' },
+      label: betalande ? undefined : `${V.figurpass}. ${meta} ${V.last}. ${lastAria()}`,
     });
   }
   return rader.length ? { typ: 'rader', nyckel: 'vnpass', rubrik: V.rubrik, rader } : null;
