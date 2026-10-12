@@ -6,6 +6,7 @@
 export { default as IlluMatris } from './IlluMatris'
 export { default as IlluVerbalt } from './IlluVerbalt'
 export { default as IlluNumeriskt } from './IlluNumeriskt'
+export { default as IlluDeduktiv } from './IlluDeduktiv'
 export { default as IlluPersonlighet } from './IlluPersonlighet'
 export { default as IlluProvlage } from './IlluProvlage'
 export { default as IlluScenVagen } from './IlluScenVagen'

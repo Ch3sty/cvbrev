@@ -3,6 +3,7 @@ import { getTestConfig } from '../testConfig';
 import { ovningsprovHref } from '@/lib/traning/rutter';
 import type { Provtyp } from '@/lib/ovningsprov/format';
 import { figurserierSynliga } from '@/lib/figurserierV1/status';
+import { deduktivSynlig } from '@/lib/deduktivV1/status';
 import type {
   TestCardVariant,
   TestCategoryLabel,
@@ -14,7 +15,7 @@ import type {
  * (korten) och "Din utveckling"-fliken så titlar/frågeantal aldrig spretar.
  */
 
-export type TestGroupKey = 'logik' | 'figurer' | 'verbal' | 'numerisk' | 'personlighet';
+export type TestGroupKey = 'logik' | 'figurer' | 'deduktiv' | 'verbal' | 'numerisk' | 'personlighet';
 
 /**
  * Frågeantal och tid kommer ur testConfig, som är enda sanningen. Katalogen
@@ -73,6 +74,7 @@ export const PROV_FEATURE = 'test_exam_mode' as const;
 export const NIVA_GOR: Record<Exclude<TestGroupKey, 'personlighet'>, Record<TestLevelLabel, string>> = {
   logik: { Grund: 'en regel', Avancerad: 'två regler', Expert: 'tre regler' },
   figurer: { Grund: 'en regel', Avancerad: 'två regler', Expert: 'tre regler' },
+  deduktiv: { Grund: 'tre villkor', Avancerad: 'fem villkor', Expert: 'villkor i rörelse' },
   verbal: { Grund: 'svaret står i texten', Avancerad: 'två ståndpunkter', Expert: 'argument' },
   numerisk: { Grund: 'läs av och räkna', Avancerad: 'flera räknesteg', Expert: 'prognos, marginal' },
 };
@@ -81,6 +83,7 @@ export const NIVA_GOR: Record<Exclude<TestGroupKey, 'personlighet'>, Record<Test
 export const ENHET: Record<Exclude<TestGroupKey, 'personlighet'>, string> = {
   logik: 'uppgifter',
   figurer: 'uppgifter',
+  deduktiv: 'uppgifter',
   verbal: 'påståenden',
   numerisk: 'frågor',
 };
@@ -170,6 +173,18 @@ export const FIGURSERIE_TESTS: CognitiveTestDef[] = [
     isPremiumLocked: false,
   },
 ];
+
+/** Deduktiv slutledning (beställningen omgång 3, B1; copy-omgang3.md 4.1). */
+export const DEDUKTIV_TESTS: CognitiveTestDef[] = (['grund', 'avancerad', 'expert'] as const).map((niva) => ({
+  slug: `deduktiv-${niva}` as TestSlug,
+  variant: niva === 'grund' ? 'matrix-grund' : niva === 'avancerad' ? 'matrix-avancerad' : 'matrix-expert',
+  title: 'Deduktiv slutledning',
+  method: 'Slutledning · villkor i text',
+  categoryLabel: 'Logik',
+  levelLabel: niva === 'grund' ? 'Grund' : niva === 'avancerad' ? 'Avancerad' : 'Expert',
+  ...counts(`deduktiv-${niva}`),
+  isPremiumLocked: false,
+}));
 
 export const VERBAL_TESTS: CognitiveTestDef[] = [
   {
@@ -271,6 +286,21 @@ const FIGURER_GROUP: TestGroup = {
   provTyst: { rad1: 'Övningsprov mot klockan', rad2: 'Inte än för figurserier. Logikens övningsprov övar tempot.' },
 };
 
+/**
+ * Deduktiv slutledning. Står efter figurserierna när banken är befordrad
+ * (deduktivSynlig). Inget övningsprov än: provraden är dämpad.
+ */
+const DEDUKTIV_GROUP: TestGroup = {
+  key: 'deduktiv',
+  heading: 'Deduktiv slutledning',
+  blurb:
+    'Några personer, några villkor och en fråga: vem står var, och vad måste då gälla? Du räknar inte och ritar inget, du håller reda på villkoren. Formatet finns i SHL Verify G+ och i Aons deduktiva test.',
+  searchHint: 'Kallas även deduktivt test, logiskt resonemang eller schemapussel',
+  cognitive: DEDUKTIV_TESTS,
+  personality: [],
+  provTyst: { rad1: 'Övningsprov mot klockan', rad2: 'Inte än för deduktiv slutledning. Logikens övningsprov övar tempot.' },
+};
+
 export const TEST_GROUPS: TestGroup[] = [
   {
     key: 'logik',
@@ -283,6 +313,7 @@ export const TEST_GROUPS: TestGroup[] = [
     prov: { typ: 'logik', href: ovningsprovHref('logik') },
   },
   ...(figurserierSynliga() ? [FIGURER_GROUP] : []),
+  ...(deduktivSynlig() ? [DEDUKTIV_GROUP] : []),
   {
     key: 'verbal',
     heading: 'Verbalt test',

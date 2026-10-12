@@ -30,6 +30,9 @@ import { testTypeForSlug } from '@/lib/tester/testTyp'
 import { serieInnehall } from '@/lib/figurserierV1/fragor.server'
 import { serieFamiljNamn } from '@/lib/figurserierV1/familjer'
 import type { GenomgangSerie } from '@/lib/figurserierV1/types'
+import { deduktivInnehall } from '@/lib/deduktivV1/fragor.server'
+import { deduktivFamiljNamn } from '@/lib/deduktivV1/familjer'
+import type { GenomgangDeduktiv } from '@/lib/deduktivV1/types'
 
 export interface ResultsSession {
   id: string
@@ -45,6 +48,8 @@ export interface ResultsSession {
   genomgang?: GenomgangsFraga[] | null
   /** Figurseriernas genomgång: uppgifterna i visad ordning, rätt svar, regel och misstag. */
   serie?: GenomgangSerie[] | null
+  /** Deduktivens genomgång: uppgifterna i visad ordning, rätt svar, lösningsgång och misstag. */
+  deduktiv?: GenomgangDeduktiv[] | null
   /** Sessionens meta (antal, underlagsversion, bankversion). */
   meta?: unknown
 }
@@ -163,6 +168,7 @@ export async function getResultsData(
 
     const genomgang = config.kind === 'matris' ? matrisInnehall(row).genomgang : null
     const serie = config.kind === 'figurserie' ? serieInnehall(row).genomgang : null
+    const deduktiv = config.kind === 'deduktiv' ? deduktivInnehall(row).genomgang : null
 
     const session: ResultsSession = {
       id: row.id,
@@ -173,6 +179,7 @@ export async function getResultsData(
       answers: svarslista(row.answers),
       genomgang,
       serie,
+      deduktiv,
       meta: row.meta,
     }
 
@@ -181,6 +188,8 @@ export async function getResultsData(
         ? analysForMatris(config, genomgang, row.answers)
         : config.kind === 'figurserie'
         ? analysera(fragorMatris(serie ?? [], row.answers, serieFamiljNamn), budgetFor(config))
+        : config.kind === 'deduktiv'
+        ? analysera(fragorMatris(deduktiv ?? [], row.answers, deduktivFamiljNamn), budgetFor(config))
         : analysera(fragorForUnderlag(config.slug, row.id, row.answers, row.meta), budgetFor(config))
 
     const bastRad = (bastRes.data as { score: number | null }[] | null)?.[0]

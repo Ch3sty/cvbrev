@@ -15,6 +15,7 @@ import { ordTal, versal } from './resultat'
 export const TESTETS_FRAGA: Record<Exclude<TestKind, 'personlighet'>, string> = {
   matris: 'Vilken figur kommer härnäst?',
   figurserie: 'Vilken figur kommer härnäst i raden?',
+  deduktiv: 'Vem står var när alla villkor gäller?',
   verbal: 'Stämmer påståendet med texten?',
   numerisk: 'Läs tabellen och räkna under tid.',
 }
@@ -30,6 +31,7 @@ export const PROVETS_FRAGA = 'Som på riktigt, mot klockan.'
 export const FORMATRAD: Record<Exclude<TestKind, 'personlighet'>, string> = {
   matris: 'Samma format som Matrigma från Assessio och Alva Logic.',
   figurserie: 'Samma format som figurserierna i SHL Verify och Aon scales ix.',
+  deduktiv: 'Samma format som den deduktiva delen i SHL Verify G+ och Aons deduktiva test.',
   verbal: 'Samma svarsformat som SHL Verify verbal och Aons scales verbal.',
   numerisk: 'Samma format som det numeriska testet i SHL Verify.',
 }
@@ -100,7 +102,7 @@ export function enhetsord(kind: TestKind): Sakord {
 }
 
 export function sakord(kind: TestKind, slug: string): Sakord {
-  if (kind === 'figurserie') return { en: 'uppgift', flera: 'uppgifter', bestamd: 'uppgifterna', neutrum: false }
+  if (kind === 'figurserie' || kind === 'deduktiv') return { en: 'uppgift', flera: 'uppgifter', bestamd: 'uppgifterna', neutrum: false }
   if (kind === 'verbal' && slug !== 'verbal-resonemang-expert') {
     return { en: 'påstående', flera: 'påståenden', bestamd: 'påståendena', neutrum: true }
   }
@@ -128,6 +130,7 @@ export const RESULTAT = {
     regel: {
       matris: 'Regeln står vid varje fråga.',
       figurserie: 'Regeln står vid varje uppgift.',
+      deduktiv: 'Lösningsgången står vid varje uppgift.',
       verbal: 'Förklaringen står vid varje påstående.',
       numerisk: 'Uträkningen står vid varje fråga.',
       prov: 'Facit står vid varje fråga.',
@@ -152,7 +155,7 @@ export const RESULTAT = {
     titel: (namn: string, r: number, t: number) => `${namn}, ${r} av ${t}`,
     allaSatt: (matris: boolean) => (matris ? 'Alla mönster satt' : 'Inga tapp i någon typ'),
     fot: (term: string, flera: string) => `${versal(term)} med minst två ${flera} i testet. Hela bilden finns i Din utveckling.`,
-    term: { matris: 'mönster', figurserie: 'mönster', verbal: 'svarstyper', numerisk: 'uppgiftstyper' },
+    term: { matris: 'mönster', figurserie: 'mönster', deduktiv: 'villkorstyper', verbal: 'svarstyper', numerisk: 'uppgiftstyper' },
   },
   tempo: {
     rub: 'Tempo mot provets tid',

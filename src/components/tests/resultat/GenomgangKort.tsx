@@ -20,6 +20,8 @@ import MatrisMiniatyr from '@/components/tests/shared/reviews/MatrisMiniatyr'
 import type { GenomgangsFraga } from '@/lib/logicTestV7/layered.v7'
 import type { GenomgangSerie } from '@/lib/figurserierV1/types'
 import { SerieMiniatyr } from '@/components/tests/serie/FigurserieRad'
+import type { GenomgangDeduktiv } from '@/lib/deduktivV1/types'
+import { DeduktivMiniatyr } from '@/components/tests/deduktiv/DeduktivReview'
 import type { ResultatFraga } from '@/lib/tester/resultat'
 import { RESULTAT, type Sakord } from '@/lib/tester/copy'
 
@@ -33,6 +35,8 @@ export interface GenomgangKortProps {
   genomgang?: GenomgangsFraga[] | null
   /** Figurseriernas uppgifter i visad ordning: miniatyren är en remsa (figurserier-spec 8). */
   serie?: GenomgangSerie[] | null
+  /** Deduktivens uppgifter i visad ordning: miniatyren är remsan (deduktiv-spec 5.1). */
+  deduktiv?: GenomgangDeduktiv[] | null
   sak: Sakord
   regel: string
   /** "Två av tre är samma familj: ..." eller null. */
@@ -82,6 +86,7 @@ export default function GenomgangKort(p: GenomgangKortProps) {
           {visade.map((f, i) => {
             const fraga = p.genomgang?.[f.nr - 1]
             const serie = p.serie?.[f.nr - 1]
+            const deduktiv = p.deduktiv?.[f.nr - 1]
             return (
               <li key={f.nr} className={i < VISAS ? 'min-w-0' : 'hidden min-w-0 lg:block'}>
                 <button
@@ -89,7 +94,11 @@ export default function GenomgangKort(p: GenomgangKortProps) {
                   onClick={() => p.onGaIgenom(f.nr)}
                   className={`block h-full w-full rounded-xl border border-kant bg-papper p-2 text-left hover:border-kant-stark sm:p-2.5 ${fler ? 'lg:p-1.5' : ''}`}
                 >
-                  {serie ? (
+                  {deduktiv ? (
+                    <span className="flex aspect-square items-center justify-center">
+                      <DeduktivMiniatyr schema={deduktiv.losning.schema} />
+                    </span>
+                  ) : serie ? (
                     <span className="flex aspect-square items-center">
                       <SerieMiniatyr rad={serie.rad} className="w-full" />
                     </span>

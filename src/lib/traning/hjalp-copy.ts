@@ -19,7 +19,7 @@ export type HjalpGrupp = 'A' | 'B' | 'C' | 'D' | 'E'
 
 export type HjalpId =
   | 'A1' | 'A2' | 'A3' | 'A4' | 'A5'
-  | 'B1' | 'B2' | 'B3' | 'B4' | 'B5' | 'B6' | 'B7' | 'B8' | 'B9' | 'B10'
+  | 'B1' | 'B2' | 'B3' | 'B4' | 'B5' | 'B6' | 'B7' | 'B8' | 'B9' | 'B10' | 'B11'
   | 'C1' | 'C2' | 'C3' | 'C4' | 'C5' | 'C6'
   | 'D1' | 'D2' | 'D3'
   | 'E1' | 'E2' | 'E3'
@@ -137,6 +137,14 @@ export const HJALP_RUTOR: Record<HjalpId, HjalpRutaText> = {
     grupp: 'B',
     rubrik: 'Figurserier: vad är det?',
     text: 'Du ser fem figurer i rad och en lucka sist. Figurerna följer en eller flera regler, som en vridning, ett antal som växer eller två serier som turas om, och du väljer figuren som kommer härnäst. Samma format som figurserierna i SHL Verify och Aon scales ix. Läs raden från vänster och sätt ord på regeln innan du tittar på alternativen.',
+  },
+
+  // Deduktiv slutledning (copy-omgang3.md 4.2).
+  B11: {
+    id: 'B11',
+    grupp: 'B',
+    rubrik: 'Deduktiv slutledning: vad är det?',
+    text: 'Du får några påståenden, eller några personer med villkor på var de står, och ska avgöra vad som måste gälla. Det mäter om du drar bara de slutsatser villkoren tillåter, varken fler eller färre. Samma format som den deduktiva delen i SHL Verify G+ och Aons deduktiva test. Läs ett villkor i taget och lås först det som bara kan stå på ett sätt.',
   },
 
   C1: {

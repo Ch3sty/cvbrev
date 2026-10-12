@@ -32,7 +32,7 @@ import { lastAria } from '@/lib/traning/hem-copy';
 import { paketKort } from '@/lib/plans/plans';
 import { HjalpKnapp } from '@/components/hjalp';
 import { hjalpRuta, type HjalpId } from '@/lib/traning/hjalp-copy';
-import { IlluMatris, IlluNumeriskt, IlluVerbalt, type IlluProvbladProps } from '@/components/traning/illu';
+import { IlluDeduktiv, IlluMatris, IlluNumeriskt, IlluVerbalt, type IlluProvbladProps } from '@/components/traning/illu';
 
 interface Props {
   group: TestGroup;
@@ -47,6 +47,7 @@ interface Props {
 export const FRAGA: Record<string, string> = {
   logik: 'Vilken figur kommer härnäst?',
   figurer: 'Vilken figur kommer härnäst i raden?',
+  deduktiv: 'Vem står var när alla villkor gäller?',
   verbal: 'Stämmer påståendet med texten?',
   numerisk: 'Läs tabellen och räkna under tid.',
 };
@@ -55,6 +56,7 @@ export const FRAGA: Record<string, string> = {
 export const BILD: Record<string, ComponentType<IlluProvbladProps>> = {
   logik: IlluMatris,
   figurer: IlluMatris,
+  deduktiv: IlluDeduktiv,
   verbal: IlluVerbalt,
   numerisk: IlluNumeriskt,
 };
@@ -68,6 +70,7 @@ export const BILD: Record<string, ComponentType<IlluProvbladProps>> = {
 const HJALP: Record<string, readonly HjalpId[]> = {
   logik: ['B1', 'B2'],
   figurer: ['B10'],
+  deduktiv: ['B11'],
   verbal: ['B3', 'B4'],
   numerisk: ['B5', 'B6'],
 };
@@ -79,6 +82,7 @@ export function hjalpIdFor(key: string): HjalpId | null {
 const ETIKETT_KNAPP: Record<string, string> = {
   logik: 'Vad mäter logiktestet?',
   figurer: 'Vad är figurserier?',
+  deduktiv: 'Vad är deduktiv slutledning?',
   verbal: 'Vad mäter det verbala testet?',
   numerisk: 'Vad mäter det numeriska testet?',
 };

@@ -19,6 +19,7 @@ import { MatrixTestSession } from '@/components/tests/matrix/MatrixTestSession'
 // Statisk import, som matrisen: en dynamisk import la uppgiften bakom en
 // Suspense-gräns och flyttade LCP efter JS-chunken (perf-inloggat 2026-10-12).
 import { FigurserieTestSession } from '@/components/tests/serie/FigurserieTestSession'
+import { DeduktivTestSession } from '@/components/tests/deduktiv/DeduktivTestSession'
 import { NumericalTestSession } from '@/components/tests/numerical/NumericalTestSession'
 import { VerbalTestSession } from '@/components/tests/verbal/VerbalTestSession'
 import type { VerbalSessionPassage } from '@/components/tests/verbal/VerbalTestSession'
@@ -144,6 +145,19 @@ export default function TestRunner({
   if (config.kind === 'figurserie') {
     return (
       <FigurserieTestSession
+        sessionId={sessionId}
+        level={config.level as 'grund' | 'avancerad' | 'expert'}
+        resultsPath={resultsPath}
+        initialRun={runData}
+        {...endpoints}
+      />
+    )
+  }
+
+  // Deduktiv slutledning (beställningen omgång 3, B1): text, två spalter på dator.
+  if (config.kind === 'deduktiv') {
+    return (
+      <DeduktivTestSession
         sessionId={sessionId}
         level={config.level as 'grund' | 'avancerad' | 'expert'}
         resultsPath={resultsPath}

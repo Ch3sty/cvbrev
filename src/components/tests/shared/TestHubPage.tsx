@@ -35,7 +35,7 @@ import { useProfile } from '@/hooks/use-profile'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
 import { scopeHasFeature } from '@/lib/access/features'
 import { testPaths, totalForSession, type TestConfig, type TestKind } from '@/app/dashboard/tester/testConfig'
-import { IlluMatris, IlluNumeriskt, IlluProvlage, IlluVerbalt, type IlluProvbladProps } from '@/components/traning/illu'
+import { IlluDeduktiv, IlluMatris, IlluNumeriskt, IlluProvlage, IlluVerbalt, type IlluProvbladProps } from '@/components/traning/illu'
 import { HjalpKnapp, HjalpProvider, HjalpRad } from '@/components/hjalp'
 import type { HjalpId } from '@/lib/traning/hjalp-copy'
 import { FORMATRAD, NIVA_NAMN, NIVA_TAL, PROVETS_FRAGA, TESTETS_FRAGA, TESTSIDA, sakord } from '@/lib/tester/copy'
@@ -58,6 +58,7 @@ function nextMidnightISO(): string {
 const BILD: Record<Exclude<TestKind, 'personlighet'>, ComponentType<IlluProvbladProps>> = {
   matris: IlluMatris,
   figurserie: IlluMatris,
+  deduktiv: IlluDeduktiv,
   verbal: IlluVerbalt,
   numerisk: IlluNumeriskt,
 }
@@ -66,6 +67,7 @@ const BILD: Record<Exclude<TestKind, 'personlighet'>, ComponentType<IlluProvblad
 const HJALP: Record<Exclude<TestKind, 'personlighet'>, HjalpId[]> = {
   matris: ['C5', 'B1', 'B2'],
   figurserie: ['C5', 'B10'],
+  deduktiv: ['C5', 'B11'],
   verbal: ['C5', 'B3', 'B4'],
   numerisk: ['C5', 'B5', 'B6'],
 }
@@ -74,6 +76,7 @@ const HJALP: Record<Exclude<TestKind, 'personlighet'>, HjalpId[]> = {
 const MATER: Record<Exclude<TestKind, 'personlighet'>, HjalpId> = {
   matris: 'B1',
   figurserie: 'B10',
+  deduktiv: 'B11',
   verbal: 'B3',
   numerisk: 'B5',
 }

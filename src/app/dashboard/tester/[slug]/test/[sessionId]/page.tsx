@@ -12,6 +12,7 @@
 
 import { notFound } from 'next/navigation'
 import { figurserierSynliga } from '@/lib/figurserierV1/status'
+import { deduktivSynlig } from '@/lib/deduktivV1/status'
 import TestRunner from '@/components/tests/shared/TestRunner'
 import { getTestConfig } from '../../../testConfig'
 import { getRunData } from '../../getRunData'
@@ -26,6 +27,8 @@ export default async function TestRunPage({
   if (!config || config.kind === 'personlighet') notFound()
   // Figurserierna syns först när banken är befordrad (src/lib/figurserierV1/status.ts).
   if (config.kind === 'figurserie' && !figurserierSynliga()) notFound()
+  // Deduktiv syns först när banken är befordrad (src/lib/deduktivV1/status.ts).
+  if (config.kind === 'deduktiv' && !deduktivSynlig()) notFound()
 
   const runData = await getRunData(config, sessionId)
 

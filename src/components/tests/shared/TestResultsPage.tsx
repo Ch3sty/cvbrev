@@ -44,6 +44,7 @@ import VaggLaddar from '@/components/rum/VaggLaddar'
 import { requestInstallPrompt } from '@/lib/pwa/installPrompt'
 import type { GenomgangsFraga } from '@/lib/logicTestV7/layered.v7'
 import type { GenomgangSerie } from '@/lib/figurserierV1/types'
+import type { GenomgangDeduktiv } from '@/lib/deduktivV1/types'
 import { SITTER_PROCENT, analysera, budgetPerFraga, ordTal, svarslista, type ResultatAnalys } from '@/lib/tester/resultat'
 import { RESULTAT, TESTSIDA, enhetsord, sakord } from '@/lib/tester/copy'
 import ResultatVagg from '@/components/tests/resultat/ResultatVagg'
@@ -58,6 +59,7 @@ const ReviewFallback = () => <div className="h-64 rounded-xl border border-kant 
 const MatrixQuestionReview = dynamic(() => import('./reviews/MatrixQuestionReview'), { loading: ReviewFallback })
 const NumericalReview = dynamic(() => import('./reviews/NumericalReview'), { loading: ReviewFallback })
 const FigurserieReview = dynamic(() => import('@/components/tests/serie/FigurserieReview'), { loading: ReviewFallback })
+const DeduktivReview = dynamic(() => import('@/components/tests/deduktiv/DeduktivReview'), { loading: ReviewFallback })
 const VerbalReview = dynamic(() => import('./reviews/VerbalReview'), { loading: ReviewFallback })
 
 interface SessionData {
@@ -73,6 +75,8 @@ interface SessionData {
   genomgang?: GenomgangsFraga[] | null
   /** Figurseriernas genomgång, byggd på servern. */
   serie?: GenomgangSerie[] | null
+  /** Deduktivens genomgång, byggd på servern. */
+  deduktiv?: GenomgangDeduktiv[] | null
 }
 
 
@@ -125,6 +129,7 @@ export default function TestResultsPage({
           answers: fromServer.session.answers,
           genomgang: fromServer.session.genomgang ?? null,
           serie: fromServer.session.serie ?? null,
+          deduktiv: fromServer.session.deduktiv ?? null,
           meta: fromServer.session.meta,
         }
       : null
@@ -157,7 +162,7 @@ export default function TestResultsPage({
     const load = async () => {
       try {
         // Matrislogikens session-API svarar på ?id= med raden och genomgången.
-        if (config.kind === 'matris' || config.kind === 'figurserie') {
+        if (config.kind === 'matris' || config.kind === 'figurserie' || config.kind === 'deduktiv') {
           const res = await fetch(`${config.api}/session?id=${sessionId}`)
           if (!res.ok) throw new Error('missing')
           const data = await res.json()
@@ -166,6 +171,8 @@ export default function TestResultsPage({
             setSession(
               config.kind === 'figurserie'
                 ? { ...(data.session as SessionData), serie: data.genomgang ?? null }
+                : config.kind === 'deduktiv'
+                ? { ...(data.session as SessionData), deduktiv: data.genomgang ?? null }
                 : { ...(data.session as SessionData), genomgang: data.genomgang ?? null }
             )
             setState('ready')
@@ -257,6 +264,7 @@ export default function TestResultsPage({
   const sak = sakord(config.kind, config.slug)
   const matris = config.kind === 'matris'
   const serie = config.kind === 'figurserie'
+  const deduktiv = config.kind === 'deduktiv'
   // Figurtesten (matriser och serier) talar om mönster, inte typer.
   const figur = matris || serie
   const prov = config.level === 'prov'
@@ -275,7 +283,7 @@ export default function TestResultsPage({
     if (namn && n && n >= 2) samma = RESULTAT.genomgang.sammaFamilj(n, missar.length, namn, figur)
   }
 
-  const regel = prov ? RESULTAT.genomgang.regel.prov : RESULTAT.genomgang.regel[config.kind as 'matris' | 'figurserie' | 'verbal' | 'numerisk']
+  const regel = prov ? RESULTAT.genomgang.regel.prov : RESULTAT.genomgang.regel[config.kind as 'matris' | 'figurserie' | 'deduktiv' | 'verbal' | 'numerisk']
   const tempo = analys.tempo
   // Per underlag talar tempot om texter eller tabeller, annars om frågorna.
   const tempoOrd = tempo?.enhet === 'underlag' ? enhetsord(config.kind) : sak
@@ -287,7 +295,7 @@ export default function TestResultsPage({
   const rad = bast === null ? null : score >= bast ? RESULTAT.bast.nu : RESULTAT.bast.tidigare(bast, total)
 
   const harTappade = analys.grupper.length > 0
-  const term = RESULTAT.tappade.term[config.kind as 'matris' | 'figurserie' | 'verbal' | 'numerisk']
+  const term = RESULTAT.tappade.term[config.kind as 'matris' | 'figurserie' | 'deduktiv' | 'verbal' | 'numerisk']
 
   const gaIgenom = (nr?: number) => oppna(nr ? [nr - 1] : missar.map((f) => f.nr - 1))
   const visaAlla = () => oppna([])
@@ -338,6 +346,7 @@ export default function TestResultsPage({
             totalt={analys.fragor.length || total}
             genomgang={matris ? session.genomgang : null}
             serie={serie ? session.serie : null}
+            deduktiv={deduktiv ? session.deduktiv : null}
             sak={sak}
             regel={regel}
             samma={samma}
@@ -383,6 +392,14 @@ export default function TestResultsPage({
               <FigurserieReview
                 answers={answers as never}
                 fragor={session.serie ?? []}
+                sessionId={sessionId}
+                key={genomgang.join(',')}
+                oppnaFran={genomgang}
+              />
+            ) : deduktiv ? (
+              <DeduktivReview
+                answers={answers as never}
+                fragor={session.deduktiv ?? []}
                 sessionId={sessionId}
                 key={genomgang.join(',')}
                 oppnaFran={genomgang}

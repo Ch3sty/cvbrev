@@ -27,6 +27,8 @@ import { matrisInnehall } from '@/lib/logicTestV7/fragor.server'
 import type { VisadFraga } from '@/lib/logicTestV7/layered.v7'
 import { serieInnehall } from '@/lib/figurserierV1/fragor.server'
 import type { VisadSerie } from '@/lib/figurserierV1/types'
+import { deduktivInnehall } from '@/lib/deduktivV1/fragor.server'
+import type { VisadDeduktiv } from '@/lib/deduktivV1/types'
 
 /**
  * Sessionsrader för matrislogik och proven ligger i logic_test_v4_sessions.
@@ -39,6 +41,7 @@ const TABLE_BY_API: Record<string, string> = {
   '/api/logicTestV6': 'logic_test_v4_sessions',
   '/api/logicTestProv': 'logic_test_v4_sessions',
   '/api/figurserier': 'logic_test_v4_sessions',
+  '/api/deduktiv': 'logic_test_v4_sessions',
 }
 
 export interface SavedAnswer {
@@ -61,6 +64,8 @@ export interface RunSession {
   fragor?: VisadFraga[]
   /** Figurseriernas uppgifter i visad ordning, utan facit. */
   serie?: VisadSerie[]
+  /** Deduktivens uppgifter i visad ordning, utan facit. */
+  deduktiv?: VisadDeduktiv[]
 }
 
 export interface RunData {
@@ -128,6 +133,7 @@ export async function getRunData(
         timeSpent: row.time_spent,
         ...(config.kind === 'matris' ? { fragor: matrisInnehall(row).fragor } : {}),
         ...(config.kind === 'figurserie' ? { serie: serieInnehall(row).fragor } : {}),
+        ...(config.kind === 'deduktiv' ? { deduktiv: deduktivInnehall(row).fragor } : {}),
       },
       resolved: true,
     }

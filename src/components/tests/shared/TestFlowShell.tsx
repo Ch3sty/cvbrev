@@ -55,6 +55,11 @@ export interface TestFlowShellProps {
   children: ReactNode
   /** Foten: primärknapp och eventuell navigering. Utelämnas den finns ingen fot. */
   footer?: ReactNode
+  /**
+   * Bredare spalt (1000 px) för deduktiv slutledning, som har två spalter på
+   * dator (deduktiv-spec.md 1). Topprad, innehåll och fot följer med.
+   */
+  bred?: boolean
 }
 
 export default function TestFlowShell({
@@ -65,7 +70,9 @@ export default function TestFlowShell({
   exitLabel = 'Avsluta testet',
   children,
   footer,
+  bred = false,
 }: TestFlowShellProps) {
+  const spalt = bred ? 'max-w-[1000px]' : 'max-w-3xl'
   // Samma kontrakt som FlowShell. Bottennavet ska inte konkurrera med
   // provets primärknapp om samma yta, och cookie-bannern ska inte lägga sig
   // över den.
@@ -108,7 +115,7 @@ export default function TestFlowShell({
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-golv lg:left-[248px]">
       <header className="flex-shrink-0 border-b border-kant bg-panel">
-        <div className="mx-auto flex h-14 w-full max-w-3xl items-center gap-2 px-2">
+        <div className={`mx-auto flex h-14 w-full ${spalt} items-center gap-2 px-2`}>
           <h1 className="min-w-0 flex-1 truncate pl-2 text-base font-semibold tracking-[-0.01em] text-ink-1">
             {title}
           </h1>
@@ -127,7 +134,7 @@ export default function TestFlowShell({
           )}
         </div>
 
-        {meter ? <div className="mx-auto w-full max-w-3xl px-4 pb-2">{meter}</div> : null}
+        {meter ? <div className={`mx-auto w-full ${spalt} px-4 pb-2`}>{meter}</div> : null}
 
         {typeof progressPercent === 'number' ? (
           <div className="h-0.5 w-full bg-kant" aria-hidden="true">
@@ -141,7 +148,7 @@ export default function TestFlowShell({
 
       {/* Provets enda scrollyta. */}
       <main className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
-        <div className="mx-auto w-full max-w-3xl px-4 py-4">{children}</div>
+        <div className={`mx-auto w-full ${spalt} px-4 py-4`}>{children}</div>
       </main>
 
       {footer ? (
@@ -150,7 +157,7 @@ export default function TestFlowShell({
           className="flex-shrink-0 border-t border-kant bg-panel"
           style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
         >
-          <div className="mx-auto w-full max-w-3xl px-4 py-3">{footer}</div>
+          <div className={`mx-auto w-full ${spalt} px-4 py-3`}>{footer}</div>
         </footer>
       ) : null}
     </div>

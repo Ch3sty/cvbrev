@@ -19,7 +19,7 @@
 
 import type { Feature } from '@/lib/access/features'
 
-export type TestKind = 'matris' | 'figurserie' | 'verbal' | 'numerisk' | 'personlighet'
+export type TestKind = 'matris' | 'figurserie' | 'deduktiv' | 'verbal' | 'numerisk' | 'personlighet'
 export type TestLevel = 'grund' | 'avancerad' | 'expert' | 'prov'
 
 /** Nivåns etikett i UI. Prov är inte en svårighetsgrad utan ett läge. */
@@ -34,6 +34,7 @@ export const LEVEL_LABEL: Record<TestLevel, string> = {
 export const KIND_LABEL: Record<TestKind, string> = {
   matris: 'Logiktest',
   figurserie: 'Figurserier',
+  deduktiv: 'Deduktiv slutledning',
   verbal: 'Verbalt resonemang',
   numerisk: 'Numeriskt test',
   personlighet: 'Personlighetstest',
@@ -212,6 +213,61 @@ export const TEST_CONFIGS: TestConfig[] = [
     totalQuestions: 15,
     minutes: 30,
     quotaFeature: 'test:figurserier-expert',
+    requiresFeature: 'tests_above_base',
+  },
+
+  /* --------------------------- Deduktiv slutledning ------------------------- */
+  // Beställningen omgång 3, B1: tre klassiska nivåtest, 12 uppgifter ur en
+  // pool per nivå, 15 minuter alla nivåer. Inga pass och inget övningsprov i
+  // den här omgången. Sessionerna ligger i logic_test_v4_sessions med
+  // test_type = slugen. Syns först när banken är befordrad (deduktivSynlig).
+  {
+    slug: 'deduktiv-grund',
+    kind: 'deduktiv',
+    level: 'grund',
+    title: 'Deduktiv slutledning, grundnivå',
+    description: 'Villkor i text och en fråga om vad som måste gälla. Nivån med tre villkor.',
+    levelBlurb:
+      'Tre villkor eller premisser och en fråga. Läs ett villkor i taget och lås först det som bara kan stå på ett sätt.',
+    api: '/api/deduktiv',
+    startBody: { test_type: 'deduktiv-grund' },
+    sessionQuery: 'test_type=deduktiv-grund',
+    totalQuestions: 12,
+    minutes: 15,
+    quotaFeature: 'test:deduktiv-grund',
+    nextSlug: 'deduktiv-avancerad',
+  },
+  {
+    slug: 'deduktiv-avancerad',
+    kind: 'deduktiv',
+    level: 'avancerad',
+    title: 'Deduktiv slutledning, avancerad nivå',
+    description: 'Villkor i text och en fråga om vad som måste gälla. Nivån med fem villkor.',
+    levelBlurb:
+      'Fem personer eller saker och fyra till fem villkor. Inget villkor räcker ensamt; du behöver hålla flera i huvudet samtidigt.',
+    api: '/api/deduktiv',
+    startBody: { test_type: 'deduktiv-avancerad' },
+    sessionQuery: 'test_type=deduktiv-avancerad',
+    totalQuestions: 12,
+    minutes: 15,
+    quotaFeature: 'test:deduktiv-avancerad',
+    requiresFeature: 'tests_above_base',
+    nextSlug: 'deduktiv-expert',
+  },
+  {
+    slug: 'deduktiv-expert',
+    kind: 'deduktiv',
+    level: 'expert',
+    title: 'Deduktiv slutledning, expertnivå',
+    description: 'Villkor i text och en fråga om vad som måste gälla. Nivån med villkor i rörelse.',
+    levelBlurb:
+      'Frågan börjar med ett antagande som flyttar en person. Följ vad det låser och avgör vilket påstående som då inte längre går ihop.',
+    api: '/api/deduktiv',
+    startBody: { test_type: 'deduktiv-expert' },
+    sessionQuery: 'test_type=deduktiv-expert',
+    totalQuestions: 12,
+    minutes: 15,
+    quotaFeature: 'test:deduktiv-expert',
     requiresFeature: 'tests_above_base',
   },
 
