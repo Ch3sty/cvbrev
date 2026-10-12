@@ -133,7 +133,7 @@ export default function CVAnalysSida() {
           { name: 'Verktyg', href: '/funktioner' },
           { name: 'CV-analys', href: '/verktyg/cv-analys' },
         ]}
-        eyebrow="CV-analys · vet varför CV:t inte får svar"
+        eyebrow="CV-analys, vet varför CV:t inte får svar"
         h1="Få konkret feedback på ditt CV på 60 sekunder"
         ingress="Vi läser ditt CV som ett rekryteringssystem gör och kontrollerar struktur, språk, nyckelord och kvantifiering."
         fet="Du får en poäng från 0 till 100, betyg i sex kategorier och åtgärder du kan göra direkt."
