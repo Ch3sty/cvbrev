@@ -25,7 +25,6 @@ import { useRouter } from 'next/navigation';
 import { useProfile } from '@/hooks/use-profile';
 import { useDashboardData } from '@/contexts/DashboardDataContext';
 import RumHuvud from '@/components/rum/RumHuvud';
-import { RUBRIK } from '@/lib/rum/copy';
 import Golv from '@/components/rum/Golv';
 import { capture } from '@/lib/analytics/events';
 import { arGiltigEpost, dokumentEpost } from '@/lib/profile/dokumentEpost';
@@ -330,7 +329,7 @@ export default function ProfilClient({ pageData }: { pageData: ProfilPageData })
 
   return (
     <>
-    <RumHuvud title={RUBRIK.profil} description={PROFIL.under} />
+    <RumHuvud title={PROFIL.rubrik} description={PROFIL.under} />
     <Golv>
     <div className="w-full max-w-[768px] space-y-4 lg:space-y-6">
 
