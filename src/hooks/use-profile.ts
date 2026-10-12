@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { Profile, ProfileUpdateParams, CV } from '@/types/user.types';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
-import { startOfTodayStockholm, nextMidnightStockholm } from '@/lib/quota/quotaService';
+import { resolveWeeklyLetterCounter, nextLetterResetAt } from '@/lib/quota/quotaService';
 import { useDashboardData } from '@/contexts/DashboardDataContext';
 import { paketKort } from '@/lib/plans/plans';
 
@@ -427,21 +427,18 @@ export const useProfile = () => {
         setPriceId(data.price_id || null);
         setCurrentPeriodEnd(data.current_period_end ? new Date(data.current_period_end) : null);
 
-        // Hantera brevräknare och återställning (dagsfönster, midnatt svensk tid).
-        // Räknaren i weekly_letter_count gäller bara om fönstret startade idag
-        // (weekly_letter_first_used_at >= dagens midnatt) — annars är den
-        // logiskt 0 och servern nollställer kolumnerna vid nästa generering.
-        const letterFirstUsed = data.weekly_letter_first_used_at
-          ? new Date(data.weekly_letter_first_used_at)
-          : null;
-        const letterWindowIsToday =
-          letterFirstUsed !== null &&
-          letterFirstUsed.getTime() >= startOfTodayStockholm().getTime();
-        const currentWeeklyCount = letterWindowIsToday ? (data.weekly_letter_count || 0) : 0;
+        // Brevräknaren: första brevet gratis, sedan ett per rullande sju dygn
+        // (quotaService). Räknaren i weekly_letter_count gäller bara medan
+        // fönstret lever; annars är den logiskt 0 och servern nollställer
+        // kolumnerna vid nästa generering.
+        const currentWeeklyCount = resolveWeeklyLetterCounter(
+          data.weekly_letter_count ?? null,
+          data.weekly_letter_first_used_at ?? null
+        ).effectiveCount;
         setWeeklyLetterCount(currentWeeklyCount);
         setLastCountReset(data.last_count_reset || null);
         setRemainingWeeklyLetters(calculateRemainingLetters(dbTier, currentWeeklyCount));
-        const nextReset = nextMidnightStockholm();
+        const nextReset = new Date(nextLetterResetAt(data.weekly_letter_first_used_at ?? null));
         setNextResetDate(nextReset);
         setTimeUntilReset(formatTimeRemaining(nextReset));
 
@@ -558,18 +555,15 @@ export const useProfile = () => {
     setPriceId((data.price_id as string) || null);
     setCurrentPeriodEnd(data.current_period_end ? new Date(data.current_period_end as string) : null);
 
-    // Brevräknare: identiskt dagsfönster som i fetchProfile.
-    const letterFirstUsed = data.weekly_letter_first_used_at
-      ? new Date(data.weekly_letter_first_used_at as string)
-      : null;
-    const letterWindowIsToday =
-      letterFirstUsed !== null &&
-      letterFirstUsed.getTime() >= startOfTodayStockholm().getTime();
-    const currentWeeklyCount = letterWindowIsToday ? ((data.weekly_letter_count as number) || 0) : 0;
+    // Brevräknare: samma rullande sjudygnsfönster som i fetchProfile.
+    const currentWeeklyCount = resolveWeeklyLetterCounter(
+      (data.weekly_letter_count as number | null) ?? null,
+      (data.weekly_letter_first_used_at as string | null) ?? null
+    ).effectiveCount;
     setWeeklyLetterCount(currentWeeklyCount);
     setLastCountReset((data.last_count_reset as string) || null);
     setRemainingWeeklyLetters(calculateRemainingLetters(tier, currentWeeklyCount));
-    const nextReset = nextMidnightStockholm();
+    const nextReset = new Date(nextLetterResetAt((data.weekly_letter_first_used_at as string | null) ?? null));
     setNextResetDate(nextReset);
     setTimeUntilReset(formatTimeRemaining(nextReset));
 
@@ -736,9 +730,9 @@ export const useProfile = () => {
         }
 
         // Om relevanta datum ändrades, uppdatera timers.
-        // Brevkvoten nollställs alltid vid nästa midnatt svensk tid.
+        // Brevkvoten öppnar sju dygn efter fönstrets start.
         if (profileData.last_count_reset || profileData.next_reset_date) {
-            const newResetDate = nextMidnightStockholm();
+            const newResetDate = new Date(nextLetterResetAt(data?.weekly_letter_first_used_at ?? null));
             setNextResetDate(newResetDate);
             setTimeUntilReset(formatTimeRemaining(newResetDate));
         }

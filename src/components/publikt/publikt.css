@@ -134,7 +134,8 @@
 .pub-handling-mitt { justify-content: center; }
 
 /* ------------------------------------------------------------ sektioner */
-.pub-sek { padding: clamp(56px, 8vw, 112px) 0; position: relative; overflow: hidden; }
+/* clip, inte hidden: en sektion med overflow hidden blir en scrollbehållare, och ett ankare inne i den (#jobbmatchning) scrollade då sektionen i stället för sidan. */
+.pub-sek { padding: clamp(56px, 8vw, 112px) 0; position: relative; overflow: hidden; overflow: clip; }
 .pub-sek-tat { padding: clamp(40px, 5vw, 72px) 0; }
 .pub-sek-stor { padding: clamp(72px, 10vw, 144px) 0; }
 .pub-sek[id], .pub-sek-tat[id] { scroll-margin-top: 72px; }
@@ -621,7 +622,7 @@
 .pub-dim5 h3 { font-size: 17px; letter-spacing: -0.01em; }
 .pub-dim5 p { font-size: 13px; color: var(--vagg-mjuk); }
 .pub-dim5 small {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1042,7 +1043,7 @@
   border: 1px solid var(--kant-skarm);
   border-radius: 12px;
   padding: 14px;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.5;
   color: var(--ink-2);
   position: relative;
@@ -1111,3 +1112,162 @@
 .pub-galleri { display: flex; flex-wrap: wrap; gap: 40px 32px; justify-content: center; }
 .pub-galleri figure { margin: 0; display: grid; gap: 12px; justify-items: center; }
 .pub-galleri figcaption { font-size: 13px; color: var(--ink-3); }
+
+/* ============================================================
+   Verktygssidorna, del A våg 4 (brev, matchning, funktioner)
+   ============================================================ */
+
+/* Brevmallarna som miniatyrer */
+.pub-mallar { display: grid; gap: 14px; grid-template-columns: repeat(2, 1fr); margin-top: 36px; }
+@media (min-width: 760px) {
+  .pub-mallar { grid-template-columns: repeat(4, 1fr); gap: 18px; }
+}
+.pub-mall {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 14px;
+  background: var(--panel);
+  border: 1px solid var(--kant);
+  border-radius: 18px;
+  box-shadow: var(--lyft);
+}
+.pub-mall .pub-mall-bild { background: var(--rum-ton); border-radius: 12px; padding: 14px 22px; }
+.pub-mall .pub-mall-bild svg { display: block; width: 100%; height: auto; filter: drop-shadow(0 6px 10px rgba(20, 16, 10, 0.14)); }
+.pub-mall h3 { font-size: 17px; letter-spacing: -0.01em; margin-top: 6px; }
+.pub-mall p { font-size: 13.5px; color: var(--ink-2); line-height: 1.45; }
+.pub-tagg {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: var(--rum-ton);
+  color: var(--rum-ink);
+  justify-self: start;
+  margin-top: 2px;
+}
+.pub-tagg-prem { background: var(--premium); color: var(--koppar-ljus); }
+a.pub-mall-mer {
+  background: var(--premium);
+  border-color: var(--premium);
+  color: var(--vagg-ink);
+  text-decoration: none;
+  align-content: end;
+  min-height: 220px;
+}
+.pub-mall-mer p { color: var(--vagg-mjuk); }
+.pub-mall-mer .pub-lank { color: #fff; justify-self: start; margin-top: 4px; }
+.pub-mer-tal {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 56px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--koppar-ljus);
+  margin-bottom: auto;
+}
+
+/* Brevets tre stycken */
+.pub-tre { display: grid; grid-template-columns: 1fr; gap: 18px; align-items: center; }
+@media (min-width: 560px) {
+  .pub-tre { grid-template-columns: 200px 1fr; }
+}
+.pub-tre svg { display: block; width: 200px; max-width: 100%; height: auto; margin-inline: auto; filter: drop-shadow(0 12px 20px rgba(20, 16, 10, 0.16)); }
+.pub-tre ol { display: grid; gap: 12px; counter-reset: pubtre; }
+.pub-tre li {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 10px;
+  align-items: start;
+  counter-increment: pubtre;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+.pub-tre li::before {
+  content: counter(pubtre);
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 15px;
+  background: var(--rum-ton);
+  color: var(--rum-ink);
+}
+.pub-tre li b { display: block; color: var(--ink-1); font-weight: 600; }
+.pub-kort-fot { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--kant); }
+
+/* Grenarna: en titel, tre roller du inte sökt på */
+.pub-grenar { background: var(--panel); border: 1px solid var(--kant); border-radius: var(--r-stor); padding: 24px; box-shadow: var(--lyft); }
+.pub-rot {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 14px;
+  background: var(--rum-vagg);
+  color: var(--vagg-ink);
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+}
+.pub-rot small { font-family: Inter, system-ui, sans-serif; font-weight: 500; font-size: 12px; letter-spacing: 0; color: var(--rum-ljus); }
+.pub-gren { display: grid; grid-template-columns: 34px 1fr auto; gap: 12px; align-items: center; position: relative; padding: 14px 0 0; }
+.pub-gren::before { content: ''; position: absolute; left: 16px; top: -6px; width: 2px; height: calc(50% + 6px); background: var(--kant-stark); }
+.pub-gren::after { content: ''; position: absolute; left: 16px; top: 50%; width: 18px; height: 2px; background: var(--kant-stark); margin-top: 7px; }
+.pub-gren .pub-obj { position: relative; z-index: 1; background: var(--panel); }
+.pub-gren b { display: block; font-family: var(--display); font-weight: 800; font-size: 16px; letter-spacing: -0.01em; }
+.pub-gren span { display: block; font-size: 13px; color: var(--ink-3); }
+.pub-gren em { font-style: normal; font-family: var(--display); font-weight: 800; font-size: 22px; letter-spacing: -0.02em; color: var(--rum-ink); }
+.pub-gren em small { font-size: 12px; font-weight: 600; letter-spacing: 0; margin-left: 2px; }
+.pub-grenar > .pub-liten { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--kant); }
+
+/* Ankarraden på /funktioner, testerna först och fyllda */
+.pub-ankarrad { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+.pub-ankarrad a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--kant-stark);
+  background: var(--panel);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--ink-1);
+}
+.pub-ankarrad a:hover { border-color: var(--ink-1); }
+.pub-ankarrad a.pub-forst { background: #1B2246; border-color: #1B2246; color: #fff; }
+
+/* Två telefoner i bläckblocket, med egen text under var och en */
+.pub-duo-premium { display: grid; gap: 40px; margin-top: 40px; }
+@media (min-width: 900px) {
+  .pub-duo-premium { grid-template-columns: 1fr 1fr; gap: 56px; }
+}
+.pub-duo-premium > div { display: grid; gap: 0; align-content: start; scroll-margin-top: 80px; }
+.pub-duo-premium .pub-telefon { margin: 0 auto 24px; }
+.pub-duo-premium .pub-sub { font-size: 14px; color: var(--vagg-mjuk); margin-top: 8px; }
+.pub-duo-premium .pub-brod { margin-top: 14px; }
+.pub-duo-premium .pub-lank { display: inline-block; margin-top: 16px; color: #fff; }
+
+/* LinkedIn-profilen före och efter */
+.pub-lk { display: grid; gap: 14px; }
+.pub-lk .pub-kort { padding: 18px 20px; }
+.pub-lk-rub { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; }
+.pub-lk-rad { display: flex; align-items: center; gap: 12px; }
+.pub-lk-av { width: 40px; height: 40px; border-radius: 50%; background: var(--insunken); border: 2px solid var(--ink-1); flex: none; }
+.pub-lk b { font-family: var(--display); font-weight: 800; font-size: 16px; letter-spacing: -0.01em; line-height: 1.25; display: block; }
+.pub-lk-rad span { font-size: 13px; color: var(--ink-3); display: block; }
+.pub-lk .pub-lk-efter { border-color: var(--rum-vagg); border-width: 1.5px; }
+
+/* /funktioner på mobil: hjälten visar bara mittentelefonen */
+@media (max-width: 899px) {
+  .pub-solfjader-hjalte { min-height: 668px; }
+}

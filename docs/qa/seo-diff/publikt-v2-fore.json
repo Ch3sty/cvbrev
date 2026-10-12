@@ -114,7 +114,7 @@
       "Är mina uppgifter säkra?+−",
       "Vad kostar det, och vad får jag utan att betala?+−"
     ],
-    "ord": 1236
+    "ord": 618
   },
   {
     "path": "/priser",
@@ -229,7 +229,7 @@
       "ld: Kan jag börja gratis?",
       "ld: Hur säger jag upp?"
     ],
-    "ord": 2002
+    "ord": 1001
   },
   {
     "path": "/funktioner",
@@ -369,7 +369,7 @@
       "Vad händer om jag säger upp prenumerationen?+−",
       "Hur kommer jag igång gratis?+−"
     ],
-    "ord": 1694
+    "ord": 847
   },
   {
     "path": "/verktyg/rekryteringstester",
@@ -694,7 +694,7 @@
       "ld: Vad är Big Five-modellen?",
       "ld: Går det att manipulera ett personlighetstest?"
     ],
-    "ord": 3846
+    "ord": 1923
   },
   {
     "path": "/verktyg/personligt-brev",
@@ -892,7 +892,7 @@
       "ld: Vilken mall ska jag välja?",
       "ld: Fungerar brevet för alla branscher?"
     ],
-    "ord": 1820
+    "ord": 910
   },
   {
     "path": "/verktyg/jobbmatchning",
@@ -1071,7 +1071,7 @@
       "ld: Funkar jobbmatchning för alla yrken?",
       "ld: Behöver jag ladda upp ett CV?"
     ],
-    "ord": 1656
+    "ord": 828
   },
   {
     "path": "/verktyg/cv-analys",
@@ -1253,7 +1253,7 @@
       "ld: Är mitt CV säkert hos er?",
       "ld: Vad händer efter analysen?"
     ],
-    "ord": 1696
+    "ord": 848
   },
   {
     "path": "/verktyg/skapa-cv",
@@ -1438,7 +1438,7 @@
       "ld: Vilka format kan jag ladda ner CV:t i?",
       "ld: Funkar CV-byggaren på mobilen?"
     ],
-    "ord": 1660
+    "ord": 830
   },
   {
     "path": "/verktyg/cv-mallar",
@@ -1633,7 +1633,7 @@
       "ld: Kan jag använda mallen för internationella ansökningar?",
       "ld: Är mallarna mobile-friendly när jag bygger CV:t?"
     ],
-    "ord": 2662
+    "ord": 1331
   },
   {
     "path": "/verktyg/linkedin-optimering",
@@ -1812,7 +1812,7 @@
       "ld: Vad är skillnaden mellan \"Stå ut i mängden\" och \"Sikta på en specifik roll\"?",
       "ld: Vad kostar LinkedIn-optimeringen?"
     ],
-    "ord": 2308
+    "ord": 1154
   },
   {
     "path": "/verktyg/bli-upptackt",
@@ -2002,7 +2002,7 @@
       "ld: Syns min lön eller mitt löneanspråk för rekryterare?",
       "ld: Kan jag ångra mig och sluta synas?"
     ],
-    "ord": 2090
+    "ord": 1045
   },
   {
     "path": "/verktyg/jobbcoachen",
@@ -2181,7 +2181,7 @@
       "ld: Kan jag dela mitt CV med Karriärguiden?",
       "ld: Vad händer när mina tio meddelanden är slut?"
     ],
-    "ord": 1876
+    "ord": 938
   },
   {
     "path": "/verktyg/personlighetstest",
@@ -2316,6 +2316,6 @@
       "ld: Kan jag öva inför ett skarpt personlighetstest?",
       "ld: Vad ingår om jag betalar?"
     ],
-    "ord": 1188
+    "ord": 594
   }
 ]

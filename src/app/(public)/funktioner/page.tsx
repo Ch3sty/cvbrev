@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import AuthRedirect from '@/components/landing/AuthRedirect';
+import PubliktSida from '@/components/publikt/PubliktSida';
 import FunktionerSida from './FunktionerSida';
 
 export const metadata: Metadata = {
@@ -25,14 +26,14 @@ export const metadata: Metadata = {
 };
 
 /**
- * /funktioner i linjen (docs/design/analys-visuell-linje-2026-09-22.html,
- * avsnitt 5). Metadata och h1 oförändrade.
+ * /funktioner, publikt v2 (spec del A 5.6). Metadata och h1 oförändrade;
+ * sektionerna bor i FunktionerSida.tsx.
  */
 export default function FunktionerPage() {
   return (
-    <div className="min-h-screen bg-mark">
+    <PubliktSida>
       <AuthRedirect />
       <FunktionerSida />
-    </div>
+    </PubliktSida>
   );
 }

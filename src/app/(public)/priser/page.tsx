@@ -64,7 +64,7 @@ const funktion = (id: string) => {
 }
 
 const GRATIS_RAD: { objekt: ObjektTyp; rum: 'tran' | 'cv' | 'brev' | 'jobb'; tal: number; text: string }[] = [
-  { objekt: 'matris', rum: 'tran', tal: 1, text: 'nivåkoll' },
+  { objekt: 'matris', rum: 'tran', tal: 1, text: 'Nivåkollen' },
   { objekt: 'person', rum: 'tran', tal: T.personlighetGrund.fragor, text: 'påståenden' },
   { objekt: 'mallar', rum: 'cv', tal: FREE_TEMPLATE_COUNT, text: 'CV-mallar' },
   { objekt: 'cv', rum: 'cv', tal: CV_ANALYSIS_LIMIT, text: 'CV-analys' },
@@ -85,7 +85,7 @@ export default function PriserSida() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema()) }} />
 
       <PubliktSida>
-        <main>
+        <div id="innehall">
           {/* 1. Premium-hjälten på bläck */}
           <Rum yta="premium" id="hjalte" style={{ paddingTop: 'clamp(32px, 5vw, 72px)' }}>
             <div className="pub-wrap pub-tva">
@@ -147,7 +147,7 @@ export default function PriserSida() {
                 <div>
                   <h2 className="pub-h3">Vill du se först?</h2>
                   <p className="pub-brod" style={{ marginTop: 12 }}>
-                    Utan att betala får du <b>en nivåkoll i testerna</b> med full genomgång och ett första träningspass samma
+                    Utan att betala får du <b>Nivåkollen i testerna</b> med full genomgång och ett första träningspass samma
                     dag, <b>personlighetstestet</b> med {T.personlighetGrund.fragor} påståenden, <b>{FREE_TEMPLATE_COUNT} CV-mallar</b>{' '}
                     och {talOrd(FREE_CV_EXPORTS)} nedladdning, <b>en CV-analys</b> som visar din poäng och det tyngsta fyndet,{' '}
                     <b>ett personligt brev</b> skrivet på en annons och sedan ett i veckan (att läsa, inte ladda ner),{' '}
@@ -191,7 +191,7 @@ export default function PriserSida() {
             objekt="matris"
             rubrik={tester.rubrik}
             rubrikNiva="h3"
-            gratisRad={`Ingår i Premium. Gratis: en nivåkoll med genomgång, ett första träningspass och personlighetstestet med ${T.personlighetGrund.fragor} påståenden.`}
+            gratisRad={`Ingår i Premium. Gratis: Nivåkollen med genomgång, ett första träningspass och personlighetstestet med ${T.personlighetGrund.fragor} påståenden.`}
             text={
               <>
                 {tester.text.replace(/\d+ till \d+ minuter/, `${PROV_MINUTER.min} till ${PROV_MINUTER.max} minuter`)}{' '}
@@ -210,7 +210,7 @@ export default function PriserSida() {
               { rubrik: 'Följ kurvan', text: 'Session för session.' },
             ]}
             lank={{
-              text: `Gör personlighetsprovet, ${T.personlighetProv} påståenden utan konto`,
+              text: `Gör personlighetstestet, ${T.personlighetProv} påståenden utan konto`,
               href: '/verktyg/personlighetstest',
             }}
             telefon={
@@ -340,7 +340,7 @@ export default function PriserSida() {
               />
             </div>
           </Rum>
-        </main>
+        </div>
         <FastKnapprad text={PAKET_KORT.allt.knapp} href="/register" observera="hjalte">
           <PriserKopKnapp cta="secondary" />
         </FastKnapprad>

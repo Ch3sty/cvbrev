@@ -188,7 +188,7 @@ export const GRATIS = {
     { text: ', ' },
     { text: 'tio frågor', fet: true },
     { text: ' till Jobbcoachen, och ' },
-    { text: 'en nivåkoll i testerna', fet: true },
+    { text: 'Nivåkollen i testerna', fet: true },
     { text: ' med full genomgång och ett första träningspass samma dag.' },
   ],
   knapp: 'Skapa konto gratis',
@@ -253,19 +253,19 @@ export const FUNKTIONER = {
       scen: 'matris',
       scenAlt: 'Matrislogik under tidspress',
       rubrik: 'Rekryteringstester',
-      sub: ingarGratis('en nivåkoll med genomgång och ett första träningspass.'),
+      sub: ingarGratis('Nivåkollen med genomgång och ett första träningspass.'),
       text: 'Den som känner igen uppgiftstypen på testdagen tävlar på lika villkor. Här lär du dig mönstren i samma fyra typer som de stora urvalstesten använder: matrislogik, verbalt resonemang, numeriskt och personlighet, i tre nivåer från grund till expert. I övningsprovet går klockan på riktigt, 25 till 40 minuter, och provet lämnas in automatiskt när tiden är ute. Efter varje fråga får du förklaringen, inte bara facit, och kurvan visar när du är redo.',
       steg: [
-        'Diagnostest på grundnivå visar var du står per typ.',
+        'Nivåkollen på grundnivå visar var du står per typ.',
         'Träna på avancerad och expertnivå i din svagaste typ, med förklaring på varje fråga.',
-        'Kör tidsatt prov när du är redo. Automatisk inlämning, resultat direkt.',
+        'Kör övningsprovet mot klockan när du är redo. Automatisk inlämning, resultat direkt.',
         'Följ kurvan, session för session.',
       ],
       ingar: ['allt'],
       bred: true,
       // Personlighetsprovet utan konto (docs/design/rod-trad-prov-spec-2026-09-24.md).
       // Länken stod förr på Träningspaketets kort och flyttade hit i våg 5.
-      lank: { text: 'Gör personlighetsprovet utan konto', href: '/verktyg/personlighetstest' },
+      lank: { text: 'Gör personlighetstestet utan konto', href: '/verktyg/personlighetstest' },
     },
     {
       id: 'matchade-jobb',
@@ -347,7 +347,7 @@ export const FORTROENDE_RADER = FORTROENDE.map((f) => ({ key: f.key, text: f.rub
 export const SPARVAL = {
   primar: (_paket?: PaketId, _plan?: PlanKey) => kopKnapp(),
   sekundar: 'Börja gratis i stället',
-  fotnot: `Gratis: ${FREE_TEMPLATE_COUNT} mallar, en analys, ett personligt brev, en nivåkoll i testerna`,
+  fotnot: `Gratis: ${FREE_TEMPLATE_COUNT} mallar, en analys, ett personligt brev, Nivåkollen i testerna`,
 } as const
 
 /* ----------------------------------------------------------- köpsteget */

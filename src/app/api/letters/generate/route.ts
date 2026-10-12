@@ -24,7 +24,8 @@ import { kandaUppgifterForMaskning } from '@/lib/profile/dokumentKontakt';
 // Dagskvot (2 brev/dag, midnatt svensk tid) — se docs/plan-kvotmodell.md
 import {
   resolveDailyLetterCounter,
-  nextMidnightStockholm,
+  letterResetAtFromNow,
+  brevSparrMeddelande,
   DAILY_LIMIT_LETTERS,
   quotaExceededBody,
 } from '@/lib/quota/quotaService';
@@ -87,22 +88,22 @@ export async function POST(request: Request) {
     // och admin räknas, inte bara profiles.subscription_tier.
     const harBetalt = await userHasAccess(supabase, user.id, 'any');
 
-    // Dagskvot: 2 brev per dag, fönstret nollställs vid midnatt svensk tid.
-    // Kolumnerna weekly_letter_* återanvänds men tolkas som dagsräknare via
-    // resolveDailyLetterCounter — fönstret är självrensande, så vi skriver
-    // bara till databasen vid faktisk förbrukning.
+    // Brevkvoten: första brevet gratis, sedan ett per rullande sju dygn
+    // (quotaService, LETTER_WINDOW_DAYS). Kolumnerna weekly_letter_* är
+    // fönstret; det är självrensande, så vi skriver bara till databasen vid
+    // faktisk förbrukning.
     const now = new Date();
     const { effectiveCount, windowIsStale } = resolveDailyLetterCounter(
       profile.weekly_letter_count,
       profile.weekly_letter_first_used_at,
       now
     );
-    const resetAt = nextMidnightStockholm(now);
+    const resetAt = letterResetAtFromNow(profile.weekly_letter_first_used_at, now);
 
     // Kontroll av dagsgräns för gratis-användare
     if (!harBetalt && effectiveCount >= DAILY_LIMIT_LETTERS) {
       signalQuotaWall(user.id, 'letter_generation');
-      logUserActivity(user.id, 'letter_generation_failed', 'Försökte generera brev men dagsgräns nådd', { limit: DAILY_LIMIT_LETTERS, current: effectiveCount });
+      logUserActivity(user.id, 'letter_generation_failed', 'Försökte generera brev men veckans gratisbrev är använt', { limit: DAILY_LIMIT_LETTERS, current: effectiveCount });
       return NextResponse.json(
         quotaExceededBody(
           'letter_generation',
@@ -113,7 +114,7 @@ export async function POST(request: Request) {
             limit: DAILY_LIMIT_LETTERS,
             nextResetAt: resetAt.toISOString(),
           },
-          `Du har använt dagens två brev. Ny kvot i morgon, eller köp ${paketKort()} för obegränsat.`
+          brevSparrMeddelande(resetAt, paketKort())
         ),
         { status: 429 }
       );

@@ -34,11 +34,11 @@ export const FREE_HIGHLIGHTS = [
   'Ett personligt brev att läsa, sedan ett i veckan',
   'Tre matchade jobb',
   'Tio frågor till Jobbcoachen',
-  'En nivåkoll i testerna med genomgång, och ett första träningspass',
+  'Nivåkollen i testerna med genomgång, och ett första träningspass',
 ] as const
 
 /** Gratisnivån i en mening, för startsidan. */
-export const GRATIS_RAD = `${FREE_TEMPLATE_COUNT} mallar, en CV-analys, ett personligt brev och en nivåkoll i testerna ingår utan att betala.`
+export const GRATIS_RAD = `${FREE_TEMPLATE_COUNT} mallar, en CV-analys, ett personligt brev och Nivåkollen i testerna ingår utan att betala.`
 
 // === Jämförelsetabellen ===
 
@@ -207,7 +207,7 @@ export const PRISER_FAQ_ITEMS = [
   {
     id: 'borja-gratis',
     q: 'Kan jag börja gratis?',
-    a: `Ja. Gratisnivån kräver inget kort och ligger kvar så länge du vill. Där ser du hur CV-analysen, de personliga breven och testernas nivåkoll fungerar, och köper ${PREMIUM} först när du vill ha resten.`,
+    a: `Ja. Gratisnivån kräver inget kort och ligger kvar så länge du vill. Där ser du hur CV-analysen, de personliga breven och Nivåkollen i testerna fungerar, och köper ${PREMIUM} först när du vill ha resten.`,
   },
   {
     id: 'saga-upp',

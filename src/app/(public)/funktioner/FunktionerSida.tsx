@@ -1,48 +1,73 @@
 /**
- * Funktioner i linjen (docs/design/analys-visuell-linje-2026-09-22.html,
- * avsnitt 5, "Övriga publika ytor"): hero som startsidan, sedan en sektion
- * per funktion i växlande form. Panel med scen till höger, rader direkt på
- * mark, och bläck för det som bara finns i Jobbcoach Premium. Åtta ikonkort och åtta
- * piller är borta; ankarlänkarna till sektionerna står kvar som en textrad,
- * eftersom de är sidans egna länkar.
+ * /funktioner, publikt v2 (docs/design/spec-publikt-v2-del-a-2026-10-12.md
+ * avsnitt 5.6, skissen v4 flik #funktioner).
  *
- * Texterna för CV-analysen, breven, testerna, matchningen och coachen är
- * prissidans godkända copy (FUNKTIONER i paket-copy.ts), så funktionen
- * beskrivs likadant på båda sidorna. Serverkomponent.
+ * Hjälten på mark med ankarraden (testerna först och fyllda) och tre
+ * telefoner i solfjäder, rekryteringstesterna störst, personliga brev,
+ * CV-analysen, skapa CV och mallarna, det som bara finns i Premium på bläck
+ * med två telefoner, LinkedIn, alla verktyg samlade och frågorna.
+ *
+ * Texterna för testerna, breven, CV-analysen, matchningen och coachen är
+ * prissidans (FUNKTIONER i paket-copy.ts). Metadata och h1 oförändrade.
+ * FAQPage ur samma fem frågor som syns (ägarens beslut 8). Ny h2: "Alla
+ * verktyg, samlade". Serverkomponent; klient-JS bara för FastKnapprad.
  */
 
 import Link from 'next/link'
-import type { ReactNode } from 'react'
-import InkPanel, { INK_KNAPP, INK_LANK } from '@/components/shell/InkPanel'
-import {
-  IlluScenBrev,
-  IlluScenCv,
-  IlluScenHero,
-  IlluScenLinkedin,
-  IlluScenMallar,
-  IlluScenMatris,
-} from '@/components/illustrations/PriserScener'
 import { FUNKTIONER } from '@/components/pricing/paket-copy'
 import { SALD_PLAN, paketKort, paketNamn, prisPeriod } from '@/lib/plans/plans'
-import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { FREE_CV_EXPORTS, FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { SLUGGAR as RAKNA_UT_SLUGGAR } from '@/lib/rakna/delning'
+import Rum from '@/components/publikt/Rum'
+import Station from '@/components/publikt/Station'
+import Steg from '@/components/publikt/Steg'
+import Objekt from '@/components/publikt/Objekt'
+import LankLista, { type LankRad } from '@/components/publikt/LankLista'
+import Faq from '@/components/publikt/Faq'
+import FastKnapprad from '@/components/publikt/FastKnapprad'
+import { PremiumOrd } from '@/components/publikt/PremiumBlock'
+import MallMiniatyr from '@/components/publikt/MallMiniatyr'
+import { TESTTAL, PROV_MINUTER } from '@/components/publikt/testtal'
+import { storForst, talOrd } from '@/components/publikt/talord'
+import SkarmMatris from '@/components/publikt/telefon/skarmar/SkarmMatris'
+import SkarmPersonlighet from '@/components/publikt/telefon/skarmar/SkarmPersonlighet'
+import SkarmCvAnalys from '@/components/publikt/telefon/skarmar/SkarmCvAnalys'
+import SkarmMatchning from '@/components/publikt/telefon/skarmar/SkarmMatchning'
+import SkarmBrev from '@/components/publikt/telefon/skarmar/SkarmBrev'
+import SkarmCoach from '@/components/publikt/telefon/skarmar/SkarmCoach'
 
-const KNAPP =
-  'inline-flex h-12 w-full items-center justify-center rounded-lg bg-ink-1 px-5 text-base font-semibold text-white transition-colors hover:bg-ink-hover sm:w-auto'
-const LANK =
-  'inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1'
-const SEKTION = 'mt-16 scroll-mt-24 lg:mt-[88px]'
+const PREMIUM = paketKort()
 
-const kort = (id: string) => FUNKTIONER.kort.find((k) => k.id === id)!
+const kort = (id: string) => {
+  const k = FUNKTIONER.kort.find((x) => x.id === id)
+  if (!k) throw new Error(`FUNKTIONER saknar ${id}`)
+  return k
+}
 
+/** Ankarraden: testerna först och fyllda. */
 const ANKARE = [
+  { text: 'Rekryteringstester', href: '#tester' },
   { text: 'Personligt brev', href: '#brev' },
   { text: 'CV-analys', href: '#cv-analys' },
   { text: 'Skapa CV och mallar', href: '#cv-skapa-mallar' },
-  { text: 'Rekryteringstester', href: '#tester' },
   { text: 'Jobbmatchning', href: '#jobbmatchning' },
   { text: 'Jobbcoachen', href: '#jobbcoachen' },
   { text: 'LinkedIn-profilen', href: '#linkedin' },
 ] as const
+
+const ALLA: LankRad[] = [
+  { href: '/verktyg/rekryteringstester', rubrik: 'Rekryteringstester', text: 'Matrislogik, verbalt och numeriskt i tre nivåer, övningsprov mot klockan.', objekt: 'matris', rum: 'tran' },
+  { href: '/verktyg/personlighetstest', rubrik: 'Personlighetstest', text: 'Big Five-profilen rekryteraren jämför med, och frågorna du lär få.', objekt: 'person', rum: 'tran' },
+  { href: '/verktyg/personligt-brev', rubrik: 'Personligt brev', text: 'Skrivet på annonsen, utifrån ditt CV, i den ton du väljer.', objekt: 'brev', rum: 'brev' },
+  { href: '/verktyg/cv-analys', rubrik: 'CV-analys', text: 'Poäng per område och varje fynd med åtgärd.', objekt: 'cv', rum: 'cv' },
+  { href: '/verktyg/skapa-cv', rubrik: 'Skapa CV', text: 'Steg för steg, med exempel för varje del.', objekt: 'mallar', rum: 'cv' },
+  { href: '/verktyg/cv-mallar', rubrik: 'CV-mallar', text: `${TEMPLATE_COUNT} mallar som rekryteringssystemen läser, ${FREE_TEMPLATE_COUNT} gratis.`, objekt: 'mallar', rum: 'cv' },
+  { href: '/verktyg/linkedin-optimering', rubrik: 'LinkedIn-profilen', text: 'Rubrik och sammanfattning som rekryterare hittar när de söker.', objekt: 'linkedin', rum: 'cv' },
+  { href: '/verktyg/jobbmatchning', rubrik: 'Jobbmatchning', text: 'Din kompetens mot alla annonser i Platsbanken, med skälen.', objekt: 'match', rum: 'jobb' },
+  { href: '/verktyg/bli-upptackt', rubrik: 'Bli upptäckt', text: 'Rekryterare hittar dig, anonymt tills du själv svarar.', objekt: 'upptackt', rum: 'jobb' },
+  { href: '/verktyg/jobbcoachen', rubrik: 'Jobbcoachen', text: 'Lön, intervjufrågor, avtal och avslag, utifrån svensk arbetsmarknad och ditt CV.', objekt: 'chat', rum: 'neu' },
+  { href: '/rakna-ut', rubrik: 'Räkna ut lön och skatt', text: `${storForst(talOrd(RAKNA_UT_SLUGGAR.length))} kalkylatorer på Skatteverkets tabeller.`, objekt: 'klocka', rum: 'neu' },
+]
 
 export const FUNKTIONER_FAQ = [
   {
@@ -55,80 +80,17 @@ export const FUNKTIONER_FAQ = [
   },
   {
     q: 'Hur ofta uppdateras jobbmatchningen?',
-    a: 'Vi hämtar annonserna från Arbetsförmedlingen och JobTech. Nya annonser kommer med inom timmar efter att de publicerats, och i ' + paketKort() + ' får du de bästa träffarna varje natt.',
+    a: 'Vi hämtar annonserna från Arbetsförmedlingen och JobTech. Nya annonser kommer med inom timmar efter att de publicerats, och i ' + PREMIUM + ' får du de bästa träffarna varje natt.',
   },
   {
     q: 'Vad händer om jag säger upp prenumerationen?',
-    a: 'Kontot går tillbaka till gratisnivån när perioden är slut. Allt du skrivit och analyserat finns kvar att läsa och kopiera, men nya uttag följer gratisnivåns gränser. Du kan köpa ' + paketKort() + ' igen när du vill.',
+    a: 'Kontot går tillbaka till gratisnivån när perioden är slut. Allt du skrivit och analyserat finns kvar att läsa och kopiera, men nya uttag följer gratisnivåns gränser. Du kan köpa ' + PREMIUM + ' igen när du vill.',
   },
   {
     q: 'Hur kommer jag igång gratis?',
-    a: `Skapa konto, så är gratisnivån igång direkt: ${FREE_TEMPLATE_COUNT} CV-mallar och en nedladdning, en CV-analys med poäng och det tyngsta fyndet, ett personligt brev, och i testerna en nivåkoll och ett första träningspass. Vill du ha mer ingår allt i ${paketKort()}, ${prisPeriod(SALD_PLAN)}.`,
+    a: `Skapa konto, så är gratisnivån igång direkt: ${FREE_TEMPLATE_COUNT} CV-mallar och ${talOrd(FREE_CV_EXPORTS)} nedladdning, en CV-analys med poäng och det tyngsta fyndet, första personliga brevet och sedan ett i veckan, och i testerna Nivåkollen och ett första träningspass. Vill du ha mer ingår allt i ${PREMIUM}, ${prisPeriod(SALD_PLAN)}.`,
   },
 ] as const
-
-function Funktion({
-  id,
-  eyebrow,
-  rubrik,
-  sub,
-  text,
-  steg,
-  scen,
-  lankar,
-  scenForst,
-}: {
-  id: string
-  eyebrow: string
-  rubrik: string
-  sub: string
-  text: string
-  steg?: readonly string[]
-  scen: ReactNode
-  lankar: { text: string; href: string }[]
-  scenForst?: boolean
-}) {
-  return (
-    <section id={id} aria-labelledby={`${id}-rubrik`} className={SEKTION}>
-      <div
-        className={`grid items-center gap-6 rounded-xl border border-kant bg-panel p-5 sm:p-8 lg:gap-12 ${
-          scenForst ? 'lg:grid-cols-[280px_minmax(0,1fr)]' : 'lg:grid-cols-[minmax(0,1fr)_280px]'
-        }`}
-      >
-        <div className={scenForst ? 'lg:order-2' : ''}>
-          <p className="text-steg uppercase text-ink-3">{eyebrow}</p>
-          <h2 id={`${id}-rubrik`} className="mt-2 text-h2-pub text-ink-1">
-            {rubrik}
-          </h2>
-          <p className="mt-2 text-meta text-ink-3">{sub}</p>
-          <p className="mt-3 max-w-[62ch] text-base leading-[27px] text-ink-2">{text}</p>
-          {steg?.length ? (
-            <ol className="mt-4 space-y-2">
-              {steg.map((s, i) => (
-                <li key={s} className="flex gap-3 text-sm leading-[22px] text-ink-2">
-                  <span aria-hidden="true" className="w-5 shrink-0 font-display font-extrabold tabular-nums text-ink-1">
-                    {i + 1}
-                  </span>
-                  {s}
-                </li>
-              ))}
-            </ol>
-          ) : null}
-          <div className="mt-4 flex flex-wrap gap-x-6">
-            {lankar.map((l) => (
-              <Link key={l.href} href={l.href} className={LANK}>
-                {l.text}
-              </Link>
-            ))}
-          </div>
-        </div>
-        <div className={`mx-auto w-full max-w-[280px] text-ink-1 ${scenForst ? 'lg:order-1' : ''}`} aria-hidden="true">
-          {scen}
-        </div>
-      </div>
-    </section>
-  )
-}
 
 export default function FunktionerSida() {
   const analys = kort('cv-analys')
@@ -138,186 +100,264 @@ export default function FunktionerSida() {
   const coach = kort('jobbcoachen')
 
   return (
-    <main className="mx-auto max-w-[1200px] px-4 pb-12 pt-6 sm:px-6 lg:px-12 lg:pb-[72px] lg:pt-16">
-      <header className="grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_520px] lg:gap-14">
-        <div>
-          <p className="text-steg font-semibold uppercase tracking-[0.08em] text-ink-3">Åtta verktyg, en plattform</p>
-          <h1 className="mt-2 max-w-[15ch] text-h1-pub text-ink-1 lg:mt-3">Allt du behöver för att landa nästa jobb</h1>
-          <p className="mt-4 max-w-[52ch] text-base leading-[27px] text-ink-2 lg:mt-6 lg:text-lg lg:leading-[29px]">
-            Personliga brev, CV, jobbmatchning, jobbcoach, rekryteringstester och en LinkedIn-profil som hittas.{' '}
-            <b className="font-semibold text-ink-1">Byggt för svensk arbetsmarknad, granskat av rekryterare.</b>
-          </p>
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
-            <Link href="/register" className={KNAPP}>
-              Skapa konto gratis
-            </Link>
-            <Link href="/priser" className={LANK}>
-              Se priset
-            </Link>
-          </div>
-          <nav aria-label="Funktionerna på sidan" className="mt-6">
-            <ul className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
-              {ANKARE.map((a) => (
-                <li key={a.href}>
-                  <a href={a.href} className="inline-flex min-h-11 items-center text-ink-2 underline decoration-kant underline-offset-4 hover:text-ink-1 hover:decoration-ink-1">
+    <>
+      <div id="innehall">
+        {/* 1. Hjälten på mark med ankarraden */}
+        <Rum yta="mark" id="hjalte" style={{ paddingTop: 'clamp(32px, 5vw, 72px)' }}>
+          <div className="pub-wrap pub-tva">
+            <div className="pub-tva-text">
+              <p className="pub-kick">Alla verktyg, en plattform</p>
+              <h1 className="pub-h1">Allt du behöver för att landa nästa jobb</h1>
+              <p className="pub-ingress" style={{ marginTop: 22 }}>
+                Rekryteringstester, personliga brev, CV, jobbmatchning, jobbcoach och en LinkedIn-profil som hittas.{' '}
+                <b>Byggt för svensk arbetsmarknad, granskat av rekryterare.</b>
+              </p>
+              <div className="pub-handling">
+                <Link className="pub-knapp" href="/register" data-primar="">
+                  Skapa konto gratis
+                </Link>
+                <Link className="pub-lank" href="/priser">
+                  Se priset
+                </Link>
+              </div>
+              <nav className="pub-ankarrad" aria-label="Funktionerna på sidan">
+                {ANKARE.map((a, i) => (
+                  <a key={a.href} href={a.href} className={i === 0 ? 'pub-forst' : undefined}>
                     {a.text}
                   </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-        <div className="text-ink-1">
-          <IlluScenHero className="h-auto w-full rounded-xl" title="Veckan på skrivbordet: CV med poäng, personligt brev och ett matristest" />
-        </div>
-      </header>
-
-      <Funktion
-        id="brev"
-        eyebrow="Personligt brev"
-        rubrik={brev.rubrik}
-        sub={brev.sub}
-        text={brev.text}
-        steg={brev.steg}
-        scen={<IlluScenBrev className="h-auto w-full" />}
-        lankar={[
-          { text: 'Så fungerar det', href: '/verktyg/personligt-brev' },
-          { text: 'Se personligt brev-exempel', href: '/personligt-brev-exempel' },
-        ]}
-      />
-
-      <Funktion
-        id="cv-analys"
-        eyebrow="CV-analys"
-        rubrik={analys.rubrik}
-        sub={analys.sub}
-        text={analys.text}
-        steg={analys.steg}
-        scen={<IlluScenCv className="h-auto w-full" />}
-        scenForst
-        lankar={[
-          { text: 'Så fungerar det', href: '/verktyg/cv-analys' },
-          { text: 'Se CV-exempel', href: '/cv-exempel' },
-        ]}
-      />
-
-      {/* Skapa CV och mallar: rader direkt på mark, för att bryta panelerna. */}
-      <section id="cv-skapa-mallar" aria-labelledby="cv-skapa-mallar-rubrik" className={SEKTION}>
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_240px] lg:gap-14">
-          <div>
-            <p className="text-steg uppercase text-ink-3">Skapa CV och CV-mallar</p>
-            <h2 id="cv-skapa-mallar-rubrik" className="mt-2 text-h2-pub text-ink-1">
-              Ett CV som både systemet och rekryteraren läser
-            </h2>
-            <ul className="mt-6 grid gap-x-12 md:grid-cols-2">
-              {[
-                { r: 'Bygg CV:t steg för steg', t: 'Personuppgifter, profil, erfarenhet, utbildning, kompetenser och språk, med exempel för varje del.' },
-                { r: `${TEMPLATE_COUNT} mallar, ${FREE_TEMPLATE_COUNT} gratis`, t: 'Ren struktur som rekryteringssystemen tolkar rätt. Byt mall med ett klick, innehållet följer med.' },
-                { r: 'Foto och LinkedIn där mallen stöder det', t: 'Välj själv om bilden och profillänken ska med. Standard i Sverige är utan bild.' },
-                { r: 'Ladda ner som PDF', t: `Utan tak i ${paketKort()}, en nedladdning på gratisnivån.` },
-              ].map((x) => (
-                <li key={x.r} className="border-t border-kant py-4">
-                  <h3 className="text-base font-semibold text-ink-1">{x.r}</h3>
-                  <p className="mt-1 text-sm leading-[22px] text-ink-2">{x.t}</p>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-2 flex flex-wrap gap-x-6">
-              <Link href="/verktyg/skapa-cv" className={LANK}>
-                Skapa CV
-              </Link>
-              <Link href="/dashboard/cv-mallar" className={LANK}>
-                Välj en mall
-              </Link>
+                ))}
+              </nav>
+            </div>
+            <div className="pub-solfjader pub-solfjader-hjalte">
+              <SkarmCvAnalys />
+              <SkarmMatris />
+              <SkarmMatchning />
             </div>
           </div>
-          <div className="hidden text-ink-1 lg:block" aria-hidden="true">
-            <IlluScenMallar className="h-auto w-full" />
-          </div>
-        </div>
-      </section>
+        </Rum>
 
-      <Funktion
-        id="tester"
-        eyebrow="Rekryteringstester"
-        rubrik={tester.rubrik}
-        sub={tester.sub}
-        text={tester.text}
-        steg={tester.steg}
-        scen={<IlluScenMatris className="h-auto w-full" />}
-        lankar={[{ text: 'Så fungerar det', href: '/verktyg/rekryteringstester' }]}
-      />
-
-      {/* Det som bara finns i Premium: sidans enda bläckyta. */}
-      <div className={SEKTION}>
-        <InkPanel
-          eyebrow={`Bara i ${paketNamn(SALD_PLAN)}, ${prisPeriod(SALD_PLAN)}`}
-          title="Jobben hittar dig, och du går förberedd in i intervjun."
-          text="Jobbmatchning, Jobbcoachen så mycket du vill och Bli upptäckt, plus alla CV-mallar, CV-analysen, personliga brev och alla rekryteringstester."
-          action={
-            <Link href="/priser" className={INK_KNAPP}>
-              Se vad som ingår
-            </Link>
+        {/* 2. Rekryteringstester, störst */}
+        <Station
+          id="tester"
+          rum="tran"
+          stor
+          objekt="matris"
+          kick="Rekryteringstester"
+          rubrik={tester.rubrik}
+          rubrikNiva="h2"
+          gratisRad={tester.sub}
+          text={tester.text.replace(/\d+ till \d+ minuter/, `${PROV_MINUTER.min} till ${PROV_MINUTER.max} minuter`)}
+          steg={tester.steg?.map((s) => ({ text: s }))}
+          knapp={{ text: 'Så fungerar det', href: '/verktyg/rekryteringstester' }}
+          lank={{ text: `Personlighetstestet, ${TESTTAL.personlighetProv} påståenden utan konto`, href: '/verktyg/personlighetstest' }}
+          telefon={
+            <div className="pub-duo pub-duo-mobil-bara-andra">
+              <SkarmMatris />
+              <SkarmPersonlighet />
+            </div>
           }
-          secondary={
-            <Link href="/verktyg/bli-upptackt" className={INK_LANK}>
-              Om Bli upptäckt
-            </Link>
-          }
-        >
-          <div className="grid gap-6 lg:grid-cols-2">
-            <div id="jobbmatchning" className="scroll-mt-24 border-t border-ink-1-kant pt-4">
-              <h2 className="font-display text-[22px] font-bold leading-7 text-white">{match.rubrik}</h2>
-              <p className="mt-1 text-meta text-ink-1-mjuk">{match.sub}</p>
-              <p className="mt-2 text-sm leading-[22px] text-ink-1-mjuk">{match.text}</p>
-              <Link href="/verktyg/jobbmatchning" className={`mt-2 inline-flex min-h-11 items-center ${INK_LANK}`}>
-                Så fungerar jobbmatchningen
-              </Link>
+        />
+
+        {/* 3. Personliga brev */}
+        <Station
+          id="brev"
+          rum="brev"
+          omvand
+          objekt="brev"
+          kick="Personligt brev"
+          rubrik={brev.rubrik}
+          rubrikNiva="h2"
+          gratisRad={`Ingår i ${PREMIUM}. Gratis: första brevet, sedan ett i veckan, att läsa och kopiera. Nedladdning ingår inte.`}
+          text={brev.text}
+          steg={brev.steg?.map((s) => ({ text: s }))}
+          knapp={{ text: 'Så fungerar det', href: '/verktyg/personligt-brev' }}
+          lank={{ text: 'Se personligt brev-exempel', href: '/personligt-brev-exempel' }}
+          telefon={<SkarmBrev />}
+        />
+
+        {/* 4. CV-analysen */}
+        <Station
+          id="cv-analys"
+          rum="cv"
+          objekt="cv"
+          kick="CV-analys"
+          rubrik={analys.rubrik}
+          rubrikNiva="h2"
+          gratisRad={analys.sub}
+          text={analys.text}
+          steg={analys.steg?.map((s) => ({ text: s }))}
+          knapp={{ text: 'Så fungerar det', href: '/verktyg/cv-analys' }}
+          lank={{ text: 'Se CV-exempel', href: '/cv-exempel' }}
+          telefon={<SkarmCvAnalys />}
+        />
+
+        {/* 5. Skapa CV och mallar */}
+        <Rum yta="ton" rum="cv" id="cv-skapa-mallar">
+          <div className="pub-wrap pub-tva pub-omv">
+            <div className="pub-tva-text">
+              <p className="pub-kick">Skapa CV och CV-mallar</p>
+              <h2 className="pub-h2">Ett CV som både systemet och rekryteraren läser</h2>
+              <div style={{ marginTop: 28 }}>
+                <Steg
+                  kolumner={2}
+                  rader={[
+                    { rubrik: 'Bygg CV:t steg för steg', text: 'Personuppgifter, profil, erfarenhet, utbildning, kompetenser och språk, med exempel för varje del.' },
+                    { rubrik: `${TEMPLATE_COUNT} mallar, ${FREE_TEMPLATE_COUNT} gratis`, text: 'Ren struktur som rekryteringssystemen tolkar rätt. Byt mall med ett klick, innehållet följer med.' },
+                    { rubrik: 'Foto och LinkedIn där mallen stöder det', text: 'Välj själv om bilden och profillänken ska med. Standard i Sverige är utan bild.' },
+                    { rubrik: 'Ladda ner som PDF', text: `Utan tak i ${PREMIUM}, ${talOrd(FREE_CV_EXPORTS)} nedladdning på gratisnivån.` },
+                  ]}
+                />
+              </div>
+              <div className="pub-handling">
+                <Link className="pub-knapp" href="/verktyg/skapa-cv">
+                  Skapa CV
+                </Link>
+                <Link className="pub-lank" href="/dashboard/cv-mallar">
+                  Välj en mall
+                </Link>
+              </div>
             </div>
-            <div id="jobbcoachen" className="scroll-mt-24 border-t border-ink-1-kant pt-4">
-              <h2 className="font-display text-[22px] font-bold leading-7 text-white">{coach.rubrik}</h2>
-              <p className="mt-1 text-meta text-ink-1-mjuk">{coach.sub}</p>
-              <p className="mt-2 text-sm leading-[22px] text-ink-1-mjuk">{coach.text}</p>
-              <Link href="/verktyg/jobbcoachen" className={`mt-2 inline-flex min-h-11 items-center ${INK_LANK}`}>
-                Så fungerar Jobbcoachen
+            <div className="pub-mitt" aria-hidden="true">
+              <div style={{ display: 'flex', gap: 12, alignItems: 'flex-end', filter: 'drop-shadow(0 18px 28px rgba(20,16,10,.18))' }}>
+                <div style={{ transform: 'rotate(-6deg)', width: 110 }}>
+                  <MallMiniatyr id="executive" />
+                </div>
+                <div style={{ width: 130, position: 'relative', zIndex: 1 }}>
+                  <MallMiniatyr id="modern" />
+                </div>
+                <div style={{ transform: 'rotate(6deg)', width: 110 }}>
+                  <MallMiniatyr id="classic" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </Rum>
+
+        {/* 6. Bara i Premium, två telefoner med varsin h2 */}
+        <Rum yta="premium" id="premium-funktioner" vag="panel">
+          <div className="pub-wrap">
+            <div style={{ maxWidth: 760 }}>
+              <p className="pub-kick">
+                Bara i Jobbcoach <PremiumOrd />, {prisPeriod(SALD_PLAN)}
+              </p>
+              <h2 className="pub-h2">Jobben hittar dig, och du går förberedd in i intervjun.</h2>
+              <p className="pub-ingress" style={{ marginTop: 16 }}>
+                Jobbmatchning, Jobbcoachen så mycket du vill och Bli upptäckt, plus alla rekryteringstester, alla CV-mallar,
+                CV-analysen och personliga brev.
+              </p>
+            </div>
+            <div className="pub-duo-premium">
+              <div id="jobbmatchning">
+                <SkarmMatchning />
+                <h2 className="pub-h3">{match.rubrik}</h2>
+                <p className="pub-sub">{match.sub}</p>
+                <p className="pub-brod">{match.text}</p>
+                <Link className="pub-lank" href="/verktyg/jobbmatchning">
+                  Så fungerar jobbmatchningen
+                </Link>
+              </div>
+              <div id="jobbcoachen">
+                <SkarmCoach />
+                <h2 className="pub-h3">{coach.rubrik}</h2>
+                <p className="pub-sub">{coach.sub}</p>
+                <p className="pub-brod">{coach.text}</p>
+                <Link className="pub-lank" href="/verktyg/jobbcoachen">
+                  Så fungerar Jobbcoachen
+                </Link>
+              </div>
+            </div>
+            <div className="pub-handling" style={{ marginTop: 40 }}>
+              <Link className="pub-knapp" href="/priser">
+                Se vad som ingår
+              </Link>
+              <Link className="pub-lank" href="/verktyg/bli-upptackt">
+                Om Bli upptäckt
               </Link>
             </div>
           </div>
-        </InkPanel>
+        </Rum>
+
+        {/* 7. LinkedIn */}
+        <Rum yta="panel" rum="cv" id="linkedin">
+          <div className="pub-wrap pub-tva">
+            <div className="pub-tva-text">
+              <Objekt typ="linkedin" />
+              <p className="pub-kick" style={{ marginTop: 20 }}>
+                LinkedIn-profilen
+              </p>
+              <h2 className="pub-h2">Bli hittad på LinkedIn</h2>
+              <p className="pub-liten" style={{ marginTop: 8 }}>
+                LinkedIn-optimeringen ingår i {paketNamn(SALD_PLAN)}.
+              </p>
+              <p className="pub-brod" style={{ marginTop: 16 }}>
+                Rekryterare söker på kompetenser, inte på titlar. Vi skriver om rubrik och sammanfattning så att du hittas när de
+                söker på det du kan, och visar vilka kompetenser som saknas i profilen.
+              </p>
+              <div className="pub-handling">
+                <Link className="pub-knapp" href="/verktyg/linkedin-optimering">
+                  Så fungerar det
+                </Link>
+              </div>
+            </div>
+            <div className="pub-lk" aria-hidden="true">
+              <div className="pub-kort">
+                <p className="pub-lk-rub">Rubriken i dag</p>
+                <div className="pub-lk-rad">
+                  <span className="pub-lk-av" />
+                  <div>
+                    <b>Projektledare på NCC</b>
+                    <span>Hittas när någon söker på: NCC</span>
+                  </div>
+                </div>
+              </div>
+              <div className="pub-kort pub-lk-efter">
+                <p className="pub-lk-rub">Rubriken efter omskrivningen</p>
+                <div className="pub-lk-rad">
+                  <span className="pub-lk-av" />
+                  <div>
+                    <b>Projektledare bygg, offentlig upphandling enligt LOU, budgetansvar 40 miljoner</b>
+                    <span>Sammanfattningen omskriven på samma sätt</span>
+                  </div>
+                </div>
+                <p className="pub-liten" style={{ marginTop: 12 }}>
+                  Saknas i profilen, enligt annonserna i din bransch: BAS-P.
+                </p>
+              </div>
+            </div>
+          </div>
+        </Rum>
+
+        {/* 8. Alla verktyg, samlade */}
+        <Rum yta="mark" id="alla-verktyg">
+          <div className="pub-wrap">
+            <h2 className="pub-h2">Alla verktyg, samlade</h2>
+            <div style={{ marginTop: 32 }}>
+              <LankLista lankar={ALLA} />
+            </div>
+            <div id="sokta-tjanster" className="pub-kort pub-rum-jobb" style={{ marginTop: 24, display: 'flex', gap: 18, alignItems: 'center', flexWrap: 'wrap' }}>
+              <Objekt typ="sokta" storlek={52} />
+              <div style={{ flex: '1 1 280px' }}>
+                <b className="pub-h4">Sökta tjänster</b>
+                <p className="pub-brod" style={{ marginTop: 4 }}>
+                  Håll koll på var varje ansökan står: sökt, svar, intervju, erbjudande. Gratis för alla med konto, och ett
+                  personligt brev från en träff hamnar där av sig självt.
+                </p>
+              </div>
+              <Link className="pub-lank" href="/register">
+                Skapa konto gratis
+              </Link>
+            </div>
+          </div>
+        </Rum>
+
+        {/* 9. Frågorna, med FAQPage */}
+        <Rum yta="panel" id="fragor">
+          <div className="pub-wrap" style={{ maxWidth: 820 }}>
+            <Faq rubrik="Vanliga frågor" fragor={FUNKTIONER_FAQ} schema />
+          </div>
+        </Rum>
       </div>
-
-      <Funktion
-        id="linkedin"
-        eyebrow="LinkedIn-profilen"
-        rubrik="Bli hittad på LinkedIn"
-        sub={`LinkedIn-optimeringen ingår i ${paketNamn(SALD_PLAN)}.`}
-        text="Rekryterare söker på kompetenser, inte på titlar. Vi skriver om rubrik och sammanfattning så att du hittas när de söker på det du kan, och visar vilka kompetenser som saknas i profilen."
-        scen={<IlluScenLinkedin className="h-auto w-full" />}
-        scenForst
-        lankar={[{ text: 'Så fungerar det', href: '/verktyg/linkedin-optimering' }]}
-      />
-
-      <section aria-labelledby="funktioner-faq" className={SEKTION}>
-        <h2 id="funktioner-faq" className="text-h2-pub text-ink-1">
-          Vanliga frågor
-        </h2>
-        <div className="mt-6 grid gap-3 lg:grid-cols-2">
-          {FUNKTIONER_FAQ.map((f, i) => (
-            <details key={f.q} open={i === 0} className="group rounded-xl border border-kant bg-panel px-4 sm:px-5">
-              <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 py-3 text-sm font-semibold text-ink-1 [&::-webkit-details-marker]:hidden">
-                {f.q}
-                <span className="shrink-0 text-ink-3 group-open:hidden" aria-hidden="true">
-                  +
-                </span>
-                <span className="hidden shrink-0 text-ink-3 group-open:inline" aria-hidden="true">
-                  −
-                </span>
-              </summary>
-              <p className="pb-4 text-sm leading-[22px] text-ink-2">{f.a}</p>
-            </details>
-          ))}
-        </div>
-      </section>
-    </main>
+      <FastKnapprad text="Skapa konto gratis" href="/register" observera="hjalte" />
+    </>
   )
 }

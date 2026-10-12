@@ -41,7 +41,7 @@ const PRIS = prisPeriod(SALD_PLAN)
 const T = TESTTAL
 
 const STEG = [
-  { rubrik: 'Välj test', text: 'Plocka matrislogik, verbalt eller numeriskt. Med ett gratiskonto gör du en nivåkoll med genomgång och ett första träningspass.' },
+  { rubrik: 'Välj test', text: 'Plocka matrislogik, verbalt eller numeriskt. Med ett gratiskonto gör du Nivåkollen med genomgång och ett första träningspass.' },
   { rubrik: 'Lös frågorna i din takt', text: 'Timern räknar uppåt så att du ser tempot, men ingenting bryter mitt i en fråga. Markera ditt svar och gå vidare.' },
   { rubrik: 'Se resultat och tid direkt', text: 'När du svarat klart ser du andel rätt, antal korrekta svar, total tid och snittid per fråga. Du väntar inte på något.' },
   { rubrik: 'Se vad du missade', text: 'Fråga för fråga jämför du ditt svar med facit. Du ser vilka mönster du missade och vet vad du ska träna mer på.' },
@@ -165,54 +165,32 @@ export default function RekryteringstesterSida() {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'SEK',
-      description: 'Fem frågor utan konto, en nivåkoll och ett första träningspass med gratiskonto, utan kortuppgift',
+      description: 'Fem frågor utan konto, Nivåkollen och ett första träningspass med gratiskonto, utan kortuppgift',
     },
     featureList:
-      'Matrislogik 3x3-grid, verbalt resonemang med sant/falskt/går ej att avgöra, numeriskt resonemang med tabeller och procent, Big Five-baserad personlighetsprofil med 50 eller 120 frågor, score och tid direkt efter varje pass, fråga-för-fråga-genomgång med rätt svar, obegränsat antal försök med ' + paketNamn(SALD_PLAN),
+      `Matrislogik i rutnät om tre gånger tre, verbalt resonemang med sant, falskt eller går inte att avgöra, numeriskt resonemang med tabeller och procent, personlighetsprofil enligt Big Five med ${T.personlighetGrund.fragor} eller ${T.personlighetFordjupad.fragor} påståenden, resultat och tid direkt efter varje pass, genomgång fråga för fråga med rätt svar, obegränsat antal försök med ${paketNamn(SALD_PLAN)}`,
   }
 
+  // Stegens namn är de synliga h3:orna och texten deras brödtext, så att
+  // schemat och sidan säger samma sak med samma svenska termer.
   const howToSchema = {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
     name: 'Så tränar du på rekryteringstester med Jobbcoach.ai',
     description:
-      'Fyra steg från val av test till färdig rapport: välj test, lös frågor i din takt, få score och tid direkt, se vad du missade.',
-    totalTime: 'PT20M',
+      'Fyra steg från val av test till färdig rapport: välj test, lös frågorna i din takt, se resultat och tid direkt och se vad du missade.',
+    totalTime: 'PT' + T.matrisGrund.minuter + 'M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
       currency: 'SEK',
       value: '0',
     },
-    step: [
-      {
-        '@type': 'HowToStep',
-        position: 1,
-        name: 'Välj test',
-        text:
-          'Plocka matrislogik, verbalt resonemang eller numeriskt resonemang. Fem frågor provar du utan konto.',
-      },
-      {
-        '@type': 'HowToStep',
-        position: 2,
-        name: 'Lös frågor i din takt',
-        text:
-          'Markera ditt svar och gå till nästa fråga. Timern räknar tempot men avbryter aldrig.',
-      },
-      {
-        '@type': 'HowToStep',
-        position: 3,
-        name: 'Få score och tid direkt',
-        text:
-          'När du svarat klart visas procent korrekta, total tid och snitt-tid per fråga.',
-      },
-      {
-        '@type': 'HowToStep',
-        position: 4,
-        name: 'Se vad du missade',
-        text:
-          'Fråga för fråga ser du ditt svar mot facit och förstår vilka mönster du kan träna mer på.',
-      },
-    ],
+    step: STEG.map((s, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: s.rubrik,
+      text: s.text,
+    })),
   }
 
   const faqSchema = {
@@ -236,7 +214,7 @@ export default function RekryteringstesterSida() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <PubliktSida>
-        <main>
+        <div id="innehall">
           {/* 1. Hjälten: indigo vägg, expertfrågan i telefonen */}
           <Hjalte
             id="hjalte"
@@ -251,11 +229,11 @@ export default function RekryteringstesterSida() {
             kick="Rekryteringstester, kom förberedd till provet"
             h1="Träna på rekryteringstester innan arbetsgivaren testar dig"
             ingress="Matrislogik, verbalt resonemang och numeriskt resonemang i samma format som SHL, Cut-e och Assessio använder."
-            fet="Fem frågor gratis här och en nivåkoll gratis med konto. Ingen kortuppgift, och du ser rätt och fel direkt efter varje pass."
+            fet="Fem frågor gratis här och Nivåkollen gratis med konto. Ingen kortuppgift, och du ser rätt och fel direkt efter varje pass."
             primar={{ text: 'Starta gratis test', href: PROVA, dataCta: 'hero-primary' }}
             sekundar={{ text: 'Se alla tester', href: '#testtyper' }}
             tal={[
-              { tal: '1 nivåkoll', text: 'och första passet gratis med konto' },
+              { tal: 'Nivåkollen', text: 'och första passet gratis med konto' },
               { tal: `${T.matrisGrund.minuter} min`, text: 'per pass' },
               { tal: '5 frågor', text: 'att prova utan konto' },
             ]}
@@ -344,7 +322,7 @@ export default function RekryteringstesterSida() {
               <p className="pub-kick">Kognitiva tester</p>
               <h2 className="pub-h2">Tre testtyper, alla gratis att börja</h2>
               <p className="pub-ingress" style={{ margin: '16px 0 36px' }}>
-                Med ett gratiskonto gör du en nivåkoll med full genomgång och ett första träningspass samma dag, och resultatet är
+                Med ett gratiskonto gör du Nivåkollen med full genomgång och ett första träningspass samma dag, och resultatet är
                 ditt. Att träna vidare, med avancerad nivå, expertnivå och övningsprov mot klockan, ingår i {PREMIUM}, {PRIS}. Säg
                 upp när du vill.
               </p>
@@ -453,7 +431,7 @@ export default function RekryteringstesterSida() {
                 <div className="pub-kort">
                   <Objekt typ="prova" />
                   <h3 className="pub-h4">Gratis att prova</h3>
-                  <p>Fem frågor med facit här, utan konto. Med kontot en nivåkoll och ett första träningspass. Ingen kortuppgift.</p>
+                  <p>Fem frågor med facit här, utan konto. Med kontot Nivåkollen och ett första träningspass. Ingen kortuppgift.</p>
                 </div>
                 <div className="pub-kort">
                   <Objekt typ="rapport" />
@@ -531,7 +509,7 @@ export default function RekryteringstesterSida() {
               />
             </div>
           </Rum>
-        </main>
+        </div>
         <FastKnapprad text="Starta gratis test" href={PROVA} observera="hjalte" />
       </PubliktSida>
     </>

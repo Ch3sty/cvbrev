@@ -300,6 +300,28 @@ export function nextLetterResetAt(
 }
 
 /**
+ * När nästa brev går att skriva, sett från en generering just nu. Finns ett
+ * levande fönster är det sju dygn efter fönstrets start; annars startar
+ * genereringen ett nytt fönster och nästa brev kommer sju dygn efter nu
+ * (spec-publikt-v2 del A avsnitt 7: första brevet gratis, sedan ett per
+ * rullande sju dygn).
+ */
+export function letterResetAtFromNow(firstUsedAt: string | Date | null, now: Date = new Date()): Date {
+  const { windowEndsAt } = resolveWeeklyLetterCounter(0, firstUsedAt, now);
+  return windowEndsAt ?? new Date(now.getTime() + LETTER_WINDOW_DAYS * 24 * 60 * 60 * 1000);
+}
+
+/** Datumet i spärrmeddelandet: "19 oktober", svensk tid. */
+export function brevDatum(d: Date): string {
+  return new Intl.DateTimeFormat('sv-SE', { day: 'numeric', month: 'long', timeZone: 'Europe/Stockholm' }).format(d);
+}
+
+/** Spärrmeddelandet när veckans gratisbrev är skrivet. Aldrig "dagens" eller "i morgon". */
+export function brevSparrMeddelande(resetAt: Date, premiumKort: string): string {
+  return `Du har skrivit veckans gratisbrev. Nästa brev kan du skriva ${brevDatum(resetAt)}, eller köp ${premiumKort} för att skriva utan tak.`;
+}
+
+/**
  * Brevkvoten i samma form som de andra. Används av kvotvyerna; rutterna
  * räknar själva eftersom de ändå läser profilraden.
  */

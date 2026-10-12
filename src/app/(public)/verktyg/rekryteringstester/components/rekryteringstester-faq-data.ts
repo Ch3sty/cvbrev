@@ -11,6 +11,22 @@ import { TESTTAL } from '@/components/publikt/testtal'
 // 2026-10-12): träningspassens antal, övningsprovet nämnt separat.
 const T = TESTTAL
 
+/** Minuterna per testtyp och nivå, ur testConfig. Samma tal på båda nivåerna skrivs en gång. */
+function niva(grund: number, avancerad: number): string {
+  return grund === avancerad
+    ? `runt ${grund} minuter på både grund- och avancerad nivå`
+    : `runt ${grund} minuter på grundnivå och ${avancerad} på avancerad nivå`
+}
+
+/** Svaret på "Hur lång tid tar varje test?" (SEO-granskningen 2026-10-12, punkt 4). */
+function tidSvar(): string {
+  return (
+    `Matrislogik tar ${niva(T.matrisGrund.minuter, T.matrisAvancerad.minuter)}, verbalt resonemang ${niva(T.verbalGrund.minuter, T.verbalAvancerad.minuter)} och numeriskt resonemang ${niva(T.numeriskGrund.minuter, T.numeriskAvancerad.minuter)}. ` +
+    `Övningsproven går mot klockan: ${T.matrisProv.provMinuter} minuter i matrislogik, ${T.verbalProv.provMinuter} i verbalt och ${T.numeriskProv.provMinuter} i numeriskt. ` +
+    'I träningspassen kan du när som helst pausa eller göra om testet, och du ser tiden räkna upp medan du svarar så du tränar på att hålla tempot.'
+  )
+}
+
 export interface FaqItem {
   q: string
   a: string
@@ -51,11 +67,11 @@ export const REKRYTERINGSTESTER_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Hur lång tid tar varje test?',
-    a: 'Våra grundtester tar runt ' + T.matrisGrund.minuter + ' minuter och de avancerade versionerna runt ' + T.matrisAvancerad.minuter + ' minuter. Du kan när som helst pausa eller göra om testet, och du ser tiden räkna upp medan du svarar så du tränar på att hålla tempot.',
+    a: tidSvar(),
   },
   {
     q: 'Är testerna gratis?',
-    a: 'Att börja är gratis. Fem frågor med facit provar du direkt här, utan konto. Med ett gratiskonto gör du en nivåkoll med full genomgång och ett första träningspass, utan att lämna kortuppgifter, och resultatet är ditt. Att träna vidare, med avancerad nivå och expertnivå, övningsprov mot klockan och din utveckling över tid, ingår i ' + paketKort() + ', ' + prisPeriod(SALD_PLAN) + '. Där ingår också det fördjupade personlighetstestet med ' + T.personlighetFordjupad.fragor + ' påståenden; grundtestet är gratis.',
+    a: 'Att börja är gratis. Fem frågor med facit provar du direkt här, utan konto. Med ett gratiskonto gör du Nivåkollen med full genomgång och ett första träningspass, utan att lämna kortuppgifter, och resultatet är ditt. Att träna vidare, med avancerad nivå och expertnivå, övningsprov mot klockan och din utveckling över tid, ingår i ' + paketKort() + ', ' + prisPeriod(SALD_PLAN) + '. Där ingår också det fördjupade personlighetstestet med ' + T.personlighetFordjupad.fragor + ' påståenden; grundtestet är gratis.',
   },
   {
     q: 'Vad är ett personlighetstest i rekrytering?',

@@ -5,6 +5,8 @@
  */
 
 import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
+import { FREE_TIER_JOB_LIMIT, JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
+import { talOrd } from '@/components/publikt/talord'
 
 export interface FaqItem {
   q: string
@@ -30,11 +32,11 @@ export const JOBBMATCHNING_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Hur ofta uppdateras jobbannonserna?',
-    a: 'Annonserna uppdateras dagligen. När en arbetsgivare publicerar en ny tjänst på Arbetsförmedlingen syns den i din feed inom timmar. När en tjänst tas bort försvinner den också automatiskt från listan, så du slipper söka jobb som redan är tillsatta.',
+    a: 'Annonserna uppdateras dagligen. När en arbetsgivare publicerar en ny tjänst på Arbetsförmedlingen syns den i din lista inom timmar. När en tjänst tas bort försvinner den också automatiskt från listan, så du slipper söka jobb som redan är tillsatta.',
   },
   {
     q: 'Är det gratis att söka jobb online hos er?',
-    a: `Ja. Gratisnivån visar tre fulla träffar med skälen, utan att du lämnar kortuppgifter. Vill du se alla 25 träffar ingår jobbmatchningen i ${paketKort()}, ${prisPeriod(SALD_PLAN)}.`,
+    a: `Ja. Gratisnivån visar ${talOrd(FREE_TIER_JOB_LIMIT)} fulla träffar med skälen, utan att du lämnar kortuppgifter. Vill du se alla ${JOB_MATCHES_PER_RUN} träffar ingår jobbmatchningen i ${paketKort()}, ${prisPeriod(SALD_PLAN)}.`,
   },
   {
     q: 'Funkar jobbmatchning för alla yrken?',

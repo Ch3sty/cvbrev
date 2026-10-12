@@ -86,7 +86,7 @@ const RESTEN: LankRad[] = [
   { href: '/cv-exempel', rubrik: 'CV-exempel', text: 'Färdiga CV:n yrke för yrke, att utgå ifrån.', objekt: 'exempel', rum: 'cv' },
   { href: '/personligt-brev-exempel', rubrik: 'Personligt brev-exempel', text: 'Brev som fungerat, yrke för yrke.', objekt: 'exempel', rum: 'brev' },
   {
-    href: '/dashboard/sokta-tjanster',
+    href: '/funktioner#sokta-tjanster',
     rubrik: 'Sökta tjänster',
     text: 'Håll koll på var varje ansökan står: sökt, svar, intervju, erbjudande. Gratis för alla.',
     objekt: 'sokta',
@@ -147,7 +147,7 @@ export default function Startsidan({ konton }: { konton: number | null }) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(startSchema()) }} />
-      <main>
+      <div id="innehall">
         {/* 1. Hjälten på mark med banan */}
         <Hjalte
           id="hjalte"
@@ -379,7 +379,7 @@ export default function Startsidan({ konton }: { konton: number | null }) {
             />
           </div>
         </Rum>
-      </main>
+      </div>
       <FastKnapprad text="Skapa konto gratis" href="/register" observera="hjalte" />
     </>
   )

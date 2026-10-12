@@ -14,7 +14,8 @@ import { paketKort } from '@/lib/plans/plans';
 // Dagskvot (2 brev/dag, midnatt svensk tid) — se docs/plan-kvotmodell.md
 import {
   resolveDailyLetterCounter,
-  nextMidnightStockholm,
+  letterResetAtFromNow,
+  brevSparrMeddelande,
   DAILY_LIMIT_LETTERS,
   quotaExceededBody,
 } from '@/lib/quota/quotaService';
@@ -72,7 +73,7 @@ export async function POST(request: Request) {
     // och admin räknas, inte bara profiles.subscription_tier.
     const harBetalt = await userHasAccess(supabase, user.id, 'any');
 
-    // Dagskvot: 2 brev per dag, fönstret nollställs vid midnatt svensk tid.
+    // Brevkvoten: första brevet gratis, sedan ett per rullande sju dygn.
     // Samma räknarkolumner som /api/letters/generate så båda flödena delar kvot.
     const now = new Date();
     const { effectiveCount, windowIsStale } = resolveDailyLetterCounter(
@@ -80,7 +81,7 @@ export async function POST(request: Request) {
       profile.weekly_letter_first_used_at,
       now
     );
-    const nextResetDate = nextMidnightStockholm(now);
+    const nextResetDate = letterResetAtFromNow(profile.weekly_letter_first_used_at, now);
     const newCount = effectiveCount + 1;
 
     // Kontrollera om användaren har nått sin dagsgräns (endast för gratisanvändare)
@@ -95,7 +96,7 @@ export async function POST(request: Request) {
             limit: DAILY_LIMIT_LETTERS,
             nextResetAt: nextResetDate.toISOString(),
           },
-          `Du har använt dagens två brev. Ny kvot i morgon, eller köp ${paketKort()} för obegränsat.`
+          brevSparrMeddelande(nextResetDate, paketKort())
         ),
         { status: 429 }
       );

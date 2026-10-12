@@ -9,6 +9,15 @@ import AuthRedirect from '@/components/landing/AuthRedirect';
 import PubliktSida from '@/components/publikt/PubliktSida';
 import Startsidan from '@/components/publikt/start/Startsidan';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
+import type { Metadata } from 'next';
+
+/**
+ * Bara canonical: title, description och delningskorten ärvs oförändrade från
+ * rot-layouten (SEO-granskningen 2026-10-12, punkt 6).
+ */
+export const metadata: Metadata = {
+  alternates: { canonical: 'https://www.jobbcoach.ai/' },
+};
 
 export const revalidate = 86400;
 

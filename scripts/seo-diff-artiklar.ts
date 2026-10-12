@@ -97,7 +97,35 @@ const LD_UNDANTAG: Array<{ path: string; datum: string; skal: string; nya?: bool
     datum: '2026-10-12',
     skal:
       'Ägarbeslut 1 i del A avsnitt 10: FAQ-svaren om verbalt och numeriskt läser testConfigs tal för träningspassen och nämner övningsprovet separat. Frågetexterna är oförändrade.',
+    andrade: ['FAQPage', 'HowTo', 'WebApplication'],
+  },
+  {
+    path: '/priser',
+    datum: '2026-10-12',
+    skal: 'SEO-granskningen våg 1–3, punkt 3: Nivåkollen skrivs som produktnamn i FAQ-svaret om att börja gratis. Frågorna oförändrade.',
     andrade: ['FAQPage'],
+  },
+  {
+    path: '/verktyg/jobbmatchning',
+    datum: '2026-10-12',
+    skal: 'Publikt v2 våg 4 (del A 5.5): FAQ-svaren läser FREE_TIER_JOB_LIMIT och JOB_MATCHES_PER_RUN, och "feed" blir "lista". Frågorna oförändrade.',
+    andrade: ['FAQPage'],
+  },
+  {
+    path: '/funktioner',
+    datum: '2026-10-12',
+    skal: 'Ägarbeslut 8 i del A avsnitt 10: /funktioner får FAQPage ur samma fem frågor som syns på sidan.',
+    nya: true,
+  },
+];
+
+/** Metadata som får tillkomma där den saknades (tom före, satt efter). */
+const META_TILLAGD: Array<{ path: string; falt: 'canonical'; datum: string; skal: string }> = [
+  {
+    path: '/',
+    falt: 'canonical',
+    datum: '2026-10-12',
+    skal: 'SEO-granskningen våg 1–3, punkt 6: startsidan saknade canonical, nu https://www.jobbcoach.ai/.',
   },
 ];
 
@@ -269,6 +297,27 @@ function iRam(el: Element): boolean {
   return false;
 }
 
+/**
+ * Ordantalet: main utom ramen, utan skript, stil och det som är aria-hidden.
+ * Bara yttersta main räknas: layouten och sidan hade var sin main, och en
+ * nästlad main räknades förr två gånger (rättat 2026-10-12, baslinjen
+ * omräknad med samma regel ur de sparade live-sidorna, se ord-fil).
+ */
+function raknaOrd(doc: Document): number {
+  const mains = Array.from(doc.querySelectorAll('main')).filter((m) => !m.parentElement?.closest('main'));
+  const rotter = mains.length ? mains : [doc.body];
+  let ord = 0;
+  for (const rot of rotter) {
+    const kopia = rot.cloneNode(true) as Element;
+    kopia
+      .querySelectorAll('script, style, noscript, template, [aria-hidden="true"], [data-site-chrome]')
+      .forEach((el) => el.remove());
+    const t = (kopia.textContent ?? '').replace(/\s+/g, ' ').trim();
+    ord += t ? t.split(' ').filter((w) => /[\p{L}\p{N}]/u.test(w)).length : 0;
+  }
+  return ord;
+}
+
 function text(el: Element): string {
   return (el.textContent ?? '').replace(/\s+/g, ' ').trim();
 }
@@ -334,18 +383,7 @@ async function ta(bas: string, sida: string): Promise<Avtryck> {
     }
   });
 
-  // Ordantalet: main utom ramen, utan skript, stil och det som är aria-hidden.
-  const mains = Array.from(doc.querySelectorAll('main'));
-  const rotter = mains.length ? mains : [doc.body];
-  let ord = 0;
-  for (const rot of rotter) {
-    const kopia = rot.cloneNode(true) as Element;
-    kopia
-      .querySelectorAll('script, style, noscript, template, [aria-hidden="true"], [data-site-chrome]')
-      .forEach((el) => el.remove());
-    const t = (kopia.textContent ?? '').replace(/\s+/g, ' ').trim();
-    ord += t ? t.split(' ').filter((w) => /[\p{L}\p{N}]/u.test(w)).length : 0;
-  }
+  const ord = raknaOrd(doc);
 
   return {
     path: sida,
@@ -417,6 +455,11 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
       for (const falt of ['title', 'description', 'canonical', 'ogImage', 'robots'] as const) {
         // OG-bildens frågesträng är byggets hash och byts vid varje bygge.
         const norm = (v: string) => (falt === 'ogImage' ? v.split('?')[0].replace(/^https?:\/\/[^/]+/, '') : v);
+        const tillagd = META_TILLAGD.find((m) => m.path === f.path && m.falt === falt);
+        if (tillagd && f[falt] === '' && e[falt]) {
+          info(`${falt} tillagd (${tillagd.datum}): "${e[falt]}"`);
+          continue;
+        }
         if (norm(f[falt]) !== norm(e[falt])) brott(`${falt}: "${f[falt]}" → "${e[falt]}"`);
       }
       const h1f = f.h1.filter((h) => !TILLATNA_H1.includes(h));
@@ -552,6 +595,25 @@ async function main() {
     fs.mkdirSync(path.dirname(ut), { recursive: true });
     fs.writeFileSync(ut, JSON.stringify(avtryck, null, 2));
     console.log(`\nSparat: ${ut} (${avtryck.length} sidor)`);
+    return;
+  }
+  if (lage === 'ord-fil') {
+    // Räknar om ordantalet i ett avtryck ur sparade HTML-filer, med samma
+    // regel som ta. --par /sida=fil.html,/annan=fil2.html
+    const foreFil = arg('fore')!;
+    const fore = JSON.parse(fs.readFileSync(foreFil, 'utf8')) as Avtryck[];
+    for (const par of (arg('par') ?? '').split(',').filter(Boolean)) {
+      const [sida, fil] = par.split('=');
+      const i = fore.findIndex((a) => a.path === sida);
+      if (i < 0) throw new Error(`${sida} saknas i ${foreFil}`);
+      const doc = new JSDOM(fs.readFileSync(fil, 'utf8')).window.document;
+      const h1 = Array.from(doc.querySelectorAll('h1')).map(text);
+      if (JSON.stringify(h1) !== JSON.stringify(fore[i].h1)) throw new Error(`${sida}: filens h1 stämmer inte med avtrycket`);
+      const fran = fore[i].ord;
+      fore[i].ord = raknaOrd(doc);
+      console.log(`${sida.padEnd(40)} ord ${fran} → ${fore[i].ord}`);
+    }
+    fs.writeFileSync(foreFil, JSON.stringify(fore, null, 2));
     return;
   }
   if (lage === 'baslinje') {

@@ -10,8 +10,10 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { generateCoverLetter } from '@/lib/openai/api'
 
-/** Hur många stycken besökaren får se före registrering. Sidornas text läser samma tal. */
-export const PREVIEW_PARAGRAPHS = 1
+import { PREVIEW_PARAGRAPHS } from './public-draft-tal'
+
+/** Hur många stycken besökaren får se före registrering: talet bor i public-draft-tal.ts. */
+export { PREVIEW_PARAGRAPHS }
 
 export interface PublicDraftInput {
   role: string

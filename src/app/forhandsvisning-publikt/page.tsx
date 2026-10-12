@@ -71,7 +71,7 @@ export default function Forhandsvisning() {
   if (process.env.NODE_ENV === 'production' && process.env.PUBLIKT_FORHANDSVISNING !== '1') notFound()
   return (
     <PubliktSida>
-      <main>
+      <div id="innehall">
         <Hjalte
           id="hjalte"
           yta="mark"
@@ -247,7 +247,7 @@ export default function Forhandsvisning() {
             />
           </div>
         </Rum>
-      </main>
+      </div>
       <FastKnapprad text="Skapa konto gratis" href="/register" observera="hjalte" />
     </PubliktSida>
   )

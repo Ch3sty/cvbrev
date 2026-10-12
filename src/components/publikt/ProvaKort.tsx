@@ -27,7 +27,7 @@ export default function ProvaKort({
   punkter: readonly string[]
   knapp: { text: string; href: string }
   /** Raden under knappen. */
-  not?: string
+  not?: ReactNode
   bild?: ReactNode
   /** data-cta på knappen, för mätningen. */
   knappData?: string
