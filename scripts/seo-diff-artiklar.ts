@@ -862,6 +862,41 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
   return { rapport: rader.join('\n'), fel };
 }
 
+/**
+ * Baslinjefil per sidtyp (scripts/seo-baslinje/<typ>.json): avtrycket från
+ * live plus sidtypens godkända undantag, med datum och skäl. En vanlig
+ * avtrycksfil (en lista) läses som förut. Undantagen läggs till listorna
+ * ovan, så att varje våg håller sina undantag i sin egen fil.
+ */
+interface Baslinjefil {
+  avtryck: Avtryck[];
+  undantag?: {
+    ld?: typeof LD_UNDANTAG;
+    rubrikBytt?: typeof RUBRIK_BYTT;
+    rubrikBorta?: typeof RUBRIK_BORTA;
+    h1Bytt?: typeof H1_BYTT;
+    metaBytt?: typeof META_BYTT;
+    metaTillagd?: typeof META_TILLAGD;
+    faqBytt?: typeof FAQ_BYTT;
+    lankBytt?: typeof LANK_BYTT;
+  };
+}
+
+function lasFore(fil: string): Avtryck[] {
+  const data = JSON.parse(fs.readFileSync(fil, 'utf8')) as Avtryck[] | Baslinjefil;
+  if (Array.isArray(data)) return data;
+  const u = data.undantag ?? {};
+  LD_UNDANTAG.push(...(u.ld ?? []));
+  RUBRIK_BYTT.push(...(u.rubrikBytt ?? []));
+  RUBRIK_BORTA.push(...(u.rubrikBorta ?? []));
+  H1_BYTT.push(...(u.h1Bytt ?? []));
+  META_BYTT.push(...(u.metaBytt ?? []));
+  META_TILLAGD.push(...(u.metaTillagd ?? []));
+  FAQ_BYTT.push(...(u.faqBytt ?? []));
+  LANK_BYTT.push(...(u.lankBytt ?? []));
+  return data.avtryck;
+}
+
 async function main() {
   const lage = process.argv[2];
   if (lage === 'ta') {
@@ -922,7 +957,7 @@ async function main() {
     return;
   }
   if (lage === 'jamfor') {
-    const fore = JSON.parse(fs.readFileSync(arg('fore')!, 'utf8')) as Avtryck[];
+    const fore = lasFore(arg('fore')!);
     const efter = JSON.parse(fs.readFileSync(arg('efter')!, 'utf8')) as Avtryck[];
     const { rapport, fel } = jamfor(fore, efter);
     const ut = arg('rapport', 'docs/qa/seo-diff/diff.md')!;

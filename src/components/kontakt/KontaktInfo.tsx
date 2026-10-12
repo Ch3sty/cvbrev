@@ -6,7 +6,7 @@
  * och dashboarden.
  *
  * Inloggat: en panel med tre rader, naken ikon 24 i ink-2, adressen som
- * textlänk. Den publika sidan har sin egen fil, KontaktInfoPublik.
+ * textlänk. Den publika sidan har sina kontaktkort i src/app/(public)/kontakt/page.tsx.
  */
 'use client'
 

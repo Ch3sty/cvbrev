@@ -8,7 +8,7 @@
 import AuthRedirect from '@/components/landing/AuthRedirect';
 import PubliktSida from '@/components/publikt/PubliktSida';
 import Startsidan from '@/components/publikt/start/Startsidan';
-import { getSupabaseAdmin } from '@/lib/supabase/admin';
+import { antalKonton } from '@/lib/publikt/antal';
 import type { Metadata } from 'next';
 
 /**
@@ -20,16 +20,6 @@ export const metadata: Metadata = {
 };
 
 export const revalidate = 86400;
-
-/** Antal konton för heron, läst en gång per dygn. Saknas det faller beviset bort. */
-async function antalKonton(): Promise<number | null> {
-  try {
-    const { count } = await getSupabaseAdmin().from('profiles').select('*', { count: 'exact', head: true });
-    return typeof count === 'number' && count > 0 ? count : null;
-  } catch {
-    return null;
-  }
-}
 
 export default async function HomePage() {
   const konton = await antalKonton();

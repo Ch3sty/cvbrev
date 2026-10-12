@@ -99,17 +99,16 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col gap-3 border-t border-kant py-6 text-[13px] text-ink-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
+          {/* Luft mellan leden, aldrig mittpunkt (ägarens regel). Cookies är
+              avsnittet med id="cookies" i integritetspolicyn; /cookies finns inte. */}
+          <p className="flex flex-wrap items-center gap-x-5 gap-y-1">
             <span>© {ar} Jobbcoach.ai</span>
-            <span aria-hidden="true">·</span>
             <Link href="/integritetspolicy" className="hover:text-ink-1">
               Integritetspolicy
             </Link>
-            <span aria-hidden="true">·</span>
             <Link href="/anvandarvillkor" className="hover:text-ink-1">
               Användarvillkor
             </Link>
-            <span aria-hidden="true">·</span>
             <Link href="/integritetspolicy#cookies" className="hover:text-ink-1">
               Cookies
             </Link>

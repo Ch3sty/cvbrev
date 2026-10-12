@@ -1,4 +1,6 @@
 import { Metadata } from 'next';
+import PubliktSida from '@/components/publikt/PubliktSida';
+import Textmall from '@/components/publikt/innehall/Textmall';
 import Link from 'next/link';
 import { SALD_PLAN, paketNamn } from '@/lib/plans/plans';
 
@@ -12,76 +14,114 @@ export const metadata: Metadata = {
   },
 };
 
+/** Innehållsförteckningen: sidans h2 med id. */
+const RUBRIKER = [
+  {
+    id: "introduktion",
+    text: "1. Introduktion"
+  },
+  {
+    id: "vilka-personuppgifter-samlar-vi-in",
+    text: "2. Vilka personuppgifter samlar vi in?"
+  },
+  {
+    id: "hur-anvander-vi-dina-personuppgifter",
+    text: "3. Hur använder vi dina personuppgifter?"
+  },
+  {
+    id: "delning-av-personuppgifter",
+    text: "4. Delning av personuppgifter"
+  },
+  {
+    id: "cookies",
+    text: "5. Cookies och liknande tekniker"
+  },
+  {
+    id: "datasakerhet",
+    text: "6. Datasäkerhet"
+  },
+  {
+    id: "datalagring",
+    text: "7. Datalagring"
+  },
+  {
+    id: "dina-rattigheter",
+    text: "8. Dina rättigheter"
+  },
+  {
+    id: "andringar-i-denna-integritetspolicy",
+    text: "9. Ändringar i denna integritetspolicy"
+  },
+  {
+    id: "kontakta-oss",
+    text: "10. Kontakta oss"
+  }
+];
+
 export default function PrivacyPolicyPage() {
   const lastUpdatedDate = "2026-10-11"; // *** UPPDATERA detta datum när policyn ändras ***
 
   return (
-    <div className="bg-navy-900 py-16 lg:py-24">
-      <div className="container mx-auto max-w-3xl px-4">
-        <h1 className="text-3xl md:text-4xl font-bold text-white mb-8 text-center">
-          Integritetspolicy för jobbcoach.ai
-        </h1>
-        <p className="text-center text-gray-400 mb-10 text-sm">
-          Senast uppdaterad: {lastUpdatedDate}
-        </p>
+    <PubliktSida>
+      <Textmall titel="Integritetspolicy för jobbcoach.ai" smula="Integritetspolicy" andrad={lastUpdatedDate} rubriker={RUBRIKER}>
 
         {/* Introduktion */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-white mb-4">1. Introduktion</h2>
-          <p className="text-gray-300 leading-relaxed mb-4">
+        <section>
+          <h2 id="introduktion">1. Introduktion</h2>
+          <p>
             Välkommen till jobbcoach.ai ("vi", "oss", "vår"). Vi värnar om din integritet och är måna om att skydda dina personuppgifter. Denna integritetspolicy förklarar hur vi samlar in, använder, lagrar, delar och skyddar dina personuppgifter när du besöker vår webbplats (www.jobbcoach.ai) och använder våra tjänster (Tjänsten).
           </p>
-          <p className="text-gray-300 leading-relaxed">
+          <p>
             Genom att använda Tjänsten godkänner du insamling och användning av information i enlighet med denna policy. Om du inte godkänner villkoren i denna policy, vänligen använd inte Tjänsten.
           </p>
         </section>
 
         {/* Vilken data samlar vi in? */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-white mb-4">2. Vilka personuppgifter samlar vi in?</h2>
-          <p className="text-gray-300 leading-relaxed mb-4">
+        <section>
+          <h2 id="vilka-personuppgifter-samlar-vi-in">2. Vilka personuppgifter samlar vi in?</h2>
+          <p>
             Vi kan samla in följande typer av information:
           </p>
-          <ul className="list-disc list-inside space-y-3 mb-4 text-gray-300 pl-4">
+          <ul>
             <li>
-              <strong className="font-semibold text-white">Kontoinformation:</strong> Din e-postadress och ett hashat lösenord för att du ska kunna logga in. Namn och telefonnummer samlas endast in om du frivilligt väljer att ange detta i din profil.
+              <strong>Kontoinformation:</strong> Din e-postadress och ett hashat lösenord för att du ska kunna logga in. Namn och telefonnummer samlas endast in om du frivilligt väljer att ange detta i din profil.
             </li>
             <li>
-              <strong className="font-semibold text-white">Betalningsrelaterad Information (för {PREMIUM}):</strong> Vi använder den externa och pålitliga betalningstjänsten Stripe.com för att hantera prenumerationer. Vi samlar **inte** in eller lagrar dina kortuppgifter. När en betalning är genomförd via Stripe sparar vi det kund-ID och den prenumerationsstatus (t.ex. aktiv period, om medlemskapet är avslutat) som Stripe tillhandahåller. Detta gör vi för att kunna hantera din tillgång till {PREMIUM}.
+              <strong>Betalningsrelaterad Information (för {PREMIUM}):</strong> Vi använder den externa och pålitliga betalningstjänsten Stripe.com för att hantera prenumerationer. Vi samlar **inte** in eller lagrar dina kortuppgifter. När en betalning är genomförd via Stripe sparar vi det kund-ID och den prenumerationsstatus (t.ex. aktiv period, om medlemskapet är avslutat) som Stripe tillhandahåller. Detta gör vi för att kunna hantera din tillgång till {PREMIUM}.
             </li>
             <li>
-              <strong className="font-semibold text-white">CV-filer och Innehåll:</strong> När du laddar upp ett CV sparas den oredigerade originalfilen samt en textversion (som du kan redigera i tjänsten) i vår säkra databas hos Supabase.
+              <strong>CV-filer och Innehåll:</strong> När du laddar upp ett CV sparas den oredigerade originalfilen samt en textversion (som du kan redigera i tjänsten) i vår säkra databas hos Supabase.
             </li>
              <li>
-              <strong className="font-semibold text-white">Jobbannonser och Genererade Brev:</strong> Texten från jobbannonser du klistrar in samt de personliga brev som genereras och eventuellt sparas av dig via Tjänsten.
+              <strong>Jobbannonser och Genererade Brev:</strong> Texten från jobbannonser du klistrar in samt de personliga brev som genereras och eventuellt sparas av dig via Tjänsten.
             </li>
              <li>
-              <strong className="font-semibold text-white">Viktigt om CV-innehåll och Personuppgifter:</strong> Vi har **ingen avsikt** att samla in eller behandla känsliga personuppgifter (såsom personnummer, fullständig adress, etc.) som finns i ditt CV. **Innan du laddar upp ditt CV måste du intyga att du har tagit bort sådana personuppgifter.** Även om du tekniskt kan redigera bort uppgifter i textversionen senare, uppmanar vi dig starkt att göra detta *innan* uppladdning. Se avsnitt 3 för mer information om varför detta är viktigt.
+              <strong>Viktigt om CV-innehåll och Personuppgifter:</strong> Vi har **ingen avsikt** att samla in eller behandla känsliga personuppgifter (såsom personnummer, fullständig adress, etc.) som finns i ditt CV. **Innan du laddar upp ditt CV måste du intyga att du har tagit bort sådana personuppgifter.** Även om du tekniskt kan redigera bort uppgifter i textversionen senare, uppmanar vi dig starkt att göra detta *innan* uppladdning. Se avsnitt 3 för mer information om varför detta är viktigt.
             </li>
             <li>
-              <strong className="font-semibold text-white">Användningsdata (Exempel):</strong> Vi kan samla in information om hur du använder Tjänsten, t.ex. IP-adress, webbläsartyp, vilka sidor du besöker, för att förbättra tjänsten. Användningsstatistiken samlas in med PostHog (EU). Själva tjänsten drivs hos Vercel.
+              <strong>Användningsdata (Exempel):</strong> Vi kan samla in information om hur du använder Tjänsten, t.ex. IP-adress, webbläsartyp, vilka sidor du besöker, för att förbättra tjänsten. Användningsstatistiken samlas in med PostHog (EU). Själva tjänsten drivs hos Vercel.
             </li>
             <li>
-              <strong className="font-semibold text-white">Kommunikation:</strong> Om du kontaktar oss (t.ex. via e-post) kan vi spara korrespondensen för att kunna hjälpa dig.
+              <strong>Kommunikation:</strong> Om du kontaktar oss (t.ex. via e-post) kan vi spara korrespondensen för att kunna hjälpa dig.
             </li>
             <li>
-              <strong className="font-semibold text-white">Cookies och spårningstekniker:</strong> Se avsnitt 5.
+              <strong>Cookies och spårningstekniker:</strong> Se avsnitt 5.
             </li>
           </ul>
         </section>
 
         {/* Hur använder vi din data? */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-white mb-4">3. Hur använder vi dina personuppgifter?</h2>
-          <p className="text-gray-300 leading-relaxed mb-4">
+        <section>
+          <h2 id="hur-anvander-vi-dina-personuppgifter">3. Hur använder vi dina personuppgifter?</h2>
+          <p>
             Vi använder den insamlade informationen för följande ändamål:
           </p>
-          <ul className="list-disc list-inside space-y-3 mb-4 text-gray-300 pl-4">
+          <ul>
             <li>
-              <strong className="font-semibold text-white">För att tillhandahålla Tjänstens kärnfunktion:</strong> Lagra dina CV-filer (original och textversion) och sparade brev. Framför allt använder vi **textinnehållet från ditt (redigerade) CV och texten från jobbannonsen för att skapa personliga brev, analysera CV:t och matcha jobb via Google (Gemini API).**
+              <strong>För att tillhandahålla Tjänstens kärnfunktion:</strong> Lagra dina CV-filer (original och textversion) och sparade brev. Framför allt använder vi **textinnehållet från ditt (redigerade) CV och texten från jobbannonsen för att skapa personliga brev, analysera CV:t och matcha jobb via Google (Gemini API).**
             </li>
             <li>
-              <strong className="font-semibold text-white">Viktig information om AI och CV-innehåll:</strong> För att AI:n ska kunna skapa ett relevant och användbart personligt brev, skickas textinnehållet från ditt CV (den redigerbara textversionen) samt texten från jobbannonsen du angett till Google (Gemini API). För personliga brev och CV-analysen byter vi först ut namn, e-postadress, telefonnummer, personnummer, gatuadress och postnummer mot platshållare, så att de uppgifterna inte följer med. När du låter oss skriva om CV:t, matcha jobb, optimera LinkedIn-profilen eller bifogar CV:t till Jobbcoachen skickas texten utan den maskeringen, och en inskannad PDF utan textlager läses av med samma tjänst innan något kan maskas. Eftersom vi inte har för avsikt att behandla eller skicka vidare känsliga personuppgifter som du kan ha i ditt CV, är det **avgörande att du följer vår uppmaning och intygar vid uppladdning att du har tagit bort sådana uppgifter.** Vi ansvarar inte för personuppgifter som du själv väljer att lämna kvar i den text som skickas till Google (Gemini API) för generering.
+              <strong>Viktig information om AI och CV-innehåll:</strong> För att AI:n ska kunna skapa ett relevant och användbart personligt brev, skickas textinnehållet från ditt CV (den redigerbara textversionen) samt texten från jobbannonsen du angett till Google (Gemini API). För personliga brev och CV-analysen byter vi först ut namn, e-postadress, telefonnummer, personnummer, gatuadress och postnummer mot platshållare, så att de uppgifterna inte följer med. När du låter oss skriva om CV:t, matcha jobb, optimera LinkedIn-profilen eller bifogar CV:t till Jobbcoachen skickas texten utan den maskeringen, och en inskannad PDF utan textlager läses av med samma tjänst innan något kan maskas. Eftersom vi inte har för avsikt att behandla eller skicka vidare känsliga personuppgifter som du kan ha i ditt CV, är det **avgörande att du följer vår uppmaning och intygar vid uppladdning att du har tagit bort sådana uppgifter.** Vi ansvarar inte för personuppgifter som du själv väljer att lämna kvar i den text som skickas till Google (Gemini API) för generering.
             </li>
             <li>För att hantera ditt konto och din eventuella prenumeration (baserat på information från Stripe).</li>
             <li>För att förbättra och optimera Tjänsten (genom analys av t.ex. användningsdata).</li>
@@ -92,114 +132,114 @@ export default function PrivacyPolicyPage() {
         </section>
 
         {/* Hur delar vi din data? */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-white mb-4">4. Delning av personuppgifter</h2>
-          <p className="text-gray-300 leading-relaxed mb-4">
+        <section>
+          <h2 id="delning-av-personuppgifter">4. Delning av personuppgifter</h2>
+          <p>
             Vi säljer inte dina personuppgifter. Vi kan dela dina uppgifter med noggrant utvalda tredje parter under följande omständigheter:
           </p>
-          <ul className="list-disc list-inside space-y-3 mb-4 text-gray-300 pl-4">
+          <ul>
             <li>
-              <strong className="font-semibold text-white">Tjänsteleverantörer:</strong>
-              <ul className="list-[circle] list-inside space-y-2 mt-2 ml-4">
+              <strong>Tjänsteleverantörer:</strong>
+              <ul>
                   <li>
-                    <strong className="font-semibold">Supabase:</strong> Används för säker hosting av vår databas där din kontoinformation, CV-filer (original och text), sparade brev och annan nödvändig data lagras.
+                    <strong>Supabase:</strong> Används för säker hosting av vår databas där din kontoinformation, CV-filer (original och text), sparade brev och annan nödvändig data lagras.
                   </li>
                   <li>
-                    <strong className="font-semibold">Stripe.com:</strong> Vår betalningspartner som säkert hanterar alla betalningstransaktioner för {PREMIUM}. Vi delar endast information som är nödvändig för att identifiera och hantera din prenumeration (t.ex. kund-ID från Stripe).
+                    <strong>Stripe.com:</strong> Vår betalningspartner som säkert hanterar alla betalningstransaktioner för {PREMIUM}. Vi delar endast information som är nödvändig för att identifiera och hantera din prenumeration (t.ex. kund-ID från Stripe).
                   </li>
                   <li>
-                    <strong className="font-semibold">Google (Gemini API):</strong> Textinnehållet från ditt redigerade CV och jobbannonsen skickas till Googles Gemini API för att skapa personliga brev, CV-analysen och jobbmatchningen. Före personliga brev och CV-analysen byts namn, e-postadress, telefonnummer, personnummer, gatuadress och postnummer ut mot platshållare.
+                    <strong>Google (Gemini API):</strong> Textinnehållet från ditt redigerade CV och jobbannonsen skickas till Googles Gemini API för att skapa personliga brev, CV-analysen och jobbmatchningen. Före personliga brev och CV-analysen byts namn, e-postadress, telefonnummer, personnummer, gatuadress och postnummer ut mot platshållare.
                   </li>
               </ul>
-               <p className="mt-2 text-sm text-gray-400">Dessa tjänsteleverantörer har endast tillgång till den information som krävs för att utföra sina uppgifter åt oss och är kontraktsmässigt bundna att skydda din information och inte använda den för andra ändamål.</p>
+               <p>Dessa tjänsteleverantörer har endast tillgång till den information som krävs för att utföra sina uppgifter åt oss och är kontraktsmässigt bundna att skydda din information och inte använda den för andra ändamål.</p>
             </li>
              <li>
-              <strong className="font-semibold text-white">Legala krav:</strong> Om det krävs enligt lag eller som svar på giltiga förfrågningar från myndigheter.
+              <strong>Legala krav:</strong> Om det krävs enligt lag eller som svar på giltiga förfrågningar från myndigheter.
             </li>
             <li>
-              <strong className="font-semibold text-white">Affärsöverlåtelse:</strong> Vid en eventuell fusion, förvärv eller försäljning av jobbcoach.ai kan dina uppgifter överföras. Vi meddelar dig i så fall innan detta sker.
+              <strong>Affärsöverlåtelse:</strong> Vid en eventuell fusion, förvärv eller försäljning av jobbcoach.ai kan dina uppgifter överföras. Vi meddelar dig i så fall innan detta sker.
             </li>
              <li>
-              <strong className="font-semibold text-white">Med ditt samtycke:</strong> För andra ändamål endast om vi har ditt uttryckliga samtycke.
+              <strong>Med ditt samtycke:</strong> För andra ändamål endast om vi har ditt uttryckliga samtycke.
             </li>
           </ul>
         </section>
 
         {/* Cookies */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-white mb-4">5. Cookies och liknande tekniker</h2>
-          <p className="text-gray-300 leading-relaxed mb-4">
+        <section>
+          <h2 id="cookies">5. Cookies och liknande tekniker</h2>
+          <p>
             Vi använder cookies och liknande tekniker för att Tjänsten ska fungera korrekt och för att förbättra din användarupplevelse. Detta kan inkludera:
           </p>
-           <ul className="list-disc list-inside space-y-2 mb-4 text-gray-300 pl-4">
-               <li><strong className="font-semibold text-white">Nödvändiga cookies:</strong> Krävs för grundläggande funktioner som inloggning och sessionshantering.</li>
-               <li><strong className="font-semibold text-white">Prestanda/Analys cookies (om tillämpligt):</strong> Hjälper oss förstå hur Tjänsten används så vi kan förbättra den (PostHog, med lagring inom EU).</li>
+           <ul>
+               <li><strong>Nödvändiga cookies:</strong> Krävs för grundläggande funktioner som inloggning och sessionshantering.</li>
+               <li><strong>Prestanda/Analys cookies (om tillämpligt):</strong> Hjälper oss förstå hur Tjänsten används så vi kan förbättra den (PostHog, med lagring inom EU).</li>
            </ul>
-           <p className="text-gray-300 leading-relaxed">
+           <p>
             Du kan hantera dina cookie-inställningar via din webbläsare.
           </p>
         </section>
 
         {/* Datasäkerhet */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-white mb-4">6. Datasäkerhet</h2>
-          <p className="text-gray-300 leading-relaxed mb-4">
+        <section>
+          <h2 id="datasakerhet">6. Datasäkerhet</h2>
+          <p>
             Säkerheten för dina uppgifter är viktig för oss. Vi använder etablerade tjänsteleverantörer som Supabase och Stripe som vidtar omfattande säkerhetsåtgärder. Vi använder även tekniska åtgärder som [Exempel: SSL/TLS-kryptering, hashade lösenord].
           </p>
-          <p className="text-gray-300 leading-relaxed">
+          <p>
             Dock är ingen metod för dataöverföring eller lagring 100% säker. Vi uppmanar dig också att skydda ditt konto med ett starkt lösenord och att följa vår rekommendation om att inte inkludera känsliga personuppgifter i dina uppladdade CV-filer.
           </p>
         </section>
 
         {/* Datalagring */}
-         <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-white mb-4">7. Datalagring</h2>
-          <p className="text-gray-300 leading-relaxed mb-4">
+         <section>
+          <h2 id="datalagring">7. Datalagring</h2>
+          <p>
              Vi lagrar din kontoinformation och prenumerationsstatus (via Stripe kund-ID) så länge ditt konto är aktivt hos oss, och en rimlig tid därefter för administrativa ändamål eller om det krävs enligt lag.
           </p>
-          <p className="text-gray-300 leading-relaxed">
+          <p>
             Dina uppladdade CV-filer (original och textversion) samt dina sparade personliga brev lagras i vår databas (Supabase) och är kopplade till ditt konto. Du kan när som helst radera dessa filer och brev via ditt konto. Om du raderar ditt konto kommer även denna data att raderas [Specificera eventuell fördröjning eller backup-policy om relevant].
           </p>
-          <p className="text-gray-300 leading-relaxed mt-4">
+          <p>
             Svar du skriver i intervjuprovet i våra artiklar sparas i sju dagar tillsammans med bedömningen, så att du kan hämta hela återkopplingen. Det gäller också när du skapat ett konto och svaret kopplats till det. Efter sju dagar raderas svaret automatiskt. Vi sparar inte din IP-adress, bara en envägskodad version som används för att begränsa antalet prov per dygn.
           </p>
         </section>
 
         {/* Dina rättigheter (GDPR) */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-white mb-4">8. Dina rättigheter</h2>
-          <p className="text-gray-300 leading-relaxed mb-4">
+        <section>
+          <h2 id="dina-rattigheter">8. Dina rättigheter</h2>
+          <p>
             I enlighet med GDPR och annan tillämplig lagstiftning har du rättigheter gällande dina personuppgifter:
           </p>
-          <ul className="list-disc list-inside space-y-2 mb-4 text-gray-300 pl-4">
+          <ul>
             <li>Rätt till tillgång, rättelse, radering, begränsning av behandling, invändning mot behandling och dataportabilitet.</li>
             {/* Behåll de mer detaljerade punkterna från förra versionen om du föredrar det */}
           </ul>
-           <p className="text-gray-300 leading-relaxed">
+           <p>
             Du kan hantera mycket av din information (t.ex. radera CV/brev, uppdatera profil) direkt via dina kontoinställningar. För övriga förfrågningar, vänligen kontakta oss via e-postadressen nedan. Vi kan behöva verifiera din identitet. Du har även rätt att lämna in klagomål till Integritetsskyddsmyndigheten (IMY).
           </p>
         </section>
 
         {/* Ändringar i policyn */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-white mb-4">9. Ändringar i denna integritetspolicy</h2>
-          <p className="text-gray-300 leading-relaxed mb-4">
+        <section>
+          <h2 id="andringar-i-denna-integritetspolicy">9. Ändringar i denna integritetspolicy</h2>
+          <p>
             Vi kan uppdatera denna policy. Ändringar publiceras här med ett uppdaterat datum högst upp. Vid väsentliga ändringar kan vi även meddela dig via e-post eller via Tjänsten.
           </p>
         </section>
 
         {/* Kontaktinformation */}
         <section>
-          <h2 className="text-2xl font-semibold text-white mb-4">10. Kontakta oss</h2>
-          <p className="text-gray-300 leading-relaxed">
+          <h2 id="kontakta-oss">10. Kontakta oss</h2>
+          <p>
             Om du har frågor om denna integritetspolicy, vänligen kontakta oss:
           </p>
-          <ul className="list-none space-y-2 mt-4 text-gray-300">
-            <li>Via e-post: <a href="mailto:support@jobbcoach.ai" className="text-pink-500 hover:text-pink-400 underline">support@jobbcoach.ai</a></li>
+          <ul className="list-none">
+            <li>Via e-post: <a href="mailto:support@jobbcoach.ai">support@jobbcoach.ai</a></li>
           </ul>
         </section>
 
-      </div>
-    </div>
+      </Textmall>
+    </PubliktSida>
   );
 }

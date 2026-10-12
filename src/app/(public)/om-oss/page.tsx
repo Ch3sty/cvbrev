@@ -1,28 +1,17 @@
 /**
- * /om-oss i linjen (docs/design/analys-visuell-linje-2026-09-22.html, avsnitt 5).
+ * /om-oss, publikt v2 (spec-publikt-v2-del-b avsnitt 3.6). Sektionerna i OmOssSida.
  * SEO: Organization och AboutPage med brödsmulor som JSON-LD, oförändrade.
  */
 import OmOssSida from './OmOssSida'
-import { getSupabaseAdmin } from '@/lib/supabase/admin'
+import PubliktSida from '@/components/publikt/PubliktSida'
+import '@/components/publikt/innehall/foretag.css'
+import { antalBrev, antalKonton } from '@/lib/publikt/antal'
 
 export const revalidate = 86400
 
-/** Talen läses en gång per dygn. Går de inte att läsa faller de bort. */
-async function talen(): Promise<{ konton: number | null; brev: number | null }> {
-  try {
-    const db = getSupabaseAdmin()
-    const [k, b] = await Promise.all([
-      db.from('profiles').select('*', { count: 'exact', head: true }),
-      db.from('letters').select('*', { count: 'exact', head: true }),
-    ])
-    return { konton: k.count || null, brev: b.count || null }
-  } catch {
-    return { konton: null, brev: null }
-  }
-}
-
 export default async function OmOssPage() {
-  const { konton, brev } = await talen()
+  // Samma källa som startsidans talrad (src/lib/publikt/antal.ts).
+  const [konton, brev] = await Promise.all([antalKonton(), antalBrev()])
   // === Schema.org markup ===
 
   const organizationSchema = {
@@ -94,7 +83,9 @@ export default async function OmOssPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
       />
 
-      <OmOssSida konton={konton} brev={brev} />
+      <PubliktSida>
+        <OmOssSida konton={konton} brev={brev} />
+      </PubliktSida>
     </>
   )
 }

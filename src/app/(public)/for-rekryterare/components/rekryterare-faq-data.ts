@@ -33,11 +33,11 @@ export const REKRYTERARE_FAQ_ITEMS = [
   },
   {
     q: 'Vad låses upp när kandidaten tackar ja?',
-    a: 'Namn, arbetsgivarnamn i historiken och kontaktväg blir synliga. Dessutom låses en onboardingguide och en intervjuguide upp: fem till sju frågor byggda på kandidatens egna styrkor, med punkter för vad du ska lyssna efter i svaret. Innan dess ser du hela profilen anonymt.',
+    a: 'Namn, arbetsgivarnamn i historiken och kontaktväg blir synliga. Dessutom låses en introduktionsguide och en intervjuguide upp: fem till sju frågor byggda på kandidatens egna styrkor, med punkter för vad du ska lyssna efter i svaret. Innan dess ser du hela profilen anonymt.',
   },
   {
     q: 'Kan jag dela en profil med min chef?',
-    a: 'Ja. Du skapar en delningslänk som visar en maskerad, läsbar version av profilen och håller i fjorton dagar. Din hiring manager ser samma underlag som du, enligt samma maskeringsregler, utan att behöva eget konto. Det slår skärmdumpar som tappar bort anonymiteten.',
+    a: 'Ja. Du skapar en delningslänk som visar en maskerad, läsbar version av profilen och håller i fjorton dagar. Din rekryterande chef ser samma underlag som du, enligt samma maskeringsregler, utan att behöva eget konto. Det slår skärmdumpar som tappar bort anonymiteten.',
   },
   {
     q: 'Hur får jag veta när nya kandidater dyker upp?',

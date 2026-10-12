@@ -1,0 +1,854 @@
+{
+  "beskrivning": "Våg B5 av publikt v2 del B: Om oss, För rekryterare, Kontakt, Hjälpcenter, Integritetspolicy och Användarvillkor. Avtrycket är taget från live (https://www.jobbcoach.ai) 2026-10-12 före ombyggnaden. /cookies finns inte (404 på live); cookieavsnittet är /integritetspolicy#cookies.",
+  "tagen": "2026-10-12",
+  "bas": "https://www.jobbcoach.ai",
+  "anvandning": "npx tsx scripts/seo-diff-artiklar.ts jamfor --fore scripts/seo-baslinje/foretag.json --efter <avtryck mot lokalt bygge>",
+  "undantag": {
+    "rubrikBytt": [
+      {
+        "path": "/for-rekryterare",
+        "fore": "h2 Från sökningtill anställning",
+        "efter": "h2 Så funkar det, steg för steg",
+        "datum": "2026-10-12",
+        "skal": "Ägarbeslut 1 för B5: H2 \"Från sökning till anställning\" stod två gånger. Den första (insidan) står kvar, den andra (så funkar det, på live med en radbrytning som gör texten \"Från sökningtill anställning\") blir \"Så funkar det, steg för steg\"."
+      },
+      {
+        "path": "/for-rekryterare",
+        "fore": "h3 Dela med din hiring manager",
+        "efter": "h3 Dela med din rekryterande chef",
+        "datum": "2026-10-12",
+        "skal": "Ägarbeslut 2 för B5: svenska facktermer, \"hiring manager\" blir \"rekryterande chef\"."
+      }
+    ],
+    "rubrikBorta": [
+      {
+        "path": "/kontakt",
+        "rubrik": "h2 Skicka ett meddelande",
+        "datum": "2026-10-12",
+        "skal": "Ägarbeslut 3 för B5: formulärets H2 stod två gånger. En står kvar."
+      }
+    ],
+    "h1Bytt": [
+      {
+        "path": "/kontakt",
+        "fore": "Vi svarar på dina frågorKontakta oss",
+        "efter": "Vi svarar på dina frågor",
+        "datum": "2026-10-12",
+        "skal": "Del B 3.8: mobilrubriken \"Kontakta oss\" låg i samma h1 utan mellanrum. Den blir kicker."
+      }
+    ],
+    "metaBytt": [
+      {
+        "path": "/kontakt",
+        "falt": "title",
+        "datum": "2026-10-12",
+        "skal": "Ägarbeslut 3 för B5: sidan ärvde startsidans title och description och får egna (description 110 till 158 tecken)."
+      },
+      {
+        "path": "/kontakt",
+        "falt": "description",
+        "datum": "2026-10-12",
+        "skal": "Ägarbeslut 3 för B5: sidan ärvde startsidans title och description och får egna (description 110 till 158 tecken)."
+      },
+      {
+        "path": "/hjalpcenter",
+        "falt": "title",
+        "datum": "2026-10-12",
+        "skal": "Ägarbeslut 3 för B5: sidan ärvde startsidans title och description och får egna (description 110 till 158 tecken)."
+      },
+      {
+        "path": "/hjalpcenter",
+        "falt": "description",
+        "datum": "2026-10-12",
+        "skal": "Ägarbeslut 3 för B5: sidan ärvde startsidans title och description och får egna (description 110 till 158 tecken)."
+      }
+    ],
+    "metaTillagd": [
+      {
+        "path": "/kontakt",
+        "falt": "canonical",
+        "datum": "2026-10-12",
+        "skal": "Sidan saknade canonical när den fick egen metadata; nu https://www.jobbcoach.ai/kontakt."
+      },
+      {
+        "path": "/hjalpcenter",
+        "falt": "canonical",
+        "datum": "2026-10-12",
+        "skal": "Sidan saknade canonical när den fick egen metadata; nu https://www.jobbcoach.ai/hjalpcenter."
+      }
+    ],
+    "ld": [
+      {
+        "path": "/for-rekryterare",
+        "datum": "2026-10-12",
+        "skal": "Ägarbeslut 2 för B5: FAQPage-svaren använder svenska facktermer, \"hiring manager\" blir \"rekryterande chef\" och \"onboardingguide\" blir \"introduktionsguide\". Frågorna och Service med Offer är oförändrade.",
+        "andrade": [
+          "FAQPage"
+        ]
+      }
+    ]
+  },
+  "avtryck": [
+    {
+      "path": "/om-oss",
+      "status": 200,
+      "h1": [
+        "Vi hjälper dig att nå dina karriärmål"
+      ],
+      "title": "Om oss: jobbverktyg för svensk arbetsmarknad | Jobbcoach.ai",
+      "description": "Vi bygger jobbverktyg för svensk arbetsmarknad sedan 2023. Källor från Arbetsförmedlingen, SCB och fackförbund. Data i EU, och vi loggar aldrig in åt dig.",
+      "canonical": "https://www.jobbcoach.ai/om-oss",
+      "ogImage": "https://www.jobbcoach.ai/om-oss/opengraph-image-t6s9ht?12d3b7dfd259c6fb",
+      "robots": "index, follow",
+      "rubriker": [
+        {
+          "tag": "h2",
+          "id": "om-berattelse",
+          "text": "Från cvbrev.se till Jobbcoach.ai"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Det började som cvbrev.se"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Användarna ville ha mer"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "cvbrev.se blev Jobbcoach.ai"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "En plattform med fler verktyg"
+        },
+        {
+          "tag": "h2",
+          "id": "om-loften",
+          "text": "Tre saker vi lovar"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Du behåller kontrollen"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Svenska källor i botten"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Du betalar bara när du behöver mer"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "Saknar du något, eller har du en fråga?"
+        }
+      ],
+      "lankar": [
+        "#vart-team",
+        "/",
+        "/funktioner",
+        "/integritetspolicy#cookies"
+      ],
+      "ramLankar": [
+        "/",
+        "/anvandarvillkor",
+        "/artiklar",
+        "/cv-exempel",
+        "/cv-mallar",
+        "/exempel",
+        "/for-rekryterare",
+        "/for-rekryterare/insikter",
+        "/funktioner",
+        "/hjalpcenter",
+        "/integritetspolicy",
+        "/integritetspolicy#cookies",
+        "/kontakt",
+        "/om-oss",
+        "/personligt-brev-exempel",
+        "/priser",
+        "/rakna-ut",
+        "/verktyg/bli-upptackt",
+        "/verktyg/cv-analys",
+        "/verktyg/cv-mallar",
+        "/verktyg/jobbcoachen",
+        "/verktyg/jobbmatchning",
+        "/verktyg/linkedin-optimering",
+        "/verktyg/personligt-brev",
+        "/verktyg/rekryteringstester",
+        "/verktyg/skapa-cv"
+      ],
+      "jsonLd": [
+        "{\"@context\":\"https://schema.org\",\"@type\":\"AboutPage\",\"breadcrumb\":{\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai\",\"name\":\"Hem\",\"position\":1},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/om-oss\",\"name\":\"Om oss\",\"position\":2}]},\"description\":\"Lär känna teamet och plattformen bakom Jobbcoach.ai. Vi bygger svenska jobbverktyg sedan 2023, från cvbrev.se till en komplett karriärplattform.\",\"name\":\"Om Jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai/om-oss\"}",
+        "{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"areaServed\":{\"@type\":\"Country\",\"name\":\"Sweden\"},\"contactPoint\":{\"@type\":\"ContactPoint\",\"areaServed\":\"SE\",\"availableLanguage\":[\"Swedish\",\"English\"],\"contactType\":\"customer support\",\"email\":\"support@jobbcoach.ai\"},\"description\":\"Svenska jobbverktyg byggda för svensk arbetsmarknad. CV-byggare, jobbmatchning, karriärrådgivning, rekryteringstester och LinkedIn-optimering, allt med svenska källor.\",\"email\":\"info@jobbcoach.ai\",\"foundingDate\":\"2023\",\"knowsAbout\":[\"CV-skrivning\",\"Personliga brev\",\"Jobbsökning\",\"Karriärrådgivning\",\"Rekryteringstester\",\"LinkedIn-optimering\",\"Svensk arbetsmarknad\"],\"logo\":\"https://www.jobbcoach.ai/logo.png\",\"name\":\"Jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"}"
+      ],
+      "forstaBild": null,
+      "faq": [],
+      "ord": 277
+    },
+    {
+      "path": "/for-rekryterare",
+      "status": 200,
+      "h1": [
+        "Kandidater med bevisade färdigheter"
+      ],
+      "title": "Hitta kandidater med verifierade testresultat | Jobbcoach.ai för rekryterare",
+      "description": "Sök på kravprofilen i en växande kandidatpool med verifierade testresultat och arbetsstilsrapporter. Anonymt tills kandidaten säger ja. Kostnadsfritt under lanseringsperioden.",
+      "canonical": "https://www.jobbcoach.ai/for-rekryterare",
+      "ogImage": "",
+      "robots": "index, follow",
+      "rubriker": [
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "Från sökning till anställning"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Sök på kravprofilen"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Förhandsgranska utan att öppna"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Profilen som beslutsunderlag"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Kandidaten tackade ja"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Ett arbetsflöde, inte en sökning"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "Mindre gissning, mer träff"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Svarsvilliga kandidater"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Verifierat före första kontakt"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Bevakning på kravprofilen"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Budgetfilter utan löneexponering"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "Siffror som tål följdfrågor"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Första försöket räknas"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Nivån syns alltid"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Öppen normgrupp"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Färskhet framgår"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "Från sökningtill anställning"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Sök på kravprofilen"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Samla i projekt och jämför"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Visa intresse, kandidaten svarar"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Dela med din hiring manager"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "Så ser en träff ut"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "Så ser hela profilen ut"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Arbetslivserfarenhet"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Utbildning och språk"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Verifierade resultat"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Arbetsstil"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Söker mig till"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Villkor"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "Integriteten är inte ett hinder. Den är produkten."
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Uttryckligt samtycke"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Anonym tills kandidaten säger ja"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Kandidaten ser samma som du"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Visning, aldrig filtrering"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Verifierade rekryterare"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Inga rå-CV:n eller löneanspråk"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Tydlig datahantering"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "Kunskap som förbättrar nästa rekrytering"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "AI-förordningen för rekryterare: kraven som gäller från 2 augusti"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Bakgrundskontroller vid anställning: vad som faktiskt är tillåtet 2026"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Diskrimineringslagen i urvalet: vad som prövas när någon frågar"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Lönehistorikfrågan: förbudet som kommer, och vad ni frågar i stället"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Lönekartläggning: kravet som redan gäller, och vad rekryteringen får gratis"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Lönerapporteringen: trösklarna, datumen och femprocentsregeln"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "Det rekryterare undrar"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "Var med från början. Poolen växer varje dag."
+        }
+      ],
+      "lankar": [
+        "#sa-funkar-det",
+        "/",
+        "/for-rekryterare/insikter",
+        "/for-rekryterare/insikter/ai-forordningen-rekrytering",
+        "/for-rekryterare/insikter/bakgrundskontroller",
+        "/for-rekryterare/insikter/diskrimineringslagen-rekrytering",
+        "/for-rekryterare/insikter/lonehistorik",
+        "/for-rekryterare/insikter/lonekartlaggning",
+        "/for-rekryterare/insikter/lonerapportering",
+        "/integritetspolicy#cookies",
+        "/rekryterare/registrera",
+        "/rekryterare/registrera",
+        "/rekryterare/registrera"
+      ],
+      "ramLankar": [
+        "/",
+        "/anvandarvillkor",
+        "/artiklar",
+        "/cv-exempel",
+        "/cv-mallar",
+        "/exempel",
+        "/for-rekryterare",
+        "/for-rekryterare/insikter",
+        "/funktioner",
+        "/hjalpcenter",
+        "/integritetspolicy",
+        "/integritetspolicy#cookies",
+        "/kontakt",
+        "/om-oss",
+        "/personligt-brev-exempel",
+        "/priser",
+        "/rakna-ut",
+        "/verktyg/bli-upptackt",
+        "/verktyg/cv-analys",
+        "/verktyg/cv-mallar",
+        "/verktyg/jobbcoachen",
+        "/verktyg/jobbmatchning",
+        "/verktyg/linkedin-optimering",
+        "/verktyg/personligt-brev",
+        "/verktyg/rekryteringstester",
+        "/verktyg/skapa-cv"
+      ],
+      "jsonLd": [
+        "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ingenting just nu. Under lanseringsperioden är kandidatpoolen kostnadsfri för verifierade rekryterare. Vi bygger tjänsten tillsammans med de första användarna och vill ha er feedback, inte era fakturor. Om prissättningen förändras får ni besked i god tid, och ni binder er aldrig till något genom att skapa konto.\"},\"name\":\"Vad kostar det?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Manuellt, av oss. Vi kontrollerar organisationsnumret och att kontaktpersonen hör till företaget innan kontot godkänns. Det tar normalt en till två arbetsdagar. Statusen ser du på din rekryterarsida, och vi hör av oss via mail när kontot är klart.\"},\"name\":\"Hur verifieras vårt företag?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Innan kontakt: yrkesroll, region, verifierade testresultat med percentiler, personlighetsstyrkor, toppkompetenser och villkor som tillträde, arbetsplats och omfattning. Namn, foto och kontaktuppgifter är dolda tills kandidaten tackat ja till kontakt. Rå-CV:n visas aldrig.\"},\"name\":\"Vad ser vi om en kandidat?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Varje kandidat i poolen har själv valt att synas, med ett uttryckligt samtycke som kan dras tillbaka när som helst. Vi visar bara strukturerade uppgifter som kandidaten godkänt, aldrig råa dokument. All data lagras i EU och vi säljer aldrig uppgifter vidare.\"},\"name\":\"Hur funkar det med GDPR?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"När kandidaten tackar ja till er intresseförfrågan. Då ser båda parter namn och kontaktväg och ni tar dialogen direkt, utan mellanhänder. Tackar kandidaten nej ser ni bara att intresset avböjts, identiteten förblir skyddad.\"},\"name\":\"När låses kandidatens kontaktuppgifter upp?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Kognitiva tester i matrislogik, verbal och numerisk förmåga, med percentiler räknade mot alla som gjort samma test hos oss. Dessutom en personlighetskartläggning som lyfter fram kandidatens styrkor. Resultaten kommer från våra egna tester gjorda i inloggat läge, inte från självskattningar.\"},\"name\":\"Vilka tester har kandidaterna gjort?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Vi räknar kandidatens första slutförda försök på varje nivå som det verifierade resultatet, aldrig det bästa av flera försök. Badgen visar alltid vilken nivå siffran gäller, och percentilen jämförs mot alla som gjort exakt samma test hos oss, med antalet testade utskrivet. Vi visar också när testet gjordes och flaggar resultat äldre än två år.\"},\"name\":\"Hur verifieras testresultaten?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nej, och det är ett medvetet val. Personlighetsdata beskriver hur någon arbetar, inte hur bra, och lämpar sig inte för att sålla bort människor. Arbetsstilsrapporten visas för att du ska ställa bättre frågor, aldrig för att sortera eller sätta matchprocent. Det skyddar både dig och kandidaten, och håller oss på rätt sida av GDPR och EU:s AI-förordning.\"},\"name\":\"Kan jag filtrera bort kandidater på personlighet?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Namn, arbetsgivarnamn i historiken och kontaktväg blir synliga. Dessutom låses en onboardingguide och en intervjuguide upp: fem till sju frågor byggda på kandidatens egna styrkor, med punkter för vad du ska lyssna efter i svaret. Innan dess ser du hela profilen anonymt.\"},\"name\":\"Vad låses upp när kandidaten tackar ja?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Du skapar en delningslänk som visar en maskerad, läsbar version av profilen och håller i fjorton dagar. Din hiring manager ser samma underlag som du, enligt samma maskeringsregler, utan att behöva eget konto. Det slår skärmdumpar som tappar bort anonymiteten.\"},\"name\":\"Kan jag dela en profil med min chef?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Spara din sökning och slå på bevakning. Då mailar vi dig när nya kandidater som matchar din kravprofil har lagt till sig i poolen, som mest en gång per dag. I en pool som växer är det ofta smidigare än att söka om och om igen.\"},\"name\":\"Hur får jag veta när nya kandidater dyker upp?\"}]}",
+        "{\"@context\":\"https://schema.org\",\"@type\":\"Service\",\"areaServed\":{\"@type\":\"Country\",\"name\":\"Sverige\"},\"description\":\"Kandidatpool där varje profil har verifierade testresultat med percentiler. Anonymt tills kandidaten accepterar kontakt. Kostnadsfritt för verifierade rekryterare under lanseringsperioden.\",\"name\":\"Jobbcoach.ai kandidatpool för rekryterare\",\"offers\":{\"@type\":\"Offer\",\"description\":\"Kostnadsfritt under lanseringsperioden för verifierade rekryterare\",\"price\":\"0\",\"priceCurrency\":\"SEK\"},\"provider\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"},\"serviceType\":\"Rekryteringstjänst\",\"url\":\"https://www.jobbcoach.ai/for-rekryterare\"}"
+      ],
+      "forstaBild": null,
+      "faq": [
+        "ld: Vad kostar det?",
+        "ld: Hur verifieras vårt företag?",
+        "ld: Vad ser vi om en kandidat?",
+        "ld: Hur funkar det med GDPR?",
+        "ld: När låses kandidatens kontaktuppgifter upp?",
+        "ld: Vilka tester har kandidaterna gjort?",
+        "ld: Hur verifieras testresultaten?",
+        "ld: Kan jag filtrera bort kandidater på personlighet?",
+        "ld: Vad låses upp när kandidaten tackar ja?",
+        "ld: Kan jag dela en profil med min chef?",
+        "ld: Hur får jag veta när nya kandidater dyker upp?"
+      ],
+      "ord": 2005
+    },
+    {
+      "path": "/kontakt",
+      "status": 200,
+      "h1": [
+        "Vi svarar på dina frågorKontakta oss"
+      ],
+      "title": "Jobbcoach.ai - CV, personligt brev, jobbmatchning & rekryteringstester",
+      "description": "Skapa ATS-anpassade CV:n och personliga brev, få jobbmatchning och träna på rekryteringstester. Ett effektivt verktyg för arbetssökande i Sverige.",
+      "canonical": "",
+      "ogImage": "https://www.jobbcoach.ai/opengraph-image",
+      "robots": "",
+      "rubriker": [
+        {
+          "tag": "h2",
+          "id": "contact-form-heading",
+          "text": "Skicka ett meddelande"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "Skicka ett meddelande"
+        }
+      ],
+      "lankar": [
+        "/#faq",
+        "/integritetspolicy#cookies"
+      ],
+      "ramLankar": [
+        "/",
+        "/anvandarvillkor",
+        "/artiklar",
+        "/cv-exempel",
+        "/cv-mallar",
+        "/exempel",
+        "/for-rekryterare",
+        "/for-rekryterare/insikter",
+        "/funktioner",
+        "/hjalpcenter",
+        "/integritetspolicy",
+        "/integritetspolicy#cookies",
+        "/kontakt",
+        "/om-oss",
+        "/personligt-brev-exempel",
+        "/priser",
+        "/rakna-ut",
+        "/verktyg/bli-upptackt",
+        "/verktyg/cv-analys",
+        "/verktyg/cv-mallar",
+        "/verktyg/jobbcoachen",
+        "/verktyg/jobbmatchning",
+        "/verktyg/linkedin-optimering",
+        "/verktyg/personligt-brev",
+        "/verktyg/rekryteringstester",
+        "/verktyg/skapa-cv"
+      ],
+      "jsonLd": [],
+      "forstaBild": null,
+      "faq": [],
+      "ord": 61
+    },
+    {
+      "path": "/hjalpcenter",
+      "status": 200,
+      "h1": [
+        "Hjälpcenter"
+      ],
+      "title": "Jobbcoach.ai - CV, personligt brev, jobbmatchning & rekryteringstester",
+      "description": "Skapa ATS-anpassade CV:n och personliga brev, få jobbmatchning och träna på rekryteringstester. Ett effektivt verktyg för arbetssökande i Sverige.",
+      "canonical": "",
+      "ogImage": "https://www.jobbcoach.ai/opengraph-image",
+      "robots": "",
+      "rubriker": [
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Komma igång"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Personliga brev"
+        },
+        {
+          "tag": "h3",
+          "id": "",
+          "text": "Konto & Fakturering"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "Utbyggd hjälpsektion kommer snart"
+        }
+      ],
+      "lankar": [
+        "/funktioner",
+        "/integritetspolicy#cookies",
+        "/kontakt"
+      ],
+      "ramLankar": [
+        "/",
+        "/anvandarvillkor",
+        "/artiklar",
+        "/cv-exempel",
+        "/cv-mallar",
+        "/exempel",
+        "/for-rekryterare",
+        "/for-rekryterare/insikter",
+        "/funktioner",
+        "/hjalpcenter",
+        "/integritetspolicy",
+        "/integritetspolicy#cookies",
+        "/kontakt",
+        "/om-oss",
+        "/personligt-brev-exempel",
+        "/priser",
+        "/rakna-ut",
+        "/verktyg/bli-upptackt",
+        "/verktyg/cv-analys",
+        "/verktyg/cv-mallar",
+        "/verktyg/jobbcoachen",
+        "/verktyg/jobbmatchning",
+        "/verktyg/linkedin-optimering",
+        "/verktyg/personligt-brev",
+        "/verktyg/rekryteringstester",
+        "/verktyg/skapa-cv"
+      ],
+      "jsonLd": [],
+      "forstaBild": null,
+      "faq": [],
+      "ord": 55
+    },
+    {
+      "path": "/integritetspolicy",
+      "status": 200,
+      "h1": [
+        "Integritetspolicy för jobbcoach.ai"
+      ],
+      "title": "Integritetspolicy | jobbcoach.ai",
+      "description": "Läs vår integritetspolicy för att förstå hur jobbcoach.ai samlar in, använder och skyddar dina personuppgifter när du använder vår tjänst.",
+      "canonical": "https://www.jobbcoach.ai/integritetspolicy",
+      "ogImage": "https://www.jobbcoach.ai/opengraph-image",
+      "robots": "",
+      "rubriker": [
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "1. Introduktion"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "2. Vilka personuppgifter samlar vi in?"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "3. Hur använder vi dina personuppgifter?"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "4. Delning av personuppgifter"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "5. Cookies och liknande tekniker"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "6. Datasäkerhet"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "7. Datalagring"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "8. Dina rättigheter"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "9. Ändringar i denna integritetspolicy"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "10. Kontakta oss"
+        }
+      ],
+      "lankar": [
+        "/integritetspolicy#cookies"
+      ],
+      "ramLankar": [
+        "/",
+        "/anvandarvillkor",
+        "/artiklar",
+        "/cv-exempel",
+        "/cv-mallar",
+        "/exempel",
+        "/for-rekryterare",
+        "/for-rekryterare/insikter",
+        "/funktioner",
+        "/hjalpcenter",
+        "/integritetspolicy",
+        "/integritetspolicy#cookies",
+        "/kontakt",
+        "/om-oss",
+        "/personligt-brev-exempel",
+        "/priser",
+        "/rakna-ut",
+        "/verktyg/bli-upptackt",
+        "/verktyg/cv-analys",
+        "/verktyg/cv-mallar",
+        "/verktyg/jobbcoachen",
+        "/verktyg/jobbmatchning",
+        "/verktyg/linkedin-optimering",
+        "/verktyg/personligt-brev",
+        "/verktyg/rekryteringstester",
+        "/verktyg/skapa-cv"
+      ],
+      "jsonLd": [],
+      "forstaBild": null,
+      "faq": [],
+      "ord": 1165
+    },
+    {
+      "path": "/anvandarvillkor",
+      "status": 200,
+      "h1": [
+        "Användarvillkor för jobbcoach.ai"
+      ],
+      "title": "Användarvillkor | jobbcoach.ai",
+      "description": "Läs användarvillkoren för jobbcoach.ai innan du använder vår tjänst för att skapa personliga brev och CV:n med AI.",
+      "canonical": "https://www.jobbcoach.ai/anvandarvillkor",
+      "ogImage": "https://www.jobbcoach.ai/opengraph-image",
+      "robots": "",
+      "rubriker": [
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "1. Godkännande av Villkoren"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "2. Beskrivning av Tjänsten"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "3. Användarkonton"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "4. Användarinnehåll och Ansvar"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "5. Tillåten Användning"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "6. Immateriella Rättigheter"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "7. Prenumeration och betalning"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "8. Friskrivningar (Disclaimers)"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "9. Ansvarsbegränsning"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "10. Skadeslöshållande"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "11. Uppsägning"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "12. Tillämplig Lag och Tvistlösning"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "13. Ändringar av Villkoren"
+        },
+        {
+          "tag": "h2",
+          "id": "",
+          "text": "14. Kontakta oss"
+        }
+      ],
+      "lankar": [
+        "/integritetspolicy",
+        "/integritetspolicy#cookies"
+      ],
+      "ramLankar": [
+        "/",
+        "/anvandarvillkor",
+        "/artiklar",
+        "/cv-exempel",
+        "/cv-mallar",
+        "/exempel",
+        "/for-rekryterare",
+        "/for-rekryterare/insikter",
+        "/funktioner",
+        "/hjalpcenter",
+        "/integritetspolicy",
+        "/integritetspolicy#cookies",
+        "/kontakt",
+        "/om-oss",
+        "/personligt-brev-exempel",
+        "/priser",
+        "/rakna-ut",
+        "/verktyg/bli-upptackt",
+        "/verktyg/cv-analys",
+        "/verktyg/cv-mallar",
+        "/verktyg/jobbcoachen",
+        "/verktyg/jobbmatchning",
+        "/verktyg/linkedin-optimering",
+        "/verktyg/personligt-brev",
+        "/verktyg/rekryteringstester",
+        "/verktyg/skapa-cv"
+      ],
+      "jsonLd": [],
+      "forstaBild": null,
+      "faq": [],
+      "ord": 1573
+    }
+  ]
+}
