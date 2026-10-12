@@ -2715,522 +2715,6 @@
   "fran_version": 1
  },
  {
-  "id": "dd-g-d2-01",
-  "niva": "grund",
-  "typ": "D2",
-  "family": "vanster_om",
-  "difficulty": 2,
-  "p_prior": 0.55,
-  "intro": "Fyra kollegor står i en rad på plats 1 till 4, räknat från vänster.",
-  "villkor": [
-   "Gustav står inte bredvid Jonas.",
-   "Rut står direkt till vänster om Jonas.",
-   "Jonas står någonstans till vänster om Gustav."
-  ],
-  "fraga": "Vilket måste vara sant?",
-  "options": [
-   "Lisa står direkt till vänster om Gustav.",
-   "Lisa står på plats 4.",
-   "Gustav står inte bredvid Lisa.",
-   "Lisa står på plats 1.",
-   "Gustav står någonstans till vänster om Lisa."
-  ],
-  "correctAnswer": 0,
-  "etiketter": [
-   "Måste gälla.",
-   "Strider mot villkoren.",
-   "Strider mot villkoren.",
-   "Strider mot villkoren.",
-   "Strider mot villkoren."
-  ],
-  "misstag": [
-   "",
-   "Det stämmer bara om du bryter villkor 1: Gustav står inte bredvid Jonas.",
-   "Det stämmer bara om du bryter villkor 1: Gustav står inte bredvid Jonas.",
-   "Det stämmer bara om du bryter villkor 1: Gustav står inte bredvid Jonas.",
-   "Det stämmer bara om du bryter villkor 1: Gustav står inte bredvid Jonas."
-  ],
-  "losning": {
-   "steg": [
-    {
-     "markor": [
-      1,
-      2,
-      3
-     ],
-     "villkor": [
-      "Gustav står inte bredvid Jonas.",
-      "Rut står direkt till vänster om Jonas.",
-      "Jonas står någonstans till vänster om Gustav."
-     ],
-     "foljd": "Tillsammans låser de Rut på plats 1, Jonas på plats 2, Lisa på plats 3 och Gustav på plats 4."
-    }
-   ],
-   "schema": {
-    "namn": [
-     [
-      "Rut"
-     ],
-     [
-      "Jonas"
-     ],
-     [
-      "Lisa"
-     ],
-     [
-      "Gustav"
-     ]
-    ],
-    "koppar": null,
-    "antagande": null
-   }
-  },
-  "formell": {
-   "tema": "personer",
-   "namn": [
-    "Gustav",
-    "Jonas",
-    "Lisa",
-    "Rut"
-   ],
-   "villkor": [
-    {
-     "typ": "inte_granne",
-     "a": 0,
-     "b": 1
-    },
-    {
-     "typ": "direkt_vanster_om",
-     "a": 3,
-     "b": 1
-    },
-    {
-     "typ": "vanster_om",
-     "a": 1,
-     "b": 0
-    }
-   ],
-   "fraga": {
-    "form": "maste"
-   },
-   "alternativ": [
-    {
-     "typ": "direkt_vanster_om",
-     "a": 2,
-     "b": 0
-    },
-    {
-     "typ": "plats",
-     "a": 2,
-     "k": 4
-    },
-    {
-     "typ": "inte_granne",
-     "a": 0,
-     "b": 2
-    },
-    {
-     "typ": "plats",
-     "a": 2,
-     "k": 1
-    },
-    {
-     "typ": "vanster_om",
-     "a": 0,
-     "b": 2
-    }
-   ]
-  },
-  "fran_version": 1
- },
- {
-  "id": "dd-g-d2-02",
-  "niva": "grund",
-  "typ": "D2",
-  "family": "vanster_om",
-  "difficulty": 2,
-  "p_prior": 0.55,
-  "intro": "Fyra pärmar i olika färger ligger på en hylla, på plats 1 till 4 räknat från vänster.",
-  "villkor": [
-   "Den blå pärmen ligger inte bredvid den vita pärmen.",
-   "Den vita pärmen ligger direkt till vänster om den lila pärmen.",
-   "Den blå pärmen ligger någonstans till vänster om den vita pärmen."
-  ],
-  "fraga": "Vilket måste vara sant?",
-  "options": [
-   "Den röda pärmen ligger någonstans till vänster om den blå pärmen.",
-   "Den blå pärmen ligger någonstans till vänster om den lila pärmen.",
-   "Den lila pärmen ligger direkt till vänster om den röda pärmen.",
-   "Den röda pärmen ligger inte bredvid den vita pärmen.",
-   "Den vita pärmen ligger någonstans till vänster om den röda pärmen."
-  ],
-  "correctAnswer": 1,
-  "etiketter": [
-   "Strider mot villkoren.",
-   "Måste gälla.",
-   "Strider mot villkoren.",
-   "Strider mot villkoren.",
-   "Strider mot villkoren."
-  ],
-  "misstag": [
-   "Det stämmer bara om du bryter villkor 1: Den blå pärmen ligger inte bredvid den vita pärmen.",
-   "",
-   "Det stämmer bara om du bryter villkor 1: Den blå pärmen ligger inte bredvid den vita pärmen.",
-   "Det stämmer bara om du bryter villkor 1: Den blå pärmen ligger inte bredvid den vita pärmen.",
-   "Det stämmer bara om du bryter villkor 1: Den blå pärmen ligger inte bredvid den vita pärmen."
-  ],
-  "losning": {
-   "steg": [
-    {
-     "markor": [
-      1,
-      2,
-      3
-     ],
-     "villkor": [
-      "Den blå pärmen ligger inte bredvid den vita pärmen.",
-      "Den vita pärmen ligger direkt till vänster om den lila pärmen.",
-      "Den blå pärmen ligger någonstans till vänster om den vita pärmen."
-     ],
-     "foljd": "Tillsammans låser de den blå pärmen på plats 1, den röda pärmen på plats 2, den vita pärmen på plats 3 och den lila pärmen på plats 4."
-    }
-   ],
-   "schema": {
-    "namn": [
-     [
-      "Blå"
-     ],
-     [
-      "Röd"
-     ],
-     [
-      "Vit"
-     ],
-     [
-      "Lila"
-     ]
-    ],
-    "koppar": null,
-    "antagande": null
-   }
-  },
-  "formell": {
-   "tema": "saker",
-   "namn": [
-    "blå",
-    "lila",
-    "röd",
-    "vit"
-   ],
-   "villkor": [
-    {
-     "typ": "inte_granne",
-     "a": 0,
-     "b": 3
-    },
-    {
-     "typ": "direkt_vanster_om",
-     "a": 3,
-     "b": 1
-    },
-    {
-     "typ": "vanster_om",
-     "a": 0,
-     "b": 3
-    }
-   ],
-   "fraga": {
-    "form": "maste"
-   },
-   "alternativ": [
-    {
-     "typ": "vanster_om",
-     "a": 2,
-     "b": 0
-    },
-    {
-     "typ": "vanster_om",
-     "a": 0,
-     "b": 1
-    },
-    {
-     "typ": "direkt_vanster_om",
-     "a": 1,
-     "b": 2
-    },
-    {
-     "typ": "inte_granne",
-     "a": 2,
-     "b": 3
-    },
-    {
-     "typ": "vanster_om",
-     "a": 3,
-     "b": 2
-    }
-   ]
-  },
-  "fran_version": 1
- },
- {
-  "id": "dd-g-d2-03",
-  "niva": "grund",
-  "typ": "D2",
-  "family": "inte_plats",
-  "difficulty": 2,
-  "p_prior": 0.55,
-  "intro": "Fyra kollegor står i en rad på plats 1 till 4, räknat från vänster.",
-  "villkor": [
-   "Olga står någonstans till vänster om Åsa.",
-   "Olga står direkt till vänster om Ulla.",
-   "Åsa står inte på plats 4."
-  ],
-  "fraga": "Vilket måste vara sant?",
-  "options": [
-   "Mats står direkt till vänster om Olga.",
-   "Mats står någonstans till vänster om Olga.",
-   "Mats står inte bredvid Olga.",
-   "Mats står bredvid Ulla.",
-   "Mats står på plats 1."
-  ],
-  "correctAnswer": 2,
-  "etiketter": [
-   "Strider mot villkoren.",
-   "Strider mot villkoren.",
-   "Måste gälla.",
-   "Strider mot villkoren.",
-   "Strider mot villkoren."
-  ],
-  "misstag": [
-   "Det stämmer bara om du bryter villkor 1: Olga står någonstans till vänster om Åsa.",
-   "Det stämmer bara om du bryter villkor 1: Olga står någonstans till vänster om Åsa.",
-   "",
-   "Det stämmer bara om du bryter villkor 1: Olga står någonstans till vänster om Åsa.",
-   "Det stämmer bara om du bryter villkor 1: Olga står någonstans till vänster om Åsa."
-  ],
-  "losning": {
-   "steg": [
-    {
-     "markor": [
-      1,
-      2,
-      3
-     ],
-     "villkor": [
-      "Olga står någonstans till vänster om Åsa.",
-      "Olga står direkt till vänster om Ulla.",
-      "Åsa står inte på plats 4."
-     ],
-     "foljd": "Tillsammans låser de Olga på plats 1, Ulla på plats 2, Åsa på plats 3 och Mats på plats 4."
-    }
-   ],
-   "schema": {
-    "namn": [
-     [
-      "Olga"
-     ],
-     [
-      "Ulla"
-     ],
-     [
-      "Åsa"
-     ],
-     [
-      "Mats"
-     ]
-    ],
-    "koppar": null,
-    "antagande": null
-   }
-  },
-  "formell": {
-   "tema": "personer",
-   "namn": [
-    "Mats",
-    "Olga",
-    "Ulla",
-    "Åsa"
-   ],
-   "villkor": [
-    {
-     "typ": "vanster_om",
-     "a": 1,
-     "b": 3
-    },
-    {
-     "typ": "direkt_vanster_om",
-     "a": 1,
-     "b": 2
-    },
-    {
-     "typ": "inte_plats",
-     "a": 3,
-     "k": 4
-    }
-   ],
-   "fraga": {
-    "form": "maste"
-   },
-   "alternativ": [
-    {
-     "typ": "direkt_vanster_om",
-     "a": 0,
-     "b": 1
-    },
-    {
-     "typ": "vanster_om",
-     "a": 0,
-     "b": 1
-    },
-    {
-     "typ": "inte_granne",
-     "a": 0,
-     "b": 1
-    },
-    {
-     "typ": "granne",
-     "a": 0,
-     "b": 2
-    },
-    {
-     "typ": "plats",
-     "a": 0,
-     "k": 1
-    }
-   ]
-  },
-  "fran_version": 1
- },
- {
-  "id": "dd-g-d2-04",
-  "niva": "grund",
-  "typ": "D2",
-  "family": "vanster_om",
-  "difficulty": 2,
-  "p_prior": 0.55,
-  "intro": "Fyra pärmar i olika färger ligger på en hylla, på plats 1 till 4 räknat från vänster.",
-  "villkor": [
-   "Den lila pärmen ligger direkt till vänster om den svarta pärmen.",
-   "Den blå pärmen ligger inte på plats 1.",
-   "Den blå pärmen ligger någonstans till vänster om den svarta pärmen."
-  ],
-  "fraga": "Vilket måste vara sant?",
-  "options": [
-   "Den blå pärmen ligger inte bredvid den lila pärmen.",
-   "Den blå pärmen ligger någonstans till vänster om den röda pärmen.",
-   "Den röda pärmen ligger direkt till vänster om den lila pärmen.",
-   "Den blå pärmen ligger bredvid den lila pärmen.",
-   "Den svarta pärmen ligger på plats 3."
-  ],
-  "correctAnswer": 3,
-  "etiketter": [
-   "Strider mot villkoren.",
-   "Strider mot villkoren.",
-   "Strider mot villkoren.",
-   "Måste gälla.",
-   "Strider mot villkoren."
-  ],
-  "misstag": [
-   "Det stämmer bara om du bryter villkor 1: Den lila pärmen ligger direkt till vänster om den svarta pärmen.",
-   "Det stämmer bara om du bryter villkor 1: Den lila pärmen ligger direkt till vänster om den svarta pärmen.",
-   "Det stämmer bara om du bryter villkor 1: Den lila pärmen ligger direkt till vänster om den svarta pärmen.",
-   "",
-   "Det stämmer bara om du bryter villkor 1: Den lila pärmen ligger direkt till vänster om den svarta pärmen."
-  ],
-  "losning": {
-   "steg": [
-    {
-     "markor": [
-      1,
-      2,
-      3
-     ],
-     "villkor": [
-      "Den lila pärmen ligger direkt till vänster om den svarta pärmen.",
-      "Den blå pärmen ligger inte på plats 1.",
-      "Den blå pärmen ligger någonstans till vänster om den svarta pärmen."
-     ],
-     "foljd": "Tillsammans låser de den röda pärmen på plats 1, den blå pärmen på plats 2, den lila pärmen på plats 3 och den svarta pärmen på plats 4."
-    }
-   ],
-   "schema": {
-    "namn": [
-     [
-      "Röd"
-     ],
-     [
-      "Blå"
-     ],
-     [
-      "Lila"
-     ],
-     [
-      "Svart"
-     ]
-    ],
-    "koppar": null,
-    "antagande": null
-   }
-  },
-  "formell": {
-   "tema": "saker",
-   "namn": [
-    "blå",
-    "lila",
-    "röd",
-    "svart"
-   ],
-   "villkor": [
-    {
-     "typ": "direkt_vanster_om",
-     "a": 1,
-     "b": 3
-    },
-    {
-     "typ": "inte_plats",
-     "a": 0,
-     "k": 1
-    },
-    {
-     "typ": "vanster_om",
-     "a": 0,
-     "b": 3
-    }
-   ],
-   "fraga": {
-    "form": "maste"
-   },
-   "alternativ": [
-    {
-     "typ": "inte_granne",
-     "a": 0,
-     "b": 1
-    },
-    {
-     "typ": "vanster_om",
-     "a": 0,
-     "b": 2
-    },
-    {
-     "typ": "direkt_vanster_om",
-     "a": 2,
-     "b": 1
-    },
-    {
-     "typ": "granne",
-     "a": 0,
-     "b": 1
-    },
-    {
-     "typ": "plats",
-     "a": 3,
-     "k": 3
-    }
-   ]
-  },
-  "fran_version": 1
- },
- {
   "id": "dd-g-d2-05",
   "niva": "grund",
   "typ": "D2",
@@ -3260,10 +2744,10 @@
    "Måste gälla."
   ],
   "misstag": [
-   "Det stämmer bara om du bryter villkor 1: Leo står någonstans till vänster om Eva.",
-   "Det stämmer bara om du bryter villkor 1: Leo står någonstans till vänster om Eva.",
-   "Det stämmer bara om du bryter villkor 1: Leo står någonstans till vänster om Eva.",
-   "Det stämmer bara om du bryter villkor 1: Leo står någonstans till vänster om Eva.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Leo står någonstans till vänster om Eva.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 2: Åsa står på plats 4.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Leo står någonstans till vänster om Eva.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Leo står någonstans till vänster om Eva.",
    ""
   ],
   "losning": {
@@ -3367,25 +2851,25 @@
   "fran_version": 1
  },
  {
-  "id": "dd-g-d2-06",
+  "id": "dd-g-d2-07",
   "niva": "grund",
   "typ": "D2",
   "family": "direkt_vanster_om",
   "difficulty": 2,
   "p_prior": 0.55,
-  "intro": "Fyra pärmar i olika färger ligger på en hylla, på plats 1 till 4 räknat från vänster.",
+  "intro": "Fyra kollegor står i en rad på plats 1 till 4, räknat från vänster.",
   "villkor": [
-   "Den röda pärmen ligger direkt till vänster om den lila pärmen.",
-   "Den svarta pärmen ligger inte på plats 4.",
-   "Den vita pärmen ligger direkt till vänster om den röda pärmen."
+   "Olle står på plats 4.",
+   "Hugo står inte på plats 1.",
+   "Hugo står direkt till vänster om Mats."
   ],
   "fraga": "Vilket måste vara sant?",
   "options": [
-   "Den svarta pärmen ligger direkt till vänster om den vita pärmen.",
-   "Den lila pärmen ligger direkt till vänster om den svarta pärmen.",
-   "Den vita pärmen ligger någonstans till vänster om den svarta pärmen.",
-   "Den vita pärmen ligger på plats 1.",
-   "Den röda pärmen ligger någonstans till vänster om den svarta pärmen."
+   "Mats står direkt till vänster om Olle.",
+   "Hugo står inte bredvid Viktor.",
+   "Mats står någonstans till vänster om Viktor.",
+   "Olle står bredvid Viktor.",
+   "Hugo står någonstans till vänster om Viktor."
   ],
   "correctAnswer": 0,
   "etiketter": [
@@ -3397,37 +2881,187 @@
   ],
   "misstag": [
    "",
-   "Det stämmer bara om du bryter villkor 1: Den röda pärmen ligger direkt till vänster om den lila pärmen.",
-   "Det stämmer bara om du bryter villkor 1: Den röda pärmen ligger direkt till vänster om den lila pärmen.",
-   "Det stämmer bara om du bryter villkor 1: Den röda pärmen ligger direkt till vänster om den lila pärmen.",
-   "Det stämmer bara om du bryter villkor 1: Den röda pärmen ligger direkt till vänster om den lila pärmen."
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Olle står på plats 4.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Olle står på plats 4.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 3: Hugo står direkt till vänster om Mats.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Olle står på plats 4."
   ],
   "losning": {
    "steg": [
     {
      "markor": [
-      1,
+      1
+     ],
+     "villkor": [
+      "Olle står på plats 4."
+     ],
+     "foljd": "Det låser Olle på plats 4."
+    },
+    {
+     "markor": [
       2,
       3
      ],
      "villkor": [
-      "Den röda pärmen ligger direkt till vänster om den lila pärmen.",
-      "Den svarta pärmen ligger inte på plats 4.",
-      "Den vita pärmen ligger direkt till vänster om den röda pärmen."
+      "Hugo står inte på plats 1.",
+      "Hugo står direkt till vänster om Mats."
      ],
-     "foljd": "Tillsammans låser de den svarta pärmen på plats 1, den vita pärmen på plats 2, den röda pärmen på plats 3 och den lila pärmen på plats 4."
+     "foljd": "Tillsammans låser de Viktor på plats 1, Hugo på plats 2 och Mats på plats 3."
     }
    ],
    "schema": {
     "namn": [
      [
+      "Viktor"
+     ],
+     [
+      "Hugo"
+     ],
+     [
+      "Mats"
+     ],
+     [
+      "Olle"
+     ]
+    ],
+    "koppar": null,
+    "antagande": null
+   }
+  },
+  "formell": {
+   "tema": "personer",
+   "namn": [
+    "Hugo",
+    "Mats",
+    "Olle",
+    "Viktor"
+   ],
+   "villkor": [
+    {
+     "typ": "plats",
+     "a": 2,
+     "k": 4
+    },
+    {
+     "typ": "inte_plats",
+     "a": 0,
+     "k": 1
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 0,
+     "b": 1
+    }
+   ],
+   "fraga": {
+    "form": "maste"
+   },
+   "alternativ": [
+    {
+     "typ": "direkt_vanster_om",
+     "a": 1,
+     "b": 2
+    },
+    {
+     "typ": "inte_granne",
+     "a": 0,
+     "b": 3
+    },
+    {
+     "typ": "vanster_om",
+     "a": 1,
+     "b": 3
+    },
+    {
+     "typ": "granne",
+     "a": 2,
+     "b": 3
+    },
+    {
+     "typ": "vanster_om",
+     "a": 0,
+     "b": 3
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d2-08",
+  "niva": "grund",
+  "typ": "D2",
+  "family": "inte_plats",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fyra pärmar i olika färger ligger på en hylla, på plats 1 till 4 räknat från vänster.",
+  "villkor": [
+   "Den lila pärmen ligger inte på plats 3.",
+   "Den röda pärmen ligger någonstans till vänster om den svarta pärmen.",
+   "Den svarta pärmen ligger på plats 2."
+  ],
+  "fraga": "Vilket måste vara sant?",
+  "options": [
+   "Den lila pärmen ligger bredvid den svarta pärmen.",
+   "Den svarta pärmen ligger direkt till vänster om den gröna pärmen.",
+   "Den gröna pärmen ligger inte bredvid den svarta pärmen.",
+   "Den gröna pärmen ligger på plats 4.",
+   "Den lila pärmen ligger någonstans till vänster om den gröna pärmen."
+  ],
+  "correctAnswer": 1,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Måste gälla.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren."
+  ],
+  "misstag": [
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Den lila pärmen ligger inte på plats 3.",
+   "",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Den lila pärmen ligger inte på plats 3.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Den lila pärmen ligger inte på plats 3.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Den lila pärmen ligger inte på plats 3."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [
+      "Den svarta pärmen ligger på plats 2."
+     ],
+     "foljd": "Det låser den svarta pärmen på plats 2."
+    },
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [
+      "Den röda pärmen ligger någonstans till vänster om den svarta pärmen."
+     ],
+     "foljd": "Det låser den röda pärmen på plats 1."
+    },
+    {
+     "markor": [
+      1
+     ],
+     "villkor": [
+      "Den lila pärmen ligger inte på plats 3."
+     ],
+     "foljd": "Det låser den gröna pärmen på plats 3 och den lila pärmen på plats 4."
+    }
+   ],
+   "schema": {
+    "namn": [
+     [
+      "Röd"
+     ],
+     [
       "Svart"
      ],
      [
-      "Vit"
-     ],
-     [
-      "Röd"
+      "Grön"
      ],
      [
       "Lila"
@@ -3440,25 +3074,311 @@
   "formell": {
    "tema": "saker",
    "namn": [
+    "grön",
     "lila",
     "röd",
-    "svart",
-    "vit"
+    "svart"
    ],
    "villkor": [
     {
-     "typ": "direkt_vanster_om",
+     "typ": "inte_plats",
      "a": 1,
-     "b": 0
+     "k": 3
     },
     {
-     "typ": "inte_plats",
+     "typ": "vanster_om",
      "a": 2,
-     "k": 4
+     "b": 3
+    },
+    {
+     "typ": "plats",
+     "a": 3,
+     "k": 2
+    }
+   ],
+   "fraga": {
+    "form": "maste"
+   },
+   "alternativ": [
+    {
+     "typ": "granne",
+     "a": 1,
+     "b": 3
     },
     {
      "typ": "direkt_vanster_om",
      "a": 3,
+     "b": 0
+    },
+    {
+     "typ": "inte_granne",
+     "a": 0,
+     "b": 3
+    },
+    {
+     "typ": "plats",
+     "a": 0,
+     "k": 4
+    },
+    {
+     "typ": "vanster_om",
+     "a": 1,
+     "b": 0
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d2-09",
+  "niva": "grund",
+  "typ": "D2",
+  "family": "vanster_om",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fyra kollegor står i en rad på plats 1 till 4, räknat från vänster.",
+  "villkor": [
+   "Cilla står inte bredvid Filip.",
+   "Filip står någonstans till vänster om Cilla.",
+   "Åsa står på plats 1."
+  ],
+  "fraga": "Vilket måste vara sant?",
+  "options": [
+   "Cilla står direkt till vänster om Sven.",
+   "Filip står inte bredvid Åsa.",
+   "Filip står på plats 2.",
+   "Sven står någonstans till vänster om Filip.",
+   "Sven står direkt till vänster om Filip."
+  ],
+  "correctAnswer": 2,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Måste gälla.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren."
+  ],
+  "misstag": [
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Cilla står inte bredvid Filip.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Cilla står inte bredvid Filip.",
+   "",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Cilla står inte bredvid Filip.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Cilla står inte bredvid Filip."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [
+      "Åsa står på plats 1."
+     ],
+     "foljd": "Det låser Åsa på plats 1."
+    },
+    {
+     "markor": [
+      1
+     ],
+     "villkor": [
+      "Cilla står inte bredvid Filip."
+     ],
+     "foljd": "Det låser Sven på plats 3."
+    },
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [
+      "Filip står någonstans till vänster om Cilla."
+     ],
+     "foljd": "Det låser Filip på plats 2 och Cilla på plats 4."
+    }
+   ],
+   "schema": {
+    "namn": [
+     [
+      "Åsa"
+     ],
+     [
+      "Filip"
+     ],
+     [
+      "Sven"
+     ],
+     [
+      "Cilla"
+     ]
+    ],
+    "koppar": 2,
+    "antagande": null
+   }
+  },
+  "formell": {
+   "tema": "personer",
+   "namn": [
+    "Cilla",
+    "Filip",
+    "Sven",
+    "Åsa"
+   ],
+   "villkor": [
+    {
+     "typ": "inte_granne",
+     "a": 0,
+     "b": 1
+    },
+    {
+     "typ": "vanster_om",
+     "a": 1,
+     "b": 0
+    },
+    {
+     "typ": "plats",
+     "a": 3,
+     "k": 1
+    }
+   ],
+   "fraga": {
+    "form": "maste"
+   },
+   "alternativ": [
+    {
+     "typ": "direkt_vanster_om",
+     "a": 0,
+     "b": 2
+    },
+    {
+     "typ": "inte_granne",
+     "a": 1,
+     "b": 3
+    },
+    {
+     "typ": "plats",
+     "a": 1,
+     "k": 2
+    },
+    {
+     "typ": "vanster_om",
+     "a": 2,
+     "b": 1
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 2,
+     "b": 1
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d2-10",
+  "niva": "grund",
+  "typ": "D2",
+  "family": "inte_plats",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fyra pärmar i olika färger ligger på en hylla, på plats 1 till 4 räknat från vänster.",
+  "villkor": [
+   "Den röda pärmen ligger inte på plats 2.",
+   "Den lila pärmen ligger på plats 4.",
+   "Den blå pärmen ligger bredvid den lila pärmen."
+  ],
+  "fraga": "Vilket måste vara sant?",
+  "options": [
+   "Den röda pärmen ligger direkt till vänster om den blå pärmen.",
+   "Den svarta pärmen ligger på plats 1.",
+   "Den svarta pärmen ligger någonstans till vänster om den röda pärmen.",
+   "Den röda pärmen ligger direkt till vänster om den svarta pärmen.",
+   "Den svarta pärmen ligger direkt till vänster om den röda pärmen."
+  ],
+  "correctAnswer": 3,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Måste gälla.",
+   "Strider mot villkoren."
+  ],
+  "misstag": [
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Den röda pärmen ligger inte på plats 2.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Den röda pärmen ligger inte på plats 2.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Den röda pärmen ligger inte på plats 2.",
+   "",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Den röda pärmen ligger inte på plats 2."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [
+      "Den lila pärmen ligger på plats 4."
+     ],
+     "foljd": "Det låser den lila pärmen på plats 4."
+    },
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [
+      "Den blå pärmen ligger bredvid den lila pärmen."
+     ],
+     "foljd": "Det låser den blå pärmen på plats 3."
+    },
+    {
+     "markor": [
+      1
+     ],
+     "villkor": [
+      "Den röda pärmen ligger inte på plats 2."
+     ],
+     "foljd": "Det låser den röda pärmen på plats 1 och den svarta pärmen på plats 2."
+    }
+   ],
+   "schema": {
+    "namn": [
+     [
+      "Röd"
+     ],
+     [
+      "Svart"
+     ],
+     [
+      "Blå"
+     ],
+     [
+      "Lila"
+     ]
+    ],
+    "koppar": null,
+    "antagande": null
+   }
+  },
+  "formell": {
+   "tema": "saker",
+   "namn": [
+    "blå",
+    "lila",
+    "röd",
+    "svart"
+   ],
+   "villkor": [
+    {
+     "typ": "inte_plats",
+     "a": 2,
+     "k": 2
+    },
+    {
+     "typ": "plats",
+     "a": 1,
+     "k": 4
+    },
+    {
+     "typ": "granne",
+     "a": 0,
      "b": 1
     }
    ],
@@ -3469,17 +3389,7 @@
     {
      "typ": "direkt_vanster_om",
      "a": 2,
-     "b": 3
-    },
-    {
-     "typ": "direkt_vanster_om",
-     "a": 0,
-     "b": 2
-    },
-    {
-     "typ": "vanster_om",
-     "a": 3,
-     "b": 2
+     "b": 0
     },
     {
      "typ": "plats",
@@ -3488,8 +3398,154 @@
     },
     {
      "typ": "vanster_om",
+     "a": 3,
+     "b": 2
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 2,
+     "b": 3
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 3,
+     "b": 2
+    }
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d2-11",
+  "niva": "grund",
+  "typ": "D2",
+  "family": "vanster_om",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fyra kollegor står i en rad på plats 1 till 4, räknat från vänster.",
+  "villkor": [
+   "Dan står på plats 3.",
+   "Dan står bredvid Hugo.",
+   "Hugo står någonstans till vänster om Ulla."
+  ],
+  "fraga": "Vilket måste vara sant?",
+  "options": [
+   "Hugo står inte bredvid Karin.",
+   "Karin står på plats 4.",
+   "Dan står bredvid Karin.",
+   "Karin står direkt till vänster om Dan.",
+   "Karin står inte bredvid Ulla."
+  ],
+  "correctAnswer": 4,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Måste gälla."
+  ],
+  "misstag": [
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Dan står på plats 3.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 3: Hugo står någonstans till vänster om Ulla.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Dan står på plats 3.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Dan står på plats 3.",
+   ""
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      1
+     ],
+     "villkor": [
+      "Dan står på plats 3."
+     ],
+     "foljd": "Det låser Dan på plats 3."
+    },
+    {
+     "markor": [
+      2,
+      3
+     ],
+     "villkor": [
+      "Dan står bredvid Hugo.",
+      "Hugo står någonstans till vänster om Ulla."
+     ],
+     "foljd": "Tillsammans låser de Karin på plats 1, Hugo på plats 2 och Ulla på plats 4."
+    }
+   ],
+   "schema": {
+    "namn": [
+     [
+      "Karin"
+     ],
+     [
+      "Hugo"
+     ],
+     [
+      "Dan"
+     ],
+     [
+      "Ulla"
+     ]
+    ],
+    "koppar": null,
+    "antagande": null
+   }
+  },
+  "formell": {
+   "tema": "personer",
+   "namn": [
+    "Dan",
+    "Hugo",
+    "Karin",
+    "Ulla"
+   ],
+   "villkor": [
+    {
+     "typ": "plats",
+     "a": 0,
+     "k": 3
+    },
+    {
+     "typ": "granne",
+     "a": 0,
+     "b": 1
+    },
+    {
+     "typ": "vanster_om",
+     "a": 1,
+     "b": 3
+    }
+   ],
+   "fraga": {
+    "form": "maste"
+   },
+   "alternativ": [
+    {
+     "typ": "inte_granne",
      "a": 1,
      "b": 2
+    },
+    {
+     "typ": "plats",
+     "a": 2,
+     "k": 4
+    },
+    {
+     "typ": "granne",
+     "a": 0,
+     "b": 2
+    },
+    {
+     "typ": "direkt_vanster_om",
+     "a": 2,
+     "b": 0
+    },
+    {
+     "typ": "inte_granne",
+     "a": 2,
+     "b": 3
     }
    ]
   },

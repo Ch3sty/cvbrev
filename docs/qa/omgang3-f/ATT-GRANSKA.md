@@ -1,5 +1,14 @@
 # Att granska, omgång 3 spår F: deduktiv slutledning och verbalt parti 04
 
+## Granskning 02 (efter granskning 01)
+
+Befordrat enligt beslut-01: grund 25, avancerad 30, expert 20 (docs/qa/deduktiv/befordran-01.md). Kvar att granska:
+
+- **dd-g-d2-07 till 11**, ersättarna enligt V5, i deduktiv/index.html under Grund. Beslut i docs/qa/deduktiv/granskning-02.md och beslut-02.json; befordra-deduktiv.mjs läser alla beslutsfiler i ordning.
+- **Prövningsstegen** i de 13 uppgifterna från V1 (till exempel dd-e-d3-05 och dd-a-d2-26), nu i två steg med kvar och motsägelse.
+- Parti 04: villkoren för va-21 och va-24 är införda. Rekommendationen för vg-17 är inte gjord: med ett "går inte att avgöra" till får grund 10 av 32 (31 procent) och validatorn kräver högst 30.
+
+
 Datum 2026-10-12. Från Opus F till testansvarig. Branch `feat/dedukt-f`. Inget av detta ligger i en skarp bank: deduktivens bankfiler är tomma (`BANK_BEFORDRAD = false`) och parti 04 ligger i `underlagParti04.json`, som bara nås av sessioner med `underlag_version: 4` efter deploy.
 
 ## 1. Deduktiv slutledning, 84 kandidater

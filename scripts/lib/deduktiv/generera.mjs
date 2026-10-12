@@ -248,9 +248,6 @@ export function forsokSchema(r, spec, id, facitPlats) {
   const { lista, correctAnswer } = ordna(r, facit, valda.map((x) => x.d), facitPlats);
   const q0 = kandidatQ(lista, correctAnswer, fraga);
 
-  const fk = forklara({ tema: spec.tema, namn, villkor, antagande });
-  if (!fk) return null;
-
   const txt = (c) => villkorText(spec.tema, namn, c);
   const antagandeFras = antagande ? `${F[antagande.a].mitt} ${T.verb} på plats ${antagande.k}` : null;
   const fragaText =
@@ -267,22 +264,96 @@ export function forsokSchema(r, spec, id, facitPlats) {
     return ETIKETT.gaarIhop;
   });
 
-  // Misstaget per alternativ (deduktiv-spec 2.3), ur lösaren; tomt för facit.
-  const verb = T.verb;
-  const plats = (i) => losning[i];
-  const iSchemat = (x) => {
-    const el = x.b != null ? [x.a, x.b] : [x.a];
-    return el.map((i) => `${F[i].mitt} på plats ${plats(i)}`).join(' och ');
+  const lager = losningslager(q0.formell, spec.typ);
+  if (!lager) return null;
+  if (spec.minSteg && lager.losning.steg.filter((x) => !x.markor.includes('Om')).length < spec.minSteg) return null;
+  if (spec.maxVillkorPerSteg && lager.losning.steg.some((x) => x.markor.length > spec.maxVillkorPerSteg)) return null;
+  if (spec.platsForst && !(lager.formella[0]?.typ === 'las' && lager.formella[0].villkor.length === 1 && villkor[lager.formella[0].villkor[0]].typ === 'plats'))
+    return null;
+
+  const q = {
+    id,
+    niva: spec.niva,
+    typ: spec.typ,
+    family: lager.family,
+    difficulty: DIFFICULTY[spec.typ],
+    p_prior: P_PRIOR[spec.typ],
+    intro: T.intro(n),
+    villkor: villkor.map(txt),
+    fraga: fragaText,
+    options: lista.map((x) => (fraga.form === 'vem' ? F[x].fore : txt(x))),
+    correctAnswer,
+    etiketter,
+    misstag: lager.misstag,
+    losning: lager.losning,
+    formell: q0.formell,
+    fran_version: 1,
   };
-  const misstag = lista.map((x, i) => {
-    if (i === correctAnswer) return '';
-    const n0 = nmLista[i][0];
-    const brutet = n0 != null ? `villkor ${n0 + 1}: ${txt(villkor[n0])}` : null;
-    if (fraga.form === 'vem') {
-      const bas = `${F[x].fore} ${verb} på plats ${plats(x)}.`;
-      return brutet ? `${bas} Med ${F[x].mitt} på plats ${fraga.k} bryts ${brutet}` : `${bas} Plats ${fraga.k} går inte.`;
+  return sparrFel(q).length ? null : q;
+}
+
+/**
+ * Lösningslagret ur pusslets formella form: lösningsgången och remsan
+ * (forklaring.mjs), misstaget per alternativ och familjen. Pusslet självt
+ * (villkor, fråga, alternativ, facit, etiketter) rörs inte, så lagret kan
+ * byggas om på befintliga uppgifter (granskning 01 V3). Null när lösaren
+ * inte kan förklara uppgiften.
+ *
+ * Misstagen (deduktiv-spec 2.3, granskning 01 V2):
+ *   vem      "{X} står på plats m. Med {X} på plats k bryts villkor n: ..."
+ *   maste    den nära miss som flyttar färst element jämfört med schemat:
+ *            "I schemat stämmer det inte. För att få det sant måste minst
+ *            ett villkor brytas, till exempel villkor n: ..."
+ *   omojlig  "I schemat står X på plats a. Det går ihop med villkoren, så
+ *            det är inte svaret."
+ */
+export function losningslager(formell, typ) {
+  const f = formell;
+  const T = TEMAN[f.tema];
+  const g = T.grupper ?? null;
+  const n = f.namn.length;
+  const F = elementForm(f.tema, f.namn);
+  const txt = (c) => villkorText(f.tema, f.namn, c);
+  const alla = f.antagande ? [...f.villkor, f.antagande] : f.villkor;
+  const S = losningar(n, alla, g);
+  if (S.length !== 1) return null;
+  const [losning] = S;
+  const fk = forklara({ tema: f.tema, namn: f.namn, villkor: f.villkor, antagande: f.antagande ?? null });
+  if (!fk) return null;
+  const q0 = { typ, formell: f, correctAnswer: null };
+  const nm = naraMissar(q0);
+  const facitIdx = f.alternativ.findIndex((x) => {
+    if (f.fraga.form === 'vem') return losning[x] === f.fraga.k;
+    if (f.fraga.form === 'maste') return uppfyllt(x, losning, g);
+    return !uppfyllt(x, losning, g);
+  });
+
+  const verb = T.verb;
+  const iSchemat = (x) => (x.b != null ? [x.a, x.b] : [x.a]).map((i) => `${F[i].mitt} på plats ${losning[i]}`).join(' och ');
+  /** Den nära miss (villkorets index) vars tilldelning flyttar färst element; lika: lägst villkor. */
+  const narmast = (x) => {
+    let bast = null;
+    for (const pos of allaTilldelningar(n)) {
+      const b = brutna(pos, f.villkor, g);
+      if (b.length !== 1 || !uppfyllt(x, pos, g)) continue;
+      const flytt = pos.filter((p, i) => p !== losning[i]).length;
+      if (!bast || flytt < bast.flytt || (flytt === bast.flytt && b[0] < bast.k)) bast = { flytt, k: b[0] };
     }
-    if (fraga.form === 'maste') return brutet ? `Det stämmer bara om du bryter ${brutet}` : 'Det strider mot villkoren.';
+    return bast?.k ?? null;
+  };
+  const misstag = f.alternativ.map((x, i) => {
+    if (i === facitIdx) return '';
+    if (f.fraga.form === 'vem') {
+      const n0 = nm[i][0];
+      const bas = `${F[x].fore} ${verb} på plats ${losning[x]}.`;
+      return n0 != null ? `${bas} Med ${F[x].mitt} på plats ${f.fraga.k} bryts villkor ${n0 + 1}: ${txt(f.villkor[n0])}` : `${bas} Plats ${f.fraga.k} går inte.`;
+    }
+    if (f.fraga.form === 'maste') {
+      const k = narmast(x);
+      return k != null
+        ? `I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor ${k + 1}: ${txt(f.villkor[k])}`
+        : 'Det strider mot villkoren.';
+    }
     return `I schemat ${verb} ${iSchemat(x)}. Det går ihop med villkoren, så det är inte svaret.`;
   });
 
@@ -292,39 +363,27 @@ export function forsokSchema(r, spec, id, facitPlats) {
   for (const steg of fk.villkorPerSteg)
     for (const k of steg) {
       if (k < 0) continue;
-      const t = villkor[k].typ;
+      const t = f.villkor[k].typ;
       antal[t] = (antal[t] ?? 0) + 1;
       senast = t;
     }
   const max = Math.max(0, ...Object.values(antal));
-  const family = senast && antal[senast] === max ? senast : Object.keys(antal).find((t) => antal[t] === max) ?? villkor[0].typ;
+  const family = senast && antal[senast] === max ? senast : Object.keys(antal).find((t) => antal[t] === max) ?? f.villkor[0].typ;
 
-  const q = {
-    id,
-    niva: spec.niva,
-    typ: spec.typ,
+  const facit = f.alternativ[facitIdx];
+  return {
     family,
-    difficulty: DIFFICULTY[spec.typ],
-    p_prior: P_PRIOR[spec.typ],
-    intro: T.intro(n),
-    villkor: villkor.map(txt),
-    fraga: fragaText,
-    options: lista.map((x) => (fraga.form === 'vem' ? F[x].fore : txt(x))),
-    correctAnswer,
-    etiketter,
     misstag,
+    formella: fk.formella,
     losning: {
       steg: fk.steg,
       schema: {
-        namn: schemaRad(losning).map((i) => [etikett(spec.tema, namn[i])]),
-        koppar: fraga.form === 'vem' ? fraga.k : fraga.form === 'maste' && lista[correctAnswer].typ === 'plats' ? lista[correctAnswer].k : null,
-        antagande: antagande ? antagande.k : null,
+        namn: schemaRad(losning).map((i) => [etikett(f.tema, f.namn[i])]),
+        koppar: f.fraga.form === 'vem' ? f.fraga.k : f.fraga.form === 'maste' && facit?.typ === 'plats' ? facit.k : null,
+        antagande: f.antagande ? f.antagande.k : null,
       },
     },
-    formell: q0.formell,
-    fran_version: 1,
   };
-  return sparrFel(q).length ? null : q;
 }
 
 /** Strukturnyckel: samma villkorsmönster och fråga, oavsett namn. */

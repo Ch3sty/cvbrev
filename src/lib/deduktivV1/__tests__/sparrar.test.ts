@@ -12,6 +12,8 @@ import * as S from '../../../../scripts/lib/deduktiv/sparrar.mjs'
 import { losningar, allaTilldelningar, uppfyllt } from '../../../../scripts/lib/deduktiv/losare.mjs'
 // @ts-ignore ren JavaScript
 import { status, stabilStatus } from '../../../../scripts/lib/deduktiv/mangdmodell.mjs'
+// @ts-ignore ren JavaScript
+import { forklara, stegFel } from '../../../../scripts/lib/deduktiv/forklaring.mjs'
 
 // Kandidaterna läses som filer, aldrig som import.
 const las = (f: string) => JSON.parse(readFileSync(`src/lib/deduktivV1/kandidater/${f}.json`, 'utf8'))
@@ -29,11 +31,12 @@ describe('deduktivens spärrar', () => {
     for (const q of [...grund, ...avancerad, ...expert]) expect(S.sparrFel(q), q.id).toEqual([])
   }, 60_000)
 
-  it('kvoterna: 24 D1 och 6 D2 på grund, 30 D2 på avancerad, 24 D3 på expert', () => {
+  it('kvoterna efter granskning 01: 24 D1 och 6 D2 på grund (05 och ersättarna 07 till 11), 30 D2 på avancerad, 20 D3 på expert', () => {
     const typer = (l: Q[]) => l.reduce((a: Record<string, number>, q: Q) => ({ ...a, [q.typ]: (a[q.typ] ?? 0) + 1 }), {})
     expect(typer(grund)).toEqual({ D1: 24, D2: 6 })
     expect(typer(avancerad)).toEqual({ D2: 30 })
-    expect(typer(expert)).toEqual({ D3: 24 })
+    expect(typer(expert)).toEqual({ D3: 20 })
+    expect(grund.filter((q: Q) => q.typ === 'D2').map((q: Q) => q.id)).toEqual(['dd-g-d2-05', 'dd-g-d2-07', 'dd-g-d2-08', 'dd-g-d2-09', 'dd-g-d2-10', 'dd-g-d2-11'])
   })
 
   it('DD1: en D2 med två lösningar fälls', () => {
@@ -131,6 +134,38 @@ describe('deduktivens spärrar', () => {
     const d = kopia(expert[0])
     d.losning.schema.koppar = 2
     expect(S.dd5(d).join()).toMatch(/DV5: kopparn står på 2, ska stå på null/)
+  })
+
+  it('DD6: dd-e-d3-04 som den såg ut i parti 01 fälls (antagandet och villkor 6 ger svaret)', () => {
+    const q = JSON.parse(readFileSync('src/lib/deduktivV1/__tests__/fixturer/dd-e-d3-04-strukna.json', 'utf8'))
+    expect(S.dd6(q).join()).toMatch(/DD6: facit är omöjligt ur antagandet och villkor 6 ensamt/)
+    for (const x of expert) expect(S.dd6(x), x.id).toEqual([])
+  })
+
+  it('V1: prövningen står i två steg och varje lås följer ur stegets villkor', () => {
+    const q = kopia(expert.find((x: Q) => x.id === 'dd-e-d3-05'))
+    const foljder = q.losning.steg.map((s: Q) => s.foljd)
+    expect(foljder).toContain('Kvar för Lisa: plats 3 eller 5.')
+    expect(foljder).toContain('Med Lisa på plats 3 går villkor 1, 2 och 4 inte ihop. Alltså står Lisa på plats 5.')
+    expect(foljder.some((t: string) => t.startsWith('Med') && /Det låser/.test(t))).toBe(false)
+    const f = q.formell
+    const fk = forklara({ tema: f.tema, namn: f.namn, villkor: f.villkor, antagande: f.antagande })
+    expect(stegFel(f, fk.formella)).toEqual([])
+    // Ett lås som inte följer ur stegets villkor fälls.
+    const las = fk.formella.findIndex((x: Q) => x.typ === 'las' && x.villkor.length === 1)
+    const trasig = JSON.parse(JSON.stringify(fk.formella))
+    trasig[las].villkor = [(trasig[las].villkor[0] + 1) % f.villkor.length]
+    expect(stegFel(f, trasig).join()).toMatch(/V1: steg [0-9]+ låser plats [0-9] utan stöd i sina villkor/)
+  })
+
+  it('V2: måste-misstagen saknar "bara" och pekar på den närmaste nära missen', () => {
+    for (const q of avancerad.filter((x: Q) => x.formell.fraga.form === 'maste')) {
+      q.misstag.forEach((m: string, i: number) => {
+        if (i === q.correctAnswer) return
+        expect(m, q.id).not.toMatch(/(^|[^a-zåäö])bara([^a-zåäö]|$)/i)
+        expect(m, q.id).toMatch(/^I schemat stämmer det inte[.] För att få det sant måste minst ett villkor brytas, till exempel villkor [0-9]: /)
+      })
+    }
   })
 
   it('mängdmodellen: existensläsningen fäller ett påstående som beror på den', () => {

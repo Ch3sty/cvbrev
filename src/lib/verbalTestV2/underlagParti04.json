@@ -144,13 +144,13 @@
   "title": "Lönekartläggningen",
   "difficulty": 2,
   "topic": "Arbetsliv",
-  "text": "Arbetsgivare med minst tio anställda ska varje år göra en lönekartläggning och dokumentera den skriftligt. Syftet är att upptäcka skillnader i lön mellan kvinnor och män som inte går att förklara med arbetets innehåll, erfarenhet eller ansvar. Kartläggningen ska göras i samarbete med facket. Om den visar osakliga skillnader ska arbetsgivaren rätta till dem inom tre år. Diskrimineringsombudsmannen granskar varje år ett urval av arbetsgivare och kan begära vite av den som inte gör kartläggningen. Förespråkarna menar att kravet tvingar fram ett samtal om lön som annars inte blir av. Arbetsgivarorganisationer anser däremot att kravet är tungt för små företag, där samma person ofta sköter lön, rekrytering och ekonomi, och att jämförelserna blir osäkra när det finns en eller två personer per yrke. Facket menar i stället att det är just på små arbetsplatser som skillnaderna är svårast att upptäcka utan en kartläggning. En granskning visade att många av de kartläggningar som kontrollerades var ofullständiga, oftast för att arbetsgivaren inte hade jämfört grupper med likvärdigt arbete. Ombudsmannen har därför tagit fram en mall som är fri att använda. Mallen har laddats ner av flera tusen arbetsgivare.",
+  "text": "Alla arbetsgivare ska varje år göra en lönekartläggning, och arbetsgivare med minst tio anställda ska dokumentera den skriftligt. Syftet är att upptäcka skillnader i lön mellan kvinnor och män som inte går att förklara med arbetets innehåll, erfarenhet eller ansvar. Kartläggningen ska göras i samarbete med facket. Om den visar osakliga skillnader ska arbetsgivaren rätta till dem inom tre år. Diskrimineringsombudsmannen granskar varje år ett urval av arbetsgivare och kan begära vite av den som inte gör kartläggningen. Förespråkarna menar att kravet tvingar fram ett samtal om lön som annars inte blir av. Arbetsgivarorganisationer anser däremot att kravet är tungt för små företag, där samma person ofta sköter lön, rekrytering och ekonomi, och att jämförelserna blir osäkra när det finns en eller två personer per yrke. Facket menar i stället att det är just på små arbetsplatser som skillnaderna är svårast att upptäcka utan en kartläggning. En granskning visade att många av de kartläggningar som kontrollerades var ofullständiga, oftast för att arbetsgivaren inte hade jämfört grupper med likvärdigt arbete. Ombudsmannen har därför tagit fram en mall som är fri att använda. Mallen har laddats ner av flera tusen arbetsgivare.",
   "statements": [
    {
-    "text": "Alla arbetsgivare måste göra en lönekartläggning.",
+    "text": "Alla arbetsgivare måste dokumentera sin lönekartläggning skriftligt.",
     "correctAnswer": "false",
     "typ": "kvantor",
-    "explanation": "Texten säger att kravet gäller arbetsgivare med minst tio anställda. Alla arbetsgivare omfattas alltså inte, och påståendet är falskt."
+    "explanation": "Texten säger att alla arbetsgivare ska göra kartläggningen, men att kravet på skriftlig dokumentation gäller från tio anställda. Alla måste alltså inte dokumentera den, och påståendet är falskt."
    },
    {
     "text": "Diskrimineringsombudsmannen har aldrig begärt vite av en arbetsgivare.",
@@ -165,10 +165,10 @@
     "explanation": "Texten säger att kartläggningen ska göras i samarbete med facket. Påståendet säger samma sak med andra ord."
    },
    {
-    "text": "En arbetsgivare med sex anställda kan få betala vite för att den inte gör en lönekartläggning.",
+    "text": "En arbetsgivare med sex anställda kan få betala vite för att den inte dokumenterar sin lönekartläggning skriftligt.",
     "correctAnswer": "false",
     "typ": "slutledning",
-    "explanation": "Texten säger att kravet gäller från tio anställda och att vite kan begäras av den som inte gör kartläggningen. Med sex anställda finns inget krav, och då inget vite för att den saknas."
+    "explanation": "Texten säger att kravet på skriftlig dokumentation gäller från tio anställda. En arbetsgivare med sex anställda har inget sådant krav och kan då inte få vite för att dokumentationen saknas."
    }
   ],
   "kalla": "skriven 2026-10-12, parti 04, avancerad",
@@ -258,10 +258,10 @@
     "explanation": "Texten säger att grannkommunen har tagit bort avgiften, men inget om hur många som har sökt sig dit. Det går därför inte att avgöra."
    },
    {
-    "text": "Köerna i grannkommunen har blivit längre sedan avgiften togs bort.",
+    "text": "Lärarbristen är störst inom instrumentundervisningen.",
     "correctAnswer": "cannot_say",
     "typ": "utanfor",
-    "explanation": "Texten nämner köer i kommunen som har kvar avgiften men säger inget om köerna i grannkommunen. Påståendet går inte att bekräfta eller säga emot."
+    "explanation": "Texten säger att kulturskolorna länge har haft svårt att rekrytera lärare, men inget om i vilka ämnen bristen är störst. Det går därför inte att avgöra."
    },
    {
     "text": "Kulturskolan är obligatorisk i samtliga kommuner.",

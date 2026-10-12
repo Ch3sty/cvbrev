@@ -8,7 +8,7 @@
 // =============================================================================
 
 /** Sätts till true i samma commit som bankfilerna fylls. */
-export const BANK_BEFORDRAD = false;
+export const BANK_BEFORDRAD = true;
 
 /** Kortet i Alla tester och sidorna under /dashboard/tester/deduktiv-*. */
 export function deduktivSynlig(): boolean {

@@ -1,0 +1,67 @@
+{
+  "datum": "2026-10-12",
+  "granskare": "testansvarig",
+  "golv_per_niva": 20,
+  "godkanda": [
+    "dd-g-d1-01", "dd-g-d1-02", "dd-g-d1-03", "dd-g-d1-04", "dd-g-d1-05", "dd-g-d1-06",
+    "dd-g-d1-07", "dd-g-d1-08", "dd-g-d1-09", "dd-g-d1-10", "dd-g-d1-11", "dd-g-d1-12",
+    "dd-g-d1-13", "dd-g-d1-14", "dd-g-d1-15", "dd-g-d1-16", "dd-g-d1-17", "dd-g-d1-18",
+    "dd-g-d1-19", "dd-g-d1-20", "dd-g-d1-21", "dd-g-d1-22", "dd-g-d1-23", "dd-g-d1-24",
+    "dd-g-d2-05",
+    "dd-a-d2-01", "dd-a-d2-02", "dd-a-d2-03", "dd-a-d2-04", "dd-a-d2-05", "dd-a-d2-06",
+    "dd-a-d2-07", "dd-a-d2-08", "dd-a-d2-09", "dd-a-d2-10", "dd-a-d2-11", "dd-a-d2-12",
+    "dd-a-d2-13", "dd-a-d2-14", "dd-a-d2-15", "dd-a-d2-16", "dd-a-d2-17", "dd-a-d2-18",
+    "dd-a-d2-19", "dd-a-d2-20", "dd-a-d2-21", "dd-a-d2-22", "dd-a-d2-23", "dd-a-d2-24",
+    "dd-a-d2-25", "dd-a-d2-26", "dd-a-d2-27", "dd-a-d2-28", "dd-a-d2-29", "dd-a-d2-30",
+    "dd-e-d3-01", "dd-e-d3-02", "dd-e-d3-03", "dd-e-d3-05", "dd-e-d3-06", "dd-e-d3-07",
+    "dd-e-d3-08", "dd-e-d3-09", "dd-e-d3-10", "dd-e-d3-11", "dd-e-d3-12", "dd-e-d3-13",
+    "dd-e-d3-14", "dd-e-d3-15", "dd-e-d3-17", "dd-e-d3-18", "dd-e-d3-19", "dd-e-d3-21",
+    "dd-e-d3-23", "dd-e-d3-24"
+  ],
+  "strukna": [
+    { "id": "dd-e-d3-04", "skal": "Antagandet (Maja på plats 4) och villkor 6 ensamt ger Olle på plats 5, så facit \"Olle står på plats 6\" läses av ur ett villkor. Faller på DD6." },
+    { "id": "dd-e-d3-16", "skal": "Antagandet (Eva på plats 1) och villkor 4 ensamt ger Carl på plats 2, så facit \"Carl står på plats 4\" läses av ur ett villkor. Faller på DD6." },
+    { "id": "dd-e-d3-20", "skal": "Antagandet (Åsa på plats 2) och villkor 3 ensamt ger Lisa på plats 1, så facit \"Lisa står på plats 3\" läses av ur ett villkor. Faller på DD6." },
+    { "id": "dd-e-d3-22", "skal": "Antagandet (Sara på plats 6) och villkor 5 ensamt ger Hanna på plats 5, så facit \"Sara står bredvid Åsa\" läses av ur ett villkor. Faller på DD6." },
+    { "id": "dd-g-d2-01", "skal": "Lösningsgången är ett enda steg med alla tre villkor som låser alla fyra platser. Lär inget på grund. Ersätts enligt V5." },
+    { "id": "dd-g-d2-02", "skal": "Lösningsgången är ett enda steg med alla tre villkor. Ersätts enligt V5." },
+    { "id": "dd-g-d2-03", "skal": "Lösningsgången är ett enda steg med alla tre villkor. Ersätts enligt V5." },
+    { "id": "dd-g-d2-04", "skal": "Lösningsgången är ett enda steg med alla tre villkor. Ersätts enligt V5." },
+    { "id": "dd-g-d2-06", "skal": "Lösningsgången är ett enda steg med alla tre villkor. Ersätts enligt V5." }
+  ],
+  "andra": [],
+  "villkor": [
+    {
+      "id": "V1-provningssteg",
+      "galler": ["dd-a-d2-05", "dd-a-d2-18", "dd-a-d2-21", "dd-a-d2-23", "dd-a-d2-26", "dd-a-d2-27", "dd-e-d3-05", "dd-e-d3-07", "dd-e-d3-10", "dd-e-d3-11", "dd-e-d3-14", "dd-e-d3-18", "dd-e-d3-19"],
+      "andring": "Prövningssteget i forklaring.mjs delas i tre: (a) ett steg som citerar de villkor som snävar in elementet, \"Kvar för Lisa: plats 3 eller 5.\"; (b) motsägelsen med de villkor som ger den, \"Med Lisa på plats 3 går villkor 1, 2 och 4 inte ihop. Alltså står Lisa på plats 5.\"; (c) därefter den vanliga slingan, ett villkor i taget, i stället för nyaLas över alla villkor. Spärr i validate-deduktiv.mjs: varje lås i ett steg ska följa ur stegets citerade villkor plus redan låsta platser, kontrollerat med den uttömmande lösaren."
+    },
+    {
+      "id": "V2-misstag-maste",
+      "galler": ["alla D2 med fraga.form = maste"],
+      "andring": "Misstaget för en distraktor väljer den nära miss vars tilldelning skiljer sig från schemat på färst platser, inte den lägst numrerade. Ordet \"bara\" tas bort. Mall: \"I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor {k}: {villkoret}\". Copywritern putsar orden."
+    },
+    {
+      "id": "V3-oforandrade-pussel",
+      "galler": ["alla godkända"],
+      "andring": "Efter V1 och V2 ska gen-deduktiv.mjs ge byte-identiska villkor, fraga, options, correctAnswer, etiketter och formell för alla godkända id; bara losning.steg och misstag får ändras. Diff bifogas befordran. Nya uppgifter får nya id, inget id återanvänds."
+    },
+    {
+      "id": "V4-DD6",
+      "galler": ["alla D3"],
+      "andring": "Ny spärr DD6: facit får inte vara omöjligt ur antagandet plus färre än två villkor. Fixtur: dd-e-d3-04 i nuvarande form fälls med DD6."
+    },
+    {
+      "id": "V5-ersattare-grund-d2",
+      "galler": ["dd-g-d2-07 till dd-g-d2-11"],
+      "andring": "Fem nya D2 på grund med minst två steg i lösningsgången och inget steg med tre villkor (ett plats-villkor som låser först). Granskas i granskning-02 före befordran. Grund befordras med 25 oavsett."
+    }
+  ],
+  "lansering": {
+    "grund": 25,
+    "avancerad": 30,
+    "expert": 20,
+    "golvet_nas": true,
+    "anmarkning": "Expert ligger exakt på golvet. Fyra ersättare med DD6 beställs till omgång 4."
+  }
+}

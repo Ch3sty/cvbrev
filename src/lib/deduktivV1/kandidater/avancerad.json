@@ -175,11 +175,11 @@
    "Strider mot villkoren."
   ],
   "misstag": [
-   "Det stämmer bara om du bryter villkor 1: Den röda pärmen ligger någonstans till vänster om den vita pärmen.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Den röda pärmen ligger någonstans till vänster om den vita pärmen.",
    "",
-   "Det stämmer bara om du bryter villkor 1: Den röda pärmen ligger någonstans till vänster om den vita pärmen.",
-   "Det stämmer bara om du bryter villkor 1: Den röda pärmen ligger någonstans till vänster om den vita pärmen.",
-   "Det stämmer bara om du bryter villkor 1: Den röda pärmen ligger någonstans till vänster om den vita pärmen."
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Den röda pärmen ligger någonstans till vänster om den vita pärmen.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 2: Den gröna pärmen ligger någonstans till vänster om den röda pärmen.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 2: Den gröna pärmen ligger någonstans till vänster om den röda pärmen."
   ],
   "losning": {
    "steg": [
@@ -460,11 +460,11 @@
    "Strider mot villkoren."
   ],
   "misstag": [
-   "Det stämmer bara om du bryter villkor 2: Bo går före Vera.",
-   "Det stämmer bara om du bryter villkor 1: Gun och Jonas går samma dag.",
-   "Det stämmer bara om du bryter villkor 1: Gun och Jonas går samma dag.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 2: Bo går före Vera.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 4: Rut går före Jonas.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 2: Bo går före Vera.",
    "",
-   "Det stämmer bara om du bryter villkor 1: Gun och Jonas går samma dag."
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 4: Rut går före Jonas."
   ],
   "losning": {
    "steg": [
@@ -636,6 +636,19 @@
    "steg": [
     {
      "markor": [
+      2,
+      3,
+      4
+     ],
+     "villkor": [
+      "Den gröna pärmen ligger någonstans till vänster om den svarta pärmen.",
+      "Den svarta pärmen ligger någonstans till vänster om den vita pärmen.",
+      "Den svarta pärmen ligger inte bredvid den vita pärmen."
+     ],
+     "foljd": "Kvar för den svarta pärmen: plats 2 eller 3."
+    },
+    {
+     "markor": [
       1,
       2
      ],
@@ -643,7 +656,27 @@
       "Den gröna pärmen ligger direkt till vänster om den röda pärmen.",
       "Den gröna pärmen ligger någonstans till vänster om den svarta pärmen."
      ],
-     "foljd": "Med den svarta pärmen på plats 2 går de inte ihop. Det låser den gröna pärmen på plats 1, den röda pärmen på plats 2, den svarta pärmen på plats 3, den lila pärmen på plats 4 och den vita pärmen på plats 5."
+     "foljd": "Med den svarta pärmen på plats 2 går villkor 1 och 2 inte ihop. Alltså ligger den svarta pärmen på plats 3."
+    },
+    {
+     "markor": [
+      1,
+      2
+     ],
+     "villkor": [
+      "Den gröna pärmen ligger direkt till vänster om den röda pärmen.",
+      "Den gröna pärmen ligger någonstans till vänster om den svarta pärmen."
+     ],
+     "foljd": "Tillsammans låser de den gröna pärmen på plats 1 och den röda pärmen på plats 2."
+    },
+    {
+     "markor": [
+      4
+     ],
+     "villkor": [
+      "Den svarta pärmen ligger inte bredvid den vita pärmen."
+     ],
+     "foljd": "Det låser den lila pärmen på plats 4 och den vita pärmen på plats 5."
     }
    ],
    "schema": {
@@ -745,10 +778,10 @@
   ],
   "misstag": [
    "",
-   "Det stämmer bara om du bryter villkor 1: Åsa står direkt till vänster om Cilla.",
-   "Det stämmer bara om du bryter villkor 1: Åsa står direkt till vänster om Cilla.",
-   "Det stämmer bara om du bryter villkor 1: Åsa står direkt till vänster om Cilla.",
-   "Det stämmer bara om du bryter villkor 1: Åsa står direkt till vänster om Cilla."
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Åsa står direkt till vänster om Cilla.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 2: Viktor står någonstans till vänster om Pia.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Åsa står direkt till vänster om Cilla.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Åsa står direkt till vänster om Cilla."
   ],
   "losning": {
    "steg": [
@@ -1021,11 +1054,11 @@
    "Strider mot villkoren."
   ],
   "misstag": [
-   "Det stämmer bara om du bryter villkor 2: Ida står direkt till vänster om Bo.",
-   "Det stämmer bara om du bryter villkor 2: Ida står direkt till vänster om Bo.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 4: Pia står direkt till vänster om Ida.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 4: Pia står direkt till vänster om Ida.",
    "",
-   "Det stämmer bara om du bryter villkor 1: Gustav står någonstans till vänster om Jenny.",
-   "Det stämmer bara om du bryter villkor 1: Gustav står någonstans till vänster om Jenny."
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Gustav står någonstans till vänster om Jenny.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Gustav står någonstans till vänster om Jenny."
   ],
   "losning": {
    "steg": [
@@ -1331,10 +1364,10 @@
    "Måste gälla."
   ],
   "misstag": [
-   "Det stämmer bara om du bryter villkor 1: Den röda pärmen ligger på plats 3.",
-   "Det stämmer bara om du bryter villkor 1: Den röda pärmen ligger på plats 3.",
-   "Det stämmer bara om du bryter villkor 1: Den röda pärmen ligger på plats 3.",
-   "Det stämmer bara om du bryter villkor 1: Den röda pärmen ligger på plats 3.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Den röda pärmen ligger på plats 3.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 2: Den svarta pärmen ligger någonstans till vänster om den röda pärmen.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 3: Den lila pärmen ligger någonstans till vänster om den svarta pärmen.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 4: Den röda pärmen ligger inte bredvid den vita pärmen.",
    ""
   ],
   "losning": {
@@ -1629,11 +1662,11 @@
    "Strider mot villkoren."
   ],
   "misstag": [
-   "Det stämmer bara om du bryter villkor 1: Den blå pärmen ligger direkt till vänster om den vita pärmen.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Den blå pärmen ligger direkt till vänster om den vita pärmen.",
    "",
-   "Det stämmer bara om du bryter villkor 1: Den blå pärmen ligger direkt till vänster om den vita pärmen.",
-   "Det stämmer bara om du bryter villkor 1: Den blå pärmen ligger direkt till vänster om den vita pärmen.",
-   "Det stämmer bara om du bryter villkor 1: Den blå pärmen ligger direkt till vänster om den vita pärmen."
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Den blå pärmen ligger direkt till vänster om den vita pärmen.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Den blå pärmen ligger direkt till vänster om den vita pärmen.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Den blå pärmen ligger direkt till vänster om den vita pärmen."
   ],
   "losning": {
    "steg": [
@@ -1936,11 +1969,11 @@
    "Strider mot villkoren."
   ],
   "misstag": [
-   "Det stämmer bara om du bryter villkor 1: Frida går före Tom.",
-   "Det stämmer bara om du bryter villkor 1: Frida går före Tom.",
-   "Det stämmer bara om du bryter villkor 1: Frida går före Tom.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Frida går före Tom.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Frida går före Tom.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Frida går före Tom.",
    "",
-   "Det stämmer bara om du bryter villkor 1: Frida går före Tom."
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 3: Tom står inte på plats 6."
   ],
   "losning": {
    "steg": [
@@ -2256,10 +2289,10 @@
   ],
   "misstag": [
    "",
-   "Det stämmer bara om du bryter villkor 1: Ulla står direkt till vänster om Cilla.",
-   "Det stämmer bara om du bryter villkor 1: Ulla står direkt till vänster om Cilla.",
-   "Det stämmer bara om du bryter villkor 1: Ulla står direkt till vänster om Cilla.",
-   "Det stämmer bara om du bryter villkor 1: Ulla står direkt till vänster om Cilla."
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Ulla står direkt till vänster om Cilla.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Ulla står direkt till vänster om Cilla.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Ulla står direkt till vänster om Cilla.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Ulla står direkt till vänster om Cilla."
   ],
   "losning": {
    "steg": [
@@ -2557,14 +2590,27 @@
    "Strider mot villkoren."
   ],
   "misstag": [
-   "Det stämmer bara om du bryter villkor 1: Nora står någonstans till vänster om Cilla.",
-   "Det stämmer bara om du bryter villkor 1: Nora står någonstans till vänster om Cilla.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 4: Gun står inte bredvid Nora.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 4: Gun står inte bredvid Nora.",
    "",
-   "Det stämmer bara om du bryter villkor 1: Nora står någonstans till vänster om Cilla.",
-   "Det stämmer bara om du bryter villkor 1: Nora står någonstans till vänster om Cilla."
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 4: Gun står inte bredvid Nora.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Nora står någonstans till vänster om Cilla."
   ],
   "losning": {
    "steg": [
+    {
+     "markor": [
+      1,
+      3,
+      5
+     ],
+     "villkor": [
+      "Nora står någonstans till vänster om Cilla.",
+      "Nora står inte på plats 1.",
+      "Cilla står inte på plats 5."
+     ],
+     "foljd": "Kvar för Cilla: plats 3 eller 4."
+    },
     {
      "markor": [
       1,
@@ -2576,7 +2622,27 @@
       "Nora står direkt till vänster om Erik.",
       "Nora står inte på plats 1."
      ],
-     "foljd": "Med Cilla på plats 3 går de inte ihop. Det låser Bea på plats 1, Nora på plats 2, Erik på plats 3, Cilla på plats 4 och Gun på plats 5."
+     "foljd": "Med Cilla på plats 3 går villkor 1, 2 och 3 inte ihop. Alltså står Cilla på plats 4."
+    },
+    {
+     "markor": [
+      2,
+      3
+     ],
+     "villkor": [
+      "Nora står direkt till vänster om Erik.",
+      "Nora står inte på plats 1."
+     ],
+     "foljd": "Tillsammans låser de Nora på plats 2 och Erik på plats 3."
+    },
+    {
+     "markor": [
+      4
+     ],
+     "villkor": [
+      "Gun står inte bredvid Nora."
+     ],
+     "foljd": "Det låser Bea på plats 1 och Gun på plats 5."
     }
    ],
    "schema": {
@@ -2849,10 +2915,10 @@
    "Måste gälla."
   ],
   "misstag": [
-   "Det stämmer bara om du bryter villkor 1: Den gröna pärmen ligger bredvid den röda pärmen.",
-   "Det stämmer bara om du bryter villkor 1: Den gröna pärmen ligger bredvid den röda pärmen.",
-   "Det stämmer bara om du bryter villkor 1: Den gröna pärmen ligger bredvid den röda pärmen.",
-   "Det stämmer bara om du bryter villkor 1: Den gröna pärmen ligger bredvid den röda pärmen.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Den gröna pärmen ligger bredvid den röda pärmen.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Den gröna pärmen ligger bredvid den röda pärmen.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Den gröna pärmen ligger bredvid den röda pärmen.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Den gröna pärmen ligger bredvid den röda pärmen.",
    ""
   ],
   "losning": {
@@ -2986,7 +3052,7 @@
   "id": "dd-a-d2-21",
   "niva": "avancerad",
   "typ": "D2",
-  "family": "vanster_om",
+  "family": "direkt_vanster_om",
   "difficulty": 2,
   "p_prior": 0.55,
   "intro": "Fem kollegor står i en rad på plats 1 till 5, räknat från vänster.",
@@ -3023,6 +3089,19 @@
    "steg": [
     {
      "markor": [
+      1,
+      2,
+      4
+     ],
+     "villkor": [
+      "Hanna står inte bredvid Rut.",
+      "Filip står direkt till vänster om Hanna.",
+      "Hanna står någonstans till vänster om Rut."
+     ],
+     "foljd": "Kvar för Filip: plats 1 eller 2."
+    },
+    {
+     "markor": [
       2,
       3
      ],
@@ -3030,7 +3109,34 @@
       "Filip står direkt till vänster om Hanna.",
       "Sven står någonstans till vänster om Hanna."
      ],
-     "foljd": "Med Filip på plats 1 går de inte ihop. Det låser Sven på plats 1, Filip på plats 2, Hanna på plats 3, Bo på plats 4 och Rut på plats 5."
+     "foljd": "Med Filip på plats 1 går villkor 2 och 3 inte ihop. Alltså står Filip på plats 2."
+    },
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [
+      "Filip står direkt till vänster om Hanna."
+     ],
+     "foljd": "Det låser Hanna på plats 3."
+    },
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [
+      "Sven står någonstans till vänster om Hanna."
+     ],
+     "foljd": "Det låser Sven på plats 1."
+    },
+    {
+     "markor": [
+      1
+     ],
+     "villkor": [
+      "Hanna står inte bredvid Rut."
+     ],
+     "foljd": "Det låser Bo på plats 4 och Rut på plats 5."
     }
    ],
    "schema": {
@@ -3131,11 +3237,11 @@
    "Strider mot villkoren."
   ],
   "misstag": [
-   "Det stämmer bara om du bryter villkor 1: Den gröna pärmen ligger direkt till vänster om den röda pärmen.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 3: Den vita pärmen ligger på plats 5.",
    "",
-   "Det stämmer bara om du bryter villkor 1: Den gröna pärmen ligger direkt till vänster om den röda pärmen.",
-   "Det stämmer bara om du bryter villkor 1: Den gröna pärmen ligger direkt till vänster om den röda pärmen.",
-   "Det stämmer bara om du bryter villkor 1: Den gröna pärmen ligger direkt till vänster om den röda pärmen."
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 3: Den vita pärmen ligger på plats 5.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 3: Den vita pärmen ligger på plats 5.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 3: Den vita pärmen ligger på plats 5."
   ],
   "losning": {
    "steg": [
@@ -3290,6 +3396,19 @@
     {
      "markor": [
       1,
+      3,
+      4
+     ],
+     "villkor": [
+      "Vera står direkt till vänster om Rut.",
+      "Nils står någonstans till vänster om Vera.",
+      "Nils står inte bredvid Vera."
+     ],
+     "foljd": "Kvar för Nils: plats 1 eller 2."
+    },
+    {
+     "markor": [
+      1,
       2,
       3
      ],
@@ -3298,7 +3417,20 @@
       "Sven står direkt till vänster om Maja.",
       "Nils står någonstans till vänster om Vera."
      ],
-     "foljd": "Med Nils på plats 2 går de inte ihop. Det låser Nils på plats 1, Sven på plats 2, Maja på plats 3, Vera på plats 4 och Rut på plats 5."
+     "foljd": "Med Nils på plats 2 går villkor 1, 2 och 3 inte ihop. Alltså står Nils på plats 1."
+    },
+    {
+     "markor": [
+      1,
+      2,
+      4
+     ],
+     "villkor": [
+      "Vera står direkt till vänster om Rut.",
+      "Sven står direkt till vänster om Maja.",
+      "Nils står inte bredvid Vera."
+     ],
+     "foljd": "Tillsammans låser de Sven på plats 2, Maja på plats 3, Vera på plats 4 och Rut på plats 5."
     }
    ],
    "schema": {
@@ -3400,11 +3532,11 @@
    "Strider mot villkoren."
   ],
   "misstag": [
-   "Det stämmer bara om du bryter villkor 1: Carl och Leo går samma dag.",
-   "Det stämmer bara om du bryter villkor 1: Carl och Leo går samma dag.",
-   "Det stämmer bara om du bryter villkor 1: Carl och Leo går samma dag.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Carl och Leo går samma dag.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 2: Frida går före Leo.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 5: Åsa går före Olle.",
    "",
-   "Det stämmer bara om du bryter villkor 1: Carl och Leo går samma dag."
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 5: Åsa går före Olle."
   ],
   "losning": {
    "steg": [
@@ -3668,7 +3800,7 @@
   "id": "dd-a-d2-26",
   "niva": "avancerad",
   "typ": "D2",
-  "family": "granne",
+  "family": "direkt_vanster_om",
   "difficulty": 2,
   "p_prior": 0.55,
   "intro": "Fem kollegor står i en rad på plats 1 till 5, räknat från vänster.",
@@ -3696,13 +3828,26 @@
   ],
   "misstag": [
    "",
-   "Det stämmer bara om du bryter villkor 1: Isak står bredvid Lisa.",
-   "Det stämmer bara om du bryter villkor 1: Isak står bredvid Lisa.",
-   "Det stämmer bara om du bryter villkor 2: Karin står direkt till vänster om Lisa.",
-   "Det stämmer bara om du bryter villkor 1: Isak står bredvid Lisa."
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Isak står bredvid Lisa.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 2: Karin står direkt till vänster om Lisa.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 2: Karin står direkt till vänster om Lisa.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 2: Karin står direkt till vänster om Lisa."
   ],
   "losning": {
    "steg": [
+    {
+     "markor": [
+      2,
+      3,
+      4
+     ],
+     "villkor": [
+      "Karin står direkt till vänster om Lisa.",
+      "Lisa står någonstans till vänster om Jenny.",
+      "Jenny står någonstans till vänster om Nora."
+     ],
+     "foljd": "Kvar för Jenny: plats 3 eller 4."
+    },
     {
      "markor": [
       1,
@@ -3714,7 +3859,25 @@
       "Karin står direkt till vänster om Lisa.",
       "Lisa står någonstans till vänster om Jenny."
      ],
-     "foljd": "Med Jenny på plats 3 går de inte ihop. Det låser Jenny på plats 4 och Nora på plats 5."
+     "foljd": "Med Jenny på plats 3 går villkor 1, 2 och 3 inte ihop. Alltså står Jenny på plats 4."
+    },
+    {
+     "markor": [
+      4
+     ],
+     "villkor": [
+      "Jenny står någonstans till vänster om Nora."
+     ],
+     "foljd": "Det låser Nora på plats 5."
+    },
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [
+      "Karin står direkt till vänster om Lisa."
+     ],
+     "foljd": "Kvar för Karin: plats 1 eller 2."
     },
     {
      "markor": [
@@ -3723,7 +3886,16 @@
      "villkor": [
       "Isak står bredvid Lisa."
      ],
-     "foljd": "Med Karin på plats 2 går villkoret inte ihop. Det låser Karin på plats 1, Lisa på plats 2 och Isak på plats 3."
+     "foljd": "Med Karin på plats 2 går villkor 1 inte ihop. Alltså står Karin på plats 1."
+    },
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [
+      "Karin står direkt till vänster om Lisa."
+     ],
+     "foljd": "Det låser Lisa på plats 2 och Isak på plats 3."
     }
    ],
    "schema": {
@@ -3853,6 +4025,19 @@
    "steg": [
     {
      "markor": [
+      1,
+      3,
+      4
+     ],
+     "villkor": [
+      "Den gröna pärmen ligger inte på plats 4.",
+      "Den svarta pärmen ligger direkt till vänster om den blå pärmen.",
+      "Den blå pärmen ligger direkt till vänster om den gröna pärmen."
+     ],
+     "foljd": "Kvar för den blå pärmen: plats 2 eller 4."
+    },
+    {
+     "markor": [
       2,
       3
      ],
@@ -3860,7 +4045,34 @@
       "Den röda pärmen ligger bredvid den svarta pärmen.",
       "Den svarta pärmen ligger direkt till vänster om den blå pärmen."
      ],
-     "foljd": "Med den blå pärmen på plats 2 går de inte ihop. Det låser den lila pärmen på plats 1, den röda pärmen på plats 2, den svarta pärmen på plats 3, den blå pärmen på plats 4 och den gröna pärmen på plats 5."
+     "foljd": "Med den blå pärmen på plats 2 går villkor 2 och 3 inte ihop. Alltså ligger den blå pärmen på plats 4."
+    },
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [
+      "Den svarta pärmen ligger direkt till vänster om den blå pärmen."
+     ],
+     "foljd": "Det låser den svarta pärmen på plats 3."
+    },
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [
+      "Den röda pärmen ligger bredvid den svarta pärmen."
+     ],
+     "foljd": "Det låser den röda pärmen på plats 2."
+    },
+    {
+     "markor": [
+      4
+     ],
+     "villkor": [
+      "Den blå pärmen ligger direkt till vänster om den gröna pärmen."
+     ],
+     "foljd": "Det låser den lila pärmen på plats 1 och den gröna pärmen på plats 5."
     }
    ],
    "schema": {
@@ -3961,11 +4173,11 @@
    "Strider mot villkoren."
   ],
   "misstag": [
-   "Det stämmer bara om du bryter villkor 1: Åsa står direkt till vänster om Disa.",
-   "Det stämmer bara om du bryter villkor 1: Åsa står direkt till vänster om Disa.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Åsa står direkt till vänster om Disa.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 3: Ulla står inte på plats 4.",
    "",
-   "Det stämmer bara om du bryter villkor 1: Åsa står direkt till vänster om Disa.",
-   "Det stämmer bara om du bryter villkor 1: Åsa står direkt till vänster om Disa."
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Åsa står direkt till vänster om Disa.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 3: Ulla står inte på plats 4."
   ],
   "losning": {
    "steg": [
@@ -4264,10 +4476,10 @@
    "Måste gälla."
   ],
   "misstag": [
-   "Det stämmer bara om du bryter villkor 1: Den svarta pärmen ligger på plats 1.",
-   "Det stämmer bara om du bryter villkor 1: Den svarta pärmen ligger på plats 1.",
-   "Det stämmer bara om du bryter villkor 1: Den svarta pärmen ligger på plats 1.",
-   "Det stämmer bara om du bryter villkor 1: Den svarta pärmen ligger på plats 1.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 3: Den blå pärmen ligger inte bredvid den svarta pärmen.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 2: Den vita pärmen ligger direkt till vänster om den lila pärmen.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Den svarta pärmen ligger på plats 1.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 2: Den vita pärmen ligger direkt till vänster om den lila pärmen.",
    ""
   ],
   "losning": {

@@ -1,0 +1,196 @@
+{
+ "id": "dd-e-d3-04",
+ "niva": "expert",
+ "typ": "D3",
+ "family": "inte_plats",
+ "difficulty": 3,
+ "p_prior": 0.4,
+ "intro": "Sex kollegor står i en rad på plats 1 till 6, räknat från vänster.",
+ "villkor": [
+  "Maja står inte bredvid Åsa.",
+  "Filip står inte på plats 1.",
+  "Åsa står inte på plats 1.",
+  "Erik står någonstans till vänster om Olle.",
+  "Filip står bredvid Åsa.",
+  "Maja står direkt till vänster om Olle."
+ ],
+ "fraga": "Om Maja står på plats 4, vilket är då omöjligt?",
+ "options": [
+  "Filip står direkt till vänster om Maja.",
+  "Filip står på plats 3.",
+  "Erik står bredvid Åsa.",
+  "Olle står på plats 6.",
+  "Erik står direkt till vänster om Åsa."
+ ],
+ "correctAnswer": 3,
+ "etiketter": [
+  "Går ihop med villkoren.",
+  "Går ihop med villkoren.",
+  "Går ihop med villkoren.",
+  "Går inte ihop med villkoren när Maja står på plats 4.",
+  "Går ihop med villkoren."
+ ],
+ "misstag": [
+  "I schemat står Filip på plats 3 och Maja på plats 4. Det går ihop med villkoren, så det är inte svaret.",
+  "I schemat står Filip på plats 3. Det går ihop med villkoren, så det är inte svaret.",
+  "I schemat står Erik på plats 1 och Åsa på plats 2. Det går ihop med villkoren, så det är inte svaret.",
+  "",
+  "I schemat står Erik på plats 1 och Åsa på plats 2. Det går ihop med villkoren, så det är inte svaret."
+ ],
+ "losning": {
+  "steg": [
+   {
+    "markor": [
+     "Om"
+    ],
+    "villkor": [
+     "Om Maja står på plats 4."
+    ],
+    "foljd": "Antagandet i frågan."
+   },
+   {
+    "markor": [
+     6
+    ],
+    "villkor": [
+     "Maja står direkt till vänster om Olle."
+    ],
+    "foljd": "Det låser Olle på plats 5."
+   },
+   {
+    "markor": [
+     4,
+     5
+    ],
+    "villkor": [
+     "Erik står någonstans till vänster om Olle.",
+     "Filip står bredvid Åsa."
+    ],
+    "foljd": "Tillsammans låser de Dan på plats 6."
+   },
+   {
+    "markor": [
+     1,
+     3
+    ],
+    "villkor": [
+     "Maja står inte bredvid Åsa.",
+     "Åsa står inte på plats 1."
+    ],
+    "foljd": "Tillsammans låser de Åsa på plats 2."
+   },
+   {
+    "markor": [
+     2
+    ],
+    "villkor": [
+     "Filip står inte på plats 1."
+    ],
+    "foljd": "Det låser Erik på plats 1 och Filip på plats 3."
+   }
+  ],
+  "schema": {
+   "namn": [
+    [
+     "Erik"
+    ],
+    [
+     "Åsa"
+    ],
+    [
+     "Filip"
+    ],
+    [
+     "Maja"
+    ],
+    [
+     "Olle"
+    ],
+    [
+     "Dan"
+    ]
+   ],
+   "koppar": null,
+   "antagande": 4
+  }
+ },
+ "formell": {
+  "tema": "personer",
+  "namn": [
+   "Dan",
+   "Erik",
+   "Filip",
+   "Maja",
+   "Olle",
+   "Åsa"
+  ],
+  "villkor": [
+   {
+    "typ": "inte_granne",
+    "a": 3,
+    "b": 5
+   },
+   {
+    "typ": "inte_plats",
+    "a": 2,
+    "k": 1
+   },
+   {
+    "typ": "inte_plats",
+    "a": 5,
+    "k": 1
+   },
+   {
+    "typ": "vanster_om",
+    "a": 1,
+    "b": 4
+   },
+   {
+    "typ": "granne",
+    "a": 2,
+    "b": 5
+   },
+   {
+    "typ": "direkt_vanster_om",
+    "a": 3,
+    "b": 4
+   }
+  ],
+  "antagande": {
+   "typ": "plats",
+   "a": 3,
+   "k": 4
+  },
+  "fraga": {
+   "form": "omojlig"
+  },
+  "alternativ": [
+   {
+    "typ": "direkt_vanster_om",
+    "a": 2,
+    "b": 3
+   },
+   {
+    "typ": "plats",
+    "a": 2,
+    "k": 3
+   },
+   {
+    "typ": "granne",
+    "a": 1,
+    "b": 5
+   },
+   {
+    "typ": "plats",
+    "a": 4,
+    "k": 6
+   },
+   {
+    "typ": "direkt_vanster_om",
+    "a": 1,
+    "b": 5
+   }
+  ]
+ },
+ "fran_version": 1
+}

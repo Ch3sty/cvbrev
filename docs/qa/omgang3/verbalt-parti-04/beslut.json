@@ -1,0 +1,39 @@
+{
+  "datum": "2026-10-12",
+  "granskare": "testansvarig",
+  "godkanda": [
+    "vg-13-flextid",
+    "vg-14-semester",
+    "vg-15-cykelgarage",
+    "vg-16-e-bocker",
+    "vg-17-skollunch",
+    "vg-18-hemforsakring",
+    "vg-19-pant",
+    "vg-20-foraldrapenning",
+    "va-17-fyradagarsvecka",
+    "va-18-kameror-i-bussar",
+    "va-19-mobiler-i-skolan",
+    "va-20-fjarrvarmepriser",
+    "va-21-lonekartlaggning",
+    "va-22-digitala-vardbesok",
+    "va-23-takodling",
+    "va-24-kulturskolans-avgift"
+  ],
+  "strukna": [],
+  "villkor": [
+    {
+      "id": "va-21-lonekartlaggning",
+      "andring": "Första meningen i texten byts till \"Alla arbetsgivare ska varje år göra en lönekartläggning, och arbetsgivare med minst tio anställda ska dokumentera den skriftligt.\" Påstående 1 byts till \"Alla arbetsgivare måste dokumentera sin lönekartläggning skriftligt.\" (false, kvantor). Påstående 4 byts till \"En arbetsgivare med sex anställda kan få betala vite för att den inte dokumenterar sin lönekartläggning skriftligt.\" (false, slutledning). Förklaringarna skrivs om efter de nya lydelserna. Skäl: kravet på årlig lönekartläggning gäller alla arbetsgivare, dokumentationskravet från tio anställda."
+    },
+    {
+      "id": "va-24-kulturskolans-avgift",
+      "andring": "Påstående 2 (\"Köerna i grannkommunen har blivit längre sedan avgiften togs bort.\") byts till \"Lärarbristen är störst inom instrumentundervisningen.\" (cannot_say, utanfor). Förklaring: texten säger att kulturskolorna länge haft svårt att rekrytera lärare men inget om vilka ämnen. Skäl: de två utanför-påståendena handlade båda om grannkommunen efter avgiftsfriheten och faller på samma insikt."
+    }
+  ],
+  "rekommendationer": [
+    {
+      "id": "vg-17-skollunch",
+      "forslag": "Byt påstående 2 till \"Svinnet har minskat i samtliga matsalar som väger maten.\" (cannot_say, kvantor) så att de två kvantorerna inte båda faller på alla mot några. Inget villkor."
+    }
+  ]
+}

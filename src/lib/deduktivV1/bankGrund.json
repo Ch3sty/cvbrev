@@ -1,1 +1,2853 @@
-[]
+[
+ {
+  "id": "dd-g-d1-01",
+  "niva": "grund",
+  "typ": "D1",
+  "family": "premiss",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "intro": null,
+  "villkor": [
+   "Alla som arbetar natt får tillägg.",
+   "Alla som får tillägg får lönebeskedet i två delar.",
+   "Ingen i receptionen får lönebeskedet i två delar."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Ingen i receptionen arbetar natt.",
+   "Alla som får lönebeskedet i två delar arbetar natt.",
+   "Någon i receptionen får tillägg.",
+   "Några som får tillägg arbetar inte natt."
+  ],
+  "correctAnswer": 0,
+  "etiketter": [
+   "Måste gälla.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren.",
+   "Kan stämma, men villkoren kräver det inte."
+  ],
+  "misstag": [
+   "",
+   "Premisserna säger att nattarbete leder till två delar, inte att bara nattarbete gör det. Det kan stämma, men det måste inte.",
+   "Den som får tillägg får lönebeskedet i två delar, och det gör ingen i receptionen. Det strider mot premiss 3.",
+   "Premisserna säger inget om vem mer som får tillägg. Det kan stämma, men det måste inte."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      1,
+      2
+     ],
+     "villkor": [],
+     "foljd": "Den som arbetar natt får tillägg, och den som får tillägg får lönebeskedet i två delar."
+    },
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [],
+     "foljd": "Ingen i receptionen får lönebeskedet i två delar. Alltså arbetar ingen där natt."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "termer": [
+    "natt",
+    "tillagg",
+    "tvadelar",
+    "recep"
+   ],
+   "individer": [],
+   "premisser": [
+    [
+     {
+      "typ": "alla",
+      "x": "natt",
+      "y": "tillagg"
+     }
+    ],
+    [
+     {
+      "typ": "alla",
+      "x": "tillagg",
+      "y": "tvadelar"
+     }
+    ],
+    [
+     {
+      "typ": "inga",
+      "x": "recep",
+      "y": "tvadelar"
+     }
+    ]
+   ],
+   "alternativ": [
+    {
+     "typ": "inga",
+     "x": "recep",
+     "y": "natt"
+    },
+    {
+     "typ": "alla",
+     "x": "tvadelar",
+     "y": "natt"
+    },
+    {
+     "typ": "nagra",
+     "x": "recep",
+     "y": "tillagg"
+    },
+    {
+     "typ": "nagra_inte",
+     "x": "tillagg",
+     "y": "natt"
+    }
+   ],
+   "roller": [
+    "nodvandig",
+    "obestamd",
+    "omojlig",
+    "obestamd"
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d1-02",
+  "niva": "grund",
+  "typ": "D1",
+  "family": "premiss",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "intro": null,
+  "villkor": [
+   "Alla som sitter i ledningsgruppen har sett budgeten.",
+   "Ingen konsult har sett budgeten.",
+   "Olle har sett budgeten."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Olle sitter i ledningsgruppen.",
+   "Olle är inte konsult.",
+   "Alla som har sett budgeten sitter i ledningsgruppen.",
+   "Någon konsult sitter i ledningsgruppen."
+  ],
+  "correctAnswer": 1,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Måste gälla.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren."
+  ],
+  "misstag": [
+   "Ledningsgruppen har sett budgeten, men premisserna säger inte att bara de har gjort det. Olle kan ha sett den av ett annat skäl.",
+   "",
+   "Det vänder på premiss 1. Det kan stämma, men det måste inte.",
+   "Den i ledningsgruppen har sett budgeten, och ingen konsult har det. Det strider mot premiss 1 och 2."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      2,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Ingen konsult har sett budgeten, men Olle har det. Alltså är Olle inte konsult."
+    },
+    {
+     "markor": [
+      1
+     ],
+     "villkor": [],
+     "foljd": "Att Olle har sett budgeten säger inte att han sitter i ledningsgruppen."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "termer": [
+    "ledning",
+    "budget",
+    "konsult"
+   ],
+   "individer": [
+    "olle"
+   ],
+   "premisser": [
+    [
+     {
+      "typ": "alla",
+      "x": "ledning",
+      "y": "budget"
+     }
+    ],
+    [
+     {
+      "typ": "inga",
+      "x": "konsult",
+      "y": "budget"
+     }
+    ],
+    [
+     {
+      "typ": "ar",
+      "i": "olle",
+      "x": "budget"
+     }
+    ]
+   ],
+   "alternativ": [
+    {
+     "typ": "ar",
+     "i": "olle",
+     "x": "ledning"
+    },
+    {
+     "typ": "ar_inte",
+     "i": "olle",
+     "x": "konsult"
+    },
+    {
+     "typ": "alla",
+     "x": "budget",
+     "y": "ledning"
+    },
+    {
+     "typ": "nagra",
+     "x": "konsult",
+     "y": "ledning"
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "nodvandig",
+    "obestamd",
+    "omojlig"
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d1-03",
+  "niva": "grund",
+  "typ": "D1",
+  "family": "premiss",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "intro": null,
+  "villkor": [
+   "Alla i ekonomigruppen har nyckel till arkivet.",
+   "Ingen nyanställd har nyckel till arkivet.",
+   "Några konsulter är nyanställda."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Alla konsulter är nyanställda.",
+   "Några konsulter har nyckel till arkivet.",
+   "Några konsulter är inte med i ekonomigruppen.",
+   "Någon nyanställd är med i ekonomigruppen."
+  ],
+  "correctAnswer": 2,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Måste gälla.",
+   "Strider mot villkoren."
+  ],
+  "misstag": [
+   "Premiss 3 säger några, inte alla. Det kan stämma, men det måste inte.",
+   "De konsulter som inte är nyanställda kan ha nyckel, men premisserna säger inget om dem.",
+   "",
+   "Alla i ekonomigruppen har nyckel, och ingen nyanställd har det. Det strider mot premiss 1 och 2."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      1,
+      2
+     ],
+     "villkor": [],
+     "foljd": "Alla i ekonomigruppen har nyckel, och ingen nyanställd har det. Alltså är ingen nyanställd med i ekonomigruppen."
+    },
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [],
+     "foljd": "Några konsulter är nyanställda, och de konsulterna är då inte med i ekonomigruppen."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "termer": [
+    "ny",
+    "nyckel",
+    "ekon",
+    "konsult"
+   ],
+   "individer": [],
+   "premisser": [
+    [
+     {
+      "typ": "alla",
+      "x": "ekon",
+      "y": "nyckel"
+     }
+    ],
+    [
+     {
+      "typ": "inga",
+      "x": "ny",
+      "y": "nyckel"
+     }
+    ],
+    [
+     {
+      "typ": "nagra",
+      "x": "konsult",
+      "y": "ny"
+     }
+    ]
+   ],
+   "alternativ": [
+    {
+     "typ": "alla",
+     "x": "konsult",
+     "y": "ny"
+    },
+    {
+     "typ": "nagra",
+     "x": "konsult",
+     "y": "nyckel"
+    },
+    {
+     "typ": "nagra_inte",
+     "x": "konsult",
+     "y": "ekon"
+    },
+    {
+     "typ": "nagra",
+     "x": "ny",
+     "y": "ekon"
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "obestamd",
+    "nodvandig",
+    "omojlig"
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d1-04",
+  "niva": "grund",
+  "typ": "D1",
+  "family": "premiss",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "intro": null,
+  "villkor": [
+   "Alla som leder ett projekt går kursen i budget.",
+   "Ingen som arbetar deltid går kursen i budget.",
+   "Pia är chef och arbetar deltid."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Ingen chef leder ett projekt.",
+   "Alla chefer arbetar deltid.",
+   "Pia går kursen i budget.",
+   "Pia leder inget projekt."
+  ],
+  "correctAnswer": 3,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren.",
+   "Måste gälla."
+  ],
+  "misstag": [
+   "Det gäller Pia, men premisserna säger inget om andra chefer.",
+   "Premisserna säger bara att Pia gör det. Det kan stämma, men det måste inte.",
+   "Pia arbetar deltid, och ingen som arbetar deltid går kursen. Det strider mot premiss 2 och 3.",
+   ""
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      2,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Pia arbetar deltid, och ingen som arbetar deltid går kursen i budget. Alltså går Pia inte kursen."
+    },
+    {
+     "markor": [
+      1
+     ],
+     "villkor": [],
+     "foljd": "Den som leder ett projekt går kursen. Pia går den inte, alltså leder hon inget projekt."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "termer": [
+    "leder",
+    "kurs",
+    "deltid",
+    "chef"
+   ],
+   "individer": [
+    "pia"
+   ],
+   "premisser": [
+    [
+     {
+      "typ": "alla",
+      "x": "leder",
+      "y": "kurs"
+     }
+    ],
+    [
+     {
+      "typ": "inga",
+      "x": "deltid",
+      "y": "kurs"
+     }
+    ],
+    [
+     {
+      "typ": "ar",
+      "i": "pia",
+      "x": "chef"
+     },
+     {
+      "typ": "ar",
+      "i": "pia",
+      "x": "deltid"
+     }
+    ]
+   ],
+   "alternativ": [
+    {
+     "typ": "inga",
+     "x": "chef",
+     "y": "leder"
+    },
+    {
+     "typ": "alla",
+     "x": "chef",
+     "y": "deltid"
+    },
+    {
+     "typ": "ar",
+     "i": "pia",
+     "x": "kurs"
+    },
+    {
+     "typ": "ar_inte",
+     "i": "pia",
+     "x": "leder"
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "obestamd",
+    "omojlig",
+    "nodvandig"
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d1-05",
+  "niva": "grund",
+  "typ": "D1",
+  "family": "premiss",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "intro": null,
+  "villkor": [
+   "Några på lagret har truckkort.",
+   "Alla med truckkort har gått säkerhetsutbildningen."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Några på lagret har gått säkerhetsutbildningen.",
+   "Alla på lagret har truckkort.",
+   "Ingen på lagret har gått säkerhetsutbildningen.",
+   "Några som har gått säkerhetsutbildningen arbetar inte på lagret."
+  ],
+  "correctAnswer": 0,
+  "etiketter": [
+   "Måste gälla.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren.",
+   "Kan stämma, men villkoren kräver det inte."
+  ],
+  "misstag": [
+   "",
+   "Premiss 1 säger några, inte alla. Det kan stämma, men det måste inte.",
+   "De på lagret som har truckkort har gått utbildningen. Det strider mot premiss 1 och 2.",
+   "Premisserna säger inget om vilka mer som har gått utbildningen."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      1,
+      2
+     ],
+     "villkor": [],
+     "foljd": "Några på lagret har truckkort, och alla med truckkort har gått säkerhetsutbildningen. Alltså har några på lagret gått den."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "termer": [
+    "lager",
+    "truck",
+    "sakerhet"
+   ],
+   "individer": [],
+   "premisser": [
+    [
+     {
+      "typ": "nagra",
+      "x": "lager",
+      "y": "truck"
+     }
+    ],
+    [
+     {
+      "typ": "alla",
+      "x": "truck",
+      "y": "sakerhet"
+     }
+    ]
+   ],
+   "alternativ": [
+    {
+     "typ": "nagra",
+     "x": "lager",
+     "y": "sakerhet"
+    },
+    {
+     "typ": "alla",
+     "x": "lager",
+     "y": "truck"
+    },
+    {
+     "typ": "inga",
+     "x": "lager",
+     "y": "sakerhet"
+    },
+    {
+     "typ": "nagra_inte",
+     "x": "sakerhet",
+     "y": "lager"
+    }
+   ],
+   "roller": [
+    "nodvandig",
+    "obestamd",
+    "omojlig",
+    "obestamd"
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d1-06",
+  "niva": "grund",
+  "typ": "D1",
+  "family": "premiss",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "intro": null,
+  "villkor": [
+   "Inga möten på fredagar är längre än en timme.",
+   "Alla styrelsemöten är längre än en timme.",
+   "Några kundmöten hålls på fredagar."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Alla möten som är längre än en timme är styrelsemöten.",
+   "Några kundmöten är inte styrelsemöten.",
+   "Inga kundmöten är längre än en timme.",
+   "Något styrelsemöte hålls på en fredag."
+  ],
+  "correctAnswer": 1,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Måste gälla.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren."
+  ],
+  "misstag": [
+   "Det vänder på premiss 2. Det kan stämma, men det måste inte.",
+   "",
+   "Det gäller kundmötena på fredagar. Om de andra kundmötena säger premisserna inget.",
+   "Styrelsemöten är längre än en timme, och inga fredagsmöten är det. Det strider mot premiss 1 och 2."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      1,
+      2
+     ],
+     "villkor": [],
+     "foljd": "Styrelsemöten är längre än en timme, och inga möten på fredagar är det. Alltså hålls inga styrelsemöten på fredagar."
+    },
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [],
+     "foljd": "Några kundmöten hålls på fredagar. De kundmötena är då inte styrelsemöten."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "termer": [
+    "fredag",
+    "lang",
+    "styrelse",
+    "kund"
+   ],
+   "individer": [],
+   "premisser": [
+    [
+     {
+      "typ": "inga",
+      "x": "fredag",
+      "y": "lang"
+     }
+    ],
+    [
+     {
+      "typ": "alla",
+      "x": "styrelse",
+      "y": "lang"
+     }
+    ],
+    [
+     {
+      "typ": "nagra",
+      "x": "kund",
+      "y": "fredag"
+     }
+    ]
+   ],
+   "alternativ": [
+    {
+     "typ": "alla",
+     "x": "lang",
+     "y": "styrelse"
+    },
+    {
+     "typ": "nagra_inte",
+     "x": "kund",
+     "y": "styrelse"
+    },
+    {
+     "typ": "inga",
+     "x": "kund",
+     "y": "lang"
+    },
+    {
+     "typ": "nagra",
+     "x": "styrelse",
+     "y": "fredag"
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "nodvandig",
+    "obestamd",
+    "omojlig"
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d1-07",
+  "niva": "grund",
+  "typ": "D1",
+  "family": "premiss",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "intro": null,
+  "villkor": [
+   "Alla som sitter i skyddskommittén har gått arbetsmiljökursen.",
+   "Erik arbetar i verkstaden och har inte gått arbetsmiljökursen."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Några i verkstaden har gått arbetsmiljökursen.",
+   "Alla i verkstaden har gått arbetsmiljökursen.",
+   "Erik sitter inte i skyddskommittén.",
+   "Ingen i verkstaden sitter i skyddskommittén."
+  ],
+  "correctAnswer": 2,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren.",
+   "Måste gälla.",
+   "Kan stämma, men villkoren kräver det inte."
+  ],
+  "misstag": [
+   "Premisserna säger bara att Erik inte har gått den. Om de andra vet vi inget.",
+   "Erik arbetar i verkstaden och har inte gått kursen. Det strider mot premiss 2.",
+   "",
+   "Det gäller Erik, men premisserna säger inget om de andra i verkstaden."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      1,
+      2
+     ],
+     "villkor": [],
+     "foljd": "Alla i skyddskommittén har gått arbetsmiljökursen. Erik har inte gått den. Alltså sitter Erik inte i skyddskommittén."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "termer": [
+    "skydd",
+    "miljo",
+    "verkstad"
+   ],
+   "individer": [
+    "erik"
+   ],
+   "premisser": [
+    [
+     {
+      "typ": "alla",
+      "x": "skydd",
+      "y": "miljo"
+     }
+    ],
+    [
+     {
+      "typ": "ar",
+      "i": "erik",
+      "x": "verkstad"
+     },
+     {
+      "typ": "ar_inte",
+      "i": "erik",
+      "x": "miljo"
+     }
+    ]
+   ],
+   "alternativ": [
+    {
+     "typ": "nagra",
+     "x": "verkstad",
+     "y": "miljo"
+    },
+    {
+     "typ": "alla",
+     "x": "verkstad",
+     "y": "miljo"
+    },
+    {
+     "typ": "ar_inte",
+     "i": "erik",
+     "x": "skydd"
+    },
+    {
+     "typ": "inga",
+     "x": "verkstad",
+     "y": "skydd"
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "omojlig",
+    "nodvandig",
+    "obestamd"
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d1-08",
+  "niva": "grund",
+  "typ": "D1",
+  "family": "premiss",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "intro": null,
+  "villkor": [
+   "Inga tillfälliga passerkort öppnar serverrummet.",
+   "Alla kort som öppnar serverrummet är registrerade hos it-avdelningen.",
+   "Några registrerade kort är tillfälliga."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Alla registrerade kort öppnar serverrummet.",
+   "Alla tillfälliga kort är registrerade.",
+   "Några tillfälliga kort är inte registrerade.",
+   "Några registrerade kort öppnar inte serverrummet."
+  ],
+  "correctAnswer": 3,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Måste gälla."
+  ],
+  "misstag": [
+   "Några registrerade kort är tillfälliga, och de öppnar inte serverrummet. Det strider mot premiss 1 och 3.",
+   "Premiss 3 säger att några registrerade kort är tillfälliga, inte att alla tillfälliga är registrerade.",
+   "Premisserna säger inget om tillfälliga kort utanför registret. Det kan stämma, men det måste inte.",
+   ""
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      3,
+      1
+     ],
+     "villkor": [],
+     "foljd": "Några registrerade kort är tillfälliga, och inga tillfälliga kort öppnar serverrummet. Alltså finns registrerade kort som inte öppnar det."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "termer": [
+    "tillf",
+    "server",
+    "reg"
+   ],
+   "individer": [],
+   "premisser": [
+    [
+     {
+      "typ": "inga",
+      "x": "tillf",
+      "y": "server"
+     }
+    ],
+    [
+     {
+      "typ": "alla",
+      "x": "server",
+      "y": "reg"
+     }
+    ],
+    [
+     {
+      "typ": "nagra",
+      "x": "reg",
+      "y": "tillf"
+     }
+    ]
+   ],
+   "alternativ": [
+    {
+     "typ": "alla",
+     "x": "reg",
+     "y": "server"
+    },
+    {
+     "typ": "alla",
+     "x": "tillf",
+     "y": "reg"
+    },
+    {
+     "typ": "nagra_inte",
+     "x": "tillf",
+     "y": "reg"
+    },
+    {
+     "typ": "nagra_inte",
+     "x": "reg",
+     "y": "server"
+    }
+   ],
+   "roller": [
+    "omojlig",
+    "obestamd",
+    "obestamd",
+    "nodvandig"
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d1-09",
+  "niva": "grund",
+  "typ": "D1",
+  "family": "premiss",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "intro": null,
+  "villkor": [
+   "Några på kundtjänst talar finska.",
+   "Alla som talar finska tar samtalen från Finland.",
+   "Ingen som tar samtalen från Finland arbetar kvällar."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Några på kundtjänst arbetar inte kvällar.",
+   "Någon som talar finska arbetar kvällar.",
+   "Alla som tar samtalen från Finland talar finska.",
+   "Ingen på kundtjänst arbetar kvällar."
+  ],
+  "correctAnswer": 0,
+  "etiketter": [
+   "Måste gälla.",
+   "Strider mot villkoren.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte."
+  ],
+  "misstag": [
+   "",
+   "Den som talar finska tar samtalen från Finland och arbetar då inte kvällar. Det strider mot premiss 2 och 3.",
+   "Det vänder på premiss 2. Det kan stämma, men det måste inte.",
+   "Det gäller dem som talar finska. Om resten av kundtjänst säger premisserna inget."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      2,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Den som talar finska tar samtalen från Finland, och ingen av dem arbetar kvällar."
+    },
+    {
+     "markor": [
+      1
+     ],
+     "villkor": [],
+     "foljd": "Några på kundtjänst talar finska. De arbetar alltså inte kvällar."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "termer": [
+    "kund",
+    "finska",
+    "finland",
+    "kvall"
+   ],
+   "individer": [],
+   "premisser": [
+    [
+     {
+      "typ": "nagra",
+      "x": "kund",
+      "y": "finska"
+     }
+    ],
+    [
+     {
+      "typ": "alla",
+      "x": "finska",
+      "y": "finland"
+     }
+    ],
+    [
+     {
+      "typ": "inga",
+      "x": "finland",
+      "y": "kvall"
+     }
+    ]
+   ],
+   "alternativ": [
+    {
+     "typ": "nagra_inte",
+     "x": "kund",
+     "y": "kvall"
+    },
+    {
+     "typ": "nagra",
+     "x": "finska",
+     "y": "kvall"
+    },
+    {
+     "typ": "alla",
+     "x": "finland",
+     "y": "finska"
+    },
+    {
+     "typ": "inga",
+     "x": "kund",
+     "y": "kvall"
+    }
+   ],
+   "roller": [
+    "nodvandig",
+    "omojlig",
+    "obestamd",
+    "obestamd"
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d1-10",
+  "niva": "grund",
+  "typ": "D1",
+  "family": "premiss",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "intro": null,
+  "villkor": [
+   "Ingen praktikant får attestera fakturor.",
+   "Alla projektledare får attestera fakturor.",
+   "Hugo är praktikant på ekonomiavdelningen."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Alla som får attestera fakturor är projektledare.",
+   "Hugo är inte projektledare.",
+   "Ingen på ekonomiavdelningen är projektledare.",
+   "Alla på ekonomiavdelningen får attestera fakturor."
+  ],
+  "correctAnswer": 1,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Måste gälla.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren."
+  ],
+  "misstag": [
+   "Det vänder på premiss 2. Det kan stämma, men det måste inte.",
+   "",
+   "Det gäller Hugo, men premisserna säger inget om de andra på ekonomiavdelningen.",
+   "Hugo är praktikant på ekonomiavdelningen och får inte attestera. Det strider mot premiss 1 och 3."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      1,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Hugo är praktikant och får alltså inte attestera fakturor."
+    },
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [],
+     "foljd": "Alla projektledare får attestera. Alltså är Hugo inte projektledare."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "termer": [
+    "prakt",
+    "attest",
+    "pl",
+    "ekon"
+   ],
+   "individer": [
+    "hugo"
+   ],
+   "premisser": [
+    [
+     {
+      "typ": "inga",
+      "x": "prakt",
+      "y": "attest"
+     }
+    ],
+    [
+     {
+      "typ": "alla",
+      "x": "pl",
+      "y": "attest"
+     }
+    ],
+    [
+     {
+      "typ": "ar",
+      "i": "hugo",
+      "x": "prakt"
+     },
+     {
+      "typ": "ar",
+      "i": "hugo",
+      "x": "ekon"
+     }
+    ]
+   ],
+   "alternativ": [
+    {
+     "typ": "alla",
+     "x": "attest",
+     "y": "pl"
+    },
+    {
+     "typ": "ar_inte",
+     "i": "hugo",
+     "x": "pl"
+    },
+    {
+     "typ": "inga",
+     "x": "ekon",
+     "y": "pl"
+    },
+    {
+     "typ": "alla",
+     "x": "ekon",
+     "y": "attest"
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "nodvandig",
+    "obestamd",
+    "omojlig"
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d1-11",
+  "niva": "grund",
+  "typ": "D1",
+  "family": "premiss",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "intro": null,
+  "villkor": [
+   "Alla rum på plan tre har whiteboardtavla.",
+   "Inga rum med whiteboardtavla har plats för fler än tolv.",
+   "Några rum på plan tre har skärm."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Några rum med plats för fler än tolv har skärm.",
+   "Alla rum med skärm ligger på plan tre.",
+   "Några rum med skärm har inte plats för fler än tolv.",
+   "Något rum på plan tre har plats för fler än tolv."
+  ],
+  "correctAnswer": 2,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Måste gälla.",
+   "Strider mot villkoren."
+  ],
+  "misstag": [
+   "Ett sådant rum ligger inte på plan tre, och om de andra planen säger premisserna inget.",
+   "Premisserna säger bara att några rum på plan tre har skärm. Rum med skärm kan finnas på andra plan.",
+   "",
+   "Rummen på plan tre har whiteboardtavla, och inga sådana rum har plats för fler än tolv. Det strider mot premiss 1 och 2."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      1,
+      2
+     ],
+     "villkor": [],
+     "foljd": "Rummen på plan tre har whiteboardtavla, och inga rum med tavla har plats för fler än tolv."
+    },
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [],
+     "foljd": "Några rum på plan tre har skärm. De rummen har alltså inte plats för fler än tolv."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "termer": [
+    "plan3",
+    "tavla",
+    "stor",
+    "skarm"
+   ],
+   "individer": [],
+   "premisser": [
+    [
+     {
+      "typ": "alla",
+      "x": "plan3",
+      "y": "tavla"
+     }
+    ],
+    [
+     {
+      "typ": "inga",
+      "x": "tavla",
+      "y": "stor"
+     }
+    ],
+    [
+     {
+      "typ": "nagra",
+      "x": "plan3",
+      "y": "skarm"
+     }
+    ]
+   ],
+   "alternativ": [
+    {
+     "typ": "nagra",
+     "x": "stor",
+     "y": "skarm"
+    },
+    {
+     "typ": "alla",
+     "x": "skarm",
+     "y": "plan3"
+    },
+    {
+     "typ": "nagra_inte",
+     "x": "skarm",
+     "y": "stor"
+    },
+    {
+     "typ": "nagra",
+     "x": "plan3",
+     "y": "stor"
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "obestamd",
+    "nodvandig",
+    "omojlig"
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d1-12",
+  "niva": "grund",
+  "typ": "D1",
+  "family": "premiss",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "intro": null,
+  "villkor": [
+   "Alla elektriker har behörighetsbevis.",
+   "Några med behörighetsbevis arbetar i Malmö.",
+   "Ida är elektriker."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Ingen med behörighetsbevis är elektriker.",
+   "Ida arbetar i Malmö.",
+   "Några elektriker arbetar i Malmö.",
+   "Ida har behörighetsbevis."
+  ],
+  "correctAnswer": 3,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Måste gälla."
+  ],
+  "misstag": [
+   "Ida är elektriker och har behörighetsbevis. Det strider mot premiss 1 och 3.",
+   "Att några med behörighetsbevis arbetar i Malmö säger inget om just Ida.",
+   "De med behörighetsbevis i Malmö behöver inte vara elektriker. Det kan stämma, men det måste inte.",
+   ""
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      1,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Alla elektriker har behörighetsbevis. Ida är elektriker. Alltså har Ida behörighetsbevis."
+    },
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [],
+     "foljd": "Att några med behörighetsbevis arbetar i Malmö säger inget om just Ida."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "termer": [
+    "el",
+    "bevis",
+    "malmo"
+   ],
+   "individer": [
+    "ida"
+   ],
+   "premisser": [
+    [
+     {
+      "typ": "alla",
+      "x": "el",
+      "y": "bevis"
+     }
+    ],
+    [
+     {
+      "typ": "nagra",
+      "x": "bevis",
+      "y": "malmo"
+     }
+    ],
+    [
+     {
+      "typ": "ar",
+      "i": "ida",
+      "x": "el"
+     }
+    ]
+   ],
+   "alternativ": [
+    {
+     "typ": "inga",
+     "x": "bevis",
+     "y": "el"
+    },
+    {
+     "typ": "ar",
+     "i": "ida",
+     "x": "malmo"
+    },
+    {
+     "typ": "nagra",
+     "x": "el",
+     "y": "malmo"
+    },
+    {
+     "typ": "ar",
+     "i": "ida",
+     "x": "bevis"
+    }
+   ],
+   "roller": [
+    "omojlig",
+    "obestamd",
+    "obestamd",
+    "nodvandig"
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d1-13",
+  "niva": "grund",
+  "typ": "D1",
+  "family": "premiss",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "intro": null,
+  "villkor": [
+   "Inga beställningar över 50 000 kronor går igenom utan chefens underskrift.",
+   "Alla datorbeställningar är på över 50 000 kronor.",
+   "Några möbelbeställningar går igenom utan chefens underskrift."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Några möbelbeställningar är inte på över 50 000 kronor.",
+   "Inga möbelbeställningar är på över 50 000 kronor.",
+   "Någon datorbeställning går igenom utan chefens underskrift.",
+   "Alla beställningar över 50 000 kronor gäller datorer."
+  ],
+  "correctAnswer": 0,
+  "etiketter": [
+   "Måste gälla.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren.",
+   "Kan stämma, men villkoren kräver det inte."
+  ],
+  "misstag": [
+   "",
+   "Det gäller de möbelbeställningar som går igenom utan underskrift. Om de andra säger premisserna inget.",
+   "Datorbeställningar är på över 50 000 kronor, och sådana går inte igenom utan underskrift. Det strider mot premiss 1 och 2.",
+   "Det vänder på premiss 2. Det kan stämma, men det måste inte."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [],
+     "foljd": "Några möbelbeställningar går igenom utan chefens underskrift."
+    },
+    {
+     "markor": [
+      1
+     ],
+     "villkor": [],
+     "foljd": "Ingen beställning över 50 000 kronor gör det. Alltså är de möbelbeställningarna inte på över 50 000 kronor."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "termer": [
+    "dyr",
+    "utan",
+    "dator",
+    "mobel"
+   ],
+   "individer": [],
+   "premisser": [
+    [
+     {
+      "typ": "inga",
+      "x": "dyr",
+      "y": "utan"
+     }
+    ],
+    [
+     {
+      "typ": "alla",
+      "x": "dator",
+      "y": "dyr"
+     }
+    ],
+    [
+     {
+      "typ": "nagra",
+      "x": "mobel",
+      "y": "utan"
+     }
+    ]
+   ],
+   "alternativ": [
+    {
+     "typ": "nagra_inte",
+     "x": "mobel",
+     "y": "dyr"
+    },
+    {
+     "typ": "inga",
+     "x": "mobel",
+     "y": "dyr"
+    },
+    {
+     "typ": "nagra",
+     "x": "dator",
+     "y": "utan"
+    },
+    {
+     "typ": "alla",
+     "x": "dyr",
+     "y": "dator"
+    }
+   ],
+   "roller": [
+    "nodvandig",
+    "obestamd",
+    "omojlig",
+    "obestamd"
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d1-14",
+  "niva": "grund",
+  "typ": "D1",
+  "family": "premiss",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "intro": null,
+  "villkor": [
+   "Några som har nått sitt mål får bonus.",
+   "Några som har nått sitt mål har arbetat övertid.",
+   "Ingen som har arbetat övertid får bonus."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Alla som får bonus har nått sitt mål.",
+   "Några som har nått sitt mål har inte arbetat övertid.",
+   "Alla som har nått sitt mål har arbetat övertid.",
+   "Några som får bonus har inte nått sitt mål."
+  ],
+  "correctAnswer": 1,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Måste gälla.",
+   "Strider mot villkoren.",
+   "Kan stämma, men villkoren kräver det inte."
+  ],
+  "misstag": [
+   "Premisserna säger att några med nått mål får bonus, inte att bonus kräver det. Det kan stämma, men det måste inte.",
+   "",
+   "Några som har nått sitt mål får bonus, och de har inte arbetat övertid. Det strider mot premiss 1 och 3.",
+   "Premisserna säger inget om bonus utan nått mål. Det kan stämma, men det måste inte."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      1,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Några som har nått sitt mål får bonus, och ingen som har arbetat övertid får bonus."
+    },
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "De som har nått sitt mål och får bonus har alltså inte arbetat övertid."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "termer": [
+    "bonus",
+    "mal",
+    "overtid"
+   ],
+   "individer": [],
+   "premisser": [
+    [
+     {
+      "typ": "nagra",
+      "x": "mal",
+      "y": "bonus"
+     }
+    ],
+    [
+     {
+      "typ": "nagra",
+      "x": "mal",
+      "y": "overtid"
+     }
+    ],
+    [
+     {
+      "typ": "inga",
+      "x": "overtid",
+      "y": "bonus"
+     }
+    ]
+   ],
+   "alternativ": [
+    {
+     "typ": "alla",
+     "x": "bonus",
+     "y": "mal"
+    },
+    {
+     "typ": "nagra_inte",
+     "x": "mal",
+     "y": "overtid"
+    },
+    {
+     "typ": "alla",
+     "x": "mal",
+     "y": "overtid"
+    },
+    {
+     "typ": "nagra_inte",
+     "x": "bonus",
+     "y": "mal"
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "nodvandig",
+    "omojlig",
+    "obestamd"
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d1-15",
+  "niva": "grund",
+  "typ": "D1",
+  "family": "premiss",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "intro": null,
+  "villkor": [
+   "Inga leveranser till Norrland sker på måndagar.",
+   "Alla kylda leveranser sker på måndagar.",
+   "Några leveranser till Norrland är tunga."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Någon leverans till Norrland är kyld.",
+   "Inga tunga leveranser sker på måndagar.",
+   "Några tunga leveranser är inte kylda.",
+   "Alla leveranser på måndagar är kylda."
+  ],
+  "correctAnswer": 2,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Måste gälla.",
+   "Kan stämma, men villkoren kräver det inte."
+  ],
+  "misstag": [
+   "Kylda leveranser sker på måndagar, och inga leveranser till Norrland gör det. Det strider mot premiss 1 och 2.",
+   "Det gäller de tunga leveranserna till Norrland. Om andra tunga leveranser säger premisserna inget.",
+   "",
+   "Det vänder på premiss 2. Det kan stämma, men det måste inte."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      1,
+      2
+     ],
+     "villkor": [],
+     "foljd": "Kylda leveranser sker på måndagar, och inga leveranser till Norrland gör det. Alltså är ingen leverans till Norrland kyld."
+    },
+    {
+     "markor": [
+      3
+     ],
+     "villkor": [],
+     "foljd": "Några leveranser till Norrland är tunga. De är alltså inte kylda."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "termer": [
+    "norr",
+    "mandag",
+    "kyl",
+    "tung"
+   ],
+   "individer": [],
+   "premisser": [
+    [
+     {
+      "typ": "inga",
+      "x": "norr",
+      "y": "mandag"
+     }
+    ],
+    [
+     {
+      "typ": "alla",
+      "x": "kyl",
+      "y": "mandag"
+     }
+    ],
+    [
+     {
+      "typ": "nagra",
+      "x": "norr",
+      "y": "tung"
+     }
+    ]
+   ],
+   "alternativ": [
+    {
+     "typ": "nagra",
+     "x": "norr",
+     "y": "kyl"
+    },
+    {
+     "typ": "inga",
+     "x": "tung",
+     "y": "mandag"
+    },
+    {
+     "typ": "nagra_inte",
+     "x": "tung",
+     "y": "kyl"
+    },
+    {
+     "typ": "alla",
+     "x": "mandag",
+     "y": "kyl"
+    }
+   ],
+   "roller": [
+    "omojlig",
+    "obestamd",
+    "nodvandig",
+    "obestamd"
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d1-16",
+  "niva": "grund",
+  "typ": "D1",
+  "family": "premiss",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "intro": null,
+  "villkor": [
+   "Alla nyanställda får en mentor.",
+   "Alla som får en mentor träffar personalavdelningen första veckan.",
+   "Nora är nyanställd."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Nora får ingen mentor.",
+   "Alla som träffar personalavdelningen första veckan är nyanställda.",
+   "Några som får en mentor är inte nyanställda.",
+   "Nora träffar personalavdelningen första veckan."
+  ],
+  "correctAnswer": 3,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Måste gälla."
+  ],
+  "misstag": [
+   "Nora är nyanställd, och alla nyanställda får en mentor. Det strider mot premiss 1 och 3.",
+   "Det vänder på kedjan. Andra än nyanställda kan också träffa personalavdelningen.",
+   "Premisserna säger inget om vem mer som får en mentor. Det kan stämma, men det måste inte.",
+   ""
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      1,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Nora är nyanställd och får alltså en mentor."
+    },
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [],
+     "foljd": "Den som får en mentor träffar personalavdelningen första veckan. Alltså gör Nora det."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "termer": [
+    "ny",
+    "mentor",
+    "traff"
+   ],
+   "individer": [
+    "nora"
+   ],
+   "premisser": [
+    [
+     {
+      "typ": "alla",
+      "x": "ny",
+      "y": "mentor"
+     }
+    ],
+    [
+     {
+      "typ": "alla",
+      "x": "mentor",
+      "y": "traff"
+     }
+    ],
+    [
+     {
+      "typ": "ar",
+      "i": "nora",
+      "x": "ny"
+     }
+    ]
+   ],
+   "alternativ": [
+    {
+     "typ": "ar_inte",
+     "i": "nora",
+     "x": "mentor"
+    },
+    {
+     "typ": "alla",
+     "x": "traff",
+     "y": "ny"
+    },
+    {
+     "typ": "nagra_inte",
+     "x": "mentor",
+     "y": "ny"
+    },
+    {
+     "typ": "ar",
+     "i": "nora",
+     "x": "traff"
+    }
+   ],
+   "roller": [
+    "omojlig",
+    "obestamd",
+    "obestamd",
+    "nodvandig"
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d1-17",
+  "niva": "grund",
+  "typ": "D1",
+  "family": "premiss",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "intro": null,
+  "villkor": [
+   "Ingen som arbetar hemma har parkeringstillstånd.",
+   "Några i säljteamet arbetar hemma.",
+   "Alla i ledningen har parkeringstillstånd."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Några i säljteamet har inte parkeringstillstånd.",
+   "Några i säljteamet sitter i ledningen.",
+   "Ingen i säljteamet har parkeringstillstånd.",
+   "Någon i ledningen arbetar hemma."
+  ],
+  "correctAnswer": 0,
+  "etiketter": [
+   "Måste gälla.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren."
+  ],
+  "misstag": [
+   "",
+   "De i säljteamet som inte arbetar hemma kan sitta i ledningen, men premisserna säger inget om dem.",
+   "Det gäller dem i säljteamet som arbetar hemma. Om resten säger premisserna inget.",
+   "Alla i ledningen har parkeringstillstånd, och ingen som arbetar hemma har det. Det strider mot premiss 1 och 3."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      2,
+      1
+     ],
+     "villkor": [],
+     "foljd": "Några i säljteamet arbetar hemma, och ingen som arbetar hemma har parkeringstillstånd."
+    },
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Alltså finns det några i säljteamet som saknar tillstånd. Om resten av teamet säger premisserna inget."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "termer": [
+    "hemma",
+    "park",
+    "salj",
+    "ledning"
+   ],
+   "individer": [],
+   "premisser": [
+    [
+     {
+      "typ": "inga",
+      "x": "hemma",
+      "y": "park"
+     }
+    ],
+    [
+     {
+      "typ": "nagra",
+      "x": "salj",
+      "y": "hemma"
+     }
+    ],
+    [
+     {
+      "typ": "alla",
+      "x": "ledning",
+      "y": "park"
+     }
+    ]
+   ],
+   "alternativ": [
+    {
+     "typ": "nagra_inte",
+     "x": "salj",
+     "y": "park"
+    },
+    {
+     "typ": "nagra",
+     "x": "salj",
+     "y": "ledning"
+    },
+    {
+     "typ": "inga",
+     "x": "salj",
+     "y": "park"
+    },
+    {
+     "typ": "nagra",
+     "x": "ledning",
+     "y": "hemma"
+    }
+   ],
+   "roller": [
+    "nodvandig",
+    "obestamd",
+    "obestamd",
+    "omojlig"
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d1-18",
+  "niva": "grund",
+  "typ": "D1",
+  "family": "premiss",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "intro": null,
+  "villkor": [
+   "Alla dokument i mappen Avtal är sekretessmärkta.",
+   "Inga sekretessmärkta dokument får skickas med vanlig e-post.",
+   "Offerten ligger i mappen Avtal."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Offerten är inte sekretessmärkt.",
+   "Offerten får inte skickas med vanlig e-post.",
+   "Några sekretessmärkta dokument ligger inte i mappen Avtal.",
+   "Alla sekretessmärkta dokument ligger i mappen Avtal."
+  ],
+  "correctAnswer": 1,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Måste gälla.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte."
+  ],
+  "misstag": [
+   "Offerten ligger i mappen Avtal, och allt där är sekretessmärkt. Det strider mot premiss 1 och 3.",
+   "",
+   "Premisserna säger inget om dokument utanför mappen. Det kan stämma, men det måste inte.",
+   "Det vänder på premiss 1. Sekretessmärkta dokument kan ligga i andra mappar."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      1,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Offerten ligger i mappen Avtal och är alltså sekretessmärkt."
+    },
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [],
+     "foljd": "Inga sekretessmärkta dokument får skickas med vanlig e-post. Alltså får offerten inte det."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "termer": [
+    "avtal",
+    "sekretess",
+    "epost"
+   ],
+   "individer": [
+    "offerten"
+   ],
+   "premisser": [
+    [
+     {
+      "typ": "alla",
+      "x": "avtal",
+      "y": "sekretess"
+     }
+    ],
+    [
+     {
+      "typ": "inga",
+      "x": "sekretess",
+      "y": "epost"
+     }
+    ],
+    [
+     {
+      "typ": "ar",
+      "i": "offerten",
+      "x": "avtal"
+     }
+    ]
+   ],
+   "alternativ": [
+    {
+     "typ": "ar_inte",
+     "i": "offerten",
+     "x": "sekretess"
+    },
+    {
+     "typ": "ar_inte",
+     "i": "offerten",
+     "x": "epost"
+    },
+    {
+     "typ": "nagra_inte",
+     "x": "sekretess",
+     "y": "avtal"
+    },
+    {
+     "typ": "alla",
+     "x": "sekretess",
+     "y": "avtal"
+    }
+   ],
+   "roller": [
+    "omojlig",
+    "nodvandig",
+    "obestamd",
+    "obestamd"
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d1-19",
+  "niva": "grund",
+  "typ": "D1",
+  "family": "premiss",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "intro": null,
+  "villkor": [
+   "Några av vårens kurser hålls på distans.",
+   "Ingen kurs på distans har fler än tjugo deltagare.",
+   "Alla obligatoriska kurser har fler än tjugo deltagare."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Någon obligatorisk kurs hålls på distans.",
+   "Alla kurser med fler än tjugo deltagare är obligatoriska.",
+   "Några av vårens kurser är inte obligatoriska.",
+   "Ingen av vårens kurser har fler än tjugo deltagare."
+  ],
+  "correctAnswer": 2,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Måste gälla.",
+   "Kan stämma, men villkoren kräver det inte."
+  ],
+  "misstag": [
+   "Obligatoriska kurser har fler än tjugo deltagare, och ingen kurs på distans har det. Det strider mot premiss 2 och 3.",
+   "Det vänder på premiss 3. Det kan stämma, men det måste inte.",
+   "",
+   "Det gäller vårens kurser på distans. Om de andra säger premisserna inget."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      2,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Obligatoriska kurser har fler än tjugo deltagare, och ingen kurs på distans har det. Alltså hålls ingen obligatorisk kurs på distans."
+    },
+    {
+     "markor": [
+      1
+     ],
+     "villkor": [],
+     "foljd": "Några av vårens kurser hålls på distans. De är alltså inte obligatoriska."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "termer": [
+    "var",
+    "distans",
+    "stor",
+    "oblig"
+   ],
+   "individer": [],
+   "premisser": [
+    [
+     {
+      "typ": "nagra",
+      "x": "var",
+      "y": "distans"
+     }
+    ],
+    [
+     {
+      "typ": "inga",
+      "x": "distans",
+      "y": "stor"
+     }
+    ],
+    [
+     {
+      "typ": "alla",
+      "x": "oblig",
+      "y": "stor"
+     }
+    ]
+   ],
+   "alternativ": [
+    {
+     "typ": "nagra",
+     "x": "oblig",
+     "y": "distans"
+    },
+    {
+     "typ": "alla",
+     "x": "stor",
+     "y": "oblig"
+    },
+    {
+     "typ": "nagra_inte",
+     "x": "var",
+     "y": "oblig"
+    },
+    {
+     "typ": "inga",
+     "x": "var",
+     "y": "stor"
+    }
+   ],
+   "roller": [
+    "omojlig",
+    "obestamd",
+    "nodvandig",
+    "obestamd"
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d1-20",
+  "niva": "grund",
+  "typ": "D1",
+  "family": "premiss",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "intro": null,
+  "villkor": [
+   "Några i styrgruppen är inte chefer.",
+   "Alla i styrgruppen har gått ledarprogrammet."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Alla chefer har gått ledarprogrammet.",
+   "Några chefer sitter i styrgruppen.",
+   "Alla som har gått ledarprogrammet är chefer.",
+   "Några som har gått ledarprogrammet är inte chefer."
+  ],
+  "correctAnswer": 3,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren.",
+   "Måste gälla."
+  ],
+  "misstag": [
+   "Premisserna säger bara att styrgruppen har gått programmet. Om chefer utanför den vet vi inget.",
+   "Premiss 1 säger att några i styrgruppen inte är chefer, inte att några andra är det.",
+   "De i styrgruppen som inte är chefer har också gått programmet. Det strider mot premiss 1 och 2.",
+   ""
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      1,
+      2
+     ],
+     "villkor": [],
+     "foljd": "Några i styrgruppen är inte chefer, och alla i styrgruppen har gått ledarprogrammet. De som inte är chefer har alltså också gått det."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "termer": [
+    "styr",
+    "chef",
+    "ledar"
+   ],
+   "individer": [],
+   "premisser": [
+    [
+     {
+      "typ": "nagra_inte",
+      "x": "styr",
+      "y": "chef"
+     }
+    ],
+    [
+     {
+      "typ": "alla",
+      "x": "styr",
+      "y": "ledar"
+     }
+    ]
+   ],
+   "alternativ": [
+    {
+     "typ": "alla",
+     "x": "chef",
+     "y": "ledar"
+    },
+    {
+     "typ": "nagra",
+     "x": "chef",
+     "y": "styr"
+    },
+    {
+     "typ": "alla",
+     "x": "ledar",
+     "y": "chef"
+    },
+    {
+     "typ": "nagra_inte",
+     "x": "ledar",
+     "y": "chef"
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "obestamd",
+    "omojlig",
+    "nodvandig"
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d1-21",
+  "niva": "grund",
+  "typ": "D1",
+  "family": "premiss",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "intro": null,
+  "villkor": [
+   "Alla som arbetar med lön har tystnadsplikt.",
+   "Gun har inte tystnadsplikt.",
+   "Några på ekonomiavdelningen arbetar med lön."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Gun arbetar inte med lön.",
+   "Alla på ekonomiavdelningen har tystnadsplikt.",
+   "Ingen på ekonomiavdelningen har tystnadsplikt.",
+   "Gun arbetar inte på ekonomiavdelningen."
+  ],
+  "correctAnswer": 0,
+  "etiketter": [
+   "Måste gälla.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren.",
+   "Kan stämma, men villkoren kräver det inte."
+  ],
+  "misstag": [
+   "",
+   "Det gäller dem som arbetar med lön. Om resten av avdelningen säger premisserna inget.",
+   "Några på ekonomiavdelningen arbetar med lön och har då tystnadsplikt. Det strider mot premiss 1 och 3.",
+   "Var Gun arbetar säger premisserna inget om. Hon kan arbeta där med något annat än lön."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      1,
+      2
+     ],
+     "villkor": [],
+     "foljd": "Alla som arbetar med lön har tystnadsplikt. Gun har den inte. Alltså arbetar Gun inte med lön."
+    },
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Var Gun arbetar säger premisserna inget om."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "termer": [
+    "lon",
+    "tyst",
+    "ekon"
+   ],
+   "individer": [
+    "gun"
+   ],
+   "premisser": [
+    [
+     {
+      "typ": "alla",
+      "x": "lon",
+      "y": "tyst"
+     }
+    ],
+    [
+     {
+      "typ": "ar_inte",
+      "i": "gun",
+      "x": "tyst"
+     }
+    ],
+    [
+     {
+      "typ": "nagra",
+      "x": "ekon",
+      "y": "lon"
+     }
+    ]
+   ],
+   "alternativ": [
+    {
+     "typ": "ar_inte",
+     "i": "gun",
+     "x": "lon"
+    },
+    {
+     "typ": "alla",
+     "x": "ekon",
+     "y": "tyst"
+    },
+    {
+     "typ": "inga",
+     "x": "ekon",
+     "y": "tyst"
+    },
+    {
+     "typ": "ar_inte",
+     "i": "gun",
+     "x": "ekon"
+    }
+   ],
+   "roller": [
+    "nodvandig",
+    "obestamd",
+    "omojlig",
+    "obestamd"
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d1-22",
+  "niva": "grund",
+  "typ": "D1",
+  "family": "premiss",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "intro": null,
+  "villkor": [
+   "Alla bilar i bilpoolen är elbilar.",
+   "Ingen elbil är äldre än fem år.",
+   "Den röda bilen är äldre än fem år."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Den röda bilen är en elbil.",
+   "Den röda bilen är inte med i bilpoolen.",
+   "Den röda bilen ska säljas.",
+   "Alla elbilar är med i bilpoolen."
+  ],
+  "correctAnswer": 1,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Måste gälla.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte."
+  ],
+  "misstag": [
+   "Den röda bilen är äldre än fem år, och ingen elbil är det. Det strider mot premiss 2 och 3.",
+   "",
+   "Premisserna säger inget om försäljning. Det kan stämma, men det måste inte.",
+   "Det vänder på premiss 1. Det kan finnas elbilar utanför poolen."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      2,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Den röda bilen är äldre än fem år, och ingen elbil är det. Alltså är den röda bilen ingen elbil."
+    },
+    {
+     "markor": [
+      1
+     ],
+     "villkor": [],
+     "foljd": "Alla bilar i bilpoolen är elbilar. Alltså är den röda bilen inte med i bilpoolen."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "termer": [
+    "pool",
+    "el",
+    "gammal",
+    "salj"
+   ],
+   "individer": [
+    "roda"
+   ],
+   "premisser": [
+    [
+     {
+      "typ": "alla",
+      "x": "pool",
+      "y": "el"
+     }
+    ],
+    [
+     {
+      "typ": "inga",
+      "x": "el",
+      "y": "gammal"
+     }
+    ],
+    [
+     {
+      "typ": "ar",
+      "i": "roda",
+      "x": "gammal"
+     }
+    ]
+   ],
+   "alternativ": [
+    {
+     "typ": "ar",
+     "i": "roda",
+     "x": "el"
+    },
+    {
+     "typ": "ar_inte",
+     "i": "roda",
+     "x": "pool"
+    },
+    {
+     "typ": "ar",
+     "i": "roda",
+     "x": "salj"
+    },
+    {
+     "typ": "alla",
+     "x": "el",
+     "y": "pool"
+    }
+   ],
+   "roller": [
+    "omojlig",
+    "nodvandig",
+    "obestamd",
+    "obestamd"
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d1-23",
+  "niva": "grund",
+  "typ": "D1",
+  "family": "premiss",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "intro": null,
+  "villkor": [
+   "Alla som håller i introduktionen har arbetat här i minst två år.",
+   "Några som har arbetat här i minst två år är skyddsombud.",
+   "Inget skyddsombud håller i introduktionen."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Några skyddsombud har inte arbetat här i minst två år.",
+   "Alla som har arbetat här i minst två år håller i introduktionen.",
+   "Några som har arbetat här i minst två år håller inte i introduktionen.",
+   "Alla skyddsombud har arbetat här i minst två år."
+  ],
+  "correctAnswer": 2,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren.",
+   "Måste gälla.",
+   "Kan stämma, men villkoren kräver det inte."
+  ],
+  "misstag": [
+   "Premisserna säger inget om skyddsombud med kortare tid. Det kan stämma, men det måste inte.",
+   "Några med minst två år är skyddsombud, och inget skyddsombud håller i introduktionen. Det strider mot premiss 2 och 3.",
+   "",
+   "Premiss 2 säger att några med minst två år är skyddsombud, inte att alla skyddsombud har det."
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      2,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Några som har arbetat här i minst två år är skyddsombud, och inget skyddsombud håller i introduktionen."
+    },
+    {
+     "markor": [],
+     "villkor": [],
+     "foljd": "Alltså finns det några med minst två år som inte håller i den."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "termer": [
+    "intro",
+    "tvaar",
+    "ombud"
+   ],
+   "individer": [],
+   "premisser": [
+    [
+     {
+      "typ": "alla",
+      "x": "intro",
+      "y": "tvaar"
+     }
+    ],
+    [
+     {
+      "typ": "nagra",
+      "x": "tvaar",
+      "y": "ombud"
+     }
+    ],
+    [
+     {
+      "typ": "inga",
+      "x": "ombud",
+      "y": "intro"
+     }
+    ]
+   ],
+   "alternativ": [
+    {
+     "typ": "nagra_inte",
+     "x": "ombud",
+     "y": "tvaar"
+    },
+    {
+     "typ": "alla",
+     "x": "tvaar",
+     "y": "intro"
+    },
+    {
+     "typ": "nagra_inte",
+     "x": "tvaar",
+     "y": "intro"
+    },
+    {
+     "typ": "alla",
+     "x": "ombud",
+     "y": "tvaar"
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "omojlig",
+    "nodvandig",
+    "obestamd"
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d1-24",
+  "niva": "grund",
+  "typ": "D1",
+  "family": "premiss",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "intro": null,
+  "villkor": [
+   "Ingen som har pass på fredag är vikarie.",
+   "Alla som har pass på fredag får lunchen betald.",
+   "Anna har pass på fredag."
+  ],
+  "fraga": "Vad måste gälla?",
+  "options": [
+   "Ingen vikarie får lunchen betald.",
+   "Alla som får lunchen betald har pass på fredag.",
+   "Anna får inte lunchen betald.",
+   "Anna är inte vikarie."
+  ],
+  "correctAnswer": 3,
+  "etiketter": [
+   "Kan stämma, men villkoren kräver det inte.",
+   "Kan stämma, men villkoren kräver det inte.",
+   "Strider mot villkoren.",
+   "Måste gälla."
+  ],
+  "misstag": [
+   "Vikarier har inte pass på fredag, men de kan få lunchen betald av ett annat skäl.",
+   "Det vänder på premiss 2. Andra kan också få lunchen betald.",
+   "Anna har pass på fredag, och alla med pass på fredag får lunchen betald. Det strider mot premiss 2 och 3.",
+   ""
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      1,
+      3
+     ],
+     "villkor": [],
+     "foljd": "Anna har pass på fredag, och ingen som har pass på fredag är vikarie. Alltså är Anna inte vikarie."
+    }
+   ],
+   "schema": null
+  },
+  "formell": {
+   "termer": [
+    "fredag",
+    "vikarie",
+    "lunch"
+   ],
+   "individer": [
+    "anna"
+   ],
+   "premisser": [
+    [
+     {
+      "typ": "inga",
+      "x": "fredag",
+      "y": "vikarie"
+     }
+    ],
+    [
+     {
+      "typ": "alla",
+      "x": "fredag",
+      "y": "lunch"
+     }
+    ],
+    [
+     {
+      "typ": "ar",
+      "i": "anna",
+      "x": "fredag"
+     }
+    ]
+   ],
+   "alternativ": [
+    {
+     "typ": "inga",
+     "x": "vikarie",
+     "y": "lunch"
+    },
+    {
+     "typ": "alla",
+     "x": "lunch",
+     "y": "fredag"
+    },
+    {
+     "typ": "ar_inte",
+     "i": "anna",
+     "x": "lunch"
+    },
+    {
+     "typ": "ar_inte",
+     "i": "anna",
+     "x": "vikarie"
+    }
+   ],
+   "roller": [
+    "obestamd",
+    "obestamd",
+    "omojlig",
+    "nodvandig"
+   ]
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "dd-g-d2-05",
+  "niva": "grund",
+  "typ": "D2",
+  "family": "inte_granne",
+  "difficulty": 2,
+  "p_prior": 0.55,
+  "intro": "Fyra kollegor står i en rad på plats 1 till 4, räknat från vänster.",
+  "villkor": [
+   "Leo står någonstans till vänster om Eva.",
+   "Åsa står på plats 4.",
+   "Eva står inte bredvid Åsa."
+  ],
+  "fraga": "Vilket måste vara sant?",
+  "options": [
+   "Jenny står direkt till vänster om Eva.",
+   "Eva står inte bredvid Leo.",
+   "Jenny står någonstans till vänster om Eva.",
+   "Jenny står bredvid Leo.",
+   "Eva står på plats 2."
+  ],
+  "correctAnswer": 4,
+  "etiketter": [
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Strider mot villkoren.",
+   "Måste gälla."
+  ],
+  "misstag": [
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Leo står någonstans till vänster om Eva.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 2: Åsa står på plats 4.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Leo står någonstans till vänster om Eva.",
+   "I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 1: Leo står någonstans till vänster om Eva.",
+   ""
+  ],
+  "losning": {
+   "steg": [
+    {
+     "markor": [
+      2
+     ],
+     "villkor": [
+      "Åsa står på plats 4."
+     ],
+     "foljd": "Det låser Åsa på plats 4."
+    },
+    {
+     "markor": [
+      1,
+      3
+     ],
+     "villkor": [
+      "Leo står någonstans till vänster om Eva.",
+      "Eva står inte bredvid Åsa."
+     ],
+     "foljd": "Tillsammans låser de Leo på plats 1, Eva på plats 2 och Jenny på plats 3."
+    }
+   ],
+   "schema": {
+    "namn": [
+     [
+      "Leo"
+     ],
+     [
+      "Eva"
+     ],
+     [
+      "Jenny"
+     ],
+     [
+      "Åsa"
+     ]
+    ],
+    "koppar": 2,
+    "antagande": null
+   }
+  },
+  "formell": {
+   "tema": "personer",
+   "namn": [
+    "Eva",
+    "Jenny",
+    "Leo",
+    "Åsa"
+   ],
+   "villkor": [
+    {
+     "typ": "vanster_om",
+     "a": 2,
+     "b": 0
+    },
+    {
+     "typ": "plats",
+     "a": 3,
+     "k": 4
+    },
+    {
+     "typ": "inte_granne",
+     "a": 0,
+     "b": 3
+    }
+   ],
+   "fraga": {
+    "form": "maste"
+   },
+   "alternativ": [
+    {
+     "typ": "direkt_vanster_om",
+     "a": 1,
+     "b": 0
+    },
+    {
+     "typ": "inte_granne",
+     "a": 0,
+     "b": 2
+    },
+    {
+     "typ": "vanster_om",
+     "a": 1,
+     "b": 0
+    },
+    {
+     "typ": "granne",
+     "a": 1,
+     "b": 2
+    },
+    {
+     "typ": "plats",
+     "a": 0,
+     "k": 2
+    }
+   ]
+  },
+  "fran_version": 1
+ }
+]

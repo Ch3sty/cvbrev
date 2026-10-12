@@ -25,11 +25,14 @@
 //     ha flera nära missar; täckningen räknas över alla.)
 // DD4 Namnen ur listorna, aldrig samma begynnelsebokstav två gånger.
 // DD5 Förklaringen är lösarens gång (forklaring.mjs), ordagrant, och slutar
-//     i lösningen; schemat är lösningen.
+//     i lösningen; schemat är lösningen. V1 (granskning 01): varje lås i ett
+//     steg följer ur stegets villkor plus redan låsta platser.
+// DD6 (granskning 01 V4, D3): facit är inte omöjligt ur antagandet plus färre
+//     än två villkor.
 // =============================================================================
 
 import { losningar, allaTilldelningar, brutna, uppfyllt, schemaRad, villkorNyckel } from './losare.mjs';
-import { forklara } from './forklaring.mjs';
+import { forklara, stegFel } from './forklaring.mjs';
 import { TEMAN, namnFel, villkorText, etikett } from './tema.mjs';
 import { stabilStatus } from './mangdmodell.mjs';
 
@@ -181,6 +184,7 @@ export function dd5(q) {
   const S = losningar(f.namn.length, allaVillkor(f), grupperFor(f));
   if (S.length === 1 && fk.pos.join() !== S[0].join()) fel.push('DD5: förklaringen slutar inte i lösningen');
   if (JSON.stringify(fk.steg) !== JSON.stringify(q.losning?.steg)) fel.push('DD5: förklaringen är inte lösarens gång ordagrant');
+  fel.push(...stegFel({ tema: f.tema, namn: f.namn, villkor: f.villkor, antagande: f.antagande ?? null }, fk.formella));
   if (S.length === 1) {
     const rad = schemaRad(S[0]).map((i) => [etikett(f.tema, f.namn[i])]);
     if (JSON.stringify(rad) !== JSON.stringify(q.losning?.schema?.namn ?? null)) fel.push('DD5: schemat är inte lösningen');
@@ -198,6 +202,20 @@ export function dd5(q) {
   return fel;
 }
 
+/** DD6: i D3 får facit inte vara omöjligt ur antagandet och högst ett villkor. */
+export function dd6(q) {
+  if (q.typ !== 'D3') return [];
+  const f = q.formell;
+  const n = f.namn.length;
+  const g = grupperFor(f);
+  const facit = f.alternativ[q.correctAnswer];
+  if (!f.antagande || !facit) return [];
+  const omojligMed = (urval) => losningar(n, [f.antagande, ...urval], g).every((p) => !uppfyllt(facit, p, g));
+  if (omojligMed([])) return ['DD6: facit är omöjligt redan ur antagandet'];
+  const k = f.villkor.findIndex((c) => omojligMed([c]));
+  return k >= 0 ? [`DD6: facit är omöjligt ur antagandet och villkor ${k + 1} ensamt`] : [];
+}
+
 /** Texterna i uppgiften måste vara mallarnas (villkor och alternativ). */
 export function textFel(q) {
   if (q.typ === 'D1') return [];
@@ -210,5 +228,5 @@ export function textFel(q) {
 }
 
 export function sparrFel(q) {
-  return [...dd1(q), ...dd2(q), ...dd3(q), ...dd4(q), ...dd5(q), ...textFel(q)];
+  return [...dd1(q), ...dd2(q), ...dd3(q), ...dd4(q), ...dd5(q), ...dd6(q), ...textFel(q)];
 }
