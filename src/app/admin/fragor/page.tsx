@@ -15,7 +15,7 @@ import PageHeader from '@/components/shell/PageHeader';
 import SectionCard from '@/components/admin/SectionCard';
 import EmptyState from '@/components/shell/EmptyState';
 import { Flikrad, Tabell, Td, Th, datum } from '../innehall/Delar';
-import { Filterrad, NivaStaplar, PStapel, Sidvisning, StatusOrd, fragaHref, sekunder } from './Delar';
+import { Filterrad, NivaStaplar, PStapel, Sidvisning, StatusOrd, familjText, fragaHref, sekunder } from './Delar';
 import { FLIKAR, NIVAER, arFlik, hamtaKalibrering, hamtaPerTestTyp, hamtaRapporter, SIDSTORLEK, type FlikNyckel } from './data';
 import { TEST_KINDS, TEST_KIND_NAMN, arTestKind, type Niva } from '@/lib/fragor/register.server';
 import { STATUS_ORDNING, STATUS_TEXT, type KalibreringStatus } from '@/lib/kalibrering/flaggor';
@@ -104,7 +104,7 @@ async function KalibreringFlik({
                       <span className="mt-0.5 block text-meta text-ink-3">{TEST_KIND_NAMN[r.test_kind]}</span>
                     </Td>
                     <Td dampad>{NIVA_NAMN[r.niva]}</Td>
-                    <Td dampad>{r.familj ?? 'utan familj'}</Td>
+                    <Td dampad>{familjText(r.test_kind, r.familj)}</Td>
                     <Td hoger tal>
                       {r.svar}
                     </Td>

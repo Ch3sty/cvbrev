@@ -48,7 +48,7 @@ Befordran: `node scripts/befordra-deduktiv.mjs --beslut=docs/qa/deduktiv/beslut-
 ### Avvikelser mot copy och spec som du bör se
 
 1. **Stegmallen** följer art-directors spec ("{villkoret} Det låser X på plats p"), inte copy 4.5. Spec 2.1 säger att följden är lösarens mall som copywritern putsar. Prövningsstegets formulering är min.
-2. **ordning** skrivs "A går före B", inte "kommer före" (copy 4.4 erbjuder det så att greppen på "kommer" blir tom).
+2. **ordning** skrivs "A går före B" (copy 4.4 erbjuder det som alternativ, så att greppen på löftesorden blir tom).
 3. **samma_grupp** finns bara i turordningen ("A och B går samma dag", plats 1 till 3 måndag, 4 till 6 tisdag). Personer på rad och pärmar på hylla använder plats, inte plats, bredvid, inte bredvid, till vänster om och direkt till vänster om.
 4. **Saker** är pärmar i färger ("Den röda pärmen ligger ..."), remsan visar färgen ("Röd").
 5. **Misstagen i D2 och D3** skrivs av generatorn ur lösaren (spec 2.3 säger för hand för D3). D2 vem: "Cilla står på plats 2. Med Cilla på plats 3 bryts villkor 3: ...". D2 måste: "Det stämmer bara om du bryter villkor 2: ...". D3: "I schemat står X på plats 4. Det går ihop med villkoren, så det är inte svaret." D1:s misstag är skrivna för hand.

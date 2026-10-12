@@ -9,7 +9,7 @@
 // uppgiften är text: villkoren klistrade överst (vänsterspalt från 1024 px),
 // frågan och alternativen som rader. Ett val markeras först och skickas med
 // "Svara" (spec 1, foten). Lösningsgången visas inte under testet, bara i
-// genomgången. Uppgifterna kommer från servern utan facit
+// genomgången. Uppgifterna levereras av servern utan facit
 // (src/lib/deduktivV1/fragor.server.ts).
 // =============================================================================
 

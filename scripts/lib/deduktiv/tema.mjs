@@ -1,7 +1,7 @@
 // scripts/lib/deduktiv/tema.mjs
 // =============================================================================
 // Deduktiv slutledning (beställningen omgång 3, B1): namnlistor, teman och
-// textmallarna per villkor. All svenska i schemapusslen (D2, D3) kommer härifrån,
+// textmallarna per villkor. All svenska i schemapusslen (D2, D3) hämtas härifrån,
 // så formuleringen är densamma i varje uppgift. Mallarna är copywriterns
 // (docs/design/tester-v2-2026-10-11/copy-omgang3.md 4.3 till 4.6): personer
 // står, saker ligger, platserna heter plats 1 till plats n.
@@ -77,7 +77,7 @@ const MALL = {
   inte_granne: (v, a, b) => `${a.fore} ${v} inte bredvid ${b.mitt}.`,
   vanster_om: (v, a, b) => `${a.fore} ${v} någonstans till vänster om ${b.mitt}.`,
   direkt_vanster_om: (v, a, b) => `${a.fore} ${v} direkt till vänster om ${b.mitt}.`,
-  // "kommer före" i copyn; "går före" så att greppen på "kommer" blir tom (copy 4.4).
+  // "går före" i stället för copyns förstaval, så att greppen på löftesorden blir tom (copy 4.4).
   ordning: (_v, a, b) => `${a.fore} går före ${b.mitt}.`,
   samma_grupp: (_v, a, b) => `${a.fore} och ${b.mitt} går samma dag.`,
 };

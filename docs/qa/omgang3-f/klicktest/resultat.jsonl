@@ -1,0 +1,119 @@
+{"tid":"2026-10-12T09:48:57.831Z","floede":"deduktiv-premium-avancerad-1280-ljust","steg":"kortet finns i Alla tester","ok":true}
+{"tid":"2026-10-12T09:48:58.321Z","floede":"deduktiv-premium-avancerad-1280-ljust","steg":"kortet står efter figurserierna","ok":true,"ordning":["logik","figurer","deduktiv","verbal","numerisk","personlighet"]}
+{"tid":"2026-10-12T09:48:58.322Z","floede":"deduktiv-premium-avancerad-1280-ljust","steg":"provraden är dämpad","ok":true,"provrad":"tyst"}
+{"tid":"2026-10-12T09:48:58.322Z","floede":"deduktiv-premium-avancerad-1280-ljust","steg":"nivåerna säger vad de gör","ok":false}
+{"tid":"2026-10-12T09:49:07.888Z","floede":"deduktiv-premium-avancerad-1280-ljust","steg":"ingen svg i frågevyn (spec 7)","ok":true,"svg":0,"position":"sticky","maxHojd":"none","bredd":400,"sidled":true,"forstaRad":true,"svaraAv":true}
+{"tid":"2026-10-12T09:49:07.888Z","floede":"deduktiv-premium-avancerad-1280-ljust","steg":"två spalter på dator: villkoren till vänster","ok":true,"svg":0,"position":"sticky","maxHojd":"none","bredd":400,"sidled":true,"forstaRad":true,"svaraAv":true}
+{"tid":"2026-10-12T09:49:07.888Z","floede":"deduktiv-premium-avancerad-1280-ljust","steg":"raden över första frågan","ok":true}
+{"tid":"2026-10-12T09:49:07.889Z","floede":"deduktiv-premium-avancerad-1280-ljust","steg":"Svara är avstängd tills något är valt","ok":true}
+{"tid":"2026-10-12T09:49:14.972Z","floede":"deduktiv-premium-avancerad-1280-ljust","steg":"CLS 0 på frågesidan","ok":true,"cls":0}
+{"tid":"2026-10-12T09:49:19.406Z","floede":"deduktiv-premium-avancerad-1280-ljust","steg":"resultatet visar 8 av 12","ok":true}
+{"tid":"2026-10-12T09:49:19.406Z","floede":"deduktiv-premium-avancerad-1280-ljust","steg":"Var du tappade per villkorstyp","ok":true}
+{"tid":"2026-10-12T09:49:19.407Z","floede":"deduktiv-premium-avancerad-1280-ljust","steg":"genomgångskortet har remsminiatyrer eller premisstreck","ok":true}
+{"tid":"2026-10-12T09:49:21.240Z","floede":"deduktiv-premium-avancerad-1280-ljust","steg":9,"ok":true,"markor":["1,3,5","1,2,3","2,3","4","1","2","3","4","5"],"remsa":5,"koppar":0,"misstag":"I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 4: Gun står inte bredvid Nora.","rapport":true,"svg":0}
+{"tid":"2026-10-12T09:49:21.241Z","floede":"deduktiv-premium-avancerad-1280-ljust","steg":9,"ok":true,"markor":["1,3,5","1,2,3","2,3","4","1","2","3","4","5"],"remsa":5,"koppar":0,"misstag":"I schemat stämmer det inte. För att få det sant måste minst ett villkor brytas, till exempel villkor 4: Gun står inte bredvid Nora.","rapport":true,"svg":0}
+{"tid":"2026-10-12T09:49:22.737Z","floede":"deduktiv-premium-avancerad-1280-ljust","steg":"rapporten skickades","ok":true,"status":200,"q":"dd-a-d2-05"}
+{"tid":"2026-10-12T09:49:23.046Z","floede":"deduktiv-premium-avancerad-1280-ljust","steg":"klart","ok":false,"fel":["nivåerna säger vad de gör"]}
+{"tid":"2026-10-12T09:50:06.146Z","floede":"deduktiv-gratis2-grund-360-ljust","steg":"kortet finns i Alla tester","ok":true}
+{"tid":"2026-10-12T09:50:06.665Z","floede":"deduktiv-gratis2-grund-360-ljust","steg":"kortet står efter figurserierna","ok":true,"ordning":["logik","figurer","deduktiv","verbal","numerisk","personlighet"]}
+{"tid":"2026-10-12T09:50:06.666Z","floede":"deduktiv-gratis2-grund-360-ljust","steg":"provraden är dämpad","ok":true,"provrad":"tyst"}
+{"tid":"2026-10-12T09:50:06.666Z","floede":"deduktiv-gratis2-grund-360-ljust","steg":"nivåsegmenten","ok":null,"text":"DEDUKTIV SLUTLEDNING\n\nVem  tår var när alla villkor gäller?\n\nNågra per oner, några villkor och en fråga: vem  tår var, och vad må te då gälla? Du räknar inte och ritar inget, du håller reda på villkoren. Formatet finn  i SHL Verify G+ och i Aon  deduktiva te t.\n\nuppgifter\n12\nminuter\n15\nnivåer\n3\nGrun"}
+{"tid":"2026-10-12T09:50:13.475Z","floede":"deduktiv-gratis2-grund-360-ljust","steg":"ingen svg i frågevyn (spec 7)","ok":true,"svg":0,"position":"sticky","maxHojd":"336px","bredd":360,"sidled":false,"forstaRad":true,"svaraAv":true}
+{"tid":"2026-10-12T09:50:13.476Z","floede":"deduktiv-gratis2-grund-360-ljust","steg":"villkoren klistrade, högst 42 vh på mobil","ok":true,"svg":0,"position":"sticky","maxHojd":"336px","bredd":360,"sidled":false,"forstaRad":true,"svaraAv":true}
+{"tid":"2026-10-12T09:50:13.476Z","floede":"deduktiv-gratis2-grund-360-ljust","steg":"raden över första frågan","ok":true}
+{"tid":"2026-10-12T09:50:13.476Z","floede":"deduktiv-gratis2-grund-360-ljust","steg":"Svara är avstängd tills något är valt","ok":true}
+{"tid":"2026-10-12T09:50:20.542Z","floede":"deduktiv-gratis2-grund-360-ljust","steg":"CLS 0 på frågesidan","ok":true,"cls":0}
+{"tid":"2026-10-12T09:50:25.469Z","floede":"deduktiv-gratis2-grund-360-ljust","steg":"resultatet visar 8 av 12","ok":true}
+{"tid":"2026-10-12T09:50:25.470Z","floede":"deduktiv-gratis2-grund-360-ljust","steg":"Var du tappade per villkorstyp","ok":true}
+{"tid":"2026-10-12T09:50:25.470Z","floede":"deduktiv-gratis2-grund-360-ljust","steg":"genomgångskortet har remsminiatyrer eller premisstreck","ok":true}
+{"tid":"2026-10-12T09:50:27.326Z","floede":"deduktiv-gratis2-grund-360-ljust","steg":2,"ok":true,"markor":["1,2","3"],"remsa":0,"koppar":0,"misstag":"Premisserna säger inget om vem mer som får tillägg. Det kan stämma, men det måste inte.","rapport":true,"svg":0}
+{"tid":"2026-10-12T09:50:28.507Z","floede":"deduktiv-gratis2-grund-360-ljust","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T09:50:38.819Z","floede":"deduktiv-gratis-avancerad-360-ljust","steg":"kortet finns i Alla tester","ok":true}
+{"tid":"2026-10-12T09:50:39.328Z","floede":"deduktiv-gratis-avancerad-360-ljust","steg":"kortet står efter figurserierna","ok":true,"ordning":["logik","figurer","deduktiv","verbal","numerisk","personlighet"]}
+{"tid":"2026-10-12T09:50:39.330Z","floede":"deduktiv-gratis-avancerad-360-ljust","steg":"provraden är dämpad","ok":true,"provrad":"tyst"}
+{"tid":"2026-10-12T09:50:39.332Z","floede":"deduktiv-gratis-avancerad-360-ljust","steg":"nivåsegmenten","ok":null,"text":"DEDUKTIV SLUTLEDNING\n\nVem  tår var när alla villkor gäller?\n\nNågra per oner, några villkor och en fråga: vem  tår var, och vad må te då gälla? Du räknar inte och ritar inget, du håller reda på villkoren. Formatet finn  i SHL Verify G+ och i Aon  deduktiva te t.\n\nuppgifter\n12\nminuter\n15\nnivåer\n3\nGrun"}
+{"tid":"2026-10-12T09:50:39.927Z","floede":"deduktiv-gratis-avancerad-360-ljust","steg":"gratis på avancerad: session-POST spärras","ok":true,"status":402}
+{"tid":"2026-10-12T09:50:43.023Z","floede":"deduktiv-gratis-avancerad-360-ljust","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T09:50:52.951Z","floede":"deduktiv-premium-expert-1280-ljust","steg":"kortet finns i Alla tester","ok":true}
+{"tid":"2026-10-12T09:50:53.452Z","floede":"deduktiv-premium-expert-1280-ljust","steg":"kortet står efter figurserierna","ok":true,"ordning":["logik","figurer","deduktiv","verbal","numerisk","personlighet"]}
+{"tid":"2026-10-12T09:50:53.453Z","floede":"deduktiv-premium-expert-1280-ljust","steg":"provraden är dämpad","ok":true,"provrad":"tyst"}
+{"tid":"2026-10-12T09:50:53.454Z","floede":"deduktiv-premium-expert-1280-ljust","steg":"nivåsegmenten","ok":null,"text":"DEDUKTIV SLUTLEDNING\n\nVem  tår var när alla villkor gäller?\n\nNågra per oner, några villkor och en fråga: vem  tår var, och vad må te då gälla? Du räknar inte och ritar inget, du håller reda på villkoren. Formatet finn  i SHL Verify G+ och i Aon  deduktiva te t.\n\nuppgifter\n12\nminuter\n15\nnivåer\n3\nGrun"}
+{"tid":"2026-10-12T09:51:01.788Z","floede":"deduktiv-premium-expert-1280-ljust","steg":"ingen svg i frågevyn (spec 7)","ok":true,"svg":0,"position":"sticky","maxHojd":"none","bredd":400,"sidled":true,"forstaRad":true,"svaraAv":true}
+{"tid":"2026-10-12T09:51:01.789Z","floede":"deduktiv-premium-expert-1280-ljust","steg":"två spalter på dator: villkoren till vänster","ok":true,"svg":0,"position":"sticky","maxHojd":"none","bredd":400,"sidled":true,"forstaRad":true,"svaraAv":true}
+{"tid":"2026-10-12T09:51:01.789Z","floede":"deduktiv-premium-expert-1280-ljust","steg":"raden över första frågan","ok":true}
+{"tid":"2026-10-12T09:51:01.790Z","floede":"deduktiv-premium-expert-1280-ljust","steg":"Svara är avstängd tills något är valt","ok":true}
+{"tid":"2026-10-12T09:51:08.996Z","floede":"deduktiv-premium-expert-1280-ljust","steg":"CLS 0 på frågesidan","ok":true,"cls":0}
+{"tid":"2026-10-12T09:51:13.501Z","floede":"deduktiv-premium-expert-1280-ljust","steg":"resultatet visar 8 av 12","ok":true}
+{"tid":"2026-10-12T09:51:13.501Z","floede":"deduktiv-premium-expert-1280-ljust","steg":"Var du tappade per villkorstyp","ok":true}
+{"tid":"2026-10-12T09:51:13.502Z","floede":"deduktiv-premium-expert-1280-ljust","steg":"genomgångskortet har remsminiatyrer eller premisstreck","ok":true}
+{"tid":"2026-10-12T09:51:15.356Z","floede":"deduktiv-premium-expert-1280-ljust","steg":3,"ok":true,"markor":["Om","1,2,5","3,4"],"remsa":5,"koppar":0,"misstag":"I schemat står Lisa på plats 3 och Åsa på plats 4. Det går ihop med villkoren, så det är inte svaret.","rapport":true,"svg":0}
+{"tid":"2026-10-12T09:51:15.357Z","floede":"deduktiv-premium-expert-1280-ljust","steg":3,"ok":true,"markor":["Om","1,2,5","3,4"],"remsa":5,"koppar":0,"misstag":"I schemat står Lisa på plats 3 och Åsa på plats 4. Det går ihop med villkoren, så det är inte svaret.","rapport":true,"svg":0}
+{"tid":"2026-10-12T09:51:16.901Z","floede":"deduktiv-premium-expert-1280-ljust","steg":"rapporten skickades","ok":true,"status":200,"q":"dd-e-d3-21"}
+{"tid":"2026-10-12T09:51:17.194Z","floede":"deduktiv-premium-expert-1280-ljust","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T09:51:26.345Z","floede":"deduktiv-premium-expert-360-morkt","steg":"kortet finns i Alla tester","ok":true}
+{"tid":"2026-10-12T09:51:26.842Z","floede":"deduktiv-premium-expert-360-morkt","steg":"kortet står efter figurserierna","ok":true,"ordning":["logik","figurer","deduktiv","verbal","numerisk","personlighet"]}
+{"tid":"2026-10-12T09:51:26.843Z","floede":"deduktiv-premium-expert-360-morkt","steg":"provraden är dämpad","ok":true,"provrad":"tyst"}
+{"tid":"2026-10-12T09:51:26.843Z","floede":"deduktiv-premium-expert-360-morkt","steg":"nivåsegmenten","ok":null,"text":"DEDUKTIV SLUTLEDNING\n\nVem  tår var när alla villkor gäller?\n\nNågra per oner, några villkor och en fråga: vem  tår var, och vad må te då gälla? Du räknar inte och ritar inget, du håller reda på villkoren. Formatet finn  i SHL Verify G+ och i Aon  deduktiva te t.\n\nuppgifter\n12\nminuter\n15\nnivåer\n3\nGrun"}
+{"tid":"2026-10-12T09:51:33.235Z","floede":"deduktiv-premium-expert-360-morkt","steg":"ingen svg i frågevyn (spec 7)","ok":true,"svg":0,"position":"sticky","maxHojd":"336px","bredd":360,"sidled":false,"forstaRad":true,"svaraAv":true}
+{"tid":"2026-10-12T09:51:33.236Z","floede":"deduktiv-premium-expert-360-morkt","steg":"villkoren klistrade, högst 42 vh på mobil","ok":true,"svg":0,"position":"sticky","maxHojd":"336px","bredd":360,"sidled":false,"forstaRad":true,"svaraAv":true}
+{"tid":"2026-10-12T09:51:33.237Z","floede":"deduktiv-premium-expert-360-morkt","steg":"raden över första frågan","ok":true}
+{"tid":"2026-10-12T09:51:33.237Z","floede":"deduktiv-premium-expert-360-morkt","steg":"Svara är avstängd tills något är valt","ok":true}
+{"tid":"2026-10-12T09:51:40.523Z","floede":"deduktiv-premium-expert-360-morkt","steg":"CLS 0 på frågesidan","ok":true,"cls":0}
+{"tid":"2026-10-12T09:51:44.929Z","floede":"deduktiv-premium-expert-360-morkt","steg":"resultatet visar 8 av 12","ok":true}
+{"tid":"2026-10-12T09:51:44.929Z","floede":"deduktiv-premium-expert-360-morkt","steg":"Var du tappade per villkorstyp","ok":true}
+{"tid":"2026-10-12T09:51:44.930Z","floede":"deduktiv-premium-expert-360-morkt","steg":"genomgångskortet har remsminiatyrer eller premisstreck","ok":true}
+{"tid":"2026-10-12T09:51:46.775Z","floede":"deduktiv-premium-expert-360-morkt","steg":5,"ok":true,"markor":["Om","1","4","2,5","3"],"remsa":6,"koppar":0,"misstag":"I schemat ligger den gröna pärmen på plats 1 och den lila pärmen på plats 2. Det går ihop med villkoren, så det är inte svaret.","rapport":true,"svg":0}
+{"tid":"2026-10-12T09:51:46.776Z","floede":"deduktiv-premium-expert-360-morkt","steg":5,"ok":true,"markor":["Om","1","4","2,5","3"],"remsa":6,"koppar":0,"misstag":"I schemat ligger den gröna pärmen på plats 1 och den lila pärmen på plats 2. Det går ihop med villkoren, så det är inte svaret.","rapport":true,"svg":0}
+{"tid":"2026-10-12T09:51:48.218Z","floede":"deduktiv-premium-expert-360-morkt","steg":"rapporten skickades","ok":true,"status":200,"q":"dd-e-d3-13"}
+{"tid":"2026-10-12T09:51:48.611Z","floede":"deduktiv-premium-expert-360-morkt","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T09:51:58.836Z","floede":"deduktiv-premium-grund-1280-morkt","steg":"kortet finns i Alla tester","ok":true}
+{"tid":"2026-10-12T09:51:59.324Z","floede":"deduktiv-premium-grund-1280-morkt","steg":"kortet står efter figurserierna","ok":true,"ordning":["logik","figurer","deduktiv","verbal","numerisk","personlighet"]}
+{"tid":"2026-10-12T09:51:59.325Z","floede":"deduktiv-premium-grund-1280-morkt","steg":"provraden är dämpad","ok":true,"provrad":"tyst"}
+{"tid":"2026-10-12T09:51:59.325Z","floede":"deduktiv-premium-grund-1280-morkt","steg":"nivåsegmenten","ok":null,"text":"DEDUKTIV SLUTLEDNING\n\nVem  tår var när alla villkor gäller?\n\nNågra per oner, några villkor och en fråga: vem  tår var, och vad må te då gälla? Du räknar inte och ritar inget, du håller reda på villkoren. Formatet finn  i SHL Verify G+ och i Aon  deduktiva te t.\n\nuppgifter\n12\nminuter\n15\nnivåer\n3\nGrun"}
+{"tid":"2026-10-12T09:52:07.375Z","floede":"deduktiv-premium-grund-1280-morkt","steg":"ingen svg i frågevyn (spec 7)","ok":true,"svg":0,"position":"sticky","maxHojd":"none","bredd":400,"sidled":true,"forstaRad":true,"svaraAv":true}
+{"tid":"2026-10-12T09:52:07.377Z","floede":"deduktiv-premium-grund-1280-morkt","steg":"två spalter på dator: villkoren till vänster","ok":true,"svg":0,"position":"sticky","maxHojd":"none","bredd":400,"sidled":true,"forstaRad":true,"svaraAv":true}
+{"tid":"2026-10-12T09:52:07.377Z","floede":"deduktiv-premium-grund-1280-morkt","steg":"raden över första frågan","ok":true}
+{"tid":"2026-10-12T09:52:07.378Z","floede":"deduktiv-premium-grund-1280-morkt","steg":"Svara är avstängd tills något är valt","ok":true}
+{"tid":"2026-10-12T09:52:14.467Z","floede":"deduktiv-premium-grund-1280-morkt","steg":"CLS 0 på frågesidan","ok":true,"cls":0}
+{"tid":"2026-10-12T09:52:18.903Z","floede":"deduktiv-premium-grund-1280-morkt","steg":"resultatet visar 8 av 12","ok":true}
+{"tid":"2026-10-12T09:52:18.904Z","floede":"deduktiv-premium-grund-1280-morkt","steg":"Var du tappade per villkorstyp","ok":true}
+{"tid":"2026-10-12T09:52:18.904Z","floede":"deduktiv-premium-grund-1280-morkt","steg":"genomgångskortet har remsminiatyrer eller premisstreck","ok":true}
+{"tid":"2026-10-12T09:52:20.740Z","floede":"deduktiv-premium-grund-1280-morkt","steg":2,"ok":true,"markor":["1,2","3"],"remsa":0,"koppar":0,"misstag":"Det vänder på premiss 2. Det kan stämma, men det måste inte.","rapport":true,"svg":0}
+{"tid":"2026-10-12T09:52:23.384Z","floede":"deduktiv-premium-grund-1280-morkt","steg":"rapporten skickades","ok":true,"status":200,"q":"dd-g-d1-13"}
+{"tid":"2026-10-12T09:52:23.632Z","floede":"deduktiv-premium-grund-1280-morkt","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T09:52:43.776Z","floede":"kvantor-premium-grund-360-ljust","steg":"riktat textpass på kvantor drar en text ur parti 04 med två kvantorpåståenden","ok":true,"textId":"vg-17-skollunch","nycklar":["vg-17-skollunch:0"]}
+{"tid":"2026-10-12T09:52:43.779Z","floede":"kvantor-premium-grund-360-ljust","steg":"första påståendet är ett kvantorpåstående","ok":true,"index":0,"typ":"kvantor"}
+{"tid":"2026-10-12T09:52:45.808Z","floede":"kvantor-premium-grund-360-ljust","steg":"passets nycklar","ok":null,"andra":["vg-17-skollunch:0"]}
+{"tid":"2026-10-12T09:52:46.262Z","floede":"kvantor-premium-grund-360-ljust","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T09:52:57.945Z","floede":"admin-admin---1280-ljust","steg":"tre flikar och menyraden Frågor","ok":true,"flikar":["Kalibrering","Per testtyp","Rapporter"],"rader":25,"status":["Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad"],"meny":["Översikt","Intäkter","Trafik","Användare","Tratt","Mejl","Drift","Innehåll","Frågor","Inställningar"]}
+{"tid":"2026-10-12T09:52:57.947Z","floede":"admin-admin---1280-ljust","steg":"Kalibrering: 25 rader, statusen ett ord","ok":true,"rader":25}
+{"tid":"2026-10-12T09:53:03.250Z","floede":"admin-admin---1280-ljust","steg":"filter på deduktiv expert: 20 frågor","ok":true,"rader":20,"forsta":"/admin/fragor/deduktiv/dd-e-d3-01"}
+{"tid":"2026-10-12T09:53:07.343Z","floede":"admin-admin---1280-ljust","steg":"frågesidan ritar frågan med lösningen","ok":true}
+{"tid":"2026-10-12T09:53:14.737Z","floede":"admin-admin---1280-ljust","steg":"frågesidan för ett verbalt påstående ur parti 04","ok":true}
+{"tid":"2026-10-12T09:53:19.166Z","floede":"admin-admin---1280-ljust","steg":"Per testtyp: fem testtyper","ok":true}
+{"tid":"2026-10-12T09:53:23.073Z","floede":"admin-admin---1280-ljust","steg":"Rapporter: QA-kontots rapport syns inte (undantaget konto)","ok":true,"rader":0}
+{"tid":"2026-10-12T09:53:23.540Z","floede":"admin-admin---1280-ljust","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T09:53:38.772Z","floede":"admin-admin---1280-morkt","steg":"tre flikar och menyraden Frågor","ok":true,"flikar":["Kalibrering","Per testtyp","Rapporter"],"rader":25,"status":["Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad"],"meny":["Översikt","Intäkter","Trafik","Användare","Tratt","Mejl","Drift","Innehåll","Frågor","Inställningar"]}
+{"tid":"2026-10-12T09:53:38.774Z","floede":"admin-admin---1280-morkt","steg":"Kalibrering: 25 rader, statusen ett ord","ok":true,"rader":25}
+{"tid":"2026-10-12T09:53:47.850Z","floede":"admin-admin---1280-morkt","steg":"filter på deduktiv expert: 20 frågor","ok":true,"rader":20,"forsta":"/admin/fragor/deduktiv/dd-e-d3-01"}
+{"tid":"2026-10-12T09:53:52.994Z","floede":"admin-admin---1280-morkt","steg":"frågesidan ritar frågan med lösningen","ok":true}
+{"tid":"2026-10-12T09:54:03.107Z","floede":"admin-admin---1280-morkt","steg":"frågesidan för ett verbalt påstående ur parti 04","ok":true}
+{"tid":"2026-10-12T09:54:08.013Z","floede":"admin-admin---1280-morkt","steg":"Per testtyp: fem testtyper","ok":true}
+{"tid":"2026-10-12T09:54:12.978Z","floede":"admin-admin---1280-morkt","steg":"Rapporter: QA-kontots rapport syns inte (undantaget konto)","ok":true,"rader":0}
+{"tid":"2026-10-12T09:54:13.464Z","floede":"admin-admin---1280-morkt","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T10:06:37.518Z","floede":"admin-admin---1280-ljust","steg":"tre flikar och menyraden Frågor","ok":true,"flikar":["Kalibrering","Per testtyp","Rapporter"],"rader":25,"status":["Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad"],"meny":["Översikt","Intäkter","Trafik","Användare","Tratt","Mejl","Drift","Innehåll","Frågor","Inställningar"]}
+{"tid":"2026-10-12T10:06:37.521Z","floede":"admin-admin---1280-ljust","steg":"Kalibrering: 25 rader, statusen ett ord","ok":true,"rader":25}
+{"tid":"2026-10-12T10:06:42.904Z","floede":"admin-admin---1280-ljust","steg":"filter på deduktiv expert: 20 frågor","ok":true,"rader":20,"forsta":"/admin/fragor/deduktiv/dd-e-d3-01"}
+{"tid":"2026-10-12T10:06:48.226Z","floede":"admin-admin---1280-ljust","steg":"frågesidan ritar frågan med lösningen","ok":true}
+{"tid":"2026-10-12T10:06:56.895Z","floede":"admin-admin---1280-ljust","steg":"frågesidan för ett verbalt påstående ur parti 04","ok":true}
+{"tid":"2026-10-12T10:07:00.757Z","floede":"admin-admin---1280-ljust","steg":"Per testtyp: fem testtyper","ok":true}
+{"tid":"2026-10-12T10:07:05.259Z","floede":"admin-admin---1280-ljust","steg":"Rapporter: QA-kontots rapport syns inte (undantaget konto)","ok":true,"rader":0}
+{"tid":"2026-10-12T10:07:06.896Z","floede":"admin-admin---1280-ljust","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T10:07:19.388Z","floede":"admin-admin---1280-morkt","steg":"tre flikar och menyraden Frågor","ok":true,"flikar":["Kalibrering","Per testtyp","Rapporter"],"rader":25,"status":["Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad","Okalibrerad"],"meny":["Översikt","Intäkter","Trafik","Användare","Tratt","Mejl","Drift","Innehåll","Frågor","Inställningar"]}
+{"tid":"2026-10-12T10:07:19.390Z","floede":"admin-admin---1280-morkt","steg":"Kalibrering: 25 rader, statusen ett ord","ok":true,"rader":25}
+{"tid":"2026-10-12T10:07:24.210Z","floede":"admin-admin---1280-morkt","steg":"filter på deduktiv expert: 20 frågor","ok":true,"rader":20,"forsta":"/admin/fragor/deduktiv/dd-e-d3-01"}
+{"tid":"2026-10-12T10:07:28.696Z","floede":"admin-admin---1280-morkt","steg":"frågesidan ritar frågan med lösningen","ok":true}
+{"tid":"2026-10-12T10:07:35.537Z","floede":"admin-admin---1280-morkt","steg":"frågesidan för ett verbalt påstående ur parti 04","ok":true}
+{"tid":"2026-10-12T10:07:39.981Z","floede":"admin-admin---1280-morkt","steg":"Per testtyp: fem testtyper","ok":true}
+{"tid":"2026-10-12T10:07:43.927Z","floede":"admin-admin---1280-morkt","steg":"Rapporter: QA-kontots rapport syns inte (undantaget konto)","ok":true,"rader":0}
+{"tid":"2026-10-12T10:07:44.293Z","floede":"admin-admin---1280-morkt","steg":"klart","ok":true,"fel":[]}

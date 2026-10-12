@@ -7,7 +7,7 @@
  * valt i bläck) och lösningspanelen med stegen, remsan och misstaget för det
  * valda alternativet. Rapportlänken "Något ser fel ut" under panelen.
  *
- * Uppgifterna kommer färdiga från servern (src/lib/deduktivV1/fragor.server.ts):
+ * Uppgifterna hämtas färdiga från servern (src/lib/deduktivV1/fragor.server.ts):
  * samma urval och visade ordning som i testet.
  */
 

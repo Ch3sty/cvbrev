@@ -7,6 +7,19 @@
 import Link from 'next/link';
 import { avvikelseTitel, STATUS_TEXT, type KalibreringStatus } from '@/lib/kalibrering/flaggor';
 import { byggUrl } from '../innehall/Delar';
+import { familjNamn as matrisFamilj } from '@/lib/logicTestV7/familjer';
+import { serieFamiljNamn } from '@/lib/figurserierV1/familjer';
+import { deduktivFamiljNamn } from '@/lib/deduktivV1/familjer';
+
+const VERBAL_TYP: Record<string, string> = { direkt: 'Står i texten', slutledning: 'Slutledning', kvantor: 'Kvantorer', utanfor: 'Utanför texten' };
+
+/** Familjens namn i gränssnittet; id:t när namnet saknas. */
+export function familjText(kind: string, familj: string | null): string {
+  if (!familj) return 'utan familj';
+  const namn =
+    kind === 'matris' ? matrisFamilj(familj) : kind === 'figurserie' ? serieFamiljNamn(familj) : kind === 'deduktiv' ? deduktivFamiljNamn(familj) : kind === 'verbal' ? VERBAL_TYP[familj] ?? null : null;
+  return namn ?? familj;
+}
 
 /** Länken till frågesidan. */
 export function fragaHref(kind: string, id: string) {

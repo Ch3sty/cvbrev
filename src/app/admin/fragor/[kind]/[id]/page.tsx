@@ -27,7 +27,7 @@ import { hittaUnderlagsfraga } from '@/lib/fragor/visning.server';
 import { kalibreringStatus, STATUS_TEXT } from '@/lib/kalibrering/flaggor';
 import { RAPPORT_COPY, type RapportOrsak } from '@/lib/traning/fragaRapport';
 import { Tabell, Td, Th, datum } from '../../../innehall/Delar';
-import { PStapel, sekunder } from '../../Delar';
+import { PStapel, familjText, sekunder } from '../../Delar';
 import { hamtaRapporter, hamtaVyRad } from '../../data';
 import type { LayeredQuestion } from '@/lib/logicTestV7/layered.v7';
 
@@ -53,7 +53,7 @@ export default async function FragaSida({ params }: Sidprops) {
 
   return (
     <div className="space-y-6">
-      <PageHeader title={id} description={`${TEST_KIND_NAMN[kind]}${rad ? `, ${rad.niva}, ${rad.familj ?? 'utan familj'}` : ''}`}>
+      <PageHeader title={id} description={`${TEST_KIND_NAMN[kind]}${rad ? `, ${rad.niva}, ${familjText(kind, rad.familj)}` : ''}`}>
         <Link href="/admin/fragor" className="text-sm text-ink-2 underline decoration-kant-stark underline-offset-4">
           Alla frågor
         </Link>

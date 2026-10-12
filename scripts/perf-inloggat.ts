@@ -117,6 +117,10 @@ const ROUTES: RouteDef[] = [
   { path: '/dashboard/tester/figurserier-grund/test/ID/results', namn: 'figurserier resultat', budget: 'flode', dynamisk: 'serieResult' },
   // Omgång 3: figurpasset (pågående: frågesidan), övningsprovets startark och provet.
   { path: '/dashboard/tester/pass/ID', namn: 'figurpass uppgift', budget: 'flode', dynamisk: 'figurpass' },
+  // Deduktiv slutledning (omgång 3, B1): mät med --epost <qa-konto> som har deduktivsessioner.
+  { path: '/dashboard/tester/deduktiv-grund', namn: 'deduktiv testsida', budget: 'lista' },
+  { path: '/dashboard/tester/deduktiv-grund/test/ID', namn: 'deduktiv uppgift', budget: 'flode', dynamisk: 'dedSession' },
+  { path: '/dashboard/tester/deduktiv-grund/test/ID/results', namn: 'deduktiv resultat', budget: 'flode', dynamisk: 'dedResult' },
   { path: '/dashboard/tester/ovningsprov/figurer', namn: 'tester/ovningsprov figurer', budget: 'flode' },
   { path: '/dashboard/tester/ovningsprov/figurer/ID', namn: 'figurprov uppgift', budget: 'flode', dynamisk: 'figurprov' },
 
@@ -259,7 +263,13 @@ async function main() {
     sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'figurserier-grund').is('completed_at', null).limit(1),
     sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'figurserier-grund').not('completed_at', 'is', null).limit(1),
   ]);
+  const [{ data: ded }, { data: dedKlar }] = await Promise.all([
+    sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'deduktiv-grund').is('completed_at', null).limit(1),
+    sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'deduktiv-grund').not('completed_at', 'is', null).limit(1),
+  ]);
   const idPerTyp: Record<string, string | null> = {
+    dedSession: ded?.[0]?.id ?? null,
+    dedResult: dedKlar?.[0]?.id ?? null,
     serieSession: serie?.[0]?.id ?? null,
     figurpass: figurpass?.[0]?.id ?? null,
     figurprov: figurprov?.[0]?.id ?? null,
