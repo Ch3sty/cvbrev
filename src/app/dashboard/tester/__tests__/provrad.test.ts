@@ -36,7 +36,7 @@ describe('provraden, logik', () => {
   it('Aon ger vårt format med anmärkningen om Figurserier (omgång 2, A6 punkt 7)', () => {
     const t = provradTexter(ovningsformat('logik', 'aon', null), false)
     expect(t.rad).toBe('Vårt format: 18 uppgifter på 25 minuter.')
-    expect(t.anm).toBe('Aon scales ix använder figurserier, inte rutnät. Öva dem under Figurserier. Övningsprovet här övar tempot med matriser.')
+    expect(t.anm).toBe('Aon scales ix använder figurserier, inte rutnät. Övningsprovet i Aons format ligger under Figurserier.')
   })
 
   it('en gammal session med meta.format aon ritas som förut', () => {

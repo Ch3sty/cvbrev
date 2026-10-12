@@ -49,6 +49,10 @@ import { ALLA_BANKFILER, valbarI, lasBanker, pool, las } from './lib/matris/vers
 import { eliminerbara } from './lib/matris/distraktorer.mjs';
 import { STRUKNA } from './lib/matris/recept-v3.mjs';
 
+if (process.argv.includes('--bryter')) {
+  const { facitCheckBryter } = await import('./lib/serie/sparrar-bryter.mjs');
+  process.exit(await facitCheckBryter(process.argv.slice(2).filter((a) => a !== '--bryter')));
+}
 if (process.argv.includes('--serie')) {
   const { facitCheckSerie } = await import('./lib/serie/kontroll.mjs');
   process.exit(facitCheckSerie(process.argv.slice(2).filter((a) => a !== '--serie')));

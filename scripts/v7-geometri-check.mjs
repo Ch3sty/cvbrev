@@ -848,7 +848,7 @@ function renderMatt(filer) {
 
 // ---------------------------------------------------------------- körning
 // Bara när skriptet körs direkt; generatorn importerar geometriFraga.
-if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) (process.argv.includes("--serie") ? serieMain() : main());
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) (process.argv.includes("--bryter") ? bryterMain() : process.argv.includes("--serie") ? serieMain() : main());
 
 function main() {
 const filer = process.argv[2] ? [process.argv[2]] : ALLA;
@@ -1072,6 +1072,54 @@ function g6Serie(q) {
     if (lagen < G.regler.minLagen) fel.push(`G6: ${id} har ${lagen} distinkta lägen, minst ${G.regler.minLagen}`);
   }
   return fel;
+}
+
+// ---------------------------------------------------------------- bryter mönstret (--bryter)
+// node scripts/v7-geometri-check.mjs --bryter [bank.json ...]
+// Utan filer: de två bryterbankerna. Per fråga geometriSerie (G1, G2, G4,
+// G11, G12, S1 till S4) på alla sex figurer, S5 (sex figurer, inga
+// alternativ), S8 (BM2: alla sex olika) och V11/V12 med bryter-gränserna
+// (spec 10: 70 noder, 8 kB).
+const BRYTER_BANKER = ['src/lib/figurserierV1/bankBryterGrund.json', 'src/lib/figurserierV1/bankBryterAvancerad.json'];
+
+async function bryterMain() {
+  await Promise.resolve();
+  const argv = process.argv.slice(2).filter((a) => a !== '--bryter');
+  const filer = argv.length ? argv : BRYTER_BANKER;
+  const { bm2 } = await import('./lib/serie/sparrar-bryter.mjs');
+  const fel = [];
+  const rakn = { fragor: 0, celler: 0 };
+  for (const f of filer) {
+    let bank;
+    try { bank = JSON.parse(readFileSync(f, 'utf8')); } catch { console.log(`${f}: saknas, hoppas över`); continue; }
+    for (const q of bank) {
+      rakn.fragor++;
+      rakn.celler += q.rad.length;
+      for (const x of geometriSerie(q)) fel.push(`${q.id}: ${x}`);
+      if ((q.rad ?? []).length !== G.serie.rad.cellerBryter || (q.options ?? []).length !== 0) fel.push(`${q.id}: S5: ${(q.rad ?? []).length} figurer och ${(q.options ?? []).length} alternativ, ska vara ${G.serie.rad.cellerBryter} och 0`);
+      for (const x of bm2(q)) fel.push(x.replace('BM2 olika', 'S8 (BM2)'));
+    }
+  }
+  const tsx = fileURLToPath(new URL('../node_modules/tsx/dist/cli.mjs', import.meta.url));
+  const skript = fileURLToPath(new URL('./lib/matris/svg-matt.tsx', import.meta.url));
+  const finns = filer.filter((f) => { try { return JSON.parse(readFileSync(f, 'utf8')).length > 0; } catch { return false; } });
+  if (finns.length) {
+    const rm = JSON.parse(execFileSync(process.execPath, [tsx, skript, '--serie', ...finns], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 }));
+    for (const [namn, b] of Object.entries(rm.banker)) {
+      console.log(`V11 ${namn}: ${b.fragor} frågor, noder ${b.noder.min} till ${b.noder.max} (${b.noder.maxId}), bytes ${b.bytes.min} till ${b.bytes.max} (gräns ${G.serie.noder.bryterMax} noder, ${G.serie.noder.bryterBytes} B)`);
+      b.over.forEach((x) => fel.push(`V11: ${x}`));
+      b.forbjudna.forEach((x) => fel.push(`V12: ${x}`));
+    }
+  }
+  console.log(`Bryter mönstret: ${rakn.fragor} frågor, ${rakn.celler} figurer`);
+  if (fel.length) {
+    console.log(`
+${fel.length} fel:`);
+    fel.forEach((x) => console.log('  ' + x));
+    process.exit(1);
+  }
+  console.log('Inga fel (G1, G2, G4, G11, G12, S1 till S5, S8, V11, V12).');
+  process.exit(0);
 }
 
 async function serieMain() {

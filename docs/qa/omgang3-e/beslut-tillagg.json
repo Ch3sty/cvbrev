@@ -1,0 +1,20 @@
+{
+  "datum": "2026-10-12",
+  "granskare": "testansvarig",
+  "godkanda": [
+    "fsb-g-antal-03",
+    "fsb-g-antal-07",
+    "fs-g-antal-17",
+    "fs-a-vaxl-11",
+    "fs-a-vaxl-12",
+    "fs-a-vaxl-13"
+  ],
+  "textvillkor": [
+    { "id": "fs-a-vaxl-12", "alternativ": "C", "nu": "Pricken har gått ett steg för långt.", "ska": "Pricken har gått två steg för långt, ett helt drag extra.", "skal": "Regeltexten definierar steget som en åttondel (två steg per drag). C står i sydost, två steg bortom facit i sydväst. Bara text, samma id, ingen ny granskning." }
+  ],
+  "strukna": [
+    { "id": "fs-e-vrid-02", "skal": "F9: första serien (45, 270, 135) förlängd ger 0 grader, som är facit. Längd och spets går över hela raden, så den som bara förlänger första serien landar på B ändå. Växlingen, det som gör F6 till tre regler på expert, prövas aldrig. Ersättare med samma id, F9 grön, med första seriens förlängning som ren distraktor och längd och spets kvar över hela raden." },
+    { "id": "fs-e-antal-04", "skal": "F9: första serien (start 2, 4, 6) förlängd ger start 0, som är facit, och antalet ökar över hela raden. Den enda dimensionen som bär växlingen sammanfaller, så frågan löses helt utan växling. Ersättare med samma id, F9 grön, med första seriens förlängning (annan start, sju sektorer) som ren distraktor." }
+  ],
+  "golv": { "expert_fore": 32, "expert_efter_strykning": 30, "golv": 28 }
+}

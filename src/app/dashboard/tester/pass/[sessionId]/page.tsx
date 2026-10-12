@@ -10,6 +10,8 @@ import PassFlode from '@/components/traning/PassFlode'
 import { hamtaSession, sessionsvy } from '@/lib/traning/motor.server'
 import { hamtaVnPass, vnPassVy } from '@/lib/tester/pass.server'
 import VnPassFlode from '@/components/traning/vnpass/VnPassFlode'
+import FigurPassFlode from '@/components/traning/figurpass/FigurPassFlode'
+import { figurPassVy, hamtaFigurPass } from '@/lib/tester/pass-figur.server'
 import { testSkrivKlient } from '@/lib/tests/skrivKlient'
 import { passSida } from '../sida.server'
 
@@ -26,8 +28,12 @@ export default async function PassSessionSida({ params }: { params: Promise<{ se
     // Text- och sifferpassen har samma adress (beställning omgång 2, B3).
     const vn = await hamtaVnPass(admin, userId, sessionId)
     const vnVy = vn ? vnPassVy(vn) : null
-    if (!vnVy) notFound()
-    return <VnPassFlode vy={vnVy} />
+    if (vnVy) return <VnPassFlode vy={vnVy} />
+    // Figurpasset har samma adress (beställning omgång 3, A3).
+    const figur = await hamtaFigurPass(admin, userId, sessionId)
+    const figurVy = figur ? figurPassVy(figur) : null
+    if (!figurVy) notFound()
+    return <FigurPassFlode vy={figurVy} />
   }
   return <PassFlode vy={vy} betalande={betalande} />
 }

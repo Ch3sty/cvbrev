@@ -283,7 +283,8 @@ const FIGURER_GROUP: TestGroup = {
   searchHint: 'Kallas även induktivt test eller figurserie',
   cognitive: FIGURSERIE_TESTS,
   personality: [],
-  provTyst: { rad1: 'Övningsprov mot klockan', rad2: 'Inte än för figurserier. Logikens övningsprov övar tempot.' },
+  // Omgång 3 (A4, spec 15.4): provraden lever, formatet ur planens leverantör.
+  prov: { typ: 'figurer', href: ovningsprovHref('figurer') },
 };
 
 /**

@@ -9,15 +9,17 @@
 
 import type { Ovningsformat } from './format';
 
-export type OvningsTyp = 'verbal' | 'numerisk';
+export type OvningsTyp = 'verbal' | 'numerisk' | 'figurer';
 
 /** test_type i logic_test_v4_sessions. Logikens övningsprov är matrislogik-general. */
 export const OVNINGSPROV_TEST_TYPE: Readonly<Record<OvningsTyp, string>> = {
   verbal: 'verbal-general',
   numerisk: 'numerisk-general',
+  /** Figurseriernas övningsprov (beställning omgång 3, A4). */
+  figurer: 'figurserie-prov',
 };
 
-export const OVNINGSPROV_TEST_TYPER = ['verbal-general', 'numerisk-general'] as const;
+export const OVNINGSPROV_TEST_TYPER = ['verbal-general', 'numerisk-general', 'figurserie-prov'] as const;
 
 export function arOvningsprovTestTyp(t: unknown): boolean {
   return typeof t === 'string' && (OVNINGSPROV_TEST_TYPER as readonly string[]).includes(t);
@@ -50,6 +52,18 @@ export interface NumeriskDel {
   fragor: NumeriskFraga[];
 }
 
+/**
+ * En figurserie i provet (omgång 3, A4): härnäst med raden och sex alternativ
+ * i sessionens blandade ordning, eller bryter mönstret med de sex figurerna
+ * blandade. Utan facit, regel och misstag.
+ */
+export interface FigurDel {
+  id: string;
+  form: 'harnast' | 'bryter';
+  rad: import('@/lib/logicTestV7/types.v7').V7Cell[];
+  options: import('@/lib/logicTestV7/types.v7').V7Cell[];
+}
+
 /** En uppgift i provet, i ordning: del (text eller underlag) och punkt i delen. */
 export interface Punkt {
   /** "delId:index" (verbalt) eller "delId:frågeId" (numeriskt). */
@@ -71,6 +85,8 @@ export interface Genomgangspunkt {
   korrekt: boolean;
   forklaring: string | null;
   tid_s: number;
+  /** Figurserier: misstaget för hennes val, null när rätt eller obesvarad. */
+  misstag?: string | null;
 }
 
 export interface Ovningsresultat {
@@ -95,7 +111,7 @@ export interface Ovningsvy {
   startad: string;
   tidsgrans_s: number;
   avslutad: boolean;
-  delar: VerbalDel[] | NumeriskDel[];
+  delar: VerbalDel[] | NumeriskDel[] | FigurDel[];
   punkter: Punkt[];
   /** Hennes svar per punktnyckel. */
   svar: Record<string, string>;

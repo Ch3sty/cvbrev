@@ -144,6 +144,16 @@ export function regelText(regler, varierar) {
   return delar.join(' ');
 }
 
+// Copy omgång 3, 6.3 (M1 till M8).
+const JAMN = 'Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.';
+const PLURAL = new Set(['Strecken', 'De svarta sektorerna', 'De svarta rutorna', 'Prickarna']);
+const plural = (S) => PLURAL.has(S);
+const ENHETER = ['streck', 'svarta sektorer', 'svarta rutor', 'prickar', 'hörn'];
+/** "Antalet ska vara" utan enhet när en tidigare mening redan sagt vad det gäller (copy omgång 3, 6.2). */
+export function utanUpprepadEnhet(meningar) {
+  return meningar.map((m, i) => (i === 0 ? m : ENHETER.reduce((x, e) => x.replace(new RegExp(`Antalet ${e} ska vara ([a-zåäö]+), inte`), 'Antalet ska vara $1, inte'), m)));
+}
+
 /** Misstaget för en distraktor: en mening per fel, högst tre. */
 export function misstagText(regler, facitV, fel) {
   const { prim, dims } = regler;
@@ -158,7 +168,7 @@ export function misstagText(regler, facitV, fel) {
       if (I.slag === 'kat') meningar.push(`${S} ska vara ${I.namn(fv)}, som i hela raden.`);
       else if (I.slag === 'antal') meningar.push(`Antalet ${I.elem[1]} ska vara ${ORD[fv]}, som i hela raden.`);
       else if (I.pekar) meningar.push(`${S} ska peka ${RIKTNING[mod(fv, 8)]}, som i hela raden.`);
-      else meningar.push(`${S} står på fel plats. I raden står ${S.charAt(0).toLowerCase() + S.slice(1)} still.`);
+      else meningar.push(I.slag === 'vrid' ? `${S} är ${plural(S) ? 'vridna' : 'vriden'}, men i raden står ${plural(S) ? 'de' : 'den'} still.` : `${S} har flyttat sig, men i raden står ${plural(S) ? 'de' : 'den'} still.`);
       continue;
     }
     if (I.slag === 'kat') {
@@ -167,10 +177,10 @@ export function misstagText(regler, facitV, fel) {
     }
     if (I.slag === 'antal') {
       const okar = r.regel === 'steg' ? r.k > 0 : f.v < fv;
-      if (f.typ === 'stilla') meningar.push(`Antalet ${I.elem[1]} har inte ${r.k > 0 ? 'ökat' : 'minskat'} sista steget.`);
-      else if (f.typ === 'for_langt') meningar.push(`${versal(antalOrd(I, Math.abs(f.v - fv)))} för ${f.v > fv ? 'mycket' : 'lite'}.`);
-      else if (f.typ === 'jamn') meningar.push('Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien.');
-      else meningar.push(`Antalet ${I.elem[1]} ska vara ${ORD[fv]}, inte ${ORD[f.v]}.`);
+      if (f.typ === 'stilla') meningar.push(`Antalet ${I.elem[1]} har inte ${r.k > 0 ? 'ökat' : 'minskat'}. Luckan ska ha ${I.ett ? 'ett' : 'en'} ${r.k > 0 ? 'mer' : 'färre'} än den femte figuren.`);
+      else if (f.typ === 'for_langt') meningar.push(`${versal(antalOrd(I, Math.abs(f.v - fv)))} för ${f.v > fv ? 'många' : 'få'}.`);
+      else if (f.typ === 'jamn') meningar.push(JAMN);
+      else meningar.push(`Antalet ${I.elem[1]} ska vara ${(I.ett ? ORD : ORD_EN)[fv]}, inte ${(I.ett ? ORD : ORD_EN)[f.v]}.`);
       void okar;
       continue;
     }
@@ -180,17 +190,17 @@ export function misstagText(regler, facitV, fel) {
       case 'for_langt': meningar.push(vrid ? `${S} har vridits ett steg för långt.` : `${S} har gått ett steg för långt.`); break;
       case 'fel_hall': meningar.push(vrid ? `${S} vrids åt fel håll.` : `${S} går åt fel håll.`); break;
       case 'stilla':
-        meningar.push(r.regel === 'vaxelvis' ? `${S} står som i den fjärde figuren, men den andra serien tar ett steg till.` : `${S} står kvar som i den femte figuren.`);
+        meningar.push(r.regel === 'vaxelvis' ? `${S} står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.` : `${S} står kvar som i den femte figuren.`);
         break;
       case 'som_femte': meningar.push(`${S} står kvar som i den femte figuren.`); break;
-      case 'jamn': meningar.push('Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien.'); break;
+      case 'jamn': meningar.push(JAMN); break;
       case 'vaxer_inte': meningar.push(vrid ? 'Vridningen har inte vuxit sista gången.' : 'Steget har inte vuxit sista gången.'); break;
       default:
         if (I.pekar) meningar.push(`${S} pekar ${RIKTNING[mod(f.v, 8)]}, men ska peka ${RIKTNING[mod(fv, 8)]}.`);
-        else meningar.push(vrid ? `${S} står i fel vridning.` : `${S} står på fel plats.`);
+        else meningar.push(vrid ? `${S} är ${plural(S) ? 'vridna' : 'vriden'} till fel läge.` : `${S} står på fel plats.`);
     }
   }
-  return meningar.slice(0, 3).join(' ');
+  return utanUpprepadEnhet(meningar.slice(0, 3)).join(' ');
 }
 
 /** Rubriken i genomgångslistan: vad som händer, utan att avslöja steget. */

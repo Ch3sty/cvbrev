@@ -19,6 +19,7 @@ import { selectPassagesForSession as numGrund } from '@/lib/numericalTest/select
 import { selectPassagesForSession as numAvancerad } from '@/lib/numericalTestV2/selectPassages';
 import { selectProvPassagesForSession as numProv } from '@/lib/numericalTestProv/selectProv';
 import { dagSthlm, type Dag } from '@/lib/traning/datum';
+import { FRAGOR_PER_SESSION as FIGUR_PER_SESSION, serieVersion, valjFragor as valjFigurserier } from '@/lib/figurserierV1/select';
 import { underlagsVersion, type UnderlagVersion } from './underlagVersion';
 import type { VnKind } from './pass-typer';
 
@@ -104,4 +105,40 @@ export async function lasSeddaUnderlag(admin: Klient, userId: string, kind: VnKi
   if (error) throw error;
   const rader = (data ?? []) as SeddRad[];
   return { sedda: seddaUrRader(kind, rader), rader };
+}
+
+/* ------------------------------ Figurserier ------------------------------ */
+// Beställning omgång 3, A3: slaget figurserie räknas över de klassiska
+// nivåtesten (urvalet räknas om ur sessionens id), figurpasset och
+// övningsprovet (frågornas id i meta.fragor).
+
+export const FIGUR_KLASSISKA = ['figurserier-grund', 'figurserier-avancerad', 'figurserier-expert'] as const;
+export const FIGUR_MED_META = ['figurserie-pass', 'figurserie-prov'] as const;
+
+export function seddaFigurTestTyper(): string[] {
+  return [...FIGUR_KLASSISKA, ...FIGUR_MED_META];
+}
+
+/** Frågorna en session visade. Ren, för tester. */
+export function figurerForSession(rad: SeddRad): string[] {
+  const t = rad.test_type ?? '';
+  if ((FIGUR_KLASSISKA as readonly string[]).includes(t)) {
+    const niva = t.slice('figurserier-'.length) as 'grund' | 'avancerad' | 'expert';
+    return valjFigurserier(niva, rad.id, FIGUR_PER_SESSION, serieVersion(rad.meta)).map((q) => q.id);
+  }
+  const m = (rad.meta ?? {}) as { fragor?: unknown };
+  return Array.isArray(m.fragor) ? m.fragor.filter((d): d is string => typeof d === 'string') : [];
+}
+
+/** Senast sedd dag per figurseriefråga. Ren, för tester. */
+export function seddaFigurerUrRader(rader: readonly SeddRad[]): Map<string, Dag> {
+  const ut = new Map<string, Dag>();
+  for (const r of rader) {
+    const dag = dagSthlm(r.created_at);
+    for (const id of figurerForSession(r)) {
+      const forra = ut.get(id);
+      if (!forra || forra < dag) ut.set(id, dag);
+    }
+  }
+  return ut;
 }

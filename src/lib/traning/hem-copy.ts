@@ -329,6 +329,11 @@ export const HEM = {
     rubrik: 'Fler pass i dag',
     textpass: 'Textpass',
     sifferpass: 'Sifferpass',
+    /** Figurpasset (copy-omgang3 2.1). */
+    figurpass: 'Figurpass',
+    figurMeta: 'Tre rader att fortsätta och en som bryter mönstret. Cirka tre minuter.',
+    /** Ersätter metan när hon sitter på avancerad. */
+    expertRad: 'Expertnivån: gör nivåtestet.',
     textMeta: 'En text, fyra påståenden. Cirka tre minuter.',
     sifferMeta: 'Ett underlag, fyra frågor. Cirka fem minuter.',
     gjortMeta: 'Gjort i dag.',

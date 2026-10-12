@@ -83,10 +83,10 @@
   "misstag": [
    "Pilen har vridits ett steg för långt.",
    "Pilen har vridits ett steg för långt. Pilen ska vara kort, inte lång. Spetsen ska vara fylld, inte öppen.",
-   "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien. Spetsen ska vara fylld, inte öppen.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Spetsen ska vara fylld, inte öppen.",
    "",
    "Pilen ska vara kort, inte lång.",
-   "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien. Pilen ska vara kort, inte lång. Spetsen ska vara fylld, inte öppen."
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Pilen ska vara kort, inte lång. Spetsen ska vara fylld, inte öppen."
   ],
   "regler": {
    "prim": "pil",
@@ -382,12 +382,12 @@
   ],
   "correctAnswer": 2,
   "misstag": [
-   "Pricken står som i den fjärde figuren, men den andra serien tar ett steg till. Formen i mitten ska vara kvadrat, inte romb. Formen i mitten ska vara svart, inte ofylld.",
-   "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien. Formen i mitten ska vara svart, inte ofylld.",
+   "Pricken står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Formen i mitten ska vara kvadrat, inte romb. Formen i mitten ska vara svart, inte ofylld.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Formen i mitten ska vara svart, inte ofylld.",
    "",
    "Formen i mitten ska vara kvadrat, inte romb.",
-   "Pricken står som i den fjärde figuren, men den andra serien tar ett steg till. Formen i mitten ska vara kvadrat, inte cirkel. Formen i mitten ska vara svart, inte ofylld.",
-   "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien. Formen i mitten ska vara kvadrat, inte cirkel. Formen i mitten ska vara svart, inte ofylld."
+   "Pricken står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Formen i mitten ska vara kvadrat, inte cirkel. Formen i mitten ska vara svart, inte ofylld.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Formen i mitten ska vara kvadrat, inte cirkel. Formen i mitten ska vara svart, inte ofylld."
   ],
   "regler": {
    "prim": "duo-kant-form",
@@ -1085,7 +1085,8 @@
     }
    }
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "pensionerad_fran": 2
  },
  {
   "id": "fs-e-vax-02",
@@ -1355,8 +1356,8 @@
   "misstag": [
    "Pricken står på fel plats. Formen i mitten ska vara kvadrat, inte romb. Formen i mitten ska vara ofylld, inte svart.",
    "Pricken står på fel plats. Formen i mitten ska vara ofylld, inte svart.",
-   "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien. Formen i mitten ska vara kvadrat, inte romb.",
-   "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien. Formen i mitten ska vara kvadrat, inte cirkel. Formen i mitten ska vara ofylld, inte svart.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Formen i mitten ska vara kvadrat, inte romb.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Formen i mitten ska vara kvadrat, inte cirkel. Formen i mitten ska vara ofylld, inte svart.",
    "",
    "Formen i mitten ska vara kvadrat, inte cirkel."
   ],
@@ -1539,10 +1540,10 @@
   "misstag": [
    "Pricken har gått ett steg för långt. Formen i mitten ska vara kvadrat, inte cirkel.",
    "Pricken har gått ett steg för långt.",
-   "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien. Formen i mitten ska vara kvadrat, inte cirkel. Formen i mitten ska vara svart, inte ofylld.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Formen i mitten ska vara kvadrat, inte cirkel. Formen i mitten ska vara svart, inte ofylld.",
    "",
    "Formen i mitten ska vara kvadrat, inte romb. Formen i mitten ska vara svart, inte ofylld.",
-   "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien. Formen i mitten ska vara kvadrat, inte romb. Formen i mitten ska vara svart, inte ofylld."
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Formen i mitten ska vara kvadrat, inte romb. Formen i mitten ska vara svart, inte ofylld."
   ],
   "regler": {
    "prim": "duo-orbital-form",
@@ -2441,8 +2442,8 @@
    "",
    "Pilen har vridits ett steg för långt. Pilen ska vara kort, inte lång. Spetsen ska vara fylld, inte öppen.",
    "Pilen ska vara kort, inte lång.",
-   "Pilen står som i den fjärde figuren, men den andra serien tar ett steg till. Spetsen ska vara fylld, inte öppen.",
-   "Pilen står som i den fjärde figuren, men den andra serien tar ett steg till. Pilen ska vara kort, inte lång. Spetsen ska vara fylld, inte öppen.",
+   "Pilen står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Spetsen ska vara fylld, inte öppen.",
+   "Pilen står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Pilen ska vara kort, inte lång. Spetsen ska vara fylld, inte öppen.",
    "Pilen har vridits ett steg för långt."
   ],
   "regler": {
@@ -2624,10 +2625,10 @@
   "misstag": [
    "Formen i mitten ska vara kvadrat, inte cirkel.",
    "Pricken går åt fel håll. Formen i mitten ska vara kvadrat, inte cirkel. Formen i mitten ska vara svart, inte ofylld.",
-   "Pricken står som i den fjärde figuren, men den andra serien tar ett steg till. Formen i mitten ska vara svart, inte ofylld.",
+   "Pricken står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Formen i mitten ska vara svart, inte ofylld.",
    "",
    "Pricken går åt fel håll. Formen i mitten ska vara svart, inte ofylld.",
-   "Pricken står som i den fjärde figuren, men den andra serien tar ett steg till. Formen i mitten ska vara kvadrat, inte cirkel. Formen i mitten ska vara svart, inte ofylld."
+   "Pricken står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Formen i mitten ska vara kvadrat, inte cirkel. Formen i mitten ska vara svart, inte ofylld."
   ],
   "regler": {
    "prim": "duo-orbital-form",
@@ -3107,9 +3108,9 @@
   ],
   "correctAnswer": 4,
   "misstag": [
-   "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien. Spetsen ska vara öppen, inte fylld.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Spetsen ska vara öppen, inte fylld.",
    "Spetsen ska vara öppen, inte fylld.",
-   "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
    "Pilen pekar uppåt, men ska peka snett uppåt höger. Spetsen ska vara öppen, inte fylld.",
    "",
    "Pilen pekar uppåt, men ska peka snett uppåt höger."
@@ -3391,9 +3392,9 @@
    "Pricken står på fel plats.",
    "Pricken står på fel plats. Formen i mitten ska vara cirkel, inte romb.",
    "",
-   "Pricken står som i den fjärde figuren, men den andra serien tar ett steg till.",
+   "Pricken står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
    "Formen i mitten ska vara cirkel, inte romb.",
-   "Pricken står som i den fjärde figuren, men den andra serien tar ett steg till. Formen i mitten ska vara cirkel, inte romb."
+   "Pricken står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Formen i mitten ska vara cirkel, inte romb."
   ],
   "regler": {
    "prim": "duo-orbital-form",
@@ -3669,11 +3670,11 @@
   ],
   "correctAnswer": 1,
   "misstag": [
-   "Pilen står som i den fjärde figuren, men den andra serien tar ett steg till.",
+   "Pilen står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan.",
    "",
    "Pilen har vridits ett steg för långt. Pilen ska vara kort, inte lång. Spetsen ska vara fylld, som i hela raden.",
    "Pilen har vridits ett steg för långt. Spetsen ska vara fylld, som i hela raden.",
-   "Pilen står som i den fjärde figuren, men den andra serien tar ett steg till. Pilen ska vara kort, inte lång. Spetsen ska vara fylld, som i hela raden.",
+   "Pilen står som i den fjärde figuren. Den andra serien tar ett steg till innan luckan. Pilen ska vara kort, inte lång. Spetsen ska vara fylld, som i hela raden.",
    "Pilen ska vara kort, inte lång."
   ],
   "regler": {
@@ -3774,10 +3775,10 @@
   "correctAnswer": 5,
   "misstag": [
    "Pricken står på fel plats.",
-   "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien. Mittpunkten ska vara fylld, inte ofylld.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Mittpunkten ska vara fylld, inte ofylld.",
    "Mittpunkten ska vara fylld, inte ofylld.",
    "Pricken står på fel plats. Mittpunkten ska vara fylld, inte ofylld.",
-   "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
    ""
   ],
   "regler": {
@@ -4068,8 +4069,8 @@
    "Pilen ska vara kort, inte lång.",
    "Pilen har vridits ett steg för långt. Spetsen ska vara öppen, som i hela raden.",
    "",
-   "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien. Pilen ska vara kort, inte lång. Spetsen ska vara öppen, som i hela raden.",
-   "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Pilen ska vara kort, inte lång. Spetsen ska vara öppen, som i hela raden.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
    "Pilen har vridits ett steg för långt. Pilen ska vara kort, inte lång. Spetsen ska vara öppen, som i hela raden."
   ],
   "regler": {
@@ -4170,9 +4171,9 @@
   "correctAnswer": 2,
   "misstag": [
    "Pricken går åt fel håll. Mittpunkten ska vara fylld, inte ofylld.",
-   "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien. Mittpunkten ska vara fylld, inte ofylld.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Mittpunkten ska vara fylld, inte ofylld.",
    "",
-   "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
    "Pricken går åt fel håll.",
    "Mittpunkten ska vara fylld, inte ofylld."
   ],
@@ -4207,7 +4208,7 @@
   "difficulty": 4,
   "p_prior": 0.35,
   "title": "Sektorhjulet, två regler",
-  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids de svarta sektorerna 90 grader medurs; i den andra och fjärde vrids de svarta sektorerna 45 grader moturs. Luckan hör till den andra serien. En sektor till blir svart medurs i varje steg.",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids de svarta sektorerna 90 grader medurs; i den andra och fjärde vrids de svarta sektorerna 45 grader moturs. Luckan hör till den andra serien. Antalet svarta sektorer ökar med en i varje figur, oavsett serie. De sitter ihop medurs från den första svarta.",
   "rad": [
    {
     "kind": "sectorwheel",
@@ -4319,9 +4320,9 @@
    "De svarta sektorerna står kvar som i den femte figuren.",
    "De svarta sektorerna har vridits ett steg för långt.",
    "",
-   "De svarta sektorerna står kvar som i den femte figuren. Antalet svarta sektorer ska vara sju, inte två.",
+   "De svarta sektorerna står kvar som i den femte figuren. Antalet ska vara sju, inte två.",
    "Antalet svarta sektorer ska vara sju, inte två.",
-   "De svarta sektorerna har vridits ett steg för långt. Antalet svarta sektorer ska vara sju, inte två."
+   "De svarta sektorerna har vridits ett steg för långt. Antalet ska vara sju, inte två."
   ],
   "regler": {
    "prim": "sektor",
@@ -4340,7 +4341,8 @@
     }
    }
   },
-  "fran_version": 1
+  "fran_version": 1,
+  "pensionerad_fran": 2
  },
  {
   "id": "fs-e-antal-05",
@@ -4351,7 +4353,7 @@
   "difficulty": 4,
   "p_prior": 0.35,
   "title": "Strecken, två regler",
-  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids strecken 45 grader medurs; i den andra och fjärde vrids strecken 135 grader medurs. Luckan hör till den andra serien. Ett streck till läggs till medurs i varje steg.",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids strecken 45 grader medurs; i den andra och fjärde vrids strecken 135 grader medurs. Luckan hör till den andra serien. Antalet streck ökar med ett i varje figur, oavsett serie. Strecken sitter ihop medurs från det första.",
   "rad": [
    {
     "kind": "ray",
@@ -4463,12 +4465,12 @@
   ],
   "correctAnswer": 2,
   "misstag": [
-   "Strecken står i fel vridning. Antalet streck ska vara sju, inte fem.",
-   "Strecken står i fel vridning.",
+   "Strecken är vridna till fel läge. Antalet ska vara sju, inte fem.",
+   "Strecken är vridna till fel läge.",
    "",
    "Antalet streck ska vara sju, inte tre.",
-   "Strecken står i fel vridning. Antalet streck ska vara sju, inte fem.",
-   "Strecken står i fel vridning. Antalet streck ska vara sju, inte tre."
+   "Strecken är vridna till fel läge. Antalet ska vara sju, inte fem.",
+   "Strecken är vridna till fel läge. Antalet ska vara sju, inte tre."
   ],
   "regler": {
    "prim": "stralar",
@@ -4498,7 +4500,7 @@
   "difficulty": 4,
   "p_prior": 0.35,
   "title": "Sektorhjulet, två regler",
-  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids de svarta sektorerna 45 grader medurs; i den andra och fjärde vrids de svarta sektorerna 90 grader moturs. Luckan hör till den andra serien. Den sista svarta sektorn medurs blir vit i varje steg.",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids de svarta sektorerna 45 grader medurs; i den andra och fjärde vrids de svarta sektorerna 90 grader moturs. Luckan hör till den andra serien. Antalet svarta sektorer minskar med en i varje figur, oavsett serie. De sitter ihop medurs från den första svarta.",
   "rad": [
    {
     "kind": "sectorwheel",
@@ -4592,12 +4594,12 @@
   ],
   "correctAnswer": 1,
   "misstag": [
-   "De svarta sektorerna står i fel vridning. Antalet svarta sektorer har inte minskat sista steget.",
+   "De svarta sektorerna är vridna till fel läge. Antalet har inte minskat, luckan ska ha en färre än den femte figuren.",
    "",
-   "De svarta sektorerna står i fel vridning. Antalet svarta sektorer ska vara ett, inte tre.",
-   "De svarta sektorerna står i fel vridning.",
-   "Antalet svarta sektorer har inte minskat sista steget.",
-   "De svarta sektorerna står i fel vridning. Antalet svarta sektorer ska vara ett, inte tre."
+   "De svarta sektorerna är vridna till fel läge. Antalet ska vara en, inte tre.",
+   "De svarta sektorerna är vridna till fel läge.",
+   "Antalet svarta sektorer har inte minskat. Luckan ska ha en färre än den femte figuren.",
+   "De svarta sektorerna är vridna till fel läge. Antalet ska vara en, inte tre."
   ],
   "regler": {
    "prim": "sektor",
@@ -4627,7 +4629,7 @@
   "difficulty": 4,
   "p_prior": 0.35,
   "title": "Strecken, två regler",
-  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids strecken 135 grader medurs; i den andra och fjärde vrids strecken 90 grader medurs. Luckan hör till den andra serien. Ett streck till läggs till medurs i varje steg.",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte vrids strecken 135 grader medurs; i den andra och fjärde vrids strecken 90 grader medurs. Luckan hör till den andra serien. Antalet streck ökar med ett i varje figur, oavsett serie. Strecken sitter ihop medurs från det första.",
   "rad": [
    {
     "kind": "ray",
@@ -4739,12 +4741,12 @@
   ],
   "correctAnswer": 1,
   "misstag": [
-   "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien.",
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde.",
    "",
-   "Strecken står i fel vridning. Antalet streck ska vara sju, inte tre.",
+   "Strecken är vridna till fel läge. Antalet ska vara sju, inte tre.",
    "Antalet streck ska vara sju, inte tre.",
-   "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien. Antalet streck ska vara sju, inte fem.",
-   "Strecken står i fel vridning. Antalet streck ska vara sju, inte fem."
+   "Fortsätter serien i den första, tredje och femte figuren. Luckan hör till den andra serien, den i andra och fjärde. Antalet ska vara sju, inte fem.",
+   "Strecken är vridna till fel läge. Antalet ska vara sju, inte fem."
   ],
   "regler": {
    "prim": "stralar",

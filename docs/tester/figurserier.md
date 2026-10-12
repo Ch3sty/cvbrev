@@ -29,3 +29,21 @@ Koden: `scripts/lib/serie/` (celler, tolkning, spärrar, distraktorer, misstag, 
 ## I appen
 
 `src/lib/figurserierV1/` (typer, urval 15 av poolen seedat på sessionId, rättning, familjer, status), rutterna `/api/figurserier/{session,answer,complete}`, vyerna i `src/components/tests/serie/`. Sessionerna i `logic_test_v4_sessions` med `meta.serie_version: 1`. Frågestatistiken får `test_kind: figurserie`; rapporterna kräver migreringen `20261012130000_fraga_rapporter_figurserie.sql` (före den sparas de som matris med id fs-...).
+
+## Omgång 3: bryter mönstret, parti 2, figurpasset och övningsprovet
+
+Beställning `bestallning-omgang3.md` A1 till A5, spec `figurserier-spec.md` 7 och 15, granskning `docs/qa/omgang3-e/granskning.md` och `beslut.json`, `beslut-tillagg.json`.
+
+| Steg | Kommando | Vad |
+|---|---|---|
+| Bryter mönstret | `node scripts/gen-figurserier.mjs --bryter` | B1 till B4, 16 grund och 16 avancerad, till `kandidater/bryter-{grund,avancerad}.json` |
+| Parti 2 | `node scripts/gen-figurserier.mjs --parti=2` | 8 grund (F1, F2) och 16 avancerad (F4, F5), `fran_version: 2`, till `kandidater/parti2-*.json` |
+| Ersättare | `node scripts/figurserier-omgang3-ersattare.mjs` | samma id, ny rad, för de strukna i parti 2 |
+| Bryter-kontroll | `node scripts/v7-facit-check.mjs --bryter` och `v7-geometri-check.mjs --bryter` | struktur, BM1 till BM5, G1, G2, G4, G11, G12, S1 till S5, S8, V11 (70 noder, 8 kB), V12 |
+| Befordran | `node scripts/befordra-figurserier-omgang3.mjs` | godkända till `bankBryter*.json` och `bankParti2*.json`, golvet 12 bryter per nivå, kedjan körs |
+
+Regler: BM1 entydig (ingen regel i biblioteket pekar ut en annan figur; regler som håller för alla sex räknas inte; B4 utan symmetri), BM2 olika, BM3 fria egenskaper minst tre värden, BM4 brytaren aldrig ensam om ett värde (B4: granne inom två lägen), BM5 synlig skillnad (antal, tom mot svart, 90 eller 180 grader, spegling). F9 i `sparrar.mjs`: första serien förlängd får inte ge facit (s0 + 3·ke ≠ s1 + 2·ko mod 8). F2: samma primitiv, riktning och startantal högst en gång per nivå. Blocket i B1 påstår ingen vridning.
+
+Banker: de klassiska nivåtesten drar ur `bank{Grund,Avancerad,Expert}.json`. Från `serie_version: 2` väljs pensionerade frågor (`pensionerad_fran: 2`: fs-e-vrid-02, fs-e-antal-04) aldrig; sessioner med version 1 drar som förut och visar sin genomgång. Figurpass och övningsprov läser `harnastPool` (nivåtestets bank utan pensionerade plus parti 2) och `bryterPool` (tom under golvet).
+
+Appen: figurpasset `src/lib/tester/pass-figur*.ts`, `/api/traning/figurpass/*`, `src/components/traning/figurpass/` (`test_type: figurserie-pass`, `test_daily_pass`); övningsprovet `Provtyp figurer` i `src/lib/ovningsprov/` (`test_type: figurserie-prov`, `test_exam_mode`, Aon 20 på 5 minuter med cirka, övriga 20 på 15). Klicktest `scripts/qa-omgang3-e.mjs`, bilder i `docs/qa/omgang3-e/klicktest/`.

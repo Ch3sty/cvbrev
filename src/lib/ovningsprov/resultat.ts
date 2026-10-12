@@ -57,14 +57,15 @@ export function statusRad(dagarKvar: number | null): string {
   return dagarKvar === 1 ? RESULTAT.status.imorgonProv : RESULTAT.status.imorgonPass;
 }
 
-/** Verbalt och numeriskt, ur den avslutade sessionen. */
+/** Verbalt, numeriskt och figurserier, ur den avslutade sessionen. */
 export function ovningsResultat(vy: Ovningsvy, opt: { datum: string | null; dagarKvar: number | null }): OvningsResultatVM | null {
   const r = vy.resultat;
   if (!r) return null;
   const typ = vy.typ;
   const ord = vy.format.delar?.ord ?? 'underlag';
-  const delOrd = ord === 'texter' ? 'texter' : 'underlag';
-  const delEn = ord === 'texter' ? 'text' : 'underlag';
+  // Figurserier: varje uppgift är en del (omgång 3, A4).
+  const delOrd = typ === 'figurer' ? 'uppgifter' : ord === 'texter' ? 'texter' : 'underlag';
+  const delEn = typ === 'figurer' ? 'uppgift' : ord === 'texter' ? 'text' : 'underlag';
   const besvarade = r.antal - r.obesvarade;
   const missar = r.antal - r.ratt;
   const over = r.delar.filter((d) => d.tid_s > d.budget_s).length;
@@ -76,7 +77,7 @@ export function ovningsResultat(vy: Ovningsvy, opt: { datum: string | null; daga
     antal: r.antal,
     tid: { varde: RESULTAT.tid(r.tid_s), etikett: RESULTAT.tidEtikett(vy.format.minuter) },
     andra: andraTalet(typ, r.obesvarade),
-    mening: RESULTAT.mening(r.obesvarade, besvarade > 0 ? (r.ratt / besvarade) : 0, r.tappade[0]?.namn ?? null),
+    mening: RESULTAT.mening(r.obesvarade, besvarade > 0 ? (r.ratt / besvarade) : 0, r.tappade[0]?.namn ?? null, typ),
     genomgang: {
       titel: RESULTAT.genomgang.titel(missar, typ),
       text: RESULTAT.genomgang.text(missar - r.obesvarade, r.obesvarade),

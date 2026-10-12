@@ -36,12 +36,12 @@ export function sessionHref(sessionId: string): string {
  * numeriskt. Logikens prov körs sedan i passflödet (passHref('general')),
  * verbalt och numeriskt på ovningsprovSessionHref.
  */
-export function ovningsprovHref(typ: 'logik' | 'verbal' | 'numerisk'): string {
+export function ovningsprovHref(typ: 'logik' | 'verbal' | 'numerisk' | 'figurer'): string {
   return `/dashboard/tester/ovningsprov/${typ}`;
 }
 
 /** Ett pågående eller avslutat övningsprov i verbalt eller numeriskt. */
-export function ovningsprovSessionHref(typ: 'verbal' | 'numerisk', sessionId: string): string {
+export function ovningsprovSessionHref(typ: 'verbal' | 'numerisk' | 'figurer', sessionId: string): string {
   return `/dashboard/tester/ovningsprov/${typ}/${encodeURIComponent(sessionId)}`;
 }
 
@@ -81,6 +81,8 @@ export const TRANING_RUTT = {
   riktat: (family: string) => passHref('riktat', { family }),
   textpass: vnPassHref('verbal'),
   sifferpass: vnPassHref('numerisk'),
+  /** Figurpasset (beställning omgång 3, A3). */
+  figurpass: '/dashboard/tester/pass?typ=figurpass',
   /** Övningsprovet går alltid via startarket (riktlinjerna 5.1). */
   general: ovningsprovHref('logik'),
   /** Passflödets egen start av logikens övningsprov, bara från startarket. */

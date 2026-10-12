@@ -85,6 +85,15 @@ import type { FragaStatistik } from './svarighet';
 import { formatForPlan, PROVFORMAT, raknaTempo, type Provformat, type Tempo } from './tempo';
 import { beslutaTillgang, TEST_TYPE, TRANINGS_TEST_TYPER, type Begard, type TillgangBeslut } from './tillgang';
 import { VN_PASS_TEST_TYPER, kindForTestTyp, type VnKind } from '@/lib/tester/pass-typer';
+import { FIGURPASS_TEST_TYPE, bastaFigurGrundProcent } from '@/lib/tester/pass-figur';
+import { passNiva } from '@/lib/tester/pass-urval';
+
+/** Passen utanför matrisen: text, siffror och figurpasset (omgång 3, A3). */
+type AndraKind = VnKind | 'figurserie';
+const FIGUR_KLASSISKA_TYPER = ['figurserier-grund', 'figurserier-avancerad', 'figurserier-expert'];
+function andraKind(t: string | null | undefined): AndraKind | null {
+  return kindForTestTyp(t) ?? (t === FIGURPASS_TEST_TYPE ? 'figurserie' : null);
+}
 import type { SlutfordSession } from './milstolpar';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -135,7 +144,11 @@ export interface Lage {
    * dagsringen, serien och Första veckan, aldrig i matrisnivån, kurvan,
    * sträckregeln eller familjerna. Typ 'pass' (riktade också).
    */
-  andraPass: (SlutfordSession & { kind: VnKind })[];
+  andraPass: (SlutfordSession & { kind: AndraKind })[];
+  /** Ett klassiskt figurserietest är slutfört (figurpassraden visas, omgång 3 A3). */
+  figurserieGjord?: boolean;
+  /** Figurpassets nivå (omgång 3, A3): avancerad när bästa figurserier-grund sitter. */
+  figurNiva?: 'grund' | 'avancerad';
 }
 
 /** Matrisens slutförda sessioner och text- och sifferpassen, för dagarna. */
@@ -161,9 +174,9 @@ export async function lasLage(admin: Klient, userId: string, idag: Dag = dagSthl
       .order('skapad_at', { ascending: true }),
     admin
       .from('logic_test_v4_sessions')
-      .select('id, test_type, meta, answers, created_at, completed_at')
+      .select('id, test_type, meta, answers, score, created_at, completed_at')
       .eq('user_id', userId)
-      .in('test_type', [...MATRIS_TYPER, ...VN_PASS_TEST_TYPER])
+      .in('test_type', [...MATRIS_TYPER, ...VN_PASS_TEST_TYPER, FIGURPASS_TEST_TYPE, ...FIGUR_KLASSISKA_TYPER])
       .order('created_at', { ascending: false })
       .limit(400),
     admin.from('test_milstolpar').select('nyckel, nadd_at, visad_at').eq('user_id', userId),
@@ -205,10 +218,12 @@ export async function lasLage(admin: Klient, userId: string, idag: Dag = dagSthl
 
   const allaRader = (sessRes.data ?? []) as SessionRad[];
   // Text- och sifferpassen läses i samma rundtur men hålls utanför matrisens rader.
-  const rader = allaRader.filter((r) => !kindForTestTyp(r.test_type));
+  // Figurpasset och de klassiska figurserietesten likaså (omgång 3, A3).
+  const rader = allaRader.filter((r) => !andraKind(r.test_type) && !FIGUR_KLASSISKA_TYPER.includes(r.test_type ?? ''));
   const andraPass = allaRader
-    .filter((r) => kindForTestTyp(r.test_type) && r.completed_at)
-    .map((r) => ({ dag: dagSthlm(r.completed_at as string), typ: 'pass' as const, kind: kindForTestTyp(r.test_type) as VnKind }));
+    .filter((r) => andraKind(r.test_type) && r.completed_at)
+    .map((r) => ({ dag: dagSthlm(r.completed_at as string), typ: 'pass' as const, kind: andraKind(r.test_type) as AndraKind }));
+  const figurserieGjord = allaRader.some((r) => FIGUR_KLASSISKA_TYPER.includes(r.test_type ?? '') && !!r.completed_at);
   return {
     idag,
     plan,
@@ -219,6 +234,8 @@ export async function lasLage(admin: Klient, userId: string, idag: Dag = dagSthl
     statistik,
     bank: bankInfo(statistik),
     andraPass,
+    figurserieGjord,
+    figurNiva: passNiva(bastaFigurGrundProcent(allaRader as unknown as Parameters<typeof bastaFigurGrundProcent>[0])) as 'grund' | 'avancerad',
   };
 }
 
@@ -1195,7 +1212,11 @@ export interface Traningsstatus {
   ovisade: string[];
   dagensPassGjort: boolean;
   /** Text- och sifferpasset gjort i dag (beställning omgång 2, B2). Saknas i äldre fixturer. */
-  vnPassIdag?: { verbal: boolean; numerisk: boolean };
+  vnPassIdag?: { verbal: boolean; numerisk: boolean; figurserie?: boolean };
+  /** Ett klassiskt figurserietest är slutfört (figurpassraden, omgång 3 A3). Saknas i äldre fixturer. */
+  figurserieGjord?: boolean;
+  /** Figurpassets nivå, som ord på hemvyn ("Expertnivån: gör nivåtestet" på avancerad). */
+  figurNiva?: 'grund' | 'avancerad';
   dagarKvar: number | null;
   /** Dag 1 till 7 efter mätningen, för kvittot K1. Satt när Första veckan nåtts (spec 14.3). */
   forstaVeckan: ReturnType<typeof forstaVeckanSammanfattning> | null;
@@ -1345,7 +1366,10 @@ export async function hamtaTraningsstatus(args: {
     vnPassIdag: {
       verbal: lage.andraPass.some((p) => p.kind === 'verbal' && p.dag === idag),
       numerisk: lage.andraPass.some((p) => p.kind === 'numerisk' && p.dag === idag),
+      figurserie: lage.andraPass.some((p) => p.kind === 'figurserie' && p.dag === idag),
     },
+    figurserieGjord: lage.figurserieGjord ?? false,
+    figurNiva: lage.figurNiva ?? 'grund',
     dagarKvar: prov ? dagarMellan(idag, prov) : null,
     forstaVeckan:
       start && milstolpar.some((m) => m.nyckel === 'forsta_veckan')

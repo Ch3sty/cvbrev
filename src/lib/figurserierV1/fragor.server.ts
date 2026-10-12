@@ -12,8 +12,8 @@
 //   efter avslutat test får rätt svar och misstagen i visad ordning.
 // =============================================================================
 
-import { arBlandad, BLANDAD_META, permutationForSession, tillOriginal, tillVisat } from '@/lib/logicTestV7/blanda';
-import { allaFragor, valjFragor, FRAGOR_PER_SESSION, SERIE_VERSION } from './select';
+import { alternativSeed, arBlandad, BLANDAD_META, blandadPermutation, permutationForSession, tillOriginal, tillVisat } from '@/lib/logicTestV7/blanda';
+import { allaFigurFragor, allaFragor, serieVersion, valjFragor, FRAGOR_PER_SESSION, SERIE_VERSION } from './select';
 import type { GenomgangSerie, SerieFraga, SerieNiva, VisadSerie } from './types';
 
 export const SERIE_TEST_TYPER = ['figurserier-grund', 'figurserier-avancerad', 'figurserier-expert'] as const;
@@ -57,7 +57,7 @@ export function serieInnehall(session: {
   if (!arSerieTestTyp(session.test_type)) return { fragor: [], genomgang: null };
   const niva = nivaForTestTyp(session.test_type);
   const blandade = arBlandad(session.meta);
-  const urval = valjFragor(niva, session.id);
+  const urval = valjFragor(niva, session.id, FRAGOR_PER_SESSION, serieVersion(session.meta));
   return {
     fragor: urval.map((q) => visaSerie(q, session.id, blandade)),
     genomgang: session.completed_at ? urval.map((q) => genomgaSerie(q, session.id, blandade)) : null,
@@ -90,4 +90,50 @@ export function rattaSerieSvar(answers: readonly unknown[]): number {
 /** Frågestatistiken (kontrakt-kalibrering): en rad per besvarad fråga, test_kind figurserie. */
 export function serieStatistik(answers: readonly { q_id: string; correct: boolean; time_spent?: number; selected: number }[]) {
   return answers.map((a) => ({ fraga_id: a.q_id, test_kind: 'figurserie', correct: a.correct, tid_s: a.time_spent ?? 0, selected: a.selected, typ: 'klassisk' }));
+}
+
+/* -------------------- Figurpasset och övningsprovet (omgång 3) -------------------- */
+
+const FIGUR_PER_ID = new Map(allaFigurFragor().map((q) => [q.id, q]));
+
+export function hittaFigurFraga(id: string): SerieFraga | undefined {
+  return FIGUR_PER_ID.get(id);
+}
+
+/**
+ * Permutationen för en fråga i pass och prov, alltid blandad: härnäst blandar
+ * alternativen, bryter mönstret blandar de sex figurerna (A1, "de sex blandas
+ * seedat på sessionId"). permutation[visat] = original.
+ */
+export function figurPermutation(q: SerieFraga, sessionId: string): number[] {
+  return blandadPermutation(alternativSeed(sessionId, q.id), q.form === 'bryter' ? q.rad.length : q.options.length);
+}
+
+/** Uppgiften som klienten ser: utan facit, regel och misstag. */
+export function visaFigur(q: SerieFraga, sessionId: string): VisadSerie {
+  const perm = figurPermutation(q, sessionId);
+  if (q.form === 'bryter') return { id: q.id, form: 'bryter', difficulty: q.difficulty, rad: perm.map((o) => q.rad[o]), options: [] };
+  return { id: q.id, form: 'harnast', difficulty: q.difficulty, rad: q.rad, options: perm.map((o) => q.options[o]) };
+}
+
+/** Genomgången: facit, regeln och misstagen i visad ordning. */
+export function genomgaFigur(q: SerieFraga, sessionId: string): GenomgangSerie {
+  const perm = figurPermutation(q, sessionId);
+  return {
+    ...visaFigur(q, sessionId),
+    title: q.title,
+    rule: q.rule,
+    family: q.family,
+    rattVisat: tillVisat(perm, q.correctAnswer),
+    misstag: perm.map((o) => q.misstag[o] ?? ''),
+  };
+}
+
+/** Dömer ett svar i pass och prov. Visat index in; null för "Vet inte" ger selected -1. */
+export function bedomFigur(q: SerieFraga, sessionId: string, visat: unknown): { selected: number; visat: number | null; correct: boolean } | null {
+  if (visat === null) return { selected: -1, visat: null, correct: false };
+  if (typeof visat !== 'number' || !Number.isInteger(visat)) return null;
+  const selected = tillOriginal(figurPermutation(q, sessionId), visat);
+  if (selected < 0) return null;
+  return { selected, visat, correct: selected === q.correctAnswer };
 }

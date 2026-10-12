@@ -138,12 +138,13 @@ export const PROVFORMAT: Readonly<Record<FormatNyckel, Provformat>> = {
     minuter: 5,
     budget_s: budget(5, 20), // 15
     adaptiv: false,
-    // Omgång 2 (beställningen A6 punkt 7): ingen källa i repo för Aons tal.
-    // Formatet står kvar för gamla sessioner med meta.format aon, men väljs
-    // aldrig för nya: formatForPlan('aon') ger vårt format med anmärkningen.
+    // Omgång 3 (beställningen A4): Aons tal är belagda i repo
+    // (beslut-testansvarig.md 6: samstämmiga tredjepartskällor, samma
+    // beläggsnivå som Matrigmas 35) och står med cirka. Formatet väljs för
+    // figurseriernas övningsprov; logikens Aon står kvar som EGET_AON.
     cirka: true,
-    verifierad: false,
-    kalla: 'leverantorens sida enligt briefen 2026-10-10',
+    verifierad: true,
+    kalla: 'beslut-testansvarig.md 6',
     tidsform: 'total',
     anmarkning: TRANING_COPY.format.anmarkning.aon,
   },
