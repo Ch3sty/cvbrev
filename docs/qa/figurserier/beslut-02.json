@@ -1,0 +1,54 @@
+{
+  "granskning": "granskning-02.md",
+  "datum": "2026-10-12",
+  "godkanda": [
+    "fs-g-vrid-11",
+    "fs-g-antal-01",
+    "fs-g-antal-04",
+    "fs-g-antal-10",
+    "fs-g-antal-13",
+    "fs-g-vax-03",
+    "fs-g-vax-06",
+    "fs-a-antal-02",
+    "fs-a-antal-04",
+    "fs-a-antal-05",
+    "fs-a-antal-07",
+    "fs-a-flera-01",
+    "fs-a-flera-03",
+    "fs-a-vaxl-03",
+    "fs-a-vaxl-07",
+    "fs-e-vrid-01",
+    "fs-e-vrid-02",
+    "fs-e-vax-01",
+    "fs-e-vax-02",
+    "fs-e-vax-03",
+    "fs-e-vand-04",
+    "fs-e-vand-05",
+    "fs-e-vand-06",
+    "fs-e-vand-07",
+    "fs-e-vand-08",
+    "fs-e-vand-09",
+    "fs-e-fyll-01",
+    "fs-e-fyll-02",
+    "fs-e-fyll-03",
+    "fs-e-flera-03",
+    "fs-e-vaxl-04",
+    "fs-e-vaxl-06",
+    "fs-e-vaxl-10"
+  ],
+  "andra": [
+    { "id": "fs-e-vaxl-01", "skal": "Raden står, bygg om alternativen: fyra av fem bryter längdkonstanten och ingen nära miss på spets bland de som håller den (F6)." },
+    { "id": "fs-e-vaxl-03", "skal": "Raden står, bygg om alternativen: tre bryter fyllningskonstanten och ingen nära miss på form bland de rena (F6)." },
+    { "id": "fs-e-vaxl-05", "skal": "Raden står, bygg om alternativen: tre bryter spetskonstanten och ingen nära miss på vinkel bland de rena (F6)." },
+    { "id": "fs-e-vaxl-07", "skal": "Raden står, bygg om alternativen: tre bryter fyllningskonstanten och ingen nära miss på läge bland de rena (F6)." }
+  ],
+  "strukna": [
+    { "id": "fs-e-flera-04", "skal": "Samma prickrad och cykliska formordning som fs-e-flera-03, bara fasen skiljer (F7). Ersättare med annan lägesregel eller annan start och riktning, får inte dela prickrad med flera-03, fyll-01 eller fyll-03." },
+    { "id": "fs-e-antal-03", "skal": "Antal i cykel på sektorhjul: gruppens läge är inte entydigt när antalet inte ändras med konstant steg (F8). Ersättare som F7 med start växelvis och antal steg plus eller minus ett, aldrig cykel." }
+  ],
+  "golv": {
+    "grund": { "godkanda": 36, "nar_golvet": true },
+    "avancerad": { "godkanda": 30, "nar_golvet": true },
+    "expert": { "godkanda": 24, "nar_golvet": false, "efter_omgang3": 30 }
+  }
+}
