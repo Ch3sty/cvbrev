@@ -386,7 +386,7 @@ export interface AnalyticsEvents {
      spec-rummen-2026-10-10 avsnitt 7. rum_oppnat när rummet byts (eller
      vid landningen), sokta_tjanster_oppnad varje gång listan öppnas, så
      öppningarna kan jämföras före och efter navbytet. tema_bytt när
-     Utseende ändras på profilen. */
+     Utseende ändras, i avatarmenyn eller på Inställningar. */
   rum_oppnat: {
     rum: 'tran' | 'cv' | 'brev' | 'jobb' | 'neutral'
     surface: 'dorr' | 'sidomeny' | 'lagesrad' | 'djuplank' | 'landning'
@@ -398,7 +398,8 @@ export interface AnalyticsEvents {
     intent?: SignupIntent | null
   }
   sokta_tjanster_oppnad: { surface: 'dorr' | 'sidomeny' | 'lagesrad' | 'djuplank' | 'landning' }
-  tema_bytt: { tema: 'ljust' | 'morkt' | 'system' }
+  /** kalla: segmentet i avatarmenyn eller sektionen på Inställningar (2026-10-13). */
+  tema_bytt: { tema: 'ljust' | 'morkt' | 'system'; kalla: 'meny' | 'installningar' }
   /* ---------------------------------------------- Rummen, våg 2
      spec-rummen avsnitt 7. Ingången (E1 till E3), provdatumet och hemvyn i
      Rekryteringstester. */

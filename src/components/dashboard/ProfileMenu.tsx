@@ -5,9 +5,13 @@
  * toppraden").
  *
  * 34 px avatar med initialer, på väggen i bg-vagg-kant och text-vagg-ink,
- * på golvet i papper med kant. Menyn samlar kontoåtgärderna: paketet och
- * när det förnyas, Kom igång, Profil, Prenumeration och Logga ut. Menyn är
- * ett svävande element, så skugga är tillåten här.
+ * på golvet i papper med kant. Menyn (288 px, skiss-installningar-2026-10-12)
+ * samlar kontot: namn och e-post, Utseende som tre symboler, paketet och när
+ * det förnyas, Kom igång, Profil, Prenumeration, Inställningar och Logga ut.
+ * Menyn är ett svävande element, så skugga är tillåten här.
+ *
+ * Utseendet slår igenom direkt och menyn står kvar öppen, så att man ser
+ * skillnaden och kan byta tillbaka. Den stängs först vid val av en rad.
  */
 
 import { useEffect, useRef, useState } from 'react'
@@ -15,8 +19,18 @@ import Link from 'next/link'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
 import { menyHuvud } from '@/lib/onboarding/paket-rader'
-import { TOPPRAD } from '@/lib/rum/copy'
+import { TOPPRAD, UNDERSIDA, UTSEENDE } from '@/lib/rum/copy'
+import { useTema } from '@/hooks/useTema'
+import { TEMAN, type Tema } from '@/lib/tema'
+import { IkonEnhet, IkonMane, IkonSol } from '@/components/illustrations/RumSymboler'
+import { KONTO_SEKTION } from '@/app/dashboard/profil/profil-copy'
 import { useKomIgang } from './KomIgangContext'
+
+const TEMA_IKON: Record<Tema, typeof IkonSol> = {
+  system: IkonEnhet,
+  ljust: IkonSol,
+  morkt: IkonMane,
+}
 
 interface ProfileMenuProps {
   name: string
@@ -42,6 +56,13 @@ export default function ProfileMenu({ name, email, avatarUrl, premiumLabel = nul
   const { summary } = useDashboardData()
   const komIgang = useKomIgang()
   const huvud = summary?.paket ? menyHuvud(summary.paket) : null
+  const { tema, valj } = useTema('meny')
+  const temaRef = useRef<HTMLButtonElement | null>(null)
+
+  // Segmentet är menyns första interaktiva element: fokus landar på valet.
+  useEffect(() => {
+    if (open) temaRef.current?.focus({ preventScroll: true })
+  }, [open])
 
   // Stäng vid klick utanför och vid Escape.
   useEffect(() => {
@@ -88,11 +109,39 @@ export default function ProfileMenu({ name, email, avatarUrl, premiumLabel = nul
         <div
           role="menu"
           aria-label="Konto"
-          className="absolute right-0 top-full z-50 mt-2 w-64 overflow-hidden rounded-2xl border border-kant bg-papper text-ink-1 shadow-svav [--fokus:var(--koppar-ink)] motion-safe:animate-thread-drop"
+          className="absolute right-0 top-full z-50 mt-2 w-72 max-w-[calc(100vw-32px)] overflow-hidden rounded-2xl border border-kant bg-papper text-ink-1 shadow-svav [--fokus:var(--koppar-ink)] motion-safe:animate-thread-drop"
         >
           <div className="border-b border-kant px-4 py-3">
             <p className="truncate text-sm font-medium text-ink-1">{name}</p>
             <p className="truncate text-meta text-ink-3">{email}</p>
+          </div>
+
+          <div className="border-b border-kant px-4 py-3">
+            <div role="radiogroup" aria-label={UTSEENDE.rubrik} className="flex gap-2">
+              {TEMAN.map((t) => {
+                const pa = t === tema
+                const Ikon = TEMA_IKON[t]
+                return (
+                  <button
+                    key={t}
+                    ref={pa ? temaRef : undefined}
+                    type="button"
+                    role="radio"
+                    aria-checked={pa}
+                    aria-label={UTSEENDE.val[t]}
+                    onClick={() => valj(t)}
+                    className={`inline-flex h-11 flex-1 items-center justify-center rounded-lg border bg-papper transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-papper-2 ${
+                      pa ? 'border-ink-1 text-ink-1 shadow-val' : 'border-kant text-ink-2'
+                    }`}
+                  >
+                    <Ikon size={22} />
+                  </button>
+                )
+              })}
+            </div>
+            <p className="mt-2 text-meta text-ink-3">
+              {UTSEENDE.rad} <span className="font-medium text-ink-1">{UTSEENDE.val[tema]}</span>
+            </p>
           </div>
 
           {huvud ? (
@@ -131,13 +180,16 @@ export default function ProfileMenu({ name, email, avatarUrl, premiumLabel = nul
                 Kom igång
               </button>
             )}
-            {/* Samma två ord och ordning som sidomenyns Konto
+            {/* Samma tre ord och ordning som sidomenyns Konto
                 (profil-registrering 2026-09-24, kriterium 3). */}
             <MenuLink href="/dashboard/profil" onNavigate={() => setOpen(false)}>
-              Profil
+              {UNDERSIDA.profil}
             </MenuLink>
             <MenuLink href="/dashboard/profil/prenumeration" onNavigate={() => setOpen(false)}>
-              Prenumeration
+              {UNDERSIDA.prenumeration}
+            </MenuLink>
+            <MenuLink href="/dashboard/installningar" onNavigate={() => setOpen(false)}>
+              {UNDERSIDA.installningar}
             </MenuLink>
             <button
               type="button"
@@ -145,7 +197,7 @@ export default function ProfileMenu({ name, email, avatarUrl, premiumLabel = nul
               onClick={logout}
               className="min-h-[44px] w-full px-4 py-2 text-left text-sm text-ink-2 transition-colors hover:bg-papper-2 hover:text-ink-1"
             >
-              Logga ut
+              {KONTO_SEKTION.loggaUt}
             </button>
           </nav>
         </div>

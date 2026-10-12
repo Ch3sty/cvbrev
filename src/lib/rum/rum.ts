@@ -30,6 +30,7 @@ const CV = [
 const BREV = ['/dashboard/mina-brev', '/dashboard/skapa-brev']
 const NEUTRAL = [
   '/dashboard/profil',
+  '/dashboard/installningar',
   '/dashboard/valj-spar',
   '/dashboard/kontakt',
   '/dashboard/bugg-feedback',

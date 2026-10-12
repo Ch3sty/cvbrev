@@ -137,7 +137,8 @@ export default function RootLayout({
             ingen vy blinkar i fel läge: 'ljust' och 'morkt' sätter
             data-theme, 'system' eller inget val tar bort attributet och
             följer prefers-color-scheme. Tokens för mörkt läge finns bara i
-            inloggat ([data-rum]), så publika sidor påverkas inte. */}
+            inloggat ([data-rum]), så publika sidor påverkas inte. Nyckeln
+            och värdena delas med src/lib/tema.ts (menyn och Inställningar). */}
         <script
           dangerouslySetInnerHTML={{
             __html: `try{var t=localStorage.getItem('tema'),d=document.documentElement;if(t==='ljust')d.dataset.theme='light';else if(t==='morkt')d.dataset.theme='dark';else delete d.dataset.theme}catch(e){}`,

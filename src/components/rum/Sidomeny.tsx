@@ -211,12 +211,13 @@ export default function Sidomeny() {
         etikett: UNDERSIDA.prenumeration,
         chip: prenumerationsEtikett(profil, paket) ? <Chip liten>{prenumerationsEtikett(profil, paket)}</Chip> : undefined,
       },
-      { href: '/dashboard/profil#utseende', etikett: UNDERSIDA.utseende },
+      // Samma tre ord och ordning som avatarmenyn (skiss-installningar-2026-10-12).
+      { href: '/dashboard/installningar', etikett: UNDERSIDA.installningar },
     ],
   }
 
   const rader = undersidor[rum]
-  const aktiv = aktivUndersida(pathname, rader.filter((u) => !u.href.includes('#')))
+  const aktiv = aktivUndersida(pathname, rader)
   const fot = menyFot(paket)
 
   const metaNamn = (user?.user_metadata?.full_name ?? user?.user_metadata?.name) as string | undefined
