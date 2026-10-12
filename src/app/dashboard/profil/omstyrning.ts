@@ -14,3 +14,14 @@ export function installningarForAnkare(hash: string | null | undefined): string 
   const id = (hash ?? '').replace(/^#/, '')
   return (FLYTTADE as readonly string[]).includes(id) ? `${INSTALLNINGAR_HREF}#${id}` : null
 }
+
+/**
+ * Samma omstyrning före första målningen: ett inline-skript först i
+ * dashboard-layoutens markup, som körs innan skalet eller profilen hunnit
+ * ritas när adressen laddas från början (länk i mejl, ny flik, bokmärke).
+ * location.replace, så att bakåtknappen inte leder tillbaka hit. Vid
+ * klientnavigering körs inga inline-skript; där tar ProfilClient över.
+ */
+export const OMSTYRNING_SKRIPT = `try{var l=location,h=l.hash.slice(1);if((l.pathname==='/dashboard/profil'||l.pathname==='/dashboard/profil/')&&${JSON.stringify(
+  [...FLYTTADE],
+)}.indexOf(h)>-1)l.replace('${INSTALLNINGAR_HREF}#'+h)}catch(e){}`

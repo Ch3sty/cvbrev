@@ -25,6 +25,7 @@ import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 import { rumForPath, VAGG_FARG, type Rum } from '@/lib/rum/rum';
 import { PATHNAME_HEADER } from '@/lib/rum/pathname-header';
 import { EPOSTBANNER_AVFARDAD_COOKIE } from '@/components/dashboard/epostbanner-cookie';
+import { OMSTYRNING_SKRIPT } from './profil/omstyrning';
 
 /** Rummet för requesten, ur sökvägen som proxyn lägger på (spec 5). */
 async function rumForRequest(): Promise<Rum> {
@@ -69,13 +70,19 @@ export default async function DashboardLayout({
   const visaEpostbanner = initialSummary?.emailVerified === false && !avfardad;
 
   return (
-    <DashboardShell
-      user={user}
-      initialSummary={initialSummary}
-      rum={rum}
-      visaEpostbanner={visaEpostbanner}
-    >
-      {children}
-    </DashboardShell>
+    <>
+      {/* Profilens flyttade ankare (#konto, #utseende, #hjalp) leder till
+          Inställningar innan skalet eller profilen ritas (omstyrning.ts).
+          Först i inloggats markup, så att inget hinner målas före. */}
+      <script dangerouslySetInnerHTML={{ __html: OMSTYRNING_SKRIPT }} />
+      <DashboardShell
+        user={user}
+        initialSummary={initialSummary}
+        rum={rum}
+        visaEpostbanner={visaEpostbanner}
+      >
+        {children}
+      </DashboardShell>
+    </>
   );
 }
