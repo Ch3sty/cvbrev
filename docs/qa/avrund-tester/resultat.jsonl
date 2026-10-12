@@ -57,3 +57,73 @@
 {"tid":"2026-10-12T11:03:57.311Z","floede":"admin-admin-360-morkt","steg":"verbal frågesida: förklaringen har tonbakgrund","ok":true,"bakgrund":"rgb(236, 230, 220)"}
 {"tid":"2026-10-12T11:04:00.795Z","floede":"admin-admin-360-morkt","steg":"verbalt grund i Kalibrering","ok":true,"rader":25}
 {"tid":"2026-10-12T11:04:04.254Z","floede":"admin-admin-360-morkt","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T11:49:35.319Z","floede":"hem-premium-360-ljust","steg":"riktiga hemvyn","ok":null,"url":"/dashboard/tester","ram":"T1"}
+{"tid":"2026-10-12T11:50:37.213Z","floede":"hem-premium-360-ljust","steg":"avbrutet","ok":false,"fel":"TimeoutError: Waiting for selector `[data-ram]` failed"}
+{"tid":"2026-10-12T11:50:50.346Z","floede":"hem-premium-1280-ljust","steg":"riktiga hemvyn","ok":null,"url":"/dashboard/tester","ram":"T1"}
+{"tid":"2026-10-12T11:51:52.817Z","floede":"hem-premium-1280-ljust","steg":"avbrutet","ok":false,"fel":"TimeoutError: Waiting for selector `[data-ram]` failed"}
+{"tid":"2026-10-12T11:52:36.489Z","floede":"hem-premium-360-ljust","steg":"riktiga hemvyn","ok":null,"url":"/dashboard/tester","ram":"T1"}
+{"tid":"2026-10-12T11:53:41.430Z","floede":"hem-premium-360-ljust","steg":"avbrutet","ok":false,"fel":"TimeoutError: Waiting for selector `[data-ram]` failed"}
+{"tid":"2026-10-12T11:53:56.749Z","floede":"hem-premium-1280-ljust","steg":"riktiga hemvyn","ok":null,"url":"/dashboard/tester","ram":"T1"}
+{"tid":"2026-10-12T11:54:59.034Z","floede":"hem-premium-1280-ljust","steg":"avbrutet","ok":false,"fel":"TimeoutError: Waiting for selector `[data-ram]` failed"}
+{"tid":"2026-10-12T11:55:11.692Z","floede":"hem-gratis-360-morkt","steg":"riktiga hemvyn","ok":null,"url":"/dashboard/tester","ram":"T1"}
+{"tid":"2026-10-12T11:56:14.124Z","floede":"hem-gratis-360-morkt","steg":"avbrutet","ok":false,"fel":"TimeoutError: Waiting for selector `[data-ram]` failed"}
+{"tid":"2026-10-12T11:57:00.126Z","floede":"hem-premium-360-ljust","steg":"riktiga hemvyn","ok":null,"url":"/dashboard/tester","ram":"T1"}
+{"tid":"2026-10-12T11:57:04.159Z","floede":"hem-premium-360-ljust","steg":"1c: Ändra datum nås på mobil","ok":true,"ram":"1c","synliga":[{"text":"Ändra datum","y":878}],"knapp":{"text":"Starta övningsprovet","botten":677}}
+{"tid":"2026-10-12T11:57:04.159Z","floede":"hem-premium-360-ljust","steg":"1c: kopparknappens nederkant (mål högst 620 px)","ok":false,"text":"Starta övningsprovet","botten":677}
+{"tid":"2026-10-12T11:57:04.160Z","floede":"hem-premium-360-ljust","steg":"1c: länken står under kopparknappen","ok":true}
+{"tid":"2026-10-12T11:57:08.231Z","floede":"hem-premium-360-ljust","steg":"1g: Ändra datum nås på mobil","ok":true,"ram":"1g","synliga":[{"text":"Ändra datum","y":701}],"knapp":{"text":"Visa genomgången","botten":601}}
+{"tid":"2026-10-12T11:57:08.231Z","floede":"hem-premium-360-ljust","steg":"1g: kopparknappens nederkant (mål högst 620 px)","ok":true,"text":"Visa genomgången","botten":601}
+{"tid":"2026-10-12T11:57:08.232Z","floede":"hem-premium-360-ljust","steg":"1g: länken står under kopparknappen","ok":true}
+{"tid":"2026-10-12T11:57:10.142Z","floede":"hem-premium-360-ljust","steg":"klart","ok":false,"fel":["1c: kopparknappens nederkant (mål högst 620 px)"]}
+{"tid":"2026-10-12T11:57:21.728Z","floede":"hem-premium-1280-ljust","steg":"riktiga hemvyn","ok":null,"url":"/dashboard/tester","ram":"T1"}
+{"tid":"2026-10-12T11:57:26.631Z","floede":"hem-premium-1280-ljust","steg":"1c: på dator bär toppraden kontexten, statusradens länk är dold","ok":true,"ram":"1c","synliga":[{"text":"Test och datum","y":518},{"text":"Matrigma, 24 okt","y":14}],"knapp":{"text":"Starta övningsprovet","botten":800}}
+{"tid":"2026-10-12T11:57:31.594Z","floede":"hem-premium-1280-ljust","steg":"1g: på dator bär toppraden kontexten, statusradens länk är dold","ok":true,"ram":"1g","synliga":[{"text":"Test och datum","y":518},{"text":"Matrigma, 24 okt","y":14}],"knapp":{"text":"Visa genomgången","botten":766}}
+{"tid":"2026-10-12T11:57:32.250Z","floede":"hem-premium-1280-ljust","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T11:57:42.116Z","floede":"hem-gratis-360-morkt","steg":"riktiga hemvyn","ok":null,"url":"/dashboard/tester","ram":"T1"}
+{"tid":"2026-10-12T11:57:45.742Z","floede":"hem-gratis-360-morkt","steg":"1c: Ändra datum nås på mobil","ok":true,"ram":"1c","synliga":[{"text":"Ändra datum","y":878}],"knapp":{"text":"Starta övningsprovet","botten":677}}
+{"tid":"2026-10-12T11:57:45.742Z","floede":"hem-gratis-360-morkt","steg":"1c: kopparknappens nederkant (mål högst 620 px)","ok":false,"text":"Starta övningsprovet","botten":677}
+{"tid":"2026-10-12T11:57:45.743Z","floede":"hem-gratis-360-morkt","steg":"1c: länken står under kopparknappen","ok":true}
+{"tid":"2026-10-12T11:57:49.748Z","floede":"hem-gratis-360-morkt","steg":"1g: Ändra datum nås på mobil","ok":true,"ram":"1g","synliga":[{"text":"Ändra datum","y":701}],"knapp":{"text":"Visa genomgången","botten":601}}
+{"tid":"2026-10-12T11:57:49.748Z","floede":"hem-gratis-360-morkt","steg":"1g: kopparknappens nederkant (mål högst 620 px)","ok":true,"text":"Visa genomgången","botten":601}
+{"tid":"2026-10-12T11:57:49.749Z","floede":"hem-gratis-360-morkt","steg":"1g: länken står under kopparknappen","ok":true}
+{"tid":"2026-10-12T11:57:50.262Z","floede":"hem-gratis-360-morkt","steg":"klart","ok":false,"fel":["1c: kopparknappens nederkant (mål högst 620 px)"]}
+{"tid":"2026-10-12T12:03:35.402Z","floede":"hem-premium-360-ljust","steg":"riktiga hemvyn","ok":null,"url":"/dashboard/tester","ram":"T1"}
+{"tid":"2026-10-12T12:03:38.941Z","floede":"hem-premium-360-ljust","steg":"1c: Ändra datum nås på mobil","ok":true,"ram":"1c","synliga":[{"text":"Ändra datum","y":836}],"knapp":{"text":"Starta övningsprovet","botten":635}}
+{"tid":"2026-10-12T12:03:38.942Z","floede":"hem-premium-360-ljust","steg":"1c: kopparknappens nederkant (mål högst 620 px)","ok":false,"text":"Starta övningsprovet","botten":635}
+{"tid":"2026-10-12T12:03:38.942Z","floede":"hem-premium-360-ljust","steg":"1c: länken står under kopparknappen","ok":true}
+{"tid":"2026-10-12T12:03:42.645Z","floede":"hem-premium-360-ljust","steg":"1g: Ändra datum nås på mobil","ok":true,"ram":"1g","synliga":[{"text":"Ändra datum","y":701}],"knapp":{"text":"Visa genomgången","botten":601}}
+{"tid":"2026-10-12T12:03:42.646Z","floede":"hem-premium-360-ljust","steg":"1g: kopparknappens nederkant (mål högst 620 px)","ok":true,"text":"Visa genomgången","botten":601}
+{"tid":"2026-10-12T12:03:42.646Z","floede":"hem-premium-360-ljust","steg":"1g: länken står under kopparknappen","ok":true}
+{"tid":"2026-10-12T12:03:43.100Z","floede":"hem-premium-360-ljust","steg":"klart","ok":false,"fel":["1c: kopparknappens nederkant (mål högst 620 px)"]}
+{"tid":"2026-10-12T12:03:53.532Z","floede":"hem-gratis-360-morkt","steg":"riktiga hemvyn","ok":null,"url":"/dashboard/tester","ram":"T1"}
+{"tid":"2026-10-12T12:03:57.703Z","floede":"hem-gratis-360-morkt","steg":"1c: Ändra datum nås på mobil","ok":true,"ram":"1c","synliga":[{"text":"Ändra datum","y":836}],"knapp":{"text":"Starta övningsprovet","botten":635}}
+{"tid":"2026-10-12T12:03:57.704Z","floede":"hem-gratis-360-morkt","steg":"1c: kopparknappens nederkant (mål högst 620 px)","ok":false,"text":"Starta övningsprovet","botten":635}
+{"tid":"2026-10-12T12:03:57.704Z","floede":"hem-gratis-360-morkt","steg":"1c: länken står under kopparknappen","ok":true}
+{"tid":"2026-10-12T12:04:01.357Z","floede":"hem-gratis-360-morkt","steg":"1g: Ändra datum nås på mobil","ok":true,"ram":"1g","synliga":[{"text":"Ändra datum","y":701}],"knapp":{"text":"Visa genomgången","botten":601}}
+{"tid":"2026-10-12T12:04:01.357Z","floede":"hem-gratis-360-morkt","steg":"1g: kopparknappens nederkant (mål högst 620 px)","ok":true,"text":"Visa genomgången","botten":601}
+{"tid":"2026-10-12T12:04:01.358Z","floede":"hem-gratis-360-morkt","steg":"1g: länken står under kopparknappen","ok":true}
+{"tid":"2026-10-12T12:04:01.801Z","floede":"hem-gratis-360-morkt","steg":"klart","ok":false,"fel":["1c: kopparknappens nederkant (mål högst 620 px)"]}
+{"tid":"2026-10-12T12:04:13.277Z","floede":"hem-premium-1280-morkt","steg":"riktiga hemvyn","ok":null,"url":"/dashboard/tester","ram":"T1"}
+{"tid":"2026-10-12T12:04:18.169Z","floede":"hem-premium-1280-morkt","steg":"1c: på dator bär toppraden kontexten, statusradens länk är dold","ok":true,"ram":"1c","synliga":[{"text":"Test och datum","y":518},{"text":"Matrigma, 24 okt","y":14}],"knapp":{"text":"Starta övningsprovet","botten":758}}
+{"tid":"2026-10-12T12:04:23.103Z","floede":"hem-premium-1280-morkt","steg":"1g: på dator bär toppraden kontexten, statusradens länk är dold","ok":true,"ram":"1g","synliga":[{"text":"Test och datum","y":518},{"text":"Matrigma, 24 okt","y":14}],"knapp":{"text":"Visa genomgången","botten":766}}
+{"tid":"2026-10-12T12:04:23.689Z","floede":"hem-premium-1280-morkt","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T12:26:48.782Z","floede":"hem-premium-360-ljust","steg":"riktiga hemvyn","ok":null,"url":"/dashboard/tester","ram":"T1"}
+{"tid":"2026-10-12T12:26:52.280Z","floede":"hem-premium-360-ljust","steg":"1c: Ändra datum nås på mobil","ok":true,"ram":"1c","synliga":[{"text":"Ändra datum","y":814}],"knapp":{"text":"Starta övningsprovet","botten":613}}
+{"tid":"2026-10-12T12:26:52.281Z","floede":"hem-premium-360-ljust","steg":"1c: kopparknappens nederkant (mål högst 620 px)","ok":true,"text":"Starta övningsprovet","botten":613}
+{"tid":"2026-10-12T12:26:52.281Z","floede":"hem-premium-360-ljust","steg":"1c: länken står under kopparknappen","ok":true}
+{"tid":"2026-10-12T12:26:55.949Z","floede":"hem-premium-360-ljust","steg":"1g: Ändra datum nås på mobil","ok":true,"ram":"1g","synliga":[{"text":"Ändra datum","y":701}],"knapp":{"text":"Visa genomgången","botten":601}}
+{"tid":"2026-10-12T12:26:55.949Z","floede":"hem-premium-360-ljust","steg":"1g: kopparknappens nederkant (mål högst 620 px)","ok":true,"text":"Visa genomgången","botten":601}
+{"tid":"2026-10-12T12:26:55.949Z","floede":"hem-premium-360-ljust","steg":"1g: länken står under kopparknappen","ok":true}
+{"tid":"2026-10-12T12:26:56.505Z","floede":"hem-premium-360-ljust","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T12:27:06.775Z","floede":"hem-gratis-360-morkt","steg":"riktiga hemvyn","ok":null,"url":"/dashboard/tester","ram":"T1"}
+{"tid":"2026-10-12T12:27:10.616Z","floede":"hem-gratis-360-morkt","steg":"1c: Ändra datum nås på mobil","ok":true,"ram":"1c","synliga":[{"text":"Ändra datum","y":814}],"knapp":{"text":"Starta övningsprovet","botten":613}}
+{"tid":"2026-10-12T12:27:10.616Z","floede":"hem-gratis-360-morkt","steg":"1c: kopparknappens nederkant (mål högst 620 px)","ok":true,"text":"Starta övningsprovet","botten":613}
+{"tid":"2026-10-12T12:27:10.617Z","floede":"hem-gratis-360-morkt","steg":"1c: länken står under kopparknappen","ok":true}
+{"tid":"2026-10-12T12:27:14.212Z","floede":"hem-gratis-360-morkt","steg":"1g: Ändra datum nås på mobil","ok":true,"ram":"1g","synliga":[{"text":"Ändra datum","y":701}],"knapp":{"text":"Visa genomgången","botten":601}}
+{"tid":"2026-10-12T12:27:14.213Z","floede":"hem-gratis-360-morkt","steg":"1g: kopparknappens nederkant (mål högst 620 px)","ok":true,"text":"Visa genomgången","botten":601}
+{"tid":"2026-10-12T12:27:14.213Z","floede":"hem-gratis-360-morkt","steg":"1g: länken står under kopparknappen","ok":true}
+{"tid":"2026-10-12T12:27:14.643Z","floede":"hem-gratis-360-morkt","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T12:27:25.843Z","floede":"hem-premium-1280-ljust","steg":"riktiga hemvyn","ok":null,"url":"/dashboard/tester","ram":"T1"}
+{"tid":"2026-10-12T12:27:30.774Z","floede":"hem-premium-1280-ljust","steg":"1c: på dator bär toppraden kontexten, statusradens länk är dold","ok":true,"ram":"1c","synliga":[{"text":"Test och datum","y":518},{"text":"Matrigma, 24 okt","y":14}],"knapp":{"text":"Starta övningsprovet","botten":758}}
+{"tid":"2026-10-12T12:27:35.748Z","floede":"hem-premium-1280-ljust","steg":"1g: på dator bär toppraden kontexten, statusradens länk är dold","ok":true,"ram":"1g","synliga":[{"text":"Test och datum","y":518},{"text":"Matrigma, 24 okt","y":14}],"knapp":{"text":"Visa genomgången","botten":766}}
+{"tid":"2026-10-12T12:27:36.613Z","floede":"hem-premium-1280-ljust","steg":"klart","ok":true,"fel":[]}

@@ -127,7 +127,7 @@ async function hem(p, mobil) {
       logg(`${ram}: Ändra datum nås på mobil`, !!andra, m)
       // Länken står under kortet och kan inte flytta knappen. 1c-fixturens tre rader långa
       // titel lägger knappen under 620 px redan före ändringen; det loggas som mått.
-      logg(`${ram}: kopparknappens nederkant (mål högst 620 px)`, ram === '1c' ? null : !!m.knapp && m.knapp.botten <= 620, m.knapp ?? {})
+      logg(`${ram}: kopparknappens nederkant (mål högst 620 px)`, !!m.knapp && m.knapp.botten <= 620, m.knapp ?? {})
       if (andra && m.knapp) logg(`${ram}: länken står under kopparknappen`, andra.y > m.knapp.botten, {})
     } else {
       logg(`${ram}: på dator bär toppraden kontexten, statusradens länk är dold`, !m.synliga.some((l) => l.text === 'Ändra datum') && m.synliga.length >= 1, m)

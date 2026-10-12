@@ -97,6 +97,15 @@ Källan är inte hem-copy.ts utan src/lib/traning/hemvy.ts, ramen 1c, lyftkortet
 
 Titeln är då högst 35 tecken (Aon), två rader i display-snittet på 360, oftast en. Antal och tid står först i metaraden, där siffror är fakta och inte löptext. Kolonet i titeln försvinner samtidigt.
 
+Brödtexten får vara högst två rader på 360 (cirka 85 tecken med antal och tid). Därför kortas `HEM.infor.text1` och `text2` i hem-copy.ts:
+
+| Fil | Nyckel | Gammal text | Ny text |
+|---|---|---|---|
+| hem-copy.ts | `infor.text2` | Som på riktigt: ingen förklaring förrän efteråt och ingen paus. Sitt vid datorn i ett tyst rum. I morgon gör du ett till. | Som på riktigt. I morgon gör du ett till. |
+| hem-copy.ts | `infor.text1` | Som på riktigt: ingen förklaring förrän efteråt och ingen paus. Sitt vid datorn i ett tyst rum. Det här är sista övningen före provet. | Som på riktigt. Sista övningen före provet. |
+
+Med "Cirka 35 uppgifter på 40 minuter." först blir det 75 respektive 77 tecken. Det som stryks ligger redan delvis i startarket (ovningsprov/copy.ts, "Ingen hjälp under tiden. Ingen regel, inget facit förrän efteråt."). Lägg till en rad där: "Ingen paus. Sitt vid datorn i ett tyst rum." Rådet om tyst rum finns också i provdagens rad (`provdag.rad.tystRum`).
+
 ## 7. Att kontrollera efter införandet
 
 - Raderna under rubriken i 1a och kurvmetan ryms på en rad vid 360 px.

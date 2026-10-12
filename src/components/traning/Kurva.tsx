@@ -65,6 +65,8 @@ export interface KurvaProps {
    * och bara ordet under mätningen. Axeln är visualiseringen.
    */
   utanPunktTal?: boolean
+  /** Ingen datumrad under kurvan (hemvyn 1c på mobil, art-director 2026-10-12: kopparknappen ovanför 620 px). */
+  utanAxel?: boolean
   className?: string
 }
 
@@ -387,7 +389,7 @@ export default function Kurva(props: KurvaProps) {
           ) : null}
         </div>
       </div>
-      <Axel g={g} idag={idag} prov={prov} plan={props.plan} provPasserat={provPasserat} dator={dator} />
+      {props.utanAxel ? null : <Axel g={g} idag={idag} prov={prov} plan={props.plan} provPasserat={provPasserat} dator={dator} />}
     </div>
   )
 }

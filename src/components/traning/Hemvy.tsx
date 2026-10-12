@@ -283,7 +283,7 @@ function KurvaPaVaggen({ m }: { m: HemModell }) {
       {v.kurva ? (
         <>
           <div className="lg:hidden">
-            <Kurva {...v.kurva} bredd="mobil" hojd="kompakt" utanPunktTal />
+            <Kurva {...v.kurva} bredd="mobil" hojd="kompakt" utanPunktTal utanAxel={m.ram === '1c'} />
           </div>
           <div className="hidden max-w-[840px] lg:block">
             <Kurva {...v.kurva} bredd="dator" utanPunktTal />

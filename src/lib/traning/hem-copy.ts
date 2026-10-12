@@ -221,8 +221,8 @@ export const HEM = {
   infor: {
     eyebrow: 'Övningsprov',
     titel: (format: string) => format,
-    text2: 'Som på riktigt: ingen förklaring förrän efteråt och ingen paus. Sitt vid datorn i ett tyst rum. I morgon gör du ett till.',
-    text1: 'Som på riktigt: ingen förklaring förrän efteråt och ingen paus. Sitt vid datorn i ett tyst rum. Det här är sista övningen före provet.',
+    text2: 'Som på riktigt. I morgon gör du ett till.',
+    text1: 'Som på riktigt. Sista övningen före provet.',
     knapp: 'Starta övningsprovet',
     status: 'Övningsprov fram till provet. På provdagen bara tre uppvärmningsfrågor.',
     lastText: () => `Övningsprovet i samma format som ditt test ingår i ${paketKort()}. Resultat och genomgång av det du redan gjort är alltid dina.`,

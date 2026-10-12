@@ -35,7 +35,7 @@ export const START = {
   formatTitel: (f: Ovningsformat) => formatTitel(f),
   regler: [
     { titel: 'Klockan räknar ned', text: 'Provet lämnas in självt när tiden är ute.' },
-    { titel: 'Ingen hjälp under tiden', text: 'Ingen regel, inget facit förrän efteråt.' },
+    { titel: 'Ingen hjälp under tiden', text: 'Ingen regel, inget facit och ingen paus förrän efteråt.' },
     { titel: 'Obesvarade räknas som fel', text: 'Gissa hellre än att lämna tomt.' },
   ],
   reglerAria: 'Tre regler',
