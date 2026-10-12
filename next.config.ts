@@ -48,8 +48,9 @@ const nextConfig: NextConfig = {
     '/api/letters/download': ['./node_modules/@sparticuz/chromium/**/*'],
     '/api/cv/generate-formatted': ['./node_modules/@sparticuz/chromium/**/*'],
     '/api/cv/upload': ['./node_modules/@napi-rs/canvas/**/*'],
-    // Delningsbilden för Räkna ut läser Schibsted Grotesk från disk.
-    '/api/og/rakna-ut/[slug]': ['./src/assets/fonts/**/*'],
+    // Delningsbilden för Räkna ut läser Schibsted Grotesk från disk (TTF).
+    // Webbsidans woff2 i samma mapp bakas in av next/font och behövs inte här.
+    '/api/og/rakna-ut/[slug]': ['./src/assets/fonts/**/*.ttf'],
   },
 
   // Markera dessa paket som externa för serverside bundling

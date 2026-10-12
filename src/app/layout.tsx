@@ -2,33 +2,60 @@
 import '@/lib/supabase/storage-init';
 
 import type { Metadata, Viewport } from 'next'
-import { Inter, Schibsted_Grotesk } from 'next/font/google'
+import localFont from 'next/font/local'
 import Script from 'next/script'
 import ClientLayout from './client-layout'
-import CookieBanner from '@/components/samtycke/CookieBanner'
+import CookieBanner, { SamtyckeHuvud } from '@/components/samtycke/CookieBanner'
 
+// Typsnitten ligger i repot (src/assets/fonts, OFL-licenserna bredvid) i
+// stället för att hämtas från Google vid bygget (beslut-banners-2026-10-12,
+// avsnitt 3). Filerna är exakt de latin-subset som Google Fonts levererade
+// till bygget förut, så glyferna är desamma. Bygget behöver inget nät för
+// typsnitt.
+//
+// Familjenamnen måste vara desamma som förut: Inter och Schibsted Grotesk.
+// SVG:er skriver dem i fontFamily (RumSymboler), och reservsnitten i
+// globals.css heter "Inter Fallback" och "Schibsted Grotesk Fallback".
+// next/font/local (Turbopack) döper familjen efter konstanten, därför heter
+// den Inter. Schibsted Grotesk har ett mellanslag och kan inte vara ett
+// variabelnamn; där sätter declarations namnet på @font-face, och samma namn
+// står först i fallback-listan (se nedan).
+//
 // display: 'swap' ritar text direkt med reservsnittet i stället för att hålla
-// den osynlig, och adjustFontFallback låter Next räkna fram ett reservsnitt
-// vars metrik matchar Inter. Utan den matchningen är reservsnittet bredare,
-// text radbryter annorlunda och block byter höjd när Inter tonar in. Det var
-// grundorsaken bakom flera av de layoutskiften vi jagat sida för sida, bland
-// annat hero-chipsen på cv-mallar (0,050) och rubrikerna i skapa-cv steg 7.
-const inter = Inter({
-  subsets: ['latin'],
+// den osynlig, och reservsnittets metrik matchar Inter. Utan den matchningen
+// är reservsnittet bredare, text radbryter annorlunda och block byter höjd när
+// Inter tonar in. Det var grundorsaken bakom flera av de layoutskiften vi
+// jagat sida för sida, bland annat hero-chipsen på cv-mallar (0,050) och
+// rubrikerna i skapa-cv steg 7. Reservsnitten står med exakt de mått Google
+// Fonts-laddaren räknade fram förut (globals.css, RESERVTYPSNITTEN), i
+// stället för att next/font/local räknar nya ur filen: då ser även första
+// bilden före intoningen ut precis som förut.
+const Inter = localFont({
+  src: '../assets/fonts/InterVariable.woff2',
+  weight: '100 900',
+  style: 'normal',
   display: 'swap',
-  adjustFontFallback: true,
+  adjustFontFallback: false,
+  fallback: ['Inter Fallback'],
 })
 
 // Schibsted Grotesk bär rubrikerna på prissidan och i köpvägen
 // (docs/designsystem.md avsnitt 12). Den exponeras bara som variabel, så
 // ingen text byter familj av sig själv: bara klassen font-display tar den,
-// och utan variabeln faller den tillbaka på Inter.
-const schibsted = Schibsted_Grotesk({
-  subsets: ['latin'],
-  weight: ['600', '700', '800'],
+// och utan variabeln faller den tillbaka på Inter. Variabelsnittet täcker
+// 400 till 900; vi använder 600, 700 och 800.
+//
+// Variabeln får konstantens namn först (en familj som inte finns och hoppas
+// över), sedan Schibsted Grotesk och dess reservsnitt.
+const schibsted = localFont({
+  src: '../assets/fonts/SchibstedGrotesk-Variable.woff2',
+  weight: '400 900',
+  style: 'normal',
   display: 'swap',
   variable: '--font-display',
-  adjustFontFallback: true,
+  adjustFontFallback: false,
+  declarations: [{ prop: 'font-family', value: "'Schibsted Grotesk'" }],
+  fallback: ['Schibsted Grotesk', 'Schibsted Grotesk Fallback'],
 })
 
 const GTM_ID = 'GTM-5KLW66PJ';
@@ -117,6 +144,10 @@ export default function RootLayout({
           }}
         />
 
+        {/* Har besökaren redan svarat på cookies döljs samtycket här, före
+            första målningen (CookieBanner.tsx). */}
+        <SamtyckeHuvud />
+
         {/* Ensure dataLayer exists synchronously before GTM */}
         <script dangerouslySetInnerHTML={{
           __html: `window.dataLayer = window.dataLayer || [];`
@@ -182,11 +213,12 @@ export default function RootLayout({
       {/* bg-white och text-gray-900 gäller publika sidor (Tråden). I inloggat
           tar globals.css över med golvet och ink-1 via :root:has([data-rum]),
           så publika sidor inte ändras av Rummen (beslut 1). */}
-      <body className={`${inter.className} bg-white text-gray-900 flex flex-col min-h-full`}>
+      <body className={`${Inter.className} bg-white text-gray-900 flex flex-col min-h-full`}>
         <ClientLayout>
           {children}
         </ClientLayout>
-        {/* Samtycket: server-HTML och ett inline-skript, ingen klientkomponent. */}
+        {/* Samtycket: server-HTML i första bilden och ett inline-skript,
+            ingen klientkomponent. */}
         <CookieBanner />
       </body>
     </html>

@@ -59,6 +59,13 @@ export interface DashboardSummaryPipelineItem {
 
 export interface DashboardSummaryData {
   profile: Record<string, unknown> | null
+  /**
+   * Har kontot bekräftat e-posten (profiles.email_verified_at)? Skalet
+   * renderar e-postraden ur det här på servern. Saknas profilraden räknas
+   * kontot som bekräftat, som useProfile gjorde: ingen rad hellre än en
+   * rad som inte går att agera på.
+   */
+  emailVerified: boolean
   letters: {
     total: number
     monthly: number
@@ -636,6 +643,7 @@ export async function getDashboardSummary(
 
   return {
     profile: profileRes.data ?? null,
+    emailVerified: profileRes.data ? profileRes.data.email_verified_at != null : true,
     letters: {
       total: letters.length,
       monthly,

@@ -1,0 +1,1366 @@
+[
+  {
+    "fall": "360-ljust ny besökare godkann",
+    "steg": "raden i första bilden",
+    "ok": true,
+    "samtycke": {
+      "h": 94,
+      "bottom": 0,
+      "knappar": [
+        {
+          "t": "Avvisa",
+          "w": 160,
+          "h": 44,
+          "fg": "rgb(28, 25, 23)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "t": "Acceptera",
+          "w": 160,
+          "h": 44,
+          "fg": "rgb(255, 255, 255)",
+          "bg": "rgb(28, 25, 23)"
+        }
+      ]
+    },
+    "samtyckeIDom": true,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "p \"Matrislogik, verbalt resoneman\"",
+    "cookie": [],
+    "htmlAttr": null,
+    "bild": "01-360-ljust-ny-godkann-1-rad.png"
+  },
+  {
+    "fall": "360-ljust ny besökare godkann",
+    "steg": "knapparna lika stora",
+    "ok": true,
+    "knappar": [
+      {
+        "t": "Avvisa",
+        "w": 160,
+        "h": 44,
+        "fg": "rgb(28, 25, 23)",
+        "bg": "rgb(255, 255, 255)"
+      },
+      {
+        "t": "Acceptera",
+        "w": 160,
+        "h": 44,
+        "fg": "rgb(255, 255, 255)",
+        "bg": "rgb(28, 25, 23)"
+      }
+    ]
+  },
+  {
+    "fall": "360-ljust ny besökare godkann",
+    "steg": "svaret sparat, raden borta",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "p \"Matrislogik, verbalt resoneman\"",
+    "cookie": [
+      "cvBrevCookieConsent=true"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "02-360-ljust-ny-godkann-2-svarat.png"
+  },
+  {
+    "fall": "360-ljust ny besökare godkann",
+    "steg": "omladdning: ingen rad, inget skift",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "p \"Matrislogik, verbalt resoneman\"",
+    "cookie": [
+      "cvBrevCookieConsent=true"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "03-360-ljust-ny-godkann-3-omladdad.png"
+  },
+  {
+    "fall": "360-ljust ny besökare godkann",
+    "steg": "startsidan efter svar: ingen rad",
+    "ok": true,
+    "cls": 0
+  },
+  {
+    "fall": "360-ljust ny besökare avbojer",
+    "steg": "raden i första bilden",
+    "ok": true,
+    "samtycke": {
+      "h": 94,
+      "bottom": 0,
+      "knappar": [
+        {
+          "t": "Avvisa",
+          "w": 160,
+          "h": 44,
+          "fg": "rgb(28, 25, 23)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "t": "Acceptera",
+          "w": 160,
+          "h": 44,
+          "fg": "rgb(255, 255, 255)",
+          "bg": "rgb(28, 25, 23)"
+        }
+      ]
+    },
+    "samtyckeIDom": true,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "p \"Matrislogik, verbalt resoneman\"",
+    "cookie": [],
+    "htmlAttr": null,
+    "bild": "04-360-ljust-ny-avbojer-1-rad.png"
+  },
+  {
+    "fall": "360-ljust ny besökare avbojer",
+    "steg": "knapparna lika stora",
+    "ok": true,
+    "knappar": [
+      {
+        "t": "Avvisa",
+        "w": 160,
+        "h": 44,
+        "fg": "rgb(28, 25, 23)",
+        "bg": "rgb(255, 255, 255)"
+      },
+      {
+        "t": "Acceptera",
+        "w": 160,
+        "h": 44,
+        "fg": "rgb(255, 255, 255)",
+        "bg": "rgb(28, 25, 23)"
+      }
+    ]
+  },
+  {
+    "fall": "360-ljust ny besökare avbojer",
+    "steg": "svaret sparat, raden borta",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "p \"Matrislogik, verbalt resoneman\"",
+    "cookie": [
+      "cvBrevCookieConsent=false"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "05-360-ljust-ny-avbojer-2-svarat.png"
+  },
+  {
+    "fall": "360-ljust ny besökare avbojer",
+    "steg": "omladdning: ingen rad, inget skift",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "p \"Matrislogik, verbalt resoneman\"",
+    "cookie": [
+      "cvBrevCookieConsent=false"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "06-360-ljust-ny-avbojer-3-omladdad.png"
+  },
+  {
+    "fall": "360-ljust ny besökare avbojer",
+    "steg": "startsidan efter svar: ingen rad",
+    "ok": true,
+    "cls": 0
+  },
+  {
+    "fall": "360-ljust overifierad",
+    "steg": "/dashboard: e-postraden i första bilden, 44 px",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": 44,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna inför ditt rekryteringst\"",
+    "cookie": [
+      "cvBrevCookieConsent=true"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "07-360-ljust-overifierad-1-rad.png"
+  },
+  {
+    "fall": "360-ljust overifierad",
+    "steg": "Stäng: raden borta, cookie satt",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna inför ditt rekryteringst\"",
+    "cookie": [
+      "cvBrevCookieConsent=true",
+      "jc_email_banner_dismissed=1"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "08-360-ljust-overifierad-2-stangd.png"
+  },
+  {
+    "fall": "360-ljust overifierad",
+    "steg": "omladdning: ingen rad, inget skift",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna inför ditt rekryteringst\"",
+    "cookie": [
+      "cvBrevCookieConsent=true",
+      "jc_email_banner_dismissed=1"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "09-360-ljust-overifierad-3-omladdad.png"
+  },
+  {
+    "fall": "360-ljust overifierad",
+    "steg": "/dashboard/tester: avfärdad, ingen rad",
+    "ok": true,
+    "cls": 0,
+    "skift": []
+  },
+  {
+    "fall": "360-ljust bekraftad",
+    "steg": "/dashboard: ingen rad, inget skift",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna inför ditt rekryteringst\"",
+    "cookie": [
+      "cvBrevCookieConsent=true"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "10-360-ljust-bekraftad-dashboard.png"
+  },
+  {
+    "fall": "360-ljust bekraftad",
+    "steg": "/dashboard/tester: ingen rad, inget skift",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna inför ditt rekryteringst\"",
+    "cookie": [
+      "cvBrevCookieConsent=true"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "11-360-ljust-bekraftad-tester.png"
+  },
+  {
+    "fall": "360-ljust inloggad utan samtycke",
+    "steg": "/dashboard/tester: raden synlig, läsbar, rätt plats, inget skift",
+    "ok": true,
+    "samtycke": {
+      "h": 94,
+      "bottom": 0,
+      "knappar": [
+        {
+          "t": "Avvisa",
+          "w": 160,
+          "h": 44,
+          "fg": "rgb(26, 26, 31)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "t": "Acceptera",
+          "w": 160,
+          "h": 44,
+          "fg": "rgb(255, 255, 255)",
+          "bg": "rgb(26, 26, 31)"
+        }
+      ]
+    },
+    "samtyckeIDom": true,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna inför ditt rekryteringst\"",
+    "cookie": [],
+    "htmlAttr": null,
+    "fotH": 0,
+    "bild": "12-360-ljust-inloggad-samtycke-tester.png"
+  },
+  {
+    "fall": "360-ljust inloggad utan samtycke",
+    "steg": "/dashboard/tester/ovningsprov/logik: raden synlig, läsbar, rätt plats, inget skift",
+    "ok": true,
+    "samtycke": {
+      "h": 94,
+      "bottom": 0,
+      "knappar": [
+        {
+          "t": "Avvisa",
+          "w": 160,
+          "h": 44,
+          "fg": "rgb(26, 26, 31)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "t": "Acceptera",
+          "w": 160,
+          "h": 44,
+          "fg": "rgb(255, 255, 255)",
+          "bg": "rgb(26, 26, 31)"
+        }
+      ]
+    },
+    "samtyckeIDom": true,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "p \"Resultatet blir en punkt på ku\"",
+    "cookie": [],
+    "htmlAttr": null,
+    "fotH": 0,
+    "bild": "13-360-ljust-inloggad-samtycke-logik.png"
+  },
+  {
+    "fall": "360-morkt ny besökare godkann",
+    "steg": "raden i första bilden",
+    "ok": true,
+    "samtycke": {
+      "h": 94,
+      "bottom": 0,
+      "knappar": [
+        {
+          "t": "Avvisa",
+          "w": 160,
+          "h": 44,
+          "fg": "rgb(28, 25, 23)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "t": "Acceptera",
+          "w": 160,
+          "h": 44,
+          "fg": "rgb(255, 255, 255)",
+          "bg": "rgb(28, 25, 23)"
+        }
+      ]
+    },
+    "samtyckeIDom": true,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "p \"Matrislogik, verbalt resoneman\"",
+    "cookie": [],
+    "htmlAttr": null,
+    "bild": "14-360-morkt-ny-godkann-1-rad.png"
+  },
+  {
+    "fall": "360-morkt ny besökare godkann",
+    "steg": "knapparna lika stora",
+    "ok": true,
+    "knappar": [
+      {
+        "t": "Avvisa",
+        "w": 160,
+        "h": 44,
+        "fg": "rgb(28, 25, 23)",
+        "bg": "rgb(255, 255, 255)"
+      },
+      {
+        "t": "Acceptera",
+        "w": 160,
+        "h": 44,
+        "fg": "rgb(255, 255, 255)",
+        "bg": "rgb(28, 25, 23)"
+      }
+    ]
+  },
+  {
+    "fall": "360-morkt ny besökare godkann",
+    "steg": "svaret sparat, raden borta",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "p \"Matrislogik, verbalt resoneman\"",
+    "cookie": [
+      "cvBrevCookieConsent=true"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "15-360-morkt-ny-godkann-2-svarat.png"
+  },
+  {
+    "fall": "360-morkt ny besökare godkann",
+    "steg": "omladdning: ingen rad, inget skift",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "p \"Matrislogik, verbalt resoneman\"",
+    "cookie": [
+      "cvBrevCookieConsent=true"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "16-360-morkt-ny-godkann-3-omladdad.png"
+  },
+  {
+    "fall": "360-morkt ny besökare godkann",
+    "steg": "startsidan efter svar: ingen rad",
+    "ok": true,
+    "cls": 0
+  },
+  {
+    "fall": "360-morkt ny besökare avbojer",
+    "steg": "raden i första bilden",
+    "ok": true,
+    "samtycke": {
+      "h": 94,
+      "bottom": 0,
+      "knappar": [
+        {
+          "t": "Avvisa",
+          "w": 160,
+          "h": 44,
+          "fg": "rgb(28, 25, 23)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "t": "Acceptera",
+          "w": 160,
+          "h": 44,
+          "fg": "rgb(255, 255, 255)",
+          "bg": "rgb(28, 25, 23)"
+        }
+      ]
+    },
+    "samtyckeIDom": true,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "p \"Matrislogik, verbalt resoneman\"",
+    "cookie": [],
+    "htmlAttr": null,
+    "bild": "17-360-morkt-ny-avbojer-1-rad.png"
+  },
+  {
+    "fall": "360-morkt ny besökare avbojer",
+    "steg": "knapparna lika stora",
+    "ok": true,
+    "knappar": [
+      {
+        "t": "Avvisa",
+        "w": 160,
+        "h": 44,
+        "fg": "rgb(28, 25, 23)",
+        "bg": "rgb(255, 255, 255)"
+      },
+      {
+        "t": "Acceptera",
+        "w": 160,
+        "h": 44,
+        "fg": "rgb(255, 255, 255)",
+        "bg": "rgb(28, 25, 23)"
+      }
+    ]
+  },
+  {
+    "fall": "360-morkt ny besökare avbojer",
+    "steg": "svaret sparat, raden borta",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "p \"Matrislogik, verbalt resoneman\"",
+    "cookie": [
+      "cvBrevCookieConsent=false"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "18-360-morkt-ny-avbojer-2-svarat.png"
+  },
+  {
+    "fall": "360-morkt ny besökare avbojer",
+    "steg": "omladdning: ingen rad, inget skift",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "p \"Matrislogik, verbalt resoneman\"",
+    "cookie": [
+      "cvBrevCookieConsent=false"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "19-360-morkt-ny-avbojer-3-omladdad.png"
+  },
+  {
+    "fall": "360-morkt ny besökare avbojer",
+    "steg": "startsidan efter svar: ingen rad",
+    "ok": true,
+    "cls": 0
+  },
+  {
+    "fall": "360-morkt overifierad",
+    "steg": "/dashboard: e-postraden i första bilden, 44 px",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": 44,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna inför ditt rekryteringst\"",
+    "cookie": [
+      "cvBrevCookieConsent=true"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "20-360-morkt-overifierad-1-rad.png"
+  },
+  {
+    "fall": "360-morkt overifierad",
+    "steg": "Stäng: raden borta, cookie satt",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna inför ditt rekryteringst\"",
+    "cookie": [
+      "cvBrevCookieConsent=true",
+      "jc_email_banner_dismissed=1"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "21-360-morkt-overifierad-2-stangd.png"
+  },
+  {
+    "fall": "360-morkt overifierad",
+    "steg": "omladdning: ingen rad, inget skift",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna inför ditt rekryteringst\"",
+    "cookie": [
+      "cvBrevCookieConsent=true",
+      "jc_email_banner_dismissed=1"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "22-360-morkt-overifierad-3-omladdad.png"
+  },
+  {
+    "fall": "360-morkt overifierad",
+    "steg": "/dashboard/tester: avfärdad, ingen rad",
+    "ok": true,
+    "cls": 0,
+    "skift": []
+  },
+  {
+    "fall": "360-morkt bekraftad",
+    "steg": "/dashboard: ingen rad, inget skift",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna inför ditt rekryteringst\"",
+    "cookie": [
+      "cvBrevCookieConsent=true"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "23-360-morkt-bekraftad-dashboard.png"
+  },
+  {
+    "fall": "360-morkt bekraftad",
+    "steg": "/dashboard/tester: ingen rad, inget skift",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna inför ditt rekryteringst\"",
+    "cookie": [
+      "cvBrevCookieConsent=true"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "24-360-morkt-bekraftad-tester.png"
+  },
+  {
+    "fall": "360-morkt inloggad utan samtycke",
+    "steg": "/dashboard/tester: raden synlig, läsbar, rätt plats, inget skift",
+    "ok": true,
+    "samtycke": {
+      "h": 94,
+      "bottom": 0,
+      "knappar": [
+        {
+          "t": "Avvisa",
+          "w": 160,
+          "h": 44,
+          "fg": "rgb(243, 242, 247)",
+          "bg": "rgb(23, 27, 46)"
+        },
+        {
+          "t": "Acceptera",
+          "w": 160,
+          "h": 44,
+          "fg": "rgb(23, 27, 46)",
+          "bg": "rgb(243, 242, 247)"
+        }
+      ]
+    },
+    "samtyckeIDom": true,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna inför ditt rekryteringst\"",
+    "cookie": [],
+    "htmlAttr": null,
+    "fotH": 0,
+    "bild": "25-360-morkt-inloggad-samtycke-tester.png"
+  },
+  {
+    "fall": "360-morkt inloggad utan samtycke",
+    "steg": "/dashboard/tester/ovningsprov/logik: raden synlig, läsbar, rätt plats, inget skift",
+    "ok": true,
+    "samtycke": {
+      "h": 94,
+      "bottom": 0,
+      "knappar": [
+        {
+          "t": "Avvisa",
+          "w": 160,
+          "h": 44,
+          "fg": "rgb(243, 242, 247)",
+          "bg": "rgb(23, 27, 46)"
+        },
+        {
+          "t": "Acceptera",
+          "w": 160,
+          "h": 44,
+          "fg": "rgb(23, 27, 46)",
+          "bg": "rgb(243, 242, 247)"
+        }
+      ]
+    },
+    "samtyckeIDom": true,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "p \"Resultatet blir en punkt på ku\"",
+    "cookie": [],
+    "htmlAttr": null,
+    "fotH": 0,
+    "bild": "26-360-morkt-inloggad-samtycke-logik.png"
+  },
+  {
+    "fall": "1280-ljust ny besökare godkann",
+    "steg": "raden i första bilden",
+    "ok": true,
+    "samtycke": {
+      "h": 56,
+      "bottom": 0,
+      "knappar": [
+        {
+          "t": "Avvisa",
+          "w": 120,
+          "h": 44,
+          "fg": "rgb(28, 25, 23)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "t": "Acceptera",
+          "w": 120,
+          "h": 44,
+          "fg": "rgb(255, 255, 255)",
+          "bg": "rgb(28, 25, 23)"
+        }
+      ]
+    },
+    "samtyckeIDom": true,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna på rekryteringstester in\"",
+    "cookie": [],
+    "htmlAttr": null,
+    "bild": "27-1280-ljust-ny-godkann-1-rad.png"
+  },
+  {
+    "fall": "1280-ljust ny besökare godkann",
+    "steg": "knapparna lika stora",
+    "ok": true,
+    "knappar": [
+      {
+        "t": "Avvisa",
+        "w": 120,
+        "h": 44,
+        "fg": "rgb(28, 25, 23)",
+        "bg": "rgb(255, 255, 255)"
+      },
+      {
+        "t": "Acceptera",
+        "w": 120,
+        "h": 44,
+        "fg": "rgb(255, 255, 255)",
+        "bg": "rgb(28, 25, 23)"
+      }
+    ]
+  },
+  {
+    "fall": "1280-ljust ny besökare godkann",
+    "steg": "svaret sparat, raden borta",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna på rekryteringstester in\"",
+    "cookie": [
+      "cvBrevCookieConsent=true"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "28-1280-ljust-ny-godkann-2-svarat.png"
+  },
+  {
+    "fall": "1280-ljust ny besökare godkann",
+    "steg": "omladdning: ingen rad, inget skift",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna på rekryteringstester in\"",
+    "cookie": [
+      "cvBrevCookieConsent=true"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "29-1280-ljust-ny-godkann-3-omladdad.png"
+  },
+  {
+    "fall": "1280-ljust ny besökare godkann",
+    "steg": "startsidan efter svar: ingen rad",
+    "ok": true,
+    "cls": 0
+  },
+  {
+    "fall": "1280-ljust ny besökare avbojer",
+    "steg": "raden i första bilden",
+    "ok": true,
+    "samtycke": {
+      "h": 56,
+      "bottom": 0,
+      "knappar": [
+        {
+          "t": "Avvisa",
+          "w": 120,
+          "h": 44,
+          "fg": "rgb(28, 25, 23)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "t": "Acceptera",
+          "w": 120,
+          "h": 44,
+          "fg": "rgb(255, 255, 255)",
+          "bg": "rgb(28, 25, 23)"
+        }
+      ]
+    },
+    "samtyckeIDom": true,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna på rekryteringstester in\"",
+    "cookie": [],
+    "htmlAttr": null,
+    "bild": "30-1280-ljust-ny-avbojer-1-rad.png"
+  },
+  {
+    "fall": "1280-ljust ny besökare avbojer",
+    "steg": "knapparna lika stora",
+    "ok": true,
+    "knappar": [
+      {
+        "t": "Avvisa",
+        "w": 120,
+        "h": 44,
+        "fg": "rgb(28, 25, 23)",
+        "bg": "rgb(255, 255, 255)"
+      },
+      {
+        "t": "Acceptera",
+        "w": 120,
+        "h": 44,
+        "fg": "rgb(255, 255, 255)",
+        "bg": "rgb(28, 25, 23)"
+      }
+    ]
+  },
+  {
+    "fall": "1280-ljust ny besökare avbojer",
+    "steg": "svaret sparat, raden borta",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna på rekryteringstester in\"",
+    "cookie": [
+      "cvBrevCookieConsent=false"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "31-1280-ljust-ny-avbojer-2-svarat.png"
+  },
+  {
+    "fall": "1280-ljust ny besökare avbojer",
+    "steg": "omladdning: ingen rad, inget skift",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna på rekryteringstester in\"",
+    "cookie": [
+      "cvBrevCookieConsent=false"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "32-1280-ljust-ny-avbojer-3-omladdad.png"
+  },
+  {
+    "fall": "1280-ljust ny besökare avbojer",
+    "steg": "startsidan efter svar: ingen rad",
+    "ok": true,
+    "cls": 0
+  },
+  {
+    "fall": "1280-ljust overifierad",
+    "steg": "/dashboard: e-postraden i första bilden, 44 px",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": 44,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna inför ditt rekryteringst\"",
+    "cookie": [
+      "cvBrevCookieConsent=true"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "33-1280-ljust-overifierad-1-rad.png"
+  },
+  {
+    "fall": "1280-ljust overifierad",
+    "steg": "Stäng: raden borta, cookie satt",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna inför ditt rekryteringst\"",
+    "cookie": [
+      "cvBrevCookieConsent=true",
+      "jc_email_banner_dismissed=1"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "34-1280-ljust-overifierad-2-stangd.png"
+  },
+  {
+    "fall": "1280-ljust overifierad",
+    "steg": "omladdning: ingen rad, inget skift",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna inför ditt rekryteringst\"",
+    "cookie": [
+      "cvBrevCookieConsent=true",
+      "jc_email_banner_dismissed=1"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "35-1280-ljust-overifierad-3-omladdad.png"
+  },
+  {
+    "fall": "1280-ljust overifierad",
+    "steg": "/dashboard/tester: avfärdad, ingen rad",
+    "ok": true,
+    "cls": 0,
+    "skift": []
+  },
+  {
+    "fall": "1280-ljust bekraftad",
+    "steg": "/dashboard: ingen rad, inget skift",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna inför ditt rekryteringst\"",
+    "cookie": [
+      "cvBrevCookieConsent=true"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "36-1280-ljust-bekraftad-dashboard.png"
+  },
+  {
+    "fall": "1280-ljust bekraftad",
+    "steg": "/dashboard/tester: ingen rad, inget skift",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna inför ditt rekryteringst\"",
+    "cookie": [
+      "cvBrevCookieConsent=true"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "37-1280-ljust-bekraftad-tester.png"
+  },
+  {
+    "fall": "1280-ljust inloggad utan samtycke",
+    "steg": "/dashboard/tester: raden synlig, läsbar, rätt plats, inget skift",
+    "ok": true,
+    "samtycke": {
+      "h": 56,
+      "bottom": 0,
+      "knappar": [
+        {
+          "t": "Avvisa",
+          "w": 120,
+          "h": 44,
+          "fg": "rgb(26, 26, 31)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "t": "Acceptera",
+          "w": 120,
+          "h": 44,
+          "fg": "rgb(255, 255, 255)",
+          "bg": "rgb(26, 26, 31)"
+        }
+      ]
+    },
+    "samtyckeIDom": true,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna inför ditt rekryteringst\"",
+    "cookie": [],
+    "htmlAttr": null,
+    "fotH": 0,
+    "bild": "38-1280-ljust-inloggad-samtycke-tester.png"
+  },
+  {
+    "fall": "1280-ljust inloggad utan samtycke",
+    "steg": "/dashboard/tester/ovningsprov/logik: raden synlig, läsbar, rätt plats, inget skift",
+    "ok": true,
+    "samtycke": {
+      "h": 56,
+      "bottom": 0,
+      "knappar": [
+        {
+          "t": "Avvisa",
+          "w": 120,
+          "h": 44,
+          "fg": "rgb(26, 26, 31)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "t": "Acceptera",
+          "w": 120,
+          "h": 44,
+          "fg": "rgb(255, 255, 255)",
+          "bg": "rgb(26, 26, 31)"
+        }
+      ]
+    },
+    "samtyckeIDom": true,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "p \"Resultatet blir en punkt på ku\"",
+    "cookie": [],
+    "htmlAttr": null,
+    "fotH": 0,
+    "bild": "39-1280-ljust-inloggad-samtycke-logik.png"
+  },
+  {
+    "fall": "1280-morkt ny besökare godkann",
+    "steg": "raden i första bilden",
+    "ok": true,
+    "samtycke": {
+      "h": 56,
+      "bottom": 0,
+      "knappar": [
+        {
+          "t": "Avvisa",
+          "w": 120,
+          "h": 44,
+          "fg": "rgb(28, 25, 23)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "t": "Acceptera",
+          "w": 120,
+          "h": 44,
+          "fg": "rgb(255, 255, 255)",
+          "bg": "rgb(28, 25, 23)"
+        }
+      ]
+    },
+    "samtyckeIDom": true,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna på rekryteringstester in\"",
+    "cookie": [],
+    "htmlAttr": null,
+    "bild": "40-1280-morkt-ny-godkann-1-rad.png"
+  },
+  {
+    "fall": "1280-morkt ny besökare godkann",
+    "steg": "knapparna lika stora",
+    "ok": true,
+    "knappar": [
+      {
+        "t": "Avvisa",
+        "w": 120,
+        "h": 44,
+        "fg": "rgb(28, 25, 23)",
+        "bg": "rgb(255, 255, 255)"
+      },
+      {
+        "t": "Acceptera",
+        "w": 120,
+        "h": 44,
+        "fg": "rgb(255, 255, 255)",
+        "bg": "rgb(28, 25, 23)"
+      }
+    ]
+  },
+  {
+    "fall": "1280-morkt ny besökare godkann",
+    "steg": "svaret sparat, raden borta",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna på rekryteringstester in\"",
+    "cookie": [
+      "cvBrevCookieConsent=true"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "41-1280-morkt-ny-godkann-2-svarat.png"
+  },
+  {
+    "fall": "1280-morkt ny besökare godkann",
+    "steg": "omladdning: ingen rad, inget skift",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna på rekryteringstester in\"",
+    "cookie": [
+      "cvBrevCookieConsent=true"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "42-1280-morkt-ny-godkann-3-omladdad.png"
+  },
+  {
+    "fall": "1280-morkt ny besökare godkann",
+    "steg": "startsidan efter svar: ingen rad",
+    "ok": true,
+    "cls": 0
+  },
+  {
+    "fall": "1280-morkt ny besökare avbojer",
+    "steg": "raden i första bilden",
+    "ok": true,
+    "samtycke": {
+      "h": 56,
+      "bottom": 0,
+      "knappar": [
+        {
+          "t": "Avvisa",
+          "w": 120,
+          "h": 44,
+          "fg": "rgb(28, 25, 23)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "t": "Acceptera",
+          "w": 120,
+          "h": 44,
+          "fg": "rgb(255, 255, 255)",
+          "bg": "rgb(28, 25, 23)"
+        }
+      ]
+    },
+    "samtyckeIDom": true,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna på rekryteringstester in\"",
+    "cookie": [],
+    "htmlAttr": null,
+    "bild": "43-1280-morkt-ny-avbojer-1-rad.png"
+  },
+  {
+    "fall": "1280-morkt ny besökare avbojer",
+    "steg": "knapparna lika stora",
+    "ok": true,
+    "knappar": [
+      {
+        "t": "Avvisa",
+        "w": 120,
+        "h": 44,
+        "fg": "rgb(28, 25, 23)",
+        "bg": "rgb(255, 255, 255)"
+      },
+      {
+        "t": "Acceptera",
+        "w": 120,
+        "h": 44,
+        "fg": "rgb(255, 255, 255)",
+        "bg": "rgb(28, 25, 23)"
+      }
+    ]
+  },
+  {
+    "fall": "1280-morkt ny besökare avbojer",
+    "steg": "svaret sparat, raden borta",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna på rekryteringstester in\"",
+    "cookie": [
+      "cvBrevCookieConsent=false"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "44-1280-morkt-ny-avbojer-2-svarat.png"
+  },
+  {
+    "fall": "1280-morkt ny besökare avbojer",
+    "steg": "omladdning: ingen rad, inget skift",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna på rekryteringstester in\"",
+    "cookie": [
+      "cvBrevCookieConsent=false"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "45-1280-morkt-ny-avbojer-3-omladdad.png"
+  },
+  {
+    "fall": "1280-morkt ny besökare avbojer",
+    "steg": "startsidan efter svar: ingen rad",
+    "ok": true,
+    "cls": 0
+  },
+  {
+    "fall": "1280-morkt overifierad",
+    "steg": "/dashboard: e-postraden i första bilden, 44 px",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": 44,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Börja med ditt CV, QA\"",
+    "cookie": [
+      "cvBrevCookieConsent=true"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "46-1280-morkt-overifierad-1-rad.png"
+  },
+  {
+    "fall": "1280-morkt overifierad",
+    "steg": "Stäng: raden borta, cookie satt",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Börja med ditt CV, QA\"",
+    "cookie": [
+      "cvBrevCookieConsent=true",
+      "jc_email_banner_dismissed=1"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "47-1280-morkt-overifierad-2-stangd.png"
+  },
+  {
+    "fall": "1280-morkt overifierad",
+    "steg": "omladdning: ingen rad, inget skift",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Börja med ditt CV, QA\"",
+    "cookie": [
+      "cvBrevCookieConsent=true",
+      "jc_email_banner_dismissed=1"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "48-1280-morkt-overifierad-3-omladdad.png"
+  },
+  {
+    "fall": "1280-morkt overifierad",
+    "steg": "/dashboard/tester: avfärdad, ingen rad",
+    "ok": true,
+    "cls": 0,
+    "skift": []
+  },
+  {
+    "fall": "1280-morkt bekraftad",
+    "steg": "/dashboard: ingen rad, inget skift",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna inför ditt rekryteringst\"",
+    "cookie": [
+      "cvBrevCookieConsent=true"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "49-1280-morkt-bekraftad-dashboard.png"
+  },
+  {
+    "fall": "1280-morkt bekraftad",
+    "steg": "/dashboard/tester: ingen rad, inget skift",
+    "ok": true,
+    "samtycke": null,
+    "samtyckeIDom": false,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna inför ditt rekryteringst\"",
+    "cookie": [
+      "cvBrevCookieConsent=true"
+    ],
+    "htmlAttr": "svarat",
+    "bild": "50-1280-morkt-bekraftad-tester.png"
+  },
+  {
+    "fall": "1280-morkt inloggad utan samtycke",
+    "steg": "/dashboard/tester: raden synlig, läsbar, rätt plats, inget skift",
+    "ok": true,
+    "samtycke": {
+      "h": 56,
+      "bottom": 0,
+      "knappar": [
+        {
+          "t": "Avvisa",
+          "w": 120,
+          "h": 44,
+          "fg": "rgb(243, 242, 247)",
+          "bg": "rgb(23, 27, 46)"
+        },
+        {
+          "t": "Acceptera",
+          "w": 120,
+          "h": 44,
+          "fg": "rgb(23, 27, 46)",
+          "bg": "rgb(243, 242, 247)"
+        }
+      ]
+    },
+    "samtyckeIDom": true,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "h1 \"Träna inför ditt rekryteringst\"",
+    "cookie": [],
+    "htmlAttr": null,
+    "fotH": 0,
+    "bild": "51-1280-morkt-inloggad-samtycke-tester.png"
+  },
+  {
+    "fall": "1280-morkt inloggad utan samtycke",
+    "steg": "/dashboard/tester/ovningsprov/logik: raden synlig, läsbar, rätt plats, inget skift",
+    "ok": true,
+    "samtycke": {
+      "h": 56,
+      "bottom": 0,
+      "knappar": [
+        {
+          "t": "Avvisa",
+          "w": 120,
+          "h": 44,
+          "fg": "rgb(243, 242, 247)",
+          "bg": "rgb(23, 27, 46)"
+        },
+        {
+          "t": "Acceptera",
+          "w": 120,
+          "h": 44,
+          "fg": "rgb(23, 27, 46)",
+          "bg": "rgb(243, 242, 247)"
+        }
+      ]
+    },
+    "samtyckeIDom": true,
+    "epostrad": null,
+    "cls": 0,
+    "skift": [],
+    "lcpEl": "p \"Resultatet blir en punkt på ku\"",
+    "cookie": [],
+    "htmlAttr": null,
+    "fotH": 0,
+    "bild": "52-1280-morkt-inloggad-samtycke-logik.png"
+  }
+]

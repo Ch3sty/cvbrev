@@ -16,7 +16,7 @@
  * till en hel extra rundtur per sidladdning.
  */
 import type { Viewport } from 'next';
-import { headers } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { hamtaSummering } from '@/lib/dashboard/summaryForRequest';
 import type { DashboardSummary } from '@/contexts/DashboardDataContext';
@@ -24,6 +24,7 @@ import DashboardShell from './DashboardShell';
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
 import { rumForPath, VAGG_FARG, type Rum } from '@/lib/rum/rum';
 import { PATHNAME_HEADER } from '@/lib/rum/pathname-header';
+import { EPOSTBANNER_AVFARDAD_COOKIE } from '@/components/dashboard/epostbanner-cookie';
 
 /** Rummet för requesten, ur sökvägen som proxyn lägger på (spec 5). */
 async function rumForRequest(): Promise<Rum> {
@@ -59,8 +60,21 @@ export default async function DashboardLayout({
 
   const rum = await rumForRequest();
 
+  // E-postraden avgörs här, inte på klienten (beslut-banners-2026-10-12,
+  // avsnitt 1): bara ett overifierat konto som inte avfärdat raden det
+  // senaste dygnet får den i HTML:en. Ett bekräftat konto får ingen rad och
+  // ingen platshållare, så inget kan falla ihop och skifta sidan. Saknas
+  // summeringen (läsfel) visas ingen rad; hellre det än en gissning.
+  const avfardad = (await cookies()).has(EPOSTBANNER_AVFARDAD_COOKIE);
+  const visaEpostbanner = initialSummary?.emailVerified === false && !avfardad;
+
   return (
-    <DashboardShell user={user} initialSummary={initialSummary} rum={rum}>
+    <DashboardShell
+      user={user}
+      initialSummary={initialSummary}
+      rum={rum}
+      visaEpostbanner={visaEpostbanner}
+    >
       {children}
     </DashboardShell>
   );

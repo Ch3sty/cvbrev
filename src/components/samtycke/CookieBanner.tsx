@@ -1,67 +1,67 @@
 /**
- * Cookie-samtycket som server-HTML och ett inline-skript, utan React på
- * klienten.
+ * Cookie-samtycket som server-HTML och två små inline-skript, utan React på
+ * klienten (beslut-banners-2026-10-12, avsnitt 2).
  *
- * Förut ritades bannern av react-cookie-consent i rot-layoutens klientlager,
- * och biblioteket, hanterarna och state för när bannern fick visas låg i
- * varje publik sidas JavaScript. Nu står markeringen i en <template> i
- * server-HTML:en, och skriptet nedan (under 1 kB) gör tre saker:
+ * Bannern står i server-HTML:en från början, med sin slutliga storlek och
+ * plats. Förut låg den i en <template> och klonades in när sidan var ledig.
+ * Då målades den sist av allt, och på glesa sidor blev den sidans
+ * LCP-element: LCP flyttade från 0,8 till 2,1 s för varje ny besökare. Ett
+ * element som målas i första bilden får LCP-tid lika med första målningen,
+ * och med 12 px text och 44 px knappar är det aldrig sidans största.
  *
- *  1. Har besökaren redan accepterat skickas samtycket till GTM direkt,
- *     tidigare än förut (då väntade det på hydreringen).
- *  2. Saknas ett svar klonas bannern in i body när sidan är ledig, som förut
- *     med schemaläggningen i client-layout. Ett fast element som flyttar sig
- *     räknas som layoutskifte, och på flödessidorna flyttar globals.css upp
- *     bannern ovanför foten först när flödet hydrerat; väntar vi till efter
- *     första målningen står den direkt på sin slutliga plats.
- *  3. Knapparna sparar svaret i samma cookie som biblioteket använde
- *     (cvBrevCookieConsent, "true" eller "false", 180 dygn), så ingen som
- *     redan svarat får frågan igen.
+ * Publika sidor CDN-cachas ett dygn, så servern kan inte veta om besökaren
+ * redan svarat. Därför står bannern i HTML:en för alla, och den som svarat
+ * döljs före första målningen:
  *
- * Bannern klonas in utanför Reacts träd, så hydreringen rör den aldrig.
- * Under /admin visas den inte (spec-admin-tydlighet, punkt 5).
+ *  1. SamtyckeHuvud ligger i <head>. Finns cookien cvBrevCookieConsent, eller
+ *     står vi under /admin, sätter det data-samtycke="svarat" på <html>, och
+ *     globals.css döljer bannern med display: none. Inget har målats än, så
+ *     ingen ser den och inget skiftar. Cachen påverkas inte: HTML:en är
+ *     densamma för alla.
+ *  2. Skriptet direkt efter bannern skickar ett redan givet ja till GTM och
+ *     sparar svaret vid klick: samma cookie som förut ("true" eller "false",
+ *     180 dygn), samma GTM-uppdatering, och bannern tas bort.
+ *
+ * Markeringen är en sträng i ett omslag med dangerouslySetInnerHTML, så
+ * React jämför aldrig innehållet vid hydreringen och bryr sig inte om att
+ * skriptet tar bort bannern ur DOM.
  */
 
 const COOKIE = 'cvBrevCookieConsent'
 const DYGN = 180
+
+/** Körs i <head> före första målningen. */
+const HUVUDSKRIPT = `try{if(document.cookie.match(/(?:^|; )${COOKIE}=/)||location.pathname.indexOf('/admin')===0)document.documentElement.setAttribute('data-samtycke','svarat')}catch(e){}`
 
 const SKRIPT = `(function(){
 var N=${JSON.stringify(COOKIE)};
 function las(){var m=document.cookie.match(new RegExp('(?:^|; )'+N+'=([^;]*)'));return m?m[1]:null}
 function ge(v){(window.dataLayer=window.dataLayer||[]).push(['consent','update',{analytics_storage:v,ad_storage:v,ad_user_data:v,ad_personalization:v}])}
 function gtagKo(v){window.gtag?window.gtag('consent','update',{analytics_storage:v,ad_storage:v,ad_user_data:v,ad_personalization:v}):ge(v)}
+var el=document.getElementById('jc-samtycke');
 var svar=las();
 if(svar==='true')gtagKo('granted');
-if(svar!==null)return;
-function visa(){
-if(location.pathname.indexOf('/admin')===0||document.getElementById('jc-samtycke'))return;
-var t=document.getElementById('jc-samtycke-mall');if(!t||!t.content)return;
-var el=t.content.firstElementChild.cloneNode(true);
+if(svar!==null||location.pathname.indexOf('/admin')===0){if(el&&el.parentNode)el.parentNode.removeChild(el);return}
+if(!el)return;
 el.addEventListener('click',function(e){
 var b=e.target&&e.target.closest?e.target.closest('[data-samtycke]'):null;if(!b)return;
 var ja=b.getAttribute('data-samtycke')==='true';
 document.cookie=N+'='+ja+';max-age=${DYGN * 86400};path=/;SameSite=Lax'+(location.protocol==='https:'?';Secure':'');
 gtagKo(ja?'granted':'denied');
+document.documentElement.setAttribute('data-samtycke','svarat');
 if(el.parentNode)el.parentNode.removeChild(el);
 });
-document.body.appendChild(el);
-}
-if('requestIdleCallback' in window)requestIdleCallback(visa,{timeout:2500});else setTimeout(visa,1500);
 })();`
 
 /**
- * Markeringen som sträng. En <template> med JSX-barn går inte att hydrera:
- * webbläsaren lägger barnen i template.content, inte i DOM-trädet, så React
- * hittade ett tomt element och kastade fel 418 på varje sida. Med
- * dangerouslySetInnerHTML jämför React inte innehållet.
+ * En rad text och två lika stora knappar (beslutet: rubriken är struken, den
+ * sa samma sak som texten och var bannerns största textyta). Avvisa och
+ * Acceptera har samma storlek och samma vikt.
  */
 const MARKERING = [
   '<div id="jc-samtycke" class="cookie-banner-container" role="region" aria-label="Cookies">',
-  '<div class="cookie-banner-content">',
-  '<p class="cookie-banner-rubrik">Vi använder cookies</p>',
-  '<p class="cookie-banner-text">För att göra plattformen bättre. ',
+  '<p class="cookie-banner-text">Vi använder cookies för att göra tjänsten bättre. ',
   '<a href="/integritetspolicy#cookies" aria-label="Läs mer om hur vi använder cookies i vår integritetspolicy">Läs mer</a></p>',
-  '</div>',
   '<div class="cookie-banner-buttons">',
   '<button type="button" id="rcc-decline-button" data-samtycke="false" aria-label="Avvisa cookies">Avvisa</button>',
   '<button type="button" id="rcc-confirm-button" data-samtycke="true" aria-label="Acceptera cookies">Acceptera</button>',
@@ -69,10 +69,15 @@ const MARKERING = [
   '</div>',
 ].join('')
 
+/** Läggs i rot-layoutens <head>. */
+export function SamtyckeHuvud() {
+  return <script dangerouslySetInnerHTML={{ __html: HUVUDSKRIPT }} />
+}
+
 export default function CookieBanner() {
   return (
     <>
-      <template id="jc-samtycke-mall" dangerouslySetInnerHTML={{ __html: MARKERING }} />
+      <div id="jc-samtycke-rot" dangerouslySetInnerHTML={{ __html: MARKERING }} />
       <script dangerouslySetInnerHTML={{ __html: SKRIPT }} />
     </>
   )

@@ -9,6 +9,12 @@
  *   npm run perf:publikt -- --port 8300 --korningar 3
  *   npm run perf:publikt -- --port 8300 --filter artiklar
  *   npm run perf:publikt -- --port 8300 --sidor /,/artiklar/logiska-tester --desktop
+ *   npm run perf:publikt -- --port 8300 --sidor / --samtycke
+ *
+ * Utan --samtycke mäts en ny besökare, alltså med cookie-raden i bild. Med
+ * flaggan sätts samtyckescookien före sidan, som för den som redan svarat.
+ * LCP-elementet skrivs ut per sida (taggen, id eller klass och textens
+ * början), så att det syns om samtycket har blivit sidans största element.
  *
  * --sidor mäter en fast lista i stället för GSC-urvalet, --desktop mäter i
  * 1280 × 800 utan strypning. Utöver LCP skrivs JavaScript (över nätet och
@@ -56,6 +62,7 @@ interface Matning {
   forfragningar: number;
   bytes: number;
   textLangd: number;
+  lcpEl: string;
   jsKb: number;
   jsFiler: number;
   htmlRaKb: number;
@@ -69,6 +76,7 @@ async function main() {
   const jsonUt = arg('json');
   const fastaSidor = arg('sidor');
   const desktop = process.argv.includes('--desktop');
+  const samtycke = process.argv.includes('--samtycke');
 
   const chrome = CHROME_KANDIDATER.find((p) => fs.existsSync(p));
   if (!chrome) throw new Error('Hittade ingen Chrome eller Edge.');
@@ -134,12 +142,23 @@ async function main() {
         downloadThroughput: (12 * 1024 * 1024) / 8,
         uploadThroughput: (3 * 1024 * 1024) / 8,
       });
+      if (samtycke) {
+        await page.setCookie({ name: 'cvBrevCookieConsent', value: 'true', url: bas, path: '/' });
+      }
       await page.evaluateOnNewDocument(() => {
         (window as unknown as Record<string, unknown>).__lcp = 0;
+        (window as unknown as Record<string, unknown>).__lcpEl = '';
         (window as unknown as Record<string, unknown>).__cls = 0;
         new PerformanceObserver((l) => {
           for (const e of l.getEntries()) {
             (window as unknown as Record<string, unknown>).__lcp = e.startTime;
+            const el = (e as PerformanceEntry & { element?: Element | null }).element;
+            (window as unknown as Record<string, unknown>).__lcpEl = el
+              ? el.tagName.toLowerCase() +
+                (el.id ? '#' + el.id : el.classList.length ? '.' + el.classList[0] : '') +
+                (el.closest('#jc-samtycke') ? ' [samtycket]' : '') +
+                ' "' + (el.textContent ?? '').trim().slice(0, 30) + '"'
+              : '';
           }
         }).observe({ type: 'largest-contentful-paint', buffered: true });
         new PerformanceObserver((l) => {
@@ -170,6 +189,7 @@ async function main() {
           forfragningar: resurser.length,
           bytes: Math.round(resurser.reduce((a, r) => a + (r.transferSize || 0), 0) / 1024),
           textLangd: document.body.innerText.length,
+          lcpEl: String((w as unknown as Record<string, unknown>).__lcpEl ?? ''),
           jsKb: Math.round(
             resurser
               .filter((r) => r.initiatorType === 'script' || /\.js(\?|$)/.test(r.name))
@@ -191,6 +211,7 @@ async function main() {
       ? 'Emulering: desktop 1280, utan strypning, utan inloggning\n'
       : 'Emulering: Pixel 7, 3x CPU-strypning, LTE (70 ms latens), utan inloggning\n'
   );
+  console.log(samtycke ? 'Samtycke: redan svarat (cookie satt)\n' : 'Samtycke: ny besökare, cookie-raden i bild\n');
 
   const resultat: Array<{ path: string; clicks: number; budget: number; m: Matning | null }> = [];
   for (const s of sidor) {
@@ -215,6 +236,7 @@ async function main() {
       forfragningar: median(korda.map((k) => k.forfragningar)),
       bytes: median(korda.map((k) => k.bytes)),
       textLangd: median(korda.map((k) => k.textLangd)),
+      lcpEl: korda[korda.length - 1].lcpEl,
       jsKb: median(korda.map((k) => k.jsKb)),
       jsFiler: median(korda.map((k) => k.jsFiler)),
       htmlRaKb: median(korda.map((k) => k.htmlRaKb)),
@@ -226,6 +248,7 @@ async function main() {
         `CLS ${String(m.cls).padStart(5)}  FCP ${String(m.fcp).padStart(4)}  ${String(m.bytes).padStart(4)} kB  ` +
         `JS ${m.jsKb} kB/${m.jsFiler}  HTML rå ${m.htmlRaKb} kB`
     );
+    console.log(`     LCP-element: ${m.lcpEl || '(inget)'}`);
   }
 
   await browser.close();
