@@ -21,6 +21,7 @@ export type NavIkon =
   | 'tester'
   | 'coach'
   | 'krona'
+  | 'karta'
 
 export interface NavLank {
   label: string
@@ -59,6 +60,7 @@ export const GRUPPER: readonly NavGrupp[] = [
     lankar: [
       { label: 'Jobbmatchning', href: '/verktyg/jobbmatchning', ikon: 'matchning' },
       { label: 'Bli upptäckt', href: '/verktyg/bli-upptackt', ikon: 'synlig' },
+      { label: 'Jobbkartan', href: '/jobbkartan', ikon: 'karta' },
     ],
   },
   {
@@ -76,6 +78,7 @@ export const LAS: NavGrupp = {
   rubrik: 'Läs',
   lankar: [
     { label: 'Artiklar', href: '/artiklar' },
+    { label: 'Jobbkartan', href: '/jobbkartan' },
     { label: 'CV-exempel', href: '/cv-exempel' },
     { label: 'Personligt brev-exempel', href: '/personligt-brev-exempel' },
     { label: 'CV-mallar per yrke', href: '/cv-mallar' },
