@@ -223,7 +223,7 @@ export const STEG3 = {
     },
     tester: {
       rubrik: (f) => klart(f, 'Så går du in förberedd på testdagen'),
-      under: `Nivåkollen och första passet är gratis med kontot. Resten ingår i ${PREMIUM}.`,
+      under: `Nivåkollen och ett grundpass samma dag är gratis med kontot. Passen på din nivå varje dag ingår i ${PREMIUM}.`,
       kortRubrik: 'Var förberedd på testdagen',
       rader: [
         { fet: 'Alla nivåer', text: ' i matrislogik, verbalt och numeriskt.' },
@@ -231,7 +231,7 @@ export const STEG3 = {
         { fet: 'Fördjupade personlighetstestet', text: ', 120 påståenden.' },
       ],
       prisText: FORNYAS,
-      gratis: ['En nivåkoll i testerna med genomgång, och ett första träningspass', 'Personlighetstestet med 50 påståenden'],
+      gratis: ['Nivåkollen med genomgång av varje fråga', 'Ett grundpass samma dag som Nivåkollen', 'Personlighetstestet med 50 påståenden'],
     },
     intervju: {
       rubrik: (f) => klart(f, 'Så övar du inför intervjun'),
@@ -263,6 +263,23 @@ export const STEG3 = {
   } satisfies Record<SignupIntent, ForslagCopy>,
   /** "149 kr i månaden" i kortets prisrad, ur PLANS. */
   pris: (_plan?: PlanKey) => prisPeriod(SALD_PLAN),
+} as const
+
+/**
+ * Steg 3 för valet tester (undersökningen 2026-10-12): den gratis vägen leder,
+ * Premium står under som information. Samma ord som hemvyns lyfta kort
+ * (hem-copy matning.knapp) så att knappen hon trycker på här är den hon
+ * känner igen i rummet.
+ */
+export const STEG3_TESTER = {
+  rubrik: (f: string | null) => klart(f, 'Först kollar vi var du står'),
+  under:
+    'Du väljer test och provdatum, sedan gör du Nivåkollen. Den tar cirka 8 minuter och visar din nivå, med genomgång av varje fråga.',
+  knapp: 'Kolla min nivå, 8 min',
+  gratisEtikett: 'Gratis, utan kort',
+  gratis: STEG3.forslag.tester.gratis,
+  premiumEyebrow: 'När du vill träna varje dag',
+  kop: () => kopKnapp(),
 } as const
 
 /* ------------------------------------------------------------ bredden, hemskärmen */

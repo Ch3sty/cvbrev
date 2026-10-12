@@ -144,6 +144,19 @@ export interface AnalyticsEvents {
     intent?: SignupIntent | null
     entry?: SignupEntry
   }
+  /**
+   * Registreringen gick inte igenom (undersökningen 2026-10-12: registreringarna
+   * föll 9 till 11 okt utan att något fel syntes). felkod är Supabases eller
+   * Googles kod, eller vår egen när ingen finns. Aldrig adressen eller namnet.
+   */
+  signup_failed: {
+    method: 'password' | 'google'
+    /** Var det föll: formulärets kontroll, Turnstile, Supabase signUp, starten mot Google eller återkomsten från Google. */
+    steg: 'validering' | 'turnstile' | 'signup' | 'oauth_start' | 'oauth_callback'
+    felkod: string
+    intent?: SignupIntent | null
+    entry?: SignupEntry
+  }
   /* ------------------------------------------ registreringstratten
      docs/design/profil-registrering-spec-2026-09-24.md, Del B "Mätning".
      Ingång, val, konto, förslag, beslut och landning. */

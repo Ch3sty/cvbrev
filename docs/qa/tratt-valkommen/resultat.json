@@ -1,0 +1,74 @@
+[
+  {
+    "vy": "d1280",
+    "namn": "kontot skapat, vanligt gratiskonto",
+    "ok": true,
+    "not": "qa-g-1791795976824@jobbcoach-qa.test 97ada198-baa4-4bad-be55-a147ec32edfa /dashboard/valkommen"
+  },
+  {
+    "vy": "d1280",
+    "namn": "välkomst: en kopparknapp \"Kolla min nivå, 8 min\"",
+    "ok": true,
+    "not": "Kolla min nivå, 8 min"
+  },
+  {
+    "vy": "d1280",
+    "namn": "välkomst: kopparknappen synlig utan scroll",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "vy": "d1280",
+    "namn": "välkomst: Premium under gratis, köpet som textlänk",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "vy": "d1280",
+    "namn": "välkomst: inga mittpunkter eller talstreck",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "vy": "d1280",
+    "namn": "knappen leder in i planen",
+    "ok": true,
+    "not": "/dashboard/tester/installningar?forsta=1"
+  },
+  {
+    "vy": "d1280",
+    "namn": "Nivåkollen genomförd",
+    "ok": true,
+    "not": "12 svar"
+  },
+  {
+    "vy": "d1280",
+    "namn": "I morgon-kortet säger inte \"första passet\"",
+    "ok": true,
+    "not": "I MORGON, PASSET PÅ DIN NIVÅ"
+  },
+  {
+    "vy": "d1280",
+    "namn": "I morgon-kortet: låst i Premium och dagens grundpass gratis",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "vy": "d1280",
+    "namn": "resultatet: inga mittpunkter eller talstreck i I morgon-kortet",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "vy": "d1280",
+    "namn": "hemvyn efter Nivåkollen: inget \"första passet\", inga mittpunkter i texten",
+    "ok": true,
+    "not": ""
+  },
+  {
+    "vy": "d1280",
+    "namn": "registreringsflödet utan sidfel",
+    "ok": true,
+    "not": ""
+  }
+]

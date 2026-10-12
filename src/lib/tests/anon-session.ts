@@ -21,18 +21,21 @@ import { permutationForSession, tillOriginal } from '@/lib/logicTestV7/blanda'
 /** Fem frågor i provet, enligt planen. */
 export const ANON_QUESTION_COUNT = 5
 
-/** Frågan så som den får se ut i klienten: utan correctAnswer. */
+/**
+ * Frågan så som den får se ut i klienten: utan correctAnswer, regeltext och
+ * titel. Regeln och titeln ("Pricken hoppar tre steg") beskriver mönstret och
+ * är i praktiken svaret, så de hör till genomgången som öppnas med kontot
+ * (provGenomgang), aldrig till frågan.
+ */
 export interface PublicQuestion {
   id: string
-  title: string
-  rule: string
   grid: (LayeredCell | null)[][]
   options: LayeredCell[]
 }
 
 /**
- * Plockar bort facit innan frågan skickas till webbläsaren, och lägger
- * alternativen i den ordning provet visar dem.
+ * Plockar bort facit, regeln och titeln innan frågan skickas till webbläsaren, och
+ * lägger alternativen i den ordning provet visar dem.
  */
 export function toPublicQuestion(
   q: LayeredQuestion,
@@ -42,8 +45,6 @@ export function toPublicQuestion(
   const perm = permutationForSession(token, q, blandade)
   return {
     id: q.id,
-    title: q.title,
-    rule: q.rule,
     grid: q.grid,
     options: perm.map((orig) => q.options[orig]),
   }

@@ -10,7 +10,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { createServerClient } from '@/lib/supabase/server'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { logActivityServer } from '@/lib/activation-tracking'
-import { captureServer, vantaMedTak } from '@/lib/analytics/server'
+import { captureServer, distinctIdUrCookie, posthogCookieNamn, vantaMedTak } from '@/lib/analytics/server'
 import { VALKOMMEN_PATH } from '@/lib/onboarding/steps'
 import { SIGNUP_COOKIE, googleCallbackMal, lasSignupCookie } from '@/components/registrering/intent'
 
@@ -30,19 +30,50 @@ export async function GET(request: NextRequest) {
   const next = safeNext(requestUrl.searchParams.get('next'))
   const origin = requestUrl.origin
 
-  if (!code) {
-    return NextResponse.redirect(`${origin}/login?error=oauth_no_code`)
-  }
-
   // Samma klient som resten av appen: getAll/setAll, så sessionen från
   // exchangeCodeForSession skrivs tillbaka i ett svep.
   const cookieStore = await cookies()
+
+  /**
+   * signup_failed från återkomsten (undersökningen 2026-10-12). Ingen
+   * användare finns än, så distinct_id är besökarens anonyma id ur
+   * PostHog-cookien; saknas den får händelsen ett engångs-id utan
+   * personprofil. Inväntas med samma tak som signup_completed, annars fryses
+   * funktionen vid redirecten innan anropet gått iväg.
+   */
+  const matFel = async (felkod: string) => {
+    const cookieNamn = posthogCookieNamn()
+    const besokare = distinctIdUrCookie(cookieNamn ? cookieStore.get(cookieNamn)?.value : null)
+    const signupFel = lasSignupCookie(cookieStore.get(SIGNUP_COOKIE)?.value)
+    await vantaMedTak(
+      captureServer('signup_failed', besokare ?? `callback-${crypto.randomUUID()}`, {
+        method: 'google',
+        steg: 'oauth_callback',
+        felkod,
+        intent: signupFel?.intent ?? null,
+        entry: signupFel?.entry ?? 'direkt',
+        ...(besokare ? {} : { $process_person_profile: false }),
+      }),
+      1500
+    )
+  }
+
+  if (!code) {
+    // Google eller Supabase skickar tillbaka ?error= (till exempel
+    // access_denied när hon avbryter) i stället för en kod.
+    const googleFel = requestUrl.searchParams.get('error_code') ?? requestUrl.searchParams.get('error')
+    await matFel(googleFel ? googleFel.slice(0, 80) : 'oauth_no_code')
+    return NextResponse.redirect(`${origin}/login?error=oauth_no_code`)
+  }
+
   const supabase = createServerClient({ cookies: cookieStore })
 
   const { data, error } = await supabase.auth.exchangeCodeForSession(code)
 
   if (error || !data?.user) {
     console.error('[auth/callback] exchangeCodeForSession misslyckades:', error)
+    const kod = (error as { code?: unknown } | null)?.code
+    await matFel(typeof kod === 'string' && kod ? kod.slice(0, 80) : 'oauth_exchange_failed')
     return NextResponse.redirect(`${origin}/login?error=oauth_exchange_failed`)
   }
 

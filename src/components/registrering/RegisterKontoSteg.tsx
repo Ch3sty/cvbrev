@@ -130,6 +130,10 @@ export default function RegisterKontoSteg({
   const skrivCookie = () =>
     skrivSignupCookie({ intent, entry, skipped, smakprov, paket, redirect })
 
+  /** signup_failed med felkoden (undersökningen 2026-10-12). Aldrig adressen. */
+  const matFel = (steg: 'validering' | 'turnstile' | 'signup', felkod: string) =>
+    capture('signup_failed', { method: 'password', steg, felkod: felkod.slice(0, 80), intent, entry })
+
   const skicka = async (e: React.FormEvent) => {
     e.preventDefault()
     if (busy) return
@@ -137,18 +141,22 @@ export default function RegisterKontoSteg({
 
     if (namn.trim().length < 2) {
       setFel({ rubrik: STEG2.fel.namn, falt: 'namn' })
+      matFel('validering', 'namn')
       return
     }
     if (!epost.includes('@') || epost.trim().length < 4) {
       setFel({ rubrik: STEG2.fel.epost, falt: 'epost' })
+      matFel('validering', 'epost')
       return
     }
     if (losen.length < MIN_LOSEN) {
       setFel({ rubrik: STEG2.fel.losen, falt: 'losen' })
+      matFel('validering', 'losen')
       return
     }
     if (TURNSTILE_SITE_KEY && !turnstileToken) {
       setFel({ rubrik: STEG2.fel.mansklig, falt: null })
+      matFel('turnstile', 'turnstile_saknas')
       return
     }
 
@@ -167,6 +175,7 @@ export default function RegisterKontoSteg({
         const json = await res.json().catch(() => ({}))
         if (!res.ok || !json?.success) {
           setFel({ rubrik: STEG2.fel.mansklig, falt: null })
+          matFel('turnstile', res.ok ? 'turnstile_nekad' : `turnstile_http_${res.status}`)
           setBusy(false)
           return
         }
@@ -218,6 +227,21 @@ export default function RegisterKontoSteg({
       router.refresh()
     } catch (err: any) {
       const m = String(err?.message ?? '')
+      // Supabases AuthError har code (user_already_exists, weak_password,
+      // over_email_send_rate_limit); våra egna fel har bara meddelandet.
+      const kod =
+        typeof err?.code === 'string' && err.code
+          ? err.code
+          : m.includes('already registered') || m.includes('already been registered')
+            ? 'user_already_exists'
+            : m === 'no_user'
+              ? 'no_user'
+              : typeof err?.status === 'number'
+                ? `http_${err.status}`
+                : err?.name === 'TypeError'
+                  ? 'natverk'
+                  : 'okant'
+      matFel('signup', kod)
       if (m.includes('already registered') || m.includes('already been registered')) {
         setFel({ rubrik: STEG2.fel.finnsRubrik, text: STEG2.fel.finnsText, loggaIn: true, falt: 'epost' })
       } else if (m.includes('Password should be at least')) {

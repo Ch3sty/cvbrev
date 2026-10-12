@@ -152,7 +152,7 @@ export function menyRad(val: MenyVal, p: PaketLage): MenyRad {
     case 'tester':
       return scopeHasFeature(s, 'tests_above_base')
         ? { text: 'Alla typer, alla nivåer, övningsprov mot klockan', ingar: true }
-        : { text: 'Nivåkollen och ett första pass', ingar: true }
+        : { text: 'Nivåkollen och ett grundpass samma dag', ingar: true }
     case 'cv':
     case 'analys':
       return scopeHasFeature(s, 'cv_analysis_full')
