@@ -145,7 +145,7 @@ describe('prissidan', () => {
     )
     const tester = COMPARISON.find((g) => g.title === 'Rekryteringstester')!
     const matning = tester.rows.find((r) => r.label === 'Nivåkollen och första passet')!
-    expect(matning.sub).toBe('matrislogik, verbalt, numeriskt, personlighet')
+    expect(matning.sub).toBe('matrislogik, verbalt, numeriskt')
     expect(matning.free.text).toBe('En gång, med genomgång')
     expect(matning.premium.text).toBe('Pass varje dag, utan tak')
     expect(tester.rows.find((r) => r.label === 'Förklaring efter varje fråga')!.free.text).toBe('Det du har gjort')

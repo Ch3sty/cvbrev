@@ -10,7 +10,9 @@
  * Knappen ser likadan ut i båda lägena, bara destinationen skiljer, så
  * ingenting flyttar sig (CLS 0).
  *
- * Trådens primärknapp: ink med vit text. Koppar finns bara i inloggat.
+ * Publikt v2: kopparknappen med mörk text (pub-knapp). Hjältens knapp bär
+ * data-primar för mätskriptet; samma knapp står i sista stationen, under
+ * frågorna och i den fasta knappraden.
  */
 
 import { useCallback, useState } from 'react'
@@ -22,7 +24,7 @@ import { useAuth } from '@/contexts/AuthContext'
 import { SALD_PLAN } from '@/lib/plans/plans'
 import { kopstegHref } from '@/lib/onboarding/steps'
 
-export default function PriserKopKnapp() {
+export default function PriserKopKnapp({ primar = false, cta = 'primary' }: { primar?: boolean; cta?: 'primary' | 'secondary' } = {}) {
   const router = useRouter()
   // Ur AuthContext, som bara laddar Supabase-klienten när det finns en
   // sessionscookie. Prissidan betalade annars klienten för varje besökare.
@@ -34,20 +36,21 @@ export default function PriserKopKnapp() {
       variant: 'onboarding_paket',
       surface: 'public_pricing',
       plan: SALD_PLAN,
-      cta: 'primary',
+      cta,
     })
     setBusy(true)
     // Ångerrättssamtycket lämnas på köpsteget, som bär både kryssrutan och
     // knappen. Prissidan öppnar därför aldrig kassan själv.
     router.push(user ? kopstegHref(SALD_PLAN, 'priser') : `/register?paket=${SALD_PLAN}`)
-  }, [user, router])
+  }, [user, router, cta])
 
   return (
     <button
       type="button"
       onClick={kop}
       disabled={busy}
-      className="inline-flex h-12 w-full items-center justify-center whitespace-nowrap rounded-lg bg-ink-1 px-5 text-base font-semibold text-white transition-colors hover:bg-ink-hover disabled:opacity-60"
+      data-primar={primar ? '' : undefined}
+      className="pub-knapp"
     >
       {PAKET_KORT.allt.knapp}
     </button>

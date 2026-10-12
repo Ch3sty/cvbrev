@@ -15,6 +15,7 @@
 
 import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { FREE_TIER_JOB_LIMIT, JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
+import { TESTTAL } from '@/components/publikt/testtal'
 import { PLAN_BY_KEY, SALD_PLAN, paketKort, paketMedPris, paketNamn, prisPeriod } from '@/lib/plans/plans'
 
 export const PREMIUM_CURRENCY = 'SEK'
@@ -74,7 +75,55 @@ export const JAMFORELSE_KOLUMNER = {
   premium: PREMIUM,
 } as const
 
+const TESTER: ComparisonGroup = {
+  title: 'Rekryteringstester',
+  rows: [
+    {
+      label: 'Nivåkollen och första passet',
+      sub: 'matrislogik, verbalt, numeriskt',
+      free: g('En gång, med genomgång'),
+      premium: ja('Pass varje dag, utan tak'),
+    },
+    {
+      label: 'Avancerad och expertnivå',
+      free: NEJ,
+      premium: ja('Ingår'),
+    },
+    {
+      label: 'Övningsprov mot klockan',
+      sub: 'samma format och tid som ditt test',
+      free: NEJ,
+      premium: ja('Ingår'),
+    },
+    {
+      label: 'Personlighetstestet',
+      sub: 'profilen, kravprofilerna och frågorna rekryteraren lär ställa',
+      free: g('Grundtestet', `${TESTTAL.personlighetGrund.fragor} påståenden`),
+      premium: ja('Fördjupade testet', `${TESTTAL.personlighetFordjupad.fragor} påståenden, 30 delfaktorer, din arbetsstil`),
+    },
+    {
+      label: 'Förklaring efter varje fråga',
+      free: g('Det du har gjort'),
+      premium: ja('Alla nivåer'),
+    },
+    {
+      label: 'Din utveckling',
+      sub: 'alla sessioner i en kurva',
+      free: g('Senaste sessionen'),
+      premium: ja('Hela historiken'),
+    },
+    {
+      label: 'Extrapass och övningsprov',
+      sub: 'på det du tappar, och i samma format som ditt test',
+      free: NEJ,
+      premium: ja('Ingår'),
+    },
+  ],
+}
+
+/** Rekryteringstesterna står först (ägarens krav 2026-10-12). */
 export const COMPARISON: ComparisonGroup[] = [
+  TESTER,
   {
     title: 'CV och personliga brev',
     rows: [
@@ -105,45 +154,6 @@ export const COMPARISON: ComparisonGroup[] = [
       {
         label: 'LinkedIn-profilen',
         sub: 'rubrik och sammanfattning',
-        free: NEJ,
-        premium: ja('Ingår'),
-      },
-    ],
-  },
-  {
-    title: 'Rekryteringstester',
-    rows: [
-      {
-        label: 'Nivåkollen och första passet',
-        sub: 'matrislogik, verbalt, numeriskt, personlighet',
-        free: g('En gång, med genomgång'),
-        premium: ja('Pass varje dag, utan tak'),
-      },
-      {
-        label: 'Avancerad och expertnivå',
-        free: NEJ,
-        premium: ja('Ingår'),
-      },
-      {
-        label: 'Övningsprov mot klockan',
-        sub: 'samma format och tid som ditt test',
-        free: NEJ,
-        premium: ja('Ingår'),
-      },
-      {
-        label: 'Förklaring efter varje fråga',
-        free: g('Det du har gjort'),
-        premium: ja('Alla nivåer'),
-      },
-      {
-        label: 'Din utveckling',
-        sub: 'alla sessioner i en kurva',
-        free: g('Senaste sessionen'),
-        premium: ja('Hela historiken'),
-      },
-      {
-        label: 'Extrapass och övningsprov',
-        sub: 'på det du tappar, och i samma format som ditt test',
         free: NEJ,
         premium: ja('Ingår'),
       },
