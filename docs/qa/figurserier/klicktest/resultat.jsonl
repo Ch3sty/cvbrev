@@ -1,0 +1,46 @@
+{"tid":"2026-10-12T07:31:42.929Z","floede":"gratis-grund-360-ljust","steg":"kortet finns i Alla tester","ok":true}
+{"tid":"2026-10-12T07:31:43.408Z","floede":"gratis-grund-360-ljust","steg":"provraden är tyst, utan lås och pil","ok":true,"provrad":"tyst"}
+{"tid":"2026-10-12T07:31:43.408Z","floede":"gratis-grund-360-ljust","steg":"kortet står mellan logik och verbalt","ok":true,"ordning":["logik","figurer","verbal","numerisk","personlighet"]}
+{"tid":"2026-10-12T07:31:43.409Z","floede":"gratis-grund-360-ljust","steg":"provradens text","ok":true}
+{"tid":"2026-10-12T07:31:48.224Z","floede":"gratis-grund-360-ljust","steg":"raden: sex rutor, luckan sist","ok":true,"rutor":6,"rader":2,"luckaSist":true,"rutbredd":102,"kolumn":328}
+{"tid":"2026-10-12T07:31:48.225Z","floede":"gratis-grund-360-ljust","steg":"raden: två remsor","ok":true,"rutor":6,"rader":2,"luckaSist":true,"rutbredd":102,"kolumn":328}
+{"tid":"2026-10-12T07:32:00.972Z","floede":"gratis-grund-360-ljust","steg":"resultatet visar 10 av 15","ok":true}
+{"tid":"2026-10-12T07:32:01.072Z","floede":"gratis-grund-360-ljust","steg":"Var du tappade per familj","ok":true}
+{"tid":"2026-10-12T07:32:02.799Z","floede":"gratis-grund-360-ljust","steg":"genomgången: facit i luckan, regel, misstag och rapportlänk","ok":true,"fylld":true,"regel":"Pricken går tre steg moturs runt cirkeln i varje steg. Mittpunkten är ofylld i hela raden.","misstag":"Pricken står på fel plats. Mittpunkten ska vara ofylld, som i hela raden.","rapport":true}
+{"tid":"2026-10-12T07:32:03.697Z","floede":"gratis-grund-360-ljust","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T07:32:14.288Z","floede":"gratis-avancerad-360-ljust","steg":"kortet finns i Alla tester","ok":true}
+{"tid":"2026-10-12T07:32:14.776Z","floede":"gratis-avancerad-360-ljust","steg":"provraden är tyst, utan lås och pil","ok":true,"provrad":"tyst"}
+{"tid":"2026-10-12T07:32:14.777Z","floede":"gratis-avancerad-360-ljust","steg":"kortet står mellan logik och verbalt","ok":true,"ordning":["logik","figurer","verbal","numerisk","personlighet"]}
+{"tid":"2026-10-12T07:32:14.777Z","floede":"gratis-avancerad-360-ljust","steg":"provradens text","ok":true}
+{"tid":"2026-10-12T07:32:15.376Z","floede":"gratis-avancerad-360-ljust","steg":"gratis på avancerad: session-POST spärras","ok":true,"status":402}
+{"tid":"2026-10-12T07:32:18.029Z","floede":"gratis-avancerad-360-ljust","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T07:32:28.027Z","floede":"premium-expert-1280-ljust","steg":"kortet finns i Alla tester","ok":true}
+{"tid":"2026-10-12T07:32:28.522Z","floede":"premium-expert-1280-ljust","steg":"provraden är tyst, utan lås och pil","ok":true,"provrad":"tyst"}
+{"tid":"2026-10-12T07:32:28.523Z","floede":"premium-expert-1280-ljust","steg":"kortet står mellan logik och verbalt","ok":true,"ordning":["logik","figurer","verbal","numerisk","personlighet"]}
+{"tid":"2026-10-12T07:32:28.524Z","floede":"premium-expert-1280-ljust","steg":"provradens text","ok":true}
+{"tid":"2026-10-12T07:32:35.267Z","floede":"premium-expert-1280-ljust","steg":"raden: sex rutor, luckan sist","ok":true,"rutor":6,"rader":1,"luckaSist":true,"rutbredd":103,"kolumn":640}
+{"tid":"2026-10-12T07:32:35.267Z","floede":"premium-expert-1280-ljust","steg":"raden: en remsa","ok":true,"rutor":6,"rader":1,"luckaSist":true,"rutbredd":103,"kolumn":640}
+{"tid":"2026-10-12T07:32:48.066Z","floede":"premium-expert-1280-ljust","steg":"resultatet visar 10 av 15","ok":true}
+{"tid":"2026-10-12T07:32:48.166Z","floede":"premium-expert-1280-ljust","steg":"Var du tappade per familj","ok":true}
+{"tid":"2026-10-12T07:32:49.895Z","floede":"premium-expert-1280-ljust","steg":"genomgången: facit i luckan, regel, misstag och rapportlänk","ok":true,"fylld":true,"regel":"Pricken går moturs runt banan, och steget växer med ett varje gång: ett, två, tre steg och så vidare. Formen i mitten följer ordningen romb, cirkel, kvadrat och börjar om. Formen i mitten växlar mellan ofylld och svart.","misstag":"Steget har inte vuxit sista gången.","rapport":true}
+{"tid":"2026-10-12T07:32:50.667Z","floede":"premium-expert-1280-ljust","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T07:32:59.281Z","floede":"premium-grund-360-morkt","steg":"kortet finns i Alla tester","ok":true}
+{"tid":"2026-10-12T07:32:59.772Z","floede":"premium-grund-360-morkt","steg":"provraden är tyst, utan lås och pil","ok":true,"provrad":"tyst"}
+{"tid":"2026-10-12T07:32:59.773Z","floede":"premium-grund-360-morkt","steg":"kortet står mellan logik och verbalt","ok":true,"ordning":["logik","figurer","verbal","numerisk","personlighet"]}
+{"tid":"2026-10-12T07:32:59.773Z","floede":"premium-grund-360-morkt","steg":"provradens text","ok":true}
+{"tid":"2026-10-12T07:33:04.784Z","floede":"premium-grund-360-morkt","steg":"raden: sex rutor, luckan sist","ok":true,"rutor":6,"rader":2,"luckaSist":true,"rutbredd":102,"kolumn":328}
+{"tid":"2026-10-12T07:33:04.784Z","floede":"premium-grund-360-morkt","steg":"raden: två remsor","ok":true,"rutor":6,"rader":2,"luckaSist":true,"rutbredd":102,"kolumn":328}
+{"tid":"2026-10-12T07:33:22.774Z","floede":"premium-grund-360-morkt","steg":"resultatet visar 10 av 15","ok":true}
+{"tid":"2026-10-12T07:33:22.883Z","floede":"premium-grund-360-morkt","steg":"Var du tappade per familj","ok":true}
+{"tid":"2026-10-12T07:33:24.620Z","floede":"premium-grund-360-morkt","steg":"genomgången: facit i luckan, regel, misstag och rapportlänk","ok":true,"fylld":true,"regel":"Pilen vrids medurs, och vridningen växer med 45 grader varje gång: 90, 135, 180 grader och så vidare. Pilen är lång i hela raden. Spetsen är fylld i hela raden.","misstag":"Pilen står kvar som i den femte figuren. Pilen ska vara lång, som i hela raden.","rapport":true}
+{"tid":"2026-10-12T07:33:25.431Z","floede":"premium-grund-360-morkt","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T07:33:39.597Z","floede":"premium-avancerad-1280-morkt","steg":"kortet finns i Alla tester","ok":true}
+{"tid":"2026-10-12T07:33:40.098Z","floede":"premium-avancerad-1280-morkt","steg":"provraden är tyst, utan lås och pil","ok":true,"provrad":"tyst"}
+{"tid":"2026-10-12T07:33:40.099Z","floede":"premium-avancerad-1280-morkt","steg":"kortet står mellan logik och verbalt","ok":true,"ordning":["logik","figurer","verbal","numerisk","personlighet"]}
+{"tid":"2026-10-12T07:33:40.099Z","floede":"premium-avancerad-1280-morkt","steg":"provradens text","ok":true}
+{"tid":"2026-10-12T07:33:45.671Z","floede":"premium-avancerad-1280-morkt","steg":"raden: sex rutor, luckan sist","ok":true,"rutor":6,"rader":1,"luckaSist":true,"rutbredd":103,"kolumn":640}
+{"tid":"2026-10-12T07:33:45.671Z","floede":"premium-avancerad-1280-morkt","steg":"raden: en remsa","ok":true,"rutor":6,"rader":1,"luckaSist":true,"rutbredd":103,"kolumn":640}
+{"tid":"2026-10-12T07:33:58.715Z","floede":"premium-avancerad-1280-morkt","steg":"resultatet visar 10 av 15","ok":true}
+{"tid":"2026-10-12T07:33:58.821Z","floede":"premium-avancerad-1280-morkt","steg":"Var du tappade per familj","ok":true}
+{"tid":"2026-10-12T07:34:00.548Z","floede":"premium-avancerad-1280-morkt","steg":"genomgången: facit i luckan, regel, misstag och rapportlänk","ok":true,"fylld":true,"regel":"Pricken går ett steg medurs längs kanten i varje steg. Pilen i mitten vrids 90 grader moturs i varje steg.","misstag":"Pricken har gått ett steg för långt.","rapport":true}
+{"tid":"2026-10-12T07:34:01.295Z","floede":"premium-avancerad-1280-morkt","steg":"klart","ok":true,"fel":[]}

@@ -72,7 +72,7 @@ async function skapa() {
 }
 
 /** Tabeller med user_id som klicktestet kan ha skrivit till. */
-const TABELLER = ['logic_test_v4_sessions', 'fraga_rapporter', 'user_activity', 'user_activity_log', 'test_planer', 'premium_grants', 'profiles']
+const TABELLER = ['logic_test_v4_sessions', 'fraga_rapporter', 'user_activities', 'user_activity', 'user_activity_log', 'test_planer', 'premium_grants', 'profiles']
 
 async function radera() {
   const ut = las()
