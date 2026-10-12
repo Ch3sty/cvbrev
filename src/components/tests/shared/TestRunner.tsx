@@ -50,6 +50,10 @@ const VerbalProvSession = dynamic(
   () => import('@/components/tests/prov/VerbalProvSession'),
   { loading: TestLoading }
 )
+const FigurserieTestSession = dynamic(
+  () => import('@/components/tests/serie/FigurserieTestSession').then((m) => m.FigurserieTestSession),
+  { loading: TestLoading }
+)
 const VerbalExpertSession = dynamic(
   () => import('@/components/tests/verbal/VerbalExpertSession'),
   { loading: TestLoading }
@@ -128,6 +132,19 @@ export default function TestRunner({
   if (config.kind === 'matris') {
     return (
       <MatrixTestSession
+        sessionId={sessionId}
+        level={config.level as 'grund' | 'avancerad' | 'expert'}
+        resultsPath={resultsPath}
+        initialRun={runData}
+        {...endpoints}
+      />
+    )
+  }
+
+  // Figurserier (beställningen omgång 2, A6 punkt 5): egen vy, egna pooler.
+  if (config.kind === 'figurserie') {
+    return (
+      <FigurserieTestSession
         sessionId={sessionId}
         level={config.level as 'grund' | 'avancerad' | 'expert'}
         resultsPath={resultsPath}

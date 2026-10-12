@@ -32,7 +32,12 @@ export async function POST(request: Request) {
       .eq('user_id', a.userId)
       .gte('created_at', sedan);
     if (!rakna && (count ?? 0) >= RAPPORT_PER_DAG) return fel(429, 'for_manga');
-    const { error } = await a.admin.from('fraga_rapporter').insert(rad);
+    let { error } = await a.admin.from('fraga_rapporter').insert(rad);
+    // Figurserier före migreringen 20261012130000: kontrollvillkoret känner
+    // inte figurserie. Spara som matris; id:t fs-... skiljer dem åt.
+    if (error?.code === '23514' && rad.test_kind === 'figurserie') {
+      ({ error } = await a.admin.from('fraga_rapporter').insert({ ...rad, test_kind: 'matris' }));
+    }
     if (error) console.warn('[fraga-rapport] sparades inte, loggas här:', error.code ?? error.message, JSON.stringify(rad));
   } catch (e) {
     console.warn('[fraga-rapport] sparades inte, loggas här:', e, JSON.stringify(rad));

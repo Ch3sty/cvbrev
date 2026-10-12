@@ -3,7 +3,7 @@
 // planens leverantör, "Ingår i Premium." bara när raden är låst.
 
 import { describe, it, expect } from 'vitest'
-import { ANMARKNING, antalTid, ovningsformat, provradTexter } from '@/lib/ovningsprov/format'
+import { ANMARKNING, antalTid, ovningsformat, ovningsformatUrNyckel, provradTexter } from '@/lib/ovningsprov/format'
 import { ovningsprovHref, TRANING_RUTT } from '@/lib/traning/rutter'
 import { NIVA_GOR, PROV_FEATURE, TEST_GROUPS } from '../components/testCatalog'
 import { emptyHubData, getTesterHubData } from '../getHubData'
@@ -33,10 +33,16 @@ describe('provraden, logik', () => {
     expect(t.anm).toBe(ANMARKNING.logik.shl)
   })
 
-  it('Aon står som vårt format tills talen är verifierade (granskningen 6.3)', () => {
+  it('Aon ger vårt format med anmärkningen om Figurserier (omgång 2, A6 punkt 7)', () => {
     const t = provradTexter(ovningsformat('logik', 'aon', null), false)
-    expect(t.rad).toBe('Vårt format: 20 uppgifter på 5 minuter.')
-    expect(t.anm).toBe(ANMARKNING.logik.aon)
+    expect(t.rad).toBe('Vårt format: 18 uppgifter på 25 minuter.')
+    expect(t.anm).toBe('Aon scales ix använder figurserier, inte rutnät. Öva dem under Figurserier. Övningsprovet här övar tempot med matriser.')
+  })
+
+  it('en gammal session med meta.format aon ritas som förut', () => {
+    const f = ovningsformatUrNyckel('logik', 'aon')
+    expect([f.antal, f.minuter, f.nyckel]).toEqual([20, 5, 'aon'])
+    expect(f.anmarkning).toBe(ANMARKNING.logik.aon)
   })
 
   it('Alva: per uppgift', () => {

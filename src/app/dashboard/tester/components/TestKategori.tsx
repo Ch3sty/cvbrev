@@ -20,7 +20,7 @@
 
 import type { ComponentType } from 'react';
 import { ENHET, NIVA_GOR, PROV_FEATURE, type TestGroup } from './testCatalog';
-import ProvCard from './ProvCard';
+import ProvCard, { ProvTyst } from './ProvCard';
 import NivaSegment, { type NivaLage } from './NivaSegment';
 import Fakta, { spann } from './Fakta';
 import { ovningsformat, provradTexter } from '@/lib/ovningsprov/format';
@@ -46,6 +46,7 @@ interface Props {
 /** Frågan som säger vad uppgiften är, per testtyp. */
 export const FRAGA: Record<string, string> = {
   logik: 'Vilken figur kommer härnäst?',
+  figurer: 'Vilken figur kommer härnäst i raden?',
   verbal: 'Stämmer påståendet med texten?',
   numerisk: 'Läs tabellen och räkna under tid.',
 };
@@ -53,6 +54,7 @@ export const FRAGA: Record<string, string> = {
 /** Provbladets bild per testtyp. */
 export const BILD: Record<string, ComponentType<IlluProvbladProps>> = {
   logik: IlluMatris,
+  figurer: IlluMatris,
   verbal: IlluVerbalt,
   numerisk: IlluNumeriskt,
 };
@@ -65,6 +67,7 @@ export const BILD: Record<string, ComponentType<IlluProvbladProps>> = {
  */
 const HJALP: Record<string, readonly HjalpId[]> = {
   logik: ['B1', 'B2'],
+  figurer: ['B10'],
   verbal: ['B3', 'B4'],
   numerisk: ['B5', 'B6'],
 };
@@ -75,6 +78,7 @@ export function hjalpIdFor(key: string): HjalpId | null {
 
 const ETIKETT_KNAPP: Record<string, string> = {
   logik: 'Vad mäter logiktestet?',
+  figurer: 'Vad är figurserier?',
   verbal: 'Vad mäter det verbala testet?',
   numerisk: 'Vad mäter det numeriska testet?',
 };
@@ -211,6 +215,8 @@ export default function TestKategori({ group, perTest, plan = null, scope = null
           aria={provText.aria}
           locked={provFeature !== null}
         />
+      ) : group.provTyst ? (
+        <ProvTyst rad1={group.provTyst.rad1} rad2={group.provTyst.rad2} />
       ) : null}
     </section>
   );

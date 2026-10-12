@@ -14,6 +14,7 @@ import { ordTal, versal } from './resultat'
 /** Testets fråga på lyftkortet, samma som testkorten på Alla tester. */
 export const TESTETS_FRAGA: Record<Exclude<TestKind, 'personlighet'>, string> = {
   matris: 'Vilken figur kommer härnäst?',
+  figurserie: 'Vilken figur kommer härnäst i raden?',
   verbal: 'Stämmer påståendet med texten?',
   numerisk: 'Läs tabellen och räkna under tid.',
 }
@@ -28,6 +29,7 @@ export const PROVETS_FRAGA = 'Som på riktigt, mot klockan.'
  */
 export const FORMATRAD: Record<Exclude<TestKind, 'personlighet'>, string> = {
   matris: 'Samma format som Matrigma från Assessio och Alva Logic.',
+  figurserie: 'Samma format som figurserierna i SHL Verify och Aon scales ix.',
   verbal: 'Samma svarsformat som SHL Verify verbal och Aons scales verbal.',
   numerisk: 'Samma format som det numeriska testet i SHL Verify.',
 }
@@ -98,6 +100,7 @@ export function enhetsord(kind: TestKind): Sakord {
 }
 
 export function sakord(kind: TestKind, slug: string): Sakord {
+  if (kind === 'figurserie') return { en: 'uppgift', flera: 'uppgifter', bestamd: 'uppgifterna', neutrum: false }
   if (kind === 'verbal' && slug !== 'verbal-resonemang-expert') {
     return { en: 'påstående', flera: 'påståenden', bestamd: 'påståendena', neutrum: true }
   }
@@ -124,6 +127,7 @@ export const RESULTAT = {
       `${versal(ordTal(n, s.neutrum))} ${n === 1 ? s.en : s.flera} att titta på`,
     regel: {
       matris: 'Regeln står vid varje fråga.',
+      figurserie: 'Regeln står vid varje uppgift.',
       verbal: 'Förklaringen står vid varje påstående.',
       numerisk: 'Uträkningen står vid varje fråga.',
       prov: 'Facit står vid varje fråga.',
@@ -131,7 +135,7 @@ export const RESULTAT = {
     sammaFamilj: (n: number, av: number, namn: string, matris: boolean) =>
       `${versal(ordTal(n))} av ${ordTal(av)} är samma ${matris ? `mönster: ${namn}` : `typ: ${namn.toLowerCase()}`}.`,
     knapp: (n: number, s: Sakord) =>
-      n === 1 ? `Gå igenom ${s.neutrum ? 'påståendet' : 'frågan'}` : `Gå igenom de ${ordTal(n)} ${s.bestamd}`,
+      n === 1 ? `Gå igenom ${s.neutrum ? 'påståendet' : s.en === 'uppgift' ? 'uppgiften' : 'frågan'}` : `Gå igenom de ${ordTal(n)} ${s.bestamd}`,
     visaAlla: (n: number) => `Visa alla ${ordTal(n)}`,
     nr: (n: number, s: { en: string }) => `${versal(s.en)} ${n}`,
     allaRatt: 'Alla rätt',
@@ -148,7 +152,7 @@ export const RESULTAT = {
     titel: (namn: string, r: number, t: number) => `${namn}, ${r} av ${t}`,
     allaSatt: (matris: boolean) => (matris ? 'Alla mönster satt' : 'Inga tapp i någon typ'),
     fot: (term: string, flera: string) => `${versal(term)} med minst två ${flera} i testet. Hela bilden finns i Din utveckling.`,
-    term: { matris: 'mönster', verbal: 'svarstyper', numerisk: 'uppgiftstyper' },
+    term: { matris: 'mönster', figurserie: 'mönster', verbal: 'svarstyper', numerisk: 'uppgiftstyper' },
   },
   tempo: {
     rub: 'Tempo mot provets tid',
@@ -161,7 +165,7 @@ export const RESULTAT = {
           : `${versal(ordTal(over))} av ${ordTal(av)}${flera ? ` ${flera}` : ''} över ${budget} sekunder`,
     snitt: 'Snitt',
     langsam: (nr: number, tid: string, s: { en: string }) =>
-      `${versal(s.en)} ${nr} tog ${tid} och blev rätt. På provet hade den tiden saknats till ${s.en === 'påstående' ? 'ett annat påstående' : 'en annan fråga'}.`,
+      `${versal(s.en)} ${nr} tog ${tid} och blev rätt. På provet hade den tiden saknats till ${s.en === 'påstående' ? 'ett annat påstående' : s.en === 'uppgift' ? 'en annan uppgift' : 'en annan fråga'}.`,
     /** Ett underlag där alla påståenden blev rätt. */
     langsamUnderlag: (nr: number, tid: string, antal: number, s: { en: string }) =>
       `${versal(s.en)} ${nr} tog ${tid} och ${antal > 1 ? `alla ${ordTal(antal)} blev rätt` : 'blev rätt'}. På provet hade den tiden saknats till en annan ${s.en}.`,

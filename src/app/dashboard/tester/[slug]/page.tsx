@@ -9,6 +9,7 @@
  */
 
 import { notFound } from 'next/navigation'
+import { figurserierSynliga } from '@/lib/figurserierV1/status'
 import TestHubPage from '@/components/tests/shared/TestHubPage'
 import { getTestConfig } from '../testConfig'
 import { getForsok } from './getForsok'
@@ -21,6 +22,8 @@ export default async function TestSlugPage({
   const { slug } = await params
   const config = getTestConfig(slug)
   if (!config || config.kind === 'personlighet') notFound()
+  // Figurserierna syns först när banken är befordrad (src/lib/figurserierV1/status.ts).
+  if (config.kind === 'figurserie' && !figurserierSynliga()) notFound()
 
   const forsok = await getForsok(config)
 

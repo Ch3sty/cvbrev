@@ -233,7 +233,7 @@ export function IlluProv(props: IlluProps) {
   )
 }
 
-export type TestKindName = 'matris' | 'verbal' | 'numerisk' | 'personlighet'
+export type TestKindName = 'matris' | 'figurserie' | 'verbal' | 'numerisk' | 'personlighet'
 
 /** Ikonen för en testtyp. Prov får sin egen ikon via IlluProv. */
 export const TEST_KIND_ILLU: Record<
@@ -241,6 +241,8 @@ export const TEST_KIND_ILLU: Record<
   (props: IlluProps) => React.ReactElement
 > = {
   matris: IlluMatris,
+  // Figurserierna har ingen egen ikon än; samma figurspråk som matrisen.
+  figurserie: IlluMatris,
   verbal: IlluVerbal,
   numerisk: IlluNumerisk,
   personlighet: IlluPersonlighet,

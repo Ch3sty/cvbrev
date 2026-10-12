@@ -32,6 +32,22 @@ interface Props {
 const RAD =
   'mt-3 flex min-h-14 w-full items-center gap-3 border-t border-kant pt-3 text-left no-underline';
 
+/**
+ * Provraden när testtypen inte har något övningsprov än (figurserier i
+ * omgång 2): dämpad, utan lås och pil, och ingen länk. Raden lovar ingenting.
+ */
+export function ProvTyst({ rad1, rad2 }: { rad1: string; rad2: string }) {
+  return (
+    <div className={RAD} data-provrad="tyst">
+      <SymProv size={36} className="shrink-0 text-ink-3" />
+      <span className="min-w-0 flex-1">
+        <b className="block text-sm font-medium leading-[19px] text-ink-3">{rad1}</b>
+        <span className="block text-meta text-ink-3">{rad2}</span>
+      </span>
+    </div>
+  );
+}
+
 export default function ProvCard({ href, rad2, anm, aria, locked, onLocked }: Props) {
   const text = (
     <span className="min-w-0 flex-1">

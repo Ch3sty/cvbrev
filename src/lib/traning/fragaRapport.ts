@@ -7,7 +7,10 @@
 
 export const RAPPORT_ORSAKER = ['ratt_svar_fel', 'gar_inte_att_lasa', 'annat'] as const;
 export type RapportOrsak = (typeof RAPPORT_ORSAKER)[number];
-export const RAPPORT_TEST_KIND = ['matris', 'verbal', 'numerisk'] as const;
+// figurserie: omgång 2 (beställningen A2). Kräver migreringen
+// 20261012130000_fraga_rapporter_figurserie.sql; före den sparas rapporten
+// med test_kind matris (rutten), id:t fs-... skiljer dem åt.
+export const RAPPORT_TEST_KIND = ['matris', 'verbal', 'numerisk', 'figurserie'] as const;
 export type RapportTestKind = (typeof RAPPORT_TEST_KIND)[number];
 
 /** Högst så många rapporter per konto och dag (svensk tid). */

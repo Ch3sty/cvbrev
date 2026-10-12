@@ -138,9 +138,11 @@ export const PROVFORMAT: Readonly<Record<FormatNyckel, Provformat>> = {
     minuter: 5,
     budget_s: budget(5, 20), // 15
     adaptiv: false,
-    cirka: false,
-    // Tiden verifierad av testansvarig 2026-10-11 (leverantörens hjälpcenter eller samstämmig tredjepart).
-    verifierad: true,
+    // Omgång 2 (beställningen A6 punkt 7): ingen källa i repo för Aons tal.
+    // Formatet står kvar för gamla sessioner med meta.format aon, men väljs
+    // aldrig för nya: formatForPlan('aon') ger vårt format med anmärkningen.
+    cirka: true,
+    verifierad: false,
     kalla: 'leverantorens sida enligt briefen 2026-10-10',
     tidsform: 'total',
     anmarkning: TRANING_COPY.format.anmarkning.aon,
@@ -161,6 +163,9 @@ export const PROVFORMAT: Readonly<Record<FormatNyckel, Provformat>> = {
   },
 };
 
+/** Vårt format för den som angett Aon: samma tal, anmärkningen pekar till Figurserier. */
+export const EGET_AON: Provformat = { ...PROVFORMAT.eget, anmarkning: TRANING_COPY.format.anmarkning.aonEget };
+
 /** Formatet för planens leverantör och variant. "Vet inte" och Annat ger vårt eget. */
 export function formatForPlan(
   leverantor: Leverantor | string | null | undefined,
@@ -175,7 +180,9 @@ export function formatForPlan(
     case 'shl':
       return PROVFORMAT.shl;
     case 'aon':
-      return PROVFORMAT.aon;
+      // Aon scales ix använder figurserier; övningsprovet kör vårt format
+      // med en anmärkning som pekar till Figurserier (omgång 2, A6 punkt 7).
+      return EGET_AON;
     default:
       return PROVFORMAT.eget;
   }

@@ -560,6 +560,48 @@
   .matrisyta .ratt-fylld { animation: none; }
 }
 
+/* Figurserier (figurserier-spec.md 1, 5, 6 och 7): raden är en remsa, inte
+   ett rutnät. En markup med sex .ruta i .serie; tre kolumner (två remsor
+   med 8 px luft) i en smal kolumn, sex i en remsa när kolumnen är 640 px.
+   Hårlinjen är rutans vänsterkant, aldrig mellan remsorna. Bytet sker på
+   kolumnens bredd (container query), inte på fönstrets, och utan skript. */
+.serie-kolumn { container-type: inline-size; }
+.serie {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 0;
+  row-gap: 8px;
+}
+.serie > .ruta {
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--papper);
+  border-left: 1px solid var(--kant);
+}
+.serie > .ruta:nth-child(3n + 1) { border-left: 0; }
+.serie > .ruta.lucka { background: var(--papper-2); border-radius: 0 4px 4px 0; }
+.serie-alt {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+@container (min-width: 600px) {
+  .serie { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .serie > .ruta:nth-child(3n + 1) { border-left: 1px solid var(--kant); }
+  .serie > .ruta:first-child { border-left: 0; }
+  .serie-alt { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+}
+/* "Bryter mönstret": rutan är radioknappen, valet ritas innanför (inset). */
+.serie > .ruta.val { cursor: pointer; }
+.serie > .ruta.val:active { background: var(--papper-2); }
+.serie > .ruta.val:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--ink-1), inset 0 0 0 4px var(--koppar); }
+.serie > .ruta.vald { box-shadow: inset 0 0 0 2px var(--ink-1); }
+.serie > .ruta.ratt { box-shadow: inset 0 0 0 2px var(--koppar); }
+.serie > .ruta.vald.ratt { box-shadow: inset 0 0 0 2px var(--koppar), inset 0 0 0 5px var(--koppar-mjuk); }
+
 /* Under ett flerstegsflöde äger FlowShell hela skärmen och har en egen fot
    med primärknappen. Bottennavet nollades tidigare bara som variabel, medan
    själva navet låg kvar fixed på z-40 och täckte nedersta 57 px. Där ligger

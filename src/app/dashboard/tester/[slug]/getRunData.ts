@@ -25,6 +25,8 @@ import { createServerClient } from '@/lib/supabase/server'
 import type { TestConfig } from '../testConfig'
 import { matrisInnehall } from '@/lib/logicTestV7/fragor.server'
 import type { VisadFraga } from '@/lib/logicTestV7/layered.v7'
+import { serieInnehall } from '@/lib/figurserierV1/fragor.server'
+import type { VisadSerie } from '@/lib/figurserierV1/types'
 
 /**
  * Sessionsrader för matrislogik och proven ligger i logic_test_v4_sessions.
@@ -36,6 +38,7 @@ const TABLE_BY_API: Record<string, string> = {
   '/api/logicTestV4': 'logic_test_v4_sessions',
   '/api/logicTestV6': 'logic_test_v4_sessions',
   '/api/logicTestProv': 'logic_test_v4_sessions',
+  '/api/figurserier': 'logic_test_v4_sessions',
 }
 
 export interface SavedAnswer {
@@ -56,6 +59,8 @@ export interface RunSession {
   timeSpent: number | null
   /** Matrislogikens frågor i visad ordning, utan facit. */
   fragor?: VisadFraga[]
+  /** Figurseriernas uppgifter i visad ordning, utan facit. */
+  serie?: VisadSerie[]
 }
 
 export interface RunData {
@@ -122,6 +127,7 @@ export async function getRunData(
         score: row.score,
         timeSpent: row.time_spent,
         ...(config.kind === 'matris' ? { fragor: matrisInnehall(row).fragor } : {}),
+        ...(config.kind === 'figurserie' ? { serie: serieInnehall(row).fragor } : {}),
       },
       resolved: true,
     }

@@ -43,6 +43,7 @@ import LyftKort from '@/components/rum/LyftKort'
 import VaggLaddar from '@/components/rum/VaggLaddar'
 import { requestInstallPrompt } from '@/lib/pwa/installPrompt'
 import type { GenomgangsFraga } from '@/lib/logicTestV7/layered.v7'
+import type { GenomgangSerie } from '@/lib/figurserierV1/types'
 import { SITTER_PROCENT, analysera, budgetPerFraga, ordTal, svarslista, type ResultatAnalys } from '@/lib/tester/resultat'
 import { RESULTAT, TESTSIDA, enhetsord, sakord } from '@/lib/tester/copy'
 import ResultatVagg from '@/components/tests/resultat/ResultatVagg'
@@ -56,6 +57,7 @@ const ReviewFallback = () => <div className="h-64 rounded-xl border border-kant 
 
 const MatrixQuestionReview = dynamic(() => import('./reviews/MatrixQuestionReview'), { loading: ReviewFallback })
 const NumericalReview = dynamic(() => import('./reviews/NumericalReview'), { loading: ReviewFallback })
+const FigurserieReview = dynamic(() => import('@/components/tests/serie/FigurserieReview'), { loading: ReviewFallback })
 const VerbalReview = dynamic(() => import('./reviews/VerbalReview'), { loading: ReviewFallback })
 
 interface SessionData {
@@ -69,6 +71,8 @@ interface SessionData {
   meta?: unknown
   /** Matrislogikens genomgång, byggd på servern. */
   genomgang?: GenomgangsFraga[] | null
+  /** Figurseriernas genomgång, byggd på servern. */
+  serie?: GenomgangSerie[] | null
 }
 
 
@@ -120,6 +124,7 @@ export default function TestResultsPage({
           completed_at: fromServer.session.completedAt,
           answers: fromServer.session.answers,
           genomgang: fromServer.session.genomgang ?? null,
+          serie: fromServer.session.serie ?? null,
           meta: fromServer.session.meta,
         }
       : null
@@ -137,7 +142,7 @@ export default function TestResultsPage({
     if (state !== 'ready' || !session || loggad.current) return
     loggad.current = true
     const logga = (uid: string | null | undefined) => {
-      if (uid) void logUserActivity(uid, 'test_completed', 'Testresultat visades', { slug: config.slug })
+      if (uid) void logUserActivity(uid, 'test_completed', 'Testresultat visades', { slug: config.slug, test_kind: config.kind })
     }
     if (resultsData?.userId) return logga(resultsData.userId)
     getSupabaseClient()
@@ -152,13 +157,17 @@ export default function TestResultsPage({
     const load = async () => {
       try {
         // Matrislogikens session-API svarar på ?id= med raden och genomgången.
-        if (config.kind === 'matris') {
+        if (config.kind === 'matris' || config.kind === 'figurserie') {
           const res = await fetch(`${config.api}/session?id=${sessionId}`)
           if (!res.ok) throw new Error('missing')
           const data = await res.json()
           if (!data?.session) throw new Error('missing')
           if (!cancelled) {
-            setSession({ ...(data.session as SessionData), genomgang: data.genomgang ?? null })
+            setSession(
+              config.kind === 'figurserie'
+                ? { ...(data.session as SessionData), serie: data.genomgang ?? null }
+                : { ...(data.session as SessionData), genomgang: data.genomgang ?? null }
+            )
             setState('ready')
           }
           return
@@ -247,6 +256,9 @@ export default function TestResultsPage({
   const answers = svarslista(session.answers)
   const sak = sakord(config.kind, config.slug)
   const matris = config.kind === 'matris'
+  const serie = config.kind === 'figurserie'
+  // Figurtesten (matriser och serier) talar om mönster, inte typer.
+  const figur = matris || serie
   const prov = config.level === 'prov'
   const nyss = fromServer?.nyss ?? false
 
@@ -260,10 +272,10 @@ export default function TestResultsPage({
     const antal = new Map<string, number>()
     for (const f of missar) if (f.grupp) antal.set(f.grupp, (antal.get(f.grupp) ?? 0) + 1)
     const [namn, n] = [...antal.entries()].sort((a, b) => b[1] - a[1])[0] ?? []
-    if (namn && n && n >= 2) samma = RESULTAT.genomgang.sammaFamilj(n, missar.length, namn, matris)
+    if (namn && n && n >= 2) samma = RESULTAT.genomgang.sammaFamilj(n, missar.length, namn, figur)
   }
 
-  const regel = prov ? RESULTAT.genomgang.regel.prov : RESULTAT.genomgang.regel[config.kind as 'matris' | 'verbal' | 'numerisk']
+  const regel = prov ? RESULTAT.genomgang.regel.prov : RESULTAT.genomgang.regel[config.kind as 'matris' | 'figurserie' | 'verbal' | 'numerisk']
   const tempo = analys.tempo
   // Per underlag talar tempot om texter eller tabeller, annars om frågorna.
   const tempoOrd = tempo?.enhet === 'underlag' ? enhetsord(config.kind) : sak
@@ -275,7 +287,7 @@ export default function TestResultsPage({
   const rad = bast === null ? null : score >= bast ? RESULTAT.bast.nu : RESULTAT.bast.tidigare(bast, total)
 
   const harTappade = analys.grupper.length > 0
-  const term = RESULTAT.tappade.term[config.kind as 'matris' | 'verbal' | 'numerisk']
+  const term = RESULTAT.tappade.term[config.kind as 'matris' | 'figurserie' | 'verbal' | 'numerisk']
 
   const gaIgenom = (nr?: number) => oppna(nr ? [nr - 1] : missar.map((f) => f.nr - 1))
   const visaAlla = () => oppna([])
@@ -325,6 +337,7 @@ export default function TestResultsPage({
             missar={missar}
             totalt={analys.fragor.length || total}
             genomgang={matris ? session.genomgang : null}
+            serie={serie ? session.serie : null}
             sak={sak}
             regel={regel}
             samma={samma}
@@ -339,7 +352,7 @@ export default function TestResultsPage({
               lyft
               grupper={analys.grupper}
               svagast={analys.svagast}
-              matris={matris}
+              matris={figur}
               term={term}
               flera={sak.flera}
             />
@@ -365,6 +378,14 @@ export default function TestResultsPage({
                 oppnaFran={genomgang}
                 utanKategorier
                 utanRubrik
+              />
+            ) : serie ? (
+              <FigurserieReview
+                answers={answers as never}
+                fragor={session.serie ?? []}
+                sessionId={sessionId}
+                key={genomgang.join(',')}
+                oppnaFran={genomgang}
               />
             ) : config.kind === 'numerisk' ? (
               <NumericalReview slug={config.slug} sessionId={sessionId} answers={answers as never} meta={session.meta} />

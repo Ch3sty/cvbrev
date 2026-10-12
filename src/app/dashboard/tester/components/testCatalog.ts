@@ -2,6 +2,7 @@ import type { TestSlug } from '@/hooks/use-all-test-stats';
 import { getTestConfig } from '../testConfig';
 import { ovningsprovHref } from '@/lib/traning/rutter';
 import type { Provtyp } from '@/lib/ovningsprov/format';
+import { figurserierSynliga } from '@/lib/figurserierV1/status';
 import type {
   TestCardVariant,
   TestCategoryLabel,
@@ -13,7 +14,7 @@ import type {
  * (korten) och "Din utveckling"-fliken så titlar/frågeantal aldrig spretar.
  */
 
-export type TestGroupKey = 'logik' | 'verbal' | 'numerisk' | 'personlighet';
+export type TestGroupKey = 'logik' | 'figurer' | 'verbal' | 'numerisk' | 'personlighet';
 
 /**
  * Frågeantal och tid kommer ur testConfig, som är enda sanningen. Katalogen
@@ -71,6 +72,7 @@ export const PROV_FEATURE = 'test_exam_mode' as const;
 /** Vad varje nivå gör, i stället för rang (riktlinjerna 2.3, granskningen 6.1). Aldrig "lätt". */
 export const NIVA_GOR: Record<Exclude<TestGroupKey, 'personlighet'>, Record<TestLevelLabel, string>> = {
   logik: { Grund: 'en regel', Avancerad: 'två regler', Expert: 'tre regler' },
+  figurer: { Grund: 'en regel', Avancerad: 'två regler', Expert: 'tre regler' },
   verbal: { Grund: 'svaret står i texten', Avancerad: 'två ståndpunkter', Expert: 'argument' },
   numerisk: { Grund: 'läs av och räkna', Avancerad: 'flera räknesteg', Expert: 'prognos, marginal' },
 };
@@ -78,6 +80,7 @@ export const NIVA_GOR: Record<Exclude<TestGroupKey, 'personlighet'>, Record<Test
 /** Faktaradens enhet per testtyp. */
 export const ENHET: Record<Exclude<TestGroupKey, 'personlighet'>, string> = {
   logik: 'uppgifter',
+  figurer: 'uppgifter',
   verbal: 'påståenden',
   numerisk: 'frågor',
 };
@@ -94,6 +97,11 @@ export interface TestGroup {
   personality: PersonalityTestDef[];
   /** Provraden för kognitiva testtyper. Saknas för personlighet. */
   prov?: ProvDef;
+  /**
+   * Provraden när övningsprovet inte finns för testtypen än: dämpad, utan
+   * lås och pil (figurserier i omgång 2, beställningen A6 punkt 6).
+   */
+  provTyst?: { rad1: string; rad2: string };
 }
 
 export const LOGIK_TESTS: CognitiveTestDef[] = [
@@ -125,6 +133,40 @@ export const LOGIK_TESTS: CognitiveTestDef[] = [
     categoryLabel: 'Logik',
     levelLabel: 'Expert',
     ...counts('matrislogik-expert'),
+    isPremiumLocked: false,
+  },
+];
+
+/** Figurserier (beställningen omgång 2, A6 punkt 6). Samma kort som logiken. */
+export const FIGURSERIE_TESTS: CognitiveTestDef[] = [
+  {
+    slug: 'figurserier-grund',
+    variant: 'matrix-grund',
+    title: 'Figurserier',
+    method: 'Mönsterigenkänning · figurserier',
+    categoryLabel: 'Logik',
+    levelLabel: 'Grund',
+    ...counts('figurserier-grund'),
+    isPremiumLocked: false,
+  },
+  {
+    slug: 'figurserier-avancerad',
+    variant: 'matrix-avancerad',
+    title: 'Figurserier',
+    method: 'Mönsterigenkänning · figurserier',
+    categoryLabel: 'Logik',
+    levelLabel: 'Avancerad',
+    ...counts('figurserier-avancerad'),
+    isPremiumLocked: false,
+  },
+  {
+    slug: 'figurserier-expert',
+    variant: 'matrix-expert',
+    title: 'Figurserier',
+    method: 'Mönsterigenkänning · figurserier',
+    categoryLabel: 'Logik',
+    levelLabel: 'Expert',
+    ...counts('figurserier-expert'),
     isPremiumLocked: false,
   },
 ];
@@ -214,6 +256,21 @@ export const PERSONALITY_TESTS: PersonalityTestDef[] = [
   },
 ];
 
+/**
+ * Figurseriernas grupp. Står mellan logik och verbalt när testet syns
+ * (figurserierSynliga: banken befordrad, eller QA-flaggan lokalt).
+ */
+const FIGURER_GROUP: TestGroup = {
+  key: 'figurer',
+  heading: 'Figurserier',
+  blurb:
+    'Fem figurer i rad och en lucka sist. Du väljer figuren som fortsätter serien. Formatet finns i SHL Verify och Aon scales ix.',
+  searchHint: 'Kallas även induktivt test eller figurserie',
+  cognitive: FIGURSERIE_TESTS,
+  personality: [],
+  provTyst: { rad1: 'Övningsprov mot klockan', rad2: 'Inte än för figurserier. Logikens övningsprov övar tempot.' },
+};
+
 export const TEST_GROUPS: TestGroup[] = [
   {
     key: 'logik',
@@ -225,6 +282,7 @@ export const TEST_GROUPS: TestGroup[] = [
     personality: [],
     prov: { typ: 'logik', href: ovningsprovHref('logik') },
   },
+  ...(figurserierSynliga() ? [FIGURER_GROUP] : []),
   {
     key: 'verbal',
     heading: 'Verbalt test',

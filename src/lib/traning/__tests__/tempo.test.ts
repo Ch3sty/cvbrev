@@ -10,7 +10,10 @@ describe('provformaten', () => {
     expect(tempobudget('alva')).toBe(120)
     // SHL: 18 på 25 minuter ger 83, inte 90 (testansvarig 2026-10-11, punkt 6).
     expect(tempobudget('shl')).toBe(83)
-    expect(tempobudget('aon')).toBe(15)
+    // Aon ger vårt format sedan omgång 2 (beställningen A6 punkt 7).
+    expect(tempobudget('aon')).toBe(83)
+    expect(formatForPlan('aon')).toMatchObject({ nyckel: 'eget', antal: 18, minuter: 25, anmarkning: TRANING_COPY.format.anmarkning.aonEget })
+    expect(PROVFORMAT.aon.budget_s).toBe(15)
   })
 
   it('14.4: adaptiv Matrigma 60 s, SHL 18 på 25 med 83 s och fast, Alva per uppgift', () => {
@@ -48,7 +51,8 @@ describe('provformaten', () => {
     // Testansvarig 2026-10-11, punkt 6: tiden är verifierad. Adaptiv Matrigmas
     // antal är vår simulering och står kvar med cirka.
     expect(PROVFORMAT.alva).toMatchObject({ verifierad: true, cirka: false })
-    expect(PROVFORMAT.aon).toMatchObject({ verifierad: true, cirka: false })
+    // Omgång 2: Aons tal saknar källa i repo; formatet står kvar för gamla sessioner.
+    expect(PROVFORMAT.aon).toMatchObject({ verifierad: false, cirka: true })
     expect(PROVFORMAT.matrigma_adaptiv).toMatchObject({ verifierad: true, cirka: true })
     expect(PROVFORMAT.matrigma_klassisk).toMatchObject({ verifierad: false, cirka: true })
     expect(PROVFORMAT.shl).toMatchObject({ verifierad: false, cirka: true })

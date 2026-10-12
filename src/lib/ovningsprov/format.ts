@@ -16,7 +16,7 @@
 // =============================================================================
 
 import { paketKort } from '@/lib/plans/plans';
-import { formatForPlan, type FormatNyckel, type Provformat } from '@/lib/traning/tempo';
+import { formatForPlan, PROVFORMAT, type FormatNyckel, type Provformat } from '@/lib/traning/tempo';
 
 export type Provtyp = 'logik' | 'verbal' | 'numerisk';
 export const PROVTYPER: readonly Provtyp[] = ['logik', 'verbal', 'numerisk'];
@@ -125,9 +125,10 @@ function franLogik(f: Provformat): Ovningsformat {
     tidsform: f.tidsform,
     enhet: 'uppgifter',
     delar: null,
-    anmarkning: f.nyckel === 'shl' ? ANMARKNING.logik.shl : aon ? ANMARKNING.logik.aon : null,
+    // Vårt format med anmärkning (Aon sedan omgång 2) bär sin egen anmärkning.
+    anmarkning: f.nyckel === 'shl' ? ANMARKNING.logik.shl : aon ? ANMARKNING.logik.aon : f.anmarkning ?? null,
     // Vet inte och Annat (riktlinjernas tabell 1.2): samma rad för båda.
-    okandLeverantor: f.nyckel === 'eget',
+    okandLeverantor: f.nyckel === 'eget' && !f.anmarkning,
   };
 }
 
@@ -145,6 +146,8 @@ export function ovningsformat(
 
 /** Formatet ur en sparad nyckel (sessionens meta). */
 export function ovningsformatUrNyckel(typ: Provtyp, nyckel: string): Ovningsformat {
+  // Gamla sessioner med meta.format aon ritas som förut (omgång 2, A7).
+  if (typ === 'logik' && nyckel === 'aon') return franLogik(PROVFORMAT.aon);
   if (typ === 'logik') return franLogik(formatForPlan(nyckelTillLeverantor(nyckel), nyckel === 'matrigma_adaptiv' ? 'adaptiv' : null));
   return arFormatNyckelVN(nyckel) ? { ...OVNINGSFORMAT_VN[nyckel], anmarkning: null } : ovningsformat(typ, null);
 }

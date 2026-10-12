@@ -19,7 +19,7 @@ export type HjalpGrupp = 'A' | 'B' | 'C' | 'D' | 'E'
 
 export type HjalpId =
   | 'A1' | 'A2' | 'A3' | 'A4' | 'A5'
-  | 'B1' | 'B2' | 'B3' | 'B4' | 'B5' | 'B6' | 'B7' | 'B8' | 'B9'
+  | 'B1' | 'B2' | 'B3' | 'B4' | 'B5' | 'B6' | 'B7' | 'B8' | 'B9' | 'B10'
   | 'C1' | 'C2' | 'C3' | 'C4' | 'C5' | 'C6'
   | 'D1' | 'D2' | 'D3'
   | 'E1' | 'E2' | 'E3'
@@ -87,7 +87,7 @@ export const HJALP_RUTOR: Record<HjalpId, HjalpRutaText> = {
     id: 'B2',
     grupp: 'B',
     rubrik: 'Logiktest: vem använder det och hur övar jag?',
-    text: 'Våra matriser följer samma format som Matrigma och Alva Logic. SHL Verify och Aon scales ix mäter samma sak med figurserier i stället för rutnät, och reglerna du lär dig här är desamma. Ett tips: läs raderna först, sedan kolumnerna. Sätt ord på regeln innan du tittar på svarsalternativen, för de är byggda för att locka den som bara hittat halva regeln.',
+    text: 'Våra matriser följer samma format som Matrigma och Alva Logic. SHL Verify och Aon scales ix använder figurserier i stället för rutnät, och dem övar du under Figurserier i Alla tester. Ett tips: läs raderna först, sedan kolumnerna. Sätt ord på regeln innan du tittar på svarsalternativen, för de är byggda för att locka den som bara hittat halva regeln.',
   },
   B3: {
     id: 'B3',
@@ -130,6 +130,13 @@ export const HJALP_RUTOR: Record<HjalpId, HjalpRutaText> = {
     grupp: 'B',
     rubrik: 'Övningsprovet: varför ska jag ange vem som gör testet?',
     text: 'Testföretagen skiljer sig mest i tempot. Vet du vilket test du ska göra ställer vi om övningsprovet till samma antal uppgifter och samma tid. Då övar du på rätt klocka. Anger du inget kör vi vårt eget format, 18 uppgifter på 25 minuter.',
+  },
+
+  B10: {
+    id: 'B10',
+    grupp: 'B',
+    rubrik: 'Figurserier: vad är det?',
+    text: 'Du ser fem figurer i rad och en lucka sist. Figurerna följer en eller flera regler, som en vridning, ett antal som växer eller två serier som turas om, och du väljer figuren som kommer härnäst. Samma format som figurserierna i SHL Verify och Aon scales ix. Läs raden från vänster och sätt ord på regeln innan du tittar på alternativen.',
   },
 
   C1: {

@@ -27,6 +27,9 @@ import { familjNamn } from '@/lib/logicTestV7/familjer'
 import { analysera, budgetPerFraga, fragorMatris, svarslista, type ResultatAnalys } from '@/lib/tester/resultat'
 import { fragorForUnderlag } from '@/lib/tester/underlag.server'
 import { testTypeForSlug } from '@/lib/tester/testTyp'
+import { serieInnehall } from '@/lib/figurserierV1/fragor.server'
+import { serieFamiljNamn } from '@/lib/figurserierV1/familjer'
+import type { GenomgangSerie } from '@/lib/figurserierV1/types'
 
 export interface ResultsSession {
   id: string
@@ -40,6 +43,8 @@ export interface ResultsSession {
    * rätt svar stod. Null för andra testtyper och för ej avslutade sessioner.
    */
   genomgang?: GenomgangsFraga[] | null
+  /** Figurseriernas genomgång: uppgifterna i visad ordning, rätt svar, regel och misstag. */
+  serie?: GenomgangSerie[] | null
   /** Sessionens meta (antal, underlagsversion, bankversion). */
   meta?: unknown
 }
@@ -157,6 +162,7 @@ export async function getResultsData(
     }
 
     const genomgang = config.kind === 'matris' ? matrisInnehall(row).genomgang : null
+    const serie = config.kind === 'figurserie' ? serieInnehall(row).genomgang : null
 
     const session: ResultsSession = {
       id: row.id,
@@ -166,12 +172,15 @@ export async function getResultsData(
       // Äldre testdata kan ha answers som objekt ({"_mock": true}).
       answers: svarslista(row.answers),
       genomgang,
+      serie,
       meta: row.meta,
     }
 
     const analys =
       config.kind === 'matris'
         ? analysForMatris(config, genomgang, row.answers)
+        : config.kind === 'figurserie'
+        ? analysera(fragorMatris(serie ?? [], row.answers, serieFamiljNamn), budgetFor(config))
         : analysera(fragorForUnderlag(config.slug, row.id, row.answers, row.meta), budgetFor(config))
 
     const bastRad = (bastRes.data as { score: number | null }[] | null)?.[0]

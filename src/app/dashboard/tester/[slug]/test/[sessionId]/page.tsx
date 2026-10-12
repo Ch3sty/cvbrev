@@ -11,6 +11,7 @@
  */
 
 import { notFound } from 'next/navigation'
+import { figurserierSynliga } from '@/lib/figurserierV1/status'
 import TestRunner from '@/components/tests/shared/TestRunner'
 import { getTestConfig } from '../../../testConfig'
 import { getRunData } from '../../getRunData'
@@ -23,6 +24,8 @@ export default async function TestRunPage({
   const { slug, sessionId } = await params
   const config = getTestConfig(slug)
   if (!config || config.kind === 'personlighet') notFound()
+  // Figurserierna syns först när banken är befordrad (src/lib/figurserierV1/status.ts).
+  if (config.kind === 'figurserie' && !figurserierSynliga()) notFound()
 
   const runData = await getRunData(config, sessionId)
 

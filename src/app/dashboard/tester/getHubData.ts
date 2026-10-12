@@ -44,6 +44,10 @@ export const COGNITIVE_TEST_TYPE: Record<TestSlug, string> = {
   'matrislogik-grund': 'matrislogik',
   'matrislogik-avancerad': 'matrislogik-avancerad',
   'matrislogik-expert': 'matrislogik-expert',
+  // Figurserier (omgång 2): test_type är slugen.
+  'figurserier-grund': 'figurserier-grund',
+  'figurserier-avancerad': 'figurserier-avancerad',
+  'figurserier-expert': 'figurserier-expert',
   'verbal-resonemang': 'verbal-resonemang',
   'verbal-resonemang-v2': 'verbal-resonemang-v2',
   'verbal-resonemang-expert': 'verbal-resonemang-expert',

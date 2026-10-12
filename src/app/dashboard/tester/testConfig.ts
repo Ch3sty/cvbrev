@@ -19,7 +19,7 @@
 
 import type { Feature } from '@/lib/access/features'
 
-export type TestKind = 'matris' | 'verbal' | 'numerisk' | 'personlighet'
+export type TestKind = 'matris' | 'figurserie' | 'verbal' | 'numerisk' | 'personlighet'
 export type TestLevel = 'grund' | 'avancerad' | 'expert' | 'prov'
 
 /** Nivåns etikett i UI. Prov är inte en svårighetsgrad utan ett läge. */
@@ -33,6 +33,7 @@ export const LEVEL_LABEL: Record<TestLevel, string> = {
 /** Testtypens namn i UI, används i sidhuvud och brödsmulor. */
 export const KIND_LABEL: Record<TestKind, string> = {
   matris: 'Logiktest',
+  figurserie: 'Figurserier',
   verbal: 'Verbalt resonemang',
   numerisk: 'Numeriskt test',
   personlighet: 'Personlighetstest',
@@ -157,6 +158,61 @@ export const TEST_CONFIGS: TestConfig[] = [
     examMinutes: 25,
     quotaFeature: 'test:matrislogik-prov',
     requiresFeature: 'test_exam_mode',
+  },
+
+  /* ------------------------------ Figurserier ------------------------------- */
+  // Beställningen omgång 2, avsnitt A: tre klassiska nivåtest, 15 uppgifter
+  // ur en pool per nivå, minuter som matrisnivåerna. Inga pass, ingen
+  // Nivåkoll och inget övningsprov i den här omgången. Sessionerna ligger i
+  // logic_test_v4_sessions med test_type = slugen.
+  {
+    slug: 'figurserier-grund',
+    kind: 'figurserie',
+    level: 'grund',
+    title: 'Figurserier, grundnivå',
+    description: 'Fem figurer i rad och en lucka sist. Nivån där raden följer en regel.',
+    levelBlurb:
+      'Raden följer en enda regel, till exempel en vridning eller ett antal som växer. Läs raden från vänster och välj figuren som kommer härnäst.',
+    api: '/api/figurserier',
+    startBody: { test_type: 'figurserier-grund' },
+    sessionQuery: 'test_type=figurserier-grund',
+    totalQuestions: 15,
+    minutes: 20,
+    quotaFeature: 'test:figurserier-grund',
+    nextSlug: 'figurserier-avancerad',
+  },
+  {
+    slug: 'figurserier-avancerad',
+    kind: 'figurserie',
+    level: 'avancerad',
+    title: 'Figurserier, avancerad nivå',
+    description: 'Fem figurer i rad och en lucka sist. Nivån där två regler verkar samtidigt.',
+    levelBlurb:
+      'Två regler i samma rad, med olika takt, eller två serier som turas om. Alternativen är byggda så att halva regeln leder fel.',
+    api: '/api/figurserier',
+    startBody: { test_type: 'figurserier-avancerad' },
+    sessionQuery: 'test_type=figurserier-avancerad',
+    totalQuestions: 15,
+    minutes: 25,
+    quotaFeature: 'test:figurserier-avancerad',
+    requiresFeature: 'tests_above_base',
+    nextSlug: 'figurserier-expert',
+  },
+  {
+    slug: 'figurserier-expert',
+    kind: 'figurserie',
+    level: 'expert',
+    title: 'Figurserier, expertnivå',
+    description: 'Fem figurer i rad och en lucka sist. Nivån med tre regler i samma figur.',
+    levelBlurb:
+      'Tre regler i samma figur, och minst en av dem växer eller går varannan gång. Alternativen stämmer på två av tre.',
+    api: '/api/figurserier',
+    startBody: { test_type: 'figurserier-expert' },
+    sessionQuery: 'test_type=figurserier-expert',
+    totalQuestions: 15,
+    minutes: 30,
+    quotaFeature: 'test:figurserier-expert',
+    requiresFeature: 'tests_above_base',
   },
 
   /* ---------------------------- Verbalt resonemang -------------------------- */

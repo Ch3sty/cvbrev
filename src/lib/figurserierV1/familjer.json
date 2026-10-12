@@ -1,0 +1,9 @@
+[
+  { "id": "vridning", "namn": "Figuren vrider sig", "kort": "Pilen, strecken eller sektorerna vrider sig lika mycket i varje steg." },
+  { "id": "vandring", "namn": "Pricken flyttar sig", "kort": "En prick eller en ruta flyttar sig steg för steg runt en bana eller kanten." },
+  { "id": "antal", "namn": "Antalet ändras", "kort": "Något kommer till eller försvinner i varje steg." },
+  { "id": "fyllning", "namn": "Form och fyllning byter", "kort": "Formen eller fyllningen går i en ordning som börjar om." },
+  { "id": "vaxande", "namn": "Steget växer", "kort": "Rörelsen blir större för varje steg." },
+  { "id": "vaxelvis", "namn": "Två serier varannan gång", "kort": "Varannan figur hör till samma serie, och luckan hör till den andra." },
+  { "id": "flera", "namn": "Två saker rör sig", "kort": "Både det yttre och det inre i figuren följer var sin regel." }
+]

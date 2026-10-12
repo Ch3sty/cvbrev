@@ -46,6 +46,7 @@ export const TRANING_COPY = {
     anmarkning: {
       shl: 'SHL Verify G+ blandar siffror, slutledning och figurer. Övningsprovet övar figurdelen.',
       aon: 'scales ix har en annan uppgiftstyp, att hitta regeln bland rutnät. Övningsprovet övar tempot med matriser.',
+      aonEget: 'Aon scales ix använder figurserier, inte rutnät. Öva dem under Figurserier. Övningsprovet här övar tempot med matriser.',
     },
   },
   fel: {

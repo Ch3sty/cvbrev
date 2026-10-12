@@ -57,6 +57,7 @@ function nextMidnightISO(): string {
 
 const BILD: Record<Exclude<TestKind, 'personlighet'>, ComponentType<IlluProvbladProps>> = {
   matris: IlluMatris,
+  figurserie: IlluMatris,
   verbal: IlluVerbalt,
   numerisk: IlluNumeriskt,
 }
@@ -64,6 +65,7 @@ const BILD: Record<Exclude<TestKind, 'personlighet'>, ComponentType<IlluProvblad
 /** Hjälprutorna om nivån och testtypen. Rutor som väntar på verifiering hoppas över. */
 const HJALP: Record<Exclude<TestKind, 'personlighet'>, HjalpId[]> = {
   matris: ['C5', 'B1', 'B2'],
+  figurserie: ['C5', 'B10'],
   verbal: ['C5', 'B3', 'B4'],
   numerisk: ['C5', 'B5', 'B6'],
 }
@@ -71,6 +73,7 @@ const HJALP: Record<Exclude<TestKind, 'personlighet'>, HjalpId[]> = {
 /** Testtypens i-knapp på lyftkortet: vad testet mäter. */
 const MATER: Record<Exclude<TestKind, 'personlighet'>, HjalpId> = {
   matris: 'B1',
+  figurserie: 'B10',
   verbal: 'B3',
   numerisk: 'B5',
 }
