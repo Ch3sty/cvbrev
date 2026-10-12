@@ -134,9 +134,8 @@ export default function VerktygsMall(p: VerktygsMallProps) {
         {p.handling ? (
           <Rum yta="mark" storlek="tat" id={p.handlingId}>
             <div className="pub-wrap">
-              <div className={`pub-kort pub-prova-kort pub-rum-${p.rum}`} style={{ display: 'block' }}>
-                {p.handling}
-              </div>
+              {/* Handlingen bär sitt eget kort (CV-analysen, provet, demon). */}
+              {p.handling}
             </div>
           </Rum>
         ) : null}

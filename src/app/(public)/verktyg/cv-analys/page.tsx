@@ -3,12 +3,13 @@
  * avsnitt 5). h1, title, description och schemat (WebApplication, HowTo,
  * FAQPage) är oförändrade; bara ramen och sektionernas form är nya.
  */
-import VerktygsSida from '@/components/verktyg/VerktygsSida'
+import VerktygsMall from '@/components/publikt/VerktygsMall'
+import SkarmCvAnalys from '@/components/publikt/telefon/skarmar/SkarmCvAnalys'
 import CVAnalysMini from './components/CVAnalysMini'
 import { CV_ANALYS_FAQ_ITEMS } from './components/cv-analys-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
-import { IlluScenCv } from '@/components/illustrations/PriserScener'
 import { SALD_PLAN, paketKort, paketMedPris } from '@/lib/plans/plans'
+import { CV_ANALYSIS_LIMIT } from '@/lib/quota/quotaService'
 
 const KATEGORIER = [
   { rubrik: 'Läsbarhet för rekryteringssystem', text: 'Att rubriker, formatering och filstruktur fungerar i de system svenska arbetsgivare sorterar med. Inga kolumner som förvirrar maskinen.' },
@@ -124,7 +125,9 @@ export default function CVAnalysSida() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <VerktygsSida
+      <VerktygsMall
+        rum="cv"
+        telefon={<SkarmCvAnalys />}
         brodsmulor={[
           { name: 'Hem', href: '/' },
           { name: 'Verktyg', href: '/funktioner' },
@@ -137,11 +140,10 @@ export default function CVAnalysSida() {
         primar={{ text: 'Analysera mitt CV', href: '#mini-analys' }}
         sekundar={{ text: 'Så fungerar det', href: '#sa-funkar-det' }}
         loften={[
-          { tal: '1 analys', text: 'gratis per konto' },
+          { tal: `${CV_ANALYSIS_LIMIT} analys`, text: 'gratis per konto' },
           { tal: '60 sek', text: 'till poängen' },
           { tal: '6', text: 'kategorier med betyg' },
         ]}
-        scen={<IlluScenCv className="h-auto w-full" />}
         handling={<CVAnalysMini />}
         handlingId="mini-analys"
         steg={{
