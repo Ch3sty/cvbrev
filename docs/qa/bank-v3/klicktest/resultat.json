@@ -1,0 +1,220 @@
+{
+  "datum": "2026-10-12T01:03:51.981Z",
+  "bas": "http://localhost:5231",
+  "steg": [
+    {
+      "namn": "m360-ljust-01-nivakollen",
+      "url": "/dashboard/tester/pass/6dcdbee1-2e43-42d3-97b0-6c6f2d504e89"
+    },
+    {
+      "namn": "m360-ljust-02-nivakollen-resultat",
+      "url": "/dashboard/tester/pass/6dcdbee1-2e43-42d3-97b0-6c6f2d504e89"
+    },
+    {
+      "namn": "m360-ljust-03-pass-fraga",
+      "url": "/dashboard/tester/pass/0f56f8c9-2581-41b3-8587-0ca0b3a44d9d"
+    },
+    {
+      "namn": "m360-ljust-04-pass-regelpanel",
+      "url": "/dashboard/tester/pass/0f56f8c9-2581-41b3-8587-0ca0b3a44d9d"
+    },
+    {
+      "namn": "m360-ljust-05-rapport-ark",
+      "url": "/dashboard/tester/pass/0f56f8c9-2581-41b3-8587-0ca0b3a44d9d"
+    },
+    {
+      "namn": "m360-ljust-06-rapport-kvitto",
+      "url": "/dashboard/tester/pass/0f56f8c9-2581-41b3-8587-0ca0b3a44d9d"
+    },
+    {
+      "namn": "m360-ljust-07-expert-fraga",
+      "url": "/dashboard/tester/matrislogik-expert/test/b35f42b9-2350-4281-9c95-ffd820c536ff"
+    },
+    {
+      "namn": "m360-ljust-08-expert-resultat",
+      "url": "/dashboard/tester/matrislogik-expert/test/b35f42b9-2350-4281-9c95-ffd820c536ff/results"
+    },
+    {
+      "namn": "m360-ljust-09-verbal-resonemang",
+      "url": "/dashboard/tester/verbal-resonemang/test/d61c69db-2f9a-40ee-88b3-274c174c70af"
+    },
+    {
+      "namn": "m360-ljust-verbal-resonemang",
+      "session": "d61c69db-2f9a-40ee-88b3-274c174c70af",
+      "underlag_version": 2,
+      "nyaTexter": 5,
+      "forsta": "v1-p21"
+    },
+    {
+      "namn": "m360-ljust-09-numeriskt-test",
+      "url": "/dashboard/tester/numeriskt-test/test/3ff51266-ba14-4f58-bebe-46cc62dcc6a1"
+    },
+    {
+      "namn": "m360-ljust-numeriskt-test",
+      "session": "3ff51266-ba14-4f58-bebe-46cc62dcc6a1",
+      "underlag_version": 2,
+      "nyaUnderlag": 1,
+      "forsta": "num-p05"
+    },
+    {
+      "namn": "m360-ljust-09-verbal-resonemang-v2",
+      "url": "/dashboard/tester/verbal-resonemang-v2/test/1155726e-dd88-46f3-b494-06d5f534b7a5"
+    },
+    {
+      "namn": "m360-ljust-09-numeriskt-test-v2",
+      "url": "/dashboard/tester/numeriskt-test-v2/test/333895ba-623c-4ee8-94cf-dcfc63ed19a1"
+    },
+    {
+      "namn": "m360-ljust-gammal-session",
+      "session": "3429ce7b-a319-47fc-a8f4-b30c8daf811a",
+      "fragor": 15,
+      "varavPensioneradeIV3": 8,
+      "exempel": 15
+    },
+    {
+      "namn": "m360-ljust-10-gammal-session-v2",
+      "url": "/dashboard/tester/matrislogik-expert/test/3429ce7b-a319-47fc-a8f4-b30c8daf811a/results"
+    },
+    {
+      "namn": "m360-ljust-rapporter",
+      "rapporter": [
+        {
+          "q_id": "v7g-3c-lant-02",
+          "session_id": "0f56f8c9-2581-41b3-8587-0ca0b3a44d9d",
+          "test_kind": "matris",
+          "bank_version": null,
+          "orsak": "ratt_svar_fel",
+          "kommentar": "QA bank_version 3, kan strykas."
+        }
+      ]
+    },
+    {
+      "namn": "m360-ljust-kontroll-v3",
+      "matrisfragor": 60
+    },
+    {
+      "namn": "desktop-ljust-01-nivakollen",
+      "url": "/dashboard/tester/pass/38f4f2fe-e22c-43b4-9165-4e97e0a525b7"
+    },
+    {
+      "namn": "desktop-ljust-02-nivakollen-resultat",
+      "url": "/dashboard/tester/pass/38f4f2fe-e22c-43b4-9165-4e97e0a525b7"
+    },
+    {
+      "namn": "desktop-ljust-03-pass-fraga",
+      "url": "/dashboard/tester/pass/2724555c-d4ba-47c9-9b84-775ee49f9a86"
+    },
+    {
+      "namn": "desktop-ljust-04-pass-regelpanel",
+      "url": "/dashboard/tester/pass/2724555c-d4ba-47c9-9b84-775ee49f9a86"
+    },
+    {
+      "namn": "desktop-ljust-05-rapport-ark",
+      "url": "/dashboard/tester/pass/2724555c-d4ba-47c9-9b84-775ee49f9a86"
+    },
+    {
+      "namn": "desktop-ljust-06-rapport-kvitto",
+      "url": "/dashboard/tester/pass/2724555c-d4ba-47c9-9b84-775ee49f9a86"
+    },
+    {
+      "namn": "desktop-ljust-07-expert-fraga",
+      "url": "/dashboard/tester/matrislogik-expert/test/6371d460-ef2e-4a47-a697-dfa6352ad3f7"
+    },
+    {
+      "namn": "desktop-ljust-08-expert-resultat",
+      "url": "/dashboard/tester/matrislogik-expert/test/6371d460-ef2e-4a47-a697-dfa6352ad3f7/results"
+    },
+    {
+      "namn": "desktop-ljust-09-verbal-resonemang",
+      "url": "/dashboard/tester/verbal-resonemang/test/fab90e63-c168-46a9-8ee9-06cab41c7f56"
+    },
+    {
+      "namn": "desktop-ljust-verbal-resonemang",
+      "session": "fab90e63-c168-46a9-8ee9-06cab41c7f56",
+      "underlag_version": 2,
+      "nyaTexter": 4,
+      "forsta": "v1-p07-consumer-behavior"
+    },
+    {
+      "namn": "desktop-ljust-09-numeriskt-test",
+      "url": "/dashboard/tester/numeriskt-test/test/3295e053-a2a1-4044-a94f-2b253bb7c505"
+    },
+    {
+      "namn": "desktop-ljust-numeriskt-test",
+      "session": "3295e053-a2a1-4044-a94f-2b253bb7c505",
+      "underlag_version": 2,
+      "nyaUnderlag": 1,
+      "forsta": "num-p09"
+    },
+    {
+      "namn": "desktop-ljust-gammal-session",
+      "session": "4d10db0f-d17c-469d-972a-1e968171e19d",
+      "fragor": 15,
+      "varavPensioneradeIV3": 8,
+      "exempel": 15
+    },
+    {
+      "namn": "desktop-ljust-10-gammal-session-v2",
+      "url": "/dashboard/tester/matrislogik-expert/test/4d10db0f-d17c-469d-972a-1e968171e19d/results"
+    },
+    {
+      "namn": "desktop-ljust-rapporter",
+      "rapporter": [
+        {
+          "q_id": "v7g-3c-lant-06",
+          "session_id": "2724555c-d4ba-47c9-9b84-775ee49f9a86",
+          "test_kind": "matris",
+          "bank_version": null,
+          "orsak": "ratt_svar_fel",
+          "kommentar": "QA bank_version 3, kan strykas."
+        }
+      ]
+    },
+    {
+      "namn": "desktop-ljust-kontroll-v3",
+      "matrisfragor": 60
+    },
+    {
+      "namn": "m360-morkt-01-nivakollen",
+      "url": "/dashboard/tester/pass/554fe461-e164-4bca-8948-754b8b8012d5"
+    },
+    {
+      "namn": "m360-morkt-02-nivakollen-resultat",
+      "url": "/dashboard/tester/pass/554fe461-e164-4bca-8948-754b8b8012d5"
+    },
+    {
+      "namn": "m360-morkt-03-pass-fraga",
+      "url": "/dashboard/tester/pass/dfc4617c-9d0a-4175-a7ac-be17307a7f18"
+    },
+    {
+      "namn": "m360-morkt-04-pass-regelpanel",
+      "url": "/dashboard/tester/pass/dfc4617c-9d0a-4175-a7ac-be17307a7f18"
+    },
+    {
+      "namn": "m360-morkt-05-rapport-ark",
+      "url": "/dashboard/tester/pass/dfc4617c-9d0a-4175-a7ac-be17307a7f18"
+    },
+    {
+      "namn": "m360-morkt-06-rapport-kvitto",
+      "url": "/dashboard/tester/pass/dfc4617c-9d0a-4175-a7ac-be17307a7f18"
+    },
+    {
+      "namn": "m360-morkt-rapporter",
+      "rapporter": [
+        {
+          "q_id": "v7g-3c-lant-02",
+          "session_id": "dfc4617c-9d0a-4175-a7ac-be17307a7f18",
+          "test_kind": "matris",
+          "bank_version": null,
+          "orsak": "ratt_svar_fel",
+          "kommentar": "QA bank_version 3, kan strykas."
+        }
+      ]
+    },
+    {
+      "namn": "m360-morkt-kontroll-v3",
+      "matrisfragor": 45
+    }
+  ],
+  "fel": []
+}

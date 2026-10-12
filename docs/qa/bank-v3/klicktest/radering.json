@@ -1,0 +1,62 @@
+[
+  {
+    "nyckel": "m360-ljust-1791766904789",
+    "email": "qa-v3-1791766904789@jobbcoach-qa.test",
+    "rader": {
+      "test_planer": 1,
+      "test_milstolpar": 1,
+      "premium_grants": 1,
+      "user_activities": 18,
+      "user_dashboard_rewards": "vy, 1",
+      "logic_test_v4_sessions": 8,
+      "test_nivapunkter": 1
+    },
+    "profiler": 1,
+    "auth": "raderad"
+  },
+  {
+    "nyckel": "m360-ljust-1791767032375",
+    "email": "qa-v3-1791767032375@jobbcoach-qa.test",
+    "rader": {
+      "test_planer": 1,
+      "test_milstolpar": 1,
+      "premium_grants": 1,
+      "user_activities": 18,
+      "user_dashboard_rewards": "vy, 1",
+      "logic_test_v4_sessions": 8,
+      "test_nivapunkter": 1
+    },
+    "profiler": 1,
+    "auth": "raderad"
+  },
+  {
+    "nyckel": "desktop-ljust-1791767127070",
+    "email": "qa-v3-1791767127070@jobbcoach-qa.test",
+    "rader": {
+      "test_planer": 1,
+      "test_milstolpar": 1,
+      "premium_grants": 1,
+      "user_activities": 14,
+      "user_dashboard_rewards": "vy, 1",
+      "logic_test_v4_sessions": 6,
+      "test_nivapunkter": 1
+    },
+    "profiler": 1,
+    "auth": "raderad"
+  },
+  {
+    "nyckel": "m360-morkt-1791767214442",
+    "email": "qa-v3-1791767214442@jobbcoach-qa.test",
+    "rader": {
+      "test_planer": 1,
+      "test_milstolpar": 1,
+      "premium_grants": 1,
+      "user_activities": 4,
+      "user_dashboard_rewards": "vy, 1",
+      "logic_test_v4_sessions": 2,
+      "test_nivapunkter": 1
+    },
+    "profiler": 1,
+    "auth": "raderad"
+  }
+]
