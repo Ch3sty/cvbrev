@@ -16,6 +16,9 @@
 
 import dynamic from 'next/dynamic'
 import { MatrixTestSession } from '@/components/tests/matrix/MatrixTestSession'
+// Statisk import, som matrisen: en dynamisk import la uppgiften bakom en
+// Suspense-gräns och flyttade LCP efter JS-chunken (perf-inloggat 2026-10-12).
+import { FigurserieTestSession } from '@/components/tests/serie/FigurserieTestSession'
 import { NumericalTestSession } from '@/components/tests/numerical/NumericalTestSession'
 import { VerbalTestSession } from '@/components/tests/verbal/VerbalTestSession'
 import type { VerbalSessionPassage } from '@/components/tests/verbal/VerbalTestSession'
@@ -48,10 +51,6 @@ const NumeriskProvSession = dynamic(
 )
 const VerbalProvSession = dynamic(
   () => import('@/components/tests/prov/VerbalProvSession'),
-  { loading: TestLoading }
-)
-const FigurserieTestSession = dynamic(
-  () => import('@/components/tests/serie/FigurserieTestSession').then((m) => m.FigurserieTestSession),
   { loading: TestLoading }
 )
 const VerbalExpertSession = dynamic(
