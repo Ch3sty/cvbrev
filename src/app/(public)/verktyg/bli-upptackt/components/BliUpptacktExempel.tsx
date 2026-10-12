@@ -31,12 +31,12 @@ export default function BliUpptacktExempel() {
           </div>
           <div>
             <div className="text-kort font-semibold text-ink-1">Redovisningsekonom</div>
-            <div className="text-meta text-ink-3">Stockholm · Anonym</div>
+            <div className="text-meta text-ink-3">Stockholm, anonym</div>
           </div>
         </div>
 
         <p className="mt-3 text-meta text-ink-2">
-          <b className="font-semibold text-ink-1">8 års erfarenhet</b> · Senast: Redovisningsansvarig (4 år) · Civilekonom
+          <b className="font-semibold text-ink-1">8 års erfarenhet</b>, senast redovisningsansvarig (4 år), civilekonom
         </p>
         <p className="mt-2 text-sm italic leading-relaxed text-ink-2">
           &ldquo;Redovisningsekonom med åtta år i byggbranschen. Trivs bäst där struktur saknas och behöver byggas upp.&rdquo;
@@ -58,7 +58,7 @@ export default function BliUpptacktExempel() {
         </div>
 
         <ul className="mt-4 flex flex-wrap gap-1.5">
-          <li className="rounded-md border border-kant-stark px-2.5 py-1 text-xs font-medium text-ink-1">Matrislogik · topp 10 %</li>
+          <li className="rounded-md border border-kant-stark px-2.5 py-1 text-xs font-medium text-ink-1">Matrislogik, topp 10 %</li>
           <li className="rounded-md border border-kant-stark px-2.5 py-1 text-xs font-medium text-ink-1">Strukturerad</li>
           {SKILLS.map((s) => (
             <li key={s} className="rounded-md border border-kant px-2.5 py-1 text-xs text-ink-2">

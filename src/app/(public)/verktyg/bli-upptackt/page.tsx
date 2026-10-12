@@ -4,11 +4,11 @@
  * tackar ja, lönespannet visas aldrig utåt och styrkor visas i ord, aldrig
  * som råpoäng. h1, metadata och schemat (Service, FAQPage) är oförändrade.
  */
-import VerktygsSida from '@/components/verktyg/VerktygsSida'
+import VerktygsMall from '@/components/publikt/VerktygsMall'
+import SkarmBliUpptackt from '@/components/publikt/telefon/skarmar/SkarmBliUpptackt'
 import BliUpptacktMatchning from './components/BliUpptacktMatchning'
 import BliUpptacktExempel from './components/BliUpptacktExempel'
 import { BLI_UPPTACKT_FAQ_ITEMS } from './components/bli-upptackt-faq-data'
-import { IlluScenUpptackt } from '@/components/illustrations/PriserScener'
 import { PLAN_BY_KEY, SALD_PLAN, paketKort, paketMedPris } from '@/lib/plans/plans'
 
 const STEG = [
@@ -86,12 +86,14 @@ export default function BliUpptacktSida() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <VerktygsSida
+      <VerktygsMall
+        rum="jobb"
+        telefon={<SkarmBliUpptackt />}
         brodsmulor={[
           { name: 'Hem', href: '/' },
           { name: 'Bli upptäckt', href: '/verktyg/bli-upptackt' },
         ]}
-        eyebrow="Bli upptäckt · tidig åtkomst"
+        eyebrow="Bli upptäckt, tidig åtkomst"
         h1="Bli hittad av rekryterare, utan att jaga jobb själv."
         ingress="Skapa en profil på jobbcoach.ai så kan rekryterare som söker efter någon med din bakgrund hitta dig."
         fet="Du bestämmer själv om du vill synas, och du väljer alltid om du vill svara när någon hör av sig."
@@ -102,7 +104,6 @@ export default function BliUpptacktSida() {
           { tal: '4 steg', text: 'och du styr i varje' },
           { tal: '1 klick', text: 'för att sluta synas' },
         ]}
-        scen={<IlluScenUpptackt className="h-auto w-full" />}
         steg={{
           id: 'sa-funkar-det',
           rubrik: 'Så fungerar det',

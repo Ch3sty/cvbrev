@@ -18,7 +18,7 @@ const YOU = {
 
 type Req = { role: string; region: string; min: number; skill: string; style: string }
 const SEARCHES: { name: string; req: Req }[] = [
-  { name: 'Ekonomi · Stockholm', req: { role: 'Redovisningsekonom', region: 'Stockholm', min: 20, skill: 'Koncernredovisning', style: 'Strukturerad' } },
+  { name: 'Ekonomi, Stockholm', req: { role: 'Redovisningsekonom', region: 'Stockholm', min: 20, skill: 'Koncernredovisning', style: 'Strukturerad' } },
   { name: 'Annan region', req: { role: 'Redovisningsekonom', region: 'Göteborg', min: 20, skill: 'Koncernredovisning', style: 'Strukturerad' } },
   { name: 'Högre testkrav', req: { role: 'Redovisningsekonom', region: 'Stockholm', min: 5, skill: 'Bokslut', style: 'Strukturerad' } },
   { name: 'Annan arbetsstil', req: { role: 'Redovisningsekonom', region: 'Stockholm', min: 20, skill: 'Koncernredovisning', style: 'Utåtriktad' } },
@@ -30,7 +30,7 @@ function buildRows(req: Req): Row[] {
   return [
     { key: 'role', etikett: 'Yrkesroll', you: YOU.role, req: req.role, ok: req.role === YOU.role },
     { key: 'region', etikett: 'Region', you: YOU.region, req: req.region, ok: req.region === YOU.region },
-    { key: 'test', etikett: 'Test', you: `${YOU.test.label} · topp ${YOU.test.pct} %`, req: `Minst topp ${req.min} %`, ok: YOU.test.pct <= req.min },
+    { key: 'test', etikett: 'Test', you: `${YOU.test.label}, topp ${YOU.test.pct} %`, req: `Minst topp ${req.min} %`, ok: YOU.test.pct <= req.min },
     { key: 'skill', etikett: 'Kompetens', you: YOU.skills.join(', '), req: req.skill, ok: YOU.skills.includes(req.skill) },
     { key: 'style', etikett: 'Arbetsstil', you: YOU.style, req: req.style, ok: req.style === YOU.style },
   ]
