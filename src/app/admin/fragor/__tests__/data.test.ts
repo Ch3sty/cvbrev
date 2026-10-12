@@ -9,7 +9,7 @@ import { describe, expect, it, vi } from 'vitest'
 vi.mock('@/lib/supabase/admin', () => ({ getSupabaseAdmin: () => ({}) }))
 vi.mock('@/lib/admin/metrics', () => ({ hamtaUndantagCachad: async () => ({ konton: [], ids: [], stripeKunder: new Set(), har: () => false }) }))
 
-import { filtrera, median, slaIhop } from '../data'
+import { aggregeraUnderlag, filtrera, median, slaIhop } from '../data'
 import { register, kindForId, TEST_KINDS } from '@/lib/fragor/register.server'
 
 describe('admin Frågor', () => {
@@ -54,5 +54,29 @@ describe('admin Frågor', () => {
     expect(median([])).toBeNull()
     expect(median([0.2, 0.8, 0.5])).toBe(0.5)
     expect(median([0.2, 0.4])).toBeCloseTo(0.3)
+  })
+
+  it('verbala och numeriska: råsvaren ger registrets id, Vet inte räknas inte, konton per fråga', () => {
+    const reg = register()
+    const vy = aggregeraUnderlag([
+      { user_id: 'a', test_type: 'verbal-resonemang', completed_at: '2026-10-12T08:00:00Z', answers: [
+        { passageId: 'va-17-fyradagarsvecka', statementIndex: 0, answer: 'true', isCorrect: true, timeSpent: 10 },
+        { passageId: 'va-17-fyradagarsvecka', statementIndex: 1, answer: null, timeSpent: 5 },
+      ] },
+      { user_id: 'b', test_type: 'verbal-resonemang-prov', completed_at: '2026-10-12T09:00:00Z', answers: [
+        { passageId: 'va-17-fyradagarsvecka', statementIndex: 0, answer: 'false', isCorrect: false, timeSpent: 20 },
+      ] },
+      { user_id: 'a', test_type: 'numerical-reasoning', completed_at: '2026-10-12T10:00:00Z', answers: [
+        { passageId: 'num-p01', questionId: 'num-p01-q01', selectedAnswerId: 'a', isCorrect: true, timeSpent: 30 },
+      ] },
+      { user_id: 'c', test_type: 'matrislogik', completed_at: '2026-10-12T10:00:00Z', answers: [{ q_id: 'v7g-x' }] },
+    ])
+    expect(vy.get('va-17-fyradagarsvecka:0')).toEqual({ svar: 2, konton: 2, ratt: 1, p: 0.5, tid_median_s: 15 })
+    expect(vy.has('va-17-fyradagarsvecka:1')).toBe(false)
+    expect(vy.get('num-p01-q01')).toMatchObject({ svar: 1, konton: 1, ratt: 1, p: 1 })
+    expect(vy.size).toBe(2)
+    for (const id of vy.keys()) expect(reg.some((r) => r.id === id), id).toBe(true)
+    const rader = slaIhop(reg.filter((r) => vy.has(r.id)), vy)
+    expect(rader.map((r) => r.test_kind).sort()).toEqual(['numerisk', 'verbal'])
   })
 })

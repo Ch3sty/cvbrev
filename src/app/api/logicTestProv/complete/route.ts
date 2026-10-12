@@ -75,7 +75,7 @@ export async function POST(request: Request) {
     }
 
     // Frågestatistiken (kontrakt-kalibrering), bara blandade sessioner.
-    skickaKlassiskStatistik({ userId: user.id, meta: session.meta, answers, testKind: 'matris', etikett: 'Matrisprov' });
+    void skickaKlassiskStatistik({ userId: user.id, meta: session.meta, answers, testKind: 'matris', etikett: 'Matrisprov' });
 
     return NextResponse.json({
       success: true,

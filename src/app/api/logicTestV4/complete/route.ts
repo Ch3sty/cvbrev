@@ -96,7 +96,7 @@ export async function POST(request: Request) {
     }
 
     // Frågestatistiken (kontrakt-kalibrering), bara blandade sessioner.
-    skickaKlassiskStatistik({ userId: user.id, meta: session.meta, answers, testKind: 'matris', etikett: 'Matristest' });
+    void skickaKlassiskStatistik({ userId: user.id, meta: session.meta, answers, testKind: 'matris', etikett: 'Matristest' });
 
     // Calculate breakdown by difficulty
     const breakdown = {

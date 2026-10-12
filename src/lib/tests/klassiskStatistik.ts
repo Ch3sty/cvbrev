@@ -32,25 +32,128 @@ export function klassiskStatistik(
     }));
 }
 
-/** Skickar svaren till uppdatera_fraga_statistik när sessionen är blandad. Väntar aldrig. */
+/** Skickar svaren till uppdatera_fraga_statistik när sessionen är blandad. Löftet avvisas aldrig; rutten väntar inte. */
 export function skickaKlassiskStatistik(args: {
   userId: string;
   meta: unknown;
   answers: readonly unknown[];
   testKind: string;
   etikett: string;
-}): void {
-  if (!arBlandad(args.meta) || args.answers.length === 0) return;
-  const p_svar = klassiskStatistik(args.answers, args.meta, args.testKind);
-  if (p_svar.length === 0) return;
+}): Promise<void> {
+  if (!arBlandad(args.meta) || args.answers.length === 0) return Promise.resolve();
+  return skicka(klassiskStatistik(args.answers, args.meta, args.testKind), args.userId, args.etikett);
+}
+
+type StatistikRad = ReturnType<typeof klassiskStatistik>[number];
+
+/* ------------------------- Verbalt och numeriskt ------------------------- */
+//
+// De klassiska verbala och numeriska testen (grund, avancerad, expert och
+// provet) har ett annat svarsformat och blandar inte alternativen, så de
+// skriver alltid, med typ klassisk. Fråge-id:t är registrets nyckel
+// (src/lib/fragor/register.server.ts):
+//   påstående  "<passageId>:<statementIndex>"  (verbalt grund, avancerad, prov)
+//   fråga      questionId                      (verbalt expert, numeriskt)
+// selected är alternativets plats: Sant 0, Falskt 1, Kan inte avgöra 2 för
+// påståendena, a till d som 0 till 3 för frågorna. Obesvarat blir -1 (vet_inte).
+
+/** Testtyperna (logic_test_v4_sessions.test_type) och deras test_kind. */
+export const UNDERLAG_TESTTYPER: Readonly<Record<string, 'verbal' | 'numerisk'>> = {
+  'verbal-resonemang': 'verbal',
+  'verbal-resonemang-v2': 'verbal',
+  'verbal-resonemang-expert': 'verbal',
+  'verbal-resonemang-prov': 'verbal',
+  'numerical-reasoning': 'numerisk',
+  'numerical-reasoning-v2': 'numerisk',
+  'numerical-reasoning-expert': 'numerisk',
+  'numerical-reasoning-prov': 'numerisk',
+};
+
+const PASTAENDE_VAL: Readonly<Record<string, number>> = { true: 0, false: 1, cannot_say: 2 };
+
+type UnderlagSvar = {
+  passageId?: unknown;
+  statementIndex?: unknown;
+  questionId?: unknown;
+  answer?: unknown;
+  selectedAnswerId?: unknown;
+  isCorrect?: unknown;
+  timeSpent?: unknown;
+};
+
+/** Registrets id för ett svar i de verbala och numeriska testen, null när det inte går att avgöra. */
+export function underlagFragaId(svar: unknown): string | null {
+  if (!svar || typeof svar !== 'object') return null;
+  const a = svar as UnderlagSvar;
+  if (typeof a.questionId === 'string' && a.questionId) return a.questionId;
+  if (
+    typeof a.passageId === 'string' &&
+    a.passageId &&
+    typeof a.statementIndex === 'number' &&
+    Number.isInteger(a.statementIndex) &&
+    a.statementIndex >= 0
+  ) {
+    return `${a.passageId}:${a.statementIndex}`;
+  }
+  return null;
+}
+
+function underlagVal(a: UnderlagSvar): number {
+  if (typeof a.selectedAnswerId === 'string' && /^[a-z]$/.test(a.selectedAnswerId)) return a.selectedAnswerId.charCodeAt(0) - 97;
+  if (typeof a.answer === 'string' && Object.prototype.hasOwnProperty.call(PASTAENDE_VAL, a.answer)) return PASTAENDE_VAL[a.answer];
+  return -1;
+}
+
+/** Statistikraderna för ett avslutat verbalt eller numeriskt test. Rätt kommer från servern (isCorrect). */
+export function underlagStatistik(answers: readonly unknown[], testKind: 'verbal' | 'numerisk'): StatistikRad[] {
+  const ut: StatistikRad[] = [];
+  const sedda = new Set<string>();
+  for (const svar of answers) {
+    const id = underlagFragaId(svar);
+    if (!id || sedda.has(id)) continue;
+    sedda.add(id);
+    const a = svar as UnderlagSvar;
+    const selected = underlagVal(a);
+    ut.push({
+      fraga_id: id,
+      test_kind: testKind,
+      correct: selected >= 0 && a.isCorrect === true,
+      tid_s: typeof a.timeSpent === 'number' && Number.isFinite(a.timeSpent) ? Math.max(0, Math.round(a.timeSpent)) : 0,
+      selected,
+      typ: 'klassisk',
+    });
+  }
+  return ut;
+}
+
+/**
+ * Skickar ett avslutat verbalt eller numeriskt test till uppdatera_fraga_statistik.
+ * Bara första avslutet räknas (redanAvslutad hoppar över). Löftet avvisas
+ * aldrig; rutten väntar inte. Undantagna konton räknas bort i databasfunktionen.
+ */
+export function skickaUnderlagStatistik(args: {
+  userId: string;
+  testType: unknown;
+  answers: unknown;
+  redanAvslutad: boolean;
+  etikett: string;
+}): Promise<void> {
+  const kind = typeof args.testType === 'string' ? UNDERLAG_TESTTYPER[args.testType] : undefined;
+  if (!kind || args.redanAvslutad || !Array.isArray(args.answers) || args.answers.length === 0) return Promise.resolve();
+  return skicka(underlagStatistik(args.answers, kind), args.userId, args.etikett);
+}
+
+function skicka(p_svar: StatistikRad[], userId: string, etikett: string): Promise<void> {
+  if (p_svar.length === 0) return Promise.resolve();
   try {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    void Promise.resolve((getSupabaseAdmin() as any).rpc('uppdatera_fraga_statistik', { p_svar, p_user: args.userId }) as Promise<{ error: { message: string } | null }>)
+    return Promise.resolve((getSupabaseAdmin() as any).rpc('uppdatera_fraga_statistik', { p_svar, p_user: userId }) as Promise<{ error: { message: string } | null }>)
       .then((r) => {
-        if (r?.error) console.error(`${args.etikett}: frågestatistiken`, r.error.message);
+        if (r?.error) console.error(`${etikett}: frågestatistiken`, r.error.message);
       })
       .catch(() => {});
   } catch {
     // Saknad nyckel i miljön: statistiken hoppas över.
+    return Promise.resolve();
   }
 }

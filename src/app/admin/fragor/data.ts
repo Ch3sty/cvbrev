@@ -8,12 +8,16 @@
  *                         (blandade, avslutade, undantagna borta med uteslut).
  *   fraga_rapporter       rapporterna, undantagna borta med uteslut.
  * Registret (src/lib/fragor/register.server.ts) säger vilka frågor som finns.
+ * De verbala och numeriska testen finns inte i vyn (annat svarsformat). Deras
+ * tal räknas här ur de avslutade sessionerna med vyns regler (aggregeraUnderlag).
  *
  * Saknas vyn eller tabellen (migreringen inte körd) blir listan tom och
  * sidan säger det, aldrig ett fel. Ingen fråga skriver något.
  */
 
 import 'server-only';
+import { cache } from 'react';
+import { UNDERLAG_TESTTYPER, underlagStatistik } from '@/lib/tests/klassiskStatistik';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import { hamtaUndantagCachad } from '@/lib/admin/metrics';
 import { uteslut } from '@/lib/admin/undantag';
@@ -64,6 +68,77 @@ export async function hamtaVy(): Promise<Map<string, VyRad> | null> {
       ut.set(String(r.fraga_id), { svar: tal(r.svar) ?? 0, konton: tal(r.konton) ?? 0, ratt: tal(r.ratt) ?? 0, p: tal(r.p), tid_median_s: tal(r.tid_median_s) });
     }
     if (!data || data.length < 1000) break;
+  }
+  // De verbala och numeriska testen finns inte i vyn (annat svarsformat, inga
+  // blandade alternativ). De räknas ur råsvaren med vyns regler.
+  const underlag = await underlagSessioner();
+  for (const [id, v] of aggregeraUnderlag(underlag)) if (!ut.has(id)) ut.set(id, v);
+  return ut;
+}
+
+/* ------------------------- Verbalt och numeriskt ------------------------- */
+
+export interface UnderlagSession {
+  user_id: string;
+  test_type: string;
+  completed_at: string;
+  answers: unknown;
+}
+
+/**
+ * Avslutade verbala och numeriska sessioner, undantagna borta. En gång per
+ * förfrågan (cache), så att Kalibrering och Per testtyp läser dem en gång.
+ */
+const underlagSessioner = cache(async (): Promise<UnderlagSession[]> => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const admin = getSupabaseAdmin() as any;
+  const u = await hamtaUndantagCachad();
+  const ut: UnderlagSession[] = [];
+  for (let fran = 0; fran < 50_000; fran += 1000) {
+    const { data, error } = await uteslut(
+      admin
+        .from('logic_test_v4_sessions')
+        .select('user_id, test_type, completed_at, answers')
+        .not('completed_at', 'is', null)
+        .in('test_type', Object.keys(UNDERLAG_TESTTYPER)),
+      'user_id',
+      u,
+    )
+      .order('completed_at', { ascending: true })
+      .range(fran, fran + 999);
+    if (error) {
+      console.error('[admin/fragor] de verbala och numeriska sessionerna gick inte att läsa:', error.message);
+      break;
+    }
+    ut.push(...((data ?? []) as UnderlagSession[]));
+    if (!data || data.length < 1000) break;
+  }
+  return ut;
+});
+
+/**
+ * Samma tal som fraga_kalibrering_vy ger matrisfrågorna, för de verbala och
+ * numeriska: svar utan "Vet inte", olika konton, rätt, p och mediantid.
+ * Fråge-id:t är registrets (underlagStatistik).
+ */
+export function aggregeraUnderlag(sessioner: readonly UnderlagSession[]): Map<string, VyRad> {
+  const per = new Map<string, { konton: Set<string>; ratt: number; tider: number[] }>();
+  for (const s of sessioner) {
+    const kind = UNDERLAG_TESTTYPER[s.test_type];
+    if (!kind || !Array.isArray(s.answers)) continue;
+    for (const r of underlagStatistik(s.answers, kind)) {
+      if (r.selected < 0) continue;
+      const f = per.get(r.fraga_id) ?? { konton: new Set<string>(), ratt: 0, tider: [] };
+      f.konton.add(s.user_id);
+      if (r.correct) f.ratt++;
+      f.tider.push(r.tid_s);
+      per.set(r.fraga_id, f);
+    }
+  }
+  const ut = new Map<string, VyRad>();
+  for (const [id, f] of per) {
+    const svar = f.tider.length;
+    ut.set(id, { svar, konton: f.konton.size, ratt: f.ratt, p: Math.round((f.ratt / svar) * 1000) / 1000, tid_median_s: median(f.tider) });
   }
   return ut;
 }
@@ -155,6 +230,14 @@ async function svarPerTyp(): Promise<Record<TestKind, { d7: number; d30: number 
     }
     if (!data || data.length < 1000) break;
   }
+  for (const s of await underlagSessioner()) {
+    const kind = UNDERLAG_TESTTYPER[s.test_type];
+    const t = new Date(s.completed_at).getTime();
+    if (!kind || !Array.isArray(s.answers) || t < nu - 30 * 86_400_000) continue;
+    const n = underlagStatistik(s.answers, kind).length;
+    ut[kind].d30 += n;
+    if (t >= fran7) ut[kind].d7 += n;
+  }
   return ut;
 }
 
@@ -239,7 +322,8 @@ export async function hamtaVyRad(id: string): Promise<VyRad | null> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const admin = getSupabaseAdmin() as any;
   const { data, error } = await admin.from('fraga_kalibrering_vy').select('fraga_id, svar, konton, ratt, p, tid_median_s').eq('fraga_id', id).maybeSingle();
-  if (error || !data) return null;
+  if (error) return null;
+  if (!data) return aggregeraUnderlag(await underlagSessioner()).get(id) ?? null;
   const r = data as Record<string, unknown>;
   return { svar: tal(r.svar) ?? 0, konton: tal(r.konton) ?? 0, ratt: tal(r.ratt) ?? 0, p: tal(r.p), tid_median_s: tal(r.tid_median_s) };
 }

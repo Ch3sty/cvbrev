@@ -5,6 +5,7 @@ import { testSkrivKlient } from '@/lib/tests/skrivKlient';
 import { unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import { calculateScore } from '@/lib/numericalTest/validator';
 import { markeraTestBricka } from '@/lib/onboarding/komigang-server';
+import { skickaUnderlagStatistik } from '@/lib/tests/klassiskStatistik';
 
 export async function POST(request: NextRequest) {
   try {
@@ -60,6 +61,11 @@ export async function POST(request: NextRequest) {
       })
       .eq('id', sessionId)
       .eq('user_id', user.id);
+
+    // Frågestatistiken (kalibreringen), bara första avslutet, typ klassisk.
+    if (!updateError) {
+      void skickaUnderlagStatistik({ userId: user.id, testType: session.test_type, answers: unikaSvar(session.answers, SVARSNYCKLAR.passageFraga), redanAvslutad: !!session.completed_at, etikett: 'numericalTest' });
+    }
 
     // Hjälpredan Kom igång: kvittera brickan när testet faktiskt är slutfört.
     // Tyst vid fel, får aldrig fälla svaret.
