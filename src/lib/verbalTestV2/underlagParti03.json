@@ -1,0 +1,282 @@
+[
+  {
+    "id": "va-01-hemtjanstens-schema",
+    "title": "Hemtjänstens schema",
+    "difficulty": 2,
+    "topic": "Arbetsliv",
+    "text": "I många kommuner planeras hemtjänstens besök i dag med hjälp av digitala schemaverktyg. Verktyget räknar fram körvägar och fördelar besöken mellan personalen så att restiden blir så kort som möjligt. Förvaltningen i en mellanstor kommun uppger att restiden minskade med ungefär en femtedel det första året, och att pengarna som frigjordes kunde läggas på fler timmar hos brukarna. Fackliga företrädare har däremot en annan bild. De menar att scheman som byggs utifrån kartan sällan tar hänsyn till att vissa besök drar ut på tiden, till exempel när en äldre person är orolig eller har fallit. Personalen får då välja mellan att stressa vidare och att komma för sent till nästa adress. Flera undersköterskor beskriver också att de numera träffar fler olika brukare under en vecka än tidigare, eftersom verktyget inte prioriterar att samma person återkommer. För brukaren kan det innebära att behöva berätta om sina behov för nya ansikten gång på gång. Förvaltningen svarar att kontinuiteten går att lägga in som ett villkor i planeringen, men att det kostar restid. Frågan blir därmed vilken av de två sakerna kommunen värderar högst när budgeten är pressad.",
+    "statements": [
+      {
+        "text": "Enligt förvaltningen blev restiden kortare under schemaverktygets första år.",
+        "correctAnswer": "true",
+        "typ": "direkt",
+        "explanation": "Texten säger att förvaltningen uppger att restiden minskade med ungefär en femtedel det första året. Påståendet säger samma sak med andra ord, så det är sant och varken falskt eller obestämt."
+      },
+      {
+        "text": "Brukare får beskriva sina behov för fler personer eftersom verktyget inte styr mot att samma personal kommer tillbaka.",
+        "correctAnswer": "true",
+        "typ": "slutledning",
+        "explanation": "Två meningar avgör: det står att verktyget inte prioriterar att samma person återkommer, och att brukaren därför får berätta om sina behov för nya ansikten. Tillsammans ger de påståendet, så det följer säkert av texten."
+      },
+      {
+        "text": "Fackliga företrädare menar att schemaverktyget aldrig tar hänsyn till besök som tar längre tid än planerat.",
+        "correctAnswer": "false",
+        "typ": "kvantor",
+        "explanation": "Det står i texten att schemana sällan tar hänsyn till besök som drar ut på tiden. Sällan betyder att det ibland sker, så aldrig motsägs. Påståendet är därför falskt, inte obestämt."
+      },
+      {
+        "text": "Brukarna i kommunen är mer nöjda med hemtjänsten sedan schemaverktyget infördes.",
+        "correctAnswer": "cannot_say",
+        "typ": "utanfor",
+        "explanation": "Texten tar upp restid, stress och kontinuitet men säger inget om hur nöjda brukarna är. Därför går det inte att avgöra om påståendet stämmer."
+      }
+    ],
+    "kalla": "skriven 2026-10-11, parti 01",
+    "p_prior": 0.6
+  },
+  {
+    "id": "va-02-kommunal-upphandling",
+    "title": "Kommunal upphandling",
+    "difficulty": 2,
+    "topic": "Ekonomi",
+    "text": "När en kommun köper varor eller tjänster för större belopp måste inköpet i regel ske genom offentlig upphandling. Syftet är att skattepengar ska användas effektivt och att företag ska behandlas lika. Under lång tid vägde priset tyngst när anbuden jämfördes. På senare år har allt fler kommuner börjat ställa krav på miljö, arbetsvillkor och kvalitet, och vissa låter sådana krav väga lika tungt som priset. Förespråkarna menar att det billigaste anbudet ofta blir dyrt i längden, till exempel när en entreprenör behöver göra om ett arbete eller när ett avtal måste sägas upp i förtid. Kritiker invänder att omfattande krav gör upphandlingarna svårare att överblicka. Mindre företag saknar ofta en egen avdelning som kan sätta sig in i underlagen, och de avstår därför från att lämna anbud. Färre anbudsgivare innebär i sin tur sämre konkurrens, vilket kan driva upp priserna. Några kommuner försöker möta problemet genom att dela upp stora upphandlingar i mindre delar och genom att hålla informationsmöten innan underlaget publiceras. Om det räcker för att locka tillbaka de mindre företagen är ännu oklart, och de utvärderingar som finns bygger på ett fåtal kommuner.",
+    "statements": [
+      {
+        "text": "Ett av syftena med offentlig upphandling är att företagen ska få likvärdig behandling.",
+        "correctAnswer": "true",
+        "typ": "direkt",
+        "explanation": "Det står i texten att syftet är att skattepengar används effektivt och att företag behandlas lika. Påståendet återger den andra delen med andra ord och är därför sant, inte falskt eller obestämt."
+      },
+      {
+        "text": "Kritikerna menar att hårdare krav i upphandlingen leder till att konkurrensen mellan anbudsgivarna ökar.",
+        "correctAnswer": "false",
+        "typ": "slutledning",
+        "explanation": "Enligt texten avstår mindre företag från att lämna anbud när kraven blir omfattande, och färre anbudsgivare ger sämre konkurrens. Kedjan pekar åt motsatt håll mot påståendet, som därför är falskt och inte obestämt."
+      },
+      {
+        "text": "Samtliga kommuner som delat upp sina upphandlingar har lyckats locka tillbaka de mindre företagen.",
+        "correctAnswer": "cannot_say",
+        "typ": "kvantor",
+        "explanation": "Texten säger att det ännu är oklart om uppdelningen räcker för att locka tillbaka de mindre företagen. Resultatet varken bekräftas eller motsägs, så påståendet kan inte bedömas som sant eller falskt."
+      },
+      {
+        "text": "Kommuner som väger in arbetsvillkor betalar i genomsnitt mer för sina inköp än andra kommuner.",
+        "correctAnswer": "cannot_say",
+        "typ": "utanfor",
+        "explanation": "Texten resonerar om att billiga anbud kan bli dyra i längden och att färre anbud kan höja priser, men jämför aldrig faktiska kostnader. Varken sant eller falskt kan väljas utifrån det som står."
+      }
+    ],
+    "kalla": "skriven 2026-10-11, parti 01",
+    "p_prior": 0.6
+  },
+  {
+    "id": "va-03-distansarbete-kontorsyta",
+    "title": "Distansarbete och kontorsyta",
+    "difficulty": 2,
+    "topic": "Arbetsliv",
+    "text": "Sedan distansarbetet blev vanligt står många kontorsplatser tomma stora delar av veckan. Mätningar på flera myndigheter visar att beläggningen sällan når över hälften av platserna, och på fredagar är den ofta betydligt lägre. För en arbetsgivare som hyr lokaler är det en tydlig kostnad. Flera organisationer har därför sagt upp delar av sina hyresavtal och infört flexibla platser, där medarbetarna inte har ett eget skrivbord utan bokar en plats de dagar de kommer in. Ekonomiskt är resonemanget enkelt: mindre yta ger lägre hyra, och pengarna kan användas i verksamheten. Arbetsmiljöforskare ser däremot risker. När platserna inte räcker till på tisdagar och onsdagar, som är de mest populära dagarna, uppstår trängsel och irritation. Det blir också svårare för nyanställda att lära sig arbetet när de inte vet var kollegorna sitter. Vissa chefer beskriver att medarbetare som en gång mött ett fullt kontor väljer att stanna hemma nästa gång, vilket försvagar gemenskapen. Förespråkarna för mindre yta menar att problemen går att lösa med tydliga överenskommelser om vilka dagar olika grupper ska vara på plats. Kritikerna tvivlar på att sådana överenskommelser håller över tid.",
+    "statements": [
+      {
+        "text": "På de myndigheter som mätts används oftast högst hälften av kontorsplatserna.",
+        "correctAnswer": "true",
+        "typ": "direkt",
+        "explanation": "Det står i texten att beläggningen sällan når över hälften av platserna. Att den sällan når över hälften betyder att den oftast ligger på hälften eller under, så påståendet är sant och inte obestämt."
+      },
+      {
+        "text": "Den som har flexibel plats kan komma in en tisdag och upptäcka att det saknas lediga skrivbord.",
+        "correctAnswer": "true",
+        "typ": "slutledning",
+        "explanation": "Texten säger att medarbetare med flexibla platser bokar en plats när de kommer in, och att platserna inte räcker till på tisdagar och onsdagar. Tillsammans ger meningarna påståendet, så falskt och obestämt utesluts."
+      },
+      {
+        "text": "Enligt mätningarna är beläggningen på fredagar alltid högre än under resten av veckan.",
+        "correctAnswer": "false",
+        "typ": "kvantor",
+        "explanation": "Det står i texten att beläggningen på fredagar ofta är betydligt lägre. Om den ofta är lägre kan den inte alltid vara högre, så påståendet motsägs och är falskt, inte obestämt."
+      },
+      {
+        "text": "Organisationer som infört flexibla platser har fått fler sjukskrivningar bland sina medarbetare.",
+        "correctAnswer": "cannot_say",
+        "typ": "utanfor",
+        "explanation": "Texten nämner trängsel, irritation och svagare gemenskap men inget om sjukskrivningar. Påståendet kan låta rimligt men varken bekräftas eller motsägs, så sant och falskt går inte att välja."
+      }
+    ],
+    "kalla": "skriven 2026-10-11, parti 01",
+    "p_prior": 0.6
+  },
+  {
+    "id": "va-04-kollektivtrafikens-taxor",
+    "title": "Kollektivtrafikens taxor",
+    "difficulty": 2,
+    "topic": "Samhälle",
+    "text": "Hur mycket en resa med buss eller tåg ska kosta beslutas av den regionala kollektivtrafikmyndigheten, och frågan väcker ofta debatt. En linje i diskussionen gäller enkelhet. Flera regioner har gått från zonsystem till en enhetstaxa, där en enkelbiljett kostar lika mycket oavsett hur långt resenären åker. Förespråkarna menar att en enkel taxa sänker tröskeln för nya resenärer, som slipper sätta sig in i kartor över zoner innan de reser. Kritiker pekar däremot på att enhetstaxan gör korta resor dyrare. Den som åker tre hållplatser till affären betalar samma pris som den som pendlar flera mil, och för hushåll med små marginaler kan det betyda att man går i stället eller avstår från resan. En annan del av debatten gäller hur stor del av kostnaderna som biljettintäkterna ska stå för. I de flesta regioner täcker de ungefär hälften, medan resten betalas med skatt. Vissa politiker vill sänka priserna kraftigt för att få fler att lämna bilen hemma. Andra varnar för att lägre intäkter kan leda till glesare turer, och att resenärer värderar en buss som går ofta högre än en billig buss som går sällan. Forskningen ger stöd åt båda hållen beroende på ort och resans syfte.",
+    "statements": [
+      {
+        "text": "Med enhetstaxa påverkas priset på en enkelbiljett inte av resans längd.",
+        "correctAnswer": "true",
+        "typ": "direkt",
+        "explanation": "Det står i texten att en enkelbiljett med enhetstaxa kostar lika mycket oavsett hur långt resenären åker. Påståendet säger detsamma med andra ord och är därför sant, inte falskt eller obestämt."
+      },
+      {
+        "text": "Kritikerna anser att resenärer som gör korta resor förlorar på en övergång till enhetstaxa.",
+        "correctAnswer": "true",
+        "typ": "slutledning",
+        "explanation": "Texten säger att enhetstaxan ersätter zonsystem och att kritikerna menar att den gör korta resor dyrare. Av de två meningarna följer att korta resor blir dyrare efter bytet, så påståendet är sant."
+      },
+      {
+        "text": "I de flesta regioner betalas kollektivtrafiken enbart med biljettintäkter.",
+        "correctAnswer": "false",
+        "typ": "kvantor",
+        "explanation": "Enligt texten täcker biljettintäkterna ungefär hälften av kostnaderna i de flesta regioner, och resten betalas med skatt. Påståendet motsägs alltså direkt och är falskt, inte obestämt."
+      },
+      {
+        "text": "Regioner med enhetstaxa har fått fler resenärer än regioner som behållit zonsystemet.",
+        "correctAnswer": "cannot_say",
+        "typ": "utanfor",
+        "explanation": "Texten återger förespråkarnas förhoppning om fler resenärer men redovisar inga jämförelser mellan regioner. En förhoppning är inget resultat, så påståendet går inte att avgöra."
+      }
+    ],
+    "kalla": "skriven 2026-10-11, parti 01",
+    "p_prior": 0.6
+  },
+  {
+    "id": "va-05-kompetensutveckling-arbetstid",
+    "title": "Kompetensutveckling på arbetstid",
+    "difficulty": 2,
+    "topic": "Utbildning",
+    "text": "Många arbetsgivare säger att de vill att personalen ska utvecklas, men när det gäller att låta utbildning ske på arbetstid går meningarna isär. Ett vanligt argument för är att kunskap som behövs i arbetet också bör betalas av arbetsgivaren. Den som läser en kurs på kvällar och helger efter en full arbetsdag orkar ofta mindre, och risken är stor att utbildningen avbryts. Arbetsgivare som har avsatt tid för lärande beskriver dessutom att det blir lättare att rekrytera, eftersom sökande frågar efter just sådana möjligheter. Mot detta står kostnaden. I verksamheter med skiftarbete, som vård och industri, måste någon täcka upp när en medarbetare är på kurs, och vikarier är både dyra och svåra att hitta. Vissa chefer menar också att det är oklart vem som får nyttan: en medarbetare som skolats om kan gå till en annan arbetsgivare kort efteråt. Fackförbunden svarar att den risken är mindre än många tror, och att medarbetare som får växa tenderar att stanna längre. Det finns också mellanvägar, där arbetsgivaren betalar kursavgiften medan studierna sker på fritiden, eller där tiden delas lika mellan arbete och fritid.",
+    "statements": [
+      {
+        "text": "Att studera på kvällar och helger efter jobbet kan göra att kursen inte blir slutförd.",
+        "correctAnswer": "true",
+        "typ": "direkt",
+        "explanation": "Det står i texten att den som läser på kvällar och helger efter en full arbetsdag orkar mindre och att risken är stor att utbildningen avbryts. Påståendet är därför sant, inte obestämt."
+      },
+      {
+        "text": "Fackförbunden menar att medarbetare som fått växa genom utbildning brukar lämna arbetsgivaren snabbare än andra.",
+        "correctAnswer": "false",
+        "typ": "slutledning",
+        "explanation": "Texten säger att cheferna oroar sig för att utbildade medarbetare lämnar, och att fackförbunden svarar att risken är mindre än många tror och att sådana medarbetare stannar längre. Fackets hållning motsäger påståendet."
+      },
+      {
+        "text": "Samtliga fackförbund kräver att kompetensutveckling ska ske helt på arbetstid.",
+        "correctAnswer": "cannot_say",
+        "typ": "kvantor",
+        "explanation": "Texten återger bara fackförbundens svar om risken att medarbetare slutar, inte vilka krav de ställer på arbetstiden. Påståendet varken bekräftas eller motsägs, så sant och falskt går inte att välja."
+      },
+      {
+        "text": "Medarbetare som gått en kurs betald av arbetsgivaren får i regel högre lön efteråt.",
+        "correctAnswer": "cannot_say",
+        "typ": "utanfor",
+        "explanation": "Texten handlar om orken, rekryteringen, vikariekostnaden och risken att personal slutar, men nämner inget om lön. Det som står räcker varken för sant eller falskt."
+      }
+    ],
+    "kalla": "skriven 2026-10-11, parti 01",
+    "p_prior": 0.6
+  },
+  {
+    "id": "va-06-aterbruk-byggmaterial",
+    "title": "Återbruk av byggmaterial",
+    "difficulty": 2,
+    "topic": "Miljö",
+    "text": "Byggsektorn står för en stor del av avfallet i Sverige, och mycket av det som rivs ut går fortfarande till förbränning eller deponi. Samtidigt växer intresset för att ta vara på material från rivna hus. Tegel, takstolar, dörrar och stålbalkar kan i många fall användas igen, och det som återbrukas behöver inte tillverkas på nytt. Förespråkarna lyfter fram att tillverkningen av nya material, särskilt cement och stål, ger stora utsläpp av koldioxid. Att återbruka en stålbalk kräver en liten del av den energi som går åt till en ny. Byggföretagen pekar däremot på praktiska hinder. Material från rivningar måste tas loss varsamt, sorteras och lagras, vilket tar tid och kräver yta. Det saknas ofta dokumentation om hur mycket ett begagnat bjälklag tål, och då kan konstruktören inte garantera att det klarar dagens krav. Försäkringsbolag och beställare är av samma skäl försiktiga. Följden blir att återbrukat material ibland kostar mer än nytt, trots att själva råvaran är gratis. Några kommuner har börjat ställa krav på återbruk i sina egna byggprojekt för att skapa efterfrågan. Kritiker menar att kraven riskerar att fördyra skolor och äldreboenden när kommunernas ekonomi redan är ansträngd. Andra ser det som en nödvändig investering för att marknaden ska kunna växa.",
+    "statements": [
+      {
+        "text": "Produktionen av nytt stål och ny cement orsakar omfattande koldioxidutsläpp.",
+        "correctAnswer": "true",
+        "typ": "direkt",
+        "explanation": "Det står i texten att tillverkningen av nya material, särskilt cement och stål, ger stora utsläpp av koldioxid. Påståendet säger detsamma med andra ord och är sant, inte falskt eller obestämt."
+      },
+      {
+        "text": "Bristande uppgifter om hur mycket begagnade bärande delar tål gör beställare tveksamma till dem.",
+        "correctAnswer": "true",
+        "typ": "slutledning",
+        "explanation": "Texten säger att dokumentation om bjälklagens hållfasthet ofta saknas och att beställare av samma skäl är försiktiga. Tillsammans ger de två meningarna påståendet, så falskt och obestämt utesluts."
+      },
+      {
+        "text": "Återbrukat material blir alltid billigare än nytt eftersom råvaran inte kostar något.",
+        "correctAnswer": "false",
+        "typ": "kvantor",
+        "explanation": "Enligt texten kostar återbrukat material ibland mer än nytt, trots att råvaran är gratis. Därmed kan det inte alltid vara billigare, och påståendet är falskt snarare än obestämt."
+      },
+      {
+        "text": "Byggföretag som arbetar med återbruk har svårare att vinna kommunala upphandlingar.",
+        "correctAnswer": "cannot_say",
+        "typ": "utanfor",
+        "explanation": "Texten nämner att kommuner ställer krav på återbruk men säger inget om vilka företag som vinner upphandlingar. Svaret finns inte i texten."
+      }
+    ],
+    "kalla": "skriven 2026-10-11, parti 01",
+    "p_prior": 0.6
+  },
+  {
+    "id": "va-07-foreningsstod",
+    "title": "Föreningsstöd",
+    "difficulty": 2,
+    "topic": "Kultur",
+    "text": "Kommunerna lägger årligen pengar på stöd till idrottsföreningar, kulturföreningar och andra ideella organisationer. Vanligast är att stödet räknas ut efter antalet medlemmar eller antalet aktiviteter för barn och unga. Modellen är lätt att administrera och uppfattas som rättvis, eftersom samma regler gäller oavsett förening. Kritiker invänder att den gynnar de stora föreningarna. En fotbollsklubb med flera hundra spelare får mycket pengar, medan en liten förening för schack eller folkdans får en mindre summa, trots att den kanske når grupper som annars står utanför. Vissa kommuner har därför infört ett särskilt stöd som föreningarna söker för avgränsade projekt, till exempel för att nå ungdomar i bostadsområden där få är med i någon förening. Där bedömer en tjänsteman eller en nämnd ansökan utifrån syfte och målgrupp. Föreningarna själva är delade. De stora föreningarna varnar för att projektstöd gör ekonomin osäker, eftersom det är svårt att planera verksamheten när pengarna kan utebli nästa år. Mindre föreningar ser däremot en chans att få pengar för idéer som inte ryms i medlemsräkningen. Ett problem som båda sidor tar upp är att ansökningarna tar tid från ideella ledare, som hellre vill träna barn än skriva rapporter.",
+    "statements": [
+      {
+        "text": "Stöd som beräknas efter antalet medlemmar är enkelt för kommunen att hantera.",
+        "correctAnswer": "true",
+        "typ": "direkt",
+        "explanation": "Det står i texten att modellen där stödet räknas ut efter medlemmar eller aktiviteter är lätt att administrera. Påståendet säger samma sak med andra ord och är därför sant, inte obestämt."
+      },
+      {
+        "text": "De stora föreningarna ser projektstödet som ett sätt att göra sin ekonomi mer förutsägbar.",
+        "correctAnswer": "false",
+        "typ": "slutledning",
+        "explanation": "Texten säger att de stora föreningarna varnar för att projektstöd gör ekonomin osäker, och att pengarna kan utebli nästa år. Det är motsatsen till förutsägbarhet, så påståendet är falskt och inte obestämt."
+      },
+      {
+        "text": "I samtliga kommuner räknas föreningsstödet ut efter antalet medlemmar.",
+        "correctAnswer": "false",
+        "typ": "kvantor",
+        "explanation": "Texten säger att det vanligast är att stödet räknas ut efter antalet medlemmar eller aktiviteter, och att vissa kommuner också har ett projektstöd som bedöms efter syfte och målgrupp. Vanligast betyder att det finns kommuner som gör på annat sätt, så påståendet motsägs och är falskt."
+      },
+      {
+        "text": "Projektstödet har lett till att fler ungdomar i utsatta bostadsområden blivit medlemmar i en förening.",
+        "correctAnswer": "cannot_say",
+        "typ": "utanfor",
+        "explanation": "Texten beskriver syftet med projektstödet men redovisar inga resultat. Om fler ungdomar blivit medlemmar står inte, så påståendet kan varken bedömas som sant eller falskt."
+      }
+    ],
+    "kalla": "skriven 2026-10-11, parti 01",
+    "p_prior": 0.6
+  },
+  {
+    "id": "va-08-vardkoer-remisser",
+    "title": "Vårdköer och remisser",
+    "difficulty": 2,
+    "topic": "Hälsa",
+    "text": "Den som behöver träffa en läkare inom specialistvården behöver i de flesta regioner en remiss från vårdcentralen. Remissen ska beskriva besvären och vad läkaren vill ha hjälp med, så att mottagningen kan bedöma hur brådskande fallet är. Systemet har funnits länge och försvaras av många inom vården. Det gör att specialisternas tid går till patienter som verkligen behöver den, och vårdcentralen kan ofta lösa problemet själv efter en första undersökning. Patientföreträdare är däremot mer kritiska. De beskriver hur remisser skickas tillbaka för att en uppgift saknas, och hur patienten då hamnar sist i kön på nytt. Väntetiden kan på så sätt bli flera månader längre än vårdgarantin anger, utan att någon har fattat ett aktivt beslut om det. Några regioner har därför tagit bort kravet på remiss för vissa mottagningar, bland annat för hud och ögon. Erfarenheterna är blandade. Patienterna kommer fram snabbare, men mottagningarna rapporterar att en större andel av besöken gäller enklare besvär som hade kunnat tas om hand på vårdcentralen. Läkare inom specialistvården oroar sig för att de svårast sjuka då får vänta längre. Regionerna har ännu inte gjort någon samlad utvärdering av förändringen.",
+    "statements": [
+      {
+        "text": "Remissen ska göra det möjligt för mottagningen att avgöra hur bråttom patientens fall är.",
+        "correctAnswer": "true",
+        "typ": "direkt",
+        "explanation": "Det står i texten att remissen ska beskriva besvären så att mottagningen kan bedöma hur brådskande fallet är. Påståendet säger detsamma med andra ord och är sant, inte falskt eller obestämt."
+      },
+      {
+        "text": "En remiss där en uppgift fattas kan leda till att patienten får vänta längre på sitt besök.",
+        "correctAnswer": "true",
+        "typ": "slutledning",
+        "explanation": "Texten säger att remisser skickas tillbaka när en uppgift saknas, att patienten då hamnar sist i kön och att väntetiden kan bli flera månader längre. Av meningarna följer påståendet säkert."
+      },
+      {
+        "text": "Regionerna har slopat kravet på remiss för samtliga mottagningar inom specialistvården.",
+        "correctAnswer": "false",
+        "typ": "kvantor",
+        "explanation": "Enligt texten har några regioner tagit bort remisskravet för vissa mottagningar, till exempel hud och ögon. Det motsäger att kravet slopats överallt, så påståendet är falskt och inte obestämt."
+      },
+      {
+        "text": "Det är främst äldre patienter som får sina remisser återskickade från mottagningen.",
+        "correctAnswer": "cannot_say",
+        "typ": "utanfor",
+        "explanation": "Texten berättar att remisser skickas tillbaka men säger inget om vilka patienter det gäller. Om det gäller äldre eller yngre patienter framgår inte."
+      }
+    ],
+    "kalla": "skriven 2026-10-11, parti 01",
+    "p_prior": 0.6
+  }
+]

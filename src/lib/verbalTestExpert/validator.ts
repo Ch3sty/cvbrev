@@ -4,8 +4,11 @@
 
 import type { TestAnswer, QuestionType, Passage } from '@/lib/numericalTest/types';
 import questionBank from './questionBank.json';
+import parti03 from './underlagParti03.json';
 
-const passages = questionBank as unknown as Passage[];
+const frysta = questionBank as unknown as Passage[];
+// Rättningen hittar alla underlag, oavsett sessionens underlagsversion.
+const passages = [...frysta, ...(parti03 as unknown as Passage[])];
 
 export function validateAnswer(
   passageId: string,
@@ -57,6 +60,7 @@ export function getScoreByType(answers: TestAnswer[]) {
   return breakdown;
 }
 
-export function getAllPassages(): Passage[] {
-  return passages;
+/** Urvalets pool: version 1 och 2 de frysta underlagen, version 3 plus parti 03 (src/lib/tester/underlagVersion.ts). */
+export function getAllPassages(version: 1 | 2 | 3 = 1): Passage[] {
+  return version === 3 ? passages : frysta;
 }

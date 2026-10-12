@@ -19,17 +19,17 @@ import { selectProvPassagesForSession as numProv } from '@/lib/numericalTestProv
 import { fragorUnderlag, type ResultatFraga } from './resultat'
 import { underlagsVersion, type UnderlagVersion } from './underlagVersion'
 
-// Grund och avancerad tar sessionens underlagsversion (underlagVersion.ts).
+// Alla utom numeriskt expert tar sessionens underlagsversion (underlagVersion.ts).
 const URVAL: Record<string, { valj: (id: string, v: UnderlagVersion) => unknown[]; gruppera: 'svarstyp' | 'uppgiftstyp' | 'ingen' }> = {
   'verbal-resonemang': { valj: (id, v) => verbalGrund(id, undefined, v), gruppera: 'svarstyp' },
   'verbal-resonemang-v2': { valj: (id, v) => verbalAvancerad(id, undefined, v), gruppera: 'svarstyp' },
-  'verbal-resonemang-prov': { valj: (id) => verbalProv(id), gruppera: 'svarstyp' },
+  'verbal-resonemang-prov': { valj: (id, v) => verbalProv(id, v), gruppera: 'svarstyp' },
   // Argumentationsanalysen har ingen typindelning som säger något.
-  'verbal-resonemang-expert': { valj: (id) => verbalExpert(id), gruppera: 'ingen' },
+  'verbal-resonemang-expert': { valj: (id, v) => verbalExpert(id, undefined, v), gruppera: 'ingen' },
   'numeriskt-test': { valj: (id, v) => numGrund(id, undefined, v), gruppera: 'uppgiftstyp' },
   'numeriskt-test-v2': { valj: (id, v) => numAvancerad(id, undefined, v), gruppera: 'uppgiftstyp' },
   'numeriskt-test-expert': { valj: (id) => numExpert(id), gruppera: 'uppgiftstyp' },
-  'numeriskt-test-prov': { valj: (id) => numProv(id), gruppera: 'uppgiftstyp' },
+  'numeriskt-test-prov': { valj: (id, v) => numProv(id, v), gruppera: 'uppgiftstyp' },
 }
 
 export function fragorForUnderlag(slug: string, sessionId: string, answers: unknown, meta?: unknown): ResultatFraga[] {

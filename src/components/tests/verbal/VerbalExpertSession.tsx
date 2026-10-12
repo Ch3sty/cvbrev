@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation';
 import { ArrowRight } from 'lucide-react';
 
 import { selectPassagesForSession } from '@/lib/verbalTestExpert/selectPassages';
+import { underlagsVersion, type UnderlagVersion } from '@/lib/tester/underlagVersion';
 import type { Passage } from '@/lib/numericalTest/types';
 
 import TestFlowShell from '@/components/tests/shared/TestFlowShell';
@@ -69,9 +70,12 @@ export default function VerbalExpertSession({ sessionId: sessionIdProp }: Props)
     setFailedCount(n);
   }, []);
 
+  // Underlagsversionen läses ur sessionen (src/lib/tester/underlagVersion.ts).
+  // Tills den är läst används version 1; rehydreringen byter och börjar om.
+  const [version, setVersion] = useState<UnderlagVersion>(1);
   useEffect(() => {
-    setPassages(selectPassagesForSession(sessionIdProp));
-  }, [sessionIdProp]);
+    setPassages(selectPassagesForSession(sessionIdProp, undefined, version));
+  }, [sessionIdProp, version]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -88,12 +92,18 @@ export default function VerbalExpertSession({ sessionId: sessionIdProp }: Props)
 
     const hydrate = async () => {
       let redirected = false;
+      let byter = false;
       try {
         const res = await fetch(`/api/verbalTestExpert/session?id=${sessionId}`);
         if (res.ok) {
           const data = await res.json();
           const session = data?.session;
           if (session && !cancelled) {
+            if (underlagsVersion(session.meta) !== version) {
+              byter = true;
+              setVersion(underlagsVersion(session.meta));
+              return;
+            }
             if (session.completed_at) {
               // Redan avslutad session → direkt till resultatet.
               // Behåll laddvyn tills navigeringen sker.
@@ -130,7 +140,7 @@ export default function VerbalExpertSession({ sessionId: sessionIdProp }: Props)
       } catch {
         // Nätverksfel: fortsätt med tomt state, blockera inte testet.
       } finally {
-        if (!cancelled && !redirected) {
+        if (!cancelled && !redirected && !byter) {
           setIsHydrating(false);
           setQuestionStartTime(Date.now());
         }

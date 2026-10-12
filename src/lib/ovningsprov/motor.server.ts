@@ -20,8 +20,9 @@
 // =============================================================================
 
 import type { SupabaseClient } from '@supabase/supabase-js';
-import { POOL_V1 as VERBAL_V1, POOL_V2 as VERBAL_V2 } from '@/lib/verbalTestProv/selectProv';
-import { POOL_EXPERT as NUM_EXPERT, POOL_V1 as NUM_V1, POOL_V2 as NUM_V2 } from '@/lib/numericalTestProv/selectProv';
+import { PROV_MERGED_BANK as VERBAL_ALLA, poolFor as verbalPool } from '@/lib/verbalTestProv/selectProv';
+import { PROV_MERGED_BANK as NUM_ALLA, poolFor as numPool } from '@/lib/numericalTestProv/selectProv';
+import { UNDERLAG_VERSION, type UnderlagVersion } from '@/lib/tester/underlagVersion';
 import type { Passage as VerbalPassage } from '@/lib/verbalTestV1/types.v1';
 import type { Passage as NumeriskPassage } from '@/lib/numericalTest/types';
 import { alternativSeed, blandaAlternativ } from '@/lib/logicTestV7/blanda';
@@ -67,6 +68,8 @@ export interface OvningsMeta {
   seed: string;
   dag: Dag;
   fran: 'hubb' | 'hem' | 'plan' | null;
+  /** Underlagsversionen (src/lib/tester/underlagVersion.ts). Saknas: version 1, de frysta bankerna. */
+  underlag_version?: UnderlagVersion;
   /** Satt vid avslutet. */
   ratt?: number;
   obesvarade?: number;
@@ -133,23 +136,27 @@ export const URVAL = {
   numerisk: { grund: 2, avancerad: 2, expert: 1 },
 } as const;
 
-/** Delarnas id i provets ordning, grund först och de svåraste sist. */
-export function valjDelar(typ: OvningsTyp, seed: string, sedda: ReadonlySet<string> = new Set()): string[] {
+/**
+ * Delarnas id i provets ordning, grund först och de svåraste sist. Poolen är
+ * underlagsversionens (version 1: de frysta bankerna, som förut).
+ */
+export function valjDelar(typ: OvningsTyp, seed: string, sedda: ReadonlySet<string> = new Set(), version: UnderlagVersion = 1): string[] {
   if (typ === 'verbal') {
     return [
-      ...valj(VERBAL_V1, URVAL.verbal.grund, `${seed}:grund`, sedda),
-      ...valj(VERBAL_V2, URVAL.verbal.avancerad, `${seed}:avancerad`, sedda),
+      ...valj(verbalPool('grund', version), URVAL.verbal.grund, `${seed}:grund`, sedda),
+      ...valj(verbalPool('avancerad', version), URVAL.verbal.avancerad, `${seed}:avancerad`, sedda),
     ].map((p) => p.id);
   }
   return [
-    ...valj(NUM_V1, URVAL.numerisk.grund, `${seed}:grund`, sedda),
-    ...valj(NUM_V2, URVAL.numerisk.avancerad, `${seed}:avancerad`, sedda),
-    ...valj(NUM_EXPERT, URVAL.numerisk.expert, `${seed}:expert`, sedda),
+    ...valj(numPool('grund', version), URVAL.numerisk.grund, `${seed}:grund`, sedda),
+    ...valj(numPool('avancerad', version), URVAL.numerisk.avancerad, `${seed}:avancerad`, sedda),
+    ...valj(numPool('expert', version), URVAL.numerisk.expert, `${seed}:expert`, sedda),
   ].map((p) => p.id);
 }
 
-const VERBAL_PER_ID = new Map<string, VerbalPassage>([...VERBAL_V1, ...VERBAL_V2].map((p) => [p.id, p]));
-const NUM_PER_ID = new Map<string, NumeriskPassage>([...NUM_V1, ...NUM_V2, ...NUM_EXPERT].map((p) => [p.id, p]));
+// Uppslaget täcker alla versioner: delarnas id står i meta.
+const VERBAL_PER_ID = new Map<string, VerbalPassage>(VERBAL_ALLA.map((p) => [p.id, p]));
+const NUM_PER_ID = new Map<string, NumeriskPassage>(NUM_ALLA.map((p) => [p.id, p]));
 
 /** Titeln utan "PASSAGE", nummer och tankstreck (src/lib/tester/titel.ts). */
 export const rubrikUtanNummer = visningstitel;
@@ -181,7 +188,7 @@ function klientDelar(typ: OvningsTyp, delar: readonly string[], seed: string): V
     .filter((p): p is NumeriskPassage => !!p)
     .map((p) => ({
       id: p.id,
-      titel: p.title,
+      titel: visningstitel(p.title),
       kontext: p.contextText,
       tabell: p.dataTable ?? null,
       diagram: p.chartData ?? null,
@@ -398,7 +405,7 @@ export async function skapaOvningsprov(args: {
   const f = ovningsformat(args.typ, plan?.leverantor ?? null, plan?.variant ?? null);
   const sedda = new Set(rader.flatMap((r) => lasMeta(r.meta)?.delar ?? []));
   const seed = `${args.userId}:${idag}:${rader.length}:${args.typ}`;
-  const delar = valjDelar(args.typ, seed, sedda);
+  const delar = valjDelar(args.typ, seed, sedda, UNDERLAG_VERSION);
   const meta: OvningsMeta = {
     ovningsprov: 1,
     typ: args.typ,
@@ -412,6 +419,7 @@ export async function skapaOvningsprov(args: {
     seed,
     dag: idag,
     fran: args.fran ?? null,
+    underlag_version: UNDERLAG_VERSION,
   };
 
   const { data, error } = await args.admin

@@ -26,7 +26,7 @@ const SELECTORS: Record<string, (id: string, version: UnderlagVersion) => unknow
   'numeriskt-test': (id, v) => selectGrund(id, undefined, v),
   'numeriskt-test-v2': (id, v) => selectAvancerad(id, undefined, v),
   'numeriskt-test-expert': (id) => selectExpert(id),
-  'numeriskt-test-prov': (id) => selectProvPassagesForSession(id),
+  'numeriskt-test-prov': (id, v) => selectProvPassagesForSession(id, v),
 }
 
 export default function NumericalReview({

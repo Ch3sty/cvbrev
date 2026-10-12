@@ -24,8 +24,8 @@ import { underlagsVersion, type UnderlagVersion } from '@/lib/tester/underlagVer
 const SELECTORS: Record<string, (id: string, version: UnderlagVersion) => unknown[]> = {
   'verbal-resonemang': (id, v) => selectGrund(id, undefined, v),
   'verbal-resonemang-v2': (id, v) => selectAvancerad(id, undefined, v),
-  'verbal-resonemang-prov': (id) => selectProvPassagesForSession(id),
-  'verbal-resonemang-expert': (id) => selectExpert(id),
+  'verbal-resonemang-prov': (id, v) => selectProvPassagesForSession(id, v),
+  'verbal-resonemang-expert': (id, v) => selectExpert(id, undefined, v),
 }
 
 export default function VerbalReview({

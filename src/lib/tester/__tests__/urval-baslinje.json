@@ -1,0 +1,677 @@
+{
+ "vg:1:3f1c2a90-0000-4000-8000-000000000001": [
+  "v1-p08-innovation-culture",
+  "v1-p14-pricing-strategy",
+  "v1-p02-remote-work",
+  "v1-p04-investment-strategy",
+  "v1-p11-data-privacy",
+  "v1-p12-leadership-styles",
+  "v1-p18-performance-reviews",
+  "v1-p19",
+  "v1-p22",
+  "v1-p16-interest-rates"
+ ],
+ "va:1:3f1c2a90-0000-4000-8000-000000000001": [
+  "v2-p08-preventive-healthcare",
+  "v2-p14-sleep-health",
+  "v2-p02-mental-health",
+  "v2-p04-urbanization",
+  "v2-p11-medical-research",
+  "v2-p12-social-media",
+  "v2-p18-public-libraries",
+  "v2-p19",
+  "v2-p22",
+  "v2-p16-gig-economy"
+ ],
+ "ng:1:3f1c2a90-0000-4000-8000-000000000001": [
+  "num-p03:adbc,adbc,bcad,cdba",
+  "num-p10:abcd,bcad,acdb,cabd",
+  "num-p04:adcb,dbca,dacb,badc",
+  "num-p07:dabc,bdca,badc,dcab",
+  "num-p02:dcab,dcab,cadb,adcb"
+ ],
+ "na:1:3f1c2a90-0000-4000-8000-000000000001": [
+  "numv2-p03:bdac,bacd,bacd,cadb",
+  "numv2-p10:cabd,dbca,adbc,cabd",
+  "numv2-p04:bdac,cbda,cbda,cdab",
+  "numv2-p07:cadb,bcad,dcba,dacb",
+  "numv2-p02:abcd,cabd,dcab,bacd"
+ ],
+ "vg:2:3f1c2a90-0000-4000-8000-000000000001": [
+  "vg-05-matavfall",
+  "v1-p16-interest-rates",
+  "v1-p15-predictive-maintenance",
+  "v1-p20",
+  "vg-01-friskvardsbidrag",
+  "v1-p05-digital-transformation",
+  "vg-12-ideellt-arbete",
+  "v1-p19",
+  "vg-10-e-legitimation",
+  "v1-p23"
+ ],
+ "va:2:3f1c2a90-0000-4000-8000-000000000001": [
+  "va-14-larlingsutbildning",
+  "v2-p12-social-media",
+  "va-16-digital-journalforing",
+  "v2-p19",
+  "v2-p20",
+  "va-09-bemanningsforetag",
+  "v2-p04-urbanization",
+  "v2-p22",
+  "v2-p16-gig-economy",
+  "va-10-provanstallning"
+ ],
+ "ng:2:3f1c2a90-0000-4000-8000-000000000001": [
+  "ng-03-gymmets-medlemmar:cbda,dbac,cabd,badc",
+  "num-p08:abcd,bdac,dabc,dbac",
+  "num-p09:acbd,adcb,bdca,acdb",
+  "ng-05-hyrcyklar:cabd,badc,bdca,bacd",
+  "ng-07-parkeringshuset:bdac,adcb,cabd,dbca"
+ ],
+ "na:2:3f1c2a90-0000-4000-8000-000000000001": [
+  "na-11-fakturering-kvartal:adcb,dcba,dacb,badc",
+  "numv2-p08:dbac,dabc,cbad,bcda",
+  "numv2-p09:cbda,cabd,badc,badc",
+  "na-13-vardplatser:dcba,adbc,dbca,badc",
+  "na-15-kundtjanst-arenden:abdc,acdb,badc,bacd"
+ ],
+ "ve:1:3f1c2a90-0000-4000-8000-000000000001": [
+  "verbexp-p03:dacb,cbad,adbc,dbca",
+  "verbexp-p10:dacb,adbc,dabc,bcad",
+  "verbexp-p04:dcab,dcab,cadb,adcb",
+  "verbexp-p07:cdab,cdab,cdba,bcda",
+  "verbexp-p02:adbc,bdca,dabc,bdca",
+  "verbexp-p05:cabd,cdab,dacb,dacb",
+  "verbexp-p06:cdab,dbca,bdca,dbac",
+  "verbexp-p09:acdb,dcab,abdc,acbd"
+ ],
+ "ne:1:3f1c2a90-0000-4000-8000-000000000001": [
+  "numexp-p03:bdac,cabd,adbc,dbca",
+  "numexp-p10:cdba,bcad,abcd,bdca",
+  "numexp-p04:dcab,cdab,acdb,dbac",
+  "numexp-p07:dacb,bdac,dbca,badc",
+  "numexp-p02:dbca,acdb,dbac,dcab"
+ ],
+ "vp:1:3f1c2a90-0000-4000-8000-000000000001": [
+  "v2-p04-urbanization",
+  "v1-p08-innovation-culture",
+  "v2-p17-quantum-computing",
+  "v1-p14-pricing-strategy",
+  "v1-p11-data-privacy",
+  "v1-p02-remote-work",
+  "v2-p22",
+  "v2-p06-streaming-culture",
+  "v1-p04-investment-strategy",
+  "v2-p02-mental-health",
+  "v2-p09-circular-economy",
+  "v1-p12-leadership-styles"
+ ],
+ "np:1:3f1c2a90-0000-4000-8000-000000000001": [
+  "num-p03:adbc,adbc,bcad,cdba",
+  "numexp-p08:acbd,adbc,cabd,bdac",
+  "num-p10:abcd,bcad,acdb,cabd",
+  "numv2-p02:abcd,cabd,dcab,bacd",
+  "numexp-p02:dbca,acdb,dbac,dcab",
+  "num-p04:adcb,dbca,dacb,badc",
+  "numv2-p10:cabd,dbca,adbc,cabd",
+  "numexp-p10:cdba,bcad,abcd,bdca",
+  "numv2-p06:cdab,bcad,dacb,acbd"
+ ],
+ "ov-verbal:1:3f1c2a90-0000-4000-8000-000000000001": [
+  "v1-p06-talent-retention",
+  "v1-p09-supply-chain",
+  "v1-p05-digital-transformation",
+  "v1-p12-leadership-styles",
+  "v2-p14-sleep-health",
+  "v2-p19",
+  "v2-p04-urbanization",
+  "v2-p21"
+ ],
+ "ov-numerisk:1:3f1c2a90-0000-4000-8000-000000000001": [
+  "num-p04",
+  "num-p10",
+  "numv2-p08",
+  "numv2-p11",
+  "numexp-p10"
+ ],
+ "vg:1:8b7e1d22-1111-4222-9333-444455556666": [
+  "v1-p05-digital-transformation",
+  "v1-p16-interest-rates",
+  "v1-p22",
+  "v1-p23",
+  "v1-p24",
+  "v1-p21",
+  "v1-p09-supply-chain",
+  "v1-p04-investment-strategy",
+  "v1-p10-workplace-wellness",
+  "v1-p01-summer-employment"
+ ],
+ "va:1:8b7e1d22-1111-4222-9333-444455556666": [
+  "v2-p05-ai-development",
+  "v2-p16-gig-economy",
+  "v2-p22",
+  "v2-p23",
+  "v2-p24",
+  "v2-p21",
+  "v2-p09-circular-economy",
+  "v2-p04-urbanization",
+  "v2-p10-aging-population",
+  "v2-p01-digital-learning"
+ ],
+ "ng:1:8b7e1d22-1111-4222-9333-444455556666": [
+  "num-p08:bdca,acdb,abdc,abdc",
+  "num-p03:dcab,bcad,abdc,adcb",
+  "num-p12:bdca,abdc,cbad,dbca",
+  "num-p02:adcb,dabc,bcad,dabc",
+  "num-p05:bdac,bcad,bdac,dcba"
+ ],
+ "na:1:8b7e1d22-1111-4222-9333-444455556666": [
+  "numv2-p08:abdc,bdca,bcad,abcd",
+  "numv2-p03:dbac,acdb,cadb,cdab",
+  "numv2-p12:dcab,bdca,dcba,bdac",
+  "numv2-p02:acbd,bcda,acbd,dcab",
+  "numv2-p05:bdca,cdab,dacb,adbc"
+ ],
+ "vg:2:8b7e1d22-1111-4222-9333-444455556666": [
+  "v1-p24",
+  "v1-p23",
+  "v1-p19",
+  "v1-p09-supply-chain",
+  "v1-p16-interest-rates",
+  "v1-p15-predictive-maintenance",
+  "vg-12-ideellt-arbete",
+  "v1-p06-talent-retention",
+  "v1-p17-cloud-migration",
+  "v1-p21"
+ ],
+ "va:2:8b7e1d22-1111-4222-9333-444455556666": [
+  "v2-p20",
+  "v2-p12-social-media",
+  "v2-p24",
+  "v2-p16-gig-economy",
+  "va-10-provanstallning",
+  "v2-p15-biodiversity",
+  "v2-p14-sleep-health",
+  "v2-p07-pedagogy",
+  "v2-p13-lifelong-learning",
+  "v2-p05-ai-development"
+ ],
+ "ng:2:8b7e1d22-1111-4222-9333-444455556666": [
+  "ng-05-hyrcyklar:abdc,badc,cadb,bdca",
+  "num-p03:dcab,bcad,abdc,adcb",
+  "num-p10:dcab,bacd,adcb,acbd",
+  "num-p07:cbad,adbc,cdba,bacd",
+  "ng-01-kafeets-forsaljning:abcd,dbac,cbad,cadb"
+ ],
+ "na:2:8b7e1d22-1111-4222-9333-444455556666": [
+  "na-13-vardplatser:dcab,dacb,badc,bacd",
+  "numv2-p03:dbac,acdb,cadb,cdab",
+  "numv2-p10:dabc,cdba,adbc,abcd",
+  "numv2-p07:acbd,dabc,bdca,bcda",
+  "na-09-bemanning-skift:acbd,dabc,dbac,adcb"
+ ],
+ "ve:1:8b7e1d22-1111-4222-9333-444455556666": [
+  "verbexp-p08:cabd,dcab,dbca,dcba",
+  "verbexp-p03:cdab,dcba,badc,cadb",
+  "verbexp-p12:dabc,cbad,dcba,cdba",
+  "verbexp-p02:acbd,adbc,dabc,cdba",
+  "verbexp-p05:badc,acdb,dcba,acbd",
+  "verbexp-p11:dabc,dcba,cabd,cbda",
+  "verbexp-p01:dcba,dcab,dabc,cdab",
+  "verbexp-p07:cdba,cdab,badc,dacb"
+ ],
+ "ne:1:8b7e1d22-1111-4222-9333-444455556666": [
+  "numexp-p08:cabd,cdab,adbc,dcab",
+  "numexp-p03:bacd,adbc,bdca,cdba",
+  "numexp-p12:acdb,badc,acdb,dcab",
+  "numexp-p02:acdb,dcba,acdb,badc",
+  "numexp-p05:cadb,abdc,bdac,cabd"
+ ],
+ "vp:1:8b7e1d22-1111-4222-9333-444455556666": [
+  "v1-p21",
+  "v1-p05-digital-transformation",
+  "v1-p16-interest-rates",
+  "v2-p11-medical-research",
+  "v2-p03-climate-action",
+  "v1-p23",
+  "v2-p01-digital-learning",
+  "v2-p20",
+  "v2-p05-ai-development",
+  "v1-p24",
+  "v2-p10-aging-population",
+  "v1-p22"
+ ],
+ "np:1:8b7e1d22-1111-4222-9333-444455556666": [
+  "numv2-p03:dbac,acdb,cadb,cdab",
+  "num-p08:bdca,acdb,abdc,abdc",
+  "numexp-p02:acdb,dcba,acdb,badc",
+  "num-p12:bdca,abdc,cbad,dbca",
+  "numexp-p07:cbad,dbac,bdac,cdba",
+  "numv2-p11:bcad,dbac,dbca,bdac",
+  "numv2-p05:bdca,cdab,dacb,adbc",
+  "numexp-p01:adcb,cabd,cbda,dacb",
+  "num-p03:dcab,bcad,abdc,adcb"
+ ],
+ "ov-verbal:1:8b7e1d22-1111-4222-9333-444455556666": [
+  "v1-p01-summer-employment",
+  "v1-p20",
+  "v1-p24",
+  "v1-p21",
+  "v2-p12-social-media",
+  "v2-p23",
+  "v2-p09-circular-economy",
+  "v2-p02-mental-health"
+ ],
+ "ov-numerisk:1:8b7e1d22-1111-4222-9333-444455556666": [
+  "num-p10",
+  "num-p06",
+  "numv2-p05",
+  "numv2-p04",
+  "numexp-p01"
+ ],
+ "vg:1:c0ffee00-dead-4bee-8f00-123456789abc": [
+  "v1-p02-remote-work",
+  "v1-p07-consumer-behavior",
+  "v1-p16-interest-rates",
+  "v1-p04-investment-strategy",
+  "v1-p23",
+  "v1-p14-pricing-strategy",
+  "v1-p22",
+  "v1-p21",
+  "v1-p24",
+  "v1-p12-leadership-styles"
+ ],
+ "va:1:c0ffee00-dead-4bee-8f00-123456789abc": [
+  "v2-p02-mental-health",
+  "v2-p07-pedagogy",
+  "v2-p16-gig-economy",
+  "v2-p04-urbanization",
+  "v2-p23",
+  "v2-p14-sleep-health",
+  "v2-p22",
+  "v2-p21",
+  "v2-p24",
+  "v2-p12-social-media"
+ ],
+ "ng:1:c0ffee00-dead-4bee-8f00-123456789abc": [
+  "num-p12:cbad,cbad,bcad,bcad",
+  "num-p02:badc,dcba,badc,cabd",
+  "num-p07:badc,cbad,dcba,bcda",
+  "num-p11:dcab,dbca,adbc,bacd",
+  "num-p10:dbca,acbd,dbac,acbd"
+ ],
+ "na:1:c0ffee00-dead-4bee-8f00-123456789abc": [
+  "numv2-p12:bdca,abdc,bcad,dcba",
+  "numv2-p02:abdc,abcd,cbda,bcad",
+  "numv2-p07:cabd,dbca,bcda,acdb",
+  "numv2-p11:dcab,acdb,dbca,adbc",
+  "numv2-p10:acdb,acbd,bcad,dabc"
+ ],
+ "vg:2:c0ffee00-dead-4bee-8f00-123456789abc": [
+  "v1-p21",
+  "v1-p19",
+  "vg-09-hushallsbudget",
+  "vg-05-matavfall",
+  "v1-p17-cloud-migration",
+  "vg-02-arbetsplatstraffar",
+  "v1-p07-consumer-behavior",
+  "v1-p22",
+  "vg-04-skolskjuts",
+  "v1-p06-talent-retention"
+ ],
+ "va:2:c0ffee00-dead-4bee-8f00-123456789abc": [
+  "v2-p13-lifelong-learning",
+  "v2-p16-gig-economy",
+  "v2-p08-preventive-healthcare",
+  "v2-p24",
+  "v2-p03-climate-action",
+  "va-09-bemanningsforetag",
+  "v2-p15-biodiversity",
+  "v2-p06-streaming-culture",
+  "va-13-kommunal-matlagning",
+  "v2-p02-mental-health"
+ ],
+ "ng:2:c0ffee00-dead-4bee-8f00-123456789abc": [
+  "num-p10:dbca,acbd,dbac,acbd",
+  "ng-01-kafeets-forsaljning:badc,cbda,dcab,bcad",
+  "ng-06-kontorsmaterial:bdca,cdab,cadb,adcb",
+  "num-p12:cbad,cbad,bcad,bcad",
+  "ng-07-parkeringshuset:cbda,dbac,adcb,acdb"
+ ],
+ "na:2:c0ffee00-dead-4bee-8f00-123456789abc": [
+  "numv2-p10:acdb,acbd,bcad,dabc",
+  "na-09-bemanning-skift:dabc,cabd,cbad,bacd",
+  "na-14-skolskjuts:dabc,badc,bdac,acbd",
+  "numv2-p12:bdca,abdc,bcad,dcba",
+  "na-15-kundtjanst-arenden:adcb,dacb,adbc,bcda"
+ ],
+ "ve:1:c0ffee00-dead-4bee-8f00-123456789abc": [
+  "verbexp-p12:bcad,bacd,dcba,dcab",
+  "verbexp-p02:acdb,bacd,bdca,adcb",
+  "verbexp-p07:bcda,dcab,abcd,dabc",
+  "verbexp-p11:cabd,bcad,bacd,acbd",
+  "verbexp-p10:dcab,cabd,bcda,bcda",
+  "verbexp-p04:abdc,dcba,dbac,cadb",
+  "verbexp-p09:abcd,bcad,badc,cbda",
+  "verbexp-p08:abcd,abdc,dcba,bdca"
+ ],
+ "ne:1:c0ffee00-dead-4bee-8f00-123456789abc": [
+  "numexp-p12:badc,dacb,dcab,acbd",
+  "numexp-p02:bcad,bcad,bcda,dacb",
+  "numexp-p07:cbad,cabd,cdab,bcda",
+  "numexp-p11:cabd,cbda,bcad,bcad",
+  "numexp-p10:bcad,dcba,cadb,cbda"
+ ],
+ "vp:1:c0ffee00-dead-4bee-8f00-123456789abc": [
+  "v1-p02-remote-work",
+  "v2-p21",
+  "v1-p07-consumer-behavior",
+  "v2-p19",
+  "v2-p03-climate-action",
+  "v2-p23",
+  "v2-p06-streaming-culture",
+  "v1-p16-interest-rates",
+  "v2-p08-preventive-healthcare",
+  "v1-p23",
+  "v1-p04-investment-strategy",
+  "v1-p14-pricing-strategy"
+ ],
+ "np:1:c0ffee00-dead-4bee-8f00-123456789abc": [
+  "num-p12:cbad,cbad,bcad,bcad",
+  "numv2-p02:abdc,abcd,cbda,bcad",
+  "numexp-p03:bacd,bdca,abdc,dcba",
+  "numv2-p03:dcab,bdca,cdab,bacd",
+  "num-p02:badc,dcba,badc,cabd",
+  "numexp-p12:badc,dacb,dcab,acbd",
+  "numexp-p06:cabd,abdc,acdb,acbd",
+  "num-p07:badc,cbad,dcba,bcda",
+  "numv2-p11:dcab,acdb,dbca,adbc"
+ ],
+ "ov-verbal:1:c0ffee00-dead-4bee-8f00-123456789abc": [
+  "v1-p03-sustainability",
+  "v1-p16-interest-rates",
+  "v1-p12-leadership-styles",
+  "v1-p20",
+  "v2-p21",
+  "v2-p19",
+  "v2-p16-gig-economy",
+  "v2-p08-preventive-healthcare"
+ ],
+ "ov-numerisk:1:c0ffee00-dead-4bee-8f00-123456789abc": [
+  "num-p05",
+  "num-p02",
+  "numv2-p06",
+  "numv2-p03",
+  "numexp-p07"
+ ],
+ "vg:1:00000000-0000-4000-8000-000000000042": [
+  "v1-p15-predictive-maintenance",
+  "v1-p24",
+  "v1-p20",
+  "v1-p05-digital-transformation",
+  "v1-p17-cloud-migration",
+  "v1-p18-performance-reviews",
+  "v1-p12-leadership-styles",
+  "v1-p23",
+  "v1-p03-sustainability",
+  "v1-p08-innovation-culture"
+ ],
+ "va:1:00000000-0000-4000-8000-000000000042": [
+  "v2-p15-biodiversity",
+  "v2-p24",
+  "v2-p20",
+  "v2-p05-ai-development",
+  "v2-p17-quantum-computing",
+  "v2-p18-public-libraries",
+  "v2-p12-social-media",
+  "v2-p23",
+  "v2-p03-climate-action",
+  "v2-p08-preventive-healthcare"
+ ],
+ "ng:1:00000000-0000-4000-8000-000000000042": [
+  "num-p04:acdb,dbac,bcad,acdb",
+  "num-p02:bdac,adbc,dcba,dabc",
+  "num-p11:bdac,adbc,adcb,cbda",
+  "num-p07:abcd,bdca,badc,cbad",
+  "num-p06:cbad,dbca,bacd,bacd"
+ ],
+ "na:1:00000000-0000-4000-8000-000000000042": [
+  "numv2-p04:abcd,cabd,cbda,bcda",
+  "numv2-p02:bcad,bcda,dbca,cabd",
+  "numv2-p11:adbc,abdc,dacb,bcad",
+  "numv2-p07:bacd,bdca,dcba,dbca",
+  "numv2-p06:dbac,cbad,bacd,bdca"
+ ],
+ "vg:2:00000000-0000-4000-8000-000000000042": [
+  "v1-p12-leadership-styles",
+  "vg-08-sjukanmalan",
+  "vg-02-arbetsplatstraffar",
+  "vg-09-hushallsbudget",
+  "vg-01-friskvardsbidrag",
+  "vg-10-e-legitimation",
+  "vg-12-ideellt-arbete",
+  "vg-11-allemansratten",
+  "vg-03-meroppna-bibliotek",
+  "v1-p24"
+ ],
+ "va:2:00000000-0000-4000-8000-000000000042": [
+  "v2-p21",
+  "va-12-regional-kompetensforsorjning",
+  "v2-p07-pedagogy",
+  "va-16-digital-journalforing",
+  "v2-p12-social-media",
+  "v2-p17-quantum-computing",
+  "va-14-larlingsutbildning",
+  "v2-p04-urbanization",
+  "v2-p11-medical-research",
+  "va-10-provanstallning"
+ ],
+ "ng:2:00000000-0000-4000-8000-000000000042": [
+  "ng-08-overtid:dcab,abcd,bcad,acdb",
+  "num-p11:bdac,adbc,adcb,cbda",
+  "ng-02-bibliotekets-utlan:adbc,bcad,bcda,acdb",
+  "ng-07-parkeringshuset:bacd,acdb,abcd,bacd",
+  "ng-03-gymmets-medlemmar:cbad,adcb,cadb,bcad"
+ ],
+ "na:2:00000000-0000-4000-8000-000000000042": [
+  "na-16-energieffektivisering:acdb,cadb,abcd,bdac",
+  "numv2-p11:adbc,abdc,dacb,bcad",
+  "na-10-rekryteringskostnad:acbd,dbca,bacd,bacd",
+  "na-15-kundtjanst-arenden:dacb,badc,dbac,abdc",
+  "na-11-fakturering-kvartal:bcda,cdba,badc,abdc"
+ ],
+ "ve:1:00000000-0000-4000-8000-000000000042": [
+  "verbexp-p04:acbd,abdc,dcab,dabc",
+  "verbexp-p02:bdca,cabd,cdab,adcb",
+  "verbexp-p11:badc,acdb,cadb,cdba",
+  "verbexp-p07:bdca,bcda,acbd,bcad",
+  "verbexp-p06:cbda,bdac,bdca,dcba",
+  "verbexp-p09:bacd,abdc,cdba,abdc",
+  "verbexp-p08:bacd,cbad,bcda,adbc",
+  "verbexp-p12:acdb,bcad,badc,dcba"
+ ],
+ "ne:1:00000000-0000-4000-8000-000000000042": [
+  "numexp-p04:abdc,cadb,dbac,dcab",
+  "numexp-p02:adbc,bdca,abdc,dbac",
+  "numexp-p11:bcda,bdac,cbda,acbd",
+  "numexp-p07:bacd,dbac,acbd,abdc",
+  "numexp-p06:dbca,dbac,cabd,cadb"
+ ],
+ "vp:1:00000000-0000-4000-8000-000000000042": [
+  "v2-p06-streaming-culture",
+  "v2-p03-climate-action",
+  "v1-p18-performance-reviews",
+  "v2-p23",
+  "v2-p01-digital-learning",
+  "v1-p17-cloud-migration",
+  "v1-p15-predictive-maintenance",
+  "v1-p24",
+  "v2-p15-biodiversity",
+  "v2-p02-mental-health",
+  "v1-p20",
+  "v1-p05-digital-transformation"
+ ],
+ "np:1:00000000-0000-4000-8000-000000000042": [
+  "numv2-p12:cbda,cdab,cdab,cadb",
+  "numv2-p01:adcb,dabc,cdab,acdb",
+  "numexp-p10:dcba,bdac,dcab,abdc",
+  "num-p04:acdb,dbac,bcad,acdb",
+  "numv2-p11:adbc,abdc,dacb,bcad",
+  "num-p02:bdac,adbc,dcba,dabc",
+  "numexp-p01:cabd,dcba,cabd,dacb",
+  "numexp-p11:bcda,bdac,cbda,acbd",
+  "num-p11:bdac,adbc,adcb,cbda"
+ ],
+ "ov-verbal:1:00000000-0000-4000-8000-000000000042": [
+  "v1-p05-digital-transformation",
+  "v1-p03-sustainability",
+  "v1-p06-talent-retention",
+  "v1-p14-pricing-strategy",
+  "v2-p04-urbanization",
+  "v2-p07-pedagogy",
+  "v2-p09-circular-economy",
+  "v2-p20"
+ ],
+ "ov-numerisk:1:00000000-0000-4000-8000-000000000042": [
+  "num-p02",
+  "num-p12",
+  "numv2-p03",
+  "numv2-p08",
+  "numexp-p06"
+ ],
+ "vg:1:9a8b7c6d-5e4f-4a3b-9c2d-1e0f9a8b7c6d": [
+  "v1-p20",
+  "v1-p01-summer-employment",
+  "v1-p07-consumer-behavior",
+  "v1-p06-talent-retention",
+  "v1-p12-leadership-styles",
+  "v1-p03-sustainability",
+  "v1-p22",
+  "v1-p19",
+  "v1-p08-innovation-culture",
+  "v1-p11-data-privacy"
+ ],
+ "va:1:9a8b7c6d-5e4f-4a3b-9c2d-1e0f9a8b7c6d": [
+  "v2-p20",
+  "v2-p01-digital-learning",
+  "v2-p07-pedagogy",
+  "v2-p06-streaming-culture",
+  "v2-p12-social-media",
+  "v2-p03-climate-action",
+  "v2-p22",
+  "v2-p19",
+  "v2-p08-preventive-healthcare",
+  "v2-p11-medical-research"
+ ],
+ "ng:1:9a8b7c6d-5e4f-4a3b-9c2d-1e0f9a8b7c6d": [
+  "num-p03:cbad,dbca,bcda,dcab",
+  "num-p02:bdac,dbca,cadb,adcb",
+  "num-p01:bcad,acbd,acbd,cadb",
+  "num-p09:dacb,bdca,bdac,cabd",
+  "num-p06:dacb,dbca,dacb,bdac"
+ ],
+ "na:1:9a8b7c6d-5e4f-4a3b-9c2d-1e0f9a8b7c6d": [
+  "numv2-p03:bdac,cbda,acdb,bdca",
+  "numv2-p02:adcb,dcba,cabd,acdb",
+  "numv2-p01:bcda,cdba,bdac,dabc",
+  "numv2-p09:dcab,cbad,badc,bcda",
+  "numv2-p06:dcba,acbd,cbad,dcba"
+ ],
+ "vg:2:9a8b7c6d-5e4f-4a3b-9c2d-1e0f9a8b7c6d": [
+  "v1-p24",
+  "v1-p16-interest-rates",
+  "v1-p06-talent-retention",
+  "v1-p09-supply-chain",
+  "v1-p11-data-privacy",
+  "v1-p05-digital-transformation",
+  "v1-p13-onboarding-process",
+  "v1-p15-predictive-maintenance",
+  "v1-p17-cloud-migration",
+  "vg-04-skolskjuts"
+ ],
+ "va:2:9a8b7c6d-5e4f-4a3b-9c2d-1e0f9a8b7c6d": [
+  "v2-p03-climate-action",
+  "v2-p11-medical-research",
+  "v2-p08-preventive-healthcare",
+  "v2-p14-sleep-health",
+  "v2-p04-urbanization",
+  "va-13-kommunal-matlagning",
+  "va-12-regional-kompetensforsorjning",
+  "v2-p12-social-media",
+  "v2-p01-digital-learning",
+  "va-11-arbetsmiljoverkets-inspektioner"
+ ],
+ "ng:2:9a8b7c6d-5e4f-4a3b-9c2d-1e0f9a8b7c6d": [
+  "num-p09:dacb,bdca,bdac,cabd",
+  "ng-05-hyrcyklar:acdb,bdac,bacd,dbca",
+  "num-p02:bdac,dbca,cadb,adcb",
+  "num-p11:cdba,cbda,adcb,cbda",
+  "num-p05:cdab,abcd,abdc,acdb"
+ ],
+ "na:2:9a8b7c6d-5e4f-4a3b-9c2d-1e0f9a8b7c6d": [
+  "numv2-p09:dcab,cbad,badc,bcda",
+  "na-13-vardplatser:bdac,bdca,acdb,cadb",
+  "numv2-p02:adcb,dcba,cabd,acdb",
+  "numv2-p11:cabd,bcda,bcda,dcba",
+  "numv2-p05:badc,cadb,cabd,badc"
+ ],
+ "ve:1:9a8b7c6d-5e4f-4a3b-9c2d-1e0f9a8b7c6d": [
+  "verbexp-p03:dbca,dbca,cadb,cabd",
+  "verbexp-p02:dbca,adcb,adcb,dbac",
+  "verbexp-p01:acbd,abdc,abcd,dabc",
+  "verbexp-p09:bcad,bcda,abcd,dcab",
+  "verbexp-p06:bdac,cadb,bcad,dabc",
+  "verbexp-p10:dbca,cbda,dacb,cbda",
+  "verbexp-p11:abdc,bcda,bcda,dbca",
+  "verbexp-p05:acbd,cdab,dabc,adcb"
+ ],
+ "ne:1:9a8b7c6d-5e4f-4a3b-9c2d-1e0f9a8b7c6d": [
+  "numexp-p03:acbd,bacd,bcda,adcb",
+  "numexp-p02:cdab,cadb,dcab,abdc",
+  "numexp-p01:dabc,acdb,acbd,dcab",
+  "numexp-p09:cbad,cdba,abcd,bdca",
+  "numexp-p06:adcb,bdac,cbad,cbad"
+ ],
+ "vp:1:9a8b7c6d-5e4f-4a3b-9c2d-1e0f9a8b7c6d": [
+  "v2-p17-quantum-computing",
+  "v2-p09-circular-economy",
+  "v2-p22",
+  "v1-p12-leadership-styles",
+  "v1-p20",
+  "v2-p11-medical-research",
+  "v1-p07-consumer-behavior",
+  "v1-p03-sustainability",
+  "v2-p06-streaming-culture",
+  "v2-p05-ai-development",
+  "v1-p06-talent-retention",
+  "v1-p01-summer-employment"
+ ],
+ "np:1:9a8b7c6d-5e4f-4a3b-9c2d-1e0f9a8b7c6d": [
+  "numexp-p05:badc,dabc,bdca,bdca",
+  "num-p03:cbad,dbca,bcda,dcab",
+  "numv2-p06:dcba,acbd,cbad,dcba",
+  "numexp-p10:acbd,dacb,cbda,dcba",
+  "numv2-p01:bcda,cdba,bdac,dabc",
+  "numexp-p09:cbad,cdba,abcd,bdca",
+  "numv2-p05:badc,cadb,cabd,badc",
+  "num-p01:bcad,acbd,acbd,cadb",
+  "num-p02:bdac,dbca,cadb,adcb"
+ ],
+ "ov-verbal:1:9a8b7c6d-5e4f-4a3b-9c2d-1e0f9a8b7c6d": [
+  "v1-p14-pricing-strategy",
+  "v1-p04-investment-strategy",
+  "v1-p07-consumer-behavior",
+  "v1-p02-remote-work",
+  "v2-p17-quantum-computing",
+  "v2-p14-sleep-health",
+  "v2-p02-mental-health",
+  "v2-p05-ai-development"
+ ],
+ "ov-numerisk:1:9a8b7c6d-5e4f-4a3b-9c2d-1e0f9a8b7c6d": [
+  "num-p06",
+  "num-p04",
+  "numv2-p09",
+  "numv2-p01",
+  "numexp-p04"
+ ]
+}

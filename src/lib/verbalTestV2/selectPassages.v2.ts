@@ -4,12 +4,15 @@
 
 import questionBank from './questionBank.json';
 import parti02 from './underlagParti02.json';
+import parti03 from './underlagParti03.json';
 import type { UnderlagVersion } from '@/lib/tester/underlagVersion';
 import type { Question } from './types.v2';
 
 export const POOL = questionBank as Question[];
 /** Version 2 (src/lib/tester/underlagVersion.ts): de frysta texterna plus parti 02. */
 export const POOL_V2 = [...POOL, ...(parti02 as unknown as Question[])];
+/** Version 3: plus parti 01 (granskat 2026-10-12) och parti 03, i underlagParti03.json. */
+export const POOL_V3 = [...POOL_V2, ...(parti03 as unknown as Question[])];
 
 export const PASSAGES_PER_SESSION = 10; // Kortat 2026-10-11 (riktlinjer-tester-v2 2.5).
 export const STATEMENTS_PER_PASSAGE = 4;
@@ -39,7 +42,7 @@ export function selectPassagesForSession(
   count: number = PASSAGES_PER_SESSION,
   version: UnderlagVersion = 1
 ): Question[] {
-  const shuffled = [...(version === 2 ? POOL_V2 : POOL)];
+  const shuffled = [...(version === 3 ? POOL_V3 : version === 2 ? POOL_V2 : POOL)];
   const rng = mulberry32(hashString(sessionId));
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(rng() * (i + 1));

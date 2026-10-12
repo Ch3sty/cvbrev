@@ -1,0 +1,2516 @@
+[
+  {
+    "id": "na-01-kommunbudget",
+    "title": "Kommunens driftbudget",
+    "type": "table",
+    "topic": "Offentlig ekonomi",
+    "difficulty": 2,
+    "contextText": "Tabellen visar driftbudget och utfall för 2025 samt beslutad budget för 2026 för fem förvaltningar i en kommun. Alla belopp anges i tkr (tusen kronor). 1 000 tkr är 1 mkr.",
+    "dataTable": {
+      "headers": [
+        "Förvaltning",
+        "Budget 2025 (tkr)",
+        "Utfall 2025 (tkr)",
+        "Budget 2026 (tkr)",
+        "Antal anställda"
+      ],
+      "rows": [
+        [
+          "Barn och utbildning",
+          "842 600",
+          "861 300",
+          "874 900",
+          "1 120"
+        ],
+        [
+          "Vård och omsorg",
+          "694 200",
+          "712 800",
+          "731 500",
+          "980"
+        ],
+        [
+          "Samhällsbyggnad",
+          "118 400",
+          "109 700",
+          "124 300",
+          "160"
+        ],
+        [
+          "Kultur och fritid",
+          "46 800",
+          "47 900",
+          "48 200",
+          "85"
+        ],
+        [
+          "Kommunledning",
+          "72 500",
+          "70 100",
+          "75 600",
+          "120"
+        ]
+      ],
+      "caption": "Driftbudget och utfall per förvaltning, tkr"
+    },
+    "ovanvant": [
+      "rad Kultur och fritid",
+      "kolumn Antal anställda"
+    ],
+    "enhetsbyte": "tkr till mkr",
+    "p_prior": 0.55,
+    "questions": [
+      {
+        "id": "na-01-q01",
+        "passageId": "na-01-kommunbudget",
+        "questionNumber": 1,
+        "questionText": "Hur många mkr översteg utfallet budgeten 2025 sammanlagt för Barn och utbildning och Vård och omsorg?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "18,7 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "(861300 - 842600) / 1000",
+              "varde": 18.7
+            }
+          },
+          {
+            "id": "b",
+            "text": "69,6 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "(874900 - 842600 + 731500 - 694200) / 1000",
+              "varde": 69.6
+            }
+          },
+          {
+            "id": "c",
+            "text": "37,3 mkr",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "27,4 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(861300 - 842600 + 118400 - 109700) / 1000",
+              "varde": 27.4
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Överskridande Barn och utbildning",
+              "uttryck": "861300 - 842600",
+              "varde": 18700
+            },
+            {
+              "text": "Överskridande Vård och omsorg",
+              "uttryck": "712800 - 694200",
+              "varde": 18600
+            },
+            {
+              "text": "Summa i mkr",
+              "uttryck": "(18700 + 18600) / 1000",
+              "varde": 37.3
+            }
+          ],
+          "visning": "37,3 mkr",
+          "precision": 1
+        },
+        "explanation": "Överskridande Barn och utbildning: 861 300 - 842 600 = 18 700. Överskridande Vård och omsorg: 712 800 - 694 200 = 18 600. Summa i mkr: (18 700 + 18 600) / 1 000 = 37,3. Svaret blir 37,3 mkr."
+      },
+      {
+        "id": "na-01-q02",
+        "passageId": "na-01-kommunbudget",
+        "questionNumber": 2,
+        "questionText": "Med hur många procent ökar budgeten för Samhällsbyggnad från 2025 till 2026?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "5,0 %",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "4,7 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "(124300 - 118400) / 124300 * 100",
+              "varde": 4.7466
+            }
+          },
+          {
+            "id": "c",
+            "text": "13,3 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "(124300 - 109700) / 109700 * 100",
+              "varde": 13.309
+            }
+          },
+          {
+            "id": "d",
+            "text": "105,0 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "124300 / 118400 * 100",
+              "varde": 104.9831
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Ökning i tkr",
+              "uttryck": "124300 - 118400",
+              "varde": 5900
+            },
+            {
+              "text": "Ökning i procent av budget 2025",
+              "uttryck": "5900 / 118400 * 100",
+              "varde": 4.9831
+            }
+          ],
+          "visning": "5,0 %",
+          "precision": 1
+        },
+        "explanation": "Ökning i tkr: 124 300 - 118 400 = 5 900. Ökning i procent av budget 2025: 5 900 / 118 400 · 100 = 4,983. Svaret blir 5,0 %."
+      },
+      {
+        "id": "na-01-q03",
+        "passageId": "na-01-kommunbudget",
+        "questionNumber": 3,
+        "questionText": "Kommunledningens budget för 2026 fördelas jämnt över årets 12 månader. Hur många mkr är det per månad?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "6,0 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "72500 / 1000 / 12",
+              "varde": 6.0417
+            }
+          },
+          {
+            "id": "b",
+            "text": "6,3 mkr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "75,6 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "75600 / 1000",
+              "varde": 75.6
+            }
+          },
+          {
+            "id": "d",
+            "text": "5,8 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "70100 / 1000 / 12",
+              "varde": 5.8417
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Budget 2026 i mkr",
+              "uttryck": "75600 / 1000",
+              "varde": 75.6
+            },
+            {
+              "text": "Per månad",
+              "uttryck": "75.6 / 12",
+              "varde": 6.3
+            }
+          ],
+          "visning": "6,3 mkr",
+          "precision": 1
+        },
+        "explanation": "Budget 2026 i mkr: 75 600 / 1 000 = 75,6. Per månad: 75,6 / 12 = 6,3. Svaret blir 6,3 mkr."
+      },
+      {
+        "id": "na-01-q04",
+        "passageId": "na-01-kommunbudget",
+        "questionNumber": 4,
+        "questionText": "Hur stor andel av den sammanlagda budgeten 2025 för Barn och utbildning och Vård och omsorg gick till Vård och omsorg?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "82,4 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "694200 / 842600 * 100",
+              "varde": 82.3878
+            }
+          },
+          {
+            "id": "b",
+            "text": "54,8 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "842600 / (842600 + 694200) * 100",
+              "varde": 54.8282
+            }
+          },
+          {
+            "id": "c",
+            "text": "7,7 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "118400 / (842600 + 694200) * 100",
+              "varde": 7.7043
+            }
+          },
+          {
+            "id": "d",
+            "text": "45,2 %",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Sammanlagd budget 2025",
+              "uttryck": "842600 + 694200",
+              "varde": 1536800
+            },
+            {
+              "text": "Andel Vård och omsorg",
+              "uttryck": "694200 / 1536800 * 100",
+              "varde": 45.1718
+            }
+          ],
+          "visning": "45,2 %",
+          "precision": 1
+        },
+        "explanation": "Sammanlagd budget 2025: 842 600 + 694 200 = 1 536 800. Andel Vård och omsorg: 694 200 / 1 536 800 · 100 = 45,172. Svaret blir 45,2 %."
+      }
+    ]
+  },
+  {
+    "id": "na-02-lagersvinn",
+    "title": "Lagersaldo och svinn",
+    "type": "table",
+    "topic": "Lager och logistik",
+    "difficulty": 2,
+    "contextText": "Tabellen visar ett grossistlagers rörelser för fem artiklar under ett år. Bokfört saldo är ingående saldo plus inleverans minus utleverans. Svinnet är skillnaden mellan bokfört saldo och det saldo som räknades fram vid inventeringen, mätt i antal.",
+    "dataTable": {
+      "headers": [
+        "Artikel",
+        "Ingående saldo (st)",
+        "Inleverans (st)",
+        "Utleverans (st)",
+        "Inventerat saldo (st)",
+        "Styckpris (kr)"
+      ],
+      "rows": [
+        [
+          "Skruv, låda",
+          "1 240",
+          "3 600",
+          "3 980",
+          "812",
+          "85"
+        ],
+        [
+          "Kabel, rulle",
+          "410",
+          "900",
+          "1 020",
+          "276",
+          "640"
+        ],
+        [
+          "Lampa",
+          "2 150",
+          "4 800",
+          "5 230",
+          "1 662",
+          "120"
+        ],
+        [
+          "Handske, par",
+          "3 600",
+          "7 200",
+          "8 450",
+          "2 268",
+          "45"
+        ],
+        [
+          "Verktygslåda",
+          "95",
+          "140",
+          "150",
+          "81",
+          "1 450"
+        ]
+      ],
+      "caption": "Lagerrörelser och inventering per artikel"
+    },
+    "ovanvant": [
+      "rad Verktygslåda"
+    ],
+    "enhetsbyte": "procent till antal",
+    "p_prior": 0.55,
+    "questions": [
+      {
+        "id": "na-02-q01",
+        "passageId": "na-02-lagersvinn",
+        "questionNumber": 1,
+        "questionText": "Hur stort var svinnet för Lampa i procent av det bokförda saldot?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "2,7 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "(2150 + 4800 - 5230 - 1662) / 2150 * 100",
+              "varde": 2.6977
+            }
+          },
+          {
+            "id": "b",
+            "text": "3,4 %",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "22,7 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "(2150 - 1662) / 2150 * 100",
+              "varde": 22.6977
+            }
+          },
+          {
+            "id": "d",
+            "text": "4,8 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(410 + 900 - 1020 - 276) / (410 + 900 - 1020) * 100",
+              "varde": 4.8276
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Bokfört saldo",
+              "uttryck": "2150 + 4800 - 5230",
+              "varde": 1720
+            },
+            {
+              "text": "Svinn i antal",
+              "uttryck": "1720 - 1662",
+              "varde": 58
+            },
+            {
+              "text": "Svinn i procent av bokfört saldo",
+              "uttryck": "58 / 1720 * 100",
+              "varde": 3.3721
+            }
+          ],
+          "visning": "3,4 %",
+          "precision": 1
+        },
+        "explanation": "Bokfört saldo: 2 150 + 4 800 - 5 230 = 1 720. Svinn i antal: 1 720 - 1 662 = 58. Svinn i procent av bokfört saldo: 58 / 1 720 · 100 = 3,372. Svaret blir 3,4 %."
+      },
+      {
+        "id": "na-02-q02",
+        "passageId": "na-02-lagersvinn",
+        "questionNumber": 2,
+        "questionText": "Hur mycket var svinnet för Handske, par värt i tkr, räknat med styckpriset?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "3,7 tkr",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "36,9 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "(3600 + 7200 - 8450 - 2268) * 45 / 100",
+              "varde": 36.9
+            }
+          },
+          {
+            "id": "c",
+            "text": "4,1 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(1240 + 3600 - 3980 - 812) * 85 / 1000",
+              "varde": 4.08
+            }
+          },
+          {
+            "id": "d",
+            "text": "102,1 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "2268 * 45 / 1000",
+              "varde": 102.06
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Bokfört saldo",
+              "uttryck": "3600 + 7200 - 8450",
+              "varde": 2350
+            },
+            {
+              "text": "Svinn i antal",
+              "uttryck": "2350 - 2268",
+              "varde": 82
+            },
+            {
+              "text": "Svinnets värde i tkr",
+              "uttryck": "82 * 45 / 1000",
+              "varde": 3.69
+            }
+          ],
+          "visning": "3,7 tkr",
+          "precision": 1
+        },
+        "explanation": "Bokfört saldo: 3 600 + 7 200 - 8 450 = 2 350. Svinn i antal: 2 350 - 2 268 = 82. Svinnets värde i tkr: 82 · 45 / 1 000 = 3,69. Svaret blir 3,7 tkr."
+      },
+      {
+        "id": "na-02-q03",
+        "passageId": "na-02-lagersvinn",
+        "questionNumber": 3,
+        "questionText": "Hur många procent av utleveransen av Kabel, rulle motsvarar svinnet?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "4,8 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "(410 + 900 - 1020 - 276) / (410 + 900 - 1020) * 100",
+              "varde": 4.8276
+            }
+          },
+          {
+            "id": "b",
+            "text": "5,1 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "(410 + 900 - 1020 - 276) / 276 * 100",
+              "varde": 5.0725
+            }
+          },
+          {
+            "id": "c",
+            "text": "1,1 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(2150 + 4800 - 5230 - 1662) / 5230 * 100",
+              "varde": 1.109
+            }
+          },
+          {
+            "id": "d",
+            "text": "1,4 %",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Bokfört saldo",
+              "uttryck": "410 + 900 - 1020",
+              "varde": 290
+            },
+            {
+              "text": "Svinn i antal",
+              "uttryck": "290 - 276",
+              "varde": 14
+            },
+            {
+              "text": "Svinn i procent av utleveransen",
+              "uttryck": "14 / 1020 * 100",
+              "varde": 1.3725
+            }
+          ],
+          "visning": "1,4 %",
+          "precision": 1
+        },
+        "explanation": "Bokfört saldo: 410 + 900 - 1 020 = 290. Svinn i antal: 290 - 276 = 14. Svinn i procent av utleveransen: 14 / 1 020 · 100 = 1,373. Svaret blir 1,4 %."
+      },
+      {
+        "id": "na-02-q04",
+        "passageId": "na-02-lagersvinn",
+        "questionNumber": 4,
+        "questionText": "Leverantören räknar med ett normalt svinn för Lampa på 0,5 % av inleveransen. Hur många lampor, i antal, översteg det faktiska svinnet den normala nivån?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "24 st",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "4800 * 0.5 / 100",
+              "varde": 24
+            }
+          },
+          {
+            "id": "b",
+            "text": "32 st",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "(2150 + 4800 - 5230 - 1662) - 5230 * 0.5 / 100",
+              "varde": 31.85
+            }
+          },
+          {
+            "id": "c",
+            "text": "34 st",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "58 st",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "2150 + 4800 - 5230 - 1662",
+              "varde": 58
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Faktiskt svinn",
+              "uttryck": "2150 + 4800 - 5230 - 1662",
+              "varde": 58
+            },
+            {
+              "text": "Normalt svinn",
+              "uttryck": "4800 * 0.5 / 100",
+              "varde": 24
+            },
+            {
+              "text": "Skillnad",
+              "uttryck": "58 - 24",
+              "varde": 34
+            }
+          ],
+          "visning": "34 st",
+          "precision": 0
+        },
+        "explanation": "Faktiskt svinn: 2 150 + 4 800 - 5 230 - 1 662 = 58. Normalt svinn: 4 800 · 0,5 / 100 = 24. Skillnad: 58 - 24 = 34. Svaret blir 34 st."
+      }
+    ]
+  },
+  {
+    "id": "na-03-personalomsattning",
+    "title": "Personalomsättning per avdelning",
+    "type": "graph",
+    "topic": "Personal och arbetsliv",
+    "difficulty": 2,
+    "contextText": "Diagrammet visar personalomsättningen 2025 i procent för fem avdelningar i ett företag, alltså hur stor andel av medelantalet anställda som slutade under året. Medelantalet anställda var 140 på kundtjänst, 85 på lager, 25 på ekonomi och 60 på försäljning. Svaren om personer anges i antal.",
+    "chartData": {
+      "chartType": "bar",
+      "title": "Personalomsättning 2025 per avdelning",
+      "unit": "%",
+      "yAxisLabel": "Personalomsättning (%)",
+      "data": [
+        {
+          "label": "Kundtjänst",
+          "value": 18.5
+        },
+        {
+          "label": "Lager",
+          "value": 12.4
+        },
+        {
+          "label": "Ekonomi",
+          "value": 6.4
+        },
+        {
+          "label": "IT",
+          "value": 9.5
+        },
+        {
+          "label": "Försäljning",
+          "value": 15.2
+        }
+      ]
+    },
+    "ovanvant": [
+      "stapel IT"
+    ],
+    "enhetsbyte": "procent till antal",
+    "p_prior": 0.55,
+    "questions": [
+      {
+        "id": "na-03-q01",
+        "passageId": "na-03-personalomsattning",
+        "questionNumber": 1,
+        "questionText": "Hur många fler personer slutade på kundtjänst än på lager under 2025? Avrunda till heltal.",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "15 personer",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "26 personer",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "140 * 18.5 / 100",
+              "varde": 25.9
+            }
+          },
+          {
+            "id": "c",
+            "text": "24 personer",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "140 * 18.5 / 100 - 25 * 6.4 / 100",
+              "varde": 24.3
+            }
+          },
+          {
+            "id": "d",
+            "text": "9 personer",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "(18.5 - 12.4) * 140 / 100",
+              "varde": 8.54
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Slutade på kundtjänst",
+              "uttryck": "140 * 18.5 / 100",
+              "varde": 25.9
+            },
+            {
+              "text": "Slutade på lager",
+              "uttryck": "85 * 12.4 / 100",
+              "varde": 10.54
+            },
+            {
+              "text": "Skillnad",
+              "uttryck": "25.9 - 10.54",
+              "varde": 15.36
+            }
+          ],
+          "visning": "15 personer",
+          "precision": 0
+        },
+        "explanation": "Slutade på kundtjänst: 140 · 18,5 / 100 = 25,9. Slutade på lager: 85 · 12,4 / 100 = 10,54. Skillnad: 25,9 - 10,54 = 15,36. Svaret blir 15 personer."
+      },
+      {
+        "id": "na-03-q02",
+        "passageId": "na-03-personalomsattning",
+        "questionNumber": 2,
+        "questionText": "Hur många personer slutade sammanlagt på ekonomi och försäljning under 2025? Avrunda till heltal.",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "12 personer",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "25 * 6.4 / 100 + 85 * 12.4 / 100",
+              "varde": 12.14
+            }
+          },
+          {
+            "id": "b",
+            "text": "22 personer",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "6.4 + 15.2",
+              "varde": 21.6
+            }
+          },
+          {
+            "id": "c",
+            "text": "11 personer",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "18 personer",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "(25 + 60) * (6.4 + 15.2) / 100",
+              "varde": 18.36
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Slutade på ekonomi",
+              "uttryck": "25 * 6.4 / 100",
+              "varde": 1.6
+            },
+            {
+              "text": "Slutade på försäljning",
+              "uttryck": "60 * 15.2 / 100",
+              "varde": 9.12
+            },
+            {
+              "text": "Summa",
+              "uttryck": "1.6 + 9.12",
+              "varde": 10.72
+            }
+          ],
+          "visning": "11 personer",
+          "precision": 0
+        },
+        "explanation": "Slutade på ekonomi: 25 · 6,4 / 100 = 1,6. Slutade på försäljning: 60 · 15,2 / 100 = 9,12. Summa: 1,6 + 9,12 = 10,72. Svaret blir 11 personer."
+      },
+      {
+        "id": "na-03-q03",
+        "passageId": "na-03-personalomsattning",
+        "questionNumber": 3,
+        "questionText": "Vad blir den sammanlagda personalomsättningen i procent för kundtjänst och lager tillsammans?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "26,0 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "(140 * 18.5 / 100 + 85 * 12.4 / 100) / 140 * 100",
+              "varde": 26.0286
+            }
+          },
+          {
+            "id": "b",
+            "text": "16,2 %",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "17,5 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(140 * 18.5 / 100 + 60 * 15.2 / 100) / (140 + 60) * 100",
+              "varde": 17.51
+            }
+          },
+          {
+            "id": "d",
+            "text": "30,9 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "18.5 + 12.4",
+              "varde": 30.9
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Slutade på kundtjänst",
+              "uttryck": "140 * 18.5 / 100",
+              "varde": 25.9
+            },
+            {
+              "text": "Slutade på lager",
+              "uttryck": "85 * 12.4 / 100",
+              "varde": 10.54
+            },
+            {
+              "text": "Andel av alla anställda på båda avdelningarna",
+              "uttryck": "(25.9 + 10.54) / (140 + 85) * 100",
+              "varde": 16.1956
+            }
+          ],
+          "visning": "16,2 %",
+          "precision": 1
+        },
+        "explanation": "Slutade på kundtjänst: 140 · 18,5 / 100 = 25,9. Slutade på lager: 85 · 12,4 / 100 = 10,54. Andel av alla anställda på båda avdelningarna: (25,9 + 10,54) / (140 + 85) · 100 = 16,196. Svaret blir 16,2 %."
+      },
+      {
+        "id": "na-03-q04",
+        "passageId": "na-03-personalomsattning",
+        "questionNumber": 4,
+        "questionText": "Hur många procentenheter högre var personalomsättningen på kundtjänst än på ekonomi?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "2,9 procentenheter",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "18.5 / 6.4",
+              "varde": 2.8906
+            }
+          },
+          {
+            "id": "b",
+            "text": "6,1 procentenheter",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "18.5 - 12.4",
+              "varde": 6.1
+            }
+          },
+          {
+            "id": "c",
+            "text": "189,1 procentenheter",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "(18.5 - 6.4) / 6.4 * 100",
+              "varde": 189.0625
+            }
+          },
+          {
+            "id": "d",
+            "text": "12,1 procentenheter",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Skillnad i procentenheter",
+              "uttryck": "18.5 - 6.4",
+              "varde": 12.1
+            }
+          ],
+          "visning": "12,1 procentenheter",
+          "precision": 1
+        },
+        "explanation": "Skillnad i procentenheter: 18,5 - 6,4 = 12,1. Svaret blir 12,1 procentenheter."
+      }
+    ]
+  },
+  {
+    "id": "na-04-elforbrukning",
+    "title": "Elförbrukning per kvartal",
+    "type": "graph",
+    "topic": "Energi och fastigheter",
+    "difficulty": 2,
+    "contextText": "Diagrammet visar elförbrukningen i en kontorsfastighet per kvartal under två år, mätt i MWh. 1 MWh är 1 000 kWh. Elpriset inklusive nätavgift var i genomsnitt 1,45 kr per kWh under 2025.",
+    "chartData": {
+      "chartType": "line",
+      "title": "Elförbrukning per kvartal",
+      "unit": "MWh",
+      "xAxisLabel": "Kvartal",
+      "yAxisLabel": "Förbrukning (MWh)",
+      "data": [
+        {
+          "x": "K1 2024",
+          "y": 412
+        },
+        {
+          "x": "K2 2024",
+          "y": 298
+        },
+        {
+          "x": "K3 2024",
+          "y": 236
+        },
+        {
+          "x": "K4 2024",
+          "y": 384
+        },
+        {
+          "x": "K1 2025",
+          "y": 398
+        },
+        {
+          "x": "K2 2025",
+          "y": 281
+        },
+        {
+          "x": "K3 2025",
+          "y": 224
+        },
+        {
+          "x": "K4 2025",
+          "y": 373
+        }
+      ]
+    },
+    "ovanvant": [
+      "punkt K2 2024"
+    ],
+    "enhetsbyte": "kvartal till år",
+    "p_prior": 0.55,
+    "questions": [
+      {
+        "id": "na-04-q01",
+        "passageId": "na-04-elforbrukning",
+        "questionNumber": 1,
+        "questionText": "Hur stor var den genomsnittliga elförbrukningen per kvartal under år 2025?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "1 276 MWh",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "398 + 281 + 224 + 373",
+              "varde": 1276
+            }
+          },
+          {
+            "id": "b",
+            "text": "319 MWh",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "106 MWh",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "(398 + 281 + 224 + 373) / 12",
+              "varde": 106.3333
+            }
+          },
+          {
+            "id": "d",
+            "text": "301 MWh",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(398 + 281 + 224) / 3",
+              "varde": 301
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Förbrukning hela år 2025",
+              "uttryck": "398 + 281 + 224 + 373",
+              "varde": 1276
+            },
+            {
+              "text": "Genomsnitt per kvartal",
+              "uttryck": "1276 / 4",
+              "varde": 319
+            }
+          ],
+          "visning": "319 MWh",
+          "precision": 0
+        },
+        "explanation": "Förbrukning hela år 2025: 398 + 281 + 224 + 373 = 1 276. Genomsnitt per kvartal: 1 276 / 4 = 319. Svaret blir 319 MWh."
+      },
+      {
+        "id": "na-04-q02",
+        "passageId": "na-04-elforbrukning",
+        "questionNumber": 2,
+        "questionText": "Med hur många procent minskade elförbrukningen från K1 2025 till K3 2025?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "77,7 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "(398 - 224) / 224 * 100",
+              "varde": 77.6786
+            }
+          },
+          {
+            "id": "b",
+            "text": "29,4 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(398 - 281) / 398 * 100",
+              "varde": 29.397
+            }
+          },
+          {
+            "id": "c",
+            "text": "43,7 %",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "56,3 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "224 / 398 * 100",
+              "varde": 56.2814
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Minskning i MWh",
+              "uttryck": "398 - 224",
+              "varde": 174
+            },
+            {
+              "text": "Minskning i procent av K1 2025",
+              "uttryck": "174 / 398 * 100",
+              "varde": 43.7186
+            }
+          ],
+          "visning": "43,7 %",
+          "precision": 1
+        },
+        "explanation": "Minskning i MWh: 398 - 224 = 174. Minskning i procent av K1 2025: 174 / 398 · 100 = 43,719. Svaret blir 43,7 %."
+      },
+      {
+        "id": "na-04-q03",
+        "passageId": "na-04-elforbrukning",
+        "questionNumber": 3,
+        "questionText": "Vad kostade elen för K4 2025, i mkr, räknat med genomsnittspriset per kWh?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "5,41 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "373 * 1.45 / 100",
+              "varde": 5.4085
+            }
+          },
+          {
+            "id": "b",
+            "text": "0,56 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "384 * 1000 * 1.45 / 1000 / 1000",
+              "varde": 0.5568
+            }
+          },
+          {
+            "id": "c",
+            "text": "0,26 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "373 * 1000 / 1.45 / 1000 / 1000",
+              "varde": 0.2572
+            }
+          },
+          {
+            "id": "d",
+            "text": "0,54 mkr",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Förbrukning i kWh",
+              "uttryck": "373 * 1000",
+              "varde": 373000
+            },
+            {
+              "text": "Kostnad i mkr",
+              "uttryck": "373000 * 1.45 / 1000 / 1000",
+              "varde": 0.5409
+            }
+          ],
+          "visning": "0,54 mkr",
+          "precision": 2
+        },
+        "explanation": "Förbrukning i kWh: 373 · 1 000 = 373 000. Kostnad i mkr: 373 000 · 1,45 / 1 000 / 1 000 = 0,5409. Svaret blir 0,54 mkr."
+      },
+      {
+        "id": "na-04-q04",
+        "passageId": "na-04-elforbrukning",
+        "questionNumber": 4,
+        "questionText": "Fastighetsägaren vill att förbrukningen för hela år 2026 ska bli 6 % lägre än för år 2025. Hur stor får förbrukningen då vara i genomsnitt per kvartal? Avrunda till hela MWh.",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "300 MWh",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "1 199 MWh",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "(398 + 281 + 224 + 373) * (100 - 6) / 100",
+              "varde": 1199.44
+            }
+          },
+          {
+            "id": "c",
+            "text": "313 MWh",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "(398 + 281 + 224 + 373) / 4 - 6",
+              "varde": 313
+            }
+          },
+          {
+            "id": "d",
+            "text": "338 MWh",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "(398 + 281 + 224 + 373) * (100 + 6) / 100 / 4",
+              "varde": 338.14
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Förbrukning år 2025",
+              "uttryck": "398 + 281 + 224 + 373",
+              "varde": 1276
+            },
+            {
+              "text": "Mål för år 2026",
+              "uttryck": "1276 * (100 - 6) / 100",
+              "varde": 1199.44
+            },
+            {
+              "text": "Per kvartal",
+              "uttryck": "1199.44 / 4",
+              "varde": 299.86
+            }
+          ],
+          "visning": "300 MWh",
+          "precision": 0
+        },
+        "explanation": "Förbrukning år 2025: 398 + 281 + 224 + 373 = 1 276. Mål för år 2026: 1 276 · (100 - 6) / 100 = 1 199,44. Per kvartal: 1 199,44 / 4 = 299,86. Svaret blir 300 MWh."
+      }
+    ]
+  },
+  {
+    "id": "na-05-biljettintakter",
+    "title": "Biljettintäkter per linje",
+    "type": "table",
+    "topic": "Kollektivtrafik",
+    "difficulty": 2,
+    "contextText": "Tabellen visar resor och biljettintäkter för fem busslinjer i en region. Resorna anges i tusental och intäkterna i tkr (tusen kronor).",
+    "dataTable": {
+      "headers": [
+        "Linje",
+        "Resor 2025 (tusental)",
+        "Intäkt 2025 (tkr)",
+        "Intäkt 2024 (tkr)",
+        "Turer per vardag"
+      ],
+      "rows": [
+        [
+          "Linje 1",
+          "2 840",
+          "31 240",
+          "29 860",
+          "96"
+        ],
+        [
+          "Linje 4",
+          "1 620",
+          "18 470",
+          "18 910",
+          "64"
+        ],
+        [
+          "Linje 7",
+          "960",
+          "10 080",
+          "9 420",
+          "40"
+        ],
+        [
+          "Linje 12",
+          "410",
+          "4 510",
+          "4 130",
+          "22"
+        ],
+        [
+          "Linje 15",
+          "1 150",
+          "12 880",
+          "12 200",
+          "48"
+        ]
+      ],
+      "caption": "Resor och biljettintäkter per linje"
+    },
+    "ovanvant": [
+      "kolumn Turer per vardag"
+    ],
+    "enhetsbyte": "tkr till mkr",
+    "p_prior": 0.55,
+    "questions": [
+      {
+        "id": "na-05-q01",
+        "passageId": "na-05-biljettintakter",
+        "questionNumber": 1,
+        "questionText": "Hur stor var den genomsnittliga biljettintäkten per resa på linje 7 under 2025, i kr?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "10,50 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "11,00 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "4510 / 410",
+              "varde": 11
+            }
+          },
+          {
+            "id": "c",
+            "text": "9,81 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "9420 / 960",
+              "varde": 9.8125
+            }
+          },
+          {
+            "id": "d",
+            "text": "11,40 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "18470 / 1620",
+              "varde": 11.4012
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Intäkt per resa (tkr delat med tusental resor ger kr)",
+              "uttryck": "10080 / 960",
+              "varde": 10.5
+            }
+          ],
+          "visning": "10,50 kr",
+          "precision": 2
+        },
+        "explanation": "Intäkt per resa (tkr delat med tusental resor ger kr): 10 080 / 960 = 10,5. Svaret blir 10,50 kr."
+      },
+      {
+        "id": "na-05-q02",
+        "passageId": "na-05-biljettintakter",
+        "questionNumber": 2,
+        "questionText": "Hur många mkr ökade de sammanlagda biljettintäkterna för linje 7 och linje 12 från 2024 till 2025?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "10,40 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "((10080 + 4510) - (9420 + 4130)) / 100",
+              "varde": 10.4
+            }
+          },
+          {
+            "id": "b",
+            "text": "1,04 mkr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "1,34 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "((10080 + 12880) - (9420 + 12200)) / 1000",
+              "varde": 1.34
+            }
+          },
+          {
+            "id": "d",
+            "text": "0,66 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "(10080 - 9420) / 1000",
+              "varde": 0.66
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Ökning i tkr",
+              "uttryck": "(10080 + 4510) - (9420 + 4130)",
+              "varde": 1040
+            },
+            {
+              "text": "Ökning i mkr",
+              "uttryck": "1040 / 1000",
+              "varde": 1.04
+            }
+          ],
+          "visning": "1,04 mkr",
+          "precision": 2
+        },
+        "explanation": "Ökning i tkr: (10 080 + 4 510) - (9 420 + 4 130) = 1 040. Ökning i mkr: 1 040 / 1 000 = 1,04. Svaret blir 1,04 mkr."
+      },
+      {
+        "id": "na-05-q03",
+        "passageId": "na-05-biljettintakter",
+        "questionNumber": 3,
+        "questionText": "Med hur många procent minskade biljettintäkten för linje 4 från 2024 till 2025?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "2,4 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "(18910 - 18470) / 18470 * 100",
+              "varde": 2.3822
+            }
+          },
+          {
+            "id": "b",
+            "text": "4,6 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(31240 - 29860) / 29860 * 100",
+              "varde": 4.6216
+            }
+          },
+          {
+            "id": "c",
+            "text": "2,3 %",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "97,7 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "18470 / 18910 * 100",
+              "varde": 97.6732
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Minskning i tkr",
+              "uttryck": "18910 - 18470",
+              "varde": 440
+            },
+            {
+              "text": "Minskning i procent av 2024",
+              "uttryck": "440 / 18910 * 100",
+              "varde": 2.3268
+            }
+          ],
+          "visning": "2,3 %",
+          "precision": 1
+        },
+        "explanation": "Minskning i tkr: 18 910 - 18 470 = 440. Minskning i procent av 2024: 440 / 18 910 · 100 = 2,327. Svaret blir 2,3 %."
+      },
+      {
+        "id": "na-05-q04",
+        "passageId": "na-05-biljettintakter",
+        "questionNumber": 4,
+        "questionText": "Hur stor andel av de fem linjernas sammanlagda biljettintäkter 2025 kom från linje 1?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "23,9 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "18470 / (31240 + 18470 + 10080 + 4510 + 12880) * 100",
+              "varde": 23.9311
+            }
+          },
+          {
+            "id": "b",
+            "text": "68,0 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "31240 / (18470 + 10080 + 4510 + 12880) * 100",
+              "varde": 68.0017
+            }
+          },
+          {
+            "id": "c",
+            "text": "48,6 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "31240 / (31240 + 18470 + 10080 + 4510) * 100",
+              "varde": 48.5848
+            }
+          },
+          {
+            "id": "d",
+            "text": "40,5 %",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Sammanlagd intäkt 2025",
+              "uttryck": "31240 + 18470 + 10080 + 4510 + 12880",
+              "varde": 77180
+            },
+            {
+              "text": "Andel linje 1",
+              "uttryck": "31240 / 77180 * 100",
+              "varde": 40.4768
+            }
+          ],
+          "visning": "40,5 %",
+          "precision": 1
+        },
+        "explanation": "Sammanlagd intäkt 2025: 31 240 + 18 470 + 10 080 + 4 510 + 12 880 = 77 180. Andel linje 1: 31 240 / 77 180 · 100 = 40,477. Svaret blir 40,5 %."
+      }
+    ]
+  },
+  {
+    "id": "na-06-byggkostnader",
+    "title": "Byggprojektets kostnader mot plan",
+    "type": "table",
+    "topic": "Bygg och projektstyrning",
+    "difficulty": 2,
+    "contextText": "Tabellen visar budget, utfall hittills och prognos för slutkostnaden i ett skolbygge, fördelat på fyra entreprenader och projektledning. Beloppen anges i tkr. Kolumnen Färdigställt visar hur stor del av arbetet som är utfört.",
+    "dataTable": {
+      "headers": [
+        "Post",
+        "Budget (tkr)",
+        "Utfall hittills (tkr)",
+        "Prognos slutkostnad (tkr)",
+        "Färdigställt (%)"
+      ],
+      "rows": [
+        [
+          "Mark och grund",
+          "4 850",
+          "5 120",
+          "5 120",
+          "100"
+        ],
+        [
+          "Stomme",
+          "12 600",
+          "9 380",
+          "13 240",
+          "70"
+        ],
+        [
+          "Installationer",
+          "8 400",
+          "3 150",
+          "8 820",
+          "35"
+        ],
+        [
+          "Ytskikt",
+          "5 200",
+          "860",
+          "5 050",
+          "15"
+        ],
+        [
+          "Projektledning",
+          "2 950",
+          "1 840",
+          "3 260",
+          "55"
+        ]
+      ],
+      "caption": "Kostnader mot plan per post, tkr"
+    },
+    "ovanvant": [
+      "rad Projektledning"
+    ],
+    "enhetsbyte": "tkr till mkr",
+    "p_prior": 0.55,
+    "questions": [
+      {
+        "id": "na-06-q01",
+        "passageId": "na-06-byggkostnader",
+        "questionNumber": 1,
+        "questionText": "Med hur många mkr beräknas de fyra entreprenaderna (mark och grund, stomme, installationer, ytskikt) sammanlagt överskrida budgeten enligt prognosen?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "11,80 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "((5120 + 13240 + 8820 + 5050) - (4850 + 12600 + 8400 + 5200)) / 100",
+              "varde": 11.8
+            }
+          },
+          {
+            "id": "b",
+            "text": "1,18 mkr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "12,54 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "((4850 + 12600 + 8400 + 5200) - (5120 + 9380 + 3150 + 860)) / 1000",
+              "varde": 12.54
+            }
+          },
+          {
+            "id": "d",
+            "text": "1,49 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "((5120 + 13240 + 8820 + 5050 + 3260) - (4850 + 12600 + 8400 + 5200 + 2950)) / 1000",
+              "varde": 1.49
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Budget för de fyra entreprenaderna",
+              "uttryck": "4850 + 12600 + 8400 + 5200",
+              "varde": 31050
+            },
+            {
+              "text": "Prognos för de fyra entreprenaderna",
+              "uttryck": "5120 + 13240 + 8820 + 5050",
+              "varde": 32230
+            },
+            {
+              "text": "Överskridande i mkr",
+              "uttryck": "(32230 - 31050) / 1000",
+              "varde": 1.18
+            }
+          ],
+          "visning": "1,18 mkr",
+          "precision": 2
+        },
+        "explanation": "Budget för de fyra entreprenaderna: 4 850 + 12 600 + 8 400 + 5 200 = 31 050. Prognos för de fyra entreprenaderna: 5 120 + 13 240 + 8 820 + 5 050 = 32 230. Överskridande i mkr: (32 230 - 31 050) / 1 000 = 1,18. Svaret blir 1,18 mkr."
+      },
+      {
+        "id": "na-06-q02",
+        "passageId": "na-06-byggkostnader",
+        "questionNumber": 2,
+        "questionText": "Hur många procent över budget ligger prognosen för Stomme?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "5,1 %",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "4,8 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "(13240 - 12600) / 13240 * 100",
+              "varde": 4.8338
+            }
+          },
+          {
+            "id": "c",
+            "text": "25,6 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "(12600 - 9380) / 12600 * 100",
+              "varde": 25.5556
+            }
+          },
+          {
+            "id": "d",
+            "text": "105,1 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "13240 / 12600 * 100",
+              "varde": 105.0794
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Överskridande i tkr",
+              "uttryck": "13240 - 12600",
+              "varde": 640
+            },
+            {
+              "text": "I procent av budget",
+              "uttryck": "640 / 12600 * 100",
+              "varde": 5.0794
+            }
+          ],
+          "visning": "5,1 %",
+          "precision": 1
+        },
+        "explanation": "Överskridande i tkr: 13 240 - 12 600 = 640. I procent av budget: 640 / 12 600 · 100 = 5,079. Svaret blir 5,1 %."
+      },
+      {
+        "id": "na-06-q03",
+        "passageId": "na-06-byggkostnader",
+        "questionNumber": 3,
+        "questionText": "Utfallet hittills för Stomme motsvarar den andel av arbetet som är färdigställd. Vad blir slutkostnaden för Stomme i mkr om kostnaden fortsätter i samma takt?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "6,6 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "9380 * 70 / 100 / 1000",
+              "varde": 6.566
+            }
+          },
+          {
+            "id": "b",
+            "text": "134,0 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "9380 / 70 * 100 / 100",
+              "varde": 134
+            }
+          },
+          {
+            "id": "c",
+            "text": "13,4 mkr",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "9,4 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "9380 / 1000",
+              "varde": 9.38
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Slutkostnad i tkr",
+              "uttryck": "9380 / 70 * 100",
+              "varde": 13400
+            },
+            {
+              "text": "Slutkostnad i mkr",
+              "uttryck": "13400 / 1000",
+              "varde": 13.4
+            }
+          ],
+          "visning": "13,4 mkr",
+          "precision": 1
+        },
+        "explanation": "Slutkostnad i tkr: 9 380 / 70 · 100 = 13 400. Slutkostnad i mkr: 13 400 / 1 000 = 13,4. Svaret blir 13,4 mkr."
+      },
+      {
+        "id": "na-06-q04",
+        "passageId": "na-06-byggkostnader",
+        "questionNumber": 4,
+        "questionText": "Hur stor del av den sammanlagda budgeten för de fyra entreprenaderna har förbrukats hittills, i procent?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "57,4 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "(5120 + 9380 + 3150 + 860) / (5120 + 13240 + 8820 + 5050) * 100",
+              "varde": 57.431
+            }
+          },
+          {
+            "id": "b",
+            "text": "40,4 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "100 - (5120 + 9380 + 3150 + 860) / (4850 + 12600 + 8400 + 5200) * 100",
+              "varde": 40.3865
+            }
+          },
+          {
+            "id": "c",
+            "text": "83,1 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(5120 + 9380) / (4850 + 12600) * 100",
+              "varde": 83.0946
+            }
+          },
+          {
+            "id": "d",
+            "text": "59,6 %",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Utfall hittills för de fyra",
+              "uttryck": "5120 + 9380 + 3150 + 860",
+              "varde": 18510
+            },
+            {
+              "text": "Budget för de fyra",
+              "uttryck": "4850 + 12600 + 8400 + 5200",
+              "varde": 31050
+            },
+            {
+              "text": "Förbrukad andel",
+              "uttryck": "18510 / 31050 * 100",
+              "varde": 59.6135
+            }
+          ],
+          "visning": "59,6 %",
+          "precision": 1
+        },
+        "explanation": "Utfall hittills för de fyra: 5 120 + 9 380 + 3 150 + 860 = 18 510. Budget för de fyra: 4 850 + 12 600 + 8 400 + 5 200 = 31 050. Förbrukad andel: 18 510 / 31 050 · 100 = 59,614. Svaret blir 59,6 %."
+      }
+    ]
+  },
+  {
+    "id": "na-07-atervinning",
+    "title": "Återvinningsgrad per fraktion",
+    "type": "graph",
+    "topic": "Miljö och avfall",
+    "difficulty": 2,
+    "contextText": "Diagrammet visar hur stor andel av det insamlade avfallet i en kommun som gick till materialåtervinning 2025, per fraktion. Den insamlade mängden var 1 240 ton papper, 860 ton glas, 310 ton metall, 720 ton plast och 2 150 ton matavfall. Kommunen har 48 000 invånare. 1 ton är 1 000 kg.",
+    "chartData": {
+      "chartType": "bar",
+      "title": "Återvinningsgrad 2025 per fraktion",
+      "unit": "%",
+      "yAxisLabel": "Andel materialåtervunnen (%)",
+      "data": [
+        {
+          "label": "Papper",
+          "value": 86
+        },
+        {
+          "label": "Glas",
+          "value": 92
+        },
+        {
+          "label": "Metall",
+          "value": 78
+        },
+        {
+          "label": "Plast",
+          "value": 41
+        },
+        {
+          "label": "Matavfall",
+          "value": 63
+        },
+        {
+          "label": "Trä",
+          "value": 70
+        }
+      ]
+    },
+    "ovanvant": [
+      "stapel Trä"
+    ],
+    "enhetsbyte": "ton till kg",
+    "p_prior": 0.55,
+    "questions": [
+      {
+        "id": "na-07-q01",
+        "passageId": "na-07-atervinning",
+        "questionNumber": 1,
+        "questionText": "Hur många ton av den insamlade plasten gick inte till materialåtervinning? Avrunda till hela ton.",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "425 ton",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "295 ton",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "720 * 41 / 100",
+              "varde": 295.2
+            }
+          },
+          {
+            "id": "c",
+            "text": "68 ton",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "310 * (100 - 78) / 100",
+              "varde": 68.2
+            }
+          },
+          {
+            "id": "d",
+            "text": "679 ton",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "720 - 41",
+              "varde": 679
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Materialåtervunnen plast",
+              "uttryck": "720 * 41 / 100",
+              "varde": 295.2
+            },
+            {
+              "text": "Plast som inte återvanns",
+              "uttryck": "720 - 295.2",
+              "varde": 424.8
+            }
+          ],
+          "visning": "425 ton",
+          "precision": 0
+        },
+        "explanation": "Materialåtervunnen plast: 720 · 41 / 100 = 295,2. Plast som inte återvanns: 720 - 295,2 = 424,8. Svaret blir 425 ton."
+      },
+      {
+        "id": "na-07-q02",
+        "passageId": "na-07-atervinning",
+        "questionNumber": 2,
+        "questionText": "Hur många kg glas materialåtervanns per invånare under 2025?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "1,6 kg",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "860 * 92 / 100 * 100 / 48000",
+              "varde": 1.6483
+            }
+          },
+          {
+            "id": "b",
+            "text": "17,9 kg",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "860 * 1000 / 48000",
+              "varde": 17.9167
+            }
+          },
+          {
+            "id": "c",
+            "text": "16,5 kg",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "22,2 kg",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "1240 * 86 / 100 * 1000 / 48000",
+              "varde": 22.2167
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Återvunnet glas i ton",
+              "uttryck": "860 * 92 / 100",
+              "varde": 791.2
+            },
+            {
+              "text": "Återvunnet glas i kg",
+              "uttryck": "791.2 * 1000",
+              "varde": 791200
+            },
+            {
+              "text": "Per invånare",
+              "uttryck": "791200 / 48000",
+              "varde": 16.4833
+            }
+          ],
+          "visning": "16,5 kg",
+          "precision": 1
+        },
+        "explanation": "Återvunnet glas i ton: 860 · 92 / 100 = 791,2. Återvunnet glas i kg: 791,2 · 1 000 = 791 200. Per invånare: 791 200 / 48 000 = 16,483. Svaret blir 16,5 kg."
+      },
+      {
+        "id": "na-07-q03",
+        "passageId": "na-07-atervinning",
+        "questionNumber": 3,
+        "questionText": "Vad blir den sammanlagda återvinningsgraden för papper och matavfall tillsammans, viktad efter insamlad mängd?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "74,5 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "(86 + 63) / 2",
+              "varde": 74.5
+            }
+          },
+          {
+            "id": "b",
+            "text": "71,4 %",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "88,5 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(1240 * 86 / 100 + 860 * 92 / 100) / (1240 + 860) * 100",
+              "varde": 88.4571
+            }
+          },
+          {
+            "id": "d",
+            "text": "45,9 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "(1240 * 86 / 100 + 2150 * 63 / 100) / (1240 + 860 + 310 + 720 + 2150) * 100",
+              "varde": 45.8504
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Återvunnet papper i ton",
+              "uttryck": "1240 * 86 / 100",
+              "varde": 1066.4
+            },
+            {
+              "text": "Återvunnet matavfall i ton",
+              "uttryck": "2150 * 63 / 100",
+              "varde": 1354.5
+            },
+            {
+              "text": "Andel av den insamlade mängden",
+              "uttryck": "(1066.4 + 1354.5) / (1240 + 2150) * 100",
+              "varde": 71.413
+            }
+          ],
+          "visning": "71,4 %",
+          "precision": 1
+        },
+        "explanation": "Återvunnet papper i ton: 1 240 · 86 / 100 = 1 066,4. Återvunnet matavfall i ton: 2 150 · 63 / 100 = 1 354,5. Andel av den insamlade mängden: (1 066,4 + 1 354,5) / (1 240 + 2 150) · 100 = 71,413. Svaret blir 71,4 %."
+      },
+      {
+        "id": "na-07-q04",
+        "passageId": "na-07-atervinning",
+        "questionNumber": 4,
+        "questionText": "Hur många procentenheter högre var återvinningsgraden för metall än för plast?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "90 procentenheter",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "(78 - 41) / 41 * 100",
+              "varde": 90.2439
+            }
+          },
+          {
+            "id": "b",
+            "text": "22 procentenheter",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "63 - 41",
+              "varde": 22
+            }
+          },
+          {
+            "id": "c",
+            "text": "2 procentenheter",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "78 / 41",
+              "varde": 1.9024
+            }
+          },
+          {
+            "id": "d",
+            "text": "37 procentenheter",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Skillnad i procentenheter",
+              "uttryck": "78 - 41",
+              "varde": 37
+            }
+          ],
+          "visning": "37 procentenheter",
+          "precision": 0
+        },
+        "explanation": "Skillnad i procentenheter: 78 - 41 = 37. Svaret blir 37 procentenheter."
+      }
+    ]
+  },
+  {
+    "id": "na-08-sjukfranvaro",
+    "title": "Sjukfrånvaro per månad",
+    "type": "table",
+    "topic": "Personal och arbetsliv",
+    "difficulty": 2,
+    "contextText": "Tabellen visar sjukfrånvaron i ett företag under första halvåret. Sjukfrånvaron anges i procent av den planerade arbetstiden, och korttidsfrånvaro är den del som gäller sjukfall kortare än 15 dagar. Räkna med 21 arbetsdagar per anställd och månad.",
+    "dataTable": {
+      "headers": [
+        "Månad",
+        "Anställda",
+        "Sjukfrånvaro (%)",
+        "Varav korttid (%)",
+        "Sjuklönekostnad (tkr)"
+      ],
+      "rows": [
+        [
+          "Januari",
+          "240",
+          "6,2",
+          "3,8",
+          "412"
+        ],
+        [
+          "Februari",
+          "238",
+          "7,4",
+          "4,6",
+          "486"
+        ],
+        [
+          "Mars",
+          "242",
+          "5,8",
+          "3,1",
+          "391"
+        ],
+        [
+          "April",
+          "245",
+          "4,9",
+          "2,4",
+          "335"
+        ],
+        [
+          "Maj",
+          "250",
+          "4,1",
+          "1,9",
+          "288"
+        ],
+        [
+          "Juni",
+          "256",
+          "3,6",
+          "1,5",
+          "247"
+        ]
+      ],
+      "caption": "Sjukfrånvaro per månad, januari till juni"
+    },
+    "ovanvant": [
+      "kolumn Sjuklönekostnad (tkr)"
+    ],
+    "enhetsbyte": "procent till dagar",
+    "p_prior": 0.55,
+    "questions": [
+      {
+        "id": "na-08-q01",
+        "passageId": "na-08-sjukfranvaro",
+        "questionNumber": 1,
+        "questionText": "Hur många arbetsdagar gick förlorade på grund av sjukfrånvaro i februari? Avrunda till hela dagar.",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "230 dagar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "238 * 21 * 4.6 / 100",
+              "varde": 229.908
+            }
+          },
+          {
+            "id": "b",
+            "text": "312 dagar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "240 * 21 * 6.2 / 100",
+              "varde": 312.48
+            }
+          },
+          {
+            "id": "c",
+            "text": "370 dagar",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "18 dagar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "238 * 7.4 / 100",
+              "varde": 17.612
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Planerade arbetsdagar",
+              "uttryck": "238 * 21",
+              "varde": 4998
+            },
+            {
+              "text": "Förlorade dagar",
+              "uttryck": "4998 * 7.4 / 100",
+              "varde": 369.852
+            }
+          ],
+          "visning": "370 dagar",
+          "precision": 0
+        },
+        "explanation": "Planerade arbetsdagar: 238 · 21 = 4 998. Förlorade dagar: 4 998 · 7,4 / 100 = 369,85. Svaret blir 370 dagar."
+      },
+      {
+        "id": "na-08-q02",
+        "passageId": "na-08-sjukfranvaro",
+        "questionNumber": 2,
+        "questionText": "Hur stor andel av sjukfrånvaron i april var annan frånvaro än korttidsfrånvaro?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "51,0 %",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "49,0 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "2.4 / 4.9 * 100",
+              "varde": 48.9796
+            }
+          },
+          {
+            "id": "c",
+            "text": "104,2 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "(4.9 - 2.4) / 2.4 * 100",
+              "varde": 104.1667
+            }
+          },
+          {
+            "id": "d",
+            "text": "2,5 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "4.9 - 2.4",
+              "varde": 2.5
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Övrig frånvaro i procentenheter",
+              "uttryck": "4.9 - 2.4",
+              "varde": 2.5
+            },
+            {
+              "text": "Andel av all sjukfrånvaro",
+              "uttryck": "2.5 / 4.9 * 100",
+              "varde": 51.0204
+            }
+          ],
+          "visning": "51,0 %",
+          "precision": 1
+        },
+        "explanation": "Övrig frånvaro i procentenheter: 4,9 - 2,4 = 2,5. Andel av all sjukfrånvaro: 2,5 / 4,9 · 100 = 51,02. Svaret blir 51,0 %."
+      },
+      {
+        "id": "na-08-q03",
+        "passageId": "na-08-sjukfranvaro",
+        "questionNumber": 3,
+        "questionText": "Med hur många procent minskade antalet förlorade arbetsdagar från januari till juni?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "2,6 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "6.2 - 3.6",
+              "varde": 2.6
+            }
+          },
+          {
+            "id": "b",
+            "text": "41,9 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "(6.2 - 3.6) / 6.2 * 100",
+              "varde": 41.9355
+            }
+          },
+          {
+            "id": "c",
+            "text": "61,5 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "(240 * 21 * 6.2 / 100 - 256 * 21 * 3.6 / 100) / (256 * 21 * 3.6 / 100) * 100",
+              "varde": 61.4583
+            }
+          },
+          {
+            "id": "d",
+            "text": "38,1 %",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Förlorade dagar i januari",
+              "uttryck": "240 * 21 * 6.2 / 100",
+              "varde": 312.48
+            },
+            {
+              "text": "Förlorade dagar i juni",
+              "uttryck": "256 * 21 * 3.6 / 100",
+              "varde": 193.536
+            },
+            {
+              "text": "Minskning i procent av januari",
+              "uttryck": "(312.48 - 193.536) / 312.48 * 100",
+              "varde": 38.0645
+            }
+          ],
+          "visning": "38,1 %",
+          "precision": 1
+        },
+        "explanation": "Förlorade dagar i januari: 240 · 21 · 6,2 / 100 = 312,48. Förlorade dagar i juni: 256 · 21 · 3,6 / 100 = 193,536. Minskning i procent av januari: (312,48 - 193,536) / 312,48 · 100 = 38,065. Svaret blir 38,1 %."
+      },
+      {
+        "id": "na-08-q04",
+        "passageId": "na-08-sjukfranvaro",
+        "questionNumber": 4,
+        "questionText": "Hur många fler anställda var i genomsnitt korttidsfrånvarande en arbetsdag i februari än i maj?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "7,4 personer",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "238 * 7.4 / 100 - 250 * 4.1 / 100",
+              "varde": 7.362
+            }
+          },
+          {
+            "id": "b",
+            "text": "6,2 personer",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "2,7 personer",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "4.6 - 1.9",
+              "varde": 2.7
+            }
+          },
+          {
+            "id": "d",
+            "text": "4,4 personer",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "240 * 3.8 / 100 - 250 * 1.9 / 100",
+              "varde": 4.37
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Korttidsfrånvarande i februari",
+              "uttryck": "238 * 4.6 / 100",
+              "varde": 10.948
+            },
+            {
+              "text": "Korttidsfrånvarande i maj",
+              "uttryck": "250 * 1.9 / 100",
+              "varde": 4.75
+            },
+            {
+              "text": "Skillnad",
+              "uttryck": "10.948 - 4.75",
+              "varde": 6.198
+            }
+          ],
+          "visning": "6,2 personer",
+          "precision": 1
+        },
+        "explanation": "Korttidsfrånvarande i februari: 238 · 4,6 / 100 = 10,948. Korttidsfrånvarande i maj: 250 · 1,9 / 100 = 4,75. Skillnad: 10,948 - 4,75 = 6,198. Svaret blir 6,2 personer."
+      }
+    ]
+  }
+]

@@ -13,6 +13,8 @@ export interface ProvSessionSnapshot {
    * för de prov vars session-API inte skickar frågor.
    */
   fragor: unknown[];
+  /** Sessionens meta, för underlagsversionen (src/lib/tester/underlagVersion.ts). */
+  meta: unknown;
 }
 
 export async function fetchProvSession(
@@ -30,6 +32,7 @@ export async function fetchProvSession(
       started_at: session.started_at ?? null,
       answers: Array.isArray(session.answers) ? session.answers : [],
       fragor: Array.isArray(data?.fragor) ? data.fragor : [],
+      meta: session.meta ?? null,
     };
   } catch {
     return null;
