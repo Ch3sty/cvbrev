@@ -15,6 +15,7 @@ import { permutationForSession, tillVisat, mulberry32, hashString } from '@/lib/
 import { chansRatt, matningsNiva, PASS_TAK } from '../niva'
 import { validerPlan } from '../testplan'
 import { questionsForToken } from '@/lib/tests/anon-session'
+import { BANK_VERSION } from '@/lib/logicTestV7/selectQuestions.v7'
 import type { Dag } from '../datum'
 import { byggHemvy } from '../hemvy'
 
@@ -333,12 +334,13 @@ describe.skipIf(!PGlite)('testmotorn mot PGlite', () => {
 
   it('14.5: smakprovets fem svar räknas in i den första mätningen', async () => {
     const token = '66666666-0000-4000-8000-000000000001'
-    const fragor = questionsForToken(token)
+    // Smakprovet drar ur den aktuella bankversionen, som hämtningen läser ur meta.bank_version.
+    const fragor = questionsForToken(token, BANK_VERSION)
     // Fem svar som originalindex: tre rätt, två fel.
     const answers = fragor.map((q, i) => (i < 3 ? q.correctAnswer : (q.correctAnswer + 1) % q.options.length))
     await db.query(
-      `insert into public.anon_test_sessions(token, answers, score, claimed_by, created_at, meta) values ($1, $2::jsonb, 3, $3, $4::timestamptz, '{"alternativ_blandade": true}'::jsonb)`,
-      [token, JSON.stringify(answers), S1, '2026-10-04T10:00:00Z']
+      `insert into public.anon_test_sessions(token, answers, score, claimed_by, created_at, meta) values ($1, $2::jsonb, 3, $3, $4::timestamptz, $5::jsonb)`,
+      [token, JSON.stringify(answers), S1, '2026-10-04T10:00:00Z', JSON.stringify({ alternativ_blandade: true, bank_version: BANK_VERSION })]
     )
     // Ett äldre oblandat smakprov ignoreras (bara det blandade räknas).
     await db.query(

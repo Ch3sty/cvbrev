@@ -6,6 +6,7 @@ import { unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import { rattaMatrisSvar } from '@/lib/logicTestV7/fragor.server';
 import { PROV_TOTAL_QUESTIONS } from '@/lib/logicTestV7/selectProv.v7';
 import { markeraTestBricka } from '@/lib/onboarding/komigang-server';
+import { skickaKlassiskStatistik } from '@/lib/tests/klassiskStatistik';
 
 export async function POST(request: Request) {
   try {
@@ -72,6 +73,9 @@ export async function POST(request: Request) {
       console.error('Error completing prov session:', updateError);
       return NextResponse.json({ error: 'Failed to complete session' }, { status: 500 });
     }
+
+    // Frågestatistiken (kontrakt-kalibrering), bara blandade sessioner.
+    skickaKlassiskStatistik({ userId: user.id, meta: session.meta, answers, testKind: 'matris', etikett: 'Matrisprov' });
 
     return NextResponse.json({
       success: true,

@@ -5,6 +5,7 @@ import { testSkrivKlient } from '@/lib/tests/skrivKlient';
 import { unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import { rattaMatrisSvar } from '@/lib/logicTestV7/fragor.server';
 import { markeraTestBricka } from '@/lib/onboarding/komigang-server';
+import { skickaKlassiskStatistik } from '@/lib/tests/klassiskStatistik';
 
 export async function POST(request: Request) {
   try {
@@ -93,6 +94,9 @@ export async function POST(request: Request) {
         { status: 500 }
       );
     }
+
+    // Frågestatistiken (kontrakt-kalibrering), bara blandade sessioner.
+    skickaKlassiskStatistik({ userId: user.id, meta: session.meta, answers, testKind: 'matris', etikett: 'Matristest' });
 
     // Calculate breakdown by difficulty
     const breakdown = {
