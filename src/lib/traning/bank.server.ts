@@ -16,7 +16,7 @@ import {
   ALLA_AVANCERAD,
   ALLA_EXPERT,
   ALLA_GRUND,
-  BANK_VERSION,
+  TRANINGSVERSION,
   valbarI,
   type Versionsfalt,
 } from '@/lib/logicTestV7/selectQuestions.v7';
@@ -50,12 +50,12 @@ const HELA_BANKEN: readonly TraningsFraga[] = [
 
 /**
  * Alla matrisfrågor motorn får välja bland: de som är valbara i den
- * bankversion nya sessioner får (BANK_VERSION, plan-facit-genvag A2). I
+ * träningsversionen (TRANINGSVERSION, bank 3.1; klassiska test står på BANK_VERSION). I
  * version 3 är de 157 frågorna med pensionerad_fran: 3 borta och V3-filerna
  * och plus-bandet med. Passen sparar sitt urval i meta, så ett pågående pass
  * med en pensionerad fråga fortsätter som vanligt. V5 ingår inte.
  */
-export const TRANINGSBANK: readonly TraningsFraga[] = HELA_BANKEN.filter((q) => valbarI(q, BANK_VERSION));
+export const TRANINGSBANK: readonly TraningsFraga[] = HELA_BANKEN.filter((q) => valbarI(q, TRANINGSVERSION));
 
 const PER_ID = new Map(HELA_BANKEN.map((q) => [q.id, q]));
 const VALBARA_ID = new Set(TRANINGSBANK.map((q) => q.id));
