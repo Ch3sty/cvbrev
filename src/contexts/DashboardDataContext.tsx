@@ -44,6 +44,12 @@ export interface DashboardSummaryPipelineItem {
 
 export interface DashboardSummary {
   profile: Record<string, unknown> | null;
+  /**
+   * Har kontot bekräftat e-posten (profiles.email_verified_at)? Avgör om
+   * e-postraden står i skalet. Valfri eftersom ett äldre svar i
+   * sessionStorage-cachen kan sakna fältet.
+   */
+  emailVerified?: boolean;
   letters: {
     total: number;
     monthly: number;

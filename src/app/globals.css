@@ -652,6 +652,21 @@ html[data-flow-active='true'] .cookie-banner-container {
   bottom: var(--flow-footer-h, 76px) !important;
 }
 
+/* Bannern står i server-HTML:en från första bilden, men foten i ett
+   inloggat flöde mäts först vid hydreringen. På en flödessida (DashboardShell
+   sätter data-flode-sida ur rutten, redan på servern) väntar bannern därför
+   osynlig tills flödet tagit skärmen, och visas då direkt på sin plats.
+   Synlighet, aldrig position: att dyka upp är inget layoutskifte, att flytta
+   sig är det. Skulle ett flöde aldrig sätta data-flow-active kommer bannern
+   fram ändå efter fyra sekunder, så samtycket alltid går att lämna. */
+html:has([data-flode-sida]):not([data-flow-active]) .cookie-banner-container {
+  visibility: hidden;
+  animation: samtycke-fram 0s linear 4s forwards;
+}
+@keyframes samtycke-fram {
+  to { visibility: visible; }
+}
+
 /* Registreringen och inloggningen (PubliktFlodesskal) renderas på servern,
    och bannern är server-HTML. Utan en höjd redan i första bilden stod bannern
    i botten tills skriptet mätt foten och flyttade sig sedan 73 px: ett
@@ -682,45 +697,45 @@ html[data-fri-sikt='true'] [data-sticky-mobil] {
   visibility: hidden;
 }
 
-/* Cookie-samtycket (src/components/samtycke/CookieBanner.tsx). Tråden
-   (docs/designsystem.md §12): panel, hårlinje, svävande skugga, bläckknapp,
-   ingen gradient, samma på publika sidor och i appen. */
+/* Cookie-samtycket (src/components/samtycke/CookieBanner.tsx,
+   beslut-banners-2026-10-12 avsnitt 2). Tråden (docs/designsystem.md §12):
+   panel, hårlinje, svävande skugga, bläckknapp, ingen gradient, samma på
+   publika sidor och i appen.
+
+   Fast höjd, så att bannern står med sin slutliga storlek i första bilden:
+   94 px på mobil (en textrad om högst två rader och knappraden), 56 px på
+   dator (allt på en rad), plus safe-area under. Texten är 12 px och kan
+   aldrig bli sidans största element, alltså aldrig LCP. */
 .cookie-banner-container {
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: 999;
+  box-sizing: border-box;
+  height: calc(94px + env(safe-area-inset-bottom, 0px));
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  gap: 16px;
-  padding: 14px 20px max(calc(env(safe-area-inset-bottom, 0px) + 14px), 14px);
+  gap: 6px;
+  padding: 0 16px env(safe-area-inset-bottom, 0px);
   background: var(--panel);
   color: var(--ink-2);
   border-top: 1px solid var(--kant);
   box-shadow: 0 -8px 24px rgba(28, 25, 23, 0.08);
 }
 
-.cookie-banner-content {
-  flex: 1 1 auto;
-  min-width: 0;
-  max-width: 560px;
-}
-
-.cookie-banner-rubrik {
-  margin: 0;
-  font-size: 13px;
-  line-height: 1.5;
-  font-weight: 600;
-  color: var(--ink-1);
+/* Den som redan svarat (eller står under /admin) får attributet av ett
+   skript i <head>, före första målningen. Sidan är densamma i CDN-cachen
+   för alla; bara den här regeln skiljer. */
+html[data-samtycke='svarat'] .cookie-banner-container {
+  display: none !important;
 }
 
 .cookie-banner-text {
-  margin: 2px 0 0;
+  margin: 0;
   font-size: 12px;
-  line-height: 1.45;
+  line-height: 18px;
   color: var(--ink-2);
 }
 
@@ -737,20 +752,45 @@ html[data-fri-sikt='true'] [data-sticky-mobil] {
   gap: 8px;
 }
 
+/* Avvisa och Acceptera är lika stora och lika läsbara: samma bredd (flex
+   1 1 0 på mobil), samma höjd, samma typografi. */
 .cookie-banner-buttons button {
-  min-height: 44px;
-  padding: 10px 20px;
+  flex: 1 1 0;
+  box-sizing: border-box;
+  height: 44px;
+  padding: 0 16px;
   border-radius: 8px;
   font-size: 14px;
+  line-height: 1;
   font-weight: 600;
   cursor: pointer;
 }
 
-/* Acceptera är vyns enda fyllda knapp här, alltså ink, aldrig gradient. */
+@media (min-width: 640px) {
+  .cookie-banner-container {
+    height: calc(56px + env(safe-area-inset-bottom, 0px));
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    padding: 0 24px env(safe-area-inset-bottom, 0px);
+  }
+  .cookie-banner-text {
+    flex: 0 1 560px;
+    min-width: 0;
+  }
+  .cookie-banner-buttons button {
+    flex: 0 0 auto;
+    min-width: 120px;
+  }
+}
+
+/* Acceptera är vyns enda fyllda knapp här, alltså ink, aldrig gradient.
+   Texten står i panelens ton: vit i ljust läge, och i appens mörka läge,
+   där ink-1 är ljust, mörk i stället för vit på nästan vitt. */
 #rcc-confirm-button {
   background: var(--ink-1);
-  color: #fff;
-  border: none;
+  color: var(--panel);
+  border: 1px solid var(--ink-1);
 }
 
 #rcc-decline-button {
@@ -1783,9 +1823,32 @@ html {
 }
 
 /* ========================================
+   RESERVTYPSNITTEN
+   Typsnitten är självhostade med next/font/local (src/app/layout.tsx).
+   Reservsnitten skrivs här med exakt de mått Google Fonts-laddaren räknade
+   fram förut, så att texten före intoningen står likadant som innan bytet.
+   ======================================== */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  ascent-override: 90.44%;
+  descent-override: 22.52%;
+  line-gap-override: 0%;
+  size-adjust: 107.12%;
+}
+@font-face {
+  font-family: 'Schibsted Grotesk Fallback';
+  src: local('Arial');
+  ascent-override: 93.46%;
+  descent-override: 24.67%;
+  line-gap-override: 0%;
+  size-adjust: 104.49%;
+}
+
+/* ========================================
    RESERVTYPSNITTET FÖR DISPLAY-RUBRIKERNA
-   next/font skapar "Schibsted Grotesk Fallback" ur Arial med måtten för
-   normal vikt. Rubrikerna står i 600 till 800, där Schibsted är 3 till 8
+   "Schibsted Grotesk Fallback" ovan är Arial med måtten för normal
+   vikt. Rubrikerna står i 600 till 800, där Schibsted är 3 till 8
    procent bredare än den syntetiskt fetade Arial. En rubrik som bröts på två
    rader i reservtypsnittet kunde därför bli tre när typsnittet kom, och allt
    under den flyttade sig (CLS 0,04 på CV-mallar, 2026-09-23). Samma namn med

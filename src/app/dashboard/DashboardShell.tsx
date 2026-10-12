@@ -73,6 +73,9 @@ const FLODE_UTAN_NAV = /^\/dashboard\/(?:valkommen|valj-spar)(?:\/|$)/;
 /** Testflödena: pass, prov, uppvärmning och de klassiska testen med resultat. */
 const TESTFLODE = /^\/dashboard\/tester\/(?:pass|prov|uppvarmning)(?:\/|$)|^\/dashboard\/tester\/[^/]+\/test(?:\/|$)/;
 
+/** Övningsprovet: startark, prov och resultat i ett eget flödesskal. */
+const OVNINGSPROV = /^\/dashboard\/tester\/ovningsprov(?:\/|$)/;
+
 /**
  * Sparar rummet för nästa landning (POST /api/rum/senaste) när webbläsaren
  * har tid över, aldrig i den kritiska vägen. Ett fel syns inte för
@@ -97,12 +100,18 @@ export default function DashboardShell({
   user,
   initialSummary,
   rum: serverRum,
+  visaEpostbanner,
 }: {
   children: React.ReactNode;
   user: User;
   initialSummary: DashboardSummary | null;
   /** Rummet ur rumForPath på servern (spec 4.1). */
   rum: Rum;
+  /**
+   * Servern har sett att kontot inte bekräftat e-posten och att raden inte
+   * avfärdats det senaste dygnet (layout.tsx). Klienten gissar aldrig.
+   */
+  visaEpostbanner: boolean;
 }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -117,6 +126,16 @@ export default function DashboardShell({
   const isFlowRoute =
     FLOW_ROUTES.some((r) => pathname?.startsWith(r)) ||
     /^\/dashboard\/tester\/[^/]+\/test\/[^/]+\/?$/.test(pathname ?? '');
+
+  // Sidor som tar hela skärmen i ett flödesskal med egen fot. Står redan i
+  // server-HTML:en, så cookie-samtycket vet från första bilden att det ska
+  // vänta på foten i stället för att stå i botten och sedan flytta sig
+  // (globals.css, data-flode-sida).
+  const flodeSida =
+    isFlowRoute ||
+    (pathname
+      ? TESTFLODE.test(pathname) || FLODE_UTAN_NAV.test(pathname) || OVNINGSPROV.test(pathname)
+      : false);
 
   // Sidbytets intoning hör till sidbyten, inte till första laddningen
   // (LCP registreras inte på ett osynligt element).
@@ -236,7 +255,11 @@ export default function DashboardShell({
         <NavigationProgress />
       </Suspense>
 
-      <div data-rum={rum} className="min-h-screen supports-[height:100dvh]:min-h-dvh bg-golv">
+      <div
+        data-rum={rum}
+        data-flode-sida={flodeSida ? '' : undefined}
+        className="min-h-screen supports-[height:100dvh]:min-h-dvh bg-golv"
+      >
         <div className="flex h-screen supports-[height:100dvh]:h-dvh flex-col lg:flex-row">
           {/* Sidomenyn, bara på dator. */}
           <div className="hidden lg:relative lg:z-20 lg:block">
@@ -245,7 +268,17 @@ export default function DashboardShell({
 
           {/* Innehåll */}
           <div className="relative z-10 flex flex-1 flex-col overflow-hidden">
-            {!isFlowRoute && <EmailVerificationBanner />}
+            {visaEpostbanner && !isFlowRoute && (
+              <EmailVerificationBanner
+                userId={user.id}
+                email={user.email ?? ''}
+                fullName={
+                  typeof initialSummary?.profile?.full_name === 'string'
+                    ? initialSummary.profile.full_name
+                    : ''
+                }
+              />
+            )}
 
             {showPasswordPrompt && user && (
               <div className="bg-vagg-2 px-4 pt-4 lg:px-10">
