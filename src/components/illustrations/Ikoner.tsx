@@ -267,6 +267,17 @@ export function IkonKrona(props: IkonProps) {
   )
 }
 
+/** Karta: vikt karta i tre fält, mittfältet är accentformen. För Jobbkartan. */
+export function IkonKarta(props: IkonProps) {
+  return (
+    <Ikon {...props}>
+      <path style={IA} d="M9 4.5l6 2v13l-6-2z" />
+      <path d="M3.5 6.5 9 4.5l6 2 5.5-2v13l-5.5 2-6-2-5.5 2z" />
+      <path d="M9 4.5v13M15 6.5v13" />
+    </Ikon>
+  )
+}
+
 /** Nedladdning: pil ner i låda. */
 export function IkonLaddaNer(props: IkonProps) {
   return (

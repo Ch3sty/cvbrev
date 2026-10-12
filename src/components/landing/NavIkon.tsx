@@ -9,6 +9,7 @@ import {
   IkonBrev,
   IkonCv,
   IkonEntusiastisk,
+  IkonKarta,
   IkonKrona,
   IkonLank,
   IkonMallar,
@@ -29,6 +30,7 @@ const KARTA: Record<NavIkonNamn, (p: IkonProps) => React.ReactElement> = {
   tester: IkonBalanserad,
   coach: IkonEntusiastisk,
   krona: IkonKrona,
+  karta: IkonKarta,
 }
 
 export default function NavIkon({ namn, className }: { namn: NavIkonNamn; className?: string }) {

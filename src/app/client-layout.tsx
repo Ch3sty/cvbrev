@@ -39,6 +39,9 @@ export default function ClientLayout({
   // skärmen (docs/design/profil-registrering-2026-09-24.html). Footern hör
   // inte hemma under dem.
   const arFlode = pathname === '/register' || pathname === '/login';
+  // Inbäddningarna (/embed/...) visas i en ram på andra webbplatser och har en
+  // egen källrad in till sajten; sidfoten skulle bara fylla ramen.
+  const arInbaddad = pathname?.startsWith('/embed/');
 
   // Appytan märks på rotelementet, för globals.css (bland annat
   // cookie-bannerns placering i flöden).
@@ -74,7 +77,7 @@ export default function ClientLayout({
             </main>
 
         {/* Footer - visas overallt utom pa appytorna (dashboard + rekryterarportal) */}
-        {!isAppSurface && !arFlode && <Footer />}
+        {!isAppSurface && !arFlode && !arInbaddad && <Footer />}
 
         {/* Cookie-samtycket ritas av rot-layouten som server-HTML
             (src/components/samtycke/CookieBanner.tsx), utan React här. */}
