@@ -3,11 +3,11 @@
  * avsnitt 5). h1, title, description och schemat (WebApplication, HowTo,
  * FAQPage) är oförändrade; bara ramen och sektionernas form är nya.
  */
-import VerktygsSida from '@/components/verktyg/VerktygsSida'
+import VerktygsMall from '@/components/publikt/VerktygsMall'
+import SkarmCoach from '@/components/publikt/telefon/skarmar/SkarmCoach'
 import JobbcoachenLiveDemo from './components/JobbcoachenLiveDemo'
 import { JOBBCOACHEN_FAQ_ITEMS } from './components/jobbcoachen-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
-import { IlluScenCoach } from '@/components/illustrations/PriserScener'
 import { SALD_PLAN, paketKort, paketMedPris } from '@/lib/plans/plans'
 import { FREE_CHAT_MESSAGES_PER_ACCOUNT } from '@/lib/quota/quotaService'
 
@@ -126,13 +126,15 @@ export default function JobbcoachenSida() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <VerktygsSida
+      <VerktygsMall
+        rum="neu"
+        telefon={<SkarmCoach />}
         brodsmulor={[
           { name: 'Hem', href: '/' },
           { name: 'Verktyg', href: '/funktioner' },
           { name: 'Jobbcoachen', href: '/verktyg/jobbcoachen' },
         ]}
-        eyebrow="Karriärguiden · svar med källa"
+        eyebrow="Jobbcoachen, svar med källa"
         h1="Karriärrådgivning från någon som faktiskt kan svensk arbetsmarknad"
         ingress="Fråga om lön, intervju, uppsägning eller karriärbyte och få ett kort svar med klickbara källhänvisningar till Arbetsförmedlingen, SCB och fackförbund."
         fet="Vi gör researchen, så slipper du googla på 20 olika sajter."
@@ -143,7 +145,6 @@ export default function JobbcoachenSida() {
           { tal: 'Källa', text: 'till varje svar' },
           { tal: 'Sekunder', text: 'till första svaret' },
         ]}
-        scen={<IlluScenCoach className="h-auto w-full" />}
         handling={<JobbcoachenLiveDemo />}
         handlingId="demo"
         steg={{
