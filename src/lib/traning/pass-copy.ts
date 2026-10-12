@@ -399,7 +399,8 @@ export const PASS_COPY = {
    * mejl; push antyds aldrig.
    */
   imorgonKort: {
-    eyebrowForsta: 'I morgon · första passet',
+    /** Efter Nivåkollen. Aldrig "första passet": dagens grundpass är det första, och det är gratis (gratisniva.ts). */
+    eyebrowForsta: 'I morgon, passet på din nivå',
     eyebrow: 'I morgon',
     temaSaknas: 'Blandade mönster',
     form: 'Nio uppgifter, cirka tio minuter. Nära din nivå, med regeln efter varje svar.',
