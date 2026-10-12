@@ -58,7 +58,7 @@ export default function SkapaCvSida() {
     name: 'Jobbcoach.ai CV-byggare',
     url: 'https://www.jobbcoach.ai/verktyg/skapa-cv',
     description:
-      'Skapa CV gratis online med vår CV-byggare. Sju enkla steg, live-preview, ATS-säkra mallar och export till PDF eller Word. Helt på svenska.',
+      'Skapa CV gratis online med vår CV-byggare. Sju enkla steg, förhandsvisning, ATS-säkra mallar och export till PDF eller Word. Helt på svenska.',
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web browser',
     offers: {
@@ -68,7 +68,7 @@ export default function SkapaCvSida() {
       description: 'Skapa CV helt gratis, ingen kortuppgift',
     },
     featureList:
-      'Sju-stegs CV-byggare, live-preview, ATS-säkra mallar, auto-save, PDF- och Word-export, LinkedIn-import, mobile-friendly',
+      'Sju-stegs CV-byggare, förhandsvisning, ATS-säkra mallar, sparar automatiskt, PDF- och Word-export, LinkedIn-import, mobilanpassad',
   }
 
   const howToSchema = {
@@ -103,7 +103,7 @@ export default function SkapaCvSida() {
         position: 3,
         name: 'Vi sätter ihop CV:t',
         text:
-          'Allt landar automatiskt på rätt plats i mallen. Live-preview visar slutresultatet medan du skriver.',
+          'Allt landar automatiskt på rätt plats i mallen. Förhandsvisningen visar slutresultatet medan du skriver.',
       },
       {
         '@type': 'HowToStep',

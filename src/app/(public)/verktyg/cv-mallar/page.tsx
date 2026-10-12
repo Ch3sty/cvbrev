@@ -117,42 +117,19 @@ export default function CVMallarSida() {
     '@type': 'HowTo',
     name: 'Så bygger du ett CV med Jobbcoach.ai',
     description:
-      'Fyra steg från val till färdig PDF: välj mall, fyll i, vi flyttar in datan, ladda ner.',
+      'Fyra steg från val till färdig PDF: välj mall, fyll i, vi flyttar in innehållet, ladda ner.',
     estimatedCost: {
       '@type': 'MonetaryAmount',
       currency: 'SEK',
       value: '0',
     },
-    step: [
-      {
-        '@type': 'HowToStep',
-        position: 1,
-        name: 'Välj en mall',
-        text:
-          'Bläddra bland modern, traditionell och kreativ stil. Klicka på den som passar din bransch.',
-      },
-      {
-        '@type': 'HowToStep',
-        position: 2,
-        name: 'Fyll i dina uppgifter',
-        text:
-          'Vårt formulär guidar dig genom varje sektion. Du kan importera från LinkedIn eller börja från ett befintligt CV.',
-      },
-      {
-        '@type': 'HowToStep',
-        position: 3,
-        name: 'Vi flyttar in datan',
-        text:
-          'Allt landar automatiskt på rätt plats i mallen. Byter du mall efteråt följer datan med.',
-      },
-      {
-        '@type': 'HowToStep',
-        position: 4,
-        name: 'Ladda ner som PDF eller Word',
-        text:
-          'Exportera ditt CV. Sparas i ditt konto för senare redigering.',
-      },
-    ],
+    // Samma data som de synliga stegen, så att schemat och sidan säger samma sak.
+    step: STEG.map((st, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: st.rubrik,
+      text: st.text,
+    })),
   }
 
   const faqSchema = {

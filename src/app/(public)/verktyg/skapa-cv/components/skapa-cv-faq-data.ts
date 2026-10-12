@@ -21,7 +21,7 @@ export interface FaqItem {
 export const SKAPA_CV_FAQ_ITEMS: FaqItem[] = [
   {
     q: 'Hur skapar jag ett professionellt CV?',
-    a: 'Med vår CV-byggare gör du det i sju enkla steg. Du börjar med kontaktuppgifter, fyller på med en kort sammanfattning, dina arbetslivserfarenheter, utbildningar, kompetenser och språk, och granskar slutligen resultatet. Hela tiden ser du en live-preview av CV:t som uppdateras medan du skriver. När du är nöjd väljer du en mall och laddar ner som PDF eller Word.',
+    a: 'Med vår CV-byggare gör du det i sju enkla steg. Du börjar med kontaktuppgifter, fyller på med en kort sammanfattning, dina arbetslivserfarenheter, utbildningar, kompetenser och språk, och granskar slutligen resultatet. Hela tiden ser du en förhandsvisning av CV:t som uppdateras medan du skriver. När du är nöjd väljer du en mall och laddar ner som PDF eller Word.',
   },
   {
     q: 'Är det gratis att skapa CV online hos er?',

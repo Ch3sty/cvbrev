@@ -212,7 +212,7 @@ export default function FunktionerSida() {
                 <Link className="pub-knapp" href="/verktyg/skapa-cv">
                   Skapa CV
                 </Link>
-                <Link className="pub-lank" href="/dashboard/cv-mallar">
+                <Link className="pub-lank" href="/verktyg/cv-mallar">
                   Välj en mall
                 </Link>
               </div>

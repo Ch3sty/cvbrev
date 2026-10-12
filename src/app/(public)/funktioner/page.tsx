@@ -6,7 +6,7 @@ import FunktionerSida from './FunktionerSida';
 export const metadata: Metadata = {
   title: 'Funktioner: alla verktyg för jobbsöket | Jobbcoach.ai',
   description:
-    'Åtta verktyg på en plattform: personligt brev, CV-analys, CV-mallar, jobbmatchning, jobbcoachen och rekryteringstester. Byggt för svensk arbetsmarknad.',
+    'Alla verktyg för jobbsöket: rekryteringstester, CV-analys, CV-mallar, personliga brev, jobbmatchning och Jobbcoachen. Byggt för svensk arbetsmarknad.',
   alternates: {
     canonical: 'https://www.jobbcoach.ai/funktioner',
   },

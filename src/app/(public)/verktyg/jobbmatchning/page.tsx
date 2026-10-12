@@ -80,7 +80,7 @@ export default function JobbmatchningSida() {
     name: 'Jobbcoach.ai jobbmatchning',
     url: 'https://www.jobbcoach.ai/verktyg/jobbmatchning',
     description:
-      'Hitta jobb som matchar ditt CV automatiskt. Vi söker bland tusentals lediga tjänster i Sverige från Arbetsförmedlingen och ger dig matchnings-procent per annons.',
+      'Hitta jobb som matchar ditt CV automatiskt. Vi söker bland tusentals lediga tjänster i Sverige från Arbetsförmedlingen och ger dig matchning i procent per annons.',
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web browser',
     offers: {
@@ -90,7 +90,7 @@ export default function JobbmatchningSida() {
       description: '3 fulla träffar med skälen gratis, ingen kortuppgift',
     },
     featureList:
-      'Tusentals lediga jobb från Arbetsförmedlingen, matchnings-procent per annons, distans-filter, daglig uppdatering, sortering på relevans, alla branscher i Sverige',
+      'Tusentals lediga jobb från Arbetsförmedlingen, matchning i procent per annons, distans-filter, daglig uppdatering, sortering på relevans, alla branscher i Sverige',
   }
 
   const howToSchema = {
@@ -128,7 +128,7 @@ export default function JobbmatchningSida() {
         '@type': 'HowToStep',
         position: 4,
         name: 'Du får jobben sorterade',
-        text: 'Varje annons får matchnings-procent. Toppmatchningarna hamnar överst.',
+        text: 'Varje annons får matchning i procent. Toppmatchningarna hamnar överst.',
       },
     ],
   }
@@ -242,7 +242,7 @@ export default function JobbmatchningSida() {
               <p className="pub-kick">Vad vi läser ut</p>
               <h2 className="pub-h2">Sex datapunkter ur ditt CV</h2>
               <p className="pub-ingress" style={{ margin: '16px 0 36px' }}>
-                Du fyller inte i något för hand. Vi hämtar allt matchningen behöver direkt ur ditt CV.
+                Du fyller inte i något för hand. Vi hämtar allt matchningen behöver direkt ur ditt CV, och sedan gör AI jobbet: den läser varje annons och jämför kraven med det du faktiskt kan.
               </p>
               <div className="pub-raster pub-raster-3">
                 {DATAPUNKTER.map((d) => (

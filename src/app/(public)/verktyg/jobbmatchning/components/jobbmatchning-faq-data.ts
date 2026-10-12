@@ -16,7 +16,7 @@ export interface FaqItem {
 export const JOBBMATCHNING_FAQ_ITEMS: FaqItem[] = [
   {
     q: 'Hur hittar jag jobb som passar mig?',
-    a: 'Aktivera ditt CV i vår jobbmatchningstjänst så söker vi automatiskt bland tusentals lediga tjänster i hela Sverige. Vi läser ut din yrkeserfarenhet, dina kompetenser, din utbildning och din ort och ger dig en matchnings-procent per annons. De jobb där du har starkast match hamnar överst i listan.',
+    a: 'Aktivera ditt CV i vår jobbmatchningstjänst så söker vi automatiskt bland tusentals lediga tjänster i hela Sverige. Vi läser ut din yrkeserfarenhet, dina kompetenser, din utbildning och din ort och ger dig en matchning i procent per annons. De jobb där du har starkast match hamnar överst i listan.',
   },
   {
     q: 'Var hittar jag lediga jobb i Sverige?',

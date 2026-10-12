@@ -41,7 +41,7 @@ export const CV_MALLAR_FAQ_ITEMS: FaqItem[] = [
     a: 'Ja. Mallarna är språkneutrala, så du kan fylla i dem på engelska och få en professionell layout som fungerar både i Sverige och utomlands. Tänk på att vissa länder har egna konventioner: i USA är ett CV oftast en sida, i Tyskland väntas oftast ett "Lebenslauf" med foto.',
   },
   {
-    q: 'Är mallarna mobile-friendly när jag bygger CV:t?',
+    q: 'Är mallarna mobilanpassade när jag bygger CV:t?',
     a: 'Ja. Hela byggprocessen funkar lika bra på mobil som på dator. Du kan börja på telefonen i bussen och fortsätta hemma framför datorn. Den färdiga PDF:en är formaterad för utskrift och digital läsning oavsett enhet.',
   },
 ]

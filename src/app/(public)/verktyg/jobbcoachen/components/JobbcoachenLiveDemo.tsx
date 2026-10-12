@@ -92,7 +92,7 @@ export default function JobbcoachenLiveDemo() {
           <CoachAvatar />
         </div>
         <div className="min-w-0 flex-1">
-          <div className="truncate text-sm font-semibold text-ink-1">Karriärguiden</div>
+          <div className="truncate text-sm font-semibold text-ink-1">Jobbcoachen</div>
           <div className="flex items-center gap-1.5 text-meta text-ink-3">
             <span className="inline-flex h-1.5 w-1.5 rounded-full bg-positiv" aria-hidden="true" />
             Svarar med svenska källor

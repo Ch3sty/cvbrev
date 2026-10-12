@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title:
       'Hitta jobb som matchar ditt CV | Jobbcoach.ai',
     description:
-      'Vi söker bland tusentals lediga tjänster i Sverige från Arbetsförmedlingen och ger dig matchnings-procent per annons. Helt gratis att börja.',
+      'Vi söker bland tusentals lediga tjänster i Sverige från Arbetsförmedlingen och ger dig matchning i procent per annons. Helt gratis att börja.',
     type: 'website',
     locale: 'sv_SE',
     url: 'https://www.jobbcoach.ai/verktyg/jobbmatchning',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Hitta jobb som matchar ditt CV | Jobbcoach.ai',
     description:
-      'Vi söker bland tusentals lediga tjänster i Sverige och ger dig matchnings-procent per annons. Helt gratis att börja.',
+      'Vi söker bland tusentals lediga tjänster i Sverige och ger dig matchning i procent per annons. Helt gratis att börja.',
   },
   alternates: {
     canonical: 'https://www.jobbcoach.ai/verktyg/jobbmatchning',

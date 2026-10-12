@@ -1,0 +1,252 @@
+{
+ "period": [
+  "2026-07-13",
+  "2026-10-10"
+ ],
+ "artiklar": [
+  {
+   "path": "/artiklar/logiska-tester",
+   "clicks": 167
+  },
+  {
+   "path": "/artiklar/styrkor-svagheter-intervju",
+   "clicks": 132
+  },
+  {
+   "path": "/artiklar/alva-labs-logiktest",
+   "clicks": 70
+  },
+  {
+   "path": "/artiklar/kompetensbaserad-intervju-star-metoden",
+   "clicks": 66
+  },
+  {
+   "path": "/artiklar/motivationsbrev-exempel",
+   "clicks": 46
+  },
+  {
+   "path": "/artiklar/personligt-brev-butik",
+   "clicks": 44
+  },
+  {
+   "path": "/artiklar/kompetensbaserade-intervjufragor",
+   "clicks": 36
+  },
+  {
+   "path": "/artiklar/hur-ofta-byta-jobb",
+   "clicks": 35
+  },
+  {
+   "path": "/artiklar/angest-infor-nytt-jobb",
+   "clicks": 27
+  },
+  {
+   "path": "/artiklar/map-test-personlighetstest",
+   "clicks": 24
+  },
+  {
+   "path": "/artiklar/arbetsgivarintyg-tjanstgoringsbetyg",
+   "clicks": 23
+  },
+  {
+   "path": "/artiklar/personligt-brev-folkhogskola",
+   "clicks": 22
+  },
+  {
+   "path": "/artiklar/matrislogik-test-guide",
+   "clicks": 20
+  },
+  {
+   "path": "/artiklar/personlighetstest-jobb-guide",
+   "clicks": 20
+  },
+  {
+   "path": "/artiklar/numeriskt-test-guide",
+   "clicks": 19
+  },
+  {
+   "path": "/artiklar/ljuga-i-cv",
+   "clicks": 18
+  },
+  {
+   "path": "/artiklar/rotation-test-guide",
+   "clicks": 18
+  },
+  {
+   "path": "/artiklar/cv-exempel-student-nyexaminerad",
+   "clicks": 13
+  },
+  {
+   "path": "/artiklar/soka-jobb-via-mail",
+   "clicks": 13
+  },
+  {
+   "path": "/artiklar/personligt-brev-avslutning-exempel",
+   "clicks": 12
+  }
+ ],
+ "cv": [
+  {
+   "path": "/cv-exempel/elevassistent",
+   "clicks": 12
+  },
+  {
+   "path": "/cv-exempel/barnmorska",
+   "clicks": 7
+  },
+  {
+   "path": "/cv-exempel/fastighetsskotare",
+   "clicks": 6
+  },
+  {
+   "path": "/cv-exempel/handlaggare",
+   "clicks": 5
+  },
+  {
+   "path": "/cv-exempel/psykolog",
+   "clicks": 5
+  },
+  {
+   "path": "/cv-exempel/koksbitrade",
+   "clicks": 4
+  },
+  {
+   "path": "/cv-exempel/vardbitrade",
+   "clicks": 4
+  },
+  {
+   "path": "/cv-exempel/boendestod",
+   "clicks": 3
+  },
+  {
+   "path": "/cv-exempel/loneadministrator",
+   "clicks": 3
+  },
+  {
+   "path": "/cv-exempel/servitris-restaurangbitrade",
+   "clicks": 3
+  },
+  {
+   "path": "/cv-exempel/ekonomiassistent",
+   "clicks": 2
+  },
+  {
+   "path": "/cv-exempel/hemtjanst",
+   "clicks": 2
+  },
+  {
+   "path": "/cv-exempel/lagerarbetare",
+   "clicks": 2
+  },
+  {
+   "path": "/cv-exempel/vardadministrator",
+   "clicks": 2
+  },
+  {
+   "path": "/cv-exempel/administrator",
+   "clicks": 1
+  },
+  {
+   "path": "/cv-exempel/automationsingenior",
+   "clicks": 1
+  },
+  {
+   "path": "/cv-exempel/fritidsledare",
+   "clicks": 1
+  },
+  {
+   "path": "/cv-exempel/fritidspedagog",
+   "clicks": 1
+  },
+  {
+   "path": "/cv-exempel/hr-specialist",
+   "clicks": 1
+  },
+  {
+   "path": "/cv-exempel/ingenjor",
+   "clicks": 1
+  }
+ ],
+ "brev": [
+  {
+   "path": "/personligt-brev-exempel/enhetschef",
+   "clicks": 16
+  },
+  {
+   "path": "/personligt-brev-exempel/elevassistent",
+   "clicks": 13
+  },
+  {
+   "path": "/personligt-brev-exempel/boendestod",
+   "clicks": 11
+  },
+  {
+   "path": "/personligt-brev-exempel/aldreboende",
+   "clicks": 10
+  },
+  {
+   "path": "/personligt-brev-exempel/barnskotare",
+   "clicks": 9
+  },
+  {
+   "path": "/personligt-brev-exempel/diskare",
+   "clicks": 7
+  },
+  {
+   "path": "/personligt-brev-exempel/ekonomiassistent",
+   "clicks": 5
+  },
+  {
+   "path": "/personligt-brev-exempel/koksbitrade",
+   "clicks": 5
+  },
+  {
+   "path": "/personligt-brev-exempel/kurator",
+   "clicks": 5
+  },
+  {
+   "path": "/personligt-brev-exempel/vaktmastare",
+   "clicks": 5
+  },
+  {
+   "path": "/personligt-brev-exempel/vardadministrator",
+   "clicks": 5
+  },
+  {
+   "path": "/personligt-brev-exempel/fastighetsskotare",
+   "clicks": 4
+  },
+  {
+   "path": "/personligt-brev-exempel/konditor",
+   "clicks": 4
+  },
+  {
+   "path": "/personligt-brev-exempel/lagerarbetare",
+   "clicks": 4
+  },
+  {
+   "path": "/personligt-brev-exempel/loneadministrator",
+   "clicks": 4
+  },
+  {
+   "path": "/personligt-brev-exempel/lss-handlaggare",
+   "clicks": 4
+  },
+  {
+   "path": "/personligt-brev-exempel/stodpedagog",
+   "clicks": 4
+  },
+  {
+   "path": "/personligt-brev-exempel/controller",
+   "clicks": 3
+  },
+  {
+   "path": "/personligt-brev-exempel/fritidsledare",
+   "clicks": 3
+  },
+  {
+   "path": "/personligt-brev-exempel/logistiker",
+   "clicks": 3
+  }
+ ]
+}

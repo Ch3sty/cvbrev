@@ -21,7 +21,7 @@ const AMNEN = [
 ]
 
 const KALLOR = [
-  { rubrik: 'Arbetsförmedlingen', text: 'Regler för arbetslöshet, etableringsstöd, jobbsökarverksamhet och stödformer. Hit hänvisar Karriärguiden när frågan rör myndighetsregler eller stöd.' },
+  { rubrik: 'Arbetsförmedlingen', text: 'Regler för arbetslöshet, etableringsstöd, jobbsökarverksamhet och stödformer. Hit hänvisar Jobbcoachen när frågan rör myndighetsregler eller stöd.' },
   { rubrik: 'SCB', text: 'Lönestatistik per yrke, region och erfarenhet samt arbetsmarknadsdata. Frågar du om marknadslön är det SCB:s lönestrukturstatistik som ligger till grund.' },
   { rubrik: 'Fackförbund', text: 'Kollektivavtal och stöd från Unionen, Kommunal, IF Metall, Vision och fler. Används när frågan rör avtalsenliga villkor eller regler i en viss bransch.' },
   { rubrik: 'Försäkringskassan', text: 'Sjukpenning, föräldraledighet, regler vid sjukskrivning och ersättningar. Hit hänvisar vi när frågan rör socialförsäkringen och vad du har rätt till.' },
@@ -37,7 +37,7 @@ export default function JobbcoachenSida() {
   const webAppSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    name: 'Jobbcoach.ai Karriärguiden',
+    name: 'Jobbcoachen från Jobbcoach.ai',
     url: 'https://www.jobbcoach.ai/verktyg/jobbcoachen',
     description:
       'Karriärrådgivning baserad på Arbetsförmedlingen, SCB, fackförbund, Försäkringskassan, CSN och Skatteverket. Få svar på frågor om lön, intervju, arbetsrätt och karriärbyte med klickbara källhänvisningar.',
@@ -56,7 +56,7 @@ export default function JobbcoachenSida() {
   const howToSchema = {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
-    name: 'Så får du karriärråd med Karriärguiden på Jobbcoach.ai',
+    name: 'Så får du karriärråd med Jobbcoachen på Jobbcoach.ai',
     description:
       'Fyra steg från fråga till svar med källhänvisning: ställ frågan, vi söker bland verifierade källor, du får svaret med citat, du följer upp.',
     totalTime: 'PT2M',
@@ -78,7 +78,7 @@ export default function JobbcoachenSida() {
         position: 2,
         name: 'Vi söker bland verifierade källor',
         text:
-          'Karriärguiden söker i en kunskapsbas av Arbetsförmedlingen, SCB, fackförbund, Försäkringskassan, CSN och Skatteverket.',
+          'Jobbcoachen söker i en kunskapsbas av Arbetsförmedlingen, SCB, fackförbund, Försäkringskassan, CSN och Skatteverket.',
       },
       {
         '@type': 'HowToStep',
@@ -92,7 +92,7 @@ export default function JobbcoachenSida() {
         position: 4,
         name: 'Följ upp tills det är klart',
         text:
-          'Karriärguiden minns samtalet och du kan följa upp utan att börja om.',
+          'Jobbcoachen minns samtalet och du kan följa upp utan att börja om.',
       },
     ],
   }
@@ -152,19 +152,19 @@ export default function JobbcoachenSida() {
           rubrik: 'Så fungerar det',
           ingress: 'Ställ frågan, få svaret med källa och gå vidare. Inga flikar fulla av lönerapporter och forumtrådar.',
           rader: howToSchema.step.map((s) => ({ rubrik: s.name, text: s.text })),
-          lank: { text: 'Fråga Karriärguiden gratis', href: '/register' },
+          lank: { text: 'Fråga Jobbcoachen gratis', href: '/register' },
         }}
         kontroll={{
           eyebrow: 'Vad du kan fråga om',
           rubrik: 'Sex områden vi hjälper dig med',
-          ingress: 'Karriärguiden kan svensk arbetsmarknad, från lönesamtalet till arbetsrätten.',
+          ingress: 'Jobbcoachen kan svensk arbetsmarknad, från lönesamtalet till arbetsrätten.',
           rader: AMNEN,
         }}
         extra={[
           {
             eyebrow: 'Källorna bakom svaren',
             rubrik: 'Verifierad svensk arbetsmarknadsdata',
-            ingress: 'Inga blogginlägg och inga forumtrådar. Karriärguiden hämtar svaren ur sex pålitliga källor och visar exakt var informationen kommer ifrån.',
+            ingress: 'Inga blogginlägg och inga forumtrådar. Jobbcoachen hämtar svaren ur sex pålitliga källor och visar exakt var informationen kommer ifrån.',
             rader: KALLOR,
           },
         ]}
@@ -172,7 +172,7 @@ export default function JobbcoachenSida() {
           eyebrow: paketMedPris(SALD_PLAN),
           rubrik: 'Sluta googla. Fråga någon som vet.',
           text: `${FREE_CHAT_MESSAGES_PER_ACCOUNT} meddelanden ingår gratis på ditt konto, utan kortuppgift. Jobbcoachen så mycket du vill, med ditt CV i samtalet, ingår i ${paketKort()}.`,
-          knapp: { text: 'Fråga Karriärguiden gratis', href: '/register' },
+          knapp: { text: 'Fråga Jobbcoachen gratis', href: '/register' },
           sekundar: { text: 'Se hur det fungerar', href: '#sa-funkar-det' },
         }}
         faq={{

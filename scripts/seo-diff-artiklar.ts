@@ -32,6 +32,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { JSDOM } from 'jsdom';
+import matter from 'gray-matter';
 
 type Rubrik = { tag: string; id: string; text: string };
 
@@ -76,6 +77,25 @@ const PUBLIKT_V2 = new Set([
   '/verktyg/jobbcoachen',
   '/verktyg/personlighetstest',
 ]);
+
+/**
+ * Publikt v2 del B (docs/design/spec-publikt-v2-del-b-2026-10-12.md, avsnitt 4):
+ * innehållssidorna. Samma hårda regel som del A (rubriker med text och nivå,
+ * FAQ, ord), och artiklarna dessutom med rubrikträdets ordning och id.
+ */
+function delB(sida: string): boolean {
+  return (
+    sida.startsWith('/artiklar') ||
+    sida.startsWith('/cv-exempel') ||
+    sida.startsWith('/personligt-brev-exempel') ||
+    sida.startsWith('/rakna-ut') ||
+    ['/om-oss', '/for-rekryterare', '/kontakt', '/hjalpcenter', '/integritetspolicy', '/anvandarvillkor'].includes(sida)
+  );
+}
+
+function hard(sida: string): boolean {
+  return PUBLIKT_V2.has(sida) || delB(sida);
+}
 
 /** Största tillåtna minskningen av ordantalet i main, i procent. */
 const ORD_TOLERANS = 2;
@@ -131,7 +151,116 @@ const RUBRIK_BYTT: Array<{ path: string; fore: string; efter: string; datum: str
     datum: '2026-10-12',
     skal: 'Ägarbeslut 2026-10-12, sakfel: mallarna är inte en per bransch. Ordet mallar står kvar och rubriken bär sökordet.',
   },
+  {
+    path: '/for-rekryterare',
+    fore: 'h2 Från sökning till anställning',
+    efter: 'h2 Så funkar det, steg för steg',
+    datum: '2026-10-12',
+    skal: 'Ägarbeslut 4 i del B: H2 "Från sökning till anställning" stod två gånger. Den första står kvar, den andra får en egen rubrik.',
+  },
+  {
+    path: '/for-rekryterare',
+    fore: 'h3 Dela med din hiring manager',
+    efter: 'h3 Dela med din rekryterande chef',
+    datum: '2026-10-12',
+    skal: 'Ägarbeslut 9 i del B: svenska facktermer, "hiring manager" blir "rekryterande chef".',
+  },
 ];
+
+/**
+ * Rubriker som får försvinna utan ersättare (en dubblett), med datum och skäl.
+ * Matchas som "nivå text" och tar bort en förekomst.
+ */
+const RUBRIK_BORTA: Array<{ path: string; rubrik: string; datum: string; skal: string }> = [
+  {
+    path: '/kontakt',
+    rubrik: 'h2 Skicka ett meddelande',
+    datum: '2026-10-12',
+    skal: 'Del B 4.4 och ägarbeslut 10: formulärets H2 stod två gånger. En står kvar.',
+  },
+];
+
+/** H1 som fått ny text efter ägarbeslut. */
+const H1_BYTT: Array<{ path: string; fore: string; efter: string; datum: string; skal: string }> = [
+  {
+    path: '/kontakt',
+    fore: 'Vi svarar på dina frågorKontakta oss',
+    efter: 'Vi svarar på dina frågor',
+    datum: '2026-10-12',
+    skal: 'Del B 3.8: kickern "Kontakta oss" låg inne i h1 utan mellanrum. Den första delen står kvar som h1, kickern flyttar ut.',
+  },
+];
+
+/** Title och description som får bytas (sidan hade startsidans metadata). */
+const META_BYTT: Array<{ path: string; falt: 'title' | 'description'; datum: string; skal: string }> = (
+  ['/kontakt', '/hjalpcenter'] as const
+).flatMap((p) =>
+  (['title', 'description'] as const).map((falt) => ({
+    path: p,
+    falt,
+    datum: '2026-10-12',
+    skal: 'Ägarbeslut 10 i del B: sidan ärvde startsidans title och description och får egna.',
+  }))
+).concat([
+  {
+    path: '/funktioner',
+    falt: 'description',
+    datum: '2026-10-12',
+    skal: 'Ägarkrav korrekta termer (SEO-granskningen av del A): "Åtta verktyg" stämde inte, nu "Alla verktyg för jobbsöket:" med rekryteringstester först.',
+  },
+]);
+
+const TERMER = 'ägarkrav korrekta termer';
+
+/** FAQ-frågor som fått ny text (synligt och i FAQPage), med datum och skäl. */
+const FAQ_BYTT: Array<{ path: string; fore: string; efter: string; datum: string; skal: string }> = [
+  ...[
+    ['Hur fungerar Karriärguiden?', 'Hur fungerar Jobbcoachen?'],
+    ['Vilka källor använder Karriärguiden?', 'Vilka källor använder Jobbcoachen?'],
+    ['Är det gratis att använda Karriärguiden?', 'Är det gratis att använda Jobbcoachen?'],
+    ['Kan jag dela mitt CV med Karriärguiden?', 'Kan jag dela mitt CV med Jobbcoachen?'],
+  ].map(([fore, efter]) => ({ path: '/verktyg/jobbcoachen', fore, efter, datum: '2026-10-12', skal: TERMER })),
+  {
+    path: '/verktyg/cv-mallar',
+    fore: 'Är mallarna mobile-friendly när jag bygger CV:t?',
+    efter: 'Är mallarna mobilanpassade när jag bygger CV:t?',
+    datum: '2026-10-12',
+    skal: TERMER,
+  },
+];
+
+/** Interna länkar som pekats om, med datum och skäl. */
+const LANK_BYTT: Array<{ path: string; fore: string; efter: string; datum: string; skal: string }> = [
+  {
+    path: '/funktioner',
+    fore: '/dashboard/cv-mallar',
+    efter: '/verktyg/cv-mallar',
+    datum: '2026-10-12',
+    skal: 'SEO-granskningen av del A: "Välj en mall" pekade in i det inloggade läget.',
+  },
+];
+
+/** Ändrade JSON-LD-typer efter ägarkravet om termer (2026-10-12). Slås ihop med LD_UNDANTAG per sida. */
+const LD_TERMER: Array<{ path: string; andrade: string[]; skal: string }> = [
+  { path: '/verktyg/jobbcoachen', andrade: ['WebApplication', 'HowTo', 'FAQPage'], skal: '"Karriärguiden" blir "Jobbcoachen" i namn, steg och FAQ, och "(Källa N) inline" blir "direkt i texten".' },
+  { path: '/verktyg/personligt-brev', andrade: ['HowTo'], skal: 'Steget "Välj mall och ton": "Sju mallar och sex tonlägen, från professionellt till entusiastiskt."' },
+  { path: '/verktyg/cv-analys', andrade: ['WebApplication', 'HowTo'], skal: '"before/after" blir "före och efter".' },
+  { path: '/verktyg/skapa-cv', andrade: ['WebApplication', 'HowTo', 'FAQPage'], skal: '"live-preview" blir "förhandsvisning", "auto-save" och "mobile-friendly" blir svenska.' },
+  { path: '/verktyg/jobbmatchning', andrade: ['WebApplication', 'HowTo', 'FAQPage'], skal: '"matchnings-procent" blir "matchning i procent".' },
+  { path: '/verktyg/cv-mallar', andrade: ['HowTo', 'FAQPage'], skal: 'HowTo läses ur samma data som de synliga stegen; FAQ-frågan "mobile-friendly" blir "mobilanpassade".' },
+];
+
+function ldUndantag(sida: string): { datum: string; skal: string; nya?: boolean; andrade?: string[] } | undefined {
+  const bas = LD_UNDANTAG.find((u) => u.path === sida);
+  const termer = LD_TERMER.find((u) => u.path === sida);
+  if (!termer) return bas;
+  return {
+    datum: '2026-10-12',
+    skal: [bas?.skal, `${TERMER}: ${termer.skal}`].filter(Boolean).join(' '),
+    nya: bas?.nya,
+    andrade: [...new Set([...(bas?.andrade ?? []), ...termer.andrade])],
+  };
+}
 
 /** Metadata som får tillkomma där den saknades (tom före, satt efter). */
 const META_TILLAGD: Array<{ path: string; falt: 'canonical'; datum: string; skal: string }> = [
@@ -249,6 +378,91 @@ const TILLATNA_RUBRIKER = [
  * h1 inuti brödtexten). De är inte artikelns rubrik och får försvinna.
  */
 const TILLATNA_H1 = ['Erik Lindberg', 'Maria Johansson'];
+
+/** Komponenttäckning för artikelmallen (del B 4.1): howto, tabell, bild mitt i texten, showcase, karriär utan produkt. */
+const DEL_B_ARTIKLAR_EXTRA = [
+  // howto:
+  'arbetsintervju-guide',
+  'bra-cv-guide',
+  'byta-karriar-jobbsokande-guide',
+  'cv-bild-guide',
+  'cv-mall-pdf-gratis',
+  'hur-skriver-man-ett-personligt-brev',
+  'online-cv-byggare-gratis',
+  'saga-upp-sig',
+  'vad-ar-ett-cv',
+  'cover-letter-sverige',
+  // tabell
+  'bakgrundskontroll-vid-anstallning',
+  'deduktivt-induktivt-test',
+  'loneforhandling',
+  'verbalt-test-guide',
+  'europass-cv',
+  // CustomImage mitt i texten
+  'beratta-om-dig-sjalv-intervju',
+  'kroppssprak-intervju',
+  'skriva-cv-guide',
+  'hur-ska-ett-cv-se-ut',
+  'vanliga-misstag-personligt-brev',
+  // showcase och karriär utan produkt
+  'cv-mall-gratis-guide',
+  'vaga-byta-jobb',
+].map((s) => `/artiklar/${s}`);
+
+const DEL_B_OVRIGA = [
+  '/artiklar',
+  '/artiklar?tag=cv',
+  '/artiklar?page=2',
+  '/cv-exempel',
+  '/personligt-brev-exempel',
+  '/cv-exempel/kategori/vard',
+  '/cv-exempel/kategori/ekonomi',
+  '/personligt-brev-exempel/kategori/vard',
+  '/personligt-brev-exempel/kategori/service',
+  '/cv-exempel/projektledare',
+  '/personligt-brev-exempel/projektledare',
+  '/rakna-ut',
+  '/rakna-ut/felrekrytering',
+  '/rakna-ut/lon-efter-skatt',
+  '/rakna-ut/loneforhandling',
+  '/rakna-ut/semesterersattning',
+  '/rakna-ut/sourcing',
+  '/rakna-ut/timlon-till-manadslon',
+  '/rakna-ut/traffsakerhet',
+  '/rakna-ut/uppsagningstid',
+  '/rakna-ut/vad-kostar-en-anstalld',
+  '/om-oss',
+  '/for-rekryterare',
+  '/kontakt',
+  '/hjalpcenter',
+  '/integritetspolicy',
+  '/anvandarvillkor',
+];
+
+/** Del B:s urval: GSC topp 20 per typ (scripts/.publikt-urval-b.json, 90 dagar) plus komponenttäckningen. */
+function sidorDelB(): string[] {
+  const fil = 'scripts/.publikt-urval-b.json';
+  if (!fs.existsSync(fil)) throw new Error(`${fil} saknas. Kör npx tsx scripts/_gsc-publikt-b.ts först.`);
+  const data = JSON.parse(fs.readFileSync(fil, 'utf8')) as Record<'artiklar' | 'cv' | 'brev', Array<{ path: string }>>;
+  return [
+    ...new Set([
+      ...data.artiklar.map((r) => r.path),
+      ...DEL_B_ARTIKLAR_EXTRA,
+      ...data.cv.map((r) => r.path),
+      ...data.brev.map((r) => r.path),
+      ...DEL_B_OVRIGA,
+    ]),
+  ];
+}
+
+/** frontmatter.image för en artikel, för regeln om första bilden (del B 4.3 punkt 7). */
+function artikelBild(sida: string): string | null {
+  const slug = sida.replace(/^\/artiklar\//, '');
+  const fil = path.join('content/artiklar', `${slug}.mdx`);
+  if (!fs.existsSync(fil)) return null;
+  const fm = matter(fs.readFileSync(fil, 'utf8')).data as { image?: string };
+  return fm.image ?? null;
+}
 
 function sidor(): string[] {
   const urvalFil = 'scripts/.publikt-urval.json';
@@ -474,12 +688,21 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
           info(`${falt} tillagd (${tillagd.datum}): "${e[falt]}"`);
           continue;
         }
+        const bytt = META_BYTT.find((m) => m.path === f.path && m.falt === falt);
+        if (bytt && norm(f[falt]) !== norm(e[falt])) {
+          info(`${falt} bytt (${bytt.datum}): "${f[falt]}" → "${e[falt]}". ${bytt.skal}`);
+          continue;
+        }
         if (norm(f[falt]) !== norm(e[falt])) brott(`${falt}: "${f[falt]}" → "${e[falt]}"`);
       }
       const h1f = f.h1.filter((h) => !TILLATNA_H1.includes(h));
       const h1e = e.h1.filter((h) => !TILLATNA_H1.includes(h));
       if (h1f.length !== f.h1.length) info(`showcasens h1 ut: ${JSON.stringify(f.h1.filter((h) => TILLATNA_H1.includes(h)))}`);
-      if (JSON.stringify(h1f) !== JSON.stringify(h1e)) {
+      const h1Byte = H1_BYTT.find(
+        (b) => b.path === f.path && JSON.stringify(h1f) === JSON.stringify([b.fore]) && JSON.stringify(h1e) === JSON.stringify([b.efter])
+      );
+      if (h1Byte) info(`h1 bytt (${h1Byte.datum}): "${h1Byte.fore}" → "${h1Byte.efter}". ${h1Byte.skal}`);
+      else if (JSON.stringify(h1f) !== JSON.stringify(h1e)) {
         brott(`h1: ${JSON.stringify(f.h1)} → ${JSON.stringify(e.h1)}`);
       }
       // Rubriker: samma ordning och id, utom tillåtna reklamkortsrubriker.
@@ -495,15 +718,20 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
               (d.borta.length === 0 && d.nya.length === 0 ? ' (ordningen)' : '')
           );
         }
-      } else if (PUBLIKT_V2.has(f.path)) {
+      } else if (hard(f.path)) {
         // Publikt v2: samma text och nivå, ordning och id får ändras.
         const utanId = (l: Rubrik[]) => l.filter((r) => !tillaten(r)).map((r) => `${r.tag} ${r.text}`);
         const d = multisetSkillnad(utanId(f.rubriker), utanId(e.rubriker));
         const efterRubriker = new Set(utanId(e.rubriker));
         d.borta = d.borta.filter((r) => {
           const byte = RUBRIK_BYTT.find((b) => b.path === f.path && b.fore === r && efterRubriker.has(b.efter));
-          if (byte) info(`rubrik bytt (${byte.datum}): "${byte.fore}" → "${byte.efter}". ${byte.skal}`);
-          return !byte;
+          if (byte) {
+            info(`rubrik bytt (${byte.datum}): "${byte.fore}" → "${byte.efter}". ${byte.skal}`);
+            return false;
+          }
+          const borta = RUBRIK_BORTA.find((b) => b.path === f.path && r === b.rubrik);
+          if (borta) info(`dubblettrubrik borta (${borta.datum}): "${borta.rubrik}". ${borta.skal}`);
+          return !borta;
         });
         if (d.borta.length) brott(`rubriker borta (text och nivå): ${JSON.stringify(d.borta)}`);
         if (d.nya.length) info(`nya rubriker: ${JSON.stringify(d.nya)}`);
@@ -516,13 +744,21 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
       }
       if (f.faq && e.faq) {
         const d = unikSkillnad(f.faq, e.faq);
+        const efterFaq = new Set(e.faq);
+        d.borta = d.borta.filter((q) => {
+          const byte = FAQ_BYTT.find(
+            (b) => b.path === f.path && (q === b.fore || q === `ld: ${b.fore}`) && efterFaq.has(q.startsWith('ld: ') ? `ld: ${b.efter}` : b.efter)
+          );
+          if (byte) info(`FAQ-fråga bytt (${byte.datum}, ${byte.skal}): "${q}" → "${byte.efter}"`);
+          return !byte;
+        });
         if (d.borta.length) brott(`FAQ-frågor borta: ${JSON.stringify(d.borta)}`);
         if (d.nya.length) info(`nya FAQ-frågor: ${JSON.stringify(d.nya)}`);
       }
       if (typeof f.ord === 'number' && typeof e.ord === 'number' && f.ord > 0) {
         const andring = ((e.ord - f.ord) / f.ord) * 100;
         const rad = `ord i main ${f.ord} → ${e.ord} (${andring >= 0 ? '+' : ''}${andring.toFixed(1)} %)`;
-        if (PUBLIKT_V2.has(f.path) && andring < -ORD_TOLERANS) brott(rad);
+        if (hard(f.path) && andring < -ORD_TOLERANS) brott(rad);
         else info(rad);
       }
       const borttagnaRubriker = f.rubriker.filter(tillaten).map((r) => r.text);
@@ -540,7 +776,12 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
         const allaEfter = new Set([...e.lankar, ...e.ramLankar]);
         // Rena ankarlänkar (#gratis) pekar inom sidan och är inga länkmål för
         // sökmotorer. De får försvinna när sektionerna byts, men redovisas.
-        const helt = dl.borta.filter((l) => !allaEfter.has(l) && !l.startsWith('#'));
+        const helt = dl.borta.filter((l) => {
+          if (allaEfter.has(l) || l.startsWith('#')) return false;
+          const byte = LANK_BYTT.find((b) => b.path === f.path && b.fore === l && allaEfter.has(b.efter));
+          if (byte) info(`länk bytt (${byte.datum}): ${byte.fore} → ${byte.efter}. ${byte.skal}`);
+          return !byte;
+        });
         const ankare = dl.borta.filter((l) => !allaEfter.has(l) && l.startsWith('#'));
         if (helt.length) brott(`interna länkar borta från sidan: ${JSON.stringify(helt)}`);
         if (ankare.length) info(`ankarlänkar inom sidan borta: ${JSON.stringify(ankare)}`);
@@ -553,7 +794,7 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
         info(`ramen (header och footer, omritad enligt analysen): borta ${JSON.stringify(dr.borta)}, nya ${JSON.stringify(dr.nya)}`);
       }
       const dj = multisetSkillnad(f.jsonLd, e.jsonLd);
-      const und = LD_UNDANTAG.find((u) => u.path === f.path);
+      const und = ldUndantag(f.path);
       const typ = (block: string) => {
         try {
           const d = JSON.parse(block);
@@ -584,13 +825,20 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
         brott(`JSON-LD ändrad: ${dj.borta.length} block borta, ${dj.nya.length} nya\n    före: ${dj.borta.map((s) => s.slice(0, 300)).join('\n    före: ')}\n    efter: ${dj.nya.map((s) => s.slice(0, 300)).join('\n    efter: ')}`);
       }
       if (f.path.startsWith('/artiklar/') && JSON.stringify(f.forstaBild) !== JSON.stringify(e.forstaBild)) {
-        brott(`första bilden: ${JSON.stringify(f.forstaBild)} → ${JSON.stringify(e.forstaBild)}`);
+        // Del B 4.3 punkt 7: där bilden stod först är src och alt desamma (bilden
+        // flyttar till hjälten). Övriga får frontmatter.image som första bild.
+        const fm = artikelBild(f.path);
+        if (fm && e.forstaBild?.src === fm && f.forstaBild?.src !== fm) {
+          info(`första bilden blir artikelbilden (2026-10-12, del B 4.4): ${JSON.stringify(f.forstaBild)} → ${JSON.stringify(e.forstaBild)}`);
+        } else {
+          brott(`första bilden: ${JSON.stringify(f.forstaBild)} → ${JSON.stringify(e.forstaBild)}`);
+        }
       }
     }
     rader.push(`### ${f.path}`);
     const omtagen = BASLINJE_OMTAGEN.find((b) => b.path === f.path);
     if (omtagen) rader.push(`- baslinjen omtagen ${omtagen.datum}: ${omtagen.skal}`);
-    const ldUnd = LD_UNDANTAG.find((b) => b.path === f.path);
+    const ldUnd = ldUndantag(f.path);
     if (ldUnd) rader.push(`- tillåten JSON-LD-skillnad ${ldUnd.datum}: ${ldUnd.skal}`);
     rader.push(sidrader.length ? sidrader.join('\n') : '- oförändrad');
     rader.push('');
@@ -603,7 +851,7 @@ async function main() {
   if (lage === 'ta') {
     const bas = arg('bas') ?? `http://localhost:${arg('port', '8300')}`;
     const ut = arg('ut', 'docs/qa/seo-diff/avtryck.json')!;
-    const lista = arg('sidor')?.split(',') ?? sidor();
+    const lista = arg('sidor')?.split(',') ?? (arg('urval') === 'b' ? sidorDelB() : sidor());
     const avtryck: Avtryck[] = [];
     for (const s of lista) {
       const a = await ta(bas, s);

@@ -49,7 +49,7 @@ export default function CVAnalysSida() {
       description: '1 CV-analys gratis per konto, ingen kortuppgift',
     },
     featureList:
-      'ATS-poäng 0-100, sex kategorier (ATS, struktur, språk, nyckelord, kvantifiering, profil), before/after-text, konkreta förbättringsförslag, svenska och engelska CV',
+      'ATS-poäng 0-100, sex kategorier (ATS, struktur, språk, nyckelord, kvantifiering, profil), före och efter-text, konkreta förbättringsförslag, svenska och engelska CV',
   }
 
   const howToSchema = {
@@ -91,7 +91,7 @@ export default function CVAnalysSida() {
         position: 4,
         name: 'Spara den förbättrade versionen',
         text:
-          'Välj vilka förslag du vill applicera, granska before/after och ladda ner som PDF eller Word.',
+          'Välj vilka förslag du vill applicera, granska före och efter och ladda ner som PDF eller Word.',
       },
     ],
   }
