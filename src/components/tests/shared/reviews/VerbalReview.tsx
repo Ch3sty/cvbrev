@@ -18,12 +18,14 @@ import { selectPassagesForSession as selectAvancerad } from '@/lib/verbalTestV2/
 import { selectProvPassagesForSession } from '@/lib/verbalTestProv/selectProv'
 import { selectPassagesForSession as selectExpert } from '@/lib/verbalTestExpert/selectPassages'
 import { testPaths } from '@/app/dashboard/tester/testConfig'
+import { underlagsVersion, type UnderlagVersion } from '@/lib/tester/underlagVersion'
 
-const SELECTORS: Record<string, (id: string) => unknown[]> = {
-  'verbal-resonemang': selectGrund,
-  'verbal-resonemang-v2': selectAvancerad,
-  'verbal-resonemang-prov': selectProvPassagesForSession,
-  'verbal-resonemang-expert': selectExpert,
+// Grund och avancerad tar sessionens underlagsversion (src/lib/tester/underlagVersion.ts).
+const SELECTORS: Record<string, (id: string, version: UnderlagVersion) => unknown[]> = {
+  'verbal-resonemang': (id, v) => selectGrund(id, undefined, v),
+  'verbal-resonemang-v2': (id, v) => selectAvancerad(id, undefined, v),
+  'verbal-resonemang-prov': (id) => selectProvPassagesForSession(id),
+  'verbal-resonemang-expert': (id) => selectExpert(id),
 }
 
 export default function VerbalReview({
@@ -33,9 +35,12 @@ export default function VerbalReview({
   score,
   timeSpent,
   totalStatements,
+  meta,
 }: {
   slug: string
   sessionId: string
+  /** Sessionens meta, för underlagsversionen. */
+  meta?: unknown
   answers: SavedAnswer[]
   score: number
   timeSpent: number
@@ -43,8 +48,8 @@ export default function VerbalReview({
 }) {
   const passages = useMemo(() => {
     const select = SELECTORS[slug]
-    return select ? (select(sessionId) as ResultsPassage[]) : []
-  }, [slug, sessionId])
+    return select ? (select(sessionId, underlagsVersion(meta)) as ResultsPassage[]) : []
+  }, [slug, sessionId, meta])
 
   if (passages.length === 0) return null
 

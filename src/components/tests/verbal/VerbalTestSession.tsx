@@ -29,6 +29,7 @@ import { formatClock } from '@/hooks/use-elapsed-clock';
 import PassageDisplay from '@/components/tests/verbal-shared/PassageDisplay';
 import StatementList from '@/components/tests/verbal-shared/StatementList';
 import PassageNavigation from '@/components/tests/verbal-shared/PassageNavigation';
+import { underlagsVersion, type UnderlagVersion } from '@/lib/tester/underlagVersion';
 
 export type VerbalTestLevel = 'grund' | 'avancerad';
 
@@ -52,7 +53,8 @@ export interface VerbalSessionPassage {
 interface VerbalTestSessionProps {
   sessionId: string;
   level: VerbalTestLevel;
-  selectPassages: (sessionId: string) => VerbalSessionPassage[];
+  /** version: sessionens underlagsversion (src/lib/tester/underlagVersion.ts). */
+  selectPassages: (sessionId: string, version?: UnderlagVersion) => VerbalSessionPassage[];
   answerEndpoint: string;
   completeEndpoint: string;
   sessionEndpoint: string;
@@ -96,11 +98,14 @@ export function VerbalTestSession({
 }: VerbalTestSessionProps) {
   const router = useRouter();
 
+  // Underlagsversionen läses ur sessionen (src/lib/tester/underlagVersion.ts).
+  // Tills den är läst används version 1; rehydreringen byter och börjar om.
+  const [version, setVersion] = useState<UnderlagVersion>(1);
   // Seedat urval ur banken: samma sessionId → samma passager (stabilt mellan
   // test- och resultatsida). Olika sessionId → nya frågor vid omspel.
   const questions = useMemo(
-    () => selectPassages(sessionId),
-    [selectPassages, sessionId]
+    () => selectPassages(sessionId, version),
+    [selectPassages, sessionId, version]
   );
 
   const [currentPassageIndex, setCurrentPassageIndex] = useState(0);
@@ -151,12 +156,19 @@ export function VerbalTestSession({
       });
 
       let redirected = false;
+      let byter = false;
       try {
         const res = await fetch(`${sessionEndpoint}?id=${sessionId}`);
         if (res.ok) {
           const data = await res.json();
           const session = data?.session;
           if (session && !cancelled) {
+            const v = underlagsVersion(session.meta);
+            if (v !== version) {
+              byter = true;
+              setVersion(v);
+              return;
+            }
             if (session.completed_at) {
               // Redan avslutad session → direkt till resultatet.
               // Behåll laddvyn tills navigeringen sker.
@@ -197,7 +209,7 @@ export function VerbalTestSession({
       } catch {
         // Nätverksfel: fortsätt med tomt state, blockera inte testet.
       } finally {
-        if (!cancelled && !redirected) {
+        if (!cancelled && !redirected && !byter) {
           setAnswers(initial);
           setIsHydrating(false);
           setStatementStartTime(Date.now());

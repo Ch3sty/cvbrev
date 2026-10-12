@@ -1,8 +1,11 @@
 import type { TestAnswer, ScoreBreakdown, QuestionType } from './types';
 import questionBank from './questionBank.json';
+import parti02 from './underlagParti02.json';
 import type { Passage } from './types';
 
-const passages = questionBank as Passage[];
+const frysta = questionBank as Passage[];
+// Rättningen hittar alla underlag, oavsett sessionens underlagsversion.
+const passages = [...frysta, ...(parti02 as unknown as Passage[])];
 
 export function validateAnswer(
   passageId: string,
@@ -98,6 +101,7 @@ export function getPassageById(passageId: string): Passage | undefined {
   return passages.find((p) => p.id === passageId);
 }
 
-export function getAllPassages(): Passage[] {
-  return passages;
+/** Urvalets pool: version 1 de frysta underlagen, version 2 plus parti 02 (src/lib/tester/underlagVersion.ts). */
+export function getAllPassages(version: 1 | 2 = 1): Passage[] {
+  return version === 2 ? passages : frysta;
 }

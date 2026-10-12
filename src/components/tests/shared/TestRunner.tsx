@@ -22,6 +22,7 @@ import type { VerbalSessionPassage } from '@/components/tests/verbal/VerbalTestS
 import type { Passage as NumericalPassage } from '@/lib/numericalTest/types'
 
 import { selectPassagesForSession as selectNumericalGrund } from '@/lib/numericalTest/selectPassages'
+import type { UnderlagVersion } from '@/lib/tester/underlagVersion'
 import { selectPassagesForSession as selectNumericalAvancerad } from '@/lib/numericalTestV2/selectPassages'
 import { selectPassagesForSession as selectNumericalExpert } from '@/lib/numericalTestExpert/selectPassages'
 import { selectPassagesForSession as selectVerbalGrund } from '@/lib/verbalTestV1/selectPassages.v1'
@@ -63,23 +64,25 @@ const VerbalExpertSession = dynamic(
 */
 
 // V2- och expertpassager har samma fältstruktur som V1, så casten är säker.
-const numericalAvancerad = (id: string) =>
-  selectNumericalAvancerad(id) as unknown as NumericalPassage[]
+// version: sessionens underlagsversion (src/lib/tester/underlagVersion.ts).
+const numericalGrund = (id: string, version?: UnderlagVersion) => selectNumericalGrund(id, undefined, version)
+const numericalAvancerad = (id: string, version?: UnderlagVersion) =>
+  selectNumericalAvancerad(id, undefined, version) as unknown as NumericalPassage[]
 const numericalExpert = (id: string) =>
   selectNumericalExpert(id) as unknown as NumericalPassage[]
 
-const NUMERICAL_SELECT: Record<string, (id: string) => NumericalPassage[]> = {
-  'numeriskt-test': selectNumericalGrund,
+const NUMERICAL_SELECT: Record<string, (id: string, version?: UnderlagVersion) => NumericalPassage[]> = {
+  'numeriskt-test': numericalGrund,
   'numeriskt-test-v2': numericalAvancerad,
   'numeriskt-test-expert': numericalExpert,
 }
 
-const verbalGrund = (id: string) =>
-  selectVerbalGrund(id) as unknown as VerbalSessionPassage[]
-const verbalAvancerad = (id: string) =>
-  selectVerbalAvancerad(id) as unknown as VerbalSessionPassage[]
+const verbalGrund = (id: string, version?: UnderlagVersion) =>
+  selectVerbalGrund(id, undefined, version) as unknown as VerbalSessionPassage[]
+const verbalAvancerad = (id: string, version?: UnderlagVersion) =>
+  selectVerbalAvancerad(id, undefined, version) as unknown as VerbalSessionPassage[]
 
-const VERBAL_SELECT: Record<string, (id: string) => VerbalSessionPassage[]> = {
+const VERBAL_SELECT: Record<string, (id: string, version?: UnderlagVersion) => VerbalSessionPassage[]> = {
   'verbal-resonemang': verbalGrund,
   'verbal-resonemang-v2': verbalAvancerad,
 }

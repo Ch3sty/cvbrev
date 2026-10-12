@@ -3,6 +3,7 @@
 // Speglar numericalTest/selectPassages.ts. Se den för förklaring.
 
 import { getAllPassages } from './validator';
+import type { UnderlagVersion } from '@/lib/tester/underlagVersion';
 import type { Passage } from './types';
 import { blandaPassagernasAlternativ } from '@/lib/numericalTest/blandaAlternativ';
 
@@ -31,9 +32,10 @@ function mulberry32(seed: number) {
 
 export function selectPassagesForSession(
   sessionId: string,
-  count: number = PASSAGES_PER_SESSION
+  count: number = PASSAGES_PER_SESSION,
+  version: UnderlagVersion = 1
 ): Passage[] {
-  const shuffled = [...getAllPassages()];
+  const shuffled = [...getAllPassages(version)];
   const rng = mulberry32(hashString(sessionId));
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(rng() * (i + 1));

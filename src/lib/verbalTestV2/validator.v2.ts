@@ -1,9 +1,11 @@
 // src/lib/verbalTestV2/validator.v2.ts
 import type { Question, UserAnswer, TestAnswer } from './types.v2';
 import questionBank from './questionBank.json';
+import parti02 from './underlagParti02.json';
 import { TOTAL_STATEMENTS } from './selectPassages.v2';
 
-const questions = questionBank as Question[];
+// Rättningen hittar alla texter, oavsett sessionens underlagsversion.
+const questions = [...(questionBank as Question[]), ...(parti02 as unknown as Question[])];
 
 /**
  * Validates and scores a user's answer to a statement

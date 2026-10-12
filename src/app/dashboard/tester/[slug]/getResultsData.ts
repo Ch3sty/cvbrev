@@ -40,6 +40,8 @@ export interface ResultsSession {
    * rätt svar stod. Null för andra testtyper och för ej avslutade sessioner.
    */
   genomgang?: GenomgangsFraga[] | null
+  /** Sessionens meta (antal, underlagsversion, bankversion). */
+  meta?: unknown
 }
 
 export interface ResultsData {
@@ -164,12 +166,13 @@ export async function getResultsData(
       // Äldre testdata kan ha answers som objekt ({"_mock": true}).
       answers: svarslista(row.answers),
       genomgang,
+      meta: row.meta,
     }
 
     const analys =
       config.kind === 'matris'
         ? analysForMatris(config, genomgang, row.answers)
-        : analysera(fragorForUnderlag(config.slug, row.id, row.answers), budgetFor(config))
+        : analysera(fragorForUnderlag(config.slug, row.id, row.answers, row.meta), budgetFor(config))
 
     const bastRad = (bastRes.data as { score: number | null }[] | null)?.[0]
     const bastaPoang = Math.max(bastRad?.score ?? 0, row.score ?? 0) || null

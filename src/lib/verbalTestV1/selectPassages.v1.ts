@@ -7,9 +7,13 @@
 // =============================================================================
 
 import questionBank from './questionBank.json';
+import parti02 from './underlagParti02.json';
+import type { UnderlagVersion } from '@/lib/tester/underlagVersion';
 import type { Question } from './types.v1';
 
 export const POOL = questionBank as Question[];
+/** Version 2 (src/lib/tester/underlagVersion.ts): de frysta texterna plus parti 02. */
+export const POOL_V2 = [...POOL, ...(parti02 as unknown as Question[])];
 
 // Antal passager som dras per session. Hålls konstant så maxpoäng inte
 // varierar med bankens storlek (4 påståenden × PASSAGES_PER_SESSION).
@@ -42,9 +46,10 @@ function mulberry32(seed: number) {
  */
 export function selectPassagesForSession(
   sessionId: string,
-  count: number = PASSAGES_PER_SESSION
+  count: number = PASSAGES_PER_SESSION,
+  version: UnderlagVersion = 1
 ): Question[] {
-  const shuffled = [...POOL];
+  const shuffled = [...(version === 2 ? POOL_V2 : POOL)];
   const rng = mulberry32(hashString(sessionId));
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(rng() * (i + 1));

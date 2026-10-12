@@ -1,0 +1,2480 @@
+[
+  {
+    "id": "na-09-bemanning-skift",
+    "title": "Bemanning per skift",
+    "type": "table",
+    "topic": "Logistik och bemanning",
+    "difficulty": 2,
+    "contextText": "Tabellen visar bemanningen på ett centrallager under en vanlig vecka. Varje skift är 8 timmar långt, och bemanningen anges i personer per skift. Lönekostnaden inklusive sociala avgifter är i genomsnitt 385 kr per arbetad timme. 1 tkr är 1 000 kr.",
+    "dataTable": {
+      "headers": [
+        "Skift",
+        "Skift per vecka",
+        "Planerad bemanning",
+        "Faktisk bemanning",
+        "Plockade order per skift",
+        "Sjukanmälningar under veckan"
+      ],
+      "rows": [
+        [
+          "Dagskift",
+          "5",
+          "24",
+          "22",
+          "1 860",
+          "11"
+        ],
+        [
+          "Kvällsskift",
+          "5",
+          "18",
+          "17",
+          "1 420",
+          "7"
+        ],
+        [
+          "Nattskift",
+          "5",
+          "10",
+          "9",
+          "640",
+          "6"
+        ],
+        [
+          "Helgskift",
+          "2",
+          "14",
+          "12",
+          "1 090",
+          "3"
+        ]
+      ],
+      "caption": "Bemanning och plockade order per skift under en vecka"
+    },
+    "ovanvant": [
+      "kolumn Sjukanmälningar under veckan"
+    ],
+    "enhetsbyte": "kr till tkr",
+    "p_prior": 0.55,
+    "questions": [
+      {
+        "id": "na-09-q01",
+        "passageId": "na-09-bemanning-skift",
+        "questionNumber": 1,
+        "questionText": "Hur stor var lönekostnaden för kvällsskiftens faktiska bemanning under veckan, i tkr?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "277,2 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "5 * 18 * 8 * 385 / 1000",
+              "varde": 277.2
+            }
+          },
+          {
+            "id": "b",
+            "text": "52,4 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "17 * 8 * 385 / 1000",
+              "varde": 52.36
+            }
+          },
+          {
+            "id": "c",
+            "text": "261,8 tkr",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "338,8 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "5 * 22 * 8 * 385 / 1000",
+              "varde": 338.8
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Arbetade timmar på kvällsskiften",
+              "uttryck": "5 * 17 * 8",
+              "varde": 680
+            },
+            {
+              "text": "Lönekostnad i tkr",
+              "uttryck": "680 * 385 / 1000",
+              "varde": 261.8
+            }
+          ],
+          "visning": "261,8 tkr",
+          "precision": 1
+        },
+        "explanation": "Arbetade timmar på kvällsskiften: 5 · 17 · 8 = 680. Lönekostnad i tkr: 680 · 385 / 1 000 = 261,8. Svaret blir 261,8 tkr."
+      },
+      {
+        "id": "na-09-q02",
+        "passageId": "na-09-bemanning-skift",
+        "questionNumber": 2,
+        "questionText": "Räkna i personskift över hela veckan och alla fyra skifttyper. Hur många procent lägre var den faktiska bemanningen än den planerade?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "8,3 %",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "9,1 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "(288 - 264) / 264 * 100",
+              "varde": 9.0909
+            }
+          },
+          {
+            "id": "c",
+            "text": "7,7 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(5 * 24 + 5 * 18 + 5 * 10 - 5 * 22 - 5 * 17 - 5 * 9) / (5 * 24 + 5 * 18 + 5 * 10) * 100",
+              "varde": 7.6923
+            }
+          },
+          {
+            "id": "d",
+            "text": "91,7 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "264 / 288 * 100",
+              "varde": 91.6667
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Planerade personskift",
+              "uttryck": "5 * 24 + 5 * 18 + 5 * 10 + 2 * 14",
+              "varde": 288
+            },
+            {
+              "text": "Faktiska personskift",
+              "uttryck": "5 * 22 + 5 * 17 + 5 * 9 + 2 * 12",
+              "varde": 264
+            },
+            {
+              "text": "Skillnad i procent av det planerade",
+              "uttryck": "(288 - 264) / 288 * 100",
+              "varde": 8.3333
+            }
+          ],
+          "visning": "8,3 %",
+          "precision": 1
+        },
+        "explanation": "Planerade personskift: 5 · 24 + 5 · 18 + 5 · 10 + 2 · 14 = 288. Faktiska personskift: 5 · 22 + 5 · 17 + 5 · 9 + 2 · 12 = 264. Skillnad i procent av det planerade: (288 - 264) / 288 · 100 = 8,333. Svaret blir 8,3 %."
+      },
+      {
+        "id": "na-09-q03",
+        "passageId": "na-09-bemanning-skift",
+        "questionNumber": 3,
+        "questionText": "Hur många order plockades per arbetad timme på ett dagskift, räknat på den faktiska bemanningen?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "9,7 order",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "1860 / (24 * 8)",
+              "varde": 9.6875
+            }
+          },
+          {
+            "id": "b",
+            "text": "84,5 order",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "1860 / 22",
+              "varde": 84.5455
+            }
+          },
+          {
+            "id": "c",
+            "text": "10,4 order",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "1420 / (17 * 8)",
+              "varde": 10.4412
+            }
+          },
+          {
+            "id": "d",
+            "text": "10,6 order",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Arbetade timmar per dagskift",
+              "uttryck": "22 * 8",
+              "varde": 176
+            },
+            {
+              "text": "Order per timme",
+              "uttryck": "1860 / 176",
+              "varde": 10.5682
+            }
+          ],
+          "visning": "10,6 order",
+          "precision": 1
+        },
+        "explanation": "Arbetade timmar per dagskift: 22 · 8 = 176. Order per timme: 1 860 / 176 = 10,568. Svaret blir 10,6 order."
+      },
+      {
+        "id": "na-09-q04",
+        "passageId": "na-09-bemanning-skift",
+        "questionNumber": 4,
+        "questionText": "Ledningen vill att nattskiftets faktiska bemanning ska nå den planerade varje natt. Hur mycket ökar lönekostnaden per vecka då, i tkr?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "3,1 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "(10 - 9) * 8 * 385 / 1000",
+              "varde": 3.08
+            }
+          },
+          {
+            "id": "b",
+            "text": "15,4 tkr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "12,3 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(14 - 12) * 2 * 8 * 385 / 1000",
+              "varde": 12.32
+            }
+          },
+          {
+            "id": "d",
+            "text": "154,0 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "10 * 5 * 8 * 385 / 1000",
+              "varde": 154
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Saknade timmar per vecka",
+              "uttryck": "(10 - 9) * 5 * 8",
+              "varde": 40
+            },
+            {
+              "text": "Kostnad i tkr",
+              "uttryck": "40 * 385 / 1000",
+              "varde": 15.4
+            }
+          ],
+          "visning": "15,4 tkr",
+          "precision": 1
+        },
+        "explanation": "Saknade timmar per vecka: (10 - 9) · 5 · 8 = 40. Kostnad i tkr: 40 · 385 / 1 000 = 15,4. Svaret blir 15,4 tkr."
+      }
+    ]
+  },
+  {
+    "id": "na-10-rekryteringskostnad",
+    "title": "Rekryteringskostnad per tjänst",
+    "type": "table",
+    "topic": "Personal och rekrytering",
+    "difficulty": 2,
+    "contextText": "Tabellen visar ett regionalt bolags rekryteringar under 2025 per yrkesgrupp. Annonser och konsultarvoden anges i tkr. Intern tid är de timmar som chefer och HR lade på urval och intervjuer. Bolaget värderar en intern timme till 650 kr, och 1 tkr är 1 000 kr.",
+    "dataTable": {
+      "headers": [
+        "Yrkesgrupp",
+        "Tillsatta tjänster",
+        "Annonser (tkr)",
+        "Konsultarvode (tkr)",
+        "Intern tid (timmar)",
+        "Avbrutna rekryteringar"
+      ],
+      "rows": [
+        [
+          "Sjuksköterskor",
+          "18",
+          "126",
+          "540",
+          "1 280",
+          "2"
+        ],
+        [
+          "Undersköterskor",
+          "32",
+          "96",
+          "0",
+          "1 920",
+          "3"
+        ],
+        [
+          "Ingenjörer",
+          "9",
+          "81",
+          "702",
+          "810",
+          "1"
+        ],
+        [
+          "Ekonomer",
+          "6",
+          "42",
+          "0",
+          "450",
+          "0"
+        ],
+        [
+          "Chefer",
+          "4",
+          "28",
+          "480",
+          "640",
+          "1"
+        ]
+      ],
+      "caption": "Rekryteringar och kostnader per yrkesgrupp 2025"
+    },
+    "ovanvant": [
+      "kolumn Avbrutna rekryteringar"
+    ],
+    "enhetsbyte": "timmar till tkr",
+    "p_prior": 0.55,
+    "questions": [
+      {
+        "id": "na-10-q01",
+        "passageId": "na-10-rekryteringskostnad",
+        "questionNumber": 1,
+        "questionText": "Vad kostade en tillsatt ingenjörstjänst i genomsnitt i annonser och konsultarvode, i tkr?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "78,0 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "702 / 9",
+              "varde": 78
+            }
+          },
+          {
+            "id": "b",
+            "text": "87,0 tkr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "37,0 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(126 + 540) / 18",
+              "varde": 37
+            }
+          },
+          {
+            "id": "d",
+            "text": "127,0 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(28 + 480) / 4",
+              "varde": 127
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Annonser och konsultarvode för ingenjörer",
+              "uttryck": "81 + 702",
+              "varde": 783
+            },
+            {
+              "text": "Per tillsatt tjänst",
+              "uttryck": "783 / 9",
+              "varde": 87
+            }
+          ],
+          "visning": "87,0 tkr",
+          "precision": 1
+        },
+        "explanation": "Annonser och konsultarvode för ingenjörer: 81 + 702 = 783. Per tillsatt tjänst: 783 / 9 = 87. Svaret blir 87,0 tkr."
+      },
+      {
+        "id": "na-10-q02",
+        "passageId": "na-10-rekryteringskostnad",
+        "questionNumber": 2,
+        "questionText": "Räkna även in den interna tiden. Vad kostade en tillsatt sjuksköterska i genomsnitt, i tkr?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "37,0 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "(126 + 540) / 18",
+              "varde": 37
+            }
+          },
+          {
+            "id": "b",
+            "text": "108,1 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "(126 + 540 + 1280) / 18",
+              "varde": 108.1111
+            }
+          },
+          {
+            "id": "c",
+            "text": "42,0 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(96 + 0 + 1920 * 650 / 1000) / 32",
+              "varde": 42
+            }
+          },
+          {
+            "id": "d",
+            "text": "83,2 tkr",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Intern tid i tkr",
+              "uttryck": "1280 * 650 / 1000",
+              "varde": 832
+            },
+            {
+              "text": "Total kostnad i tkr",
+              "uttryck": "126 + 540 + 832",
+              "varde": 1498
+            },
+            {
+              "text": "Per tillsatt tjänst",
+              "uttryck": "1498 / 18",
+              "varde": 83.2222
+            }
+          ],
+          "visning": "83,2 tkr",
+          "precision": 1
+        },
+        "explanation": "Intern tid i tkr: 1 280 · 650 / 1 000 = 832. Total kostnad i tkr: 126 + 540 + 832 = 1 498. Per tillsatt tjänst: 1 498 / 18 = 83,222. Svaret blir 83,2 tkr."
+      },
+      {
+        "id": "na-10-q03",
+        "passageId": "na-10-rekryteringskostnad",
+        "questionNumber": 3,
+        "questionText": "Hur stor andel av bolagets samlade konsultarvoden gick till rekryteringen av chefer?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "27,9 %",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "7,5 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "28 / (126 + 96 + 81 + 42 + 28) * 100",
+              "varde": 7.5067
+            }
+          },
+          {
+            "id": "c",
+            "text": "38,6 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "480 / (540 + 702) * 100",
+              "varde": 38.6473
+            }
+          },
+          {
+            "id": "d",
+            "text": "40,8 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "702 / 1722 * 100",
+              "varde": 40.7666
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Samlade konsultarvoden",
+              "uttryck": "540 + 702 + 480",
+              "varde": 1722
+            },
+            {
+              "text": "Chefernas andel",
+              "uttryck": "480 / 1722 * 100",
+              "varde": 27.8746
+            }
+          ],
+          "visning": "27,9 %",
+          "precision": 1
+        },
+        "explanation": "Samlade konsultarvoden: 540 + 702 + 480 = 1 722. Chefernas andel: 480 / 1 722 · 100 = 27,875. Svaret blir 27,9 %."
+      },
+      {
+        "id": "na-10-q04",
+        "passageId": "na-10-rekryteringskostnad",
+        "questionNumber": 4,
+        "questionText": "Hur många timmar intern tid lades i genomsnitt per tillsatt tjänst, räknat över alla yrkesgrupper?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "91 timmar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "(1280 / 18 + 1920 / 32 + 810 / 9 + 450 / 6 + 640 / 4) / 5",
+              "varde": 91.2222
+            }
+          },
+          {
+            "id": "b",
+            "text": "69 timmar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(5100 - 640) / (69 - 4)",
+              "varde": 68.6154
+            }
+          },
+          {
+            "id": "c",
+            "text": "74 timmar",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "48 timmar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "5100 * 650 / 1000 / 69",
+              "varde": 48.0435
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Intern tid totalt",
+              "uttryck": "1280 + 1920 + 810 + 450 + 640",
+              "varde": 5100
+            },
+            {
+              "text": "Tillsatta tjänster totalt",
+              "uttryck": "18 + 32 + 9 + 6 + 4",
+              "varde": 69
+            },
+            {
+              "text": "Timmar per tjänst",
+              "uttryck": "5100 / 69",
+              "varde": 73.913
+            }
+          ],
+          "visning": "74 timmar",
+          "precision": 0
+        },
+        "explanation": "Intern tid totalt: 1 280 + 1 920 + 810 + 450 + 640 = 5 100. Tillsatta tjänster totalt: 18 + 32 + 9 + 6 + 4 = 69. Timmar per tjänst: 5 100 / 69 = 73,913. Svaret blir 74 timmar."
+      }
+    ]
+  },
+  {
+    "id": "na-11-fakturering-kvartal",
+    "title": "Fakturering per kvartal",
+    "type": "graph",
+    "topic": "Företagsekonomi",
+    "difficulty": 2,
+    "contextText": "Diagrammet visar ett konsultbolags fakturering per kvartal under 2024 och 2025, i mkr och utan moms. Bolaget hade 45 debiterande konsulter under hela perioden. 1 mkr är 1 000 tkr.",
+    "chartData": {
+      "chartType": "line",
+      "title": "Fakturering per kvartal",
+      "unit": "mkr",
+      "xAxisLabel": "Kvartal",
+      "yAxisLabel": "Fakturering (mkr)",
+      "data": [
+        {
+          "x": "K1 2024",
+          "y": 12.4
+        },
+        {
+          "x": "K2 2024",
+          "y": 13.8
+        },
+        {
+          "x": "K3 2024",
+          "y": 9.6
+        },
+        {
+          "x": "K4 2024",
+          "y": 15.2
+        },
+        {
+          "x": "K1 2025",
+          "y": 13.2
+        },
+        {
+          "x": "K2 2025",
+          "y": 14.6
+        },
+        {
+          "x": "K3 2025",
+          "y": 10.3
+        },
+        {
+          "x": "K4 2025",
+          "y": 16.9
+        }
+      ]
+    },
+    "ovanvant": [
+      "punkt K1 2024"
+    ],
+    "enhetsbyte": "mkr till tkr",
+    "p_prior": 0.55,
+    "questions": [
+      {
+        "id": "na-11-q01",
+        "passageId": "na-11-fakturering-kvartal",
+        "questionNumber": 1,
+        "questionText": "Hur mycket fakturerade bolaget per konsult under hela år 2025, i tkr?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "1 222 tkr",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "376 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "16.9 * 1000 / 45",
+              "varde": 375.5556
+            }
+          },
+          {
+            "id": "c",
+            "text": "306 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "55 * 1000 / 4 / 45",
+              "varde": 305.5556
+            }
+          },
+          {
+            "id": "d",
+            "text": "1 133 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(12.4 + 13.8 + 9.6 + 15.2) * 1000 / 45",
+              "varde": 1133.3333
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Fakturering år 2025 i mkr",
+              "uttryck": "13.2 + 14.6 + 10.3 + 16.9",
+              "varde": 55
+            },
+            {
+              "text": "Per konsult i tkr",
+              "uttryck": "55 * 1000 / 45",
+              "varde": 1222.2222
+            }
+          ],
+          "visning": "1 222 tkr",
+          "precision": 0
+        },
+        "explanation": "Fakturering år 2025 i mkr: 13,2 + 14,6 + 10,3 + 16,9 = 55. Per konsult i tkr: 55 · 1 000 / 45 = 1 222,222. Svaret blir 1 222 tkr."
+      },
+      {
+        "id": "na-11-q02",
+        "passageId": "na-11-fakturering-kvartal",
+        "questionNumber": 2,
+        "questionText": "Med hur många procent ökade faktureringen från K3 2025 till K4 2025?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "39,1 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "6.6 / 16.9 * 100",
+              "varde": 39.0533
+            }
+          },
+          {
+            "id": "b",
+            "text": "58,3 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(15.2 - 9.6) / 9.6 * 100",
+              "varde": 58.3333
+            }
+          },
+          {
+            "id": "c",
+            "text": "64,1 %",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "164,1 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "16.9 / 10.3 * 100",
+              "varde": 164.0777
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Ökning i mkr",
+              "uttryck": "16.9 - 10.3",
+              "varde": 6.6
+            },
+            {
+              "text": "Ökning i procent av K3 2025",
+              "uttryck": "6.6 / 10.3 * 100",
+              "varde": 64.0777
+            }
+          ],
+          "visning": "64,1 %",
+          "precision": 1
+        },
+        "explanation": "Ökning i mkr: 16,9 - 10,3 = 6,6. Ökning i procent av K3 2025: 6,6 / 10,3 · 100 = 64,078. Svaret blir 64,1 %."
+      },
+      {
+        "id": "na-11-q03",
+        "passageId": "na-11-fakturering-kvartal",
+        "questionNumber": 3,
+        "questionText": "Hur stor var den genomsnittliga faktureringen per kvartal under andra halvåret 2025, i mkr?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "6,8 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "(10.3 + 16.9) / 4",
+              "varde": 6.8
+            }
+          },
+          {
+            "id": "b",
+            "text": "13,6 mkr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "13,9 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(13.2 + 14.6) / 2",
+              "varde": 13.9
+            }
+          },
+          {
+            "id": "d",
+            "text": "12,4 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "(9.6 + 15.2) / 2",
+              "varde": 12.4
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Andra halvåret 2025",
+              "uttryck": "10.3 + 16.9",
+              "varde": 27.2
+            },
+            {
+              "text": "Genomsnitt per kvartal",
+              "uttryck": "27.2 / 2",
+              "varde": 13.6
+            }
+          ],
+          "visning": "13,6 mkr",
+          "precision": 1
+        },
+        "explanation": "Andra halvåret 2025: 10,3 + 16,9 = 27,2. Genomsnitt per kvartal: 27,2 / 2 = 13,6. Svaret blir 13,6 mkr."
+      },
+      {
+        "id": "na-11-q04",
+        "passageId": "na-11-fakturering-kvartal",
+        "questionNumber": 4,
+        "questionText": "Bolaget räknar med att faktureringen 2026 blir 8 % högre än samma kvartal 2025. Hur mycket blir då faktureringen under första halvåret 2026, i mkr?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "27,8 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "13.2 + 14.6",
+              "varde": 27.8
+            }
+          },
+          {
+            "id": "b",
+            "text": "35,8 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "13.2 + 14.6 + 8",
+              "varde": 35.8
+            }
+          },
+          {
+            "id": "c",
+            "text": "29,4 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(10.3 + 16.9) * (1 + 8 / 100)",
+              "varde": 29.376
+            }
+          },
+          {
+            "id": "d",
+            "text": "30,0 mkr",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Första halvåret 2025",
+              "uttryck": "13.2 + 14.6",
+              "varde": 27.8
+            },
+            {
+              "text": "Med 8 % ökning",
+              "uttryck": "27.8 * (1 + 8 / 100)",
+              "varde": 30.024
+            }
+          ],
+          "visning": "30,0 mkr",
+          "precision": 1
+        },
+        "explanation": "Första halvåret 2025: 13,2 + 14,6 = 27,8. Med 8 % ökning: 27,8 · (1 + 8 / 100) = 30,024. Svaret blir 30,0 mkr."
+      }
+    ]
+  },
+  {
+    "id": "na-12-fordonsbransle",
+    "title": "Fordonsflottans bränsle",
+    "type": "table",
+    "topic": "Transport och miljö",
+    "difficulty": 2,
+    "contextText": "Tabellen visar körsträcka och bränsleförbrukning för en kommuns fordonsflotta under 2025. Körsträckan anges per fordon och förbrukningen i liter per mil. 1 mil är 10 km. Diesel kostade i genomsnitt 19,20 kr per liter och bensin 18,10 kr per liter.",
+    "dataTable": {
+      "headers": [
+        "Fordonstyp",
+        "Antal fordon",
+        "Bränsle",
+        "Körsträcka per fordon (mil)",
+        "Förbrukning (liter per mil)",
+        "Servicekostnad per fordon (kr)"
+      ],
+      "rows": [
+        [
+          "Personbil",
+          "24",
+          "Bensin",
+          "1 450",
+          "0,62",
+          "4 800"
+        ],
+        [
+          "Lätt lastbil",
+          "12",
+          "Diesel",
+          "1 820",
+          "0,85",
+          "7 200"
+        ],
+        [
+          "Tung lastbil",
+          "5",
+          "Diesel",
+          "2 640",
+          "2,40",
+          "21 500"
+        ],
+        [
+          "Minibuss",
+          "4",
+          "Diesel",
+          "2 100",
+          "1,05",
+          "9 600"
+        ]
+      ],
+      "caption": "Fordonsflottan 2025"
+    },
+    "ovanvant": [
+      "kolumn Servicekostnad per fordon (kr)"
+    ],
+    "enhetsbyte": "mil till km",
+    "p_prior": 0.55,
+    "questions": [
+      {
+        "id": "na-12-q01",
+        "passageId": "na-12-fordonsbransle",
+        "questionNumber": 1,
+        "questionText": "Hur många liter diesel förbrukade de lätta lastbilarna sammanlagt under 2025?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "1 547 liter",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "1820 * 0.85",
+              "varde": 1547
+            }
+          },
+          {
+            "id": "b",
+            "text": "185 640 liter",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "21840 * 10 * 0.85",
+              "varde": 185640
+            }
+          },
+          {
+            "id": "c",
+            "text": "18 564 liter",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "8 820 liter",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "4 * 2100 * 1.05",
+              "varde": 8820
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Körsträcka alla lätta lastbilar",
+              "uttryck": "12 * 1820",
+              "varde": 21840
+            },
+            {
+              "text": "Förbrukning i liter",
+              "uttryck": "21840 * 0.85",
+              "varde": 18564
+            }
+          ],
+          "visning": "18 564 liter",
+          "precision": 0
+        },
+        "explanation": "Körsträcka alla lätta lastbilar: 12 · 1 820 = 21 840. Förbrukning i liter: 21 840 · 0,85 = 18 564. Svaret blir 18 564 liter."
+      },
+      {
+        "id": "na-12-q02",
+        "passageId": "na-12-fordonsbransle",
+        "questionNumber": 2,
+        "questionText": "Vad kostade dieseln för en tung lastbil per körd kilometer, i kr?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "4,61 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "46,08 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "2.4 * 19.2",
+              "varde": 46.08
+            }
+          },
+          {
+            "id": "c",
+            "text": "4,34 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "2.4 / 10 * 18.1",
+              "varde": 4.344
+            }
+          },
+          {
+            "id": "d",
+            "text": "1,63 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "0.85 / 10 * 19.2",
+              "varde": 1.632
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Förbrukning per km",
+              "uttryck": "2.4 / 10",
+              "varde": 0.24
+            },
+            {
+              "text": "Kostnad per km",
+              "uttryck": "0.24 * 19.2",
+              "varde": 4.608
+            }
+          ],
+          "visning": "4,61 kr",
+          "precision": 2
+        },
+        "explanation": "Förbrukning per km: 2,4 / 10 = 0,24. Kostnad per km: 0,24 · 19,2 = 4,608. Svaret blir 4,61 kr."
+      },
+      {
+        "id": "na-12-q03",
+        "passageId": "na-12-fordonsbransle",
+        "questionNumber": 3,
+        "questionText": "Hur stor andel av flottans samlade körsträcka kördes av personbilarna?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "18,1 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "1450 / (1450 + 1820 + 2640 + 2100) * 100",
+              "varde": 18.1024
+            }
+          },
+          {
+            "id": "b",
+            "text": "53,3 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "24 / (24 + 12 + 5 + 4) * 100",
+              "varde": 53.3333
+            }
+          },
+          {
+            "id": "c",
+            "text": "80,1 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "34800 / (78240 - 34800) * 100",
+              "varde": 80.1105
+            }
+          },
+          {
+            "id": "d",
+            "text": "44,5 %",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Personbilarnas körsträcka",
+              "uttryck": "24 * 1450",
+              "varde": 34800
+            },
+            {
+              "text": "Hela flottans körsträcka",
+              "uttryck": "24 * 1450 + 12 * 1820 + 5 * 2640 + 4 * 2100",
+              "varde": 78240
+            },
+            {
+              "text": "Personbilarnas andel",
+              "uttryck": "34800 / 78240 * 100",
+              "varde": 44.4785
+            }
+          ],
+          "visning": "44,5 %",
+          "precision": 1
+        },
+        "explanation": "Personbilarnas körsträcka: 24 · 1 450 = 34 800. Hela flottans körsträcka: 24 · 1 450 + 12 · 1 820 + 5 · 2 640 + 4 · 2 100 = 78 240. Personbilarnas andel: 34 800 / 78 240 · 100 = 44,479. Svaret blir 44,5 %."
+      },
+      {
+        "id": "na-12-q04",
+        "passageId": "na-12-fordonsbransle",
+        "questionNumber": 4,
+        "questionText": "Kommunen byter de fem tunga lastbilarna mot fordon som förbrukar 1,90 liter per mil vid samma körsträcka. Hur mycket minskar dieselkostnaden per år, i tkr?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "25,3 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "2640 * (2.4 - 1.9) * 19.2 / 1000",
+              "varde": 25.344
+            }
+          },
+          {
+            "id": "b",
+            "text": "126,7 tkr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "481,5 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "13200 * 1.9 * 19.2 / 1000",
+              "varde": 481.536
+            }
+          },
+          {
+            "id": "d",
+            "text": "119,5 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "6600 * 18.1 / 1000",
+              "varde": 119.46
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Körsträcka tunga lastbilar",
+              "uttryck": "5 * 2640",
+              "varde": 13200
+            },
+            {
+              "text": "Sparad diesel i liter",
+              "uttryck": "13200 * (2.4 - 1.9)",
+              "varde": 6600
+            },
+            {
+              "text": "Sparad kostnad i tkr",
+              "uttryck": "6600 * 19.2 / 1000",
+              "varde": 126.72
+            }
+          ],
+          "visning": "126,7 tkr",
+          "precision": 1
+        },
+        "explanation": "Körsträcka tunga lastbilar: 5 · 2 640 = 13 200. Sparad diesel i liter: 13 200 · (2,4 - 1,9) = 6 600. Sparad kostnad i tkr: 6 600 · 19,2 / 1 000 = 126,72. Svaret blir 126,7 tkr."
+      }
+    ]
+  },
+  {
+    "id": "na-13-vardplatser",
+    "title": "Vårdplatser per avdelning",
+    "type": "table",
+    "topic": "Hälso- och sjukvård",
+    "difficulty": 2,
+    "contextText": "Tabellen visar vårdplatser och belagda vårddygn på fem avdelningar vid ett sjukhus i oktober, som har 31 dagar. Beläggningsgraden är belagda vårddygn i procent av vårdplatser gånger antal dagar. Ett vårddygn kostar i genomsnitt 9 800 kr, och 1 mkr är 1 000 000 kr.",
+    "dataTable": {
+      "headers": [
+        "Avdelning",
+        "Vårdplatser",
+        "Belagda vårddygn",
+        "Utskrivna patienter",
+        "Överbeläggningar"
+      ],
+      "rows": [
+        [
+          "Medicin",
+          "32",
+          "1 066",
+          "248",
+          "41"
+        ],
+        [
+          "Kirurgi",
+          "28",
+          "744",
+          "292",
+          "12"
+        ],
+        [
+          "Ortopedi",
+          "24",
+          "690",
+          "156",
+          "18"
+        ],
+        [
+          "Geriatrik",
+          "20",
+          "589",
+          "74",
+          "9"
+        ],
+        [
+          "Infektion",
+          "14",
+          "356",
+          "102",
+          "5"
+        ]
+      ],
+      "caption": "Vårdplatser och vårddygn i oktober"
+    },
+    "ovanvant": [
+      "kolumn Överbeläggningar"
+    ],
+    "enhetsbyte": "kr till mkr",
+    "p_prior": 0.55,
+    "questions": [
+      {
+        "id": "na-13-q01",
+        "passageId": "na-13-vardplatser",
+        "questionNumber": 1,
+        "questionText": "Hur hög var beläggningsgraden på Kirurgi i oktober?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "92,7 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "690 / (24 * 31) * 100",
+              "varde": 92.7419
+            }
+          },
+          {
+            "id": "b",
+            "text": "85,7 %",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "26,6 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "744 / 28",
+              "varde": 26.5714
+            }
+          },
+          {
+            "id": "d",
+            "text": "116,7 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "868 / 744 * 100",
+              "varde": 116.6667
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Möjliga vårddygn",
+              "uttryck": "28 * 31",
+              "varde": 868
+            },
+            {
+              "text": "Beläggningsgrad",
+              "uttryck": "744 / 868 * 100",
+              "varde": 85.7143
+            }
+          ],
+          "visning": "85,7 %",
+          "precision": 1
+        },
+        "explanation": "Möjliga vårddygn: 28 · 31 = 868. Beläggningsgrad: 744 / 868 · 100 = 85,714. Svaret blir 85,7 %."
+      },
+      {
+        "id": "na-13-q02",
+        "passageId": "na-13-vardplatser",
+        "questionNumber": 2,
+        "questionText": "Medelvårdtiden räknas som belagda vårddygn delat med utskrivna patienter. Hur lång var medelvårdtiden på Medicin, i dagar?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "2,5 dagar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "744 / 292",
+              "varde": 2.5479
+            }
+          },
+          {
+            "id": "b",
+            "text": "33,3 dagar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "1066 / 32",
+              "varde": 33.3125
+            }
+          },
+          {
+            "id": "c",
+            "text": "8,0 dagar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "589 / 74",
+              "varde": 7.9595
+            }
+          },
+          {
+            "id": "d",
+            "text": "4,3 dagar",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Medelvårdtid",
+              "uttryck": "1066 / 248",
+              "varde": 4.2984
+            }
+          ],
+          "visning": "4,3 dagar",
+          "precision": 1
+        },
+        "explanation": "Medelvårdtid: 1 066 / 248 = 4,298. Svaret blir 4,3 dagar."
+      },
+      {
+        "id": "na-13-q03",
+        "passageId": "na-13-vardplatser",
+        "questionNumber": 3,
+        "questionText": "Vad kostade de belagda vårddygnen på Ortopedi och Geriatrik sammanlagt i oktober, i mkr?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "12,5 mkr",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "6,8 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "690 * 9800 / 1000 / 1000",
+              "varde": 6.762
+            }
+          },
+          {
+            "id": "c",
+            "text": "10,3 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(690 + 356) * 9800 / 1000 / 1000",
+              "varde": 10.2508
+            }
+          },
+          {
+            "id": "d",
+            "text": "13,4 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "(24 + 20) * 31 * 9800 / 1000 / 1000",
+              "varde": 13.3672
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Belagda vårddygn",
+              "uttryck": "690 + 589",
+              "varde": 1279
+            },
+            {
+              "text": "Kostnad i mkr",
+              "uttryck": "1279 * 9800 / 1000 / 1000",
+              "varde": 12.5342
+            }
+          ],
+          "visning": "12,5 mkr",
+          "precision": 1
+        },
+        "explanation": "Belagda vårddygn: 690 + 589 = 1 279. Kostnad i mkr: 1 279 · 9 800 / 1 000 / 1 000 = 12,534. Svaret blir 12,5 mkr."
+      },
+      {
+        "id": "na-13-q04",
+        "passageId": "na-13-vardplatser",
+        "questionNumber": 4,
+        "questionText": "Hur stor andel av sjukhusets utskrivna patienter i oktober kom från Kirurgi och Infektion tillsammans?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "82,4 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "394 / (248 + 156 + 74) * 100",
+              "varde": 82.4268
+            }
+          },
+          {
+            "id": "b",
+            "text": "51,4 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(292 + 156) / 872 * 100",
+              "varde": 51.3761
+            }
+          },
+          {
+            "id": "c",
+            "text": "45,2 %",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "33,5 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "292 / 872 * 100",
+              "varde": 33.4862
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Utskrivna från Kirurgi och Infektion",
+              "uttryck": "292 + 102",
+              "varde": 394
+            },
+            {
+              "text": "Andel av alla utskrivna",
+              "uttryck": "394 / (248 + 292 + 156 + 74 + 102) * 100",
+              "varde": 45.1835
+            }
+          ],
+          "visning": "45,2 %",
+          "precision": 1
+        },
+        "explanation": "Utskrivna från Kirurgi och Infektion: 292 + 102 = 394. Andel av alla utskrivna: 394 / (248 + 292 + 156 + 74 + 102) · 100 = 45,184. Svaret blir 45,2 %."
+      }
+    ]
+  },
+  {
+    "id": "na-14-skolskjuts",
+    "title": "Skolskjutsens linjer",
+    "type": "table",
+    "topic": "Offentlig ekonomi",
+    "difficulty": 2,
+    "contextText": "Tabellen visar kommunens skolskjutslinjer läsåret 2025/26. Läsåret har 178 skoldagar. Varje linje körs två turer per skoldag, en på morgonen och en på eftermiddagen. Buss- och taxibolagen får ersättning per körd km, och 1 tkr är 1 000 kr.",
+    "dataTable": {
+      "headers": [
+        "Linje",
+        "Elever",
+        "Km per tur",
+        "Ersättning (kr per km)",
+        "Fordon"
+      ],
+      "rows": [
+        [
+          "Norra slingan",
+          "46",
+          "38",
+          "31,50",
+          "Buss"
+        ],
+        [
+          "Södra slingan",
+          "52",
+          "44",
+          "31,50",
+          "Buss"
+        ],
+        [
+          "Västra byarna",
+          "18",
+          "27",
+          "24,80",
+          "Minibuss"
+        ],
+        [
+          "Fjällvägen",
+          "9",
+          "62",
+          "18,60",
+          "Taxi"
+        ],
+        [
+          "Älvdalen",
+          "23",
+          "35",
+          "31,50",
+          "Buss"
+        ]
+      ],
+      "caption": "Skolskjuts per linje läsåret 2025/26"
+    },
+    "ovanvant": [
+      "rad Älvdalen"
+    ],
+    "enhetsbyte": "kr till tkr",
+    "p_prior": 0.55,
+    "questions": [
+      {
+        "id": "na-14-q01",
+        "passageId": "na-14-skolskjuts",
+        "questionNumber": 1,
+        "questionText": "Hur många km körs på Norra slingan under ett helt läsår?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "13 528 km",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "6 764 km",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "38 * 178",
+              "varde": 6764
+            }
+          },
+          {
+            "id": "c",
+            "text": "15 664 km",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "44 * 2 * 178",
+              "varde": 15664
+            }
+          },
+          {
+            "id": "d",
+            "text": "16 376 km",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "46 * 2 * 178",
+              "varde": 16376
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Km per skoldag",
+              "uttryck": "38 * 2",
+              "varde": 76
+            },
+            {
+              "text": "Km per läsår",
+              "uttryck": "76 * 178",
+              "varde": 13528
+            }
+          ],
+          "visning": "13 528 km",
+          "precision": 0
+        },
+        "explanation": "Km per skoldag: 38 · 2 = 76. Km per läsår: 76 · 178 = 13 528. Svaret blir 13 528 km."
+      },
+      {
+        "id": "na-14-q02",
+        "passageId": "na-14-skolskjuts",
+        "questionNumber": 2,
+        "questionText": "Vad kostar skolskjutsen på Fjällvägen per elev och läsår, i tkr?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "410,5 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "410539.2 / 1000",
+              "varde": 410.5392
+            }
+          },
+          {
+            "id": "b",
+            "text": "60,8 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "22072 * 24.8 / 9 / 1000",
+              "varde": 60.8206
+            }
+          },
+          {
+            "id": "c",
+            "text": "45,6 tkr",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "22,8 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "62 * 178 * 18.6 / 9 / 1000",
+              "varde": 22.8077
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Km per läsår",
+              "uttryck": "62 * 2 * 178",
+              "varde": 22072
+            },
+            {
+              "text": "Ersättning per läsår i kr",
+              "uttryck": "22072 * 18.6",
+              "varde": 410539.2
+            },
+            {
+              "text": "Per elev i tkr",
+              "uttryck": "410539.2 / 9 / 1000",
+              "varde": 45.6155
+            }
+          ],
+          "visning": "45,6 tkr",
+          "precision": 1
+        },
+        "explanation": "Km per läsår: 62 · 2 · 178 = 22 072. Ersättning per läsår i kr: 22 072 · 18,6 = 410 539,2. Per elev i tkr: 410 539,2 / 9 / 1 000 = 45,616. Svaret blir 45,6 tkr."
+      },
+      {
+        "id": "na-14-q03",
+        "passageId": "na-14-skolskjuts",
+        "questionNumber": 3,
+        "questionText": "Bussbolaget går med på att sänka ersättningen med 6 %. Hur mycket sparar kommunen då per läsår på Norra slingan och Södra slingan tillsammans, i tkr?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "27,6 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "(38 + 44) * 178 * 31.5 * 6 / 100 / 1000",
+              "varde": 27.5864
+            }
+          },
+          {
+            "id": "b",
+            "text": "55,2 tkr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "864,4 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "919548 * (100 - 6) / 100 / 1000",
+              "varde": 864.3751
+            }
+          },
+          {
+            "id": "d",
+            "text": "49,1 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(38 + 35) * 2 * 178 * 31.5 * 6 / 100 / 1000",
+              "varde": 49.1173
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Km per läsår på båda slingorna",
+              "uttryck": "(38 + 44) * 2 * 178",
+              "varde": 29192
+            },
+            {
+              "text": "Ersättning i kr",
+              "uttryck": "29192 * 31.5",
+              "varde": 919548
+            },
+            {
+              "text": "Besparing i tkr",
+              "uttryck": "919548 * 6 / 100 / 1000",
+              "varde": 55.1729
+            }
+          ],
+          "visning": "55,2 tkr",
+          "precision": 1
+        },
+        "explanation": "Km per läsår på båda slingorna: (38 + 44) · 2 · 178 = 29 192. Ersättning i kr: 29 192 · 31,5 = 919 548. Besparing i tkr: 919 548 · 6 / 100 / 1 000 = 55,173. Svaret blir 55,2 tkr."
+      },
+      {
+        "id": "na-14-q04",
+        "passageId": "na-14-skolskjuts",
+        "questionNumber": 4,
+        "questionText": "Hur många km körs per elev och skoldag på Västra byarna?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "1,5 km",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "27 / 18",
+              "varde": 1.5
+            }
+          },
+          {
+            "id": "b",
+            "text": "1,7 km",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "38 * 2 / 46",
+              "varde": 1.6522
+            }
+          },
+          {
+            "id": "c",
+            "text": "0,3 km",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "18 / 54",
+              "varde": 0.3333
+            }
+          },
+          {
+            "id": "d",
+            "text": "3,0 km",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Km per skoldag",
+              "uttryck": "27 * 2",
+              "varde": 54
+            },
+            {
+              "text": "Per elev",
+              "uttryck": "54 / 18",
+              "varde": 3
+            }
+          ],
+          "visning": "3,0 km",
+          "precision": 1
+        },
+        "explanation": "Km per skoldag: 27 · 2 = 54. Per elev: 54 / 18 = 3. Svaret blir 3,0 km."
+      }
+    ]
+  },
+  {
+    "id": "na-15-kundtjanst-arenden",
+    "title": "Kundtjänstens ärenden",
+    "type": "graph",
+    "topic": "Service och kundtjänst",
+    "difficulty": 2,
+    "contextText": "Diagrammet visar hur många ärenden en kundtjänst tog emot per kanal i september. Kundtjänsten hade 14 handläggare på heltid, och var och en arbetade 21 dagar under månaden. Ett telefonärende tar i genomsnitt 7 minuter att hantera och ett e-postärende 11 minuter. En timme har 60 minuter.",
+    "chartData": {
+      "chartType": "bar",
+      "title": "Ärenden per kanal i september",
+      "unit": "",
+      "yAxisLabel": "Antal ärenden",
+      "data": [
+        {
+          "label": "Telefon",
+          "value": 6840
+        },
+        {
+          "label": "E-post",
+          "value": 3920
+        },
+        {
+          "label": "Chatt",
+          "value": 2760
+        },
+        {
+          "label": "Formulär",
+          "value": 1180
+        },
+        {
+          "label": "Brev",
+          "value": 140
+        }
+      ]
+    },
+    "ovanvant": [
+      "stapel Brev"
+    ],
+    "enhetsbyte": "minuter till timmar",
+    "p_prior": 0.55,
+    "questions": [
+      {
+        "id": "na-15-q01",
+        "passageId": "na-15-kundtjanst-arenden",
+        "questionNumber": 1,
+        "questionText": "Hur många timmar lade kundtjänsten sammanlagt på telefonärenden i september?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "47 880 timmar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "6840 * 7",
+              "varde": 47880
+            }
+          },
+          {
+            "id": "b",
+            "text": "1 254 timmar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "6840 * 11 / 60",
+              "varde": 1254
+            }
+          },
+          {
+            "id": "c",
+            "text": "798 timmar",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "457 timmar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "3920 * 7 / 60",
+              "varde": 457.3333
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Minuter för telefonärenden",
+              "uttryck": "6840 * 7",
+              "varde": 47880
+            },
+            {
+              "text": "Timmar",
+              "uttryck": "47880 / 60",
+              "varde": 798
+            }
+          ],
+          "visning": "798 timmar",
+          "precision": 0
+        },
+        "explanation": "Minuter för telefonärenden: 6 840 · 7 = 47 880. Timmar: 47 880 / 60 = 798. Svaret blir 798 timmar."
+      },
+      {
+        "id": "na-15-q02",
+        "passageId": "na-15-kundtjanst-arenden",
+        "questionNumber": 2,
+        "questionText": "Hur många telefon- och e-postärenden tog en handläggare i genomsnitt emot per arbetsdag?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "36,6 ärenden",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "768,6 ärenden",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "10760 / 14",
+              "varde": 768.5714
+            }
+          },
+          {
+            "id": "c",
+            "text": "32,7 ärenden",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(6840 + 2760) / 294",
+              "varde": 32.6531
+            }
+          },
+          {
+            "id": "d",
+            "text": "25,6 ärenden",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "10760 / (14 * 30)",
+              "varde": 25.619
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Telefon och e-post",
+              "uttryck": "6840 + 3920",
+              "varde": 10760
+            },
+            {
+              "text": "Arbetsdagar för alla handläggare",
+              "uttryck": "14 * 21",
+              "varde": 294
+            },
+            {
+              "text": "Ärenden per handläggare och dag",
+              "uttryck": "10760 / 294",
+              "varde": 36.5986
+            }
+          ],
+          "visning": "36,6 ärenden",
+          "precision": 1
+        },
+        "explanation": "Telefon och e-post: 6 840 + 3 920 = 10 760. Arbetsdagar för alla handläggare: 14 · 21 = 294. Ärenden per handläggare och dag: 10 760 / 294 = 36,599. Svaret blir 36,6 ärenden."
+      },
+      {
+        "id": "na-15-q03",
+        "passageId": "na-15-kundtjanst-arenden",
+        "questionNumber": 3,
+        "questionText": "Hur många procent fler ärenden kom via e-post än via chatt?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "29,6 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "1160 / 3920 * 100",
+              "varde": 29.5918
+            }
+          },
+          {
+            "id": "b",
+            "text": "142,0 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "3920 / 2760 * 100",
+              "varde": 142.029
+            }
+          },
+          {
+            "id": "c",
+            "text": "232,2 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(3920 - 1180) / 1180 * 100",
+              "varde": 232.2034
+            }
+          },
+          {
+            "id": "d",
+            "text": "42,0 %",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Skillnad",
+              "uttryck": "3920 - 2760",
+              "varde": 1160
+            },
+            {
+              "text": "I procent av chatten",
+              "uttryck": "1160 / 2760 * 100",
+              "varde": 42.029
+            }
+          ],
+          "visning": "42,0 %",
+          "precision": 1
+        },
+        "explanation": "Skillnad: 3 920 - 2 760 = 1 160. I procent av chatten: 1 160 / 2 760 · 100 = 42,029. Svaret blir 42,0 %."
+      },
+      {
+        "id": "na-15-q04",
+        "passageId": "na-15-kundtjanst-arenden",
+        "questionNumber": 4,
+        "questionText": "Hur många arbetsdagar om 8 timmar motsvarar tiden för septembers e-postärenden?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "718,7 dagar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "43120 / 60",
+              "varde": 718.6667
+            }
+          },
+          {
+            "id": "b",
+            "text": "89,8 dagar",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "57,2 dagar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "3920 * 7 / 60 / 8",
+              "varde": 57.1667
+            }
+          },
+          {
+            "id": "d",
+            "text": "6,4 dagar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "43120 / 60 / 8 / 14",
+              "varde": 6.4167
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Minuter för e-postärenden",
+              "uttryck": "3920 * 11",
+              "varde": 43120
+            },
+            {
+              "text": "Timmar",
+              "uttryck": "43120 / 60",
+              "varde": 718.6667
+            },
+            {
+              "text": "Arbetsdagar om 8 timmar",
+              "uttryck": "718.6667 / 8",
+              "varde": 89.8333
+            }
+          ],
+          "visning": "89,8 dagar",
+          "precision": 1
+        },
+        "explanation": "Minuter för e-postärenden: 3 920 · 11 = 43 120. Timmar: 43 120 / 60 = 718,667. Arbetsdagar om 8 timmar: 718,6667 / 8 = 89,833. Svaret blir 89,8 dagar."
+      }
+    ]
+  },
+  {
+    "id": "na-16-energieffektivisering",
+    "title": "Energieffektivisering",
+    "type": "graph",
+    "topic": "Energi och fastigheter",
+    "difficulty": 2,
+    "contextText": "En bostadsrättsförening har genomfört fem energiåtgärder. Diagrammet visar den beräknade besparingen per år för varje åtgärd, i MWh. 1 MWh är 1 000 kWh, och föreningen betalar 1,25 kr per kWh. Tilläggsisoleringen kostade 1,4 mkr, de nya fönstren 2,1 mkr och värmeåtervinningen 0,9 mkr att genomföra.",
+    "chartData": {
+      "chartType": "bar",
+      "title": "Beräknad besparing per år",
+      "unit": "MWh",
+      "yAxisLabel": "Besparing (MWh)",
+      "data": [
+        {
+          "label": "Tilläggsisolering",
+          "value": 86
+        },
+        {
+          "label": "Nya fönster",
+          "value": 64
+        },
+        {
+          "label": "Värmeåtervinning",
+          "value": 118
+        },
+        {
+          "label": "Solceller",
+          "value": 48
+        },
+        {
+          "label": "Smarta termostater",
+          "value": 23
+        }
+      ]
+    },
+    "ovanvant": [
+      "stapel Smarta termostater"
+    ],
+    "enhetsbyte": "MWh till kWh",
+    "p_prior": 0.55,
+    "questions": [
+      {
+        "id": "na-16-q01",
+        "passageId": "na-16-energieffektivisering",
+        "questionNumber": 1,
+        "questionText": "Hur många kr per år sparar föreningen på värmeåtervinningen?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "94 400 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "118000 / 1.25",
+              "varde": 94400
+            }
+          },
+          {
+            "id": "b",
+            "text": "147 500 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "80 000 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "64 * 1000 * 1.25",
+              "varde": 80000
+            }
+          },
+          {
+            "id": "d",
+            "text": "107 500 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "86 * 1000 * 1.25",
+              "varde": 107500
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Besparing i kWh",
+              "uttryck": "118 * 1000",
+              "varde": 118000
+            },
+            {
+              "text": "Besparing i kr",
+              "uttryck": "118000 * 1.25",
+              "varde": 147500
+            }
+          ],
+          "visning": "147 500 kr",
+          "precision": 0
+        },
+        "explanation": "Besparing i kWh: 118 · 1 000 = 118 000. Besparing i kr: 118 000 · 1,25 = 147 500. Svaret blir 147 500 kr."
+      },
+      {
+        "id": "na-16-q02",
+        "passageId": "na-16-energieffektivisering",
+        "questionNumber": 2,
+        "questionText": "Hur många år tar det innan besparingen från tilläggsisoleringen har betalat investeringen?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "16,3 år",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "1.4 * 1000 * 1000 / (86 * 1000)",
+              "varde": 16.2791
+            }
+          },
+          {
+            "id": "b",
+            "text": "8,4 år",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "0.9 * 1000 * 1000 / 107500",
+              "varde": 8.3721
+            }
+          },
+          {
+            "id": "c",
+            "text": "7,7 år",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "107500 / (1.4 * 1000 * 1000) * 100",
+              "varde": 7.6786
+            }
+          },
+          {
+            "id": "d",
+            "text": "13,0 år",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Besparing per år i kr",
+              "uttryck": "86 * 1000 * 1.25",
+              "varde": 107500
+            },
+            {
+              "text": "Återbetalningstid",
+              "uttryck": "1.4 * 1000 * 1000 / 107500",
+              "varde": 13.0233
+            }
+          ],
+          "visning": "13,0 år",
+          "precision": 1
+        },
+        "explanation": "Besparing per år i kr: 86 · 1 000 · 1,25 = 107 500. Återbetalningstid: 1,4 · 1 000 · 1 000 / 107 500 = 13,023. Svaret blir 13,0 år."
+      },
+      {
+        "id": "na-16-q03",
+        "passageId": "na-16-energieffektivisering",
+        "questionNumber": 3,
+        "questionText": "Hur stor andel av den sammanlagda besparingen från tilläggsisolering, nya fönster och värmeåtervinning står värmeåtervinningen för?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "44,0 %",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "78,7 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "118 / (86 + 64) * 100",
+              "varde": 78.6667
+            }
+          },
+          {
+            "id": "c",
+            "text": "37,3 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "118 / (86 + 64 + 118 + 48) * 100",
+              "varde": 37.3418
+            }
+          },
+          {
+            "id": "d",
+            "text": "227,1 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "268 / 118 * 100",
+              "varde": 227.1186
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Besparing för de tre åtgärderna",
+              "uttryck": "86 + 64 + 118",
+              "varde": 268
+            },
+            {
+              "text": "Värmeåtervinningens andel",
+              "uttryck": "118 / 268 * 100",
+              "varde": 44.0299
+            }
+          ],
+          "visning": "44,0 %",
+          "precision": 1
+        },
+        "explanation": "Besparing för de tre åtgärderna: 86 + 64 + 118 = 268. Värmeåtervinningens andel: 118 / 268 · 100 = 44,03. Svaret blir 44,0 %."
+      },
+      {
+        "id": "na-16-q04",
+        "passageId": "na-16-energieffektivisering",
+        "questionNumber": 4,
+        "questionText": "Föreningen räknar med att elpriset stiger till 1,40 kr per kWh. Hur många kr mer per år sparar då de nya fönstren?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "89 600 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "64000 * 1.4",
+              "varde": 89600
+            }
+          },
+          {
+            "id": "b",
+            "text": "12 900 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "86 * 1000 * (1.4 - 1.25)",
+              "varde": 12900
+            }
+          },
+          {
+            "id": "c",
+            "text": "9 600 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "80 000 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "64000 * 1.25",
+              "varde": 80000
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Besparing i kWh",
+              "uttryck": "64 * 1000",
+              "varde": 64000
+            },
+            {
+              "text": "Ökad besparing i kr",
+              "uttryck": "64000 * (1.4 - 1.25)",
+              "varde": 9600
+            }
+          ],
+          "visning": "9 600 kr",
+          "precision": 0
+        },
+        "explanation": "Besparing i kWh: 64 · 1 000 = 64 000. Ökad besparing i kr: 64 000 · (1,4 - 1,25) = 9 600. Svaret blir 9 600 kr."
+      }
+    ]
+  }
+]

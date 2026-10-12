@@ -3,9 +3,13 @@
 // Speglar verbalTestV1/selectPassages.v1.ts. Se den för förklaring.
 
 import questionBank from './questionBank.json';
+import parti02 from './underlagParti02.json';
+import type { UnderlagVersion } from '@/lib/tester/underlagVersion';
 import type { Question } from './types.v2';
 
 export const POOL = questionBank as Question[];
+/** Version 2 (src/lib/tester/underlagVersion.ts): de frysta texterna plus parti 02. */
+export const POOL_V2 = [...POOL, ...(parti02 as unknown as Question[])];
 
 export const PASSAGES_PER_SESSION = 10; // Kortat 2026-10-11 (riktlinjer-tester-v2 2.5).
 export const STATEMENTS_PER_PASSAGE = 4;
@@ -32,9 +36,10 @@ function mulberry32(seed: number) {
 
 export function selectPassagesForSession(
   sessionId: string,
-  count: number = PASSAGES_PER_SESSION
+  count: number = PASSAGES_PER_SESSION,
+  version: UnderlagVersion = 1
 ): Question[] {
-  const shuffled = [...POOL];
+  const shuffled = [...(version === 2 ? POOL_V2 : POOL)];
   const rng = mulberry32(hashString(sessionId));
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(rng() * (i + 1));

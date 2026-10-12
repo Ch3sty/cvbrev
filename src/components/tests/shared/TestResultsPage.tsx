@@ -120,6 +120,7 @@ export default function TestResultsPage({
           completed_at: fromServer.session.completedAt,
           answers: fromServer.session.answers,
           genomgang: fromServer.session.genomgang ?? null,
+          meta: fromServer.session.meta,
         }
       : null
   )
@@ -366,7 +367,7 @@ export default function TestResultsPage({
                 utanRubrik
               />
             ) : config.kind === 'numerisk' ? (
-              <NumericalReview slug={config.slug} sessionId={sessionId} answers={answers as never} />
+              <NumericalReview slug={config.slug} sessionId={sessionId} answers={answers as never} meta={session.meta} />
             ) : (
               <VerbalReview
                 slug={config.slug}
@@ -375,6 +376,7 @@ export default function TestResultsPage({
                 score={score}
                 timeSpent={timeSpent}
                 totalStatements={total}
+                meta={session.meta}
               />
             )}
           </div>

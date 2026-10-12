@@ -17,24 +17,26 @@ import { selectPassagesForSession as numAvancerad } from '@/lib/numericalTestV2/
 import { selectPassagesForSession as numExpert } from '@/lib/numericalTestExpert/selectPassages'
 import { selectProvPassagesForSession as numProv } from '@/lib/numericalTestProv/selectProv'
 import { fragorUnderlag, type ResultatFraga } from './resultat'
+import { underlagsVersion, type UnderlagVersion } from './underlagVersion'
 
-const URVAL: Record<string, { valj: (id: string) => unknown[]; gruppera: 'svarstyp' | 'uppgiftstyp' | 'ingen' }> = {
-  'verbal-resonemang': { valj: verbalGrund, gruppera: 'svarstyp' },
-  'verbal-resonemang-v2': { valj: verbalAvancerad, gruppera: 'svarstyp' },
-  'verbal-resonemang-prov': { valj: verbalProv, gruppera: 'svarstyp' },
+// Grund och avancerad tar sessionens underlagsversion (underlagVersion.ts).
+const URVAL: Record<string, { valj: (id: string, v: UnderlagVersion) => unknown[]; gruppera: 'svarstyp' | 'uppgiftstyp' | 'ingen' }> = {
+  'verbal-resonemang': { valj: (id, v) => verbalGrund(id, undefined, v), gruppera: 'svarstyp' },
+  'verbal-resonemang-v2': { valj: (id, v) => verbalAvancerad(id, undefined, v), gruppera: 'svarstyp' },
+  'verbal-resonemang-prov': { valj: (id) => verbalProv(id), gruppera: 'svarstyp' },
   // Argumentationsanalysen har ingen typindelning som säger något.
-  'verbal-resonemang-expert': { valj: verbalExpert, gruppera: 'ingen' },
-  'numeriskt-test': { valj: numGrund, gruppera: 'uppgiftstyp' },
-  'numeriskt-test-v2': { valj: numAvancerad, gruppera: 'uppgiftstyp' },
-  'numeriskt-test-expert': { valj: numExpert, gruppera: 'uppgiftstyp' },
-  'numeriskt-test-prov': { valj: numProv, gruppera: 'uppgiftstyp' },
+  'verbal-resonemang-expert': { valj: (id) => verbalExpert(id), gruppera: 'ingen' },
+  'numeriskt-test': { valj: (id, v) => numGrund(id, undefined, v), gruppera: 'uppgiftstyp' },
+  'numeriskt-test-v2': { valj: (id, v) => numAvancerad(id, undefined, v), gruppera: 'uppgiftstyp' },
+  'numeriskt-test-expert': { valj: (id) => numExpert(id), gruppera: 'uppgiftstyp' },
+  'numeriskt-test-prov': { valj: (id) => numProv(id), gruppera: 'uppgiftstyp' },
 }
 
-export function fragorForUnderlag(slug: string, sessionId: string, answers: unknown): ResultatFraga[] {
+export function fragorForUnderlag(slug: string, sessionId: string, answers: unknown, meta?: unknown): ResultatFraga[] {
   const u = URVAL[slug]
   if (!u) return []
   try {
-    return fragorUnderlag(u.valj(sessionId) as Parameters<typeof fragorUnderlag>[0], answers, u.gruppera)
+    return fragorUnderlag(u.valj(sessionId, underlagsVersion(meta)) as Parameters<typeof fragorUnderlag>[0], answers, u.gruppera)
   } catch (error) {
     console.error('Resultatsidan: kunde inte läsa underlagen', slug, error)
     return []

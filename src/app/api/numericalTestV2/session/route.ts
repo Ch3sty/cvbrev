@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { UNDERLAG_VERSION } from '@/lib/tester/underlagVersion';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { testSkrivKlient } from '@/lib/tests/skrivKlient';
@@ -55,7 +56,7 @@ export async function POST() {
       .insert({
         user_id: user.id,
         test_type: TEST_TYPE,
-        answers: [], meta: { antal: ANTAL },
+        answers: [], meta: { antal: ANTAL, underlag_version: UNDERLAG_VERSION },
       })
       .select()
       .single();
