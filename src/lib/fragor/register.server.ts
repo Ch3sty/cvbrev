@@ -15,7 +15,7 @@
 
 import 'server-only';
 import { ALLA_GRUND, ALLA_AVANCERAD, ALLA_EXPERT } from '@/lib/logicTestV7/selectQuestions.v7';
-import { allaFragor as allaSerier } from '@/lib/figurserierV1/select';
+import { allaFigurFragor as allaSerier } from '@/lib/figurserierV1/select';
 import { allaFragor as allaDeduktiva } from '@/lib/deduktivV1/select';
 import { POOL_V4 as VERBAL_GRUND } from '@/lib/verbalTestV1/selectPassages.v1';
 import { POOL_V4 as VERBAL_AVANCERAD } from '@/lib/verbalTestV2/selectPassages.v2';
@@ -88,7 +88,7 @@ function bygg(): RegisterRad[] {
   matris(ALLA_EXPERT, 'expert', 'src/lib/logicTestV7 (expert)');
 
   for (const q of allaSerier()) {
-    ut.push({ test_kind: 'figurserie', id: q.id, niva: q.niva, band: q.niva, familj: q.family, p_prior: q.p_prior, bankfil: `src/lib/figurserierV1/bank (${q.niva})`, pensionerad: false });
+    ut.push({ test_kind: 'figurserie', id: q.id, niva: q.niva, band: q.niva, familj: q.family, p_prior: q.p_prior, bankfil: `src/lib/figurserierV1/bank (${q.niva})`, pensionerad: (q as { pensionerad_fran?: number }).pensionerad_fran != null });
   }
   for (const q of allaDeduktiva()) {
     ut.push({ test_kind: 'deduktiv', id: q.id, niva: q.niva, band: q.niva, familj: q.family, p_prior: q.p_prior, bankfil: `src/lib/deduktivV1/bank (${q.niva})`, pensionerad: false });
