@@ -505,6 +505,13 @@ function stabil(v: unknown): unknown {
     const ut: Record<string, unknown> = {};
     for (const k of Object.keys(v as object).sort()) {
       if (k === 'dateModified') continue;
+      // Exempelsidorna sätter datePublished till byggets tidpunkt (new Date() i
+      // page.tsx). Ett datum med klockslag annat än midnatt är byggstämpeln,
+      // inte ett innehållsdatum, och nollas som dateModified (2026-10-12).
+      if (k === 'datePublished') {
+        const d = (v as Record<string, unknown>)[k];
+        if (typeof d === 'string' && /T\d{2}:\d{2}:\d{2}/.test(d) && !/T00:00:00(\.000)?Z$/.test(d)) continue;
+      }
       ut[k] = stabil((v as Record<string, unknown>)[k]);
     }
     return ut;
@@ -662,6 +669,15 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
     lankar: a.lankar.filter((l) => normHref(l) !== null),
     ramLankar: a.ramLankar.filter((l) => normHref(l) !== null),
     faq: a.faq?.map((q) => q.replace(/[\s+−×]+$/u, '')),
+    jsonLd: a.jsonLd
+      .map((s) => {
+        try {
+          return JSON.stringify(stabil(JSON.parse(s)));
+        } catch {
+          return s;
+        }
+      })
+      .sort(),
   });
   const fore = foreRa.map(rensa);
   const efter = efterRa.map(rensa);

@@ -7,6 +7,7 @@
 
 import type { ReactNode } from 'react'
 import './publikt.css'
+import './innehall/innehall.css'
 
 export default function PubliktSida({ children, className = '' }: { children: ReactNode; className?: string }) {
   return <div className={`pub-sida ${className}`.trim()}>{children}</div>

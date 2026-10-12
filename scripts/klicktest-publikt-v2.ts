@@ -21,7 +21,9 @@ function arg(namn: string, fallback?: string): string | undefined {
 
 const VAG = arg('vag', '1')!
 const BAS = `http://localhost:${arg('port', '8300')}`
-const UT = path.join('docs/qa/publikt-v2', `vag${VAG}`)
+/** --del b: del B:s vågor (spec del B avsnitt 6), modulerna klicktest-publikt-v2-bN.ts. */
+const DEL = arg('del', 'a')!
+const UT = DEL === 'b' ? path.join('docs/qa/publikt-v2-b', `vag${VAG}`) : path.join('docs/qa/publikt-v2', `vag${VAG}`)
 const CHROME = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
 
 type Enhet = { namn: string; bredd: number; hojd: number; dpr: number; mobil: boolean }
@@ -125,15 +127,18 @@ async function main() {
   fs.mkdirSync(UT, { recursive: true })
   const b = await puppeteer.launch({ executablePath: CHROME, args: ['--no-sandbox', '--hide-scrollbars'] })
   try {
-    if (VAG === '1') await vag1(b)
+    if (DEL === 'b') {
+      const mod = await import(`./klicktest-publikt-v2-b${VAG}`)
+      await mod.kor({ b, ENHETER, LAGEN, ny, steg, ga, klicka, BAS, UT })
+    } else if (VAG === '1') await vag1(b)
     else {
       const mod = await import(`./klicktest-publikt-v2-vag${VAG}`)
-      await mod.kor({ b, ENHETER, LAGEN, ny, steg, ga, klicka, BAS })
+      await mod.kor({ b, ENHETER, LAGEN, ny, steg, ga, klicka, BAS, UT })
     }
   } finally {
     await b.close()
   }
-  const md = `# Klicktest publikt v2, våg ${VAG}\n\nKört ${new Date().toISOString()} mot ${BAS} (lokalt produktionsbygge), Chrome via puppeteer-core.\n\n| # | Enhet | Läge | Steg | Utfall | Skärmdump |\n|---|---|---|---|---|---|\n${rader.join('\n')}\n\nFel: ${fel}\n`
+  const md = `# Klicktest publikt v2${DEL === 'b' ? ' del B' : ''}, våg ${VAG}\n\nKört ${new Date().toISOString()} mot ${BAS} (lokalt produktionsbygge), Chrome via puppeteer-core.\n\n| # | Enhet | Läge | Steg | Utfall | Skärmdump |\n|---|---|---|---|---|---|\n${rader.join('\n')}\n\nFel: ${fel}\n`
   fs.writeFileSync(path.join(UT, FILTER ? 'resultat-omkorning.md' : 'resultat.md'), md)
   console.log(`\nFel: ${fel}`)
   process.exit(fel ? 1 : 0)
@@ -148,6 +153,7 @@ export type KlickVerktyg = {
   ga: typeof ga
   klicka: typeof klicka
   BAS: string
+  UT: string
 }
 
 main().catch((err) => {
