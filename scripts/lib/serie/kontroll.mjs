@@ -9,8 +9,8 @@
 //   node scripts/v7-distraktor-check.mjs --serie [fil ...]
 //       kraven på de fem distraktorerna (A5) och en rad per alternativ.
 //
-// Utan filer: kandidaterna i src/lib/figurserierV1/kandidater/ och de tre
-// skarpa bankerna. Exit 1 vid fel.
+// Utan filer: de tre skarpa bankerna. Kandidatfilerna (med strukna frågor
+// kvar för spårbarheten) kontrolleras med filerna som argument. Exit 1 vid fel.
 // =============================================================================
 
 import { readFileSync, existsSync } from 'node:fs';
@@ -21,9 +21,6 @@ import { analysera, kravFel, radPerAlternativ } from './distraktorer.mjs';
 import { misstagText } from './misstag-serie.mjs';
 
 export const SERIE_FILER = [
-  'src/lib/figurserierV1/kandidater/grund.json',
-  'src/lib/figurserierV1/kandidater/avancerad.json',
-  'src/lib/figurserierV1/kandidater/expert.json',
   'src/lib/figurserierV1/bankGrund.json',
   'src/lib/figurserierV1/bankAvancerad.json',
   'src/lib/figurserierV1/bankExpert.json',

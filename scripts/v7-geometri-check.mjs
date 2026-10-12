@@ -1075,6 +1075,8 @@ function g6Serie(q) {
 }
 
 async function serieMain() {
+  // Vänta ett varv: skriptet anropar serieMain innan konstanterna längre ned är satta.
+  await Promise.resolve();
   const argv = process.argv.slice(2).filter((a) => a !== '--serie');
   const filer = argv.length ? argv : SERIE_BANKER;
   const { fs1, fs2, fs3 } = await import('./lib/serie/sparrar.mjs');
