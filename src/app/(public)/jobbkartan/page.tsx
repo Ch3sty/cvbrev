@@ -513,7 +513,7 @@ export default async function JobbkartanSida() {
                   </svg>
                   Kopiera länk till den här vyn
                 </button>
-                <p className="liten">Bäddkoden ger kartan och tidsreglaget i den vy du har valt, i en ram på 600 × 760 punkter.</p>
+                <p className="liten">Bäddkoden ger kartan och tidsreglaget i den vy du har valt, i en ram på 600 × 1 400 punkter som krymper med sidan.</p>
                 <code id="jk-badd-kod" />
               </div>
             </div>

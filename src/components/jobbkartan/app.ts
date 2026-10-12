@@ -1041,7 +1041,7 @@ export function starta(rot: HTMLElement, D: JobbkartanData): () => void {
     t.querySelectorAll('[data-q]').forEach((c) => c.classList.toggle('nu', +c.getAttribute('data-q')! === state.q))
   }
   function baddKod() {
-    return `<iframe src="https://www.jobbcoach.ai/embed/jobbkartan#${vyKod()}" width="600" height="760" title="Jobbkartan från Jobbcoach.ai, data från SCB" loading="lazy" style="border:0;border-radius:16px;max-width:100%"></iframe>`
+    return `<iframe src="https://www.jobbcoach.ai/embed/jobbkartan#${vyKod()}" width="600" height="1400" title="Jobbkartan från Jobbcoach.ai, data från SCB" loading="lazy" style="border:0;border-radius:16px;max-width:100%"></iframe>`
   }
   function visaBadd() {
     const c = $('jk-badd-kod')
