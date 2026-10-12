@@ -42,7 +42,7 @@ interface CVMallarLiveDemoProps {
   paketRad: string
 }
 
-/** Heroknappen som ska bära valet: data-cta på VerktygsSidas primärknapp i page.tsx. */
+/** Heroknappen som ska bära valet: data-cta på verktygsmallens primärknapp i page.tsx. */
 const BYGG_CTA = 'cv-mallar-bygg'
 
 const FALT =
@@ -64,7 +64,7 @@ export default function CVMallarLiveDemo({ mallar, typsnitt, paketGrupp, paketRa
   const href = startHref(vald?.id ?? 'norrsken', font)
   const src = `/api/public/exempel/cv?mall=${encodeURIComponent(vald?.id ?? 'norrsken')}&typsnitt=${encodeURIComponent(font)}`
 
-  // Heroknappen ligger i VerktygsSida, utanför den här komponenten. Next:s
+  // Heroknappen ligger i verktygsmallens hjälte, utanför den här komponenten. Next:s
   // Link navigerar till sin href-prop, så vi byter både attributet (för
   // mellanklick och kopierad länk) och själva navigeringen. Lyssnaren sitter
   // på elementet och hinner före Reacts klick vid roten; preventDefault gör
