@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+  <symbol id="illu-matris" viewBox="0 0 160 120" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="16" y="16" width="72" height="72" rx="8" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+      <path d="M40 16v72M64 16v72M16 40h72M16 64h72" stroke="var(--illu-dim)" stroke-width="2.5"/>
+      
+      <circle cx="28" cy="28" r="5" fill="currentColor"/>
+      <rect x="47" y="23" width="10" height="10" rx="2" fill="currentColor"/>
+      <path d="M76 22.5l5.5 10h-11z" fill="currentColor"/>
+      
+      <rect x="23" y="47" width="10" height="10" rx="2" fill="currentColor"/>
+      <path d="M52 46.5l5.5 10h-11z" fill="currentColor"/>
+      <circle cx="76" cy="52" r="5" fill="currentColor"/>
+      
+      <path d="M28 70.5l5.5 10h-11z" fill="currentColor"/>
+      <circle cx="52" cy="76" r="5" fill="currentColor"/>
+      <rect x="67" y="67" width="18" height="18" rx="4" stroke="var(--illu-dim)" stroke-width="2.5" stroke-dasharray="4 3"/>
+      
+      <rect x="104" y="16" width="40" height="24" rx="8" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+      <rect x="104" y="48" width="40" height="24" rx="8" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+      <rect x="104" y="80" width="40" height="24" rx="8" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+      <circle cx="124" cy="28" r="5" fill="currentColor"/>
+      <rect x="118" y="54" width="12" height="12" rx="2.5" fill="var(--illu-accent, #E07A2F)"/>
+      <path d="M124 86.5l5.5 10h-11z" fill="currentColor"/>
+  </symbol>
+  <symbol id="illu-verbalt" viewBox="0 0 160 120" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="8" y="8" width="88" height="104" rx="8" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+      <rect x="16" y="52" width="72" height="16" rx="4" fill="var(--illu-mjuk)"/>
+      <path d="M20 28h64M20 44h52M20 60h64M20 76h44M20 92h64" stroke="var(--illu-dim)" stroke-width="3"/>
+      
+      <circle cx="120" cy="36" r="7" fill="var(--illu-accent, #E07A2F)"/>
+      <path d="M136 36h16" stroke="var(--illu-dim)" stroke-width="3"/>
+      <circle cx="120" cy="60" r="6" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+      <path d="M136 60h16" stroke="var(--illu-dim)" stroke-width="3"/>
+      <circle cx="120" cy="84" r="6" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+      <path d="M136 84h16" stroke="var(--illu-dim)" stroke-width="3"/>
+  </symbol>
+  <symbol id="illu-numeriskt" viewBox="0 0 160 120" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="8" y="16" width="96" height="72" rx="8" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+      <rect x="74" y="42" width="28" height="20" rx="4" fill="var(--illu-mjuk)"/>
+      <path d="M40 16v72M72 16v72M8 40h96M8 64h96" stroke="var(--illu-dim)" stroke-width="2.5"/>
+      
+      <path d="M16 28h14M48 28h12M80 28h14M16 52h10M48 52h16M16 76h16M48 76h10M80 76h16" stroke="var(--illu-dim)" stroke-width="3"/>
+      <path d="M80 52h12" stroke="currentColor" stroke-width="3"/>
+      
+      <circle cx="136" cy="28" r="12" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+      <path d="M136 28v-7M136 28l5 3.5" stroke="currentColor" stroke-width="3"/>
+      
+      <rect x="112" y="64" width="40" height="24" rx="8" fill="var(--illu-accent, #E07A2F)"/>
+  </symbol>
+  <symbol id="illu-personlighet" viewBox="0 0 160 120" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M24 28h96" stroke="currentColor" stroke-width="3"/>
+      <path d="M24 44h64" stroke="var(--illu-dim)" stroke-width="3"/>
+      
+      <path d="M24 80h112" stroke="var(--illu-dim)" stroke-width="3"/>
+      <circle cx="24" cy="80" r="6" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+      <circle cx="52" cy="80" r="6" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+      <circle cx="80" cy="80" r="6" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+      <circle cx="136" cy="80" r="6" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+      <circle cx="108" cy="80" r="8" fill="var(--illu-accent, #E07A2F)"/>
+      
+      <path d="M16 100h20M124 100h20" stroke="var(--illu-dim)" stroke-width="3"/>
+  </symbol>
+  <symbol id="illu-provlage" viewBox="0 0 160 120" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="16" y="8" width="128" height="80" rx="8" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+      
+      <rect x="24" y="24" width="16" height="16" rx="4" fill="var(--illu-mjuk)" stroke="var(--illu-dim)" stroke-width="2.5"/>
+      <rect x="48" y="24" width="16" height="16" rx="4" fill="var(--illu-mjuk)" stroke="var(--illu-dim)" stroke-width="2.5"/>
+      <rect x="72" y="24" width="16" height="16" rx="4" fill="var(--illu-mjuk)" stroke="var(--illu-dim)" stroke-width="2.5"/>
+      <rect x="96" y="24" width="16" height="16" rx="4" fill="var(--illu-accent, #E07A2F)"/>
+      <rect x="120" y="24" width="16" height="16" rx="4" stroke="var(--illu-dim)" stroke-width="2.5"/>
+      
+      <rect x="24" y="52" width="16" height="16" rx="4" stroke="var(--illu-dim)" stroke-width="2.5"/>
+      <rect x="48" y="52" width="16" height="16" rx="4" stroke="var(--illu-dim)" stroke-width="2.5"/>
+      <rect x="72" y="52" width="16" height="16" rx="4" stroke="var(--illu-dim)" stroke-width="2.5"/>
+      <rect x="96" y="52" width="16" height="16" rx="4" stroke="var(--illu-dim)" stroke-width="2.5"/>
+      <rect x="120" y="52" width="16" height="16" rx="4" stroke="var(--illu-dim)" stroke-width="2.5"/>
+      
+      <path d="M16 104h128" stroke="var(--illu-dim)" stroke-width="3"/>
+      <path d="M16 104h64" stroke="currentColor" stroke-width="3"/>
+      <path d="M16 98v12M144 98v12" stroke="currentColor" stroke-width="3"/>
+  </symbol>
+  <symbol id="illu-scen-vagen" viewBox="0 0 240 180" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 160C60 160 76 130 110 116S168 86 228 36" stroke="var(--illu-dim)" stroke-width="6"/>
+      
+      <rect x="20" y="100" width="44" height="56" rx="8" fill="var(--illu-fill)" stroke="currentColor" stroke-width="6"/>
+      <path d="M32 116h20M32 128h14M32 140h20" stroke="var(--illu-dim)" stroke-width="4"/>
+      
+      <g transform="rotate(-6 120 96)">
+        <rect x="88" y="64" width="64" height="64" rx="10" fill="var(--illu-fill)" stroke="currentColor" stroke-width="6"/>
+        <path d="M109.3 64v64M130.7 64v64M88 85.3h64M88 106.7h64" stroke="var(--illu-dim)" stroke-width="4"/>
+        <rect x="134" y="110" width="14" height="14" rx="3" fill="var(--illu-accent, #E07A2F)"/>
+      </g>
+      
+      <rect x="176" y="24" width="48" height="44" rx="8" fill="var(--illu-fill)" stroke="currentColor" stroke-width="6"/>
+      <path d="M176 38h48" stroke="var(--illu-dim)" stroke-width="4"/>
+      <path d="M188 16v12M212 16v12" stroke="currentColor" stroke-width="6"/>
+      <circle cx="206" cy="54" r="5" fill="currentColor"/>
+  </symbol>
+  <symbol id="illu-tomt-utveckling" viewBox="0 0 160 120" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M24 16v80h120" stroke="var(--illu-dim)" stroke-width="3"/>
+      <path d="M32 88C56 84 72 62 96 50S124 36 136 30" stroke="currentColor" stroke-width="3" stroke-dasharray="6 6"/>
+      <circle cx="64" cy="71" r="5" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+      <circle cx="96" cy="50" r="5" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+      <circle cx="128" cy="33" r="5" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+      <circle cx="32" cy="88" r="7" fill="var(--illu-accent, #E07A2F)"/>
+  </symbol>
+  <symbol id="marke-grund" viewBox="0 0 120 120" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <defs>
+        <linearGradient id="g-marke-niva" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F0A061"/><stop offset=".5" stop-color="#D9702A"/><stop offset="1" stop-color="#9E4515"/></linearGradient>
+        <linearGradient id="g-marke-niva-kant" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FFD9B8"/><stop offset="1" stop-color="#B55A1E"/></linearGradient>
+      </defs>
+      <circle cx="60" cy="60" r="56" fill="url(#g-marke-niva)"/>
+      <circle cx="60" cy="60" r="56" stroke="url(#g-marke-niva-kant)" stroke-width="1.5" opacity=".8"/>
+      <circle cx="60" cy="60" r="47" stroke="#FFF" stroke-opacity=".28" stroke-width="1"/>
+      <circle cx="60" cy="60" r="44" stroke="#5A2708" stroke-opacity=".35" stroke-width="1"/>
+      
+      <path d="M33 84V70h18V56h18V42h18v42z" stroke="#3F1A06" stroke-opacity=".45" stroke-width="3"/>
+      <path d="M33 84V70h18V56h18V42h18v42z" stroke="#FFE2C8" stroke-opacity=".55" stroke-width="1.25" transform="translate(0 -1.5)"/>
+      <path d="M30 84h60" stroke="#3F1A06" stroke-opacity=".45" stroke-width="3"/>
+      
+      <rect x="33" y="70" width="18" height="14" fill="#FFF2E6"/>
+  </symbol>
+  <symbol id="marke-avancerad" viewBox="0 0 120 120" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <defs>
+        <linearGradient id="g-marke-niva-2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F0A061"/><stop offset=".5" stop-color="#D9702A"/><stop offset="1" stop-color="#9E4515"/></linearGradient>
+        <linearGradient id="g-marke-niva-kant-2" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FFD9B8"/><stop offset="1" stop-color="#B55A1E"/></linearGradient>
+      </defs>
+      <circle cx="60" cy="60" r="56" fill="url(#g-marke-niva-2)"/>
+      <circle cx="60" cy="60" r="56" stroke="url(#g-marke-niva-kant-2)" stroke-width="1.5" opacity=".8"/>
+      <circle cx="60" cy="60" r="47" stroke="#FFF" stroke-opacity=".28" stroke-width="1"/>
+      <circle cx="60" cy="60" r="44" stroke="#5A2708" stroke-opacity=".35" stroke-width="1"/>
+      <path d="M33 84V70h18V56h18V42h18v42z" stroke="#3F1A06" stroke-opacity=".45" stroke-width="3"/>
+      <path d="M33 84V70h18V56h18V42h18v42z" stroke="#FFE2C8" stroke-opacity=".55" stroke-width="1.25" transform="translate(0 -1.5)"/>
+      <path d="M30 84h60" stroke="#3F1A06" stroke-opacity=".45" stroke-width="3"/>
+      <path d="M33 84V70h18V56h18v28z" fill="#FFF2E6"/>
+  </symbol>
+  <symbol id="marke-expert" viewBox="0 0 120 120" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <defs>
+        <linearGradient id="g-marke-niva-3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F0A061"/><stop offset=".5" stop-color="#D9702A"/><stop offset="1" stop-color="#9E4515"/></linearGradient>
+        <linearGradient id="g-marke-niva-kant-3" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FFD9B8"/><stop offset="1" stop-color="#B55A1E"/></linearGradient>
+      </defs>
+      <circle cx="60" cy="60" r="56" fill="url(#g-marke-niva-3)"/>
+      <circle cx="60" cy="60" r="56" stroke="url(#g-marke-niva-kant-3)" stroke-width="1.5" opacity=".8"/>
+      <circle cx="60" cy="60" r="47" stroke="#FFF" stroke-opacity=".28" stroke-width="1"/>
+      <circle cx="60" cy="60" r="44" stroke="#5A2708" stroke-opacity=".35" stroke-width="1"/>
+      <path d="M33 84V70h18V56h18V42h18v42z" stroke="#3F1A06" stroke-opacity=".45" stroke-width="3"/>
+      <path d="M33 84V70h18V56h18V42h18v42z" stroke="#FFE2C8" stroke-opacity=".55" stroke-width="1.25" transform="translate(0 -1.5)"/>
+      <path d="M30 84h60" stroke="#3F1A06" stroke-opacity=".45" stroke-width="3"/>
+      <path d="M33 84V70h18V56h18V42h18v42z" fill="#FFF2E6"/>
+  </symbol>
+</defs>
+</svg>

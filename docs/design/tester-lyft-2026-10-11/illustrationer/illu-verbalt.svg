@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <!-- Verbalt. Säger: läs texten, ta ställning till påståendet. Ett textblock med fem rader i dämpad kontur, en rad markerad med mjuk yta, och bredvid tre svar (sant, falskt, går inte att avgöra) där det valda är en kopparcirkel. -->
+  <rect x="8" y="8" width="88" height="104" rx="8" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+  <rect x="16" y="52" width="72" height="16" rx="4" fill="var(--illu-mjuk)"/>
+  <path d="M20 28h64M20 44h52M20 60h64M20 76h44M20 92h64" stroke="var(--illu-dim)" stroke-width="3"/>
+  <!-- tre svar -->
+  <circle cx="120" cy="36" r="7" fill="var(--illu-accent, #E07A2F)"/>
+  <path d="M136 36h16" stroke="var(--illu-dim)" stroke-width="3"/>
+  <circle cx="120" cy="60" r="6" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+  <path d="M136 60h16" stroke="var(--illu-dim)" stroke-width="3"/>
+  <circle cx="120" cy="84" r="6" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+  <path d="M136 84h16" stroke="var(--illu-dim)" stroke-width="3"/>
+</svg>

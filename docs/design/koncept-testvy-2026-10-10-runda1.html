@@ -1,0 +1,1008 @@
+<title>Formkurvan, koncept</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* =====================================================================
+   Formkurvan. Koncept för den testdominerade inloggade vyn, 2026-10-10.
+   Följer testansvarigs brief (docs/design/brief-testvy-2026-10-10.md):
+   sju moduler, tio tillstånd, växlaren i navet, betalväggen på fyra
+   ställen. Produktens tokens är Trådens (docs/designsystem.md v2.1) och
+   ligger fasta inuti ramarna. Sidans egen ram följer läsarens tema.
+   ===================================================================== */
+:root{
+  --mark:#EDE8DF;--panel:#FFFFFF;--insunken:#ECE6DC;--insunken-topp:#D6CDBF;
+  --kant:#DBD2C4;--kant-stark:#C4B9A8;
+  --ink-1:#1C1917;--ink-2:#57534E;--ink-3:#6B645E;--ink-hover:#2C2724;
+  --accent:#D9480F;--accent-ink:#9A3412;--accent-mjuk:#FBE7D3;
+  --positiv:#047857;--positiv-mjuk:#D9F2E6;--varning:#A14A05;--varning-mjuk:#FBEBD0;
+  --fel:#B91C1C;--fel-mjuk:#FBE3E3;--fel-kant:#F2C4C4;
+  --ink-1-mjuk:#CFC8BD;--ink-1-kant:#3A3531;--ink-1-accent:#FBB98A;
+  --ink-1-positiv:#8FD6B4; /* ny: positiv på bläck, 10,6:1 */
+  --display:"Schibsted Grotesk","Inter",system-ui,sans-serif;
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --pg-bg:#E3DDD2;--pg-panel:#F4F0E8;--pg-ink:#1C1917;--pg-ink-2:#57534E;--pg-ink-3:#6B645E;--pg-kant:#CFC5B5;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){color-scheme:dark;--pg-bg:#15120E;--pg-panel:#1F1B16;--pg-ink:#F3EEE6;--pg-ink-2:#C9C1B6;--pg-ink-3:#9A918A;--pg-kant:#3A342C}
+}
+:root[data-theme="dark"]{color-scheme:dark;--pg-bg:#15120E;--pg-panel:#1F1B16;--pg-ink:#F3EEE6;--pg-ink-2:#C9C1B6;--pg-ink-3:#9A918A;--pg-kant:#3A342C}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--body);font-size:15px;line-height:23px;-webkit-font-smoothing:antialiased;padding:32px 16px 80px}
+h1,h2,h3,h4{margin:0;font-family:var(--display);letter-spacing:-0.02em;text-wrap:balance}
+p{margin:0}
+svg{display:block}
+a{color:inherit}
+
+/* ---------- Sidans ram ---------- */
+.wrap{max-width:1280px;margin:0 auto}
+.intro{max-width:760px}
+.intro h1{font-size:40px;line-height:44px;font-weight:800}
+.intro .ey{font-size:12px;line-height:16px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--pg-ink-3);margin-bottom:12px}
+.intro p{margin-top:14px;color:var(--pg-ink-2);font-size:16px;line-height:26px}
+.intro p b,.anm b,.notis li b,.notis p b{color:var(--pg-ink);font-weight:600}
+.sektion{margin-top:64px}
+.sektion > .ey{font-size:12px;line-height:16px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--pg-ink-3)}
+.sektion > h2{font-size:28px;line-height:34px;font-weight:700;margin-top:6px}
+.sektion > p.l{color:var(--pg-ink-2);max-width:72ch;margin-top:8px}
+.rad{display:flex;gap:24px;align-items:flex-start;overflow-x:auto;padding:16px 0 12px;scrollbar-width:thin}
+.rad > *{flex:0 0 auto}
+.cap{font-size:12px;line-height:16px;letter-spacing:.06em;text-transform:uppercase;color:var(--pg-ink-3);font-weight:600;margin:0 0 8px 4px}
+.cap em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:400;margin-left:8px}
+.anm{color:var(--pg-ink-2);font-size:14px;line-height:21px;max-width:72ch;margin-top:8px}
+.tvakol{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:16px}
+.notis{background:var(--pg-panel);border:1px solid var(--pg-kant);border-radius:12px;padding:20px 24px}
+.notis h3{font-size:18px;line-height:24px;font-weight:700}
+.notis p{color:var(--pg-ink-2);margin-top:8px;font-size:14px;line-height:21px}
+.notis ul{margin:8px 0 0;padding-left:18px;color:var(--pg-ink-2);font-size:14px;line-height:21px}
+.notis li+li{margin-top:4px}
+table.tok{width:100%;border-collapse:collapse;font-size:14px;line-height:20px;margin-top:12px}
+table.tok th,table.tok td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--pg-kant);vertical-align:top}
+table.tok th{font-weight:600;color:var(--pg-ink-3);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+table.tok td i{display:inline-block;width:16px;height:16px;border-radius:4px;vertical-align:-3px;margin-right:8px;border:1px solid rgba(0,0,0,.15)}
+table.tok code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:var(--pg-ink)}
+.tabwrap{overflow-x:auto}
+.beslut{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:16px}
+@media (max-width:760px){.tvakol,.beslut{grid-template-columns:1fr}.intro h1{font-size:32px;line-height:36px}}
+
+/* ---------- Ramar ---------- */
+.frame{width:375px;height:812px;overflow-y:auto;overflow-x:hidden;background:var(--mark);border:1px solid var(--kant-stark);border-radius:24px;position:relative;scrollbar-width:thin;color:var(--ink-1);font-size:14px;line-height:22px}
+.frame.wide{width:1200px;height:860px;border-radius:12px;display:flex}
+.frame.col{display:flex;flex-direction:column}
+
+/* ---------- Produktens byggstenar ---------- */
+.topbar{position:sticky;top:0;z-index:30;height:56px;display:flex;align-items:center;gap:8px;padding:0 12px 0 16px;background:var(--panel);border-bottom:1px solid var(--kant)}
+.topbar .brand{font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.02em;flex:1}
+.topbar .ctx{flex:1;font-size:14px;color:var(--ink-2);font-weight:500}
+.avatar{width:32px;height:32px;border-radius:50%;background:var(--insunken);border:1px solid var(--kant);display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--ink-2)}
+.iconbtn{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;color:var(--ink-1);background:transparent;border:0}
+.page{padding:16px 16px 96px;display:flex;flex-direction:column;gap:16px}
+.h1{font-family:var(--display);font-size:32px;line-height:35px;font-weight:800;letter-spacing:-.025em;margin:0}
+.h1 small{display:block;font-family:var(--body);font-weight:400;font-size:14px;line-height:22px;letter-spacing:0;color:var(--ink-2);margin-top:6px}
+.sect{font-size:14px;line-height:20px;font-weight:500;color:var(--ink-3);margin:0}
+.sekthead{display:flex;align-items:baseline;justify-content:space-between}
+.meta{font-size:13px;line-height:18px;color:var(--ink-3)}
+.lead{color:var(--ink-2)}
+.ey{font-size:12px;line-height:16px;letter-spacing:.06em;text-transform:uppercase;font-weight:500;color:var(--ink-3)}
+.kort-t{font-size:16px;line-height:22px;font-weight:600;letter-spacing:-.01em}
+.varde{font-family:var(--display);font-size:18px;line-height:24px;font-weight:600}
+.tal{font-family:var(--display);font-size:40px;line-height:40px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+a.link,button.link{font:inherit;font-weight:500;color:var(--ink-1);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--kant-stark);min-height:44px;display:inline-flex;align-items:center}
+a.link.quiet{color:var(--ink-2)}
+a.link.liten{min-height:0;font-size:13px}
+
+.panel{background:var(--panel);border:1px solid var(--kant);border-radius:12px;position:relative}
+.panel.pad{padding:16px}
+.panel.hoj{border-color:var(--kant-stark)}
+.status{min-height:44px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 12px;background:var(--panel);border:1px solid var(--kant);border-radius:8px;font-weight:500}
+.status .dot{width:8px;height:8px;border-radius:50%;background:var(--ink-3);flex:0 0 auto}
+.status .dot.positiv{background:var(--positiv)}
+.status .l{display:flex;align-items:center;gap:8px;min-width:0}
+.status.rad2{padding:10px 12px;align-items:flex-start}
+
+.btn{height:44px;width:100%;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;font:inherit;font-weight:500;cursor:pointer;padding:0 16px;text-decoration:none;transition:background-color 120ms linear,border-color 120ms linear;gap:8px}
+.btn.primary{background:var(--ink-1);color:#fff;border:1px solid var(--ink-1)}
+.btn.primary:hover{background:var(--ink-hover)}
+.btn.secondary{background:var(--panel);color:var(--ink-1);border:1px solid var(--kant-stark)}
+.btn.vit{background:#fff;color:var(--ink-1);border:1px solid #fff}
+.btn.vit:hover{background:#F3EFE8}
+.btn.auto{width:auto}
+
+.rows>div{padding:12px 16px;display:flex;justify-content:space-between;gap:12px;align-items:center;min-height:56px}
+.rows>div+div{border-top:1px solid var(--kant)}
+.rows b{font-weight:500;display:block}
+.rows .meta{display:block;margin-top:2px}
+.rows .chip{font-size:12px;line-height:16px;font-weight:600;padding:4px 8px;border-radius:6px;background:var(--insunken);color:var(--ink-2);white-space:nowrap;flex:0 0 auto;display:inline-flex;align-items:center;gap:4px}
+.rows>div.gra b,.rows>div.gra .meta{color:var(--ink-3)}
+.rows .ikonrad{display:flex;gap:12px;align-items:center;min-width:0}
+.chev{width:20px;height:20px;color:var(--ink-3);flex:0 0 auto}
+
+/* Bläckytan: Dagens pass. Testläget ger den nivån och serien i huvudet. */
+.ink{background:var(--ink-1);color:#fff;border:1px solid var(--ink-1);border-radius:12px;padding:16px;position:relative;overflow:hidden}
+.ink .ey{color:var(--ink-1-accent)}
+.ink .mjuk,.ink .meta{color:var(--ink-1-mjuk)}
+.ink .rule{border-top:1px solid var(--ink-1-kant);margin:14px 0}
+.ink a.link{color:#fff;text-decoration-color:var(--ink-1-kant)}
+.ink .tre{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.ink .tre b{display:block;font-family:var(--display);font-size:28px;line-height:32px;font-weight:700;font-variant-numeric:tabular-nums}
+.ink .tre span{display:block;font-size:12px;line-height:16px;color:var(--ink-1-mjuk);margin-top:2px}
+.ink .tre b.pos{color:var(--ink-1-positiv)}
+
+/* Kurvan: en serie på papper. Orange linje = din nivå över tid. Ritas på entré. */
+.kurva{width:100%;height:auto;margin-top:10px}
+.kurva .grid{stroke:var(--kant);stroke-width:1}
+.kurva .ax{fill:var(--ink-3);font-family:var(--body);font-size:11px;font-weight:500}
+.kurva .ax.nu{fill:var(--ink-1);font-weight:600}
+.kurva .linje{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.kurva .yta{fill:var(--accent);opacity:.08}
+.kurva .punkt{fill:var(--panel);stroke:var(--accent);stroke-width:2}
+.kurva .punkt.stor{stroke-width:2.5}
+.kurva .punkt.nu{fill:var(--accent)}
+.kurva .punkt.kvar{fill:var(--panel);stroke:var(--ink-1);stroke-dasharray:2 2}
+.kurva .punkt.gra{fill:var(--insunken);stroke:var(--kant-stark);stroke-width:1.5}
+.kurva .mal{stroke:var(--ink-1);stroke-width:1.5;stroke-dasharray:3 4}
+.kurva .mal.passerad{stroke:var(--kant-stark);stroke-dasharray:none}
+.kurva .lbl{fill:var(--ink-1);font-family:var(--display);font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
+.kurva .lbl.soft{fill:var(--ink-3);font-family:var(--body);font-size:11px;font-weight:500}
+.kurva .milst{fill:var(--panel);stroke:var(--ink-1);stroke-width:2}
+.motion .kurva .linje{stroke-dasharray:700;stroke-dashoffset:700;animation:rita 600ms ease-out 120ms forwards}
+.motion .kurva .punkt.nu,.motion .kurva .punkt.kvar{opacity:0;animation:syn 160ms ease-out 700ms forwards}
+.motion .kurva .lbl.nu{opacity:0;animation:syn 160ms ease-out 760ms forwards}
+.motion .kurva .yta{opacity:0;animation:ytaIn 400ms ease-out 500ms forwards}
+@keyframes rita{to{stroke-dashoffset:0}}
+@keyframes syn{to{opacity:1}}
+@keyframes ytaIn{to{opacity:.08}}
+.tretal{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px;padding-top:12px;border-top:1px solid var(--kant)}
+.tretal b{display:block;font-family:var(--display);font-size:28px;line-height:32px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.tretal span{display:block;font-size:12px;line-height:16px;color:var(--ink-3);margin-top:2px}
+
+/* Var du tappar: rader med andel som liten stapel */
+.tapp>div{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:12px 16px;align-items:center}
+.tapp>div+div{border-top:1px solid var(--kant)}
+.tapp b{font-weight:500}
+.tapp .meta{grid-column:1}
+.tapp .bar{grid-column:1/-1;height:6px;border-radius:3px;background:var(--insunken);position:relative;margin-top:4px}
+.tapp .bar i{position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:var(--ink-1)}
+.tapp .bar i.svag{background:var(--accent)}
+
+/* Tidsprofil i resultatet */
+.stapel{display:grid;grid-template-columns:repeat(9,1fr);gap:4px;align-items:end;height:72px;margin-top:12px;position:relative}
+.stapel:before{content:"";position:absolute;left:0;right:0;top:30%;border-top:1px dashed var(--kant-stark)}
+.stapel i{display:block;background:var(--ink-1);border-radius:3px 3px 0 0;transform-origin:bottom}
+.stapel i.sen{background:var(--accent)}
+.motion .stapel i{animation:vax 240ms ease-out both}
+.motion .stapel i:nth-child(n+2){animation-delay:calc(30ms * (var(--n) - 1))}
+@keyframes vax{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.stapelaxel{display:flex;justify-content:space-between;font-size:12px;line-height:16px;color:var(--ink-3);margin-top:6px;font-variant-numeric:tabular-nums}
+
+/* Valkort, fält */
+.choice{display:flex;gap:12px;align-items:center;width:100%;text-align:left;background:var(--panel);border:1px solid var(--kant);border-radius:12px;padding:12px 16px;min-height:56px;position:relative;font:inherit;color:inherit}
+.choice b{font-weight:500;display:block}
+.choice .meta{display:block}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip-v{height:40px;display:inline-flex;align-items:center;padding:0 14px;border-radius:8px;border:1px solid var(--kant);background:var(--panel);font-weight:500;font-size:14px}
+.chip-v.on{border-color:var(--ink-1);box-shadow:inset 0 0 0 1px var(--ink-1)}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-weight:500;font-size:14px;color:var(--ink-2)}
+.field .in{height:44px;display:flex;align-items:center;padding:0 12px;font-size:16px;color:var(--ink-1);background:var(--insunken);border:1px solid var(--kant);border-radius:8px;box-shadow:inset 0 1px 0 var(--insunken-topp)}
+.field .in.tom{color:var(--ink-3)}
+
+/* Bottennav: Träningen, Jobbsöket, Skapa, Profil */
+.bottomnav{position:sticky;bottom:0;z-index:30;height:60px;padding-top:4px;background:var(--panel);border-top:1px solid var(--kant);display:flex;align-items:stretch}
+.bottomnav a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-decoration:none;color:var(--ink-3);font-size:12px;line-height:16px;font-weight:500}
+.bottomnav a svg{width:24px;height:24px}
+.bottomnav a.on{color:var(--ink-1)}
+.bottomnav a.on svg{stroke-width:2.25}
+svg.ic{fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;width:24px;height:24px}
+
+/* Flödesfot, ark, skelett */
+.flowfoot{position:sticky;bottom:0;z-index:30;padding:12px 16px;background:var(--panel);border-top:1px solid var(--kant);display:grid;gap:4px}
+.ark{position:absolute;left:0;right:0;bottom:0;z-index:50;background:var(--panel);border-radius:16px 16px 0 0;box-shadow:0 8px 24px rgba(28,25,23,.12),0 1px 2px rgba(28,25,23,.08);padding:12px 16px 20px}
+.ark .handtag{width:36px;height:4px;border-radius:2px;background:var(--kant-stark);margin:0 auto 12px}
+.dim{position:absolute;inset:0;background:rgba(28,25,23,.4);z-index:40}
+.confirm::before{content:"";position:absolute;top:-1px;left:-1px;height:3px;width:calc(100% + 2px);background:var(--accent);border-radius:12px 12px 0 0}
+.motion .confirm::before{width:66%;border-radius:12px 0 0 0;animation:toFull 200ms ease-out 240ms forwards}
+@keyframes toFull{to{width:calc(100% + 2px);border-radius:12px 12px 0 0}}
+.sk{background:var(--insunken);border-radius:4px}
+.loading-thread{position:relative;overflow:hidden}
+.loading-thread::after{content:"";position:absolute;top:-1px;left:0;height:2px;width:40%;background:var(--accent);border-radius:2px;animation:threadRun 1200ms ease-in-out infinite}
+@keyframes threadRun{from{transform:translateX(-100%)}to{transform:translateX(250%)}}
+
+/* Desktop */
+.sidebar{width:256px;flex:0 0 256px;background:var(--panel);border-right:1px solid var(--kant);display:flex;flex-direction:column;padding:12px;overflow-y:auto}
+.sidebar .brand{font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.02em;padding:8px 12px 12px}
+.sidebar .grp{font-size:12px;line-height:16px;letter-spacing:.06em;text-transform:uppercase;font-weight:500;color:var(--ink-3);padding:18px 12px 6px}
+.sidebar a{display:flex;align-items:center;gap:10px;height:40px;padding:0 12px;border-radius:8px;color:var(--ink-2);text-decoration:none;font-weight:500;position:relative}
+.sidebar a.tung{color:var(--ink-1);height:44px;font-size:15px}
+.sidebar a.latt{height:36px;font-weight:400}
+.sidebar a .cnt{margin-left:auto;font-size:13px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.sidebar a.on{color:var(--ink-1);background:var(--insunken)}
+.sidebar a.on::before{content:"";position:absolute;left:-12px;top:8px;bottom:8px;width:3px;background:var(--accent);border-radius:0 2px 2px 0}
+.sidebar .foot{margin-top:auto;border-top:1px solid var(--kant);padding-top:8px}
+.main{flex:1;display:flex;flex-direction:column;min-width:0}
+.main .topbar{padding:0 24px 0 32px}
+.content{padding:24px 32px 48px;max-width:960px;overflow-y:auto}
+.grid2{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:24px;align-items:start}
+.col{display:flex;flex-direction:column;gap:16px;min-width:0}
+.wide .h1{font-size:44px;line-height:46px}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important}
+  .motion .kurva .linje{stroke-dashoffset:0}
+  .motion .kurva .punkt.nu,.motion .kurva .punkt.kvar,.motion .kurva .lbl.nu{opacity:1}
+  .motion .kurva .yta{opacity:.08}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-hem" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10.5h13V10"/><path d="M13.5 20.5v-5.5h3.5v5.5"/></symbol>
+    <symbol id="i-skapa" viewBox="0 0 24 24"><path d="M5.5 3h8.5l4.5 4.5V13"/><path d="M5.5 3v18h7"/><path d="M14 3v4.5h4.5"/><circle cx="17" cy="17.5" r="4.5"/><path d="M17 15v5M14.5 17.5h5"/></symbol>
+    <symbol id="i-profil" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20.5c.8-4.5 4-7 8-7 3.2 0 5.8 1.6 7.2 4.4"/><path d="M20 16.3v4.2"/></symbol>
+    <symbol id="i-matris" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="2"/><path d="M9 3.5v17M15 3.5v17M3.5 9h17M3.5 15h17"/></symbol>
+    <symbol id="i-brev" viewBox="0 0 24 24"><path d="M2.5 8.5A2 2 0 0 1 4.5 6.5h15a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2h-15a2 2 0 0 1-2-2z"/><path d="M2.5 9 12 14.5 21.5 9"/></symbol>
+    <symbol id="i-cv" viewBox="0 0 24 24"><path d="M5 3h9.5L19 7.5V21H5z"/><path d="M14.5 3v4.5H19"/><circle cx="9.5" cy="11" r="2"/><path d="M14 11h2.5M8 16.5h8M8 19h4.5"/></symbol>
+    <symbol id="i-analys" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6.5"/><path d="M14.8 14.8 21 21"/><path d="M7 10h6M10 7v6"/></symbol>
+    <symbol id="i-match" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="6" rx="2"/><rect x="3" y="14" width="18" height="6" rx="2"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M3.5 5.5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-7L7 20v-3.5H5.5a2 2 0 0 1-2-2z"/></symbol>
+    <symbol id="i-intervju" viewBox="0 0 24 24"><circle cx="8" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M2.5 20c.6-3.6 3-5.5 5.5-5.5s4.9 1.9 5.5 5.5M14.5 19.5c.4-2.4 1.5-3.8 2.8-4.2 1.9-.5 3.7.8 4.2 4.2"/></symbol>
+    <symbol id="i-oga" viewBox="0 0 24 24"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-kalender" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-las" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></symbol>
+    <symbol id="i-ansok" viewBox="0 0 24 24"><path d="M3 7.5A1.5 1.5 0 0 1 4.5 6H9l2 2h8.5A1.5 1.5 0 0 1 21 9.5V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 11h18"/></symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+
+<!-- ===================================================== 0. KONCEPT -->
+<div class="intro">
+  <p class="ey">Koncept till ägaren · 10 oktober 2026 · art-director · anpassat efter testansvarigs brief samma dag</p>
+  <h1>Formkurvan</h1>
+  <p><b>Idén i tre meningar.</b> Den som ska göra ett urvalstest tränar som inför en tävling: det finns ett datum, en form som rör sig, och ett pass i dag. Träningen bygger allt kring den kurvan: provdagen är rubriken, dagens pass är handlingen, nivån per dag är beviset, och resten (var du tappar, provdagen i leverantörens format, de andra testerna) förklarar varför kurvan ser ut som den gör. Jobbsöket (personliga brev, CV, Inför intervjun, Jobbcoachen, matchade jobb) ligger kvar som Mitt jobbsök ser ut i dag, ett tryck bort i samma skal.</p>
+  <p><b>Hur Träningen skiljer sig visuellt utan att bli en annan produkt.</b> Samma papper, samma bläck, samma orange. Skillnaden är dosen och vad linjen betyder. I Jobbsöket är tråden en tunn orange linje som visar var du är i menyn. I Träningen är tråden din formkurva: samma linje, men nu ritar den var du står och vart du är på väg, dag för dag, fram till ett datum. Talen tar display-snittet i 28 och 40 px, kurvan ritar sig när vyn öppnas, staplarna i resultatet växer från baslinjen, dagens prick fylls när passet är klart. Mer rörelse, mer data, mer tyngd i typografin. Inga nya färger, inga gradienter, inga märken, ingen konfetti. Spelmomenten går att förklara för en rekryterare: nivå 1 till 10, dagar i rad med en vilodag, milstolpar som prickar på kurvan. Personlighetstestet står utanför allt detta.</p>
+  <p><b>Tre grepp som gör konceptet igenkännbart.</b> Rubriken är ett datum ("17 dagar till Matrigma"), inte en hälsning. Kurvan är vyns bild, en orange linje mot ett lodrätt streck som är provdagen. Navet säger var du är: Träningen eller Jobbsöket, alltid synligt, aldrig dolt.</p>
+</div>
+
+<!-- ===================================================== 1. HEMVYN MOBIL -->
+<div class="sektion">
+  <p class="ey">1 · Hemvyn i Träningen, mobil 375 px</p>
+  <h2>Sju moduler i fast ordning. Det som ändras är vad de säger.</h2>
+  <p class="l">Huvud med datumet, Dagens pass som bläckyta, Kurvan, Var du tappar, Provdagen, Fler tester, en rad om Jobbsöket. Tillstånden byter innehåll, aldrig ordning. Anna, nivåerna och datumen är exempelinnehåll. Matrigmas 35 uppgifter på 40 minuter är briefens siffra ur tredjepartskälla och ska verifieras innan den står i produkten.</p>
+
+  <div class="rad">
+
+    <!-- ========== 1a. NY ========== -->
+    <div>
+      <p class="cap">1a · Ny, ingen mätning <em>orange: 0 på papper</em></p>
+      <div class="frame">
+        <div class="topbar"><span class="brand">Träningen</span><span class="avatar">AA</span></div>
+        <div class="page">
+          <h1 class="h1">Vilket test, och när?<small>Vi räknar bakåt från dagen och lägger passen efter den.</small></h1>
+
+          <section class="panel pad" aria-label="Test och datum" style="display:flex;flex-direction:column;gap:14px">
+            <div class="field">
+              <label>Samma format som</label>
+              <div class="chips" role="radiogroup" aria-label="Testformat">
+                <span class="chip-v on">Matrigma</span><span class="chip-v">Alva Logic</span><span class="chip-v">SHL Verify</span><span class="chip-v">Aon scales</span><span class="chip-v">Annat</span><span class="chip-v">Vet inte</span>
+              </div>
+            </div>
+            <div class="field">
+              <label>Provdagen</label>
+              <div class="in tom"><svg class="ic" style="width:20px;height:20px;margin-right:10px;color:var(--ink-3)"><use href="#i-kalender"/></svg>Välj datum</div>
+            </div>
+            <a class="link quiet liten" href="#" style="min-height:32px">Hoppa över, jag sätter det senare</a>
+          </section>
+
+          <section class="ink" aria-label="Första passet">
+            <p class="ey">Första passet</p>
+            <h2 class="varde" style="margin-top:4px;font-size:22px;line-height:28px;font-weight:700">Mät din nivå. Cirka 8 minuter.</h2>
+            <p class="mjuk" style="margin-top:6px">Tolv matriser över hela svårighetsspannet, svårare efter varje rätt svar. Ingen förklaring under tiden. Efteråt vet vi din nivå, ditt tempo och var du tappar, och lägger upp passen fram till dagen.</p>
+            <div style="margin-top:14px"><a class="btn vit" href="#">Mät min nivå, 8 min</a></div>
+            <p class="meta" style="margin-top:10px;text-align:center">Gratis. Smakprovets fem frågor blir kurvans första punkt.</p>
+          </section>
+
+          <p class="lead" style="font-size:13px;line-height:19px;padding:0 4px">Din första punkt på kurvan kommer efter mätningen.</p>
+
+          <p class="sect">Fler tester</p>
+          <section class="panel rows" style="margin-top:-8px">
+            <div><span><b>Verbalt resonemang</b><span class="meta">Ej mätt. En passage, fyra frågor per pass.</span></span><svg class="ic chev"><use href="#i-chev"/></svg></div>
+            <div><span><b>Numeriskt</b><span class="meta">Ej mätt. Tabell, procent, andel, ett pass per deluppgift.</span></span><svg class="ic chev"><use href="#i-chev"/></svg></div>
+            <div><span><b>Personlighetstest</b><span class="meta">Inga rätta svar, ingen nivå. Se hur profilen tolkas.</span></span><svg class="ic chev"><use href="#i-chev"/></svg></div>
+          </section>
+
+          <div class="status"><span class="l"><span class="dot"></span><span>Inga sökta tjänster än. 1 personligt brev.</span></span><a class="link quiet liten" href="#">Till Jobbsöket</a></div>
+        </div>
+        <nav class="bottomnav" aria-label="Huvudnavigation">
+          <a href="#" class="on"><svg class="ic"><use href="#i-matris"/></svg>Träningen</a>
+          <a href="#"><svg class="ic"><use href="#i-hem"/></svg>Jobbsöket</a>
+          <a href="#"><svg class="ic"><use href="#i-skapa"/></svg>Skapa</a>
+          <a href="#"><svg class="ic"><use href="#i-profil"/></svg>Profil</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ========== 1b. MITT I TRÄNINGEN ========== -->
+    <div>
+      <p class="cap">1b · Mitt i träningen, dag 5 <em>orange: kurvan, svagaste familjen · 2</em></p>
+      <div class="frame motion">
+        <div class="topbar"><span class="brand">Träningen</span><a class="link quiet liten" href="#">Matrigma, 24 okt</a><span class="avatar" style="margin-left:4px">AA</span></div>
+        <div class="page">
+          <h1 class="h1">14 dagar till Matrigma<small>Nivå 6. Fem dagar i rad. Dagens pass kvar.</small></h1>
+
+          <section class="ink" aria-label="Dagens pass">
+            <p class="ey">Dagens pass</p>
+            <h2 class="varde" style="margin-top:4px;font-size:22px;line-height:28px;font-weight:700">Rotation i sektorhjul, nivå 6</h2>
+            <p class="mjuk" style="margin-top:6px">Nio uppgifter, tio minuter. Sex nära din nivå, två säkra, en över. Förklaring efter varje fråga.</p>
+            <div style="margin-top:14px"><a class="btn vit" href="#">Starta dagens pass</a></div>
+          </section>
+
+          <section class="panel pad" aria-label="Kurvan">
+            <div class="sekthead"><p class="sect">Din nivå, dag för dag</p><a class="link quiet liten" href="#">Hela kurvan</a></div>
+            <svg class="kurva" viewBox="0 0 320 128" role="img" aria-label="Nivå per dag från mätningen 6 oktober: 5,0, 5,4, 5,6, 6,0. I dag 10 oktober, passet kvar. Provet 24 oktober.">
+              <line class="grid" x1="36" x2="304" y1="33" y2="33"/><line class="grid" x1="36" x2="304" y1="63" y2="63"/><line class="grid" x1="36" x2="304" y1="93" y2="93"/>
+              <text class="ax" x="28" y="37" text-anchor="end">8</text><text class="ax" x="28" y="67" text-anchor="end">6</text><text class="ax" x="28" y="97" text-anchor="end">4</text>
+              <path class="yta" d="M36 78 L50.7 72 L65.3 69 L80 63 L80 108 L36 108 Z"/>
+              <path class="linje" d="M36 78 L50.7 72 L65.3 69 L80 63"/>
+              <circle class="punkt stor" cx="36" cy="78" r="6"/><circle class="punkt" cx="50.7" cy="72" r="3.5"/><circle class="punkt" cx="65.3" cy="69" r="3.5"/><circle class="punkt nu" cx="80" cy="63" r="4.5"/>
+              <text class="lbl nu" x="80" y="51" text-anchor="middle">6,0</text>
+              <text class="lbl soft" x="36" y="96" text-anchor="start">mätning</text>
+              <circle class="punkt kvar" cx="94.7" cy="63" r="4.5"/>
+              <line class="mal" x1="300" x2="300" y1="18" y2="108"/><text class="lbl soft" x="300" y="14" text-anchor="middle">Prov</text>
+              <text class="ax" x="36" y="122" text-anchor="start">6 okt</text><text class="ax nu" x="94.7" y="122" text-anchor="middle">i dag</text><text class="ax" x="190" y="122" text-anchor="middle">17 okt</text><text class="ax" x="300" y="122" text-anchor="middle">24 okt</text>
+            </svg>
+            <p class="meta" style="margin-top:6px">Nivå 6 av 10. De svåraste uppgifterna tar dig fortfarande över provets tid per fråga. Streckad prick: dagens pass, inte gjort än.</p>
+            <div class="tretal"><div><b>6,0</b><span>nivå, +1,0 sedan mätningen</span></div><div><b>38 s</b><span>per fråga, provet ger 68</span></div><div><b>4</b><span>pass gjorda</span></div></div>
+          </section>
+
+          <div class="sekthead"><p class="sect">Var du tappar</p></div>
+          <section class="panel tapp" style="margin-top:-8px">
+            <div><b>Rotation med fyllningsbyte</b><a class="link liten" href="#">Riktat pass</a><span class="meta">3 av 7 rätt. Du väljer svaret som bara roterar.</span><div class="bar"><i class="svag" style="width:43%"></i></div></div>
+            <div><b>Antal i rad och kolumn</b><a class="link liten" href="#">Riktat pass</a><span class="meta">4 av 6 rätt. Räknar raden, inte kolumnen.</span><div class="bar"><i style="width:67%"></i></div></div>
+            <div><b>Rätt men långsam: speglingar</b><span class="meta" style="grid-column:1/-1">Alla rätt, 66 s per fråga. Provet ger 68.</span></div>
+          </section>
+
+          <p class="sect">Provdagen</p>
+          <section class="panel rows" style="margin-top:-8px">
+            <div><span><b>Samma format som Matrigma</b><span class="meta">35 uppgifter, 40 minuter, fast ordning. Generalrepetitionen öppnar 22 oktober.</span></span><span class="chip"><svg class="ic" style="width:14px;height:14px"><use href="#i-las"/></svg>Hela paketet</span></div>
+          </section>
+
+          <p class="sect">Fler tester</p>
+          <section class="rows" style="margin-top:-8px;border-top:1px solid var(--kant)">
+            <div><span><b>Verbalt resonemang</b><span class="meta">Nivå 5, mätt 8 okt</span></span><svg class="ic chev"><use href="#i-chev"/></svg></div>
+            <div><span><b>Numeriskt</b><span class="meta">Ej mätt. Mät, 8 minuter.</span></span><svg class="ic chev"><use href="#i-chev"/></svg></div>
+            <div><span><b>Personlighetstest</b><span class="meta">Profil klar 3 okt. Inga rätta svar, ingen nivå.</span></span><svg class="ic chev"><use href="#i-chev"/></svg></div>
+          </section>
+
+          <div class="status"><span class="l"><span class="dot"></span><span>3 sökta tjänster, 1 intervju, 2 personliga brev.</span></span><a class="link quiet liten" href="#">Till Jobbsöket</a></div>
+        </div>
+        <nav class="bottomnav" aria-label="Huvudnavigation">
+          <a href="#" class="on"><svg class="ic"><use href="#i-matris"/></svg>Träningen</a>
+          <a href="#"><svg class="ic"><use href="#i-hem"/></svg>Jobbsöket</a>
+          <a href="#"><svg class="ic"><use href="#i-skapa"/></svg>Skapa</a>
+          <a href="#"><svg class="ic"><use href="#i-profil"/></svg>Profil</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ========== 1c. INFÖR PROVDAGEN ========== -->
+    <div>
+      <p class="cap">1c · Inför provdagen, två dagar kvar <em>orange: kurvan · 1</em></p>
+      <div class="frame motion">
+        <div class="topbar"><span class="brand">Träningen</span><a class="link quiet liten" href="#">Matrigma, 22 okt</a><span class="avatar" style="margin-left:4px">AA</span></div>
+        <div class="page">
+          <h1 class="h1">I övermorgon: Matrigma<small>Nivå 7. Fjorton pass och två ommätningar bakom dig.</small></h1>
+
+          <section class="ink" aria-label="Generalrepetition">
+            <p class="ey">Generalrepetition</p>
+            <h2 class="varde" style="margin-top:4px;font-size:22px;line-height:28px;font-weight:700">Samma format som Matrigma: 35 uppgifter, 40 minuter</h2>
+            <p class="mjuk" style="margin-top:6px">Klockan går på riktigt, fast ordning, inga förklaringar förrän efteråt. Resultatet hamnar i kurvan som nivå och tempo.</p>
+            <div style="margin-top:14px"><a class="btn vit" href="#">Starta generalrepetitionen</a></div>
+            <p class="meta" style="margin-top:10px">Dagen före: generalrepetition. Provdagen: tre uppvärmningsfrågor, inget mer.</p>
+          </section>
+
+          <section class="panel pad" aria-label="Kurvan">
+            <div class="sekthead"><p class="sect">Din nivå, dag för dag</p><a class="link quiet liten" href="#">Hela kurvan</a></div>
+            <svg class="kurva" viewBox="0 0 320 128" role="img" aria-label="Nivå per dag 6 till 20 oktober, från 5,0 till 7,1, med ommätningar 6, 13 och 20 oktober. Provet 22 oktober.">
+              <line class="grid" x1="36" x2="304" y1="33" y2="33"/><line class="grid" x1="36" x2="304" y1="63" y2="63"/><line class="grid" x1="36" x2="304" y1="93" y2="93"/>
+              <text class="ax" x="28" y="37" text-anchor="end">8</text><text class="ax" x="28" y="67" text-anchor="end">6</text><text class="ax" x="28" y="97" text-anchor="end">4</text>
+              <path class="yta" d="M36 78 L52.5 72 L69 69 L85.5 63 L102 60 L135 58.5 L151.5 57 L168 54 L184.5 52.5 L201 49.5 L217.5 51 L250.5 48 L267 46.5 L267 108 L36 108 Z"/>
+              <path class="linje" d="M36 78 L52.5 72 L69 69 L85.5 63 L102 60 L135 58.5 L151.5 57 L168 54 L184.5 52.5 L201 49.5 L217.5 51 L250.5 48 L267 46.5"/>
+              <circle class="punkt stor" cx="36" cy="78" r="6"/><circle class="punkt" cx="52.5" cy="72" r="3"/><circle class="punkt" cx="69" cy="69" r="3"/><circle class="punkt" cx="85.5" cy="63" r="3"/><circle class="punkt" cx="102" cy="60" r="3"/><circle class="punkt" cx="135" cy="58.5" r="3"/>
+              <circle class="milst" cx="151.5" cy="57" r="6"/><text class="lbl soft" x="151.5" y="74" text-anchor="middle">första veckan</text>
+              <circle class="punkt" cx="168" cy="54" r="3"/><circle class="punkt" cx="184.5" cy="52.5" r="3"/><circle class="punkt" cx="201" cy="49.5" r="3"/><circle class="punkt" cx="217.5" cy="51" r="3"/><circle class="punkt" cx="250.5" cy="48" r="3"/>
+              <circle class="punkt stor nu" cx="267" cy="46.5" r="5.5"/><text class="lbl nu" x="267" y="34" text-anchor="middle">7,1</text>
+              <line class="mal" x1="300" x2="300" y1="18" y2="108"/><text class="lbl soft" x="300" y="14" text-anchor="middle">Prov</text>
+              <text class="ax" x="36" y="122" text-anchor="start">6 okt</text><text class="ax" x="151.5" y="122" text-anchor="middle">13 okt</text><text class="ax nu" x="267" y="122" text-anchor="middle">i dag</text><text class="ax" x="300" y="122" text-anchor="middle">22 okt</text>
+            </svg>
+            <p class="meta" style="margin-top:6px">Stora prickar är ommätningar. Luckorna är vilodagarna, en i veckan ingår.</p>
+            <div class="tretal"><div><b>7,1</b><span>nivå, +2,1 sedan mätningen</span></div><div><b>31 s</b><span>per fråga, provet ger 68</span></div><div><b>14</b><span>pass gjorda</span></div></div>
+          </section>
+
+          <div class="status"><span class="l"><span class="dot"></span><span>Serien räknas inte de här dagarna. Tolv dagar står kvar.</span></span></div>
+
+          <p class="sect">Repetera svagheten</p>
+          <section class="panel tapp" style="margin-top:-8px">
+            <div><b>Rotation med fyllningsbyte</b><a class="link liten" href="#">Kort pass, 5 min</a><span class="meta">7 av 8 senaste. Från 3 av 7 för två veckor sedan.</span><div class="bar"><i style="width:88%"></i></div></div>
+          </section>
+
+          <p class="sect">Fler tester</p>
+          <section class="rows" style="margin-top:-8px;border-top:1px solid var(--kant)">
+            <div><span><b>Verbalt resonemang</b><span class="meta">Nivå 6, mätt 20 okt</span></span><svg class="ic chev"><use href="#i-chev"/></svg></div>
+            <div><span><b>Numeriskt</b><span class="meta">Nivå 5, mätt 20 okt</span></span><svg class="ic chev"><use href="#i-chev"/></svg></div>
+            <div><span><b>Personlighetstest</b><span class="meta">Profil klar 3 okt</span></span><svg class="ic chev"><use href="#i-chev"/></svg></div>
+          </section>
+          <div class="status"><span class="l"><span class="dot"></span><span>3 sökta tjänster, 1 intervju, 2 personliga brev.</span></span><a class="link quiet liten" href="#">Till Jobbsöket</a></div>
+        </div>
+        <nav class="bottomnav" aria-label="Huvudnavigation">
+          <a href="#" class="on"><svg class="ic"><use href="#i-matris"/></svg>Träningen</a>
+          <a href="#"><svg class="ic"><use href="#i-hem"/></svg>Jobbsöket</a>
+          <a href="#"><svg class="ic"><use href="#i-skapa"/></svg>Skapa</a>
+          <a href="#"><svg class="ic"><use href="#i-profil"/></svg>Profil</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <div class="rad">
+
+    <!-- ========== 1d. PROVDAGEN ========== -->
+    <div>
+      <p class="cap">1d · Provdagen <em>orange: 0</em></p>
+      <div class="frame">
+        <div class="topbar"><span class="brand">Träningen</span><span class="avatar">AA</span></div>
+        <div class="page">
+          <h1 class="h1">I dag: Matrigma<small>Nivå 7. Du har gjort det här fjorton gånger. Nu är det en gång till.</small></h1>
+          <section class="ink" aria-label="Uppvärmning">
+            <p class="ey">Uppvärmning</p>
+            <h2 class="varde" style="margin-top:4px;font-size:22px;line-height:28px;font-weight:700">Tre uppvärmningsfrågor, 2 minuter</h2>
+            <p class="mjuk" style="margin-top:6px">Mönster du redan kan, för att komma in i tänket. Inget pass, ingen nivå, ingen klocka.</p>
+            <div style="margin-top:14px"><a class="btn vit" href="#">Värm upp</a></div>
+          </section>
+          <div class="status rad2"><span class="l" style="align-items:flex-start"><span class="dot" style="margin-top:7px"></span><span style="font-weight:400;color:var(--ink-2)">Tyst rum, laddad dator, inte mobilen om leverantören kräver det. Läs instruktionerna i lugn och ro, klockan brukar börja först när du startar.</span></span></div>
+          <p class="meta" style="padding:0 4px">Kurvan och serien vilar i dag. I morgon frågar vi hur det gick.</p>
+        </div>
+        <nav class="bottomnav" aria-label="Huvudnavigation">
+          <a href="#" class="on"><svg class="ic"><use href="#i-matris"/></svg>Träningen</a>
+          <a href="#"><svg class="ic"><use href="#i-hem"/></svg>Jobbsöket</a>
+          <a href="#"><svg class="ic"><use href="#i-skapa"/></svg>Skapa</a>
+          <a href="#"><svg class="ic"><use href="#i-profil"/></svg>Profil</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ========== 1e. EFTER PROVET ========== -->
+    <div>
+      <p class="cap">1e · Efter provet <em>orange: kurvan · 1</em></p>
+      <div class="frame motion">
+        <div class="topbar"><span class="brand">Träningen</span><span class="avatar">AA</span></div>
+        <div class="page">
+          <h1 class="h1">Hur gick det?<small>Matrigma i onsdags. Svaret är frivilligt, går att radera och styr bara vad vi föreslår härnäst.</small></h1>
+          <div style="display:flex;flex-direction:column;gap:8px" role="radiogroup" aria-label="Hur gick provet">
+            <button class="choice" role="radio" aria-checked="false"><span style="flex:1"><b>Jag gick vidare</b><span class="meta">Nästa steg är ofta intervju. Vi lägger Inför intervjun först.</span></span><svg class="ic chev"><use href="#i-chev"/></svg></button>
+            <button class="choice" role="radio" aria-checked="false"><span style="flex:1"><b>Vet inte än</b><span class="meta">Passen fortsätter i lägre takt. Vi frågar igen om en vecka.</span></span><svg class="ic chev"><use href="#i-chev"/></svg></button>
+            <button class="choice" role="radio" aria-checked="false"><span style="flex:1"><b>Jag gick inte vidare</b><span class="meta">Nivån står kvar. Sätt nästa datum när du har ett.</span></span><svg class="ic chev"><use href="#i-chev"/></svg></button>
+          </div>
+          <a class="link quiet liten" href="#" style="padding:0 4px;min-height:36px">Hoppa över frågan</a>
+
+          <section class="panel pad" aria-label="Kurvan">
+            <div class="sekthead"><p class="sect">Din nivå, dag för dag</p><a class="link quiet liten" href="#">Hela kurvan</a></div>
+            <svg class="kurva" viewBox="0 0 320 128" role="img" aria-label="Nivå per dag 6 till 21 oktober, från 5,0 till 7,2. Provet 22 oktober är passerat.">
+              <line class="grid" x1="36" x2="304" y1="33" y2="33"/><line class="grid" x1="36" x2="304" y1="63" y2="63"/><line class="grid" x1="36" x2="304" y1="93" y2="93"/>
+              <text class="ax" x="28" y="37" text-anchor="end">8</text><text class="ax" x="28" y="67" text-anchor="end">6</text><text class="ax" x="28" y="97" text-anchor="end">4</text>
+              <path class="yta" d="M36 78 L49.9 72 L63.8 69 L77.7 63 L91.6 60 L119.3 58.5 L133.2 57 L147.1 54 L161 52.5 L174.9 49.5 L188.8 51 L216.6 48 L230.5 46.5 L244.4 45 L244.4 108 L36 108 Z"/>
+              <path class="linje" d="M36 78 L49.9 72 L63.8 69 L77.7 63 L91.6 60 L119.3 58.5 L133.2 57 L147.1 54 L161 52.5 L174.9 49.5 L188.8 51 L216.6 48 L230.5 46.5 L244.4 45"/>
+              <circle class="punkt stor" cx="36" cy="78" r="6"/><circle class="punkt" cx="49.9" cy="72" r="3"/><circle class="punkt" cx="63.8" cy="69" r="3"/><circle class="punkt" cx="77.7" cy="63" r="3"/><circle class="punkt" cx="91.6" cy="60" r="3"/><circle class="punkt" cx="119.3" cy="58.5" r="3"/><circle class="milst" cx="133.2" cy="57" r="6"/><circle class="punkt" cx="147.1" cy="54" r="3"/><circle class="punkt" cx="161" cy="52.5" r="3"/><circle class="punkt" cx="174.9" cy="49.5" r="3"/><circle class="punkt" cx="188.8" cy="51" r="3"/><circle class="punkt" cx="216.6" cy="48" r="3"/><circle class="punkt stor" cx="230.5" cy="46.5" r="6"/><circle class="milst nu" cx="244.4" cy="45" r="6"/>
+              <text class="lbl nu" x="244.4" y="32" text-anchor="middle">7,2</text><text class="lbl soft" x="244.4" y="62" text-anchor="middle">generalrep.</text>
+              <line class="mal passerad" x1="258.3" x2="258.3" y1="18" y2="108"/><text class="lbl soft" x="258.3" y="14" text-anchor="middle">Prov</text>
+              <text class="ax" x="36" y="122" text-anchor="start">6 okt</text><text class="ax" x="133" y="122" text-anchor="middle">13 okt</text><text class="ax" x="258" y="122" text-anchor="middle">22 okt</text><text class="ax nu" x="300" y="122" text-anchor="end">i dag</text>
+            </svg>
+            <div class="tretal"><div><b>7,2</b><span>nivå vid provet</span></div><div><b>29 s</b><span>per fråga, provet gav 68</span></div><div><b>16</b><span>pass gjorda</span></div></div>
+          </section>
+
+          <div class="status"><span class="l"><span class="dot"></span><span>3 sökta tjänster, 1 intervju, 2 personliga brev.</span></span><a class="link quiet liten" href="#">Till Jobbsöket</a></div>
+        </div>
+        <nav class="bottomnav" aria-label="Huvudnavigation">
+          <a href="#" class="on"><svg class="ic"><use href="#i-matris"/></svg>Träningen</a>
+          <a href="#"><svg class="ic"><use href="#i-hem"/></svg>Jobbsöket</a>
+          <a href="#"><svg class="ic"><use href="#i-skapa"/></svg>Skapa</a>
+          <a href="#"><svg class="ic"><use href="#i-profil"/></svg>Profil</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ========== 1f. GRATIS DAG 2 ========== -->
+    <div>
+      <p class="cap">1f · Gratis, dag 2: betalväggen i bläckytan och kurvan <em>orange: kurvan · 1</em></p>
+      <div class="frame motion">
+        <div class="topbar"><span class="brand">Träningen</span><a class="link quiet liten" href="#">Matrigma, 24 okt</a><span class="avatar" style="margin-left:4px">AA</span></div>
+        <div class="page">
+          <h1 class="h1">17 dagar till Matrigma<small>Nivå 5. En dag i rad. Dagens pass låst.</small></h1>
+
+          <section class="ink" aria-label="Dagens pass">
+            <p class="ey">Dagens pass</p>
+            <h2 class="varde" style="margin-top:4px;font-size:22px;line-height:28px;font-weight:700">Rotation med fyllningsbyte, nivå 5</h2>
+            <p class="mjuk" style="margin-top:6px">Nio uppgifter, tio minuter, riktat mot familjen där du tappade mest i mätningen.</p>
+            <div class="rule"></div>
+            <p class="mjuk" style="font-size:13px;line-height:19px">17 dagar kvar. Månaden täcker hela vägen: passen, ommätningarna, kurvan och generalrepetitionen i samma format som Matrigma.</p>
+            <div style="margin-top:12px"><a class="btn vit" href="#">Lås upp passen, 149 kr i månaden</a></div>
+            <a class="link" href="#" style="justify-content:center;width:100%;min-height:40px;font-size:13px">Eller Dagspasset, 49 kr</a>
+          </section>
+
+          <section class="panel pad" aria-label="Kurvan">
+            <div class="sekthead"><p class="sect">Din nivå, dag för dag</p></div>
+            <svg class="kurva" viewBox="0 0 320 128" role="img" aria-label="En mätning 6 oktober, nivå 5,0. Resterande dagar fram till provet 24 oktober är tomma platser.">
+              <line class="grid" x1="36" x2="304" y1="33" y2="33"/><line class="grid" x1="36" x2="304" y1="63" y2="63"/><line class="grid" x1="36" x2="304" y1="93" y2="93"/>
+              <text class="ax" x="28" y="37" text-anchor="end">8</text><text class="ax" x="28" y="67" text-anchor="end">6</text><text class="ax" x="28" y="97" text-anchor="end">4</text>
+              <circle class="punkt stor nu" cx="36" cy="78" r="6"/><text class="lbl nu" x="36" y="66" text-anchor="start">5,0</text>
+              <circle class="punkt gra" cx="50.7" cy="78" r="3"/><circle class="punkt gra" cx="65.3" cy="78" r="3"/><circle class="punkt gra" cx="80" cy="78" r="3"/><circle class="punkt gra" cx="94.7" cy="78" r="3"/><circle class="punkt gra" cx="109.3" cy="78" r="3"/><circle class="punkt gra" cx="124" cy="78" r="3"/><circle class="punkt gra" cx="138.7" cy="78" r="3"/><circle class="punkt gra" cx="153.3" cy="78" r="3"/><circle class="punkt gra" cx="168" cy="78" r="3"/><circle class="punkt gra" cx="182.7" cy="78" r="3"/><circle class="punkt gra" cx="197.3" cy="78" r="3"/><circle class="punkt gra" cx="212" cy="78" r="3"/><circle class="punkt gra" cx="226.7" cy="78" r="3"/><circle class="punkt gra" cx="241.3" cy="78" r="3"/><circle class="punkt gra" cx="256" cy="78" r="3"/><circle class="punkt gra" cx="270.7" cy="78" r="3"/><circle class="punkt gra" cx="285.3" cy="78" r="3"/>
+              <line class="mal" x1="300" x2="300" y1="18" y2="108"/><text class="lbl soft" x="300" y="14" text-anchor="middle">Prov</text>
+              <text class="ax" x="36" y="122" text-anchor="start">6 okt</text><text class="ax" x="138.7" y="122" text-anchor="middle">13 okt</text><text class="ax" x="241.3" y="122" text-anchor="middle">20 okt</text><text class="ax" x="300" y="122" text-anchor="middle">24 okt</text>
+            </svg>
+            <p class="meta" style="margin-top:6px">Hela kurvan ingår i månaden. Nivåmätningen gjorde du gratis, ommätningen var sjunde dag ingår i paketet.</p>
+            <div class="tretal"><div><b>5,0</b><span>nivå vid mätningen</span></div><div><b>44 s</b><span>per fråga, provet ger 68</span></div><div><b>1</b><span>pass gjort</span></div></div>
+          </section>
+
+          <div class="sekthead"><p class="sect">Var du tappar</p></div>
+          <section class="panel tapp" style="margin-top:-8px">
+            <div class="gra"><b>Rotation med fyllningsbyte</b><span class="chip" style="font-size:12px;font-weight:600;padding:4px 8px;border-radius:6px;background:var(--insunken);color:var(--ink-2);display:inline-flex;gap:4px;align-items:center"><svg class="ic" style="width:14px;height:14px"><use href="#i-las"/></svg>Riktat pass</span><span class="meta">2 av 5 rätt i mätningen.</span><div class="bar"><i class="svag" style="width:40%"></i></div></div>
+            <div class="gra"><b>Antal i rad och kolumn</b><span class="chip" style="font-size:12px;font-weight:600;padding:4px 8px;border-radius:6px;background:var(--insunken);color:var(--ink-2);display:inline-flex;gap:4px;align-items:center"><svg class="ic" style="width:14px;height:14px"><use href="#i-las"/></svg>Riktat pass</span><span class="meta">3 av 4 rätt.</span><div class="bar"><i style="width:75%"></i></div></div>
+          </section>
+
+          <p class="sect">Provdagen</p>
+          <section class="panel rows" style="margin-top:-8px">
+            <div class="gra"><span><b>Samma format som Matrigma</b><span class="meta">35 uppgifter, 40 minuter. Generalrepetitionen öppnar 22 oktober.</span></span><span class="chip"><svg class="ic" style="width:14px;height:14px"><use href="#i-las"/></svg>Hela paketet</span></div>
+          </section>
+          <div class="status"><span class="l"><span class="dot"></span><span>Inga sökta tjänster än. 1 personligt brev.</span></span><a class="link quiet liten" href="#">Till Jobbsöket</a></div>
+        </div>
+        <nav class="bottomnav" aria-label="Huvudnavigation">
+          <a href="#" class="on"><svg class="ic"><use href="#i-matris"/></svg>Träningen</a>
+          <a href="#"><svg class="ic"><use href="#i-hem"/></svg>Jobbsöket</a>
+          <a href="#"><svg class="ic"><use href="#i-skapa"/></svg>Skapa</a>
+          <a href="#"><svg class="ic"><use href="#i-profil"/></svg>Profil</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ========== 1g. TOMT, LADDAR, FEL ========== -->
+    <div>
+      <p class="cap">1g · Tomt, laddar, fel <em>tre tillstånd i en ram</em></p>
+      <div class="frame">
+        <div class="topbar"><span class="brand">Träningen</span><span class="avatar">AA</span></div>
+        <div class="page" style="gap:20px">
+          <div>
+            <p class="cap" style="color:var(--ink-3)">Tomt: inga test, inget datum</p>
+            <h1 class="h1" style="font-size:28px;line-height:32px">Träningen<small>Sätt ett datum så räknar vi bakåt. Eller mät nivån direkt.</small></h1>
+            <section class="ink" style="margin-top:12px"><p class="ey">Första passet</p><p class="varde" style="margin-top:4px">Mät din nivå. Cirka 8 minuter.</p><div style="margin-top:12px"><a class="btn vit" href="#">Mät min nivå, 8 min</a></div></section>
+            <p class="meta" style="margin-top:8px;padding:0 4px">Aldrig ett streck, aldrig "0". Samma som Ny utan datumraden.</p>
+          </div>
+          <div>
+            <p class="cap" style="color:var(--ink-3)">Laddar: skelett i rätt höjd, bara tråden rör sig</p>
+            <div class="sk" style="height:35px;width:70%"></div><div class="sk" style="height:14px;width:55%;margin-top:8px"></div>
+            <section class="panel loading-thread" role="status" aria-busy="true" aria-label="Laddar" style="margin-top:12px;padding:16px;background:var(--ink-1);border-color:var(--ink-1)"><div class="sk" style="height:12px;width:30%;background:var(--ink-1-kant)"></div><div class="sk" style="height:24px;width:80%;margin-top:8px;background:var(--ink-1-kant)"></div><div class="sk" style="height:44px;margin-top:16px;border-radius:8px;background:var(--ink-1-kant)"></div></section>
+            <p class="meta" style="margin-top:8px;padding:0 4px">Serverrenderat med riktiga tal, så skelettet syns sällan. CLS 0: samma höjd som tillståndet som kommer.</p>
+          </div>
+          <div>
+            <p class="cap" style="color:var(--ink-3)">Fel: huvudet står kvar, passet säger vad som hände</p>
+            <h1 class="h1" style="font-size:28px;line-height:32px">14 dagar till Matrigma<small>Nivå 6. Fem dagar i rad.</small></h1>
+            <section class="panel pad" style="margin-top:12px;border-color:var(--fel-kant)" role="alert"><p class="kort-t" style="color:var(--fel)">Passet gick inte att hämta</p><p class="lead" style="margin-top:4px;font-size:13px;line-height:19px">Anslutningen bröts. Din nivå och kurva är sparade.</p><div style="margin-top:12px"><a class="btn secondary" href="#">Försök igen</a></div></section>
+            <p class="meta" style="margin-top:8px;padding:0 4px">Kurvan ersätts av meningen "Kurvan kommer när passet går att hämta." Aldrig en tom sida, aldrig teknisk text.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="anm"><b>Läsning.</b> Dagens pass är alltid den enda bläckytan och ligger inom första skärmhöjden med knappen synlig utan att scrolla. Kurvan är vyns bild och ersätter scenen: en scen plus en kurva vore två bilder i samma vy. Orange på papper räknas: kurvan är en, den svagaste familjens stapel är en, sedan inget mer. Serien syns som ord i huvudet ("Fem dagar i rad") och som luckor i kurvan, aldrig som eld. Milstolparna är större prickar med etikett på kurvan ("första veckan", "generalrep.") och ett lugnt kvitto samma dag, ingen lista med märken.</p>
+</div>
+
+<!-- ===================================================== 1h. DESKTOP -->
+<div class="sektion">
+  <p class="ey">1h · Hemvyn i Träningen, dator 1200 px, dag 5</p>
+  <h2>Två tunga rader överst i sidomenyn, grupperna byter ordning med läget</h2>
+  <div class="rad">
+    <div>
+      <div class="frame wide motion">
+        <aside class="sidebar" aria-label="Sidomeny">
+          <div class="brand">Jobbcoach.ai</div>
+          <a href="#" class="on tung"><svg class="ic" style="width:22px;height:22px"><use href="#i-matris"/></svg>Träningen</a>
+          <a href="#" class="tung"><svg class="ic" style="width:22px;height:22px"><use href="#i-hem"/></svg>Jobbsöket<span class="cnt">1 intervju</span></a>
+          <div class="grp">Träna</div>
+          <a href="#">Dagens pass</a><a href="#">Kurvan</a><a href="#">Alla tester</a><a href="#">Provläget<span class="cnt">22 okt</span></a><a href="#">Inför intervjun</a>
+          <div class="grp">Jobbsöket</div>
+          <a href="#" class="latt">Sökta tjänster<span class="cnt">3</span></a><a href="#" class="latt">Mina CV<span class="cnt">2</span></a><a href="#" class="latt">Personliga brev<span class="cnt">2</span></a><a href="#" class="latt">Matchade jobb</a><a href="#" class="latt">Jobbcoachen</a><a href="#" class="latt">Bli upptäckt</a>
+          <div class="grp">Konto</div>
+          <a href="#" class="latt">Profil</a><a href="#" class="latt">Prenumeration<span class="cnt">Gratis</span></a>
+          <div class="foot"><a href="#" class="latt">Hjälp</a></div>
+        </aside>
+        <div class="main">
+          <div class="topbar"><span class="ctx">Matrigma, 24 oktober</span><a class="link quiet liten" href="#">Ändra test eller datum</a><span class="avatar" style="margin-left:12px">AA</span></div>
+          <div class="content">
+            <h1 class="h1">14 dagar till Matrigma<small style="font-size:16px;line-height:24px">Nivå 6. Fem dagar i rad. Dagens pass kvar.</small></h1>
+            <div class="grid2" style="margin-top:24px">
+              <div class="col">
+                <section class="ink" aria-label="Dagens pass" style="padding:24px">
+                  <p class="ey">Dagens pass</p>
+                  <h2 class="varde" style="margin-top:4px;font-size:26px;line-height:32px;font-weight:700">Rotation i sektorhjul, nivå 6</h2>
+                  <p class="mjuk" style="margin-top:8px">Nio uppgifter, tio minuter. Sex nära din nivå, två säkra, en över. Förklaring efter varje fråga.</p>
+                  <div style="margin-top:16px;display:flex;gap:16px;align-items:center"><a class="btn vit auto" href="#" style="padding:0 24px">Starta dagens pass</a><a class="link" href="#">Välj ett riktat pass i stället</a></div>
+                </section>
+                <section class="panel pad" aria-label="Kurvan" style="padding:20px">
+                  <div class="sekthead"><p class="sect">Din nivå, dag för dag</p><a class="link quiet liten" href="#">Hela kurvan, alla tester</a></div>
+                  <svg class="kurva" viewBox="0 0 320 128" role="img" aria-label="Nivå per dag från mätningen 6 oktober: 5,0, 5,4, 5,6, 6,0. I dag 10 oktober, passet kvar. Provet 24 oktober.">
+                    <line class="grid" x1="36" x2="304" y1="33" y2="33"/><line class="grid" x1="36" x2="304" y1="63" y2="63"/><line class="grid" x1="36" x2="304" y1="93" y2="93"/>
+                    <text class="ax" x="28" y="37" text-anchor="end">8</text><text class="ax" x="28" y="67" text-anchor="end">6</text><text class="ax" x="28" y="97" text-anchor="end">4</text>
+                    <path class="yta" d="M36 78 L50.7 72 L65.3 69 L80 63 L80 108 L36 108 Z"/>
+                    <path class="linje" d="M36 78 L50.7 72 L65.3 69 L80 63"/>
+                    <circle class="punkt stor" cx="36" cy="78" r="6"/><circle class="punkt" cx="50.7" cy="72" r="3.5"/><circle class="punkt" cx="65.3" cy="69" r="3.5"/><circle class="punkt nu" cx="80" cy="63" r="4.5"/>
+                    <text class="lbl nu" x="80" y="51" text-anchor="middle">6,0</text><text class="lbl soft" x="36" y="96" text-anchor="start">mätning</text>
+                    <circle class="punkt kvar" cx="94.7" cy="63" r="4.5"/>
+                    <line class="mal" x1="300" x2="300" y1="18" y2="108"/><text class="lbl soft" x="300" y="14" text-anchor="middle">Prov</text>
+                    <text class="ax" x="36" y="122" text-anchor="start">6 okt</text><text class="ax nu" x="94.7" y="122" text-anchor="middle">i dag</text><text class="ax" x="190" y="122" text-anchor="middle">17 okt</text><text class="ax" x="300" y="122" text-anchor="middle">24 okt</text>
+                  </svg>
+                  <p class="meta" style="margin-top:6px">Nivå 6 av 10. De svåraste uppgifterna tar dig fortfarande över provets tid per fråga. Streckad prick: dagens pass, inte gjort än.</p>
+                  <div class="tretal"><div><b>6,0</b><span>nivå, +1,0 sedan mätningen</span></div><div><b>38 s</b><span>per fråga, provet ger 68</span></div><div><b>4</b><span>pass gjorda</span></div></div>
+                </section>
+                <div class="status"><span class="l"><span class="dot"></span><span>3 sökta tjänster, 1 intervju på torsdag, 2 personliga brev.</span></span><a class="link quiet liten" href="#">Till Jobbsöket</a></div>
+              </div>
+              <div class="col">
+                <div class="sekthead"><p class="sect">Var du tappar</p></div>
+                <section class="panel tapp" style="margin-top:-8px">
+                  <div><b>Rotation med fyllningsbyte</b><a class="link liten" href="#">Riktat pass</a><span class="meta">3 av 7 rätt. Du väljer svaret som bara roterar.</span><div class="bar"><i class="svag" style="width:43%"></i></div></div>
+                  <div><b>Antal i rad och kolumn</b><a class="link liten" href="#">Riktat pass</a><span class="meta">4 av 6 rätt. Räknar raden, inte kolumnen.</span><div class="bar"><i style="width:67%"></i></div></div>
+                  <div><b>Rätt men långsam: speglingar</b><span class="meta" style="grid-column:1/-1">Alla rätt, 66 s per fråga. Provet ger 68.</span></div>
+                </section>
+                <p class="sect">Provdagen</p>
+                <section class="panel rows" style="margin-top:-8px">
+                  <div><span><b>Samma format som Matrigma</b><span class="meta">35 uppgifter, 40 minuter, fast ordning. Generalrepetitionen öppnar 22 oktober.</span></span><span class="chip"><svg class="ic" style="width:14px;height:14px"><use href="#i-las"/></svg>Hela paketet</span></div>
+                </section>
+                <p class="sect">Fler tester</p>
+                <section class="rows" style="margin-top:-8px;border-top:1px solid var(--kant)">
+                  <div><span><b>Verbalt resonemang</b><span class="meta">Nivå 5, mätt 8 okt</span></span><svg class="ic chev"><use href="#i-chev"/></svg></div>
+                  <div><span><b>Numeriskt</b><span class="meta">Ej mätt. Mät, 8 minuter.</span></span><svg class="ic chev"><use href="#i-chev"/></svg></div>
+                  <div><span><b>Personlighetstest</b><span class="meta">Profil klar 3 okt. Inga rätta svar, ingen nivå.</span></span><svg class="ic chev"><use href="#i-chev"/></svg></div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="anm"><b>Sidomenyn.</b> Två tunga rader överst, Träningen och Jobbsöket, i 15/500. Under dem Träna-gruppen i vanlig vikt, sedan Jobbsökets rader i lättare vikt (400), sedan Konto. I Jobbsöket byter grupperna plats. Ingenting göms. Toppraden bär provet och datumet i Träningen, hälsningen i Jobbsöket.</p>
+</div>
+
+<!-- ===================================================== 2. RESULTATET -->
+<div class="sektion">
+  <p class="ey">2 · Resultatet efter ett pass</p>
+  <h2>Tre tal, sedan genomgången, sist i morgon</h2>
+  <p class="l">Bekräftelsen följer Trådens rörelse: panelen glider upp, linjen når hundra procent och stannar som överkant. Rubriken säger vad som hände. Inga poäng, ingen summa, inget "Bra jobbat". Betalväggen kommer aldrig här.</p>
+  <div class="rad">
+    <div>
+      <p class="cap">2a · Passet klart <em>orange: tråden i överkant, två långsamma staplar · 2</em></p>
+      <div class="frame motion col">
+        <div class="topbar"><button class="iconbtn" aria-label="Stäng" style="margin-left:-8px"><svg class="ic" style="width:22px;height:22px"><use href="#i-x"/></svg></button><span class="ctx" style="font-weight:600;color:var(--ink-1)">Dagens pass</span><span class="meta" style="font-variant-numeric:tabular-nums">9 / 9</span></div>
+        <div class="page" style="flex:1;padding-bottom:16px">
+          <section class="ink confirm" role="status" aria-live="polite" style="padding-top:22px">
+            <p class="ey">Passet klart</p>
+            <h1 class="h1" style="color:#fff;margin-top:4px;font-size:28px;line-height:32px">7 av 9 rätt. Nivån steg till 6,2.</h1>
+            <div class="tre"><div><b>7 av 9</b><span>rätt</span></div><div><b class="pos">+0,2</b><span>nivå, nu 6,2</span></div><div><b>41 s</b><span>per fråga, provet ger 68</span></div></div>
+            <div class="rule"></div>
+            <p class="mjuk" style="font-size:13px;line-height:19px">Fyra av fem rotationer rätt i dag, mot tre av sju i mätningen. I morgon: samma familj en nivå upp.</p>
+          </section>
+
+          <section class="panel pad" aria-label="Tempo">
+            <p class="kort-t">Fråga 4 och 7 tog över en minut</p>
+            <p class="lead" style="margin-top:2px;font-size:13px;line-height:19px">Båda rotationer med fyllningsbyte. Rätt svar, men dyrt i tid. Gå igenom dem först.</p>
+            <div class="stapel" aria-hidden="true">
+              <i style="--n:1;height:43%"></i><i style="--n:2;height:61%"></i><i style="--n:3;height:39%"></i><i class="sen" style="--n:4;height:99%"></i><i style="--n:5;height:54%"></i><i style="--n:6;height:49%"></i><i class="sen" style="--n:7;height:92%"></i><i style="--n:8;height:67%"></i><i style="--n:9;height:42%"></i>
+            </div>
+            <div class="stapelaxel"><span>fråga 1</span><span>streckad linje: 68 s</span><span>fråga 9</span></div>
+          </section>
+
+          <p class="sect">Genomgången</p>
+          <section class="panel rows" style="margin-top:-8px">
+            <div><span><b>Fråga 3, fel</b><span class="meta">Regel: rotation 90° medsols och fyllningen byter varje steg. Du valde alternativet som bara roterar. 52 s.</span></span><a class="link liten" href="#">Visa</a></div>
+            <div><span><b>Fråga 8, fel</b><span class="meta">Regel: antalet prickar följer kolumnen, inte raden. 58 s.</span></span><a class="link liten" href="#">Visa</a></div>
+            <div><span><b>Sju rätt</b><span class="meta">Regel och förklaring finns på alla.</span></span><svg class="ic chev"><use href="#i-chev"/></svg></div>
+          </section>
+
+          <div class="status"><span class="l"><span class="dot positiv"></span><span>Fem dagar i rad. Passet i morgon ligger klart klockan 06.</span></span></div>
+        </div>
+        <div class="flowfoot"><a class="btn primary" href="#">Gå igenom de två missarna</a><a class="link quiet" href="#" style="justify-content:center;min-height:36px">Visa kurvan</a></div>
+      </div>
+    </div>
+
+    <div style="max-width:420px;padding-top:28px">
+      <div class="notis">
+        <h3>Vad resultatet gör, och inte gör</h3>
+        <ul>
+          <li><b>Tre tal enligt briefen:</b> rätt av antal, nivåförflyttning (högst 0,5 per pass, så den fladdrar inte), tempo mot provets budget. Talen i display 28, etiketten under.</li>
+          <li><b>Genomgången är rader:</b> regel, vad distraktorn stämde på, tid. Feltypen per alternativ saknas i matrisbanken i dag (briefens avsnitt 8), raden är skriven för hur det ska se ut när fältet finns.</li>
+          <li><b>Sist: i morgon.</b> "Samma familj en nivå upp" eller "Ny familj". Det är nästa skäl att komma tillbaka, sagt i klartext.</li>
+          <li><b>Sekundärt:</b> Visa kurvan för alla, Ett pass till för betalande. Aldrig en betalvägg i bekräftelsen.</li>
+          <li><b>Personlighetstestets resultat</b> använder inte den här vyn: profiltext, "Profil klar", och meningen att det inte finns rätta svar.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================================================== 3. VÄXLINGEN -->
+<div class="sektion">
+  <p class="ey">3 · Växlingen till Jobbsöket</p>
+  <h2>Två hemskärmar i navet, aldrig ett dolt läge</h2>
+  <p class="l">Enligt briefens rekommendation: bottennavet får fyra slots, Träningen, Jobbsöket, Skapa, Profil. De två första är hemskärmar. Man ser alltid var man är, det andra är ett tryck bort, och ingen inställning behöver hittas. /dashboard renderar det ihågkomna läget (sparas på servern, första värdet ur registreringens val eller ett satt provdatum). Sökta tjänster flyttar in som Jobbsökets första modul. Bytet tar under 100 ms eftersom båda hemskärmarna hämtas i samma summering, med tråden längs överkanten som vid alla sidbyten.</p>
+
+  <div class="rad">
+    <div>
+      <p class="cap">3a · Jobbsöket, mobil <em>orange: 2</em></p>
+      <div class="frame">
+        <div class="topbar"><span class="brand">Mitt jobbsök</span><span class="avatar">AA</span></div>
+        <div class="page">
+          <h1 class="h1">Hej Anna<small>Ett svar sedan i går. Intervju på torsdag, Klarna.</small></h1>
+
+          <section class="ink" aria-label="Nästa handling">
+            <p class="ey">Nästa handling</p>
+            <h2 class="varde" style="margin-top:4px;font-size:22px;line-height:28px;font-weight:700">Förbered intervjun på Klarna</h2>
+            <p class="mjuk" style="margin-top:6px">Torsdag 10.00. Tio frågor de brukar ställa för UX Writer, och dina svar ur CV:t. Tar en kvart.</p>
+            <div style="margin-top:14px;display:flex;gap:16px;align-items:center"><a class="btn vit auto" href="#" style="padding:0 20px">Öppna Inför intervjun</a><a class="link" href="#">Senare</a></div>
+          </section>
+
+          <section class="panel pad" aria-label="Ditt jobbsök">
+            <p class="sect">Ditt jobbsök i oktober</p>
+            <div style="display:flex;align-items:baseline;gap:8px;margin-top:6px"><span class="tal">3</span><span class="lead">sökta</span></div>
+            <p class="lead" style="margin-top:6px;font-size:13px;line-height:19px">1 svar hittills. Spotify har varit tyst i 17 dagar, följ upp i dag.</p>
+            <div style="display:flex;height:10px;border-radius:5px;overflow:hidden;gap:2px;margin-top:10px" aria-hidden="true"><i style="display:block;width:34%;background:var(--ink-1)"></i><i style="display:block;width:33%;background:var(--kant-stark)"></i><i style="display:block;width:33%;background:var(--positiv)"></i></div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:8px;font-size:13px;line-height:18px;color:var(--ink-2)"><span>1 tyst över två veckor</span><span>1 väntar svar</span><span>1 intervju</span></div>
+          </section>
+
+          <div class="sekthead"><p class="sect">Pågår nu</p><a class="link quiet liten" href="#">Alla 3</a></div>
+          <section class="rows" style="margin-top:-8px;border-top:1px solid var(--kant)">
+            <div><span><b>Klarna · UX Writer</b><span class="meta" style="color:var(--positiv)">Intervju torsdag 10.00</span></span></div>
+            <div><span><b>Spotify · Produktdesigner</b><span class="meta">Väntar svar · 17 dagar. Följ upp.</span></span></div>
+            <div><span><b>Region Skåne · Kommunikatör</b><span class="meta">Väntar svar · 2 dagar</span></span></div>
+          </section>
+
+          <p class="sect">Skriv och förbättra</p>
+          <section class="panel rows" style="margin-top:-8px">
+            <div><span class="ikonrad"><svg class="ic" style="color:var(--ink-2)"><use href="#i-brev"/></svg><span><b>Personliga brev</b><span class="meta">2 skrivna, 1 kvar i dag</span></span></span><svg class="ic chev"><use href="#i-chev"/></svg></div>
+            <div><span class="ikonrad"><svg class="ic" style="color:var(--ink-2)"><use href="#i-cv"/></svg><span><b>Mina CV</b><span class="meta">2 CV, senast analyserat 74 poäng</span></span></span><svg class="ic chev"><use href="#i-chev"/></svg></div>
+            <div><span class="ikonrad"><svg class="ic" style="color:var(--ink-2)"><use href="#i-analys"/></svg><span><b>CV-analys och LinkedIn-profilen</b></span></span><svg class="ic chev"><use href="#i-chev"/></svg></div>
+          </section>
+          <p class="sect">Hitta jobb och förbered dig</p>
+          <section class="panel rows" style="margin-top:-8px">
+            <div><span class="ikonrad"><svg class="ic" style="color:var(--ink-2)"><use href="#i-match"/></svg><span><b>Matchade jobb</b><span class="meta">25 nya i natt, 3 att läsa gratis</span></span></span><svg class="ic chev"><use href="#i-chev"/></svg></div>
+            <div><span class="ikonrad"><svg class="ic" style="color:var(--ink-2)"><use href="#i-chat"/></svg><span><b>Jobbcoachen</b><span class="meta">Lön, avtal, avslag. 6 av 10 frågor kvar</span></span></span><svg class="ic chev"><use href="#i-chev"/></svg></div>
+            <div><span class="ikonrad"><svg class="ic" style="color:var(--ink-2)"><use href="#i-oga"/></svg><span><b>Bli upptäckt</b><span class="meta">Inte synlig än</span></span></span><svg class="ic chev"><use href="#i-chev"/></svg></div>
+          </section>
+          <div class="status"><span class="l"><span class="dot"></span><span>Nivå 6 i matrislogik, 14 dagar till Matrigma.</span></span><a class="link quiet liten" href="#">Till Träningen</a></div>
+        </div>
+        <nav class="bottomnav" aria-label="Huvudnavigation">
+          <a href="#"><svg class="ic"><use href="#i-matris"/></svg>Träningen</a>
+          <a href="#" class="on"><svg class="ic"><use href="#i-hem"/></svg>Jobbsöket</a>
+          <a href="#"><svg class="ic"><use href="#i-skapa"/></svg>Skapa</a>
+          <a href="#"><svg class="ic"><use href="#i-profil"/></svg>Profil</a>
+        </nav>
+      </div>
+    </div>
+
+    <div>
+      <p class="cap">3b · Jobbsöket, dator 1200 <em>orange: 3</em></p>
+      <div class="frame wide" style="height:720px">
+        <aside class="sidebar" aria-label="Sidomeny">
+          <div class="brand">Jobbcoach.ai</div>
+          <a href="#" class="tung"><svg class="ic" style="width:22px;height:22px"><use href="#i-matris"/></svg>Träningen<span class="cnt">14 dagar</span></a>
+          <a href="#" class="on tung"><svg class="ic" style="width:22px;height:22px"><use href="#i-hem"/></svg>Jobbsöket</a>
+          <div class="grp">Mitt jobbsök</div>
+          <a href="#">Sökta tjänster<span class="cnt">3</span></a><a href="#">Mina CV<span class="cnt">2</span></a><a href="#">Personliga brev<span class="cnt">2</span></a>
+          <div class="grp">Skriv och förbättra</div>
+          <a href="#">Skriv nytt brev</a><a href="#">Analysera CV</a><a href="#">CV-mallar</a><a href="#">LinkedIn-profilen</a>
+          <div class="grp">Hitta jobb och förbered dig</div>
+          <a href="#">Matchade jobb</a><a href="#">Bli upptäckt</a><a href="#">Inför intervjun</a><a href="#">Jobbcoachen</a>
+          <div class="grp">Träna</div>
+          <a href="#" class="latt">Dagens pass</a><a href="#" class="latt">Kurvan</a><a href="#" class="latt">Alla tester</a>
+          <div class="grp">Konto</div>
+          <a href="#" class="latt">Profil</a><a href="#" class="latt">Prenumeration<span class="cnt">Gratis</span></a>
+          <div class="foot"><a href="#" class="latt">Hjälp</a></div>
+        </aside>
+        <div class="main">
+          <div class="topbar"><span class="ctx">Mitt jobbsök</span><span class="avatar" style="margin-left:12px">AA</span></div>
+          <div class="content">
+            <h1 class="h1">Hej Anna<small style="font-size:16px;line-height:24px">Ett svar sedan i går. Intervju på torsdag, Klarna.</small></h1>
+            <div class="grid2" style="margin-top:24px;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)">
+              <div class="col">
+                <section class="panel pad" aria-label="Ditt jobbsök">
+                  <p class="sect">Ditt jobbsök i oktober</p>
+                  <div style="display:flex;align-items:baseline;gap:8px;margin-top:6px"><span class="tal" style="font-size:48px;line-height:48px">3</span><span class="lead">sökta</span></div>
+                  <p class="lead" style="margin-top:6px">1 svar hittills. Spotify har varit tyst i 17 dagar, följ upp i dag.</p>
+                  <div style="display:flex;height:10px;border-radius:5px;overflow:hidden;gap:2px;margin-top:10px" aria-hidden="true"><i style="display:block;width:34%;background:var(--ink-1)"></i><i style="display:block;width:33%;background:var(--kant-stark)"></i><i style="display:block;width:33%;background:var(--positiv)"></i></div>
+                  <div style="display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:8px;font-size:13px;line-height:18px;color:var(--ink-2)"><span>1 tyst över två veckor</span><span>1 väntar svar</span><span>1 intervju</span></div>
+                  <div style="margin-top:16px"><a class="btn primary auto" href="#" style="padding:0 20px">Logga ansökan</a></div>
+                </section>
+                <div class="sekthead"><p class="sect">Pågår nu</p><a class="link quiet liten" href="#">Alla 3</a></div>
+                <section class="rows" style="margin-top:-8px;border-top:1px solid var(--kant)">
+                  <div><span><b>Klarna · UX Writer</b><span class="meta" style="color:var(--positiv)">Intervju torsdag 10.00</span></span></div>
+                  <div><span><b>Spotify · Produktdesigner</b><span class="meta">Väntar svar · 17 dagar. Följ upp.</span></span></div>
+                  <div><span><b>Region Skåne · Kommunikatör</b><span class="meta">Väntar svar · 2 dagar</span></span></div>
+                </section>
+              </div>
+              <div class="col">
+                <section class="ink" aria-label="Nästa handling" style="padding:24px">
+                  <p class="ey">Nästa handling</p>
+                  <h2 class="varde" style="margin-top:4px;font-size:22px;line-height:28px;font-weight:700">Förbered intervjun på Klarna</h2>
+                  <p class="mjuk" style="margin-top:8px">Torsdag 10.00. Tio frågor de brukar ställa för UX Writer, och dina svar ur CV:t. Tar en kvart.</p>
+                  <div style="margin-top:16px;display:flex;gap:16px;align-items:center"><a class="btn vit auto" href="#" style="padding:0 20px">Öppna Inför intervjun</a><a class="link" href="#">Senare</a></div>
+                </section>
+                <div class="status"><span class="l"><span class="dot"></span><span>1 personligt brev kvar i dag</span></span><a class="link quiet liten" href="#">Hela paketet, 149 kr i månaden</a></div>
+                <p class="sect">Det här gjorde du i veckan</p>
+                <section class="rows" style="margin-top:-8px;border-top:1px solid var(--kant)">
+                  <div><span><b>Brev till Klarna</b><span class="meta">i går, nedladdat</span></span></div>
+                  <div><span><b>CV-analys, 74 poäng</b><span class="meta">måndag, 2 fynd kvar</span></span></div>
+                  <div><span><b>Nivå 6 i matrislogik</b><span class="meta">i dag, i Träningen</span></span></div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tvakol">
+    <div class="notis">
+      <h3>Växlaren i navet, rekommenderas (briefens val)</h3>
+      <ul>
+        <li><b>Mobil:</b> Träningen, Jobbsöket, Skapa, Profil. Aktivt val i ink med tjockare streck, som i dag. Ansökningar bor i Jobbsökets hemskärm.</li>
+        <li><b>Dator:</b> två tunga rader överst i sidomenyn, sedan grupperna i lägets ordning. Det andra lägets rader finns kvar, lättare.</li>
+        <li><b>Minne:</b> ett fält på profilen. Första värdet: tester och intervju vid registreringen ger Träningen, ett satt provdatum ger Träningen, övriga Jobbsöket. /dashboard öppnar det ihågkomna, djuplänkar påverkas inte.</li>
+        <li><b>Korsreferenser är rader,</b> aldrig knappar: "3 sökta tjänster, 1 intervju, 2 personliga brev. Till Jobbsöket." i Träningen, "Nivå 6 i matrislogik, 14 dagar till Matrigma. Till Träningen." i Jobbsöket. Räknarna i sidomenyn ("1 intervju", "14 dagar") gör samma jobb på dator.</li>
+        <li><b>Rörelse:</b> 150 ms intoning av innehållet, tråden längs överkanten. Toppraden byter text men står still.</li>
+      </ul>
+    </div>
+    <div class="notis">
+      <h3>Alternativet: ett läge med växlare i toppraden</h3>
+      <p>Mitt första utkast. Ett segment med två val, Träningen och Jobbsöket, i skalets topprad på mobil och överst i sidomenyn på dator, och var sitt bottennav per läge (Träningen: Dagens pass, Prov, Kurvan, Profil).</p>
+      <ul>
+        <li><b>För:</b> Träningen får ett eget nav med Prov och Kurvan som egna tryck. Starkare känsla av ett eget rum.</li>
+        <li><b>Emot:</b> ett tillstånd att minnas, ett nav som byter betydelse, en kontroll till i en topprad som redan bär datumet. Briefens krav att läget aldrig är dolt uppfylls sämre: segmentet är litet och lätt att missa.</li>
+        <li><b>Briefens eget alternativ,</b> en flik bara på hemskärmen, är billigare men lämnar navet kvar på Hem och Ansökningar, vilket drar mot jobbsöket. Väljs bara om navbytet inte ryms i omgången.</li>
+      </ul>
+      <p>Min bedömning efter briefen: navet. Prov och Kurvan når man från modul 3 och 5 på hemskärmen och från sidomenyn på dator, och det räcker.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===================================================== 4. BETALVÄGGEN -->
+<div class="sektion">
+  <p class="ey">4 · Betalväggens ögonblick i testflödet</p>
+  <h2>Fyra ställen, alltid med datumet i texten</h2>
+  <p class="l">Efter nivåmätningen (planens pass från dag 2 gråa med lås), i bläckytan dag 2 och framåt på gratisnivån (visad i 1f), på riktade pass och provläget som grått val, och i kurvan som gråa platser. Aldrig på resultat, genomgång, datum eller växling. Arket nedan är det som öppnas från ett grått val, GraValSheet som i dag men med datumet i texten och ordningen Dagspasset före Hela paketet, enligt designsystemets regel för betalväggar.</p>
+  <div class="rad">
+    <div>
+      <p class="cap">4a · Arket från provläget, 14 dagar kvar <em>orange: 1 (rekommenderas)</em></p>
+      <div class="frame">
+        <div class="topbar"><span class="brand">Träningen</span><a class="link quiet liten" href="#">Matrigma, 24 okt</a><span class="avatar" style="margin-left:4px">AA</span></div>
+        <div class="page" aria-hidden="true">
+          <h1 class="h1">14 dagar till Matrigma<small>Nivå 6. Fem dagar i rad. Dagens pass klart.</small></h1>
+          <section class="ink"><p class="ey">Dagens pass</p><p class="varde" style="margin-top:4px">Klart. 7 av 9, nivån steg till 6,2.</p><p class="mjuk" style="margin-top:4px;font-size:13px">I morgon: samma familj en nivå upp, klockan 06.</p><div class="rule"></div><a class="link" href="#">Visa genomgången</a></section>
+          <section class="panel pad"><p class="sect">Din nivå, dag för dag</p><div class="sk" style="height:110px;margin-top:10px"></div></section>
+        </div>
+        <div class="dim"></div>
+        <div class="ark" role="dialog" aria-label="Provläget i samma format som Matrigma">
+          <div class="handtag"></div>
+          <p class="ey">Provläget</p>
+          <h2 style="font-size:22px;line-height:28px;font-weight:700;margin-top:4px">Samma format som Matrigma: 35 uppgifter, 40 minuter</h2>
+          <p class="lead" style="margin-top:6px;font-size:14px;line-height:21px">Klockan på riktigt, fast ordning, förklaringar efteråt. Nivå och tempo hamnar i kurvan. 14 dagar kvar till provet.</p>
+          <div class="panel hoj" style="margin-top:14px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px">
+            <div><p class="kort-t">Dagspasset</p><p class="meta">Allt till midnatt: provläget, pass utan tak, genomgångar. Ingen prenumeration.</p></div>
+            <p style="font-family:var(--display);font-size:22px;line-height:28px;font-weight:700;white-space:nowrap">49 kr</p>
+          </div>
+          <div class="panel" style="margin-top:8px;padding:14px 16px;border-color:var(--ink-1);box-shadow:inset 0 0 0 1px var(--ink-1);display:flex;justify-content:space-between;align-items:center;gap:12px">
+            <div><p class="ey" style="color:var(--accent-ink)">Rekommenderas, 14 dagar kvar</p><p class="kort-t">Hela paketet</p><p class="meta">Hela vägen till 24 oktober: dagliga och riktade pass, ommätning var sjunde dag, kurvan, provläget när du vill. Plus personliga brev, CV och Jobbcoachen. Säg upp när du vill.</p></div>
+            <p style="font-family:var(--display);font-size:22px;line-height:28px;font-weight:700;white-space:nowrap">149 kr<span class="meta" style="display:block;font-family:var(--body);font-weight:400;text-align:right">i månaden</span></p>
+          </div>
+          <div style="margin-top:14px;display:grid;gap:4px">
+            <a class="btn primary" href="#">Köp Hela paketet, 149 kr i månaden</a>
+            <a class="link quiet" href="#" style="justify-content:center;min-height:40px">Köp bara Dagspasset, 49 kr</a>
+          </div>
+          <p class="meta" style="text-align:center;margin-top:6px">Ett pass om dagen på grundnivå är alltid gratis.</p>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:420px;padding-top:28px">
+      <div class="notis">
+        <h3>Reglerna som gäller här</h3>
+        <ul>
+          <li><b>Värdet före spärren.</b> Arket börjar med vad provläget ger och antal och minuter. Logotyper förekommer aldrig, bara "samma format som".</li>
+          <li><b>Datumet gör paketet konkret.</b> "14 dagar kvar" är argumentet för månaden. Dagen före provet säger samma ark i stället: "Provet är i morgon? Dagspasset räcker." och Dagspasset får ink-kanten.</li>
+          <li><b>Ordningen:</b> Dagspasset först, det rekommenderade markerat med ink-kant och eyebrow. En bläckknapp, det andra en textlänk.</li>
+          <li><b>Namn följt av pris,</b> verbet Köp. Gratisraden sist, så ingen tror att passet i morgon kostar.</li>
+          <li><b>Aldrig</b> i bekräftelsen, aldrig på kurvan som sådan (gråa platser är inte en spärr på att se sin egen punkt), aldrig på datum eller växling, aldrig på provdagen.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================================================== 5. TOKENS -->
+<div class="sektion">
+  <p class="ey">5 · Tokens, typografi och rörelse</p>
+  <h2>Vad som läggs till i Tråden, och vad som inte gör det</h2>
+  <div class="tvakol">
+    <div class="notis">
+      <h3>Tokens</h3>
+      <p>Inga nya färger på papper. En ny roll på bläck.</p>
+      <div class="tabwrap"><table class="tok">
+        <tr><th>Roll</th><th>Värde</th><th>Används</th></tr>
+        <tr><td><i style="background:#EDE8DF"></i>mark</td><td><code>#EDE8DF</code></td><td>Sidbakgrund, båda lägena</td></tr>
+        <tr><td><i style="background:#FFFFFF"></i>panel / upphöjd</td><td><code>#FFFFFF</code>, kant / kant-stark</td><td>Kurvan, Var du tappar, Provdagen, paketraderna</td></tr>
+        <tr><td><i style="background:#1C1917"></i>ink-1</td><td><code>#1C1917</code></td><td>Dagens pass (Träningen), Nästa handling (Jobbsöket), primärknapp, dagens prick</td></tr>
+        <tr><td><i style="background:#D9480F"></i>accent</td><td><code>#D9480F</code></td><td>Tråden, kurvans linje och punkter, svagaste familjens stapel, långsam fråga, fokus</td></tr>
+        <tr><td><i style="background:#FBB98A"></i>ink-1-accent</td><td><code>#FBB98A</code></td><td>Etiketter på bläck ("Dagens pass", "Passet klart")</td></tr>
+        <tr><td><i style="background:#8FD6B4"></i>ink-1-positiv, ny</td><td><code>#8FD6B4</code> · 10,6:1 på ink</td><td>"+0,2" i resultatets tre tal</td></tr>
+        <tr><td><i style="background:#ECE6DC"></i>insunken</td><td><code>#ECE6DC</code></td><td>Gråa platser i kurvan, låsta chips, skelett</td></tr>
+        <tr><td><i style="background:#047857"></i>positiv</td><td><code>#047857</code></td><td>Intervju, serien som står, aldrig "rätt svar"</td></tr>
+        <tr><td><i style="background:#B91C1C"></i>fel</td><td><code>#B91C1C</code></td><td>Bara fel i systemet, aldrig en missad fråga</td></tr>
+      </table></div>
+      <p style="margin-top:12px">Orange på papper räknas som förut: högst tre per skärm, och kurvan är en av dem. Kurvan är alltid en serie. Flera testtyper ritas som små multiplar under varandra på sidan Hela kurvan, aldrig fyra linjer i olika färger.</p>
+    </div>
+    <div class="notis">
+      <h3>Typografi</h3>
+      <div class="tabwrap"><table class="tok">
+        <tr><th>Roll</th><th>Snitt</th></tr>
+        <tr><td>Rubrik, datumet</td><td>Schibsted Grotesk 800, 32/35 mobil, 44/46 dator (text-h1). Sammanhangsraden 14/22 i ink-2.</td></tr>
+        <tr><td>Passets tema i bläckytan</td><td>Schibsted Grotesk 700, 22/28 mobil, 26/32 dator</td></tr>
+        <tr><td>Tre tal (under kurvan, i resultatet)</td><td>Schibsted Grotesk 700, 28/32, tabulära siffror, etikett 12/16 under</td></tr>
+        <tr><td>Nivåtalet på kurvan</td><td>Schibsted Grotesk 700, 13 px i SVG</td></tr>
+        <tr><td>Kortrubrik, etiketter, brödtext</td><td>Inter som i dag: 16/600, 12/500 versaler, 14/400</td></tr>
+        <tr><td>Kurvans axlar</td><td>Inter 11/500 i ink-3. Enda stället under 12 px, inuti SVG, med aria-label som läser ut talen.</td></tr>
+      </table></div>
+      <h3 style="margin-top:20px">Rörelse</h3>
+      <div class="tabwrap"><table class="tok">
+        <tr><th>Vad</th><th>Tid</th></tr>
+        <tr><td>Kurvan ritas vid entré</td><td>600 ms ease-out, 120 ms fördröjd. Ytan under tonas in 400 ms, punkten "i dag" tänds 160 ms efter linjen, talet efter punkten.</td></tr>
+        <tr><td>Dagens prick</td><td>Streckad tills passet är gjort, fylls 160 ms när resultatet sparats</td></tr>
+        <tr><td>Staplar i tidsprofilen</td><td>240 ms från baslinjen, 30 ms förskjutning per stapel</td></tr>
+        <tr><td>Lägesbyte</td><td>150 ms intoning, tråden längs överkanten (NavigationProgress som i dag)</td></tr>
+        <tr><td>Bekräftelse</td><td>Oförändrad: panel 240, linje 200 från 240, rubrik 200 från 560</td></tr>
+        <tr><td>Nedräkningen</td><td>Ingen rörelse. Siffror räknar aldrig upp eller ner.</td></tr>
+        <tr><td>prefers-reduced-motion</td><td>Allt till sluttillstånd, kurvan står ritad.</td></tr>
+      </table></div>
+    </div>
+  </div>
+  <div class="tvakol">
+    <div class="notis">
+      <h3>Ytor och bild</h3>
+      <p>Djup utan skugga som i dag. Bläckytan är Dagens pass, en per vy. Kurvan är vyns bild och ersätter scenen i Träningen: en scen och en kurva vore två bilder (regel 2, en scen per vy). Jobbsöket behåller sina scener. Inga ikoner i färgade rutor, inga märken. Låsta val är gråa rader med lås och paketets namn, som i sidomenyn i dag.</p>
+      <p>Personlighetstestet: en rad under Fler tester med "Profil klar" och datum, ingen nivå, kurva, serie eller milstolpe. Texten säger att det inte finns rätta svar.</p>
+    </div>
+    <div class="notis">
+      <h3>Vad som inte ändras</h3>
+      <ul>
+        <li>Kvoter, paket och priser. Betalväggen återanvänder GraValSheet och PaywallCard.</li>
+        <li>Komponenterna i src/components/shell. Dagens pass är InkPanel, kurvan en ny serverrenderad SVG-komponent, Var du tappar en lista.</li>
+        <li>Passet körs i FlowShell med dolt bottennav, som breven.</li>
+        <li>Publika sidor och mejl. Orange som linje, aldrig yta. Primärknappen svart.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===================================================== 6. ÄGAREN -->
+<div class="sektion" style="padding-bottom:32px">
+  <p class="ey">6 · Det jag vill att du tar ställning till</p>
+  <h2>Sex beslut innan Opus bygger</h2>
+  <div class="beslut">
+    <div class="notis"><h3>1. Navet eller läget</h3><p>Briefen och jag landar i navet: Träningen, Jobbsöket, Skapa, Profil. Mitt första utkast hade en växlare i toppraden med eget bottennav per läge. Säg till om du vill se det alternativet byggt ut.</p></div>
+    <div class="notis"><h3>2. Rubriken är ett datum</h3><p>"14 dagar till Matrigma" i stället för "Hej Anna". Utan datum: "Träningen" med raden "Sätt ett datum så räknar vi bakåt". Hälsningen stannar i Jobbsöket.</p></div>
+    <div class="notis"><h3>3. Kurvan på papper, inte på bläck</h3><p>Briefen vill ha Dagens pass som enda bläckyta, med knappen synlig utan att läsa. Därför ligger kurvan på papper under den, med orange linje. Jag tycker det blev bättre än mitt första utkast där nivån, kurvan och passet delade en stor svart tavla: handlingen syns på första skärmen och kurvan får andas.</p></div>
+    <div class="notis"><h3>4. Leverantörsnamnen i chips och rader</h3><p>"Samma format som Matrigma" i inställningen, provraden och arket. Briefen föreslår antal och tid men inga namn i själva provvyn. Jag följer det: namnet står i hemvyn och arket, provets egen skärm säger bara "35 uppgifter, 40 minuter".</p></div>
+    <div class="notis"><h3>5. Serien med vilodag</h3><p>Dagar i rad, en vilodag i veckan som inte bryter, paus två dagar före provet och på provdagen. Bruten serie ger raden "Serien börjar om i dag" och inget mer. Den syns som ord i huvudet och luckor i kurvan, inte som ett eget element.</p></div>
+    <div class="notis"><h3>6. Frågan efter provet</h3><p>"Hur gick det?" med tre val, frivillig, raderbar, bara för att styra nästa rad. Briefen ställer samma fråga till dig (öppen fråga 4). Vyn är ritad som om svaret är ja.</p></div>
+  </div>
+</div>
+
+</div>

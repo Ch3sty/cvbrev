@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <!-- Personlighet. Säger: här finns inget rätt svar, bara ditt. Två påståenderader över en skala med fem punkter från stämmer inte alls till stämmer helt, ditt svar i koppar. -->
+  <path d="M24 28h96" stroke="currentColor" stroke-width="3"/>
+  <path d="M24 44h64" stroke="var(--illu-dim)" stroke-width="3"/>
+  <!-- skalan -->
+  <path d="M24 80h112" stroke="var(--illu-dim)" stroke-width="3"/>
+  <circle cx="24" cy="80" r="6" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+  <circle cx="52" cy="80" r="6" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+  <circle cx="80" cy="80" r="6" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+  <circle cx="136" cy="80" r="6" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+  <circle cx="108" cy="80" r="8" fill="var(--illu-accent, #E07A2F)"/>
+  <!-- ändarnas etiketter, antydda -->
+  <path d="M16 100h20M124 100h20" stroke="var(--illu-dim)" stroke-width="3"/>
+</svg>

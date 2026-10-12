@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <!-- Nivåmärket Grund: den graverade kopparplattan (samma bas som Rummens märken) med en trappa i tre steg, första steget ifyllt. -->
+  <defs>
+    <linearGradient id="g-marke-niva" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F0A061"/><stop offset=".5" stop-color="#D9702A"/><stop offset="1" stop-color="#9E4515"/></linearGradient>
+    <linearGradient id="g-marke-niva-kant" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FFD9B8"/><stop offset="1" stop-color="#B55A1E"/></linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="56" fill="url(#g-marke-niva)"/>
+  <circle cx="60" cy="60" r="56" stroke="url(#g-marke-niva-kant)" stroke-width="1.5" opacity=".8"/>
+  <circle cx="60" cy="60" r="47" stroke="#FFF" stroke-opacity=".28" stroke-width="1"/>
+  <circle cx="60" cy="60" r="44" stroke="#5A2708" stroke-opacity=".35" stroke-width="1"/>
+  <!-- trappan, graverad -->
+  <path d="M33 84V70h18V56h18V42h18v42z" stroke="#3F1A06" stroke-opacity=".45" stroke-width="3"/>
+  <path d="M33 84V70h18V56h18V42h18v42z" stroke="#FFE2C8" stroke-opacity=".55" stroke-width="1.25" transform="translate(0 -1.5)"/>
+  <path d="M30 84h60" stroke="#3F1A06" stroke-opacity=".45" stroke-width="3"/>
+  <!-- steget du står på -->
+  <rect x="33" y="70" width="18" height="14" fill="#FFF2E6"/>
+</svg>

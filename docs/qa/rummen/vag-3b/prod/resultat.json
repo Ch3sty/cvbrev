@@ -1,0 +1,126 @@
+{
+  "datum": "2026-10-11T10:38:17.900Z",
+  "bas": "https://www.jobbcoach.ai",
+  "steg": [
+    {
+      "namn": "matning-fraga-1",
+      "fil": "docs/qa/rummen/vag-3b/prod/01-matning-fraga-1.png",
+      "url": "/dashboard/tester/pass/ae1c6af2-e800-4fb5-911c-61b2723504ad"
+    },
+    {
+      "namn": "matning-natfel",
+      "fil": "docs/qa/rummen/vag-3b/prod/02-matning-natfel.png",
+      "url": "/dashboard/tester/pass/ae1c6af2-e800-4fb5-911c-61b2723504ad",
+      "alert": "Svaret gick inte att spara. Inget är förlorat, försök igen.",
+      "sparat": false
+    },
+    {
+      "namn": "matning-efter-omladdning",
+      "fil": "docs/qa/rummen/vag-3b/prod/03-matning-efter-omladdning.png",
+      "url": "https://www.jobbcoach.ai/dashboard/tester/pass/ae1c6af2-e800-4fb5-911c-61b2723504ad",
+      "foreOmladdning": "NivåmätningenTolv uppgifter, svårare efter rätt svar1 / 12",
+      "efterOmladdning": "NivåmätningenTolv uppgifter, svårare efter rätt svar2 / 12"
+    },
+    {
+      "namn": "m1",
+      "fil": "docs/qa/rummen/vag-3b/prod/04-m1.png",
+      "url": "/dashboard/tester/pass/ae1c6af2-e800-4fb5-911c-61b2723504ad",
+      "m1": {
+        "niva": "1av 10",
+        "betalvagg": false,
+        "primar": [
+          "Starta dagens pass"
+        ]
+      }
+    },
+    {
+      "namn": "pass-fraga-1",
+      "fil": "docs/qa/rummen/vag-3b/prod/05-pass-fraga-1.png",
+      "url": "/dashboard/tester/pass/80eb1fe9-3c02-437f-a73a-a88636421da8"
+    },
+    {
+      "namn": "p4",
+      "fil": "docs/qa/rummen/vag-3b/prod/06-p4.png",
+      "url": "/dashboard/tester/pass/80eb1fe9-3c02-437f-a73a-a88636421da8",
+      "fragor": 9
+    },
+    {
+      "namn": "p4-botten",
+      "fil": "docs/qa/rummen/vag-3b/prod/07-p4-botten.png",
+      "url": "/dashboard/tester/pass/80eb1fe9-3c02-437f-a73a-a88636421da8"
+    },
+    {
+      "namn": "genomgangen",
+      "fil": "docs/qa/rummen/vag-3b/prod/08-genomgangen.png",
+      "url": "/dashboard/tester/pass/80eb1fe9-3c02-437f-a73a-a88636421da8"
+    },
+    {
+      "namn": "ommatning-fraga-1",
+      "fil": "docs/qa/rummen/vag-3b/prod/09-ommatning-fraga-1.png",
+      "url": "/dashboard/tester/pass/7fd5af21-8184-4c54-8739-f1c5bdf6fe3c"
+    },
+    {
+      "namn": "o1",
+      "fil": "docs/qa/rummen/vag-3b/prod/10-o1.png",
+      "url": "/dashboard/tester/pass/7fd5af21-8184-4c54-8739-f1c5bdf6fe3c"
+    }
+  ],
+  "fel": [
+    "konsolfel: JSHandle@error",
+    "konsolfel: fetchSavedLettersCount Error: JSHandle@object"
+  ],
+  "db": {
+    "punkter": [
+      {
+        "dag": "2026-10-11",
+        "typ": "matning",
+        "niva": 1.9
+      },
+      {
+        "dag": "2026-10-11",
+        "typ": "pass",
+        "niva": 1.7
+      },
+      {
+        "dag": "2026-10-11",
+        "typ": "ommatning",
+        "niva": 2.2
+      }
+    ],
+    "sessioner": [
+      {
+        "test_type": "matrislogik-matning",
+        "avslutad": true,
+        "svar": 12,
+        "typ": "ommatning"
+      },
+      {
+        "test_type": "matrislogik-pass",
+        "avslutad": true,
+        "svar": 9,
+        "typ": "pass"
+      },
+      {
+        "test_type": "matrislogik-matning",
+        "avslutad": true,
+        "svar": 12,
+        "typ": "matning"
+      }
+    ],
+    "milstolpar": [
+      {
+        "nyckel": "forsta_matningen",
+        "visad_at": null
+      },
+      {
+        "nyckel": "nivan_upp",
+        "visad_at": null
+      }
+    ]
+  },
+  "konsol": [
+    "JSHandle@error",
+    "fetchSavedLettersCount Error: JSHandle@object"
+  ],
+  "http": []
+}

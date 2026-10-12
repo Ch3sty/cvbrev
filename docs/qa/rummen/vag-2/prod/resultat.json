@@ -1,0 +1,146 @@
+{
+  "bas": "https://www.jobbcoach.ai",
+  "tid": "2026-10-11T10:24:51.272Z",
+  "steg": [
+    {
+      "form": "pixel7",
+      "steg": "forsta vyn är ingången",
+      "ok": true,
+      "url": "/dashboard/tester/installningar?forsta=1"
+    },
+    {
+      "form": "pixel7",
+      "steg": "1a efter ingången",
+      "ok": true,
+      "ram": "1a",
+      "h1": [
+        "14 dagar till Matrigma"
+      ]
+    },
+    {
+      "form": "pixel7",
+      "steg": "raden i test_planer",
+      "ok": true,
+      "testtyper": [
+        "matris"
+      ],
+      "leverantor": "matrigma",
+      "provdatum": "2026-10-25"
+    },
+    {
+      "form": "pixel7",
+      "steg": "ändra datum på tre tryck",
+      "ok": true,
+      "h1": [
+        "7 dagar till Matrigma"
+      ]
+    },
+    {
+      "form": "pixel7",
+      "steg": "ta bort datumet",
+      "ok": true,
+      "ram": "T1",
+      "h1": [
+        "Träna inför ditt rekryteringstest"
+      ]
+    },
+    {
+      "form": "pixel7",
+      "steg": "1e Hur gick det",
+      "ok": true,
+      "h1": [
+        "Hur gick Matrigma?"
+      ]
+    },
+    {
+      "form": "pixel7",
+      "steg": "svaret sparat",
+      "ok": true,
+      "utfall": "vet_inte",
+      "utfall_fraga_igen_at": "2026-10-18"
+    },
+    {
+      "form": "pixel7",
+      "steg": "nätverksfel visar fel, aldrig sparat",
+      "ok": true,
+      "fel": true,
+      "sparat": false
+    },
+    {
+      "form": "pixel7",
+      "steg": "inga sidfel",
+      "ok": true,
+      "konsol": []
+    },
+    {
+      "form": "desktop",
+      "steg": "forsta vyn är ingången",
+      "ok": true,
+      "url": "/dashboard/tester/installningar?forsta=1"
+    },
+    {
+      "form": "desktop",
+      "steg": "1a efter ingången",
+      "ok": true,
+      "ram": "1a",
+      "h1": [
+        "14 dagar till Matrigma"
+      ]
+    },
+    {
+      "form": "desktop",
+      "steg": "raden i test_planer",
+      "ok": true,
+      "testtyper": [
+        "matris"
+      ],
+      "leverantor": "matrigma",
+      "provdatum": "2026-10-25"
+    },
+    {
+      "form": "desktop",
+      "steg": "ändra datum på tre tryck",
+      "ok": true,
+      "h1": [
+        "7 dagar till Matrigma"
+      ]
+    },
+    {
+      "form": "desktop",
+      "steg": "ta bort datumet",
+      "ok": true,
+      "ram": "T1",
+      "h1": [
+        "Träna inför ditt rekryteringstest"
+      ]
+    },
+    {
+      "form": "desktop",
+      "steg": "1e Hur gick det",
+      "ok": true,
+      "h1": [
+        "Hur gick Matrigma?"
+      ]
+    },
+    {
+      "form": "desktop",
+      "steg": "svaret sparat",
+      "ok": true,
+      "utfall": "vet_inte",
+      "utfall_fraga_igen_at": "2026-10-18"
+    },
+    {
+      "form": "desktop",
+      "steg": "nätverksfel visar fel, aldrig sparat",
+      "ok": true,
+      "fel": true,
+      "sparat": false
+    },
+    {
+      "form": "desktop",
+      "steg": "inga sidfel",
+      "ok": true,
+      "konsol": []
+    }
+  ]
+}

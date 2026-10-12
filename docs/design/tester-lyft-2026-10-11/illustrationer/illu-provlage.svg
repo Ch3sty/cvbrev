@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <!-- Provläge. Säger: som på riktigt, mot klockan, facit efteråt. Ett blad med frågorna i rad, de första ifyllda i mjuk yta, koppar på här är du, och en tidslinje nertill med provets längd. -->
+  <rect x="16" y="8" width="128" height="80" rx="8" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+  <!-- rad 1: tre gjorda, en pågår, en kvar -->
+  <rect x="24" y="24" width="16" height="16" rx="4" fill="var(--illu-mjuk)" stroke="var(--illu-dim)" stroke-width="2.5"/>
+  <rect x="48" y="24" width="16" height="16" rx="4" fill="var(--illu-mjuk)" stroke="var(--illu-dim)" stroke-width="2.5"/>
+  <rect x="72" y="24" width="16" height="16" rx="4" fill="var(--illu-mjuk)" stroke="var(--illu-dim)" stroke-width="2.5"/>
+  <rect x="96" y="24" width="16" height="16" rx="4" fill="var(--illu-accent, #E07A2F)"/>
+  <rect x="120" y="24" width="16" height="16" rx="4" stroke="var(--illu-dim)" stroke-width="2.5"/>
+  <!-- rad 2: kvar -->
+  <rect x="24" y="52" width="16" height="16" rx="4" stroke="var(--illu-dim)" stroke-width="2.5"/>
+  <rect x="48" y="52" width="16" height="16" rx="4" stroke="var(--illu-dim)" stroke-width="2.5"/>
+  <rect x="72" y="52" width="16" height="16" rx="4" stroke="var(--illu-dim)" stroke-width="2.5"/>
+  <rect x="96" y="52" width="16" height="16" rx="4" stroke="var(--illu-dim)" stroke-width="2.5"/>
+  <rect x="120" y="52" width="16" height="16" rx="4" stroke="var(--illu-dim)" stroke-width="2.5"/>
+  <!-- tidslinjen: provets längd, gången tid i stark kontur -->
+  <path d="M16 104h128" stroke="var(--illu-dim)" stroke-width="3"/>
+  <path d="M16 104h64" stroke="currentColor" stroke-width="3"/>
+  <path d="M16 98v12M144 98v12" stroke="currentColor" stroke-width="3"/>
+</svg>

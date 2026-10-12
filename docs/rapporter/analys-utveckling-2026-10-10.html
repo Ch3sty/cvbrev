@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="sv"><head><meta charset="utf-8">
+<title>Utvecklingen efter ändringarna</title>
+<style>
+:root{--ink:#111418;--dim:#5b646e;--faint:#8b949e;--line:#e4e7eb;--acc:#e8590c;--accbg:#fff4ed;--bg:#fff}
+*{box-sizing:border-box}
+@page{size:A4;margin:17mm 15mm 15mm}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{margin:0;font:10.5pt/1.55 Georgia,"Times New Roman",serif;color:var(--ink);background:var(--bg)}
+.wrap{max-width:180mm;margin:0 auto;padding:0 2mm}
+h1,h2,h3,h4,.meta,.ax,.val,.note,table,.kpi,.tag,.lead,.sub{font-family:"Helvetica Neue",Arial,"Segoe UI",sans-serif}
+h1{font-size:23pt;line-height:1.18;margin:0 0 6px;letter-spacing:-.4px;font-weight:600}
+.sub{color:var(--dim);font-size:10.5pt;margin:0 0 2px;line-height:1.4}
+.meta{color:var(--faint);font-size:8.5pt;margin:10px 0 22px;border-bottom:2px solid var(--acc);padding-bottom:12px}
+h2{font-size:14pt;margin:26px 0 10px;padding-top:10px;border-top:1px solid var(--line);font-weight:600;letter-spacing:-.2px;page-break-after:avoid}
+h2 .num{color:var(--acc);font-variant-numeric:tabular-nums;margin-right:9px}
+h3{font-size:11pt;margin:17px 0 6px;font-weight:600;page-break-after:avoid}
+p{margin:0 0 9px;orphans:3;widows:3}
+.lead{font-size:9pt;color:var(--faint);margin:-6px 0 14px}
+ul,ol{margin:0 0 10px;padding-left:19px}
+li{margin-bottom:4px}
+strong{font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:8.5pt;margin:8px 0 14px;page-break-inside:avoid}
+th{text-align:left;font-weight:600;font-size:7.6pt;letter-spacing:.4px;text-transform:uppercase;color:var(--dim);border-bottom:1.5px solid var(--ink);padding:5px 7px 5px 0}
+td{padding:5px 7px 5px 0;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.4}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;padding-right:10px;white-space:nowrap}
+tr.sum td{font-weight:600;border-top:1.5px solid var(--ink);border-bottom:none}
+.up{color:#17803d;font-weight:600}.down{color:#b42318;font-weight:600}
+.chart{width:100%;height:auto;margin:6px 0 4px;display:block}
+.grid{stroke:var(--line);stroke-width:1}
+.line{fill:none;stroke:var(--acc);stroke-width:2.2;stroke-linejoin:round}
+.area{fill:var(--accbg)}
+.dot{fill:#fff;stroke:var(--acc);stroke-width:1.8}
+.ax{font-size:7.4pt;fill:var(--dim)}.ax.r{text-anchor:end}.ax.c{text-anchor:middle}
+.val{font-size:7.6pt;fill:var(--ink);font-weight:600}.val.c{text-anchor:middle}
+.note{font-size:6.9pt;fill:var(--faint)}.note.c{text-anchor:middle}
+.figc{font-size:8pt;color:var(--faint);margin:0 0 16px;font-family:"Helvetica Neue",Arial,sans-serif;line-height:1.45}
+.kpis{display:flex;gap:9px;margin:14px 0 18px;page-break-inside:avoid}
+.kpi{flex:1;border:1px solid var(--line);border-left:2.5px solid var(--acc);padding:9px 10px}
+.kpi .k{font-size:7.2pt;text-transform:uppercase;letter-spacing:.5px;color:var(--dim);margin-bottom:3px}
+.kpi .v{font-size:16pt;font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi .d{font-size:7.6pt;color:var(--faint);margin-top:2px}
+.box{border:1px solid var(--line);background:#fafbfc;padding:11px 13px;margin:11px 0 14px;page-break-inside:avoid}
+.box.acc{background:var(--accbg);border-color:#f7c7a8}
+.box h4{margin:0 0 6px;font-size:9.5pt;font-weight:600}
+.box p,.box li{font-size:9.2pt;margin-bottom:5px;line-height:1.5}
+.five{counter-reset:f;list-style:none;padding:0;margin:10px 0 4px}
+.five li{counter-increment:f;padding-left:27px;position:relative;margin-bottom:9px;font-size:10pt;line-height:1.5}
+.five li::before{content:counter(f);position:absolute;left:0;top:2px;width:18px;height:18px;background:var(--acc);color:#fff;font:600 8.5pt/18px "Helvetica Neue",Arial,sans-serif;text-align:center}
+.tag{display:inline-block;font-size:7pt;font-weight:600;letter-spacing:.4px;padding:1px 5px;border:1px solid var(--line);color:var(--dim)}
+.tag.s{border-color:#9fd3ae;color:#17803d}.tag.m{border-color:#f7c7a8;color:var(--acc)}.tag.l{border-color:#d9d9d9;color:var(--dim)}
+.sm{font-size:7.6pt;color:var(--faint);display:block;margin-top:2px;line-height:1.35}
+footer{margin-top:26px;padding-top:9px;border-top:1px solid var(--line);font-size:7.6pt;color:var(--faint);font-family:"Helvetica Neue",Arial,sans-serif;line-height:1.5}
+</style></head><body>
+<div class="wrap">
+
+<h1>Fyra veckor efter ändringarna</h1>
+<p class="sub">Trafik, registreringar, vad användarna gör och vad som säljs, 12 september till 10 oktober 2026, med jämförelse mot sommaren.</p>
+<p class="meta">Rapport till ägaren, skriven 10 oktober 2026. Källor: Search Console (sc-domain:jobbcoach.ai, sista dag med data 6 oktober), PostHog EU projekt 148688, Supabase (produktionsdata, ägarens konto och testkonton undantagna via admin_undantagna_konton()), Stripe live.</p>
+
+<h2><span class="num">1</span>Sammanfattning</h2>
+
+<div class="kpis">
+<div class="kpi"><div class="k">Organiska klick per dag</div><div class="v">31,1</div><div class="d">17,5 de fyra veckorna före, +78 %</div></div>
+<div class="kpi"><div class="k">Nya konton per vecka</div><div class="v">24</div><div class="d">14 i början av september, 5 i juli</div></div>
+<div class="kpi"><div class="k">Nya betalande sedan 22 sep</div><div class="v">3</div><div class="d">alla tre engångsbeteende</div></div>
+<div class="kpi"><div class="k">Intäkt sedan 12 sep</div><div class="v">654 kr</div><div class="d">varav nya köp 207 kr</div></div>
+</div>
+
+<ol class="five">
+<li><strong>Trafiken har nästan fördubblats och det är testklustret som bär.</strong> 31,1 klick per dag de femton dagarna efter 22 september mot 17,5 under de fyra veckorna före, och snittpositionen gick från 19,7 till 12,3. Testartiklarna gick från 23 till 77 klick i veckan. Två av de tre nya testartiklarna från 23 september (alva-labs-logiktest 24 och map-test-personlighetstest 10) står ensamma för 34 klick i veckan, och den första av dem har redan gett en betalande kund. Den tredje, deduktivt-induktivt-test, är okänd för Google (URL-inspektion 10 oktober) och har noll visningar, se avsnitt 4.</li>
+<li><strong>Registreringarna har ökat och tratten fungerar.</strong> 22, 26 och 23 nya konton de tre senaste veckorna, mot 14 i början av september. Blur-gaten går till konto för 20 procent av dem som ser den, över målet 15 procent och upp från 7 procent före 24 september. Av dem som klickar på ett reklamkort i en artikel skapar 20 procent ett konto.</li>
+<li><strong>Försäljningen har börjat, men bara i testspåret, och köparna säger upp samma dag.</strong> Tre nya köp sedan paketen gick live: Dagspasset 49 kr (22 sep) och två Träningspaketet vecka 79 kr (29 sep och 4 okt). Båda Träningspaketen köptes inom 30 minuter efter registreringen, direkt efter betalväggen på nästa testnivå, och sades upp en till tre timmar senare. Veckoprenumerationen fungerar i praktiken som ett engångsköp.</li>
+<li><strong>CV- och brevspåret har tappat fart.</strong> Bland nya konton efter 24 september laddade 16 procent upp eller byggde ett CV, mot 41 till 45 procent tidigare. Ingen har laddat ner en CV-mall sedan 26 september, två har skrivit brev, CV-paketet har noll köp och reklamkorten i CV-artiklarna klickas vid 2 procent av visningarna mot 36 procent i testartiklarna. Nästan alla nya konton väljer tester.</li>
+<li><strong>Återkomsten är svag och den gamla basen krymper.</strong> 16 procent av de nya kontona efter 24 september kom tillbaka efter dag 1, mot 34 till 35 procent tidigare. Av de gamla månadskunderna sade den äldsta (sedan december 2025) upp 1 oktober med orsaken för dyrt; löpande intäkt efter 31 oktober blir 298 kr i månaden om inget nytt kommer till.</li>
+</ol>
+
+<div class="box acc">
+<h4>Vad som är för ungt för att bedöma</h4>
+<p>Allt som ändrades 22 till 24 september är 16 till 18 dagar gammalt. Trafik och registrering går att läsa, de har dagliga volymer. Köpen är tre till antalet och återkomsten har bara hunnit mätas på en handfull konton, så de är tecken, inte slutsatser. Intäkt kräver en full faktureringsmånad och läses tidigast vecka 45 enligt planen. Ingen driftsättning har gjorts mellan 25 september och 10 oktober, så perioden mäter en och samma produkt.</p>
+</div>
+
+<table>
+<thead><tr><th>Live (svensk tid)</th><th>Vad</th><th>Mätfönster</th></tr></thead>
+<tbody>
+<tr><td>11 sep 22:08</td><td>Konverteringsomgången: reverse trial, blur-gate och smakprov, betalväggar, attribution.</td><td>Fyra veckor, läsbart</td></tr>
+<tr><td>22 sep 10:51</td><td>Paketen: CV-paketet 79, Träningspaketet 79, Hela paketet 99/149/299, Dagspasset 49. Reverse trial av, stramare gratisnivå. Ny prissida och köpsteg 14:48.</td><td>18 dagar, köp för få</td></tr>
+<tr><td>23 sep 03:59 till 12:23</td><td>Visuella linjen, efterarbetet (PostHog startar vid interaktion på publika sidor), Räkna ut i linjen, SEO-omgången med tre nya testartiklar.</td><td>17 dagar</td></tr>
+<tr><td>24 sep 00:30 till 00:40</td><td>Hotfix /registrera (404 på paketklick i 36 timmar), intervjuprovet live.</td><td>16 dagar</td></tr>
+<tr><td>24 sep eftermiddag</td><td>Allt som committades 24 september pushades: paketnamnen, röd tråd för proven (personlighetsprovet, Inför intervjun), köptestets rättelser, riktiga mallar på /verktyg/cv-mallar, registreringstratten i tre steg med Google-mätning, profilsidan, slutflödet med logiktestprovets landning och köp i ett steg. Första händelsen från tratten 17:08.</td><td>16 dagar</td></tr>
+<tr><td>25 sep till 10 okt</td><td>Inga driftsättningar.</td><td></td></tr>
+</tbody>
+</table>
+
+<h2><span class="num">2</span>Utveckling över perioden</h2>
+
+<h3>Organisk trafik</h3>
+<svg viewBox="0 0 680 230" class="chart" role="img" aria-label="Organiska klick per dag, veckosnitt"><line x1="44" y1="194.0" x2="648" y2="194.0" class="grid"/><text x="36" y="197.5" class="ax r">0</text><line x1="44" y1="134.7" x2="648" y2="134.7" class="grid"/><text x="36" y="138.2" class="ax r">15</text><line x1="44" y1="75.3" x2="648" y2="75.3" class="grid"/><text x="36" y="78.8" class="ax r">30</text><line x1="44" y1="16.0" x2="648" y2="16.0" class="grid"/><text x="36" y="19.5" class="ax r">45</text><line x1="527.2" y1="16" x2="527.2" y2="194" stroke="#8b949e" stroke-dasharray="3 3" stroke-width="1"/><text x="531.2" y="25" class="note">11 sep</text><line x1="606.2" y1="16" x2="606.2" y2="194" stroke="#8b949e" stroke-dasharray="3 3" stroke-width="1"/><text x="610.2" y="25" class="note">22 sep</text><path d="M 44 194 L 44.0 170.7 L 90.5 178.6 L 136.9 175.4 L 183.4 165.9 L 229.8 150.9 L 276.3 146.1 L 322.8 152.9 L 369.2 150.5 L 415.7 134.7 L 462.2 121.2 L 508.6 99.1 L 555.1 84.8 L 601.5 73.0 L 648.0 27.9 L 648 194 Z" class="area"/><path d="M 44.0 170.7 L 90.5 178.6 L 136.9 175.4 L 183.4 165.9 L 229.8 150.9 L 276.3 146.1 L 322.8 152.9 L 369.2 150.5 L 415.7 134.7 L 462.2 121.2 L 508.6 99.1 L 555.1 84.8 L 601.5 73.0 L 648.0 27.9" class="line"/><circle cx="44.0" cy="170.7" r="3" class="dot"/><text x="44.0" y="212" class="ax c">6 jul</text><text x="44.0" y="161.7" class="val c">5,9</text><circle cx="90.5" cy="178.6" r="3" class="dot"/><circle cx="136.9" cy="175.4" r="3" class="dot"/><text x="136.9" y="212" class="ax c">20 jul</text><circle cx="183.4" cy="165.9" r="3" class="dot"/><circle cx="229.8" cy="150.9" r="3" class="dot"/><text x="229.8" y="212" class="ax c">3 aug</text><text x="229.8" y="141.9" class="val c">10,9</text><circle cx="276.3" cy="146.1" r="3" class="dot"/><circle cx="322.8" cy="152.9" r="3" class="dot"/><text x="322.8" y="212" class="ax c">17 aug</text><circle cx="369.2" cy="150.5" r="3" class="dot"/><circle cx="415.7" cy="134.7" r="3" class="dot"/><text x="415.7" y="212" class="ax c">31 aug</text><text x="415.7" y="125.7" class="val c">15</text><circle cx="462.2" cy="121.2" r="3" class="dot"/><circle cx="508.6" cy="99.1" r="3" class="dot"/><text x="508.6" y="212" class="ax c">14 sep</text><circle cx="555.1" cy="84.8" r="3" class="dot"/><text x="555.1" y="75.8" class="val c">27,6</text><circle cx="601.5" cy="73.0" r="3" class="dot"/><text x="601.5" y="212" class="ax c">28 sep</text><text x="601.5" y="64.0" class="val c">30,6</text><circle cx="648.0" cy="27.9" r="3" class="dot"/><text x="648.0" y="212" class="ax c">5 okt</text><text x="648.0" y="18.9" class="val c">42</text><text x="648.0" y="224" class="note c">2 dagar</text></svg>
+<p class="figc">Organiska klick per dag, snitt per vecka (måndag till söndag). Sista punkten är 5 och 6 oktober, två dagar. Search Console låg fyra dagar efter vid körningen.</p>
+
+<table>
+<thead><tr><th>Period</th><th class="n">Dagar</th><th class="n">Klick/dag</th><th class="n">Visningar/dag</th><th class="n">CTR</th><th class="n">Position</th></tr></thead>
+<tbody>
+<tr><td>Juli</td><td class="n">31</td><td class="n">5,2</td><td class="n">804</td><td class="n">0,65 %</td><td class="n">28,3</td></tr>
+<tr><td>Augusti</td><td class="n">31</td><td class="n">11,1</td><td class="n">1 134</td><td class="n">0,98 %</td><td class="n">24,2</td></tr>
+<tr><td>25 aug till 21 sep (före)</td><td class="n">28</td><td class="n">17,5</td><td class="n">1 197</td><td class="n">1,46 %</td><td class="n">19,7</td></tr>
+<tr><td>22 sep till 6 okt (efter)</td><td class="n">15</td><td class="n">31,1</td><td class="n">1 736</td><td class="n">1,79 %</td><td class="n">12,3</td></tr>
+<tr class="sum"><td>Förändring före till efter</td><td class="n"></td><td class="n up">+78 %</td><td class="n up">+45 %</td><td class="n up">+0,33 p</td><td class="n up">7,4 platser</td></tr>
+</tbody>
+</table>
+
+<p>Den här gången växer visningarna också, inte bara klicken. Det beror på att nya sidor kom in i index (de tre testartiklarna och Räkna ut som gick från 62 till 457 visningar i veckan) och att omskrivna sidor klättrade. Mobil och desktop är nu jämnstora i klick (225 mot 240 under efterperioden).</p>
+
+<h3>Kluster, klick per vecka</h3>
+<table>
+<thead><tr><th>Kluster</th><th class="n">Sidor</th><th class="n">Före</th><th class="n">Efter</th><th class="n">Visningar/v efter</th><th>Kommentar</th></tr></thead>
+<tbody>
+<tr><td>Tester (artiklar)</td><td class="n">41</td><td class="n">23</td><td class="n up">77</td><td class="n">2 026</td><td>alva-labs-logiktest 24, logiska-tester 26, map-test 10, matrislogik-test-guide 6</td></tr>
+<tr><td>Intervju</td><td class="n">34</td><td class="n">23</td><td class="n up">40</td><td class="n">2 999</td><td>styrkor-svagheter-intervju 10,5 till 26,6, position 10,8 till 6,0</td></tr>
+<tr><td>Brev (artiklar)</td><td class="n">91</td><td class="n">15</td><td class="n up">29</td><td class="n">2 311</td><td>motivationsbrev-exempel, personligt-brev-butik, folkhögskola</td></tr>
+<tr><td>Övriga artiklar</td><td class="n">63</td><td class="n">14</td><td class="n">19</td><td class="n">1 841</td><td>hur-ofta-byta-jobb, angest-infor-nytt-jobb</td></tr>
+<tr><td>Brevexempel</td><td class="n">94</td><td class="n">15</td><td class="n">17</td><td class="n">1 144</td><td>stilla</td></tr>
+<tr><td>CV (artiklar)</td><td class="n">159</td><td class="n">13</td><td class="n">13</td><td class="n">1 792</td><td>stilla, CV-klustret från juli tappar</td></tr>
+<tr><td>CV-exempel</td><td class="n">91</td><td class="n">6</td><td class="n">8</td><td class="n">634</td><td>stilla</td></tr>
+<tr><td>Verktyg</td><td class="n">9</td><td class="n">8</td><td class="n down">7</td><td class="n">286</td><td>/verktyg/rekryteringstester position 32</td></tr>
+<tr><td>Räkna ut</td><td class="n">9</td><td class="n">0</td><td class="n">2</td><td class="n">457</td><td>timlon-till-manadslon står för 367 visningar</td></tr>
+</tbody>
+</table>
+<p class="lead">Före = 25 aug till 21 sep (28 dagar), efter = 22 sep till 6 okt (15 dagar), båda omräknade till per vecka.</p>
+
+<h3>Besök och källor i PostHog</h3>
+<p>PostHog visar färre besökare per vecka än i augusti (330 till 370 personer mot 400 till 430), trots att Search Console visar 78 procent fler klick. Det är en mätartefakt, inte ett tapp: sedan 23 september startar PostHog på publika sidor först när besökaren rör sidan, så den som läser utan att klicka räknas inte. Källfördelningen säger ändå något: sessioner från Google har ökat från 134 till 222 i veckan sedan slutet av augusti, Bing och partners ligger stilla kring 130, direkttrafik har fallit från 117 till 25 (den fångades förut av sidladdningen). AI-assistenter ger 1 till 9 sessioner i veckan.</p>
+
+<h2><span class="num">3</span>Bra</h2>
+<ul>
+<li><strong>Testklustret har blivit en säljkanal.</strong> Båda Träningspaketen kom samma väg: Google, testartikel, reklamkortet, /verktyg/rekryteringstester, kontot med valet tester förifyllt, gratis grundtest, betalväggen på nästa nivå, köp. Hela vägen tog 10 respektive 31 minuter. Av de tio personer som mötte betalväggen på matrislogik avancerad köpte två.</li>
+<li><strong>Registreringen från reklamkort och smakprov fungerar.</strong> 25 procent av artikelläsarna i PostHog ser ett reklamkort och klickar (177 av 719 personer), och 20 procent av klickarna registrerar sig. Testsmakprovets spärr ger konto för 13 procent mot 3 procent före 24 september.</li>
+<li><strong>Kontosteget är kort.</strong> Valet i steg 1 tappar 4 av 35 (11 procent), under gränsen 25 procent i dödsregeln. Google och lösenord är ungefär lika vanliga (28 mot 35 registreringar sedan 21 september).</li>
+<li><strong>Kassan läcker inte.</strong> Alla tre riktiga kassor sedan 22 september blev betalda. Köpsteget, samtyckeskrysset och Stripe-sidan fungerar på mobil.</li>
+<li><strong>Omskrivningarna 23 september gav effekt.</strong> De tretton omskrivna sidorna gick från 17 till 40 klick i veckan och från position 11,7 till 9,3. Resumaker-batchen från juli (16 artiklar) ger nu 57 klick i veckan på position 11,5.</li>
+</ul>
+
+<h2><span class="num">4</span>Dåligt</h2>
+<ul>
+<li><strong>Köparna säger upp direkt.</strong> Träningspaketet vecka sades upp efter 3 timmar (orsak i vårt flöde: saknar funktion) och efter 50 minuter (orsak: fick jobb). Båda behåller veckan, så intäkten är inte förlorad, men ingen ny köpare har förnyats och löpande intäkt från nya kunder är noll.</li>
+<li><strong>CV, brev, mallar, jobbcoach och jobbmatchning används knappt.</strong> Sedan 25 september: 2 brev, 1 slutförd CV-analys, 0 mallnedladdningar, 0 chattmeddelanden i Jobbcoachen (senaste 14 september), 0 jobbmatchningar (senaste 21 september), 0 nya sökta tjänster (senaste 14 september). Tio personer klickade på intervjukortet till Jobbcoachen, ingen startade en chatt.</li>
+<li><strong>Återkomsten har halverats.</strong> 16 procent av kontona skapade efter 24 september var aktiva efter dag 1, mot 34 procent 12 till 24 september (då med reverse trial) och 35 procent i augusti. Den förväntade förklaringen är att testkonton gör ett test och är klara, men det är bara 16 dagar data.</li>
+<li><strong>Tre sidor syns inte i Google.</strong> deduktivt-induktivt-test och /verktyg/personlighetstest har noll visningar på 16 dagar fast de svarar 200, har rätt canonical och står i sajtkartan. cv-profil-sammanfattning har haft noll visningar sedan 10 augusti (276 visningar i juli) och omskrivningen 24 september har inte hjälpt än.</li>
+<li><strong>Två sidor tappar.</strong> bakgrundskontroll-vid-anstallning glider från position 15 till 33, och /verktyg/rekryteringstester ligger kvar på 32 och tappade från 5,3 till 2,3 klick i veckan, fast det är dit alla testkort leder.</li>
+<li><strong>Den äldsta kunden sade upp.</strong> Månadskunden sedan december 2025 sade upp i kundportalen 1 oktober med orsaken för dyrt, efter förnyelsen 30 september. Uppsägningen gick inte genom vårt flöde och fick inget erbjudande.</li>
+</ul>
+
+<h2><span class="num">5</span>Mest att tjäna</h2>
+<table>
+<thead><tr><th>#</th><th>Möjlighet</th><th>Underlag</th><th>Bedömd effekt</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>Fler besökare in i testvägen</strong>: fler testartiklar, få in de två osynliga sidorna, lyfta /verktyg/rekryteringstester</td><td>Testvägen är den enda som säljer. 77 klick i veckan gav 2 köp på 15 dagar.</td><td>Med samma omsättning ger varje 40 extra testklick i veckan ungefär ett köp till i månaden</td></tr>
+<tr><td>2</td><td><strong>Köpet där det redan sker</strong>: betalväggen efter första grundtestet</td><td>2 av 10 som mötte väggen på matrislogik avancerad köpte; förslaget i steg 3 gav 0 direkta köp av 38</td><td>Fler som når grundtestets slut, fler som når väggen. Ingen ändring i förslaget före regelns avläsning</td></tr>
+<tr><td>3</td><td><strong>Ett andra köpspår</strong>: CV och brev</td><td>CV-kortet ger 2 procent klick mot testkortets 36. CV-paketet 0 köp. 16 procent laddar upp CV.</td><td>Störst tak (CV- och brevsidorna har mest visningar) men mest arbete</td></tr>
+<tr><td>4</td><td><strong>Behålla de tre månadskunderna</strong></td><td>447 kr i månaden, 149 försvinner 31 okt</td><td>Liten summa men det är all löpande intäkt</td></tr>
+</tbody>
+</table>
+
+<h2><span class="num">6</span>Konvertering och intäkt</h2>
+
+<h3>Nya konton per vecka</h3>
+<svg viewBox="0 0 680 230" class="chart" role="img" aria-label="Nya konton per vecka"><line x1="44" y1="194.0" x2="648" y2="194.0" class="grid"/><text x="36" y="197.5" class="ax r">0</text><line x1="44" y1="134.7" x2="648" y2="134.7" class="grid"/><text x="36" y="138.2" class="ax r">10</text><line x1="44" y1="75.3" x2="648" y2="75.3" class="grid"/><text x="36" y="78.8" class="ax r">20</text><line x1="44" y1="16.0" x2="648" y2="16.0" class="grid"/><text x="36" y="19.5" class="ax r">30</text><line x1="461.3" y1="16" x2="461.3" y2="194" stroke="#8b949e" stroke-dasharray="3 3" stroke-width="1"/><text x="465.3" y="25" class="note">11 sep</text><line x1="554.7" y1="16" x2="554.7" y2="194" stroke="#8b949e" stroke-dasharray="3 3" stroke-width="1"/><text x="558.7" y="25" class="note">24 sep tratt</text><path d="M 44 194 L 44.0 164.3 L 98.9 170.3 L 153.8 164.3 L 208.7 170.3 L 263.6 134.7 L 318.5 140.6 L 373.5 110.9 L 428.4 110.9 L 483.3 87.2 L 538.2 63.5 L 593.1 39.7 L 648.0 57.5 L 648 194 Z" class="area"/><path d="M 44.0 164.3 L 98.9 170.3 L 153.8 164.3 L 208.7 170.3 L 263.6 134.7 L 318.5 140.6 L 373.5 110.9 L 428.4 110.9 L 483.3 87.2 L 538.2 63.5 L 593.1 39.7 L 648.0 57.5" class="line"/><circle cx="44.0" cy="164.3" r="3" class="dot"/><text x="44.0" y="212" class="ax c">20 jul</text><text x="44.0" y="155.3" class="val c">5</text><circle cx="98.9" cy="170.3" r="3" class="dot"/><circle cx="153.8" cy="164.3" r="3" class="dot"/><text x="153.8" y="212" class="ax c">3 aug</text><circle cx="208.7" cy="170.3" r="3" class="dot"/><circle cx="263.6" cy="134.7" r="3" class="dot"/><text x="263.6" y="212" class="ax c">17 aug</text><circle cx="318.5" cy="140.6" r="3" class="dot"/><circle cx="373.5" cy="110.9" r="3" class="dot"/><text x="373.5" y="212" class="ax c">31 aug</text><text x="373.5" y="101.9" class="val c">14</text><circle cx="428.4" cy="110.9" r="3" class="dot"/><text x="428.4" y="101.9" class="val c">14</text><circle cx="483.3" cy="87.2" r="3" class="dot"/><text x="483.3" y="212" class="ax c">14 sep</text><text x="483.3" y="78.2" class="val c">18</text><circle cx="538.2" cy="63.5" r="3" class="dot"/><text x="538.2" y="54.5" class="val c">22</text><circle cx="593.1" cy="39.7" r="3" class="dot"/><text x="593.1" y="212" class="ax c">28 sep</text><text x="593.1" y="30.7" class="val c">26</text><circle cx="648.0" cy="57.5" r="3" class="dot"/><text x="648.0" y="212" class="ax c">5 okt</text><text x="648.0" y="48.5" class="val c">23</text><text x="648.0" y="224" class="note c">6 dagar</text></svg>
+<p class="figc">Nya konton per vecka i Supabase, ägarens konto och testkonton undantagna. Sista punkten är sex dagar. PostHogs signup_completed stämmer med databasen (26 och 22 de två senaste veckorna), så Google-mätningen från 24 september fungerar.</p>
+
+<h3>Tratten artikel till köp, 24 sep kl 17 till 10 okt</h3>
+<table>
+<thead><tr><th>Steg</th><th class="n">Personer</th><th class="n">Andel av föregående</th><th>Kommentar</th></tr></thead>
+<tbody>
+<tr><td>Artikel visad (PostHog, bara de som rör sidan)</td><td class="n">719</td><td class="n"></td><td>Search Console: cirka 470 klick per vecka</td></tr>
+<tr><td>Reklamkort klickat</td><td class="n">177</td><td class="n">25 %</td><td>test 159, intervju 11, brev 5, CV 4</td></tr>
+<tr><td>Kontosteget visat</td><td class="n">158</td><td class="n"></td><td>alla ingångar, inte bara artiklar</td></tr>
+<tr><td>Konto skapat</td><td class="n">58</td><td class="n">34 % (54 av 158)</td><td>Supabase: 61 konton samma period</td></tr>
+<tr><td>Förslaget i steg 3 visat</td><td class="n">38</td><td class="n"></td><td>alla valde Börja gratis eller lämnade</td></tr>
+<tr><td>Betalvägg visad</td><td class="n">20</td><td class="n"></td><td>tester 15, CV-analys 2, sökta tjänster 1, profil 1</td></tr>
+<tr><td>Köpsteget visat</td><td class="n">5</td><td class="n"></td><td></td></tr>
+<tr><td>Samtycke kryssat</td><td class="n">3</td><td class="n"></td><td></td></tr>
+<tr><td>Till kassan</td><td class="n">2</td><td class="n"></td><td></td></tr>
+<tr class="sum"><td>Betalt</td><td class="n">2</td><td class="n">100 % av kassan</td><td>3,4 procent av nya konton</td></tr>
+</tbody>
+</table>
+
+<h3>Smakprov och spärr</h3>
+<table>
+<thead><tr><th>Smakprov</th><th class="n">Spärr visad före 24 sep</th><th class="n">varav konto</th><th class="n">Spärr visad efter</th><th class="n">varav konto</th></tr></thead>
+<tbody>
+<tr><td>Logiktest (fem frågor)</td><td class="n">33</td><td class="n">1</td><td class="n">67</td><td class="n up">9</td></tr>
+<tr><td>Personlighetsprov (nytt 24 sep)</td><td class="n">1</td><td class="n">0</td><td class="n">11</td><td class="n up">4</td></tr>
+<tr><td>CV-start</td><td class="n">2</td><td class="n">0</td><td class="n">5</td><td class="n">3</td></tr>
+<tr><td>Brevutkast</td><td class="n">3</td><td class="n">1</td><td class="n">3</td><td class="n">2</td></tr>
+<tr><td>Intervjuprov (nytt 24 sep)</td><td class="n">2</td><td class="n">1</td><td class="n">2</td><td class="n">0</td></tr>
+<tr><td>Mini-analys</td><td class="n">2</td><td class="n">0</td><td class="n">2</td><td class="n">0</td></tr>
+<tr class="sum"><td>Alla</td><td class="n">43</td><td class="n">3 (7 %)</td><td class="n">90</td><td class="n">18 (20 %)</td></tr>
+</tbody>
+</table>
+<p class="lead">Före = 12 sep till 24 sep kl 17, efter = 24 sep kl 17 till 10 okt. Personer, ägarens konto undantaget. Logiktestprovets nya landning /dashboard/tester/prov/ har visats för 7 personer sedan 26 september.</p>
+
+<h3>Vad nya konton gör</h3>
+<table>
+<thead><tr><th>Andel av nya konton som</th><th class="n">17 aug till 12 sep (46)</th><th class="n">12 till 24 sep (29)</th><th class="n">24 sep till 10 okt (61)</th></tr></thead>
+<tbody>
+<tr><td>Nya konton per dag</td><td class="n">1,8</td><td class="n">2,4</td><td class="n up">3,8</td></tr>
+<tr><td>Gjorde något alls</td><td class="n">85 %</td><td class="n">76 %</td><td class="n">85 %</td></tr>
+<tr><td>Slutförde ett logiktest</td><td class="n">46 %</td><td class="n">31 %</td><td class="n up">61 %</td></tr>
+<tr><td>Slutförde personlighetstest</td><td class="n">11 %</td><td class="n">0 %</td><td class="n">18 %</td></tr>
+<tr><td>Laddade upp eller byggde CV</td><td class="n">41 %</td><td class="n">45 %</td><td class="n down">16 %</td></tr>
+<tr><td>Skrev brev</td><td class="n">17 %</td><td class="n">14 %</td><td class="n down">3 %</td></tr>
+<tr><td>Slutförd CV-analys</td><td class="n">0 %</td><td class="n">21 %</td><td class="n">3 %</td></tr>
+<tr><td>Laddade ner CV-mall</td><td class="n">7 %</td><td class="n">17 %</td><td class="n down">0 %</td></tr>
+<tr><td>Aktiv efter dag 1</td><td class="n">35 %</td><td class="n">34 %</td><td class="n down">16 %</td></tr>
+</tbody>
+</table>
+<p class="lead">Ur sanningskällorna per funktion (logic_test_v4_sessions, personality_test_sessions, cv_texts, letters, cv_analysis_jobs, formatted_cv_downloads), inte aktivitetsloggen. Mellanperioden hade reverse trial, vilket förklarar CV-analysen och mallarna. Valet i registreringen: 90 procent tester, resten CV.</p>
+
+<p>Logiktest per typ efter 24 september: matrislogik grund 47 starter av 39 personer (42 slutförda, mot 19 starter de tre veckorna före), verbalt 17, numeriskt 9, avancerat och expert 4 tillsammans (mot 20 före, då reverse trial gav alla tillgång). Veckoaktiva konton: 30, 33 och 26 de tre senaste veckorna, varav 8, 7 och 3 konton som skapats en tidigare vecka.</p>
+
+<h3>Köplistan, 12 september till 10 oktober</h3>
+<table>
+<thead><tr><th>Datum (svensk tid)</th><th>Paket</th><th>Typ</th><th class="n">Belopp</th><th>Kund</th><th>Vad som hände</th></tr></thead>
+<tbody>
+<tr><td>22 sep 14:14</td><td>Dagspasset</td><td>Ny, engångs, Klarna</td><td class="n">49 kr</td><td>g. (konto sedan jan)</td><td>Första nya betalande sedan 25 juni. Har 29 brev sedan tidigare.</td></tr>
+<tr><td>29 sep 19:31</td><td>Träningspaketet, vecka</td><td>Ny, löpande, kort</td><td class="n">79 kr</td><td>n. (konto 19:00 samma dag)</td><td>Kom via verbalt-test-guide. Fyra tester efter köpet. Sade upp 22:29, orsak saknar funktion. Slutade 6 okt.</td></tr>
+<tr><td>30 sep 16:38</td><td>Gamla månadsplanen</td><td>Förnyelse</td><td class="n">149 kr</td><td>k. (kund sedan dec 2025)</td><td>Sade upp 1 okt i kundportalen, orsak för dyrt. Slutar 31 okt.</td></tr>
+<tr><td>2 okt 13:31</td><td>Gamla månadsplanen</td><td>Förnyelse</td><td class="n">149 kr</td><td>i.</td><td>Aktiv</td></tr>
+<tr><td>4 okt 06:43</td><td>Träningspaketet, vecka</td><td>Ny, löpande, kort</td><td class="n">79 kr</td><td>e. (konto 06:34 samma dag)</td><td>Kom via alva-labs-logiktest. Tre tester efter köpet. Sade upp 07:33, orsak fick jobb. Slutar 11 okt.</td></tr>
+<tr><td>9 okt 22:27</td><td>Gamla månadsplanen</td><td>Förnyelse</td><td class="n">149 kr</td><td>s.</td><td>Aktiv</td></tr>
+<tr class="sum"><td>Summa</td><td></td><td>3 nya, 3 förnyelser</td><td class="n">654 kr</td><td></td><td>Inga återbetalningar. CV-paketet och Hela paketet: 0 köp.</td></tr>
+</tbody>
+</table>
+<p class="lead">Ur Stripe live, debiteringar. Interna köp (ägaren, QA) finns inte i perioden utöver nio utgångna QA-kassor 22 sep. En kortkrävande provperiod på 149 kr startade 9 sep, sades upp 13 sep och slutade 16 sep utan debitering.</p>
+
+<table>
+<thead><tr><th>Vecka</th><th class="n">v36</th><th class="n">v37</th><th class="n">v38</th><th class="n">v39</th><th class="n">v40</th><th class="n">v41 (6 dagar)</th></tr></thead>
+<tbody>
+<tr><td>Intäkt</td><td class="n">149</td><td class="n">149</td><td class="n">0</td><td class="n">49</td><td class="n">456</td><td class="n">149</td></tr>
+<tr><td>varav nya köp</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">49</td><td class="n">158</td><td class="n">0</td></tr>
+</tbody>
+</table>
+<p>Per månad: juni, juli och augusti 596 kr vardera, september 575 kr, oktober hittills 377 kr. Löpande intäkt i månaden: 596 kr den 1 september, 447 kr nu (tre månadskunder), 298 kr från 1 november. Nya betalande per månad: 2 i september, 1 hittills i oktober, mot målet 3 till 5 och utgångsläget 0,3.</p>
+
+<h2><span class="num">7</span>Planerade avläsningar</h2>
+<table>
+<thead><tr><th>Avläsning</th><th>Planerad</th><th>Läge</th><th>Vad datan säger</th></tr></thead>
+<tbody>
+<tr><td>Resumaker-batchen (16 artiklar och 20 exempel, 19 jul)</td><td>10 till 16 aug</td><td><span class="tag s">LÄSBAR</span></td><td>Artiklarna: 3 klick i veckan i juli, 33 före, 57 efter, position 20,6 till 11,5. logiska-tester och kompetensbaserade-intervjufragor bär. Exemplen: 2,8 klick i veckan, för smalt för att motivera fler i samma form.</td></tr>
+<tr><td>CV-klustret (19 artiklar, 22 jul)</td><td>mitten av aug</td><td><span class="tag s">LÄSBAR</span></td><td>2,3 klick i veckan, ned från 6,3. Position 10,4 men låg sökvolym; ljuga-i-cv tappade sina klick. Svagaste satsningen.</td></tr>
+<tr><td>Räkna ut (25 jul, i linjen 23 sep)</td><td>mitten av okt</td><td><span class="tag m">DELVIS</span></td><td>Visningar 62 till 457 i veckan, position 9,5, men 2,3 klick i veckan och nästan bara timlon-till-manadslon. Delningar mäts inte som egen händelse; går inte att läsa.</td></tr>
+<tr><td>SEO-tillväxten, positioner 30 sep</td><td>30 sep</td><td><span class="tag s">LÄSBAR</span></td><td>alva-labs-logiktest position 7, map-test 5, styrkor-svagheter 6,0 (från 10,8), cover-letter-sverige 6,6 men CTR 0,5 %, bakgrundskontroll 15 till 33, deduktivt-induktivt-test och /verktyg/personlighetstest ej i index.</td></tr>
+<tr><td>SEO-tillväxten, tratten 7 okt</td><td>7 okt</td><td><span class="tag s">LÄSBAR</span></td><td>Se avsnitt 6: kort till konto 20 %, spärr till konto 20 %.</td></tr>
+<tr><td>SEO-tillväxten, positioner 14 okt</td><td>14 okt</td><td><span class="tag l">FÖR TIDIGT</span></td><td>Fyra dagar kvar, och Search Console ligger fyra dagar efter.</td></tr>
+<tr><td>Registreringen, dödsregeln för steg 1</td><td>4 veckor, minst 60 ingångar</td><td><span class="tag l">FÖR TIDIGT</span></td><td>35 ingångar till valet, 4 tappade (11 %). Tecknet pekar mot att frågan får stanna.</td></tr>
+<tr><td>Registreringen, mätregeln för steg 3</td><td>4 veckor, minst 60</td><td><span class="tag l">FÖR TIDIGT</span></td><td>38 såg förslaget, 0 köpte därifrån, båda köpen kom vid betalväggen senare. Byt inte primärknapp på den här datan.</td></tr>
+<tr><td>HBO-varianten (/priser mot headern)</td><td>22 okt</td><td><span class="tag l">FÖR TIDIGT</span></td><td>0 köp via /priser, 0 via headern. 16 personer såg den publika prissidan. Regeln "minst 3 gånger fler köp per konto" går inte att avgöra med 3 köp totalt; den kommer sannolikt inte att gå att avgöra 22 okt heller.</td></tr>
+<tr><td>Köp per paket</td><td>vecka 45</td><td><span class="tag l">FÖR TIDIGT</span></td><td>Tre köp. Tecken: bara testspåret säljer.</td></tr>
+<tr><td>Prestanda p75 i PostHog</td><td>efter 27 sep</td><td><span class="tag m">EJ GJORD</span></td><td>Inte del av den här rapporten.</td></tr>
+</tbody>
+</table>
+
+<h2><span class="num">8</span>Åtgärder, fyra veckor</h2>
+<table>
+<thead><tr><th>#</th><th>Åtgärd</th><th>Insats</th><th>Förväntad effekt</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>Fyll testvägen.</strong> Ägaren begär indexering för deduktivt-induktivt-test, /verktyg/personlighetstest och cv-profil-sammanfattning i Search Console. Vi skriver de nästa testartiklarna ur innehållsplanen för Q4 före annat innehåll (leverantörstesterna har köpintention: SHL, Aon, Assessio och liknande), och ger /verktyg/rekryteringstester ett eget lyft eftersom alla testkort leder dit men sidan står på position 32.</td><td><span class="tag m">M</span></td><td>Testklicken från 77 till 120 i veckan på fyra veckor, vilket med dagens omsättning motsvarar ett till två köp till i månaden.</td></tr>
+<tr><td>2</td><td><strong>Förstärk ögonblicket efter grundtestet.</strong> Resultatsidan för grundnivån ska visa nästa nivå med pris och en förhandsfråga, så fler än de 15 som mötte väggen på 16 dagar faktiskt ser den. Mät paywall_shown per slutfört grundtest. Inga prisändringar.</td><td><span class="tag s">S</span></td><td>Andelen som når betalväggen efter slutfört grundtest från cirka 40 till 70 procent.</td></tr>
+<tr><td>3</td><td><strong>Laga CV-spåret i artiklarna.</strong> CV-kortet klickas vid 2 procent av visningarna, testkortet vid 36. Brief till copywritern och art-director för CV-kortet med ett smakprov som går att göra direkt (som logiktestets fem frågor), och mät example_cta_clicked och article_cta_clicked med kluster cv.</td><td><span class="tag m">M</span></td><td>CV-kortets klick från 2 till 8 procent, och de första köpen av CV-paketet.</td></tr>
+</tbody>
+</table>
+<p class="lead">Dessutom, rena fel under S: renewal_succeeded skickas inte för de gamla månadsplanerna (en av tre förnyelser syns i PostHog), och acquisition_source sätts bara på cirka 40 procent av nya konton.</p>
+
+<h2><span class="num">9</span>Datakvalitet</h2>
+<ul>
+<li><strong>PostHog räknar inte passiva besökare på publika sidor sedan 23 september</strong> (efterarbetet: start vid interaktion). Besökare och sidvisningar före och efter går inte att jämföra; använd Search Console för trafik.</li>
+<li><strong>Search Console</strong> låg fyra dagar efter (sista dag 6 oktober), och bara 71 av 466 klick efter 22 september har en synlig sökfråga.</li>
+<li><strong>Anonyma smakprov</strong> (anon_test_sessions och syskon) raderas när de går ut om de inte hämtas, så tabellerna kan inte räkna prov bakåt. PostHog är källan.</li>
+<li><strong>Aktiveringskolumnerna</strong> first_letter_created_at och first_cv_uploaded_at stämmer inte med tabellerna (0 brev enligt kolumnen, 2 konton med brev enligt letters). Räkna ur tabellerna.</li>
+<li><strong>Attribution</strong>: acquisition_source finns på 29 av 71 konton sedan 21 september. Landningssida per köpare gick att läsa, men kanalfördelning per konto blir osäker.</li>
+<li><strong>renewal_succeeded</strong> syns en gång trots tre förnyelser; de gamla planerna saknar paketmetadata. Stripe är källan för intäkt.</li>
+<li><strong>Återkomst</strong> mäts med last_active mot created_at, som räknar besök men inte vad som gjordes.</li>
+<li><strong>Undantag</strong>: tre konton undantagna (ägaren och två testkonton) i Supabase och PostHog. Dagspasskunden g. är en riktig kund enligt ägarens beslut 22 september.</li>
+</ul>
+
+<h2><span class="num">10</span>Behöver ägarens beslut</h2>
+<ol>
+<li><strong>Veckopaketen som engångsköp eller prenumeration.</strong> Båda nya veckoköpare sade upp inom tre timmar. Antingen accepterar vi att Träningspaketet säljs som en vecka i taget och mäter köp i stället för förnyelser, eller så prövar vi en engångsvecka bredvid. Det är en pris- och produktfråga, och jag rör den inte utan dig.</li>
+<li><strong>Månadskunden som sade upp 1 oktober.</strong> Vill du att vi erbjuder retentionskupongen (49 kr i två månader) före 31 oktober? Utskicket är ditt beslut.</li>
+<li><strong>Indexeringsbegäran</strong> i Search Console för tre sidor (åtgärd 1). Bara du har behörighet.</li>
+<li><strong>Jobbcoachen och jobbmatchningen</strong> har inte använts sedan mitten av september. Ska de ligga kvar i menyn och reklamkorten, eller ska kortet för intervju gå till Inför intervjun i stället?</li>
+<li><strong>22 oktober</strong>: HBO-varianten kan inte avgöras på tre köp. Förslag: skjut avläsningen till vecka 45 tillsammans med köpen per paket.</li>
+</ol>
+
+<footer>jobbcoach.ai, saas-lead. Rapporten är skrivskyddad analys: inga ändringar i kod, priser eller utskick. Underlag i docs/rapporter/analys-utveckling-2026-10-10.md.</footer>
+</div>
+</body></html>

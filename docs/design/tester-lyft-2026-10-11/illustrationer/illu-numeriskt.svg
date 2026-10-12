@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <!-- Numeriskt. Säger: läs av, räkna, under tid. En tabell 3x3 med tal antydda som streck, en cell markerad med mjuk yta, en klocka i hörnet och en kopparfylld svarsruta. -->
+  <rect x="8" y="16" width="96" height="72" rx="8" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+  <rect x="74" y="42" width="28" height="20" rx="4" fill="var(--illu-mjuk)"/>
+  <path d="M40 16v72M72 16v72M8 40h96M8 64h96" stroke="var(--illu-dim)" stroke-width="2.5"/>
+  <!-- talen -->
+  <path d="M16 28h14M48 28h12M80 28h14M16 52h10M48 52h16M16 76h16M48 76h10M80 76h16" stroke="var(--illu-dim)" stroke-width="3"/>
+  <path d="M80 52h12" stroke="currentColor" stroke-width="3"/>
+  <!-- klockan -->
+  <circle cx="136" cy="28" r="12" fill="var(--illu-fill)" stroke="currentColor" stroke-width="3"/>
+  <path d="M136 28v-7M136 28l5 3.5" stroke="currentColor" stroke-width="3"/>
+  <!-- svaret -->
+  <rect x="112" y="64" width="40" height="24" rx="8" fill="var(--illu-accent, #E07A2F)"/>
+</svg>
