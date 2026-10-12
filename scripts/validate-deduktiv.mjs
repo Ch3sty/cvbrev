@@ -10,8 +10,9 @@
 // Per uppgift: id dd-<g|a|e>-<d1|d2|d3>-<nn>, nivå mot typ (D1 grund, D2 grund
 // eller avancerad, D3 expert), family, p_prior per typ, villkor, fraga,
 // alternativ (D1 fyra, D2 och D3 fem), correctAnswer, en etikett per
-// alternativ, förklaring, schema (D2, D3), fran_version 1, inga tankstreck,
-// inga ord som "lätt", "snart", "kommer", "samma test", och DD1 till DD5.
+// alternativ, ett misstag per distraktor, lösningsgång och remsa (D2, D3,
+// DV1), fran_version 1, inga tankstreck och inga ord som "lätt", "snart",
+// "kommer", "samma test" (DV7), DD1 till DD5 och DV2, DV3, DV5 (sparrar.mjs).
 // Över allt: unika id och ingen uppgift två gånger.
 // Exit 1 vid fel.
 // =============================================================================
@@ -66,10 +67,15 @@ for (const fil of filer) {
     if (!Number.isInteger(q.correctAnswer) || q.correctAnswer < 0 || q.correctAnswer >= antalAlt) f('correctAnswer utanför alternativen');
     if (!Array.isArray(q.villkor) || q.villkor.length < 2) f('minst två villkor');
     if (typeof q.fraga !== 'string' || !q.fraga.endsWith('?')) f('frågan saknas');
-    if (!Array.isArray(q.forklaring) || !q.forklaring.length) f('förklaringen saknas');
-    if (q.typ !== 'D1' && (!q.schema || q.schema.namn?.length !== q.formell?.namn?.length)) f('schemat saknas');
+    if (!Array.isArray(q.losning?.steg) || !q.losning.steg.length) f('lösningsgången saknas');
+    if (q.typ !== 'D1' && (!q.losning?.schema || q.losning.schema.namn?.length !== q.formell?.namn?.length)) f('DV1: remsan saknas');
+    if (!Array.isArray(q.misstag) || q.misstag.length !== q.options?.length) f('ett misstag per alternativ krävs');
+    else q.misstag.forEach((m, i) => {
+      if (i === q.correctAnswer && m !== '') f('facit har ett misstag');
+      if (i !== q.correctAnswer && !m) f(`alternativ ${i + 1} saknar misstag`);
+    });
     if (new Set(q.options ?? []).size !== (q.options ?? []).length) f('två alternativ har samma text');
-    const texter = [q.intro ?? '', ...(q.villkor ?? []), q.fraga ?? '', ...(q.options ?? []), ...(q.etiketter ?? []), ...(q.forklaring ?? [])];
+    const texter = [q.intro ?? '', ...(q.villkor ?? []), q.fraga ?? '', ...(q.options ?? []), ...(q.etiketter ?? []), ...(q.misstag ?? []), ...(q.losning?.steg ?? []).flatMap((x) => [...(x.villkor ?? []), x.foljd ?? ''])];
     for (const t of texter) for (const re of FORBJUDET) if (re.test(t)) f(`förbjudet ord eller tecken (${re}) i "${t}"`);
     if (q.typ === 'D2' && q.villkor && (q.villkor.length < 3 || q.villkor.length > 5)) f(`D2 ska ha tre till fem villkor, har ${q.villkor.length}`);
     if (q.typ === 'D3' && q.villkor && (q.villkor.length < 5 || q.villkor.length > 6)) f(`D3 ska ha fem till sex villkor, har ${q.villkor.length}`);

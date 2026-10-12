@@ -40,13 +40,33 @@ export interface DeduktivFraga {
   correctAnswer: number;
   /** En etikett per alternativ i genomgången (copy 4.3), på originalindex. */
   etiketter: string[];
-  /** Lösningsgången, ett steg per rad (DD5). */
-  forklaring: string[];
-  /** Lösningen som remsa: namnen i platsordning (D2, D3). */
-  schema: { namn: string[] } | null;
+  /** Misstaget per alternativ (deduktiv-spec 2.3), tomt för facit. */
+  misstag: string[];
+  /** Lösningsgången och remsan ur lösaren (DD5, DV1). */
+  losning: DeduktivLosning;
   /** Lösarens form (visas aldrig). */
   formell?: unknown;
   fran_version: 1;
+}
+
+/** Ett steg i lösningsgången: villkorens nummer i märket ('Om' för antagandet), villkoren ordagrant och följden. */
+export interface DeduktivSteg {
+  markor: (number | 'Om' | 'Kvar')[];
+  villkor: string[];
+  foljd: string;
+}
+
+/** Remsan: namnen per plats (flera när platsen är öppen), kopparns och antagandets plats (1-indexerade). */
+export interface DeduktivSchema {
+  namn: string[][];
+  koppar: number | null;
+  antagande: number | null;
+}
+
+export interface DeduktivLosning {
+  steg: DeduktivSteg[];
+  /** Null för D1: premisskedjan har ingen remsa. */
+  schema: DeduktivSchema | null;
 }
 
 /** Uppgiften under testet: alternativen i visad ordning, utan facit. */
@@ -66,6 +86,7 @@ export interface GenomgangDeduktiv extends VisadDeduktiv {
   rattVisat: number;
   /** Etiketten per visat index. */
   etiketter: string[];
-  forklaring: string[];
-  schema: { namn: string[] } | null;
+  /** Misstaget per visat index, tomt för facit. */
+  misstag: string[];
+  losning: DeduktivLosning;
 }

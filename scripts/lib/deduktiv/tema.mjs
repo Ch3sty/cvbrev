@@ -116,9 +116,9 @@ export function citat(text) {
 export { stor };
 
 /** Väljer n namn med olika begynnelsebokstav (DD4), i bokstavsordning. */
-export function valjNamn(r, n) {
+export function valjNamn(r, n, maxLangd = 99) {
   const perBokstav = new Map();
-  for (const x of NAMN) {
+  for (const x of NAMN.filter((y) => y.length <= maxLangd)) {
     const b = x[0];
     if (!perBokstav.has(b)) perBokstav.set(b, []);
     perBokstav.get(b).push(x);

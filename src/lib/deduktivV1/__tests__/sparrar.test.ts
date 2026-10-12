@@ -101,10 +101,10 @@ describe('deduktivens spärrar', () => {
 
   it('DD5: en förklaring som inte är lösarens gång fälls', () => {
     const q = kopia(expert[0])
-    q.forklaring = [...q.forklaring].reverse()
+    q.losning.steg = [...q.losning.steg].reverse()
     expect(S.dd5(q).join()).toMatch(/DD5: förklaringen är inte lösarens gång ordagrant/)
     const r = kopia(expert[0])
-    r.schema.namn = [...r.schema.namn].reverse()
+    r.losning.schema.namn = [...r.losning.schema.namn].reverse()
     expect(S.dd5(r).join()).toMatch(/DD5: schemat är inte lösningen/)
   })
 
@@ -116,6 +116,21 @@ describe('deduktivens spärrar', () => {
     const r = kopia(grund.find((x: Q) => x.typ === 'D1'))
     r.formell.roller[r.formell.roller.indexOf('omojlig')] = 'obestamd'
     expect(fel(r)).toMatch(/DD1: alternativ \d är omojlig, rollen säger obestamd/)
+  })
+
+  it('DV2, DV3 och DV5: långt namn, steg utan villkor och koppar på fel plats fälls', () => {
+    const q = kopia(expert.find((x: Q) => x.formell.namn.length === 6 && x.formell.tema !== 'saker'))
+    q.formell.namn[0] = 'Rasmus'
+    expect(S.dd4(q).join()).toMatch(/DV2: Rasmus är längre än 5 bokstäver/)
+    const r = kopia(avancerad.find((x: Q) => x.formell.fraga.form === 'vem'))
+    r.losning.steg[0].markor = [9]
+    r.losning.schema.koppar = (r.losning.schema.koppar % 5) + 1
+    const t = S.dd5(r).join()
+    expect(t).toMatch(/DV3: steget pekar på 9, som inte finns/)
+    expect(t).toMatch(/DV5: kopparn står på [1-5], ska stå på [1-5]/)
+    const d = kopia(expert[0])
+    d.losning.schema.koppar = 2
+    expect(S.dd5(d).join()).toMatch(/DV5: kopparn står på 2, ska stå på null/)
   })
 
   it('mängdmodellen: existensläsningen fäller ett påstående som beror på den', () => {

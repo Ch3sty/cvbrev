@@ -10,9 +10,11 @@
 import { allaTilldelningar, losningar, uppfyllt, brutna, schemaRad, villkorNyckel } from './losare.mjs';
 import { forklara } from './forklaring.mjs';
 import { TEMAN, villkorText, valjNamn, valjFarger, elementForm, etikett } from './tema.mjs';
-import { sparrFel, naraMissar } from './sparrar.mjs';
+import { sparrFel, naraMissar, NAMN_MAX_LANGD } from './sparrar.mjs';
 
 export const P_PRIOR = { D1: 0.75, D2: 0.55, D3: 0.4 };
+
+
 export const DIFFICULTY = { D1: 1, D2: 2, D3: 3 };
 export const NIVA_KOD = { grund: 'g', avancerad: 'a', expert: 'e' };
 
@@ -66,8 +68,8 @@ export function byggD1(u, id, facitPlats, r) {
     options: lista.map((a) => a.text),
     correctAnswer,
     etiketter: lista.map((a) => roller[a.roll]),
-    forklaring: u.forklaring,
-    schema: null,
+    misstag: lista.map((a) => (a.roll === 'nodvandig' ? '' : a.misstag)),
+    losning: { steg: u.steg.map((x) => ({ markor: x.premisser, villkor: [], foljd: x.text })), schema: null },
     formell: {
       termer: u.termer,
       individer: u.individer,
@@ -149,7 +151,7 @@ export function forsokSchema(r, spec, id, facitPlats) {
   const T = TEMAN[spec.tema];
   const n = spec.n;
   const g = T.grupper ?? null;
-  const namn = T.element === 'farger' ? valjFarger(r, n) : valjNamn(r, n);
+  const namn = T.element === 'farger' ? valjFarger(r, n) : valjNamn(r, n, NAMN_MAX_LANGD[n]);
   const losning = valj(r, allaTilldelningar(n));
   const sannaAlla = allaVillkor(spec.tema, n, T.tillatna).filter((c) => uppfyllt(c, losning, g));
 
@@ -265,6 +267,25 @@ export function forsokSchema(r, spec, id, facitPlats) {
     return ETIKETT.gaarIhop;
   });
 
+  // Misstaget per alternativ (deduktiv-spec 2.3), ur lösaren; tomt för facit.
+  const verb = T.verb;
+  const plats = (i) => losning[i];
+  const iSchemat = (x) => {
+    const el = x.b != null ? [x.a, x.b] : [x.a];
+    return el.map((i) => `${F[i].mitt} på plats ${plats(i)}`).join(' och ');
+  };
+  const misstag = lista.map((x, i) => {
+    if (i === correctAnswer) return '';
+    const n0 = nmLista[i][0];
+    const brutet = n0 != null ? `villkor ${n0 + 1}: ${txt(villkor[n0])}` : null;
+    if (fraga.form === 'vem') {
+      const bas = `${F[x].fore} ${verb} på plats ${plats(x)}.`;
+      return brutet ? `${bas} Med ${F[x].mitt} på plats ${fraga.k} bryts ${brutet}` : `${bas} Plats ${fraga.k} går inte.`;
+    }
+    if (fraga.form === 'maste') return brutet ? `Det stämmer bara om du bryter ${brutet}` : 'Det strider mot villkoren.';
+    return `Det går ihop med villkoren. I schemat ${verb} ${iSchemat(x)}.`;
+  });
+
   // Familjen: villkorstypen som förklaringen citerar flest gånger (lika: den senast citerade).
   const antal = {};
   let senast = null;
@@ -291,8 +312,15 @@ export function forsokSchema(r, spec, id, facitPlats) {
     options: lista.map((x) => (fraga.form === 'vem' ? F[x].fore : txt(x))),
     correctAnswer,
     etiketter,
-    forklaring: fk.steg,
-    schema: { namn: schemaRad(losning).map((i) => etikett(spec.tema, namn[i])) },
+    misstag,
+    losning: {
+      steg: fk.steg,
+      schema: {
+        namn: schemaRad(losning).map((i) => [etikett(spec.tema, namn[i])]),
+        koppar: fraga.form === 'vem' ? fraga.k : fraga.form === 'maste' && lista[correctAnswer].typ === 'plats' ? lista[correctAnswer].k : null,
+        antagande: antagande ? antagande.k : null,
+      },
+    },
     formell: q0.formell,
     fran_version: 1,
   };

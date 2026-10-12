@@ -56,6 +56,11 @@ export const BANKER = [
 ];
 const KANDIDATER = 'src/lib/logicTestV7/kandidater';
 
+// Trösklarna: kopia av src/lib/kalibrering/flaggor.ts (vitest fäller om de skiljer sig).
+export const MIN_SVAR = 30;
+export const MIN_KONTON = 20;
+export const PRIOR_AVVIKELSE = 0.25;
+
 export const BAND = {
   grund: (p) => p >= 0.56,
   avancerad: (p) => p >= 0.33 && p <= 0.72,
@@ -119,7 +124,7 @@ function jamforFlagga(rader, flagga) {
  * Bygger rapporten ur vyns rader och bankernas frågor. Ren funktion, inga
  * sidoeffekter. Returnerar { fragor, sammanfattning }.
  */
-export function byggRapport(vyRader, bankFragor, { minSvar = 30, minKonton = 20 } = {}) {
+export function byggRapport(vyRader, bankFragor, { minSvar = MIN_SVAR, minKonton = MIN_KONTON } = {}) {
   const vy = new Map(vyRader.map((r) => [r.fraga_id, r]));
   const rader = bankFragor.map(({ q, fil, band }) => {
     const v = vy.get(q.id) ?? {};
@@ -134,7 +139,7 @@ export function byggRapport(vyRader, bankFragor, { minSvar = 30, minKonton = 20 
       valbar: q.pensionerad !== true,
       svar, konton, ratt: tal(v.ratt) ?? 0, p, p_lugn: tal(v.p_lugn), tid_median_s: tal(v.tid_median_s), per_typ: v.per_typ ?? {},
       kalibrerad,
-      prior_fel: kalibrerad && Math.abs(p - pPrior) > 0.25,
+      prior_fel: kalibrerad && Math.abs(p - pPrior) > PRIOR_AVVIKELSE,
       fel_niva: kalibrerad && !BAND[band](p),
       p_arv: null,
     };
@@ -219,7 +224,7 @@ if (process.argv[1]?.replace(/\\/g, '/').endsWith('scripts/kalibrering-rapport.m
   const fran = arg('fran', null);
   try {
     const vy = fran ? JSON.parse(readFileSync(fran, 'utf8')) : await lasVy();
-    const rapport = byggRapport(vy, lasBanker(), { minSvar: Number(arg('min-svar', 30)), minKonton: Number(arg('min-konton', 20)) });
+    const rapport = byggRapport(vy, lasBanker(), { minSvar: Number(arg('min-svar', MIN_SVAR)), minKonton: Number(arg('min-konton', MIN_KONTON)) });
     mkdirSync(path.dirname(ut), { recursive: true });
     writeFileSync(ut, JSON.stringify(rapport, null, 2) + '\n');
     console.log(sammanfattningText(rapport));

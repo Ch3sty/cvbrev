@@ -149,14 +149,30 @@ export function dd3(q) {
   return fel;
 }
 
+/** DV2: namnens längd efter antalet platser (deduktiv-spec 2.2). */
+export const NAMN_MAX_LANGD = { 4: 6, 5: 6, 6: 5 };
+
 export function dd4(q) {
   if (q.typ === 'D1') return [];
-  return namnFel(q.formell.tema, q.formell.namn);
+  const f = q.formell;
+  const fel = namnFel(f.tema, f.namn);
+  const max = NAMN_MAX_LANGD[f.namn.length];
+  if (TEMAN[f.tema].element === 'namn') for (const x of f.namn) if (x.length > max) fel.push(`DV2: ${x} är längre än ${max} bokstäver`);
+  return fel;
 }
 
 export function dd5(q) {
   if (q.typ === 'D1') {
-    return Array.isArray(q.forklaring) && q.forklaring.length > 0 ? [] : ['DD5: förklaringen saknas'];
+    const steg = q.losning?.steg;
+    if (!Array.isArray(steg) || !steg.length) return ['DD5: förklaringen saknas'];
+    const antal = q.villkor.length;
+    const fel = [];
+    for (const x of steg) {
+      if (typeof x.foljd !== 'string' || !x.foljd) fel.push('DD5: ett steg saknar text');
+      for (const m of x.markor ?? []) if (!(Number.isInteger(m) && m >= 1 && m <= antal)) fel.push(`DV3: steget pekar på premiss ${m}, som inte finns`);
+    }
+    if (q.losning.schema != null) fel.push('DV1: D1 har ingen remsa');
+    return fel;
   }
   const f = q.formell;
   const fk = forklara({ tema: f.tema, namn: f.namn, villkor: f.villkor, antagande: f.antagande ?? null });
@@ -164,11 +180,21 @@ export function dd5(q) {
   const fel = [];
   const S = losningar(f.namn.length, allaVillkor(f), grupperFor(f));
   if (S.length === 1 && fk.pos.join() !== S[0].join()) fel.push('DD5: förklaringen slutar inte i lösningen');
-  if (JSON.stringify(fk.steg) !== JSON.stringify(q.forklaring)) fel.push('DD5: förklaringen är inte lösarens gång ordagrant');
+  if (JSON.stringify(fk.steg) !== JSON.stringify(q.losning?.steg)) fel.push('DD5: förklaringen är inte lösarens gång ordagrant');
   if (S.length === 1) {
-    const rad = schemaRad(S[0]).map((i) => etikett(f.tema, f.namn[i]));
-    if (JSON.stringify(rad) !== JSON.stringify(q.schema?.namn ?? null)) fel.push('DD5: schemat är inte lösningen');
+    const rad = schemaRad(S[0]).map((i) => [etikett(f.tema, f.namn[i])]);
+    if (JSON.stringify(rad) !== JSON.stringify(q.losning?.schema?.namn ?? null)) fel.push('DD5: schemat är inte lösningen');
   }
+  // DV3: varje steg pekar på ett villkor som finns, eller på antagandet.
+  for (const x of q.losning?.steg ?? [])
+    for (const m of x.markor ?? [])
+      if (!(m === 'Om' && f.antagande) && !(Number.isInteger(m) && m >= 1 && m <= f.villkor.length)) fel.push(`DV3: steget pekar på ${m}, som inte finns`);
+  // DV5: koppar bara på en plats, bara i vem-frågor och i måste-frågor med ett platssvar.
+  const k = q.losning?.schema?.koppar ?? null;
+  const facit = f.alternativ[q.correctAnswer];
+  const vantad = f.fraga.form === 'vem' ? f.fraga.k : f.fraga.form === 'maste' && facit?.typ === 'plats' ? facit.k : null;
+  if (k !== vantad) fel.push(`DV5: kopparn står på ${k}, ska stå på ${vantad}`);
+  if ((q.losning?.schema?.antagande ?? null) !== (f.antagande?.k ?? null)) fel.push('DV5: antagandets plats i remsan stämmer inte');
   return fel;
 }
 

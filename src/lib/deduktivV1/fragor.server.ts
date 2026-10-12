@@ -48,8 +48,8 @@ export function genomgaDeduktiv(q: DeduktivFraga, sessionId: string, blandade: b
     family: q.family,
     rattVisat: tillVisat(p, q.correctAnswer),
     etiketter: p.map((o) => q.etiketter[o] ?? ''),
-    forklaring: q.forklaring,
-    schema: q.schema,
+    misstag: p.map((o) => q.misstag[o] ?? ''),
+    losning: q.losning,
   };
 }
 
