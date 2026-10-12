@@ -1,0 +1,2488 @@
+[
+  {
+    "id": "na-17-ambulansuppdrag",
+    "title": "Ambulansens uppdrag per station",
+    "type": "table",
+    "topic": "Akutsjukvård",
+    "difficulty": 2,
+    "contextText": "Tabellen visar ambulansverksamheten i en region under ett år med fyra stationer. Medeltiden är tiden från larm till att ambulansen är ledig igen. Responstiden är tiden från larm till att ambulansen är på plats. En ambulanstimme kostar regionen 2 850 kr. 1 timme är 60 minuter, och 1 mkr är 1 000 000 kr. Året räknas som 52 veckor.",
+    "dataTable": {
+      "headers": [
+        "Station",
+        "Uppdrag",
+        "Varav prio 1",
+        "Medeltid per uppdrag (min)",
+        "Medianrespons prio 1 (min)",
+        "Ambulanser"
+      ],
+      "rows": [
+        [
+          "Norrby",
+          "6 240",
+          "1 810",
+          "74",
+          "11",
+          "4"
+        ],
+        [
+          "Åstad",
+          "4 380",
+          "1 150",
+          "96",
+          "17",
+          "3"
+        ],
+        [
+          "Kustvik",
+          "2 910",
+          "640",
+          "118",
+          "23",
+          "2"
+        ],
+        [
+          "Centrala",
+          "9 860",
+          "3 420",
+          "57",
+          "9",
+          "6"
+        ]
+      ],
+      "caption": "Uppdrag under året per station"
+    },
+    "ovanvant": [
+      "kolumn Medianrespons prio 1 (min)"
+    ],
+    "enhetsbyte": "minuter till timmar",
+    "p_prior": 0.55,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "questions": [
+      {
+        "id": "na-17-q01",
+        "passageId": "na-17-ambulansuppdrag",
+        "questionNumber": 1,
+        "questionText": "Vad kostade Åstads uppdrag regionen under året, räknat i ambulanstimmar? Svara i mkr.",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "12,5 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "4380 * 2850 / 1000 / 1000",
+              "varde": 12.483
+            }
+          },
+          {
+            "id": "b",
+            "text": "16,3 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "2910 * 118 / 60 * 2850 / 1000 / 1000",
+              "varde": 16.3105
+            }
+          },
+          {
+            "id": "c",
+            "text": "1 198,4 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "4380 * 96 * 2850 / 1000 / 1000",
+              "varde": 1198.368
+            }
+          },
+          {
+            "id": "d",
+            "text": "20,0 mkr",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Ambulanstimmar i Åstad",
+              "uttryck": "4380 * 96 / 60",
+              "varde": 7008
+            },
+            {
+              "text": "Kostnad i mkr",
+              "uttryck": "7008 * 2850 / 1000 / 1000",
+              "varde": 19.9728
+            }
+          ],
+          "visning": "20,0 mkr",
+          "precision": 1
+        },
+        "explanation": "Ambulanstimmar i Åstad: 4 380 · 96 / 60 = 7 008. Kostnad i mkr: 7 008 · 2 850 / 1 000 / 1 000 = 19,973. Svaret blir 20,0 mkr."
+      },
+      {
+        "id": "na-17-q02",
+        "passageId": "na-17-ambulansuppdrag",
+        "questionNumber": 2,
+        "questionText": "Hur många procent av alla uppdrag i regionen var prio 1?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "28,0 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "(1810 / 6240 + 1150 / 4380 + 640 / 2910 + 3420 / 9860) / 4 * 100",
+              "varde": 27.9852
+            }
+          },
+          {
+            "id": "b",
+            "text": "34,7 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "3420 / 9860 * 100",
+              "varde": 34.6856
+            }
+          },
+          {
+            "id": "c",
+            "text": "30,0 %",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "42,9 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "7020 / (23390 - 7020) * 100",
+              "varde": 42.8833
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Alla uppdrag",
+              "uttryck": "6240 + 4380 + 2910 + 9860",
+              "varde": 23390
+            },
+            {
+              "text": "Alla prio 1",
+              "uttryck": "1810 + 1150 + 640 + 3420",
+              "varde": 7020
+            },
+            {
+              "text": "Andel prio 1",
+              "uttryck": "7020 / 23390 * 100",
+              "varde": 30.0128
+            }
+          ],
+          "visning": "30,0 %",
+          "precision": 1
+        },
+        "explanation": "Alla uppdrag: 6 240 + 4 380 + 2 910 + 9 860 = 23 390. Alla prio 1: 1 810 + 1 150 + 640 + 3 420 = 7 020. Andel prio 1: 7 020 / 23 390 · 100 = 30,013. Svaret blir 30,0 %."
+      },
+      {
+        "id": "na-17-q03",
+        "passageId": "na-17-ambulansuppdrag",
+        "questionNumber": 3,
+        "questionText": "Hur många uppdrag gjorde varje ambulans i Kustvik i genomsnitt per vecka?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "28,0 uppdrag",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "56,0 uppdrag",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "2910 / 52",
+              "varde": 55.9615
+            }
+          },
+          {
+            "id": "c",
+            "text": "31,6 uppdrag",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "9860 / 6 / 52",
+              "varde": 31.6026
+            }
+          },
+          {
+            "id": "d",
+            "text": "6,2 uppdrag",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "640 / 2 / 52",
+              "varde": 6.1538
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Uppdrag per ambulans under året",
+              "uttryck": "2910 / 2",
+              "varde": 1455
+            },
+            {
+              "text": "Per vecka",
+              "uttryck": "1455 / 52",
+              "varde": 27.9808
+            }
+          ],
+          "visning": "28,0 uppdrag",
+          "precision": 1
+        },
+        "explanation": "Uppdrag per ambulans under året: 2 910 / 2 = 1 455. Per vecka: 1 455 / 52 = 27,981. Svaret blir 28,0 uppdrag."
+      },
+      {
+        "id": "na-17-q04",
+        "passageId": "na-17-ambulansuppdrag",
+        "questionNumber": 4,
+        "questionText": "Hur många procent längre var medeltiden per uppdrag i Kustvik än i Centrala?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "52 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "61 / 118 * 100",
+              "varde": 51.6949
+            }
+          },
+          {
+            "id": "b",
+            "text": "207 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "118 / 57 * 100",
+              "varde": 207.0175
+            }
+          },
+          {
+            "id": "c",
+            "text": "156 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "(23 - 9) / 9 * 100",
+              "varde": 155.5556
+            }
+          },
+          {
+            "id": "d",
+            "text": "107 %",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Skillnad i minuter",
+              "uttryck": "118 - 57",
+              "varde": 61
+            },
+            {
+              "text": "Skillnad i procent av Centrala",
+              "uttryck": "61 / 57 * 100",
+              "varde": 107.0175
+            }
+          ],
+          "visning": "107 %",
+          "precision": 0
+        },
+        "explanation": "Skillnad i minuter: 118 - 57 = 61. Skillnad i procent av Centrala: 61 / 57 · 100 = 107,018. Svaret blir 107 %."
+      }
+    ]
+  },
+  {
+    "id": "na-18-vattenforbrukning",
+    "title": "Vattenförbrukning per område",
+    "type": "table",
+    "topic": "Vatten och avlopp",
+    "difficulty": 2,
+    "contextText": "Tabellen visar vattenförbrukningen i fyra delar av en kommun. Förbrukningen anges i kubikmeter, och 1 kubikmeter är 1 000 liter. År 2025 hade 365 dagar. Kommunens taxa är 32 kr per kubikmeter, och 1 mkr är 1 000 000 kr.",
+    "dataTable": {
+      "headers": [
+        "Område",
+        "Invånare",
+        "Hushåll",
+        "Förbrukning 2024 (kubikmeter)",
+        "Förbrukning 2025 (kubikmeter)",
+        "Ledningsnät (km)"
+      ],
+      "rows": [
+        [
+          "Strandby",
+          "8 400",
+          "3 900",
+          "486 000",
+          "471 000",
+          "62"
+        ],
+        [
+          "Bergsäng",
+          "12 200",
+          "5 300",
+          "742 000",
+          "812 000",
+          "88"
+        ],
+        [
+          "Gamla stan",
+          "5 200",
+          "3 100",
+          "298 000",
+          "305 000",
+          "41"
+        ],
+        [
+          "Mossen",
+          "3 900",
+          "1 600",
+          "251 000",
+          "247 000",
+          "57"
+        ]
+      ],
+      "caption": "Vattenförbrukning per område"
+    },
+    "ovanvant": [
+      "kolumn Ledningsnät (km)"
+    ],
+    "enhetsbyte": "kubikmeter till liter",
+    "p_prior": 0.55,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "questions": [
+      {
+        "id": "na-18-q01",
+        "passageId": "na-18-vattenforbrukning",
+        "questionNumber": 1,
+        "questionText": "Hur många liter vatten förbrukade en invånare i Bergsäng i genomsnitt per dag under 2025?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "420 liter",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "812000 * 1000 / 5300 / 365",
+              "varde": 419.7467
+            }
+          },
+          {
+            "id": "b",
+            "text": "167 liter",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "742000 * 1000 / 12200 / 365",
+              "varde": 166.6292
+            }
+          },
+          {
+            "id": "c",
+            "text": "66 557 liter",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "812000 * 1000 / 12200",
+              "varde": 66557.377
+            }
+          },
+          {
+            "id": "d",
+            "text": "182 liter",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Liter per invånare under året",
+              "uttryck": "812000 * 1000 / 12200",
+              "varde": 66557.377
+            },
+            {
+              "text": "Per dag",
+              "uttryck": "66557.377 / 365",
+              "varde": 182.349
+            }
+          ],
+          "visning": "182 liter",
+          "precision": 0
+        },
+        "explanation": "Liter per invånare under året: 812 000 · 1 000 / 12 200 = 66 557,377. Per dag: 66 557,377 / 365 = 182,349. Svaret blir 182 liter."
+      },
+      {
+        "id": "na-18-q02",
+        "passageId": "na-18-vattenforbrukning",
+        "questionNumber": 2,
+        "questionText": "Med hur många procent ökade förbrukningen i Bergsäng från 2024 till 2025?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "9,4 %",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "8,6 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "70000 / 812000 * 100",
+              "varde": 8.6207
+            }
+          },
+          {
+            "id": "c",
+            "text": "2,3 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(305000 - 298000) / 298000 * 100",
+              "varde": 2.349
+            }
+          },
+          {
+            "id": "d",
+            "text": "109,4 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "812000 / 742000 * 100",
+              "varde": 109.434
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Ökning i kubikmeter",
+              "uttryck": "812000 - 742000",
+              "varde": 70000
+            },
+            {
+              "text": "Ökning i procent av 2024",
+              "uttryck": "70000 / 742000 * 100",
+              "varde": 9.434
+            }
+          ],
+          "visning": "9,4 %",
+          "precision": 1
+        },
+        "explanation": "Ökning i kubikmeter: 812 000 - 742 000 = 70 000. Ökning i procent av 2024: 70 000 / 742 000 · 100 = 9,434. Svaret blir 9,4 %."
+      },
+      {
+        "id": "na-18-q03",
+        "passageId": "na-18-vattenforbrukning",
+        "questionNumber": 3,
+        "questionText": "Hur stora var kommunens vattenintäkter från Gamla stan och Mossen sammanlagt 2025, i mkr?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "9,8 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "305000 * 32 / 1000 / 1000",
+              "varde": 9.76
+            }
+          },
+          {
+            "id": "b",
+            "text": "24,8 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(305000 + 471000) * 32 / 1000 / 1000",
+              "varde": 24.832
+            }
+          },
+          {
+            "id": "c",
+            "text": "17,7 mkr",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "17 664,0 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "552000 * 32 / 1000",
+              "varde": 17664
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Förbrukning i kubikmeter",
+              "uttryck": "305000 + 247000",
+              "varde": 552000
+            },
+            {
+              "text": "Intäkter i mkr",
+              "uttryck": "552000 * 32 / 1000 / 1000",
+              "varde": 17.664
+            }
+          ],
+          "visning": "17,7 mkr",
+          "precision": 1
+        },
+        "explanation": "Förbrukning i kubikmeter: 305 000 + 247 000 = 552 000. Intäkter i mkr: 552 000 · 32 / 1 000 / 1 000 = 17,664. Svaret blir 17,7 mkr."
+      },
+      {
+        "id": "na-18-q04",
+        "passageId": "na-18-vattenforbrukning",
+        "questionNumber": 4,
+        "questionText": "Hur mycket betalade ett hushåll i Gamla stan i genomsnitt för vattnet under 2025?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "3 076 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "298000 * 32 / 3100",
+              "varde": 3076.129
+            }
+          },
+          {
+            "id": "b",
+            "text": "1 877 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "305000 * 32 / 5200",
+              "varde": 1876.9231
+            }
+          },
+          {
+            "id": "c",
+            "text": "3 865 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "471000 * 32 / 3900",
+              "varde": 3864.6154
+            }
+          },
+          {
+            "id": "d",
+            "text": "3 148 kr",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Intäkter från Gamla stan i kr",
+              "uttryck": "305000 * 32",
+              "varde": 9760000
+            },
+            {
+              "text": "Per hushåll",
+              "uttryck": "9760000 / 3100",
+              "varde": 3148.3871
+            }
+          ],
+          "visning": "3 148 kr",
+          "precision": 0
+        },
+        "explanation": "Intäkter från Gamla stan i kr: 305 000 · 32 = 9 760 000. Per hushåll: 9 760 000 / 3 100 = 3 148,387. Svaret blir 3 148 kr."
+      }
+    ]
+  },
+  {
+    "id": "na-19-vuxenutbildning",
+    "title": "Yrkesutbildningar inom vuxenutbildningen",
+    "type": "table",
+    "topic": "Utbildning",
+    "difficulty": 2,
+    "contextText": "Tabellen visar fyra yrkesutbildningar inom kommunens vuxenutbildning under ett läsår. Andelen godkända avser de som påbörjade utbildningen. Kostnaden anges i tkr per utbildningsplats för hela läsåret, och 1 mkr är 1 000 tkr.",
+    "dataTable": {
+      "headers": [
+        "Utbildning",
+        "Platser",
+        "Sökande",
+        "Påbörjade",
+        "Godkända (%)",
+        "Kostnad per plats (tkr)",
+        "Veckor"
+      ],
+      "rows": [
+        [
+          "Undersköterska",
+          "60",
+          "214",
+          "55",
+          "80",
+          "86",
+          "40"
+        ],
+        [
+          "Barnskötare",
+          "32",
+          "96",
+          "30",
+          "70",
+          "64",
+          "34"
+        ],
+        [
+          "Lagerlogistik",
+          "28",
+          "61",
+          "25",
+          "76",
+          "72",
+          "20"
+        ],
+        [
+          "Elektriker",
+          "20",
+          "118",
+          "20",
+          "85",
+          "148",
+          "60"
+        ]
+      ],
+      "caption": "Yrkesutbildningar under läsåret"
+    },
+    "ovanvant": [
+      "kolumn Veckor"
+    ],
+    "enhetsbyte": "procent till antal",
+    "p_prior": 0.55,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "questions": [
+      {
+        "id": "na-19-q01",
+        "passageId": "na-19-vuxenutbildning",
+        "questionNumber": 1,
+        "questionText": "Hur många deltagare blev godkända på de fyra utbildningarna sammanlagt? Räkna om procenten till antal personer.",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "109 personer",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "60 * 80 / 100 + 32 * 70 / 100 + 28 * 76 / 100 + 20 * 85 / 100",
+              "varde": 108.68
+            }
+          },
+          {
+            "id": "b",
+            "text": "101 personer",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "130 personer",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "55 + 30 + 25 + 20",
+              "varde": 130
+            }
+          },
+          {
+            "id": "d",
+            "text": "311 personer",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "80 + 70 + 76 + 85",
+              "varde": 311
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Godkända undersköterskor och barnskötare",
+              "uttryck": "55 * 80 / 100 + 30 * 70 / 100",
+              "varde": 65
+            },
+            {
+              "text": "Plus lagerlogistik och elektriker",
+              "uttryck": "65 + 25 * 76 / 100 + 20 * 85 / 100",
+              "varde": 101
+            }
+          ],
+          "visning": "101 personer",
+          "precision": 0
+        },
+        "explanation": "Godkända undersköterskor och barnskötare: 55 · 80 / 100 + 30 · 70 / 100 = 65. Plus lagerlogistik och elektriker: 65 + 25 · 76 / 100 + 20 · 85 / 100 = 101. Svaret blir 101 personer."
+      },
+      {
+        "id": "na-19-q02",
+        "passageId": "na-19-vuxenutbildning",
+        "questionNumber": 2,
+        "questionText": "Vad kostade utbildningsplatserna för undersköterskor och elektriker sammanlagt, i mkr?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "8,1 mkr",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "7,2 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(60 * 86 + 32 * 64) / 1000",
+              "varde": 7.208
+            }
+          },
+          {
+            "id": "c",
+            "text": "7,7 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "(55 * 86 + 20 * 148) / 1000",
+              "varde": 7.69
+            }
+          },
+          {
+            "id": "d",
+            "text": "8 120,0 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "60 * 86 + 20 * 148",
+              "varde": 8120
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Kostnad för undersköterskor i tkr",
+              "uttryck": "60 * 86",
+              "varde": 5160
+            },
+            {
+              "text": "Plus elektriker i tkr",
+              "uttryck": "5160 + 20 * 148",
+              "varde": 8120
+            },
+            {
+              "text": "Omräknat till mkr",
+              "uttryck": "8120 / 1000",
+              "varde": 8.12
+            }
+          ],
+          "visning": "8,1 mkr",
+          "precision": 1
+        },
+        "explanation": "Kostnad för undersköterskor i tkr: 60 · 86 = 5 160. Plus elektriker i tkr: 5 160 + 20 · 148 = 8 120. Omräknat till mkr: 8 120 / 1 000 = 8,12. Svaret blir 8,1 mkr."
+      },
+      {
+        "id": "na-19-q03",
+        "passageId": "na-19-vuxenutbildning",
+        "questionNumber": 3,
+        "questionText": "Räkna i sökande per plats. Hur många procent fler sökande per plats hade elektrikerutbildningen än barnskötarutbildningen?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "23 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "(118 - 96) / 96 * 100",
+              "varde": 22.9167
+            }
+          },
+          {
+            "id": "b",
+            "text": "84 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "(118 / 20 - 96 / 30) / (96 / 30) * 100",
+              "varde": 84.375
+            }
+          },
+          {
+            "id": "c",
+            "text": "49 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "(5.9 - 3) / 5.9 * 100",
+              "varde": 49.1525
+            }
+          },
+          {
+            "id": "d",
+            "text": "97 %",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Elektriker, sökande per plats",
+              "uttryck": "118 / 20",
+              "varde": 5.9
+            },
+            {
+              "text": "Barnskötare, sökande per plats",
+              "uttryck": "96 / 32",
+              "varde": 3
+            },
+            {
+              "text": "Skillnad i procent av barnskötarna",
+              "uttryck": "(5.9 - 3) / 3 * 100",
+              "varde": 96.6667
+            }
+          ],
+          "visning": "97 %",
+          "precision": 0
+        },
+        "explanation": "Elektriker, sökande per plats: 118 / 20 = 5,9. Barnskötare, sökande per plats: 96 / 32 = 3. Skillnad i procent av barnskötarna: (5,9 - 3) / 3 · 100 = 96,667. Svaret blir 97 %."
+      },
+      {
+        "id": "na-19-q04",
+        "passageId": "na-19-vuxenutbildning",
+        "questionNumber": 4,
+        "questionText": "Hur mycket kostade varje godkänd undersköterska i genomsnitt, i tkr?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "117 tkr",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "94 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "60 * 86 / 55",
+              "varde": 93.8182
+            }
+          },
+          {
+            "id": "c",
+            "text": "86 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "60 * 86 / 60",
+              "varde": 86
+            }
+          },
+          {
+            "id": "d",
+            "text": "98 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "32 * 64 / (30 * 70 / 100)",
+              "varde": 97.5238
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Kostnad för alla platser i tkr",
+              "uttryck": "60 * 86",
+              "varde": 5160
+            },
+            {
+              "text": "Antal godkända",
+              "uttryck": "55 * 80 / 100",
+              "varde": 44
+            },
+            {
+              "text": "Kostnad per godkänd",
+              "uttryck": "5160 / 44",
+              "varde": 117.2727
+            }
+          ],
+          "visning": "117 tkr",
+          "precision": 0
+        },
+        "explanation": "Kostnad för alla platser i tkr: 60 · 86 = 5 160. Antal godkända: 55 · 80 / 100 = 44. Kostnad per godkänd: 5 160 / 44 = 117,273. Svaret blir 117 tkr."
+      }
+    ]
+  },
+  {
+    "id": "na-20-hamnens-containrar",
+    "title": "Hamnens containrar",
+    "type": "graph",
+    "topic": "Sjöfart och logistik",
+    "difficulty": 2,
+    "contextText": "Diagrammet visar hur många containrar som lastades och lossades vid hamnens tre kajer under 2024 och 2025. Värdena anges i tusental containrar. Hamnen har öppet 360 dagar per år och tar ut en avgift på 1 360 kr per container. 1 mkr är 1 000 000 kr.",
+    "chartData": {
+      "chartType": "bar",
+      "title": "Containrar per kaj och år (tusental)",
+      "unit": "",
+      "yAxisLabel": "Tusental containrar",
+      "data": [
+        {
+          "label": "Norr 2024",
+          "value": 46
+        },
+        {
+          "label": "Norr 2025",
+          "value": 52
+        },
+        {
+          "label": "Syd 2024",
+          "value": 38
+        },
+        {
+          "label": "Syd 2025",
+          "value": 35
+        },
+        {
+          "label": "Väst 2024",
+          "value": 21
+        },
+        {
+          "label": "Väst 2025",
+          "value": 27
+        }
+      ]
+    },
+    "ovanvant": [
+      "stapel Syd 2024"
+    ],
+    "enhetsbyte": "kr till mkr",
+    "p_prior": 0.55,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "questions": [
+      {
+        "id": "na-20-q01",
+        "passageId": "na-20-hamnens-containrar",
+        "questionNumber": 1,
+        "questionText": "Hur mycket fick hamnen i avgifter för containrarna vid kaj Norr under 2025, i mkr?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "70 720,0 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "52000 * 1360 / 1000",
+              "varde": 70720
+            }
+          },
+          {
+            "id": "b",
+            "text": "62,6 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "46 * 1000 * 1360 / 1000 / 1000",
+              "varde": 62.56
+            }
+          },
+          {
+            "id": "c",
+            "text": "47,6 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "35 * 1000 * 1360 / 1000 / 1000",
+              "varde": 47.6
+            }
+          },
+          {
+            "id": "d",
+            "text": "70,7 mkr",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Antal containrar",
+              "uttryck": "52 * 1000",
+              "varde": 52000
+            },
+            {
+              "text": "Avgifter i mkr",
+              "uttryck": "52000 * 1360 / 1000 / 1000",
+              "varde": 70.72
+            }
+          ],
+          "visning": "70,7 mkr",
+          "precision": 1
+        },
+        "explanation": "Antal containrar: 52 · 1 000 = 52 000. Avgifter i mkr: 52 000 · 1 360 / 1 000 / 1 000 = 70,72. Svaret blir 70,7 mkr."
+      },
+      {
+        "id": "na-20-q02",
+        "passageId": "na-20-hamnens-containrar",
+        "questionNumber": 2,
+        "questionText": "Med hur många procent ökade antalet containrar vid kaj Väst från 2024 till 2025?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "22,2 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "6 / 27 * 100",
+              "varde": 22.2222
+            }
+          },
+          {
+            "id": "b",
+            "text": "28,6 %",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "128,6 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "27 / 21 * 100",
+              "varde": 128.5714
+            }
+          },
+          {
+            "id": "d",
+            "text": "13,0 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(52 - 46) / 46 * 100",
+              "varde": 13.0435
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Ökning i tusental",
+              "uttryck": "27 - 21",
+              "varde": 6
+            },
+            {
+              "text": "Ökning i procent av 2024",
+              "uttryck": "6 / 21 * 100",
+              "varde": 28.5714
+            }
+          ],
+          "visning": "28,6 %",
+          "precision": 1
+        },
+        "explanation": "Ökning i tusental: 27 - 21 = 6. Ökning i procent av 2024: 6 / 21 · 100 = 28,571. Svaret blir 28,6 %."
+      },
+      {
+        "id": "na-20-q03",
+        "passageId": "na-20-hamnens-containrar",
+        "questionNumber": 3,
+        "questionText": "Hur många containrar hanterade hamnen i genomsnitt per öppetdag under 2025, alla tre kajer?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "292 containrar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "(46 + 38 + 21) * 1000 / 360",
+              "varde": 291.6667
+            }
+          },
+          {
+            "id": "b",
+            "text": "317 containrar",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "114 000 containrar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "(52 + 35 + 27) * 1000",
+              "varde": 114000
+            }
+          },
+          {
+            "id": "d",
+            "text": "219 containrar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(52 + 27) * 1000 / 360",
+              "varde": 219.4444
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Containrar 2025 i tusental",
+              "uttryck": "52 + 35 + 27",
+              "varde": 114
+            },
+            {
+              "text": "Per öppetdag",
+              "uttryck": "114 * 1000 / 360",
+              "varde": 316.6667
+            }
+          ],
+          "visning": "317 containrar",
+          "precision": 0
+        },
+        "explanation": "Containrar 2025 i tusental: 52 + 35 + 27 = 114. Per öppetdag: 114 · 1 000 / 360 = 316,667. Svaret blir 317 containrar."
+      },
+      {
+        "id": "na-20-q04",
+        "passageId": "na-20-hamnens-containrar",
+        "questionNumber": 4,
+        "questionText": "Hur många procent av hamnens containrar under 2025 hanterades vid kaj Norr?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "83,9 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "52 / (35 + 27) * 100",
+              "varde": 83.871
+            }
+          },
+          {
+            "id": "b",
+            "text": "45,6 %",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "43,8 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "46 / (46 + 38 + 21) * 100",
+              "varde": 43.8095
+            }
+          },
+          {
+            "id": "d",
+            "text": "30,7 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "35 / 114 * 100",
+              "varde": 30.7018
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Containrar 2025 i tusental",
+              "uttryck": "52 + 35 + 27",
+              "varde": 114
+            },
+            {
+              "text": "Norrs andel",
+              "uttryck": "52 / 114 * 100",
+              "varde": 45.614
+            }
+          ],
+          "visning": "45,6 %",
+          "precision": 1
+        },
+        "explanation": "Containrar 2025 i tusental: 52 + 35 + 27 = 114. Norrs andel: 52 / 114 · 100 = 45,614. Svaret blir 45,6 %."
+      }
+    ]
+  },
+  {
+    "id": "na-21-lonerevision",
+    "title": "Årets lönerevision",
+    "type": "table",
+    "topic": "Lön och personal",
+    "difficulty": 2,
+    "contextText": "Tabellen visar resultatet av årets lönerevision i en region för fyra yrkesgrupper. Lönerna är månadslöner i kr före skatt. Arbetsgivaren betalar dessutom sociala avgifter på 31,42 % av lönen. Ett år har 12 månadslöner, och 1 mkr är 1 000 000 kr.",
+    "dataTable": {
+      "headers": [
+        "Yrkesgrupp",
+        "Anställda",
+        "Medellön före (kr)",
+        "Medellön efter (kr)",
+        "Sjukfrånvaro (%)"
+      ],
+      "rows": [
+        [
+          "Undersköterskor",
+          "420",
+          "31 800",
+          "32 900",
+          "7,4"
+        ],
+        [
+          "Sjuksköterskor",
+          "260",
+          "42 600",
+          "44 300",
+          "5,1"
+        ],
+        [
+          "Läkare",
+          "85",
+          "78 400",
+          "80 900",
+          "3,2"
+        ],
+        [
+          "Administratörer",
+          "140",
+          "33 500",
+          "34 500",
+          "4,6"
+        ]
+      ],
+      "caption": "Medellön före och efter revisionen"
+    },
+    "ovanvant": [
+      "kolumn Sjukfrånvaro (%)"
+    ],
+    "enhetsbyte": "kr till mkr",
+    "p_prior": 0.55,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "questions": [
+      {
+        "id": "na-21-q01",
+        "passageId": "na-21-lonerevision",
+        "questionNumber": 1,
+        "questionText": "Med hur många procent höjdes medellönen för sjuksköterskor?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "3,5 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(32900 - 31800) / 31800 * 100",
+              "varde": 3.4591
+            }
+          },
+          {
+            "id": "b",
+            "text": "104,0 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "44300 / 42600 * 100",
+              "varde": 103.9906
+            }
+          },
+          {
+            "id": "c",
+            "text": "4,0 %",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "3,8 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "1700 / 44300 * 100",
+              "varde": 3.8375
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Höjning i kr",
+              "uttryck": "44300 - 42600",
+              "varde": 1700
+            },
+            {
+              "text": "Höjning i procent av lönen före",
+              "uttryck": "1700 / 42600 * 100",
+              "varde": 3.9906
+            }
+          ],
+          "visning": "4,0 %",
+          "precision": 1
+        },
+        "explanation": "Höjning i kr: 44 300 - 42 600 = 1 700. Höjning i procent av lönen före: 1 700 / 42 600 · 100 = 3,991. Svaret blir 4,0 %."
+      },
+      {
+        "id": "na-21-q02",
+        "passageId": "na-21-lonerevision",
+        "questionNumber": 2,
+        "questionText": "Hur mycket ökade regionens lönekostnad för undersköterskor under ett år, sociala avgifter inräknade? Svara i mkr.",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "5,5 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "462000 * 12 / 1000 / 1000",
+              "varde": 5.544
+            }
+          },
+          {
+            "id": "b",
+            "text": "7,3 mkr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "0,6 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "462000 * (1 + 31.42 / 100) / 1000 / 1000",
+              "varde": 0.6072
+            }
+          },
+          {
+            "id": "d",
+            "text": "1,7 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "5544000 * 31.42 / 100 / 1000 / 1000",
+              "varde": 1.7419
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Höjning per månad för hela gruppen i kr",
+              "uttryck": "(32900 - 31800) * 420",
+              "varde": 462000
+            },
+            {
+              "text": "Per år i kr",
+              "uttryck": "462000 * 12",
+              "varde": 5544000
+            },
+            {
+              "text": "Med sociala avgifter i mkr",
+              "uttryck": "5544000 * (1 + 31.42 / 100) / 1000 / 1000",
+              "varde": 7.2859
+            }
+          ],
+          "visning": "7,3 mkr",
+          "precision": 1
+        },
+        "explanation": "Höjning per månad för hela gruppen i kr: (32 900 - 31 800) · 420 = 462 000. Per år i kr: 462 000 · 12 = 5 544 000. Med sociala avgifter i mkr: 5 544 000 · (1 + 31,42 / 100) / 1 000 / 1 000 = 7,286. Svaret blir 7,3 mkr."
+      },
+      {
+        "id": "na-21-q03",
+        "passageId": "na-21-lonerevision",
+        "questionNumber": 3,
+        "questionText": "Hur många procent högre var läkarnas medellön än undersköterskornas efter revisionen?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "146 %",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "83 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(80900 - 44300) / 44300 * 100",
+              "varde": 82.6185
+            }
+          },
+          {
+            "id": "c",
+            "text": "246 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "80900 / 32900 * 100",
+              "varde": 245.8967
+            }
+          },
+          {
+            "id": "d",
+            "text": "59 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "48000 / 80900 * 100",
+              "varde": 59.3325
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Skillnad i kr",
+              "uttryck": "80900 - 32900",
+              "varde": 48000
+            },
+            {
+              "text": "Skillnad i procent av undersköterskornas lön",
+              "uttryck": "48000 / 32900 * 100",
+              "varde": 145.8967
+            }
+          ],
+          "visning": "146 %",
+          "precision": 0
+        },
+        "explanation": "Skillnad i kr: 80 900 - 32 900 = 48 000. Skillnad i procent av undersköterskornas lön: 48 000 / 32 900 · 100 = 145,897. Svaret blir 146 %."
+      },
+      {
+        "id": "na-21-q04",
+        "passageId": "na-21-lonerevision",
+        "questionNumber": 4,
+        "questionText": "Vad blev medellönen efter revisionen för alla anställda i de fyra yrkesgrupperna tillsammans?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "36 788 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(420 * 32900 + 260 * 44300 + 140 * 34500) / (420 + 260 + 140)",
+              "varde": 36787.8049
+            }
+          },
+          {
+            "id": "b",
+            "text": "40 931 kr",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "39 543 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "(420 * 31800 + 260 * 42600 + 85 * 78400 + 140 * 33500) / 905",
+              "varde": 39542.5414
+            }
+          },
+          {
+            "id": "d",
+            "text": "48 150 kr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "(32900 + 44300 + 80900 + 34500) / 4",
+              "varde": 48150
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Lönesumma per månad efter revisionen",
+              "uttryck": "420 * 32900 + 260 * 44300 + 85 * 80900 + 140 * 34500",
+              "varde": 37042500
+            },
+            {
+              "text": "Alla anställda",
+              "uttryck": "420 + 260 + 85 + 140",
+              "varde": 905
+            },
+            {
+              "text": "Medellön",
+              "uttryck": "37042500 / 905",
+              "varde": 40930.9392
+            }
+          ],
+          "visning": "40 931 kr",
+          "precision": 0
+        },
+        "explanation": "Lönesumma per månad efter revisionen: 420 · 32 900 + 260 · 44 300 + 85 · 80 900 + 140 · 34 500 = 37 042 500. Alla anställda: 420 + 260 + 85 + 140 = 905. Medellön: 37 042 500 / 905 = 40 930,939. Svaret blir 40 931 kr."
+      }
+    ]
+  },
+  {
+    "id": "na-22-influensavaccin",
+    "title": "Influensavaccinationer per månad",
+    "type": "graph",
+    "topic": "Folkhälsa",
+    "difficulty": 2,
+    "contextText": "Diagrammet visar hur många influensavaccinationer en vårdcentral gav per månad under två säsonger. Av alla vaccinationer gick 70 % till patienter som är 65 år eller äldre, och vårdcentralen har 4 700 listade patienter i den åldern. En vaccination tar 8 minuter för sjuksköterskan, och 1 timme är 60 minuter. Regionen betalar vårdcentralen 310 kr per vaccination. 1 tkr är 1 000 kr.",
+    "chartData": {
+      "chartType": "line",
+      "title": "Influensavaccinationer per månad",
+      "unit": "",
+      "xAxisLabel": "Månad",
+      "yAxisLabel": "Antal vaccinationer",
+      "showValues": true,
+      "data": [
+        {
+          "x": "Okt 2024",
+          "y": 920
+        },
+        {
+          "x": "Nov 2024",
+          "y": 640
+        },
+        {
+          "x": "Dec 2024",
+          "y": 330
+        },
+        {
+          "x": "Jan 2025",
+          "y": 120
+        },
+        {
+          "x": "Okt 2025",
+          "y": 980
+        },
+        {
+          "x": "Nov 2025",
+          "y": 710
+        },
+        {
+          "x": "Dec 2025",
+          "y": 290
+        },
+        {
+          "x": "Jan 2026",
+          "y": 140
+        }
+      ]
+    },
+    "ovanvant": [
+      "punkt Jan 2025"
+    ],
+    "enhetsbyte": "minuter till timmar",
+    "p_prior": 0.55,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "questions": [
+      {
+        "id": "na-22-q01",
+        "passageId": "na-22-influensavaccin",
+        "questionNumber": 1,
+        "questionText": "Hur många procent av de listade patienterna som är 65 år eller äldre vaccinerades under säsongen oktober 2025 till januari 2026?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "31,6 %",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "45,1 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "2120 / 4700 * 100",
+              "varde": 45.1064
+            }
+          },
+          {
+            "id": "c",
+            "text": "29,9 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "(920 + 640 + 330 + 120) * 70 / 100 / 4700 * 100",
+              "varde": 29.9362
+            }
+          },
+          {
+            "id": "d",
+            "text": "29,5 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(980 + 710 + 290) * 70 / 100 / 4700 * 100",
+              "varde": 29.4894
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Vaccinationer under säsongen",
+              "uttryck": "980 + 710 + 290 + 140",
+              "varde": 2120
+            },
+            {
+              "text": "Varav 65 år eller äldre",
+              "uttryck": "2120 * 70 / 100",
+              "varde": 1484
+            },
+            {
+              "text": "Andel av de listade",
+              "uttryck": "1484 / 4700 * 100",
+              "varde": 31.5745
+            }
+          ],
+          "visning": "31,6 %",
+          "precision": 1
+        },
+        "explanation": "Vaccinationer under säsongen: 980 + 710 + 290 + 140 = 2 120. Varav 65 år eller äldre: 2 120 · 70 / 100 = 1 484. Andel av de listade: 1 484 / 4 700 · 100 = 31,575. Svaret blir 31,6 %."
+      },
+      {
+        "id": "na-22-q02",
+        "passageId": "na-22-influensavaccin",
+        "questionNumber": 2,
+        "questionText": "Med hur många procent fler vaccinationer gav vårdcentralen i november 2025 än i november 2024?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "110,9 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "710 / 640 * 100",
+              "varde": 110.9375
+            }
+          },
+          {
+            "id": "b",
+            "text": "6,5 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(980 - 920) / 920 * 100",
+              "varde": 6.5217
+            }
+          },
+          {
+            "id": "c",
+            "text": "10,9 %",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "9,9 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "70 / 710 * 100",
+              "varde": 9.8592
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Skillnad i antal",
+              "uttryck": "710 - 640",
+              "varde": 70
+            },
+            {
+              "text": "Skillnad i procent av november 2024",
+              "uttryck": "70 / 640 * 100",
+              "varde": 10.9375
+            }
+          ],
+          "visning": "10,9 %",
+          "precision": 1
+        },
+        "explanation": "Skillnad i antal: 710 - 640 = 70. Skillnad i procent av november 2024: 70 / 640 · 100 = 10,938. Svaret blir 10,9 %."
+      },
+      {
+        "id": "na-22-q03",
+        "passageId": "na-22-influensavaccin",
+        "questionNumber": 3,
+        "questionText": "Hur många timmar lade sjuksköterskorna på vaccinationer i oktober 2025?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "7 840 timmar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "980 * 8",
+              "varde": 7840
+            }
+          },
+          {
+            "id": "b",
+            "text": "131 timmar",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "123 timmar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "920 * 8 / 60",
+              "varde": 122.6667
+            }
+          },
+          {
+            "id": "d",
+            "text": "95 timmar",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "710 * 8 / 60",
+              "varde": 94.6667
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Tid i minuter",
+              "uttryck": "980 * 8",
+              "varde": 7840
+            },
+            {
+              "text": "Omräknat till timmar",
+              "uttryck": "7840 / 60",
+              "varde": 130.6667
+            }
+          ],
+          "visning": "131 timmar",
+          "precision": 0
+        },
+        "explanation": "Tid i minuter: 980 · 8 = 7 840. Omräknat till timmar: 7 840 / 60 = 130,667. Svaret blir 131 timmar."
+      },
+      {
+        "id": "na-22-q04",
+        "passageId": "na-22-influensavaccin",
+        "questionNumber": 4,
+        "questionText": "Hur mycket betalade regionen för vaccinationerna från oktober till december 2024, i tkr?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "613,8 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "(980 + 710 + 290) * 310 / 1000",
+              "varde": 613.8
+            }
+          },
+          {
+            "id": "b",
+            "text": "585 900,0 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "1890 * 310",
+              "varde": 585900
+            }
+          },
+          {
+            "id": "c",
+            "text": "623,1 tkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(920 + 640 + 330 + 120) * 310 / 1000",
+              "varde": 623.1
+            }
+          },
+          {
+            "id": "d",
+            "text": "585,9 tkr",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Vaccinationer oktober till december 2024",
+              "uttryck": "920 + 640 + 330",
+              "varde": 1890
+            },
+            {
+              "text": "Ersättning i tkr",
+              "uttryck": "1890 * 310 / 1000",
+              "varde": 585.9
+            }
+          ],
+          "visning": "585,9 tkr",
+          "precision": 1
+        },
+        "explanation": "Vaccinationer oktober till december 2024: 920 + 640 + 330 = 1 890. Ersättning i tkr: 1 890 · 310 / 1 000 = 585,9. Svaret blir 585,9 tkr."
+      }
+    ]
+  },
+  {
+    "id": "na-23-skadearenden",
+    "title": "Försäkringsbolagets skadeärenden",
+    "type": "graph",
+    "topic": "Försäkring",
+    "difficulty": 2,
+    "contextText": "Diagrammet visar hur många skadeärenden ett regionalt försäkringsbolag hanterade per skadetyp under 2024 och 2025. Den genomsnittliga ersättningen per ärende 2025 var 47 tkr för vattenskada, 28 tkr för inbrott, 212 tkr för brand och 19 tkr för storm. 1 mkr är 1 000 tkr. En handläggare på heltid hanterar i genomsnitt 160 ärenden per år.",
+    "chartData": {
+      "chartType": "bar",
+      "title": "Skadeärenden per typ och år",
+      "unit": "",
+      "yAxisLabel": "Antal ärenden",
+      "data": [
+        {
+          "label": "Vattenskada 2024",
+          "value": 840
+        },
+        {
+          "label": "Vattenskada 2025",
+          "value": 910
+        },
+        {
+          "label": "Inbrott 2024",
+          "value": 360
+        },
+        {
+          "label": "Inbrott 2025",
+          "value": 310
+        },
+        {
+          "label": "Brand 2024",
+          "value": 95
+        },
+        {
+          "label": "Brand 2025",
+          "value": 110
+        },
+        {
+          "label": "Storm 2024",
+          "value": 420
+        },
+        {
+          "label": "Storm 2025",
+          "value": 180
+        }
+      ]
+    },
+    "ovanvant": [
+      "stapel Storm 2024"
+    ],
+    "enhetsbyte": "tkr till mkr",
+    "p_prior": 0.55,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "questions": [
+      {
+        "id": "na-23-q01",
+        "passageId": "na-23-skadearenden",
+        "questionNumber": 1,
+        "questionText": "Hur mycket betalade bolaget i ersättning för vattenskador under 2025, i mkr?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "42 770,0 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "910 * 47",
+              "varde": 42770
+            }
+          },
+          {
+            "id": "b",
+            "text": "8,7 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "310 * 28 / 1000",
+              "varde": 8.68
+            }
+          },
+          {
+            "id": "c",
+            "text": "42,8 mkr",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "39,5 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "840 * 47 / 1000",
+              "varde": 39.48
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Ersättning i tkr",
+              "uttryck": "910 * 47",
+              "varde": 42770
+            },
+            {
+              "text": "Omräknat till mkr",
+              "uttryck": "42770 / 1000",
+              "varde": 42.77
+            }
+          ],
+          "visning": "42,8 mkr",
+          "precision": 1
+        },
+        "explanation": "Ersättning i tkr: 910 · 47 = 42 770. Omräknat till mkr: 42 770 / 1 000 = 42,77. Svaret blir 42,8 mkr."
+      },
+      {
+        "id": "na-23-q02",
+        "passageId": "na-23-skadearenden",
+        "questionNumber": 2,
+        "questionText": "Hur många procent av bolagets samlade ersättning under 2025 gick till brandskador?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "29,8 %",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "25,8 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "95 * 212 / 78190 * 100",
+              "varde": 25.7578
+            }
+          },
+          {
+            "id": "c",
+            "text": "7,3 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "110 / (910 + 310 + 110 + 180) * 100",
+              "varde": 7.2848
+            }
+          },
+          {
+            "id": "d",
+            "text": "42,5 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "110 * 212 / (78190 - 110 * 212) * 100",
+              "varde": 42.5005
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Samlad ersättning 2025 i tkr",
+              "uttryck": "910 * 47 + 310 * 28 + 110 * 212 + 180 * 19",
+              "varde": 78190
+            },
+            {
+              "text": "Brandens andel",
+              "uttryck": "110 * 212 / 78190 * 100",
+              "varde": 29.8248
+            }
+          ],
+          "visning": "29,8 %",
+          "precision": 1
+        },
+        "explanation": "Samlad ersättning 2025 i tkr: 910 · 47 + 310 · 28 + 110 · 212 + 180 · 19 = 78 190. Brandens andel: 110 · 212 / 78 190 · 100 = 29,825. Svaret blir 29,8 %."
+      },
+      {
+        "id": "na-23-q03",
+        "passageId": "na-23-skadearenden",
+        "questionNumber": 3,
+        "questionText": "Med hur många procent minskade antalet inbrottsärenden från 2024 till 2025?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "86,1 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_operation",
+              "uttryck": "310 / 360 * 100",
+              "varde": 86.1111
+            }
+          },
+          {
+            "id": "b",
+            "text": "16,1 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "50 / 310 * 100",
+              "varde": 16.129
+            }
+          },
+          {
+            "id": "c",
+            "text": "15,8 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(110 - 95) / 95 * 100",
+              "varde": 15.7895
+            }
+          },
+          {
+            "id": "d",
+            "text": "13,9 %",
+            "isCorrect": true
+          }
+        ],
+        "correctAnswerId": "d",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Minskning i ärenden",
+              "uttryck": "360 - 310",
+              "varde": 50
+            },
+            {
+              "text": "Minskning i procent av 2024",
+              "uttryck": "50 / 360 * 100",
+              "varde": 13.8889
+            }
+          ],
+          "visning": "13,9 %",
+          "precision": 1
+        },
+        "explanation": "Minskning i ärenden: 360 - 310 = 50. Minskning i procent av 2024: 50 / 360 · 100 = 13,889. Svaret blir 13,9 %."
+      },
+      {
+        "id": "na-23-q04",
+        "passageId": "na-23-skadearenden",
+        "questionNumber": 4,
+        "questionText": "Hur många handläggare på heltid behövdes för alla skadeärenden under 2025?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "9,4 handläggare",
+            "isCorrect": true
+          },
+          {
+            "id": "b",
+            "text": "7,5 handläggare",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(910 + 110 + 180) / 160",
+              "varde": 7.5
+            }
+          },
+          {
+            "id": "c",
+            "text": "8,3 handläggare",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(910 + 310 + 110) / 160",
+              "varde": 8.3125
+            }
+          },
+          {
+            "id": "d",
+            "text": "10,7 handläggare",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "(840 + 360 + 95 + 420) / 160",
+              "varde": 10.7188
+            }
+          }
+        ],
+        "correctAnswerId": "a",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Ärenden 2025",
+              "uttryck": "910 + 310 + 110 + 180",
+              "varde": 1510
+            },
+            {
+              "text": "Handläggare på heltid",
+              "uttryck": "1510 / 160",
+              "varde": 9.4375
+            }
+          ],
+          "visning": "9,4 handläggare",
+          "precision": 1
+        },
+        "explanation": "Ärenden 2025: 910 + 310 + 110 + 180 = 1 510. Handläggare på heltid: 1 510 / 160 = 9,438. Svaret blir 9,4 handläggare."
+      }
+    ]
+  },
+  {
+    "id": "na-24-gatubelaggning",
+    "title": "Ny beläggning på kommunens gator",
+    "type": "table",
+    "topic": "Gator och vägar",
+    "difficulty": 2,
+    "contextText": "Tabellen visar kommunens plan för ny asfalt på fyra typer av gator under nästa år. Bredden är den genomsnittliga körbanebredden i meter, och priset anges i kr per kvadratmeter ny asfalt. 1 km är 1 000 meter, och 1 mkr är 1 000 000 kr.",
+    "dataTable": {
+      "headers": [
+        "Gatutyp",
+        "Gatunät (km)",
+        "Planerad beläggning (km)",
+        "Bredd (m)",
+        "Pris (kr per kvm)",
+        "Klagomål förra året"
+      ],
+      "rows": [
+        [
+          "Huvudgator",
+          "46",
+          "6,4",
+          "9,5",
+          "285",
+          "212"
+        ],
+        [
+          "Lokalgator",
+          "138",
+          "11,2",
+          "6,0",
+          "240",
+          "341"
+        ],
+        [
+          "Gång och cykel",
+          "92",
+          "8,5",
+          "3,5",
+          "195",
+          "128"
+        ],
+        [
+          "Industrigator",
+          "24",
+          "2,6",
+          "7,5",
+          "310",
+          "47"
+        ]
+      ],
+      "caption": "Plan för ny beläggning"
+    },
+    "ovanvant": [
+      "kolumn Klagomål förra året"
+    ],
+    "enhetsbyte": "km till meter",
+    "p_prior": 0.55,
+    "kalla": "skriven 2026-10-12, parti 03",
+    "questions": [
+      {
+        "id": "na-24-q01",
+        "passageId": "na-24-gatubelaggning",
+        "questionNumber": 1,
+        "questionText": "Vad kostar den planerade beläggningen av huvudgatorna, i mkr?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "124,5 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "46 * 1000 * 9.5 * 285 / 1000 / 1000",
+              "varde": 124.545
+            }
+          },
+          {
+            "id": "b",
+            "text": "1,8 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "steg_saknas",
+              "uttryck": "6.4 * 1000 * 285 / 1000 / 1000",
+              "varde": 1.824
+            }
+          },
+          {
+            "id": "c",
+            "text": "17,3 mkr",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "17 328,0 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "60800 * 285 / 1000",
+              "varde": 17328
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Yta i kvadratmeter",
+              "uttryck": "6.4 * 1000 * 9.5",
+              "varde": 60800
+            },
+            {
+              "text": "Kostnad i mkr",
+              "uttryck": "60800 * 285 / 1000 / 1000",
+              "varde": 17.328
+            }
+          ],
+          "visning": "17,3 mkr",
+          "precision": 1
+        },
+        "explanation": "Yta i kvadratmeter: 6,4 · 1 000 · 9,5 = 60 800. Kostnad i mkr: 60 800 · 285 / 1 000 / 1 000 = 17,328. Svaret blir 17,3 mkr."
+      },
+      {
+        "id": "na-24-q02",
+        "passageId": "na-24-gatubelaggning",
+        "questionNumber": 2,
+        "questionText": "Hur många procent av lokalgatornas gatunät får ny beläggning?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "13,9 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "6.4 / 46 * 100",
+              "varde": 13.913
+            }
+          },
+          {
+            "id": "b",
+            "text": "8,1 %",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "0,1 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "11.2 / 138",
+              "varde": 0.0812
+            }
+          },
+          {
+            "id": "d",
+            "text": "8,8 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "11.2 / (138 - 11.2) * 100",
+              "varde": 8.8328
+            }
+          }
+        ],
+        "correctAnswerId": "b",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Planerad beläggning delat med gatunätet",
+              "uttryck": "11.2 / 138 * 100",
+              "varde": 8.1159
+            }
+          ],
+          "visning": "8,1 %",
+          "precision": 1
+        },
+        "explanation": "Planerad beläggning delat med gatunätet: 11,2 / 138 · 100 = 8,116. Svaret blir 8,1 %."
+      },
+      {
+        "id": "na-24-q03",
+        "passageId": "na-24-gatubelaggning",
+        "questionNumber": 3,
+        "questionText": "Hur många procent av den totala ytan ny asfalt nästa år hamnar på lokalgator?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "61,1 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_bas",
+              "uttryck": "67200 / (177250 - 67200) * 100",
+              "varde": 61.0632
+            }
+          },
+          {
+            "id": "b",
+            "text": "46,0 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "138 / (46 + 138 + 92 + 24) * 100",
+              "varde": 46
+            }
+          },
+          {
+            "id": "c",
+            "text": "37,9 %",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "34,3 %",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "60800 / 177250 * 100",
+              "varde": 34.3018
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Yta på lokalgator i kvadratmeter",
+              "uttryck": "11.2 * 1000 * 6.0",
+              "varde": 67200
+            },
+            {
+              "text": "All ny yta i kvadratmeter",
+              "uttryck": "6.4 * 1000 * 9.5 + 11.2 * 1000 * 6.0 + 8.5 * 1000 * 3.5 + 2.6 * 1000 * 7.5",
+              "varde": 177250
+            },
+            {
+              "text": "Lokalgatornas andel",
+              "uttryck": "67200 / 177250 * 100",
+              "varde": 37.9126
+            }
+          ],
+          "visning": "37,9 %",
+          "precision": 1
+        },
+        "explanation": "Yta på lokalgator i kvadratmeter: 11,2 · 1 000 · 6,0 = 67 200. All ny yta i kvadratmeter: 6,4 · 1 000 · 9,5 + 11,2 · 1 000 · 6,0 + 8,5 · 1 000 · 3,5 + 2,6 · 1 000 · 7,5 = 177 250. Lokalgatornas andel: 67 200 / 177 250 · 100 = 37,913. Svaret blir 37,9 %."
+      },
+      {
+        "id": "na-24-q04",
+        "passageId": "na-24-gatubelaggning",
+        "questionNumber": 4,
+        "questionText": "Vad kostar hela beläggningsplanen för nästa år, i mkr?",
+        "difficulty": 2,
+        "options": [
+          {
+            "id": "a",
+            "text": "45 302,3 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_enhet",
+              "uttryck": "45302250 / 1000",
+              "varde": 45302.25
+            }
+          },
+          {
+            "id": "b",
+            "text": "39,3 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_rad",
+              "uttryck": "(6.4 * 1000 * 9.5 * 285 + 11.2 * 1000 * 6.0 * 240 + 8.5 * 1000 * 3.5 * 195) / 1000 / 1000",
+              "varde": 39.2572
+            }
+          },
+          {
+            "id": "c",
+            "text": "45,3 mkr",
+            "isCorrect": true
+          },
+          {
+            "id": "d",
+            "text": "441,9 mkr",
+            "isCorrect": false,
+            "misstag": {
+              "typ": "fel_kolumn",
+              "uttryck": "(46 * 1000 * 9.5 * 285 + 138 * 1000 * 6.0 * 240 + 92 * 1000 * 3.5 * 195 + 24 * 1000 * 7.5 * 310) / 1000 / 1000",
+              "varde": 441.855
+            }
+          }
+        ],
+        "correctAnswerId": "c",
+        "berakning": {
+          "steg": [
+            {
+              "text": "Kostnad i kr",
+              "uttryck": "6.4 * 1000 * 9.5 * 285 + 11.2 * 1000 * 6.0 * 240 + 8.5 * 1000 * 3.5 * 195 + 2.6 * 1000 * 7.5 * 310",
+              "varde": 45302250
+            },
+            {
+              "text": "Omräknat till mkr",
+              "uttryck": "45302250 / 1000 / 1000",
+              "varde": 45.3023
+            }
+          ],
+          "visning": "45,3 mkr",
+          "precision": 1
+        },
+        "explanation": "Kostnad i kr: 6,4 · 1 000 · 9,5 · 285 + 11,2 · 1 000 · 6,0 · 240 + 8,5 · 1 000 · 3,5 · 195 + 2,6 · 1 000 · 7,5 · 310 = 45 302 250. Omräknat till mkr: 45 302 250 / 1 000 / 1 000 = 45,302. Svaret blir 45,3 mkr."
+      }
+    ]
+  }
+]
