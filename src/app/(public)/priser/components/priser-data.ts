@@ -14,6 +14,7 @@
  */
 
 import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { FREE_TIER_JOB_LIMIT, JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import { PLAN_BY_KEY, SALD_PLAN, paketKort, paketMedPris, paketNamn, prisPeriod } from '@/lib/plans/plans'
 
 export const PREMIUM_CURRENCY = 'SEK'
@@ -154,8 +155,8 @@ export const COMPARISON: ComparisonGroup[] = [
       {
         label: 'Matchade jobb',
         sub: 'kompetens mot alla branscher',
-        free: g('3 träffar'),
-        premium: ja('25 träffar', 'med skälen utskrivna'),
+        free: g(`${FREE_TIER_JOB_LIMIT} träffar`),
+        premium: ja(`${JOB_MATCHES_PER_RUN} träffar`, 'med skälen utskrivna'),
       },
       {
         label: 'Jobbcoachen',

@@ -30,6 +30,12 @@ const tonalityDescriptions: { [key: string]: { sv: string, en: string } } = {
   }
 };
 
+/** Tonerna brevet kan skrivas i, för sidornas text ("sex toner"). */
+export const BREV_TONER: readonly string[] = Object.keys(tonalityDescriptions);
+
+/** Antalet toner, räknat ur listan. */
+export const ANTAL_TONER = BREV_TONER.length;
+
 /**
  * Extraherar jobbinformation från jobbannonsen med AI
  */

@@ -1,0 +1,112 @@
+<style>
+/* ============================================================
+   Verktygssidorna, del A (brev, matchning, funktioner). Bara nya klasser
+   med prefix v-, inga ändringar av befintliga.
+   ============================================================ */
+
+/* Brevmallarna som miniatyrer */
+.v-mallar{display:grid;gap:14px;grid-template-columns:repeat(2,1fr);margin-top:36px}
+@media (min-width:760px){.v-mallar{grid-template-columns:repeat(4,1fr);gap:18px}}
+.v-mall{display:grid;align-content:start;gap:8px;padding:14px;background:var(--panel);border:1px solid var(--kant);border-radius:18px;box-shadow:var(--lyft)}
+.v-mall .v-bild{background:var(--rum-ton);border-radius:12px;padding:14px 22px}
+.v-mall .v-bild svg{width:100%;height:auto;filter:drop-shadow(0 6px 10px rgba(20,16,10,.14))}
+.v-mall h3{font-size:17px;letter-spacing:-.01em;margin-top:6px}
+.v-mall p{font-size:13.5px;color:var(--ink-2);line-height:1.45}
+.v-tagg{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 9px;border-radius:999px;background:var(--rum-ton);color:var(--rum-ink);justify-self:start;margin-top:2px}
+.v-tagg.prem{background:var(--black);color:var(--koppar-ljus)}
+/* Åttonde rutan fyller rastret: länk till exemplen, ingen knapp */
+.v-mall-mer{background:var(--black);border-color:var(--black);color:var(--vagg-ink);text-decoration:none;align-content:end;min-height:220px}
+.v-mall-mer p{color:var(--vagg-mjuk)}
+.v-mall-mer .lank{color:#fff;justify-self:start;margin-top:4px}
+.v-mer-tal{font-family:var(--display);font-weight:800;font-size:56px;line-height:1;letter-spacing:-.03em;color:var(--koppar-ljus);margin-bottom:auto}
+
+/* Kravchips i telefonen */
+.v-chips{display:flex;flex-wrap:wrap;gap:5px}
+.v-chip{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:600;padding:3px 8px 3px 6px;border-radius:999px;background:var(--positiv-mjuk);color:var(--positiv);line-height:1.2}
+.v-chip i{width:11px;height:11px;display:grid}
+.v-chip i svg{width:11px;height:11px}
+.v-chip.saknas{background:var(--insunken);color:var(--ink-2);padding-left:8px}
+
+/* Datapunkterna i telefonen */
+.v-data{display:grid;grid-template-columns:72px 1fr;gap:5px 8px;margin:0;font-size:11px;line-height:1.3}
+.v-data dt{font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);padding-top:1px}
+.v-data dd{margin:0;color:var(--ink-1)}
+
+/* Grenarna: en titel, tre roller du inte sökt på */
+.v-grenar{background:var(--panel);border:1px solid var(--kant);border-radius:var(--r-stor);padding:24px;box-shadow:var(--lyft)}
+.v-rot{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:14px;background:var(--rum);color:var(--vagg-ink);font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:-.01em}
+.v-rot small{font-family:var(--body);font-weight:500;font-size:12px;letter-spacing:0;color:var(--rum-ljus)}
+.v-gren{display:grid;grid-template-columns:34px 1fr auto;gap:12px;align-items:center;position:relative;padding:14px 0 0 0}
+.v-gren::before{content:"";position:absolute;left:16px;top:-6px;width:2px;height:calc(50% + 6px);background:var(--kant-stark)}
+.v-gren::after{content:"";position:absolute;left:16px;top:50%;width:18px;height:2px;background:var(--kant-stark);margin-top:7px}
+.v-gren i{width:34px;height:34px;position:relative;z-index:1;background:var(--panel)}
+.v-gren i .obj{width:34px;height:34px}
+.v-gren .v-rot{display:inline-flex;font-size:18px;color:var(--vagg-ink)}
+.v-gren .v-rot small{display:inline;color:var(--rum-ljus)}
+.v-gren b{display:block;font-family:var(--display);font-size:16px;letter-spacing:-.01em}
+.v-gren span{display:block;font-size:13px;color:var(--ink-3)}
+.v-gren em{font-style:normal;font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.02em;color:var(--rum-ink)}
+.v-gren em small{font-size:12px;font-weight:600;letter-spacing:0;margin-left:2px}
+.v-gren.v-rotrad{grid-template-columns:1fr;padding-top:0}
+.v-gren.v-rotrad::before,.v-gren.v-rotrad::after{display:none}
+.v-grenar > .liten{margin-top:18px;padding-top:14px;border-top:1px solid var(--kant)}
+
+/* Ankarrad på /funktioner */
+.v-ankare{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.v-ankare a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--kant-stark);background:var(--panel);font-size:14px;font-weight:600;text-decoration:none;color:var(--ink-1)}
+.v-ankare a:hover{border-color:var(--ink-1)}
+.v-ankare a.v-forst{background:var(--tran);border-color:var(--tran);color:#fff}
+
+/* Två telefoner i bläckblocket på /funktioner, med egen text under var och en */
+.v-duo-black{display:grid;gap:40px;margin-top:40px}
+@media (min-width:900px){.v-duo-black{grid-template-columns:1fr 1fr;gap:56px}}
+.v-duo-black > div{display:grid;gap:0;align-content:start}
+.v-duo-black .tel{margin:0 auto 24px}
+.v-duo-black .v-sub{font-size:14px;color:var(--vagg-mjuk);margin-top:8px}
+.v-duo-black .brod{margin-top:14px}
+.v-duo-black .lank{display:inline-block;margin-top:16px;color:#fff}
+
+/* LinkedIn-profilen före och efter, som två rader i ett kort */
+.v-lk{display:grid;gap:14px}
+.v-lk .kort{padding:18px 20px}
+.v-lk .v-lkrub{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px}
+.v-lk .v-lkrad{display:flex;align-items:center;gap:12px}
+.v-lk .v-lkav{width:40px;height:40px;border-radius:50%;background:var(--insunken);border:2px solid var(--ink-1);flex:none}
+.v-lk b{font-family:var(--display);font-size:16px;letter-spacing:-.01em;line-height:1.25;display:block}
+.v-lk span{font-size:13px;color:var(--ink-3)}
+.v-lk .v-hittas{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.v-lk .v-hittas i{font-style:normal;font-size:12px;font-weight:600;padding:4px 9px;border-radius:999px;background:var(--rum-ton);color:var(--rum-ink)}
+.v-lk .efter{border-color:var(--rum);border-width:1.5px}
+
+/* Tre stycken-objektet med sina etiketter */
+.v-tre{display:grid;grid-template-columns:1fr;gap:18px;align-items:center}
+@media (min-width:560px){.v-tre{grid-template-columns:200px 1fr}}
+.v-tre svg{width:200px;max-width:100%;height:auto;margin-inline:auto;filter:drop-shadow(0 12px 20px rgba(20,16,10,.16))}
+.v-tre ol{display:grid;gap:12px;counter-reset:tre}
+.v-tre li{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start;counter-increment:tre;font-size:14px;color:var(--ink-2)}
+.v-tre li::before{content:counter(tre);width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:15px;background:var(--rum-ton);color:var(--rum-ink)}
+.v-tre li b{display:block;color:var(--ink-1);font-weight:600}
+
+/* Kort med objekt, hur många som helst på rad, raster-3 gör kolumnerna */
+.v-kort-obj .obj{margin-bottom:4px}
+
+/* Stegen som meningar utan rubrik (funktioners fyra rader) */
+.v-steg-mening li{grid-template-columns:34px 1fr;gap:12px}
+.v-steg-mening li::before{width:34px;height:34px;font-size:18px;border-radius:10px}
+.v-steg-mening p{color:inherit;font-size:15.5px;line-height:1.45;padding-top:6px}
+.vagg .v-steg-mening p{color:var(--vagg-mjuk)}
+
+/* Rummets kick-färg på panel och mark, så att kicken följer verktyget */
+.v-kick-rum{color:var(--rum-ink)}
+
+/* /funktioner på mobil: hjältens telefon får plats under ankarraden, och testblocket
+   visar personlighetsprofilen i stället för samma matris som hjälten just visade */
+@media (max-width:899px){#hjalte-funktioner .prem-fan{min-height:668px}}
+@media (max-width:640px){#tester .duo .skala{display:none}}
+
+/* Tre tal på en rad i verktygshjältarna från 900 px */
+@media (min-width:900px){#sida-brev .vagg .tal,#sida-matchning .vagg .tal,#sida-funktioner .vagg .tal{column-gap:28px;flex-wrap:nowrap}#sida-brev .vagg .tal b,#sida-matchning .vagg .tal b,#sida-funktioner .vagg .tal b{font-size:clamp(24px,2.4vw,30px)}#sida-brev .vagg .tal li,#sida-matchning .vagg .tal li,#sida-funktioner .vagg .tal li{min-width:0}}
+
+/* Hjältens bevisrad på vägg behåller vita tal */
+#sida-brev .vagg .tal b,#sida-matchning .vagg .tal b,#sida-funktioner .vagg .tal b{color:#fff}
+</style>

@@ -9,6 +9,9 @@
 
 import { PLAN_BY_KEY, paketKort, type PlanKey } from '@/lib/plans/plans'
 import { TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
+
+const ALLA_TRAFFAR = `Alla ${JOB_MATCHES_PER_RUN} jobbträffar med skälen`
 
 /** Kortformen ur PLANS (copy-premium avsnitt 1), aldrig som fast sträng. */
 const PREMIUM = paketKort()
@@ -85,7 +88,7 @@ export const PAKET: Record<PlanKeyPaket, PaketInfo> = {
     // Avsnitt 8: engångsköpet har ingen förnyelse, så raden blir en sluttidsrad.
     intervall: 'Gäller 24 timmar. Inget dras igen.',
     ingar: [
-      'Alla 25 jobbträffar med skälen',
+      ALLA_TRAFFAR,
       'Jobbcoachen, så mycket du vill',
       ALLT_I_PREMIUM,
       'Ett dygn, ingen prenumeration',
@@ -95,7 +98,7 @@ export const PAKET: Record<PlanKeyPaket, PaketInfo> = {
   all_week: paket('all_week', {
     intervall: 'Förnyas var sjunde dag tills du säger upp',
     ingar: [
-      'Alla 25 jobbträffar med skälen',
+      ALLA_TRAFFAR,
       'Jobbcoachen, så mycket du vill',
       'Bli upptäckt och LinkedIn-optimering',
       ALLT_I_PREMIUM,
@@ -114,7 +117,7 @@ export const PAKET: Record<PlanKeyPaket, PaketInfo> = {
     intervall: 'Dras var tredje månad på samma datum tills du säger upp',
     ingar: [
       'Jobbmatchning, Jobbcoachen och Bli upptäckt, i tre månader',
-      'Alla 25 jobbträffar med skälen',
+      ALLA_TRAFFAR,
       ALLT_I_PREMIUM,
       'Säg upp när som helst, ett klick',
     ],

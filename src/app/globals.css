@@ -1882,3 +1882,114 @@ html {
   descent-override: 24.67%;
   line-gap-override: 0%;
 }
+
+/* ============================================================
+   PUBLIKT V2 (docs/design/spec-publikt-v2-del-a-2026-10-12.md avsnitt 2,
+   skissen version 4).
+
+   De publika sidorna som byggts om står i <div class="pub-sida">. Som
+   Rummen lyfts tokens till roten med :root:has(.pub-sida), så att
+   sidhuvudet, sidfoten och portaler under <body> står i samma färger och
+   samma läge (ljust eller mörkt). Övriga publika sidor (artiklar, exempel)
+   har ingen .pub-sida och behåller Tråden ovan, i ljust läge.
+
+   Rummen används inte på publika sidor: [data-rum] lyfter sina tokens till
+   roten, och med fem rum i följd vinner det sista. Sektionerna sätter i
+   stället pub-rum-* som bara gäller lokalt.
+   ============================================================ */
+:root {
+  --koppar-djup: #C4621F;
+  --koppar-text: #1A1206;
+  /* Bläck-ytan: Premium och FAQ-ramen på priser */
+  --premium: #0F0E12;
+  --premium-2: #1A191F;
+  --premium-kant: rgba(255, 255, 255, 0.12);
+  /* Telefonens golv, kort och kanter */
+  --golv-skarm: #F3F1EC;
+  --papper-skarm: #FFFFFF;
+  --kant-skarm: #E3E1DC;
+  --lyft-stor: 0 2px 4px rgba(20, 16, 10, 0.08), 0 40px 80px -30px rgba(20, 16, 10, 0.45);
+  --r-stor: 24px;
+}
+:root:has(.pub-sida) {
+  color-scheme: light;
+  --mark: #EDE8DF;
+  --panel: #FFFFFF;
+  --insunken: #E4DED3;
+  --kant: #DBD2C4;
+  --kant-stark: #C4B9A8;
+  --ink-1: #1C1917;
+  --ink-2: #57534E;
+  --ink-3: #6B645E;
+  --koppar: #E07A2F;
+  --koppar-ink: #A8491A;
+  --koppar-ljus: #F4B98A;
+  --koppar-mjuk: #FBE3D0;
+  --positiv: #2F7D5B;
+  --positiv-mjuk: #DCEFE5;
+  --varning: #985A08;
+  --fel: #B3382E;
+  --vagg-ink: #F5F6FC;
+  --vagg-mjuk: rgba(255, 255, 255, 0.74);
+  --vagg-kant: rgba(255, 255, 255, 0.14);
+  --lyft: 0 1px 2px rgba(28, 25, 23, 0.06), 0 12px 32px -12px rgba(28, 25, 23, 0.22);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):has(.pub-sida) {
+    color-scheme: dark;
+    --mark: #141317; --panel: #1E1D22; --insunken: #26252B;
+    --kant: #2F2E35; --kant-stark: #45444C;
+    --ink-1: #F3F2F7; --ink-2: #C7C6D0; --ink-3: #9391A1; --ink-hover: #E4E3EC;
+    --koppar-ink: #F2A368; --koppar-mjuk: rgba(224, 122, 47, 0.18);
+    --accent-ink: #F2A368; --accent-mjuk: rgba(224, 122, 47, 0.18);
+    --positiv: #6CC79A; --positiv-mjuk: #1C3A2D; --varning: #E3A85A; --fel: #E57F74;
+    --premium: #09090C; --premium-2: #121116;
+    --golv-skarm: #17171B; --papper-skarm: #232227; --kant-skarm: #34333A;
+    --lyft: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -12px rgba(0, 0, 0, 0.6);
+    --lyft-stor: 0 2px 4px rgba(0, 0, 0, 0.4), 0 40px 80px -30px rgba(0, 0, 0, 0.8);
+  }
+}
+:root[data-theme="dark"]:has(.pub-sida) {
+  color-scheme: dark;
+  --mark: #141317; --panel: #1E1D22; --insunken: #26252B;
+  --kant: #2F2E35; --kant-stark: #45444C;
+  --ink-1: #F3F2F7; --ink-2: #C7C6D0; --ink-3: #9391A1; --ink-hover: #E4E3EC;
+  --koppar-ink: #F2A368; --koppar-mjuk: rgba(224, 122, 47, 0.18);
+  --accent-ink: #F2A368; --accent-mjuk: rgba(224, 122, 47, 0.18);
+  --positiv: #6CC79A; --positiv-mjuk: #1C3A2D; --varning: #E3A85A; --fel: #E57F74;
+  --premium: #09090C; --premium-2: #121116;
+  --golv-skarm: #17171B; --papper-skarm: #232227; --kant-skarm: #34333A;
+  --lyft: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -12px rgba(0, 0, 0, 0.6);
+  --lyft-stor: 0 2px 4px rgba(0, 0, 0, 0.4), 0 40px 80px -30px rgba(0, 0, 0, 0.8);
+}
+/* Sidan bakom: body har Trådens bg-white, här är det marken. */
+:root:has(.pub-sida) body {
+  background-color: var(--mark);
+  color: var(--ink-1);
+}
+/* Den svarta knappen fasas ut på de ombyggda sidorna (avsnitt 3): sidhuvudets
+   Skapa konto och liknande blir koppar med mörk text, i båda lägena. */
+:root:has(.pub-sida) .bg-ink-1.text-white {
+  background: linear-gradient(180deg, var(--koppar), var(--koppar-djup));
+  color: var(--koppar-text);
+}
+
+/* Publika rum: sätter bara variabler lokalt, inget lyfts till roten.
+   Mörkt läge byter ton och ton-ink, väggen behålls. */
+.pub-rum-tran { --rum-vagg: #1B2246; --rum-vagg-2: #2B3470; --rum-ljus: #93A0EC; --rum-ton: #DFE3F6; --rum-ink: #3B4790; }
+.pub-rum-cv   { --rum-vagg: #113538; --rum-vagg-2: #1D4D51; --rum-ljus: #7FCFCA; --rum-ton: #D7ECEA; --rum-ink: #1E5F5F; }
+.pub-rum-brev { --rum-vagg: #3A1930; --rum-vagg-2: #56284A; --rum-ljus: #E29DCB; --rum-ton: #F0DCE8; --rum-ink: #6E2B59; }
+.pub-rum-jobb { --rum-vagg: #1B3324; --rum-vagg-2: #2A4C37; --rum-ljus: #8FD3A0; --rum-ton: #DCEBDD; --rum-ink: #245C37; }
+.pub-rum-neu  { --rum-vagg: #26262C; --rum-vagg-2: #36363E; --rum-ljus: #C9C8D2; --rum-ton: #E2E1E6; --rum-ink: #3C3C46; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .pub-rum-tran { --rum-ton: #161B36; --rum-ink: #AEB4DA; }
+  :root:not([data-theme="light"]) .pub-rum-cv   { --rum-ton: #0E2A2C; --rum-ink: #A3C9C8; }
+  :root:not([data-theme="light"]) .pub-rum-brev { --rum-ton: #2A1224; --rum-ink: #D6AFC8; }
+  :root:not([data-theme="light"]) .pub-rum-jobb { --rum-ton: #14261B; --rum-ink: #A9C9B1; }
+  :root:not([data-theme="light"]) .pub-rum-neu  { --rum-ton: #222127; --rum-ink: #B9B8C2; }
+}
+:root[data-theme="dark"] .pub-rum-tran { --rum-ton: #161B36; --rum-ink: #AEB4DA; }
+:root[data-theme="dark"] .pub-rum-cv   { --rum-ton: #0E2A2C; --rum-ink: #A3C9C8; }
+:root[data-theme="dark"] .pub-rum-brev { --rum-ton: #2A1224; --rum-ink: #D6AFC8; }
+:root[data-theme="dark"] .pub-rum-jobb { --rum-ton: #14261B; --rum-ink: #A9C9B1; }
+:root[data-theme="dark"] .pub-rum-neu  { --rum-ton: #222127; --rum-ink: #B9B8C2; }

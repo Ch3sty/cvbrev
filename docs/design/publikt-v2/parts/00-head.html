@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jobbcoach publikt v2</title>
+<meta name="description" content="Nytt koncept för Jobbcoach.ai:s publika sidor: startsidan, priser och rekryteringstester, med produkten visad i telefoner och fem färgblock.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Schibsted+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Tokens. Tråden utanför inloggat, Rummens kulörer som sektionsfärg.
+   ============================================================ */
+:root{
+  --display:"Schibsted Grotesk",Inter,system-ui,sans-serif;
+  --body:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+
+  --mark:#EDE8DF; --panel:#FFFFFF; --insunken:#E4DED3;
+  --kant:#DBD2C4; --kant-stark:#C4B9A8;
+  --ink-1:#1C1917; --ink-2:#57534E; --ink-3:#6B645E;
+  --koppar:#E07A2F; --koppar-djup:#C4621F; --koppar-ink:#A8491A;
+  --koppar-ljus:#F4B98A; --koppar-text:#1A1206; --koppar-mjuk:#FBE3D0;
+  --positiv:#2F7D5B; --positiv-mjuk:#DCEFE5; --varning:#985A08; --fel:#B3382E;
+
+  /* Premiums egen yta */
+  --black:#0F0E12; --black-2:#1A191F; --black-kant:rgba(255,255,255,.12);
+
+  /* Rummen: vägg, vägg-2, ljus (linje på vägg), ton (ljus yta), ton-ink (text på ton) */
+  --tran:#1B2246; --tran-2:#2B3470; --tran-ljus:#93A0EC; --tran-ton:#DFE3F6; --tran-ink:#3B4790;
+  --cv:#113538;   --cv-2:#1D4D51;   --cv-ljus:#7FCFCA;   --cv-ton:#D7ECEA;   --cv-ink:#1E5F5F;
+  --brev:#3A1930; --brev-2:#56284A; --brev-ljus:#E29DCB; --brev-ton:#F0DCE8; --brev-ink:#6E2B59;
+  --jobb:#1B3324; --jobb-2:#2A4C37; --jobb-ljus:#8FD3A0; --jobb-ton:#DCEBDD; --jobb-ink:#245C37;
+  --neu:#26262C;  --neu-2:#36363E;  --neu-ljus:#C9C8D2;  --neu-ton:#E2E1E6;  --neu-ton-dark:#2C2B32; --neu-ink:#3C3C46;
+
+  --vagg-ink:#F5F6FC; --vagg-mjuk:rgba(255,255,255,.74); --vagg-kant:rgba(255,255,255,.14);
+  --golv-skarm:#F3F1EC; --papper-skarm:#FFFFFF; --kant-skarm:#E3E1DC;
+
+  --lyft:0 1px 2px rgba(28,25,23,.06),0 12px 32px -12px rgba(28,25,23,.22);
+  --lyft-stor:0 2px 4px rgba(20,16,10,.08),0 40px 80px -30px rgba(20,16,10,.45);
+  --r:14px; --r-stor:24px;
+  --fokus:3px solid var(--koppar);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --mark:#141317; --panel:#1E1D22; --insunken:#26252B;
+    --kant:#2F2E35; --kant-stark:#45444C;
+    --ink-1:#F3F2F7; --ink-2:#C7C6D0; --ink-3:#9391A1;
+    --koppar-ink:#F2A368; --koppar-mjuk:rgba(224,122,47,.18);
+    --positiv:#6CC79A; --positiv-mjuk:#1C3A2D; --varning:#E3A85A; --fel:#E57F74;
+    --black:#09090C; --black-2:#121116;
+    --tran-ton:#161B36; --tran-ink:#AEB4DA;
+    --cv-ton:#0E2A2C;   --cv-ink:#A3C9C8;
+    --brev-ton:#2A1224; --brev-ink:#D6AFC8;
+    --jobb-ton:#14261B; --jobb-ink:#A9C9B1;
+    --neu-ton:#222127;  --neu-ink:#B9B8C2;
+    --golv-skarm:#17171B; --papper-skarm:#232227; --kant-skarm:#34333A;
+    --lyft:0 1px 2px rgba(0,0,0,.3),0 12px 32px -12px rgba(0,0,0,.6);
+    --lyft-stor:0 2px 4px rgba(0,0,0,.4),0 40px 80px -30px rgba(0,0,0,.8);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --mark:#141317; --panel:#1E1D22; --insunken:#26252B;
+  --kant:#2F2E35; --kant-stark:#45444C;
+  --ink-1:#F3F2F7; --ink-2:#C7C6D0; --ink-3:#9391A1;
+  --koppar-ink:#F2A368; --koppar-mjuk:rgba(224,122,47,.18);
+  --positiv:#6CC79A; --positiv-mjuk:#1C3A2D; --varning:#E3A85A; --fel:#E57F74;
+  --black:#09090C; --black-2:#121116;
+  --tran-ton:#161B36; --tran-ink:#AEB4DA;
+  --cv-ton:#0E2A2C;   --cv-ink:#A3C9C8;
+  --brev-ton:#2A1224; --brev-ink:#D6AFC8;
+  --jobb-ton:#14261B; --jobb-ink:#A9C9B1;
+  --neu-ton:#222127;  --neu-ink:#B9B8C2;
+  --golv-skarm:#17171B; --papper-skarm:#232227; --kant-skarm:#34333A;
+  --lyft:0 1px 2px rgba(0,0,0,.3),0 12px 32px -12px rgba(0,0,0,.6);
+  --lyft-stor:0 2px 4px rgba(0,0,0,.4),0 40px 80px -30px rgba(0,0,0,.8);
+  color-scheme:dark;
+}
+
+/* ============================================================
+   Grund
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:hidden}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--mark);color:var(--ink-1);font-family:var(--body);font-size:16px;line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body.inbaddad{padding-top:0}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--display);letter-spacing:-.02em;line-height:1.05;margin:0;font-weight:800;text-wrap:balance}
+p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+button{font:inherit}
+:focus-visible{outline:var(--fokus);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1120px,100% - 32px);margin-inline:auto}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Typografi */
+.h1{font-size:clamp(38px,9.6vw,64px);line-height:.98}
+.h2{font-size:clamp(30px,6.4vw,46px)}
+.h3{font-size:clamp(22px,4.4vw,28px);letter-spacing:-.015em}
+.h4{font-size:18px;letter-spacing:-.01em;line-height:1.25}
+.kick{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--koppar-ink);margin-bottom:14px}
+.ingress{font-size:clamp(17px,2vw,20px);line-height:1.5;color:var(--ink-2);max-width:56ch}
+.ingress b{color:var(--ink-1);font-weight:600}
+.brod{color:var(--ink-2);max-width:62ch}
+.brod + .brod{margin-top:12px}
+.liten{font-size:14px;color:var(--ink-3)}
+
+/* Knappar: exakt en fylld per sektion, alltid koppar med mörk text */
+.knapp{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 24px;border-radius:999px;background:linear-gradient(180deg,var(--koppar),var(--koppar-djup));color:var(--koppar-text);font-weight:700;font-size:16px;text-decoration:none;border:0;cursor:pointer;box-shadow:0 1px 0 rgba(255,255,255,.25) inset,0 6px 18px -6px rgba(196,98,31,.6);transition:transform .15s ease,box-shadow .15s ease}
+.knapp:hover{transform:translateY(-1px);box-shadow:0 1px 0 rgba(255,255,255,.25) inset,0 10px 24px -8px rgba(196,98,31,.7)}
+.knapp:active{transform:translateY(0)}
+.knapp-s{min-height:40px;padding:0 16px;font-size:14px}
+.lank{font-weight:600;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1.5px;color:inherit}
+.lank:hover{text-decoration-thickness:2.5px}
+.handling{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-top:28px}
+.handling .liten{margin:0}
+@media (max-width:640px){.handling{flex-direction:column;align-items:stretch;gap:16px}.handling .knapp{width:100%}.handling .lank,.handling .liten{text-align:center}}
+
+/* Sektioner: minst fyra ytor per sida, ingen delar färg med grannen */
+.sek{padding:clamp(56px,8vw,112px) 0;position:relative;overflow:hidden}
+.sek-tat{padding:clamp(40px,5vw,72px) 0}
+.yta-mark{background:var(--mark)}
+.yta-panel{background:var(--panel)}
+.yta-black{background:var(--black);color:var(--vagg-ink)}
+.yta-black .kick{color:var(--koppar-ljus)}
+.yta-black .brod,.yta-black .ingress,.yta-black .liten{color:var(--vagg-mjuk)}
+.yta-black .ingress b{color:#fff}
+/* Rummens väggar */
+.vagg{color:var(--vagg-ink)}
+.vagg .kick{color:var(--rum-ljus)}
+.vagg .brod,.vagg .ingress,.vagg .liten{color:var(--vagg-mjuk)}
+.vagg .ingress b{color:#fff}
+.vagg .lank{color:#fff}
+.rum-cv{--rum:var(--cv);--rum-2:var(--cv-2);--rum-ljus:var(--cv-ljus);--rum-ton:var(--cv-ton);--rum-ink:var(--cv-ink)}
+.rum-jobb{--rum:var(--jobb);--rum-2:var(--jobb-2);--rum-ljus:var(--jobb-ljus);--rum-ton:var(--jobb-ton);--rum-ink:var(--jobb-ink)}
+.rum-tran{--rum:var(--tran);--rum-2:var(--tran-2);--rum-ljus:var(--tran-ljus);--rum-ton:var(--tran-ton);--rum-ink:var(--tran-ink)}
+.rum-brev{--rum:var(--brev);--rum-2:var(--brev-2);--rum-ljus:var(--brev-ljus);--rum-ton:var(--brev-ton);--rum-ink:var(--brev-ink)}
+.rum-neu{--rum:var(--neu);--rum-2:var(--neu-2);--rum-ljus:var(--neu-ljus);--rum-ton:var(--neu-ton);--rum-ink:var(--neu-ink)}
+.yta-vagg{background:radial-gradient(120% 90% at 85% 0%,var(--rum-2) 0%,var(--rum) 60%)}
+.yta-ton{background:var(--rum-ton)}
+.yta-ton .kick{color:var(--rum-ink)}
+
+/* Tvåspalt */
+.tva{display:grid;gap:40px;align-items:center}
+@media (min-width:900px){.tva{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px}.tva.omv > :first-child{order:2}}
+.tva-text{max-width:560px}
+
+/* Kort och listor */
+.kort{background:var(--panel);border:1px solid var(--kant);border-radius:var(--r-stor);padding:28px;box-shadow:var(--lyft)}
+.bock{display:grid;gap:12px}
+.bock li{display:flex;gap:12px;align-items:flex-start;line-height:1.45}
+.bock li::before{content:"";flex:none;width:22px;height:22px;border-radius:50%;margin-top:1px;background:var(--koppar) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231A1206' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/14px no-repeat}
+.steg{display:grid;gap:18px;counter-reset:steg}
+.steg li{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;counter-increment:steg}
+.steg li::before{content:counter(steg);font-family:var(--display);font-weight:800;font-size:22px;line-height:1;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--rum-ton,var(--insunken));color:var(--rum-ink,var(--ink-1))}
+.steg h3,.steg h4{font-size:17px;margin-bottom:4px;letter-spacing:-.01em;line-height:1.3}
+.steg p{color:var(--ink-2);font-size:15px}
+.vagg .steg li::before{background:rgba(255,255,255,.12);color:#fff}
+.vagg .steg p{color:var(--vagg-mjuk)}
+.yta-black .steg li::before{background:var(--black-2);color:var(--koppar-ljus)}
+
+/* Siffror: stora tal, aldrig uppradade med mittpunkter */
+.tal{display:flex;gap:clamp(24px,5vw,56px);flex-wrap:wrap;margin-top:36px}
+.tal li{display:grid;gap:2px}
+.tal b{font-family:var(--display);font-weight:800;font-size:clamp(26px,4vw,34px);letter-spacing:-.02em;line-height:1}
+.tal span{font-size:13px;color:var(--ink-3)}
+.vagg .tal span{color:var(--vagg-mjuk)}
+
+/* FAQ */
+.faq{display:grid;gap:0;border-top:1px solid var(--kant)}
+.faq details{border-bottom:1px solid var(--kant)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 0;font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:-.01em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:none;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--kant-stark);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2357534E' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M12 6v12M6 12h12'/%3E%3C/svg%3E") center/14px no-repeat;transition:transform .25s ease}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq p{color:var(--ink-2);padding:0 48px 20px 0;max-width:70ch}
+
+/* Vågkant, en gång per sida */
+.vag{position:absolute;left:0;right:0;bottom:-1px;height:clamp(28px,6vw,72px);pointer-events:none}
+.vag svg{width:100%;height:100%}
+
+/* ============================================================
+   Sidhuvud och sidfot
+   ============================================================ */
+.topp{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--mark) 88%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid color-mix(in srgb,var(--kant) 70%,transparent)}
+.topp-i{display:flex;align-items:center;gap:28px;height:64px}
+.logo{display:inline-flex;align-items:center;gap:9px;font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.02em;text-decoration:none}
+.logo-m{width:28px;height:28px;border-radius:8px;background:linear-gradient(180deg,var(--koppar),var(--koppar-djup));color:var(--koppar-text);display:grid;place-items:center;font-size:17px}
+.logo em{font-style:normal;color:var(--koppar-ink)}
+.meny{display:none;align-items:center;gap:4px;font-size:15px;font-weight:500}
+.meny > a,.meny summary{padding:8px 12px;border-radius:999px;text-decoration:none;color:var(--ink-2);cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:6px}
+.meny summary::-webkit-details-marker{display:none}
+.meny > a:hover,.meny summary:hover{background:var(--insunken);color:var(--ink-1)}
+.meny .aktiv{background:var(--insunken);color:var(--ink-1)}
+.drop{position:relative}
+.drop-p{position:absolute;top:calc(100% + 10px);left:0;width:640px;background:var(--panel);border:1px solid var(--kant);border-radius:20px;box-shadow:var(--lyft-stor);padding:24px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;z-index:60}
+.drop-p h4{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px;font-weight:700}
+.drop-p a{display:block;padding:6px 0;text-decoration:none;color:var(--ink-1);font-weight:500}
+.drop-p a:hover{color:var(--koppar-ink)}
+.drop-p .prem{grid-column:1/-1;background:var(--black);color:var(--vagg-ink);border-radius:14px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.drop-p .prem b{font-family:var(--display);font-size:16px}
+.drop-p .prem span{color:var(--vagg-mjuk);font-size:13px}
+.drop-p .prem a{color:var(--koppar-ljus);font-weight:700;white-space:nowrap}
+.topp-h{margin-left:auto;display:none;align-items:center;gap:18px;font-size:15px;font-weight:600}
+.topp-h > a:first-child{text-decoration:none;color:var(--ink-2)}
+.burg{margin-left:auto}
+.burg summary{list-style:none;cursor:pointer;width:44px;height:44px;display:grid;place-items:center;border-radius:12px}
+.burg summary::-webkit-details-marker{display:none}
+.burg summary svg{width:24px;height:24px;stroke:var(--ink-1);fill:none;stroke-width:2;stroke-linecap:round}
+.burg-p{position:fixed;inset:64px 0 0 0;background:var(--mark);padding:16px;overflow:auto;z-index:70}
+.burg-p a{display:block;padding:12px 8px;font-size:17px;font-weight:600;text-decoration:none;border-bottom:1px solid var(--kant)}
+.burg-p h4{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:22px 8px 6px;font-weight:700}
+.burg-p .knapp{width:100%;margin-top:20px}
+@media (min-width:1024px){.meny,.topp-h{display:flex}.burg{display:none}}
+
+.fot{background:var(--black);color:var(--vagg-ink);padding:64px 0 40px}
+.fot-g{display:grid;gap:36px}
+@media (min-width:760px){.fot-g{grid-template-columns:1.3fr 1fr 1fr 1fr}}
+.fot h4{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--koppar-ljus);margin-bottom:14px;font-weight:700}
+.fot a{display:block;padding:4px 0;color:var(--vagg-mjuk);text-decoration:none;font-size:15px}
+.fot a:hover{color:#fff}
+.fot .logo{color:#fff}
+.fot .logo em{color:var(--koppar-ljus)}
+.fot .liten{color:var(--vagg-mjuk);margin-top:14px;max-width:34ch}
+.fot-b{margin-top:48px;padding-top:24px;border-top:1px solid var(--black-kant);display:flex;flex-wrap:wrap;gap:12px 24px;font-size:13px;color:var(--vagg-mjuk)}
+.fot-b a{display:inline;padding:0}
+
+/* Fast knapprad på mobil efter hjälten */
+.botten{position:fixed;left:0;right:0;bottom:0;z-index:40;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--mark) 92%,transparent);backdrop-filter:blur(14px);border-top:1px solid var(--kant);transform:translateY(110%);transition:transform .3s ease}
+.botten .knapp{width:100%;min-height:56px}
+.botten.syns{transform:none}
+@media (min-width:1024px){.botten{display:none}}
+@media (prefers-reduced-motion: reduce){.botten{transition:none}}
+
+/* ============================================================
+   Telefonen. Ett skal, riktiga vyer i HTML.
+   ============================================================ */
+.tel{width:272px;height:590px;border-radius:42px;background:#1B1A1F;padding:9px;position:relative;flex:none;box-shadow:var(--lyft-stor),inset 0 0 0 2px #3C3A42}
+.tel::before{content:"";position:absolute;top:19px;left:50%;transform:translateX(-50%);width:76px;height:22px;border-radius:12px;background:#0A0A0C;z-index:3}
+.skarm{width:100%;height:100%;border-radius:34px;overflow:hidden;background:var(--golv-skarm);display:flex;flex-direction:column;font-family:var(--body);font-size:12px;line-height:1.35;color:var(--ink-1);position:relative}
+.s-status{height:46px;flex:none;display:flex;justify-content:space-between;align-items:flex-start;padding:13px 24px 0;font-size:12px;font-weight:600;color:#fff}
+.s-status svg{width:40px;height:11px}
+.s-vagg{background:radial-gradient(120% 100% at 100% 0%,var(--rum-2) 0%,var(--rum) 65%);color:var(--vagg-ink);padding:8px 16px 18px;margin-top:-46px;padding-top:54px;flex:none}
+.s-kick{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--rum-ljus)}
+.s-rub{font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.02em;line-height:1.1;margin-top:4px}
+.s-sub{color:var(--vagg-mjuk);font-size:11.5px;margin-top:4px}
+.s-golv{flex:1;padding:12px 12px 4px;display:grid;gap:9px;align-content:start;overflow:hidden}
+.s-kort{background:var(--papper-skarm);border:1px solid var(--kant-skarm);border-radius:14px;padding:11px 12px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.s-kick2{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+.s-knapp{margin-top:auto;background:linear-gradient(180deg,var(--koppar),var(--koppar-djup));color:var(--koppar-text);font-weight:700;border-radius:999px;height:40px;display:grid;place-items:center;font-size:13px}
+.s-fot{padding:0 12px 14px;flex:none}
+.s-hem{height:4px;width:110px;border-radius:2px;background:rgba(127,127,127,.5);margin:8px auto 0}
+.s-dim{color:var(--ink-3)}
+.s-rad{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.s-pill{white-space:nowrap;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;background:var(--koppar-mjuk);color:var(--koppar-ink)}
+.s-pill.gron{background:var(--positiv-mjuk);color:var(--positiv)}
+.s-mät{height:5px;border-radius:3px;background:var(--kant-skarm);overflow:hidden;margin-top:5px}
+.s-mät i{display:block;height:100%;border-radius:3px;background:var(--koppar)}
+
+/* Banan i hjälten */
+.bana{display:grid;gap:0;padding:4px 2px}
+.st{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;position:relative;padding-bottom:16px}
+.st::before{content:"";position:absolute;left:14px;top:30px;bottom:0;width:2px;background:var(--kant-skarm)}
+.st:last-child::before{display:none}
+.st.klar::before{background:var(--koppar)}
+.st-n{width:30px;height:30px;border-radius:50%;border:2px solid var(--kant-stark);background:var(--papper-skarm);display:grid;place-items:center;position:relative;z-index:1}
+.st-n svg{width:14px;height:14px}
+.st.klar .st-n{background:var(--koppar);border-color:var(--koppar)}
+.st.nu .st-n{border-color:var(--koppar);box-shadow:0 0 0 4px var(--koppar-mjuk)}
+.st b{display:block;font-size:12.5px;font-weight:600;line-height:1.2;margin-top:4px}
+.st span{display:block;font-size:11px;color:var(--ink-3);margin-top:2px}
+.st .s-pill{display:inline-block;margin-top:5px}
+
+/* Poängringen */
+.ring{position:relative;width:96px;height:96px;flex:none}
+.ring svg{width:96px;height:96px;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:9;stroke-linecap:round}
+.ring .bak{stroke:rgba(255,255,255,.16)}
+.ring .fram{stroke:var(--koppar);stroke-dasharray:263;stroke-dashoffset:calc(263 - 263 * var(--p,.74))}
+.ring .siffra{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:30px;letter-spacing:-.03em;color:#fff}
+.ring .siffra small{display:block;font-size:9px;font-weight:600;letter-spacing:.06em;color:var(--vagg-mjuk);text-align:center;margin-top:-4px}
+
+/* Matrisen i grafik v3: papperskort, hårlinjer, lucka med streckad ram */
+.matris{background:var(--papper-skarm);border:1px solid var(--kant-skarm);border-radius:14px;padding:6px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.matris-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--kant-skarm);border-radius:6px;overflow:hidden}
+.matris-g div{aspect-ratio:1;background:var(--papper-skarm);display:grid;place-items:center}
+.matris-g div.lucka{background:var(--golv-skarm)}
+.matris-g svg{width:80%;height:80%}
+.alt{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:9px}
+.alt div{height:44px;position:relative;background:var(--papper-skarm);border:1.5px solid var(--kant-skarm);border-radius:10px;display:grid;place-items:center}
+.alt b{position:absolute;top:3px;left:7px;font-size:9px;color:var(--ink-3)}
+.alt svg{width:36px;height:36px}
+
+/* Chatten */
+.bubbla{max-width:86%;padding:9px 12px;border-radius:14px;font-size:12px;line-height:1.4;background:var(--papper-skarm);border:1px solid var(--kant-skarm)}
+.bubbla.jag{margin-left:auto;background:var(--ink-1);color:var(--mark);border-color:transparent;border-bottom-right-radius:4px}
+.bubbla.coach{border-bottom-left-radius:4px}
+.s-input{height:40px;border-radius:999px;border:1px solid var(--kant-skarm);background:var(--papper-skarm);display:flex;align-items:center;padding:0 14px;color:var(--ink-3);font-size:12px;justify-content:space-between}
+.s-input i{width:28px;height:28px;border-radius:50%;background:var(--koppar)}
+
+/* Brevet */
+.papper{background:var(--papper-skarm);border:1px solid var(--kant-skarm);border-radius:12px;padding:14px;font-size:11px;line-height:1.5;color:var(--ink-2);position:relative}
+.papper b{color:var(--ink-1);display:block;margin-bottom:6px;font-size:12px}
+.papper mark{background:var(--koppar-mjuk);color:inherit;border-radius:3px;padding:0 2px}
+.papper .markor{display:inline-block;width:2px;height:12px;background:var(--koppar);vertical-align:-2px;margin-left:1px}
+
+/* Svävande objekt i hjälten */
+.hero-bild{position:relative;width:100%;max-width:520px;margin-inline:auto;min-height:600px;display:grid;place-items:center}
+.flyt{position:absolute;filter:drop-shadow(0 18px 24px rgba(20,16,10,.22));will-change:transform}
+.flyt svg{width:100%;height:100%}
+.flyt-cv{width:112px;left:0;top:70px}
+.flyt-match{width:150px;right:-6px;top:120px}
+.flyt-matris{width:116px;left:4px;bottom:118px}
+.flyt-brev{width:92px;right:12px;bottom:70px}
+.flyt-chat{width:104px;right:40px;top:-6px}
+.flyt-bock{width:46px;left:70px;top:-10px}
+@media (max-width:640px){.hero-bild{min-height:560px;max-width:360px}.flyt-brev,.flyt-chat,.flyt-bock{display:none}.flyt-cv{left:-8px;top:40px;width:96px}.flyt-match{right:-14px;top:150px;width:132px}.flyt-matris{left:-4px;bottom:90px;width:84px}}
+
+/* Rörelse: tre och inga fler. Svävande (12 s), telefon glider in, poängen räknar upp. */
+@media (prefers-reduced-motion: no-preference){
+  .flyt{animation:svav 12s ease-in-out infinite}
+  .flyt:nth-child(2){animation-delay:-3s}.flyt:nth-child(3){animation-delay:-6s}.flyt:nth-child(4){animation-delay:-9s}.flyt:nth-child(5){animation-delay:-2s}.flyt:nth-child(6){animation-delay:-7s}
+  @keyframes svav{0%,100%{transform:translateY(0) rotate(var(--rot,0deg))}50%{transform:translateY(-12px) rotate(var(--rot,0deg))}}
+  .glid{opacity:0;transform:translateY(36px);transition:opacity .7s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+  .glid.inne{opacity:1;transform:none}
+  .ring .fram{transition:stroke-dashoffset 1.6s cubic-bezier(.2,.7,.2,1)}
+  .ring.vilar .fram{stroke-dashoffset:263}
+}
+.flyt{transform:rotate(var(--rot,0deg))}
+
+/* Ikonerna som sektionsobjekt (egna, currentColor) */
+.obj{width:64px;height:64px;color:var(--rum-ink,var(--ink-1))}
+.obj svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.vagg .obj{color:#fff}
+
+/* Listkort med länk */
+.lanklista{display:grid;gap:12px}
+@media (min-width:760px){.lanklista{grid-template-columns:1fr 1fr}}
+.lanklista a{display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:center;padding:16px 18px;background:var(--panel);border:1px solid var(--kant);border-radius:18px;text-decoration:none;transition:border-color .15s,transform .15s}
+.lanklista a:hover{border-color:var(--kant-stark);transform:translateY(-2px)}
+.lanklista .obj{width:52px;height:52px;padding:10px;border-radius:14px;background:var(--rum-ton);color:var(--rum-ink)}
+.lanklista b{display:block;font-family:var(--display);font-size:17px;letter-spacing:-.01em}
+.lanklista span{display:block;color:var(--ink-2);font-size:14px;margin-top:2px}
+.lanklista .pil{width:22px;height:22px;stroke:var(--ink-3);fill:none;stroke-width:2}
+
+/* Tabellen */
+.tabell{width:100%;border-collapse:collapse;font-size:15px}
+.tabell th,.tabell td{text-align:left;padding:14px 12px;border-bottom:1px solid var(--kant);vertical-align:top}
+.tabell thead th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.tabell th[scope=row]{font-weight:600}
+.tabell th[scope=row] small,.tabell td small{display:block;font-weight:400;color:var(--ink-3);font-size:13px}
+.tabell .grupp td,.tabell .grupp th{background:var(--insunken);font-weight:700;font-size:13px;padding:10px 12px}
+.tabell td.prem{font-weight:600}
+@media (max-width:600px){.tabell{font-size:13.5px}.tabell th,.tabell td{padding:10px 6px}}
+
+/* Mediacitat */
+.media-rad{display:flex;flex-wrap:wrap;gap:12px 36px;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:-.01em;color:var(--ink-3)}
+.media-rad small{font-family:var(--body);font-weight:500;font-size:13px;letter-spacing:.06em;text-transform:uppercase;width:100%;text-align:center}
+.citat{display:grid;gap:0;border-top:1px solid var(--kant)}
+.citat li{display:grid;gap:4px 24px;padding:18px 0;border-bottom:1px solid var(--kant)}
+@media (min-width:760px){.citat li{grid-template-columns:180px 1fr}}
+.citat .vem{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding-top:4px}
+.citat b{font-family:var(--display);font-size:18px;letter-spacing:-.01em}
+.citat p{color:var(--ink-2);font-size:15px}
+.citat a{font-size:13px;color:var(--ink-3)}
+
+/* Premium: eget varumärke */
+.gradord{background:linear-gradient(92deg,#F4B98A 0%,#FFD9B0 45%,#F2A368 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+@supports not (background-clip:text){.gradord{color:var(--koppar-ljus)}}
+.pris{font-family:var(--display);font-weight:800;font-size:clamp(44px,8vw,72px);letter-spacing:-.03em;line-height:1}
+.pris small{font-size:18px;font-weight:600;letter-spacing:0;color:var(--vagg-mjuk);margin-left:8px}
+@media (max-width:640px){.pris small{display:block;margin:8px 0 0}}
+@media (max-width:1023px){.fot{padding-bottom:132px}}
+
+/* Verktygsraster */
+.raster{display:grid;gap:16px}
+@media (min-width:760px){.raster-2{grid-template-columns:1fr 1fr}.raster-3{grid-template-columns:1fr 1fr 1fr}}
+.raster .kort h3{margin:14px 0 8px}
+.raster .kort p{color:var(--ink-2);font-size:15px}
+
+/* Kom igång-banan */
+.ki{display:grid;gap:0;counter-reset:ki}
+.ki li{display:grid;grid-template-columns:36px 1fr;gap:14px;align-items:center;position:relative;padding:8px 0;counter-increment:ki}
+.ki li::before{content:counter(ki);width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:14px;background:var(--panel);border:2px solid var(--koppar);color:var(--ink-1);position:relative;z-index:1}
+.ki li::after{content:"";position:absolute;left:17px;top:44px;bottom:-8px;width:2px;background:var(--koppar)}
+.ki li:last-child::after{display:none}
+.ki li:nth-child(-n+4)::before{background:var(--koppar);color:var(--koppar-text)}
+
+/* Premiums telefonsolfjäder */
+.prem-fan{position:relative;display:flex;justify-content:center;align-items:flex-end;min-height:600px}
+.prem-fan .tel{position:absolute;bottom:0}
+.prem-fan .tel:nth-child(1){transform:translateX(-150px) rotate(-8deg) translateY(30px);z-index:1}
+.prem-fan .tel:nth-child(2){z-index:3}
+.prem-fan .tel:nth-child(3){transform:translateX(150px) rotate(8deg) translateY(30px);z-index:2}
+.prem-fan .tel:nth-child(1).glid,.prem-fan .tel:nth-child(3).glid{transition:none;opacity:1}
+@media (max-width:899px){.prem-fan{min-height:650px;margin-top:28px}.prem-fan .tel:nth-child(1),.prem-fan .tel:nth-child(3){display:none}}
+@media (min-width:900px){.prem-fan .tel:nth-child(1){transform:translateX(-170px) rotate(-9deg) translateY(36px)}.prem-fan .tel:nth-child(3){transform:translateX(170px) rotate(9deg) translateY(36px)}}
+.ankare{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:24px;font-size:14px}
+
+/* Gratis som jämförelse */
+.gratis-kort{display:grid;gap:32px;background:var(--insunken);border-style:dashed;box-shadow:none}
+@media (min-width:900px){.gratis-kort{grid-template-columns:1.2fr 1fr;align-items:center}}
+.gratis-rad{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.gratis-rad li{display:grid;justify-items:center;text-align:center;gap:2px;padding:14px 6px;background:var(--panel);border-radius:16px;border:1px solid var(--kant)}
+.gratis-rad .obj{width:40px;height:40px;color:var(--ink-3);margin-bottom:6px}
+.gratis-rad b{font-family:var(--display);font-size:24px;letter-spacing:-.02em;line-height:1}
+.gratis-rad span{font-size:12px;color:var(--ink-3)}
+
+/* Prova-kortet */
+.prova-kort{display:grid;gap:24px;border-left:6px solid var(--rum)}
+@media (min-width:760px){.prova-kort{grid-template-columns:1fr 280px}}
+.smula{display:flex;gap:8px;font-size:13px;color:var(--vagg-mjuk);margin-bottom:18px;flex-wrap:wrap}
+.smula a{color:inherit;text-decoration:none}
+.smula a:hover{text-decoration:underline}
+
+/* Testtypskorten */
+.typ-kort{display:grid;align-content:start;gap:10px}
+.typ-bild{background:var(--rum-ton);border-radius:16px;padding:16px;margin:-8px -8px 8px}
+.typ-bild svg{width:100%;height:auto;max-height:140px}
+.typ-bild-matris svg{width:140px;height:140px;margin:0 auto}
+.typ-fakta{display:grid;gap:6px;margin-top:6px;padding-top:12px;border-top:1px solid var(--kant);font-size:14px}
+.typ-fakta li{display:flex;justify-content:space-between;gap:12px}
+.typ-fakta b{font-weight:600;white-space:nowrap}
+.typ-fakta span{color:var(--ink-3);text-align:right}
+
+/* Testerna får det största utrymmet: två telefoner, den främre större, och mer luft */
+.sek-stor{padding:clamp(72px,10vw,144px) 0}
+.duo{position:relative;display:flex;justify-content:center;align-items:flex-end;min-height:660px;width:100%}
+.duo .skala{position:relative;z-index:2;transform:scale(1.08);transform-origin:50% 100%}
+.duo > .tel{position:relative;z-index:1;margin-left:-28px;transform:rotate(5deg) translateY(-22px);transform-origin:50% 100%}
+@media (min-width:900px){.sek-stor .tva{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr)}}
+@media (max-width:1100px) and (min-width:641px){.duo .skala{transform:scale(1)}.duo > .tel{margin-left:-70px}}
+@media (max-width:640px){.duo{flex-direction:column;align-items:center;gap:28px;min-height:0}.duo .skala{transform:none}.duo > .tel{margin-left:0;transform:none}}
+.prem-fan .tel:nth-child(2){transform:scale(1.06);transform-origin:50% 100%}
+.prem-fan .tel:nth-child(2).glid{transform:translateY(36px) scale(1.06)}
+.prem-fan .tel:nth-child(2).glid.inne{transform:scale(1.06)}
+
+/* Personlighetstestets skärmar: band, kravprofiler, frågekort */
+.band{font-style:normal;font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:var(--insunken);color:var(--ink-2);white-space:nowrap}
+.band.hog{background:var(--koppar-mjuk);color:var(--koppar-ink)}
+.band.lag{background:var(--kant-skarm);color:var(--ink-3)}
+.krav{display:grid;gap:1px;padding:5px 0;border-top:1px solid var(--kant-skarm)}
+.krav:first-of-type{border-top:0;padding-top:0}
+.krav b{font-size:11.5px;font-weight:600}
+.krav span{font-size:11px;color:var(--varning)}
+.krav span.ok{color:var(--positiv)}
+.fraga b{display:block;font-family:var(--display);font-size:12.5px;line-height:1.25;letter-spacing:-.01em}
+.fraga p{margin-top:4px;font-size:10.5px;line-height:1.38;color:var(--ink-2)}
+.fraga strong{color:var(--koppar-ink);font-weight:700}
+
+/* Big Five */
+.bigfive{padding:20px 24px}
+.dim{display:grid;gap:14px}
+.dim li{display:grid;grid-template-columns:1fr auto;gap:2px 12px;align-items:baseline}
+.dim h3{font-size:16px;letter-spacing:-.01em}
+.dim p{font-size:13px;color:var(--vagg-mjuk);grid-column:1/-1;margin-top:-2px}
+.dim-m{grid-column:1/-1;height:8px;border-radius:4px;background:rgba(255,255,255,.14);overflow:hidden}
+.dim-m i{display:block;height:100%;border-radius:4px;background:var(--koppar)}
+/* De fem dimensionerna som egen rad under telefonerna */
+.dim5{display:grid;gap:12px;margin-top:48px}
+@media (min-width:760px){.dim5{grid-template-columns:repeat(5,1fr)}}
+.dim5 li{display:grid;align-content:start;gap:4px;padding:18px 16px;border-radius:18px;background:rgba(255,255,255,.07);border:1px solid var(--vagg-kant)}
+.dim5 h3{font-size:17px;letter-spacing:-.01em}
+.dim5 p{font-size:13px;color:var(--vagg-mjuk)}
+.dim5 .dim-m{margin-top:10px}
+.dim5 small{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--rum-ljus);margin-top:6px}
+/* Nivåerna: talet som huvudtal, aldrig uppradade i löptext */
+.nivaer{display:grid;gap:10px;margin-top:24px}
+.nivaer li{display:grid;grid-template-columns:72px 1fr;gap:14px;align-items:center;padding:12px 16px 12px 12px;border-radius:16px;background:rgba(255,255,255,.07);border:1px solid var(--vagg-kant)}
+.nivaer b{font-family:var(--display);font-weight:800;font-size:30px;letter-spacing:-.02em;line-height:1;color:#fff}
+.nivaer strong{display:block;font-size:15px;color:#fff;font-weight:600}
+.nivaer span{display:block;font-size:13px;color:var(--vagg-mjuk);margin-top:2px}
+
+/* Tvåspaltade steg */
+@media (min-width:760px){.steg-2{grid-template-columns:1fr 1fr;gap:24px 40px}}
+.guider a{grid-template-columns:1fr auto}
+.guider h3{font-family:var(--display);font-size:17px;letter-spacing:-.01em;margin-bottom:2px}
+
+/* Mönstersidan */
+.rumslista{display:grid;gap:10px;margin-top:28px}
+@media (min-width:760px){.rumslista{grid-template-columns:repeat(5,1fr)}}
+.rumslista li{display:grid;gap:6px;padding:14px;border-radius:14px;background:var(--rum-ton);color:var(--rum-ink)}
+.rumslista i{width:36px;height:36px;border-radius:10px;background:var(--rum)}
+.rumslista b{font-size:14px;line-height:1.3}
+.rumslista span{font-size:13px}
+.skelett{background:var(--insunken);border-radius:var(--r-stor);padding:28px}
+.sk-rad{height:14px;border-radius:7px;background:var(--kant-stark);width:var(--w);margin-bottom:12px;opacity:.6}
+
+/* Artefaktens verktygsrad */
+.ad{position:sticky;top:0;z-index:100;background:#0F0E12;color:#F5F6FC;border-bottom:1px solid rgba(255,255,255,.12);font-size:13px}
+.ad-i{display:flex;align-items:center;gap:8px;padding:8px 16px;flex-wrap:wrap}
+.ad b{font-family:var(--display);font-size:14px;margin-right:8px}
+.ad button,.ad a{background:transparent;border:1px solid rgba(255,255,255,.18);color:inherit;border-radius:999px;padding:6px 12px;cursor:pointer;text-decoration:none;font-size:13px}
+.ad button[aria-pressed="true"],.ad a.aktiv{background:var(--koppar);color:var(--koppar-text);border-color:var(--koppar);font-weight:700}
+.ad .sep{width:1px;height:20px;background:rgba(255,255,255,.18);margin:0 4px}
+.ad .hoger{margin-left:auto;display:flex;gap:8px}
+.sida{display:none}
+.sida.aktiv{display:block}
+body.inbaddad .ad{display:none}
+.mobilram{display:none;padding:32px 16px 60px;justify-content:center;background:var(--mark)}
+.mobilram.aktiv{display:flex}
+.mobilram .tel{width:382px;height:800px;border-radius:48px}
+.mobilram .tel::before{display:none}
+.mobilram iframe{width:100%;height:100%;border:0;border-radius:40px;background:#fff}
+body.visar-mobil .sida{display:none}
+.noter{max-width:760px;margin:0 auto;padding:48px 16px 96px}
+.noter li{padding:12px 0;border-bottom:1px solid var(--kant);color:var(--ink-2)}
+.noter li b{color:var(--ink-1)}
+</style>
+</head>
+<body>
+<div class="ad" id="ad">
+  <div class="ad-i">
+    <b>Jobbcoach publikt v2</b>
+    <a href="#start" class="flik aktiv" data-sida="start">Startsidan</a>
+    <a href="#priser" class="flik" data-sida="priser">Priser</a>
+    <a href="#tester" class="flik" data-sida="tester">Rekryteringstester</a>
+    <a href="#brev" class="flik" data-sida="brev">Personligt brev</a>
+    <a href="#matchning" class="flik" data-sida="matchning">Jobbmatchning</a>
+    <a href="#funktioner" class="flik" data-sida="funktioner">Funktioner</a>
+    <a href="#artikel" class="flik" data-sida="artikel">Artikel och arkiv</a>
+    <a href="#exempel" class="flik" data-sida="exempel">CV- och brevexempel</a>
+    <a href="#raknaut" class="flik" data-sida="raknaut">Räkna ut</a>
+    <a href="#foretag" class="flik" data-sida="foretag">Om oss, rekryterare, kontakt</a>
+    <a href="#monster" class="flik" data-sida="monster">Mönster, övriga verktyg</a>
+    <a href="#noter" class="flik" data-sida="noter">Noter och avvikelser</a>
+    <div class="hoger">
+      <button type="button" id="k-dator" aria-pressed="true">Dator</button>
+      <button type="button" id="k-mobil" aria-pressed="false">Mobil 360</button>
+      <span class="sep"></span>
+      <button type="button" id="k-ljus" aria-pressed="true">Ljust</button>
+      <button type="button" id="k-mork" aria-pressed="false">Mörkt</button>
+    </div>
+  </div>
+</div>
+<div class="mobilram" id="mobilram"><div class="tel"><iframe id="mobil-if" title="Mobilvy 360 px" loading="lazy"></iframe></div></div>

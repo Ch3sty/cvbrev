@@ -34,6 +34,7 @@ import {
   type PlanLength,
 } from '@/lib/plans/plans'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import type { Feature } from '@/lib/access/features'
 import type { RadIkonNamn } from '@/components/illustrations/PriserScener'
 
@@ -272,7 +273,7 @@ export const FUNKTIONER = {
       scenAlt: 'Tre jobbträffar med matchningsgrad',
       rubrik: 'Matchade jobb',
       sub: ingarGratis('tre träffar.'),
-      text: 'Den som söker på sin vanliga yrkestitel missar jobben som efterfrågar samma kompetens under ett annat namn, i en annan bransch. Vi utgår i stället från dina kompetenser, erfarenheter och utbildningar och matchar dem mot alla annonser i Platsbanken. Kör när du vill, och varje natt får du de 25 bästa träffarna med skälen utskrivna: vilka krav du täcker och vad som saknas. Från en träff skriver du det personliga brevet med ett klick.',
+      text: `Den som söker på sin vanliga yrkestitel missar jobben som efterfrågar samma kompetens under ett annat namn, i en annan bransch. Vi utgår i stället från dina kompetenser, erfarenheter och utbildningar och matchar dem mot alla annonser i Platsbanken. Kör när du vill, och varje natt får du de ${JOB_MATCHES_PER_RUN} bästa träffarna med skälen utskrivna: vilka krav du täcker och vad som saknas. Från en träff skriver du det personliga brevet med ett klick.`,
       ingar: ['allt'],
     },
     {

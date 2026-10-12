@@ -8,6 +8,11 @@
  *
  *   npx tsx scripts/seo-diff-artiklar.ts ta --port 8300 --ut docs/qa/seo-diff/fore.json
  *   npx tsx scripts/seo-diff-artiklar.ts jamfor --fore docs/qa/seo-diff/fore.json --efter docs/qa/seo-diff/efter.json
+ *   npx tsx scripts/seo-diff-artiklar.ts ta --bas https://www.jobbcoach.ai --ut docs/qa/seo-diff/publikt-v2-fore.json
+ *
+ * Publikt v2 (spec del A avsnitt 8): --bas tar avtrycket mot en annan värd än
+ * localhost, avtrycket bär FAQ-frågorna och ordantalet i main, och sidorna i
+ * PUBLIKT_V2 har den hårda regeln (rubriker med text och nivå, FAQ, ord).
  *
  * Per sida: h1, title, meta description, canonical, h2 och h3 med id, alla
  * interna länkar, alla JSON-LD-block (dateModified sätts vid bygge och
@@ -44,7 +49,57 @@ interface Avtryck {
   ramLankar: string[];
   jsonLd: string[];
   forstaBild: { src: string; alt: string } | null;
+  /** FAQ-frågorna: summary-texterna i innehållet och FAQPage.mainEntity[].name (publikt v2, del A 8.2). */
+  faq?: string[];
+  /** Antal ord i main utom ramen, efter att skript, stil och aria-hidden tagits bort (del B 4.2). */
+  ord?: number;
 }
+
+/**
+ * Publikt v2 (docs/design/spec-publikt-v2-del-a-2026-10-12.md, avsnitt 8):
+ * på de här sidorna gäller den hårda regeln. Varje h2 och h3 ska finnas kvar
+ * med samma text och nivå (ordning och id får ändras), varje FAQ-fråga ska
+ * finnas kvar och ordantalet i main får inte sjunka mer än 2 procent.
+ */
+const PUBLIKT_V2 = new Set([
+  '/',
+  '/priser',
+  '/funktioner',
+  '/verktyg/rekryteringstester',
+  '/verktyg/personligt-brev',
+  '/verktyg/jobbmatchning',
+  '/verktyg/cv-analys',
+  '/verktyg/skapa-cv',
+  '/verktyg/cv-mallar',
+  '/verktyg/linkedin-optimering',
+  '/verktyg/bli-upptackt',
+  '/verktyg/jobbcoachen',
+  '/verktyg/personlighetstest',
+]);
+
+/** Största tillåtna minskningen av ordantalet i main, i procent. */
+const ORD_TOLERANS = 2;
+
+/**
+ * Tillåtna skillnader i JSON-LD per sida (del A 8.2 punkt 6), med datum och
+ * skäl. nya: nya block får tillkomma. andrade: block av de här typerna får
+ * ändra innehåll, men typerna ska vara desamma före och efter.
+ */
+const LD_UNDANTAG: Array<{ path: string; datum: string; skal: string; nya?: boolean; andrade?: string[] }> = [
+  {
+    path: '/',
+    datum: '2026-10-12',
+    skal: 'Publikt v2 våg 2: startsidan får Organization, WebSite och FAQPage (del A 5.1). Live saknar JSON-LD.',
+    nya: true,
+  },
+  {
+    path: '/verktyg/rekryteringstester',
+    datum: '2026-10-12',
+    skal:
+      'Ägarbeslut 1 i del A avsnitt 10: FAQ-svaren om verbalt och numeriskt läser testConfigs tal för träningspassen och nämner övningsprovet separat. Frågetexterna är oförändrade.',
+    andrade: ['FAQPage'],
+  },
+];
 
 /**
  * Sidor vars baslinje tagits om, med skälet. Allt annat i fore.json är
@@ -97,6 +152,7 @@ const FAST_TOPP20 = [
 /** Publika ytor som ritas om i samma omgång. h1, title och description får inte ändras. */
 const OVRIGA = [
   '/',
+  '/verktyg/personlighetstest',
   '/artiklar',
   '/artiklar?tag=cv',
   '/funktioner',
@@ -255,6 +311,39 @@ async function ta(bas: string, sida: string): Promise<Avtryck> {
     break;
   }
 
+  const faq: string[] = [];
+  doc.querySelectorAll('summary').forEach((sm) => {
+    if (iRam(sm)) return;
+    const t = text(sm);
+    if (t) faq.push(t);
+  });
+  doc.querySelectorAll('script[type="application/ld+json"]').forEach((s) => {
+    try {
+      const data = JSON.parse(s.textContent ?? '');
+      const block = Array.isArray(data?.['@graph']) ? data['@graph'] : [data];
+      for (const b of block) {
+        if (b?.['@type'] === 'FAQPage' && Array.isArray(b.mainEntity)) {
+          for (const q of b.mainEntity) if (q?.name) faq.push('ld: ' + String(q.name).replace(/\s+/g, ' ').trim());
+        }
+      }
+    } catch {
+      /* ogiltig JSON-LD syns redan i jsonLd */
+    }
+  });
+
+  // Ordantalet: main utom ramen, utan skript, stil och det som är aria-hidden.
+  const mains = Array.from(doc.querySelectorAll('main'));
+  const rotter = mains.length ? mains : [doc.body];
+  let ord = 0;
+  for (const rot of rotter) {
+    const kopia = rot.cloneNode(true) as Element;
+    kopia
+      .querySelectorAll('script, style, noscript, template, [aria-hidden="true"], [data-site-chrome]')
+      .forEach((el) => el.remove());
+    const t = (kopia.textContent ?? '').replace(/\s+/g, ' ').trim();
+    ord += t ? t.split(' ').filter((w) => /[\p{L}\p{N}]/u.test(w)).length : 0;
+  }
+
   return {
     path: sida,
     status: svar.status,
@@ -269,6 +358,8 @@ async function ta(bas: string, sida: string): Promise<Avtryck> {
     ramLankar: [...new Set(ramLankar)].sort(),
     jsonLd: jsonLd.sort(),
     forstaBild,
+    faq,
+    ord,
   };
 }
 
@@ -320,7 +411,9 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
     } else {
       if (f.status !== e.status) brott(`status ${f.status} → ${e.status}`);
       for (const falt of ['title', 'description', 'canonical', 'ogImage', 'robots'] as const) {
-        if (f[falt] !== e[falt]) brott(`${falt}: "${f[falt]}" → "${e[falt]}"`);
+        // OG-bildens frågesträng är byggets hash och byts vid varje bygge.
+        const norm = (v: string) => (falt === 'ogImage' ? v.split('?')[0] : v);
+        if (norm(f[falt]) !== norm(e[falt])) brott(`${falt}: "${f[falt]}" → "${e[falt]}"`);
       }
       const h1f = f.h1.filter((h) => !TILLATNA_H1.includes(h));
       const h1e = e.h1.filter((h) => !TILLATNA_H1.includes(h));
@@ -341,12 +434,29 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
               (d.borta.length === 0 && d.nya.length === 0 ? ' (ordningen)' : '')
           );
         }
+      } else if (PUBLIKT_V2.has(f.path)) {
+        // Publikt v2: samma text och nivå, ordning och id får ändras.
+        const utanId = (l: Rubrik[]) => l.filter((r) => !tillaten(r)).map((r) => `${r.tag} ${r.text}`);
+        const d = multisetSkillnad(utanId(f.rubriker), utanId(e.rubriker));
+        if (d.borta.length) brott(`rubriker borta (text och nivå): ${JSON.stringify(d.borta)}`);
+        if (d.nya.length) info(`nya rubriker: ${JSON.stringify(d.nya)}`);
       } else {
         // Omritade publika ytor: sektionsrubriker får skrivas om, men redovisas.
         const d = multisetSkillnad(fr, er);
         if (d.borta.length || d.nya.length) {
           info(`sektionsrubriker ändrade (omritad yta, tillåtet): borta ${d.borta.length}, nya ${d.nya.length}`);
         }
+      }
+      if (f.faq && e.faq) {
+        const d = unikSkillnad(f.faq, e.faq);
+        if (d.borta.length) brott(`FAQ-frågor borta: ${JSON.stringify(d.borta)}`);
+        if (d.nya.length) info(`nya FAQ-frågor: ${JSON.stringify(d.nya)}`);
+      }
+      if (typeof f.ord === 'number' && typeof e.ord === 'number' && f.ord > 0) {
+        const andring = ((e.ord - f.ord) / f.ord) * 100;
+        const rad = `ord i main ${f.ord} → ${e.ord} (${andring >= 0 ? '+' : ''}${andring.toFixed(1)} %)`;
+        if (PUBLIKT_V2.has(f.path) && andring < -ORD_TOLERANS) brott(rad);
+        else info(rad);
       }
       const borttagnaRubriker = f.rubriker.filter(tillaten).map((r) => r.text);
       if (borttagnaRubriker.length) {
@@ -361,8 +471,12 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
       } else if (dl.borta.length) {
         // Omritade publika ytor: länkar i innehållet ska finnas kvar någonstans på sidan.
         const allaEfter = new Set([...e.lankar, ...e.ramLankar]);
-        const helt = dl.borta.filter((l) => !allaEfter.has(l));
+        // Rena ankarlänkar (#gratis) pekar inom sidan och är inga länkmål för
+        // sökmotorer. De får försvinna när sektionerna byts, men redovisas.
+        const helt = dl.borta.filter((l) => !allaEfter.has(l) && !l.startsWith('#'));
+        const ankare = dl.borta.filter((l) => !allaEfter.has(l) && l.startsWith('#'));
         if (helt.length) brott(`interna länkar borta från sidan: ${JSON.stringify(helt)}`);
+        if (ankare.length) info(`ankarlänkar inom sidan borta: ${JSON.stringify(ankare)}`);
         const flyttade = dl.borta.filter((l) => allaEfter.has(l));
         if (flyttade.length) info(`länkar flyttade till ramen: ${JSON.stringify(flyttade)}`);
       }
@@ -372,7 +486,34 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
         info(`ramen (header och footer, omritad enligt analysen): borta ${JSON.stringify(dr.borta)}, nya ${JSON.stringify(dr.nya)}`);
       }
       const dj = multisetSkillnad(f.jsonLd, e.jsonLd);
-      if (dj.borta.length || dj.nya.length) {
+      const und = LD_UNDANTAG.find((u) => u.path === f.path);
+      const typ = (block: string) => {
+        try {
+          const d = JSON.parse(block);
+          return Array.isArray(d?.['@graph'])
+            ? d['@graph'].map((b: { '@type'?: string }) => b['@type']).join('+')
+            : String(d?.['@type']);
+        } catch {
+          return 'ogiltig';
+        }
+      };
+      if (und && (dj.borta.length || dj.nya.length)) {
+        const tillatTyp = (b: string) => (und.andrade ?? []).includes(typ(b));
+        const bortaKvar = dj.borta.filter((b) => !tillatTyp(b));
+        const nyaKvar = dj.nya.filter((b) => !tillatTyp(b));
+        const typerFore = dj.borta.filter(tillatTyp).map(typ).sort();
+        const typerEfter = dj.nya.filter(tillatTyp).map(typ).sort();
+        if (JSON.stringify(typerFore) !== JSON.stringify(typerEfter)) {
+          brott(`JSON-LD: tillåtna typer ändrade antal: ${JSON.stringify(typerFore)} → ${JSON.stringify(typerEfter)}`);
+        } else if (typerFore.length) {
+          info(`JSON-LD ändrad i tillåten typ (${und.datum}): ${typerFore.join(', ')}`);
+        }
+        if (bortaKvar.length) brott(`JSON-LD borta: ${bortaKvar.map((x) => x.slice(0, 300)).join(' | ')}`);
+        if (nyaKvar.length) {
+          if (und.nya) info(`nya JSON-LD-block (${und.datum}): ${nyaKvar.map(typ).join(', ')}`);
+          else brott(`nya JSON-LD-block: ${nyaKvar.map((x) => x.slice(0, 300)).join(' | ')}`);
+        }
+      } else if (dj.borta.length || dj.nya.length) {
         brott(`JSON-LD ändrad: ${dj.borta.length} block borta, ${dj.nya.length} nya\n    före: ${dj.borta.map((s) => s.slice(0, 300)).join('\n    före: ')}\n    efter: ${dj.nya.map((s) => s.slice(0, 300)).join('\n    efter: ')}`);
       }
       if (f.path.startsWith('/artiklar/') && JSON.stringify(f.forstaBild) !== JSON.stringify(e.forstaBild)) {
@@ -382,6 +523,8 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
     rader.push(`### ${f.path}`);
     const omtagen = BASLINJE_OMTAGEN.find((b) => b.path === f.path);
     if (omtagen) rader.push(`- baslinjen omtagen ${omtagen.datum}: ${omtagen.skal}`);
+    const ldUnd = LD_UNDANTAG.find((b) => b.path === f.path);
+    if (ldUnd) rader.push(`- tillåten JSON-LD-skillnad ${ldUnd.datum}: ${ldUnd.skal}`);
     rader.push(sidrader.length ? sidrader.join('\n') : '- oförändrad');
     rader.push('');
   }
@@ -391,7 +534,7 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
 async function main() {
   const lage = process.argv[2];
   if (lage === 'ta') {
-    const bas = `http://localhost:${arg('port', '8300')}`;
+    const bas = arg('bas') ?? `http://localhost:${arg('port', '8300')}`;
     const ut = arg('ut', 'docs/qa/seo-diff/avtryck.json')!;
     const lista = arg('sidor')?.split(',') ?? sidor();
     const avtryck: Avtryck[] = [];
@@ -399,7 +542,7 @@ async function main() {
       const a = await ta(bas, s);
       avtryck.push(a);
       console.log(
-        `${String(a.status).padEnd(4)} ${s.padEnd(52)} h2/h3 ${String(a.rubriker.length).padStart(3)}  länkar ${String(a.lankar.length).padStart(3)}  ram ${String(a.ramLankar.length).padStart(3)}  ld ${a.jsonLd.length}`
+        `${String(a.status).padEnd(4)} ${s.padEnd(52)} h2/h3 ${String(a.rubriker.length).padStart(3)}  länkar ${String(a.lankar.length).padStart(3)}  ram ${String(a.ramLankar.length).padStart(3)}  ld ${a.jsonLd.length}  faq ${String(a.faq?.length ?? 0).padStart(2)}  ord ${a.ord}`
       );
     }
     fs.mkdirSync(path.dirname(ut), { recursive: true });

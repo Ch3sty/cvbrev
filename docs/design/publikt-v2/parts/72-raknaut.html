@@ -1,0 +1,236 @@
+<!-- ======================================================= /rakna-ut/lon-efter-skatt + /rakna-ut -->
+<div class="sida" id="sida-raknaut" data-sida="raknaut">
+{{HEADER:raknaut}}
+<main>
+
+<!-- Kalkylatorn först: den är sidans handling. Mall: KalkylatorSida, hjälten bär verktyget. -->
+<section class="sek yta-vagg vagg rum-jobb ib-hjalte ib-kalk-hjalte" id="hjalte-kalkylator">
+  <div class="wrap">
+    <nav class="smula" aria-label="Brödsmulor"><a href="/">Hem</a><span>/</span><a href="/rakna-ut">Räkna ut</a><span>/</span><span aria-current="page">Lön efter skatt</span></nav>
+    <div class="ib-kalk-g">
+      <div class="ib-kalk-text">
+        <p class="kick">Kalkylator, 2026 års skattetabeller</p>
+        <h1 class="ib-h1">Räkna ut lön efter skatt 2026</h1>
+        <p class="ingress ib-kalk-ingress">Se vad som blir kvar av lönen i din kommun, beräknat med Skatteverkets riktiga skattetabeller för 2026. Jämför gärna två löner eller två kommuner, det är så du ser vad ett jobbyte eller en flytt faktiskt är värd i handen.</p>
+        <ul class="ib-bevis ib-kalk-bevis"><li>Skatteverkets tabeller, inte en formel</li><li>Alla 290 kommuner</li><li>Utan konto</li></ul>
+      </div>
+
+      <form class="ib-kalk" action="/rakna-ut/lon-efter-skatt" method="get" id="kalk-lon" aria-label="Lön efter skatt">
+        <div class="ib-kalk-falt">
+          <span class="ib-tag">Mall: Kalkylator, räknar direkt och fungerar utan JS som formulär</span>
+          <div class="ib-falt"><label for="k-lon">Månadslön före skatt</label><div class="ib-enhet"><input id="k-lon" name="lon" inputmode="numeric" value="35 000" autocomplete="off"><span>kr</span></div></div>
+          <div class="ib-falt"><label for="k-kommun">Kommun</label>
+            <select id="k-kommun" name="kommun"><option>Stockholm</option><option>Göteborg</option><option>Malmö</option><option>Uppsala</option><option>Linköping</option><option>Umeå</option><option>Österåker</option><option>Dorotea</option></select>
+          </div>
+          <button class="knapp ib-kalk-knapp" type="submit" data-primar>Räkna ut</button>
+          <div class="ib-kryssrad">
+            <label class="ib-kryss"><input type="checkbox" name="kyrka" value="1" id="k-kyrka">Medlem i Svenska kyrkan</label>
+            <label class="ib-kryss"><input type="checkbox" name="a66" value="1" id="k-66">Jag har fyllt 66 år</label>
+          </div>
+          <details class="ib-jamfor-val" id="k-jamfor-d">
+            <summary>Jämför med en annan lön eller kommun</summary>
+            <div class="ib-tva-falt">
+              <div class="ib-falt"><label for="k-jlon">Annan lön</label><div class="ib-enhet"><input id="k-jlon" name="jlon" inputmode="numeric" value="38 000"><span>kr</span></div></div>
+              <div class="ib-falt"><label for="k-jkommun">Annan kommun</label><select id="k-jkommun" name="jkommun"><option>Stockholm</option><option>Göteborg</option><option>Malmö</option><option>Uppsala</option><option>Linköping</option><option>Umeå</option><option>Österåker</option><option>Dorotea</option></select></div>
+            </div>
+          </details>
+        </div>
+        <div class="ib-kalk-res" aria-live="polite">
+          <p class="ib-res-kick">Lön efter skatt 2026</p>
+          <p class="ib-res-rad" id="r-rubrik"><b>35 000 kr</b> i lön i Stockholm</p>
+          <p class="ib-huvudtal"><span id="r-netto">28 291 kr</span><small>kvar i handen per månad</small></p>
+          <div class="ib-stapel" role="img" aria-label="Fördelning mellan lön efter skatt och skatt" id="r-stapel"><i style="width:80.8%"></i><em style="width:19.2%"></em></div>
+          <ul class="ib-leg"><li><b id="r-netto2">28 291 kr</b>&nbsp;kvar</li><li><b id="r-skatt">6 709 kr</b>&nbsp;i skatt</li><li><b id="r-eff">19,2 %</b>&nbsp;effektiv skatt</li></ul>
+          <div class="ib-jamfor" id="r-jamfor"><p class="ib-res-kick" style="margin-bottom:6px">Jämfört</p><b id="r-diff">+2 116 kr</b><span id="r-diff-text"> mer i handen per månad, 25 392 kr per år</span></div>
+          <p class="ib-kalla"><b>Källa:</b> <span id="r-kalla">Skatteverkets skattetabeller för månadslön 2026, tabell 31, kolumn 1</span></p>
+          <div class="ib-dela"><a href="#dela">Dela resultatet</a><a href="#badda-in">Bädda in på er webbplats</a></div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Så räknar vi: källan synlig, ingen text göms -->
+<section class="sek yta-mark" id="sa-raknar-vi">
+  <div class="wrap ib-metod">
+    <div>
+      <p class="kick" style="color:var(--jobb-ink)">Metod</p>
+      <h2 class="h2">Så räknar vi</h2>
+      <div class="ib-brod" style="margin-top:18px">
+        <p>Kalkylatorn slår upp din månadslön i Skatteverkets skattetabeller för 2026, samma tabeller som arbetsgivare använder för skatteavdraget på lönebeskedet. Vi använder kolumn 1 för dig som inte fyllt 66 år och kolumn 3 för dig som fyllt 66, med förhöjt grundavdrag.</p>
+        <p>Tabellnumret bestäms av den sammanlagda skattesatsen i din kommun: kommunalskatt, regionskatt och begravningsavgift, plus kyrkoavgift om du är medlem i Svenska kyrkan, avrundat till hel procent. Kommundatan kommer från Skatteverkets öppna data för 2026 och kyrkoavgiften är kommunens genomsnitt över församlingarna. I tabellerna ligger grundavdraget, det förstärkta jobbskatteavdraget och den statliga inkomstskatten över skiktgränsen 643 000 kronor redan inräknade.</p>
+      </div>
+    </div>
+    <aside class="ib-kallkort">
+      <div class="ib-kallkort-topp" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="5" width="30" height="38" rx="4"/><path d="M15 15h18M15 22h18M15 29h11"/><circle cx="34" cy="34" r="8" fill="var(--panel)"/><path d="M30.5 34l2.5 2.5 4.5-5"/></svg></div>
+      <p class="ib-sidorub">Källor</p>
+      <ul class="ib-kallista">
+        <li><a href="https://www.skatteverket.se/privat/skatter/arbeteochinkomst/skattetabeller">Skatteverkets skattetabeller för månadslön 2026</a></li>
+        <li><a href="https://www.skatteverket.se/omoss/apierochoppnadata">Skatteverkets öppna data över kommunala skattesatser</a></li>
+        <li><a href="https://www.scb.se/hitta-statistik/statistik-efter-amne/offentlig-ekonomi/finanser-for-den-kommunala-sektorn/kommunalskatterna/pong/statistiknyhet/kommunalskatterna-2026/">SCB om kommunalskatterna 2026</a></li>
+      </ul>
+      <p class="liten" style="margin-top:14px">Uppdaterad för inkomståret 2026. Vi går igenom siffrorna varje januari. Vägledning, inte skatte- eller juridisk rådgivning.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- Jobbcoachen: Premium i eget bläckblock, med telefonen som visar lönefrågan -->
+<section class="sek yta-black" id="lonesamtal">
+  <div class="wrap tva">
+    <div class="tva-text">
+      <p class="kick">Ingår i Premium, 149 kr i månaden</p>
+      <h2 class="h2">Ta siffrorna med in i <span class="gradord">lönesamtalet</span></h2>
+      <p class="ingress" style="margin-top:16px">Jobbcoachen tar fram marknadslön och argument ur SCB och fackens statistik, med källa till varje svar, och hjälper dig lägga upp samtalet. 10 meddelanden är gratis på ditt konto. Jobbcoachen, så mycket du vill, ingår i Premium, 149 kr i månaden.</p>
+      <div class="handling"><a class="knapp" href="/verktyg/jobbcoachen">Fråga jobbcoachen</a><a class="lank" href="/priser">Se vad som ingår</a></div>
+    </div>
+    <div style="display:grid;place-items:center">{{TEL:coach}}</div>
+  </div>
+</section>
+
+<section class="sek yta-mark">
+  <div class="wrap" style="max-width:820px">
+    <h2 class="h2">Vanliga frågor</h2>
+    <div class="faq" style="margin-top:24px">
+      <details open><summary>Hur räknas lön efter skatt ut?</summary><p>Arbetsgivaren drar preliminärskatt enligt Skatteverkets skattetabell för din kommun. Tabellen bygger på kommunalskatt och regionskatt, begravningsavgift, eventuell kyrkoavgift, samt grundavdrag, jobbskatteavdrag och statlig inkomstskatt över skiktgränsen. Kalkylatorn slår upp din lön direkt i 2026 års tabeller i stället för att approximera med formler.</p></details>
+      <details><summary>Vilken skattetabell tillhör jag?</summary><p>Tabellnumret är summan av skattesatserna där du är folkbokförd, avrundad till hel procent. I Stockholm 2026 är summan 30,69 procent utan kyrkoavgift, vilket ger tabell 31, och cirka 31,6 procent för medlemmar i Svenska kyrkan, vilket ger tabell 32. Kalkylatorn väljer tabell automatiskt när du väljer kommun.</p></details>
+      <details><summary>När betalar man statlig inkomstskatt 2026?</summary><p>Statlig inkomstskatt på 20 procent tas ut på beskattningsbar förvärvsinkomst över skiktgränsen 643 000 kronor. Räknat före grundavdrag motsvarar det en brytpunkt på cirka 660 400 kronor om året, ungefär 55 000 kronor i månaden, för den som inte fyllt 66 år.</p></details>
+      <details><summary>Varför skiljer sig lönen efter skatt mellan kommuner?</summary><p>Kommunalskatten och regionskatten bestäms lokalt och varierar 2026 från 28,93 procent i Österåker till 35,65 procent i Dorotea, med ett riksgenomsnitt på 32,38 procent. På en månadslön runt 35 000 kronor kan skillnaden mellan Sveriges lägsta och högsta skattesats motsvara flera hundralappar i månaden.</p></details>
+      <details><summary>Är beloppet min slutliga skatt?</summary><p>Nej, det är arbetsgivarens preliminärskatteavdrag enligt tabell. Den slutliga skatten avgörs i deklarationen och kan påverkas av avdrag, flera arbetsgivare, ränteinkomster med mera. För de flesta med en anställning och en inkomst ligger tabellavdraget dock mycket nära den slutliga skatten.</p></details>
+      <details><summary>Blev skatten lägre 2026?</summary><p>Ja, för de flesta löntagare. Jobbskatteavdraget förstärktes i 2026 års budget med som mest omkring 400 kronor i månaden, och avtrappningen av avdraget vid höga inkomster slopades. Effekten ligger redan inbakad i 2026 års skattetabeller som kalkylatorn använder.</p></details>
+    </div>
+    <h2 class="h4 ib-rub" style="margin-top:48px">Läs mer</h2>
+    <ul class="ib-merom ib-merom-ren">
+      <li><a href="/artiklar/loneforhandling">Löneförhandling och lönesamtal: så höjer du lönen</a></li>
+      <li><a href="/artiklar/loneansprak-intervju">Löneanspråk på intervjun: så svarar du rätt</a></li>
+      <li><a href="/rakna-ut/loneforhandling">Vad är en löneförhandling värd över tid?</a></li>
+      <li><a href="/artiklar/hur-ofta-byta-jobb">Hur ofta ska man byta jobb?</a></li>
+      <li><a href="/rakna-ut">Alla kalkylatorer</a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================================== Undersida: hubben /rakna-ut -->
+<div class="ib-sidbyte" id="rakna-ut-hubb"><div class="wrap"><b>Räkna ut, hubben</b><code>/rakna-ut</code><span>Nio kalkylatorer, varje H3 och länk kvar. WebApplication och FAQPage ligger på respektive kalkylator som i dag.</span></div></div>
+
+<section class="sek yta-vagg vagg rum-jobb ib-hjalte">
+  <div class="wrap ib-hjalte-g">
+    <div>
+      <nav class="smula" aria-label="Brödsmulor"><a href="/">Hem</a><span>/</span><span aria-current="page">Räkna ut</span></nav>
+      <p class="kick">Räkna ut</p>
+      <h1 class="ib-h1">Räkna ut: kalkylatorer för lön, jobb och rekrytering</h1>
+      <p class="ingress">Gratis, utan konto och byggda på myndighetsdata och namngivna källor: Skatteverkets skattetabeller, LAS, semesterlagen och Avtalats premier. Varje verktyg redovisar öppet hur det räknar.</p>
+      <div class="handling"><a class="knapp" href="/rakna-ut/lon-efter-skatt">Räkna ut lön efter skatt</a><a class="lank" href="#for-dig-som-anstaller">Kalkylatorerna för rekryterare</a></div>
+      <ul class="tal"><li><b>9</b><span>kalkylatorer</span></li><li><b>2026</b><span>års skattetabeller</span></li><li><b>0 kr</b><span>och inget konto</span></li></ul>
+    </div>
+    <div class="ib-besked-ram" aria-hidden="true">
+      <div class="ib-besked">
+        <span class="ib-exempelchip">Exempel</span>
+        <p class="ib-res-kick">Lönebesked, oktober</p>
+        <p class="ib-res-rad" style="color:var(--ink-3)"><b style="color:var(--ink-1)">35 000 kr</b> i lön i Stockholm</p>
+        <p class="ib-huvudtal">28 291 kr<small>kvar i handen per månad</small></p>
+        <div class="ib-stapel"><i style="width:80.8%"></i><em style="width:19.2%"></em></div>
+        <ul class="ib-leg"><li><b>Kvar</b></li><li><b>Skatt</b>&nbsp;enligt tabell 31</li></ul>
+      </div>
+      <div class="ib-besked-lapp"><svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="var(--jobb-ton)"/><path d="M12 21l5 5 11-12" stroke="var(--jobb-ink)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Skatteverkets tabell</b>samma som på lönebeskedet</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sek yta-mark">
+  <div class="wrap">
+    <h2 class="h2">För dig som söker jobb eller byter</h2>
+    <p class="ingress" style="margin-top:12px">Innan du säger ja till ett erbjudande, säger upp dig eller går in i lönesamtalet: räkna på vad det betyder i kronor.</p>
+    <a class="ib-stortal rum-jobb" href="/rakna-ut/lon-efter-skatt" style="margin-top:28px">
+      <div><small class="ib-kalk-namn">Lön efter skatt 2026</small><h3>Se vad som blir kvar i handen</h3><p>Nettolön med Skatteverkets riktiga skattetabeller och din kommuns skattesats. Jämför två löner eller kommuner.</p><span class="lank">Räkna på din lön</span></div>
+      <div><p class="tal-l">28 291 kr<small>kvar av 35 000 kr i Stockholm, skattetabell 31</small></p><div class="ib-stapel ib-stapel-ljus"><i style="width:80.8%"></i><em style="width:19.2%"></em></div></div>
+    </a>
+    <div class="ib-kalkkort rum-jobb" style="margin-top:14px">
+      <a href="/rakna-ut/uppsagningstid"><span class="ib-kalk-ikon" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="6" y="8" width="28" height="26" rx="4"/><path d="M6 16h28M13 5v6M27 5v6"/><path d="M15 25l4 4 7-8" stroke="var(--koppar)"/></svg></span><small>Uppsägningstid enligt LAS</small><h3 class="ib-kalk-h3">Räkna fram din sista anställningsdag</h3><span>Hur lång är din uppsägningstid, och vilket datum blir sista anställningsdagen?</span></a>
+      <a href="/rakna-ut/semesterersattning"><span class="ib-kalk-ikon" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="17" r="8"/><path d="M20 3v3M20 28v3M6 17h3M31 17h3M10 7l2 2M28 25l2 2M10 27l2-2M28 9l2-2"/><path d="M6 36h28" stroke="var(--koppar)"/></svg></span><small>Semesterersättning</small><h3 class="ib-kalk-h3">Se vad dina sparade semesterdagar är värda</h3><span>Semestertillägg per dag, slutlön för sparade dagar och tolvprocentsregeln.</span></a>
+      <a href="/rakna-ut/timlon-till-manadslon"><span class="ib-kalk-ikon" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="14"/><path d="M20 11v9l6 4"/><path d="M33 8l3-3M36 5h-4M36 5v4" stroke="var(--koppar)"/></svg></span><small>Timlön till månadslön</small><h3 class="ib-kalk-h3">Jämför timlön och månadslön rakt av</h3><span>Konvertera åt båda hållen med 174-timmarsschablonen, och se årslönen.</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="sek yta-black">
+  <div class="wrap tva">
+    <div class="tva-text">
+      <p class="kick">Ingår i Premium, 149 kr i månaden</p>
+      <p class="ib-storsiffra"><span class="gradord">+268 881 kr</span></p>
+      <h2 class="h3" style="margin-top:12px">2 000 kr mer i månaden är värt +268 881 kr på tio år</h2>
+      <p class="ingress" style="margin-top:14px">Löneförhandlingens värde räknar ut vad en höjning blir när varje revision läggs ovanpå den. Jobbcoachen hjälper dig få den: marknadslön och argument ur SCB och fackens statistik, med källa till varje svar. Jobbcoachen, så mycket du vill, ingår i Premium, 149 kr i månaden.</p>
+      <div class="handling"><a class="knapp" href="/verktyg/jobbcoachen">Fråga jobbcoachen</a><a class="lank" href="/rakna-ut/loneforhandling">Räkna på din egen höjning</a></div>
+    </div>
+    <div style="display:grid;place-items:center">{{TEL:coach}}</div>
+  </div>
+</section>
+
+<section class="sek yta-panel" id="for-dig-som-anstaller">
+  <div class="wrap">
+    <h2 class="h2">För dig som anställer</h2>
+    <p class="ingress" style="margin-top:12px">Siffrorna som bär ett rekryteringsbeslut, räknade på era egna förutsättningar.</p>
+    <a class="ib-stortal rum-neu" href="/rakna-ut/vad-kostar-en-anstalld" style="margin-top:28px">
+      <div><small class="ib-kalk-namn">Vad kostar en anställd?</small><h3>Vet vad en anställning kostar innan ni annonserar</h3><p>Hela månadskostnaden 2026: arbetsgivaravgift, ITP1, särskild löneskatt, försäkringar och semester.</p><span class="lank">Räkna på en anställning</span></div>
+      <div><p class="tal-l">52 664 kr<small>i månaden för 38 000 kr i lön med kollektivavtal</small></p><div class="ib-stapel ib-stapel-ljus"><i style="width:72.2%"></i><em style="width:27.8%"></em></div></div>
+    </a>
+    <div class="ib-kalkkort rum-neu" style="margin-top:14px">
+      <a href="/rakna-ut/felrekrytering"><small>Felrekryteringens kostnad</small><h3 class="ib-kalk-h3">Sätt en siffra på en misslyckad rekrytering</h3><span>Vad en misslyckad rekrytering kostar post för post, från annons till omstart.</span></a>
+      <a href="/rakna-ut/sourcing"><small>Sourcingtratten</small><h3 class="ib-kalk-h3">Se hur många kontakter en anställning kräver</h3><span>Hur många riktade kontakter krävs för en anställning, med branschens svarsfrekvenser?</span></a>
+      <a href="/rakna-ut/traffsakerhet"><small>Träffsäkerhetssimulatorn</small><h3 class="ib-kalk-h3">Jämför hur ofta urvalsmetoderna träffar rätt</h3><span>Jämför urvalsmetoders träffsäkerhet på urvalsforskningens validitetssiffror.</span></a>
+    </div>
+    <p class="liten" style="margin-top:28px">Siffran är början. <a class="lank" href="/for-rekryterare/insikter">Läs insikterna för rekryterare</a></p>
+    <p class="liten" style="margin-top:8px">Kalkylatorerna uppdateras årligen med nya skattetabeller, basbelopp och avgifter, senast för inkomståret 2026. De ger vägledning, inte skatte- eller juridisk rådgivning.</p>
+  </div>
+</section>
+
+</main>
+{{FOOTER}}
+<div class="botten"><a class="knapp" href="#kalk-lon">Räkna ut</a></div>
+<script>
+(function(){
+  {{SKATTEDATA}}
+  var cache = {};
+  function avkoda(str){ var p = 0; return str.split(' ').map(function(d){ p += parseInt(d, 36); return p; }); }
+  var GRID = avkoda(TAB.g);
+  function kolumn(nr, kol){ var k = nr + ':' + kol; if (!cache[k] && TAB[nr]) cache[k] = avkoda(kol === 3 ? TAB[nr].c3 : TAB[nr].c1); return cache[k]; }
+  // Samma uppslag som raknaSkatt i src/lib/rakna/lonEfterSkatt.ts: sista raden vars start <= lönen.
+  function skatt(lon, nr, a66){
+    var v = kolumn(nr, a66 ? 3 : 1); if (!v || lon <= 0) return 0;
+    var n = GRID.length;
+    if (lon < GRID[0]) return Math.round(v[0] * lon / GRID[0]);
+    if (lon > GRID[n - 1]) return v[n - 1] + Math.round((v[n - 1] - v[n - 2]) / (GRID[n - 1] - GRID[n - 2]) * (lon - GRID[n - 1]));
+    for (var i = n - 1; i >= 0; i--) if (lon >= GRID[i]) return v[i];
+    return 0;
+  }
+  function tabell(kommun, kyrka){ var k = KOM[kommun]; var s = kyrka ? k[1] : k[0]; return Math.min(38, Math.max(30, Math.round(s))); }
+  function kr(n){ return String(Math.round(Math.abs(n))).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' kr'; }
+  function proc(x){ var v = Math.round(x * 10) / 10; return (v % 1 === 0 ? String(v) : String(v).replace('.', ',')) + ' %'; }
+  function tal(id){ return parseInt(document.getElementById(id).value.replace(/\D/g, ''), 10) || 0; }
+  var f = document.getElementById('kalk-lon'); if (!f) return;
+  function rakna(){
+    var lon = tal('k-lon'), kom = document.getElementById('k-kommun').value;
+    var kyrka = document.getElementById('k-kyrka').checked, a66 = document.getElementById('k-66').checked;
+    var nr = tabell(kom, kyrka), s = skatt(lon, nr, a66), netto = lon - s;
+    document.getElementById('r-rubrik').innerHTML = '<b>' + kr(lon) + '</b> i lön i ' + kom;
+    document.getElementById('r-netto').textContent = kr(netto);
+    document.getElementById('r-netto2').textContent = kr(netto);
+    document.getElementById('r-skatt').textContent = kr(s);
+    document.getElementById('r-eff').textContent = lon ? proc(s / lon * 100) : '0 %';
+    var st = document.getElementById('r-stapel'); var andel = lon ? netto / lon * 100 : 0;
+    st.children[0].style.width = andel + '%'; st.children[1].style.width = (100 - andel) + '%';
+    document.getElementById('r-kalla').textContent = 'Skatteverkets skattetabeller för månadslön 2026, tabell ' + nr + ', kolumn ' + (a66 ? 3 : 1);
+    var j = document.getElementById('k-jamfor-d').open, jr = document.getElementById('r-jamfor');
+    jr.classList.toggle('syns', j);
+    if (j) {
+      var jl = tal('k-jlon'), jk = document.getElementById('k-jkommun').value, jnr = tabell(jk, kyrka), jn = jl - skatt(jl, jnr, a66), d = jn - netto;
+      document.getElementById('r-diff').textContent = (d >= 0 ? '+' : '−') + kr(d);
+      document.getElementById('r-diff-text').textContent = (d >= 0 ? ' mer' : ' mindre') + ' i handen per månad med ' + kr(jl) + ' i ' + jk + ', ' + kr(d * 12) + ' per år';
+    }
+  }
+  f.addEventListener('input', rakna); f.addEventListener('change', rakna);
+  document.getElementById('k-jamfor-d').addEventListener('toggle', rakna);
+  f.addEventListener('submit', function(e){ e.preventDefault(); rakna(); });
+  rakna();
+})();
+</script>
+</div>

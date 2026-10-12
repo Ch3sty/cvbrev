@@ -1,0 +1,75 @@
+<!-- ======================================================= Noter och avvikelser -->
+<div class="sida" id="sida-noter" data-sida="noter">
+<main class="noter">
+  <p class="kick">Art-director, 2026-10-12</p>
+  <h1 class="h2">Konceptet i tre meningar</h1>
+  <p class="ingress" style="margin-top:16px">Startsidan berättar vägen till intervjun som fem färgblock i rummens kulörer, och i varje block visar en telefon den riktiga vyn: CV-analysen med poängen, matchningen med skälen, matrisfrågan i grafik v3, brevet som skrivs, Jobbcoachen som svarar. Produktens egna objekt svävar runt telefonen i stället för en maskot. Premium är ett eget bläcksvart varumärke med gradientord, en knapp och priset stort.</p>
+
+  <h2 class="h3" style="margin-top:40px">Det vi hämtade från Duolingo</h2>
+  <ul style="margin-top:12px">
+    <li><b>Produkten i telefoner, omgiven av svävande objekt</b> (bild-11, bild-16). Varje verktyg har sin skärm, byggd i HTML så att den är skarp i mörkt läge och på retina.</li>
+    <li><b>En rubrik, en knapp per sektion</b> (bild-12, bild-14). Sekundärhandlingen är alltid en textlänk.</li>
+    <li><b>Färgblock som byter stämning</b> (bild-14, bild-15). Mark, panel, ton, fem väggar och bläck. Vågkanten används en gång per sida.</li>
+    <li><b>Super Duolingo som eget varumärke</b> (bild-13). Premium i bläck med gradientordet, aldrig ett kort bland andra.</li>
+    <li><b>Skalan.</b> 56 till 112 px luft mellan sektioner, rubriker 38 till 64 px.</li>
+    <li><b>Rörelse som berättar.</b> Tre rörelser: svävande objekt (12 s), telefonen glider in, poängen räknar upp till 74. Alla stängs av vid prefers-reduced-motion.</li>
+  </ul>
+
+  <h2 class="h3" style="margin-top:40px">Ägarens två ändringar 2026-10-12, så här löstes de</h2>
+  <ul style="margin-top:12px">
+    <li><b>Rekryteringstesterna först överallt där verktygen visas.</b> Startsidan: station 1 är Rekryteringstester, sedan CV-analys och Jobbmatchning, därefter brevet och Jobbcoachen. Testblocket är det största på sidan: mer luft (72 till 144 px), två telefoner där matrisfrågan står främst i 108 procent och personlighetsprofilen bakom. Hjältens bana leder med testerna och matrisbrickan är det största svävande objektet. Priser: underraden under H1, punktlistan Allt i Premium, gratisrutan, funktionsblocken (Rekryteringstester först med två telefoner), tabellen (gruppen Rekryteringstester först, med en ny rad för personlighetstestet) och FAQ-svaret om vad som ingår. Premiumfläktarna har testtelefonen i mitten och störst (106 procent), på startsidan med intervjufrågorna till vänster, på priser med profilen. Menyn Vad vi erbjuder och sidfoten har kolumnen Träna först, och Premiumtexten börjar med Rekryteringstester.</li>
+    <li><b>Personlighetstestet visar mer av det verkliga resultatet.</b> Två telefoner: Din profil (meningen om vad rekryteraren lägger märke till först, fem dimensioner med band, profilen läst mot kravprofiler) och Inför intervjun (tre frågor rekryteraren lär ställa, två med förslag på svar, den tredje i STAR-format ur det fördjupade testet). De fem dimensionerna ligger som egen rad under, med samma persona som brevet och matchningen: projektledaren i Göteborg, hög samvetsgrannhet och låg utåtriktning. Sektionen förklarar i text vad resultatet innehåller och de tre nivåerna står som huvudtal.</li>
+    <li><b>Allt på telefonerna finns i produkten.</b> Meningen "Det rekryteraren lägger märke till först", kravprofilerna och utfallen ("Passar profilen", "Räkna med en fråga om utåtriktning") kommer ur src/lib/personlighet/smakprov-tolkning.ts (profilMening, KRAVPROFILER, kravUtfall). Frågorna är LASNING-radernas "kommer att fråga ..." omskrivna till frågor och svaren är INTERVJU-texterna, samma fil. Den tredje frågan är STAR_INTERVIEW_BANK c5_self_discipline i src/lib/recruiter/workStyle.ts, som bara det fördjupade testet ger (interviewPrep i Din arbetsstil). Dimensionsnamnen är produktens (FAKTORER), banden Hög, Mitt emellan och Låg ur bandFor. Styrkor, "Att vara medveten om" och "I arbetslivet" finns i DimensionCard för hela testet. Ingen råpoäng visas, bara staplar och band.</li>
+    <li><b>20 eller 50 påståenden: båda stämmer, men på olika nivåer.</b> Provet utan konto har 20 påståenden (personlighetsprov-copy.ts, ANTAL). Hela testet med konto har 50 påståenden, 10 minuter, och är fritt (testConfig personlighet-grund utan requiresFeature). Det fördjupade testet har 120 påståenden i 30 delfaktorer, 25 minuter, och kräver Premium (personlighet-avancerad, tests_above_base). Den gamla texten blandade "50 frågor" och "tjugo påståenden" i samma block; nu står de tre nivåerna som lista och knappen säger provet utan konto. Produkten säger alltid påståenden, inte frågor.</li>
+    <li><b>Verbalt: 60 och 48 är båda fel för grundnivån, det rätta är 40.</b> testConfig.ts är enda sanningen (testCatalog.ts noterar att katalogens 60 var en kvarleva): verbal grund 40 påståenden på 20 minuter (10 passager med fyra påståenden, selectPassages.v1.ts), avancerad 40 på 20 minuter, expert 32 på 35 minuter, övningsprovet 48 på 40 minuter. Kortet är rättat till 40. FAQ-svaret "12 textpassager med fyra påståenden per passage, totalt 48 bedömningar" stämmer bara för övningsprovet och står kvar orört eftersom det är SEO-text; vi föreslår "Vårt verbala test innehåller tio textpassager med fyra påståenden per passage, totalt 40 bedömningar, och övningsprovet 48". Samma sak för numeriskt: kortet sa 24 frågor på 20 minuter, koden säger 20 frågor på 25 minuter för grund, avancerad och expert (övningsprovet 36 på 40). Kortet är rättat, FAQ-svaret "Du tränar på 24 frågor per pass" står kvar och bör bli "20 frågor per pass".</li>
+    <li><b>Kom igång behåller produktens stegordning</b> (komigang.ts: profil, CV, matchning, brev, sedan testerna). Det är en följd, inte en uppräkning av vad som ingår, och ändras ordningen där ändras den här.</li>
+    <li><b>Testsidans resultattelefon</b> under Så fungerar det visar nu 11 av 15 rätt som huvudtal i stället för ett decimaltal av tio, så att inga decimaltal står i löptexten.</li>
+  </ul>
+
+  <h2 class="h3" style="margin-top:40px">Resten av sidtyperna, 2026-10-12</h2>
+  <ul style="margin-top:12px">
+    <li><b>Nya flikar:</b> Personligt brev, Jobbmatchning och Funktioner (verktygssidorna), Artikel och arkiv, CV- och brevexempel, Räkna ut och Om oss, rekryterare, kontakt (innehållssidorna, kallade Läsrummet: färgblock i början och slutet, lugnt läsrum i mitten). Knappen Mall och innehåll i verktygsraden visar vad som är mall och vad som kommer ur innehållsfilerna.</li>
+    <li><b>Byggspecifikationerna</b> ligger i docs/design/spec-publikt-v2-del-a-2026-10-12.md (delade komponenter, startsidan, priser, alla verktygssidor, funktioner) och docs/design/spec-publikt-v2-del-b-2026-10-12.md (artiklar, exempel, Räkna ut, företagssidor, juridik). Båda har SEO-grind mot live och byggordning i vågor.</li>
+    <li><b>Gratisbrevet följer koden:</b> första brevet gratis, sedan ett nytt per sju dygn, nedladdning i Premium (quotaService.ts). Startsidan och priser är rättade.</li>
+  </ul>
+
+  <h2 class="h3" style="margin-top:40px">Avvikelser från UX-kraven, och varför</h2>
+  <ul style="margin-top:12px">
+    <li><b>Startsidans ordning är tester, CV, matchning, brev, Jobbcoachen</b> (UX ville CV, brev, matchning, tester). Ägarens beslut 2026-10-12: testerna drar trafiken och får det bästa utrymmet. SEO kräver fortfarande att H3 CV-analys, Jobbmatchning och Rekryteringstester ligger under H2 "Tre verktyg som gör ansökan starkare", och att brevet har sin egen H2, så de tre hänger ihop och Rekryteringstester är första H3.</li>
+    <li><b>Hjältens ingress är fyra rader på mobil, inte två.</b> SEO kräver ATS, rekryteringssystem, CV och personligt brev i första stycket. Jag lade orden i en sista mening i stället för att korta.</li>
+    <li><b>Prissidans hjälte har tre telefoner på dator, inte fem.</b> Fem blir små och oläsliga vid 1120 px. De fem får i stället varsin stor telefon under "Vad du faktiskt får", som UX också begärde, och testerna två.</li>
+    <li><b>Prissidans underrad under H1 har samma ord i ny ordning:</b> "Rekryteringstester, CV, personliga brev, jobbmatchning och Jobbcoachen". Nyckelorden står kvar, Product-schemats beskrivning följer. Samma omflyttning i FAQ-svaren om vad som ingår och vad gratis ger, med JSON-LD uppdaterat.</li>
+    <li><b>Dagspasset visas inte.</b> Ägarens beslut 2026-10-11: bara månad 149 kr. Inget att rada under.</li>
+    <li><b>Mediebevisen finns två gånger.</b> En tyst rad direkt under hjälten (UX) och den fulla H2-sektionen med citaten längre ner (SEO). Båda ligger i DOM:en.</li>
+  </ul>
+
+  <h2 class="h3" style="margin-top:40px">Avvikelser från SEO-kraven, och varför</h2>
+  <ul style="margin-top:12px">
+    <li><b>En extra H2 på startsidan: "Jobbcoachen svarar hela vägen".</b> Jobbcoachen är femte stationen i berättelsen och förtjänar ett block. Alla befintliga H2 står kvar.</li>
+    <li><b>Startsidans Jobbcoach-rad i "Och resten av jobbsöket" finns kvar</b> trots att Jobbcoachen fått eget block, så att länkblocket är komplett som i dag. Sökta tjänster lades till som sista rad.</li>
+    <li><b>Hjälpredan Kom igång visas som öppen lista, inte dragspel.</b> Den är en bana med elva stationer, vilket passar konceptet, och text i dragspel ger sämre skanning.</li>
+    <li><b>Telefonskärmarna innehåller text</b> (poäng, brevrader, chattsvar). De är aria-hidden och allt de visar står också i löptext. Det är UI-bilder, inte illustrationer med rubriker.</li>
+  </ul>
+
+  <h2 class="h3" style="margin-top:40px">Mätbara krav, kontrollerade</h2>
+  <ul style="margin-top:12px">
+    <li>En fylld knapp per sektion, 52 px hög, 100 procent bredd under 640 px. Fast knapprad 56 px på mobil efter hjälten.</li>
+    <li>Hjälten på 360 px: rubrik, ingress och knapp inom 640 px (mätt i renderingen).</li>
+    <li>Fem verktyg, sju telefoner med riktiga vyer: testerna har tre (matrisfrågan, profilen, intervjufrågorna). Ingen abstrakt ikon ersätter en telefon. På 360 px står telefonparen under varandra, ingen sidledsscroll.</li>
+    <li>Startsidan har åtta olika ytor i följd, priser sju, testsidan nio. Ingen sektion delar färg med grannen.</li>
+    <li>Kontrast: all text över AA. Lägst är koppar-ink på mark (strax över gränsen), koppar-text på koppar över 6:1, vägg-mjuk på väggarna över 7:1, ton-ink på ton nära 6:1, gradientordet lägst 9:1 mot bläck.</li>
+    <li>CLS 0: telefoner, objekt och illustrationer har fasta mått. Inga bilder, bara inline SVG och CSS. Inga externa skript.</li>
+    <li>Allt innehåll, alla H2 och alla FAQ-svar från live-sidorna finns i HTML. Schema: Organization, WebSite och FAQPage på startsidan, Product och FAQPage på priser, WebApplication, HowTo och FAQPage i kod på testsidan.</li>
+    <li>Rörelser: tre, alla med reduced-motion-variant, ingen loop under 12 s.</li>
+  </ul>
+
+  <h2 class="h3" style="margin-top:40px">Konsekvenser för bygget</h2>
+  <ul style="margin-top:12px">
+    <li>Tokens finns redan i globals.css (Tråden och Rummen). Nytt är bara --black, --black-2 och gradientordet.</li>
+    <li>Telefonskalet och de åtta skärmarna blir komponenter under src/components/publikt/telefoner/, med riktig kopia av produktens vyer. Personlighetsskärmarna läser sina texter ur smakprov-tolkning.ts och workStyle.ts, inte ur egna strängar.</li>
+    <li>Testtypskortens tal läses ur testConfig.ts (totalQuestions, minutes) så att 60 och 24 inte kan komma tillbaka. FAQ-svaren om verbalt (48) och numeriskt (24) behöver ägarens ja innan de ändras.</li>
+    <li>Svävande objekt och sektionsobjekt byggs med primitiverna i src/components/illustrations.</li>
+    <li>Knappen är koppar med mörk text överallt på publika sidor, samma som inloggat. Den svarta knappen i dagens publika sidor fasas ut.</li>
+  </ul>
+</main>
+</div>

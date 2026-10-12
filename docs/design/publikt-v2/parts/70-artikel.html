@@ -1,0 +1,361 @@
+<!-- ======================================================= /artiklar/[slug] + /artiklar -->
+<div class="sida" id="sida-artikel" data-sida="artikel">
+{{HEADER:artikel}}
+<main>
+
+<!-- Hjälten: klustrets vägg (testklustret = indigo). Mall: ArtikelHjalte. -->
+<section class="sek yta-vagg vagg rum-tran ib-hjalte" id="hjalte-artikel">
+  <div class="wrap ib-hjalte-g">
+    <div>
+      <nav class="smula" aria-label="Brödsmulor"><a href="/">Hem</a><span>/</span><a href="/artiklar">Artiklar</a><span>/</span><span aria-current="page">Matrislogik och abstrakt resonemang</span></nav>
+      <span class="ib-tag">Mall: kluster ger färg och knapp</span>
+      <p class="kick">Rekryteringstester</p>
+      <span class="ib-tag inneh">Innehåll: frontmatter.title</span>
+      <h1 class="ib-h1">Matrislogik och abstrakt resonemang: så klarar du testet</h1>
+      <p class="ingress">Matrislogik är det vanligaste logiska testet vid rekrytering. Lär dig regeltyperna, se exempel lösta steg för steg och öva gratis inför ditt skarpa test.</p>
+      <div class="handling">
+        <a class="knapp" href="/verktyg/rekryteringstester/prova" data-primar>Prova fem frågor gratis</a>
+        <a class="lank" href="#vad-matrislogik-egentligen-mater">Läs guiden</a>
+      </div>
+      <div class="ib-forf">
+        <span class="ib-avatar" aria-hidden="true">LE</span>
+        <div>
+          <h3>Linda Eriksson</h3>
+          <p>Chefsrekryterare och Employer Branding Expert. Granskad av HR-experter.</p>
+          <ul class="ib-meta"><li><time datetime="2026-06-17">17 juni 2026</time></li><li>15 min läsning</li></ul>
+        </div>
+      </div>
+    </div>
+    <figure class="ib-bild-ram">
+      <span class="ib-tag inneh">Innehåll: frontmatter.image, 1536 x 1024</span>
+      <div class="ib-bild">{{ARTBILD:matris}}</div>
+    </figure>
+  </div>
+  <div class="vag"><svg viewBox="0 0 1440 72" preserveAspectRatio="none"><path d="M0 72V30C280 70 560 70 800 34S1200 0 1440 40V72z" fill="var(--mark)"/></svg></div>
+</section>
+
+<!-- Brödtexten och sidokolumnen. Mall: ArtikelRam. Brödtexten är MDX, orörd. -->
+<section class="sek yta-mark ib-lasning">
+  <div class="wrap ib-ram">
+    <article class="ib-brod-kol">
+      <details class="ib-toc-m">
+        <summary>Innehåll i guiden</summary>
+        <ol>
+          <li><a href="#vad-matrislogik-egentligen-mater">Vad matrislogik egentligen mäter</a></li>
+          <li><a href="#vilket-matristest-moter-du-i-sverige">Vilket matristest möter du i Sverige?</a></li>
+          <li><a href="#sa-ar-en-matris-uppbyggd">Så är en matris uppbyggd</a></li>
+          <li><a href="#de-vanligaste-regeltyperna">De vanligaste regeltyperna</a></li>
+          <li><a href="#ett-exempel-lost-steg-for-steg">Ett exempel, löst steg för steg</a></li>
+          <li><a href="#ett-svarare-exempel-med-tva-regler">Ett svårare exempel med två regler</a></li>
+          <li><a href="#strategin-som-hojer-ditt-resultat">Strategin som höjer ditt resultat</a></li>
+          <li><a href="#sa-tranar-du-infor-testet">Så tränar du inför testet</a></li>
+          <li><a href="#vanliga-misstag">Vanliga misstag</a></li>
+          <li><a href="#vem-moter-matrislogik-och-nar">Vem möter matrislogik, och när?</a></li>
+          <li><a href="#testet-ar-ett-steg-inte-hela-resan">Testet är ett steg, inte hela resan</a></li>
+        </ol>
+      </details>
+
+      <div class="ib-brod rum-tran">
+        <span class="ib-tag inneh">Innehåll: MDX-div, ritas av mallens Faktaruta</span>
+        <div class="ib-fakta">
+          <p class="kick">Snabbsvar</p>
+          <h2>Snabbsvar: hur klarar man ett matrislogik-test?</h2>
+          <p>Lär dig de fem vanligaste regeltyperna (antal, rotation, position, färg och kombination) så att du känner igen mönstret snabbt. Läs alltid av svarsalternativen först, lös en egenskap i taget och kontrollera ditt svar mot både raden och kolumnen. Och viktigast av allt: öva med klocka, eftersom det vanligaste testet, Matrigma, ger dig runt 40 minuter på 35 uppgifter och är byggt så att de flesta inte hinner med alla.</p>
+        </div>
+
+        <span class="ib-tag">Mall: ProvaKort, injiceras efter andra stycket</span>
+        <aside class="ib-prova ib-prova-matris rum-tran" aria-label="Öva på frågorna">
+          <div>
+            <p class="kick">Prova på riktigt</p>
+            <p class="h4 ib-rub">Vilken figur hör hemma i den tomma rutan?</p>
+            <p class="brod">Det här är en av våra expertfrågor: tre regler samtidigt, form, tecken och fyllning. Fem frågor gratis här, rätt och fel direkt. Nivåkollen och första passet gratis med konto.</p>
+            <div class="handling"><a class="knapp" href="/verktyg/rekryteringstester/prova">Prova fem frågor</a></div>
+            <p class="liten ib-prova-not">Alla nivåer, övningsprov mot klockan och fördjupade personlighetstestet ingår i Premium, 149 kr i månaden.</p>
+          </div>
+          {{PROVAMATRIS}}
+        </aside>
+
+        <p>Du sitter framför ett rutnät med nio rutor. Åtta är fyllda med figurer som cirklar, trianglar och fyrkanter i olika antal och färger. Den nionde är tom, och du har ungefär en minut på dig att räkna ut vilken av sex svarsalternativ som hör hemma där. Det här är matrislogik, det vanligaste logiska testet vid svensk rekrytering, och det går att förbereda sig för.</p>
+        <p>Den här guiden visar hur matriserna är uppbyggda, vilka regler som styr mönstren, och exakt hur du tränar för att prestera närmare din faktiska förmåga när det gäller.</p>
+
+        <h2 id="vad-matrislogik-egentligen-mater">Vad matrislogik egentligen mäter</h2>
+        <p>Akavia beskriver logiska tester som att de bedömer din förmåga att se mönster och dra slutsatser utifrån symboler eller figurer. Just det att uppgifterna är abstrakta, alltså inte bygger på ord eller siffror, är hela poängen. Testet ska mäta ren problemlösning oberoende av ditt modersmål, din utbildning eller hur väl du råkar kunna ämnet.</p>
+        <p>Det är också därför arbetsgivare litar på det. Ett matristest är svårt att plugga sig till på samma sätt som man pluggar fakta, vilket gör det till en relativt rättvis mätare. Men det betyder inte att förberedelse är meningslös, tvärtom. Skillnaden ligger i vad du förbereder: inte fakta, utan mönsterigenkänning och tempo.</p>
+        <p>Akavia liknar logiska tester vid IQ-tester, och släktskapet är verkligt. Båda mäter abstrakt resonemang. Skillnaden är att rekryteringstestet finns för att förutsäga hur du klarar en specifik roll, inte för att ge dig en siffra att skryta med.</p>
+
+        <h2 id="vilket-matristest-moter-du-i-sverige">Vilket matristest möter du i Sverige?</h2>
+        <p>Det vanligaste matristestet på den svenska arbetsmarknaden heter Matrigma och kommer från Assessio (numera en del av Hogan Assessment Systems). Känner du igen formatet från Matrigma känner du igen i stort sett alla matristester, för principen är densamma oavsett leverantör.</p>
+        <p>Matrigma finns i två varianter, och det är värt att veta vilken du har framför dig. Den klassiska versionen ger dig 35 uppgifter på 40 minuter, alltså drygt en minut per uppgift i snitt. Den nyare, adaptiva versionen är kortare: 12 minuter där du svarar på så många du hinner, vanligen runt 20 till 25 stycken, och där svårighetsgraden anpassar sig efter hur det går. Båda bygger på samma 3x3-rutnät med sex svarsalternativ att välja mellan.</p>
+        <p>Andra leverantörer du kan stöta på är Alva Labs och Aon, men de bygger på samma grundidé: ett rutnät, ett tomrum och en regel att knäcka. Tränar du på matrislogik som format är du förberedd oavsett vems logotyp som sitter i hörnet på skärmen.</p>
+        <p>Vill du börja känna på formatet direkt kan du <a href="/verktyg/rekryteringstester">öva på riktiga matrislogik-uppgifter</a> i vårt verktyg, både på grundnivå och avancerad nivå.</p>
+
+        <h2 id="sa-ar-en-matris-uppbyggd">Så är en matris uppbyggd</h2>
+        <p>Den klassiska formen är ett 3x3-rutnät. Åtta rutor innehåller figurer, den nionde (oftast längst ner till höger) är tom, och du väljer rätt figur bland flera alternativ.</p>
+        <p>Mönstren löper på tre håll, och det är här tränings-vinsten finns. Du letar efter regeln som styr <strong>raderna</strong> (vänster till höger), regeln som styr <strong>kolumnerna</strong> (uppifrån och ner), och ibland en regel som löper <strong>diagonalt</strong>. När du hittat regeln stämmer ditt svar mot alla riktningar samtidigt.</p>
+        <p>Felet de flesta gör under tidspress är att fastna vid första bästa regel som verkar stämma på en rad, utan att kontrollera mot kolumnerna. Då väljer man ett alternativ som är "nästan rätt", och nästan rätt ger noll poäng.</p>
+
+        <h2 id="de-vanligaste-regeltyperna">De vanligaste regeltyperna</h2>
+        <p>Nästan alla matriser bygger på en handfull återkommande regler. Leverantörerna kallar dem lite olika saker (Matrigma talar till exempel om progression, rotation, frekvens, rörelse och konstruktion), men i praktiken handlar det om samma sju mönster. Lär dig känna igen dem, så löser du de flesta uppgifter snabbare.</p>
+        <span class="ib-tag inneh">Innehåll: JSX-tabell i MDX, ritas av mallens tabellram</span>
+        <div class="ib-tabellram">
+          <table class="tabell">
+            <thead><tr><th scope="col">Regeltyp</th><th scope="col">Vad du letar efter</th><th scope="col">Exempel</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Antal</th><td>Figurerna blir fler eller färre längs raden eller kolumnen.</td><td>Tre prickar, två prickar, en prick.</td></tr>
+              <tr><th scope="row">Rotation</th><td>Samma figur vrids ett bestämt antal grader per steg.</td><td>En pil pekar uppåt, sedan snett, sedan åt sidan.</td></tr>
+              <tr><th scope="row">Position</th><td>Ett element flyttar sig systematiskt i rutan.</td><td>En punkt vandrar runt hörnen, ett i taget.</td></tr>
+              <tr><th scope="row">Färg och fyllning</th><td>Figurer växlar mellan ifyllda, tomma och skuggade.</td><td>Svart, vit, grå, och så om igen.</td></tr>
+              <tr><th scope="row">Addition och subtraktion</th><td>Två rutor kombineras till den tredje, eller en del försvinner.</td><td>Ruta ett plus ruta två lägger ihop sina linjer i ruta tre.</td></tr>
+              <tr><th scope="row">Storlek</th><td>Figurer växer eller krymper stegvis.</td><td>Liten triangel, mellanstor, stor.</td></tr>
+              <tr><th scope="row">Form</th><td>Själva figuren byts ut i en bestämd ordning.</td><td>Cirkel, kvadrat, triangel som upprepas radvis.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="ib-svep">Svep i tabellen för att se alla kolumner.</p>
+        <p><strong>Antal</strong> är ofta den enklaste regeln att se och den du bör kolla först. Räkna helt enkelt elementen i varje ruta och leta efter en jämn ökning eller minskning.</p>
+        <p><strong>Rotation</strong> lurar många eftersom hjärnan har svårt att hålla isär medurs och moturs under stress. Bestäm tidigt åt vilket håll och hur många grader varje steg innebär, så blir den sista rutan självklar.</p>
+        <p><strong>Position och rörelse</strong> handlar om var ett element befinner sig, inte hur det ser ut. Här är knepet att följa ett enda element genom de åtta fyllda rutorna och se vart det är på väg.</p>
+        <p><strong>Färg, fyllning och storlek</strong> är de regler som testkonstruktörerna gärna använder som en andra, dold regel ovanpå en första. Du har löst antalet, känner dig nöjd, och missar att figurerna samtidigt bytte fyllning.</p>
+        <p><strong>Addition och subtraktion</strong> är den klurigaste familjen. Tänk på de två första rutorna i en rad som pusselbitar som tillsammans bildar den tredje, ofta genom att deras linjer läggs ovanpå varandra eller tar ut varandra.</p>
+        <p>I svårare matriser kombineras flera av de här reglerna samtidigt, till exempel att en figur både roterar och byter färg medan antalet ökar. Knepet är att isolera en egenskap i taget: bestäm först vad som händer med antalet, sedan med rotationen, sedan med färgen. Att försöka se hela mönstret på en gång är där hjärnan kör fast.</p>
+
+        <h2 id="ett-exempel-lost-steg-for-steg">Ett exempel, löst steg för steg</h2>
+        <p>Teorin blir tydligare med en konkret uppgift. Föreställ dig ett 3x3-rutnät där varje ruta innehåller cirklar, och den nedersta högra är tom.</p>
+        <ul class="ib-radlista">
+          <li><strong>Rad 1:</strong> en cirkel, två cirklar, tre cirklar.</li>
+          <li><strong>Rad 2:</strong> två cirklar, tre cirklar, fyra cirklar.</li>
+          <li><strong>Rad 3:</strong> tre cirklar, fyra cirklar, tom.</li>
+        </ul>
+        <p>Så här resonerar du. Först antalet: längs varje rad ökar cirklarna med en. Rad tre går tre, fyra, och då borde den sista vara fem. Kontrollera mot kolumnerna: sista kolumnen går tre, fyra, vilket också pekar på fem. Två riktningar är överens, alltså är svaret fem cirklar.</p>
+        <p>Nu kommer det viktiga: titta på alternativen innan du låser svaret. Säg att de innehåller "fem cirklar", "fem cirklar men en är ifylld", "fyra cirklar" och "sex cirklar". Då inser du att en andra regel kan finnas, till exempel färg eller fyllning, som du missade. Gå tillbaka och kontrollera om cirklarna bytte fyllning längs raderna. Gjorde de inte det är "fem cirklar" rätt. Gjorde de det är det "fem cirklar men en ifylld" som gäller.</p>
+        <p>Det här är hela arbetssättet i miniatyr: hitta regeln, bekräfta mot två riktningar, och låt alternativen avslöja om det finns en regel till.</p>
+
+        <h2 id="ett-svarare-exempel-med-tva-regler">Ett svårare exempel med två regler</h2>
+        <p>De flesta matriser du möter en bit in i testet bygger på mer än en regel. Ta ett rutnät där varje ruta innehåller en pil, och den nedersta högra är tom.</p>
+        <ul class="ib-radlista">
+          <li><strong>Rad 1:</strong> en svart pil uppåt, två svarta pilar uppåt, tre svarta pilar uppåt.</li>
+          <li><strong>Rad 2:</strong> en vit pil åt höger, två vita pilar åt höger, tre vita pilar åt höger.</li>
+          <li><strong>Rad 3:</strong> en svart pil nedåt, två svarta pilar nedåt, tom.</li>
+        </ul>
+        <p>Här finns flera regler på en gång, och det är just därför du ska ta en egenskap i taget. Börja med antalet: varje rad går ett, två, tre. Den tomma rutan ska alltså innehålla tre pilar. Gå sedan till riktningen: pilarna pekar uppåt på rad ett, åt höger på rad två, nedåt på rad tre. Inom raden ändras inte riktningen, så svaret är tre pilar som pekar nedåt. Kontrollera till sist färgen: rad tre är svart hela vägen, så pilarna ska vara svarta.</p>
+        <p>Svaret är tre svarta pilar som pekar nedåt. Lägg märke till hur ingen enskild regel var svår, men att de tillsammans gör uppgiften lätt att slarva bort. Den som ser "tre pilar" och nöjer sig riskerar att välja ett alternativ med fel färg eller fel riktning, och nästan rätt ger noll poäng.</p>
+        <p>Vill du testa om du klarar samma resonemang under tidspress kan du <a href="/verktyg/rekryteringstester">öva på liknande uppgifter gratis</a> och se ditt resultat direkt.</p>
+
+        <h2 id="strategin-som-hojer-ditt-resultat">Strategin som höjer ditt resultat</h2>
+        <p>Den bästa strategin är att läsa av svarsalternativen först, lösa en regel i taget och alltid kontrollera mot två riktningar. Tempo och precision drar åt olika håll, och matristestet är byggt för att tvinga fram en balans: den klassiska Matrigman ger dig cirka 40 minuter på 35 uppgifter, alltså drygt en minut styck, och är medvetet konstruerad så att de flesta inte hinner med alla. Här är arbetssättet som fungerar.</p>
+        <p><strong>Skanna svarsalternativen först.</strong> De är ofta utformade för att lura. Två alternativ kan skilja sig bara på en detalj, som färgen på en enda figur. När du vet vad alternativen varierar på vet du vad du ska leta efter i mönstret.</p>
+        <p><strong>Ta en egenskap i taget.</strong> Antal, sedan rotation, sedan färg, sedan position. Eliminera alternativ för varje regel du löser. Ofta återstår bara ett alternativ innan du ens kollat alla regler.</p>
+        <p><strong>Gissa kvalificerat på det du fastnar på.</strong> Eftersom testet sällan straffar fel svar hårdare än uteblivna svar, och eftersom du sällan hinner med allt, är det oftast bättre att eliminera de omöjliga alternativen och gissa bland resten än att lägga två minuter på en enda fråga. Arbetsförmedlingen påminner om att både antal rätt och antal genomförda uppgifter vägs in.</p>
+        <p><strong>Håll tempot jämnt.</strong> Fastnar du mer än cirka en minut på en fråga, markera ett kvalificerat svar och gå vidare. En obesvarad fråga i slutet är dyrare än en snabb gissning i mitten.</p>
+
+        <h2 id="sa-tranar-du-infor-testet">Så tränar du inför testet</h2>
+        <p>Förberedelsen ska efterlikna det skarpa läget, annars bygger du en falsk trygghet.</p>
+        <p><strong>Öva på rätt format.</strong> Ska du göra ett matristest, träna på matriser, inte på numeriska eller verbala uppgifter. Akavia är tydlig med att värdet i att öva ligger i att förstå hur just den testtypen är uppbyggd. Mönsterkänsla från en testtyp överförs bara delvis till en annan.</p>
+        <p><strong>Träna med timer.</strong> Det här är det som de flesta hoppar över och sedan ångrar. Stress är ofta en avsiktlig del av testet, för att simulera verkliga arbetsförhållanden. Att lösa matriser i lugn och ro säger ingenting om hur du presterar med klockan tickande.</p>
+        <p><strong>Gå igenom dina fel.</strong> Den verkliga inlärningen sker när du förstår varför du valde fel. Var det en regel du missade, eller stressade du fram ett svar? Mönstret i dina misstag säger dig vad du ska träna mer på.</p>
+        <p><strong>Välj rätt tillfälle.</strong> Du har oftast några dagar på dig att genomföra ett skarpt test. Akavias råd gäller även här: avsätt gott om tid, sitt ostört, stäng av notiser och välj den tid på dygnet då du är som skarpast.</p>
+        <p>Vill du träna under realistiska förhållanden har vi byggt ett <a href="/verktyg/rekryteringstester">verktyg för rekryteringstester</a> där du kan öva på matrislogik gratis, på både grund- och avancerad nivå, med samma tidspress som ett skarpt test. Du ser ditt resultat direkt och kan repetera tills formatet sitter i ryggmärgen.</p>
+
+        <h2 id="vanliga-misstag">Vanliga misstag</h2>
+        <p><strong>Att jaga första regeln.</strong> Du ser att antalet ökar på första raden och väljer direkt. Men kolumnerna följde en annan regel, och ditt svar var nästan rätt. Kontrollera alltid mot minst två riktningar.</p>
+        <p><strong>Att inte titta på alternativen.</strong> Mönstret kan kännas tvetydigt tills du ser att bara ett alternativ ens är möjligt. Alternativen är en del av ledtråden.</p>
+        <p><strong>Att fastna.</strong> En enda klurig fråga kan äta upp tid för tre lätta längre fram. Disciplinen att gå vidare är ofta värd fler poäng än ihärdigheten att lösa.</p>
+        <p><strong>Att aldrig ha tränat med klocka.</strong> Du kan vara grym på matriser i soffan och ändå underprestera när tidspressen slår till. Träna alltid med timer.</p>
+
+        <h2 id="vem-moter-matrislogik-och-nar">Vem möter matrislogik, och när?</h2>
+        <p>Matristester dyker upp i ett brett spann av rekryteringar, och de är vanligast hos större arbetsgivare som rekryterar många och behöver ett objektivt första filter. Manpower lyfter att logiska tester särskilt används vid rekrytering inom ekonomi, teknik, IT och ledarskap samt till traineeprogram. I praktiken möter du matrislogik oftast hos konsultbolag, banker, myndigheter, teknikföretag och i de stora trainee-programmen, ibland direkt efter den första ansökan och före intervjun.</p>
+        <p>Att formatet känns frånkopplat från jobbet är själva poängen. En ekonomiassistent, en systemutvecklare och en blivande chef ska kunna bedömas på samma abstrakta problemlösning, oberoende av yrkesspråk och förkunskaper. Just därför hamnar testet tidigt i processen: det är ett snabbt, billigt och språkoberoende sätt att gallra i en stor sökandeskara.</p>
+        <p>Det betyder att matristestet ofta är det som avgör om du över huvud taget får träffa en människa. Just därför är det värt att ta på allvar trots att det känns abstrakt och frånkopplat från själva jobbet. Ett starkt resultat här är biljetten vidare, ett svagt kan stoppa en annars stark ansökan innan någon läst ditt CV ordentligt.</p>
+        <p>Du får i regel besked i förväg om att ett test ingår, och oftast några dagar på dig att genomföra det. Använd den tiden till att träna på rätt format, inte till att oroa dig. En kandidat som sett hundra matriser innan den skarpa går in lugnare och presterar närmare sin verkliga förmåga än en som möter formatet för första gången under press.</p>
+
+        <h2 id="testet-ar-ett-steg-inte-hela-resan">Testet är ett steg, inte hela resan</h2>
+        <p>Hur viktigt matristestet än känns är det sällan ensamt avgörande. En seriös arbetsgivare väger samman testresultat, intervju och erfarenhet. Ett starkt resultat öppnar dörrar, men du bedöms på helheten.</p>
+        <p>Vill du förstå hur matrislogik passar in bland de andra testtyperna, läs vår <a href="/verktyg/rekryteringstester">översikt över rekryteringstester</a>. Möter du flera testdelar samtidigt har vi separata guider till <a href="/artiklar/numeriskt-test-guide">numeriska test</a>, <a href="/artiklar/verbalt-test-guide">verbala test</a> och <a href="/artiklar/rotation-test-guide">rotationstest</a>. Ska du snart på intervju efter testet har vi också en <a href="/artiklar/arbetsintervju-guide">guide till arbetsintervjun</a> och konkreta tips för att <a href="/artiklar/nervos-infor-intervju-tips">hantera nervositeten</a>.</p>
+        <p>Och vill du gå in i testet med formatet i fingerspetsarna, <a href="/verktyg/rekryteringstester">träna på matrislogik gratis</a> först.</p>
+
+        <span class="ib-tag inneh">Innehåll: MDX-lista, ritas som länkkort</span>
+        <div class="ib-merom">
+          <p><strong>Mer om rekryteringstester:</strong></p>
+          <ul>
+            <li><a href="/artiklar/logiska-tester">Logiska tester vid rekrytering: alla testtyper och hur du övar</a></li>
+            <li><a href="/verktyg/rekryteringstester">Rekryteringstester: öva gratis på alla testtyper</a></li>
+            <li><a href="/verktyg/rekryteringstester/prova">Prova ett rekryteringstest utan konto</a></li>
+          </ul>
+        </div>
+
+        <span class="ib-tag">Mall: Signatur (författare, datum, källor ur MDX)</span>
+        <div class="ib-signatur">
+          <div class="ib-signatur-h">
+            <span class="ib-avatar" aria-hidden="true">LE</span>
+            <div><b>Linda Eriksson</b><span>Chefsrekryterare och Employer Branding Expert. Specialistområden: Executive Search, Kompetensbaserad rekrytering, Förhandlingsstrategier, Employer Branding.</span></div>
+          </div>
+          <dl class="ib-datum"><div><dt>Publicerad</dt><dd><time datetime="2026-06-17">17 juni 2026</time></dd></div><div><dt>Granskad</dt><dd>av HR-experter</dd></div></dl>
+          <p class="ib-kallrad"><em>Källor: <a href="https://www.akavia.se/rad-och-stod/soka-jobb/anstallningsintervju/jobbtest/">Akavia: Jobbtest – så förbereder du dig</a>, <a href="https://arbetsformedlingen.se/play/webbinarium/hur-tanker-arbetsgivaren-om-tester-vid-rekrytering">Arbetsförmedlingen: Hur tänker arbetsgivaren om tester vid rekrytering?</a> och <a href="https://www.manpower.se/sv/blogg/arbetsgivare/vanliga-logiska-tester-vid-rekrytering">Manpower: Logiktest vid rekrytering</a>.</em></p>
+        </div>
+
+        <span class="ib-tag inneh">Innehåll: FAQContainer i MDX, samma text som frontmatter.faq</span>
+        <div class="ib-faq-ram">
+          <h2>Vanliga Frågor (FAQ)</h2>
+          <div class="faq">
+            <details open><summary>Vad är matrislogik?</summary><p>Matrislogik är ett test av abstrakt resonemang där du ser ett rutnät av figurer, oftast 3x3, där en ruta är tom. Din uppgift är att räkna ut vilken figur som ska fylla tomrummet utifrån de mönster som styr de övriga rutorna. Akavia beskriver logiska tester som att de bedömer din förmåga att se mönster och dra slutsatser utifrån symboler eller figurer. Det är den vanligaste varianten av logiskt test vid rekrytering.</p></details>
+            <details><summary>Kan man öva upp sig på matrislogik?</summary><p>Ja. Din grundläggande mönsterförmåga ändras inte dramatiskt över en helg, men nästan alla höjer sitt resultat genom att lära sig känna igen de vanligaste regeltyperna och genom att vänja sig vid tidspressen. Akavia konstaterar att logiska tester är värdefulla att öva på just för att du blir mentalt förberedd och förstår hur uppgifterna är uppbyggda. Den största vinsten är att slippa tappa poäng på sådant du kunnat lösa om du inte blivit stressad eller överraskad.</p></details>
+            <details><summary>Hur lång tid har man på sig?</summary><p>Det varierar, men matristester är nästan alltid tidsbegränsade och designade så att de flesta inte hinner med alla frågor. Arbetsförmedlingen påminner om att resultatet ofta vägs samman av flera delar: antal rätta svar, antal genomförda uppgifter, prioriteringar och effektivitet. Det betyder att tempo spelar roll, men inte på bekostnad av för många slarvfel.</p></details>
+            <details><summary>Är matrislogik samma sak som IQ-test?</summary><p>De är besläktade. Akavia beskriver att logiska tester påminner om IQ-tester eftersom båda mäter abstrakt problemlösning oberoende av språk och förkunskaper. Skillnaden är syftet: ett rekryteringstest används för att förutsäga hur du skulle prestera i en specifik roll, inte för att sätta en IQ-siffra på dig.</p></details>
+            <details><summary>Var kan jag öva på matrislogik gratis?</summary><p>Det finns gratis övningstester och pedagogiska genomgångar online. Vi har ett eget verktyg där du kan träna på matrislogik gratis, både på grundnivå och avancerad nivå, under samma tidspress som ett skarpt test. Det viktigaste är att du övar på just matristester och inte bara logik i allmänhet, eftersom formatet är specifikt.</p></details>
+          </div>
+        </div>
+
+        <div class="ib-amnen">
+          <p class="ib-sidorub">Ämnen</p>
+          <ul class="ib-chips"><li><a href="/artiklar?tag=matrislogik">matrislogik</a></li><li><a href="/artiklar?tag=abstrakt-resonemang">abstrakt resonemang</a></li><li><a href="/artiklar?tag=matristest">matristest</a></li><li><a href="/artiklar?tag=matrigma-ovning">matrigma övning</a></li><li><a href="/artiklar?tag=abstrakt-logik-test">abstrakt logik test</a></li><li><a href="/artiklar?tag=iq-test-jobb">iq test jobb</a></li></ul>
+        </div>
+      </div>
+    </article>
+
+    <aside class="ib-sido" aria-label="Innehåll och paketet">
+      <nav aria-label="Innehåll">
+        <p class="ib-sidorub">Innehåll</p>
+        <div class="ib-toc">
+          <a href="#vad-matrislogik-egentligen-mater" class="aktiv">Vad matrislogik egentligen mäter</a>
+          <a href="#vilket-matristest-moter-du-i-sverige">Vilket matristest möter du i Sverige?</a>
+          <a href="#sa-ar-en-matris-uppbyggd">Så är en matris uppbyggd</a>
+          <a href="#de-vanligaste-regeltyperna">De vanligaste regeltyperna</a>
+          <a href="#ett-exempel-lost-steg-for-steg">Ett exempel, löst steg för steg</a>
+          <a href="#ett-svarare-exempel-med-tva-regler">Ett svårare exempel med två regler</a>
+          <a href="#strategin-som-hojer-ditt-resultat">Strategin som höjer ditt resultat</a>
+          <a href="#sa-tranar-du-infor-testet">Så tränar du inför testet</a>
+          <a href="#vanliga-misstag">Vanliga misstag</a>
+          <a href="#vem-moter-matrislogik-och-nar">Vem möter matrislogik, och när?</a>
+          <a href="#testet-ar-ett-steg-inte-hela-resan">Testet är ett steg, inte hela resan</a>
+        </div>
+      </nav>
+      <div class="ib-black ib-sidopaket">
+        <p class="kick">Jobbcoach Premium</p>
+        <p class="h4 ib-rub">Träna med klockan på innan kallelsen kommer</p>
+        <p class="liten" style="margin-top:6px">Rekryteringstester, CV, personliga brev, jobbmatchning och Jobbcoachen</p>
+        <p class="pris-l">149 kr<small>i månaden, ingen bindningstid</small></p>
+        <a class="ib-knapp-ram" href="/priser">Se vad som ingår</a>
+        <p class="liten" style="margin-top:12px">Fem frågor gratis här. Nivåkollen och första passet gratis med konto.</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- Slutet: Premium i eget bläckblock. Mall: SlutKort per kluster. -->
+<section class="sek yta-black" id="premium-artikel">
+  <div class="wrap tva">
+    <div class="tva-text">
+      <span class="ib-tag">Mall: SlutKort, klustret test</span>
+      <p class="kick">Jobbcoach Premium</p>
+      <p class="h2 ib-rub">Alla nivåer. <span class="gradord">Klockan på.</span></p>
+      <ul class="bock" style="margin-top:28px">
+        <li>Logik, verbalt och numeriskt i grund, avancerad och expert, med förklaring till varje svar</li>
+        <li>Övningsprov på 25 till 40 minuter och automatisk inlämning, samma tidspress som hos rekryteraren</li>
+        <li>Fördjupade personlighetstestet, 120 påståenden</li>
+        <li>Dessutom CV-analysen, alla mallar, personliga brev, jobbmatchning och Jobbcoachen</li>
+      </ul>
+      <p class="pris" style="margin-top:32px">149 kr<small>i månaden, säg upp när du vill</small></p>
+      <div class="handling">
+        <a class="knapp" href="/priser">Köp Premium, 149 kr i månaden</a>
+        <a class="lank" href="/priser#vad-ingar">Se vad som ingår</a>
+      </div>
+    </div>
+    <div class="prem-fan" aria-hidden="true">
+      {{TEL:person}}
+      {{TEL:matris}}
+      {{TEL:fragor}}
+    </div>
+  </div>
+</section>
+
+<!-- Läs vidare: relaterade med tumnaglar, verktyg och mest lästa (synliga också på mobil) -->
+<section class="sek yta-panel" id="las-vidare">
+  <div class="wrap">
+    <span class="ib-tag">Mall: tre relaterade ur taggarna</span>
+    <div class="ib-rubrikrad"><p class="h3 ib-rub">Läs vidare</p><a class="lank" href="/artiklar">Visa alla artiklar</a></div>
+    <ul class="ib-rel">
+      <li><a href="/artiklar/alva-labs-logiktest"><span class="ib-tumme">{{ARTBILD:alva}}</span><div><small>Rekryteringstester</small><b>Alva Labs logiktest: så fungerar testet, så läser du resultatet och så övar du</b><span>12 min</span></div></a></li>
+      <li><a href="/artiklar/deduktivt-induktivt-test"><span class="ib-tumme">{{ARTBILD:deduktiv}}</span><div><small>Rekryteringstester</small><b>Deduktivt och induktivt test: skillnaden, exempel med lösning och hur du övar</b><span>12 min</span></div></a></li>
+      <li><a href="/artiklar/bakgrundskontroll-vid-anstallning"><span class="ib-tumme">{{ARTBILD:bakgrund}}</span><div><small>Jobbsökning</small><b>Bakgrundskontroll vid anställning: vad arbetsgivaren får kolla och vad du kan göra</b><span>17 min</span></div></a></li>
+    </ul>
+    <div class="ib-lankkol">
+      <div><p class="ib-sidorub">Verktyg</p><ul class="ib-sidolista"><li><a href="/verktyg/rekryteringstester">Rekryteringstester</a></li><li><a href="/verktyg/cv-analys">CV-analys</a></li><li><a href="/verktyg/cv-mallar">CV-mallar</a></li><li><a href="/verktyg/personligt-brev">Personligt brev</a></li><li><a href="/verktyg/jobbmatchning">Jobbmatchning</a></li></ul></div>
+      <div><p class="ib-sidorub">Mest lästa</p><ul class="ib-sidolista"><li><a href="/artiklar/styrkor-svagheter-intervju">Styrkor och svagheter på intervjun</a></li><li><a href="/artiklar/bild-i-cv-ja-eller-nej">Bild i CV:t, ja eller nej?</a></li><li><a href="/artiklar/kompetensbaserad-intervju-star-metoden">STAR-metoden på intervjun</a></li><li><a href="/artiklar/personligt-brev-pa-engelska">Personligt brev på engelska</a></li><li><a href="/artiklar/hur-ska-ett-cv-se-ut">Hur ska ett CV se ut?</a></li><li><a href="/artiklar/skriva-personligt-brev-guide">Skriva personligt brev, hela guiden</a></li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================== Undersida: artikelarkivet, kort -->
+<div class="ib-sidbyte" id="artiklar-arkiv"><div class="wrap"><b>Artikelarkivet</b><code>/artiklar</code><span>CollectionPage, ItemList och BreadcrumbList som i dag. Varje kort har kvar sin H2.</span></div></div>
+
+<section class="sek yta-vagg vagg rum-neu ib-hjalte ib-arkiv-hjalte">
+  <div class="wrap">
+    <nav class="smula" aria-label="Brödsmulor"><a href="/">Hem</a><span>/</span><span aria-current="page">Artiklar</span></nav>
+    <div class="ib-arkiv-topp">
+      <div>
+        <p class="kick">Artiklar</p>
+        <h1 class="ib-h1-stor">Artiklar som förbättrar din jobbsökning</h1>
+        <p class="ingress">Lär dig skriva starkare ansökningar och CV:n som går igenom. Guider som granskas av HR-experter och uppdateras varje vecka.</p>
+        <p class="ib-antal"><b>139</b>artiklar, nya varje vecka</p>
+      </div>
+      <div class="ib-bunt" aria-hidden="true"><span class="ib-tumme">{{ARTBILD:map}}</span><span class="ib-tumme">{{ARTBILD:matchning}}</span><span class="ib-tumme">{{ARTBILD:cvsektion}}</span></div>
+    </div>
+    <nav class="ib-filter ib-filter-vagg" aria-label="Ämnen">
+      <a href="/artiklar" class="aktiv">Alla artiklar <em>139</em></a><a href="/artiklar?tag=personligt-brev">Personligt brev <em>15</em></a><a href="/artiklar?tag=cv-tips">Cv tips <em>12</em></a><a href="/artiklar?tag=jobbansokan">Jobbansökan <em>12</em></a><a href="/artiklar?tag=karriartips">Karriärtips <em>12</em></a><a href="/artiklar?tag=jobbsokning">Jobbsökning <em>12</em></a><a href="/artiklar?tag=jobbintervju">Jobbintervju <em>9</em></a><a href="/artiklar?tag=rekryteringstester">Rekryteringstester</a>
+    </nav>
+  </div>
+</section>
+
+<section class="sek yta-mark ib-arkiv-lista">
+  <div class="wrap">
+    <ul class="ib-rel ib-arkiv">
+      <li class="stor"><a href="/artiklar/alva-labs-logiktest"><span class="ib-tumme">{{ARTBILD:alva}}</span><div><small>Rekryteringstester</small><h2 class="ib-kort-h2">Alva Labs logiktest: så fungerar testet, så läser du resultatet och så övar du</h2><p class="ib-kort-ingress">Alva Labs logiktest har 20 matrisuppgifter med två minuter var och anpassar svårigheten efter dig. Så är testet byggt, så läses skalan 1 till 10, så övar du.</p><span><time datetime="2026-09-23">23 september 2026</time>, 12 min</span></div></a></li>
+      <li><a href="/artiklar/bakgrundskontroll-vid-anstallning"><span class="ib-tumme">{{ARTBILD:bakgrund}}</span><div><small>Jobbsökning</small><h2 class="ib-kort-h2">Bakgrundskontroll vid anställning: vad arbetsgivaren får kolla och vad du kan göra</h2><span><time datetime="2026-09-23">23 september 2026</time>, 17 min</span></div></a></li>
+      <li><a href="/artiklar/deduktivt-induktivt-test"><span class="ib-tumme">{{ARTBILD:deduktiv}}</span><div><small>Rekryteringstester</small><h2 class="ib-kort-h2">Deduktivt och induktivt test: skillnaden, exempel med lösning och hur du övar</h2><span><time datetime="2026-09-23">23 september 2026</time>, 12 min</span></div></a></li>
+      <li><a href="/artiklar/map-test-personlighetstest"><span class="ib-tumme">{{ARTBILD:map}}</span><div><small>Rekryteringstester</small><h2 class="ib-kort-h2">MAP-test: så fungerar Assessios personlighetstest och så svarar du</h2><span><time datetime="2026-09-23">23 september 2026</time>, 10 min</span></div></a></li>
+      <li class="ib-arkiv-gratis">
+        <div class="ib-gratis">
+          <div>
+            <span class="ib-tag">Mall: GratisKort, efter fjärde kortet</span>
+            <p class="kick">Utan att betala</p>
+            <p class="h3 ib-rub">Vill du prova innan du läser vidare?</p>
+            <div class="handling"><a class="knapp" href="/register">Skapa konto gratis</a><a class="lank" href="/priser">Se vad som ingår i Premium</a></div>
+          </div>
+          <ul class="bock"><li>Tre CV-mallar och en nedladdning</li><li>En CV-analys med poäng och tyngsta fyndet</li><li>Ett personligt brev var sjunde dag, att läsa på skärmen</li><li>Tre matchade jobb och tio frågor till Jobbcoachen</li><li>En nivåkoll i testerna med genomgång, och ett första träningspass</li></ul>
+        </div>
+      </li>
+      <li><a href="/artiklar/verifierade-testresultat-vs-cv"><span class="ib-tumme">{{ARTBILD:logik}}</span><div><small>Rekryteringstester</small><h2 class="ib-kort-h2">Verifierade testresultat vs CV-påståenden: vad rekryteraren faktiskt kan lita på</h2><span><time datetime="2026-07-23">23 juli 2026</time>, 7 min</span></div></a></li>
+      <li><a href="/artiklar/ai-jobbmatchning"><span class="ib-tumme">{{ARTBILD:matchning}}</span><div><small>Jobbmatchning</small><h2 class="ib-kort-h2">AI-jobbmatchning: så fungerar det när jobben hittar dig i stället</h2><span><time datetime="2026-07-22">22 juli 2026</time>, 8 min</span></div></a></li>
+      <li><a href="/artiklar/arbetslivserfarenhet-cv"><span class="ib-tumme">{{ARTBILD:cvsektion}}</span><div><small>CV</small><h2 class="ib-kort-h2">Arbetslivserfarenhet i CV:t: så beskriver du dina jobb så de säljer</h2><span><time datetime="2026-07-22">22 juli 2026</time>, 9 min</span></div></a></li>
+    </ul>
+    <nav class="ib-sidor" aria-label="Sidor"><span>Visar 1 till 9 av 139 artiklar</span><div><a href="/artiklar" aria-current="page">1</a><a href="/artiklar?sida=2">2</a><span>till</span><a href="/artiklar?sida=16">16</a><a href="/artiklar?sida=2">Nästa</a></div></nav>
+  </div>
+</section>
+
+<section class="sek yta-black ib-arkiv-prem">
+  <div class="wrap tva">
+    <div class="tva-text">
+      <span class="ib-tag">Mall: ListaSlutKort</span>
+      <p class="kick">Jobbcoach Premium</p>
+      <p class="h2 ib-rub">Läs klart, <span class="gradord">gör sedan.</span></p>
+      <p class="ingress" style="margin-top:16px">Allt i en prenumeration, 149 kr i månaden. Ingen bindningstid, säg upp med ett klick.</p>
+      <ul class="bock" style="margin-top:24px">
+        <li>Alla rekryteringstester, övningsprov och personlighetstestet</li>
+        <li>Alla CV-mallar, CV-analysen, personliga brev och LinkedIn</li>
+        <li>Jobbmatchning varje natt, alla träffar med skälen</li>
+        <li>Jobbcoachen, fråga så mycket du vill</li>
+        <li>Bli upptäckt av rekryterare, anonymt</li>
+      </ul>
+      <div class="handling"><a class="knapp" href="/priser">Se vad som ingår</a><a class="lank" href="/verktyg/cv-mallar">Eller börja gratis med en CV-mall</a></div>
+    </div>
+    <div class="duo" aria-hidden="true">
+      <div class="skala">{{TEL:cv}}</div>
+      {{TEL:match}}
+    </div>
+  </div>
+</section>
+
+</main>
+{{FOOTER}}
+<div class="botten"><a class="knapp" href="/verktyg/rekryteringstester/prova">Prova fem frågor gratis</a></div>
+</div>

@@ -18,3 +18,10 @@ export const FREE_TEMPLATE_COUNT = 3
 
 /** Antalet mallar som kräver CV-paketet eller Hela paketet. */
 export const PREMIUM_TEMPLATE_COUNT = 38
+
+/**
+ * Gratis CV-nedladdningar per konto. Spärren i
+ * src/app/api/cv/generate-formatted/route.ts och sidornas text läser samma
+ * tal (spec-publikt-v2 del A avsnitt 6).
+ */
+export const FREE_CV_EXPORTS = 1

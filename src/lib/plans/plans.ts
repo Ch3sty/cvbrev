@@ -83,10 +83,15 @@ const DAGSPASSET = 'Dagspasset'
  */
 const PREMIUM_KORT = 'Premium'
 
-/** Det som ingår i Premium, i den ordning prissidan och betalväggen visar det. */
-const HELA_PAKETET_RADER = [
+/**
+ * Det som ingår i Premium, i den ordning prissidan och betalväggen visar det.
+ * Rekryteringstesterna står först (spec-publikt-v2 del A 5.1, ägarens krav
+ * 2026-10-12: testerna först där verktyg räknas upp). Startsidans och
+ * prissidans Premiumblock läser listan härifrån.
+ */
+export const HELA_PAKETET_RADER = [
+  'Alla rekryteringstester, övningsprov och det fördjupade personlighetstestet',
   'Alla CV-mallar, CV-analysen, personliga brev och LinkedIn',
-  'Alla rekryteringstester, övningsprov och personlighetstestet',
   'Jobbmatchning varje natt, alla träffar med skälen',
   'Jobbcoachen, fråga så mycket du vill',
   'Bli upptäckt av rekryterare, anonymt',

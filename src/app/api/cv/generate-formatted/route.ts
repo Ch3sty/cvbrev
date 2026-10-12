@@ -12,6 +12,7 @@ import { arPlatshallareNamn, arPlatshallareTitel, kontaktForCv } from '@/lib/pro
 import { userHasAccess } from '@/lib/supabase/premiumAccess';
 import { suggestPlan, type Scope } from '@/lib/access/features';
 import { featureRequiredBody } from '@/lib/quota/quotaService';
+import { FREE_CV_EXPORTS } from '@/lib/cv/template-antal';
 import { logPremiumUsage } from '@/lib/premium/logPremiumUsage';
 
 // Svensk kommun-till-region mapping för CV-vänliga adresser
@@ -2337,7 +2338,7 @@ export async function POST(request: NextRequest) {
           .single();
 
         const used = (exportProfile as { free_cv_exports_used?: number } | null)?.free_cv_exports_used ?? 0;
-        if (used >= 1) {
+        if (used >= FREE_CV_EXPORTS) {
           return NextResponse.json(
             featureRequiredBody('cv_export', suggestPlan('cv_export', onboardingTrack)),
             { status: 402 }

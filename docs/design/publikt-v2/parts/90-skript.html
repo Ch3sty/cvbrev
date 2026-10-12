@@ -1,0 +1,95 @@
+<script>
+(function(){
+  var q = new URLSearchParams(location.search);
+  var html = document.documentElement;
+  var inbaddad = q.get('inbaddad') === '1';
+  if (inbaddad) document.body.classList.add('inbaddad');
+  var tema = q.get('tema');
+  if (tema === 'dark' || tema === 'light') html.setAttribute('data-theme', tema);
+
+  var sidor = document.querySelectorAll('.sida');
+  var flikar = document.querySelectorAll('.ad .flik');
+  var ram = document.getElementById('mobilram');
+  var ifr = document.getElementById('mobil-if');
+  var kDator = document.getElementById('k-dator'), kMobil = document.getElementById('k-mobil');
+  var kLjus = document.getElementById('k-ljus'), kMork = document.getElementById('k-mork');
+  var mobil = false;
+
+  function aktuellSida(){
+    var h = (location.hash || '#start').replace('#','').split('/')[0];
+    return document.getElementById('sida-' + h) ? h : 'start';
+  }
+  function visa(){
+    var s = aktuellSida();
+    sidor.forEach(function(el){ el.classList.toggle('aktiv', el.dataset.sida === s); });
+    flikar.forEach(function(f){ f.classList.toggle('aktiv', f.dataset.sida === s); });
+    if (!inbaddad) {
+      document.body.classList.toggle('visar-mobil', mobil);
+      ram.classList.toggle('aktiv', mobil);
+      if (mobil) {
+        var t = html.getAttribute('data-theme') || '';
+        var url = location.pathname + '?inbaddad=1' + (t ? '&tema=' + t : '') + '#' + s;
+        if (ifr.getAttribute('src') !== url) ifr.setAttribute('src', url);
+      }
+    }
+    window.scrollTo(0,0);
+    starta();
+  }
+  window.addEventListener('hashchange', visa);
+  if (kDator) {
+    kDator.addEventListener('click', function(){ mobil = false; kDator.setAttribute('aria-pressed','true'); kMobil.setAttribute('aria-pressed','false'); visa(); });
+    kMobil.addEventListener('click', function(){ mobil = true; kMobil.setAttribute('aria-pressed','true'); kDator.setAttribute('aria-pressed','false'); visa(); });
+    kLjus.addEventListener('click', function(){ html.setAttribute('data-theme','light'); kLjus.setAttribute('aria-pressed','true'); kMork.setAttribute('aria-pressed','false'); visa(); });
+    kMork.addEventListener('click', function(){ html.setAttribute('data-theme','dark'); kMork.setAttribute('aria-pressed','true'); kLjus.setAttribute('aria-pressed','false'); visa(); });
+  }
+
+  // Rörelse: telefoner glider in, ringen fylls, poängen räknar upp. Allt tyst vid reduced motion.
+  var rorelse = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+  function rakna(el){
+    var mal = parseInt(el.dataset.rakna, 10) || 0;
+    if (!rorelse) { el.textContent = mal; return; }
+    var start = null;
+    function steg(ts){
+      if (!start) start = ts;
+      var p = Math.min(1, (ts - start) / 1500);
+      var e = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(mal * e);
+      if (p < 1) requestAnimationFrame(steg);
+    }
+    requestAnimationFrame(steg);
+  }
+  var io;
+  function starta(){
+    if (io) io.disconnect();
+    var aktiv = document.querySelector('.sida.aktiv');
+    if (!aktiv) return;
+    var glid = aktiv.querySelectorAll('.glid');
+    // Fast knapprad efter hjälten, oavsett rörelseinställning
+    var botten = aktiv.querySelector('.botten');
+    var hjalte = aktiv.querySelector('section');
+    if (botten && hjalte) {
+      if ('IntersectionObserver' in window) new IntersectionObserver(function(poster){
+        botten.classList.toggle('syns', !poster[0].isIntersecting && poster[0].boundingClientRect.top < 0);
+      }, { threshold: 0 }).observe(hjalte);
+    }
+    if (!rorelse || !('IntersectionObserver' in window)) {
+      glid.forEach(function(el){ el.classList.add('inne'); el.querySelectorAll('.ring').forEach(function(r){ r.classList.remove('vilar'); }); el.querySelectorAll('[data-rakna]').forEach(rakna); });
+      return;
+    }
+    io = new IntersectionObserver(function(poster){
+      poster.forEach(function(p){
+        if (!p.isIntersecting) return;
+        p.target.classList.add('inne');
+        p.target.querySelectorAll('.ring').forEach(function(r){ r.classList.remove('vilar'); });
+        p.target.querySelectorAll('[data-rakna]').forEach(rakna);
+        io.unobserve(p.target);
+      });
+    }, { threshold: 0.25 });
+    glid.forEach(function(el){ el.classList.remove('inne'); el.querySelectorAll('.ring').forEach(function(r){ r.classList.add('vilar'); }); io.observe(el); });
+
+  }
+  visa();
+})();
+</script>
+</body>
+</html>
