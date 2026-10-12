@@ -86,7 +86,18 @@ Beslut: den delade räknaren behålls. Mätraden är ett instrument med klocka, 
 
 Med räknaren i mätraden försvinner dubbleringen i uppgiftsytan (avsnitt 3 och 4). Numret står då på ett ställe under testet, och den tunna framstegslinjen under mätraden visar hur långt det är kvar.
 
-## 6. Att kontrollera efter införandet
+## 6. Lyftkortet i 1c (inför provet), titeln på högst två rader
+
+Källan är inte hem-copy.ts utan src/lib/traning/hemvy.ts, ramen 1c, lyftkortets `titel`, som sätter ihop `r.titel` och `r.antalTid` ur `provrad()` i rubrik.ts med kolon.
+
+| Fil | Nyckel | Gammal text | Ny text |
+|---|---|---|---|
+| hemvy.ts (1c) | `lyft.titel` | `${r.titel}: ${r.antalTid}` ("Samma format som Matrigma: cirka 35 uppgifter på 40 minuter") | `r.titel` ("Samma format som Matrigma", "Samma format som Alva Logic", "Samma format som SHL Verify", "Samma format som Aon scales (cut-e)", "Vårt eget format") |
+| hemvy.ts (1c) | `lyft.text` | `[r.anmarkning, text2/text1/lastText]` | `[versal(r.antalTid) + '.', r.anmarkning, text2/text1/lastText]` ("Cirka 35 uppgifter på 40 minuter. Som på riktigt: ingen förklaring förrän efteråt och ingen paus. ...") |
+
+Titeln är då högst 35 tecken (Aon), två rader i display-snittet på 360, oftast en. Antal och tid står först i metaraden, där siffror är fakta och inte löptext. Kolonet i titeln försvinner samtidigt.
+
+## 7. Att kontrollera efter införandet
 
 - Raderna under rubriken i 1a och kurvmetan ryms på en rad vid 360 px.
 - `talord` i src/lib/traning/copy.ts stannar i dag vid tio och ger siffror över det. Fyll på listan till och med tjugo (elva, tolv, tretton, fjorton, femton, sexton, sjutton, arton, nitton, tjugo), så blir "tolv av femton" ord i bekräftelserutan och i `smakprovTitel`. Rutan skrivs med talord från hem-copyns import.

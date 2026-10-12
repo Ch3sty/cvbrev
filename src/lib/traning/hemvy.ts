@@ -888,9 +888,11 @@ export function byggHemvy(inp: HemIn): HemModell {
             label: HEM.infor.eyebrow,
             eyebrow: HEM.infor.eyebrow,
             eyebrowTon: 'koppar',
-            titel: `${r.titel}: ${r.antalTid}`,
-            // Anmärkningen (SHL, Aon) först, flyttad från provraden (copy-plan 3.5).
-            text: [r.anmarkning, harProv ? (dagarKvar === 2 ? HEM.infor.text2 : HEM.infor.text1) : HEM.infor.lastText()].filter(Boolean).join(' '),
+            // Titeln bär bara formatet så att den ryms på två rader på 360;
+            // antal och tid står först i texten (copy-avrundning avsnitt 6).
+            titel: r.titel,
+            // Anmärkningen (SHL, Aon) efter antalet, flyttad från provraden (copy-plan 3.5).
+            text: [`${versal(r.antalTid)}.`, r.anmarkning, harProv ? (dagarKvar === 2 ? HEM.infor.text2 : HEM.infor.text1) : HEM.infor.lastText()].filter(Boolean).join(' '),
             handling: harProv
               ? { typ: 'lank', text: HEM.infor.knapp, href: TRANING_RUTT.general }
               : kop(s, 'test_exam_mode', 'generalrepetition'),
