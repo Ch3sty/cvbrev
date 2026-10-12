@@ -8,13 +8,17 @@
  * Inloggade skickas till hela testet med 50 påståenden: smakprovet visas
  * inte inloggat (spec avsnitt 6).
  */
-import VerktygsSida from '@/components/verktyg/VerktygsSida'
+import VerktygsMall from '@/components/publikt/VerktygsMall'
+import SkarmPersonlighet from '@/components/publikt/telefon/skarmar/SkarmPersonlighet'
+import SkarmIntervjufragor from '@/components/publikt/telefon/skarmar/SkarmIntervjufragor'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
-import { IlluScenIntervju } from '@/components/illustrations/PriserScener'
-import { Personlighetsprov } from '@/components/artiklar/mdx-klient'
+// Direkt import, inte via mdx-klientens next/dynamic: den dynamiska
+// omslutningen gav olika useId på server och klient i verktygsmallen.
+import Personlighetsprov from '@/components/artiklar/personlighetsprov/Personlighetsprov'
 import { SIDA } from '@/components/artiklar/personlighetsprov/personlighetsprov-copy'
 import { GRUNDTEST_HREF } from '@/lib/intervju/lankar'
 import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
+import { ANTAL_PASTAENDEN } from '@/lib/personlighet/smakprov-pastaenden'
 
 const URL = 'https://www.jobbcoach.ai/verktyg/personlighetstest'
 
@@ -100,24 +104,26 @@ export default function PersonlighetstestSida() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
-      <VerktygsSida
+      <VerktygsMall
+        rum="brev"
+        telefon={<SkarmPersonlighet />}
+        stegTelefon={<SkarmIntervjufragor />}
         brodsmulor={[
           { name: 'Hem', href: '/' },
           { name: 'Verktyg', href: '/funktioner' },
           { name: 'Personlighetstest', href: '/verktyg/personlighetstest' },
         ]}
-        eyebrow="Personlighetstest · femfaktormodellen"
+        eyebrow="Personlighetstest, femfaktormodellen"
         h1={SIDA.h1}
         ingress="Tjugo påståenden på samma modell som MAP och de flesta test i svensk rekrytering. Du får din profil direkt och en rad per faktor om hur en rekryterare läser den."
         fet="Inget konto, ungefär två minuter."
         primar={{ text: 'Gör testet', href: '#provet', dataCta: 'personlighetstest-hero' }}
         sekundar={{ text: 'Så fungerar det', href: '#sa-funkar-det' }}
         loften={[
-          { tal: '20', text: 'påståenden' },
+          { tal: String(ANTAL_PASTAENDEN), text: 'påståenden' },
           { tal: '2 min', text: 'ungefär' },
-          { tal: '5', text: 'faktorer i profilen' },
+          { tal: String(FAKTORER.length), text: 'faktorer i profilen' },
         ]}
-        scen={<IlluScenIntervju className="h-auto w-full" />}
         handling={
           <div className="[&>aside]:my-0">
             <Personlighetsprov slug="verktyg/personlighetstest" />
