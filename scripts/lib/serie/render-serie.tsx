@@ -14,7 +14,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import path from 'node:path';
 import puppeteer from 'puppeteer-core';
-import { cellSvg as svg, luckaSvg, matSerieFraga, MAX_BYTES_SERIE, MAX_NODER_SERIE } from '../../../src/lib/logicTestV7/svgMatt';
+import { cellSvg as svg, luckaSvg, matSerieFraga, serieGranser } from '../../../src/lib/logicTestV7/svgMatt';
 import type { LayeredCell } from '../../../src/lib/logicTestV7/layered.v7';
 // @ts-ignore ren JavaScript
 import { analysera, radPerAlternativ } from './distraktorer.mjs';
@@ -47,9 +47,37 @@ const FAMILJ: Record<string, string> = {
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 const B = (i: number) => String.fromCharCode(65 + i);
 
-function kort(q: SerieFraga) {
+/**
+ * "Bryter mönstret" (beställning omgång 3, A1): sex rutor med bokstav, brytaren
+ * i kopparram med punkt (spec 7, efter svar), regeln och misstaget per figur.
+ */
+function kortBryter(q: SerieFraga & { form: 'bryter'; regler: { prim: string; regel: Record<string, unknown> } }) {
   const m = matSerieFraga(q);
-  const over = m.noder > MAX_NODER_SERIE || m.bytes > MAX_BYTES_SERIE;
+  const g = serieGranser(q);
+  const over = m.noder > g.noder || m.bytes > g.bytes;
+  const rutor = q.rad
+    .map((c, i) => `<div class="ruta val${i === q.correctAnswer ? ' bryt' : ''}"><span class="b">${B(i)}</span>${i === q.correctAnswer ? '<span class="punkt"></span>' : ''}${svg(c)}</div>`)
+    .join('');
+  const misstag = q.rad.map((_, i) => `<li><b>${B(i)}</b> ${i === q.correctAnswer ? '<em>Bryter mönstret</em>' : esc(q.misstag[i] ?? '')}</li>`).join('');
+  const regel = Object.entries(q.regler.regel).filter(([k]) => k !== 'prim').map(([k, v]) => `${k} ${Array.isArray(v) ? v.join('+') : v}`).join(', ');
+  return `<article id="${q.id}">
+  <header><div class="id">${q.id} <span class="${over ? 'varn' : 'matt'}">${m.noder} noder · ${(m.bytes / 1024).toFixed(1)} kB (gräns ${g.noder}, ${(g.bytes / 1024).toFixed(0)} kB)</span></div>
+  <div class="meta">${q.niva} · ${FAMILJ[q.family] ?? q.family} · mall ${q.recept}${q.variant ? ` (${esc(q.variant)})` : ''} · p_prior ${String(q.p_prior).replace('.', ',')}</div>
+  <h2>${esc(q.title)}</h2>
+  <p class="band">${esc(q.regler.prim)} · ${esc(regel)} · brytaren ${B(q.correctAnswer)}</p></header>
+  <p class="fragerad">Vilken figur bryter mönstret?</p>
+  <p class="hjalp">Fem följer samma regel. Ordningen spelar ingen roll.</p>
+  <div class="kort matrisyta"><div class="serie">${rutor}</div></div>
+  <p class="regel">${esc(q.rule)}</p>
+  <ol class="misstag">${misstag}</ol>
+</article>`;
+}
+
+function kort(q: SerieFraga) {
+  if ((q as { form?: string }).form === 'bryter') return kortBryter(q as Parameters<typeof kortBryter>[0]);
+  const m = matSerieFraga(q);
+  const g = serieGranser(q);
+  const over = m.noder > g.noder || m.bytes > g.bytes;
   const V = q.options.map((o) => lasCell(o)?.v);
   const a = analysera(q, V);
   const rader = (radPerAlternativ(a) as string[]).filter((x) => !/rätt svar$/.test(x));
@@ -99,6 +127,9 @@ h2{font-size:17px;line-height:22px;margin:4px 0 10px}
 .regel{margin:12px 0 4px;font-size:13px;line-height:18px;color:#4A4A55}
 .misstag{margin:0;padding-left:0;list-style:none;font-size:12px;line-height:17px}
 .misstag li{margin:2px 0} .misstag em{color:#A8491A;font-style:normal}
+.ruta.val .b{z-index:1}
+.ruta.bryt{box-shadow:inset 0 0 0 2px #E07A2F}
+.hjalp{margin:-4px 0 8px;font-size:12px;line-height:16px;color:#65656E;text-align:right}
 .nyckel{margin:6px 0 0;font:11px/15px ui-monospace,monospace;color:#65656E;word-break:break-all}
 .matrisyta [fill="#64748B"]{fill:#65656E}.matrisyta [stroke="#64748B"]{stroke:#65656E}
 .matrisyta [fill="#CBD5E1"]{fill:#C9C6BF}
@@ -126,6 +157,7 @@ export async function renderSerie(fil: string | null, ut: string, bara: Set<stri
   }
   await browser.close();
   const maxN = Math.max(...fragor.map((q) => matSerieFraga(q).noder));
+  void serieGranser;
   const maxB = Math.max(...fragor.map((q) => matSerieFraga(q).bytes));
   console.log(`Skrev ${n} PNG och index.html till ${katalog} (max ${maxN} noder, ${(maxB / 1024).toFixed(1)} kB)`);
 }

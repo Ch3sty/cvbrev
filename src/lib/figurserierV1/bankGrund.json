@@ -303,11 +303,11 @@
   "correctAnswer": 2,
   "misstag": [
    "Strecken vrids åt fel håll. Antalet streck ska vara två, som i hela raden.",
-   "Strecken står i fel vridning. Antalet streck ska vara två, som i hela raden.",
+   "Strecken är vridna till fel läge. Antalet streck ska vara två, som i hela raden.",
    "",
    "Strecken står kvar som i den femte figuren. Antalet streck ska vara två, som i hela raden.",
    "Strecken har vridits ett steg för långt. Antalet streck ska vara två, som i hela raden.",
-   "Strecken står i fel vridning."
+   "Strecken är vridna till fel läge."
   ],
   "regler": {
    "prim": "stralar",
@@ -429,12 +429,12 @@
   ],
   "correctAnswer": 2,
   "misstag": [
-   "De svarta sektorerna står i fel vridning. Antalet svarta sektorer ska vara tre, som i hela raden.",
+   "De svarta sektorerna är vridna till fel läge. Antalet svarta sektorer ska vara tre, som i hela raden.",
    "De svarta sektorerna har vridits ett steg för långt. Antalet svarta sektorer ska vara tre, som i hela raden.",
    "",
-   "De svarta sektorerna står i fel vridning.",
+   "De svarta sektorerna är vridna till fel läge.",
    "De svarta sektorerna står kvar som i den femte figuren. Antalet svarta sektorer ska vara tre, som i hela raden.",
-   "De svarta sektorerna står i fel vridning. Antalet svarta sektorer ska vara tre, som i hela raden."
+   "De svarta sektorerna är vridna till fel läge. Antalet svarta sektorer ska vara tre, som i hela raden."
   ],
   "regler": {
    "prim": "sektor",
@@ -837,11 +837,11 @@
   ],
   "correctAnswer": 5,
   "misstag": [
-   "Strecken står i fel vridning. Antalet streck ska vara två, som i hela raden.",
-   "Strecken står i fel vridning. Antalet streck ska vara två, som i hela raden.",
-   "Strecken står i fel vridning. Antalet streck ska vara två, som i hela raden.",
+   "Strecken är vridna till fel läge. Antalet streck ska vara två, som i hela raden.",
+   "Strecken är vridna till fel läge. Antalet streck ska vara två, som i hela raden.",
+   "Strecken är vridna till fel läge. Antalet streck ska vara två, som i hela raden.",
    "Strecken vrids åt fel håll. Antalet streck ska vara två, som i hela raden.",
-   "Strecken står i fel vridning.",
+   "Strecken är vridna till fel läge.",
    ""
   ],
   "regler": {
@@ -957,7 +957,7 @@
   "misstag": [
    "",
    "De svarta sektorerna har vridits ett steg för långt.",
-   "De svarta sektorerna står i fel vridning. Antalet svarta sektorer ska vara två, som i hela raden.",
+   "De svarta sektorerna är vridna till fel läge. Antalet svarta sektorer ska vara två, som i hela raden.",
    "Antalet svarta sektorer ska vara två, som i hela raden.",
    "De svarta sektorerna har vridits ett steg för långt. Antalet svarta sektorer ska vara två, som i hela raden.",
    "De svarta sektorerna har vridits ett steg för långt. Antalet svarta sektorer ska vara två, som i hela raden."
@@ -1372,9 +1372,9 @@
   "correctAnswer": 5,
   "misstag": [
    "Strecken har vridits ett steg för långt.",
-   "Strecken står i fel vridning.",
-   "Strecken står i fel vridning. Antalet streck ska vara tre, som i hela raden.",
-   "Strecken står i fel vridning. Antalet streck ska vara tre, som i hela raden.",
+   "Strecken är vridna till fel läge.",
+   "Strecken är vridna till fel läge. Antalet streck ska vara tre, som i hela raden.",
+   "Strecken är vridna till fel läge. Antalet streck ska vara tre, som i hela raden.",
    "Strecken står kvar som i den femte figuren. Antalet streck ska vara tre, som i hela raden.",
    ""
   ],
@@ -1481,12 +1481,12 @@
   ],
   "correctAnswer": 3,
   "misstag": [
-   "De svarta sektorerna står i fel vridning.",
-   "De svarta sektorerna står i fel vridning. Antalet svarta sektorer ska vara ett, som i hela raden.",
-   "De svarta sektorerna står i fel vridning. Antalet svarta sektorer ska vara ett, som i hela raden.",
+   "De svarta sektorerna är vridna till fel läge.",
+   "De svarta sektorerna är vridna till fel läge. Antalet svarta sektorer ska vara ett, som i hela raden.",
+   "De svarta sektorerna är vridna till fel läge. Antalet svarta sektorer ska vara ett, som i hela raden.",
    "",
    "De svarta sektorerna vrids åt fel håll. Antalet svarta sektorer ska vara ett, som i hela raden.",
-   "De svarta sektorerna står i fel vridning. Antalet svarta sektorer ska vara ett, som i hela raden."
+   "De svarta sektorerna är vridna till fel läge. Antalet svarta sektorer ska vara ett, som i hela raden."
   ],
   "regler": {
    "prim": "sektor",
@@ -1814,12 +1814,12 @@
   ],
   "correctAnswer": 3,
   "misstag": [
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte fyra.",
-   "Strecken står på fel plats. I raden står strecken still.",
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte fyra.",
+   "Strecken är vridna, men i raden står de still. Antalet ska vara två, inte fyra.",
+   "Strecken är vridna, men i raden står de still.",
+   "Strecken är vridna, men i raden står de still. Antalet ska vara två, inte fyra.",
    "",
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte sex.",
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte fyra."
+   "Strecken är vridna, men i raden står de still. Antalet ska vara två, inte sex.",
+   "Strecken är vridna, men i raden står de still. Antalet ska vara två, inte fyra."
   ],
   "regler": {
    "prim": "stralar",
@@ -1950,11 +1950,11 @@
   "correctAnswer": 0,
   "misstag": [
    "",
-   "En svart sektor för mycket.",
-   "De svarta sektorerna står på fel plats. I raden står de svarta sektorerna still. Antalet svarta sektorer har inte ökat sista steget.",
-   "De svarta sektorerna står på fel plats. I raden står de svarta sektorerna still. Antalet svarta sektorer ska vara sex, inte fyra.",
-   "De svarta sektorerna står på fel plats. I raden står de svarta sektorerna still. Antalet svarta sektorer ska vara sex, inte ett.",
-   "De svarta sektorerna står på fel plats. I raden står de svarta sektorerna still. Antalet svarta sektorer ska vara sex, inte tre."
+   "En svart sektor för många.",
+   "De svarta sektorerna är vridna, men i raden står de still. Antalet svarta sektorer har inte ökat. Luckan ska ha en mer än den femte figuren.",
+   "De svarta sektorerna är vridna, men i raden står de still. Antalet ska vara sex, inte fyra.",
+   "De svarta sektorerna är vridna, men i raden står de still. Antalet ska vara sex, inte en.",
+   "De svarta sektorerna är vridna, men i raden står de still. Antalet ska vara sex, inte tre."
   ],
   "regler": {
    "prim": "sektor",
@@ -2032,12 +2032,12 @@
   ],
   "correctAnswer": 1,
   "misstag": [
-   "De svarta rutorna står på fel plats. I raden står de svarta rutorna still. Antalet svarta rutor ska vara två, inte fyra.",
+   "De svarta rutorna har flyttat sig, men i raden står de still. Antalet ska vara två, inte fyra.",
    "",
-   "De svarta rutorna står på fel plats. I raden står de svarta rutorna still. En svart ruta för lite.",
-   "De svarta rutorna står på fel plats. I raden står de svarta rutorna still.",
-   "De svarta rutorna står på fel plats. I raden står de svarta rutorna still. Antalet svarta rutor ska vara två, inte fyra.",
-   "En svart ruta för lite."
+   "De svarta rutorna har flyttat sig, men i raden står de still. En svart ruta för få.",
+   "De svarta rutorna har flyttat sig, men i raden står de still.",
+   "De svarta rutorna har flyttat sig, men i raden står de still. Antalet ska vara två, inte fyra.",
+   "En svart ruta för få."
   ],
   "regler": {
    "prim": "block",
@@ -2183,12 +2183,12 @@
   ],
   "correctAnswer": 2,
   "misstag": [
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte sju.",
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte sju.",
+   "Strecken är vridna, men i raden står de still. Antalet ska vara två, inte sju.",
+   "Strecken är vridna, men i raden står de still. Antalet ska vara två, inte sju.",
    "",
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte sju.",
-   "Strecken står på fel plats. I raden står strecken still.",
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte sju."
+   "Strecken är vridna, men i raden står de still. Antalet ska vara två, inte sju.",
+   "Strecken är vridna, men i raden står de still.",
+   "Strecken är vridna, men i raden står de still. Antalet ska vara två, inte sju."
   ],
   "regler": {
    "prim": "stralar",
@@ -2322,12 +2322,12 @@
   ],
   "correctAnswer": 3,
   "misstag": [
-   "De svarta sektorerna står på fel plats. I raden står de svarta sektorerna still.",
-   "De svarta sektorerna står på fel plats. I raden står de svarta sektorerna still. Antalet svarta sektorer ska vara två, inte sju.",
-   "De svarta sektorerna står på fel plats. I raden står de svarta sektorerna still. En svart sektor för lite.",
+   "De svarta sektorerna är vridna, men i raden står de still.",
+   "De svarta sektorerna är vridna, men i raden står de still. Antalet ska vara två, inte sju.",
+   "De svarta sektorerna är vridna, men i raden står de still. En svart sektor för få.",
    "",
-   "De svarta sektorerna står på fel plats. I raden står de svarta sektorerna still. Antalet svarta sektorer ska vara två, inte sju.",
-   "En svart sektor för lite."
+   "De svarta sektorerna är vridna, men i raden står de still. Antalet ska vara två, inte sju.",
+   "En svart sektor för få."
   ],
   "regler": {
    "prim": "sektor",
@@ -2405,11 +2405,11 @@
   ],
   "correctAnswer": 5,
   "misstag": [
-   "De svarta rutorna står på fel plats. I raden står de svarta rutorna still. Antalet svarta rutor har inte ökat sista steget.",
-   "De svarta rutorna står på fel plats. I raden står de svarta rutorna still. Antalet svarta rutor ska vara sex, inte två.",
-   "En svart ruta för mycket.",
-   "De svarta rutorna står på fel plats. I raden står de svarta rutorna still. Antalet svarta rutor ska vara sex, inte fyra.",
-   "De svarta rutorna står på fel plats. I raden står de svarta rutorna still. Antalet svarta rutor ska vara sex, inte tre.",
+   "De svarta rutorna har flyttat sig, men i raden står de still. Antalet svarta rutor har inte ökat. Luckan ska ha en mer än den femte figuren.",
+   "De svarta rutorna har flyttat sig, men i raden står de still. Antalet ska vara sex, inte två.",
+   "En svart ruta för många.",
+   "De svarta rutorna har flyttat sig, men i raden står de still. Antalet ska vara sex, inte fyra.",
+   "De svarta rutorna har flyttat sig, men i raden står de still. Antalet ska vara sex, inte tre.",
    ""
   ],
   "regler": {
@@ -2544,11 +2544,11 @@
   "correctAnswer": 0,
   "misstag": [
    "",
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck har inte minskat sista steget.",
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte sex.",
-   "Strecken står på fel plats. I raden står strecken still.",
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck har inte minskat sista steget.",
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck har inte minskat sista steget."
+   "Strecken är vridna, men i raden står de still. Antalet streck har inte minskat. Luckan ska ha ett färre än den femte figuren.",
+   "Strecken är vridna, men i raden står de still. Antalet ska vara två, inte sex.",
+   "Strecken är vridna, men i raden står de still.",
+   "Strecken är vridna, men i raden står de still. Antalet streck har inte minskat. Luckan ska ha ett färre än den femte figuren.",
+   "Strecken är vridna, men i raden står de still. Antalet streck har inte minskat. Luckan ska ha ett färre än den femte figuren."
   ],
   "regler": {
    "prim": "stralar",
@@ -2677,12 +2677,12 @@
   ],
   "correctAnswer": 2,
   "misstag": [
-   "De svarta sektorerna står på fel plats. I raden står de svarta sektorerna still. Antalet svarta sektorer ska vara sex, inte ett.",
-   "De svarta sektorerna står på fel plats. I raden står de svarta sektorerna still. Antalet svarta sektorer ska vara sex, inte två.",
+   "De svarta sektorerna är vridna, men i raden står de still. Antalet ska vara sex, inte en.",
+   "De svarta sektorerna är vridna, men i raden står de still. Antalet ska vara sex, inte två.",
    "",
-   "De svarta sektorerna står på fel plats. I raden står de svarta sektorerna still. Antalet svarta sektorer har inte ökat sista steget.",
-   "En svart sektor för mycket.",
-   "De svarta sektorerna står på fel plats. I raden står de svarta sektorerna still. Antalet svarta sektorer ska vara sex, inte fyra."
+   "De svarta sektorerna är vridna, men i raden står de still. Antalet svarta sektorer har inte ökat. Luckan ska ha en mer än den femte figuren.",
+   "En svart sektor för många.",
+   "De svarta sektorerna är vridna, men i raden står de still. Antalet ska vara sex, inte fyra."
   ],
   "regler": {
    "prim": "sektor",
@@ -2760,11 +2760,11 @@
   ],
   "correctAnswer": 5,
   "misstag": [
-   "De svarta rutorna står på fel plats. I raden står de svarta rutorna still. Antalet svarta rutor ska vara sex, inte ett.",
-   "En svart ruta för mycket.",
-   "De svarta rutorna står på fel plats. I raden står de svarta rutorna still. Antalet svarta rutor ska vara sex, inte två.",
-   "De svarta rutorna står på fel plats. I raden står de svarta rutorna still. Antalet svarta rutor ska vara sex, inte fyra.",
-   "De svarta rutorna står på fel plats. I raden står de svarta rutorna still. Antalet svarta rutor har inte ökat sista steget.",
+   "De svarta rutorna har flyttat sig, men i raden står de still. Antalet ska vara sex, inte en.",
+   "En svart ruta för många.",
+   "De svarta rutorna har flyttat sig, men i raden står de still. Antalet ska vara sex, inte två.",
+   "De svarta rutorna har flyttat sig, men i raden står de still. Antalet ska vara sex, inte fyra.",
+   "De svarta rutorna har flyttat sig, men i raden står de still. Antalet svarta rutor har inte ökat. Luckan ska ha en mer än den femte figuren.",
    ""
   ],
   "regler": {
@@ -2901,12 +2901,12 @@
   ],
   "correctAnswer": 2,
   "misstag": [
-   "Strecken står på fel plats. I raden står strecken still.",
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte fem.",
+   "Strecken är vridna, men i raden står de still.",
+   "Strecken är vridna, men i raden står de still. Antalet ska vara två, inte fem.",
    "",
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte fyra.",
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte fem.",
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte fyra."
+   "Strecken är vridna, men i raden står de still. Antalet ska vara två, inte fyra.",
+   "Strecken är vridna, men i raden står de still. Antalet ska vara två, inte fem.",
+   "Strecken är vridna, men i raden står de still. Antalet ska vara två, inte fyra."
   ],
   "regler": {
    "prim": "stralar",
@@ -3032,12 +3032,12 @@
   ],
   "correctAnswer": 2,
   "misstag": [
-   "En svart sektor för lite.",
-   "De svarta sektorerna står på fel plats. I raden står de svarta sektorerna still.",
+   "En svart sektor för få.",
+   "De svarta sektorerna är vridna, men i raden står de still.",
    "",
-   "De svarta sektorerna står på fel plats. I raden står de svarta sektorerna still. Antalet svarta sektorer har inte minskat sista steget.",
-   "De svarta sektorerna står på fel plats. I raden står de svarta sektorerna still. En svart sektor för lite.",
-   "De svarta sektorerna står på fel plats. I raden står de svarta sektorerna still. Antalet svarta sektorer har inte minskat sista steget."
+   "De svarta sektorerna är vridna, men i raden står de still. Antalet svarta sektorer har inte minskat. Luckan ska ha en färre än den femte figuren.",
+   "De svarta sektorerna är vridna, men i raden står de still. En svart sektor för få.",
+   "De svarta sektorerna är vridna, men i raden står de still. Antalet svarta sektorer har inte minskat. Luckan ska ha en färre än den femte figuren."
   ],
   "regler": {
    "prim": "sektor",
@@ -3115,12 +3115,12 @@
   ],
   "correctAnswer": 4,
   "misstag": [
-   "En svart ruta för mycket.",
-   "De svarta rutorna står på fel plats. I raden står de svarta rutorna still. Antalet svarta rutor ska vara sex, inte ett.",
-   "De svarta rutorna står på fel plats. I raden står de svarta rutorna still. En svart ruta för mycket.",
-   "De svarta rutorna står på fel plats. I raden står de svarta rutorna still.",
+   "En svart ruta för många.",
+   "De svarta rutorna har flyttat sig, men i raden står de still. Antalet ska vara sex, inte en.",
+   "De svarta rutorna har flyttat sig, men i raden står de still. En svart ruta för många.",
+   "De svarta rutorna har flyttat sig, men i raden står de still.",
    "",
-   "De svarta rutorna står på fel plats. I raden står de svarta rutorna still. En svart ruta för mycket."
+   "De svarta rutorna har flyttat sig, men i raden står de still. En svart ruta för många."
   ],
   "regler": {
    "prim": "block",
@@ -3446,8 +3446,8 @@
    "Vridningen har inte vuxit sista gången.",
    "Strecken står kvar som i den femte figuren. Antalet streck ska vara två, som i hela raden.",
    "",
-   "Strecken står i fel vridning. Antalet streck ska vara två, som i hela raden.",
-   "Strecken står i fel vridning. Antalet streck ska vara två, som i hela raden.",
+   "Strecken är vridna till fel läge. Antalet streck ska vara två, som i hela raden.",
+   "Strecken är vridna till fel läge. Antalet streck ska vara två, som i hela raden.",
    "Strecken har vridits ett steg för långt. Antalet streck ska vara två, som i hela raden."
   ],
   "regler": {
@@ -3773,8 +3773,8 @@
    "Strecken har vridits ett steg för långt.",
    "Strecken vrids åt fel håll.",
    "Vridningen har inte vuxit sista gången. Antalet streck ska vara två, som i hela raden.",
-   "Strecken står i fel vridning. Antalet streck ska vara två, som i hela raden.",
-   "Strecken står i fel vridning. Antalet streck ska vara två, som i hela raden."
+   "Strecken är vridna till fel läge. Antalet streck ska vara två, som i hela raden.",
+   "Strecken är vridna till fel läge. Antalet streck ska vara två, som i hela raden."
   ],
   "regler": {
    "prim": "stralar",

@@ -141,9 +141,19 @@ export function allaPrimitiver(): V7Cell[] {
  */
 export const MAX_NODER_SERIE = G.serie.noder.harnastMax;
 export const MAX_BYTES_SERIE = G.serie.noder.harnastBytes;
+/** "Bryter mönstret" (spec 10): sex figurer, ingen lucka, inga alternativ, högst 70 noder och 8 kB. */
+export const MAX_NODER_BRYTER = G.serie.noder.bryterMax;
+export const MAX_BYTES_BRYTER = G.serie.noder.bryterBytes;
 
-export function matSerieFraga(q: { id: string; rad: LayeredCell[]; options: LayeredCell[] }): FragaMatt {
-  const markup = [...q.rad.map(cellSvg), luckaSvg(), ...q.options.map(cellSvg)].join('');
+type SerieMattFraga = { id: string; form?: string; rad: LayeredCell[]; options: LayeredCell[] };
+
+/** Gränserna för frågans form. */
+export function serieGranser(q: { form?: string }): { noder: number; bytes: number } {
+  return q.form === 'bryter' ? { noder: MAX_NODER_BRYTER, bytes: MAX_BYTES_BRYTER } : { noder: MAX_NODER_SERIE, bytes: MAX_BYTES_SERIE };
+}
+
+export function matSerieFraga(q: SerieMattFraga): FragaMatt {
+  const markup = (q.form === 'bryter' ? q.rad.map(cellSvg) : [...q.rad.map(cellSvg), luckaSvg(), ...q.options.map(cellSvg)]).join('');
   const t = taggar(markup);
   const forbjudna = t
     .map((x) => /^<([a-zA-Z]+)/.exec(x)![1])
@@ -151,7 +161,7 @@ export function matSerieFraga(q: { id: string; rad: LayeredCell[]; options: Laye
   return { id: q.id, noder: t.length, bytes: Buffer.byteLength(markup, 'utf8'), forbjudna: [...new Set(forbjudna)], url: /url\(/.test(markup) };
 }
 
-export function matSerieBank(bank: { id: string; rad: LayeredCell[]; options: LayeredCell[] }[]): BankMatt {
+export function matSerieBank(bank: SerieMattFraga[]): BankMatt {
   const ut: BankMatt = { fragor: 0, noder: { min: Infinity, max: 0, maxId: '' }, bytes: { min: Infinity, max: 0, maxId: '' }, over: [], forbjudna: [] };
   for (const q of bank) {
     const m = matSerieFraga(q);
@@ -160,7 +170,8 @@ export function matSerieBank(bank: { id: string; rad: LayeredCell[]; options: La
     ut.bytes.min = Math.min(ut.bytes.min, m.bytes);
     if (m.noder > ut.noder.max) ut.noder = { ...ut.noder, max: m.noder, maxId: q.id };
     if (m.bytes > ut.bytes.max) ut.bytes = { ...ut.bytes, max: m.bytes, maxId: q.id };
-    if (m.noder > MAX_NODER_SERIE || m.bytes > MAX_BYTES_SERIE) ut.over.push(`${q.id} (${m.noder} noder, ${m.bytes} B)`);
+    const g = serieGranser(q);
+    if (m.noder > g.noder || m.bytes > g.bytes) ut.over.push(`${q.id} (${m.noder} noder, ${m.bytes} B)`);
     if (m.forbjudna.length || m.url) ut.forbjudna.push(`${q.id}: ${[...m.forbjudna, ...(m.url ? ['url('] : [])].join(', ')}`);
   }
   return ut;

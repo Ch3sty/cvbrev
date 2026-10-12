@@ -1,0 +1,1420 @@
+[
+ {
+  "id": "fsb-g-antal-01",
+  "form": "bryter",
+  "niva": "grund",
+  "family": "antal",
+  "recept": "B1",
+  "variant": "stralar-antal",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "title": "Samma antal streck",
+  "rule": "Fem av figurerna har tre streck, bara olika vridna. Den som bryter har fyra.",
+  "rad": [
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     2
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     2,
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     2,
+     3
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     1,
+     2,
+     3
+    ]
+   }
+  ],
+  "options": [],
+  "correctAnswer": 4,
+  "misstag": [
+   "Den här följer regeln: tre streck, bara vriden.",
+   "Den här följer regeln: tre streck, bara vriden.",
+   "Den här följer regeln: tre streck, bara vriden.",
+   "Den här följer regeln: tre streck, bara vriden.",
+   "",
+   "Den här följer regeln: tre streck, bara vriden."
+  ],
+  "regler": {
+   "mall": "B1",
+   "prim": "stralar",
+   "regel": {
+    "typ": "lika",
+    "egenskaper": [
+     "antal"
+    ],
+    "prim": "stralar"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-g-antal-02",
+  "form": "bryter",
+  "niva": "grund",
+  "family": "antal",
+  "recept": "B1",
+  "variant": "sektor-antal",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "title": "Samma antal svarta sektorer",
+  "rule": "Fem av figurerna har tre svarta sektorer, bara olika vridna. Den som bryter har två.",
+  "rad": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     2
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     3,
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     1,
+     2,
+     3
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     6,
+     7
+    ]
+   }
+  ],
+  "options": [],
+  "correctAnswer": 4,
+  "misstag": [
+   "Den här följer regeln: tre svarta sektorer, bara vriden.",
+   "Den här följer regeln: tre svarta sektorer, bara vriden.",
+   "Den här följer regeln: tre svarta sektorer, bara vriden.",
+   "Den här följer regeln: tre svarta sektorer, bara vriden.",
+   "",
+   "Den här följer regeln: tre svarta sektorer, bara vriden."
+  ],
+  "regler": {
+   "mall": "B1",
+   "prim": "sektor",
+   "regel": {
+    "typ": "lika",
+    "egenskaper": [
+     "antal"
+    ],
+    "prim": "sektor"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-g-antal-03",
+  "form": "bryter",
+  "niva": "grund",
+  "family": "antal",
+  "recept": "B1",
+  "variant": "block-antal",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "title": "Samma antal svarta rutor",
+  "rule": "Fem av figurerna har fyra svarta rutor, bara olika vridna. Den som bryter har fem.",
+  "rad": [
+   {
+    "kind": "tile",
+    "pattern": 79
+   },
+   {
+    "kind": "tile",
+    "pattern": 201
+   },
+   {
+    "kind": "tile",
+    "pattern": 75
+   },
+   {
+    "kind": "tile",
+    "pattern": 15
+   },
+   {
+    "kind": "tile",
+    "pattern": 480
+   },
+   {
+    "kind": "tile",
+    "pattern": 294
+   }
+  ],
+  "options": [],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den här följer regeln: fyra svarta rutor, bara vriden.",
+   "Den här följer regeln: fyra svarta rutor, bara vriden.",
+   "Den här följer regeln: fyra svarta rutor, bara vriden.",
+   "Den här följer regeln: fyra svarta rutor, bara vriden.",
+   "Den här följer regeln: fyra svarta rutor, bara vriden."
+  ],
+  "regler": {
+   "mall": "B1",
+   "prim": "block",
+   "regel": {
+    "typ": "lika",
+    "egenskaper": [
+     "antal"
+    ],
+    "prim": "block"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-g-antal-04",
+  "form": "bryter",
+  "niva": "grund",
+  "family": "antal",
+  "recept": "B1",
+  "variant": "duo-kant-symbol-antal",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "title": "Samma antal kantprickar",
+  "rule": "Fem av figurerna har fyra kantprickar, bara olika vridna. Den som bryter har tre.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6,
+     "antal": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1,
+     "antal": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0,
+     "antal": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4,
+     "antal": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3,
+     "antal": 4
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "ring"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4,
+     "antal": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   }
+  ],
+  "options": [],
+  "correctAnswer": 5,
+  "misstag": [
+   "Den här följer regeln: fyra kantprickar, bara vriden.",
+   "Den här följer regeln: fyra kantprickar, bara vriden.",
+   "Den här följer regeln: fyra kantprickar, bara vriden.",
+   "Den här följer regeln: fyra kantprickar, bara vriden.",
+   "Den här följer regeln: fyra kantprickar, bara vriden.",
+   ""
+  ],
+  "regler": {
+   "mall": "B1",
+   "prim": "duo-kant-symbol",
+   "regel": {
+    "typ": "lika",
+    "egenskaper": [
+     "antal"
+    ],
+    "prim": "duo-kant-symbol"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-g-antal-05",
+  "form": "bryter",
+  "niva": "grund",
+  "family": "antal",
+  "recept": "B1",
+  "variant": "stralar-antal",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "title": "Samma antal streck",
+  "rule": "Fem av figurerna har fyra streck, bara olika vridna. Den som bryter har tre.",
+  "rad": [
+   {
+    "kind": "ray",
+    "rays": [
+     1,
+     2,
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     3,
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     2,
+     3
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     2,
+     3,
+     4,
+     5
+    ]
+   }
+  ],
+  "options": [],
+  "correctAnswer": 1,
+  "misstag": [
+   "Den här följer regeln: fyra streck, bara vriden.",
+   "",
+   "Den här följer regeln: fyra streck, bara vriden.",
+   "Den här följer regeln: fyra streck, bara vriden.",
+   "Den här följer regeln: fyra streck, bara vriden.",
+   "Den här följer regeln: fyra streck, bara vriden."
+  ],
+  "regler": {
+   "mall": "B1",
+   "prim": "stralar",
+   "regel": {
+    "typ": "lika",
+    "egenskaper": [
+     "antal"
+    ],
+    "prim": "stralar"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-g-antal-06",
+  "form": "bryter",
+  "niva": "grund",
+  "family": "antal",
+  "recept": "B1",
+  "variant": "sektor-antal",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "title": "Samma antal svarta sektorer",
+  "rule": "Fem av figurerna har två svarta sektorer, bara olika vridna. Den som bryter har en.",
+  "rad": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     4
+    ]
+   }
+  ],
+  "options": [],
+  "correctAnswer": 5,
+  "misstag": [
+   "Den här följer regeln: två svarta sektorer, bara vriden.",
+   "Den här följer regeln: två svarta sektorer, bara vriden.",
+   "Den här följer regeln: två svarta sektorer, bara vriden.",
+   "Den här följer regeln: två svarta sektorer, bara vriden.",
+   "Den här följer regeln: två svarta sektorer, bara vriden.",
+   ""
+  ],
+  "regler": {
+   "mall": "B1",
+   "prim": "sektor",
+   "regel": {
+    "typ": "lika",
+    "egenskaper": [
+     "antal"
+    ],
+    "prim": "sektor"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-g-antal-07",
+  "form": "bryter",
+  "niva": "grund",
+  "family": "antal",
+  "recept": "B1",
+  "variant": "block-antal",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "title": "Samma antal svarta rutor",
+  "rule": "Fem av figurerna har tre svarta rutor, bara olika vridna. Den som bryter har fyra.",
+  "rad": [
+   {
+    "kind": "tile",
+    "pattern": 416
+   },
+   {
+    "kind": "tile",
+    "pattern": 73
+   },
+   {
+    "kind": "tile",
+    "pattern": 420
+   },
+   {
+    "kind": "tile",
+    "pattern": 11
+   },
+   {
+    "kind": "tile",
+    "pattern": 448
+   },
+   {
+    "kind": "tile",
+    "pattern": 292
+   }
+  ],
+  "options": [],
+  "correctAnswer": 2,
+  "misstag": [
+   "Den här följer regeln: tre svarta rutor, bara vriden.",
+   "Den här följer regeln: tre svarta rutor, bara vriden.",
+   "",
+   "Den här följer regeln: tre svarta rutor, bara vriden.",
+   "Den här följer regeln: tre svarta rutor, bara vriden.",
+   "Den här följer regeln: tre svarta rutor, bara vriden."
+  ],
+  "regler": {
+   "mall": "B1",
+   "prim": "block",
+   "regel": {
+    "typ": "lika",
+    "egenskaper": [
+     "antal"
+    ],
+    "prim": "block"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-g-antal-08",
+  "form": "bryter",
+  "niva": "grund",
+  "family": "antal",
+  "recept": "B1",
+  "variant": "duo-kant-symbol-antal",
+  "difficulty": 1,
+  "p_prior": 0.75,
+  "title": "Samma antal kantprickar",
+  "rule": "Fem av figurerna har tre kantprickar, bara olika vridna. Den som bryter har två.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1,
+     "antal": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "plus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1,
+     "antal": 2
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5,
+     "antal": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "minus"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0,
+     "antal": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6,
+     "antal": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3,
+     "antal": 3
+    },
+    "karna": {
+     "typ": "symbol",
+     "symbol": "cross"
+    }
+   }
+  ],
+  "options": [],
+  "correctAnswer": 1,
+  "misstag": [
+   "Den här följer regeln: tre kantprickar, bara vriden.",
+   "",
+   "Den här följer regeln: tre kantprickar, bara vriden.",
+   "Den här följer regeln: tre kantprickar, bara vriden.",
+   "Den här följer regeln: tre kantprickar, bara vriden.",
+   "Den här följer regeln: tre kantprickar, bara vriden."
+  ],
+  "regler": {
+   "mall": "B1",
+   "prim": "duo-kant-symbol",
+   "regel": {
+    "typ": "lika",
+    "egenskaper": [
+     "antal"
+    ],
+    "prim": "duo-kant-symbol"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-g-fyll-01",
+  "form": "bryter",
+  "niva": "grund",
+  "family": "fyllning",
+  "recept": "B2",
+  "variant": "grundform-samband",
+  "difficulty": 2,
+  "p_prior": 0.72,
+  "title": "Formen bestämmer fyllningen",
+  "rule": "I fem av figurerna är kvadraten alltid svart och cirkeln alltid tom. Den som bryter är en svart cirkel.",
+  "rad": [
+   {
+    "kind": "stack",
+    "base": "square",
+    "symbol": "ring",
+    "baseFill": "black"
+   },
+   {
+    "kind": "stack",
+    "base": "square",
+    "symbol": "plus",
+    "baseFill": "black"
+   },
+   {
+    "kind": "stack",
+    "base": "circle",
+    "symbol": "dot",
+    "baseFill": "none"
+   },
+   {
+    "kind": "stack",
+    "base": "circle",
+    "symbol": "minus",
+    "baseFill": "none"
+   },
+   {
+    "kind": "stack",
+    "base": "circle",
+    "symbol": "dot",
+    "baseFill": "black"
+   },
+   {
+    "kind": "stack",
+    "base": "square",
+    "symbol": "cross",
+    "baseFill": "black"
+   }
+  ],
+  "options": [],
+  "correctAnswer": 4,
+  "misstag": [
+   "Den här följer regeln: svart kvadrat.",
+   "Den här följer regeln: svart kvadrat.",
+   "Den här följer regeln: tom cirkel.",
+   "Den här följer regeln: tom cirkel.",
+   "",
+   "Den här följer regeln: svart kvadrat."
+  ],
+  "regler": {
+   "mall": "B2",
+   "prim": "grundform",
+   "regel": {
+    "typ": "samband",
+    "fran": "bas",
+    "till": "fyllning",
+    "prim": "grundform"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-g-fyll-02",
+  "form": "bryter",
+  "niva": "grund",
+  "family": "fyllning",
+  "recept": "B2",
+  "variant": "duo-kant-form-samband",
+  "difficulty": 2,
+  "p_prior": 0.72,
+  "title": "Formen bestämmer fyllningen",
+  "rule": "I fem av figurerna är romben alltid svart och kvadraten alltid tom. Den som bryter är en tom romb.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   }
+  ],
+  "options": [],
+  "correctAnswer": 1,
+  "misstag": [
+   "Den här följer regeln: svart romb.",
+   "",
+   "Den här följer regeln: tom kvadrat.",
+   "Den här följer regeln: svart romb.",
+   "Den här följer regeln: tom kvadrat.",
+   "Den här följer regeln: tom kvadrat."
+  ],
+  "regler": {
+   "mall": "B2",
+   "prim": "duo-kant-form",
+   "regel": {
+    "typ": "samband",
+    "fran": "kform",
+    "till": "kfyll",
+    "prim": "duo-kant-form"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-g-fyll-03",
+  "form": "bryter",
+  "niva": "grund",
+  "family": "fyllning",
+  "recept": "B2",
+  "variant": "duo-orbital-form-samband",
+  "difficulty": 2,
+  "p_prior": 0.72,
+  "title": "Formen bestämmer fyllningen",
+  "rule": "I fem av figurerna är romben alltid svart och kvadraten alltid tom. Den som bryter är en svart kvadrat.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   }
+  ],
+  "options": [],
+  "correctAnswer": 3,
+  "misstag": [
+   "Den här följer regeln: svart romb.",
+   "Den här följer regeln: svart romb.",
+   "Den här följer regeln: svart romb.",
+   "",
+   "Den här följer regeln: tom kvadrat.",
+   "Den här följer regeln: tom kvadrat."
+  ],
+  "regler": {
+   "mall": "B2",
+   "prim": "duo-orbital-form",
+   "regel": {
+    "typ": "samband",
+    "fran": "kform",
+    "till": "kfyll",
+    "prim": "duo-orbital-form"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-g-fyll-04",
+  "form": "bryter",
+  "niva": "grund",
+  "family": "fyllning",
+  "recept": "B2",
+  "variant": "grundform-samband",
+  "difficulty": 2,
+  "p_prior": 0.72,
+  "title": "Formen bestämmer fyllningen",
+  "rule": "I fem av figurerna är cirkeln alltid svart och romben alltid tom. Den som bryter är en svart romb.",
+  "rad": [
+   {
+    "kind": "stack",
+    "base": "circle",
+    "symbol": "plus",
+    "baseFill": "black"
+   },
+   {
+    "kind": "stack",
+    "base": "diamond",
+    "symbol": "cross",
+    "baseFill": "black"
+   },
+   {
+    "kind": "stack",
+    "base": "circle",
+    "symbol": "minus",
+    "baseFill": "black"
+   },
+   {
+    "kind": "stack",
+    "base": "diamond",
+    "symbol": "cross",
+    "baseFill": "none"
+   },
+   {
+    "kind": "stack",
+    "base": "circle",
+    "symbol": "dot",
+    "baseFill": "black"
+   },
+   {
+    "kind": "stack",
+    "base": "diamond",
+    "symbol": "ring",
+    "baseFill": "none"
+   }
+  ],
+  "options": [],
+  "correctAnswer": 1,
+  "misstag": [
+   "Den här följer regeln: svart cirkel.",
+   "",
+   "Den här följer regeln: svart cirkel.",
+   "Den här följer regeln: tom romb.",
+   "Den här följer regeln: svart cirkel.",
+   "Den här följer regeln: tom romb."
+  ],
+  "regler": {
+   "mall": "B2",
+   "prim": "grundform",
+   "regel": {
+    "typ": "samband",
+    "fran": "bas",
+    "till": "fyllning",
+    "prim": "grundform"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-g-fyll-05",
+  "form": "bryter",
+  "niva": "grund",
+  "family": "fyllning",
+  "recept": "B2",
+  "variant": "duo-kant-form-samband",
+  "difficulty": 2,
+  "p_prior": 0.72,
+  "title": "Formen bestämmer fyllningen",
+  "rule": "I fem av figurerna är cirkeln alltid tom och kvadraten alltid svart. Den som bryter är en tom kvadrat.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   }
+  ],
+  "options": [],
+  "correctAnswer": 2,
+  "misstag": [
+   "Den här följer regeln: tom cirkel.",
+   "Den här följer regeln: tom cirkel.",
+   "",
+   "Den här följer regeln: svart kvadrat.",
+   "Den här följer regeln: svart kvadrat.",
+   "Den här följer regeln: tom cirkel."
+  ],
+  "regler": {
+   "mall": "B2",
+   "prim": "duo-kant-form",
+   "regel": {
+    "typ": "samband",
+    "fran": "kform",
+    "till": "kfyll",
+    "prim": "duo-kant-form"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-g-fyll-06",
+  "form": "bryter",
+  "niva": "grund",
+  "family": "fyllning",
+  "recept": "B2",
+  "variant": "duo-orbital-form-samband",
+  "difficulty": 2,
+  "p_prior": 0.72,
+  "title": "Formen bestämmer fyllningen",
+  "rule": "I fem av figurerna är romben alltid tom och cirkeln alltid svart. Den som bryter är en tom cirkel.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   }
+  ],
+  "options": [],
+  "correctAnswer": 3,
+  "misstag": [
+   "Den här följer regeln: tom romb.",
+   "Den här följer regeln: svart cirkel.",
+   "Den här följer regeln: tom romb.",
+   "",
+   "Den här följer regeln: svart cirkel.",
+   "Den här följer regeln: tom romb."
+  ],
+  "regler": {
+   "mall": "B2",
+   "prim": "duo-orbital-form",
+   "regel": {
+    "typ": "samband",
+    "fran": "kform",
+    "till": "kfyll",
+    "prim": "duo-orbital-form"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-g-fyll-07",
+  "form": "bryter",
+  "niva": "grund",
+  "family": "fyllning",
+  "recept": "B2",
+  "variant": "grundform-samband",
+  "difficulty": 2,
+  "p_prior": 0.72,
+  "title": "Formen bestämmer fyllningen",
+  "rule": "I fem av figurerna är cirkeln alltid tom och romben alltid svart. Den som bryter är en svart cirkel.",
+  "rad": [
+   {
+    "kind": "stack",
+    "base": "circle",
+    "symbol": "minus",
+    "baseFill": "none"
+   },
+   {
+    "kind": "stack",
+    "base": "diamond",
+    "symbol": "plus",
+    "baseFill": "black"
+   },
+   {
+    "kind": "stack",
+    "base": "circle",
+    "symbol": "ring",
+    "baseFill": "none"
+   },
+   {
+    "kind": "stack",
+    "base": "diamond",
+    "symbol": "minus",
+    "baseFill": "black"
+   },
+   {
+    "kind": "stack",
+    "base": "diamond",
+    "symbol": "ring",
+    "baseFill": "black"
+   },
+   {
+    "kind": "stack",
+    "base": "circle",
+    "symbol": "ring",
+    "baseFill": "black"
+   }
+  ],
+  "options": [],
+  "correctAnswer": 5,
+  "misstag": [
+   "Den här följer regeln: tom cirkel.",
+   "Den här följer regeln: svart romb.",
+   "Den här följer regeln: tom cirkel.",
+   "Den här följer regeln: svart romb.",
+   "Den här följer regeln: svart romb.",
+   ""
+  ],
+  "regler": {
+   "mall": "B2",
+   "prim": "grundform",
+   "regel": {
+    "typ": "samband",
+    "fran": "bas",
+    "till": "fyllning",
+    "prim": "grundform"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-g-fyll-08",
+  "form": "bryter",
+  "niva": "grund",
+  "family": "fyllning",
+  "recept": "B2",
+  "variant": "duo-kant-form-samband",
+  "difficulty": 2,
+  "p_prior": 0.72,
+  "title": "Formen bestämmer fyllningen",
+  "rule": "I fem av figurerna är romben alltid tom och cirkeln alltid svart. Den som bryter är en tom cirkel.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "diamond",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "none"
+    }
+   }
+  ],
+  "options": [],
+  "correctAnswer": 5,
+  "misstag": [
+   "Den här följer regeln: tom romb.",
+   "Den här följer regeln: tom romb.",
+   "Den här följer regeln: tom romb.",
+   "Den här följer regeln: svart cirkel.",
+   "Den här följer regeln: svart cirkel.",
+   ""
+  ],
+  "regler": {
+   "mall": "B2",
+   "prim": "duo-kant-form",
+   "regel": {
+    "typ": "samband",
+    "fran": "kform",
+    "till": "kfyll",
+    "prim": "duo-kant-form"
+   }
+  },
+  "fran_version": 2
+ }
+]
