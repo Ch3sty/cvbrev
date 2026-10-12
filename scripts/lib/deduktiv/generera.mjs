@@ -283,7 +283,7 @@ export function forsokSchema(r, spec, id, facitPlats) {
       return brutet ? `${bas} Med ${F[x].mitt} på plats ${fraga.k} bryts ${brutet}` : `${bas} Plats ${fraga.k} går inte.`;
     }
     if (fraga.form === 'maste') return brutet ? `Det stämmer bara om du bryter ${brutet}` : 'Det strider mot villkoren.';
-    return `Det går ihop med villkoren. I schemat ${verb} ${iSchemat(x)}.`;
+    return `I schemat ${verb} ${iSchemat(x)}. Det går ihop med villkoren, så det är inte svaret.`;
   });
 
   // Familjen: villkorstypen som förklaringen citerar flest gånger (lika: den senast citerade).

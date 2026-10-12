@@ -32,10 +32,10 @@
   ],
   "misstag": [
    "",
-   "Det går ihop med villkoren. I schemat står Jonas på plats 5 och Lisa på plats 3.",
-   "Det går ihop med villkoren. I schemat står Åsa på plats 4 och Jonas på plats 5.",
-   "Det går ihop med villkoren. I schemat står Jonas på plats 5.",
-   "Det går ihop med villkoren. I schemat står Lisa på plats 3 och Åsa på plats 4."
+   "I schemat står Jonas på plats 5 och Lisa på plats 3. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Åsa på plats 4 och Jonas på plats 5. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Jonas på plats 5. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Lisa på plats 3 och Åsa på plats 4. Det går ihop med villkoren, så det är inte svaret."
   ],
   "losning": {
    "steg": [
@@ -201,11 +201,11 @@
    "Går ihop med villkoren."
   ],
   "misstag": [
-   "Det går ihop med villkoren. I schemat står Mats på plats 5.",
+   "I schemat står Mats på plats 5. Det går ihop med villkoren, så det är inte svaret.",
    "",
-   "Det går ihop med villkoren. I schemat står Sven på plats 4.",
-   "Det går ihop med villkoren. I schemat står Dan på plats 3.",
-   "Det går ihop med villkoren. I schemat står Sven på plats 4 och Mats på plats 5."
+   "I schemat står Sven på plats 4. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Dan på plats 3. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Sven på plats 4 och Mats på plats 5. Det går ihop med villkoren, så det är inte svaret."
   ],
   "losning": {
    "steg": [
@@ -382,11 +382,11 @@
    "Går ihop med villkoren."
   ],
   "misstag": [
-   "Det går ihop med villkoren. I schemat ligger den gröna pärmen på plats 2 och den lila pärmen på plats 3.",
-   "Det går ihop med villkoren. I schemat ligger den lila pärmen på plats 3 och den vita pärmen på plats 1.",
+   "I schemat ligger den gröna pärmen på plats 2 och den lila pärmen på plats 3. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat ligger den lila pärmen på plats 3 och den vita pärmen på plats 1. Det går ihop med villkoren, så det är inte svaret.",
    "",
-   "Det går ihop med villkoren. I schemat ligger den blå pärmen på plats 4 och den svarta pärmen på plats 5.",
-   "Det går ihop med villkoren. I schemat ligger den vita pärmen på plats 1."
+   "I schemat ligger den blå pärmen på plats 4 och den svarta pärmen på plats 5. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat ligger den vita pärmen på plats 1. Det går ihop med villkoren, så det är inte svaret."
   ],
   "losning": {
    "steg": [
@@ -562,11 +562,11 @@
    "Går ihop med villkoren."
   ],
   "misstag": [
-   "Det går ihop med villkoren. I schemat står Filip på plats 3 och Maja på plats 4.",
-   "Det går ihop med villkoren. I schemat står Filip på plats 3.",
-   "Det går ihop med villkoren. I schemat står Erik på plats 1 och Åsa på plats 2.",
+   "I schemat står Filip på plats 3 och Maja på plats 4. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Filip på plats 3. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Erik på plats 1 och Åsa på plats 2. Det går ihop med villkoren, så det är inte svaret.",
    "",
-   "Det går ihop med villkoren. I schemat står Erik på plats 1 och Åsa på plats 2."
+   "I schemat står Erik på plats 1 och Åsa på plats 2. Det går ihop med villkoren, så det är inte svaret."
   ],
   "losning": {
    "steg": [
@@ -757,10 +757,10 @@
    "Går inte ihop med villkoren när Nils står på plats 6."
   ],
   "misstag": [
-   "Det går ihop med villkoren. I schemat står Per på plats 4.",
-   "Det går ihop med villkoren. I schemat står Erik på plats 3.",
-   "Det går ihop med villkoren. I schemat står Vera på plats 1.",
-   "Det går ihop med villkoren. I schemat står Cilla på plats 2.",
+   "I schemat står Per på plats 4. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Erik på plats 3. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Vera på plats 1. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Cilla på plats 2. Det går ihop med villkoren, så det är inte svaret.",
    ""
   ],
   "losning": {
@@ -921,10 +921,10 @@
   ],
   "misstag": [
    "",
-   "Det går ihop med villkoren. I schemat ligger den lila pärmen på plats 4.",
-   "Det går ihop med villkoren. I schemat ligger den blå pärmen på plats 1 och den gröna pärmen på plats 2.",
-   "Det går ihop med villkoren. I schemat ligger den blå pärmen på plats 1.",
-   "Det går ihop med villkoren. I schemat ligger den blå pärmen på plats 1 och den röda pärmen på plats 3."
+   "I schemat ligger den lila pärmen på plats 4. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat ligger den blå pärmen på plats 1 och den gröna pärmen på plats 2. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat ligger den blå pärmen på plats 1. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat ligger den blå pärmen på plats 1 och den röda pärmen på plats 3. Det går ihop med villkoren, så det är inte svaret."
   ],
   "losning": {
    "steg": [
@@ -1101,11 +1101,11 @@
    "Går ihop med villkoren."
   ],
   "misstag": [
-   "Det går ihop med villkoren. I schemat står Rut på plats 4 och Nora på plats 5.",
+   "I schemat står Rut på plats 4 och Nora på plats 5. Det går ihop med villkoren, så det är inte svaret.",
    "",
-   "Det går ihop med villkoren. I schemat står Sara på plats 2 och Mats på plats 3.",
-   "Det går ihop med villkoren. I schemat står Mats på plats 3 och Rut på plats 4.",
-   "Det går ihop med villkoren. I schemat står Nora på plats 5."
+   "I schemat står Sara på plats 2 och Mats på plats 3. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Mats på plats 3 och Rut på plats 4. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Nora på plats 5. Det går ihop med villkoren, så det är inte svaret."
   ],
   "losning": {
    "steg": [
@@ -1258,11 +1258,11 @@
    "Går ihop med villkoren."
   ],
   "misstag": [
-   "Det går ihop med villkoren. I schemat står Vera på plats 5.",
-   "Det går ihop med villkoren. I schemat står Lisa på plats 4 och Vera på plats 5.",
+   "I schemat står Vera på plats 5. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Lisa på plats 4 och Vera på plats 5. Det går ihop med villkoren, så det är inte svaret.",
    "",
-   "Det går ihop med villkoren. I schemat står Sven på plats 1 och Gun på plats 2.",
-   "Det går ihop med villkoren. I schemat står Lisa på plats 4."
+   "I schemat står Sven på plats 1 och Gun på plats 2. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Lisa på plats 4. Det går ihop med villkoren, så det är inte svaret."
   ],
   "losning": {
    "steg": [
@@ -1446,11 +1446,11 @@
    "Går ihop med villkoren."
   ],
   "misstag": [
-   "Det går ihop med villkoren. I schemat ligger den blå pärmen på plats 1 och den svarta pärmen på plats 2.",
-   "Det går ihop med villkoren. I schemat ligger den svarta pärmen på plats 2 och den gröna pärmen på plats 3.",
-   "Det går ihop med villkoren. I schemat ligger den blå pärmen på plats 1 och den svarta pärmen på plats 2.",
+   "I schemat ligger den blå pärmen på plats 1 och den svarta pärmen på plats 2. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat ligger den svarta pärmen på plats 2 och den gröna pärmen på plats 3. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat ligger den blå pärmen på plats 1 och den svarta pärmen på plats 2. Det går ihop med villkoren, så det är inte svaret.",
    "",
-   "Det går ihop med villkoren. I schemat ligger den svarta pärmen på plats 2."
+   "I schemat ligger den svarta pärmen på plats 2. Det går ihop med villkoren, så det är inte svaret."
   ],
   "losning": {
    "steg": [
@@ -1623,10 +1623,10 @@
    "Går inte ihop med villkoren när Dan står på plats 6."
   ],
   "misstag": [
-   "Det går ihop med villkoren. I schemat står Cilla på plats 1 och Rut på plats 2.",
-   "Det går ihop med villkoren. I schemat står Eva på plats 3.",
-   "Det går ihop med villkoren. I schemat står Rut på plats 2.",
-   "Det går ihop med villkoren. I schemat står Eva på plats 3 och Bea på plats 4.",
+   "I schemat står Cilla på plats 1 och Rut på plats 2. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Eva på plats 3. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Rut på plats 2. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Eva på plats 3 och Bea på plats 4. Det går ihop med villkoren, så det är inte svaret.",
    ""
   ],
   "losning": {
@@ -1787,10 +1787,10 @@
   ],
   "misstag": [
    "",
-   "Det går ihop med villkoren. I schemat står Frida på plats 2 och Nora på plats 3.",
-   "Det går ihop med villkoren. I schemat står Nora på plats 3.",
-   "Det går ihop med villkoren. I schemat står Frida på plats 2.",
-   "Det går ihop med villkoren. I schemat står Bea på plats 6."
+   "I schemat står Frida på plats 2 och Nora på plats 3. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Nora på plats 3. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Frida på plats 2. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Bea på plats 6. Det går ihop med villkoren, så det är inte svaret."
   ],
   "losning": {
    "steg": [
@@ -1956,11 +1956,11 @@
    "Går ihop med villkoren."
   ],
   "misstag": [
-   "Det går ihop med villkoren. I schemat ligger den gröna pärmen på plats 1 och den lila pärmen på plats 2.",
+   "I schemat ligger den gröna pärmen på plats 1 och den lila pärmen på plats 2. Det går ihop med villkoren, så det är inte svaret.",
    "",
-   "Det går ihop med villkoren. I schemat ligger den lila pärmen på plats 2 och den blå pärmen på plats 3.",
-   "Det går ihop med villkoren. I schemat ligger den gröna pärmen på plats 1 och den lila pärmen på plats 2.",
-   "Det går ihop med villkoren. I schemat ligger den lila pärmen på plats 2 och den blå pärmen på plats 3."
+   "I schemat ligger den lila pärmen på plats 2 och den blå pärmen på plats 3. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat ligger den gröna pärmen på plats 1 och den lila pärmen på plats 2. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat ligger den lila pärmen på plats 2 och den blå pärmen på plats 3. Det går ihop med villkoren, så det är inte svaret."
   ],
   "losning": {
    "steg": [
@@ -2144,11 +2144,11 @@
    "Går ihop med villkoren."
   ],
   "misstag": [
-   "Det går ihop med villkoren. I schemat står Ulf på plats 1.",
-   "Det går ihop med villkoren. I schemat står Ulf på plats 1 och Maja på plats 2.",
+   "I schemat står Ulf på plats 1. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Ulf på plats 1 och Maja på plats 2. Det går ihop med villkoren, så det är inte svaret.",
    "",
-   "Det går ihop med villkoren. I schemat står Ulf på plats 1 och Maja på plats 2.",
-   "Det går ihop med villkoren. I schemat står Maja på plats 2 och Ulf på plats 1."
+   "I schemat står Ulf på plats 1 och Maja på plats 2. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Maja på plats 2 och Ulf på plats 1. Det går ihop med villkoren, så det är inte svaret."
   ],
   "losning": {
    "steg": [
@@ -2321,11 +2321,11 @@
    "Går ihop med villkoren."
   ],
   "misstag": [
-   "Det går ihop med villkoren. I schemat står Nils på plats 1.",
-   "Det går ihop med villkoren. I schemat står Mats på plats 2.",
-   "Det går ihop med villkoren. I schemat står Dan på plats 4 och Leo på plats 6.",
+   "I schemat står Nils på plats 1. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Mats på plats 2. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Dan på plats 4 och Leo på plats 6. Det går ihop med villkoren, så det är inte svaret.",
    "",
-   "Det går ihop med villkoren. I schemat står Dan på plats 4 och Kim på plats 5."
+   "I schemat står Dan på plats 4 och Kim på plats 5. Det går ihop med villkoren, så det är inte svaret."
   ],
   "losning": {
    "steg": [
@@ -2482,10 +2482,10 @@
    "Går inte ihop med villkoren när den röda pärmen ligger på plats 1."
   ],
   "misstag": [
-   "Det går ihop med villkoren. I schemat ligger den blå pärmen på plats 3 och den vita pärmen på plats 4.",
-   "Det går ihop med villkoren. I schemat ligger den svarta pärmen på plats 2.",
-   "Det går ihop med villkoren. I schemat ligger den blå pärmen på plats 3 och den vita pärmen på plats 4.",
-   "Det går ihop med villkoren. I schemat ligger den blå pärmen på plats 3.",
+   "I schemat ligger den blå pärmen på plats 3 och den vita pärmen på plats 4. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat ligger den svarta pärmen på plats 2. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat ligger den blå pärmen på plats 3 och den vita pärmen på plats 4. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat ligger den blå pärmen på plats 3. Det går ihop med villkoren, så det är inte svaret.",
    ""
   ],
   "losning": {
@@ -2660,10 +2660,10 @@
   ],
   "misstag": [
    "",
-   "Det går ihop med villkoren. I schemat står Per på plats 4.",
-   "Det går ihop med villkoren. I schemat står Karin på plats 5 och Per på plats 4.",
-   "Det går ihop med villkoren. I schemat står Carl på plats 2 och Vera på plats 3.",
-   "Det går ihop med villkoren. I schemat står Per på plats 4 och Karin på plats 5."
+   "I schemat står Per på plats 4. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Karin på plats 5 och Per på plats 4. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Carl på plats 2 och Vera på plats 3. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Per på plats 4 och Karin på plats 5. Det går ihop med villkoren, så det är inte svaret."
   ],
   "losning": {
    "steg": [
@@ -2849,11 +2849,11 @@
    "Går ihop med villkoren."
   ],
   "misstag": [
-   "Det går ihop med villkoren. I schemat står Nora på plats 5 och Bo på plats 6.",
+   "I schemat står Nora på plats 5 och Bo på plats 6. Det går ihop med villkoren, så det är inte svaret.",
    "",
-   "Det går ihop med villkoren. I schemat står Bo på plats 6.",
-   "Det går ihop med villkoren. I schemat står Nora på plats 5.",
-   "Det går ihop med villkoren. I schemat står Rut på plats 1 och Jonas på plats 3."
+   "I schemat står Bo på plats 6. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Nora på plats 5. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Rut på plats 1 och Jonas på plats 3. Det går ihop med villkoren, så det är inte svaret."
   ],
   "losning": {
    "steg": [
@@ -3023,11 +3023,11 @@
    "Går ihop med villkoren."
   ],
   "misstag": [
-   "Det går ihop med villkoren. I schemat ligger den lila pärmen på plats 2.",
-   "Det går ihop med villkoren. I schemat ligger den lila pärmen på plats 2 och den gröna pärmen på plats 3.",
+   "I schemat ligger den lila pärmen på plats 2. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat ligger den lila pärmen på plats 2 och den gröna pärmen på plats 3. Det går ihop med villkoren, så det är inte svaret.",
    "",
-   "Det går ihop med villkoren. I schemat ligger den vita pärmen på plats 1 och den lila pärmen på plats 2.",
-   "Det går ihop med villkoren. I schemat ligger den vita pärmen på plats 1 och den lila pärmen på plats 2."
+   "I schemat ligger den vita pärmen på plats 1 och den lila pärmen på plats 2. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat ligger den vita pärmen på plats 1 och den lila pärmen på plats 2. Det går ihop med villkoren, så det är inte svaret."
   ],
   "losning": {
    "steg": [
@@ -3195,11 +3195,11 @@
    "Går ihop med villkoren."
   ],
   "misstag": [
-   "Det går ihop med villkoren. I schemat står Ulla på plats 4 och Maja på plats 5.",
-   "Det går ihop med villkoren. I schemat står Lisa på plats 3 och Ulla på plats 4.",
-   "Det går ihop med villkoren. I schemat står Lisa på plats 3 och Ulla på plats 4.",
+   "I schemat står Ulla på plats 4 och Maja på plats 5. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Lisa på plats 3 och Ulla på plats 4. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Lisa på plats 3 och Ulla på plats 4. Det går ihop med villkoren, så det är inte svaret.",
    "",
-   "Det går ihop med villkoren. I schemat står Per på plats 2 och Lisa på plats 3."
+   "I schemat står Per på plats 2 och Lisa på plats 3. Det går ihop med villkoren, så det är inte svaret."
   ],
   "losning": {
    "steg": [
@@ -3352,10 +3352,10 @@
    "Går inte ihop med villkoren när Åsa står på plats 2."
   ],
   "misstag": [
-   "Det går ihop med villkoren. I schemat står Bea på plats 5.",
-   "Det går ihop med villkoren. I schemat står Rut på plats 6.",
-   "Det går ihop med villkoren. I schemat står Eva på plats 4.",
-   "Det går ihop med villkoren. I schemat står Eva på plats 4 och Bea på plats 5.",
+   "I schemat står Bea på plats 5. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Rut på plats 6. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Eva på plats 4. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Eva på plats 4 och Bea på plats 5. Det går ihop med villkoren, så det är inte svaret.",
    ""
   ],
   "losning": {
@@ -3541,10 +3541,10 @@
   ],
   "misstag": [
    "",
-   "Det går ihop med villkoren. I schemat ligger den blå pärmen på plats 3.",
-   "Det går ihop med villkoren. I schemat ligger den lila pärmen på plats 4 och den röda pärmen på plats 5.",
-   "Det går ihop med villkoren. I schemat ligger den svarta pärmen på plats 1 och den vita pärmen på plats 2.",
-   "Det går ihop med villkoren. I schemat ligger den vita pärmen på plats 2 och den blå pärmen på plats 3."
+   "I schemat ligger den blå pärmen på plats 3. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat ligger den lila pärmen på plats 4 och den röda pärmen på plats 5. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat ligger den svarta pärmen på plats 1 och den vita pärmen på plats 2. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat ligger den vita pärmen på plats 2 och den blå pärmen på plats 3. Det går ihop med villkoren, så det är inte svaret."
   ],
   "losning": {
    "steg": [
@@ -3710,11 +3710,11 @@
    "Går ihop med villkoren."
   ],
   "misstag": [
-   "Det går ihop med villkoren. I schemat står Åsa på plats 1 och Lisa på plats 2.",
+   "I schemat står Åsa på plats 1 och Lisa på plats 2. Det går ihop med villkoren, så det är inte svaret.",
    "",
-   "Det går ihop med villkoren. I schemat står Lisa på plats 2 och Dan på plats 3.",
-   "Det går ihop med villkoren. I schemat står Lisa på plats 2.",
-   "Det går ihop med villkoren. I schemat står Dan på plats 3 och Åsa på plats 1."
+   "I schemat står Lisa på plats 2 och Dan på plats 3. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Lisa på plats 2. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Dan på plats 3 och Åsa på plats 1. Det går ihop med villkoren, så det är inte svaret."
   ],
   "losning": {
    "steg": [
@@ -3898,11 +3898,11 @@
    "Går ihop med villkoren."
   ],
   "misstag": [
-   "Det går ihop med villkoren. I schemat står Vera på plats 1 och Jonas på plats 2.",
-   "Det går ihop med villkoren. I schemat står Jonas på plats 2.",
+   "I schemat står Vera på plats 1 och Jonas på plats 2. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Jonas på plats 2. Det går ihop med villkoren, så det är inte svaret.",
    "",
-   "Det går ihop med villkoren. I schemat står Gun på plats 4.",
-   "Det går ihop med villkoren. I schemat står Vera på plats 1."
+   "I schemat står Gun på plats 4. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat står Vera på plats 1. Det går ihop med villkoren, så det är inte svaret."
   ],
   "losning": {
    "steg": [
@@ -4081,11 +4081,11 @@
    "Går ihop med villkoren."
   ],
   "misstag": [
-   "Det går ihop med villkoren. I schemat ligger den svarta pärmen på plats 5 och den lila pärmen på plats 6.",
-   "Det går ihop med villkoren. I schemat ligger den gröna pärmen på plats 4 och den svarta pärmen på plats 5.",
-   "Det går ihop med villkoren. I schemat ligger den blå pärmen på plats 3 och den gröna pärmen på plats 4.",
+   "I schemat ligger den svarta pärmen på plats 5 och den lila pärmen på plats 6. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat ligger den gröna pärmen på plats 4 och den svarta pärmen på plats 5. Det går ihop med villkoren, så det är inte svaret.",
+   "I schemat ligger den blå pärmen på plats 3 och den gröna pärmen på plats 4. Det går ihop med villkoren, så det är inte svaret.",
    "",
-   "Det går ihop med villkoren. I schemat ligger den lila pärmen på plats 6."
+   "I schemat ligger den lila pärmen på plats 6. Det går ihop med villkoren, så det är inte svaret."
   ],
   "losning": {
    "steg": [
