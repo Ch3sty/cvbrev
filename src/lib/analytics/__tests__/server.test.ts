@@ -5,7 +5,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 // distinct_id och rätt egenskaper går ut, och att ett trasigt nät aldrig
 // når anroparen.
 
-import { captureServer, timmarSedan, type CapturePayload } from '../server'
+import { captureServer, distinctIdUrCookie, timmarSedan, type CapturePayload } from '../server'
 
 const fetchMock = vi.fn()
 
@@ -127,5 +127,18 @@ describe('timmarSedan', () => {
     expect(timmarSedan(null, nu)).toBeNull()
     expect(timmarSedan('inte ett datum', nu)).toBeNull()
     expect(timmarSedan('2026-09-23T12:00:00Z', nu)).toBeNull()
+  })
+})
+
+describe('distinctIdUrCookie', () => {
+  it('läser distinct_id ur PostHogs url-kodade cookie', () => {
+    const varde = encodeURIComponent(JSON.stringify({ distinct_id: '0192-anon', $sesid: [1, 'x', 2] }))
+    expect(distinctIdUrCookie(varde)).toBe('0192-anon')
+  })
+
+  it('ger null för saknad, trasig eller tom cookie', () => {
+    expect(distinctIdUrCookie(undefined)).toBeNull()
+    expect(distinctIdUrCookie('inte json')).toBeNull()
+    expect(distinctIdUrCookie(encodeURIComponent(JSON.stringify({ distinct_id: '' })))).toBeNull()
   })
 })

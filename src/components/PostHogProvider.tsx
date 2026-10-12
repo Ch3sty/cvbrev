@@ -52,6 +52,11 @@ function starta(): void {
       // behålls. Vill vi spela in sessioner senare: posthog.startSessionRecording().
       disable_session_recording: true,
       disable_surveys: true,
+      // Ofångade fel och avvisade löften som $exception (undersökningen
+      // 2026-10-12: registreringarna föll utan att något fel syntes).
+      // Felen före init fångas inte, och ett fel i startögonblicket syns
+      // i Vercels loggar i stället.
+      capture_exceptions: true,
     })
     // Gör klienten läsbar för src/lib/analytics/events.ts, som medvetet
     // undviker en egen import av samma skäl.
