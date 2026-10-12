@@ -1,0 +1,43 @@
+{
+  "tid": "2026-10-12T07:17:38.828Z",
+  "bas": "http://localhost:5210",
+  "korningar": 3,
+  "resultat": [
+    {
+      "namn": "figurserier testsida",
+      "budget": "lista",
+      "m": {
+        "lcp": 736,
+        "cls": 0,
+        "fcp": 608,
+        "rundturer": 0,
+        "textLangd": 555,
+        "forfragningar": 65
+      }
+    },
+    {
+      "namn": "figurserier uppgift",
+      "budget": "flode",
+      "m": {
+        "lcp": 2180,
+        "cls": 0,
+        "fcp": 588,
+        "rundturer": 5,
+        "textLangd": 284,
+        "forfragningar": 51
+      }
+    },
+    {
+      "namn": "figurserier resultat",
+      "budget": "flode",
+      "m": {
+        "lcp": 748,
+        "cls": 0,
+        "fcp": 588,
+        "rundturer": 0,
+        "textLangd": 812,
+        "forfragningar": 64
+      }
+    }
+  ]
+}
