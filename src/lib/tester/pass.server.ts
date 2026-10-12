@@ -32,6 +32,7 @@ import {
   familjForSvar,
   finnsUnderlag,
   harFamilj,
+  antalAvFamilj,
   klientform,
   nycklarFor,
   passPool,
@@ -265,7 +266,9 @@ export async function skapaVnPass(args: {
     pool = pool.filter((p) => harFamilj(args.kind, p.id, familj));
   }
   const seed = `${args.userId}:${idag}:${lage.rader.length}:${args.kind}:${familj ?? ''}`;
-  const val = valjUnderlag({ pool, sedda: lage.sedda, idag, seed });
+  // Riktat: underlag med två uppgifter av familjen först (verbalt parti 04, omgång 3 B2).
+  const foredra = familj ? (id: string) => antalAvFamilj(args.kind, id, familj) >= 2 : undefined;
+  const val = valjUnderlag({ pool, sedda: lage.sedda, idag, seed, foredra });
   if (!val) return { ok: false, status: 422, fel: 'banken_tom' };
 
   const meta: VnPassMeta = {

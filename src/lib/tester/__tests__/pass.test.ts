@@ -30,9 +30,9 @@ describe('nivån', () => {
 describe('urvalet och karensen', () => {
   const pool = passPool('verbal', 'grund')
 
-  it('pools i version 3: 36 texter grund, 40 avancerad, 36 underlag per nivå i numeriskt', () => {
-    expect(pool.length).toBe(36)
-    expect(passPool('verbal', 'avancerad').length).toBe(40)
+  it('pools i version 4: 44 texter grund, 48 avancerad (parti 04), 36 underlag per nivå i numeriskt', () => {
+    expect(pool.length).toBe(44)
+    expect(passPool('verbal', 'avancerad').length).toBe(48)
     expect(passPool('numerisk', 'grund').length).toBe(36)
     expect(passPool('numerisk', 'avancerad').length).toBe(36)
   })

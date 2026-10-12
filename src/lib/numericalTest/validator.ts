@@ -104,6 +104,7 @@ export function getPassageById(passageId: string): Passage | undefined {
 }
 
 /** Urvalets pool: version 1 de frysta underlagen, version 2 plus parti 02, version 3 plus parti 03 (src/lib/tester/underlagVersion.ts). */
-export function getAllPassages(version: 1 | 2 | 3 = 1): Passage[] {
-  return version === 3 ? passages : version === 2 ? medParti02 : frysta;
+export function getAllPassages(version: 1 | 2 | 3 | 4 = 1): Passage[] {
+  // Version 4 ändrar bara verbalt; numeriskt är som version 3.
+  return version >= 3 ? passages : version === 2 ? medParti02 : frysta;
 }

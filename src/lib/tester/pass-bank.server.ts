@@ -7,8 +7,8 @@
 // =============================================================================
 
 import 'server-only';
-import { POOL_V3 as VERBAL_GRUND } from '@/lib/verbalTestV1/selectPassages.v1';
-import { POOL_V3 as VERBAL_AVANCERAD } from '@/lib/verbalTestV2/selectPassages.v2';
+import { POOL_V4 as VERBAL_GRUND } from '@/lib/verbalTestV1/selectPassages.v1';
+import { POOL_V4 as VERBAL_AVANCERAD } from '@/lib/verbalTestV2/selectPassages.v2';
 import { getAllPassages as numGrund } from '@/lib/numericalTest/validator';
 import { getAllPassages as numAvancerad } from '@/lib/numericalTestV2/validator';
 import { PROV_MERGED_BANK as VERBAL_ALLA } from '@/lib/verbalTestProv/selectProv';
@@ -71,7 +71,7 @@ const VERBAL_PER_ID = new Map<string, VerbalText>((VERBAL_ALLA as unknown as Ver
 const NUM_PER_ID = new Map<string, NumUnderlag>((NUM_ALLA as unknown as NumUnderlag[]).map((p) => [p.id, p]));
 const NUM_FRAGA = new Map<string, NumFraga>([...NUM_PER_ID.values()].flatMap((p) => p.questions.map((q) => [q.id, q] as const)));
 
-/** Passets pool: nivåns underlag i underlagsversion 3. */
+/** Passets pool: nivåns underlag i underlagsversion 4 (verbalt med parti 04, numeriskt som version 3). */
 export function passPool(kind: VnKind, niva: VnNiva): readonly { id: string }[] {
   return POOLER[kind][niva];
 }
@@ -98,6 +98,11 @@ export function familjerPerUppgift(kind: VnKind, id: string): string[][] {
   return (numUnderlag(id)?.questions ?? []).map((q) => [
     ...new Set(q.options.map((o) => o.misstag?.typ).filter((t): t is string => typeof t === 'string')),
   ]);
+}
+
+/** Antal uppgifter i underlaget av familjen. */
+export function antalAvFamilj(kind: VnKind, id: string, familj: string): number {
+  return familjerPerUppgift(kind, id).filter((f) => f.includes(familj)).length;
 }
 
 /** Har underlaget minst VN_MINST_AV_TYP uppgifter av familjen? */

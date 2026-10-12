@@ -3,10 +3,11 @@ import type { Question, UserAnswer, TestAnswer } from './types.v2';
 import questionBank from './questionBank.json';
 import parti02 from './underlagParti02.json';
 import parti03 from './underlagParti03.json';
+import parti04 from './underlagParti04.json';
 import { TOTAL_STATEMENTS } from './selectPassages.v2';
 
 // Rättningen hittar alla texter, oavsett sessionens underlagsversion.
-const questions = [...(questionBank as Question[]), ...(parti02 as unknown as Question[]), ...(parti03 as unknown as Question[])];
+const questions = [...(questionBank as Question[]), ...(parti02 as unknown as Question[]), ...(parti03 as unknown as Question[]), ...(parti04 as unknown as Question[])];
 
 /**
  * Validates and scores a user's answer to a statement

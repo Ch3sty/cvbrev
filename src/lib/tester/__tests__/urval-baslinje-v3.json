@@ -1,0 +1,452 @@
+{
+ "vg:3:3f1c2a90-0000-4000-8000-000000000001": [
+  "vg-05-matavfall",
+  "v1-p16-interest-rates",
+  "v1-p15-predictive-maintenance",
+  "v1-p20",
+  "vg-01-friskvardsbidrag",
+  "v1-p05-digital-transformation",
+  "vg-12-ideellt-arbete",
+  "v1-p19",
+  "vg-10-e-legitimation",
+  "v1-p23"
+ ],
+ "va:3:3f1c2a90-0000-4000-8000-000000000001": [
+  "v2-p12-social-media",
+  "va-05-kompetensutveckling-arbetstid",
+  "va-07-foreningsstod",
+  "va-15-cykelinfrastruktur",
+  "v2-p16-gig-economy",
+  "v2-p23",
+  "v2-p06-streaming-culture",
+  "v2-p07-pedagogy",
+  "va-06-aterbruk-byggmaterial",
+  "v2-p14-sleep-health"
+ ],
+ "ng:3:3f1c2a90-0000-4000-8000-000000000001": [
+  "ng-25-byggets-material:bdca,abdc,badc,bcad",
+  "ng-04-lunchportioner:abdc,bacd,acbd,bdac",
+  "ng-03-gymmets-medlemmar:cbda,dbac,cabd,badc",
+  "ng-08-overtid:badc,cbad,dabc,bacd",
+  "ng-21-snorojning:acdb,cdba,bcda,adcb"
+ ],
+ "na:3:3f1c2a90-0000-4000-8000-000000000001": [
+  "na-17-ambulansuppdrag:bcad,bacd,dbca,acbd",
+  "na-12-fordonsbransle:dbca,bdac,badc,cabd",
+  "na-11-fakturering-kvartal:adcb,dcba,dacb,badc",
+  "na-16-energieffektivisering:dacb,dbca,dcab,abcd",
+  "na-05-biljettintakter:acdb,bcad,dcab,cdba"
+ ],
+ "ve:3:3f1c2a90-0000-4000-8000-000000000001": [
+  "verbexp-p15:dbca,cdab,bdca,cbda",
+  "verbexp-p08:abdc,cbda,bdac,cadb",
+  "verbexp-p09:acdb,dcab,abdc,acbd",
+  "verbexp-p17:dcba,bdac,cbad,cdab",
+  "verbexp-p19:cdba,bacd,cabd,bcad",
+  "verbexp-p03:dacb,cbad,adbc,dbca",
+  "verbexp-p11:cdba,dbca,acbd,cdab",
+  "verbexp-p06:cdab,dbca,bdca,dbac"
+ ],
+ "vp:3:3f1c2a90-0000-4000-8000-000000000001": [
+  "v2-p18-public-libraries",
+  "vg-05-matavfall",
+  "va-05-kompetensutveckling-arbetstid",
+  "v1-p16-interest-rates",
+  "vg-01-friskvardsbidrag",
+  "v1-p15-predictive-maintenance",
+  "v2-p10-aging-population",
+  "va-15-cykelinfrastruktur",
+  "v1-p20",
+  "va-12-regional-kompetensforsorjning",
+  "v2-p05-ai-development",
+  "v1-p05-digital-transformation"
+ ],
+ "np:3:3f1c2a90-0000-4000-8000-000000000001": [
+  "ng-25-byggets-material:bdca,abdc,badc,bcad",
+  "numexp-p11:dcab,bdac,badc,cadb",
+  "ng-04-lunchportioner:abdc,bacd,acbd,bdac",
+  "numv2-p06:cdab,bcad,dacb,acbd",
+  "numexp-p09:acbd,acdb,adcb,adcb",
+  "ng-03-gymmets-medlemmar:cbda,dbac,cabd,badc",
+  "na-16-energieffektivisering:dacb,dbca,dcab,abcd",
+  "numexp-p12:badc,dacb,dcba,dacb",
+  "numv2-p03:bdac,bacd,bacd,cadb"
+ ],
+ "ov-verbal:3:3f1c2a90-0000-4000-8000-000000000001": [
+  "v1-p04-investment-strategy",
+  "v1-p21",
+  "vg-07-elsparkcyklar",
+  "vg-09-hushallsbudget",
+  "v2-p08-preventive-healthcare",
+  "v2-p18-public-libraries",
+  "va-04-kollektivtrafikens-taxor",
+  "v2-p01-digital-learning"
+ ],
+ "ov-numerisk:3:3f1c2a90-0000-4000-8000-000000000001": [
+  "num-p04",
+  "ng-17-hemtjanst-besok",
+  "na-23-skadearenden",
+  "na-22-influensavaccin",
+  "numexp-p10"
+ ],
+ "vg:3:8b7e1d22-1111-4222-9333-444455556666": [
+  "v1-p24",
+  "v1-p23",
+  "v1-p19",
+  "v1-p09-supply-chain",
+  "v1-p16-interest-rates",
+  "v1-p15-predictive-maintenance",
+  "vg-12-ideellt-arbete",
+  "v1-p06-talent-retention",
+  "v1-p17-cloud-migration",
+  "v1-p21"
+ ],
+ "va:3:8b7e1d22-1111-4222-9333-444455556666": [
+  "v2-p02-mental-health",
+  "v2-p19",
+  "va-06-aterbruk-byggmaterial",
+  "va-05-kompetensutveckling-arbetstid",
+  "va-10-provanstallning",
+  "va-04-kollektivtrafikens-taxor",
+  "v2-p04-urbanization",
+  "v2-p07-pedagogy",
+  "va-02-kommunal-upphandling",
+  "v2-p21"
+ ],
+ "ng:3:8b7e1d22-1111-4222-9333-444455556666": [
+  "ng-20-fardtjanst-resor:cbda,dbca,dbac,adbc",
+  "ng-19-skolans-franvaro:cdba,dcab,dacb,dcab",
+  "ng-07-parkeringshuset:bdac,bdac,dacb,dcab",
+  "num-p09:cbda,cdab,dcab,dcba",
+  "ng-04-lunchportioner:cdba,dacb,acdb,cbad"
+ ],
+ "na:3:8b7e1d22-1111-4222-9333-444455556666": [
+  "na-04-elforbrukning:acbd,acdb,adcb,badc",
+  "na-03-personalomsattning:dcab,dabc,dbca,dacb",
+  "na-15-kundtjanst-arenden:dcab,dabc,dbca,dabc",
+  "numv2-p09:dabc,adbc,cdab,bdca",
+  "na-12-fordonsbransle:badc,abcd,cbda,abdc"
+ ],
+ "ve:3:8b7e1d22-1111-4222-9333-444455556666": [
+  "verbexp-p17:cbda,dcba,abcd,dcba",
+  "verbexp-p03:cdab,dcba,badc,cadb",
+  "verbexp-p10:dcab,cbad,bdac,acdb",
+  "verbexp-p07:cdba,cdab,badc,dacb",
+  "verbexp-p13:cadb,cdab,cbda,bdac",
+  "verbexp-p01:dcba,dcab,dabc,cdab",
+  "verbexp-p15:cbad,bdac,abdc,adbc",
+  "verbexp-p08:cabd,dcab,dbca,dcba"
+ ],
+ "vp:3:8b7e1d22-1111-4222-9333-444455556666": [
+  "v1-p15-predictive-maintenance",
+  "v1-p24",
+  "v1-p23",
+  "va-11-arbetsmiljoverkets-inspektioner",
+  "v2-p23",
+  "v1-p09-supply-chain",
+  "v2-p10-aging-population",
+  "v2-p13-lifelong-learning",
+  "va-06-aterbruk-byggmaterial",
+  "v1-p16-interest-rates",
+  "v2-p16-gig-economy",
+  "v1-p19"
+ ],
+ "np:3:8b7e1d22-1111-4222-9333-444455556666": [
+  "na-01-kommunbudget:dabc,abcd,adbc,bdca",
+  "ng-20-fardtjanst-resor:cbda,dbca,dbac,adbc",
+  "numexp-p08:cabd,cdab,adbc,dcab",
+  "ng-07-parkeringshuset:bdac,bdac,dacb,dcab",
+  "numexp-p04:cabd,abcd,cdab,dabc",
+  "na-24-gatubelaggning:adbc,cabd,dacb,abdc",
+  "na-15-kundtjanst-arenden:dcab,dabc,dbca,dabc",
+  "numexp-p07:cbad,dbac,bdac,cdba",
+  "ng-19-skolans-franvaro:cdba,dcab,dacb,dcab"
+ ],
+ "ov-verbal:3:8b7e1d22-1111-4222-9333-444455556666": [
+  "v1-p22",
+  "vg-11-allemansratten",
+  "v1-p15-predictive-maintenance",
+  "vg-09-hushallsbudget",
+  "v2-p11-medical-research",
+  "v2-p22",
+  "v2-p04-urbanization",
+  "va-09-bemanningsforetag"
+ ],
+ "ov-numerisk:3:8b7e1d22-1111-4222-9333-444455556666": [
+  "ng-18-lagrets-inleveranser",
+  "ng-31-forskolans-barn",
+  "numv2-p03",
+  "numv2-p07",
+  "numexp-p01"
+ ],
+ "vg:3:c0ffee00-dead-4bee-8f00-123456789abc": [
+  "v1-p21",
+  "v1-p19",
+  "vg-09-hushallsbudget",
+  "vg-05-matavfall",
+  "v1-p17-cloud-migration",
+  "vg-02-arbetsplatstraffar",
+  "v1-p07-consumer-behavior",
+  "v1-p22",
+  "vg-04-skolskjuts",
+  "v1-p06-talent-retention"
+ ],
+ "va:3:c0ffee00-dead-4bee-8f00-123456789abc": [
+  "va-16-digital-journalforing",
+  "va-10-provanstallning",
+  "v2-p04-urbanization",
+  "v2-p21",
+  "v2-p22",
+  "va-01-hemtjanstens-schema",
+  "va-14-larlingsutbildning",
+  "v2-p08-preventive-healthcare",
+  "v2-p10-aging-population",
+  "va-07-foreningsstod"
+ ],
+ "ng:3:c0ffee00-dead-4bee-8f00-123456789abc": [
+  "ng-17-hemtjanst-besok:bdac,dbac,cbda,cdba",
+  "ng-07-parkeringshuset:cbda,dbac,adcb,acdb",
+  "ng-29-flyttfirman:cadb,abdc,dcba,dbac",
+  "ng-25-byggets-material:dbca,bcda,bacd,dcab",
+  "ng-05-hyrcyklar:cdab,acdb,cabd,acbd"
+ ],
+ "na:3:c0ffee00-dead-4bee-8f00-123456789abc": [
+  "na-01-kommunbudget:cdab,cdba,abcd,acdb",
+  "na-15-kundtjanst-arenden:adcb,dacb,adbc,bcda",
+  "na-21-lonerevision:abdc,cdab,bcad,dcba",
+  "na-17-ambulansuppdrag:bcda,dacb,badc,dcba",
+  "na-13-vardplatser:cbda,dcab,cdab,bdac"
+ ],
+ "ve:3:c0ffee00-dead-4bee-8f00-123456789abc": [
+  "verbexp-p10:dcab,cabd,bcda,bcda",
+  "verbexp-p13:adcb,abdc,badc,bdca",
+  "verbexp-p18:cbad,dcab,acbd,abcd",
+  "verbexp-p12:bcad,bacd,dcba,dcab",
+  "verbexp-p19:acbd,dabc,cdba,acbd",
+  "verbexp-p14:bdac,adbc,cbda,cdab",
+  "verbexp-p15:cdba,dacb,dabc,cabd",
+  "verbexp-p04:abdc,dcba,dbac,cadb"
+ ],
+ "vp:3:c0ffee00-dead-4bee-8f00-123456789abc": [
+  "v1-p21",
+  "v2-p11-medical-research",
+  "v1-p19",
+  "va-10-provanstallning",
+  "va-01-hemtjanstens-schema",
+  "v2-p19",
+  "va-14-larlingsutbildning",
+  "vg-09-hushallsbudget",
+  "v2-p16-gig-economy",
+  "v1-p17-cloud-migration",
+  "vg-05-matavfall",
+  "vg-02-arbetsplatstraffar"
+ ],
+ "np:3:c0ffee00-dead-4bee-8f00-123456789abc": [
+  "ng-17-hemtjanst-besok:bdac,dbac,cbda,cdba",
+  "na-22-influensavaccin:dcab,adbc,cbda,acbd",
+  "numexp-p03:bacd,bdca,abdc,dcba",
+  "numv2-p08:cabd,abcd,adcb,dcba",
+  "ng-07-parkeringshuset:cbda,dbac,adcb,acdb",
+  "numexp-p09:adcb,adcb,cdba,bcad",
+  "numexp-p01:bcda,bcad,cabd,dbca",
+  "ng-29-flyttfirman:cadb,abdc,dcba,dbac",
+  "numv2-p07:cabd,dbca,bcda,acdb"
+ ],
+ "ov-verbal:3:c0ffee00-dead-4bee-8f00-123456789abc": [
+  "v1-p20",
+  "v1-p06-talent-retention",
+  "vg-10-e-legitimation",
+  "v1-p09-supply-chain",
+  "v2-p03-climate-action",
+  "v2-p08-preventive-healthcare",
+  "v2-p22",
+  "v2-p14-sleep-health"
+ ],
+ "ov-numerisk:3:c0ffee00-dead-4bee-8f00-123456789abc": [
+  "ng-08-overtid",
+  "num-p06",
+  "na-21-lonerevision",
+  "numv2-p12",
+  "numexp-p07"
+ ],
+ "vg:3:00000000-0000-4000-8000-000000000042": [
+  "v1-p12-leadership-styles",
+  "vg-08-sjukanmalan",
+  "vg-02-arbetsplatstraffar",
+  "vg-09-hushallsbudget",
+  "vg-01-friskvardsbidrag",
+  "vg-10-e-legitimation",
+  "vg-12-ideellt-arbete",
+  "vg-11-allemansratten",
+  "vg-03-meroppna-bibliotek",
+  "v1-p24"
+ ],
+ "va:3:00000000-0000-4000-8000-000000000042": [
+  "v2-p16-gig-economy",
+  "va-04-kollektivtrafikens-taxor",
+  "va-06-aterbruk-byggmaterial",
+  "va-01-hemtjanstens-schema",
+  "v2-p21",
+  "va-11-arbetsmiljoverkets-inspektioner",
+  "va-03-distansarbete-kontorsyta",
+  "va-09-bemanningsforetag",
+  "va-14-larlingsutbildning",
+  "v2-p15-biodiversity"
+ ],
+ "ng:3:00000000-0000-4000-8000-000000000042": [
+  "num-p12:adcb,dbca,cadb,bcda",
+  "ng-28-folktandvarden:dcba,dbac,dbac,adbc",
+  "ng-22-bageriets-limpor:cbad,cbda,bcda,badc",
+  "ng-29-flyttfirman:bacd,dbca,dabc,cbda",
+  "ng-21-snorojning:dabc,bcad,bacd,adcb"
+ ],
+ "na:3:00000000-0000-4000-8000-000000000042": [
+  "numv2-p12:cbda,cdab,cdab,cadb",
+  "na-20-hamnens-containrar:cabd,bdac,abcd,cdba",
+  "na-06-byggkostnader:dcba,dabc,adbc,abdc",
+  "na-21-lonerevision:bdca,cabd,dcba,dcab",
+  "na-05-biljettintakter:dcba,bcad,dacb,abdc"
+ ],
+ "ve:3:00000000-0000-4000-8000-000000000042": [
+  "verbexp-p20:cdba,dabc,badc,cabd",
+  "verbexp-p11:badc,acdb,cadb,cdba",
+  "verbexp-p14:bcda,dbac,dacb,cabd",
+  "verbexp-p19:dabc,bdac,abdc,cbda",
+  "verbexp-p15:bacd,bdca,abcd,abcd",
+  "verbexp-p17:acdb,bcda,dcba,dcba",
+  "verbexp-p13:abdc,bcad,abcd,adbc",
+  "verbexp-p12:acdb,bcad,badc,dcba"
+ ],
+ "vp:3:00000000-0000-4000-8000-000000000042": [
+  "va-16-digital-journalforing",
+  "v2-p09-circular-economy",
+  "vg-10-e-legitimation",
+  "va-01-hemtjanstens-schema",
+  "v2-p15-biodiversity",
+  "vg-01-friskvardsbidrag",
+  "v1-p12-leadership-styles",
+  "vg-08-sjukanmalan",
+  "v2-p04-urbanization",
+  "va-11-arbetsmiljoverkets-inspektioner",
+  "vg-02-arbetsplatstraffar",
+  "vg-09-hushallsbudget"
+ ],
+ "np:3:00000000-0000-4000-8000-000000000042": [
+  "na-01-kommunbudget:adbc,cbda,cadb,badc",
+  "numv2-p07:bacd,bdca,dcba,dbca",
+  "numexp-p10:dcba,bdac,dcab,abdc",
+  "num-p12:adcb,dbca,cadb,bcda",
+  "numv2-p03:bdca,acdb,acbd,adcb",
+  "ng-28-folktandvarden:dcba,dbac,dbac,adbc",
+  "numexp-p05:cadb,dbca,acbd,dbac",
+  "numexp-p07:bacd,dbac,acbd,abdc",
+  "ng-22-bageriets-limpor:cbad,cbda,bcda,badc"
+ ],
+ "ov-verbal:3:00000000-0000-4000-8000-000000000042": [
+  "vg-11-allemansratten",
+  "vg-07-elsparkcyklar",
+  "v1-p16-interest-rates",
+  "v1-p17-cloud-migration",
+  "v2-p08-preventive-healthcare",
+  "va-13-kommunal-matlagning",
+  "v2-p18-public-libraries",
+  "v2-p24"
+ ],
+ "ov-numerisk:3:00000000-0000-4000-8000-000000000042": [
+  "ng-31-forskolans-barn",
+  "ng-27-hotellets-belaggning",
+  "na-10-rekryteringskostnad",
+  "numv2-p08",
+  "numexp-p06"
+ ],
+ "vg:3:9a8b7c6d-5e4f-4a3b-9c2d-1e0f9a8b7c6d": [
+  "v1-p24",
+  "v1-p16-interest-rates",
+  "v1-p06-talent-retention",
+  "v1-p09-supply-chain",
+  "v1-p11-data-privacy",
+  "v1-p05-digital-transformation",
+  "v1-p13-onboarding-process",
+  "v1-p15-predictive-maintenance",
+  "v1-p17-cloud-migration",
+  "vg-04-skolskjuts"
+ ],
+ "va:3:9a8b7c6d-5e4f-4a3b-9c2d-1e0f9a8b7c6d": [
+  "v2-p20",
+  "va-01-hemtjanstens-schema",
+  "v2-p18-public-libraries",
+  "va-05-kompetensutveckling-arbetstid",
+  "v2-p04-urbanization",
+  "v2-p06-streaming-culture",
+  "v2-p13-lifelong-learning",
+  "v2-p14-sleep-health",
+  "v2-p07-pedagogy",
+  "va-16-digital-journalforing"
+ ],
+ "ng:3:9a8b7c6d-5e4f-4a3b-9c2d-1e0f9a8b7c6d": [
+  "ng-20-fardtjanst-resor:cdab,abdc,bdac,adcb",
+  "ng-04-lunchportioner:dbca,acbd,dcba,acbd",
+  "num-p06:dacb,dbca,dacb,bdac",
+  "num-p09:dacb,bdca,bdac,cabd",
+  "num-p11:cdba,cbda,adcb,cbda"
+ ],
+ "na:3:9a8b7c6d-5e4f-4a3b-9c2d-1e0f9a8b7c6d": [
+  "na-04-elforbrukning:bcda,dabc,acdb,acdb",
+  "na-12-fordonsbransle:adcb,dacb,abdc,cbad",
+  "numv2-p06:dcba,acbd,cbad,dcba",
+  "numv2-p09:dcab,cbad,badc,bcda",
+  "numv2-p11:cabd,bcda,bcda,dcba"
+ ],
+ "ve:3:9a8b7c6d-5e4f-4a3b-9c2d-1e0f9a8b7c6d": [
+  "verbexp-p09:bcad,bcda,abcd,dcab",
+  "verbexp-p17:bacd,adbc,acbd,bacd",
+  "verbexp-p02:dbca,adcb,adcb,dbac",
+  "verbexp-p11:abdc,bcda,bcda,dbca",
+  "verbexp-p05:acbd,cdab,dabc,adcb",
+  "verbexp-p13:dbca,bcda,dbca,bcad",
+  "verbexp-p06:bdac,cadb,bcad,dabc",
+  "verbexp-p01:acbd,abdc,abcd,dabc"
+ ],
+ "vp:3:9a8b7c6d-5e4f-4a3b-9c2d-1e0f9a8b7c6d": [
+  "va-02-kommunal-upphandling",
+  "v2-p16-gig-economy",
+  "v2-p11-medical-research",
+  "v1-p11-data-privacy",
+  "v1-p24",
+  "v2-p23",
+  "v1-p06-talent-retention",
+  "v1-p05-digital-transformation",
+  "v2-p22",
+  "v2-p03-climate-action",
+  "v1-p09-supply-chain",
+  "v1-p16-interest-rates"
+ ],
+ "np:3:9a8b7c6d-5e4f-4a3b-9c2d-1e0f9a8b7c6d": [
+  "numexp-p03:acbd,bacd,bcda,adcb",
+  "ng-20-fardtjanst-resor:cdab,abdc,bdac,adcb",
+  "numv2-p03:bdac,cbda,acdb,bdca",
+  "numexp-p07:cbad,bacd,bdac,dacb",
+  "na-17-ambulansuppdrag:adbc,cbad,dcab,bcad",
+  "numexp-p12:dcab,bdca,acbd,cabd",
+  "na-12-fordonsbransle:adcb,dacb,abdc,cbad",
+  "num-p06:dacb,dbca,dacb,bdac",
+  "ng-04-lunchportioner:dbca,acbd,dcba,acbd"
+ ],
+ "ov-verbal:3:9a8b7c6d-5e4f-4a3b-9c2d-1e0f9a8b7c6d": [
+  "vg-12-ideellt-arbete",
+  "v1-p17-cloud-migration",
+  "vg-06-folkhogskola",
+  "v1-p05-digital-transformation",
+  "v2-p20",
+  "v2-p09-circular-economy",
+  "v2-p03-climate-action",
+  "va-12-regional-kompetensforsorjning"
+ ],
+ "ov-numerisk:3:9a8b7c6d-5e4f-4a3b-9c2d-1e0f9a8b7c6d": [
+  "ng-32-stadbolaget",
+  "ng-05-hyrcyklar",
+  "numv2-p06",
+  "na-01-kommunbudget",
+  "numexp-p04"
+ ]
+}

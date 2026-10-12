@@ -7,8 +7,8 @@
 
 import bankV1 from '@/lib/verbalTestV1/questionBank.json';
 import bankV2 from '@/lib/verbalTestV2/questionBank.json';
-import { POOL_V3 as GRUND_V3 } from '@/lib/verbalTestV1/selectPassages.v1';
-import { POOL_V3 as AVANCERAD_V3 } from '@/lib/verbalTestV2/selectPassages.v2';
+import { POOL_V3 as GRUND_V3, POOL_V4 as GRUND_V4 } from '@/lib/verbalTestV1/selectPassages.v1';
+import { POOL_V3 as AVANCERAD_V3, POOL_V4 as AVANCERAD_V4 } from '@/lib/verbalTestV2/selectPassages.v2';
 import type { UnderlagVersion } from '@/lib/tester/underlagVersion';
 import type { Question } from '@/lib/verbalTestV1/types.v1';
 
@@ -22,12 +22,13 @@ export const POOL_V2 = bankV2 as Question[];
  * bankerna plus parti 02 och parti 03.
  */
 export function poolFor(niva: 'grund' | 'avancerad', version: UnderlagVersion = 1): Question[] {
+  if (version === 4) return niva === 'grund' ? GRUND_V4 : (AVANCERAD_V4 as unknown as Question[]);
   if (version === 3) return niva === 'grund' ? GRUND_V3 : (AVANCERAD_V3 as unknown as Question[]);
   return niva === 'grund' ? POOL_V1 : POOL_V2;
 }
 
 /** Alla texter i alla versioner, för uppslag av facit och förklaring per passage-id. */
-export const PROV_MERGED_BANK: Question[] = [...GRUND_V3, ...(AVANCERAD_V3 as unknown as Question[])];
+export const PROV_MERGED_BANK: Question[] = [...GRUND_V4, ...(AVANCERAD_V4 as unknown as Question[])];
 
 export const PROV_PER_LEVEL = 6;
 export const STATEMENTS_PER_PASSAGE = 4;

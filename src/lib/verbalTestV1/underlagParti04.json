@@ -1,0 +1,282 @@
+[
+ {
+  "id": "vg-13-flextid",
+  "title": "Flextid på kontoret",
+  "difficulty": 1,
+  "topic": "Arbetsliv",
+  "text": "På många kontor kan de anställda själva välja när arbetsdagen börjar och slutar, så kallad flextid. Ofta finns en kärntid mitt på dagen, till exempel mellan nio och tre, då alla ska vara på plats eller gå att nå. Utanför kärntiden bestämmer den anställde själv, så länge veckans arbetstid blir den avtalade. Den som arbetar mer en vecka kan ta ut timmarna som ledig tid en annan vecka. På de flesta arbetsplatser finns ett tak för hur många plustimmar som får sparas, och det som ligger över taket stryks vid månadens slut. Tiden registreras i ett system där den anställde stämplar in och ut. Chefen ser saldot i systemet och kan säga till om det växer för mycket. Arbetsgivare som har infört flextid säger ofta att sjukfrånvaron har minskat. Andra tycker att det har blivit svårare att planera möten.",
+  "statements": [
+   {
+    "text": "Under kärntiden förväntas de anställda vara på jobbet eller vara nåbara.",
+    "correctAnswer": "true",
+    "typ": "direkt",
+    "explanation": "Texten säger att alla ska vara på plats eller gå att nå under kärntiden. Påståendet säger samma sak med andra ord och är därför sant."
+   },
+   {
+    "text": "Plustimmar som ligger över taket sparas till nästa månad.",
+    "correctAnswer": "false",
+    "typ": "direkt",
+    "explanation": "Det står att timmarna över taket stryks vid månadens slut. De sparas alltså inte, och påståendet går emot texten."
+   },
+   {
+    "text": "Saldot som chefen ser bygger på när den anställde har stämplat in och ut.",
+    "correctAnswer": "true",
+    "typ": "slutledning",
+    "explanation": "Texten säger att tiden registreras när den anställde stämplar in och ut, och att chefen ser saldot i samma system. Tillsammans ger de två meningarna påståendet."
+   },
+   {
+    "text": "Med flextid arbetar de anställda fler timmar under ett år.",
+    "correctAnswer": "cannot_say",
+    "typ": "utanfor",
+    "explanation": "Texten säger att veckans arbetstid ska bli den avtalade, men inget om hur många timmar som arbetas under ett helt år. Det går inte att avgöra."
+   }
+  ],
+  "kalla": "skriven 2026-10-12, parti 04, grund",
+  "p_prior": 0.72
+ },
+ {
+  "id": "vg-14-semester",
+  "title": "Semestern",
+  "difficulty": 1,
+  "topic": "Arbetsliv",
+  "text": "Enligt semesterlagen har anställda i Sverige rätt till minst 25 semesterdagar om året. Semestern tjänas in under ett år och tas ut året efter. Den som är nyanställd kan därför ha få betalda dagar under sitt första år, men kan ofta få ta obetald ledighet i stället. Huvudregeln är att den anställde får fyra veckor sammanhängande ledighet under juni, juli och augusti. Arbetsgivaren bestämmer när semestern ska läggas, men ska först fråga den anställde och förhandla med facket om det finns ett kollektivavtal. Ett beslut om när semestern ska ligga ska meddelas senast två månader i förväg. Dagar som inte tas ut kan i vissa fall sparas till ett senare år. Många arbetsplatser försöker lägga ut semestrarna så att verksamheten fungerar hela sommaren.",
+  "statements": [
+   {
+    "text": "Den anställde bestämmer själv när semestern ska läggas.",
+    "correctAnswer": "false",
+    "typ": "direkt",
+    "explanation": "Texten säger att det är arbetsgivaren som bestämmer när semestern ska läggas, efter att ha frågat den anställde. Påståendet går därför emot texten."
+   },
+   {
+    "text": "Besked om när semestern ligger ska komma minst två månader innan.",
+    "correctAnswer": "true",
+    "typ": "direkt",
+    "explanation": "Det står att beslutet ska meddelas senast två månader i förväg. Påståendet säger samma sak och är sant."
+   },
+   {
+    "text": "Semesterdagar som inte tas ut kan alltid sparas till ett senare år.",
+    "correctAnswer": "false",
+    "typ": "kvantor",
+    "explanation": "Texten säger att dagarna kan sparas i vissa fall, inte i alla. Ordet alltid gör påståendet falskt."
+   },
+   {
+    "text": "De flesta anställda tar ut sin semester i juli.",
+    "correctAnswer": "cannot_say",
+    "typ": "utanfor",
+    "explanation": "Texten nämner sommarmånaderna men säger inget om vilken månad de flesta väljer. Påståendet går varken att bekräfta eller säga emot med texten."
+   }
+  ],
+  "kalla": "skriven 2026-10-12, parti 04, grund",
+  "p_prior": 0.72
+ },
+ {
+  "id": "vg-15-cykelgarage",
+  "title": "Cykelgaraget",
+  "difficulty": 1,
+  "topic": "Miljö",
+  "text": "I ett nytt kontorshus i staden finns ett låst cykelgarage i källaren. Garaget har plats för 120 cyklar och kan bara öppnas med passerkort. Den som har ett passerkort till huset kan också öppna garaget. Bredvid garaget finns ett omklädningsrum med duschar och skåp. Skåpen är till för dem som cyklar till jobbet och töms varje fredag eftermiddag. Fastighetsägaren har satt upp laddplatser för elcyklar längs en av väggarna, men laddningen kostar en mindre avgift som betalas i en app. Besökare som saknar passerkort hänvisas till cykelställen på gatan utanför entrén. Sedan garaget öppnade har fler anställda börjat cykla till huset, enligt fastighetsägarens egen räkning. Fastighetsägaren vill nu bygga ett liknande garage i ett annat hus. Garaget är öppet dygnet runt och har kameror vid porten.",
+  "statements": [
+   {
+    "text": "Den som lämnar kläder i ett skåp över helgen kan hitta skåpet tomt på måndagen.",
+    "correctAnswer": "true",
+    "typ": "slutledning",
+    "explanation": "Texten säger att skåpen töms varje fredag eftermiddag. Kläder som ligger kvar över helgen har alltså tagits ut, så påståendet följer av texten."
+   },
+   {
+    "text": "Den som laddar sin elcykel i garaget behöver inte använda appen.",
+    "correctAnswer": "false",
+    "typ": "slutledning",
+    "explanation": "Det står att laddningen kostar en avgift som betalas i en app. Den som laddar måste alltså använda appen, och påståendet är falskt."
+   },
+   {
+    "text": "Det finns duschar i närheten av cykelgaraget.",
+    "correctAnswer": "true",
+    "typ": "direkt",
+    "explanation": "Texten säger att det finns ett omklädningsrum med duschar bredvid garaget. Påståendet stämmer med det som står."
+   },
+   {
+    "text": "Garaget är oftast fullt på morgonen.",
+    "correctAnswer": "cannot_say",
+    "typ": "utanfor",
+    "explanation": "Texten säger hur många cyklar garaget rymmer men inget om hur fullt det brukar vara. Det går därför inte att avgöra."
+   }
+  ],
+  "kalla": "skriven 2026-10-12, parti 04, grund",
+  "p_prior": 0.72
+ },
+ {
+  "id": "vg-16-e-bocker",
+  "title": "E-böcker på biblioteket",
+  "difficulty": 1,
+  "topic": "Kultur",
+  "text": "Många kommunbibliotek lånar ut e-böcker och ljudböcker som man laddar ner i en app. För att låna behöver man ett lånekort och en kod. Biblioteket betalar förlaget för varje lån, och därför har de flesta kommuner ett tak för hur många e-böcker en person får låna i veckan. I en av kommunerna är taket tre lån per vecka. Ett lån gäller i fyra veckor och försvinner sedan av sig självt ur appen, så det går inte att lämna tillbaka en e-bok för sent. Populära titlar kan ha kö även digitalt, eftersom vissa förlag bara säljer ett visst antal lån som får pågå samtidigt. Biblioteket i kommunen säger att e-lånen har ökat för varje år sedan appen infördes. Utlåningen av tryckta böcker har under samma tid legat stilla.",
+  "statements": [
+   {
+    "text": "En låntagare kan få betala en förseningsavgift för en e-bok.",
+    "correctAnswer": "false",
+    "typ": "slutledning",
+    "explanation": "Texten säger att lånet försvinner av sig självt efter fyra veckor och att en e-bok inte kan lämnas för sent. Då kan det inte heller bli någon förseningsavgift."
+   },
+   {
+    "text": "I kommunen som texten nämner får en låntagare inte låna en fjärde e-bok samma vecka.",
+    "correctAnswer": "true",
+    "typ": "slutledning",
+    "explanation": "Det står att taket i den kommunen är tre lån per vecka. Ett fjärde lån samma vecka går alltså över taket, så påståendet är sant."
+   },
+   {
+    "text": "Ett lån av en e-bok gäller i två veckor.",
+    "correctAnswer": "false",
+    "typ": "direkt",
+    "explanation": "Texten säger att ett lån gäller i fyra veckor. Påståendet säger något annat och är falskt."
+   },
+   {
+    "text": "Alla e-böcker kan lånas direkt utan att man behöver vänta.",
+    "correctAnswer": "false",
+    "typ": "kvantor",
+    "explanation": "Det står att populära titlar kan ha kö även digitalt. Alla går alltså inte att låna direkt, och påståendet är falskt."
+   }
+  ],
+  "kalla": "skriven 2026-10-12, parti 04, grund",
+  "p_prior": 0.72
+ },
+ {
+  "id": "vg-17-skollunch",
+  "title": "Skollunchen",
+  "difficulty": 1,
+  "topic": "Hälsa",
+  "text": "Skolor och förskolor serverar lunch till barnen varje skoldag. Maten ska enligt skollagen vara näringsriktig, och många kommuner följer Livsmedelsverkets råd om hur en skollunch bör se ut. I en kommun lagas maten på plats i de flesta skolkök, medan några mindre skolor får den levererad från ett centralkök. Barn som har en allergi eller behöver annan särskild kost kan få en egen portion efter intyg från läkare eller skolsköterska. Kommunen vill minska matsvinnet, och i flera matsalar vägs den mat som slängs efter lunchen. Resultatet sätts upp på en tavla vid utgången så att eleverna kan se det. Enligt kostchefen har svinnet minskat sedan vägningen började. Några skolor har ännu inte kommit i gång med vägningen. Kommunen hoppas att de ska börja före sommaren.",
+  "statements": [
+   {
+    "text": "Alla skolor i kommunen lagar maten i sitt eget kök.",
+    "correctAnswer": "false",
+    "typ": "kvantor",
+    "explanation": "Texten säger att några mindre skolor får maten levererad från ett centralkök. Påståendet om alla skolor är därför falskt."
+   },
+   {
+    "text": "Maten som slängs vägs i samtliga matsalar i kommunen.",
+    "correctAnswer": "false",
+    "typ": "kvantor",
+    "explanation": "Det står att maten vägs i flera matsalar och att några skolor ännu inte har kommit i gång. Samtliga stämmer alltså inte."
+   },
+   {
+    "text": "En elev med allergi kan få en egen portion om det finns ett intyg.",
+    "correctAnswer": "true",
+    "typ": "direkt",
+    "explanation": "Texten säger att barn med allergi kan få en egen portion efter intyg från läkare eller skolsköterska. Påståendet stämmer med det."
+   },
+   {
+    "text": "Eleverna tycker att skolmaten har blivit godare de senaste åren.",
+    "correctAnswer": "cannot_say",
+    "typ": "utanfor",
+    "explanation": "Texten säger inget om vad eleverna tycker om maten. Påståendet går därför varken att bekräfta eller säga emot."
+   }
+  ],
+  "kalla": "skriven 2026-10-12, parti 04, grund",
+  "p_prior": 0.72
+ },
+ {
+  "id": "vg-18-hemforsakring",
+  "title": "Hemförsäkringen",
+  "difficulty": 1,
+  "topic": "Ekonomi",
+  "text": "En hemförsäkring skyddar det man äger i bostaden, till exempel möbler, kläder och elektronik. Den gäller vid brand, vattenskada och inbrott, och ofta också för saker som stjäls när man är på resa. I de flesta försäkringar ingår ett rättsskydd, som betalar en del av kostnaden för en advokat vid en tvist. Den som skadar någon annan eller någon annans saker kan få hjälp genom ansvarsskyddet. Vid en skada betalar man en självrisk, en summa som man står för själv innan försäkringen betalar resten. Ett tillägg som kallas drulle täcker saker som går sönder av misstag, som en mobil som tappas i golvet. Tillägget kostar extra. Hyresgäster behöver en egen hemförsäkring, eftersom fastighetsägarens försäkring bara gäller själva huset. Priset på försäkringen beror bland annat på var man bor och hur stor bostaden är.",
+  "statements": [
+   {
+    "text": "Alla hyresgäster i landet har en hemförsäkring.",
+    "correctAnswer": "cannot_say",
+    "typ": "kvantor",
+    "explanation": "Texten säger att hyresgäster behöver en egen försäkring, inte hur många som faktiskt har en. Det går därför inte att avgöra."
+   },
+   {
+    "text": "Varje hemförsäkring ersätter en mobil som tappas i golvet, även utan tillägg.",
+    "correctAnswer": "false",
+    "typ": "kvantor",
+    "explanation": "Det står att en mobil som går sönder av misstag täcks av drulle, ett tillägg som kostar extra. Utan tillägget ersätts den alltså inte."
+   },
+   {
+    "text": "Självrisken är den del av kostnaden som man betalar själv.",
+    "correctAnswer": "true",
+    "typ": "direkt",
+    "explanation": "Texten beskriver självrisken som en summa man står för själv innan försäkringen betalar resten. Påståendet säger samma sak."
+   },
+   {
+    "text": "En hyresgäst kan inte räkna med att fastighetsägarens försäkring ersätter hyresgästens möbler.",
+    "correctAnswer": "true",
+    "typ": "slutledning",
+    "explanation": "Texten säger att fastighetsägarens försäkring bara gäller själva huset. Möblerna ingår alltså inte, så påståendet följer av texten."
+   }
+  ],
+  "kalla": "skriven 2026-10-12, parti 04, grund",
+  "p_prior": 0.72
+ },
+ {
+  "id": "vg-19-pant",
+  "title": "Panten",
+  "difficulty": 1,
+  "topic": "Miljö",
+  "text": "I Sverige finns pant på de flesta burkar och plastflaskor för dryck. När man köper en dryck betalar man en pant på en eller två kronor, och pengarna får man tillbaka när förpackningen lämnas i en automat. De flesta butiker som säljer pantade förpackningar har en sådan automat. Burkarna smälts ner och blir nya burkar, och flaskorna blir ny plast. Pantsystemet sköts av ett företag som ägs av bryggerier och handeln. Sedan några år finns pant också på flaskor för saft och juice. Förpackningar utan pantmärke ska i stället lämnas på en återvinningsstation. Varje år återvinns en mycket stor del av de pantade burkarna och flaskorna. En del hamnar ändå i naturen, och kommunerna lägger pengar på att plocka upp dem.",
+  "statements": [
+   {
+    "text": "Pantsystemet ger vinst till de bryggerier som äger det.",
+    "correctAnswer": "cannot_say",
+    "typ": "utanfor",
+    "explanation": "Texten säger vem som äger företaget men inget om ekonomin. Påståendet går därför inte att avgöra med det som står."
+   },
+   {
+    "text": "Fler burkar pantas på sommaren än på vintern.",
+    "correctAnswer": "cannot_say",
+    "typ": "utanfor",
+    "explanation": "Texten säger inget om hur panten fördelar sig över året. Det går varken att bekräfta eller säga emot påståendet."
+   },
+   {
+    "text": "Flaskor för juice kan ha pant.",
+    "correctAnswer": "true",
+    "typ": "direkt",
+    "explanation": "Det står att det sedan några år finns pant också på flaskor för saft och juice. Påståendet stämmer med texten."
+   },
+   {
+    "text": "En flaska utan pantmärke kan lämnas i en pantautomat mot pengar.",
+    "correctAnswer": "false",
+    "typ": "slutledning",
+    "explanation": "Texten säger att förpackningar utan pantmärke ska lämnas på en återvinningsstation, och pengar får man bara för pantade förpackningar. Påståendet är därför falskt."
+   }
+  ],
+  "kalla": "skriven 2026-10-12, parti 04, grund",
+  "p_prior": 0.72
+ },
+ {
+  "id": "vg-20-foraldrapenning",
+  "title": "Föräldrapenningen",
+  "difficulty": 1,
+  "topic": "Samhälle",
+  "text": "Föräldrapenning är en ersättning som föräldrar kan få när de är hemma med sitt barn i stället för att arbeta. Föräldrarna kan tillsammans få ersättning i 480 dagar per barn. Dagarna delas lika mellan föräldrarna, men en förälder kan föra över dagar till den andra, utom de 90 dagar som är reserverade för var och en. Ersättningen beror på inkomsten, och den som saknar inkomst får ett lägre grundbelopp. Föräldrapenningen söks hos Försäkringskassan, antingen i en app eller på deras webbplats. Dagarna kan tas ut som hela dagar eller som delar av en dag, till exempel om föräldern vill arbeta halvtid. De flesta dagarna måste tas ut innan barnet fyller fyra år. Resten kan sparas tills barnet är tolv. Ersättningen betalas ut en gång i månaden.",
+  "statements": [
+   {
+    "text": "De flesta föräldrar tar ut sina dagar som hela dagar.",
+    "correctAnswer": "cannot_say",
+    "typ": "utanfor",
+    "explanation": "Texten säger att dagarna kan tas ut som hela eller delar av dagar, men inte hur föräldrarna brukar göra. Det går inte att avgöra."
+   },
+   {
+    "text": "Pappor tar i dag ut fler dagar än tidigare.",
+    "correctAnswer": "cannot_say",
+    "typ": "utanfor",
+    "explanation": "Texten säger inget om hur uttaget har förändrats över tid. Påståendet går därför varken att bekräfta eller säga emot."
+   },
+   {
+    "text": "Föräldrapenning kan tas ut för halva dagar.",
+    "correctAnswer": "true",
+    "typ": "direkt",
+    "explanation": "Det står att dagarna kan tas ut som delar av en dag, till exempel om föräldern vill arbeta halvtid. Påståendet stämmer med texten."
+   },
+   {
+    "text": "En förälder kan föra över samtliga sina dagar till den andra föräldern.",
+    "correctAnswer": "false",
+    "typ": "kvantor",
+    "explanation": "Texten säger att 90 dagar är reserverade för var och en och inte kan föras över. Samtliga dagar går alltså inte att föra över."
+   }
+  ],
+  "kalla": "skriven 2026-10-12, parti 04, grund",
+  "p_prior": 0.72
+ }
+]

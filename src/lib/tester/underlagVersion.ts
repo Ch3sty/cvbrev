@@ -12,18 +12,22 @@
  *   verbalt avancerad parti 01, numeriskt avancerad parti 01, och efter
  *   granskningen parti 03 i numeriskt grund och avancerad och verbalt
  *   expert). Gäller också expert, provet och övningsprovet.
+ * - version 4: version 3 plus verbalt parti 04 (underlagParti04.json i
+ *   verbalTestV1 och verbalTestV2, beställning omgång 3 B2): texter med två
+ *   påståenden av samma typ, så att det riktade textpasset blir riktat.
+ *   Numeriskt och verbalt expert är oförändrade mot version 3.
  * Rättningen hittar alla underlag oavsett version.
  *
  * Filen är ren och får importeras av både server och klient.
  */
-export type UnderlagVersion = 1 | 2 | 3
+export type UnderlagVersion = 1 | 2 | 3 | 4
 
 /** Versionen nya verbala och numeriska sessioner får. */
-export const UNDERLAG_VERSION: UnderlagVersion = 3
+export const UNDERLAG_VERSION: UnderlagVersion = 4
 
 export function underlagsVersion(meta: unknown): UnderlagVersion {
   const v = !!meta && typeof meta === 'object' ? (meta as Record<string, unknown>).underlag_version : null
-  return v === 2 || v === 3 ? v : 1
+  return v === 2 || v === 3 || v === 4 ? v : 1
 }
 
 /** Meta för nya sessioner. */

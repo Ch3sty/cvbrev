@@ -54,16 +54,23 @@ export function arOsett(id: string, sedda: Sedda, idag: Dag): boolean {
 /**
  * Ett underlag ur poolen: ett osett, seedat, annars det äldst sedda
  * (upprepat). Null bara när poolen är tom.
+ *
+ * foredra (riktat pass, omgång 3 B2): finns osedda underlag som uppfyller
+ * den dras ett av dem, annars ett av de övriga osedda. Verbalt: texter med
+ * två påståenden av familjens typ (parti 04) före texter med ett.
  */
 export function valjUnderlag(args: {
   pool: readonly { id: string }[];
   sedda: Sedda;
   idag: Dag;
   seed: string;
+  foredra?: (id: string) => boolean;
 }): { id: string; upprepad: boolean } | null {
   const { pool, sedda, idag } = args;
   if (pool.length === 0) return null;
-  const osedda = pool.filter((p) => arOsett(p.id, sedda, idag));
+  const allaOsedda = pool.filter((p) => arOsett(p.id, sedda, idag));
+  const forst = args.foredra ? allaOsedda.filter((p) => args.foredra!(p.id)) : [];
+  const osedda = forst.length > 0 ? forst : allaOsedda;
   if (osedda.length > 0) {
     const rng = mulberry32(hash(args.seed));
     return { id: osedda[Math.floor(rng() * osedda.length)].id, upprepad: false };

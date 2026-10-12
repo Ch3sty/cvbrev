@@ -28,11 +28,11 @@ const B = baslinje as Record<string, string[]>
 const S = [...new Set(Object.keys(B).map((k) => k.split(':').slice(2).join(':')))]
 
 describe('underlagsversion 3', () => {
-  it('läser 1, 2 och 3 ur meta, nya sessioner får 3', () => {
-    expect(UNDERLAG_VERSION).toBe(3)
+  it('läser 1, 2 och 3 ur meta; nya sessioner får 4 sedan omgång 3 (underlagVersion4.test.ts)', () => {
+    expect(UNDERLAG_VERSION).toBe(4)
     expect(underlagsVersion({ underlag_version: 3 })).toBe(3)
     expect(underlagsVersion({ underlag_version: 2 })).toBe(2)
-    expect(underlagsVersion({ underlag_version: 4 })).toBe(1)
+    expect(underlagsVersion({ underlag_version: 5 })).toBe(1)
     expect(underlagsVersion(null)).toBe(1)
   })
 

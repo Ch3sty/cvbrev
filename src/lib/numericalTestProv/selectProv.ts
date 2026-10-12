@@ -22,7 +22,7 @@ export const POOL_EXPERT = bankExpert as unknown as Passage[];
  */
 export function poolFor(niva: 'grund' | 'avancerad' | 'expert', version: UnderlagVersion = 1): Passage[] {
   if (niva === 'expert') return POOL_EXPERT;
-  if (version === 3) return niva === 'grund' ? grundAlla(3) : (avanceradAlla(3) as unknown as Passage[]);
+  if (version >= 3) return niva === 'grund' ? grundAlla(3) : (avanceradAlla(3) as unknown as Passage[]);
   return niva === 'grund' ? POOL_V1 : POOL_V2;
 }
 

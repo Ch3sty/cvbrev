@@ -61,6 +61,7 @@ export function getScoreByType(answers: TestAnswer[]) {
 }
 
 /** Urvalets pool: version 1 och 2 de frysta underlagen, version 3 plus parti 03 (src/lib/tester/underlagVersion.ts). */
-export function getAllPassages(version: 1 | 2 | 3 = 1): Passage[] {
-  return version === 3 ? passages : frysta;
+export function getAllPassages(version: 1 | 2 | 3 | 4 = 1): Passage[] {
+  // Version 4 ändrar bara grund och avancerad; expert är som version 3.
+  return version >= 3 ? passages : frysta;
 }
