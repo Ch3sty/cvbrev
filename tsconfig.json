@@ -46,6 +46,7 @@
     "supabase/**",
     "DEPLOYMENT_*.ts",
     "DEPLOY_*.ts",
-    "scripts/**"
+    "scripts/**",
+    "docs/**"
   ]
 }

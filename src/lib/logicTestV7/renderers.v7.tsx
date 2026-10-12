@@ -15,6 +15,7 @@ import type {
   SectorWheelCell,
   DotsOrbitCell,
   BalanceLineCell,
+  DuoCell,
   Quad,
 } from './types.v7';
 import { GEOMETRI } from './geometri';
@@ -94,6 +95,8 @@ export const SvgCellV7: React.FC<{ cell: V7Cell }> = ({ cell }) => {
       return <DotsOrbitRenderer cell={cell} />;
     case 'balanceline':
       return <BalanceLineRenderer cell={cell} />;
+    case 'duo':
+      return <DuoRenderer cell={cell} />;
   }
 };
 
@@ -802,6 +805,94 @@ const BalanceLineRenderer: React.FC<{ cell: BalanceLineCell }> = ({ cell }) => {
         />
       ))}
       {cell.items.map(drawShape)}
+    </>
+  );
+};
+
+// =============================================================================
+// 14. DUO — figurseriernas sammansatta primitiv (figurserier-spec.md 3.2)
+// =============================================================================
+// Ett ytterelement (kant eller orbital) och ett kärnelement (pil, form eller
+// symbol) i koncentriska zoner. Måtten ur geometri.json nyckeln serie, som
+// scripts/v7-geometri-check.mjs --serie räknar zonregeln S1 på. Kärnan fylls
+// aldrig grå (S3) och pilen i duo har alltid öppen spets.
+
+/** Kantens åtta stopp på kvadraten [23, 77], medurs från klockan 12. */
+export const kantStopp = (k: number): [number, number] => {
+  const [a, b] = G.serie.duo.kant.ram;
+  const m = (a + b) / 2;
+  const p: [number, number][] = [[m, a], [b, a], [b, m], [b, b], [m, b], [a, b], [a, m], [a, a]];
+  return p[((k % 8) + 8) % 8];
+};
+
+/** Orbitalens åtta lägen på banan, medurs från klockan 12. */
+export const banLage = (k: number, r: number): [number, number] => {
+  const a = ((k * 45 - 90) * Math.PI) / 180;
+  return [r2(50 + r * Math.cos(a)), r2(50 + r * Math.sin(a))];
+};
+
+const DuoRenderer: React.FC<{ cell: DuoCell }> = ({ cell }) => {
+  const D = G.serie.duo;
+  const y = cell.ytter;
+  const k = cell.karna;
+  let ytter: React.ReactNode;
+  if (y.typ === 'kant') {
+    const n = Math.min(Math.max(y.antal ?? 1, 1), D.kant.maxAntal);
+    ytter = Array.from({ length: n }).map((_, i) => {
+      const [x, yy] = kantStopp(y.lage + i);
+      return <circle key={i} cx={x} cy={yy} r={D.kant.prickR} fill={FILL_BLACK} />;
+    });
+  } else {
+    const [x, yy] = banLage(y.lage, D.orbital.banaR);
+    ytter = (
+      <>
+        <circle cx="50" cy="50" r={D.orbital.banaR} fill="none" stroke={RAM} strokeWidth={D.orbital.banaSw} strokeDasharray={D.orbital.banaStreck} strokeLinecap="round" />
+        <circle cx={x} cy={yy} r={D.orbital.satellitR} fill={FILL_BLACK} />
+      </>
+    );
+  }
+  let karna: React.ReactNode;
+  if (k.typ === 'pil') {
+    const p = D.pil;
+    karna = (
+      <g transform={`rotate(${k.vinkel}, 50, 50)`} stroke={STROKE} strokeWidth={SW} strokeLinecap="round" fill="none">
+        <line x1="50" y1={p.svans} x2="50" y2={p.skaftSlut} />
+        <line x1="50" y1={p.spets} x2={50 - p.huvudHalv} y2={p.spets + p.huvudHojd} />
+        <line x1="50" y1={p.spets} x2={50 + p.huvudHalv} y2={p.spets + p.huvudHojd} />
+      </g>
+    );
+  } else if (k.typ === 'form') {
+    const F = D.form;
+    const svart = k.fyllning === 'black';
+    const fill = svart ? FILL_BLACK : FILL_NONE;
+    const stroke = svart ? 'none' : STROKE;
+    karna =
+      k.form === 'circle' ? (
+        <circle cx="50" cy="50" r={F.cirkelR} fill={fill} stroke={stroke} strokeWidth={SW} />
+      ) : k.form === 'square' ? (
+        <rect x={F.kvadrat.x} y={F.kvadrat.y} width={F.kvadrat.sida} height={F.kvadrat.sida} rx={F.kvadrat.rx} fill={fill} stroke={stroke} strokeWidth={SW} />
+      ) : (
+        <path d={bana(F.romb as [number, number][])} fill={fill} stroke={stroke} strokeWidth={SW} strokeLinejoin="round" />
+      );
+  } else {
+    const Y = D.symbol;
+    const linjer = (l: number[][]) =>
+      l.map(([x1, y1, x2, y2], i) => <line key={i} x1={50 + x1} y1={50 + y1} x2={50 + x2} y2={50 + y2} />);
+    karna =
+      k.symbol === 'dot' ? (
+        <circle cx="50" cy="50" r={Y.prickR} fill={FILL_BLACK} />
+      ) : k.symbol === 'ring' ? (
+        <circle cx="50" cy="50" r={Y.ringR} fill="none" stroke={STROKE} strokeWidth={SW} />
+      ) : (
+        <g stroke={STROKE} strokeWidth={SW} strokeLinecap="round" fill="none">
+          {linjer(k.symbol === 'plus' ? Y.plus : k.symbol === 'minus' ? Y.minus : Y.kryss)}
+        </g>
+      );
+  }
+  return (
+    <>
+      {ytter}
+      {karna}
     </>
   );
 };

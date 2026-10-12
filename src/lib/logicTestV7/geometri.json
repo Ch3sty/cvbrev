@@ -189,5 +189,23 @@
     "fragetecken": "M 38 40 A 12 12 0 1 1 55 51 Q 50 55 50 62",
     "frageteckenSw": 5,
     "prick": [50, 73, 3.2]
+  },
+  "serie": {
+    "rad": { "figurer": 5, "cellerBryter": 6, "perRemsa360": 3, "perRemsa1280": 6, "remsluft": 8, "kolumn1280": 640, "altLuft360": 10, "altLuft1280": 8 },
+    "zon": { "karnaMax": 14.5, "ytterMin": 20, "minGap": 4 },
+    "duo": {
+      "kant": { "ram": [23, 77], "stopp": 8, "prickR": 5, "maxAntal": 6 },
+      "orbital": { "banaR": 26, "satellitR": 6, "banaSw": 2.5, "banaStreck": "0 4.54" },
+      "pil": { "svans": 63, "skaftSlut": 39, "spets": 37, "huvudHalv": 8, "huvudHojd": 10 },
+      "form": {
+        "cirkelR": 11,
+        "kvadrat": { "x": 40, "y": 40, "sida": 20, "rx": 3 },
+        "romb": [[50, 37], [63, 50], [50, 63], [37, 50]],
+        "fyllning": ["none", "black"]
+      },
+      "symbol": { "plus": [[-10, 0, 10, 0], [0, -10, 0, 10]], "minus": [[-10, 0, 10, 0]], "kryss": [[-7, -7, 7, 7], [-7, 7, 7, -7]], "prickR": 5, "ringR": 7 }
+    },
+    "bryter": { "bokstav": { "px": 11, "vikt": 600, "left": 8, "top": 6 }, "valRam": 2, "rattRam": 2, "valdRattInre": 5, "punkt": { "px": 10, "right": 8, "top": 8 } },
+    "noder": { "harnastMax": 120, "harnastBytes": 14336, "bryterMax": 70, "bryterBytes": 8192 }
   }
 }

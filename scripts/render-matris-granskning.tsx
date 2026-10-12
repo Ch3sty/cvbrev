@@ -34,12 +34,19 @@ import { analysera, radPerAlternativ } from './lib/matris/distraktorer.mjs';
 //   --ringar          bara frågor med ringceller (alla nivåer, pensionerade märkta)
 //   --fragor=a,b,c    bara de angivna frågorna (kan kombineras med --ringar)
 const ARGS = process.argv.slice(2);
-const UT = ARGS.find((a) => !a.startsWith('--')) ?? 'docs/qa/rummen/vag-3c/granskning';
+const UT = ARGS.find((a) => !a.startsWith('--')) ?? (ARGS.includes('--serie') ? 'docs/qa/figurserier/kandidater' : 'docs/qa/rummen/vag-3c/granskning');
 const RINGAR = ARGS.includes('--ringar');
 const FRAGOR = (ARGS.find((a) => a.startsWith('--fragor='))?.slice('--fragor='.length) ?? '').split(',').filter(Boolean);
 const ALLA = ARGS.includes('--alla');
 const BARA_HTML = ARGS.includes('--html');
 const FIL = ARGS.find((a) => a.startsWith('--fil='))?.slice('--fil='.length) ?? null;
+// Figurserier (beställningen omgång 2, A6 punkt 3):
+//   --serie --fil=<fil.json> [utkatalog]  en PNG per fråga med raden, alternativen,
+//                     regeln, misstagen, distraktorraden och noder och bytes
+//                     (gränserna i figurserier-spec.md 10), till
+//                     docs/qa/figurserier/kandidater/<fil>/ om ingen katalog anges.
+//                     Logiken ligger i scripts/lib/serie/render-serie.tsx.
+const SERIE = ARGS.includes('--serie');
 const BARA = new Set((ARGS.find((a) => a.startsWith('--bara='))?.slice('--bara='.length) ?? '').split(',').filter(Boolean));
 type V3Fraga = LayeredQuestion & { band?: string; mekanism?: string; recept?: string; p_prior?: number };
 mkdirSync(UT, { recursive: true });
@@ -118,7 +125,9 @@ article{width:360px}
 const valda: { q: LayeredQuestion; niva: string; kalla: string }[] = [];
 const harRing = (q: LayeredQuestion) =>
   [...q.grid.flat(), ...q.options].some((c) => c && (Array.isArray(c) ? c : [c]).some((p) => (p as { kind?: string }).kind === 'ring'));
-if (FIL) {
+if (SERIE) {
+  // figurserierna ritas av scripts/lib/serie/render-serie.tsx
+} else if (FIL) {
   const nivaFor = (q: V3Fraga) => (q.band ? 'expert' : ({ g: 'grund', a: 'avancerad', e: 'expert' } as Record<string, string>)[/^v7([gae])-/.exec(q.id)?.[1] ?? 'e']);
   for (const q of JSON.parse(readFileSync(FIL, 'utf8')) as V3Fraga[]) {
     if (BARA.size && !BARA.has(q.id)) continue;
@@ -141,7 +150,7 @@ if (FIL) {
     }
   }
 }
-for (const { niva, fryst, ny } of FIL || ALLA || RINGAR || FRAGOR.length ? [] : NIVAER) {
+for (const { niva, fryst, ny } of SERIE || FIL || ALLA || RINGAR || FRAGOR.length ? [] : NIVAER) {
   const F = las(fryst);
   const N = las(ny);
   for (const f of familjer as { id: string }[]) {
@@ -170,7 +179,7 @@ const summering = `<section class="summa"><h2>Noder och bytes per fråga (V11: h
   .join('')}</table></section>`;
 const html = `<!doctype html><html lang="sv"><head><meta charset="utf-8"><title>Matrisgranskning</title><style>${CSS}.summa{padding:16px;font-size:12px}.summa td{padding:2px 8px 2px 0}</style></head><body>${summering}${artiklar.join('\n')}</body></html>`;
 const htmlFil = path.resolve(UT, 'index.html');
-writeFileSync(htmlFil, html);
+if (!SERIE) writeFileSync(htmlFil, html);
 
 async function main() {
 if (BARA_HTML) {
@@ -198,4 +207,4 @@ valda.forEach((v) => { const k = `${v.niva}/${v.q.family}`; per[k] = (per[k] ?? 
 console.log(Object.entries(per).map(([k, x]) => `${k}: ${x}`).join('\n'));
 }
 
-main().catch((e) => { console.error(e); process.exit(1); });
+(SERIE ? import('./lib/serie/render-serie').then((m) => m.renderSerie(FIL, UT, BARA)) : main()).catch((e) => { console.error(e); process.exit(1); });

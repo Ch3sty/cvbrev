@@ -49,6 +49,12 @@ import { ALLA_BANKFILER, valbarI, lasBanker, pool, las } from './lib/matris/vers
 import { eliminerbara } from './lib/matris/distraktorer.mjs';
 import { STRUKNA } from './lib/matris/recept-v3.mjs';
 
+if (process.argv.includes('--serie')) {
+  const { facitCheckSerie } = await import('./lib/serie/kontroll.mjs');
+  process.exit(facitCheckSerie(process.argv.slice(2).filter((a) => a !== '--serie')));
+}
+
+
 const ALLA = ALLA_BANKFILER.filter((f) => existsSync(f));
 const filer = process.argv[2] ? [process.argv[2]] : ALLA;
 const fel = [];
@@ -218,4 +224,7 @@ if (fel.length === 0) {
 }
 console.log(`✗ ${fel.length} fel:\n`);
 fel.forEach((x) => console.log('  - ' + x));
-process.exit(1);
+process.exit(1);//
+// Figurserier: node scripts/v7-facit-check.mjs --serie [fil ...] kör seriens kontroll
+// (scripts/lib/serie/kontroll.mjs) i stället för matrisernas.
+

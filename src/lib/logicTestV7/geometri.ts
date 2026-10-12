@@ -121,6 +121,24 @@ export type Geometri = {
     /** cx, cy, r */
     prick: [number, number, number];
   };
+  /**
+   * Figurserier (figurserier-spec.md, bilagan): remsan, zonerna och den
+   * sammansatta primitiven duo (ett ytterelement och ett kärnelement i
+   * koncentriska zoner), "bryter"-rutornas val och nod- och bytesgränserna.
+   */
+  serie: {
+    rad: { figurer: number; cellerBryter: number; perRemsa360: number; perRemsa1280: number; remsluft: number; kolumn1280: number; altLuft360: number; altLuft1280: number };
+    zon: { karnaMax: number; ytterMin: number; minGap: number };
+    duo: {
+      kant: { ram: [number, number]; stopp: number; prickR: number; maxAntal: number };
+      orbital: { banaR: number; satellitR: number; banaSw: number; banaStreck: string };
+      pil: { svans: number; skaftSlut: number; spets: number; huvudHalv: number; huvudHojd: number };
+      form: { cirkelR: number; kvadrat: { x: number; y: number; sida: number; rx: number }; romb: Punkt[]; fyllning: string[] };
+      symbol: { plus: Linje[]; minus: Linje[]; kryss: Linje[]; prickR: number; ringR: number };
+    };
+    bryter: { bokstav: { px: number; vikt: number; left: number; top: number }; valRam: number; rattRam: number; valdRattInre: number; punkt: { px: number; right: number; top: number } };
+    noder: { harnastMax: number; harnastBytes: number; bryterMax: number; bryterBytes: number };
+  };
 };
 
 export const GEOMETRI = data as unknown as Geometri;

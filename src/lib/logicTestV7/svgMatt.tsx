@@ -135,6 +135,37 @@ export function allaPrimitiver(): V7Cell[] {
   return ut;
 }
 
+/**
+ * Figurserier (figurserier-spec.md avsnitt 10): en härnäst-fråga är fem figurer,
+ * luckan och sex alternativ, högst 120 noder och 14 kB.
+ */
+export const MAX_NODER_SERIE = G.serie.noder.harnastMax;
+export const MAX_BYTES_SERIE = G.serie.noder.harnastBytes;
+
+export function matSerieFraga(q: { id: string; rad: LayeredCell[]; options: LayeredCell[] }): FragaMatt {
+  const markup = [...q.rad.map(cellSvg), luckaSvg(), ...q.options.map(cellSvg)].join('');
+  const t = taggar(markup);
+  const forbjudna = t
+    .map((x) => /^<([a-zA-Z]+)/.exec(x)![1])
+    .filter((namn) => FORBJUDNA.some((f) => f.toLowerCase() === namn.toLowerCase()));
+  return { id: q.id, noder: t.length, bytes: Buffer.byteLength(markup, 'utf8'), forbjudna: [...new Set(forbjudna)], url: /url\(/.test(markup) };
+}
+
+export function matSerieBank(bank: { id: string; rad: LayeredCell[]; options: LayeredCell[] }[]): BankMatt {
+  const ut: BankMatt = { fragor: 0, noder: { min: Infinity, max: 0, maxId: '' }, bytes: { min: Infinity, max: 0, maxId: '' }, over: [], forbjudna: [] };
+  for (const q of bank) {
+    const m = matSerieFraga(q);
+    ut.fragor++;
+    ut.noder.min = Math.min(ut.noder.min, m.noder);
+    ut.bytes.min = Math.min(ut.bytes.min, m.bytes);
+    if (m.noder > ut.noder.max) ut.noder = { ...ut.noder, max: m.noder, maxId: q.id };
+    if (m.bytes > ut.bytes.max) ut.bytes = { ...ut.bytes, max: m.bytes, maxId: q.id };
+    if (m.noder > MAX_NODER_SERIE || m.bytes > MAX_BYTES_SERIE) ut.over.push(`${q.id} (${m.noder} noder, ${m.bytes} B)`);
+    if (m.forbjudna.length || m.url) ut.forbjudna.push(`${q.id}: ${[...m.forbjudna, ...(m.url ? ['url('] : [])].join(', ')}`);
+  }
+  return ut;
+}
+
 export type BankMatt = {
   fragor: number;
   noder: { min: number; max: number; maxId: string };

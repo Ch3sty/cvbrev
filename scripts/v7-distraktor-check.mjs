@@ -30,6 +30,12 @@ import { analysera, plusFel, facitUdda, eliminerbara } from './lib/matris/distra
 import { ALLA_BANKFILER } from './lib/matris/version.mjs';
 import { existsSync } from 'node:fs';
 
+if (process.argv.includes('--serie')) {
+  const { distraktorCheckSerie } = await import('./lib/serie/kontroll.mjs');
+  process.exit(distraktorCheckSerie(process.argv.slice(2).filter((a) => a !== '--serie')));
+}
+
+
 const ALLA = ALLA_BANKFILER.filter((f) => existsSync(f));
 const args = process.argv.slice(2);
 const krav = args.find((a) => a.startsWith('--krav='))?.slice('--krav='.length) ?? null;
@@ -75,4 +81,7 @@ if (fel.length === 0) {
 }
 console.log(`✗ ${fel.length} fel:\n`);
 fel.forEach((x) => console.log('  - ' + x));
-process.exit(1);
+process.exit(1);//
+// Figurserier: node scripts/v7-distraktor-check.mjs --serie [fil ...] kör seriens kontroll
+// (scripts/lib/serie/kontroll.mjs) i stället för matrisernas.
+

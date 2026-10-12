@@ -350,9 +350,133 @@ export function element(cell) {
       }
       return ut;
     }
+    case 'duo': {
+      // Figurserier (figurserier-spec.md 3.2): ytter och kärna i koncentriska zoner.
+      const D = G.serie.duo;
+      const ut = [];
+      if (cell.ytter.typ === 'kant') {
+        const n = cell.ytter.antal ?? 1;
+        for (let i = 0; i < n; i++) {
+          const p = kantStoppG(cell.ytter.lage + i);
+          ut.push(el(`kantprick ${i + 1}`, [skiva(p, D.kant.prickR)], { centrum: p }));
+        }
+      } else {
+        ut.push(el('bana', [cirkel(C, D.orbital.banaR, D.orbital.banaSw / 2)], { ram: true, radie: D.orbital.banaR }));
+        ut.push(el('satellit', [skiva(pa(cell.ytter.lage, D.orbital.banaR), D.orbital.satellitR)], { paRam: 'bana', centrum: pa(cell.ytter.lage, D.orbital.banaR) }));
+      }
+      ut.push(karnaElement(cell.karna));
+      return ut;
+    }
     default:
       return null;
   }
+}
+
+/** Kantens åtta stopp på kvadraten, medurs från klockan 12 (samma som renderaren). */
+function kantStoppG(k) {
+  const [a, b] = G.serie.duo.kant.ram;
+  const m = (a + b) / 2;
+  const p = [[m, a], [b, a], [b, m], [b, b], [m, b], [a, b], [a, m], [a, a]];
+  return p[((k % 8) + 8) % 8];
+}
+
+/** Duons kärna som ett element: pil, form eller symbol, alltid kring (50, 50). */
+function karnaElement(k) {
+  const D = G.serie.duo;
+  if (k.typ === 'pil') {
+    const P = D.pil;
+    const r = (p) => rot(p, k.vinkel);
+    const a = [[50, P.svans], [50, P.skaftSlut], [50, P.spets], [50 - P.huvudHalv, P.spets + P.huvudHojd], [50 + P.huvudHalv, P.spets + P.huvudHojd]].map(r);
+    return el('kärna', [kapsel(a[0], a[1], sw), kapsel(a[2], a[3], sw), kapsel(a[2], a[4], sw)], { andpunkter: [a[0], a[3], a[4]] });
+  }
+  if (k.typ === 'form') {
+    const F = D.form;
+    const svart = k.fyllning === 'black';
+    if (k.form === 'circle') return el('kärna', [svart ? skiva(C, F.cirkelR) : cirkel(C, F.cirkelR, sw)]);
+    if (k.form === 'square') {
+      const q = F.kvadrat;
+      return el('kärna', polygon([[q.x, q.y], [q.x + q.sida, q.y], [q.x + q.sida, q.y + q.sida], [q.x, q.y + q.sida]], svart ? 0 : sw));
+    }
+    return el('kärna', polygon(F.romb, svart ? 0 : sw));
+  }
+  const Y = D.symbol;
+  if (k.symbol === 'dot') return el('kärna', [skiva(C, Y.prickR)]);
+  if (k.symbol === 'ring') return el('kärna', [cirkel(C, Y.ringR, sw)]);
+  const l = k.symbol === 'plus' ? Y.plus : k.symbol === 'minus' ? Y.minus : Y.kryss;
+  return el('kärna', l.map(([x1, y1, x2, y2]) => kapsel([50 + x1, 50 + y1], [50 + x2, 50 + y2], sw)), { andpunkter: l.flatMap(([x1, y1, x2, y2]) => [[50 + x1, 50 + y1], [50 + x2, 50 + y2]]) });
+}
+
+/**
+ * Zonregeln S1 i figurserier-spec.md avsnitt 11, räknad på cellen: kärnans
+ * målade radie högst serie.zon.karnaMax, ytterelementets målade innerkant
+ * minst serie.zon.ytterMin, skillnaden minst serie.zon.minGap. Plus S2 (ett
+ * ytter, en kärna, inga förbjudna värden), S3 (aldrig grå kärna) och S4
+ * (kantprick och satellit högst till 82).
+ */
+export function zonFel(cell) {
+  const Z = G.serie.zon;
+  const D = G.serie.duo;
+  const fel = [];
+  const y = cell.ytter, k = cell.karna;
+  if (!y || !k) return ['S2: duo saknar ytter eller kärna'];
+  if (y.typ !== 'kant' && y.typ !== 'orbital') fel.push(`S2: okänt ytterelement ${y.typ}`);
+  if (y.typ === 'kant' && ((y.antal ?? 1) < 1 || (y.antal ?? 1) > D.kant.maxAntal)) fel.push(`S2: ${y.antal} kantprickar, högst ${D.kant.maxAntal}`);
+  if (!['pil', 'form', 'symbol'].includes(k.typ)) fel.push(`S2: okänd kärna ${k.typ}`);
+  if (k.typ === 'form' && !D.form.fyllning.includes(k.fyllning)) fel.push(`S3: kärnan fylls ${k.fyllning}, bara tom eller svart`);
+  if (fel.length) return fel;
+  // Kärnans målade radie: största avstånd från centrum till en målad punkt.
+  const karna = karnaElement(k);
+  let malad = 0;
+  for (const f of karna.former) {
+    if (f.t === 'kapsel') malad = Math.max(malad, dist(f.a, C) + f.w, dist(f.b, C) + f.w);
+    else if (f.t === 'skiva') malad = Math.max(malad, dist(f.c, C) + f.r);
+    else if (f.t === 'cirkel') malad = Math.max(malad, dist(f.c, C) + f.r + f.w);
+  }
+  // Rundade hörn i kvadraten: rektangeln ritas med rx, så hörnet ligger innanför kapselns hörn.
+  if (k.typ === 'form' && k.form === 'square') {
+    const q = D.form.kvadrat, w = k.fyllning === 'black' ? 0 : sw;
+    malad = (q.sida / 2 + w - (q.rx + w)) * Math.SQRT2 + (q.rx + w);
+  }
+  let inner = Infinity, ytterst = 0;
+  if (y.typ === 'kant') {
+    for (let i = 0; i < (y.antal ?? 1); i++) {
+      const p = kantStoppG(y.lage + i);
+      inner = Math.min(inner, dist(p, C) - D.kant.prickR);
+      ytterst = Math.max(ytterst, Math.max(Math.abs(p[0] - 50), Math.abs(p[1] - 50)) + D.kant.prickR);
+    }
+  } else {
+    const p = pa(y.lage, D.orbital.banaR);
+    inner = dist(p, C) - D.orbital.satellitR;
+    ytterst = Math.max(Math.abs(p[0] - 50), Math.abs(p[1] - 50)) + D.orbital.satellitR;
+  }
+  if (malad > Z.karnaMax + 0.05) fel.push(`S1: kärnan målas till radie ${fmt(malad)}, högst ${Z.karnaMax}`);
+  if (inner < Z.ytterMin - EPS) fel.push(`S1: ytterelementets innerkant ${fmt(inner)}, minst ${Z.ytterMin}`);
+  if (inner - malad < Z.minGap - EPS) fel.push(`S1: ${fmt(inner - malad)} enheters fritt mellan kärna och ytter, minst ${Z.minGap}`);
+  if (50 + ytterst > 82 + EPS) fel.push(`S4: ytterelementet når ${fmt(50 + ytterst)}, högst 82`);
+  return fel;
+}
+
+/**
+ * Geometrin för en figurseriefråga (`--serie`): G1, G2 och G4 på varje figur
+ * i raden och bland alternativen, G11 (inga tomma figurer, varken i raden
+ * eller som alternativ), G12 (lagerceller förbjudna; duo är den enda
+ * sammansatta primitiven) och zonerna S1 till S4 för duo. Med `hel` dessutom
+ * S5: fem figurer i raden och sex alternativ.
+ */
+export function geometriSerie(q, { hel = false } = {}) {
+  const fel = [];
+  const alla = [...(q.rad ?? []), ...(q.options ?? [])];
+  if (alla.some((c) => Array.isArray(c))) return ['G12: lagerceller i en figurserie'];
+  for (const c of alla) {
+    if (!c) { fel.push('G11: en figur saknas'); continue; }
+    const k = kontrolleraCell(c);
+    if (k.okand) { fel.push(`okänd celltyp ${c.kind}`); continue; }
+    for (const g of ['g1', 'g2', 'g4']) k[g].forEach((x) => fel.push(`${g.toUpperCase()}: ${x}`));
+    if (tom(c)) fel.push(`G11: tom figur (${c.kind})`);
+    if (c.kind === 'duo') zonFel(c).forEach((x) => fel.push(x));
+  }
+  if (hel && ((q.rad ?? []).length !== G.serie.rad.figurer || (q.options ?? []).length !== 6)) fel.push(`S5: raden har ${(q.rad ?? []).length} figurer och ${(q.options ?? []).length} alternativ, ska vara ${G.serie.rad.figurer} och 6`);
+  return fel;
 }
 
 // ---------------------------------------------------------------- G1, G2, G4 på en cell
@@ -724,7 +848,7 @@ function renderMatt(filer) {
 
 // ---------------------------------------------------------------- körning
 // Bara när skriptet körs direkt; generatorn importerar geometriFraga.
-if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main();
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) (process.argv.includes("--serie") ? serieMain() : main());
 
 function main() {
 const filer = process.argv[2] ? [process.argv[2]] : ALLA;
@@ -898,4 +1022,96 @@ if (fel.length === 0) {
 console.log(`\n✗ ${fel.length} fel:\n`);
 fel.forEach((x) => console.log('  - ' + x));
 process.exit(1);
+}
+
+// ---------------------------------------------------------------- figurserier (--serie)
+// node scripts/v7-geometri-check.mjs --serie [bank.json ...]
+// Utan filer: figurseriernas tre banker. Per fråga geometriSerie (G1, G2, G4,
+// G11, G12, S1 till S5), G6 på vridna dimensioner, G7 (FS3) och G9 (FS1, FS2)
+// ur scripts/lib/serie/sparrar.mjs; en gång G3 för duo (alla lägen, antal och
+// kärnor) och V11/V12 på renderarens utdata med seriens gränser (spec 10).
+const SERIE_BANKER = [
+  'src/lib/figurserierV1/bankGrund.json',
+  'src/lib/figurserierV1/bankAvancerad.json',
+  'src/lib/figurserierV1/bankExpert.json',
+];
+
+function g3Duo() {
+  const fel = [];
+  let maxKarna = 0, minYtter = Infinity;
+  const karnor = [];
+  for (let v = 0; v < 8; v++) karnor.push({ typ: 'pil', vinkel: v * 45 });
+  for (const form of ['circle', 'square', 'diamond']) for (const fyllning of ['none', 'black']) karnor.push({ typ: 'form', form, fyllning });
+  for (const symbol of ['plus', 'minus', 'cross', 'dot', 'ring']) karnor.push({ typ: 'symbol', symbol });
+  const yttre = [];
+  for (let lage = 0; lage < 8; lage++) {
+    for (let antal = 1; antal <= G.serie.duo.kant.maxAntal; antal++) yttre.push({ typ: 'kant', lage, antal });
+    yttre.push({ typ: 'orbital', lage });
+  }
+  let n = 0;
+  for (const ytter of yttre) for (const karna of karnor) {
+    const cell = { kind: 'duo', ytter, karna };
+    n++;
+    const k = kontrolleraCell(cell);
+    for (const g of ['g1', 'g2', 'g4']) k[g].forEach((x) => fel.push(`G3 duo ${ytter.typ} ${ytter.lage}/${ytter.antal ?? 1} ${karna.typ}: ${x}`));
+    zonFel(cell).forEach((x) => fel.push(`G3 duo ${ytter.typ} ${ytter.lage}/${ytter.antal ?? 1} ${karna.typ}: ${x}`));
+  }
+  return { fel, n };
+}
+
+function g6Serie(q) {
+  const fel = [];
+  const dims = q.regler?.dims ?? {};
+  for (const [id, r] of Object.entries(dims)) {
+    if (!['vinkel', 'satellit', 'start', 'ylage', 'kvinkel'].includes(id)) continue;
+    if (r.regel === 'konstant' || r.regel === 'cykel') continue;
+    const steg = r.regel === 'steg' ? [r.k] : r.regel === 'vaxande' ? [r.d0, r.dd] : [r.ke, r.ko, r.s1 - r.s0];
+    let g = 8;
+    for (const s of steg) g = sgd(g, mod(s, 8));
+    const lagen = 8 / (g || 8);
+    if (lagen < G.regler.minLagen) fel.push(`G6: ${id} har ${lagen} distinkta lägen, minst ${G.regler.minLagen}`);
+  }
+  return fel;
+}
+
+async function serieMain() {
+  const argv = process.argv.slice(2).filter((a) => a !== '--serie');
+  const filer = argv.length ? argv : SERIE_BANKER;
+  const { fs1, fs2, fs3 } = await import('./lib/serie/sparrar.mjs');
+  const fel = [];
+  const rakn = { fragor: 0, celler: 0 };
+  for (const f of filer) {
+    let bank;
+    try { bank = JSON.parse(readFileSync(f, 'utf8')); } catch { console.log(`${f}: saknas, hoppas över`); continue; }
+    for (const q of bank) {
+      rakn.fragor++;
+      rakn.celler += q.rad.length + q.options.length;
+      for (const x of geometriSerie(q, { hel: true })) fel.push(`${q.id}: ${x}`);
+      for (const x of g6Serie(q)) fel.push(`${q.id}: ${x}`);
+      for (const x of fs3(q)) fel.push(x.replace('FS3 takt', 'G7 (FS3)'));
+      for (const x of [...fs1(q), ...fs2(q)]) fel.push(x.replace(/FS[12]/, (m) => `G9 (${m})`));
+    }
+  }
+  const g3 = g3Duo();
+  fel.push(...g3.fel);
+  // V11 och V12 på renderarens utdata.
+  const tsx = fileURLToPath(new URL('../node_modules/tsx/dist/cli.mjs', import.meta.url));
+  const skript = fileURLToPath(new URL('./lib/matris/svg-matt.tsx', import.meta.url));
+  const finns = filer.filter((f) => { try { readFileSync(f); return true; } catch { return false; } });
+  if (finns.length) {
+    const rm = JSON.parse(execFileSync(process.execPath, [tsx, skript, '--serie', ...finns], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 }));
+    for (const [namn, b] of Object.entries(rm.banker)) {
+      console.log(`V11 ${namn}: ${b.fragor} frågor, noder ${b.noder.min} till ${b.noder.max} (${b.noder.maxId}), bytes ${b.bytes.min} till ${b.bytes.max} (gräns ${rm.gransNoder} noder, ${rm.gransBytes} B)`);
+      b.over.forEach((x) => fel.push(`V11: ${x}`));
+      b.forbjudna.forEach((x) => fel.push(`V12: ${x}`));
+    }
+  }
+  console.log(`Figurserier: ${rakn.fragor} frågor, ${rakn.celler} figurer; G3 duo ${g3.n} kombinationer`);
+  if (fel.length) {
+    console.log(`\n${fel.length} fel:`);
+    fel.forEach((x) => console.log('  ' + x));
+    process.exit(1);
+  }
+  console.log('Inga fel (G1, G2, G3 duo, G4, G6, G7, G9, G11, G12, S1 till S5, V11, V12).');
+  process.exit(0);
 }

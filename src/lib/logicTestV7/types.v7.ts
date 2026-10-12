@@ -95,8 +95,9 @@ export type VectorCell = {
 // =============================================================================
 export type PolyCell = {
   kind: 'poly';
-  sides: 5 | 6 | 8;
-  rotation: 0 | 30 | 60 | 90;
+  // 3, 4 och 7 hörn används bara av figurserierna (antal hörn som räknas).
+  sides: 3 | 4 | 5 | 6 | 7 | 8;
+  rotation: number;
   fill: Fill;
 };
 
@@ -151,6 +152,28 @@ export type BalanceLineCell = {
 };
 
 // =============================================================================
+// 14. DUO — figurseriernas sammansatta primitiv (figurserier-spec.md 3.2)
+// =============================================================================
+// Ett ytterelement och ett kärnelement i koncentriska zoner: kärnan ritas inom
+// målad radie 14,5 från centrum, ytterelementets innerkant ligger aldrig
+// närmare än 20. Avståndet mellan dem är därför detsamma i alla lägen. Den
+// enda primitiven som får ha två element i en cell (G12). Kant och orbital
+// aldrig i samma cell, aldrig två kärnor.
+export type DuoYtter =
+  // lage 0 = klockan 12, medurs; antal prickar i följd från lage (1 till 6)
+  | { typ: 'kant'; lage: number; antal?: number }
+  | { typ: 'orbital'; lage: number };
+export type DuoKarna =
+  | { typ: 'pil'; vinkel: number }
+  | { typ: 'form'; form: 'circle' | 'square' | 'diamond'; fyllning: 'none' | 'black' }
+  | { typ: 'symbol'; symbol: 'plus' | 'minus' | 'cross' | 'dot' | 'ring' };
+export type DuoCell = {
+  kind: 'duo';
+  ytter: DuoYtter;
+  karna: DuoKarna;
+};
+
+// =============================================================================
 // HUVUDTYP
 // =============================================================================
 export type V7Cell =
@@ -166,7 +189,8 @@ export type V7Cell =
   | TileCell
   | SectorWheelCell
   | DotsOrbitCell
-  | BalanceLineCell;
+  | BalanceLineCell
+  | DuoCell;
 
 export type Question = {
   id: string;
