@@ -278,3 +278,61 @@ Bedömning: att 640 px är rätt kolumn på dator (580 ger 92 px rutor, fortfara
   "bryter": {"bokstav":{"px":11,"vikt":600,"left":8,"top":6},"valRam":2,"rattRam":2,"valdRattInre":5,"punkt":{"px":10,"right":8,"top":8}}
 }
 ```
+
+---
+
+## 15. Omgång 3: bryter mönstret i regelform, miniatyren, figurpasset och provraden
+
+Datum 2026-10-12, tillägg av art-director efter `bestallning-omgang3.md` avsnitt C. Sidan `omgang3-figurer.html` i samma katalog visar fyra riktiga uppgifter, en per mall B1 till B4, renderade ur celldata med grafik v3 och duo, i figurpasset och i övningsprovet, före och efter svar, 360 och 1280, ljust och mörkt, samt miniatyren, hemvyn med figurpassraden och provraden på Figurserier.
+
+### 15.1 Spec 7 mot B1 till B4
+
+Avsnitt 7 står oförändrat: regelformen använder samma remsa, bokstäverna, radioknapparna, `inset`-ramarna och ingen nedtoning efter svar. Kontrollen mot riktiga uppgifter gav tre tillägg till generatorn, inget till grafiken:
+
+| Mall | Kontroll | Utfall |
+|---|---|---|
+| B1 Antal (strålar) | tre mot fyra streck på 360, 24,6 px streck i 2,5 px | syns utan att räknas (BM5); strålarnas 45-graderslägen håller G6 |
+| B2 Samband (grundform) | symbol i papper på svart bas, symbol i bläck på tom bas | grå fyllning får inte användas som fri dimension i B2: grå mot tom är fyllningen regeln handlar om, så den fria dimensionen blir oläslig. Generatorn låser B2 till tom och svart |
+| B3 Relation i duo | kärnpil mot kantprick, åtta lägen, bokstaven mot hörnpricken | brytaren måste avvika 90 eller 180 grader (två eller fyra steg), aldrig 45: vid 45 grader är "pekar mot" en tolkningsfråga i hörnen. Beställningen säger 90 eller 180, det räcker; skriv in det som BM5 för B3 |
+| B4 Vridet mönster (sektorhjul) | spegelbild mot fem vridningar | grundmönstret får inte ha spegelsymmetri, annars är spegelbilden en vridning och frågan olöslig (till exempel {0, 2, 4}); generatorn kontrollerar att ingen vridning av mönstret är lika med dess spegelbild (ny spärr i BM1:s anda) |
+
+Frågeradens ord är "Vilken figur bryter mönstret?" (beställningens `SERIE_FRAGA_BRYTER`), ett ord skiljer inte regelform från serieform för kandidaten. Regelpanelen bär `rule` och `misstag` ordagrant; misstagsmallen "Den här följer regeln: ..." fungerar i alla fyra (sidan visar den).
+
+Noder och bytes per uppgift (sex figurer): B1 31 och 2,8 kB, B2 26 och 1,8, B3 36 och 2,3, B4 54 och 4,6. Gränsen i avsnitt 10 (70 noder, 8 kB) håller med marginal; B4 är den tyngsta mallen.
+
+### 15.2 Miniatyren i genomgångslistan
+
+Ersätter sista stycket i avsnitt 8. En remsa med sex rutor i **24 px** (`SerieMiniatyr`), radie 6, ram 1 px `--kant`, hårlinjer mellan rutorna, aldrig två rader, `aria-hidden`.
+
+| Variant | Ritning |
+|---|---|
+| Härnäst | fem figurer och luckan sist i `--papper-2` med frågetecknet (luckans streckade ram döljs i miniatyren, den blir brus i 24 px) |
+| Bryter | sex figurer, brytaren i `.ratt-fylld` (koppar-bläck) med `inset 0 0 0 1.5px var(--koppar)`, inga bokstäver, ingen nedtoning |
+
+Linjerna lyfts i miniatyren från 3 till 7 enheter med css (`.minifig svg [stroke-width] { stroke-width: 7 }`, egenskapen slår attributet), luckans till 8, så att strecken blir 1,4 px i stället för 0,6. Ingen andra renderare, ingen andra geometri. Textkolumnen bredvid (uppgiftens nummer och familjen) får 120 px på 360; familjenamnet får brytas på två rader.
+
+### 15.3 Figurpassraden i hemvyn
+
+Raden "Figurpass" i kortet "Fler pass i dag" under det lyfta kortet, tredje efter Textpass och Sifferpass, samma `RadModell` (`vnpass`-mönstret i `hemvy.ts`):
+
+- Ny symbol `figurer` i `RumSymboler` (48-box, 40 px i raden): remsan `rect 4 15 40 18 rx 5` i kontur 2, två avdelare 1,5 med opacitet .5 vid x 17,3 och 30,6, en liten triangel och en liten kvadrat i bläck i de två första rutorna, i den tredje en streckad kvadrat 8 × 8 rx 2 i koppar (luckan, symbolens enda kopparyta). Samma grepp som `SymMatris`.
+- Lägen som Textpass: svag symbol tills gjord; höger "Starta" (länk), bock "Gjort" i koppar-ink, eller chipet "Ingår i Premium" (`Chip las`, 28 px, radie 8).
+- **Ändring för alla tre raderna på 360:** när högersidan är ett chip står det under metan, vänsterställt i textens kolumn (52 px in), som `hogerUnder` gör i tredjedelsspalten på dator. Med chipet bredvid bryts metan "Tre härnäst, en bryter mönstret. Cirka tre minuter." i fem rader; under metan ryms den på två. `Rad` får `hogerUnder` även under `lg` när `hoger` är ett chip.
+- Metaraden "Tre härnäst, en bryter mönstret. Cirka tre minuter." är ett förslag; copywritern avgör i `copy-omgang3.md`.
+- Kopparknappen i det lyfta kortet ligger över raderna och flyttas inte av en tredje rad. Mätt i Chrome på 360 med sidans typsnitt: knappens nederkant 532 px från skärmens överkant i både Premium- och gratisläget, under beställningens 620.
+
+### 15.4 Provraden på Figurserier
+
+Den dämpade raden från omgång 2 (`provTyst`) stryks när `Provtyp` får `figurer`. `ProvCard` oförändrad:
+
+| Plan | Rad 2 | Anmärkning |
+|---|---|---|
+| Aon | "Samma format som Aon scales ix: cirka 20 uppgifter på 5 minuter." | "Övningsprovet blandar härnäst och bryter mönstret lika." |
+| SHL, Matrigma, Alva, Vet inte, Annat | "Vårt format: 20 uppgifter på 15 minuter." | SHL: "SHL Verify G+ blandar siffror, slutledning och figurer. Övningsprovet övar figurdelen." |
+| Gratis | formatet står kvar, "Ingår i Premium." sist, lås till höger, dämpad men läsbar | samma anmärkning |
+
+Öppen rad: provsymbolen i `--ton-ink`, titeln 600 i `--ink-1`, chevron. Texterna kommer ur `provradTexter` som i dag; inga fasta tal i copyn.
+
+### 15.5 Övningsprovets frågevy för bryter
+
+Som härnäst i övningsprovet: klockan som lugn ring uppe till höger med minuter kvar, segmentstapeln med 20 segment under toppraden, "uppgift 12" och "obesvarade räknas som fel" i meta, inget "Vet inte", ingen återkoppling, "Nästa" och länken "Föregående" i foten. Valet ritas i bläck (inset 2 px) och står kvar tills provet lämnas in. Sidan visar B3 i det läget.

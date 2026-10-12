@@ -177,7 +177,7 @@
   "difficulty": 1,
   "p_prior": 0.75,
   "title": "Samma antal svarta rutor",
-  "rule": "Fem av figurerna har fyra svarta rutor, bara olika vridna. Den som bryter har fem.",
+  "rule": "Fem av figurerna har fyra svarta rutor. Den som bryter har fem.",
   "rad": [
    {
     "kind": "tile",
@@ -208,11 +208,11 @@
   "correctAnswer": 0,
   "misstag": [
    "",
-   "Den här följer regeln: fyra svarta rutor, bara vriden.",
-   "Den här följer regeln: fyra svarta rutor, bara vriden.",
-   "Den här följer regeln: fyra svarta rutor, bara vriden.",
-   "Den här följer regeln: fyra svarta rutor, bara vriden.",
-   "Den här följer regeln: fyra svarta rutor, bara vriden."
+   "Den här följer regeln: fyra svarta rutor.",
+   "Den här följer regeln: fyra svarta rutor.",
+   "Den här följer regeln: fyra svarta rutor.",
+   "Den här följer regeln: fyra svarta rutor.",
+   "Den här följer regeln: fyra svarta rutor."
   ],
   "regler": {
    "mall": "B1",
@@ -511,7 +511,7 @@
   "difficulty": 1,
   "p_prior": 0.75,
   "title": "Samma antal svarta rutor",
-  "rule": "Fem av figurerna har tre svarta rutor, bara olika vridna. Den som bryter har fyra.",
+  "rule": "Fem av figurerna har tre svarta rutor. Den som bryter har fyra.",
   "rad": [
    {
     "kind": "tile",
@@ -541,12 +541,12 @@
   "options": [],
   "correctAnswer": 2,
   "misstag": [
-   "Den här följer regeln: tre svarta rutor, bara vriden.",
-   "Den här följer regeln: tre svarta rutor, bara vriden.",
+   "Den här följer regeln: tre svarta rutor.",
+   "Den här följer regeln: tre svarta rutor.",
    "",
-   "Den här följer regeln: tre svarta rutor, bara vriden.",
-   "Den här följer regeln: tre svarta rutor, bara vriden.",
-   "Den här följer regeln: tre svarta rutor, bara vriden."
+   "Den här följer regeln: tre svarta rutor.",
+   "Den här följer regeln: tre svarta rutor.",
+   "Den här följer regeln: tre svarta rutor."
   ],
   "regler": {
    "mall": "B1",

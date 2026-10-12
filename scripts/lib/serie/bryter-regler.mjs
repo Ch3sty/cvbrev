@@ -227,6 +227,15 @@ export function bryterTexter(mall, prim, V, brytare) {
   switch (mall) {
     case 'B1': {
       const n = folj.antal;
+      // 3×3-blocket har bara fyra äkta vridningar: texten påstår ingen vridning
+      // (granskning omgång 3, avsnitt 3).
+      if (prim === 'block') {
+        return {
+          title: `Samma antal ${ELEM[prim].flera}`,
+          rule: `Fem av figurerna har ${antalText(prim, n)}. Den som bryter har ${ELEM[prim].ord[b.antal]}.`,
+          misstag: V.map((v, i) => (i === brytare ? '' : `Den här följer regeln: ${antalText(prim, v.antal)}.`)),
+        };
+      }
       return {
         title: `Samma antal ${ELEM[prim].flera}`,
         rule: `Fem av figurerna har ${antalText(prim, n)}, bara olika vridna. Den som bryter har ${ELEM[prim].ord[b.antal]}.`,

@@ -22,12 +22,14 @@
 //                    regelns egenskaper: minst en av de fem delar värdet. I B4
 //                    (mönstret vridet) har brytaren en granne bland de fem som
 //                    skiljer sig i högst två lägen.
+//                    I B4 får mönstret varken ha spegel- eller
+//                    vridningssymmetri (spec 15.1).
 //   BM5 synlig       Brytarens avvikelse är minst ett antalssteg, tom mot
 //                    svart (aldrig grå), 90 eller 180 grader, eller en
 //                    spegling som flyttar minst ett läge (R5).
 // =============================================================================
 
-import { lasBryter, bryterNyckel, regelBibliotek, avseddRegel, PRIMAR, MANGD, BRYTER_MALLAR, rotera } from './bryter-regler.mjs';
+import { lasBryter, bryterNyckel, regelBibliotek, avseddRegel, PRIMAR, MANGD, BRYTER_MALLAR, rotera, arKiralt } from './bryter-regler.mjs';
 import { stable, mod } from './celler-serie.mjs';
 
 const BOKSTAV = 'ABCDEF';
@@ -62,6 +64,11 @@ export function bm1(q) {
   const avsedd = avseddRegel(q.regler.regel);
   if (!avsedd(utan(V, b))) fel.push(`${q.id}: BM1 entydig, regeln håller inte för de fem utan brytaren`);
   if (avsedd(V)) fel.push(`${q.id}: BM1 entydig, regeln håller för alla sex`);
+  // Spec 15.1 (B4): grundmönstret får inte ha spegel- eller vridningssymmetri,
+  // annars är spegelbilden en vridning och frågan olöslig.
+  if (q.regler.regel.typ === 'lika' && q.regler.regel.egenskaper.includes('klass') && !arKiralt(utan(V, b)[0].lagen)) {
+    fel.push(`${q.id}: BM1 entydig, mönstret är symmetriskt, så spegelbilden är en vridning av det`);
+  }
   for (const R of regelBibliotek(prim)) {
     if (R.galler(V)) continue;
     for (let i = 0; i < 6; i++) {

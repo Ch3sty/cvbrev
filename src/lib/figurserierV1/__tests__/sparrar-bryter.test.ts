@@ -74,6 +74,13 @@ describe('bryter mönstret: spärrarna BM1 till BM5', () => {
     expect((S.bm1(q) as string[]).join()).toMatch(/BM1 entydig, regeln håller inte för de fem utan brytaren/)
   })
 
+  it('BM1: B4 med ett spegelsymmetriskt mönster fälls (spec 15.1)', () => {
+    const s3 = (P: number[]) => byggMangd('sektor', P)
+    const rad = [s3([0, 2, 4]), s3([1, 3, 5]), s3([2, 4, 6]), s3([3, 5, 7]), s3([0, 5, 7]), s3([0, 4, 6])]
+    const q = fraga('B4', 'sektor', rad, 5, { typ: 'lika', egenskaper: ['klass'] })
+    expect((S.bm1(q) as string[]).join()).toMatch(/BM1 entydig, mönstret är symmetriskt, så spegelbilden är en vridning av det/)
+  })
+
   it('BM2: två figurer är lika', () => {
     const q = fraga('B1', 'sektor', [sektor(0, 3), sektor(0, 3), sektor(4, 3), sektor(4, 4), sektor(5, 3), sektor(7, 3)], 3, ANTAL)
     expect((S.bm2(q) as string[]).join()).toMatch(/BM2 olika, figur A och B är lika/)

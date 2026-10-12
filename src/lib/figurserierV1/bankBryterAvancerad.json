@@ -1,1 +1,1544 @@
-[]
+[
+ {
+  "id": "fsb-a-flera-01",
+  "form": "bryter",
+  "niva": "avancerad",
+  "family": "flera",
+  "recept": "B3",
+  "variant": "duo-kant-pil-relation",
+  "difficulty": 2,
+  "p_prior": 0.5,
+  "title": "Pilen pekar mot pricken",
+  "rule": "I fem av figurerna pekar pilen i mitten mot kantpricken. I den som bryter pekar den åt ett annat håll.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   }
+  ],
+  "options": [],
+  "correctAnswer": 4,
+  "misstag": [
+   "Den här följer regeln: pilen pekar mot kantpricken.",
+   "Den här följer regeln: pilen pekar mot kantpricken.",
+   "Den här följer regeln: pilen pekar mot kantpricken.",
+   "Den här följer regeln: pilen pekar mot kantpricken.",
+   "",
+   "Den här följer regeln: pilen pekar mot kantpricken."
+  ],
+  "regler": {
+   "mall": "B3",
+   "prim": "duo-kant-pil",
+   "regel": {
+    "typ": "relation",
+    "a": "ylage",
+    "b": "kvinkel",
+    "vinkel": 0,
+    "prim": "duo-kant-pil"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-a-flera-02",
+  "form": "bryter",
+  "niva": "avancerad",
+  "family": "flera",
+  "recept": "B3",
+  "variant": "duo-orbital-pil-relation",
+  "difficulty": 2,
+  "p_prior": 0.5,
+  "title": "Pilen pekar mot pricken",
+  "rule": "I fem av figurerna pekar pilen i mitten mot satelliten. I den som bryter pekar den åt ett annat håll.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 45
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   }
+  ],
+  "options": [],
+  "correctAnswer": 5,
+  "misstag": [
+   "Den här följer regeln: pilen pekar mot satelliten.",
+   "Den här följer regeln: pilen pekar mot satelliten.",
+   "Den här följer regeln: pilen pekar mot satelliten.",
+   "Den här följer regeln: pilen pekar mot satelliten.",
+   "Den här följer regeln: pilen pekar mot satelliten.",
+   ""
+  ],
+  "regler": {
+   "mall": "B3",
+   "prim": "duo-orbital-pil",
+   "regel": {
+    "typ": "relation",
+    "a": "ylage",
+    "b": "kvinkel",
+    "vinkel": 0,
+    "prim": "duo-orbital-pil"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-a-flera-03",
+  "form": "bryter",
+  "niva": "avancerad",
+  "family": "flera",
+  "recept": "B3",
+  "variant": "duo-kant-pil-relation",
+  "difficulty": 2,
+  "p_prior": 0.5,
+  "title": "Pilen pekar mot pricken",
+  "rule": "I fem av figurerna pekar pilen i mitten mot kantpricken. I den som bryter pekar den åt ett annat håll.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   }
+  ],
+  "options": [],
+  "correctAnswer": 3,
+  "misstag": [
+   "Den här följer regeln: pilen pekar mot kantpricken.",
+   "Den här följer regeln: pilen pekar mot kantpricken.",
+   "Den här följer regeln: pilen pekar mot kantpricken.",
+   "",
+   "Den här följer regeln: pilen pekar mot kantpricken.",
+   "Den här följer regeln: pilen pekar mot kantpricken."
+  ],
+  "regler": {
+   "mall": "B3",
+   "prim": "duo-kant-pil",
+   "regel": {
+    "typ": "relation",
+    "a": "ylage",
+    "b": "kvinkel",
+    "vinkel": 0,
+    "prim": "duo-kant-pil"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-a-flera-04",
+  "form": "bryter",
+  "niva": "avancerad",
+  "family": "flera",
+  "recept": "B3",
+  "variant": "duo-orbital-pil-relation",
+  "difficulty": 2,
+  "p_prior": 0.5,
+  "title": "Pilen pekar mot pricken",
+  "rule": "I fem av figurerna pekar pilen i mitten mot satelliten. I den som bryter pekar den åt ett annat håll.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 45
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 45
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   }
+  ],
+  "options": [],
+  "correctAnswer": 2,
+  "misstag": [
+   "Den här följer regeln: pilen pekar mot satelliten.",
+   "Den här följer regeln: pilen pekar mot satelliten.",
+   "",
+   "Den här följer regeln: pilen pekar mot satelliten.",
+   "Den här följer regeln: pilen pekar mot satelliten.",
+   "Den här följer regeln: pilen pekar mot satelliten."
+  ],
+  "regler": {
+   "mall": "B3",
+   "prim": "duo-orbital-pil",
+   "regel": {
+    "typ": "relation",
+    "a": "ylage",
+    "b": "kvinkel",
+    "vinkel": 0,
+    "prim": "duo-orbital-pil"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-a-flera-05",
+  "form": "bryter",
+  "niva": "avancerad",
+  "family": "flera",
+  "recept": "B3",
+  "variant": "duo-kant-pil-relation",
+  "difficulty": 2,
+  "p_prior": 0.5,
+  "title": "Pilen pekar mot pricken",
+  "rule": "I fem av figurerna pekar pilen i mitten mot kantpricken. I den som bryter pekar den åt ett annat håll.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   }
+  ],
+  "options": [],
+  "correctAnswer": 1,
+  "misstag": [
+   "Den här följer regeln: pilen pekar mot kantpricken.",
+   "",
+   "Den här följer regeln: pilen pekar mot kantpricken.",
+   "Den här följer regeln: pilen pekar mot kantpricken.",
+   "Den här följer regeln: pilen pekar mot kantpricken.",
+   "Den här följer regeln: pilen pekar mot kantpricken."
+  ],
+  "regler": {
+   "mall": "B3",
+   "prim": "duo-kant-pil",
+   "regel": {
+    "typ": "relation",
+    "a": "ylage",
+    "b": "kvinkel",
+    "vinkel": 0,
+    "prim": "duo-kant-pil"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-a-flera-06",
+  "form": "bryter",
+  "niva": "avancerad",
+  "family": "flera",
+  "recept": "B3",
+  "variant": "duo-orbital-pil-relation",
+  "difficulty": 2,
+  "p_prior": 0.5,
+  "title": "Pilen pekar mot pricken",
+  "rule": "I fem av figurerna pekar pilen i mitten mot satelliten. I den som bryter pekar den åt ett annat håll.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   }
+  ],
+  "options": [],
+  "correctAnswer": 3,
+  "misstag": [
+   "Den här följer regeln: pilen pekar mot satelliten.",
+   "Den här följer regeln: pilen pekar mot satelliten.",
+   "Den här följer regeln: pilen pekar mot satelliten.",
+   "",
+   "Den här följer regeln: pilen pekar mot satelliten.",
+   "Den här följer regeln: pilen pekar mot satelliten."
+  ],
+  "regler": {
+   "mall": "B3",
+   "prim": "duo-orbital-pil",
+   "regel": {
+    "typ": "relation",
+    "a": "ylage",
+    "b": "kvinkel",
+    "vinkel": 0,
+    "prim": "duo-orbital-pil"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-a-flera-07",
+  "form": "bryter",
+  "niva": "avancerad",
+  "family": "flera",
+  "recept": "B3",
+  "variant": "duo-kant-pil-relation",
+  "difficulty": 2,
+  "p_prior": 0.5,
+  "title": "Pilen pekar mot pricken",
+  "rule": "I fem av figurerna pekar pilen i mitten mot kantpricken. I den som bryter pekar den åt ett annat håll.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   }
+  ],
+  "options": [],
+  "correctAnswer": 5,
+  "misstag": [
+   "Den här följer regeln: pilen pekar mot kantpricken.",
+   "Den här följer regeln: pilen pekar mot kantpricken.",
+   "Den här följer regeln: pilen pekar mot kantpricken.",
+   "Den här följer regeln: pilen pekar mot kantpricken.",
+   "Den här följer regeln: pilen pekar mot kantpricken.",
+   ""
+  ],
+  "regler": {
+   "mall": "B3",
+   "prim": "duo-kant-pil",
+   "regel": {
+    "typ": "relation",
+    "a": "ylage",
+    "b": "kvinkel",
+    "vinkel": 0,
+    "prim": "duo-kant-pil"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-a-flera-08",
+  "form": "bryter",
+  "niva": "avancerad",
+  "family": "flera",
+  "recept": "B3",
+  "variant": "duo-orbital-pil-relation",
+  "difficulty": 2,
+  "p_prior": 0.5,
+  "title": "Pilen pekar mot pricken",
+  "rule": "I fem av figurerna pekar pilen i mitten mot satelliten. I den som bryter pekar den åt ett annat håll.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 45
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 45
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 0
+    }
+   }
+  ],
+  "options": [],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den här följer regeln: pilen pekar mot satelliten.",
+   "Den här följer regeln: pilen pekar mot satelliten.",
+   "Den här följer regeln: pilen pekar mot satelliten.",
+   "Den här följer regeln: pilen pekar mot satelliten.",
+   "Den här följer regeln: pilen pekar mot satelliten."
+  ],
+  "regler": {
+   "mall": "B3",
+   "prim": "duo-orbital-pil",
+   "regel": {
+    "typ": "relation",
+    "a": "ylage",
+    "b": "kvinkel",
+    "vinkel": 0,
+    "prim": "duo-orbital-pil"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-a-flera-09",
+  "form": "bryter",
+  "niva": "avancerad",
+  "family": "flera",
+  "recept": "B3",
+  "variant": "duo-kant-pil-relation",
+  "difficulty": 2,
+  "p_prior": 0.5,
+  "title": "Pilen pekar mot pricken",
+  "rule": "I fem av figurerna pekar pilen i mitten mot kantpricken. I den som bryter pekar den åt ett annat håll.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   }
+  ],
+  "options": [],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den här följer regeln: pilen pekar mot kantpricken.",
+   "Den här följer regeln: pilen pekar mot kantpricken.",
+   "Den här följer regeln: pilen pekar mot kantpricken.",
+   "Den här följer regeln: pilen pekar mot kantpricken.",
+   "Den här följer regeln: pilen pekar mot kantpricken."
+  ],
+  "regler": {
+   "mall": "B3",
+   "prim": "duo-kant-pil",
+   "regel": {
+    "typ": "relation",
+    "a": "ylage",
+    "b": "kvinkel",
+    "vinkel": 0,
+    "prim": "duo-kant-pil"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-a-flera-10",
+  "form": "bryter",
+  "niva": "avancerad",
+  "family": "flera",
+  "recept": "B3",
+  "variant": "duo-orbital-pil-relation",
+  "difficulty": 2,
+  "p_prior": 0.5,
+  "title": "Pilen pekar mot pricken",
+  "rule": "I fem av figurerna pekar pilen i mitten mot satelliten. I den som bryter pekar den åt ett annat håll.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 45
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 270
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 90
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 4
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 180
+    }
+   }
+  ],
+  "options": [],
+  "correctAnswer": 1,
+  "misstag": [
+   "Den här följer regeln: pilen pekar mot satelliten.",
+   "",
+   "Den här följer regeln: pilen pekar mot satelliten.",
+   "Den här följer regeln: pilen pekar mot satelliten.",
+   "Den här följer regeln: pilen pekar mot satelliten.",
+   "Den här följer regeln: pilen pekar mot satelliten."
+  ],
+  "regler": {
+   "mall": "B3",
+   "prim": "duo-orbital-pil",
+   "regel": {
+    "typ": "relation",
+    "a": "ylage",
+    "b": "kvinkel",
+    "vinkel": 0,
+    "prim": "duo-orbital-pil"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-a-vrid-01",
+  "form": "bryter",
+  "niva": "avancerad",
+  "family": "vridning",
+  "recept": "B4",
+  "variant": "sektor-spegel",
+  "difficulty": 3,
+  "p_prior": 0.48,
+  "title": "Samma mönster, vridet",
+  "rule": "Fem av figurerna är samma mönster, bara vridet. Den som bryter är spegelvänd.",
+  "rad": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     4,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     2,
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     2,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     2,
+     6
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     4,
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     1,
+     3,
+     4,
+     5
+    ]
+   }
+  ],
+  "options": [],
+  "correctAnswer": 2,
+  "misstag": [
+   "Den här följer regeln: samma mönster, vridet.",
+   "Den här följer regeln: samma mönster, vridet.",
+   "",
+   "Den här följer regeln: samma mönster, vridet.",
+   "Den här följer regeln: samma mönster, vridet.",
+   "Den här följer regeln: samma mönster, vridet."
+  ],
+  "regler": {
+   "mall": "B4",
+   "prim": "sektor",
+   "regel": {
+    "typ": "lika",
+    "egenskaper": [
+     "klass"
+    ],
+    "prim": "sektor"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-a-vrid-02",
+  "form": "bryter",
+  "niva": "avancerad",
+  "family": "vridning",
+  "recept": "B4",
+  "variant": "stralar-spegel",
+  "difficulty": 3,
+  "p_prior": 0.48,
+  "title": "Samma mönster, vridet",
+  "rule": "Fem av figurerna är samma mönster, bara vridet. Den som bryter är spegelvänd.",
+  "rad": [
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     2,
+     4
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     3,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     1,
+     2,
+     3,
+     5
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     2,
+     3,
+     4,
+     6
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     3,
+     4,
+     5,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     3,
+     5,
+     6,
+     7
+    ]
+   }
+  ],
+  "options": [],
+  "correctAnswer": 5,
+  "misstag": [
+   "Den här följer regeln: samma mönster, vridet.",
+   "Den här följer regeln: samma mönster, vridet.",
+   "Den här följer regeln: samma mönster, vridet.",
+   "Den här följer regeln: samma mönster, vridet.",
+   "Den här följer regeln: samma mönster, vridet.",
+   ""
+  ],
+  "regler": {
+   "mall": "B4",
+   "prim": "stralar",
+   "regel": {
+    "typ": "lika",
+    "egenskaper": [
+     "klass"
+    ],
+    "prim": "stralar"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-a-vrid-03",
+  "form": "bryter",
+  "niva": "avancerad",
+  "family": "vridning",
+  "recept": "B4",
+  "variant": "sektor-spegel",
+  "difficulty": 3,
+  "p_prior": 0.48,
+  "title": "Samma mönster, vridet",
+  "rule": "Fem av figurerna är samma mönster, bara vridet. Den som bryter är spegelvänd.",
+  "rad": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     6
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     1,
+     2,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     1,
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     2,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     3,
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     4,
+     5
+    ]
+   }
+  ],
+  "options": [],
+  "correctAnswer": 3,
+  "misstag": [
+   "Den här följer regeln: samma mönster, vridet.",
+   "Den här följer regeln: samma mönster, vridet.",
+   "Den här följer regeln: samma mönster, vridet.",
+   "",
+   "Den här följer regeln: samma mönster, vridet.",
+   "Den här följer regeln: samma mönster, vridet."
+  ],
+  "regler": {
+   "mall": "B4",
+   "prim": "sektor",
+   "regel": {
+    "typ": "lika",
+    "egenskaper": [
+     "klass"
+    ],
+    "prim": "sektor"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-a-vrid-04",
+  "form": "bryter",
+  "niva": "avancerad",
+  "family": "vridning",
+  "recept": "B4",
+  "variant": "stralar-spegel",
+  "difficulty": 3,
+  "p_prior": 0.48,
+  "title": "Samma mönster, vridet",
+  "rule": "Fem av figurerna är samma mönster, bara vridet. Den som bryter är spegelvänd.",
+  "rad": [
+   {
+    "kind": "ray",
+    "rays": [
+     1,
+     3,
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     2,
+     6
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     5,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     4,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     2,
+     4
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     1,
+     2,
+     3,
+     7
+    ]
+   }
+  ],
+  "options": [],
+  "correctAnswer": 4,
+  "misstag": [
+   "Den här följer regeln: samma mönster, vridet.",
+   "Den här följer regeln: samma mönster, vridet.",
+   "Den här följer regeln: samma mönster, vridet.",
+   "Den här följer regeln: samma mönster, vridet.",
+   "",
+   "Den här följer regeln: samma mönster, vridet."
+  ],
+  "regler": {
+   "mall": "B4",
+   "prim": "stralar",
+   "regel": {
+    "typ": "lika",
+    "egenskaper": [
+     "klass"
+    ],
+    "prim": "stralar"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-a-vrid-05",
+  "form": "bryter",
+  "niva": "avancerad",
+  "family": "vridning",
+  "recept": "B4",
+  "variant": "sektor-spegel",
+  "difficulty": 3,
+  "p_prior": 0.48,
+  "title": "Samma mönster, vridet",
+  "rule": "Fem av figurerna är samma mönster, bara vridet. Den som bryter är spegelvänd.",
+  "rad": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     4,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     1,
+     2,
+     5
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     3,
+     6
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     3,
+     4,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     6,
+     7
+    ]
+   }
+  ],
+  "options": [],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Den här följer regeln: samma mönster, vridet.",
+   "Den här följer regeln: samma mönster, vridet.",
+   "Den här följer regeln: samma mönster, vridet.",
+   "Den här följer regeln: samma mönster, vridet.",
+   "Den här följer regeln: samma mönster, vridet."
+  ],
+  "regler": {
+   "mall": "B4",
+   "prim": "sektor",
+   "regel": {
+    "typ": "lika",
+    "egenskaper": [
+     "klass"
+    ],
+    "prim": "sektor"
+   }
+  },
+  "fran_version": 2
+ },
+ {
+  "id": "fsb-a-vrid-06",
+  "form": "bryter",
+  "niva": "avancerad",
+  "family": "vridning",
+  "recept": "B4",
+  "variant": "stralar-spegel",
+  "difficulty": 3,
+  "p_prior": 0.48,
+  "title": "Samma mönster, vridet",
+  "rule": "Fem av figurerna är samma mönster, bara vridet. Den som bryter är spegelvänd.",
+  "rad": [
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     5,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     4,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     1,
+     2,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     2,
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     3,
+     5,
+     6
+    ]
+   }
+  ],
+  "options": [],
+  "correctAnswer": 1,
+  "misstag": [
+   "Den här följer regeln: samma mönster, vridet.",
+   "",
+   "Den här följer regeln: samma mönster, vridet.",
+   "Den här följer regeln: samma mönster, vridet.",
+   "Den här följer regeln: samma mönster, vridet.",
+   "Den här följer regeln: samma mönster, vridet."
+  ],
+  "regler": {
+   "mall": "B4",
+   "prim": "stralar",
+   "regel": {
+    "typ": "lika",
+    "egenskaper": [
+     "klass"
+    ],
+    "prim": "stralar"
+   }
+  },
+  "fran_version": 2
+ }
+]

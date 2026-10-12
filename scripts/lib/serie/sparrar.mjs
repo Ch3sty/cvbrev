@@ -316,6 +316,26 @@ export function s13(q) {
 
 // ---------------------------------------------------------------- alla
 /** Alla spärrar för en fråga. { fel, info }. */
+// ---------------------------------------------------------------- F9
+/**
+ * F9 forsta_serien (granskning omgång 3, avsnitt 5): i en växelvis regel på
+ * ett läge får första serien (figur ett, tre och fem) förlängd ett steg inte
+ * landa på facit, annars behövs växlingen aldrig. Med åtta lägen:
+ * s0 + 3·ke ≠ s1 + 2·ko (mod 8).
+ */
+export function f9(q) {
+  const dims = q.regler?.dims ?? {};
+  const fel = [];
+  for (const [id, r] of Object.entries(dims)) {
+    if (r.regel !== 'vaxelvis') continue;
+    const d = PRIM[q.regler.prim]?.dims.find((x) => x.id === id);
+    if (!d || d.typ !== 'rot') continue;
+    const m = (x) => ((x % 8) + 8) % 8;
+    if (m(r.s0 + 3 * r.ke) === m(r.s1 + 2 * r.ko)) fel.push(`${q.id}: F9 forsta_serien, första serien förlängd ger facit i ${id}`);
+  }
+  return fel;
+}
+
 export function sparrFelSerie(q) {
   const t = tolkaRad(q.rad);
   const fel = [...fs6(q)];
@@ -324,7 +344,7 @@ export function sparrFelSerie(q) {
   const s = s11(q);
   fel.push(...s.fel);
   const info = [...s.info];
-  const nya = [...s12(q), ...s14(q), ...s15(q)];
+  const nya = [...s12(q), ...s14(q), ...s15(q), ...f9(q)];
   if (GODKANDA.has(q.id)) info.push(...nya.map((x) => `${x} (godkänd i granskning 01 eller 02)`));
   else fel.push(...nya);
   return { fel, info };

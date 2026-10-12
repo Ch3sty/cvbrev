@@ -23,7 +23,7 @@
 
 import { MALLAR, P_PRIOR_SPANN, FAMILJER } from './lib/serie/recept-serie.mjs';
 import { PRIM } from './lib/serie/celler-serie.mjs';
-import { sparrFelSerie } from './lib/serie/sparrar.mjs';
+import { sparrFelSerie, GODKANDA } from './lib/serie/sparrar.mjs';
 import { strukturNyckel, radNyckel, lagesNyckel } from './lib/serie/struktur.mjs';
 import { lasFiler, reglerFel } from './lib/serie/kontroll.mjs';
 
@@ -38,6 +38,9 @@ const allaId = new Map();
 const allaRader = new Map();
 // Lägesraden per nivå (granskning 02, F7): samma fem lägen i samma ordning bara en gång.
 const lagesrader = new Map();
+// F2 per nivå (granskning omgång 3, avsnitt 5): samma primitiv, riktning och
+// antal får inte förekomma två gånger med bara annan start.
+const f2Nycklar = new Map();
 
 for (const { fil, fragor } of filer) {
   if (!Array.isArray(fragor)) { fel.push(`${fil}: inte en lista`); continue; }
@@ -85,6 +88,17 @@ for (const { fil, fragor } of filer) {
       const k = `${q.niva}|${lk}`;
       if (lagesrader.has(k)) f(`samma lägesrad som ${lagesrader.get(k)} (granskning 02, F7)`);
       lagesrader.set(k, q.id);
+    }
+    if (q.recept === 'F2' && q.regler?.dims?.antal?.regel === 'steg') {
+      const a = q.regler.dims.antal;
+      const k = `${q.niva}|${q.regler.prim}|${a.k}|${a.s0}`;
+      const forra = f2Nycklar.get(k);
+      if (forra) {
+        const text = `F2 samma regel som ${forra}, bara starten skiljer (granskning omgång 3)`;
+        if (GODKANDA.has(q.id) && GODKANDA.has(forra)) info.push(`${q.id}: ${text} (godkänd i granskning 01 till 03)`);
+        else f(text);
+      }
+      f2Nycklar.set(k, q.id);
     }
     (perNiva[q.niva] ??= []).push(q);
   }
