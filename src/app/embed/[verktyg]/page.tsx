@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import EmbedResizer from '@/components/rakna/EmbedResizer'
 import Kalkylator from '@/components/rakna/Kalkylator'
+import '@/components/publikt/publikt.css'
 import { arSlug, type Slug } from '@/lib/rakna/delning'
 
 /**
@@ -44,7 +45,7 @@ export default async function EmbedPage({ params }: Props) {
   if (!arSlug(verktyg)) notFound()
 
   return (
-    <main className="bg-mark p-2">
+    <main className="pub-sida p-2">
       <EmbedResizer verktyg={verktyg} />
       <Kalkylator slug={verktyg} />
       <p className="mb-2 mt-3 px-1 text-meta text-ink-3">

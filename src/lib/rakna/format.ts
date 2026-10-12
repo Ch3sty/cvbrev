@@ -29,3 +29,12 @@ export function decimal(n: number, decimaler = 1): string {
 export function vanligaMellanslag(s: string): string {
   return s.replace(/[  ]/g, ' ')
 }
+
+/**
+ * Som decimal, men utan nollor sist efter decimaltecknet, för tal i
+ * löptext: 19.2 -> "19,2", 20 -> "20", 1.40 -> "1,4" (husregeln: aldrig "3,0").
+ */
+export function decimalKort(n: number, decimaler = 1): string {
+  const s = decimal(n, decimaler)
+  return s.includes(',') ? s.replace(/0+$/, '').replace(/,$/, '') : s
+}

@@ -1,33 +1,48 @@
 /**
- * Byggstenarna för kalkylatorerna under /rakna-ut, i Trådens form
- * (docs/designsystem.md avsnitt 6): fält i insunken yta, kryssrutor och
- * reglage i ink-1, resultatet som vyns enda bläckyta.
+ * Byggstenarna för kalkylatorerna under /rakna-ut, i publikt v2
+ * (docs/design/spec-publikt-v2-del-b-2026-10-12.md avsnitt 3.5): fälten
+ * på papper, knappen Räkna ut i koppar, resultatet på bläck med huvudtalet,
+ * stapeln och legenden, källan och Dela.
  *
  * Inga hooks här, så delarna kan användas i klientkalkylatorerna och
  * renderas på servern med dem. Delningsknappen, som behöver webbläsaren,
- * ligger i DelaResultat.tsx.
+ * ligger i DelaResultat.tsx. Stilarna står i rakna.css.
  */
 import type { CSSProperties, ReactNode } from 'react'
-import InkPanel from '@/components/shell/InkPanel'
-import Fordelning, { type FordelningSegment } from '@/components/shell/Fordelning'
+import type { FordelningSegment } from '@/components/shell/Fordelning'
+import './rakna.css'
 
-export const FALT_ETIKETT = 'mb-1 block text-sm font-medium text-ink-2'
-export const FALT_INPUT =
-  'h-11 w-full rounded-lg border border-kant bg-insunken px-3 text-base text-ink-1 shadow-insunken tabular-nums placeholder:text-ink-3 focus:border-ink-1 focus:outline-none focus:ring-1 focus:ring-ink-1'
-export const FALT_HJALP = 'mt-1 block text-meta text-ink-3'
+export const FALT_ETIKETT = 'rk-etikett'
+export const FALT_INPUT = 'rk-input'
+export const FALT_HJALP = 'rk-hjalp'
 
-/** Panelen med kalkylatorns fält. */
-export function FaltPanel({ children, etikett = 'Dina uppgifter' }: { children: ReactNode; etikett?: string }) {
+/** Knappen som skickar formuläret. Med JavaScript räknar kalkylatorn redan vid inmatning. */
+export function RaknaKnapp() {
   return (
-    <section aria-label={etikett} className="rounded-xl border border-kant bg-panel p-4 sm:p-6">
-      <div className="space-y-4">{children}</div>
-    </section>
+    <button type="submit" className="pub-knapp rk-knapp" data-primar="">
+      Räkna ut
+    </button>
+  )
+}
+
+/**
+ * Kalkylatorns fält. Knappen Räkna ut står sist, om inte kalkylatorn
+ * placerar den själv (egenKnapp), som lön efter skatt gör direkt under
+ * kommunvalet.
+ */
+export function FaltPanel({ children, egenKnapp }: { children: ReactNode; egenKnapp?: boolean; etikett?: string }) {
+  return (
+    <div className="rk-falt">
+      {children}
+      {egenKnapp ? null : <RaknaKnapp />}
+    </div>
   )
 }
 
 /** Ett textfält för tal. */
 export function TalFalt({
   id,
+  namn,
   etikett,
   value,
   onChange,
@@ -36,6 +51,8 @@ export function TalFalt({
   enhet,
 }: {
   id: string
+  /** Parameterns namn när formuläret skickas utan JavaScript. */
+  namn?: string
   etikett: string
   value: string
   onChange: (v: string) => void
@@ -48,45 +65,40 @@ export function TalFalt({
       <label htmlFor={id} className={FALT_ETIKETT}>
         {etikett}
       </label>
-      <div className="relative">
+      <div className={enhet ? 'rk-enhet' : undefined}>
         <input
           id={id}
+          name={namn}
           type="text"
           inputMode={decimal ? 'decimal' : 'numeric'}
           autoComplete="off"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className={`${FALT_INPUT} ${enhet ? 'pr-12' : ''}`}
+          className={FALT_INPUT}
         />
-        {enhet ? (
-          <span aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-sm text-ink-3">
-            {enhet}
-          </span>
-        ) : null}
+        {enhet ? <span aria-hidden="true">{enhet}</span> : null}
       </div>
       {hjalp ? <span className={FALT_HJALP}>{hjalp}</span> : null}
     </div>
   )
 }
 
-/** Kryssruta i ink-1 med en träffyta på 44 px. */
+/** Kryssruta i koppar med en träffyta på 44 px. */
 export function Kryss({
   checked,
   onChange,
+  namn,
   children,
 }: {
   checked: boolean
   onChange: (v: boolean) => void
+  /** Parameterns namn utan JavaScript; värdet är 1. */
+  namn?: string
   children: ReactNode
 }) {
   return (
-    <label className="flex min-h-11 cursor-pointer items-center gap-3 text-sm text-ink-1">
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={(e) => onChange(e.target.checked)}
-        className="h-5 w-5 shrink-0 cursor-pointer accent-ink-1"
-      />
+    <label className="rk-kryss">
+      <input type="checkbox" name={namn} value={namn ? '1' : undefined} checked={checked} onChange={(e) => onChange(e.target.checked)} />
       <span>{children}</span>
     </label>
   )
@@ -117,12 +129,10 @@ export function Reglage({
   maxText?: string
 }) {
   return (
-    <div>
-      <div className="mb-1 flex items-baseline justify-between gap-3">
-        <label htmlFor={id} className="text-sm font-medium text-ink-2">
-          {etikett}
-        </label>
-        <span className="shrink-0 text-sm font-semibold tabular-nums text-ink-1">{visa}</span>
+    <div className="rk-reglage">
+      <div className="rk-reglage-topp">
+        <label htmlFor={id}>{etikett}</label>
+        <b>{visa}</b>
       </div>
       <input
         id={id}
@@ -133,10 +143,9 @@ export function Reglage({
         value={value}
         aria-valuetext={visa}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="h-11 w-full cursor-pointer accent-ink-1"
       />
       {minText || maxText ? (
-        <div className="flex justify-between text-meta text-ink-3">
+        <div className="rk-reglage-skala">
           <span>{minText}</span>
           <span>{maxText}</span>
         </div>
@@ -146,17 +155,19 @@ export function Reglage({
 }
 
 /**
- * Fordelning och listor på bläck: pekar om tonerna så att ink-1 blir vitt,
- * ink-2 och ink-3 den dämpade tonen på bläck, och de mjuka segmenten
- * papperet i ink-hover. Samma grepp som InkPanel gör för scenen.
+ * Tokens på bläck för det kalkylatorerna själva ritar under talet (trattar,
+ * prickar, jämförelser i Tailwinds tokenklasser): ink-1 blir vitt, ink-2
+ * och ink-3 den dämpade tonen, ytorna genomskinligt vitt.
  */
 export const PA_BLACK = {
-  '--ink-1': 'var(--panel)',
-  '--ink-2': 'var(--ink-1-mjuk)',
-  '--ink-3': 'var(--ink-1-mjuk)',
-  '--kant-stark': 'var(--ink-1-mjuk)',
-  '--insunken': 'var(--ink-hover)',
-  '--kant': 'var(--ink-1-kant)',
+  '--ink-1': '#FFFFFF',
+  '--ink-2': 'var(--vagg-mjuk)',
+  '--ink-3': 'var(--vagg-mjuk)',
+  '--kant-stark': 'rgba(255, 255, 255, 0.32)',
+  '--insunken': 'rgba(255, 255, 255, 0.12)',
+  '--kant': 'var(--premium-kant)',
+  '--ink-1-mjuk': 'var(--vagg-mjuk)',
+  '--ink-1-kant': 'var(--premium-kant)',
 } as CSSProperties
 
 /** En rad med post och belopp på bläck. */
@@ -173,12 +184,42 @@ export function PostRader({ rader }: { rader: readonly (readonly [string, string
   )
 }
 
+/** Stapeln och legenden ur segmenten. Färgen bär aldrig ensam: legenden skriver ut talet. */
+export function Stapel({ segment, ljus }: { segment: readonly FordelningSegment[]; ljus?: boolean }) {
+  const summa = segment.reduce((s, x) => s + Math.max(0, x.value), 0) || 1
+  return (
+    <>
+      <div className={`rk-stapel ${ljus ? 'rk-stapel-ljus' : ''}`.trim()} aria-hidden="true">
+        {segment.map((s, i) => (
+          <i key={i} className={`rk-ton-${i % 5}`} style={{ width: `${((Math.max(0, s.value) / summa) * 100).toFixed(1)}%` }} />
+        ))}
+      </div>
+      <ul className="rk-leg">
+        {segment.map((s, i) => (
+          <li key={i} style={{ '--rk-prick': TONER[i % 5] } as CSSProperties}>
+            <span>
+              <b>{s.visa ?? s.value}</b>{s.label ? ` ${s.label}` : null}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </>
+  )
+}
+
+const TONER = [
+  'var(--koppar)',
+  'rgba(255, 255, 255, 0.4)',
+  'rgba(255, 255, 255, 0.22)',
+  'rgba(255, 255, 255, 0.62)',
+  'rgba(244, 185, 138, 0.55)',
+]
+
 /**
- * Resultatet: vyns enda bläckyta. Etiketten säger vilken kalkylator det är,
- * rubriken förutsättningarna ("35 000 kr i Stockholm"), och talet står i
- * display med en mening som säger vad det betyder. Finns en fördelning ritas
- * den med Fordelning (regel 5), annars står talet med sin mening. Källan
- * står alltid synlig under. Delningsknappen skickas in som handling.
+ * Resultatet på bläck. Etiketten säger vilken kalkylator det är, raden
+ * förutsättningarna ("35 000 kr i lön i Stockholm"), huvudtalet med vad det
+ * är, stapeln med legenden om det finns en fördelning, meningen som säger
+ * vad talet betyder, och källan. Dela och Bädda in sist.
  */
 export function ResultatYta({
   etikett,
@@ -204,43 +245,39 @@ export function ResultatYta({
   sekundar?: ReactNode
 }) {
   return (
-    <InkPanel
-      label="Resultat"
-      eyebrow={etikett}
-      titleAs="p"
-      title={premiss}
-      action={dela}
-      secondary={sekundar}
-    >
-      <div style={PA_BLACK} aria-live="polite">
-        {segment ? (
-          <Fordelning total={tal} unit={enhet} mening={mening} segments={segment} />
-        ) : (
-          <div>
-            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              <span className="whitespace-nowrap text-tal-display text-ink-1">{tal}</span>
-              <span className="text-sm font-medium text-ink-2">{enhet}</span>
-            </div>
-            <p className="mt-2 text-sm leading-[22px] text-ink-2">{mening}</p>
-          </div>
-        )}
+    <section className="rk-res" aria-label="Resultat" id="resultat">
+      <p className="rk-res-kick">{etikett}</p>
+      <div aria-live="polite">
+        <p className="rk-res-rad">{premiss}</p>
+        <p className="rk-tal">
+          {tal}
+          <small>{enhet}</small>
+        </p>
+        {segment ? <Stapel segment={segment} /> : null}
+        <p className="rk-mening">{mening}</p>
       </div>
       {children ? (
-        <div className="mt-4" style={PA_BLACK}>
+        <div className="rk-detaljer" style={PA_BLACK}>
           {children}
         </div>
       ) : null}
-      <p className="mt-4 text-meta text-ink-1-mjuk">Källa: {kalla}</p>
-    </InkPanel>
+      <p className="rk-kalla">
+        <b>Källa:</b> {kalla}
+      </p>
+      <div className="rk-dela" style={PA_BLACK}>
+        {dela}
+        {sekundar}
+      </div>
+    </section>
   )
 }
 
-/** Kalkylatorns ram: fälten till vänster, resultatet till höger från lg. */
+/** Kalkylatorns kort: fälten till vänster, resultatet på bläck till höger från 900 px. */
 export function KalkylatorRam({ falt, resultat, efter }: { falt: ReactNode; resultat: ReactNode; efter?: ReactNode }) {
   return (
-    <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,480px)] lg:gap-6">
+    <div className="rk-kalk" id="kalkylator">
       {falt}
-      <div className="lg:sticky lg:top-24">
+      <div>
         {resultat}
         {efter}
       </div>

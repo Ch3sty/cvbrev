@@ -13,7 +13,6 @@
  * koden under resultatet. Den döljs när kalkylatorn själv visas i en iframe.
  */
 import { useEffect, useRef, useState } from 'react'
-import { INK_KNAPP, INK_LANK } from '@/components/shell/InkPanel'
 import { FALT_INPUT } from './ui'
 
 type Lage = 'vilar' | 'kopierad' | 'delad' | 'manuell'
@@ -67,16 +66,16 @@ export default function DelaResultat({ url, text, titel }: { url: string; text: 
   }
 
   return (
-    <div className="flex w-full flex-col gap-3 sm:w-auto">
-      <button type="button" onClick={dela} className={INK_KNAPP} data-cta="rakna-dela">
+    <div className="rk-dela-ruta">
+      <button type="button" onClick={dela} className="rk-dela-lank" data-cta="rakna-dela">
         {lage === 'kopierad' ? 'Länken är kopierad' : 'Dela resultatet'}
       </button>
-      <p role="status" aria-live="polite" className="text-meta text-ink-1-mjuk empty:hidden">
+      <p role="status" aria-live="polite" className="text-meta text-ink-2 empty:hidden">
         {lage === 'kopierad' ? 'Den som öppnar länken ser samma uträkning.' : ''}
       </p>
       {lage === 'manuell' ? (
         <label className="block">
-          <span className="mb-1 block text-meta text-ink-1-mjuk">Kopiera länken</span>
+          <span className="mb-1 block text-meta text-ink-2">Kopiera länken</span>
           <input ref={falt} readOnly value={url} onFocus={(e) => e.currentTarget.select()} className={FALT_INPUT} />
         </label>
       ) : null}
@@ -96,7 +95,7 @@ export function BaddaInLank({ oppen, onToggle }: { oppen: boolean; onToggle: () 
   }, [])
   if (iIframe) return null
   return (
-    <button type="button" onClick={onToggle} aria-expanded={oppen} className={`${INK_LANK} min-h-11 text-left`}>
+    <button type="button" onClick={onToggle} aria-expanded={oppen} className="rk-dela-lank">
       {oppen ? 'Dölj inbäddningskoden' : 'Bädda in på er webbplats'}
     </button>
   )

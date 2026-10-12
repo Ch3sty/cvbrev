@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import KalkylatorSida from '@/components/rakna/KalkylatorSida'
 import type { Sok } from '@/lib/rakna/sok'
 import LonEfterSkattStart from '@/components/rakna/start/lon-efter-skatt'
+import { KOMMUNER } from '@/lib/rakna/lonEfterSkatt'
 
 export const metadata: Metadata = {
   title: 'Räkna ut lön efter skatt 2026: nettolön i din kommun',
@@ -56,6 +57,8 @@ export function Innehall({ sok }: { sok?: Sok } = {}) {
   return (
     <KalkylatorSida
       kategori="lon"
+      kick="Kalkylator, 2026 års skattetabeller"
+      bevis={['Skatteverkets tabeller, inte en formel', `Alla ${KOMMUNER.length} kommuner`, 'Utan konto']}
       kalkylator={<LonEfterSkattStart sok={sok} />}
       slug="lon-efter-skatt"
       titel="Räkna ut lön efter skatt 2026"

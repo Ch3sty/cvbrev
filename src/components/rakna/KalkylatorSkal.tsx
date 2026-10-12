@@ -55,7 +55,24 @@ export default function KalkylatorSkal(p: KalkylatorSkalProps) {
 
   return (
     <KalkylatorRam
-      falt={p.falt}
+      falt={
+        <form
+          method="get"
+          action={`/rakna-ut/${p.slug}`}
+          aria-label={p.titel}
+          onSubmit={(e) => {
+            // Med JavaScript räknar kalkylatorn redan vid inmatning. Knappen
+            // tar då bara resultatet i bild, på mobil där det står under.
+            e.preventDefault()
+            const res = document.getElementById('resultat')
+            if (res && res.getBoundingClientRect().top > window.innerHeight * 0.6) {
+              res.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            }
+          }}
+        >
+          {p.falt}
+        </form>
+      }
       resultat={
         <ResultatYta
           etikett={p.etikett}

@@ -14,7 +14,7 @@ import {
   lasAnstalld,
   type AnstalldIndata,
 } from '@/lib/rakna/anstalldKostnad'
-import { decimal, kr } from '@/lib/rakna/format'
+import { decimalKort, kr } from '@/lib/rakna/format'
 
 function siffror(s: string): number {
   return Math.max(0, parseInt(s.replace(/\s/g, ''), 10) || 0)
@@ -92,7 +92,7 @@ export default function AnstalldKostnad({ start = ANSTALLD_STANDARD }: { start?:
       enhet="i månaden för arbetsgivaren"
       mening={
         d.lon > 0
-          ? `Det är ${decimal(r.faktor, 2)} gånger bruttolönen och ${kr(r.total * 12)} om året, före utrustning, lokal och rekrytering.`
+          ? `Det är ${decimalKort(r.faktor, 2)} gånger bruttolönen och ${kr(r.total * 12)} om året, före utrustning, lokal och rekrytering.`
           : 'Skriv in månadslönen före skatt.'
       }
       segment={[

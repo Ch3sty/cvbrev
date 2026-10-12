@@ -9,7 +9,7 @@
  */
 import { useEffect, useMemo, useState } from 'react'
 import KalkylatorSkal, { useIndata } from './KalkylatorSkal'
-import { FALT_ETIKETT, FALT_INPUT, FaltPanel, Kryss, PostRader, TalFalt } from './ui'
+import { FALT_ETIKETT, FALT_INPUT, FaltPanel, Kryss, PostRader, RaknaKnapp, TalFalt } from './ui'
 import {
   KOMMUNER,
   LON_STANDARD,
@@ -21,7 +21,7 @@ import {
   type LonResultat,
   type Tabeller,
 } from '@/lib/rakna/lonEfterSkatt'
-import { decimal, kr, krTecken } from '@/lib/rakna/format'
+import { decimalKort, kr, krTecken } from '@/lib/rakna/format'
 
 let tabellLaddning: Promise<Tabeller> | null = null
 function laddaTabeller(): Promise<Tabeller> {
@@ -29,13 +29,13 @@ function laddaTabeller(): Promise<Tabeller> {
   return tabellLaddning
 }
 
-function KommunVal({ id, etikett, varde, onChange }: { id: string; etikett: string; varde: string; onChange: (n: string) => void }) {
+function KommunVal({ id, namn, etikett, varde, onChange }: { id: string; namn?: string; etikett: string; varde: string; onChange: (n: string) => void }) {
   return (
     <div>
       <label htmlFor={id} className={FALT_ETIKETT}>
         {etikett}
       </label>
-      <select id={id} value={varde} onChange={(e) => onChange(e.target.value)} className={FALT_INPUT}>
+      <select id={id} name={namn} value={varde} onChange={(e) => onChange(e.target.value)} className={FALT_INPUT}>
         {KOMMUNER.map((k) => (
           <option key={k.namn} value={k.namn}>
             {k.namn}
@@ -80,37 +80,40 @@ export default function LonEfterSkatt({
   const s = sammanfattaLon(d, r)
   const satt = (del: Partial<LonIndata>) => setD((x) => ({ ...x, ...del }))
 
+  // Fälten har parameternamnen som lasLon läser, så att Räkna ut fungerar
+  // utan JavaScript (GET mot sidan, som den delade vyn räknar på servern).
   const falt = (
-    <FaltPanel>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <TalFalt
-          id="lon"
-          etikett="Månadslön före skatt"
-          enhet="kr"
-          value={lonText}
-          onChange={(v) => {
-            setLonText(v)
-            satt({ lon: siffror(v) })
-          }}
-        />
-        <KommunVal id="kommun" etikett="Kommun" varde={d.kommun} onChange={(k) => satt({ kommun: k })} />
-      </div>
+    <FaltPanel egenKnapp>
+      <TalFalt
+        id="lon"
+        namn="lon"
+        etikett="Månadslön före skatt"
+        enhet="kr"
+        value={lonText}
+        onChange={(v) => {
+          setLonText(v)
+          satt({ lon: siffror(v) })
+        }}
+      />
+      <KommunVal id="kommun" namn="kommun" etikett="Kommun" varde={d.kommun} onChange={(k) => satt({ kommun: k })} />
+      <RaknaKnapp />
       <div>
-        <Kryss checked={d.kyrka} onChange={(v) => satt({ kyrka: v })}>
+        <Kryss namn="kyrka" checked={d.kyrka} onChange={(v) => satt({ kyrka: v })}>
           Medlem i Svenska kyrkan
         </Kryss>
-        <Kryss checked={d.a66} onChange={(v) => satt({ a66: v })}>
+        <Kryss namn="a66" checked={d.a66} onChange={(v) => satt({ a66: v })}>
           Jag har fyllt 66 år
         </Kryss>
       </div>
-      <div className="border-t border-kant pt-2">
+      <div className="rk-avdelare">
         <Kryss checked={d.jamfor} onChange={(v) => satt({ jamfor: v })}>
           Jämför med en annan lön eller kommun
         </Kryss>
         {d.jamfor ? (
-          <div className="mt-2 grid gap-4 sm:grid-cols-2">
+          <div className="rk-falt-tva" style={{ marginTop: 8 }}>
             <TalFalt
               id="lon2"
+              namn="jlon"
               etikett="Ny månadslön"
               enhet="kr"
               value={jlonText}
@@ -119,7 +122,7 @@ export default function LonEfterSkatt({
                 satt({ jlon: siffror(v) })
               }}
             />
-            <KommunVal id="kommun2" etikett="Ny kommun" varde={d.jkommun} onChange={(k) => satt({ jkommun: k })} />
+            <KommunVal id="kommun2" namn="jkommun" etikett="Ny kommun" varde={d.jkommun} onChange={(k) => satt({ jkommun: k })} />
           </div>
         ) : null}
       </div>
@@ -139,7 +142,7 @@ export default function LonEfterSkatt({
       enhet="kvar i handen per månad"
       mening={
         d.lon > 0
-          ? `Skatteavdraget blir ${kr(r.skatt)} enligt skattetabell ${r.tab}, en effektiv skatt på ${decimal(r.effektiv * 100)} procent.${overTak}`
+          ? `Skatteavdraget blir ${kr(r.skatt)} enligt skattetabell ${r.tab}, en effektiv skatt på ${decimalKort(r.effektiv * 100)} procent.${overTak}`
           : 'Skriv in din månadslön före skatt.'
       }
       segment={[
