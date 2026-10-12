@@ -1,0 +1,28 @@
+{
+  "granskning": "granskning-03.md",
+  "datum": "2026-10-12",
+  "godkanda": [
+    "fs-e-vaxl-01",
+    "fs-e-vaxl-03",
+    "fs-e-vaxl-05",
+    "fs-e-vaxl-07",
+    "fs-e-antal-04",
+    "fs-e-antal-05",
+    "fs-e-antal-06",
+    "fs-e-antal-07"
+  ],
+  "strukna": [
+    { "id": "fs-e-flera-05", "skal": "Läge och form bryts av exakt samma fyra alternativ (B, C, E, F); fyllning plus form ger facit och det växande steget behövs aldrig (F5). Raden kan stå, alternativen byggs om med en ren nära miss per regeldimension." },
+    { "id": "fs-e-flera-06", "skal": "Läge och fyllning bryts av exakt samma tre alternativ (A, B, D); fyllning plus form ger facit och den växelvisa lägesregeln behövs aldrig (F5). Raden kan stå, alternativen byggs om med en ren nära miss per regeldimension." }
+  ],
+  "villkor": [
+    { "id": "fs-e-antal-04", "villkor": "Misstagstexten för A rättas före befordran: A har start 6 som den femte figuren, inte som den fjärde (start 1)." }
+  ],
+  "konstantbrott": "Noll i första hand, tre när raden inte ger fem rena, aldrig ett eller två. Bara expert. fs-e-vaxl-05 godkänd med tre.",
+  "golv": {
+    "grund": { "godkanda": 36, "nar_golvet": true },
+    "avancerad": { "godkanda": 30, "nar_golvet": true },
+    "expert": { "godkanda": 32, "nar_golvet": true }
+  },
+  "lansering": true
+}
