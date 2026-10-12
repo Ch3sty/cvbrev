@@ -291,6 +291,31 @@ const BASLINJE_OMTAGEN: Array<{ path: string; datum: string; skal: string }> = [
   },
 ]
 
+/**
+ * Undantag per sidtyp i egna filer, scripts/seo-baslinje/*-undantag.json, så
+ * att vågorna i del B inte krockar i det här skriptet. Varje fil kan ha
+ * nycklarna nedan med samma form som listorna ovan (datum och skäl krävs).
+ */
+function lasUndantagsfiler() {
+  const dir = 'scripts/seo-baslinje'
+  if (!fs.existsSync(dir)) return
+  for (const fil of fs.readdirSync(dir).filter((f) => f.endsWith('-undantag.json'))) {
+    const d = JSON.parse(fs.readFileSync(path.join(dir, fil), 'utf8')) as Record<string, unknown[]>
+    const lagg = <T,>(mal: T[], nyckel: string) => {
+      for (const post of (d[nyckel] ?? []) as T[]) mal.push(post)
+    }
+    lagg(LD_UNDANTAG, 'LD_UNDANTAG')
+    lagg(RUBRIK_BYTT, 'RUBRIK_BYTT')
+    lagg(RUBRIK_BORTA, 'RUBRIK_BORTA')
+    lagg(H1_BYTT, 'H1_BYTT')
+    lagg(META_BYTT, 'META_BYTT')
+    lagg(FAQ_BYTT, 'FAQ_BYTT')
+    lagg(LANK_BYTT, 'LANK_BYTT')
+    lagg(BASLINJE_OMTAGEN, 'BASLINJE_OMTAGEN')
+  }
+}
+lasUndantagsfiler()
+
 function arg(namn: string, fallback?: string): string | undefined {
   const i = process.argv.indexOf('--' + namn);
   return i >= 0 ? process.argv[i + 1] : fallback;

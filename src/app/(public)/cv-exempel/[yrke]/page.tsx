@@ -1,11 +1,7 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import CVExempelPage from './CVExempelPage'
-import { convertToCVMetadata } from '@/lib/cv/cv-metadata-converter'
-// Direktimport i stället för barreln '@/lib/cv/templates'. Barreln importerar
-// alla 43 mallgeneratorer statiskt, så sidan drog in en chunk på 1 302 kB för
-// att rendera en enda mall. Sidan använder bara norrsken.
-import { norrskenTemplate } from '@/lib/cv/templates/norrsken/generator'
+import { CV_PUBLICERAD, CV_ANDRAD } from './publicerad'
 
 // Example data for all professions
 const exampleData: Record<string, any> = {
@@ -870,7 +866,7 @@ Använd det som inspiration för ditt eget CV undersköterska och anpassa det ef
       kompetenser: {
         tekniska: [
           'Dokumentationssystem: Cosmic och Procapita (Expert, 6+ år daglig användning)',
-          'Medicinsk delegering – insulin, PEG, subkutana injektioner (Avancerad, 5+ år)',
+          'Medicinsk delegering: insulin, PEG, subkutana injektioner (Avancerad, 5+ år)',
           'Demensvård och BPSD-hantering (Expert, 5+ år inom geriatrik)',
           'ADL-stöd och personcentrerad vård',
           'Palliativ omvårdnad och smärtlindring',
@@ -887,8 +883,8 @@ Använd det som inspiration för ditt eget CV undersköterska och anpassa det ef
       },
 
       certifieringar: [
-        'Medicinsk delegering – Insulin, PEG, subkutana injektioner (2023)',
-        'Akta Ryggen – Ergonomiska lyft- och förflyttningstekniker (2022)',
+        'Medicinsk delegering: Insulin, PEG, subkutana injektioner (2023)',
+        'Akta Ryggen: Ergonomiska lyft- och förflyttningstekniker (2022)',
         'Basala hygienrutiner (2023)',
         'Nutritionsbedömning för äldre (2024)',
         'HLR-certifiering (förnyad 2024)'
@@ -911,19 +907,19 @@ Varför detta fungerar: Äldreomsorg och hemtjänst använder dessa system dagli
         rubrik: 'Siffror visar din faktiska arbetsbelastning',
         text: `CV:t kvantifierar arbetsinsatser: 25-30 patienter dagligen, medicinsk delegering till 20+ personer, och konkreta resultat som 15% minskade akuta inläggningar och 20% reducerade fall tack vare proaktivt förebyggande arbete.
 
-Varför detta fungerar: "Ansvarig för omvårdnad" säger ingenting om omfattning. "25-30 patienter dagligen" visar att du hanterar hög arbetsbelastning och kan prioritera effektivt. Resultat som "15% minskade akuta inläggningar" bevisar att ditt förebyggande arbete faktiskt fungerar – något som sparar pengar och förbättrar patientvården. Rekryterare ser omedelbart att du levererar mätbara resultat.`
+Varför detta fungerar: "Ansvarig för omvårdnad" säger ingenting om omfattning. "25-30 patienter dagligen" visar att du hanterar hög arbetsbelastning och kan prioritera effektivt. Resultat som "15% minskade akuta inläggningar" bevisar att ditt förebyggande arbete faktiskt fungerar, något som sparar pengar och förbättrar patientvården. Rekryterare ser omedelbart att du levererar mätbara resultat.`
       },
       {
         rubrik: 'Teknisk kompetens balanseras med bevisad empati',
         text: `CV:t kombinerar tekniska färdigheter (Cosmic, Procapita, medicinsk delegering) med personcentrerad vård och konkreta exempel: ADL-stöd anpassat efter individuella behov, delaktighet i tvärprofessionella vårdplaneringsmöten, och palliativ omvårdnad med fokus på smärtlindring och värdighet.
 
-Varför detta fungerar: Många skriver "empatisk och ansvarsfull" utan att bevisa det. Du visar empati genom handling: personcentrerad vård, deltagande i vårdplaneringsmöten och palliativ omvårdnad. Detta skiljer dig från kandidater som bara listar mjuka färdigheter utan sammanhang. Rekryterare ser att du förstår helheten – både det medicinska och det mellanmänskliga.`
+Varför detta fungerar: Många skriver "empatisk och ansvarsfull" utan att bevisa det. Du visar empati genom handling: personcentrerad vård, deltagande i vårdplaneringsmöten och palliativ omvårdnad. Detta skiljer dig från kandidater som bara listar mjuka färdigheter utan sammanhang. Rekryterare ser att du förstår helheten, både det medicinska och det mellanmänskliga.`
       },
       {
         rubrik: 'Uppdaterade certifieringar visar att du följer standarden',
         text: `CV:t listar HLR (förnyad 2024), Akta Ryggen-utbildning och specifik delegering för insulin, PEG-sond och subkutana injektioner. Varje certifiering har årtal och tydlig koppling till faktiskt arbete.
 
-Varför detta fungerar: Gammal HLR-certifiering är oanvändbar i en akut situation. Genom att skriva "HLR (förnyad 2024)" visar du att du håller kompetensen aktuell. Akta Ryggen och specifik delegering är inte bara kursmeriter – de är lagkrav för många arbetsuppgifter. Rekryterare vet att de kan anställa dig utan att omedelbart skicka dig på obligatoriska kurser.`
+Varför detta fungerar: Gammal HLR-certifiering är oanvändbar i en akut situation. Genom att skriva "HLR (förnyad 2024)" visar du att du håller kompetensen aktuell. Akta Ryggen och specifik delegering är inte bara kursmeriter, de är lagkrav för många arbetsuppgifter. Rekryterare vet att de kan anställa dig utan att omedelbart skicka dig på obligatoriska kurser.`
       },
       {
         rubrik: 'Profiltext som matchar geriatrik-specialisering',
@@ -935,7 +931,7 @@ Varför detta fungerar: Första meningen avgör om rekryterare läser vidare. "E
         rubrik: 'Tydlig karriärprogression från självständigt till mentorskap',
         text: `Erfarenheten visar utveckling: från hemtjänst med 12-15 brukare dagligen och självständigt ansvar, till äldreboende med teamarbete, tvärprofessionella möten och mentorskap för 6 nya undersköterskor. Varje roll har ökad komplexitet och ansvar.
 
-Varför detta fungerar: Många undersköterskor listar jobb utan att visa utveckling. Din progression från hemtjänst (självständigt arbete) till äldreboende (team och mentorskap) visar att du inte bara stannat kvar – du har växt. Mentorskap för 6 nya medarbetare bevisar att chefer litar på dig och att du kan dela kunskap. Detta signalerar att du är redo för nästa steg i karriären.`
+Varför detta fungerar: Många undersköterskor listar jobb utan att visa utveckling. Din progression från hemtjänst (självständigt arbete) till äldreboende (team och mentorskap) visar att du inte bara stannat kvar, du har växt. Mentorskap för 6 nya medarbetare bevisar att chefer litar på dig och att du kan dela kunskap. Detta signalerar att du är redo för nästa steg i karriären.`
       }
     ],
 
@@ -950,7 +946,7 @@ Varför detta fungerar: Många undersköterskor listar jobb utan att visa utveck
 
 ✅ "3 års erfarenhet av palliativ omvårdnad inom geriatrik med fokus på BPSD-hantering, nutritionsbedömning och smärtlindring. Ansvarig för 20-25 patienter dagligen med kroniska sjukdomar och demensdiagnoser."
 
-Om arbetsgivaren söker "erfarenhet av palliativ vård", använd exakt den formuleringen – inte synonymer. ATS-system matchar ofta ordagrant, vilket innebär att felaktig terminologi kan göra att ditt CV sorteras bort trots relevant kompetens.`
+Om arbetsgivaren söker "erfarenhet av palliativ vård", använd exakt den formuleringen, inte synonymer. ATS-system matchar ofta ordagrant, vilket innebär att felaktig terminologi kan göra att ditt CV sorteras bort trots relevant kompetens.`
       },
       {
         rubrik: 'Kvantifiera din erfarenhet med konkreta siffror',
@@ -996,13 +992,13 @@ Inkludera alltid antal års erfarenhet, typ av vårdmiljö, tekniska nyckelkompe
 
 ❌ "HLR-certifierad och utbildad i medicinsk delegering"
 
-✅ "Medicinsk delegering (insulin, PEG, subkutana injektioner, inhalation) – genomförd 2023
+✅ "Medicinsk delegering (insulin, PEG, subkutana injektioner, inhalation), genomförd 2023
 HLR-certifierad (förnyad 2024-11)
 Palliativ vård nivå 2 (40 timmar, Stockholms stad, 2023)
-Akta Ryggen – ergonomiska förflyttningstekniker (2022)
+Akta Ryggen, ergonomiska förflyttningstekniker (2022)
 Basala hygienrutiner (förnyad 2024)"
 
-Inkludera förnyelsedatum för tidsbegränsade certifieringar som HLR och basala hygienrutiner. Om du genomgått intern utbildning på arbetsplatsen, ta med även dessa – de visar arbetsgivarens förtroende och din vilja att utvecklas.`
+Inkludera förnyelsedatum för tidsbegränsade certifieringar som HLR och basala hygienrutiner. Om du genomgått intern utbildning på arbetsplatsen, ta med även dessa, de visar arbetsgivarens förtroende och din vilja att utvecklas.`
       },
       {
         rubrik: 'Balansera tekniska och mjuka färdigheter med bevis',
@@ -1021,19 +1017,19 @@ Tekniska färdigheter kan du lista direkt (de är verifierbara), men mjuka egens
     faq: [
       {
         fraga: 'Hur långt ska mitt CV som undersköterska vara?',
-        svar: 'För undersköterskor med 0-5 års erfarenhet: 1 sida. Med 5-10 års erfarenhet: 1-2 sidor. Med 10+ år och specialisering: Max 2 sidor. Fokusera på relevant erfarenhet – du behöver inte inkludera varje vikariat eller timanställning. Prioritera djup över bredd.'
+        svar: 'För undersköterskor med 0-5 års erfarenhet: 1 sida. Med 5-10 års erfarenhet: 1-2 sidor. Med 10+ år och specialisering: Max 2 sidor. Fokusera på relevant erfarenhet, du behöver inte inkludera varje vikariat eller timanställning. Prioritera djup över bredd.'
       },
       {
         fraga: 'Ska jag inkludera VFU-perioder om jag är nyutexaminerad?',
-        svar: 'Ja, definitivt! Om du är nyutexaminerad eller har begränsad erfarenhet, lista dina VFU-perioder under "Erfarenhet" eller "Praktik". Nämn vårdmiljö (geriatrik, akutvård, hemtjänst), arbetsgivare och vad du gjorde. Exempel: "VFU Karolinska Universitetssjukhuset, Geriatrisk avdelning – ADL-stöd, medicindelning, dokumentation i Cosmic".'
+        svar: 'Ja, definitivt! Om du är nyutexaminerad eller har begränsad erfarenhet, lista dina VFU-perioder under "Erfarenhet" eller "Praktik". Nämn vårdmiljö (geriatrik, akutvård, hemtjänst), arbetsgivare och vad du gjorde. Exempel: "VFU Karolinska Universitetssjukhuset, Geriatrisk avdelning, ADL-stöd, medicindelning, dokumentation i Cosmic".'
       },
       {
         fraga: 'Hur visar jag medicinsk delegering i mitt CV?',
-        svar: 'Skapa en "Certifieringar"-sektion och lista specifikt vad du har delegering för: "Medicinsk delegering – Insulin, PEG-sondmatning, subkutana injektioner (2023)". I erfarenhetssektionen kan du också nämna antal patienter: "Medicinsk delegering för 20+ patienter dagligen". Om du inte har delegering men är villig att ta det, skriv under kompetenser: "Motiverad att genomgå medicindelegering".'
+        svar: 'Skapa en "Certifieringar"-sektion och lista specifikt vad du har delegering för: "Medicinsk delegering, Insulin, PEG-sondmatning, subkutana injektioner (2023)". I erfarenhetssektionen kan du också nämna antal patienter: "Medicinsk delegering för 20+ patienter dagligen". Om du inte har delegering men är villig att ta det, skriv under kompetenser: "Motiverad att genomgå medicindelegering".'
       },
       {
         fraga: 'Ska jag ha med profilbild på mitt CV?',
-        svar: 'I Sverige är det vanligt men inte krav. För vårdyrken kan en professionell, vänlig bild vara positivt eftersom det signalerar tillgänglighet och empati. Viktigt: Använd en professionell bild med neutral bakgrund, inte ett party-foto. Om du är osäker, använd en CV-mall utan bild – det är aldrig fel.'
+        svar: 'I Sverige är det vanligt men inte krav. För vårdyrken kan en professionell, vänlig bild vara positivt eftersom det signalerar tillgänglighet och empati. Viktigt: Använd en professionell bild med neutral bakgrund, inte ett party-foto. Om du är osäker, använd en CV-mall utan bild, det är aldrig fel.'
       },
       {
         fraga: 'Hur anpassar jag mitt CV för olika vårdmiljöer?',
@@ -1041,7 +1037,7 @@ Tekniska färdigheter kan du lista direkt (de är verifierbara), men mjuka egens
       },
       {
         fraga: 'Vad gör jag om jag har luckor i mitt CV?',
-        svar: 'Var ärlig men strategisk. Om luckan beror på föräldraledighet, studier eller vård av anhörig, nämn det kortfattat: "Föräldraledighet 2020-2021". Om luckan är längre, fokusera på vad du gjorde under tiden som är relevant: "Vidareutbildning inom palliativ vård" eller "Ideellt arbete inom elder care". Rekryterare förstår att livet händer – det viktiga är att du kan förklara det om de frågar.'
+        svar: 'Var ärlig men strategisk. Om luckan beror på föräldraledighet, studier eller vård av anhörig, nämn det kortfattat: "Föräldraledighet 2020-2021". Om luckan är längre, fokusera på vad du gjorde under tiden som är relevant: "Vidareutbildning inom palliativ vård" eller "Ideellt arbete inom elder care". Rekryterare förstår att livet händer, det viktiga är att du kan förklara det om de frågar.'
       },
       {
         fraga: 'Hur visar jag att jag är stresstålig utan att bara säga det?',
@@ -1049,11 +1045,11 @@ Tekniska färdigheter kan du lista direkt (de är verifierbara), men mjuka egens
       },
       {
         fraga: 'Ska jag lista alla arbetsgivare eller bara de viktigaste?',
-        svar: 'Fokusera på relevant och nyare erfarenhet. Om du jobbat som undersköterska på 5 olika äldreboenden, lista de 2-3 senaste och mest relevanta. Du kan sammanfatta äldre erfarenhet: "Tidigare erfarenhet från äldreboenden i Stockholms stad (2015-2017)". Prioritera djup över bredd – bättre att detaljerat beskriva 2 roller än att ytligt lista 6.'
+        svar: 'Fokusera på relevant och nyare erfarenhet. Om du jobbat som undersköterska på 5 olika äldreboenden, lista de 2-3 senaste och mest relevanta. Du kan sammanfatta äldre erfarenhet: "Tidigare erfarenhet från äldreboenden i Stockholms stad (2015-2017)". Prioritera djup över bredd, bättre att detaljerat beskriva 2 roller än att ytligt lista 6.'
       },
       {
         fraga: 'Hur mycket personlig information ska jag inkludera?',
-        svar: 'Minimalt. Du behöver inte ange ålder, personnummer, civilstånd eller barn. Inkludera: namn, telefon, e-post, stad (inte fullständig adress), och eventuellt LinkedIn. Om du har körkort och det är relevant för hemtjänst, nämn det under kompetenser. Mindre är mer – fokusera på yrkesrelaterad information.'
+        svar: 'Minimalt. Du behöver inte ange ålder, personnummer, civilstånd eller barn. Inkludera: namn, telefon, e-post, stad (inte fullständig adress), och eventuellt LinkedIn. Om du har körkort och det är relevant för hemtjänst, nämn det under kompetenser. Mindre är mer, fokusera på yrkesrelaterad information.'
       },
       {
         fraga: 'Hur lyfter jag fram teamarbete och samarbete?',
@@ -1187,12 +1183,14 @@ Använd det som inspiration för ditt eget cv vårdadministratör och anpassa de
     varforDetFungerar: [
       {
         rubrik: 'ATS-system känner igen vårdspecifika system direkt',
+        ankare: 'kompetenser',
         text: `CV:t nämner specifika journalsystem som Cosmic, TakeCare och Melior tillsammans med konkreta kompetensområden som patientadministration, remisshantering och ICD-10-kodning.
 
 **Varför detta fungerar:** Vårdcentraler och sjukhus använder dessa system dagligen, och ATS-algoritmer söker efter exakt dessa termer. När du skriver "TakeCare" och "Cosmic" med årtal och användningsnivå istället för bara "journalsystem" matchar du både jobbannonsens kravlista och de nyckelord rekryterare filtrerar på. Du visar omedelbart att du kan börja jobba utan omfattande systemutbildning.`
       },
       {
         rubrik: 'Siffror visar din faktiska arbetsbelastning',
+        ankare: 'erfarenhet',
         text: `CV:t kvantifierar arbetsinsatser: 120-150 patientkontakter dagligen, 200+ remisser per månad, tidsbokning för 8 läkare och konkreta resultat som 25% minskade väntetider tack vare effektiviserat bokningssystem.
 
 **Varför detta fungerar:** "Ansvarig för tidsbokning" säger ingenting om omfattning. "120-150 patientkontakter dagligen" visar att du hanterar hög arbetsbelastning och kan prioritera i stressiga situationer. Resultat som "25% minskade väntetider" bevisar att ditt förbättringsarbete faktiskt fungerar och förbättrar patientflödet. Rekryterare ser omedelbart att du levererar mätbara resultat även i administrativ roll.`
@@ -1205,12 +1203,14 @@ Använd det som inspiration för ditt eget cv vårdadministratör och anpassa de
       },
       {
         rubrik: 'Uppdaterade certifieringar visar att du följer lagkrav',
+        ankare: 'certifieringar',
         text: `CV:t listar GDPR-utbildning (2023), Patientdatalag och journalhantering samt specifik YH-utbildning i vårdadministration. Varje certifiering har årtal och tydlig koppling till faktiskt arbete med känslig patientinformation.
 
 **Varför detta fungerar:** Sekretess och GDPR är inte bara rekommendationer - de är lagkrav för alla som hanterar patientdata. Genom att skriva "Sekretessutbildning och GDPR (2023)" visar du att du håller kunskapen aktuell. Rekryterare vet att de kan anställa dig utan att omedelbart skicka dig på obligatoriska utbildningar, vilket sparar både tid och pengar.`
       },
       {
         rubrik: 'Profiltext som matchar sjukvårdsadministration direkt',
+        ankare: 'profil',
         text: `Profiltexten öppnar med "Erfaren vårdadministratör med 6+ års erfarenhet av patientadministration, tidsbokning och journalhantering inom primärvård och sjukhus". Detta följs direkt av nyckelkompetenser som Cosmic, TakeCare, patientflöde och GDPR.
 
 **Varför detta fungerar:** Första meningen avgör om rekryterare läser vidare. "Erfaren administratör" är vagt. "6+ års erfarenhet av patientadministration inom primärvård och sjukhus, specialist på Cosmic och TakeCare" visar omedelbart att du har djup erfarenhet inom det specifika område de söker. ATS-system rankar CV:n som har nyckelord tidigt i dokumentet högre, vilket ökar chansen att du kallas till intervju.`
@@ -1370,7 +1370,7 @@ Detta CV-exempel visar hur en erfaren vårdbiträde med specialisering inom deme
       kontakt: {
         telefon: '070-123 45 67',
         epost: 'maria.johansson@exempel.se',
-        plats: 'Stockholm',
+        plats: 'Göteborg',
         linkedin: 'linkedin.com/in/mariajohansson'
       },
 
@@ -1383,7 +1383,7 @@ Detta CV-exempel visar hur en erfaren vårdbiträde med specialisering inom deme
           period: '2021 – Pågående',
           beskrivning: [
             'Ansvarig vårdbiträde för 12 boende med demensdiagnos (Alzheimer, vaskulär demens) med fokus på personcentrerad omvårdnad och BPSD-hantering',
-            'Kontaktperson för 4 boende – koordinerar individuella vårdplaner, anhörigkontakter och dokumentation i Procapita, vilket ökat anhörigtillfredsställelse med 35% enligt brukarenkäter',
+            'Kontaktperson för 4 boende, koordinerar individuella vårdplaner, anhörigkontakter och dokumentation i Procapita, vilket ökat anhörigtillfredsställelse med 35% enligt brukarenkäter',
             'Implementerade strukturerad social aktivering (musikstunder, promenader, måltidsaktiviteter) som minskade oro och vandrande hos 8 av 12 boende',
             'Handleder 2-3 vårdbiträdespraktikanter per termin i demensomvårdnad, förflyttningsteknik och dokumentationsrutiner',
             'Tillämpar säker förflyttningsteknik och lyfthjälpmedel vilket resulterat i noll arbetsrelaterade skador på enheten under 24 månader'
@@ -1395,8 +1395,8 @@ Detta CV-exempel visar hur en erfaren vårdbiträde med specialisering inom deme
           period: '2019 – 2021',
           beskrivning: [
             'Vårdbiträde för 15 multisjuka äldre per skift med ansvar för ADL-stöd (personlig hygien, påklädning, toalettbesök), nutritionsstöd och sociala aktiviteter',
-            'Dokumenterade dagliga omvårdnadsinsatser i Lifecare och rapporterade avvikelser enligt rutiner – 98% korrekt dokumentation enligt internrevision',
-            'Deltog i palliativ omvårdnad för 6 boende i livets slutskede – skapade värdighet och lindring i samarbete med sjuksköterskor och anhöriga',
+            'Dokumenterade dagliga omvårdnadsinsatser i Lifecare och rapporterade avvikelser enligt rutiner, 98% korrekt dokumentation enligt internrevision',
+            'Deltog i palliativ omvårdnad för 6 boende i livets slutskede, skapade värdighet och lindring i samarbete med sjuksköterskor och anhöriga',
             'Genomförde fallpreventionsåtgärder (nattlig tillsyn, gånghjälpmedel, tydlig miljö) som bidrog till 40% minskning av fallincidenter på enheten'
           ]
         },
@@ -1423,27 +1423,27 @@ Detta CV-exempel visar hur en erfaren vårdbiträde med specialisering inom deme
 
       kompetenser: {
         tekniska: [
-          'ADL-stöd (Expert, 5+ år) – personlig hygien, påklädning, måltidsstöd',
-          'Demensomvårdnad (Expert, 4+ år) – BPSD-hantering, personcentrerad vård',
-          'Dokumentationssystem (Avancerad) – Procapita, Lifecare, Treserva',
-          'Förflyttningsteknik (Expert, 5+ år) – lyfthjälpmedel, glidlakan, mobila liftar',
-          'Palliativ omvårdnad – symtomlindring, anhörigstöd',
-          'Basala hygienrutiner – infektionsprevention',
-          'Nutritionskunskap – BMI-uppföljning, måltidsstöd'
+          'ADL-stöd (Expert, 5+ år): personlig hygien, påklädning, måltidsstöd',
+          'Demensomvårdnad (Expert, 4+ år): BPSD-hantering, personcentrerad vård',
+          'Dokumentationssystem (Avancerad): Procapita, Lifecare, Treserva',
+          'Förflyttningsteknik (Expert, 5+ år): lyfthjälpmedel, glidlakan, mobila liftar',
+          'Palliativ omvårdnad: symtomlindring, anhörigstöd',
+          'Basala hygienrutiner: infektionsprevention',
+          'Nutritionskunskap: BMI-uppföljning, måltidsstöd'
         ],
         personliga: [
-          'Empatisk och lugn – skapar trygghet för personer med demens, 35% ökad anhörigtillfredsställelse',
-          'Flexibel och pålitlig – arbetar dag-, kväll- och helgpass, 100% närvarofrekvens senaste 18 månaderna',
-          'Pedagogisk – handleder praktikanter och nyanställda i demensomvårdnad och dokumentationsrutiner'
+          'Empatisk och lugn: skapar trygghet för personer med demens, 35% ökad anhörigtillfredsställelse',
+          'Flexibel och pålitlig: arbetar dag-, kväll- och helgpass, 100% närvarofrekvens senaste 18 månaderna',
+          'Pedagogisk: handleder praktikanter och nyanställda i demensomvårdnad och dokumentationsrutiner'
         ]
       },
 
       certifieringar: [
-        'HLR (Hjärt-Lungräddning) – 2024',
-        'Förflyttningsteknik / Akta Ryggen – 2023',
-        'Demensutbildning (40 timmar) – 2022',
-        'Palliativ omvårdnad (20 timmar) – 2021',
-        'Basala hygienrutiner – 2020'
+        'HLR (Hjärt-Lungräddning), 2024',
+        'Förflyttningsteknik / Akta Ryggen, 2023',
+        'Demensutbildning (40 timmar), 2022',
+        'Palliativ omvårdnad (20 timmar), 2021',
+        'Basala hygienrutiner, 2020'
       ],
 
       sprak: [
@@ -1455,6 +1455,7 @@ Detta CV-exempel visar hur en erfaren vårdbiträde med specialisering inom deme
     varforDetFungerar: [
       {
         rubrik: 'Tydlig specialisering inom demensomvårdnad',
+        ankare: 'erfarenhet',
         text: `CV:t visar progression från allmän äldreomsorg till specifik demensomvårdnad på särskilt boende, med konkret erfarenhet av 12 boende med demensdiagnos. Profiltext och arbetsuppgifter använder branschtermer som BPSD-hantering och trygghetsskapande rutiner.
 
 Varför detta fungerar: Demensomvårdnad är en eftertraktad specialkompetens som kräver särskild utbildning och erfarenhet. Rekryterare söker aktivt efter vårdbiträden med dokumenterad demenserfarenhet eftersom dessa roller är svåra att rekrytera till. Genom att kvantifiera antalet boende och nämna specifika metoder visar du att du inte bara har arbetat med demens, utan att du har djup, relevant erfarenhet.`
@@ -1467,12 +1468,14 @@ Varför detta fungerar: Vårdorganisationer följer noga kvalitetsindikatorer so
       },
       {
         rubrik: 'ATS-optimering med branschspecifika system',
+        ankare: 'kompetenser',
         text: `CV:t nämner specifika dokumentationssystem vid namn: Procapita för äldreomsorg, Lifecare för medicinteknik och Treserva för schemaläggning. Dessutom används vedertagna termer som ADL-stöd, basal hygien och nutritionsuppföljning.
 
 Varför detta fungerar: ATS-system som läser CV:n söker efter exakta systemnamn och branschterminologi. Kommuner och privata vårdföretag använder ofta samma system nationellt, så när rekryterare söker efter "Procapita" eller "ADL-stöd" i kandidatbanken dyker detta CV upp direkt. Generiska beskrivningar som "journalsystem" eller "omvårdnad" ger inga träffar i dessa sökningar.`
       },
       {
         rubrik: 'Certifieringar med årtal visar uppdaterad kompetens',
+        ankare: 'certifieringar',
         text: `Alla certifieringar är daterade: HLR (2024), Förflyttningsteknik (2023) och Demensutbildning (2022). Detta visar att kompetensen är aktuell och regelbundet uppdaterad.
 
 Varför detta fungerar: Vårdorganisationer har krav på gällande HLR-certifiering och ergonomisk förflyttningsteknik enligt Arbetsmiljöverket. När du anger årtal visar du att du förstår dessa krav och att din kompetens är giltig. Rekryterare kan se direkt att de inte behöver skicka dig på akuta utbildningar före anställningsstart, vilket gör dig till en mer attraktiv kandidat.`
@@ -1678,11 +1681,11 @@ Använd exemplet som inspiration för ditt eget CV hemtjänst och anpassa det ef
 
       kompetenser: {
         tekniska: [
-          'Treserva – dokumentationssystem (Expert, 6+ år daglig användning)',
-          'Phoniro Care – nyckellösa lås och schemaläggning (Avancerad, 4+ år)',
+          'Treserva: dokumentationssystem (Expert, 6+ år daglig användning)',
+          'Phoniro Care: nyckellösa lås och schemaläggning (Avancerad, 4+ år)',
           'ADL-stöd och personlig hygien (Expert, 6+ år)',
           'Demensomvårdnad och BPSD-hantering',
-          'Serviceinsatser – matlagning, städ, inköp, tvätt',
+          'Serviceinsatser: matlagning, städ, inköp, tvätt',
           'Medicinpåminnelse och grundläggande hälsoövervakning',
           'B-körkort (6+ år)'
         ],
@@ -1696,9 +1699,9 @@ Använd exemplet som inspiration för ditt eget CV hemtjänst och anpassa det ef
       },
 
       certifieringar: [
-        'HLR – Hjärt-Lungräddning (förnyad 2024)',
+        'HLR: Hjärt-Lungräddning (förnyad 2024)',
         'Förflyttningsteknik och ergonomiska lyft (2023)',
-        'Demensutbildning – BPSD-hantering och personcentrerad omsorg (2022)',
+        'Demensutbildning: BPSD-hantering och personcentrerad omsorg (2022)',
         'Basala hygienrutiner och smittskydd (2023)',
         'Första hjälpen (2024)'
       ],
@@ -1712,9 +1715,10 @@ Använd exemplet som inspiration för ditt eget CV hemtjänst och anpassa det ef
     varforDetFungerar: [
       {
         rubrik: 'Tydlig specialisering inom hemtjänst och kontaktmannaskap',
+        ankare: 'erfarenhet',
         text: `CV:t visar progression från vikarie till fast anställd till kontaktmannaskap för 8 brukare. Arbetsuppgifterna beskriver självständigt ansvar för 12-15 brukare dagligen med konkret erfarenhet av genomförandeplaner, biståndsbedömningar och tvärprofessionellt samarbete.
 
-Varför detta fungerar: Kontaktmannaskap är en förtroenderoll som kräver både omvårdnadskompetens och samordningsförmåga. Genom att kvantifiera antal brukare (8 kontaktmannaskap, 12-15 brukare dagligen) och beskriva konkreta arbetsuppgifter visar du att du inte bara utför ADL-stöd – du har ansvar för samordning med sjuksköterskor och biståndshandläggare. Detta signalerar att tidigare arbetsgivare litat på dig med ledarskap och administration.`
+Varför detta fungerar: Kontaktmannaskap är en förtroenderoll som kräver både omvårdnadskompetens och samordningsförmåga. Genom att kvantifiera antal brukare (8 kontaktmannaskap, 12-15 brukare dagligen) och beskriva konkreta arbetsuppgifter visar du att du inte bara utför ADL-stöd, du har ansvar för samordning med sjuksköterskor och biståndshandläggare. Detta signalerar att tidigare arbetsgivare litat på dig med ledarskap och administration.`
       },
       {
         rubrik: 'Kvantifierade resultat som bevisar omvårdnadskvalitet',
@@ -1724,12 +1728,14 @@ Varför detta fungerar: Kommuner och privata vårdgivare följer noga kvalitetsi
       },
       {
         rubrik: 'ATS-optimering med branschspecifika system och nyckelord',
+        ankare: 'kompetenser',
         text: `CV:t nämner specifika dokumentationssystem vid namn: Treserva för daglig dokumentation (6+ år expert), Phoniro Care för nyckellösa lås och schemaläggning (4+ år avancerad). Dessutom används vedertagna termer som ADL-stöd, serviceinsatser, omvårdnadsinsatser, genomförandeplan och biståndsbedömning.
 
 Varför detta fungerar: ATS-system som läser CV:n söker efter exakta systemnamn och branschterminologi. Kommuner och privata vårdgivare använder ofta samma system nationellt, så när rekryterare söker efter "Treserva" eller "Phoniro Care" i kandidatbanken dyker detta CV upp direkt. Generiska beskrivningar som "dokumentationssystem" eller "digitala verktyg" ger inga träffar i dessa sökningar. Att ange kompetensnivå (Expert, Avancerad) visar också att du kan börja arbeta utan omfattande systemutbildning.`
       },
       {
         rubrik: 'B-körkort presenterat som nödvändig kompetens',
+        ankare: 'certifieringar',
         text: `B-körkort listas under tekniska kompetenser med specifik erfarenhetstid (6+ år), inte som en sidoanteckning. Detta visar medvetenhet om att hemtjänst kräver geografisk rörlighet mellan brukare.
 
 Varför detta fungerar: Hemtjänst innebär resor mellan brukare, ofta i glesbygd eller stora stadsområden. B-körkort är ett absolut krav för de flesta hemtjänstpositioner. Genom att placera körkortet under tekniska kompetenser (inte bara nämna det i förbifarten) och ange erfarenhetstid visar du att du förstår rollen och kan hantera ruttplanering och tidsoptimering. Många sökande glömmer detta eller nämner det endast i förbigående, vilket gör att ATS-system missar dem vid sökning på "B-körkort".`
@@ -1751,7 +1757,7 @@ Varför detta fungerar: Hemtjänst kräver både teknisk precision och mellanmä
     tips: [
       {
         rubrik: 'Ange alltid antal brukare du hanterat',
-        text: `Rekryterare inom hemtjänst vill veta din kapacitet. Att skriva "ansvarig för brukare" säger ingenting – alla i hemtjänsten har brukare. Specificera antal, typ av insatser och geografiskt område för att visa din faktiska erfarenhet.
+        text: `Rekryterare inom hemtjänst vill veta din kapacitet. Att skriva "ansvarig för brukare" säger ingenting, alla i hemtjänsten har brukare. Specificera antal, typ av insatser och geografiskt område för att visa din faktiska erfarenhet.
 
 **Exempel på före/efter**:
 
@@ -1763,31 +1769,31 @@ Konkreta siffror gör att rekryteraren direkt kan bedöma om din erfarenhetsniv�
       },
       {
         rubrik: 'Lista dokumentationssystem med erfarenhetsnivå',
-        text: `Treserva, Phoniro Care, Lifecare – dessa system är vardagen i hemtjänsten. Om du inte nämner dem antar arbetsgivaren att du behöver upplärning. Skriv systemnamn OCH hur länge du använt dem för att visa att du kan bidra direkt.
+        text: `Treserva, Phoniro Care, Lifecare, dessa system är vardagen i hemtjänsten. Om du inte nämner dem antar arbetsgivaren att du behöver upplärning. Skriv systemnamn OCH hur länge du använt dem för att visa att du kan bidra direkt.
 
 **Exempel på före/efter**:
 
 ❌ "Erfarenhet av olika dokumentationssystem"
 
-✅ "Treserva – Expert, 6+ år daglig dokumentation | Phoniro Care – Avancerad, 4+ år schemaläggning och nyckellösa lås"
+✅ "Treserva, Expert, 6+ år daglig dokumentation | Phoniro Care, Avancerad, 4+ år schemaläggning och nyckellösa lås"
 
 Specifika system visar att du förstår branschens digitala infrastruktur.`
       },
       {
         rubrik: 'Inkludera B-körkort tydligt',
-        text: `Hemtjänst innebär resor mellan brukare, ofta i glesbygd eller stora stadsområden. B-körkort är ett absolut krav för de flesta tjänster. Glöm inte att nämna det – annars kanske din ansökan sorteras bort redan vid första gallringen.
+        text: `Hemtjänst innebär resor mellan brukare, ofta i glesbygd eller stora stadsområden. B-körkort är ett absolut krav för de flesta tjänster. Glöm inte att nämna det, annars kanske din ansökan sorteras bort redan vid första gallringen.
 
 **Exempel på före/efter**:
 
 ❌ (Inget nämnt om körkort)
 
-✅ "B-körkort (6+ år) – erfarenhet av ruttplanering i stadsområde med 8 km² täckning"
+✅ "B-körkort (6+ år), erfarenhet av ruttplanering i stadsområde med 8 km² täckning"
 
 Visa att du inte bara har körkort utan även praktisk erfarenhet av att planera effektiva rutter.`
       },
       {
         rubrik: 'Kvantifiera förbättringar du bidragit till',
-        text: `Hemtjänst handlar om mer än att utföra uppgifter – det handlar om att förbättra livskvalitet. Om du minskat fallolyckor, ökat brukarnöjdhet eller förbättrat dokumentationskvalitet, skriv det med siffror. Detta skiljer dig från kandidater som bara beskriver arbetsuppgifter.
+        text: `Hemtjänst handlar om mer än att utföra uppgifter, det handlar om att förbättra livskvalitet. Om du minskat fallolyckor, ökat brukarnöjdhet eller förbättrat dokumentationskvalitet, skriv det med siffror. Detta skiljer dig från kandidater som bara beskriver arbetsuppgifter.
 
 **Exempel på före/efter**:
 
@@ -1811,13 +1817,13 @@ Detaljerad beskrivning visar att du förstår ansvaret och kan hantera det.`
       },
       {
         rubrik: 'Håll certifieringar aktuella med årtal',
-        text: `HLR, förflyttningsteknik och hygienrutiner är krav i hemtjänsten. Om du inte visar att dina certifieringar är giltiga kan arbetsgivaren anta att de löpt ut. Inkludera alltid årtal – det visar att du tar säkerhet på allvar och håller dig uppdaterad.
+        text: `HLR, förflyttningsteknik och hygienrutiner är krav i hemtjänsten. Om du inte visar att dina certifieringar är giltiga kan arbetsgivaren anta att de löpt ut. Inkludera alltid årtal, det visar att du tar säkerhet på allvar och håller dig uppdaterad.
 
 **Exempel på före/efter**:
 
 ❌ "Utbildad i HLR och förflyttning"
 
-✅ "HLR – förnyad 2024 | Förflyttningsteknik och ergonomiska lyft (2023) | Basala hygienrutiner (2023)"
+✅ "HLR, förnyad 2024 | Förflyttningsteknik och ergonomiska lyft (2023) | Basala hygienrutiner (2023)"
 
 Aktuella årtal bevisar att du är redo att börja arbeta utan extra utbildningskostnader.`
       }
@@ -1842,7 +1848,7 @@ Aktuella årtal bevisar att du är redo att börja arbeta utan extra utbildnings
       },
       {
         fraga: 'Vilka system ska jag nämna i ett hemtjänst-CV?',
-        svar: 'De vanligaste är Treserva (dokumentation), Phoniro Care (nyckellösa lås och schemaläggning), Lifecare och Time Care (schemaläggning). Ange systemnamn och hur länge du använt dem, t.ex. "Treserva – 4+ år daglig dokumentation". Detta visar att du kan börja arbeta direkt.'
+        svar: 'De vanligaste är Treserva (dokumentation), Phoniro Care (nyckellösa lås och schemaläggning), Lifecare och Time Care (schemaläggning). Ange systemnamn och hur länge du använt dem, t.ex. "Treserva, 4+ år daglig dokumentation". Detta visar att du kan börja arbeta direkt.'
       },
       {
         fraga: 'Hur lång ska profilsammanfattningen vara?',
@@ -1936,7 +1942,7 @@ Använd exemplet som inspiration när du skriver ditt eget CV. Fokusera på barn
       kompetenser: {
         tekniska: [
           'Lpfö 18 (Expert, 8+ år)',
-          'Unikum – dokumentationssystem (Avancerad, 5+ år)',
+          'Unikum: dokumentationssystem (Avancerad, 5+ år)',
           'Teckenspråk grundkurs (Avancerad, 6+ år)',
           'Första hjälpen barn',
           'Bornholmsmodellen (språkutveckling)',
@@ -1955,8 +1961,8 @@ Använd exemplet som inspiration när du skriver ditt eget CV. Fokusera på barn
       certifieringar: [
         'Första hjälpen barn och HLR (förnyad 2024)',
         'Teckenspråk grundkurs (2022)',
-        'ICDP – Dialogpedagogik (2021)',
-        'Bornholmsmodellen – språkutveckling (2019)',
+        'ICDP: Dialogpedagogik (2021)',
+        'Bornholmsmodellen: språkutveckling (2019)',
         'Allergi- och astmautbildning för förskola (2023)'
       ],
 
@@ -1970,7 +1976,7 @@ Använd exemplet som inspiration när du skriver ditt eget CV. Fokusera på barn
     varforDetFungerar: [
       {
         rubrik: 'Nyckelord från Lpfö 18 och dokumentationssystem',
-        text: `CV:t innehåller specifika termer som "Lpfö 18", "Unikum", "Pedagog Stockholm", "språkutveckling", "inkluderande pedagogik" och "Bornholmsmodellen" – exakt de nyckelord som ATS-system söker efter.
+        text: `CV:t innehåller specifika termer som "Lpfö 18", "Unikum", "Pedagog Stockholm", "språkutveckling", "inkluderande pedagogik" och "Bornholmsmodellen", exakt de nyckelord som ATS-system söker efter.
 
 Varför detta fungerar: Många förskolor använder automatiserade rekryteringssystem som filtrerar på pedagogiska begrepp och dokumentationsverktyg. När CV:t matchar både läroplanen (Lpfö 18) och de system som kommunen eller fristående förskolan använder (Unikum, IST, Pedagog Stockholm) passerar det automatiskt första sållningen. Rekryteraren ser direkt att kandidaten behärskar de verktyg och pedagogiska ramverk som krävs för tjänsten.`
       },
@@ -1978,7 +1984,7 @@ Varför detta fungerar: Många förskolor använder automatiserade rekryteringss
         rubrik: 'Konkreta siffror på barngrupper och resultat',
         text: `Istället för "ansvarig för barngrupp" står det "huvudansvarig för avdelning med 22 barn, åldern 1-3 år" och "85% av barnen förbättrade sin fonologiska medvetenhet med Bornholmsmodellen på 6 månader".
 
-Varför detta fungerar: Rekryterare behöver veta att du klarar den verkliga arbetsbördan – 22 barn i åldersgruppen 1-3 år kräver helt andra kompetenser än 15 femåringar. Kvantifierade resultat (85% förbättring, 30% färre konflikter) visar att du inte bara genomför aktiviteter utan faktiskt mäter och följer upp effekten av ditt pedagogiska arbete. Det signalerar professionalism och resultatfokus, inte bara omsorg.`
+Varför detta fungerar: Rekryterare behöver veta att du klarar den verkliga arbetsbördan, 22 barn i åldersgruppen 1-3 år kräver helt andra kompetenser än 15 femåringar. Kvantifierade resultat (85% förbättring, 30% färre konflikter) visar att du inte bara genomför aktiviteter utan faktiskt mäter och följer upp effekten av ditt pedagogiska arbete. Det signalerar professionalism och resultatfokus, inte bara omsorg.`
       },
       {
         rubrik: 'Pedagogiska metoder backade med konkreta resultat',
@@ -1988,7 +1994,7 @@ Varför detta fungerar: Många skriver "Montessori" eller "Reggio Emilia" på CV
       },
       {
         rubrik: 'Uppdaterade certifieringar med årtal',
-        text: `Certifieringssektionen visar "Första hjälpen barn & HLR (förnyad 2024)", "Teckenspråk/TAKK (2022)", "Bornholmsmodellen (2023)" och "ICDP-certifierad handledare (2024)" – alla med specifika årtal.
+        text: `Certifieringssektionen visar "Första hjälpen barn & HLR (förnyad 2024)", "Teckenspråk/TAKK (2022)", "Bornholmsmodellen (2023)" och "ICDP-certifierad handledare (2024)", alla med specifika årtal.
 
 Varför detta fungerar: Första hjälpen för barn är obligatoriskt i de flesta förskolor och måste förnyas regelbundet. När rekryteraren ser att din certifiering är från 2024 vet de att du uppfyller Arbetsmiljöverkets krav och kan börja arbeta direkt. Årtal på pedagogiska certifieringar (ICDP, Bornholmsmodellen) visar att du aktivt uppdaterar din kompetens, vilket väger tungt när kommuner satsar på specifika metoder och söker certifierade pedagoger.`
       },
@@ -1996,13 +2002,13 @@ Varför detta fungerar: Första hjälpen för barn är obligatoriskt i de flesta
         rubrik: 'Profiltext som kopplar erfarenhet till läroplan',
         text: `Profiltexten börjar med "Legitimerad förskollärare med 8 års erfarenhet av språkutveckling och inkluderande pedagogik enligt Lpfö 18" istället för generiska fraser som "passionerad om barn" eller "skapar trygga miljöer".
 
-Varför detta fungerar: Rekryterare läser hundratals CV där alla är "engagerade" och "omhändertagande". Denna profiltext anger omedelbart legitimation, år i yrket (8), specialkompetens (språkutveckling) och koppling till gällande läroplan (Lpfö 18). På 15 sekunder vet rekryteraren att du är kvalificerad, erfaren och uppdaterad på pedagogiska styrdokument – allt som krävs för att läsa vidare.`
+Varför detta fungerar: Rekryterare läser hundratals CV där alla är "engagerade" och "omhändertagande". Denna profiltext anger omedelbart legitimation, år i yrket (8), specialkompetens (språkutveckling) och koppling till gällande läroplan (Lpfö 18). På 15 sekunder vet rekryteraren att du är kvalificerad, erfaren och uppdaterad på pedagogiska styrdokument, allt som krävs för att läsa vidare.`
       },
       {
         rubrik: 'Tydlig karriärprogression från vikarie till ansvarig',
         text: `Arbetshistoriken visar utveckling: "Barnskötare/vikarie (2016-2018)" till "Förskollärare (2018-2022)" till "Förskollärare & avdelningsansvarig (2022-idag)" med ökande ansvarsområden som dokumentation, VFU-handledare och metodimplementering.
 
-Varför detta fungerar: Progression visar ambition, stabilitet och ökad kompetens. Att du gått från vikarie till avdelningsansvarig på 8 år signalerar att arbetsgivare litade på dig nog för att ge mer ansvar. Detaljer som "VFU-handledare för studenter från Stockholms universitet" och "introducerade Unikum för hela avdelningen" visar ledarskap och förändringskompetens – avgörande när förskolor söker någon som kan driva utveckling, inte bara följa rutiner.`
+Varför detta fungerar: Progression visar ambition, stabilitet och ökad kompetens. Att du gått från vikarie till avdelningsansvarig på 8 år signalerar att arbetsgivare litade på dig nog för att ge mer ansvar. Detaljer som "VFU-handledare för studenter från Stockholms universitet" och "introducerade Unikum för hela avdelningen" visar ledarskap och förändringskompetens, avgörande när förskolor söker någon som kan driva utveckling, inte bara följa rutiner.`
       }
     ],
 
@@ -2060,11 +2066,11 @@ Bevis sticker ut. Rekryterare ser tomma listor i varje tredje CV.`
     faq: [
       {
         fraga: 'Hur långt ska mitt CV som förskollärare vara?',
-        svar: 'Ett CV för nyutexaminerade förskollärare (0-3 år) ska vara 1 sida. För erfarna förskollärare (3-10+ år) kan CV:t vara 1-2 sidor, med fokus på de senaste 10 åren. Äldre erfarenheter kan summeras kortare eller utelämnas. Prioritera alltid kvalitet framför kvantitet – konkreta resultat är viktigare än att fylla sidor.'
+        svar: 'Ett CV för nyutexaminerade förskollärare (0-3 år) ska vara 1 sida. För erfarna förskollärare (3-10+ år) kan CV:t vara 1-2 sidor, med fokus på de senaste 10 åren. Äldre erfarenheter kan summeras kortare eller utelämnas. Prioritera alltid kvalitet framför kvantitet, konkreta resultat är viktigare än att fylla sidor.'
       },
       {
         fraga: 'Ska jag ha med profilbild på mitt CV?',
-        svar: 'Profilbild är frivilligt i Sverige och inget krav. Vissa arbetsgivare föredrar CV utan bild för att undvika omedvetna fördomar. Fokusera istället på innehållet – kvantifierbara resultat, branschspecifika system och certifieringar. Om du väljer att ha bild, använd professionellt foto med neutral bakgrund.'
+        svar: 'Profilbild är frivilligt i Sverige och inget krav. Vissa arbetsgivare föredrar CV utan bild för att undvika omedvetna fördomar. Fokusera istället på innehållet, kvantifierbara resultat, branschspecifika system och certifieringar. Om du väljer att ha bild, använd professionellt foto med neutral bakgrund.'
       },
       {
         fraga: 'Vad gör jag om jag har luckor i mitt CV?',
@@ -2183,8 +2189,8 @@ Använd detta CV som inspiration när du skriver ditt eget. Genom att visa konkr
       kompetenser: {
         tekniska: [
           'Switchboard/växelhantering (Expert, 6+ år)',
-          'Bokningssystem – Lime, Simployer, Outlook (Avancerad, 5+ år)',
-          'Opera PMS – hotellsystem (Avancerad, 2+ år)',
+          'Bokningssystem: Lime, Simployer, Outlook (Avancerad, 5+ år)',
+          'Opera PMS: hotellsystem (Avancerad, 2+ år)',
           'Microsoft Office (Word, Excel, PowerPoint, Teams)',
           'Flerspråkig kommunikation (svenska, engelska, spanska)',
           'CRM-system (Salesforce, erfarenhet 2 år)',
@@ -2201,8 +2207,8 @@ Använd detta CV som inspiration när du skriver ditt eget. Genom att visa konkr
 
       certifieringar: [
         'Första hjälpen och HLR (förnyad 2024)',
-        'Kundserviceutbildning – professionellt bemötande (2023)',
-        'Switchboard och telefonisystem – certifiering (2020)',
+        'Kundserviceutbildning: professionellt bemötande (2023)',
+        'Switchboard och telefonisystem: certifiering (2020)',
         'GDPR-grundutbildning för reception (2022)',
         'Konflikthantering och serviceminded kommunikation (2021)'
       ],
@@ -2243,7 +2249,7 @@ Varför detta fungerar: Många receptionister har gamla certifieringar som inte 
         rubrik: 'Profiltext sammanfattar kärnkompetenser direkt',
         text: `De första raderna kommunicerar omedelbart: "Erfaren receptionist med 6+ års erfarenhet från hotell- och företagsmiljöer. Specialist på switchboard-hantering, bokningssystem och flerspråkig kundservice. Trygg i högt tempo med 200+ dagliga samtal och ansvar för besökshantering i företag med 150+ besökare dagligen."
 
-Varför detta fungerar: Rekryterare läser profiltexten i 10 sekunder. Denna text kommunicerar direkt: erfarenhet (6+ år), miljöer (hotell + företag), specialistkompetens (switchboard, bokningssystem, flerspråkig) och volym (200+ samtal, 150+ besökare). Inga vaga ord som "driven" eller "ansvarsfull" – bara konkreta bevis på kapacitet.`
+Varför detta fungerar: Rekryterare läser profiltexten i 10 sekunder. Denna text kommunicerar direkt: erfarenhet (6+ år), miljöer (hotell + företag), specialistkompetens (switchboard, bokningssystem, flerspråkig) och volym (200+ samtal, 150+ besökare). Inga vaga ord som "driven" eller "ansvarsfull", bara konkreta bevis på kapacitet.`
       },
       {
         rubrik: 'Tydlig karriärprogression mot ökad komplexitet',
@@ -2388,7 +2394,7 @@ Bevis gör din kompetens trovärdig och konkret. Rekryterare ser tomma listor i 
     metaDescription: 'Se ett komplett CV-exempel för ingenjör. ATS-optimerat, strukturerat för svenska teknikföretag och visar teknisk kompetens, projektledning och kvantifierbara resultat.',
 
     // SEO-rik introduktion
-    seoIntro: `Söker du jobb som ingenjör och behöver ett CV som sticker ut? Det här exemplet visar hur du strukturerar ett ATS-optimerat CV som passar svenska teknikföretag – från startups till stora industrikoncerner.
+    seoIntro: `Söker du jobb som ingenjör och behöver ett CV som sticker ut? Det här exemplet visar hur du strukturerar ett ATS-optimerat CV som passar svenska teknikföretag, från startups till stora industrikoncerner.
 
 Du får se exakt hur du balanserar teknisk kompetens (CAD-system som SolidWorks och AutoCAD, programmeringsspråk som Python och MATLAB, projektmetodik som Agile och Lean) med de mjuka färdigheter som rekryterare söker (problemlösning, tvärfunktionellt samarbete, teknisk dokumentation). CV:t visar konkreta resultat från produktutveckling och projektledning med kvantifierbara exempel.
 
@@ -2477,8 +2483,8 @@ Använd det som inspiration för ditt eget CV ingenjör och anpassa det efter de
 
       certifieringar: [
         'Lean Six Sigma Green Belt (2022)',
-        'PMP – Project Management Professional (2023)',
-        'Autodesk Certified Professional – SolidWorks (2021)',
+        'PMP: Project Management Professional (2023)',
+        'Autodesk Certified Professional: SolidWorks (2021)',
         'Agile Scrum Master (CSM) (2020)',
         'ISO 9001 Internal Auditor (2019)'
       ],
@@ -2508,12 +2514,14 @@ Använd det som inspiration för ditt eget CV ingenjör och anpassa det efter de
     varforDetFungerar: [
       {
         rubrik: 'Teknisk stack som matchar rekryteringssystemet',
+        ankare: 'kompetenser',
         text: `CV:t listar SolidWorks, AutoCAD, Python och MATLAB redan i kompetensavsnittet, med exakt matchning mot hur verktyg vanligen söks. FEM-analys och designoptimering nämns tillsammans med konkreta användningsområden.
 
 Varför detta fungerar: ATS-system letar efter exakta verktygsnamn i de första sektionerna. Genom att placera SolidWorks och AutoCAD högst upp, tillsammans med programmeringsspråk som Python, säkerställs att CV:t passerar automatisk screening. Lean Six Sigma Green Belt-certifieringen ger ytterligare nyckelordsmatchning för kvalitets- och förbättringsroller inom produktion.`
       },
       {
         rubrik: 'Mätbara resultat i varje ingenjörsuppgift',
+        ankare: 'erfarenhet',
         text: `Varje position redovisar konkreta siffror: €2M projektbudget levererad 10% under budget, 30% effektivisering av CAD-arbetsflöden genom Python-automatisering, 25% reducerad produktionstid via DFM-optimering. 98% tillverkningsbarhet dokumenteras för 50+ designade komponenter.
 
 Varför detta fungerar: Rekryterare inom fordonsindustri och automation söker ingenjörer som kan kvantifiera impact. Att visa både kostnadseffektivitet (10% under budget), processförbättring (30% snabbare CAD) och kvalitet (98% tillverkningsbarhet) demonstrerar affärsförståelse utöver teknisk kompetens. Detta skiljer kandidaten från de som bara listar arbetsuppgifter.`
@@ -2526,15 +2534,17 @@ Varför detta fungerar: Senior ingenjörsroller kräver mer än teknisk skicklig
       },
       {
         rubrik: 'Certifieringar med branschrelevans',
+        ankare: 'certifieringar',
         text: `Lean Six Sigma Green Belt kompletterar den tekniska profilen och visar systematisk förbättringsförmåga. Certifieringarna i FEM-analys och CE-märkning är direkt kopplade till arbetserfarenheten och nämns i samband med konkreta projekt.
 
 Varför detta fungerar: För ingenjörsroller inom automation och fordonsindustri är Lean Six Sigma ett starkt komplement till CAD-färdigheter, då det visar förståelse för produktionseffektivitet. FEM-certifieringen validerar teknisk kompetens, medan CE-märkningskännedom är avgörande för produkter på den europeiska marknaden. Certifieringarna ger ATS-nyckelord och trovärdighet samtidigt.`
       },
       {
         rubrik: 'Profiltext som positionerar specialist',
+        ankare: 'profil',
         text: `Inledningen etablerar 7+ års erfarenhet inom fordonsindustri och automation, med fokus på CAD-systemdesign och produktutveckling. SolidWorks och Python nämns som kärnverktyg, tillsammans med erfarenhet av hela produktlivscykeln från koncept till serieproduktion.
 
-Varför detta fungerar: Rekryterare läser profiltexten först. Genom att omedelbart nämna fordonsindustri, automation och specifika verktyg (SolidWorks, Python) matchar CV:t de tyngsta sökorden i branschens jobbannons. 7+ års erfarenhet passerar de flesta senioritetskrav, och "koncept till serieproduktion" visar ägarskap av hela designprocessen – något som är högt värderat i R&D-avdelningar.`
+Varför detta fungerar: Rekryterare läser profiltexten först. Genom att omedelbart nämna fordonsindustri, automation och specifika verktyg (SolidWorks, Python) matchar CV:t de tyngsta sökorden i branschens jobbannons. 7+ års erfarenhet passerar de flesta senioritetskrav, och "koncept till serieproduktion" visar ägarskap av hela designprocessen, något som är högt värderat i R&D-avdelningar.`
       },
       {
         rubrik: 'Tydlig karriärprogression mot ledande roller',
@@ -2622,15 +2632,15 @@ Detta gör dina mjuka färdigheter konkreta och trovärdiga istället för abstr
     faq: [
       {
         fraga: 'Hur långt ska mitt CV vara?',
-        svar: 'I Sverige rekommenderas 1-2 sidor. För ingenjörer med 0-5 års erfarenhet räcker vanligtvis 1 sida, medan seniora ingenjörer med 5-10+ års erfarenhet kan behöva 2 sidor för att visa progression, projekt och publikationer. Fokusera på relevant erfarenhet – du behöver inte inkludera alla studenter-projekt.'
+        svar: 'I Sverige rekommenderas 1-2 sidor. För ingenjörer med 0-5 års erfarenhet räcker vanligtvis 1 sida, medan seniora ingenjörer med 5-10+ års erfarenhet kan behöva 2 sidor för att visa progression, projekt och publikationer. Fokusera på relevant erfarenhet, du behöver inte inkludera alla studenter-projekt.'
       },
       {
         fraga: 'Ska jag ha en profilbild på mitt CV?',
-        svar: 'I Sverige är det vanligt men inte krav. För tekniska yrken är det mindre kritiskt än kompetensinnehållet. Viktigt: Använd en professionell bild med neutral bakgrund om du inkluderar en. Om du är osäker, använd en CV-mall utan bild – det är aldrig fel. Teknisk kompetens väger tyngre än bilden.'
+        svar: 'I Sverige är det vanligt men inte krav. För tekniska yrken är det mindre kritiskt än kompetensinnehållet. Viktigt: Använd en professionell bild med neutral bakgrund om du inkluderar en. Om du är osäker, använd en CV-mall utan bild, det är aldrig fel. Teknisk kompetens väger tyngre än bilden.'
       },
       {
         fraga: 'Hur hanterar jag luckor i mitt CV?',
-        svar: 'Var ärlig och kort om luckor. Vid kortare uppehåll (mindre än 6 månader) behöver du inte förklara. För längre perioder, nämn konstruktiva aktiviteter: "Vidareutbildning – Lean Six Sigma Green Belt", "Sabbatsår med open source-projekt (GitHub: github.com/användarnamn)", eller "Konsultuppdrag inom produktutveckling". Rekryterare förstår att livet händer – det viktiga är att du kan förklara det om de frågar.'
+        svar: 'Var ärlig och kort om luckor. Vid kortare uppehåll (mindre än 6 månader) behöver du inte förklara. För längre perioder, nämn konstruktiva aktiviteter: "Vidareutbildning, Lean Six Sigma Green Belt", "Sabbatsår med open source-projekt (GitHub: github.com/användarnamn)", eller "Konsultuppdrag inom produktutveckling". Rekryterare förstår att livet händer, det viktiga är att du kan förklara det om de frågar.'
       },
       {
         fraga: 'Hur visar jag min tekniska kompetens som ingenjör utan att överbelasta CV:t?',
@@ -2638,7 +2648,7 @@ Detta gör dina mjuka färdigheter konkreta och trovärdiga istället för abstr
       },
       {
         fraga: 'Ska jag inkludera GitHub-länk eller teknisk portfolio i mitt CV som ingenjör?',
-        svar: 'Ja, särskilt om du arbetar med programmering eller automation. Inkludera GitHub-länk i kontaktuppgifterna: "GitHub: github.com/användarnamn". För mekanik/produktutveckling kan du länka till portfolio med CAD-modeller (t.ex. GrabCAD) om tillåtet (kontrollera NDA). Var selektiv – visa bara professionella, väl-dokumenterade projekt. Ett aktivt GitHub med relevanta projekt (Python-scripts, MATLAB-kod) stärker din profil betydligt.'
+        svar: 'Ja, särskilt om du arbetar med programmering eller automation. Inkludera GitHub-länk i kontaktuppgifterna: "GitHub: github.com/användarnamn". För mekanik/produktutveckling kan du länka till portfolio med CAD-modeller (t.ex. GrabCAD) om tillåtet (kontrollera NDA). Var selektiv, visa bara professionella, väl-dokumenterade projekt. Ett aktivt GitHub med relevanta projekt (Python-scripts, MATLAB-kod) stärker din profil betydligt.'
       },
       {
         fraga: 'Hur visar jag examensarbete och studentprojekt i mitt CV som nyutexaminerad ingenjör?',
@@ -2646,15 +2656,15 @@ Detta gör dina mjuka färdigheter konkreta och trovärdiga istället för abstr
       },
       {
         fraga: 'Hur ska jag presentera min examen: civilingenjör vs högskoleingenjör?',
-        svar: 'Var tydlig med din examen i både profiltext och utbildningssektion. "Civilingenjör Maskinteknik (300 hp, Teknologie Master)" eller "Högskoleingenjör Elektroteknik (180 hp, Teknologie Bachelor)". I profiltexten: "Civilingenjör med 5+ års erfarenhet..." eller "Högskoleingenjör med specialisering inom automation...". Detta hjälper rekryterare förstå din utbildningsnivå direkt. Båda examina är meriterade – det viktiga är att vara tydlig.'
+        svar: 'Var tydlig med din examen i både profiltext och utbildningssektion. "Civilingenjör Maskinteknik (300 hp, Teknologie Master)" eller "Högskoleingenjör Elektroteknik (180 hp, Teknologie Bachelor)". I profiltexten: "Civilingenjör med 5+ års erfarenhet..." eller "Högskoleingenjör med specialisering inom automation...". Detta hjälper rekryterare förstå din utbildningsnivå direkt. Båda examina är meriterade, det viktiga är att vara tydlig.'
       },
       {
         fraga: 'Hur lyfter jag fram projektledning och teamarbete i mitt CV som ingenjör?',
-        svar: 'Beskriv konkret hur du leder projekt och team. Exempel: "Projektledare för produktutvecklingsprojekt (€2M budget, 12 månader, tvärfunktionellt team med 8 personer från R&D, produktion, kvalitet)", "Samordnade Agile-utveckling med 2-veckors sprintar, daily standups och sprint retrospectives", "Stakeholder management: rapportering till ledning och kundpresentationer". Om du har PMP, Scrum Master eller Lean Six Sigma, lyft det i certifieringsektionen. Detta visar att du kan både tekniskt arbete OCH projektledning – mycket värdefullt för seniorroller.'
+        svar: 'Beskriv konkret hur du leder projekt och team. Exempel: "Projektledare för produktutvecklingsprojekt (€2M budget, 12 månader, tvärfunktionellt team med 8 personer från R&D, produktion, kvalitet)", "Samordnade Agile-utveckling med 2-veckors sprintar, daily standups och sprint retrospectives", "Stakeholder management: rapportering till ledning och kundpresentationer". Om du har PMP, Scrum Master eller Lean Six Sigma, lyft det i certifieringsektionen. Detta visar att du kan både tekniskt arbete OCH projektledning, mycket värdefullt för seniorroller.'
       },
       {
         fraga: 'Ska jag lista alla CAD-program och programmeringsspråk jag kan i mitt CV?',
-        svar: 'Prioritera de mest relevanta och lägg till kompetensnivå. För CAD: "SolidWorks (Expert, 7+ år)", "AutoCAD (Avancerad)", "CATIA (Grundläggande)". För programmering: "Python (Avancerad, automation och dataanalys)", "MATLAB (Expert, simulering)", "C++ (Grundläggande)". Om du kan många verktyg, gruppera: "CAD: SolidWorks, AutoCAD, Revit" och "Programmering: Python, MATLAB, SQL". Fokusera på top 5-7 verktyg som matchar jobbannonsen. Kvalitet över kvantitet – expertis i 3 verktyg imponerar mer än grundläggande kunskap i 10.'
+        svar: 'Prioritera de mest relevanta och lägg till kompetensnivå. För CAD: "SolidWorks (Expert, 7+ år)", "AutoCAD (Avancerad)", "CATIA (Grundläggande)". För programmering: "Python (Avancerad, automation och dataanalys)", "MATLAB (Expert, simulering)", "C++ (Grundläggande)". Om du kan många verktyg, gruppera: "CAD: SolidWorks, AutoCAD, Revit" och "Programmering: Python, MATLAB, SQL". Fokusera på top 5-7 verktyg som matchar jobbannonsen. Kvalitet över kvantitet, expertis i 3 verktyg imponerar mer än grundläggande kunskap i 10.'
       },
       {
         fraga: 'Hur lyfter jag fram Lean och Six Sigma-erfarenhet i mitt CV som ingenjör?',
@@ -2677,7 +2687,7 @@ Detta gör dina mjuka färdigheter konkreta och trovärdiga istället för abstr
 
     seoIntro: `Söker du jobb som lagerarbetare och behöver ett CV som sticker ut? Det här exemplet visar hur du strukturerar ett ATS-optimerat CV som matchar vad rekryterare inom logistik faktiskt letar efter.
 
-Du får se exakt hur du framhäver truckkort (A+B), WMS-system (SAP WM, Astro, M3) och kvantifierbara resultat som plocknoggrannhet och ordervolym per dag. CV:t visar konkreta exempel från högvolymlogistik och e-handel – inklusive hur du demonstrerar progression från operativ lagerarbetare till teamledare.
+Du får se exakt hur du framhäver truckkort (A+B), WMS-system (SAP WM, Astro, M3) och kvantifierbara resultat som plocknoggrannhet och ordervolym per dag. CV:t visar konkreta exempel från högvolymlogistik och e-handel, inklusive hur du demonstrerar progression från operativ lagerarbetare till teamledare.
 
 Använd det som inspiration för ditt eget CV som lagerarbetare och anpassa det efter den tjänst du söker. Med rätt nyckelord och struktur ökar du dina chanser att passera ATS-filtret och nå intervju.`,
 
@@ -2743,8 +2753,8 @@ Använd det som inspiration för ditt eget CV som lagerarbetare och anpassa det 
 
       kompetenser: {
         tekniska: [
-          'Truckkort A+B – Motviktstruck och skjutstativtruck (Expert, 7+ år)',
-          'SAP WM – Warehouse Management (Avancerad, 4+ år)',
+          'Truckkort A+B: Motviktstruck och skjutstativtruck (Expert, 7+ år)',
+          'SAP WM: Warehouse Management (Avancerad, 4+ år)',
           'Astro WMS-system (Avancerad, 2+ år)',
           'Lean 5S och kontinuerlig förbättring',
           'Handdator för plockning (RF-scanner, Zebra)',
@@ -2762,12 +2772,12 @@ Använd det som inspiration för ditt eget CV som lagerarbetare och anpassa det 
       },
 
       certifieringar: [
-        'Truckkort A – Motviktstruck (2017, förlängt 2024)',
-        'Truckkort B – Skjutstativtruck (2017, förlängt 2024)',
+        'Truckkort A: Motviktstruck (2017, förlängt 2024)',
+        'Truckkort B: Skjutstativtruck (2017, förlängt 2024)',
         'Heta Arbeten (2021)',
         'Första hjälpen och HLR (förnyad 2024)',
-        'Arbetsmiljöutbildning – Säkerhet på lager (2022)',
-        'ADR Grundkurs – Farligt gods (2023)'
+        'Arbetsmiljöutbildning: Säkerhet på lager (2022)',
+        'ADR Grundkurs: Farligt gods (2023)'
       ],
 
       sprak: [
@@ -2779,24 +2789,28 @@ Använd det som inspiration för ditt eget CV som lagerarbetare och anpassa det 
     varforDetFungerar: [
       {
         rubrik: 'Profiltext med rätt nyckelord för ATS-system',
+        ankare: 'profil',
         text: `Marcus börjar med konkret erfarenhet: "7+ års erfarenhet från högvolymlogistik och e-handel". Han listar tekniska keywords som ATS-system söker efter: SAP WM, Astro, Lean 5S, plocknoggrannhet. Många lagerarbetare skriver generiska fraser som "driven och motiverad" utan kontext. Marcus visar istället specialisering (plockning, truckkörning, WMS-system) och kvantifierar direkt i profilen: 99.8% noggrannhet.
 
 Varför detta fungerar: ATS-systemet hittar nyckelorden "SAP WM" och "Lean 5S" direkt i profiltexten. Rekryteraren ser att Marcus inte bara kan köra truck, han förstår hela logistikkedjan. Profiltexten avslutas med personlighetsdrag kopplade till yrket: noggrann teamplayer och säkerhetsfokuserad. Det visar både kompetens och kulturell passform.`
       },
       {
         rubrik: 'Kvantifierbara resultat som sticker ut',
+        ankare: 'erfarenhet',
         text: `Marcus visar konkreta siffror: 99.8% plocknoggrannhet, 180-220 order per dag, 20% minskad ledtid. De flesta lagerarbetare skriver "ansvarade för plockning och packning" utan att visa omfattning. Marcus visar både kvalitet (99.8%) och volym (220 order/dag i högvolymlogistik). Han bevisar också förbättringsinitiativ: "Reducerade skador vid hantering med 35% genom utbildning i ergonomi".
 
 Varför detta fungerar: Siffrorna ger kontext. Rekryteraren ser att Marcus kan hantera högt tempo utan att kompromissa på kvalitet. Effektiviseringsmåtten (20% minskad ledtid) visar att han inte bara utför arbetet, han förbättrar processer. Det gör honom mer anställningsbar än kandidater som bara listar arbetsuppgifter. Siffror ger också rekryteraren något konkret att fråga om under intervjun.`
       },
       {
         rubrik: 'Truckkort och certifieringar med årtal',
-        text: `Marcus listar truckkort med exakta datum: "Truckkort A – Motviktstruck (2017, förlängt 2024)". Truckkort gäller bara 5 år, så förnyelsedatum bevisar att de är giltiga. Han har också specialcertifieringar: ADR Grundkurs för farligt gods (2023) och Heta Arbeten (2021). Många kandidater skriver bara "truckkort A+B" utan årtal, vilket gör att rekryterare måste gissa om de är aktuella.
+        ankare: 'certifieringar',
+        text: `Marcus listar truckkort med exakta datum: "Truckkort A, Motviktstruck (2017, förlängt 2024)". Truckkort gäller bara 5 år, så förnyelsedatum bevisar att de är giltiga. Han har också specialcertifieringar: ADR Grundkurs för farligt gods (2023) och Heta Arbeten (2021). Många kandidater skriver bara "truckkort A+B" utan årtal, vilket gör att rekryterare måste gissa om de är aktuella.
 
 Varför detta fungerar: Truckkort A+B är grundkrav för de flesta lagerarbetartjänster. Genom att visa förnyelsedatum slipper Marcus frågan "är dina truckkort giltiga?". ADR och Heta Arbeten öppnar dörrarna till specialiserade lager (kemikalier, farligt gods, industri) vilket ger konkurrensfördel. Årtal visar också att Marcus håller sina certifieringar uppdaterade, vilket signalerar professionalism.`
       },
       {
         rubrik: 'Specifika WMS-system istället för generisk datorvana',
+        ankare: 'kompetenser',
         text: `Marcus namnger exakta system: SAP WM (4+ års erfarenhet), Astro WMS (2+ år), M3-system, handdator för plockning (RF-scanner, Zebra). Han undviker vaga termer som "god datorvana" eller "erfaren av affärssystem". ATS-systemet scannar efter specifika system som SAP WM eftersom det är branschstandard inom logistik. Marcus visar också kompetensnivå på sina TOP 3 färdigheter: Expert på truckkort, Avancerad på SAP WM och Astro.
 
 Varför detta fungerar: "Datorvana" säger ingenting. "SAP WM med 4+ års erfarenhet" visar konkret kompetens som rekryteraren kan verifiera. Handdator och RF-scanner är standard i moderna lager, så att nämna Zebra visar att Marcus är van vid aktuella verktyg. Specifika system matchar nyckelord i jobbannons, vilket ökar chansen att passera ATS-filtret.`
@@ -2818,15 +2832,15 @@ Varför detta fungerar: Säkerhet är kritiskt på lager, särskilt vid truckkö
     tips: [
       {
         rubrik: 'Specificera dina WMS-system istället för "datorvana"',
-        text: `ATS-system söker efter specifika WMS-system, inte generiska termer. "Datorvana" säger ingenting – "SAP WM med 4+ års erfarenhet" visar konkret kompetens som matchar jobbannonsens krav.
+        text: `ATS-system söker efter specifika WMS-system, inte generiska termer. "Datorvana" säger ingenting, "SAP WM med 4+ års erfarenhet" visar konkret kompetens som matchar jobbannonsens krav.
 
 **Exempel på före/efter**:
 
 ❌ "God datorvana och erfarenhet av lagerhanteringssystem"
 
-✅ "SAP WM – Warehouse Management (Avancerad, 4+ år), Astro WMS-system (Avancerad, 2+ år), M3-system (grundläggande)"
+✅ "SAP WM, Warehouse Management (Avancerad, 4+ år), Astro WMS-system (Avancerad, 2+ år), M3-system (grundläggande)"
 
-Lista de system du faktiskt behärskar med kompetensnivå för dina starkaste. Vanliga WMS-system att nämna inkluderar SAP WM, Astro, M3, Pyramid, JDA och Manhattan. Om du använt handdatorer och RF-scanners (Zebra, Honeywell), nämn det specifikt – det är standardverktyg i moderna lager.`
+Lista de system du faktiskt behärskar med kompetensnivå för dina starkaste. Vanliga WMS-system att nämna inkluderar SAP WM, Astro, M3, Pyramid, JDA och Manhattan. Om du använt handdatorer och RF-scanners (Zebra, Honeywell), nämn det specifikt, det är standardverktyg i moderna lager.`
       },
       {
         rubrik: 'Kvantifiera din plockning och effektivitet',
@@ -2842,25 +2856,25 @@ Om du inte vet exakta siffror, uppskatta konservativt. Fråga dig själv: Hur m�
       },
       {
         rubrik: 'Visa truckkort med årtal och förnyelsedatum',
-        text: `Truckkort är ofta ett absolut krav för lagertjänster. Men truckkort utan årtal kan kanske betyda att certifikatet är ogiltigt – truckkort gäller normalt i 5 år och måste förnyas.
+        text: `Truckkort är ofta ett absolut krav för lagertjänster. Men truckkort utan årtal kan kanske betyda att certifikatet är ogiltigt, truckkort gäller normalt i 5 år och måste förnyas.
 
 **Exempel på före/efter**:
 
 ❌ "Truckkort A och B"
 
-✅ "Truckkort A – Motviktstruck (2017, förlängt 2024), Truckkort B – Skjutstativtruck (2017, förlängt 2024)"
+✅ "Truckkort A, Motviktstruck (2017, förlängt 2024), Truckkort B, Skjutstativtruck (2017, förlängt 2024)"
 
-Lista vilken typ av truck (motviktstruck, skjutstativtruck, ledstaplare, reach truck) och visa tydligt att certifikatet är aktuellt. Om du har extra certifieringar som ADR (farligt gods) eller Heta Arbeten, inkludera dem – de öppnar dörrar till specialiserade tjänster med mindre konkurrens.`
+Lista vilken typ av truck (motviktstruck, skjutstativtruck, ledstaplare, reach truck) och visa tydligt att certifikatet är aktuellt. Om du har extra certifieringar som ADR (farligt gods) eller Heta Arbeten, inkludera dem, de öppnar dörrar till specialiserade tjänster med mindre konkurrens.`
       },
       {
         rubrik: 'Demonstrera progression i din karriär',
-        text: `Visa att du utvecklats över tid – från operativ lagerarbetare till mer ansvarsfulla roller. Detta signalerar att du har potential att växa inom organisationen.
+        text: `Visa att du utvecklats över tid, från operativ lagerarbetare till mer ansvarsfulla roller. Detta signalerar att du har potential att växa inom organisationen.
 
 **Exempel på före/efter**:
 
 ❌ Tre nästan identiska tjänstebeskrivningar utan synlig utveckling
 
-✅ Visa progression i volym (80 → 150 → 220 order/dag), ansvar (från plock till teamledare för 6 personer), och kompetens (från grundläggande till Lean-implementering)
+✅ Visa progression i volym (80 till 150 till 220 order/dag), ansvar (från plock till teamledare för 6 personer), och kompetens (från grundläggande till Lean-implementering)
 
 Marcus CV visar tydlig progression: han började med 80-100 order/dag på Ahlsell, ökade till 150-180 på CEVA där han implementerade Lean 5S, och hanterar nu 180-220 order/dag som teamledare på PostNord. Rekryterare ser detta och förstår att Marcus är redo för nästa steg.`
       },
@@ -2872,9 +2886,9 @@ Marcus CV visar tydlig progression: han började med 80-100 order/dag på Ahlsel
 
 ❌ "Följde säkerhetsrutiner"
 
-✅ "Reducerade skador vid hantering med 35% genom utbildning i ergonomi och riskanalys för teamet – 0 arbetsolyckor sedan 2020"
+✅ "Reducerade skador vid hantering med 35% genom utbildning i ergonomi och riskanalys för teamet, 0 arbetsolyckor sedan 2020"
 
-Nämn arbetsmiljöutbildningar, riskanalyser du deltagit i, eller förbättringar du bidragit till. Om du utbildat kollegor i säkerhet eller ergonomi, lyft fram det. Arbetsgivare vill ha medarbetare som aktivt bidrar till en säker arbetsplats – det minskar kostnader för sjukfrånvaro och olyckor.`
+Nämn arbetsmiljöutbildningar, riskanalyser du deltagit i, eller förbättringar du bidragit till. Om du utbildat kollegor i säkerhet eller ergonomi, lyft fram det. Arbetsgivare vill ha medarbetare som aktivt bidrar till en säker arbetsplats, det minskar kostnader för sjukfrånvaro och olyckor.`
       }
     ],
 
@@ -2885,19 +2899,19 @@ Nämn arbetsmiljöutbildningar, riskanalyser du deltagit i, eller förbättringa
       },
       {
         fraga: 'Vilka WMS-system ska jag nämna i mitt CV som lagerarbetare?',
-        svar: 'Nämn de system du faktiskt har erfarenhet av – SAP WM, Astro, M3, Pyramid, JDA eller Manhattan är vanliga. Undvik generiska termer som "datorvana" eller "lagerhanteringssystem" – var specifik. Lägg till kompetensnivå för dina starkaste system: "SAP WM (Avancerad, 4+ år)", "M3-system (Grundläggande)". Glöm inte handdatorer och RF-scanners (Zebra, Honeywell) om du använt dem – det är standardverktyg i moderna lager.'
+        svar: 'Nämn de system du faktiskt har erfarenhet av, SAP WM, Astro, M3, Pyramid, JDA eller Manhattan är vanliga. Undvik generiska termer som "datorvana" eller "lagerhanteringssystem", var specifik. Lägg till kompetensnivå för dina starkaste system: "SAP WM (Avancerad, 4+ år)", "M3-system (Grundläggande)". Glöm inte handdatorer och RF-scanners (Zebra, Honeywell) om du använt dem, det är standardverktyg i moderna lager.'
       },
       {
         fraga: 'Måste jag ha truckkort för att jobba som lagerarbetare?',
-        svar: 'De flesta lagertjänster kräver truckkort, särskilt A (motviktstruck) och B (skjutstativtruck/reachtruck). Visa alltid årtal och förnyelsedatum eftersom truckkort gäller i 5 år: "Truckkort A – Motviktstruck (2020, förlängt 2026)". Om du inte har truckkort kan du söka tjänster som fokuserar på manuell plockning eller packning, men karriärmöjligheterna begränsas. Truckkortskurser tar ofta bara 2-5 dagar och är en bra investering.'
+        svar: 'De flesta lagertjänster kräver truckkort, särskilt A (motviktstruck) och B (skjutstativtruck/reachtruck). Visa alltid årtal och förnyelsedatum eftersom truckkort gäller i 5 år: "Truckkort A, Motviktstruck (2020, förlängt 2026)". Om du inte har truckkort kan du söka tjänster som fokuserar på manuell plockning eller packning, men karriärmöjligheterna begränsas. Truckkortskurser tar ofta bara 2-5 dagar och är en bra investering.'
       },
       {
         fraga: 'Hur visar jag resultat i mitt CV som lagerarbetare?',
-        svar: 'Kvantifiera med siffror: antal order per dag (80, 150, 220), plocknoggrannhet i procent (98.5%, 99.8%), effektiviseringar (minskade ledtid med 20%), antal artiklar vid inventering (2 500 artiklar), teamstorlek om du haft ansvar (6 medarbetare). Fråga dig själv: Hur många? Hur ofta? Hur bra? "Ansvarade för plockning" säger inget – "Genomförde 180 plockorder per dag med 99.5% noggrannhet" visar konkret värde.'
+        svar: 'Kvantifiera med siffror: antal order per dag (80, 150, 220), plocknoggrannhet i procent (98.5%, 99.8%), effektiviseringar (minskade ledtid med 20%), antal artiklar vid inventering (2 500 artiklar), teamstorlek om du haft ansvar (6 medarbetare). Fråga dig själv: Hur många? Hur ofta? Hur bra? "Ansvarade för plockning" säger inget, "Genomförde 180 plockorder per dag med 99.5% noggrannhet" visar konkret värde.'
       },
       {
         fraga: 'Vilka certifieringar ökar mina chanser som lagerarbetare?',
-        svar: 'Truckkort A+B är grundkrav för de flesta tjänster. Utöver det ökar dessa dina möjligheter: ADR Grundkurs (farligt gods) – öppnar dörrar till kemi- och läkemedelslager med högre löner. Heta Arbeten – krävs för lager med svetsning eller kemikalier. Första hjälpen/HLR – visar säkerhetsmedvetenhet. Arbetsmiljöutbildning – uppskattas av arbetsgivare som prioriterar säkerhet. Visa alltid årtal och förnyelsedatum för tidsbegränsade certifieringar.'
+        svar: 'Truckkort A+B är grundkrav för de flesta tjänster. Utöver det ökar dessa dina möjligheter: ADR Grundkurs (farligt gods), öppnar dörrar till kemi- och läkemedelslager med högre löner. Heta Arbeten, krävs för lager med svetsning eller kemikalier. Första hjälpen/HLR, visar säkerhetsmedvetenhet. Arbetsmiljöutbildning, uppskattas av arbetsgivare som prioriterar säkerhet. Visa alltid årtal och förnyelsedatum för tidsbegränsade certifieringar.'
       }
     ],
 
@@ -2928,7 +2942,7 @@ Använd exemplet som inspiration när du skriver ditt CV. Fokusera på antal är
       kontakt: {
         telefon: '070-234 56 78',
         epost: 'anna.bergstrom@email.se',
-        plats: 'Stockholm',
+        plats: 'Västervik',
         linkedin: 'linkedin.com/in/annabergstrom'
       },
 
@@ -2982,11 +2996,11 @@ Använd exemplet som inspiration när du skriver ditt CV. Fokusera på antal är
 
       kompetenser: {
         tekniska: [
-          'Microsoft 365 (Expert, 8+ år) – Word, Excel (pivottabeller, LETARAD), Outlook, Teams, SharePoint',
-          'Visma (Avancerad, 5+ år) – Ekonomi, tidrapportering, lönehantering',
-          'W3D3 – kommunal ärendehantering (3+ år)',
-          'OSL – Offentlighetsprincipen och Sekretesslagen',
-          'GDPR – personuppgiftshantering och dataskydd',
+          'Microsoft 365 (Expert, 8+ år): Word, Excel (pivottabeller, LETARAD), Outlook, Teams, SharePoint',
+          'Visma (Avancerad, 5+ år): Ekonomi, tidrapportering, lönehantering',
+          'W3D3: kommunal ärendehantering (3+ år)',
+          'OSL: Offentlighetsprincipen och Sekretesslagen',
+          'GDPR: personuppgiftshantering och dataskydd',
           'Salesforce (CRM-system)',
           'PowerPoint (presentationer och rapporter)'
         ],
@@ -3001,8 +3015,8 @@ Använd exemplet som inspiration när du skriver ditt CV. Fokusera på antal är
 
       certifieringar: [
         'Microsoft 365 Certified: Fundamentals (2023)',
-        'GDPR – Grundkurs personuppgiftshantering (2022)',
-        'OSL – Offentlighetsprincipen och Sekretesslagen (2021)',
+        'GDPR: Grundkurs personuppgiftshantering (2022)',
+        'OSL: Offentlighetsprincipen och Sekretesslagen (2021)',
         'Visma Administration (certifierad 2019)'
       ],
 
@@ -3015,12 +3029,14 @@ Använd exemplet som inspiration när du skriver ditt CV. Fokusera på antal är
     varforDetFungerar: [
       {
         rubrik: 'ATS-system letar efter specifika systemnamn',
+        ankare: 'kompetenser',
         text: `CV:t listar konkreta verktyg som Microsoft 365, Visma, W3D3, samt processer som ärendehantering, diarieföring och GDPR-hantering. Många administrativa roller kräver kunskap i specifika system som används inom offentlig sektor eller företag.
 
 Varför detta fungerar: ATS-system filtrerar ansökningar baserat på nyckelord från jobbannonsen. När en arbetsgivare söker efter någon med Visma-erfarenhet och du har skrivit "ekonomisystem" istället riskerar ditt CV att sorteras bort direkt. Genom att namnge exakta system ökar du chansen att passera den automatiska gallringen och nå en mänsklig rekryterare.`
       },
       {
         rubrik: 'Konkreta siffror visar din faktiska arbetskapacitet',
+        ankare: 'erfarenhet',
         text: `Detta CV kvantifierar prestationer med siffror som 200+ ärenden per månad, 98% leveransprecision, 30% reducerad handläggningstid och 99.5% noggrannhet i dataregistrering. Istället för att skriva "hanterade ärenden" visas exakt volym och kvalitet.
 
 Varför detta fungerar: Rekryterare jämför kandidater och behöver veta om du klarar arbetsbelastningen. En kandidat som skriver "ansvarig för ärendehantering" kan ha hanterat 20 eller 200 ärenden per månad. Siffror ger kontext och visar att du inte bara utfört arbetet, utan gjort det med hög precision och effektivitet. Det gör dig omedelbart mer trovärdig.`
@@ -3033,12 +3049,14 @@ Varför detta fungerar: Arbetsgivare söker administratörer som både behärska
       },
       {
         rubrik: 'Certifieringar med årtal visar aktualitet',
+        ankare: 'certifieringar',
         text: `CV:t listar certifieringar med specifika årtal: Microsoft 365 Certified (2023), GDPR-utbildning (2022), OSL-behörighet (2021) och Visma-certifiering. Varje kompetens är tydligt daterad och relevant för moderna administrativa roller.
 
 Varför detta fungerar: Årtal visar att din kunskap är aktuell, inte något du läste om för tio år sedan. En GDPR-certifiering från 2022 signalerar att du förstår gällande regler, medan en gammal kurs väcker frågor om dina kunskaper är uppdaterade. Kontinuerlig vidareutbildning talar om att du tar ditt yrke på allvar och håller dig relevant i en föränderlig arbetsmarknad.`
       },
       {
         rubrik: 'Profiltexten sammanfattar värde på tio sekunder',
+        ankare: 'profil',
         text: `Profiltexten lyfter fram 8+ års erfarenhet, ärendehantering, systemstöd och erfarenhet från både offentlig och privat sektor. De viktigaste nyckelorden och kvalifikationerna presenteras direkt i början av CV:t.
 
 Varför detta fungerar: Rekryterare spenderar i genomsnitt 10-15 sekunder på ett första CV-scan. Om de inte omedelbart ser rätt nyckelord går de vidare till nästa kandidat. En stark profiltext fungerar som en elevator pitch som fångar uppmärksamhet och lockar rekryteraren att läsa vidare. Utan denna sammanfattning riskerar dina kvalifikationer att drunkna längre ner i dokumentet.`
@@ -3056,7 +3074,7 @@ Varför detta fungerar: Arbetsgivare vill se att du kan växa i rollen och ta st
         rubrik: 'Inkludera specifika systemnamn för att passera ATS',
         text: `ATS-system söker efter exakta programvarunamn och verktyg som nämns i jobbannonsen. Generiska termer som "administrativa system" eller "kontorsprogram" ger sällan träff.
 
-Lista konkreta system du behärskar med versionsnummer eller moduler där relevant. Matcha jobbannonsens formuleringar exakt – om de skriver "Microsoft 365" använd inte "Office-paketet".
+Lista konkreta system du behärskar med versionsnummer eller moduler där relevant. Matcha jobbannonsens formuleringar exakt, om de skriver "Microsoft 365" använd inte "Office-paketet".
 
 **Exempel på före/efter**:
 
@@ -3082,7 +3100,7 @@ Siffror gör ditt CV trovärdigt och visar att du kan hantera arbetsbelastningen
       },
       {
         rubrik: 'Visa processförbättringar med tidsbesparingar eller effektivitetsvinster',
-        text: `Administrativa roller handlar inte bara om att utföra rutinuppgifter – arbetsgivare söker någon som kan förbättra arbetssätt och effektivisera processer.
+        text: `Administrativa roller handlar inte bara om att utföra rutinuppgifter, arbetsgivare söker någon som kan förbättra arbetssätt och effektivisera processer.
 
 Beskriv konkreta initiativ du tagit: implementerade nya system, digitaliserade manuella processer, skapade mallar eller rutiner. Kvantifiera resultatet i tidsbesparingar, kostnadsminskning eller ökad kvalitet.
 
@@ -3145,7 +3163,7 @@ Anpassad profiltext visar att du förstår arbetsgivarens värld och kan bidra d
       },
       {
         fraga: 'Vilka system ska jag lista i mitt CV som administratör?',
-        svar: 'Lista alla relevanta system med kompetensnivå och användningsområde. Vanliga system: Microsoft 365 (Word, Excel, Outlook, Teams, SharePoint), Visma (ekonomi, lön, tidrapportering), W3D3 (offentlig sektor), CRM-system (Salesforce, Lime), ekonomisystem (Fortnox, Agresso). Skriv "Visma (Avancerad, 5+ år) – ekonomi, tidrapportering" istället för bara "Visma". Detta visar konkret kompetens, inte bara att du känner till systemet.'
+        svar: 'Lista alla relevanta system med kompetensnivå och användningsområde. Vanliga system: Microsoft 365 (Word, Excel, Outlook, Teams, SharePoint), Visma (ekonomi, lön, tidrapportering), W3D3 (offentlig sektor), CRM-system (Salesforce, Lime), ekonomisystem (Fortnox, Agresso). Skriv "Visma (Avancerad, 5+ år), ekonomi, tidrapportering" istället för bara "Visma". Detta visar konkret kompetens, inte bara att du känner till systemet.'
       },
       {
         fraga: 'Hur kvantifierar jag min administrativa erfarenhet?',
@@ -3153,11 +3171,11 @@ Anpassad profiltext visar att du förstår arbetsgivarens värld och kan bidra d
       },
       {
         fraga: 'Ska jag nämna GDPR och OSL i mitt CV?',
-        svar: 'JA, särskilt om du söker jobb inom offentlig sektor eller hos företag som hanterar personuppgifter. GDPR är lagkrav för alla organisationer som hanterar personuppgifter. OSL (Offentlighetsprincipen och Sekretesslagen) är kritiskt för kommuner och myndigheter. Lista under både Kompetenser och Certifieringar med årtal: "GDPR – Grundkurs (2022)", "OSL (2021)". Detta visar att du förstår regelverken som styr administrativt arbete.'
+        svar: 'JA, särskilt om du söker jobb inom offentlig sektor eller hos företag som hanterar personuppgifter. GDPR är lagkrav för alla organisationer som hanterar personuppgifter. OSL (Offentlighetsprincipen och Sekretesslagen) är kritiskt för kommuner och myndigheter. Lista under både Kompetenser och Certifieringar med årtal: "GDPR, Grundkurs (2022)", "OSL (2021)". Detta visar att du förstår regelverken som styr administrativt arbete.'
       },
       {
         fraga: 'Hur visar jag progression i min administratörskarriär?',
-        svar: 'Visa tydlig progression i ansvar och komplexitet: Administrativ Assistent (mötesbokning, telefonväxel) → Administratör (fakturering, konferenser) → Senior Administratör (systemimplementering, utbildning, teamkoordination). Kvantifiera ansvarsutvecklingen: "stöttade 15 säljare" → "stöttade 40+ medarbetare" eller "hanterade 50 samtal/dag" → "koordinerar 200+ ärenden/månad". Detta visar ambition och förmåga att ta större ansvar över tid.'
+        svar: 'Visa tydlig progression i ansvar och komplexitet: Administrativ Assistent (mötesbokning, telefonväxel), sedan Administratör (fakturering, konferenser), sedan Senior Administratör (systemimplementering, utbildning, teamkoordination). Kvantifiera ansvarsutvecklingen: "stöttade 15 säljare", sedan "stöttade 40+ medarbetare" eller "hanterade 50 samtal/dag", sedan "koordinerar 200+ ärenden/månad". Detta visar ambition och förmåga att ta större ansvar över tid.'
       }
     ],
 
@@ -3185,7 +3203,7 @@ Anpassad profiltext visar att du förstår arbetsgivarens värld och kan bidra d
       kontakt: {
         telefon: '070-345 67 89',
         epost: 'maria.eriksson@email.se',
-        plats: 'Malmö',
+        plats: 'Stockholm',
         linkedin: 'linkedin.com/in/mariaeriksson'
       },
 
@@ -3240,7 +3258,7 @@ Anpassad profiltext visar att du förstår arbetsgivarens värld och kan bidra d
         tekniska: [
           'Kontorsstädning och storstädning (Expert, 6+ år)',
           'Sjukhusstädning och hygienprotokoll (Avancerad, 3+ år)',
-          'Golvvård – boning, polish, maskinstädning (Avancerad, 4+ år)',
+          'Golvvård: boning, polish, maskinstädning (Avancerad, 4+ år)',
           'Kemikaliehantering enligt SDS (Säkerhetsdatablad)',
           'Desinfektionsrutiner och smittskydd',
           'Fönsterputsning och höghöjdsarbete',
@@ -3256,11 +3274,11 @@ Anpassad profiltext visar att du förstår arbetsgivarens värld och kan bidra d
       },
 
       certifieringar: [
-        'Lokalvårdscertifikat – Städakademin (2016)',
+        'Lokalvårdscertifikat: Städakademin (2016)',
         'Kemikaliehantering enligt SDS (förnyad 2024)',
         'Hygienutbildning för vård- och omsorgsmiljöer (2018)',
         'Truckkort A+B (2020)',
-        'Ergonomi och säkert lyft – Prevent (2023)',
+        'Ergonomi och säkert lyft: Prevent (2023)',
         'Första hjälpen och HLR (förnyad 2024)'
       ],
 
@@ -3274,7 +3292,7 @@ Anpassad profiltext visar att du förstår arbetsgivarens värld och kan bidra d
     varforDetFungerar: [
       {
         rubrik: 'Branschspecifika nyckelord som passar ATS-system',
-        text: `CV:t använder exakta branschtermer istället för vaga beskrivningar. "Kontorsstädning", "golvvård – boning, polish, maskinstädning", "kemikaliehantering enligt SDS" och "sjukhusstädning och hygienprotokoll" är termer som städföretag faktiskt söker efter i sina rekryteringssystem.
+        text: `CV:t använder exakta branschtermer istället för vaga beskrivningar. "Kontorsstädning", "golvvård, boning, polish, maskinstädning", "kemikaliehantering enligt SDS" och "sjukhusstädning och hygienprotokoll" är termer som städföretag faktiskt söker efter i sina rekryteringssystem.
 
 Varför detta fungerar: ATS-system matchar nyckelord från jobbannonsen mot ditt CV. Om annonsen nämner "golvvård" och du bara skriver "städerfarenhet", sorteras du bort innan en människa ser ditt CV. Specifika termer visar också att du behärskar fackspråket och kan börja arbeta direkt utan lång introduktion. Att nämna SDS (Säkerhetsdatablad) visar regelverkskännedom som arbetsgivare kräver.`
       },
@@ -3282,7 +3300,7 @@ Varför detta fungerar: ATS-system matchar nyckelord från jobbannonsen mot ditt
         rubrik: 'Konkreta siffror som visar omfattning och kapacitet',
         text: `Istället för "ansvarig för städning" visar CV:t exakt omfattning: "3 500 kvm kontorsyta fördelat på 3 våningsplan med 200+ arbetsplatser", "2 000 kvm sjukhusmiljö inklusive operationsavdelning", "reducerade kemikalieanvändning med 20%", "teamledare för 4 lokalvårdare". Varje siffra ger konkret kontext.
 
-Varför detta fungerar: Rekryterare ser hundratals CV:n där kandidater skriver vaga påståenden som "städade kontor" eller "ansvarig för lokalvård". Dessa säger ingenting om arbetsbelastning eller kapacitet. Siffror gör ditt CV minnesvärt och trovärdigt. Skillnaden mellan "städade stora ytor" och "ansvarig för 3 500 kvm med 200+ arbetsplatser" är enorm – det visar att du klarar hög arbetsbelastning och stora ansvarsområden.`
+Varför detta fungerar: Rekryterare ser hundratals CV:n där kandidater skriver vaga påståenden som "städade kontor" eller "ansvarig för lokalvård". Dessa säger ingenting om arbetsbelastning eller kapacitet. Siffror gör ditt CV minnesvärt och trovärdigt. Skillnaden mellan "städade stora ytor" och "ansvarig för 3 500 kvm med 200+ arbetsplatser" är enorm, det visar att du klarar hög arbetsbelastning och stora ansvarsområden.`
       },
       {
         rubrik: 'Tekniska färdigheter backade med konkreta exempel',
@@ -3292,7 +3310,7 @@ Varför detta fungerar: Lokalvårdare arbetar ofta ensamma utan direkt övervakn
       },
       {
         rubrik: 'Certifieringar som bygger trovärdighet och professionalism',
-        text: `CV:t listar 6 relevanta certifieringar med årtal och förnyelsedatum: "Kemikaliehantering enligt SDS (förnyad 2024)", "Hygienutbildning för vård- och omsorgsmiljöer (2018)", "Truckkort A+B (2020)", "Ergonomi och säkert lyft – Prevent (2023)". Varje certifiering är relevant för lokalvård och visar att kandidaten håller sig uppdaterad.
+        text: `CV:t listar 6 relevanta certifieringar med årtal och förnyelsedatum: "Kemikaliehantering enligt SDS (förnyad 2024)", "Hygienutbildning för vård- och omsorgsmiljöer (2018)", "Truckkort A+B (2020)", "Ergonomi och säkert lyft, Prevent (2023)". Varje certifiering är relevant för lokalvård och visar att kandidaten håller sig uppdaterad.
 
 Varför detta fungerar: Lokalvårdare arbetar ofta ensamma i kundlokaler, ibland utanför kontorstid. Certifieringar är objektiva bevis på att du kan hantera kemikalier säkert, förstår hygienprotokoll och arbetar ergonomiskt korrekt. Att inkludera förnyelsedatum visar att din kunskap är aktuell, inte föråldrad. För sjukhusstädare är hygienutbildning krav, för industri krävs ofta truckkort. Certifieringar är vad som skiljer en professionell lokalvårdare från någon som "kan städa".`
       },
@@ -3304,16 +3322,16 @@ Varför detta fungerar: Profiltexten läses först av rekryterare för att avgö
       },
       {
         rubrik: 'Tydlig karriärutveckling från utförare till ledare',
-        text: `CV:t visar progression: Städare på Samhall (1 500 kvm, 5 arbetsplatser, egen tidsplanering) → Lokalvårdare på sjukhus (2 000 kvm, strikta hygienprotokoll, 100% godkända kontroller) → Teamledare (3 500 kvm, 4 medarbetare, schemaläggning, implementering av nya rutiner). Ansvar och komplexitet ökar för varje roll.
+        text: `CV:t visar progression: Städare på Samhall (1 500 kvm, 5 arbetsplatser, egen tidsplanering), sedan Lokalvårdare på sjukhus (2 000 kvm, strikta hygienprotokoll, 100% godkända kontroller), sedan Teamledare (3 500 kvm, 4 medarbetare, schemaläggning, implementering av nya rutiner). Ansvar och komplexitet ökar för varje roll.
 
-Varför detta fungerar: Progression visar ambition, förmåga att ta större ansvar och att du utvecklas över tid. För rekryterare betyder det att du inte stannar still – du kan växa in i större roller och kanske bli framtida arbetsledare. Att du fått "Månadens medarbetare" redan som städare och senare fått ansvar för introduktion av nya kollegor signalerar att arbetsgivare litar på dig. Det visar också bredd: du behärskar både kontorsstädning och specialiserad sjukhusstädning.`
+Varför detta fungerar: Progression visar ambition, förmåga att ta större ansvar och att du utvecklas över tid. För rekryterare betyder det att du inte stannar still, du kan växa in i större roller och kanske bli framtida arbetsledare. Att du fått "Månadens medarbetare" redan som städare och senare fått ansvar för introduktion av nya kollegor signalerar att arbetsgivare litar på dig. Det visar också bredd: du behärskar både kontorsstädning och specialiserad sjukhusstädning.`
       }
     ],
 
     tips: [
       {
         rubrik: 'Kvantifiera ditt ansvarsområde med konkreta mått',
-        text: `Rekryterare inom lokalvård behöver förstå omfattningen av din erfarenhet. "Ansvarig för städning" säger ingenting om arbetsbelastningen – 500 kvm eller 5 000 kvm? Använd specifika mått som visar att du hanterat ansvar i rätt skala för tjänsten de söker.
+        text: `Rekryterare inom lokalvård behöver förstå omfattningen av din erfarenhet. "Ansvarig för städning" säger ingenting om arbetsbelastningen, 500 kvm eller 5 000 kvm? Använd specifika mått som visar att du hanterat ansvar i rätt skala för tjänsten de söker.
 
 Inkludera städyta i kvadratmeter, antal rum eller arbetsplatser, våningsplan, eller frekvens (daglig städning vs storstädning). Detta hjälper arbetsgivaren bedöma om din erfarenhet matchar deras behov.
 
@@ -3341,7 +3359,7 @@ Om de söker "erfarenhet av vård" eller "hygienmedveten", backa upp det med dok
       },
       {
         rubrik: 'Lista städtekniska kompetenser med specifik erfarenhet',
-        text: `"Erfarenhet av lokalvård" täcker allt från grundstädning till specialiserad golvvård och desinfektionsrutiner. Arbetsgivare söker specifika tekniska färdigheter – var konkret om vilka metoder och maskiner du behärskar och hur länge du arbetat med dem.
+        text: `"Erfarenhet av lokalvård" täcker allt från grundstädning till specialiserad golvvård och desinfektionsrutiner. Arbetsgivare söker specifika tekniska färdigheter, var konkret om vilka metoder och maskiner du behärskar och hur länge du arbetat med dem.
 
 Bryt ner din kompetens i kategorier: golvvård (boning, polish, maskinstädning), desinfektionsrutiner, kemikaliehantering, eller specialstädning. Inkludera maskintyper om relevant (skurmaskin, högtryckstvätt, bonningsmaskiner).
 
@@ -3351,7 +3369,7 @@ Bryt ner din kompetens i kategorier: golvvård (boning, polish, maskinstädning)
 
 ✅ "Specialist på golvvård: boning och polish av linoleumgolv (6 år), maskinstädning med autoscrubber (5 år), våtskurning av industrigolv. Erfaren i desinfektionsrutiner enligt SmiNet-riktlinjer för vårdmiljö."
 
-Använd exakt de termer som står i annonsen – om de skriver "erfarenhet av bonningsmaskiner", använd den formuleringen.`
+Använd exakt de termer som står i annonsen, om de skriver "erfarenhet av bonningsmaskiner", använd den formuleringen.`
       },
       {
         rubrik: 'Inkludera relevanta certifieringar med årtal',
@@ -3379,11 +3397,11 @@ Om de söker till vård: betona desinfektionsrutiner, hygienresultat, SmiNet-rik
 
 ✅ "6 års erfarenhet av lokalvård inom vårdmiljö: implementerade desinfektionsrutiner enligt SmiNet-riktlinjer, ansvarig för hygienrutiner på kirurgavdelning, 100% godkända hygienkontroller under 3 år"
 
-Läs annonsen noggrant – om de skriver "erfarenhet av vårdmiljö önskvärt", prioritera den typen av erfarenhet i ditt CV.`
+Läs annonsen noggrant, om de skriver "erfarenhet av vårdmiljö önskvärt", prioritera den typen av erfarenhet i ditt CV.`
       },
       {
         rubrik: 'Backa upp personliga egenskaper med konkreta bevis',
-        text: `"Noggrann", "ansvarstagande" och "självgående" är vanliga ord i CV för lokalvårdare – men de betyder ingenting utan bevis. Arbetsgivare vill se att du faktiskt levererat resultat som kräver dessa egenskaper. Ersätt vaga påståenden med mätbara prestationer.
+        text: `"Noggrann", "ansvarstagande" och "självgående" är vanliga ord i CV för lokalvårdare, men de betyder ingenting utan bevis. Arbetsgivare vill se att du faktiskt levererat resultat som kräver dessa egenskaper. Ersätt vaga påståenden med mätbara prestationer.
 
 Om du säger att du är noggrann, visa det med kontrollresultat. Om du är miljömedveten, visa hur du implementerat miljövänliga metoder. Om du är problemlösare, beskriv ett konkret exempel på hur du förbättrat rutiner.
 
@@ -3400,11 +3418,11 @@ Istället för att lista egenskaper i en sektion "Om mig", visa dem genom konkre
     faq: [
       {
         fraga: 'Hur långt ska mitt CV som lokalvårdare vara?',
-        svar: 'För lokalvårdare med 0-5 års erfarenhet räcker 1 sida. Med 5-10+ års erfarenhet och olika miljöer (kontor, sjukhus, industri) kan du använda 1-2 sidor. Fokusera på de senaste 5-7 åren och lyft fram progression samt certifieringar. Prioritera alltid kvalitet framför kvantitet – konkreta siffror på städytor och resultat är viktigare än att fylla sidor.'
+        svar: 'För lokalvårdare med 0-5 års erfarenhet räcker 1 sida. Med 5-10+ års erfarenhet och olika miljöer (kontor, sjukhus, industri) kan du använda 1-2 sidor. Fokusera på de senaste 5-7 åren och lyft fram progression samt certifieringar. Prioritera alltid kvalitet framför kvantitet, konkreta siffror på städytor och resultat är viktigare än att fylla sidor.'
       },
       {
         fraga: 'Ska jag ha med profilbild på mitt CV?',
-        svar: 'Profilbild är frivilligt i Sverige och inget krav inom städbranschen. Fokusera istället på innehållet – kvantifierbara resultat, städmiljöer du arbetat i och certifieringar. Om du väljer att ha bild, använd en professionell bild med neutral klädsel och bakgrund.'
+        svar: 'Profilbild är frivilligt i Sverige och inget krav inom städbranschen. Fokusera istället på innehållet, kvantifierbara resultat, städmiljöer du arbetat i och certifieringar. Om du väljer att ha bild, använd en professionell bild med neutral klädsel och bakgrund.'
       },
       {
         fraga: 'Hur visar jag erfarenhet av olika städmiljöer?',
@@ -3436,7 +3454,7 @@ Istället för att lista egenskaper i en sektion "Om mig", visa dem genom konkre
       },
       {
         fraga: 'Hur hanterar jag luckor i mitt CV?',
-        svar: 'Var ärlig och förklara kort. Vanliga skäl som föräldraledighet, studier eller vård av anhörig accepteras. Exempel: "Föräldraledighet (2020-2021)". Om du vidareutbildat dig under luckan, lyft fram det: "Städutbildning med inriktning hygien (2021)". Fokusera sedan på din kompetens och erfarenhet. Rekryterare förstår att livet händer – det viktiga är att du har relevant kompetens nu.'
+        svar: 'Var ärlig och förklara kort. Vanliga skäl som föräldraledighet, studier eller vård av anhörig accepteras. Exempel: "Föräldraledighet (2020-2021)". Om du vidareutbildat dig under luckan, lyft fram det: "Städutbildning med inriktning hygien (2021)". Fokusera sedan på din kompetens och erfarenhet. Rekryterare förstår att livet händer, det viktiga är att du har relevant kompetens nu.'
       }
     ],
 
@@ -3454,7 +3472,7 @@ Istället för att lista egenskaper i en sektion "Om mig", visa dem genom konkre
     metaTitle: 'CV Exempel Handläggare 2026 - Professionell Mall | Jobbcoach.ai',
     metaDescription: 'Se ett komplett CV-exempel för handläggare inom offentlig sektor. ATS-optimerat för kommuner och myndigheter med regelverkskännedom, ärendehantering och kvantifierbara resultat.',
 
-    seoIntro: 'Söker du jobb som handläggare och behöver ett CV som sticker ut? Det här exemplet visar hur du strukturerar ett ATS-optimerat CV som passar kommuner, myndigheter och landsting.\n\nDu får se exakt hur du balanserar juridisk kompetens (SoL, LVU, förvaltningslagen, LAS) med administrativa färdigheter (ärendehantering, utredningsmetodik, dokumentation) och de personliga egenskaper som rekryterare söker (noggrannhet, stresstålighet, kommunikationsförmåga). CV:t visar konkreta resultat från socialförvaltning och arbetsförmedling med kvantifierbara exempel som "hanterade 35 parallella ärenden" och "minskade handläggningstid med 20%".\n\nAnvänd det som inspiration för ditt eget CV handläggare och anpassa det efter den tjänst du söker – socialsekreterare, LSS-handläggare, arbetsförmedlare eller myndighetstjänsteman.',
+    seoIntro: 'Söker du jobb som handläggare och behöver ett CV som sticker ut? Det här exemplet visar hur du strukturerar ett ATS-optimerat CV som passar kommuner, myndigheter och landsting.\n\nDu får se exakt hur du balanserar juridisk kompetens (SoL, LVU, förvaltningslagen, LAS) med administrativa färdigheter (ärendehantering, utredningsmetodik, dokumentation) och de personliga egenskaper som rekryterare söker (noggrannhet, stresstålighet, kommunikationsförmåga). CV:t visar konkreta resultat från socialförvaltning och arbetsförmedling med kvantifierbara exempel som "hanterade 35 parallella ärenden" och "minskade handläggningstid med 20%".\n\nAnvänd det som inspiration för ditt eget CV handläggare och anpassa det efter den tjänst du söker, socialsekreterare, LSS-handläggare, arbetsförmedlare eller myndighetstjänsteman.',
 
     intro: 'Ett professionellt CV-exempel för handläggare som visar din juridiska kompetens, erfarenhet av myndighetsutövning och förmåga att leverera kvalitetsresultat inom offentlig sektor. Detta exempel är optimerat för svenska kommuner, myndigheter och ATS-system.',
 
@@ -3517,7 +3535,7 @@ Istället för att lista egenskaper i en sektion "Om mig", visa dem genom konkre
 
       kompetenser: {
         tekniska: [
-          'Socialrätt – SoL, LVU, LSS (Expert, 7+ år)',
+          'Socialrätt: SoL, LVU, LSS (Expert, 7+ år)',
           'Barnavårdsutredningar enligt SoL kap 11 (Expert, 4+ år)',
           'Förvaltningslagen och offentlighet/sekretess (Avancerad, 7+ år)',
           'ProCapita och Treserva (ärendehanteringssystem)',
@@ -3535,10 +3553,10 @@ Istället för att lista egenskaper i en sektion "Om mig", visa dem genom konkre
       },
 
       certifieringar: [
-        'Barnkonventionen och barns delaktighet – Socialstyrelsen (2023)',
-        'BBIC (Barns behov i centrum) – grundutbildning (2020)',
+        'Barnkonventionen och barns delaktighet: Socialstyrelsen (2023)',
+        'BBIC (Barns behov i centrum): grundutbildning (2020)',
         'FREDA (riskbedömning vid våld i nära relationer) (2021)',
-        'Motiverande samtal (MI) – grundkurs (2019)',
+        'Motiverande samtal (MI): grundkurs (2019)',
         'Juridik och beslutsfattande för socialsekreterare (2022)'
       ],
 
@@ -3552,12 +3570,14 @@ Istället för att lista egenskaper i en sektion "Om mig", visa dem genom konkre
     varforDetFungerar: [
       {
         rubrik: 'ATS-optimerat med branschspecifika nyckelord',
+        ankare: 'kompetenser',
         text: `CV:t använder exakta branschtermer som offentliga arbetsgivare söker efter: "Handläggning enligt förvaltningslagen och SoL", "Ärendehantering i Treserva", "Myndighetsutövning och delegationsbeslut", och "Offentlighet och sekretess (OSL)". Istället för vaga beskrivningar som "administrativt arbete" eller "kunskap i regelverk" nämns specifika lagar och system.
 
 Varför detta fungerar: Kommuner och statliga myndigheter söker efter kandidater med specifik regelverkskännedom. Om jobbannonsen nämner "förvaltningslagen" eller "Treserva" måste ditt CV innehålla exakt dessa termer för att passera ATS-systemet. Handläggare som skriver "administrativt arbete" utan att nämna vilka lagar de arbetat med sorteras bort direkt i första urvalet.`
       },
       {
         rubrik: 'Kvantifierade resultat visar omfattning och effektivitet',
+        ankare: 'erfarenhet',
         text: `CV:t använder konkreta siffror istället för vaga påståenden: "Hanterade 35-40 ärenden samtidigt", "Minskade handläggningstid från 45 till 32 dagar (29% förbättring)", "Fattade 150+ delegationsbeslut per år med 98% korrekthet", och "Ansvarade för biståndsbudget på 8 MSEK". Detta visar både arbetsbelastning och förmåga att leverera resultat.
 
 Varför detta fungerar: Rekryterare i offentlig sektor behöver förstå omfattningen av ditt arbete. "35-40 parallella ärenden" säger mer än "ansvarade för handläggning". Siffror visar att du kan hantera press och leverera kvalitet samtidigt. Att du minskade handläggningstid med 29% bevisar processutvecklingsförmåga, vilket skiljer erfarna handläggare från juniora.`
@@ -3570,12 +3590,14 @@ Varför detta fungerar: Handläggare arbetar i en komplex miljö där de både m
       },
       {
         rubrik: 'Certifieringar och fortbildning visar uppdaterad kompetens',
+        ankare: 'certifieringar',
         text: `CV:t listar relevanta utbildningar med årtal: Motiverande samtal (MI) Steg 1-2 (2019-2020), Förvaltningsrätt - fördjupningskurs (2021), Systematiskt kvalitetsarbete (2022), GDPR för offentlig sektor (2023), och Traumamedveten omsorg (2024). Detta visar kontinuerlig kompetensutveckling över flera år.
 
 Varför detta fungerar: Handläggare arbetar i en sektor där lagstiftning uppdateras regelbundet genom nya förordningar, EU-direktiv och kommunala riktlinjer. Att visa fortbildning signalerar att du håller dig uppdaterad och tar yrket på allvar. För socialsekreterare är Motiverande samtal ofta ett krav eller starkt meriterande. Årtal visar när utbildningen genomfördes, vilket är relevant om regelverket ändrats sedan dess.`
       },
       {
         rubrik: 'Profiltext ger omedelbar överblick av specialisering',
+        ankare: 'profil',
         text: `Profiltexten sammanfattar styrkor på fyra meningar: "Erfaren socialsekreterare med 7+ års erfarenhet av barn- och familjeärenden enligt SoL och LVU. Specialist på utredningsarbete och myndighetsutövning med gedigen kunskap i förvaltningslagen, Treserva och motiverande samtal. Strukturerad analytisk handläggare som hanterar 35-40 parallella ärenden med fokus på rättssäkerhet och barnperspektiv."
 
 Varför detta fungerar: Rekryterare i offentlig sektor läser profiltexten först för att avgöra om du har rätt regelverkskännedom och erfarenhetsnivå. Denna text svarar omedelbart på kritiska frågor: Hur lång erfarenhet? Vilken specialisering? Vilka system behärskar du? Vilken arbetsbelastning klarar du? Detta gör att rekryteraren snabbt kan bedöma om du matchar kravprofilen.`
@@ -3682,7 +3704,7 @@ Om annonsen betonar "god samarbetsförmåga" eller "tvärprofessionellt arbete",
       },
       {
         fraga: 'Ska jag ha med profilbild på mitt CV?',
-        svar: 'Profilbild är frivilligt i Sverige och inget krav inom offentlig sektor. Fokusera istället på innehållet – kvantifierbara resultat, regelverkskännedom, certifieringar och konkret erfarenhet från olika handläggningsområden. Offentlig sektor värderar kompetens och meriter före allt annat. Om du väljer att ha bild, använd en professionell bild med neutral klädsel och bakgrund.'
+        svar: 'Profilbild är frivilligt i Sverige och inget krav inom offentlig sektor. Fokusera istället på innehållet, kvantifierbara resultat, regelverkskännedom, certifieringar och konkret erfarenhet från olika handläggningsområden. Offentlig sektor värderar kompetens och meriter före allt annat. Om du väljer att ha bild, använd en professionell bild med neutral klädsel och bakgrund.'
       },
       {
         fraga: 'Hur visar jag erfarenhet av olika handläggningsområden?',
@@ -3712,7 +3734,7 @@ Om annonsen betonar "god samarbetsförmåga" eller "tvärprofessionellt arbete",
     metaTitle: 'CV Exempel Läkare 2026 - Professionell Mall | Jobbcoach.ai',
     metaDescription: 'Se ett komplett CV-exempel för läkare. ATS-optimerat med legitimation, specialistbevis, kliniska mått och journalsystem (TakeCare, Cosmic, Melior). Perfekt för regionsjukhus och privata vårdgivare.',
 
-    seoIntro: 'Söker du specialist- eller ST-läkartjänst och behöver ett CV som sticker ut? Det här exemplet visar hur du strukturerar ett ATS-optimerat CV som passar svenska regioner, universitetssjukhus och privata vårdgivare.\n\nDu får se exakt hur du balanserar klinisk kompetens (internmedicin, kardiologi, akutmedicin) med legitimationer och specialistbevis som är obligatoriska. CV:t visar konkreta resultat med kvantifierbara mått som "1 200+ patientmöten/år", "350+ ekokardiografier utförda" och "minskade väntetid för hjärtsviktsutredningar med 25%". Journalsystem som TakeCare, Melior och Cosmic samt certifieringar (ACLS, ATLS) nämns strategiskt för ATS-optimering.\n\nAnvänd det som inspiration för ditt eget CV läkare och anpassa det efter din specialisering – allmänmedicin, kirurgi, anestesi eller annan inriktning.',
+    seoIntro: 'Söker du specialist- eller ST-läkartjänst och behöver ett CV som sticker ut? Det här exemplet visar hur du strukturerar ett ATS-optimerat CV som passar svenska regioner, universitetssjukhus och privata vårdgivare.\n\nDu får se exakt hur du balanserar klinisk kompetens (internmedicin, kardiologi, akutmedicin) med legitimationer och specialistbevis som är obligatoriska. CV:t visar konkreta resultat med kvantifierbara mått som "1 200+ patientmöten/år", "350+ ekokardiografier utförda" och "minskade väntetid för hjärtsviktsutredningar med 25%". Journalsystem som TakeCare, Melior och Cosmic samt certifieringar (ACLS, ATLS) nämns strategiskt för ATS-optimering.\n\nAnvänd det som inspiration för ditt eget CV läkare och anpassa det efter din specialisering, allmänmedicin, kirurgi, anestesi eller annan inriktning.',
 
     intro: 'Ett professionellt CV-exempel för läkare som visar din kliniska kompetens, specialistmeriter och förmåga att leverera evidensbaserad vård med patientfokus. Detta exempel är optimerat för svenska vårdgivare och ATS-system.',
 
@@ -3734,11 +3756,11 @@ Om annonsen betonar "god samarbetsförmåga" eller "tvärprofessionellt arbete",
           arbetsgivare: 'Karolinska Universitetssjukhuset, Solna',
           period: '2021 – Pågående',
           beskrivning: [
-            'Ansvarig för hjärtsviktsmottagning med 1 200+ patientmöten årligen – utredning, behandling och uppföljning av hjärtsvikt (HFrEF, HFpEF)',
+            'Ansvarig för hjärtsviktsmottagning med 1 200+ patientmöten årligen, utredning, behandling och uppföljning av hjärtsvikt (HFrEF, HFpEF)',
             'Utför 350+ ekokardiografier per år (TTE) med fokus på systolisk/diastolisk funktion, klaffsjukdomar och kardiomyopatier',
             'Minskade väntetid för hjärtsviktsutredningar från 8 till 6 veckor genom implementering av snabbspår för akut försämring',
             'Handleder 3-4 ST-läkare årligen i ekokardiografi, EKG-tolkning och hjärtsviktsbehandling enligt ESC-guidelines',
-            'Driver kvalitetsarbete inom SWEDEHEART-registret – förbättrade dokumentation av läkemedelsbehandling till 95% (från 78%)',
+            'Driver kvalitetsarbete inom SWEDEHEART-registret, förbättrade dokumentation av läkemedelsbehandling till 95% (från 78%)',
             'Använder TakeCare dagligen för journalföring, remisshantering och läkemedelsordinationer'
           ]
         },
@@ -3748,10 +3770,10 @@ Om annonsen betonar "god samarbetsförmåga" eller "tvärprofessionellt arbete",
           period: '2016 – 2021',
           beskrivning: [
             'Specialisttjänstgöring inom internmedicin med rotationstjänstgöring på akutmottagning, kardiologi, gastro och njurmedicin',
-            'Ansvarig för vårdavdelning med 18-22 patienter under jourtjänstgöring – akuta bedömningar, behandlingsplanering och tvärprofessionellt samarbete',
+            'Ansvarig för vårdavdelning med 18-22 patienter under jourtjänstgöring, akuta bedömningar, behandlingsplanering och tvärprofessionellt samarbete',
             'Självständig handläggning av internmedicinska tillstånd: hjärtsvikt, KOL, diabetes, sepsis, njursvikt och elektrolytrubbningar',
             'Genomförde 500+ akuta bedömningar på akutmottagningen (triagering, initial utredning, ställningstagande till inläggning)',
-            'ACLS-instruktör (2019-2021) – utbildade 40+ vårdpersonal i akut hjärt-lungräddning och arytmihantering'
+            'ACLS-instruktör (2019-2021), utbildade 40+ vårdpersonal i akut hjärt-lungräddning och arytmihantering'
           ]
         },
         {
@@ -3771,7 +3793,7 @@ Om annonsen betonar "god samarbetsförmåga" eller "tvärprofessionellt arbete",
           titel: 'Läkarprogrammet, 330 hp',
           skola: 'Karolinska Institutet, Stockholm',
           period: '2008 – 2014',
-          beskrivning: 'Läkarexamen med VFU på Karolinska, Danderyds sjukhus och Södersjukhuset. Examensarbete: "Biomarkörer vid akut hjärtsvikt – NT-proBNP och Troponin T" (publicerat i Cardiology, 2014).'
+          beskrivning: 'Läkarexamen med VFU på Karolinska, Danderyds sjukhus och Södersjukhuset. Examensarbete: "Biomarkörer vid akut hjärtsvikt, NT-proBNP och Troponin T" (publicerat i Cardiology, 2014).'
         },
         {
           titel: 'Specialistbevis Internmedicin',
@@ -3801,18 +3823,18 @@ Om annonsen betonar "god samarbetsförmåga" eller "tvärprofessionellt arbete",
       },
 
       certifieringar: [
-        'Specialistbevis Internmedicin – Socialstyrelsen (2021)',
-        'Läkarlegitimation – Socialstyrelsen (2014, förnyad 2024)',
-        'ACLS (Advanced Cardiovascular Life Support) – instruktörscertifierad (förnyad 2024)',
+        'Specialistbevis Internmedicin: Socialstyrelsen (2021)',
+        'Läkarlegitimation: Socialstyrelsen (2014, förnyad 2024)',
+        'ACLS (Advanced Cardiovascular Life Support): instruktörscertifierad (förnyad 2024)',
         'ATLS (Advanced Trauma Life Support) (2015, förnyad 2023)',
-        'Ekokardiografi TTE nivå 2 – Svensk Kardiologisk Förening (2020)',
+        'Ekokardiografi TTE nivå 2: Svensk Kardiologisk Förening (2020)',
         'Strålskyddskurs för läkare (2015)',
         'Forskningsetik och GCP (Good Clinical Practice) (2019)'
       ],
 
       sprak: [
         { sprak: 'Svenska', niva: 'Modersmål' },
-        { sprak: 'Engelska', niva: 'Flytande (C2) – medicinska publikationer och konferenser' },
+        { sprak: 'Engelska', niva: 'Flytande (C2), medicinska publikationer och konferenser' },
         { sprak: 'Tyska', niva: 'Grundläggande (B1)' }
       ]
     },
@@ -3822,37 +3844,37 @@ Om annonsen betonar "god samarbetsförmåga" eller "tvärprofessionellt arbete",
         rubrik: 'ATS-optimering med medicinska nyckelord',
         text: `CV:t innehåller exakt de sökord som regionala och privata vårdgivare använder i sina rekryteringssystem: specialistbevis i internmedicin, ACLS-certifierad, TakeCare, RETTS-triagering, EKG-tolkning och invasiv övervakning. Dessa termer finns i både profiltexten och erfarenhetsbeskrivningarna.
 
-Varför detta fungerar: När regionala och privata vårdgivare får in hundratals ansökningar använder de ATS-system för att filtrera fram relevanta kandidater. Om du skriver "ansvarig för akutsjukvård" istället för "RETTS-triagering på akutmottagning" kan systemet missa ditt CV helt. Genom att använda exakta branschtermer – samma ord som står i jobbannonsen – säkerställer du att ditt CV når fram till en mänsklig rekryterare. Standardiserade rubriker som "Legitimation och Specialistkompetens" gör det enkelt även för icke-medicinsk HR-personal att hitta din behörighet.`
+Varför detta fungerar: När regionala och privata vårdgivare får in hundratals ansökningar använder de ATS-system för att filtrera fram relevanta kandidater. Om du skriver "ansvarig för akutsjukvård" istället för "RETTS-triagering på akutmottagning" kan systemet missa ditt CV helt. Genom att använda exakta branschtermer, samma ord som står i jobbannonsen, säkerställer du att ditt CV når fram till en mänsklig rekryterare. Standardiserade rubriker som "Legitimation och Specialistkompetens" gör det enkelt även för icke-medicinsk HR-personal att hitta din behörighet.`
       },
       {
         rubrik: 'Konkreta siffror från kliniskt arbete',
         text: `Istället för "ansvarig för patientvård" visar CV:t mätbara resultat: "15-20 patienter dagligen", "jouransvar 4-6 pass per månad", "handledare för 3 AT-läkare", "genomförde 200+ invasiva procedurer". Varje erfarenhetspost innehåller kvantifierbara uppgifter som visar omfattning och ansvarsnivå.
 
-Varför detta fungerar: Rekryterare inom sjukvård läser mängder av CV där alla skriver "erfaren läkare med bred kompetens". Siffror ger kontext och visar att du arbetat i högtempomiljöer med realistisk arbetsbelastning. När du skriver "ledde implementering av EKG-protokoll som minskade tid till diagnos med 20%" visar du inte bara klinisk kompetens utan även förmåga att driva förbättringsarbete – något som värderas högt för specialist- och överläkartjänster. Siffror ger också rekryterare konkreta frågor att ställa under intervjun.`
+Varför detta fungerar: Rekryterare inom sjukvård läser mängder av CV där alla skriver "erfaren läkare med bred kompetens". Siffror ger kontext och visar att du arbetat i högtempomiljöer med realistisk arbetsbelastning. När du skriver "ledde implementering av EKG-protokoll som minskade tid till diagnos med 20%" visar du inte bara klinisk kompetens utan även förmåga att driva förbättringsarbete, något som värderas högt för specialist- och överläkartjänster. Siffror ger också rekryterare konkreta frågor att ställa under intervjun.`
       },
       {
         rubrik: 'Balans mellan klinisk expertis och ledarskap',
-        text: `CV:t kombinerar teknisk medicinsk kompetens – internmedicin, EKG-tolkning, invasiv övervakning, ultraljud – med tydliga bevis på ledarskap: handledning av AT-läkare och medicinstudenter, tvärprofessionella ronder, implementering av nya protokoll. Inga tomma påståenden som "teamplayer" eller "stresstålig" utan kontext.
+        text: `CV:t kombinerar teknisk medicinsk kompetens, internmedicin, EKG-tolkning, invasiv övervakning, ultraljud, med tydliga bevis på ledarskap: handledning av AT-läkare och medicinstudenter, tvärprofessionella ronder, implementering av nya protokoll. Inga tomma påståenden som "teamplayer" eller "stresstålig" utan kontext.
 
-Varför detta fungerar: Moderna läkartjänster söker mer än kliniska färdigheter. Vårdgivare vill ha läkare som kan handleda yngre kollegor, samarbeta över specialitetsgränser och bidra till verksamhetsutveckling. Genom att visa både procedur-kompetens och konkreta exempel på ledarskap – "handledare för 3 AT-läkare", "ledde implementering av nytt protokoll" – demonstrerar du att du är redo för seniorroller. Detta är avgörande för ST-läkare som söker specialisttjänster eller specialister som siktar på överläkarbefattningar med utbildningsansvar.`
+Varför detta fungerar: Moderna läkartjänster söker mer än kliniska färdigheter. Vårdgivare vill ha läkare som kan handleda yngre kollegor, samarbeta över specialitetsgränser och bidra till verksamhetsutveckling. Genom att visa både procedur-kompetens och konkreta exempel på ledarskap, "handledare för 3 AT-läkare", "ledde implementering av nytt protokoll", demonstrerar du att du är redo för seniorroller. Detta är avgörande för ST-läkare som söker specialisttjänster eller specialister som siktar på överläkarbefattningar med utbildningsansvar.`
       },
       {
         rubrik: 'Legitimation och certifieringar med årtal',
         text: `En dedikerad sektion visar legitimation, specialistbevis och certifieringar med tydliga datum: "Läkarlegitimation (2017)", "Specialistbevis i Internmedicin (2020)", "ACLS (förnyad 2024)", "ATLS (förnyad 2023)". Förnyelsedatum inkluderas för att visa att kompetensen är uppdaterad.
 
-Varför detta fungerar: Läkarlegitimation och specialistbevis är grundkrav för alla läkartjänster i Sverige. Genom att placera dem synligt gör du det enkelt för rekryterare att verifiera din behörighet direkt. Att inkludera förnyelsedatum för ACLS och ATLS visar att du aktivt uppdaterar dig – inte bara har gammal certifiering från AT-tiden. För AT-läkare är legitimationen det viktigaste, för specialister blir specialistbeviset avgörande. Privata vårdgivare kräver ofta dokumenterad specialistkompetens och frågar specifikt efter uppdaterade certifieringar vid rekrytering.`
+Varför detta fungerar: Läkarlegitimation och specialistbevis är grundkrav för alla läkartjänster i Sverige. Genom att placera dem synligt gör du det enkelt för rekryterare att verifiera din behörighet direkt. Att inkludera förnyelsedatum för ACLS och ATLS visar att du aktivt uppdaterar dig, inte bara har gammal certifiering från AT-tiden. För AT-läkare är legitimationen det viktigaste, för specialister blir specialistbeviset avgörande. Privata vårdgivare kräver ofta dokumenterad specialistkompetens och frågar specifikt efter uppdaterade certifieringar vid rekrytering.`
       },
       {
         rubrik: 'Profiltext som sammanfattar specialisering',
         text: `Den inledande profiltexten packar in legitimation, specialistbevis, erfarenhetsnivå och nyckelkompetenser på fyra meningar: "Legitimerad läkare med specialistbevis i internmedicin och 8+ års erfarenhet från akutsjukvård och primärvård. Specialist på kardiologi och akuta bedömningar, med gedigen kunskap i TakeCare, EKG-tolkning och invasiv övervakning. ACLS- och ATLS-certifierad teamledare..."
 
-Varför detta fungerar: Rekryterare inom sjukvård skannar ofta 50-100 CV för en tjänst. En stark profiltext gör att de direkt ser om du matchar kravprofilen – legitimation, specialitet, erfarenhetsnivå och arbetsmiljö. Genom att kombinera tekniska nyckelord som TakeCare och ACLS med personliga egenskaper som tvärprofessionellt samarbete visar du både klinisk och organisatorisk kompetens. ATS-system indexerar profiltexten extra noggrant, så att inkludera rätt keywords här ökar dina chanser att passera automatisk screening betydligt.`
+Varför detta fungerar: Rekryterare inom sjukvård skannar ofta 50-100 CV för en tjänst. En stark profiltext gör att de direkt ser om du matchar kravprofilen, legitimation, specialitet, erfarenhetsnivå och arbetsmiljö. Genom att kombinera tekniska nyckelord som TakeCare och ACLS med personliga egenskaper som tvärprofessionellt samarbete visar du både klinisk och organisatorisk kompetens. ATS-system indexerar profiltexten extra noggrant, så att inkludera rätt keywords här ökar dina chanser att passera automatisk screening betydligt.`
       },
       {
         rubrik: 'Tydlig progression från AT till specialist',
         text: `Från AT-läkare med bred rotation via ST-tjänstgöring till specialistbevis i internmedicin visar CV:t en naturlig karriärutveckling. Växande ansvar syns konkret: "10-15 patienter" blir "15-20 patienter dagligen", "handledning av AT-läkare och medicinstudenter", "ledde implementering av EKG-protokoll som minskade tid med 20%".
 
-Varför detta fungerar: Medicinsk karriär i Sverige följer en tydlig struktur – AT, ST, specialist, överläkare – och att visa denna progression signalerar stabilitet och engagemang. För AT-läkare visar bred rotation att du uppfyllt kravprofilen. För ST-läkare blir fokuserad specialisering viktig att lyfta fram. För specialister visar handledningsansvar och förbättringsarbete att du är redo för chefsläkar- eller universitetsroller. Akademiska meriter som publikationer eller forskning ger extra tyngd vid universitetssjukhus men ska balanseras så kliniskt arbete fortfarande står i fokus för icke-akademiska tjänster.`
+Varför detta fungerar: Medicinsk karriär i Sverige följer en tydlig struktur, AT, ST, specialist, överläkare, och att visa denna progression signalerar stabilitet och engagemang. För AT-läkare visar bred rotation att du uppfyllt kravprofilen. För ST-läkare blir fokuserad specialisering viktig att lyfta fram. För specialister visar handledningsansvar och förbättringsarbete att du är redo för chefsläkar- eller universitetsroller. Akademiska meriter som publikationer eller forskning ger extra tyngd vid universitetssjukhus men ska balanseras så kliniskt arbete fortfarande står i fokus för icke-akademiska tjänster.`
       }
     ],
 
@@ -3949,11 +3971,11 @@ Ange antal handledda ST-läkare, hur länge du handlett och inom vilka områden.
       },
       {
         fraga: 'Hur visar jag AT/ST-tjänstgöring i mitt CV?',
-        svar: 'Lista AT och ST som separata erfarenhetsposter med arbetsplats, period och huvudsakliga rotationer/avdelningar. För AT: nämn vilka basblock du genomfört. För ST: specificera specialitet, klinik och antal år. Exempel: "ST-läkare internmedicin, Karolinska Universitetssjukhuset (2017-2022) – Rotationer: kardiologi, gastroenterologi, endokrinologi, akutmedicin". Nämn även handledarskap, deltagande i konferenser och eventuella forskningsprojekt under ST.'
+        svar: 'Lista AT och ST som separata erfarenhetsposter med arbetsplats, period och huvudsakliga rotationer/avdelningar. För AT: nämn vilka basblock du genomfört. För ST: specificera specialitet, klinik och antal år. Exempel: "ST-läkare internmedicin, Karolinska Universitetssjukhuset (2017-2022), Rotationer: kardiologi, gastroenterologi, endokrinologi, akutmedicin". Nämn även handledarskap, deltagande i konferenser och eventuella forskningsprojekt under ST.'
       },
       {
         fraga: 'Vilka certifieringar är viktigast för läkare?',
-        svar: 'Prioritera dessa certifieringar beroende på specialitet: ACLS (Advanced Cardiovascular Life Support) – obligatorisk för internmedicin, akutmedicin, anestesi. ATLS (Advanced Trauma Life Support) – viktigt för akutmedicin, kirurgi. HLR-instruktör om relevant. För specialister: specifika certifieringar som POCUS, endoskopi-certifiering, bronkoskopi-certifiering beroende på område. Ange alltid årtal och förnyelsedatum: "ACLS (förnyad 2024)".'
+        svar: 'Prioritera dessa certifieringar beroende på specialitet: ACLS (Advanced Cardiovascular Life Support), obligatorisk för internmedicin, akutmedicin, anestesi. ATLS (Advanced Trauma Life Support), viktigt för akutmedicin, kirurgi. HLR-instruktör om relevant. För specialister: specifika certifieringar som POCUS, endoskopi-certifiering, bronkoskopi-certifiering beroende på område. Ange alltid årtal och förnyelsedatum: "ACLS (förnyad 2024)".'
       },
       {
         fraga: 'Hur kvantifierar jag min kliniska erfarenhet?',
@@ -3997,7 +4019,7 @@ Ange antal handledda ST-läkare, hur länge du handlett och inom vilka områden.
           beskrivning: [
             'Ansvarar för 40-60 kundmöten dagligen med fokus på försäljning och service (genomsnittligt köpvärde 850 kr/kund)',
             'Ökade personlig försäljning med 22% under 2023 jämfört med föregående år (från 180k till 220k kr/månad)',
-            'Visuell merchandising för damavdelningen – skapar skyltfönster och kampanjytor som ökade avdelningsförsäljning med 15%',
+            'Visuell merchandising för damavdelningen, skapar skyltfönster och kampanjytor som ökade avdelningsförsäljning med 15%',
             'Använder Extenda kassasystem dagligen för försäljning, returer och lagerhantering',
             'Mentorskap för 3 nya medarbetare under introduktionsperiod (2-4 veckor)'
           ]
@@ -4009,7 +4031,7 @@ Ange antal handledda ST-läkare, hur länge du handlett och inom vilka områden.
           beskrivning: [
             'Hanterade 30-50 kunder per dag under högsäsong (jul, rea-perioder uppåt 80 kunder/dag)',
             'Ansvarade för kassa och daglig kassaavstämning (genomsnitt 120k kr/dag)',
-            'Merförsäljning av accessoarer och kompletterande produkter – bidrog till 18% merförsäljning i teamet',
+            'Merförsäljning av accessoarer och kompletterande produkter, bidrog till 18% merförsäljning i teamet',
             'Lagerhantering och varuinleveranser (2-3 leveranser per vecka, 200-400 artiklar)',
             'Deltog i inventering och sortimentsplanering'
           ]
@@ -4066,25 +4088,25 @@ Ange antal handledda ST-läkare, hur länge du handlett och inom vilka områden.
         rubrik: 'Branschspecifika nyckelord för ATS-system',
         text: `CV:t använder exakta branschtermer som "kassahantering med EXTENDA", "merförsäljning och produktrådgivning", "visual merchandising" och "ålderskontroll enligt Alkohollagen". Många butiksbiträden skriver bara "jobbade i butik" eller "hjälpte kunder".
 
-Varför detta fungerar: ATS-system och rekryterare söker efter specifika ord som matchar jobbannonsen. Om de skriver "kassasystem EXTENDA" eller "merförsäljning", måste ditt CV innehålla exakt de orden för att passera första urvalet. Generiska fraser som "bra kundbemötande" sorteras bort direkt – alla skriver så. Konkreta branschtermer visar att du förstår yrket och har relevant erfarenhet.`
+Varför detta fungerar: ATS-system och rekryterare söker efter specifika ord som matchar jobbannonsen. Om de skriver "kassasystem EXTENDA" eller "merförsäljning", måste ditt CV innehålla exakt de orden för att passera första urvalet. Generiska fraser som "bra kundbemötande" sorteras bort direkt, alla skriver så. Konkreta branschtermer visar att du förstår yrket och har relevant erfarenhet.`
       },
       {
         rubrik: 'Kvantifierbara försäljningsresultat som sticker ut',
         text: `CV:t använder konkreta siffror som "120% av säljmål (25,000 SEK/dag)", "ökade merförsäljningen med 30%", "hanterade 80-100 kunder dagligen" och "kassaavstämning med noll differens under 18 månader". De flesta butiksbiträden skriver bara "ansvarade för försäljning" eller "jobbade i kassa".
 
-Varför detta fungerar: Rekryterare läser hundratals CV där alla säger samma sak. Siffror visar omfattningen av ditt arbete och kvaliteten på din prestation. "80-100 kunder dagligen" visar att du klarar högtempo. "120% av säljmål" visar att du överträffar förväntningar. Utan siffror är ditt CV ett bland alla andra – med dem blir du minnesvärd.`
+Varför detta fungerar: Rekryterare läser hundratals CV där alla säger samma sak. Siffror visar omfattningen av ditt arbete och kvaliteten på din prestation. "80-100 kunder dagligen" visar att du klarar högtempo. "120% av säljmål" visar att du överträffar förväntningar. Utan siffror är ditt CV ett bland alla andra, med dem blir du minnesvärd.`
       },
       {
         rubrik: 'Tekniska färdigheter med bevis från verklig erfarenhet',
         text: `CV:t balanserar tekniska kompetenser som "kassahantering och EXTENDA (Expert, 3+ år)" och "visual merchandising" med mjuka egenskaper som backas upp av konkreta exempel: "stresstålig (hanterade 100+ kunder/dag under julrushen)" och "flexibel (dag, kväll, helg, Black Friday)". Många skriver bara "serviceinriktad, social, positiv" utan sammanhang.
 
-Varför detta fungerar: Butiksbiträden måste kunna både tekniska saker och ha starka personliga egenskaper. Men att bara lista "flexibel, stresstålig" är meningslöst – alla skriver så. När du visar att du hanterade 100+ kunder under julrushen förstår rekryteraren att du faktiskt kan jobba under press. Då blir egenskapen trovärdig istället för ett tomt påstående.`
+Varför detta fungerar: Butiksbiträden måste kunna både tekniska saker och ha starka personliga egenskaper. Men att bara lista "flexibel, stresstålig" är meningslöst, alla skriver så. När du visar att du hanterade 100+ kunder under julrushen förstår rekryteraren att du faktiskt kan jobba under press. Då blir egenskapen trovärdig istället för ett tomt påstående.`
       },
       {
         rubrik: 'Certifieringar som bygger förtroende och trovärdighet',
-        text: `CV:t listar 5 relevanta certifieringar med årtal: "Kassautbildning – Handelsakademin (2019)", "Ålderskontroll för alkohol och tobak (2020)", "Butikssäkerhet och stöldprevention (2021)" och "Första hjälpen och HLR (förnyad 2024)". Många glömmer att ta med certifieringar eller utelämnar årtal helt.
+        text: `CV:t listar 5 relevanta certifieringar med årtal: "Kassautbildning, Handelsakademin (2019)", "Ålderskontroll för alkohol och tobak (2020)", "Butikssäkerhet och stöldprevention (2021)" och "Första hjälpen och HLR (förnyad 2024)". Många glömmer att ta med certifieringar eller utelämnar årtal helt.
 
-Varför detta fungerar: Butiksbiträden hanterar pengar, kunddata och ibland åldersbegränsade varor. Certifieringar visar att du är utbildad, pålitlig och följer lagar. "Ålderskontroll enligt Alkohollagen" är lagkrav för vissa butiker. "Kassautbildning" visar att du inte bara lärt dig på plats utan har formell kompetens. Årtal visar att kunskapen är aktuell – "förnyad 2024" är starkare än bara "HLR-certifierad".`
+Varför detta fungerar: Butiksbiträden hanterar pengar, kunddata och ibland åldersbegränsade varor. Certifieringar visar att du är utbildad, pålitlig och följer lagar. "Ålderskontroll enligt Alkohollagen" är lagkrav för vissa butiker. "Kassautbildning" visar att du inte bara lärt dig på plats utan har formell kompetens. Årtal visar att kunskapen är aktuell, "förnyad 2024" är starkare än bara "HLR-certifierad".`
       },
       {
         rubrik: 'Profiltext som ger snabb överblick',
@@ -4103,7 +4125,7 @@ Varför detta fungerar: Progression visar ambition och att du kan ta större ans
     tips: [
       {
         rubrik: 'Kvantifiera dina försäljningsresultat med konkreta siffror',
-        text: `Vaga beskrivningar som "ansvarade för försäljning" säger ingenting om din prestation. Rekryterare vill se exakt hur bra du är – siffror ger trovärdighet och visar din faktiska kapacitet.
+        text: `Vaga beskrivningar som "ansvarade för försäljning" säger ingenting om din prestation. Rekryterare vill se exakt hur bra du är, siffror ger trovärdighet och visar din faktiska kapacitet.
 
 **Exempel på före/efter**:
 
@@ -4123,11 +4145,11 @@ Konkreta siffror ger rekryteraren något att fråga om under intervjun och visar
 
 ✅ "Kassasystem: Extenda (3+ år daglig användning), Visma Retail, POS-system och betalningslösningar (Swish, Apple Pay)"
 
-Specifika system visar att du kan börja jobba dag 1 utan omfattande kassautbildning – det sparar arbetsgivaren tid och pengar.`
+Specifika system visar att du kan börja jobba dag 1 utan omfattande kassautbildning, det sparar arbetsgivaren tid och pengar.`
       },
       {
         rubrik: 'Visa stresshantering genom kvantifierade volymer',
-        text: `Undvik att bara lista "stresstålig" eller "hanterar högt tempo" som kompetenser – visa det istället genom konkreta siffror från din arbetserfarenhet.
+        text: `Undvik att bara lista "stresstålig" eller "hanterar högt tempo" som kompetenser, visa det istället genom konkreta siffror från din arbetserfarenhet.
 
 **Exempel på före/efter**:
 
@@ -4135,7 +4157,7 @@ Specifika system visar att du kan börja jobba dag 1 utan omfattande kassautbild
 
 ✅ "Hanterade 300+ kunder under Black Friday-kampanj med bibehållen servicekvalitet. Betjänar 40-60 kunder dagligen under högsäsong."
 
-Genom att kvantifiera volymerna bevisar du att du faktiskt har erfarenhet av riktigt högt tempo – inte bara säger att du klarar det.`
+Genom att kvantifiera volymerna bevisar du att du faktiskt har erfarenhet av riktigt högt tempo, inte bara säger att du klarar det.`
       },
       {
         rubrik: 'Lyft fram visuell merchandising om du arbetat med butikslayout',
@@ -4145,7 +4167,7 @@ Genom att kvantifiera volymerna bevisar du att du faktiskt har erfarenhet av rik
 
 ❌ "Hjälpte till med butikslayout och produktplacering"
 
-✅ "Ansvarade för visuell merchandising på damavdelningen – skapade skyltfönster och kampanjytor som ökade avdelningsförsäljning med 15%"
+✅ "Ansvarade för visuell merchandising på damavdelningen, skapade skyltfönster och kampanjytor som ökade avdelningsförsäljning med 15%"
 
 Detta skiljer dig från de som bara sett sin roll som att bemanna kassan och visar att du förstår hela butiksdriften.`
       },
@@ -4165,7 +4187,7 @@ Exempel på certifieringar att nämna:
     faq: [
       {
         fraga: 'Hur skriver jag ett bra CV som butiksbiträde utan formell utbildning?',
-        svar: 'Fokusera på konkret arbetslivserfarenhet och kvantifierbara resultat istället för utbildning. Skriv hur många kunder du hanterar dagligen, vilka kassasystem du kan (Extenda, Visma Retail), och eventuella försäljningsresultat. Inkludera certifieringar som kassautbildning eller merförsäljningskurser – även interna utbildningar räknas. Profiltext blir extra viktig här – använd de 4 raderna för att visa vad du kan, inte vad du saknar.'
+        svar: 'Fokusera på konkret arbetslivserfarenhet och kvantifierbara resultat istället för utbildning. Skriv hur många kunder du hanterar dagligen, vilka kassasystem du kan (Extenda, Visma Retail), och eventuella försäljningsresultat. Inkludera certifieringar som kassautbildning eller merförsäljningskurser, även interna utbildningar räknas. Profiltext blir extra viktig här, använd de 4 raderna för att visa vad du kan, inte vad du saknar.'
       },
       {
         fraga: 'Vilka nyckelord ska jag ha i mitt CV för att få jobb som butiksbiträde?',
@@ -4173,15 +4195,15 @@ Exempel på certifieringar att nämna:
       },
       {
         fraga: 'Hur lång ska mitt CV vara som butiksbiträde?',
-        svar: '1 sida för 0-5 års erfarenhet, 2 sidor för 5+ år. De flesta butiksbiträden bör hålla sig till 1 sida – rekryterare inom detaljhandeln har sällan tid att läsa mer. Fokusera på de senaste 5-7 åren och utelämna tidiga extrajobb om de inte tillför något unikt. Prioritera alltid kvalitet över kvantitet.'
+        svar: '1 sida för 0-5 års erfarenhet, 2 sidor för 5+ år. De flesta butiksbiträden bör hålla sig till 1 sida, rekryterare inom detaljhandeln har sällan tid att läsa mer. Fokusera på de senaste 5-7 åren och utelämna tidiga extrajobb om de inte tillför något unikt. Prioritera alltid kvalitet över kvantitet.'
       },
       {
         fraga: 'Ska jag inkludera extrajobb och sommarvikariat i mitt butiksbiträde-CV?',
-        svar: 'Ja, särskilt om du är junior (0-5 år). Extrajobb och vikariat räknas som riktig arbetslivserfarenhet inom detaljhandeln. Beskriv dem konkret: inte bara "Extrapersonal jul 2022" utan "Extrapersonal julhandeln 2022 – hanterade 150+ kunder dagligen, kassaansvar". Om du har 5+ års erfarenhet kan du summera äldre extraroller under en gemensam rubrik.'
+        svar: 'Ja, särskilt om du är junior (0-5 år). Extrajobb och vikariat räknas som riktig arbetslivserfarenhet inom detaljhandeln. Beskriv dem konkret: inte bara "Extrapersonal jul 2022" utan "Extrapersonal julhandeln 2022, hanterade 150+ kunder dagligen, kassaansvar". Om du har 5+ års erfarenhet kan du summera äldre extraroller under en gemensam rubrik.'
       },
       {
         fraga: 'Vad ska jag skriva under kompetenser som butiksbiträde?',
-        svar: 'Fokusera på 5-8 konkreta, tekniska färdigheter: Kassasystem (Extenda, Visma Retail), merförsäljningstekniker, visuell merchandising, lagerhantering, returer och reklamationer. Undvik buzzword-listor som "kommunikativ, flexibel, driven" utan kontext – visa dessa egenskaper genom exempel i arbetslivserfarenhet istället. Om du vill inkludera mjuka kompetenser, backa upp dem med siffror.'
+        svar: 'Fokusera på 5-8 konkreta, tekniska färdigheter: Kassasystem (Extenda, Visma Retail), merförsäljningstekniker, visuell merchandising, lagerhantering, returer och reklamationer. Undvik buzzword-listor som "kommunikativ, flexibel, driven" utan kontext, visa dessa egenskaper genom exempel i arbetslivserfarenhet istället. Om du vill inkludera mjuka kompetenser, backa upp dem med siffror.'
       }
     ],
 
@@ -4203,7 +4225,7 @@ Exempel på certifieringar att nämna:
 
 Du får se exakt hur du balanserar hårda sälj-siffror (försäljningsvolym, merförsäljning, konvertering) med de mjuka färdigheter som rekryterare söker (kundservice, flexibilitet, lagarbete). CV:t visar konkreta resultat från både modebutik och elektronikhandel med kvantifierbara exempel och kassasystem som Extenda och iZettle.
 
-Använd det som inspiration för ditt eget CV butikssäljare och anpassa det efter butiksmiljö och produkt. Oavsett om du söker inom mode, sport, elektronik eller dagligvaror – principerna är desamma: visa resultat, kvantifiera och matcha rätt nyckelord mot jobbannonsen.`,
+Använd det som inspiration för ditt eget CV butikssäljare och anpassa det efter butiksmiljö och produkt. Oavsett om du söker inom mode, sport, elektronik eller dagligvaror, principerna är desamma: visa resultat, kvantifiera och matcha rätt nyckelord mot jobbannonsen.`,
 
     intro: 'Ett professionellt CV-exempel för butikssäljare som visar din försäljningskompetens, kundfokus och tekniska färdigheter. Detta exempel är optimerat för svenska detaljhandelsföretag och ATS-system.',
 
@@ -4213,11 +4235,11 @@ Använd det som inspiration för ditt eget CV butikssäljare och anpassa det eft
       kontakt: {
         telefon: '070-987 65 43',
         epost: 'emma.karlsson@email.se',
-        plats: 'Göteborg',
+        plats: 'Stockholm',
         linkedin: 'linkedin.com/in/emmakarlsson'
       },
 
-      profil: 'Driven butikssäljare med 4+ års erfarenhet från modehandel och elektronikbutiker. Specialist på merförsäljning och kundupplevelse – ökade snittköpet med 25% genom aktivt lyssnade och produktkunskap. Gedigen erfarenhet av kassasystem (Extenda, iZettle), visuell merchandising och lagerhantering. Flexibel lagspelare som trivs i högt tempo och bygger långsiktiga kundrelationer.',
+      profil: 'Driven butikssäljare med 4+ års erfarenhet från modehandel och elektronikbutiker. Specialist på merförsäljning och kundupplevelse, ökade snittköpet med 25% genom aktivt lyssnade och produktkunskap. Gedigen erfarenhet av kassasystem (Extenda, iZettle), visuell merchandising och lagerhantering. Flexibel lagspelare som trivs i högt tempo och bygger långsiktiga kundrelationer.',
 
       erfarenhet: [
         {
@@ -4229,7 +4251,7 @@ Använd det som inspiration för ditt eget CV butikssäljare och anpassa det eft
             'Ökade merförsäljning från 18% till 32% genom aktivt erbjudande av kompletterande produkter och styling-tjänster',
             'Hanterar 80-120 kunder dagligen vid högtrafik (helger, kampanjer) med genomsnittligt snittköp på 650 kr',
             'Visual merchandising-ansvarig: planerar fönsterexponeringar och butikslayout enligt säsongskampanjer (2-3 omställningar/månad)',
-            'Mentorskap för 3 nyanställda säljare under introduktionsperiod – säkerställer kunskap om kassasystem Extenda och kundservicerutiner',
+            'Mentorskap för 3 nyanställda säljare under introduktionsperiod, säkerställer kunskap om kassasystem Extenda och kundservicerutiner',
             'Använder Extenda dagligen för försäljning, returer, lagerregistrering och rapportering'
           ]
         },
@@ -4246,7 +4268,7 @@ Använd det som inspiration för ditt eget CV butikssäljare och anpassa det eft
           ]
         },
         {
-          titel: 'Extrajobb – Butiksbiträde',
+          titel: 'Butiksbiträde, extrajobb',
           arbetsgivare: 'ICA Supermarket',
           period: '2017 – 2019',
           beskrivning: [
@@ -4269,7 +4291,7 @@ Använd det som inspiration för ditt eget CV butikssäljare och anpassa det eft
       kompetenser: {
         tekniska: [
           'Kassasystem: Extenda och iZettle (Expert, 4+ år daglig användning)',
-          'Merförsäljning och korsförsäljning (Avancerad, dokumenterad ökning 18% → 32%)',
+          'Merförsäljning och korsförsäljning (Avancerad, dokumenterad ökning 18% till 32%)',
           'Visuell merchandising och butikslayout (Avancerad, 3+ år)',
           'Produktkunskap: Mode, elektronik, dagligvaror',
           'Lagerhantering och inventory',
@@ -4286,8 +4308,8 @@ Använd det som inspiration för ditt eget CV butikssäljare och anpassa det eft
       },
 
       certifieringar: [
-        'Extenda Kassasystem – Certifierad användare (2021)',
-        'Säljutbildning "Konsultativ försäljning" – Media Markt Academy (2020)',
+        'Extenda Kassasystem: Certifierad användare (2021)',
+        'Säljutbildning "Konsultativ försäljning": Media Markt Academy (2020)',
         'Produktkunskap Samsung TV & Audio (2020)',
         'Alkoholservering och ålderskontroll (2019)'
       ],
@@ -4307,7 +4329,7 @@ Använd det som inspiration för ditt eget CV butikssäljare och anpassa det eft
       'Visa konkreta försäljningssiffror (kr/månad, snittköp, merförsäljning i %)',
       'Nämn kassasystem och tekniska verktyg du använt (Extenda, iZettle, Sitoo, Visma Retail)',
       'Kvantifiera kundkontakt (antal kunder/dag, högtrafik-situationer)',
-      'Lyfta fram progression: extrajobb → säljare → säljansvarig',
+      'Lyfta fram progression: extrajobb, sedan säljare, sedan säljansvarig',
       'Balansera tekniska färdigheter (kassasystem) med mjuka (kundservice, flexibilitet)',
       'Inkludera certifieringar och produktkunskapsutbildningar med årtal'
     ],
@@ -4329,11 +4351,11 @@ Varför detta fungerar: ATS-system skannar efter nyckelord från jobbannonsen. N
         rubrik: 'Kvantifierbara resultat som ger konkret kontext',
         text: `CV:t visar konkreta resultat: "180 000 kr månadsomsättning", "snittköp 650 kr", "merförsäljning från 18% till 32%", och "80-120 kunder dagligen". Det ger kvantifierbar bevisning på prestation.
 
-Varför detta fungerar: Rekryterare läser hundratals CV där kandidater bara skriver "ansvarig för försäljning". Siffror ger omedelbar kontext – en säljare med 180 000 kr/mån visar högre kapacitet än någon utan siffror. Det gör också att du sticker ut och ger rekryteraren konkreta frågor att ställa under intervju. Kvantifiera alltid: antal kunder, försäljning i kr, merförsäljning i procent.`
+Varför detta fungerar: Rekryterare läser hundratals CV där kandidater bara skriver "ansvarig för försäljning". Siffror ger omedelbar kontext, en säljare med 180 000 kr/mån visar högre kapacitet än någon utan siffror. Det gör också att du sticker ut och ger rekryteraren konkreta frågor att ställa under intervju. Kvantifiera alltid: antal kunder, försäljning i kr, merförsäljning i procent.`
       },
       {
         rubrik: 'Balans mellan säljkompetens och kundfokus',
-        text: `CV:t kombinerar teknisk säljkompetens (kassasystem, merförsäljning, CRM) med mjuka färdigheter som "kundfokuserad", "stresstålig" och "lagspelare". Viktigt: de mjuka färdigheterna backas upp genom exempel – t.ex. "150+ kunder/dag under Black Friday" som bevis på stresstålighet.
+        text: `CV:t kombinerar teknisk säljkompetens (kassasystem, merförsäljning, CRM) med mjuka färdigheter som "kundfokuserad", "stresstålig" och "lagspelare". Viktigt: de mjuka färdigheterna backas upp genom exempel, t.ex. "150+ kunder/dag under Black Friday" som bevis på stresstålighet.
 
 Varför detta fungerar: Arbetsgivare i detaljhandel söker både säljförmåga OCH kundservice. Ett CV som bara listar tekniska verktyg utan att visa personlig lämplighet missar målet. Genom att visa stresstålighet genom konkreta situationer (Black Friday, 150+ kunder/dag) blir egenskapen trovärdig istället för tom buzzword.`
       },
@@ -4341,26 +4363,26 @@ Varför detta fungerar: Arbetsgivare i detaljhandel söker både säljförmåga 
         rubrik: 'Produktkunskap och certifieringar med årtal',
         text: `CV:t listar certifieringar som "Extenda Kassasystem (2021)", "Säljutbildning konsultativ försäljning (2020)" och "Produktkunskap Samsung (2020)". Produktkunskap från leverantörsutbildningar (Samsung, LG, Bosch) nämns i erfarenhetssektionen.
 
-Varför detta fungerar: Certifieringar med årtal visar att kompetensen är aktuell. Produktkunskap från leverantörer (Samsung, LG) signalerar trovärdighet och dedikation – du har gått djupare än basutbildning. Arbetsgivare värderar säljare som kan rådgiva kunder med expertis, inte bara "sälja". Det ökar förtroendet och visar långsiktig kompetens.`
+Varför detta fungerar: Certifieringar med årtal visar att kompetensen är aktuell. Produktkunskap från leverantörer (Samsung, LG) signalerar trovärdighet och dedikation, du har gått djupare än basutbildning. Arbetsgivare värderar säljare som kan rådgiva kunder med expertis, inte bara "sälja". Det ökar förtroendet och visar långsiktig kompetens.`
       },
       {
         rubrik: 'Profiltext som fångar uppmärksamhet direkt',
         text: `Profiltexten sammanfattar erfarenhet ("4+ års erfarenhet"), specialisering ("merförsäljning, kundupplevelse"), kvantifierbart resultat ("ökade snittköp 25%") och nyckelverktyg ("Extenda, iZettle"). Den avslutas med mjuka egenskaper ("flexibel lagspelare").
 
-Varför detta fungerar: Rekryterare spenderar 6-10 sekunder på ett CV innan de bestämmer om det är intressant. Profiltexten är din "elevator pitch" – den måste fånga uppmärksamhet genom att visa värde direkt. Genom att nämna konkreta resultat (25% ökning) och rätt system (Extenda) blir det omedelbart relevant. Det avgör om rekryteraren läser vidare.`
+Varför detta fungerar: Rekryterare spenderar 6-10 sekunder på ett CV innan de bestämmer om det är intressant. Profiltexten är din "elevator pitch", den måste fånga uppmärksamhet genom att visa värde direkt. Genom att nämna konkreta resultat (25% ökning) och rätt system (Extenda) blir det omedelbart relevant. Det avgör om rekryteraren läser vidare.`
       },
       {
         rubrik: 'Tydlig karriärprogression från extrajobb till säljansvarig',
         text: `CV:t visar progression: extrajobb på ICA (2017-2019) till butikssäljare Media Markt (2019-2021) till säljare och säljansvarig H&M (2021-nu). Ansvaret ökar: från "butiksbiträde" till "säljansvarig" med mentorskap och visual merchandising.
 
-Varför detta fungerar: Progression visar ambition och förmåga att växa i rollen. Rekryterare ser att du inte "hoppar runt" utan utvecklas systematiskt – från extrajobb till ansvar för säljtal, merchandising och mentorskap. Det signalerar att du kan ta nästa steg (t.ex. butikschef) och investera långsiktigt i företaget. Arbetsgivare söker kandidater som kan utvecklas.`
+Varför detta fungerar: Progression visar ambition och förmåga att växa i rollen. Rekryterare ser att du inte "hoppar runt" utan utvecklas systematiskt, från extrajobb till ansvar för säljtal, merchandising och mentorskap. Det signalerar att du kan ta nästa steg (t.ex. butikschef) och investera långsiktigt i företaget. Arbetsgivare söker kandidater som kan utvecklas.`
       }
     ],
 
     tips: [
       {
         rubrik: 'Inkludera rätt nyckelord för din butiksmiljö',
-        text: `Detaljhandel spänner över många branscher – mode, elektronik, sport, dagligvaror, inredning. Varje miljö har sina egna nyckelord. För mode: "visuell merchandising", "styling", "trendkänslighet". För elektronik: "konsultativ försäljning", "produktkunskap", "teknisk rådgivning".
+        text: `Detaljhandel spänner över många branscher, mode, elektronik, sport, dagligvaror, inredning. Varje miljö har sina egna nyckelord. För mode: "visuell merchandising", "styling", "trendkänslighet". För elektronik: "konsultativ försäljning", "produktkunskap", "teknisk rådgivning".
 
 **Exempel på före/efter**:
 
@@ -4368,7 +4390,7 @@ Varför detta fungerar: Progression visar ambition och förmåga att växa i rol
 
 ✅ "Extenda kassasystem med 4+ års daglig användning, inkl. försäljning, returer och lagerregistrering"
 
-Läs jobbannonsen noga och identifiera vilka termer arbetsgivaren använder. Om de skriver "merförsäljning" – använd det ordet. ATS-system matchar exakt.`
+Läs jobbannonsen noga och identifiera vilka termer arbetsgivaren använder. Om de skriver "merförsäljning", använd det ordet. ATS-system matchar exakt.`
       },
       {
         rubrik: 'Kvantifiera din försäljning för ökad trovärdighet',
@@ -4380,7 +4402,7 @@ Läs jobbannonsen noga och identifiera vilka termer arbetsgivaren använder. Om 
 
 ✅ "Ansvarig för 180 000 kr månadsomsättning med snittköp på 650 kr. Ökade merförsäljning från 18% till 32%."
 
-Om siffrorna inte är exakta, uppskatta rimligt – "80-120 kunder dagligen vid högtrafik" är mer trovärdigt än en exakt siffra.`
+Om siffrorna inte är exakta, uppskatta rimligt, "80-120 kunder dagligen vid högtrafik" är mer trovärdigt än en exakt siffra.`
       },
       {
         rubrik: 'Visa konkreta resultat istället för arbetsuppgifter',
@@ -4402,7 +4424,7 @@ Om du inte har direkta försäljningssiffror, visa andra resultat: minskat svinn
 
 ❌ "Ambitiös och social person som gillar att jobba med människor"
 
-✅ "Driven butikssäljare med 4+ års erfarenhet från modehandel. Specialist på merförsäljning – ökade snittköp 25%. Gedigen erfarenhet i Extenda och visuell merchandising."
+✅ "Driven butikssäljare med 4+ års erfarenhet från modehandel. Specialist på merförsäljning, ökade snittköp 25%. Gedigen erfarenhet i Extenda och visuell merchandising."
 
 Max 4 meningar: erfarenhet + specialisering + resultat + egenskaper.`
       },
@@ -4414,7 +4436,7 @@ Max 4 meningar: erfarenhet + specialisering + resultat + egenskaper.`
 
 ❌ "Gått diverse kurser inom försäljning"
 
-✅ "Extenda Kassasystem (2021), Säljutbildning konsultativ försäljning – Media Markt Academy (2020), Produktkunskap Samsung TV & Audio (2020)"
+✅ "Extenda Kassasystem (2021), Säljutbildning konsultativ försäljning, Media Markt Academy (2020), Produktkunskap Samsung TV & Audio (2020)"
 
 Om du jobbat med specifika varumärken, nämn det: "Produktkunskap inom hemelektronik (TV, ljud, vitvaror) från leverantörsutbildningar Samsung, LG, Bosch".`
       },
@@ -4443,7 +4465,7 @@ Genom konkreta situationer blir egenskaperna trovärdiga istället för tomma bu
       },
       {
         fraga: 'Vad gör jag om jag har luckor i mitt CV?',
-        svar: 'Var ärlig och kort om luckor. Vid kortare uppehåll (under 6 månader) behöver du inte förklara. För längre perioder, nämn konstruktiva aktiviteter som vidareutbildning (t.ex. säljkurs), volontärarbete, föräldraledighet eller eget företag. Detaljhandel värderar flexibilitet – visa att du hållit dig aktiv.'
+        svar: 'Var ärlig och kort om luckor. Vid kortare uppehåll (under 6 månader) behöver du inte förklara. För längre perioder, nämn konstruktiva aktiviteter som vidareutbildning (t.ex. säljkurs), volontärarbete, föräldraledighet eller eget företag. Detaljhandel värderar flexibilitet, visa att du hållit dig aktiv.'
       },
       {
         fraga: 'Hur visar jag försäljningssiffror om jag inte jobbat på provision?',
@@ -4451,15 +4473,15 @@ Genom konkreta situationer blir egenskaperna trovärdiga istället för tomma bu
       },
       {
         fraga: 'Ska jag inkludera extrajobb och kortare anställningar?',
-        svar: 'Ja, särskilt om du är ung eller nyutexaminerad. Extrajobb visar arbetslivserfarenhet, flexibilitet och att du kan hantera kundkontakt. Lista även kortare anställningar (3-6 månader) om de är relevanta – t.ex. säsongsarbete i sportbutik eller sommarjobb på glassbar visar servicevana. Om du har mycket erfarenhet (10+ år), fokusera på senaste rollerna och summera tidiga extrajobb kort: "Diverse extrajobb inom service och detaljhandel (2015-2018)".'
+        svar: 'Ja, särskilt om du är ung eller nyutexaminerad. Extrajobb visar arbetslivserfarenhet, flexibilitet och att du kan hantera kundkontakt. Lista även kortare anställningar (3-6 månader) om de är relevanta, t.ex. säsongsarbete i sportbutik eller sommarjobb på glassbar visar servicevana. Om du har mycket erfarenhet (10+ år), fokusera på senaste rollerna och summera tidiga extrajobb kort: "Diverse extrajobb inom service och detaljhandel (2015-2018)".'
       },
       {
         fraga: 'Hur anpassar jag mitt CV för olika butiksmiljöer?',
-        svar: 'Anpassa nyckelord och fokus. För mode: lyfta fram "visuell merchandising", "trendkänslighet", "styling", "kundupplevelse". För elektronik: betona "teknisk rådgivning", "produktkunskap", "konsultativ försäljning". För dagligvaror: fokusera på "effektivitet", "högt tempo", "svinnhantering". Läs jobbannonsen och identifiera vilka kompetenser arbetsgivaren prioriterar – justera din profiltext och kompetenser därefter. Behåll samma erfarenheter men vinkla beskrivningar mot rätt miljö.'
+        svar: 'Anpassa nyckelord och fokus. För mode: lyfta fram "visuell merchandising", "trendkänslighet", "styling", "kundupplevelse". För elektronik: betona "teknisk rådgivning", "produktkunskap", "konsultativ försäljning". För dagligvaror: fokusera på "effektivitet", "högt tempo", "svinnhantering". Läs jobbannonsen och identifiera vilka kompetenser arbetsgivaren prioriterar, justera din profiltext och kompetenser därefter. Behåll samma erfarenheter men vinkla beskrivningar mot rätt miljö.'
       },
       {
         fraga: 'Hur visar jag att jag är kundfokuserad utan att bara säga det?',
-        svar: 'Visa genom konkreta exempel i dina erfarenhetsbeskrivningar: "Byggde långsiktiga kundrelationer som resulterade i 30% återkommande kunder", "Ökade kundnöjdheten genom proaktiv service (4.8/5 i kundbetyg)", eller "Hanterade reklamationer med empati vilket minskade eskalering till chef med 50%". Istället för att skriva "kundfokuserad" under kompetenser, beskriv situationer där du gått utöver förväntan – t.ex. "Hjälpte kund hitta produkt från annat lager vilket ledde till 5 000 kr försäljning".'
+        svar: 'Visa genom konkreta exempel i dina erfarenhetsbeskrivningar: "Byggde långsiktiga kundrelationer som resulterade i 30% återkommande kunder", "Ökade kundnöjdheten genom proaktiv service (4.8/5 i kundbetyg)", eller "Hanterade reklamationer med empati vilket minskade eskalering till chef med 50%". Istället för att skriva "kundfokuserad" under kompetenser, beskriv situationer där du gått utöver förväntan, t.ex. "Hjälpte kund hitta produkt från annat lager vilket ledde till 5 000 kr försäljning".'
       },
       {
         fraga: 'Ska jag nämna kassaansvar och kontanthantering?',
@@ -4467,7 +4489,7 @@ Genom konkreta situationer blir egenskaperna trovärdiga istället för tomma bu
       },
       {
         fraga: 'Hur lyfter jag fram flexibilitet och tillgänglighet?',
-        svar: 'Flexibilitet är högt värderat i detaljhandel. Visa konkret i erfarenhetssektionen: "Flexibel schemaläggning: kvällar, helger och högtider", "Jobbade Black Friday-kampanjer (150+ kunder/dag)", eller "Täckte sjukfrånvaro och korta inhopp med kort varsel". Du kan även lista under "Övrigt": "Flexibel tillgänglighet: kvällar, helger och högtider". Om du har körkort och är villig att pendla, nämn det – det ökar dina chanser.'
+        svar: 'Flexibilitet är högt värderat i detaljhandel. Visa konkret i erfarenhetssektionen: "Flexibel schemaläggning: kvällar, helger och högtider", "Jobbade Black Friday-kampanjer (150+ kunder/dag)", eller "Täckte sjukfrånvaro och korta inhopp med kort varsel". Du kan även lista under "Övrigt": "Flexibel tillgänglighet: kvällar, helger och högtider". Om du har körkort och är villig att pendla, nämn det, det ökar dina chanser.'
       },
       {
         fraga: 'Hur mycket produktkunskap ska jag inkludera?',
@@ -4491,9 +4513,9 @@ Genom konkreta situationer blir egenskaperna trovärdiga istället för tomma bu
 
     seoIntro: `Söker du jobb som säljare och behöver ett CV som sticker ut? Det här exemplet visar hur du skapar ett professionellt CV som både passar ATS-system och imponerar på rekryterare inom försäljning. Rätt nyckelord och kvantifierbara resultat är avgörande för att nå intervjustadiet.
 
-CV:t balanserar teknisk CRM-kompetens (Salesforce, HubSpot, pipeline management) med konkreta försäljningsresultat som kvotuppfyllelse, deal size och konverteringsgrader. Du hittar branschspecifika termer som nykundsbearbetning, prospektering och B2B-försäljning – precis de nyckelord som svenska försäljningschefer söker efter. Exemplet inkluderar också kvantifierbara metrics som "118% kvotuppfyllelse" och "25+ leads per kvartal" vilket ger rekryterare konkret bevis på din prestationsförmåga.
+CV:t balanserar teknisk CRM-kompetens (Salesforce, HubSpot, pipeline management) med konkreta försäljningsresultat som kvotuppfyllelse, deal size och konverteringsgrader. Du hittar branschspecifika termer som nykundsbearbetning, prospektering och B2B-försäljning, precis de nyckelord som svenska försäljningschefer söker efter. Exemplet inkluderar också kvantifierbara metrics som "118% kvotuppfyllelse" och "25+ leads per kvartal" vilket ger rekryterare konkret bevis på din prestationsförmåga.
 
-Använd detta exempel som inspiration för att strukturera ditt eget CV. Ett välstrukturerat CV ökar dina chanser att nå intervju markant – lägg tid på att få det rätt!`,
+Använd detta exempel som inspiration för att strukturera ditt eget CV. Ett välstrukturerat CV ökar dina chanser att nå intervju markant, lägg tid på att få det rätt!`,
 
     intro: 'Ett professionellt CV-exempel för säljare som visar din försäljningskompetens, CRM-erfarenhet och förmåga att överträffa mål. Detta exempel är optimerat för svenska B2B-företag och ATS-system.',
 
@@ -4515,10 +4537,10 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV. Ett vä
           arbetsgivare: 'TechSolutions Nordic AB',
           period: '2021 – Pågående',
           beskrivning: [
-            'Ansvarig för 45 strategiska B2B-konton med årlig försäljning på 8 MSEK – överträffade kvot med 118% (2023)',
-            'Nykundsbearbetning genom outbound prospektering (cold calling, LinkedIn outreach) – genererade 25+ kvalificerade leads per kvartal',
+            'Ansvarig för 45 strategiska B2B-konton med årlig försäljning på 8 MSEK, överträffade kvot med 118% (2023)',
+            'Nykundsbearbetning genom outbound prospektering (cold calling, LinkedIn outreach), genererade 25+ kvalificerade leads per kvartal',
             'Pipeline management i Salesforce CRM för 120+ aktiva affärsmöjligheter samtidigt (genomsnittlig deal size 180 000 kr)',
-            'Affärsförhandlingar med C-level beslutsfattare – genomsnittlig säljcykel 3-6 månader för enterprise deals',
+            'Affärsförhandlingar med C-level beslutsfattare, genomsnittlig säljcykel 3-6 månader för enterprise deals',
             'Mentorskap för 2 junior säljare under onboarding-period (6 månader vardera)'
           ]
         },
@@ -4527,7 +4549,7 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV. Ett vä
           arbetsgivare: 'Nordic Sales Group AB',
           period: '2019 – 2021',
           beskrivning: [
-            'B2B-försäljning av IT-tjänster till SME-segment – uppnådde 112% kvotuppfyllelse (2020)',
+            'B2B-försäljning av IT-tjänster till SME-segment, uppnådde 112% kvotuppfyllelse (2020)',
             'Prospektering och cold calling med 15% konverteringsgrad (80+ outbound calls per vecka)',
             'CRM-administration i HubSpot för lead tracking och försäljningsrapportering',
             'Merförsäljning och korsförsäljning till befintliga kunder vilket ökade genomsnittligt ordervärde med 22%'
@@ -4538,7 +4560,7 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV. Ett vä
           arbetsgivare: 'Telecom Retail AB',
           period: '2018 – 2019',
           beskrivning: [
-            'Telefonförsäljning av mobila abonnemang och hårdvara till konsumentmarknaden – 90+ kundkontakter dagligen',
+            'Telefonförsäljning av mobila abonnemang och hårdvara till konsumentmarknaden, 90+ kundkontakter dagligen',
             'Uppnådde "Rookie of the Year" Q4 2018 (bäst bland 12 nya säljare)',
             'Inbound och outbound försäljning med 8% konverteringsgrad (över branschsnitt på 5%)'
           ]
@@ -4576,7 +4598,7 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV. Ett vä
       certifieringar: [
         'Salesforce Certified Sales Professional (2022)',
         'HubSpot Sales Software Certification (2021)',
-        'SPIN Selling-certifiering – Huthwaite International (2023)',
+        'SPIN Selling-certifiering: Huthwaite International (2023)',
         'LinkedIn Sales Navigator Fundamentals (2020)'
       ],
 
@@ -4588,11 +4610,11 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV. Ett vä
     },
 
     viktigt: [
-      'Kvantifiera alltid dina försäljningsresultat – kvotuppfyllelse i procent, omsättning i kronor, antal kunder',
+      'Kvantifiera alltid dina försäljningsresultat, kvotuppfyllelse i procent, omsättning i kronor, antal kunder',
       'Inkludera branschspecifika CRM-system (Salesforce, HubSpot, Pipedrive, Lime CRM)',
-      'Visa din säljcykel – från prospektering till closing, särskilt för B2B-roller',
+      'Visa din säljcykel, från prospektering till closing, särskilt för B2B-roller',
       'Nämn konkret deal size eller genomsnittligt ordervärde för att ge kontext',
-      'Certifieringar är viktiga – Salesforce, HubSpot, SPIN Selling ökar trovärdigheten',
+      'Certifieringar är viktiga, Salesforce, HubSpot, SPIN Selling ökar trovärdigheten',
       'Differentiera mellan B2B och B2C om du har båda erfarenheterna'
     ],
 
@@ -4613,7 +4635,7 @@ Varför detta fungerar: De flesta B2B-företag använder Salesforce eller HubSpo
         rubrik: 'Kvantifierbara resultat som imponerar på försäljningschefer',
         text: `CV:t levererar konkreta siffror: **118% kvotuppfyllelse**, årlig försäljning på **8 MSEK**, genomsnittligt **deal size 180 000 kr**, och **konverteringsgrad på 15%** från prospekt till möte.
 
-Varför detta fungerar: "Duktig säljare med goda resultat" säger ingenting. "118% kvotuppfyllelse över 3 år" visar att du konsekvent överträffar förväntningar. Försäljningschefer älskar siffror eftersom de direkt kan jämföra dig med nuvarande teammedlemmar och se din faktiska påverkan på omsättning. Specifika metrics som konverteringsgrad och deal size bevisar att du inte bara träffar många kunder – du stänger affärer effektivt.`
+Varför detta fungerar: "Duktig säljare med goda resultat" säger ingenting. "118% kvotuppfyllelse över 3 år" visar att du konsekvent överträffar förväntningar. Försäljningschefer älskar siffror eftersom de direkt kan jämföra dig med nuvarande teammedlemmar och se din faktiska påverkan på omsättning. Specifika metrics som konverteringsgrad och deal size bevisar att du inte bara träffar många kunder, du stänger affärer effektivt.`
       },
       {
         rubrik: 'Balans mellan teknisk kompetens och relationsbyggande',
@@ -4625,7 +4647,7 @@ Varför detta fungerar: Många säljare listar bara system eller bara "bra på r
         rubrik: 'Certifieringar som visar seriös kompetensutveckling',
         text: `CV:t listar **Salesforce Certified Sales Professional (2022)**, **HubSpot Sales Software Certification (2021)** och **SPIN Selling-certifiering (2023)**. Varje certifiering har årtal och koppling till faktiskt arbete där metoderna tillämpas.
 
-Varför detta fungerar: Certifieringar visar att du investerar i din egen utveckling och håller dig uppdaterad med branschens best practices. SPIN Selling är en erkänd säljmetodik för komplexa B2B-affärer, och Salesforce-certifiering bevisar att du inte bara "kan använda systemet" – du har verifierad expertkunskap. Rekryterare ser att du är seriös med ditt yrke och kan komma in som senior-resurs direkt.`
+Varför detta fungerar: Certifieringar visar att du investerar i din egen utveckling och håller dig uppdaterad med branschens best practices. SPIN Selling är en erkänd säljmetodik för komplexa B2B-affärer, och Salesforce-certifiering bevisar att du inte bara "kan använda systemet", du har verifierad expertkunskap. Rekryterare ser att du är seriös med ditt yrke och kan komma in som senior-resurs direkt.`
       },
       {
         rubrik: 'Profiltext som fångar uppmärksamhet på 10 sekunder',
@@ -4637,7 +4659,7 @@ Varför detta fungerar: Första meningen avgör om rekryterare läser vidare. "E
         rubrik: 'Tydlig progression från junior till senior säljare',
         text: `Erfarenheten visar utveckling: från **Junior Säljare** med fokus på telefonförsäljning och 90+ kundkontakter dagligen, till **Fältsäljare** med eget B2B-ansvar och 112% kvotuppfyllelse, till **Senior Account Executive** med strategiskt ansvar, 8 MSEK årlig försäljning och mentorskap för 2 juniora säljare.
 
-Varför detta fungerar: Många säljare listar jobb utan att visa utveckling. Din progression från telefonförsäljning till strategiskt kundansvar och mentorskap visar att du inte bara stannat kvar – du har växt. Mentorskap för 2 juniorer bevisar att chefer litar på dig och att du kan dela kunskap. Detta signalerar att du är redo för nästa steg i karriären, kanske som säljledare eller Key Account Manager.`
+Varför detta fungerar: Många säljare listar jobb utan att visa utveckling. Din progression från telefonförsäljning till strategiskt kundansvar och mentorskap visar att du inte bara stannat kvar, du har växt. Mentorskap för 2 juniorer bevisar att chefer litar på dig och att du kan dela kunskap. Detta signalerar att du är redo för nästa steg i karriären, kanske som säljledare eller Key Account Manager.`
       }
     ],
 
@@ -4719,23 +4741,23 @@ Tekniska färdigheter kan du lista direkt, men mjuka egenskaper behöver bevis f
     faq: [
       {
         fraga: 'Hur långt ska mitt CV som säljare vara?',
-        svar: 'För säljare med 0-5 års erfarenhet räcker vanligtvis 1 sida. Om du har 5+ års erfarenhet och flera roller med kvantifierbara resultat, kan du använda 2 sidor. Prioritera alltid kvalitet över kvantitet – varje rad ska tillföra värde. Rekryterare inom försäljning uppskattar kortfattade, resultatfokuserade CV:n.'
+        svar: 'För säljare med 0-5 års erfarenhet räcker vanligtvis 1 sida. Om du har 5+ års erfarenhet och flera roller med kvantifierbara resultat, kan du använda 2 sidor. Prioritera alltid kvalitet över kvantitet, varje rad ska tillföra värde. Rekryterare inom försäljning uppskattar kortfattade, resultatfokuserade CV:n.'
       },
       {
         fraga: 'Ska jag ha med profilbild på mitt CV?',
-        svar: 'I Sverige är det vanligt men inte obligatoriskt. Välj en professionell bild med neutral bakgrund och affärsmässig klädsel – säljroller kräver ofta kundkontakt där professionell framtoning är viktig. Undvik semesterbilder eller selfies. Om du söker internationella företag, kontrollera deras policy kring profilbilder.'
+        svar: 'I Sverige är det vanligt men inte obligatoriskt. Välj en professionell bild med neutral bakgrund och affärsmässig klädsel, säljroller kräver ofta kundkontakt där professionell framtoning är viktig. Undvik semesterbilder eller selfies. Om du söker internationella företag, kontrollera deras policy kring profilbilder.'
       },
       {
         fraga: 'Vad gör jag om jag har luckor i mitt CV?',
-        svar: 'Var ärlig och kort om luckor. Vid kortare uppehåll (under 6 månader) behöver du inte förklara. För längre perioder, nämn konstruktiva aktiviteter: försäljningskurser, egen verksamhet, volontärarbete som inneburit kontakt med människor. Försäljning handlar om att bygga förtroende – ärlighet värderas högt.'
+        svar: 'Var ärlig och kort om luckor. Vid kortare uppehåll (under 6 månader) behöver du inte förklara. För längre perioder, nämn konstruktiva aktiviteter: försäljningskurser, egen verksamhet, volontärarbete som inneburit kontakt med människor. Försäljning handlar om att bygga förtroende, ärlighet värderas högt.'
       },
       {
         fraga: 'Hur visar jag kvotuppfyllelse om jag inte har exakta siffror?',
-        svar: 'Om du inte har exakta procentsiffror, beskriv relativa prestationer: "Överträffade månatliga försäljningsmål konsekvent under 2023", "Top 3 säljare av 15 i teamet Q2-Q4", eller "Sålde för över 5 MSEK årligen". Kvantifiering är kritiskt för säljroller – rekryterare vill se bevis på resultat. Om du är nyutexaminerad, fokusera på konverteringsgrader eller antal kundkontakter.'
+        svar: 'Om du inte har exakta procentsiffror, beskriv relativa prestationer: "Överträffade månatliga försäljningsmål konsekvent under 2023", "Top 3 säljare av 15 i teamet Q2-Q4", eller "Sålde för över 5 MSEK årligen". Kvantifiering är kritiskt för säljroller, rekryterare vill se bevis på resultat. Om du är nyutexaminerad, fokusera på konverteringsgrader eller antal kundkontakter.'
       },
       {
         fraga: 'Ska jag inkludera provisionsmodell eller lön i CV:t?',
-        svar: 'Nej, inkludera aldrig löneinformation i CV:t. Provisionsmodell är heller inte relevant – detta diskuteras under intervju eller löneförhandling. Fokusera istället på kvantifierbara resultat som visar din prestationsförmåga: kvotuppfyllelse, omsättning, antal avslutade affärer. Rekryterare kan dra slutsatser om din lönepotential baserat på dina resultat.'
+        svar: 'Nej, inkludera aldrig löneinformation i CV:t. Provisionsmodell är heller inte relevant, detta diskuteras under intervju eller löneförhandling. Fokusera istället på kvantifierbara resultat som visar din prestationsförmåga: kvotuppfyllelse, omsättning, antal avslutade affärer. Rekryterare kan dra slutsatser om din lönepotential baserat på dina resultat.'
       },
       {
         fraga: 'Hur beskriver jag CRM-erfarenhet om jag använt flera system?',
@@ -4747,7 +4769,7 @@ Tekniska färdigheter kan du lista direkt, men mjuka egenskaper behöver bevis f
       },
       {
         fraga: 'Ska jag inkludera försäljningsmetodik (SPIN, Challenger) i mitt CV?',
-        svar: 'Ja, om du är certifierad eller aktivt använder en specifik metodik. Inkludera i certifieringsavsnittet: "SPIN Selling-certifiering – Huthwaite International (2023)". Du kan också nämna metodiken i profiltexten om den är central för din säljstrategi. Detta visar att du har strukturerad approach till försäljning.'
+        svar: 'Ja, om du är certifierad eller aktivt använder en specifik metodik. Inkludera i certifieringsavsnittet: "SPIN Selling-certifiering, Huthwaite International (2023)". Du kan också nämna metodiken i profiltexten om den är central för din säljstrategi. Detta visar att du har strukturerad approach till försäljning.'
       },
       {
         fraga: 'Hur visar jag att jag är målinriktad utan att bara säga det?',
@@ -4777,7 +4799,7 @@ Tekniska färdigheter kan du lista direkt, men mjuka egenskaper behöver bevis f
 
 Du behöver inte ha 5 års erfarenhet för att skapa ett starkt CV för sommarjobb. Det handlar om att visa vad du kan genom kvantifierbara exempel: "hanterade 50+ kunder dagligen" väger tyngre än "jobbat med kunder". CV:t visar balans mellan praktisk erfarenhet (café och lager), överförbara färdigheter (lagarbete från fotboll), och branschspecifika kompetenser som kassahantering och lagerkunskap.
 
-Använd det här exemplet som inspiration för ditt första CV. Kom ihåg att pålitlighet, attityd och vilja att lära väger lika tungt som arbetslivserfarenhet för sommarjobb. Med rätt struktur och konkreta exempel kan du sticka ut – även som ung jobbsökare.`,
+Använd det här exemplet som inspiration för ditt första CV. Kom ihåg att pålitlighet, attityd och vilja att lära väger lika tungt som arbetslivserfarenhet för sommarjobb. Med rätt struktur och konkreta exempel kan du sticka ut, även som ung jobbsökare.`,
 
     intro: 'Ett professionellt CV-exempel för sommarjobb som visar hur du lyfter fram erfarenhet från extrajobb, skola och idrott. Optimerat för unga jobbsökare som söker inom butik, lager och service.',
 
@@ -4791,7 +4813,7 @@ Använd det här exemplet som inspiration för ditt första CV. Kom ihåg att p�
         linkedin: 'linkedin.com/in/emmalindqvist'
       },
 
-      profil: 'Pålitlig och serviceinriktad gymnasieelev (18 år) med 2 års erfarenhet från café och extrajobb i lager. Van vid högt tempo och kundkontakt – hanterade 50+ kunder dagligen under helgpass på café. Läraktig och ansvarsfull lagspelare med 8 års fotbollsengagemang. Söker sommarjobb inom service eller butik där jag kan bidra med positiv attityd och vilja att lära.',
+      profil: 'Pålitlig och serviceinriktad gymnasieelev (18 år) med 2 års erfarenhet från café och extrajobb i lager. Van vid högt tempo och kundkontakt, hanterade 50+ kunder dagligen under helgpass på café. Läraktig och ansvarsfull lagspelare med 8 års fotbollsengagemang. Söker sommarjobb inom service eller butik där jag kan bidra med positiv attityd och vilja att lära.',
 
       erfarenhet: [
         {
@@ -4800,9 +4822,9 @@ Använd det här exemplet som inspiration för ditt första CV. Kom ihåg att p�
           period: 'Juni 2023 – Pågående',
           beskrivning: [
             'Hanterar 50+ kunder dagligen under helgpass (lördagar och söndagar, 8 timmar/dag)',
-            'Ansvarig för kvällspass ensam efter 3 månaders träning – stänger café, kasskoll och daglig bokföring',
+            'Ansvarig för kvällspass ensam efter 3 månaders träning, stänger café, kasskoll och daglig bokföring',
             'Fick högsta kundbetyg i teamet (4.8/5 i NPS) sommaren 2023',
-            'Kassahantering via EXTENDA-system – hanterat över 10 000 kr dagligen utan kassadifferens',
+            'Kassahantering via EXTENDA-system, hanterat över 10 000 kr dagligen utan kassadifferens',
             'Serveringserfarenhet både a la carte och snabbservice under lunch (30+ serveringar/timme)'
           ]
         },
@@ -4811,9 +4833,9 @@ Använd det här exemplet som inspiration för ditt första CV. Kom ihåg att p�
           arbetsgivare: 'ICA Maxi Lager, Årsta',
           period: 'Juni – Augusti 2022',
           beskrivning: [
-            'Plockning och packning – hanterade 200+ ordrar per dag under högsäsong',
-            'Varumottagning och inventering – noggrann kontroll av 50-100 pallplatser dagligen',
-            'Samarbete i team om 6 personer – roterade ansvar för olika lageravdelningar',
+            'Plockning och packning, hanterade 200+ ordrar per dag under högsäsong',
+            'Varumottagning och inventering, noggrann kontroll av 50-100 pallplatser dagligen',
+            'Samarbete i team om 6 personer, roterade ansvar för olika lageravdelningar',
             'Lärde mig grundläggande lagerhantering och kvalitetskontroll på 8 veckor'
           ]
         },
@@ -4822,9 +4844,9 @@ Använd det här exemplet som inspiration för ditt första CV. Kom ihåg att p�
           arbetsgivare: 'Hägersten SK, Div 3 Dam',
           period: '2016 – 2024 (8 år)',
           beskrivning: [
-            'Lagkapten för 15 spelare säsongen 2023/24 – ansvarade för träningsupplägg och lagmotivation',
+            'Lagkapten för 15 spelare säsongen 2023/24, ansvarade för träningsupplägg och lagmotivation',
             '100% närvaro på 40 matcher och träningar säsongen 2023/24 (pålitlighet och engagemang)',
-            'Ledde laget till semifinal i distriktsserien 2023 – bästa placering på 5 år',
+            'Ledde laget till semifinal i distriktsserien 2023, bästa placering på 5 år',
             'Organiserade lagaktiviteter och fundraising (samlade in 8 000 kr för nya matchtröjor 2023)'
           ]
         }
@@ -4835,13 +4857,13 @@ Använd det här exemplet som inspiration för ditt första CV. Kom ihåg att p�
           titel: 'Ekonomiprogrammet',
           skola: 'Globala Gymnasiet, Stockholm',
           period: '2022 – Pågående (examen juni 2026)',
-          beskrivning: 'Inriktning Juridik. Snittbetyg: 18.2. Projektledare för gymnasiearbete (5 personer, VG-betyg) – analys av lokala företags hållbarhetsarbete.'
+          beskrivning: 'Inriktning Juridik. Snittbetyg: 18.2. Projektledare för gymnasiearbete (5 personer, VG-betyg), analys av lokala företags hållbarhetsarbete.'
         }
       ],
 
       kompetenser: {
         tekniska: [
-          'Kassasystem (EXTENDA) – daglig användning i 1.5 år',
+          'Kassasystem (EXTENDA): daglig användning i 1.5 år',
           'Microsoft Office (Word, Excel, PowerPoint)',
           'Lagerhantering (plockning, packning, inventering)',
           'Serveringserfarenhet (a la carte och snabbservice)',
@@ -4851,7 +4873,7 @@ Använd det här exemplet som inspiration för ditt första CV. Kom ihåg att p�
         personliga: [
           'Serviceinriktad (högsta kundbetyg i teamet 4.8/5)',
           'Lagspelare (8 års fotboll, lagkapten 1 år)',
-          'Stresstålig (hanterat högt tempo på café – 50+ kunder/dag)',
+          'Stresstålig (hanterat högt tempo på café: 50+ kunder/dag)',
           'Pålitlig (100% närvaro fotboll 2023/24)',
           'Läraktig (ansvarig kvällspass efter 3 månaders träning)'
         ]
@@ -4872,12 +4894,12 @@ Använd det här exemplet som inspiration för ditt första CV. Kom ihåg att p�
     },
 
     viktigt: [
-      'Kvantifiera även "enkel" erfarenhet – "50+ kunder dagligen" är bättre än "jobbat i café"',
-      'Lyft fram överförbara färdigheter från skola och idrott – lagfotboll = teamwork, projektarbete = samarbete',
-      'Visa långvarigt engagemang – 8 års fotboll signalerar pålitlighet och uthållighet',
-      'Profiltext fokuserar på potential och attityd – "läraktig" och "pålitlig" värderas högt för sommarjobb',
-      'Inkludera körkort och certifikat med årtal – öppnar fler jobbmöjligheter',
-      'Anpassa CV:t efter bransch – butik (kassasystem) vs lager (plockning) vs restaurang (tempo)'
+      'Kvantifiera även "enkel" erfarenhet, "50+ kunder dagligen" är bättre än "jobbat i café"',
+      'Lyft fram överförbara färdigheter från skola och idrott, lagfotboll = teamwork, projektarbete = samarbete',
+      'Visa långvarigt engagemang, 8 års fotboll signalerar pålitlighet och uthållighet',
+      'Profiltext fokuserar på potential och attityd, "läraktig" och "pålitlig" värderas högt för sommarjobb',
+      'Inkludera körkort och certifikat med årtal, öppnar fler jobbmöjligheter',
+      'Anpassa CV:t efter bransch, butik (kassasystem) vs lager (plockning) vs restaurang (tempo)'
     ],
 
     statistik: [
@@ -4891,37 +4913,37 @@ Använd det här exemplet som inspiration för ditt första CV. Kom ihåg att p�
         rubrik: 'ATS-optimerat för sommarjobb och extratjänster',
         text: `CV:t använder exakta branschtermer som faktiskt förekommer i jobbannonser för sommarjobb: **kassahantering**, **lagerhantering**, **kundservice** och **serviceinriktad**. Det inkluderar även specifika verktyg som **kassasystem** och **lagerhanteringssystem** istället för vaga beskrivningar som "jobbat i butik".
 
-Varför detta fungerar: ATS-system söker efter konkreta termer från jobbannonsen. När arbetsgivare skriver "erfaren med kassahantering", letar systemet efter exakt det ordet. Även om du är ung och "bara" jobbat på café eller i butik spelar det ingen roll – om du använder rätt termer hamnar ditt CV högre i rankningen än någon med mer erfarenhet som skriver "skötte kassaapparaten".`
+Varför detta fungerar: ATS-system söker efter konkreta termer från jobbannonsen. När arbetsgivare skriver "erfaren med kassahantering", letar systemet efter exakt det ordet. Även om du är ung och "bara" jobbat på café eller i butik spelar det ingen roll, om du använder rätt termer hamnar ditt CV högre i rankningen än någon med mer erfarenhet som skriver "skötte kassaapparaten".`
       },
       {
         rubrik: 'Kvantifierade resultat även från extrajobb',
-        text: `Trots att Emma är 18 år visar CV:t konkreta siffror: **50+ kunder dagligen** på caféet, **200+ ordrar per dag** på lagret och **4.8/5 i kundnöjdhet** (NPS-betyg). Hon skriver inte bara "jobbade på café" – hon visar omfattningen och kvaliteten i jobbet.
+        text: `Trots att Emma är 18 år visar CV:t konkreta siffror: **50+ kunder dagligen** på caféet, **200+ ordrar per dag** på lagret och **4.8/5 i kundnöjdhet** (NPS-betyg). Hon skriver inte bara "jobbade på café", hon visar omfattningen och kvaliteten i jobbet.
 
-Varför detta fungerar: Rekryterare får hundratals CV där unga skriver "extrajobb på ICA" eller "sommarjobb på restaurang". Siffror gör att du sticker ut direkt. Det spelar ingen roll att du är ung – **50 kunder dagligen** visar att du klarat högt tempo. **4.8/5 NPS-betyg** visar att chefen litade på dig med kundkontakt. Konkreta resultat slår vag erfarenhet varje gång.`
+Varför detta fungerar: Rekryterare får hundratals CV där unga skriver "extrajobb på ICA" eller "sommarjobb på restaurang". Siffror gör att du sticker ut direkt. Det spelar ingen roll att du är ung, **50 kunder dagligen** visar att du klarat högt tempo. **4.8/5 NPS-betyg** visar att chefen litade på dig med kundkontakt. Konkreta resultat slår vag erfarenhet varje gång.`
       },
       {
         rubrik: 'Balans mellan tekniska system och serviceförmåga',
         text: `CV:t kombinerar teknisk kompetens (**kassasystem**, **lagerhanteringssystem**, **Excel**) med mjuka färdigheter som backas upp med bevis: **serviceinriktad** (4.8/5 NPS-betyg), **pålitlig** (förtroende att öppna/stänga café), **stresstålig** (hanterade 50+ kunder under lunchtoppar).
 
-Varför detta fungerar: Många unga listar bara "social", "ansvarsfull", "flexibel" utan kontext. Men arbetsgivare vet att du KAN säga vad som helst. Genom att skriva "pålitlig – fick ansvar att öppna och stänga caféet" ger du bevis. Genom att skriva "stresstålig" OCH "50+ kunder under lunchtoppar" visar du det istället för att påstå det.`
+Varför detta fungerar: Många unga listar bara "social", "ansvarsfull", "flexibel" utan kontext. Men arbetsgivare vet att du KAN säga vad som helst. Genom att skriva "pålitlig, fick ansvar att öppna och stänga caféet" ger du bevis. Genom att skriva "stresstålig" OCH "50+ kunder under lunchtoppar" visar du det istället för att påstå det.`
       },
       {
         rubrik: 'Certifieringar som visar initiativförmåga',
         text: `CV:t listar **B-körkort (2024)** och **Första hjälpen-certifiering (2023)** med årtal. För en 18-åring som söker sommarjobb är det här trovärdighetsmarkörer som visar att hon tagit egna initiativ utöver skola och extrajobb.
 
-Varför detta fungerar: Körkort kan vara avgörande för lager- eller distributionsjobb där du behöver köra truck eller lasta bilar. Första hjälpen visar säkerhetsmedvetenhet, vilket är viktigt inom restaurang, butik och lager. Men framför allt visar certifieringar att du är **läraktig** och tar eget ansvar för din utveckling – vilket är guld värt för arbetsgivare som anställer sommarvikarier.`
+Varför detta fungerar: Körkort kan vara avgörande för lager- eller distributionsjobb där du behöver köra truck eller lasta bilar. Första hjälpen visar säkerhetsmedvetenhet, vilket är viktigt inom restaurang, butik och lager. Men framför allt visar certifieringar att du är **läraktig** och tar eget ansvar för din utveckling, vilket är guld värt för arbetsgivare som anställer sommarvikarier.`
       },
       {
         rubrik: 'Profiltext som fångar uppmärksamhet direkt',
         text: `Profiltexten börjar med "Pålitlig och serviceinriktad gymnasieelev med 2 års erfarenhet från café och lager". Den använder inga ursäkter ("söker mitt första riktiga jobb") utan framhäver erfarenhet och **konkreta färdigheter**: kassahantering, kundservice, lagarbete. Den nämner även **ledarerfarenhet** från fotboll.
 
-Varför detta fungerar: Rekryterare läser profiltexten i 5-10 sekunder. Om du skriver "gymnasieelev som söker sommarjobb" stannar de inte – alla andra söker också sommarjobb. Men "2 års erfarenhet från café och lager + kassahantering + kundservice" får dem att tänka "okej, den här personen har faktisk erfarenhet". Genom att lyfta fram ledarskap (lagkapten) visar Emma att hon kan ta ansvar.`
+Varför detta fungerar: Rekryterare läser profiltexten i 5-10 sekunder. Om du skriver "gymnasieelev som söker sommarjobb" stannar de inte, alla andra söker också sommarjobb. Men "2 års erfarenhet från café och lager + kassahantering + kundservice" får dem att tänka "okej, den här personen har faktisk erfarenhet". Genom att lyfta fram ledarskap (lagkapten) visar Emma att hon kan ta ansvar.`
       },
       {
         rubrik: 'Överförbara färdigheter från idrott och skola',
         text: `CV:t inkluderar **lagkapten i fotboll** inte för att fylla ut utrymme, utan för att visa ledarskap och teamarbete. Det nämner även **Ekonomiprogrammet** med konkreta kurser som är relevanta för butik- och servicejobb där du hanterar kassa och försäljningsmål.
 
-Varför detta fungerar: Arbetsgivare vet att unga ofta har begränsad arbetslivserfarenhet. Det de letar efter är **överförbara färdigheter**. Lagkapten visar att du kan leda, kommunicera och ta ansvar – precis som att vara ansvarig för ett skift. Ekonomiprogrammet visar att du förstår siffror och försäljningsmål. Genom att koppla ihop skola och idrott med jobbet du söker visar du att du tänker strategiskt.`
+Varför detta fungerar: Arbetsgivare vet att unga ofta har begränsad arbetslivserfarenhet. Det de letar efter är **överförbara färdigheter**. Lagkapten visar att du kan leda, kommunicera och ta ansvar, precis som att vara ansvarig för ett skift. Ekonomiprogrammet visar att du förstår siffror och försäljningsmål. Genom att koppla ihop skola och idrott med jobbet du söker visar du att du tänker strategiskt.`
       }
     ],
 
@@ -4946,7 +4968,7 @@ Siffror gör att arbetsgivare kan bedöma din erfarenhet konkret.`
 
 ❌ "Övrig erfarenhet: Spelar fotboll, läser Ekonomiprogrammet"
 
-✅ "Ledarskap & Teamarbete: Lagkapten i fotboll (2022-2024) – ledde träningar och motiverade laget. Ekonomiprogrammet med kurser i Företagsekonomi som ger förståelse för försäljningsmål."
+✅ "Ledarskap & Teamarbete: Lagkapten i fotboll (2022-2024), ledde träningar och motiverade laget. Ekonomiprogrammet med kurser i Företagsekonomi som ger förståelse för försäljningsmål."
 
 Koppla alltid ihop skola/idrott med jobbet du söker.`
       },
@@ -5009,7 +5031,7 @@ Skriv ALDRIG "söker mitt första jobb". Skriv istället om vad du KAN och vad d
       },
       {
         fraga: 'Ska jag ha med profilbild på mitt CV?',
-        svar: 'I Sverige är profilbild vanligt men inte obligatoriskt. Välj en professionell bild med neutral bakgrund och affärsmässig klädsel. Undvik semesterbilder, selfies eller bilder från fester. Om du är osäker, lämna bilden och fokusera på innehållet istället – det är viktigare för sommarjobb.'
+        svar: 'I Sverige är profilbild vanligt men inte obligatoriskt. Välj en professionell bild med neutral bakgrund och affärsmässig klädsel. Undvik semesterbilder, selfies eller bilder från fester. Om du är osäker, lämna bilden och fokusera på innehållet istället, det är viktigare för sommarjobb.'
       },
       {
         fraga: 'Vad gör jag om jag aldrig jobbat tidigare?',
@@ -5029,15 +5051,15 @@ Skriv ALDRIG "söker mitt första jobb". Skriv istället om vad du KAN och vad d
       },
       {
         fraga: 'Ska jag skriva om mina sociala medier-kunskaper?',
-        svar: 'Ja, om du söker sommarjobb inom marknadsföring, retail, event eller kommunikation. Skriv konkret: "Instagram och TikTok (driver konto med 2 000 följare)" eller "Använder Canva för grafisk design". För mer traditionella sommarjobb (lager, café, butik) är sociala medier mindre relevanta – fokusera då på kundkontakt och kassasystem istället.'
+        svar: 'Ja, om du söker sommarjobb inom marknadsföring, retail, event eller kommunikation. Skriv konkret: "Instagram och TikTok (driver konto med 2 000 följare)" eller "Använder Canva för grafisk design". För mer traditionella sommarjobb (lager, café, butik) är sociala medier mindre relevanta, fokusera då på kundkontakt och kassasystem istället.'
       },
       {
         fraga: 'Hur visar jag att jag klarar högt tempo?',
-        svar: 'Referera till situationer där du presterat under press: "Tävlingsfotboll – 3 matcher per vecka under säsongen" eller "Tentavecka – 5 tentor på 8 dagar". Du kan också nämna extrajobb i kontext: "Hanterade 50+ kunder dagligen på café under helgpass – högt tempo mellan 10-14". Visa situationen och låt rekryteraren dra slutsatsen.'
+        svar: 'Referera till situationer där du presterat under press: "Tävlingsfotboll, 3 matcher per vecka under säsongen" eller "Tentavecka, 5 tentor på 8 dagar". Du kan också nämna extrajobb i kontext: "Hanterade 50+ kunder dagligen på café under helgpass, högt tempo mellan 10-14". Visa situationen och låt rekryteraren dra slutsatsen.'
       },
       {
         fraga: 'Hur beskriver jag extrajobb som bara varat några månader?',
-        svar: 'Helt OK att inkludera kortare extrajobb – sommarjobb-rekryterare förväntar sig inte fleråriga anställningar. Skriv tydligt datum (t.ex. "Juni–Augusti 2023") och kvantifiera vad du gjorde: "Extrapersonal café, 20 tim/vecka, hanterade 50+ kunder dagligen". Fokusera på de mest relevanta jobben och lyft fram vad du lärde dig.'
+        svar: 'Helt OK att inkludera kortare extrajobb, sommarjobb-rekryterare förväntar sig inte fleråriga anställningar. Skriv tydligt datum (t.ex. "Juni–Augusti 2023") och kvantifiera vad du gjorde: "Extrapersonal café, 20 tim/vecka, hanterade 50+ kunder dagligen". Fokusera på de mest relevanta jobben och lyft fram vad du lärde dig.'
       },
       {
         fraga: 'Hur mycket personlig information ska jag inkludera om jag är under 18?',
@@ -5059,7 +5081,7 @@ Skriv ALDRIG "söker mitt första jobb". Skriv istället om vad du KAN och vad d
     metaTitle: 'CV Exempel IT-konsult 2026 - Professionell Mall | Jobbcoach.ai',
     metaDescription: 'Se ett komplett CV-exempel för IT-konsult. ATS-optimerat med Azure/AWS, projektlista och kvantifierbara resultat. Visar tech stack, certifieringar och konsultuppdrag.',
 
-    seoIntro: 'Söker du konsultuppdrag som IT-konsult och behöver ett CV som sticker ut? Det här exemplet visar hur du strukturerar ett ATS-optimerat CV som passar både konsultbolag och direktkunder – med tydlig projektlista och teknisk bredd.\n\nDu får se exakt hur du balanserar cloud-kompetens (Azure, AWS, Kubernetes) med utvecklingsspråk (C#, Python, React) och agila metoder (Scrum, DevOps). CV:t visar konkreta resultat från kunduppdrag: migrerade system, optimerad infrastruktur och levererade projekt i tid och budget.\n\nAnvänd det som inspiration för ditt eget CV som IT-konsult och anpassa det efter den tjänst du söker.',
+    seoIntro: 'Söker du konsultuppdrag som IT-konsult och behöver ett CV som sticker ut? Det här exemplet visar hur du strukturerar ett ATS-optimerat CV som passar både konsultbolag och direktkunder, med tydlig projektlista och teknisk bredd.\n\nDu får se exakt hur du balanserar cloud-kompetens (Azure, AWS, Kubernetes) med utvecklingsspråk (C#, Python, React) och agila metoder (Scrum, DevOps). CV:t visar konkreta resultat från kunduppdrag: migrerade system, optimerad infrastruktur och levererade projekt i tid och budget.\n\nAnvänd det som inspiration för ditt eget CV som IT-konsult och anpassa det efter den tjänst du söker.',
 
     intro: 'Ett professionellt CV-exempel för IT-konsult som visar din tekniska bredd, cloud-expertis och förmåga att leverera värde i kunduppdrag. Detta exempel är optimerat för svenska konsultbolag och ATS-system.',
 
@@ -5072,17 +5094,17 @@ Skriv ALDRIG "söker mitt första jobb". Skriv istället om vad du KAN och vad d
         plats: 'Stockholm',
         linkedin: 'linkedin.com/in/erikbergstrom'
       },
-      profil: 'IT-konsult med 8+ års erfarenhet av cloud-infrastruktur och DevOps-transformationer. Specialist på Azure-miljöer och microservices-arkitektur, med gedigen kunskap i Kubernetes, Terraform och CI/CD-pipelines. Certifierad Azure Solutions Architect och AWS Solutions Architect. Drivs av att leverera skalbara lösningar som möter kundernas affärsmål – från requirement-analys till driftsättning och kunskapsöverföring.',
+      profil: 'IT-konsult med 8+ års erfarenhet av cloud-infrastruktur och DevOps-transformationer. Specialist på Azure-miljöer och microservices-arkitektur, med gedigen kunskap i Kubernetes, Terraform och CI/CD-pipelines. Certifierad Azure Solutions Architect och AWS Solutions Architect. Drivs av att leverera skalbara lösningar som möter kundernas affärsmål, från requirement-analys till driftsättning och kunskapsöverföring.',
       erfarenhet: [
         {
           titel: 'Senior IT-konsult',
           arbetsgivare: 'Norian Consulting AB',
           period: '2021 – Nuvarande',
           beskrivning: [
-            'Leder cloud-migrationsprojekt för enterprise-kunder (3-12 månaders uppdrag) med fokus på Azure och AWS – migrerade 15+ applikationer från on-premise till cloud med 99,9% uptime',
+            'Leder cloud-migrationsprojekt för enterprise-kunder (3-12 månaders uppdrag) med fokus på Azure och AWS, migrerade 15+ applikationer från on-premise till cloud med 99,9% uptime',
             'Teknisk arkitekt för microservices-plattform (React frontend, .NET Core backend, PostgreSQL) som hanterar 2M+ transaktioner/månad för fintech-kund',
             'Implementerade CI/CD-pipelines (Azure DevOps, GitLab CI) som reducerade release-tid från 2 veckor till 2 dagar för tillverkningskund',
-            'Mentor för 3 junior-konsulter – coachar i Azure-arkitektur, Infrastructure as Code och Agile-metodik'
+            'Mentor för 3 junior-konsulter, coachar i Azure-arkitektur, Infrastructure as Code och Agile-metodik'
           ]
         },
         {
@@ -5091,8 +5113,8 @@ Skriv ALDRIG "söker mitt första jobb". Skriv istället om vad du KAN och vad d
           period: '2018 – 2021',
           beskrivning: [
             'Utvecklade och driftsatte 10+ kundprojekt inom webb och cloud (tech stack: C#, React, Azure, Docker) med genomsnittlig kundnöjdhet 4.7/5',
-            'DevOps-ansvarig för e-handelsplattform (50k användare) – automatiserade infrastruktur med Terraform vilket minskade driftkostnader med 30%',
-            'Requirement-analys och teknisk rådgivning för SME-kunder – översatte affärsbehov till tekniska lösningar med ROI-fokus'
+            'DevOps-ansvarig för e-handelsplattform (50k användare), automatiserade infrastruktur med Terraform vilket minskade driftkostnader med 30%',
+            'Requirement-analys och teknisk rådgivning för SME-kunder, översatte affärsbehov till tekniska lösningar med ROI-fokus'
           ]
         },
         {
@@ -5102,7 +5124,7 @@ Skriv ALDRIG "söker mitt första jobb". Skriv istället om vad du KAN och vad d
           beskrivning: [
             'Utvecklade interna verktyg i C# och .NET Framework för CRM-integration (Salesforce API) som sparade 15 timmar/vecka i manuellt arbete',
             'Migrerade legacy-system från Java 7 till Java 11 (6 månaders projekt, noll driftstopp, 20% prestandaförbättring)',
-            'Agile Scrum-team (5 personer) – deltog i sprint planning, daily standups och retrospectives'
+            'Agile Scrum-team (5 personer), deltog i sprint planning, daily standups och retrospectives'
           ]
         }
       ],
@@ -5131,7 +5153,7 @@ Skriv ALDRIG "söker mitt första jobb". Skriv istället om vad du KAN och vad d
       },
       certifieringar: [
         'Microsoft Certified: Azure Solutions Architect Expert (2024)',
-        'AWS Certified Solutions Architect – Associate (2023)',
+        'AWS Certified Solutions Architect: Associate (2023)',
         'Certified Kubernetes Administrator (CKA) (2022)',
         'Professional Scrum Master (PSM I) (2020)'
       ],
@@ -5144,7 +5166,7 @@ Skriv ALDRIG "söker mitt första jobb". Skriv istället om vad du KAN och vad d
     varforDetFungerar: [
       {
         rubrik: 'ATS-system söker exakta tech stack-termer',
-        text: `Rekryteringssystem letar efter specifika nyckelord som "Azure", "Kubernetes" och "CI/CD" – inte generiska termer som "molnplattform". Det här CV:t använder branschstandard-terminologi i alla sektioner: "Azure (Expert, 7+ år)" i kompetenser, "tech stack: C#, React, Azure, Docker" i projektbeskrivningar och certifieringstitel "Azure Solutions Architect Expert". När en rekryterare söker efter IT-konsult med Azure-kompetens får detta CV högre ATS-poäng än CV som skriver "molninfrastruktur-erfarenhet".
+        text: `Rekryteringssystem letar efter specifika nyckelord som "Azure", "Kubernetes" och "CI/CD", inte generiska termer som "molnplattform". Det här CV:t använder branschstandard-terminologi i alla sektioner: "Azure (Expert, 7+ år)" i kompetenser, "tech stack: C#, React, Azure, Docker" i projektbeskrivningar och certifieringstitel "Azure Solutions Architect Expert". När en rekryterare söker efter IT-konsult med Azure-kompetens får detta CV högre ATS-poäng än CV som skriver "molninfrastruktur-erfarenhet".
 
 Varför detta fungerar: Nivåindikation på toppkompetensen separerar Erik från juniora kandidater, medan övriga tekniker listas utan nivå för att visa bredd utan överdrift. Multi-cloud-profilen (Azure + AWS) gör CV:t relevant för fler kundmiljöer och konsultuppdrag.`
       },
@@ -5168,7 +5190,7 @@ Varför detta fungerar: Vissa enterprise-kunder kräver Azure-certifiering för 
       },
       {
         rubrik: 'Affärsfokus och stakeholder management som skiljer senior från junior',
-        text: `Texten "översätter tekniska koncept till affärsspråk för C-level" är konkret bevis på stakeholder management. CV:t visar affärsfokus genom formuleringar som "ROI-fokus", "minskade driftkostnader med 30%" och "requirement-analys och teknisk rådgivning". Detta skiljer senior IT-konsult från utvecklare – du kan prata med både tekniker och beslutsfattare. Konsultbolag söker konsulter som kan sitta i kundmöten och förklara teknik för ekonomichefer.
+        text: `Texten "översätter tekniska koncept till affärsspråk för C-level" är konkret bevis på stakeholder management. CV:t visar affärsfokus genom formuleringar som "ROI-fokus", "minskade driftkostnader med 30%" och "requirement-analys och teknisk rådgivning". Detta skiljer senior IT-konsult från utvecklare, du kan prata med både tekniker och beslutsfattare. Konsultbolag söker konsulter som kan sitta i kundmöten och förklara teknik för ekonomichefer.
 
 Varför detta fungerar: Det som skiljer senior konsult från junior utvecklare är förmågan att kommunicera med beslutsfattare. Erik visar att han kan driva projekt från kravställning till leverans och hantera stakeholders på alla nivåer, inte bara skriva kod.`
       },
@@ -5195,7 +5217,7 @@ Håll det till 8-12 tekniker totalt. Ge kompetensnivå på dina TOP 3, resten ut
       },
       {
         rubrik: 'Översätt teknik till affärsspråk som beslutsfattare förstår',
-        text: `Rekryterare och C-level förstår inte alltid "microservices" eller "CI/CD-pipelines" – men de förstår tid, pengar och risk. Översätt tekniska prestationer till affärsresultat.
+        text: `Rekryterare och C-level förstår inte alltid "microservices" eller "CI/CD-pipelines", men de förstår tid, pengar och risk. Översätt tekniska prestationer till affärsresultat.
 
 **Exempel på före/efter**:
 
@@ -5207,7 +5229,7 @@ Detta gör ditt CV läsbart för både tekniska och icke-tekniska beslutsfattare
       },
       {
         rubrik: 'Lista certifieringar med årtal för att visa aktiv utveckling',
-        text: `Certifieringar utan årtal säger ingenting – rekryteraren vet inte om du tog den 2018 eller 2024. Årtal visar att du utvecklas aktivt och håller dig uppdaterad.
+        text: `Certifieringar utan årtal säger ingenting, rekryteraren vet inte om du tog den 2018 eller 2024. Årtal visar att du utvecklas aktivt och håller dig uppdaterad.
 
 **Exempel på före/efter**:
 
@@ -5215,11 +5237,11 @@ Detta gör ditt CV läsbart för både tekniska och icke-tekniska beslutsfattare
 
 ✅ "Azure Solutions Architect Expert (2024), AWS Solutions Architect Associate (2023), Certified Kubernetes Administrator (2022)"
 
-För konsultuppdrag är certifieringar ofta formella krav – utan dem går du miste om uppdrag helt.`
+För konsultuppdrag är certifieringar ofta formella krav, utan dem går du miste om uppdrag helt.`
       },
       {
         rubrik: 'Ge kundkontext och omfattning för varje konsultuppdrag',
-        text: `Som IT-konsult jobbar du på många uppdrag – ge varje uppdrag kontext så rekryteraren förstår komplexiteten och skalan.
+        text: `Som IT-konsult jobbar du på många uppdrag, ge varje uppdrag kontext så rekryteraren förstår komplexiteten och skalan.
 
 **Exempel på före/efter**:
 
@@ -5243,7 +5265,7 @@ Konkreta exempel visar mjuka kompetenser utan tomma buzzwords.`
       },
       {
         rubrik: 'Koppla DevOps-resultat till tid och ekonomisk påverkan',
-        text: `DevOps handlar inte bara om verktyg – det handlar om snabbare leveranser och lägre kostnader. Visa affärspåverkan för varje teknisk implementation.
+        text: `DevOps handlar inte bara om verktyg, det handlar om snabbare leveranser och lägre kostnader. Visa affärspåverkan för varje teknisk implementation.
 
 **Exempel på före/efter**:
 
@@ -5251,18 +5273,18 @@ Konkreta exempel visar mjuka kompetenser utan tomma buzzwords.`
 
 ✅ "CI/CD-automatisering reducerade release-tid från 2 veckor till 2 dagar (snabbare time-to-market). Terraform-implementation minskade driftkostnader med 30% årligen."
 
-Beslutsfattare förstår tid och pengar bättre än tekniska termer – översätt alltid till affärsnytta.`
+Beslutsfattare förstår tid och pengar bättre än tekniska termer, översätt alltid till affärsnytta.`
       }
     ],
 
     faq: [
       {
         fraga: 'Hur många tekniker ska jag lista i mitt CV som IT-konsult?',
-        svar: 'Håll det till 8-12 tekniska färdigheter totalt, grupperade efter kategori (Cloud, Språk, Verktyg, Metodik). Ge kompetensnivå på dina TOP 3 färdigheter (t.ex. "Azure (Expert, 7+ år)"), resten utan nivå. Att lista 40 verktyg signalerar osäkerhet – fokusera på vad du faktiskt är expert på. ATS-system söker efter specifika nyckelord, men rekryterare vill se fokuserad expertis.'
+        svar: 'Håll det till 8-12 tekniska färdigheter totalt, grupperade efter kategori (Cloud, Språk, Verktyg, Metodik). Ge kompetensnivå på dina TOP 3 färdigheter (t.ex. "Azure (Expert, 7+ år)"), resten utan nivå. Att lista 40 verktyg signalerar osäkerhet, fokusera på vad du faktiskt är expert på. ATS-system söker efter specifika nyckelord, men rekryterare vill se fokuserad expertis.'
       },
       {
         fraga: 'Ska jag ha certifieringar i mitt IT-konsult CV?',
-        svar: 'Ja, certifieringar är ofta hårda krav för konsultuppdrag. Lista dem med årtal: "Azure Solutions Architect Expert (2024), AWS Solutions Architect Associate (2023), CKA (2022)". Detta visar aktiv kompetensutveckling, multi-cloud-kompetens och formell validering. Vissa kunder kräver specifika certifieringar för att ens komma på upphandling – utan dem går du miste om uppdrag.'
+        svar: 'Ja, certifieringar är ofta hårda krav för konsultuppdrag. Lista dem med årtal: "Azure Solutions Architect Expert (2024), AWS Solutions Architect Associate (2023), CKA (2022)". Detta visar aktiv kompetensutveckling, multi-cloud-kompetens och formell validering. Vissa kunder kräver specifika certifieringar för att ens komma på upphandling, utan dem går du miste om uppdrag.'
       },
       {
         fraga: 'Hur visar jag konsultresultat när jag haft många korta uppdrag?',
@@ -5274,11 +5296,11 @@ Beslutsfattare förstår tid och pengar bättre än tekniska termer – översä
       },
       {
         fraga: 'Hur skriver jag om DevOps-arbete utan att bli för teknisk?',
-        svar: 'Översätt DevOps-resultat till affärsspråk: "Reducerade release-tid från 2 veckor till 2 dagar" (snabbare time-to-market), "Minskade driftkostnader med 30% via infrastructure-as-code" (ekonomi), "Automatiserade deploy-processer vilket eliminerade 15 timmars manuellt arbete/vecka" (effektivitet). Beslutsfattare förstår tid, pengar och risk – använd dessa mätvärden.'
+        svar: 'Översätt DevOps-resultat till affärsspråk: "Reducerade release-tid från 2 veckor till 2 dagar" (snabbare time-to-market), "Minskade driftkostnader med 30% via infrastructure-as-code" (ekonomi), "Automatiserade deploy-processer vilket eliminerade 15 timmars manuellt arbete/vecka" (effektivitet). Beslutsfattare förstår tid, pengar och risk, använd dessa mätvärden.'
       },
       {
         fraga: 'Hur långt ska mitt CV vara som IT-konsult?',
-        svar: '2 sidor är standard för erfarna IT-konsulter (5+ år). Du behöver plats för att visa projektlista, tech stack, certifieringar och kundresultat. 1 sida räcker sällan för att visa din bredd. Undvik dock att gå över 2 sidor – fokusera på senaste 10-15 åren och mest relevanta uppdrag. Äldre erfarenhet kan summeras kortfattat eller utelämnas.'
+        svar: '2 sidor är standard för erfarna IT-konsulter (5+ år). Du behöver plats för att visa projektlista, tech stack, certifieringar och kundresultat. 1 sida räcker sällan för att visa din bredd. Undvik dock att gå över 2 sidor, fokusera på senaste 10-15 åren och mest relevanta uppdrag. Äldre erfarenhet kan summeras kortfattat eller utelämnas.'
       },
       {
         fraga: 'Ska jag ha en profilbild på mitt CV som IT-konsult?',
@@ -5286,7 +5308,7 @@ Beslutsfattare förstår tid och pengar bättre än tekniska termer – översä
       },
       {
         fraga: 'Ska jag inkludera GitHub eller portfolio-länkar i mitt CV?',
-        svar: 'Ja, om du har aktiva open source-bidrag eller relevanta projekt. Lägg till länken under kontaktuppgifter: "GitHub: github.com/erikbergstrom" eller "Portfolio: erikbergstrom.dev". Se till att ditt GitHub-konto är uppdaterat och visar kvalitetskod – ett overksamt konto från 2018 ger sämre intryck än inget alls. För konsulter är LinkedIn ofta viktigare än GitHub.'
+        svar: 'Ja, om du har aktiva open source-bidrag eller relevanta projekt. Lägg till länken under kontaktuppgifter: "GitHub: github.com/erikbergstrom" eller "Portfolio: erikbergstrom.dev". Se till att ditt GitHub-konto är uppdaterat och visar kvalitetskod, ett overksamt konto från 2018 ger sämre intryck än inget alls. För konsulter är LinkedIn ofta viktigare än GitHub.'
       },
       {
         fraga: 'Hur beskriver jag remote vs on-site konsultuppdrag?',
@@ -5294,7 +5316,7 @@ Beslutsfattare förstår tid och pengar bättre än tekniska termer – översä
       },
       {
         fraga: 'Hur hanterar jag luckor i mitt CV som IT-konsult?',
-        svar: 'Var transparent och ge kortfattad förklaring. "Föräldraledighet", "Sabbatsår för kompetensutveckling (Azure-certifiering)", "Egen uppdragsverksamhet" är helt OK. Om luckan är längre än 6 månader, nämn vad du gjorde för att hålla dig uppdaterad (kurser, certifieringar, open source-bidrag). För konsulter är korta perioder mellan uppdrag (1-3 månader) normalt – ingen förklaring behövs.'
+        svar: 'Var transparent och ge kortfattad förklaring. "Föräldraledighet", "Sabbatsår för kompetensutveckling (Azure-certifiering)", "Egen uppdragsverksamhet" är helt OK. Om luckan är längre än 6 månader, nämn vad du gjorde för att hålla dig uppdaterad (kurser, certifieringar, open source-bidrag). För konsulter är korta perioder mellan uppdrag (1-3 månader) normalt, ingen förklaring behövs.'
       }
     ],
 
@@ -5312,9 +5334,9 @@ Beslutsfattare förstår tid och pengar bättre än tekniska termer – översä
     metaTitle: 'CV Exempel Student 2026 - Professionell Mall | Jobbcoach.ai',
     metaDescription: 'Se ett komplett CV-exempel för studenter. ATS-optimerat, visar hur du lyfter fram kurser, projektarbeten och extrajobb. Inkluderar tips för första jobbet.',
 
-    seoIntro: `Ett cv student som faktiskt ger intervju kräver mer än bara att lista kurser och extrajobb. Rekryterare letar efter konkreta bevis på att du kan leverera resultat – även om du bara har några års erfarenhet från studier, praktik och deltidsjobb.
+    seoIntro: `Ett cv student som faktiskt ger intervju kräver mer än bara att lista kurser och extrajobb. Rekryterare letar efter konkreta bevis på att du kan leverera resultat, även om du bara har några års erfarenhet från studier, praktik och deltidsjobb.
 
-Våra CV-exempel för studenter visar hur du lyfter fram relevanta kurser, kvantifierbara resultat från projektarbete och transferable skills från extrajobb. Du ser konkret hur du balanserar utbildning, praktik och kompetenser för att visa vad du kan bidra med – inte bara vad du har läst.
+Våra CV-exempel för studenter visar hur du lyfter fram relevanta kurser, kvantifierbara resultat från projektarbete och transferable skills från extrajobb. Du ser konkret hur du balanserar utbildning, praktik och kompetenser för att visa vad du kan bidra med, inte bara vad du har läst.
 
 Vill du komplettera ditt CV? Kolla våra exempel på personliga brev för studenter som visar hur du kopplar din utbildning till jobbet du söker.`,
 
@@ -5326,7 +5348,7 @@ Vill du komplettera ditt CV? Kolla våra exempel på personliga brev för studen
       kontakt: {
         telefon: '070-123 45 67',
         epost: 'emma.andersson@email.se',
-        plats: 'Stockholm',
+        plats: 'Göteborg',
         linkedin: 'linkedin.com/in/emmaandersson'
       },
 
@@ -5398,7 +5420,7 @@ Vill du komplettera ditt CV? Kolla våra exempel på personliga brev för studen
       certifieringar: [
         'Fortnox Grundkurs (2024)',
         'Hygienbevis inom livsmedelsbranschen (2022)',
-        'Excel för ekonomer – Nivå 2 (LinkedIn Learning, 2023)'
+        'Excel för ekonomer: Nivå 2 (LinkedIn Learning, 2023)'
       ],
 
       sprak: [
@@ -5410,9 +5432,9 @@ Vill du komplettera ditt CV? Kolla våra exempel på personliga brev för studen
     varforDetFungerar: [
       {
         rubrik: 'ATS-system känner igen branschspecifika nyckelord direkt',
-        text: `CV:t använder exakta matchningar som Fortnox, löpande bokföring, fakturahantering och kassahantering – termer som ofta står ordagrant i jobbannonser för ekonomiroller och serviceyrken. Istället för vaga beskrivningar som "god datorvana" ser du konkreta verktygsnamn.
+        text: `CV:t använder exakta matchningar som Fortnox, löpande bokföring, fakturahantering och kassahantering, termer som ofta står ordagrant i jobbannonser för ekonomiroller och serviceyrken. Istället för vaga beskrivningar som "god datorvana" ser du konkreta verktygsnamn.
 
-Varför detta fungerar: ATS-system rankar CV:n som matchar jobbannonser ordagrant högre. För studenter med kortare arbetslivserfarenhet är det avgörande att lyfta fram konkreta verktyg och system från praktik och extrajobb. När annonsen kräver Excel ska du inte skriva "Microsoft Office" – skriv "Excel (pivottabeller, VLOOKUP)". Detta gör att ditt CV passerar ATS-filtret och når en rekryterare.`
+Varför detta fungerar: ATS-system rankar CV:n som matchar jobbannonser ordagrant högre. För studenter med kortare arbetslivserfarenhet är det avgörande att lyfta fram konkreta verktyg och system från praktik och extrajobb. När annonsen kräver Excel ska du inte skriva "Microsoft Office", skriv "Excel (pivottabeller, VLOOKUP)". Detta gör att ditt CV passerar ATS-filtret och når en rekryterare.`
       },
       {
         rubrik: 'Konkreta siffror visar omfattning även för kort erfarenhet',
@@ -5424,13 +5446,13 @@ Varför detta fungerar: Siffror ger kontext och trovärdighet. De flesta student
         rubrik: 'Mjuka färdigheter backas upp med konkreta bevis',
         text: `CV:t kopplar varje mjuk färdighet till konkreta situationer: Noggrannhet (hanterat 200+ fakturor utan fel), Kundservice (150+ kundmöten dagligen), Projektledning (8 event med 400+ deltagare). Istället för en tom lista med "driven, flexibel, kommunikativ" får varje egenskap ett bevis.
 
-Varför detta fungerar: Rekryterare ser tusentals studentCV med "driven, flexibel, kommunikativ" – det säger ingenting. Mjuka färdigheter måste backas upp med siffror eller situationer för att bli trovärdiga. Extrajobb ger perfekta bevis: rusningstid på café visar stresshantering, kassaavstämning visar noggrannhet, eventplanering visar projektledning. Visa, säg inte bara.`
+Varför detta fungerar: Rekryterare ser tusentals studentCV med "driven, flexibel, kommunikativ", det säger ingenting. Mjuka färdigheter måste backas upp med siffror eller situationer för att bli trovärdiga. Extrajobb ger perfekta bevis: rusningstid på café visar stresshantering, kassaavstämning visar noggrannhet, eventplanering visar projektledning. Visa, säg inte bara.`
       },
       {
         rubrik: 'Utbildning placerad strategiskt med relevanta kurser',
-        text: `CV:t placerar utbildning högt upp och listar relevanta kurser som Extern redovisning, Management accounting och Statistik – inte bara "Kandidatprogram i Ekonomi". Det inkluderar också snittbetyg (4.2/5.0) för att förstärka trovärdigheten.
+        text: `CV:t placerar utbildning högt upp och listar relevanta kurser som Extern redovisning, Management accounting och Statistik, inte bara "Kandidatprogram i Ekonomi". Det inkluderar också snittbetyg (4.2/5.0) för att förstärka trovärdigheten.
 
-Varför detta fungerar: För studenter och nyutexaminerade är utbildning den primära kompetensen. Men "Kandidatexamen i Ekonomi" är för vagt – rekryterare vill se konkreta kunskaper. Att lista relevanta kurser visar vad du faktiskt kan göra: Extern redovisning betyder att du kan bokföra, Statistik betyder att du kan analysera data. Beskriv även större projekt som konsultuppdrag med scope och resultat.`
+Varför detta fungerar: För studenter och nyutexaminerade är utbildning den primära kompetensen. Men "Kandidatexamen i Ekonomi" är för vagt, rekryterare vill se konkreta kunskaper. Att lista relevanta kurser visar vad du faktiskt kan göra: Extern redovisning betyder att du kan bokföra, Statistik betyder att du kan analysera data. Beskriv även större projekt som konsultuppdrag med scope och resultat.`
       },
       {
         rubrik: 'Profiltext fokuserad på konkret erfarenhet och tydligt mål',
@@ -5442,14 +5464,14 @@ Varför detta fungerar: Studenter ska inte ursäkta begränsad erfarenhet med fr
         rubrik: 'Transferable skills från extrajobb beskrivet professionellt',
         text: `CV:t översätter extrajobb till affärsterminologi: Betjänade 150+ kunder dagligen (kundorientering), Kassahantering med 99,5% accuracy (ekonomiskt ansvar), Utbildade 3 nya medarbetare (mentorskap), Minskade svinn med 15% (problemlösning och initiativförmåga).
 
-Varför detta fungerar: Rekryterare för entry-level-jobb vet att studenter har extrajobb – frågan är hur du beskriver dem. Tänk: Vilka kompetenser är transferable till jobbet du söker? Café och restaurang ger stresshantering och teamarbete i högtempo. Butik ger försäljning och kundorientering. Använd professionellt språk: inte "jobbade på café", utan "betjänade 150+ kunder dagligen med fokus på servicekvalitet".`
+Varför detta fungerar: Rekryterare för entry-level-jobb vet att studenter har extrajobb, frågan är hur du beskriver dem. Tänk: Vilka kompetenser är transferable till jobbet du söker? Café och restaurang ger stresshantering och teamarbete i högtempo. Butik ger försäljning och kundorientering. Använd professionellt språk: inte "jobbade på café", utan "betjänade 150+ kunder dagligen med fokus på servicekvalitet".`
       }
     ],
 
     tips: [
       {
         rubrik: 'Lyft fram relevanta kurser och projekt som matchar jobbet',
-        text: `Lista inte bara din examen – visa vilka kurser som är relevanta för jobbet du söker. Inkludera konkreta projekt där du producerade något mätbart.
+        text: `Lista inte bara din examen, visa vilka kurser som är relevanta för jobbet du söker. Inkludera konkreta projekt där du producerade något mätbart.
 
 **Exempel på före/efter**:
 
@@ -5457,11 +5479,11 @@ Varför detta fungerar: Rekryterare för entry-level-jobb vet att studenter har 
 
 ✅ "Kandidatexamen i ekonomi, Stockholms universitet. Relevanta kurser: Extern redovisning, Financial Analysis, Corporate Finance. Kandidatarbete: Analyserade lönsamhet för 15 svenska bolag med DCF-modeller."
 
-Rekryteraren vill se att du kan applicera teori i praktiken – projekten bevisar det.`
+Rekryteraren vill se att du kan applicera teori i praktiken, projekten bevisar det.`
       },
       {
         rubrik: 'Kvantifiera dina extrajobb med konkreta siffror',
-        text: `Varje extrajobb har mätbara resultat om du letar efter dem. Kvantifiera ansvar, tempo och kvalitet – även för jobb som känns rutinmässiga.
+        text: `Varje extrajobb har mätbara resultat om du letar efter dem. Kvantifiera ansvar, tempo och kvalitet, även för jobb som känns rutinmässiga.
 
 **Exempel på före/efter**:
 
@@ -5481,11 +5503,11 @@ Tänk på: antal kunder, transaktioner per dag, omsättning, teamstorlek, levera
 
 ✅ "Kassör i Ekonomistudentkåren: Hanterade budget på 150 000 kr, ansvarade för bokföring och ekonomisk rapportering till styrelsen. Eventansvarig för 8 studiesociala events med 400+ deltagare."
 
-Använd samma terminologi som i jobbannonsen – om de söker "projektledning" ska du använda den termen.`
+Använd samma terminologi som i jobbannonsen, om de söker "projektledning" ska du använda den termen.`
       },
       {
         rubrik: 'Anpassa ditt CV för varje jobb med rätt nyckelord',
-        text: `Skicka aldrig samma CV till alla jobb. Läs jobbannonsen, markera nyckelord och se till att de finns i ditt CV – särskilt för att passera ATS-system.
+        text: `Skicka aldrig samma CV till alla jobb. Läs jobbannonsen, markera nyckelord och se till att de finns i ditt CV, särskilt för att passera ATS-system.
 
 **Exempel på före/efter**:
 
@@ -5497,7 +5519,7 @@ Detta tar 10 minuter per ansökan men ökar dina chanser enormt att komma förbi
       },
       {
         rubrik: 'Specificera IT-kompetenser och certifieringar med nivå',
-        text: `Undvik vaga beskrivningar som "Excel" eller "datorvana" – specificera exakt vad du kan och på vilken nivå.
+        text: `Undvik vaga beskrivningar som "Excel" eller "datorvana", specificera exakt vad du kan och på vilken nivå.
 
 **Exempel på före/efter**:
 
@@ -5509,7 +5531,7 @@ Gratis certifieringar från Google, HubSpot och LinkedIn Learning visar initiati
       },
       {
         rubrik: 'Fokusera på potential istället för att ursäkta begränsad erfarenhet',
-        text: `Skriv aldrig "Trots begränsad erfarenhet..." – fokusera istället på vad du kan och vill utveckla.
+        text: `Skriv aldrig "Trots begränsad erfarenhet...", fokusera istället på vad du kan och vill utveckla.
 
 **Exempel på före/efter**:
 
@@ -5517,14 +5539,14 @@ Gratis certifieringar från Google, HubSpot och LinkedIn Learning visar initiati
 
 ✅ "Driven ekonomistudent med praktisk erfarenhet från redovisningsbyrå (200+ kundunderlag i Fortnox). Söker traineeroll inom controlling för att utveckla min analytiska kompetens."
 
-Rekryterare som anställer studenter förväntar sig inte 10 års erfarenhet – de letar efter motivation, lärvilja och grundkompetenser.`
+Rekryterare som anställer studenter förväntar sig inte 10 års erfarenhet, de letar efter motivation, lärvilja och grundkompetenser.`
       }
     ],
 
     faq: [
       {
         fraga: 'Hur långt ska mitt CV som student vara?',
-        svar: 'Ett CV för studenter ska vara max 1-2 sidor. Om du har mindre än 3 års arbetslivserfarenhet räcker ofta en sida. Fokusera på kvalitet över kvantitet – inkludera bara det som är relevant för jobbet du söker. Prioritera utbildning, relevanta projekt, extrajobb och kompetenser som matchar jobbannonsen.'
+        svar: 'Ett CV för studenter ska vara max 1-2 sidor. Om du har mindre än 3 års arbetslivserfarenhet räcker ofta en sida. Fokusera på kvalitet över kvantitet, inkludera bara det som är relevant för jobbet du söker. Prioritera utbildning, relevanta projekt, extrajobb och kompetenser som matchar jobbannonsen.'
       },
       {
         fraga: 'Ska jag ha med profilbild på mitt CV?',
@@ -5532,11 +5554,11 @@ Rekryterare som anställer studenter förväntar sig inte 10 års erfarenhet –
       },
       {
         fraga: 'Vad gör jag om jag har luckor i mitt CV?',
-        svar: 'Luckor under studietiden är naturliga och behöver sällan förklaras – de flesta förstår att du studerat. Om du haft längre uppehåll, inkludera relevant aktivitet som vidareutbildning, volontärarbete eller egna projekt under den perioden. Var ärlig men fokusera på vad du lärt dig eller uppnått, inte på varför luckan uppstod.'
+        svar: 'Luckor under studietiden är naturliga och behöver sällan förklaras, de flesta förstår att du studerat. Om du haft längre uppehåll, inkludera relevant aktivitet som vidareutbildning, volontärarbete eller egna projekt under den perioden. Var ärlig men fokusera på vad du lärt dig eller uppnått, inte på varför luckan uppstod.'
       },
       {
         fraga: 'Ska jag inkludera min praktik eller VFU-period i arbetserfarenhet?',
-        svar: 'Ja, praktik och VFU räknas som relevant arbetserfarenhet. Placera dem under "Arbetserfarenhet" med tydlig markering att det var praktik. Beskriv dina konkreta arbetsuppgifter och resultat precis som för ett vanligt jobb: "Praktikant, Redovisning – hanterade löpande bokföring för 15 kunder, assisterade vid månadsbokslut i Fortnox".'
+        svar: 'Ja, praktik och VFU räknas som relevant arbetserfarenhet. Placera dem under "Arbetserfarenhet" med tydlig markering att det var praktik. Beskriv dina konkreta arbetsuppgifter och resultat precis som för ett vanligt jobb: "Praktikant, Redovisning, hanterade löpande bokföring för 15 kunder, assisterade vid månadsbokslut i Fortnox".'
       },
       {
         fraga: 'Hur relevant är mitt extrajobb på café eller butik för mitt framtida yrke?',
@@ -5544,11 +5566,11 @@ Rekryterare som anställer studenter förväntar sig inte 10 års erfarenhet –
       },
       {
         fraga: 'Ska jag ta med ideellt engagemang och studentföreningar?',
-        svar: 'Absolut, särskilt om du har begränsad arbetslivserfarenhet. Ideellt arbete och studentengagemang visar initiativförmåga, ledarskap och praktiska kompetenser. Placera dem under en egen sektion "Ideellt engagemang" eller integrera i "Arbetserfarenhet". Beskriv konkreta resultat: "Eventansvarig, Ekonomföreningen – planerade 8 events för 400+ deltagare, hanterade budget på 25 000 kr".'
+        svar: 'Absolut, särskilt om du har begränsad arbetslivserfarenhet. Ideellt arbete och studentengagemang visar initiativförmåga, ledarskap och praktiska kompetenser. Placera dem under en egen sektion "Ideellt engagemang" eller integrera i "Arbetserfarenhet". Beskriv konkreta resultat: "Eventansvarig, Ekonomföreningen, planerade 8 events för 400+ deltagare, hanterade budget på 25 000 kr".'
       },
       {
         fraga: 'Hur beskriver jag kursprojekt på ett professionellt sätt?',
-        svar: 'Beskriv kursprojekt som konsultuppdrag eller riktiga projekt. Istället för "Grupparbete i marknadsföringskurs" skriv "Utvecklade marknadsföringsstrategi för lokalt företag – analyserade målgrupp, skapade contentplan, rekommenderade kanaler baserat på ROI-analys". Inkludera scope (teamstorlek, tidsram), metodik och konkreta resultat.'
+        svar: 'Beskriv kursprojekt som konsultuppdrag eller riktiga projekt. Istället för "Grupparbete i marknadsföringskurs" skriv "Utvecklade marknadsföringsstrategi för lokalt företag, analyserade målgrupp, skapade contentplan, rekommenderade kanaler baserat på ROI-analys". Inkludera scope (teamstorlek, tidsram), metodik och konkreta resultat.'
       },
       {
         fraga: 'Ska jag skriva mitt betyg eller GPA på CV:t?',
@@ -5556,11 +5578,11 @@ Rekryterare som anställer studenter förväntar sig inte 10 års erfarenhet –
       },
       {
         fraga: 'Hur hanterar jag sommarjobb som inte är relaterade till min utbildning?',
-        svar: 'Inkludera alla sommarjobb men anpassa beskrivningen efter relevans. Om du söker ekonomijobb och jobbat på lager, lyft fram ansvar och siffror: "Lagerarbetare – hanterade 200+ orderplock dagligen, inventering av lager värt 2 miljoner kr, tränade sommarpersonal". Detta visar arbetsvilja, ansvar och förmåga att leverera.'
+        svar: 'Inkludera alla sommarjobb men anpassa beskrivningen efter relevans. Om du söker ekonomijobb och jobbat på lager, lyft fram ansvar och siffror: "Lagerarbetare, hanterade 200+ orderplock dagligen, inventering av lager värt 2 miljoner kr, tränade sommarpersonal". Detta visar arbetsvilja, ansvar och förmåga att leverera.'
       },
       {
         fraga: 'Vem ska jag använda som referenser och hur tar jag upp det?',
-        svar: 'Använd handledare från praktik, tidigare chefer från extrajobb eller lärare från kurser där du gjort större projekt. Skriv "Referenser lämnas på begäran" längst ner i CV:t – lista inte namn direkt. Kontakta dina referenser innan du anger dem och berätta vilket jobb du söker så de kan förbereda sig.'
+        svar: 'Använd handledare från praktik, tidigare chefer från extrajobb eller lärare från kurser där du gjort större projekt. Skriv "Referenser lämnas på begäran" längst ner i CV:t, lista inte namn direkt. Kontakta dina referenser innan du anger dem och berätta vilket jobb du söker så de kan förbereda sig.'
       }
     ],
 
@@ -5578,9 +5600,9 @@ Rekryterare som anställer studenter förväntar sig inte 10 års erfarenhet –
     metaTitle: 'CV Exempel Lärare 2026 – Professionell Mall & Tips | Jobbcoach.ai',
     metaDescription: 'Se ett komplett CV-exempel för lärare. ATS-optimerat, anpassat för svenska skolor och visar pedagogisk kompetens + resultat. Inkluderar tips och branschspecifika nyckelord.',
 
-    seoIntro: `Söker du jobb som lärare och vill ha ett CV som verkligen sticker ut? Det här exemplet visar hur du strukturerar ett ATS-optimerat lärar-CV som passar svenska grund- och gymnasieskolor – oavsett om du är nyexaminerad eller har mångårig erfarenhet.
+    seoIntro: `Söker du jobb som lärare och vill ha ett CV som verkligen sticker ut? Det här exemplet visar hur du strukturerar ett ATS-optimerat lärar-CV som passar svenska grund- och gymnasieskolor, oavsett om du är nyexaminerad eller har mångårig erfarenhet.
 
-Du får se exakt hur du lyfter fram din lärarlegitimation, ämnesbehörighet och pedagogiska kompetens tillsammans med konkreta resultat från klassrummet. CV:t balanserar teknisk skicklighet (läroplaner, digitala verktyg, bedömningsmetoder) med de mjuka färdigheter som rektorer och HR-avdelningar prioriterar – ledarskap, relationsskapande och elevfokus.
+Du får se exakt hur du lyfter fram din lärarlegitimation, ämnesbehörighet och pedagogiska kompetens tillsammans med konkreta resultat från klassrummet. CV:t balanserar teknisk skicklighet (läroplaner, digitala verktyg, bedömningsmetoder) med de mjuka färdigheter som rektorer och HR-avdelningar prioriterar, ledarskap, relationsskapande och elevfokus.
 
 Använd exemplet som inspiration för ditt eget lärar-CV och anpassa det efter den tjänst du söker. Läs också våra tips längre ner om hur du optimerar ditt personliga brev för att öka dina chanser till intervju.`,
 
@@ -5592,11 +5614,11 @@ Använd exemplet som inspiration för ditt eget lärar-CV och anpassa det efter 
       kontakt: {
         telefon: '073-456 78 90',
         epost: 'emma.bergstrom@email.se',
-        plats: 'Uppsala',
+        plats: 'Linköping',
         linkedin: 'linkedin.com/in/emmabergstrom'
       },
 
-      profil: 'Legitimerad grundskollärare med 9 års erfarenhet av undervisning i svenska och SO för årskurs F-6. Behörig i ämnena svenska och samhällsorienterande ämnen med dokumenterad förmåga att höja elevresultat – senast 18% förbättring i nationella prov i svenska. Brinner för att skapa en trygg och stimulerande lärmiljö där varje elev får möjlighet att utvecklas.',
+      profil: 'Legitimerad grundskollärare med 9 års erfarenhet av undervisning i svenska och SO för årskurs F-6. Behörig i ämnena svenska och samhällsorienterande ämnen med dokumenterad förmåga att höja elevresultat, senast 18% förbättring i nationella prov i svenska. Brinner för att skapa en trygg och stimulerande lärmiljö där varje elev får möjlighet att utvecklas.',
 
       erfarenhet: [
         {
@@ -5607,7 +5629,7 @@ Använd exemplet som inspiration för ditt eget lärar-CV och anpassa det efter 
             'Undervisar ca 75 elever årligen i svenska och SO för årskurs 4-6 med fokus på differentierad undervisning och formativ bedömning',
             'Ökade andelen elever som nådde kunskapskraven i svenska med 18% genom strukturerad läsundervisning och individuella utvecklingsplaner',
             'Mentorsansvar för 25 elever inklusive utvecklingssamtal, åtgärdsprogram och samverkan med elevhälsoteam',
-            'Leder arbetslagets digitala utveckling – implementerade Google Classroom och Skolverkets bedömningsstöd för hela mellanstadiet',
+            'Leder arbetslagets digitala utveckling, implementerade Google Classroom och Skolverkets bedömningsstöd för hela mellanstadiet',
             'Handleder VFU-studenter och introducerar nyexaminerade lärare i skolans rutiner och pedagogiska modeller'
           ]
         },
@@ -5671,7 +5693,7 @@ Använd exemplet som inspiration för ditt eget lärar-CV och anpassa det efter 
       certifieringar: [
         'Lärarlegitimation F-6 (2015)',
         'Specialpedagogik 1 (2020)',
-        'Läslyftet – Skolverket (2019)',
+        'Läslyftet: Skolverket (2019)',
         'Google Certified Educator Level 1 (2021)',
         'HLR och första hjälpen (förnyad 2024)'
       ],
@@ -5697,15 +5719,15 @@ Varför detta fungerar: Rektorer läser hundratals CV:n där alla skriver "ansva
       },
       {
         rubrik: 'Pedagogiska metoder och digitala verktyg med bevis',
-        text: `CV:t listar både pedagogiska metoder (differentieringspedagogik, formativ bedömning, IUP) och digitala verktyg (Google Classroom, Unikum, Kahoot, Smartboard). Men det stannar inte där – varje färdighet backas upp med exempel: "Differentierad undervisning för elever med läs- och skrivsvårigheter: extra anpassningar och IUP för 5 elever" och "Digitaliserad undervisning med Google Classroom och Kahoot vilket ökade elevengagemang".
+        text: `CV:t listar både pedagogiska metoder (differentieringspedagogik, formativ bedömning, IUP) och digitala verktyg (Google Classroom, Unikum, Kahoot, Smartboard). Men det stannar inte där, varje färdighet backas upp med exempel: "Differentierad undervisning för elever med läs- och skrivsvårigheter: extra anpassningar och IUP för 5 elever" och "Digitaliserad undervisning med Google Classroom och Kahoot vilket ökade elevengagemang".
 
-Varför detta fungerar: Att bara lista "pedagogisk, engagerad, kreativ" säger ingenting. Genom att visa HUR du använt metoderna i praktiken blir dina färdigheter trovärdiga. Skolor söker lärare som kan kombinera pedagogisk kunskap med digital kompetens – och bevisa det genom resultat.`
+Varför detta fungerar: Att bara lista "pedagogisk, engagerad, kreativ" säger ingenting. Genom att visa HUR du använt metoderna i praktiken blir dina färdigheter trovärdiga. Skolor söker lärare som kan kombinera pedagogisk kunskap med digital kompetens, och bevisa det genom resultat.`
       },
       {
         rubrik: 'Lärarlegitimation och fortbildning som trovärdighetsmarkör',
         text: `CV:t har en dedikerad sektion för lärarlegitimation och fortbildningar: "Legitimerad lärare i svenska och engelska (åk 7-9)", "Ämnesbehörighet: Svenska (åk 7-9), Engelska (åk 7-9)" och "Fortbildning: Lgr 22 (2023), Formativ bedömning (2022), Digital kompetens (2024)".
 
-Varför detta fungerar: Lärarlegitimation är krav för de flesta grundskole- och gymnasietjänster. Att visa detta tydligt och tidigt sparar tid för rekryteraren. Att inkludera fortbildningar med årtal – särskilt Lgr 22 (nya läroplanen) – visar att du är uppdaterad och tar din profession på allvar. Det signalerar lärvilja och professionell utveckling, inte bara "jag tog min examen och sedan slutade jag lära mig nytt".`
+Varför detta fungerar: Lärarlegitimation är krav för de flesta grundskole- och gymnasietjänster. Att visa detta tydligt och tidigt sparar tid för rekryteraren. Att inkludera fortbildningar med årtal, särskilt Lgr 22 (nya läroplanen), visar att du är uppdaterad och tar din profession på allvar. Det signalerar lärvilja och professionell utveckling, inte bara "jag tog min examen och sedan slutade jag lära mig nytt".`
       },
       {
         rubrik: 'Profiltext som sammanfattar styrkor på 4 meningar',
@@ -5715,7 +5737,7 @@ Varför detta fungerar: Rektorer läser ofta bara profiltexten och rubriker för
       },
       {
         rubrik: 'Tydlig progression från grundskola till gymnasiet',
-        text: `Arbetslivserfarenheten visar en naturlig karriärprogression: Klasslärare på grundskolan (åk 8, 25 elever, 2018-2021) → Ämneslärare på gymnasiet (3 parallellklasser, 65 elever, 2021-pågående). Dessutom nämns mentorskap: "Handleder VFU-studenter från lärarutbildningen (2-3 studenter årligen)" och "Deltar i kollegialt lärande med 4 kollegor".
+        text: `Arbetslivserfarenheten visar en naturlig karriärprogression: Klasslärare på grundskolan (åk 8, 25 elever, 2018-2021), sedan Ämneslärare på gymnasiet (3 parallellklasser, 65 elever, 2021-pågående). Dessutom nämns mentorskap: "Handleder VFU-studenter från lärarutbildningen (2-3 studenter årligen)" och "Deltar i kollegialt lärande med 4 kollegor".
 
 Varför detta fungerar: Progression visar att du vuxit i yrket och tagit på dig mer ansvar. Att nämna VFU-handledning och kollegialt lärande visar att du är en seniorroll som kan ta mentorsansvar. Detta är särskilt värdefullt för tjänster som kräver mentorskap, förstelärare-uppdrag eller ledarskap. Det skiljer dig från de som bara "gjort samma jobb i 10 år" utan att utvecklas.`
       }
@@ -5724,7 +5746,7 @@ Varför detta fungerar: Progression visar att du vuxit i yrket och tagit på dig
     tips: [
       {
         rubrik: 'Sätt legitimation och behörighet överst – det är första filtret',
-        text: `Rektorer och skolchefer filtrerar efter behörighet innan de läser resten av ditt CV. Placera din lärarlegitimation och ämnesbehörighet i titeln eller direkt under ditt namn – inte gömt längst ner.
+        text: `Rektorer och skolchefer filtrerar efter behörighet innan de läser resten av ditt CV. Placera din lärarlegitimation och ämnesbehörighet i titeln eller direkt under ditt namn, inte gömt längst ner.
 
 **Exempel på före/efter**:
 
@@ -5760,7 +5782,7 @@ Läs annonsen noggrant, markera nyckelord och använd exakt samma terminologi i 
       },
       {
         rubrik: 'Visa pedagogisk utveckling med specifika fortbildningar',
-        text: `Rektorer vill se att du utvecklas som lärare. Generella påståenden om "kontinuerlig kompetensutveckling" är värdelösa – ge istället specifika exempel med årtal.
+        text: `Rektorer vill se att du utvecklas som lärare. Generella påståenden om "kontinuerlig kompetensutveckling" är värdelösa, ge istället specifika exempel med årtal.
 
 **Exempel på före/efter**:
 
@@ -5772,7 +5794,7 @@ Fortbildningar som väger tungt: Läslyftet, Mattelyftet, specialpedagogik, NPF-
       },
       {
         rubrik: 'Beskriv klassrumsledning med metoder och mätbara resultat',
-        text: `Klassrumsledning är en av de viktigaste färdigheterna rektorer söker. Abstrakta beskrivningar som "skapar trygg lärmiljö" säger ingenting – beskriv konkreta metoder och resultat.
+        text: `Klassrumsledning är en av de viktigaste färdigheterna rektorer söker. Abstrakta beskrivningar som "skapar trygg lärmiljö" säger ingenting, beskriv konkreta metoder och resultat.
 
 **Exempel på före/efter**:
 
@@ -5799,15 +5821,15 @@ Läs om skolan innan du söker och anpassa profiltexten efter deras profil och v
     faq: [
       {
         fraga: 'Hur långt ska ett lärar-CV vara?',
-        svar: 'För lärare med 5+ års erfarenhet är två A4-sidor standard – en sida känns för tunt när du har mycket relevant erfarenhet att visa. Nyexaminerade klarar sig med en sida. Det viktigaste är att varje punkt tillför värde: ta bort generiska beskrivningar och fokusera på konkreta resultat, behörigheter och kompetenser som matchar tjänsten du söker.'
+        svar: 'För lärare med 5+ års erfarenhet är två A4-sidor standard, en sida känns för tunt när du har mycket relevant erfarenhet att visa. Nyexaminerade klarar sig med en sida. Det viktigaste är att varje punkt tillför värde: ta bort generiska beskrivningar och fokusera på konkreta resultat, behörigheter och kompetenser som matchar tjänsten du söker.'
       },
       {
         fraga: 'Ska jag inkludera mitt betyg från lärarutbildningen?',
-        svar: 'Endast om du nyligen tagit examen och har höga betyg. För lärare med 2+ års erfarenhet väger praktisk kompetens tyngre – rektorer bryr sig mer om att du förbättrat elevernas provresultat med 18% än att du hade VG i didaktik. Byt ut betygsinformationen mot konkreta resultat från klassrummet.'
+        svar: 'Endast om du nyligen tagit examen och har höga betyg. För lärare med 2+ års erfarenhet väger praktisk kompetens tyngre, rektorer bryr sig mer om att du förbättrat elevernas provresultat med 18% än att du hade VG i didaktik. Byt ut betygsinformationen mot konkreta resultat från klassrummet.'
       },
       {
         fraga: 'Vad ska jag skriva i sammanfattningen/profiltexten?',
-        svar: 'Inled med legitimation, ämnesbehörighet och antal års erfarenhet. Lägg sedan till ett konkret resultat ("18% förbättring i nationella prov") och avsluta med din pedagogiska drivkraft. Håll det till 3-4 meningar och undvik generiska fraser som "brinner för undervisning" – visa istället vad du faktiskt åstadkommit.'
+        svar: 'Inled med legitimation, ämnesbehörighet och antal års erfarenhet. Lägg sedan till ett konkret resultat ("18% förbättring i nationella prov") och avsluta med din pedagogiska drivkraft. Håll det till 3-4 meningar och undvik generiska fraser som "brinner för undervisning", visa istället vad du faktiskt åstadkommit.'
       },
       {
         fraga: 'Hur visar jag att jag kan hantera utmanande klasser?',
@@ -5815,7 +5837,7 @@ Läs om skolan innan du söker och anpassa profiltexten efter deras profil och v
       },
       {
         fraga: 'Ska extrajobb som inte är lärarrelaterade vara med?',
-        svar: 'Ja, om de visar överförbara färdigheter. Sommarjobb med barn visar att du trivs med målgruppen. Ledarskap i föreningar visar organisationsförmåga. Kundtjänst visar kommunikation under press. Beskriv vad du utvecklade – "ansvarade för 30 barn under sommarläger" är bättre än "jobbade som lägerledare".'
+        svar: 'Ja, om de visar överförbara färdigheter. Sommarjobb med barn visar att du trivs med målgruppen. Ledarskap i föreningar visar organisationsförmåga. Kundtjänst visar kommunikation under press. Beskriv vad du utvecklade, "ansvarade för 30 barn under sommarläger" är bättre än "jobbade som lägerledare".'
       },
       {
         fraga: 'Hur hanterar jag luckor i min anställning?',
@@ -5835,7 +5857,7 @@ Läs om skolan innan du söker och anpassa profiltexten efter deras profil och v
       },
       {
         fraga: 'Ska jag skicka med personligt brev till varje ansökan?',
-        svar: 'Ja, nästan alltid inom skolvärlden. Personligt brev låter dig förklara varför just den här skolan intresserar dig och ge kontext som inte ryms i CV:t. Anpassa alltid brevet efter skolans profil och värdegrund. Generiska brev sorteras bort – rektorer märker direkt om du kopierat från en mall.'
+        svar: 'Ja, nästan alltid inom skolvärlden. Personligt brev låter dig förklara varför just den här skolan intresserar dig och ge kontext som inte ryms i CV:t. Anpassa alltid brevet efter skolans profil och värdegrund. Generiska brev sorteras bort, rektorer märker direkt om du kopierat från en mall.'
       }
     ],
 
@@ -5945,9 +5967,9 @@ Använd detta CV som mall när du skapar ditt eget. Kopiera strukturen, anpassa 
       },
 
       certifieringar: [
-        'ACLS – Advanced Cardiovascular Life Support (förnyad 2024)',
-        'PALS – Pediatric Advanced Life Support, Instruktör (förnyad 2024)',
-        'ATLS – Advanced Trauma Life Support (förnyad 2023)',
+        'ACLS: Advanced Cardiovascular Life Support (förnyad 2024)',
+        'PALS: Pediatric Advanced Life Support, Instruktör (förnyad 2024)',
+        'ATLS: Advanced Trauma Life Support (förnyad 2023)',
         'Invasiv blodtrycksövervakning & CVK-hantering (2022)',
         'Respiratorvård nivå 2 (2021)'
       ],
@@ -6012,7 +6034,7 @@ Inkludera alltid: legitimation, specialistutbildning, certifieringar (ACLS, PALS
       },
       {
         rubrik: 'Kvantifiera din kliniska erfarenhet med konkreta siffror',
-        text: `Siffror ger konkret bevis på din kapacitet. Visa omfattningen av ditt arbete – hur många patienter per skift och vilka typer av procedurer.
+        text: `Siffror ger konkret bevis på din kapacitet. Visa omfattningen av ditt arbete, hur många patienter per skift och vilka typer av procedurer.
 
 **Exempel på före/efter**:
 
@@ -6054,7 +6076,7 @@ Anpassa profiltexten efter om du söker IVA, akutmottagning, primärvård eller 
 
 ❌ "ACLS-certifierad, HLR-utbildad"
 
-✅ "ACLS – Advanced Cardiovascular Life Support (förnyad 2024), PALS – Pediatric Advanced Life Support, Instruktör (förnyad 2024), ATLS (förnyad 2023)"
+✅ "ACLS, Advanced Cardiovascular Life Support (förnyad 2024), PALS, Pediatric Advanced Life Support, Instruktör (förnyad 2024), ATLS (förnyad 2023)"
 
 Förnyelsedatum visar att du håller dig uppdaterad. Pågående utbildningar: "Pågående: Specialistsjuksköterska inom operation" visar din ambition.`
       },
@@ -6068,7 +6090,7 @@ Förnyelsedatum visar att du håller dig uppdaterad. Pågående utbildningar: "P
 
 ✅ I erfarenhetsbeskrivning: "Hanterar kommunikation med patienter och anhöriga i akuta krissituationer. Leder team om 6 sjuksköterskor. Fattar snabba kliniska beslut vid 30-40 triageringar per skift."
 
-Konkreta exempel bevisar att du kan kommunicera under press, leda och hantera stress – inte bara säger det.`
+Konkreta exempel bevisar att du kan kommunicera under press, leda och hantera stress, inte bara säger det.`
       }
     ],
 
@@ -6152,7 +6174,7 @@ Använd detta CV som mall när du skapar ditt eget. Kopiera strukturen, anpassa 
       kontakt: {
         telefon: '073-456 78 90',
         epost: 'emma.bergstrom@email.se',
-        plats: 'Göteborg',
+        plats: 'Stockholm',
         linkedin: 'linkedin.com/in/emmabergstrom'
       },
       profil: 'Specialistsjuksköterska med 9+ års erfarenhet från högspecialiserad intensivvård och avancerad omvårdnad av kritiskt sjuka patienter. Expert inom medicinteknisk utrustning som respiratorer, CRRT, ECMO och invasiv hemodynamisk monitorering. Handleder 8-10 specialiststuderande per år och driver förbättringsarbete baserat på evidens från kvalitetsregister (SIR, SWEDEHEART). Drivs av att kombinera avancerad teknologi med personcentrerad omvårdnad för att optimera vårdutfall för de mest kritiskt sjuka patienterna.',
@@ -6418,7 +6440,7 @@ Förnyelsedatum visar att du håller dig uppdaterad.`
 
 CV:t kombinerar kvantifierbara resultat (reducerade handläggningstid med 60%, hanterar 150+ leverantörer) med branschspecifika system som Fortnox, Visma och Excel (pivottabeller). Det visar även progression från junior ekonomiassistent till erfaren ekonomiassistent med ansvar för månadsavstämningar och bokslut.
 
-Använd detta exempel som inspiration när du skriver ditt eget CV som ekonomiassistent – anpassa det efter din erfarenhet och den tjänst du söker. Kom ihåg att kombinera det med ett starkt personligt brev för ekonomiassistent för att maximera dina chanser till intervju.`,
+Använd detta exempel som inspiration när du skriver ditt eget CV som ekonomiassistent, anpassa det efter din erfarenhet och den tjänst du söker. Kom ihåg att kombinera det med ett starkt personligt brev för ekonomiassistent för att maximera dina chanser till intervju.`,
 
     intro: 'Professionellt CV-exempel för ekonomiassistent med fokus på fakturahantering, bokföring och löneadministration. Visar kvantifierbara resultat och branschspecifika system som Fortnox, Visma och Excel. ATS-optimerat för svensk ekonomibransch.',
 
@@ -6440,7 +6462,7 @@ Använd detta exempel som inspiration när du skriver ditt eget CV som ekonomias
           beskrivning: [
             'Ansvarar för fullständig fakturahantering för 150+ leverantörer (kontering, attestering, betalning) med 98% punktlighet',
             'Genomför månadsavstämningar och bokslutsjusteringar för 3 dotterbolag (sammanlagd omsättning 45 Mkr)',
-            'Sköter löneadministration för 35 anställda i Visma Lön – tidrapportering, semesterlön, traktamenten',
+            'Sköter löneadministration för 35 anställda i Visma Lön, tidrapportering, semesterlön, traktamenten',
             'Reducerade handläggningstid för leverantörsfakturor från 5 till 2 dagar genom automatisering i Excel (makron)',
             'Förbereder momsrapporter och periodiska sammanställningar till Skatteverket (månatlig inrapportering)'
           ]
@@ -6452,7 +6474,7 @@ Använd detta exempel som inspiration när du skriver ditt eget CV som ekonomias
           beskrivning: [
             'Hanterade leverantörsreskontra och kundreskontra för 200+ kunder (fakturering, betalningsövervakning, påminnelser)',
             'Assisterade redovisningsekonom vid månadsbokslut och upprättande av månadsrapporter till styrelsen',
-            'Ansvarade för kvittningshantering och kontoavstämningar – minskade felaktigheter med 30% genom ny kontrollrutin',
+            'Ansvarade för kvittningshantering och kontoavstämningar, minskade felaktigheter med 30% genom ny kontrollrutin',
             'Utförde daglig bokföring i Fortnox (ca 50-80 verifikationer/dag) med fokus på korrekt kontering enligt K3',
             'Introducerade och utbildade 2 nyrekryterade kollegor i företagets ekonomisystem och rutiner'
           ]
@@ -6512,32 +6534,34 @@ Använd detta exempel som inspiration när du skriver ditt eget CV som ekonomias
 
     viktigt: [
       'Kvantifiera dina resultat: Visa antal fakturor, leverantörer, omsättning eller förbättringar (t.ex. "Reducerade handläggningstid från 5 till 2 dagar")',
-      'Nämn specifika system: Fortnox, Visma, SAP, Excel (pivottabeller) – rekryterare söker efter dessa nyckelord i ATS-system',
+      'Nämn specifika system: Fortnox, Visma, SAP, Excel (pivottabeller), rekryterare söker efter dessa nyckelord i ATS-system',
       'Visa progression: Från grundläggande bokföring till ansvar för månadsavstämningar, bokslut eller mentorskap av nya kollegor'
     ],
 
     statistik: [
       {
         siffra: '98%',
-        text: 'av ekonomiassistenter använder Fortnox eller Visma dagligen – visa din kompetensnivå tydligt'
+        text: 'av ekonomiassistenter använder Fortnox eller Visma dagligen, visa din kompetensnivå tydligt'
       },
       {
         siffra: '31-40k',
-        text: 'SEK är medellön för ekonomiassistent i Sverige – erfarna kan tjäna 40k+ med rätt kompetenser'
+        text: 'SEK är medellön för ekonomiassistent i Sverige, erfarna kan tjäna 40k+ med rätt kompetenser'
       },
       {
         siffra: '60%',
-        text: 'av jobbannonser kräver erfarenhet av fakturahantering och löneadministration – lyft dessa tydligt'
+        text: 'av jobbannonser kräver erfarenhet av fakturahantering och löneadministration, lyft dessa tydligt'
       }
     ],
 
     varforDetFungerar: [
       {
         rubrik: 'Branschspecifika system som ATS-system söker efter',
+        ankare: 'kompetenser',
         text: `CV:t nämner konkreta ekonomisystem som Fortnox, Visma och SAP samt Excel med specifika funktioner (pivottabeller, VBA-makron). Istället för att skriva "god datorvana" ser vi exakta systemnamn med kompetensnivå, till exempel "Fortnox Expert 5+ år" och "Visma Avancerad 4+ år".\n\nVarför detta fungerar: 85 procent av svenska företag inom ekonomibranschen använder ATS-system som automatiskt söker efter nyckelord som "Fortnox", "Visma Lön" och "K3-redovisning". När du inkluderar dessa system i både profiltext och kompetenser ökar chansen dramatiskt att ditt CV rankas högt och når en mänsklig rekryterare. Systemnamn fungerar som filter i ATS:et. Ju fler träffar på rätt nyckelord, desto högre relevanspoäng får ditt CV. Det kan vara skillnaden mellan att sorteras bort direkt eller att kallas till intervju.`
       },
       {
         rubrik: 'Kvantifierbara resultat som visar omfattning och effekt',
+        ankare: 'erfarenhet',
         text: `Varje erfarenhetspost innehåller konkreta siffror: "150+ leverantörer med 98 procent punktlighet", "Reducerade handläggningstid från 5 till 2 dagar (60 procent förbättring)", "Månadsavstämningar för 3 dotterbolag med sammanlagd omsättning på 45 Mkr". Siffrorna är inte slumpmässiga utan visar tydlig omfattning och affärspåverkan.\n\nVarför detta fungerar: Rekryterare läser hundratals CV där kandidater bara skriver "ansvarade för fakturahantering" utan att visa omfattning eller resultat. Genom att kvantifiera (antal leverantörer, omsättning, förbättringsgrad i procent) visar du att du förstår hur ditt arbete påverkar verksamheten. Siffror skapar trovärdighet och ger rekryteraren konkreta diskussionspunkter under intervjun. Det skiljer dig från 90 procent av andra sökande som bara listar arbetsuppgifter.`
       },
       {
@@ -6546,10 +6570,12 @@ Använd detta exempel som inspiration när du skriver ditt eget CV som ekonomias
       },
       {
         rubrik: 'Certifieringar med årtal som stärker trovärdighet',
+        ankare: 'certifieringar',
         text: `CV:t listar certifieringar med specifika årtal: "Fortnox Bas-certifiering (2020)", "Fortnox Lön-certifiering (2021)" och "Bokföring A och B, Hermods (2019)". Detta är inte bara en lista utan visar kontinuerlig kompetensutveckling och seriöst yrkesengagemang över tid.\n\nVarför detta fungerar: Certifieringar är starka signaler om att du investerat tid i att formellt bekräfta din kompetens. Årtal gör dem trovärdiga och visar när du senast uppdaterade dina kunskaper. För ATS-system fungerar certifieringsnamn (Fortnox Bas, Fortnox Lön) som viktiga nyckelord som matchar mot jobbannonser. För rekryterare visar det att du tar yrket på allvar och håller dig uppdaterad, vilket är särskilt viktigt inom ekonomi där regelverk och system ständigt uppdateras.`
       },
       {
         rubrik: 'Profiltext som säljer in kompetens på 10 sekunder',
+        ankare: 'profil',
         text: `Profiltexten följer en tydlig struktur: Erfarenhet ("6+ års erfarenhet"), specialisering ("fakturahantering, löneadministration, månadsavstämningar"), konkreta system ("Fortnox, Visma, Excel pivottabeller"), certifiering ("Fortnox Bas och Lön") och drivkrafter ("effektivisera rutiner, leverera felfria ekonomiska underlag"). Allt packat i 4 meningar.\n\nVarför detta fungerar: Rekryterare läser profiltexten först och avgör på 10 sekunder om de läser vidare. Genom att inkludera både hårda fakta (system, år, certifiering) och mjuka värden (drivkrafter) skapar du en komplett bild direkt. Systemnamn som Fortnox och Visma triggar ATS-matchning. "Effektivisera rutiner" visar att du inte bara utför uppgifter utan förbättrar processer, vilket är en nyckelkompetens för erfarna ekonomiassistenter.`
       },
       {
@@ -6716,7 +6742,7 @@ Detta CV-exempel för enhetschef visar hur du strukturerar erfarenhet från olik
       kontakt: {
         telefon: '076-234 56 78',
         epost: 'maria.andersson@email.se',
-        plats: 'Uppsala',
+        plats: 'Täby',
         linkedin: 'linkedin.com/in/mariaandersson-enhetschef'
       },
       profil: 'Erfaren enhetschef med dokumenterad förmåga att leda verksamheter med upp till 45 medarbetare och budgetansvar på 18 MSEK. Specialist på verksamhetsutveckling, kvalitetssäkring och systematiskt arbetsmiljöarbete med stark förmåga att kombinera ekonomisk styrning med medarbetarfokus. Bevisad track record av att förbättra både verksamhetsresultat (kvalitets-KPI:er, budget-träffsäkerhet) och medarbetarnöjdhet samtidigt. Driven av att skapa förutsättningar för medarbetare att växa samtidigt som verksamheten levererar hög kvalitet inom ram.',
@@ -6823,7 +6849,7 @@ Detta CV-exempel för enhetschef visar hur du strukturerar erfarenhet från olik
       },
       {
         rubrik: 'Tydlig progression från arbetslag till enhet',
-        text: `Karriärstegen syns tydligt: Arbetslagsledare 12 personer → Biträdande enhetschef 22 personer → Enhetschef 45 personer. Varje steg visar ökande ansvar och komplexitet.
+        text: `Karriärstegen syns tydligt: Arbetslagsledare 12 personer, sedan Biträdande enhetschef 22 personer, sedan Enhetschef 45 personer. Varje steg visar ökande ansvar och komplexitet.
 
 **Varför detta fungerar:** Rekryterare vill se att du vuxit in i större ledarskap gradvis, inte hoppat från ingenting till stor enhet. Progressionen visar att Maria först ledde ett mindre team, sedan fick budgetansvar som biträdande chef innan hon blev fullt ansvarig enhetschef. Detta minskar risken - du har bevisat att du klarar varje nivå innan du tagit nästa steg. Att gå från 12 till 45 medarbetare visar också skalbarhet.`
       },
@@ -6949,7 +6975,7 @@ Lägg även till branschspecifika utbildningar som "Bemötande vid demens", "Bas
       },
       {
         fraga: 'Hur blir man enhetschef inom kommun eller vård?',
-        svar: 'Typisk väg: Grundutbildning (socionom, sjuksköterska, specialpedagog eller motsvarande) → 3-5 år som handläggare/vårdpersonal → Arbetsledare/gruppchef 2-3 år → Biträdande enhetschef → Enhetschef. Komplettera med ledarskapsutbildning (t.ex. SKL:s ledarskapsprogram) och arbetsmiljöutbildning. I ditt CV: betona alla ledarsituationer som handläggare (mentorskap, projektledning, arbetsgrupper), visa progression i ansvar och framhäv resultat som visar ledarförmåga redan innan första chefstiteln.'
+        svar: 'Typisk väg: Grundutbildning (socionom, sjuksköterska, specialpedagog eller motsvarande), sedan 3-5 år som handläggare/vårdpersonal, sedan Arbetsledare/gruppchef 2-3 år, sedan Biträdande enhetschef, sedan Enhetschef. Komplettera med ledarskapsutbildning (t.ex. SKL:s ledarskapsprogram) och arbetsmiljöutbildning. I ditt CV: betona alla ledarsituationer som handläggare (mentorskap, projektledning, arbetsgrupper), visa progression i ansvar och framhäv resultat som visar ledarförmåga redan innan första chefstiteln.'
       },
       {
         fraga: 'Vilka kvalifikationer söker arbetsgivare hos en enhetschef?',
@@ -7001,7 +7027,7 @@ Använd detta CV som mall när du skapar ditt eget. Kopiera strukturen, anpassa 
       kontakt: {
         telefon: '073-892 45 61',
         epost: 'sofia.andersson@email.se',
-        plats: 'Uppsala',
+        plats: 'Danderyd',
         linkedin: 'linkedin.com/in/sofiaandersson'
       },
       profil: 'Barnmorska med 8+ års erfarenhet från förlossningsvård, barnmorskemottagning och kvinnohälsa. Expert inom CTG-tolkning, normal förlossning, preventivmedelsrådgivning och ultraljudsdiagnostik. Handleder barnmorskestudenter och driver förbättringsarbete för personcentrerad förlossningsvård. Drivs av att stödja kvinnor genom graviditet, förlossning och reproduktiv hälsa med evidensbaserad omvårdnad och respektfullt bemötande.',
@@ -7097,12 +7123,14 @@ Använd detta CV som mall när du skapar ditt eget. Kopiera strukturen, anpassa 
     varforDetFungerar: [
       {
         rubrik: 'ATS-optimerad med barnmorskespecifika nyckelord',
+        ankare: 'kompetenser',
         text: `CV:t innehåller kritiska sökord som ATS-system letar efter inom barnmorskevård: barnmorskeexamen, förlossningsvård, mödravård, CTG-tolkning, preventivmedelsrådgivning, ultraljud, Obstetrix, graviditet och reproduktiv hälsa. Rubriker som Barnmorska förlossning, Certifieringar och Tekniska kompetenser är standardiserade och läsbara för både ATS och rekryterare.
 
 **Varför detta fungerar:** Regionernas ATS-system filtrerar bort CV:n som saknar barnmorskerelaterade nyckelord. Genom att placera ALSO, NRP, CTG-tolkning och Obstetrix i både profiltext och certifieringssektionen ökar chansen att passera första gallringen. Rekryteraren ser direkt att du har både grundläggande barnmorskekompetens och avancerade certifieringar.`
       },
       {
         rubrik: 'Kvantifierbara resultat från förlossning och mottagning',
+        ankare: 'erfarenhet',
         text: `Istället för vaga beskrivningar som "ansvarig för mödravård" visar CV:t konkreta resultat: Handleder 300+ förlossningar, Implementerade CTG-bedömning som minskade kejsarsnitt med 15%, 25-30 graviditetsbesök per vecka, Preventivmedelsrådgivning för 400+ kvinnor årligen, Startade ammningsstödsgrupp som ökade amning från 65% till 78%.
 
 **Varför detta fungerar:** Enhetschefer på BB och barnmorskemottagningar granskar hundratals CV där kandidater bara skriver "barnmorska med erfarenhet av förlossning". Att specificera antal förlossningar, konkreta förbättringar (15% färre kejsarsnitt, 78% amningsfrekvens) och patientvolymer skiljer ditt CV från mängden. Siffror ger rekryteraren något konkret att diskutera under intervjun.`
@@ -7115,12 +7143,14 @@ Använd detta CV som mall när du skapar ditt eget. Kopiera strukturen, anpassa 
       },
       {
         rubrik: 'Certifieringar som kompetensmarkör inom barnmorskevård',
+        ankare: 'certifieringar',
         text: `Dedikerad sektion för barnmorskeexamen och avancerade certifieringar visar kontinuerlig kompetensutveckling: Barnmorskeexamen 2016, ALSO förnyad 2024, NRP förnyad 2023, Ultraljudsutbildning ISUOG-certifierad 2021, Förskrivningsrätt 2019. Att inkludera förnyelsedatum för ALSO och NRP visar att du är uppdaterad enligt nationella krav.
 
 **Varför detta fungerar:** Rekryterare till förlossningsvård söker specifika certifieringar. ALSO och NRP är ofta obligatoriska för tjänster på förlossning och BB. Ultraljudsutbildning och förskrivningsrätt visar att du kan arbeta självständigt på barnmorskemottagning. Detta signalerar expertis och lärvilja, två egenskaper som vårdgivare högt värderar vid rekrytering till både förlossning och mödravård.`
       },
       {
         rubrik: 'Profiltext som tydlig specialistkompetens',
+        ankare: 'profil',
         text: `Den inledande profiltexten sammanfattar din specialisering, avancerade kompetens och unika styrkor på fyra meningar: Barnmorska med 8+ års erfarenhet från förlossningsvård, barnmorskemottagning och kvinnohälsa. Expert inom CTG-tolkning, normal förlossning, preventivmedelsrådgivning och ultraljudsdiagnostik. Handleder barnmorskestudenter och driver förbättringsarbete.
 
 **Varför detta fungerar:** Rekryterare spenderar 6-8 sekunder på första sidan av ditt CV. En väl formulerad profiltext avgör om de läser vidare eller går till nästa kandidat. Genom att direkt nämna förlossningsvård, CTG-tolkning, preventivmedelsrådgivning och ultraljud visar du omedelbart att du har både bred och djup kompetens. Detta är extra viktigt för barnmorskesökande som ofta får 50-100 ansökningar.`
@@ -7280,7 +7310,7 @@ Använd detta som mall när du skapar ditt eget CV. Byt ut Annas erfarenheter mo
       kontakt: {
         telefon: '070-123 45 67',
         epost: 'anna.bergstrom@exempel.se',
-        plats: 'Uppsala',
+        plats: 'Stockholm',
         linkedin: 'linkedin.com/in/annabergstrom'
       },
       profil: 'Erfaren och engagerad barnskötare med 6 års erfarenhet från kommunal förskola. Specialist på språkutvecklande arbetssätt och dokumentation i Unikum. Trygghetsskapande och lyhörd med stark förmåga att skapa meningsfulla relationer med barn, föräldrar och kollegor. Driven av att bidra till varje barns utveckling enligt Lpfö 18 genom lek, omsorg och pedagogiska aktiviteter.',
@@ -7356,22 +7386,22 @@ Använd detta som mall när du skapar ditt eget CV. Byt ut Annas erfarenheter mo
 
     viktigt: [
       'Kvantifiera dina resultat: Visa antal barn i gruppen, antal inskolningar, förbättringar (t.ex. "40% förbättrad föräldrakommunikation")',
-      'Nämn specifika system: Unikum, Tyra, IST – förskolechefer söker efter dessa nyckelord i ATS-system',
+      'Nämn specifika system: Unikum, Tyra, IST, förskolechefer söker efter dessa nyckelord i ATS-system',
       'Visa progression: Från vikarie till fast anställning, från småbarn till äldre barngrupper, från grundläggande till specialistansvar'
     ],
 
     statistik: [
       {
         siffra: '85%',
-        text: 'av kommunala förskolor använder Unikum för dokumentation – visa din kompetensnivå tydligt'
+        text: 'av kommunala förskolor använder Unikum för dokumentation, visa din kompetensnivå tydligt'
       },
       {
         siffra: '26-32k',
-        text: 'SEK är medellön för barnskötare i Sverige – erfarna kan tjäna mer med rätt certifieringar'
+        text: 'SEK är medellön för barnskötare i Sverige, erfarna kan tjäna mer med rätt certifieringar'
       },
       {
         siffra: '70%',
-        text: 'av jobbannonser kräver erfarenhet av Lpfö 18 och pedagogisk dokumentation – lyft dessa tydligt'
+        text: 'av jobbannonser kräver erfarenhet av Lpfö 18 och pedagogisk dokumentation, lyft dessa tydligt'
       }
     ],
 
@@ -7386,13 +7416,13 @@ Varför detta fungerar: Förskolor använder Unikum dagligen för dokumentation,
         rubrik: 'Kvantifierbara resultat som visar din påverkan',
         text: `CV:t innehåller konkreta siffror: 40% förbättrad föräldrakommunikation, 12 av 15 barn förbättrad språkförståelse, 30% minskning av konflikter, 8 inskolningar per år med 2 veckors genomsnitt mot kommunens mål på 3 veckor. Noll allergiska incidenter på 2 år.
 
-Varför detta fungerar: De flesta barnskötare skriver "ansvarig för inskolning" utan att visa resultatet. När du visar att dina inskolningar tar 2 veckor istället för kommunsnittet på 3, bevisar du att du faktiskt är skicklig på det du påstår dig kunna. Förskolechefer får hundratals CV med "bra med barn" – men du visar 12 av 15 barn som förbättrade sin språkförståelse genom dina insatser.`
+Varför detta fungerar: De flesta barnskötare skriver "ansvarig för inskolning" utan att visa resultatet. När du visar att dina inskolningar tar 2 veckor istället för kommunsnittet på 3, bevisar du att du faktiskt är skicklig på det du påstår dig kunna. Förskolechefer får hundratals CV med "bra med barn", men du visar 12 av 15 barn som förbättrade sin språkförståelse genom dina insatser.`
       },
       {
         rubrik: 'Balans mellan omsorgskompetens och systemkunskap',
         text: `Varje arbetsupplevelse innehåller både relationella färdigheter (föräldrasamtal, konflikttänkande, inskolning) och teknisk kompetens (Unikum 4+ år, Tyra, IST-dokumentation, avvikelserapportering). CV:t visar att du behärskar både den pedagogiska omsorgen och den administrativa vardagen.
 
-Varför detta fungerar: Moderna förskolor behöver barnskötare som både kan trösta ett gråtande barn och dokumentera dagen i Unikum innan arbetspasset är slut. Många sökande fokuserar bara på omsorg eller bara på system. Du visar att du klarar båda – vilket betyder mindre stress för arbetslaget och färre missade dokumentationskrav från kommunen.`
+Varför detta fungerar: Moderna förskolor behöver barnskötare som både kan trösta ett gråtande barn och dokumentera dagen i Unikum innan arbetspasset är slut. Många sökande fokuserar bara på omsorg eller bara på system. Du visar att du klarar båda, vilket betyder mindre stress för arbetslaget och färre missade dokumentationskrav från kommunen.`
       },
       {
         rubrik: 'Certifieringar och utbildningar som trovärdighetsmarkör',
@@ -7404,13 +7434,13 @@ Varför detta fungerar: Förskolechefer letar efter sökande som tar säkerhet p
         rubrik: 'Profiltext som fångar förskolechefens uppmärksamhet',
         text: `Profiltexten nämner direkt de tre saker förskolechefer söker: trygg inskolning (2 veckor snitt), lugnare barngrupper (30% färre konflikter), och systematisk dokumentation i Unikum. Första meningen ger konkret värde istället för vaga påståenden om att vara "engagerad" eller "barnfokuserad".
 
-Varför detta fungerar: Förskolechefer läser 50+ CV där alla säger "jag är bra med barn". Du öppnar med att dina inskolningar tar en vecka kortare tid än kommunsnittet. Det är omedelbart relevant och mätbart – exakt vad en stressad förskolechef behöver höra när de ska täcka föräldraledighet eller höstrushen av nya 3-åringar.`
+Varför detta fungerar: Förskolechefer läser 50+ CV där alla säger "jag är bra med barn". Du öppnar med att dina inskolningar tar en vecka kortare tid än kommunsnittet. Det är omedelbart relevant och mätbart, exakt vad en stressad förskolechef behöver höra när de ska täcka föräldraledighet eller höstrushen av nya 3-åringar.`
       },
       {
         rubrik: 'Tydlig progression från vikarie till specialist',
         text: `CV:t visar utveckling: Vikarie 2018-2019 (bred erfarenhet från 12 förskolor), Barnskötare 2019-2021 (TAKK-implementering och inskolningsansvar), Barnskötare 2021-pågående (språkutvecklingsspecialist och Unikum-dokumentation). Varje roll har fler ansvarsområden än den förra.
 
-Varför detta fungerar: Många barnskötare stannar på samma nivå i flera år. Du visar att du aktivt tar på dig nya specialistroller – från grundomsorg till TAKK-specialist till språkutveckling och föräldrakommunikation. Det signalerar att du inte bara "sköter ditt jobb" utan tar ansvar, lär dig nya saker och kan bli en resurs för hela arbetslaget. Förskolechefer letar efter sådana personer.`
+Varför detta fungerar: Många barnskötare stannar på samma nivå i flera år. Du visar att du aktivt tar på dig nya specialistroller, från grundomsorg till TAKK-specialist till språkutveckling och föräldrakommunikation. Det signalerar att du inte bara "sköter ditt jobb" utan tar ansvar, lär dig nya saker och kan bli en resurs för hela arbetslaget. Förskolechefer letar efter sådana personer.`
       }
     ],
 
@@ -7429,7 +7459,7 @@ Första exemplet säger ingenting. Det andra visar att du klarar inskolningar sn
       },
       {
         rubrik: 'Visa systemkunskap med årtal och användningsfrekvens',
-        text: `Alla kommuner och fristående förskolor använder digitala system för dokumentation, schema och föräldrakommunikation. Att bara skriva "Unikum" räcker inte – förskoleledare vill veta hur väl du kan det.
+        text: `Alla kommuner och fristående förskolor använder digitala system för dokumentation, schema och föräldrakommunikation. Att bara skriva "Unikum" räcker inte, förskoleledare vill veta hur väl du kan det.
 
 **Exempel på före/efter**:
 
@@ -7494,11 +7524,11 @@ Det första är ett påstående. Det andra bevisar hur du faktiskt jobbar med f�
     faq: [
       {
         fraga: 'Vad ska jag skriva om jag inte har erfarenhet av Unikum eller Tyra?',
-        svar: 'Skriv vilka system du faktiskt kan (kanske Pedagogisk dokumentation, Fortnox Planering eller papper-baserad dokumentation). Lägg till "Snabb att lära mig nya system" och ge exempel på när du lärt dig ny teknik snabbt. Många förskolor förstår att olika kommuner använder olika system – huvudsaken är att du kan dokumentera och inte är rädd för digitala verktyg.'
+        svar: 'Skriv vilka system du faktiskt kan (kanske Pedagogisk dokumentation, Fortnox Planering eller papper-baserad dokumentation). Lägg till "Snabb att lära mig nya system" och ge exempel på när du lärt dig ny teknik snabbt. Många förskolor förstår att olika kommuner använder olika system, huvudsaken är att du kan dokumentera och inte är rädd för digitala verktyg.'
       },
       {
         fraga: 'Hur visar jag resultat om jag inte har några siffror att utgå från?',
-        svar: 'Räkna bakåt: Hur många inskolningar gjorde du förra året? Hur stor var barngruppen? Hur många utvecklingssamtal hade du? Om du implementerade något (TAKK, nya rutiner, språkmatrial) – vad hände sen? Blev det färre konflikter, pratade barnen mer, blev föräldrarna nöjdare? Uppskatta snarare än att inte ha något alls. "8 inskolningar/år" är bättre än "ansvarade för inskolning".'
+        svar: 'Räkna bakåt: Hur många inskolningar gjorde du förra året? Hur stor var barngruppen? Hur många utvecklingssamtal hade du? Om du implementerade något (TAKK, nya rutiner, språkmatrial), vad hände sen? Blev det färre konflikter, pratade barnen mer, blev föräldrarna nöjdare? Uppskatta snarare än att inte ha något alls. "8 inskolningar/år" är bättre än "ansvarade för inskolning".'
       },
       {
         fraga: 'Ska jag skriva om personliga egenskaper som "omtänksam" och "social"?',
@@ -7506,11 +7536,11 @@ Det första är ett påstående. Det andra bevisar hur du faktiskt jobbar med f�
       },
       {
         fraga: 'Vad är skillnaden mellan barnskötare-CV och förskollärare-CV?',
-        svar: 'Förskollärare betonar pedagogisk planering, måluppfyllelse enligt Lpfö 18 och teamledarskap. Barnskötare fokuserar på praktiskt omsorgsarbete, rutiner, dokumentation och stöd till förskolläraren. Båda behöver systemkunskap och certifieringar, men förskollärare lyfter mer av det pedagogiska ledarskapet medan barnskötare visar trygghetsskapande och samarbetsförmåga. Undvik att ta åt dig ansvar du inte haft – skriv din faktiska roll.'
+        svar: 'Förskollärare betonar pedagogisk planering, måluppfyllelse enligt Lpfö 18 och teamledarskap. Barnskötare fokuserar på praktiskt omsorgsarbete, rutiner, dokumentation och stöd till förskolläraren. Båda behöver systemkunskap och certifieringar, men förskollärare lyfter mer av det pedagogiska ledarskapet medan barnskötare visar trygghetsskapande och samarbetsförmåga. Undvik att ta åt dig ansvar du inte haft, skriv din faktiska roll.'
       },
       {
         fraga: 'Måste jag ha HLR-certifikat för att få jobb som barnskötare?',
-        svar: 'De flesta förskolor kräver det, antingen vid anställning eller inom de första månaderna. Om du inte har det än, skriv "HLR-utbildning planerad [månad]" om du bokat kurs. Det visar att du är medveten om kravet. Har du gammal HLR (äldre än 2 år), ta en uppdateringskurs innan du söker jobb – det kan vara avgörande för om du får intervju eller inte.'
+        svar: 'De flesta förskolor kräver det, antingen vid anställning eller inom de första månaderna. Om du inte har det än, skriv "HLR-utbildning planerad [månad]" om du bokat kurs. Det visar att du är medveten om kravet. Har du gammal HLR (äldre än 2 år), ta en uppdateringskurs innan du söker jobb, det kan vara avgörande för om du får intervju eller inte.'
       }
     ],
 
@@ -7528,7 +7558,7 @@ Det första är ett påstående. Det andra bevisar hur du faktiskt jobbar med f�
     metaTitle: 'CV Personlig Assistent: Exempel & Mall 2026 (LSS)',
     metaDescription: 'Se hur ett starkt CV för personlig assistent ska se ut. Exempeltext, LSS-terminologi och ATS-anpassade formuleringar. Gratis mall för assistansyrket.',
 
-    seoIntro: `Som personlig assistent konkurrerar du med kandidater som alla skriver "empatisk och flexibel". Det räcker inte. Arbetsgivare inom LSS och assistansbolag vill se konkreta bevis på att du kan möta brukares unika behov – inte generiska adjektiv.
+    seoIntro: `Som personlig assistent konkurrerar du med kandidater som alla skriver "empatisk och flexibel". Det räcker inte. Arbetsgivare inom LSS och assistansbolag vill se konkreta bevis på att du kan möta brukares unika behov, inte generiska adjektiv.
 
 Det här CV-exemplet visar hur Emma Svensson framhäver sina 5 års erfarenhet med LSS-specifik terminologi, mätbara resultat (60% minskad stressnivå, 12 nya fritidskontakter) och branschverktyg som Laps Care. Samma principer fungerar oavsett om du söker till Humana, Frösunda eller kommunal assistans.
 
@@ -7542,7 +7572,7 @@ De tre sakerna som skiljer ett framgångsrikt personlig assistent-CV från ett m
       kontakt: {
         telefon: '070-234 56 78',
         epost: 'emma.svensson@email.se',
-        plats: 'Göteborg',
+        plats: 'Linköping',
         linkedin: 'linkedin.com/in/emmasvensson'
       },
       profil: 'Engagerad personlig assistent med 5 års erfarenhet inom LSS och brukarstyrd assistans. Specialiserad på stöd för brukare med NPF och fysiska funktionsvariationer. Dokumenterad förmåga att bygga långvariga relationer, minska stressnivåer (60%) och utöka brukares sociala nätverk med 12 nya fritidskontakter. Certifierad i HLR, lyftteknik och medicindelning. B-körkort.',
@@ -7625,7 +7655,7 @@ Varför detta fungerar: Personlig assistans-branschen använder mycket specifik 
         rubrik: 'Kvantifierbara resultat som mäter livskvalitet',
         text: `Emma visar konkreta siffror: "60% minskad stressnivå", "12 nya fritidskontakter", "15-20 personförflyttningar dagligen utan arbetsskador".
 
-Varför detta fungerar: Inom assistans är resultat ofta svåra att mäta, men Emma har hittat sätt att kvantifiera sin påverkan på brukarens liv. Att stressnivån minskat 60% bevisar att hennes metoder fungerar. Att hon utfört tusentals lyft utan skador visar säkerhetstänk. Rekryterare ser direkt att hon levererar mätbar skillnad – inte bara "är där".`
+Varför detta fungerar: Inom assistans är resultat ofta svåra att mäta, men Emma har hittat sätt att kvantifiera sin påverkan på brukarens liv. Att stressnivån minskat 60% bevisar att hennes metoder fungerar. Att hon utfört tusentals lyft utan skador visar säkerhetstänk. Rekryterare ser direkt att hon levererar mätbar skillnad, inte bara "är där".`
       },
       {
         rubrik: 'Certifieringar med årtal visar aktualitet',
@@ -7637,7 +7667,7 @@ Varför detta fungerar: Arbetsgivare behöver veta att dina certifikat är gilti
         rubrik: 'Specialkompetens inom NPF tydligt framhävd',
         text: `Profiltexten nämner specifikt "NPF" (neuropsykiatriska funktionsnedsättningar) och CV:t visar konkreta metoder: visuellt schema, förberedande kommunikation, bildstöd.
 
-Varför detta fungerar: NPF-kompetens är eftertraktad då många brukare har autism, ADHD eller liknande diagnoser. Genom att nämna specifika anpassningsmetoder visar Emma att hon förstår målgruppen på djupet – inte bara har "arbetat med NPF" utan faktiskt vet vilka strategier som fungerar. Detta skiljer henne från kandidater med ytlig erfarenhet.`
+Varför detta fungerar: NPF-kompetens är eftertraktad då många brukare har autism, ADHD eller liknande diagnoser. Genom att nämna specifika anpassningsmetoder visar Emma att hon förstår målgruppen på djupet, inte bara har "arbetat med NPF" utan faktiskt vet vilka strategier som fungerar. Detta skiljer henne från kandidater med ytlig erfarenhet.`
       },
       {
         rubrik: 'Tekniska hjälpmedel dokumenterade konkret',
@@ -7649,7 +7679,7 @@ Varför detta fungerar: Assistansbolag investerar i specifika system och hjälpm
         rubrik: 'B-körkort strategiskt placerat',
         text: `Körkortet finns både i profiltexten och i färdighetslistan, synligt utan att dominera.
 
-Varför detta fungerar: De flesta personlig assistent-tjänster kräver körkort för att kunna följa brukaren till aktiviteter, läkarbesök och sociala sammanhang. Genom att nämna det i profilen fångar du rekryterarens öga direkt – de slipper leta. Samtidigt tar det inte över CV:t eftersom det är en av många kompetenser, inte den enda.`
+Varför detta fungerar: De flesta personlig assistent-tjänster kräver körkort för att kunna följa brukaren till aktiviteter, läkarbesök och sociala sammanhang. Genom att nämna det i profilen fångar du rekryterarens öga direkt, de slipper leta. Samtidigt tar det inte över CV:t eftersom det är en av många kompetenser, inte den enda.`
       }
     ],
 
@@ -7690,7 +7720,7 @@ Siffror bevisar att du inte bara "är med" utan aktivt förbättrar brukarens li
 Medicindelegering, Region Stockholm (2023)
 Lyftteknik & förflyttning, Praktikertjänst (2022)"
 
-Årtal visar att du är uppdaterad. Utgångna certifikat kan vara diskvalificerande – särskilt för medicindelegering.`
+Årtal visar att du är uppdaterad. Utgångna certifikat kan vara diskvalificerande, särskilt för medicindelegering.`
       },
       {
         rubrik: 'Beskriv dokumentationssystem du behärskar',
@@ -7706,7 +7736,7 @@ Specifika systemnamn visar att du kan börja arbeta utan lång inskolning. "God 
       },
       {
         rubrik: 'Framhäv körkortsinnehav tidigt och tydligt',
-        text: `De flesta personlig assistent-tjänster kräver B-körkort. Gör det synligt direkt – rekryteraren ska inte behöva leta.
+        text: `De flesta personlig assistent-tjänster kräver B-körkort. Gör det synligt direkt, rekryteraren ska inte behöva leta.
 
 **Exempel på före/efter**:
 
@@ -7728,14 +7758,14 @@ Söker NPF-tjänst: "3 års erfarenhet av brukarstyrd assistans för vuxen med a
 
 Söker fysisk assistans: "5 års erfarenhet av assistans för brukare med ryggmärgsskada. 15-20 förflyttningar dagligen med taklyft. Certifierad lyftteknik utan arbetsskador"
 
-Samma assistent kan ha båda erfarenheterna – men betonar olika saker beroende på vad tjänsten kräver.`
+Samma assistent kan ha båda erfarenheterna, men betonar olika saker beroende på vad tjänsten kräver.`
       }
     ],
 
     faq: [
       {
         fraga: 'Vad ska jag skriva om jag aldrig använt Laps Care?',
-        svar: 'Skriv de system du faktiskt kan (Procapita, TES, Phoniro, journalsystem). Lägg till "Snabb att lära nya dokumentationssystem" och ge exempel på när du lärt dig ny programvara snabbt. Olika assistansbolag använder olika system – huvudsaken är att du förstår vikten av dokumentation och kan hantera digitala verktyg. Var ärlig; att ljuga om systemkunskap avslöjas under första arbetsdagen.'
+        svar: 'Skriv de system du faktiskt kan (Procapita, TES, Phoniro, journalsystem). Lägg till "Snabb att lära nya dokumentationssystem" och ge exempel på när du lärt dig ny programvara snabbt. Olika assistansbolag använder olika system, huvudsaken är att du förstår vikten av dokumentation och kan hantera digitala verktyg. Var ärlig; att ljuga om systemkunskap avslöjas under första arbetsdagen.'
       },
       {
         fraga: 'Hur skriver jag CV om jag bara haft en brukare?',
@@ -7751,11 +7781,11 @@ Samma assistent kan ha båda erfarenheterna – men betonar olika saker beroende
       },
       {
         fraga: 'Hur hanterar jag luckor i CV:t från perioder utan arbete?',
-        svar: 'Inom assistans är luckor vanliga – uppdrag tar slut när brukares situation förändras. Var ärlig: "Assistansuppdrag avslutades då brukaren flyttade till gruppboende" eller "Sökte nytt uppdrag som matchade min specialisering inom NPF". Om du vidareutbildade dig under luckan (HLR-förnyelse, kurser), lyft det. Rekryterare inom assistans förstår branschens natur med tidsbegränsade uppdrag.'
+        svar: 'Inom assistans är luckor vanliga, uppdrag tar slut när brukares situation förändras. Var ärlig: "Assistansuppdrag avslutades då brukaren flyttade till gruppboende" eller "Sökte nytt uppdrag som matchade min specialisering inom NPF". Om du vidareutbildade dig under luckan (HLR-förnyelse, kurser), lyft det. Rekryterare inom assistans förstår branschens natur med tidsbegränsade uppdrag.'
       },
       {
         fraga: 'Hur skriver jag CV utan vårdutbildning?',
-        svar: 'Fokusera på din praktiska erfarenhet och personliga egenskaper. Många duktiga assistenter kommer från andra bakgrunder – kanske har du jobbat inom service, skola eller med barn. Lyft fram vad du faktiskt kan: att lyssna, ta ansvar, lösa problem och anpassa dig efter olika behov. Om du har genomgått introduktionsutbildning hos tidigare arbetsgivare, skriv det. Många brukare värderar rätt personlighet och inställning högre än formella papper.'
+        svar: 'Fokusera på din praktiska erfarenhet och personliga egenskaper. Många duktiga assistenter kommer från andra bakgrunder, kanske har du jobbat inom service, skola eller med barn. Lyft fram vad du faktiskt kan: att lyssna, ta ansvar, lösa problem och anpassa dig efter olika behov. Om du har genomgått introduktionsutbildning hos tidigare arbetsgivare, skriv det. Många brukare värderar rätt personlighet och inställning högre än formella papper.'
       },
       {
         fraga: 'Ska jag ha med referenser från brukare eller anhöriga?',
@@ -7767,11 +7797,11 @@ Samma assistent kan ha båda erfarenheterna – men betonar olika saker beroende
       },
       {
         fraga: 'Vad ska jag skriva om jag bara jobbat som vikarie eller timvikarie?',
-        svar: 'Vikarierfarenhet är värdefullt – det visar att du klarar att hoppa in snabbt och anpassa dig till olika brukare och situationer. Skriv "Timvikarie/Resurspersonal" som titel och lyft fram vad det krävt: "Jobbade med ca 8 olika brukare under perioden, vilket krävde snabb inlärning och god anpassningsförmåga". Om du haft flera korta uppdrag, slå gärna ihop dem under en rubrik istället för att lista varje: "Vikariat inom flera assistansbolag, 2022-2024".'
+        svar: 'Vikarierfarenhet är värdefullt, det visar att du klarar att hoppa in snabbt och anpassa dig till olika brukare och situationer. Skriv "Timvikarie/Resurspersonal" som titel och lyft fram vad det krävt: "Jobbade med ca 8 olika brukare under perioden, vilket krävde snabb inlärning och god anpassningsförmåga". Om du haft flera korta uppdrag, slå gärna ihop dem under en rubrik istället för att lista varje: "Vikariat inom flera assistansbolag, 2022-2024".'
       },
       {
         fraga: 'Hur beskriver jag nattpass och oregelbundna arbetstider?',
-        svar: 'Nämn det kort under din arbetslivserfarenhet eller i en kompetenssektion. Exempel: "Erfarenhet av nattarbete och sovande nattjour" eller "Van vid rullande schema med kvällar, nätter och helger". Du behöver inte göra en stor sak av det, men det är viktigt att visa att du kan tiderna – många brukare behöver just natthjälp. Om du trivs med det, skriv det: "Föredrar nattpass och lugna arbetsmiljöer". Det gör dig attraktiv för rätt uppdrag.'
+        svar: 'Nämn det kort under din arbetslivserfarenhet eller i en kompetenssektion. Exempel: "Erfarenhet av nattarbete och sovande nattjour" eller "Van vid rullande schema med kvällar, nätter och helger". Du behöver inte göra en stor sak av det, men det är viktigt att visa att du kan tiderna, många brukare behöver just natthjälp. Om du trivs med det, skriv det: "Föredrar nattpass och lugna arbetsmiljöer". Det gör dig attraktiv för rätt uppdrag.'
       }
     ],
 
@@ -7793,7 +7823,7 @@ Samma assistent kan ha båda erfarenheterna – men betonar olika saker beroende
 
 CV:t kombinerar kvantifierbara resultat (hanterar 40+ gäster per kväll, ökade bordsomsättning med 20%) med branschspecifika kompetenser som serveringstillstånd, kassasystem (Trivec, iZettle) och bokningssystem (OpenTable). Det visar även progression från sommarjobb på café till erfaren servitris på à la carte-restaurang.
 
-Använd detta exempel som inspiration när du skriver ditt eget CV som servitris – anpassa det efter din erfarenhet och den tjänst du söker. Kombinera det med ett starkt personligt brev för att maximera dina chanser till intervju.`,
+Använd detta exempel som inspiration när du skriver ditt eget CV som servitris, anpassa det efter din erfarenhet och den tjänst du söker. Kombinera det med ett starkt personligt brev för att maximera dina chanser till intervju.`,
 
     intro: 'Professionellt CV-exempel för servitris och restaurangbiträde med fokus på gästbemötande, bordsservice och kassahantering. Visar kvantifierbara resultat och branschspecifika system som Trivec, OpenTable och serveringstillstånd. ATS-optimerat för restaurangbranschen.',
 
@@ -7803,7 +7833,7 @@ Använd detta exempel som inspiration när du skriver ditt eget CV som servitris
       kontakt: {
         telefon: '070-123 45 67',
         epost: 'sofia.lindqvist@email.se',
-        plats: 'Stockholm',
+        plats: 'Göteborg',
         linkedin: 'linkedin.com/in/sofialindqvist'
       },
       profil: 'Erfaren servitris med 4+ års erfarenhet från à la carte-restauranger och finare matsalar. Specialist på gästbemötande, menypresentation och dryckesrekommendationer med gedigen vinkunskap. Serveringstillstånd-certifierad (2020) med kompetens i kassasystem (Trivec, iZettle) och bokningssystem (OpenTable, DinnerBooking). Serviceinriktad lagspelare som trivs i högt tempo och skapar minnesvärda gästupplevelser genom professionell service och uppmärksamhet på detaljer.',
@@ -7816,10 +7846,10 @@ Använd detta exempel som inspiration när du skriver ditt eget CV som servitris
           beskrivning: [
             'Ansvarig för bordsservice till 40-50 gäster per kväll på à la carte-restaurang med 60 sittplatser',
             'Ökade bordsomsättning med 20% genom effektiv bordsplanering och snabb service under högsäsong (juni-augusti)',
-            'Specialist på vinrekommendationer och menypresentation – sålde 30% fler vinflaskor genom proaktiv försäljning (genomsnitt 15 flaskor/kväll)',
+            'Specialist på vinrekommendationer och menypresentation, sålde 30% fler vinflaskor genom proaktiv försäljning (genomsnitt 15 flaskor/kväll)',
             'Hanterar kassasystem Trivec dagligen för betalning, dricks och dagskassa (genomsnittlig omsättning 80 000 kr/helg)',
             'Utbildar 3 nya servitörer i service, menykännedom och kassarutiner under introduktionsperiod',
-            'Tar emot bokningar via OpenTable och DinnerBooking – hanterar sittningsplanering för 100+ gäster på helger'
+            'Tar emot bokningar via OpenTable och DinnerBooking, hanterar sittningsplanering för 100+ gäster på helger'
           ]
         },
         {
@@ -7841,7 +7871,7 @@ Använd detta exempel som inspiration när du skriver ditt eget CV som servitris
           beskrivning: [
             'Självständigt ansvar för frukostservering och lunchbuffé med 50+ gäster dagligen',
             'Hanterade kassasystem iZettle och Swish-betalningar (200+ transaktioner/dag)',
-            'Upprätthöll höga hygienrutiner enligt livsmedelshanteringsregler – noll anmärkningar vid inspektion',
+            'Upprätthöll höga hygienrutiner enligt livsmedelshanteringsregler, noll anmärkningar vid inspektion',
             'Utvecklade snabb serviceförmåga i högt tempo under lunch-rusningar (11:30-13:30)'
           ]
         }
@@ -7860,7 +7890,7 @@ Använd detta exempel som inspiration när du skriver ditt eget CV som servitris
         tekniska: [
           'Kassasystem: Trivec och iZettle (Expert, 4+ år)',
           'Bokningssystem: OpenTable och DinnerBooking (Avancerad, 2+ år)',
-          'Serveringstillstånd – ansvarsfull alkoholservering',
+          'Serveringstillstånd: ansvarsfull alkoholservering',
           'Vinkunskap och dryckesrekommendationer',
           'Allergenkännedom och kosthållning',
           'Menypresentation och merförsäljning'
@@ -7874,7 +7904,7 @@ Använd detta exempel som inspiration när du skriver ditt eget CV som servitris
       },
 
       certifieringar: [
-        'Serveringstillstånd – ansvarsfull alkoholservering (2020)',
+        'Serveringstillstånd: ansvarsfull alkoholservering (2020)',
         'Livsmedelshantering och hygien (2019)',
         'Allergenkännedom (2022)',
         'HLR och första hjälpen (förnyad 2023)'
@@ -7888,34 +7918,36 @@ Använd detta exempel som inspiration när du skriver ditt eget CV som servitris
 
     viktigt: [
       'Kvantifiera din service: Visa antal gäster, bordsomsättning, försäljningsresultat (t.ex. "Ökade vinförsäljning med 30%")',
-      'Nämn specifika system: Trivec, iZettle, OpenTable – rekryterare söker efter dessa nyckelord i ATS-system',
+      'Nämn specifika system: Trivec, iZettle, OpenTable, rekryterare söker efter dessa nyckelord i ATS-system',
       'Visa progression: Från café/sommarjobb till à la carte/fine dining eller från servering till mentorskap av nya kollegor'
     ],
 
     statistik: [
       {
         siffra: '85%',
-        text: 'av restauranger använder digitala kassasystem (Trivec, iZettle) – visa din kompetensnivå tydligt'
+        text: 'av restauranger använder digitala kassasystem (Trivec, iZettle), visa din kompetensnivå tydligt'
       },
       {
         siffra: '22-28k',
-        text: 'SEK är medellön för servitris i Sverige (exkl. dricks) – erfarna på finare restauranger kan tjäna 30k+ plus dricks'
+        text: 'SEK är medellön för servitris i Sverige (exkl. dricks), erfarna på finare restauranger kan tjäna 30k+ plus dricks'
       },
       {
         siffra: '70%',
-        text: 'av jobbannonser kräver serveringstillstånd och kassasystem-erfarenhet – lyft dessa tydligt i CV:t'
+        text: 'av jobbannonser kräver serveringstillstånd och kassasystem-erfarenhet, lyft dessa tydligt i CV:t'
       }
     ],
 
     varforDetFungerar: [
       {
         rubrik: 'Branschspecifika system som ATS-system söker efter',
+        ankare: 'kompetenser',
         text: `CV:t nämner specifika system som Trivec (kassasystem), OpenTable och DinnerBooking (bokningssystem) tillsammans med serveringstillstånd och allergenkännedom.
 
 Varför detta fungerar: Restaurangbranschen använder dessa system dagligen, och ATS-algoritmer söker efter exakt dessa termer. När du skriver "Trivec kassasystem" istället för bara "kassaerfarenhet" matchar du både jobbannonsens kravlista och de nyckelord rekryterare filtrerar på. Du visar omedelbart att du kan börja jobba utan omfattande systemutbildning.`
       },
       {
         rubrik: 'Kvantifierbara resultat som visar omfattning och prestation',
+        ankare: 'erfarenhet',
         text: `CV:t kvantifierar arbetsinsatser: 40-50 gäster per kväll, 20% ökad bordsomsättning, 30% fler vinflaskor sålda, och 4.8/5.0 på TripAdvisor-betyg.
 
 Varför detta fungerar: "Ansvarig för bordsservice" säger ingenting om omfattning eller kvalitet. "40-50 gäster per kväll" och "20% ökad bordsomsättning" visar att du hanterar högt tempo och faktiskt bidrar till restaurangens lönsamhet. Rekryterare vet att du kan hantera stress, sälja aktivt och leverera service som gör att gäster återkommer.`
@@ -7924,16 +7956,18 @@ Varför detta fungerar: "Ansvarig för bordsservice" säger ingenting om omfattn
         rubrik: 'Teknisk kompetens balanserad med bevisad serviceförmåga',
         text: `CV:t kombinerar tekniska färdigheter (Trivec, OpenTable, serveringstillstånd, allergenkännedom) med konkreta serviceresultat: merförsäljning av vin, positiva TripAdvisor-betyg och mentorskap för nya kollegor.
 
-Varför detta fungerar: Många skriver "serviceinriktad och gästvänlig" utan att bevisa det. Du visar service genom handling: 4.8/5.0 på TripAdvisor, proaktiv försäljning (30% fler vinflaskor), och förmåga att utbilda nya kollegor. Rekryterare ser att du förstår helheten – både den tekniska sidan och det mellanmänskliga.`
+Varför detta fungerar: Många skriver "serviceinriktad och gästvänlig" utan att bevisa det. Du visar service genom handling: 4.8/5.0 på TripAdvisor, proaktiv försäljning (30% fler vinflaskor), och förmåga att utbilda nya kollegor. Rekryterare ser att du förstår helheten, både den tekniska sidan och det mellanmänskliga.`
       },
       {
         rubrik: 'Uppdaterade certifieringar som är lagkrav i branschen',
+        ankare: 'certifieringar',
         text: `CV:t listar serveringstillstånd (2020), livsmedelshantering (2019), allergenkännedom (2022) och HLR (förnyad 2023). Varje certifiering har årtal och tydlig koppling till arbetet.
 
-Varför detta fungerar: Serveringstillstånd är lagkrav för alkoholservering i Sverige. Genom att skriva "Serveringstillstånd (2020)" visar du att du uppfyller grundkravet omedelbart. Allergenkännedom är obligatoriskt enligt livsmedelslagstiftning – rekryterare vet att du kan jobba enligt lag från dag 1 utan att skickas på obligatoriska kurser.`
+Varför detta fungerar: Serveringstillstånd är lagkrav för alkoholservering i Sverige. Genom att skriva "Serveringstillstånd (2020)" visar du att du uppfyller grundkravet omedelbart. Allergenkännedom är obligatoriskt enligt livsmedelslagstiftning, rekryterare vet att du kan jobba enligt lag från dag 1 utan att skickas på obligatoriska kurser.`
       },
       {
         rubrik: 'Profiltext som säljer in kompetens på 10 sekunder',
+        ankare: 'profil',
         text: `Profiltexten öppnar med "Erfaren servitris med 4+ års erfarenhet från à la carte-restauranger och finare matsalar. Specialist på gästbemötande, menypresentation och dryckesrekommendationer med gedigen vinkunskap."
 
 Varför detta fungerar: Första meningen avgör om rekryterare läser vidare. "4+ års erfarenhet från à la carte-restauranger, specialist på vinkunskap och menypresentation" visar omedelbart att du har erfarenhet från den typ av restaurang de söker till. ATS-system rankar CV:n som har nyckelord tidigt i dokumentet högre.`
@@ -7942,7 +7976,7 @@ Varför detta fungerar: Första meningen avgör om rekryterare läser vidare. "4
         rubrik: 'Tydlig karriärprogression från café till fine dining',
         text: `Erfarenheten visar utveckling: från sommarjobb på café (frukost/lunch-buffé, 50+ gäster) till bistro med både servering och bar, och vidare till fine dining-restaurang med mentorskap, vinförsäljning och sittningsplanering för 100+ gäster.
 
-Varför detta fungerar: Många servitörer listar jobb utan att visa utveckling. Din progression från café (grundläggande service) till bistro (flexibel roll) till fine dining (specialiserad à la carte + mentorskap) visar att du inte bara stannat kvar – du har växt. Rekryterare ser att du är redo för mer ansvar.`
+Varför detta fungerar: Många servitörer listar jobb utan att visa utveckling. Din progression från café (grundläggande service) till bistro (flexibel roll) till fine dining (specialiserad à la carte + mentorskap) visar att du inte bara stannat kvar, du har växt. Rekryterare ser att du är redo för mer ansvar.`
       }
     ],
 
@@ -8003,7 +8037,7 @@ Inkludera alltid antal års erfarenhet, typ av restaurang och 1-2 specialisering
 
 ❌ "Har gått kurs i livsmedelshantering"
 
-✅ "Serveringstillstånd – ansvarsfull alkoholservering (2020), Livsmedelshantering och hygien (2019), Allergenkännedom (2022), HLR och första hjälpen (förnyad 2023)"
+✅ "Serveringstillstånd, ansvarsfull alkoholservering (2020), Livsmedelshantering och hygien (2019), Allergenkännedom (2022), HLR och första hjälpen (förnyad 2023)"
 
 Årtal visar att certifieringarna är aktuella. Om certifieringen förnyas, skriv "förnyad 2023" för att visa att den är uppdaterad.`
       },
@@ -8015,7 +8049,7 @@ Inkludera alltid antal års erfarenhet, typ av restaurang och 1-2 specialisering
 
 ❌ Lista bara arbetsuppgifter utan att visa utveckling
 
-✅ "2019-2020: Café (sommarjobb, 50+ gäster) → 2020-2022: Bistro (bordsservice + bar, alkoholservering) → 2022-Nu: Fine dining (à la carte, vinrekommendationer, mentorskap för 3 nya kollegor)"
+✅ "2019-2020: Café (sommarjobb, 50+ gäster), sedan 2020-2022: Bistro (bordsservice + bar, alkoholservering), sedan 2022-Nu: Fine dining (à la carte, vinrekommendationer, mentorskap för 3 nya kollegor)"
 
 Varje roll visar ökad komplexitet: fler gäster, mer avancerade system och specialisering. Detta bevisar att du är redo för nästa steg.`
       }
@@ -8028,11 +8062,11 @@ Varje roll visar ökad komplexitet: fler gäster, mer avancerade system och spec
       },
       {
         fraga: 'Vilka kompetenser ska jag inkludera i mitt CV som servitris?',
-        svar: 'Inkludera både tekniska och personliga kompetenser. Tekniska: kassasystem (Trivec, iZettle), bokningssystem (OpenTable), serveringstillstånd, allergenkännedom, vinkunskap. Personliga: serviceinriktad, stresstålig, lagspelare, uppmärksamhet på detaljer. Viktigt: Backa upp personliga egenskaper med konkreta exempel i erfarenhetsbeskrivningarna (t.ex. "Stresstålig – hanterade 50+ gäster under lunch-rush").'
+        svar: 'Inkludera både tekniska och personliga kompetenser. Tekniska: kassasystem (Trivec, iZettle), bokningssystem (OpenTable), serveringstillstånd, allergenkännedom, vinkunskap. Personliga: serviceinriktad, stresstålig, lagspelare, uppmärksamhet på detaljer. Viktigt: Backa upp personliga egenskaper med konkreta exempel i erfarenhetsbeskrivningarna (t.ex. "Stresstålig, hanterade 50+ gäster under lunch-rush").'
       },
       {
         fraga: 'Ska jag skriva serveringstillstånd i CV:t eller personligt brev?',
-        svar: 'Båda! Skriv serveringstillstånd i CV:t under en dedikerad sektion "Certifieringar" med årtal. Nämn det även kort i profiltexten om jobbet kräver alkoholservering. I personligt brev kan du berätta mer om hur du tillämpar ansvarsfull alkoholservering i praktiken. Serveringstillstånd är ofta ett lagkrav – genom att lyfta det tydligt i CV:t passerar du ATS-systemets första screening.'
+        svar: 'Båda! Skriv serveringstillstånd i CV:t under en dedikerad sektion "Certifieringar" med årtal. Nämn det även kort i profiltexten om jobbet kräver alkoholservering. I personligt brev kan du berätta mer om hur du tillämpar ansvarsfull alkoholservering i praktiken. Serveringstillstånd är ofta ett lagkrav, genom att lyfta det tydligt i CV:t passerar du ATS-systemets första screening.'
       },
       {
         fraga: 'Vilka kassasystem ska jag kunna som servitris?',
@@ -8040,7 +8074,7 @@ Varje roll visar ökad komplexitet: fler gäster, mer avancerade system och spec
       },
       {
         fraga: 'Hur beskriver jag gästbemötande på ett CV?',
-        svar: 'Visa gästbemötande genom konkreta resultat istället för att bara skriva "bra på gästbemötande". Exempel: "Skapade minnesvärda gästupplevelser vilket resulterade i 4.8/5.0 på TripAdvisor", "Tog ansvar för allergenkännedom till gäster med särskilda kostbehov", eller "Byggde stamgästrelationer – 30% av mina bord var återkommande gäster".'
+        svar: 'Visa gästbemötande genom konkreta resultat istället för att bara skriva "bra på gästbemötande". Exempel: "Skapade minnesvärda gästupplevelser vilket resulterade i 4.8/5.0 på TripAdvisor", "Tog ansvar för allergenkännedom till gäster med särskilda kostbehov", eller "Byggde stamgästrelationer, 30% av mina bord var återkommande gäster".'
       }
     ],
 
@@ -8062,7 +8096,7 @@ Varje roll visar ökad komplexitet: fler gäster, mer avancerade system och spec
 
 CV:t kombinerar kvantifierbara resultat (200+ kuvert per kväll, reducerat matsvinn från 12% till 6.5%) med branschspecifika kompetenser som HACCP-certifiering, moderna tekniker (sous vide, fermentering) och ledarskap. Det visar även progression från commis de cuisine till souschef med tydligt budgetansvar.
 
-Använd detta exempel som inspiration när du skriver ditt eget CV som kock – anpassa det efter din erfarenhet och den typ av kök du söker till. Kombinera det med ett starkt personligt brev för att maximera dina chanser till intervju.`,
+Använd detta exempel som inspiration när du skriver ditt eget CV som kock, anpassa det efter din erfarenhet och den typ av kök du söker till. Kombinera det med ett starkt personligt brev för att maximera dina chanser till intervju.`,
 
     intro: 'Professionellt CV-exempel för kock, souschef och kökschef med fokus på à la carte-matlagning, HACCP och ledarskap. Visar kvantifierbara resultat och branschspecifika certifieringar. ATS-optimerat för restaurangbranschen.',
 
@@ -8072,7 +8106,7 @@ Använd detta exempel som inspiration när du skriver ditt eget CV som kock – 
       kontakt: {
         telefon: '070-234 56 78',
         epost: 'marcus.eriksson@email.se',
-        plats: 'Stockholm',
+        plats: 'Mölndal',
         linkedin: 'linkedin.com/in/marcuseriksson'
       },
       profil: 'Erfaren souschef med 8+ års erfarenhet från à la carte-restauranger och fine dining. Specialist på nordisk gastronomi med moderna tekniker som sous vide och fermentering. HACCP-certifierad (2023) med dokumenterad förmåga att leda köksteam på 8 personer och ansvara för matsedelsplanering med budgetansvar på 2,5 MSEK. Passionerad för hållbar matlagning med fokus på lokala råvaror och svinnreducering.',
@@ -8084,11 +8118,11 @@ Använd detta exempel som inspiration när du skriver ditt eget CV som kock – 
           period: '2021 – Pågående',
           beskrivning: [
             'Leder köksteam på 8 kockar och ansvarar för daglig drift i à la carte-kök med 200+ kuvert per kväll',
-            'Reducerade matsvinn från 12% till 6.5% genom förbättrad mise en place och FIFO-rutiner – besparing på 180 000 kr/år',
+            'Reducerade matsvinn från 12% till 6.5% genom förbättrad mise en place och FIFO-rutiner, besparing på 180 000 kr/år',
             'Ansvarar för matsedelsplanering och receptutveckling med fokus på nordisk gastronomi och säsongsanpassade menyer',
             'Budgetansvar: 2,5 miljoner SEK årligen för råvaruinköp och personalplanering',
             'Ökade gästnöjdhet från 4.3 till 4.7/5.0 på Google Reviews genom förbättrad presentationsteknik och konsekvent kvalitet',
-            'Ansvarar för HACCP-dokumentation och egenkontroll – noll avvikelser vid senaste inspektion (2024)'
+            'Ansvarar för HACCP-dokumentation och egenkontroll, noll avvikelser vid senaste inspektion (2024)'
           ]
         },
         {
@@ -8097,10 +8131,10 @@ Använd detta exempel som inspiration när du skriver ditt eget CV som kock – 
           period: '2018 – 2021',
           beskrivning: [
             'Ansvarig för varmköksstation med 150 kuvert per kväll på à la carte-restaurang och banketter upp till 300 gäster',
-            'Specialisering på sous vide-teknik och moderna tillagningsmetoder – implementerade ny dessertmeny som ökade försäljningen med 20%',
+            'Specialisering på sous vide-teknik och moderna tillagningsmetoder, implementerade ny dessertmeny som ökade försäljningen med 20%',
             'Utbildade 4 commis-kockar i stationsarbete, hygienrutiner och presentationsteknik',
             'Minskade reklamationer med 25% genom förbättrade kvalitetskontroller vid utpassering',
-            'Delaktig i matsedelsplanering för säsongsmenyer – 40+ nya rätter utvecklade under perioden'
+            'Delaktig i matsedelsplanering för säsongsmenyer, 40+ nya rätter utvecklade under perioden'
           ]
         },
         {
@@ -8110,7 +8144,7 @@ Använd detta exempel som inspiration när du skriver ditt eget CV som kock – 
           beskrivning: [
             'Grundläggande köksarbete på fransk bistro med 80-100 kuvert per kväll',
             'Rotation mellan kallkök, varmkök och garde manger för bred kompetens',
-            'Ansvarig för mise en place och förberedelser – effektiviserade rutiner som sparade 30 min per skift',
+            'Ansvarig för mise en place och förberedelser, effektiviserade rutiner som sparade 30 min per skift',
             'Första erfarenhet av kassasystem Trivec för köksorder och bongsystem'
           ]
         }
@@ -8146,7 +8180,7 @@ Använd detta exempel som inspiration när du skriver ditt eget CV som kock – 
 
       certifieringar: [
         'HACCP-certifiering (2023, förnyad årligen)',
-        'Livsmedelshygien Nivå 3 – Livsmedelsverket (2023)',
+        'Livsmedelshygien Nivå 3: Livsmedelsverket (2023)',
         'Allergenkännedom och specialkost (2022)',
         'Brandskyddskurs för storkök (2024)',
         'Gesällbrev i kockyrket (2016)'
@@ -8167,42 +8201,42 @@ Använd detta exempel som inspiration när du skriver ditt eget CV som kock – 
     statistik: [
       {
         siffra: '95%',
-        text: 'av restauranger kräver HACCP-kunskap – lyft certifieringar tydligt i CV:t'
+        text: 'av restauranger kräver HACCP-kunskap, lyft certifieringar tydligt i CV:t'
       },
       {
         siffra: '28-35k',
-        text: 'SEK är medellön för kock i Sverige – souschef och kökschef kan tjäna 40-50k+'
+        text: 'SEK är medellön för kock i Sverige, souschef och kökschef kan tjäna 40-50k+'
       },
       {
         siffra: '8 sek',
-        text: 'spenderar rekryterare i snitt på första genomläsning – kvantifiera direkt i profiltexten'
+        text: 'spenderar rekryterare i snitt på första genomläsning, kvantifiera direkt i profiltexten'
       }
     ],
 
     varforDetFungerar: [
       {
         rubrik: 'Branschspecifika termer som ATS-system söker efter',
-        text: `CV:t använder exakta kökstermer som "à la carte", "mise en place", "sous vide", "garde manger" och "HACCP" – samma termer som återfinns i jobbannonser för kockar.
+        text: `CV:t använder exakta kökstermer som "à la carte", "mise en place", "sous vide", "garde manger" och "HACCP", samma termer som återfinns i jobbannonser för kockar.
 
-Varför detta fungerar: ATS-system och rekryterare söker efter specifika nyckelord. När du skriver "HACCP-certifiering" istället för bara "matlagning" matchar du kravlistan direkt. "Sous vide-teknik" visar modern kompetens som finare restauranger efterfrågar. Generiska termer som "kan laga mat" sorteras bort – branschterminologi får dig genom första urvalet.`
+Varför detta fungerar: ATS-system och rekryterare söker efter specifika nyckelord. När du skriver "HACCP-certifiering" istället för bara "matlagning" matchar du kravlistan direkt. "Sous vide-teknik" visar modern kompetens som finare restauranger efterfrågar. Generiska termer som "kan laga mat" sorteras bort, branschterminologi får dig genom första urvalet.`
       },
       {
         rubrik: 'Kvantifierade resultat som visar faktisk kapacitet',
         text: `CV:t innehåller konkreta siffror: 200+ kuvert per kväll, matsvinn reducerat från 12% till 6.5%, budgetansvar 2,5 MSEK, och 8 kockar i teamet.
 
-Varför detta fungerar: "Ansvarig för köket" säger ingenting om omfattning eller kvalitet. "200+ kuvert per kväll" visar att du klarar högt tempo på en stor restaurang. "Reducerade matsvinn med 46%" bevisar att du tänker på lönsamhet – något varje restaurangägare bryr sig om. Rekryterare kan direkt jämföra din kapacitet med vad tjänsten kräver.`
+Varför detta fungerar: "Ansvarig för köket" säger ingenting om omfattning eller kvalitet. "200+ kuvert per kväll" visar att du klarar högt tempo på en stor restaurang. "Reducerade matsvinn med 46%" bevisar att du tänker på lönsamhet, något varje restaurangägare bryr sig om. Rekryterare kan direkt jämföra din kapacitet med vad tjänsten kräver.`
       },
       {
         rubrik: 'Tydlig karriärprogression från Commis till Souschef',
         text: `Erfarenheten visar utveckling: från Commis de Cuisine (grundläggande köksarbete, 80-100 kuvert) till Stationskock Varmkök (150 kuvert, specialisering) till Souschef (200+ kuvert, ledarskap, budgetansvar).
 
-Varför detta fungerar: Rekryterare söker kockar som kan växa i rollen. Din progression från grundutbildning till ledande position visar ambition och förmåga att ta ansvar. Varje steg inkluderar fler kuvert, mer komplexitet och större ansvar – detta signalerar att du är redo för nästa nivå, t.ex. kökschef.`
+Varför detta fungerar: Rekryterare söker kockar som kan växa i rollen. Din progression från grundutbildning till ledande position visar ambition och förmåga att ta ansvar. Varje steg inkluderar fler kuvert, mer komplexitet och större ansvar, detta signalerar att du är redo för nästa nivå, t.ex. kökschef.`
       },
       {
         rubrik: 'HACCP-certifiering med noll avvikelser',
         text: `CV:t lyfter fram "HACCP-certifiering (2023, förnyad årligen)" och "noll avvikelser vid senaste inspektion (2024)". Årtal och resultat inkluderas för trovärdighet.
 
-Varför detta fungerar: HACCP är lagkrav för alla restauranger. Genom att visa certifieringsår OCH inspektionsresultat bevisar du att du tar livsmedelssäkerhet på allvar. "Noll avvikelser" är ett konkret resultat som visar att du inte bara har pappret – du tillämpar kunskapen dagligen. Detta minskar risken för arbetsgivaren.`
+Varför detta fungerar: HACCP är lagkrav för alla restauranger. Genom att visa certifieringsår OCH inspektionsresultat bevisar du att du tar livsmedelssäkerhet på allvar. "Noll avvikelser" är ett konkret resultat som visar att du inte bara har pappret, du tillämpar kunskapen dagligen. Detta minskar risken för arbetsgivaren.`
       },
       {
         rubrik: 'Profiltext som säljer in specialisering direkt',
@@ -8214,7 +8248,7 @@ Varför detta fungerar: Första meningen avgör om rekryterare läser vidare. "8
         rubrik: 'Ledarskap bevisat med konkreta exempel',
         text: `CV:t visar ledarskap genom handling: "Leder köksteam på 8 kockar", "Utbildade 4 commis-kockar", "Budgetansvar 2,5 MSEK". Varje påstående har ett mätbart resultat.
 
-Varför detta fungerar: Alla kan skriva "god ledare" eller "teamplayer" – det är meningslöst utan bevis. Att du leder 8 kockar dagligen och har budgetansvar på miljonnivå visar att arbetsgivare har litat på dig med verkligt ansvar. Utbildning av commis-kockar bevisar att du kan dela kunskap och utveckla personal – kritiskt för souschef- och kökschefsroller.`
+Varför detta fungerar: Alla kan skriva "god ledare" eller "teamplayer", det är meningslöst utan bevis. Att du leder 8 kockar dagligen och har budgetansvar på miljonnivå visar att arbetsgivare har litat på dig med verkligt ansvar. Utbildning av commis-kockar bevisar att du kan dela kunskap och utveckla personal, kritiskt för souschef- och kökschefsroller.`
       }
     ],
 
@@ -8251,7 +8285,7 @@ Nämn även matsvinn i procent, genomsnittlig omsättning eller antal rätter p�
 
 ❌ "Arbetade med att minska matsvinn"
 
-✅ "Reducerade matsvinn från 12% till 6.5% genom förbättrad mise en place och FIFO-rutiner – besparing på 180 000 kr/år"
+✅ "Reducerade matsvinn från 12% till 6.5% genom förbättrad mise en place och FIFO-rutiner, besparing på 180 000 kr/år"
 
 Detta visar att du förstår ekonomin bakom restaurangdrift och aktivt bidrar till lönsamhet.`
       },
@@ -8275,13 +8309,13 @@ Inkludera alltid antal års erfarenhet, kökstyp (à la carte/bankett/catering) 
 
 ❌ "Har gått HACCP-kurs"
 
-✅ "HACCP-certifiering (2023, förnyad årligen), Livsmedelshygien Nivå 3 – Livsmedelsverket (2023), Brandskyddskurs för storkök (2024)"
+✅ "HACCP-certifiering (2023, förnyad årligen), Livsmedelshygien Nivå 3, Livsmedelsverket (2023), Brandskyddskurs för storkök (2024)"
 
-Årtal visar att certifieringarna är aktuella. "Förnyad årligen" signalerar att du håller dig uppdaterad – ett måste för ledande kökspositioner.`
+Årtal visar att certifieringarna är aktuella. "Förnyad årligen" signalerar att du håller dig uppdaterad, ett måste för ledande kökspositioner.`
       },
       {
         rubrik: 'Balansera teknisk kompetens med ledarskap',
-        text: `För souschef- och kökschefsroller räcker det inte med matlagningskompetens – du måste visa att du kan leda team och hantera budget.
+        text: `För souschef- och kökschefsroller räcker det inte med matlagningskompetens, du måste visa att du kan leda team och hantera budget.
 
 **Exempel på före/efter**:
 
@@ -8289,30 +8323,30 @@ Inkludera alltid antal års erfarenhet, kökstyp (à la carte/bankett/catering) 
 
 ✅ "Leder köksteam på 8 kockar med ansvar för schemaläggning och kompetensutveckling. Utbildade 4 commis-kockar i stationsarbete och hygienrutiner. Budgetansvar: 2,5 MSEK."
 
-Visa både teknisk expertis OCH förmåga att utveckla personal – det är vad som skiljer en souschef från en stationskock.`
+Visa både teknisk expertis OCH förmåga att utveckla personal, det är vad som skiljer en souschef från en stationskock.`
       }
     ],
 
     faq: [
       {
         fraga: 'Hur långt ska mitt CV som kock/chef vara?',
-        svar: 'För kockar med 0-5 års erfarenhet räcker 1 sida. För souschef eller kökschef med 5+ års erfarenhet kan du använda 2 sidor, men fokusera på relevanta roller från senaste 10 åren. Viktigare att ha djup på senaste rollerna (antal kuvert, budgetansvar, HACCP-resultat) än att lista alla restauranger du jobbat på. Rekryterare läser i snitt 6-8 sekunder – gör det lätt att snabbt se din kapacitet.'
+        svar: 'För kockar med 0-5 års erfarenhet räcker 1 sida. För souschef eller kökschef med 5+ års erfarenhet kan du använda 2 sidor, men fokusera på relevanta roller från senaste 10 åren. Viktigare att ha djup på senaste rollerna (antal kuvert, budgetansvar, HACCP-resultat) än att lista alla restauranger du jobbat på. Rekryterare läser i snitt 6-8 sekunder, gör det lätt att snabbt se din kapacitet.'
       },
       {
         fraga: 'Ska jag inkludera APL-perioder om jag är nyutexaminerad?',
-        svar: 'Ja, absolut! APL (arbetsplatsförlagt lärande) är relevant erfarenhet, särskilt om du gjort APL på erkända restauranger. Skriv ut restaurangnamn, period och vad du lärde dig: "APL på Operakällaren (2015) – klassisk fransk teknik och garde manger". Om du fick extrajobb efteråt, nämn det som bevis på att de var nöjda med dig. APL visar att du har praktisk erfarenhet utöver skolkök.'
+        svar: 'Ja, absolut! APL (arbetsplatsförlagt lärande) är relevant erfarenhet, särskilt om du gjort APL på erkända restauranger. Skriv ut restaurangnamn, period och vad du lärde dig: "APL på Operakällaren (2015), klassisk fransk teknik och garde manger". Om du fick extrajobb efteråt, nämn det som bevis på att de var nöjda med dig. APL visar att du har praktisk erfarenhet utöver skolkök.'
       },
       {
         fraga: 'Hur visar jag HACCP-certifiering i mitt CV?',
-        svar: 'Lista HACCP under en dedikerad sektion "Certifieringar" med årtal: "HACCP-certifiering (2023, förnyad årligen)". Nämn även konkreta resultat i erfarenhetsbeskrivningar: "Ansvarar för HACCP-dokumentation och egenkontroll – noll avvikelser vid senaste inspektion (2024)". Detta visar att du inte bara har pappret utan faktiskt tillämpar kunskapen dagligen.'
+        svar: 'Lista HACCP under en dedikerad sektion "Certifieringar" med årtal: "HACCP-certifiering (2023, förnyad årligen)". Nämn även konkreta resultat i erfarenhetsbeskrivningar: "Ansvarar för HACCP-dokumentation och egenkontroll, noll avvikelser vid senaste inspektion (2024)". Detta visar att du inte bara har pappret utan faktiskt tillämpar kunskapen dagligen.'
       },
       {
         fraga: 'Hur visar jag ledarskap utan att bara säga "god ledare"?',
-        svar: 'Visa ledarskap genom konkreta exempel istället för adjektiv. Skriv antal personer du leder: "Leder köksteam på 8 kockar". Visa utbildningsansvar: "Utbildade 4 commis-kockar i stationsarbete och hygienrutiner". Inkludera budgetansvar: "2,5 MSEK årligen för råvaruinköp". Varje påstående ska ha ett mätbart resultat – detta bevisar ledarskap genom handling.'
+        svar: 'Visa ledarskap genom konkreta exempel istället för adjektiv. Skriv antal personer du leder: "Leder köksteam på 8 kockar". Visa utbildningsansvar: "Utbildade 4 commis-kockar i stationsarbete och hygienrutiner". Inkludera budgetansvar: "2,5 MSEK årligen för råvaruinköp". Varje påstående ska ha ett mätbart resultat, detta bevisar ledarskap genom handling.'
       },
       {
         fraga: 'Hur kvantifierar jag mitt arbete om jag inte har exakta siffror?',
-        svar: 'Använd uppskattningar och intervall: "80-100 kuvert per kväll", "team på 5-8 kockar beroende på säsong", "reducerade matsvinn med uppskattningsvis 30%". Om du inte vet exakt, fråga tidigare chef eller gör en rimlig uppskattning baserat på restaurangens storlek. Ungefärliga siffror är alltid bättre än inga siffror alls – de ger rekryteraren kontext om din kapacitet.'
+        svar: 'Använd uppskattningar och intervall: "80-100 kuvert per kväll", "team på 5-8 kockar beroende på säsong", "reducerade matsvinn med uppskattningsvis 30%". Om du inte vet exakt, fråga tidigare chef eller gör en rimlig uppskattning baserat på restaurangens storlek. Ungefärliga siffror är alltid bättre än inga siffror alls, de ger rekryteraren kontext om din kapacitet.'
       }
     ],
 
@@ -8330,11 +8364,11 @@ Visa både teknisk expertis OCH förmåga att utveckla personal – det är vad 
     metaTitle: 'CV Exempel Chef 2026 - Ledarskap & Personalansvar | Jobbcoach.ai',
     metaDescription: 'Professionellt CV-exempel för chef med ledarerfarenhet. Framhäv personalansvar, resultat och teamutveckling. Gratis mall och tips för ledare 2026.',
 
-    seoIntro: `Att skapa ett vinnande CV som chef kräver att du tydligt demonstrerar din förmåga att leda, utveckla och leverera resultat genom andra. Rekryterare och företagsledare söker inte bara efter administrativa färdigheter – de vill se konkreta bevis på hur du har påverkat verksamheten, utvecklat medarbetare och skapat högpresterande team.
+    seoIntro: `Att skapa ett vinnande CV som chef kräver att du tydligt demonstrerar din förmåga att leda, utveckla och leverera resultat genom andra. Rekryterare och företagsledare söker inte bara efter administrativa färdigheter, de vill se konkreta bevis på hur du har påverkat verksamheten, utvecklat medarbetare och skapat högpresterande team.
 
 Ett professionellt chef-CV måste framhäva kvantifierbara resultat som antal medarbetare du lett, budgetansvar i miljoner kronor, och mätbara förbättringar i nyckeltal som medarbetarengagemang, retention, produktivitet eller lönsamhet. För ledarroller är det avgörande att visa progression från specialistroller till ledarskap samt tydliggöra både dina tekniska kompetenser inom verksamhetsstyrning och dina personliga ledaregenskaper.
 
-Detta CV-exempel för chef visar hur du strukturerar erfarenhet från olika ledarnivåer, lyfter fram coachande ledarskap och förändringsledning, samt presenterar relevanta certifieringar som UGL, projektledning eller Lean. Följ denna mall för att skapa ett CV som öppnar dörrar till nästa steg i din ledarkarriär – oavsett om du söker roll som avdelningschef, enhetschef, teamledare eller verksamhetschef.`,
+Detta CV-exempel för chef visar hur du strukturerar erfarenhet från olika ledarnivåer, lyfter fram coachande ledarskap och förändringsledning, samt presenterar relevanta certifieringar som UGL, projektledning eller Lean. Följ denna mall för att skapa ett CV som öppnar dörrar till nästa steg i din ledarkarriär, oavsett om du söker roll som avdelningschef, enhetschef, teamledare eller verksamhetschef.`,
 
     intro: 'Professionellt CV-exempel för chef som illustrerar hur du framgångsrikt presenterar din ledarerfarenhet, personalansvar och förmåga att driva resultat genom teamutveckling. Visar tydlig karriärprogression från specialist till avdelningschef med växande ansvar för medarbetare, budget och verksamhetsutveckling.',
 
@@ -8344,7 +8378,7 @@ Detta CV-exempel för chef visar hur du strukturerar erfarenhet från olika leda
       kontakt: {
         telefon: '070-123 45 67',
         epost: 'anna.bergstrom@exempel.se',
-        plats: 'Stockholm',
+        plats: 'Malmö',
         linkedin: 'linkedin.com/in/annabergstrom'
       },
       profil: 'Erfaren avdelningschef med dokumenterad förmåga att leda, utveckla och engagera team om upp till 35 medarbetare. Specialiserad på verksamhetsutveckling och processorientat förbättringsarbete med stark koppling till affärsmål och ekonomiska resultat. Kombinerar coachande ledarskap med tydlig målstyrning och har framgångsrikt genomfört flera organisationsförändringar med bibehållen eller förbättrad medarbetarengagemang. Driven av att skapa förutsättningar för medarbetare att växa och att bygga högpresterande team som levererar mätbara resultat.',
@@ -8449,7 +8483,7 @@ Detta CV-exempel för chef visar hur du strukturerar erfarenhet från olika leda
     statistik: [
       {
         siffra: '3 200+',
-        text: 'lediga chefstjänster i Sverige just nu – konkurrensen är hård, ditt CV måste sticka ut'
+        text: 'lediga chefstjänster i Sverige just nu, konkurrensen är hård, ditt CV måste sticka ut'
       },
       {
         siffra: '58 000 kr',
@@ -8472,38 +8506,38 @@ Varför detta fungerar: ATS-system i chefsrekrytering söker efter specifika led
         rubrik: 'Mätbara ledarresultat, inte ansvar',
         text: `CV:t visar konkreta förbättringar: medarbetarengagemang från 68% till 84%, NPS från 42 till 67. Varje chefsroll beskrivs med resultat, inte bara arbetsuppgifter.
 
-Varför detta fungerar: Rekryterare läser hundratals CV där kandidater skriver "ansvarig för medarbetarutveckling". Det säger inget. Anna visar att hennes ledarskap faktiskt gav resultat – engagemanget ökade med 16 procentenheter. Detta bevisar att hon kan leda, inte bara haft titeln. Siffror skiljer bra ledare från dem som bara haft rollen.`
+Varför detta fungerar: Rekryterare läser hundratals CV där kandidater skriver "ansvarig för medarbetarutveckling". Det säger inget. Anna visar att hennes ledarskap faktiskt gav resultat, engagemanget ökade med 16 procentenheter. Detta bevisar att hon kan leda, inte bara haft titeln. Siffror skiljer bra ledare från dem som bara haft rollen.`
       },
       {
         rubrik: 'Progression från doer till ledare',
-        text: `Karriärstegen syns tydligt: Business Analyst → Projektledare → Teamledare → Avdelningschef. Varje steg bygger på föregående med ökande ansvar.
+        text: `Karriärstegen syns tydligt: Business Analyst, sedan Projektledare, sedan Teamledare, sedan Avdelningschef. Varje steg bygger på föregående med ökande ansvar.
 
-Varför detta fungerar: Rekryterare vill se att du vuxit in i ledarskap, inte hoppat dit. Progressionen visar att Anna först bemästrade själva arbetet (analyst), sedan ledde initiativ (projektledare), därefter fick personalansvar (teamledare) innan hon blev avdelningschef. Detta minskar risken – du har bevisat att du klarar varje nivå innan du klättrat vidare.`
+Varför detta fungerar: Rekryterare vill se att du vuxit in i ledarskap, inte hoppat dit. Progressionen visar att Anna först bemästrade själva arbetet (analyst), sedan ledde initiativ (projektledare), därefter fick personalansvar (teamledare) innan hon blev avdelningschef. Detta minskar risken, du har bevisat att du klarar varje nivå innan du klättrat vidare.`
       },
       {
         rubrik: 'Ledarutbildningar med årtal och relevans',
-        text: `UGL (2018), PRINCE2 (2016), Lean Six Sigma (2015) – med årtal som visar kontinuerlig utveckling. Inte bara "genomfört ledarskapskurser".
+        text: `UGL (2018), PRINCE2 (2016), Lean Six Sigma (2015), med årtal som visar kontinuerlig utveckling. Inte bara "genomfört ledarskapskurser".
 
-Varför detta fungerar: Specifika certifieringar signalerar att du investerat i ledarskapet professionellt. UGL är branschstandard för ledare i Sverige, PRINCE2 visar strukturerad projektledning, Lean Six Sigma bevisar processkompetens. Årtal visar att du håller dig uppdaterad. Vaga formuleringar som "utbildning i ledarskap" kan betyda en endagskurs – konkreta certifieringar är verifierbara.`
+Varför detta fungerar: Specifika certifieringar signalerar att du investerat i ledarskapet professionellt. UGL är branschstandard för ledare i Sverige, PRINCE2 visar strukturerad projektledning, Lean Six Sigma bevisar processkompetens. Årtal visar att du håller dig uppdaterad. Vaga formuleringar som "utbildning i ledarskap" kan betyda en endagskurs, konkreta certifieringar är verifierbara.`
       },
       {
         rubrik: 'Profiltext som säljer ledarerfarenhet',
         text: `Första stycket sammanfattar omedelbart: 12+ år, 35 medarbetare, 22 MSEK, konkreta resultat. Rekryteraren vet direkt vilken nivå Anna är på.
 
-Varför detta fungerar: Rekryterare scrollar igenom 50 CV på 10 minuter. De läser inte hela CV:t – de scannar profiltexten för att sålla. När Anna skriver "Avdelningschef med 12+ års erfarenhet, ansvar för 35 medarbetare och 22 MSEK budget" vet rekryteraren på 3 sekunder om hon matchar nivån de söker. Utan profiltext måste de gissa genom att läsa hela CV:t.`
+Varför detta fungerar: Rekryterare scrollar igenom 50 CV på 10 minuter. De läser inte hela CV:t, de scannar profiltexten för att sålla. När Anna skriver "Avdelningschef med 12+ års erfarenhet, ansvar för 35 medarbetare och 22 MSEK budget" vet rekryteraren på 3 sekunder om hon matchar nivån de söker. Utan profiltext måste de gissa genom att läsa hela CV:t.`
       },
       {
         rubrik: 'Balans mellan hårda och mjuka resultat',
         text: `CV:t visar både affärsresultat (NPS +25 enheter, budgetstyrning) och medarbetarresultat (engagemang +16%). Inte bara siffror eller bara "bra ledarskap".
 
-Varför detta fungerar: Rekryterare undviker två typer av chefer: de som bara kör siffror (hög personalomsättning) och de som bara pratar mjukvara utan resultat (verksamheten står still). Anna bevisar båda: hon förbättrade kundnöjdheten OCH medarbetarengagemanget. Detta visar hållbart ledarskap – resultat utan att bränna ut teamet.`
+Varför detta fungerar: Rekryterare undviker två typer av chefer: de som bara kör siffror (hög personalomsättning) och de som bara pratar mjukvara utan resultat (verksamheten står still). Anna bevisar båda: hon förbättrade kundnöjdheten OCH medarbetarengagemanget. Detta visar hållbart ledarskap, resultat utan att bränna ut teamet.`
       }
     ],
 
     tips: [
       {
         rubrik: 'Kvantifiera ditt ledarskap konkret',
-        text: `Rekryterare kan inte bedöma "ansvarig för team" – det kan betyda 3 personer eller 300. Specificera antal medarbetare, budgetansvar och organisationsnivå.
+        text: `Rekryterare kan inte bedöma "ansvarig för team", det kan betyda 3 personer eller 300. Specificera antal medarbetare, budgetansvar och organisationsnivå.
 
 **Exempel på före/efter**:
 
@@ -8511,7 +8545,7 @@ Varför detta fungerar: Rekryterare undviker två typer av chefer: de som bara k
 
 ✅ "Leder 35 medarbetare fördelade på 4 team, ansvarar för 22 MSEK budget och rapporterar direkt till VD i ledningsgruppen"
 
-Lägg till både direkta och indirekta rapporter om du har matrisorganisation. Specificera även budgettyp – drift, investering eller total P&L-ansvar.`
+Lägg till både direkta och indirekta rapporter om du har matrisorganisation. Specificera även budgettyp, drift, investering eller total P&L-ansvar.`
       },
       {
         rubrik: 'Visa din väg från specialist till chef',
@@ -8521,9 +8555,9 @@ Lägg till både direkta och indirekta rapporter om du har matrisorganisation. S
 
 ❌ "2015-2024: Olika chefsroller inom organisation och verksamhetsutveckling"
 
-✅ "Business Analyst (2012-2015) → Projektledare (2015-2017) → Teamledare 8 pers (2017-2020) → Avdelningschef 35 pers (2020-2024)"
+✅ "Business Analyst (2012-2015), sedan Projektledare (2015-2017), sedan Teamledare 8 pers (2017-2020), sedan Avdelningschef 35 pers (2020-2024)"
 
-Betona hur varje steg förberedde dig för nästa. Om du hoppade från specialist till stor chefsroll direkt, förklara varför – t.ex. internt förtroendeuppdrag eller specifik kompetens som krävdes.`
+Betona hur varje steg förberedde dig för nästa. Om du hoppade från specialist till stor chefsroll direkt, förklara varför, t.ex. internt förtroendeuppdrag eller specifik kompetens som krävdes.`
       },
       {
         rubrik: 'Beskriv din ledarstil med bevis, inte ord',
@@ -8533,7 +8567,7 @@ Betona hur varje steg förberedde dig för nästa. Om du hoppade från specialis
 
 ❌ "Coachande ledarstil med fokus på medarbetarnas utveckling och engagemang"
 
-✅ "Införde månatliga utvecklingssamtal och individuella kompetensutvecklingsplaner – medarbetarengagemang ökade från 68% till 84% på 2 år"
+✅ "Införde månatliga utvecklingssamtal och individuella kompetensutvecklingsplaner, medarbetarengagemang ökade från 68% till 84% på 2 år"
 
 Koppla alltid ledaraktiviteter till mätbara utfall. "Implementerade veckovisa one-on-ones" betyder inget om det inte ledde till lägre personalomsättning, högre leveranskvalitet eller bättre NPS.`
       },
@@ -8545,7 +8579,7 @@ Koppla alltid ledaraktiviteter till mätbara utfall. "Implementerade veckovisa o
 
 ❌ "Ledde omorganisation och förändringsprojekt för att effektivisera verksamheten"
 
-✅ "Ledde sammanslagning av 3 avdelningar till 1 (18 månader) – minskade ledtid med 40%, behöll 94% av nyckelpersoner trots osäkerhet"
+✅ "Ledde sammanslagning av 3 avdelningar till 1 (18 månader), minskade ledtid med 40%, behöll 94% av nyckelpersoner trots osäkerhet"
 
 Inkludera motståndshantering om relevant: "Genomförde 25+ dialogmöten med berörda medarbetare för att säkerställa förankring innan beslut".`
       },
@@ -8559,7 +8593,7 @@ Inkludera motståndshantering om relevant: "Genomförde 25+ dialogmöten med ber
 
 ✅ "Ekonomistyrning: Minskat driftskostnader 12% utan personalminskning | Medarbetarutveckling: 8 av 35 medarbetare befordrade internt på 3 år"
 
-Undvik att bara lista mjuka egenskaper ("empatisk", "lyhörd") – bevisa dem genom resultat som "personalomsättning 6% vs branschsnitt 18%".`
+Undvik att bara lista mjuka egenskaper ("empatisk", "lyhörd"), bevisa dem genom resultat som "personalomsättning 6% vs branschsnitt 18%".`
       },
       {
         rubrik: 'Anpassa CV för chefsroll vs specialistroll',
@@ -8578,7 +8612,7 @@ I chef-CV:t betonar du ledarskap, scope och affärsansvar. I specialist-CV:t dju
     faq: [
       {
         fraga: 'Hur långt ska mitt CV vara som chef?',
-        svar: '2 sidor är standard för chefer med 10+ års erfarenhet, 3 sidor acceptabelt för verkställande direktörer eller seniora ledare med 20+ år. Första sidan är avgörande – lägg profiltext, nyckelkompetenser och senaste chefsrollen där. Rekryterare läser sällan vidare om första sidan inte övertygar. Prioritera relevans över fullständighet: detaljera senaste 10 åren (där ledarerfarenheten finns), summera tidigare roller i 1-2 rader per position.'
+        svar: '2 sidor är standard för chefer med 10+ års erfarenhet, 3 sidor acceptabelt för verkställande direktörer eller seniora ledare med 20+ år. Första sidan är avgörande, lägg profiltext, nyckelkompetenser och senaste chefsrollen där. Rekryterare läser sällan vidare om första sidan inte övertygar. Prioritera relevans över fullständighet: detaljera senaste 10 åren (där ledarerfarenheten finns), summera tidigare roller i 1-2 rader per position.'
       },
       {
         fraga: 'Hur visar jag personalansvar på ett konkret sätt?',
@@ -8586,7 +8620,7 @@ I chef-CV:t betonar du ledarskap, scope och affärsansvar. I specialist-CV:t dju
       },
       {
         fraga: 'Ska jag inkludera ledarutbildningar som UGL?',
-        svar: 'Ja, absolut. UGL (Utveckling Grupp Ledare) är branschstandard i Sverige och signalerar att du investerat i ledarutveckling. Inkludera även PRINCE2, Lean Six Sigma, certifierad coach eller liknande – med årtal. Placera under "Utbildning & Certifieringar" eller egen sektion "Ledarutveckling". Undvik att lista endagskurser eller interna workshops – fokusera på erkända certifieringar som tar minst 3-5 dagar.'
+        svar: 'Ja, absolut. UGL (Utveckling Grupp Ledare) är branschstandard i Sverige och signalerar att du investerat i ledarutveckling. Inkludera även PRINCE2, Lean Six Sigma, certifierad coach eller liknande, med årtal. Placera under "Utbildning & Certifieringar" eller egen sektion "Ledarutveckling". Undvik att lista endagskurser eller interna workshops, fokusera på erkända certifieringar som tar minst 3-5 dagar.'
       },
       {
         fraga: 'Hur beskriver jag budget- och resultatansvar tydligt?',
@@ -8594,7 +8628,7 @@ I chef-CV:t betonar du ledarskap, scope och affärsansvar. I specialist-CV:t dju
       },
       {
         fraga: 'Hur hanterar jag karriärbyte till chefsroll från specialistroll?',
-        svar: 'Betona alla ledarsituationer du haft som specialist: "Projektledare för 8-12 konsulter", "Mentor för 3 juniora analytiker", "Drev förbättringsgrupp med 6 kollegor". Lyft fram resultat som visar ledarförmåga: "Koordinerade team om 15 personer genom systemlansering". Om du haft tillfälligt ledaransvar (vikariat, projektuppdrag) – framhäv det tydligt. Inkludera ledarutbildningar du tagit för att förbereda steget.'
+        svar: 'Betona alla ledarsituationer du haft som specialist: "Projektledare för 8-12 konsulter", "Mentor för 3 juniora analytiker", "Drev förbättringsgrupp med 6 kollegor". Lyft fram resultat som visar ledarförmåga: "Koordinerade team om 15 personer genom systemlansering". Om du haft tillfälligt ledaransvar (vikariat, projektuppdrag), framhäv det tydligt. Inkludera ledarutbildningar du tagit för att förbereda steget.'
       },
       {
         fraga: 'Ska jag nämna mjuka ledaregenskaper i CV:t?',
@@ -8602,7 +8636,7 @@ I chef-CV:t betonar du ledarskap, scope och affärsansvar. I specialist-CV:t dju
       },
       {
         fraga: 'Hur visar jag att jag kan leda förändring och transformation?',
-        svar: 'Beskriv konkreta förändringsprojekt med kontext, åtgärd och resultat. Exempel: "Ledde sammanslagning av 3 avdelningar (55 personer) till en gemensam organisation – från beslut till full implementation på 18 månader. Minskade ledtid 40%, behöll 94% av nyckelpersoner." Inkludera hur du hanterade motstånd: "25+ dialogmöten för förankring". Visa både hårda resultat (effektivitet, kostnad) och mjuka (medarbetarengagemang, retention).'
+        svar: 'Beskriv konkreta förändringsprojekt med kontext, åtgärd och resultat. Exempel: "Ledde sammanslagning av 3 avdelningar (55 personer) till en gemensam organisation, från beslut till full implementation på 18 månader. Minskade ledtid 40%, behöll 94% av nyckelpersoner." Inkludera hur du hanterade motstånd: "25+ dialogmöten för förankring". Visa både hårda resultat (effektivitet, kostnad) och mjuka (medarbetarengagemang, retention).'
       }
     ],
 
@@ -9005,7 +9039,7 @@ Detta exempel visar hur en senior projektledare med 10+ års erfarenhet struktur
     statistik: [
       {
         siffra: '89%',
-        text: 'av rekryterare kräver kvantifierade projektresultat – budget, teamstorlek och leveransprecision'
+        text: 'av rekryterare kräver kvantifierade projektresultat, budget, teamstorlek och leveransprecision'
       },
       {
         siffra: '65%',
@@ -9013,7 +9047,7 @@ Detta exempel visar hur en senior projektledare med 10+ års erfarenhet struktur
       },
       {
         siffra: '2 100',
-        text: 'söker efter "cv projektledare" varje månad – hög konkurrens kräver optimerat CV'
+        text: 'söker efter "cv projektledare" varje månad, hög konkurrens kräver optimerat CV'
       }
     ],
 
@@ -9050,7 +9084,7 @@ Varför detta fungerar: Rekryterare läser profiltext först och bestämmer på 
       },
       {
         rubrik: 'Tydlig karriärprogression mot ledarskap',
-        text: `CV:t visar utveckling från IT-Konsult (2014) → Projektledare (2017) → Senior Projektledare (2020). Varje steg visar ökad budgetansvar (från 5-20 MSEK till 15-40 MSEK), teamstorlek och komplexitet.
+        text: `CV:t visar utveckling från IT-Konsult (2014), sedan Projektledare (2017), sedan Senior Projektledare (2020). Varje steg visar ökad budgetansvar (från 5-20 MSEK till 15-40 MSEK), teamstorlek och komplexitet.
 
 Varför detta fungerar: Arbetsgivare vill se att du utvecklats organiskt, inte bara bytt titlar. Progression från teknisk roll till strategisk projektledning bevisar att du förstår arbetet "på golvet" och kan leda med trovärdighet. Rekryterare ser att du är redo för nästa steg.`
       }
@@ -9071,7 +9105,7 @@ Inkludera alltid: projektbudget, teamstorlek, tidsram och mätbart resultat (ROI
       },
       {
         rubrik: 'Specificera projektmetodik och verktyg',
-        text: `Rekryterare och ATS-system söker efter specifika metoder och verktyg. "Projektledning" är för vagt – visa VILKEN typ av projekt du kan leda.
+        text: `Rekryterare och ATS-system söker efter specifika metoder och verktyg. "Projektledning" är för vagt, visa VILKEN typ av projekt du kan leda.
 
 **Exempel på före/efter**:
 
@@ -9083,7 +9117,7 @@ Nämn alltid metodik (Agile/Scrum/Kanban/PRINCE2/Waterfall) och verktyg (Jira, M
       },
       {
         rubrik: 'Visa stakeholder management konkret',
-        text: `Mjuka färdigheter som "kommunikation" betyder inget utan bevis. Projektledare måste hantera många intressenter – visa HUR du gjort det.
+        text: `Mjuka färdigheter som "kommunikation" betyder inget utan bevis. Projektledare måste hantera många intressenter, visa HUR du gjort det.
 
 **Exempel på före/efter**:
 
@@ -9101,7 +9135,7 @@ Specificera VEM du kommunicerat med (styrelse, C-level, användare, leverantöre
 
 ❌ "Utbildning: Diverse kurser inom projektledning (2018-2023)"
 
-✅ "Certifieringar: PMP (Project Management Professional), PMI – 2023 | Certified Scrum Master (CSM), Scrum Alliance – 2022 | PRINCE2 Practitioner – 2020"
+✅ "Certifieringar: PMP (Project Management Professional), PMI, 2023 | Certified Scrum Master (CSM), Scrum Alliance, 2022 | PRINCE2 Practitioner, 2020"
 
 Lyft certifieringar i egen sektion direkt efter profiltext eller erfarenhet. Inkludera årtal för att visa att kunskapen är aktuell.`
       },
@@ -9134,7 +9168,7 @@ Visa att du FÖRSTÅR tekniken men LEDER arbetet. Fokusera på teamledning, risk
     faq: [
       {
         fraga: 'Hur långt ska mitt CV som projektledare vara?',
-        svar: 'För projektledare med 8-10 års erfarenhet är 2 sidor standard. Första sidan: profiltext, kärnkompetenser, certifieringar och 2-3 senaste/mest relevanta projekt. Andra sidan: övrig erfarenhet och utbildning. Prioritera kvalitet över kvantitet – välj projekt som visar progression, olika branscher eller ökad komplexitet. Äldre projekt (10+ år) kan sammanfattas kortare eller exkluderas om de inte tillför unikt värde.'
+        svar: 'För projektledare med 8-10 års erfarenhet är 2 sidor standard. Första sidan: profiltext, kärnkompetenser, certifieringar och 2-3 senaste/mest relevanta projekt. Andra sidan: övrig erfarenhet och utbildning. Prioritera kvalitet över kvantitet, välj projekt som visar progression, olika branscher eller ökad komplexitet. Äldre projekt (10+ år) kan sammanfattas kortare eller exkluderas om de inte tillför unikt värde.'
       },
       {
         fraga: 'Måste jag ha PMP eller PRINCE2 för att få jobb som projektledare?',
@@ -9158,7 +9192,7 @@ Visa att du FÖRSTÅR tekniken men LEDER arbetet. Fokusera på teamledning, risk
       },
       {
         fraga: 'Ska jag nämna projekt som inte gick bra?',
-        svar: 'Nej, inte i CV:t. CV:t ska visa dina styrkor och framgångar. Misslyckade projekt eller utmaningar hanteras i intervju om de kommer upp. Fokusera istället på vad du lärt dig och tillämpat i senare projekt. Du kan skriva: "Ledde rescue-projekt för försenad CRM-implementation – levererade inom 3 månader med omplanerad scope och budget". Detta visar problemlösning utan att lyfta misslyckande.'
+        svar: 'Nej, inte i CV:t. CV:t ska visa dina styrkor och framgångar. Misslyckade projekt eller utmaningar hanteras i intervju om de kommer upp. Fokusera istället på vad du lärt dig och tillämpat i senare projekt. Du kan skriva: "Ledde rescue-projekt för försenad CRM-implementation, levererade inom 3 månader med omplanerad scope och budget". Detta visar problemlösning utan att lyfta misslyckande.'
       }
     ],
 
@@ -9178,7 +9212,7 @@ Visa att du FÖRSTÅR tekniken men LEDER arbetet. Fokusera på teamledning, risk
 
     seoIntro: `Ett professionellt CV för elevassistent kräver tydlig fokus på din erfarenhet av att stötta elever i behov av särskilt stöd, särskilt elever med NPF-diagnoser som autism och ADHD. I den här guiden hittar du ett komplett CV-exempel som visar hur du formulerar din erfarenhet av lågaffektivt bemötande, individuella anpassningar och dokumentation i verktyg som IST och Unikum.
 
-Vårt CV-exempel för elevassistent är byggt efter 2026 års rekryteringstrender där skolor söker kandidater med bevisad förmåga att skapa inkluderande lärmiljöer och samverka med elevhälsoteam. Du får se exakt hur du kvantifierar dina resultat – som ökad närvaro, förbättrad måluppfyllelse och minskade konfliktsituationer – vilket gör ditt CV relevant för både ATS-system och rekryterande rektorer.
+Vårt CV-exempel för elevassistent är byggt efter 2026 års rekryteringstrender där skolor söker kandidater med bevisad förmåga att skapa inkluderande lärmiljöer och samverka med elevhälsoteam. Du får se exakt hur du kvantifierar dina resultat, som ökad närvaro, förbättrad måluppfyllelse och minskade konfliktsituationer, vilket gör ditt CV relevant för både ATS-system och rekryterande rektorer.
 
 Oavsett om du söker som elevassistent i grundskola, resurspedagog eller arbetar med elever i förskoleklass, ger det här exemplet dig en proven struktur för att lyfta fram din pedagogiska kompetens, relevanta certifieringar (TAKK, Lågaffektivt bemötande) och förmåga att göra skillnad för elever som behöver extra stöd.`,
 
@@ -9190,7 +9224,7 @@ Oavsett om du söker som elevassistent i grundskola, resurspedagog eller arbetar
       kontakt: {
         telefon: '070-234 56 78',
         epost: 'emma.lindstrom@exempel.se',
-        plats: 'Stockholm',
+        plats: 'Uppsala',
         linkedin: 'linkedin.com/in/emmalindstrom'
       },
       profil: 'Engagerad elevassistent med 6 års erfarenhet av att stötta elever med NPF, särskilt autism och ADHD, i grundskola och förskoleklass. Certifierad i Lågaffektivt bemötande och TAKK (Tecken som AKK). Specialist på att skapa förutsägbara strukturer och tillgängliga lärmiljöer som främjar inkludering och ökar elevers självkänsla. Driven av att se varje elevs potential och vara en trygg vuxen som gör skillnad i elevers vardag.',
@@ -9284,7 +9318,7 @@ Oavsett om du söker som elevassistent i grundskola, resurspedagog eller arbetar
     statistik: [
       {
         siffra: '18 500',
-        text: 'elevassistenter arbetar i Sverige 2024 – en roll med ökad efterfrågan kopplat till inkluderingsfokus'
+        text: 'elevassistenter arbetar i Sverige 2024, en roll med ökad efterfrågan kopplat till inkluderingsfokus'
       },
       {
         siffra: '12-15%',
@@ -9299,12 +9333,14 @@ Oavsett om du söker som elevassistent i grundskola, resurspedagog eller arbetar
     varforDetFungerar: [
       {
         rubrik: 'NPF-nyckelord och skoltermer',
+        ankare: 'kompetenser',
         text: `CV:t innehåller specifika termer som ATS-system söker efter: NPF, autism, ADHD, särskilt stöd, elevhälsoteam, IST, Lgr 22, och lågaffektivt bemötande.
 
 Varför detta fungerar: Skolornas rekryteringssystem filtrerar på dessa exakta termer eftersom de visar att du behärskar den pedagogiska terminologin och har relevant kompetens. Utan dessa nyckelord riskerar ditt CV att sorteras bort innan en rektor eller elevhälsochef läser det, oavsett hur erfaren du är.`
       },
       {
         rubrik: 'Mätbara resultat med elever',
+        ankare: 'erfarenhet',
         text: `CV:t visar konkreta siffror: "85% närvaro", "minskade konfliktsituationer med 60%", "ökade elevers måluppfyllelse med 35%", "stöttat 8 elever med NPF-diagnos".
 
 Varför detta fungerar: Rektorer och elevhälsochefer söker bevis på att du faktiskt gör skillnad för eleverna. Vaga påståenden som "hjälpte elever" säger inget om resultat. Siffror visar att du följer upp, dokumenterar och bidrar till skolans uppdrag att alla elever ska nå målen. Det signalerar professionalism och resultatfokus.`
@@ -9317,12 +9353,14 @@ Varför detta fungerar: Elevassistenter behöver behärska båda delarna. För m
       },
       {
         rubrik: 'Dokumenterad vidareutbildning',
+        ankare: 'utbildning',
         text: `CV:t listar specifika kurser med årtal: "Lågaffektivt bemötande (2023)", "TAKK Grundkurs (2022)", "Autism och skolmiljö (2021)".
 
 Varför detta fungerar: Elevassistent är ingen skyddad titel och formell utbildning krävs inte alltid, vilket gör det extra viktigt att visa systematisk kompetensutveckling. Årtal visar att du aktivt håller dig uppdaterad. Detta skiljer dig från sökande som bara skriver "erfarenhet av NPF".`
       },
       {
         rubrik: 'Stark profiltext med specialisering',
+        ankare: 'profil',
         text: `Profiltexten sammanfattar genast: "6 års erfarenhet av att stötta elever med NPF, särskilt autism och ADHD. Certifierad i Lågaffektivt bemötande och TAKK."
 
 Varför detta fungerar: Rekryterare läser profiltexten först och bestämmer ofta där om de läser vidare. En tydlig specialisering visar att du inte är generalist utan har djup kompetens inom ett eftersökt område. "6 års erfarenhet" etablerar trovärdighet direkt.`
@@ -9344,7 +9382,7 @@ Varför detta fungerar: Progressionen visar att du medvetet utvecklat din kompet
 
 ❌ "Hjälpte elever med NPF att klara skoldagen"
 
-✅ "Stöttade 8 elever med ADHD/autism – 6 av 8 ökade närvaron från 70% till över 90% under läsåret. 5 elever nådde godkänt i svenska och matte."
+✅ "Stöttade 8 elever med ADHD/autism, 6 av 8 ökade närvaron från 70% till över 90% under läsåret. 5 elever nådde godkänt i svenska och matte."
 
 Var specifik om antal elever, typ av stöd och mätbara förändringar. Om du inte kan dela exakta siffror av integritetsskäl, använd procent eller intervall.`
       },
@@ -9395,7 +9433,7 @@ Gruppera utbildningar tematiskt, inkludera årtal och nämn arrangör om det är
 
 ❌ "Ansvarade för individuella anpassningar för elever med särskilda behov"
 
-✅ "Skapade visuellt schema med Boardmaker för elev med autism – minskade övergångsångest och ökade självständighet. Anpassade läsmaterial med färgade överlägg för elev med dyslexi."
+✅ "Skapade visuellt schema med Boardmaker för elev med autism, minskade övergångsångest och ökade självständighet. Anpassade läsmaterial med färgade överlägg för elev med dyslexi."
 
 Koppla varje anpassning till ett konkret behov och ett mätbart eller observerbart resultat.`
       },
@@ -9416,7 +9454,7 @@ Visa att omsorgsaspekterna är medel för att eleven ska kunna delta i undervisn
     faq: [
       {
         fraga: 'Hur långt ska mitt CV som elevassistent vara?',
-        svar: 'En A4-sida om du har 0-3 års erfarenhet. Två sidor om du har 4+ års erfarenhet eller bred vidareutbildning inom NPF, autism eller specialpedagogik. Fokusera på relevant erfarenhet från skola/förskola – ta bort tidiga jobb som butiksbiträde om du har tillräckligt med skolerfarenhet. Prioritera att visa mångfald i elevgrupper, konkreta anpassningar du gjort, och utbildningar som NPF-kurser eller lågaffektivt bemötande.'
+        svar: 'En A4-sida om du har 0-3 års erfarenhet. Två sidor om du har 4+ års erfarenhet eller bred vidareutbildning inom NPF, autism eller specialpedagogik. Fokusera på relevant erfarenhet från skola/förskola, ta bort tidiga jobb som butiksbiträde om du har tillräckligt med skolerfarenhet. Prioritera att visa mångfald i elevgrupper, konkreta anpassningar du gjort, och utbildningar som NPF-kurser eller lågaffektivt bemötande.'
       },
       {
         fraga: 'Behöver jag formell utbildning för att bli elevassistent?',
@@ -9424,7 +9462,7 @@ Visa att omsorgsaspekterna är medel för att eleven ska kunna delta i undervisn
       },
       {
         fraga: 'Hur visar jag NPF-kompetens konkret i CV:t?',
-        svar: 'Skriv inte bara "erfarenhet av NPF". Beskriv istället: vilka diagnoser du arbetat med (autism, ADHD), hur många elever, vilka metoder du använt (lågaffektivt bemötande, Time Timer, bildstöd), och resultat du sett (ökad närvaro, färre konflikter). Nämn även utbildningar med årtal och arrangör. Exempel: "Stöttat 6 elever med autism – skapade visuella scheman som minskade övergångsångest med 70%".'
+        svar: 'Skriv inte bara "erfarenhet av NPF". Beskriv istället: vilka diagnoser du arbetat med (autism, ADHD), hur många elever, vilka metoder du använt (lågaffektivt bemötande, Time Timer, bildstöd), och resultat du sett (ökad närvaro, färre konflikter). Nämn även utbildningar med årtal och arrangör. Exempel: "Stöttat 6 elever med autism, skapade visuella scheman som minskade övergångsångest med 70%".'
       },
       {
         fraga: 'Ska jag nämna vilka diagnoser jag arbetat med?',
@@ -9432,7 +9470,7 @@ Visa att omsorgsaspekterna är medel för att eleven ska kunna delta i undervisn
       },
       {
         fraga: 'Hur beskriver jag arbete med enskilda elever utan att bryta sekretess?',
-        svar: 'Använd generella formuleringar och aggregerad data. Istället för specifika barn skriver du "stöttade elev i årskurs 4 med dyslexi – anpassade läsmaterial ökade läshastigheten". Använd plural när möjligt: "3 av 4 elever nådde målen i svenska". Ta bort all info om kön, ålder eller unika beteenden som kan identifiera barnet. Fokusera på DIN insats, METODEN och RESULTATET.'
+        svar: 'Använd generella formuleringar och aggregerad data. Istället för specifika barn skriver du "stöttade elev i årskurs 4 med dyslexi, anpassade läsmaterial ökade läshastigheten". Använd plural när möjligt: "3 av 4 elever nådde målen i svenska". Ta bort all info om kön, ålder eller unika beteenden som kan identifiera barnet. Fokusera på DIN insats, METODEN och RESULTATET.'
       },
       {
         fraga: 'Hur visar jag samarbetsförmåga i CV:t?',
@@ -9440,7 +9478,7 @@ Visa att omsorgsaspekterna är medel för att eleven ska kunna delta i undervisn
       },
       {
         fraga: 'Vad är skillnaden mellan elevassistent och resurspedagog i CV:t?',
-        svar: 'Elevassistent stöttar enskilda elever med särskilda behov i klassrummet. Resurspedagog är oftast legitimerad lärare som arbetar övergripande med hela elevgrupper. I ditt CV som elevassistent, fokusera på: individanpassat stöd, ADL-funktioner, trygghet och struktur, assisterande pedagogiskt arbete. Undvik att skriva att du "undervisar" om du inte har lärarlegitimation – skriv istället "pedagogiskt stöd enligt lärares planering".'
+        svar: 'Elevassistent stöttar enskilda elever med särskilda behov i klassrummet. Resurspedagog är oftast legitimerad lärare som arbetar övergripande med hela elevgrupper. I ditt CV som elevassistent, fokusera på: individanpassat stöd, ADL-funktioner, trygghet och struktur, assisterande pedagogiskt arbete. Undvik att skriva att du "undervisar" om du inte har lärarlegitimation, skriv istället "pedagogiskt stöd enligt lärares planering".'
       }
     ],
 
@@ -9469,10 +9507,10 @@ Använd detta som mall när du skapar ditt eget CV för finansiell rådgivare. A
     intro: 'Ett professionellt CV-exempel för kundrådgivare som visar din kompetens inom finansiell rådgivning, regelkunskap och kundrelationer. Detta exempel är optimerat för svenska banker och ATS-system.',
 
     viktigtAttTankaPa: [
-      'Inkludera SwedSec-licens med förnyelsedatum högst upp – det är lagkrav för rådgivning',
+      'Inkludera SwedSec-licens med förnyelsedatum högst upp, det är lagkrav för rådgivning',
       'Kvantifiera din kundportfölj: antal kunder, förvaltningskapital, förmedlade lån och korsförsäljning',
       'Nämn specifika system: Salesforce/Dynamics CRM, UC/Creditsafe, och MiFID II/AML-kompetens',
-      'Visa progression från enklare till mer komplexa kundgrupper (privat → företag, bolån → kapitalförvaltning)'
+      'Visa progression från enklare till mer komplexa kundgrupper (privat, sedan företag, bolån, sedan kapitalförvaltning)'
     ],
 
     exempelCV: {
@@ -9536,13 +9574,13 @@ Använd detta som mall när du skapar ditt eget CV för finansiell rådgivare. A
 
       kompetenser: {
         tekniska: [
-          'SwedSec-licens (Regelkunskap Bas + Rådgivning) – Förnyad 2024',
-          'Kreditbedömning och riskanalys – UC, Creditsafe, Bisnode (Expert, 6+ år)',
-          'CRM-system – Salesforce, Microsoft Dynamics 365 (Avancerad, daglig användning)',
+          'SwedSec-licens (Regelkunskap Bas + Rådgivning): Förnyad 2024',
+          'Kreditbedömning och riskanalys: UC, Creditsafe, Bisnode (Expert, 6+ år)',
+          'CRM-system: Salesforce, Microsoft Dynamics 365 (Avancerad, daglig användning)',
           'Bolåneförmedling och amorteringsplanering (Expert, 300+ ärenden)',
           'MiFID II och AML/KYC-regelefterlevnad (Avancerad)',
-          'Investeringsrådgivning – Fonder, aktier, strukturerade produkter',
-          'Försäkringsförmedling – Liv, hem, företagsförsäkringar',
+          'Investeringsrådgivning: Fonder, aktier, strukturerade produkter',
+          'Försäkringsförmedling: Liv, hem, företagsförsäkringar',
           'Finansiell analys och portföljoptimering'
         ],
         personliga: [
@@ -9557,10 +9595,10 @@ Använd detta som mall när du skapar ditt eget CV för finansiell rådgivare. A
 
       certifieringar: [
         'SwedSec Regelkunskap Bas (Förnyad 2024)',
-        'SwedSec Rådgivning Bas – Aktier, Fonder, Obligationer (2023)',
+        'SwedSec Rådgivning Bas: Aktier, Fonder, Obligationer (2023)',
         'Försäkringsförmedling nivå 1 och 2 (2022)',
         'AML/KYC Specialist Certification (2023)',
-        'Microsoft Dynamics 365 Certified – Finance (2021)'
+        'Microsoft Dynamics 365 Certified: Finance (2021)'
       ],
 
       sprak: [
@@ -9573,7 +9611,7 @@ Använd detta som mall när du skapar ditt eget CV för finansiell rådgivare. A
     varforDetFungerar: [
       {
         rubrik: 'SwedSec-licens syns direkt i profiltexten',
-        text: `CV:t öppnar med "Auktoriserad kundrådgivare med 6+ års erfarenhet" och nämner SwedSec-licens redan i andra meningen. Certifieringarna listar specifika licenser med förnyelsedatum: "SwedSec Regelkunskap Bas (Förnyad 2024)" och "SwedSec Rådgivning Bas – Aktier, Fonder, Obligationer (2023)".
+        text: `CV:t öppnar med "Auktoriserad kundrådgivare med 6+ års erfarenhet" och nämner SwedSec-licens redan i andra meningen. Certifieringarna listar specifika licenser med förnyelsedatum: "SwedSec Regelkunskap Bas (Förnyad 2024)" och "SwedSec Rådgivning Bas, Aktier, Fonder, Obligationer (2023)".
 
 **Varför detta fungerar:** SwedSec-licens är ett absolut krav för rådgivning inom bank och finans i Sverige. Genom att placera denna information högst upp i CV:t visar du omedelbart att du är auktoriserad att ge finansiell rådgivning. ATS-system söker efter exakt denna term, och rekryterare behöver inte leta efter den. Förnyelsedatum bevisar att din kompetens är aktuell och regelefterlevd.`
       },
@@ -9593,7 +9631,7 @@ Använd detta som mall när du skapar ditt eget CV för finansiell rådgivare. A
         rubrik: 'Specifika system och verktyg från banksektorn',
         text: `CV:t nämner konkreta verktyg som används dagligen inom bank: Salesforce CRM, Microsoft Dynamics 365, UC och Creditsafe för kreditprövning. Varje system har kompetensnivå och användningskontext: "Salesforce CRM (Avancerad, daglig användning)" och "UC, Creditsafe, Bisnode (Expert, 6+ år)".
 
-**Varför detta fungerar:** ATS-system söker efter dessa verktyg eftersom de är branschstandard. Genom att skriva "Salesforce CRM" istället för bara "CRM-system" matchar du exakt vad systemet letar efter. Rekryterare ser att du inte behöver utbildas i grundläggande arbetsverktyg – du kan börja jobba direkt. Kompetensnivån visar att du inte bara använt verktygen, utan behärskar dem.`
+**Varför detta fungerar:** ATS-system söker efter dessa verktyg eftersom de är branschstandard. Genom att skriva "Salesforce CRM" istället för bara "CRM-system" matchar du exakt vad systemet letar efter. Rekryterare ser att du inte behöver utbildas i grundläggande arbetsverktyg, du kan börja jobba direkt. Kompetensnivån visar att du inte bara använt verktygen, utan behärskar dem.`
       },
       {
         rubrik: 'Profiltext som matchar både företag och privatrådgivning',
@@ -9605,7 +9643,7 @@ Använd detta som mall när du skapar ditt eget CV för finansiell rådgivare. A
         rubrik: 'Tydlig progression från bolån till företagskunder',
         text: `Erfarenheten visar utveckling: från bolånerådgivare med 200+ ärenden per år, till privat banking med 120+ förmögna kunder, till senior företagsrådgivare med 180+ företagskunder och 420 MSEK i förvaltningskapital. Varje roll har ökad komplexitet, större affärsvolym och mer ansvar (inklusive mentorskap för 3 junior rådgivare).
 
-**Varför detta fungerar:** Progression visar ambition och förmåga att ta sig an mer komplexa uppdrag. Många rådgivare stannar på samma nivå i hela karriären. Du visar att du gått från standardiserade bolåneärenden till komplexa företagskrediter och förmögenhetsrådgivning. Mentorskap för juniora kollegor bevisar att ledningen litar på dig och att du kan dela kunskap – vilket är värdefullt vid rekrytering av seniora rådgivare.`
+**Varför detta fungerar:** Progression visar ambition och förmåga att ta sig an mer komplexa uppdrag. Många rådgivare stannar på samma nivå i hela karriären. Du visar att du gått från standardiserade bolåneärenden till komplexa företagskrediter och förmögenhetsrådgivning. Mentorskap för juniora kollegor bevisar att ledningen litar på dig och att du kan dela kunskap, vilket är värdefullt vid rekrytering av seniora rådgivare.`
       }
     ],
 
@@ -9618,9 +9656,9 @@ Använd detta som mall när du skapar ditt eget CV för finansiell rådgivare. A
 
 ❌ "Certifierad rådgivare med bankutbildningar"
 
-✅ "SwedSec Regelkunskap Bas (Förnyad 2024), SwedSec Rådgivning Bas – Aktier, Fonder, Obligationer (2023), Försäkringsförmedling nivå 1 och 2 (2022)"
+✅ "SwedSec Regelkunskap Bas (Förnyad 2024), SwedSec Rådgivning Bas, Aktier, Fonder, Obligationer (2023), Försäkringsförmedling nivå 1 och 2 (2022)"
 
-Om din SwedSec-licens gått ut, förnya den innan du söker jobb – annars kan du inte arbeta med rådgivning. ATS-system söker specifikt efter "SwedSec" och rekryterare kontrollerar att licensen är giltig.`
+Om din SwedSec-licens gått ut, förnya den innan du söker jobb, annars kan du inte arbeta med rådgivning. ATS-system söker specifikt efter "SwedSec" och rekryterare kontrollerar att licensen är giltig.`
       },
       {
         rubrik: 'Kvantifiera din kundportfölj och affärsresultat',
@@ -9687,7 +9725,7 @@ Visa inte bara att du bytt jobb, utan att varje byte inneburit mer ansvar, stör
     faq: [
       {
         fraga: 'Hur lång ska ett CV för kundrådgivare vara?',
-        svar: 'För erfarna kundrådgivare med 5+ års erfarenhet är två A4-sidor standard. Nyexaminerade civilekonomer som söker sitt första rådgivarjobb klarar sig med en sida. Det viktiga är att varje punkt tillför värde – fokusera på konkreta resultat (ökad korsförsäljning, antal kunder, förmedlade lån) snarare än generiska beskrivningar av arbetsuppgifter.'
+        svar: 'För erfarna kundrådgivare med 5+ års erfarenhet är två A4-sidor standard. Nyexaminerade civilekonomer som söker sitt första rådgivarjobb klarar sig med en sida. Det viktiga är att varje punkt tillför värde, fokusera på konkreta resultat (ökad korsförsäljning, antal kunder, förmedlade lån) snarare än generiska beskrivningar av arbetsuppgifter.'
       },
       {
         fraga: 'Vilka certifieringar ska ingå i kundrådgivare CV?',
@@ -9695,11 +9733,11 @@ Visa inte bara att du bytt jobb, utan att varje byte inneburit mer ansvar, stör
       },
       {
         fraga: 'Hur skriver jag CV som kundrådgivare utan erfarenhet?',
-        svar: 'Fokusera på din utbildning (civilekonom, ekonomprogrammet), relevanta kurser (företagsekonomi, finansiell analys) och eventuella praktikplatser inom bank eller försäkring. Om du jobbat inom kundtjänst, försäljning eller serviceyrken, lyft fram relationsskapande, behovsanalys och lösningsorienterad kommunikation. Ta SwedSec-licensen innan du söker – det visar att du är allvarlig och redo att börja arbeta direkt.'
+        svar: 'Fokusera på din utbildning (civilekonom, ekonomprogrammet), relevanta kurser (företagsekonomi, finansiell analys) och eventuella praktikplatser inom bank eller försäkring. Om du jobbat inom kundtjänst, försäljning eller serviceyrken, lyft fram relationsskapande, behovsanalys och lösningsorienterad kommunikation. Ta SwedSec-licensen innan du söker, det visar att du är allvarlig och redo att börja arbeta direkt.'
       },
       {
         fraga: 'Ska jag inkludera försäljningssiffror i mitt CV?',
-        svar: 'Ja, absolut om du har konkreta resultat. Nämn ökad korsförsäljning (i procent), antal förmedlade bolån, totalt förmedlat kapital, eller förbättrad kundnöjdhet (NPS-poäng). Undvik dock att bara skriva "överträffade målen" utan att specificera hur mycket. Var ärlig – om dina siffror är svaga, fokusera istället på kundnöjdhet, regelefterlevnad eller kvalitativa förbättringar i kundrelationer.'
+        svar: 'Ja, absolut om du har konkreta resultat. Nämn ökad korsförsäljning (i procent), antal förmedlade bolån, totalt förmedlat kapital, eller förbättrad kundnöjdhet (NPS-poäng). Undvik dock att bara skriva "överträffade målen" utan att specificera hur mycket. Var ärlig, om dina siffror är svaga, fokusera istället på kundnöjdhet, regelefterlevnad eller kvalitativa förbättringar i kundrelationer.'
       },
       {
         fraga: 'Hur visar jag att jag kan hantera kreditbedömningar?',
@@ -9707,11 +9745,11 @@ Visa inte bara att du bytt jobb, utan att varje byte inneburit mer ansvar, stör
       },
       {
         fraga: 'Vad ska jag skriva i sammanfattningen/profiltexten?',
-        svar: 'Börja med din titel och specialisering ("Auktoriserad kundrådgivare med specialisering i företagsrådgivning"). Nämn sedan SwedSec-licens, antal års erfarenhet och huvudsakliga kompetensområden (kreditbedömning, bolåneförmedling, investeringsrådgivning). Avsluta med ett konkret resultat eller din drivkraft. Håll det till 3-4 meningar och undvik fluff som "passionerad om finans" – visa istället vad du åstadkommit.'
+        svar: 'Börja med din titel och specialisering ("Auktoriserad kundrådgivare med specialisering i företagsrådgivning"). Nämn sedan SwedSec-licens, antal års erfarenhet och huvudsakliga kompetensområden (kreditbedömning, bolåneförmedling, investeringsrådgivning). Avsluta med ett konkret resultat eller din drivkraft. Håll det till 3-4 meningar och undvik fluff som "passionerad om finans", visa istället vad du åstadkommit.'
       },
       {
         fraga: 'Ska jag nämna vilka banker jag arbetat på?',
-        svar: 'Ja, absolut. Nämn bankens namn och eventuell avdelning ("Swedbank Stockholm City", "Nordea Private Banking", "SEB Företagsrådgivning"). Detta ger rekryterare kontext om vilken typ av kunder och produkter du jobbat med. Om du arbetat på en liten bank eller nischad aktör, förklara kort vilken typ av verksamhet det var: "Länsförsäkringar Gotland – Kombinerad försäkrings- och bankrådgivning till privatpersoner och småföretag".'
+        svar: 'Ja, absolut. Nämn bankens namn och eventuell avdelning ("Swedbank Stockholm City", "Nordea Private Banking", "SEB Företagsrådgivning"). Detta ger rekryterare kontext om vilken typ av kunder och produkter du jobbat med. Om du arbetat på en liten bank eller nischad aktör, förklara kort vilken typ av verksamhet det var: "Länsförsäkringar Gotland, Kombinerad försäkrings- och bankrådgivning till privatpersoner och småföretag".'
       },
       {
         fraga: 'Hur hanterar jag byte från annan bransch till kundrådgivare?',
@@ -9719,7 +9757,7 @@ Visa inte bara att du bytt jobb, utan att varje byte inneburit mer ansvar, stör
       },
       {
         fraga: 'Ska personligt brev ingå när jag söker jobb som kundrådgivare?',
-        svar: 'Ja, nästan alltid inom banksektorn. Personligt brev ger dig chansen att förklara varför du vill jobba på just den banken, hur du passar deras värdegrund och vad du kan tillföra. Anpassa alltid brevet – nämn specifika produkter eller kundgrupper de arbetar med. Generiska brev sorteras bort omedelbart.'
+        svar: 'Ja, nästan alltid inom banksektorn. Personligt brev ger dig chansen att förklara varför du vill jobba på just den banken, hur du passar deras värdegrund och vad du kan tillföra. Anpassa alltid brevet, nämn specifika produkter eller kundgrupper de arbetar med. Generiska brev sorteras bort omedelbart.'
       },
       {
         fraga: 'Hur lyfter jag fram min kunskap om regelefterlevnad?',
@@ -9742,11 +9780,11 @@ Visa inte bara att du bytt jobb, utan att varje byte inneburit mer ansvar, stör
     metaTitle: 'CV Exempel Kundtjänst 2026 - Professionell Mall | Jobbcoach.ai',
     metaDescription: 'Se ett komplett CV-exempel för kundtjänst med ATS-optimering. Visar Zendesk, Salesforce, kvantifierbara resultat och teknisk support-kompetens. Inkl. tips för svensk kundservice.',
 
-    seoIntro: `Söker du jobb inom kundtjänst och behöver ett CV som sticker ut? Det här exemplet visar hur du strukturerar ett ATS-optimerat CV som passar svenska kundservicemiljöer – från teknisk support till e-handel och telekom.
+    seoIntro: `Söker du jobb inom kundtjänst och behöver ett CV som sticker ut? Det här exemplet visar hur du strukturerar ett ATS-optimerat CV som passar svenska kundservicemiljöer, från teknisk support till e-handel och telekom.
 
 Du får se exakt hur du balanserar teknisk kompetens (Zendesk, Salesforce, CRM-system) med kvantifierbara resultat som NPS-score, ärendehantering och kundnöjdhet. CV:t demonstrerar progression från första linjens support till teamledare med mentorskap och kvalitetsansvar.
 
-Använd det som inspiration för ditt eget CV kundtjänst och anpassa det efter den tjänst du söker – oavsett om det gäller telefonsupport, chatt, teknisk support eller merförsäljning. Läs också våra tips om hur du kvantifierar dina resultat för att öka dina chanser till intervju.`,
+Använd det som inspiration för ditt eget CV kundtjänst och anpassa det efter den tjänst du söker, oavsett om det gäller telefonsupport, chatt, teknisk support eller merförsäljning. Läs också våra tips om hur du kvantifierar dina resultat för att öka dina chanser till intervju.`,
 
     intro: 'Ett professionellt CV-exempel för kundtjänst som visar din servicekompetens, tekniska färdigheter och förmåga att leverera mätbara resultat. Detta exempel är optimerat för svenska företag och ATS-system inom support, e-handel och teknisk kundservice.',
 
@@ -9756,7 +9794,7 @@ Använd det som inspiration för ditt eget CV kundtjänst och anpassa det efter 
       kontakt: {
         telefon: '070-234 56 78',
         epost: 'lisa.eriksson@email.se',
-        plats: 'Stockholm',
+        plats: 'Göteborg',
         linkedin: 'linkedin.com/in/lisaeriksson'
       },
 
@@ -9769,9 +9807,9 @@ Använd det som inspiration för ditt eget CV kundtjänst och anpassa det efter 
           period: '2021 – Pågående',
           beskrivning: [
             'Hanterar 80-100 eskalerade ärenden per dag via Zendesk (telefon, chatt, e-post) inom betalningslösningar och teknisk support',
-            'Uppnår NPS 87 och kundnöjdhet (CSAT) 92% genom strukturerad problemlösning och empatiskt bemötande – rankad top 5% i teamet',
+            'Uppnår NPS 87 och kundnöjdhet (CSAT) 92% genom strukturerad problemlösning och empatiskt bemötande, rankad top 5% i teamet',
             'Ansvarar för kvalitetssäkring av 200+ ärenden/månad med fokus på First Contact Resolution (FCR 78%) och SLA-efterlevnad (95% inom 24h)',
-            'Mentorskap för 8 nya medarbetare under introduktionsperiod (6 veckor) – reducerade onboarding-tid med 25%',
+            'Mentorskap för 8 nya medarbetare under introduktionsperiod (6 veckor), reducerade onboarding-tid med 25%',
             'Medverkar i processförbättringsprojekt som minskade genomsnittlig ärendetid från 8 till 6 minuter (25% effektivisering)'
           ]
         },
@@ -9830,7 +9868,7 @@ Använd det som inspiration för ditt eget CV kundtjänst och anpassa det efter 
       certifieringar: [
         'Zendesk Support Administrator Certification (2022)',
         'Salesforce Service Cloud Basics (2021)',
-        'COPC Customer Service Standard – Foundation (2020)',
+        'COPC Customer Service Standard: Foundation (2020)',
         'Konflikthantering och svåra samtal (2023)',
         'Merförsäljning och kundretention (2020)'
       ],
@@ -9852,7 +9890,7 @@ Varför detta fungerar: ATS-system söker efter exakta systembeteckningar som ma
         rubrik: 'Kvantifierade resultat inom kundnöjdhet',
         text: `Varje arbetsgivare har mätbara resultat: NPS 87 på Klarna, CSAT 92% på Telia, FCR 78% kombinerat med 80-100 ärenden per dag. Inga vaga påståenden som "hög kundnöjdhet" eller "effektiv problemlösning".
 
-Varför detta fungerar: Kundtjänst är en datadrivet funktion där rekryterare förväntar sig siffror. NPS och CSAT är branschstandard-mått som direkt visar prestation. Att kombinera kvalitetsmetrik (FCR 78%) med volym (80-100 ärenden/dag) bevisar att Lisa hanterar både hög arbetsbelastning och bibehåller kvalitet – en kritisk balans i kundtjänst.`
+Varför detta fungerar: Kundtjänst är en datadrivet funktion där rekryterare förväntar sig siffror. NPS och CSAT är branschstandard-mått som direkt visar prestation. Att kombinera kvalitetsmetrik (FCR 78%) med volym (80-100 ärenden/dag) bevisar att Lisa hanterar både hög arbetsbelastning och bibehåller kvalitet, en kritisk balans i kundtjänst.`
       },
       {
         rubrik: 'Teknisk kompetens backat med konkreta bevis',
@@ -9864,19 +9902,19 @@ Varför detta fungerar: Många söker kundtjänstroller utan teknisk bakgrund. G
         rubrik: 'Certifieringar med årtal och nivå',
         text: `Certifieringarna är inte bara listade utan inkluderar årtal: Zendesk Administrator (2022), Salesforce Service Cloud (2021), COPC Customer Service Standard (2020). Detta visar progression och kontinuerlig utveckling.
 
-Varför detta fungerar: Årtal bevisar att kompetensen är aktuell – kritiskt för system som uppdateras ofta. Zendesk Administrator är inte en grundkurs utan avancerad nivå, vilket signalerar expertis. Att ha tre olika certifieringar från olika år visar engagemang för professionell utveckling, inte bara obligatorisk onboarding.`
+Varför detta fungerar: Årtal bevisar att kompetensen är aktuell, kritiskt för system som uppdateras ofta. Zendesk Administrator är inte en grundkurs utan avancerad nivå, vilket signalerar expertis. Att ha tre olika certifieringar från olika år visar engagemang för professionell utveckling, inte bara obligatorisk onboarding.`
       },
       {
         rubrik: 'Profiltext som sammanfattar specialisering',
         text: `Profiltexten nämner direkt "teknisk kundtjänst" och "B2B/B2C", kombinerat med nyckelord som Zendesk, teamledning och kundnöjdhet. Första meningen sätter tonen: "Erfaren kundtjänstspecialist med expertis i teknisk support".
 
-Varför detta fungerar: Rekryterare läser profiltexten först och avgör på 10 sekunder om kandidaten matchar. Genom att frontera "teknisk support" och "B2B/B2C" filtrerar Lisa själv – företag som söker enkel telefonsupport går vidare, medan tech-företag fastnar. Keywords som Zendesk och teamledning gör att ATS-systemet rankar CV:t högre.`
+Varför detta fungerar: Rekryterare läser profiltexten först och avgör på 10 sekunder om kandidaten matchar. Genom att frontera "teknisk support" och "B2B/B2C" filtrerar Lisa själv, företag som söker enkel telefonsupport går vidare, medan tech-företag fastnar. Keywords som Zendesk och teamledning gör att ATS-systemet rankar CV:t högre.`
       },
       {
         rubrik: 'Tydlig karriärprogression från junior till ledare',
-        text: `Rollerna visar en logisk progression: Kundtjänstmedarbetare (H&M) → Teknisk Support (Telia) → Teamledare Kundtjänst (Klarna). Ansvarsområdena växer från grundläggande support till teknisk specialisering och slutligen teamledning med sex medarbetare.
+        text: `Rollerna visar en logisk progression: Kundtjänstmedarbetare (H&M), sedan Teknisk Support (Telia), sedan Teamledare Kundtjänst (Klarna). Ansvarsområdena växer från grundläggande support till teknisk specialisering och slutligen teamledning med sex medarbetare.
 
-Varför detta fungerar: Rekryterare letar efter röd tråd och utveckling. Progressionen från retail till telekom till fintech visar adaptionsförmåga över branscher. Att gå från junior till teamledare på sex år bevittnar både kompetens och ambition – attraktivt för företag som söker framtida ledare eller senior-roller.`
+Varför detta fungerar: Rekryterare letar efter röd tråd och utveckling. Progressionen från retail till telekom till fintech visar adaptionsförmåga över branscher. Att gå från junior till teamledare på sex år bevittnar både kompetens och ambition, attraktivt för företag som söker framtida ledare eller senior-roller.`
       }
     ],
 
@@ -9891,7 +9929,7 @@ Varför detta fungerar: Rekryterare letar efter röd tråd och utveckling. Progr
 
 ✅ "Hanterade 80+ kundärenden dagligen via telefon och e-post med 95% FCR (First Contact Resolution) och bibehöll NPS på 72"
 
-Det konkreta exemplet visar både volym, kvalitet och kundnöjdhet – tre nyckeltal som kundtjänstchefer värderar högt.`
+Det konkreta exemplet visar både volym, kvalitet och kundnöjdhet, tre nyckeltal som kundtjänstchefer värderar högt.`
       },
       {
         rubrik: 'Nämn specifika system istället för generiska termer',
@@ -9901,7 +9939,7 @@ Det konkreta exemplet visar både volym, kvalitet och kundnöjdhet – tre nycke
 
 ❌ "Erfaren i olika CRM-system och supportsystem"
 
-✅ "Arbetar dagligen i Zendesk, Salesforce Service Cloud och Intercom – hanterar ärenden, bygger automatiserade workflows och genererar rapporter"
+✅ "Arbetar dagligen i Zendesk, Salesforce Service Cloud och Intercom, hanterar ärenden, bygger automatiserade workflows och genererar rapporter"
 
 När du namnger exakta verktyg blir din erfarenhet konkret och verifierbar. Det visar också att du kan börja jobba direkt utan lång introduktion.`
       },
@@ -9915,7 +9953,7 @@ När du namnger exakta verktyg blir din erfarenhet konkret och verifierbar. Det 
 
 ✅ "Felsökte tekniska problem inom SaaS-plattformen (API-integrationer, SSO, datamigrering) och minskade eskaleringar till Level 2 med 40% genom tydliga guider"
 
-Exemplet visar både teknisk djupkunskap och förmågan att lösa problem självständigt – två avgörande kompetenser inom teknisk support.`
+Exemplet visar både teknisk djupkunskap och förmågan att lösa problem självständigt, två avgörande kompetenser inom teknisk support.`
       },
       {
         rubrik: 'Inkludera relevanta certifieringar med årtal',
@@ -9937,7 +9975,7 @@ Specifika certifieringar med årtal visar att din kunskap är aktuell och releva
 
 ❌ "Bra på att kommunicera och tekniskt kunnig"
 
-✅ "Kombinerar teknisk troubleshooting med empatisk kommunikation – uppnådde 4.8/5 i kundnöjdhet samtidigt som genomsnittlig lösningstid minskade från 12 till 7 minuter"
+✅ "Kombinerar teknisk troubleshooting med empatisk kommunikation, uppnådde 4.8/5 i kundnöjdhet samtidigt som genomsnittlig lösningstid minskade från 12 till 7 minuter"
 
 När du visar hur dina färdigheter leder till konkreta resultat blir påståenden om "bra kommunikation" trovärdiga och relevanta.`
       },
@@ -9949,16 +9987,16 @@ När du visar hur dina färdigheter leder till konkreta resultat blir påståend
 
 ❌ "Började som kundtjänstmedarbetare och blev senare teamledare"
 
-✅ "Befordrad från Customer Support Agent till Team Lead efter 14 månader – leder nu team på 8 agenter, minskat personalomsättningen med 35% och ökat team-NPS från 68 till 79"
+✅ "Befordrad från Customer Support Agent till Team Lead efter 14 månader, leder nu team på 8 agenter, minskat personalomsättningen med 35% och ökat team-NPS från 68 till 79"
 
-Konkret progression med tidsram och mätbara resultat som ledare visar att företaget litade på dig – och att du levererade.`
+Konkret progression med tidsram och mätbara resultat som ledare visar att företaget litade på dig, och att du levererade.`
       }
     ],
 
     faq: [
       {
         fraga: 'Hur långt ska mitt CV för kundtjänst vara?',
-        svar: 'En A4-sida om du har 0-3 års erfarenhet, två sidor om du har 4+ år eller teamledarerfarenhet. Kundtjänst handlar om att kommunicera tydligt – ett kortfattat CV bevisar den förmågan. Prioritera kvantifierbara resultat (NPS, CSAT, ärendemängd) och specifika system (Zendesk, Salesforce) över långa beskrivningar av arbetsuppgifter.'
+        svar: 'En A4-sida om du har 0-3 års erfarenhet, två sidor om du har 4+ år eller teamledarerfarenhet. Kundtjänst handlar om att kommunicera tydligt, ett kortfattat CV bevisar den förmågan. Prioritera kvantifierbara resultat (NPS, CSAT, ärendemängd) och specifika system (Zendesk, Salesforce) över långa beskrivningar av arbetsuppgifter.'
       },
       {
         fraga: 'Vilka system ska jag inkludera i ett CV för kundtjänst?',
@@ -9970,15 +10008,15 @@ Konkret progression med tidsram och mätbara resultat som ledare visar att före
       },
       {
         fraga: 'Ska jag inkludera NPS och andra KPI:er i mitt CV?',
-        svar: 'Ja, absolut. NPS, CSAT och FCR är branschstandard och rekryterare förväntar sig dessa siffror. Om du inte har exakta mått, uppskatta eller fokusera på relativa förbättringar: "Förbättrade CSAT från 78% till 89% på 6 månader". Inkludera även volymmått som antal ärenden per dag – det visar att du klarar arbetsbelastning samtidigt som du håller hög kvalitet.'
+        svar: 'Ja, absolut. NPS, CSAT och FCR är branschstandard och rekryterare förväntar sig dessa siffror. Om du inte har exakta mått, uppskatta eller fokusera på relativa förbättringar: "Förbättrade CSAT från 78% till 89% på 6 månader". Inkludera även volymmått som antal ärenden per dag, det visar att du klarar arbetsbelastning samtidigt som du håller hög kvalitet.'
       },
       {
         fraga: 'Hur anpassar jag CV:t för teknisk support vs generell kundtjänst?',
-        svar: 'För teknisk support: Frontera tekniska verktyg (remote desktop, diagnostik), nämn eskaleringsprocesser och tekniska certifieringar. För generell kundtjänst: Fokusera på NPS/CSAT, multikanalhantering (telefon/mejl/chatt) och konfliktlösning. Anpassa profiltexten – skriv "teknisk kundtjänstspecialist" vs "kundtjänstmedarbetare" beroende på rollen du söker.'
+        svar: 'För teknisk support: Frontera tekniska verktyg (remote desktop, diagnostik), nämn eskaleringsprocesser och tekniska certifieringar. För generell kundtjänst: Fokusera på NPS/CSAT, multikanalhantering (telefon/mejl/chatt) och konfliktlösning. Anpassa profiltexten, skriv "teknisk kundtjänstspecialist" vs "kundtjänstmedarbetare" beroende på rollen du söker.'
       },
       {
         fraga: 'Vilka certifieringar är viktiga för kundtjänst?',
-        svar: 'Zendesk Administrator, Salesforce Service Cloud och COPC Customer Service Standard är branschstandard. HDI Support Center Analyst och ITIL Foundation är värdefulla för teknisk support. Inkludera alltid årtal så rekryteraren ser att kompetensen är aktuell. Undvik generiska "kundbemötande"-kurser från online-plattformar – fokusera på systemcertifieringar som faktiskt används i branschen.'
+        svar: 'Zendesk Administrator, Salesforce Service Cloud och COPC Customer Service Standard är branschstandard. HDI Support Center Analyst och ITIL Foundation är värdefulla för teknisk support. Inkludera alltid årtal så rekryteraren ser att kompetensen är aktuell. Undvik generiska "kundbemötande"-kurser från online-plattformar, fokusera på systemcertifieringar som faktiskt används i branschen.'
       },
       {
         fraga: 'Hur visar jag att jag är stresstålig utan att bara säga det?',
@@ -10022,7 +10060,7 @@ Använd exemplet som inspiration för ditt eget CV kundtjänst och anpassa det e
       kontakt: {
         telefon: '070-345 67 89',
         epost: 'emma.karlsson@email.se',
-        plats: 'Stockholm',
+        plats: 'Göteborg',
         linkedin: 'linkedin.com/in/emmakarlsson'
       },
 
@@ -10291,7 +10329,7 @@ Använd det som inspiration för ditt eget CV kurator och anpassa det efter den 
       kontakt: {
         telefon: '070-234 56 78',
         epost: 'maria.bergstrom@email.se',
-        plats: 'Göteborg',
+        plats: 'Stockholm',
         linkedin: 'linkedin.com/in/mariabergstrom'
       },
       profil: 'Erfaren kurator med 7+ års erfarenhet från primärvård och elevhälsa. Specialist på MI-samtal, KBT-baserade interventioner och krisbearbetning med gedigen kunskap i TakeCare, Cosmic och Procapita. Strukturerad och empatisk samtalsledare som samordnar tvärprofessionella insatser och dokumenterar enligt socialtjänstlagen och patientdatalagen. Certifierad i MI och utbildad i traumamedveten vård.',
@@ -10303,7 +10341,7 @@ Använd det som inspiration för ditt eget CV kurator och anpassa det efter den 
           period: '2020 – Pågående',
           beskrivning: [
             'Ansvarig för psykosocialt stöd till 40-50 patienter månatligen med fokus på stress, oro, depression och livskriser',
-            'Genomför strukturerade MI-samtal och kortare KBT-baserade interventioner – 75% av klienterna uppnår sina behandlingsmål inom 8-12 veckor',
+            'Genomför strukturerade MI-samtal och kortare KBT-baserade interventioner, 75% av klienterna uppnår sina behandlingsmål inom 8-12 veckor',
             'Samordnar insatser med primärvårdsläkare, psykolog, fysioterapeut och hemsjukvård för 20-25 komplexa patienter med multisjukdom',
             'Utför psykosocial utredning och riskbedömning vid suicidalitet, missbruk och våld i nära relationer',
             'Dokumenterar i TakeCare och Cosmic dagligen med säker hantering enligt GDPR och patientdatalagen',
@@ -10318,7 +10356,7 @@ Använd det som inspiration för ditt eget CV kurator och anpassa det efter den 
             'Stödsamtal och krissamtal för 80-100 elever årligen med utmaningar kring psykisk ohälsa, studiestress och familjesituation',
             'Samordnade elevhälsoteam (specialpedagog, skolsköterska, studie- och yrkesvägledare) kring 30-40 elever med omfattande behov',
             'Initierade samarbete med BUP och socialtjänst för 15 elever vilket minskade skolfrånvaron med 25% i målgruppen',
-            'Implementerade stresshanteringsgrupper för avgångselever (10-12 deltagare) – 40% förbättrad självskattad stresshantering',
+            'Implementerade stresshanteringsgrupper för avgångselever (10-12 deltagare), 40% förbättrad självskattad stresshantering',
             'Dokumenterade i Procapita och hanterade anmälningsplikt enligt socialtjänstlagen'
           ]
         }
@@ -10354,9 +10392,9 @@ Använd det som inspiration för ditt eget CV kurator och anpassa det efter den 
 
       certifieringar: [
         'MI-certifiering (MINT-godkänd grundutbildning, 2019)',
-        'Traumamedveten vård (TMV) – Steg 1 och 2 (2022)',
-        'Suicidriskbedömning – Columbia-protokollet och MADRS-S (2021)',
-        'Våld i nära relationer – FREDA-metoden (2023)',
+        'Traumamedveten vård (TMV): Steg 1 och 2 (2022)',
+        'Suicidriskbedömning: Columbia-protokollet och MADRS-S (2021)',
+        'Våld i nära relationer: FREDA-metoden (2023)',
         'GDPR och säker journalhantering (2024)'
       ],
 
@@ -10369,7 +10407,7 @@ Använd det som inspiration för ditt eget CV kurator och anpassa det efter den 
     varforDetFungerar: [
       {
         rubrik: 'Branschspecifik terminologi ökar ATS-träffsäkerheten',
-        text: `Maria använder exakta termer som "MI-samtal", "KBT-baserade interventioner" och "psykosocial utredning" – samma formuleringar som arbetsgivare söker efter. Hon skriver också ut systemnamn (TakeCare, Cosmic, Procapita) istället för vaga beskrivningar.
+        text: `Maria använder exakta termer som "MI-samtal", "KBT-baserade interventioner" och "psykosocial utredning", samma formuleringar som arbetsgivare söker efter. Hon skriver också ut systemnamn (TakeCare, Cosmic, Procapita) istället för vaga beskrivningar.
 
 Varför detta fungerar: ATS-system i vård och skola söker efter specifika metodnamn och journalsystem. Genom att använda standardiserad terminologi som återfinns i jobbannonser passerar CV:t automatisk filtrering. Rekryterare ser direkt att Maria behärskar de system och metoder som krävs, vilket minskar osäkerheten kring matchning.`
       },
@@ -10383,7 +10421,7 @@ Varför detta fungerar: Kuratorsrollen handlar om mätbar förändring, men mån
         rubrik: 'Tvärprofessionell samordning konkretiseras med roller',
         text: `Maria beskriver inte bara "samarbete" utan specificerar MED VEM och I VILKET SYFTE: "Samordnar elevhälsoteam (skolsköterska, specialpedagog, rektor) för 30-40 elever". Hon namnger exakta yrkesroller och omfattning.
 
-Varför detta fungerar: Samordningsansvar är centralt i kuratorsrollen men ofta vagt beskrivet. Genom att namnge specifika professioner och visa omfattning bevisar Maria att hon kan leda tvärprofessionella processer – en nyckelkompetens som många arbetsgivare söker men sällan ser tydligt dokumenterad.`
+Varför detta fungerar: Samordningsansvar är centralt i kuratorsrollen men ofta vagt beskrivet. Genom att namnge specifika professioner och visa omfattning bevisar Maria att hon kan leda tvärprofessionella processer, en nyckelkompetens som många arbetsgivare söker men sällan ser tydligt dokumenterad.`
       },
       {
         rubrik: 'Certifieringar med årtal visar systematisk kompetensutveckling',
@@ -10399,7 +10437,7 @@ Varför detta fungerar: Rekryterare läser profiltexten först och beslutar inom
       },
       {
         rubrik: 'Tydlig karriärprogression från behandling till ledning',
-        text: `Tjänsteutvecklingen visar progression: från elevhälsokurator till vårdcentral med samordningsansvar och handledning av praktikanter. Beskrivningarna blir mer komplexa – från individuell behandling till systemansvar.
+        text: `Tjänsteutvecklingen visar progression: från elevhälsokurator till vårdcentral med samordningsansvar och handledning av praktikanter. Beskrivningarna blir mer komplexa, från individuell behandling till systemansvar.
 
 Varför detta fungerar: Arbetsgivare söker ofta kuratorer som kan växa in i samordnande roller. Genom att visa en naturlig progression från patientnära arbete till systemansvar demonstrerar Maria att hon kan ta ökande ansvar. Rekryterare ser inte bara vad hon gör nu, utan även hennes potential för framtida utveckling.`
       }
@@ -10474,7 +10512,7 @@ Detta visar att du kan leda processer och kommunicera över professionsgränser.
 
 ❌ Lista bara arbetsuppgifter kronologiskt utan att visa utveckling
 
-✅ "Kurator (2017-2020): Individuell behandling → Kurator (2020-nu): Behandling + teamsamordning + handledning av socionomer"
+✅ "Kurator (2017-2020): Individuell behandling, sedan Kurator (2020-nu): Behandling + teamsamordning + handledning av socionomer"
 
 Genom att tydliggöra progression visar du ambition och förmåga att ta ökande ansvar.`
       }
@@ -10483,7 +10521,7 @@ Genom att tydliggöra progression visar du ambition och förmåga att ta ökande
     faq: [
       {
         fraga: 'Hur visar jag terapeutisk kompetens utan att överdriva?',
-        svar: 'Använd specifika metodnamn (MI, KBT, narrativ terapi) istället för vaga beskrivningar. Inkludera kvantifierbara resultat på gruppnivå: "75% av patienter uppnår behandlingsmål inom 6 månader". Lista certifieringar med årtal för att bevisa formell utbildning. Undvik subjektiva påståenden som "utmärkt samtalsterapeut" – låt resultat och metoder tala för sig.'
+        svar: 'Använd specifika metodnamn (MI, KBT, narrativ terapi) istället för vaga beskrivningar. Inkludera kvantifierbara resultat på gruppnivå: "75% av patienter uppnår behandlingsmål inom 6 månader". Lista certifieringar med årtal för att bevisa formell utbildning. Undvik subjektiva påståenden som "utmärkt samtalsterapeut", låt resultat och metoder tala för sig.'
       },
       {
         fraga: 'Ska jag inkludera journalsystem i CV:t?',
@@ -10491,7 +10529,7 @@ Genom att tydliggöra progression visar du ambition och förmåga att ta ökande
       },
       {
         fraga: 'Hur hanterar jag att jag bytt mellan sjukvård och skola?',
-        svar: 'Framhåll detta som en styrka – bred erfarenhet av olika patientgrupper och system. I profiltexten, skriv: "Erfaren kurator från både primärvård och elevhälsa". Under varje tjänst, betona överförbar kompetens: MI-samtal, krisbearbetning, tvärprofessionell samordning. Anpassa sedan profiltexten beroende på vad du söker.'
+        svar: 'Framhåll detta som en styrka, bred erfarenhet av olika patientgrupper och system. I profiltexten, skriv: "Erfaren kurator från både primärvård och elevhälsa". Under varje tjänst, betona överförbar kompetens: MI-samtal, krisbearbetning, tvärprofessionell samordning. Anpassa sedan profiltexten beroende på vad du söker.'
       },
       {
         fraga: 'Vad gör jag om jag saknar formell MI-certifiering?',
@@ -10521,9 +10559,9 @@ Genom att tydliggöra progression visar du ambition och förmåga att ta ökande
 
     seoIntro: `Ett starkt CV för grundskollärare lyfter fram både din pedagogiska kompetens och dina elevresultat. Rekryterare söker efter konkreta bevis på din förmåga att höja kunskapsnivån, skapa inkluderande lärmiljöer och samarbeta med vårdnadshavare och kollegor.
 
-Detta CV-exempel visar hur du kombinerar formell behörighet (lärarlegitimation F-6, ämneskompetenser) med mätbara resultat – som 78% till 94% måluppfyllelse i svenska och 31% förbättrad läsförståelse. CV:t är optimerat för ATS-system genom att inkludera nyckelord som formativ bedömning, IUP, elevhälsa och differentierad undervisning.
+Detta CV-exempel visar hur du kombinerar formell behörighet (lärarlegitimation F-6, ämneskompetenser) med mätbara resultat, som 78% till 94% måluppfyllelse i svenska och 31% förbättrad läsförståelse. CV:t är optimerat för ATS-system genom att inkludera nyckelord som formativ bedömning, IUP, elevhälsa och differentierad undervisning.
 
-Använd strukturen som mall och anpassa innehållet efter din egen erfarenhet och de ämnen du är behörig i. Ett välskrivet CV ökar dina chanser att bli kallad till intervju markant – särskilt i en arbetsmarknad där behöriga lärare är eftertraktade.`,
+Använd strukturen som mall och anpassa innehållet efter din egen erfarenhet och de ämnen du är behörig i. Ett välskrivet CV ökar dina chanser att bli kallad till intervju markant, särskilt i en arbetsmarknad där behöriga lärare är eftertraktade.`,
 
     intro: 'Som grundskollärare är ditt CV ditt professionella visitkort mot skolledare och rektorer. Ett välstrukturerat CV visar tydligt din lärarlegitimation, pedagogiska metoder och elevresultat.',
 
@@ -10628,7 +10666,7 @@ Varför detta fungerar: Sedan 2011 krävs lärarlegitimation för att undervisa 
         rubrik: 'Elevresultat kvantifierade med konkreta siffror',
         text: `CV:t innehåller mätbara resultat: "Höjde klassens måluppfyllelse i svenska från 78% till 94%" och "Förbättrade elevernas läsförståelse med 31% enligt standardiserade lästest (DLS)". Varje tjänsteperiod visar konkret påverkan på elevernas lärande.
 
-Varför detta fungerar: Skolledare letar efter lärare som kan bevisa sin pedagogiska effekt, inte bara beskriva sina arbetsuppgifter. Procentuella förbättringar och referenser till etablerade mätverktyg (DLS, LäSt) ger trovärdighet och visar att du arbetar evidensbaserat – precis som styrdokumenten kräver.`
+Varför detta fungerar: Skolledare letar efter lärare som kan bevisa sin pedagogiska effekt, inte bara beskriva sina arbetsuppgifter. Procentuella förbättringar och referenser till etablerade mätverktyg (DLS, LäSt) ger trovärdighet och visar att du arbetar evidensbaserat, precis som styrdokumenten kräver.`
       },
       {
         rubrik: 'Pedagogiska metoder som matchar skolans behov',
@@ -10646,13 +10684,13 @@ Varför detta fungerar: Skolans digitalisering accelererar och rektorer behöver
         rubrik: 'Elevhälsa och samverkan lyfts fram',
         text: `CV:t nämner deltagande i elevhälsoteam, samverkan med specialpedagog och regelbunden vårdnadshavarkontakt. Mentorskapet beskrivs med antal elever och konkreta ansvarsområden.
 
-Varför detta fungerar: Lärarrollen handlar inte bara om ämnesundervisning. Rektorer söker lärare som kan hantera hela uppdraget – inklusive föräldrakontakt, elevhälsoarbete och samverkan kring elever med särskilda behov. Genom att visa erfarenhet inom dessa områden framstår du som en komplett pedagog.`
+Varför detta fungerar: Lärarrollen handlar inte bara om ämnesundervisning. Rektorer söker lärare som kan hantera hela uppdraget, inklusive föräldrakontakt, elevhälsoarbete och samverkan kring elever med särskilda behov. Genom att visa erfarenhet inom dessa områden framstår du som en komplett pedagog.`
       },
       {
         rubrik: 'Karriärutveckling från vikarie till fast tjänst',
         text: `CV:t visar en tydlig progression: från vikariepoolen till fast tjänst på Södermalms Grundskola, vidare till en internationell skola. Notisen "Fick erbjudande om fast tjänst efter återkommande uppdrag" visar att tidigare arbetsgivare värdesatte kompetensen.
 
-Varför detta fungerar: Karriärprogression signalerar att du utvecklas och att arbetsgivare vill behålla dig. För en rektor som investerar i rekrytering är det värdefullt att se att kandidaten stannar och växer på en arbetsplats – inte hoppar runt utan anledning.`
+Varför detta fungerar: Karriärprogression signalerar att du utvecklas och att arbetsgivare vill behålla dig. För en rektor som investerar i rekrytering är det värdefullt att se att kandidaten stannar och växer på en arbetsplats, inte hoppar runt utan anledning.`
       }
     ],
 
@@ -10721,7 +10759,7 @@ Nämn lärplattformar (Google Classroom, Teams, Skolplattformen), digitala läro
         rubrik: 'Anpassa CV:t efter skolans profil och behov',
         text: `Olika skolor har olika fokusområden. En Montessoriskola, en kommunal F-6-skola och en internationell skola letar efter delvis olika kompetenser.
 
-Läs jobbannonsen noga och identifiera skolans satsningsområden. Anpassa din profiltext och ordningen på dina kompetenser för att matcha det skolan prioriterar – oavsett om det är språkutveckling, digitalisering, inkludering eller internationella utbyten.
+Läs jobbannonsen noga och identifiera skolans satsningsområden. Anpassa din profiltext och ordningen på dina kompetenser för att matcha det skolan prioriterar, oavsett om det är språkutveckling, digitalisering, inkludering eller internationella utbyten.
 
 **Exempel på före/efter:**
 
@@ -10734,7 +10772,7 @@ Läs jobbannonsen noga och identifiera skolans satsningsområden. Anpassa din pr
     faq: [
       {
         fraga: 'Hur långt ska mitt CV som grundskollärare vara?',
-        svar: 'Ett CV för grundskollärare ska vara 1-2 sidor. Är du nyexaminerad räcker oftast 1 sida, medan erfarna lärare med fler tjänster och certifieringar kan behöva 2 sidor. Fokusera på relevans – ta med det som stärker din ansökan till just den tjänst du söker och skippa gammal eller irrelevant information.'
+        svar: 'Ett CV för grundskollärare ska vara 1-2 sidor. Är du nyexaminerad räcker oftast 1 sida, medan erfarna lärare med fler tjänster och certifieringar kan behöva 2 sidor. Fokusera på relevans, ta med det som stärker din ansökan till just den tjänst du söker och skippa gammal eller irrelevant information.'
       },
       {
         fraga: 'Ska jag ha med lärarlegitimation på CV:t?',
@@ -10754,7 +10792,7 @@ Läs jobbannonsen noga och identifiera skolans satsningsområden. Anpassa din pr
       },
       {
         fraga: 'Hur hanterar jag luckor i mitt CV?',
-        svar: 'Var ärlig och kort. Föräldraledighet, studier eller sjukskrivning behöver inte förklaras i detalj – ange bara tidsperiod och kort beskrivning (\"Föräldraledighet\"). Om du gjort något relevant under uppehållet (vikarier, kurser, volontärarbete), ta gärna med det. Luckor är vanliga och sällan ett problem om resten av CV:t är starkt.'
+        svar: 'Var ärlig och kort. Föräldraledighet, studier eller sjukskrivning behöver inte förklaras i detalj, ange bara tidsperiod och kort beskrivning (\"Föräldraledighet\"). Om du gjort något relevant under uppehållet (vikarier, kurser, volontärarbete), ta gärna med det. Luckor är vanliga och sällan ett problem om resten av CV:t är starkt.'
       },
       {
         fraga: 'Ska jag ta med VFU/praktik från lärarutbildningen?',
@@ -10770,7 +10808,7 @@ Läs jobbannonsen noga och identifiera skolans satsningsområden. Anpassa din pr
       },
       {
         fraga: 'Hur anpassar jag CV:t för olika typer av skolor?',
-        svar: 'Läs jobbannonsen och skolans hemsida för att identifiera deras profil och prioriteringar. En Waldorfskola värdesätter andra saker än en kommunal skola med teknikprofil. Anpassa din profiltext och lyft fram de erfarenheter och kompetenser som matchar skolans fokus – oavsett om det är hållbarhet, internationalisering, inkludering eller digitalisering.'
+        svar: 'Läs jobbannonsen och skolans hemsida för att identifiera deras profil och prioriteringar. En Waldorfskola värdesätter andra saker än en kommunal skola med teknikprofil. Anpassa din profiltext och lyft fram de erfarenheter och kompetenser som matchar skolans fokus, oavsett om det är hållbarhet, internationalisering, inkludering eller digitalisering.'
       }
     ],
 
@@ -10791,9 +10829,9 @@ Läs jobbannonsen noga och identifiera skolans satsningsområden. Anpassa din pr
 
     seoIntro: `När du söker jobb som specialpedagog avgörs första sållningen ofta av om ditt CV innehåller rätt nyckelord för ATS-system. Detta exempel visar hur du lyfter fram utredningskompetens, NPF-kunskap och elevhälsoteamarbete med konkreta resultat istället för vaga påståenden som "ansvarstagande" eller "engagerad".
 
-CV:t visar 45+ pedagogiska utredningar per läsår, 120+ åtgärdsprogram i Unikum och handledning av 12 pedagoger i evidensbaserade metoder. Du ser hur screening-instrument som DLS och LäSt används för tidig identifiering av läsrisker, hur NPF-anpassningar implementerats i 8 klassrum och hur resultat mäts (25% minskning av elever som inte når målen i svenska, 90% av elever med läsrisker uppnådde kravnivå). Dessa siffror är inte slumpmässiga – de visar att arbetet faktiskt gör skillnad och att du kan hantera arbetsbelastningen på en typisk F-9-skola.
+CV:t visar 45+ pedagogiska utredningar per läsår, 120+ åtgärdsprogram i Unikum och handledning av 12 pedagoger i evidensbaserade metoder. Du ser hur screening-instrument som DLS och LäSt används för tidig identifiering av läsrisker, hur NPF-anpassningar implementerats i 8 klassrum och hur resultat mäts (25% minskning av elever som inte når målen i svenska, 90% av elever med läsrisker uppnådde kravnivå). Dessa siffror är inte slumpmässiga, de visar att arbetet faktiskt gör skillnad och att du kan hantera arbetsbelastningen på en typisk F-9-skola.
 
-Använd detta exempel som inspiration för att strukturera ditt eget CV. Kvantifiera dina utredningar, nämn dokumentationssystem (Unikum, IST), visa progression från lärare till specialpedagog och koppla insatser till Skollagen och Lgr22. Ett välstrukturerat CV för specialpedagog ökar dina chanser att nå intervju – särskilt när du backar upp kompetenser med konkreta resultat istället för buzzwords.`,
+Använd detta exempel som inspiration för att strukturera ditt eget CV. Kvantifiera dina utredningar, nämn dokumentationssystem (Unikum, IST), visa progression från lärare till specialpedagog och koppla insatser till Skollagen och Lgr22. Ett välstrukturerat CV för specialpedagog ökar dina chanser att nå intervju, särskilt när du backar upp kompetenser med konkreta resultat istället för buzzwords.`,
 
     intro: 'Ett professionellt CV-exempel för specialpedagog som visar din kompetens inom pedagogiska utredningar, NPF-kunskap och handledning av pedagoger. Detta exempel är optimerat för svenska skolor och ATS-system.',
 
@@ -10803,7 +10841,7 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV. Kvantif
       kontakt: {
         telefon: '070-345 67 89',
         epost: 'lisa.bergman@email.se',
-        plats: 'Stockholm',
+        plats: 'Växjö',
         linkedin: 'linkedin.com/in/lisabergman'
       },
 
@@ -10817,8 +10855,8 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV. Kvantif
           beskrivning: [
             'Ansvarig specialpedagog i elevhälsoteamet för F-6 med 450 elever. Genomför 45+ pedagogiska utredningar per läsår med fokus på NPF, läs-/skrivsvårigheter och matematiksvårigheter',
             'Minskade andelen elever som inte når målen i svenska med 25% genom strukturerade screeningrutiner (DLS, LäSt) och tidiga insatser i åk 1-3',
-            'Handleder 12 pedagoger i anpassningar för elever med NPF och dyslexi – implementerade visuella scheman och tydliggörande pedagogik i 8 klassrum',
-            'Samordnar elevhälsoteammöten med rektor, skolsköterska, kurator och skolpsykolog – utvecklar och följer upp 120+ åtgärdsprogram årligen i Unikum',
+            'Handleder 12 pedagoger i anpassningar för elever med NPF och dyslexi, implementerade visuella scheman och tydliggörande pedagogik i 8 klassrum',
+            'Samordnar elevhälsoteammöten med rektor, skolsköterska, kurator och skolpsykolog, utvecklar och följer upp 120+ åtgärdsprogram årligen i Unikum',
             'Genomför föreläsningar för pedagoger om SPSM:s metoder, tillgänglig lärmiljö och inkluderande undervisning (4 tillfällen per termin)'
           ]
         },
@@ -10828,8 +10866,8 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV. Kvantif
           period: '2016 – 2019',
           beskrivning: [
             'Specialpedagog för 280 elever i årskurs F-6 med ansvar för kartläggning, screening och pedagogiska utredningar (30+ utredningar per läsår)',
-            'Implementerade DLS-screening i åk 1-3 vilket möjliggjorde tidiga insatser för 18 elever med läsrisker – 90% av eleverna uppnådde kravnivå i åk 3',
-            'Undervisade elever i liten grupp (3-6 elever) med läs- och skrivsvårigheter – strukturerad träning i fonologisk medvetenhet och läsförståelsestrategier',
+            'Implementerade DLS-screening i åk 1-3 vilket möjliggjorde tidiga insatser för 18 elever med läsrisker, 90% av eleverna uppnådde kravnivå i åk 3',
+            'Undervisade elever i liten grupp (3-6 elever) med läs- och skrivsvårigheter, strukturerad träning i fonologisk medvetenhet och läsförståelsestrategier',
             'Genomförde utvecklingssamtal med vårdnadshavare och pedagoger för att säkerställa enhetlig kommunikation om elevers behov och stödinsatser'
           ]
         },
@@ -10863,13 +10901,13 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV. Kvantif
       kompetenser: {
         tekniska: [
           'Pedagogiska utredningar och kartläggning (Expert, 9+ år)',
-          'NPF-kunskap – ADHD, autism, Tourettes (Avancerad, 6+ år)',
-          'Screening – DLS, LäSt, Matematik Lgr22 (Expert, 7+ år)',
+          'NPF-kunskap: ADHD, autism, Tourettes (Avancerad, 6+ år)',
+          'Screening: DLS, LäSt, Matematik Lgr22 (Expert, 7+ år)',
           'Åtgärdsprogram och dokumentation (Unikum, IST)',
           'Handledning av pedagoger (Avancerad, 5+ år)',
           'Tillgänglig lärmiljö och inkluderande undervisning',
           'SPSM-metoder och specialpedagogiska verktyg',
-          'Skollagen – extra anpassningar och särskilt stöd'
+          'Skollagen: extra anpassningar och särskilt stöd'
         ],
         personliga: [
           'Analytisk förmåga',
@@ -10881,11 +10919,11 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV. Kvantif
       },
 
       certifieringar: [
-        'Specialpedagogexamen – Stockholms universitet (2019)',
+        'Specialpedagogexamen: Stockholms universitet (2019)',
         'Lärarlegitimation F-3, svenska och matematik (2012)',
-        'NPF-utbildning – Intensivkurs neuropsykiatriska funktionsnedsättningar (40 timmar, 2021)',
-        'SPSM-certifiering – Pedagogiska utredningar och kartläggning (2020)',
-        'Handledning i yrkesrollen – Kollegialt lärande (20 timmar, 2022)'
+        'NPF-utbildning: Intensivkurs neuropsykiatriska funktionsnedsättningar (40 timmar, 2021)',
+        'SPSM-certifiering: Pedagogiska utredningar och kartläggning (2020)',
+        'Handledning i yrkesrollen: Kollegialt lärande (20 timmar, 2022)'
       ],
 
       sprak: [
@@ -10899,37 +10937,37 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV. Kvantif
         rubrik: 'Branschspecifika nyckelord för ATS-optimering',
         text: `CV:t innehåller exakta termer som ATS-system filtrerar på: "pedagogiska utredningar", "NPF", "åtgärdsprogram", "elevhälsoteam", "extra anpassningar", "särskilt stöd", "DLS", "LäSt", "Unikum", "tillgänglig lärmiljö" och "SPSM". Du ser även Skollagen kap 3, screening-instrument och dokumentationssystem.
 
-Varför detta fungerar: När skolor rekryterar specialpedagoger söker ATS-system efter både juridiska termer (Skollagen, särskilt stöd) och praktiska metoder (DLS-screening, Unikum-dokumentation). Genom att matcha båda kategorierna passerar du första sållningen. Rekryterare ser omedelbart att du behärskar det juridiska ramverket OCH de konkreta verktyg som används i svenska skolor – du kan börja arbeta direkt utan omfattande introduktion.`
+Varför detta fungerar: När skolor rekryterar specialpedagoger söker ATS-system efter både juridiska termer (Skollagen, särskilt stöd) och praktiska metoder (DLS-screening, Unikum-dokumentation). Genom att matcha båda kategorierna passerar du första sållningen. Rekryterare ser omedelbart att du behärskar det juridiska ramverket OCH de konkreta verktyg som används i svenska skolor, du kan börja arbeta direkt utan omfattande introduktion.`
       },
       {
         rubrik: 'Kvantifierade resultat bevisar kapacitet och effekt',
         text: `Istället för "ansvarig för utredningar" visar CV:t konkreta volymer: "45+ pedagogiska utredningar per läsår", "handleder 12 pedagoger", "120+ åtgärdsprogram årligen", "tillgänglig lärmiljö i 8 klassrum". Resultat mäts med procent: "25% minskning av elever som inte når målen i svenska" och "90% av elever med läsrisker uppnådde kravnivå".
 
-Varför detta fungerar: Siffror bevisar både arbetskapacitet och mätbar effekt. När en skola söker specialpedagog för 500 elever ser de att du hanterat liknande omfattning (450 elever, 45 utredningar/år). Procentuella förbättringar är avgörande – de visar att ditt arbete inte bara följer rutiner utan faktiskt förebygger skolmisslyckanden. Många specialpedagoger skriver "arbetar med åtgärdsprogram" utan att visa resultat. Du visar vad som blev bättre.`
+Varför detta fungerar: Siffror bevisar både arbetskapacitet och mätbar effekt. När en skola söker specialpedagog för 500 elever ser de att du hanterat liknande omfattning (450 elever, 45 utredningar/år). Procentuella förbättringar är avgörande, de visar att ditt arbete inte bara följer rutiner utan faktiskt förebygger skolmisslyckanden. Många specialpedagoger skriver "arbetar med åtgärdsprogram" utan att visa resultat. Du visar vad som blev bättre.`
       },
       {
         rubrik: 'Analytisk kompetens parad med relationsskapande',
         text: `CV:t balanserar tekniska färdigheter (pedagogiska utredningar, NPF-kunskap, DLS/LäSt-screening) med relationella kompetenser backade av konkreta exempel: "handleder 12 pedagoger", "utvecklingssamtal med vårdnadshavare", "samordnar elevhälsoteammöten med rektor, skolsköterska, kurator och skolpsykolog".
 
-Varför detta fungerar: Specialpedagogik kräver både noggrann analys (utredningar, kartläggning) och förmåga att samarbeta över professionsgränser. Många skriver "kommunikativ" eller "empatisk" utan bevis – tomma buzzwords. Du visar relationsskapande genom handling: handledning av 12 pedagoger, samordning av tvärprofessionella team, föreläsningar för kollegor. Rekryterare ser att du kan både utreda enskilda elever OCH driva förändringar på systemnivå.`
+Varför detta fungerar: Specialpedagogik kräver både noggrann analys (utredningar, kartläggning) och förmåga att samarbeta över professionsgränser. Många skriver "kommunikativ" eller "empatisk" utan bevis, tomma buzzwords. Du visar relationsskapande genom handling: handledning av 12 pedagoger, samordning av tvärprofessionella team, föreläsningar för kollegor. Rekryterare ser att du kan både utreda enskilda elever OCH driva förändringar på systemnivå.`
       },
       {
         rubrik: 'Certifieringar med årtal och aktiv utveckling',
         text: `CV:t listar Specialpedagogexamen (2019), Lärarlegitimation F-3 (2012), NPF-intensivutbildning 40 timmar (2021), SPSM-certifiering i pedagogiska utredningar (2020) och Handledning i yrkesrollen 20 timmar (2022). Varje certifiering har årtal och tydlig koppling till faktiska arbetsuppgifter i erfarenhetsdelen.
 
-Varför detta fungerar: Specialpedagogexamen är lagkrav för tjänsten – utan den sorteras du bort direkt. Genom att också visa lärarlegitimation bevisar du pedagogisk grundkompetens, inte bara teoretisk specialpedagogik. NPF-fortbildning och SPSM-certifiering visar att du aktivt uppdaterar dig med forskning och beprövad erfarenhet. Rekryterare ser progression: du uppfyller formella krav OCH investerar i kontinuerlig kompetensutveckling.`
+Varför detta fungerar: Specialpedagogexamen är lagkrav för tjänsten, utan den sorteras du bort direkt. Genom att också visa lärarlegitimation bevisar du pedagogisk grundkompetens, inte bara teoretisk specialpedagogik. NPF-fortbildning och SPSM-certifiering visar att du aktivt uppdaterar dig med forskning och beprövad erfarenhet. Rekryterare ser progression: du uppfyller formella krav OCH investerar i kontinuerlig kompetensutveckling.`
       },
       {
         rubrik: 'Profiltext sammanfattar kärnkompetens effektivt',
         text: `Profiltexten öppnar med "Legitimerad specialpedagog med 9+ års erfarenhet av pedagogiska utredningar, handledning och elevhälsoteamarbete i grundskola F-9. Specialist på NPF, läs- och skrivsvårigheter samt extra anpassningar och särskilt stöd enligt Skollagen. Genomför 45+ pedagogiska utredningar årligen, handleder 12 pedagoger."
 
-Varför detta fungerar: Första meningen avgör om rekryterare läser vidare. "Legitimerad specialpedagog" är vagt – tusentals kandidater skriver samma sak. "9+ års erfarenhet av utredningar, handledning och elevhälsoteam, specialist på NPF och läs-/skrivsvårigheter, 45+ utredningar årligen" visar omedelbart djup, specialisering och omfattning. Genom att nämna Skollagen signalerar du juridisk medvetenhet. ATS-system rankar CV:n med nyckelord tidigt i dokumentet högre.`
+Varför detta fungerar: Första meningen avgör om rekryterare läser vidare. "Legitimerad specialpedagog" är vagt, tusentals kandidater skriver samma sak. "9+ års erfarenhet av utredningar, handledning och elevhälsoteam, specialist på NPF och läs-/skrivsvårigheter, 45+ utredningar årligen" visar omedelbart djup, specialisering och omfattning. Genom att nämna Skollagen signalerar du juridisk medvetenhet. ATS-system rankar CV:n med nyckelord tidigt i dokumentet högre.`
       },
       {
         rubrik: 'Karriärprogression från lärare till systemansvar',
-        text: `Erfarenhetsdelen visar tydlig utveckling: Lärare F-3 (2012-2016) med 22-25 elever → Specialpedagog F-6 för 280 elever med 30+ utredningar/år (2016-2019) → Specialpedagog i elevhälsoteam F-6 för 450 elever med 45+ utredningar/år OCH handledning av 12 pedagoger (2019-nu). Varje steg har ökad komplexitet och systemansvar.
+        text: `Erfarenhetsdelen visar tydlig utveckling: Lärare F-3 (2012-2016) med 22-25 elever, sedan Specialpedagog F-6 för 280 elever med 30+ utredningar/år (2016-2019), sedan Specialpedagog i elevhälsoteam F-6 för 450 elever med 45+ utredningar/år OCH handledning av 12 pedagoger (2019-nu). Varje steg har ökad komplexitet och systemansvar.
 
-Varför detta fungerar: Progression visar att du växt från klassrumslärare till specialist på organisationsnivå. Att du gått från 30 till 45 utredningar/år samtidigt som du handleder 12 pedagoger bevisar ökad kapacitet och pedagogiskt ledarskap. Rekryterare ser att du inte stannat kvar på samma nivå – du driver utveckling och kan arbeta både med enskilda elever (kompensatoriskt stöd) OCH på systemnivå (tillgänglig lärmiljö, handledning).`
+Varför detta fungerar: Progression visar att du växt från klassrumslärare till specialist på organisationsnivå. Att du gått från 30 till 45 utredningar/år samtidigt som du handleder 12 pedagoger bevisar ökad kapacitet och pedagogiskt ledarskap. Rekryterare ser att du inte stannat kvar på samma nivå, du driver utveckling och kan arbeta både med enskilda elever (kompensatoriskt stöd) OCH på systemnivå (tillgänglig lärmiljö, handledning).`
       }
     ],
 
@@ -10954,7 +10992,7 @@ Det senare visar att du hanterar hög arbetsbelastning, har erfarenhet av releva
 
 ❌ "Arbetade med elever med läs- och skrivsvårigheter"
 
-✅ "Implementerade DLS-screening i åk 1-3 vilket möjliggjorde tidiga insatser för 18 elever med läsrisker – 90% av eleverna uppnådde kravnivå i svenska åk 3. Minskade andelen elever som inte når målen i svenska med 25% genom strukturerade screeningrutiner och individuella anpassningar."
+✅ "Implementerade DLS-screening i åk 1-3 vilket möjliggjorde tidiga insatser för 18 elever med läsrisker, 90% av eleverna uppnådde kravnivå i svenska åk 3. Minskade andelen elever som inte når målen i svenska med 25% genom strukturerade screeningrutiner och individuella anpassningar."
 
 Siffror ger trovärdighet och bevisar att ditt arbete faktiskt gör skillnad.`
       },
@@ -10966,7 +11004,7 @@ Siffror ger trovärdighet och bevisar att ditt arbete faktiskt gör skillnad.`
 
 ❌ "Handleder pedagoger i specialpedagogiska frågor"
 
-✅ "Handleder 12 pedagoger i anpassningar för elever med NPF och dyslexi – implementerade visuella scheman, tydlig struktur och tydliggörande pedagogik i 8 klassrum. Genomför föreläsningar för hela kollegiet om SPSM:s metoder för tillgänglig lärmiljö (4 tillfällen per termin)."
+✅ "Handleder 12 pedagoger i anpassningar för elever med NPF och dyslexi, implementerade visuella scheman, tydlig struktur och tydliggörande pedagogik i 8 klassrum. Genomför föreläsningar för hela kollegiet om SPSM:s metoder för tillgänglig lärmiljö (4 tillfällen per termin)."
 
 Detta visar att din handledning inte är teoretiska samtal utan leder till faktiska förändringar i klassrummen.`
       },
@@ -11011,19 +11049,19 @@ Detta visar att du arbetar strategiskt på både individ- och systemnivå.`
     faq: [
       {
         fraga: 'Hur långt ska mitt CV som specialpedagog vara?',
-        svar: 'För specialpedagoger med 0-5 års erfarenhet räcker vanligtvis 1-2 sidor. Med 5-10+ års erfarenhet kan du använda 2 sidor för att rymma utredningar, handledning, certifieringar och resultat. Fokusera på de senaste 10 åren och lyft fram progression från lärare till specialpedagog. Prioritera djup över bredd – bättre att detaljerat beskriva 2-3 roller med kvantifierbara resultat än att ytligt lista alla uppdrag.'
+        svar: 'För specialpedagoger med 0-5 års erfarenhet räcker vanligtvis 1-2 sidor. Med 5-10+ års erfarenhet kan du använda 2 sidor för att rymma utredningar, handledning, certifieringar och resultat. Fokusera på de senaste 10 åren och lyft fram progression från lärare till specialpedagog. Prioritera djup över bredd, bättre att detaljerat beskriva 2-3 roller med kvantifierbara resultat än att ytligt lista alla uppdrag.'
       },
       {
         fraga: 'Ska jag ha med profilbild på mitt CV?',
-        svar: 'I Sverige är profilbild frivilligt. Vissa skolor uppskattar det eftersom det skapar personlig koppling, andra filtrerar bort CV:n med bild för att undvika omedvetna fördomar. Om du väljer att ha med bild, använd professionellt foto med neutral bakgrund där du ser vänlig och tillgänglig ut – viktigt för en roll som kräver relationsskapande. Undvik semesterbilder eller för formella passfoton.'
+        svar: 'I Sverige är profilbild frivilligt. Vissa skolor uppskattar det eftersom det skapar personlig koppling, andra filtrerar bort CV:n med bild för att undvika omedvetna fördomar. Om du väljer att ha med bild, använd professionellt foto med neutral bakgrund där du ser vänlig och tillgänglig ut, viktigt för en roll som kräver relationsskapande. Undvik semesterbilder eller för formella passfoton.'
       },
       {
         fraga: 'Hur förklarar jag luckor i mitt CV?',
-        svar: 'Var ärlig men koncis. Om luckan beror på föräldraledighet, studier (t.ex. specialpedagogprogrammet på 90 hp), vård av anhörig eller karriäromställning – nämn det kort utan att gå in på detaljer. Exempel: "2017-2019: Vidareutbildning till specialpedagog, Stockholms universitet (90 hp)". Om du arbetat som vikarie under perioden, lista det som "Vikarierande lärare/specialpedagog, olika skolor".'
+        svar: 'Var ärlig men koncis. Om luckan beror på föräldraledighet, studier (t.ex. specialpedagogprogrammet på 90 hp), vård av anhörig eller karriäromställning, nämn det kort utan att gå in på detaljer. Exempel: "2017-2019: Vidareutbildning till specialpedagog, Stockholms universitet (90 hp)". Om du arbetat som vikarie under perioden, lista det som "Vikarierande lärare/specialpedagog, olika skolor".'
       },
       {
         fraga: 'Ska jag ha med min lärarlegitimation också?',
-        svar: 'JA, absolut! Lärarlegitimation visar att du har pedagogisk grundkompetens – inte bara teoretisk specialpedagogik. Många skolor kräver både specialpedagogexamen OCH lärarlegitimation eftersom specialpedagogik bygger på erfarenhet av ordinarie undervisning. Lista lärarlegitimationen under Certifieringar med årtal och inriktning: "Lärarlegitimation F-3, svenska och matematik (2012)". Detta visar att du förstår klassrumsperspektivet.'
+        svar: 'JA, absolut! Lärarlegitimation visar att du har pedagogisk grundkompetens, inte bara teoretisk specialpedagogik. Många skolor kräver både specialpedagogexamen OCH lärarlegitimation eftersom specialpedagogik bygger på erfarenhet av ordinarie undervisning. Lista lärarlegitimationen under Certifieringar med årtal och inriktning: "Lärarlegitimation F-3, svenska och matematik (2012)". Detta visar att du förstår klassrumsperspektivet.'
       },
       {
         fraga: 'Hur visar jag utredningskompetens konkret?',
@@ -11031,7 +11069,7 @@ Detta visar att du arbetar strategiskt på både individ- och systemnivå.`
       },
       {
         fraga: 'Hur beskriver jag handledningsarbete?',
-        svar: 'Var konkret med antal pedagoger, vad du handleder i och vilka resultat det lett till. Exempel: "Handleder 12 pedagoger i anpassningar för elever med NPF och dyslexi – implementerade visuella scheman och tydliggörande pedagogik i 8 klassrum. Genomför föreläsningar om SPSM:s metoder 4 gånger per termin." Detta visar omfattning, metoder och att din handledning faktiskt implementeras.'
+        svar: 'Var konkret med antal pedagoger, vad du handleder i och vilka resultat det lett till. Exempel: "Handleder 12 pedagoger i anpassningar för elever med NPF och dyslexi, implementerade visuella scheman och tydliggörande pedagogik i 8 klassrum. Genomför föreläsningar om SPSM:s metoder 4 gånger per termin." Detta visar omfattning, metoder och att din handledning faktiskt implementeras.'
       },
       {
         fraga: 'Ska jag anpassa CV:t för grundskola vs gymnasium?',
@@ -11039,7 +11077,7 @@ Detta visar att du arbetar strategiskt på både individ- och systemnivå.`
       },
       {
         fraga: 'Hur visar jag samarbete med elevhälsoteam?',
-        svar: 'Beskriv din roll i teamet och vad du bidrar med. Exempel: "Samordnar elevhälsoteammöten med rektor, skolsköterska, kurator och skolpsykolog – utvecklar och följer upp 120+ åtgärdsprogram årligen. Bidrar med pedagogiska utredningar och kartläggning som grund för tvärprofessionella insatser." Nämn också konkreta samarbeten: "Samarbetar med skolpsykolog vid utredning av NPF".'
+        svar: 'Beskriv din roll i teamet och vad du bidrar med. Exempel: "Samordnar elevhälsoteammöten med rektor, skolsköterska, kurator och skolpsykolog, utvecklar och följer upp 120+ åtgärdsprogram årligen. Bidrar med pedagogiska utredningar och kartläggning som grund för tvärprofessionella insatser." Nämn också konkreta samarbeten: "Samarbetar med skolpsykolog vid utredning av NPF".'
       },
       {
         fraga: 'Vilka screening-instrument ska jag nämna?',
@@ -11047,7 +11085,7 @@ Detta visar att du arbetar strategiskt på både individ- och systemnivå.`
       },
       {
         fraga: 'Hur lyfter jag fram NPF-kunskap på ett trovärdigt sätt?',
-        svar: 'Nämn NPF i profiltexten ("Specialist på NPF och läs-/skrivsvårigheter") och backa upp med konkreta erfarenheter: "Utredde 25+ elever med misstänkt NPF (ADHD, autism, Tourettes) under senaste året. Handleder pedagoger i klassrumsanpassningar för elever med NPF – implementerade visuella scheman, tydlig struktur och anpassade instruktioner i 8 klassrum." Lista NPF-utbildning under Certifieringar: "NPF-intensivutbildning (40 timmar, 2021)".'
+        svar: 'Nämn NPF i profiltexten ("Specialist på NPF och läs-/skrivsvårigheter") och backa upp med konkreta erfarenheter: "Utredde 25+ elever med misstänkt NPF (ADHD, autism, Tourettes) under senaste året. Handleder pedagoger i klassrumsanpassningar för elever med NPF, implementerade visuella scheman, tydlig struktur och anpassade instruktioner i 8 klassrum." Lista NPF-utbildning under Certifieringar: "NPF-intensivutbildning (40 timmar, 2021)".'
       }
     ],
 
@@ -11068,9 +11106,9 @@ Detta visar att du arbetar strategiskt på både individ- och systemnivå.`
 
     seoIntro: `Ett starkt CV för fysioterapeut lyfter fram både dina behandlingsmetoder och dina patientresultat. Rekryterare söker efter kvantifierbara bevis på din kompetens inom manuell terapi, ortopedisk rehabilitering och evidensbaserad vård.
 
-Detta exempel visar hur du kombinerar teknisk expertis (TakeCare, Melior, OMT-certifiering) med konkreta behandlingsresultat – som 88% patientnöjdhet och 35% minskad återfallsfrekvens hos patienter med kronisk ryggsmärta. CV:t är optimerat för ATS-system genom att inkludera branschspecifika nyckelord som manuell terapi, träningsterapi och neurologisk rehabilitering.
+Detta exempel visar hur du kombinerar teknisk expertis (TakeCare, Melior, OMT-certifiering) med konkreta behandlingsresultat, som 88% patientnöjdhet och 35% minskad återfallsfrekvens hos patienter med kronisk ryggsmärta. CV:t är optimerat för ATS-system genom att inkludera branschspecifika nyckelord som manuell terapi, träningsterapi och neurologisk rehabilitering.
 
-Använd strukturen som mall och anpassa innehållet efter din specialisering – oavsett om du söker inom primärvård, privat klinik eller idrottsmedicin. Ett välstrukturerat CV ökar dina chanser att nå intervjustadiet markant.`,
+Använd strukturen som mall och anpassa innehållet efter din specialisering, oavsett om du söker inom primärvård, privat klinik eller idrottsmedicin. Ett välstrukturerat CV ökar dina chanser att nå intervjustadiet markant.`,
 
     intro: 'Som fysioterapeut är ditt CV ditt professionella visitkort mot vårdgivare, rehabkliniker och privata arbetsgivare. Ett välstrukturerat CV visar tydligt din specialisering, behandlingsmetoder och patientresultat.',
 
@@ -11175,13 +11213,13 @@ Varför detta fungerar: ATS-system rankar CV:n efter hur väl de matchar jobbann
         rubrik: 'Kvantifierade patientresultat som bevisar kompetens',
         text: `CV:t visar konkreta resultat: "15-20 patienter per vecka", "88% patientnöjdhet enligt uppföljning" och "35% minskad återfallsfrekvens hos patienter med kronisk ryggsmärta". Varje position innehåller mätbara resultat som visar behandlingseffekt.
 
-Varför detta fungerar: Rekryterare inom vården värdesätter evidens över påståenden. Ett CV som endast säger "Ansvarade för rehabilitering av ortopediska patienter" berättar inget om din faktiska behandlingskompetens. Genom att kvantifiera patientresultat, behandlingsvolym och nöjdhetsgrad visar du att du förstår vikten av uppföljning och resultatmätning – vilket är centralt i modern, patientcentrerad vård.`
+Varför detta fungerar: Rekryterare inom vården värdesätter evidens över påståenden. Ett CV som endast säger "Ansvarade för rehabilitering av ortopediska patienter" berättar inget om din faktiska behandlingskompetens. Genom att kvantifiera patientresultat, behandlingsvolym och nöjdhetsgrad visar du att du förstår vikten av uppföljning och resultatmätning, vilket är centralt i modern, patientcentrerad vård.`
       },
       {
         rubrik: 'Konkreta exempel backar upp personliga egenskaper',
         text: `Istället för att lista "kommunikativ, flexibel, driven" som generella egenskaper, visar CV:t konkreta exempel: "Samarbetar med ortopeder, läkare och naprapat för helhetsvård" och "Utbildar patienter i ergonomi och förebyggande träning vilket minskat återfallsfrekvens med 35%".
 
-Varför detta fungerar: Rekryterare ser hundratals CV där kandidater påstår sig vara "kommunikativa" och "patientcentrerade" utan att bevisa det. Genom att istället beskriva hur du samarbetat i tvärprofessionella team eller utvecklat patientutbildning visar du dessa egenskaper i praktiken. Detta gör ditt CV trovärdigt och minnesvärt – inte bara ännu ett exempel på generella buzzwords.`
+Varför detta fungerar: Rekryterare ser hundratals CV där kandidater påstår sig vara "kommunikativa" och "patientcentrerade" utan att bevisa det. Genom att istället beskriva hur du samarbetat i tvärprofessionella team eller utvecklat patientutbildning visar du dessa egenskaper i praktiken. Detta gör ditt CV trovärdigt och minnesvärt, inte bara ännu ett exempel på generella buzzwords.`
       },
       {
         rubrik: 'Certifieringar med årtal visar aktualitet',
@@ -11199,7 +11237,7 @@ Varför detta fungerar: Rekryterare läser profiltexten först och avgör på 10
         rubrik: 'Karriärprogression från junior till senior synlig',
         text: `CV:t visar tydlig utveckling: från "Fysioterapeut (Nyexaminerad)" på sjukhus (2017-2018) till primärvård med bredare ansvar (2018-2021) och sedan specialiserad position på privat klinik med ortopediskt fokus (2021-pågående). Varje position visar ökat ansvar och fördjupad specialisering.
 
-Varför detta fungerar: Rekryterare behöver förstå din nivå – är du nyexaminerad, erfaren kliniker eller senior specialist? Genom att visa progression från grundläggande patientarbete till tvärprofessionellt samarbete och specialisering demonstrerar du att du vuxit i din yrkesroll. Detta är särskilt viktigt när du söker seniorroller där arbetsgivaren förväntar sig självständighet och kliniskt ledarskap.`
+Varför detta fungerar: Rekryterare behöver förstå din nivå, är du nyexaminerad, erfaren kliniker eller senior specialist? Genom att visa progression från grundläggande patientarbete till tvärprofessionellt samarbete och specialisering demonstrerar du att du vuxit i din yrkesroll. Detta är särskilt viktigt när du söker seniorroller där arbetsgivaren förväntar sig självständighet och kliniskt ledarskap.`
       }
     ],
 
@@ -11210,7 +11248,7 @@ Varför detta fungerar: Rekryterare behöver förstå din nivå – är du nyexa
 
 Lyft fram de behandlingsmetoder du behärskar: manuell terapi, träningsterapi, ortopedisk rehabilitering, neurologisk rehabilitering, geriatrisk fysioterapi eller idrottsmedicin. Inkludera dessa både i din profiltext och i beskrivningen av dina arbetsuppgifter.
 
-Anpassa nyckelorden efter jobbannonsen – om arbetsgivaren söker efter "neurologisk rehabilitering" och "ADL-träning", använd exakt dessa termer om de stämmer med din erfarenhet.`
+Anpassa nyckelorden efter jobbannonsen, om arbetsgivaren söker efter "neurologisk rehabilitering" och "ADL-träning", använd exakt dessa termer om de stämmer med din erfarenhet.`
       },
       {
         rubrik: 'Kvantifiera dina patientresultat med konkreta siffror',
@@ -11230,7 +11268,7 @@ Inkludera behandlingsvolym (antal patienter per vecka), patientnöjdhet, funktio
 
 Använd etablerade mätinstrument när det är relevant: "Förbättrade genomsnittlig cervikal rotation från 45° till 75° hos patienter med whiplash" eller "Minskade genomsnittlig VAS-smärta från 7 till 3 hos patienter med kronisk ländryggssmärta".
 
-Nämn också patientutbildning och egenvårdsstrategier – detta visar att du arbetar patientcentrerat: "Utvecklade individuella hemträningsprogram som 85% av patienterna följde efter avslutad behandling".`
+Nämn också patientutbildning och egenvårdsstrategier, detta visar att du arbetar patientcentrerat: "Utvecklade individuella hemträningsprogram som 85% av patienterna följde efter avslutad behandling".`
       },
       {
         rubrik: 'Anpassa profiltext efter typ av arbetsgivare',
@@ -11258,18 +11296,18 @@ Inkludera relevanta certifieringar som OMT (ortopedisk manuell terapi), MDT (mek
 
 Inkludera de journalsystem du arbetat med: TakeCare, Melior, Cosmic, PMO eller andra. Nämn även digitala undersökningsverktyg, videorehabiliteringssystem eller appar för hemträning om du använt dessa.
 
-Om du arbetat med utveckling av kliniska riktlinjer eller kvalitetsregister, nämn detta också – det visar att du kan bidra till verksamhetsutveckling och inte bara utför behandling.`
+Om du arbetat med utveckling av kliniska riktlinjer eller kvalitetsregister, nämn detta också, det visar att du kan bidra till verksamhetsutveckling och inte bara utför behandling.`
       }
     ],
 
     faq: [
       {
         fraga: 'Hur långt ska mitt CV som fysioterapeut vara?',
-        svar: 'Ett CV för fysioterapeut ska vara 1-2 sidor. Om du är nyexaminerad eller har mindre än 3 års erfarenhet räcker vanligtvis 1 sida. Har du längre erfarenhet, specialisering eller omfattande certifieringar kan 2 sidor vara motiverat. Fokusera på relevans – ta med det som matchar det jobb du söker och skippa praktikplatser eller mycket gamla erfarenheter om de inte tillför värde.'
+        svar: 'Ett CV för fysioterapeut ska vara 1-2 sidor. Om du är nyexaminerad eller har mindre än 3 års erfarenhet räcker vanligtvis 1 sida. Har du längre erfarenhet, specialisering eller omfattande certifieringar kan 2 sidor vara motiverat. Fokusera på relevans, ta med det som matchar det jobb du söker och skippa praktikplatser eller mycket gamla erfarenheter om de inte tillför värde.'
       },
       {
         fraga: 'Ska jag ha med profilbild på mitt CV?',
-        svar: 'Profilbild är vanligt men inget krav i Sverige. Inom vården är det dock relativt vanligt att inkludera en professionell bild. Om du väljer att ha med bild, använd en professionell porträttbild med neutral bakgrund där du ser tillgänglig och trygg ut. Undvik semesterbilder, selfies eller bilder med för hårt ljus. Om du känner dig osäker kan du utelämna bild – det påverkar sällan bedömningen av din faktiska kompetens.'
+        svar: 'Profilbild är vanligt men inget krav i Sverige. Inom vården är det dock relativt vanligt att inkludera en professionell bild. Om du väljer att ha med bild, använd en professionell porträttbild med neutral bakgrund där du ser tillgänglig och trygg ut. Undvik semesterbilder, selfies eller bilder med för hårt ljus. Om du känner dig osäker kan du utelämna bild, det påverkar sällan bedömningen av din faktiska kompetens.'
       },
       {
         fraga: 'Hur hanterar jag luckor i mitt CV?',
@@ -11285,7 +11323,7 @@ Om du arbetat med utveckling av kliniska riktlinjer eller kvalitetsregister, nä
       },
       {
         fraga: 'Ska jag lista alla mina certifieringar?',
-        svar: 'Ta med legitimation och alla certifieringar som är relevanta för tjänsten du söker. Legitimation som fysioterapeut ska alltid finnas med. Lägg till specialistcertifieringar som OMT, MDT, akupunktur eller neurologiska metoder om de matchar jobbets kravprofil. Inkludera alltid årtal – detta visar att dina kunskaper är aktuella. HLR-certifiering ska med om den är giltig. Om du har många kortare kurser, välj ut de mest relevanta.'
+        svar: 'Ta med legitimation och alla certifieringar som är relevanta för tjänsten du söker. Legitimation som fysioterapeut ska alltid finnas med. Lägg till specialistcertifieringar som OMT, MDT, akupunktur eller neurologiska metoder om de matchar jobbets kravprofil. Inkludera alltid årtal, detta visar att dina kunskaper är aktuella. HLR-certifiering ska med om den är giltig. Om du har många kortare kurser, välj ut de mest relevanta.'
       },
       {
         fraga: 'Vilka journalsystem ska jag nämna?',
@@ -11320,11 +11358,11 @@ Om du arbetat med utveckling av kliniska riktlinjer eller kvalitetsregister, nä
     metaTitle: 'CV Exempel Kontorsassistent 2026 – Mall & Tips | Jobbcoach.ai',
     metaDescription: 'Professionellt CV-exempel för kontorsassistent med konkreta resultat. Se hur du lyfter Excel, kundservice och administration för att imponera på arbetsgivare 2026.',
 
-    seoIntro: `Ett starkt CV för kontorsassistent visar inte bara vad du kan – det bevisar att du klarar av tempot. Rekryterare söker efter kandidater som kan jonglera kundservice, fakturering och möteskoordinering samtidigt som de håller kontoret på rätt köl. Det räcker inte att skriva "administrativ erfarenhet" när arbetsgivare vill se konkreta siffror på hur många samtal du hanterat, vilka system du arbetat i och hur du effektiviserat rutiner.
+    seoIntro: `Ett starkt CV för kontorsassistent visar inte bara vad du kan, det bevisar att du klarar av tempot. Rekryterare söker efter kandidater som kan jonglera kundservice, fakturering och möteskoordinering samtidigt som de håller kontoret på rätt köl. Det räcker inte att skriva "administrativ erfarenhet" när arbetsgivare vill se konkreta siffror på hur många samtal du hanterat, vilka system du arbetat i och hur du effektiviserat rutiner.
 
-Detta CV-exempel visar Sandra Eriksson, en kontorsassistent med 6 års erfarenhet som kvantifierar sina resultat: 150+ kundfrågor per vecka, 200+ fakturor i Fortnox månatligen och möteskoordinering för 8 chefer. Istället för att lista "god kunskap i Excel" specificerar hon exakt vilka funktioner hon behärskar – SVID, pivottabeller och makron. CV:t är optimerat för ATS-system genom att inkludera branschspecifika nyckelord som receptionsarbete, fakturahantering och Microsoft 365.
+Detta CV-exempel visar Sandra Eriksson, en kontorsassistent med 6 års erfarenhet som kvantifierar sina resultat: 150+ kundfrågor per vecka, 200+ fakturor i Fortnox månatligen och möteskoordinering för 8 chefer. Istället för att lista "god kunskap i Excel" specificerar hon exakt vilka funktioner hon behärskar, SVID, pivottabeller och makron. CV:t är optimerat för ATS-system genom att inkludera branschspecifika nyckelord som receptionsarbete, fakturahantering och Microsoft 365.
 
-Använd strukturen som mall och anpassa innehållet efter dina egna erfarenheter. Ett välstrukturerat CV ökar dina chanser att nå intervjustadiet markant – särskilt när du visar konkreta resultat istället för generiska påståenden.`,
+Använd strukturen som mall och anpassa innehållet efter dina egna erfarenheter. Ett välstrukturerat CV ökar dina chanser att nå intervjustadiet markant, särskilt när du visar konkreta resultat istället för generiska påståenden.`,
 
     intro: 'Som kontorsassistent är ditt CV ditt första bevis på att du kan hålla ordning och reda. Ett välstrukturerat CV visar att du behärskar administration, kundservice och de system som arbetsgivare efterfrågar.',
 
@@ -11417,7 +11455,7 @@ Använd strukturen som mall och anpassa innehållet efter dina egna erfarenheter
     varforDetFungerar: [
       {
         rubrik: 'ATS-optimering med specifika program och system',
-        text: `Sandra listar inte bara "Microsoft Office" – hon specificerar Excel Expert, Word, PowerPoint och Outlook. Hon nämner Fortnox för fakturering, W3D3 för diarieföring och Teams/Zoom för möteskoordinering.
+        text: `Sandra listar inte bara "Microsoft Office", hon specificerar Excel Expert, Word, PowerPoint och Outlook. Hon nämner Fortnox för fakturering, W3D3 för diarieföring och Teams/Zoom för möteskoordinering.
 
 Varför detta fungerar: Rekryterare söker ofta efter specifika systemnamn i ATS-filter. Ett CV som endast skriver "goda datakunskaper" sorteras bort när arbetsgivaren söker efter "Fortnox" eller "Excel". Genom att lista exakt vilka program du behärskar ökar sannolikheten att ditt CV passerar det automatiska urvalet och når en rekryterare.`
       },
@@ -11425,13 +11463,13 @@ Varför detta fungerar: Rekryterare söker ofta efter specifika systemnamn i ATS
         rubrik: 'Kvantifierade resultat som bevisar kapacitet',
         text: `CV:t är fyllt med siffror: 150+ kundfrågor/vecka, 200+ fakturor/månad, 80+ samtal/dag, 4.8/5 i kundnöjdhet. Varje position innehåller mätbara resultat som visar arbetsbelastning och effektivitet.
 
-Varför detta fungerar: Rekryterare för kontorsassistentroller vill veta att du klarar av tempot. Ett CV som bara säger "hanterade kundfrågor och fakturering" berättar ingenting om din faktiska kapacitet. Genom att kvantifiera volym och resultat bevisar du att du kan hantera ett krävande arbetsflöde – inte bara påstå det.`
+Varför detta fungerar: Rekryterare för kontorsassistentroller vill veta att du klarar av tempot. Ett CV som bara säger "hanterade kundfrågor och fakturering" berättar ingenting om din faktiska kapacitet. Genom att kvantifiera volym och resultat bevisar du att du kan hantera ett krävande arbetsflöde, inte bara påstå det.`
       },
       {
         rubrik: 'Procentuella förbättringar visar initiativförmåga',
-        text: `Sandra nöjer sig inte med att beskriva sina uppgifter – hon visar vad hon förbättrat: 30% effektivisering av fakturahantering, 40% minskad pappersanvändning, 50% reducerade kötider i receptionen.
+        text: `Sandra nöjer sig inte med att beskriva sina uppgifter, hon visar vad hon förbättrat: 30% effektivisering av fakturahantering, 40% minskad pappersanvändning, 50% reducerade kötider i receptionen.
 
-Varför detta fungerar: Arbetsgivare söker kontorsassistenter som inte bara utför uppgifter utan aktivt förbättrar arbetsflöden. Genom att visa procentuella förbättringar bevisar du att du tar initiativ och bidrar till verksamhetens effektivitet – en egenskap som skiljer dig från kandidater som bara "gör sitt jobb".`
+Varför detta fungerar: Arbetsgivare söker kontorsassistenter som inte bara utför uppgifter utan aktivt förbättrar arbetsflöden. Genom att visa procentuella förbättringar bevisar du att du tar initiativ och bidrar till verksamhetens effektivitet, en egenskap som skiljer dig från kandidater som bara "gör sitt jobb".`
       },
       {
         rubrik: 'Profiltexten matchar rollens krav',
@@ -11449,7 +11487,7 @@ Varför detta fungerar: Certifieringar bevisar kompetens objektivt. En Excel-cer
         rubrik: 'Tydlig progression från junior till erfaren',
         text: `CV:t visar en logisk karriärutveckling: sommarjobb som administratör (2017), receptionist vid Nordea (2018-2021), kontorsassistent med utökat ansvar (2021-pågående). Varje roll har ökat ansvar och fler system.
 
-Varför detta fungerar: Rekryterare vill se karriärprogression. Ett CV som visar hur du gått från att registrera ärenden till att hantera 200+ fakturor och koordinera möten för 8 chefer bevisar att du kan växa i en roll. Det signalerar också stabilitet och lojalitet – värdefulla egenskaper för arbetsgivare.`
+Varför detta fungerar: Rekryterare vill se karriärprogression. Ett CV som visar hur du gått från att registrera ärenden till att hantera 200+ fakturor och koordinera möten för 8 chefer bevisar att du kan växa i en roll. Det signalerar också stabilitet och lojalitet, värdefulla egenskaper för arbetsgivare.`
       }
     ],
 
@@ -11464,7 +11502,7 @@ Varför detta fungerar: Rekryterare vill se karriärprogression. Ett CV som visa
 
 ✅ "Excel Expert: SVID/XLOOKUP för datamatchning, pivottabeller för månadsrapporter, villkorsstyrd formatering för deadline-spårning. Skapade automatiserad rapportmall som sparade 3 timmar/vecka i manuell sammanställning."
 
-Genom att lista specifika funktioner och ett konkret exempel på hur du använt dem visar du faktisk kompetens – inte bara ett påstående.`
+Genom att lista specifika funktioner och ett konkret exempel på hur du använt dem visar du faktisk kompetens, inte bara ett påstående.`
       },
       {
         rubrik: 'Kvantifiera din arbetsbelastning med siffror',
@@ -11476,7 +11514,7 @@ Genom att lista specifika funktioner och ett konkret exempel på hur du använt 
 
 ✅ "Hanterade 80+ inkommande samtal dagligen och 150+ kundfrågor per vecka via telefon och mejl, med 4.8/5 i kundnöjdhet enligt månatliga undersökningar"
 
-Siffror gör ditt CV konkret och mätbart. De bevisar att du faktiskt arbetat i högt tempo – inte bara påstår det.`
+Siffror gör ditt CV konkret och mätbart. De bevisar att du faktiskt arbetat i högt tempo, inte bara påstår det.`
       },
       {
         rubrik: 'Nämn specifika system och programvaror',
@@ -11492,7 +11530,7 @@ Lista alltid de exakta programnamnen: Fortnox, Visma, W3D3, Salesforce, HubSpot.
       },
       {
         rubrik: 'Visa initiativ genom förbättringar du genomfört',
-        text: `Arbetsgivare söker inte bara någon som utför uppgifter – de vill ha någon som aktivt förbättrar arbetsflöden. Visa att du tagit initiativ genom att beskriva processer du effektiviserat.
+        text: `Arbetsgivare söker inte bara någon som utför uppgifter, de vill ha någon som aktivt förbättrar arbetsflöden. Visa att du tagit initiativ genom att beskriva processer du effektiviserat.
 
 **Exempel på före/efter:**
 
@@ -11504,7 +11542,7 @@ Fokusera på resultat: tid sparad, kostnader reducerade, fel minskade. Detta vis
       },
       {
         rubrik: 'Anpassa ditt CV efter jobbannonsen',
-        text: `Ett generiskt CV fungerar sällan. Läs jobbannonsen noggrant och matcha din erfarenhet mot de specifika kraven. Om annonsen betonar "kundservice och fakturering" – lyft fram dessa erfarenheter överst i varje roll.
+        text: `Ett generiskt CV fungerar sällan. Läs jobbannonsen noggrant och matcha din erfarenhet mot de specifika kraven. Om annonsen betonar "kundservice och fakturering", lyft fram dessa erfarenheter överst i varje roll.
 
 **Exempel på anpassning:**
 
@@ -11512,7 +11550,7 @@ Om annonsen nämner: "Vi söker dig som har erfarenhet av Fortnox och kan hanter
 
 Anpassa profiltexten: "Kontorsassistent med 6 års erfarenhet och Fortnox-certifiering. Hanterar självständigt 200+ leverantörsfakturor månatligen med kontering, betalningsbevakning och månadsavstämning."
 
-Matcha nyckelord från annonsen i ditt CV – men ljug aldrig om kompetenser du inte har.`
+Matcha nyckelord från annonsen i ditt CV, men ljug aldrig om kompetenser du inte har.`
       },
       {
         rubrik: 'Beskriv möteskoordinering med konkret omfattning',
@@ -11524,26 +11562,26 @@ Matcha nyckelord från annonsen i ditt CV – men ljug aldrig om kompetenser du 
 
 ✅ "Koordinerade 25+ möten/vecka för 8 chefer inklusive styrelsemöten, kundpresentationer och internationella videomöten med deltagare i 5 länder. Hanterade rum-bokningar, catering och teknisk utrustning."
 
-Ju mer specifik du är, desto tydligare blir det för arbetsgivaren att du kan hantera komplex möteslogistik – inte bara boka ett konferensrum.`
+Ju mer specifik du är, desto tydligare blir det för arbetsgivaren att du kan hantera komplex möteslogistik, inte bara boka ett konferensrum.`
       }
     ],
 
     faq: [
       {
         fraga: 'Hur visar jag mina Excel-kunskaper konkret på mitt CV?',
-        svar: 'Skriv inte bara "god kunskap i Excel" – lista specifika funktioner du behärskar: SVID/XLOOKUP, pivottabeller, villkorsstyrd formatering, makron eller VBA. Ge sedan ett konkret exempel: "Skapade automatiserad rapportmall med pivottabeller som sparade 3 timmar/vecka i manuell sammanställning". Om du har certifiering (Microsoft Office Specialist) – lyft fram den med årtal. Detta bevisar objektiv kompetens istället för ett tomt påstående.'
+        svar: 'Skriv inte bara "god kunskap i Excel", lista specifika funktioner du behärskar: SVID/XLOOKUP, pivottabeller, villkorsstyrd formatering, makron eller VBA. Ge sedan ett konkret exempel: "Skapade automatiserad rapportmall med pivottabeller som sparade 3 timmar/vecka i manuell sammanställning". Om du har certifiering (Microsoft Office Specialist), lyft fram den med årtal. Detta bevisar objektiv kompetens istället för ett tomt påstående.'
       },
       {
         fraga: 'Vilka nyckelord är viktigast för en kontorsassistent?',
-        svar: 'ATS-system söker efter: Microsoft 365/Office, Excel, Fortnox, Visma, kundservice, fakturahantering, möteskoordinering, reception, dokumenthantering, arkivering, kalenderhållning. Inkludera även mjuka färdigheter som rekryterare värdesätter: multitasking, prioritering, serviceinriktad, strukturerad. Anpassa nyckelorden efter jobbannonsen – om de nämner specifika system du behärskar, se till att de finns med i ditt CV.'
+        svar: 'ATS-system söker efter: Microsoft 365/Office, Excel, Fortnox, Visma, kundservice, fakturahantering, möteskoordinering, reception, dokumenthantering, arkivering, kalenderhållning. Inkludera även mjuka färdigheter som rekryterare värdesätter: multitasking, prioritering, serviceinriktad, strukturerad. Anpassa nyckelorden efter jobbannonsen, om de nämner specifika system du behärskar, se till att de finns med i ditt CV.'
       },
       {
         fraga: 'Hur långt ska mitt CV som kontorsassistent vara?',
-        svar: 'För kontorsassistenter med 0-5 års erfarenhet räcker 1 sida. Med 5+ års erfarenhet kan du använda 2 sidor – men bara om innehållet är relevant. Prioritera de senaste 5-7 åren och fokusera på roller som visar kundservice, administration och systemkunskap. Ta bort irrelevanta extrajobb och sommarjobb om du har mer relevant erfarenhet att visa upp.'
+        svar: 'För kontorsassistenter med 0-5 års erfarenhet räcker 1 sida. Med 5+ års erfarenhet kan du använda 2 sidor, men bara om innehållet är relevant. Prioritera de senaste 5-7 åren och fokusera på roller som visar kundservice, administration och systemkunskap. Ta bort irrelevanta extrajobb och sommarjobb om du har mer relevant erfarenhet att visa upp.'
       },
       {
         fraga: 'Ska jag ha med mina betyg och utbildningsdetaljer?',
-        svar: 'För juniora kontorsassistenter (0-2 års erfarenhet) kan utbildningen lyftas fram mer. Nämn relevanta kurser inom ekonomi, administration eller företagande. För erfarna kontorsassistenter (3+ år) är arbetslivserfarenhet viktigare – lista utbildningen kort utan detaljer. Certifieringar (Fortnox, Excel, ECDL) väger tyngre än gymnasiebetyg för denna roll.'
+        svar: 'För juniora kontorsassistenter (0-2 års erfarenhet) kan utbildningen lyftas fram mer. Nämn relevanta kurser inom ekonomi, administration eller företagande. För erfarna kontorsassistenter (3+ år) är arbetslivserfarenhet viktigare, lista utbildningen kort utan detaljer. Certifieringar (Fortnox, Excel, ECDL) väger tyngre än gymnasiebetyg för denna roll.'
       },
       {
         fraga: 'Hur beskriver jag receptionsarbete på ett sätt som imponerar?',
@@ -11555,7 +11593,7 @@ Ju mer specifik du är, desto tydligare blir det för arbetsgivaren att du kan h
       },
       {
         fraga: 'Ska jag nämna Fortnox även om jag bara använt grundläggande funktioner?',
-        svar: 'Ja, men var ärlig om din nivå. Skriv "Fortnox (kundfakturering och betalningsbevakning)" istället för att påstå expertkunskap. Om du hanterat leverantörsfakturor, kontering och månadsavstämning – lyft fram det. Har du Fortnox-certifiering? Det är ett starkt plus som visar verifierad kompetens. Arbetsgivare uppskattar ärlighet och kan ge upplärning i avancerade funktioner.'
+        svar: 'Ja, men var ärlig om din nivå. Skriv "Fortnox (kundfakturering och betalningsbevakning)" istället för att påstå expertkunskap. Om du hanterat leverantörsfakturor, kontering och månadsavstämning, lyft fram det. Har du Fortnox-certifiering? Det är ett starkt plus som visar verifierad kompetens. Arbetsgivare uppskattar ärlighet och kan ge upplärning i avancerade funktioner.'
       },
       {
         fraga: 'Hur anpassar jag mitt CV för olika typer av kontorsassistent-roller?',
@@ -11563,11 +11601,11 @@ Ju mer specifik du är, desto tydligare blir det för arbetsgivaren att du kan h
       },
       {
         fraga: 'Vad ska jag skriva om jag saknar erfarenhet av specifika system?',
-        svar: 'Lyft fram liknande system och din förmåga att lära nytt. Exempel: "Erfarenhet av Visma – snabb på att lära nya ekonomisystem". Nämn om du har generell IT-vana: "Van användare av molnbaserade system och snabb på att sätta mig in i nya programvaror". Om du har tid före ansökan, kolla om systemet erbjuder gratisutbildningar eller demokonton där du kan skaffa grundläggande erfarenhet.'
+        svar: 'Lyft fram liknande system och din förmåga att lära nytt. Exempel: "Erfarenhet av Visma, snabb på att lära nya ekonomisystem". Nämn om du har generell IT-vana: "Van användare av molnbaserade system och snabb på att sätta mig in i nya programvaror". Om du har tid före ansökan, kolla om systemet erbjuder gratisutbildningar eller demokonton där du kan skaffa grundläggande erfarenhet.'
       },
       {
         fraga: 'Hur hanterar jag luckor i mitt CV som kontorsassistent?',
-        svar: 'Var ärlig och kortfattad. Om luckan beror på studier, föräldraledighet eller sjukskrivning – nämn det kort utan detaljer: "2022-2023: Föräldraledighet". Om du gjort något produktivt under luckan (frivilligarbete, kurser, eget företagande) – lyft fram det. Viktigast är att visa att du nu är redo att arbeta och att din kompetens är aktuell. Uppdaterade certifieringar eller nyligen genomförda kurser kan väga upp en lucka.'
+        svar: 'Var ärlig och kortfattad. Om luckan beror på studier, föräldraledighet eller sjukskrivning, nämn det kort utan detaljer: "2022-2023: Föräldraledighet". Om du gjort något produktivt under luckan (frivilligarbete, kurser, eget företagande), lyft fram det. Viktigast är att visa att du nu är redo att arbeta och att din kompetens är aktuell. Uppdaterade certifieringar eller nyligen genomförda kurser kan väga upp en lucka.'
       }
     ],
 
@@ -11586,11 +11624,11 @@ Ju mer specifik du är, desto tydligare blir det för arbetsgivaren att du kan h
     metaTitle: 'CV Exempel Automationsingenjör 2026 - Professionell Mall | Jobbcoach.ai',
     metaDescription: 'Komplett CV-exempel för automationsingenjör med PLC-programmering, SCADA och Siemens TIA Portal. ATS-optimerat med kvantifierbara resultat. Inkluderar tips och nyckelord.',
 
-    seoIntro: `Ett starkt CV för automationsingenjör måste visa både teknisk djup och affärsresultat. Rekryterare letar efter erfarenhet av specifika plattformar som Siemens TIA Portal, ABB:s robotsystem, SCADA-lösningar och fältbussar som Profinet och EtherCAT. Men teknisk kompetens räcker inte – du måste visa hur din automatiseringslösning påverkade produktionen. Ökade du OEE från 78% till 89%? Reducerade du stilleståndstid med prediktivt underhåll? Optimerade du batchprocesser med PID-reglering? Kvantifierade resultat skiljer dig från hundra andra kandidater som bara listar att de "har erfarenhet av PLC-programmering".
+    seoIntro: `Ett starkt CV för automationsingenjör måste visa både teknisk djup och affärsresultat. Rekryterare letar efter erfarenhet av specifika plattformar som Siemens TIA Portal, ABB:s robotsystem, SCADA-lösningar och fältbussar som Profinet och EtherCAT. Men teknisk kompetens räcker inte, du måste visa hur din automatiseringslösning påverkade produktionen. Ökade du OEE från 78% till 89%? Reducerade du stilleståndstid med prediktivt underhåll? Optimerade du batchprocesser med PID-reglering? Kvantifierade resultat skiljer dig från hundra andra kandidater som bara listar att de "har erfarenhet av PLC-programmering".
 
-Det här CV-exemplet är baserat på Erik Bergström, en automationsingenjör med 6+ års erfarenhet från både processindustri och tillverkande industri. Hans CV visar tydligt hur han implementerade 8 robotceller hos Volvo Cars och ökade produktionskapaciteten med 22%, programmerade och konfigurerade 25+ Siemens S7-1500 PLC:er hos Perstorp AB med SCADA-uppgradering, och levererade 12 konsultprojekt med Beckhoff TwinCAT och 99.7% driftstid. CV:t visar hela automationspyramiden – från sensornivå till MES-integration – och inkluderar certifieringar inom funktionell säkerhet enligt EN ISO 13849 och IEC 61508.
+Det här CV-exemplet är baserat på Erik Bergström, en automationsingenjör med 6+ års erfarenhet från både processindustri och tillverkande industri. Hans CV visar tydligt hur han implementerade 8 robotceller hos Volvo Cars och ökade produktionskapaciteten med 22%, programmerade och konfigurerade 25+ Siemens S7-1500 PLC:er hos Perstorp AB med SCADA-uppgradering, och levererade 12 konsultprojekt med Beckhoff TwinCAT och 99.7% driftstid. CV:t visar hela automationspyramiden, från sensornivå till MES-integration, och inkluderar certifieringar inom funktionell säkerhet enligt EN ISO 13849 och IEC 61508.
 
-Använd det här exemplet som mall för ditt eget CV. Kopiera strukturen, anpassa tekniska system till din bakgrund, och byt ut kvantifieringarna mot dina egna resultat. Lägg extra kraft på att översätta tekniska lösningar till affärsnytta – det är vad som får dig kallad till intervju.`,
+Använd det här exemplet som mall för ditt eget CV. Kopiera strukturen, anpassa tekniska system till din bakgrund, och byt ut kvantifieringarna mot dina egna resultat. Lägg extra kraft på att översätta tekniska lösningar till affärsnytta, det är vad som får dig kallad till intervju.`,
 
     intro: 'Ett professionellt CV-exempel för automationsingenjör som visar PLC-programmering, SCADA-design, robotintegration och processoptimering. Optimerat för svenska tillverkande företag, processindustri och ATS-system.',
 
@@ -11600,7 +11638,7 @@ Använd det här exemplet som mall för ditt eget CV. Kopiera strukturen, anpass
       kontakt: {
         telefon: '070-234 56 78',
         epost: 'erik.bergstrom@email.se',
-        plats: 'Göteborg',
+        plats: 'Västerås',
         linkedin: 'linkedin.com/in/erikbergstrom'
       },
 
@@ -11663,13 +11701,13 @@ Använd det här exemplet som mall för ditt eget CV. Kopiera strukturen, anpass
           'Analytisk problemlösare med systematisk felsökningsmetodik',
           'Projektledning och stakeholder management',
           'Tvärfunktionellt samarbete med produktion och underhåll',
-          'Pedagogisk – handleder juniora ingenjörer'
+          'Pedagogisk: handleder juniora ingenjörer'
         ]
       },
 
       certifieringar: [
         'Siemens Certified TIA Portal Professional (2023)',
-        'Functional Safety Engineer – EN ISO 13849 (TÜV Nord, 2022)',
+        'Functional Safety Engineer: EN ISO 13849 (TÜV Nord, 2022)',
         'ABB Robotics Programming and Commissioning (2021)',
         'Ignition Core Certification (Inductive Automation, 2020)'
       ],
@@ -11683,31 +11721,35 @@ Använd det här exemplet som mall för ditt eget CV. Kopiera strukturen, anpass
     varforDetFungerar: [
       {
         rubrik: 'ATS-optimering med branschspecifika system',
+        ankare: 'kompetenser',
         text: `Erik listar specifika plattformar redan i sammanfattningen: Siemens TIA Portal, ABB RobotStudio, WinCC SCADA, Profinet/EtherCAT. Under kompetenser finns varje system kategoriserat med erfarenhetsnivå.
 
 Varför detta fungerar: ATS-system hos AFRY, ABB och Siemens söker efter exakta systembeteckningar. Om jobbannonsen kräver "Siemens S7-1500" och du bara skrev "PLC-programmering" sorteras ditt CV bort direkt. Rekryterare behöver se att du faktiskt jobbat med deras specifika plattformar, inte generiska termer. Kategoriseringen hjälper både ATS-system och rekryterare att snabbt kartlägga din kompetens mot deras teknikstack.`
       },
       {
         rubrik: 'Kvantifierbara resultat med produktionsdata',
+        ankare: 'erfarenhet',
         text: `Varje arbetslivserfarenhet innehåller konkreta siffror: "Ökade produktionskapacitet +22%", "Reducerade stilleståndstid från 12% till 4%", "Upprätthöll 99.7% driftstid", "PID-reglering med precision ±0.5°C".
 
-Varför detta fungerar: Automationsavdelningen mäts på OEE, stilleståndstid och produktionskapacitet. När Erik visar att han reducerade stilleståndstid från 12% till 4% förstår produktionschefen omedelbart affärsvärdet – det kan motsvara miljontals kronor per år. Kvantifieringar visar att du inte bara implementerar system, utan förstår hela affärskontexten och kan driva strategiska automatiseringsprojekt.`
+Varför detta fungerar: Automationsavdelningen mäts på OEE, stilleståndstid och produktionskapacitet. När Erik visar att han reducerade stilleståndstid från 12% till 4% förstår produktionschefen omedelbart affärsvärdet, det kan motsvara miljontals kronor per år. Kvantifieringar visar att du inte bara implementerar system, utan förstår hela affärskontexten och kan driva strategiska automatiseringsprojekt.`
       },
       {
         rubrik: 'Teknisk djup genom hela automationspyramiden',
         text: `Erik visar integration på alla nivåer: "Programmerade 25+ Siemens S7-1500 PLC:er och konfigurerade Profinet-nätverk", "Uppgraderade SCADA-system", "Implementerade MES-integration". Under projekten nämns både sensornivå, styrningsnivå och ledningsnivå.
 
-Varför detta fungerar: De flesta automationsingenjörer är starka på antingen PLC-programmering eller SCADA-design. Erik visar att han behärskar hela pyramiden – från fältbussnivå till affärssystem. Det gör honom attraktiv för systemintegratörsjobb och teknikledningsroller där du måste förstå hela kedjan, inte bara programmera en PLC.`
+Varför detta fungerar: De flesta automationsingenjörer är starka på antingen PLC-programmering eller SCADA-design. Erik visar att han behärskar hela pyramiden, från fältbussnivå till affärssystem. Det gör honom attraktiv för systemintegratörsjobb och teknikledningsroller där du måste förstå hela kedjan, inte bara programmera en PLC.`
       },
       {
         rubrik: 'Certifieringar med årtal och utfärdare',
+        ankare: 'certifieringar',
         text: `Under certifieringar står: "Siemens Certified TIA Portal Professional (2023)", "Functional Safety Engineer EN ISO 13849 (TÜV Nord, 2022)", "ABB Robotics Programming (2021)". Varje certifiering har årtal och utfärdande organisation.
 
 Varför detta fungerar: Funktionell säkerhet är lagkrav för många maskiner enligt Maskinförordningen. När Erik visar TÜV-certifiering i EN ISO 13849 vet rekryteraren att han kan riskbedöma och designa säkerhetsfunktioner. Årtalet visar att certifieringen är aktuell. Siemens- och ABB-certifieringarna ger trovärdighet hos kunder som kräver att konsulter är fabrikscertifierade.`
       },
       {
         rubrik: 'Profiltext som täcker båda industrisegment',
-        text: `Profiltexten nämner explicit erfarenhet från "processindustri och tillverkande industri". I arbetslivserfarenheten finns ett processindustri-uppdrag (Perstorp AB – kemikalier) och ett tillverkningsuppdrag (Volvo Cars – bilproduktion).
+        ankare: 'profil',
+        text: `Profiltexten nämner explicit erfarenhet från "processindustri och tillverkande industri". I arbetslivserfarenheten finns ett processindustri-uppdrag (Perstorp AB, kemikalier) och ett tillverkningsuppdrag (Volvo Cars, bilproduktion).
 
 Varför detta fungerar: Processindustri och tillverkande industri har olika automationsbehov. Processindustri fokuserar på batchhantering och PID-reglering. Tillverkande industri handlar om taktade produktionslinor och robotceller. Genom att visa erfarenhet från båda segmenten kan Erik söka dubbelt så många jobb och översätta sin kompetens mellan olika produktionsmiljöer.`
       },
@@ -11722,7 +11764,7 @@ Varför detta fungerar: Rekryterare vill se karriärprogression, särskilt för 
     tips: [
       {
         rubrik: 'Specificera PLC- och SCADA-plattformar med erfarenhetsnivå',
-        text: `Lista inte bara "PLC-programmering" – rekryterare behöver veta exakt vilka plattformar du behärskar och på vilken nivå. Skapa kategorier under kompetenser: PLC-system, SCADA-lösningar, Robotsystem, Fältbussar.
+        text: `Lista inte bara "PLC-programmering", rekryterare behöver veta exakt vilka plattformar du behärskar och på vilken nivå. Skapa kategorier under kompetenser: PLC-system, SCADA-lösningar, Robotsystem, Fältbussar.
 
 **Exempel på före/efter:**
 
@@ -11742,7 +11784,7 @@ Varför detta fungerar: Rekryterare vill se karriärprogression, särskilt för 
       },
       {
         rubrik: 'Visa integration genom hela automationspyramiden',
-        text: `Rekryterare letar efter ingenjörer som förstår hela systemet – från sensornivå till affärssystem. Beskriv projekt där du jobbat på flera nivåer: fältnivå, styrningsnivå, övervakningsnivå och ledningsnivå.
+        text: `Rekryterare letar efter ingenjörer som förstår hela systemet, från sensornivå till affärssystem. Beskriv projekt där du jobbat på flera nivåer: fältnivå, styrningsnivå, övervakningsnivå och ledningsnivå.
 
 **Exempel på före/efter:**
 
@@ -11752,7 +11794,7 @@ Varför detta fungerar: Rekryterare vill se karriärprogression, särskilt för 
       },
       {
         rubrik: 'Lyft fram funktionell säkerhet och standarder',
-        text: `Funktionell säkerhet är lagkrav enligt Maskinförordningen. Om du har erfarenhet av säkerhetsprogrammering, riskbedömning eller certifieringar inom funktionell säkerhet – gör det synligt.
+        text: `Funktionell säkerhet är lagkrav enligt Maskinförordningen. Om du har erfarenhet av säkerhetsprogrammering, riskbedömning eller certifieringar inom funktionell säkerhet, gör det synligt.
 
 **Exempel på före/efter:**
 
@@ -11770,7 +11812,7 @@ Varför detta fungerar: Rekryterare vill se karriärprogression, särskilt för 
       },
       {
         rubrik: 'Visa systematisk felsökningsmetodik',
-        text: `Automation handlar inte bara om att bygga nya system – majoriteten av tiden går till felsökning och support. Visa att du kan systematiskt diagnostisera och lösa problem.
+        text: `Automation handlar inte bara om att bygga nya system, majoriteten av tiden går till felsökning och support. Visa att du kan systematiskt diagnostisera och lösa problem.
 
 **Exempel på före/efter:**
 
@@ -11795,11 +11837,11 @@ Varför detta fungerar: Rekryterare vill se karriärprogression, särskilt för 
       },
       {
         fraga: 'Ska jag inkludera robotprogrammering i mitt CV?',
-        svar: 'Ja, om du har praktisk erfarenhet. Robotautomation är en stor del av tillverkande industri. Specificera tillverkare och modeller: "ABB IRB 6700, RAPID-programmering", "KUKA KR Quantec, KRL-programmering". Inkludera applikationer: palettering, svetsning, limning, montering. Om du inte har roboterfarenhet men söker jobb där det krävs – överväg att ta en grundkurs.'
+        svar: 'Ja, om du har praktisk erfarenhet. Robotautomation är en stor del av tillverkande industri. Specificera tillverkare och modeller: "ABB IRB 6700, RAPID-programmering", "KUKA KR Quantec, KRL-programmering". Inkludera applikationer: palettering, svetsning, limning, montering. Om du inte har roboterfarenhet men söker jobb där det krävs, överväg att ta en grundkurs.'
       },
       {
         fraga: 'Hur hanterar jag erfarenhet från både processindustri och tillverkande industri?',
-        svar: 'Använd det som styrka – du är mer mångsidig än specialister. I profilsammanfattningen, skriv explicit: "Erfarenhet från både processindustri och tillverkande industri". Anpassa betoning beroende på vad du söker: för processindustri, lägg processrelaterade projekt högre och betona PID-reglering. För tillverkning, betona robotceller och MES-integration.'
+        svar: 'Använd det som styrka, du är mer mångsidig än specialister. I profilsammanfattningen, skriv explicit: "Erfarenhet från både processindustri och tillverkande industri". Anpassa betoning beroende på vad du söker: för processindustri, lägg processrelaterade projekt högre och betona PID-reglering. För tillverkning, betona robotceller och MES-integration.'
       },
       {
         fraga: 'Hur visar jag funktionell säkerhetskompetens?',
@@ -11819,7 +11861,7 @@ Varför detta fungerar: Rekryterare vill se karriärprogression, särskilt för 
       },
       {
         fraga: 'Ska jag ha med profilbild på mitt CV som automationsingenjör?',
-        svar: 'I Sverige är det vanligt men inte krav. Om du inkluderar bild, använd professionellt foto med neutral bakgrund. Undvik bilder från produktionsgolvet med hjälm – spara det till LinkedIn. För tekniska roller är profilbild mindre kritiskt än för kundnära roller. Viktigare är att ditt LinkedIn är uppdaterat med samma information som CV:t.'
+        svar: 'I Sverige är det vanligt men inte krav. Om du inkluderar bild, använd professionellt foto med neutral bakgrund. Undvik bilder från produktionsgolvet med hjälm, spara det till LinkedIn. För tekniska roller är profilbild mindre kritiskt än för kundnära roller. Viktigare är att ditt LinkedIn är uppdaterat med samma information som CV:t.'
       }
     ],
 
@@ -11838,9 +11880,9 @@ Varför detta fungerar: Rekryterare vill se karriärprogression, särskilt för 
 
     seoIntro: `Funderar du på hur ditt CV som konstruktör ska sticka ut bland hundratals andra ansökningar? Erik Bergströms CV visar hur du kombinerar teknisk djupkompetens med mätbara affärsresultat på ett sätt som både rekryterare och ATS-system förstår.
 
-Som mekanisk konstruktör räcker det inte att lista CAD-program – du måste visa hur dina konstruktionslösningar sparar tid, sänker kostnader eller förbättrar produktkvalitet. Detta exempel visar hur en erfaren konstruktör presenterar SolidWorks-kompetens, FEM-analyser och DFM-arbete med konkreta siffror som bevisar affärsvärde.
+Som mekanisk konstruktör räcker det inte att lista CAD-program, du måste visa hur dina konstruktionslösningar sparar tid, sänker kostnader eller förbättrar produktkvalitet. Detta exempel visar hur en erfaren konstruktör presenterar SolidWorks-kompetens, FEM-analyser och DFM-arbete med konkreta siffror som bevisar affärsvärde.
 
-Du ser också hur certifieringar som CSWP och GD&T-utbildningar validerar din tekniska trovärdighet, och hur man balanserar djup teknisk kunskap med samarbetsförmåga och projektstyrning. Oavsett om du söker jobb inom fordonsindustri, verkstadsindustri eller produktutveckling kan du anpassa denna struktur till din egen profil. Läs igenom tipsen under CV:t för att förstå exakt vad som gör att detta CV fungerar – och hur du optimerar ditt eget för svenska arbetsgivare.`,
+Du ser också hur certifieringar som CSWP och GD&T-utbildningar validerar din tekniska trovärdighet, och hur man balanserar djup teknisk kunskap med samarbetsförmåga och projektstyrning. Oavsett om du söker jobb inom fordonsindustri, verkstadsindustri eller produktutveckling kan du anpassa denna struktur till din egen profil. Läs igenom tipsen under CV:t för att förstå exakt vad som gör att detta CV fungerar, och hur du optimerar ditt eget för svenska arbetsgivare.`,
 
     intro: 'Ett professionellt CV-exempel för konstruktör som visar din tekniska expertis, CAD-kompetens och förmåga att leverera optimerade konstruktionslösningar. Detta exempel är optimerat för svenska tillverkningsföretag och ATS-system.',
 
@@ -11865,7 +11907,7 @@ Du ser också hur certifieringar som CSWP och GD&T-utbildningar validerar din te
             'Ansvarig för mekanisk konstruktion av chassikomponenter för tunga lastbilar (axelfästen, fjädringssystem) med fullständig dokumentation enligt ISO-standard och PPAP-krav',
             'Genomfört FEM-analyser (statisk, dynamisk, utmattning) som identifierade 15% materialbesparingsmöjlighet utan att kompromissa säkerhet eller hållfasthet',
             'Implementerade DFM-principer som reducerade produktionskostnad med 18% genom förenklad geometri och färre svetsfogar',
-            'Leder tvärfunktionella projekt mellan konstruktion, produktion och inköp med budget på 12 MSEK – levererat 3 projekt i tid och inom budget senaste 2 åren',
+            'Leder tvärfunktionella projekt mellan konstruktion, produktion och inköp med budget på 12 MSEK, levererat 3 projekt i tid och inom budget senaste 2 åren',
             'Mentorskap för 2 juniorkonstruktörer i SolidWorks, PDM-system och GD&T-toleranssättning'
           ]
         },
@@ -11875,7 +11917,7 @@ Du ser också hur certifieringar som CSWP och GD&T-utbildningar validerar din te
           period: '2017 – 2020',
           beskrivning: [
             '3D-modellering och detaljritningar av lagerkomponenter och tillhörande fästelement i SolidWorks med GD&T-toleranser enligt ISO 1101',
-            'Samarbete med produktionstekniker för att optimera tillverkningsprocesser – reducerade ledtid från prototyp till serie med 30% genom tidig DFM-involvering',
+            'Samarbete med produktionstekniker för att optimera tillverkningsprocesser, reducerade ledtid från prototyp till serie med 30% genom tidig DFM-involvering',
             'Utförde produktionsunderlag och teknisk dokumentation (ritningar, monteringsanvisningar, materialspecifikationer) för 25+ nya produktvarianter',
             'Deltog i DFMEA och designgranskningar för att säkerställa produktkvalitet och tillförlitlighet innan produktionsstart'
           ]
@@ -11893,9 +11935,9 @@ Du ser också hur certifieringar som CSWP och GD&T-utbildningar validerar din te
 
       kompetenser: {
         tekniska: [
-          'SolidWorks (Expert, 7+ år) – 3D-modellering, ritningar, PDM',
-          'CATIA V5 (Avancerad, 4 år) – Surface design, Assembly',
-          'FEM-analys (ANSYS, SolidWorks Simulation) – Statisk/dynamisk analys',
+          'SolidWorks (Expert, 7+ år): 3D-modellering, ritningar, PDM',
+          'CATIA V5 (Avancerad, 4 år): Surface design, Assembly',
+          'FEM-analys (ANSYS, SolidWorks Simulation): Statisk/dynamisk analys',
           'AutoCAD 2D (Avancerad)',
           'GD&T enligt ISO 1101 och ASME Y14.5',
           'DFM/DFA-principer och produktionsoptimering',
@@ -11912,11 +11954,11 @@ Du ser också hur certifieringar som CSWP och GD&T-utbildningar validerar din te
       },
 
       certifieringar: [
-        'Certified SolidWorks Professional (CSWP) – 2023',
-        'SolidWorks Advanced Sheet Metal – 2022',
-        'FEM-analys med ANSYS Workbench (40 timmar, Chalmers) – 2021',
-        'GD&T enligt ISO 1101 (24 timmar, TÜV Nord) – 2020',
-        'Lean Six Sigma Yellow Belt – 2019'
+        'Certified SolidWorks Professional (CSWP), 2023',
+        'SolidWorks Advanced Sheet Metal, 2022',
+        'FEM-analys med ANSYS Workbench (40 timmar, Chalmers), 2021',
+        'GD&T enligt ISO 1101 (24 timmar, TÜV Nord), 2020',
+        'Lean Six Sigma Yellow Belt, 2019'
       ],
 
       sprak: [
@@ -11937,7 +11979,7 @@ Varför detta fungerar: Rekryterare söker efter specifika CAD-program och metod
         rubrik: 'Kvantifierade resultat som visar affärsvärde, inte bara teknisk förmåga',
         text: `Varje arbetsuppgift kopplas till mätbara resultat: "15% materialbesparingar", "18% kostnadsminskning", "30% reducerad ledtid".
 
-Varför detta fungerar: Rekryterare vill se att du förstår konstruktionens påverkan på företagets ekonomi. Genom att visa hur FEM-optimering ledde till materialbesparingar bevisar du att du inte bara kan programvaran – du använder den för att lösa verkliga affärsproblem. Siffrorna gör CV:t trovärdigt och konkret. Istället för "ansvarig för produktutveckling" ser rekryteraren exakt vilka resultat du levererade och hur de bidrog till lönsamhet.`
+Varför detta fungerar: Rekryterare vill se att du förstår konstruktionens påverkan på företagets ekonomi. Genom att visa hur FEM-optimering ledde till materialbesparingar bevisar du att du inte bara kan programvaran, du använder den för att lösa verkliga affärsproblem. Siffrorna gör CV:t trovärdigt och konkret. Istället för "ansvarig för produktutveckling" ser rekryteraren exakt vilka resultat du levererade och hur de bidrog till lönsamhet.`
       },
       {
         rubrik: 'Balans mellan djup teknisk kompetens och samarbetsförmåga',
@@ -11972,7 +12014,7 @@ Varför detta fungerar: Rekryterare ser att du inte stått still utan utvecklats
 
 ❌ Fel: "Kan SolidWorks, CATIA, AutoCAD"
 
-✅ Rätt: "SolidWorks 2023 (CSWP) – sammanställningar, ytmodellering, ritningsframställning | CATIA V5 – surfacemodellering för karossdetaljer"
+✅ Rätt: "SolidWorks 2023 (CSWP), sammanställningar, ytmodellering, ritningsframställning | CATIA V5, surfacemodellering för karossdetaljer"
 
 Rekryterare ser direkt vilken nivå du ligger på och om du kan hantera specifika konstruktionsuppgifter.`
       },
@@ -11988,7 +12030,7 @@ Siffror gör CV:t trovärdigt och visar att du förstår konstruktionens påverk
       },
       {
         rubrik: 'Visa problemlösningsförmåga med före-efter-exempel från verkliga projekt',
-        text: `Beskriv tekniska utmaningar du löst och hur du gjorde det. Använd strukturen: Problem → Lösning → Resultat. Detta visar att du kan hantera komplexa konstruktionsuppdrag.
+        text: `Beskriv tekniska utmaningar du löst och hur du gjorde det. Använd strukturen: Problem, sedan Lösning, sedan Resultat. Detta visar att du kan hantera komplexa konstruktionsuppdrag.
 
 ❌ Fel: "Ansvarig för FEM-analyser"
 
@@ -12041,27 +12083,27 @@ Svenska arbetsgivare värdesätter konstruktörer som kan kommunicera och samarb
       },
       {
         fraga: 'Hur visar jag GD&T-kunskap på CV:t?',
-        svar: 'Nämn GD&T både som kompetens och i arbetsbeskrivningar: "GD&T enligt ISO 1101 – toleransanalys och ritningsspecifikation". Om du har certifiering från TÜV Nord, ASME eller liknande, lyft det under Certifieringar. Visa praktisk tillämpning genom exempel: "Applicerade GD&T-principer för kritiska passytor vilket reducerade kassationer med 12%".'
+        svar: 'Nämn GD&T både som kompetens och i arbetsbeskrivningar: "GD&T enligt ISO 1101, toleransanalys och ritningsspecifikation". Om du har certifiering från TÜV Nord, ASME eller liknande, lyft det under Certifieringar. Visa praktisk tillämpning genom exempel: "Applicerade GD&T-principer för kritiska passytor vilket reducerade kassationer med 12%".'
       },
       {
         fraga: 'Ska jag inkludera en portfolio eller CAD-filer med mitt CV?',
-        svar: 'Ja, men skicka inte CAD-filer direkt i ansökan – länka istället till en online-portfolio (PDF eller webbsida) med renderade bilder av dina konstruktioner. Visa 3-5 projekt med kort beskrivning av utmaning, lösning och resultat. Anonymisera känslig information och kontrollera att du inte bryter mot sekretessavtal. Inkludera länk i CV:ts sidfot.'
+        svar: 'Ja, men skicka inte CAD-filer direkt i ansökan, länka istället till en online-portfolio (PDF eller webbsida) med renderade bilder av dina konstruktioner. Visa 3-5 projekt med kort beskrivning av utmaning, lösning och resultat. Anonymisera känslig information och kontrollera att du inte bryter mot sekretessavtal. Inkludera länk i CV:ts sidfot.'
       },
       {
         fraga: 'Hur anpassar jag CV:t för olika branscher (fordon, medicinteknik, konsult)?',
-        svar: 'Anpassa profiltexten och betona olika aspekter: För fordonsindustri – fokusera på DFM, höga volymer, kostnadsoptimering och samarbete med leverantörer. För medicinteknik – lyft kvalitet, regulatoriska krav (ISO 13485), dokumentation och precisionskonstruktion. För konsultbolag – visa bredd i CAD-program, snabb inlärning, projektmångfald och samarbete med olika kunder.'
+        svar: 'Anpassa profiltexten och betona olika aspekter: För fordonsindustri, fokusera på DFM, höga volymer, kostnadsoptimering och samarbete med leverantörer. För medicinteknik, lyft kvalitet, regulatoriska krav (ISO 13485), dokumentation och precisionskonstruktion. För konsultbolag, visa bredd i CAD-program, snabb inlärning, projektmångfald och samarbete med olika kunder.'
       },
       {
         fraga: 'Vad gör jag om jag har luckor i mitt CV?',
-        svar: 'Var ärlig men strategisk. Om luckan beror på föräldraledighet, studier eller eget företag – skriv det kort: "Föräldraledighet 2021-2022" eller "Vidareutbildning: CATIA V6-certifiering och FEM-kurs (2020)". För längre luckor, visa vad du gjort för att hålla kompetensen aktuell: egenutbildning, frilansprojekt eller volontärarbete.'
+        svar: 'Var ärlig men strategisk. Om luckan beror på föräldraledighet, studier eller eget företag, skriv det kort: "Föräldraledighet 2021-2022" eller "Vidareutbildning: CATIA V6-certifiering och FEM-kurs (2020)". För längre luckor, visa vad du gjort för att hålla kompetensen aktuell: egenutbildning, frilansprojekt eller volontärarbete.'
       },
       {
         fraga: 'Hur visar jag problemlösningsförmåga och teknisk kreativitet?',
-        svar: 'Använd PAR-metoden (Problem-Action-Result) i arbetsbeskrivningar: "Identifierade vibrationsrelaterade sprickor i fäste (Problem) → Genomförde FEM-analys och förstärkte med ribbor (Action) → Eliminerade problemet och minskade garantikostnader med 150 tkr/år (Result)". Visa hur du gått utanför standardlösningar.'
+        svar: 'Använd PAR-metoden (Problem-Action-Result) i arbetsbeskrivningar: "Identifierade vibrationsrelaterade sprickor i fäste (Problem), sedan Genomförde FEM-analys och förstärkte med ribbor (Action), sedan Eliminerade problemet och minskade garantikostnader med 150 tkr/år (Result)". Visa hur du gått utanför standardlösningar.'
       },
       {
         fraga: 'Ska jag inkludera programmeringsspråk som Python eller MATLAB?',
-        svar: 'Ja, om du använt dem för konstruktionsrelaterade uppgifter: automatisering av CAD-modeller, beräkningsskript, dataanalys av tester eller optimering. Skriv konkret hur du använt dem: "Python – automatisering av parametriska SolidWorks-modeller via API" eller "MATLAB – analys av hållfasthetsdata och optimering av komponentgeometri".'
+        svar: 'Ja, om du använt dem för konstruktionsrelaterade uppgifter: automatisering av CAD-modeller, beräkningsskript, dataanalys av tester eller optimering. Skriv konkret hur du använt dem: "Python, automatisering av parametriska SolidWorks-modeller via API" eller "MATLAB, analys av hållfasthetsdata och optimering av komponentgeometri".'
       },
       {
         fraga: 'Hur visar jag DFM/DFA-kompetens på CV:t?',
@@ -12096,7 +12138,7 @@ Använd detta som inspiration för ditt eget CV truckförare och anpassa det eft
       kontakt: {
         telefon: '070-234 56 78',
         epost: 'marcus.johansson@email.se',
-        plats: 'Göteborg',
+        plats: 'Västerås',
         linkedin: 'linkedin.com/in/marcusjohansson-truck'
       },
 
@@ -12109,10 +12151,10 @@ Använd detta som inspiration för ditt eget CV truckförare och anpassa det eft
           period: '2021 – Pågående',
           beskrivning: [
             'Hanterar 400-500 pallplatser dagligen med motviktstruck (5 ton) och skjutstativtruck i högvolymterminal med 15 000+ artiklar',
-            'Säkerhetsansvarig för truckinspektioner – genomför dagliga kontroller enligt Arbetsmiljöverkets checklista vilket resulterat i noll incidenter under 24 månader',
+            'Säkerhetsansvarig för truckinspektioner, genomför dagliga kontroller enligt Arbetsmiljöverkets checklista vilket resulterat i noll incidenter under 24 månader',
             'Arbetar i SAP WM och Astro WMS för ordermottagning, plockning och lageranteckningar med 99,8% plockningsnoggrannhet (KPI-mått)',
             'Kör både dagtid och skift (6-14, 14-22) med flexibilitet för helger och högsäsong under e-handelsrush',
-            'Mentor för 3 nya truckförare – ansvarar för introduktion i säkerhetsrutiner, WMS-system och lagergeografi'
+            'Mentor för 3 nya truckförare, ansvarar för introduktion i säkerhetsrutiner, WMS-system och lagergeografi'
           ]
         },
         {
@@ -12122,7 +12164,7 @@ Använd detta som inspiration för ditt eget CV truckförare och anpassa det eft
           beskrivning: [
             'Godsmottagning och lagring av 200-300 pallar dagligen i kylterminal (-20°C till +4°C) med fokus på temperaturkänsliga varor',
             'Implementerade effektiviserad pallhantering som minskade hanteringstiden med 15% genom bättre rutt-optimering i lagret',
-            'Crossdocking för expressleveranser – lastad och lossat 10-15 trailers dagligen med motviktstruck och plocktruckar',
+            'Crossdocking för expressleveranser, lastad och lossat 10-15 trailers dagligen med motviktstruck och plocktruckar',
             'Använt handhållen scanner för lageranteckningar i realtid vilket reducerade lagerdifferenser från 2,5% till 0,8%'
           ]
         }
@@ -12160,8 +12202,8 @@ Använd detta som inspiration för ditt eget CV truckförare och anpassa det eft
       certifieringar: [
         'Truckkort A1-A4 (motviktstruck, förnyat 2024, giltigt till 2027)',
         'Truckkort B1-B2 (skjutstativtruck, förnyat 2024, giltigt till 2027)',
-        'ADR-certifiering Klass 1, 3, 8 – Farligt gods (2023)',
-        'Arbetsmiljöutbildning – Säkerhet i lager (2023)',
+        'ADR-certifiering Klass 1, 3, 8: Farligt gods (2023)',
+        'Arbetsmiljöutbildning: Säkerhet i lager (2023)',
         'Första hjälpen-certifiering (förnyad 2024)'
       ],
 
@@ -12176,13 +12218,13 @@ Använd detta som inspiration för ditt eget CV truckförare och anpassa det eft
         rubrik: 'ATS-optimering med exakta truckkort och WMS-system',
         text: `CV:t nämner specifika truckkort (A1-A4 för motviktstruck, B1-B2 för ledstaplare och skjutstativtruck) tillsammans med WMS-system som SAP WM och Astro WMS. Varje certifiering inkluderar utfärdare (TÜV Nord) och förnyelsedatum (2024).
 
-Varför detta fungerar: Logistikföretag söker specifika truckkort i sina annonser – om de behöver B2-behörighet för höglager och du bara skriver "truckkort" sorteras ditt CV bort av ATS-systemet. Genom att lista exakt vilka behörigheter du har (A1-A4, B1-B2) och visa att de är förnyade matchar du ATS-sökningen och visar att du kan börja direkt utan väntan på kurs.`
+Varför detta fungerar: Logistikföretag söker specifika truckkort i sina annonser, om de behöver B2-behörighet för höglager och du bara skriver "truckkort" sorteras ditt CV bort av ATS-systemet. Genom att lista exakt vilka behörigheter du har (A1-A4, B1-B2) och visa att de är förnyade matchar du ATS-sökningen och visar att du kan börja direkt utan väntan på kurs.`
       },
       {
         rubrik: 'Kvantifierade resultat visar din produktivitet och säkerhet',
         text: `CV:t specificerar 400-500 pallplatser dagligen i högvolymlogistik, 2 000+ trucktimmar utan olyckor eller incidenter, och 99,8% plockningsnoggrannhet i orderplockning. Varje siffra är kopplad till konkret verksamhet.
 
-Varför detta fungerar: "Kör truck" säger ingenting om produktivitet. "400-500 pallplatser dagligen" visar att du kan hantera högt tempo och tung arbetsbelastning. "2 000+ trucktimmar utan olyckor" bevisar säkerhetsmedvetenhet – något logistikföretag värderar högt eftersom olyckor kostar enorma summor i produktionsbortfall och försäkringar.`
+Varför detta fungerar: "Kör truck" säger ingenting om produktivitet. "400-500 pallplatser dagligen" visar att du kan hantera högt tempo och tung arbetsbelastning. "2 000+ trucktimmar utan olyckor" bevisar säkerhetsmedvetenhet, något logistikföretag värderar högt eftersom olyckor kostar enorma summor i produktionsbortfall och försäkringar.`
       },
       {
         rubrik: 'Balans mellan teknisk kompetens och säkerhetsansvar',
@@ -12200,13 +12242,13 @@ Varför detta fungerar: Truckkort kräver förnyelse vart femte år. Om du skriv
         rubrik: 'Profiltext som matchar högvolymlogistik och e-handel',
         text: `Profiltexten öppnar med "Erfaren truckförare med 6+ års erfarenhet från högvolymlogistik och e-handelslager". Detta följs direkt av nyckelkompetenser som WMS-system, säkerhetsrekord och ADR-certifiering.
 
-Varför detta fungerar: Första meningen avgör om rekryterare läser vidare. "Erfaren truckförare" är vagt. "6+ års erfarenhet från högvolymlogistik och e-handelslager" visar omedelbart att du jobbat i den typ av miljö de söker – högt tempo, stora volymer, digitaliserade system. ATS-system rankar CV:n som har nyckelord tidigt högre.`
+Varför detta fungerar: Första meningen avgör om rekryterare läser vidare. "Erfaren truckförare" är vagt. "6+ års erfarenhet från högvolymlogistik och e-handelslager" visar omedelbart att du jobbat i den typ av miljö de söker, högt tempo, stora volymer, digitaliserade system. ATS-system rankar CV:n som har nyckelord tidigt högre.`
       },
       {
         rubrik: 'Karriärprogression från kylterminal till mentorskap',
         text: `Erfarenheten visar utveckling: från kylterminal med 200-300 pallar dagligen och crossdocking (2018-2021), till högvolymterminal med 400-500 pallplatser, säkerhetsansvar och mentorskap för 3 nya truckförare (2021-pågående). Varje roll har ökad komplexitet.
 
-Varför detta fungerar: Progression visar att du inte stått still utan utvecklats. Från kylterminal till specialiserad högvolymsoperatör med mentorskap bevisar tillväxt. Mentorskap för 3 nya truckförare signalerar att arbetsgivare litar på dig tillräckligt för att utbilda andra – detta indikerar att du kan växa in i team leader-roller.`
+Varför detta fungerar: Progression visar att du inte stått still utan utvecklats. Från kylterminal till specialiserad högvolymsoperatör med mentorskap bevisar tillväxt. Mentorskap för 3 nya truckförare signalerar att arbetsgivare litar på dig tillräckligt för att utbilda andra, detta indikerar att du kan växa in i team leader-roller.`
       }
     ],
 
@@ -12229,11 +12271,11 @@ Om dina truckkort snart går ut, förnya dem INNAN du söker jobb.`
 
 ✅ Rätt: "Hanterade 400-500 pallplatser dagligen i e-handelslager med högt tempo. Plockningsnoggrannhet 99,8% enligt WMS-rapporter. Utförde godsmottagning av 200-300 pallar per dag."
 
-Om du arbetat deltid, anpassa siffrorna till din faktiska erfarenhet – men var alltid konkret.`
+Om du arbetat deltid, anpassa siffrorna till din faktiska erfarenhet, men var alltid konkret.`
       },
       {
         rubrik: 'Visa konkreta säkerhetsresultat och incidentfrihet',
-        text: `Säkerhet är avgörande i logistikbranschen. Visa inte bara att du följer rutiner – bevisa att din säkerhetsmedvetenhet ger resultat.
+        text: `Säkerhet är avgörande i logistikbranschen. Visa inte bara att du följer rutiner, bevisa att din säkerhetsmedvetenhet ger resultat.
 
 ❌ Fel: "Följer säkerhetsrutiner och kör truck enligt regler"
 
@@ -12292,7 +12334,7 @@ Tekniska färdigheter är verifierbara, men mjuka egenskaper behöver bevis.`
       },
       {
         fraga: 'Hur beskriver jag skiftarbete och flexibilitet?',
-        svar: 'Var konkret och faktabaserad. Exempel: "Arbetar roterande skift (dag/kväll/natt) samt helger enligt schema. Flexibel för övertid vid toppar (Black Friday, jul)". Om du har preferenser, spara det till intervjun – i CV:t visar du tillgänglighet.'
+        svar: 'Var konkret och faktabaserad. Exempel: "Arbetar roterande skift (dag/kväll/natt) samt helger enligt schema. Flexibel för övertid vid toppar (Black Friday, jul)". Om du har preferenser, spara det till intervjun, i CV:t visar du tillgänglighet.'
       },
       {
         fraga: 'Hur visar jag säkerhetsmedvetenhet utan att vara generisk?',
@@ -12312,7 +12354,7 @@ Tekniska färdigheter är verifierbara, men mjuka egenskaper behöver bevis.`
       },
       {
         fraga: 'Hur lyfter jag fram teamarbete och samarbete?',
-        svar: 'Beskriv konkret hur du samarbetar. Exempel: "Samarbetar dagligen med lagerkoordinatorer för att optimera plockflöden", "Mentorerade 3 nya truckförare under introduktionsperiod – lärde ut säkra arbetsmetoder och WMS-system", "Deltar aktivt i veckovisa lagermöten med förbättringsförslag".'
+        svar: 'Beskriv konkret hur du samarbetar. Exempel: "Samarbetar dagligen med lagerkoordinatorer för att optimera plockflöden", "Mentorerade 3 nya truckförare under introduktionsperiod, lärde ut säkra arbetsmetoder och WMS-system", "Deltar aktivt i veckovisa lagermöten med förbättringsförslag".'
       }
     ],
 
@@ -12329,11 +12371,11 @@ Tekniska färdigheter är verifierbara, men mjuka egenskaper behöver bevis.`
     metaTitle: 'CV Exempel Logistiker 2026 – Professionell Mall | Jobbcoach.ai',
     metaDescription: 'Komplett CV-exempel för logistiker med SAP MM/WM och WMS-erfarenhet. ATS-optimerat med kvantifierbara resultat inom kostnadsreduktion och leveransprecision. Inkluderar tips och certifieringar.',
 
-    seoIntro: `Rekryterare inom logistik får hundratals ansökningar – och de flesta CV:n hamnar i "nej"-högen på 30 sekunder. Varför? För att de saknar konkreta siffror på lagerkostnadsreduktioner, systemkunskaper i ERP-plattformar som SAP eller WMS-system, och bevis på processutveckling genom Lean logistik.
+    seoIntro: `Rekryterare inom logistik får hundratals ansökningar, och de flesta CV:n hamnar i "nej"-högen på 30 sekunder. Varför? För att de saknar konkreta siffror på lagerkostnadsreduktioner, systemkunskaper i ERP-plattformar som SAP eller WMS-system, och bevis på processutveckling genom Lean logistik.
 
-Ett professionellt CV logistiker visar inte bara att du kan packa och plocka – det bevisar att du optimerar materialstyrning, höjer leveransprecision och driver faktiska kostnadsbesparingar. Skillnaden mellan "ansvarig för lager" och "sänkte lagerkostnader med 18% (1,2M kr/år) genom ABC-klassificering och WMS-optimering" avgör om du får intervjun.
+Ett professionellt CV logistiker visar inte bara att du kan packa och plocka, det bevisar att du optimerar materialstyrning, höjer leveransprecision och driver faktiska kostnadsbesparingar. Skillnaden mellan "ansvarig för lager" och "sänkte lagerkostnader med 18% (1,2M kr/år) genom ABC-klassificering och WMS-optimering" avgör om du får intervjun.
 
-På denna sida hittar du ett komplett logistiker CV exempel från Anders Bergström med 7 års erfarenhet inom supply chain. Du ser exakt hur han strukturerat sin kompetens inom SAP MM/WM, Blue Yonder WMS och transportplanering – och hur han kvantifierat sina resultat med KPI:er som 98,7% leveransprecision och 34% färre plockfel.
+På denna sida hittar du ett komplett logistiker CV exempel från Anders Bergström med 7 års erfarenhet inom supply chain. Du ser exakt hur han strukturerat sin kompetens inom SAP MM/WM, Blue Yonder WMS och transportplanering, och hur han kvantifierat sina resultat med KPI:er som 98,7% leveransprecision och 34% färre plockfel.
 
 Vi visar även vilka certifieringar som stärker ditt CV (APICS CPIM, Lean Six Sigma), hur du listar lageroptimering och TMS-kunskap på ett ATS-vänligt sätt, och vilka misstag som sorterar bort annars kvalificerade kandidater.`,
 
@@ -12345,7 +12387,7 @@ Vi visar även vilka certifieringar som stärker ditt CV (APICS CPIM, Lean Six S
       kontakt: {
         telefon: '070-485 32 16',
         epost: 'anders.bergstrom@email.com',
-        plats: 'Stockholm',
+        plats: 'Göteborg',
         linkedin: 'linkedin.com/in/anders-bergstrom'
       },
 
@@ -12418,9 +12460,9 @@ Vi visar även vilka certifieringar som stärker ditt CV (APICS CPIM, Lean Six S
       },
 
       certifieringar: [
-        'APICS CPIM (Certified in Production and Inventory Management) – 2022',
-        'Lean Six Sigma Green Belt – 2020',
-        'Truckkort A1-A4, B1-B4 – 2018'
+        'APICS CPIM (Certified in Production and Inventory Management), 2022',
+        'Lean Six Sigma Green Belt, 2020',
+        'Truckkort A1-A4, B1-B4 (2018)'
       ],
 
       sprak: [
@@ -12436,7 +12478,7 @@ Vi visar även vilka certifieringar som stärker ditt CV (APICS CPIM, Lean Six S
       },
       {
         rubrik: 'Systemkompetens tydligt listad',
-        text: `Specificerar SAP MM/WM, Blue Yonder WMS, M3/Movex, TMS – inte bara "datavana". ERP-system är dealbreakers för logistikroller, särskilt inom större koncerner.`
+        text: `Specificerar SAP MM/WM, Blue Yonder WMS, M3/Movex, TMS, inte bara "datavana". ERP-system är dealbreakers för logistikroller, särskilt inom större koncerner.`
       },
       {
         rubrik: 'Lean och processförbättring',
@@ -12444,7 +12486,7 @@ Vi visar även vilka certifieringar som stärker ditt CV (APICS CPIM, Lean Six S
       },
       {
         rubrik: 'Certifieringar med årtal',
-        text: `APICS CPIM 2022, Lean Six Sigma Green Belt 2020 – visar aktivt kompetensutveckling. Årtal bevisar att kunskapen är aktuell, inte från 2010.`
+        text: `APICS CPIM 2022, Lean Six Sigma Green Belt 2020, visar aktivt kompetensutveckling. Årtal bevisar att kunskapen är aktuell, inte från 2010.`
       },
       {
         rubrik: 'Supply chain-terminologi',
@@ -12475,7 +12517,7 @@ Vi visar även vilka certifieringar som stärker ditt CV (APICS CPIM, Lean Six S
       },
       {
         rubrik: 'Bevisa Lean-kompetens med projektresultat',
-        text: `Alla skriver "Lean-kunskap" – visa vad du faktiskt åstadkommit.
+        text: `Alla skriver "Lean-kunskap", visa vad du faktiskt åstadkommit.
 
 ❌ Fel: "Arbetat med Lean-metodik"
 
@@ -12483,7 +12525,7 @@ Vi visar även vilka certifieringar som stärker ditt CV (APICS CPIM, Lean Six S
       },
       {
         rubrik: 'Inkludera relevanta certifieringar med årtal',
-        text: `Certifieringar skiljer logistiker från lagerarbetare – men årtal bevisar aktualitet.
+        text: `Certifieringar skiljer logistiker från lagerarbetare, men årtal bevisar aktualitet.
 
 ❌ Fel: "APICS-certifierad"
 
@@ -12491,7 +12533,7 @@ Vi visar även vilka certifieringar som stärker ditt CV (APICS CPIM, Lean Six S
       },
       {
         rubrik: 'Visa prognosarbete med träffsäkerhetsdata',
-        text: `Efterfrågeprognoser är kritiskt inom supply chain – kvantifiera din precision.
+        text: `Efterfrågeprognoser är kritiskt inom supply chain, kvantifiera din precision.
 
 ❌ Fel: "Ansvarig för efterfrågeprognoser"
 
@@ -12510,15 +12552,15 @@ Vi visar även vilka certifieringar som stärker ditt CV (APICS CPIM, Lean Six S
     faq: [
       {
         fraga: 'Vilka kompetenser ska finnas på ett CV för logistiker?',
-        svar: 'Ett starkt logistiker-CV ska innehålla tre kärnområden: (1) Systemkompetens – specifika ERP-system som SAP MM/WM, M3, eller WMS-plattformar som Blue Yonder och Manhattan Associates, (2) Kvantifierbara resultat – mätningar av lageroptimering, leveransprecision, kostnadsreduktioner och processutveckling, (3) Lean/Six Sigma-kunskap – konkreta projekt inom 5S, Kaizen, värdeflödesanalys. Komplettera med relevanta certifieringar som APICS CPIM, truckkort för rätt kategorier, och eventuellt ADR för farligt gods.'
+        svar: 'Ett starkt logistiker-CV ska innehålla tre kärnområden: (1) Systemkompetens, specifika ERP-system som SAP MM/WM, M3, eller WMS-plattformar som Blue Yonder och Manhattan Associates, (2) Kvantifierbara resultat, mätningar av lageroptimering, leveransprecision, kostnadsreduktioner och processutveckling, (3) Lean/Six Sigma-kunskap, konkreta projekt inom 5S, Kaizen, värdeflödesanalys. Komplettera med relevanta certifieringar som APICS CPIM, truckkort för rätt kategorier, och eventuellt ADR för farligt gods.'
       },
       {
         fraga: 'Hur kvantifierar man logistikresultat i ett CV?',
-        svar: 'Fokusera på fyra mätområden som rekryterare inom supply chain värderar: (1) Kostnadsreduktion – "Sänkte lagerkostnader med 18% (1,2M kr/år) genom ABC-klassificering", (2) Leveransprecision – "Höjde OTIF från 94,2% till 98,7%", (3) Processeffektivitet – "Minskade ledtid från 12 till 7 dagar genom TMS-optimering", (4) Kvalitetsförbättring – "Reducerade plockfel från 2,8% till 0,4%". Använd alltid konkreta siffror med tidsperiod och metod.'
+        svar: 'Fokusera på fyra mätområden som rekryterare inom supply chain värderar: (1) Kostnadsreduktion, "Sänkte lagerkostnader med 18% (1,2M kr/år) genom ABC-klassificering", (2) Leveransprecision, "Höjde OTIF från 94,2% till 98,7%", (3) Processeffektivitet, "Minskade ledtid från 12 till 7 dagar genom TMS-optimering", (4) Kvalitetsförbättring, "Reducerade plockfel från 2,8% till 0,4%". Använd alltid konkreta siffror med tidsperiod och metod.'
       },
       {
         fraga: 'Vilka ERP- och WMS-system är viktigast att kunna som logistiker?',
-        svar: 'De mest efterfrågade systemen inom logistik är SAP (särskilt modulerna MM – Material Management och WM – Warehouse Management), följt av Microsoft Dynamics 365 SCM och IFS Applications. Inom WMS-plattformar dominerar Blue Yonder (tidigare JDA), Manhattan Associates, SAP EWM och Astro WMS. För svenska företag är även Lawson M3/Movex, Monitor ERP och Jeeves vanligt. Lista alltid både systemnamn och specifika moduler du behärskar.'
+        svar: 'De mest efterfrågade systemen inom logistik är SAP (särskilt modulerna MM, Material Management och WM, Warehouse Management), följt av Microsoft Dynamics 365 SCM och IFS Applications. Inom WMS-plattformar dominerar Blue Yonder (tidigare JDA), Manhattan Associates, SAP EWM och Astro WMS. För svenska företag är även Lawson M3/Movex, Monitor ERP och Jeeves vanligt. Lista alltid både systemnamn och specifika moduler du behärskar.'
       },
       {
         fraga: 'Behöver man certifieringar för att jobba som logistiker?',
@@ -12526,7 +12568,7 @@ Vi visar även vilka certifieringar som stärker ditt CV (APICS CPIM, Lean Six S
       },
       {
         fraga: 'Hur visar man Lean-kompetens i ett logistiker-CV?',
-        svar: 'Undvik generiska påståenden som "Lean-kunskap" – visa istället konkreta projekt och resultat. Beskriv 5S-implementeringar med faktisk påverkan: "Ledde 5S-projekt i mottagning som sänkte hanteringstid med 22%". För Kaizen-arbete, specificera frekvens och utfall: "Faciliterade 8 Kaizen-workshops under 2023 som genererade 17 implementerade förbättringsförslag". Vid värdeflödesanalys, kvantifiera ledtidsreduktionen.'
+        svar: 'Undvik generiska påståenden som "Lean-kunskap", visa istället konkreta projekt och resultat. Beskriv 5S-implementeringar med faktisk påverkan: "Ledde 5S-projekt i mottagning som sänkte hanteringstid med 22%". För Kaizen-arbete, specificera frekvens och utfall: "Faciliterade 8 Kaizen-workshops under 2023 som genererade 17 implementerade förbättringsförslag". Vid värdeflödesanalys, kvantifiera ledtidsreduktionen.'
       },
       {
         fraga: 'Vad ska stå i profiltexten på ett logistiker-CV?',
@@ -12534,7 +12576,7 @@ Vi visar även vilka certifieringar som stärker ditt CV (APICS CPIM, Lean Six S
       },
       {
         fraga: 'Hur lång erfarenhet behöver man för ett logistikplanerare-CV?',
-        svar: 'För en logistikplanerare-roll söker de flesta företag 3-5 års erfarenhet, varav minst 2 år bör vara från analytiska eller planeringsinriktade uppgifter – inte endast operativt lagerarbete. Typisk karriärväg: 1-2 år som lagermedarbetare/truckförare, 2-3 år som logistikkoordinator (där du jobbat med system, prognoser, KPI:er), därefter steget till planerare. Relevanta certifieringar kan kompensera för kortare erfarenhet.'
+        svar: 'För en logistikplanerare-roll söker de flesta företag 3-5 års erfarenhet, varav minst 2 år bör vara från analytiska eller planeringsinriktade uppgifter, inte endast operativt lagerarbete. Typisk karriärväg: 1-2 år som lagermedarbetare/truckförare, 2-3 år som logistikkoordinator (där du jobbat med system, prognoser, KPI:er), därefter steget till planerare. Relevanta certifieringar kan kompensera för kortare erfarenhet.'
       },
       {
         fraga: 'Ska man ta med truckkort på ett logistiker-CV?',
@@ -12542,11 +12584,11 @@ Vi visar även vilka certifieringar som stärker ditt CV (APICS CPIM, Lean Six S
       },
       {
         fraga: 'Hur hanterar man byte av ERP-system i sitt CV?',
-        svar: 'Systembyte är en styrka – det visar anpassningsförmåga och bred systemkunskap. Lista alla system du behärskar under Teknisk kompetens: "ERP-system: SAP MM/WM (5 år), Microsoft Dynamics 365 SCM (2 år), IFS Applications (1 år)". I arbetsbeskrivningarna, nämn implementeringsprojekt: "Deltog i migration från Lawson M3 till SAP S/4HANA – ansvarig för testning av materialstyrningsflöden och användarskolning av 15 lagermedarbetare".'
+        svar: 'Systembyte är en styrka, det visar anpassningsförmåga och bred systemkunskap. Lista alla system du behärskar under Teknisk kompetens: "ERP-system: SAP MM/WM (5 år), Microsoft Dynamics 365 SCM (2 år), IFS Applications (1 år)". I arbetsbeskrivningarna, nämn implementeringsprojekt: "Deltog i migration från Lawson M3 till SAP S/4HANA, ansvarig för testning av materialstyrningsflöden och användarskolning av 15 lagermedarbetare".'
       },
       {
         fraga: 'Vad skiljer ett logistiker-CV från ett lagerarbetare-CV?',
-        svar: 'Skillnaden ligger i fokus på analys, planering och optimering versus operativ exekvering. Lagerarbetare-CV betonar: plockning, packning, godshantering, truckkörning, ordermottagning. Logistiker-CV betonar: lageroptimering med KPI:er, systemanvändning för planering (inte bara orderhantering), prognosarbete och efterfrågeanalys, Lean/Six Sigma-projekt, leverantörssamordning och transportplanering. Språket är också annorlunda – logistiker visar strategiskt arbete MED systemen för att förbättra flöden.'
+        svar: 'Skillnaden ligger i fokus på analys, planering och optimering versus operativ exekvering. Lagerarbetare-CV betonar: plockning, packning, godshantering, truckkörning, ordermottagning. Logistiker-CV betonar: lageroptimering med KPI:er, systemanvändning för planering (inte bara orderhantering), prognosarbete och efterfrågeanalys, Lean/Six Sigma-projekt, leverantörssamordning och transportplanering. Språket är också annorlunda, logistiker visar strategiskt arbete MED systemen för att förbättra flöden.'
       }
     ],
 
@@ -12680,12 +12722,14 @@ Använd exemplet som inspiration för ditt eget CV löneadministratör och anpas
     varforDetFungerar: [
       {
         rubrik: 'ATS-optimering med lönesystem och branschtermer',
+        ankare: 'kompetenser',
         text: `CV:t nämner specifika lönesystem vid namn: Agda PS (5+ år expert), Visma Lön (4+ år avancerad) och Fortnox (7+ år expert). Dessutom används vedertagna branschtermer som arbetsgivardeklaration, periodiseringar, semesterlöneskuld och skatteavdrag.
 
 **Varför detta fungerar:** ATS-system som läser CV:n söker efter exakta systemnamn och branschterminologi. När rekryterare filtrerar kandidater söker de efter "Agda PS" eller "Visma Lön" tillsammans med "arbetsgivardeklaration" och "kollektivavtal". Generiska beskrivningar som "lönesystem" eller "skattehantering" ger inga träffar i dessa sökningar. Genom att ange kompetensnivå (Expert, Avancerad) och antal år visar du att du kan börja arbeta direkt utan omfattande systemutbildning.`
       },
       {
         rubrik: 'Kvantifiering av arbetsbelastning och resultat',
+        ankare: 'erfarenhet',
         text: `CV:t kvantifierar arbetsinsatser: 450 medarbetare månatligen, 8 olika kollektivavtal, 100% punktlighet på deklarationer i 48 månader, och konkreta resultat som 92% reducerade felaktiga utbetalningar genom kontrollrutiner.
 
 **Varför detta fungerar:** "Ansvarig för lönekörning" säger ingenting om omfattning eller komplexitet. "450 medarbetare månatligen" visar att du hanterar stor volym och kan prioritera effektivt. Resultat som "92% reducerade fel" bevisar att dina kontrollrutiner faktiskt fungerar och sparar företaget pengar. Rekryterare ser omedelbart att du levererar mätbara resultat, inte bara utför rutinuppgifter.`
@@ -12698,12 +12742,14 @@ Använd exemplet som inspiration för ditt eget CV löneadministratör och anpas
       },
       {
         rubrik: 'Certifieringar med årtal visar uppdaterad kompetens',
+        ankare: 'certifieringar',
         text: `Alla certifieringar är daterade: Fortnox-certifierad (2023), Visma Lön Specialist (2022), Skatterätt (2024) och Kollektivavtalskurs (2021). Detta visar att kompetensen är aktuell och regelbundet uppdaterad.
 
 **Varför detta fungerar:** Skattelagstiftning och kollektivavtal förändras årligen. När du anger årtal visar du att du håller dig uppdaterad och förstår aktuella regler. Rekryterare kan se direkt att din kunskap är giltig för 2026 och att de inte behöver skicka dig på akuta utbildningar före anställningsstart. Certifieringar från Fortnox och Visma är särskilt värdefulla eftersom många företag använder just dessa system.`
       },
       {
         rubrik: 'Profiltext som matchar lönespecialisering direkt',
+        ankare: 'profil',
         text: `Profiltexten öppnar med "Erfaren löneadministratör med 7+ års erfarenhet av månatlig lönekörning, arbetsgivardeklarationer och skattehantering för 300-450 medarbetare". Detta följs direkt av nyckelkompetenser som Agda PS, kollektivavtal och periodiseringar.
 
 **Varför detta fungerar:** Första meningen avgör om rekryterare läser vidare. "Erfaren löneadministratör" är vagt. "7+ års erfarenhet, 300-450 medarbetare, specialist på Agda PS" visar omedelbart att du har djup erfarenhet inom exakt det område de söker. ATS-system rankar CV:n som har nyckelord tidigt i dokumentet högre, vilket ökar chansen att du kallas till intervju.`
@@ -12847,7 +12893,7 @@ Detta visar att du inte bara skickar in rapporter, utan förstår reglerna och k
     metaTitle: 'CV Exempel Lagerchef 2026 – Professionell Mall | Jobbcoach.ai',
     metaDescription: 'Komplett CV-exempel för lagerchef med personalansvar, budgetansvar och WMS-erfarenhet. ATS-optimerat med kvantifierade KPI:er inom leveransprecision och lagereffektivitet.',
 
-    seoIntro: `Som lagerchef ansvarar du för miljoner kronor i lagervärde, koordinerar dagligen 20-50 medarbetare och förväntas leverera 99%+ leveransprecision – samtidigt som du ska hålla budgeten, utveckla teamet och implementera nya system. Det är en roll där ledarskap möter operativ excellens, och där ditt CV behöver visa båda.
+    seoIntro: `Som lagerchef ansvarar du för miljoner kronor i lagervärde, koordinerar dagligen 20-50 medarbetare och förväntas leverera 99%+ leveransprecision, samtidigt som du ska hålla budgeten, utveckla teamet och implementera nya system. Det är en roll där ledarskap möter operativ excellens, och där ditt CV behöver visa båda.
 
 Detta CV lagerchef exempel visar hur Anna Bergström kommunicerar sitt värde genom kvantifierade resultat inom både personalledning och logistik-KPI:er. Istället för vaga påståenden som "ansvarig för lager" ser du konkreta siffror: 45 medarbetare, 28 MSEK budget, 99,2% leveransprecision och 47% reducerade plockfel.
 
@@ -12863,11 +12909,11 @@ Här hittar du ett komplett lagerchef CV exempel som visar hur du strukturerar e
       kontakt: {
         telefon: '070-123 45 67',
         epost: 'anna.bergstrom@email.com',
-        plats: 'Stockholm',
+        plats: 'Angered',
         linkedin: 'linkedin.com/in/anna-bergstrom'
       },
 
-      profil: 'Resultatorienterad lagerchef med 10 års erfarenhet från logistikintensiva miljöer inom e-handel och detaljhandel. Specialist på att optimera lagerflöden och bygga högpresterande team – ledde implementation av nytt WMS som reducerade plockfel med 47% och ökade leveransprecisionen till 99,2%. Drivs av att kombinera lean-metodik med modern teknik för att skapa kostnadseffektiva och säkra lageroperationer. Har utvecklat 15+ teamledare och skiftledare som idag driver egna enheter.',
+      profil: 'Resultatorienterad lagerchef med 10 års erfarenhet från logistikintensiva miljöer inom e-handel och detaljhandel. Specialist på att optimera lagerflöden och bygga högpresterande team, ledde implementation av nytt WMS som reducerade plockfel med 47% och ökade leveransprecisionen till 99,2%. Drivs av att kombinera lean-metodik med modern teknik för att skapa kostnadseffektiva och säkra lageroperationer. Har utvecklat 15+ teamledare och skiftledare som idag driver egna enheter.',
 
       erfarenhet: [
         {
@@ -12875,7 +12921,7 @@ Här hittar du ett komplett lagerchef CV exempel som visar hur du strukturerar e
           arbetsgivare: 'Schenker Logistics AB',
           period: '2020 – Pågående',
           beskrivning: [
-            'Leder lageroperationer med 45 medarbetare och ansvar för budget på 28 MSEK – uppnådde 98,5% budgettrohet genom kostnadsoptimering och reducerade övertidskostnader med 32%',
+            'Leder lageroperationer med 45 medarbetare och ansvar för budget på 28 MSEK, uppnådde 98,5% budgettrohet genom kostnadsoptimering och reducerade övertidskostnader med 32%',
             'Implementerade Ongoing WMS och automatiserade plockprocesser vilket ökade produktiviteten med 28% och minskade plockfel från 2,1% till 0,9%',
             'Förbättrade leveransprecisionen från 94,3% till 99,2% genom omdesign av packningsprocesser och införande av kvalitetskontrollstationer',
             'Utvecklade säkerhetsprogram som resulterade i 0 arbetsskador under 18 månader och höjde medarbetarnöjdheten från 3,2 till 4,1 (av 5) i årlig medarbetarundersökning'
@@ -12886,7 +12932,7 @@ Här hittar du ett komplett lagerchef CV exempel som visar hur du strukturerar e
           arbetsgivare: 'PostNord Logistics',
           period: '2017 – 2020',
           beskrivning: [
-            'Ansvarade för inbound och lagringsverksamhet med 25 medarbetare och daglig hantering av 5 000+ kolli – reducerade ledtid från mottagning till lagring med 41%',
+            'Ansvarade för inbound och lagringsverksamhet med 25 medarbetare och daglig hantering av 5 000+ kolli, reducerade ledtid från mottagning till lagring med 41%',
             'Ledde införandet av lean-metodik (5S och kaizen) som minskade lagerytan med 18% utan påverkan på kapacitet och sparade 2,4 MSEK årligen i lagerhållningskostnader',
             'Drev rekrytering och onboarding av 30+ nya medarbetare med genomsnittlig time-to-productivity på 3,5 veckor (branschsnitt: 6 veckor)',
             'Ökade lageromsättningshastigheten från 8,2 till 11,7 gånger per år genom ABC-analys och optimerad lagerplacering'
@@ -12897,7 +12943,7 @@ Här hittar du ett komplett lagerchef CV exempel som visar hur du strukturerar e
           arbetsgivare: 'IKEA Distribution',
           period: '2014 – 2017',
           beskrivning: [
-            'Ledde team på 12-15 medarbetare inom orderplockning och utlastning – uppnådde 96,8% KPI-mål under 2016 och 2017',
+            'Ledde team på 12-15 medarbetare inom orderplockning och utlastning, uppnådde 96,8% KPI-mål under 2016 och 2017',
             'Minskade personalomsättningen från 38% till 19% genom utvecklingssamtal, kompetensutveckling och förbättrad schemaläggning',
             'Koordinerade inventering och cykelvisa räkningar vilket förbättrade lagerriktigheten från 94,1% till 98,7%'
           ]
@@ -12934,10 +12980,10 @@ Här hittar du ett komplett lagerchef CV exempel som visar hur du strukturerar e
       },
 
       certifieringar: [
-        'Lean Six Sigma Green Belt – 2021',
-        'BAM Arbetsmiljöansvarig – 2019',
-        'Brandskyddsansvarig (BSA) – 2020',
-        'Truckkort A1-A4, B1-B4 – 2014'
+        'Lean Six Sigma Green Belt, 2021',
+        'BAM Arbetsmiljöansvarig, 2019',
+        'Brandskyddsansvarig (BSA), 2020',
+        'Truckkort A1-A4, B1-B4 (2014)'
       ],
 
       sprak: [
@@ -12961,7 +13007,7 @@ Här hittar du ett komplett lagerchef CV exempel som visar hur du strukturerar e
       },
       {
         rubrik: 'Certifieringar med årtal',
-        text: `Lean Six Sigma Green Belt 2021 och BAM Arbetsmiljöansvarig 2019 med årtal visar kontinuerlig kompetensutveckling och arbetsmiljöansvar – kritiskt för chefsroller.`
+        text: `Lean Six Sigma Green Belt 2021 och BAM Arbetsmiljöansvarig 2019 med årtal visar kontinuerlig kompetensutveckling och arbetsmiljöansvar, kritiskt för chefsroller.`
       },
       {
         rubrik: 'Balans hårda och mjuka färdigheter',
@@ -13027,7 +13073,7 @@ Här hittar du ett komplett lagerchef CV exempel som visar hur du strukturerar e
     faq: [
       {
         fraga: 'Vilka kompetenser ska finnas på ett lagerchef-CV?',
-        svar: 'Ett starkt lagerchef-CV ska visa tre kärnområden: (1) Ledarskap – personalansvar, budgetansvar, medarbetarutveckling med kvantifierade resultat, (2) Operativ excellens – leveransprecision, lageromsättning, plockfel, säkerhetsresultat, och (3) Teknisk kompetens – WMS-system (Ongoing, SAP WM, Astro), lean-metodik, ABC-klassificering. Inkludera certifieringar som BAM (arbetsmiljö) och Lean Six Sigma om du har dem.'
+        svar: 'Ett starkt lagerchef-CV ska visa tre kärnområden: (1) Ledarskap, personalansvar, budgetansvar, medarbetarutveckling med kvantifierade resultat, (2) Operativ excellens, leveransprecision, lageromsättning, plockfel, säkerhetsresultat, och (3) Teknisk kompetens, WMS-system (Ongoing, SAP WM, Astro), lean-metodik, ABC-klassificering. Inkludera certifieringar som BAM (arbetsmiljö) och Lean Six Sigma om du har dem.'
       },
       {
         fraga: 'Hur kvantifierar man ledarskapsresultat som lagerchef?',
@@ -13035,11 +13081,11 @@ Här hittar du ett komplett lagerchef CV exempel som visar hur du strukturerar e
       },
       {
         fraga: 'Vilka WMS-system är viktigast att kunna som lagerchef?',
-        svar: 'De vanligaste WMS-systemen i Sverige är Ongoing WMS (särskilt inom 3PL och e-handel), SAP WM/EWM (stora företag och industri), Astro WMS (detaljhandel och logistik), och Pyramid WMS. Specificera din erfarenhetsnivå: "Ongoing WMS (5 år, superanvändare, ansvarig för implementation)" väger tyngre än bara "Ongoing WMS". Om du kan flera system, framhäv det – det visar anpassningsförmåga.'
+        svar: 'De vanligaste WMS-systemen i Sverige är Ongoing WMS (särskilt inom 3PL och e-handel), SAP WM/EWM (stora företag och industri), Astro WMS (detaljhandel och logistik), och Pyramid WMS. Specificera din erfarenhetsnivå: "Ongoing WMS (5 år, superanvändare, ansvarig för implementation)" väger tyngre än bara "Ongoing WMS". Om du kan flera system, framhäv det, det visar anpassningsförmåga.'
       },
       {
         fraga: 'Behöver man certifieringar som lagerchef?',
-        svar: 'Certifieringar är inte alltid krav, men de stärker ditt CV avsevärt. BAM (Arbetsmiljöansvarig) visar att du förstår arbetsmiljöansvar på chefsnivå. Lean Six Sigma Green Belt bevisar processtänk och förbättringsarbete. Truckkort (A1-A4, B1-B4) är meriterande även som chef – det visar att du förstår den operativa vardagen. Ange alltid årtal för certifieringar.'
+        svar: 'Certifieringar är inte alltid krav, men de stärker ditt CV avsevärt. BAM (Arbetsmiljöansvarig) visar att du förstår arbetsmiljöansvar på chefsnivå. Lean Six Sigma Green Belt bevisar processtänk och förbättringsarbete. Truckkort (A1-A4, B1-B4) är meriterande även som chef, det visar att du förstår den operativa vardagen. Ange alltid årtal för certifieringar.'
       },
       {
         fraga: 'Hur visar man budgetansvar i ett lagerchef-CV?',
@@ -13055,7 +13101,7 @@ Här hittar du ett komplett lagerchef CV exempel som visar hur du strukturerar e
       },
       {
         fraga: 'Ska man inkludera truckkort som lagerchef?',
-        svar: 'Ja, inkludera truckkort även som lagerchef – det visar att du förstår den operativa vardagen och kan stiga in vid behov. Specificera typ: "Truckkort A1-A4 (motviktstruck), B1-B4 (skjutstativtruck)" och årtal. Placera truckkort under Certifieringar. Det är särskilt värdefullt i mindre organisationer där chefer förväntas vara operativt flexibla.'
+        svar: 'Ja, inkludera truckkort även som lagerchef, det visar att du förstår den operativa vardagen och kan stiga in vid behov. Specificera typ: "Truckkort A1-A4 (motviktstruck), B1-B4 (skjutstativtruck)" och årtal. Placera truckkort under Certifieringar. Det är särskilt värdefullt i mindre organisationer där chefer förväntas vara operativt flexibla.'
       },
       {
         fraga: 'Hur skiljer sig ett lagerchef-CV från ett logistikchef-CV?',
@@ -13063,7 +13109,7 @@ Här hittar du ett komplett lagerchef CV exempel som visar hur du strukturerar e
       },
       {
         fraga: 'Vilka mjuka färdigheter är viktigast för lagerchef?',
-        svar: 'De viktigaste mjuka färdigheterna för lagerchef är: (1) Ledarskap – förmåga att motivera och utveckla team, särskilt i skiftmiljö, (2) Kommunikation – kunna förklara komplexa processer för både lagerpersonal och ledning, (3) Konflikthantering – hantera personalkonflikter och stressituationer, (4) Problemlösning – snabbt lösa akuta störningar (systemavbrott, volymtoppar), och (5) Förändringsarbete – driva lean-initiativ och WMS-implementeringar.'
+        svar: 'De viktigaste mjuka färdigheterna för lagerchef är: (1) Ledarskap, förmåga att motivera och utveckla team, särskilt i skiftmiljö, (2) Kommunikation, kunna förklara komplexa processer för både lagerpersonal och ledning, (3) Konflikthantering, hantera personalkonflikter och stressituationer, (4) Problemlösning, snabbt lösa akuta störningar (systemavbrott, volymtoppar), och (5) Förändringsarbete, driva lean-initiativ och WMS-implementeringar.'
       }
     ],
 
@@ -13149,7 +13195,7 @@ Vi förklarar varför detta CV fungerar, ger konkreta tips på vad du ska undvik
 
       kompetenser: {
         tekniska: [
-          'VVS-arbeten – Stopp, läckage, värmesystem (Expert, 8+ år)',
+          'VVS-arbeten: Stopp, läckage, värmesystem (Expert, 8+ år)',
           'Elinstallation och felsökning (Avancerad, 8+ år)',
           'Vitec Fastighetssystem (Expert, 6+ år daglig användning)',
           'Ventilationsteknik (FTX, F-system, injustering)',
@@ -13168,11 +13214,11 @@ Vi förklarar varför detta CV fungerar, ger konkreta tips på vad du ska undvik
       },
 
       certifieringar: [
-        'Heta arbeten – Hetluft, gasolbrännare, svetsdragning (2022)',
-        'Elsäkerhet – Behörig för elarbeten upp till 500V (2021)',
-        'Köldmedia – F-gas certifiering kategori 1 (2020)',
-        'Truckkort A – Motviktstruck (2019)',
-        'Ställningsbyggnad – Arbetsmiljöverket (2023)',
+        'Heta arbeten: Hetluft, gasolbrännare, svetsdragning (2022)',
+        'Elsäkerhet: Behörig för elarbeten upp till 500V (2021)',
+        'Köldmedia: F-gas certifiering kategori 1 (2020)',
+        'Truckkort A: Motviktstruck (2019)',
+        'Ställningsbyggnad: Arbetsmiljöverket (2023)',
         'Första hjälpen och HLR (förnyad 2024)'
       ],
 
@@ -13185,10 +13231,12 @@ Vi förklarar varför detta CV fungerar, ger konkreta tips på vad du ska undvik
     varforDetFungerar: [
       {
         rubrik: 'Kvantifierat fastighetsansvar',
+        ankare: 'erfarenhet',
         text: `Anger exakt antal lägenheter (450) och kvadratmeter (35 000 kvm) istället för vagt "ansvarig för fastigheter". Visar omfattning och självständighet.`
       },
       {
         rubrik: 'Certifieringar med årtal',
+        ankare: 'certifieringar',
         text: `Listar Heta arbeten 2022, F-gas 2020, Elsäkerhet 2021 med specifika årtal. Bevisar aktuell kompetens inom säkerhetskritiska områden som arbetsgivare kräver.`
       },
       {
@@ -13197,6 +13245,7 @@ Vi förklarar varför detta CV fungerar, ger konkreta tips på vad du ska undvik
       },
       {
         rubrik: 'Fastighetssystem specificerade',
+        ankare: 'kompetenser',
         text: `Nämner Vitec, Momentum och Regin istället för "datorvana". Rekryterare söker dessa exakta system i ATS-filter för fastighetsförvaltning.`
       },
       {
@@ -13318,7 +13367,7 @@ Vi förklarar varför detta CV fungerar, ger konkreta tips på vad du ska undvik
 
     seoIntro: `Söker du jobb som hemtjänstpersonal och undrar hur ditt CV ska struktureras för att verkligen sticka ut? Det här CV-exemplet för hemtjänstpersonal visar hur du balanserar omvårdnadskompetens med teknisk systemkännedom och kvantifierbara resultat.
 
-Exemplet visar Sofia Bergström, undersköterska med 8 års bred erfarenhet från både kommunal och privat hemtjänst. CV:t demonstrerar djup systemkunskap i Lifecare, TakeCare, Time Care, IBIC och Procapita – de system som svenska kommuner och privata vårdgivare faktiskt använder. Du ser konkreta kvantifieringar som gör skillnad: "12-15 brukare per dag", "95% rapporteringsefterlevnad", "+30% brukarsjälvständighet genom rehabiliterande arbetssätt". Dessutom framgår tydlig kompetens i medicindelegering, demensomvårdnad och ADL-stöd.
+Exemplet visar Sofia Bergström, undersköterska med 8 års bred erfarenhet från både kommunal och privat hemtjänst. CV:t demonstrerar djup systemkunskap i Lifecare, TakeCare, Time Care, IBIC och Procapita, de system som svenska kommuner och privata vårdgivare faktiskt använder. Du ser konkreta kvantifieringar som gör skillnad: "12-15 brukare per dag", "95% rapporteringsefterlevnad", "+30% brukarsjälvständighet genom rehabiliterande arbetssätt". Dessutom framgår tydlig kompetens i medicindelegering, demensomvårdnad och ADL-stöd.
 
 CV:t är ATS-optimerat med branschspecifika nyckelord som personcentrerad omsorg, hemrehabilitering och tvärprofessionellt samarbete. Certifieringarna är daterade (HLR 2024, Medicindelegering 2023, Demensutbildning Silviasystrar 2022) vilket visar att kompetensen är aktuell. Genom att kombinera praktisk omvårdnad med handledarerfarenhet (8 nyanställda introducerade) visar Sofia både teknisk skicklighet och förmåga att dela kunskap.
 
@@ -13332,7 +13381,7 @@ Använd detta cv hemtjänstpersonal som inspiration när du strukturerar ditt eg
       kontakt: {
         telefon: '070-123 45 67',
         epost: 'sofia.bergstrom@exempel.se',
-        plats: 'Stockholm',
+        plats: 'Göteborg',
         linkedin: 'linkedin.com/in/sofiabergstrom'
       },
 
@@ -13353,7 +13402,7 @@ Använd detta cv hemtjänstpersonal som inspiration när du strukturerar ditt eg
         },
         {
           titel: 'Undersköterska/Hemtjänstpersonal',
-          arbetsgivare: 'Stockholms Stad – Hemtjänst Södermalm',
+          arbetsgivare: 'Stockholms Stad, Hemtjänst Södermalm',
           period: '2017 – 2020',
           beskrivning: [
             'Utförde serviceinsatser och personlig omvårdnad för 15-20 brukare per dag med varierande omsorgsbehov',
@@ -13407,9 +13456,9 @@ Använd detta cv hemtjänstpersonal som inspiration när du strukturerar ditt eg
 
       certifieringar: [
         'HLR och hjärtstartare (2024)',
-        'Medicindelegering – bas och fördjupning (2023)',
+        'Medicindelegering: bas och fördjupning (2023)',
         'Demensutbildning Silviasystrar Nivå 1 (2022)',
-        'Akta Ryggen – ergonomi och förflyttningsteknik (2023)',
+        'Akta Ryggen: ergonomi och förflyttningsteknik (2023)',
         'Palliativ vård grundkurs (2021)',
         'Basala hygienrutiner (2020)',
         'Larmhantering och trygghetsteknologi (2021)'
@@ -13487,13 +13536,13 @@ Aktuella årtal visar att du förstår branschens krav och att du är redo att b
       },
       {
         rubrik: 'Visa systemkompetens med specifika namn och erfarenhetstid',
-        text: `Lifecare, TakeCare, Time Care, IBIC, Procapita – dessa system är vardagen i hemtjänsten. Om du inte nämner dem antar arbetsgivaren att du behöver systemutbildning. Skriv systemnamn OCH hur länge du använt dem för att visa att du kan bidra från dag ett.
+        text: `Lifecare, TakeCare, Time Care, IBIC, Procapita, dessa system är vardagen i hemtjänsten. Om du inte nämner dem antar arbetsgivaren att du behöver systemutbildning. Skriv systemnamn OCH hur länge du använt dem för att visa att du kan bidra från dag ett.
 
 **Exempel på före/efter**:
 
 ❌ "Erfarenhet av digitala dokumentationssystem"
 
-✅ "Lifecare – Expert, 5+ år daglig dokumentation och rapportering | TakeCare – Avancerad, 3+ år schemaläggning och vårdplanering | IBIC – 2+ år avvikelsehantering"
+✅ "Lifecare, Expert, 5+ år daglig dokumentation och rapportering | TakeCare, Avancerad, 3+ år schemaläggning och vårdplanering | IBIC, 2+ år avvikelsehantering"
 
 Specifika system gör att ditt CV dyker upp i ATS-sökningar när rekryterare filtrerar på "Lifecare hemtjänst" eller "TakeCare undersköterska". Generiska beskrivningar ger inga träffar.`
       },
@@ -13538,11 +13587,11 @@ Konkret beskrivning av flexibilitet visar att du är medveten om branschens krav
     faq: [
       {
         fraga: 'Hur långt ska mitt CV som hemtjänstpersonal vara?',
-        svar: 'För hemtjänstpersonal med 0-3 års erfarenhet räcker 1 sida. Med 3-8+ års erfarenhet och flera arbetsgivare kan du använda 1-2 sidor. Fokusera på de senaste 5-7 åren och lyft fram progression samt specialiseringar som medicindelegering eller demensomvårdnad. Prioritera alltid kvalitet framför kvantitet – konkreta siffror på antal brukare och resultat är viktigare än att fylla sidor.'
+        svar: 'För hemtjänstpersonal med 0-3 års erfarenhet räcker 1 sida. Med 3-8+ års erfarenhet och flera arbetsgivare kan du använda 1-2 sidor. Fokusera på de senaste 5-7 åren och lyft fram progression samt specialiseringar som medicindelegering eller demensomvårdnad. Prioritera alltid kvalitet framför kvantitet, konkreta siffror på antal brukare och resultat är viktigare än att fylla sidor.'
       },
       {
         fraga: 'Ska jag ha med profilbild på mitt CV?',
-        svar: 'Profilbild är frivilligt i Sverige och inget krav inom hemtjänsten. Fokusera istället på innehållet – kvantifierbara resultat, systemkunskap och certifieringar. Om du väljer att ha bild, använd en professionell bild med neutral klädsel och bakgrund. Många ATS-system kan inte läsa bilder, så säkerställ att all viktig information finns i text.'
+        svar: 'Profilbild är frivilligt i Sverige och inget krav inom hemtjänsten. Fokusera istället på innehållet, kvantifierbara resultat, systemkunskap och certifieringar. Om du väljer att ha bild, använd en professionell bild med neutral klädsel och bakgrund. Många ATS-system kan inte läsa bilder, så säkerställ att all viktig information finns i text.'
       },
       {
         fraga: 'Hur skriver jag CV utan erfarenhet från hemtjänst?',
@@ -13558,7 +13607,7 @@ Konkret beskrivning av flexibilitet visar att du är medveten om branschens krav
       },
       {
         fraga: 'Vilka hemtjänstsystem ska jag nämna i mitt CV?',
-        svar: 'Nämn alla system du använt: Lifecare, TakeCare, Time Care, IBIC, Procapita, Phoniro Care (nyckellöst lås), Carelink. Ange systemnamn och hur länge du använt dem: "Lifecare – Expert, 5+ år daglig dokumentation". Lista systemen under Tekniska kompetenser och använd dem i erfarenhetsbeskrivningar. Detta gör att ditt CV dyker upp i ATS-sökningar efter specifika systemnamn.'
+        svar: 'Nämn alla system du använt: Lifecare, TakeCare, Time Care, IBIC, Procapita, Phoniro Care (nyckellöst lås), Carelink. Ange systemnamn och hur länge du använt dem: "Lifecare, Expert, 5+ år daglig dokumentation". Lista systemen under Tekniska kompetenser och använd dem i erfarenhetsbeskrivningar. Detta gör att ditt CV dyker upp i ATS-sökningar efter specifika systemnamn.'
       },
       {
         fraga: 'Hur skriver jag om demenskompetens i CV:t?',
@@ -13570,7 +13619,7 @@ Konkret beskrivning av flexibilitet visar att du är medveten om branschens krav
       },
       {
         fraga: 'Hur visar jag ADL-stöd och rehabiliterande arbetssätt?',
-        svar: 'Lista ADL-stöd under Kompetenser: "ADL-stöd – personlig hygien, på/avklädning, matning, toalettbesök (Expert, 8+ år)". I erfarenhetsbeskrivningar, visa rehabiliterande arbetssätt: "Tillämpar rehabiliterande arbetssätt enligt gör med, inte för-principen vilket ökade brukarsjälvständighet med 30%". Beskriv också samarbete med fysioterapeuter och arbetsterapeuter kring hemrehabilitering.'
+        svar: 'Lista ADL-stöd under Kompetenser: "ADL-stöd, personlig hygien, på/avklädning, matning, toalettbesök (Expert, 8+ år)". I erfarenhetsbeskrivningar, visa rehabiliterande arbetssätt: "Tillämpar rehabiliterande arbetssätt enligt gör med, inte för-principen vilket ökade brukarsjälvständighet med 30%". Beskriv också samarbete med fysioterapeuter och arbetsterapeuter kring hemrehabilitering.'
       },
       {
         fraga: 'Vilka certifieringar är viktigast för hemtjänstpersonal?',
@@ -13679,11 +13728,11 @@ Använd det här exemplet som mall för att strukturera din egen erfarenhet. Fok
       },
 
       certifieringar: [
-        'Heta arbeten – Svetsning och lödning (2022)',
-        'Truckkort A – Motviktstruck (2021)',
-        'Hygienutbildning Städ – Svenskt Städinstitutet (2023)',
+        'Heta arbeten: Svetsning och lödning (2022)',
+        'Truckkort A: Motviktstruck (2021)',
+        'Hygienutbildning Städ: Svenskt Städinstitutet (2023)',
         'Första hjälpen och HLR (förnyad 2024)',
-        'Livsmedelshantering – Grundkurs (2020)'
+        'Livsmedelshantering: Grundkurs (2020)'
       ],
 
       sprak: [
@@ -13851,11 +13900,11 @@ Ange hur många konferensuppsättningar du genomför per månad, vilka typer av 
     metaTitle: 'CV Exempel Socialsekreterare 2026 – Professionell Mall | Jobbcoach.ai',
     metaDescription: 'Komplett CV-exempel för socialsekreterare med BBIC, utredning och myndighetsutövning. ATS-optimerat för kommunal socialtjänst. Inkluderar tips, nyckelord och FAQ.',
 
-    seoIntro: `Funderar du på hur du ska skriva ditt CV som socialsekreterare? Det här exemplet visar hur du bygger ett CV som faktiskt leder till intervjuer – genom att tydligt visa din erfarenhet av utredning, myndighetsutövning och relationsskapande inom socialtjänsten.
+    seoIntro: `Funderar du på hur du ska skriva ditt CV som socialsekreterare? Det här exemplet visar hur du bygger ett CV som faktiskt leder till intervjuer, genom att tydligt visa din erfarenhet av utredning, myndighetsutövning och relationsskapande inom socialtjänsten.
 
-Du ser hur Anna Lindström kvantifierar sin utredningskompetens (85+ vårdutredningar, 78% hållbara lösningar), visar progression från ekonomiskt bistånd till barn och unga, och väver in branschspecifika nyckelord som ATS-system letar efter. CV:t balanserar juridisk expertis (SoL, LVU, riskbedömning) med relationsskapande metoder (BBIC, MI, krisstöd) och inkluderar konkreta system (Treserva, ProCapita Webb) som många kommuner använder. Varje arbetsuppgift beskrivs med mätbara resultat – inte bara "ansvarig för utredningar" utan "minskade handläggningstid från 6 till 4,5 månader".
+Du ser hur Anna Lindström kvantifierar sin utredningskompetens (85+ vårdutredningar, 78% hållbara lösningar), visar progression från ekonomiskt bistånd till barn och unga, och väver in branschspecifika nyckelord som ATS-system letar efter. CV:t balanserar juridisk expertis (SoL, LVU, riskbedömning) med relationsskapande metoder (BBIC, MI, krisstöd) och inkluderar konkreta system (Treserva, ProCapita Webb) som många kommuner använder. Varje arbetsuppgift beskrivs med mätbara resultat, inte bara "ansvarig för utredningar" utan "minskade handläggningstid från 6 till 4,5 månader".
 
-Använd detta exempel som mall när du bygger ditt eget CV. Kombinera det gärna med ett personligt brev som kopplar din erfarenhet till den specifika tjänsten du söker – det ökar dina chanser att få intervju rejält.`,
+Använd detta exempel som mall när du bygger ditt eget CV. Kombinera det gärna med ett personligt brev som kopplar din erfarenhet till den specifika tjänsten du söker, det ökar dina chanser att få intervju rejält.`,
 
     intro: 'Socialsekreterare med fokus på utredning, myndighetsutövning och BBIC-metodik. CV:t visar kvantifierbara resultat, systemkunskaper och progression inom socialtjänsten.',
 
@@ -13865,7 +13914,7 @@ Använd detta exempel som mall när du bygger ditt eget CV. Kombinera det gärna
       kontakt: {
         telefon: '070-123 45 67',
         epost: 'anna.lindstrom@email.se',
-        plats: 'Stockholm',
+        plats: 'Uppsala',
         linkedin: 'linkedin.com/in/annalindstrom'
       },
       profil: 'Legitimerad socionom med 7 års erfarenhet av myndighetsutövning och utredningsarbete inom barn- och ungdomsenheten. Gedigen kompetens i BBIC-metodik och riskbedömningar enligt LVU, med över 300 genomförda vårdutredningar. Specialist på samverkan med skola, BUP och polis i komplexa ärenden kring barn i utsatta miljöer. Driven av att säkerställa barnets bästa genom evidensbaserade beslut och relationsskapande arbete med familjer i kris.',
@@ -13910,7 +13959,7 @@ Använd detta exempel som mall när du bygger ditt eget CV. Kombinera det gärna
           titel: 'Socionomprogrammet, 210 hp',
           skola: 'Stockholms universitet',
           period: '2014 – 2018',
-          beskrivning: 'Specialisering: Socialt arbete med barn och unga. Examensarbete: "LVU-placeringar och skolresultat – en femårsuppföljning"'
+          beskrivning: 'Specialisering: Socialt arbete med barn och unga. Examensarbete: "LVU-placeringar och skolresultat, en femårsuppföljning"'
         },
         {
           titel: 'Fristående kurser i psykologi',
@@ -13943,7 +13992,7 @@ Använd detta exempel som mall när du bygger ditt eget CV. Kombinera det gärna
         'BBIC-certifierad handläggare (2020)',
         'ASI-intervjuutbildning (2019)',
         'Motiverande samtal (MI) grundutbildning (2019)',
-        'FREDA – bedömning våld i nära relationer (2021)',
+        'FREDA: bedömning våld i nära relationer (2021)',
         'Krisstöd och krishantering (Röda Korset, 2020)'
       ],
       sprak: [
@@ -13956,31 +14005,31 @@ Använd detta exempel som mall när du bygger ditt eget CV. Kombinera det gärna
     varforDetFungerar: [
       {
         rubrik: 'ATS-optimerat med branschspecifika nyckelord',
-        text: `CV:t innehåller nyckelord som rekryterare faktiskt söker efter: BBIC, Treserva, ProCapita Webb, SoL, LVU, ASI, motiverande samtal. Du hittar dem i både kompetenser, arbetsuppgifter och certifieringar – precis där ATS-system letar.
+        text: `CV:t innehåller nyckelord som rekryterare faktiskt söker efter: BBIC, Treserva, ProCapita Webb, SoL, LVU, ASI, motiverande samtal. Du hittar dem i både kompetenser, arbetsuppgifter och certifieringar, precis där ATS-system letar.
 
-Varför detta fungerar: ATS-system filtrerar ofta bort CV:n som saknar dessa specifika termer. När rekryteraren söker på "BBIC" eller "Treserva" i sitt system dyker detta CV upp direkt. Generiska formuleringar som "erfarenhet av IT-system" eller "utredningsarbete" missar mållinjen – rekryterare vill se exakt vilka system och metoder du behärskar.`
+Varför detta fungerar: ATS-system filtrerar ofta bort CV:n som saknar dessa specifika termer. När rekryteraren söker på "BBIC" eller "Treserva" i sitt system dyker detta CV upp direkt. Generiska formuleringar som "erfarenhet av IT-system" eller "utredningsarbete" missar mållinjen, rekryterare vill se exakt vilka system och metoder du behärskar.`
       },
       {
         rubrik: 'Kvantifierade resultat från utredningsarbete',
-        text: `Varje arbetsuppgift innehåller siffror: 45-55 ärenden parallellt, 85+ vårdutredningar 2021-2024, 78% hållbara lösningar enligt 12-månaders uppföljning, minskade handläggningstid från 6 till 4,5 månader. Du ser ärendevolym, kvalitet och effektivitet – inte bara "ansvarade för utredningar".
+        text: `Varje arbetsuppgift innehåller siffror: 45-55 ärenden parallellt, 85+ vårdutredningar 2021-2024, 78% hållbara lösningar enligt 12-månaders uppföljning, minskade handläggningstid från 6 till 4,5 månader. Du ser ärendevolym, kvalitet och effektivitet, inte bara "ansvarade för utredningar".
 
-Varför detta fungerar: Siffror ger rekryteraren kontext som ord aldrig kan ge. 45-55 ärenden parallellt visar kapacitet. 78% hållbara lösningar visar kvalitet i arbetet. 6 till 4,5 månaders handläggningstid visar förbättringsförmåga. Utan siffror måste rekryteraren gissa om du hanterat 10 eller 60 ärenden – och då riskerar du att sorteras bort mot kandidater som visar konkreta resultat.`
+Varför detta fungerar: Siffror ger rekryteraren kontext som ord aldrig kan ge. 45-55 ärenden parallellt visar kapacitet. 78% hållbara lösningar visar kvalitet i arbetet. 6 till 4,5 månaders handläggningstid visar förbättringsförmåga. Utan siffror måste rekryteraren gissa om du hanterat 10 eller 60 ärenden, och då riskerar du att sorteras bort mot kandidater som visar konkreta resultat.`
       },
       {
         rubrik: 'Balans mellan myndighetsutövning och relationsskapande',
-        text: `CV:t visar juridisk kompetens (LVU-ansökningar, riskbedömningar enligt FREDA, beslutsfattande enligt SoL) parallellt med relationsskapande metoder (motiverande samtal, krisstöd, nätverksarbete med BUP och skola). Du ser konkreta exempel på båda – inte bara "god kommunikationsförmåga".
+        text: `CV:t visar juridisk kompetens (LVU-ansökningar, riskbedömningar enligt FREDA, beslutsfattande enligt SoL) parallellt med relationsskapande metoder (motiverande samtal, krisstöd, nätverksarbete med BUP och skola). Du ser konkreta exempel på båda, inte bara "god kommunikationsförmåga".
 
-Varför detta fungerar: Socialsekreterare behöver både hårdare juridiska kunskaper och mjukare relationskompetens. Problem är att många skriver "kommunikativ, empatisk, flexibel" utan att visa hur. Detta CV visar istället: "Genomförde LVU-utredningar och vann föräldrarnas förtroende genom MI" – konkret bevis på båda kompetenserna. Rekryterare ser att du kan både utöva myndighet och bygga relation.`
+Varför detta fungerar: Socialsekreterare behöver både hårdare juridiska kunskaper och mjukare relationskompetens. Problem är att många skriver "kommunikativ, empatisk, flexibel" utan att visa hur. Detta CV visar istället: "Genomförde LVU-utredningar och vann föräldrarnas förtroende genom MI", konkret bevis på båda kompetenserna. Rekryterare ser att du kan både utöva myndighet och bygga relation.`
       },
       {
         rubrik: 'Certifieringar med årtal visar aktualitet',
         text: `Alla certifieringar har årtal: Legitimerad socionom (2018), BBIC-certifierad (2020), ASI-intervjuare (2019), MI-utbildad (2019), FREDA-utbildad (2021). Du ser direkt att kompetensen är aktuell och att personen kontinuerligt vidareutbildar sig.
 
-Varför detta fungerar: Årtal gör skillnad. BBIC-certifiering från 2015 kan vara utdaterad mot nya versioner. Årtal 2020 visar att du jobbat med den metodik som används idag. Legitimerad socionom överst signalerar att grundkravet är uppfyllt. Rekryterare behöver inte gissa om dina certifieringar är aktuella – de ser det direkt.`
+Varför detta fungerar: Årtal gör skillnad. BBIC-certifiering från 2015 kan vara utdaterad mot nya versioner. Årtal 2020 visar att du jobbat med den metodik som används idag. Legitimerad socionom överst signalerar att grundkravet är uppfyllt. Rekryterare behöver inte gissa om dina certifieringar är aktuella, de ser det direkt.`
       },
       {
         rubrik: 'Profiltext följer 4-komponentmodellen',
-        text: `Profiltexten innehåller: (1) Erfarenhet – "7 års erfarenhet inom socialtjänsten", (2) Specialisering – "främst barn och unga i utsatta situationer", (3) Keywords – "BBIC, LVU, motiverande samtal", (4) Drivkrafter – "Driven av att skapa långsiktigt hållbara lösningar". Fyra meningar, 60 ord.
+        text: `Profiltexten innehåller: (1) Erfarenhet, "7 års erfarenhet inom socialtjänsten", (2) Specialisering, "främst barn och unga i utsatta situationer", (3) Keywords, "BBIC, LVU, motiverande samtal", (4) Drivkrafter, "Driven av att skapa långsiktigt hållbara lösningar". Fyra meningar, 60 ord.
 
 Varför detta fungerar: Rekryterare spenderar 10 sekunder på ditt CV vid första screening. Profiltexten är din pitch. Utan struktur blir den vag ("erfaren socialsekreterare som brinner för att hjälpa människor"). Med 4-komponentmodellen får rekryteraren direkt: hur länge jobbat, inom vad, med vilka metoder, och vad som driver dig. Det avgör om de läser vidare.`
       },
@@ -13988,14 +14037,14 @@ Varför detta fungerar: Rekryterare spenderar 10 sekunder på ditt CV vid först
         rubrik: 'Tydlig progression visar karriärutveckling',
         text: `CV:t visar rörelse från ekonomiskt bistånd (2018-2019) via mottagning (2019-2021) till barn och unga (2021-nu). Varje steg ökar komplexitet och specialisering. Du ser att personen gått från kortare utredningar till LVU-ärenden och vårdplaceringar.
 
-Varför detta fungerar: Progression signalerar ambition och bredd. Många socialsekreterare blir kvar inom samma område – att visa att du utvecklats från ekonomiskt bistånd till barn och unga berättar att du kan hantera olika målgrupper och söker utmaningar. Rekryterare ser att du inte fastnat utan aktivt byggt din kompetens inom socialtjänsten.`
+Varför detta fungerar: Progression signalerar ambition och bredd. Många socialsekreterare blir kvar inom samma område, att visa att du utvecklats från ekonomiskt bistånd till barn och unga berättar att du kan hantera olika målgrupper och söker utmaningar. Rekryterare ser att du inte fastnat utan aktivt byggt din kompetens inom socialtjänsten.`
       }
     ],
 
     tips: [
       {
         rubrik: 'Inkludera rätt nyckelord för socialtjänsten',
-        text: `Matcha ditt CV mot jobbannonsen och inkludera branschspecifika termer som rekryterare och ATS-system söker efter: BBIC, Treserva, Procapita, SoL, LVU, LVM, LSS, ASI, motiverande samtal (MI), utredning, biståndsbedömning, myndighetsutövning. Skriv exakt som de står i annonsen – om de skriver "BBIC-metodik" ska du också skriva det, inte "barnperspektiv i utredningar". Placera nyckelorden under Kompetenser och i arbetsuppgifterna, inte bara i löptext.`
+        text: `Matcha ditt CV mot jobbannonsen och inkludera branschspecifika termer som rekryterare och ATS-system söker efter: BBIC, Treserva, Procapita, SoL, LVU, LVM, LSS, ASI, motiverande samtal (MI), utredning, biståndsbedömning, myndighetsutövning. Skriv exakt som de står i annonsen, om de skriver "BBIC-metodik" ska du också skriva det, inte "barnperspektiv i utredningar". Placera nyckelorden under Kompetenser och i arbetsuppgifterna, inte bara i löptext.`
       },
       {
         rubrik: 'Kvantifiera din utredningskompetens',
@@ -14013,22 +14062,22 @@ Inkludera: antal parallella ärenden, antal genomförda utredningar, handläggni
 ❌ "Ansvarade för beslut om ekonomiskt bistånd"
 ✅ "Fattade biståndsbeslut där 68% av klienterna blev självförsörjande inom 12 månader genom aktiveringsplan"
 
-Inkludera: andel beslut som står sig vid överprövning, aktiveringsresultat, minskad handläggningstid. Myndighetsutövning handlar om kvalitet – visa att dina beslut är juridiskt korrekta OCH leder till resultat.`
+Inkludera: andel beslut som står sig vid överprövning, aktiveringsresultat, minskad handläggningstid. Myndighetsutövning handlar om kvalitet, visa att dina beslut är juridiskt korrekta OCH leder till resultat.`
       },
       {
         rubrik: 'Anpassa profiltexten efter tjänsten',
-        text: `Använd 4-komponentmodellen: (1) Erfarenhet – "5 års erfarenhet inom socialtjänsten", (2) Specialisering – "främst ekonomiskt bistånd och aktivering", (3) Keywords – "SoL, Treserva, motiverande samtal", (4) Drivkrafter – "Driven av att stärka klienters egen förmåga". Anpassa specialiseringen efter tjänsten du söker: nämn barn och unga om det är en BU-tjänst, ekonomiskt bistånd om det är försörjningsstöd, missbruk om det är beroendevård. Håll dig till 60-70 ord.`
+        text: `Använd 4-komponentmodellen: (1) Erfarenhet, "5 års erfarenhet inom socialtjänsten", (2) Specialisering, "främst ekonomiskt bistånd och aktivering", (3) Keywords, "SoL, Treserva, motiverande samtal", (4) Drivkrafter, "Driven av att stärka klienters egen förmåga". Anpassa specialiseringen efter tjänsten du söker: nämn barn och unga om det är en BU-tjänst, ekonomiskt bistånd om det är försörjningsstöd, missbruk om det är beroendevård. Håll dig till 60-70 ord.`
       },
       {
         rubrik: 'Lyft fram certifieringar med årtal',
-        text: `Börja med grundkravet överst: "Legitimerad socionom (2018)". Därefter branschspecifika certifieringar: BBIC-certifierad (2020), ASI-intervjuare (2019), MI-utbildad (2019), FREDA-utbildad (2021). Årtal visar att din kompetens är aktuell – BBIC från 2015 kan vara utdaterad mot nya versioner. Om du saknar legitimation men läser termin 6, skriv "Socionomprogrammet, termin 6/6, examen juni 2026". Placera certifieringar direkt efter Kompetenser eller Utbildning.`
+        text: `Börja med grundkravet överst: "Legitimerad socionom (2018)". Därefter branschspecifika certifieringar: BBIC-certifierad (2020), ASI-intervjuare (2019), MI-utbildad (2019), FREDA-utbildad (2021). Årtal visar att din kompetens är aktuell, BBIC från 2015 kan vara utdaterad mot nya versioner. Om du saknar legitimation men läser termin 6, skriv "Socionomprogrammet, termin 6/6, examen juni 2026". Placera certifieringar direkt efter Kompetenser eller Utbildning.`
       },
       {
         rubrik: 'Balansera juridisk kompetens med relationsskapande',
-        text: `Visa att du behärskar både myndighetsutövning och relationsskapande genom konkreta exempel – inte genom att skriva "kommunikativ, empatisk".
+        text: `Visa att du behärskar både myndighetsutövning och relationsskapande genom konkreta exempel, inte genom att skriva "kommunikativ, empatisk".
 
 ❌ "Kommunikativ och empatisk socialsekreterare"
-✅ "Genomförde LVU-utredningar med juridisk precision samtidigt som jag byggde förtroende med familjer genom motiverande samtal – 82% av föräldrarna deltog aktivt i insatsplaneringen"
+✅ "Genomförde LVU-utredningar med juridisk precision samtidigt som jag byggde förtroende med familjer genom motiverande samtal, 82% av föräldrarna deltog aktivt i insatsplaneringen"
 
 Kombinera juridiska begrepp (LVU, riskbedömning, SoL) med relationsmetoder (MI, krisstöd, nätverksarbete). Visa empati genom handling, inte adjektiv.`
       }
@@ -14041,31 +14090,31 @@ Kombinera juridiska begrepp (LVU, riskbedömning, SoL) med relationsmetoder (MI,
       },
       {
         fraga: 'Ska jag ha med profilbild på mitt CV?',
-        svar: 'Profilbild är frivilligt i Sverige och påverkar sällan om du får intervju som socialsekreterare. Fokusera istället på att visa konkret kompetens: BBIC-certifiering, antal genomförda utredningar, system du behärskar (Treserva, Procapita). Vissa rekryterare i kommunal verksamhet föredrar CV utan bild för att minska risk för omedveten bias. Om du väljer att ha med en bild ska den vara professionell: neutral bakgrund, affärsmässig klädsel, ögonkontakt. Men lägg inte tid på bilden – innehållet avgör.'
+        svar: 'Profilbild är frivilligt i Sverige och påverkar sällan om du får intervju som socialsekreterare. Fokusera istället på att visa konkret kompetens: BBIC-certifiering, antal genomförda utredningar, system du behärskar (Treserva, Procapita). Vissa rekryterare i kommunal verksamhet föredrar CV utan bild för att minska risk för omedveten bias. Om du väljer att ha med en bild ska den vara professionell: neutral bakgrund, affärsmässig klädsel, ögonkontakt. Men lägg inte tid på bilden, innehållet avgör.'
       },
       {
         fraga: 'Hur hanterar jag luckor i mitt CV?',
-        svar: 'Var ärlig och koncis. Om luckan är under 6 månader behöver du inte förklara den. Vid längre luckor räcker en rad: "2020-2021: Föräldraledighet" eller "2019: Vidareutbildning inom motiverande samtal och BBIC". Om du arbetat med något relevant under luckan (fristående utredningsuppdrag, volontärarbete inom socialt arbete, studier i juridik eller psykologi) inkludera det som en kort rad. Fokusera på vad du kan nu – rekryterare bryr sig mer om din BBIC-certifiering och utredningskompetens än om du hade 8 månaders uppehåll 2018.'
+        svar: 'Var ärlig och koncis. Om luckan är under 6 månader behöver du inte förklara den. Vid längre luckor räcker en rad: "2020-2021: Föräldraledighet" eller "2019: Vidareutbildning inom motiverande samtal och BBIC". Om du arbetat med något relevant under luckan (fristående utredningsuppdrag, volontärarbete inom socialt arbete, studier i juridik eller psykologi) inkludera det som en kort rad. Fokusera på vad du kan nu, rekryterare bryr sig mer om din BBIC-certifiering och utredningskompetens än om du hade 8 månaders uppehåll 2018.'
       },
       {
         fraga: 'Vilka kompetenser ska finnas med på ett CV för socialsekreterare?',
-        svar: 'Inkludera både metoder, lagstiftning och IT-system. Metoder: BBIC, ASI, motiverande samtal (MI), nätverksarbete, krisstöd, FREDA. Lagstiftning: SoL, LVU, LVM, LSS, OSL (beroende på specialisering). IT-system: Treserva, Procapita, ProCapita Webb. Lägg även till administrativa kompetenser: utredning, beslutsfattande, biståndsbedömning, dokumentation, myndighetsutövning. Matcha alltid mot jobbannonsen – om de söker någon till ekonomiskt bistånd behöver du inte lista LVU-erfarenhet överst.'
+        svar: 'Inkludera både metoder, lagstiftning och IT-system. Metoder: BBIC, ASI, motiverande samtal (MI), nätverksarbete, krisstöd, FREDA. Lagstiftning: SoL, LVU, LVM, LSS, OSL (beroende på specialisering). IT-system: Treserva, Procapita, ProCapita Webb. Lägg även till administrativa kompetenser: utredning, beslutsfattande, biståndsbedömning, dokumentation, myndighetsutövning. Matcha alltid mot jobbannonsen, om de söker någon till ekonomiskt bistånd behöver du inte lista LVU-erfarenhet överst.'
       },
       {
         fraga: 'Hur beskriver jag myndighetsutövning på mitt CV?',
-        svar: 'Visa konkreta exempel på beslut du fattat och resultat de ledde till. Skriv inte bara "ansvarade för myndighetsutövning enligt SoL" utan "Fattade biståndsbeslut enligt SoL där 92% stod sig vid överprövning" eller "Genomförde 23 LVU-utredningar 2022-2024 med riskbedömningar enligt FREDA". Inkludera: antal beslut, andel som står sig vid överprövning, typer av ärenden (biståndsbedömning, LVU, placeringar), dokumentation i Treserva/Procapita. Myndighetsutövning handlar om juridisk precision – visa att dina beslut är korrekta och står sig.'
+        svar: 'Visa konkreta exempel på beslut du fattat och resultat de ledde till. Skriv inte bara "ansvarade för myndighetsutövning enligt SoL" utan "Fattade biståndsbeslut enligt SoL där 92% stod sig vid överprövning" eller "Genomförde 23 LVU-utredningar 2022-2024 med riskbedömningar enligt FREDA". Inkludera: antal beslut, andel som står sig vid överprövning, typer av ärenden (biståndsbedömning, LVU, placeringar), dokumentation i Treserva/Procapita. Myndighetsutövning handlar om juridisk precision, visa att dina beslut är korrekta och står sig.'
       },
       {
         fraga: 'Ska jag skriva vilka IT-system jag kan (Treserva, Procapita)?',
-        svar: 'Ja, absolut. Många kommuner söker specifikt efter erfarenhet av Treserva, Procapita eller ProCapita Webb eftersom introduktion tar tid. Skriv dem under Kompetenser eller IT-system: "Treserva (4 år), ProCapita Webb (2 år), Office 365". Om du kan flera system inom socialtjänsten (IFO-system, LSS-system) lista dem också – det visar att du snabbt lär dig nya verktyg. ATS-system söker ofta efter dessa systemnamn, så inkludera dem exakt som de skrivs i jobbannonsen.'
+        svar: 'Ja, absolut. Många kommuner söker specifikt efter erfarenhet av Treserva, Procapita eller ProCapita Webb eftersom introduktion tar tid. Skriv dem under Kompetenser eller IT-system: "Treserva (4 år), ProCapita Webb (2 år), Office 365". Om du kan flera system inom socialtjänsten (IFO-system, LSS-system) lista dem också, det visar att du snabbt lär dig nya verktyg. ATS-system söker ofta efter dessa systemnamn, så inkludera dem exakt som de skrivs i jobbannonsen.'
       },
       {
         fraga: 'Hur lyfter jag fram BBIC-kompetens på CV:t?',
-        svar: 'Visa BBIC både som certifiering och genom konkreta exempel i arbetsuppgifterna. Certifiering: "BBIC-certifierad (2020)" under Certifieringar. I arbetsuppgifter: "Genomförde 60+ BBIC-utredningar inom barn och unga där 78% ledde till hållbara vårdlösningar" eller "Använde BBIC-metodik för att analysera barns behov i komplexa familjesituationer med samverkan mellan socialtjänst, BUP och skola". Visa hur du använt metoden i praktiken – inte bara att du gått kursen. Om du undervisat kollegor i BBIC, nämn det också.'
+        svar: 'Visa BBIC både som certifiering och genom konkreta exempel i arbetsuppgifterna. Certifiering: "BBIC-certifierad (2020)" under Certifieringar. I arbetsuppgifter: "Genomförde 60+ BBIC-utredningar inom barn och unga där 78% ledde till hållbara vårdlösningar" eller "Använde BBIC-metodik för att analysera barns behov i komplexa familjesituationer med samverkan mellan socialtjänst, BUP och skola". Visa hur du använt metoden i praktiken, inte bara att du gått kursen. Om du undervisat kollegor i BBIC, nämn det också.'
       },
       {
         fraga: 'Vad ska stå i min profil/sammanfattning som socialsekreterare?',
-        svar: 'Följ 4-komponentmodellen: (1) Erfarenhet – antal år och inom vilken del av socialtjänsten, (2) Specialisering – barn och unga, ekonomiskt bistånd, missbruk, äldre, (3) Keywords – BBIC, LVU, MI, Treserva (beroende på tjänst), (4) Drivkrafter – vad som motiverar dig. Exempel: "Legitimerad socionom med 5 års erfarenhet inom barn och unga i utsatta situationer. Specialist på BBIC-utredningar, LVU-ärenden och samverkan med BUP och skola. BBIC-certifierad, MI-utbildad, van vid Treserva. Driven av att skapa långsiktigt hållbara lösningar för barn och familjer." Håll dig till 60-70 ord.'
+        svar: 'Följ 4-komponentmodellen: (1) Erfarenhet, antal år och inom vilken del av socialtjänsten, (2) Specialisering, barn och unga, ekonomiskt bistånd, missbruk, äldre, (3) Keywords, BBIC, LVU, MI, Treserva (beroende på tjänst), (4) Drivkrafter, vad som motiverar dig. Exempel: "Legitimerad socionom med 5 års erfarenhet inom barn och unga i utsatta situationer. Specialist på BBIC-utredningar, LVU-ärenden och samverkan med BUP och skola. BBIC-certifierad, MI-utbildad, van vid Treserva. Driven av att skapa långsiktigt hållbara lösningar för barn och familjer." Håll dig till 60-70 ord.'
       },
       {
         fraga: 'Hur skriver jag om erfarenhet från ekonomiskt bistånd?',
@@ -14073,7 +14122,7 @@ Kombinera juridiska begrepp (LVU, riskbedömning, SoL) med relationsmetoder (MI,
       },
       {
         fraga: 'Hur visar jag samverkanskompetens med BUP, skola och polis?',
-        svar: 'Beskriv konkreta samverkanssituationer och vad de ledde till. Skriv inte "god samverkansförmåga" utan "Samordnade insatser mellan socialtjänst, BUP och skola i 35 komplexa ärenden där 80% av barnen fick sammanhållen vårdplan" eller "Genomförde gemensamma utredningar med polis vid misstanke om brott mot barn enligt 14 kap 1§ SoL". Inkludera: vilka aktörer (BUP, skola, polis, habilitering, familjecentral), typ av samverkan (gemensamma utredningar, vårdmöten, SIP), resultat (sammanhållen plan, snabbare insatser). Samverkan är inte ett adjektiv – det är konkret handling.'
+        svar: 'Beskriv konkreta samverkanssituationer och vad de ledde till. Skriv inte "god samverkansförmåga" utan "Samordnade insatser mellan socialtjänst, BUP och skola i 35 komplexa ärenden där 80% av barnen fick sammanhållen vårdplan" eller "Genomförde gemensamma utredningar med polis vid misstanke om brott mot barn enligt 14 kap 1§ SoL". Inkludera: vilka aktörer (BUP, skola, polis, habilitering, familjecentral), typ av samverkan (gemensamma utredningar, vårdmöten, SIP), resultat (sammanhållen plan, snabbare insatser). Samverkan är inte ett adjektiv, det är konkret handling.'
       }
     ],
 
@@ -14091,11 +14140,11 @@ Kombinera juridiska begrepp (LVU, riskbedömning, SoL) med relationsmetoder (MI,
     metaTitle: 'CV Exempel HR-specialist 2026 – Professionell Mall | Jobbcoach.ai',
     metaDescription: 'Komplett CV-exempel för HR-specialist med kvantifierade resultat, ATS-optimering och branschspecifika kompetenser. Inkluderar tips, systemkunskap och FAQ.',
 
-    seoIntro: `Hur skriver du ett CV som HR-specialist som faktiskt läses av rekryterare? Nyckeln ligger i att visa konkreta resultat från ditt HR-arbete – inte bara lista uppgifter. Ett starkt CV för HR-specialist visar både systemkunskap (Workday, SAP SuccessFactors, TeamTailor) och mätbara resultat från rekrytering, organisationsutveckling och medarbetarengagemang.
+    seoIntro: `Hur skriver du ett CV som HR-specialist som faktiskt läses av rekryterare? Nyckeln ligger i att visa konkreta resultat från ditt HR-arbete, inte bara lista uppgifter. Ett starkt CV för HR-specialist visar både systemkunskap (Workday, SAP SuccessFactors, TeamTailor) och mätbara resultat från rekrytering, organisationsutveckling och medarbetarengagemang.
 
 Det här CV-exemplet visar hur en erfaren HR-specialist presenterar 65+ rekryteringar årligen med en time-to-hire på 28 dagar (15% snabbare än branschsnitt), hur personalomsättning minskades från 14% till 9%, och hur implementation av Workday för 3 500 anställda effektiviserade HR-processer med 35%. Du ser också hur certifieringar inom arbetsrätt, DISC och GDPR lyfts fram med årtal för att visa aktualitet, hur progression från HR-assistent till specialist kommuniceras tydligt, och hur balansen mellan tekniska system (löneadministration, ATS) och relationskompetens (coachning, konflikthantering) demonstreras genom konkreta exempel.
 
-Använd det här exemplet som inspiration när du skapar ditt eget CV som HR-specialist eller personalvetare. Anpassa strukturen efter din erfarenhetsnivå och specialisering – oavsett om du fokuserar på talent acquisition, arbetsrätt eller organisationsutveckling. Ett välstrukturerat CV ökar dina chanser att komma till intervju markant.`,
+Använd det här exemplet som inspiration när du skapar ditt eget CV som HR-specialist eller personalvetare. Anpassa strukturen efter din erfarenhetsnivå och specialisering, oavsett om du fokuserar på talent acquisition, arbetsrätt eller organisationsutveckling. Ett välstrukturerat CV ökar dina chanser att komma till intervju markant.`,
 
     intro: 'HR-specialist med fokus på rekrytering, arbetsrätt och organisationsutveckling. CV:t visar kvantifierbara resultat, systemkunskaper och progression inom HR-området.',
 
@@ -14105,7 +14154,7 @@ Använd det här exemplet som inspiration när du skapar ditt eget CV som HR-spe
       kontakt: {
         telefon: '070-123 45 67',
         epost: 'emma.johansson@email.se',
-        plats: 'Stockholm',
+        plats: 'Västerås',
         linkedin: 'linkedin.com/in/emmajohansson'
       },
       profil: 'Resultatdriven HR-specialist med 6 års erfarenhet av strategisk rekrytering, kompetensutveckling och medarbetarengagemang inom både tillverkningsindustri och tjänstesektorn. Specialist på att effektivisera rekryteringsprocesser, minska personalomsättning och bygga starka employer branding-strategier. Gedigen kompetens inom arbetsrätt, ATS-system och data-driven HR. Driven av att skapa en inkluderande och utvecklande arbetsmiljö där medarbetare trivs och växer.',
@@ -14187,33 +14236,37 @@ Använd det här exemplet som inspiration när du skapar ditt eget CV som HR-spe
     varforDetFungerar: [
       {
         rubrik: 'ATS-optimerat med branschspecifika nyckelord',
+        ankare: 'kompetenser',
         text: `CV:t innehåller konkreta systemnamn (Workday, SAP SuccessFactors, TeamTailor, Visma), lagstiftningsområden (LAS, MBL, diskrimineringslagen, GDPR) och etablerade HR-termer (talent acquisition, employer branding, performance management, onboarding).
 
-Varför detta fungerar: ATS-system som de flesta företag använder filtrerar kandidater baserat på exakt dessa nyckelord. När en rekryterare söker efter "Workday" eller "LAS" hittar systemet det här CV:t direkt. HR-rekryterare vet hur ATS-systemen fungerar och söker därför efter kandidater som förstår vikten av specifika termer. Generella formuleringar som "HR-system" eller "personaladministration" ger inga träffar – medan konkreta systemnamn och lagstiftningsreferenser visar att du behärskar verktygen som används i praktiken.`
+Varför detta fungerar: ATS-system som de flesta företag använder filtrerar kandidater baserat på exakt dessa nyckelord. När en rekryterare söker efter "Workday" eller "LAS" hittar systemet det här CV:t direkt. HR-rekryterare vet hur ATS-systemen fungerar och söker därför efter kandidater som förstår vikten av specifika termer. Generella formuleringar som "HR-system" eller "personaladministration" ger inga träffar, medan konkreta systemnamn och lagstiftningsreferenser visar att du behärskar verktygen som används i praktiken.`
       },
       {
         rubrik: 'Mätbara resultat från HR-arbete',
+        ankare: 'erfarenhet',
         text: `CV:t visar 65+ rekryteringar årligen, time-to-hire på 28 dagar (15% snabbare än branschsnitt), personalomsättning som minskade från 14% till 9%, implementation av Workday för 3 500 anställda med 35% effektivisering, och ledarutvecklingsprogram för 40 chefer.
 
-Varför detta fungerar: Siffror ger rekryterare konkret kontext för omfattning och effekt av ditt arbete. Skillnaden mellan "ansvarig för rekrytering" och "genomförde 65+ rekryteringar årligen med 28 dagars time-to-hire" är enorm – den senare visar både volym och effektivitet. När du skriver att personalomsättningen minskade från 14% till 9% förstår rekryteraren exakt vilken affärspåverkan dina HR-insatser hade. Utan siffror är det omöjligt att bedöma om du rekryterat 5 eller 50 personer.`
+Varför detta fungerar: Siffror ger rekryterare konkret kontext för omfattning och effekt av ditt arbete. Skillnaden mellan "ansvarig för rekrytering" och "genomförde 65+ rekryteringar årligen med 28 dagars time-to-hire" är enorm, den senare visar både volym och effektivitet. När du skriver att personalomsättningen minskade från 14% till 9% förstår rekryteraren exakt vilken affärspåverkan dina HR-insatser hade. Utan siffror är det omöjligt att bedöma om du rekryterat 5 eller 50 personer.`
       },
       {
         rubrik: 'Balans mellan systemkunskap och relationskompetens',
         text: `CV:t kombinerar teknisk kompetens (Workday, SAP SuccessFactors, löneadministration, GDPR-efterlevnad) med konkreta exempel på relationskompetens: coachande ledarskap för 40 chefer, konflikthantering i omorganisationer, och 92% kundnöjdhet i rekryteringsuppdrag.
 
-Varför detta fungerar: HR kräver båda dimensionerna – men många kandidater skriver endast "kommunikativ och relationsskapande" utan att visa hur det tar sig uttryck. Det här CV:t visar istället konkreta situationer där relationskompetensen användes: coachning av chefer, hantering av personalärenden, förbättring av kandidatkvalitet. Kombinationen av tekniska system och mjuka färdigheter signalerar att du förstår att HR handlar både om effektiva processer och om människor.`
+Varför detta fungerar: HR kräver båda dimensionerna, men många kandidater skriver endast "kommunikativ och relationsskapande" utan att visa hur det tar sig uttryck. Det här CV:t visar istället konkreta situationer där relationskompetensen användes: coachning av chefer, hantering av personalärenden, förbättring av kandidatkvalitet. Kombinationen av tekniska system och mjuka färdigheter signalerar att du förstår att HR handlar både om effektiva processer och om människor.`
       },
       {
         rubrik: 'Certifieringar med årtal visar aktualitet',
-        text: `CV:t listar Arbetsrättsjurist (2023), Rekrytering & Urval (2022), Extended DISC (2021) och GDPR för HR (2020) – alla med årtal som visar att kompetensen är färsk och relevant.
+        ankare: 'certifieringar',
+        text: `CV:t listar Arbetsrättsjurist (2023), Rekrytering & Urval (2022), Extended DISC (2021) och GDPR för HR (2020), alla med årtal som visar att kompetensen är färsk och relevant.
 
-Varför detta fungerar: HR-området förändras snabbt – GDPR skärptes, arbetsrätten utvecklas, nya rekryteringsmetoder etableras. Ett årtal som "Arbetsrättsjurist (2023)" signalerar att din kunskap är uppdaterad med senaste lagändringar och praxis. Utan årtal kan rekryteraren inte bedöma om din GDPR-certifiering är från 2018 (före skärpningarna) eller 2020. Särskilt inom arbetsrätt och dataskydd är aktualitet avgörande.`
+Varför detta fungerar: HR-området förändras snabbt, GDPR skärptes, arbetsrätten utvecklas, nya rekryteringsmetoder etableras. Ett årtal som "Arbetsrättsjurist (2023)" signalerar att din kunskap är uppdaterad med senaste lagändringar och praxis. Utan årtal kan rekryteraren inte bedöma om din GDPR-certifiering är från 2018 (före skärpningarna) eller 2020. Särskilt inom arbetsrätt och dataskydd är aktualitet avgörande.`
       },
       {
         rubrik: 'Profiltext med 4-komponentmodellen',
+        ankare: 'profil',
         text: `Profiltexten inleds med erfarenhet (6 år inom HR), följt av specialisering (rekrytering, arbetsrätt, organisationsutveckling), innehåller nyckelord (Workday, LAS, talent acquisition) och avslutas med drivkrafter (skapa inkluderande arbetsmiljöer där medarbetare trivs och växer).
 
-Varför detta fungerar: Rekryterare lägger i genomsnitt 7-10 sekunder på ett CV vid första granskningen. Profiltexten är det första de läser – och den måste omedelbart svara på "Är den här personen relevant för rollen?". Strukturen Erfarenhet + Specialisering + Keywords + Drivkrafter ger maximal information på minsta yta. Rekryteraren ser direkt erfarenhetsnivån och förstår vilka områden du behärskar.`
+Varför detta fungerar: Rekryterare lägger i genomsnitt 7-10 sekunder på ett CV vid första granskningen. Profiltexten är det första de läser, och den måste omedelbart svara på "Är den här personen relevant för rollen?". Strukturen Erfarenhet + Specialisering + Keywords + Drivkrafter ger maximal information på minsta yta. Rekryteraren ser direkt erfarenhetsnivån och förstår vilka områden du behärskar.`
       },
       {
         rubrik: 'Tydlig progression inom HR-området',
@@ -14234,7 +14287,7 @@ Varför detta fungerar: Progression signalerar ambition och förmåga att ta mer
 
 ✅ "5 års erfarenhet av Workday och SAP SuccessFactors. Genomfört 200+ rekryteringar med TeamTailor. Behärskar LAS, MBL och diskrimineringslagen inom arbetsrätt."
 
-Om annonsen nämner "Workday", skriv exakt det systemnamnet – inte bara "HR-system". ATS-system matchar ofta ordagrant, vilket innebär att felaktig terminologi kan göra att ditt CV sorteras bort trots relevant kompetens.`
+Om annonsen nämner "Workday", skriv exakt det systemnamnet, inte bara "HR-system". ATS-system matchar ofta ordagrant, vilket innebär att felaktig terminologi kan göra att ditt CV sorteras bort trots relevant kompetens.`
       },
       {
         rubrik: 'Kvantifiera dina HR-resultat',
@@ -14274,22 +14327,22 @@ Anpassa specialiseringen efter rollen: "rekrytering och employer branding" för 
       },
       {
         rubrik: 'Lyft fram certifieringar med årtal',
-        text: `Skapa en dedikerad sektion för certifieringar. Detta visar att du är uppdaterad och investerar i din utveckling – särskilt viktigt inom HR där lagstiftning förändras snabbt.
+        text: `Skapa en dedikerad sektion för certifieringar. Detta visar att du är uppdaterad och investerar i din utveckling, särskilt viktigt inom HR där lagstiftning förändras snabbt.
 
 **Exempel på före/efter**:
 
 ❌ "Arbetsrättscertifierad och utbildad i GDPR"
 
-✅ "Arbetsrättsjurist – Arbetsgivarverket (2023)
+✅ "Arbetsrättsjurist, Arbetsgivarverket (2023)
 Extended DISC-certifiering (2022)
-GDPR för HR – Stockholms universitet (2021)
-Rekrytering & Urval – IHM Business School (2020)"
+GDPR för HR, Stockholms universitet (2021)
+Rekrytering & Urval, IHM Business School (2020)"
 
 Inkludera förnyelsedatum för tidsbegränsade certifieringar. Systemcertifieringar (Workday, SAP SuccessFactors) är särskilt värdefulla om du söker roller med systemansvar.`
       },
       {
         rubrik: 'Balansera systemkunskap med relationskompetens',
-        text: `HR kräver både teknisk kompetens och förmåga att bygga relationer. Lista system konkret och demonstrera mjuka färdigheter genom handling – inte adjektiv.
+        text: `HR kräver både teknisk kompetens och förmåga att bygga relationer. Lista system konkret och demonstrera mjuka färdigheter genom handling, inte adjektiv.
 
 **Exempel på före/efter**:
 
@@ -14304,7 +14357,7 @@ Tekniska färdigheter kan du lista direkt (de är verifierbara), men mjuka egens
     faq: [
       {
         fraga: 'Hur långt ska mitt CV som HR-specialist vara?',
-        svar: 'Ett CV för HR-specialist bör vara 1-2 sidor beroende på din erfarenhetsnivå. Med 0-5 års erfarenhet räcker oftast 1 sida. Med 5+ års erfarenhet och flera roller kan 2 sidor vara lämpligt för att visa progression och resultat. Fokusera på de senaste 10 åren – äldre erfarenhet kan nämnas kort eller utelämnas. Prioritera kvalitet över kvantitet: konkreta resultat från 3 relevanta roller är mer värdefullt än en lista på 8 jobb utan kontext.'
+        svar: 'Ett CV för HR-specialist bör vara 1-2 sidor beroende på din erfarenhetsnivå. Med 0-5 års erfarenhet räcker oftast 1 sida. Med 5+ års erfarenhet och flera roller kan 2 sidor vara lämpligt för att visa progression och resultat. Fokusera på de senaste 10 åren, äldre erfarenhet kan nämnas kort eller utelämnas. Prioritera kvalitet över kvantitet: konkreta resultat från 3 relevanta roller är mer värdefullt än en lista på 8 jobb utan kontext.'
       },
       {
         fraga: 'Ska jag ha med profilbild på mitt CV?',
@@ -14312,11 +14365,11 @@ Tekniska färdigheter kan du lista direkt (de är verifierbara), men mjuka egens
       },
       {
         fraga: 'Hur hanterar jag luckor i mitt CV?',
-        svar: 'Var ärlig och kortfattad om luckor i ditt CV. För kortare luckor (3-6 månader) behöver du ofta ingen förklaring – det ses som normalt mellan jobb. För längre luckor, nämn vad du gjorde: vidareutbildning, föräldraledighet, sabbatsår, eller konsultuppdrag. Fokusera på vad du lärde dig eller utvecklade under perioden. Det viktigaste är att visa att du är aktuell och redo att arbeta nu.'
+        svar: 'Var ärlig och kortfattad om luckor i ditt CV. För kortare luckor (3-6 månader) behöver du ofta ingen förklaring, det ses som normalt mellan jobb. För längre luckor, nämn vad du gjorde: vidareutbildning, föräldraledighet, sabbatsår, eller konsultuppdrag. Fokusera på vad du lärde dig eller utvecklade under perioden. Det viktigaste är att visa att du är aktuell och redo att arbeta nu.'
       },
       {
         fraga: 'Vilka kompetenser ska finnas med på ett CV för HR-specialist?',
-        svar: 'Inkludera både tekniska och mjuka kompetenser. Tekniska: Workday, SAP SuccessFactors, TeamTailor, Visma, löneadministration, GDPR-efterlevnad, arbetsrätt (LAS, MBL, diskrimineringslagen). Mjuka kompetenser bör visas genom handling istället för adjektiv – skriv inte "kommunikativ" utan visa det genom exempel som "Faciliterade omorganisation för 200 medarbetare". Viktiga områden: rekrytering, onboarding, talent management, performance management, organisationsutveckling.'
+        svar: 'Inkludera både tekniska och mjuka kompetenser. Tekniska: Workday, SAP SuccessFactors, TeamTailor, Visma, löneadministration, GDPR-efterlevnad, arbetsrätt (LAS, MBL, diskrimineringslagen). Mjuka kompetenser bör visas genom handling istället för adjektiv, skriv inte "kommunikativ" utan visa det genom exempel som "Faciliterade omorganisation för 200 medarbetare". Viktiga områden: rekrytering, onboarding, talent management, performance management, organisationsutveckling.'
       },
       {
         fraga: 'Hur beskriver jag rekryteringsresultat i mitt CV?',
@@ -14332,7 +14385,7 @@ Tekniska färdigheter kan du lista direkt (de är verifierbara), men mjuka egens
       },
       {
         fraga: 'Ska jag skriva "HR-specialist" eller "Personalvetare"?',
-        svar: 'Använd den titel som matchar jobbannonsen och som är vanligast i din bransch. "HR-specialist" är den vanligaste titeln idag och föredras av de flesta företag. "Personalvetare" används främst inom offentlig sektor och traditionella företag. Du kan ha båda termerna i ditt CV – använd den ena som titel och nämn den andra i profiltexten för att fånga båda sökningarna i ATS-system.'
+        svar: 'Använd den titel som matchar jobbannonsen och som är vanligast i din bransch. "HR-specialist" är den vanligaste titeln idag och föredras av de flesta företag. "Personalvetare" används främst inom offentlig sektor och traditionella företag. Du kan ha båda termerna i ditt CV, använd den ena som titel och nämn den andra i profiltexten för att fånga båda sökningarna i ATS-system.'
       },
       {
         fraga: 'Hur beskriver jag mjuka kompetenser som HR-specialist?',
@@ -14340,7 +14393,7 @@ Tekniska färdigheter kan du lista direkt (de är verifierbara), men mjuka egens
       },
       {
         fraga: 'Vilka certifieringar är viktiga för HR-specialist?',
-        svar: 'Prioritera certifieringar inom arbetsrätt, rekrytering, personlighetsbedömning och dataskydd. Högt värderade: Arbetsrättsjurist, Rekrytering & Urval, Extended DISC eller liknande personlighetsverktyg (MBTI, Insights), GDPR för HR. Systemcertifieringar: Workday, SAP SuccessFactors om du arbetar med dessa. Inkludera alltid årtal för att visa aktualitet – särskilt för GDPR och arbetsrätt där lagstiftningen förändras.'
+        svar: 'Prioritera certifieringar inom arbetsrätt, rekrytering, personlighetsbedömning och dataskydd. Högt värderade: Arbetsrättsjurist, Rekrytering & Urval, Extended DISC eller liknande personlighetsverktyg (MBTI, Insights), GDPR för HR. Systemcertifieringar: Workday, SAP SuccessFactors om du arbetar med dessa. Inkludera alltid årtal för att visa aktualitet, särskilt för GDPR och arbetsrätt där lagstiftningen förändras.'
       }
     ],
 
@@ -14359,11 +14412,11 @@ Tekniska färdigheter kan du lista direkt (de är verifierbara), men mjuka egens
     metaTitle: 'CV Exempel Controller 2026 – Professionell Mall | Jobbcoach.ai',
     metaDescription: 'Komplett CV-exempel för controller med budgetarbete, forecasting och affärsanalys. ATS-optimerat med SAP, Power BI och kvantifierade resultat. Tips och mall.',
 
-    seoIntro: `Hur skriver du ett CV som controller som får rekryterare att ta kontakt? En controllers CV måste visa mer än bara sifferkunskap – det handlar om att bevisa din förmåga att driva affärsbeslut med data.
+    seoIntro: `Hur skriver du ett CV som controller som får rekryterare att ta kontakt? En controllers CV måste visa mer än bara sifferkunskap, det handlar om att bevisa din förmåga att driva affärsbeslut med data.
 
-Det här exemplet visar hur du strukturerar ett professionellt controller-CV som passerar ATS-filter och imponerar på CFO:er. Här ser du hur Maria kombinerar tekniska verktyg som SAP och Power BI med strategiskt affärstänk. CV:t innehåller kvantifierbara resultat från budgetarbete, forecasting och kostnadsanalyser – precis det arbetsgivare söker.
+Det här exemplet visar hur du strukturerar ett professionellt controller-CV som passerar ATS-filter och imponerar på CFO:er. Här ser du hur Maria kombinerar tekniska verktyg som SAP och Power BI med strategiskt affärstänk. CV:t innehåller kvantifierbara resultat från budgetarbete, forecasting och kostnadsanalyser, precis det arbetsgivare söker.
 
-Använd exemplet som inspiration för att lyfta din egen erfarenhet inom financial controlling, variance analysis eller business partnering. Ett välstrukturerat CV ökar dina chanser att nå intervju – oavsett om du söker tjänst inom industri, detaljhandel eller tjänstesektorn.`,
+Använd exemplet som inspiration för att lyfta din egen erfarenhet inom financial controlling, variance analysis eller business partnering. Ett välstrukturerat CV ökar dina chanser att nå intervju, oavsett om du söker tjänst inom industri, detaljhandel eller tjänstesektorn.`,
 
     intro: 'Controller med fokus på budgetarbete, forecasting och affärsanalys. CV-exemplet visar hur du kombinerar tekniska verktyg med strategiskt affärstänk.',
 
@@ -14374,7 +14427,7 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet inom financi
       kontakt: {
         telefon: '073-555 12 34',
         epost: 'maria.eriksson@email.se',
-        plats: 'Göteborg',
+        plats: 'Uppsala',
         linkedin: 'linkedin.com/in/mariaeriksson'
       },
 
@@ -14444,10 +14497,10 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet inom financi
       },
 
       certifieringar: [
-        'IFRS-certifiering – FAR (2022)',
+        'IFRS-certifiering: FAR (2022)',
         'SAP FI/CO Certification (2020)',
-        'Power BI Data Analyst – Microsoft (2023)',
-        'Controllerns verktygslåda – IHM Business School (2019)'
+        'Power BI Data Analyst: Microsoft (2023)',
+        'Controllerns verktygslåda: IHM Business School (2019)'
       ],
 
       sprak: [
@@ -14459,7 +14512,7 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet inom financi
     varforDetFungerar: [
       {
         rubrik: 'Branschspecifika system som ATS identifierar',
-        text: `CV:t nämner SAP FI/CO, Power BI och Tableau med specifika kompetenser – system som controllers dagligen arbetar med och som rekryterare aktivt söker efter.
+        text: `CV:t nämner SAP FI/CO, Power BI och Tableau med specifika kompetenser, system som controllers dagligen arbetar med och som rekryterare aktivt söker efter.
 
 Varför detta fungerar: ATS-system filtrerar kandidater baserat på nyckelord från jobbannonsen. Genom att explicit nämna SAP, Power BI och IFRS ökar Maria sina chanser att passera den automatiska gallringen. Många ekonomsystem har specifika moduler (som SAP FI/CO) och att visa denna detaljnivå signalerar genuint systemkunnande.`
       },
@@ -14473,11 +14526,11 @@ Varför detta fungerar: Rekryterare jämför kandidaters kapacitet genom siffror
         rubrik: 'Teknisk expertis möter affärsstrategi',
         text: `Maria visar både djup systemkunskap (SAP, Power BI, Power Query) och strategisk förmåga (business partnering, presentations till ledningsgrupp, investeringsunderlag).
 
-Varför detta fungerar: En modern controller är mer än en sifferexpert – rollen kräver förmåga att översätta data till affärsbeslut. Genom att visa "business partner till 4 produktchefer" och "presenterar avvikelser för ledningsgruppen" bevisar Maria att hon kan kommunicera med stakeholders på alla nivåer.`
+Varför detta fungerar: En modern controller är mer än en sifferexpert, rollen kräver förmåga att översätta data till affärsbeslut. Genom att visa "business partner till 4 produktchefer" och "presenterar avvikelser för ledningsgruppen" bevisar Maria att hon kan kommunicera med stakeholders på alla nivåer.`
       },
       {
         rubrik: 'Certifieringar som visar aktualitet',
-        text: `IFRS-certifiering (2022), SAP-certifiering (2020) och Power BI-certifiering (2023) – alla med årtal som visar kontinuerlig kompetensutveckling.
+        text: `IFRS-certifiering (2022), SAP-certifiering (2020) och Power BI-certifiering (2023), alla med årtal som visar kontinuerlig kompetensutveckling.
 
 Varför detta fungerar: Redovisningsregler och system uppdateras ständigt. Årtal på certifieringar bevisar att kunskapen är aktuell. IFRS-certifiering från FAR är särskilt värdefull för controllers som arbetar med koncernredovisning eller internationella företag.`
       },
@@ -14485,11 +14538,11 @@ Varför detta fungerar: Redovisningsregler och system uppdateras ständigt. Årt
         rubrik: 'Profiltext som fångar på 10 sekunder',
         text: `Profilen sammanfattar: 7 års erfarenhet + branscher (tillverkning, detaljhandel) + specialisering (budgetering, forecasting) + verktyg (SAP, Power BI) + konkret resultat (40% effektivare månadsavslut).
 
-Varför detta fungerar: Rekryterare spenderar i genomsnitt 6-10 sekunder på att skanna ett CV. Marias profiltext levererar de fyra kritiska komponenterna: erfarenhet, specialisering, tekniska keywords och ett mätbart resultat – allt inom fyra meningar.`
+Varför detta fungerar: Rekryterare spenderar i genomsnitt 6-10 sekunder på att skanna ett CV. Marias profiltext levererar de fyra kritiska komponenterna: erfarenhet, specialisering, tekniska keywords och ett mätbart resultat, allt inom fyra meningar.`
       },
       {
         rubrik: 'Tydlig karriärprogression',
-        text: `CV:t visar utveckling från Ekonomiassistent (Grant Thornton) via Controller (H&M) till Senior Business Controller (Volvo Group) – med tydligt ökande ansvar och komplexitet.
+        text: `CV:t visar utveckling från Ekonomiassistent (Grant Thornton) via Controller (H&M) till Senior Business Controller (Volvo Group), med tydligt ökande ansvar och komplexitet.
 
 Varför detta fungerar: Progression signalerar ambition och att kandidaten har förtjänat befordran genom resultat. För en controller-tjänst är det värdefull information att kandidaten har erfarenhet från både revisionsbyrå och industri, och att hon gått från operativt till strategiskt arbete.`
       }
@@ -14510,7 +14563,7 @@ Om arbetsgivaren söker "SAP-erfarenhet", skriv exakt vilka moduler du arbetat m
       },
       {
         rubrik: 'Kvantifiera ditt budgetansvar med siffror',
-        text: `Konkreta siffror gör ditt CV mer trovärdigt och jämförbart. Som controller arbetar du dagligen med siffror – låt det synas genom att specificera budgetstorlek, antal enheter och omsättningsansvar.
+        text: `Konkreta siffror gör ditt CV mer trovärdigt och jämförbart. Som controller arbetar du dagligen med siffror, låt det synas genom att specificera budgetstorlek, antal enheter och omsättningsansvar.
 
 **Exempel på före/efter**:
 
@@ -14518,11 +14571,11 @@ Om arbetsgivaren söker "SAP-erfarenhet", skriv exakt vilka moduler du arbetat m
 
 ✅ "Budgetansvar för 180 MSEK fördelat på 12 kostnadsställen med månatlig forecasting. Implementerade rolling forecast som förbättrade träffsäkerheten från 85% till 94%."
 
-Rekryterare behöver snabbt förstå omfattningen av din erfarenhet. "Budgetansvar" kan betyda 10 MSEK eller 1 miljard – siffran gör skillnad för vilken roll du matchar.`
+Rekryterare behöver snabbt förstå omfattningen av din erfarenhet. "Budgetansvar" kan betyda 10 MSEK eller 1 miljard, siffran gör skillnad för vilken roll du matchar.`
       },
       {
         rubrik: 'Visa konkreta affärsresultat',
-        text: `Rekryterare vill se vad du åstadkommit, inte bara vad du varit ansvarig för. Fokusera på kostnadsbesparingar, effektiviseringar och förbättrad träffsäkerhet – resultat som påverkar affären.
+        text: `Rekryterare vill se vad du åstadkommit, inte bara vad du varit ansvarig för. Fokusera på kostnadsbesparingar, effektiviseringar och förbättrad träffsäkerhet, resultat som påverkar affären.
 
 **Exempel på före/efter**:
 
@@ -14546,16 +14599,16 @@ Anpassa efter roll: "koncernredovisning och IFRS" för Group Controller, "busine
       },
       {
         rubrik: 'Lyft fram certifieringar inom redovisning och system',
-        text: `Skapa en dedikerad sektion för certifieringar. Detta visar att du är uppdaterad och investerar i din utveckling – särskilt viktigt då redovisningsregler uppdateras kontinuerligt.
+        text: `Skapa en dedikerad sektion för certifieringar. Detta visar att du är uppdaterad och investerar i din utveckling, särskilt viktigt då redovisningsregler uppdateras kontinuerligt.
 
 **Exempel på före/efter**:
 
 ❌ "Certifierad inom IFRS"
 
-✅ "IFRS-certifiering – FAR (2022)
+✅ "IFRS-certifiering, FAR (2022)
 SAP FI/CO Certification (2020)
-Power BI Data Analyst – Microsoft (2023)
-Controllerns verktygslåda – IHM Business School (2019)"
+Power BI Data Analyst, Microsoft (2023)
+Controllerns verktygslåda, IHM Business School (2019)"
 
 Inkludera årtal för att visa aktualitet. IFRS-certifiering från FAR är särskilt värdefull för controllers som arbetar med koncernredovisning eller internationella företag.`
       },
@@ -14584,7 +14637,7 @@ Tekniska färdigheter kan du lista direkt (SAP, Power BI), men affärsförståel
       },
       {
         fraga: 'Hur visar jag SAP-erfarenhet på mitt CV?',
-        svar: 'Specificera vilka SAP-moduler du arbetat med (FI, CO, MM, SD). Skriv "SAP FI/CO – 7 års erfarenhet" istället för bara "SAP". Om du har SAP-certifiering, inkludera den med årtal. Beskriv även hur du använt systemet: "Implementerade nya kostnadsställestrukturer i SAP CO för 15 avdelningar".'
+        svar: 'Specificera vilka SAP-moduler du arbetat med (FI, CO, MM, SD). Skriv "SAP FI/CO, 7 års erfarenhet" istället för bara "SAP". Om du har SAP-certifiering, inkludera den med årtal. Beskriv även hur du använt systemet: "Implementerade nya kostnadsställestrukturer i SAP CO för 15 avdelningar".'
       },
       {
         fraga: 'Vilka ekonomisystem ska jag nämna i mitt CV?',
@@ -14604,7 +14657,7 @@ Tekniska färdigheter kan du lista direkt (SAP, Power BI), men affärsförståel
       },
       {
         fraga: 'Hur visar jag Power BI-kompetens effektivt?',
-        svar: 'Gå bortom "Power BI-erfarenhet" – visa affärspåverkan. Skriv "Utvecklade Power BI-dashboards som reducerade manuell rapporteringstid med 60% och möjliggjorde självservice för 20 chefer". Nämn DAX-kunskap, Power Query och om du kopplat mot SAP, Oracle eller databaser.'
+        svar: 'Gå bortom "Power BI-erfarenhet", visa affärspåverkan. Skriv "Utvecklade Power BI-dashboards som reducerade manuell rapporteringstid med 60% och möjliggjorde självservice för 20 chefer". Nämn DAX-kunskap, Power Query och om du kopplat mot SAP, Oracle eller databaser.'
       },
       {
         fraga: 'Hur beskriver jag forecasting-erfarenhet?',
@@ -14631,11 +14684,11 @@ Tekniska färdigheter kan du lista direkt (SAP, Power BI), men affärsförståel
     metaTitle: 'CV Exempel Kassörska 2026 – Professionell Mall | Jobbcoach.ai',
     metaDescription: 'Komplett CV-exempel för kassörska med kassasystem, kontanthantering och kundservice. ATS-optimerat med kvantifierade resultat. Tips och mall för kassapersonal.',
 
-    seoIntro: `Hur skriver du ett CV som kassörska som verkligen sticker ut? I en bransch med hög konkurrens räcker det inte att bara lista arbetsuppgifter – du måste visa konkreta resultat och rätt systemkunskaper.
+    seoIntro: `Hur skriver du ett CV som kassörska som verkligen sticker ut? I en bransch med hög konkurrens räcker det inte att bara lista arbetsuppgifter, du måste visa konkreta resultat och rätt systemkunskaper.
 
-Det här exemplet visar hur du strukturerar ett professionellt kassörs-CV som fångar rekryterares uppmärksamhet. Här ser du hur Sara kombinerar kassasystemerfarenhet med merförsäljningsresultat och kundnöjdhetssiffror. CV:t innehåller kvantifierbara resultat från dagskassehantering, bonuskortregistreringar och kassadifferenser – precis det arbetsgivare söker.
+Det här exemplet visar hur du strukturerar ett professionellt kassörs-CV som fångar rekryterares uppmärksamhet. Här ser du hur Sara kombinerar kassasystemerfarenhet med merförsäljningsresultat och kundnöjdhetssiffror. CV:t innehåller kvantifierbara resultat från dagskassehantering, bonuskortregistreringar och kassadifferenser, precis det arbetsgivare söker.
 
-Använd exemplet som inspiration för att lyfta din egen erfarenhet inom detaljhandel, livsmedelsbutik eller stormarknad. Ett välstrukturerat CV ökar dina chanser att nå intervju – oavsett om du söker heltid, deltid eller sommarjobb.`,
+Använd exemplet som inspiration för att lyfta din egen erfarenhet inom detaljhandel, livsmedelsbutik eller stormarknad. Ett välstrukturerat CV ökar dina chanser att nå intervju, oavsett om du söker heltid, deltid eller sommarjobb.`,
 
     intro: 'Kassörska med fokus på kassasystem, kontanthantering och kundservice. CV-exemplet visar hur du kombinerar tekniska färdigheter med servicekompetens.',
 
@@ -14646,7 +14699,7 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet inom detaljh
       kontakt: {
         telefon: '070-123 45 67',
         epost: 'sara.lindqvist@email.se',
-        plats: 'Uppsala',
+        plats: 'Norrköping',
         linkedin: 'linkedin.com/in/saralindqvist'
       },
 
@@ -14716,9 +14769,9 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet inom detaljh
       },
 
       certifieringar: [
-        'Ansvarsfull alkoholförsäljning – Folkhälsomyndigheten (2021)',
-        'Kundservice i detaljhandeln – Handelsrådet (2020)',
-        'Kontanthantering & säkerhet – ICA Akademin (2021)',
+        'Ansvarsfull alkoholförsäljning: Folkhälsomyndigheten (2021)',
+        'Kundservice i detaljhandeln: Handelsrådet (2020)',
+        'Kontanthantering & säkerhet: ICA Akademin (2021)',
         'HLR-utbildning (2023)'
       ],
 
@@ -14731,9 +14784,9 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet inom detaljh
     varforDetFungerar: [
       {
         rubrik: 'Kassasystem som ATS-filter söker efter',
-        text: `CV:t nämner specifika kassasystem – Extenda och Hoist – som är de vanligaste i svensk dagligvaruhandel. Dessa är exakt de nyckelord rekryterare söker efter.
+        text: `CV:t nämner specifika kassasystem, Extenda och Hoist, som är de vanligaste i svensk dagligvaruhandel. Dessa är exakt de nyckelord rekryterare söker efter.
 
-Varför detta fungerar: ATS-system filtrerar kandidater baserat på systemnamn från jobbannonsen. Genom att explicit nämna Extenda (ICA) och Hoist (Coop/Willys) ökar Sara sina chanser att passera den automatiska gallringen. "Kassaerfarenhet" är för vagt – specifika systemnamn visar att du kan börja arbeta direkt.`
+Varför detta fungerar: ATS-system filtrerar kandidater baserat på systemnamn från jobbannonsen. Genom att explicit nämna Extenda (ICA) och Hoist (Coop/Willys) ökar Sara sina chanser att passera den automatiska gallringen. "Kassaerfarenhet" är för vagt, specifika systemnamn visar att du kan börja arbeta direkt.`
       },
       {
         rubrik: 'Siffror som visar kapacitet och kvalitet',
@@ -14745,11 +14798,11 @@ Varför detta fungerar: Rekryterare i detaljhandeln jämför kandidater baserat 
         rubrik: 'Balans mellan teknik och service',
         text: `Sara visar både tekniska färdigheter (kassasystem, kontanthantering, dagsavstämning) och servicekompetens (kundnöjdhet, reklamationshantering, NKI-bidrag) med konkreta bevis.
 
-Varför detta fungerar: Kassörsarbete kräver både snabbhet vid kassan och förmåga att ge god service. Genom att visa "95% positivt kundomdöme" och "NKI-ökning från 78% till 85%" bevisar Sara att hon inte bara är snabb utan också omtyckt av kunder. Adjektiv som "serviceinriktad" utan bevis är värdelösa – siffror är trovärdiga.`
+Varför detta fungerar: Kassörsarbete kräver både snabbhet vid kassan och förmåga att ge god service. Genom att visa "95% positivt kundomdöme" och "NKI-ökning från 78% till 85%" bevisar Sara att hon inte bara är snabb utan också omtyckt av kunder. Adjektiv som "serviceinriktad" utan bevis är värdelösa, siffror är trovärdiga.`
       },
       {
         rubrik: 'Certifieringar som visar professionalism',
-        text: `Ansvarsfull alkoholförsäljning (2021), kontanthanteringscertifikat och kundserviceutbildning – alla med årtal som visar aktualitet och investering i rollen.
+        text: `Ansvarsfull alkoholförsäljning (2021), kontanthanteringscertifikat och kundserviceutbildning, alla med årtal som visar aktualitet och investering i rollen.
 
 Varför detta fungerar: I en bransch där många ser kassörsarbete som "bara ett jobb" signalerar certifieringar att Sara tar rollen på allvar. Alkoholcertifikatet är lagkrav, men att lyfta det visar att du förstår ansvaret. Årtal bevisar att utbildningarna är aktuella.`
       },
@@ -14757,11 +14810,11 @@ Varför detta fungerar: I en bransch där många ser kassörsarbete som "bara et
         rubrik: 'Profiltext som säljer på 10 sekunder',
         text: `Profilen sammanfattar: 4 års erfarenhet + arbetsgivare (ICA, Coop) + specialisering (kassahantering) + system (Extenda, Hoist) + konkret resultat (15% merförsäljningsökning).
 
-Varför detta fungerar: Rekryterare i detaljhandeln hanterar hundratals ansökningar. Saras profiltext levererar de fyra kritiska komponenterna – erfarenhet, system, resultat och drivkraft – inom tre meningar. På 10 sekunder vet rekryteraren att Sara har relevant erfarenhet och levererar resultat.`
+Varför detta fungerar: Rekryterare i detaljhandeln hanterar hundratals ansökningar. Saras profiltext levererar de fyra kritiska komponenterna, erfarenhet, system, resultat och drivkraft, inom tre meningar. På 10 sekunder vet rekryteraren att Sara har relevant erfarenhet och levererar resultat.`
       },
       {
         rubrik: 'Progression från sommarjobb till ansvar',
-        text: `CV:t visar utveckling från sommarjobb på Willys via kassabiträde på Coop till kassörska med utbildningsansvar på ICA Maxi – med tydligt ökande ansvar.
+        text: `CV:t visar utveckling från sommarjobb på Willys via kassabiträde på Coop till kassörska med utbildningsansvar på ICA Maxi, med tydligt ökande ansvar.
 
 Varför detta fungerar: Progression signalerar att tidigare arbetsgivare varit nöjda nog att ge mer ansvar. "Utbildade 8 nyanställda" visar ledaregenskaper. För butiker som söker någon som kan växa till teamledare eller butikschef är denna progression värdefull information.`
       }
@@ -14778,11 +14831,11 @@ Varför detta fungerar: Progression signalerar att tidigare arbetsgivare varit n
 
 ✅ "3 års erfarenhet av Extenda kassasystem (ICA). Behärskar även Hoist (Coop/Willys), självscanning och kortterminaler."
 
-ICA använder Extenda, Coop och Willys använder Hoist, och Lidl har egna system. Matcha ditt CV mot den kedja du söker till – "kassasystem" fångas inte upp när de söker efter "Extenda".`
+ICA använder Extenda, Coop och Willys använder Hoist, och Lidl har egna system. Matcha ditt CV mot den kedja du söker till, "kassasystem" fångas inte upp när de söker efter "Extenda".`
       },
       {
         rubrik: 'Kvantifiera din kassakapacitet',
-        text: `Konkreta siffror visar din kapacitet och tempo. Som kassörska arbetar du med mätbara resultat varje dag – låt det synas i ditt CV.
+        text: `Konkreta siffror visar din kapacitet och tempo. Som kassörska arbetar du med mätbara resultat varje dag, låt det synas i ditt CV.
 
 **Exempel på före/efter**:
 
@@ -14790,7 +14843,7 @@ ICA använder Extenda, Coop och Willys använder Hoist, och Lidl har egna system
 
 ✅ "Betjänade 150-200 kunder dagligen med genomsnittlig kassatid på 45 sekunder per kund. Dagskasseansvar för 50 000-80 000 kr med 0,1% kassadifferens."
 
-Rekryterare behöver förstå om du kan hantera högt tempo. "Kassörska" kan betyda 30 eller 200 kunder per dag – siffran gör skillnad för vilken butik du passar i.`
+Rekryterare behöver förstå om du kan hantera högt tempo. "Kassörska" kan betyda 30 eller 200 kunder per dag, siffran gör skillnad för vilken butik du passar i.`
       },
       {
         rubrik: 'Visa konkreta serviceresultat',
@@ -14818,21 +14871,21 @@ Struktur: [Erfarenhet i år] + [Kedja/butikstyp] + [Specialisering] + [System] +
       },
       {
         rubrik: 'Lyft fram relevanta certifieringar',
-        text: `Skapa en dedikerad sektion för certifieringar. Alkoholcertifikat är lagkrav men visar att du förstår ansvaret – och att du kan sälja folköl direkt.
+        text: `Skapa en dedikerad sektion för certifieringar. Alkoholcertifikat är lagkrav men visar att du förstår ansvaret, och att du kan sälja folköl direkt.
 
 **Exempel på före/efter**:
 
 ❌ "Får sälja alkohol och tobak"
 
-✅ "Ansvarsfull alkoholförsäljning – Folkhälsomyndigheten (2021)
-Kontanthantering & säkerhet – ICA Akademin (2021)
-Kundservice i detaljhandeln – Handelsrådet (2020)"
+✅ "Ansvarsfull alkoholförsäljning, Folkhälsomyndigheten (2021)
+Kontanthantering & säkerhet, ICA Akademin (2021)
+Kundservice i detaljhandeln, Handelsrådet (2020)"
 
 Inkludera alltid årtal. Certifikat från kedjans egen akademi (ICA Akademin, Coop Akademin) visar investering i yrkesrollen.`
       },
       {
         rubrik: 'Balansera kassateknik med servicekompetens',
-        text: `Kassörsarbete kräver både snabbhet och kundkänsla. Lista tekniska färdigheter konkret och visa servicekompetens genom resultat – inte bara adjektiv.
+        text: `Kassörsarbete kräver både snabbhet och kundkänsla. Lista tekniska färdigheter konkret och visa servicekompetens genom resultat, inte bara adjektiv.
 
 **Exempel på före/efter**:
 
@@ -14840,7 +14893,7 @@ Inkludera alltid årtal. Certifikat från kedjans egen akademi (ICA Akademin, Co
 
 ✅ "Hanterade reklamationer och kundfrågor med 95% positivt kundomdöme. Behöll låg kassadifferens (0,1%) även under högsäsong med 200+ kunder dagligen."
 
-Tekniska färdigheter (Extenda, kontanthantering) kan du lista direkt. Men "stresstålig" behöver bevis – visa att du levererade kvalitet även under press.`
+Tekniska färdigheter (Extenda, kontanthantering) kan du lista direkt. Men "stresstålig" behöver bevis, visa att du levererade kvalitet även under press.`
       }
     ],
 
@@ -14859,7 +14912,7 @@ Tekniska färdigheter (Extenda, kontanthantering) kan du lista direkt. Men "stre
       },
       {
         fraga: 'Vilka kassasystem ska jag nämna i mitt CV?',
-        svar: 'Nämn specifika systemnamn: Extenda (ICA), Hoist (Coop, Willys), StrongPoint (självscanning), NCR (internationellt). Om du arbetat med självbetjäningskassor, skriv det explicit. Matcha systemen mot jobbannonsen – ICA söker Extenda-erfarenhet, inte "kassasystem". Om du lärt dig ett system snabbt, nämn det: "Lärde mig Hoist på 2 dagar".'
+        svar: 'Nämn specifika systemnamn: Extenda (ICA), Hoist (Coop, Willys), StrongPoint (självscanning), NCR (internationellt). Om du arbetat med självbetjäningskassor, skriv det explicit. Matcha systemen mot jobbannonsen, ICA söker Extenda-erfarenhet, inte "kassasystem". Om du lärt dig ett system snabbt, nämn det: "Lärde mig Hoist på 2 dagar".'
       },
       {
         fraga: 'Hur beskriver jag merförsäljning och kampanjarbete?',
@@ -14875,7 +14928,7 @@ Tekniska färdigheter (Extenda, kontanthantering) kan du lista direkt. Men "stre
       },
       {
         fraga: 'Hur beskriver jag kontanthantering och kassadifferens?',
-        svar: 'Specificera belopp och precision: "Dagskasseansvar för 50 000-80 000 kr med genomsnittlig kassadifferens på 0,1%". Om du haft ansvar för nattkassa eller säker kontanthantering, inkludera det. Låg kassadifferens (under 0,5%) visar noggrannhet och pålitlighet – egenskaper som är avgörande för arbetsgivare.'
+        svar: 'Specificera belopp och precision: "Dagskasseansvar för 50 000-80 000 kr med genomsnittlig kassadifferens på 0,1%". Om du haft ansvar för nattkassa eller säker kontanthantering, inkludera det. Låg kassadifferens (under 0,5%) visar noggrannhet och pålitlighet, egenskaper som är avgörande för arbetsgivare.'
       },
       {
         fraga: 'Hur anpassar jag CV:t för olika butikskedjor?',
@@ -14902,9 +14955,9 @@ Tekniska färdigheter (Extenda, kontanthantering) kan du lista direkt. Men "stre
     metaTitle: 'CV Exempel Butikschef 2026 – Professionell Mall | Jobbcoach.ai',
     metaDescription: 'Komplett CV-exempel för butikschef med personalansvar, budgetansvar och försäljningsresultat. ATS-optimerat med KPI:er och ledarskapsexempel. Tips och mall.',
 
-    seoIntro: `Hur skriver du ett CV som butikschef som visar att du kan driva resultat? Som butikschef räcker det inte att lista ansvarsområden – du måste bevisa din förmåga att öka försäljning, leda personal och nå affärsmål.
+    seoIntro: `Hur skriver du ett CV som butikschef som visar att du kan driva resultat? Som butikschef räcker det inte att lista ansvarsområden, du måste bevisa din förmåga att öka försäljning, leda personal och nå affärsmål.
 
-Det här exemplet visar hur du strukturerar ett professionellt butikschefs-CV som imponerar på regionchefer och rekryterare. Här ser du hur Marcus kombinerar ledarskap med konkreta försäljningsresultat och KPI:er. CV:t innehåller kvantifierbara resultat från omsättningsökning, personalutveckling och NKI-förbättringar – precis det arbetsgivare söker hos en butikschef.
+Det här exemplet visar hur du strukturerar ett professionellt butikschefs-CV som imponerar på regionchefer och rekryterare. Här ser du hur Marcus kombinerar ledarskap med konkreta försäljningsresultat och KPI:er. CV:t innehåller kvantifierbara resultat från omsättningsökning, personalutveckling och NKI-förbättringar, precis det arbetsgivare söker hos en butikschef.
 
 Använd exemplet som inspiration för att lyfta din egen erfarenhet inom detaljhandel, sport, mode eller dagligvaruhandel. Ett välstrukturerat CV ökar dina chanser att nå intervju för den butikschefstjänst du drömmer om.`,
 
@@ -14993,9 +15046,9 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet inom detaljh
       },
 
       certifieringar: [
-        'Butiksledarutbildning – Svensk Handel (2019)',
-        'Säljcoaching & Ledarskap – Stadium Academy (2021)',
-        'Arbetsrätt för chefer – Almega (2022)',
+        'Butiksledarutbildning: Svensk Handel (2019)',
+        'Säljcoaching & Ledarskap: Stadium Academy (2021)',
+        'Arbetsrätt för chefer: Almega (2022)',
         'Brandskyddsansvarig (2023)'
       ],
 
@@ -15008,7 +15061,7 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet inom detaljh
     varforDetFungerar: [
       {
         rubrik: 'KPI:er som regionchefer söker efter',
-        text: `CV:t nämner specifika affärsmått – omsättning (45 MSEK), NKI (72%→88%), personalomsättning (35%→18%) och svinn (1,8%→0,9%). Dessa är exakt de KPI:er som butikschefer mäts på.
+        text: `CV:t nämner specifika affärsmått, omsättning (45 MSEK), NKI (72% till 88%), personalomsättning (35% till 18%) och svinn (1,8% till 0,9%). Dessa är exakt de KPI:er som butikschefer mäts på.
 
 Varför detta fungerar: Regionchefer och rekryterare inom retail jämför kandidater baserat på affärsresultat. "Butikschef på Stadium" säger lite, men "45 MSEK omsättning, 25% tillväxt, NKI 88%" ger omedelbar kontext. KPI:er visar att du förstår hur retail-verksamhet mäts och styrs.`
       },
@@ -15016,29 +15069,29 @@ Varför detta fungerar: Regionchefer och rekryterare inom retail jämför kandid
         rubrik: 'Siffror som visar ledarskapseffekt',
         text: `Varje erfarenhetspost innehåller konkreta resultat: 25% omsättningsökning, NKI från 72% till 88%, personalomsättning från 35% till 18%, och svinn halverat. Dessa visar inte bara vad Marcus gjort, utan vilken effekt det hade.
 
-Varför detta fungerar: Rekryterare inom detaljhandeln vill se att du kan påverka resultat – inte bara administrera en butik. "Ökade omsättningen med 25%" är starkare än "Ansvarig för försäljning". Siffror gör att du sticker ut från kandidater som bara listar arbetsuppgifter utan mätbara resultat.`
+Varför detta fungerar: Rekryterare inom detaljhandeln vill se att du kan påverka resultat, inte bara administrera en butik. "Ökade omsättningen med 25%" är starkare än "Ansvarig för försäljning". Siffror gör att du sticker ut från kandidater som bara listar arbetsuppgifter utan mätbara resultat.`
       },
       {
         rubrik: 'Balans mellan affärsresultat och ledarskap',
-        text: `Marcus visar både hårda resultat (omsättning, svinn, kostnadsbesparingar) och mjuka ledarskapskompetenser (säljcoaching, onboarding, medarbetarutveckling) – med konkreta bevis för båda.
+        text: `Marcus visar både hårda resultat (omsättning, svinn, kostnadsbesparingar) och mjuka ledarskapskompetenser (säljcoaching, onboarding, medarbetarutveckling), med konkreta bevis för båda.
 
 Varför detta fungerar: En butikschef måste leverera affärsresultat OCH bygga ett starkt team. Genom att visa "15% försäljningsökning efter säljutbildningar" och "personalomsättning från 35% till 18%" bevisar Marcus att hans ledarskap ger mätbar effekt. Adjektiv som "bra ledare" utan bevis saknar trovärdighet.`
       },
       {
         rubrik: 'Branschsystem som visar operativ kompetens',
-        text: `CV:t nämner Sitoo, Pyramid och RetailForce – affärssystem som är vanliga inom svensk detaljhandel. Specifika systemnamn visar att Marcus kan börja arbeta direkt.
+        text: `CV:t nämner Sitoo, Pyramid och RetailForce, affärssystem som är vanliga inom svensk detaljhandel. Specifika systemnamn visar att Marcus kan börja arbeta direkt.
 
-Varför detta fungerar: ATS-system filtrerar kandidater baserat på systemkunskap. "Erfarenhet av kassasystem" är för vagt – "Sitoo POS & lagerhantering (Expert, 4+ år)" visar exakt vilken kompetens du har. Många kedjor har specifika system och söker kandidater som redan behärskar dem.`
+Varför detta fungerar: ATS-system filtrerar kandidater baserat på systemkunskap. "Erfarenhet av kassasystem" är för vagt, "Sitoo POS & lagerhantering (Expert, 4+ år)" visar exakt vilken kompetens du har. Många kedjor har specifika system och söker kandidater som redan behärskar dem.`
       },
       {
         rubrik: 'Profiltext som säljer på 10 sekunder',
-        text: `Profilen sammanfattar: 8 års erfarenhet + branscher (sport, mode) + specialisering (försäljningstillväxt, teamutveckling) + konkreta resultat (25% omsättningsökning, NKI 72%→88%) + system (Sitoo, Pyramid).
+        text: `Profilen sammanfattar: 8 års erfarenhet + branscher (sport, mode) + specialisering (försäljningstillväxt, teamutveckling) + konkreta resultat (25% omsättningsökning, NKI 72% till 88%) + system (Sitoo, Pyramid).
 
-Varför detta fungerar: Regionchefer hanterar många ansökningar och fattar snabba beslut. Marcus profiltext levererar de kritiska komponenterna – erfarenhet, resultat, ledarskap och systemkompetens – inom fyra meningar. På 10 sekunder vet rekryteraren att Marcus är en resultatdriven butikschef.`
+Varför detta fungerar: Regionchefer hanterar många ansökningar och fattar snabba beslut. Marcus profiltext levererar de kritiska komponenterna, erfarenhet, resultat, ledarskap och systemkompetens, inom fyra meningar. På 10 sekunder vet rekryteraren att Marcus är en resultatdriven butikschef.`
       },
       {
         rubrik: 'Tydlig karriärprogression',
-        text: `CV:t visar utveckling från Säljare/Teamledare (Intersport) via Biträdande butikschef (H&M) till Butikschef (Stadium) – med tydligt ökande ansvar, omsättning och personalstorlek.
+        text: `CV:t visar utveckling från Säljare/Teamledare (Intersport) via Biträdande butikschef (H&M) till Butikschef (Stadium), med tydligt ökande ansvar, omsättning och personalstorlek.
 
 Varför detta fungerar: Progression signalerar att tidigare arbetsgivare varit nöjda nog att ge mer ansvar. "Befordrad från säljare till teamledare inom 12 månader" visar drivkraft. För kedjor som söker framtida regionchefer är denna progression ett starkt argument.`
       }
@@ -15055,7 +15108,7 @@ Varför detta fungerar: Progression signalerar att tidigare arbetsgivare varit n
 
 ✅ "Butikschef med resultatansvar för 45 MSEK omsättning, NKI 88%, svinn 0,9% och personalomsättning 18%. Ökade försäljningen med 25% genom fokuserad säljcoaching."
 
-Regionchefer fattar beslut baserat på siffror. Om du inte inkluderar KPI:er ser det ut som att du inte vet hur retail mäts – eller att du inte levererat resultat.`
+Regionchefer fattar beslut baserat på siffror. Om du inte inkluderar KPI:er ser det ut som att du inte vet hur retail mäts, eller att du inte levererat resultat.`
       },
       {
         rubrik: 'Kvantifiera ditt personalansvar',
@@ -15067,11 +15120,11 @@ Regionchefer fattar beslut baserat på siffror. Om du inte inkluderar KPI:er ser
 
 ✅ "Ledde team på 22 medarbetare. Reducerade personalomsättningen från 35% till 18% genom strukturerad onboarding och månatliga utvecklingssamtal. Befordrade 3 medarbetare till teamledare."
 
-Personalomsättning är dyrt – en butikschef som kan behålla personal sparar pengar. Visa att du investerar i teamet och att folk vill stanna.`
+Personalomsättning är dyrt, en butikschef som kan behålla personal sparar pengar. Visa att du investerar i teamet och att folk vill stanna.`
       },
       {
         rubrik: 'Visa konkreta försäljningsresultat',
-        text: `Rekryterare vill se att du kan driva försäljning – inte bara administrera. Fokusera på tillväxt, kampanjresultat och merförsäljning med procent och kronor.
+        text: `Rekryterare vill se att du kan driva försäljning, inte bara administrera. Fokusera på tillväxt, kampanjresultat och merförsäljning med procent och kronor.
 
 **Exempel på före/efter**:
 
@@ -15089,7 +15142,7 @@ Butikschefer som visar försäljningstillväxt är attraktiva. Om du inte har ex
 
 ❌ "Erfaren butikschef som gillar att leda människor"
 
-✅ "Resultatdriven butikschef med 8 års erfarenhet inom sportdetaljhandel. Dokumenterad förmåga att öka omsättning (+25%), förbättra NKI (72%→88%) och utveckla team. Specialiserad på säljcoaching och kampanjoptimering."
+✅ "Resultatdriven butikschef med 8 års erfarenhet inom sportdetaljhandel. Dokumenterad förmåga att öka omsättning (+25%), förbättra NKI (72% till 88%) och utveckla team. Specialiserad på säljcoaching och kampanjoptimering."
 
 Struktur: [Erfarenhet i år] + [Bransch] + [Specialisering] + [Toppresultat] + [Systemkompetens]`
       },
@@ -15101,15 +15154,15 @@ Struktur: [Erfarenhet i år] + [Bransch] + [Specialisering] + [Toppresultat] + [
 
 ❌ "Genomgått ledarskapsutbildning"
 
-✅ "Butiksledarutbildning – Svensk Handel (2019)
-Säljcoaching & Ledarskap – Stadium Academy (2021)
-Arbetsrätt för chefer – Almega (2022)"
+✅ "Butiksledarutbildning, Svensk Handel (2019)
+Säljcoaching & Ledarskap, Stadium Academy (2021)
+Arbetsrätt för chefer, Almega (2022)"
 
 Kedjornas egna akademier (H&M Academy, Stadium Academy) visar investering från tidigare arbetsgivare. Arbetsrätt är särskilt värdefullt då butikschefer hanterar personalärenden.`
       },
       {
         rubrik: 'Balansera affärsresultat med medarbetarfokus',
-        text: `Butikschefer måste leverera siffror OCH bygga team. Visa både hårda resultat och hur du utvecklar medarbetare – med konkreta bevis för båda.
+        text: `Butikschefer måste leverera siffror OCH bygga team. Visa både hårda resultat och hur du utvecklar medarbetare, med konkreta bevis för båda.
 
 **Exempel på före/efter**:
 
@@ -15117,7 +15170,7 @@ Kedjornas egna akademier (H&M Academy, Stadium Academy) visar investering från 
 
 ✅ "Ledde säljteam på 22 medarbetare med fokus på individuell coaching. Resulterade i 25% omsättningsökning och NKI från 72% till 88%. Befordrade 3 teamledare internt."
 
-Adjektiv som "motiverande ledare" är värdelösa utan bevis. Koppla alltid ledarskap till mätbara resultat – det visar att din ledarskapsstil faktiskt fungerar.`
+Adjektiv som "motiverande ledare" är värdelösa utan bevis. Koppla alltid ledarskap till mätbara resultat, det visar att din ledarskapsstil faktiskt fungerar.`
       }
     ],
 
@@ -15144,11 +15197,11 @@ Adjektiv som "motiverande ledare" är värdelösa utan bevis. Koppla alltid leda
       },
       {
         fraga: 'Vilka affärssystem ska jag nämna?',
-        svar: 'Nämn specifika system: Sitoo, Pyramid, Extenda Retail, RetailForce (schema), Microsoft Dynamics. Ange erfarenhetsnivå för huvudsystem: "Sitoo POS & lagerhantering (Expert, 4+ år)". Om du implementerat eller utbildat andra i system, lyft det. Matcha systemen mot jobbannonsen – kedjor söker ofta specifik systemkompetens.'
+        svar: 'Nämn specifika system: Sitoo, Pyramid, Extenda Retail, RetailForce (schema), Microsoft Dynamics. Ange erfarenhetsnivå för huvudsystem: "Sitoo POS & lagerhantering (Expert, 4+ år)". Om du implementerat eller utbildat andra i system, lyft det. Matcha systemen mot jobbannonsen, kedjor söker ofta specifik systemkompetens.'
       },
       {
         fraga: 'Hur beskriver jag kampanj- och säljarbete?',
-        svar: 'Kvantifiera alltid kampanjresultat: "Ökade försäljningen med 30% under Black Friday genom förbättrad varuexponering och extraschemalagd personal". Nämn merförsäljning, snittköp och konvertering om du har siffrorna. Visual merchandising-kompetens är värdefullt – beskriv resultat, inte bara att du "ansvarade för exponering".'
+        svar: 'Kvantifiera alltid kampanjresultat: "Ökade försäljningen med 30% under Black Friday genom förbättrad varuexponering och extraschemalagd personal". Nämn merförsäljning, snittköp och konvertering om du har siffrorna. Visual merchandising-kompetens är värdefullt, beskriv resultat, inte bara att du "ansvarade för exponering".'
       },
       {
         fraga: 'Ska jag inkludera erfarenhet som säljare innan jag blev chef?',
@@ -15160,7 +15213,7 @@ Adjektiv som "motiverande ledare" är värdelösa utan bevis. Koppla alltid leda
       },
       {
         fraga: 'Hur visar jag att jag kan hantera svåra situationer?',
-        svar: 'Beskriv konkreta exempel med resultat: "Vände underpresterande butik från -10% till +15% på 12 månader", "Hanterade omorganisation med bibehållen NKI", "Ledde butik genom pandemi med minimal personalomsättning". Undvik vaga påståenden som "bra på att hantera press" – visa med exempel vad du faktiskt åstadkom under utmanande förhållanden.'
+        svar: 'Beskriv konkreta exempel med resultat: "Vände underpresterande butik från -10% till +15% på 12 månader", "Hanterade omorganisation med bibehållen NKI", "Ledde butik genom pandemi med minimal personalomsättning". Undvik vaga påståenden som "bra på att hantera press", visa med exempel vad du faktiskt åstadkom under utmanande förhållanden.'
       }
     ],
 
@@ -15180,7 +15233,7 @@ Adjektiv som "motiverande ledare" är värdelösa utan bevis. Koppla alltid leda
 
     seoIntro: `Söker du jobb som account manager och behöver ett CV som visar din förmåga att vårda och utveckla kundrelationer? Det här exemplet demonstrerar hur du skapar ett professionellt CV som övertygar både ATS-system och rekryterare inom B2B-försäljning och key account management.
 
-CV:t balanserar strategisk kundhantering med konkreta affärsresultat som retention rate, upselling-intäkter och Customer Lifetime Value (CLV). Du hittar branschspecifika termer som kundportfölj, NPS-scores, Quarterly Business Reviews och Strategic Account Planning – precis de nyckelord som svenska försäljningschefer söker efter. Exemplet visar hur du kvantifierar kundvärde: "Ansvar för kundportfölj värd 45 MSEK" och "Retention rate 94% över 3 år".
+CV:t balanserar strategisk kundhantering med konkreta affärsresultat som retention rate, upselling-intäkter och Customer Lifetime Value (CLV). Du hittar branschspecifika termer som kundportfölj, NPS-scores, Quarterly Business Reviews och Strategic Account Planning, precis de nyckelord som svenska försäljningschefer söker efter. Exemplet visar hur du kvantifierar kundvärde: "Ansvar för kundportfölj värd 45 MSEK" och "Retention rate 94% över 3 år".
 
 Använd detta exempel som inspiration för att strukturera ditt eget CV som account manager. Kombinera dina kundrelationsfärdigheter med mätbara affärsresultat för att maximera dina chanser till intervju.`,
 
@@ -15204,9 +15257,9 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som acco
           arbetsgivare: 'SaaS Solutions AB',
           period: '2021 – Pågående',
           beskrivning: [
-            'Strategiskt ansvar för 28 key accounts med total kundportfölj värd 45 MSEK årligen – retention rate 94% (branschsnitt 85%)',
+            'Strategiskt ansvar för 28 key accounts med total kundportfölj värd 45 MSEK årligen, retention rate 94% (branschsnitt 85%)',
             'Upselling och cross-selling till befintliga kunder som genererat 12 MSEK i tillväxt (2021-2024), motsvarande 28% årlig tillväxt',
-            'Quarterly Business Reviews (QBR) med C-level stakeholders – NPS förbättrad från 42 till 67 över 2 år',
+            'Quarterly Business Reviews (QBR) med C-level stakeholders, NPS förbättrad från 42 till 67 över 2 år',
             'Customer Success-strategi som reducerade churn från 18% till 6% för mitt segment genom proaktiv risk-identifiering',
             'Mentor för 3 junior account managers under 2023, samtliga uppnådde retention-mål inom 6 månader'
           ]
@@ -15216,7 +15269,7 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som acco
           arbetsgivare: 'TechConsult Nordic AB',
           period: '2018 – 2021',
           beskrivning: [
-            'Ansvarig för 45 B2B-konton inom professionella tjänster med årlig omsättning på 22 MSEK – 96% förnyelsefaktor',
+            'Ansvarig för 45 B2B-konton inom professionella tjänster med årlig omsättning på 22 MSEK, 96% förnyelsefaktor',
             'Identifierade och genomförde upselling-möjligheter som ökade genomsnittligt kontraktsvärde med 35% (2019-2021)',
             'Implementerade Customer Health Score-modell i Salesforce som förutsåg churn-risk med 80% träffsäkerhet',
             'Koordinerade leverans mellan 4 interna team för att säkerställa kundnöjdhet och on-time delivery'
@@ -15227,7 +15280,7 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som acco
           arbetsgivare: 'Digital Agency West AB',
           period: '2017 – 2018',
           beskrivning: [
-            'Kundrelationer för 25 SME-konton inom digital marknadsföring – uppnådde 92% retention första året',
+            'Kundrelationer för 25 SME-konton inom digital marknadsföring, uppnådde 92% retention första året',
             'Befordrad till Account Manager efter 14 månader baserat på kundnöjdhet och tillväxtresultat',
             'Onboarding av nya kunder med strukturerad implementation som reducerade time-to-value med 40%'
           ]
@@ -15264,8 +15317,8 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som acco
 
       certifieringar: [
         'Salesforce Certified Administrator (2022)',
-        'Customer Success Manager Certification – SuccessHACKER (2021)',
-        'Strategic Account Management – SAMA (2023)',
+        'Customer Success Manager Certification: SuccessHACKER (2021)',
+        'Strategic Account Management: SAMA (2023)',
         'Gainsight NXT Fundamentals (2022)'
       ],
 
@@ -15296,23 +15349,23 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som acco
         rubrik: 'ATS-system känner igen Customer Success-terminologi',
         text: `CV:t nämner konkreta system som **Salesforce CRM**, **Gainsight** och **ChurnZero** tillsammans med branschspecifika termer som **Strategic Account Planning**, **Customer Health Score**, **QBR** och **NPS**.
 
-Varför detta fungerar: Företag som söker account managers använder specifika termer i sina jobbannonser – "retention", "upselling", "key accounts", "Customer Success". ATS-system filtrerar efter dessa nyckelord. När du skriver "Salesforce CRM (Expert, 6+ år)" och "Quarterly Business Reviews med C-level" matchar du exakt vad rekryterare söker efter. Du signalerar omedelbart att du förstår modern account management-metodik.`
+Varför detta fungerar: Företag som söker account managers använder specifika termer i sina jobbannonser, "retention", "upselling", "key accounts", "Customer Success". ATS-system filtrerar efter dessa nyckelord. När du skriver "Salesforce CRM (Expert, 6+ år)" och "Quarterly Business Reviews med C-level" matchar du exakt vad rekryterare söker efter. Du signalerar omedelbart att du förstår modern account management-metodik.`
       },
       {
         rubrik: 'Kvantifierbara resultat som visar affärspåverkan',
         text: `CV:t levererar konkreta siffror: **retention rate 94%** (vs branschsnitt 85%), kundportfölj värd **45 MSEK**, upselling-tillväxt på **28% årligen**, och **churn reducerad från 18% till 6%**.
 
-Varför detta fungerar: "Duktig på kundrelationer" säger ingenting. "94% retention, 12 MSEK upselling över 3 år" bevisar att du levererar mätbart affärsvärde. Rekryterare kan direkt beräkna din potentiella påverkan på deras verksamhet. Retention-siffror är särskilt viktiga eftersom det kostar 5-7x mer att värva en ny kund än att behålla en befintlig – du visar att du förstår ekonomin bakom kundvård.`
+Varför detta fungerar: "Duktig på kundrelationer" säger ingenting. "94% retention, 12 MSEK upselling över 3 år" bevisar att du levererar mätbart affärsvärde. Rekryterare kan direkt beräkna din potentiella påverkan på deras verksamhet. Retention-siffror är särskilt viktiga eftersom det kostar 5-7x mer att värva en ny kund än att behålla en befintlig, du visar att du förstår ekonomin bakom kundvård.`
       },
       {
         rubrik: 'Balans mellan strategisk rådgivning och operativ kundvård',
         text: `CV:t kombinerar strategiska färdigheter som **QBR-facilitering**, **Strategic Account Planning** och **C-level stakeholder management** med operativa resultat som **NPS från 42 till 67** och implementering av **Customer Health Score-modeller**.
 
-Varför detta fungerar: Många listar bara "kundansvar" utan att visa hur de arbetar strategiskt. Du visar att du inte bara reagerar på kundproblem – du förutser dem genom Health Scoring och proaktiv rådgivning. QBR med C-level bevisar att du kan hålla strategiska samtal på beslutsfattarnivå, inte bara hantera operativa frågor. Detta signalerar att du är redo för senior eller key account-roller.`
+Varför detta fungerar: Många listar bara "kundansvar" utan att visa hur de arbetar strategiskt. Du visar att du inte bara reagerar på kundproblem, du förutser dem genom Health Scoring och proaktiv rådgivning. QBR med C-level bevisar att du kan hålla strategiska samtal på beslutsfattarnivå, inte bara hantera operativa frågor. Detta signalerar att du är redo för senior eller key account-roller.`
       },
       {
         rubrik: 'Certifieringar som validerar Customer Success-expertis',
-        text: `CV:t listar **Customer Success Manager Certification (2021)**, **Strategic Account Management – SAMA (2023)**, och **Gainsight NXT Fundamentals (2022)**. Varje certifiering har årtal och koppling till faktiskt arbete.
+        text: `CV:t listar **Customer Success Manager Certification (2021)**, **Strategic Account Management, SAMA (2023)**, och **Gainsight NXT Fundamentals (2022)**. Varje certifiering har årtal och koppling till faktiskt arbete.
 
 Varför detta fungerar: SAMA (Strategic Account Management Association) och SuccessHACKER är erkända branschcertifieringar som visar att du investerat i din professionella utveckling. Gainsight-certifiering bevisar att du behärskar ledande Customer Success-plattformar. Rekryterare ser att du följer branschens best practices och kan tillämpa moderna metoder för retention och kundtillväxt.`
       },
@@ -15326,7 +15379,7 @@ Varför detta fungerar: ATS-system rankar CV:n med nyckelord tidigt i dokumentet
         rubrik: 'Tydlig progression från junior till senior account manager',
         text: `Erfarenheten visar utveckling: från **Junior Account Manager** med 25 SME-konton och 92% retention, till **Account Manager** med 45 konton och Customer Health Score-implementation, till **Senior Account Manager** med strategiskt key account-ansvar och mentorskap för 3 juniora kollegor.
 
-Varför detta fungerar: Progressionen visar att du inte bara behållit samma roll – du har utvecklats från operativ kundhantering till strategisk rådgivning. Mentorskap för junior-kollegor bevisar att chefer litar på dig och att du kan dela din expertis. Befordran efter 14 månader signalerar att du presterar över förväntan och är redo för större ansvar.`
+Varför detta fungerar: Progressionen visar att du inte bara behållit samma roll, du har utvecklats från operativ kundhantering till strategisk rådgivning. Mentorskap för junior-kollegor bevisar att chefer litar på dig och att du kan dela din expertis. Befordran efter 14 månader signalerar att du presterar över förväntan och är redo för större ansvar.`
       }
     ],
 
@@ -15387,9 +15440,9 @@ Lyft fram de metrics och erfarenheter som matchar jobbannonsens kravprofil.`
 
 ❌ "Utbildning inom kundhantering och försäljning"
 
-✅ "**Strategic Account Management – SAMA (2023)**, Customer Success Manager Certification – SuccessHACKER (2021), **Gainsight NXT Fundamentals (2022)**, Salesforce Certified Administrator (2022)."
+✅ "**Strategic Account Management, SAMA (2023)**, Customer Success Manager Certification, SuccessHACKER (2021), **Gainsight NXT Fundamentals (2022)**, Salesforce Certified Administrator (2022)."
 
-SAMA och Gainsight är branschledande – nämn dem explicit om du har dem. Om du saknar certifieringar, prioritera att ta minst en relevant certifiering.`
+SAMA och Gainsight är branschledande, nämn dem explicit om du har dem. Om du saknar certifieringar, prioritera att ta minst en relevant certifiering.`
       },
       {
         rubrik: 'Balansera strategisk och operativ kompetens med bevis',
@@ -15436,15 +15489,15 @@ Detta visar konkret vad du gjort på båda nivåerna.`
       },
       {
         fraga: 'Hur visar jag strategisk kompetens utan att framstå som skrytsam?',
-        svar: 'Låt siffrorna tala: "Implementerade Customer Health Score-modell som förutsåg churn-risk med 80% träffsäkerhet, vilket reducerade churn från 18% till 6%". Du beskriver vad du gjorde och resultatet – rekryteraren drar slutsatsen att du är strategisk. Undvik adjektiv som "strategiskt skicklig".'
+        svar: 'Låt siffrorna tala: "Implementerade Customer Health Score-modell som förutsåg churn-risk med 80% träffsäkerhet, vilket reducerade churn från 18% till 6%". Du beskriver vad du gjorde och resultatet, rekryteraren drar slutsatsen att du är strategisk. Undvik adjektiv som "strategiskt skicklig".'
       },
       {
         fraga: 'Ska jag inkludera NPS och CSAT-siffror?',
-        svar: 'Ja, absolut – de visar kundnöjdhet kvantitativt. Skriv förbättring: "NPS förbättrad från 42 till 67 över 2 år" eller jämför med benchmark: "CSAT 4.8/5 (företagssnitt 4.2)". Om siffrorna är konfidentiella, beskriv trend: "Ökade NPS med 25 poäng genom proaktiv Customer Success-strategi".'
+        svar: 'Ja, absolut, de visar kundnöjdhet kvantitativt. Skriv förbättring: "NPS förbättrad från 42 till 67 över 2 år" eller jämför med benchmark: "CSAT 4.8/5 (företagssnitt 4.2)". Om siffrorna är konfidentiella, beskriv trend: "Ökade NPS med 25 poäng genom proaktiv Customer Success-strategi".'
       },
       {
         fraga: 'Hur visar jag progression inom account management?',
-        svar: 'Visa utveckling i ansvar och resultat: "Junior AM (25 SME-konton) → AM (45 konton, Customer Health Score-implementation) → Senior AM (28 key accounts, 45 MSEK portfölj, mentorskap)". Inkludera befordringar och utökat ansvar. Mentorskap för junior-kollegor signalerar att du är redo för ledande roller.'
+        svar: 'Visa utveckling i ansvar och resultat: "Junior AM (25 SME-konton), sedan AM (45 konton, Customer Health Score-implementation), sedan Senior AM (28 key accounts, 45 MSEK portfölj, mentorskap)". Inkludera befordringar och utökat ansvar. Mentorskap för junior-kollegor signalerar att du är redo för ledande roller.'
       }
     ],
 
@@ -15464,7 +15517,7 @@ Detta visar konkret vad du gjort på båda nivåerna.`
 
     seoIntro: `Söker du jobb som systemutvecklare och behöver ett CV som visar din tekniska bredd och leveransförmåga? Det här exemplet demonstrerar hur du skapar ett professionellt CV som övertygar både ATS-system och tekniska rekryterare inom svenska tech-bolag och produktföretag.
 
-CV:t balanserar fullstack-kompetens med konkreta utvecklingsresultat som API-prestanda, kodkvalitet och levererade features. Du hittar branschspecifika termer som microservices, CI/CD, code review och test coverage – precis de nyckelord som svenska utvecklingschefer söker efter. Exemplet visar hur du kvantifierar kodning: "Reducerade API-svarstid från 800ms till 120ms" och "Levererade 45+ features med 98% test coverage".
+CV:t balanserar fullstack-kompetens med konkreta utvecklingsresultat som API-prestanda, kodkvalitet och levererade features. Du hittar branschspecifika termer som microservices, CI/CD, code review och test coverage, precis de nyckelord som svenska utvecklingschefer söker efter. Exemplet visar hur du kvantifierar kodning: "Reducerade API-svarstid från 800ms till 120ms" och "Levererade 45+ features med 98% test coverage".
 
 Använd detta exempel som inspiration för att strukturera ditt eget CV som systemutvecklare. Kombinera din tekniska stack med mätbara resultat för att maximera dina chanser till intervju.`,
 
@@ -15476,11 +15529,11 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som syst
       kontakt: {
         telefon: '070-456 78 90',
         epost: 'johan.eriksson@email.se',
-        plats: 'Malmö',
+        plats: 'Stockholm',
         linkedin: 'linkedin.com/in/johaneriks-dev'
       },
 
-      profil: 'Resultatdriven systemutvecklare med 6+ års erfarenhet av fullstack-utveckling inom fintech och e-handel. Specialist på React/TypeScript frontend och .NET backend med dokumenterad förmåga att leverera skalbara microservices-lösningar. Gedigen erfarenhet av CI/CD, code review och agila metoder. Drivs av att skriva ren, testbar kod som löser verkliga affärsproblem – från arkitekturdesign till produktionsdriftsättning.',
+      profil: 'Resultatdriven systemutvecklare med 6+ års erfarenhet av fullstack-utveckling inom fintech och e-handel. Specialist på React/TypeScript frontend och .NET backend med dokumenterad förmåga att leverera skalbara microservices-lösningar. Gedigen erfarenhet av CI/CD, code review och agila metoder. Drivs av att skriva ren, testbar kod som löser verkliga affärsproblem, från arkitekturdesign till produktionsdriftsättning.',
 
       erfarenhet: [
         {
@@ -15488,9 +15541,9 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som syst
           arbetsgivare: 'FinTech Solutions AB',
           period: '2021 – Pågående',
           beskrivning: [
-            'Utvecklar och underhåller betalningsplattform som hanterar 500K+ transaktioner dagligen – reducerade API-svarstid från 800ms till 120ms genom cachning och query-optimering',
-            'Arkitekterade microservices-lösning i .NET 8 och React som ersatte monolitisk legacy-applikation – 40% förbättrad deployment-frekvens',
-            'Tech lead för team om 4 utvecklare – ansvarig för code reviews, arkitekturbeslut och teknisk dokumentation',
+            'Utvecklar och underhåller betalningsplattform som hanterar 500K+ transaktioner dagligen, reducerade API-svarstid från 800ms till 120ms genom cachning och query-optimering',
+            'Arkitekterade microservices-lösning i .NET 8 och React som ersatte monolitisk legacy-applikation, 40% förbättrad deployment-frekvens',
+            'Tech lead för team om 4 utvecklare, ansvarig för code reviews, arkitekturbeslut och teknisk dokumentation',
             'Implementerade automatiserade tester (xUnit, Jest) som ökade test coverage från 45% till 92%'
           ]
         },
@@ -15500,7 +15553,7 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som syst
           period: '2019 – 2021',
           beskrivning: [
             'Fullstack-utveckling av e-handelsplattform (React, Node.js, PostgreSQL) med 200K månatliga användare',
-            'Levererade 45+ features med 98% test coverage enligt sprint-planer – kundnöjdhet 4.6/5 i utvecklingsteamet',
+            'Levererade 45+ features med 98% test coverage enligt sprint-planer, kundnöjdhet 4.6/5 i utvecklingsteamet',
             'Byggde RESTful API:er som integrerade med 8 externa partners (betalning, frakt, lager) med 99.5% uptime',
             'Introducerade TypeScript till frontend-kodbasen vilket reducerade runtime-buggar med 35%'
           ]
@@ -15510,7 +15563,7 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som syst
           arbetsgivare: 'Startup Innovation AB',
           period: '2018 – 2019',
           beskrivning: [
-            'Utvecklade MVP för B2B-plattform i React och Node.js – lansering inom 4 månader enligt tidsplan',
+            'Utvecklade MVP för B2B-plattform i React och Node.js, lansering inom 4 månader enligt tidsplan',
             'Befordrad till Systemutvecklare efter 10 månader baserat på kodkvalitet och leveranstempo',
             'Deltog i Scrum-team (6 utvecklare) med daily standups, sprint planning och retrospectives'
           ]
@@ -15545,7 +15598,7 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som syst
 
       certifieringar: [
         'Microsoft Certified: Azure Developer Associate (2023)',
-        'AWS Certified Developer – Associate (2022)',
+        'AWS Certified Developer: Associate (2022)',
         'Professional Scrum Developer (PSD I) (2021)'
       ],
 
@@ -15556,7 +15609,7 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som syst
     },
 
     viktigt: [
-      'Kvantifiera alltid utvecklingsresultat – API-prestanda, test coverage, levererade features, buggreduktion',
+      'Kvantifiera alltid utvecklingsresultat, API-prestanda, test coverage, levererade features, buggreduktion',
       'Lista specifika tekniker med kompetensnivå på dina TOP 3: React (Expert, 5+ år), inte bara "React-erfarenhet"',
       'Visa progression från junior till senior genom ökat ansvar och tech lead-roller',
       'Inkludera GitHub-länk om du har relevanta open source-projekt eller kodexempel',
@@ -15587,7 +15640,7 @@ Varför detta fungerar: "Duktig utvecklare" säger ingenting. "Reducerade svarst
         rubrik: 'Balans mellan kodning och teamarbete',
         text: `CV:t kombinerar tekniska prestationer som **microservices-arkitektur** och **query-optimering** med teamfokuserade resultat som **tech lead för 4 utvecklare**, **code reviews** och **teknisk dokumentation**.
 
-Varför detta fungerar: Många utvecklar-CV:n listar bara tekniker utan att visa samarbetsförmåga. Du visar att du inte bara kodar isolerat – du bidrar till teamets utveckling genom code reviews och kunskapsdelning. Tech lead-erfarenhet signalerar att du kan ta ansvar och leda tekniska beslut, inte bara implementera andras arkitektur.`
+Varför detta fungerar: Många utvecklar-CV:n listar bara tekniker utan att visa samarbetsförmåga. Du visar att du inte bara kodar isolerat, du bidrar till teamets utveckling genom code reviews och kunskapsdelning. Tech lead-erfarenhet signalerar att du kan ta ansvar och leda tekniska beslut, inte bara implementera andras arkitektur.`
       },
       {
         rubrik: 'Certifieringar som validerar cloud-kompetens',
@@ -15605,7 +15658,7 @@ Varför detta fungerar: ATS-system rankar CV:n med nyckelord tidigt i dokumentet
         rubrik: 'Tydlig progression från junior till tech lead',
         text: `Erfarenheten visar utveckling: från **Junior Systemutvecklare** med MVP-utveckling och Scrum-deltagande, till **Systemutvecklare** med 45+ features och TypeScript-introduktion, till **Senior Systemutvecklare** med tech lead-ansvar för 4 utvecklare och arkitekturbeslut.
 
-Varför detta fungerar: Progressionen visar att du inte bara kodat samma typ av uppgifter år efter år – du har växt från implementering till arkitektur och ledarskap. Befordran efter 10 månader signalerar att du presterar över förväntan. Tech lead-rollen visar att du är redo för senior-positioner med personalansvar.`
+Varför detta fungerar: Progressionen visar att du inte bara kodat samma typ av uppgifter år efter år, du har växt från implementering till arkitektur och ledarskap. Befordran efter 10 månader signalerar att du presterar över förväntan. Tech lead-rollen visar att du är redo för senior-positioner med personalansvar.`
       }
     ],
 
@@ -15636,7 +15689,7 @@ Rekryterare kan direkt bedöma din tekniska förmåga genom konkreta förbättri
       },
       {
         rubrik: 'Visa systemets skala och komplexitet',
-        text: `Ge kontext genom att beskriva systemets omfattning – antal användare, transaktioner, integrationer. Skala visar erfarenhet av produktionsmiljöer.
+        text: `Ge kontext genom att beskriva systemets omfattning, antal användare, transaktioner, integrationer. Skala visar erfarenhet av produktionsmiljöer.
 
 **Exempel på före/efter**:
 
@@ -15654,7 +15707,7 @@ Stora systemskala signalerar att du kan hantera komplexitet och skalbarhet.`
 
 ❌ Ingen GitHub-länk, bara "öppen för att visa kodprov vid förfrågan"
 
-✅ "GitHub: github.com/johaneriks – 15+ repositories, bidrag till React Testing Library (2K+ stars)"
+✅ "GitHub: github.com/johaneriks, 15+ repositories, bidrag till React Testing Library (2K+ stars)"
 
 Om du saknar open source-bidrag, skapa ett personligt projekt som visar din bästa kod och arkitektur.`
       },
@@ -15678,7 +15731,7 @@ Cloud-certifieringar (Azure/AWS) är ofta formella krav för roller på tech-bol
 
 ❌ "Tech lead med ansvar för utvecklingsteam"
 
-✅ "Tech lead för team om **4 utvecklare** – ansvarig för code reviews (200+ PRs/år), arkitekturbeslut (microservices vs monolith) och teknisk dokumentation. Introducerade pair programming som reducerade buggar med 25%."
+✅ "Tech lead för team om **4 utvecklare**, ansvarig för code reviews (200+ PRs/år), arkitekturbeslut (microservices vs monolith) och teknisk dokumentation. Introducerade pair programming som reducerade buggar med 25%."
 
 Konkreta siffror och beslut visar ledarskapsförmåga bortom titel.`
       }
@@ -15687,7 +15740,7 @@ Konkreta siffror och beslut visar ledarskapsförmåga bortom titel.`
     faq: [
       {
         fraga: 'Hur långt ska mitt CV som systemutvecklare vara?',
-        svar: 'För systemutvecklare rekommenderas 1-2 sidor. Med 0-5 års erfarenhet räcker oftast 1 sida. Senior utvecklare med 7+ år och tech lead-erfarenhet kan behöva 2 sidor för att visa progression och teknisk bredd, men var koncis – ingen behöver se varje projekt du jobbat på.'
+        svar: 'För systemutvecklare rekommenderas 1-2 sidor. Med 0-5 års erfarenhet räcker oftast 1 sida. Senior utvecklare med 7+ år och tech lead-erfarenhet kan behöva 2 sidor för att visa progression och teknisk bredd, men var koncis, ingen behöver se varje projekt du jobbat på.'
       },
       {
         fraga: 'Ska jag inkludera GitHub-länk i mitt CV?',
@@ -15695,15 +15748,15 @@ Konkreta siffror och beslut visar ledarskapsförmåga bortom titel.`
       },
       {
         fraga: 'Hur listar jag teknisk kompetens utan att det blir en lång lista?',
-        svar: 'Gruppera efter kategori: Frontend (React, TypeScript), Backend (.NET, Node.js), Databaser (PostgreSQL, Redis). Ge kompetensnivå på dina TOP 3: "React (Expert, 5+ år)". Begränsa till 8-12 tekniker totalt – bredd utan djup imponerar inte. Fokusera på de tekniker som är relevanta för jobbet du söker.'
+        svar: 'Gruppera efter kategori: Frontend (React, TypeScript), Backend (.NET, Node.js), Databaser (PostgreSQL, Redis). Ge kompetensnivå på dina TOP 3: "React (Expert, 5+ år)". Begränsa till 8-12 tekniker totalt, bredd utan djup imponerar inte. Fokusera på de tekniker som är relevanta för jobbet du söker.'
       },
       {
         fraga: 'Hur visar jag kodkvalitet i mitt CV?',
-        svar: 'Kvantifiera: "Ökade test coverage från 45% till 92%", "Code review av 200+ pull requests årligen", "Introducerade TypeScript som reducerade runtime-buggar med 35%". Om du haft ansvar för kodstandarder, arkitekturbeslut eller teknisk dokumentation – nämn det. Konkreta siffror bevisar kvalitet bättre än påståenden.'
+        svar: 'Kvantifiera: "Ökade test coverage från 45% till 92%", "Code review av 200+ pull requests årligen", "Introducerade TypeScript som reducerade runtime-buggar med 35%". Om du haft ansvar för kodstandarder, arkitekturbeslut eller teknisk dokumentation, nämn det. Konkreta siffror bevisar kvalitet bättre än påståenden.'
       },
       {
         fraga: 'Vilka certifieringar är värdefulla för systemutvecklare?',
-        svar: 'Azure Developer Associate och AWS Certified Developer är värdefulla för cloud-roller. Professional Scrum Developer (PSD) visar agil kompetens. Kubernetes-certifieringar (CKA/CKAD) är relevanta för container-fokuserade roller. Inkludera alltid årtal – en certifiering från 2018 är mindre imponerande än en från 2024.'
+        svar: 'Azure Developer Associate och AWS Certified Developer är värdefulla för cloud-roller. Professional Scrum Developer (PSD) visar agil kompetens. Kubernetes-certifieringar (CKA/CKAD) är relevanta för container-fokuserade roller. Inkludera alltid årtal, en certifiering från 2018 är mindre imponerande än en från 2024.'
       },
       {
         fraga: 'Hur beskriver jag tech lead-ansvar utan att överdriva?',
@@ -15711,19 +15764,19 @@ Konkreta siffror och beslut visar ledarskapsförmåga bortom titel.`
       },
       {
         fraga: 'Hur anpassar jag CV:t för startup vs stort företag?',
-        svar: 'Startups värderar bredd och snabbhet – lyft fram MVP-leverans, fullstack-kompetens och förmåga att arbeta med begränsade resurser. Stora företag värderar specialisering och process – betona specifik teknisk djup, erfarenhet av stora kodbaser och samarbete i distribuerade team. Anpassa profiltexten efter företagets kultur.'
+        svar: 'Startups värderar bredd och snabbhet, lyft fram MVP-leverans, fullstack-kompetens och förmåga att arbeta med begränsade resurser. Stora företag värderar specialisering och process, betona specifik teknisk djup, erfarenhet av stora kodbaser och samarbete i distribuerade team. Anpassa profiltexten efter företagets kultur.'
       },
       {
         fraga: 'Ska jag nämna hobby-projekt och side projects?',
-        svar: 'Ja, om de är relevanta och visar kompetens du inte får visa i jobbet. Ett hobby-projekt med 500+ stjärnor på GitHub är imponerande. Personliga projekt som visar ny teknik (t.ex. Rust, Web3, ML) signalerar nyfikenhet. Undvik att lista alla side projects – välj 1-2 som är mest relevanta för rollen du söker.'
+        svar: 'Ja, om de är relevanta och visar kompetens du inte får visa i jobbet. Ett hobby-projekt med 500+ stjärnor på GitHub är imponerande. Personliga projekt som visar ny teknik (t.ex. Rust, Web3, ML) signalerar nyfikenhet. Undvik att lista alla side projects, välj 1-2 som är mest relevanta för rollen du söker.'
       },
       {
         fraga: 'Hur visar jag att jag kan arbeta i agila team?',
-        svar: 'Nämn konkreta roller: "Scrum Master-stöd", "Sprint planning-facilitering", "Daily standups-deltagande". Certifieringar som PSD eller PSM visar formell kunskap. Ännu bättre: visa resultat av agilt arbete – "Levererade 45+ features enligt sprint-planer med 98% completion rate". Undvik vaga påståenden som "van vid agila metoder".'
+        svar: 'Nämn konkreta roller: "Scrum Master-stöd", "Sprint planning-facilitering", "Daily standups-deltagande". Certifieringar som PSD eller PSM visar formell kunskap. Ännu bättre: visa resultat av agilt arbete, "Levererade 45+ features enligt sprint-planer med 98% completion rate". Undvik vaga påståenden som "van vid agila metoder".'
       },
       {
         fraga: 'Hur beskriver jag erfarenhet av legacy-system utan att det låter negativt?',
-        svar: 'Legacy-erfarenhet är värdefullt – de flesta företag har äldre system. Fokusera på modernisering: "Migrerade monolitisk Java 8-applikation till microservices-arkitektur i .NET 8". Visa resultat: "40% förbättrad deployment-frekvens", "Reducerade teknisk skuld med 60%". Legacy-refaktorering kräver djup förståelse – framställ det som styrka.'
+        svar: 'Legacy-erfarenhet är värdefullt, de flesta företag har äldre system. Fokusera på modernisering: "Migrerade monolitisk Java 8-applikation till microservices-arkitektur i .NET 8". Visa resultat: "40% förbättrad deployment-frekvens", "Reducerade teknisk skuld med 60%". Legacy-refaktorering kräver djup förståelse, framställ det som styrka.'
       }
     ],
 
@@ -15743,7 +15796,7 @@ Konkreta siffror och beslut visar ledarskapsförmåga bortom titel.`
 
     seoIntro: `Söker du jobb som DevOps Engineer och behöver ett CV som visar din förmåga att automatisera, orkestrera och leverera pålitlig infrastruktur? Det här exemplet demonstrerar hur du skapar ett professionellt CV som övertygar både ATS-system och tekniska rekryterare inom svenska tech-bolag och produktföretag.
 
-CV:t balanserar infrastrukturkompetens med konkreta driftsresultat som deployment-frekvens, uptime och kostnadsbesparingar. Du hittar branschspecifika termer som Kubernetes, Terraform, CI/CD-pipelines och observability – precis de nyckelord som svenska utvecklingschefer söker efter. Exemplet visar hur du kvantifierar DevOps-arbete: "Ökade deployment-frekvens från 2/vecka till 15/dag" och "Reducerade cloud-kostnader med 35%".
+CV:t balanserar infrastrukturkompetens med konkreta driftsresultat som deployment-frekvens, uptime och kostnadsbesparingar. Du hittar branschspecifika termer som Kubernetes, Terraform, CI/CD-pipelines och observability, precis de nyckelord som svenska utvecklingschefer söker efter. Exemplet visar hur du kvantifierar DevOps-arbete: "Ökade deployment-frekvens från 2/vecka till 15/dag" och "Reducerade cloud-kostnader med 35%".
 
 Använd detta exempel som inspiration för att strukturera ditt eget CV som DevOps Engineer. Kombinera din infrastrukturstack med mätbara resultat för att maximera dina chanser till intervju.`,
 
@@ -15767,11 +15820,11 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som DevO
           arbetsgivare: 'FinTech Platform AB',
           period: '2022 – Pågående',
           beskrivning: [
-            'Arkitekterade Kubernetes-kluster (EKS) för 40+ microservices – hanterar 2M+ requests/dag med 99.95% uptime',
+            'Arkitekterade Kubernetes-kluster (EKS) för 40+ microservices, hanterar 2M+ requests/dag med 99.95% uptime',
             'Byggde CI/CD-pipelines i GitHub Actions som ökade deployment-frekvens från 2/vecka till 15/dag',
-            'Implementerade Infrastructure as Code med Terraform – 100% av AWS-resurser versionshanterade och reproducerbara',
+            'Implementerade Infrastructure as Code med Terraform, 100% av AWS-resurser versionshanterade och reproducerbara',
             'Reducerade cloud-kostnader med 35% genom spot instances, rightsizing och autoscaling-optimering',
-            'Tech lead för DevOps-team om 3 ingenjörer – ansvarig för on-call rotation, incident response och postmortems'
+            'Tech lead för DevOps-team om 3 ingenjörer, ansvarig för on-call rotation, incident response och postmortems'
           ]
         },
         {
@@ -15779,9 +15832,9 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som DevO
           arbetsgivare: 'E-Commerce Tech AB',
           period: '2020 – 2022',
           beskrivning: [
-            'Migrerade monolitisk applikation till containeriserad arkitektur (Docker, Kubernetes) – 60% förbättrad skalbarhet',
-            'Byggde observability-stack med Prometheus, Grafana och ELK Stack – MTTR reducerad från 45min till 12min',
-            'Automatiserade security scanning (Trivy, SonarQube) i CI/CD-pipeline – blockerade 200+ sårbarheter före produktion',
+            'Migrerade monolitisk applikation till containeriserad arkitektur (Docker, Kubernetes), 60% förbättrad skalbarhet',
+            'Byggde observability-stack med Prometheus, Grafana och ELK Stack, MTTR reducerad från 45min till 12min',
+            'Automatiserade security scanning (Trivy, SonarQube) i CI/CD-pipeline, blockerade 200+ sårbarheter före produktion',
             'Implementerade GitOps-workflow med ArgoCD för kontinuerlig deployment till 3 miljöer (dev, staging, prod)'
           ]
         },
@@ -15792,7 +15845,7 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som DevO
           beskrivning: [
             'Administrerade 150+ Linux-servrar (Ubuntu, CentOS) med Ansible för konfigurationshantering',
             'Byggde första CI/CD-pipeline med Jenkins som reducerade manuella deployments med 80%',
-            'On-call ansvar för kritisk produktionsinfrastruktur – hanterade 50+ incidenter med 98% first-call resolution'
+            'On-call ansvar för kritisk produktionsinfrastruktur, hanterade 50+ incidenter med 98% first-call resolution'
           ]
         }
       ],
@@ -15800,7 +15853,7 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som DevO
       utbildning: [
         {
           titel: 'Högskoleingenjör, Datateknik',
-          skola: 'KTH – Kungliga Tekniska Högskolan',
+          skola: 'KTH, Kungliga Tekniska Högskolan',
           period: '2014 – 2018',
           beskrivning: 'Specialisering i distribuerade system och nätverksteknik. Examensarbete om container-orkestrering för microservices.'
         }
@@ -15825,7 +15878,7 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som DevO
 
       certifieringar: [
         'Certified Kubernetes Administrator (CKA) (2024)',
-        'AWS Certified DevOps Engineer – Professional (2023)',
+        'AWS Certified DevOps Engineer: Professional (2023)',
         'HashiCorp Certified: Terraform Associate (2023)',
         'Linux Foundation Certified System Administrator (LFCS) (2021)'
       ],
@@ -15837,10 +15890,10 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som DevO
     },
 
     viktigt: [
-      'Kvantifiera infrastrukturresultat – deployment-frekvens, uptime, MTTR, kostnadsbesparingar',
+      'Kvantifiera infrastrukturresultat, deployment-frekvens, uptime, MTTR, kostnadsbesparingar',
       'Lista specifika verktyg med kompetensnivå: Kubernetes (Expert, 4+ år), Terraform (Expert)',
       'Visa progression från traditionell ops till modern DevOps och cloud-native',
-      'Inkludera certifieringar (CKA, AWS DevOps) med årtal – de är ofta formella krav',
+      'Inkludera certifieringar (CKA, AWS DevOps) med årtal, de är ofta formella krav',
       'Nämn konkreta systemskala: antal microservices, requests/dag, antal servrar',
       'Betona både teknisk automation och cross-functional samarbete med utvecklare'
     ],
@@ -15868,7 +15921,7 @@ Varför detta fungerar: "Erfaren DevOps Engineer" säger ingenting. "Deployment-
         rubrik: 'Balans mellan automation och teamsamarbete',
         text: `CV:t kombinerar tekniska prestationer som **Terraform Infrastructure as Code** och **Kubernetes-arkitektur** med teamfokuserade resultat som **tech lead för 3 DevOps-ingenjörer**, **on-call rotation** och **postmortems**.
 
-Varför detta fungerar: DevOps handlar om kultur lika mycket som verktyg. Du visar att du inte bara automatiserar isolerat – du bygger processer som hela team kan använda. Tech lead-erfarenhet och incident management signalerar att du kan ta ansvar när det verkligen gäller, inte bara under normala förhållanden.`
+Varför detta fungerar: DevOps handlar om kultur lika mycket som verktyg. Du visar att du inte bara automatiserar isolerat, du bygger processer som hela team kan använda. Tech lead-erfarenhet och incident management signalerar att du kan ta ansvar när det verkligen gäller, inte bara under normala förhållanden.`
       },
       {
         rubrik: 'Certifieringar som validerar expertis',
@@ -15886,7 +15939,7 @@ Varför detta fungerar: ATS-system rankar CV:n med nyckelord tidigt i dokumentet
         rubrik: 'Tydlig progression från sysadmin till tech lead',
         text: `Erfarenheten visar utveckling: från **Linux System Administrator** med Ansible och Jenkins, till **DevOps Engineer** med Kubernetes-migrering och observability, till **Senior DevOps Engineer** med tech lead-ansvar och Terraform-arkitektur.
 
-Varför detta fungerar: Progressionen visar att du har djup förståelse för hela stacken – från traditionell serveradministration till modern cloud-native. Migreringen från "monolith till containers" bevisar att du kan driva transformation, inte bara underhålla befintlig infrastruktur. Tech lead-rollen visar att du är redo för senior-positioner.`
+Varför detta fungerar: Progressionen visar att du har djup förståelse för hela stacken, från traditionell serveradministration till modern cloud-native. Migreringen från "monolith till containers" bevisar att du kan driva transformation, inte bara underhålla befintlig infrastruktur. Tech lead-rollen visar att du är redo för senior-positioner.`
       }
     ],
 
@@ -15917,7 +15970,7 @@ DORA-metriker är branschstandard som rekryterare förstår och kan jämföra.`
       },
       {
         rubrik: 'Visa infrastrukturens skala och komplexitet',
-        text: `Ge kontext genom att beskriva systemets omfattning – antal microservices, requests/dag, servrar. Skala visar erfarenhet av produktionsmiljöer.
+        text: `Ge kontext genom att beskriva systemets omfattning, antal microservices, requests/dag, servrar. Skala visar erfarenhet av produktionsmiljöer.
 
 **Exempel på före/efter**:
 
@@ -15929,7 +15982,7 @@ Stora systemskala signalerar att du kan hantera komplexitet i verkliga produktio
       },
       {
         rubrik: 'Inkludera kostnadsbesparingar som affärsvärde',
-        text: `DevOps handlar inte bara om teknik – det handlar om att leverera affärsvärde. Kostnadsoptimering är något som även icke-tekniska beslutsfattare förstår.
+        text: `DevOps handlar inte bara om teknik, det handlar om att leverera affärsvärde. Kostnadsoptimering är något som även icke-tekniska beslutsfattare förstår.
 
 **Exempel på före/efter**:
 
@@ -15959,7 +16012,7 @@ CKA är branschstandard för Kubernetes-roller. AWS DevOps Professional visar av
 
 ❌ "Erfarenhet av driftsupport och felsökning"
 
-✅ "Tech lead för on-call rotation (24/7) – hanterade **50+ incidenter** med **98% first-call resolution**. Ledde postmortems som resulterade i 15 systemförbättringar och **40% reducerade incidenter** över 12 månader."
+✅ "Tech lead för on-call rotation (24/7), hanterade **50+ incidenter** med **98% first-call resolution**. Ledde postmortems som resulterade i 15 systemförbättringar och **40% reducerade incidenter** över 12 månader."
 
 Konkreta incident-siffror visar att du kan hantera press och leverera även när det brinner.`
       }
@@ -15968,15 +16021,15 @@ Konkreta incident-siffror visar att du kan hantera press och leverera även när
     faq: [
       {
         fraga: 'Hur långt ska mitt CV som DevOps Engineer vara?',
-        svar: 'För DevOps Engineers rekommenderas 1-2 sidor. Med 0-5 års erfarenhet räcker oftast 1 sida. Senior DevOps med 7+ år och tech lead-erfarenhet kan behöva 2 sidor för att visa progression från sysadmin till cloud-native, men var koncis – fokusera på de mest relevanta projekten och resultaten.'
+        svar: 'För DevOps Engineers rekommenderas 1-2 sidor. Med 0-5 års erfarenhet räcker oftast 1 sida. Senior DevOps med 7+ år och tech lead-erfarenhet kan behöva 2 sidor för att visa progression från sysadmin till cloud-native, men var koncis, fokusera på de mest relevanta projekten och resultaten.'
       },
       {
         fraga: 'Vilka certifieringar är mest värdefulla för DevOps?',
-        svar: 'CKA (Certified Kubernetes Administrator) är branschstandard för container-roller. AWS Certified DevOps Engineer Professional visar avancerad cloud-kompetens. HashiCorp Terraform Associate validerar IaC-kunskap. Inkludera alltid årtal – en certifiering från 2020 är mindre imponerande än en från 2024. Prioritera certifieringar som matchar jobbannonsen.'
+        svar: 'CKA (Certified Kubernetes Administrator) är branschstandard för container-roller. AWS Certified DevOps Engineer Professional visar avancerad cloud-kompetens. HashiCorp Terraform Associate validerar IaC-kunskap. Inkludera alltid årtal, en certifiering från 2020 är mindre imponerande än en från 2024. Prioritera certifieringar som matchar jobbannonsen.'
       },
       {
         fraga: 'Hur listar jag teknisk kompetens utan att det blir en lång lista?',
-        svar: 'Gruppera efter kategori: Container (Kubernetes, Docker, Helm), IaC (Terraform, Ansible), Cloud (AWS, Azure), Monitoring (Prometheus, Grafana). Ge kompetensnivå på dina TOP 3: "Kubernetes (Expert, 4+ år)". Begränsa till 10-15 verktyg totalt – bredd utan djup imponerar inte. Fokusera på verktyg relevanta för jobbet.'
+        svar: 'Gruppera efter kategori: Container (Kubernetes, Docker, Helm), IaC (Terraform, Ansible), Cloud (AWS, Azure), Monitoring (Prometheus, Grafana). Ge kompetensnivå på dina TOP 3: "Kubernetes (Expert, 4+ år)". Begränsa till 10-15 verktyg totalt, bredd utan djup imponerar inte. Fokusera på verktyg relevanta för jobbet.'
       },
       {
         fraga: 'Hur visar jag DevOps-resultat utan att bryta sekretess?',
@@ -15984,7 +16037,7 @@ Konkreta incident-siffror visar att du kan hantera press och leverera även när
       },
       {
         fraga: 'Hur beskriver jag on-call ansvar i mitt CV?',
-        svar: 'Kvantifiera: "On-call rotation (24/7) med ansvar för kritisk produktionsinfrastruktur – hanterade 50+ incidenter med 98% first-call resolution". Nämn postmortems och systemförbättringar som resultat av incidents. On-call visar att du kan hantera press och ta ansvar när det verkligen gäller.'
+        svar: 'Kvantifiera: "On-call rotation (24/7) med ansvar för kritisk produktionsinfrastruktur, hanterade 50+ incidenter med 98% first-call resolution". Nämn postmortems och systemförbättringar som resultat av incidents. On-call visar att du kan hantera press och ta ansvar när det verkligen gäller.'
       },
       {
         fraga: 'Ska jag inkludera sysadmin-erfarenhet i ett DevOps-CV?',
@@ -15992,19 +16045,19 @@ Konkreta incident-siffror visar att du kan hantera press och leverera även när
       },
       {
         fraga: 'Hur anpassar jag CV:t för startup vs stort företag?',
-        svar: 'Startups värderar bredd och snabbhet – lyft fram fullstack-DevOps, snabb problemlösning och förmåga att bygga från scratch. Stora företag värderar specialisering och process – betona erfarenhet av stora distribuerade system, compliance (SOC2, GDPR) och samarbete i distribuerade team. Anpassa profiltexten efter företagets kultur och skala.'
+        svar: 'Startups värderar bredd och snabbhet, lyft fram fullstack-DevOps, snabb problemlösning och förmåga att bygga från scratch. Stora företag värderar specialisering och process, betona erfarenhet av stora distribuerade system, compliance (SOC2, GDPR) och samarbete i distribuerade team. Anpassa profiltexten efter företagets kultur och skala.'
       },
       {
         fraga: 'Hur visar jag samarbete med utvecklingsteam?',
-        svar: 'DevOps handlar om att bryta silos. Beskriv konkreta samarbeten: "Införde GitOps-workflow tillsammans med 4 utvecklingsteam – reducerade deployment-konflikter med 60%". Nämn developer experience-förbättringar: "Byggde self-service deployment-portal som eliminerade DevOps-flaskhalsar för 25 utvecklare".'
+        svar: 'DevOps handlar om att bryta silos. Beskriv konkreta samarbeten: "Införde GitOps-workflow tillsammans med 4 utvecklingsteam, reducerade deployment-konflikter med 60%". Nämn developer experience-förbättringar: "Byggde self-service deployment-portal som eliminerade DevOps-flaskhalsar för 25 utvecklare".'
       },
       {
         fraga: 'Hur beskriver jag security-aspekter av DevOps?',
-        svar: 'DevSecOps är alltmer efterfrågat. Nämn konkreta verktyg och resultat: "Implementerade security scanning (Trivy, SonarQube) i CI/CD-pipeline – blockerade 200+ sårbarheter före produktion". Compliance-erfarenhet (SOC2, PCI-DSS, GDPR) är värdefullt för fintech och enterprise-roller. Visa att säkerhet är integrerat, inte ett efterhandstillägg.'
+        svar: 'DevSecOps är alltmer efterfrågat. Nämn konkreta verktyg och resultat: "Implementerade security scanning (Trivy, SonarQube) i CI/CD-pipeline, blockerade 200+ sårbarheter före produktion". Compliance-erfarenhet (SOC2, PCI-DSS, GDPR) är värdefullt för fintech och enterprise-roller. Visa att säkerhet är integrerat, inte ett efterhandstillägg.'
       },
       {
         fraga: 'Hur visar jag progression inom DevOps-karriären?',
-        svar: 'Visa utveckling i ansvar och teknisk djup: "Sysadmin (150 servrar, Ansible) → DevOps Engineer (Kubernetes-migrering, observability) → Senior DevOps (tech lead, 40+ microservices, arkitekturbeslut)". Inkludera befordringar och utökat ansvar. Mentorskap och tech lead signalerar att du är redo för ledande roller.'
+        svar: 'Visa utveckling i ansvar och teknisk djup: "Sysadmin (150 servrar, Ansible), sedan DevOps Engineer (Kubernetes-migrering, observability), sedan Senior DevOps (tech lead, 40+ microservices, arkitekturbeslut)". Inkludera befordringar och utökat ansvar. Mentorskap och tech lead signalerar att du är redo för ledande roller.'
       }
     ],
 
@@ -16024,7 +16077,7 @@ Konkreta incident-siffror visar att du kan hantera press och leverera även när
 
     seoIntro: `Söker du jobb som IT-projektledare och behöver ett CV som visar din förmåga att leverera komplexa teknikprojekt inom budget och tid? Det här exemplet demonstrerar hur du skapar ett professionellt CV som övertygar både ATS-system och IT-chefer inom svenska tech-bolag och enterprise-organisationer.
 
-CV:t balanserar projektledningskompetens med konkreta leveransresultat som budget, tid och scope. Du hittar branschspecifika termer som Agile, Scrum, PRINCE2, stakeholder management och steering committee – precis de nyckelord som svenska rekryterare söker efter. Exemplet visar hur du kvantifierar projektledning: "Levererade 25 MSEK digitaliseringsprojekt 2 veckor före deadline" och "98% stakeholder satisfaction enligt projektslut-enkät".
+CV:t balanserar projektledningskompetens med konkreta leveransresultat som budget, tid och scope. Du hittar branschspecifika termer som Agile, Scrum, PRINCE2, stakeholder management och steering committee, precis de nyckelord som svenska rekryterare söker efter. Exemplet visar hur du kvantifierar projektledning: "Levererade 25 MSEK digitaliseringsprojekt 2 veckor före deadline" och "98% stakeholder satisfaction enligt projektslut-enkät".
 
 Använd detta exempel som inspiration för att strukturera ditt eget CV som IT-projektledare. Kombinera din projektledningsmetodik med mätbara resultat för att maximera dina chanser till intervju.`,
 
@@ -16048,9 +16101,9 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som IT-p
           arbetsgivare: 'Nordea Bank AB',
           period: '2021 – Pågående',
           beskrivning: [
-            'Leder digitaliseringsprojekt med budget 15-35 MSEK – levererade kärnbankssystem 2 veckor före deadline och 8% under budget',
+            'Leder digitaliseringsprojekt med budget 15-35 MSEK, levererade kärnbankssystem 2 veckor före deadline och 8% under budget',
             'Projektportfölj: 5 parallella projekt med totalt 45 teammedlemmar (utvecklare, UX, QA, arkitekter)',
-            'Faciliterar steering committee-möten med C-level stakeholders – 98% stakeholder satisfaction enligt projektslut-enkät',
+            'Faciliterar steering committee-möten med C-level stakeholders, 98% stakeholder satisfaction enligt projektslut-enkät',
             'Implementerade SAFe-ramverk för skalad Agile som ökade deployment-frekvens med 40% och reducerade time-to-market',
             'Mentorerar 3 junior projektledare i Agile-metodik och stakeholder management'
           ]
@@ -16060,9 +16113,9 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som IT-p
           arbetsgivare: 'Försäkringsbolaget Trygg AB',
           period: '2018 – 2021',
           beskrivning: [
-            'Ledde 8 IT-projekt med budgetar 2-12 MSEK – samtliga levererade inom scope med genomsnittlig kostnadsbesparing 6%',
-            'Drev legacy-migrering från mainframe till cloud (Azure) för 200K+ försäkringskunder – 99.8% datamigrering utan avbrott',
-            'Ansvarig för vendor management med 4 externa leverantörer – förhandlade kontrakt värda 8 MSEK',
+            'Ledde 8 IT-projekt med budgetar 2-12 MSEK, samtliga levererade inom scope med genomsnittlig kostnadsbesparing 6%',
+            'Drev legacy-migrering från mainframe till cloud (Azure) för 200K+ försäkringskunder, 99.8% datamigrering utan avbrott',
+            'Ansvarig för vendor management med 4 externa leverantörer, förhandlade kontrakt värda 8 MSEK',
             'Införde hybrid Agile/Waterfall-approach som reducerade projektrisker med 35% enligt risklog'
           ]
         },
@@ -16071,7 +16124,7 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som IT-p
           arbetsgivare: 'IT-konsultbolaget Sigma AB',
           period: '2016 – 2018',
           beskrivning: [
-            'Koordinerade 3-5 samtidiga IT-uppdrag hos kunder inom retail och logistik – 95% kundnöjdhet',
+            'Koordinerade 3-5 samtidiga IT-uppdrag hos kunder inom retail och logistik, 95% kundnöjdhet',
             'Befordrad till Projektledare efter 14 månader baserat på leveransresultat och feedbackpoäng',
             'Ansvarig för resursallokering, tidsrapportering och statusrapporter till steering committee'
           ]
@@ -16119,10 +16172,10 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som IT-p
     },
 
     viktigt: [
-      'Kvantifiera alltid projektresultat – budget (MSEK), tid (före/efter deadline), team-storlek, stakeholder satisfaction',
-      'Lista specifika PM-verktyg och metodik: Jira (Expert), Agile/Scrum, PRINCE2 – inte bara "projektledningserfarenhet"',
+      'Kvantifiera alltid projektresultat, budget (MSEK), tid (före/efter deadline), team-storlek, stakeholder satisfaction',
+      'Lista specifika PM-verktyg och metodik: Jira (Expert), Agile/Scrum, PRINCE2, inte bara "projektledningserfarenhet"',
       'Visa progression från koordinator/junior PM till senior projektledare med budgetansvar',
-      'Inkludera PMP/PRINCE2/SAFe-certifieringar med årtal – de är ofta formella krav',
+      'Inkludera PMP/PRINCE2/SAFe-certifieringar med årtal, de är ofta formella krav',
       'Nämn stakeholder-nivå: steering committee, C-level, cross-functional teams',
       'Betona både teknisk förståelse och affärsfokus (ROI, kostnadsbesparing)'
     ],
@@ -16144,19 +16197,19 @@ Varför detta fungerar: Rekryteringssystem filtrerar efter exakta PM-termer. "Ji
         rubrik: 'Kvantifierade projektresultat som imponerar',
         text: `CV:t levererar konkreta siffror: **25 MSEK budget**, **2 veckor före deadline**, **8% under budget**, och **98% stakeholder satisfaction**. Varje erfarenhetspost innehåller mätbara projektresultat.
 
-Varför detta fungerar: "Erfaren projektledare" säger ingenting. "Levererade 25 MSEK projekt 2 veckor före deadline" bevisar att du faktiskt kan driva projekt till framgångsrik leverans. Rekryterare kan direkt bedöma din kapacitet genom budget-storlek och leveransresultat. Stakeholder satisfaction-siffror visar att du inte bara levererar – du gör det på ett sätt som alla är nöjda med.`
+Varför detta fungerar: "Erfaren projektledare" säger ingenting. "Levererade 25 MSEK projekt 2 veckor före deadline" bevisar att du faktiskt kan driva projekt till framgångsrik leverans. Rekryterare kan direkt bedöma din kapacitet genom budget-storlek och leveransresultat. Stakeholder satisfaction-siffror visar att du inte bara levererar, du gör det på ett sätt som alla är nöjda med.`
       },
       {
         rubrik: 'Balans mellan metodik och ledarskap',
         text: `CV:t kombinerar tekniska PM-kompetenser som **SAFe-ramverk** och **EVM-prognoser** med ledarskapsfokuserade resultat som **45 teammedlemmar**, **steering committee-facilitation** och **mentorskap för 3 junior PM**.
 
-Varför detta fungerar: Projektledning handlar om både process och människor. Du visar att du inte bara kan metodiken – du kan leda team och kommunicera med C-level. Mentorskap signalerar att arbetsgivare litar på dig att utveckla andra, och steering committee-erfarenhet visar att du är van vid strategiska samtal på ledningsnivå.`
+Varför detta fungerar: Projektledning handlar om både process och människor. Du visar att du inte bara kan metodiken, du kan leda team och kommunicera med C-level. Mentorskap signalerar att arbetsgivare litar på dig att utveckla andra, och steering committee-erfarenhet visar att du är van vid strategiska samtal på ledningsnivå.`
       },
       {
         rubrik: 'Certifieringar som validerar PM-expertis',
         text: `CV:t listar **PMP (2022)**, **PRINCE2 Practitioner (2020)** och **SAFe 5.0 Scrum Master (2023)**. Varje certifiering har årtal som visar aktiv kompetensutveckling.
 
-Varför detta fungerar: PMP och PRINCE2 är ofta formella krav för senior PM-roller, särskilt inom bank och försäkring. SAFe visar Agile-skalning som enterprise-organisationer behöver. Årtal visar att certifieringarna är aktuella – en PMP från 2015 är mindre imponerande än en från 2022. Kombinationen täcker både traditionell och agil projektledning.`
+Varför detta fungerar: PMP och PRINCE2 är ofta formella krav för senior PM-roller, särskilt inom bank och försäkring. SAFe visar Agile-skalning som enterprise-organisationer behöver. Årtal visar att certifieringarna är aktuella, en PMP från 2015 är mindre imponerande än en från 2022. Kombinationen täcker både traditionell och agil projektledning.`
       },
       {
         rubrik: 'Profiltext som fångar uppmärksamhet direkt',
@@ -16168,7 +16221,7 @@ Varför detta fungerar: ATS-system rankar CV:n med nyckelord tidigt i dokumentet
         rubrik: 'Tydlig progression från koordinator till senior PM',
         text: `Erfarenheten visar utveckling: från **Projektkoordinator** med 3-5 uppdrag och kundkontakt, till **IT-projektledare** med 8 projekt och vendor management, till **Senior IT-projektledare** med 35 MSEK budget och mentorskap.
 
-Varför detta fungerar: Progressionen visar att du har vuxit från stödfunktion till strategiskt ansvar. Befordran efter 14 månader signalerar att du presterar över förväntan. Budget-progression (2 MSEK → 35 MSEK) bevisar att arbetsgivare successivt gett dig större ansvar. Mentorskap visar att du är redo för programledar- eller avdelningschefsroller.`
+Varför detta fungerar: Progressionen visar att du har vuxit från stödfunktion till strategiskt ansvar. Befordran efter 14 månader signalerar att du presterar över förväntan. Budget-progression (2 MSEK, sedan 35 MSEK) bevisar att arbetsgivare successivt gett dig större ansvar. Mentorskap visar att du är redo för programledar- eller avdelningschefsroller.`
       }
     ],
 
@@ -16181,7 +16234,7 @@ Varför detta fungerar: Progressionen visar att du har vuxit från stödfunktion
 
 ❌ "Ledde flera IT-projekt med framgångsrika leveranser"
 
-✅ "Ledde digitaliseringsprojekt med budget **25 MSEK** – levererade **2 veckor före deadline** och **8% under budget** med **98% stakeholder satisfaction**"
+✅ "Ledde digitaliseringsprojekt med budget **25 MSEK**, levererade **2 veckor före deadline** och **8% under budget** med **98% stakeholder satisfaction**"
 
 Rekryterare vill se konkreta bevis på att du kan hantera stora budgetar och leverera resultat.`
       },
@@ -16223,7 +16276,7 @@ PMP och PRINCE2 är branschstandard. Årtal visar att du aktivt underhåller din
       },
       {
         rubrik: 'Beskriv metodikval och dess påverkan',
-        text: `Visa att du inte bara följer process – du väljer rätt metodik för rätt situation och kan mäta resultatet.
+        text: `Visa att du inte bara följer process, du väljer rätt metodik för rätt situation och kan mäta resultatet.
 
 **Exempel på före/efter**:
 
@@ -16241,7 +16294,7 @@ Metodikval med mätbar påverkan visar strategiskt tänkande, inte bara processk
 
 ❌ "Erfarenhet av leverantörshantering och externa konsulter"
 
-✅ "Ansvarig för **vendor management med 4 externa leverantörer** – förhandlade kontrakt värda **8 MSEK** och säkerställde SLA-efterlevnad med **99.5% service level**"
+✅ "Ansvarig för **vendor management med 4 externa leverantörer**, förhandlade kontrakt värda **8 MSEK** och säkerställde SLA-efterlevnad med **99.5% service level**"
 
 Kontraktsvärde och SLA-siffror visar affärsmässig kompetens utöver projektledning.`
       }
@@ -16250,11 +16303,11 @@ Kontraktsvärde och SLA-siffror visar affärsmässig kompetens utöver projektle
     faq: [
       {
         fraga: 'Hur långt ska mitt CV som IT-projektledare vara?',
-        svar: 'För IT-projektledare rekommenderas 1-2 sidor. Med 0-5 års erfarenhet räcker oftast 1 sida. Senior projektledare med 7+ år, stora budgetar och certifieringar kan behöva 2 sidor för att visa progression och projektportfölj, men var koncis – fokusera på de mest relevanta leveranserna.'
+        svar: 'För IT-projektledare rekommenderas 1-2 sidor. Med 0-5 års erfarenhet räcker oftast 1 sida. Senior projektledare med 7+ år, stora budgetar och certifieringar kan behöva 2 sidor för att visa progression och projektportfölj, men var koncis, fokusera på de mest relevanta leveranserna.'
       },
       {
         fraga: 'Vilka certifieringar är mest värdefulla för IT-projektledare?',
-        svar: 'PMP (Project Management Professional) är internationell standard och ofta krav för enterprise-roller. PRINCE2 är stark i UK-baserade företag och offentlig sektor. SAFe och PSM är viktiga för Agile-miljöer. Inkludera alltid årtal – en PMP från 2018 utan förnyelse är mindre imponerande än en aktiv certifiering.'
+        svar: 'PMP (Project Management Professional) är internationell standard och ofta krav för enterprise-roller. PRINCE2 är stark i UK-baserade företag och offentlig sektor. SAFe och PSM är viktiga för Agile-miljöer. Inkludera alltid årtal, en PMP från 2018 utan förnyelse är mindre imponerande än en aktiv certifiering.'
       },
       {
         fraga: 'Hur beskriver jag projektbudget utan att bryta sekretess?',
@@ -16266,7 +16319,7 @@ Kontraktsvärde och SLA-siffror visar affärsmässig kompetens utöver projektle
       },
       {
         fraga: 'Hur anpassar jag CV:t för Agile vs Waterfall-roller?',
-        svar: 'Agile-roller: Betona Scrum/SAFe, sprint-leveranser, velocity, retrospectives, continuous delivery. Waterfall-roller: Fokusera på fasindelning, grindar, PRINCE2, detaljerad planering, change management. Hybrid-miljöer (vanligt i enterprise) uppskattar erfarenhet av båda – visa flexibilitet att välja rätt metodik.'
+        svar: 'Agile-roller: Betona Scrum/SAFe, sprint-leveranser, velocity, retrospectives, continuous delivery. Waterfall-roller: Fokusera på fasindelning, grindar, PRINCE2, detaljerad planering, change management. Hybrid-miljöer (vanligt i enterprise) uppskattar erfarenhet av båda, visa flexibilitet att välja rätt metodik.'
       },
       {
         fraga: 'Ska jag inkludera teknisk bakgrund i ett PM-CV?',
@@ -16278,15 +16331,15 @@ Kontraktsvärde och SLA-siffror visar affärsmässig kompetens utöver projektle
       },
       {
         fraga: 'Hur visar jag vendor management-kompetens?',
-        svar: 'Kvantifiera: "Ansvarig för 4 externa leverantörer med total kontraktsvärde 8 MSEK". Nämn konkreta aktiviteter: kontraktsförhandling, SLA-uppföljning, leverantörsutvärdering, eskalering. Om du hanterat offshore-team eller nearshore-leverantörer, nämn det explicit – det visar kulturell kompetens.'
+        svar: 'Kvantifiera: "Ansvarig för 4 externa leverantörer med total kontraktsvärde 8 MSEK". Nämn konkreta aktiviteter: kontraktsförhandling, SLA-uppföljning, leverantörsutvärdering, eskalering. Om du hanterat offshore-team eller nearshore-leverantörer, nämn det explicit, det visar kulturell kompetens.'
       },
       {
         fraga: 'Hur hanterar jag många korta projekt vs få stora?',
-        svar: 'Många korta projekt: Sammanfatta med statistik: "Levererade 15+ IT-projekt (1-5 MSEK) med 95% on-time delivery". Få stora projekt: Detaljera varje projekt med specifika resultat. Båda är värdefulla – korta projekt visar tempo, stora projekt visar komplexitetshantering. Anpassa efter vad jobbannonsen efterfrågar.'
+        svar: 'Många korta projekt: Sammanfatta med statistik: "Levererade 15+ IT-projekt (1-5 MSEK) med 95% on-time delivery". Få stora projekt: Detaljera varje projekt med specifika resultat. Båda är värdefulla, korta projekt visar tempo, stora projekt visar komplexitetshantering. Anpassa efter vad jobbannonsen efterfrågar.'
       },
       {
         fraga: 'Hur visar jag progression inom projektledning?',
-        svar: 'Visa utveckling i ansvar, budget och team-storlek: "Koordinator (5 projekt-stöd) → Projektledare (8 projekt, 2-12 MSEK) → Senior PM (projektportfölj 35 MSEK, mentorskap för 3 PM)". Inkludera befordringar och utökat ansvar. Program Manager eller Portfolio Manager är naturliga nästa steg att signalera intresse för.'
+        svar: 'Visa utveckling i ansvar, budget och team-storlek: "Koordinator (5 projekt-stöd), sedan Projektledare (8 projekt, 2-12 MSEK), sedan Senior PM (projektportfölj 35 MSEK, mentorskap för 3 PM)". Inkludera befordringar och utökat ansvar. Program Manager eller Portfolio Manager är naturliga nästa steg att signalera intresse för.'
       }
     ],
 
@@ -16306,7 +16359,7 @@ Kontraktsvärde och SLA-siffror visar affärsmässig kompetens utöver projektle
 
     seoIntro: `Söker du jobb som fritidspedagog och behöver ett CV som visar din pedagogiska kompetens och förmåga att skapa meningsfull fritidsverksamhet? Det här exemplet demonstrerar hur du skapar ett professionellt CV som övertygar både ATS-system och rektorer inom svenska grund- och fritidsskolor.
 
-CV:t balanserar pedagogisk kompetens med konkreta verksamhetsresultat som elevtrivsel, delaktighet och dokumentation. Du hittar branschspecifika termer som fritidshem, rastverksamhet, pedagogisk planering och samverkan – precis de nyckelord som skolledare söker efter. Exemplet visar hur du kvantifierar fritidspedagogik: "Ansvarig för 45 inskrivna elever i åk F-3" och "Ökade delaktighet i verksamhetsplanering från 60% till 92%".
+CV:t balanserar pedagogisk kompetens med konkreta verksamhetsresultat som elevtrivsel, delaktighet och dokumentation. Du hittar branschspecifika termer som fritidshem, rastverksamhet, pedagogisk planering och samverkan, precis de nyckelord som skolledare söker efter. Exemplet visar hur du kvantifierar fritidspedagogik: "Ansvarig för 45 inskrivna elever i åk F-3" och "Ökade delaktighet i verksamhetsplanering från 60% till 92%".
 
 Använd detta exempel som inspiration för att strukturera ditt eget CV som fritidspedagog. Kombinera din pedagogiska utbildning med mätbara resultat för att maximera dina chanser till intervju.`,
 
@@ -16318,7 +16371,7 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som frit
       kontakt: {
         telefon: '070-789 01 23',
         epost: 'emma.karlsson@email.se',
-        plats: 'Uppsala',
+        plats: 'Västerås',
         linkedin: 'linkedin.com/in/emmakarlsson-pedagog'
       },
 
@@ -16327,23 +16380,23 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som frit
       erfarenhet: [
         {
           titel: 'Fritidspedagog / Arbetslagsledare',
-          arbetsgivare: 'Uppsala Kommun – Bergsundsskolan F-6',
+          arbetsgivare: 'Uppsala Kommun, Bergsundsskolan F-6',
           period: '2021 – Pågående',
           beskrivning: [
-            'Ansvarig för fritidshemsverksamhet med 45 inskrivna elever i åk F-3 – planerar och genomför dagliga aktiviteter enligt läroplansmål',
-            'Arbetslagsledare för team om 4 pedagoger – ansvarig för veckoplanering, APT-underlag och pedagogisk dokumentation',
+            'Ansvarig för fritidshemsverksamhet med 45 inskrivna elever i åk F-3, planerar och genomför dagliga aktiviteter enligt läroplansmål',
+            'Arbetslagsledare för team om 4 pedagoger, ansvarig för veckoplanering, APT-underlag och pedagogisk dokumentation',
             'Ökade elevernas delaktighet i verksamhetsplanering från 60% till 92% genom systematiskt barnråd (Brofäldt-modellen)',
             'Implementerade rastverksamhet med strukturerade aktiviteter som reducerade konflikter med 45% enligt trivselenkät',
-            'Samverkan med klasslärare i tematiskt arbete – integrerade fritidshemmets innehåll med skolans undervisning i 8 terminsplaneringar'
+            'Samverkan med klasslärare i tematiskt arbete, integrerade fritidshemmets innehåll med skolans undervisning i 8 terminsplaneringar'
           ]
         },
         {
           titel: 'Fritidspedagog',
-          arbetsgivare: 'Internationella Engelska Skolan – Uppsala',
+          arbetsgivare: 'Internationella Engelska Skolan, Uppsala',
           period: '2018 – 2021',
           beskrivning: [
             'Ansvarig för afterschool-program för 35 elever i åk 1-3 med fokus på språkutveckling och kreativt skapande',
-            'Utvecklade dokumentationsrutiner i InfoMentor som ökade vårdnadshavarinsynen – 95% nöjdhet i föräldraenkät',
+            'Utvecklade dokumentationsrutiner i InfoMentor som ökade vårdnadshavarinsynen, 95% nöjdhet i föräldraenkät',
             'Planerade och genomförde lovverksamhet (sommar, höst, sportlov) för 60+ elever med budget 80 000 kr',
             'Mentorskap för 2 lärarassistenter i pedagogisk dokumentation och läroplansanknytning'
           ]
@@ -16353,7 +16406,7 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som frit
           arbetsgivare: 'Fristående Fritidshemmet Solstrålen',
           period: '2016 – 2018',
           beskrivning: [
-            'Ansvarig för utemiljön och friluftspedagogik – planerade utomhusaktiviteter för 25 elever året runt',
+            'Ansvarig för utemiljön och friluftspedagogik, planerade utomhusaktiviteter för 25 elever året runt',
             'Befordrad från Barnskötare till Fritidspedagog efter examen 2017',
             'Bidrog till Grön Flagg-certifiering genom miljöprojekt med eleverna'
           ]
@@ -16387,11 +16440,11 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som frit
       },
 
       certifieringar: [
-        'Legitimerad Fritidspedagog – Skolverket (2017)',
-        'Första hjälpen vid barn – Röda Korset (2024)',
+        'Legitimerad Fritidspedagog: Skolverket (2017)',
+        'Första hjälpen vid barn: Röda Korset (2024)',
         'Trygg-och-snäll-pedagogik (SET) (2023)',
         'Grön Flagg-handledare (2022)',
-        'Barnkonventionen i praktiken – SKR (2021)'
+        'Barnkonventionen i praktiken: SKR (2021)'
       ],
 
       sprak: [
@@ -16401,12 +16454,12 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som frit
     },
 
     viktigt: [
-      'Nämn alltid antalet inskrivna elever och åldersgrupp – det visar verksamhetens omfattning',
-      'Lista specifika dokumentationsverktyg: InfoMentor, Unikum, SchoolSoft – inte bara "digital dokumentation"',
+      'Nämn alltid antalet inskrivna elever och åldersgrupp, det visar verksamhetens omfattning',
+      'Lista specifika dokumentationsverktyg: InfoMentor, Unikum, SchoolSoft, inte bara "digital dokumentation"',
       'Visa progression från barnskötare/lärarassistent till fritidspedagog/arbetslagsledare',
-      'Inkludera legitimation och relevanta certifieringar med årtal – de visar professionell status',
+      'Inkludera legitimation och relevanta certifieringar med årtal, de visar professionell status',
       'Kvantifiera resultat: elevdelaktighet, trivselenkäter, konfliktreduktion',
-      'Betona samverkan mellan fritidshem och skola – det är centralt i läroplanen'
+      'Betona samverkan mellan fritidshem och skola, det är centralt i läroplanen'
     ],
 
     statistik: [
@@ -16418,30 +16471,34 @@ Använd detta exempel som inspiration för att strukturera ditt eget CV som frit
     varforDetFungerar: [
       {
         rubrik: 'ATS-system känner igen pedagogiska kompetenser',
+        ankare: 'kompetenser',
         text: `CV:t nämner konkreta verktyg som **InfoMentor**, **Unikum** och **SchoolSoft** tillsammans med branschspecifika termer som **fritidshemsverksamhet**, **rastverksamhet**, **pedagogisk planering** och **barnråd**.
 
 Varför detta fungerar: Rekryteringssystem filtrerar efter exakta pedagogiska termer. "InfoMentor (Expert, 5+ år)" matchar bättre än "digital dokumentation". Kombinationen dokumentationsverktyg + läroplansanknytning + certifieringar visar fullständig fritidspedagogisk kompetens som rektorer söker. ATS rankar CV:n med specifika termer högre.`
       },
       {
         rubrik: 'Kvantifierade pedagogiska resultat som imponerar',
+        ankare: 'erfarenhet',
         text: `CV:t levererar konkreta siffror: **45 inskrivna elever**, **delaktighet ökad från 60% till 92%**, och **konflikter reducerade med 45%**. Varje erfarenhetspost innehåller mätbara verksamhetsresultat.
 
-Varför detta fungerar: "Erfaren fritidspedagog" säger ingenting. "Ansvarig för 45 elever med 92% delaktighet" bevisar att du kan driva verksamhet som faktiskt fungerar. Rektorer kan direkt bedöma din kapacitet genom elevantal och trivselresultat. Konfliktsiffror visar att du skapar trygg miljö – en kärnkompetens för fritidshem.`
+Varför detta fungerar: "Erfaren fritidspedagog" säger ingenting. "Ansvarig för 45 elever med 92% delaktighet" bevisar att du kan driva verksamhet som faktiskt fungerar. Rektorer kan direkt bedöma din kapacitet genom elevantal och trivselresultat. Konfliktsiffror visar att du skapar trygg miljö, en kärnkompetens för fritidshem.`
       },
       {
         rubrik: 'Balans mellan pedagogik och ledarskap',
         text: `CV:t kombinerar pedagogiska kompetenser som **tematiskt arbete** och **läroplansanknytning** med ledarskapsfokuserade resultat som **arbetslagsledare för 4 pedagoger**, **APT-underlag** och **mentorskap för lärarassistenter**.
 
-Varför detta fungerar: Fritidspedagogik handlar om både elevarbete och teamsamarbete. Du visar att du inte bara planerar aktiviteter – du kan leda ett arbetslag och samverka med klasslärare. Arbetslagsledarroll signalerar att arbetsgivare litar på dig att ta ansvar för verksamheten, inte bara genomföra andras planer.`
+Varför detta fungerar: Fritidspedagogik handlar om både elevarbete och teamsamarbete. Du visar att du inte bara planerar aktiviteter, du kan leda ett arbetslag och samverka med klasslärare. Arbetslagsledarroll signalerar att arbetsgivare litar på dig att ta ansvar för verksamheten, inte bara genomföra andras planer.`
       },
       {
         rubrik: 'Certifieringar som validerar pedagogisk expertis',
+        ankare: 'certifieringar',
         text: `CV:t listar **Legitimerad Fritidspedagog (2017)**, **Första hjälpen vid barn (2024)** och **SET-pedagogik (2023)**. Varje certifiering har årtal som visar aktiv kompetensutveckling.
 
-Varför detta fungerar: Legitimation är ofta formellt krav för fritidspedagogtjänster. Första hjälpen visar säkerhetstänk. SET och Grön Flagg visar att du aktivt utvecklar din pedagogiska verktygslåda. Årtal visar att certifieringarna är aktuella – en Första hjälpen-kurs från 2018 är mindre trygg än en från 2024.`
+Varför detta fungerar: Legitimation är ofta formellt krav för fritidspedagogtjänster. Första hjälpen visar säkerhetstänk. SET och Grön Flagg visar att du aktivt utvecklar din pedagogiska verktygslåda. Årtal visar att certifieringarna är aktuella, en Första hjälpen-kurs från 2018 är mindre trygg än en från 2024.`
       },
       {
         rubrik: 'Profiltext som fångar uppmärksamhet direkt',
+        ankare: 'profil',
         text: `Profiltexten öppnar med "Engagerad fritidspedagog med 6+ års erfarenhet" och inkluderar nyckelord som **fritidshemsverksamhet**, **rastverksamhet**, **elevdelaktighet** och **legitimerad**. Max 4 meningar, under 80 ord.
 
 Varför detta fungerar: ATS-system rankar CV:n med nyckelord tidigt i dokumentet högre. När första meningen innehåller "6+ år", "åk F-3" och "kommunal och fristående" får rektorn omedelbart ett värdelöfte. Konkreta utfall som "öka elevernas delaktighet" i profiltexten gör att du sticker ut bland kandidater som bara skriver "engagerad pedagog som gillar barn".`
@@ -16450,7 +16507,7 @@ Varför detta fungerar: ATS-system rankar CV:n med nyckelord tidigt i dokumentet
         rubrik: 'Tydlig progression från barnskötare till arbetslagsledare',
         text: `Erfarenheten visar utveckling: från **Barnskötare** med utemiljöansvar och friluftspedagogik, till **Fritidspedagog** med dokumentationsansvar och lovverksamhet, till **Arbetslagsledare** med personalansvar för 4 pedagoger och systematiskt barnråd.
 
-Varför detta fungerar: Progressionen visar att du har vuxit från praktiskt elevarbete till pedagogiskt ledarskap. Befordran efter examen signalerar att arbetsgivare såg potential. Arbetslagsledarroll visar att du är redo för förstelärartjänst eller biträdande rektor inom fritidshem – naturliga nästa karriärsteg.`
+Varför detta fungerar: Progressionen visar att du har vuxit från praktiskt elevarbete till pedagogiskt ledarskap. Befordran efter examen signalerar att arbetsgivare såg potential. Arbetslagsledarroll visar att du är redo för förstelärartjänst eller biträdande rektor inom fritidshem, naturliga nästa karriärsteg.`
       }
     ],
 
@@ -16463,7 +16520,7 @@ Varför detta fungerar: Progressionen visar att du har vuxit från praktiskt ele
 
 ❌ "Ansvarig för fritidshemsverksamhet på lågstadiet"
 
-✅ "Ansvarig för fritidshemsverksamhet med **45 inskrivna elever i åk F-3** – planerar och genomför dagliga aktiviteter enligt Lgr22"
+✅ "Ansvarig för fritidshemsverksamhet med **45 inskrivna elever i åk F-3**, planerar och genomför dagliga aktiviteter enligt Lgr22"
 
 Elevantal och åldersgrupp ger rektorn direkt förståelse för din erfarenhetsnivå.`
       },
@@ -16475,7 +16532,7 @@ Elevantal och åldersgrupp ger rektorn direkt förståelse för din erfarenhetsn
 
 ❌ "Erfarenhet av digital dokumentation och pedagogisk planering"
 
-✅ "Dokumentation: **InfoMentor, Unikum, SchoolSoft (Expert, 5+ år)** – ansvarig för IUP-underlag och läroplansanknuten dokumentation"
+✅ "Dokumentation: **InfoMentor, Unikum, SchoolSoft (Expert, 5+ år)**, ansvarig för IUP-underlag och läroplansanknuten dokumentation"
 
 Specifika systemnamn matchar jobbannonsernas krav och visar att du kan börja direkt.`
       },
@@ -16489,7 +16546,7 @@ Specifika systemnamn matchar jobbannonsernas krav och visar att du kan börja di
 
 ✅ "Ökade elevernas delaktighet i verksamhetsplanering från **60% till 92%** genom systematiskt barnråd (Brofäldt-modellen)"
 
-Konkreta förbättringar visar att ditt arbete ger mätbara resultat – inte bara goda intentioner.`
+Konkreta förbättringar visar att ditt arbete ger mätbara resultat, inte bara goda intentioner.`
       },
       {
         rubrik: 'Inkludera legitimation och certifieringar med årtal',
@@ -16499,7 +16556,7 @@ Konkreta förbättringar visar att ditt arbete ger mätbara resultat – inte ba
 
 ❌ "Legitimerad fritidspedagog, Första hjälpen-utbildad"
 
-✅ "**Legitimerad Fritidspedagog – Skolverket (2017)**, Första hjälpen vid barn – Röda Korset (2024), SET-pedagogik (2023)"
+✅ "**Legitimerad Fritidspedagog, Skolverket (2017)**, Första hjälpen vid barn, Röda Korset (2024), SET-pedagogik (2023)"
 
 Årtal visar att certifieringarna är aktuella och att du aktivt underhåller din kompetens.`
       },
@@ -16511,7 +16568,7 @@ Konkreta förbättringar visar att ditt arbete ger mätbara resultat – inte ba
 
 ❌ "God samverkan med övrig skolpersonal"
 
-✅ "Samverkan med klasslärare i tematiskt arbete – integrerade fritidshemmets innehåll med skolans undervisning i **8 terminsplaneringar** (NO-teman, läsprojekt, matematiklekar)"
+✅ "Samverkan med klasslärare i tematiskt arbete, integrerade fritidshemmets innehåll med skolans undervisning i **8 terminsplaneringar** (NO-teman, läsprojekt, matematiklekar)"
 
 Konkreta samverkansprojekt visar att du förstår fritidshemmets roll i helheten.`
       },
@@ -16532,11 +16589,11 @@ Kvantifierad konfliktreduktion visar konkret påverkan på skolmiljön.`
     faq: [
       {
         fraga: 'Hur långt ska mitt CV som fritidspedagog vara?',
-        svar: 'För fritidspedagoger rekommenderas 1-2 sidor. Nyexaminerade (0-3 års erfarenhet) klarar sig oftast med 1 sida. Erfarna fritidspedagoger med arbetslagsledarroll eller specialuppdrag kan behöva 2 sidor, men var koncis – fokusera på de mest relevanta verksamhetsresultaten.'
+        svar: 'För fritidspedagoger rekommenderas 1-2 sidor. Nyexaminerade (0-3 års erfarenhet) klarar sig oftast med 1 sida. Erfarna fritidspedagoger med arbetslagsledarroll eller specialuppdrag kan behöva 2 sidor, men var koncis, fokusera på de mest relevanta verksamhetsresultaten.'
       },
       {
         fraga: 'Är legitimation ett krav för fritidspedagogtjänster?',
-        svar: 'Legitimation krävs för tillsvidareanställning som fritidspedagog enligt Skollagen. Utan legitimation kan du få tidsbegränsad anställning (max 1 år) om huvudmannen bedömer att du har rätt kompetens. Nämn alltid din legitimation tydligt – det är ofta första filtret i rekryteringen.'
+        svar: 'Legitimation krävs för tillsvidareanställning som fritidspedagog enligt Skollagen. Utan legitimation kan du få tidsbegränsad anställning (max 1 år) om huvudmannen bedömer att du har rätt kompetens. Nämn alltid din legitimation tydligt, det är ofta första filtret i rekryteringen.'
       },
       {
         fraga: 'Hur beskriver jag erfarenhet utan kvantifierbara resultat?',
@@ -16544,15 +16601,15 @@ Kvantifierad konfliktreduktion visar konkret påverkan på skolmiljön.`
       },
       {
         fraga: 'Ska jag inkludera min barnskötarerfarenhet?',
-        svar: 'Ja, särskilt om den visar progression. Beskriv utvecklingen: "Barnskötare → Fritidspedagog (efter examen) → Arbetslagsledare". Tidigare erfarenhet inom förskola eller fritidshem visar kontinuitet i pedagogiskt arbete. Framställ det som en medveten karriärväg, inte en slumpmässig bakgrund.'
+        svar: 'Ja, särskilt om den visar progression. Beskriv utvecklingen: "Barnskötare, sedan Fritidspedagog (efter examen), sedan Arbetslagsledare". Tidigare erfarenhet inom förskola eller fritidshem visar kontinuitet i pedagogiskt arbete. Framställ det som en medveten karriärväg, inte en slumpmässig bakgrund.'
       },
       {
         fraga: 'Vilka dokumentationsverktyg ska jag nämna?',
-        svar: 'InfoMentor, Unikum och SchoolSoft är de vanligaste i svenska skolor. Nämn de system du använt med erfarenhetsnivå: "InfoMentor (Expert, 5+ år)". Matcha mot jobbannonsen om möjligt – om skolan använder Unikum, lyft fram det explicit. Digital dokumentation är ofta ett krav i moderna fritidshem.'
+        svar: 'InfoMentor, Unikum och SchoolSoft är de vanligaste i svenska skolor. Nämn de system du använt med erfarenhetsnivå: "InfoMentor (Expert, 5+ år)". Matcha mot jobbannonsen om möjligt, om skolan använder Unikum, lyft fram det explicit. Digital dokumentation är ofta ett krav i moderna fritidshem.'
       },
       {
         fraga: 'Hur visar jag samverkan med skola och klasslärare?',
-        svar: 'Beskriv konkreta samverkansprojekt: "Integrerade fritidshemmets temaarbete med NO-undervisningen – 8 gemensamma terminsplaneringar". Nämn deltagande i elevhälsoteam, IUP-arbete eller utvecklingssamtal. Samverkan mellan fritidshem och skola är central i Lgr22 – visa att du förstår fritidshemmets roll i helheten.'
+        svar: 'Beskriv konkreta samverkansprojekt: "Integrerade fritidshemmets temaarbete med NO-undervisningen, 8 gemensamma terminsplaneringar". Nämn deltagande i elevhälsoteam, IUP-arbete eller utvecklingssamtal. Samverkan mellan fritidshem och skola är central i Lgr22, visa att du förstår fritidshemmets roll i helheten.'
       },
       {
         fraga: 'Hur beskriver jag rastverksamhet i mitt CV?',
@@ -16568,7 +16625,7 @@ Kvantifierad konfliktreduktion visar konkret påverkan på skolmiljön.`
       },
       {
         fraga: 'Hur visar jag progression inom fritidspedagogik?',
-        svar: 'Visa utveckling i ansvar: "Barnskötare (25 elever) → Fritidspedagog (35 elever, dokumentationsansvar) → Arbetslagsledare (45 elever, personalansvar för 4 pedagoger)". Inkludera specialuppdrag: barnrådansvarig, rastverksamhetskoordinator, Grön Flagg-handledare. Förstelärare eller biträdande rektor inom fritidshem är naturliga nästa steg.'
+        svar: 'Visa utveckling i ansvar: "Barnskötare (25 elever), sedan Fritidspedagog (35 elever, dokumentationsansvar), sedan Arbetslagsledare (45 elever, personalansvar för 4 pedagoger)". Inkludera specialuppdrag: barnrådansvarig, rastverksamhetskoordinator, Grön Flagg-handledare. Förstelärare eller biträdande rektor inom fritidshem är naturliga nästa steg.'
       }
     ],
 
@@ -16589,9 +16646,9 @@ Kvantifierad konfliktreduktion visar konkret påverkan på skolmiljön.`
 
     seoIntro: `Söker du jobb som redovisningsekonom och behöver ett CV som visar din kompetens inom bokslut, skattedeklarationer och årsredovisningar? Det här exemplet demonstrerar hur du skapar ett professionellt CV som passerar ATS-filter och imponerar på ekonomichefer och redovisningsbyråer.
 
-CV:t balanserar teknisk systemkunskap med konkreta resultat från månadsavslut, periodiseringar och skattehantering. Du hittar branschspecifika termer som K3/K2-redovisning, momsdeklaration, löneadministration och årsredovisning – precis de nyckelord som arbetsgivare söker efter. Exemplet visar hur du kvantifierar redovisningsarbete: "Ansvarar för bokslut och årsredovisning för 85 klienter" och "Effektiviserade månadsavsluten med 35% genom processoptimering".
+CV:t balanserar teknisk systemkunskap med konkreta resultat från månadsavslut, periodiseringar och skattehantering. Du hittar branschspecifika termer som K3/K2-redovisning, momsdeklaration, löneadministration och årsredovisning, precis de nyckelord som arbetsgivare söker efter. Exemplet visar hur du kvantifierar redovisningsarbete: "Ansvarar för bokslut och årsredovisning för 85 klienter" och "Effektiviserade månadsavsluten med 35% genom processoptimering".
 
-Använd exemplet som inspiration för att lyfta din egen erfarenhet inom löpande bokföring, periodiseringar eller koncernredovisning. Ett välstrukturerat CV ökar dina chanser till intervju – oavsett om du söker tjänst på redovisningsbyrå, i industri eller offentlig sektor.`,
+Använd exemplet som inspiration för att lyfta din egen erfarenhet inom löpande bokföring, periodiseringar eller koncernredovisning. Ett välstrukturerat CV ökar dina chanser till intervju, oavsett om du söker tjänst på redovisningsbyrå, i industri eller offentlig sektor.`,
 
     intro: 'Redovisningsekonom med fokus på bokslut, skattedeklarationer och K3-redovisning. CV-exemplet visar hur du kombinerar systemkunskap med konkreta ekonomiska resultat.',
 
@@ -16602,7 +16659,7 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet inom löpand
       kontakt: {
         telefon: '070-123 45 67',
         epost: 'anna.lindberg@email.se',
-        plats: 'Malmö',
+        plats: 'Uppsala',
         linkedin: 'linkedin.com/in/annalindberg'
       },
 
@@ -16672,10 +16729,10 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet inom löpand
       },
 
       certifieringar: [
-        'Auktoriserad Redovisningskonsult – SRF (2022)',
-        'K3-certifiering – FAR Akademi (2023)',
+        'Auktoriserad Redovisningskonsult: SRF (2022)',
+        'K3-certifiering: FAR Akademi (2023)',
         'Fortnox Certifierad Partner (2021)',
-        'Momsutbildning för redovisare – BG Institute (2020)'
+        'Momsutbildning för redovisare: BG Institute (2020)'
       ],
 
       sprak: [
@@ -16687,7 +16744,7 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet inom löpand
     varforDetFungerar: [
       {
         rubrik: 'Branschspecifika system som ATS identifierar',
-        text: `CV:t nämner Fortnox, Visma och SAP Business One med erfarenhetsnivåer – de ekonomisystem som rekryterare aktivt söker efter inom redovisningsbranschen.
+        text: `CV:t nämner Fortnox, Visma och SAP Business One med erfarenhetsnivåer, de ekonomisystem som rekryterare aktivt söker efter inom redovisningsbranschen.
 
 Varför detta fungerar: ATS-system filtrerar kandidater baserat på nyckelord från jobbannonsen. Genom att explicit nämna specifika ekonomisystem (inte bara "erfarenhet av ekonomisystem") ökar Anna sina chanser att passera den automatiska gallringen. Redovisningsbyråer söker ofta efter "Fortnox-erfarenhet" ordagrant.`
       },
@@ -16701,23 +16758,23 @@ Varför detta fungerar: Rekryterare jämför kandidaters kapacitet genom siffror
         rubrik: 'Teknisk kompetens möter klientrelationer',
         text: `Anna visar både djup systemkunskap (Fortnox Expert, K3-certifiering) och mjuka färdigheter som mentor, utbildning och kundrelationer.
 
-Varför detta fungerar: En redovisningsekonom behöver mer än bokföringskunskap – rollen kräver förmåga att förklara ekonomi för icke-ekonomer och bygga långsiktiga klientrelationer. Genom att visa "Mentor för 3 juniora redovisningsekonomer" och "implementerade Fortnox med full utbildning" bevisar Anna att hon kan kommunicera pedagogiskt.`
+Varför detta fungerar: En redovisningsekonom behöver mer än bokföringskunskap, rollen kräver förmåga att förklara ekonomi för icke-ekonomer och bygga långsiktiga klientrelationer. Genom att visa "Mentor för 3 juniora redovisningsekonomer" och "implementerade Fortnox med full utbildning" bevisar Anna att hon kan kommunicera pedagogiskt.`
       },
       {
         rubrik: 'Auktorisation och certifieringar med årtal',
-        text: `Auktoriserad Redovisningskonsult SRF (2022), K3-certifiering FAR Akademi (2023) och Fortnox-certifiering – alla med årtal som visar kontinuerlig kompetensutveckling.
+        text: `Auktoriserad Redovisningskonsult SRF (2022), K3-certifiering FAR Akademi (2023) och Fortnox-certifiering, alla med årtal som visar kontinuerlig kompetensutveckling.
 
-Varför detta fungerar: Redovisningsregler och system uppdateras kontinuerligt. SRF-auktorisation är en kvalitetsstämpel som många arbetsgivare kräver. Årtal på certifieringar bevisar att kunskapen är aktuell – särskilt viktigt då K3-reglerna och Skatteverkets krav förändras regelbundet.`
+Varför detta fungerar: Redovisningsregler och system uppdateras kontinuerligt. SRF-auktorisation är en kvalitetsstämpel som många arbetsgivare kräver. Årtal på certifieringar bevisar att kunskapen är aktuell, särskilt viktigt då K3-reglerna och Skatteverkets krav förändras regelbundet.`
       },
       {
         rubrik: 'Profiltext som fångar på 10 sekunder',
         text: `Profilen sammanfattar: 6 års erfarenhet + kontext (byrå och industri) + specialisering (månadsavslut, K3) + verktyg (Fortnox, Visma, SAP) + auktorisation + konkret resultat (85 klienter).
 
-Varför detta fungerar: Rekryterare spenderar i genomsnitt 6-10 sekunder på att skanna ett CV. Annas profiltext levererar de fyra kritiska komponenterna: erfarenhet, specialisering, tekniska keywords och trovärdighetsmarkörer – allt inom fyra meningar. SRF-auktorisationen i profilen är en omedelbar kvalitetssignal.`
+Varför detta fungerar: Rekryterare spenderar i genomsnitt 6-10 sekunder på att skanna ett CV. Annas profiltext levererar de fyra kritiska komponenterna: erfarenhet, specialisering, tekniska keywords och trovärdighetsmarkörer, allt inom fyra meningar. SRF-auktorisationen i profilen är en omedelbar kvalitetssignal.`
       },
       {
         rubrik: 'Tydlig karriärprogression',
-        text: `CV:t visar utveckling från Ekonomiassistent (kommunal sektor) via Redovisningsekonom (KPMG) till Senior Redovisningsekonom (Grant Thornton) – med tydligt ökande ansvar och klientantal.
+        text: `CV:t visar utveckling från Ekonomiassistent (kommunal sektor) via Redovisningsekonom (KPMG) till Senior Redovisningsekonom (Grant Thornton), med tydligt ökande ansvar och klientantal.
 
 Varför detta fungerar: Progression signalerar ambition och att kandidaten har förtjänat befordran genom resultat. För en redovisningsekonom-tjänst är det värdefull information att Anna har erfarenhet från både offentlig sektor och storbyråer, och att hon gått från assistentuppgifter till självständigt klientansvar med mentorroll.`
       }
@@ -16738,7 +16795,7 @@ Om arbetsgivaren söker "Fortnox-erfarenhet", skriv exakt systemnamn med erfaren
       },
       {
         rubrik: 'Kvantifiera ditt klientansvar med siffror',
-        text: `Konkreta siffror gör ditt CV mer trovärdigt och jämförbart. Som redovisningsekonom arbetar du dagligen med siffror – låt det synas genom att specificera antal klienter, omsättningsintervall och deadlines.
+        text: `Konkreta siffror gör ditt CV mer trovärdigt och jämförbart. Som redovisningsekonom arbetar du dagligen med siffror, låt det synas genom att specificera antal klienter, omsättningsintervall och deadlines.
 
 **Exempel på före/efter**:
 
@@ -16746,7 +16803,7 @@ Om arbetsgivaren söker "Fortnox-erfarenhet", skriv exakt systemnamn med erfaren
 
 ✅ "Ansvarar för bokslut och årsredovisning enligt K3 för 85 klienter med omsättning 10-250 MSEK. 100% leveranssäkerhet till Skatteverket."
 
-Rekryterare behöver snabbt förstå omfattningen av din erfarenhet. "Bokslut" kan betyda 5 eller 100 klienter – siffran avgör vilken tjänst du matchar.`
+Rekryterare behöver snabbt förstå omfattningen av din erfarenhet. "Bokslut" kan betyda 5 eller 100 klienter, siffran avgör vilken tjänst du matchar.`
       },
       {
         rubrik: 'Visa konkreta resultat från redovisningsarbetet',
@@ -16758,7 +16815,7 @@ Rekryterare behöver snabbt förstå omfattningen av din erfarenhet. "Bokslut" k
 
 ✅ "Effektiviserade månadsavslutsprocessen med 35% genom standardiserade arbetsmallar. Identifierade skatteoptimering för klienter som resulterade i besparingar på 2,4 MSEK årligen."
 
-Ekonomichefer värderar redovisningsekonomer som bidrar till effektivitet och kundvärde – inte bara administrerar räkenskaper.`
+Ekonomichefer värderar redovisningsekonomer som bidrar till effektivitet och kundvärde, inte bara administrerar räkenskaper.`
       },
       {
         rubrik: 'Anpassa profiltext efter tjänstens inriktning',
@@ -16774,15 +16831,15 @@ Anpassa efter tjänst: "K3 och koncernredovisning" för storbolag, "löpande bok
       },
       {
         rubrik: 'Lyft fram auktorisation och branschcertifieringar',
-        text: `Skapa en dedikerad sektion för certifieringar. SRF-auktorisation är ofta ett krav eller starkt meriterande – ge det synlighet.
+        text: `Skapa en dedikerad sektion för certifieringar. SRF-auktorisation är ofta ett krav eller starkt meriterande, ge det synlighet.
 
 **Exempel på före/efter**:
 
 ❌ "Auktoriserad redovisningskonsult"
 
-✅ "Auktoriserad Redovisningskonsult – SRF (2022), K3-certifiering – FAR Akademi (2023), Fortnox Certifierad Partner (2021)"
+✅ "Auktoriserad Redovisningskonsult, SRF (2022), K3-certifiering, FAR Akademi (2023), Fortnox Certifierad Partner (2021)"
 
-Årtal visar att certifieringarna är aktuella. SRF-auktorisation är en kvalitetsgaranti som många arbetsgivare kräver – placera den tidigt i CV:t för maximal synlighet.`
+Årtal visar att certifieringarna är aktuella. SRF-auktorisation är en kvalitetsgaranti som många arbetsgivare kräver, placera den tidigt i CV:t för maximal synlighet.`
       },
       {
         rubrik: 'Balansera systemkunskap med kundrelationer',
@@ -16794,14 +16851,14 @@ Anpassa efter tjänst: "K3 och koncernredovisning" för storbolag, "löpande bok
 
 ✅ "Fortnox (Expert, 6+ år) och K3-certifierad. Implementerade Fortnox för 8 nystartade klientföretag med full setup och utbildning. Mentor för 3 juniora redovisningsekonomer."
 
-Konkreta exempel på kundutbildning och mentorskap bevisar din kommunikativa förmåga – inte bara påståendet att du är "pedagogisk".`
+Konkreta exempel på kundutbildning och mentorskap bevisar din kommunikativa förmåga, inte bara påståendet att du är "pedagogisk".`
       }
     ],
 
     faq: [
       {
         fraga: 'Hur långt ska mitt CV som redovisningsekonom vara?',
-        svar: 'För redovisningsekonomer rekommenderas 1-2 sidor. Nyexaminerade (0-3 års erfarenhet) klarar sig oftast med 1 sida. Erfarna redovisningsekonomer med klientansvar, specialistroller eller auktorisation kan behöva 2 sidor – men var koncis och fokusera på relevanta klientsiffror och systemkompetens.'
+        svar: 'För redovisningsekonomer rekommenderas 1-2 sidor. Nyexaminerade (0-3 års erfarenhet) klarar sig oftast med 1 sida. Erfarna redovisningsekonomer med klientansvar, specialistroller eller auktorisation kan behöva 2 sidor, men var koncis och fokusera på relevanta klientsiffror och systemkompetens.'
       },
       {
         fraga: 'Ska jag ha med profilbild på mitt CV?',
@@ -16813,19 +16870,19 @@ Konkreta exempel på kundutbildning och mentorskap bevisar din kommunikativa fö
       },
       {
         fraga: 'Vilka ekonomisystem ska jag nämna i mitt CV?',
-        svar: 'Lista de system du faktiskt behärskar med erfarenhetsnivå: "Fortnox (Expert, 6+ år)", "Visma (3 år)". Matcha mot jobbannonsen – om de söker specifikt Visma-erfarenhet, lyft fram det. Vanliga system: Fortnox, Visma eEkonomi, SAP Business One, Microsoft Dynamics 365, PE Accounting. Nämn även Excel-kompetens (pivottabeller, Power Query).'
+        svar: 'Lista de system du faktiskt behärskar med erfarenhetsnivå: "Fortnox (Expert, 6+ år)", "Visma (3 år)". Matcha mot jobbannonsen, om de söker specifikt Visma-erfarenhet, lyft fram det. Vanliga system: Fortnox, Visma eEkonomi, SAP Business One, Microsoft Dynamics 365, PE Accounting. Nämn även Excel-kompetens (pivottabeller, Power Query).'
       },
       {
         fraga: 'Hur visar jag K3-kompetens utan K3-certifiering?',
-        svar: 'Beskriv praktisk erfarenhet: "Upprättade årsbokslut enligt K3 för 45 klienter med omsättning 50-250 MSEK". Nämn specifika K3-områden du hanterat: avskrivningar på komponenter, uppskjuten skatt, intäktsredovisning. Överväg att ta FAR:s K3-certifiering – det stärker CV:t betydligt.'
+        svar: 'Beskriv praktisk erfarenhet: "Upprättade årsbokslut enligt K3 för 45 klienter med omsättning 50-250 MSEK". Nämn specifika K3-områden du hanterat: avskrivningar på komponenter, uppskjuten skatt, intäktsredovisning. Överväg att ta FAR:s K3-certifiering, det stärker CV:t betydligt.'
       },
       {
         fraga: 'Ska jag inkludera SRF-auktorisation om jag inte har den ännu?',
-        svar: 'Nämn om du är på väg mot auktorisation: "Under SRF-auktorisering (beräknas Q2 2026)". Om du har kurser avklarade, skriv "SRF Redovisningskurs avklarad (2024)". Auktorisation är ofta ett krav på byråer – visa att du arbetar mot målet. Inkludera relevanta FAR-kurser du genomfört.'
+        svar: 'Nämn om du är på väg mot auktorisation: "Under SRF-auktorisering (beräknas Q2 2026)". Om du har kurser avklarade, skriv "SRF Redovisningskurs avklarad (2024)". Auktorisation är ofta ett krav på byråer, visa att du arbetar mot målet. Inkludera relevanta FAR-kurser du genomfört.'
       },
       {
         fraga: 'Hur beskriver jag erfarenhet från mindre byrå vs storbolag?',
-        svar: 'Mindre byrå: Betona bredd och självständighet – "Full klientkontakt från löpande bokföring till årsredovisning för 40 företag inom olika branscher". Storbolag: Fokusera på specialisering och volym – "Månadsavslut för 3 affärsområden med omsättning 800 MSEK, koncernrapportering i SAP". Båda är värdefulla – anpassa vinkeln efter tjänsten du söker.'
+        svar: 'Mindre byrå: Betona bredd och självständighet, "Full klientkontakt från löpande bokföring till årsredovisning för 40 företag inom olika branscher". Storbolag: Fokusera på specialisering och volym, "Månadsavslut för 3 affärsområden med omsättning 800 MSEK, koncernrapportering i SAP". Båda är värdefulla, anpassa vinkeln efter tjänsten du söker.'
       },
       {
         fraga: 'Hur kvantifierar jag mitt redovisningsarbete?',
@@ -16833,7 +16890,7 @@ Konkreta exempel på kundutbildning och mentorskap bevisar din kommunikativa fö
       },
       {
         fraga: 'Ska jag nämna löneadministration i ett redovisnings-CV?',
-        svar: 'Ja, om det är relevant för tjänsten. Många redovisningsbyråer kombinerar bokföring med lön. Specificera: "Löneadministration för 12 klienter med sammanlagt 280 anställda, kollektivavtal, semesterberäkning och arbetsgivardeklarationer". På industritjänster kan det vara mindre relevant – anpassa efter jobbannonsen.'
+        svar: 'Ja, om det är relevant för tjänsten. Många redovisningsbyråer kombinerar bokföring med lön. Specificera: "Löneadministration för 12 klienter med sammanlagt 280 anställda, kollektivavtal, semesterberäkning och arbetsgivardeklarationer". På industritjänster kan det vara mindre relevant, anpassa efter jobbannonsen.'
       },
       {
         fraga: 'Hur anpassar jag CV:t för redovisningsbyrå vs industri?',
@@ -16858,9 +16915,9 @@ Konkreta exempel på kundutbildning och mentorskap bevisar din kommunikativa fö
 
     seoIntro: `Söker du jobb som bartender och behöver ett CV som visar din cocktailkunskap, stresstålighet och förmåga att leverera i högt tempo? Det här exemplet demonstrerar hur du skapar ett professionellt bartender-CV som imponerar på restaurangchefer och krogsägare.
 
-CV:t balanserar tekniska färdigheter som mixologi och kassahantering med mjuka egenskaper som gästbemötande och teamarbete under press. Du hittar branschspecifika termer som serveringstillstånd, POS-system, cocktailmeny och merförsäljning – precis de nyckelord som arbetsgivare i restaurangbranschen letar efter. Exemplet visar hur du kvantifierar bartender-arbete: "Serverade 200+ gäster per kväll" och "Ökade snittnotan med 22% genom merförsäljning".
+CV:t balanserar tekniska färdigheter som mixologi och kassahantering med mjuka egenskaper som gästbemötande och teamarbete under press. Du hittar branschspecifika termer som serveringstillstånd, POS-system, cocktailmeny och merförsäljning, precis de nyckelord som arbetsgivare i restaurangbranschen letar efter. Exemplet visar hur du kvantifierar bartender-arbete: "Serverade 200+ gäster per kväll" och "Ökade snittnotan med 22% genom merförsäljning".
 
-Använd exemplet som inspiration för att lyfta din egen erfarenhet från hotellbar, nattklubb eller finare restaurang. Ett välstrukturerat CV ökar dina chanser till intervju – oavsett om du söker fast tjänst eller säsongsarbete.`,
+Använd exemplet som inspiration för att lyfta din egen erfarenhet från hotellbar, nattklubb eller finare restaurang. Ett välstrukturerat CV ökar dina chanser till intervju, oavsett om du söker fast tjänst eller säsongsarbete.`,
 
     intro: 'Bartender med fokus på cocktailkunskap, kassahantering och högtrycksservice. CV-exemplet visar hur du kombinerar tekniska färdigheter med gästbemötande.',
 
@@ -16947,10 +17004,10 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet från hotell
       },
 
       certifieringar: [
-        'Serveringstillstånd – Folkhälsomyndigheten (2019, förnyat 2024)',
+        'Serveringstillstånd: Folkhälsomyndigheten (2019, förnyat 2024)',
         'WSET Level 2 Award in Wines (2020)',
-        'European Bartender School – Diploma (2019)',
-        'Ansvarsfull alkoholservering – Visita (2023)'
+        'European Bartender School: Diploma (2019)',
+        'Ansvarsfull alkoholservering: Visita (2023)'
       ],
 
       sprak: [
@@ -16963,9 +17020,9 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet från hotell
     varforDetFungerar: [
       {
         rubrik: 'Branschspecifika termer som fångar arbetsgivare',
-        text: `CV:t nämner serveringstillstånd, WSET-certifiering, Trivec och iZettle – branschtermer som krogsägare och restaurangchefer känner igen direkt.
+        text: `CV:t nämner serveringstillstånd, WSET-certifiering, Trivec och iZettle, branschtermer som krogsägare och restaurangchefer känner igen direkt.
 
-Varför detta fungerar: Restaurangbranschen har specifik terminologi. Arbetsgivare filtrerar ofta efter "serveringstillstånd" – ett lagkrav för att servera alkohol. Genom att explicit nämna certifieringar och kassasystem visar Marcus att han förstår branschens krav och kan börja arbeta direkt utan upplärning.`
+Varför detta fungerar: Restaurangbranschen har specifik terminologi. Arbetsgivare filtrerar ofta efter "serveringstillstånd", ett lagkrav för att servera alkohol. Genom att explicit nämna certifieringar och kassasystem visar Marcus att han förstår branschens krav och kan börja arbeta direkt utan upplärning.`
       },
       {
         rubrik: 'Siffror som visar kapacitet och resultat',
@@ -16977,23 +17034,23 @@ Varför detta fungerar: Restaurangbranschen handlar om tempo och omsättning. "E
         rubrik: 'Teknisk kompetens möter gästservice',
         text: `Marcus visar både hård kunskap (cocktailtekniker, WSET, kassasystem) och mjuka färdigheter som gästbemötande, teamarbete och merförsäljning.
 
-Varför detta fungerar: En bartender måste kunna mixa drinks OCH hantera gäster under press. Genom att visa "mentor för 3 juniora bartenders" och "systematisk merförsäljning" bevisar Marcus att han bidrar till teamet och affären – inte bara utför recept. Konkreta exempel väger tyngre än "serviceinriktad".`
+Varför detta fungerar: En bartender måste kunna mixa drinks OCH hantera gäster under press. Genom att visa "mentor för 3 juniora bartenders" och "systematisk merförsäljning" bevisar Marcus att han bidrar till teamet och affären, inte bara utför recept. Konkreta exempel väger tyngre än "serviceinriktad".`
       },
       {
         rubrik: 'Certifieringar som visar professionalism',
-        text: `Serveringstillstånd (2019, förnyat 2024), WSET Level 2 (2020) och European Bartender School – alla med årtal som visar aktualitet och kontinuerlig utveckling.
+        text: `Serveringstillstånd (2019, förnyat 2024), WSET Level 2 (2020) och European Bartender School, alla med årtal som visar aktualitet och kontinuerlig utveckling.
 
-Varför detta fungerar: Serveringstillstånd är lagkrav och måste förnyas. Genom att visa förnyelsedatum bevisar Marcus att dokumentationen är aktuell. WSET är internationellt erkänt och signalerar vinkunskap utöver grundnivå – meriterande för finare restauranger och hotellbarer.`
+Varför detta fungerar: Serveringstillstånd är lagkrav och måste förnyas. Genom att visa förnyelsedatum bevisar Marcus att dokumentationen är aktuell. WSET är internationellt erkänt och signalerar vinkunskap utöver grundnivå, meriterande för finare restauranger och hotellbarer.`
       },
       {
         rubrik: 'Profiltext som säljer på 10 sekunder',
         text: `Profilen sammanfattar: 5 års erfarenhet + kontext (hotellbar, nattklubb) + specialisering (cocktails, vinservice) + certifiering (serveringstillstånd) + resultat (200+ gäster, merförsäljning).
 
-Varför detta fungerar: Restaurangchefer har ofta bråttom och scannar CV:n snabbt. Marcus profiltext levererar de kritiska komponenterna: erfarenhet, miljöer, kompetenser och kvantifierade resultat – allt inom fyra meningar. Serveringstillståndet nämns tidigt för att visa att grundkraven är uppfyllda.`
+Varför detta fungerar: Restaurangchefer har ofta bråttom och scannar CV:n snabbt. Marcus profiltext levererar de kritiska komponenterna: erfarenhet, miljöer, kompetenser och kvantifierade resultat, allt inom fyra meningar. Serveringstillståndet nämns tidigt för att visa att grundkraven är uppfyllda.`
       },
       {
         rubrik: 'Tydlig karriärprogression i branschen',
-        text: `CV:t visar utveckling från Servitör/Bartender (Sturehof) via Bartender (Sturecompagniet) till Head Bartender (Grand Hôtel) – med tydligt ökande ansvar och prestige.
+        text: `CV:t visar utveckling från Servitör/Bartender (Sturehof) via Bartender (Sturecompagniet) till Head Bartender (Grand Hôtel), med tydligt ökande ansvar och prestige.
 
 Varför detta fungerar: Progression signalerar ambition och att kandidaten har förtjänat sin position. Grand Hôtel är ett prestigefyllt varumärke som validerar Marcus kompetens. Att visa utveckling från restaurang via nattklubb till hotellbar demonstrerar bredd och anpassningsförmåga.`
       }
@@ -17002,15 +17059,15 @@ Varför detta fungerar: Progression signalerar ambition och att kandidaten har f
     tips: [
       {
         rubrik: 'Inkludera serveringstillstånd och branschcertifieringar',
-        text: `Serveringstillstånd är ett lagkrav för att servera alkohol – nämn det explicit med förnyelsedatum. Komplettera med relevanta certifieringar som WSET, bartenderskolor eller ansvarsfull alkoholservering.
+        text: `Serveringstillstånd är ett lagkrav för att servera alkohol, nämn det explicit med förnyelsedatum. Komplettera med relevanta certifieringar som WSET, bartenderskolor eller ansvarsfull alkoholservering.
 
 **Exempel på före/efter**:
 
 ❌ "Erfarenhet av att servera alkohol"
 
-✅ "Serveringstillstånd – Folkhälsomyndigheten (2019, förnyat 2024), WSET Level 2 (2020), European Bartender School Diploma (2019)"
+✅ "Serveringstillstånd, Folkhälsomyndigheten (2019, förnyat 2024), WSET Level 2 (2020), European Bartender School Diploma (2019)"
 
-Arbetsgivare filtrerar ofta efter serveringstillstånd först. Utan det är du inte anställningsbar för alkoholservering – ge det tydlig synlighet.`
+Arbetsgivare filtrerar ofta efter serveringstillstånd först. Utan det är du inte anställningsbar för alkoholservering, ge det tydlig synlighet.`
       },
       {
         rubrik: 'Kvantifiera gästvolym och omsättning',
@@ -17026,7 +17083,7 @@ Siffror gör skillnaden mellan "har jobbat i bar" och "klarar volymen vi behöve
       },
       {
         rubrik: 'Visa konkreta resultat och affärspåverkan',
-        text: `Lyft fram hur du bidragit till verksamhetens resultat – merförsäljning, kostnadsbesparingar eller effektiviseringar.
+        text: `Lyft fram hur du bidragit till verksamhetens resultat, merförsäljning, kostnadsbesparingar eller effektiviseringar.
 
 **Exempel på före/efter**:
 
@@ -17038,7 +17095,7 @@ En arbetsgivare vill se att du bidrar till affären, inte bara utför arbetsuppg
       },
       {
         rubrik: 'Lista kassasystem och tekniska verktyg',
-        text: `Nämn vilka kassasystem du behärskar – det sparar upplärning och visar att du kan börja producera direkt.
+        text: `Nämn vilka kassasystem du behärskar, det sparar upplärning och visar att du kan börja producera direkt.
 
 **Exempel på före/efter**:
 
@@ -17060,11 +17117,11 @@ Olika krogar använder olika system. Om du matchar deras system är du mer attra
 
 ✅ För nattklubb: "Bartender med erfarenhet från Sturecompagniet. Hanterar 300+ gäster per natt i högtrycksmiljö med fokus på snabb service."
 
-Arbetsgivare söker rätt profil för sitt koncept – visa att du förstår deras miljö.`
+Arbetsgivare söker rätt profil för sitt koncept, visa att du förstår deras miljö.`
       },
       {
         rubrik: 'Lyft fram cocktailkunskap och specialiseringar',
-        text: `Om du har djupare kunskap inom cocktails, vin eller specifika dryckeskategorier – gör det synligt. Det skiljer dig från grundnivå.
+        text: `Om du har djupare kunskap inom cocktails, vin eller specifika dryckeskategorier, gör det synligt. Det skiljer dig från grundnivå.
 
 **Exempel på före/efter**:
 
@@ -17083,15 +17140,15 @@ Kreativitet och specialkunskap är meriterande för barer som vill sticka ut. Vi
       },
       {
         fraga: 'Måste jag ha serveringstillstånd för att söka bartenderjobb?',
-        svar: 'Ja, serveringstillstånd är lagkrav för att servera alkohol i Sverige. Kursen tar en dag och kostar ca 1 500-3 000 kr. Nämn alltid ditt serveringstillstånd med utfärdandeår i CV:t – det är ofta första filtret i rekryteringen. Utan det kommer du inte förbi grundkraven.'
+        svar: 'Ja, serveringstillstånd är lagkrav för att servera alkohol i Sverige. Kursen tar en dag och kostar ca 1 500-3 000 kr. Nämn alltid ditt serveringstillstånd med utfärdandeår i CV:t, det är ofta första filtret i rekryteringen. Utan det kommer du inte förbi grundkraven.'
       },
       {
         fraga: 'Hur beskriver jag erfarenhet från nattklubb vs restaurang?',
-        svar: 'Nattklubb: Betona volym (300+ gäster/natt), tempo, teamarbete under press och kassaomsättning. Restaurang: Fokusera på gästbemötande, vinkunskap, cocktailkreativitet och merförsäljning. Båda är värdefulla – anpassa vinkeln efter tjänsten du söker.'
+        svar: 'Nattklubb: Betona volym (300+ gäster/natt), tempo, teamarbete under press och kassaomsättning. Restaurang: Fokusera på gästbemötande, vinkunskap, cocktailkreativitet och merförsäljning. Båda är värdefulla, anpassa vinkeln efter tjänsten du söker.'
       },
       {
         fraga: 'Ska jag inkludera bartenderskola eller är det oväsentligt?',
-        svar: 'Ja, bartenderskolor som European Bartender School eller Barskolan är meriterande – särskilt för juniora bartenders. Det visar att du investerat i yrket och har grundläggande cocktailtekniker. För erfarna bartenders är praktisk erfarenhet viktigare, men certifiering skadar aldrig.'
+        svar: 'Ja, bartenderskolor som European Bartender School eller Barskolan är meriterande, särskilt för juniora bartenders. Det visar att du investerat i yrket och har grundläggande cocktailtekniker. För erfarna bartenders är praktisk erfarenhet viktigare, men certifiering skadar aldrig.'
       },
       {
         fraga: 'Hur kvantifierar jag mitt bartenderarbete om jag inte har exakta siffror?',
@@ -17099,19 +17156,19 @@ Kreativitet och specialkunskap är meriterande för barer som vill sticka ut. Vi
       },
       {
         fraga: 'Hur visar jag att jag klarar högt tempo utan att bara säga det?',
-        svar: 'Bevisa med kontext och siffror: "Serverade 300+ gäster per natt under helgkvällar på Sturecompagniet med 4-5 bartenders i team". Nämn miljöer kända för högt tryck (nattklubbar, stora event). "Stresstålig" utan bevis är meningslöst – visa volymen du hanterat.'
+        svar: 'Bevisa med kontext och siffror: "Serverade 300+ gäster per natt under helgkvällar på Sturecompagniet med 4-5 bartenders i team". Nämn miljöer kända för högt tryck (nattklubbar, stora event). "Stresstålig" utan bevis är meningslöst, visa volymen du hanterat.'
       },
       {
         fraga: 'Ska jag nämna vinkunskap eller bara cocktails?',
-        svar: 'Ja, vinkunskap är meriterande – särskilt för restauranger och hotellbarer. WSET-certifiering (Wine & Spirit Education Trust) är internationellt erkänt. Nämn nivå: "WSET Level 2" visar mer än grundkunskap. Om du saknar certifiering, beskriv praktisk erfarenhet: "Vinservice i restaurang med 80 viner på listan".'
+        svar: 'Ja, vinkunskap är meriterande, särskilt för restauranger och hotellbarer. WSET-certifiering (Wine & Spirit Education Trust) är internationellt erkänt. Nämn nivå: "WSET Level 2" visar mer än grundkunskap. Om du saknar certifiering, beskriv praktisk erfarenhet: "Vinservice i restaurang med 80 viner på listan".'
       },
       {
         fraga: 'Hur beskriver jag merförsäljning i mitt CV?',
-        svar: 'Kvantifiera resultat: "Ökade snittnotan per gäst med 22% genom systematisk merförsäljning av premium-sprit". Beskriv metod: "Rekommenderade cocktails och premiumalternativ baserat på gästens preferenser". Merförsäljning visar affärsförståelse – en egenskap arbetsgivare värderar högt.'
+        svar: 'Kvantifiera resultat: "Ökade snittnotan per gäst med 22% genom systematisk merförsäljning av premium-sprit". Beskriv metod: "Rekommenderade cocktails och premiumalternativ baserat på gästens preferenser". Merförsäljning visar affärsförståelse, en egenskap arbetsgivare värderar högt.'
       },
       {
         fraga: 'Ska jag ta med säsongsjobb och kortare anställningar?',
-        svar: 'Ja, om de visar bredd eller volym. Beskriv som: "Säsongsbartender – Sommarrestaurang X (juni-augusti 2023), 150+ gäster/dag". Flera kortare anställningar kan visa flexibilitet och erfarenhet från olika miljöer. Undvik dock att lista för många korta jobb utan substans.'
+        svar: 'Ja, om de visar bredd eller volym. Beskriv som: "Säsongsbartender, Sommarrestaurang X (juni-augusti 2023), 150+ gäster/dag". Flera kortare anställningar kan visa flexibilitet och erfarenhet från olika miljöer. Undvik dock att lista för många korta jobb utan substans.'
       },
       {
         fraga: 'Hur anpassar jag CV:t för internationella jobb?',
@@ -17136,9 +17193,9 @@ Kreativitet och specialkunskap är meriterande för barer som vill sticka ut. Vi
 
     seoIntro: `Söker du jobb som konditor och behöver ett CV som visar din hantverksskicklighet inom bakning, tårtdekorering och chokladarbete? Det här exemplet demonstrerar hur du skapar ett professionellt konditor-CV som imponerar på bagerier, hotell och konditorier.
 
-CV:t balanserar tekniska färdigheter som wienerbrödsteknik och chokladtemperering med mjuka egenskaper som kreativitet och tidseffektivitet under högtryck. Du hittar branschspecifika termer som HACCP, surdeg, petit fours och temadekorering – precis de nyckelord som arbetsgivare i livsmedelsbranschen söker efter. Exemplet visar hur du kvantifierar konditorarbete: "Producerade 300+ bakverksprodukter dagligen" och "Ökade bruttomarginal med 18% genom optimerad receptutveckling".
+CV:t balanserar tekniska färdigheter som wienerbrödsteknik och chokladtemperering med mjuka egenskaper som kreativitet och tidseffektivitet under högtryck. Du hittar branschspecifika termer som HACCP, surdeg, petit fours och temadekorering, precis de nyckelord som arbetsgivare i livsmedelsbranschen söker efter. Exemplet visar hur du kvantifierar konditorarbete: "Producerade 300+ bakverksprodukter dagligen" och "Ökade bruttomarginal med 18% genom optimerad receptutveckling".
 
-Använd exemplet som inspiration för att lyfta din egen erfarenhet från konditori, bageri eller hotell. Ett välstrukturerat CV ökar dina chanser till intervju – oavsett om du söker tjänst i traditionellt konditori eller modern dessertbar.`,
+Använd exemplet som inspiration för att lyfta din egen erfarenhet från konditori, bageri eller hotell. Ett välstrukturerat CV ökar dina chanser till intervju, oavsett om du söker tjänst i traditionellt konditori eller modern dessertbar.`,
 
     intro: 'Konditor med fokus på bakning, tårtdekorering och chokladarbete. CV-exemplet visar hur du kombinerar hantverksskicklighet med kreativitet och hygienkompetens.',
 
@@ -17149,7 +17206,7 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet från kondit
       kontakt: {
         telefon: '070-234 56 78',
         epost: 'sofia.bergstrom@email.se',
-        plats: 'Göteborg',
+        plats: 'Malmö',
         linkedin: 'linkedin.com/in/sofiabergstrom'
       },
 
@@ -17219,10 +17276,10 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet från kondit
       },
 
       certifieringar: [
-        'HACCP-certifiering – Livsmedelsverket (2019, förnyad 2024)',
-        'Livsmedelshygien grund – SLV (2017)',
-        'Chokladkurs avancerad – Barry Callebaut Academy (2022)',
-        'Allergenhantering – Visita (2023)'
+        'HACCP-certifiering: Livsmedelsverket (2019, förnyad 2024)',
+        'Livsmedelshygien grund: SLV (2017)',
+        'Chokladkurs avancerad: Barry Callebaut Academy (2022)',
+        'Allergenhantering: Visita (2023)'
       ],
 
       sprak: [
@@ -17234,9 +17291,9 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet från kondit
     varforDetFungerar: [
       {
         rubrik: 'Branschspecifika termer som fångar arbetsgivare',
-        text: `CV:t nämner HACCP, wienerbrödsteknik, chokladtemperering och petit fours – termer som konditorichefer och bagerisägare känner igen direkt.
+        text: `CV:t nämner HACCP, wienerbrödsteknik, chokladtemperering och petit fours, termer som konditorichefer och bagerisägare känner igen direkt.
 
-Varför detta fungerar: Livsmedelsbranschen har strikt terminologi. HACCP-certifiering är lagkrav för ledande positioner och visar att Sofia förstår livsmedelssäkerhet. Genom att explicit nämna specifika tekniker (temperering, surdeg) visar hon praktisk hantverksskicklighet – inte bara generell "bakningserfarenhet".`
+Varför detta fungerar: Livsmedelsbranschen har strikt terminologi. HACCP-certifiering är lagkrav för ledande positioner och visar att Sofia förstår livsmedelssäkerhet. Genom att explicit nämna specifika tekniker (temperering, surdeg) visar hon praktisk hantverksskicklighet, inte bara generell "bakningserfarenhet".`
       },
       {
         rubrik: 'Siffror som visar produktionskapacitet',
@@ -17248,23 +17305,23 @@ Varför detta fungerar: Konditorier och bagerier handlar om volym och lönsamhet
         rubrik: 'Teknisk hantverksskicklighet möter affärsresultat',
         text: `Sofia visar både hård kunskap (chokladtemperering, tårtdekorering, HACCP) och affärsbidrag som receptoptimering, produktutveckling och marginalförbättring.
 
-Varför detta fungerar: En konditor måste kunna baka kvalitetsprodukter OCH bidra till affären. Genom att visa "optimerade receptur som förbättrade bruttomarginalen med 18%" bevisar Sofia att hon tänker ekonomiskt – inte bara kreativt. Arbetsgivare uppskattar konditorier som förstår kostnader och marginaler.`
+Varför detta fungerar: En konditor måste kunna baka kvalitetsprodukter OCH bidra till affären. Genom att visa "optimerade receptur som förbättrade bruttomarginalen med 18%" bevisar Sofia att hon tänker ekonomiskt, inte bara kreativt. Arbetsgivare uppskattar konditorier som förstår kostnader och marginaler.`
       },
       {
         rubrik: 'Certifieringar som visar professionalism',
-        text: `HACCP-certifiering (2019, förnyad 2024), Livsmedelshygien SLV (2017) och avancerad chokladkurs från Barry Callebaut Academy – alla med årtal som visar aktualitet.
+        text: `HACCP-certifiering (2019, förnyad 2024), Livsmedelshygien SLV (2017) och avancerad chokladkurs från Barry Callebaut Academy, alla med årtal som visar aktualitet.
 
-Varför detta fungerar: HACCP är lagkrav för livsmedelssäkerhet och måste förnyas. Barry Callebaut är världens största chokladleverantör – deras akademi är branscherkänd. Genom att visa certifieringar med årtal bevisar Sofia att hon håller sin kompetens uppdaterad och tar yrket på allvar.`
+Varför detta fungerar: HACCP är lagkrav för livsmedelssäkerhet och måste förnyas. Barry Callebaut är världens största chokladleverantör, deras akademi är branscherkänd. Genom att visa certifieringar med årtal bevisar Sofia att hon håller sin kompetens uppdaterad och tar yrket på allvar.`
       },
       {
         rubrik: 'Profiltext som säljer på 10 sekunder',
         text: `Profilen sammanfattar: 6 års erfarenhet + kontext (hotell, café, bageri) + specialisering (tårtor, choklad, wienerbrödsprodukter) + kapacitet (300+ produkter) + certifiering (HACCP).
 
-Varför detta fungerar: Konditorichefer scannar CV:n snabbt. Sofias profiltext levererar de kritiska komponenterna: erfarenhet, specialområden, volymkapacitet och livsmedelssäkerhet – allt inom fyra meningar. HACCP-certifieringen i profilen är en omedelbar kvalitetssignal för arbetsgivare.`
+Varför detta fungerar: Konditorichefer scannar CV:n snabbt. Sofias profiltext levererar de kritiska komponenterna: erfarenhet, specialområden, volymkapacitet och livsmedelssäkerhet, allt inom fyra meningar. HACCP-certifieringen i profilen är en omedelbar kvalitetssignal för arbetsgivare.`
       },
       {
         rubrik: 'Tydlig karriärprogression i branschen',
-        text: `CV:t visar utveckling från Konditorbiträde (Steinbrenner & Nyberg) via Konditor (Bröd & Salt) till Konditor på hotell (Hotel Post) – med tydligt ökande ansvar och prestige.
+        text: `CV:t visar utveckling från Konditorbiträde (Steinbrenner & Nyberg) via Konditor (Bröd & Salt) till Konditor på hotell (Hotel Post), med tydligt ökande ansvar och prestige.
 
 Varför detta fungerar: Progression signalerar ambition och att kandidaten har förtjänat sin position. Steinbrenner & Nyberg är ett erkänt varumärke som validerar grundutbildning. Att visa utveckling från pralinproduktion via cafékonditori till hotellkonditori demonstrerar bredd och specialisering.`
       }
@@ -17279,7 +17336,7 @@ Varför detta fungerar: Progression signalerar ambition och att kandidaten har f
 
 ❌ "Kunskap om livsmedelshygien"
 
-✅ "HACCP-certifiering – Livsmedelsverket (2019, förnyad 2024), Livsmedelshygien grund – SLV (2017), Allergenhantering – Visita (2023)"
+✅ "HACCP-certifiering, Livsmedelsverket (2019, förnyad 2024), Livsmedelshygien grund, SLV (2017), Allergenhantering, Visita (2023)"
 
 Arbetsgivare i livsmedelsbranschen filtrerar ofta efter HACCP först. Utan certifiering är du inte anställningsbar för ansvariga positioner.`
       },
@@ -17297,7 +17354,7 @@ Siffror gör skillnaden mellan "kan baka" och "klarar produktionstrycket vi beh�
       },
       {
         rubrik: 'Visa konkreta affärsresultat',
-        text: `Lyft fram hur du bidragit till verksamhetens resultat – produktutveckling, marginalförbättring eller försäljningsökning.
+        text: `Lyft fram hur du bidragit till verksamhetens resultat, produktutveckling, marginalförbättring eller försäljningsökning.
 
 **Exempel på före/efter**:
 
@@ -17309,7 +17366,7 @@ En arbetsgivare vill se att du bidrar till affären, inte bara producerar. Produ
       },
       {
         rubrik: 'Lista specifika tekniker och specialiseringar',
-        text: `Nämn vilka hantverkstekniker du behärskar – det visar djup och sparar upplärning.
+        text: `Nämn vilka hantverkstekniker du behärskar, det visar djup och sparar upplärning.
 
 **Exempel på före/efter**:
 
@@ -17331,7 +17388,7 @@ Olika konditorier söker olika profiler. Om du matchar deras specialitet är du 
 
 ✅ För café: "Konditor med fokus på cafékonditori och wienerbrödsprodukter. Producerar 300+ produkter dagligen med hög kundgenomströmning."
 
-Arbetsgivare söker rätt profil för sitt koncept – visa att du förstår deras miljö.`
+Arbetsgivare söker rätt profil för sitt koncept, visa att du förstår deras miljö.`
       },
       {
         rubrik: 'Lyft fram kreativitet och estetik',
@@ -17343,7 +17400,7 @@ Arbetsgivare söker rätt profil för sitt koncept – visa att du förstår der
 
 ✅ "Utvecklade 8 signaturdessertter med unik presentation som ökade Instagramdelningar med 45%. Specialiserad på temadekorering och bröllopstårtor efter kundens vision."
 
-Kreativitet utan bevis är meningslöst. Visa resultat av din estetiska förmåga – gärna kopplat till kundnöjdhet eller försäljning.`
+Kreativitet utan bevis är meningslöst. Visa resultat av din estetiska förmåga, gärna kopplat till kundnöjdhet eller försäljning.`
       }
     ],
 
@@ -17358,7 +17415,7 @@ Kreativitet utan bevis är meningslöst. Visa resultat av din estetiska förmåg
       },
       {
         fraga: 'Hur beskriver jag erfarenhet från café vs hotell?',
-        svar: 'Café: Betona volym (300+ produkter/dag), tempo, wienerbrödssortiment och kundinteraktion. Hotell: Fokusera på finare konditori, dessertmenyer, specialbeställningar och events. Båda är värdefulla – anpassa vinkeln efter tjänsten du söker. Hotellkonditori ger ofta mer kreativ frihet.'
+        svar: 'Café: Betona volym (300+ produkter/dag), tempo, wienerbrödssortiment och kundinteraktion. Hotell: Fokusera på finare konditori, dessertmenyer, specialbeställningar och events. Båda är värdefulla, anpassa vinkeln efter tjänsten du söker. Hotellkonditori ger ofta mer kreativ frihet.'
       },
       {
         fraga: 'Ska jag inkludera konditorutbildning eller är det oväsentligt?',
@@ -17370,23 +17427,23 @@ Kreativitet utan bevis är meningslöst. Visa resultat av din estetiska förmåg
       },
       {
         fraga: 'Hur visar jag kreativitet i CV:t utan portfolio?',
-        svar: 'Beskriv konkreta resultat: "Utvecklade 8 signaturdessertter som ökade försäljningen med 35%". Nämn tävlingar eller utmärkelser om du deltagit. Inkludera Instagram eller portfolio-länk om du har. Beskriv temadekorering eller specialbeställningar: "Designade bröllopstårtor efter kundens vision – 100% kundnöjdhet".'
+        svar: 'Beskriv konkreta resultat: "Utvecklade 8 signaturdessertter som ökade försäljningen med 35%". Nämn tävlingar eller utmärkelser om du deltagit. Inkludera Instagram eller portfolio-länk om du har. Beskriv temadekorering eller specialbeställningar: "Designade bröllopstårtor efter kundens vision, 100% kundnöjdhet".'
       },
       {
         fraga: 'Vilka maskiner och utrustning ska jag nämna?',
-        svar: 'Nämn specifik utrustning du behärskar: "Degblandare (Hobart, Diosna), sheetmaskiner, temperingsmaskin, sous vide". Matcha mot jobbannonsen om möjligt. Olika konditorier har olika utrustning – visa att du snabbt kan komma igång med deras maskinpark.'
+        svar: 'Nämn specifik utrustning du behärskar: "Degblandare (Hobart, Diosna), sheetmaskiner, temperingsmaskin, sous vide". Matcha mot jobbannonsen om möjligt. Olika konditorier har olika utrustning, visa att du snabbt kan komma igång med deras maskinpark.'
       },
       {
         fraga: 'Hur beskriver jag marginal- och receptutveckling?',
-        svar: 'Kvantifiera resultat: "Optimerade receptur som förbättrade bruttomarginalen med 18%". Beskriv metod: "Kalkylerade råvarukostnader och justerade portionsstorlekar utan kvalitetsförlust". Arbetsgivare uppskattar konditorer som tänker ekonomiskt – inte bara kreativt.'
+        svar: 'Kvantifiera resultat: "Optimerade receptur som förbättrade bruttomarginalen med 18%". Beskriv metod: "Kalkylerade råvarukostnader och justerade portionsstorlekar utan kvalitetsförlust". Arbetsgivare uppskattar konditorer som tänker ekonomiskt, inte bara kreativt.'
       },
       {
         fraga: 'Ska jag ta med säsongsjobb och kortare anställningar?',
-        svar: 'Ja, om de visar bredd eller volym. Beskriv som: "Julförstärkning – Steinbrenner & Nyberg (nov-dec 2022), 500+ praliner dagligen". Säsongsarbete i julproduktion eller bröllopsäsong visar att du klarar högtryck. Undvik att lista för många korta jobb utan substans.'
+        svar: 'Ja, om de visar bredd eller volym. Beskriv som: "Julförstärkning, Steinbrenner & Nyberg (nov-dec 2022), 500+ praliner dagligen". Säsongsarbete i julproduktion eller bröllopsäsong visar att du klarar högtryck. Undvik att lista för många korta jobb utan substans.'
       },
       {
         fraga: 'Hur anpassar jag CV:t för industrikonditori vs hantverk?',
-        svar: 'Industri: Betona volym, processoptimering, maskinkännedom och HACCP. Hantverk: Fokusera på kreativitet, specialbeställningar, kundkontakt och presentation. Båda kräver kvalitet – men industri prioriterar effektivitet medan hantverk prioriterar estetik. Anpassa språket efter tjänsten.'
+        svar: 'Industri: Betona volym, processoptimering, maskinkännedom och HACCP. Hantverk: Fokusera på kreativitet, specialbeställningar, kundkontakt och presentation. Båda kräver kvalitet, men industri prioriterar effektivitet medan hantverk prioriterar estetik. Anpassa språket efter tjänsten.'
       }
     ],
 
@@ -17405,11 +17462,11 @@ Kreativitet utan bevis är meningslöst. Visa resultat av din estetiska förmåg
     metaTitle: 'CV Exempel Ekonom 2026 – Professionell Mall | Jobbcoach.ai',
     metaDescription: 'Komplett CV-exempel för ekonom med affärsanalys, investeringsbeslut och strategisk finansiell rådgivning. ATS-optimerat med kvantifierade resultat. Tips och mall.',
 
-    seoIntro: `Hur skriver du ett CV som ekonom som öppnar dörrarna till kvalificerade finansroller? En ekonoms CV måste visa mer än akademisk bakgrund – det handlar om att bevisa din förmåga att skapa värde genom ekonomisk analys och strategisk rådgivning.
+    seoIntro: `Hur skriver du ett CV som ekonom som öppnar dörrarna till kvalificerade finansroller? En ekonoms CV måste visa mer än akademisk bakgrund, det handlar om att bevisa din förmåga att skapa värde genom ekonomisk analys och strategisk rådgivning.
 
-Det här exemplet visar hur du strukturerar ett professionellt ekonom-CV som passerar ATS-filter och imponerar på CFO:er och VD:ar. Här ser du hur Erik kombinerar analytisk kompetens med affärsförståelse – från makroekonomisk analys till konkreta investeringsrekommendationer. CV:t innehåller kvantifierbara resultat från lönsamhetsanalyser, scenariomodellering och strategisk planering.
+Det här exemplet visar hur du strukturerar ett professionellt ekonom-CV som passerar ATS-filter och imponerar på CFO:er och VD:ar. Här ser du hur Erik kombinerar analytisk kompetens med affärsförståelse, från makroekonomisk analys till konkreta investeringsrekommendationer. CV:t innehåller kvantifierbara resultat från lönsamhetsanalyser, scenariomodellering och strategisk planering.
 
-Använd exemplet som inspiration för att lyfta din egen erfarenhet inom affärsutveckling, finansiell analys eller ekonomisk strategi. Ett välstrukturerat CV ökar dina chanser att nå intervju – oavsett om du söker roll som affärsekonom, analysekonom eller ekonomichef.`,
+Använd exemplet som inspiration för att lyfta din egen erfarenhet inom affärsutveckling, finansiell analys eller ekonomisk strategi. Ett välstrukturerat CV ökar dina chanser att nå intervju, oavsett om du söker roll som affärsekonom, analysekonom eller ekonomichef.`,
 
     intro: 'Ekonom med fokus på affärsanalys, strategisk planering och investeringsbeslut. CV-exemplet visar hur du kombinerar analytisk kompetens med affärsstrategi.',
 
@@ -17420,7 +17477,7 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet inom affärs
       kontakt: {
         telefon: '073-555 98 76',
         epost: 'erik.lindqvist@email.se',
-        plats: 'Stockholm',
+        plats: 'Göteborg',
         linkedin: 'linkedin.com/in/eriklindqvist'
       },
 
@@ -17492,9 +17549,9 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet inom affärs
 
       certifieringar: [
         'CFA Level II Candidate (2024)',
-        'Financial Modeling & Valuation – Wall Street Prep (2022)',
-        'Power BI Data Analyst – Microsoft (2023)',
-        'Strategic Finance – McKinsey Academy (2020)'
+        'Financial Modeling & Valuation: Wall Street Prep (2022)',
+        'Power BI Data Analyst: Microsoft (2023)',
+        'Strategic Finance: McKinsey Academy (2020)'
       ],
 
       sprak: [
@@ -17515,31 +17572,31 @@ Varför detta fungerar: ATS-system för kvalificerade ekonomroller filtrerar på
         rubrik: 'Kvantifierade affärsresultat, inte bara analyser',
         text: `Varje tjänst visar konkret affärspåverkan: 450 MSEK investeringsbeslut, 180 MSEK reducerad kapitalbindning, 85 MSEK i identifierade kostnadsbesparingar. Siffror genom hela karriären.
 
-Varför detta fungerar: Rekryterare ser dagligen CV:n där ekonomer skriver "genomförde analyser". Det säger inget om värdet. Erik visar att hans analyser ledde till beslut och resultat – skillnaden mellan att producera rapporter och att påverka verksamheten. En CFO anställer inte någon som analyserar, utan någon som skapar värde.`
+Varför detta fungerar: Rekryterare ser dagligen CV:n där ekonomer skriver "genomförde analyser". Det säger inget om värdet. Erik visar att hans analyser ledde till beslut och resultat, skillnaden mellan att producera rapporter och att påverka verksamheten. En CFO anställer inte någon som analyserar, utan någon som skapar värde.`
       },
       {
         rubrik: 'Balans mellan analytisk djup och affärsbredd',
         text: `Erik visar både tekniska verktyg (Excel VBA, Power BI, SAP) och strategisk förmåga (business partnering, presentation till ledning, investeringsrekommendationer).
 
-Varför detta fungerar: En ekonom som bara kan modeller men inte kan kommunicera resultaten är begränsad. Erik bevisar att han kan både bygga komplexa modeller OCH presentera dem för ledning och marknadschefer – den kombinationen är ovanlig och eftertraktad. "Business partner till marknadschefer i tre länder" visar konkret affärssamverkan.`
+Varför detta fungerar: En ekonom som bara kan modeller men inte kan kommunicera resultaten är begränsad. Erik bevisar att han kan både bygga komplexa modeller OCH presentera dem för ledning och marknadschefer, den kombinationen är ovanlig och eftertraktad. "Business partner till marknadschefer i tre länder" visar konkret affärssamverkan.`
       },
       {
         rubrik: 'Certifieringar som visar ambition och aktualitet',
-        text: `CFA-kandidat (2024), Wall Street Prep (2022), Power BI (2023) och McKinsey Academy (2020) – alla med årtal som visar kontinuerlig utveckling mot mer kvalificerade roller.
+        text: `CFA-kandidat (2024), Wall Street Prep (2022), Power BI (2023) och McKinsey Academy (2020), alla med årtal som visar kontinuerlig utveckling mot mer kvalificerade roller.
 
-Varför detta fungerar: CFA-programmet är branschstandard för seriösa finansroller. Att vara "Level II Candidate" signalerar ambition och disciplin. Wall Street Prep visar praktisk finansiell modellering. Årtal bekräftar att kunskapen är aktuell – certifiering från 2020 utan förnyelse kan vara föråldrad.`
+Varför detta fungerar: CFA-programmet är branschstandard för seriösa finansroller. Att vara "Level II Candidate" signalerar ambition och disciplin. Wall Street Prep visar praktisk finansiell modellering. Årtal bekräftar att kunskapen är aktuell, certifiering från 2020 utan förnyelse kan vara föråldrad.`
       },
       {
         rubrik: 'Profiltext som positionerar rätt',
         text: `Profilen sammanfattar: 8 års erfarenhet + branscher (konsult, industri) + specialisering (lönsamhetsanalys, scenariomodellering, investeringsbeslut) + konkret påverkan (ledningsgrupper) + utbildning (Handelshögskolan).
 
-Varför detta fungerar: På 6-10 sekunder får rekryteraren: senioritet, branscherfarenhet, specialistkompetens och rätt utbildningsbakgrund. Erik positionerar sig som strategisk ekonom, inte operativ controller – detta attraherar rätt typ av tjänster och undviker att fastna i fel kategori.`
+Varför detta fungerar: På 6-10 sekunder får rekryteraren: senioritet, branscherfarenhet, specialistkompetens och rätt utbildningsbakgrund. Erik positionerar sig som strategisk ekonom, inte operativ controller, detta attraherar rätt typ av tjänster och undviker att fastna i fel kategori.`
       },
       {
         rubrik: 'Prestigefylld karriärväg med tydlig progression',
-        text: `CV:t visar utveckling: Swedbank (trainee) → McKinsey (analytiker till senior) → Scania (senior ekonom med strategiskt ansvar). Prestigefyllda arbetsgivare i logisk progression.
+        text: `CV:t visar utveckling: Swedbank (trainee), sedan McKinsey (analytiker till senior), sedan Scania (senior ekonom med strategiskt ansvar). Prestigefyllda arbetsgivare i logisk progression.
 
-Varför detta fungerar: McKinsey-erfarenhet signalerar omedelbart analytisk skärpa och höga krav. Att sedan gå till industri (Scania) visar att Erik valt att implementera strategier, inte bara analysera. För ekonomroller på senior nivå är karriärvägen ofta lika viktig som kompetenserna – den berättar en historia om ambition och kapacitet.`
+Varför detta fungerar: McKinsey-erfarenhet signalerar omedelbart analytisk skärpa och höga krav. Att sedan gå till industri (Scania) visar att Erik valt att implementera strategier, inte bara analysera. För ekonomroller på senior nivå är karriärvägen ofta lika viktig som kompetenserna, den berättar en historia om ambition och kapacitet.`
       }
     ],
 
@@ -17558,7 +17615,7 @@ Om arbetsgivaren söker "strategic finance" eller "business analysis", använd d
       },
       {
         rubrik: 'Kvantifiera affärspåverkan, inte bara arbetsuppgifter',
-        text: `Som ekonom arbetar du med siffror – visa att dina analyser ledde till konkreta beslut och resultat. Undvik vaga beskrivningar av ansvar.
+        text: `Som ekonom arbetar du med siffror, visa att dina analyser ledde till konkreta beslut och resultat. Undvik vaga beskrivningar av ansvar.
 
 **Exempel på före/efter**:
 
@@ -17590,7 +17647,7 @@ Ekonomer som stannar i bakgrunden och levererar rapporter utan att påverka besl
 
 ✅ "Expert i finansiell modellering med Excel (VBA, Power Query, Power Pivot), Power BI och SAP FI/CO. Utvecklade DCF-modeller för företagsvärdering vid M&A-projekt upp till 2,5 mdr SEK."
 
-Ekonomer förväntas behärska Excel – men nivån varierar enormt. VBA-kompetens och koppling till affärssystem (SAP, Oracle) skiljer seniora från juniora.`
+Ekonomer förväntas behärska Excel, men nivån varierar enormt. VBA-kompetens och koppling till affärssystem (SAP, Oracle) skiljer seniora från juniora.`
       },
       {
         rubrik: 'Inkludera branscherkända certifieringar',
@@ -17601,8 +17658,8 @@ Ekonomer förväntas behärska Excel – men nivån varierar enormt. VBA-kompete
 ❌ "Diverse certifieringar inom ekonomi"
 
 ✅ "CFA Level II Candidate (2024)
-Financial Modeling & Valuation – Wall Street Prep (2022)
-Power BI Data Analyst – Microsoft (2023)"
+Financial Modeling & Valuation, Wall Street Prep (2022)
+Power BI Data Analyst, Microsoft (2023)"
 
 CFA är branschstandard för kvalificerade finansroller. Att vara kandidat visar ambition även om du inte är charterholder ännu. Wall Street Prep-certifikat validerar praktiska modelleringskunskaper.`
       },
@@ -17627,11 +17684,11 @@ CFO:er söker ekonomer som kan växa in i ledande roller. Tydlig progression sig
       },
       {
         fraga: 'Vad är skillnaden mellan ekonom och controller i CV:t?',
-        svar: 'Controller fokuserar på budgetarbete, forecasting och intern rapportering – operativt arbete. Ekonom (affärsekonom/analysekonom) betonar strategisk analys, investeringsbeslut och extern rådgivning. Om du söker ekonomroll, lyft fram: lönsamhetsanalyser, scenariomodellering, investeringsrekommendationer och business case-utveckling.'
+        svar: 'Controller fokuserar på budgetarbete, forecasting och intern rapportering, operativt arbete. Ekonom (affärsekonom/analysekonom) betonar strategisk analys, investeringsbeslut och extern rådgivning. Om du söker ekonomroll, lyft fram: lönsamhetsanalyser, scenariomodellering, investeringsrekommendationer och business case-utveckling.'
       },
       {
         fraga: 'Ska jag ta med CFA-kandidatur om jag inte är charterholder?',
-        svar: 'Ja, absolut. Skriv "CFA Level II Candidate (2024)" eller "CFA Level I Passed (2023)". CFA-programmet är så prestigefyllt att kandidatur i sig signalerar ambition och analytisk kapacitet. Många arbetsgivare söker aktivt kandidater som är i programmet. Var ärlig om din nivå – fejk upptäcks lätt.'
+        svar: 'Ja, absolut. Skriv "CFA Level II Candidate (2024)" eller "CFA Level I Passed (2023)". CFA-programmet är så prestigefyllt att kandidatur i sig signalerar ambition och analytisk kapacitet. Många arbetsgivare söker aktivt kandidater som är i programmet. Var ärlig om din nivå, fejk upptäcks lätt.'
       },
       {
         fraga: 'Hur beskriver jag McKinsey/BCG-erfarenhet utan att låta skrytsam?',
@@ -17647,7 +17704,7 @@ CFO:er söker ekonomer som kan växa in i ledande roller. Tydlig progression sig
       },
       {
         fraga: 'Ska jag inkludera akademiska meriter som examensarbete?',
-        svar: 'Ja, om det är relevant och du är relativt junior (0-10 år). Skriv "Examensarbete om värderingsmodeller vid företagsförvärv inom industrisektorn" om du söker M&A-relaterade roller. För seniora ekonomer (10+ år) prioriteras yrkeserfarenhet – akademisk detalj kan kortas ned.'
+        svar: 'Ja, om det är relevant och du är relativt junior (0-10 år). Skriv "Examensarbete om värderingsmodeller vid företagsförvärv inom industrisektorn" om du söker M&A-relaterade roller. För seniora ekonomer (10+ år) prioriteras yrkeserfarenhet, akademisk detalj kan kortas ned.'
       },
       {
         fraga: 'Hur beskriver jag lönsamhetsanalys i mitt CV?',
@@ -17659,7 +17716,7 @@ CFO:er söker ekonomer som kan växa in i ledande roller. Tydlig progression sig
       },
       {
         fraga: 'Vilka mjuka färdigheter är viktigast för ekonomer?',
-        svar: 'Business partnering (samarbete med icke-ekonomer), presentation till ledning (kommunicera komplexa analyser enkelt), och strategiskt tänkande (se helheten, inte bara siffror). Undvik klyschor som "analytisk" – det förväntas. Visa istället konkret: "Business partner till marknadschefer i tre länder med månatliga affärsgenomgångar".'
+        svar: 'Business partnering (samarbete med icke-ekonomer), presentation till ledning (kommunicera komplexa analyser enkelt), och strategiskt tänkande (se helheten, inte bara siffror). Undvik klyschor som "analytisk", det förväntas. Visa istället konkret: "Business partner till marknadschefer i tre länder med månatliga affärsgenomgångar".'
       }
     ],
 
@@ -17680,9 +17737,9 @@ CFO:er söker ekonomer som kan växa in i ledande roller. Tydlig progression sig
 
     seoIntro: `Hur skriver du ett CV som Scrum Master som visar att du är mer än en mötesplanerare? En Scrum Masters CV måste bevisa din förmåga att coacha team, ta bort blockeringar och kontinuerligt förbättra leveranskapaciteten.
 
-Det här exemplet visar hur du strukturerar ett professionellt Scrum Master-CV som passerar ATS-filter och imponerar på engineering managers och agile coaches. Här ser du hur Johan kombinerar servant leadership med konkreta metrics – velocity-förbättringar, reducerade cycle times och ökad teamstabilitet.
+Det här exemplet visar hur du strukturerar ett professionellt Scrum Master-CV som passerar ATS-filter och imponerar på engineering managers och agile coaches. Här ser du hur Johan kombinerar servant leadership med konkreta metrics, velocity-förbättringar, reducerade cycle times och ökad teamstabilitet.
 
-Använd exemplet som inspiration för att lyfta din egen erfarenhet inom agil transformation, coaching och continuous improvement. Ett välstrukturerat CV ökar dina chanser att nå intervju – oavsett om du söker roll i startup, scale-up eller enterprise.`,
+Använd exemplet som inspiration för att lyfta din egen erfarenhet inom agil transformation, coaching och continuous improvement. Ett välstrukturerat CV ökar dina chanser att nå intervju, oavsett om du söker roll i startup, scale-up eller enterprise.`,
 
     intro: 'Scrum Master med fokus på servant leadership, agila ceremonier och teamutveckling. CV-exemplet visar hur du kombinerar coaching-kompetens med mätbara förbättringar.',
 
@@ -17693,7 +17750,7 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet inom agil tr
       kontakt: {
         telefon: '073-555 34 56',
         epost: 'johan.andersson@email.se',
-        plats: 'Stockholm',
+        plats: 'Göteborg',
         linkedin: 'linkedin.com/in/johananderssonagile'
       },
 
@@ -17764,10 +17821,10 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet inom agil tr
       },
 
       certifieringar: [
-        'Professional Scrum Master II (PSM II) – Scrum.org (2023)',
-        'SAFe 5 Scrum Master – Scaled Agile (2022)',
-        'Professional Scrum Master I (PSM I) – Scrum.org (2019)',
-        'ICAgile Certified Professional (ICP) – ICAgile (2020)'
+        'Professional Scrum Master II (PSM II): Scrum.org (2023)',
+        'SAFe 5 Scrum Master: Scaled Agile (2022)',
+        'Professional Scrum Master I (PSM I): Scrum.org (2019)',
+        'ICAgile Certified Professional (ICP): ICAgile (2020)'
       ],
 
       sprak: [
@@ -17787,7 +17844,7 @@ Varför detta fungerar: ATS-system för Scrum Master-roller filtrerar på specif
         rubrik: 'Kvantifierade teamförbättringar, inte bara ceremonier',
         text: `Varje tjänst visar konkret teamutveckling: 45% velocity-förbättring, cycle time från 12 till 5 dagar, buggar i produktion -60%, story readiness från 60% till 95%. Siffror genom hela karriären.
 
-Varför detta fungerar: Rekryterare ser dagligen CV:n där Scrum Masters skriver "faciliterade ceremonier". Det säger inget om värdet. Johan visar att hans coaching faktiskt förbättrade teamets leveranskapacitet – skillnaden mellan att hålla möten och att driva förändring. En engineering manager anställer inte en mötesplanerare, utan någon som ökar teamets output.`
+Varför detta fungerar: Rekryterare ser dagligen CV:n där Scrum Masters skriver "faciliterade ceremonier". Det säger inget om värdet. Johan visar att hans coaching faktiskt förbättrade teamets leveranskapacitet, skillnaden mellan att hålla möten och att driva förändring. En engineering manager anställer inte en mötesplanerare, utan någon som ökar teamets output.`
       },
       {
         rubrik: 'Balans mellan coaching och teknisk förståelse',
@@ -17797,19 +17854,19 @@ Varför detta fungerar: En Scrum Master utan teknisk förståelse blir snabbt en
       },
       {
         rubrik: 'Certifieringar som visar progression',
-        text: `PSM I (2019) → ICP (2020) → SAFe SM (2022) → PSM II (2023) – tydlig utveckling från grundläggande till avancerad nivå med kontinuerlig certifiering.
+        text: `PSM I (2019), sedan ICP (2020), sedan SAFe SM (2022), sedan PSM II (2023), tydlig utveckling från grundläggande till avancerad nivå med kontinuerlig certifiering.
 
-Varför detta fungerar: Scrum Master-certifieringar finns i olika nivåer. PSM II är betydligt svårare än PSM I och signalerar djupare förståelse. Att visa progression från Level I till Level II över flera år bevisar långsiktigt engagemang – inte bara en helgkurs.`
+Varför detta fungerar: Scrum Master-certifieringar finns i olika nivåer. PSM II är betydligt svårare än PSM I och signalerar djupare förståelse. Att visa progression från Level I till Level II över flera år bevisar långsiktigt engagemang, inte bara en helgkurs.`
       },
       {
         rubrik: 'Profiltext som positionerar rätt',
         text: `Profilen sammanfattar: 6 års erfarenhet + branscher (fintech, e-handel) + specialisering (servant leadership, velocity-optimering) + konkret resultat (40%+ förbättring) + teknisk bakgrund (mjukvaruutveckling).
 
-Varför detta fungerar: På 6-10 sekunder får rekryteraren: senioritet, relevant bransch, specialistområde och dokumenterade resultat. Johan positionerar sig som en resultatdriven Scrum Master, inte bara någon med certifikat – detta attraherar seriösa arbetsgivare.`
+Varför detta fungerar: På 6-10 sekunder får rekryteraren: senioritet, relevant bransch, specialistområde och dokumenterade resultat. Johan positionerar sig som en resultatdriven Scrum Master, inte bara någon med certifikat, detta attraherar seriösa arbetsgivare.`
       },
       {
         rubrik: 'Prestigi karriärväg som tech-arbetsgivare',
-        text: `CV:t visar utveckling: Netlight (konsult med utvecklarbakgrund) → Hemnet (scale-up med agil transformation) → Klarna (unicorn med höga krav på Scrum-mogenhet).
+        text: `CV:t visar utveckling: Netlight (konsult med utvecklarbakgrund), sedan Hemnet (scale-up med agil transformation), sedan Klarna (unicorn med höga krav på Scrum-mogenhet).
 
 Varför detta fungerar: Klarna och Hemnet är välkända svenska tech-bolag. Att ha arbetat där signalerar att Johan klarat krävande intervjuprocesser och levererat i miljöer med höga förväntningar. För en Scrum Master-roll värderas erfarenhet från företag med mogen agil kultur högt.`
       }
@@ -17830,7 +17887,7 @@ Om arbetsgivaren söker "Scrum Master med SAFe-erfarenhet", nämn explicit SAFe 
       },
       {
         rubrik: 'Kvantifiera teamförbättringar, inte bara ansvar',
-        text: `Som Scrum Master mäts du på teamets utveckling – visa att din coaching faktiskt gav resultat. Undvik vaga beskrivningar av ceremonier.
+        text: `Som Scrum Master mäts du på teamets utveckling, visa att din coaching faktiskt gav resultat. Undvik vaga beskrivningar av ceremonier.
 
 **Exempel på före/efter**:
 
@@ -17854,7 +17911,7 @@ PO-coaching är en mognadsindikator som skiljer juniora från seniora Scrum Mast
       },
       {
         rubrik: 'Inkludera retrospective-resultat',
-        text: `Retrospectives driver continuous improvement – visa konkreta förbättringar som kommit ur dina retros.
+        text: `Retrospectives driver continuous improvement, visa konkreta förbättringar som kommit ur dina retros.
 
 **Exempel på före/efter**:
 
@@ -17884,9 +17941,9 @@ Teknisk trovärdighet gör att utvecklare lyssnar på din coaching.`
 
 ❌ "Certifierad Scrum Master"
 
-✅ "Professional Scrum Master II (PSM II) – Scrum.org (2023)
-SAFe 5 Scrum Master – Scaled Agile (2022)
-Professional Scrum Master I (PSM I) – Scrum.org (2019)"
+✅ "Professional Scrum Master II (PSM II), Scrum.org (2023)
+SAFe 5 Scrum Master, Scaled Agile (2022)
+Professional Scrum Master I (PSM I), Scrum.org (2019)"
 
 Progression från Level I till Level II visar kontinuerlig utveckling och djupare Scrum-förståelse.`
       }
@@ -17899,11 +17956,11 @@ Progression från Level I till Level II visar kontinuerlig utveckling och djupar
       },
       {
         fraga: 'Vad är skillnaden mellan Scrum Master och projektledare i CV:t?',
-        svar: 'Projektledare fokuserar på budget, deadlines och deliverables – de driver projektet. Scrum Master fokuserar på teamutveckling, ceremonier och continuous improvement – de coachar teamet. Om du söker SM-roll, betona servant leadership, facilitering och velocity-förbättringar, inte budgetansvar och Gantt-scheman.'
+        svar: 'Projektledare fokuserar på budget, deadlines och deliverables, de driver projektet. Scrum Master fokuserar på teamutveckling, ceremonier och continuous improvement, de coachar teamet. Om du söker SM-roll, betona servant leadership, facilitering och velocity-förbättringar, inte budgetansvar och Gantt-scheman.'
       },
       {
         fraga: 'Ska jag nämna PSM I om jag har PSM II?',
-        svar: 'Ja, visa progressionen. Lista "PSM II (2023)" först, sedan "PSM I (2019)". Detta visar att du utvecklats från grundnivå till avancerad nivå. Inkludera även andra certifieringar som SAFe SM, ICP eller CSM för att visa bredd – men PSM II är generellt mest respekterad.'
+        svar: 'Ja, visa progressionen. Lista "PSM II (2023)" först, sedan "PSM I (2019)". Detta visar att du utvecklats från grundnivå till avancerad nivå. Inkludera även andra certifieringar som SAFe SM, ICP eller CSM för att visa bredd, men PSM II är generellt mest respekterad.'
       },
       {
         fraga: 'Hur beskriver jag agil transformation i mitt CV?',
@@ -17923,7 +17980,7 @@ Progression från Level I till Level II visar kontinuerlig utveckling och djupar
       },
       {
         fraga: 'Hur visar jag servant leadership konkret?',
-        svar: 'Undvik att bara skriva "servant leadership" – visa med handling. Skriv "Tog bort 85% av teamets blockeringar inom 24h genom proaktiv eskalering till stakeholders" eller "Skyddade teamet från scope creep under 8 sprints vilket möjliggjorde 92% sprint completion rate". Konkreta exempel > buzzwords.'
+        svar: 'Undvik att bara skriva "servant leadership", visa med handling. Skriv "Tog bort 85% av teamets blockeringar inom 24h genom proaktiv eskalering till stakeholders" eller "Skyddade teamet från scope creep under 8 sprints vilket möjliggjorde 92% sprint completion rate". Konkreta exempel > buzzwords.'
       },
       {
         fraga: 'Vad är viktigast: CSM, PSM eller SAFe SM?',
@@ -17971,7 +18028,7 @@ Detta CV-exempel för teamledare visar hur du strukturerar erfarenhet från olik
       kontakt: {
         telefon: '073-456 78 90',
         epost: 'erik.johansson@email.se',
-        plats: 'Stockholm',
+        plats: 'Göteborg',
         linkedin: 'linkedin.com/in/erikjohansson-teamledare'
       },
       profil: 'Erfaren teamledare med dokumenterad förmåga att leda team om upp till 12 personer till resultat genom coaching, målstyrning och agila arbetsmetoder. Specialist på att kombinera strukturerad sprintplanering med coachande ledarskap, vilket resulterat i förbättrad teamprestation, högre engagemang och lägre personalomsättning. Bevisad track record av att bygga högt presterande team inom tech och kundtjänst genom tydlig kommunikation, kontinuerlig feedback och fokus på individuell utveckling. Driven av att skapa förutsättningar för medarbetare att växa samtidigt som teamet levererar affärsnytta.',
@@ -18098,7 +18155,7 @@ Detta CV-exempel för teamledare visar hur du strukturerar erfarenhet från olik
       },
       {
         rubrik: 'Tydlig progression från facilitator till coach',
-        text: `Karriärstegen syns tydligt: Scrum Master/Teamkoordinator 7 personer → Team Leader 8 personer → Teamledare 10 personer. Varje steg visar ökande ledarskapskomplexitet och coaching-ansvar.
+        text: `Karriärstegen syns tydligt: Scrum Master/Teamkoordinator 7 personer, sedan Team Leader 8 personer, sedan Teamledare 10 personer. Varje steg visar ökande ledarskapskomplexitet och coaching-ansvar.
 
 **Varför detta fungerar:** Rekryterare vill se att du vuxit in i teamledarskap gradvis, inte hoppat från ingenting till stort team. Progressionen visar att Erik först faciliterade agila ceremonier, sedan fick personalansvar och coaching-ansvar innan han blev fullt ansvarig teamledare med performance management. Detta minskar risken - du har bevisat att du klarar varje nivå innan du tagit nästa steg. Att gå från Scrum Master till strategisk teamledare med affärsansvar visar också bred kompetens.`
       }
@@ -18206,7 +18263,7 @@ Andra relevanta certifieringar: Professional Scrum Master (PSM), SAFe Agilist, M
       },
       {
         fraga: 'Hur blir man teamledare inom tech eller kundtjänst?',
-        svar: 'Typisk väg: Grundroll (kundtjänst, support, developer) 2-4 år → Senior-roll eller subject matter expert → Teamkoordinator eller Scrum Master → Teamledare. Komplettera med ledarskapsutbildning (IHM, Ledarna) och agila certifieringar (CSM, PSM). I ditt CV: betona alla ledarsituationer som senior (mentorskap, onboarding, projektledning), visa progression i ansvar och framhäv resultat som visar ledarförmåga redan innan första ledartiteln. Många teamledare börjar som informal leader innan de får formell titel.'
+        svar: 'Typisk väg: Grundroll (kundtjänst, support, developer) 2-4 år, sedan Senior-roll eller subject matter expert, sedan Teamkoordinator eller Scrum Master, sedan Teamledare. Komplettera med ledarskapsutbildning (IHM, Ledarna) och agila certifieringar (CSM, PSM). I ditt CV: betona alla ledarsituationer som senior (mentorskap, onboarding, projektledning), visa progression i ansvar och framhäv resultat som visar ledarförmåga redan innan första ledartiteln. Många teamledare börjar som informal leader innan de får formell titel.'
       },
       {
         fraga: 'Vilka kvalifikationer söker arbetsgivare hos en teamledare?',
@@ -18240,7 +18297,7 @@ Andra relevanta certifieringar: Professional Scrum Master (PSM), SAFe Agilist, M
 
 CV:t kombinerar kvantifierbara resultat (250+ ungdomar årligen, 45% ökat deltagande, 92% nöjdhetsbetyg) med branschspecifika kompetenser som aktivitetsplanering, uppsökande arbete och samverkan med skola, socialtjänst och polis. Det visar progression från volontär till senior fritidsledare med budgetansvar och projektledning.
 
-Fritidsledare skiljer sig från fritidspedagog: du arbetar på fritidsgårdar och ungdomscentra utanför skoltid, oftast med ungdomar 13-20 år, med fokus på trygg mötesplats och meningsfull fritid. Använd detta exempel som inspiration när du skriver ditt eget CV som fritidsledare – anpassa det efter din erfarenhet och den typ av verksamhet du söker till.`,
+Fritidsledare skiljer sig från fritidspedagog: du arbetar på fritidsgårdar och ungdomscentra utanför skoltid, oftast med ungdomar 13-20 år, med fokus på trygg mötesplats och meningsfull fritid. Använd detta exempel som inspiration när du skriver ditt eget CV som fritidsledare, anpassa det efter din erfarenhet och den typ av verksamhet du söker till.`,
 
     intro: 'Professionellt CV-exempel för fritidsledare med fokus på ungdomsverksamhet, aktivitetsplanering och trygg mötesplats. Visar kvantifierbara resultat från fritidsgårdar och ungdomscentra. ATS-optimerat för kommunal verksamhet och föreningsliv.',
 
@@ -18250,7 +18307,7 @@ Fritidsledare skiljer sig från fritidspedagog: du arbetar på fritidsgårdar oc
       kontakt: {
         telefon: '070-456 78 90',
         epost: 'marcus.lindgren@email.se',
-        plats: 'Göteborg',
+        plats: 'Linköping',
         linkedin: 'linkedin.com/in/marcuslindgren'
       },
 
@@ -18259,23 +18316,23 @@ Fritidsledare skiljer sig från fritidspedagog: du arbetar på fritidsgårdar oc
       erfarenhet: [
         {
           titel: 'Senior Fritidsledare / Projektledare',
-          arbetsgivare: 'Göteborgs Stad – Ungdomsenheten',
+          arbetsgivare: 'Göteborgs Stad, Ungdomsenheten',
           period: '2021 – Pågående',
           beskrivning: [
-            'Ansvarig för fritidsgård med 250+ besökande ungdomar årligen (13-20 år) – ökade deltagandet med 45% genom nya aktivitetskoncept',
+            'Ansvarig för fritidsgård med 250+ besökande ungdomar årligen (13-20 år), ökade deltagandet med 45% genom nya aktivitetskoncept',
             'Leder team om 3 fritidsledare och 8 volontärer med ansvar för schemaläggning, utvecklingssamtal och kompetensutveckling',
-            'Projektledare för uppsökande arbete i 3 stadsdelar – nådde 120 riskungdomar med SSPF-samverkan (Skola, Socialtjänst, Polis, Fritid)',
-            'Budgetansvar: 480 000 kr årligen för aktiviteter, lovverksamhet och evenemang – 100% budgetföljsamhet',
+            'Projektledare för uppsökande arbete i 3 stadsdelar, nådde 120 riskungdomar med SSPF-samverkan (Skola, Socialtjänst, Polis, Fritid)',
+            'Budgetansvar: 480 000 kr årligen för aktiviteter, lovverksamhet och evenemang, 100% budgetföljsamhet',
             'Implementerade mentorprogram som resulterade i 85% fullföljt gymnasium bland deltagarna (jmf 72% kommunsnitt)',
             'Arrangerade 12 större evenemang årligen (LAN, konserter, turnéringar) med 150-300 deltagare per event'
           ]
         },
         {
           titel: 'Fritidsledare',
-          arbetsgivare: 'Ung i Mölndal – Fritidsgården Mötet',
+          arbetsgivare: 'Ung i Mölndal, Fritidsgården Mötet',
           period: '2018 – 2021',
           beskrivning: [
-            'Ansvarig för daglig verksamhet med 80-120 ungdomar per vecka – skapade trygg mötesplats med fokus på delaktighet',
+            'Ansvarig för daglig verksamhet med 80-120 ungdomar per vecka, skapade trygg mötesplats med fokus på delaktighet',
             'Utvecklade tjejgrupp och HBTQ+-verksamhet som ökade flickors deltagande från 25% till 42%',
             'Genomförde motiverande samtal (MI) med 25+ ungdomar årligen kring skolgång, droger och framtidsplaner',
             'Samordnade lovaktiviteter för 200+ ungdomar under sommar- och sportlov med 92% nöjdhetsbetyg i utvärdering',
@@ -18289,7 +18346,7 @@ Fritidsledare skiljer sig från fritidspedagog: du arbetar på fritidsgårdar oc
           beskrivning: [
             'Ledde verksamhet inom musik, dans och streetkultur för ungdomar 15-25 år',
             'Arrangerade battles, workshops och uppvisningar med 50-200 deltagare per event',
-            'Coachade 15 ungdomar i Fryshusets ledarskapsprogram – 10 av 15 gick vidare till ledarroller',
+            'Coachade 15 ungdomar i Fryshusets ledarskapsprogram, 10 av 15 gick vidare till ledarroller',
             'Startade som volontär 2016, anställd som fritidsledare efter 6 månader baserat på engagemang och resultat'
           ]
         }
@@ -18330,12 +18387,12 @@ Fritidsledare skiljer sig från fritidspedagog: du arbetar på fritidsgårdar oc
       },
 
       certifieringar: [
-        'Motiverande samtal (MI) Grundkurs – SISU Idrottsutbildarna (2023)',
-        'Konflikthantering och deeskalering – Fryshuset (2022)',
-        'SSPF-utbildning – Länsstyrelsen Västra Götaland (2021)',
-        'Första hjälpen och HLR – Svenska Röda Korset (2024)',
-        'HBTQ-certifiering – RFSL (2023)',
-        'Ledarskap i ideell sektor – SISU Idrottsutbildarna (2020)'
+        'Motiverande samtal (MI) Grundkurs: SISU Idrottsutbildarna (2023)',
+        'Konflikthantering och deeskalering: Fryshuset (2022)',
+        'SSPF-utbildning: Länsstyrelsen Västra Götaland (2021)',
+        'Första hjälpen och HLR: Svenska Röda Korset (2024)',
+        'HBTQ-certifiering: RFSL (2023)',
+        'Ledarskap i ideell sektor: SISU Idrottsutbildarna (2020)'
       ],
 
       sprak: [
@@ -18346,37 +18403,39 @@ Fritidsledare skiljer sig från fritidspedagog: du arbetar på fritidsgårdar oc
     },
 
     viktigt: [
-      'Kvantifiera besökssiffror och deltagande – det visar verksamhetens omfattning (t.ex. "250+ ungdomar årligen", "80-120 per vecka")',
-      'Visa samverkan med skola, socialtjänst, polis (SSPF) – det är centralt i modernt ungdomsarbete',
-      'Lyft fram relationsbyggande med riskungdomar – det visar att du kan nå dem som behöver det mest',
-      'Inkludera budgetansvar och projektledning – det signalerar att du kan ta helhetsansvar',
-      'Lista SISU-utbildningar och certifieringar med årtal – de validerar din professionella kompetens'
+      'Kvantifiera besökssiffror och deltagande, det visar verksamhetens omfattning (t.ex. "250+ ungdomar årligen", "80-120 per vecka")',
+      'Visa samverkan med skola, socialtjänst, polis (SSPF), det är centralt i modernt ungdomsarbete',
+      'Lyft fram relationsbyggande med riskungdomar, det visar att du kan nå dem som behöver det mest',
+      'Inkludera budgetansvar och projektledning, det signalerar att du kan ta helhetsansvar',
+      'Lista SISU-utbildningar och certifieringar med årtal, de validerar din professionella kompetens'
     ],
 
     statistik: [
       {
         siffra: '2 400+',
-        text: 'fritidsledare arbetar på fritidsgårdar och ungdomscentra i Sverige – en roll med växande efterfrågan'
+        text: 'fritidsledare arbetar på fritidsgårdar och ungdomscentra i Sverige, en roll med växande efterfrågan'
       },
       {
         siffra: '28-34k',
-        text: 'SEK är medellön för fritidsledare i kommunal verksamhet – senior/projektledare kan nå 38-42k'
+        text: 'SEK är medellön för fritidsledare i kommunal verksamhet, senior/projektledare kan nå 38-42k'
       },
       {
         siffra: '75%',
-        text: 'av kommuner prioriterar uppsökande arbete 2026 – erfarenhet av SSPF-samverkan är meriterande'
+        text: 'av kommuner prioriterar uppsökande arbete 2026, erfarenhet av SSPF-samverkan är meriterande'
       }
     ],
 
     varforDetFungerar: [
       {
         rubrik: 'Branschspecifika termer som ATS-system söker efter',
-        text: `CV:t använder exakta termer som "fritidsgård", "uppsökande arbete", "SSPF-samverkan", "riskungdomar", "motiverande samtal" och "trygg mötesplats" – samma termer som återfinns i jobbannonser för fritidsledare.
+        ankare: 'kompetenser',
+        text: `CV:t använder exakta termer som "fritidsgård", "uppsökande arbete", "SSPF-samverkan", "riskungdomar", "motiverande samtal" och "trygg mötesplats", samma termer som återfinns i jobbannonser för fritidsledare.
 
-Varför detta fungerar: ATS-system och rekryterare filtrerar på specifika nyckelord. När du skriver "SSPF-samverkan" istället för bara "samarbete med myndigheter" matchar du kravlistan direkt. "Uppsökande arbete" visar modern ungdomsarbetarkompetens. Generiska termer som "arbetat med ungdomar" sorteras bort – branschterminologi får dig genom första urvalet.`
+Varför detta fungerar: ATS-system och rekryterare filtrerar på specifika nyckelord. När du skriver "SSPF-samverkan" istället för bara "samarbete med myndigheter" matchar du kravlistan direkt. "Uppsökande arbete" visar modern ungdomsarbetarkompetens. Generiska termer som "arbetat med ungdomar" sorteras bort, branschterminologi får dig genom första urvalet.`
       },
       {
         rubrik: 'Kvantifierade resultat som visar faktisk påverkan',
+        ankare: 'erfarenhet',
         text: `CV:t innehåller konkreta siffror: 250+ ungdomar årligen, deltagande ökat med 45%, 120 riskungdomar nådda, 85% fullföljt gymnasium bland mentorprogrammets deltagare.
 
 Varför detta fungerar: "Arbetat med ungdomar på fritidsgård" säger ingenting om din faktiska påverkan. "45% ökat deltagande" visar att du kan locka ungdomar till verksamheten. "85% fullföljt gymnasium" bevisar att ditt arbete ger långsiktiga resultat. Rekryterare kan direkt jämföra din kapacitet med vad tjänsten kräver.`
@@ -18395,12 +18454,14 @@ Varför detta fungerar: Modernt ungdomsarbete kräver samverkan mellan aktörer.
       },
       {
         rubrik: 'Certifieringar som validerar professionell kompetens',
-        text: `CV:t listar specifika utbildningar med årtal: "MI Grundkurs – SISU (2023)", "SSPF-utbildning – Länsstyrelsen (2021)", "HBTQ-certifiering – RFSL (2023)".
+        ankare: 'certifieringar',
+        text: `CV:t listar specifika utbildningar med årtal: "MI Grundkurs, SISU (2023)", "SSPF-utbildning, Länsstyrelsen (2021)", "HBTQ-certifiering, RFSL (2023)".
 
-Varför detta fungerar: Fritidsledare är ingen skyddad titel, vilket gör certifieringar extra viktiga för att visa professionalitet. SISU-utbildningar är branschstandard. MI-utbildning visar samtalsmetodik som fungerar med ungdomar. HBTQ-certifiering signalerar inkluderande arbetssätt. Årtal visar att du kontinuerligt utvecklas – en MI-kurs från 2023 är mer relevant än en från 2018.`
+Varför detta fungerar: Fritidsledare är ingen skyddad titel, vilket gör certifieringar extra viktiga för att visa professionalitet. SISU-utbildningar är branschstandard. MI-utbildning visar samtalsmetodik som fungerar med ungdomar. HBTQ-certifiering signalerar inkluderande arbetssätt. Årtal visar att du kontinuerligt utvecklas, en MI-kurs från 2023 är mer relevant än en från 2018.`
       },
       {
         rubrik: 'Profiltext som fångar kärnkompetensen direkt',
+        ankare: 'profil',
         text: `Profiltexten öppnar med "7+ års erfarenhet av ungdomsverksamhet på kommunala fritidsgårdar och ungdomscentra. Specialist på aktivitetsplanering, uppsökande arbete och trygg mötesplats för ungdomar 13-20 år."
 
 Varför detta fungerar: Rekryterare läser profiltexten först och bestämmer ofta där om de läser vidare. Tydlig specialisering visar att du inte är generalist utan har djup kompetens inom ett eftersökt område. Åldersspannet "13-20 år" signalerar att du arbetar med den åldersgrupp som fritidsgårdar fokuserar på, inte yngre barn som på fritidshem.`
@@ -18416,7 +18477,7 @@ Varför detta fungerar: Rekryterare läser profiltexten först och bestämmer of
 
 ❌ "Ansvarig för en stor fritidsgård med många besökare"
 
-✅ "Ansvarig för fritidsgård med **250+ besökande ungdomar årligen** (13-20 år) – ökade deltagandet med **45%** genom nya aktivitetskoncept som LAN-helger och musikstudio"
+✅ "Ansvarig för fritidsgård med **250+ besökande ungdomar årligen** (13-20 år), ökade deltagandet med **45%** genom nya aktivitetskoncept som LAN-helger och musikstudio"
 
 Specificera även åldersgrupp, då det visar vilken målgrupp du har erfarenhet av.`
       },
@@ -18428,7 +18489,7 @@ Specificera även åldersgrupp, då det visar vilken målgrupp du har erfarenhet
 
 ❌ "Samarbetade med skola och socialtjänst"
 
-✅ "Projektledare för uppsökande arbete i **3 stadsdelar** – nådde **120 riskungdomar** genom SSPF-samverkan. Deltog i veckovisa SSPF-möten och genomförde 35 orosanmälningar enligt rutin."
+✅ "Projektledare för uppsökande arbete i **3 stadsdelar**, nådde **120 riskungdomar** genom SSPF-samverkan. Deltog i veckovisa SSPF-möten och genomförde 35 orosanmälningar enligt rutin."
 
 Nämn specifikt vilka aktörer du samverkat med och vilka resultat samarbetet gav.`
       },
@@ -18452,7 +18513,7 @@ Visa både metod (MI, mentorskap) och mätbart resultat (gymnasiefullföljande, 
 
 ❌ "Planerade och genomförde aktiviteter"
 
-✅ "**Budgetansvar: 480 000 kr årligen** för aktiviteter, lovverksamhet och evenemang – 100% budgetföljsamhet. Projektledare för 12 större evenemang med 150-300 deltagare per event."
+✅ "**Budgetansvar: 480 000 kr årligen** för aktiviteter, lovverksamhet och evenemang, 100% budgetföljsamhet. Projektledare för 12 större evenemang med 150-300 deltagare per event."
 
 Specificera belopp, antal projekt och eventuellt extern finansiering du sökt och beviljats.`
       },
@@ -18464,19 +18525,19 @@ Specificera belopp, antal projekt och eventuellt extern finansiering du sökt oc
 
 ❌ "Har gått kurser i ledarskap och samtalsmetodik"
 
-✅ "Certifieringar:\n• **Motiverande samtal (MI)** – SISU Idrottsutbildarna (2023)\n• **SSPF-utbildning** – Länsstyrelsen (2021)\n• **HBTQ-certifiering** – RFSL (2023)"
+✅ "Certifieringar:\n• **Motiverande samtal (MI)**, SISU Idrottsutbildarna (2023)\n• **SSPF-utbildning**, Länsstyrelsen (2021)\n• **HBTQ-certifiering**, RFSL (2023)"
 
 Gruppera certifieringar tematiskt och inkludera alltid arrangör och årtal. Aktuella certifieringar (senaste 2-3 åren) väger tyngre.`
       },
       {
         rubrik: 'Balansera aktiviteter med påverkan på ungdomars utveckling',
-        text: `Fritidsledaryrket handlar inte bara om att arrangera aktiviteter – det handlar om ungdomars utveckling. Visa båda aspekterna.
+        text: `Fritidsledaryrket handlar inte bara om att arrangera aktiviteter, det handlar om ungdomars utveckling. Visa båda aspekterna.
 
 **Exempel på före/efter**:
 
 ❌ "Arrangerade LAN-partyn, konserter och sportturneringar"
 
-✅ "Arrangerade **12 större evenemang årligen** (LAN, konserter, turnéringar) med 150-300 deltagare. Integrerade **demokratiträning** genom ungdomsråd som beslutade om 40% av aktiviteterna – ökade ungdomarnas känsla av delaktighet från 65% till 89%."
+✅ "Arrangerade **12 större evenemang årligen** (LAN, konserter, turnéringar) med 150-300 deltagare. Integrerade **demokratiträning** genom ungdomsråd som beslutade om 40% av aktiviteterna, ökade ungdomarnas känsla av delaktighet från 65% till 89%."
 
 Koppla alltid aktiviteter till ett pedagogiskt syfte eller mätbart resultat för ungdomarna.`
       }
@@ -18497,7 +18558,7 @@ Koppla alltid aktiviteter till ett pedagogiskt syfte eller mätbart resultat fö
       },
       {
         fraga: 'Ska jag inkludera volontärarbete i CV:t?',
-        svar: 'Ja, särskilt om du är i början av karriären. Volontärarbete på fritidsgårdar, i föreningar eller scoutrörelsen är relevant erfarenhet. Skriv det som en vanlig anställning: "Volontär, Fryshuset (2016-2017) – Ledde musikworkshops för 30 ungdomar, arrangerade 5 battles med 100+ deltagare". Om du gick från volontär till anställd, lyft fram det som bevis på att din kompetens uppskattades.'
+        svar: 'Ja, särskilt om du är i början av karriären. Volontärarbete på fritidsgårdar, i föreningar eller scoutrörelsen är relevant erfarenhet. Skriv det som en vanlig anställning: "Volontär, Fryshuset (2016-2017), Ledde musikworkshops för 30 ungdomar, arrangerade 5 battles med 100+ deltagare". Om du gick från volontär till anställd, lyft fram det som bevis på att din kompetens uppskattades.'
       },
       {
         fraga: 'Hur beskriver jag arbete med riskungdomar utan att bryta sekretess?',
@@ -18505,23 +18566,23 @@ Koppla alltid aktiviteter till ett pedagogiskt syfte eller mätbart resultat fö
       },
       {
         fraga: 'Vad är SSPF och hur visar jag erfarenhet av det?',
-        svar: 'SSPF står för Skola, Socialtjänst, Polis och Fritid – en samverkansmodell för att förebygga ungdomskriminalitet och missbruk. De flesta kommuner använder SSPF eller liknande. Visa erfarenhet genom att beskriva din roll: "Deltar i veckovisa SSPF-möten, ansvarar för fritidssektorns information om ungdomars aktivitetsmönster". Lista SSPF-utbildning om du gått sådan. Arbetsgivare ser SSPF-erfarenhet som ett krav för uppsökande arbete.'
+        svar: 'SSPF står för Skola, Socialtjänst, Polis och Fritid, en samverkansmodell för att förebygga ungdomskriminalitet och missbruk. De flesta kommuner använder SSPF eller liknande. Visa erfarenhet genom att beskriva din roll: "Deltar i veckovisa SSPF-möten, ansvarar för fritidssektorns information om ungdomars aktivitetsmönster". Lista SSPF-utbildning om du gått sådan. Arbetsgivare ser SSPF-erfarenhet som ett krav för uppsökande arbete.'
       },
       {
         fraga: 'Hur visar jag att jag kan hantera konflikter och krissituationer?',
-        svar: 'Beskriv konkreta situationer (utan identifierande detaljer) och ditt agerande: "Deeskalerade 15+ konfliktsituationer per termin genom lågaffektivt bemötande – inga eskalerade till fysiskt våld". Lista relevanta utbildningar: "Konflikthantering och deeskalering – Fryshuset (2022)". Nämn även krisberedskap: "Ansvarig för fritidsgårdens krisplan, genomförde 3 krishanteringsövningar med personalen årligen".'
+        svar: 'Beskriv konkreta situationer (utan identifierande detaljer) och ditt agerande: "Deeskalerade 15+ konfliktsituationer per termin genom lågaffektivt bemötande, inga eskalerade till fysiskt våld". Lista relevanta utbildningar: "Konflikthantering och deeskalering, Fryshuset (2022)". Nämn även krisberedskap: "Ansvarig för fritidsgårdens krisplan, genomförde 3 krishanteringsövningar med personalen årligen".'
       },
       {
         fraga: 'Hur viktigt är det med kvälls- och helgarbete i CV:t?',
-        svar: 'Mycket viktigt att visa att du accepterar dessa tider, eftersom fritidsgårdar ofta har öppet kvällar och helger. Skriv det explicit: "Flexibilitet för kvälls- och helgarbete – har arbetat fredags-/lördagskvällar kontinuerligt sedan 2018". Om du arrangerat lovverksamhet, nämn det som bevis på flexibilitet. Arbetsgivare vill veta att du inte kommer söka dagtid efter några månader.'
+        svar: 'Mycket viktigt att visa att du accepterar dessa tider, eftersom fritidsgårdar ofta har öppet kvällar och helger. Skriv det explicit: "Flexibilitet för kvälls- och helgarbete, har arbetat fredags-/lördagskvällar kontinuerligt sedan 2018". Om du arrangerat lovverksamhet, nämn det som bevis på flexibilitet. Arbetsgivare vill veta att du inte kommer söka dagtid efter några månader.'
       },
       {
         fraga: 'Ska jag ta med språkkunskaper i CV:t?',
-        svar: 'Ja, särskilt om du söker till mångkulturella stadsdelar. Förmåga att kommunicera på ungdomarnas modersmål är en stor tillgång: "Arabiska: Konversationsnivå – använder aktivt i samtal med ungdomar och föräldrar i Bergsjön". Även grundläggande kunskaper är värdefulla: "Somaliska: Grundläggande fraser för att skapa förtroende". Lista även engelska då många ungdomskulturer (gaming, musik) är engelskspråkiga.'
+        svar: 'Ja, särskilt om du söker till mångkulturella stadsdelar. Förmåga att kommunicera på ungdomarnas modersmål är en stor tillgång: "Arabiska: Konversationsnivå, använder aktivt i samtal med ungdomar och föräldrar i Bergsjön". Även grundläggande kunskaper är värdefulla: "Somaliska: Grundläggande fraser för att skapa förtroende". Lista även engelska då många ungdomskulturer (gaming, musik) är engelskspråkiga.'
       },
       {
         fraga: 'Hur lång ska mitt CV som fritidsledare vara?',
-        svar: 'En A4-sida om du har 0-3 års erfarenhet. Två sidor om du har 4+ års erfarenhet, projektledarroller eller omfattande certifieringar. Fokusera på de senaste 7-10 årens erfarenhet. Ta bort irrelevanta jobb (butiksbiträde) om du har tillräckligt med ungdomsarbete. Prioritera konkreta siffror och resultat framför långa beskrivningar – rekryterare läser CV:t på under en minut.'
+        svar: 'En A4-sida om du har 0-3 års erfarenhet. Två sidor om du har 4+ års erfarenhet, projektledarroller eller omfattande certifieringar. Fokusera på de senaste 7-10 årens erfarenhet. Ta bort irrelevanta jobb (butiksbiträde) om du har tillräckligt med ungdomsarbete. Prioritera konkreta siffror och resultat framför långa beskrivningar, rekryterare läser CV:t på under en minut.'
       }
     ],
 
@@ -18543,7 +18604,7 @@ Koppla alltid aktiviteter till ett pedagogiskt syfte eller mätbart resultat fö
 
 CV:t kombinerar kvantifierbara behandlingsresultat (85% symtomreduktion, 40+ utredningar årligen) med branschspecifika kompetenser som KBT, ACT, neuropsykiatrisk utredning och standardiserade testinstrument (WAIS-IV, Beck-skalor, WISC-V). Det visar progression från PTP-tjänst till specialistpsykolog med handledningsansvar.
 
-Psykolog skiljer sig från kurator genom legitimation efter PTP-år, rätt att utföra psykologisk testning och utredning, samt djupare terapeutisk specialisering. Använd detta exempel som inspiration när du skriver ditt eget CV som psykolog – anpassa det efter din inriktning och den typ av verksamhet du söker till.`,
+Psykolog skiljer sig från kurator genom legitimation efter PTP-år, rätt att utföra psykologisk testning och utredning, samt djupare terapeutisk specialisering. Använd detta exempel som inspiration när du skriver ditt eget CV som psykolog, anpassa det efter din inriktning och den typ av verksamhet du söker till.`,
 
     intro: 'Professionellt CV-exempel för legitimerad psykolog med fokus på psykoterapi, neuropsykiatrisk utredning och psykologisk testning. Visar kvantifierbara behandlingsresultat och standardiserade testinstrument. ATS-optimerat för hälso- och sjukvård, psykiatri och företagshälsovård.',
 
@@ -18557,7 +18618,7 @@ Psykolog skiljer sig från kurator genom legitimation efter PTP-år, rätt att u
         linkedin: 'linkedin.com/in/erikjohansson-psykolog'
       },
 
-      profil: 'Legitimerad psykolog med 8+ års klinisk erfarenhet från psykiatrisk öppenvård och primärvård. Specialist på KBT och ACT med dokumenterade behandlingsresultat – 85% av patienter uppnår kliniskt signifikant förbättring. Gedigen kompetens i neuropsykiatrisk utredning (ADHD/autism) med 40+ utredningar årligen och testinstrument som WAIS-IV, WISC-V och D-KEFS. Handleder PTP-psykologer och psykologkandidater. Dokumenterar i TakeCare och BUP-journalsystem enligt patientdatalagen.',
+      profil: 'Legitimerad psykolog med 8+ års klinisk erfarenhet från psykiatrisk öppenvård och primärvård. Specialist på KBT och ACT med dokumenterade behandlingsresultat, 85% av patienter uppnår kliniskt signifikant förbättring. Gedigen kompetens i neuropsykiatrisk utredning (ADHD/autism) med 40+ utredningar årligen och testinstrument som WAIS-IV, WISC-V och D-KEFS. Handleder PTP-psykologer och psykologkandidater. Dokumenterar i TakeCare och BUP-journalsystem enligt patientdatalagen.',
 
       erfarenhet: [
         {
@@ -18565,7 +18626,7 @@ Psykolog skiljer sig från kurator genom legitimation efter PTP-år, rätt att u
           arbetsgivare: 'Psykiatri Nordväst, Region Stockholm',
           period: '2020 – Pågående',
           beskrivning: [
-            'Bedriver KBT och ACT i individuellt format för 25-30 patienter med ångest, depression och stressrelaterad ohälsa – 85% uppnår kliniskt signifikant symtomreduktion enligt Beck-skalor',
+            'Bedriver KBT och ACT i individuellt format för 25-30 patienter med ångest, depression och stressrelaterad ohälsa, 85% uppnår kliniskt signifikant symtomreduktion enligt Beck-skalor',
             'Genomför 40+ neuropsykiatriska utredningar årligen (ADHD, autism, intellektuell funktionsnedsättning) med WAIS-IV, WISC-V, D-KEFS och BRIEF',
             'Deltar i diagnostiska konferenser och samverkar med psykiatriker, arbetsterapeut och kurator i tvärprofessionella team',
             'Handleder 2 PTP-psykologer och 3 psykologkandidater i kliniskt arbete och utredningsmetodik',
@@ -18579,7 +18640,7 @@ Psykolog skiljer sig från kurator genom legitimation efter PTP-år, rätt att u
           period: '2017 – 2020',
           beskrivning: [
             'Psykologisk bedömning och korttids-KBT för 35-40 patienter månatligen med mild-måttlig psykisk ohälsa',
-            'Utvecklade gruppbehandlingsprogram för stress och utmattning med 12 deltagare per omgång – 78% fullföljde och rapporterade förbättring',
+            'Utvecklade gruppbehandlingsprogram för stress och utmattning med 12 deltagare per omgång, 78% fullföljde och rapporterade förbättring',
             'Konsultation till läkare och sjuksköterskor kring psykologiska perspektiv på somatiska tillstånd',
             'Implementerade screeningrutiner med PHQ-9 och GAD-7 som identifierade 35% fler patienter i behov av psykologkontakt'
           ]
@@ -18630,12 +18691,12 @@ Psykolog skiljer sig från kurator genom legitimation efter PTP-år, rätt att u
       },
 
       certifieringar: [
-        'Psykologlegitimation – Socialstyrelsen (2017)',
+        'Psykologlegitimation: Socialstyrelsen (2017)',
         'Grundläggande Psykoterapiutbildning KBT, Steg 1 (2019)',
-        'WAIS-IV och WISC-V Certifiering – Pearson (2020)',
-        'ACT-utbildning Grundnivå – Association for Contextual Behavioral Science (2021)',
-        'Handledarkompetens för PTP – Sveriges Psykologförbund (2022)',
-        'Suicidriskbedömning – Columbia-protokollet (2023)'
+        'WAIS-IV och WISC-V Certifiering: Pearson (2020)',
+        'ACT-utbildning Grundnivå: Association for Contextual Behavioral Science (2021)',
+        'Handledarkompetens för PTP: Sveriges Psykologförbund (2022)',
+        'Suicidriskbedömning: Columbia-protokollet (2023)'
       ],
 
       sprak: [
@@ -18645,55 +18706,59 @@ Psykolog skiljer sig från kurator genom legitimation efter PTP-år, rätt att u
     },
 
     viktigt: [
-      'Ange psykologlegitimation med årtal – det är ett lagkrav för yrkesutövning',
-      'Lista specifika testinstrument (WAIS-IV, Beck, WISC-V) – inte bara "psykologisk testning"',
+      'Ange psykologlegitimation med årtal, det är ett lagkrav för yrkesutövning',
+      'Lista specifika testinstrument (WAIS-IV, Beck, WISC-V), inte bara "psykologisk testning"',
       'Kvantifiera behandlingsresultat på gruppnivå (% symtomreduktion, antal utredningar)',
       'Visa terapeutisk specialisering (KBT, ACT, PDT) och eventuell Steg 1-utbildning',
-      'Inkludera handledningserfarenhet om du har det – det signalerar senioritet'
+      'Inkludera handledningserfarenhet om du har det, det signalerar senioritet'
     ],
 
     statistik: [
       {
         siffra: '12 500+',
-        text: 'legitimerade psykologer arbetar i Sverige – efterfrågan ökar inom primärvård och psykiatri'
+        text: 'legitimerade psykologer arbetar i Sverige, efterfrågan ökar inom primärvård och psykiatri'
       },
       {
         siffra: '45-55k',
-        text: 'SEK är medellön för psykolog i hälso- och sjukvård – specialistpsykolog kan nå 60-70k'
+        text: 'SEK är medellön för psykolog i hälso- och sjukvård, specialistpsykolog kan nå 60-70k'
       },
       {
         siffra: '6 sek',
-        text: 'spenderar rekryterare på första genomläsning – placera legitimation och specialisering först'
+        text: 'spenderar rekryterare på första genomläsning, placera legitimation och specialisering först'
       }
     ],
 
     varforDetFungerar: [
       {
         rubrik: 'Testinstrument och metoder som ATS-system söker efter',
-        text: `CV:t använder exakta termer som "WAIS-IV", "WISC-V", "D-KEFS", "Beck-skalor", "PHQ-9" och "KBT" – samma instrument och metoder som återfinns i jobbannonser för psykologtjänster.
+        ankare: 'kompetenser',
+        text: `CV:t använder exakta termer som "WAIS-IV", "WISC-V", "D-KEFS", "Beck-skalor", "PHQ-9" och "KBT", samma instrument och metoder som återfinns i jobbannonser för psykologtjänster.
 
 Varför detta fungerar: ATS-system i sjukvården filtrerar på specifika testinstrument och terapimetoder. När du skriver "WAIS-IV" istället för bara "begåvningstestning" matchar du kravlistan direkt. Rekryterare ser omedelbart att du behärskar de standardiserade instrument som krävs för neuropsykiatrisk utredning, vilket är en bristvara på arbetsmarknaden.`
       },
       {
         rubrik: 'Kvantifierade behandlingsresultat visar klinisk effektivitet',
+        ankare: 'erfarenhet',
         text: `CV:t innehåller konkreta siffror: "85% uppnår kliniskt signifikant symtomreduktion", "40+ utredningar årligen", "35-40 patienter månatligen", "78% fullföljde gruppbehandling".
 
-Varför detta fungerar: Psykologer som följer upp sina behandlingsresultat är eftertraktade. Många kandidater undviker siffror av sekretesskäl, men aggregerade data på gruppnivå är helt OK. "85% symtomreduktion enligt Beck-skalor" bevisar att du arbetar evidensbaserat och mäter din effektivitet – något som verksamhetschefer värdesätter högt.`
+Varför detta fungerar: Psykologer som följer upp sina behandlingsresultat är eftertraktade. Många kandidater undviker siffror av sekretesskäl, men aggregerade data på gruppnivå är helt OK. "85% symtomreduktion enligt Beck-skalor" bevisar att du arbetar evidensbaserat och mäter din effektivitet, något som verksamhetschefer värdesätter högt.`
       },
       {
         rubrik: 'Tydlig progression från PTP till handledande psykolog',
         text: `Erfarenheten visar utveckling: från PTP-psykolog på BUP (utredning under handledning) till psykolog i primärvård (självständig behandling) till specialistpsykolog med handledningsansvar och budgetansvar.
 
-Varför detta fungerar: Progressionen visar att du har vuxit systematiskt i yrket. Att du nu handleder PTP-psykologer och kandidater signalerar senioritet och förmåga att utveckla andra. Budgetansvar (1,2 MSEK) visar att du tar verksamhetsansvar utöver det kliniska – attraktivt för arbetsgivare som söker erfarna psykologer.`
+Varför detta fungerar: Progressionen visar att du har vuxit systematiskt i yrket. Att du nu handleder PTP-psykologer och kandidater signalerar senioritet och förmåga att utveckla andra. Budgetansvar (1,2 MSEK) visar att du tar verksamhetsansvar utöver det kliniska, attraktivt för arbetsgivare som söker erfarna psykologer.`
       },
       {
         rubrik: 'Legitimation och certifieringar med årtal validerar kompetens',
+        ankare: 'certifieringar',
         text: `CV:t listar "Psykologlegitimation (2017)", "Steg 1 KBT (2019)", "WAIS-IV Certifiering (2020)", "Handledarkompetens (2022)". Varje certifiering har årtal och utfärdare.
 
-Varför detta fungerar: Psykologlegitimation är ett lagkrav – utan den kan du inte kallas psykolog. Genom att lista legitimationsår först etablerar du direkt din behörighet. Steg 1-utbildning visar fördjupad terapeutisk kompetens. Årtal bevisar att du kontinuerligt vidareutbildar dig, vilket är viktigt i ett yrke där evidensbasen ständigt utvecklas.`
+Varför detta fungerar: Psykologlegitimation är ett lagkrav, utan den kan du inte kallas psykolog. Genom att lista legitimationsår först etablerar du direkt din behörighet. Steg 1-utbildning visar fördjupad terapeutisk kompetens. Årtal bevisar att du kontinuerligt vidareutbildar dig, vilket är viktigt i ett yrke där evidensbasen ständigt utvecklas.`
       },
       {
         rubrik: 'Profiltext som kombinerar behandling och utredning',
+        ankare: 'profil',
         text: `Profiltexten öppnar med "8+ års klinisk erfarenhet från psykiatrisk öppenvård och primärvård. Specialist på KBT och ACT" och inkluderar "40+ utredningar årligen med WAIS-IV, WISC-V".
 
 Varför detta fungerar: Många psykologtjänster kräver både behandling OCH utredning. Genom att visa båda kompetenserna i profiltexten signalerar du bred användbarhet. Specifika instrument (WAIS-IV, WISC-V) fungerar som nyckelord som ATS-system rankar högt. Siffror ("8+ år", "40+ utredningar") ger omedelbar kontext om din erfarenhetsnivå.`
@@ -18702,7 +18767,7 @@ Varför detta fungerar: Många psykologtjänster kräver både behandling OCH ut
         rubrik: 'Tvärprofessionellt samarbete konkretiseras med roller',
         text: `CV:t beskriver samarbete specifikt: "Deltar i diagnostiska konferenser och samverkar med psykiatriker, arbetsterapeut och kurator" och "Konsultation till läkare och sjuksköterskor".
 
-Varför detta fungerar: Psykologer arbetar sällan isolerat – tvärprofessionellt samarbete är centralt. Genom att namnge specifika yrkesroller (psykiatriker, arbetsterapeut) visar du att du förstår din plats i vårdkedjan. Diagnostiska konferenser signalerar att du bidrar till kvalificerade bedömningar i team, inte bara individuell behandling.`
+Varför detta fungerar: Psykologer arbetar sällan isolerat, tvärprofessionellt samarbete är centralt. Genom att namnge specifika yrkesroller (psykiatriker, arbetsterapeut) visar du att du förstår din plats i vårdkedjan. Diagnostiska konferenser signalerar att du bidrar till kvalificerade bedömningar i team, inte bara individuell behandling.`
       }
     ],
 
@@ -18715,7 +18780,7 @@ Varför detta fungerar: Psykologer arbetar sällan isolerat – tvärprofessione
 
 ❌ "Erfarenhet av psykologisk testning och utredning"
 
-✅ "Neuropsykiatrisk utredning med **WAIS-IV, WISC-V, D-KEFS, BRIEF och Conners-3** – 40+ utredningar årligen"
+✅ "Neuropsykiatrisk utredning med **WAIS-IV, WISC-V, D-KEFS, BRIEF och Conners-3**, 40+ utredningar årligen"
 
 Specificera även vilka patientgrupper du utrett (ADHD, autism, intellektuell funktionsnedsättning) för att visa din bredd.`
       },
@@ -18727,7 +18792,7 @@ Specificera även vilka patientgrupper du utrett (ADHD, autism, intellektuell fu
 
 ❌ "Bedriver psykoterapi för patienter med ångest och depression"
 
-✅ "KBT för 25-30 patienter med ångest och depression – **85% uppnår kliniskt signifikant symtomreduktion** enligt Beck-skalor inom 12 sessioner"
+✅ "KBT för 25-30 patienter med ångest och depression, **85% uppnår kliniskt signifikant symtomreduktion** enligt Beck-skalor inom 12 sessioner"
 
 Referera till etablerade mätinstrument (Beck, PHQ-9, GAD-7) för trovärdighet.`
       },
@@ -18739,9 +18804,9 @@ Referera till etablerade mätinstrument (Beck, PHQ-9, GAD-7) för trovärdighet.
 
 ❌ Nämn legitimation i slutet av CV:t under "Övrigt"
 
-✅ Placera **"Legitimerad Psykolog"** i titeln och lista "Psykologlegitimation – Socialstyrelsen (2017)" först under Certifieringar
+✅ Placera **"Legitimerad Psykolog"** i titeln och lista "Psykologlegitimation, Socialstyrelsen (2017)" först under Certifieringar
 
-Rekryterare scannar CV:t uppifrån – legitimation bör vara synlig inom 3 sekunder.`
+Rekryterare scannar CV:t uppifrån, legitimation bör vara synlig inom 3 sekunder.`
       },
       {
         rubrik: 'Visa handledningserfarenhet för seniora roller',
@@ -18793,11 +18858,11 @@ Namnge specifika system och eventuella dokumentationsmallar du använder.`
       },
       {
         fraga: 'Ska jag inkludera PTP-tjänsten i CV:t?',
-        svar: 'Ja, absolut – PTP är obligatoriskt för legitimation och visar var du fick din kliniska grundträning. Skriv det som en vanlig tjänst: "PTP-psykolog, BUP Stockholm (2015-2017)". Beskriv patientgrupper, metoder du använde under handledning, och avsluta med: "Erhöll psykologlegitimation efter godkänd PTP-tjänst (2017)". Detta visar din kliniska progression.'
+        svar: 'Ja, absolut, PTP är obligatoriskt för legitimation och visar var du fick din kliniska grundträning. Skriv det som en vanlig tjänst: "PTP-psykolog, BUP Stockholm (2015-2017)". Beskriv patientgrupper, metoder du använde under handledning, och avsluta med: "Erhöll psykologlegitimation efter godkänd PTP-tjänst (2017)". Detta visar din kliniska progression.'
       },
       {
         fraga: 'Hur presenterar jag terapeutisk specialisering?',
-        svar: 'Var specifik om din inriktning: "Specialist på KBT med fokus på ångest och depression" eller "ACT-inriktad med erfarenhet av kronisk smärta". Om du har Steg 1-utbildning, lyft fram den tydligt med inriktning och årtal. Undvik vaga påståenden som "bred terapeutisk kompetens" – specificera vilka metoder du faktiskt använder och vilka patientgrupper du behandlat.'
+        svar: 'Var specifik om din inriktning: "Specialist på KBT med fokus på ångest och depression" eller "ACT-inriktad med erfarenhet av kronisk smärta". Om du har Steg 1-utbildning, lyft fram den tydligt med inriktning och årtal. Undvik vaga påståenden som "bred terapeutisk kompetens", specificera vilka metoder du faktiskt använder och vilka patientgrupper du behandlat.'
       },
       {
         fraga: 'Hur kvantifierar jag behandlingsresultat utan att bryta sekretess?',
@@ -18809,7 +18874,7 @@ Namnge specifika system och eventuella dokumentationsmallar du använder.`
       },
       {
         fraga: 'Hur visar jag handledningskompetens?',
-        svar: 'Specificera VEM du handleder och i VAD: "Handleder 2 PTP-psykologer i kliniskt arbete och utredningsmetodik". Nämn om du har formell handledarkompetens: "Handledarkompetens för PTP – Sveriges Psykologförbund (2022)". Om du handleder psykologkandidater under VFU, inkludera även detta. Handledning signalerar senioritet och förmåga att utveckla andra.'
+        svar: 'Specificera VEM du handleder och i VAD: "Handleder 2 PTP-psykologer i kliniskt arbete och utredningsmetodik". Nämn om du har formell handledarkompetens: "Handledarkompetens för PTP, Sveriges Psykologförbund (2022)". Om du handleder psykologkandidater under VFU, inkludera även detta. Handledning signalerar senioritet och förmåga att utveckla andra.'
       },
       {
         fraga: 'Ska jag ta med forskningserfarenhet i CV:t?',
@@ -18817,11 +18882,11 @@ Namnge specifika system och eventuella dokumentationsmallar du använder.`
       },
       {
         fraga: 'Hur lång ska mitt CV som psykolog vara?',
-        svar: 'Nylegitimerade psykologer (0-3 år efter PTP): 1-1,5 sidor. Erfarna psykologer (5+ år): 2 sidor max. Fokusera på de senaste 10 årens erfarenhet. Prioritera: legitimation, terapeutisk inriktning, testinstrument, kvantifierade resultat. Undvik att lista alla kurser – välj de mest relevanta. Rekryterare läser CV:t på under en minut, så placera det viktigaste först.'
+        svar: 'Nylegitimerade psykologer (0-3 år efter PTP): 1-1,5 sidor. Erfarna psykologer (5+ år): 2 sidor max. Fokusera på de senaste 10 årens erfarenhet. Prioritera: legitimation, terapeutisk inriktning, testinstrument, kvantifierade resultat. Undvik att lista alla kurser, välj de mest relevanta. Rekryterare läser CV:t på under en minut, så placera det viktigaste först.'
       },
       {
         fraga: 'Hur hanterar jag byte mellan barn- och vuxenpsykiatri?',
-        svar: 'Framhåll det som en styrka – du har bredd över åldersgrupper. I profiltexten: "Klinisk erfarenhet från både BUP och vuxenpsykiatri". Lista relevanta testinstrument för båda: "WISC-V (barn), WAIS-IV (vuxna)". Beskriv hur du anpassar kommunikation och metoder efter ålder. Om du söker en specifik tjänst (t.ex. vuxen), lyft fram den erfarenheten först men nämn bredden som tillgång.'
+        svar: 'Framhåll det som en styrka, du har bredd över åldersgrupper. I profiltexten: "Klinisk erfarenhet från både BUP och vuxenpsykiatri". Lista relevanta testinstrument för båda: "WISC-V (barn), WAIS-IV (vuxna)". Beskriv hur du anpassar kommunikation och metoder efter ålder. Om du söker en specifik tjänst (t.ex. vuxen), lyft fram den erfarenheten först men nämn bredden som tillgång.'
       }
     ],
 
@@ -18885,7 +18950,7 @@ För att sticka ut behöver ditt CV visa både din juridiska kompetens och din f
       kontakt: {
         telefon: '073-245 67 89',
         epost: 'anna.bergstrom@email.se',
-        plats: 'Uppsala',
+        plats: 'Stockholm',
         linkedin: 'linkedin.com/in/anna-bergstrom'
       },
       profil: 'Erfaren LSS-handläggare med 7 års erfarenhet av biståndsbedömning och myndighetsutövning inom funktionshindersområdet. Gedigen kompetens i LSS, SoL och Förvaltningslagen samt dokumenterad förmåga att hantera hög ärendebelastning med bibehållen kvalitet. Kombinerar juridisk precision med empatiskt bemötande och är driven av att säkerställa rättssäkerhet och goda levnadsvillkor för personer med funktionsnedsättning.',
@@ -18967,10 +19032,10 @@ För att sticka ut behöver ditt CV visa både din juridiska kompetens och din f
         ]
       },
       certifieringar: [
-        'IBIC-utbildning grundläggande och fördjupning – SKR, 2022',
-        'LSS och rättspraxis – Jure Förvaltningsjuridik, 2023',
-        'Förvaltningsrätt för handläggare – Uppsala universitet, 2021',
-        'Neuropsykiatri och intellektuell funktionsnedsättning – Habilitering & Hälsa, 2020'
+        'IBIC-utbildning grundläggande och fördjupning: SKR, 2022',
+        'LSS och rättspraxis: Jure Förvaltningsjuridik, 2023',
+        'Förvaltningsrätt för handläggare: Uppsala universitet, 2021',
+        'Neuropsykiatri och intellektuell funktionsnedsättning: Habilitering & Hälsa, 2020'
       ],
       sprak: [
         { sprak: 'Svenska', niva: 'Modersmål' },
@@ -18984,11 +19049,11 @@ För att sticka ut behöver ditt CV visa både din juridiska kompetens och din f
       },
       {
         rubrik: 'Tydlig juridisk kompetens',
-        text: 'Både i profil och kompetenser framgår djup kunskap om LSS, SoL, Förvaltningslagen och rättspraxis.\n\nVarför detta fungerar: LSS-handläggning är myndighetsutövning som kräver juridisk precision – detta visar att Anna behärskar lagstiftningen.'
+        text: 'Både i profil och kompetenser framgår djup kunskap om LSS, SoL, Förvaltningslagen och rättspraxis.\n\nVarför detta fungerar: LSS-handläggning är myndighetsutövning som kräver juridisk precision, detta visar att Anna behärskar lagstiftningen.'
       },
       {
         rubrik: 'IBIC-metodkompetens',
-        text: 'Anna lyfter IBIC-tillämpning konkret och visar hur strukturerad metodik minskade överklaganden med 35%.\n\nVarför detta fungerar: IBIC är standarden för behovsbedömning – kompetensen är avgörande för kvalitativa beslut.'
+        text: 'Anna lyfter IBIC-tillämpning konkret och visar hur strukturerad metodik minskade överklaganden med 35%.\n\nVarför detta fungerar: IBIC är standarden för behovsbedömning, kompetensen är avgörande för kvalitativa beslut.'
       },
       {
         rubrik: 'Praktisk förståelse från utförarled',
@@ -19000,7 +19065,7 @@ För att sticka ut behöver ditt CV visa både din juridiska kompetens och din f
       },
       {
         rubrik: 'Aktuell fortbildning',
-        text: 'Certifieringar inom rättspraxis, IBIC och neuropsykiatri visar kontinuerlig kompetensutveckling.\n\nVarför detta fungerar: LSS-området utvecklas genom nya domar och kunskap – visar att Anna håller sig uppdaterad.'
+        text: 'Certifieringar inom rättspraxis, IBIC och neuropsykiatri visar kontinuerlig kompetensutveckling.\n\nVarför detta fungerar: LSS-området utvecklas genom nya domar och kunskap, visar att Anna håller sig uppdaterad.'
       }
     ],
     tips: [
@@ -19016,7 +19081,7 @@ För att sticka ut behöver ditt CV visa både din juridiska kompetens och din f
       },
       {
         rubrik: 'Specificera lagstiftningskompetens',
-        text: `Lyft inte bara att du kan LSS – visa HUR du tillämpar lagstiftningen i praktiken och vilken rättspraxis du följer.
+        text: `Lyft inte bara att du kan LSS, visa HUR du tillämpar lagstiftningen i praktiken och vilken rättspraxis du följer.
 
 **Exempel på före/efter:**
 
@@ -19128,7 +19193,7 @@ För att sticka ut behöver ditt CV visa både din juridiska kompetens och din f
     intro: 'Ett professionellt CV-exempel för hotellvärd som visar din gästservice, bokningssystemkompetens och merförsäljningsförmåga. Optimerat för svenska hotell och ATS-system.',
     seoIntro: `Ett välskrivet CV för hotellvärd är avgörande för att säkra din nästa tjänst inom hotellbranschen. Som hotellvärd är du hotellets ansikte utåt och ditt CV måste återspegla din förmåga att leverera exceptionell gästservice, hantera bokningar effektivt och skapa en välkomnande atmosfär som får gäster att vilja återvända.
 
-Hotellbranschen i Sverige växer stadigt med ökad turism och affärsresande. Konkurrensen om attraktiva tjänster på välrenommerade hotell är hård, vilket gör det extra viktigt att ditt CV sticker ut. Rekryterare inom hotellbranschen söker kandidater som kan visa konkreta resultat – högre gästnöjdhet, effektivare incheckning och merförsäljning av rumstillägg.
+Hotellbranschen i Sverige växer stadigt med ökad turism och affärsresande. Konkurrensen om attraktiva tjänster på välrenommerade hotell är hård, vilket gör det extra viktigt att ditt CV sticker ut. Rekryterare inom hotellbranschen söker kandidater som kan visa konkreta resultat, högre gästnöjdhet, effektivare incheckning och merförsäljning av rumstillägg.
 
 Detta CV-exempel för hotellvärd visar hur du presenterar din erfarenhet av gästservice på ett sätt som fångar rekryterarens uppmärksamhet. Du lär dig att kvantifiera din påverkan genom mätbara resultat som gästbetyg, antal hanterade incheckningar och uppnådda försäljningsmål. Vi guidar dig genom hur du lyfter fram kompetenser som konflikthantering, flerspråkighet och systemkunskap i bokningssystem som Opera eller Mews.
 
@@ -19193,10 +19258,10 @@ Oavsett om du söker din första tjänst som hotellvärd eller vill avancera til
         ]
       },
       certifieringar: [
-        'First Impressions Training – Hilton (2023)',
-        'WSET Wine Foundation – Level 2 (2022)',
+        'First Impressions Training: Hilton (2023)',
+        'WSET Wine Foundation: Level 2 (2022)',
         'Första hjälpen och HLR (2024)',
-        'Brandskyddsutbildning – SBA (2023)'
+        'Brandskyddsutbildning: SBA (2023)'
       ],
       sprak: [
         { sprak: 'Svenska', niva: 'Modersmål' },
@@ -19219,7 +19284,7 @@ Oavsett om du söker din första tjänst som hotellvärd eller vill avancera til
       },
       {
         rubrik: 'Progression från boutique till storhotell',
-        text: 'CV:t visar karriärutveckling från mindre boutiquehotell med 45 rum till Clarion Hotel Sign – ett av Stockholms största konferenshotell.\n\nVarför detta fungerar: Rekryterare ser en kandidat som har vuxit med ökande ansvar och kan hantera olika hotellmiljöer.'
+        text: 'CV:t visar karriärutveckling från mindre boutiquehotell med 45 rum till Clarion Hotel Sign, ett av Stockholms största konferenshotell.\n\nVarför detta fungerar: Rekryterare ser en kandidat som har vuxit med ökande ansvar och kan hantera olika hotellmiljöer.'
       },
       {
         rubrik: 'Processförbättring med mätbart resultat',
@@ -19227,7 +19292,7 @@ Oavsett om du söker din första tjänst som hotellvärd eller vill avancera til
       },
       {
         rubrik: 'Flerspråkig kompetens',
-        text: 'CV:t anger flerspråkig service på svenska, engelska och tyska – tre av de viktigaste språken för den svenska hotellmarknaden.\n\nVarför detta fungerar: Internationella gäster är en betydande kundgrupp. Språkkunskaper ger direkt mervärde för hotellets gästservice.'
+        text: 'CV:t anger flerspråkig service på svenska, engelska och tyska, tre av de viktigaste språken för den svenska hotellmarknaden.\n\nVarför detta fungerar: Internationella gäster är en betydande kundgrupp. Språkkunskaper ger direkt mervärde för hotellets gästservice.'
       }
     ],
     tips: [
@@ -19269,7 +19334,7 @@ Oavsett om du söker din första tjänst som hotellvärd eller vill avancera til
 
 ❌ "Talar flera språk"
 
-✅ "Flytande svenska och engelska, god tyska – hanterar dagligen gäster från DACH-regionen och USA"`
+✅ "Flytande svenska och engelska, god tyska, hanterar dagligen gäster från DACH-regionen och USA"`
       },
       {
         rubrik: 'Beskriv hur du hanterar pressade situationer',
@@ -19525,7 +19590,7 @@ Använd det som inspiration för ditt eget cv administrativ assistent och anpass
 
 **Exempel på progression:**
 
-Praktik (assisterade VD med enklare uppgifter) → Kontorsassistent (80-100 besökare/vecka, fakturering) → Administrativ assistent till ledningsgrupp (kalenderhantering för 6 personer, styrelsemöten, konfidentiella dokument)`
+Praktik (assisterade VD med enklare uppgifter), sedan Kontorsassistent (80-100 besökare/vecka, fakturering), sedan Administrativ assistent till ledningsgrupp (kalenderhantering för 6 personer, styrelsemöten, konfidentiella dokument)`
       }
     ],
     faq: [
@@ -19602,7 +19667,7 @@ Boendestöd kräver dokumenterad kompetens inom psykisk funktionsnedsättning, m
       kontakt: {
         epost: 'marcus.lindgren@email.se',
         telefon: '073-456 78 90',
-        plats: 'Göteborg'
+        plats: 'Stockholm'
       },
       profil: 'Engagerad boendestödjare med 5+ års erfarenhet av stödinsatser för personer med psykisk funktionsnedsättning och missbruksproblematik. Gedigen kompetens i MI-samtal, lågaffektivt bemötande och ADL-träning med fokus på brukarens självständighet och delaktighet. Erfaren i Treserva-dokumentation, SIP-möten och samverkan med sjukvård, socialtjänst och Försäkringskassan. Lugn och trygg i krissituationer med förmåga att bygga förtroendefulla relationer.',
       erfarenhet: [
@@ -19690,10 +19755,12 @@ Boendestöd kräver dokumenterad kompetens inom psykisk funktionsnedsättning, m
     varforDetFungerar: [
       {
         rubrik: 'ATS-optimerade nyckelord för socialpsykiatri',
+        ankare: 'kompetenser',
         text: 'CV:t innehåller specifika termer som MI-samtal, lågaffektivt bemötande, Treserva, IBIC-modellen, SIP och ADL-träning - exakt de nyckelord som ATS-system och rekryterare inom socialtjänst letar efter.\n\nVarför detta fungerar: Kommuner och omsorgsbolag filtrerar ofta på specifika utbildningar och metoder. Genom att namnge exakta certifieringar (Studio 3, MI grundkurs) och dokumentationssystem (Treserva med IBIC) passerar ditt CV automatisk filtrering.'
       },
       {
         rubrik: 'Kvantifierade resultat som visar faktisk påverkan',
+        ankare: 'erfarenhet',
         text: 'CV:t innehåller konkreta mätbara resultat: 78% av brukarna uppnådde självständighetsmål, 35% minskning av krisinsatser, 12-15 brukare i caseload och noll allvarliga incidenter under LSS-anställningen.\n\nVarför detta fungerar: Siffror ger trovärdighet. "Ansvarig för boendestöd" säger ingenting om kvalitet. Att visa att dina brukare faktiskt blir mer självständiga och att kriser minskar bevisar att ditt arbetssätt fungerar.'
       },
       {
@@ -19847,7 +19914,7 @@ Använd det som inspiration för ditt eget CV köksbiträde och anpassa det efte
       kontakt: {
         telefon: '070-234 56 78',
         epost: 'ahmed.hassan@email.se',
-        plats: 'Göteborg'
+        plats: 'Stockholm'
       },
       profil: 'Erfaren köksbiträde med 4+ års erfarenhet från restaurang och storkök. Gedigen kunskap i livsmedelshygien, HACCP-rutiner och allergenkännedom. Van att arbeta i högt tempo med 200+ portioner dagligen. Stresstålig lagspelare som håller köket rent, organiserat och säkert enligt livsmedelsverkets krav. Certifierad i Livsmedelshygien A och allergenkännedom.',
       erfarenhet: [
@@ -19918,12 +19985,14 @@ Använd det som inspiration för ditt eget CV köksbiträde och anpassa det efte
     varforDetFungerar: [
       {
         rubrik: 'ATS-system känner igen branschspecifika termer direkt',
+        ankare: 'kompetenser',
         text: `CV:t använder exakta branschtermer som "industriella diskmaskiner", "HACCP-rutiner", "temperaturloggning kyl/frys" och "Livsmedelshygien A". Istället för vaga beskrivningar som "diskade och städade" specificeras både verktyg och metoder.
 
 Varför detta fungerar: Storkök och restauranger söker i sina ATS-system efter specifika termer från Livsmedelsverkets krav. När du skriver "HACCP-rutiner" och "Livsmedelshygien A" med konkreta exempel matchar du både jobbannonsens kravlista och de nyckelord rekryterare filtrerar på. Du visar omedelbart att du förstår livsmedelssäkerhet och kan börja jobba utan omfattande hygienutbildning.`
       },
       {
         rubrik: 'Konkreta volymer visar din arbetskapacitet',
+        ankare: 'erfarenhet',
         text: `CV:t kvantifierar arbetsinsatser: 180-200 portioner dagligen i storkök, 100-150 middagsgäster per kväll i restaurang. Specialkost specificeras med exakta typer: glutenfritt, laktosfritt, vegetariskt och mjuk kost för dysfagi.
 
 Varför detta fungerar: "Diskade i storkök" säger ingenting om omfattning. "180-200 portioner dagligen" visar att du hanterar hög arbetsbelastning och kan prioritera i högt tempo. Att nämna specifika specialkoster bevisar att du förstår allergenkännedom och kan hantera medicinska kostbehov. Rekryterare ser omedelbart att du klarar den faktiska arbetsbelastningen i deras kök.`
@@ -19942,6 +20011,7 @@ Varför detta fungerar: Rekryterare ser att du inte bara bytt jobb, du har utvec
       },
       {
         rubrik: 'Certifieringar som bevisar regelverkskunskap',
+        ankare: 'certifieringar',
         text: `CV:t listar exakta certifieringar med årtal: Livsmedelshygien A (2023), HACCP Grundkurs (2023), Allergenkännedom (2022). Många köksbiträden skriver bara "hygienutbildning" utan att specificera vilken utbildning eller när den genomfördes.
 
 Varför detta fungerar: Livsmedelshygien A är lagkrav för köksarbete i Sverige och gäller 5 år. Genom att visa förnyelsedatum (2023) bevisar du att certifieringen är giltig. HACCP-grundkurs är ofta ett krav för arbete i storkök och sjukhuskök. Att lista allergenkännedom visar att du kan hantera medicinska kostbehov och förstår vikten av korsföroreningar. Rekryterare ser att du uppfyller lagkraven och kan börja arbeta direkt.`
@@ -19966,7 +20036,7 @@ Varför detta fungerar: Livsmedelsverket kräver daglig dokumentation av kritisk
       },
       {
         rubrik: 'Visa tempo och kapacitet med konkreta siffror',
-        text: `Köksbiträde handlar om att hålla högt tempo under rusningstid. Istället för att skriva att du är "snabb" eller "effektiv", visa med siffror vilken volym du hanterar. Rekryterare vill veta om du klarar deras kök – om de serverar 300 luncher per dag vill de se att du arbetat med liknande volymer. Konkreta siffror gör din erfarenhet mätbar och trovärdig. Inkludera antal portioner, kuvert per service, eller storlek på köket du jobbat i.
+        text: `Köksbiträde handlar om att hålla högt tempo under rusningstid. Istället för att skriva att du är "snabb" eller "effektiv", visa med siffror vilken volym du hanterar. Rekryterare vill veta om du klarar deras kök, om de serverar 300 luncher per dag vill de se att du arbetat med liknande volymer. Konkreta siffror gör din erfarenhet mätbar och trovärdig. Inkludera antal portioner, kuvert per service, eller storlek på köket du jobbat i.
 
 **Exempel på före/efter:**
 
@@ -19976,7 +20046,7 @@ Varför detta fungerar: Livsmedelsverket kräver daglig dokumentation av kritisk
       },
       {
         rubrik: 'Lyft fram flexibilitet och stresstålighet med exempel',
-        text: `Köksbiträden jobbar ofta under högt tryck med ständigt skiftande arbetsuppgifter. Att bara skriva "stresstålig" eller "flexibel" säger ingenting – alla skriver så. Beskriv istället konkreta situationer där du löst problem, anpassat dig snabbt eller hållit koll när det varit kaos. Rekryterare vill se att du kan hoppa in på olika stationer, hantera akuta situationer och samarbeta smidigt med kockar och servitörer även när det är fullt rush.
+        text: `Köksbiträden jobbar ofta under högt tryck med ständigt skiftande arbetsuppgifter. Att bara skriva "stresstålig" eller "flexibel" säger ingenting, alla skriver så. Beskriv istället konkreta situationer där du löst problem, anpassat dig snabbt eller hållit koll när det varit kaos. Rekryterare vill se att du kan hoppa in på olika stationer, hantera akuta situationer och samarbeta smidigt med kockar och servitörer även när det är fullt rush.
 
 **Exempel på före/efter:**
 
@@ -19986,13 +20056,13 @@ Varför detta fungerar: Livsmedelsverket kräver daglig dokumentation av kritisk
       },
       {
         rubrik: 'Inkludera certifikat och hygienutbildning med datum',
-        text: `Livsmedelshygien är lagkrav inom restaurang och storhushåll. Genom att lista specifika utbildningar och certifikat visar du att du tar yrket på allvar och att arbetsgivaren slipper betala för obligatorisk grundutbildning. Namnge exakta kurser, utfärdare och årtal – det visar att certifikaten är aktuella. Många arbetsgivare kräver giltig livsmedelshygienutbildning redan vid anställning, så detta kan vara avgörande för att komma till intervju.
+        text: `Livsmedelshygien är lagkrav inom restaurang och storhushåll. Genom att lista specifika utbildningar och certifikat visar du att du tar yrket på allvar och att arbetsgivaren slipper betala för obligatorisk grundutbildning. Namnge exakta kurser, utfärdare och årtal, det visar att certifikaten är aktuella. Många arbetsgivare kräver giltig livsmedelshygienutbildning redan vid anställning, så detta kan vara avgörande för att komma till intervju.
 
 **Exempel på före/efter:**
 
 ❌ "Utbildad i livsmedelshygien och säkerhet"
 
-✅ "Livsmedelshygien grundkurs (Livsmedelsverket, 2024), Allergikoll – basutbildning i allergikunskap (Allergimatguiden, 2023), Första hjälpen och HLR (Röda Korset, 2023), Heta Arbeten certifikat giltigt t.o.m 2026"`
+✅ "Livsmedelshygien grundkurs (Livsmedelsverket, 2024), Allergikoll, basutbildning i allergikunskap (Allergimatguiden, 2023), Första hjälpen och HLR (Röda Korset, 2023), Heta Arbeten certifikat giltigt t.o.m 2026"`
       }
     ],
     faq: [
@@ -20054,9 +20124,9 @@ Varför detta fungerar: Livsmedelsverket kräver daglig dokumentation av kritisk
 
     seoIntro: `Söker du jobb som barista och behöver ett CV som visar din kaffekunskap, tekniska precision och kundservice? Det här exemplet demonstrerar hur du skapar ett professionellt barista-CV som imponerar på kaféägare och restaurangchefer som söker specialistkompetens inom kaffeberedning.
 
-CV:t balanserar tekniska färdigheter som espressoberedning, latte art och maskinunderhåll med mjuka egenskaper som kundservice och arbete i högt tempo. Du hittar branschspecifika termer som SCA-certifiering, La Marzocco, extrahering, tamping och mjölkskumning – precis de nyckelord som arbetsgivare inom specialistkaféer och hotellbarer letar efter. Exemplet visar hur du kvantifierar barista-arbete: "Tillagade 200+ kaffedrycker dagligen" och "Ökade merförsäljning med 30% genom kaffeutbildning av gäster".
+CV:t balanserar tekniska färdigheter som espressoberedning, latte art och maskinunderhåll med mjuka egenskaper som kundservice och arbete i högt tempo. Du hittar branschspecifika termer som SCA-certifiering, La Marzocco, extrahering, tamping och mjölkskumning, precis de nyckelord som arbetsgivare inom specialistkaféer och hotellbarer letar efter. Exemplet visar hur du kvantifierar barista-arbete: "Tillagade 200+ kaffedrycker dagligen" och "Ökade merförsäljning med 30% genom kaffeutbildning av gäster".
 
-Använd exemplet som inspiration för att lyfta din egen erfarenhet från specialistkaféer, hotellbarer eller kedjekaféer. Ett välstrukturerat CV ökar dina chanser till intervju – oavsett om du söker tjänst som head barista eller vill ta nästa steg inom kaffevärlden.`,
+Använd exemplet som inspiration för att lyfta din egen erfarenhet från specialistkaféer, hotellbarer eller kedjekaféer. Ett välstrukturerat CV ökar dina chanser till intervju, oavsett om du söker tjänst som head barista eller vill ta nästa steg inom kaffevärlden.`,
 
     viktigtAttTankaPa: [
       'Inkludera specifika maskinmodeller du behärskar (La Marzocco, Sanremo, Victoria Arduino)',
@@ -20173,13 +20243,13 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet från specia
         rubrik: 'Siffror visar din faktiska produktionskapacitet',
         text: `CV:t kvantifierar arbetsinsatser: 200+ kaffedrycker dagligen, 250+ drycker i högtrycksmiljö, och konkreta resultat som 30% ökad merförsäljning genom kaffeutbildning av gäster och 25% förbättrad kundnöjdhet genom personlig service.
 
-**Varför detta fungerar:** "Ansvarig för espressobar" säger ingenting om omfattning. "200+ kaffedrycker dagligen" visar att du hanterar hög arbetsbelastning och kan leverera konsekvent kvalitet under press. Resultat som "30% ökad merförsäljning" bevisar att din kaffekunskap faktiskt driver affärsresultat. Rekryterare ser omedelbart att du levererar mätbara värden – både i form av kvalitet och ekonomiska resultat.`
+**Varför detta fungerar:** "Ansvarig för espressobar" säger ingenting om omfattning. "200+ kaffedrycker dagligen" visar att du hanterar hög arbetsbelastning och kan leverera konsekvent kvalitet under press. Resultat som "30% ökad merförsäljning" bevisar att din kaffekunskap faktiskt driver affärsresultat. Rekryterare ser omedelbart att du levererar mätbara värden, både i form av kvalitet och ekonomiska resultat.`
       },
       {
         rubrik: 'Teknisk precision balanseras med bevisad kundservice',
         text: `CV:t kombinerar tekniska färdigheter (extrahering, dosering, temperaturkontroll, maskinunderhåll) med kundnära service och konkreta exempel: kaffeutbildning av gäster, personlig service som höjt kundnöjdhet med 25%, och förmåga att förklara smakprofiler och ursprung.
 
-**Varför detta fungerar:** Många skriver "passionerad om kaffe" utan att bevisa det. Du visar passion genom handling: kaffeutbildning av gäster, utveckling av espressomeny och dagligt maskinunderhåll. Detta skiljer dig från kandidater som bara listar mjuka färdigheter utan sammanhang. Rekryterare ser att du förstår helheten – både den tekniska precisionen och gästupplevelsen.`
+**Varför detta fungerar:** Många skriver "passionerad om kaffe" utan att bevisa det. Du visar passion genom handling: kaffeutbildning av gäster, utveckling av espressomeny och dagligt maskinunderhåll. Detta skiljer dig från kandidater som bara listar mjuka färdigheter utan sammanhang. Rekryterare ser att du förstår helheten, både den tekniska precisionen och gästupplevelsen.`
       },
       {
         rubrik: 'Uppdaterade certifieringar visar att du följer branschstandarden',
@@ -20197,7 +20267,7 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet från specia
         rubrik: 'Tydlig karriärprogression från kedja till specialistkaféer',
         text: `Erfarenheten visar utveckling: från Espresso House med standardiserad kedjeproduktion och 300+ drycker dagligen, till Johan & Nyström med kvalitetsfokus och kundutbildning, till head barista på Drop Coffee med mentorskap, maskinansvar och menytillväxt. Varje roll har ökad komplexitet och ansvar.
 
-**Varför detta fungerar:** Många baristas listar jobb utan att visa utveckling. Din progression från kedjekaféer (volym och snabbhet) till specialistkaféer (kvalitet och kunskap) och slutligen till head barista (ledarskap och affärspåverkan) visar att du inte bara stannat kvar – du har växt. Mentorskap för 4 baristas och utveckling av espressomeny bevisar att chefer litar på dig. Detta signalerar att du är redo för nästa steg som kaféchef eller eget kafé.`
+**Varför detta fungerar:** Många baristas listar jobb utan att visa utveckling. Din progression från kedjekaféer (volym och snabbhet) till specialistkaféer (kvalitet och kunskap) och slutligen till head barista (ledarskap och affärspåverkan) visar att du inte bara stannat kvar, du har växt. Mentorskap för 4 baristas och utveckling av espressomeny bevisar att chefer litar på dig. Detta signalerar att du är redo för nästa steg som kaféchef eller eget kafé.`
       }
     ],
 
@@ -20234,7 +20304,7 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet från specia
       },
       {
         rubrik: 'Balansera teknisk kompetens med kundservice och affärsförståelse',
-        text: `Att kunna göra perfekt espresso räcker inte – du måste också visa att du förstår gästupplevelsen och bidrar till kaféets ekonomi. Kombinera tekniska färdigheter med kundservice och försäljningsresultat.
+        text: `Att kunna göra perfekt espresso räcker inte, du måste också visa att du förstår gästupplevelsen och bidrar till kaféets ekonomi. Kombinera tekniska färdigheter med kundservice och försäljningsresultat.
 
 **Exempel på före/efter:**
 
@@ -20255,7 +20325,7 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet från specia
       },
       {
         fraga: 'Ska jag inkludera latte art på mitt CV?',
-        svar: 'Ja, absolut – särskilt om du söker till specialistkaféer. Specificera vilka designs du behärskar (rosetta, tulip, swan) och om du har certifiering (Latte Art Grading System). Om du tävlat i latte art-tävlingar, nämn det. För kedjekaféer är latte art mindre kritiskt, men det visar ändå teknisk skicklighet och passion.'
+        svar: 'Ja, absolut, särskilt om du söker till specialistkaféer. Specificera vilka designs du behärskar (rosetta, tulip, swan) och om du har certifiering (Latte Art Grading System). Om du tävlat i latte art-tävlingar, nämn det. För kedjekaféer är latte art mindre kritiskt, men det visar ändå teknisk skicklighet och passion.'
       },
       {
         fraga: 'Vilka certifieringar behöver jag som barista?',
@@ -20283,7 +20353,7 @@ Använd exemplet som inspiration för att lyfta din egen erfarenhet från specia
       },
       {
         fraga: 'Hur visar jag progression från barista till head barista?',
-        svar: 'Visa utveckling genom ökande ansvar i varje roll. Börja med grundläggande kaffeberedning och kundservice, gå vidare till kvalitetskontroll och effektivisering, slutligen till mentorskap och affärspåverkan. Exempel: "Barista (2019) → Senior Barista med kvalitetsansvar (2020) → Head Barista med team av 4 baristas och menyansvar (2022)". Kvantifiera ledarskap: "Mentorade 4 juniora baristas" och affärspåverkan: "Utvecklade espressomeny som ökade försäljning med 30%".'
+        svar: 'Visa utveckling genom ökande ansvar i varje roll. Börja med grundläggande kaffeberedning och kundservice, gå vidare till kvalitetskontroll och effektivisering, slutligen till mentorskap och affärspåverkan. Exempel: "Barista (2019), sedan Senior Barista med kvalitetsansvar (2020), sedan Head Barista med team av 4 baristas och menyansvar (2022)". Kvantifiera ledarskap: "Mentorade 4 juniora baristas" och affärspåverkan: "Utvecklade espressomeny som ökade försäljning med 30%".'
       }
     ],
 
@@ -20321,7 +20391,7 @@ Använd det som inspiration för ditt eget CV logistikassistent och anpassa det 
       kontakt: {
         telefon: '070-345 67 89',
         epost: 'erik.johansson@email.se',
-        plats: 'Stockholm',
+        plats: 'Göteborg',
         linkedin: 'linkedin.com/in/erikjohansson'
       },
 
@@ -23319,20 +23389,6 @@ export default async function Page({ params }: { params: Promise<{ yrke: string 
     notFound()
   }
 
-  // PRE-RENDER CV HTML på servern för optimal SEO och CLS
-  let initialHTML = ''
-  try {
-    const cvMetadata = convertToCVMetadata(data.exempelCV)
-    const templateGenerator = norrskenTemplate
-
-    if (templateGenerator) {
-      initialHTML = templateGenerator.generate(cvMetadata, {})
-    }
-  } catch (error) {
-    console.error('Error pre-rendering CV HTML:', error)
-    // Fallback: låt client-side hantera rendering
-  }
-
   // SEO: Schema markup för att garantera att CV-innehållet indexeras
 
   // Bygg articleBody från profil + erfarenhet för att ge sökmotorn
@@ -23366,8 +23422,8 @@ export default async function Page({ params }: { params: Promise<{ yrke: string 
         "url": "https://www.jobbcoach.ai/logo.png"
       }
     },
-    "datePublished": new Date().toISOString(),
-    "dateModified": new Date().toISOString(),
+    "datePublished": CV_PUBLICERAD[yrke] ?? CV_ANDRAD,
+    "dateModified": CV_ANDRAD,
     "about": {
       "@type": "Occupation",
       "name": data.yrke,
@@ -23456,7 +23512,7 @@ export default async function Page({ params }: { params: Promise<{ yrke: string 
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <CVExempelPage data={data} slug={yrke} initialHTML={initialHTML} />
+      <CVExempelPage data={data} slug={yrke} />
     </>
   )
 }

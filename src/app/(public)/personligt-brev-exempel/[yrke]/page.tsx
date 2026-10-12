@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import PersonligtBrevExempelPage from './PersonligtBrevExempelPage'
 import { exampleData } from './exempel-data'
+import { BREV_PUBLICERAD, BREV_ANDRAD } from './publicerad'
 
 export async function generateMetadata({
   params,
@@ -95,8 +96,8 @@ export default async function Page({ params }: { params: Promise<{ yrke: string 
         "url": "https://www.jobbcoach.ai/logo.png"
       }
     },
-    "datePublished": new Date().toISOString(),
-    "dateModified": new Date().toISOString(),
+    "datePublished": BREV_PUBLICERAD[yrke] ?? BREV_ANDRAD,
+    "dateModified": BREV_ANDRAD,
     "about": {
       "@type": "Occupation",
       "name": data.yrke,

@@ -147,7 +147,7 @@ export const CV_GALLERI: GalleriYrke[] = [
     "slug": "sommarjobb",
     "namn": "Sommarjobb",
     "kategori": "student",
-    "intro": "CV för sommarjobb – visa din energi, flexibilitet och vilja att bidra under sommaren."
+    "intro": "CV för sommarjobb som visar din energi, flexibilitet och vilja att bidra under sommaren."
   },
   {
     "slug": "ekonomiassistent",
@@ -159,7 +159,7 @@ export const CV_GALLERI: GalleriYrke[] = [
     "slug": "barnskotare",
     "namn": "Barnskötare",
     "kategori": "utbildning",
-    "intro": "CV för arbete med barn – visa din omsorg, kreativitet och pedagogiska kompetens."
+    "intro": "CV för arbete med barn som visar din omsorg, kreativitet och pedagogiska kompetens."
   },
   {
     "slug": "personlig-assistent",

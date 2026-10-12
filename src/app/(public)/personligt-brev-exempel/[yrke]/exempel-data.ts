@@ -45,14 +45,17 @@ Amira Hassan`
     varforDetFungerar: [
       {
         titel: 'Konkret resultat istället för allmänt påstående',
+        ankare: 'stycke-2',
         beskrivning: 'Brevet beskriver hur ett initiativ till musikstunder ledde till en mätbar minskning av oro enligt BPSD-registret. Det är starkare än att skriva "jag är bra på att skapa lugn", eftersom det visar ett faktiskt agerande och ett resultat som gick att följa upp. Rekryteraren ser direkt att kandidaten inte bara pratar om demensvård, utan har erfarenhet av att omsätta det i praktiskt arbete med boende.'
       },
       {
         titel: 'Kontaktmannaskap med tydligt ansvarsomfång',
+        ankare: 'stycke-2',
         beskrivning: 'Genom att skriva "kontaktman för sex boende" med ansvar för genomförandeplaner och anhörigkontakt visar brevet exakt vad rollen innebar. Det är mer trovärdigt än att bara nämna kontaktmannaskap i förbifarten. En rekryterare på ett äldreboende vet att kontaktmannaskap kräver självständighet och struktur, och konkretionen bygger förtroende redan i det första intrycket.'
       },
       {
         titel: 'Företagsspecifik koppling till Vardagas demensinriktning',
+        ankare: 'stycke-3',
         beskrivning: 'Brevet nämner specifikt att Vardaga Ekbackens äldreboende är renodlat mot demensvård, och kopplar det till kandidatens egna erfarenhet av kontaktmannaskap och genomförandeplaner. Det visar att ansökan är skriven för just den här tjänsten, inte skickad till tio olika arbetsgivare. Den typen av research ökar chansen att hela brevet läses klart.'
       },
       {
@@ -430,7 +433,7 @@ Jag söker tjänsten som undersköterska inom geriatrik på Karolinska Universit
 
 Under mina år på Stockholms äldreboende har jag utvecklat gedigen erfarenhet av ADL-stöd, demensvård och palliativ omvårdnad. Jag har regelbundet arbetat med 30-40 patienter per arbetspass och har medicinsk delegering för insulin, subkutana injektioner och PEG-sondmatning. Ett konkret exempel är när jag uppmärksammade tidiga tecken på urinvägsinfektion hos en patient med demens, kontaktade läkare och startade behandling innan tillståndet förvärrades. Jag arbetar nära sjuksköterskor och läkare i tvärprofessionella team där snabb kommunikation och noggrann dokumentation i Cosmic varit avgörande.
 
-Det jag uppskattar mest med vårdyrket är relationerna med patienterna. Att få tid att sitta ner med en orolig patient, lyssna på deras berättelser och skapa trygghet i vardagen är det som driver mig. Jag tror starkt på personcentrerad vård och arbetar aktivt för att varje patient ska känna sig sedd och respekterad. När situationen kräver det är jag lugn och beslutsam – jag har hanterat akuta fall, konfusion och plötsliga försämringar och vet hur viktigt det är att agera snabbt samtidigt som jag bevarar lugnet för patienten.
+Det jag uppskattar mest med vårdyrket är relationerna med patienterna. Att få tid att sitta ner med en orolig patient, lyssna på deras berättelser och skapa trygghet i vardagen är det som driver mig. Jag tror starkt på personcentrerad vård och arbetar aktivt för att varje patient ska känna sig sedd och respekterad. När situationen kräver det är jag lugn och beslutsam, jag har hanterat akuta fall, konfusion och plötsliga försämringar och vet hur viktigt det är att agera snabbt samtidigt som jag bevarar lugnet för patienten.
 
 Vad som verkligen tilltalar mig med Karolinska Universitetssjukhuset är er satsning på kontinuerlig kompetensutveckling och evidensbaserad omvårdnad. Jag har under det senaste året genomgått utbildning i basala hygienrutiner och nutritionsbedömning, och jag ser fram emot att fortsätta utvecklas tillsammans med er kompetenta personalgrupp. Er forskning inom geriatrik och fokus på värdighetsbevarande vård ligger helt i linje med min egen yrkesstolthet.
 
@@ -455,7 +458,7 @@ Lisa Andersson`
       },
       {
         titel: 'Kompetensutveckling som styrka',
-        beskrivning: 'Nämner specifika utbildningar (basala hygienrutiner, nutritionsbedömning) och medicinsk delegering för insulin, PEG och subkutana injektioner. Detta visar lärvilja och professionalism – egenskaper som vårdgivare högt värderar.'
+        beskrivning: 'Nämner specifika utbildningar (basala hygienrutiner, nutritionsbedömning) och medicinsk delegering för insulin, PEG och subkutana injektioner. Detta visar lärvilja och professionalism, egenskaper som vårdgivare högt värderar.'
       },
       {
         titel: 'Företagsspecifik anpassning',
@@ -582,10 +585,10 @@ Lisa Andersson`
     intro: 'Ett professionellt personligt brev för studenter som visar hur du omvandlar akademiska meriter och mindre arbetslivserfarenhet till konkret värde för arbetsgivare. Optimerat för sommarjobb och extrajobb.',
 
     exempelBrev: {
-      namn: 'Erik Johansson',
+      namn: 'Emma Andersson',
       adress: 'Vasagatan 8, 411 24 Göteborg',
-      telefon: '073-456 78 90',
-      epost: 'erik.johansson@student.gu.se',
+      telefon: '070-123 45 67',
+      epost: 'emma.andersson@email.se',
       arbetsgivare: 'Gekås Ullared',
       roll: 'Sommarjobb som säljare',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -599,10 +602,10 @@ Mina kurser i marknadsföring och kommunikation ger mig verktyg att förstå kun
 
 Vad som verkligen tilltalar mig med Gekås är kombinationen av stora kundflöden, brett produktsortiment och högt tempo. Jag vill lära mig hur ni hanterar tusentals kunder per dag och får försäljningen att fungera smidigt trots trycket. Era värderingar om god service och att varje kund ska känna sig välkommen stämmer helt med hur jag jobbar.
 
-Jag är tillgänglig hela sommaren från 1 juni till 31 augusti och kan börja direkt efter min sista tenta den 28 maj. Tveka inte att kontakta mig på 073-456 78 90 eller erik.johansson@student.gu.se.
+Jag är tillgänglig hela sommaren från 1 juni till 31 augusti och kan börja direkt efter min sista tenta den 28 maj. Tveka inte att kontakta mig på 070-123 45 67 eller emma.andersson@email.se.
 
 Varma hälsningar,
-Erik Johansson`
+Emma Andersson`
     },
 
     varforDetFungerar: [
@@ -745,10 +748,10 @@ Erik Johansson`
     intro: 'Ett professionellt personligt brev för lärare som visar pedagogisk kompetens, klassrumsledning och förmåga att skapa engagerande lärmiljöer. Detta exempel är optimerat för svenska skolor och ATS-system.',
 
     exempelBrev: {
-      namn: 'Anna Bergström',
+      namn: 'Emma Bergström',
       adress: 'Skolvägen 15, 582 73 Linköping',
-      telefon: '070-234 56 78',
-      epost: 'anna.bergstrom@email.se',
+      telefon: '073-456 78 90',
+      epost: 'emma.bergstrom@email.se',
       arbetsgivare: 'Linköpings Montessoriskola',
       roll: 'Grundskollärare F-3 med inriktning svenska och NO',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -762,10 +765,10 @@ Det jag värdesätter mest i läraryrket är relationerna med eleverna. Att se n
 
 Vad som verkligen tilltalar mig med Linköpings Montessoriskola är ert fokus på praktiskt lärande och att eleverna ska vara aktiva i sin kunskapsutveckling. Jag har under det senaste året arbetat med Ipads i undervisningen för läsförståelse och NO-experiment, och jag ser fram emot att fortsätta utvecklas i en miljö där ni kombinerar Montessoripedagogik med moderna digitala verktyg. Er satsning på kollegialt lärande och kontinuerlig kompetensutveckling ligger helt i linje med min syn på läraryrket som ett livslångt lärande.
 
-Jag ser fram emot att diskutera hur jag kan bidra till er verksamhet och elevernas lärande. Tveka inte att kontakta mig på 070-234 56 78 eller anna.bergstrom@email.se.
+Jag ser fram emot att diskutera hur jag kan bidra till er verksamhet och elevernas lärande. Tveka inte att kontakta mig på 073-456 78 90 eller emma.bergstrom@email.se.
 
 Varma hälsningar,
-Anna Bergström`
+Emma Bergström`
     },
 
     varforDetFungerar: [
@@ -908,10 +911,10 @@ Anna Bergström`
     intro: 'Ett professionellt personligt brev för säljare som demonstrerar kvantifierade försäljningsresultat, strukturerad säljprocess och CRM-kompetens genom konkreta exempel. Detta exempel är optimerat för B2B-försäljning och ATS-system.',
 
     exempelBrev: {
-      namn: 'Sofia Andersson',
+      namn: 'Erik Andersson',
       adress: 'Sveavägen 142, 113 46 Stockholm',
       telefon: '070-234 56 78',
-      epost: 'sofia.andersson@email.se',
+      epost: 'erik.andersson@email.se',
       arbetsgivare: 'TechSolutions Nordic AB',
       roll: 'Säljare B2B',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -925,16 +928,16 @@ Jag arbetar strukturerat med hela säljcykeln från prospektering till kundvård
 
 Vad som verkligen tilltalar mig med TechSolutions Nordic är er starka produktportfölj och ert fokus på att lösa verkliga affärsproblem för svenska företag. Jag har följt er tillväxt och uppskattar er konsultativa approach och er långa customer lifetime value. Jag ser fram emot att arbeta i ett team där produktkunskap, kundnytta och ärlighet värderas lika högt som försäljningssiffror, och där jag kan bidra med min erfarenhet av komplex B2B-försäljning.
 
-Jag är redo att börja omgående och ser fram emot att diskutera hur jag kan bidra till era tillväxtmål. Kontakta mig gärna på 070-234 56 78 eller sofia.andersson@email.se.
+Jag är redo att börja omgående och ser fram emot att diskutera hur jag kan bidra till era tillväxtmål. Kontakta mig gärna på 070-234 56 78 eller erik.andersson@email.se.
 
 Med vänlig hälsning,
-Sofia Andersson`
+Erik Andersson`
     },
 
     varforDetFungerar: [
       {
         titel: 'Kvantifierade försäljningsresultat som är omöjliga att ignorera',
-        beskrivning: 'Istället för "jag är duktig på försäljning" används konkreta, mätbara resultat: 156% måluppfyllelse, 4,8 miljoner kr i ny ARR, 23 nya kunder, 208 000 kr genomsnittligt deal-värde, 34% closing rate. Detta gör kompetensen trovärdig och lätt att jämföra med andra kandidater. Siffrorna visar inte bara att kandidaten levererar utan också att hon förstår vilka KPI:er som räknas inom B2B-försäljning.'
+        beskrivning: 'Istället för "jag är duktig på försäljning" används konkreta, mätbara resultat: 156% måluppfyllelse, 4,8 miljoner kr i ny ARR, 23 nya kunder, 208 000 kr genomsnittligt deal-värde, 34% closing rate. Detta gör kompetensen trovärdig och lätt att jämföra med andra kandidater. Siffrorna visar inte bara att kandidaten levererar utan också att han förstår vilka KPI:er som räknas inom B2B-försäljning.'
       },
       {
         titel: 'Konkret säljexempel som visar metodik och process',
@@ -1066,21 +1069,21 @@ Sofia Andersson`
     metaTitle: 'Personligt Brev Sommarjobb - Exempel & Mallar för Unga 2026',
     metaDescription: 'Få ditt sommarjobb med ett professionellt personligt brev. Komplett exempel, konkreta tips för dig utan erfarenhet, och mall att använda direkt. Perfekt för studenter!',
 
-    seoIntro: 'Sök sommarjobb med ett personligt brev som visar entusiasm och pålitlighet – även om du inte har jobbat mycket ännu. Det här exemplet visar hur Emma (19 år, student) söker sommarjobb på Coop och får fram sina styrkor trots begränsad arbetslivserfarenhet.\n\nDu får se exakt hur hon lyfter konkreta exempel från tidigare sommarjobb, barnvaktsjobb och skola för att visa pålitlighet, flexibilitet och rätt inställning. Brevet innehåller tydlig tillgänglighet (9 juni-18 augusti), visar varför arbetsgivare kan lita på henne och använder en naturlig, entusiastisk ton som passar unga sökande.\n\nPerfekt för dig som söker ditt första eller andra sommarjobb inom detaljhandel, lager, restaurang eller kontor. Anpassa efter din egen erfarenhet och använd våra tips för att kompensera för begränsad arbetslivserfarenhet.',
+    seoIntro: 'Sök sommarjobb med ett personligt brev som visar entusiasm och pålitlighet, även om du inte har jobbat mycket ännu. Det här exemplet visar hur Emma (19 år, student) söker sommarjobb på Coop och får fram sina styrkor trots begränsad arbetslivserfarenhet.\n\nDu får se exakt hur hon lyfter konkreta exempel från tidigare sommarjobb, barnvaktsjobb och skola för att visa pålitlighet, flexibilitet och rätt inställning. Brevet innehåller tydlig tillgänglighet (9 juni-18 augusti), visar varför arbetsgivare kan lita på henne och använder en naturlig, entusiastisk ton som passar unga sökande.\n\nPerfekt för dig som söker ditt första eller andra sommarjobb inom detaljhandel, lager, restaurang eller kontor. Anpassa efter din egen erfarenhet och använd våra tips för att kompensera för begränsad arbetslivserfarenhet.',
 
     intro: 'Ett professionellt personligt brev för sommarjobb som visar entusiasm, pålitlighet och rätt inställning. Detta exempel är skrivet för unga sökande utan lång erfarenhet och visar hur du lyfter rätt egenskaper.',
 
     exempelBrev: {
-      namn: 'Emma Andersson',
+      namn: 'Emma Lindqvist',
       adress: 'Drottningholmsvägen 32, 168 65 Bromma',
-      telefon: '070-XXX XX XX',
-      epost: 'emma.andersson@exempel.se',
+      telefon: '070-123 45 67',
+      epost: 'emma.lindqvist@email.se',
       arbetsgivare: 'Coop Vällingby',
       roll: 'Sommarjobb',
       datum: new Date().toLocaleDateString('sv-SE'),
       brevText: `Hej!
 
-Jag heter Emma Andersson och söker sommarjobb på Coop Vällingby för juni-augusti 2026. Jag är 19 år och läser andra året på samhällsprogrammet. Jag är helt ledig från 9 juni till 18 augusti.
+Jag heter Emma Lindqvist och söker sommarjobb på Coop Vällingby för juni-augusti 2026. Jag är 19 år och läser andra året på samhällsprogrammet. Jag är helt ledig från 9 juni till 18 augusti.
 
 Jag har jobbat ett tidigare sommar på ICA Maxi där jag packade upp varor, hjälpte kunder och höll ordning i butiken. Där lärde jag mig ta eget ansvar, jobba snabbt när det är mycket att göra och vara trevlig även när det är stressigt. Min arbetsgivare sa att jag var pålitlig och hade lätt att lära mig nya arbetsuppgifter.
 
@@ -1091,9 +1094,9 @@ Jag är van vid tidiga morgnar eftersom jag tränar simning före skolan, och ja
 Jag skulle verkligen uppskatta att få jobba hos er i sommar och hoppas att vi kan ses för en intervju!
 
 Vänliga hälsningar,
-Emma Andersson
-070-XXX XX XX
-emma.andersson@exempel.se`
+Emma Lindqvist
+070-123 45 67
+emma.lindqvist@email.se`
     },
 
     varforDetFungerar: [
@@ -1107,11 +1110,11 @@ emma.andersson@exempel.se`
       },
       {
         titel: 'Betonar pålitlighet med exempel från barnvaktsjobb',
-        beskrivning: 'Barnvaktsjobb är perfekt exempel för att visa pålitlighet – föräldrar måste kunna lita på dig. Emma kopplar detta direkt till att "folk måste kunna lita på mig", vilket visar att hon förstår vad som är viktigt i arbetslivet.'
+        beskrivning: 'Barnvaktsjobb är perfekt exempel för att visa pålitlighet, föräldrar måste kunna lita på dig. Emma kopplar detta direkt till att "folk måste kunna lita på mig", vilket visar att hon förstår vad som är viktigt i arbetslivet.'
       },
       {
         titel: 'Adresserar praktiska krav direkt i brevet',
-        beskrivning: 'Emma nämner att hon kan jobba tidiga morgnar, helger och kvällar – praktiska krav som många sommarjobb har. Genom att ta upp detta direkt visar hon realism och att hon förstår vad jobbet kräver.'
+        beskrivning: 'Emma nämner att hon kan jobba tidiga morgnar, helger och kvällar, praktiska krav som många sommarjobb har. Genom att ta upp detta direkt visar hon realism och att hon förstår vad jobbet kräver.'
       },
       {
         titel: 'Använder naturlig, entusiastisk ton som passar en ung sökande',
@@ -1126,26 +1129,26 @@ emma.andersson@exempel.se`
       },
       {
         rubrik: 'Kompensera för begränsad erfarenhet med rätt exempel',
-        text: 'Om du inte har jobbat mycket tidigare kan du lyfta exempel från skola, föreningsliv eller fritid som visar relevanta egenskaper. Har du alltid kommit i tid till träningar? Tagit ansvar i grupparbeten? Jobbat extra hårt för att klara en tuff kurs?\n\nArbetsgivare som anställer sommarjobbare vet att ni inte har lång erfarenhet – de letar efter tecken på att du är ansvarsfull, lätt att jobba med och villig att lära dig.'
+        text: 'Om du inte har jobbat mycket tidigare kan du lyfta exempel från skola, föreningsliv eller fritid som visar relevanta egenskaper. Har du alltid kommit i tid till träningar? Tagit ansvar i grupparbeten? Jobbat extra hårt för att klara en tuff kurs?\n\nArbetsgivare som anställer sommarjobbare vet att ni inte har lång erfarenhet, de letar efter tecken på att du är ansvarsfull, lätt att jobba med och villig att lära dig.'
       },
       {
         rubrik: 'Fokusera på inställning och personliga egenskaper',
-        text: 'För sommarjobb värderas ofta din inställning högre än specifik erfarenhet. Visa att du är positiv, flexibel och någon som är lätt att ha i ett arbetslag.\n\nUndvik klyschiga fraser som "driven och ambitiös" – visa istället genom konkreta exempel. "Jag gillar att ha mycket att göra och jobbar snabbt när det är fullt i butiken" säger mer än "jag är stresstålig".'
+        text: 'För sommarjobb värderas ofta din inställning högre än specifik erfarenhet. Visa att du är positiv, flexibel och någon som är lätt att ha i ett arbetslag.\n\nUndvik klyschiga fraser som "driven och ambitiös", visa istället genom konkreta exempel. "Jag gillar att ha mycket att göra och jobbar snabbt när det är fullt i butiken" säger mer än "jag är stresstålig".'
       },
       {
         rubrik: 'Skriv inte för långt eller komplicerat',
-        text: 'Ditt personliga brev behöver inte vara lika formellt eller långt som för ett heltidsjobb. 250-350 ord är lagom. Skriv enkelt och naturligt – försök inte låta äldre eller mer erfaren än du är.\n\nArbetsgivare vill se att du kan kommunicera tydligt och professionellt, inte att du behärskar formella affärsbrev. En ärlig, entusiastisk ton fungerar bättre än stelt formellt språk.'
+        text: 'Ditt personliga brev behöver inte vara lika formellt eller långt som för ett heltidsjobb. 250-350 ord är lagom. Skriv enkelt och naturligt, försök inte låta äldre eller mer erfaren än du är.\n\nArbetsgivare vill se att du kan kommunicera tydligt och professionellt, inte att du behärskar formella affärsbrev. En ärlig, entusiastisk ton fungerar bättre än stelt formellt språk.'
       },
       {
         rubrik: 'Inkludera konkreta kontaktuppgifter och var tydlig med uppföljning',
-        text: 'Se till att ditt mobilnummer och e-post är tydligt angivna – arbetsgivare kontaktar ofta snabbt när de hittar rätt kandidat. Använd en seriös e-postadress (förnamn.efternamn@), inte smeknamn eller ålderdomliga adresser.\n\nOm du söker till flera ställen, håll koll på var du har sökt så att du kan svara professionellt när de ringer. Många sommarjobb fylls snabbt i april-maj, så var beredd att kunna komma på intervju med kort varsel.'
+        text: 'Se till att ditt mobilnummer och e-post är tydligt angivna, arbetsgivare kontaktar ofta snabbt när de hittar rätt kandidat. Använd en seriös e-postadress (förnamn.efternamn@), inte smeknamn eller ålderdomliga adresser.\n\nOm du söker till flera ställen, håll koll på var du har sökt så att du kan svara professionellt när de ringer. Många sommarjobb fylls snabbt i april-maj, så var beredd att kunna komma på intervju med kort varsel.'
       }
     ],
 
     faq: [
       {
         q: 'Vad skriver jag i personligt brev om jag aldrig har haft ett jobb tidigare?',
-        a: 'Fokusera på exempel från skola, fritid och föreningsliv som visar att du är pålitlig och lätt att jobba med. Har du haft ansvar i grupparbeten? Varit punktlig till träningar? Klarat tuffa kurser? Arbetsgivare som anställer sommarjobbare förväntar sig inte lång erfarenhet – de vill se rätt inställning. Lyft konkreta exempel som visar att du kan ta ansvar, lära dig snabbt och är någon man kan lita på. Det är bättre att ha tre konkreta exempel från skolan än att hitta på arbetslivserfarenhet.'
+        a: 'Fokusera på exempel från skola, fritid och föreningsliv som visar att du är pålitlig och lätt att jobba med. Har du haft ansvar i grupparbeten? Varit punktlig till träningar? Klarat tuffa kurser? Arbetsgivare som anställer sommarjobbare förväntar sig inte lång erfarenhet, de vill se rätt inställning. Lyft konkreta exempel som visar att du kan ta ansvar, lära dig snabbt och är någon man kan lita på. Det är bättre att ha tre konkreta exempel från skolan än att hitta på arbetslivserfarenhet.'
       },
       {
         q: 'Hur långt ska personligt brev för sommarjobb vara?',
@@ -1153,7 +1156,7 @@ emma.andersson@exempel.se`
       },
       {
         q: 'Måste jag skriva personnummer i ansökan till sommarjobb?',
-        a: 'Nej, du behöver inte skriva ditt personnummer i personligt brev eller CV förrän arbetsgivaren ber om det – vanligtvis i samband med anställning. Det räcker med namn, telefonnummer, e-post och eventuellt adress. Vissa arbetsgivare ber om personnummer i ansökningsformuläret för att kolla ålder (för arbeten med åldersgräns), men då finns det ett särskilt fält för det. Skriv aldrig personnummer i själva brevtexten.'
+        a: 'Nej, du behöver inte skriva ditt personnummer i personligt brev eller CV förrän arbetsgivaren ber om det, vanligtvis i samband med anställning. Det räcker med namn, telefonnummer, e-post och eventuellt adress. Vissa arbetsgivare ber om personnummer i ansökningsformuläret för att kolla ålder (för arbeten med åldersgräns), men då finns det ett särskilt fält för det. Skriv aldrig personnummer i själva brevtexten.'
       },
       {
         q: 'Hur länge ska jag kunna jobba för att få sommarjobb?',
@@ -1161,11 +1164,11 @@ emma.andersson@exempel.se`
       },
       {
         q: 'Ska jag anpassa personligt brev för varje sommarjobb jag söker?',
-        a: 'Ja, du bör alltid anpassa brevet – åtminstone företagsnamnet och eventuellt några meningar om varför du vill jobba just där. Det behöver inte vara stora förändringar, men ett brev som är skrivet specifikt till "Coop Vällingby" gör mycket bättre intryck än ett generiskt brev till "Er butik". Om du söker liknande jobb kan du ha en grundmall och justera 2-3 stycken för varje ansökan. Det tar fem minuter extra men ökar dina chanser markant.'
+        a: 'Ja, du bör alltid anpassa brevet, åtminstone företagsnamnet och eventuellt några meningar om varför du vill jobba just där. Det behöver inte vara stora förändringar, men ett brev som är skrivet specifikt till "Coop Vällingby" gör mycket bättre intryck än ett generiskt brev till "Er butik". Om du söker liknande jobb kan du ha en grundmall och justera 2-3 stycken för varje ansökan. Det tar fem minuter extra men ökar dina chanser markant.'
       },
       {
         q: 'Vad är viktigast att lyfta som ung sommarjobbssökande?',
-        a: 'Pålitlighet, flexibilitet och rätt inställning. Arbetsgivare som anställer sommarjobbare vet att ni är unga och lär er fortfarande – de vill ha någon som kommer i tid, gör vad som förväntas, är trevlig mot kunder och kollegor, och inte försvinner efter två veckor. Visa genom konkreta exempel att du är någon man kan lita på. Om du har referenser från tidigare sommarjobb, skola eller barnvaktsjobb som kan bekräfta detta, nämn det gärna.'
+        a: 'Pålitlighet, flexibilitet och rätt inställning. Arbetsgivare som anställer sommarjobbare vet att ni är unga och lär er fortfarande, de vill ha någon som kommer i tid, gör vad som förväntas, är trevlig mot kunder och kollegor, och inte försvinner efter två veckor. Visa genom konkreta exempel att du är någon man kan lita på. Om du har referenser från tidigare sommarjobb, skola eller barnvaktsjobb som kan bekräfta detta, nämn det gärna.'
       },
       {
         q: 'Hur skriver jag om jag inte vet exakt vilken roll jag söker?',
@@ -1177,7 +1180,7 @@ emma.andersson@exempel.se`
       },
       {
         q: 'Ska jag skicka CV tillsammans med personligt brev till sommarjobb?',
-        a: 'Ja, skicka alltid både CV och personligt brev om inget annat anges i jobbannonsen. Även om ditt CV är kort på grund av begränsad erfarenhet ska det finnas med – det visar att du kan presentera dig professionellt. Ditt CV kompletterar brevet med struktur och tydlighet kring utbildning, eventuell erfarenhet och kompetenser. För sommarjobb kan ditt CV vara kort (en sida) och enkelt, men det ska alltid finnas med.'
+        a: 'Ja, skicka alltid både CV och personligt brev om inget annat anges i jobbannonsen. Även om ditt CV är kort på grund av begränsad erfarenhet ska det finnas med, det visar att du kan presentera dig professionellt. Ditt CV kompletterar brevet med struktur och tydlighet kring utbildning, eventuell erfarenhet och kompetenser. För sommarjobb kan ditt CV vara kort (en sida) och enkelt, men det ska alltid finnas med.'
       }
     ],
 
@@ -1232,10 +1235,10 @@ emma.andersson@exempel.se`
     intro: 'Ett professionellt personligt brev för butikssäljare som visar försäljningsresultat, kundservice och produktkunskap. Detta exempel är optimerat för detaljhandeln och ATS-system.',
 
     exempelBrev: {
-      namn: 'Erik Lindström',
+      namn: 'Emma Karlsson',
       adress: 'Drottninggatan 45, 111 21 Stockholm',
-      telefon: '073-456 12 34',
-      epost: 'erik.lindstrom@email.se',
+      telefon: '070-987 65 43',
+      epost: 'emma.karlsson@email.se',
       arbetsgivare: 'MQ Marqet',
       roll: 'Butikssäljare',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -1251,10 +1254,10 @@ Jag arbetar också med visuell merchandising, kassahantering och påfyllning und
 
 Vad som verkligen tilltalar mig med MQ Marqet är er position inom kvalitetsmode och ert fokus på långsiktiga kundrelationer. Jag har följt ert varumärke länge och uppskattar er stilrena skandinaviska design. Jag ser fram emot att arbeta i en miljö där produktkvalitet och personlig service värderas lika högt som försäljningssiffror, och där jag kan fortsätta utvecklas som säljare.
 
-Jag är fullt flexibel gällande arbetstider inklusive kvällar och helger, och kan börja arbeta omgående. Tveka inte att kontakta mig på 073-456 12 34 eller erik.lindstrom@email.se.
+Jag är fullt flexibel gällande arbetstider inklusive kvällar och helger, och kan börja arbeta omgående. Tveka inte att kontakta mig på 070-987 65 43 eller emma.karlsson@email.se.
 
 Varma hälsningar,
-Erik Lindström`
+Emma Karlsson`
     },
 
     varforDetFungerar: [
@@ -1401,10 +1404,10 @@ Erik Lindström`
     intro: 'Ett professionellt personligt brev för sjuksköterska som visar klinisk kompetens, medicinskt-tekniska färdigheter och förmåga att arbeta i tvärprofessionella team under hög arbetsbelastning. Detta exempel är optimerat för svenska vårdgivare och ATS-system.',
 
     exempelBrev: {
-      namn: 'Maria Lindström',
+      namn: 'Anna Lindqvist',
       adress: 'Vårdgatan 23, 171 77 Stockholm',
-      telefon: '070-987 65 43',
-      epost: 'maria.lindstrom@email.se',
+      telefon: '070-123 45 67',
+      epost: 'anna.lindqvist@email.se',
       arbetsgivare: 'Danderyds sjukhus',
       roll: 'Sjuksköterska på akutmottagningen',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -1418,10 +1421,10 @@ Det jag uppskattar mest med akutsjukvård är mångfalden och att varje situatio
 
 Vad som verkligen tilltalar mig med Danderyds sjukhus är er specialisering inom traumavård och er forskningsverksamhet inom akutmedicin. Jag har under det senaste året genomfört kurs i TNCC (Trauma Nursing Core Course) och uppdaterar regelbundet min ACLS-certifiering. Jag ser fram emot att fortsätta utvecklas i en miljö där ni kombinerar evidensbaserad vård med kontinuerlig kompetensutveckling och där jag kan bidra till era höga vårdstandarder.
 
-Jag ser fram emot att diskutera hur jag kan bidra till er verksamhet och till patienternas säkerhet. Tveka inte att kontakta mig på 070-987 65 43 eller maria.lindstrom@email.se.
+Jag ser fram emot att diskutera hur jag kan bidra till er verksamhet och till patienternas säkerhet. Tveka inte att kontakta mig på 070-123 45 67 eller anna.lindqvist@email.se.
 
 Varma hälsningar,
-Maria Lindström`
+Anna Lindqvist`
     },
 
     varforDetFungerar: [
@@ -1439,7 +1442,7 @@ Maria Lindström`
       },
       {
         titel: 'Problemlösning och kliniskt tänkande',
-        beskrivning: 'Sepsis-exemplet visar inte bara vad kandidaten gjorde utan hur hen tänkte: identifierade tidiga tecken, startade behandling enligt bundel, samordnade transport. Detta demonstrerar kliniskt omdöme och förmåga att agera snabbt i kritiska situationer – kärnkompetens inom akutsjukvård.'
+        beskrivning: 'Sepsis-exemplet visar inte bara vad kandidaten gjorde utan hur hen tänkte: identifierade tidiga tecken, startade behandling enligt bundel, samordnade transport. Detta demonstrerar kliniskt omdöme och förmåga att agera snabbt i kritiska situationer, kärnkompetens inom akutsjukvård.'
       },
       {
         titel: 'Anpassning efter sjukhusets profil',
@@ -1563,16 +1566,16 @@ Maria Lindström`
     intro: 'Ett professionellt personligt brev för ekonomiassistent som visar din bokföringskompetens, systemvana och förmåga att hantera ekonomiadministration med precision. Detta exempel är optimerat för svenska arbetsgivare och ATS-system.',
 
     exempelBrev: {
-      namn: 'Lisa Bergström',
+      namn: 'Anna Bergström',
       adress: 'Ekonomvägen 15, 112 34 Stockholm',
-      telefon: '070-234 56 78',
-      epost: 'lisa.bergstrom@email.se',
+      telefon: '070-123 45 67',
+      epost: 'anna.bergstrom@exempel.se',
       arbetsgivare: 'Lundqvist Redovisning AB',
       roll: 'Ekonomiassistent',
       datum: new Date().toLocaleDateString('sv-SE'),
       brevText: `Hej,
 
-Jag söker tjänsten som ekonomiassistent på Lundqvist Redovisning AB. Med fyra års erfarenhet av bokföring, redovisning och ekonomiadministration samt gedigen systemkännedom i Fortnox och Visma är jag övertygad om att min profil matchar väl in i ert team. Er beskrivning av noggrannhet och strukturerat arbete är exakt hur jag jobbar – jag dubbelkollar alltid mina avstämningar och har checklistor för varje månadsavslut.
+Jag söker tjänsten som ekonomiassistent på Lundqvist Redovisning AB. Med fyra års erfarenhet av bokföring, redovisning och ekonomiadministration samt gedigen systemkännedom i Fortnox och Visma är jag övertygad om att min profil matchar väl in i ert team. Er beskrivning av noggrannhet och strukturerat arbete är exakt hur jag jobbar, jag dubbelkollar alltid mina avstämningar och har checklistor för varje månadsavslut.
 
 Under mina år på AB Handelshuset har jag hanterat löpande bokföring för 150+ leverantörer och 80+ kunder, inklusive leverantörsreskontra, kundreskontra, fakturering och betalningshantering. Jag har ansvar för månads- och kvartalsavslut, momsredovisning, arbetsgivardeklarationer och preliminärskatt. Ett konkret exempel är när jag upptäckte en systematisk felkontering av exportmoms värd 120 000 kr som hade pågått i tre månader, rättade felet retroaktivt och säkerställde korrekt momsrapportering framåt. Jag arbetar tätt med vår externa redovisningskonsult och internrevisorn för att säkerställa korrekt redovisning enligt K3-regelverket.
 
@@ -1580,19 +1583,21 @@ Det jag uppskattar mest med ekonomiarbete är kombinationen av struktur och prob
 
 Vad som verkligen tilltalar mig med Lundqvist Redovisning AB är er bredd av kunder inom olika branscher och er specialisering på att hjälpa små och medelstora företag. Jag har under det senaste året fördjupat mig i K2/K3-regelverken och följer regelbundet SKV:s uppdateringar kring moms och arbetsgivaravgifter. Jag ser fram emot att fortsätt utvecklas i en miljö där varje kund kräver anpassad redovisningslösning och där jag kan bidra med min systematiska arbetsmetodik och precision.
 
-Jag ser fram emot att diskutera hur jag kan bidra till er verksamhet och era kunders ekonomiska trygghet. Tveka inte att kontakta mig på 070-234 56 78 eller lisa.bergstrom@email.se.
+Jag ser fram emot att diskutera hur jag kan bidra till er verksamhet och era kunders ekonomiska trygghet. Tveka inte att kontakta mig på 070-123 45 67 eller anna.bergstrom@exempel.se.
 
 Varma hälsningar,
-Lisa Bergström`
+Anna Bergström`
     },
 
     varforDetFungerar: [
       {
         titel: 'ATS-nyckelord för ekonomiassistenter',
+        ankare: 'stycke-2',
         beskrivning: 'Brevet innehåller kritiska ekonomiska sökord som ATS-system letar efter: bokföring, leverantörsreskontra, kundreskontra, månadsavslut, momsredovisning, arbetsgivardeklaration, K3-regelverket, Fortnox, Visma, fakturering, attesthantering och redovisningskonsult. Detta ökar chansen att brevet rankas högt i rekryteringssystem och visar bred ekonomikompetens.'
       },
       {
         titel: 'Konkreta exempel med kvantifierbara resultat',
+        ankare: 'stycke-2',
         beskrivning: 'Istället för "jag är noggrann" beskrivs konkreta situationer: upptäckte felkontering av exportmoms värd 120 000 kr, hanterar 150+ leverantörer och 80+ kunder, genomsnittligt 3 dagars stängningstid vid månadsbokslut. Detta visar kompetens genom handling och mätbara resultat, inte vaga påståenden.'
       },
       {
@@ -1601,10 +1606,11 @@ Lisa Bergström`
       },
       {
         titel: 'Problemlösning och proaktivitet',
-        beskrivning: 'Exportmoms-exemplet visar inte bara vad kandidaten gjorde utan hur hen tänkte: upptäckte systematiskt fel, rättade retroaktivt, säkerställde framåt. Detta demonstrerar analytiskt tänkande och förmåga att identifiera ekonomiska risker – kärnkompetens inom redovisning.'
+        beskrivning: 'Exportmoms-exemplet visar inte bara vad kandidaten gjorde utan hur hen tänkte: upptäckte systematiskt fel, rättade retroaktivt, säkerställde framåt. Detta demonstrerar analytiskt tänkande och förmåga att identifiera ekonomiska risker, kärnkompetens inom redovisning.'
       },
       {
         titel: 'Anpassning efter arbetsgivarens profil',
+        ankare: 'stycke-4',
         beskrivning: 'Brevet refererar specifikt till Lundqvist Redovisnings kundbas och specialisering på små/medelstora företag, vilket visar research om arbetsgivaren. Nämner också relevanta regelverk (K2/K3, SKV-uppdateringar) som matchar redovisningsbyråers verksamhet. Detta gör brevet personligt och ökar chansen att ekonomichefen läser hela texten.'
       }
     ],
@@ -1612,7 +1618,7 @@ Lisa Bergström`
     tips: [
       {
         rubrik: 'Använd ekonomiska nyckelord som ATS-system söker',
-        text: 'Nämn alltid konkreta funktioner du behärskar så att ATS-systemet hittar dig: leverantörsreskontra, kundreskontra, månadsavslut, årsbokslut, momsredovisning, arbetsgivardeklaration, preliminärskatt, fakturering, attesthantering och betalningshantering.\n\nOm jobbannonsen nämner specifika redovisningssystem som Fortnox, Visma, Hogia, Monitor, Pe Accounting eller Specter, inkludera dem om du har erfarenhet. Nämn också regelverken du arbetat med: K2, K3, bokföringslagen (BFL), momslagen, skattelagen.\n\nDessa termer signalerar både till ATS-systemet och till rekryteraren att du behärskar de praktiska delarna av ekonomiarbetet och kan börja arbeta med minimal introduktion. Undvik generella fraser som "ansvarig för ekonomi" – var specifik om vad du faktiskt gör.'
+        text: 'Nämn alltid konkreta funktioner du behärskar så att ATS-systemet hittar dig: leverantörsreskontra, kundreskontra, månadsavslut, årsbokslut, momsredovisning, arbetsgivardeklaration, preliminärskatt, fakturering, attesthantering och betalningshantering.\n\nOm jobbannonsen nämner specifika redovisningssystem som Fortnox, Visma, Hogia, Monitor, Pe Accounting eller Specter, inkludera dem om du har erfarenhet. Nämn också regelverken du arbetat med: K2, K3, bokföringslagen (BFL), momslagen, skattelagen.\n\nDessa termer signalerar både till ATS-systemet och till rekryteraren att du behärskar de praktiska delarna av ekonomiarbetet och kan börja arbeta med minimal introduktion. Undvik generella fraser som "ansvarig för ekonomi", var specifik om vad du faktiskt gör.'
       },
       {
         rubrik: 'Kvantifiera ditt ekonomiansvar med konkreta siffror',
@@ -1639,7 +1645,7 @@ Lisa Bergström`
       },
       {
         q: 'Hur viktigt är det att kunna specifika redovisningssystem?',
-        a: 'Mycket viktigt eftersom arbetsgivare vill minimera introduktionstiden. Om jobbannonsen nämner Fortnox, Visma, Hogia eller annat specifikt system och du kan det, lyft fram det tydligt: "Jag arbetar dagligen i Fortnox och behärskar alla moduler: bokföring, fakturering, löner, lager och projekt". Om du inte kan exakt det system de använder men liknande, förklara överförbarheten: "Jag arbetar i Visma Spcs men har tidigare erfarenhet av Fortnox och lär mig nya ekonomisystem snabbt – det tog mig 2 veckor att bli fullt produktiv i Visma när jag bytte arbetsgivare". Lista alla system du behärskar och betona generell digital kompetens och inlärningsförmåga. De flesta redovisningssystem bygger på samma logik, så erfarenhet från ett system underlättar övergången till andra.'
+        a: 'Mycket viktigt eftersom arbetsgivare vill minimera introduktionstiden. Om jobbannonsen nämner Fortnox, Visma, Hogia eller annat specifikt system och du kan det, lyft fram det tydligt: "Jag arbetar dagligen i Fortnox och behärskar alla moduler: bokföring, fakturering, löner, lager och projekt". Om du inte kan exakt det system de använder men liknande, förklara överförbarheten: "Jag arbetar i Visma Spcs men har tidigare erfarenhet av Fortnox och lär mig nya ekonomisystem snabbt, det tog mig 2 veckor att bli fullt produktiv i Visma när jag bytte arbetsgivare". Lista alla system du behärskar och betona generell digital kompetens och inlärningsförmåga. De flesta redovisningssystem bygger på samma logik, så erfarenhet från ett system underlättar övergången till andra.'
       },
       {
         q: 'Ska jag nämna erfarenhet av moms och skatt i det personliga brevet?',
@@ -1655,7 +1661,7 @@ Lisa Bergström`
       },
       {
         q: 'Hur hanterar jag begränsad erfarenhet som nyutexaminerad?',
-        a: 'Fokusera på utbildning, LIA-perioder och relevanta färdigheter. Beskriv din LIA konkret: "Under min LIA på Redovisningsbyrån Nord arbetade jag med bokföring för 8 kunder inom handel och tjänsteföretag, upprättade 3 momsdeklarationer och deltog i 2 månadsavslut under handledning". Lyft fram systemkännedom från utbildningen: "Jag behärskar Fortnox och Visma från utbildningen och har genomfört hela bokföringscykeln från verifikation till bokslut i studieprojekt". Betona teoretisk grund: "Jag har gedigen kunskap om K2/K3-regelverken, bokföringslagen och momslagen från mina redovisningskurser". Visa lärvilja: "Jag är nyfiken på att lära mig era specifika rutiner och processer och ser fram emot att växa in i rollen under erfaren handledning". Arbetsgivare vet att nyutexaminerade behöver introduktion – var ärlig men betona vad du kan och din motivation.'
+        a: 'Fokusera på utbildning, LIA-perioder och relevanta färdigheter. Beskriv din LIA konkret: "Under min LIA på Redovisningsbyrån Nord arbetade jag med bokföring för 8 kunder inom handel och tjänsteföretag, upprättade 3 momsdeklarationer och deltog i 2 månadsavslut under handledning". Lyft fram systemkännedom från utbildningen: "Jag behärskar Fortnox och Visma från utbildningen och har genomfört hela bokföringscykeln från verifikation till bokslut i studieprojekt". Betona teoretisk grund: "Jag har gedigen kunskap om K2/K3-regelverken, bokföringslagen och momslagen från mina redovisningskurser". Visa lärvilja: "Jag är nyfiken på att lära mig era specifika rutiner och processer och ser fram emot att växa in i rollen under erfaren handledning". Arbetsgivare vet att nyutexaminerade behöver introduktion, var ärlig men betona vad du kan och din motivation.'
       },
       {
         q: 'Ska jag nämna erfarenhet av budget och prognos?',
@@ -1671,7 +1677,7 @@ Lisa Bergström`
       },
       {
         q: 'Hur långt bör brevet vara för ekonomiassistenter?',
-        a: 'Sikta på 350-400 ord fördelat på 4-5 stycken, vilket motsvarar cirka 3/4 av en A4-sida. Ekonomichefer och rekryterare har begränsad tid, så håll brevet fokuserat och konkret. Varje stycke ska ha ett tydligt syfte: inledning med motivation och varför du passar, ekonomisk erfarenhet med konkreta uppgifter och system, hur du arbetar (noggrannhet, tempo, kommunikation), koppling till arbetsgivarens verksamhet och behov, och avslutning med uppmaning till kontakt. Undvik generella fraser som "jag är noggrann och driven" – visa det genom exempel istället. Om brevet blir längre än en A4-sida, korta ner genom att välja de mest relevanta exemplen för just denna tjänst. Kvalitet över kvantitet.'
+        a: 'Sikta på 350-400 ord fördelat på 4-5 stycken, vilket motsvarar cirka 3/4 av en A4-sida. Ekonomichefer och rekryterare har begränsad tid, så håll brevet fokuserat och konkret. Varje stycke ska ha ett tydligt syfte: inledning med motivation och varför du passar, ekonomisk erfarenhet med konkreta uppgifter och system, hur du arbetar (noggrannhet, tempo, kommunikation), koppling till arbetsgivarens verksamhet och behov, och avslutning med uppmaning till kontakt. Undvik generella fraser som "jag är noggrann och driven", visa det genom exempel istället. Om brevet blir längre än en A4-sida, korta ner genom att välja de mest relevanta exemplen för just denna tjänst. Kvalitet över kvantitet.'
       }
     ],
 
@@ -1720,15 +1726,15 @@ Lisa Bergström`
     metaTitle: 'Personligt brev barnskötare: färdigt exempel för förskola',
     metaDescription: 'Personligt brev för barnskötare på förskola: färdigt exempel med inskolning, Lpfö 18 och samarbete med vårdnadshavare. Kopiera, anpassa och skicka.',
 
-    seoIntro: 'Ett starkt personligt brev som barnskötare visar både din omsorgsförmåga och pedagogiska medvetenhet. Detta färdiga exempel demonstrerar hur du konkret beskriver erfarenhet från barngrupp, dagliga rutiner och samarbete med vårdnadshavare – på ett sätt som passar både ATS-system och rekryterande förskollärare.\n\nExemplet innehåller nyckelord som "pedagogisk verksamhet", "inskolning", "Lpfö 18" och "barngrupp 1-3 år" – termer som förskolor och kommuner söker efter i moderna rekryteringssystem. Du ser också hur kandidaten beskriver konkreta situationer: hur många barn hen arbetat med, vilka åldersgrupper, och specifika exempel på pedagogiska aktiviteter och omvårdnadsmoment.\n\nAnvänd detta exempel som mall och anpassa efter din egen erfarenhet, utbildning och den specifika förskola du söker till. Ett personligt brev för barnskötare ska visa både din omsorgsförmåga i praktiken och din pedagogiska kompetens – beskriv konkreta situationer där du skapat trygghet, stimulerat utveckling och samarbetat professionellt.',
+    seoIntro: 'Ett starkt personligt brev som barnskötare visar både din omsorgsförmåga och pedagogiska medvetenhet. Detta färdiga exempel demonstrerar hur du konkret beskriver erfarenhet från barngrupp, dagliga rutiner och samarbete med vårdnadshavare, på ett sätt som passar både ATS-system och rekryterande förskollärare.\n\nExemplet innehåller nyckelord som "pedagogisk verksamhet", "inskolning", "Lpfö 18" och "barngrupp 1-3 år", termer som förskolor och kommuner söker efter i moderna rekryteringssystem. Du ser också hur kandidaten beskriver konkreta situationer: hur många barn hen arbetat med, vilka åldersgrupper, och specifika exempel på pedagogiska aktiviteter och omvårdnadsmoment.\n\nAnvänd detta exempel som mall och anpassa efter din egen erfarenhet, utbildning och den specifika förskola du söker till. Ett personligt brev för barnskötare ska visa både din omsorgsförmåga i praktiken och din pedagogiska kompetens, beskriv konkreta situationer där du skapat trygghet, stimulerat utveckling och samarbetat professionellt.',
 
-    intro: 'Detta exempel visar hur du konkret beskriver dagliga situationer från förskolan – från inskolning och pedagogiska aktiviteter till dokumentation och föräldrasamarbete.',
+    intro: 'Detta exempel visar hur du konkret beskriver dagliga situationer från förskolan, från inskolning och pedagogiska aktiviteter till dokumentation och föräldrasamarbete.',
 
     exempelBrev: {
-      namn: 'Emma Andersson',
+      namn: 'Anna Bergström',
       adress: 'Björkvägen 12, 123 45 Stockholm',
       telefon: '070-123 45 67',
-      epost: 'emma.andersson@email.se',
+      epost: 'anna.bergstrom@exempel.se',
       arbetsgivare: 'Äventyrets Förskola, Solna Stad',
       roll: 'Barnskötare till avdelning Tussilago (1-3 år)',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -1738,35 +1744,39 @@ Jag söker tjänsten som barnskötare på Äventyrets förskola med stort engage
 
 På min nuvarande avdelning ansvarar jag för en barngrupp i åldern 1-3 år, tillsammans med förskollärare. Jag leder dagligen pedagogiska aktiviteter som skapande verksamhet, sångsamlingar och utevistelser, alltid med utgångspunkt i Lpfö 18 och barnens intressen. Vid måltider, blöjbyten och vilostunder skapar jag lugna rutiner som ger barnen trygghet och förutsägbarhet.
 
-Under en intensiv inskolningsperiod med flera nya barn samtidigt blev min struktur och lyhördhet extra viktig. Jag utvecklade en strukturerad inskolningsplan där jag noggrant dokumenterade varje barns progress och kommunicerade dagligen med vårdnadshavarna via Unikum. Genom att skapa tydliga rutiner och vara extra lyhörd för barnens signaler blev alla barn trygga enligt plan – något både föräldrar och kollegor uppskattade.
+Under en intensiv inskolningsperiod med flera nya barn samtidigt blev min struktur och lyhördhet extra viktig. Jag utvecklade en strukturerad inskolningsplan där jag noggrant dokumenterade varje barns progress och kommunicerade dagligen med vårdnadshavarna via Unikum. Genom att skapa tydliga rutiner och vara extra lyhörd för barnens signaler blev alla barn trygga enligt plan, något både föräldrar och kollegor uppskattade.
 
 Jag har aktuell utbildning i första hjälpen för barn, allergi- och hygienrutiner samt erfarenhet av att arbeta med barn i behov av extra stöd. I mitt dagliga arbete ser jag till att varje barn känner sig sett, tryggt och nyfiket på att lära sig nya saker. Jag trivs i teamarbete och värdesätter det nära samarbetet med både förskollärare och vårdnadshavare.
 
 På Äventyrets förskola ser jag fram emot att bidra med min erfarenhet från både små och stora barngrupper, min struktur i vardagen och mitt engagemang för varje barns utveckling.
 
 Varma hälsningar,
-Emma Andersson`
+Anna Bergström`
     },
 
     varforDetFungerar: [
       {
         titel: 'ATS-nyckelord för barnskötare',
-        beskrivning: 'Innehåller ATS-nyckelord som "barngrupp", "pedagogisk verksamhet", "Lpfö 18", "inskolning", "förskola", "omsorg" och "vårdnadshavare" – termer som svenska förskolor och kommuner söker efter i rekryteringssystem.'
+        ankare: 'stycke-1',
+        beskrivning: 'Innehåller ATS-nyckelord som "barngrupp", "pedagogisk verksamhet", "Lpfö 18", "inskolning", "förskola", "omsorg" och "vårdnadshavare", termer som svenska förskolor och kommuner söker efter i rekryteringssystem.'
       },
       {
         titel: 'Konkreta exempel istället för vaga påståenden',
+        ankare: 'stycke-1',
         beskrivning: 'Kvantifierar erfarenhet konkret: "fyra års erfarenhet", "barngrupper 1-3 år och 3-5 år", "flera nya barn samtidigt" och "trygga enligt plan" istället för vaga formuleringar som "god erfarenhet" eller "arbetat länge".'
       },
       {
         titel: 'Visar både omsorgsförmåga och pedagogisk medvetenhet',
+        ankare: 'stycke-2',
         beskrivning: 'Visar både omsorgsförmåga och pedagogisk medvetenhet genom konkreta exempel på dagliga rutiner (måltider, blöjbyten, vila) kombinerat med pedagogiska aktiviteter (skapande verksamhet, sångsamlingar) och referens till läroplanen.'
       },
       {
         titel: 'Professionellt förhållningssätt',
-        beskrivning: 'Demonstrerar professionellt förhållningssätt genom beskrivning av dokumentation (Unikum), inskolningsplan, kommunikation med vårdnadshavare och teamsamarbete – visar att kandidaten förstår barnskötarens roll i förskoleverksamheten.'
+        beskrivning: 'Demonstrerar professionellt förhållningssätt genom beskrivning av dokumentation (Unikum), inskolningsplan, kommunikation med vårdnadshavare och teamsamarbete, visar att kandidaten förstår barnskötarens roll i förskoleverksamheten.'
       },
       {
         titel: 'Konkret situation med resultat',
+        ankare: 'stycke-3',
         beskrivning: 'Innehåller specifik situation med konkret resultat som visar problemlösning och ansvarstagande: inskolning av flera barn med strukturerad plan och tydlig kommunikation som gav mätbart resultat (alla trygga enligt plan).'
       }
     ],
@@ -1782,15 +1792,15 @@ Emma Andersson`
       },
       {
         rubrik: 'Visa både omsorg och pedagogisk förståelse genom konkreta exempel',
-        text: 'Visa både omsorg och pedagogisk förståelse genom konkreta exempel: Inte bara "jag är omhängsam" utan "vid måltiderna skapar jag lugna samtal där barnen får berätta om sin dag, vilket stärker både språkutveckling och social kompetens". Koppla dina handlingar till barns utveckling.\n\nNämn gärna hur du arbetar utifrån Lpfö 18:s målområden – matematik, naturvetenskap, språk, skapande – i vardagliga situationer.'
+        text: 'Visa både omsorg och pedagogisk förståelse genom konkreta exempel: Inte bara "jag är omhängsam" utan "vid måltiderna skapar jag lugna samtal där barnen får berätta om sin dag, vilket stärker både språkutveckling och social kompetens". Koppla dina handlingar till barns utveckling.\n\nNämn gärna hur du arbetar utifrån Lpfö 18:s målområden, matematik, naturvetenskap, språk, skapande, i vardagliga situationer.'
       },
       {
         rubrik: 'Anpassa efter förskola och åldersgrupp',
-        text: 'Anpassa efter förskola och åldersgrupp: Om du söker till avdelning för 1-3 år, betona erfarenhet av inskolning, blöjbyten, språkutveckling och trygghetsskapande. För 3-5 år, fokusera mer på pedagogiska aktiviteter, förskoleklass-förberedelse och självständighet.\n\nNämn gärna om förskolan är kommunal, fristående, Reggio Emilia-inspirerad eller Montessori – och anpassa ditt språk därefter.'
+        text: 'Anpassa efter förskola och åldersgrupp: Om du söker till avdelning för 1-3 år, betona erfarenhet av inskolning, blöjbyten, språkutveckling och trygghetsskapande. För 3-5 år, fokusera mer på pedagogiska aktiviteter, förskoleklass-förberedelse och självständighet.\n\nNämn gärna om förskolan är kommunal, fristående, Reggio Emilia-inspirerad eller Montessori, och anpassa ditt språk därefter.'
       },
       {
         rubrik: 'Visa samarbete och kommunikation med vårdnadshavare och kollegor',
-        text: 'Visa samarbete och kommunikation: Beskriv hur du samarbetar med förskollärare ("tar ansvar för pedagogiska aktiviteter i samråd med förskollärare"), kommunicerar med vårdnadshavare ("daglig dialog via Unikum", "utvecklingssamtal") och arbetar i team.\n\nNämn gärna digitala verktyg som Unikum, Davinci eller Tamino om du har erfarenhet – dessa används av många förskolor för dokumentation och kommunikation.'
+        text: 'Visa samarbete och kommunikation: Beskriv hur du samarbetar med förskollärare ("tar ansvar för pedagogiska aktiviteter i samråd med förskollärare"), kommunicerar med vårdnadshavare ("daglig dialog via Unikum", "utvecklingssamtal") och arbetar i team.\n\nNämn gärna digitala verktyg som Unikum, Davinci eller Tamino om du har erfarenhet, dessa används av många förskolor för dokumentation och kommunikation.'
       }
     ],
 
@@ -1801,11 +1811,11 @@ Emma Andersson`
       },
       {
         q: 'Hur visar jag erfarenhet av olika åldersgrupper?',
-        a: 'Specificera tydligt vilka åldersgrupper du arbetat med och hur länge: "tre år med barngrupp 1-3 år och två år med 4-5 år". Beskriv hur ditt arbetssätt skiljer sig åt – med yngre barn kanske du betonar trygghetsskapande, språkstimulans och omvårdnad, medan du med äldre barn fokuserar på självständighet, komplexa lekar och förberedelse för förskoleklass. Konkreta exempel visar djupare förståelse: "med de yngsta arbetar jag mycket med sångsamlingar och enkla bollekar, medan jag med 4-5-åringarna leder mer utmanande projekt som byggen och naturundersökningar".'
+        a: 'Specificera tydligt vilka åldersgrupper du arbetat med och hur länge: "tre år med barngrupp 1-3 år och två år med 4-5 år". Beskriv hur ditt arbetssätt skiljer sig åt, med yngre barn kanske du betonar trygghetsskapande, språkstimulans och omvårdnad, medan du med äldre barn fokuserar på självständighet, komplexa lekar och förberedelse för förskoleklass. Konkreta exempel visar djupare förståelse: "med de yngsta arbetar jag mycket med sångsamlingar och enkla bollekar, medan jag med 4-5-åringarna leder mer utmanande projekt som byggen och naturundersökningar".'
       },
       {
         q: 'Ska jag nämna specifika pedagogiska metoder?',
-        a: 'Ja, om du har erfarenhet av specifika pedagogiska inriktningar som Reggio Emilia, Montessori, I Ur och Skur, eller waldorfpedagogik – särskilt om förskolan du söker till arbetar utifrån dessa. Annars räcker det att referera till Lpfö 18 och visa hur du arbetar med läroplanens målområden i praktiken. Exempel: "Jag integrerar matematik i vardagen genom att räkna tallrikar vid dukning och jämföra storlekar vid påklädning" visar pedagogisk medvetenhet utan att kräva specifik metod. Det viktiga är att du visar att du förstår barns lärande och utveckling.'
+        a: 'Ja, om du har erfarenhet av specifika pedagogiska inriktningar som Reggio Emilia, Montessori, I Ur och Skur, eller waldorfpedagogik, särskilt om förskolan du söker till arbetar utifrån dessa. Annars räcker det att referera till Lpfö 18 och visa hur du arbetar med läroplanens målområden i praktiken. Exempel: "Jag integrerar matematik i vardagen genom att räkna tallrikar vid dukning och jämföra storlekar vid påklädning" visar pedagogisk medvetenhet utan att kräva specifik metod. Det viktiga är att du visar att du förstår barns lärande och utveckling.'
       },
       {
         q: 'Hur skriver jag om inskolning och föräldrasamarbete?',
@@ -1813,15 +1823,15 @@ Emma Andersson`
       },
       {
         q: 'Vilka personliga egenskaper är viktiga att lyfta fram?',
-        a: 'Barnskötaryrket kräver en kombination av egenskaper: tålamod, empati, ansvarstagande, flexibilitet, kreativitet och samarbetsförmåga. Men istället för att bara lista dessa, visa dem genom exempel: "Min tålmodiga och lyhörda approach visades när..." eller "Min flexibilitet kom till användning när vi plötsligt fick täcka för sjuk personal och jag tog ansvar för en kombinerad barngrupp". Betona också fysisk och psykisk uthållighet – barnskötaryrket är krävande – samt förmåga att skapa struktur och trygghet i kaos.'
+        a: 'Barnskötaryrket kräver en kombination av egenskaper: tålamod, empati, ansvarstagande, flexibilitet, kreativitet och samarbetsförmåga. Men istället för att bara lista dessa, visa dem genom exempel: "Min tålmodiga och lyhörda approach visades när..." eller "Min flexibilitet kom till användning när vi plötsligt fick täcka för sjuk personal och jag tog ansvar för en kombinerad barngrupp". Betona också fysisk och psykisk uthållighet, barnskötaryrket är krävande, samt förmåga att skapa struktur och trygghet i kaos.'
       },
       {
         q: 'Hur hanterar jag byte från annan bransch till barnskötare?',
-        a: 'Fokusera på överförbara kompetenser: Har du arbetat inom vård, äldreomsorg eller kundservice? Betona empati, kommunikation och ansvarstagande. Tidigare arbete med grupper, event eller pedagogik? Lyfta fram struktur, planering och förmåga att engagera. Var tydlig med varför du vill bli barnskötare: "Efter tio år inom detaljhandeln söker jag en mer meningsfull karriär där jag kan göra skillnad i barns liv. Min erfarenhet av stressiga situationer, servicekänsla och teamarbete är direkt överförbar till förskolan." Inkludera all relevant erfarenhet: barnpassning, ledare i scoutkår, volontärarbete – allt som visar barnkompetens räknas.'
+        a: 'Fokusera på överförbara kompetenser: Har du arbetat inom vård, äldreomsorg eller kundservice? Betona empati, kommunikation och ansvarstagande. Tidigare arbete med grupper, event eller pedagogik? Lyfta fram struktur, planering och förmåga att engagera. Var tydlig med varför du vill bli barnskötare: "Efter tio år inom detaljhandeln söker jag en mer meningsfull karriär där jag kan göra skillnad i barns liv. Min erfarenhet av stressiga situationer, servicekänsla och teamarbete är direkt överförbar till förskolan." Inkludera all relevant erfarenhet: barnpassning, ledare i scoutkår, volontärarbete, allt som visar barnkompetens räknas.'
       },
       {
         q: 'Ska jag nämna första hjälpen-utbildning och hygienrutiner?',
-        a: 'Absolut! Första hjälpen för barn är högt värderat och ofta ett krav eller starkt önskemål. Nämn om din utbildning är aktuell (gärna inom 2 år): "aktuell utbildning i första hjälpen för barn (2024)" eller "HLR-certifierad för barn och spädbarn". För hygienrutiner, visa att du förstår vikten: "väl förtrogen med hygienrutiner vid blöjbyte, hantering av allergi och livsmedel samt smittskyddsrutiner". Om du har erfarenhet av specifika allergier (nötter, gluten, laktos) eller medicinhantering, nämn det – det kan vara avgörande för vissa tjänster.'
+        a: 'Absolut! Första hjälpen för barn är högt värderat och ofta ett krav eller starkt önskemål. Nämn om din utbildning är aktuell (gärna inom 2 år): "aktuell utbildning i första hjälpen för barn (2024)" eller "HLR-certifierad för barn och spädbarn". För hygienrutiner, visa att du förstår vikten: "väl förtrogen med hygienrutiner vid blöjbyte, hantering av allergi och livsmedel samt smittskyddsrutiner". Om du har erfarenhet av specifika allergier (nötter, gluten, laktos) eller medicinhantering, nämn det, det kan vara avgörande för vissa tjänster.'
       },
       {
         q: 'Hur skriver jag om arbete med barn i behov av särskilt stöd?',
@@ -1833,7 +1843,7 @@ Emma Andersson`
       },
       {
         q: 'Hur långt bör brevet vara för barnskötare?',
-        a: 'Sikta på 350-450 ord, vilket motsvarar 3-4 stycken på en A4-sida. Detta ger dig plats att visa både erfarenhet och personlighet utan att bli för långrandigt. Struktur: Stycke 1 (60-80 ord) – varför du söker och vad du har för erfarenhet. Stycke 2-3 (150-200 ord totalt) – konkreta exempel på din kompetens, pedagogiskt arbete och omsorgsförmåga. Stycke 4 (60-80 ord) – relevanta utbildningar, personliga egenskaper och en framåtblick. Rekryterare på förskolor har ofta många brev att läsa – ett koncist, välstrukturerat brev som direkt visar din kompetens uppskattas mer än långt och vagt berättande.'
+        a: 'Sikta på 350-450 ord, vilket motsvarar 3-4 stycken på en A4-sida. Detta ger dig plats att visa både erfarenhet och personlighet utan att bli för långrandigt. Struktur: Stycke 1 (60-80 ord), varför du söker och vad du har för erfarenhet. Stycke 2-3 (150-200 ord totalt), konkreta exempel på din kompetens, pedagogiskt arbete och omsorgsförmåga. Stycke 4 (60-80 ord), relevanta utbildningar, personliga egenskaper och en framåtblick. Rekryterare på förskolor har ofta många brev att läsa, ett koncist, välstrukturerat brev som direkt visar din kompetens uppskattas mer än långt och vagt berättande.'
       }
     ],
 
@@ -1891,10 +1901,10 @@ ATS-system som används vid rekrytering till bartenderjobb söker efter nyckelor
     intro: 'Som bartender är du barens ansikte utåt och förvandlar ingredienser till upplevelser. Ett starkt personligt brev visar att du behärskar både klassiska tekniker och modern mixology, samtidigt som du levererar service som får gäster att komma tillbaka.',
 
     exempelBrev: {
-      namn: 'Erik Lindström',
+      namn: 'Marcus Svensson',
       adress: 'Södermalmsvägen 45, 118 26 Stockholm',
-      telefon: '073-245 67 89',
-      epost: 'erik.lindstrom@email.se',
+      telefon: '073-456 78 90',
+      epost: 'marcus.svensson@email.se',
       arbetsgivare: 'Tjoget',
       roll: 'Bartender',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -1911,7 +1921,7 @@ Jag kan bidra med solid erfarenhet av cocktailmixning, rutinerad kassahantering 
 Jag ser fram emot att berätta mer om hur jag kan komplettera ert team. Hör gärna av dig om du vill veta mer om min erfarenhet eller få referenser från tidigare arbetsgivare.
 
 Med vänliga hälsningar,
-Erik Lindström`
+Marcus Svensson`
     },
 
     varforDetFungerar: [
@@ -2037,34 +2047,34 @@ Erik Lindström`
     metaTitle: 'Personligt Brev Personlig Assistent - Färdigt exempel (2026)',
     metaDescription: 'Se ett komplett personligt brev-exempel för personlig assistent. Skrivet av rekryteringsexperter, ATS-optimerat och anpassat för LSS-verksamhet. Inkluderar tips och nyckelord som visar kompetens inom NPF, ADL-stöd och personcentrerat arbetssätt.',
 
-    seoIntro: 'Ett starkt personligt brev för personlig assistent visar inte bara din erfarenhet av grundläggande behov och ADL-stöd – det demonstrerar din förmåga att arbeta personcentrerat, respektera integritet och skapa meningsfulla relationer med brukare. Detta exempel visar hur du kombinerar konkret LSS-erfarenhet med de personliga egenskaper som gör skillnad: tålamod, lyhördhet och förmåga att läsa brukarens behov.\n\nBrevet lyfter fram specifika detaljer som arbetsgivare inom LSS-verksamhet värderar högt: erfarenhet av olika funktionsnedsättningar (NPF, fysisk funktionsnedsättning), konkreta exempel på dagliga rutiner (morgon/kvällsrutiner, matlagning, medicinering), aktivitetsstöd och social delaktighet. Det visar också hur du löst vardagliga situationer och byggt rutiner som fungerar – kompetenser du lär dig genom att faktiskt arbeta nära brukare i deras vardag.\n\nAnvänd detta exempel som mall för att strukturera ditt eget brev. Byt ut NPF-exemplet om du har erfarenhet av fysisk funktionsnedsättning istället. Lägg till konkreta dagliga rutiner du faktiskt utfört – morgonstöd, medicinering, aktiviteter. Kom ihåg att arbetsgivare söker någon som förstår balansen mellan professionellt stöd och respekt för brukarens självbestämande.',
+    seoIntro: 'Ett starkt personligt brev för personlig assistent visar inte bara din erfarenhet av grundläggande behov och ADL-stöd, det demonstrerar din förmåga att arbeta personcentrerat, respektera integritet och skapa meningsfulla relationer med brukare. Detta exempel visar hur du kombinerar konkret LSS-erfarenhet med de personliga egenskaper som gör skillnad: tålamod, lyhördhet och förmåga att läsa brukarens behov.\n\nBrevet lyfter fram specifika detaljer som arbetsgivare inom LSS-verksamhet värderar högt: erfarenhet av olika funktionsnedsättningar (NPF, fysisk funktionsnedsättning), konkreta exempel på dagliga rutiner (morgon/kvällsrutiner, matlagning, medicinering), aktivitetsstöd och social delaktighet. Det visar också hur du löst vardagliga situationer och byggt rutiner som fungerar, kompetenser du lär dig genom att faktiskt arbeta nära brukare i deras vardag.\n\nAnvänd detta exempel som mall för att strukturera ditt eget brev. Byt ut NPF-exemplet om du har erfarenhet av fysisk funktionsnedsättning istället. Lägg till konkreta dagliga rutiner du faktiskt utfört, morgonstöd, medicinering, aktiviteter. Kom ihåg att arbetsgivare söker någon som förstår balansen mellan professionellt stöd och respekt för brukarens självbestämande.',
 
     intro: 'Ett personligt brev som visar konkret erfarenhet av LSS-arbete med LSS §9, NPF-stöd, ADL-hjälp och förmåga att arbeta personcentrerat med integritet och respekt. Detta exempel är optimerat för svenska assistansbolag, kooperativ och ATS-system.',
 
     exempelBrev: {
-      namn: 'Sofia Lindgren',
+      namn: 'Emma Svensson',
       adress: 'Assistansvägen 22, 582 73 Linköping',
-      telefon: '070-345 67 89',
-      epost: 'sofia.lindgren@email.se',
+      telefon: '070-234 56 78',
+      epost: 'emma.svensson@email.se',
       arbetsgivare: 'JAG Assistans',
       roll: 'Personlig assistent',
       datum: new Date().toLocaleDateString('sv-SE'),
       brevText: `Hej,
 
-Jag söker tjänsten som personlig assistent på JAG Assistans. Med fyra års praktisk erfarenhet av NPF-stöd (ADHD och Aspergers) enligt LSS §9 och stark förmåga att arbeta personcentrerat passar jag bra i ert team. Er beskrivning av flexibilitet, integritet och stöd för självständighet matchar exakt hur jag ser på assistansyrket – jag stöttar brukaren att göra saker själv, inte gör åt dem.
+Jag söker tjänsten som personlig assistent på JAG Assistans. Med fyra års praktisk erfarenhet av NPF-stöd (ADHD och Aspergers) enligt LSS §9 och stark förmåga att arbeta personcentrerat passar jag bra i ert team. Er beskrivning av flexibilitet, integritet och stöd för självständighet matchar exakt hur jag ser på assistansyrket, jag stöttar brukaren att göra saker själv, inte gör åt dem.
 
-Jag har sedan 2020 arbetat som personlig assistent hos Humana Assistans där jag stöttat två brukare med olika funktionsnedsättningar. Min huvudbrukare är en 28-årig man med NPF (ADHD och Aspergers syndrom) som behöver stöd i vardagsstruktur, social kommunikation och aktiviteter. Jag hjälper honom med morgon- och kvällsrutiner, matlagning, ekonomiadministration, läkemedelshantering och socialt stöd. Vi har tillsammans byggt upp tydliga rutiner med visuella scheman och checklistor vilket minskat hans stress märkbart – han klarar nu matlagning flera dagar i veckan helt på egen hand, något han inte kunde tidigare.
+Jag har sedan 2020 arbetat som personlig assistent hos Humana Assistans där jag stöttat två brukare med olika funktionsnedsättningar. Min huvudbrukare är en 28-årig man med NPF (ADHD och Aspergers syndrom) som behöver stöd i vardagsstruktur, social kommunikation och aktiviteter. Jag hjälper honom med morgon- och kvällsrutiner, matlagning, ekonomiadministration, läkemedelshantering och socialt stöd. Vi har tillsammans byggt upp tydliga rutiner med visuella scheman och checklistor vilket minskat hans stress märkbart, han klarar nu matlagning flera dagar i veckan helt på egen hand, något han inte kunde tidigare.
 
-Min andra brukare är en 45-årig kvinna med förvärvad hjärnskada efter trafikolycka som behöver fysiskt stöd vid förflyttning, ADL-hjälp (hygien, påklädning, toalettbesök) samt kognitivt stöd vid planering och beslutsfattande. Jag arbetar nära anhöriga och arbetsterapeut för att säkerställa kontinuitet i omvårdnaden och använder hjälpmedel som lift, rullstol och kommunikationstavla för att öka hennes delaktighet. Ett konkret exempel: När hon ville börja träna igen kontaktade jag Parasport Sverige, undersökte tillgänglighet på lokala gym och åtföljde henne till första passet – idag tränar hon regelbundet och känner ökad livskvalitet.
+Min andra brukare är en 45-årig kvinna med förvärvad hjärnskada efter trafikolycka som behöver fysiskt stöd vid förflyttning, ADL-hjälp (hygien, påklädning, toalettbesök) samt kognitivt stöd vid planering och beslutsfattande. Jag arbetar nära anhöriga och arbetsterapeut för att säkerställa kontinuitet i omvårdnaden och använder hjälpmedel som lift, rullstol och kommunikationstavla för att öka hennes delaktighet. Ett konkret exempel: När hon ville börja träna igen kontaktade jag Parasport Sverige, undersökte tillgänglighet på lokala gym och åtföljde henne till första passet, idag tränar hon regelbundet och känner ökad livskvalitet.
 
-Jag har också erfarenhet av schemaflexibilitet och oförutsägbara situationer som är en del av jobbet. Jag arbetar både dag-, kväll- och helgpass samt tar jourpass vid behov. När min huvudbrukares fasta assistent blev akut sjuk ställde jag upp med kort varsel för att säkerställa kontinuitet i hans vardag – något som visade sig avgörande eftersom han utan sina fasta assistenter får svår ångest och kan inte utföra sina dagliga rutiner.
+Jag har också erfarenhet av schemaflexibilitet och oförutsägbara situationer som är en del av jobbet. Jag arbetar både dag-, kväll- och helgpass samt tar jourpass vid behov. När min huvudbrukares fasta assistent blev akut sjuk ställde jag upp med kort varsel för att säkerställa kontinuitet i hans vardag, något som visade sig avgörande eftersom han utan sina fasta assistenter får svår ångest och kan inte utföra sina dagliga rutiner.
 
 Jag har genomgått grundutbildning för personliga assistenter samt vidareutbildning i NPF-funktionsnedsättningar, kommunikativa hjälpmedel och första hjälpen. Jag har B-körkort och tillgång till egen bil vilket möjliggör aktiviteter och utflykter.
 
-Jag ser fram emot att diskutera hur jag kan bidra till era brukares självständighet, livskvalitet och delaktighet. Kontakta mig gärna på 070-345 67 89 eller sofia.lindgren@email.se.
+Jag ser fram emot att diskutera hur jag kan bidra till era brukares självständighet, livskvalitet och delaktighet. Kontakta mig gärna på 070-234 56 78 eller emma.svensson@email.se.
 
 Varma hälsningar,
-Sofia Lindgren`
+Emma Svensson`
     },
 
     varforDetFungerar: [
@@ -2078,7 +2088,7 @@ Sofia Lindgren`
       },
       {
         titel: 'Visa respekt, integritet och personcentrerat arbetssätt',
-        beskrivning: 'Brevet betonar "jag stöttar brukaren att göra saker själv, inte gör åt dem" och beskriver hur assistenten arbetar tillsammans med brukaren för ökad självständighet. Exemplen visar hur stödet anpassas efter brukarens egna mål (träning, matlagning) och önskemål – inte assistentens agenda. Detta är kärnvärden i LSS-verksamhet.'
+        beskrivning: 'Brevet betonar "jag stöttar brukaren att göra saker själv, inte gör åt dem" och beskriver hur assistenten arbetar tillsammans med brukaren för ökad självständighet. Exemplen visar hur stödet anpassas efter brukarens egna mål (träning, matlagning) och önskemål, inte assistentens agenda. Detta är kärnvärden i LSS-verksamhet.'
       },
       {
         titel: 'Flexibilitet och ansvarstagande i praktiken',
@@ -2124,11 +2134,11 @@ Sofia Lindgren`
       },
       {
         q: 'Ska jag nämna specifika diagnoser eller tillstånd i brevet?',
-        a: 'Ja, men fokusera på funktionsnedsättningar och stödbehov snarare än diagnoser. Det är okej att skriva "NPF (ADHD, autism)", "förvärvad hjärnskada", "CP (cerebral pares)", "MS (multipel skleros)" eller "intellektuell funktionsnedsättning" eftersom detta visar vilken typ av assistans du har erfarenhet av. Undvik dock att gå in på personliga detaljer om specifika brukare eller medicinska uppgifter – fokusera på vilka stödformer du använt och resultat du uppnått. Exempel: "Jag har 3 års erfarenhet av att stötta brukare med autism där jag använt bildstöd och strukturerade rutiner för att minska stress och öka självständighet."'
+        a: 'Ja, men fokusera på funktionsnedsättningar och stödbehov snarare än diagnoser. Det är okej att skriva "NPF (ADHD, autism)", "förvärvad hjärnskada", "CP (cerebral pares)", "MS (multipel skleros)" eller "intellektuell funktionsnedsättning" eftersom detta visar vilken typ av assistans du har erfarenhet av. Undvik dock att gå in på personliga detaljer om specifika brukare eller medicinska uppgifter, fokusera på vilka stödformer du använt och resultat du uppnått. Exempel: "Jag har 3 års erfarenhet av att stötta brukare med autism där jag använt bildstöd och strukturerade rutiner för att minska stress och öka självständighet."'
       },
       {
         q: 'Hur skriver jag om ADL-stöd och grundläggande behov?',
-        a: 'Var konkret men professionell när du beskriver ADL-stöd (Aktiviteter i Dagliga Livet). Skriv: "Jag bistår med grundläggande behov enligt LSS §9 inklusive personlig hygien, påklädning, toalettbesök, matlagning, medicinering och förflyttning. Jag använder hjälpmedel som lift, rullstol och duschstol samt arbetar ergonomiskt för att skydda både brukare och mig själv." Balansera detta med beskrivningar av socialt stöd och aktiviteter för att visa att du ser hela människan. Undvik alltför grafiska beskrivningar – arbetsgivaren förstår vad ADL-stöd innebär.'
+        a: 'Var konkret men professionell när du beskriver ADL-stöd (Aktiviteter i Dagliga Livet). Skriv: "Jag bistår med grundläggande behov enligt LSS §9 inklusive personlig hygien, påklädning, toalettbesök, matlagning, medicinering och förflyttning. Jag använder hjälpmedel som lift, rullstol och duschstol samt arbetar ergonomiskt för att skydda både brukare och mig själv." Balansera detta med beskrivningar av socialt stöd och aktiviteter för att visa att du ser hela människan. Undvik alltför grafiska beskrivningar, arbetsgivaren förstår vad ADL-stöd innebär.'
       },
       {
         q: 'Vilka personliga egenskaper är viktiga att lyfta fram?',
@@ -2140,7 +2150,7 @@ Sofia Lindgren`
       },
       {
         q: 'Ska jag nämna schemaflexibilitet och jourtjänstgöring?',
-        a: 'Ja, absolut! Schemaflexibilitet är ofta ett krav i assistansyrket. Skriv tydligt: "Jag arbetar dag-, kväll- och helgpass samt tar jourpass vid behov. Jag har tillgång till egen bil och kan vara flexibel med arbetstider för att möta brukarens behov." Om du har begränsningar (kan inte jobba nätter, helger), var ärlig men lösningsfokuserad: "Jag föredrar dagpass men kan vara flexibel med kvällspass och enstaka helger vid behov." Arbetsgivare uppskattar tydlighet kring tillgänglighet – det undviker missförstånd senare.'
+        a: 'Ja, absolut! Schemaflexibilitet är ofta ett krav i assistansyrket. Skriv tydligt: "Jag arbetar dag-, kväll- och helgpass samt tar jourpass vid behov. Jag har tillgång till egen bil och kan vara flexibel med arbetstider för att möta brukarens behov." Om du har begränsningar (kan inte jobba nätter, helger), var ärlig men lösningsfokuserad: "Jag föredrar dagpass men kan vara flexibel med kvällspass och enstaka helger vid behov." Arbetsgivare uppskattar tydlighet kring tillgänglighet, det undviker missförstånd senare.'
       },
       {
         q: 'Hur skriver jag om integritet och sekretess?',
@@ -2152,7 +2162,7 @@ Sofia Lindgren`
       },
       {
         q: 'Hur långt bör brevet vara för personlig assistent?',
-        a: 'Sikta på 350-450 ord fördelade på 4-5 stycken. Öppningsstycke (50-75 ord): presentation, tjänst du söker, övergripande matchning. Huvudstycke 1 (100-150 ord): konkret erfarenhet från aktuell/senaste assistansroll med exempel. Huvudstycke 2 (100-150 ord): specifikt exempel som visar kompetens eller problemlösning. Huvudstycke 3 (50-75 ord): utbildning, körkort, flexibilitet. Avslutningsstycke (25-50 ord): uppföljning och kontaktinfo. Ett brev på 1 sida (max 1,5) är lagom – tillräckligt för att visa kompetens utan att trötta ut läsaren. Prioritera konkreta exempel framför långa teoretiska resonemang.'
+        a: 'Sikta på 350-450 ord fördelade på 4-5 stycken. Öppningsstycke (50-75 ord): presentation, tjänst du söker, övergripande matchning. Huvudstycke 1 (100-150 ord): konkret erfarenhet från aktuell/senaste assistansroll med exempel. Huvudstycke 2 (100-150 ord): specifikt exempel som visar kompetens eller problemlösning. Huvudstycke 3 (50-75 ord): utbildning, körkort, flexibilitet. Avslutningsstycke (25-50 ord): uppföljning och kontaktinfo. Ett brev på 1 sida (max 1,5) är lagom, tillräckligt för att visa kompetens utan att trötta ut läsaren. Prioritera konkreta exempel framför långa teoretiska resonemang.'
       }
     ],
 
@@ -2211,10 +2221,10 @@ Använd vårt exempel som inspiration och anpassa det efter den specifika tjäns
     intro: 'Exempel för civilingenjör som visar hur du kvantifierar tekniska resultat (18% energiminskning, 220 000 kr besparingar), nämner specifika verktyg (CATIA, MATLAB, FEM-analys) och kopplar fordonsindustri-erfarenhet till vindkraft. Använd som mall för att visa konkreta prestationer istället för vaga ansvarsområden.',
 
     exempelBrev: {
-      namn: 'Erik Sandström',
+      namn: 'Erik Johansson',
       adress: 'Vasagatan 22, 411 24 Göteborg',
-      telefon: '070-485 23 16',
-      epost: 'erik.sandstrom@outlook.com',
+      telefon: '070-234 56 78',
+      epost: 'erik.johansson@email.se',
       arbetsgivare: 'TechSolutions Nordic AB',
       roll: 'Civilingenjör, Systemutveckling',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -2231,7 +2241,7 @@ Jag vill arbeta på TechSolutions Nordic för att era vindkraftsprojekt kombiner
 Jag är tillgänglig för intervju från och med den 22 januari och ser fram emot att berätta mer om hur min erfarenhet från fordonsindustrin kan bidra till era vindkraftsprojekt.
 
 Med vänliga hälsningar,
-Erik Sandström`
+Erik Johansson`
     },
 
     varforDetFungerar: [
@@ -2333,10 +2343,10 @@ Använd vårt exempel som utgångspunkt och anpassa det efter den specifika för
     intro: 'Exempel för förskollärare som visar hur du konkretiserar Lpfö 18-arbete, pedagogisk dokumentation och språkutveckling med verkliga situationer från barngruppen. Använd som mall för att visa din pedagogiska praktik genom konkreta exempel.',
 
     exempelBrev: {
-      namn: 'Sara Lindqvist',
+      namn: 'Emma Lindström',
       adress: 'Ringvägen 45, 118 60 Stockholm',
-      telefon: '070-234 56 78',
-      epost: 'sara.lindqvist@gmail.com',
+      telefon: '070-123 45 67',
+      epost: 'emma.lindstrom@email.se',
       arbetsgivare: 'Solskenets förskola, Stockholms stad',
       roll: 'Förskollärare',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -2353,7 +2363,7 @@ Jag vill arbeta på Solskenets förskola för att ni värdesätter barnens egna 
 Jag kan börja den 1 mars och ser fram emot att berätta mer om mitt arbete med språkutveckling och inkludering.
 
 Med vänliga hälsningar,
-Sara Lindqvist`
+Emma Lindström`
     },
 
     varforDetFungerar: [
@@ -2453,13 +2463,13 @@ Som receptionist förväntas du hantera telefonväxel, besökshantering, bokning
 
 Använd vårt exempel som inspiration och anpassa det efter den specifika arbetsplatsen och branschen. Brevet är ATS-optimerat för att passera de automatiska urvalssystem som större företag och hotellkedjor använder. Beskriv situationer där du löst problem eller överträffat kunders förväntningar istället för att bara lista egenskaper.`,
 
-    intro: 'Exemplet nedan visar hur Lisa Bergström presenterar sin kundservice med siffror och exempel. Hon lyfter fram guest satisfaction scores, bokningssystem hon kan och hur hon löser problem under stress. Brevet är skrivet för hotellreception, men du kan använda samma struktur för kontorsreception, vårdcentral eller gym. Se hur hon balanserar professionalism med servicekänsla. Hon är inte överdrivet vänlig, men alltid lösningsfokuserad.',
+    intro: 'Exemplet nedan visar hur Sofia Andersson presenterar sin kundservice med siffror och exempel. Hon lyfter fram guest satisfaction scores, bokningssystem hon kan och hur hon löser problem under stress. Brevet är skrivet för hotellreception, men du kan använda samma struktur för kontorsreception, vårdcentral eller gym. Se hur hon balanserar professionalism med servicekänsla. Hon är inte överdrivet vänlig, men alltid lösningsfokuserad.',
 
     exempelBrev: {
-      namn: 'Lisa Bergström',
+      namn: 'Sofia Andersson',
       adress: 'Vasagatan 12, 111 20 Stockholm',
-      telefon: '070-123 45 67',
-      epost: 'lisa.bergstrom@email.com',
+      telefon: '070-234 56 78',
+      epost: 'sofia.andersson@email.se',
       arbetsgivare: 'Scandic Hotels Stockholm',
       roll: 'Receptionist',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -2476,7 +2486,7 @@ Jag vill jobba på Scandic för er hållbarhetsprofil och fokus på tillgänglig
 Jag kan börja om två veckor (uppsägningstid). Jag ser fram emot att höra från er.
 
 Med vänliga hälsningar,
-Lisa Bergström`
+Sofia Andersson`
     },
 
     varforDetFungerar: [
@@ -2579,10 +2589,10 @@ Använd vårt exempel som utgångspunkt och anpassa det efter den specifika arbe
     intro: 'Marcus har truckkort A och B, plockar 150 orderrader/timme med 99.8% noggrannhet, och har noll olyckor på tre år. Han nämner truckkorten i första meningen, skriver konkreta siffror, och påpekar säkerhetsrekordet. Han skriver vilket WMS-system han använt (Ongoing) och kopplar sin erfarenhet till PostNords automatiserade lager. Följ strukturen så ser du kompetent ut direkt.',
 
     exempelBrev: {
-      namn: 'Marcus Andersson',
+      namn: 'Marcus Pettersson',
       adress: 'Exportgatan 12, 422 46 Hisings Backa',
       telefon: '070-234 56 78',
-      epost: 'marcus.andersson@email.se',
+      epost: 'marcus.pettersson@email.se',
       arbetsgivare: 'PostNord Logistics AB',
       roll: 'Lagerarbetare',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -2599,24 +2609,28 @@ PostNords automatiserade sorteringssystem och er satsning på säkerhet är anle
 Jag växte upp i Hisings Backa och har sett PostNords terminal varje dag på väg till jobbet. Nu vill jag jobba där. Jag kan börja med kort varsel. Kontakta mig gärna för en intervju.
 
 Med vänlig hälsning,
-Marcus Andersson`
+Marcus Pettersson`
     },
 
     varforDetFungerar: [
       {
         titel: 'Truckkort och certifieringar framme direkt',
+        ankare: 'stycke-1',
         beskrivning: 'Marcus nämner truckkort A och B i första stycket. Det är det första rekryterare letar efter vid screening av lagerarbetare. Ingen måste gissa om han kan köra truck.'
       },
       {
         titel: 'Kvantifierade effektivitetsmått',
+        ankare: 'stycke-2',
         beskrivning: '150 orderrader/timme, 99.8% noggrannhet, 45 000 orderrader årligen, 8 000 pallar. Siffrorna ger omedelbar trovärdighet och visar att han tillhör toppskiktet. Plus kontext: bättre än teamgenomsnittet på 120 rader/timme.'
       },
       {
         titel: 'Säkerhetsrekord istället för vaga påståenden',
+        ankare: 'stycke-3',
         beskrivning: '"Aldrig haft en olycka på tre år" slår "jag är säkerhetsmedveten". Han nämner också konkreta rutiner (LMRA, skyddsutrustning, ergonomiska lyfttekniker) utan att låta som en manual.'
       },
       {
         titel: 'Human touch med lokal koppling',
+        ankare: 'stycke-5',
         beskrivning: 'Marcus växte upp i Hisings Backa och har sett terminalen varje dag. Det visar genuint intresse för just detta företag, inte ett massutskick till alla lager i Göteborg.'
       }
     ],
@@ -2697,12 +2711,12 @@ Marcus Andersson`
 Det som skiljer starka ansökningar från svaga är konkreta exempel. Istället för "jag är duktig på Office 365" vill vi se något konkret. Typ: "jag automatiserade månadsrapportering i SharePoint. Det minskade bearbetningstiden från 3 dagar till 4 timmar." Administratörer med erfarenhet av samarbete över avdelningsgränser och dokumenthantering i affärssystem som Visma eller SAP sticker ut.
 
 Detta exempel visar hur en erfaren administratör beskriver sina processer och systemkunskap på ett sätt som direkt visar värde för arbetsgivaren. Lägg märke till hur varje process kopplas till ett mätbart resultat.`,
-    intro: 'Detta exempel visar hur Lisa Andersson, administratör med 4 års erfarenhet från både offentlig sektor och privat företag, beskriver hur hon hanterar processer och system. Hon har koordinerat över 50 olika arbetsflöden och satt upp digitala lösningar i Office 365 som sparat teamet 15 timmar per vecka.',
+    intro: 'Detta exempel visar hur Anna Bergström, administratör med 4 års erfarenhet från både offentlig sektor och privat företag, beskriver hur hon hanterar processer och system. Hon har koordinerat över 50 olika arbetsflöden och satt upp digitala lösningar i Office 365 som sparat teamet 15 timmar per vecka.',
     exempelBrev: {
-      namn: 'Lisa Andersson',
+      namn: 'Anna Bergström',
       adress: 'Storgatan 12, 593 30 Västervik',
-      telefon: '070-123 45 67',
-      epost: 'lisa.andersson@email.com',
+      telefon: '070-234 56 78',
+      epost: 'anna.bergstrom@email.se',
       arbetsgivare: 'Västerviks kommun',
       roll: 'Administrativ koordinator',
       datum: new Date().toLocaleDateString('sv-SE', { year: 'numeric', month: 'long', day: 'numeric' }),
@@ -2712,37 +2726,37 @@ Jag söker tjänsten som Administratör hos er eftersom jag vill jobba på en pl
 
 På Västerviks kommun ansvarar jag för över 50 olika arbetsflöden som täcker sex olika avdelningar. När jag började var månadsrapporteringen manuell och tog 3 arbetsdagar att sammanställa. Jag byggde en automatiserad lösning i SharePoint med Power Automate som minskade tiden till 4 timmar. Det frigör nu 15 timmar per månad för mer kvalificerat arbete.
 
-Office 365 använder jag varje dag. Teams för samordning, SharePoint för dokument, Power BI för rapporter. Jag har också satt upp Visma för fakturahantering – det minskade felregistreringar med 85%. Min erfarenhet? Rätt verktyg plus tydliga rutiner ger både snabbare arbete och färre fel.
+Office 365 använder jag varje dag. Teams för samordning, SharePoint för dokument, Power BI för rapporter. Jag har också satt upp Visma för fakturahantering, det minskade felregistreringar med 85%. Min erfarenhet? Rätt verktyg plus tydliga rutiner ger både snabbare arbete och färre fel.
 
-Jag trivs bäst när jag jobbar över avdelningsgränser. Mellan ekonomi, HR och verksamhet – där ser jag till att information når rätt personer i tid och att deadlines hålls. När vi tog i bruk nytt ärendehanteringssystem ledde jag utbildningen för 40 medarbetare och skapade processguider som alla fortfarande följer.
+Jag trivs bäst när jag jobbar över avdelningsgränser. Mellan ekonomi, HR och verksamhet, där ser jag till att information når rätt personer i tid och att deadlines hålls. När vi tog i bruk nytt ärendehanteringssystem ledde jag utbildningen för 40 medarbetare och skapade processguider som alla fortfarande följer.
 
 Jag ser fram emot att bidra med min erfarenhet av processer och systemkunskap i er organisation. Jag kan börja när ni vill och ser fram emot att höras.
 
 Vänliga hälsningar,
-Lisa Andersson`
+Anna Bergström`
     },
     varforDetFungerar: [
       {
         rubrik: 'Konkreta processer med mätbara resultat',
-        text: 'Lisa nämner exakt hur många processer hon hanterar. 50+. Hon visar direkt värde genom tidsbesparingar: 3 dagar blev 4 timmar. Mycket starkare än att bara påstå "jag är effektiv". Arbetsgivaren ser direkt vad hon kan bidra med i organisationen.'
+        text: 'Anna nämner exakt hur många processer hon hanterar. 50+. Hon visar direkt värde genom tidsbesparingar: 3 dagar blev 4 timmar. Mycket starkare än att bara påstå "jag är effektiv". Arbetsgivaren ser direkt vad hon kan bidra med i organisationen.'
       },
       {
         rubrik: 'Specifika systemkunskaper med användningsexempel',
-        text: 'Istället för att bara lista "Office 365" beskriver Lisa hur hon använder verktygen. Teams för samordning. SharePoint för dokument. Power BI för rapporter. Power Automate för automatisering. Det visar att hon verkligen kan systemen – och vet när hon ska använda vad.'
+        text: 'Istället för att bara lista "Office 365" beskriver Anna hur hon använder verktygen. Teams för samordning. SharePoint för dokument. Power BI för rapporter. Power Automate för automatisering. Det visar att hon verkligen kan systemen, och vet när hon ska använda vad.'
       },
       {
         rubrik: 'Samarbete över avdelningar med omfattning',
-        text: 'Att samordna mellan ekonomi, HR och verksamhet visar att Lisas jobb sträcker sig över flera avdelningar. Exemplet med utbildning av 40 medarbetare bevisar förmåga att leda förändring och skapa strukturer som andra kan använda. Arbetsgivare värderar detta högt för roller som involverar hela organisationen.'
+        text: 'Att samordna mellan ekonomi, HR och verksamhet visar att Annas jobb sträcker sig över flera avdelningar. Exemplet med utbildning av 40 medarbetare bevisar förmåga att leda förändring och skapa strukturer som andra kan använda. Arbetsgivare värderar detta högt för roller som involverar hela organisationen.'
       },
       {
         rubrik: 'Kvalitetsfokus med konkret förbättring',
-        text: 'Siffran "85% färre felregistreringar" visar att Lisa inte bara sätter upp system utan också följer upp kvalitetsförbättringar. Det visar att hon är noggrann och tar ansvar – två avgörande egenskaper för administratörer där ett enda fel kan stoppa hela faktureringsprocessen.'
+        text: 'Siffran "85% färre felregistreringar" visar att Anna inte bara sätter upp system utan också följer upp kvalitetsförbättringar. Det visar att hon är noggrann och tar ansvar, två avgörande egenskaper för administratörer där ett enda fel kan stoppa hela faktureringsprocessen.'
       }
     ],
     tips: [
       {
         rubrik: 'Visa systemkunskap med konkreta användningsfall',
-        text: 'Räkna inte bara upp system du kan. Beskriv hur du använder dem varje dag.\n\n**Före:** "Jag kan Office 365"\n**Efter:** "Jag använder Power Automate för att automatisera rapportering – sparar teamet 12 timmar per månad"\n\nNämn specifika funktioner som SharePoint-bibliotek, Power BI-dashboards, eller Teams-kanaler. Om du jobbat i affärssystem som Visma, SAP eller Proceedo, beskriv vilka moduler och vilka processer. Arbetsgivare söker administratörer som kan använda avancerade funktioner som Power Automate och Power BI – inte bara Word och Outlook.'
+        text: 'Räkna inte bara upp system du kan. Beskriv hur du använder dem varje dag.\n\n**Före:** "Jag kan Office 365"\n**Efter:** "Jag använder Power Automate för att automatisera rapportering, sparar teamet 12 timmar per månad"\n\nNämn specifika funktioner som SharePoint-bibliotek, Power BI-dashboards, eller Teams-kanaler. Om du jobbat i affärssystem som Visma, SAP eller Proceedo, beskriv vilka moduler och vilka processer. Arbetsgivare söker administratörer som kan använda avancerade funktioner som Power Automate och Power BI, inte bara Word och Outlook.'
       },
       {
         rubrik: 'Kvantifiera hur du hanterar processer',
@@ -2810,15 +2824,15 @@ Lisa Andersson`
     metaDescription: 'Exempel på personligt brev för lokalvårdare med HACCP-kunskap och 97% kvalitetsresultat. Se hur du visar städkompetens och säker hantering av kemikalier. Kopiera och anpassa!',
     seoIntro: `När rekryterare söker lokalvårdare letar de efter mer än "kan städa". De vill se att du förstår hygien, kan hantera städprodukter säkert, och klarar av att jobba själv med hög standard. Problemet är att många personliga brev fokuserar på vaga beskrivningar istället för tydliga bevis.
 
-De bästa ansökningarna visar: resultat som går att mäta (som kvalitetsresultat eller arbetsområden), relevant kunskap (hygienstandard, säker hantering av kemikalier, specialstädning), och förståelse för varför kvalitet spelar roll. Ett bra brev för lokalvårdare ska vara kort och tydligt – men det måste visa din erfarenhet och att du vet vad du gör.
+De bästa ansökningarna visar: resultat som går att mäta (som kvalitetsresultat eller arbetsområden), relevant kunskap (hygienstandard, säker hantering av kemikalier, specialstädning), och förståelse för varför kvalitet spelar roll. Ett bra brev för lokalvårdare ska vara kort och tydligt, men det måste visa din erfarenhet och att du vet vad du gör.
 
 Det här exemplet visar hur en erfaren lokalvårdare beskriver sin kompetens på ett sätt som direkt svarar på arbetsgivarens behov. Lägg märke till hur siffror och exempel skapar trovärdighet.`,
-    intro: 'Detta exempel visar hur Anna Bergström, med fem års erfarenhet från både kontorsmiljöer och vårdlokaler, visar sin kompetens inom städning och säker hantering av kemikalier. Hon visar resultat som 97% i kvalitetskontroller och förståelse för hygienstandard och smittskydd.',
+    intro: 'Detta exempel visar hur Maria Eriksson, med fem års erfarenhet från både kontorsmiljöer och vårdlokaler, visar sin kompetens inom städning och säker hantering av kemikalier. Hon visar resultat som 97% i kvalitetskontroller och förståelse för hygienstandard och smittskydd.',
     exempelBrev: {
-      namn: 'Anna Bergström',
+      namn: 'Maria Eriksson',
       adress: 'Vasagatan 15, 111 20 Stockholm',
-      telefon: '070-234 56 78',
-      epost: 'anna.bergstrom@email.com',
+      telefon: '070-345 67 89',
+      epost: 'maria.eriksson@email.se',
       arbetsgivare: 'Stockholms Stad',
       roll: 'Lokalvårdare inom kommunal verksamhet',
       datum: new Date().toLocaleDateString('sv-SE', { year: 'numeric', month: 'long', day: 'numeric' }),
@@ -2828,27 +2842,27 @@ Jag söker tjänsten som lokalvårdare hos Stockholms Stad. Med fem års erfaren
 
 Just nu jobbar jag på Karolinska Universitetssjukhuset. Jag ansvarar för 2 500 kvm vårdlokaler (ungefär 40 rum inklusive operationssalar och patientrum) där smittskydd och HACCP är avgörande. Jag har specialutbildning i kemikaliehantering och desinfektion. Jag jobbar dagligen med både grundläggande hygien och extra desinfektion när det behövs (till exempel efter smittfall). Våra kvalitetskontroller visar 97%, vilket jag är stolt över.
 
-Innan detta jobbade jag tre år på Coor Service Management med kontorsstädning i öppna kontorslandskap med flexibla arbetsplatser. Där lärde jag mig att planera mitt arbete själv och anpassa städningen – till exempel städa tystare på morgnar när folk jobbar, eller prioritera mötesrum före lunch. Jag lärde mig också maskiner som skurautomater och specialutrustning för golvvård.
+Innan detta jobbade jag tre år på Coor Service Management med kontorsstädning i öppna kontorslandskap med flexibla arbetsplatser. Där lärde jag mig att planera mitt arbete själv och anpassa städningen, till exempel städa tystare på morgnar när folk jobbar, eller prioritera mötesrum före lunch. Jag lärde mig också maskiner som skurautomater och specialutrustning för golvvård.
 
 Jag trivs med att jobba både själv och i team. Jag förstår vikten av bra kommunikation med verksamheten, och att kunna prioritera rätt när tiden är knapp. Att leverera rent och fräscht varje dag känns meningsfullt.
 
 Jag ser fram emot att berätta mer om hur min erfarenhet kan bidra till er verksamhet.
 
 Vänliga hälsningar,
-Anna Bergström`
+Maria Eriksson`
     },
     varforDetFungerar: [
       {
         titel: 'Erfarenhet från rätt miljöer',
-        beskrivning: 'Hon nämner både vårdlokaler och kontorsmiljöer, vilket visar bredd. Att specificera 2 500 kvm och nämna Karolinska gör att arbetsgivaren litar på henne direkt. Arbetsgivare ser att hon jobbat i miljöer där hygien verkligen spelar roll – där dålig hygien kan bli farligt.'
+        beskrivning: 'Hon nämner både vårdlokaler och kontorsmiljöer, vilket visar bredd. Att specificera 2 500 kvm och nämna Karolinska gör att arbetsgivaren litar på henne direkt. Arbetsgivare ser att hon jobbat i miljöer där hygien verkligen spelar roll, där dålig hygien kan bli farligt.'
       },
       {
         titel: 'HACCP-kunskap och säker hantering av kemikalier',
-        beskrivning: 'Anna visar sin HACCP-kunskap och utbildning i kemikaliehantering. Det visar att hon har utbildning och erfarenhet, inte bara grundkunskaper. Det visar också att hon kan hantera ansvarsfulla uppdrag där livsmedelsäkerhet och smittskydd är viktigt.'
+        beskrivning: 'Maria visar sin HACCP-kunskap och utbildning i kemikaliehantering. Det visar att hon har utbildning och erfarenhet, inte bara grundkunskaper. Det visar också att hon kan hantera ansvarsfulla uppdrag där livsmedelsäkerhet och smittskydd är viktigt.'
       },
       {
         titel: 'Mätbara resultat ger bevis',
-        beskrivning: '97% i kvalitetskontroller är verkligt bevis på att Anna levererar. Istället för att säga "jag är noggrann" visar hon faktiska resultat. Det får rekryteraren att lita på att hon verkligen håller hög standard.'
+        beskrivning: '97% i kvalitetskontroller är verkligt bevis på att Maria levererar. Istället för att säga "jag är noggrann" visar hon faktiska resultat. Det får rekryteraren att lita på att hon verkligen håller hög standard.'
       },
       {
         titel: 'Självständighet och planering betonas',
@@ -2858,11 +2872,11 @@ Anna Bergström`
     tips: [
       {
         rubrik: 'Specificera vilka miljöer du har erfarenhet från',
-        text: 'Skriv konkret om vilka typer av lokaler du har städat: kontor, vårdlokaler, skolor, industribyggnader eller butiker. Olika miljöer ställer olika krav, och arbetsgivare vill veta att du har relevant erfarenhet. Nämn gärna storlek i kvm eller antal rum för att ge kontext. Om du har erfarenhet från känsliga miljöer som operationssalar eller laboratorier, ta med det tydligt – det visar att du kan hantera höga hygien- och säkerhetskrav.'
+        text: 'Skriv konkret om vilka typer av lokaler du har städat: kontor, vårdlokaler, skolor, industribyggnader eller butiker. Olika miljöer ställer olika krav, och arbetsgivare vill veta att du har relevant erfarenhet. Nämn gärna storlek i kvm eller antal rum för att ge kontext. Om du har erfarenhet från känsliga miljöer som operationssalar eller laboratorier, ta med det tydligt, det visar att du kan hantera höga hygien- och säkerhetskrav.'
       },
       {
         rubrik: 'Visa kunskap om säker hantering av kemikalier och HACCP',
-        text: 'Om du har utbildning i kemikaliehantering, HACCP eller desinfektion – ta med det! Många arbetsgivare, särskilt inom vård och livsmedel, kräver dokumenterad kunskap om säker hantering av städprodukter och smittskydd. Beskriv gärna hur du tillämpar detta i praktiken: dosering, märkning, användning av skyddsutrustning, eller rutiner för att förhindra korskontaminering. Detta visar att du tar yrket och säkerheten på allvar.'
+        text: 'Om du har utbildning i kemikaliehantering, HACCP eller desinfektion, ta med det! Många arbetsgivare, särskilt inom vård och livsmedel, kräver dokumenterad kunskap om säker hantering av städprodukter och smittskydd. Beskriv gärna hur du tillämpar detta i praktiken: dosering, märkning, användning av skyddsutrustning, eller rutiner för att förhindra korskontaminering. Detta visar att du tar yrket och säkerheten på allvar.'
       },
       {
         rubrik: 'Använd mätbara resultat istället för vaga påståenden',
@@ -2908,7 +2922,7 @@ Anna Bergström`
       },
       {
         fraga: 'Ska jag skriva om erfarenhet från olika sektorer (vård, kontor, industri)?',
-        svar: 'Ja, om du har erfarenhet från flera sektorer är det en styrka. Olika miljöer ställer olika krav och visar din anpassningsförmåga. Exempel: "Bred erfarenhet från både vårdhygienisk städning på sjukhus och kontorsstädning i moderna kontorslandskap, vilket gett mig förståelse för olika kvalitetskrav och arbetssätt". Anpassa dock betoningen efter tjänsten – om du söker inom vård, lägg mer vikt vid vårdhygienisk erfarenhet.'
+        svar: 'Ja, om du har erfarenhet från flera sektorer är det en styrka. Olika miljöer ställer olika krav och visar din anpassningsförmåga. Exempel: "Bred erfarenhet från både vårdhygienisk städning på sjukhus och kontorsstädning i moderna kontorslandskap, vilket gett mig förståelse för olika kvalitetskrav och arbetssätt". Anpassa dock betoningen efter tjänsten, om du söker inom vård, lägg mer vikt vid vårdhygienisk erfarenhet.'
       }
     ],
     relaterade: [
@@ -2931,10 +2945,10 @@ Du får se exakt hur du kombinerar juridisk förståelse (SoL, LVU, förvaltning
 Använd det som inspiration för din egen jobbansökan handläggare och anpassa det efter den tjänst du söker. Läs också våra tips om hur du optimerar ditt CV handläggare för att öka dina chanser till intervju.`,
     intro: 'Ett personligt brev för handläggare som bevisar din juridiska kompetens, utredningsförmåga och förmåga att fatta korrekta beslut enligt gällande regelverk. Detta exempel är optimerat för offentlig sektor och ATS-system.',
     exempelBrev: {
-      namn: 'Anna Bergström',
+      namn: 'Anna Lindström',
       adress: 'Vasagatan 28, 111 20 Stockholm',
-      telefon: '070-234 56 78',
-      epost: 'anna.bergstrom@email.se',
+      telefon: '070-123 45 67',
+      epost: 'anna.lindstrom@email.se',
       arbetsgivare: 'Stockholms Stad, Socialförvaltningen',
       roll: 'Handläggare inom barn- och ungdomsenheten',
       datum: new Date().toLocaleDateString('sv-SE', { year: 'numeric', month: 'long', day: 'numeric' }),
@@ -2948,10 +2962,10 @@ Det som driver mig i yrket är kombinationen av juridisk analys och socialt arbe
 
 Vad som särskilt tilltalar mig med Stockholms Stad är er satsning på kompetensutveckling och systematiskt kvalitetsarbete. Jag har under det senaste året genomgått fördjupad utbildning i motiverande samtal (MI) och traumamedveten omsorg, och jag ser fram emot att fortsätta utvecklas i en organisation som värdesätter evidensbaserad praktik. Er tillämpning av BBIC och fokus på barnkonventionen ligger helt i linje med mitt arbetssätt.
 
-Jag ser fram emot att diskutera hur jag kan bidra till er verksamhet. Kontakta mig gärna på 070-234 56 78 eller anna.bergstrom@email.se.
+Jag ser fram emot att diskutera hur jag kan bidra till er verksamhet. Kontakta mig gärna på 070-123 45 67 eller anna.lindstrom@email.se.
 
 Med vänlig hälsning,
-Anna Bergström`
+Anna Lindström`
     },
     varforDetFungerar: [
       {
@@ -2964,7 +2978,7 @@ Anna Bergström`
       },
       {
         titel: 'Juridisk precision med verkliga exempel',
-        beskrivning: 'Brevet visar juridisk förståelse genom exempel: utredning som höll vid överprövning i förvaltningsrätten tack vare korrekt rättighetsutredning. Anna visar att hon inte bara känner till lagrum utan använder dem korrekt – även under press och juridisk granskning.'
+        beskrivning: 'Brevet visar juridisk förståelse genom exempel: utredning som höll vid överprövning i förvaltningsrätten tack vare korrekt rättighetsutredning. Anna visar att hon inte bara känner till lagrum utan använder dem korrekt, även under press och juridisk granskning.'
       },
       {
         titel: 'Tväradministrativt samarbete som styrka',
@@ -2982,15 +2996,15 @@ Anna Bergström`
       },
       {
         rubrik: 'Visa utredningsförmåga genom exempel',
-        text: 'Rekryterare vill se att du kan genomföra korrekta utredningar. Beskriv din process: "Jag samlade in underlag från läkare, skola och socialtjänst, genomförde hembesök och intervjuer enligt strukturerad metod, och fattade beslut baserat på barnets bästa enligt 1 kap. 2 § SoL".\n\nVisa också att du klarar komplexa fall: "I ett ärende med motstridiga uppgifter tog jag in oberoende expertutlåtande. Jag höll utredningssamtal med alla berörda parter och dokumenterade varje steg för att säkerställa rättssäkerhet". Det bevisar att du arbetar metodiskt och noggrant.\n\nOm du har erfarenhet av ärenden som prövats i förvaltningsrätt eller kammarrätt, nämn det – det visar juridisk precision.'
+        text: 'Rekryterare vill se att du kan genomföra korrekta utredningar. Beskriv din process: "Jag samlade in underlag från läkare, skola och socialtjänst, genomförde hembesök och intervjuer enligt strukturerad metod, och fattade beslut baserat på barnets bästa enligt 1 kap. 2 § SoL".\n\nVisa också att du klarar komplexa fall: "I ett ärende med motstridiga uppgifter tog jag in oberoende expertutlåtande. Jag höll utredningssamtal med alla berörda parter och dokumenterade varje steg för att säkerställa rättssäkerhet". Det bevisar att du arbetar metodiskt och noggrant.\n\nOm du har erfarenhet av ärenden som prövats i förvaltningsrätt eller kammarrätt, nämn det, det visar juridisk precision.'
       },
       {
         rubrik: 'Kombinera juridik med social kompetens',
-        text: 'Handläggare behöver både juridisk skärpa och social förståelse. Visa att du förklarar komplexa beslut på ett enkelt sätt: "Jag förklarar beslutsunderlag tydligt för klienter, både muntligt och skriftligt. Rättigheterna och processordningen blir begriplig även för personer utan juridisk kunskap".\n\nNämn motiverande samtal (MI), traumamedveten omsorg eller lösningsfokuserade metoder om du har utbildning i det. Detta visar att du inte bara fattar formellt korrekta beslut, utan också kan bygga relation och stödja klienter genom processen.\n\nBlanda alltid juridik med empati – särskilt viktigt inom socialförvaltning där beslut påverkar människors liv.'
+        text: 'Handläggare behöver både juridisk skärpa och social förståelse. Visa att du förklarar komplexa beslut på ett enkelt sätt: "Jag förklarar beslutsunderlag tydligt för klienter, både muntligt och skriftligt. Rättigheterna och processordningen blir begriplig även för personer utan juridisk kunskap".\n\nNämn motiverande samtal (MI), traumamedveten omsorg eller lösningsfokuserade metoder om du har utbildning i det. Detta visar att du inte bara fattar formellt korrekta beslut, utan också kan bygga relation och stödja klienter genom processen.\n\nBlanda alltid juridik med empati, särskilt viktigt inom socialförvaltning där beslut påverkar människors liv.'
       },
       {
         rubrik: 'Dokumentera ditt kvalitetsarbete och rättssäkerhetstänk',
-        text: 'Offentlig sektor har höga krav på kvalitet och granskningsbarhet. Visa hur du arbetar med kvalitetssäkring: "Jag använder kollegial granskning före beslut, konsulterar juridisk rådgivning vid komplexa fall, och följer upp beslut systematiskt enligt fastställda rutiner".\n\nNämn också dokumentationsrutiner: "Jag dokumenterar alla kontakter, bedömningar och beslut direkt i verksamhetssystemet. Jag följer informationssäkerhetsrutiner och arkivlagen". Detta visar att du förstår vikten av transparens och att dina beslut ska kunna granskas.\n\nOm du har erfarenhet av internrevision, kvalitetsuppföljning eller processkartläggning, lyft det – det är meriterande.'
+        text: 'Offentlig sektor har höga krav på kvalitet och granskningsbarhet. Visa hur du arbetar med kvalitetssäkring: "Jag använder kollegial granskning före beslut, konsulterar juridisk rådgivning vid komplexa fall, och följer upp beslut systematiskt enligt fastställda rutiner".\n\nNämn också dokumentationsrutiner: "Jag dokumenterar alla kontakter, bedömningar och beslut direkt i verksamhetssystemet. Jag följer informationssäkerhetsrutiner och arkivlagen". Detta visar att du förstår vikten av transparens och att dina beslut ska kunna granskas.\n\nOm du har erfarenhet av internrevision, kvalitetsuppföljning eller processkartläggning, lyft det, det är meriterande.'
       },
       {
         rubrik: 'Anpassa efter verksamhetsområde och beslutsansvar',
@@ -3024,7 +3038,7 @@ Anna Bergström`
       },
       {
         fraga: 'Hur skriver jag om erfarenhet av överprövade beslut?',
-        svar: 'Om dina beslut hållit vid överprövning är det en styrka: "Mina beslut har regelbundet prövats i förvaltningsrätt och kammarrätt med högt genomslag tack vare noggrann utredning och tydlig motivering". Om ett beslut underkänts, var ärlig men lösningsfokuserad: "Ett av mina beslut underkändes i förvaltningsrätt, vilket ledde till att jag fördjupade min kunskap i rättighetsutredning och numera använder juridisk konsultation vid komplexa fall". Rekryterare uppskattar självinsikt och förmåga att lära av misstag. Undvik att dölja juridiska fel – visa istället hur du utvecklats.'
+        svar: 'Om dina beslut hållit vid överprövning är det en styrka: "Mina beslut har regelbundet prövats i förvaltningsrätt och kammarrätt med högt genomslag tack vare noggrann utredning och tydlig motivering". Om ett beslut underkänts, var ärlig men lösningsfokuserad: "Ett av mina beslut underkändes i förvaltningsrätt, vilket ledde till att jag fördjupade min kunskap i rättighetsutredning och numera använder juridisk konsultation vid komplexa fall". Rekryterare uppskattar självinsikt och förmåga att lära av misstag. Undvik att dölja juridiska fel, visa istället hur du utvecklats.'
       },
       {
         fraga: 'Hur visar jag förståelse för sekretess och informationssäkerhet?',
@@ -3063,10 +3077,10 @@ Använd vårt exempel som utgångspunkt och anpassa det efter den specifika klin
     intro: 'Se hur en erfaren ST-läkare visar sina diagnostiska färdigheter, evidensbaserade arbetssätt och teamsamarbete genom konkreta patientfall och kvantifierade resultat. Exemplet visar exakt hur du beskriver kliniska erfarenheter, vårdkvalitetsarbete och interprofessionella relationer så att både ATS-system och överläkare ser din kompetens.',
 
     exempelBrev: {
-      namn: 'Dr. Erik Lindström',
+      namn: 'Dr. Erik Johansson',
       adress: 'Karlavägen 88, 114 49 Stockholm',
-      telefon: '070-345 67 89',
-      epost: 'erik.lindstrom@lakare.se',
+      telefon: '070-234 56 78',
+      epost: 'erik.johansson@email.se',
       arbetsgivare: 'Karolinska Universitetssjukhuset',
       roll: 'ST-läkare, Internmedicin',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -3085,7 +3099,7 @@ Jag vill arbeta vid Karolinska Universitetssjukhuset för att era forskningsankn
 Jag är tillgänglig för intervju från den 15 februari och ser fram emot att berätta mer om hur min kliniska erfarenhet kan bidra till era vårdprogram.
 
 Med vänliga hälsningar,
-Dr. Erik Lindström`,
+Dr. Erik Johansson`,
       erfarenhet: '3 år som AT-läkare och underläkare',
       nyckelkompetenser: [
         'Klinisk diagnostik med evidensbaserade riktlinjer (Wells, CURB-65, HAS-BLED)',
@@ -3209,13 +3223,13 @@ Som kurator förväntas du behärska motiverande samtal (MI), kognitiv beteendet
 
 Använd vårt exempel som inspiration och anpassa innehållet efter den specifika tjänsten och organisationen. Brevet är ATS-optimerat för att passera de automatiska urvalssystem som många kommuner och regioner använder. Fokusera på situationer där du gjort verklig skillnad för klienter eller elever.`,
 
-    intro: 'Se hur en erfaren skolkurator beskriver sina samtalsmetoder, kris-/traumakompetens och teamsamarbete. Exemplet visar exakt hur du beskriver klientarbete, dokumentation och psykosocial bedömning – så att både ATS-system och rekryterare ser din kompetens.',
+    intro: 'Se hur en erfaren skolkurator beskriver sina samtalsmetoder, kris-/traumakompetens och teamsamarbete. Exemplet visar exakt hur du beskriver klientarbete, dokumentation och psykosocial bedömning, så att både ATS-system och rekryterare ser din kompetens.',
 
     exempelBrev: {
-      namn: 'Anna Bergström',
+      namn: 'Maria Bergström',
       adress: 'Vasagatan 28, 111 20 Stockholm',
       telefon: '070-234 56 78',
-      epost: 'anna.bergstrom@kurator.se',
+      epost: 'maria.bergstrom@email.se',
       arbetsgivare: 'Vasaskolan',
       roll: 'Skolkurator',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -3230,10 +3244,10 @@ Under min tid i Järfälla har jag arbetat med 180 elever per läsår. Jag har g
 Jag ser fram emot att bli skolkurator vid Vasaskolan. Där vill jag fortsätta utveckla elevhälsoarbete, förebyggande insatser och traumamedveten skola.
 
 Med vänlig hälsning,
-Anna Bergström`,
+Maria Bergström`,
       erfarenhet: '5 år som skolkurator',
       nyckelkompetenser: [
-        'Motiverande samtal (MI) – certifierad',
+        'Motiverande samtal (MI): certifierad',
         'KBT-baserade samtalsmetoder',
         'Kris- och traumastöd',
         'Psykosocial bedömning och riskbedömning (SAMS)',
@@ -3244,30 +3258,34 @@ Anna Bergström`,
     varforDetFungerar: [
       {
         titel: 'Konkret klientarbete med mätbara resultat',
-        beskrivning: '400+ genomförda samtal och 22% minskning av skolfrånvaro – siffror som gör intryck. Anna kvantifierar både kliniskt arbete och förbättringsresultat. Rekryterare ser att hon kan både samtala med elever OCH förbättra system.'
+        ankare: 'stycke-1',
+        beskrivning: '400+ genomförda samtal och 22% minskning av skolfrånvaro, siffror som gör intryck. Maria kvantifierar både kliniskt arbete och förbättringsresultat. Rekryterare ser att hon kan både samtala med elever OCH förbättra system.'
       },
       {
         titel: 'MI, KBT och SAMS – ATS-optimerade nyckelord',
+        ankare: 'stycke-1',
         beskrivning: 'MI (Motiverande samtal), KBT-baserade tekniker och SAMS (riskbedömning) finns ofta i platsannonser för kuratorer. ATS-system letar efter just dessa termer.'
       },
       {
         titel: 'Teamsamarbete med alla relevanta partners',
-        beskrivning: 'Skolsköterskor, psykologer, BUP och socialtjänst – Anna nämner alla relevanta samarbetspartners. Arbetsgivare vet att hon klarar teamarbete från dag ett.'
+        ankare: 'stycke-2',
+        beskrivning: 'Skolsköterskor, psykologer, BUP och socialtjänst, Maria nämner alla relevanta samarbetspartners. Arbetsgivare vet att hon klarar teamarbete från dag ett.'
       },
       {
         titel: 'Konkret beskrivning av krisarbete',
-        beskrivning: 'Anna skriver konkret om suicidtankar, familjevåld och trauma – och hur hon följer krisstödsplaner. Skolledare söker kuratorer som klarar akuta kriser under press.'
+        ankare: 'stycke-2',
+        beskrivning: 'Maria skriver konkret om suicidtankar, familjevåld och trauma, och hur hon följer krisstödsplaner. Skolledare söker kuratorer som klarar akuta kriser under press.'
       },
       {
         titel: 'Dokumentation enligt skollagen och GDPR',
-        beskrivning: 'Anna nämner GDPR och skollagen – hon förstår att kuratorer hanterar känsliga personuppgifter och måste dokumentera korrekt. Detta signalerar juridisk medvetenhet.'
+        beskrivning: 'Maria nämner GDPR och skollagen, hon förstår att kuratorer hanterar känsliga personuppgifter och måste dokumentera korrekt. Detta signalerar juridisk medvetenhet.'
       }
     ],
 
     tips: [
       {
         rubrik: 'Vilka samtalsmetoder söker arbetsgivare?',
-        text: 'Använd etablerade metoder som MI (Motiverande samtal), KBT, lösningsfokuserad terapi, DBT eller ACT. Du visar att du kan arbeta strukturerat och metodiskt – något som både ATS och rekryterare letar efter. Om du är certifierad i MI eller genomgått KBT-utbildning, nämn detta tydligt. Kvantifiera bara det du faktiskt gjort. Om du skriver "400 samtal", se till att du kan backa upp siffran. Rekryterare inom vården och skola vet hur klientarbete ser ut – överdrivna siffror avslöjas snabbt.'
+        text: 'Använd etablerade metoder som MI (Motiverande samtal), KBT, lösningsfokuserad terapi, DBT eller ACT. Du visar att du kan arbeta strukturerat och metodiskt, något som både ATS och rekryterare letar efter. Om du är certifierad i MI eller genomgått KBT-utbildning, nämn detta tydligt. Kvantifiera bara det du faktiskt gjort. Om du skriver "400 samtal", se till att du kan backa upp siffran. Rekryterare inom vården och skola vet hur klientarbete ser ut, överdrivna siffror avslöjas snabbt.'
       },
       {
         rubrik: 'Kvantifiera ditt klientarbete',
@@ -3302,7 +3320,7 @@ Anna Bergström`,
       },
       {
         fraga: 'Kan jag nämna svåra klientfall i brevet?',
-        svar: 'Ja, men var varsam med sekretess. Beskriv fall generellt: "Jag har arbetat med elever med suicidtankar och självskadebeteende." Fokusera på HUR du hanterade situationen – inte på klientens privata detaljer.'
+        svar: 'Ja, men var varsam med sekretess. Beskriv fall generellt: "Jag har arbetat med elever med suicidtankar och självskadebeteende." Fokusera på HUR du hanterade situationen, inte på klientens privata detaljer.'
       },
       {
         fraga: 'Hur betonar jag tvärdisciplinärt samarbete som kurator?',
@@ -3354,10 +3372,10 @@ Använd vårt exempel som utgångspunkt och anpassa det efter den specifika buti
     intro: 'Som butiksbiträde är ditt personliga brev din chans att visa att du trivs med kundmöten och skapar en positiv shoppingupplevelse. Arbetsgivare söker personer som är serviceinriktade, hanterar högtrafik med lugn och bidrar till butikens säljmål. Visa att du förstår vad bra service innebär och att du är redo att representera varumärket. Nedan ser du ett komplett exempelbrev som visar hur du formulerar din servicekänsla och erfarenhet.',
 
     exempelBrev: {
-      namn: 'Emma Karlsson',
+      namn: 'Emma Lindström',
       adress: 'Kungsgatan 45, 111 56 Stockholm',
-      telefon: '070-234 56 78',
-      epost: 'emma.karlsson@email.com',
+      telefon: '070-123 45 67',
+      epost: 'emma.lindstrom@exempel.se',
       arbetsgivare: 'H&M',
       roll: 'Butiksbiträde',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -3476,7 +3494,7 @@ Längre ner hittar du praktiska tips för att anpassa brevet efter din egen erfa
     intro: 'Ett exempel på personligt brev för butikschef som visar budgetansvar, personalledning och konkreta försäljningsresultat inom retail.',
 
     exempelBrev: {
-      namn: 'Anna Bergström',
+      namn: 'Marcus Bergström',
       arbetsgivare: 'Stadium',
       roll: 'Butikschef',
       brevText: `Hej,
@@ -3492,7 +3510,7 @@ Jag ser fram emot att bidra till er fortsatta tillväxt genom att leda butiken i
 Jag skulle gärna berätta mer om hur jag kan bidra till Stadiums framgång i Malmö. Hör gärna av dig om du vill veta mer om min erfarenhet eller mina resultat.
 
 Med vänliga hälsningar,
-Anna Bergström`
+Marcus Bergström`
     },
 
     varforDetFungerar: [
@@ -3608,10 +3626,10 @@ Använd vårt exempel som inspiration och anpassa det efter restaurangens profil
     intro: 'Som servitris eller restaurangbiträde är ditt personliga brev din chans att visa gästbemötande, stresshantering och flexibilitet. Arbetsgivare söker personer som trivs i högt tempo, kan hantera rusningar med lugn och bidrar till positiva gästupplevelser. Visa att du förstår vad bra service innebär och att du är redo att representera restaurangen. Nedan ser du ett komplett exempelbrev som visar hur du formulerar din servicekänsla och restaurangerfarenhet.',
 
     exempelBrev: {
-      namn: 'Sofia Eriksson',
+      namn: 'Sofia Lindqvist',
       adress: 'Vasagatan 8, 411 24 Göteborg',
-      telefon: '070-234 56 78',
-      epost: 'sofia.eriksson@email.se',
+      telefon: '070-123 45 67',
+      epost: 'sofia.lindqvist@email.se',
       arbetsgivare: 'Restaurang Havsutsikt',
       roll: 'Servitris',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -3625,10 +3643,10 @@ När restaurangen är full och tempot högt trivs jag som bäst. Vad driver mig?
 
 Ert engagemang för lokala producenter och den varierande menyn baserad på säsong tilltalar mig starkt. Jag älskar mat och har genuint intresse för hur rätter är tillagade, vilket hjälper mig förmedla passion när jag rekommenderar maträtter till gäster. Er familjära arbetsmiljö och fokus på långsiktiga medarbetare känns som precis den typ av arbetsplats där jag vill växa.
 
-Jag är flexibel gällande arbetstider och kan arbeta kvällar, helger och under högsäsong. Jag ser fram emot att diskutera hur jag kan bidra till er verksamhet. Kontakta mig gärna på 070-234 56 78 eller sofia.eriksson@email.se.
+Jag är flexibel gällande arbetstider och kan arbeta kvällar, helger och under högsäsong. Jag ser fram emot att diskutera hur jag kan bidra till er verksamhet. Kontakta mig gärna på 070-123 45 67 eller sofia.lindqvist@email.se.
 
 Varma hälsningar,
-Sofia Eriksson`,
+Sofia Lindqvist`,
       erfarenhet: '2 år inom restaurangbranschen med fokus på gästservice',
       nyckelkompetenser: [
         'Gästbemötande och servicekänsla',
@@ -3723,19 +3741,19 @@ Sofia Eriksson`,
     metaTitle: 'Personligt Brev Exempel Chef - Färdig Mall (2026)',
     metaDescription: 'Komplett personligt brev-exempel för chefer och ledare. ATS-optimerat med kvantifierade resultat och ledarskapsfilosofi.',
 
-    seoIntro: `Söker du chefsjobb och behöver skriva ett personligt brev som visar konkreta ledarskapsresultat? Det här exemplet visar hur du skriver ett ATS-optimerat personligt brev som fungerar för olika chefsnivåer – från teamledare till avdelningschef. Vi visar konkreta exempel på hur du lyfter fram kvantifierade resultat, personalansvar, budgetansvar och strategiskt tänkande.
+    seoIntro: `Söker du chefsjobb och behöver skriva ett personligt brev som visar konkreta ledarskapsresultat? Det här exemplet visar hur du skriver ett ATS-optimerat personligt brev som fungerar för olika chefsnivåer, från teamledare till avdelningschef. Vi visar konkreta exempel på hur du lyfter fram kvantifierade resultat, personalansvar, budgetansvar och strategiskt tänkande.
 
-Brevet innehåller konkreta exempel på hur du utvecklat medarbetare, hanterat budget, implementerat förändringar och mätt resultat. Du får se exakt hur du beskriver ledarskapsfilosofi och problemlösning – två nyckelord som rekryterare söker efter. Perfekt för både dig som söker din första chefsroll och dig som har flera års ledarskapserfarenhet.
+Brevet innehåller konkreta exempel på hur du utvecklat medarbetare, hanterat budget, implementerat förändringar och mätt resultat. Du får se exakt hur du beskriver ledarskapsfilosofi och problemlösning, två nyckelord som rekryterare söker efter. Perfekt för både dig som söker din första chefsroll och dig som har flera års ledarskapserfarenhet.
 
 Använd exemplet som inspiration för din egen jobbansökan chef och anpassa det efter bransch och chefsnivå. Läs också våra tips om hur du visar ledarskap med kvantifierade resultat utan att låta generisk.`,
 
     intro: 'Som chef är ditt personliga brev din chans att visa konkreta ledarskapsresultat, strategiskt tänkande och förmåga att utveckla medarbetare. Här får du ett komplett exempel på ett personligt brev för chefsroller, plus tips om hur du anpassar innehållet efter din erfarenhetsnivå och bransch.',
 
     exempelBrev: {
-      namn: 'Maria Bergström',
+      namn: 'Anna Bergström',
       adress: 'Storgatan 15, 211 42 Malmö',
-      telefon: '070-345 67 89',
-      epost: 'maria.bergstrom@email.se',
+      telefon: '070-123 45 67',
+      epost: 'anna.bergstrom@exempel.se',
       arbetsgivare: 'Malmö Stad',
       roll: 'Avdelningschef',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -3749,10 +3767,10 @@ Jag kombinerar strategiskt och operativt arbete. Varje vecka har jag schemalagda
 
 Min ledarskapsfilosofi bygger på tillit, tydlighet och utveckling. Jag ger medarbetare mandat att fatta beslut inom sina områden samtidigt som jag är tydlig med mål, ramar och förväntningar. Under 2024 genomförde jag strukturerade utvecklingssamtal med alla medarbetare där vi satte upp individuella mål kopplade till verksamhetens strategi. Det har ökat engagemanget märkbart.
 
-Er ambition att utveckla sociala omsorgen med fokus på brukarnas självbestämmare och evidensbaserade metoder lockar mig. Jag ser fram emot att diskutera hur jag kan bidra till er verksamhet. Kontakta mig gärna på 070-345 67 89 eller maria.bergstrom@email.se.
+Er ambition att utveckla sociala omsorgen med fokus på brukarnas självbestämmare och evidensbaserade metoder lockar mig. Jag ser fram emot att diskutera hur jag kan bidra till er verksamhet. Kontakta mig gärna på 070-123 45 67 eller anna.bergstrom@exempel.se.
 
 Varma hälsningar,
-Maria Bergström`,
+Anna Bergström`,
       erfarenhet: '8 år som chef inom offentlig sektor med fokus på social omsorg',
       nyckelkompetenser: [
         'Personalansvar (45 medarbetare)',
@@ -3806,7 +3824,7 @@ Maria Bergström`,
       },
       {
         rubrik: 'Tänk på offentlig vs privat sektor',
-        text: 'Offentlig sektor: Betona evidensbaserade metoder, uppföljning enligt nationella riktlinjer, erfarenhet av politiska beslut, och arbete inom lagstadgade ramar. Använd begrepp som "verksamhetsplan", "medborgarperspektiv", "SKR", "kvalitetsregister".\n\nPrivat sektor: Fokusera på affärsresultat, lönsamhet, kundnöjdhet, försäljning och tillväxt. Använd begrepp som "EBIT", "KPI:er", "affärsutveckling", "marknadsandel".\n\nByter du sektor? Översätt dina resultat: Offentligt→Privat: "budget i balans" blir "kostnadseffektivitet". Privat→Offentligt: "ökad försäljning" blir "förbättrad måluppfyllelse".'
+        text: 'Offentlig sektor: Betona evidensbaserade metoder, uppföljning enligt nationella riktlinjer, erfarenhet av politiska beslut, och arbete inom lagstadgade ramar. Använd begrepp som "verksamhetsplan", "medborgarperspektiv", "SKR", "kvalitetsregister".\n\nPrivat sektor: Fokusera på affärsresultat, lönsamhet, kundnöjdhet, försäljning och tillväxt. Använd begrepp som "EBIT", "KPI:er", "affärsutveckling", "marknadsandel".\n\nByter du sektor? Översätt dina resultat: Offentligt, sedan Privat: "budget i balans" blir "kostnadseffektivitet". Privat, sedan Offentligt: "ökad försäljning" blir "förbättrad måluppfyllelse".'
       }
     ],
 
@@ -3833,7 +3851,7 @@ Maria Bergström`,
       },
       {
         fraga: 'Behöver jag nämna ledarskapsutbildningar?',
-        svar: 'Ja, om de är relevanta och välkända. Nämn: Diplomerad ledare (IFL/IHM), Agil coach-certifiering, Systematiskt arbetsmiljöarbete (SAM), Lean Six Sigma. Skriv kortfattat: "Jag är Diplomerad ledare från IFL och certifierad i SAM." Undvik kurslista – ta det i CV:t. Fokusera på tillämpning.'
+        svar: 'Ja, om de är relevanta och välkända. Nämn: Diplomerad ledare (IFL/IHM), Agil coach-certifiering, Systematiskt arbetsmiljöarbete (SAM), Lean Six Sigma. Skriv kortfattat: "Jag är Diplomerad ledare från IFL och certifierad i SAM." Undvik kurslista, ta det i CV:t. Fokusera på tillämpning.'
       },
       {
         fraga: 'Hur gör jag övergången från specialist till chef tydlig?',
@@ -3861,17 +3879,17 @@ Maria Bergström`,
 
     seoIntro: `Söker du jobb som projektledare och behöver ett personligt brev som visar dina projektresultat? Det här exemplet demonstrerar hur du balanserar kvantifierbara leveranser med ledarskapsförmåga och certifieringar som PMP eller Scrum Master.
 
-Du får se exakt hur Lisa lyfter fram både agila metoder (Scrum/Kanban) och traditionell projektmetodik (PRINCE2), konkreta projektresultat (budget, tidsram, teamstorlek) och stakeholder management. Brevet är ATS-optimerat med nyckelord som rekryterare söker: projektledning, agilt arbetssätt, budget, riskhantering och leverans.
+Du får se exakt hur Sara lyfter fram både agila metoder (Scrum/Kanban) och traditionell projektmetodik (PRINCE2), konkreta projektresultat (budget, tidsram, teamstorlek) och stakeholder management. Brevet är ATS-optimerat med nyckelord som rekryterare söker: projektledning, agilt arbetssätt, budget, riskhantering och leverans.
 
 Använd exemplet som inspiration för din egen ansökan och anpassa efter den specifika projekttyp (IT, bygg, verksamhetsutveckling) du söker. Läs också våra tips om hur du visar ledarskap utan att låta arrogant.`,
 
     intro: 'Ett professionellt personligt brev för projektledare som visar konkreta projektresultat, både agila och traditionella metoder, samt certifieringar. Optimerat för svenska techföretag och ATS-system.',
 
     exempelBrev: {
-      namn: 'Lisa Andersson',
+      namn: 'Sara Lindström',
       adress: 'Storgatan 12, 111 23 Stockholm',
-      telefon: '073-456 78 90',
-      epost: 'lisa.andersson@email.se',
+      telefon: '070-123 45 67',
+      epost: 'sara.lindstrom@exempel.se',
       arbetsgivare: 'TechFlow Sweden AB',
       roll: 'Senior Projektledare',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -3888,7 +3906,7 @@ Det som verkligen tilltalar mig med TechFlow är er kultur kring kontinuerlig f�
 Jag är övertygad om att min erfarenhet av att leverera tekniska projekt i tid och budget, kombinerat med min förmåga att bygga och leda team, skulle göra mig till ett värdefullt tillskott. Jag ser fram emot att diskutera hur jag kan bidra till era mål.
 
 Varma hälsningar,
-Lisa Andersson`,
+Sara Lindström`,
       erfarenhet: '7 år som projektledare inom IT och digital transformation. Lett 8+ större projekt med budgetar upp till 8 MSEK. Certifierad PMP och Scrum Master.',
       nyckelkompetenser: [
         'Agil projektledning (Scrum/Kanban)',
@@ -3986,17 +4004,17 @@ Lisa Andersson`,
 
     seoIntro: `Ska du söka jobb som projektledare IT och behöver ett personligt brev som visar både teknisk förståelse och projektledningskompetens? Det här exemplet visar hur du skriver en ansökan projektledare IT som lyfter fram konkreta projektresultat, agil metodik och stakeholder management. Du får se hur du kombinerar teknisk kunskap med ledarskap på ett sätt som tilltalar IT-rekryterare.
 
-Brevet nedan visar hur Marcus Bergström presenterar sin erfarenhet av IT-projektledning med kvantifierbara resultat från systemmigrering och DevOps-transformation. Han nämner relevanta verktyg som Jira, Azure DevOps och Confluence, och visar hur han leder tvärfunktionella team bestående av utvecklare, testare och produktägare. Strukturen fungerar oavsett om du söker till ett produktbolag, konsultbolag eller IT-avdelning inom en större organisation.
+Brevet nedan visar hur Sara Lindqvist presenterar sin erfarenhet av IT-projektledning med kvantifierbara resultat från systemmigrering och DevOps-transformation. Hon nämner relevanta verktyg som Jira, Azure DevOps och Confluence, och visar hur hon leder tvärfunktionella team bestående av utvecklare, testare och produktägare. Strukturen fungerar oavsett om du söker till ett produktbolag, konsultbolag eller IT-avdelning inom en större organisation.
 
 Använd detta personligt brev projektledare IT som inspiration när du skriver din egen ansökan. Anpassa innehållet efter företagets tekniska stack och projekttyp, och framhäv de erfarenheter som är mest relevanta för tjänsten.`,
 
-    intro: 'Exemplet visar hur Marcus Bergström presenterar sin IT-projektledarerfarenhet med konkreta projektresultat, teknisk förståelse och agil metodik. Brevet balanserar teknisk kompetens med ledarskap och stakeholder management.',
+    intro: 'Exemplet visar hur Sara Lindqvist presenterar sin IT-projektledarerfarenhet med konkreta projektresultat, teknisk förståelse och agil metodik. Brevet balanserar teknisk kompetens med ledarskap och stakeholder management.',
 
     exempelBrev: {
-      namn: 'Marcus Bergström',
+      namn: 'Sara Lindqvist',
       adress: 'Teknikvägen 15, 164 40 Kista',
-      telefon: '070-456 78 90',
-      epost: 'marcus.bergstrom@email.se',
+      telefon: '070-678 90 12',
+      epost: 'sara.lindqvist@email.se',
       arbetsgivare: 'Klarna',
       roll: 'IT-projektledare',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -4013,29 +4031,29 @@ Jag kan bidra med strukturerad projektledning som respekterar utvecklarnas auton
 Jag är tillgänglig för intervju och ser fram emot att diskutera hur jag kan bidra till Klarnas IT-projekt. Med min kombination av teknisk förståelse och projektledningserfarenhet tror jag att jag kan leverera värde från dag ett.
 
 Med vänliga hälsningar,
-Marcus Bergström`
+Sara Lindqvist`
     },
 
     varforDetFungerar: [
       {
         titel: 'Tekniska nyckelord för IT-rekrytering',
-        beskrivning: 'Brevet innehåller relevanta IT-termer som Scrum, Jira, Azure DevOps, CI/CD, microservices och DevOps. Dessa nyckelord är viktiga för ATS-system och visar att Marcus förstår den tekniska miljön han ska leda projekt i.'
+        beskrivning: 'Brevet innehåller relevanta IT-termer som Scrum, Jira, Azure DevOps, CI/CD, microservices och DevOps. Dessa nyckelord är viktiga för ATS-system och visar att Sara förstår den tekniska miljön hon ska leda projekt i.'
       },
       {
         titel: 'Kvantifierbara projektresultat',
-        beskrivning: 'Marcus nämner konkreta siffror: 6,5 MSEK projektbudget, 12+3+2 teammedlemmar, tre veckor före deadline, 8% under budget, release-cykler från sex till två veckor. Detta ger rekryteraren bevis på faktisk leveransförmåga.'
+        beskrivning: 'Sara nämner konkreta siffror: 6,5 MSEK projektbudget, 12+3+2 teammedlemmar, tre veckor före deadline, 8% under budget, release-cykler från sex till två veckor. Detta ger rekryteraren bevis på faktisk leveransförmåga.'
       },
       {
         titel: 'Teknisk bakgrund som styrka',
-        beskrivning: 'Att Marcus har bakgrund som systemutvecklare och kan delta i arkitekturdiskussioner skiljer honom från projektledare utan teknisk förståelse. Han visar att han kan prata samma språk som utvecklarna.'
+        beskrivning: 'Att Sara har bakgrund som systemutvecklare och kan delta i arkitekturdiskussioner skiljer henne från projektledare utan teknisk förståelse. Hon visar att hon kan prata samma språk som utvecklarna.'
       },
       {
         titel: 'Balans mellan agilt och verktyg',
-        beskrivning: 'Brevet visar att Marcus inte bara använder agila metoder som buzzwords utan förstår praktisk tillämpning: tvåveckors sprints, backlog-hantering, CI/CD-pipeline. Han visar processmognad utan att låta byråkratisk.'
+        beskrivning: 'Brevet visar att Sara inte bara använder agila metoder som buzzwords utan förstår praktisk tillämpning: tvåveckors sprints, backlog-hantering, CI/CD-pipeline. Hon visar processmognad utan att låta byråkratisk.'
       },
       {
         titel: 'Stakeholder management mellan teknik och affär',
-        beskrivning: 'Marcus beskriver hur han faciliterar workshops mellan affärssidan och utvecklingsteamet. Detta visar kommunikationskompetens och förmåga att navigera mellan olika intressenter med olika perspektiv.'
+        beskrivning: 'Sara beskriver hur hon faciliterar workshops mellan affärssidan och utvecklingsteamet. Detta visar kommunikationskompetens och förmåga att navigera mellan olika intressenter med olika perspektiv.'
       }
     ],
 
@@ -4128,10 +4146,10 @@ Använd exemplet som inspiration när du söker tjänster inom grundskola, gymna
     intro: 'Ett professionellt personligt brev för elevassistent som visar konkret erfarenhet av att stötta elever med NPF-diagnoser, inlärningssvårigheter och sociala utmaningar. Detta exempel är optimerat för svenska grundskolor, gymnasieskolor och ATS-system.',
 
     exempelBrev: {
-      namn: 'Anna Bergström',
+      namn: 'Emma Lindström',
       adress: 'Skolvägen 23, 123 45 Uppsala',
-      telefon: '070-345 67 89',
-      epost: 'anna.bergstrom@email.se',
+      telefon: '070-234 56 78',
+      epost: 'emma.lindstrom@exempel.se',
       arbetsgivare: 'Kärrby Skola, Uppsala kommun',
       roll: 'Elevassistent inom grundsärskolan',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -4139,16 +4157,16 @@ Använd exemplet som inspiration när du söker tjänster inom grundskola, gymna
 
 Jag söker tjänsten som elevassistent på Kärrby Skola med fyra års gedigen erfarenhet av att stötta elever i behov av extra anpassningar. Under min tid på Stenhagsskolan i Uppsala har jag arbetat både i ordinarie klassrum och i mindre grupper med elever som har NPF-diagnoser, inlärningssvårigheter och social-emotionella utmaningar. Er satsning på inkluderande pedagogik och elevhälsoteamets nära samarbete stämmer helt överens med hur jag arbetar bäst.
 
-I min nuvarande roll stöttar jag dagligen 6-8 elever i årskurs 4-6, varav flera har ADHD, autism eller dyslexi. Jag arbetar nära klasslärare för att anpassa undervisningsmaterial, strukturera arbetsdagar med visuella scheman och Time Timer, samt ge direkt stöd under lektioner i svenska, matematik och NO. En konkret situation som visar mitt arbetssätt är när en elev med ADHD hade svårt att komma igång med skrivuppgifter. Jag utvecklade en strukturerad startritual med checklistor, korta arbetssessioner på 15 minuter och konkreta delmål. Efter tre veckor kunde eleven självständigt påbörja uppgifter och genomförde sitt första längre skrivprojekt med stolthet – något som både eleven, vårdnadshavare och lärare uppskattade enormt.
+I min nuvarande roll stöttar jag dagligen 6-8 elever i årskurs 4-6, varav flera har ADHD, autism eller dyslexi. Jag arbetar nära klasslärare för att anpassa undervisningsmaterial, strukturera arbetsdagar med visuella scheman och Time Timer, samt ge direkt stöd under lektioner i svenska, matematik och NO. En konkret situation som visar mitt arbetssätt är när en elev med ADHD hade svårt att komma igång med skrivuppgifter. Jag utvecklade en strukturerad startritual med checklistor, korta arbetssessioner på 15 minuter och konkreta delmål. Efter tre veckor kunde eleven självständigt påbörja uppgifter och genomförde sitt första längre skrivprojekt med stolthet, något som både eleven, vårdnadshavare och lärare uppskattade enormt.
 
 Jag har bred erfarenhet av att arbeta med olika pedagogiska verktyg och metoder: TAKK (tecken som alternativ och kompletterande kommunikation) för elever med språksvårigheter, Bornholmsmodellen för läs- och skrivinlärning, samt konkret material som multilink, tiokamrater och mattepussel för matematikstöd. I arbetet med elever med autism använder jag ofta sociala berättelser och förberedande bilder för att skapa förutsägbarhet vid schemaändringar eller nya situationer. Jag dokumenterar regelbundet elevernas progress i Unikum och Skolwebben, och deltar aktivt i elevhälsoteamets möten tillsammans med specialpedagog, kurator och rektor.
 
-Vad som verkligen tilltalar mig med Kärrby Skola är ert systematiska arbete med inkluderande miljöer och er satsning på fortbildning inom NPF och trauma. Jag har själv nyligen genomfört utbildning i självskadebeteende och krishantering, samt deltagit i kommunens fortbildning om ADHD i skolmiljö. Jag trivs i teamarbete och ser elevassistenten som en viktig länk mellan elev, lärare och vårdnadshavare – särskilt för de elever som behöver extra struktur, trygghet och konkret stöd för att nå sina mål.
+Vad som verkligen tilltalar mig med Kärrby Skola är ert systematiska arbete med inkluderande miljöer och er satsning på fortbildning inom NPF och trauma. Jag har själv nyligen genomfört utbildning i självskadebeteende och krishantering, samt deltagit i kommunens fortbildning om ADHD i skolmiljö. Jag trivs i teamarbete och ser elevassistenten som en viktig länk mellan elev, lärare och vårdnadshavare, särskilt för de elever som behöver extra struktur, trygghet och konkret stöd för att nå sina mål.
 
-Jag ser fram emot att bidra med min erfarenhet av NPF-stöd, strukturstöd och anpassad pedagogik till er verksamhet. Kontakta mig gärna på 070-345 67 89 eller anna.bergstrom@email.se.
+Jag ser fram emot att bidra med min erfarenhet av NPF-stöd, strukturstöd och anpassad pedagogik till er verksamhet. Kontakta mig gärna på 070-234 56 78 eller emma.lindstrom@exempel.se.
 
 Varma hälsningar,
-Anna Bergström`,
+Emma Lindström`,
       erfarenhet: '4 års erfarenhet som elevassistent med fokus på NPF-stöd',
       nyckelkompetenser: [
         'NPF-kompetens (ADHD, autism, dyslexi)',
@@ -4163,18 +4181,22 @@ Anna Bergström`,
     varforDetFungerar: [
       {
         titel: 'ATS-nyckelord för elevassistent',
+        ankare: 'stycke-1',
         beskrivning: 'Innehåller kritiska ATS-nyckelord som "NPF", "särskilt stöd", "anpassningar", "elevhälsoteam", "inkluderande pedagogik", "strukturstöd", "ADHD", "autism", "dyslexi" och "Unikum".'
       },
       {
         titel: 'Konkret elevexempel med mätbart resultat',
+        ankare: 'stycke-2',
         beskrivning: 'Visar inte bara "jag är bra på struktur" utan beskriver konkret situation: elev med ADHD fick strukturerad startritual med checklistor och 15-minuters-sessioner, vilket ledde till självständig arbetsstart efter tre veckor.'
       },
       {
         titel: 'Bred metodkunskap med specifika verktyg',
+        ankare: 'stycke-3',
         beskrivning: 'Nämner konkreta pedagogiska verktyg: TAKK, Bornholmsmodellen, Time Timer, visuella scheman, sociala berättelser, multilink och tiokamrater. Detta visar både teoretisk kunskap och praktisk erfarenhet.'
       },
       {
         titel: 'Teamarbete och professionellt förhållningssätt',
+        ankare: 'stycke-3',
         beskrivning: 'Visar förståelse för elevassistentens roll: dokumentation i Unikum/Skolwebben, deltagande i elevhälsoteam, samarbete med specialpedagog och kurator, samt länk mellan elev-lärare-vårdnadshavare.'
       }
     ],
@@ -4186,7 +4208,7 @@ Anna Bergström`,
 
 Nämn också konkreta diagnoser du har erfarenhet av: ADHD, ADD, autism, Aspergers syndrom, dyslexi, dyskalkyli, Tourettes, eller intellektuell funktionsnedsättning. Om du söker till särskola, använd termer som "grundsärskola", "träningsskola" och "funktionsnedsättning".
 
-Inkludera även dokumentationssystem som Unikum, IST, Skolwebben, Schoolsoft eller Dexter om du har erfarenhet – detta signalerar att du förstår skolans administrativa processer.`
+Inkludera även dokumentationssystem som Unikum, IST, Skolwebben, Schoolsoft eller Dexter om du har erfarenhet, detta signalerar att du förstår skolans administrativa processer.`
       },
       {
         rubrik: 'Visa konkreta elevexempel med situation-åtgärd-resultat',
@@ -4233,7 +4255,7 @@ Nämn också vårdnadshavarsamarbete konkret: "Daglig kommunikation via loggbok"
       },
       {
         fraga: 'Vilka egenskaper söker skolor hos elevassistenter?',
-        svar: 'Tålamod och lugn är kritiskt – arbetet innebär ofta repetition, utmanande beteenden och långsam progress. Flexibilitet är nödvändigt eftersom scheman och behov ändras dagligen. Struktur och organisation hjälper dig att skapa förutsägbarhet för eleverna. Empati och relationsskapande är grundläggande för att bygga tillit. Kommunikationsförmåga behövs för samarbete med lärare, elevhälsa och vårdnadshavare. Visa dessa egenskaper genom konkreta exempel i ditt brev, inte genom att bara lista dem.'
+        svar: 'Tålamod och lugn är kritiskt, arbetet innebär ofta repetition, utmanande beteenden och långsam progress. Flexibilitet är nödvändigt eftersom scheman och behov ändras dagligen. Struktur och organisation hjälper dig att skapa förutsägbarhet för eleverna. Empati och relationsskapande är grundläggande för att bygga tillit. Kommunikationsförmåga behövs för samarbete med lärare, elevhälsa och vårdnadshavare. Visa dessa egenskaper genom konkreta exempel i ditt brev, inte genom att bara lista dem.'
       },
       {
         fraga: 'Hur hanterar jag utmanande beteenden i det personliga brevet?',
@@ -4241,7 +4263,7 @@ Nämn också vårdnadshavarsamarbete konkret: "Daglig kommunikation via loggbok"
       },
       {
         fraga: 'Ska jag nämna fortbildningar och kurser även om de är korta?',
-        svar: 'Absolut ja! Skolor värderar kompetensutveckling högt. Nämn allt relevant: "Genomgått 2-dagars fortbildning i ADHD i skolmiljö", "Deltagit i kommunens utbildning om autism och kommunikation", "Certifierad i Första hjälpen barn och HLR", "Självstudier i TAKK via webbutbildning". Även kortare kurser visar att du tar yrket på allvar och vill utvecklas. Om du har specifika NPF-kurser (NCK – Nationellt Kompetenscentrum Anhöriga, autism- och aspergerförbundets utbildningar) är detta extra värdefullt.'
+        svar: 'Absolut ja! Skolor värderar kompetensutveckling högt. Nämn allt relevant: "Genomgått 2-dagars fortbildning i ADHD i skolmiljö", "Deltagit i kommunens utbildning om autism och kommunikation", "Certifierad i Första hjälpen barn och HLR", "Självstudier i TAKK via webbutbildning". Även kortare kurser visar att du tar yrket på allvar och vill utvecklas. Om du har specifika NPF-kurser (NCK, Nationellt Kompetenscentrum Anhöriga, autism- och aspergerförbundets utbildningar) är detta extra värdefullt.'
       },
       {
         fraga: 'Hur visar jag att jag klarar dokumentation och administration?',
@@ -4272,10 +4294,10 @@ Perfekt för dig som söker jobb som kundtjänstmedarbetare, kundsupport, custom
     intro: 'Ett professionellt personligt brev för kundtjänstmedarbetare som visar din kommunikationsförmåga, problemlösning och tålamod. Optimerat för ATS-system och svenska arbetsgivare inom e-handel, telekom och tech.',
 
     exempelBrev: {
-      namn: 'Sara Lindström',
+      namn: 'Lisa Eriksson',
       adress: 'Vasagatan 8, 411 24 Göteborg',
-      telefon: '070-456 78 90',
-      epost: 'sara.lindstrom@email.se',
+      telefon: '070-234 56 78',
+      epost: 'lisa.eriksson@email.se',
       arbetsgivare: 'Nordic E-commerce AB',
       roll: 'Kundtjänstmedarbetare',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -4289,10 +4311,10 @@ Jag trivs med att arbeta i högt tempo och behåller lugnet även när kötiden 
 
 Vad som verkligen tilltalar mig med Nordic E-commerce är ert fokus på långsiktiga kundrelationer och möjligheten att utvecklas inom företaget. Jag har följt er expansion de senaste åren och imponeras av hur ni kombinerar snabb leverans med personlig service. Er värdering om att varje kundkontakt är en möjlighet att bygga förtroende stämmer helt med hur jag ser på mitt arbete.
 
-Jag är övertygad om att min erfarenhet av att hantera komplexa kundärenden kombinerat med min genuina vilja att hjälpa andra skulle göra mig till ett värdefullt tillskott i ert team. Jag ser fram emot att berätta mer om hur jag kan bidra till er kundupplevelse. Kontakta mig gärna på 070-456 78 90 eller sara.lindstrom@email.se.
+Jag är övertygad om att min erfarenhet av att hantera komplexa kundärenden kombinerat med min genuina vilja att hjälpa andra skulle göra mig till ett värdefullt tillskott i ert team. Jag ser fram emot att berätta mer om hur jag kan bidra till er kundupplevelse. Kontakta mig gärna på 070-234 56 78 eller lisa.eriksson@email.se.
 
 Vänliga hälsningar,
-Sara Lindström`,
+Lisa Eriksson`,
       erfarenhet: '3 års erfarenhet av multikanalsupport inom e-handel',
       nyckelkompetenser: [
         'Multikanalsupport (telefon, chatt, e-post)',
@@ -4319,7 +4341,7 @@ Sara Lindström`,
       },
       {
         titel: 'Balans mellan mjuka och tekniska färdigheter',
-        beskrivning: 'Brevet visar både empatisk kommunikation och verktygskunskap. Sara nämner system som Zendesk och Aircall men kopplar det till hur hon använder dem för att lösa kundproblem snabbt.'
+        beskrivning: 'Brevet visar både empatisk kommunikation och verktygskunskap. Lisa nämner system som Zendesk och Aircall men kopplar det till hur hon använder dem för att lösa kundproblem snabbt.'
       }
     ],
 
@@ -4401,7 +4423,7 @@ Skriv "Jag lär mig snabbt nya produkter och läser alltid uppdateringar om sort
 
     seoIntro: `Söker du jobb som städare och undrar hur du skriver ett personligt brev som får dig till intervju? Det här exemplet visar hur du skapar ett ATS-optimerat personligt brev som passar svenska städföretag och arbetsgivare.
 
-Du får se exakt hur du lyfter fram din erfarenhet av städmetoder, kemikaliehantering och tidseffektivitet. Brevet visar konkreta exempel från kontorsstäd, skolor och äldreboenden, och betonar noggrannhet, pålitlighet och självständighet – egenskaper som rekryterare inom städbranschen högt värderar.
+Du får se exakt hur du lyfter fram din erfarenhet av städmetoder, kemikaliehantering och tidseffektivitet. Brevet visar konkreta exempel från kontorsstäd, skolor och äldreboenden, och betonar noggrannhet, pålitlighet och självständighet, egenskaper som rekryterare inom städbranschen högt värderar.
 
 Använd det som inspiration för din egen jobbansökan städare och anpassa det efter den tjänst du söker. Läs också våra tips om hur du optimerar ditt CV städare för att öka dina chanser till intervju.`,
 
@@ -4419,9 +4441,9 @@ Använd det som inspiration för din egen jobbansökan städare och anpassa det 
 
 Jag söker tjänsten som städare på Göteborgs Stadservice AB. Med fem års erfarenhet av kontorsstäd, institutionsstäd och hemstäd, samt ett genuint engagemang för kvalitet och kundnöjdhet, är jag övertygad om att min kompetens skulle passa väl i ert team. Era värderingar om miljövänlig städning och professionell service stämmer helt överens med hur jag arbetar.
 
-Under mina år på Rent & Fint Städservice har jag städat ett brett spektrum av miljöer: kontor, skolor, äldreboenden och privata hem. Jag har rutin på att städa 800-1200 kvm kontorsyta per dag och arbetar effektivt med både daglig underhållsstädning och grundligare storstädning. Jag är van vid att använda professionell städutrustning som automatskurmaskin, våtdammsugare och ångtvättare, och har gedigen kunskap om kemikaliehantering enligt de 16 miljöfareklasserna. Ett konkret exempel är när jag upptäckte att fel kemikalie användes på linoleumgolv vilket orsakade missfärgning – jag bytte till pH-neutralt rengöringsmedel och golvet återhämtades efter några månader.
+Under mina år på Rent & Fint Städservice har jag städat ett brett spektrum av miljöer: kontor, skolor, äldreboenden och privata hem. Jag har rutin på att städa 800-1200 kvm kontorsyta per dag och arbetar effektivt med både daglig underhållsstädning och grundligare storstädning. Jag är van vid att använda professionell städutrustning som automatskurmaskin, våtdammsugare och ångtvättare, och har gedigen kunskap om kemikaliehantering enligt de 16 miljöfareklasserna. Ett konkret exempel är när jag upptäckte att fel kemikalie användes på linoleumgolv vilket orsakade missfärgning, jag bytte till pH-neutralt rengöringsmedel och golvet återhämtades efter några månader.
 
-Det jag uppskattar mest med städyrket är känslan när en lokal är fräsch och ren. Jag är noggrann med detaljer och ser det som andra kanske missar: damm på lampkupor, fläckar på dörrkarmar och glömda områden bakom möbler. Samtidigt är jag snabb och strukturerad – jag arbetar enligt checklista och städplan för att säkerställa att alla områden täcks in på avsatt tid. När jag städar på äldreboende Solbacken arbetar jag alltid med respekt för de boende, hälsar och tar hänsyn till deras rutiner och integritet.
+Det jag uppskattar mest med städyrket är känslan när en lokal är fräsch och ren. Jag är noggrann med detaljer och ser det som andra kanske missar: damm på lampkupor, fläckar på dörrkarmar och glömda områden bakom möbler. Samtidigt är jag snabb och strukturerad, jag arbetar enligt checklista och städplan för att säkerställa att alla områden täcks in på avsatt tid. När jag städar på äldreboende Solbacken arbetar jag alltid med respekt för de boende, hälsar och tar hänsyn till deras rutiner och integritet.
 
 Vad som verkligen tilltalar mig med Göteborgs Stadservice är er satsning på miljömärkta produkter och grön städning. Jag har arbetat med både Svanen- och EU Ecolabel-märkta produkter och tror starkt på att städning ska vara både effektiv och miljövänlig. Jag är också flexibel gällande arbetstider och kan arbeta både dag-, kväll- och helgpass beroende på verksamhetens behov. Jag har körkort och egen bil, vilket gör att jag kan ta mig till olika objekt smidigt.
 
@@ -4478,13 +4500,13 @@ Om du arbetat med olika städtyper, var specifik: "3 års erfarenhet av daglig k
         rubrik: 'Visa materialkännedom och säker kemikaliehantering',
         text: `Städbranschen kräver kunskap om kemikalier och material för att undvika skador och säkerställa säkerhet. Nämn erfarenhet av kemikaliehantering, kunskap om de 16 miljöfareklasserna, eller utbildning i säker hantering av rengöringsmedel.
 
-Var specifik om materialkännedom: "Jag anpassar städmetod efter ytan – pH-neutralt på linoleum, mikrofibertrasa på skärmar, och alkaliska produkter på industrigolv". Om du har erfarenhet av speciella material som marmor, parkettgolv eller rostfritt stål, lyft fram det. Detta visar professionalism och minskar risken för kostsamma skador.`
+Var specifik om materialkännedom: "Jag anpassar städmetod efter ytan, pH-neutralt på linoleum, mikrofibertrasa på skärmar, och alkaliska produkter på industrigolv". Om du har erfarenhet av speciella material som marmor, parkettgolv eller rostfritt stål, lyft fram det. Detta visar professionalism och minskar risken för kostsamma skador.`
       },
       {
         rubrik: 'Betona pålitlighet, noggrannhet och självständighet',
         text: `Städare arbetar ofta ensamma och måste vara pålitliga och självständiga. Visa dessa egenskaper genom konkreta exempel: "Jag arbetar enligt checklista och säkerställer att alla områden täcks in även när jag arbetar utan tillsyn" eller "Jag har under tre år haft ansvaret för nycklar till 20+ olika objekt utan en enda incident".
 
-Noggrannhet är kritiskt – beskriv hur du säkerställer kvalitet: "Jag kontrollerar alltid mitt arbete innan jag lämnar objektet och använder dagbok för att dokumentera utförda uppgifter". Detta bygger förtroende hos arbetsgivare som inte alltid kan vara på plats.`
+Noggrannhet är kritiskt, beskriv hur du säkerställer kvalitet: "Jag kontrollerar alltid mitt arbete innan jag lämnar objektet och använder dagbok för att dokumentera utförda uppgifter". Detta bygger förtroende hos arbetsgivare som inte alltid kan vara på plats.`
       },
       {
         rubrik: 'Anpassa efter städmiljö och arbetsgivarens behov',
@@ -4543,8 +4565,8 @@ Läs jobbannonsen noga och anpassa ditt brev så att det matchar arbetsgivarens 
     exempelBrev: {
       namn: 'Maria Johansson',
       adress: 'Björkgatan 8, 414 55 Göteborg',
-      telefon: '070-234 56 78',
-      epost: 'maria.johansson@email.se',
+      telefon: '070-123 45 67',
+      epost: 'maria.johansson@exempel.se',
       arbetsgivare: 'Göteborgs Äldreomsorgsboende',
       roll: 'Vårdbiträde inom äldreomsorg',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -4558,7 +4580,7 @@ Jag arbetar nära undersköterskor och sjuksköterskor i tvärprofessionella tea
 
 Det jag uppskattar mest med vårdbiträdesyrket är relationerna. Att få tid att hjälpa någon med frukost, lyssna på deras livsberättelser och se glädjen i deras ögon när de känner sig sedda ger mitt arbete mening. Jag trivs med fysiskt arbete och är van vid skiftschema inklusive helger och kvällar. Jag är också flexibel och ställer gärna upp vid personalbrist.
 
-Jag ser fram emot att få diskutera hur jag kan bidra till era boendes vardag och till ert team. Kontakta mig gärna på 070-234 56 78 eller maria.johansson@email.se.
+Jag ser fram emot att få diskutera hur jag kan bidra till era boendes vardag och till ert team. Kontakta mig gärna på 070-123 45 67 eller maria.johansson@exempel.se.
 
 Varma hälsningar,
 Maria Johansson`
@@ -4653,10 +4675,10 @@ Maria Johansson`
     intro: 'Ett professionellt personligt brev för hemtjänst som visar din erfarenhet av praktiskt stöd i hemmet, förmåga att arbeta självständigt och respekt för äldres integritet. Optimerat för svenska hemtjänstgivare och ATS-system.',
 
     exempelBrev: {
-      namn: 'Maria Andersson',
+      namn: 'Anna Lindgren',
       adress: 'Björkvägen 15, 413 20 Göteborg',
-      telefon: '070-123 45 67',
-      epost: 'maria.andersson@email.se',
+      telefon: '070-234 56 78',
+      epost: 'anna.lindgren@email.se',
       arbetsgivare: 'Göteborgs Stad - Hemtjänst Väster',
       roll: 'Hemtjänstpersonal',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -4668,12 +4690,12 @@ Jag har arbetat inom hemtjänsten i sex år och besöker idag 8-12 brukare dagli
 
 Jag är van vid att dokumentera insatser i TakeCare och följer alltid verksamhetens rutiner för rapportering. Min flexibilitet gör att jag kan arbeta såväl vardagar som helger, och jag trivs med det självständiga arbetet som hemtjänsten innebär. Jag behärskar användning av lyftar och förflyttningshjälpmedel enligt gällande arbetsmiljöregler.
 
-Ett minne som visar vikten av kontinuitet: En av mina brukare hade svårt att äta och började tappa vikt. Genom att lära känna hennes matvanor och laga hennes favoriträtt – köttbullar med lingonsylt – kunde jag få henne att äta bättre. Idag ser jag fram emot varje besök hos henne.
+Ett minne som visar vikten av kontinuitet: En av mina brukare hade svårt att äta och började tappa vikt. Genom att lära känna hennes matvanor och laga hennes favoriträtt, köttbullar med lingonsylt, kunde jag få henne att äta bättre. Idag ser jag fram emot varje besök hos henne.
 
 Jag vill fortsätta arbeta med det jag brinner för: att ge äldre människor möjlighet att bo kvar hemma med trygghet och värdighet. Jag ser fram emot att bidra med min erfarenhet och mitt engagemang till ert team.
 
 Varma hälsningar,
-Maria Andersson`
+Anna Lindgren`
     },
 
     varforDetFungerar: [
@@ -4770,10 +4792,10 @@ Du får se exakt hur du balanserar tekniska färdigheter (systemintegration, API
 Använd det som inspiration för din egen jobbansökan IT-konsult och anpassa det efter den tjänst du söker. Läs också våra tips om hur du optimerar ditt CV IT-konsult för att öka dina chanser till intervju med de främsta konsultbolagen.`,
 
     exempelBrev: {
-      namn: 'Daniel Bergström',
+      namn: 'Erik Bergström',
       adress: 'Sveavägen 24, 111 57 Stockholm',
-      telefon: '070-987 65 43',
-      epost: 'daniel.bergstrom@email.se',
+      telefon: '070-123 45 67',
+      epost: 'erik.bergstrom@email.se',
       arbetsgivare: 'Forefront Consulting',
       roll: 'IT-konsult med fokus på systemintegration',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -4783,14 +4805,14 @@ Jag söker tjänsten som IT-konsult med fokus på systemintegration på Forefron
 
 Under min nuvarande roll som IT-konsult på Tech Solutions har jag framgångsrikt lett integrationsprojekt mellan moderna molnplattformar och äldre legacy-system. Ett konkret exempel är när jag designade och implementerade en API-baserad integrationslösning för en stor detaljhandelskedja. Projektet kopplade samman deras e-handelssystem med fysiska butikssystem och lagersaldo i realtid. Resultatet? Orderhanteringstiden reducerades med 60 procent och manuell dubbelregistrering eliminerades. Jag arbetade nära kundens affärssida för att förstå verkliga behov. Sedan översatte jag kravspecifikationer till tekniska lösningar som faktiskt skapade affärsnytta. Projektet genomfördes med agila metoder i tvåveckors sprintar där jag faciliterade dagliga standups och retrospectives.
 
-Tekniskt arbetar jag främst med moderna integrationsplattformar som MuleSoft och Azure Integration Services. Jag bygger REST API:er, microservices-arkitektur och cloud-lösningar i AWS och Azure. Jag har gedigen erfarenhet av kravspecifikation, systemanalys och att dokumentera tekniska lösningar på ett sätt som både utvecklare och beslutsfattare förstår. Min styrka ligger i att se helheten – att förstå kundens affärsmål och sedan välja rätt teknisk lösning. Jag trivs i rollen som konsult där varje kunduppdrag innebär nya utmaningar, branscher och tekniska miljöer att sätta sig in i.
+Tekniskt arbetar jag främst med moderna integrationsplattformar som MuleSoft och Azure Integration Services. Jag bygger REST API:er, microservices-arkitektur och cloud-lösningar i AWS och Azure. Jag har gedigen erfarenhet av kravspecifikation, systemanalys och att dokumentera tekniska lösningar på ett sätt som både utvecklare och beslutsfattare förstår. Min styrka ligger i att se helheten, att förstå kundens affärsmål och sedan välja rätt teknisk lösning. Jag trivs i rollen som konsult där varje kunduppdrag innebär nya utmaningar, branscher och tekniska miljöer att sätta sig in i.
 
 Vad som verkligen tilltalar mig med Forefront Consulting är er satsning på kompetensutveckling och att ni aktivt arbetar med senaste teknologier inom cloud och automation. Jag har under det senaste året certifierat mig som AWS Solutions Architect Associate och Azure Developer Associate. Jag ser fram emot att fortsätta växa tekniskt tillsammans med era specialister. Era kunder inom offentlig sektor och er erfarenhet av storskaliga digitala transformationsprojekt är något jag gärna vill vara del av.
 
-Jag tror att min erfarenhet av systemintegration, kundanpassade lösningar och agilt arbete skulle göra mig till ett värdefullt tillskott i ert konsultteam. Jag ser fram emot möjligheten att diskutera hur jag kan bidra till era kunders framgång. Tveka inte att kontakta mig på 070-987 65 43 eller daniel.bergstrom@email.se.
+Jag tror att min erfarenhet av systemintegration, kundanpassade lösningar och agilt arbete skulle göra mig till ett värdefullt tillskott i ert konsultteam. Jag ser fram emot möjligheten att diskutera hur jag kan bidra till era kunders framgång. Tveka inte att kontakta mig på 070-123 45 67 eller erik.bergstrom@email.se.
 
 Med vänliga hälsningar,
-Daniel Bergström`
+Erik Bergström`
     },
 
     varforDetFungerar: [
@@ -4800,7 +4822,7 @@ Daniel Bergström`
       },
       {
         rubrik: 'Konkreta projekt med mätbara resultat',
-        text: 'Istället för "jag är tekniskt skicklig" beskrivs ett faktiskt kundprojekt: integrationslösning för detaljhandelskedja som reducerade orderhantering med 60%. Detta visar både teknisk kompetens och affärsförståelse – nyckeln för konsultroller. Siffror gör påståenden trovärdiga.'
+        text: 'Istället för "jag är tekniskt skicklig" beskrivs ett faktiskt kundprojekt: integrationslösning för detaljhandelskedja som reducerade orderhantering med 60%. Detta visar både teknisk kompetens och affärsförståelse, nyckeln för konsultroller. Siffror gör påståenden trovärdiga.'
       },
       {
         rubrik: 'Balans mellan teknisk expertis och mjuka färdigheter',
@@ -4808,7 +4830,7 @@ Daniel Bergström`
       },
       {
         rubrik: 'Certifieringar som kompetensbevis',
-        text: 'Nämner specifika, verifierbara certifieringar: AWS Solutions Architect Associate och Azure Developer Associate. Detta visar kontinuerlig kompetensutveckling och förmåga att investera i sin egen utveckling – högt värderat inom IT-konsultbranschen där tekniken utvecklas snabbt.'
+        text: 'Nämner specifika, verifierbara certifieringar: AWS Solutions Architect Associate och Azure Developer Associate. Detta visar kontinuerlig kompetensutveckling och förmåga att investera i sin egen utveckling, högt värderat inom IT-konsultbranschen där tekniken utvecklas snabbt.'
       }
     ],
 
@@ -4819,7 +4841,7 @@ Daniel Bergström`
 
 Men teknisk stack räcker inte. Visa också metodkompetens: agila metoder (Scrum, Kanban, SAFe), DevOps-praktiker, CI/CD-pipelines, systemdesign och arkitekturmönster. Konsultbolag värderar kandidater som kan anpassa sig till olika kundmiljöer och tekniska ekosystem.
 
-Om du har certifieringar från AWS, Azure, Google Cloud, Kubernetes eller Scrum Master – nämn dem. Certifieringar är ofta avgörande för att vinna konsultuppdrag hos större kunder.`
+Om du har certifieringar från AWS, Azure, Google Cloud, Kubernetes eller Scrum Master, nämn dem. Certifieringar är ofta avgörande för att vinna konsultuppdrag hos större kunder.`
       },
       {
         rubrik: 'Visa affärsförståelse genom konkreta kundprojekt',
@@ -4843,7 +4865,7 @@ Läs konsultbolagets kundcase på deras hemsida och referera till dem: "Era proj
 
 Om du jobbat på många korta uppdrag, sammanfatta: "genomfört 12+ konsultuppdrag inom finans, retail och offentlig sektor under 4 år". Om du haft kundansvar, nämn det: "ansvarig konsult för 5 parallella kunder med uppdragsvärde på totalt 8 miljoner kronor årligen".
 
-Siffror gör ditt brev trovärdigt och visar att du tänker i termer av leverans och resultat – inte bara tekniska detaljer.`
+Siffror gör ditt brev trovärdigt och visar att du tänker i termer av leverans och resultat, inte bara tekniska detaljer.`
       },
       {
         rubrik: 'Betona kontinuerlig lärande och anpassningsförmåga',
@@ -4862,7 +4884,7 @@ Konsultbolag söker självgående personer som snabbt kan sätta sig in i nya te
       },
       {
         fraga: 'Hur visar jag att jag kan jobba med kunder om jag mest har varit intern utvecklare?',
-        svar: 'Omformulera dina erfarenheter genom ett kundperspektiv. Även intern utveckling innebär ofta "interna kunder" som produktägare, affärssidan eller andra avdelningar. Skriv: "Jag har arbetat nära produktteamet för att förstå användarnas behov och översatt dem till tekniska lösningar", eller "jag faciliterade workshops med affärsavdelningen för att specificera krav på vårt CRM-system". Om du hanterat support, dokumentation eller user training – nämn det. Det visar kommunikationsförmåga.'
+        svar: 'Omformulera dina erfarenheter genom ett kundperspektiv. Även intern utveckling innebär ofta "interna kunder" som produktägare, affärssidan eller andra avdelningar. Skriv: "Jag har arbetat nära produktteamet för att förstå användarnas behov och översatt dem till tekniska lösningar", eller "jag faciliterade workshops med affärsavdelningen för att specificera krav på vårt CRM-system". Om du hanterat support, dokumentation eller user training, nämn det. Det visar kommunikationsförmåga.'
       },
       {
         fraga: 'Hur lång konsulterfarenhet behöver jag ha för att söka IT-konsulttjänster?',
@@ -4878,7 +4900,7 @@ Konsultbolag söker självgående personer som snabbt kan sätta sig in i nya te
       },
       {
         fraga: 'Hur långt bör ett personligt brev vara för IT-konsulter?',
-        svar: 'Sikta på 350-450 ord fördelat på 4-5 stycken. IT-konsultbolag rekryterar ofta snabbt och läser många ansökningar, så håll brevet koncist och fokuserat på konkreta exempel. Varje stycke ska ha ett syfte: inledning med motivation, tekniska projekt med resultat, kompetenser och arbetssätt, koppling till konsultbolaget, och avslutning. Undvik generella fraser som "jag är passionerad om teknik" – visa det genom exempel istället.'
+        svar: 'Sikta på 350-450 ord fördelat på 4-5 stycken. IT-konsultbolag rekryterar ofta snabbt och läser många ansökningar, så håll brevet koncist och fokuserat på konkreta exempel. Varje stycke ska ha ett syfte: inledning med motivation, tekniska projekt med resultat, kompetenser och arbetssätt, koppling till konsultbolaget, och avslutning. Undvik generella fraser som "jag är passionerad om teknik", visa det genom exempel istället.'
       }
     ],
 
@@ -4906,10 +4928,10 @@ Använd detta exempel som utgångspunkt och anpassa det efter den specifika buti
     intro: 'Ett professionellt personligt brev för kassörska som visar din servicekänsla, noggrannhet och erfarenhet av kassasystem. Detta exempel är optimerat för dagligvaruhandeln och ATS-system.',
 
     exempelBrev: {
-      namn: 'Sofia Bergström',
+      namn: 'Sara Lindqvist',
       adress: 'Kungsgatan 34, 602 24 Norrköping',
-      telefon: '070-456 23 89',
-      epost: 'sofia.bergstrom@email.se',
+      telefon: '070-123 45 67',
+      epost: 'sara.lindqvist@email.se',
       arbetsgivare: 'ICA Maxi Norrköping',
       roll: 'Kassörska',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -4926,29 +4948,29 @@ ICA Maxis fokus på lokala producenter och bra service tilltalar mig starkt. Jag
 Jag är van vid högt tempo, flexibel med arbetstider och trivs med att jobba både vardag, kväll och helger. Jag ser fram emot att bidra till en smidig och trevlig kundupplevelse hos er.
 
 Med vänliga hälsningar,
-Sofia Bergström`
+Sara Lindqvist`
     },
 
     varforDetFungerar: [
       {
         titel: 'Konkreta siffror visar erfarenhetsnivå',
-        beskrivning: 'Sofia kvantifierar sin erfarenhet: betjänar 80 kunder per timme, tre års erfarenhet, noll kassadifferenser senaste halvåret. Detta ger arbetsgivaren en tydlig bild av hennes tempo och noggrannhet utan vaga påståenden om att vara "snabb och pålitlig".'
+        beskrivning: 'Sara kvantifierar sin erfarenhet: betjänar 80 kunder per timme, tre års erfarenhet, noll kassadifferenser senaste halvåret. Detta ger arbetsgivaren en tydlig bild av hennes tempo och noggrannhet utan vaga påståenden om att vara "snabb och pålitlig".'
       },
       {
         titel: 'Branschspecifika system och betalningslösningar',
-        beskrivning: 'Brevet nämner kassasystem (Hoist), betalningsmetoder (kontant, kort, Swish, mobilbetalning, presentkort), lojalitetsprogram (Coop-poäng) och panthantering. Detta visar att Sofia behärskar den tekniska sidan av kassaarbetet och kan börja jobba direkt utan lång introduktion.'
+        beskrivning: 'Brevet nämner kassasystem (Hoist), betalningsmetoder (kontant, kort, Swish, mobilbetalning, presentkort), lojalitetsprogram (Coop-poäng) och panthantering. Detta visar att Sara behärskar den tekniska sidan av kassaarbetet och kan börja jobba direkt utan lång introduktion.'
       },
       {
         titel: 'Problemlösning med konkret exempel',
-        beskrivning: 'Istället för att bara säga "jag är bra på att hantera missnöjda kunder" beskriver Sofia en verklig situation: kund klagade på pris, hon bad kollega kolla, lyssnade lugnt, justerade priset och bad om ursäkt. Detta visar hur hon hanterar konflikter professionellt.'
+        beskrivning: 'Istället för att bara säga "jag är bra på att hantera missnöjda kunder" beskriver Sara en verklig situation: kund klagade på pris, hon bad kollega kolla, lyssnade lugnt, justerade priset och bad om ursäkt. Detta visar hur hon hanterar konflikter professionellt.'
       },
       {
         titel: 'Flexibilitet och bredare kompetens',
-        beskrivning: 'Sofia visar att hon kan mer än bara kassaarbete: varupåfyllnad, framlockning, prisjustering och hantering av pantautomat. Detta gör henne mer värdefull för arbetsgivaren som ofta behöver kassörskor som kan hoppa in på andra uppgifter när kassakön är kort.'
+        beskrivning: 'Sara visar att hon kan mer än bara kassaarbete: varupåfyllnad, framlockning, prisjustering och hantering av pantautomat. Detta gör henne mer värdefull för arbetsgivaren som ofta behöver kassörskor som kan hoppa in på andra uppgifter när kassakön är kort.'
       },
       {
         titel: 'Personlig koppling till företaget',
-        beskrivning: 'Brevet refererar till ICA Maxis lokala producenter och breda sortiment av färskvaror. Detta visar att Sofia gjort research och ser skillnaden mellan olika butikskedjor, vilket signalerar genuint intresse snarare än ett generiskt massutskick.'
+        beskrivning: 'Brevet refererar till ICA Maxis lokala producenter och breda sortiment av färskvaror. Detta visar att Sara gjort research och ser skillnaden mellan olika butikskedjor, vilket signalerar genuint intresse snarare än ett generiskt massutskick.'
       }
     ],
 
@@ -5057,10 +5079,10 @@ Ditt personliga brev ska innehålla konkreta exempel från din arbetsvardag. Bes
 Om du söker jobb på restaurang eller hotell måste du anpassa brevet till verksamhetens profil. En finedining-restaurang söker kreativitet och precision. Ett konferanshotell värdesätter effektivitet och förmåga att hantera stora volymer. Lyft alltid fram din erfarenhet av matsäkerhet och hygienrutiner. Det är icke-förhandlingsbart i branschen.`,
 
     exempelBrev: {
-      namn: 'Martin Bergström',
+      namn: 'Marcus Eriksson',
       adress: 'Kungsbackavägen 28, 431 37 Mölndal',
-      telefon: '070-284 19 63',
-      epost: 'martin.bergstrom@email.se',
+      telefon: '070-234 56 78',
+      epost: 'marcus.eriksson@email.se',
       arbetsgivare: 'Restaurang Sjöbris',
       roll: 'Sous Chef',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -5070,14 +5092,14 @@ På Restaurang Sjöbris har jag sedan 2021 arbetat som sous chef. Jag ansvarar f
 
 Matsäkerhet är grunden i allt jag gör. Jag är certifierad i HACCP. Förra året implementerade jag ett digitalt temperaturloggningssystem via Menutech. Resultatet? Noll avvikelser vid miljöinspektionen. Under hektiska fredags- och lördagskvällar med 120+ gäster håller jag ett lugn som sprider sig till hela teamet. Min erfarenhet från storbandskök på Clarion Hotel lärde mig en sak: effektiv kommunikation och grundlig förberedelse är skillnaden mellan kaos och kontroll.
 
-Kreativitet driver mig. Jag experimenterar regelbundet med fermentering och egen charkuteri. Min signaturrätt – kalvkind med rostad butternutsquash och havtornsmajonnäs – blev vår mest sålda hösträtt 2024. Men jag respekterar också de klassiska grunderna. En perfekt bernaise eller korrekt gjord fond kräver tålamod och precision.
+Kreativitet driver mig. Jag experimenterar regelbundet med fermentering och egen charkuteri. Min signaturrätt, kalvkind med rostad butternutsquash och havtornsmajonnäs, blev vår mest sålda hösträtt 2024. Men jag respekterar också de klassiska grunderna. En perfekt bernaise eller korrekt gjord fond kräver tålamod och precision.
 
 Jag söker nu en miljö där jag kan utvecklas mot en köksmästarroll. Er inriktning på hållbarhet och innovation gör Havets Skafferi till rätt plats för det. Jag ser fram emot att diskutera hur min erfarenhet kan bidra till er framgång.
 
 Varmt välkommen att kontakta mig för ett möte.
 
 Med vänlig hälsning,
-Martin Bergström`
+Marcus Eriksson`
     },
 
     tips: [
@@ -5085,13 +5107,13 @@ Martin Bergström`
         rubrik: 'Lyft fram konkreta menuexempel och kulinariska prestationer',
         text: `Rekryterare vill se bevis på din kompetens. Inte bara påståenden. Beskriv specifika rätter du skapat, menyer du planerat eller kulinariska utmaningar du löst. Till exempel: "Utvecklade en 5-rätters vegansk tasting menu som ökade våra vegetariska gäster med 40 procent". Eller: "Omarbetade frukostbuffén vilket minskade matsvinn med 8 kg per dag".
 
-Inkludera gärna tekniker du behärskar – sous vide, fermentering, charkuteri. Visa hur de bidragit till verksamheten. Detta bevisar att du tänker strategiskt kring hur dina kunskaper skapar affärsnytta.`
+Inkludera gärna tekniker du behärskar, sous vide, fermentering, charkuteri. Visa hur de bidragit till verksamheten. Detta bevisar att du tänker strategiskt kring hur dina kunskaper skapar affärsnytta.`
       },
       {
         rubrik: 'Betona matsäkerhet, HACCP-kunskap och hygienrutiner',
         text: `Matsäkerhet är A och O i köket. Nämn alltid din HACCP-certifiering om du har en. Beskriv konkret hur du arbetar med hygien och säkerhet. Exempel: "Implementerade digitalt temperaturloggningssystem som eliminerade alla avvikelser vid miljöinspektionen". Eller: "Utbildade ny personal i korrekt hantering av allergener och korsföroreningar".
 
-Om du arbetat med specifika standarder (ISO 22000, Svensk HACCP) eller system (Menutech, Adato) – nämn dem. Det signalerar professionalitet. Det visar att du tar matsäkerhet på största allvar.`
+Om du arbetat med specifika standarder (ISO 22000, Svensk HACCP) eller system (Menutech, Adato), nämn dem. Det signalerar professionalitet. Det visar att du tar matsäkerhet på största allvar.`
       },
       {
         rubrik: 'Visa hur du hanterar stress och högt tempo under rushtid',
@@ -5103,11 +5125,11 @@ Visa också att du kan leda andra under press om du söker en ledarroll. Konkret
         rubrik: 'Inkludera exempel på kostnadsmedvetenhet och svinnsminimering',
         text: `Restaurangverksamhet drivs på små marginaler. Kockar som bidrar till lönsamheten värderas högt. Beskriv hur du minskat kostnader: "Minskade råvarukostnader med 15 procent genom att använda hela råvaran. Fiskrester blev fond. Björksopp-stilkar blev krispig garnering". Eller: "Optimerade portionsstorlekarna vilket sänkte food cost från 34 procent till 29 procent".
 
-Om du arbetat med inventeringssystem, leverantörsförhandlingar eller menuanalys – lyft det. Det visar affärsförståelse utöver själva matlagningen.`
+Om du arbetat med inventeringssystem, leverantörsförhandlingar eller menuanalys, lyft det. Det visar affärsförståelse utöver själva matlagningen.`
       },
       {
         rubrik: 'Anpassa brevet till restaurangtyp och kökets inriktning',
-        text: `En bistro, ett konferanshotell och en finedining-restaurang söker olika kompetenser. Läs noggrant om arbetsgivaren. Spegla deras värderingar. Om de pratar om "gård-till-bord" – betona din erfarenhet av lokala råvaror. Om de nämner "innovativ gastronomi" – lyft din kreativitet och experimentlusta.
+        text: `En bistro, ett konferanshotell och en finedining-restaurang söker olika kompetenser. Läs noggrant om arbetsgivaren. Spegla deras värderingar. Om de pratar om "gård-till-bord", betona din erfarenhet av lokala råvaror. Om de nämner "innovativ gastronomi", lyft din kreativitet och experimentlusta.
 
 Exempel på anpassning: För ett hotellkök kan du skriva "Erfarenhet av att hantera frukost för 200 gäster samt à la carte-service på kvällen". För en finedining-restaurang fokusera på "Precision i plättering, förståelse för smakkombinationer och erfarenhet av tasting menus med 10+ rätter".`
       }
@@ -5139,7 +5161,7 @@ Exempel på anpassning: För ett hotellkök kan du skriva "Erfarenhet av att han
       },
       {
         fraga: 'Vilka färdigheter ska jag lyfta fram i mitt brev som kock?',
-        svar: 'Betona tekniska färdigheter (matlagningstekniker, menuplanering), matsäkerhet (HACCP-certifiering, hygienrutiner) och förmåga att arbeta under stress. Visa kreativitet i matlagning och lagarbete. Om du söker ledarroller – inkludera erfarenhet av personalansvar, utbildning och schemaläggning. Konkreta exempel väger tyngre än allmänna påståenden.'
+        svar: 'Betona tekniska färdigheter (matlagningstekniker, menuplanering), matsäkerhet (HACCP-certifiering, hygienrutiner) och förmåga att arbeta under stress. Visa kreativitet i matlagning och lagarbete. Om du söker ledarroller, inkludera erfarenhet av personalansvar, utbildning och schemaläggning. Konkreta exempel väger tyngre än allmänna påståenden.'
       },
       {
         fraga: 'Ska jag nämna specifika rätter jag lagat i mitt personliga brev?',
@@ -5151,7 +5173,7 @@ Exempel på anpassning: För ett hotellkök kan du skriva "Erfarenhet av att han
       },
       {
         fraga: 'Behöver jag nämna HACCP-certifiering i brevet?',
-        svar: 'Ja. Matsäkerhet är grundläggande i köksyrket. HACCP-certifiering visar professionalitet. Nämn gärna certifieringen och hur du tillämpar kunskapen praktiskt: temperaturkontroller, allergenhantering, korsföroreningar. Om du saknar formell certifiering men har gedigen erfarenhet – beskriv hur du arbetar med matsäkerhet i praktiken.'
+        svar: 'Ja. Matsäkerhet är grundläggande i köksyrket. HACCP-certifiering visar professionalitet. Nämn gärna certifieringen och hur du tillämpar kunskapen praktiskt: temperaturkontroller, allergenhantering, korsföroreningar. Om du saknar formell certifiering men har gedigen erfarenhet, beskriv hur du arbetar med matsäkerhet i praktiken.'
       },
       {
         fraga: 'Hur anpassar jag brevet till olika typer av restauranger?',
@@ -5183,10 +5205,10 @@ Använd det som inspiration för din egen jobbansökan konditor och anpassa det 
     intro: 'Ett professionellt personligt brev för konditor som visar din tekniska skicklighet med bakverk, sockerdekoration och kreativ receptutveckling. Detta exempel är optimerat för svenska bagerier, konditorier och kaféer.',
 
     exempelBrev: {
-      namn: 'Emma Lindgren',
+      namn: 'Sofia Bergström',
       adress: 'Östra Promenaden 14, 211 28 Malmö',
-      telefon: '070-345 67 89',
-      epost: 'emma.lindgren@email.se',
+      telefon: '070-234 56 78',
+      epost: 'sofia.bergstrom@email.se',
       arbetsgivare: 'Café Esaias',
       roll: 'Konditor',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -5203,28 +5225,32 @@ Det jag uppskattar med Café Esaias är er satsning på lokala råvaror och era 
 Jag ser fram emot att bidra med min erfarenhet och fortsätta utvecklas inom konditoryrket tillsammans med er. Tveka inte att kontakta mig för en intervju.
 
 Med vänliga hälsningar,
-Emma Lindgren`
+Sofia Bergström`
     },
 
     varforDetFungerar: [
       {
         titel: 'Konkreta siffror visar arbetskapacitet',
-        beskrivning: 'Att producera 20-30 tårtor per vecka ger rekryteraren en tydlig bild av Emmas erfarenhet och arbetsförmåga. Siffror gör brevet trovärdigt och visar att hon kan hantera både volym och kvalitet samtidigt.'
+        beskrivning: 'Att producera 20-30 tårtor per vecka ger rekryteraren en tydlig bild av Sofias erfarenhet och arbetsförmåga. Siffror gör brevet trovärdigt och visar att hon kan hantera både volym och kvalitet samtidigt.'
       },
       {
         titel: 'Specifik branschterminologi för ATS-optimering',
+        ankare: 'stycke-3',
         beskrivning: 'Brevet innehåller viktiga sökord som ATS-system letar efter: sockerdekoration, chokladarbete, temperering, livsmedelshygien, macarons, bakverk och tidsplanering. Detta ökar chansen att passera automatiska screeningsystem.'
       },
       {
         titel: 'Balans mellan kreativitet och precision',
+        ankare: 'stycke-1',
         beskrivning: 'Visar både kreativ utveckling (nya receptvarianter) och tekniskt hantverkskunnande (temperering, italiensk maräng). Detta är attraktivt för arbetsgivare som söker konditor med både konstnärliga och praktiska färdigheter.'
       },
       {
         titel: 'Företagsspecifik anpassning',
-        beskrivning: 'Emma nämner att hon besökt kaféet och uppskattar deras fokus på lokala råvaror och klassiska svenska bakverk. Detta visar genuint intresse och att hon inte skickat samma brev till alla arbetsgivare.'
+        ankare: 'stycke-4',
+        beskrivning: 'Sofia nämner att hon besökt kaféet och uppskattar deras fokus på lokala råvaror och klassiska svenska bakverk. Detta visar genuint intresse och att hon inte skickat samma brev till alla arbetsgivare.'
       },
       {
         titel: 'Visar förståelse för hela produktionskedjan',
+        ankare: 'stycke-3',
         beskrivning: 'Nämner erfarenhet av olika utrustning (vedeldade ugnar, konvektionsugnar, kylrum) och vikten av livsmedelshygien. Detta signalerar att hon kan börja jobba direkt utan lång inlärningsperiod.'
       }
     ],
@@ -5311,19 +5337,19 @@ Läs jobbannonsen noga och researcha om arbetsgivaren. Om de pratar om "klassisk
     seoTitle: 'Personligt Brev Specialpedagog 2026 - Exempel & Mall | Jobbcoach.ai',
     seoDescription: 'Komplett exempel på personligt brev för specialpedagog. Visa pedagogisk utredning, NPF-kompetens och elevhälsoarbete. Konkreta tips för skola och förskola.',
 
-    intro: 'Anna Bergqvists personliga brev visar hur hon kvantifierar sitt specialpedagogiska arbete. Hon beskriver 120 pedagogiska utredningar med validerade instrument, systematiskt åtgärdsprogramsarbete och handledning av kollegor. Brevet kombinerar NPF-kompetens med relationellt perspektiv och konkreta verktyg som Unikum och IST. Rekryterare ser tydligt hur hon arbetar både med enskilda elever och på systemnivå genom hela elevhälsoteamet.',
+    intro: 'Lisa Bergmans personliga brev visar hur hon kvantifierar sitt specialpedagogiska arbete. Hon beskriver 120 pedagogiska utredningar med validerade instrument, systematiskt åtgärdsprogramsarbete och handledning av kollegor. Brevet kombinerar NPF-kompetens med relationellt perspektiv och konkreta verktyg som Unikum och IST. Rekryterare ser tydligt hur hon arbetar både med enskilda elever och på systemnivå genom hela elevhälsoteamet.',
 
-    seoIntro: `Det här personliga brevet visar hur du som specialpedagog konkretiserar ditt pedagogiska arbete med siffror och verktyg som rekryterare känner igen. Anna Bergqvist beskriver inte bara att hon arbetat med elevhälsa. Hon visar att hon genomfört 120 pedagogiska utredningar med validerade instrument som IST och Nya Lusboken. Hon kvantifierar sina åtgärdsprogram och nämner konkreta ramverk som UDL och systematisk kvalitet.
+    seoIntro: `Det här personliga brevet visar hur du som specialpedagog konkretiserar ditt pedagogiska arbete med siffror och verktyg som rekryterare känner igen. Lisa Bergman beskriver inte bara att hon arbetat med elevhälsa. Hon visar att hon genomfört 120 pedagogiska utredningar med validerade instrument som IST och Nya Lusboken. Hon kvantifierar sina åtgärdsprogram och nämner konkreta ramverk som UDL och systematisk kvalitet.
 
-Brevet lyfter systemarbete genom handledning av kollegor, inte bara direktkontakt med elever. Anna visar att hon bygger skolans pedagogiska kompetens långsiktigt och arbetar relationellt med hela lärmiljön. Hon nämner samverkan i elevhälsoteamet (EHT) och hur hon använder NPF-kompetens i praktiken. Rekryterare ser direkt att hon behärskar både utredning och implementering av stöd.
+Brevet lyfter systemarbete genom handledning av kollegor, inte bara direktkontakt med elever. Lisa visar att hon bygger skolans pedagogiska kompetens långsiktigt och arbetar relationellt med hela lärmiljön. Hon nämner samverkan i elevhälsoteamet (EHT) och hur hon använder NPF-kompetens i praktiken. Rekryterare ser direkt att hon behärskar både utredning och implementering av stöd.
 
 Brevet fungerar eftersom det balanserar pedagogisk teori med praktiska resultat. Följ exemplet när du söker tjänster inom grundskola eller förskola där elevhälsoarbete är centralt. Se våra tips nedan för hur du anpassar innehållet till din erfarenhet och specifika roll.`,
 
     exempelBrev: {
-      namn: 'Anna Bergqvist',
+      namn: 'Lisa Bergman',
       adress: 'Linnégatan 12, 352 34 Växjö',
-      telefon: '073-245 67 89',
-      epost: 'anna.bergqvist@email.se',
+      telefon: '070-345 67 89',
+      epost: 'lisa.bergman@email.se',
       arbetsgivare: 'Ängskolan',
       roll: 'Specialpedagog',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -5340,7 +5366,7 @@ Er skolas värdegrund om att varje elev ska få det stöd de behöver för att n
 Jag är övertygad om att min specialpedagogiska erfarenhet och mitt engagemang för inkludering skulle tillföra värde till er elevhälsa. Jag ser fram emot att diskutera hur jag kan bidra till er skolas fortsatta utveckling.
 
 Med vänliga hälsningar,
-Anna Bergqvist`
+Lisa Bergman`
     },
 
     tips: [
@@ -5379,23 +5405,23 @@ Om du arbetat med specifika dokumentationssystem eller metoder för uppföljning
     varforDetFungerar: [
       {
         titel: 'Kvantifierade utredningar med validerade instrument',
-        beskrivning: 'Anna skriver inte bara att hon gör utredningar. Hon anger 120 genomförda och nämner IST, Nya Lusboken och WISC. Rekryterare ser att hon behärskar strukturerad kartläggning och kan motivera pedagogiska beslut med dokumenterade metoder.'
+        beskrivning: 'Lisa skriver inte bara att hon gör utredningar. Hon anger 120 genomförda och nämner IST, Nya Lusboken och WISC. Rekryterare ser att hon behärskar strukturerad kartläggning och kan motivera pedagogiska beslut med dokumenterade metoder.'
       },
       {
         titel: 'Systemarbete genom handledning av pedagoger',
-        beskrivning: 'Genom att beskriva hur hon handleder kollegor visar Anna att hon bygger skolans kompetens långsiktigt. Rekryterare värderar detta eftersom en specialpedagog ska stärka hela organisationen, inte bara arbeta reaktivt med enskilda elever.'
+        beskrivning: 'Genom att beskriva hur hon handleder kollegor visar Lisa att hon bygger skolans kompetens långsiktigt. Rekryterare värderar detta eftersom en specialpedagog ska stärka hela organisationen, inte bara arbeta reaktivt med enskilda elever.'
       },
       {
         titel: 'NPF-kompetens kopplad till konkreta åtgärder',
-        beskrivning: 'Anna nämner ADHD, autism och språkstörning i relation till inkluderande lärmiljöer och anpassningar. Hon visar inte bara teoretisk kunskap utan hur NPF-förståelse leder till praktiska åtgärder i klassrummet.'
+        beskrivning: 'Lisa nämner ADHD, autism och språkstörning i relation till inkluderande lärmiljöer och anpassningar. Hon visar inte bara teoretisk kunskap utan hur NPF-förståelse leder till praktiska åtgärder i klassrummet.'
       },
       {
         titel: 'Relationellt perspektiv istället för kategoriskt',
-        beskrivning: 'Genom att lyfta lärmiljö och relationellt synsätt visar Anna modern specialpedagogik där problemet inte placeras hos eleven utan i samspelet med omgivningen. Detta signalerar forskningsbaserad praxis.'
+        beskrivning: 'Genom att lyfta lärmiljö och relationellt synsätt visar Lisa modern specialpedagogik där problemet inte placeras hos eleven utan i samspelet med omgivningen. Detta signalerar forskningsbaserad praxis.'
       },
       {
         titel: 'Konkreta verktyg och ramverk som rekryterare känner igen',
-        beskrivning: 'Anna nämner Unikum, UDL och systematisk kvalitet. Rekryterare ser att hon kan starta direkt utan omfattande introduktion. Att namnge verktyg visar att hon förstår hur elevhälsoarbete dokumenteras och följs upp.'
+        beskrivning: 'Lisa nämner Unikum, UDL och systematisk kvalitet. Rekryterare ser att hon kan starta direkt utan omfattande introduktion. Att namnge verktyg visar att hon förstår hur elevhälsoarbete dokumenteras och följs upp.'
       }
     ],
 
@@ -5459,7 +5485,7 @@ Använd detta exempel som mall när du skriver din egen fysioterapeut-ansökan. 
     intro: 'Ett personligt brev från en fysioterapeut med erfarenhet av ortopedisk rehabilitering och manuell terapi som söker sig till en privat rehabklinik med fokus på evidensbaserad behandling.',
 
     exempelBrev: {
-      namn: 'Sara Lindström',
+      namn: 'Emma Lindström',
       arbetsgivare: 'Aleris Rehab Uppsala',
       roll: 'Fysioterapeut',
       brevText: `Hej,
@@ -5475,17 +5501,17 @@ Jag ser fram emot att bidra med min kliniska erfarenhet och mitt systematiska ar
 Jag ser fram emot möjligheten att diskutera hur jag kan bidra till ert team och era patienters rehabilitering.
 
 Med vänliga hälsningar,
-Sara Lindström`
+Emma Lindström`
     },
 
     varforDetFungerar: [
       {
         titel: 'Konkret klinisk erfarenhet med kvantifierbara resultat',
-        beskrivning: 'Brevet visar tydligt att Sara har behandlat över 800 patienter och förbättrat funktionell återhämtning med 35 procent enligt validerade mätinstrument. Hon nämner specifika metoder som ICF-modellen, manuell terapi och träningsterapi, vilket visar djup klinisk kompetens. Genom att referera till Örebro Musculoskeletal Pain Screening Questionnaire demonstrerar hon också kunskap om evidensbaserade mätmetoder inom rehabilitering.'
+        beskrivning: 'Brevet visar tydligt att Emma har behandlat över 800 patienter och förbättrat funktionell återhämtning med 35 procent enligt validerade mätinstrument. Hon nämner specifika metoder som ICF-modellen, manuell terapi och träningsterapi, vilket visar djup klinisk kompetens. Genom att referera till Örebro Musculoskeletal Pain Screening Questionnaire demonstrerar hon också kunskap om evidensbaserade mätmetoder inom rehabilitering.'
       },
       {
         titel: 'Evidensbaserat arbetssätt och dokumentation',
-        beskrivning: 'Sara betonar sitt systematiska arbetssätt med funktionsbedömning och evidensbaserade behandlingsmetoder. Hon nämner konkret att hon dokumenterar i Cosmic och följer strukturerade behandlingsprotokoll. Detta visar att hon förstår vikten av noggrann journalföring och kvalitetssäkring i vårdarbetet, något som är kritiskt för både patientsäkerhet och tvärprofessionellt samarbete.'
+        beskrivning: 'Emma betonar sitt systematiska arbetssätt med funktionsbedömning och evidensbaserade behandlingsmetoder. Hon nämner konkret att hon dokumenterar i Cosmic och följer strukturerade behandlingsprotokoll. Detta visar att hon förstår vikten av noggrann journalföring och kvalitetssäkring i vårdarbetet, något som är kritiskt för både patientsäkerhet och tvärprofessionellt samarbete.'
       },
       {
         titel: 'Tvärprofessionellt samarbete och helhetsperspektiv',
@@ -5493,11 +5519,11 @@ Sara Lindström`
       },
       {
         titel: 'Researched koppling till arbetsgivaren',
-        beskrivning: 'Sara visar att hon har researcgat Aleris genom att referera till deras publikationer om smärtrehabilitering och deras satsning på vidareutbildning inom manuell terapi. Detta bevisar genuint intresse och visar att hon förstår klinikens inriktning och värderingar. Hon kopplar också sin egen specialistkompetens till deras patientgrupper på ett konkret sätt.'
+        beskrivning: 'Emma visar att hon har researcgat Aleris genom att referera till deras publikationer om smärtrehabilitering och deras satsning på vidareutbildning inom manuell terapi. Detta bevisar genuint intresse och visar att hon förstår klinikens inriktning och värderingar. Hon kopplar också sin egen specialistkompetens till deras patientgrupper på ett konkret sätt.'
       },
       {
         titel: 'Patientcentrerad och empatisk ton',
-        beskrivning: 'Trots professionell ton genomsyras brevet av patientfokus - Sara talar om patienternas funktionella återhämtning och återgång till funktion och aktivitet. Detta visar att hon förstår att fysioterapi handlar om mer än behandlingsteknik - det handlar om att hjälpa människor återfå sin livskvalitet. Tonen är varm men professionell, vilket speglar den empati som krävs i vårdyrket.'
+        beskrivning: 'Trots professionell ton genomsyras brevet av patientfokus - Emma talar om patienternas funktionella återhämtning och återgång till funktion och aktivitet. Detta visar att hon förstår att fysioterapi handlar om mer än behandlingsteknik - det handlar om att hjälpa människor återfå sin livskvalitet. Tonen är varm men professionell, vilket speglar den empati som krävs i vårdyrket.'
       }
     ],
 
@@ -5591,10 +5617,10 @@ Använd vårt exempel som mall för ditt eget personligt brev som fritidsledare.
     intro: 'Ett personligt brev för fritidsledare ska visa ditt engagemang för barn och unga genom konkreta aktivitetsexempel. Fokusera på hur du skapar trygghet, planerar meningsfulla aktiviteter och arbetar med gruppdynamik.',
 
     exempelBrev: {
-      namn: 'Emma Bergström',
+      namn: 'Marcus Lindgren',
       adress: 'Skogsvägen 12, 582 73 Linköping',
-      telefon: '073-456 78 90',
-      epost: 'emma.bergstrom@email.se',
+      telefon: '070-456 78 90',
+      epost: 'marcus.lindgren@email.se',
       arbetsgivare: 'Ekbackens fritidshem',
       roll: 'Fritidsledare',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -5611,20 +5637,23 @@ Jag skulle bidra med erfarenhet av tematiskt arbete och förmåga att skapa stru
 Jag ser fram emot möjligheten att berätta mer om hur jag kan bidra till er verksamhet. Hör gärna av dig om du vill veta mer om mina erfarenheter eller hur jag arbetar med barn i olika åldrar.
 
 Med vänliga hälsningar,
-Emma Bergström`
+Marcus Lindgren`
     },
 
     varforDetFungerar: [
       {
         titel: 'Konkreta aktivitetsexempel som visar kompetens',
+        ankare: 'stycke-3',
         beskrivning: 'Brevet nämner specifika aktiviteter som skogsprosjektet, lässtunder och konflikthantering med konflikttrappan. Detta visar att sökanden har praktisk erfarenhet och kan omsätta pedagogiska metoder i praktiken, vilket är betydligt starkare än vaga påståenden om att vara engagerad eller kreativ.'
       },
       {
         titel: 'Tydlig koppling till verksamhetens profil',
+        ankare: 'stycke-1',
         beskrivning: 'Sökanden refererar till fritidshemmets fokus på utomhuspedagogik och läsfrämjande aktiviteter, vilket visar att hen har läst om verksamheten och tänkt på hur den egna erfarenheten passar in. Detta signalerar genuint intresse och att sökanden förstår verksamhetens värdegrund.'
       },
       {
         titel: 'Balans mellan struktur och flexibilitet',
+        ankare: 'stycke-2',
         beskrivning: 'Brevet visar att sökanden förstår vikten av både planering och anpassningsförmåga i fritidsverksamhet. Genom att nämna visuella scheman och samtidigt framhäva flexibilitet demonstreras en förståelse för fritidshemmets särskilda utmaningar där oförutsägbarhet är en del av vardagen.'
       },
       {
@@ -5633,6 +5662,7 @@ Emma Bergström`
       },
       {
         titel: 'Inkluderande förhållningssätt med exempel',
+        ankare: 'stycke-2',
         beskrivning: 'Brevet beskriver konkret hur sökanden arbetar för att alla barn ska känna sig delaktiga, genom visuella scheman och anpassade aktiviteter. Detta visar en medvetenhet om att barn har olika behov och förutsättningar, vilket är centralt i fritidshemmets uppdrag.'
       }
     ],
@@ -5742,10 +5772,10 @@ Det här exemplet demonstrerar hur Emma kopplar sin erfarenhet direkt till verks
 Läs våra tips för att anpassa innehållet till din egen erfarenhet. Oavsett om du söker din första tjänst eller har jobbat i många år kan du använda samma struktur för att visa ditt pedagogiska förhållningssätt.`,
 
     exempelBrev: {
-      namn: 'Emma Bergström',
+      namn: 'Emma Karlsson',
       adress: 'Kopparbergsvägen 18, 722 13 Västerås',
-      telefon: '073-845 22 16',
-      epost: 'emma.bergstrom@email.se',
+      telefon: '070-789 01 23',
+      epost: 'emma.karlsson@email.se',
       arbetsgivare: 'Norrbacka skola',
       roll: 'Fritidspedagog',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -5762,7 +5792,7 @@ Norrbacka skola tilltalar mig särskilt genom er satsning på utomhuspedagogik o
 Jag är övertygad om att min erfarenhet och mitt engagemang för barns rätt till en aktiv och meningsfull fritid skulle passa väl in i ert team. Jag ser fram emot att få berätta mer om hur jag kan bidra till Norrbacka skolas fritidshem.
 
 Med vänliga hälsningar,
-Emma Bergström`
+Emma Karlsson`
     },
 
     tips: [
@@ -5876,10 +5906,10 @@ Nämn gärna om du har utbildning i trauma-medveten omsorg, AKK eller andra rele
     seoIntro: `Ett personligt brev för redovisningsekonom måste balansera teknisk expertis med mjuka värden. Arbetsgivare vill se att du behärskar bokslut enligt K2 eller K3, att du har erfarenhet av relevanta ekonomisystem och att du kan kommunicera med kunder och revisorer. Detta exempel visar hur en redovisningsekonom med fem års erfarenhet presenterar sin kompetens.\n\nBrevet lyfter konkreta resultat som effektivisering av bokslut, hantering av kundportföljer och erfarenhet av specifika system som Visma Spcs och Fortnox. Det visar också hur du kan anpassa brevet till företaget du söker till genom att referera till deras specialområden och värderingar.\n\nAnvänd exemplet som grund för ditt eget brev. Anpassa siffror och erfarenheter efter din bakgrund, och se till att du svarar på det som efterfrågas i jobbannonsen. Tipsen längre ned hjälper dig att förstärka brevet ytterligare.`,
 
     exempelBrev: {
-      namn: 'Anna Bergström',
+      namn: 'Anna Lindberg',
       adress: 'Vintervägen 12, 753 32 Uppsala',
-      telefon: '073-456 78 90',
-      epost: 'anna.bergstrom@email.se',
+      telefon: '070-123 45 67',
+      epost: 'anna.lindberg@email.se',
       arbetsgivare: 'Grant Thornton Sverige AB',
       roll: 'Redovisningsekonom',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -5994,10 +6024,10 @@ Jag ser fram emot att diskutera hur jag kan stärka ert redovisningsteam. Jag fi
     seoIntro: `Ett personligt brev för HR-specialist måste visa både operativ kompetens och strategiskt tänkande. Arbetsgivare söker kandidater som kan hantera allt från rekrytering och arbetsrätt till medarbetarutveckling och employer branding. Detta exempel visar hur en HR-specialist med fyra års erfarenhet presenterar sin bredd utan att bli ytlig.\n\nBrevet lyfter konkreta resultat som antal genomförda rekryteringar, förbättrad onboardingprocess och ökat antal spontanansökningar. Det visar också kompetens inom specifika HR-system och arbetsrättsliga regelverk som MBL och LAS. Kombinationen av siffror och systemkunskap gör brevet trovärdigt för rekryterare.\n\nAnvänd exemplet som grund och anpassa till din egen erfarenhet. Fokusera på de områden där du har starkast meriter och koppla dem till vad arbetsgivaren söker. Tipsen nedan hjälper dig att förstärka de viktigaste delarna av ditt brev.`,
 
     exempelBrev: {
-      namn: 'Maria Lindqvist',
+      namn: 'Emma Johansson',
       adress: 'Industrigatan 45, 722 12 Västerås',
-      telefon: '070-234 56 78',
-      epost: 'maria.lindqvist@email.se',
+      telefon: '070-123 45 67',
+      epost: 'emma.johansson@email.se',
       arbetsgivare: 'Sandvik AB',
       roll: 'HR-specialist',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -6038,23 +6068,23 @@ Jag är övertygad om att min kombination av operativ HR-erfarenhet och projektl
     varforDetFungerar: [
       {
         titel: 'Kvantifierade rekryteringsresultat ger trovärdighet',
-        beskrivning: 'Maria anger att hon genomfört över 150 rekryteringar. Siffran ger rekryteraren en direkt bild av erfarenhetsnivån. Vaga formuleringar som "omfattande rekryteringserfarenhet" hade inte gett samma effekt eftersom de inte säger något om volym eller komplexitet.'
+        beskrivning: 'Emma anger att hon genomfört över 150 rekryteringar. Siffran ger rekryteraren en direkt bild av erfarenhetsnivån. Vaga formuleringar som "omfattande rekryteringserfarenhet" hade inte gett samma effekt eftersom de inte säger något om volym eller komplexitet.'
       },
       {
         titel: 'Mätbar förbättring visar affärsnytta',
-        beskrivning: 'Onboardingförbättringen från 3,2 till 4,6 visar att Maria inte bara utför uppgifter utan förbättrar processer. Rekryterare söker kandidater som kan visa att deras arbete gör skillnad, inte bara att de utfört sina arbetsuppgifter.'
+        beskrivning: 'Onboardingförbättringen från 3,2 till 4,6 visar att Emma inte bara utför uppgifter utan förbättrar processer. Rekryterare söker kandidater som kan visa att deras arbete gör skillnad, inte bara att de utfört sina arbetsuppgifter.'
       },
       {
         titel: 'Specifika system och regelverk för ATS-matchning',
-        beskrivning: 'Brevet nämner Workday, LinkedIn Recruiter, MBL, LAS och Teknikföretagens kollektivavtal. Dessa termer fångas av automatiska filter och visar rekryteraren snabbt att Maria har rätt teknisk och juridisk profil.'
+        beskrivning: 'Brevet nämner Workday, LinkedIn Recruiter, MBL, LAS och Teknikföretagens kollektivavtal. Dessa termer fångas av automatiska filter och visar rekryteraren snabbt att Emma har rätt teknisk och juridisk profil.'
       },
       {
         titel: 'Balans mellan operativt och strategiskt HR-arbete',
-        beskrivning: 'Maria visar både dagligt arbete med chefsrådgivning och rehabilitering samt strategiska projekt som employer branding. Det signalerar att hon kan växa i rollen och ta större ansvar över tid.'
+        beskrivning: 'Emma visar både dagligt arbete med chefsrådgivning och rehabilitering samt strategiska projekt som employer branding. Det signalerar att hon kan växa i rollen och ta större ansvar över tid.'
       },
       {
         titel: 'Genuin företagsanpassning med konkreta referenser',
-        beskrivning: 'Brevet nämner Sandviks globala närvaro, hållbarhetsfokus och mångfaldsarbete. Det visar att Maria gjort research och förstår företagets kultur, vilket skiljer henne från kandidater som skickar generiska ansökningar.'
+        beskrivning: 'Brevet nämner Sandviks globala närvaro, hållbarhetsfokus och mångfaldsarbete. Det visar att Emma gjort research och förstår företagets kultur, vilket skiljer henne från kandidater som skickar generiska ansökningar.'
       }
     ],
 
@@ -6112,10 +6142,10 @@ Jag är övertygad om att min kombination av operativ HR-erfarenhet och projektl
     seoIntro: `Ett personligt brev för systemutvecklare måste balansera teknisk kompetens med förmågan att kommunicera värde. Arbetsgivare vill se vilka språk och ramverk du behärskar, men framför allt vilka resultat du levererat. Detta exempel visar hur en utvecklare med sex års erfarenhet presenterar sin tekniska profil utan att bli en uppräkning av buzzwords.\n\nBrevet lyfter konkreta prestandaförbättringar som minskade svarstider och förbättrad tillgänglighet. Det nämner specifika tekniker som Java, Spring Boot, microservices och Kubernetes, vilket hjälper brevet passera ATS-filter. Samtidigt visar det på samarbetsförmåga genom att nämna code reviews och kunskapsdelning.\n\nAnvänd exemplet som utgångspunkt och anpassa teknologier efter din egen stack. Fokusera på resultat snarare än att lista varje verktyg du använt. Tipsen nedan hjälper dig att skriva ett brev som sticker ut i högen av ansökningar.`,
 
     exempelBrev: {
-      namn: 'Erik Johansson',
+      namn: 'Johan Eriksson',
       adress: 'Teknikvägen 8, 112 28 Stockholm',
-      telefon: '073-567 89 01',
-      epost: 'erik.johansson@email.se',
+      telefon: '070-456 78 90',
+      epost: 'johan.eriksson@email.se',
       arbetsgivare: 'Spotify AB',
       roll: 'Systemutvecklare',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -6156,23 +6186,23 @@ Jag är övertygad om att min erfarenhet av skalbara system och min passion för
     varforDetFungerar: [
       {
         titel: 'Konkreta prestandaförbättringar med mätbara resultat',
-        beskrivning: 'Erik nämner att svarstiderna minskade med 40 procent och tillgängligheten ökade till 99,95 procent. Siffror gör påståenden trovärdiga. Rekryterare kan direkt bedöma effekten av hans arbete istället för att gissa sig till vad "förbättrad prestanda" egentligen betyder.'
+        beskrivning: 'Johan nämner att svarstiderna minskade med 40 procent och tillgängligheten ökade till 99,95 procent. Siffror gör påståenden trovärdiga. Rekryterare kan direkt bedöma effekten av hans arbete istället för att gissa sig till vad "förbättrad prestanda" egentligen betyder.'
       },
       {
         titel: 'Tekniska nyckelord placerade naturligt i texten',
-        beskrivning: 'Java, Spring Boot, microservices, Docker, Kubernetes, AWS och CI/CD nämns i relevanta sammanhang. Det hjälper brevet passera ATS-filter samtidigt som det visar för tekniska chefer att Erik har rätt kompetens. Nyckelorden är integrerade i meningar, inte uppradade.'
+        beskrivning: 'Java, Spring Boot, microservices, Docker, Kubernetes, AWS och CI/CD nämns i relevanta sammanhang. Det hjälper brevet passera ATS-filter samtidigt som det visar för tekniska chefer att Johan har rätt kompetens. Nyckelorden är integrerade i meningar, inte uppradade.'
       },
       {
         titel: 'Mätbar kodkvalitet visar professionell mognad',
-        beskrivning: 'Att lyfta kodtäckning från 65 till 92 procent visar att Erik bryr sig om kvalitet, inte bara leverans. Det signalerar till arbetsgivaren att han kommer bidra till teknisk skuld-reducering snarare än att skapa mer.'
+        beskrivning: 'Att lyfta kodtäckning från 65 till 92 procent visar att Johan bryr sig om kvalitet, inte bara leverans. Det signalerar till arbetsgivaren att han kommer bidra till teknisk skuld-reducering snarare än att skapa mer.'
       },
       {
         titel: 'Företagsspecifik research visar genuint intresse',
-        beskrivning: 'Erik nämner Spotifys tech blog och deras fokus på autonoma team. Det visar att han gjort research och förstår företagets kultur. Generiska brev som kunde skickats till vilket tech-bolag som helst hamnar längre ned i högen.'
+        beskrivning: 'Johan nämner Spotifys tech blog och deras fokus på autonoma team. Det visar att han gjort research och förstår företagets kultur. Generiska brev som kunde skickats till vilket tech-bolag som helst hamnar längre ned i högen.'
       },
       {
         titel: 'Balans mellan individuell prestation och teamarbete',
-        beskrivning: 'Erik beskriver både att han "ledde migreringen" och att han "trivs med code reviews och kunskapsdelning". Det visar att han kan ta ansvar men också samarbeta. Arbetsgivare söker utvecklare som fungerar i team, inte ensamvargar.'
+        beskrivning: 'Johan beskriver både att han "ledde migreringen" och att han "trivs med code reviews och kunskapsdelning". Det visar att han kan ta ansvar men också samarbeta. Arbetsgivare söker utvecklare som fungerar i team, inte ensamvargar.'
       }
     ],
 
@@ -6227,10 +6257,10 @@ Jag är övertygad om att min erfarenhet av skalbara system och min passion för
     intro: 'Ett övertygande personligt brev som Account Manager visar din förmåga att bygga lönsamma kundrelationer och leverera mot försäljningsmål. Arbetsgivare söker kandidater som kombinerar affärssinne med genuint relationsskapande. I detta exempel ser du hur du presenterar din kundportfölj, beskriver konkreta merförsäljningsresultat och visar förståelse för företagets tillväxtambitioner. Brevet balanserar kvantifierbara resultat med mjuka kompetenser som förtroendeskapande och samarbetsförmåga.',
     seoIntro: `Att skriva ett personligt brev som Account Manager handlar om att visa din förmåga att skapa värde genom kundrelationer. Detta exempel demonstrerar hur du presenterar konkreta försäljningsresultat, beskriver din arbetsmetodik och visar förståelse för företagets affärsmål. Brevet balanserar kvantifierbara prestationer med personliga egenskaper som bygger förtroende.\n\nI exemplet ser du hur en erfaren Account Manager lyfter fram sin kundportfölj med specifika värden och beskriver hur proaktivt arbete ledde till mätbar tillväxt. Kompetenser som CRM-hantering, dataanalys för churn-prevention och avtalsförhandling presenteras i ett sammanhang som visar praktisk tillämpning. Genom att nämna verktyg som Salesforce och HubSpot signaleras teknisk kompetens som många arbetsgivare efterfrågar.\n\nAnvänd detta exempel som utgångspunkt för ditt eget brev genom att anpassa siffror och erfarenheter till din bakgrund. I tipsen nedan hittar du konkreta råd om hur du presenterar kundvärde, hanterar avsaknad av exakta siffror och formulerar dig kring långsiktiga affärsrelationer.`,
     exempelBrev: {
-      namn: 'Marcus Lindqvist',
+      namn: 'Anna Lindgren',
       adress: 'Vasagatan 15, 411 24 Göteborg',
-      telefon: '070-234 56 78',
-      epost: 'marcus.lindqvist@email.com',
+      telefon: '070-345 67 89',
+      epost: 'anna.lindgren@email.se',
       arbetsgivare: 'Bisnode Sverige',
       roll: 'Account Manager',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -6343,10 +6373,10 @@ Med dokumenterad förmåga att överträffa försäljningsmål och utveckla kund
     intro: 'Ett övertygande personligt brev som Controller visar din förmåga att leverera tillförlitlig finansiell styrning och agera som strategisk partner till verksamheten. Arbetsgivare söker kandidater som kombinerar analytisk skärpa med förmågan att kommunicera ekonomiska insikter på ett tillgängligt sätt. I detta exempel ser du hur du presenterar ditt budgetansvar med konkreta siffror, beskriver förbättringar i prognosarbetet och visar systemkompetens inom relevanta verktyg. Brevet balanserar teknisk expertis med affärsförståelse.',
     seoIntro: `Att skriva ett personligt brev som Controller handlar om att visa din förmåga att kombinera analytisk skärpa med affärsförståelse. Detta exempel demonstrerar hur du presenterar konkreta resultat från budgetarbete, beskriver din systemkompetens och framhäver din roll som affärspartner till verksamheten. Brevet balanserar teknisk expertis med kommunikativ förmåga.\n\nI exemplet ser du hur en erfaren Controller lyfter fram ansvar för en specifik omsättningsvolym och beskriver mätbara förbättringar i prognosarbetet. Kompetenser inom ERP-system som Microsoft Dynamics, analysverktyg som Power BI och redovisningsstandarder som IFRS presenteras i ett sammanhang som visar praktisk tillämpning. Projektet med automatiserad månadsrapportering illustrerar förmågan att effektivisera processer.\n\nAnvänd detta exempel som inspiration för ditt eget brev genom att anpassa siffror och system till din bakgrund. I tipsen nedan hittar du konkreta råd om hur du beskriver budgetansvar, hanterar konfidentiella siffror och positionerar dig som affärspartner snarare än endast rapportleverantör.`,
     exempelBrev: {
-      namn: 'Anna Bergström',
+      namn: 'Maria Eriksson',
       adress: 'Storgatan 45, 753 20 Uppsala',
-      telefon: '073-456 78 90',
-      epost: 'anna.bergstrom@email.com',
+      telefon: '073-555 12 34',
+      epost: 'maria.eriksson@email.se',
       arbetsgivare: 'Sandvik AB',
       roll: 'Controller',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -6387,18 +6417,22 @@ Med gedigen erfarenhet av ekonomistyrning och ett genuint intresse för att skap
     varforDetFungerar: [
       {
         titel: 'Anger omsättningsvolym som visar ansvarsnivå',
+        ankare: 'stycke-2',
         beskrivning: 'Genom att nämna 180 miljoner kronor i omsättning förstår rekryteraren direkt vilken komplexitet kandidaten hanterat. Det är mer informativt än "ansvar för affärsenhetens budget" utan siffror.'
       },
       {
         titel: 'Visar mätbar förbättring i prognosarbetet',
+        ankare: 'stycke-2',
         beskrivning: 'Att minska avvikelsen från 12% till under 4% är ett konkret resultat som visar analytisk förmåga. Rekryterare uppskattar när kandidater kan kvantifiera sitt bidrag till organisationen.'
       },
       {
         titel: 'Namnger relevanta system och verktyg',
+        ankare: 'stycke-3',
         beskrivning: 'Microsoft Dynamics 365, Power BI och Cognos Controller är branschspecifika verktyg som signalerar praktisk erfarenhet. Det underlättar matchning mot jobbkraven och visar teknisk kompetens.'
       },
       {
         titel: 'Positionerar sig som affärspartner',
+        ankare: 'stycke-4',
         beskrivning: 'Formuleringen om att vara affärspartner snarare än sifferleverantör visar förståelse för den moderna controllerrollen. Det signalerar att kandidaten kan bidra till strategiska beslut, inte bara producera rapporter.'
       },
       {
@@ -6459,10 +6493,10 @@ Med gedigen erfarenhet av ekonomistyrning och ett genuint intresse för att skap
     intro: 'Ett övertygande personligt brev som Scrum Master visar din förmåga att facilitera agila processer och coacha team mot högre leveranskapacitet. Arbetsgivare söker kandidater som förstår Scrum-ramverket på djupet och kan hantera både tekniska och mellanmänskliga utmaningar. I detta exempel ser du hur du presenterar konkreta förbättringar i teamets prestationer, beskriver din faciliteringsmetodik och visar hur du skapar värde genom att undanröja hinder. Brevet balanserar teknisk förståelse med servant leadership.',
     seoIntro: `Att skriva ett personligt brev som Scrum Master handlar om att visa din förmåga att facilitera agila processer och coacha team mot bättre resultat. Detta exempel demonstrerar hur du presenterar mätbara förbättringar i leveranstakt, beskriver din erfarenhet av att hantera flera team och framhäver din certifiering och metodkunskap. Brevet visar servant leadership i praktiken.\n\nI exemplet ser du hur en erfaren Scrum Master lyfter fram konkreta resultat som 40% ökad leveranstakt och beskriver facilitering av dagliga ceremonier för 16 utvecklare. Kompetenser inom Jira, Confluence och olika agila ramverk presenteras tillsammans med erfarenhet av att hantera impediments på organisationsnivå. Introduktionen av OKR-uppföljning visar strategiskt tänkande.\n\nAnvänd detta exempel som inspiration för ditt eget brev genom att anpassa teamstorlek och resultat till din bakgrund. I tipsen nedan hittar du konkreta råd om hur du beskriver faciliteringsförmåga, hanterar frågor om teknisk bakgrund och positionerar dig som coach snarare än projektledare.`,
     exempelBrev: {
-      namn: 'Erik Lindberg',
+      namn: 'Johan Andersson',
       adress: 'Vasagatan 28, 411 37 Göteborg',
-      telefon: '070-234 56 78',
-      epost: 'erik.lindberg@email.com',
+      telefon: '073-555 34 56',
+      epost: 'johan.andersson@email.se',
       arbetsgivare: 'Spotify',
       roll: 'Scrum Master',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -6575,10 +6609,10 @@ Med certifierad kompetens inom Scrum och dokumenterad förmåga att förbättra 
     intro: 'Ett övertygande personligt brev som truckförare visar din dokumenterade truckkompetens och förmåga att hantera gods effektivt och säkert. Arbetsgivare söker kandidater som har rätt truckkort, kan kvantifiera sin prestation och förstår vikten av säkerhetsrutiner. I detta exempel ser du hur du presenterar dina certifikat tydligt, beskriver din dagliga arbetskapacitet med konkreta siffror och visar att du kan anpassa dig till olika lagermiljöer. Brevet balanserar teknisk kompetens med praktisk arbetserfarenhet.',
     seoIntro: `Att skriva ett personligt brev som truckförare handlar om att visa din dokumenterade truckkompetens och förmåga att arbeta effektivt i lagermiljö. Detta exempel demonstrerar hur du presenterar dina truckkort tydligt, beskriver din dagliga prestation med konkreta siffror och visar att du prioriterar säkerhet. Brevet balanserar teknisk kompetens med praktisk erfarenhet.\n\nI exemplet ser du hur en erfaren truckförare lyfter fram specifika truckkort (A1-4 och B1-4) och beskriver vilka trucktyper han behärskar. Kvantifierbara resultat som 180 orderrader per skift och 99,2% plocknoggrannhet ger rekryteraren en tydlig bild av kandidatens kapacitet. Erfarenhet av WMS-system och aktiv medverkan vid systemimplementering visar teknisk anpassningsförmåga.\n\nAnvänd detta exempel som inspiration för ditt eget brev genom att anpassa truckkort och erfarenhet till din bakgrund. I tipsen nedan hittar du konkreta råd om hur du beskriver dina certifikat, hanterar frågor om skiftarbete och positionerar dig som en säkerhetsmedveten truckförare.`,
     exempelBrev: {
-      namn: 'Marcus Eriksson',
+      namn: 'Marcus Johansson',
       adress: 'Industrigatan 15, 721 35 Västerås',
-      telefon: '073-456 78 90',
-      epost: 'marcus.eriksson@email.com',
+      telefon: '070-234 56 78',
+      epost: 'marcus.johansson@email.se',
       arbetsgivare: 'PostNord Logistics',
       roll: 'Truckförare',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -6691,10 +6725,10 @@ Med dokumenterad truckkompetens och vana vid högt tempo bidrar jag gärna till 
     intro: 'Ett övertygande personligt brev som lagerchef visar din förmåga att leda lagerverksamhet effektivt och utveckla både processer och medarbetare. Arbetsgivare söker kandidater som kombinerar operativ kompetens med ledarskap och förmåga att driva förbättringsarbete. I detta exempel ser du hur du presenterar ditt personalansvar med konkreta siffror, beskriver mätbara effektiviseringar och visar att du prioriterar säkerhet och arbetsmiljö. Brevet balanserar strategiskt tänkande med praktisk erfarenhet av daglig lagerstyrning.',
     seoIntro: `Att skriva ett personligt brev som lagerchef handlar om att visa din förmåga att kombinera operativ styrning med ledarskap och förbättringsarbete. Detta exempel demonstrerar hur du presenterar ditt personalansvar tydligt, beskriver mätbara effektiviseringar och visar förståelse för säkerhet och arbetsmiljö. Brevet balanserar strategiskt tänkande med daglig operativ kompetens.\n\nI exemplet ser du hur en erfaren lagerchef lyfter fram ansvar för 24 medarbetare och 85 000 pallar årligen, vilket ger rekryteraren en tydlig bild av verksamhetens omfattning. Konkreta förbättringar som 22% ökad produktivitet och minskad felplockning från 1,8% till 0,4% visar resultatfokus. Erfarenhet av WMS-system, lean-principer och nyckeltal som lageromsättningshastighet signalerar branschkunskap.\n\nAnvänd detta exempel som inspiration för ditt eget brev genom att anpassa volymer och resultat till din bakgrund. I tipsen nedan hittar du konkreta råd om hur du beskriver personalansvar, presenterar förbättringsprojekt och positionerar dig som en lagerchef som levererar resultat samtidigt som du värnar om medarbetarna.`,
     exempelBrev: {
-      namn: 'Johan Andersson',
+      namn: 'Anna Bergström',
       adress: 'Terminalvägen 8, 424 57 Angered',
-      telefon: '073-567 89 01',
-      epost: 'johan.andersson@email.com',
+      telefon: '070-123 45 67',
+      epost: 'anna.bergstrom@email.com',
       arbetsgivare: 'Bring Logistics',
       roll: 'Lagerchef',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -6804,14 +6838,14 @@ Med gedigen erfarenhet av lagerstyrning och dokumenterad förmåga att leverera 
     sokvolym: 280,
     metaTitle: 'Personligt brev Barnmorska – Exempel & mall 2026',
     metaDescription: 'Skriv ett övertygande personligt brev som barnmorska. Se exempel med förlossningsvård, CTG-tolkning, amningsstöd och mätbara resultat från BB-vård.',
-    intro: 'Det här personliga brevet visar hur Emma Lindström söker en barnmorsketjänst på Danderyds sjukhus. Hon har 5 års erfarenhet från förlossningsvård och presenterar konkreta resultat från sitt arbete: antal förlossningar hon assisterat vid, förbättringsarbete inom amningsstöd och specifika medicinska färdigheter. Brevet fungerar eftersom det kombinerar kvantifierade resultat med beskrivningar av hur hon arbetar med både akuta situationer och relationsskapande vård.',
-    seoIntro: `När du söker jobb som barnmorska räcker det inte med att lista utbildning och arbetsplatser. Rekryterare på förlossningsavdelningar och mödravårdscentraler vill se konkreta resultat från ditt arbete: Hur många förlossningar har du assisterat vid? Vilka medicinska interventioner behärskar du? Hur arbetar du med patientsäkerhet? Det här exemplet visar hur Emma Lindström presenterar 5 års erfarenhet från förlossningsvård med specifika siffror som visar både hennes kliniska kompetens och förmåga att förbättra vårdkvalitet.\n\nEmma kvantifierar sin erfarenhet (350 normala förlossningar, 80 komplicerade fall) och visar konkreta resultat från sitt förbättringsarbete (ökade fullammningsfrekvensen från 67% till 82%). Hon lyfter tekniska färdigheter som CTG-tolkning och perinealsuturering, samtidigt som hon beskriver hur hon arbetar med kulturkompetent vård och stödjer födande i olika situationer. Brevet kombinerar medicinsk expertis med empati och respekt för varje patients unika behov.\n\nAnvänd det här exemplet som mall när du söker barnmorsketjänster inom förlossningsvård, mödrahälsovård eller BB-vård. Anpassa siffrorna till din egen erfarenhet och lägg till specifika kompetenser som matchar tjänsten du söker. Läs vidare för konkreta tips om hur du skriver ett personligt brev som får dig kallad till intervju.`,
+    intro: 'Det här personliga brevet visar hur Sofia Andersson söker en barnmorsketjänst på Danderyds sjukhus. Hon har 5 års erfarenhet från förlossningsvård och presenterar konkreta resultat från sitt arbete: antal förlossningar hon assisterat vid, förbättringsarbete inom amningsstöd och specifika medicinska färdigheter. Brevet fungerar eftersom det kombinerar kvantifierade resultat med beskrivningar av hur hon arbetar med både akuta situationer och relationsskapande vård.',
+    seoIntro: `När du söker jobb som barnmorska räcker det inte med att lista utbildning och arbetsplatser. Rekryterare på förlossningsavdelningar och mödravårdscentraler vill se konkreta resultat från ditt arbete: Hur många förlossningar har du assisterat vid? Vilka medicinska interventioner behärskar du? Hur arbetar du med patientsäkerhet? Det här exemplet visar hur Sofia Andersson presenterar 5 års erfarenhet från förlossningsvård med specifika siffror som visar både hennes kliniska kompetens och förmåga att förbättra vårdkvalitet.\n\nEmma kvantifierar sin erfarenhet (350 normala förlossningar, 80 komplicerade fall) och visar konkreta resultat från sitt förbättringsarbete (ökade fullammningsfrekvensen från 67% till 82%). Hon lyfter tekniska färdigheter som CTG-tolkning och perinealsuturering, samtidigt som hon beskriver hur hon arbetar med kulturkompetent vård och stödjer födande i olika situationer. Brevet kombinerar medicinsk expertis med empati och respekt för varje patients unika behov.\n\nAnvänd det här exemplet som mall när du söker barnmorsketjänster inom förlossningsvård, mödrahälsovård eller BB-vård. Anpassa siffrorna till din egen erfarenhet och lägg till specifika kompetenser som matchar tjänsten du söker. Läs vidare för konkreta tips om hur du skriver ett personligt brev som får dig kallad till intervju.`,
 
     exempelBrev: {
-      namn: 'Emma Lindström',
+      namn: 'Sofia Andersson',
       adress: 'Mörbyvägen 45, 182 32 Danderyd',
-      epost: 'emma.lindstrom@email.se',
-      telefon: '073-245 89 67',
+      epost: 'sofia.andersson@email.se',
+      telefon: '073-892 45 61',
       stad: 'Danderyd',
       arbetsgivare: 'Danderyds sjukhus',
       roll: 'Barnmorska',
@@ -6852,23 +6886,23 @@ Jag är övertygad om att min erfarenhet från både BB-vård och mödrahälsov�
     varforDetFungerar: [
       {
         titel: 'Kvantifierar klinisk erfarenhet med konkreta siffror',
-        beskrivning: 'Emma skriver "350 normala förlossningar och 80 komplicerade fall" istället för "omfattande erfarenhet av förlossningsvård". Det ger rekryteraren omedelbar förståelse för hennes erfarenhetsnivå. Siffror är särskilt viktiga inom vården där klinisk volym direkt påverkar kompetens och patientsäkerhet.'
+        beskrivning: 'Sofia skriver "350 normala förlossningar och 80 komplicerade fall" istället för "omfattande erfarenhet av förlossningsvård". Det ger rekryteraren omedelbar förståelse för hennes erfarenhetsnivå. Siffror är särskilt viktiga inom vården där klinisk volym direkt påverkar kompetens och patientsäkerhet.'
       },
       {
         titel: 'Visar mätbara resultat från förbättringsarbete',
-        beskrivning: 'Att skriva "ökade fullammningsfrekvensen från 67% till 82%" bevisar att Emma inte bara utför sitt arbete utan aktivt förbättrar vårdkvalitet. Rekryterare söker barnmorskor som arbetar evidensbaserat och kan bidra till avdelningens utveckling.'
+        beskrivning: 'Att skriva "ökade fullammningsfrekvensen från 67% till 82%" bevisar att Sofia inte bara utför sitt arbete utan aktivt förbättrar vårdkvalitet. Rekryterare söker barnmorskor som arbetar evidensbaserat och kan bidra till avdelningens utveckling.'
       },
       {
         titel: 'Kombinerar teknisk kompetens med empati',
-        beskrivning: 'Emma beskriver både medicinska färdigheter (CTG-tolkning, perinealsuturering, akut omhändertagande) och relationell förmåga (kulturkompetent vård, stöd i olika födelsesituationer). Det speglar barnmorskans dubbla roll: medicinsk expert och empatisk stödjare.'
+        beskrivning: 'Sofia beskriver både medicinska färdigheter (CTG-tolkning, perinealsuturering, akut omhändertagande) och relationell förmåga (kulturkompetent vård, stöd i olika födelsesituationer). Det speglar barnmorskans dubbla roll: medicinsk expert och empatisk stödjare.'
       },
       {
         titel: 'Nämner specifika journalsystem och arbetsmetoder',
-        beskrivning: 'Att skriva "Obstetrix-journalföring" och "arbetar enligt nationella riktlinjer" visar att Emma är van vid strukturerad dokumentation och evidensbaserad vård. Specifika verktyg och metoder signalerar professionalism och erfarenhet från moderna vårdmiljöer.'
+        beskrivning: 'Att skriva "Obstetrix-journalföring" och "arbetar enligt nationella riktlinjer" visar att Sofia är van vid strukturerad dokumentation och evidensbaserad vård. Specifika verktyg och metoder signalerar professionalism och erfarenhet från moderna vårdmiljöer.'
       },
       {
         titel: 'Beskriver arbete i teamet och med olika yrkesgrupper',
-        beskrivning: 'Emma nämner samarbete med läkare, undersköterskor och andra barnmorskor. Förlossningsvård kräver sömlöst teamarbete, särskilt i akuta situationer. Att visa förståelse för olika roller och förmåga att kommunicera tydligt under press är avgörande.'
+        beskrivning: 'Sofia nämner samarbete med läkare, undersköterskor och andra barnmorskor. Förlossningsvård kräver sömlöst teamarbete, särskilt i akuta situationer. Att visa förståelse för olika roller och förmåga att kommunicera tydligt under press är avgörande.'
       }
     ],
 
@@ -6925,9 +6959,9 @@ Jag är övertygad om att min erfarenhet från både BB-vård och mödrahälsov�
     seoIntro: `Ett personligt brev för specialistsjuksköterska inom intensivvård kräver en balans mellan teknisk expertis och empatisk omvårdnad. Rekryterare söker kandidater som behärskar avancerad medicinteknisk utrustning, kan fatta snabba kliniska bedömningar och samtidigt leda och handleda kollegor. Det här exemplet visar hur du lyfter din specialistkompetens utan att drunkna i jargong.\n\nExemplet demonstrerar konkreta patientresultat (28% kortare vårdtider genom protokollimplementering), specifik teknisk kompetens (respiratorvård, CRRT, PiCCO) och ledarskap genom handledning. Nyckelord som "specialistsjuksköterska", "IVA", "intensivvård" och certifieringar (ACLS) hjälper brevet passera ATS-system samtidigt som det visar mänsklig omvårdnad.\n\nAnvänd de konkreta tipsen nedan för att anpassa ditt brev till den specifika IVA-enheten du söker till. Fokusera på kvantifierade resultat, teamarbete och din förmåga att hantera kritiska situationer med lugn och precision.`,
 
     exempelBrev: {
-      namn: 'Emma Lindström',
+      namn: 'Emma Bergström',
       adress: 'Karlbergsvägen 89, 113 35 Stockholm',
-      epost: 'emma.lindstrom@email.se',
+      epost: 'emma.bergstrom@email.se',
       telefon: '073-456 78 90',
       stad: 'Stockholm',
       arbetsgivare: 'Karolinska Universitetssjukhuset',
@@ -7044,10 +7078,10 @@ Jag är övertygad om att min erfarenhet från avancerad intensivvård och mitt 
     intro: 'Ett professionellt personligt brev för löneadministratör som visar din lönekompetens, systemvana och förmåga att hantera löneadministration med precision. Detta exempel är optimerat för svenska arbetsgivare och ATS-system.',
 
     exempelBrev: {
-      namn: 'Emma Karlsson',
+      namn: 'Sofia Bergström',
       adress: 'Lönevägen 8, 118 26 Stockholm',
       telefon: '070-345 67 89',
-      epost: 'emma.karlsson@email.se',
+      epost: 'sofia.bergstrom@email.se',
       arbetsgivare: 'ICA Gruppen AB',
       roll: 'Löneadministratör',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -7061,19 +7095,21 @@ Det jag uppskattar mest med lönearbete är kombinationen av precision och servi
 
 Vad som verkligen tilltalar mig med ICA Gruppen AB är er storlek och komplexitet med olika avtalsområden och personalgrupper. Jag har under det senaste året fördjupat mig i Handelsavtalet och HRF samt följt SKV:s uppdateringar kring löneskatt och bilförmån. Jag ser fram emot att fortsätta utvecklas i en miljö där varje löneperiod kräver noggrannhet och där jag kan bidra med min systematiska arbetsmetodik och serviceinriktning.
 
-Jag ser fram emot att diskutera hur jag kan bidra till er HR-verksamhet och era medarbetares trygghet. Tveka inte att kontakta mig på 070-345 67 89 eller emma.karlsson@email.se.
+Jag ser fram emot att diskutera hur jag kan bidra till er HR-verksamhet och era medarbetares trygghet. Tveka inte att kontakta mig på 070-345 67 89 eller sofia.bergstrom@email.se.
 
 Varma hälsningar,
-Emma Karlsson`
+Sofia Bergström`
     },
 
     varforDetFungerar: [
       {
         titel: 'ATS-nyckelord för löneadministratörer',
+        ankare: 'stycke-2',
         beskrivning: 'Brevet innehåller kritiska lönenyckelord som ATS-system letar efter: löneadministration, löneberedning, lönehantering, kollektivavtal, semesterberäkning, arbetsgivaravgifter, skattedeklaration, sjuklöneavdrag, Hogia Lön, Visma Lön, Handelsavtalet, Unionen, HRF och Skatteverket. Detta ökar chansen att brevet rankas högt i rekryteringssystem och visar bred lönekompetens.'
       },
       {
         titel: 'Konkreta exempel med kvantifierbara resultat',
+        ankare: 'stycke-2',
         beskrivning: 'Istället för "jag är noggrann" beskrivs konkreta situationer: upptäckte felberäkning av semesterlöneunderlag, hanterar 320 medarbetare, rättade retroaktivt för 45 berörda och införde kontrollrutiner. Detta visar kompetens genom handling och mätbara resultat, inte vaga påståenden.'
       },
       {
@@ -7082,10 +7118,11 @@ Emma Karlsson`
       },
       {
         titel: 'Problemlösning och proaktivitet',
-        beskrivning: 'Semesterlöneunderlags-exemplet visar inte bara vad kandidaten gjorde utan hur hen tänkte: upptäckte systematiskt fel, rättade retroaktivt, införde kontrollrutiner. Detta demonstrerar analytiskt tänkande och förmåga att identifiera lönerisker – kärnkompetens inom löneadministration.'
+        beskrivning: 'Semesterlöneunderlags-exemplet visar inte bara vad kandidaten gjorde utan hur hen tänkte: upptäckte systematiskt fel, rättade retroaktivt, införde kontrollrutiner. Detta demonstrerar analytiskt tänkande och förmåga att identifiera lönerisker, kärnkompetens inom löneadministration.'
       },
       {
         titel: 'Anpassning efter arbetsgivarens profil',
+        ankare: 'stycke-4',
         beskrivning: 'Brevet refererar specifikt till ICA Gruppens storlek och komplexitet med olika avtalsområden, vilket visar research om arbetsgivaren. Nämner också relevanta kollektivavtal (Handelsavtalet, HRF) som matchar detaljhandeln. Detta gör brevet personligt och ökar chansen att HR-chefen läser hela texten.'
       }
     ],
@@ -7208,10 +7245,10 @@ Emma Karlsson`
     intro: 'Ett professionellt personligt brev för teamledare som visar din förmåga att leda team, utveckla medarbetare och leverera resultat. Detta exempel är skrivet för detaljhandeln men strukturen fungerar för teamledarroller i alla branscher. Du får se hur kandidaten kombinerar konkreta siffror med ledarmetodik och anpassar brevet efter arbetsgivarens värderingar. Brevet är optimerat för svenska arbetsgivare och ATS-system med rätt nyckelord för teamledarpositioner.',
 
     exempelBrev: {
-      namn: 'Emma Lindqvist',
+      namn: 'Erik Johansson',
       adress: 'Teamvägen 12, 412 52 Göteborg',
       telefon: '073-456 78 90',
-      epost: 'emma.lindqvist@email.se',
+      epost: 'erik.johansson@email.se',
       arbetsgivare: 'Axfood AB',
       roll: 'Teamledare',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -7225,10 +7262,10 @@ Mitt arbetssätt bygger på tydlighet och närvaro. Jag håller korta dagliga av
 
 Det som tilltalar mig med Axfood är er satsning på hållbarhet och er decentraliserade organisation där butikerna har stort eget ansvar. Jag har följt er utveckling och uppskattar hur ni balanserar effektivitet med medarbetarfokus. Min erfarenhet av att arbeta mot nyckeltal i en konkurrensutsatt bransch, kombinerat med mitt genuina intresse för att utveckla människor, gör att jag kan bidra direkt. Jag är redo att ta nästa steg i min karriär hos er.
 
-Jag ser fram emot att berätta mer om hur jag kan bidra till ert team. Tveka inte att kontakta mig på 073-456 78 90 eller emma.lindqvist@email.se.
+Jag ser fram emot att berätta mer om hur jag kan bidra till ert team. Tveka inte att kontakta mig på 073-456 78 90 eller erik.johansson@email.se.
 
 Med vänliga hälsningar,
-Emma Lindqvist`
+Erik Johansson`
     },
 
     varforDetFungerar: [
@@ -7365,10 +7402,10 @@ Emma Lindqvist`
     intro: 'Ett professionellt personligt brev för enhetschef som visar ledarskap, budgetansvar och verksamhetsutveckling inom kommunal sektor. Detta exempel är anpassat för äldreomsorg men fungerar lika bra för funktionsstöd, hemtjänst eller annan offentlig verksamhet där du ansvarar för personal, budget och kvalitet.',
 
     exempelBrev: {
-      namn: 'Maria Lindqvist',
+      namn: 'Maria Andersson',
       adress: 'Strandvägen 45, 183 52 Täby',
-      telefon: '073-567 89 01',
-      epost: 'maria.lindqvist@email.se',
+      telefon: '076-234 56 78',
+      epost: 'maria.andersson@email.se',
       arbetsgivare: 'Täby kommun',
       roll: 'Enhetschef inom äldreomsorgen',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -7382,27 +7419,31 @@ Mitt ledarskap bygger på tillit, tydlighet och att skapa förutsättningar för
 
 Vad som verkligen tilltalar mig med Täby kommun är er satsning på kompetensutveckling för chefer och ert fokus på digitala verktyg i vård och omsorg. Jag har erfarenhet av att implementera Time Care och Pulsen Combine för schemaläggning och dokumentation, och jag ser fram emot att bidra till er fortsatta digitaliseringsresa. Ert chefsprogram för kontinuerligt lärande visar att ni värdesätter ledarutveckling, vilket passar min egen drivkraft att ständigt bli bättre.
 
-Jag ser fram emot att diskutera hur jag kan bidra till er verksamhet och medarbetarnas utveckling. Tveka inte att kontakta mig på 073-567 89 01 eller maria.lindqvist@email.se.
+Jag ser fram emot att diskutera hur jag kan bidra till er verksamhet och medarbetarnas utveckling. Tveka inte att kontakta mig på 076-234 56 78 eller maria.andersson@email.se.
 
 Varma hälsningar,
-Maria Lindqvist`
+Maria Andersson`
     },
 
     varforDetFungerar: [
       {
         titel: 'Kvantifierar ledarskapsresultat med tydliga siffror',
+        ankare: 'stycke-2',
         beskrivning: 'Brevet anger specifika mått: 42 medarbetare, 28 miljoner i budget, personalomsättning från 22% till 9%, medarbetarindex +12 poäng. Detta gör ledarskapet mätbart och trovärdigt istället för vaga påståenden om "gott ledarskap".'
       },
       {
         titel: 'Balanserar operativt och strategiskt perspektiv',
+        ankare: 'stycke-3',
         beskrivning: 'Brevet visar både dagligt personalarbete och långsiktig planering. Frasen "navigerar dagligen mellan operativt personalarbete och långsiktig planering" demonstrerar förståelse för enhetschefens komplexa roll.'
       },
       {
         titel: 'Nämner relevanta system och regelverk',
+        ankare: 'stycke-4',
         beskrivning: 'Specifika referenser till Time Care, Pulsen Combine, SOSFS, Lex Sarah och IVO visar att kandidaten behärskar de verktyg och regelverk som kommunal omsorg kräver. Detta ökar trovärdigheten hos rekryterare som känner igen systemen.'
       },
       {
         titel: 'Konkret krishanteringsexempel ger trovärdighet',
+        ankare: 'stycke-3',
         beskrivning: 'Pandemiexemplet visar handlingskraft under press: nya rutiner inom 48 timmar, full bemanning genom flexibla schemamodeller. Detta bevisar förmåga att leda i svåra situationer, inte bara i vardagen.'
       },
       {
@@ -7526,10 +7567,10 @@ Maria Lindqvist`
     intro: 'Ett professionellt personligt brev för produktchef som visar strategisk produktledning, datadriven utveckling och förmåga att samarbeta tvärfunktionellt. Detta exempel är anpassat för tech och SaaS men fungerar lika bra för e-handel, fintech eller andra digitala produktorganisationer.',
 
     exempelBrev: {
-      namn: 'Erik Sundberg',
+      namn: 'Anna Bergström',
       adress: 'Södermalm, Stockholm',
-      telefon: '070-891 23 45',
-      epost: 'erik.sundberg@email.se',
+      telefon: '070-234 56 78',
+      epost: 'anna.bergstrom@exempel.se',
       arbetsgivare: 'Klarna',
       roll: 'Produktchef',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -7543,10 +7584,10 @@ Mitt arbetssätt bygger på att kombinera kvantitativ data med kvalitativ insikt
 
 Vad som verkligen tilltalar mig med Klarna är kombinationen av global skala och starkt fokus på användarupplevelse. Jag vill arbeta i en miljö där produktbeslut backas av data och där man vågar testa, lära och iterera snabbt. Er kultur av ägarskap och ert sätt att organisera produktteam i squads ligger helt i linje med hur jag trivs att arbeta. Jag har följt er utveckling sedan betalningslanseringen i USA och är imponerad av hur ni balanserar tillväxt med produktkvalitet.
 
-Jag ser fram emot att diskutera hur jag kan bidra till Klarnas produktorganisation. Tveka inte att kontakta mig på 070-891 23 45 eller erik.sundberg@email.se.
+Jag ser fram emot att diskutera hur jag kan bidra till Klarnas produktorganisation. Tveka inte att kontakta mig på 070-234 56 78 eller anna.bergstrom@exempel.se.
 
 Varma hälsningar,
-Erik Sundberg`
+Anna Bergström`
     },
 
     varforDetFungerar: [
@@ -7684,12 +7725,12 @@ Erik Sundberg`
 
     intro: 'Ett bra personligt brev som boendestödjare visar din förmåga att skapa trygghet, främja självständighet och arbeta relationsbaserat. Arbetsgivare inom socialpsykiatri och LSS-boenden söker personer som förstår brukarnas behov, kan hantera utmanande situationer med lugn och har erfarenhet av dokumentation enligt gällande lagstiftning.',
 
-    seoIntro: 'Personligt brev för boendestödjare kräver balans mellan mjuka värden och konkret kompetens. Du måste visa att du bryr dig om människor och samtidigt behärskar de strukturer och regelverk som styr verksamheten. Det här exemplet visar hur Emma beskriver sin erfarenhet från socialpsykiatrin på ett sätt som tilltalar rekryterare.\n\nBrevet lyfter fram konkreta resultat som ökad självständighet hos brukarna, specifika metoder som lågaffektivt bemötande och tydliggörande pedagogik, samt kunskap om journalsystem. Istället för att bara skriva att hon är empatisk visar Emma det genom exempel på hur hon anpassar sitt stöd efter individuella förmågor och dagsform.\n\nStrategin att nämna både teamsamarbete och självständigt arbete fungerar särskilt bra för boendestödjarrollen, där du ofta växlar mellan att jobba ensam med brukare och koordinera med kollegor, sjukvård och myndigheter. Använd tipsen nedan för att anpassa brevet till den tjänst du söker.',
+    seoIntro: 'Personligt brev för boendestödjare kräver balans mellan mjuka värden och konkret kompetens. Du måste visa att du bryr dig om människor och samtidigt behärskar de strukturer och regelverk som styr verksamheten. Det här exemplet visar hur Marcus beskriver sin erfarenhet från socialpsykiatrin på ett sätt som tilltalar rekryterare.\n\nBrevet lyfter fram konkreta resultat som ökad självständighet hos brukarna, specifika metoder som lågaffektivt bemötande och tydliggörande pedagogik, samt kunskap om journalsystem. Istället för att bara skriva att han är empatisk visar Marcus det genom exempel på hur han anpassar sitt stöd efter individuella förmågor och dagsform.\n\nStrategin att nämna både teamsamarbete och självständigt arbete fungerar särskilt bra för boendestödjarrollen, där du ofta växlar mellan att jobba ensam med brukare och koordinera med kollegor, sjukvård och myndigheter. Använd tipsen nedan för att anpassa brevet till den tjänst du söker.',
 
     exempelBrev: {
-      namn: 'Emma Lindberg',
+      namn: 'Marcus Lindgren',
       stad: 'Hägersten',
-      epost: 'emma.lindberg@email.se',
+      epost: 'marcus.lindgren@email.se',
       telefon: '073-456 78 90',
       foretag: 'Stockholms stad',
       roll: 'Boendestödjare',
@@ -7708,15 +7749,18 @@ Jag vill bidra med min erfarenhet, mitt lugn i pressade situationer och min för
     varforDetFungerar: [
       {
         titel: 'Konkreta resultat med brukare',
-        beskrivning: 'Exemplet "fem av sju vardagsmoment självständigt efter tre månader" visar mätbar påverkan. Det gör Emmas arbete greppbart för rekryterare som vill se att kandidater faktiskt åstadkommer förändring, inte bara utför uppgifter.'
+        ankare: 'stycke-2',
+        beskrivning: 'Exemplet "fem av sju vardagsmoment självständigt efter tre månader" visar mätbar påverkan. Det gör Marcus arbete greppbart för rekryterare som vill se att kandidater faktiskt åstadkommer förändring, inte bara utför uppgifter.'
       },
       {
         titel: 'Specifika metoder namnges',
-        beskrivning: 'Lågaffektivt bemötande och tydliggörande pedagogik är vedertagna arbetssätt inom socialpsykiatrin. Att Emma nämner dem visar att hon har teoretisk grund, inte bara praktisk erfarenhet. Det ger trovärdighet hos erfarna chefer.'
+        ankare: 'stycke-3',
+        beskrivning: 'Lågaffektivt bemötande och tydliggörande pedagogik är vedertagna arbetssätt inom socialpsykiatrin. Att Marcus nämner dem visar att han har teoretisk grund, inte bara praktisk erfarenhet. Det ger trovärdighet hos erfarna chefer.'
       },
       {
         titel: 'Dokumentationskompetens lyfts',
-        beskrivning: 'Procapita, genomförandeplaner och LSS/SoL-referenser visar att Emma behärskar de administrativa kraven. Många boendestödjare underskattar vikten av dokumentation, så detta särskiljer henne från andra sökande.'
+        ankare: 'stycke-3',
+        beskrivning: 'Procapita, genomförandeplaner och LSS/SoL-referenser visar att Marcus behärskar de administrativa kraven. Många boendestödjare underskattar vikten av dokumentation, så detta särskiljer honom från andra sökande.'
       },
       {
         titel: 'Balans mellan team och självständighet',
@@ -7724,7 +7768,8 @@ Jag vill bidra med min erfarenhet, mitt lugn i pressade situationer och min för
       },
       {
         titel: 'Verksamhetsanpassning som visar research',
-        beskrivning: 'Emma refererar till att Hägersten kombinerar struktur med individuell anpassning och har regelbunden handledning. Det visar att hon läst på om arbetsplatsen och inte skickat ett generiskt brev.'
+        ankare: 'stycke-4',
+        beskrivning: 'Marcus refererar till att Hägersten kombinerar struktur med individuell anpassning och har regelbunden handledning. Det visar att han läst på om arbetsplatsen och inte skickat ett generiskt brev.'
       }
     ],
 
@@ -7827,13 +7872,13 @@ Jag vill bidra med min erfarenhet, mitt lugn i pressade situationer och min för
 
     intro: 'Ett professionellt personligt brev för barista visar din kaffekunskap, servicekänsla och förmåga att hålla tempot högt under rush. Arbetsgivare på kaféer söker personer som kan balansera kvalitet med snabbhet och som trivs i kundkontakt. Det här exemplet är skrivet för en specialty coffee-kedja men fungerar lika bra för små kvarterskafeterior eller hotellfrukost. Du får se hur du lyfter fram allt från latte art till ansvar för öppning utan att låta överdriven.',
 
-    seoIntro: 'Personligt brev för barista handlar om att visa din passion för kaffe och din förmåga att leverera service i högt tempo. Det här exemplet visar hur Leo kombinerar konkreta siffror från tidigare erfarenhet med genuint intresse för specialty coffee. Du får se hur du beskriver allt från latte art till kassahantering på ett sätt som imponerar på kaféägare.\n\nBrevet lyfter fram mätbara resultat som 150-200 kunder dagligen och 25 procents försäljningsökning under julruschen. Leo nämner specifika espressomaskiner och brygmetoder, vilket signalerar att han förstår skillnaden mellan att bara servera kaffe och att vara en riktig hantverkare bakom disken. Referensen till HACCP visar dessutom att han tar livsmedelssäkerhet på allvar.\n\nStrategin att besöka arbetsplatsen innan du söker fungerar utmärkt inom café och restaurang. Genom att nämna vad han uppskattar med just Espresso House Drottninggatan visar Leo att han verkligen vill jobba just där. Använd tipsen nedan för att anpassa ditt brev efter det kafé du söker till.',
+    seoIntro: 'Personligt brev för barista handlar om att visa din passion för kaffe och din förmåga att leverera service i högt tempo. Det här exemplet visar hur Sofia kombinerar konkreta siffror från tidigare erfarenhet med genuint intresse för specialty coffee. Du får se hur du beskriver allt från latte art till kassahantering på ett sätt som imponerar på kaféägare.\n\nBrevet lyfter fram mätbara resultat som 150-200 kunder dagligen och 25 procents försäljningsökning under julruschen. Sofia nämner specifika espressomaskiner och brygmetoder, vilket signalerar att hon förstår skillnaden mellan att bara servera kaffe och att vara en riktig hantverkare bakom disken. Referensen till HACCP visar dessutom att hon tar livsmedelssäkerhet på allvar.\n\nStrategin att besöka arbetsplatsen innan du söker fungerar utmärkt inom café och restaurang. Genom att nämna vad hon uppskattar med just Espresso House Drottninggatan visar Sofia att hon verkligen vill jobba just där. Använd tipsen nedan för att anpassa ditt brev efter det kafé du söker till.',
 
     exempelBrev: {
-      namn: 'Leo Andersson',
+      namn: 'Sofia Lindström',
       stad: 'Stockholm',
-      epost: 'leo.andersson@email.se',
-      telefon: '076-123 45 67',
+      epost: 'sofia.lindstrom@email.se',
+      telefon: '070-234 56 78',
       foretag: 'Espresso House',
       roll: 'Barista',
       datum: '6 januari 2026',
@@ -7851,23 +7896,23 @@ Jag är redo att börja omgående och arbetar gärna varierande scheman inklusiv
     varforDetFungerar: [
       {
         titel: 'Konkreta siffror visar arbetskapacitet',
-        beskrivning: 'Att servera 150-200 kunder dagligen ger rekryteraren en tydlig bild av Leos erfarenhet. Siffror är svåra att överdriva och visar att han klarar högt tempo. Det skiljer honom från sökande som bara skriver att de har kaféerfarenhet.'
+        beskrivning: 'Att servera 150-200 kunder dagligen ger rekryteraren en tydlig bild av Sofias erfarenhet. Siffror är svåra att överdriva och visar att hon klarar högt tempo. Det skiljer henne från sökande som bara skriver att de har kaféerfarenhet.'
       },
       {
         titel: 'Specifika maskiner namnges',
-        beskrivning: 'La Marzocco och Nuova Simonelli är branschstandard inom specialty coffee. Genom att nämna dem visar Leo att han kan börja jobba direkt utan lång inlärning. För kedjekaféer signalerar det professionalitet.'
+        beskrivning: 'La Marzocco och Nuova Simonelli är branschstandard inom specialty coffee. Genom att nämna dem visar Sofia att hon kan börja jobba direkt utan lång inlärning. För kedjekaféer signalerar det professionalitet.'
       },
       {
         titel: 'Ansvar utöver grunduppgifterna',
-        beskrivning: 'Att öppna kaféet tre morgnar i veckan innebär mer än att brygga kaffe. Det visar att tidigare arbetsgivare litade på Leo med nycklar, kassa och förberedelser. Rekryterare ser potential för utveckling.'
+        beskrivning: 'Att öppna kaféet tre morgnar i veckan innebär mer än att brygga kaffe. Det visar att tidigare arbetsgivare litade på Sofia med nycklar, kassa och förberedelser. Rekryterare ser potential för utveckling.'
       },
       {
         titel: 'Personligt besök skapar trovärdighet',
-        beskrivning: 'Leo nämner att han besökt kaféet flera gånger och uppskattar stämningen. Det visar genuint intresse och att han inte skickat samma brev till tjugo olika ställen. Kaféägare värdesätter personal som verkligen vill vara där.'
+        beskrivning: 'Sofia nämner att hon besökt kaféet flera gånger och uppskattar stämningen. Det visar genuint intresse och att hon inte skickat samma brev till tjugo olika ställen. Kaféägare värdesätter personal som verkligen vill vara där.'
       },
       {
         titel: 'Flexibilitet med arbetstider',
-        beskrivning: 'Avslutningen signalerar tydligt att Leo kan jobba helger och tidiga morgnar. Inom servicebranschen är detta ofta avgörande och sparar rekryteraren frågan om tillgänglighet.'
+        beskrivning: 'Avslutningen signalerar tydligt att Sofia kan jobba helger och tidiga morgnar. Inom servicebranschen är detta ofta avgörande och sparar rekryteraren frågan om tillgänglighet.'
       }
     ],
 
@@ -7970,12 +8015,12 @@ Jag är redo att börja omgående och arbetar gärna varierande scheman inklusiv
 
     intro: 'Ett professionellt personligt brev för köksbiträde visar att du förstår köksarbetets grundkrav: tempo, hygien och lagarbete. Arbetsgivare söker personer som kan hantera förberedelsearbete, diskning och städning utan att tappa fokus under högtryck. Det här exemplet är skrivet för en klassisk restaurang men fungerar lika bra för storkök, cateringföretag eller hotell. Du får se hur du lyfter fram praktisk erfarenhet och visar att du är redo att växa i köksmiljön.',
 
-    seoIntro: 'Personligt brev för köksbiträde handlar om att visa att du förstår köksarbetets grundläggande krav: snabbhet, noggrannhet och samarbete. Det här exemplet visar hur Sara kombinerar konkreta erfarenheter från storkök med genuin uppskattning för restaurangen hon söker till. Du får se hur du beskriver allt från förberedelsearbete till HACCP-kunskap på ett sätt som imponerar på kökschefer.\n\nBrevet lyfter fram mätbara resultat som 300 dagliga gäster och tio minuters tidsbesparing genom effektiviserad diskning. Sara nämner specifik utrustning och arbetsmetoder, vilket signalerar att hon kan börja bidra direkt utan lång inlärning. Referensen till livsmedelssäkerhet och egenkontroll visar dessutom att hon tar hygien på allvar.\n\nStrategin att besöka restaurangen som gäst fungerar utmärkt för köksbiträden som vill visa genuint intresse. Genom att nämna hur kök och matsal samarbetar under högtryck visar Sara att hon förstår restaurangbranschen. Använd tipsen nedan för att anpassa ditt brev efter den typ av kök du söker till.',
+    seoIntro: 'Personligt brev för köksbiträde handlar om att visa att du förstår köksarbetets grundläggande krav: snabbhet, noggrannhet och samarbete. Det här exemplet visar hur Ahmed kombinerar konkreta erfarenheter från storkök med genuin uppskattning för restaurangen han söker till. Du får se hur du beskriver allt från förberedelsearbete till HACCP-kunskap på ett sätt som imponerar på kökschefer.\n\nBrevet lyfter fram mätbara resultat som 300 dagliga gäster och tio minuters tidsbesparing genom effektiviserad diskning. Ahmed nämner specifik utrustning och arbetsmetoder, vilket signalerar att han kan börja bidra direkt utan lång inlärning. Referensen till livsmedelssäkerhet och egenkontroll visar dessutom att han tar hygien på allvar.\n\nStrategin att besöka restaurangen som gäst fungerar utmärkt för köksbiträden som vill visa genuint intresse. Genom att nämna hur kök och matsal samarbetar under högtryck visar Ahmed att han förstår restaurangbranschen. Använd tipsen nedan för att anpassa ditt brev efter den typ av kök du söker till.',
 
     exempelBrev: {
-      namn: 'Sara Eriksson',
+      namn: 'Ahmed Hassan',
       stad: 'Södermalm, Stockholm',
-      epost: 'sara.eriksson@email.se',
+      epost: 'ahmed.hassan@email.se',
       telefon: '070-234 56 78',
       foretag: 'Restaurang Pelikan',
       roll: 'Köksbiträde',
@@ -7994,23 +8039,27 @@ Jag kan börja med kort varsel och trivs med varierande arbetstider inklusive kv
     varforDetFungerar: [
       {
         titel: 'Konkreta siffror visar arbetskapacitet',
-        beskrivning: 'Att servera 300 gäster dagligen ger kökschefen en tydlig bild av Saras erfarenhet. Siffror är svåra att överdriva och visar att hon klarar storkökstempo. Det skiljer henne från sökande som bara skriver att de jobbat i kök.'
+        ankare: 'stycke-2',
+        beskrivning: 'Att servera 300 gäster dagligen ger kökschefen en tydlig bild av Ahmeds erfarenhet. Siffror är svåra att överdriva och visar att han klarar storkökstempo. Det skiljer honom från sökande som bara skriver att de jobbat i kök.'
       },
       {
         titel: 'Effektivisering nämns konkret',
-        beskrivning: 'Att minska väntetiden med tio minuter genom bättre diskning visar att Sara tänker på helheten. Kökschefer uppskattar medarbetare som ser hur deras arbete påverkar hela restaurangen, inte bara sin egen station.'
+        ankare: 'stycke-2',
+        beskrivning: 'Att minska väntetiden med tio minuter genom bättre diskning visar att Ahmed tänker på helheten. Kökschefer uppskattar medarbetare som ser hur deras arbete påverkar hela restaurangen, inte bara sin egen station.'
       },
       {
         titel: 'HACCP signalerar professionalitet',
-        beskrivning: 'Att nämna livsmedelssäkerhet och egenkontroll visar att Sara förstår branschens regelverk. Många köksbiträden glömmer detta, så det särskiljer henne. Restauranger riskerar stängning om hygienen brister.'
+        ankare: 'stycke-3',
+        beskrivning: 'Att nämna livsmedelssäkerhet och egenkontroll visar att Ahmed förstår branschens regelverk. Många köksbiträden glömmer detta, så det särskiljer honom. Restauranger riskerar stängning om hygienen brister.'
       },
       {
         titel: 'Personligt besök skapar trovärdighet',
-        beskrivning: 'Sara har ätit på restaurangen flera gånger och beskriver vad hon uppskattade. Det visar genuint intresse och att hon inte skickat samma brev till tjugo ställen. Restaurangägare värdesätter personal som verkligen vill vara där.'
+        beskrivning: 'Ahmed har ätit på restaurangen flera gånger och beskriver vad han uppskattade. Det visar genuint intresse och att han inte skickat samma brev till tjugo ställen. Restaurangägare värdesätter personal som verkligen vill vara där.'
       },
       {
         titel: 'Flexibilitet och tillgänglighet',
-        beskrivning: 'Avslutningen signalerar att Sara kan börja snart och jobba varierande tider. I restaurangbranschen är detta ofta avgörande eftersom schemat sällan är nio till fem. En provdag visar dessutom självförtroende.'
+        ankare: 'stycke-5',
+        beskrivning: 'Avslutningen signalerar att Ahmed kan börja snart och jobba varierande tider. I restaurangbranschen är detta ofta avgörande eftersom schemat sällan är nio till fem. En provdag visar dessutom självförtroende.'
       }
     ],
 
@@ -8116,9 +8165,9 @@ Jag kan börja med kort varsel och trivs med varierande arbetstider inklusive kv
     seoIntro: 'Ett bra personligt brev för kontorsassistent visar att du behärskar både systemverktygen och det mänskliga mötet. Rekryterare letar efter någon som kan hantera växeln samtidigt som de håller koll på kalendrar, bokningar och intern kommunikation. Ditt brev behöver visa att du både har teknisk kompetens och serviceanda.',
 
     exempelBrev: {
-      namn: 'Lisa Andersson',
+      namn: 'Sandra Eriksson',
       stad: 'Stockholm',
-      epost: 'lisa.andersson@email.se',
+      epost: 'sandra.eriksson@exempel.se',
       telefon: '070-123 45 67',
       foretag: 'Mannheimer Swartling',
       roll: 'Kontorsassistent',
@@ -8127,7 +8176,7 @@ Jag kan börja med kort varsel och trivs med varierande arbetstider inklusive kv
 
 På Folksam hanterar jag reception och telefonväxel för ett kontor med 45 medarbetare. Jag tar emot cirka 80 samtal per dag, bokar mötesrum i Outlook och koordinerar externa leveranser. När vi bytte till Microsoft 365 var jag den som utbildade kollegor i Teams och hjälpte till med övergången från det gamla systemet. Jag har också tagit över schemaläggningen för våra konferensrum, vilket minskade dubbelbokningar från 12 till 1 per månad.
 
-Utöver det praktiska trivs jag med att vara den som löser problem innan de blir stora. När någon inte hittar ett dokument, när ett paket försvinner eller när en extern besökare behöver vägledning – då kliver jag in. Jag gillar när det är högt tempo, men jag håller alltid tråden och ser till att inget faller mellan stolarna.
+Utöver det praktiska trivs jag med att vara den som löser problem innan de blir stora. När någon inte hittar ett dokument, när ett paket försvinner eller när en extern besökare behöver vägledning, då kliver jag in. Jag gillar när det är högt tempo, men jag håller alltid tråden och ser till att inget faller mellan stolarna.
 
 Jag har arbetat med fakturahantering i Visma, skrivit och skickat ut både intern och extern korrespondens, och hållit ordning på arkiv och ärendehanteringssystem. Jag är van vid att hantera information diskret, särskilt när det gäller personalärenden och känsliga dokument. Det är en kompetens jag ser som särskilt viktig i en juridisk verksamhet.
 
@@ -8137,11 +8186,11 @@ Jag ser fram emot att berätta mer om hur jag kan bidra till ert team och är ti
     varforDetFungerar: [
       {
         titel: 'Konkreta volymer som visar kapacitet',
-        beskrivning: 'Att nämna "80 samtal per dag" och "45 medarbetare" ger rekryterare en tydlig bild av vilken arbetsbörda du hanterat. Det är skillnad på att vara ensam receptionist på ett litet kontor och att hantera växel för 45 personer – brevet visar att du klarar högt tempo.'
+        beskrivning: 'Att nämna "80 samtal per dag" och "45 medarbetare" ger rekryterare en tydlig bild av vilken arbetsbörda du hanterat. Det är skillnad på att vara ensam receptionist på ett litet kontor och att hantera växel för 45 personer, brevet visar att du klarar högt tempo.'
       },
       {
         titel: 'Problemlösning med mätbart resultat',
-        beskrivning: 'Exemplet med dubbelbokningar (från 12 till 1 per månad) visar att du inte bara utför uppgifter, utan förbättrar system. Det signalerar initiativförmåga och strukturtänk – två centrala egenskaper för en kontorsassistent.'
+        beskrivning: 'Exemplet med dubbelbokningar (från 12 till 1 per månad) visar att du inte bara utför uppgifter, utan förbättrar system. Det signalerar initiativförmåga och strukturtänk, två centrala egenskaper för en kontorsassistent.'
       },
       {
         titel: 'Systemkunskap som är relevant',
@@ -8164,11 +8213,11 @@ Jag ser fram emot att berätta mer om hur jag kan bidra till ert team och är ti
       },
       {
         rubrik: 'Nämn systemkunskap tidigt',
-        text: 'Om du behärskar Office 365, Outlook, Excel, Teams eller liknande – skriv det i andra stycket. Många rekryterare skummar snabbt och vill se teknisk kompetens direkt. Skriv inte bara "god datorvana", utan namnge systemen du använt.'
+        text: 'Om du behärskar Office 365, Outlook, Excel, Teams eller liknande, skriv det i andra stycket. Många rekryterare skummar snabbt och vill se teknisk kompetens direkt. Skriv inte bara "god datorvana", utan namnge systemen du använt.'
       },
       {
         rubrik: 'Diskretion är en merit',
-        text: 'Kontorsassistenter hanterar ofta känslig information: löner, personalärenden, konfidentiella avtal. Om du arbetat med sådant, nämn det kort – det visar att du förstår vikten av tystnadsplikt och professionellt uppförande.'
+        text: 'Kontorsassistenter hanterar ofta känslig information: löner, personalärenden, konfidentiella avtal. Om du arbetat med sådant, nämn det kort, det visar att du förstår vikten av tystnadsplikt och professionellt uppförande.'
       },
       {
         rubrik: 'Kvantifiera där det är möjligt',
@@ -8244,17 +8293,17 @@ Jag ser fram emot att berätta mer om hur jag kan bidra till ert team och är ti
 
     seoIntro: `Ett personligt brev konstruktör som får genomslag handlar inte om att beskriva dina CAD-kunskaper i allmänna termer. Rekryterare inom produktutveckling och verkstadsindustri vill se konkreta projektexempel där du visat hur dina konstruktionslösningar bidragit till kortare utvecklingstid, lägre tillverkningskostnader eller bättre produktprestanda. De vill också veta vilka CAD-system du behärskar (SolidWorks, Inventor, CATIA eller Creo), om du kan utföra FEM-analyser och hur du hanterar teknisk dokumentation som BOM, GD&T och toleranskedjor.
 
-Många konstruktörer gör misstaget att lägga för mycket fokus på utbildning och certifieringar utan att visa vad de faktiskt åstadkommit. Ett starkt personligt brev för konstruktör visar tydliga resultat: "Designade monteringsfixturer som minskade produktionstiden med 30%" eller "Genomförde hållfasthetsberäkningar som reducerade materialåtgången med 15% utan att kompromissa med säkerheten". Det ska också framgå att du förstår DFM (Design for Manufacturing) och DFA (Design for Assembly) – att dina konstruktioner inte bara fungerar på papperet utan går att tillverka effektivt.
+Många konstruktörer gör misstaget att lägga för mycket fokus på utbildning och certifieringar utan att visa vad de faktiskt åstadkommit. Ett starkt personligt brev för konstruktör visar tydliga resultat: "Designade monteringsfixturer som minskade produktionstiden med 30%" eller "Genomförde hållfasthetsberäkningar som reducerade materialåtgången med 15% utan att kompromissa med säkerheten". Det ska också framgå att du förstår DFM (Design for Manufacturing) och DFA (Design for Assembly), att dina konstruktioner inte bara fungerar på papperet utan går att tillverka effektivt.
 
 ATS-system som används av teknikföretag som Volvo, Scania, Atlas Copco och ABB söker efter specifika termer som "3D CAD", "FEM-analys", "PDM-system", "dimensionering" och "tekniska ritningar". Genom att naturligt inkludera dessa tillsammans med konkreta exempel från dina projekt ökar du sannolikheten att både systemet och rekryteraren ser ditt värde direkt.`,
 
-    intro: 'Att konstruera produkter som fungerar i verkligheten kräver mer än CAD-kunskaper – det handlar om att förstå tillverkning, material och kostnader. Här är ett exempel på hur du skriver ett personligt brev som visar att du behärskar hela kedjan från koncept till färdig produkt.',
+    intro: 'Att konstruera produkter som fungerar i verkligheten kräver mer än CAD-kunskaper, det handlar om att förstå tillverkning, material och kostnader. Här är ett exempel på hur du skriver ett personligt brev som visar att du behärskar hela kedjan från koncept till färdig produkt.',
 
     exempelBrev: {
-      namn: 'Emma Lindberg',
+      namn: 'Erik Bergström',
       stad: 'Göteborg',
-      epost: 'emma.lindberg@email.se',
-      telefon: '073-425 18 92',
+      epost: 'erik.bergstrom@email.se',
+      telefon: '070-234 56 78',
       foretag: 'Volvo Group',
       roll: 'Konstruktör',
       datum: '6 januari 2026',
@@ -8264,47 +8313,47 @@ Jag söker tjänsten som konstruktör på Volvo Group eftersom möjligheten att 
 
 Under min tid som konstruktör på BT Products har jag designat strukturella komponenter för truckar, där jag genomfört hållfasthetsberäkningar och FEM-analyser som möjliggjorde en viktminskning på 18% samtidigt som säkerhetsmarginalen bibehölls. Jag ledde även omdesignen av ett lyftarmssystem som minskade tillverkningstiden med 25% genom bättre svetsbarhet och färre detaljer. Min erfarenhet sträcker sig från konceptskisser i 3D CAD till färdiga tekniska ritningar med GD&T, BOM-hantering i PDM-system och nära samarbete med tillverkningsavdelningen för att säkerställa producerbarhet.
 
-Volvo Groups fokus på elektrifiering och hållbara transportlösningar är något som verkligen tilltalar mig. Att få arbeta med konstruktioner som inte bara optimerar prestanda utan också bidrar till minskad miljöpåverkan är en utmaning jag ser fram emot. Er satsning på nya batteridrivna lastbilar kräver smarta lättviktslösningar – ett område där min erfarenhet av materialval och strukturoptimering kan tillföra värde.
+Volvo Groups fokus på elektrifiering och hållbara transportlösningar är något som verkligen tilltalar mig. Att få arbeta med konstruktioner som inte bara optimerar prestanda utan också bidrar till minskad miljöpåverkan är en utmaning jag ser fram emot. Er satsning på nya batteridrivna lastbilar kräver smarta lättviktslösningar, ett område där min erfarenhet av materialval och strukturoptimering kan tillföra värde.
 
 Jag är van vid att arbeta i tvärfunktionella team där konstruktion, inköp och produktion behöver samspela. Genom att tidigt involvera tillverkningsperspektivet i konstruktionsprocessen har jag kunnat förkorta ledtider och minska kostnader. Jag ser möjligheten att bidra med både teknisk kompetens och ett pragmatiskt angreppssätt som gör att koncept blir verklighet.
 
 Jag skulle gärna vilja träffa er för att berätta mer om hur min erfarenhet kan bidra till era konstruktionsprojekt. Tack för att ni tog er tid att läsa mitt brev.
 
 Med vänliga hälsningar,
-Emma Lindberg`
+Erik Bergström`
     },
 
     varforDetFungerar: [
       {
         titel: 'Kvantifierbara konstruktionsresultat',
-        beskrivning: 'Brevet visar konkreta siffror som rekryterare kan förhålla sig till: 18% viktminskning, 25% kortare tillverkningstid. Detta är mycket mer övertygande än att skriva "erfaren konstruktör med god CAD-kunskap". Genom att visa resultat från faktiska projekt demonstrerar Emma att hon förstår hela produktutvecklingsprocessen – från analys till färdig produkt. Rekryterare vill se bevis på att dina konstruktioner faktiskt fungerat i produktion.'
+        beskrivning: 'Brevet visar konkreta siffror som rekryterare kan förhålla sig till: 18% viktminskning, 25% kortare tillverkningstid. Detta är mycket mer övertygande än att skriva "erfaren konstruktör med god CAD-kunskap". Genom att visa resultat från faktiska projekt demonstrerar Erik att han förstår hela produktutvecklingsprocessen, från analys till färdig produkt. Rekryterare vill se bevis på att dina konstruktioner faktiskt fungerat i produktion.'
       },
       {
         titel: 'Teknisk trovärdighet med branschtermer',
-        beskrivning: 'Brevet använder etablerade termer som FEM-analys, hållfasthetsberäkningar, GD&T, BOM och PDM-system på ett naturligt sätt. Detta signalerar att Emma behärskar både verktygen och metodiken bakom modern produktutveckling. ATS-system letar efter dessa specifika termer när de scannar ansökningar för konstruktörsroller. Samtidigt undviker brevet att bli övertekniskt – balansen gör att det fungerar både för HR och tekniska chefer.'
+        beskrivning: 'Brevet använder etablerade termer som FEM-analys, hållfasthetsberäkningar, GD&T, BOM och PDM-system på ett naturligt sätt. Detta signalerar att Erik behärskar både verktygen och metodiken bakom modern produktutveckling. ATS-system letar efter dessa specifika termer när de scannar ansökningar för konstruktörsroller. Samtidigt undviker brevet att bli övertekniskt, balansen gör att det fungerar både för HR och tekniska chefer.'
       },
       {
         titel: 'DFM-förståelse som skiljer ut',
-        beskrivning: 'Genom att lyfta fram "nära samarbete med tillverkningsavdelningen" och "bättre svetsbarhet" visar Emma att hon inte bara ritar komponenter i CAD utan förstår hur de ska produceras. Detta är en avgörande kompetens som många konstruktörer saknar. Rekryterare uppskattar kandidater som tänker på hela värdekedjan – konstruktioner som ser bra ut på skärmen men är omöjliga att tillverka kostnadseffektivt är värdelösa i praktiken.'
+        beskrivning: 'Genom att lyfta fram "nära samarbete med tillverkningsavdelningen" och "bättre svetsbarhet" visar Erik att han inte bara ritar komponenter i CAD utan förstår hur de ska produceras. Detta är en avgörande kompetens som många konstruktörer saknar. Rekryterare uppskattar kandidater som tänker på hela värdekedjan, konstruktioner som ser bra ut på skärmen men är omöjliga att tillverka kostnadseffektivt är värdelösa i praktiken.'
       },
       {
         titel: 'Företagsspecifik koppling',
-        beskrivning: 'Istället för ett generiskt brev som kunde skickats till vilket teknikföretag som helst, kopplar Emma sin erfarenhet till Volvos specifika fokus på elektrifiering och hållbarhet. Hon visar att hon förstår de utmaningar som batteridrivna tunga fordon innebär (lättviktskonstruktion, materialval) och hur hennes kompetens kan bidra. Detta visar genuint intresse och att hon faktiskt researchat företaget.'
+        beskrivning: 'Istället för ett generiskt brev som kunde skickats till vilket teknikföretag som helst, kopplar Erik sin erfarenhet till Volvos specifika fokus på elektrifiering och hållbarhet. Han visar att han förstår de utmaningar som batteridrivna tunga fordon innebär (lättviktskonstruktion, materialval) och hur hans kompetens kan bidra. Detta visar genuint intresse och att han faktiskt researchat företaget.'
       },
       {
         titel: 'Balans mellan teknik och samarbete',
-        beskrivning: 'Brevet förmedlar att Emma är tekniskt kompetent men också van vid att arbeta i team. Konstruktörsrollen kräver ofta samarbete mellan konstruktion, inköp, produktion och leverantörer. Genom att nämna "tvärfunktionella team" och "pragmatiskt angreppssätt" visar hon att hon förstår att framgångsrik produktutveckling handlar om mer än bara att rita i CAD – det kräver kommunikation och förståelse för andras perspektiv.'
+        beskrivning: 'Brevet förmedlar att Erik är tekniskt kompetent men också van vid att arbeta i team. Konstruktörsrollen kräver ofta samarbete mellan konstruktion, inköp, produktion och leverantörer. Genom att nämna "tvärfunktionella team" och "pragmatiskt angreppssätt" visar han att han förstår att framgångsrik produktutveckling handlar om mer än bara att rita i CAD, det kräver kommunikation och förståelse för andras perspektiv.'
       }
     ],
 
     tips: [
       {
         rubrik: 'Specificera CAD-system och verktyg du behärskar',
-        text: 'Skriv inte bara "erfaren i CAD" – nämn vilka system du faktiskt kan. SolidWorks? Inventor? CATIA? Creo? Varje företag har sina preferenser och ATS-system letar efter dessa specifika termer. Om jobbannonsen nämner ett särskilt CAD-system, se till att det syns i ditt brev om du kan det. Inkludera även kompletterande verktyg som FEM-analys (ANSYS, Abaqus), PDM/PLM-system eller renderingsprogram om det är relevant för rollen. Konkreta verktygskunskaper gör att rekryteraren direkt ser om du passar in i deras nuvarande systemlandskap.'
+        text: 'Skriv inte bara "erfaren i CAD", nämn vilka system du faktiskt kan. SolidWorks? Inventor? CATIA? Creo? Varje företag har sina preferenser och ATS-system letar efter dessa specifika termer. Om jobbannonsen nämner ett särskilt CAD-system, se till att det syns i ditt brev om du kan det. Inkludera även kompletterande verktyg som FEM-analys (ANSYS, Abaqus), PDM/PLM-system eller renderingsprogram om det är relevant för rollen. Konkreta verktygskunskaper gör att rekryteraren direkt ser om du passar in i deras nuvarande systemlandskap.'
       },
       {
         rubrik: 'Visa resultat från dina konstruktionsprojekt',
-        text: 'Istället för att beskriva vad du gjort, beskriv vad det ledde till. "Designade bracket för kopplingsanordning" säger mindre än "Designade bracket som minskade antalet komponenter från 8 till 3, vilket sänkte monteringstiden med 40%". Tänk på: Blev produkten lättare? Billigare att tillverka? Snabbare att montera? Mer hållbar? Kvantifiera när det går. Om du arbetat med omdesign, förklara problemet som skulle lösas och resultatet. Rekryterare vill se att dina konstruktioner faktiskt tillförde värde – inte bara att du kan rita i CAD.'
+        text: 'Istället för att beskriva vad du gjort, beskriv vad det ledde till. "Designade bracket för kopplingsanordning" säger mindre än "Designade bracket som minskade antalet komponenter från 8 till 3, vilket sänkte monteringstiden med 40%". Tänk på: Blev produkten lättare? Billigare att tillverka? Snabbare att montera? Mer hållbar? Kvantifiera när det går. Om du arbetat med omdesign, förklara problemet som skulle lösas och resultatet. Rekryterare vill se att dina konstruktioner faktiskt tillförde värde, inte bara att du kan rita i CAD.'
       },
       {
         rubrik: 'Betona DFM och DFA-perspektivet',
@@ -8312,22 +8361,22 @@ Emma Lindberg`
       },
       {
         rubrik: 'Inkludera bransch- och materialerfarenhet',
-        text: 'Konstruktion skiljer sig mycket mellan branscher. Har du erfarenhet av fordonsindustri? Medicinteknisk? Konsumentprodukter? Verkstadsindustri? Nämn detta eftersom varje bransch har sina krav (säkerhetsstandarder, certifieringar, produktionsvolymer). Inkludera även materialkunskap om det är relevant: plast, stål, aluminium, komposit. Om du arbetat med specifika tillverkningsmetoder (gjutning, pressning, borrning, 3D-printing) kan det vara värt att nämna. Företag som söker konstruktörer har ofta specifika branscher i åtanke – visa att du förstår deras kontext.'
+        text: 'Konstruktion skiljer sig mycket mellan branscher. Har du erfarenhet av fordonsindustri? Medicinteknisk? Konsumentprodukter? Verkstadsindustri? Nämn detta eftersom varje bransch har sina krav (säkerhetsstandarder, certifieringar, produktionsvolymer). Inkludera även materialkunskap om det är relevant: plast, stål, aluminium, komposit. Om du arbetat med specifika tillverkningsmetoder (gjutning, pressning, borrning, 3D-printing) kan det vara värt att nämna. Företag som söker konstruktörer har ofta specifika branscher i åtanke, visa att du förstår deras kontext.'
       },
       {
         rubrik: 'Anpassa till företagets produkter och teknikfokus',
-        text: 'Researcha företaget och hitta kopplingar mellan din erfarenhet och deras produkter. Söker du till ett företag som tillverkar hydrauliska system? Nämn din erfarenhet av rördesign och tätningar. Är det ett företag inom automation? Lyft fram konstruktioner för robotceller eller sensorfästen. Om företaget satsar på elektrifiering eller hållbarhet, visa hur du arbetat med lättviktskonstruktion eller materialreduktion. Denna anpassning visar att du faktiskt är intresserad av just den här rollen – inte att du skickar samma brev till 50 företag. Det tar 10 minuter att researcha men gör enorm skillnad.'
+        text: 'Researcha företaget och hitta kopplingar mellan din erfarenhet och deras produkter. Söker du till ett företag som tillverkar hydrauliska system? Nämn din erfarenhet av rördesign och tätningar. Är det ett företag inom automation? Lyft fram konstruktioner för robotceller eller sensorfästen. Om företaget satsar på elektrifiering eller hållbarhet, visa hur du arbetat med lättviktskonstruktion eller materialreduktion. Denna anpassning visar att du faktiskt är intresserad av just den här rollen, inte att du skickar samma brev till 50 företag. Det tar 10 minuter att researcha men gör enorm skillnad.'
       }
     ],
 
     faq: [
       {
         q: 'Hur detaljerad ska jag vara om tekniska lösningar i mitt personliga brev som konstruktör?',
-        a: 'Var tillräckligt specifik för att visa teknisk kompetens, men undvik att drunkna läsaren i detaljer. Nämn typ av konstruktion (bärande struktur, monteringsfixturer, kåpor), vilken analys du gjorde (FEM, hållfasthetsberäkning, toleranskedja) och resultatet (viktminskning, kostnadsbesparing, kortare ledtid). Hoppa över exakta materialspecifikationer eller vilken standard du följde om det inte är centralt för poängen. Kom ihåg att första läsaren ofta är HR – de behöver förstå att du är kompetent, men inte alla tekniska detaljer. Spara djupdykningarna till intervjun.'
+        a: 'Var tillräckligt specifik för att visa teknisk kompetens, men undvik att drunkna läsaren i detaljer. Nämn typ av konstruktion (bärande struktur, monteringsfixturer, kåpor), vilken analys du gjorde (FEM, hållfasthetsberäkning, toleranskedja) och resultatet (viktminskning, kostnadsbesparing, kortare ledtid). Hoppa över exakta materialspecifikationer eller vilken standard du följde om det inte är centralt för poängen. Kom ihåg att första läsaren ofta är HR, de behöver förstå att du är kompetent, men inte alla tekniska detaljer. Spara djupdykningarna till intervjun.'
       },
       {
         q: 'Ska jag nämna alla CAD-system jag kan eller bara det företaget använder?',
-        a: 'Om jobbannonsen nämner ett specifikt CAD-system, se till att det får framträdande plats om du kan det. Men nämn gärna andra system också, särskilt om de är vanliga i branschen (SolidWorks, Inventor, CATIA). Många företag uppskattar att du kan flera system eftersom grundprinciperna är likartade – det visar flexibilitet. Var dock ärlig om din kompetensnivå: det är skillnad på "fem års daglig användning av SolidWorks" och "grundkurs i Creo". Undvik att lista 10 olika program du bara knappt testat – fokusera på de du faktiskt kan arbeta produktivt i.'
+        a: 'Om jobbannonsen nämner ett specifikt CAD-system, se till att det får framträdande plats om du kan det. Men nämn gärna andra system också, särskilt om de är vanliga i branschen (SolidWorks, Inventor, CATIA). Många företag uppskattar att du kan flera system eftersom grundprinciperna är likartade, det visar flexibilitet. Var dock ärlig om din kompetensnivå: det är skillnad på "fem års daglig användning av SolidWorks" och "grundkurs i Creo". Undvik att lista 10 olika program du bara knappt testat, fokusera på de du faktiskt kan arbeta produktivt i.'
       },
       {
         q: 'Hur visar jag att jag är mer än bara en CAD-operatör?',
@@ -8335,15 +8384,15 @@ Emma Lindberg`
       },
       {
         q: 'Vad gör jag om jag är nyexaminerad konstruktör utan lång arbetslivserfarenhet?',
-        a: 'Fokusera på examensarbete, projektarbeten och eventuella praktikplatser där du faktiskt konstruerat något. Beskriv konkret vad du gjorde: "I mitt examensarbete designade jag en provrigg för utmattningstest, där jag utförde FEM-analys i ANSYS och ritade komponenter i SolidWorks som sedan tillverkades och testades". Nämn eventuella studentprojekt där ni byggt prototyper eller tävlat (Formula Student, robotävlingar). Även hobbyprojekt kan vara relevanta om de visar CAD-kunskap och förståelse för tillverkning. Var ödmjuk men tydlig med vad du faktiskt kan – företag som anställer juniora konstruktörer söker ofta potential och lärvilja, inte färdiga experter.'
+        a: 'Fokusera på examensarbete, projektarbeten och eventuella praktikplatser där du faktiskt konstruerat något. Beskriv konkret vad du gjorde: "I mitt examensarbete designade jag en provrigg för utmattningstest, där jag utförde FEM-analys i ANSYS och ritade komponenter i SolidWorks som sedan tillverkades och testades". Nämn eventuella studentprojekt där ni byggt prototyper eller tävlat (Formula Student, robotävlingar). Även hobbyprojekt kan vara relevanta om de visar CAD-kunskap och förståelse för tillverkning. Var ödmjuk men tydlig med vad du faktiskt kan, företag som anställer juniora konstruktörer söker ofta potential och lärvilja, inte färdiga experter.'
       },
       {
         q: 'Hur mycket ska jag skriva om mjuka kompetenser som samarbete och kommunikation?',
-        a: 'Inkludera dem, men koppla alltid till konkreta situationer. Istället för "jag har goda samarbetsförmågor", skriv "jag arbetade tätt med produktionstekniker för att säkerställa att konstruktionen kunde svetsas med befintlig utrustning". Konstruktörsrollen kräver ofta kommunikation med leverantörer om tillverkbarhet, med projektledare om tidsplaner och med andra konstruktörer i teamet. Ge exempel som visar detta naturligt. Men kom ihåg – i en teknisk roll är de mjuka kompetenserna ett komplement till din tekniska kapacitet, inte en ersättning. Ägna 70-80% åt tekniska exempel och resultat, resten åt samarbete och kommunikation.'
+        a: 'Inkludera dem, men koppla alltid till konkreta situationer. Istället för "jag har goda samarbetsförmågor", skriv "jag arbetade tätt med produktionstekniker för att säkerställa att konstruktionen kunde svetsas med befintlig utrustning". Konstruktörsrollen kräver ofta kommunikation med leverantörer om tillverkbarhet, med projektledare om tidsplaner och med andra konstruktörer i teamet. Ge exempel som visar detta naturligt. Men kom ihåg, i en teknisk roll är de mjuka kompetenserna ett komplement till din tekniska kapacitet, inte en ersättning. Ägna 70-80% åt tekniska exempel och resultat, resten åt samarbete och kommunikation.'
       },
       {
         q: 'Ska jag inkludera information om certifieringar eller kurser i CAD-system?',
-        a: 'Ja, om de är aktuella och relevanta för rollen. En SolidWorks Professional-certifiering eller genomgången kurs i FEM-analys kan stärka din trovärdighet. Men placera inte dessa i huvudfokus – dina faktiska projekt och resultat väger tyngre. Nämn gärna certifieringar i en mening ("certifierad i SolidWorks Professional") men utveckla inte varje kurs du gått. Undvik att lista gamla eller irrelevanta utbildningar bara för att fylla ut. Om du däremot nyligen gått en kurs som är direkt kopplad till det företaget söker (exempelvis additive manufacturing om de jobbar med 3D-print), är det absolut värt att nämna.'
+        a: 'Ja, om de är aktuella och relevanta för rollen. En SolidWorks Professional-certifiering eller genomgången kurs i FEM-analys kan stärka din trovärdighet. Men placera inte dessa i huvudfokus, dina faktiska projekt och resultat väger tyngre. Nämn gärna certifieringar i en mening ("certifierad i SolidWorks Professional") men utveckla inte varje kurs du gått. Undvik att lista gamla eller irrelevanta utbildningar bara för att fylla ut. Om du däremot nyligen gått en kurs som är direkt kopplad till det företaget söker (exempelvis additive manufacturing om de jobbar med 3D-print), är det absolut värt att nämna.'
       },
       {
         q: 'Hur hanterar jag att jag byter bransch som konstruktör, till exempel från konsumentprodukter till fordonsindustri?',
@@ -8368,13 +8417,13 @@ Emma Lindberg`
 
     intro: 'Ett professionellt personligt brev för logistikassistent visar att du förstår rollens kärna: att hålla ordning på godsflöden och säkerställa leveranser i tid. Arbetsgivare söker kandidater som behärskar orderhantering, affärssystem och kommunikation med flera parter samtidigt. Det här exemplet är skrivet för en stor logistikorganisation men fungerar lika bra för e-handelsföretag, grossister eller tillverkningsindustri. Du får se hur du lyfter fram dina administrativa styrkor och visar att du kan bidra till effektiva leveranskedjor.',
 
-    seoIntro: 'Personligt brev för logistikassistent handlar om att visa dina administrativa färdigheter inom godsflöde och orderhantering. Det här exemplet visar hur Emma kombinerar systemkunskap i M3 med konkreta resultat som minskade leveransförseningar. Du får se hur du beskriver allt från fraktsedlar till kundkommunikation på ett sätt som imponerar på logistikchefer.\n\nBrevet lyfter fram mätbara resultat som 120 dagliga order och 15 procents minskning av försenade leveranser. Emma nämner specifika verktyg som WMS och affärssystem, vilket signalerar att hon kan börja bidra direkt. Att hon utbildat kollegor i nytt system visar dessutom ledaregenskaper och samarbetsförmåga som värdesätts i logistikroller.\n\nStrategin att lyfta företagets hållbarhetssatsningar fungerar utmärkt för att visa genuint intresse. Genom att koppla sin noggranna arbetsstil till organisationens behov av struktur visar Emma att hon förstår rollen. Använd tipsen nedan för att anpassa ditt brev efter den typ av logistikföretag du söker till.',
+    seoIntro: 'Personligt brev för logistikassistent handlar om att visa dina administrativa färdigheter inom godsflöde och orderhantering. Det här exemplet visar hur Erik kombinerar systemkunskap i M3 med konkreta resultat som minskade leveransförseningar. Du får se hur du beskriver allt från fraktsedlar till kundkommunikation på ett sätt som imponerar på logistikchefer.\n\nBrevet lyfter fram mätbara resultat som 120 dagliga order och 15 procents minskning av försenade leveranser. Erik nämner specifika verktyg som WMS och affärssystem, vilket signalerar att han kan börja bidra direkt. Att han utbildat kollegor i nytt system visar dessutom ledaregenskaper och samarbetsförmåga som värdesätts i logistikroller.\n\nStrategin att lyfta företagets hållbarhetssatsningar fungerar utmärkt för att visa genuint intresse. Genom att koppla sin noggranna arbetsstil till organisationens behov av struktur visar Erik att han förstår rollen. Använd tipsen nedan för att anpassa ditt brev efter den typ av logistikföretag du söker till.',
 
     exempelBrev: {
-      namn: 'Emma Lindqvist',
+      namn: 'Erik Johansson',
       stad: 'Västra Frölunda, Göteborg',
-      epost: 'emma.lindqvist@email.se',
-      telefon: '073-456 78 90',
+      epost: 'erik.johansson@email.se',
+      telefon: '070-345 67 89',
       foretag: 'PostNord Logistics',
       roll: 'Logistikassistent',
       datum: '6 januari 2026',
@@ -8392,23 +8441,23 @@ Jag kan börja inom två veckor och ser fram emot att diskutera hur mina erfaren
     varforDetFungerar: [
       {
         titel: 'Konkreta ordervolymer visar kapacitet',
-        beskrivning: '120 order dagligen ger logistikchefen en tydlig bild av Emmas erfarenhet. Siffror är svåra att överdriva och visar att hon hanterar administrativa uppgifter i hög takt. Det skiljer henne från sökande som bara skriver att de arbetat med orderhantering.'
+        beskrivning: '120 order dagligen ger logistikchefen en tydlig bild av Eriks erfarenhet. Siffror är svåra att överdriva och visar att han hanterar administrativa uppgifter i hög takt. Det skiljer honom från sökande som bara skriver att de arbetat med orderhantering.'
       },
       {
         titel: 'Mätbar förbättring av leveransprecision',
-        beskrivning: 'Att minska försenade leveranser med 15 procent visar att Emma inte bara utför uppgifter utan förbättrar processer. Logistikföretag mäter leveransprecision noga och uppskattar kandidater som bidrar till nyckeltal. Det signalerar affärsförståelse.'
+        beskrivning: 'Att minska försenade leveranser med 15 procent visar att Erik inte bara utför uppgifter utan förbättrar processer. Logistikföretag mäter leveransprecision noga och uppskattar kandidater som bidrar till nyckeltal. Det signalerar affärsförståelse.'
       },
       {
         titel: 'Systemkunskap signalerar snabb inskolning',
-        beskrivning: 'Att nämna M3, WMS och Excel med specifika funktioner visar att Emma behärskar branschens verktyg. Rekryterare vet att systemutbildning tar tid och prioriterar kandidater som kan börja producera snabbt. Det minskar upplärningskostnaden.'
+        beskrivning: 'Att nämna M3, WMS och Excel med specifika funktioner visar att Erik behärskar branschens verktyg. Rekryterare vet att systemutbildning tar tid och prioriterar kandidater som kan börja producera snabbt. Det minskar upplärningskostnaden.'
       },
       {
         titel: 'Utbildat kollegor visar ledaregenskaper',
-        beskrivning: 'Att Emma utbildade tre kollegor i nytt system visar att hon förstår processer tillräckligt bra för att lära ut. Logistikföretag uppskattar medarbetare som kan stötta teamet vid systembyten eller nyanställningar.'
+        beskrivning: 'Att Erik utbildade tre kollegor i nytt system visar att han förstår processer tillräckligt bra för att lära ut. Logistikföretag uppskattar medarbetare som kan stötta teamet vid systembyten eller nyanställningar.'
       },
       {
         titel: 'Hållbarhetsfokus matchar företagets profil',
-        beskrivning: 'Emma nämner PostNords satsning på fossilfria transporter. Det visar att hon gjort research och att hennes värderingar stämmer med företagets. Arbetsgivare uppskattar kandidater som visar genuint intresse för verksamheten.'
+        beskrivning: 'Erik nämner PostNords satsning på fossilfria transporter. Det visar att han gjort research och att hans värderingar stämmer med företagets. Arbetsgivare uppskattar kandidater som visar genuint intresse för verksamheten.'
       }
     ],
 
@@ -8511,13 +8560,13 @@ Jag kan börja inom två veckor och ser fram emot att diskutera hur mina erfaren
 
     intro: 'Ett personligt brev för LSS-handläggare visar att du förstår regelverket kring funktionsnedsättning och kan fatta rättssäkra beslut under press. Arbetsgivare söker kandidater som balanserar juridisk noggrannhet med genuint bemötande av brukare och anhöriga. Det här exemplet är skrivet för en kommunal funktionshinderförvaltning men fungerar lika bra för regionala myndigheter eller privata utförare. Du får se hur du lyfter fram din förmåga att utreda, dokumentera och samverka med vårdgivare.',
 
-    seoIntro: 'Personligt brev för LSS-handläggare kräver att du visar både juridisk kompetens och empatisk förmåga. Det här exemplet visar hur Maria kombinerar erfarenhet av behovsbedömningar enligt LSS med konkreta resultat i form av kortade handläggningstider. Du får se hur du beskriver utredningsarbete, beslutsmotivering och samverkan med verkställare på ett sätt som imponerar på enhetschefer inom socialtjänst.\n\nBrevet lyfter fram Marias erfarenhet av 80 ärenden samtidigt och 23 procent kortare handläggningstid. Hon nämner specifika verktyg som Procapita och IBIC, vilket signalerar att hon kan börja producera direkt utan lång upplärning. Att hon genomfört hembesök och deltagit i samverkansmöten med Region Stockholm visar dessutom praktisk erfarenhet av hela kedjan från ansökan till verkställighet.\n\nStrategin att lyfta kommunens satsning på brukarmedverkan fungerar utmärkt för att visa genuint intresse. Genom att koppla sin noggranna utredningsstil till organisationens behov av rättssäkerhet visar Maria att hon förstår rollens komplexitet. Använd tipsen nedan för att anpassa ditt brev efter den kommun eller myndighet du söker till.',
+    seoIntro: 'Personligt brev för LSS-handläggare kräver att du visar både juridisk kompetens och empatisk förmåga. Det här exemplet visar hur Anna kombinerar erfarenhet av behovsbedömningar enligt LSS med konkreta resultat i form av kortade handläggningstider. Du får se hur du beskriver utredningsarbete, beslutsmotivering och samverkan med verkställare på ett sätt som imponerar på enhetschefer inom socialtjänst.\n\nBrevet lyfter fram Annas erfarenhet av 80 ärenden samtidigt och 23 procent kortare handläggningstid. Hon nämner specifika verktyg som Procapita och IBIC, vilket signalerar att hon kan börja producera direkt utan lång upplärning. Att hon genomfört hembesök och deltagit i samverkansmöten med Region Stockholm visar dessutom praktisk erfarenhet av hela kedjan från ansökan till verkställighet.\n\nStrategin att lyfta kommunens satsning på brukarmedverkan fungerar utmärkt för att visa genuint intresse. Genom att koppla sin noggranna utredningsstil till organisationens behov av rättssäkerhet visar Anna att hon förstår rollens komplexitet. Använd tipsen nedan för att anpassa ditt brev efter den kommun eller myndighet du söker till.',
 
     exempelBrev: {
-      namn: 'Maria Eriksson',
+      namn: 'Anna Bergström',
       stad: 'Kungsholmen, Stockholm',
-      epost: 'maria.eriksson@email.se',
-      telefon: '070-234 56 78',
+      epost: 'anna.bergstrom@email.se',
+      telefon: '073-245 67 89',
       foretag: 'Stockholms stad, Funktionshinderförvaltningen',
       roll: 'LSS-handläggare',
       datum: '6 januari 2026',
@@ -8535,23 +8584,26 @@ Jag kan börja inom fyra veckor och ser fram emot att diskutera hur jag kan stä
     varforDetFungerar: [
       {
         titel: 'Konkret ärendevolym visar kapacitet',
-        beskrivning: '80 ärenden parallellt ger enhetschefen en tydlig bild av Marias erfarenhetsnivå. Det visar att hon klarar hög arbetsbelastning och har rutin på att prioritera. Siffror är svåra att överdriva och skiljer henne från sökande som skriver att de har "bred erfarenhet".'
+        ankare: 'stycke-2',
+        beskrivning: '80 ärenden parallellt ger enhetschefen en tydlig bild av Annas erfarenhetsnivå. Det visar att hon klarar hög arbetsbelastning och har rutin på att prioritera. Siffror är svåra att överdriva och skiljer henne från sökande som skriver att de har "bred erfarenhet".'
       },
       {
         titel: 'Mätbar förbättring av handläggningstid',
-        beskrivning: 'Att minska handläggningstiden med 23 procent visar att Maria inte bara utreder utan förbättrar processer. Kommuner mäter handläggningstid noga och uppskattar kandidater som bidrar till verksamhetsmål. Det signalerar initiativförmåga och affärsförståelse.'
+        ankare: 'stycke-2',
+        beskrivning: 'Att minska handläggningstiden med 23 procent visar att Anna inte bara utreder utan förbättrar processer. Kommuner mäter handläggningstid noga och uppskattar kandidater som bidrar till verksamhetsmål. Det signalerar initiativförmåga och affärsförståelse.'
       },
       {
         titel: 'Systemkunskap i Procapita och IBIC',
-        beskrivning: 'Att nämna specifika verksamhetssystem och utredningsmetodik visar att Maria behärskar branschens verktyg. Rekryterare vet att systemutbildning tar tid och prioriterar kandidater som kan börja producera snabbt. Det minskar upplärningskostnaden.'
+        beskrivning: 'Att nämna specifika verksamhetssystem och utredningsmetodik visar att Anna behärskar branschens verktyg. Rekryterare vet att systemutbildning tar tid och prioriterar kandidater som kan börja producera snabbt. Det minskar upplärningskostnaden.'
       },
       {
         titel: 'Rättssäkerhet lyfts fram konkret',
-        beskrivning: 'Maria nämner att inga beslut upphävts vid överklagan. Det är ett starkt bevis på kvalitet i utredningsarbetet. Kommuner vill undvika förvaltningsrättsprocesser och värderar handläggare som fattar hållbara beslut från början.'
+        beskrivning: 'Anna nämner att inga beslut upphävts vid överklagan. Det är ett starkt bevis på kvalitet i utredningsarbetet. Kommuner vill undvika förvaltningsrättsprocesser och värderar handläggare som fattar hållbara beslut från början.'
       },
       {
         titel: 'Samverkan med verkställare och region',
-        beskrivning: 'Att lyfta samarbete med LSS-handledare och Region Stockholms habiliteringsteam visar att Maria förstår hela kedjan. Det signalerar att hon inte bara fattar beslut utan följer upp att insatser fungerar i praktiken.'
+        ankare: 'stycke-3',
+        beskrivning: 'Att lyfta samarbete med LSS-handledare och Region Stockholms habiliteringsteam visar att Anna förstår hela kedjan. Det signalerar att hon inte bara fattar beslut utan följer upp att insatser fungerar i praktiken.'
       }
     ],
 
@@ -8658,13 +8710,13 @@ Jag kan börja inom fyra veckor och ser fram emot att diskutera hur jag kan stä
 
     intro: 'Ett personligt brev för kundrådgivare visar att du förstår hur man bygger långsiktiga kundrelationer och identifierar behov som leder till affärer. Arbetsgivare söker kandidater som kombinerar rådgivningskompetens med försäljningsdriv och regelefterlevnad. Det här exemplet är skrivet för en storbank men fungerar lika bra för försäkringsbolag, kreditinstitut eller finansiella rådgivningsföretag. Du får se hur du lyfter fram din förmåga att balansera kundens bästa med affärsmål.',
 
-    seoIntro: 'Personligt brev för kundrådgivare handlar om att visa både rådgivningskompetens och kommersiellt sinne. Det här exemplet visar hur Johan kombinerar behovsanalys med konkreta försäljningsresultat i form av ökad portföljvolym och höga kundnöjdhetssiffror. Du får se hur du beskriver kundmöten, produktkunskap och regelefterlevnad på ett sätt som imponerar på rekryterare inom bank och finans.\n\nBrevet lyfter fram Johans erfarenhet av 25 rådgivningsmöten per vecka och 18 procents ökning av förvaltad volym. Han nämner specifika verktyg som Siebel CRM och MiFID II-compliance, vilket signalerar att han kan börja producera direkt utan lång upplärning. Att han certifierats genom SwedSec visar dessutom att han uppfyller branschens formella krav.\n\nStrategin att lyfta bankens satsning på digital rådgivning fungerar utmärkt för att visa genuint intresse. Genom att koppla sin relationsskapande stil till organisationens kundlöfte visar Johan att han förstår rollens kärna. Använd tipsen nedan för att anpassa ditt brev efter den typ av finansiellt företag du söker till.',
+    seoIntro: 'Personligt brev för kundrådgivare handlar om att visa både rådgivningskompetens och kommersiellt sinne. Det här exemplet visar hur Erik kombinerar behovsanalys med konkreta försäljningsresultat i form av ökad portföljvolym och höga kundnöjdhetssiffror. Du får se hur du beskriver kundmöten, produktkunskap och regelefterlevnad på ett sätt som imponerar på rekryterare inom bank och finans.\n\nBrevet lyfter fram Eriks erfarenhet av 25 rådgivningsmöten per vecka och 18 procents ökning av förvaltad volym. Han nämner specifika verktyg som Siebel CRM och MiFID II-compliance, vilket signalerar att han kan börja producera direkt utan lång upplärning. Att han certifierats genom SwedSec visar dessutom att han uppfyller branschens formella krav.\n\nStrategin att lyfta bankens satsning på digital rådgivning fungerar utmärkt för att visa genuint intresse. Genom att koppla sin relationsskapande stil till organisationens kundlöfte visar Erik att han förstår rollens kärna. Använd tipsen nedan för att anpassa ditt brev efter den typ av finansiellt företag du söker till.',
 
     exempelBrev: {
-      namn: 'Johan Bergström',
+      namn: 'Erik Bergström',
       stad: 'Vasastan, Stockholm',
-      epost: 'johan.bergstrom@email.se',
-      telefon: '073-567 89 01',
+      epost: 'erik.bergstrom@email.se',
+      telefon: '070-234 56 78',
       foretag: 'Handelsbanken',
       roll: 'Kundrådgivare Privat',
       datum: '6 januari 2026',
@@ -8682,23 +8734,23 @@ Jag kan börja inom tre veckor och ser fram emot att diskutera hur jag kan stär
     varforDetFungerar: [
       {
         titel: 'Konkreta mötesvolymer visar kapacitet',
-        beskrivning: '25 rådgivningsmöten per vecka ger rekryteraren en tydlig bild av Johans erfarenhetsnivå. Det visar att han klarar hög arbetsbelastning och har rutin på kundmöten. Siffror skiljer honom från sökande som bara skriver att de har "bred erfarenhet".'
+        beskrivning: '25 rådgivningsmöten per vecka ger rekryteraren en tydlig bild av Eriks erfarenhetsnivå. Det visar att han klarar hög arbetsbelastning och har rutin på kundmöten. Siffror skiljer honom från sökande som bara skriver att de har "bred erfarenhet".'
       },
       {
         titel: 'Mätbar portföljtillväxt visar affärsresultat',
-        beskrivning: 'Att öka förvaltad volym med 18 procent visar att Johan inte bara rådger utan också genererar affärer. Banker mäter rådgivares resultat i portföljtillväxt och uppskattar kandidater som bidrar till lönsamhet. Det signalerar kommersiellt sinne.'
+        beskrivning: 'Att öka förvaltad volym med 18 procent visar att Erik inte bara rådger utan också genererar affärer. Banker mäter rådgivares resultat i portföljtillväxt och uppskattar kandidater som bidrar till lönsamhet. Det signalerar kommersiellt sinne.'
       },
       {
         titel: 'SwedSec-licens och MiFID II visar regelefterlevnad',
-        beskrivning: 'Att nämna specifika licenser och regelverk visar att Johan uppfyller branschens formella krav. Rekryterare inom bank vet att compliance är avgörande och prioriterar kandidater som redan har rätt certifieringar.'
+        beskrivning: 'Att nämna specifika licenser och regelverk visar att Erik uppfyller branschens formella krav. Rekryterare inom bank vet att compliance är avgörande och prioriterar kandidater som redan har rätt certifieringar.'
       },
       {
         titel: 'Höga NPS-siffror bevisar kundnöjdhet',
-        beskrivning: 'Över 90 procent i NPS-mätningar är ett starkt bevis på Johans relationsskapande förmåga. Banker värderar kundnöjdhet högt eftersom det driver lojalitet och rekommendationer. Det är svårt att överdriva mätta resultat.'
+        beskrivning: 'Över 90 procent i NPS-mätningar är ett starkt bevis på Eriks relationsskapande förmåga. Banker värderar kundnöjdhet högt eftersom det driver lojalitet och rekommendationer. Det är svårt att överdriva mätta resultat.'
       },
       {
         titel: 'Företagsspecifik anpassning visar research',
-        beskrivning: 'Johan nämner Handelsbankens decentraliserade modell och fokus på långsiktiga relationer. Det visar att han gjort research och förstår vad som skiljer banken från konkurrenter. Rekryterare uppskattar kandidater som visar genuint intresse.'
+        beskrivning: 'Erik nämner Handelsbankens decentraliserade modell och fokus på långsiktiga relationer. Det visar att han gjort research och förstår vad som skiljer banken från konkurrenter. Rekryterare uppskattar kandidater som visar genuint intresse.'
       }
     ],
 
@@ -8805,13 +8857,13 @@ Jag kan börja inom tre veckor och ser fram emot att diskutera hur jag kan stär
 
     intro: 'Ett personligt brev för hotellvärd visar att du förstår gästupplevelsens betydelse och kan hantera många uppgifter samtidigt. Arbetsgivare söker kandidater som kombinerar servicekänsla med stresstålighet och noggrannhet. Det här exemplet är skrivet för ett större stadshotell men fungerar lika bra för boutiquehotell, konferensanläggningar eller resorts. Du får se hur du lyfter fram din förmåga att skapa minnesvärd service i varje gästmöte.',
 
-    seoIntro: 'Personligt brev för hotellvärd handlar om att visa servicekänsla och förmåga att hantera gäster i alla situationer. Det här exemplet visar hur Sara kombinerar erfarenhet av incheckning och gästservice med konkreta resultat i form av höga omdömen och effektiv problemlösning. Du får se hur du beskriver hotellsystem, språkkunskaper och merförsäljning på ett sätt som imponerar på hotellchefer.\n\nBrevet lyfter fram Saras erfarenhet av 120 incheckningar per dag under högsäsong och gästbetyg på 4,8 av 5 på Booking.com. Hon nämner specifika system som Opera PMS och Mews, vilket signalerar att hon kan börja arbeta direkt. Att hon behärskar engelska och tyska visar dessutom att hon klarar internationella gäster utan problem.\n\nStrategin att lyfta hotellets satsning på hållbarhet och personlig service fungerar utmärkt för att visa genuint intresse. Genom att koppla sin problemlösande stil till organisationens gästlöfte visar Sara att hon förstår rollens kärna. Använd tipsen nedan för att anpassa ditt brev efter den typ av hotell du söker till.',
+    seoIntro: 'Personligt brev för hotellvärd handlar om att visa servicekänsla och förmåga att hantera gäster i alla situationer. Det här exemplet visar hur Emma kombinerar erfarenhet av incheckning och gästservice med konkreta resultat i form av höga omdömen och effektiv problemlösning. Du får se hur du beskriver hotellsystem, språkkunskaper och merförsäljning på ett sätt som imponerar på hotellchefer.\n\nBrevet lyfter fram Emmas erfarenhet av 120 incheckningar per dag under högsäsong och gästbetyg på 4,8 av 5 på Booking.com. Hon nämner specifika system som Opera PMS och Mews, vilket signalerar att hon kan börja arbeta direkt. Att hon behärskar engelska och tyska visar dessutom att hon klarar internationella gäster utan problem.\n\nStrategin att lyfta hotellets satsning på hållbarhet och personlig service fungerar utmärkt för att visa genuint intresse. Genom att koppla sin problemlösande stil till organisationens gästlöfte visar Emma att hon förstår rollens kärna. Använd tipsen nedan för att anpassa ditt brev efter den typ av hotell du söker till.',
 
     exempelBrev: {
-      namn: 'Sara Lindgren',
+      namn: 'Emma Lindqvist',
       stad: 'Södermalm, Stockholm',
-      epost: 'sara.lindgren@email.se',
-      telefon: '072-345 67 89',
+      epost: 'emma.lindqvist@email.se',
+      telefon: '073-234 56 78',
       foretag: 'Scandic Grand Central',
       roll: 'Hotellvärd/Receptionist',
       datum: '6 januari 2026',
@@ -8829,23 +8881,23 @@ Med tre års erfarenhet av gästservice i högt tempo, systemvana i Opera och Me
     varforDetFungerar: [
       {
         titel: 'Konkreta volymsiffror visar kapacitet',
-        beskrivning: '120 incheckningar per dag under högsäsong ger hotellchefen en tydlig bild av Saras erfarenhetsnivå. Det visar att hon klarar högt tempo och har rutin på att hantera många gäster samtidigt. Siffror skiljer henne från sökande som bara skriver att de har "erfarenhet av reception".'
+        beskrivning: '120 incheckningar per dag under högsäsong ger hotellchefen en tydlig bild av Emmas erfarenhetsnivå. Det visar att hon klarar högt tempo och har rutin på att hantera många gäster samtidigt. Siffror skiljer henne från sökande som bara skriver att de har "erfarenhet av reception".'
       },
       {
         titel: 'Höga gästbetyg bevisar servicekvalitet',
-        beskrivning: '4,8 av 5 på Booking.com är ett starkt bevis på Saras förmåga att skapa nöjda gäster. Hotell mäter framgång i gästomdömen och söker aktivt kandidater som bidrar till höga betyg. Mätbara resultat är svåra att överdriva.'
+        beskrivning: '4,8 av 5 på Booking.com är ett starkt bevis på Emmas förmåga att skapa nöjda gäster. Hotell mäter framgång i gästomdömen och söker aktivt kandidater som bidrar till höga betyg. Mätbara resultat är svåra att överdriva.'
       },
       {
         titel: 'Systemkunskap i Opera och Mews',
-        beskrivning: 'Att nämna specifika hotellsystem visar att Sara behärskar branschens verktyg. Rekryterare vet att systemutbildning tar tid och prioriterar kandidater som kan börja producera snabbt. Opera PMS och Mews är branschstandard.'
+        beskrivning: 'Att nämna specifika hotellsystem visar att Emma behärskar branschens verktyg. Rekryterare vet att systemutbildning tar tid och prioriterar kandidater som kan börja producera snabbt. Opera PMS och Mews är branschstandard.'
       },
       {
         titel: 'Språkkunskaper ökar anställningsbarhet',
-        beskrivning: 'Svenska, engelska och tyska täcker en stor del av hotellgästerna. Språkkunskaper är ofta avgörande vid rekrytering till internationella hotell och visar att Sara kan ge service utan kommunikationsbarriärer.'
+        beskrivning: 'Svenska, engelska och tyska täcker en stor del av hotellgästerna. Språkkunskaper är ofta avgörande vid rekrytering till internationella hotell och visar att Emma kan ge service utan kommunikationsbarriärer.'
       },
       {
         titel: 'Företagsspecifik anpassning visar research',
-        beskrivning: 'Sara nämner Scandics hållbarhetssatsning och läget vid Centralstationen. Det visar att hon gjort research och förstår vad som skiljer hotellet från konkurrenter. Rekryterare uppskattar kandidater som visar genuint intresse.'
+        beskrivning: 'Emma nämner Scandics hållbarhetssatsning och läget vid Centralstationen. Det visar att hon gjort research och förstår vad som skiljer hotellet från konkurrenter. Rekryterare uppskattar kandidater som visar genuint intresse.'
       }
     ],
 
@@ -8952,13 +9004,13 @@ Med tre års erfarenhet av gästservice i högt tempo, systemvana i Opera och Me
 
     intro: 'Ett personligt brev för vårdadministratör visar att du förstår vårdens administrativa flöden och kan stötta vårdpersonal med struktur och noggrannhet. Arbetsgivare söker kandidater som kombinerar systemkunskap med förståelse för sekretess och patientkontakt. Det här exemplet är skrivet för en stor vårdcentral men fungerar lika bra för sjukhus, privata kliniker eller regionala administrationer. Du får se hur du lyfter fram din förmåga att hålla ordning i en komplex vårdmiljö.',
 
-    seoIntro: 'Personligt brev för vårdadministratör handlar om att visa systemkunskap och förståelse för vårdens krav på sekretess och noggrannhet. Det här exemplet visar hur Elin kombinerar erfarenhet av patientbokning och journalhantering med konkreta resultat i form av kortade väntetider och förbättrad tidbokning. Du får se hur du beskriver vårdadministrativa system, GDPR-kunskap och patientkontakt på ett sätt som imponerar på vårdchefer.\n\nBrevet lyfter fram Elins erfarenhet av 150 patientkontakter per dag och 25 procent kortare väntetid för återbesök. Hon nämner specifika system som TakeCare och Cosmic, vilket signalerar att hon kan börja arbeta direkt utan lång upplärning. Att hon genomgått utbildning i GDPR och journalhantering visar dessutom att hon förstår regelverkets krav.\n\nStrategin att lyfta vårdcentralens satsning på tillgänglighet och patientnöjdhet fungerar utmärkt för att visa genuint intresse. Genom att koppla sin strukturerade arbetsstil till organisationens behov av effektiv administration visar Elin att hon förstår rollens betydelse. Använd tipsen nedan för att anpassa ditt brev efter den typ av vårdverksamhet du söker till.',
+    seoIntro: 'Personligt brev för vårdadministratör handlar om att visa systemkunskap och förståelse för vårdens krav på sekretess och noggrannhet. Det här exemplet visar hur Emma kombinerar erfarenhet av patientbokning och journalhantering med konkreta resultat i form av kortade väntetider och förbättrad tidbokning. Du får se hur du beskriver vårdadministrativa system, GDPR-kunskap och patientkontakt på ett sätt som imponerar på vårdchefer.\n\nBrevet lyfter fram Emmas erfarenhet av 150 patientkontakter per dag och 25 procent kortare väntetid för återbesök. Hon nämner specifika system som TakeCare och Cosmic, vilket signalerar att hon kan börja arbeta direkt utan lång upplärning. Att hon genomgått utbildning i GDPR och journalhantering visar dessutom att hon förstår regelverkets krav.\n\nStrategin att lyfta vårdcentralens satsning på tillgänglighet och patientnöjdhet fungerar utmärkt för att visa genuint intresse. Genom att koppla sin strukturerade arbetsstil till organisationens behov av effektiv administration visar Emma att hon förstår rollens betydelse. Använd tipsen nedan för att anpassa ditt brev efter den typ av vårdverksamhet du söker till.',
 
     exempelBrev: {
-      namn: 'Elin Johansson',
+      namn: 'Emma Bergström',
       stad: 'Hisingen, Göteborg',
-      epost: 'elin.johansson@email.se',
-      telefon: '073-678 90 12',
+      epost: 'emma.bergstrom@email.se',
+      telefon: '070-234 56 78',
       foretag: 'Närhälsan Backa Vårdcentral',
       roll: 'Vårdadministratör',
       datum: '6 januari 2026',
@@ -8976,23 +9028,27 @@ Jag kan börja inom tre veckor och ser fram emot att diskutera hur jag kan stär
     varforDetFungerar: [
       {
         titel: 'Konkreta kontaktvolymer visar kapacitet',
-        beskrivning: '150 patientkontakter per dag ger vårdchefen en tydlig bild av Elins erfarenhetsnivå. Det visar att hon klarar högt tempo och har rutin på patienthantering. Siffror skiljer henne från sökande som bara skriver att de har "erfarenhet av reception".'
+        ankare: 'stycke-2',
+        beskrivning: '150 patientkontakter per dag ger vårdchefen en tydlig bild av Emmas erfarenhetsnivå. Det visar att hon klarar högt tempo och har rutin på patienthantering. Siffror skiljer henne från sökande som bara skriver att de har "erfarenhet av reception".'
       },
       {
         titel: 'Mätbar förbättring av väntetider',
-        beskrivning: '25 procent kortare väntetid för återbesök visar att Elin inte bara utför uppgifter utan förbättrar processer. Vårdverksamheter mäter tillgänglighet noga och uppskattar kandidater som bidrar till verksamhetsmål. Det signalerar initiativförmåga.'
+        ankare: 'stycke-2',
+        beskrivning: '25 procent kortare väntetid för återbesök visar att Emma inte bara utför uppgifter utan förbättrar processer. Vårdverksamheter mäter tillgänglighet noga och uppskattar kandidater som bidrar till verksamhetsmål. Det signalerar initiativförmåga.'
       },
       {
         titel: 'Systemkunskap i TakeCare och Cosmic',
-        beskrivning: 'Att nämna specifika journalsystem visar att Elin behärskar branschens verktyg. Rekryterare vet att systemutbildning tar tid och prioriterar kandidater som kan börja producera snabbt. TakeCare och Cosmic är regionernas standardsystem.'
+        ankare: 'stycke-3',
+        beskrivning: 'Att nämna specifika journalsystem visar att Emma behärskar branschens verktyg. Rekryterare vet att systemutbildning tar tid och prioriterar kandidater som kan börja producera snabbt. TakeCare och Cosmic är regionernas standardsystem.'
       },
       {
         titel: 'GDPR och sekretess lyfts konkret',
-        beskrivning: 'Elin nämner journalsekretess och GDPR-efterlevnad. Det är avgörande inom vården och visar att hon förstår regelverkets krav. Vårdgivare vill undvika integritetsintrång och värderar administratörer som tar sekretess på allvar.'
+        ankare: 'stycke-3',
+        beskrivning: 'Emma nämner journalsekretess och GDPR-efterlevnad. Det är avgörande inom vården och visar att hon förstår regelverkets krav. Vårdgivare vill undvika integritetsintrång och värderar administratörer som tar sekretess på allvar.'
       },
       {
         titel: 'Företagsspecifik anpassning visar research',
-        beskrivning: 'Elin nämner Närhälsans fokus på nära vård och kontinuitet. Det visar att hon gjort research och förstår vad som skiljer vårdcentralen från andra. Rekryterare uppskattar kandidater som visar genuint intresse för verksamheten.'
+        beskrivning: 'Emma nämner Närhälsans fokus på nära vård och kontinuitet. Det visar att hon gjort research och förstår vad som skiljer vårdcentralen från andra. Rekryterare uppskattar kandidater som visar genuint intresse för verksamheten.'
       }
     ],
 
@@ -9099,13 +9155,13 @@ Jag kan börja inom tre veckor och ser fram emot att diskutera hur jag kan stär
 
     intro: 'Ett personligt brev för kundtjänstmedarbetare visar att du förstår vikten av god kundupplevelse och kan hantera många ärenden effektivt. Arbetsgivare söker kandidater som kombinerar servicekänsla med tålamod och problemlösningsförmåga. Det här exemplet är skrivet för ett e-handelsföretag men fungerar lika bra för callcenter, telekombolag eller supportavdelningar. Du får se hur du lyfter fram din förmåga att skapa nöjda kunder i varje kontakt.',
 
-    seoIntro: 'Personligt brev för kundtjänstmedarbetare handlar om att visa servicekänsla och förmåga att hantera kunder i alla kanaler. Det här exemplet visar hur Marcus kombinerar erfarenhet av telefonsupport och ärendehantering med konkreta resultat i form av höga kundnöjdhetssiffror och snabba svarstider. Du får se hur du beskriver CRM-system, multikanalservice och konflikthantering på ett sätt som imponerar på kundtjänstchefer.\n\nBrevet lyfter fram Marcus erfarenhet av 60 ärenden per dag och kundnöjdhet på 92 procent i efterundersökningar. Han nämner specifika system som Zendesk och Salesforce, vilket signalerar att han kan börja arbeta direkt utan lång upplärning. Att han hanterat både telefon, chatt och e-post visar dessutom flexibilitet i en multikanalsmiljö.\n\nStrategin att lyfta företagets fokus på kundupplevelse och hållbarhet fungerar utmärkt för att visa genuint intresse. Genom att koppla sin lösningsorienterade stil till organisationens servicekultur visar Marcus att han förstår rollens betydelse. Använd tipsen nedan för att anpassa ditt brev efter den typ av kundtjänst du söker till.',
+    seoIntro: 'Personligt brev för kundtjänstmedarbetare handlar om att visa servicekänsla och förmåga att hantera kunder i alla kanaler. Det här exemplet visar hur Emma kombinerar erfarenhet av telefonsupport och ärendehantering med konkreta resultat i form av höga kundnöjdhetssiffror och snabba svarstider. Du får se hur du beskriver CRM-system, multikanalservice och konflikthantering på ett sätt som imponerar på kundtjänstchefer.\n\nBrevet lyfter fram Emmas erfarenhet av 60 ärenden per dag och kundnöjdhet på 92 procent i efterundersökningar. Hon nämner specifika system som Zendesk och Salesforce, vilket signalerar att hon kan börja arbeta direkt utan lång upplärning. Att hon hanterat både telefon, chatt och e-post visar dessutom flexibilitet i en multikanalsmiljö.\n\nStrategin att lyfta företagets fokus på kundupplevelse och hållbarhet fungerar utmärkt för att visa genuint intresse. Genom att koppla sin lösningsorienterade stil till organisationens servicekultur visar Emma att hon förstår rollens betydelse. Använd tipsen nedan för att anpassa ditt brev efter den typ av kundtjänst du söker till.',
 
     exempelBrev: {
-      namn: 'Marcus Nilsson',
+      namn: 'Emma Karlsson',
       stad: 'Majorna, Göteborg',
-      epost: 'marcus.nilsson@email.se',
-      telefon: '070-789 01 23',
+      epost: 'emma.karlsson@email.se',
+      telefon: '070-345 67 89',
       foretag: 'Boozt',
       roll: 'Kundtjänstmedarbetare',
       datum: '6 januari 2026',
@@ -9123,23 +9179,23 @@ Jag kan börja inom två veckor och ser fram emot att diskutera hur jag kan bidr
     varforDetFungerar: [
       {
         titel: 'Konkreta ärendevolymer visar kapacitet',
-        beskrivning: '60 ärenden per dag ger kundtjänstchefen en tydlig bild av Marcus erfarenhetsnivå. Det visar att han klarar högt tempo och har rutin på ärendehantering. Siffror skiljer honom från sökande som bara skriver att de har "erfarenhet av kundservice".'
+        beskrivning: '60 ärenden per dag ger kundtjänstchefen en tydlig bild av Emmas erfarenhetsnivå. Det visar att hon klarar högt tempo och har rutin på ärendehantering. Siffror skiljer henne från sökande som bara skriver att de har "erfarenhet av kundservice".'
       },
       {
         titel: 'Höga kundnöjdhetssiffror bevisar kvalitet',
-        beskrivning: '92 procent kundnöjdhet är ett starkt bevis på Marcus förmåga att skapa positiva kundmöten. Företag mäter NPS och CSAT noga och söker aktivt kandidater som bidrar till höga siffror. Mätbara resultat är svåra att överdriva.'
+        beskrivning: '92 procent kundnöjdhet är ett starkt bevis på Emmas förmåga att skapa positiva kundmöten. Företag mäter NPS och CSAT noga och söker aktivt kandidater som bidrar till höga siffror. Mätbara resultat är svåra att överdriva.'
       },
       {
         titel: 'Systemkunskap i Zendesk och Salesforce',
-        beskrivning: 'Att nämna specifika CRM-system visar att Marcus behärskar branschens verktyg. Rekryterare vet att systemutbildning tar tid och prioriterar kandidater som kan börja producera snabbt. Zendesk och Salesforce är branschstandard.'
+        beskrivning: 'Att nämna specifika CRM-system visar att Emma behärskar branschens verktyg. Rekryterare vet att systemutbildning tar tid och prioriterar kandidater som kan börja producera snabbt. Zendesk och Salesforce är branschstandard.'
       },
       {
         titel: 'Multikanalserfarenhet visar flexibilitet',
-        beskrivning: 'Marcus nämner telefon, chatt och e-post. Det visar att han kan växla mellan kanaler beroende på behov. Moderna kundtjänster är multikanal och flexibilitet är högt värderat. Det ökar hans anställningsbarhet.'
+        beskrivning: 'Emma nämner telefon, chatt och e-post. Det visar att hon kan växla mellan kanaler beroende på behov. Moderna kundtjänster är multikanal och flexibilitet är högt värderat. Det ökar hennes anställningsbarhet.'
       },
       {
         titel: 'Företagsspecifik anpassning visar research',
-        beskrivning: 'Marcus nämner Boozts satsning på hållbart mode och kundupplevelse. Det visar att han gjort research och förstår vad som skiljer företaget från konkurrenter. Rekryterare uppskattar kandidater som visar genuint intresse.'
+        beskrivning: 'Emma nämner Boozts satsning på hållbart mode och kundupplevelse. Det visar att hon gjort research och förstår vad som skiljer företaget från konkurrenter. Rekryterare uppskattar kandidater som visar genuint intresse.'
       }
     ],
 
@@ -9246,13 +9302,13 @@ Jag kan börja inom två veckor och ser fram emot att diskutera hur jag kan bidr
 
     intro: 'Ett personligt brev för terminalarbetare visar att du behärskar godshantering, truckkörning och säkerhetsrutiner i högt tempo. Arbetsgivare söker kandidater som kombinerar fysisk kapacitet med noggrannhet och digital systemvana. Det här exemplet är skrivet för en godsterminal men fungerar lika bra för paketcentraler, hamnar eller flygfrakt. Du får se hur du lyfter fram truckkort, ADR-certifiering och konkreta prestationer som imponerar på terminalchefer.',
 
-    seoIntro: 'Söker du jobb som terminalarbetare och behöver skriva ett personligt brev som visar din kompetens direkt? Det här exemplet från 2026 visar hur du skriver ett ATS-optimerat brev som passar svenska godsterminaler och logistikföretag. Du får se exakt hur Johan lyfter truckkort A1-4, ADR-certifiering för farligt gods och konkret arbetskapacitet redan i första stycket.\n\nBrevet visar hur du kvantifierar din prestation med konkreta siffror: 220 kolli per skift, 0,3% skadefrekvens, och 25% snabbare lastning genom processförbättring. Johan nämner branschspecifika system som WMS för godsregistrering och handhållna terminaler för scanning. Han visar säkerhetsmedvetenhet genom att beskriva ADR-rutiner och ergonomiskt arbetssätt, och balanserar teknisk kompetens med mjuka färdigheter som teamarbete och kommunikation i tvärskiftlag med chaufförer och disponenter.\n\nAnvänd exemplet som inspiration för din egen jobbansökan som terminalarbetare och anpassa det efter den tjänst du söker. Oavsett om du söker till DHL, PostNord, Schenker eller en lokal godsterminal kan du använda samma struktur. Läs våra tips nedan för att optimera ditt brev för godshantering och terminalarbete.',
+    seoIntro: 'Söker du jobb som terminalarbetare och behöver skriva ett personligt brev som visar din kompetens direkt? Det här exemplet från 2026 visar hur du skriver ett ATS-optimerat brev som passar svenska godsterminaler och logistikföretag. Du får se exakt hur Marcus lyfter truckkort A1-4, ADR-certifiering för farligt gods och konkret arbetskapacitet redan i första stycket.\n\nBrevet visar hur du kvantifierar din prestation med konkreta siffror: 220 kolli per skift, 0,3% skadefrekvens, och 25% snabbare lastning genom processförbättring. Marcus nämner branschspecifika system som WMS för godsregistrering och handhållna terminaler för scanning. Han visar säkerhetsmedvetenhet genom att beskriva ADR-rutiner och ergonomiskt arbetssätt, och balanserar teknisk kompetens med mjuka färdigheter som teamarbete och kommunikation i tvärskiftlag med chaufförer och disponenter.\n\nAnvänd exemplet som inspiration för din egen jobbansökan som terminalarbetare och anpassa det efter den tjänst du söker. Oavsett om du söker till DHL, PostNord, Schenker eller en lokal godsterminal kan du använda samma struktur. Läs våra tips nedan för att optimera ditt brev för godshantering och terminalarbete.',
 
     exempelBrev: {
-      namn: 'Johan Andersson',
+      namn: 'Marcus Bergström',
       stad: 'Göteborg',
-      epost: 'johan.andersson@email.se',
-      telefon: '072-891 45 23',
+      epost: 'marcus.bergstrom@email.se',
+      telefon: '070-456 78 90',
       foretag: 'DHL Freight',
       roll: 'Terminalarbetare',
       datum: '6 januari 2026',
@@ -9270,7 +9326,7 @@ Med dokumenterad erfarenhet av godshantering och vana vid terminalarbetets tempo
     varforDetFungerar: [
       {
         titel: 'Certifikat och truckkort nämns omedelbart',
-        beskrivning: 'Johan anger truckkort A1-4 och ADR-certifiering redan i första stycket. Detta är avgörande kvalifikationer som rekryterare söker efter och som ATS-system ofta filtrerar på. Att nämna dem tidigt visar professionalitet och säkerställer att brevet rankas högt i automatiska system.'
+        beskrivning: 'Marcus anger truckkort A1-4 och ADR-certifiering redan i första stycket. Detta är avgörande kvalifikationer som rekryterare söker efter och som ATS-system ofta filtrerar på. Att nämna dem tidigt visar professionalitet och säkerställer att brevet rankas högt i automatiska system.'
       },
       {
         titel: 'Kvantifierad arbetskapacitet med låg felfrekvens',
@@ -9278,15 +9334,15 @@ Med dokumenterad erfarenhet av godshantering och vana vid terminalarbetets tempo
       },
       {
         titel: 'Initiativförmåga genom processförbättring',
-        beskrivning: 'Att Johan omorganiserade lastflödet och ökade effektiviteten med 25% visar att han inte bara utför uppgifter utan förbättrar processer. Det signalerar initiativförmåga och affärsförståelse som skiljer erfarna terminalarbetare från nybörjare.'
+        beskrivning: 'Att Marcus omorganiserade lastflödet och ökade effektiviteten med 25% visar att han inte bara utför uppgifter utan förbättrar processer. Det signalerar initiativförmåga och affärsförståelse som skiljer erfarna terminalarbetare från nybörjare.'
       },
       {
         titel: 'Branschspecifika system namngivna',
-        beskrivning: 'Att nämna WMS-system, handhållna terminaler, scanning och fraktsedlar visar att Johan behärskar branschens digitala verktyg. Rekryterare vet att systemutbildning tar tid och prioriterar kandidater som kan börja producera snabbt.'
+        beskrivning: 'Att nämna WMS-system, handhållna terminaler, scanning och fraktsedlar visar att Marcus behärskar branschens digitala verktyg. Rekryterare vet att systemutbildning tar tid och prioriterar kandidater som kan börja producera snabbt.'
       },
       {
         titel: 'Säkerhet och teamarbete tydligt betonat',
-        beskrivning: 'Johan lyfter ADR-rutiner, ergonomi och samarbete i tvärskiftlag. Terminalföretag prioriterar säkerhetsmedvetna medarbetare som kan kommunicera tydligt med chaufförer, disponenter och kollegor.'
+        beskrivning: 'Marcus lyfter ADR-rutiner, ergonomi och samarbete i tvärskiftlag. Terminalföretag prioriterar säkerhetsmedvetna medarbetare som kan kommunicera tydligt med chaufförer, disponenter och kollegor.'
       }
     ],
 
@@ -9366,14 +9422,14 @@ Med dokumenterad erfarenhet av godshantering och vana vid terminalarbetets tempo
     metaTitle: 'Personligt Brev Administrativ Assistent – Exempel & Mall 2026 | Jobbcoach.ai',
     metaDescription: 'Komplett personligt brev-exempel för administrativ assistent. Se hur du lyfter kalenderhantering, systemkunskaper (Microsoft 365, Fortnox) och konkreta resultat för att passera ATS-system.',
 
-    intro: 'Det här exemplet visar hur Emma, administrativ assistent med fyra års erfarenhet, söker en tjänst på ett konsultbolag. Hon lyfter konkreta resultat från kalenderhantering (150 möten/månad, 90% färre dubbelbokningar) och visar systemkunskaper som är relevanta för rollen (Microsoft 365, Fortnox, Salesforce). Brevet balanserar service-orientering med professionalism och visar hur hon håller ihop vardagen för ledningen.',
+    intro: 'Det här exemplet visar hur Sofia, administrativ assistent med fyra års erfarenhet, söker en tjänst på ett konsultbolag. Hon lyfter konkreta resultat från kalenderhantering (150 möten/månad, 90% färre dubbelbokningar) och visar systemkunskaper som är relevanta för rollen (Microsoft 365, Fortnox, Salesforce). Brevet balanserar service-orientering med professionalism och visar hur hon håller ihop vardagen för ledningen.',
 
-    seoIntro: 'När du söker jobb som administrativ assistent behöver ditt personliga brev visa mer än bara att du är organiserad. Det här exemplet från 2026 visar hur du konkret beskriver din förmåga att hantera komplexa kalendrar, administrera fakturor och hålla ordning i vardagen för ledning och team. Med dagens arbetsmarknad där många företag söker administratörer som behärskar både Microsoft 365 och branschspecifika system som Fortnox eller Salesforce, är det avgörande att du nämner rätt verktyg för att passera ATS-system.\n\nEmma visar inte bara att hon kan boka möten – hon kvantifierar sitt arbete med konkreta siffror: 150 möten per månad, 80 fakturor processerade, 90 procent färre dubbelbokningar efter att hon omorganiserade partnerns kalendersystem. Hon nämner specifika systemkunskaper (Outlook, Teams, Excel, Fortnox, Salesforce) vilket är exakt vad arbetsgivare söker efter när de screener ansökningar. Istället för adjektiv som "noggrann" eller "serviceinriktad" visar hon detta genom konkreta exempel från mottagningsarbete och kundkommunikation.\n\nExemplet demonstrerar också hur du anpassar brevet till företagskulturen. Emma betonar att hon uppskattar arbetsplatser där administratörer ses som en viktig del av teamet, vilket matchar företagets värderingar. Läs tipsen nedan för att lära dig hur du lyfter din egen erfarenhet, vilka system du bör nämna och hur du visar din serviceförmåga utan att låta underdånig.',
+    seoIntro: 'När du söker jobb som administrativ assistent behöver ditt personliga brev visa mer än bara att du är organiserad. Det här exemplet från 2026 visar hur du konkret beskriver din förmåga att hantera komplexa kalendrar, administrera fakturor och hålla ordning i vardagen för ledning och team. Med dagens arbetsmarknad där många företag söker administratörer som behärskar både Microsoft 365 och branschspecifika system som Fortnox eller Salesforce, är det avgörande att du nämner rätt verktyg för att passera ATS-system.\n\nEmma visar inte bara att hon kan boka möten, hon kvantifierar sitt arbete med konkreta siffror: 150 möten per månad, 80 fakturor processerade, 90 procent färre dubbelbokningar efter att hon omorganiserade partnerns kalendersystem. Hon nämner specifika systemkunskaper (Outlook, Teams, Excel, Fortnox, Salesforce) vilket är exakt vad arbetsgivare söker efter när de screener ansökningar. Istället för adjektiv som "noggrann" eller "serviceinriktad" visar hon detta genom konkreta exempel från mottagningsarbete och kundkommunikation.\n\nExemplet demonstrerar också hur du anpassar brevet till företagskulturen. Sofia betonar att hon uppskattar arbetsplatser där administratörer ses som en viktig del av teamet, vilket matchar företagets värderingar. Läs tipsen nedan för att lära dig hur du lyfter din egen erfarenhet, vilka system du bör nämna och hur du visar din serviceförmåga utan att låta underdånig.',
 
     exempelBrev: {
-      namn: 'Emma Karlsson',
+      namn: 'Sofia Bergström',
       stad: 'Stockholm',
-      epost: 'emma.karlsson@email.se',
+      epost: 'sofia.bergstrom@email.se',
       telefon: '073-456 78 90',
       foretag: 'Strategia Consulting AB',
       roll: 'Administrativ assistent',
@@ -9392,23 +9448,23 @@ Jag är övertygad om att min erfarenhet av att hantera komplex kalenderkoordine
     varforDetFungerar: [
       {
         titel: 'Kvantifierade resultat skapar trovärdighet',
-        beskrivning: 'Istället för att skriva "Jag är bra på kalenderhantering" specificerar Emma 150 möten per månad och 90 procent färre dubbelbokningar. Konkreta siffror gör påståendet mätbart och trovärdigt. Arbetsgivare ser direkt att hon kan hantera hög arbetsbelastning och leverera förbättringar.'
+        beskrivning: 'Istället för att skriva "Jag är bra på kalenderhantering" specificerar Sofia 150 möten per månad och 90 procent färre dubbelbokningar. Konkreta siffror gör påståendet mätbart och trovärdigt. Arbetsgivare ser direkt att hon kan hantera hög arbetsbelastning och leverera förbättringar.'
       },
       {
         titel: 'Systemkunskaper optimerade för ATS',
-        beskrivning: 'Brevet nämner Microsoft 365, Outlook, Teams, Excel, Fortnox och Salesforce – nyckelord som arbetsgivare söker efter. Detta ökar chansen att passera automatiska screeningsystem och visar omedelbart att Emma kan börja arbeta utan lång introduktion.'
+        beskrivning: 'Brevet nämner Microsoft 365, Outlook, Teams, Excel, Fortnox och Salesforce, nyckelord som arbetsgivare söker efter. Detta ökar chansen att passera automatiska screeningsystem och visar omedelbart att Sofia kan börja arbeta utan lång introduktion.'
       },
       {
         titel: 'Konkret problemlösning istället för adjektiv',
-        beskrivning: 'Emma säger inte "Jag är strukturerad och lösningsorienterad". Hon visar det genom att beskriva hur hon omorganiserade mötesstrukturen med färgkodade kategorier och tidsbuffertar. Detta konkreta exempel demonstrerar hennes förmåga att identifiera problem och implementera lösningar.'
+        beskrivning: 'Sofia säger inte "Jag är strukturerad och lösningsorienterad". Hon visar det genom att beskriva hur hon omorganiserade mötesstrukturen med färgkodade kategorier och tidsbuffertar. Detta konkreta exempel demonstrerar hennes förmåga att identifiera problem och implementera lösningar.'
       },
       {
         titel: 'Balans mellan service och professionalism',
-        beskrivning: 'Brevet visar serviceinriktning ("håller ihop vardagen för andra", "skapar positivt första intryck") utan att låta underdånigt. Emma beskriver sig som en viktig del av teamet, inte bara en stödfunktion. Detta visar självförtroende och förståelse för rollens strategiska värde.'
+        beskrivning: 'Brevet visar serviceinriktning ("håller ihop vardagen för andra", "skapar positivt första intryck") utan att låta underdånigt. Sofia beskriver sig som en viktig del av teamet, inte bara en stödfunktion. Detta visar självförtroende och förståelse för rollens strategiska värde.'
       },
       {
         titel: 'Företagsspecifik anpassning visar research',
-        beskrivning: 'Emma refererar specifikt till företagets värderingar (effektivitet + professionellt bemötande) och visar att hon researcht om rollen (brett ansvarsområde, arbete nära ledning). Det är inte ett standardbrev skickat till 50 företag.'
+        beskrivning: 'Sofia refererar specifikt till företagets värderingar (effektivitet + professionellt bemötande) och visar att hon researcht om rollen (brett ansvarsområde, arbete nära ledning). Det är inte ett standardbrev skickat till 50 företag.'
       }
     ],
 
@@ -9423,7 +9479,7 @@ Jag är övertygad om att min erfarenhet av att hantera komplex kalenderkoordine
       },
       {
         rubrik: 'Visa organisationsförmåga genom konkreta exempel',
-        text: 'Undvik tomma påståenden som "Jag är mycket organiserad." Beskriv istället en situation där du organiserat något komplext. Till exempel: "När vi flyttade kontor koordinerade jag hela processen – från att boka flyttfirma till att märka 200 arkivlådor och säkerställa att IT-utrustning kom på plats innan personalen anlände." Konkreta exempel gör din kompetens verklig.'
+        text: 'Undvik tomma påståenden som "Jag är mycket organiserad." Beskriv istället en situation där du organiserat något komplext. Till exempel: "När vi flyttade kontor koordinerade jag hela processen, från att boka flyttfirma till att märka 200 arkivlådor och säkerställa att IT-utrustning kom på plats innan personalen anlände." Konkreta exempel gör din kompetens verklig.'
       },
       {
         rubrik: 'Balansera administrativt stöd med affärsförståelse',
@@ -9431,7 +9487,7 @@ Jag är övertygad om att min erfarenhet av att hantera komplex kalenderkoordine
       },
       {
         rubrik: 'Anpassa ton efter bransch och företagsstorlek',
-        text: 'Ett startup söker kanske en "händig kontorsninja", medan en advokatbyrå vill ha "professionell administrativ support". Matcha din ton efter detta. Researcha företagets webbplats och LinkedIn – hur beskriver de sig själva?\n\nPå ett konsultbolag kan du betona diskretion och förmåga att hantera konfidentiell information, medan ett kreativt företag kanske uppskattar att du nämner eventplanering.'
+        text: 'Ett startup söker kanske en "händig kontorsninja", medan en advokatbyrå vill ha "professionell administrativ support". Matcha din ton efter detta. Researcha företagets webbplats och LinkedIn, hur beskriver de sig själva?\n\nPå ett konsultbolag kan du betona diskretion och förmåga att hantera konfidentiell information, medan ett kreativt företag kanske uppskattar att du nämner eventplanering.'
       }
     ],
 
@@ -9466,7 +9522,7 @@ Jag är övertygad om att min erfarenhet av att hantera komplex kalenderkoordine
       },
       {
         q: 'Hur långt ska ett personligt brev för administrativ assistent vara?',
-        a: 'Max en A4-sida, vilket motsvarar cirka 300-400 ord. Håll det koncist – rekryterare uppskattar administratörer som kommunicerar effektivt. Fokusera på 2-3 konkreta exempel som visar din kompetens snarare än att lista alla uppgifter du någonsin gjort. Kvalitet över kvantitet.'
+        a: 'Max en A4-sida, vilket motsvarar cirka 300-400 ord. Håll det koncist, rekryterare uppskattar administratörer som kommunicerar effektivt. Fokusera på 2-3 konkreta exempel som visar din kompetens snarare än att lista alla uppgifter du någonsin gjort. Kvalitet över kvantitet.'
       },
       {
         q: 'Vilka mjuka färdigheter är viktigast för administrativ assistent?',
@@ -9489,19 +9545,19 @@ Jag är övertygad om att min erfarenhet av att hantera komplex kalenderkoordine
     metaTitle: "Personligt Brev Automationsingenjör - Exempel & Mall 2026 | Jobbcoach.ai",
     metaDescription: "Personligt brev automationsingenjör med konkreta exempel på PLC-programmering och SCADA-projekt. ATS-optimerad mall för industriautomation 2026.",
 
-    seoIntro: `Ett personligt brev automationsingenjör behöver visa mer än teoretisk kunskap om PLC-programmering och SCADA-system. Rekryterare inom industriautomation letar efter kandidater som kan beskriva konkreta projekt med mätbara resultat – minskad stilleståndstid, förbättrad OEE eller hur många produktionslinjer du driftsatt. De vill se att du behärskar specifika plattformar som Siemens TIA Portal, Step 7 eller ABB RobotStudio, och att du förstår hela kedjan från kravspecifikation till driftsättning.
+    seoIntro: `Ett personligt brev automationsingenjör behöver visa mer än teoretisk kunskap om PLC-programmering och SCADA-system. Rekryterare inom industriautomation letar efter kandidater som kan beskriva konkreta projekt med mätbara resultat, minskad stilleståndstid, förbättrad OEE eller hur många produktionslinjer du driftsatt. De vill se att du behärskar specifika plattformar som Siemens TIA Portal, Step 7 eller ABB RobotStudio, och att du förstår hela kedjan från kravspecifikation till driftsättning.
 
 Många automationsingenjörer beskriver sina arbetsuppgifter vagt: "ansvarig för PLC-programmering" eller "arbetat med styrsystem". Det räcker inte. Du behöver visa exakt vilka system du arbetat med, vilka resultat du levererat och hur du löst tekniska utmaningar. Ett brev som nämner "programmerade i Siemens Step 7 och reducerade stilleståndstiden med 35% genom förbättrad felhantering" är betydligt starkare än "arbetat med automationsprojekt".
 
 I det här exemplet ser du hur du strukturerar ett personligt brev automationsingenjör som kombinerar teknisk kompetens med konkreta resultat. Brevet visar hur du beskriver PLC-programmering, SCADA-konfiguration och driftsättningsprojekt på ett sätt som både ATS-system och rekryterare förstår värdet av.`,
 
-    intro: "Som automationsingenjör handlar ditt personliga brev inte om att lista alla system du kan – det handlar om att visa vilka problem du löst och vilka resultat du levererat. Här är ett exempel på hur du beskriver teknisk kompetens med konkreta siffror.",
+    intro: "Som automationsingenjör handlar ditt personliga brev inte om att lista alla system du kan, det handlar om att visa vilka problem du löst och vilka resultat du levererat. Här är ett exempel på hur du beskriver teknisk kompetens med konkreta siffror.",
 
     exempelBrev: {
-      namn: "Erik Lindström",
+      namn: "Erik Bergström",
       stad: "Västerås",
-      epost: "erik.lindstrom@email.se",
-      telefon: "073-845 92 16",
+      epost: "erik.bergstrom@email.se",
+      telefon: "070-234 56 78",
       foretag: "ABB Automation Products",
       roll: "Automationsingenjör",
       datum: "6 januari 2026",
@@ -9518,17 +9574,17 @@ Jag kan bidra med solid erfarenhet av felsökning under drift, god förståelse 
 Jag ser fram emot att berätta mer om hur jag kan bidra till era automationsprojekt. Hör gärna av dig om du vill diskutera min erfarenhet närmare.
 
 Med vänliga hälsningar,
-Erik Lindström`
+Erik Bergström`
     },
 
     varforDetFungerar: [
       {
         titel: "Kvantifierade resultat från automationsprojekt",
-        beskrivning: "Brevet nämner konkreta siffror som 18% lägre energiförbrukning och OEE-förbättring från 72% till 84%. Det visar inte bara vad du gjort, utan vilket mätbart värde du skapat. ATS-system letar efter dessa kvantifierbara resultat eftersom de indikerar verklig erfarenhet, inte bara teoretisk kunskap. Automationsprojekt handlar om förbättring – visa hur mycket du förbättrat."
+        beskrivning: "Brevet nämner konkreta siffror som 18% lägre energiförbrukning och OEE-förbättring från 72% till 84%. Det visar inte bara vad du gjort, utan vilket mätbart värde du skapat. ATS-system letar efter dessa kvantifierbara resultat eftersom de indikerar verklig erfarenhet, inte bara teoretisk kunskap. Automationsprojekt handlar om förbättring, visa hur mycket du förbättrat."
       },
       {
         titel: "Specifika system och tekniska plattformar",
-        beskrivning: "Texten nämner Siemens TIA Portal, Step 7, WinCC SCADA, ABB RobotStudio och Profinet. Detta är exakt de nyckelord som ATS-system letar efter när de screening ansökningar till automationstjänster. Undvik vaga formuleringar som 'erfarenhet av PLC-programmering' – skriv vilka specifika plattformar och protokoll du behärskar. Det visar att du kan börja arbeta direkt utan omfattande utbildning."
+        beskrivning: "Texten nämner Siemens TIA Portal, Step 7, WinCC SCADA, ABB RobotStudio och Profinet. Detta är exakt de nyckelord som ATS-system letar efter när de screening ansökningar till automationstjänster. Undvik vaga formuleringar som 'erfarenhet av PLC-programmering', skriv vilka specifika plattformar och protokoll du behärskar. Det visar att du kan börja arbeta direkt utan omfattande utbildning."
       },
       {
         titel: "Teknisk trovärdighet genom detaljer",
@@ -9536,7 +9592,7 @@ Erik Lindström`
       },
       {
         titel: "Balans mellan teknik och affärsnytta",
-        beskrivning: "Brevet kombinerar tekniska termer med affärsrelevanta resultat som OEE, energibesparing och produktionsstopp. Det visar att du inte bara är tekniskt kunnig, utan förstår varför automationen finns – för att förbättra produktion och sänka kostnader. Denna förståelse skiljer seniora automationsingenjörer från juniora som bara fokuserar på kod och hårdvara."
+        beskrivning: "Brevet kombinerar tekniska termer med affärsrelevanta resultat som OEE, energibesparing och produktionsstopp. Det visar att du inte bara är tekniskt kunnig, utan förstår varför automationen finns, för att förbättra produktion och sänka kostnader. Denna förståelse skiljer seniora automationsingenjörer från juniora som bara fokuserar på kod och hårdvara."
       },
       {
         titel: "Företagsspecifik research och genuint intresse",
@@ -9547,7 +9603,7 @@ Erik Lindström`
     tips: [
       {
         rubrik: "Namnge specifika PLC-plattformar och SCADA-system",
-        text: "Skriv inte 'erfarenhet av PLC-programmering' utan 'programmerar i Siemens TIA Portal och Step 7 samt Schneider Unity Pro'. ATS-system letar efter exakta plattformsnamn. Om du arbetat med flera fabrikat, nämn dem – det visar bredare kompetens. Inkludera även kommunikationsprotokoll som Profinet, Profibus eller EtherNet/IP om du använt dem. Samma princip gäller SCADA: nämn WinCC, Ignition, Wonderware eller vilket system du behärskar. Tekniska rekryterare vill veta exakt vilka verktyg du kan använda från dag ett."
+        text: "Skriv inte 'erfarenhet av PLC-programmering' utan 'programmerar i Siemens TIA Portal och Step 7 samt Schneider Unity Pro'. ATS-system letar efter exakta plattformsnamn. Om du arbetat med flera fabrikat, nämn dem, det visar bredare kompetens. Inkludera även kommunikationsprotokoll som Profinet, Profibus eller EtherNet/IP om du använt dem. Samma princip gäller SCADA: nämn WinCC, Ignition, Wonderware eller vilket system du behärskar. Tekniska rekryterare vill veta exakt vilka verktyg du kan använda från dag ett."
       },
       {
         rubrik: "Kvantifiera automationsprojektens resultat",
@@ -9570,7 +9626,7 @@ Erik Lindström`
     faq: [
       {
         q: "Hur tekniskt detaljerat ska jag vara i ett personligt brev som automationsingenjör?",
-        a: "Använd konkreta tekniska termer men förklara inte hur de fungerar. Skriv 'programmerade säkerhetslogik enligt ISO 13849 kategori 3 för robotcell' snarare än 'har erfarenhet av säkerhetsprogrammering'. Nämn specifika plattformar (Siemens TIA Portal, ABB RobotStudio), protokoll (Profinet, EtherNet/IP) och standarder (ISO 13849, IEC 61131-3). Men undvik att förklara grundläggande koncept – utgå från att läsaren förstår automation. Det visar både teknisk kompetens och förmåga att kommunicera effektivt med andra ingenjörer."
+        a: "Använd konkreta tekniska termer men förklara inte hur de fungerar. Skriv 'programmerade säkerhetslogik enligt ISO 13849 kategori 3 för robotcell' snarare än 'har erfarenhet av säkerhetsprogrammering'. Nämn specifika plattformar (Siemens TIA Portal, ABB RobotStudio), protokoll (Profinet, EtherNet/IP) och standarder (ISO 13849, IEC 61131-3). Men undvik att förklara grundläggande koncept, utgå från att läsaren förstår automation. Det visar både teknisk kompetens och förmåga att kommunicera effektivt med andra ingenjörer."
       },
       {
         q: "Vilka mätetal är viktigast att nämna för automationsingenjörer?",
@@ -9578,11 +9634,11 @@ Erik Lindström`
       },
       {
         q: "Ska jag nämna både hårdvaru- och mjukvaruerfarenhet?",
-        a: "Ja, moderna automationsingenjörer förväntas förstå båda. Nämn både PLC-programmering och hårdvarukunskap: 'dimensionerade och konfigurerade Siemens S7-1500 med distribuerad I/O via Profinet, programmerade i TIA Portal enligt IEC 61131-3'. Om du arbetat med robotar, SCADA, HMI-design eller industriella nätverk – nämn det. Visa även om du kan läsa elscheman och delta i hårdvarudesign. Företag söker helhetskompetens eftersom gränsen mellan hårdvara och mjukvara blir allt mer suddig i modern automation. Kandidater som behärskar båda är mer värdefulla."
+        a: "Ja, moderna automationsingenjörer förväntas förstå båda. Nämn både PLC-programmering och hårdvarukunskap: 'dimensionerade och konfigurerade Siemens S7-1500 med distribuerad I/O via Profinet, programmerade i TIA Portal enligt IEC 61131-3'. Om du arbetat med robotar, SCADA, HMI-design eller industriella nätverk, nämn det. Visa även om du kan läsa elscheman och delta i hårdvarudesign. Företag söker helhetskompetens eftersom gränsen mellan hårdvara och mjukvara blir allt mer suddig i modern automation. Kandidater som behärskar båda är mer värdefulla."
       },
       {
         q: "Hur visar jag att jag kan arbeta under produktionsdrift?",
-        a: "Beskriv konkreta situationer där du arbetat med begränsad tid eller löst akuta problem: 'Felsökte och åtgärdade PLC-kommunikationsfel under pågående skiftproduktion, vilket begränsade produktionsbortfallet till 25 minuter'. Eller: 'Genomförde mjukvaruuppgradering av SCADA-system under planerat underhållsstopp – systemet var åter i drift 2 timmar före planerad produktionsstart'. Detta visar att du förstår produktionens krav, kan arbeta under press och tar ansvar för att minimera störningar. Det är en kritisk kompetens som skiljer erfarna automationsingenjörer från de som bara arbetat i projektmiljö eller labbmiljö."
+        a: "Beskriv konkreta situationer där du arbetat med begränsad tid eller löst akuta problem: 'Felsökte och åtgärdade PLC-kommunikationsfel under pågående skiftproduktion, vilket begränsade produktionsbortfallet till 25 minuter'. Eller: 'Genomförde mjukvaruuppgradering av SCADA-system under planerat underhållsstopp, systemet var åter i drift 2 timmar före planerad produktionsstart'. Detta visar att du förstår produktionens krav, kan arbeta under press och tar ansvar för att minimera störningar. Det är en kritisk kompetens som skiljer erfarna automationsingenjörer från de som bara arbetat i projektmiljö eller labbmiljö."
       },
       {
         q: "Ska jag nämna certifieringar inom automation?",
@@ -9594,7 +9650,7 @@ Erik Lindström`
       },
       {
         q: "Ska jag nämna om jag kan programmera i andra språk än PLC?",
-        a: "Ja, om det är relevant för tjänsten. Python används allt mer för dataanalys från produktionssystem, SCADA-scripting och integration med MES-system. C#/VB.NET är vanligt för avancerade HMI-lösningar. SQL för databaskopplingar. Skriv något som: 'Använder Python för att analysera produktionsdata från SQL-databas och generera OEE-rapporter automatiskt'. Men gör det tydligt att din huvudkompetens är automation – dessa språk ska vara komplement, inte ersätta PLC-kunskapen. Moderna automationsingenjörer som kan överbrygga IT och OT (Operational Technology) är mycket eftertraktade, särskilt när företag digitaliserar sina produktionssystem."
+        a: "Ja, om det är relevant för tjänsten. Python används allt mer för dataanalys från produktionssystem, SCADA-scripting och integration med MES-system. C#/VB.NET är vanligt för avancerade HMI-lösningar. SQL för databaskopplingar. Skriv något som: 'Använder Python för att analysera produktionsdata från SQL-databas och generera OEE-rapporter automatiskt'. Men gör det tydligt att din huvudkompetens är automation, dessa språk ska vara komplement, inte ersätta PLC-kunskapen. Moderna automationsingenjörer som kan överbrygga IT och OT (Operational Technology) är mycket eftertraktade, särskilt när företag digitaliserar sina produktionssystem."
       }
     ],
 
@@ -9610,17 +9666,17 @@ Erik Lindström`
 
     seoIntro: `Du har skrivit "jag brinner för undervisning" i ditt personliga brev. Men rektorer vill se bevis: Hur skapar du studiero med 28 elever? Vilka metoder använder du för formativ bedömning? Hur hanterade du senast en elev som hamnade efter?
 
-Exemplet nedan visar hur Erik Karlsson (7 år som grundskollärare) presenterar sin klassrumsledning med konkreta exempel från undervisningen. Han visar hur han differentierar mellan högpresterande och elever i behov av extra stöd, hur han arbetar med LGR22 i praktiken och ger exempel på samarbete med kollegor och vårdnadshavare. Strukturen fungerar oavsett om du söker tjänst på F-3, mellanstadiet eller högstadiet.
+Exemplet nedan visar hur Anna Lindström (7 år som grundskollärare) presenterar sin klassrumsledning med konkreta exempel från undervisningen. Hon visar hur hon differentierar mellan högpresterande och elever i behov av extra stöd, hur hon arbetar med LGR22 i praktiken och ger exempel på samarbete med kollegor och vårdnadshavare. Strukturen fungerar oavsett om du söker tjänst på F-3, mellanstadiet eller högstadiet.
 
 Använd detta personligt brev grundskollärare som inspiration när du skriver din egen ansökan. Anpassa innehållet efter den skola du söker till och framhäv de erfarenheter som är mest relevanta för tjänsten.`,
 
-    intro: 'Exemplet nedan visar hur Erik Karlsson presenterar sin undervisning med konkreta klassrumsexempel och mätbara resultat. Han lyfter fram studiero, formativ bedömning och digitala verktyg. Brevet är skrivet för mellanstadiet, men du kan använda samma struktur för F-3 eller högstadiet.',
+    intro: 'Exemplet nedan visar hur Anna Lindström presenterar sin undervisning med konkreta klassrumsexempel och mätbara resultat. Hon lyfter fram studiero, formativ bedömning och digitala verktyg. Brevet är skrivet för mellanstadiet, men du kan använda samma struktur för F-3 eller högstadiet.',
 
     exempelBrev: {
-      namn: 'Erik Karlsson',
+      namn: 'Anna Lindström',
       adress: 'Skolvägen 23, 172 67 Sundbyberg',
-      telefon: '070-345 67 89',
-      epost: 'erik.karlsson@gmail.com',
+      telefon: '070-123 45 67',
+      epost: 'anna.lindstrom@exempel.se',
       arbetsgivare: 'Rågsveds skola, Stockholms stad',
       roll: 'Grundskollärare årskurs 4-6',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -9637,7 +9693,7 @@ Jag kan bidra med konkreta metoder för att skapa trygg klassrumsmiljö och enga
 Mina kärnkompetenser är klassrumsledning, formativ bedömning och inkluderande undervisning. Jag är tillgänglig för intervju och kan börja arbeta inom kort. Jag ser fram emot att berätta mer om mitt arbete med studiero och elevers lärande.
 
 Med vänliga hälsningar,
-Erik Karlsson`
+Anna Lindström`
     },
 
     varforDetFungerar: [
@@ -9748,10 +9804,10 @@ Använd exemplet som inspiration för din egen jobbansökan och anpassa det efte
     intro: 'Ett professionellt personligt brev för socialsekreterare som visar juridisk kompetens, metodkunskap och förmåga att balansera rättssäkerhet med ett empatiskt förhållningssätt. Exemplet är optimerat för kommunala arbetsgivare och ATS-system.',
 
     exempelBrev: {
-      namn: 'Maria Lindqvist',
+      namn: 'Anna Lindström',
       adress: 'Ekebyvägen 15, 752 28 Uppsala',
-      telefon: '070-345 67 89',
-      epost: 'maria.lindqvist@email.se',
+      telefon: '070-123 45 67',
+      epost: 'anna.lindstrom@email.se',
       arbetsgivare: 'Uppsala kommun',
       roll: 'Socialsekreterare inom ekonomiskt bistånd',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -9768,29 +9824,29 @@ Jag kan bidra till verksamhetens mål om att stärka klienternas egenmakt genom 
 Jag har gedigen erfarenhet av SoL, LVU och LVM, arbetar strukturerat med BBIC och tillämpar traumamedveten praktik i alla klientmöten. Jag är tillgänglig för intervju och ser fram emot att diskutera hur jag kan bidra till er verksamhet.
 
 Med vänliga hälsningar,
-Maria Lindqvist`
+Anna Lindström`
     },
 
     varforDetFungerar: [
       {
         titel: 'Visar juridisk kompetens med konkreta lagrum',
-        beskrivning: 'Brevet nämner SoL, LVU, LVM, BBIC och Förvaltningslagen - alla centrala för socialsekreterare. Detta visar att Maria behärskar den juridiska grunden och förstår vikten av rättssäkerhet. ATS-system letar efter just dessa juridiska termer.'
+        beskrivning: 'Brevet nämner SoL, LVU, LVM, BBIC och Förvaltningslagen - alla centrala för socialsekreterare. Detta visar att Anna behärskar den juridiska grunden och förstår vikten av rättssäkerhet. ATS-system letar efter just dessa juridiska termer.'
       },
       {
         titel: 'Kvantifierar ärendebelastning och arbetssätt',
-        beskrivning: 'Istället för "hög arbetsbelastning" skriver Maria konkret: 65-70 pågående ärenden, 200 biståndsbedömningar årligen. Detta visar att hon klarar av kommuners typiska arbetsbörda och kan prioritera effektivt.'
+        beskrivning: 'Istället för "hög arbetsbelastning" skriver Anna konkret: 65-70 pågående ärenden, 200 biståndsbedömningar årligen. Detta visar att hon klarar av kommuners typiska arbetsbörda och kan prioritera effektivt.'
       },
       {
         titel: 'Balanserar empati med myndighetsutövning',
-        beskrivning: 'Maria beskriver både relationsskapande förhållningssätt (MI, respekt, delaktighet) OCH förmågan att fatta svåra beslut enligt LVU/LVM. Detta visar den balans som är avgörande i yrket - inte bara "snäll" eller bara "byråkrat".'
+        beskrivning: 'Anna beskriver både relationsskapande förhållningssätt (MI, respekt, delaktighet) OCH förmågan att fatta svåra beslut enligt LVU/LVM. Detta visar den balans som är avgörande i yrket - inte bara "snäll" eller bara "byråkrat".'
       },
       {
         titel: 'Konkret exempel på helhetssyn',
-        beskrivning: 'Exemplet med våld i nära relation visar hur Maria ser bortom det uppenbara ärendet (ekonomiskt bistånd) och uppmärksammar komplexitet. Detta signalerar professionell bedömningsförmåga och tvärprofessionellt tänkande.'
+        beskrivning: 'Exemplet med våld i nära relation visar hur Anna ser bortom det uppenbara ärendet (ekonomiskt bistånd) och uppmärksammar komplexitet. Detta signalerar professionell bedömningsförmåga och tvärprofessionellt tänkande.'
       },
       {
         titel: 'Nämner dokumentationssystem och metoder',
-        beskrivning: 'Treserva, BBIC, ASI och MI är konkreta verktyg som kommuner använder. Att nämna dem visar att Maria kan börja arbeta direkt utan lång introduktion. Detta ökar chansen att bli kallad till intervju.'
+        beskrivning: 'Treserva, BBIC, ASI och MI är konkreta verktyg som kommuner använder. Att nämna dem visar att Anna kan börja arbeta direkt utan lång introduktion. Detta ökar chansen att bli kallad till intervju.'
       }
     ],
 
@@ -9884,10 +9940,10 @@ Här är ett exempel på hur du skriver ett personligt brev för ekonom som visa
     intro: 'Detta exempel visar hur en erfaren ekonom positionerar sig för en roll med fokus på business partnering och processförbättring.',
 
     exempelBrev: {
-      namn: 'Emma Lindström',
+      namn: 'Erik Lindqvist',
       adress: 'Ekonomigatan 15, 411 23 Göteborg',
-      telefon: '070-234 56 78',
-      epost: 'emma.lindstrom@email.se',
+      telefon: '073-555 98 76',
+      epost: 'erik.lindqvist@email.se',
       arbetsgivare: 'Volvo Group',
       roll: 'Ekonom',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -9904,7 +9960,7 @@ Jag kan bidra direkt med erfarenhet av månadsrapportering, prognosarbete och ve
 Jag ser fram emot att berätta mer om hur mina erfarenheter kan stärka ert ekonomiteam. Hör gärna av dig om du vill diskutera rollen närmare.
 
 Med vänliga hälsningar,
-Emma Lindström`
+Erik Lindqvist`
     },
 
     varforDetFungerar: [
@@ -10010,10 +10066,10 @@ Använd detta exempel som grund för ditt eget brev. Byt ut verktygen mot de du 
     intro: 'Ett exempel på personligt brev för DevOps Engineer som visar konkreta automation-resultat, specifika verktyg (Kubernetes, Terraform, CI/CD) och kvantifierbara förbättringar i deployment-tid och systemstabilitet.',
 
     exempelBrev: {
-      namn: 'Erik Lundström',
+      namn: 'Erik Svensson',
       adress: 'Teknikgatan 42, 118 26 Stockholm',
-      telefon: '070-234 56 78',
-      epost: 'erik.lundstrom@email.se',
+      telefon: '070-567 89 01',
+      epost: 'erik.svensson@email.se',
       arbetsgivare: 'Klarna',
       roll: 'DevOps Engineer',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -10030,7 +10086,7 @@ Jag ser mig bidra genom att fortsätta automatisera er deployment-process och f�
 Jag ser fram emot att diskutera hur min tekniska bakgrund och erfarenhet av att bygga robust automation kan bidra till era DevOps-initiativ. Jag är redo att börja och hjälpa era team att deploya snabbare utan att tumma på kvalitet.
 
 Med vänliga hälsningar,
-Erik Lundström`,
+Erik Svensson`,
       erfarenhet: '4 år som DevOps Engineer',
       nyckelkompetenser: [
         'Kubernetes och Docker containerisering',
@@ -10136,15 +10192,15 @@ Erik Lundström`,
     metaTitle: 'Personligt Brev Psykolog - Exempel & Mall 2026 | Jobbcoach.ai',
     metaDescription: 'Professionellt personligt brev för psykolog med KBT, ACT och utredningserfarenhet. Se exempel på hur du presenterar terapeutisk kompetens, diagnostiska färdigheter och behandlingsresultat för att sticka ut i ansökan.',
 
-    seoIntro: `Att skriva ett personligt brev som psykolog kräver att du balanserar vetenskaplig kompetens med mänsklig värme. Arbetsgivare inom psykiatri, primärvård och privat mottagning söker psykologer som kan dokumentera behandlingseffektivitet och samtidigt skapa trygghet för patienter med komplex problematik. Ett välskrivet brev visar hur din kliniska erfarenhet direkt bidrar till organisationens behandlingsresultat.\n\nI ditt personliga brev bör du konkretisera din terapeutiska verktygslåda med specifika metoder och resultat. Istället för att skriva att du "arbetar med KBT" kan du beskriva hur du genomfört 180 avslutade behandlingar med 78% symtomreduktion mätt med validerade instrument. Nämn vilka patientgrupper du har erfarenhet av – ångest, depression, NPF-utredningar, trauma – och vilka bedömningsinstrument du behärskar som WISC-V, WAIS-IV eller neuropsykologiska testbatterier.\n\nExemplet nedan visar hur en erfaren psykolog presenterar sin kompetens för en tjänst inom psykiatrisk öppenvård. Lägg märke till hur brevet kombinerar kvantifierbara behandlingsresultat med beskrivningar av kliniskt arbete, och hur specifika journalsystem och samarbetsformer lyfts fram för att visa praktisk anpassningsförmåga till nya vårdmiljöer.`,
+    seoIntro: `Att skriva ett personligt brev som psykolog kräver att du balanserar vetenskaplig kompetens med mänsklig värme. Arbetsgivare inom psykiatri, primärvård och privat mottagning söker psykologer som kan dokumentera behandlingseffektivitet och samtidigt skapa trygghet för patienter med komplex problematik. Ett välskrivet brev visar hur din kliniska erfarenhet direkt bidrar till organisationens behandlingsresultat.\n\nI ditt personliga brev bör du konkretisera din terapeutiska verktygslåda med specifika metoder och resultat. Istället för att skriva att du "arbetar med KBT" kan du beskriva hur du genomfört 180 avslutade behandlingar med 78% symtomreduktion mätt med validerade instrument. Nämn vilka patientgrupper du har erfarenhet av, ångest, depression, NPF-utredningar, trauma, och vilka bedömningsinstrument du behärskar som WISC-V, WAIS-IV eller neuropsykologiska testbatterier.\n\nExemplet nedan visar hur en erfaren psykolog presenterar sin kompetens för en tjänst inom psykiatrisk öppenvård. Lägg märke till hur brevet kombinerar kvantifierbara behandlingsresultat med beskrivningar av kliniskt arbete, och hur specifika journalsystem och samarbetsformer lyfts fram för att visa praktisk anpassningsförmåga till nya vårdmiljöer.`,
 
     intro: 'Ett exempel på personligt brev för psykolog som visar kvantifierbara behandlingsresultat, terapeutisk specialisering (KBT, EMDR) och utredningskompetens inom psykiatrisk öppenvård.',
 
     exempelBrev: {
-      namn: 'Anna Bergström',
+      namn: 'Erik Johansson',
       adress: 'Frejavägen 15, 113 47 Stockholm',
-      telefon: '070-345 67 89',
-      epost: 'anna.bergstrom@email.se',
+      telefon: '070-567 89 01',
+      epost: 'erik.johansson@email.se',
       arbetsgivare: 'Capio Psykiatri Stockholm',
       roll: 'Psykolog',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -10161,7 +10217,7 @@ Jag söker mig till Capio för att ni kombinerar hög tillgänglighet med kvalit
 Jag ser fram emot att diskutera hur min kliniska erfarenhet kan bidra till er verksamhet.
 
 Med vänliga hälsningar,
-Anna Bergström`,
+Erik Johansson`,
       erfarenhet: '5 år som legitimerad psykolog',
       nyckelkompetenser: [
         'KBT och traumafokuserad terapi (EMDR)',
@@ -10176,11 +10232,11 @@ Anna Bergström`,
     varforDetFungerar: [
       {
         titel: 'Kvantifierade behandlingsresultat',
-        beskrivning: 'Att skriva "180 avslutade KBT-behandlingar med 78% symtomreduktion mätt med PHQ-9" visar att du arbetar evidensbaserat och följer upp dina insatser systematiskt.\n\nRekryterare inom psykiatri och primärvård söker psykologer som kan dokumentera behandlingseffektivitet – inte bara beskriva vad de gör. Konkreta siffror signalerar att du är van vid ROM-arbete (Routine Outcome Monitoring) och kvalitetssäkring.\n\nSpecifika mätetal visar professionalism och förståelse för verksamhetens behov av uppföljning och resultatrapportering.'
+        beskrivning: 'Att skriva "180 avslutade KBT-behandlingar med 78% symtomreduktion mätt med PHQ-9" visar att du arbetar evidensbaserat och följer upp dina insatser systematiskt.\n\nRekryterare inom psykiatri och primärvård söker psykologer som kan dokumentera behandlingseffektivitet, inte bara beskriva vad de gör. Konkreta siffror signalerar att du är van vid ROM-arbete (Routine Outcome Monitoring) och kvalitetssäkring.\n\nSpecifika mätetal visar professionalism och förståelse för verksamhetens behov av uppföljning och resultatrapportering.'
       },
       {
         titel: 'Specifika bedömningsinstrument',
-        beskrivning: 'Genom att namnge PHQ-9, GAD-7, WISC-V och WAIS-IV visar brevet exakt vilka verktyg du behärskar. Rekryteraren slipper gissa om du har rätt utredningskompetens för tjänsten.\n\nInom psykiatrin är standardiserade instrument centrala för diagnostik och behandlingsplanering – en psykolog som kan genomföra kompletta NPF-utredningar med WISC och WAIS är betydligt mer anställningsbar.\n\nSpecificera även neuropsykologiska batterier som D-KEFS eller NEPSY-II om du behärskar dem. Ju mer konkret du är, desto tydligare ser arbetsgivaren var du passar in i teamet.'
+        beskrivning: 'Genom att namnge PHQ-9, GAD-7, WISC-V och WAIS-IV visar brevet exakt vilka verktyg du behärskar. Rekryteraren slipper gissa om du har rätt utredningskompetens för tjänsten.\n\nInom psykiatrin är standardiserade instrument centrala för diagnostik och behandlingsplanering, en psykolog som kan genomföra kompletta NPF-utredningar med WISC och WAIS är betydligt mer anställningsbar.\n\nSpecificera även neuropsykologiska batterier som D-KEFS eller NEPSY-II om du behärskar dem. Ju mer konkret du är, desto tydligare ser arbetsgivaren var du passar in i teamet.'
       },
       {
         titel: 'Terapeutisk specialisering framgår',
@@ -10192,7 +10248,7 @@ Anna Bergström`,
       },
       {
         titel: 'Systemkunskap och anpassningsförmåga',
-        beskrivning: 'Erfarenhet av TakeCare och Cosmic signalerar snabb inskolning och praktisk förståelse för psykiatrisk dokumentation.\n\nJournalsystem kan verka som en detalj, men för arbetsgivare innebär det stor skillnad i upplärningstid. En psykolog som redan behärskar regionens journalsystem kan börja ta emot patienter tidigare.\n\nDessutom visar det att du förstår dokumentationskrav inom hälso- och sjukvård – sekretess, strukturerad journalföring, samtyckeshantering.'
+        beskrivning: 'Erfarenhet av TakeCare och Cosmic signalerar snabb inskolning och praktisk förståelse för psykiatrisk dokumentation.\n\nJournalsystem kan verka som en detalj, men för arbetsgivare innebär det stor skillnad i upplärningstid. En psykolog som redan behärskar regionens journalsystem kan börja ta emot patienter tidigare.\n\nDessutom visar det att du förstår dokumentationskrav inom hälso- och sjukvård, sekretess, strukturerad journalföring, samtyckeshantering.'
       }
     ],
 
@@ -10203,7 +10259,7 @@ Anna Bergström`,
       },
       {
         rubrik: 'Kvantifiera behandlingsresultat',
-        text: 'Använd validerade instrument för att visa din effektivitet. Skriv till exempel "Genomsnittlig symtomreduktion på 65% mätt med PHQ-9, med 82% av patienterna som når remission inom 12 sessioner".\n\nOm du inte har exakta siffror kan du beskriva typiska patientförlopp: "Majoriteten av mina patienter med måttlig depression når behandlingsmål inom 10-15 sessioner". ROM-data (Routine Outcome Monitoring) blir allt viktigare – visa att du arbetar datadrivet.'
+        text: 'Använd validerade instrument för att visa din effektivitet. Skriv till exempel "Genomsnittlig symtomreduktion på 65% mätt med PHQ-9, med 82% av patienterna som når remission inom 12 sessioner".\n\nOm du inte har exakta siffror kan du beskriva typiska patientförlopp: "Majoriteten av mina patienter med måttlig depression når behandlingsmål inom 10-15 sessioner". ROM-data (Routine Outcome Monitoring) blir allt viktigare, visa att du arbetar datadrivet.'
       },
       {
         rubrik: 'Nämn utredningskompetens konkret',
@@ -10222,11 +10278,11 @@ Anna Bergström`,
     faq: [
       {
         q: 'Hur långt ska ett personligt brev för psykolog vara?',
-        a: 'Ett personligt brev för psykolog bör vara 350-450 ord. Du behöver utrymme för att beskriva terapeutisk inriktning, behandlingserfarenhet och eventuell utredningskompetens. Undvik dock att göra brevet till ett CV – fokusera på det mest relevanta för just denna tjänst.'
+        a: 'Ett personligt brev för psykolog bör vara 350-450 ord. Du behöver utrymme för att beskriva terapeutisk inriktning, behandlingserfarenhet och eventuell utredningskompetens. Undvik dock att göra brevet till ett CV, fokusera på det mest relevanta för just denna tjänst.'
       },
       {
         q: 'Ska jag nämna min teoretiska inriktning i personliga brevet?',
-        a: 'Ja, din teoretiska grund är viktig. Men var konkret – istället för att skriva "psykodynamisk inriktning" kan du beskriva hur du arbetar: "Jag använder affektfokuserad korttidsterapi med fokus på att bearbeta underliggande känslomässiga mönster". Visa hur teorin omsätts i praktik.'
+        a: 'Ja, din teoretiska grund är viktig. Men var konkret, istället för att skriva "psykodynamisk inriktning" kan du beskriva hur du arbetar: "Jag använder affektfokuserad korttidsterapi med fokus på att bearbeta underliggande känslomässiga mönster". Visa hur teorin omsätts i praktik.'
       },
       {
         q: 'Hur beskriver jag min handledningserfarenhet?',
@@ -10238,7 +10294,7 @@ Anna Bergström`,
       },
       {
         q: 'Hur hanterar jag att jag söker min första tjänst efter legitimation?',
-        a: 'Fokusera på din PTP-erfarenhet som fullvärdig klinisk erfarenhet – det är det. Beskriv patientarbete, handledning du fått, och eventuella specialområden du utvecklat under PTP. Visa nyfikenhet och vilja att fortsätta utvecklas under erfaren handledning.'
+        a: 'Fokusera på din PTP-erfarenhet som fullvärdig klinisk erfarenhet, det är det. Beskriv patientarbete, handledning du fått, och eventuella specialområden du utvecklat under PTP. Visa nyfikenhet och vilja att fortsätta utvecklas under erfaren handledning.'
       },
       {
         q: 'Bör jag nämna vilka journalsystem jag kan?',
@@ -10246,7 +10302,7 @@ Anna Bergström`,
       },
       {
         q: 'Hur visar jag intresse för forskning och metodutveckling?',
-        a: 'Om du deltagit i forskningsprojekt, kvalitetsarbete eller metodutveckling – nämn det. "Deltog i implementering av FACT-modellen på mottagningen" eller "Medverkade i studie om internetbaserad KBT" visar engagemang utöver det kliniska grunduppdraget.'
+        a: 'Om du deltagit i forskningsprojekt, kvalitetsarbete eller metodutveckling, nämn det. "Deltog i implementering av FACT-modellen på mottagningen" eller "Medverkade i studie om internetbaserad KBT" visar engagemang utöver det kliniska grunduppdraget.'
       }
     ],
 
@@ -10267,7 +10323,7 @@ Anna Bergström`,
     metaTitle: 'Personligt Brev Fastighetsskötare - Exempel & Mall 2026 | Jobbcoach.ai',
     metaDescription: 'Professionellt personligt brev för fastighetsskötare med konkreta exempel på underhåll, service och teknisk kompetens. Får dig att sticka ut hos arbetsgivare inom fastighet.',
 
-    seoIntro: `Ett personligt brev fastighetsskötare som visar din tekniska kompetens och servicemindset gör skillnad när du söker jobb inom fastighetsförvaltning. Arbetsgivare letar efter allroundare som kan hantera allt från VVS-problem till hyresgästkontakt – och som löser problem självständigt.
+    seoIntro: `Ett personligt brev fastighetsskötare som visar din tekniska kompetens och servicemindset gör skillnad när du söker jobb inom fastighetsförvaltning. Arbetsgivare letar efter allroundare som kan hantera allt från VVS-problem till hyresgästkontakt, och som löser problem självständigt.
 
 Rekryterare inom fastighet söker specifika kompetenser. Nämn system som Vitec eller Datscha, erfarenhet av felanmälningar och akuta åtgärder, samt teknisk kunskap inom VVS, el och snickeri. Kvantifiera din erfarenhet: antal lägenheter du ansvarar för, procent minskning av felanmälningar, eller hur snabbt du löser akuta problem. Konkreta siffror visar att du förstår att snabb service påverkar hyresgästernas trivsel.
 
@@ -10276,10 +10332,10 @@ Använd detta exempel som utgångspunkt och anpassa det efter den specifika roll
     intro: 'Ett professionellt personligt brev för fastighetsskötare som visar din tekniska kompetens, servicemindset och förmåga att arbeta självständigt. Detta exempel är optimerat för fastighetsbolag och ATS-system.',
 
     exempelBrev: {
-      namn: 'Johan Eriksson',
+      namn: 'Anders Bergström',
       adress: 'Storgatan 45, 118 32 Stockholm',
-      telefon: '070-234 89 56',
-      epost: 'johan.eriksson@email.se',
+      telefon: '070-456 78 90',
+      epost: 'anders.bergstrom@email.se',
       arbetsgivare: 'Heimstaden Bostad',
       roll: 'Fastighetsskötare',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -10293,32 +10349,36 @@ Innan detta jobbade jag tre år på HSB med kommersiella lokaler och bostadsrät
 
 Heimstadens fokus på förebyggande underhåll och hållbar förvaltning tilltalar mig starkt. Er satsning på energieffektivisering och långsiktig fastighetsvård ligger helt i linje med hur jag jobbar. Jag tror på att förebygga problem innan de uppstår och att bygga goda relationer med hyresgästerna. Nöjda hyresgäster som känner att deras boende sköts professionellt är det som driver mig.
 
-Jag ser fram emot att diskutera hur jag kan bidra till er fastighetsförvaltning. Kontakta mig gärna på 070-234 89 56 eller johan.eriksson@email.se.
+Jag ser fram emot att diskutera hur jag kan bidra till er fastighetsförvaltning. Kontakta mig gärna på 070-456 78 90 eller anders.bergstrom@email.se.
 
 Med vänliga hälsningar,
-Johan Eriksson`
+Anders Bergström`
     },
 
     varforDetFungerar: [
       {
         titel: 'Teknisk kompetens med konkreta områden',
-        beskrivning: 'Johan nämner specifika tekniska områden (VVS, el, snickeri, fastighetsstyrning) och visar att han behärskar både grundläggande underhåll och mer avancerade system. Arbetsgivare ser att han är en allroundare som kan lösa de flesta problem självständigt utan att behöva kalla in externa hantverkare för varje liten uppgift.'
+        ankare: 'stycke-1',
+        beskrivning: 'Anders nämner specifika tekniska områden (VVS, el, snickeri, fastighetsstyrning) och visar att han behärskar både grundläggande underhåll och mer avancerade system. Arbetsgivare ser att han är en allroundare som kan lösa de flesta problem självständigt utan att behöva kalla in externa hantverkare för varje liten uppgift.'
       },
       {
         titel: 'Kvantifierade resultat visar proaktivt arbetssätt',
-        beskrivning: 'Istället för att säga "jag är noggrann" visar Johan konkreta resultat: minskade akuta felanmälningar med 35 procent genom förebyggande inspektioner. Detta bevisar att han inte bara reagerar på problem utan tänker långsiktigt och förebyggande, vilket sparar pengar och ökar hyresgästnöjdhet.'
+        ankare: 'stycke-2',
+        beskrivning: 'Istället för att säga "jag är noggrann" visar Anders konkreta resultat: minskade akuta felanmälningar med 35 procent genom förebyggande inspektioner. Detta bevisar att han inte bara reagerar på problem utan tänker långsiktigt och förebyggande, vilket sparar pengar och ökar hyresgästnöjdhet.'
       },
       {
         titel: 'System och certifikat ökar trovärdigheten',
+        ankare: 'stycke-2',
         beskrivning: 'Han nämner Vitec (felanmälningssystem), OVK-certifikat och brandskyddsutbildning. Detta visar att han förstår dokumentationskrav och regelefterlevnad som är kritiskt inom fastighetsförvaltning. Arbetsgivare ser att han kan börja jobba direkt utan lång introduktion.'
       },
       {
         titel: 'Servicemindset med konkret exempel',
+        ankare: 'stycke-3',
         beskrivning: 'Beskriver hur han hanterade ett akut vattenläckage en söndag: stängde av vatten, kontaktade hyresgäst och rörmokare, minimerade skada. Detta visar både teknisk kompetens och förmåga att agera snabbt under press samtidigt som han kommunicerar tydligt med drabbade hyresgäster.'
       },
       {
         titel: 'Koppling till företagets värderingar',
-        beskrivning: 'Brevet refererar till Heimstadens fokus på förebyggande underhåll och hållbarhet. Detta visar att Johan gjort research och förstår företagets strategiska inriktning, vilket ökar chansen att rekryteraren ser ansökan som genuint intresserad snarare än ett massutskick.'
+        beskrivning: 'Brevet refererar till Heimstadens fokus på förebyggande underhåll och hållbarhet. Detta visar att Anders gjort research och förstår företagets strategiska inriktning, vilket ökar chansen att rekryteraren ser ansökan som genuint intresserad snarare än ett massutskick.'
       }
     ],
 
@@ -10422,10 +10482,10 @@ Använd exemplet som mall och anpassa efter den kommun eller hemtjänstföretag 
     intro: 'Ett professionellt personligt brev för hemtjänstpersonal som visar din omsorgskompetens, självständighet och förmåga att skapa trygghet i vardagen. Detta exempel är optimerat för kommuner, privata hemtjänstföretag och ATS-system.',
 
     exempelBrev: {
-      namn: 'Anna Eriksson',
+      namn: 'Sofia Bergström',
       adress: 'Omsorgsvägen 8, 412 63 Göteborg',
-      telefon: '070-234 56 78',
-      epost: 'anna.eriksson@email.se',
+      telefon: '070-123 45 67',
+      epost: 'sofia.bergstrom@exempel.se',
       arbetsgivare: 'Göteborgs Stad Hemtjänst',
       roll: 'Hemtjänstpersonal',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -10441,10 +10501,10 @@ Jag har erfarenhet av självständigt arbete med ansvar för egen planering och 
 
 Vad som verkligen tilltalar mig med Göteborgs Stad Hemtjänst är er satsning på kompetensutveckling och värdighetsbevarande vård. Jag har under det senaste året genomgått utbildning i demenssjukdomar och nutritionsbedömning, och jag ser fram emot att fortsätta utvecklas tillsammans med er kompetenta personalgrupp.
 
-Jag ser fram emot att diskutera hur jag kan bidra till era brukares trygghet och livskvalitet i vardagen. Kontakta mig gärna på 070-234 56 78 eller anna.eriksson@email.se.
+Jag ser fram emot att diskutera hur jag kan bidra till era brukares trygghet och livskvalitet i vardagen. Kontakta mig gärna på 070-123 45 67 eller sofia.bergstrom@exempel.se.
 
 Med vänliga hälsningar,
-Anna Eriksson`
+Sofia Bergström`
     },
 
     varforDetFungerar: [
@@ -10570,10 +10630,10 @@ Använd detta exempel som utgångspunkt och anpassa det efter den specifika roll
     intro: 'Ett professionellt personligt brev för logistiker som visar din erfarenhet av lageroptimering, transportplanering och systemkunskap. Detta exempel är optimerat för supply chain-roller och ATS-system.',
 
     exempelBrev: {
-      namn: 'Erik Lindström',
+      namn: 'Anders Bergström',
       adress: 'Hamnvägen 28, 417 55 Göteborg',
-      telefon: '070-845 32 19',
-      epost: 'erik.lindstrom@email.se',
+      telefon: '070-485 32 16',
+      epost: 'anders.bergstrom@email.com',
       arbetsgivare: 'Schenker AB',
       roll: 'Logistikkoordinator',
       datum: new Date().toLocaleDateString('sv-SE'),
@@ -10587,27 +10647,31 @@ Vad jag uppskattar med logistikarbete är problemlösningen. När en leverantör
 
 Schenkers arbete med hållbar logistik och er satsning på intermodala transporter tilltalar mig starkt. Er miljöstrategi med fokus på minskade utsläpp och optimerade transportflöden ligger helt i linje med min egen övertygelse om att logistik måste bli mer hållbar. Jag ser fram emot att bidra med min erfarenhet av kostnadseffektiv transportplanering och min förmåga att samordna komplexa leveranskedjor i er verksamhet.
 
-Jag ser fram emot att diskutera hur jag kan bidra till era logistikflöden. Kontakta mig gärna på 070-845 32 19 eller erik.lindstrom@email.se.
+Jag ser fram emot att diskutera hur jag kan bidra till era logistikflöden. Kontakta mig gärna på 070-485 32 16 eller anders.bergstrom@email.com.
 
 Med vänliga hälsningar,
-Erik Lindström`
+Anders Bergström`
     },
 
     varforDetFungerar: [
       {
         titel: 'Branschspecifika nyckelord för ATS-system',
+        ankare: 'stycke-1',
         beskrivning: 'Brevet innehåller viktiga supply chain-termer som ATS-system letar efter: lageroptimering, transportplanering, materialflöde, inbound/outbound-logistik, TMS, WMS, ERP, SAP, leverantörssamarbete, Lean och kontinuerlig förbättring. Detta ökar chansen att brevet rankas högt vid automatisk screening.'
       },
       {
         titel: 'Kvantifierade resultat visar analytisk förmåga',
+        ankare: 'stycke-2',
         beskrivning: 'Istället för "jag optimerar processer" beskrivs konkreta resultat: minskade tomkörningar med 18 procent, sparade 340 000 kronor årligen, hanterar 200 leveranser per vecka, samordnar fem leverantörer. Siffror visar att kandidaten tänker analytiskt och förstår logistikens ekonomiska betydelse.'
       },
       {
         titel: 'Systemkunskap med konkreta exempel',
+        ankare: 'stycke-2',
         beskrivning: 'Nämner specifika system (SAP, Ongoing Warehouse WMS, TMS) och visar hur de används i praktiken: analysera transportrutter, övervaka lagernivåer, leda datamigration. Detta är starkare än att bara lista system i punktform och visar verklig kompetens.'
       },
       {
         titel: 'Problemlösning med konkret situation',
+        ankare: 'stycke-3',
         beskrivning: 'Beskriver hur en leverantörskonflikt löstes genom omförhandling, teamsamarbete och snabba beslut. Detta visar både kommunikationsförmåga och förmåga att hantera oväntade situationer - kritiska egenskaper inom supply chain där störningar är vanliga.'
       },
       {
@@ -10715,10 +10779,10 @@ Det som skiljer ett starkt personligt brev från ett svagt är konkreta resultat
     intro: 'Som servicemedarbetare är du företagets ansikte utåt. Ditt personliga brev ska visa att du kombinerar excellent kundservice med praktisk problemlösning.',
 
     exempelBrev: {
-      namn: 'Emma Lindström',
+      namn: 'Maria Andersson',
       stad: 'Stockholm',
-      epost: 'emma.lindstrom@email.se',
-      telefon: '073-456 78 90',
+      epost: 'maria.andersson@email.se',
+      telefon: '070-234 56 78',
       foretag: 'Scandic Hotels',
       roll: 'Servicemedarbetare',
       datum: '6 januari 2026',
@@ -10735,7 +10799,7 @@ Jag är van vid högt tempo och att prioritera mellan olika arbetsuppgifter. Min
 Jag ser fram emot att berätta mer om hur jag kan bidra till Scandics gästupplevelse. Hör gärna av dig om du vill veta mer.
 
 Med vänliga hälsningar,
-Emma Lindström`
+Maria Andersson`
     },
 
     varforDetFungerar: [
@@ -10768,7 +10832,7 @@ Emma Lindström`
       },
       {
         rubrik: 'Betona problemlösning med exempel',
-        text: 'Servicearbete handlar om att lösa problem snabbt och hålla gäster nöjda även när något går fel. Beskriv en konkret situation där du hanterade ett problem: dubbelbokade rum, trasig utrustning, missnöjd gäst, tekniskt fel. Förklara kort vad som hände, vad du gjorde och vad resultatet blev. Detta visar att du kan hantera stress och tänka själv. Undvik vaga fraser som "bra på att lösa problem" – visa det istället genom en berättelse som rekryteraren kommer ihåg.'
+        text: 'Servicearbete handlar om att lösa problem snabbt och hålla gäster nöjda även när något går fel. Beskriv en konkret situation där du hanterade ett problem: dubbelbokade rum, trasig utrustning, missnöjd gäst, tekniskt fel. Förklara kort vad som hände, vad du gjorde och vad resultatet blev. Detta visar att du kan hantera stress och tänka själv. Undvik vaga fraser som "bra på att lösa problem", visa det istället genom en berättelse som rekryteraren kommer ihåg.'
       },
       {
         rubrik: 'Nämn specifika system och verktyg',
@@ -10776,7 +10840,7 @@ Emma Lindström`
       },
       {
         rubrik: 'Visa flexibilitet genom varierade arbetsuppgifter',
-        text: 'Servicemedarbetare hoppar ofta mellan olika uppgifter: reception, telefon, städning, frukostservice, enklare tekniska ärenden, bokning av konferenser. Lista de olika områden du jobbat inom, men gör det i sammanhang – inte som en punktlista. Exempel: "Min vardag innehöll allt från incheckning och växelhantering till att förbereda konferensrum och ta emot leveranser". Detta visar att du klarar varierande arbetsdagar och kan prioritera. Flexibilitet med arbetstider (helger, kväll, tidig morgon) är också värt att nämna explicit.'
+        text: 'Servicemedarbetare hoppar ofta mellan olika uppgifter: reception, telefon, städning, frukostservice, enklare tekniska ärenden, bokning av konferenser. Lista de olika områden du jobbat inom, men gör det i sammanhang, inte som en punktlista. Exempel: "Min vardag innehöll allt från incheckning och växelhantering till att förbereda konferensrum och ta emot leveranser". Detta visar att du klarar varierande arbetsdagar och kan prioritera. Flexibilitet med arbetstider (helger, kväll, tidig morgon) är också värt att nämna explicit.'
       },
       {
         rubrik: 'Koppla till företagets profil och värderingar',
@@ -10811,7 +10875,7 @@ Emma Lindström`
       },
       {
         q: 'Ska jag nämna språkkunskaper i mitt personliga brev?',
-        a: 'Ja, om du behärskar flera språk är det en stor fördel inom service. Hotell i storstäder har internationella gäster, och kontorsfastigheter har ofta utländska hyresgäster. Nämn språk om de är relevanta: "Jag talar svenska och engelska flytande samt grundläggande tyska, vilket gör att jag kan betjäna internationella gäster". Om jobbannonsen nämner språkkrav, bekräfta att du uppfyller dem. Språk gör dig mer anställningsbar och breddar vilka arbetsuppgifter du kan ta. Om du bara talar svenska, behöver du inte framhäva det negativt – fokusera då på andra styrkor som systemkännedom eller flexibilitet.'
+        a: 'Ja, om du behärskar flera språk är det en stor fördel inom service. Hotell i storstäder har internationella gäster, och kontorsfastigheter har ofta utländska hyresgäster. Nämn språk om de är relevanta: "Jag talar svenska och engelska flytande samt grundläggande tyska, vilket gör att jag kan betjäna internationella gäster". Om jobbannonsen nämner språkkrav, bekräfta att du uppfyller dem. Språk gör dig mer anställningsbar och breddar vilka arbetsuppgifter du kan ta. Om du bara talar svenska, behöver du inte framhäva det negativt, fokusera då på andra styrkor som systemkännedom eller flexibilitet.'
       }
     ],
 
@@ -10866,10 +10930,12 @@ Peter Lindqvist`
     varforDetFungerar: [
       {
         titel: 'Konkret ansvar med siffror',
+        ankare: 'stycke-2',
         beskrivning: 'Peter anger yta (8 000 kvadratmeter), antal anställda han ger service till (90) och ett mätbart resultat (åtgärdstid från fem dagar till två). Rekryteraren kan direkt bedöma omfattningen av hans erfarenhet i stället för att gissa utifrån vaga formuleringar.'
       },
       {
         titel: 'Teknisk bredd utan att bli en lista',
+        ankare: 'stycke-2',
         beskrivning: 'Brevet nämner snickeri, VVS, el, passersystem, nyckelhantering och brandskydd, men vävt in i beskrivningar av verkligt arbete. Det visar allroundkompetensen arbetsgivare söker hos en vaktmästare utan att kännas som en uppradning av ord.'
       },
       {
@@ -10878,10 +10944,12 @@ Peter Lindqvist`
       },
       {
         titel: 'Rollförståelse utöver det tekniska',
+        ankare: 'stycke-4',
         beskrivning: 'Stycket om att vara en vuxen bland eleverna visar att Peter förstår vad en skolvaktmästare faktiskt är: en del av skolans trygghet, inte bara en reparatör. Den insikten skiljer honom från sökande som bara beskriver teknisk kompetens.'
       },
       {
         titel: 'Anpassning till den specifika arbetsplatsen',
+        ankare: 'stycke-3',
         beskrivning: 'Brevet refererar till renoveringen av idrottshallen från annonsen och kopplar den till egen erfarenhet av ombyggnation. Det visar att brevet är skrivet för just den här tjänsten och inte massutskickat.'
       }
     ],
@@ -11132,10 +11200,12 @@ Emma Nilsson`
     varforDetFungerar: [
       {
         titel: 'Metodbegrepp som definierar rollen',
+        ankare: 'stycke-2',
         beskrivning: 'Emma nämner IBIC, AKK, bildstöd, tydliggörande pedagogik och lågaffektivt bemötande, alltså exakt de metoder som skiljer stödpedagogens uppdrag från stödassistentens. Rekryteraren ser direkt att hon förstår vad tjänsten innebär och kan ta metodansvaret från dag ett.'
       },
       {
         titel: 'Ett mätbart brukarresultat',
+        ankare: 'stycke-2',
         beskrivning: 'Exemplet med morgonrutinen visar hela arbetsgången: kartläggning, insats, ändrat bemötande och uppföljning, med ett tydligt resultat (från flera incidenter i veckan till enstaka per månad). Det bevisar pedagogisk kompetens genom handling i stället för att bara räkna upp metoder.'
       },
       {
@@ -11144,10 +11214,12 @@ Emma Nilsson`
       },
       {
         titel: 'Värdegrund kopplad till LSS',
+        ankare: 'stycke-3',
         beskrivning: 'Brevet knyter an till lagens intentioner om goda levnadsvillkor och brukarens självbestämmande, och speglar annonsens ord om delaktighet. Det visar att Emma ser uppdraget som mer än praktisk omsorg, vilket är precis vad verksamheter söker i en stödpedagog.'
       },
       {
         titel: 'Synen på dokumentation',
+        ankare: 'stycke-4',
         beskrivning: 'Meningen om att dokumentation är ett verktyg för kvalitet är liten men träffsäker. Social dokumentation är en central del av stödpedagogens ansvar, och många verksamheter kämpar med just den biten. En sökande som lyfter den självmant sticker ut.'
       }
     ],
@@ -11660,14 +11732,17 @@ Elias Öström`
     varforDetFungerar: [
       {
         titel: 'Tillgängligheten och starten kommer tidigt',
+        ankare: 'stycke-1',
         beskrivning: 'Kvällar, helger, lov, omgående start och kort varsel: det är exakt de besked en krögare behöver för att kunna säga ja. Diskare rekryteras ofta med dagars varsel, och ett brev som svarar på bemanningsfrågan direkt hamnar överst i högen.'
       },
       {
         titel: 'Erfarenheten beskrivs i köksspråk',
+        ankare: 'stycke-2',
         beskrivning: 'Grovdisk och findisk, huvmaskin, backar, stängningsrutiner: termerna visar att Elias faktiskt stått i ett diskrum och inte bara diskat hemma. Även kort erfarenhet blir trovärdig när den beskrivs med rätt ord, och kökschefen vet att upplärningen blir minimal.'
       },
       {
         titel: 'Han förstår diskens roll i köket',
+        ankare: 'stycke-2',
         beskrivning: 'Insikten att hela köket stannar när disken inte flyter är diskarens viktigaste yrkesförståelse, och få sökande formulerar den. Den visar att Elias ser jobbet som en funktion i ett lag, inte som ett straffarbete, vilket är precis den inställning krögare letar efter.'
       },
       {
@@ -11676,6 +11751,7 @@ Elias Öström`
       },
       {
         titel: 'Ambitionen framåt är en tillgång, inte ett hot',
+        ankare: 'stycke-3',
         beskrivning: 'Vägen diskare, köksbiträde, kock är branschens klassiska trappa, och Elias formulerar den rätt: den börjar med att sköta disken bäst. Kökschefer anställer gärna någon med riktning, det betyder engagemang i dag och en möjlig intern rekrytering i morgon.'
       }
     ],

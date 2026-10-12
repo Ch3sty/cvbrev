@@ -1,0 +1,1713 @@
+{
+ "_om": "Undantag för exempelsidorna, publikt v2 våg B3 (läses av scripts/seo-diff-artiklar.ts). Baslinjen från live 2026-10-12 ligger i exempel-fore.json.",
+ "LD_UNDANTAG": [
+  {
+   "path": "/cv-exempel/aldreboende",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/cv-exempel/gymnasieelev",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/cv-exempel/civilingenjor",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/cv-exempel/underskoterska",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/vardadministrator",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/cv-exempel/vardbitrade",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/hemtjanst",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/forskollarare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/receptionist",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/ingenjor",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/lagerarbetare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/administrator",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/lokalvardare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/handlaggare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/lakare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/butiksbitrade",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/butikssaljare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/saljare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/sommarjobb",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/it-konsult",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/student",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/larare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/sjukskoterska",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/specialistsjukskoterska",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/cv-exempel/ekonomiassistent",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/enhetschef",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/barnmorska",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/cv-exempel/barnskotare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/personlig-assistent",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/servitris-restaurangbitrade",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/kock",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/chef",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/produktchef",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/cv-exempel/projektledare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/elevassistent",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/kundradgivare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/kundtjanst",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/kundtjanstmedarbetare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/cv-exempel/kurator",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/grundskollarare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/specialpedagog",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/fysioterapeut",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/kontorsassistent",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/automationsingenior",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/konstruktor",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/truckforare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/logistiker",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/loneadministrator",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/cv-exempel/lagerchef",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/fastighetsskotare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/hemtjanstpersonal",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/servicemedarbetare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/socialsekreterare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/hr-specialist",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/controller",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/kassorska",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/butikschef",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/account-manager",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/systemutvecklare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/devops-engineer",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/projektledare-it",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/fritidspedagog",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/redovisningsekonom",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/bartender",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/konditor",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/ekonom",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/scrum-master",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/teamledare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/fritidsledare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/psykolog",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/lss-handlaggare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/hotellvard",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/administrativ-assistent",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/boendestod",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/cv-exempel/koksbitrade",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/barista",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken (FAQ-svar, tipsens text och CV:ts text i articleBody). Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/cv-exempel/logistikassistent",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/cv-exempel/terminalarbetare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/cv-exempel/vaktmastare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/cv-exempel/socionom",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/cv-exempel/stodpedagog",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/cv-exempel/chauffor",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/cv-exempel/it-tekniker",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/cv-exempel/telefonforsaljare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/cv-exempel/diskare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/cv-exempel/snickare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/cv-exempel/elektriker",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/cv-exempel/vaktare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/cv-exempel/stadare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/personligt-brev-exempel/aldreboende",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/personligt-brev-exempel/civilingenjor",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/personligt-brev-exempel/gymnasieelev",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/personligt-brev-exempel/underskoterska",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken. Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/personligt-brev-exempel/student",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/larare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/saljare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/sommarjobb",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna). Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken. Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/personligt-brev-exempel/butikssaljare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/sjukskoterska",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna). Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken. Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/personligt-brev-exempel/ekonomiassistent",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna). Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken. Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/personligt-brev-exempel/barnskotare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna). Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken. Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/personligt-brev-exempel/bartender",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/personlig-assistent",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna). Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken. Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/personligt-brev-exempel/ingenjor",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/forskollarare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/receptionist",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/lagerarbetare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/administrator",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna). Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken. Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/personligt-brev-exempel/lokalvardare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna). Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken. Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/personligt-brev-exempel/handlaggare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna). Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken. Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/personligt-brev-exempel/lakare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/kurator",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna). Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken. Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/personligt-brev-exempel/butiksbitrade",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/butikschef",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/servitris-restaurangbitrade",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/chef",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna). Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken. Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/personligt-brev-exempel/projektledare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/projektledare-it",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/elevassistent",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna). Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken. Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/personligt-brev-exempel/kundtjanst",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/stadare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken. Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/personligt-brev-exempel/vardbitrade",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/hemtjanst",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna). Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken. Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/personligt-brev-exempel/it-konsult",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna). Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken. Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/personligt-brev-exempel/kassorska",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/kock",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna). Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken. Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/personligt-brev-exempel/konditor",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/specialpedagog",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/fysioterapeut",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/fritidsledare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/fritidspedagog",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/redovisningsekonom",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/hr-specialist",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/systemutvecklare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/account-manager",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/controller",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/scrum-master",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/truckforare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/lagerchef",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/barnmorska",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/specialistsjukskoterska",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/loneadministrator",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna). Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken. Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/personligt-brev-exempel/teamledare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/enhetschef",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/produktchef",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/boendestod",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/barista",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/koksbitrade",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/kontorsassistent",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna). Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken. Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/personligt-brev-exempel/konstruktor",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna). Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken. Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/personligt-brev-exempel/logistikassistent",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/lss-handlaggare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/kundradgivare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/hotellvard",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/vardadministrator",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/kundtjanstmedarbetare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/terminalarbetare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/administrativ-assistent",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna). Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken. Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/personligt-brev-exempel/automationsingenior",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna). Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken. Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/personligt-brev-exempel/grundskollarare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/socialsekreterare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/ekonom",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/devops-engineer",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/psykolog",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna). Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken. Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/personligt-brev-exempel/fastighetsskotare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna). Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken. Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/personligt-brev-exempel/hemtjanstpersonal",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/logistiker",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna)."
+  },
+  {
+   "path": "/personligt-brev-exempel/servicemedarbetare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article",
+    "FAQPage",
+    "HowTo"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen. Exempel-paritet: brevets person heter och nås som i CV-exemplet för samma yrke (namn, e-post och telefon i articleBody, och namnet i beskrivningarna). Talstreck och pilar i exempeldatan ersatta med svenska skiljetecken. Frågor och rubriker oförändrade."
+  },
+  {
+   "path": "/personligt-brev-exempel/vaktmastare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/personligt-brev-exempel/socionom",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/personligt-brev-exempel/stodpedagog",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/personligt-brev-exempel/chauffor",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/personligt-brev-exempel/it-tekniker",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/personligt-brev-exempel/telefonforsaljare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/personligt-brev-exempel/diskare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/personligt-brev-exempel/snickare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/personligt-brev-exempel/elektriker",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  },
+  {
+   "path": "/personligt-brev-exempel/vaktare",
+   "datum": "2026-10-12",
+   "andrade": [
+    "Article"
+   ],
+   "skal": "Publikt v2 våg B3: datePublished är yrkets publiceringsdatum (publicerad.ts) och dateModified fast, i stället för byggdagen."
+  }
+ ]
+}

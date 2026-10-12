@@ -75,8 +75,9 @@ export default function InteractiveCVPreview({ exempelCV, initialHTML }: Interac
 
   // Generera ny HTML bara när användaren aktivt byter mall eller font
   useEffect(() => {
-    // Skippa initial render - använd initialHTML direkt
-    if (!hasUserChanged) return
+    // Skippa initial render - använd initialHTML direkt. Utan initialHTML
+    // (väljaren laddas först vid klick på Byt mall) genereras mallen här.
+    if (!hasUserChanged && initialHTML) return
 
     try {
       const cvMetadata = convertToCVMetadata(exempelCV)
@@ -97,7 +98,7 @@ export default function InteractiveCVPreview({ exempelCV, initialHTML }: Interac
     } catch (error) {
       console.error('Error generating CV HTML:', error)
     }
-  }, [selectedTemplate, selectedFont, hasUserChanged, exempelCV])
+  }, [selectedTemplate, selectedFont, hasUserChanged, exempelCV, initialHTML])
 
   useEffect(() => {
     const checkMobile = () => {
