@@ -56,3 +56,13 @@ supabase/.temp/
 
 # QA-konton som skripten skapar och raderar själva
 scripts/.qa-*-konton.json
+
+# QA-skärmdumpar och filmer committas inte (2026-10-12). Resultat i text (md, json) committas som förut.
+docs/qa/**/*.png
+docs/qa/**/*.jpg
+docs/qa/**/*.jpeg
+docs/qa/**/*.webp
+docs/qa/**/*.gif
+docs/qa/**/*.pdf
+docs/qa/**/*.webm
+docs/qa/**/*.mp4
