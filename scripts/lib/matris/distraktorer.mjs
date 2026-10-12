@@ -136,14 +136,28 @@ export function analysera(q, t = tolka(q)) {
 }
 
 /** Felen för bandet "svår plus" (2.2), som meningar. Tom lista = godkänd. */
-export function plusFel(a) {
+/**
+ * `v3` (bank_version 3, granskningen av omgång 1): minst tre nära miss
+ * gjorde facit till majoriteten i varje egenskap (S11). Kravet blir minst
+ * en nära miss, varje regel bruten av minst två distraktorer, och
+ * distraktorer som bryter alla regler är tillåtna.
+ */
+export function plusFel(a, { v3 = false } = {}) {
   if (!a.ok) return [`${a.id}: ${a.orsak}`];
   const fel = [];
   const dist = a.alternativ.filter((x) => !x.facit);
-  if (a.naraMiss < 3) fel.push(`${a.id}: bara ${a.naraMiss} nära miss bland de fem distraktorerna, minst tre krävs`);
-  const obrutna = a.R.filter((p) => !a.brutna.includes(p));
-  if (obrutna.length) fel.push(`${a.id}: ingen nära miss bryter ${obrutna.join(', ')}`);
-  if (a.R.length >= 2) dist.filter((x) => x.tomt).forEach((x) => fel.push(`${a.id}: alternativ ${x.bokstav} stämmer på ingen regel`));
+  if (v3) {
+    if (a.naraMiss < 1) fel.push(`${a.id}: ingen nära miss bland de fem distraktorerna, minst en krävs`);
+    for (const p of a.R) {
+      const n = dist.filter((x) => x.bryter.includes(p)).length;
+      if (n < 2) fel.push(`${a.id}: bara ${n} distraktorer bryter ${p}, minst två krävs`);
+    }
+  } else {
+    if (a.naraMiss < 3) fel.push(`${a.id}: bara ${a.naraMiss} nära miss bland de fem distraktorerna, minst tre krävs`);
+    const obrutna = a.R.filter((p) => !a.brutna.includes(p));
+    if (obrutna.length) fel.push(`${a.id}: ingen nära miss bryter ${obrutna.join(', ')}`);
+    if (a.R.length >= 2) dist.filter((x) => x.tomt).forEach((x) => fel.push(`${a.id}: alternativ ${x.bokstav} stämmer på ingen regel`));
+  }
   if (a.kopior > 1) fel.push(`${a.id}: ${a.kopior} alternativ är kopior av synliga rutor, högst en får vara det`);
   const sett = new Map();
   for (const x of dist.filter((d) => d.naraMiss)) {

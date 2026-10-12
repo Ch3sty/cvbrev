@@ -119,9 +119,18 @@ const P2C = [
   [BAS.std, ['plus', 'minus', 'ring']], [BAS.csd, ['minus', 'cross', 'ring']], [BAS.ctd, ['plus', 'dot', 'ring']], [BAS.cst, ['minus', 'dot', 'ring']],
 ];
 const P3C = [[0, 2, 5], [0, 1, 3], [0, 2, 7], [1, 2, 7], [0, 3, 6], [2, 3, 5], [1, 4, 6], [3, 4, 6]].map((v) => [...v, 'vanster']);
-export const STRUKTUR_UNDANTAG_02 = { P3: 'högerförskjutning ger konstant riktning på diagonalen, se ovan' };
+export const STRUKTUR_UNDANTAG_02 = { P3: 'högerförskjutning ger konstant riktning på diagonalen, se ovan' };
 const falt02 = { difficulty: 4, band: 'plus', p_prior: 0.45, v3: true };
 const alla = (p) => ({ ...p, alla: true });
+// Parti 03 (granskning-expert-verbal-numerisk.md): parti 02 föll på
+// majoritetsgenvägen (S11) och värden utanför rutnätet (S12). Samma rutnät
+// (seed = parti 02:s id), alternativen byggs om under S11 och S12: bara
+// värden ur rutnätet, ingen egenskap där facit är vanligast, varje regel
+// bruten av minst två distraktorer, minst en nära miss.
+export const UT_03 = 'src/lib/logicTestV7/kandidater/expert-plus-parti-03.v7.json';
+export const STRUKTUR_UNDANTAG_03 = { P3: 'högerförskjutning ger konstant riktning på diagonalen (godkänt i granskningen av omgång 1)' };
+const nyttId = (id) => id.replace(/p1-(\d+)$/, (_m, n) => `p1-${nr(Number(n) + 8)}`).replace(/p2-(\d+)$/, (_m, n) => `p2-${nr(Number(n) + 8)}`).replace(/p3-(\d+)$/, (_m, n) => `p3-${nr(Number(n) + 8)}`);
+export const PLUS_03_FRAN = () => PLUS_02.map((r) => ({ ...r, id: nyttId(r.id), seed: r.id, p: { ...r.p, alla: true, inne: true } }));
 export const PLUS_02 = [
   ...P1C.map(([baser, symboler, forskjutning], i) => ({ id: `v7e-plus-p1-${nr(i + 17)}`, familj: 'latin-flera', byggare: 'latinTrippelStack', p: alla({ fyll: 'latin', baser, symboler, forskjutning }), mekanism: 'P1', recept: 'P1', ...falt02 })),
   ...P2C.map(([baser, symboler], i) => ({ id: `v7e-plus-p2-${nr(i + 9)}`, familj: 'latin-flera', byggare: 'latinTrippelStack', p: alla({ fyll: 'schack', baser, symboler }), mekanism: 'P2', recept: 'P2', ...falt02 })),

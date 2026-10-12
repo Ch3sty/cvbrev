@@ -227,6 +227,7 @@ function textRadKolumn(q, t, R, F, regel) {
     if (dim.id === 'basfyll') return R === 'gray' ? `Figurerna ${D} är grå.` : R === 'black' ? `Figurerna ${D} är svarta.` : `Figurerna ${D} är ofyllda.`;
     if (dim.id === 'spets') return `Pilarna ${D} har ${R === 'open' ? 'öppen' : 'fylld'} spets.`;
     if (dim.id === 'langd') return `Pilarna ${D} är ${R === 'long' ? 'långa' : 'korta'}.`;
+    if (dim.id === 'mitt') return `Mittpunkten är ${R === 'filled' ? 'fylld' : 'ofylld'} ${D}.`;
     const n = vardeNamn(cell, dim.id);
     return n ? `Rutorna på diagonalen från övre vänstra hörnet har ${n.en}.` : null;
   }
@@ -500,6 +501,10 @@ function misstagMaskinellt(q, t) {
     }
     const texter = fel.map((id) => textFor(q, t, id, F(id)));
     let unika = [...new Set(texter)];
+    // Bank_version 3 (granskningen av omgång 1): en distraktor som bryter tre
+    // regler behövs för att facit inte ska bli majoritet (S11). Den får tre
+    // meningar; i de frysta bankerna finns inga sådana.
+    if (!texter.some((x) => !x) && unika.length === 3 && (q.band === 'plus' || q.fran_version >= 3)) return `${slaIhop(unika[0], unika[1])} ${unika[2]}`;
     if (texter.some((x) => !x) || unika.length > 2) {
       // Hela rutan kopierad från en grannruta
       if (lika(opt, q.grid[2][1])) return t.kind === 'balanceline' ? 'Samma som rutan till vänster. Formerna har varken flyttat eller bytt sida.' : 'Samma som rutan till vänster.';

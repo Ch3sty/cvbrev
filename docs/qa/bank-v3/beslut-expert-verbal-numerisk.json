@@ -1,0 +1,238 @@
+{
+  "godkanda": [
+    "v7e-plus-over-03",
+    "v7e-plus-over-04",
+    "v7e-plus-over-05",
+    "v7e-plus-over-07",
+    "v7e-plus-over-17",
+    "v7e-plus-over-18",
+    "v7e-plus-over-19",
+    "v7e-plus-over-20",
+    "v7e-plus-over-09",
+    "v7e-plus-over-10",
+    "v7e-plus-over-11",
+    "v7e-plus-over-12",
+    "v7e-plus-over-13",
+    "v7e-plus-over-14",
+    "v7e-plus-over-15",
+    "v7e-plus-over-16",
+    "v7e-v3-over-01",
+    "v7e-v3-over-02",
+    "v7e-v3-over-03",
+    "v7e-v3-speg-01",
+    "va-09-bemanningsforetag",
+    "va-10-provanstallning",
+    "va-11-arbetsmiljoverkets-inspektioner",
+    "va-12-regional-kompetensforsorjning",
+    "va-13-kommunal-matlagning",
+    "va-14-larlingsutbildning",
+    "va-15-cykelinfrastruktur",
+    "va-16-digital-journalforing",
+    "vg-01-friskvardsbidrag",
+    "vg-02-arbetsplatstraffar",
+    "vg-03-meroppna-bibliotek",
+    "vg-04-skolskjuts",
+    "vg-05-matavfall",
+    "vg-06-folkhogskola",
+    "vg-07-elsparkcyklar",
+    "vg-08-sjukanmalan",
+    "vg-09-hushallsbudget",
+    "vg-10-e-legitimation",
+    "vg-11-allemansratten",
+    "vg-12-ideellt-arbete",
+    "na-09-bemanning-skift",
+    "na-10-rekryteringskostnad",
+    "na-11-fakturering-kvartal",
+    "na-12-fordonsbransle",
+    "na-13-vardplatser",
+    "na-14-skolskjuts",
+    "na-15-kundtjanst-arenden",
+    "na-16-energieffektivisering",
+    "ng-01-kafeets-forsaljning",
+    "ng-02-bibliotekets-utlan",
+    "ng-03-gymmets-medlemmar",
+    "ng-04-lunchportioner",
+    "ng-05-hyrcyklar",
+    "ng-06-kontorsmaterial",
+    "ng-07-parkeringshuset",
+    "ng-08-overtid"
+  ],
+  "strukna": [
+    {
+      "id": "v7e-plus-p1-17",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer."
+    },
+    {
+      "id": "v7e-plus-p1-18",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer."
+    },
+    {
+      "id": "v7e-plus-p1-19",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer."
+    },
+    {
+      "id": "v7e-plus-p1-20",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer."
+    },
+    {
+      "id": "v7e-plus-p1-21",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer."
+    },
+    {
+      "id": "v7e-plus-p1-22",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer."
+    },
+    {
+      "id": "v7e-plus-p1-23",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer."
+    },
+    {
+      "id": "v7e-plus-p1-24",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer."
+    },
+    {
+      "id": "v7e-plus-p2-10",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (triangel), så en regel av tre behöver aldrig läsas."
+    },
+    {
+      "id": "v7e-plus-p2-11",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (kvadrat), så en regel av tre behöver aldrig läsas."
+    },
+    {
+      "id": "v7e-plus-p2-12",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (minus), så en regel av tre behöver aldrig läsas."
+    },
+    {
+      "id": "v7e-plus-p2-13",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (prick), så en regel av tre behöver aldrig läsas."
+    },
+    {
+      "id": "v7e-plus-p2-14",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (plus), så en regel av tre behöver aldrig läsas."
+    },
+    {
+      "id": "v7e-plus-p2-15",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (minus), så en regel av tre behöver aldrig läsas."
+    },
+    {
+      "id": "v7e-plus-p2-16",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (romb), så en regel av tre behöver aldrig läsas."
+    },
+    {
+      "id": "v7e-plus-p2-09",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (romb), så en regel av tre behöver aldrig läsas."
+    },
+    {
+      "id": "v7e-plus-p3-10",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (pil åt höger), så latinregeln behöver aldrig läsas. Vänsterförskjutningen och S8-undantaget godkänns."
+    },
+    {
+      "id": "v7e-plus-p3-11",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (pil snett uppåt höger), så latinregeln behöver aldrig läsas. Vänsterförskjutningen och S8-undantaget godkänns."
+    },
+    {
+      "id": "v7e-plus-p3-12",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (pil uppåt), så latinregeln behöver aldrig läsas. Vänsterförskjutningen och S8-undantaget godkänns."
+    },
+    {
+      "id": "v7e-plus-p3-13",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (pil snett uppåt höger), så latinregeln behöver aldrig läsas. Vänsterförskjutningen och S8-undantaget godkänns."
+    },
+    {
+      "id": "v7e-plus-p3-14",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (pil uppåt), så latinregeln behöver aldrig läsas. Vänsterförskjutningen och S8-undantaget godkänns."
+    },
+    {
+      "id": "v7e-plus-p3-15",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (pil uppåt), så latinregeln behöver aldrig läsas. Vänsterförskjutningen och S8-undantaget godkänns."
+    },
+    {
+      "id": "v7e-plus-p3-16",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (pil uppåt), så latinregeln behöver aldrig läsas. Vänsterförskjutningen och S8-undantaget godkänns."
+    },
+    {
+      "id": "v7e-plus-p3-09",
+      "skal": "S11 majoritetsgenväg: facits värde är strikt vanligast bland de sex alternativen i två dimensioner, så fyra av fem distraktorer faller utan att regeln lästs (kvar två, varav den ena är kopia av ruta 0). Rutnätet håller; bygg om distraktorerna under S11 och S12 med nytt löpnummer. S12 utanför: tre distraktorer bär ett värde som inte finns i rutnätet (pil snett uppåt höger), så latinregeln behöver aldrig läsas. Vänsterförskjutningen och S8-undantaget godkänns."
+    },
+    {
+      "id": "v7e-plus-p6-01",
+      "skal": "S11 majoritetsgenväg: fyra av fem distraktorer faller på majoritet i fyllning och cirkelns läge, kvar två varav den ena är kopia av ruta 0. Mekanismen är två latinska kvadrater plus schack (samma styrka som P2, inte tre läsningar): behåll rutnätet, bygg om distraktorerna, band expert, p_prior 0,45."
+    },
+    {
+      "id": "v7e-plus-p6-02",
+      "skal": "S11 majoritetsgenväg: fyra av fem distraktorer faller på majoritet i fyllning och cirkelns läge, kvar två varav den ena är kopia av ruta 0. Mekanismen är två latinska kvadrater plus schack (samma styrka som P2, inte tre läsningar): behåll rutnätet, bygg om distraktorerna, band expert, p_prior 0,45."
+    },
+    {
+      "id": "v7e-plus-p6-03",
+      "skal": "S11 majoritetsgenväg: fyra av fem distraktorer faller på majoritet i fyllning och cirkelns läge, kvar två varav den ena är kopia av ruta 0. Mekanismen är två latinska kvadrater plus schack (samma styrka som P2, inte tre läsningar): behåll rutnätet, bygg om distraktorerna, band expert, p_prior 0,45."
+    },
+    {
+      "id": "v7e-plus-p6-04",
+      "skal": "S11 majoritetsgenväg: fyra av fem distraktorer faller på majoritet i fyllning och cirkelns läge, kvar två varav den ena är kopia av ruta 0. Mekanismen är två latinska kvadrater plus schack (samma styrka som P2, inte tre läsningar): behåll rutnätet, bygg om distraktorerna, band expert, p_prior 0,45."
+    },
+    {
+      "id": "v7e-plus-p8-01",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-02",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-03",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-04",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-05",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-06",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-07",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-08",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-09",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-10",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-11",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-12",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-13",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-14",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-15",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    },
+    {
+      "id": "v7e-plus-p8-16",
+      "skal": "P8 är i praktiken en regel: kolumn-XOR följer av rad-XOR, så frågan är en vanlig överlagring och inte plus. Distraktorerna är facit plus eller minus en sektor eller ett streck, och facit är därför centrum: minst avstånd till övriga och majoritet per element ger facit i 14 av 16. Bygg om som expert (band expert, p_prior 0,45, 8 frågor) med distraktorer union, snitt, kopia, XOR av fel par och vridet facit."
+    }
+  ]
+}

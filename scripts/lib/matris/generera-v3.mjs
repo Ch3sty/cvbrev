@@ -305,29 +305,39 @@ export function radvisBalans(r, p) {
   const sq = (posX, side, f) => (f ? { posX, side, shape: 'square', fill: f } : { posX, side, shape: 'square' });
   const ci = (posX, side) => ({ posX, side, shape: 'circle', fill: 'gray' });
   const cell = (a, b, f, sa = sidaS, sb = sidaC) => ({ kind: 'balanceline', items: [sq(a, sa, f), ci(b, sb)] });
-  const { grid, facit } = rutnat((rr, cc) => cell(pos('square', rr, cc), pos('circle', rr, cc), fyll(rr, cc)));
+  // Avancerad (granskningen av omgång 1): sidan i schackmönster som tredje
+  // regel. Cirkeln står alltid på andra sidan om kvadraten, annars krockar
+  // formerna i samma fack.
+  const motsatt = (x) => (x === 'above' ? 'below' : 'above');
+  const sidaAt = (rr, cc) => (p.sida === 'schack' && !SCHACK(rr, cc) ? motsatt(sidaS) : sidaS);
+  const { grid, facit } = rutnat((rr, cc) => cell(pos('square', rr, cc), pos('circle', rr, cc), fyll(rr, cc), sidaAt(rr, cc), p.sida === 'schack' ? motsatt(sidaAt(rr, cc)) : sidaC));
   const A = pos('square', 2, 2); const B = pos('circle', 2, 2); const Fy = fyll(2, 2);
+  const Sf = sidaAt(2, 2);
   const andraFyll = Fy === 'gray' ? 'none' : Fy === 'none' ? 'gray' : null;
   const kand = [];
   const fyllar = Fy ? [Fy, andraFyll] : [null];
-  for (const da of [0, 1, 2]) for (const db of [0, 1, 2]) for (const f of fyllar) {
-    if (da === 0 && db === 0 && f === Fy) continue;
-    kand.push(cell(mod(A + da, 3), mod(B + db, 3), f));
+  const Cf = p.sida === 'schack' ? motsatt(Sf) : sidaC;
+  const sidor = p.sida === 'schack' ? [[Sf, Cf], [motsatt(Sf), Cf], [Sf, motsatt(Cf)], [Cf, Sf]] : [[Sf, Cf]];
+  for (const da of [0, 1, 2]) for (const db of [0, 1, 2]) for (const f of fyllar) for (const [sd, sc] of sidor) {
+    if (da === 0 && db === 0 && f === Fy && sd === Sf && sc === Cf) continue;
+    kand.push(cell(mod(A + da, 3), mod(B + db, 3), f, sd, sc));
   }
-  kand.push(cell(A, B, Fy, sidaC, sidaS));
+  if (p.sida !== 'schack') kand.push(cell(A, B, Fy, sidaC, sidaS));
   // de som skiljer i en regel först
   kand.sort((x, y) => {
-    const fel = (c) => (c.items[0].posX !== A) + (c.items[1].posX !== B) + ((c.items[0].fill ?? null) !== Fy) + (c.items[0].side !== sidaS);
+    const fel = (c) => (c.items[0].posX !== A) + (c.items[1].posX !== B) + ((c.items[0].fill ?? null) !== Fy) + (c.items[0].side !== Sf);
     return fel(x) - fel(y);
   });
   const besk = (N, q, sida) => {
     const steg = (x) => (x === 1 ? 'ett steg åt höger' : 'ett steg åt vänster');
-    return `${N} står ${SIDA_NAMN[sida]} linjen och flyttar ${steg(q.k)} för varje steg åt höger i raden. Varje rad börjar ${steg(q.d)} från raden ovanför.`;
+    const var_ = sida ? `står ${SIDA_NAMN[sida]} linjen och flyttar` : 'flyttar';
+    return `${N} ${var_} ${steg(q.k)} för varje steg åt höger i raden. Varje rad börjar ${steg(q.d)} från raden ovanför.`;
   };
-  const delar = [besk('Kvadraten', p.square, sidaS), besk('Cirkeln', p.circle, sidaC), 'Kommer en form till kanten fortsätter den från andra sidan.'];
+  const delar = [besk('Kvadraten', p.square, p.sida === 'schack' ? null : sidaS), besk('Cirkeln', p.circle, p.sida === 'schack' ? null : sidaC), 'Kommer en form till kanten fortsätter den från andra sidan.'];
+  if (p.sida === 'schack') delar.push(`Kvadraten byter sida om linjen som ett schackmönster: ${SIDA_NAMN[sidaS]} linjen i hörnen och i mitten, ${SIDA_NAMN[motsatt(sidaS)]} i de andra rutorna. Cirkeln står alltid på andra sidan.`);
   if (p.fyll === 'schack') delar.push(`Kvadraten växlar mellan ${fyll0 === 'gray' ? 'grå och ofylld' : 'ofylld och grå'} som ett schackmönster.`);
   if (p.fyll === 'diagonal') delar.push(`Kvadraten är ${fyll0 === 'gray' ? 'grå' : 'ofylld'} på diagonalen från övre vänstra hörnet till nedre högra, annars ${fyll1 === 'gray' ? 'grå' : 'ofylld'}.`);
-  return { family: 'tva-rorelser', title: p.fyll ? 'Två former och en fyllning' : 'Två former, två riktningar', rule: delar.join(' '), grid, facit, kandidater: kand };
+  return { family: 'tva-rorelser', title: p.fyll ? 'Två former och en fyllning' : p.sida === 'schack' ? 'Två former, och kvadraten byter sida' : 'Två former, två riktningar', rule: delar.join(' '), grid, facit, kandidater: kand };
 }
 
 // =============================================================================
@@ -393,6 +403,18 @@ export function dubbelOverlagring(r, p) {
   const F = M[2][2];
   const union = (a, b) => new Set([...a, ...b]);
   const snitt = (a, b) => new Set([...a].filter((x) => b.has(x)));
+  if (p.v3) {
+    // Omgång 2 (expertgranskningen 3): union, snitt, kopia av en ruta, XOR
+    // av fel par och facit vridet 45 grader. Inga plus-minus-ett-varianter
+    // (de gjorde facit till centrum bland alternativen, S11).
+    const vrid = (s, j) => new Set([...s].map((x) => mod(x + j, 8)));
+    const k2 = [mk(union(M[2][0], M[2][1])), mk(snitt(M[2][0], M[2][1])), mk(union(M[0][2], M[1][2])), mk(snitt(M[0][2], M[1][2])),
+      mk(M[2][0]), mk(M[2][1]), mk(M[1][2]), mk(M[0][2]), mk(M[1][1]),
+      mk(xor(M[2][0], M[1][2])), mk(xor(M[0][2], M[2][1])), mk(xor(M[1][1], M[2][1])), mk(xor(M[1][1], M[1][2])),
+      mk(vrid(F, 1)), mk(vrid(F, -1)), mk(vrid(F, 2)), mk(vrid(F, -2))];
+    const rule = 'Den tredje rutan i varje rad visar det som finns i bara en av de två första. Det gemensamma försvinner. Samma sak gäller nedåt: den nedersta rutan i varje kolumn visar det som finns i bara en av de två ovanför.';
+    return { family: 'overlagring', title: 'Bara det som skiljer, åt två håll', rule, grid, facit, kandidater: k2.filter((c) => (c.rays ?? c.filled).length >= 1 && (c.rays ?? c.filled).length <= maxC) };
+  }
   const kand = [mk(union(M[2][0], M[2][1])), mk(union(M[0][2], M[1][2])), mk(snitt(M[2][0], M[2][1])), mk(snitt(M[0][2], M[1][2])),
     mk(new Set([...M[2][0]].filter((x) => !M[2][1].has(x)))), mk(new Set([...M[0][2]].filter((x) => !M[1][2].has(x)))),
     mk(new Set([...M[2][1]].filter((x) => !M[2][0].has(x)))), mk(new Set([...M[1][2]].filter((x) => !M[0][2].has(x))))];

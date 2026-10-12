@@ -32,7 +32,7 @@
 
 import { dimsFor, vKey, stable, rotera, mod, primitivFor } from './celler.mjs';
 import { tolka, POS } from './tolka.mjs';
-import { facitUdda, eliminerbara } from './distraktorer.mjs';
+import { facitUdda, eliminerbara, regelLista } from './distraktorer.mjs';
 import { geometriFraga } from '../../v7-geometri-check.mjs';
 
 export const LATIN_UNDANTAG = new Set(['latin-antal', 'latin-form']);
@@ -88,12 +88,13 @@ export function s3(q) {
  * samma vridning som v6 till v7, kategori v7 om v6 = v7 annars v6. Null när
  * en dimension inte går att förutsäga (då är frågan ingen enradsfråga).
  */
-function enradPred(q) {
+function enradPred(q, varierar = null) {
   const d6 = dimsFor(q.grid[2][0]);
   const d7 = dimsFor(q.grid[2][1]);
   if (!d6 || !d7) return null;
   const pred = {};
   for (const d of d6) {
+    if (varierar && !varierar.has(d.id)) continue;
     const v6 = d.varde; const v7 = d7.find((x) => x.id === d.id)?.varde;
     if (d.typ === 'rot' && v6 !== null && v7 !== null && v6 !== undefined && v7 !== undefined) {
       if (d.mangd || d.tile) {
@@ -107,11 +108,27 @@ function enradPred(q) {
   return pred;
 }
 
-/** Facit följer av rad 3 ensam: exakt ett alternativ stämmer på allt, och det är facit. */
+/** Dimensionerna där minst två av de sex alternativen skiljer sig. */
+export function varierandeDimensioner(q) {
+  const per = new Map();
+  for (const o of q.options) for (const d of dimsFor(o) ?? []) {
+    if (!per.has(d.id)) per.set(d.id, new Set());
+    per.get(d.id).add(vKey(d.varde));
+  }
+  return new Set([...per].filter(([, s]) => s.size > 1).map(([id]) => id));
+}
+
+/**
+ * Facit följer av rad 3 ensam: facit är det enda alternativet som stämmer
+ * med rad 3-förutsägelsen i varje dimension där alternativen skiljer sig.
+ * En dimension där alla sex är lika behöver inte läsas (granskningen av
+ * grund och avancerad, omgång 1), så den räknas inte.
+ */
 export function arEnrad(q) {
-  const pred = enradPred(q);
+  const varierar = varierandeDimensioner(q);
+  const pred = enradPred(q, varierar);
   if (!pred) return false;
-  const traffar = q.options.map((o, i) => (dimsFor(o)?.every((d) => pred[d.id] === vKey(d.varde)) ? i : -1)).filter((i) => i >= 0);
+  const traffar = q.options.map((o, i) => (dimsFor(o)?.filter((d) => varierar.has(d.id)).every((d) => pred[d.id] === vKey(d.varde)) ? i : -1)).filter((i) => i >= 0);
   return traffar.length === 1 && traffar[0] === q.correctAnswer;
 }
 
@@ -155,6 +172,120 @@ export function s9(q, t = tolka(q)) {
   return fel;
 }
 
+// ---------------------------------------------------------------- S11, S12, S13
+// Granskningen av omgång 1 (granskning-expert-verbal-numerisk.md och
+// granskning-grund-avancerad.md). Numreringen följer expertgranskningen:
+// S11 majoritet och S12 utanför; den otestade regeln ur granskningen av
+// grund och avancerad heter här S13.
+
+const REGEL_KOPPLAD = new Set(['latin', 'diagonal']);
+
+/**
+ * Frågor som testansvarig godkände i omgång 1, innan S11 och S12 fanns, och
+ * som bryter dem. De står kvar med beslutet; nya frågor får aldrig det här.
+ */
+export const GODKANDA_FORE_S11 = Object.fromEntries([
+  ...['v7g-v3-lant-03', 'v7g-v3-lant-04', 'v7g-v3-lant-06', 'v7g-v3-lant-07', 'v7a-v3-lant-01'].map((id) => [id, 'godkänd i omgång 1 (strålar på andra platser, S12)']),
+  ...['v7e-v3-over-02', 'v7e-plus-over-18', 'v7e-plus-over-20'].map((id) => [id, 'godkänd i omgång 1 (centrum bland mängderna, S11)']),
+]);
+const arSchack = (r) => r.regel === 'periodisk' && r.info?.p === 2;
+
+/**
+ * S11 majoritet: i ingen dimension får facits värde vara strikt vanligast
+ * bland de sex alternativen (lika är tillåtet). För mängder (sektorhjul,
+ * strålar, 3×3-block) dessutom: facit är inte ensamt om minst sammanlagd
+ * symmetrisk differens till de övriga (centroiden), och mängden element som
+ * finns i fler än tre alternativ är inte lika facit.
+ * Fel på expert och plus, upplysning på grund och avancerad.
+ */
+export function s11Majoritet(q) {
+  const fel = [];
+  const per = new Map();
+  q.options.forEach((o, i) => {
+    for (const d of dimsFor(o) ?? []) {
+      if (!per.has(d.id)) per.set(d.id, { dim: d, v: [] });
+      per.get(d.id).v[i] = d.varde;
+    }
+  });
+  for (const [id, { dim, v }] of per) {
+    const n = new Map();
+    v.forEach((x) => n.set(vKey(x), (n.get(vKey(x)) ?? 0) + 1));
+    const f = n.get(vKey(v[q.correctAnswer]));
+    if ([...n.entries()].every(([k, c]) => k === vKey(v[q.correctAnswer]) || c < f) && n.size > 1) fel.push(`${q.id}: S11 facits värde i ${id} är vanligast bland alternativen`);
+    if (dim.mangd || dim.tile) {
+      const el = (x) => new Set(dim.tile ? Array.from({ length: 9 }, (_, i) => ((x >> i) & 1 ? i : -1)).filter((i) => i >= 0) : x);
+      const S = v.map(el);
+      const diff = (a, b) => [...a].filter((x) => !b.has(x)).length + [...b].filter((x) => !a.has(x)).length;
+      const summa = S.map((a, i) => S.reduce((s, b, j) => s + (i === j ? 0 : diff(a, b)), 0));
+      const min = Math.min(...summa);
+      if (summa[q.correctAnswer] === min && summa.filter((x) => x === min).length === 1) fel.push(`${q.id}: S11 facit är centrum bland alternativen i ${id} (minst skillnad mot de övriga)`);
+      const ofta = new Set([...new Set(S.flatMap((s) => [...s]))].filter((x) => S.filter((s) => s.has(x)).length > 3));
+      const F = S[q.correctAnswer];
+      if (ofta.size === F.size && [...F].every((x) => ofta.has(x))) fel.push(`${q.id}: S11 elementen i fler än tre alternativ är just facit i ${id}`);
+    }
+  }
+  return fel;
+}
+
+/**
+ * S12 utanför: i en dimension som styrs av en latinsk kvadrat, ett
+ * schackmönster eller en diagonal bär en distraktor ett värde som saknas i
+ * de åtta synliga rutorna. Returnerar antalet sådana distraktorer.
+ */
+export function utanforDistraktorer(q, t = tolka(q)) {
+  if (!t?.ok) return [];
+  const dims = Object.entries(t.regel).filter(([, r]) => REGEL_KOPPLAD.has(r.regel) || arSchack(r)).map(([id]) => id);
+  const ut = new Set();
+  for (const id of dims) {
+    const synliga = new Set(POS.map(([r, c]) => vKey(t.dimsVy(q.grid[r][c]).find((d) => d.id === id)?.varde)));
+    q.options.forEach((o, i) => { if (i !== q.correctAnswer && !synliga.has(vKey(t.dimsVy(o).find((d) => d.id === id)?.varde))) ut.add(i); });
+  }
+  return [...ut];
+}
+export function s12(q, t = tolka(q)) {
+  const ut = utanforDistraktorer(q, t);
+  const tak = arExpert(q) ? 0 : 1;
+  return ut.length > tak ? [`${q.id}: S12 ${ut.length} distraktorer har ett värde som inte finns i rutnätet i en regelstyrd egenskap, högst ${tak}`] : [];
+}
+
+/**
+ * S13 otestad: en regel vars dimension har samma värde i alla sex
+ * alternativ testas inte, och då är frågan lösbar utan den (granskningen av
+ * grund och avancerad, omgång 1). Fel för alla nya frågor.
+ */
+export function s13(q, t = tolka(q)) {
+  if (!t?.ok) return [];
+  const fel = [];
+  for (const id of new Set(regelLista(t).map((p) => p.dim))) {
+    const varden = new Set(q.options.map((o) => vKey(t.dimsVy(o).find((d) => d.id === id)?.varde)));
+    if (varden.size < 2) fel.push(`${q.id}: S13 regeln för ${id} testas inte, alla alternativ har samma värde`);
+  }
+  return fel;
+}
+
+// ---------------------------------------------------------------- delade rader
+/**
+ * Två frågor i samma recept får inte dela mer än en rad, och aldrig facit
+ * plus en rad (granskningen av grund och avancerad: v7g-v3-vrid-21 mot
+ * vrid-15). Raderna jämförs med facit isatt, per dimension.
+ */
+export function raderFor(q) {
+  const full = q.grid.map((r) => r.slice());
+  full[2][2] = q.options[q.correctAnswer];
+  return full.map((r) => r.map(dimNyckel).join('¦'));
+}
+export function delarRader(q, andra) {
+  const mina = new Set(raderFor(q));
+  const facit = dimNyckel(q.options[q.correctAnswer]);
+  const fel = [];
+  for (const a of andra) {
+    if (a.id === q.id) continue;
+    const delade = raderFor(a).filter((r) => mina.has(r)).length;
+    if (delade > 1 || (delade >= 1 && dimNyckel(a.options[a.correctAnswer]) === facit)) fel.push(`${q.id}: delar ${delade} rader${delade <= 1 ? ' och facit' : ''} med ${a.id}`);
+  }
+  return fel;
+}
+
 // ---------------------------------------------------------------- per fråga
 /**
  * Alla spärrar per fråga för en ny fråga (fran_version 3 eller kandidat).
@@ -166,6 +297,12 @@ export function sparrFel(q, { t = tolka(q), geometri = true } = {}) {
   const n = q.band === 'plus' ? 'expert' : niva(q);
   const fel = [...s1(q), ...s2(q), ...s3(q), ...s5(q), ...s6(q), ...(geometri ? s7(q) : [])];
   const info = [];
+  // Plus-frågor med fran_version 3 och expert räknas som expert (arExpert).
+  const fore = GODKANDA_FORE_S11[q.id];
+  fel.push(...(fore ? [] : s12(q, t)), ...s13(q, t));
+  const maj = fore ? [] : s11Majoritet(q);
+  if (n === 'expert') fel.push(...maj); else info.push(...maj);
+  if (fore) info.push(`${q.id}: S11 och S12 räknas inte, ${fore}`);
   const enrad = arEnrad(q);
   if (enrad && (n === 'expert')) fel.push(`${q.id}: S4 facit följer av rad 3 ensam`);
   else if (enrad) info.push(`${q.id}: S4 enradsfråga`);
@@ -259,11 +396,16 @@ function konstantaDrag(q, t) {
   return [...new Set(drag)];
 }
 
-export function utseendeFel(fragor) {
+/**
+ * `godkanda`: frågor testansvarig redan godkänt; ett par av två godkända
+ * frågor räknas inte i spärren mot delade rader (den kom efter beslutet).
+ */
+export function utseendeFel(fragor, { godkanda = new Set() } = {}) {
   const fel = [];
   const per = {};
   for (const q of fragor) (per[receptFor(q)] ??= []).push(q);
   for (const [recept, qs] of Object.entries(per)) {
+    qs.forEach((q, i) => fel.push(...delarRader(q, qs.slice(0, i).filter((a) => !(godkanda.has(a.id) && godkanda.has(q.id)))).map((x) => `${recept}: ${x}`)));
     const tak = Math.ceil(qs.length / 2);
     const rakna = new Map();
     const sett = new Map();

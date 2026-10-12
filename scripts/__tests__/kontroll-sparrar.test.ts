@@ -5,10 +5,11 @@
  */
 import { describe, expect, it } from 'vitest'
 import { readFileSync } from 'node:fs'
-import { s1, s2, s3, s5, s6, s7, s9, arEnrad, sparrFel, kvotFel, facitRutor, strukturFelV3, utseendeFel } from '../lib/matris/sparrar.mjs'
+import { s1, s2, s3, s5, s6, s7, s9, s11Majoritet, s12, s13, delarRader, arEnrad, sparrFel, kvotFel, facitRutor, strukturFelV3, utseendeFel } from '../lib/matris/sparrar.mjs'
 import { tolka, familjFor } from '../lib/matris/tolka.mjs'
 import { misstagFor } from '../lib/matris/misstag.mjs'
 import { valbarI, pensionsListaV3 } from '../lib/matris/version.mjs'
+import { GODKANDA } from '../lib/matris/recept-v3.mjs'
 
 const las = (f: string) => JSON.parse(readFileSync(f, 'utf8'))
 const bank = [...las('src/lib/logicTestV7/questionBankGrund3c.v7.json'), ...las('src/lib/logicTestV7/questionBankExpert3c.v7.json')]
@@ -35,7 +36,7 @@ describe('radvisa regler i tolkningen', () => {
     expect(familjFor(q)).toBe('vridning')
   })
   it('egen riktning per rad (M4) tolkas som rad-steg med växling', () => {
-    const q = id(kandAv, 'v7a-v3-vrid-12')
+    const q = id(kandAv, 'v7a-v3-vrid-31')
     const t = tolka(q)
     expect(t.regel.vinkel.regel).toBe('rad-steg')
     expect(t.regel.vinkel.info.vaxlar).toBe(true)
@@ -108,7 +109,7 @@ describe('spärrarna över ett recept', () => {
     const q = m1(1, 1)
     expect(utseendeFel([{ ...q, recept: 'M1' }, { ...q, id: 'v7g-test-2', recept: 'M1' }]).join(' ')).toMatch(/S10/)
     expect(strukturFelV3([1, 2, 3, 4].map((i) => ({ ...q, id: `v7g-t-${i}`, recept: 'M1' }))).join(' ')).toMatch(/S8/)
-    expect([...strukturFelV3(kandGrund), ...utseendeFel(kandGrund), ...strukturFelV3(kandAv), ...utseendeFel(kandAv)]).toEqual([])
+    expect([...strukturFelV3(kandGrund), ...utseendeFel(kandGrund, { godkanda: GODKANDA }), ...strukturFelV3(kandAv), ...utseendeFel(kandAv, { godkanda: GODKANDA })]).toEqual([])
   })
 })
 
@@ -119,5 +120,37 @@ describe('versionerna i skripten', () => {
     const lista = pensionsListaV3()
     expect(lista).toHaveLength(157)
     expect(lista.filter((x: { niva: string }) => x.niva === 'expert')).toHaveLength(48)
+  })
+})
+
+describe('spärrarna efter granskningen av omgång 1', () => {
+  it('S13: en M2-pil med samma spets i alla sex alternativ fälls, och räknas som enrad', () => {
+    const q = id(kandAv, 'v7a-v3-vrid-20')
+    expect(s13(q)).toEqual([])
+    const head = q.options[q.correctAnswer].head
+    const otestad = { ...q, options: q.options.map((o: { head: string }) => ({ ...o, head })) }
+    expect(s13(otestad).join(' ')).toMatch(/S13 regeln för spets/)
+  })
+  it('S11: facits värde vanligast i en dimension fälls, lika är tillåtet', () => {
+    const q = m1(1, 1, 'v7e-test-s11')
+    const maj = { ...q, options: q.options.map((o, i) => (i < 4 ? o : { ...o, length: 'short' })) }
+    expect(s11Majoritet(maj).join(' ')).toMatch(/S11 facits värde i langd/)
+    const lika = { ...q, options: q.options.map((o, i) => (i < 3 ? o : { ...o, length: 'short' })) }
+    expect(s11Majoritet(lika).filter((x: string) => /langd/.test(x))).toEqual([])
+  })
+  it('S12: ett värde utanför rutnätet i en regelstyrd egenskap fälls på expert', () => {
+    const q = las('src/lib/logicTestV7/kandidater/expert-plus-parti-03.v7.json')[0]
+    expect(s12(q)).toEqual([])
+    const andra = q.options.map((o: { base: string }, i: number) => (i === (q.correctAnswer + 1) % 6 ? { ...o, base: 'hexagon' } : o))
+    expect(s12({ ...q, options: andra }).join(' ')).toMatch(/S12/)
+  })
+  it('delade rader: två rader, eller en rad och samma facit, fälls', () => {
+    const a = m1(1, 1, 'v7g-a')
+    expect(delarRader(a, [{ ...a, id: 'v7g-b' }])[0]).toMatch(/delar 3 rader/)
+    expect(delarRader(a, [m1(1, 2, 'v7g-c')])).toEqual([])
+  })
+  it('alla nya kandidater klarar S11 (expert), S12 och S13', () => {
+    const alla = [...kandGrund, ...kandAv, ...las('src/lib/logicTestV7/kandidater/expert-v3-parti-01.v7.json'), ...las('src/lib/logicTestV7/kandidater/expert-plus-parti-03.v7.json')]
+    for (const q of alla) expect(sparrFel(q).fel, q.id).toEqual([])
   })
 })

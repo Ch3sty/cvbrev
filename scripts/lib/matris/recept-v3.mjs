@@ -50,13 +50,23 @@ const KFRI = [1, 7, 2, 6, 3, 5];
 // M4 (mittraden går åt andra hållet): facit lika ingen synlig ruta för de här.
 const DK4 = [[1, 1], [2, 5], [1, 2], [3, 6], [2, 1], [5, 5], [3, 3], [6, 7]];
 
+// Strukna frågor (testansvarigs beslutsfiler i docs/qa/bank-v3/beslut-*.json)
+// står kvar i listorna så att löpnumren är stabila, men byggs inte. Nya
+// recept läggs sist och får nästa löpnummer.
+import { readdirSync, readFileSync, existsSync } from 'node:fs';
+const BESLUT = 'docs/qa/bank-v3';
+export const STRUKNA = new Set(existsSync(BESLUT) ? readdirSync(BESLUT).filter((f) => /^beslut-.*\.json$/.test(f)).flatMap((f) => (JSON.parse(readFileSync(`${BESLUT}/${f}`, 'utf8')).strukna ?? []).map((x) => x.id)) : []);
+export const GODKANDA = new Set(existsSync(BESLUT) ? readdirSync(BESLUT).filter((f) => /^beslut-.*\.json$/.test(f)).flatMap((f) => JSON.parse(readFileSync(`${BESLUT}/${f}`, 'utf8')).godkanda ?? []) : []);
+const ejStrukna = (r) => !STRUKNA.has(r.id);
+
 function lista(prefix, rader) {
   const raknare = {};
   return rader.map(([familj, byggare, p, difficulty, recept, p_prior]) => {
     raknare[familj] = (raknare[familj] ?? 0) + 1;
     return { id: `${prefix}-${KORT[familj]}-${String(raknare[familj]).padStart(2, '0')}`, familj, byggare, p: { ...p, family: familj }, difficulty, recept, p_prior, v3: true };
-  });
+  }).filter(ejStrukna);
 }
+
 const upprepa = (n, f) => Array.from({ length: n }, (_, i) => f(i));
 
 // Balanslinjen: (d, k) per form över tre fack. Paren är inte multipler av
@@ -66,6 +76,32 @@ const BAL = [
   [{ d: 1, k: 1 }, { d: 2, k: 1 }], [{ d: 1, k: 2 }, { d: 1, k: 1 }], [{ d: 2, k: 1 }, { d: 2, k: 2 }], [{ d: 2, k: 2 }, { d: 1, k: 2 }],
 ];
 const bal = (i, extra = {}) => ({ square: BAL[i % 8][0], circle: BAL[i % 8][1], ...extra });
+
+// ---------------------------------------------------------------- omgång 2
+// Granskningen av grund och avancerad (granskning-grund-avancerad.md): M2
+// och M4 byggs om med distraktorer som testar varje regel, orbital med
+// schack på avancerad blir diagonal, M3 på avancerad får kvadratens sida i
+// schackmönster, antal summa på avancerad får riktning som växlar per rad,
+// och två nära dubbletter på grund byts.
+const OMGANG2_GRUND = [
+  ...upprepa(4, (i) => ['rotation-med-byte', 'radvisRotation', { prim: 'pil', mall: 'linjar', d: dk(i + 2)[0], k: dk(i + 2)[1], andra: [{ dim: i % 2 ? 'langd' : 'spets', regel: 'schack' }], ...LS(i >> 1) }, 2, 'M2-pil-schack', 0.65]),
+  ...upprepa(2, (i) => ['rotation-med-byte', 'radvisRotation', { prim: 'orbital', mall: 'linjar', d: dk(i + 6)[0], k: dk(i + 6)[1], andra: [{ dim: 'center', regel: 'schack' }] }, 2, 'M2-orbital-schack', 0.65]),
+  ['vridning', 'radvisRotation', { prim: 'stralar', mall: 'fri', k: 1 }, 2, 'M1-stralar-fri', 0.72],
+  ['vandring', 'radvisRotation', { prim: 'orbital', mall: 'fri', k: 7, ...MP(0) }, 2, 'M1-orbital-fri', 0.72],
+];
+const OMGANG2_AVANCERAD = [
+  ...upprepa(7, (i) => ['vridning', 'radvisRotation', { prim: 'pil', mall: 'linjar', d: dk(i + 1)[0], k: dk(i + 1)[1], andra: [{ dim: i % 2 ? 'langd' : 'spets', regel: 'diagonal' }] }, 3, 'M2-pil-diagonal', 0.55]),
+  ...upprepa(4, (i) => ['vridning', 'radvisRotation', { prim: 'pil', mall: 'fri', k: KFRI[(i + 3) % 6], andra: [{ dim: i % 2 ? 'spets' : 'langd', regel: 'diagonal' }] }, 3, 'M2-pil-fri-diagonal', 0.55]),
+  ...upprepa(8, (i) => ['vridning', 'radvisRotation', { prim: 'pil', mall: 'linjar', vaxlar: true, d: DK4[i][0], k: DK4[i][1], andra: [{ dim: i % 2 ? 'spets' : 'langd', regel: 'diagonal' }] }, 3, 'M4-pil', 0.5]),
+  ...upprepa(4, (i) => ['rotation-med-byte', 'radvisRotation', { prim: 'pil', mall: 'linjar', d: dk(i + 9)[0], k: dk(i + 9)[1], andra: [{ dim: 'langd', regel: 'schack' }, { dim: 'spets', regel: 'diagonal' }] }, 3, 'M2-pil-tre', 0.5]),
+  ...upprepa(2, (i) => ['rotation-med-byte', 'radvisRotation', { prim: 'pil', mall: 'linjar', d: dk(i + 13)[0], k: dk(i + 13)[1], andra: [{ dim: 'spets', regel: 'schack' }, { dim: 'langd', regel: 'diagonal' }] }, 3, 'M2-pil-tre', 0.5]),
+  ...upprepa(15, (i) => ['vandring', 'radvisRotation', { prim: 'orbital', mall: i % 2 ? 'fri' : 'linjar', d: dk(6 + (i >> 1))[0], k: i % 2 ? KFRI[((i >> 1) + 1) % 6] : dk(6 + (i >> 1))[1], andra: [{ dim: 'center', regel: 'diagonal' }] }, 3, 'M2-orbital-diagonal', 0.55]),
+  // Sidan i schack ger bara två olika utseenden (S10), därför två frågor;
+  // två pilar med diagonal tar volymen.
+  ...upprepa(2, (i) => ['tva-rorelser', 'radvisBalans', bal(i + 4, { sida: 'schack', sidor: i % 2 ? 'kvadrat-under' : 'kvadrat-over' }), 3, 'M3-balans-sida', 0.5]),
+  ...upprepa(2, (i) => ['vridning', 'radvisRotation', { prim: 'pil', mall: 'fri', k: KFRI[(i + 1) % 6], andra: [{ dim: i % 2 ? 'spets' : 'langd', regel: 'diagonal' }] }, 3, 'M2-pil-fri-diagonal', 0.55]),
+  ['antal-andras', 'antalSumma', { radRiktning: true }, 3, 'antal-summa-radvis', 0.55],
+];
 
 // ---------------------------------------------------------------- grund (88)
 export const GRUND_V3 = lista('v7g-v3', [
@@ -117,6 +153,7 @@ export const GRUND_V3 = lista('v7g-v3', [
   ['overlagring', 'overlagring', { format: 'lattice', op: 'union', axel: 'rad' }, 1, 'overlagring', 0.65],
   ['overlagring', 'overlagring', { format: 'sektor', op: 'xor', axel: 'rad' }, 2, 'overlagring', 0.65],
   ['latin-flera', 'latinFlera', { format: 'stack-fyll' }, 2, 'latin-flera', 0.62],
+  ...OMGANG2_GRUND,
 ]);
 
 // ---------------------------------------------------------------- avancerad (68)
@@ -150,6 +187,7 @@ export const AVANCERAD_V3 = lista('v7a-v3', [
   ['overlagring', 'overlagring', { format: 'ray', op: 'snitt', axel: 'rad' }, 3, 'overlagring', 0.55],
   ['overlagring', 'overlagring', { format: 'sektor', op: 'xor', axel: 'kolumn' }, 3, 'overlagring', 0.55],
   ['latin-flera', 'latinFlera', { format: 'ring' }, 3, 'latin-flera', 0.55],
+  ...OMGANG2_AVANCERAD,
 ]);
 
 // ---------------------------------------------------------------- expert (24)
@@ -167,7 +205,17 @@ export const EXPERT_V3 = [
   { id: 'v7e-v3-over-02', familj: 'overlagring', byggare: 'overlagring', p: { format: 'tile', op: 'diff-ab', axel: 'rad' }, difficulty: 4, recept: 'overlagring', p_prior: 0.45, v3: true },
   { id: 'v7e-v3-over-03', familj: 'overlagring', byggare: 'overlagring', p: { format: 'sektor', op: 'xor', axel: 'kolumn' }, difficulty: 4, recept: 'overlagring', p_prior: 0.45, v3: true },
   ...upprepa(16, (i) => ({ id: `v7e-plus-p8-${String(i + 1).padStart(2, '0')}`, familj: 'overlagring', byggare: 'dubbelOverlagring', p: { format: i % 2 ? 'ray' : 'sektor' }, mekanism: 'P8', recept: i % 2 ? 'P8-stralar' : 'P8-sektor', ...plusFalt, v3: true })),
-];
+  // Omgång 2 (granskning-expert-verbal-numerisk.md): P6 är två latinska
+  // kvadrater plus schack, band expert och p_prior 0,45, på samma rutnät som
+  // p6-01 till -04 (samma slump). P8 är en regel (kolumnens XOR följer av
+  // radens) och blir vanlig expertöverlagring med distraktorerna union,
+  // snitt, kopia, fel par och vridet facit. Fyra överlagringar och fyra
+  // speglingar till fyller expert till 99.
+  ...upprepa(4, (i) => ({ id: `v7e-v3-tva-${String(i + 1).padStart(2, '0')}`, seed: `v7e-plus-p6-${String(i + 1).padStart(2, '0')}`, familj: 'tva-rorelser', byggare: 'radvisBalans', p: bal(i, { fyll: 'schack', sidor: i < 2 ? 'kvadrat-over' : 'kvadrat-under' }), difficulty: 4, recept: 'P6-balans', p_prior: 0.45, v3: true })),
+  ...upprepa(8, (i) => ({ id: `v7e-v3-over-${String(i + 4).padStart(2, '0')}`, familj: 'overlagring', byggare: 'dubbelOverlagring', p: { format: i % 2 ? 'ray' : 'sektor', v3: true }, difficulty: 4, recept: 'overlagring-dubbel', p_prior: 0.45, v3: true })),
+  ...[['tile', 'xor', 'rad'], ['sektor', 'diff-ab', 'kolumn'], ['ray', 'xor', 'rad'], ['tile', 'snitt', 'kolumn']].map(([format, op, axel], i) => ({ id: `v7e-v3-over-${String(i + 12).padStart(2, '0')}`, familj: 'overlagring', byggare: 'overlagring', p: { format, op, axel }, difficulty: 4, recept: 'overlagring', p_prior: 0.45, v3: true })),
+  ...[['tile', 'H', 'A', 'kolumn'], ['tile', 'D', 'V', 'rad'], ['sektor', 'H', 'V', 'rad'], ['sektor', 'V', 'H', 'kolumn']].map(([format, m1, m2, axel], i) => ({ id: `v7e-v3-speg-${String(i + 2).padStart(2, '0')}`, familj: 'spegling', byggare: 'spegling', p: { format, m1, m2, axel }, difficulty: 4, recept: 'spegling', p_prior: 0.45, v3: true })),
+].filter(ejStrukna);
 
 const K = 'src/lib/logicTestV7/kandidater';
 export const V3_KANDIDATER = {

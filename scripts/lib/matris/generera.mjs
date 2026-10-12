@@ -18,7 +18,7 @@ import { misstagFor, urvalsText } from './misstag.mjs';
 import { tolka, familjFor } from './tolka.mjs';
 import { analysera, plusFel, tomFigur, facitUdda, eliminerbara } from './distraktorer.mjs';
 import { radvisRotation, radvisBlock, radvis2x2, radvisBalans, antalEgenRiktning, dubbelOverlagring } from './generera-v3.mjs';
-import { sparrFel, dimNyckel, utseendeNyckel } from './sparrar.mjs';
+import { sparrFel, dimNyckel, utseendeNyckel, s11Majoritet, delarRader } from './sparrar.mjs';
 
 export const key = (c) => stable(c);
 const sortNum = (a) => [...a].sort((x, y) => x - y);
@@ -611,6 +611,10 @@ export function antalSekvens(r, p) {
 }
 
 export function antalSumma(r, p) {
+  // p.radRiktning (bank_version 3, avancerad): riktningen växlar i varje rad,
+  // som ett schackmönster. (Samma riktning i hela raden är parallellt, V7
+  // regel 1: alla kolumner får samma sekvens.)
+  if (p.radRiktning) return antalSummaRadvis(r, p);
   const o = p.o ?? 'vertical';
   const PAR = [[1, 1], [1, 2], [2, 1], [1, 3], [3, 1], [2, 2]];
   let rader; do { rader = blanda(r, PAR).slice(0, 3); } while (rader[2][0] === rader[2][1]);
@@ -620,6 +624,22 @@ export function antalSumma(r, p) {
   const kand = [tally(g[1][2].count, o), tally(a, o), tally(b, o), tally(Math.abs(a - b) || 1, o), tally(a + b - 1, o), ...(a + b < 4 ? [tally(a + b + 1, o)] : []), tally(a + b, o === 'vertical' ? 'horizontal' : 'vertical'), tally(a, o === 'vertical' ? 'horizontal' : 'vertical'), tally(a + b - 1, o === 'vertical' ? 'horizontal' : 'vertical')];
   const rule = `Strecken ${o === 'vertical' ? 'står alltid upprätt' : 'ligger alltid ner'}. I varje rad har den tredje rutan lika många streck som de två första tillsammans.`;
   return { family: 'antal-andras', title: 'Strecken läggs ihop', rule, grid: g, facit, kandidater: kand };
+}
+
+function antalSummaRadvis(r, p) {
+  const PAR = [[1, 1], [1, 2], [2, 1], [1, 3], [3, 1], [2, 2]];
+  let rader; do { rader = blanda(r, PAR).slice(0, 3); } while (rader[2][0] === rader[2][1]);
+  const [o0, o1] = valj(r, [['vertical', 'horizontal'], ['horizontal', 'vertical']]);
+  const oA = (rr, cc) => ((rr + cc) % 2 === 0 ? o0 : o1);
+  const g = rader.map(([a, b], rr) => [tally(a, oA(rr, 0)), tally(b, oA(rr, 1)), tally(a + b, oA(rr, 2))]);
+  const facit = g[2][2]; g[2][2] = null;
+  const [a, b] = rader[2];
+  const kand = [];
+  for (const n of [a + b - 1, a + b + 1, a, b, Math.abs(a - b), g[1][2].count]) for (const o of [o0, o1]) if (n >= 1 && n <= 4) kand.push(tally(n, o));
+  kand.push(tally(a + b, o1));
+  const ord = (x) => (x === 'vertical' ? 'står upprätt' : 'ligger ner');
+  const rule = `I varje rad har den tredje rutan lika många streck som de två första tillsammans. Strecken växlar mellan stående och liggande som ett schackmönster: de ${ord(o0)} i hörnen och i mitten.`;
+  return { family: 'antal-andras', title: 'Strecken läggs ihop, raderna växlar', rule, grid: g, facit, kandidater: kand };
 }
 
 // =============================================================================
@@ -676,12 +696,12 @@ function ordna(facit, ett, utanfor, tva, falt) {
 
 const ALLA_BASER = ['circle', 'square', 'triangle', 'diamond'];
 /** Alla kombinationer av fältens värden utom facit och synliga rutor, med färst ändringar först. */
-function produkt(grid, facit, falt) {
+function produkt(grid, facit, falt, maxFel = 2) {
   const synliga = new Set(grid.flat().filter(Boolean).map(key));
   let ut = [{ ...facit }];
   for (const [f, varden] of Object.entries(falt)) ut = ut.flatMap((c) => varden.map((v) => ({ ...c, [f]: v })));
   const fel = (c) => Object.keys(falt).filter((f) => c[f] !== facit[f]).length;
-  return ut.filter((c) => fel(c) > 0 && fel(c) < 3 && !synliga.has(key(c))).sort((a, b) => fel(a) - fel(b));
+  return ut.filter((c) => fel(c) > 0 && fel(c) <= maxFel && !synliga.has(key(c))).sort((a, b) => fel(a) - fel(b));
 }
 const ALLA_SYMBOLER = ['plus', 'minus', 'dot', 'cross', 'ring'];
 const utanforVarden = (alla, anvanda) => alla.filter((x) => !anvanda.includes(x));
@@ -752,7 +772,7 @@ export function latinTrippelStack(r, p) {
   if (!p.alla) return { family: 'latin-flera', title, rule, grid, facit, kandidater: bas };
   const symAlla = p1 ? ['plus', 'minus', 'dot', 'cross'] : ALLA_SYMBOLER;
   const fyllAlla = p1 ? FYLL3 : ['none', 'gray'];
-  return { family: 'latin-flera', title, rule, grid, facit, kandidater: [...bas, ...produkt(grid, facit, { base: ALLA_BASER, symbol: symAlla, baseFill: fyllAlla }).filter((c) => !(c.base === 'triangle' && c.symbol === 'cross'))] };
+  return { family: 'latin-flera', title, rule, grid, facit, kandidater: [...bas, ...produkt(grid, facit, p.inne ? { base: baser, symbol: symboler, baseFill: fyllAlla } : { base: ALLA_BASER, symbol: symAlla, baseFill: fyllAlla }, p.inne ? 3 : 2).filter((c) => !(c.base === 'triangle' && c.symbol === 'cross'))] };
 }
 
 // P3: pilens riktning i latinsk kvadrat, längden i schackmönster, spetsen på diagonalen.
@@ -777,7 +797,7 @@ export function latinTrippelPil(r, p) {
   const rule = `Varje rad och varje kolumn har pilen i var och en av de tre riktningarna exakt en gång. Längden växlar mellan lång och kort som ett schackmönster. ${spets}`;
   const bas = ordna(facit, ett, utanfor, tva, ['angle', 'length', 'head']);
   if (!p.alla) return { family: 'latin-flera', title: 'Riktning, längd och spets', rule, grid, facit, kandidater: bas };
-  return { family: 'latin-flera', title: 'Riktning, längd och spets', rule, grid, facit, kandidater: [...bas, ...produkt(grid, facit, { angle: [0, 45, 90, 135, 180, 225, 270, 315], length: ['long', 'short'], head: ['open', 'filled'] })] };
+  return { family: 'latin-flera', title: 'Riktning, längd och spets', rule, grid, facit, kandidater: [...bas, ...produkt(grid, facit, { angle: p.inne ? vinklar : [0, 45, 90, 135, 180, 225, 270, 315], length: ['long', 'short'], head: ['open', 'filled'] }, p.inne ? 3 : 2)] };
 }
 
 // P4 (sektorhjul) och P5 (streck från mitten): överlagring och vridning.
@@ -880,14 +900,28 @@ const POS_SYNLIGA = [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2], [2, 0], [2,
 function valjFem(prov, t, kand, m, { plus, expert }) {
   const synliga = new Set(POS_SYNLIGA.map(([r, c]) => dimNyckel(prov.grid[r][c])));
   const facitKopia = synliga.has(dimNyckel(prov.options[0]));
-  const an = plus ? analysera(prov, t) : null;
-  const info = kand.map((c, i) => ({
+  const an = analysera(prov, t);
+  // Varje regel ska testas (granskningen av grund och avancerad, omgång 1):
+  // med två eller fler regler bryter minst två distraktorer varje regel,
+  // och minst en av dem bryter bara den regeln. Annars löses frågan med en
+  // regel ensam (M2 och M4 i omgång 1 hade alla sex alternativ med facits
+  // värde i den andra regeln).
+  const R = an.ok ? an.R : [];
+  const tackning = R.length >= 2;
+  let info = kand.map((c, i) => ({
     i,
     text: urvalsText(m[i + 1]),
     tom: tomFigur(c, prov) || (c.kind === 'lattice' && c.cells.every((x) => x === 'empty')),
     kopia: synliga.has(dimNyckel(c)),
-    a: an ? an.alternativ[i + 1] : null,
-  })).filter((x) => x.text && !x.tom && (!plus || (!x.a.tomt && !x.a.tomFigur)));
+    a: an.ok ? an.alternativ[i + 1] : null,
+  })).filter((x) => x.text && !x.tom && (!plus || !x.a?.tomFigur));
+  if (tackning) {
+    // En nära miss per regel först, turvis, så att sökningen hittar täckningen tidigt.
+    const per = R.map((p) => info.filter((x) => x.a?.bryter.length === 1 && x.a.bryter[0] === p));
+    const forst = [];
+    for (let k = 0; k < 3; k++) for (const l of per) if (l[k] && !forst.includes(l[k])) forst.push(l[k]);
+    info = [...forst, ...info.filter((x) => !forst.includes(x))];
+  }
   const tak = expert ? 0 : 1;
   // Värden som inte finns bland de synliga rutorna i en kategorisk egenskap
   // (en kort pil när alla är långa) går att stryka utan regeln. Högst ett
@@ -899,6 +933,12 @@ function valjFem(prov, t, kand, m, { plus, expert }) {
   }
   const utanfor = (c) => (dimsFor(c) ?? []).some((d) => d.typ === 'kat' && !synligaVarden.get(d.id)?.has(vKey(d.varde)));
   info.forEach((x) => { x.utanfor = utanfor(kand[x.i]); });
+  // S12: värden utanför rutnätet i en regelstyrd egenskap (latin, diagonal,
+  // schackmönster). Aldrig på expert och plus, högst ett på grund och avancerad.
+  const regelDims = t.ok ? Object.entries(t.regel).filter(([, r]) => ['latin', 'diagonal'].includes(r.regel) || (r.regel === 'periodisk' && r.info?.p === 2)).map(([id]) => id) : [];
+  const synligaRegel = new Map(regelDims.map((id) => [id, new Set(POS_SYNLIGA.map(([r, c]) => vKey(t.dimsVy(prov.grid[r][c]).find((d) => d.id === id)?.varde)))]));
+  info.forEach((x) => { x.s12 = regelDims.some((id) => !synligaRegel.get(id).has(vKey(t.dimsVy(kand[x.i]).find((d) => d.id === id)?.varde))); });
+  if (expert) info = info.filter((x) => !x.s12);
   let provade = 0;
   const ok = (val) => {
     const opts = [prov.options[0], ...val.map((x) => kand[x.i])];
@@ -906,6 +946,19 @@ function valjFem(prov, t, kand, m, { plus, expert }) {
     if (facitKopia && val.filter((x) => x.kopia).length < 2) return false;
     if (facitUdda(q).length) return false;
     if (eliminerbara(q).length > tak) return false;
+    if (!expert && val.filter((x) => x.s12).length > 1) return false;
+    if (tackning) {
+      // Expert och plus: varje regel bruten av två, minst en nära miss totalt
+      // (fler nära miss gör facit till majoritet, S11). Grund och avancerad:
+      // dessutom en nära miss per regel, så att diagnosen finns.
+      for (const p of R) {
+        const bryter = val.filter((x) => x.a?.bryter.includes(p));
+        if (bryter.length < 2) return false;
+        if (!expert && !bryter.some((x) => x.a.bryter.length === 1)) return false;
+      }
+      if (expert && !val.some((x) => x.a?.naraMiss)) return false;
+    }
+    if (expert && s11Majoritet(q).length) return false;
     if (plus) {
       const dist = val.map((x) => x.a);
       const a2 = {
@@ -916,7 +969,7 @@ function valjFem(prov, t, kand, m, { plus, expert }) {
         tomma: dist.filter((x) => x.tomt).length,
         brutna: [...new Set(dist.filter((x) => x.naraMiss).flatMap((x) => x.bryter))],
       };
-      if (plusFel(a2).length) return false;
+      if (plusFel(a2, { v3: true }).length) return false;
     }
     return true;
   };
@@ -925,7 +978,7 @@ function valjFem(prov, t, kand, m, { plus, expert }) {
     const val = [];
     const texter = new Map();
     const dfs = (start) => {
-      if (provade > (plus ? 60000 : 8000)) return null;
+      if (provade > (plus || tackning ? 60000 : 8000)) return null;
       if (val.length === 5) { provade++; return ok(val) ? [...val] : null; }
       for (let j = start; j < info.length; j++) {
         const x = info[j];
@@ -951,12 +1004,15 @@ function valjFem(prov, t, kand, m, { plus, expert }) {
  * Spärrarna S1 till S10 körs på varje försök (S8 och S10 över receptet via
  * `utseenden`). Frågan får fran_version: 3 och recept.
  */
-export function byggV3(recept, upptagna = new Set(), { utseenden = new Map(), mjuka = null } = {}) {
+// recept.seed: bygg med en annan frågas slump (samma rutnät som en struken
+// fråga, nya alternativ; granskningen av omgång 1). `kvar`: frågorna per
+// recept som redan finns, för spärren mot delade rader.
+export function byggV3(recept, upptagna = new Set(), { utseenden = new Map(), mjuka = null, kvar = new Map() } = {}) {
   const fel = [];
   const plus = recept.band === 'plus';
   const fackKrock = (c) => c && c.kind === 'balanceline' && new Set(c.items.map((i) => `${i.posX}:${i.side}`)).size !== c.items.length;
   for (let forsok = 0; forsok < (recept.forsok ?? 300); forsok++) {
-    const r = rng(`${recept.id}#${forsok}`);
+    const r = rng(`${recept.seed ?? recept.id}#${forsok}`);
     const b = BYGGARE[recept.byggare](r, recept.p);
     if (!b) { fel.push(`försök ${forsok}: byggaren gav inget rutnät`); continue; }
     if ([...b.grid.flat(), b.facit].some(fackKrock)) { fel.push(`försök ${forsok}: två former i samma fack`); continue; }
@@ -973,7 +1029,7 @@ export function byggV3(recept, upptagna = new Set(), { utseenden = new Map(), mj
       if (fackKrock(c)) continue;
       sett.add(k); kand.push(c);
     }
-    const prov = { id: recept.id, title: b.title, rule: b.rule, grid: b.grid, options: [b.facit, ...kand], correctAnswer: 0 };
+    const prov = { id: recept.id, title: b.title, rule: b.rule, grid: b.grid, options: [b.facit, ...kand], correctAnswer: 0, fran_version: 3, ...(plus ? { band: 'plus' } : {}) };
     const t = tolka(prov);
     if (!t.ok || t.tvetydig.length) { fel.push(`försök ${forsok}: ${t.ok ? 'tvetydig ' + t.tvetydig.map((x) => x.dim + ' ' + x.regler.join('/')).join('; ') : 'ingen regel för ' + (t.saknar ?? [t.orsak]).join(', ')}`); continue; }
     if (t.traffar.length !== 1) { fel.push(`försök ${forsok}: ${t.traffar.length} kandidater stämmer med regeln`); continue; }
@@ -998,8 +1054,10 @@ export function byggV3(recept, upptagna = new Set(), { utseenden = new Map(), mj
     const utse = utseendeNyckel(q);
     const receptNyckel = recept.recept ?? recept.mekanism ?? b.family;
     if (utseenden.get(receptNyckel)?.has(utse)) { fel.push(`försök ${forsok}: S10 samma utseende som en annan fråga i receptet`); continue; }
+    const dr = delarRader(q, kvar.get(receptNyckel) ?? []);
+    if (dr.length) { fel.push(`försök ${forsok}: ${dr[0]}`); continue; }
     if (plus) {
-      const df = plusFel(analysera(q));
+      const df = plusFel(analysera(q), { v3: true });
       if (df.length) { fel.push(`försök ${forsok}: ${df.join('; ')}`); continue; }
     }
     const kf = kontrollera(q, { strikt: true, familj: recept.familj ?? b.family, kandidat: true });
@@ -1011,6 +1069,8 @@ export function byggV3(recept, upptagna = new Set(), { utseenden = new Map(), mj
     if (mjuk) mjuka.add(mjuk);
     if (!utseenden.has(receptNyckel)) utseenden.set(receptNyckel, new Set());
     utseenden.get(receptNyckel).add(utse);
+    if (!kvar.has(receptNyckel)) kvar.set(receptNyckel, []);
+    kvar.get(receptNyckel).push(q);
     Object.defineProperty(q, 'forsok', { value: forsok, enumerable: false });
     return q;
   }

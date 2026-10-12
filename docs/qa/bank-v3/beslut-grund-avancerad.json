@@ -1,0 +1,321 @@
+{
+  "godkanda": [
+    "v7g-v3-vrid-01",
+    "v7g-v3-vrid-02",
+    "v7g-v3-vrid-03",
+    "v7g-v3-vrid-04",
+    "v7g-v3-vrid-05",
+    "v7g-v3-vrid-06",
+    "v7g-v3-vrid-07",
+    "v7g-v3-vrid-08",
+    "v7g-v3-vrid-09",
+    "v7g-v3-vrid-10",
+    "v7g-v3-vrid-11",
+    "v7g-v3-vrid-12",
+    "v7g-v3-vrid-13",
+    "v7g-v3-vrid-14",
+    "v7g-v3-vrid-15",
+    "v7g-v3-vrid-16",
+    "v7g-v3-vrid-17",
+    "v7g-v3-vrid-18",
+    "v7g-v3-vrid-19",
+    "v7g-v3-vrid-20",
+    "v7g-v3-vrid-22",
+    "v7g-v3-vand-01",
+    "v7g-v3-vand-02",
+    "v7g-v3-vand-03",
+    "v7g-v3-vand-04",
+    "v7g-v3-vand-05",
+    "v7g-v3-vand-06",
+    "v7g-v3-vand-07",
+    "v7g-v3-vand-08",
+    "v7g-v3-vand-09",
+    "v7g-v3-vand-10",
+    "v7g-v3-vand-11",
+    "v7g-v3-vand-13",
+    "v7g-v3-rot-01",
+    "v7g-v3-rot-02",
+    "v7g-v3-rot-03",
+    "v7g-v3-rot-04",
+    "v7g-v3-rot-05",
+    "v7g-v3-rot-06",
+    "v7g-v3-rot-07",
+    "v7g-v3-rot-08",
+    "v7g-v3-rot-09",
+    "v7g-v3-rot-10",
+    "v7g-v3-rot-11",
+    "v7g-v3-rot-12",
+    "v7g-v3-rot-13",
+    "v7g-v3-tva-01",
+    "v7g-v3-tva-02",
+    "v7g-v3-tva-03",
+    "v7g-v3-tva-04",
+    "v7g-v3-antal-01",
+    "v7g-v3-antal-02",
+    "v7g-v3-antal-03",
+    "v7g-v3-antal-04",
+    "v7g-v3-antal-05",
+    "v7g-v3-lform-01",
+    "v7g-v3-lform-02",
+    "v7g-v3-lform-03",
+    "v7g-v3-lform-04",
+    "v7g-v3-lform-05",
+    "v7g-v3-lform-06",
+    "v7g-v3-lform-07",
+    "v7g-v3-lform-08",
+    "v7g-v3-lform-09",
+    "v7g-v3-lant-01",
+    "v7g-v3-lant-02",
+    "v7g-v3-lant-03",
+    "v7g-v3-lant-04",
+    "v7g-v3-lant-05",
+    "v7g-v3-lant-06",
+    "v7g-v3-lant-07",
+    "v7g-v3-lant-08",
+    "v7g-v3-speg-01",
+    "v7g-v3-speg-02",
+    "v7g-v3-speg-03",
+    "v7g-v3-over-01",
+    "v7g-v3-over-02",
+    "v7g-v3-over-03",
+    "v7g-v3-over-04",
+    "v7g-v3-lfler-01",
+    "v7a-v3-vand-11",
+    "v7a-v3-rot-01",
+    "v7a-v3-rot-02",
+    "v7a-v3-rot-03",
+    "v7a-v3-rot-04",
+    "v7a-v3-rot-05",
+    "v7a-v3-rot-06",
+    "v7a-v3-rot-07",
+    "v7a-v3-rot-08",
+    "v7a-v3-rot-09",
+    "v7a-v3-rot-10",
+    "v7a-v3-antal-02",
+    "v7a-v3-antal-03",
+    "v7a-v3-lform-01",
+    "v7a-v3-lform-02",
+    "v7a-v3-lform-03",
+    "v7a-v3-lform-04",
+    "v7a-v3-lant-01",
+    "v7a-v3-speg-01",
+    "v7a-v3-over-01",
+    "v7a-v3-over-02",
+    "v7a-v3-over-03",
+    "v7a-v3-lfler-01"
+  ],
+  "strukna": [
+    {
+      "id": "v7g-v3-byte-01",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7g-v3-byte-02",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7g-v3-byte-03",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7g-v3-byte-04",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7g-v3-byte-05",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7g-v3-byte-06",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7g-v3-vrid-21",
+      "skal": "nära dubblett av v7g-v3-vrid-15: rad 1 och rad 3 identiska, samma facit (S10 missar fallet)"
+    },
+    {
+      "id": "v7g-v3-vand-12",
+      "skal": "nära dubblett av v7g-v3-vand-06: rad 1 och rad 3 identiska, samma facit"
+    },
+    {
+      "id": "v7a-v3-vrid-01",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-02",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-03",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-04",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-05",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-06",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-07",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-08",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-09",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-10",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-11",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-12",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-13",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-14",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-15",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-16",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-17",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-18",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vrid-19",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-byte-01",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-byte-02",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-byte-03",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-byte-04",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-byte-05",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-byte-06",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-byte-07",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg; schack längs raden är dessutom en vanlig växling, så frågan är enrad även med rättade distraktorer. Byggs om som M2-orbital-diagonal eller latin"
+    },
+    {
+      "id": "v7a-v3-byte-08",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg; schack längs raden är dessutom en vanlig växling, så frågan är enrad även med rättade distraktorer. Byggs om som M2-orbital-diagonal eller latin"
+    },
+    {
+      "id": "v7a-v3-byte-09",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg; schack längs raden är dessutom en vanlig växling, så frågan är enrad även med rättade distraktorer. Byggs om som M2-orbital-diagonal eller latin"
+    },
+    {
+      "id": "v7a-v3-byte-10",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg; schack längs raden är dessutom en vanlig växling, så frågan är enrad även med rättade distraktorer. Byggs om som M2-orbital-diagonal eller latin"
+    },
+    {
+      "id": "v7a-v3-byte-11",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg; schack längs raden är dessutom en vanlig växling, så frågan är enrad även med rättade distraktorer. Byggs om som M2-orbital-diagonal eller latin"
+    },
+    {
+      "id": "v7a-v3-vand-01",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vand-02",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vand-03",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vand-04",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vand-05",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vand-06",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vand-07",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vand-08",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vand-09",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-vand-10",
+      "skal": "andra regeln otestad: alla sex alternativ delar facits värde i den dimension regeln gäller (spets, längd eller mittpunkt), så frågan löses med rörelsen ensam; p_prior för låg"
+    },
+    {
+      "id": "v7a-v3-tva-01",
+      "skal": "identiskt recept som grund (samma (d,k)-par, samma sidor, ordagrant samma regeltext); planens tredje regel på avancerad (sida i schack) saknas, p_prior 0,5 mot grunds 0,62 för samma konstruktion"
+    },
+    {
+      "id": "v7a-v3-tva-02",
+      "skal": "identiskt recept som grund (samma (d,k)-par, samma sidor, ordagrant samma regeltext); planens tredje regel på avancerad (sida i schack) saknas, p_prior 0,5 mot grunds 0,62 för samma konstruktion"
+    },
+    {
+      "id": "v7a-v3-tva-03",
+      "skal": "identiskt recept som grund (samma (d,k)-par, samma sidor, ordagrant samma regeltext); planens tredje regel på avancerad (sida i schack) saknas, p_prior 0,5 mot grunds 0,62 för samma konstruktion"
+    },
+    {
+      "id": "v7a-v3-tva-04",
+      "skal": "identiskt recept som grund (samma (d,k)-par, samma sidor, ordagrant samma regeltext); planens tredje regel på avancerad (sida i schack) saknas, p_prior 0,5 mot grunds 0,62 för samma konstruktion"
+    },
+    {
+      "id": "v7a-v3-antal-01",
+      "skal": "planen 2.5 säger antalSumma med riktning som växlar per rad; byggd utan växling, tre av fem distraktorer har en riktning som aldrig förekommer i rutnätet och stryks utan att regeln lästs; p_prior 0,6 ohållbar"
+    }
+  ]
+}

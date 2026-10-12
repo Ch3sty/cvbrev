@@ -55,7 +55,8 @@ for (const fil of lista) {
     const udda = facitUdda(q);
     const strykbara = eliminerbara(q);
     console.log(`  ${q.id}: |R| ${a.R.length} (${a.R.join(', ') || 'ingen'}), nära miss ${a.naraMiss}${bryter.length ? ` (bryter ${bryter.join(', ')})` : ''}, tomma ${a.tomma}, kopior ${a.kopior}${a.dubbla ? `, dubbel diagnos (op eller vrid) ${a.dubbla}` : ''}, S5 ${udda.length ? udda.join('+') : 0}, S6 ${strykbara.length}`);
-    if (krav === 'plus' && q.band === 'plus') fel.push(...plusFel(a));
+    // Plus med fran_version 3: kraven efter granskningen av omgång 1 (plusFel v3).
+    if (krav === 'plus' && q.band === 'plus') fel.push(...plusFel(a, { v3: q.fran_version >= 3 }));
     // Version 3: S5 noll, S6 högst en (noll på expert och plus) för frågor med fran_version 3.
     if ((krav === 'v3' || krav === 'plus') && q.fran_version >= 3) {
       if (udda.length) fel.push(`${q.id}: S5 facit sticker ut i ${udda.join(', ')}`);
