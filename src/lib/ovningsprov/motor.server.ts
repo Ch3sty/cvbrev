@@ -29,6 +29,7 @@ import { sparaTestsvar, unikaSvar } from '@/lib/tests/sparaSvar';
 import { captureServer } from '@/lib/analytics/server';
 import { lasBehorighet } from '@/lib/traning/motor.server';
 import { dagSthlm, type Dag } from '@/lib/traning/datum';
+import { visningstitel } from '@/lib/tester/titel';
 import { ovningsformat, ovningsformatUrNyckel } from './format';
 import {
   OVNINGSPROV_TEST_TYPE,
@@ -150,10 +151,8 @@ export function valjDelar(typ: OvningsTyp, seed: string, sedda: ReadonlySet<stri
 const VERBAL_PER_ID = new Map<string, VerbalPassage>([...VERBAL_V1, ...VERBAL_V2].map((p) => [p.id, p]));
 const NUM_PER_ID = new Map<string, NumeriskPassage>([...NUM_V1, ...NUM_V2, ...NUM_EXPERT].map((p) => [p.id, p]));
 
-/** "PASSAGE 1 — Sommaranställningar" blir "Sommaranställningar". */
-export function rubrikUtanNummer(titel: string): string {
-  return titel.replace(/^\s*passage\s+\d+\s*[—–:-]\s*/i, '').trim();
-}
+/** Titeln utan "PASSAGE", nummer och tankstreck (src/lib/tester/titel.ts). */
+export const rubrikUtanNummer = visningstitel;
 
 export function punkterFor(typ: OvningsTyp, delar: readonly string[]): Punkt[] {
   const ut: Punkt[] = [];
@@ -280,7 +279,7 @@ export function raknaResultat(args: {
   const tid_s = Math.max(0, Math.min(meta.tidsgrans_s, Math.round((slut - start) / 1000)));
   const ratt = genomgang.filter((g) => g.korrekt).length;
   const titel = (id: string) =>
-    typ === 'verbal' ? rubrikUtanNummer(VERBAL_PER_ID.get(id)?.title ?? id) : NUM_PER_ID.get(id)?.title ?? id;
+    typ === 'verbal' ? rubrikUtanNummer(VERBAL_PER_ID.get(id)?.title ?? id) : visningstitel(NUM_PER_ID.get(id)?.title ?? id);
 
   return {
     genomgang,

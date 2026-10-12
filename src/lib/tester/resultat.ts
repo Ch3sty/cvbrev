@@ -18,6 +18,8 @@
  * säger att genomgången saknas, i stället för att krascha eller gissa.
  */
 
+import { visningstitel } from './titel'
+
 export type Utfall = 'ratt' | 'fel' | 'obesvarad'
 
 export interface ResultatFraga {
@@ -270,7 +272,7 @@ export function fragorUnderlag(passages: PassageLik[], answers: unknown, grupper
           tid: a ? sekunder(a.timeSpent) : null,
           grupp: gruppera === 'svarstyp' ? SVARSTYP[st.correctAnswer] ?? null : null,
           text: st.text,
-          kalla: p.topic ?? p.title ?? null,
+          kalla: p.topic ?? (p.title ? visningstitel(p.title) : null),
           underlagId: p.id,
         })
       })
@@ -285,7 +287,7 @@ export function fragorUnderlag(passages: PassageLik[], answers: unknown, grupper
           tid: a ? sekunder(a.timeSpent) : null,
           grupp: gruppera === 'uppgiftstyp' ? UPPGIFTSTYP[p.type ?? ''] ?? null : null,
           text: q.questionText,
-          kalla: p.topic ?? p.title ?? null,
+          kalla: p.topic ?? (p.title ? visningstitel(p.title) : null),
           underlagId: p.id,
         })
       }

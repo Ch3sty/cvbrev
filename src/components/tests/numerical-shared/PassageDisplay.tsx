@@ -1,6 +1,7 @@
 'use client';
 
 import NumericalTable from './NumericalTable';
+import { visningstitel } from '@/lib/tester/titel';
 import NumericalChart from './NumericalChart';
 import {
   TableTopicIcon,
@@ -49,7 +50,7 @@ export default function PassageDisplay({ passage }: PassageDisplayProps) {
             <span aria-hidden="true"> · </span>
             {passage.topic}
           </p>
-          <h2 className="text-kort text-ink-1">{passage.title}</h2>
+          <h2 className="text-kort text-ink-1">{visningstitel(passage.title)}</h2>
         </div>
       </div>
 

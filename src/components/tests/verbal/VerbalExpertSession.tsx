@@ -7,6 +7,7 @@
 // innan testet slutförs och synliga fel i stället för tysta.
 
 import { KNAPP_PRIMAR } from '@/components/shell/knappar'
+import { visningstitel } from '@/lib/tester/titel';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowRight } from 'lucide-react';
@@ -362,7 +363,7 @@ export default function VerbalExpertSession({ sessionId: sessionIdProp }: Props)
                 <p className="mb-0.5 text-steg uppercase text-ink-3">
                   Argument · {currentPassage.topic}
                 </p>
-                <h2 className="text-fraga text-ink-1">{currentPassage.title}</h2>
+                <h2 className="text-fraga text-ink-1">{visningstitel(currentPassage.title)}</h2>
               </div>
               <div className="rounded-xl border border-kant bg-panel p-4 text-sm leading-[22px] text-ink-2 sm:p-5 sm:text-base">
                 {currentPassage.contextText.split('\n\n').map((para, i) => (
