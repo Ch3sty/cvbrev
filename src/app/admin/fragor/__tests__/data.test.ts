@@ -16,7 +16,7 @@ describe('admin Frågor', () => {
   it('registret har frågor från alla fem testtyper, deduktivens bank inräknad', () => {
     const reg = register()
     for (const k of TEST_KINDS) expect(reg.some((r) => r.test_kind === k), k).toBe(true)
-    expect(reg.filter((r) => r.test_kind === 'deduktiv').length).toBe(75)
+    expect(reg.filter((r) => r.test_kind === 'deduktiv').length).toBe(80)
     expect(reg.some((r) => r.test_kind === 'verbal' && r.id === 'va-17-fyradagarsvecka:0')).toBe(true)
     expect(kindForId('dd-e-d3-05')).toBe('deduktiv')
     expect(kindForId('fs-g-vrid-01')).toBe('figurserie')

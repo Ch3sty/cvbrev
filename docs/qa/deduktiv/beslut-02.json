@@ -1,0 +1,12 @@
+{
+  "datum": "2026-10-12",
+  "granskare": "testansvarig",
+  "godkanda": ["dd-g-d2-07", "dd-g-d2-08", "dd-g-d2-09", "dd-g-d2-10", "dd-g-d2-11"],
+  "strukna": [],
+  "andra": [],
+  "villkor": [],
+  "lansering": {
+    "grund": 30,
+    "anmarkning": "Iakttagelser till omgång 4 i granskning-02.md: alternativ som medför andra alternativ (09, 10, 11), facit i 11 följer ur villkor 1 och 3, tvåvillkorssteg i 07 och 11."
+  }
+}
