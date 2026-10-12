@@ -134,7 +134,7 @@ export default function CVAnalysMini() {
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
           <p className="mt-3 text-xs text-ink-3">
-            Inget kreditkort · Avsluta när du vill
+            Inget kreditkort. Avsluta när du vill.
           </p>
         </div>
       </div>
