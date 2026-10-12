@@ -594,6 +594,9 @@ export function byggHemvy(inp: HemIn): HemModell {
   const ri = rubrikIn(s);
   const fler = flerTester(inp.flerTester, testtyper, false);
   const jobb = jobbsokStatus(inp.jobbsok);
+  // Text- och sifferpassen behöver ingen matrisnivå: raderna står i alla lägen med dagens pass.
+  const vn = vnPassSektion(s, testtyper);
+  const vnLista: Sektion[] = vn ? [vn] : [];
 
   /* ---------- 1p: bara personlighet */
   if (baraPersonlighet(testtyper) && niva == null) {
@@ -707,7 +710,7 @@ export function byggHemvy(inp: HemIn): HemModell {
         text: A.text,
         handling: { typ: 'lank', text: siffror ? A.knappSiffror : A.knappText, href: siffror ? TRANING_RUTT.siffror : TRANING_RUTT.text },
       },
-      sektioner: [...(vnPassSektion(s, testtyper) ? [vnPassSektion(s, testtyper)!] : []), flerTester(inp.flerTester, testtyper, true), jobb],
+      sektioner: [...vnLista, flerTester(inp.flerTester, testtyper, true), jobb],
     };
   }
 
@@ -739,7 +742,7 @@ export function byggHemvy(inp: HemIn): HemModell {
           kurvaMeta: plan.some((d) => d.status === 'last') ? HEM.ny.planMetaGratis() : HEM.ny.planMeta,
         },
         lyft: mat,
-        sektioner: [fler, jobb],
+        sektioner: [...vnLista, fler, jobb],
       };
     }
     if (aktuelltProv && dagarKvar === 0) {
@@ -759,6 +762,7 @@ export function byggHemvy(inp: HemIn): HemModell {
       sektioner: [
         ...(svar ? [efterSvarStatus(svar)] : []),
         { typ: 'status', nyckel: 'datum', text: HEM.tomt.status, ton: 'neutral', lank: { text: HEM.utanDatum.sattDatum, href: TRANING_RUTT.installningarSteg(3) } },
+        ...vnLista,
         fler,
         jobb,
       ],
@@ -805,7 +809,7 @@ export function byggHemvy(inp: HemIn): HemModell {
         ],
       });
     }
-    sektioner.push({ typ: 'status', nyckel: 'infor', text: HEM.infor.status, ton: 'koppar' }, fler, jobb);
+    sektioner.push(...vnLista, { typ: 'status', nyckel: 'infor', text: HEM.infor.status, ton: 'koppar' }, fler, jobb);
     return {
       tillstand: 'infor',
       ram: '1c',
@@ -911,8 +915,7 @@ export function byggHemvy(inp: HemIn): HemModell {
     const imorgon = imorgonText(s);
     if (imorgon) sektioner.push({ typ: 'status', nyckel: 'imorgon', text: imorgon, ton: 'koppar' });
   }
-  const vnPass = vnPassSektion(s, testtyper);
-  if (vnPass) sektioner.push(vnPass);
+  sektioner.push(...vnLista);
   const tempo = !efterPass && betalande ? tempoSektion(s) : null;
   if (tempo) sektioner.push(tempo);
   const tappar = varDuTappar(s, betalande, s.aktivitet.pass === 0);

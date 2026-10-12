@@ -19,6 +19,7 @@
  * NumericalTable, NumericalChart), inte deras sessionslogik.
  */
 
+import { useEffect, useRef } from 'react'
 import NumericalTable from '@/components/tests/numerical-shared/NumericalTable'
 import NumericalChart from '@/components/tests/numerical-shared/NumericalChart'
 import { splitIntoParagraphs } from '@/components/tests/verbal-shared/splitParagraphs'
@@ -84,6 +85,14 @@ export function VnUppgift({ kind, punkt, nr, antal, vald, aterkoppling, last, on
   const ratt = aterkoppling?.ratt ?? null
   const verbal = kind === 'verbal'
   const rattText = ratt ? punkt.alternativ.find((a) => a.id === ratt)?.text ?? null : null
+  // Förklaringen rullas fram ovanför foten när den kommer (som regelpanelen i matrispasset).
+  const forklaringRef = useRef<HTMLDivElement | null>(null)
+  useEffect(() => {
+    const el = forklaringRef.current
+    if (!avslojad || last === false || !el || typeof el.scrollIntoView !== 'function') return
+    const lugn = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    el.scrollIntoView({ block: 'nearest', behavior: lugn ? 'auto' : 'smooth' })
+  }, [avslojad, last])
   return (
     <div className="flex flex-col gap-3" data-vn-uppgift={punkt.nyckel}>
       <p className="text-ey uppercase text-ink-3">{verbal ? C.fraga.pastaende(nr, antal) : C.fraga.fraga(nr, antal)}</p>
@@ -132,7 +141,7 @@ export function VnUppgift({ kind, punkt, nr, antal, vald, aterkoppling, last, on
         })}
       </div>
       {aterkoppling ? (
-        <div role="status" aria-live="polite" className="regelpanel rounded-[14px] bg-ton px-4 py-3.5 text-ton-ink" data-vn-forklaring>
+        <div ref={forklaringRef} role="status" aria-live="polite" className="regelpanel rounded-[14px] bg-ton px-4 py-3.5 text-ton-ink" data-vn-forklaring>
           <p className="flex items-baseline justify-between gap-3">
             <span className="text-ey uppercase text-ton-ink">{C.aterkoppling.forklaring}</span>
             <span className="text-[12px] leading-4 text-ink-3">{aterkoppling.correct ? C.aterkoppling.ratt : C.aterkoppling.fel}</span>
