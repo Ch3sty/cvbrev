@@ -5,17 +5,23 @@
  * under testet, servern dömer på originalindex, och poolerna blandas aldrig
  * med matrisernas.
  */
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
+import { readFileSync } from 'node:fs'
+
+// Bankfilerna är tomma före befordran; testet fyller dem med kandidaterna,
+// lästa som filer (kandidatkatalogen importeras aldrig).
+const kand = (n: string) => JSON.parse(readFileSync(`src/lib/figurserierV1/kandidater/${n}.json`, 'utf8'))
+vi.mock('../bankGrund.json', () => ({ default: kand('grund') }))
+vi.mock('../bankAvancerad.json', () => ({ default: kand('avancerad') }))
+vi.mock('../bankExpert.json', () => ({ default: kand('expert') }))
 
 const SESSION = '3f1c2a9e-1111-4222-8333-944455556666'
 
 async function las() {
   vi.resetModules()
-  vi.stubEnv('NEXT_PUBLIC_FIGURSERIER_KANDIDATER', '1')
   return import('../fragor.server')
 }
 
-afterEach(() => vi.unstubAllEnvs())
 
 describe('figurseriernas frågor', () => {
   it('15 uppgifter, samma urval vid varje läsning, olika för olika sessioner', async () => {
@@ -63,10 +69,11 @@ describe('figurseriernas frågor', () => {
     expect(F.arSerieTestTyp('matrislogik-expert')).toBe(false)
   })
 
-  it('utan QA-flaggan och före befordran är poolerna tomma', async () => {
-    vi.resetModules()
-    vi.stubEnv('NEXT_PUBLIC_FIGURSERIER_KANDIDATER', '')
-    const F = await import('../fragor.server')
-    expect(F.serieInnehall({ id: SESSION, test_type: 'figurserier-grund' }).fragor).toHaveLength(0)
+  it('bankfilerna är tomma precis när BANK_BEFORDRAD är false', async () => {
+    const { BANK_BEFORDRAD } = await import('../status')
+    for (const f of ['bankGrund', 'bankAvancerad', 'bankExpert']) {
+      const bank = JSON.parse(readFileSync(`src/lib/figurserierV1/${f}.json`, 'utf8'))
+      expect(bank.length === 0, f).toBe(!BANK_BEFORDRAD)
+    }
   })
 })

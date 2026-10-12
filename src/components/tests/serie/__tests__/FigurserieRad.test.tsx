@@ -7,10 +7,12 @@ import { describe, expect, it } from 'vitest'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { FigurserieAlternativ, FigurserieBryter, FigurserieRad } from '../FigurserieRad'
 import { cellSvg } from '@/lib/logicTestV7/svgMatt'
-import grund from '@/lib/figurserierV1/kandidater/grund.json'
-import expert from '@/lib/figurserierV1/kandidater/expert.json'
+import { readFileSync } from 'node:fs'
 import type { V7Cell } from '@/lib/logicTestV7/types.v7'
 
+const las = (f: string) => JSON.parse(readFileSync(`src/lib/figurserierV1/kandidater/${f}.json`, 'utf8'))
+const grund = las('grund')
+const expert = las('expert')
 const q = grund[0] as unknown as { rad: V7Cell[]; options: V7Cell[]; correctAnswer: number }
 const doc = (html: string) => new DOMParser().parseFromString(`<div>${html}</div>`, 'text/html')
 

@@ -5,17 +5,17 @@
 // härleder samma urval. Poolen en session drar ur får aldrig ändras; nya
 // frågor kommer med en ny meta.serie_version.
 //
+// Poolen är bankfilerna. De är tomma tills testansvarig godkänt kandidaterna
+// och scripts/befordra-figurserier.mjs fyllt dem; kandidatkatalogen importeras
+// aldrig av appen (src/lib/logicTestV7/__tests__/kandidater.test.ts).
+//
 // Bara serverkod: bankerna har facit.
 // =============================================================================
 
 import grund from './bankGrund.json';
 import avancerad from './bankAvancerad.json';
 import expert from './bankExpert.json';
-import kandGrund from './kandidater/grund.json';
-import kandAvancerad from './kandidater/avancerad.json';
-import kandExpert from './kandidater/expert.json';
 import { hashString, mulberry32 } from '@/lib/logicTestV7/blanda';
-import { figurserierKandidater } from './status';
 import type { SerieFraga, SerieNiva } from './types';
 
 export const FRAGOR_PER_SESSION = 15;
@@ -26,21 +26,9 @@ const BANK: Record<SerieNiva, SerieFraga[]> = {
   avancerad: avancerad as unknown as SerieFraga[],
   expert: expert as unknown as SerieFraga[],
 };
-const KANDIDATER: Record<SerieNiva, SerieFraga[]> = {
-  grund: kandGrund as unknown as SerieFraga[],
-  avancerad: kandAvancerad as unknown as SerieFraga[],
-  expert: kandExpert as unknown as SerieFraga[],
-};
 
-/**
- * Poolen per nivå. Före befordran är bankfilerna tomma; med QA-flaggan
- * (status.ts) läser en lokal server kandidaterna i stället, så att vyerna
- * går att klicktesta innan testansvarig sagt ja.
- */
 export function poolFor(niva: SerieNiva): SerieFraga[] {
-  const bank = BANK[niva];
-  if (bank.length === 0 && figurserierKandidater()) return KANDIDATER[niva];
-  return bank;
+  return BANK[niva];
 }
 
 /** Alla frågor oavsett nivå, för rättningen. */

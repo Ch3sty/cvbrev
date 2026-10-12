@@ -5,11 +5,14 @@
  * Spärrarna ligger i scripts/lib/serie/sparrar.mjs.
  */
 import { describe, expect, it } from 'vitest'
-import grund from '../kandidater/grund.json'
-import avancerad from '../kandidater/avancerad.json'
-import expert from '../kandidater/expert.json'
-import avancerad1 from '../kandidater/omgang1/avancerad.json'
-import expert1 from '../kandidater/omgang1/expert.json'
+import { readFileSync } from 'node:fs'
+// Kandidaterna läses som filer, aldrig som import (kandidater.test.ts).
+const las = (f: string) => JSON.parse(readFileSync(`src/lib/figurserierV1/kandidater/${f}.json`, 'utf8'))
+const grund = las('grund')
+const avancerad = las('avancerad')
+const expert = las('expert')
+const avancerad1 = las('omgang1/avancerad')
+const expert1 = las('omgang1/expert')
 // @ts-ignore ren JavaScript
 import * as S from '../../../../scripts/lib/serie/sparrar.mjs'
 // @ts-ignore ren JavaScript
