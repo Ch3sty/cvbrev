@@ -34,13 +34,34 @@
 //   G12 lagerceller (arrayceller) felar tills en sammansatt primitiv är
 //       godkänd
 //
+// Grafik v3 (docs/design/tester-v2-2026-10-11/grafik-v3-spec.md avsnitt 10):
+//   V1  nominellt yttermått per primitiv (utan kontur, längsta axeln) i
+//       [58, 64]; linjeformer och balanslinjen enligt regler.yttermattUndantag
+//   V2  ingen linje i figurerna under 2,5 (luckans ram 2, den är gränssnitt)
+//   V3  alla grundformer med alla symboler klarar G1 till G4 (förr upplysning)
+//   V4  symbolens centrum per bas, triangeln i tyngdpunkten
+//   V5  ram-grått bara på referens (bana, tomma rutor, luckan)
+//   V6  tom och fylld ruta i tile och lattice har samma målade yta
+//   V7  orbitalens prickar jämna: 2π·r / steg = 36 ± 0,05
+//   V8  kontrast per rum och läge ur globals.css: ink-1, ink-3, koppar-ink
+//       mot papper och papper-2 minst 4,5, koppar mot papper minst 3
+//   V9  en skala: rutnät = alternativ, 100 × skala ≥ 80 px
+//   V10 luckan utan text, frågetecknet ur geometri.json
+//   V11 högst 160 svg-noder och 18 kB per fråga
+//   V12 inga förbjudna svg-element (text, image, use, filter, mask, ...)
+// V5, V6, V10, V11 och V12 mäts på renderarens riktiga utdata
+// (src/lib/logicTestV7/svgMatt.tsx via scripts/lib/matris/svg-matt.tsx).
+//
 // Exit 1 vid fel.
 // =============================================================================
 
 import { readFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
+import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { tolka } from './lib/matris/tolka.mjs';
 import { rotera, spegelbilder, vKey, stable } from './lib/matris/celler.mjs';
+import { teman } from './lib/matris/tema.mjs';
 
 // Sökvägarna gäller från repots rot, som bankerna nedan (under vitest pekar
 // import.meta.url inte på filen).
@@ -55,6 +76,11 @@ const ALLA = [
   'src/lib/logicTestV7/questionBankGrund3c.v7.json',
   'src/lib/logicTestV7/questionBankAvancerad3c.v7.json',
   'src/lib/logicTestV7/questionBankExpert3c.v7.json',
+  // bank_version 3 (tomma tills befordran)
+  'src/lib/logicTestV7/questionBankGrundV3.v7.json',
+  'src/lib/logicTestV7/questionBankAvanceradV3.v7.json',
+  'src/lib/logicTestV7/questionBankExpertV3.v7.json',
+  'src/lib/logicTestV7/questionBankExpertPlus.v7.json',
 ];
 
 // G11: tomma distraktorer på expert som granskningen 2026-10-11 hittade.
@@ -242,23 +268,25 @@ export function element(cell) {
         diamond: polygon(S.romb, sw),
       }[cell.base];
       const ut = [el('bas', bas)];
-      const linjer = (l) => l.map(([x1, y1, x2, y2]) => kapsel([x1, y1], [x2, y2], sw));
-      const ändar = (l) => l.flatMap(([x1, y1, x2, y2]) => [[x1, y1], [x2, y2]]);
+      // Symbolerna står som offset från symbolens centrum per bas (V4).
+      const [scx, scy] = S.symbolCentrum[cell.base];
+      const linjer = (l) => l.map(([x1, y1, x2, y2]) => kapsel([scx + x1, scy + y1], [scx + x2, scy + y2], sw));
+      const ändar = (l) => l.flatMap(([x1, y1, x2, y2]) => [[scx + x1, scy + y1], [scx + x2, scy + y2]]);
       if (cell.symbol === 'plus') ut.push(el('symbol', linjer(S.plus), { inuti: 'bas', andpunkter: ändar(S.plus) }));
       if (cell.symbol === 'minus') ut.push(el('symbol', linjer(S.minus), { inuti: 'bas', andpunkter: ändar(S.minus) }));
       if (cell.symbol === 'cross') ut.push(el('symbol', linjer(S.kryss), { inuti: 'bas', andpunkter: ändar(S.kryss) }));
-      if (cell.symbol === 'dot') ut.push(el('symbol', [skiva(C, S.prickR)], { inuti: 'bas' }));
-      if (cell.symbol === 'ring') ut.push(el('symbol', [cirkel(C, S.ringR, swT)], { inuti: 'bas' }));
+      if (cell.symbol === 'dot') ut.push(el('symbol', [skiva([scx, scy], S.prickR)], { inuti: 'bas', centrum: [scx, scy] }));
+      if (cell.symbol === 'ring') ut.push(el('symbol', [cirkel([scx, scy], S.ringR, sw)], { inuti: 'bas', centrum: [scx, scy] }));
       return ut;
     }
     case 'lattice': {
       const L = G.lattice;
-      const a = L.start - swT, b = L.start + 2 * L.ruta + L.gap + swT;
+      const a = L.start - G.kontur.ram / 2, b = L.start + 2 * L.ruta + L.gap + G.kontur.ram / 2;
       return [el('rutnät', [låda(a, a, b, b)])];
     }
     case 'tile': {
       const T = G.tile;
-      const a = T.start - swT, b = T.start + 3 * T.ruta + 2 * T.gap + swT;
+      const a = T.start - G.kontur.ram / 2, b = T.start + 3 * T.ruta + 2 * T.gap + G.kontur.ram / 2;
       return [el('rutnät', [låda(a, a, b, b)])];
     }
     case 'sectorwheel':
@@ -532,12 +560,12 @@ function g5() {
     ['figuren i rutnätet', 100 * s.rutnat, k.minFigurRutnatPx],
     ['figuren i alternativen', 100 * s.alternativ, k.minFigurAlternativPx],
     ['kontur', G.kontur.sw * s.rutnat, k.minKonturPx],
+    ['tunn kontur och ram', Math.min(G.kontur.swThin, G.kontur.ram, G.orbital.banaSw, G.ring.skiljelinje) * s.rutnat, k.minKonturPx],
     ['minsta fria avstånd (G1)', G.regler.minGap * s.rutnat, k.minAvstandPx],
     ['minsta prick (diameter)', 2 * Math.min(...prickar) * s.rutnat, k.minPrickPx],
     ['kort mot lång pil', langd * s.rutnat, k.minLangdskillnadPx],
   ];
-  const upplysning = [`tunn kontur ${G.kontur.swThin} enheter = ${fmt(G.kontur.swThin * s.rutnat)} px (rutnätens ramar, sektorlinjer, ringkonturer); gränsfall som granskningen godkände för ringarna, under ${k.minKonturPx} px`];
-  return { rader: rader.map(([n, px, min]) => ({ n, px, min, ok: px >= min - EPS })), upplysning };
+  return { rader: rader.map(([n, px, min]) => ({ n, px, min, ok: px >= min - EPS })), upplysning: [] };
 }
 
 function g10() {
@@ -546,13 +574,14 @@ function g10() {
     ['kontur', F.stroke, F.bakgrund, K.information],
     ['svart fyllning', F.fillBlack, F.bakgrund, K.information],
     ['vit symbol på svart', F.vit, F.fillBlack, K.information],
-    ['orbitalens bana (referensram)', F.orbitalBana, F.bakgrund, K.referensram],
+    ['ram-grått (referensram)', F.ram, F.bakgrund, K.referensram],
   ];
-  // Orbitalens bana mappas inte av .matrisyta och står därför i samma färg
-  // på mörkt papper. Kontrollera den mot varje papper i globals.css.
-  const css = readFileSync(GLOBALS_CSS, 'utf8');
-  const papper = [...new Set([...css.matchAll(/--papper:\s*(#[0-9A-Fa-f]{6})/g)].map((m) => m[1].toUpperCase()))];
-  for (const p of papper) rader.push([`orbitalens bana på papper ${p}`, F.orbitalBana, p, K.referensram]);
+  // Ram-grått mappas av .matrisyta till --m-ram = --ink-3 (grafik v3). Räkna
+  // det som ink-3 mot papper i varje rum och läge, inte som #64748B.
+  for (const t of TEMAN) {
+    const [ink3, papper] = [t.varde('ink-3'), t.varde('papper')];
+    if (/^#[0-9a-f]{6}$/i.test(ink3) && /^#[0-9a-f]{6}$/i.test(papper)) rader.push([`ram-grått ${t.rum} ${t.lage}`, ink3, papper, K.referensram]);
+  }
   return rader.map(([n, a, b, min]) => ({ n, kvot: kontrast(a, b), min, ok: kontrast(a, b) >= min }));
 }
 
@@ -586,6 +615,113 @@ export function geometriFraga(q, { expert = false, strikt = true } = {}) {
   return fel;
 }
 
+// ---------------------------------------------------------------- V1 till V12 (grafik v3)
+const TEMAN = teman(GLOBALS_CSS);
+const [YT_MIN, YT_MAX] = G.regler.yttermatt;
+
+/** Nominellt yttermått (utan kontur) per primitiv i grundläge, längsta axeln (V1). */
+function yttermatt(cell) {
+  const bb = (pts) => {
+    const xs = pts.map((p) => p[0]), ys = pts.map((p) => p[1]);
+    return Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+  };
+  switch (cell.kind) {
+    case 'stack': {
+      const S = G.stack;
+      return { circle: 2 * S.cirkelR, square: S.kvadrat.bredd, triangle: bb(S.triangel), diamond: bb(S.romb) }[cell.base];
+    }
+    case 'poly': return bb(Array.from({ length: cell.sides }, (_, i) => pa((i * 8) / cell.sides, G.poly.radie)));
+    case 'ray': return 2 * G.ray.langd;
+    case 'ring': return 2 * G.ring.radier[String(Math.min(Math.max(cell.rings.length, 1), 3))][0];
+    case 'orbital': return 2 * (G.orbital.banaR + G.orbital.satellitR);
+    case 'tile': return 3 * G.tile.ruta + 2 * G.tile.gap;
+    case 'lattice': return 2 * G.lattice.ruta + G.lattice.gap;
+    case 'sectorwheel': return 2 * G.sectorwheel.radie;
+    // undantag (regler.yttermattUndantag): mäts på längsta axeln
+    case 'vector': return G.vector.lang.svans - G.vector.lang.spets;
+    case 'tally': return G.tally.langd;
+    case 'balanceline': return G.balanceline.linjeX[1] - G.balanceline.linjeX[0];
+    default: return null;
+  }
+}
+/** Gränser per primitiv: fönstret, eller undantagets egna. */
+function yttermattGrans(kind) {
+  if (kind === 'vector') return [52, YT_MAX];
+  if (kind === 'tally') return [48, YT_MAX];
+  if (kind === 'balanceline') return [YT_MIN, RAM_MAX - RAM_MIN];
+  return [YT_MIN, YT_MAX];
+}
+
+function v1(primitiver) {
+  const fel = [], rader = new Map();
+  for (const c of primitiver) {
+    const m = yttermatt(c);
+    if (m === null) continue;
+    const nyckel = c.kind === 'stack' ? `stack ${c.base}` : c.kind === 'poly' ? `poly ${c.sides}` : c.kind === 'ring' ? `ring ${c.rings.length}` : c.kind;
+    if (rader.has(nyckel)) continue;
+    rader.set(nyckel, m);
+    const [lo, hi] = yttermattGrans(c.kind);
+    if (m < lo - 0.05 || m > hi + 0.05) fel.push(`${nyckel} har yttermåttet ${fmt(m)}, ska ligga i [${lo}, ${hi}]`);
+  }
+  return { fel, rader };
+}
+
+function v2() {
+  const linjer = { 'kontur.sw': G.kontur.sw, 'kontur.swThin': G.kontur.swThin, 'kontur.ram': G.kontur.ram, 'ring.skiljelinje': G.ring.skiljelinje, 'orbital.banaSw': G.orbital.banaSw, 'lattice.symbolSw': G.lattice.symbolSw };
+  const fel = Object.entries(linjer).filter(([, v]) => v < 2.5 - EPS).map(([n, v]) => `${n} är ${fmt(v)}, minst 2,5`);
+  if (G.lucka.sw < 2 - EPS) fel.push(`lucka.sw är ${fmt(G.lucka.sw)}, minst 2`);
+  return fel;
+}
+
+function v4() {
+  const S = G.stack, fel = [];
+  const tp = S.triangel.reduce((a, p) => [a[0] + p[0] / 3, a[1] + p[1] / 3], [0, 0]);
+  const mitt = { circle: C, square: [S.kvadrat.x + S.kvadrat.bredd / 2, S.kvadrat.y + S.kvadrat.bredd / 2], triangle: tp, diamond: C };
+  for (const bas of ['circle', 'square', 'triangle', 'diamond']) {
+    const c = S.symbolCentrum?.[bas];
+    if (!c) { fel.push(`symbolCentrum saknas för ${bas}`); continue; }
+    if (dist(c, mitt[bas]) > 0.5) fel.push(`symbolens centrum i ${bas} är (${c.join(', ')}), tyngdpunkten (${mitt[bas].map(fmt).join(', ')})`);
+  }
+  // offset, inte absoluta koordinater
+  for (const n of ['plus', 'minus', 'kryss']) for (const l of S[n]) if (l.some((x) => Math.abs(x) > 20)) fel.push(`${n} står i absoluta koordinater, ska vara offset`);
+  return fel;
+}
+
+function v7() {
+  const steg = G.orbital.banaStreck.split(/[ ,]+/).map(Number).reduce((a, b) => a + b, 0);
+  const n = (2 * Math.PI * G.orbital.banaR) / steg;
+  return { n, ok: Math.abs(n - 36) <= 0.05 && G.orbital.banaLinecap === 'round' };
+}
+
+function v8() {
+  const rader = [], fel = [];
+  const par = [['ink-1', 'papper', 4.5], ['ink-1', 'papper-2', 4.5], ['ink-3', 'papper', 4.5], ['ink-3', 'papper-2', 4.5], ['koppar-ink', 'papper', 4.5], ['koppar-ink', 'papper-2', 4.5], ['koppar', 'papper', 3]];
+  for (const t of TEMAN) for (const [a, b, min] of par) {
+    const [fa, fb] = [t.varde(a), t.varde(b)];
+    if (!/^#[0-9a-f]{6}$/i.test(fa) || !/^#[0-9a-f]{6}$/i.test(fb)) { fel.push(`${t.rum} ${t.lage}: ${a} eller ${b} är ingen hexfärg`); continue; }
+    const k = kontrast(fa, fb);
+    rader.push(k);
+    if (k < min - 1e-6) fel.push(`${t.rum} ${t.lage}: ${a} på ${b} ${fmt(k)}:1, minst ${min}`);
+  }
+  return { fel, min: Math.min(...rader), antal: rader.length };
+}
+
+function v9() {
+  const s = G.skala360;
+  const fel = [];
+  if (Math.abs(s.rutnat - s.alternativ) > EPS) fel.push(`skala360: rutnät ${s.rutnat} och alternativ ${s.alternativ} ska vara lika`);
+  if (100 * s.alternativ < 80 - EPS) fel.push(`figuren ${fmt(100 * s.alternativ)} px, minst 80`);
+  if (G.skala1280 && Math.abs(G.skala1280.rutnat - G.skala1280.alternativ) > EPS) fel.push('skala1280: rutnät och alternativ ska vara lika');
+  return fel;
+}
+
+/** V5, V6, V10, V11, V12 på renderarens utdata (tsx i en egen process). */
+function renderMatt(filer) {
+  const tsx = fileURLToPath(new URL('../node_modules/tsx/dist/cli.mjs', import.meta.url));
+  const skript = fileURLToPath(new URL('./lib/matris/svg-matt.tsx', import.meta.url));
+  return JSON.parse(execFileSync(process.execPath, [tsx, skript, ...filer], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 }));
+}
+
 // ---------------------------------------------------------------- körning
 // Bara när skriptet körs direkt; generatorn importerar geometriFraga.
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main();
@@ -599,6 +735,7 @@ const kanda = [];
 const pensioneradeFynd = [];
 const räkna = { fragor: 0, pensionerade: 0, celler: 0, g1: 0, g2: 0, g3: 0, g4: 0, g6: 0, g6fragor: 0, g6min: Infinity, g7: 0, g7fragor: 0, g7kanda: 0, g8: 0, g8steg: 0, g8fragor: 0, g9: 0, g11: 0, g11alt: 0, g11fragor: 0, g12: 0 };
 const g6Grans = [];
+const valbaraPrimitiver = [];
 const kandaKvar = { g7: new Set(), g11: new Set() };
 
 for (const fil of filer) {
@@ -623,6 +760,7 @@ for (const fil of filer) {
     // G1, G2, G4 på varje visad cell
     for (const c of alla) {
       räkna.celler++;
+      if (!pensionerad) valbaraPrimitiver.push(c);
       const k = kontrolleraCell(c);
       if (k.okand) { fel.push(`${tag} okänd celltyp ${c.kind}, saknar geometri`); continue; }
       for (const g of ['g1', 'g2', 'g4']) k[g].forEach((x) => fynd(g.toUpperCase(), x));
@@ -677,9 +815,35 @@ for (const c of lagen) {
 const kombinationer = allaKombinationer();
 const kombinationsFynd = [];
 for (const c of kombinationer) {
+  // Glyfer finns i ingen bank och får inte väljas (regel 4); de prövas inte.
+  if (c.kind === 'glyph') continue;
   const k = kontrolleraCell(c);
   [...k.g1, ...k.g2, ...k.g4].forEach((x) => kombinationsFynd.push(`${x} (${stable(c)})`));
 }
+kombinationsFynd.forEach((x) => fel.push(`[kombinationer] V3: ${x}`));
+
+// V1 till V12
+const r1 = v1([...valbaraPrimitiver, ...kombinationer.filter((c) => c.kind !== 'glyph')]);
+const r2 = v2();
+const r4 = v4();
+const r7v = v7();
+const r8 = v8();
+const r9 = v9();
+const rm = renderMatt(filer);
+const bankMatt = Object.values(rm.banker);
+const v11 = { noder: Math.max(...bankMatt.map((b) => b.noder.max)), bytes: Math.max(...bankMatt.map((b) => b.bytes.max)), minNoder: Math.min(...bankMatt.map((b) => b.noder.min)), minBytes: Math.min(...bankMatt.map((b) => b.bytes.min)), over: bankMatt.flatMap((b) => b.over), fragor: bankMatt.reduce((a, b) => a + b.fragor, 0) };
+const v12 = bankMatt.flatMap((b) => b.forbjudna);
+r1.fel.forEach((x) => fel.push(`[primitiver] V1: ${x}`));
+r2.forEach((x) => fel.push(`[konstanter] V2: ${x}`));
+r4.forEach((x) => fel.push(`[konstanter] V4: ${x}`));
+rm.v5.forEach((x) => fel.push(`[renderare] V5: ${x}`));
+rm.v6.forEach((x) => fel.push(`[renderare] V6: ${x}`));
+if (!r7v.ok) fel.push(`[konstanter] V7: orbitalens bana ger ${fmt(r7v.n)} prickar, ska vara 36 ± 0,05 med runda ändar`);
+r8.fel.forEach((x) => fel.push(`[globals.css] V8: ${x}`));
+r9.forEach((x) => fel.push(`[konstanter] V9: ${x}`));
+rm.v10.forEach((x) => fel.push(`[renderare] V10: ${x}`));
+v11.over.forEach((x) => fel.push(`[renderare] V11: ${x} över ${rm.gransNoder} noder eller ${rm.gransBytes} B`));
+v12.forEach((x) => fel.push(`[renderare] V12: ${x}`));
 
 const r5 = g5();
 const r10 = g10();
@@ -703,13 +867,22 @@ console.log(`  · G9  figurserier: ej tillämplig, ${räkna.g9} figurserier i ba
 console.log(`  ${ok(r10.filter((x) => !x.ok).length)} G10 kontrast: ${r10.map((x) => `${x.n} ${fmt(x.kvot)}:1 (≥ ${x.min})`).join('; ')}`);
 console.log(`  ${ok(räkna.g11)} G11 tomma figurer: ${räkna.g11alt} tomma alternativ i ${räkna.g11fragor} frågor, ${kandaKvar.g11.size} kända på expert, ${räkna.g11} fel`);
 console.log(`  ${ok(räkna.g12)} G12 lagerceller: ${räkna.g12} fel`);
+console.log(`\nGrafik v3:`);
+console.log(`  ${ok(r1.fel.length)} V1  yttermått i [${YT_MIN}, ${YT_MAX}]: ${[...r1.rader].map(([n, m]) => `${n} ${fmt(m)}`).join(', ')}`);
+console.log(`  ${ok(r2.length)} V2  ingen linje under 2,5 (kontur ${G.kontur.sw}, tunn ${G.kontur.swThin}, ram ${G.kontur.ram}, bana ${G.orbital.banaSw}, skiljelinje ${G.ring.skiljelinje}; luckan ${G.lucka.sw}): ${r2.length} fel`);
+console.log(`  ${ok(kombinationsFynd.length)} V3  ${kombinationer.filter((c) => c.kind !== 'glyph').length} kombinationer av grundform och symbol, antal ringar: ${kombinationsFynd.length} fel`);
+console.log(`  ${ok(r4.length)} V4  symbolens centrum per bas (triangel ${G.stack.symbolCentrum.triangle.join(', ')}): ${r4.length} fel`);
+console.log(`  ${ok(rm.v5.length)} V5  ram-grått bara på referens: ${rm.v5.length} fel`);
+console.log(`  ${ok(rm.v6.length)} V6  tom och fylld ruta samma målade yta: ${rm.v6.length} fel`);
+console.log(`  ${ok(r7v.ok ? 0 : 1)} V7  orbitalens prickar: ${fmt(r7v.n)} (36 ± 0,05)`);
+console.log(`  ${ok(r8.fel.length)} V8  kontrast i ${TEMAN.length} rum och lägen, ${r8.antal} par: lägst ${fmt(r8.min)}:1, ${r8.fel.length} fel`);
+console.log(`  ${ok(r9.length)} V9  en skala: ${G.skala360.rutnat} i rutnät och alternativ, figuren ${fmt(100 * G.skala360.rutnat)} px på 360: ${r9.length} fel`);
+console.log(`  ${ok(rm.v10.length)} V10 luckan utan text: ${rm.v10.length} fel`);
+console.log(`  ${ok(v11.over.length)} V11 ${v11.fragor} valbara frågor: ${v11.minNoder} till ${v11.noder} noder (≤ ${rm.gransNoder}), ${fmt(v11.minBytes / 1024)} till ${fmt(v11.bytes / 1024)} kB (≤ ${rm.gransBytes / 1024}): ${v11.over.length} fel`);
+console.log(`  ${ok(v12.length)} V12 förbjudna svg-element: ${v12.length} fel`);
 if (kanda.length) {
   console.log(`\nKända brott, byts i generatorn och inte för hand (${kanda.length}):`);
   kanda.forEach((x) => console.log('  · ' + x));
-}
-if (kombinationsFynd.length) {
-  console.log(`\nUpplysning till generatorn, kombinationer som ingen fråga använder i dag och som inte får väljas (${kombinationsFynd.length}):`);
-  kombinationsFynd.forEach((x) => console.log('  · ' + x));
 }
 if (pensioneradeFynd.length) {
   console.log(`\nUpplysning om pensionerade frågor, räknas inte som fel (${pensioneradeFynd.length}):`);

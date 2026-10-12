@@ -12,7 +12,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useFriSikt } from '@/components/shared/useFriSikt'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
-import { SvgLayeredCell } from '@/lib/logicTestV7/layered.v7'
+import { FigurV7, LuckaV7 } from '@/lib/logicTestV7/layered.v7'
 import type { LayeredCell } from '@/lib/logicTestV7/layered.v7'
 import { capture } from '@/lib/analytics/events'
 import { storePendingTestSession } from '@/lib/letters/claim-draft-client'
@@ -193,13 +193,7 @@ export default function ProvaFlow() {
                     : 'border-dashed border-neutral-300 bg-neutral-50'
                 }`}
               >
-                {cell ? (
-                  <svg viewBox="0 0 100 100" className="h-full w-full p-1">
-                    <SvgLayeredCell cell={cell} />
-                  </svg>
-                ) : (
-                  <span className="text-lg font-semibold text-neutral-400">?</span>
-                )}
+                {cell ? <FigurV7 cell={cell} /> : <LuckaV7 />}
               </div>
             ))}
           </div>
@@ -215,9 +209,7 @@ export default function ProvaFlow() {
                 aria-label={`Svarsalternativ ${String.fromCharCode(65 + i)}`}
                 className="flex aspect-square w-full items-center justify-center overflow-hidden rounded-lg border border-neutral-200 bg-white transition-colors hover:border-orange-400 disabled:opacity-60"
               >
-                <svg viewBox="0 0 100 100" className="h-full w-full p-1">
-                  <SvgLayeredCell cell={option} />
-                </svg>
+                <FigurV7 cell={option} />
               </button>
             ))}
           </div>

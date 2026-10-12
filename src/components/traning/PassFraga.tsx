@@ -3,21 +3,22 @@
 /**
  * En fråga i passet (spec-rummen 4.4 PassFraga, konceptets P1 till P3).
  *
- * Matrisen står i ett papperskort med lyft, cellerna avdelade med hårlinjer.
- * Den tomma rutan är en streckad kopparram med samma höjd-mekanism som de
- * fyllda (en svg med w-full h-full, reference_matrix_test_system: ?-cellens
- * höjdfälla). Efter svaret ritas rätt figur i den tomma rutan i koppar.
+ * Grafik v3 (docs/design/tester-v2-2026-10-11/grafik-v3-spec.md):
+ * matrisen står i ett papperskort med lyft, cellerna avdelade med hårlinjer.
+ * Figuren fyller 80 procent av rutan, i matrisen och i alternativen (en
+ * skala). Luckan är en insjunken ruta med streckad ram och ett ritat
+ * frågetecken i ram-grått, samma svg-i-full-storlek som de fyllda rutorna
+ * (höjdfällan i reference_matrix_test_system). Aldrig koppar före svaret.
+ * Efter svaret ritas rätt figur i luckan i koppar-bläck (.ratt-fylld).
  *
- * Sex alternativ i tre kolumner, kvadratiska, bokstaven uppe till vänster.
- * Svaret väljs med ett tryck. Efter svaret står alla sex kvar: det valda i
- * bläck, det rätta i koppar med en kopparpunkt, de andra nedtonade (0,38).
- * Aldrig rött, aldrig dolda, aldrig omsorterade.
- *
- * Figurerna ritas av V7-renderarna inne i .matrisyta, som byter deras fasta
- * färger mot bläck och papper (mörkt läge) och koppar (rätt svar).
+ * Sex alternativ i tre kolumner, kvadratiska, bokstaven uppe till vänster
+ * och alltid kvar. Svaret väljs med ett tryck. Efter svaret står alla sex
+ * kvar: det valda i bläck, det rätta i koppar med en kopparpunkt, valt och
+ * rätt med en yttre ring, de andra nedtonade (0,38). Aldrig rött, aldrig
+ * dolda, aldrig omsorterade.
  */
 
-import { SvgLayeredCell, type LayeredCell, type VisadFraga } from '@/lib/logicTestV7/layered.v7'
+import { FigurV7, LuckaV7, type LayeredCell, type VisadFraga } from '@/lib/logicTestV7/layered.v7'
 import { PASS_COPY } from '@/lib/traning/pass-copy'
 
 export interface PassFragaProps {
@@ -33,14 +34,6 @@ export interface PassFragaProps {
   visaText?: boolean
 }
 
-function Figur({ cell, className }: { cell: LayeredCell; className?: string }) {
-  return (
-    <svg viewBox="0 0 100 100" className={`h-full w-full ${className ?? ''}`} shapeRendering="geometricPrecision" aria-hidden="true">
-      <SvgLayeredCell cell={cell} />
-    </svg>
-  )
-}
-
 export function Matris({ grid, ratt }: { grid: VisadFraga['grid']; ratt: LayeredCell | null }) {
   const kolumner = grid[0]?.length ?? 3
   return (
@@ -52,18 +45,15 @@ export function Matris({ grid, ratt }: { grid: VisadFraga['grid']; ratt: Layered
         style={{ gridTemplateColumns: `repeat(${kolumner}, minmax(0, 1fr))` }}
       >
         {grid.flat().map((cell, i) => (
-          <div key={i} className="flex aspect-square items-center justify-center bg-papper">
+          <div key={i} className={`flex aspect-square items-center justify-center ${cell || ratt ? 'bg-papper' : 'bg-papper-2'}`} data-lucka={cell ? undefined : ratt ? 'fylld' : 'tom'}>
             {cell ? (
-              <Figur cell={cell} className="p-[14%]" />
+              <FigurV7 cell={cell} />
             ) : ratt ? (
               <span className="ratt-fylld flex h-full w-full">
-                <Figur cell={ratt} className="p-[14%]" />
+                <FigurV7 cell={ratt} />
               </span>
             ) : (
-              // Samma höjd-mekanism som de fyllda cellerna: en svg i full storlek.
-              <svg viewBox="0 0 100 100" className="h-full w-full" aria-hidden="true">
-                <rect x="16" y="16" width="68" height="68" rx="8" fill="none" stroke="var(--koppar)" strokeWidth="1.5" strokeDasharray="4 3" />
-              </svg>
+              <LuckaV7 />
             )}
           </div>
         ))}
@@ -85,10 +75,13 @@ export default function PassFraga({ fraga, vald, ratt, last, onValj, visaText = 
           const arRatt = avslojad && ratt === i
           const dim = avslojad && !arVald && !arRatt
           const kant = arRatt
-            ? 'border-koppar shadow-[inset_0_0_0_1px_var(--koppar)]'
+            ? arVald
+              ? 'border-koppar shadow-[inset_0_0_0_1px_var(--koppar),0_0_0_3px_var(--koppar-mjuk)]'
+              : 'border-koppar shadow-[inset_0_0_0_1px_var(--koppar)]'
             : arVald
               ? 'border-ink-1 shadow-[inset_0_0_0_1px_var(--ink-1)]'
               : 'border-kant'
+          const bokstavFarg = arRatt ? 'text-koppar-ink' : arVald ? 'text-ink-1' : 'text-ink-3'
           const tillagg = arVald && arRatt ? `, ${PASS_COPY.fraga.vald}, ${PASS_COPY.fraga.ratt}` : arVald ? `, ${PASS_COPY.fraga.vald}` : arRatt ? `, ${PASS_COPY.fraga.ratt}` : ''
           return (
             <button
@@ -99,17 +92,17 @@ export default function PassFraga({ fraga, vald, ratt, last, onValj, visaText = 
               aria-label={`${PASS_COPY.fraga.alternativAria(bokstav)}${tillagg}`}
               disabled={last}
               onClick={() => onValj?.(i)}
-              className={`relative aspect-square min-h-[80px] touch-manipulation rounded-xl border bg-papper transition-[border-color,opacity] duration-150 motion-reduce:transition-none ${kant} ${
+              className={`relative aspect-square min-h-[80px] touch-manipulation rounded-xl border bg-papper transition-[border-color,opacity] duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-koppar motion-reduce:transition-none ${kant} ${
                 dim ? 'opacity-[.38]' : ''
               } ${last ? 'cursor-default' : 'active:bg-papper-2'}`}
             >
-              <span className="absolute left-2 top-1.5 z-10 text-[11px] font-semibold text-ink-3" aria-hidden="true">
+              <span className={`absolute left-2 top-1.5 z-10 text-[11px] font-semibold ${bokstavFarg}`} aria-hidden="true">
                 {bokstav}
               </span>
               {arRatt ? <span className="absolute right-2 top-2 z-10 h-2.5 w-2.5 rounded-full bg-koppar" aria-hidden="true" /> : null}
-              {/* Samma struktur som AnswerOptionsV7: en div i full storlek med svg:n, så att kvadraten bär höjden. */}
-              <div className="flex h-full w-full items-center justify-center p-[19%]">
-                <Figur cell={opt} />
+              {/* En div i full storlek med svg:n, så att kvadraten bär höjden. Figuren i 80 procent, som i matrisen. */}
+              <div className="flex h-full w-full items-center justify-center">
+                <FigurV7 cell={opt} />
               </div>
             </button>
           )

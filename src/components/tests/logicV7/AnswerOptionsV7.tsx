@@ -2,7 +2,7 @@
 
 import { cn } from '@/lib/utils';
 import type { LayeredCell } from '@/lib/logicTestV7/layered.v7';
-import { SvgLayeredCell } from '@/lib/logicTestV7/layered.v7';
+import { FigurV7 } from '@/lib/logicTestV7/layered.v7';
 
 interface Props {
   options: LayeredCell[];
@@ -12,8 +12,11 @@ interface Props {
 }
 
 /**
- * Svarsalternativen i matristestet: valbara kort. Valt kort får kant i ink
- * och en fylld bock uppe till vänster. Tråden markerar aldrig val.
+ * Svarsalternativen i logikens klassiska test och övningsprov, i passets
+ * struktur (grafik v3, spec avsnitt 6): sex kvadratiska kort, tre i bredd
+ * även på mobil, figuren i 80 procent, samma skala som i matrisen. Bokstaven
+ * står alltid kvar uppe till vänster, så att "jag valde C" går att säga.
+ * Valt kort får 2 px bläck (ram plus inre linje); ingen bock.
  */
 export function AnswerOptionsV7({
   options,
@@ -22,7 +25,11 @@ export function AnswerOptionsV7({
   disabled = false,
 }: Props) {
   return (
-    <div className="matrisyta mx-auto grid max-w-md grid-cols-2 gap-3 sm:max-w-lg sm:grid-cols-3 sm:gap-4">
+    <div
+      role="radiogroup"
+      aria-label="Svarsalternativ"
+      className="matrisyta mx-auto grid w-full max-w-[420px] grid-cols-3 gap-2.5"
+    >
       {options.map((option, i) => {
         const letter = String.fromCharCode(65 + i);
         const isSelected = selectedIndex === i;
@@ -31,40 +38,30 @@ export function AnswerOptionsV7({
           <button
             key={i}
             type="button"
+            role="radio"
+            aria-checked={isSelected}
             onClick={() => !disabled && onSelect(i)}
             disabled={disabled}
             className={cn(
-              'relative aspect-square min-h-[80px] touch-manipulation rounded-xl border bg-panel transition-[border-color,background-color] duration-[120ms] active:bg-insunken',
-              disabled && 'cursor-not-allowed opacity-60',
-              isSelected ? 'border-ink-1 shadow-val' : 'border-kant hover:border-kant-stark'
+              'relative aspect-square min-h-[80px] touch-manipulation rounded-xl border bg-papper transition-[border-color] duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-koppar motion-reduce:transition-none',
+              disabled ? 'cursor-default' : 'active:bg-papper-2',
+              isSelected ? 'border-ink-1 shadow-[inset_0_0_0_1px_var(--ink-1)]' : 'border-kant hover:border-kant-stark'
             )}
-            aria-label={`Svarsalternativ ${letter}`}
-            aria-pressed={isSelected}
+            aria-label={`Svarsalternativ ${letter}${isSelected ? ', ditt svar' : ''}`}
           >
             <span
               className={cn(
-                'absolute left-2 top-2 z-10 flex h-6 w-6 items-center justify-center rounded-full text-xs font-medium',
-                isSelected ? 'bg-ink-1 text-papper' : 'border border-kant bg-panel text-ink-3'
+                'absolute left-2 top-1.5 z-10 text-[11px] font-semibold',
+                isSelected ? 'text-ink-1' : 'text-ink-3'
               )}
               aria-hidden="true"
             >
-              {isSelected ? (
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12.5l4.5 4.5L19 7.5" />
-                </svg>
-              ) : (
-                letter
-              )}
+              {letter}
             </span>
 
-            <div className="flex h-full w-full items-center justify-center p-3 sm:p-3.5">
-              <svg
-                viewBox="0 0 100 100"
-                className="h-full w-full"
-                shapeRendering="geometricPrecision"
-              >
-                <SvgLayeredCell cell={option} />
-              </svg>
+            {/* En div i full storlek med svg:n, så att kvadraten bär höjden. */}
+            <div className="flex h-full w-full items-center justify-center">
+              <FigurV7 cell={option} />
             </div>
           </button>
         );

@@ -147,8 +147,8 @@ export const PASS_COPY = {
   fraga: {
     text: 'Vilken figur passar i den tomma rutan?',
     alternativ: 'Svarsalternativ',
-    alternativAria: (bokstav: string) => `Alternativ ${bokstav}`,
-    matrisAria: 'Rutnät tre gånger tre, nedre högra rutan saknas',
+    alternativAria: (bokstav: string) => `Svarsalternativ ${bokstav}`,
+    matrisAria: 'Matris med åtta figurer och en tom ruta nere till höger',
     matrisAriaRatt: 'Rutnätet med rätt figur i den tomma rutan',
     vald: 'ditt svar',
     ratt: 'rätt svar',

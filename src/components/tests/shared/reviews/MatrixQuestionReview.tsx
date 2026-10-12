@@ -11,7 +11,7 @@
 
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
-import { SvgLayeredCell } from '@/lib/logicTestV7/layered.v7'
+import { FigurV7 } from '@/lib/logicTestV7/layered.v7'
 import type { GenomgangsFraga, LayeredCell } from '@/lib/logicTestV7/layered.v7'
 import { visatForSvar } from '@/lib/logicTestV7/blanda'
 import { familjNamn } from '@/lib/logicTestV7/familjer'
@@ -268,16 +268,9 @@ function ReviewCell({
       <p className={`text-meta font-medium ${wrong ? 'text-ink-2' : 'text-positiv'}`}>
         {label}
       </p>
-      <div className="matrisyta mx-auto mt-2 aspect-square w-full max-w-[96px] rounded-lg border border-kant bg-panel p-2">
-        <svg
-          viewBox="0 0 100 100"
-          className="h-full w-full"
-          shapeRendering="geometricPrecision"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <SvgLayeredCell cell={cell} />
-        </svg>
+      {/* Figuren i 80 procent av rutan, som i testet (grafik v3). */}
+      <div className="matrisyta mx-auto mt-2 flex aspect-square w-full max-w-[96px] items-center justify-center rounded-lg border border-kant bg-panel">
+        <FigurV7 cell={cell} />
       </div>
     </div>
   )
