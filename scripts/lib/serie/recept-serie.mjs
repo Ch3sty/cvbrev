@@ -56,7 +56,7 @@ function cykelTva(r, L) {
 
 const PIL_KONST = (r) => ({ langd: konst(valj(r, ['long', 'short'])), spets: konst(valj(r, ['open', 'filled'])) });
 const KARNA_KONST = (r, k) =>
-  k === 'pil' ? { kvinkel: konst(r8(r)) } : k === 'form' ? { kform: konst(valj(r, ['circle', 'square', 'diamond'])), kfyll: konst(valj(r, ['none', 'black'])) } : { ksymbol: konst(valj(r, ['plus', 'minus', 'cross', 'dot', 'ring'])) };
+  k === 'pil' ? { kvinkel: konst(r8(r)) } : k === 'form' ? { kform: konst(valj(r, ['circle', 'square', 'diamond'])), kfyll: konst(valj(r, ['none', 'black'])) } : { ksymbol: konst(valj(r, ['plus', 'minus', 'cross', 'ring'])) };
 
 // =============================================================================
 // Mallarna
@@ -67,7 +67,7 @@ export const MALLAR = [
     varianter: [
       { namn: 'pil-steg', family: 'vridning', regler: (r) => ({ prim: 'pil', dims: { vinkel: steg(r8(r), valj(r, UDDA)), ...PIL_KONST(r) } }) },
       { namn: 'orbital-steg', family: 'vandring', regler: (r) => ({ prim: 'orbital', dims: { satellit: steg(r8(r), valj(r, UDDA)), mitt: konst(valj(r, ['filled', 'open'])) } }) },
-      { namn: 'stralar-steg', family: 'vridning', regler: (r) => ({ prim: 'stralar', dims: { start: steg(r8(r), valj(r, UDDA)), antal: konst(valj(r, [1, 2, 3])) } }) },
+      { namn: 'stralar-steg', family: 'vridning', regler: (r) => ({ prim: 'stralar', dims: { start: steg(r8(r), valj(r, UDDA)), antal: konst(valj(r, [2, 3, 4])) } }) },
       { namn: 'sektor-steg', family: 'vridning', regler: (r) => ({ prim: 'sektor', dims: { start: steg(r8(r), valj(r, UDDA)), antal: konst(valj(r, [1, 2, 3, 4])) } }) },
       { namn: 'block-steg', family: 'vandring', regler: (r) => ({ prim: 'block', dims: { start: steg(r8(r), valj(r, UDDA)), antal: konst(valj(r, [1, 2, 3])) } }) },
     ],
@@ -75,7 +75,7 @@ export const MALLAR = [
   {
     id: 'F2', namn: 'Antal', niva: 'grund', antal: 12, p_prior: 0.72, difficulty: 1,
     varianter: [
-      { namn: 'stralar-antal', family: 'antal', regler: (r) => ({ prim: 'stralar', dims: { start: konst(r8(r)), antal: antalSteg(r, 1, 7) } }) },
+      { namn: 'stralar-antal', family: 'antal', regler: (r) => ({ prim: 'stralar', dims: { start: konst(r8(r)), antal: antalSteg(r, 2, 7) } }) },
       { namn: 'sektor-antal', family: 'antal', regler: (r) => ({ prim: 'sektor', dims: { start: konst(r8(r)), antal: antalSteg(r, 1, 7) } }) },
       { namn: 'block-antal', family: 'antal', regler: (r) => ({ prim: 'block', dims: { start: konst(r8(r)), antal: antalSteg(r, 1, 7) } }) },
       // Månghörningen (3 till 8 hörn) och duons kantprickar (1 till 6) har
@@ -98,7 +98,7 @@ export const MALLAR = [
       { namn: 'pil-steg-langd', family: 'vridning', regler: (r) => ({ prim: 'pil', dims: { vinkel: steg(r8(r), valj(r, UDDA)), langd: cykelOlika(r, ['long', 'short'], 2), spets: konst(valj(r, ['open', 'filled'])) } }) },
       { namn: 'pil-steg-spets', family: 'vridning', regler: (r) => ({ prim: 'pil', dims: { vinkel: steg(r8(r), valj(r, UDDA)), langd: konst(valj(r, ['long', 'short'])), spets: cykelOlika(r, ['open', 'filled'], 2) } }) },
       { namn: 'orbital-steg-mitt', family: 'vandring', regler: (r) => ({ prim: 'orbital', dims: { satellit: steg(r8(r), valj(r, UDDA)), mitt: cykelOlika(r, ['filled', 'open'], 2) } }) },
-      { namn: 'stralar-kvart-antal', family: 'antal', regler: (r) => ({ prim: 'stralar', dims: { start: steg(r8(r), valj(r, KVART)), antal: antalSteg(r, 1, 7) } }) },
+      { namn: 'stralar-kvart-antal', family: 'antal', regler: (r) => ({ prim: 'stralar', dims: { start: steg(r8(r), valj(r, KVART)), antal: antalSteg(r, 2, 7) } }) },
       { namn: 'sektor-kvart-antal', family: 'antal', regler: (r) => ({ prim: 'sektor', dims: { start: steg(r8(r), valj(r, KVART)), antal: antalSteg(r, 1, 7) } }) },
       { namn: 'sektor-steg-antalcykel', family: 'antal', regler: (r) => ({ prim: 'sektor', dims: { start: steg(r8(r), valj(r, UDDA)), antal: cykelOlika(r, [1, 2, 3, 4], valj(r, [2, 3])) } }) },
       {
@@ -108,7 +108,7 @@ export const MALLAR = [
           return { prim: 'grundform', dims: { bas: cykelOlika(r, ['circle', 'square', 'triangle', 'diamond'], p[0]), symbol: konst(valj(r, ['plus', 'minus', 'dot', 'ring', 'cross'])), fyllning: cykelOlika(r, ['none', 'gray', 'black'], p[1]) } };
         },
       },
-      { namn: 'duo-kant-pil', family: 'flera', regler: (r) => ({ prim: 'duo-kant-pil', dims: { ylage: steg(r8(r), valj(r, UDDA)), yantal: konst(1), kvinkel: steg(r8(r), valj(r, KVART)) } }) },
+      { namn: 'duo-kant-pil', family: 'flera', regler: (r) => ({ prim: 'duo-kant-pil', dims: { ylage: steg(r8(r), valj(r, UDDA)), kvinkel: steg(r8(r), valj(r, KVART)) } }) },
       { namn: 'duo-orbital-form', family: 'flera', regler: (r) => ({ prim: 'duo-orbital-form', dims: { ylage: steg(r8(r), valj(r, UDDA)), kform: cykelOlika(r, ['circle', 'square', 'diamond'], 3), kfyll: konst(valj(r, ['none', 'black'])) } }) },
       { namn: 'pil-vaxande-spets', family: 'vaxande', regler: (r) => ({ prim: 'pil', dims: { vinkel: vaxande(r), langd: konst(valj(r, ['long', 'short'])), spets: cykelOlika(r, ['open', 'filled'], 2) } }) },
       { namn: 'orbital-vaxande-mitt', family: 'vaxande', regler: (r) => ({ prim: 'orbital', dims: { satellit: vaxande(r), mitt: cykelOlika(r, ['filled', 'open'], 2) } }) },
@@ -119,7 +119,7 @@ export const MALLAR = [
     varianter: [
       { namn: 'pil-vaxelvis', family: 'vaxelvis', regler: (r) => ({ prim: 'pil', dims: { vinkel: vaxelvis(r), ...PIL_KONST(r) } }) },
       { namn: 'orbital-vaxelvis', family: 'vaxelvis', regler: (r) => ({ prim: 'orbital', dims: { satellit: vaxelvis(r), mitt: konst(valj(r, ['filled', 'open'])) } }) },
-      { namn: 'duo-kant-pil-vaxelvis', family: 'vaxelvis', regler: (r) => ({ prim: 'duo-kant-pil', dims: { ylage: vaxelvis(r), yantal: konst(1), kvinkel: valj(r, [konst(r8(r)), steg(r8(r), valj(r, KVART))]) } }) },
+      { namn: 'duo-kant-pil-vaxelvis', family: 'vaxelvis', regler: (r) => ({ prim: 'duo-kant-pil', dims: { ylage: vaxelvis(r), kvinkel: valj(r, [konst(r8(r)), steg(r8(r), valj(r, KVART))]) } }) },
       { namn: 'sektor-vaxelvis', family: 'vaxelvis', regler: (r) => ({ prim: 'sektor', dims: { start: vaxelvis(r), antal: konst(valj(r, [2, 3])) } }) },
     ],
   },
@@ -135,10 +135,11 @@ export const MALLAR = [
         },
       },
       { namn: 'pil-vaxande-tre', family: 'vaxande', regler: (r) => ({ prim: 'pil', dims: { vinkel: vaxande(r), langd: cykelOlika(r, ['long', 'short'], 2), spets: cykelTva(r, ['open', 'filled']) } }) },
-      { namn: 'duo-kant-pil-tre', family: 'vandring', regler: (r) => ({ prim: 'duo-kant-pil', dims: { ylage: valj(r, [vaxande(r), vaxelvis(r)]), yantal: cykelOlika(r, [1, 2, 3], valj(r, [2, 3])), kvinkel: steg(r8(r), valj(r, KVART)) } }) },
+      // Granskning 01, avsnitt 4 punkt 2: duo kant + form ersätter duo kant +
+      // pil och duo kant + symbol (en kantprick, ingen antalsdimension).
+      { namn: 'duo-kant-form-tre', family: 'vandring', regler: (r) => ({ prim: 'duo-kant-form', dims: { ylage: valj(r, [vaxande(r), vaxelvis(r)]), kform: cykelOlika(r, ['circle', 'square', 'diamond'], 3), kfyll: cykelOlika(r, ['none', 'black'], 2) } }) },
       { namn: 'duo-orbital-form-tre', family: 'fyllning', regler: (r) => ({ prim: 'duo-orbital-form', dims: { ylage: valj(r, [vaxande(r), vaxelvis(r)]), kform: cykelOlika(r, ['circle', 'square', 'diamond'], 3), kfyll: cykelOlika(r, ['none', 'black'], 2) } }) },
-      { namn: 'duo-kant-symbol-tre', family: 'flera', regler: (r) => ({ prim: 'duo-kant-symbol', dims: { ylage: valj(r, [vaxande(r), vaxelvis(r)]), yantal: cykelOlika(r, [1, 2], 2), ksymbol: cykelOlika(r, ['plus', 'minus', 'cross', 'dot', 'ring'], 3) } }) },
-      { namn: 'duo-kant-antal-tre', family: 'antal', regler: (r) => ({ prim: 'duo-kant-pil', dims: { ylage: cykelOlika(r, [0, 1, 2, 3, 4, 5, 6, 7], 3), yantal: antalSteg(r, 1, 6), kvinkel: vaxelvis(r, [4, 1, 3, -1, -3]) } }) },
+      { namn: 'duo-orbital-form-flera', family: 'flera', regler: (r) => ({ prim: 'duo-orbital-form', dims: { ylage: valj(r, [vaxande(r), vaxelvis(r)]), kform: cykelOlika(r, ['circle', 'square', 'diamond'], 3), kfyll: cykelOlika(r, ['none', 'black'], 2) } }) },
     ],
   },
   {
@@ -147,7 +148,10 @@ export const MALLAR = [
       { namn: 'pil-vaxelvis-tretakt', family: 'vaxelvis', regler: (r) => { const [a, b] = valj(r, [['langd', 'spets'], ['spets', 'langd']]); const L = { langd: ['long', 'short'], spets: ['open', 'filled'] }; return { prim: 'pil', dims: { vinkel: vaxelvis(r), [a]: cykel(((x, y) => [x, y, y])(...blanda(r, L[a]))), [b]: konst(valj(r, L[b])) } }; } },
       { namn: 'orbital-vaxelvis-tretakt', family: 'vaxelvis', regler: (r) => ({ prim: 'orbital', dims: { satellit: vaxelvis(r), mitt: cykel(((x, y) => [x, y, y])(...blanda(r, ['filled', 'open']))) } }) },
       { namn: 'duo-orbital-form-tretakt', family: 'vaxelvis', regler: (r) => ({ prim: 'duo-orbital-form', dims: { ylage: vaxelvis(r), kform: cykelOlika(r, ['circle', 'square', 'diamond'], 3), kfyll: konst(valj(r, ['none', 'black'])) } }) },
-      { namn: 'duo-kant-symbol-tretakt', family: 'vaxelvis', regler: (r) => ({ prim: 'duo-kant-symbol', dims: { ylage: vaxelvis(r), yantal: konst(1), ksymbol: cykelOlika(r, ['plus', 'minus', 'cross', 'dot', 'ring'], 3) } }) },
+      { namn: 'duo-kant-symbol-tretakt', family: 'vaxelvis', regler: (r) => ({ prim: 'duo-kant-symbol', dims: { ylage: vaxelvis(r), ksymbol: cykelOlika(r, ['plus', 'minus', 'cross', 'ring'], 3) } }) },
+      // Antalet i tretakt (högst tre värden) mot sektorernas växelvisa start:
+      // antal-familjen på expert efter att duo-kant-antal strukits (granskning 01).
+      { namn: 'sektor-vaxelvis-antal', family: 'antal', regler: (r) => ({ prim: 'sektor', dims: { start: vaxelvis(r), antal: cykel(blanda(r, [1, 2, 3])) } }) },
     ],
   },
 ];

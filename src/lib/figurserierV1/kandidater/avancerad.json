@@ -321,7 +321,7 @@
   "fran_version": 1
  },
  {
-  "id": "fs-a-antal-01",
+  "id": "fs-a-antal-07",
   "niva": "avancerad",
   "family": "antal",
   "recept": "F4",
@@ -329,24 +329,18 @@
   "difficulty": 2,
   "p_prior": 0.55,
   "title": "Strecken, två regler",
-  "rule": "Strecken vrids 90 grader moturs i varje steg. Det sista strecket medurs försvinner i varje steg.",
+  "rule": "Strecken vrids 90 grader moturs i varje steg. Ett streck till kommer till medurs i varje steg.",
   "rad": [
    {
     "kind": "ray",
     "rays": [
      0,
-     1,
-     2,
-     3,
-     4,
      7
     ]
    },
    {
     "kind": "ray",
     "rays": [
-     0,
-     1,
      5,
      6,
      7
@@ -366,13 +360,19 @@
     "rays": [
      1,
      2,
-     3
+     3,
+     4,
+     5
     ]
    },
    {
     "kind": "ray",
     "rays": [
      0,
+     1,
+     2,
+     3,
+     4,
      7
     ]
    }
@@ -381,20 +381,17 @@
    {
     "kind": "ray",
     "rays": [
-     6,
+     0,
+     1,
+     2,
      7
     ]
    },
    {
     "kind": "ray",
     "rays": [
-     4,
-     5
-    ]
-   },
-   {
-    "kind": "ray",
-    "rays": [
+     0,
+     1,
      5,
      6,
      7
@@ -403,32 +400,55 @@
    {
     "kind": "ray",
     "rays": [
-     5
-    ]
-   },
-   {
-    "kind": "ray",
-    "rays": [
-     6
+     0,
+     1,
+     2,
+     3,
+     5,
+     6,
+     7
     ]
    },
    {
     "kind": "ray",
     "rays": [
      0,
+     5,
      6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     2,
+     3,
      7
     ]
    }
   ],
-  "correctAnswer": 3,
+  "correctAnswer": 2,
   "misstag": [
-   "Strecken står i fel vridning. Antalet streck har inte minskat sista steget.",
-   "Strecken står i fel vridning. Antalet streck har inte minskat sista steget.",
-   "Antalet streck ska vara ett, inte tre.",
+   "Strecken står kvar som i den femte figuren. Antalet streck ska vara sju, inte fyra.",
+   "Antalet streck ska vara sju, inte fem.",
    "",
-   "Strecken står i fel vridning.",
-   "Strecken står i fel vridning. Antalet streck ska vara ett, inte tre."
+   "Antalet streck ska vara sju, inte fyra.",
+   "Strecken har vridits ett steg för långt.",
+   "Strecken står kvar som i den femte figuren. Antalet streck ska vara sju, inte fem."
   ],
   "regler": {
    "prim": "stralar",
@@ -440,8 +460,8 @@
     },
     "antal": {
      "regel": "steg",
-     "s0": 6,
-     "k": -1
+     "s0": 2,
+     "k": 1
     }
    }
   },
@@ -508,26 +528,16 @@
    {
     "kind": "sectorwheel",
     "filled": [
-     0,
-     1,
-     4,
-     5,
-     6,
-     7
-    ]
-   },
-   {
-    "kind": "sectorwheel",
-    "filled": [
-     3
-    ]
-   },
-   {
-    "kind": "sectorwheel",
-    "filled": [
-     0,
+     2,
      3,
      4,
+     5
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     4,
      5,
      6,
      7
@@ -536,11 +546,7 @@
    {
     "kind": "sectorwheel",
     "filled": [
-     0,
-     1,
-     5,
-     6,
-     7
+     6
     ]
    },
    {
@@ -552,18 +558,28 @@
    {
     "kind": "sectorwheel",
     "filled": [
-     5
+     0,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     3,
+     4
     ]
    }
   ],
-  "correctAnswer": 4,
+  "correctAnswer": 3,
   "misstag": [
-   "Antalet svarta sektorer ska vara ett, inte sex.",
-   "De svarta sektorerna står i fel vridning.",
-   "De svarta sektorerna står i fel vridning. Antalet svarta sektorer ska vara ett, inte sex.",
-   "De svarta sektorerna står i fel vridning. Antalet svarta sektorer ska vara ett, inte fem.",
+   "De svarta sektorerna står kvar som i den femte figuren. Antalet svarta sektorer ska vara ett, inte fyra.",
+   "Antalet svarta sektorer ska vara ett, inte fyra.",
+   "De svarta sektorerna har vridits ett steg för långt.",
    "",
-   "De svarta sektorerna står i fel vridning."
+   "De svarta sektorerna har vridits ett steg för långt. Antalet svarta sektorer ska vara ett, inte tre.",
+   "De svarta sektorerna står kvar som i den femte figuren. Antalet svarta sektorer ska vara ett, inte tre."
   ],
   "regler": {
    "prim": "sektor",
@@ -711,7 +727,7 @@
   "difficulty": 2,
   "p_prior": 0.55,
   "title": "Grundformen, två regler",
-  "rule": "Grundformen följer ordningen triangel, cirkel, kvadrat, romb och börjar om. Grundformen följer ordningen svart, ofylld, grå och börjar om. Symbolen är minus i hela raden.",
+  "rule": "Grundformen följer ordningen triangel, cirkel, kvadrat, romb och börjar om. Fyllningen följer ordningen svart, ofylld, grå och börjar om. Symbolen är minus i hela raden.",
   "rad": [
    {
     "kind": "stack",
@@ -785,10 +801,10 @@
   "correctAnswer": 0,
   "misstag": [
    "",
-   "Symbolen ska vara minus, som i hela raden. Grundformen ska vara grå, inte svart.",
-   "Symbolen ska vara minus, som i hela raden. Grundformen ska vara grå, inte svart.",
+   "Symbolen ska vara minus, som i hela raden. Fyllningen ska vara grå, inte svart.",
+   "Symbolen ska vara minus, som i hela raden. Fyllningen ska vara grå, inte svart.",
    "Grundformen ska vara cirkel, inte romb.",
-   "Grundformen ska vara grå, inte svart.",
+   "Fyllningen ska vara grå, inte svart.",
    "Grundformen ska vara cirkel, inte romb. Symbolen ska vara minus, som i hela raden."
   ],
   "regler": {
@@ -828,7 +844,7 @@
   "difficulty": 2,
   "p_prior": 0.55,
   "title": "Pricken längs kanten, två regler",
-  "rule": "Pricken går ett steg medurs längs kanten i varje steg. Pilen i mitten vrids 90 grader moturs i varje steg. Antalet prickar är ett i hela raden.",
+  "rule": "Pricken går ett steg medurs längs kanten i varje steg. Pilen i mitten vrids 90 grader moturs i varje steg.",
   "rad": [
    {
     "kind": "duo",
@@ -891,8 +907,7 @@
     "kind": "duo",
     "ytter": {
      "typ": "kant",
-     "lage": 0,
-     "antal": 3
+     "lage": 6
     },
     "karna": {
      "typ": "pil",
@@ -903,12 +918,11 @@
     "kind": "duo",
     "ytter": {
      "typ": "kant",
-     "lage": 2,
-     "antal": 3
+     "lage": 5
     },
     "karna": {
      "typ": "pil",
-     "vinkel": 45
+     "vinkel": 225
     }
    },
    {
@@ -926,44 +940,44 @@
     "kind": "duo",
     "ytter": {
      "typ": "kant",
-     "lage": 2
-    },
-    "karna": {
-     "typ": "pil",
-     "vinkel": 135
-    }
-   },
-   {
-    "kind": "duo",
-    "ytter": {
-     "typ": "kant",
-     "lage": 2
-    },
-    "karna": {
-     "typ": "pil",
-     "vinkel": 45
-    }
-   },
-   {
-    "kind": "duo",
-    "ytter": {
-     "typ": "kant",
      "lage": 5
     },
     "karna": {
      "typ": "pil",
      "vinkel": 45
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
     }
    }
   ],
-  "correctAnswer": 5,
+  "correctAnswer": 3,
   "misstag": [
-   "Pricken står på fel plats. Antalet prickar ska vara ett, som i hela raden.",
-   "Pricken står på fel plats. Antalet prickar ska vara ett, som i hela raden.",
+   "Pricken har gått ett steg för långt.",
+   "Pilen i mitten vrids åt fel håll.",
    "Pilen i mitten står kvar som i den femte figuren.",
-   "Pricken står på fel plats. Pilen i mitten står kvar som i den femte figuren.",
-   "Pricken står på fel plats.",
-   ""
+   "",
+   "Pricken har gått ett steg för långt. Pilen i mitten vrids åt fel håll.",
+   "Pricken står på fel plats. Pilen i mitten står kvar som i den femte figuren."
   ],
   "regler": {
    "prim": "duo-kant-pil",
@@ -972,10 +986,6 @@
      "regel": "steg",
      "s0": 0,
      "k": 1
-    },
-    "yantal": {
-     "regel": "konstant",
-     "v": 1
     },
     "kvinkel": {
      "regel": "steg",
@@ -1763,34 +1773,6 @@
    {
     "kind": "ray",
     "rays": [
-     0,
-     1
-    ]
-   },
-   {
-    "kind": "ray",
-    "rays": [
-     1,
-     2
-    ]
-   },
-   {
-    "kind": "ray",
-    "rays": [
-     0
-    ]
-   },
-   {
-    "kind": "ray",
-    "rays": [
-     0,
-     7
-    ]
-   },
-   {
-    "kind": "ray",
-    "rays": [
-     1,
      2,
      3,
      4
@@ -1799,21 +1781,49 @@
    {
     "kind": "ray",
     "rays": [
+     2,
+     3
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     4,
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
      0,
      1,
-     2,
-     7
+     2
     ]
    }
   ],
-  "correctAnswer": 0,
+  "correctAnswer": 4,
   "misstag": [
+   "Strecken har vridits ett steg för långt. Antalet streck har inte minskat sista steget.",
+   "Strecken har vridits ett steg för långt.",
+   "Strecken vrids åt fel håll. Antalet streck har inte minskat sista steget.",
+   "Strecken vrids åt fel håll.",
    "",
-   "Strecken står i fel vridning.",
-   "Ett streck för lite.",
-   "Strecken står i fel vridning.",
-   "Strecken står i fel vridning. Antalet streck ska vara två, inte fyra.",
-   "Strecken står i fel vridning. Antalet streck ska vara två, inte fyra."
+   "Antalet streck har inte minskat sista steget."
   ],
   "regler": {
    "prim": "stralar",
@@ -1894,28 +1904,7 @@
     "kind": "sectorwheel",
     "filled": [
      4,
-     5,
-     6
-    ]
-   },
-   {
-    "kind": "sectorwheel",
-    "filled": [
-     3,
-     4,
-     5,
-     6,
-     7
-    ]
-   },
-   {
-    "kind": "sectorwheel",
-    "filled": [
-     0,
-     1,
-     2,
-     6,
-     7
+     5
     ]
    },
    {
@@ -1927,26 +1916,41 @@
    {
     "kind": "sectorwheel",
     "filled": [
-     3
+     2
     ]
    },
    {
     "kind": "sectorwheel",
     "filled": [
+     2,
      3,
-     4,
-     5
+     4
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     3
     ]
    }
   ],
-  "correctAnswer": 3,
+  "correctAnswer": 1,
   "misstag": [
-   "Antalet svarta sektorer ska vara ett, inte tre.",
-   "De svarta sektorerna står i fel vridning. Antalet svarta sektorer ska vara ett, inte fem.",
-   "De svarta sektorerna står kvar som i den femte figuren. Antalet svarta sektorer ska vara ett, inte fem.",
+   "Antalet svarta sektorer har inte minskat sista steget.",
    "",
-   "De svarta sektorerna står i fel vridning.",
-   "De svarta sektorerna står i fel vridning. Antalet svarta sektorer ska vara ett, inte tre."
+   "De svarta sektorerna har vridits ett steg för långt.",
+   "De svarta sektorerna har vridits ett steg för långt. Antalet svarta sektorer ska vara ett, inte tre.",
+   "De svarta sektorerna står kvar som i den femte figuren. Antalet svarta sektorer ska vara ett, inte tre.",
+   "De svarta sektorerna har vridits ett steg för långt. Antalet svarta sektorer har inte minskat sista steget."
   ],
   "regler": {
    "prim": "sektor",
@@ -2106,7 +2110,7 @@
   "difficulty": 2,
   "p_prior": 0.55,
   "title": "Grundformen, två regler",
-  "rule": "Grundformen följer ordningen cirkel, triangel, kvadrat, romb och börjar om. Grundformen följer ordningen ofylld, svart, grå och börjar om. Symbolen är plus i hela raden.",
+  "rule": "Grundformen följer ordningen cirkel, triangel, kvadrat, romb och börjar om. Fyllningen följer ordningen ofylld, svart, grå och börjar om. Symbolen är plus i hela raden.",
   "rad": [
    {
     "kind": "stack",
@@ -2179,10 +2183,10 @@
   ],
   "correctAnswer": 1,
   "misstag": [
-   "Grundformen ska vara triangel, inte romb. Grundformen ska vara grå, inte svart.",
+   "Grundformen ska vara triangel, inte romb. Fyllningen ska vara grå, inte svart.",
    "",
-   "Symbolen ska vara plus, som i hela raden. Grundformen ska vara grå, inte ofylld.",
-   "Grundformen ska vara grå, inte ofylld.",
+   "Symbolen ska vara plus, som i hela raden. Fyllningen ska vara grå, inte ofylld.",
+   "Fyllningen ska vara grå, inte ofylld.",
    "Grundformen ska vara triangel, inte romb. Symbolen ska vara plus, som i hela raden.",
    "Grundformen ska vara triangel, inte romb."
   ],
@@ -2223,7 +2227,7 @@
   "difficulty": 2,
   "p_prior": 0.55,
   "title": "Pricken längs kanten, två regler",
-  "rule": "Pricken går ett steg medurs längs kanten i varje steg. Pilen i mitten vrids 90 grader medurs i varje steg. Antalet prickar är ett i hela raden.",
+  "rule": "Pricken går ett steg medurs längs kanten i varje steg. Pilen i mitten vrids 90 grader medurs i varje steg.",
   "rad": [
    {
     "kind": "duo",
@@ -2286,28 +2290,6 @@
     "kind": "duo",
     "ytter": {
      "typ": "kant",
-     "lage": 0
-    },
-    "karna": {
-     "typ": "pil",
-     "vinkel": 45
-    }
-   },
-   {
-    "kind": "duo",
-    "ytter": {
-     "typ": "kant",
-     "lage": 3
-    },
-    "karna": {
-     "typ": "pil",
-     "vinkel": 315
-    }
-   },
-   {
-    "kind": "duo",
-    "ytter": {
-     "typ": "kant",
      "lage": 5
     },
     "karna": {
@@ -2319,7 +2301,7 @@
     "kind": "duo",
     "ytter": {
      "typ": "kant",
-     "lage": 0
+     "lage": 7
     },
     "karna": {
      "typ": "pil",
@@ -2330,7 +2312,18 @@
     "kind": "duo",
     "ytter": {
      "typ": "kant",
-     "lage": 5
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 7
     },
     "karna": {
      "typ": "pil",
@@ -2341,8 +2334,18 @@
     "kind": "duo",
     "ytter": {
      "typ": "kant",
-     "lage": 3,
-     "antal": 2
+     "lage": 5
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 135
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
     },
     "karna": {
      "typ": "pil",
@@ -2350,14 +2353,14 @@
     }
    }
   ],
-  "correctAnswer": 2,
+  "correctAnswer": 0,
   "misstag": [
-   "Pricken står på fel plats. Pilen i mitten har vridits ett steg för långt.",
-   "Pricken går åt fel håll.",
    "",
    "Pricken står på fel plats.",
-   "Pilen i mitten har vridits ett steg för långt.",
-   "Pricken går åt fel håll. Antalet prickar ska vara ett, som i hela raden."
+   "Pricken står på fel plats. Pilen i mitten vrids åt fel håll.",
+   "Pricken står på fel plats. Pilen i mitten har vridits ett steg för långt.",
+   "Pilen i mitten vrids åt fel håll.",
+   "Pricken står på fel plats."
   ],
   "regler": {
    "prim": "duo-kant-pil",
@@ -2366,10 +2369,6 @@
      "regel": "steg",
      "s0": 0,
      "k": 1
-    },
-    "yantal": {
-     "regel": "konstant",
-     "v": 1
     },
     "kvinkel": {
      "regel": "steg",
@@ -2842,7 +2841,18 @@
     },
     "karna": {
      "typ": "pil",
-     "vinkel": 90
+     "vinkel": 225
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 45
     }
    },
    {
@@ -2860,33 +2870,11 @@
     "kind": "duo",
     "ytter": {
      "typ": "kant",
-     "lage": 7
-    },
-    "karna": {
-     "typ": "pil",
-     "vinkel": 45
-    }
-   },
-   {
-    "kind": "duo",
-    "ytter": {
-     "typ": "kant",
-     "lage": 7
-    },
-    "karna": {
-     "typ": "pil",
-     "vinkel": 0
-    }
-   },
-   {
-    "kind": "duo",
-    "ytter": {
-     "typ": "kant",
      "lage": 0
     },
     "karna": {
      "typ": "pil",
-     "vinkel": 90
+     "vinkel": 225
     }
    },
    {
@@ -2897,18 +2885,29 @@
     },
     "karna": {
      "typ": "pil",
-     "vinkel": 0
+     "vinkel": 45
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 225
     }
    }
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 2,
   "misstag": [
-   "Pricken står som i den fjärde figuren, men den andra serien tar ett steg till. Pilen i mitten pekar åt höger, men ska peka snett uppåt höger.",
+   "Pricken står som i den fjärde figuren, men den andra serien tar ett steg till. Pilen i mitten vrids åt fel håll.",
+   "Pricken har gått ett steg för långt.",
    "",
-   "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien.",
-   "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien. Pilen i mitten pekar uppåt, men ska peka snett uppåt höger.",
-   "Pilen i mitten pekar åt höger, men ska peka snett uppåt höger.",
-   "Pricken står som i den fjärde figuren, men den andra serien tar ett steg till. Pilen i mitten pekar uppåt, men ska peka snett uppåt höger."
+   "Pilen i mitten vrids åt fel håll.",
+   "Pricken står som i den fjärde figuren, men den andra serien tar ett steg till.",
+   "Pricken har gått ett steg för långt. Pilen i mitten vrids åt fel håll."
   ],
   "regler": {
    "prim": "duo-kant-pil",
@@ -2919,10 +2918,6 @@
      "ke": -2,
      "s1": 4,
      "ko": 2
-    },
-    "yantal": {
-     "regel": "konstant",
-     "v": 1
     },
     "kvinkel": {
      "regel": "steg",
@@ -3274,7 +3269,7 @@
   "difficulty": 3,
   "p_prior": 0.5,
   "title": "Pricken längs kanten, två regler",
-  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken två steg moturs längs kanten; i den andra och fjärde går pricken tre steg moturs längs kanten. Luckan hör till den andra serien. Pilen i mitten vrids 90 grader medurs i varje steg. Antalet prickar är ett i hela raden.",
+  "rule": "Varannan figur hör till samma serie. I den första, tredje och femte går pricken två steg moturs längs kanten; i den andra och fjärde går pricken tre steg moturs längs kanten. Luckan hör till den andra serien. Pilen i mitten vrids 90 grader medurs i varje steg.",
   "rad": [
    {
     "kind": "duo",
@@ -3337,18 +3332,40 @@
     "kind": "duo",
     "ytter": {
      "typ": "kant",
-     "lage": 0
+     "lage": 2
     },
     "karna": {
      "typ": "pil",
-     "vinkel": 90
+     "vinkel": 225
     }
    },
    {
     "kind": "duo",
     "ytter": {
      "typ": "kant",
-     "lage": 0
+     "lage": 6
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "pil",
+     "vinkel": 315
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "kant",
+     "lage": 2
     },
     "karna": {
      "typ": "pil",
@@ -3363,19 +3380,7 @@
     },
     "karna": {
      "typ": "pil",
-     "vinkel": 90
-    }
-   },
-   {
-    "kind": "duo",
-    "ytter": {
-     "typ": "kant",
-     "lage": 5,
-     "antal": 2
-    },
-    "karna": {
-     "typ": "pil",
-     "vinkel": 90
+     "vinkel": 225
     }
    },
    {
@@ -3383,18 +3388,6 @@
     "ytter": {
      "typ": "kant",
      "lage": 5
-    },
-    "karna": {
-     "typ": "pil",
-     "vinkel": 135
-    }
-   },
-   {
-    "kind": "duo",
-    "ytter": {
-     "typ": "kant",
-     "lage": 3,
-     "antal": 2
     },
     "karna": {
      "typ": "pil",
@@ -3402,14 +3395,14 @@
     }
    }
   ],
-  "correctAnswer": 4,
+  "correctAnswer": 5,
   "misstag": [
-   "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien. Pilen i mitten pekar åt höger, men ska peka snett nedåt höger.",
-   "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien.",
-   "Pilen i mitten pekar åt höger, men ska peka snett nedåt höger.",
-   "Antalet prickar ska vara ett, som i hela raden. Pilen i mitten pekar åt höger, men ska peka snett nedåt höger.",
-   "",
-   "Pricken står på fel plats. Antalet prickar ska vara ett, som i hela raden."
+   "Pricken har gått ett steg för långt. Pilen i mitten har vridits ett steg för långt.",
+   "Pricken står på fel plats. Pilen i mitten vrids åt fel håll.",
+   "Pricken har gått ett steg för långt. Pilen i mitten vrids åt fel håll.",
+   "Pricken har gått ett steg för långt.",
+   "Pilen i mitten har vridits ett steg för långt.",
+   ""
   ],
   "regler": {
    "prim": "duo-kant-pil",
@@ -3420,10 +3413,6 @@
      "ke": -2,
      "s1": 3,
      "ko": -3
-    },
-    "yantal": {
-     "regel": "konstant",
-     "v": 1
     },
     "kvinkel": {
      "regel": "steg",

@@ -7,7 +7,8 @@
 // befordran sker efter testansvarigs granskning.
 //
 // Kör: node scripts/gen-figurserier.mjs
-// Skriver: src/lib/figurserierV1/kandidater/{grund,avancerad,expert}.json
+// Skriver: src/lib/figurserierV1/kandidater/generator/{grund,avancerad,expert}.json
+// (den granskade kandidatlistan byggs av scripts/figurserier-omgang2.mjs)
 //
 // Kedjan efter generatorn:
 //   node scripts/validate-figurserier.mjs              struktur, p_prior, kvoter, spärrar
@@ -28,7 +29,9 @@ import { PRIM, dimNyckel } from './lib/serie/celler-serie.mjs';
 import { strukturNyckel, radNyckel } from './lib/serie/struktur.mjs';
 import { mulberry32, hashString } from './lib/serie/slump.mjs';
 
-const UT = 'src/lib/figurserierV1/kandidater';
+// Generatorns råa pool. De granskade kandidaterna (det som kan befordras)
+// byggs av scripts/figurserier-omgang2.mjs ur granskningens beslut.
+const UT = 'src/lib/figurserierV1/kandidater/generator';
 const FAM_KOD = { vridning: 'vrid', vandring: 'vand', antal: 'antal', fyllning: 'fyll', vaxande: 'vax', vaxelvis: 'vaxl', flera: 'flera' };
 const SEED = 'figurserier-v1';
 

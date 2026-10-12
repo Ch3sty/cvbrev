@@ -1,0 +1,140 @@
+{
+ "andrade": [
+  "fs-g-antal-01",
+  "fs-g-antal-04",
+  "fs-g-antal-10",
+  "fs-g-vax-03",
+  "fs-g-vax-06",
+  "fs-a-antal-02",
+  "fs-a-flera-01",
+  "fs-a-antal-04",
+  "fs-a-antal-05",
+  "fs-a-flera-03",
+  "fs-a-vaxl-03",
+  "fs-a-vaxl-07",
+  "fs-e-vrid-01",
+  "fs-e-vax-01",
+  "fs-e-fyll-01",
+  "fs-e-vrid-02",
+  "fs-e-vax-02",
+  "fs-e-fyll-02",
+  "fs-e-vax-03",
+  "fs-e-fyll-03",
+  "fs-e-vaxl-01",
+  "fs-e-vaxl-03",
+  "fs-e-vaxl-04",
+  "fs-e-vaxl-05",
+  "fs-e-vaxl-06",
+  "fs-e-vaxl-07",
+  "fs-e-vaxl-10"
+ ],
+ "nya": [
+  {
+   "id": "fs-g-vrid-11",
+   "ersatter": "fs-g-vrid-08"
+  },
+  {
+   "id": "fs-g-antal-13",
+   "ersatter": "fs-g-antal-07"
+  },
+  {
+   "id": "fs-a-antal-07",
+   "ersatter": "fs-a-antal-01"
+  },
+  {
+   "id": "fs-e-vand-04",
+   "ersatter": "fs-e-vand-01"
+  },
+  {
+   "id": "fs-e-flera-03",
+   "ersatter": "fs-e-flera-01"
+  },
+  {
+   "id": "fs-e-vand-05",
+   "ersatter": "fs-e-antal-01"
+  },
+  {
+   "id": "fs-e-vand-06",
+   "ersatter": "fs-e-vand-02"
+  },
+  {
+   "id": "fs-e-flera-04",
+   "ersatter": "fs-e-flera-02"
+  },
+  {
+   "id": "fs-e-vand-07",
+   "ersatter": "fs-e-antal-02"
+  },
+  {
+   "id": "fs-e-vand-08",
+   "ersatter": "fs-e-vand-03"
+  },
+  {
+   "id": "fs-e-vand-09",
+   "ersatter": "fs-e-fyll-06"
+  },
+  {
+   "id": "fs-e-antal-03",
+   "ersatter": "fs-e-vaxl-08"
+  }
+ ],
+ "godkanda": [
+  "fs-g-vrid-01",
+  "fs-g-vand-01",
+  "fs-g-vrid-02",
+  "fs-g-vrid-03",
+  "fs-g-vand-02",
+  "fs-g-vrid-04",
+  "fs-g-vand-03",
+  "fs-g-vrid-05",
+  "fs-g-vrid-06",
+  "fs-g-vand-04",
+  "fs-g-vrid-07",
+  "fs-g-vand-05",
+  "fs-g-vrid-09",
+  "fs-g-vand-06",
+  "fs-g-vrid-10",
+  "fs-g-antal-02",
+  "fs-g-antal-03",
+  "fs-g-antal-05",
+  "fs-g-antal-06",
+  "fs-g-antal-08",
+  "fs-g-antal-09",
+  "fs-g-antal-11",
+  "fs-g-antal-12",
+  "fs-g-vax-01",
+  "fs-g-vax-02",
+  "fs-g-vax-04",
+  "fs-g-vax-05",
+  "fs-g-vax-07",
+  "fs-g-vax-08",
+  "fs-a-vrid-01",
+  "fs-a-vrid-02",
+  "fs-a-vand-01",
+  "fs-a-antal-03",
+  "fs-a-fyll-01",
+  "fs-a-flera-02",
+  "fs-a-vax-01",
+  "fs-a-vax-02",
+  "fs-a-vrid-03",
+  "fs-a-vrid-04",
+  "fs-a-vand-02",
+  "fs-a-antal-06",
+  "fs-a-fyll-02",
+  "fs-a-flera-04",
+  "fs-a-vaxl-01",
+  "fs-a-vaxl-02",
+  "fs-a-vaxl-04",
+  "fs-a-vaxl-05",
+  "fs-a-vaxl-06",
+  "fs-a-vaxl-08",
+  "fs-a-vaxl-09",
+  "fs-a-vaxl-10",
+  "fs-e-vrid-03",
+  "fs-e-vrid-04",
+  "fs-e-fyll-04",
+  "fs-e-fyll-05",
+  "fs-e-vaxl-02",
+  "fs-e-vaxl-09"
+ ]
+}

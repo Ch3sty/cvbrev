@@ -1265,7 +1265,7 @@
   "fran_version": 1
  },
  {
-  "id": "fs-g-vrid-08",
+  "id": "fs-g-vrid-11",
   "niva": "grund",
   "family": "vridning",
   "recept": "F1",
@@ -1273,40 +1273,32 @@
   "difficulty": 1,
   "p_prior": 0.78,
   "title": "Strecken, en regel",
-  "rule": "Strecken vrids 135 grader moturs i varje steg. Antalet streck är ett i hela raden.",
+  "rule": "Strecken vrids 135 grader medurs i varje steg. Antalet streck är tre i hela raden.",
   "rad": [
    {
     "kind": "ray",
     "rays": [
-     4
+     0,
+     1,
+     2
     ]
    },
    {
     "kind": "ray",
     "rays": [
-     1
+     3,
+     4,
+     5
     ]
    },
    {
     "kind": "ray",
     "rays": [
-     6
+     0,
+     6,
+     7
     ]
    },
-   {
-    "kind": "ray",
-    "rays": [
-     3
-    ]
-   },
-   {
-    "kind": "ray",
-    "rays": [
-     0
-    ]
-   }
-  ],
-  "options": [
    {
     "kind": "ray",
     "rays": [
@@ -1318,7 +1310,54 @@
    {
     "kind": "ray",
     "rays": [
-     5
+     4,
+     5,
+     6
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ray",
+    "rays": [
+     2,
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     2,
+     3
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     4,
+     5,
+     6,
+     7
     ]
    },
    {
@@ -1328,48 +1367,28 @@
      1,
      7
     ]
-   },
-   {
-    "kind": "ray",
-    "rays": [
-     4,
-     5
-    ]
-   },
-   {
-    "kind": "ray",
-    "rays": [
-     2
-    ]
-   },
-   {
-    "kind": "ray",
-    "rays": [
-     0,
-     1
-    ]
    }
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 5,
   "misstag": [
-   "Strecken står i fel vridning. Antalet streck ska vara ett, som i hela raden.",
-   "",
-   "Strecken står i fel vridning. Antalet streck ska vara ett, som i hela raden.",
-   "Strecken står i fel vridning. Antalet streck ska vara ett, som i hela raden.",
    "Strecken har vridits ett steg för långt.",
-   "Strecken står kvar som i den femte figuren. Antalet streck ska vara ett, som i hela raden."
+   "Strecken står i fel vridning.",
+   "Strecken står i fel vridning. Antalet streck ska vara tre, som i hela raden.",
+   "Strecken står i fel vridning. Antalet streck ska vara tre, som i hela raden.",
+   "Strecken står kvar som i den femte figuren. Antalet streck ska vara tre, som i hela raden.",
+   ""
   ],
   "regler": {
    "prim": "stralar",
    "dims": {
     "start": {
      "regel": "steg",
-     "s0": 4,
-     "k": 5
+     "s0": 0,
+     "k": 3
     },
     "antal": {
      "regel": "konstant",
-     "v": 1
+     "v": 3
     }
    }
   },
@@ -1745,7 +1764,15 @@
     "rays": [
      0,
      1,
+     6,
      7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     3,
+     4
     ]
    },
    {
@@ -1754,25 +1781,6 @@
      0,
      1,
      2,
-     3,
-     4,
-     5,
-     7
-    ]
-   },
-   {
-    "kind": "ray",
-    "rays": [
-     5
-    ]
-   },
-   {
-    "kind": "ray",
-    "rays": [
-     0,
-     1,
-     2,
-     3,
      7
     ]
    },
@@ -1786,20 +1794,31 @@
    {
     "kind": "ray",
     "rays": [
+     1,
+     2,
+     3,
      4,
      5,
-     6,
-     7
+     6
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     2,
+     3,
+     4,
+     5
     ]
    }
   ],
-  "correctAnswer": 4,
+  "correctAnswer": 3,
   "misstag": [
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck har inte minskat sista steget.",
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte sju.",
-   "Ett streck för lite.",
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte fem.",
+   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte fyra.",
+   "Strecken står på fel plats. I raden står strecken still.",
+   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte fyra.",
    "",
+   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte sex.",
    "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte fyra."
   ],
   "regler": {
@@ -2102,10 +2121,23 @@
    {
     "kind": "ray",
     "rays": [
-     0,
      1,
      2,
      3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     2,
+     3,
+     4,
+     5,
      6,
      7
     ]
@@ -2120,14 +2152,20 @@
    {
     "kind": "ray",
     "rays": [
-     6,
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
      7
     ]
    },
    {
     "kind": "ray",
     "rays": [
-     5
+     3,
+     4
     ]
    },
    {
@@ -2136,26 +2174,21 @@
      0,
      1,
      2,
+     3,
+     4,
      5,
-     6,
-     7
-    ]
-   },
-   {
-    "kind": "ray",
-    "rays": [
-     4
+     6
     ]
    }
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 2,
   "misstag": [
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte sex.",
+   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte sju.",
+   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte sju.",
    "",
+   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte sju.",
    "Strecken står på fel plats. I raden står strecken still.",
-   "Strecken står på fel plats. I raden står strecken still. Ett streck för lite.",
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte sex.",
-   "Ett streck för lite."
+   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte sju."
   ],
   "regler": {
    "prim": "stralar",
@@ -2396,7 +2429,7 @@
   "fran_version": 1
  },
  {
-  "id": "fs-g-antal-07",
+  "id": "fs-g-antal-13",
   "niva": "grund",
   "family": "antal",
   "recept": "F2",
@@ -2404,17 +2437,37 @@
   "difficulty": 1,
   "p_prior": 0.72,
   "title": "Strecken, en regel",
-  "rule": "Ett streck till kommer till medurs i varje steg.",
+  "rule": "Det sista strecket medurs försvinner i varje steg.",
   "rad": [
    {
     "kind": "ray",
     "rays": [
-     5
+     0,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
     ]
    },
    {
     "kind": "ray",
     "rays": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     2,
+     3,
+     4,
      5,
      6
     ]
@@ -2422,28 +2475,18 @@
    {
     "kind": "ray",
     "rays": [
-     5,
-     6,
-     7
+     2,
+     3,
+     4,
+     5
     ]
    },
    {
     "kind": "ray",
     "rays": [
-     0,
-     5,
-     6,
-     7
-    ]
-   },
-   {
-    "kind": "ray",
-    "rays": [
-     0,
-     1,
-     5,
-     6,
-     7
+     2,
+     3,
+     4
     ]
    }
   ],
@@ -2451,10 +2494,24 @@
    {
     "kind": "ray",
     "rays": [
-     0,
+     2,
+     3
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
      1,
      2,
+     3
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
      3,
+     4,
      5,
      6,
      7
@@ -2463,7 +2520,6 @@
    {
     "kind": "ray",
     "rays": [
-     4,
      5,
      6
     ]
@@ -2471,7 +2527,8 @@
    {
     "kind": "ray",
     "rays": [
-     6,
+     0,
+     1,
      7
     ]
    },
@@ -2480,49 +2537,30 @@
     "rays": [
      0,
      1,
-     2,
-     5,
-     6,
-     7
-    ]
-   },
-   {
-    "kind": "ray",
-    "rays": [
-     6
-    ]
-   },
-   {
-    "kind": "ray",
-    "rays": [
-     0,
-     4,
-     5,
-     6,
-     7
+     2
     ]
    }
   ],
-  "correctAnswer": 3,
+  "correctAnswer": 0,
   "misstag": [
-   "Ett streck för mycket.",
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara sex, inte tre.",
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara sex, inte två.",
    "",
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara sex, inte ett.",
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck har inte ökat sista steget."
+   "Strecken står på fel plats. I raden står strecken still. Antalet streck har inte minskat sista steget.",
+   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte sex.",
+   "Strecken står på fel plats. I raden står strecken still.",
+   "Strecken står på fel plats. I raden står strecken still. Antalet streck har inte minskat sista steget.",
+   "Strecken står på fel plats. I raden står strecken still. Antalet streck har inte minskat sista steget."
   ],
   "regler": {
    "prim": "stralar",
    "dims": {
     "start": {
      "regel": "konstant",
-     "v": 5
+     "v": 2
     },
     "antal": {
      "regel": "steg",
-     "s0": 1,
-     "k": 1
+     "s0": 7,
+     "k": -1
     }
    }
   },
@@ -2811,33 +2849,8 @@
    {
     "kind": "ray",
     "rays": [
-     1,
-     2
-    ]
-   },
-   {
-    "kind": "ray",
-    "rays": [
-     1
-    ]
-   },
-   {
-    "kind": "ray",
-    "rays": [
-     0
-    ]
-   },
-   {
-    "kind": "ray",
-    "rays": [
-     3
-    ]
-   },
-   {
-    "kind": "ray",
-    "rays": [
-     0,
-     1
+     4,
+     5
     ]
    },
    {
@@ -2849,16 +2862,51 @@
      6,
      7
     ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     1,
+     2
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     2,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     2,
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     5,
+     6,
+     7
+    ]
    }
   ],
-  "correctAnswer": 0,
+  "correctAnswer": 2,
   "misstag": [
-   "",
-   "Ett streck för lite.",
-   "Strecken står på fel plats. I raden står strecken still. Ett streck för lite.",
-   "Strecken står på fel plats. I raden står strecken still. Ett streck för lite.",
    "Strecken står på fel plats. I raden står strecken still.",
-   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte fem."
+   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte fem.",
+   "",
+   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte fyra.",
+   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte fem.",
+   "Strecken står på fel plats. I raden står strecken still. Antalet streck ska vara två, inte fyra."
   ],
   "regler": {
    "prim": "stralar",
@@ -3346,26 +3394,8 @@
    {
     "kind": "ray",
     "rays": [
-     5
-    ]
-   },
-   {
-    "kind": "ray",
-    "rays": [
      0,
-     1
-    ]
-   },
-   {
-    "kind": "ray",
-    "rays": [
-     1
-    ]
-   },
-   {
-    "kind": "ray",
-    "rays": [
-     4
+     7
     ]
    },
    {
@@ -3381,18 +3411,44 @@
     "kind": "ray",
     "rays": [
      0,
+     1
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     1,
+     2,
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     6,
      7
     ]
    }
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 2,
   "misstag": [
-   "Strecken står i fel vridning. Antalet streck ska vara två, som i hela raden.",
+   "Vridningen har inte vuxit sista gången.",
+   "Strecken står kvar som i den femte figuren. Antalet streck ska vara två, som i hela raden.",
    "",
    "Strecken står i fel vridning. Antalet streck ska vara två, som i hela raden.",
-   "Strecken vrids åt fel håll. Antalet streck ska vara två, som i hela raden.",
-   "Strecken står kvar som i den femte figuren. Antalet streck ska vara två, som i hela raden.",
-   "Vridningen har inte vuxit sista gången."
+   "Strecken står i fel vridning. Antalet streck ska vara två, som i hela raden.",
+   "Strecken har vridits ett steg för långt. Antalet streck ska vara två, som i hela raden."
   ],
   "regler": {
    "prim": "stralar",
@@ -3668,20 +3724,14 @@
     "kind": "ray",
     "rays": [
      0,
-     6,
      7
     ]
    },
    {
     "kind": "ray",
     "rays": [
-     1
-    ]
-   },
-   {
-    "kind": "ray",
-    "rays": [
-     2
+     4,
+     5
     ]
    },
    {
@@ -3695,24 +3745,36 @@
     "kind": "ray",
     "rays": [
      0,
+     6,
      7
     ]
    },
    {
     "kind": "ray",
     "rays": [
-     4
+     1,
+     2,
+     3
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     2,
+     3
     ]
    }
   ],
-  "correctAnswer": 4,
+  "correctAnswer": 0,
   "misstag": [
+   "",
+   "Strecken har vridits ett steg för långt.",
+   "Strecken vrids åt fel håll.",
    "Vridningen har inte vuxit sista gången. Antalet streck ska vara två, som i hela raden.",
    "Strecken står i fel vridning. Antalet streck ska vara två, som i hela raden.",
-   "Strecken står kvar som i den femte figuren. Antalet streck ska vara två, som i hela raden.",
-   "Strecken vrids åt fel håll.",
-   "",
-   "Strecken har vridits ett steg för långt. Antalet streck ska vara två, som i hela raden."
+   "Strecken står i fel vridning. Antalet streck ska vara två, som i hela raden."
   ],
   "regler": {
    "prim": "stralar",

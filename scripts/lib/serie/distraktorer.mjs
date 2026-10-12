@@ -71,7 +71,8 @@ export function felVarden(dim, r, rad, facitV) {
 function konstFel(dim, facitV) {
   const ut = [];
   if (dim.typ === 'kat') for (const x of dim.L) { if (x !== facitV) ut.push({ v: x, typ: 'konstant' }); }
-  else for (const d of [1, -1, 2, -2]) { const v = norm(dim, facitV + d); if (giltigt(dim, v) && !ut.some((x) => x.v === v)) ut.push({ v, typ: 'konstant' }); }
+  // Rot: alla andra lägen, så att fem distraktorer kan få olika fel läge (S5).
+  else for (const d of dim.typ === 'rot' ? [1, -1, 2, -2, 3, -3, 4] : [1, -1, 2, -2]) { const v = norm(dim, facitV + d); if (giltigt(dim, v) && !ut.some((x) => x.v === v)) ut.push({ v, typ: 'konstant' }); }
   return ut;
 }
 
@@ -127,7 +128,16 @@ export function analysera(q, lasta) {
       kopia: visade.has(dimNyckel(q.options[i])),
     };
   });
-  return { R: regel, alternativ };
+  // Antal vid gränsen (till exempel avtagande till ett): ingen ren
+  // antalsdistraktor finns utan kopia, och "rätt antal, fel plats" räknas som
+  // nära miss (granskning 01, avsnitt 4 punkt 6).
+  const minskande = regel.filter((id) => utanRen(dims.find((x) => x.id === id), q.regler.dims[id], facit[id]));
+  return { R: regel, alternativ, minskande };
+}
+
+/** Antal vid gränsen: nästa steg efter facit går utanför primitivens gränser. */
+export function utanRen(dim, r, facitV) {
+  return dim.typ === 'ord' && r.regel === 'steg' && !giltigt(dim, facitV + r.k);
 }
 
 /** Kraven på urvalet (A5). Tom lista = godkänt. */
@@ -139,13 +149,18 @@ export function kravFel(a, niva) {
   for (const id of a.R) {
     const n = dist.filter((x) => x.bryter.includes(id)).length;
     if (n < 2) fel.push(`bara ${n} distraktorer bryter regeln för ${id}, minst två`);
+    // S14 balans: med minst två regler bryts ingen av alla fem.
+    if (a.R.length >= 2 && n === dist.length) fel.push(`alla fem distraktorer bryter ${id} (S14)`);
   }
   if (niva !== 'expert') {
     for (const id of a.R) {
-      if (!dist.some((x) => x.bryter.length === 1 && x.bryter[0] === id && x.konst.length === 0)) fel.push(`ingen distraktor bryter bara regeln för ${id}`);
+      const bara = dist.some((x) => x.bryter.length === 1 && x.bryter[0] === id && x.konst.length === 0);
+      const nara = (a.minskande ?? []).includes(id) && dist.some((x) => x.bryter.length === 0 && x.konst.length === 1);
+      if (!bara && !nara) fel.push(`ingen distraktor bryter bara regeln för ${id}`);
     }
   } else {
-    const nara = dist.filter((x) => x.bryter.length === a.R.length - 1 && x.konst.length === 0).length;
+    // Nära miss: exakt en regel fel, inga konstanter fel (granskning 01, 4.5).
+    const nara = dist.filter((x) => x.bryter.length === 1 && x.konst.length === 0).length;
     if (a.R.length >= 2 && nara < 1) fel.push('ingen nära miss (bryter exakt en regel)');
     const alla = dist.filter((x) => x.bryter.length === a.R.length);
     if (new Set(alla.map((x) => x.felVarden)).size < 2) fel.push('färre än två distraktorer bryter alla regler med olika fel');

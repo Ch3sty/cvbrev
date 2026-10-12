@@ -16,8 +16,8 @@
 
 import { PRIM, byggCell, dimNyckel, giltigt, stable } from './celler-serie.mjs';
 import { tolkaRad, radVarden, period, iTakt, enklaste, VISADE } from './tolka-serie.mjs';
-import { kandidater, analysera, kravFel } from './distraktorer.mjs';
-import { sparrFelSerie, MIN_PERIOD } from './sparrar.mjs';
+import { kandidater, analysera, kravFel, utanRen } from './distraktorer.mjs';
+import { sparrFelSerie, MIN_PERIOD, nabarMangd } from './sparrar.mjs';
 import { regelText, misstagText, titel } from './misstag-serie.mjs';
 import { geometriSerie } from '../../v7-geometri-check.mjs';
 
@@ -78,7 +78,11 @@ export function byggRad(regler) {
 // ---------------------------------------------------------------- snabbkontroll av ett urval
 const rakna = (v) => { const m = new Map(); v.forEach((x) => m.set(x, (m.get(x) ?? 0) + 1)); return m; };
 
-function snabbFel(ids, regelIds, cykelIds, radSet, V, f, expert) {
+/**
+ * S5, S6, S11, S12, S13 och S14 på värdena, utan att bygga cellerna. `nabar`:
+ * regeldimensionernas nåbara mängder när de är mindre än primitivens (S12).
+ */
+function snabbFel(ids, regelIds, nabar, V, f, expert) {
   const tak = expert ? 0 : 1;
   const elim = new Set();
   const maj = [];
@@ -86,34 +90,33 @@ function snabbFel(ids, regelIds, cykelIds, radSet, V, f, expert) {
     const v = V.map((x) => stable(x[id]));
     const n = rakna(v);
     const fc = n.get(v[f]);
-    // S5
     if (fc === 1 && [...rakna(v.filter((_, i) => i !== f)).values()].some((x) => x >= 2)) return 'S5';
-    // S6
     if (fc >= 2) v.forEach((x, i) => { if (i !== f && n.get(x) === 1) elim.add(i); });
-    // S11 majoritet
     if (n.size > 1 && [...n.entries()].every(([k, c]) => k === v[f] || c < fc)) maj.push(id);
-    // S13
     if (regelIds.includes(id) && n.size < 2) return 'S13';
   }
   if (elim.size > tak) return 'S6';
   if (expert && maj.length) return 'S11';
   if (regelIds.length && regelIds.every((id) => maj.includes(id))) return 'S11r';
-  // S12 räknar distraktorer, inte dimensioner
-  if (cykelIds.length) {
-    const ut = new Set();
-    for (const id of cykelIds) V.forEach((x, i) => { if (i !== f && !radSet[id].has(stable(x[id]))) ut.add(i); });
-    if (ut.size > tak) return 'S12';
+  for (const [id, m] of Object.entries(nabar)) if (V.some((x, i) => i !== f && !m.has(stable(x[id])))) return 'S12';
+  if (regelIds.length >= 2) {
+    for (const id of regelIds) if (V.every((x, i) => i === f || stable(x[id]) !== stable(V[f][id]))) return 'S14';
   }
   return null;
 }
 
 /**
- * Bygger en fråga. `pos` är facits plats bland alternativen (0 till 5).
- * Returnerar frågan eller null.
+ * Alternativen för en färdig rad (regler): kandidater, urval av fem och
+ * hela frågan genom spärrarna. Används av bygg() och av omgång 2:s
+ * ombyggnad av alternativ där raden och id:t står kvar.
+ *
+ * Urvalet (granskning 01, avsnitt 4 punkt 6): med en regeldimension tas alla
+ * rena distraktorer (bryter bara regeln, ingen kopia) före någon som bryter en
+ * konstant, och konstantbrotten sprids över olika konstanter. Vid avtagande
+ * antal räknas "rätt antal, fel plats" som nära miss.
  */
-export function bygg(r, mall, variant, { id, pos, forsok = mall.niva === 'expert' ? 30000 : 4000 } = {}) {
-  const regler = variant.regler(r);
-  const rad = byggRad(regler);
+export function byggAlternativ(r, mall, regler, meta, { pos, forsok = mall.niva === 'expert' ? 30000 : 6000, rad: fardigRad = null } = {}) {
+  const rad = fardigRad ?? byggRad(regler);
   if (rad.fel) return null;
   const expert = mall.niva === 'expert';
   const dims = PRIM[regler.prim].dims;
@@ -122,7 +125,6 @@ export function bygg(r, mall, variant, { id, pos, forsok = mall.niva === 'expert
   const facitV = rad.vals[5];
   const visade = new Set(rad.rad.map(dimNyckel));
   const facitKey = dimNyckel(rad.facitCell);
-  // Kandidaterna: giltiga, inte facit, inte kopior av en visad.
   const sett = new Set();
   const pool = [];
   for (const k of kandidater(regler, radV, facitV, { expert })) {
@@ -134,52 +136,78 @@ export function bygg(r, mall, variant, { id, pos, forsok = mall.niva === 'expert
     sett.add(key);
     pool.push({ ...k, cell });
   }
-  if (pool.length < 5) return null;
   const regelIds = ids.filter((i) => regler.dims[i].regel !== 'konstant');
-  const cykelIds = ids.filter((i) => regler.dims[i].regel === 'cykel');
-  const radSet = Object.fromEntries(ids.map((i) => [i, new Set(radV.map((v) => stable(v[i])))]));
-  // Förhandsanalys per kandidat: vilka regler den bryter.
-  for (const k of pool) {
+  // S12: värden utanför regelns nåbara mängd tas aldrig in i poolen.
+  const nabar = {};
+  for (const d of dims) {
+    if (!regelIds.includes(d.id)) continue;
+    const m = nabarMangd(d, regler.dims[d.id]);
+    const stor = d.typ === 'rot' ? d.n : d.typ === 'kat' ? d.L.length : d.max - d.min + 1;
+    if (m.size < stor) nabar[d.id] = m;
+  }
+  const filtrerad = pool.filter((k) => Object.entries(nabar).every(([id, m]) => m.has(stable(k.v[id]))));
+  if (filtrerad.length < 5) return null;
+  for (const k of filtrerad) {
     k.bryter = regelIds.filter((i) => stable(k.v[i]) !== stable(facitV[i]));
     k.konst = ids.filter((i) => !regelIds.includes(i) && stable(k.v[i]) !== stable(facitV[i]));
   }
-  const kravOk = (val) => {
+  const ren = regelIds.length === 1 ? filtrerad.filter((k) => k.bryter.length === 1 && k.konst.length === 0) : [];
+  const ovriga = filtrerad.filter((k) => !ren.includes(k));
+  const minskande = regelIds.filter((i) => utanRen(dims.find((d) => d.id === i), regler.dims[i], facitV[i]));
+  const kravOk = (val, strikt) => {
     for (const i of regelIds) if (val.filter((k) => k.bryter.includes(i)).length < 2) return false;
     if (!expert) {
-      for (const i of regelIds) if (!val.some((k) => k.bryter.length === 1 && k.bryter[0] === i && k.konst.length === 0)) return false;
+      for (const i of regelIds) {
+        const bara = val.some((k) => k.bryter.length === 1 && k.bryter[0] === i && k.konst.length === 0);
+        const nara = minskande.includes(i) && val.some((k) => k.bryter.length === 0 && k.konst.length === 1);
+        if (!bara && !nara) return false;
+      }
     } else {
-      if (regelIds.length >= 2 && !val.some((k) => k.bryter.length === regelIds.length - 1 && k.konst.length === 0)) return false;
+      if (regelIds.length >= 2 && !val.some((k) => k.bryter.length === 1 && k.konst.length === 0)) return false;
       const alla = val.filter((k) => k.bryter.length === regelIds.length);
       if (new Set(alla.map((k) => regelIds.map((i) => stable(k.v[i])).join('|'))).size < 2) return false;
     }
+    if (strikt) {
+      // Konstantbrotten sprids över olika konstanter när primitiven har flera.
+      const konstanter = ids.filter((i) => !regelIds.includes(i));
+      const brott = val.filter((k) => k.konst.length > 0).map((k) => k.konst.join('+'));
+      if (konstanter.length >= 2 && brott.length >= 2 && new Set(brott).size < 2) return false;
+    }
     return true;
   };
+  const antalRena = Math.min(ren.length, 5);
   for (let n = 0; n < forsok; n++) {
-    // fem olika ur poolen
+    // Strikt först: alla rena (upp till fem) och spridda konstantbrott; efter
+    // halva försöken lättar kravet på spridningen.
+    const strikt = n < forsok / 2;
     const val = [];
+    const rena = [...ren];
+    for (let i = rena.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [rena[i], rena[j]] = [rena[j], rena[i]]; }
+    val.push(...rena.slice(0, antalRena));
     const tagna = new Set();
-    while (val.length < 5) {
-      const j = Math.floor(r() * pool.length);
+    let varv = 0;
+    while (val.length < 5 && varv++ < 200) {
+      const j = Math.floor(r() * ovriga.length);
       if (tagna.has(j)) continue;
       tagna.add(j);
-      val.push(pool[j]);
+      val.push(ovriga[j]);
     }
-    if (!kravOk(val)) continue;
+    if (val.length < 5) return null;
+    if (!kravOk(val, strikt)) continue;
     const V = [...val.map((k) => k.v)];
     V.splice(pos, 0, facitV);
-    if (snabbFel(ids, regelIds, cykelIds, radSet, V, pos, expert)) continue;
-    // hela frågan
+    if (snabbFel(ids, regelIds, nabar, V, pos, expert)) continue;
     const options = val.map((k) => k.cell);
     options.splice(pos, 0, rad.facitCell);
     const felLista = val.map((k) => k.fel);
     felLista.splice(pos, 0, null);
     const varierar = new Set(ids.filter((i) => new Set(V.map((x) => stable(x[i]))).size > 1));
     const q = {
-      id,
+      id: meta.id,
       niva: mall.niva,
-      family: variant.family,
+      family: meta.family,
       recept: mall.id,
-      variant: variant.namn,
+      variant: meta.variant,
       difficulty: mall.difficulty,
       p_prior: mall.p_prior,
       title: titel(regler),
@@ -199,4 +227,15 @@ export function bygg(r, mall, variant, { id, pos, forsok = mall.niva === 'expert
     return q;
   }
   return null;
+}
+
+/**
+ * Bygger en fråga ur en variant. `pos` är facits plats bland alternativen
+ * (0 till 5). Returnerar frågan eller null.
+ */
+export function bygg(r, mall, variant, { id, pos, forsok } = {}) {
+  const regler = variant.regler(r);
+  const rad = byggRad(regler);
+  if (rad.fel) return null;
+  return byggAlternativ(r, mall, regler, { id, family: variant.family, variant: variant.namn }, { pos, forsok, rad });
 }

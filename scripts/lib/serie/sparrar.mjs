@@ -25,13 +25,33 @@
 //   S11 majoritet     facits värde strikt vanligast i en dimension: fel på
 //                     expert, upplysning annars. Röstningen (strikt vanligast
 //                     i varje regelstyrd dimension) är fel på alla nivåer
-//   S12 utanfor       i en dimension som följer en cykel bär en distraktor ett
-//                     värde som saknas i raden: högst en, ingen på expert
+//   S12 utanfor       i en regelstyrd dimension vars nåbara mängd är mindre än
+//                     primitivens (steg 2, 4 eller 6 av 8, cykel) bär en
+//                     distraktor ett värde utanför mängden: noll på alla nivåer
+//                     (granskning 01, avsnitt 4 punkt 4)
 //   S13 otestad       en regelstyrd dimension har samma värde i alla sex
+//   S14 balans        med minst två regelstyrda dimensioner bryts ingen av alla
+//                     fem distraktorer; expert har minst en nära miss och två som
+//                     bryter alla regler med olika värden (granskning 01, 4.5)
+//
+// Frågor som testansvarig godkände i granskning 01, innan S12 skärptes och
+// S14 fanns, står i GODKANDA_FORE_OMGANG2: för dem är S12 och S14 upplysning.
 // =============================================================================
 
 import { PRIM, lasCell, dimNyckel, giltigt, stable } from './celler-serie.mjs';
 import { tolkaRad, period, iTakt, sekvens, VISADE } from './tolka-serie.mjs';
+
+/** Godkända i granskning 01 (docs/qa/figurserier/beslut-01.json, godkanda). */
+export const GODKANDA_FORE_OMGANG2 = new Set([
+  'fs-g-vrid-01', 'fs-g-vrid-02', 'fs-g-vrid-03', 'fs-g-vrid-04', 'fs-g-vrid-05', 'fs-g-vrid-06', 'fs-g-vrid-07', 'fs-g-vrid-09', 'fs-g-vrid-10',
+  'fs-g-vand-01', 'fs-g-vand-02', 'fs-g-vand-03', 'fs-g-vand-04', 'fs-g-vand-05', 'fs-g-vand-06',
+  'fs-g-antal-02', 'fs-g-antal-03', 'fs-g-antal-05', 'fs-g-antal-06', 'fs-g-antal-08', 'fs-g-antal-09', 'fs-g-antal-11', 'fs-g-antal-12',
+  'fs-g-vax-01', 'fs-g-vax-02', 'fs-g-vax-04', 'fs-g-vax-05', 'fs-g-vax-07', 'fs-g-vax-08',
+  'fs-a-vrid-01', 'fs-a-vrid-02', 'fs-a-vrid-03', 'fs-a-vrid-04', 'fs-a-vand-01', 'fs-a-vand-02', 'fs-a-antal-03', 'fs-a-antal-06',
+  'fs-a-fyll-01', 'fs-a-fyll-02', 'fs-a-flera-02', 'fs-a-flera-04', 'fs-a-vax-01', 'fs-a-vax-02',
+  'fs-a-vaxl-01', 'fs-a-vaxl-02', 'fs-a-vaxl-04', 'fs-a-vaxl-05', 'fs-a-vaxl-06', 'fs-a-vaxl-08', 'fs-a-vaxl-09', 'fs-a-vaxl-10',
+  'fs-e-vrid-03', 'fs-e-vrid-04', 'fs-e-fyll-04', 'fs-e-fyll-05', 'fs-e-vaxl-02', 'fs-e-vaxl-09',
+]);
 
 export const MIN_PERIOD = 6;
 const BOKSTAV = 'ABCDEF';
@@ -195,20 +215,56 @@ export function s11(q) {
   return { fel, info };
 }
 
-/** S12: distraktorer med ett värde som saknas i raden, i dimensioner som följer en cykel. */
+/** Värdena en regel kan ta (nåbara mängden), som nycklar. */
+export function nabarMangd(dim, r) {
+  const m = new Set();
+  for (let i = 0; i < 48; i++) m.add(stable(sekvens(dim, r, i)));
+  return m;
+}
+const domanStorlek = (dim) => (dim.typ === 'rot' ? dim.n : dim.typ === 'kat' ? dim.L.length : dim.max - dim.min + 1);
+
+/**
+ * S12: distraktorer med ett värde utanför den nåbara mängden i en
+ * regelstyrd dimension, när mängden är mindre än primitivens (granskning 01,
+ * F4: ortogonala pilar när raden bara har diagonala, startsektorer utanför
+ * kvartsvarven).
+ */
 export function utanfor(q) {
-  const dims = Object.entries(q.regler?.dims ?? {}).filter(([, r]) => r.regel === 'cykel').map(([id]) => id);
+  if (!q.regler) return [];
   const ut = new Set();
-  for (const id of dims) {
-    const rad = new Set(q.rad.map((c) => stable(lasCell(c)?.v[id])));
-    q.options.forEach((o, i) => { if (i !== q.correctAnswer && !rad.has(stable(lasCell(o)?.v[id]))) ut.add(i); });
+  for (const d of PRIM[q.regler.prim].dims) {
+    const r = q.regler.dims[d.id];
+    if (!r || r.regel === 'konstant') continue;
+    const m = nabarMangd(d, r);
+    if (m.size >= domanStorlek(d)) continue;
+    q.options.forEach((o, i) => { if (i !== q.correctAnswer && !m.has(stable(lasCell(o)?.v[d.id]))) ut.add(i); });
   }
   return [...ut];
 }
 export function s12(q) {
   const ut = utanfor(q);
-  const tak = arExpert(q) ? 0 : 1;
-  return ut.length > tak ? [`${q.id}: S12 utanfor, ${ut.length} distraktorer har ett värde som inte finns i raden i en egenskap som följer en cykel, högst ${tak}`] : [];
+  return ut.length ? [`${q.id}: S12 utanfor, ${ut.length} distraktorer har ett värde utanför regelns mängd (${ut.map((i) => BOKSTAV[i]).join(', ')}), noll tillåtna`] : [];
+}
+
+/** S14 balans (granskning 01, F5). */
+export function s14(q) {
+  const regel = regelDims(q);
+  if (regel.length < 2) return [];
+  const fel = [];
+  const V = q.options.map((o) => lasCell(o)?.v);
+  if (V.some((v) => !v)) return [];
+  const f = V[q.correctAnswer];
+  const dist = V.map((v, i) => ({ v, i })).filter((x) => x.i !== q.correctAnswer);
+  const ids = PRIM[q.regler.prim].dims.map((d) => d.id);
+  const bryter = (v) => regel.filter((id) => stable(v[id]) !== stable(f[id]));
+  const konst = (v) => ids.filter((id) => !regel.includes(id) && stable(v[id]) !== stable(f[id]));
+  for (const id of regel) if (dist.every((x) => bryter(x.v).includes(id))) fel.push(`${q.id}: S14 balans, alla fem distraktorer bryter ${id}; den regeln ensam löser frågan`);
+  if (arExpert(q)) {
+    if (!dist.some((x) => bryter(x.v).length === 1 && konst(x.v).length === 0)) fel.push(`${q.id}: S14 balans, ingen nära miss (exakt en regel fel, inga konstanter fel)`);
+    const alla = dist.filter((x) => bryter(x.v).length === regel.length);
+    if (new Set(alla.map((x) => regel.map((id) => stable(x.v[id])).join('|'))).size < 2) fel.push(`${q.id}: S14 balans, färre än två distraktorer bryter alla regler med olika värden`);
+  }
+  return fel;
 }
 
 /** S13: en regel vars dimension har samma värde i alla sex alternativ. */
@@ -225,10 +281,14 @@ export function sparrFelSerie(q) {
   const t = tolkaRad(q.rad);
   const fel = [...fs6(q)];
   if (fel.length) return { fel, info: [] };
-  fel.push(...fs1(q), ...fs2(q), ...fs3(q), ...fs4(q, t), ...fs5(q), ...s5(q), ...s6(q), ...s12(q), ...s13(q));
+  fel.push(...fs1(q), ...fs2(q), ...fs3(q), ...fs4(q, t), ...fs5(q), ...s5(q), ...s6(q), ...s13(q));
   const s = s11(q);
   fel.push(...s.fel);
-  return { fel, info: s.info };
+  const info = [...s.info];
+  const nya = [...s12(q), ...s14(q)];
+  if (GODKANDA_FORE_OMGANG2.has(q.id)) info.push(...nya.map((x) => `${x} (godkänd i granskning 01)`));
+  else fel.push(...nya);
+  return { fel, info };
 }
 
 export { tolkaRad };

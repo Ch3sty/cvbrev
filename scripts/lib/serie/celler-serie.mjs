@@ -77,7 +77,8 @@ export const PRIM = {
   },
   stralar: {
     grupp: 'stralar',
-    dims: [rot('start', 'strecken'), ord('antal', 1, 7, 'antalet streck')],
+    // Minst två streck (granskning 01, F1): ett streck med punkt läses som en nål.
+    dims: [rot('start', 'strecken'), ord('antal', 2, 7, 'antalet streck')],
     bygg: (v) => ({ kind: 'ray', rays: sortNum(bage(v.start, v.antal)) }),
     las: (c) => {
       if (c.kind !== 'ray') return null;
@@ -126,13 +127,16 @@ export const PRIM = {
 
 // Duo: ytter (kant eller orbital) och kärna (pil, form eller symbol), 2 × 3.
 const YTTER = {
-  kant: [rot('ylage', 'pricken'), ord('yantal', 1, 6, 'antalet prickar')],
+  // En kantprick, aldrig flera (granskning 01, F2): utan ram läses flera
+  // prickar som ett tärningsmönster, inte som en vandring.
+  kant: [rot('ylage', 'pricken')],
   orbital: [rot('ylage', 'pricken på banan')],
 };
 const KARNA = {
   pil: [rot('kvinkel', 'pilen i mitten')],
   form: [kat('kform', ['circle', 'square', 'diamond'], 'formen i mitten'), kat('kfyll', ['none', 'black'], 'fyllningen i mitten')],
-  symbol: [kat('ksymbol', ['plus', 'minus', 'cross', 'dot', 'ring'], 'symbolen i mitten')],
+  // Aldrig prick som kärnsymbol (granskning 01, F3): samma glyf som kantpricken.
+  symbol: [kat('ksymbol', ['plus', 'minus', 'cross', 'ring'], 'symbolen i mitten')],
 };
 for (const y of Object.keys(YTTER)) {
   for (const k of Object.keys(KARNA)) {
@@ -141,14 +145,15 @@ for (const y of Object.keys(YTTER)) {
       dims: [...YTTER[y], ...KARNA[k]],
       bygg: (v) => ({
         kind: 'duo',
-        ytter: y === 'kant' ? { typ: 'kant', lage: mod(v.ylage, 8), ...(v.yantal > 1 ? { antal: v.yantal } : {}) } : { typ: 'orbital', lage: mod(v.ylage, 8) },
+        ytter: y === 'kant' ? { typ: 'kant', lage: mod(v.ylage, 8) } : { typ: 'orbital', lage: mod(v.ylage, 8) },
         karna:
           k === 'pil' ? { typ: 'pil', vinkel: mod(v.kvinkel, 8) * 45 } : k === 'form' ? { typ: 'form', form: v.kform, fyllning: v.kfyll } : { typ: 'symbol', symbol: v.ksymbol },
       }),
       las: (c) => {
         if (c.kind !== 'duo' || c.ytter.typ !== y || c.karna.typ !== k) return null;
         const v = { ylage: mod(c.ytter.lage, 8) };
-        if (y === 'kant') v.yantal = c.ytter.antal ?? 1;
+        // Flera kantprickar är ingen giltig figur längre (FS6 fäller den).
+        if (y === 'kant' && (c.ytter.antal ?? 1) !== 1) return null;
         if (k === 'pil') {
           if (c.karna.vinkel % 45 !== 0) return null;
           v.kvinkel = mod(c.karna.vinkel / 45, 8);

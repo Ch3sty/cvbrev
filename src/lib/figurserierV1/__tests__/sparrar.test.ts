@@ -8,6 +8,8 @@ import { describe, expect, it } from 'vitest'
 import grund from '../kandidater/grund.json'
 import avancerad from '../kandidater/avancerad.json'
 import expert from '../kandidater/expert.json'
+import avancerad1 from '../kandidater/omgang1/avancerad.json'
+import expert1 from '../kandidater/omgang1/expert.json'
 // @ts-ignore ren JavaScript
 import * as S from '../../../../scripts/lib/serie/sparrar.mjs'
 // @ts-ignore ren JavaScript
@@ -125,5 +127,29 @@ describe('figurseriernas spärrar', () => {
     const annan = f.head === 'open' ? 'filled' : 'open'
     for (const i of andra) q.options[i] = { ...q.options[i], head: annan }
     expect(S.s5(q).join()).toMatch(/S5 facit_udda, facit är ensamt om sitt värde i spets/)
+  })
+
+  it('S14 balans: omgång 1:s fs-e-vrid-01 har vinkeln bruten av alla fem', () => {
+    const q = hitta(expert1 as Q[], (x) => x.id === 'fs-e-vrid-01')
+    expect(S.s14(q).join()).toMatch(/S14 balans, alla fem distraktorer bryter vinkel/)
+  })
+
+  it('S12 utanför: omgång 1:s fs-a-vaxl-03 har ortogonala pilar när raden bara har diagonala', () => {
+    const q = hitta(avancerad1 as Q[], (x) => x.id === 'fs-a-vaxl-03')
+    expect(S.s12(q).join()).toMatch(/S12 utanfor, [1-5] distraktorer har ett värde utanför regelns mängd/)
+  })
+
+  it('FS6: ett streck, flera kantprickar och prick som kärna fälls (granskning 01, F1 till F3)', () => {
+    const q = hitta(grund as Q[], (x) => x.variant === 'stralar-steg')
+    const d = q.correctAnswer === 0 ? 1 : 0
+    q.options[d] = { kind: 'ray', rays: [3] }
+    expect(S.fs6(q).join()).toMatch(/FS6 antal_tak, alternativ [A-F] har antal = 1 utanför gränserna/)
+    const e = hitta(expert as Q[], (x) => x.regler.prim === 'duo-kant-form')
+    const i = e.correctAnswer === 0 ? 1 : 0
+    e.options[i] = { ...e.options[i], ytter: { ...e.options[i].ytter, antal: 2 } }
+    expect(S.fs6(e).join()).toMatch(/går inte att läsa/)
+    expect(byggCell('duo-kant-symbol', { ylage: 0, ksymbol: 'dot' })).toBeTruthy()
+    const z = { id: 'x', rad: [0, 1, 2, 3, 4].map((v) => byggCell('duo-kant-symbol', { ylage: v, ksymbol: 'dot' })), options: [] }
+    expect(S.fs6(z).join()).toMatch(/ksymbol = dot utanför gränserna/)
   })
 })

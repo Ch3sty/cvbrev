@@ -57,7 +57,7 @@ interface RouteDef {
   namn: string;
   budget: Budget;
   /** Slås upp i databasen först, till exempel ett brev-id. */
-  dynamisk?: 'letter' | 'application' | 'testSession' | 'testResult';
+  dynamisk?: 'letter' | 'application' | 'testSession' | 'testResult' | 'serieSession' | 'serieResult';
   /**
    * Våg 3b:s förhandsvisning (fixturer, ingen databas). Finns bara när
    * servern startats med TRANING_FORHANDSVISNING=1; mäts bara med
@@ -103,6 +103,11 @@ const ROUTES: RouteDef[] = [
   // Testflödet: själva provet och resultatsidan.
   { path: '/dashboard/tester/matrislogik-grund/test/ID', namn: 'tester prov', budget: 'flode', dynamisk: 'testSession' },
   { path: '/dashboard/tester/matrislogik-grund/test/ID/results', namn: 'tester resultat', budget: 'flode', dynamisk: 'testResult' },
+  // Figurserier (omgång 2): testsidan, en uppgift och resultatet. Kontot
+  // behöver figurseriesessioner; mät med --epost <qa-konto>.
+  { path: '/dashboard/tester/figurserier-grund', namn: 'figurserier testsida', budget: 'lista' },
+  { path: '/dashboard/tester/figurserier-grund/test/ID', namn: 'figurserier uppgift', budget: 'flode', dynamisk: 'serieSession' },
+  { path: '/dashboard/tester/figurserier-grund/test/ID/results', namn: 'figurserier resultat', budget: 'flode', dynamisk: 'serieResult' },
 
   // Flödessidor och deras steg. Stegen bär tyngst innehåll och mäts var för sig.
   { path: '/dashboard/skapa-brev', namn: 'skapa-brev', budget: 'flode' },
@@ -198,9 +203,13 @@ async function main() {
 
   const rankade = [...poang.entries()].sort((x, y) => y[1] - x[1]);
 
-  let epost: string | null = null;
+  let epost: string | null = arg('epost') ?? null;
   let userId: string | null = null;
-  for (const [id] of rankade.slice(0, 10)) {
+  if (epost) {
+    const { data } = await sb.from('profiles').select('id').eq('email', epost).maybeSingle();
+    userId = (data as { id: string } | null)?.id ?? null;
+  }
+  for (const [id] of epost ? [] : rankade.slice(0, 10)) {
     const { data } = await sb.auth.admin.getUserById(id);
     if (!data?.user?.email) continue;
     epost = data.user.email;
@@ -231,7 +240,13 @@ async function main() {
         .limit(1),
     ]);
 
+  const [{ data: serie }, { data: serieKlar }] = await Promise.all([
+    sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'figurserier-grund').is('completed_at', null).limit(1),
+    sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'figurserier-grund').not('completed_at', 'is', null).limit(1),
+  ]);
   const idPerTyp: Record<string, string | null> = {
+    serieSession: serie?.[0]?.id ?? null,
+    serieResult: serieKlar?.[0]?.id ?? null,
     letter: brev?.[0]?.id ?? null,
     application: ansokningar?.[0]?.id ?? null,
     testSession: session?.[0]?.id ?? null,

@@ -36,7 +36,8 @@ function info(prim, id) {
     case 'poly.fyllning': return { slag: 'kat', subj: 'Figuren', namn: (v) => FYLL[v] };
     case 'grundform.bas': return { slag: 'kat', subj: 'Grundformen', namn: (v) => FORM[v], substantiv: true };
     case 'grundform.symbol': return { slag: 'kat', subj: 'Symbolen', namn: (v) => SYMBOL[v], substantiv: true };
-    case 'grundform.fyllning': return { slag: 'kat', subj: 'Grundformen', namn: (v) => FYLL[v] };
+    // "Fyllningen följer ordningen" (granskning 01, avsnitt 4 punkt 8).
+    case 'grundform.fyllning': return { slag: 'kat', subj: 'Fyllningen', namn: (v) => FYLL[v] };
     case 'duo.ylage': return duoKant
       ? { slag: 'ga', subj: 'Pricken', subjFler: 'Prickarna', var: 'längs kanten' }
       : { slag: 'ga', subj: 'Pricken', var: 'runt banan' };
