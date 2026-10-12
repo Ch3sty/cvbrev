@@ -2645,7 +2645,7 @@
    "Pilen pekar åt höger, men ska peka snett nedåt höger. Pilen ska vara lång, som i hela raden.",
    "Pilen har vridits ett steg för långt. Spetsen ska vara öppen, som i hela raden.",
    "Pilen står som i den fjärde figuren, men den andra serien tar ett steg till. Pilen ska vara lång, som i hela raden.",
-   "Pilen står som i den fjärde figuren, men den andra serien tar ett steg till. Spetsen ska vara öppen, som i hela raden."
+   "Pilen står kvar som i den femte figuren. Spetsen ska vara öppen, som i hela raden."
   ],
   "regler": {
    "prim": "pil",
@@ -2741,7 +2741,7 @@
   "correctAnswer": 3,
   "misstag": [
    "Pricken går åt fel håll.",
-   "Pricken står som i den fjärde figuren, men den andra serien tar ett steg till. Mittpunkten ska vara fylld, som i hela raden.",
+   "Pricken står kvar som i den femte figuren. Mittpunkten ska vara fylld, som i hela raden.",
    "Pricken står på fel plats. Mittpunkten ska vara fylld, som i hela raden.",
    "",
    "Pricken har gått ett steg för långt. Mittpunkten ska vara fylld, som i hela raden.",
@@ -2902,11 +2902,11 @@
   ],
   "correctAnswer": 2,
   "misstag": [
-   "Pricken står som i den fjärde figuren, men den andra serien tar ett steg till. Pilen i mitten vrids åt fel håll.",
+   "Pricken står kvar som i den femte figuren. Pilen i mitten vrids åt fel håll.",
    "Pricken har gått ett steg för långt.",
    "",
    "Pilen i mitten vrids åt fel håll.",
-   "Pricken står som i den fjärde figuren, men den andra serien tar ett steg till.",
+   "Pricken står kvar som i den femte figuren.",
    "Pricken har gått ett steg för långt. Pilen i mitten vrids åt fel håll."
   ],
   "regler": {
@@ -3029,8 +3029,8 @@
   "correctAnswer": 4,
   "misstag": [
    "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien. Antalet svarta sektorer ska vara tre, som i hela raden.",
-   "De svarta sektorerna står som i den fjärde figuren, men den andra serien tar ett steg till. Antalet svarta sektorer ska vara tre, som i hela raden.",
-   "De svarta sektorerna står som i den fjärde figuren, men den andra serien tar ett steg till. Antalet svarta sektorer ska vara tre, som i hela raden.",
+   "De svarta sektorerna står kvar som i den femte figuren. Antalet svarta sektorer ska vara tre, som i hela raden.",
+   "De svarta sektorerna står kvar som i den femte figuren. Antalet svarta sektorer ska vara tre, som i hela raden.",
    "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien.",
    "",
    "Antalet svarta sektorer ska vara tre, som i hela raden."
@@ -3137,7 +3137,7 @@
   "misstag": [
    "Pilen pekar åt vänster, men ska peka åt höger. Spetsen ska vara fylld, som i hela raden.",
    "Pilen står som i den fjärde figuren, men den andra serien tar ett steg till. Spetsen ska vara fylld, som i hela raden.",
-   "Pilen står som i den fjärde figuren, men den andra serien tar ett steg till. Spetsen ska vara fylld, som i hela raden.",
+   "Pilen står kvar som i den femte figuren. Spetsen ska vara fylld, som i hela raden.",
    "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien.",
    "Pilen pekar uppåt, men ska peka åt höger. Spetsen ska vara fylld, som i hela raden.",
    ""
@@ -3536,7 +3536,7 @@
    "",
    "De svarta sektorerna står som i den fjärde figuren, men den andra serien tar ett steg till. Antalet svarta sektorer ska vara tre, som i hela raden.",
    "De svarta sektorerna står i fel vridning.",
-   "De svarta sektorerna står som i den fjärde figuren, men den andra serien tar ett steg till. Antalet svarta sektorer ska vara tre, som i hela raden.",
+   "De svarta sektorerna står kvar som i den femte figuren. Antalet svarta sektorer ska vara tre, som i hela raden.",
    "De svarta sektorerna står i fel vridning. Antalet svarta sektorer ska vara tre, som i hela raden."
   ],
   "regler": {
@@ -3741,7 +3741,7 @@
   "misstag": [
    "Pricken har gått ett steg för långt.",
    "Pricken står på fel plats. Mittpunkten ska vara ofylld, som i hela raden.",
-   "Pricken står som i den fjärde figuren, men den andra serien tar ett steg till. Mittpunkten ska vara ofylld, som i hela raden.",
+   "Pricken står kvar som i den femte figuren. Mittpunkten ska vara ofylld, som i hela raden.",
    "Pricken står på fel plats. Mittpunkten ska vara ofylld, som i hela raden.",
    "Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien. Mittpunkten ska vara ofylld, som i hela raden.",
    ""

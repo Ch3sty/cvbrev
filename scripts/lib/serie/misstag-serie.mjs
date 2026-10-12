@@ -182,6 +182,7 @@ export function misstagText(regler, facitV, fel) {
       case 'stilla':
         meningar.push(r.regel === 'vaxelvis' ? `${S} står som i den fjärde figuren, men den andra serien tar ett steg till.` : `${S} står kvar som i den femte figuren.`);
         break;
+      case 'som_femte': meningar.push(`${S} står kvar som i den femte figuren.`); break;
       case 'jamn': meningar.push('Följer serien i den första, tredje och femte figuren, men luckan hör till den andra serien.'); break;
       case 'vaxer_inte': meningar.push(vrid ? 'Vridningen har inte vuxit sista gången.' : 'Steget har inte vuxit sista gången.'); break;
       default:

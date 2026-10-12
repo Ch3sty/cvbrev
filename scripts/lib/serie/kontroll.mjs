@@ -16,7 +16,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { PRIM, byggCell, dimNyckel, lasCell } from './celler-serie.mjs';
 import { radVarden, tolkaRad, enklaste, VISADE } from './tolka-serie.mjs';
-import { sparrFelSerie } from './sparrar.mjs';
+import { sparrFelSerie, GODKANDA } from './sparrar.mjs';
 import { analysera, kravFel, radPerAlternativ } from './distraktorer.mjs';
 import { misstagText } from './misstag-serie.mjs';
 
@@ -111,7 +111,7 @@ export function distraktorCheckSerie(argv) {
       const V = q.options.map((o) => lasCell(o)?.v);
       if (V.some((v) => !v)) { fel.push(`${q.id}: ett alternativ går inte att läsa`); continue; }
       const a = analysera(q, V);
-      kravFel(a, q.niva).forEach((x) => fel.push(`${q.id}: ${x}`));
+      kravFel(a, q.niva, { godkand: GODKANDA.has(q.id) }).forEach((x) => fel.push(`${q.id}: ${x}`));
       if (visa) console.log(`${q.id} (${a.R.join(', ')}): ${radPerAlternativ(a).join(' · ')}`);
     }
     console.log(`${fil}: ${fragor.length} frågor`);

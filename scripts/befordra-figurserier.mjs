@@ -5,8 +5,9 @@
 // (src/lib/figurserierV1/bank{Grund,Avancerad,Expert}.json) och sätter
 // BANK_BEFORDRAD i src/lib/figurserierV1/status.ts.
 //
-//   node scripts/befordra-figurserier.mjs --beslut=docs/qa/figurserier/beslut-02.json
-//       Skarpt: bara id i beslutets "godkanda". Felar om en nivå hamnar under
+//   node scripts/befordra-figurserier.mjs --beslut=beslut-01.json --beslut=beslut-02.json ...
+//       Skarpt: besluten läses i ordning och det senaste beslutet per id gäller
+//       (godkanda ja; andra och strukna nej). Bara id som slutar på ja. Felar om en nivå hamnar under
 //       golvet (beslutets golv_per_niva, annars 28) eller om kedjan inte är grön.
 //   node scripts/befordra-figurserier.mjs --lokalt
 //       Bara för klicktest: alla kandidater i bankfilerna, BANK_BEFORDRAD
@@ -20,11 +21,17 @@ import { execFileSync } from 'node:child_process';
 const K = 'src/lib/figurserierV1/kandidater';
 const BANK = { grund: 'bankGrund', avancerad: 'bankAvancerad', expert: 'bankExpert' };
 const lokalt = process.argv.includes('--lokalt');
-const beslutFil = process.argv.find((a) => a.startsWith('--beslut='))?.slice('--beslut='.length);
-if (!lokalt && !beslutFil) throw new Error('Ange --beslut=<fil> eller --lokalt');
-const beslut = beslutFil ? JSON.parse(readFileSync(beslutFil, 'utf8')) : null;
-const ja = beslut ? new Set(beslut.godkanda) : null;
-const golv = beslut?.golv_per_niva ?? 28;
+const beslutFiler = process.argv.filter((a) => a.startsWith('--beslut=')).map((a) => a.slice('--beslut='.length));
+if (!lokalt && !beslutFiler.length) throw new Error('Ange --beslut=<fil> (en eller flera) eller --lokalt');
+const status = new Map();
+let golv = 28;
+for (const f of beslutFiler) {
+  const b = JSON.parse(readFileSync(f, 'utf8'));
+  for (const id of b.godkanda ?? []) status.set(id, true);
+  for (const x of [...(b.andra ?? []), ...(b.strukna ?? [])]) status.set(typeof x === 'string' ? x : x.id, false);
+  if (b.golv_per_niva) golv = b.golv_per_niva;
+}
+const ja = beslutFiler.length ? new Set([...status].filter(([, v]) => v).map(([id]) => id)) : null;
 
 for (const [niva, fil] of Object.entries(BANK)) {
   const alla = JSON.parse(readFileSync(`${K}/${niva}.json`, 'utf8'));

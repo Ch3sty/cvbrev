@@ -29,8 +29,13 @@ const pil = (v: number, langd = 'long', spets = 'open') => byggCell('pil', { vin
 const alla = (q: Q) => S.sparrFelSerie(q).fel as string[]
 
 describe('figurseriernas spärrar', () => {
-  it('alla 96 kandidater klarar spärrarna', () => {
-    for (const q of [...grund, ...avancerad, ...expert]) expect(alla(q), q.id).toEqual([])
+  it('alla frågor i de skarpa bankerna klarar spärrarna', () => {
+    const bank = ['bankGrund', 'bankAvancerad', 'bankExpert'].flatMap((f) => JSON.parse(readFileSync(`src/lib/figurserierV1/${f}.json`, 'utf8')))
+    for (const q of bank) expect(alla(q), q.id).toEqual([])
+  })
+
+  it('granskning 03: S14 fäller fs-e-flera-05 och 06 (ingen ren nära miss per regel)', () => {
+    for (const id of ['fs-e-flera-05', 'fs-e-flera-06']) expect(S.s14(hitta(expert as Q[], (x) => x.id === id)).join(), id).toMatch(/ingen nära miss på/)
   })
 
   it('FS1 aterkomst: ett alternativ lika en visad figur', () => {

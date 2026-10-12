@@ -59,7 +59,7 @@ export function felVarden(dim, r, rad, facitV) {
   if (steg !== null) {
     add(facitV + steg, 'for_langt');
     add(s4 - steg, 'fel_hall');
-    add(s4, 'stilla');
+    add(s4, r.regel === 'vaxelvis' ? 'som_femte' : 'stilla');
   }
   if (r.regel === 'cykel') for (const x of new Set(s)) add(x, 'annat_ur_raden');
   for (const x of s) add(x, 'ur_raden');
@@ -141,7 +141,7 @@ export function utanRen(dim, r, facitV) {
 }
 
 /** Kraven på urvalet (A5). Tom lista = godkänt. */
-export function kravFel(a, niva) {
+export function kravFel(a, niva, { godkand = false } = {}) {
   const fel = [];
   const dist = a.alternativ.filter((x) => !x.facit);
   if (dist.some((x) => x.kopia)) fel.push('en distraktor är en kopia av en visad figur');
@@ -163,7 +163,9 @@ export function kravFel(a, niva) {
     const nara = dist.filter((x) => x.bryter.length === 1 && x.konst.length === 0).length;
     if (a.R.length >= 2 && nara < 1) fel.push('ingen nära miss (bryter exakt en regel)');
     // Granskning 02, F6: en nära miss per regel bland dem som håller konstanterna.
-    if (a.harKonstant) for (const id of a.R) if (!dist.some((x) => x.konst.length === 0 && x.bryter.length === 1 && x.bryter[0] === id)) fel.push(`ingen nära miss på ${id} bland dem som håller konstanterna`);
+    // Granskning 03: krav på expert också utan konstant (F6 med tre regler).
+    // Frågor godkända innan kravet skärptes släpps (sparrar.mjs, GODKANDA).
+    if (!godkand) for (const id of a.R) if (!dist.some((x) => x.konst.length === 0 && x.bryter.length === 1 && x.bryter[0] === id)) fel.push(`ingen nära miss på ${id} bland dem som håller konstanterna`);
     const alla = dist.filter((x) => x.bryter.length === a.R.length);
     if (new Set(alla.map((x) => x.felVarden)).size < 2) fel.push('färre än två distraktorer bryter alla regler med olika fel');
   }

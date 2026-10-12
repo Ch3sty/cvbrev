@@ -64,8 +64,12 @@ export const GODKANDA_OMGANG2 = new Set([
   'fs-e-vrid-01', 'fs-e-vrid-02', 'fs-e-vax-01', 'fs-e-vax-02', 'fs-e-vax-03', 'fs-e-vand-04', 'fs-e-vand-05', 'fs-e-vand-06', 'fs-e-vand-07',
   'fs-e-vand-08', 'fs-e-vand-09', 'fs-e-fyll-01', 'fs-e-fyll-02', 'fs-e-fyll-03', 'fs-e-flera-03', 'fs-e-vaxl-04', 'fs-e-vaxl-06', 'fs-e-vaxl-10',
 ]);
-/** Godkända i granskning 01 eller 02: de skärpta spärrarna är upplysning för dem. */
-export const GODKANDA = new Set([...GODKANDA_FORE_OMGANG2, ...GODKANDA_OMGANG2]);
+/** Godkända i granskning 03 (beslut-03.json). */
+export const GODKANDA_OMGANG3 = new Set([
+  'fs-e-vaxl-01', 'fs-e-vaxl-03', 'fs-e-vaxl-05', 'fs-e-vaxl-07', 'fs-e-antal-04', 'fs-e-antal-05', 'fs-e-antal-06', 'fs-e-antal-07',
+]);
+/** Godkända i granskning 01 till 03: de skärpta spärrarna är upplysning för dem. */
+export const GODKANDA = new Set([...GODKANDA_FORE_OMGANG2, ...GODKANDA_OMGANG2, ...GODKANDA_OMGANG3]);
 
 export const MIN_PERIOD = 6;
 const BOKSTAV = 'ABCDEF';
@@ -283,7 +287,9 @@ export function s14(q) {
     // Gäller frågor med minst en konstant; på F6 med tre regler och ingen
     // konstant är en nära miss per regel en rekommendation (granskning 02, 5.5).
     const harKonstant = ids.some((id) => !regel.includes(id));
-    if (harKonstant) for (const id of regel) if (!dist.some((x) => konst(x.v).length === 0 && bryter(x.v).length === 1 && bryter(x.v)[0] === id)) fel.push(`${q.id}: S14 balans, ingen nära miss på ${id} bland dem som håller konstanterna`);
+    // Granskning 03, 5.2: krav på expert, med eller utan konstant.
+    void harKonstant;
+    for (const id of regel) if (!dist.some((x) => konst(x.v).length === 0 && bryter(x.v).length === 1 && bryter(x.v)[0] === id)) fel.push(`${q.id}: S14 balans, ingen nära miss på ${id} bland dem som håller konstanterna`);
     const alla = dist.filter((x) => bryter(x.v).length === regel.length);
     if (regel.length >= 2 && new Set(alla.map((x) => regel.map((id) => stable(x.v[id])).join('|'))).size < 2) fel.push(`${q.id}: S14 balans, färre än två distraktorer bryter alla regler med olika värden`);
   }

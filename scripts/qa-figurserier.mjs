@@ -30,7 +30,7 @@ const KONTON = JSON.parse(fs.readFileSync(`${SCRATCH}/qa-figurserier-konton.json
 const [kontoNamn, niva, bredd, tema] = process.argv.slice(2)
 const konto = KONTON[kontoNamn]
 if (!konto) throw new Error(`okänt konto ${kontoNamn}`)
-const BANK = JSON.parse(fs.readFileSync(`src/lib/figurserierV1/kandidater/${niva}.json`, 'utf8'))
+const BANK = JSON.parse(fs.readFileSync(`src/lib/figurserierV1/bank${niva[0].toUpperCase() + niva.slice(1)}.json`, 'utf8'))
 const prefix = `${kontoNamn}-${niva}-${bredd}-${tema}`
 let nr = 0
 const fel = []
