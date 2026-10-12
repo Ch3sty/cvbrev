@@ -4,11 +4,11 @@
  * FAQPage) är oförändrade; bara ramen och sektionernas form är nya.
  * Demon i heron (mini-byggaren som speglar dashboard-flödet) är handlingen.
  */
-import VerktygsSida from '@/components/verktyg/VerktygsSida'
+import VerktygsMall from '@/components/publikt/VerktygsMall'
+import SkarmSkapaCv from '@/components/publikt/telefon/skarmar/SkarmSkapaCv'
 import SkapaCvLiveDemo from './components/SkapaCvLiveDemo'
 import { SKAPA_CV_FAQ_ITEMS } from './components/skapa-cv-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
-import { IlluScenSkapaCv } from '@/components/illustrations/PriserScener'
 import { SALD_PLAN, paketKort, paketMedPris } from '@/lib/plans/plans'
 import { SIMPLE_TEMPLATES, TEMPLATE_COUNT, FREE_TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
 
@@ -145,13 +145,15 @@ export default function SkapaCvSida() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <VerktygsSida
+      <VerktygsMall
+        rum="cv"
+        telefon={<SkarmSkapaCv />}
         brodsmulor={[
           { name: 'Hem', href: '/' },
           { name: 'Verktyg', href: '/funktioner' },
           { name: 'Skapa CV', href: '/verktyg/skapa-cv' },
         ]}
-        eyebrow="Skapa CV · färdigt på tio minuter"
+        eyebrow="Skapa CV, färdigt på tio minuter"
         h1="Skapa ditt CV gratis på minuter"
         ingress="Vår CV-byggare tar dig genom sju enkla steg och visar CV:t medan du skriver. Du fyller i, vi sätter ihop och du laddar ner som PDF eller Word."
         fet="Gratis att börja och helt på svenska."
@@ -162,7 +164,6 @@ export default function SkapaCvSida() {
           { tal: '7 steg', text: 'ett i taget, sparas automatiskt' },
           { tal: String(TEMPLATE_COUNT), text: `mallar, ${FREE_TEMPLATE_COUNT} gratis` },
         ]}
-        scen={<IlluScenSkapaCv className="h-auto w-full" />}
         handling={<SkapaCvLiveDemo />}
         handlingId="demo"
         steg={{
