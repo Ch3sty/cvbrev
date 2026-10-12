@@ -25,7 +25,7 @@ export async function GET(request: Request) {
         `<body style="font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100dvh;margin:0;background:#F8FAFC">` +
         `<div style="max-width:420px;padding:32px;background:#fff;border-radius:12px;border:1px solid #E2E8F0;text-align:center">` +
         `<h1 style="font-size:18px;color:#0F172A">${title}</h1><p style="color:#475569;font-size:14px;line-height:1.6">${body}</p>` +
-        `<a href="https://www.jobbcoach.ai/dashboard/profil" style="color:#EA580C;font-size:14px;font-weight:600">Till dina inställningar</a></div></body></html>`,
+        `<a href="https://www.jobbcoach.ai/dashboard/installningar#mejl" style="color:#EA580C;font-size:14px;font-weight:600">Till dina inställningar</a></div></body></html>`,
       { status, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
     );
 

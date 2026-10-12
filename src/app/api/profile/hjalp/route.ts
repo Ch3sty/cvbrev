@@ -6,7 +6,7 @@ import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 /**
  * POST /api/profile/hjalp  { dold: boolean }
  *
- * "Dölj hjälpen" i Rekryteringstester och i profilen (src/lib/traning/hjalp.ts).
+ * "Dölj hjälpen" i Rekryteringstester och på Inställningar (src/lib/traning/hjalp.ts).
  * Skriver profiles.hjalp_dold med användarens egen klient; RLS begränsar
  * update till egen rad och kolumnen är inte skyddad.
  *
