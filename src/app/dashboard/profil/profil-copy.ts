@@ -12,13 +12,13 @@ import { DOKUMENT_KONTAKT } from '@/lib/profile/dokumentKontakt-copy'
 export const PROFIL = {
   eyebrow: 'Konto',
   rubrik: 'Din profil',
-  under: 'Det som står överst i ditt CV och dina personliga brev. Allt sparas när du lämnar fältet.',
+  /** Skiss-installningar-2026-10-12: Konto och Utseende flyttade till Inställningar. */
+  under: 'Det som står överst i ditt CV och dina personliga brev, och hur vi söker jobb åt dig. Allt sparas när du lämnar fältet.',
   hoppaTill: 'Hoppa till',
   hopp: {
     cv: 'CV-uppgifter',
     'personliga-brev': 'Personliga brev',
     jobbsok: 'Jobbsök',
-    konto: 'Konto',
   },
   saknas: {
     ort: 'Ort saknas i ditt CV',
@@ -98,19 +98,42 @@ export const JOBBSOK_SEKTION = {
   bliUpptackt: 'Bli upptäckt',
 } as const
 
+/**
+ * Korten Mejl från oss, Prenumeration och Konto, sedan 2026-10-13 på
+ * Inställningar (skiss-installningar-2026-10-12). Logga ut används också i
+ * avatarmenyn.
+ */
 export const KONTO_SEKTION = {
   rubrik: 'Konto',
-  under: 'Prenumeration, mejl från oss, utloggning och radering.',
   prenumeration: 'Prenumeration',
-  gratis: `Gratisnivån · ${paketKort()} kostar ${prisPeriod(SALD_PLAN)}`,
+  /** Prenumerationsraden på gratisnivån: rubriken och raden under. */
+  gratisRubrik: 'Gratisnivån',
+  gratis: `${paketKort()} kostar ${prisPeriod(SALD_PLAN)}`,
   mejl: 'Mejl från oss',
-  mejlStatus: (vecka: boolean, paminnelser: boolean) =>
-    `Veckosammanfattning ${vecka ? 'på' : 'av'}, påminnelser ${paminnelser ? 'på' : 'av'}`,
   mejlUnder: 'Mejl om ditt konto och dina betalningar skickas alltid.',
+  /** Raden med kontoadressen och inloggningssättet. Bara visande. */
+  inloggning: 'Inloggning',
+  inloggningSatt: {
+    google: 'Google',
+    losenord: 'Lösenord',
+  },
   loggaUt: 'Logga ut',
   loggaUtText: 'Från den här enheten',
   radera: 'Radera mitt konto',
   raderaText: 'All data tas bort och kan inte återställas',
+} as const
+
+/** Inställningssidan (skiss-installningar-2026-10-12). */
+export const INSTALLNINGAR = {
+  rubrik: 'Inställningar',
+  under: 'Utseende, mejl från oss, prenumeration och konto. Allt sparas direkt.',
+  hoppaTill: 'Hoppa till',
+  hopp: {
+    utseende: 'Utseende',
+    mejl: 'Mejl',
+    prenumeration: 'Prenumeration',
+    konto: 'Konto',
+  },
 } as const
 
 /**

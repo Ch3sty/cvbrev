@@ -1,19 +1,28 @@
 'use client'
 
 /**
- * Sektion 4: "Konto" (Del A). Fyra rader i stället för fyra paneler:
- * Prenumeration (länk), Mejl från oss (ark med dagens två växlar), Logga ut
- * (direkt) och Radera mitt konto (ark med dagens bekräftelseflöde).
- * Innehållet i arken är det som förut stod i NotisInstallningar och
- * AccountSection: samma routes, samma bekräftelse med text.
+ * Inställningarnas tre nedre kort (skiss-installningar-2026-10-12), flyttade
+ * från profilens sektion Konto:
+ *
+ *   MejlSection           Mejl från oss. Växlarna står direkt på sidan, inte
+ *                         längre i ett ark, eftersom sidan nu är deras plats.
+ *   PrenumerationSection  En rad med paketet och läget, som länkar till
+ *                         Prenumeration.
+ *   KontoSection          Inloggningen (adress och sätt, bara visande), Logga
+ *                         ut och Radera mitt konto som röd länk sist, med
+ *                         dagens bekräftelseflöde i ett ark.
+ *
+ * Logiken är densamma som förut: samma routes för mejlväxlarna, optimistisk
+ * växel som backar vid fel, och samma bekräftelse med text före radering.
  */
 
-import { KNAPP_SEKUNDAR_SMAL } from '@/components/shell/knappar'
+import { KNAPP_SEKUNDAR_SMAL, LANK_FEL } from '@/components/shell/knappar'
 import { useState, type ReactNode } from 'react'
 import Link from 'next/link'
 import Sheet from '@/components/shell/Sheet'
-import { ToggleSwitch, INPUT_CLASS } from './ProfileField'
-import { KONTO_SEKTION } from '../profil-copy'
+import Chip from '@/components/rum/Chip'
+import { ToggleSwitch, INPUT_CLASS } from '@/app/dashboard/profil/components/ProfileField'
+import { KONTO_SEKTION } from '@/app/dashboard/profil/profil-copy'
 
 interface MejlRad {
   key: 'digest' | 'quota'
@@ -40,16 +49,9 @@ const MEJL: MejlRad[] = [
   },
 ]
 
-export interface KontoSectionProps {
-  /** Prenumerationsradens undertext, till exempel "Gratisnivån · Premium, {pris i månaden}". */
-  prenumerationRad: string
-  harPaket: boolean
-  initialDigestOptOut: boolean
-  initialQuotaOptOut: boolean
-  onLogout: () => void
-  onDeleteAccount: () => Promise<void>
-}
-
+const KORT = 'scroll-mt-24 rounded-xl border border-kant bg-papper'
+const HUVUD = 'border-b border-kant px-4 py-3 sm:px-5'
+const KROPP = 'px-4 py-1 sm:px-5'
 const RAD =
   'flex min-h-14 w-full items-center justify-between gap-3 border-b border-kant py-2 text-left last:border-b-0'
 
@@ -61,7 +63,7 @@ function Chevron() {
   )
 }
 
-function Rad({ titel, text }: { titel: string; text: ReactNode }) {
+function Rad({ titel, text }: { titel: ReactNode; text: ReactNode }) {
   return (
     <span className="min-w-0">
       <b className="block text-sm font-medium leading-5 text-ink-1">{titel}</b>
@@ -70,55 +72,42 @@ function Rad({ titel, text }: { titel: string; text: ReactNode }) {
   )
 }
 
-export default function KontoSection(p: KontoSectionProps) {
-  const [ark, setArk] = useState<'mejl' | 'radera' | null>(null)
+function Huvud({ id, titel, under }: { id: string; titel: string; under?: string }) {
+  return (
+    <div className={HUVUD}>
+      <h2 id={id} className="text-kort text-ink-1">{titel}</h2>
+      {under ? <p className="mt-0.5 text-meta text-ink-3">{under}</p> : null}
+    </div>
+  )
+}
+
+/* ------------------------------------------------------------ Mejl */
+
+export function MejlSection({
+  initialDigestOptOut,
+  initialQuotaOptOut,
+}: {
+  initialDigestOptOut: boolean
+  initialQuotaOptOut: boolean
+}) {
   const [optOut, setOptOut] = useState<Record<MejlRad['key'], boolean>>({
-    digest: p.initialDigestOptOut,
-    quota: p.initialQuotaOptOut,
+    digest: initialDigestOptOut,
+    quota: initialQuotaOptOut,
   })
 
   return (
-    <section id="konto" className="scroll-mt-24 rounded-xl border border-kant bg-papper">
-      <div className="p-4 sm:p-5">
-        <h2 className="text-kort text-ink-1">{KONTO_SEKTION.rubrik}</h2>
-        <p className="mt-1 text-sm leading-[22px] text-ink-2">{KONTO_SEKTION.under}</p>
+    <section id="mejl" aria-labelledby="mejl-rubrik" className={KORT}>
+      <Huvud id="mejl-rubrik" titel={KONTO_SEKTION.mejl} under={KONTO_SEKTION.mejlUnder} />
+      <div className={KROPP}>
+        {MEJL.map((rad) => (
+          <MejlVaxel
+            key={rad.key}
+            rad={rad}
+            optOut={optOut[rad.key]}
+            onChange={(v) => setOptOut((o) => ({ ...o, [rad.key]: v }))}
+          />
+        ))}
       </div>
-
-      <div className="border-t border-kant px-4 py-1 sm:px-5">
-        <Link href="/dashboard/profil/prenumeration" className={RAD}>
-          <Rad titel={KONTO_SEKTION.prenumeration} text={p.prenumerationRad} />
-          <Chevron />
-        </Link>
-        <button type="button" onClick={() => setArk('mejl')} className={RAD}>
-          <Rad titel={KONTO_SEKTION.mejl} text={KONTO_SEKTION.mejlStatus(!optOut.digest, !optOut.quota)} />
-          <Chevron />
-        </button>
-        <button type="button" onClick={p.onLogout} className={RAD}>
-          <Rad titel={KONTO_SEKTION.loggaUt} text={KONTO_SEKTION.loggaUtText} />
-          <Chevron />
-        </button>
-        <button type="button" onClick={() => setArk('radera')} className={RAD}>
-          <Rad titel={KONTO_SEKTION.radera} text={KONTO_SEKTION.raderaText} />
-          <Chevron />
-        </button>
-      </div>
-
-      <Sheet open={ark === 'mejl'} onClose={() => setArk(null)} title={KONTO_SEKTION.mejl} description={KONTO_SEKTION.mejlUnder}>
-        <div className="space-y-3">
-          {MEJL.map((rad) => (
-            <MejlVaxel
-              key={rad.key}
-              rad={rad}
-              optOut={optOut[rad.key]}
-              onChange={(v) => setOptOut((o) => ({ ...o, [rad.key]: v }))}
-            />
-          ))}
-        </div>
-      </Sheet>
-
-      <Sheet open={ark === 'radera'} onClose={() => setArk(null)} title={KONTO_SEKTION.radera}>
-        <RaderaKonto harPaket={p.harPaket} onAvbryt={() => setArk(null)} onDeleteAccount={p.onDeleteAccount} />
-      </Sheet>
     </section>
   )
 }
@@ -150,16 +139,80 @@ function MejlVaxel({ rad, optOut, onChange }: { rad: MejlRad; optOut: boolean; o
   }
 
   return (
-    <div className="rounded-lg border border-kant p-3">
-      <div className="flex min-h-11 items-start justify-between gap-4">
+    <div className="border-b border-kant py-3 last:border-b-0">
+      <div className="flex min-h-11 items-center justify-between gap-4">
         <div className="min-w-0">
-          <p className="text-sm font-medium text-ink-1">{rad.title}</p>
+          <p className="text-sm font-medium leading-5 text-ink-1">{rad.title}</p>
           <p className="mt-0.5 text-meta text-ink-3">{rad.body}</p>
         </div>
         <ToggleSwitch checked={!optOut} onChange={vaxla} disabled={sparar} label={rad.ariaLabel} />
       </div>
       {fel ? <p className="mt-2 text-meta text-fel">{fel}</p> : null}
     </div>
+  )
+}
+
+/* ------------------------------------------------------------ Prenumeration */
+
+export function PrenumerationSection({ titel, text, chip }: { titel: string; text: string; chip?: string | null }) {
+  return (
+    <section id="prenumeration" aria-labelledby="prenumeration-rubrik" className={KORT}>
+      <Huvud id="prenumeration-rubrik" titel={KONTO_SEKTION.prenumeration} />
+      <div className={KROPP}>
+        <Link href="/dashboard/profil/prenumeration" prefetch className={RAD}>
+          <Rad titel={titel} text={text} />
+          <span className="inline-flex shrink-0 items-center gap-2">
+            {chip ? <Chip liten ton>{chip}</Chip> : null}
+            <Chevron />
+          </span>
+        </Link>
+      </div>
+    </section>
+  )
+}
+
+/* ------------------------------------------------------------ Konto */
+
+export interface KontoSectionProps {
+  /** Kontoadressen, den man loggar in med. */
+  epost: string
+  /** Inloggningssättet i klartext: "Google" eller "Lösenord". */
+  inloggningSatt: string
+  harPaket: boolean
+  onLogout: () => void
+  onDeleteAccount: () => Promise<void>
+}
+
+export default function KontoSection(p: KontoSectionProps) {
+  const [radera, setRadera] = useState(false)
+  const inloggning = [p.epost, p.inloggningSatt].filter(Boolean).join(' · ')
+
+  return (
+    <section id="konto" aria-labelledby="konto-rubrik" className={KORT}>
+      <Huvud id="konto-rubrik" titel={KONTO_SEKTION.rubrik} />
+      <div className={KROPP}>
+        {/* Bara visande tills byte av lösenord och e-post byggs (ägarens beslut 2026-10-13). */}
+        <div className={RAD}>
+          <Rad titel={KONTO_SEKTION.inloggning} text={<span className="break-all">{inloggning}</span>} />
+        </div>
+        <button type="button" onClick={p.onLogout} className={RAD}>
+          <Rad titel={KONTO_SEKTION.loggaUt} text={KONTO_SEKTION.loggaUtText} />
+          <Chevron />
+        </button>
+        <div className={RAD}>
+          <span className="min-w-0">
+            <button type="button" onClick={() => setRadera(true)} className={`${LANK_FEL} inline-flex min-h-11 items-center`}>
+              {KONTO_SEKTION.radera}
+            </button>
+            <small className="block text-meta text-ink-3">{KONTO_SEKTION.raderaText}</small>
+          </span>
+        </div>
+      </div>
+
+      <Sheet open={radera} onClose={() => setRadera(false)} title={KONTO_SEKTION.radera}>
+        <RaderaKonto harPaket={p.harPaket} onAvbryt={() => setRadera(false)} onDeleteAccount={p.onDeleteAccount} />
+      </Sheet>
+    </section>
   )
 }
 

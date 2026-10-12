@@ -4,12 +4,14 @@
  * Profilsidans interaktiva del (docs/design/profil-registrering-2026-09-24.html,
  * Del A, och specens komponent-API).
  *
- * Fyra sektioner i den ordning användaren behöver dem: Överst i ditt CV
- * (foto först), Personliga brev (förvald ton först, sedan brevhuvudet),
- * Jobbsök och Konto. En rad "Hoppa till" under sidhuvudet gör varje sektion
- * ett tryck bort, och ankarna (#cv, #personliga-brev, #jobbsok, #konto)
- * används av länkar från resten av appen. Statusraden överst räknar namn
- * och ort, aldrig foto.
+ * Tre sektioner i den ordning användaren behöver dem: Överst i ditt CV
+ * (foto först), Personliga brev (förvald ton först, sedan brevhuvudet) och
+ * Jobbsök. Utseende, hjälpväxeln och Konto flyttade 2026-10-13 till
+ * Inställningar (skiss-installningar-2026-10-12); de gamla ankarna #konto,
+ * #utseende och #hjalp styrs om dit vid montering (omstyrning.ts). En rad
+ * "Hoppa till" under sidhuvudet gör varje sektion ett tryck bort, och
+ * ankarna (#cv, #personliga-brev, #jobbsok) används av länkar från resten
+ * av appen. Statusraden överst räknar namn och ort, aldrig foto.
  *
  * Sparbeteendet är oförändrat: autospara per fält. Textfält på blur, växlar
  * och tonval direkt, fotot när uppladdningen svarat. Profilen läses ur den
@@ -22,17 +24,10 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { useProfile } from '@/hooks/use-profile';
 import { useDashboardData } from '@/contexts/DashboardDataContext';
-import { useNotification } from '@/context/notificationcontext';
-import { getSupabaseClient } from '@/lib/supabase/client-manager';
-import { logUserActivity } from '@/lib/activity-logger';
 import RumHuvud from '@/components/rum/RumHuvud';
 import { RUBRIK } from '@/lib/rum/copy';
 import Golv from '@/components/rum/Golv';
-import UtseendeSection from './components/UtseendeSection';
-import HjalpProfilRad from '@/components/hjalp/HjalpProfilRad';
-import { hjalpDoldUrProfil } from '@/lib/traning/hjalp';
 import { capture } from '@/lib/analytics/events';
-import { menyHuvud } from '@/lib/onboarding/paket-rader';
 import { arGiltigEpost, dokumentEpost } from '@/lib/profile/dokumentEpost';
 
 import HoppaTill from './components/HoppaTill';
@@ -40,12 +35,12 @@ import SaknasRad from './components/SaknasRad';
 import CvUppgifterSection from './components/CvUppgifterSection';
 import PersonligaBrevSection from './components/PersonligaBrevSection';
 import JobbsokSection from './components/JobbsokSection';
-import KontoSection from './components/KontoSection';
 import { type PremiumFeature } from './components/PremiumGateModal';
 import { type TonalityValue } from './components/tonalities';
 import { useFieldSave } from './components/useFieldSave';
 import type { ProfilPageData } from './getProfilData';
-import { KONTO_SEKTION, PROFIL, CV_SEKTION } from './profil-copy';
+import { PROFIL, CV_SEKTION } from './profil-copy';
+import { installningarForAnkare } from './omstyrning';
 import {
   toJobPreferences,
   EMPTY_JOB_PREFERENCES,
@@ -61,7 +56,7 @@ const PremiumGateModal = dynamic(() => import('./components/PremiumGateModal'), 
 });
 
 /** Vilken sektion ett fält hör till, för profile_field_saved. */
-const SEKTION_FOR: Record<string, 'cv' | 'personliga_brev' | 'jobbsok' | 'konto'> = {
+const SEKTION_FOR: Record<string, 'cv' | 'personliga_brev' | 'jobbsok'> = {
   full_name: 'cv',
   contact_email: 'cv',
   location: 'cv',
@@ -80,7 +75,6 @@ const SEKTIONER = [
   { id: 'cv' as const, etikett: PROFIL.hopp.cv },
   { id: 'personliga-brev' as const, etikett: PROFIL.hopp['personliga-brev'] },
   { id: 'jobbsok' as const, etikett: PROFIL.hopp.jobbsok },
-  { id: 'konto' as const, etikett: PROFIL.hopp.konto },
 ];
 
 interface ProfileFormState {
@@ -150,9 +144,6 @@ function toPrefilled(profile: Record<string, any> | null, form: ProfileFormState
 
 export default function ProfilClient({ pageData }: { pageData: ProfilPageData }) {
   const router = useRouter();
-  const supabase = getSupabaseClient();
-  const { successWithMascot } = useNotification();
-
   // Summaryn är server-hämtad av layouten och finns redan vid första render.
   const { summary, refresh: refreshDashboard } = useDashboardData();
   const initialProfile = (summary?.profile as Record<string, any> | null) ?? null;
@@ -167,6 +158,21 @@ export default function ProfilClient({ pageData }: { pageData: ProfilPageData })
     toPrefilled(initialProfile, toForm(initialProfile))
   );
   const prefillChecked = useRef(initialProfile !== null);
+
+  // Gamla länkar till #konto, #utseende och #hjalp leder till Inställningar
+  // med samma ankare (omstyrning.ts). Också när ankaret byts på sidan.
+  const omstyrd = useRef(false);
+  useEffect(() => {
+    const styrOm = () => {
+      const dit = installningarForAnkare(window.location.hash);
+      if (!dit) return;
+      omstyrd.current = true;
+      router.replace(dit);
+    };
+    styrOm();
+    window.addEventListener('hashchange', styrOm);
+    return () => window.removeEventListener('hashchange', styrOm);
+  }, [router]);
 
   // Kom profilen först senare fyller vi fälten då i stället.
   useEffect(() => {
@@ -183,7 +189,7 @@ export default function ProfilClient({ pageData }: { pageData: ProfilPageData })
   // överst på desktop. En gång vid mount, och bara om rubriken inte redan syns.
   useEffect(() => {
     const id = window.location.hash.slice(1);
-    if (!['cv', 'cv-epost', 'personliga-brev', 'jobbsok', 'utseende', 'konto'].includes(id)) return;
+    if (!['cv', 'cv-epost', 'personliga-brev', 'jobbsok'].includes(id)) return;
     const raf = requestAnimationFrame(() => {
       const el = document.getElementById(id);
       if (!el) return;
@@ -197,7 +203,7 @@ export default function ProfilClient({ pageData }: { pageData: ProfilPageData })
   // finns och vilket ankare sidan öppnades på. Aldrig värdena.
   const visad = useRef(false);
   useEffect(() => {
-    if (visad.current) return;
+    if (visad.current || omstyrd.current) return;
     visad.current = true;
     const missing: ('namn' | 'ort')[] = [];
     if (formData.full_name.trim().length < 2) missing.push('namn');
@@ -317,68 +323,10 @@ export default function ProfilClient({ pageData }: { pageData: ProfilPageData })
     [save, updateProfile, profile, initialProfile, refreshDashboard]
   );
 
-  const handleLogout = async () => {
-    if (profile) {
-      logUserActivity(profile.id, 'logout', 'Användaren loggade ut', {
-        from_page: 'profile',
-      }).catch((e) => console.error('Loggningsfel:', e));
-    }
-    await supabase.auth.signOut();
-    router.push('/login');
-  };
-
-  const handleDeleteAccount = async () => {
-    if (profile) {
-      // Högst tre sekunder: loggningen får inte hålla kvar raderingen om
-      // auth-låset hålls av en annan flik.
-      await Promise.race([
-        logUserActivity(profile.id, 'registered', 'Användaren raderade sitt konto', {
-          email: profile.email,
-          subscription_tier: subscriptionTier,
-          timestamp: new Date().toISOString(),
-        }).catch(() => {}),
-        new Promise<void>((resolve) => setTimeout(resolve, 3000)),
-      ]);
-    }
-
-    try {
-      await fetch('/api/cv', { method: 'DELETE' });
-    } catch (err) {
-      console.warn('Kunde inte ta bort alla CV-data:', err);
-    }
-
-    try {
-      await fetch('/api/letters', { method: 'DELETE' });
-    } catch (err) {
-      console.warn('Kunde inte ta bort alla brev:', err);
-    }
-
-    const { error: deleteError } = await supabase.auth.admin.deleteUser(profile?.id || '');
-
-    if (deleteError) {
-      if (deleteError.message.includes('permissions')) {
-        await supabase.auth.signOut();
-        const { error: clientDeleteError } = await supabase.rpc('delete_user_account');
-        if (clientDeleteError) {
-          throw new Error(`Kontoborttagning misslyckades: ${clientDeleteError.message}`);
-        }
-      } else {
-        throw deleteError;
-      }
-    }
-
-    successWithMascot('Ditt konto är raderat. Tack för att du använde Jobbcoach.ai.', 'account-deleted', 4000, false);
-
-    setTimeout(() => router.push('/'), 2000);
-  };
-
   const email =
     (profile?.email as string | undefined) || (initialProfile?.email as string | undefined) || '';
 
   const harPaket = subscriptionTier === 'premium';
-  const huvud = summary?.paket ? menyHuvud(summary.paket) : null;
-  const prenumerationRad =
-    huvud && summary?.paket?.scope ? `${huvud.rubrik} · ${huvud.under}` : KONTO_SEKTION.gratis;
 
   return (
     <>
@@ -443,19 +391,6 @@ export default function ProfilClient({ pageData }: { pageData: ProfilPageData })
         onJobPreferencesChange={(v) => setField('job_preferences', v)}
         onSaveField={saveField}
         stateFor={stateFor}
-      />
-
-      <UtseendeSection />
-
-      <HjalpProfilRad initialDold={hjalpDoldUrProfil(initialProfile)} />
-
-      <KontoSection
-        prenumerationRad={prenumerationRad}
-        harPaket={harPaket}
-        initialDigestOptOut={initialProfile?.weekly_digest_opt_out === true}
-        initialQuotaOptOut={initialProfile?.quota_emails_opt_out === true}
-        onLogout={handleLogout}
-        onDeleteAccount={handleDeleteAccount}
       />
 
       {premiumGate && <PremiumGateModal feature={premiumGate} onClose={() => setPremiumGate(null)} />}
