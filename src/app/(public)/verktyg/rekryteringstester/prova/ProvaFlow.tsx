@@ -20,8 +20,6 @@ import { IlluTestResultat } from '@/components/illustrations/StartFlowIllustrati
 
 interface PublicQuestion {
   id: string
-  title: string
-  rule: string
   grid: (LayeredCell | null)[][]
   options: LayeredCell[]
 }
@@ -180,8 +178,11 @@ export default function ProvaFlow() {
         </div>
 
         <div className="rounded-xl border border-neutral-200 bg-white p-4 sm:p-6">
-          <h2 className="text-base font-semibold text-neutral-900">{question.title}</h2>
-          <p className="mt-2 text-sm leading-relaxed text-neutral-600">{question.rule}</p>
+          {/*
+            Ingen frågetitel och ingen regel före svar: båda beskriver mönstret
+            i ord. De visas i genomgången när provet är hämtat till ett konto.
+          */}
+          <h2 className="text-base font-semibold text-neutral-900">Hitta mönstret i rutnätet</h2>
 
           <div className="mt-6 grid grid-cols-3 gap-3">
             {question.grid.flat().map((cell, i) => (

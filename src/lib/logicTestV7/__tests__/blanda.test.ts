@@ -226,6 +226,11 @@ describe('smakprovet (anonymt, seedat på token)', () => {
     const publika = fragor.map((q) => toPublicQuestion(q, token, true))
     publika.forEach((p, i) => {
       expect(p).not.toHaveProperty('correctAnswer')
+      // Regeln är svaret i ord: den får inte lämna servern före svar.
+      expect(p).not.toHaveProperty('rule')
+      expect(p).not.toHaveProperty('title')
+      expect(JSON.stringify(p)).not.toContain(fragor[i].rule)
+      expect(JSON.stringify(p)).not.toContain(fragor[i].title)
       const perm = permutationForSession(token, fragor[i], true)
       expect(p.options).toEqual(perm.map((o) => fragor[i].options[o]))
     })
