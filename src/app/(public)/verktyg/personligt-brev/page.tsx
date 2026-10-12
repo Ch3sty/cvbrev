@@ -261,7 +261,7 @@ export default function PersonligtBrevSida() {
           <Rum yta="ton" rum="brev" id="mallar">
             <div className="pub-wrap">
               <p className="pub-kick">Mallar</p>
-              <h2 className="pub-h2">{`${MALLANTAL} mallar, en för varje bransch`}</h2>
+              <h2 className="pub-h2">{`${MALLANTAL} mallar för personliga brev`}</h2>
               <p className="pub-ingress" style={{ marginTop: 16 }}>
                 Alla mallar går att läsa för rekryteringssystemen svenska arbetsgivare använder. Byt mall utan att skriva om
                 brevet. {GRATISMALLAR} av dem är gratis och räcker långt för de flesta ansökningar, resten ingår i {PREMIUM}, {PRIS}.

@@ -119,6 +119,20 @@ const LD_UNDANTAG: Array<{ path: string; datum: string; skal: string; nya?: bool
   },
 ];
 
+/**
+ * Rubriker som fått ny text efter ägarbeslut. Den gamla får försvinna bara
+ * om den nya finns på samma nivå i efter-avtrycket.
+ */
+const RUBRIK_BYTT: Array<{ path: string; fore: string; efter: string; datum: string; skal: string }> = [
+  {
+    path: '/verktyg/personligt-brev',
+    fore: 'h2 7 mallar, en för varje bransch',
+    efter: 'h2 7 mallar för personliga brev',
+    datum: '2026-10-12',
+    skal: 'Ägarbeslut 2026-10-12, sakfel: mallarna är inte en per bransch. Ordet mallar står kvar och rubriken bär sökordet.',
+  },
+];
+
 /** Metadata som får tillkomma där den saknades (tom före, satt efter). */
 const META_TILLAGD: Array<{ path: string; falt: 'canonical'; datum: string; skal: string }> = [
   {
@@ -485,6 +499,12 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
         // Publikt v2: samma text och nivå, ordning och id får ändras.
         const utanId = (l: Rubrik[]) => l.filter((r) => !tillaten(r)).map((r) => `${r.tag} ${r.text}`);
         const d = multisetSkillnad(utanId(f.rubriker), utanId(e.rubriker));
+        const efterRubriker = new Set(utanId(e.rubriker));
+        d.borta = d.borta.filter((r) => {
+          const byte = RUBRIK_BYTT.find((b) => b.path === f.path && b.fore === r && efterRubriker.has(b.efter));
+          if (byte) info(`rubrik bytt (${byte.datum}): "${byte.fore}" → "${byte.efter}". ${byte.skal}`);
+          return !byte;
+        });
         if (d.borta.length) brott(`rubriker borta (text och nivå): ${JSON.stringify(d.borta)}`);
         if (d.nya.length) info(`nya rubriker: ${JSON.stringify(d.nya)}`);
       } else {
