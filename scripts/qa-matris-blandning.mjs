@@ -183,14 +183,14 @@ async function avtryck(p) {
 
 async function valdBokstav(p) {
   return p.$$eval('button[aria-label^="Svarsalternativ"][aria-pressed="true"], button[aria-label^="Svarsalternativ"][aria-checked="true"]', (b) =>
-    b.filter((e) => e.offsetParent !== null).map((e) => e.getAttribute('aria-label').slice(-1))
+    b.filter((e) => e.offsetParent !== null).map((e) => (e.getAttribute('aria-label').match(/^Svarsalternativ ([A-F])/) || [])[1] ?? null)
   )
 }
 
 async function klickaAlternativ(p, i) {
-  await p.waitForSelector(`button[aria-label="Svarsalternativ ${bokstav(i)}"]:not([disabled])`, { timeout: 30000 })
+  await p.waitForSelector(`button[aria-label^="Svarsalternativ ${bokstav(i)}"]:not([disabled])`, { timeout: 30000 })
   await p.evaluate((l) => {
-    const b = [...document.querySelectorAll(`button[aria-label="Svarsalternativ ${l}"]`)].find((e) => e.offsetParent !== null)
+    const b = [...document.querySelectorAll(`button[aria-label^="Svarsalternativ ${l}"]`)].find((e) => e.offsetParent !== null)
     b.scrollIntoView({ block: 'center' })
     b.click()
   }, bokstav(i))
@@ -316,9 +316,13 @@ async function testFlode(p) {
   await bild(p, 'lamna-in')
   await klickaText(p, /Avsluta och se resultat/)
   await p.waitForFunction(() => location.pathname.endsWith('/results'), { timeout: 120000 })
-  await vantaText(p, /Fråga för fråga/i, 120000)
+  await vantaText(p, /\d+ av 15 rätt/, 120000)
   await vanta(1200)
   await bild(p, 'resultat')
+  // Resultatsidan visar först de missade; hela listan (Fråga för fråga) öppnas med Visa alla.
+  await klickaText(p, /^Visa alla/).catch(() => {})
+  await p.waitForSelector('section[aria-label="Fråga för fråga"] li > button', { timeout: 60000 })
+  await vanta(600)
   const { data: klar } = await admin.from('logic_test_v4_sessions').select('score, completed_at').eq('id', sessionId).single()
   logg('poängen: 14 av 15', klar.score === 14, { score: klar.score })
 

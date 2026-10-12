@@ -1,0 +1,59 @@
+{"tid":"2026-10-12T10:57:51.936Z","floede":"hem-gratis-360-ljust","steg":"riktiga hemvyn","ok":null,"url":"/dashboard/tester","ram":"T1"}
+{"tid":"2026-10-12T10:57:55.560Z","floede":"hem-gratis-360-ljust","steg":"1c: Ändra datum nås på mobil","ok":true,"ram":"1c","synliga":[{"text":"Ändra datum","y":884}],"knapp":{"text":"Starta övningsprovet","botten":683}}
+{"tid":"2026-10-12T10:57:55.561Z","floede":"hem-gratis-360-ljust","steg":"1c: kopparknappens nederkant (mål högst 620 px)","ok":null,"text":"Starta övningsprovet","botten":683}
+{"tid":"2026-10-12T10:57:55.562Z","floede":"hem-gratis-360-ljust","steg":"1c: länken står under kopparknappen","ok":true}
+{"tid":"2026-10-12T10:57:59.248Z","floede":"hem-gratis-360-ljust","steg":"1g: Ändra datum nås på mobil","ok":true,"ram":"1g","synliga":[{"text":"Ändra datum","y":701}],"knapp":{"text":"Visa genomgången","botten":601}}
+{"tid":"2026-10-12T10:57:59.248Z","floede":"hem-gratis-360-ljust","steg":"1g: kopparknappens nederkant (mål högst 620 px)","ok":true,"text":"Visa genomgången","botten":601}
+{"tid":"2026-10-12T10:57:59.249Z","floede":"hem-gratis-360-ljust","steg":"1g: länken står under kopparknappen","ok":true}
+{"tid":"2026-10-12T10:57:59.697Z","floede":"hem-gratis-360-ljust","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T10:58:09.868Z","floede":"hem-premium-360-morkt","steg":"riktiga hemvyn","ok":null,"url":"/dashboard/tester","ram":"T1"}
+{"tid":"2026-10-12T10:58:13.458Z","floede":"hem-premium-360-morkt","steg":"1c: Ändra datum nås på mobil","ok":true,"ram":"1c","synliga":[{"text":"Ändra datum","y":884}],"knapp":{"text":"Starta övningsprovet","botten":683}}
+{"tid":"2026-10-12T10:58:13.459Z","floede":"hem-premium-360-morkt","steg":"1c: kopparknappens nederkant (mål högst 620 px)","ok":null,"text":"Starta övningsprovet","botten":683}
+{"tid":"2026-10-12T10:58:13.459Z","floede":"hem-premium-360-morkt","steg":"1c: länken står under kopparknappen","ok":true}
+{"tid":"2026-10-12T10:58:17.480Z","floede":"hem-premium-360-morkt","steg":"1g: Ändra datum nås på mobil","ok":true,"ram":"1g","synliga":[{"text":"Ändra datum","y":701}],"knapp":{"text":"Visa genomgången","botten":601}}
+{"tid":"2026-10-12T10:58:17.481Z","floede":"hem-premium-360-morkt","steg":"1g: kopparknappens nederkant (mål högst 620 px)","ok":true,"text":"Visa genomgången","botten":601}
+{"tid":"2026-10-12T10:58:17.481Z","floede":"hem-premium-360-morkt","steg":"1g: länken står under kopparknappen","ok":true}
+{"tid":"2026-10-12T10:58:17.919Z","floede":"hem-premium-360-morkt","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T10:58:29.123Z","floede":"hem-premium-1280-ljust","steg":"riktiga hemvyn","ok":null,"url":"/dashboard/tester","ram":"T1"}
+{"tid":"2026-10-12T10:58:34.931Z","floede":"hem-premium-1280-ljust","steg":"1c: på dator bär toppraden kontexten, statusradens länk är dold","ok":true,"ram":"1c","synliga":[{"text":"Test och datum","y":518},{"text":"Matrigma, 24 okt","y":14}],"knapp":{"text":"Starta övningsprovet","botten":806}}
+{"tid":"2026-10-12T10:58:39.879Z","floede":"hem-premium-1280-ljust","steg":"1g: på dator bär toppraden kontexten, statusradens länk är dold","ok":true,"ram":"1g","synliga":[{"text":"Test och datum","y":518},{"text":"Matrigma, 24 okt","y":14}],"knapp":{"text":"Visa genomgången","botten":766}}
+{"tid":"2026-10-12T10:58:42.044Z","floede":"hem-premium-1280-ljust","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T10:58:54.934Z","floede":"deduktiv-gratis-360-ljust","steg":"grund har 30 uppgifter i banken","ok":true,"antal":30}
+{"tid":"2026-10-12T10:58:59.800Z","floede":"deduktiv-gratis-360-ljust","steg":"mätraden: Uppgift 1 / 12 med aria-etikett","ok":true,"aria":"Uppgift 1 av 12","text":"Uppgift 1 / 12"}
+{"tid":"2026-10-12T10:58:59.801Z","floede":"deduktiv-gratis-360-ljust","steg":"numret står inte dubbelt i uppgiftsytan","ok":true}
+{"tid":"2026-10-12T10:59:07.445Z","floede":"deduktiv-gratis-360-ljust","steg":"bekräftelsen: Lämna in testet? med talord","ok":true,"dialog":"Lämna in testet? Du har svarat på tolv av tolv uppgifter. När du lämnar in rättas testet och du får lösningsgången direkt. Svaren går inte att ändra efteråt. Du har svarat på tolv av tolv uppgifter. När du lämnar in rättas testet och du får lösningsgången direkt. Svaren går inte att ändra efteråt. Tillbaka Lämna in och se resultatet"}
+{"tid":"2026-10-12T10:59:11.411Z","floede":"deduktiv-gratis-360-ljust","steg":"resultatet visar 8 av 12","ok":true}
+{"tid":"2026-10-12T10:59:13.249Z","floede":"deduktiv-gratis-360-ljust","steg":"genomgången: utfallet med komma, ingen mittpunkt","ok":true,"utfall":"Inte den här, 0:00","mittpunkt":false,"hoppad":false}
+{"tid":"2026-10-12T10:59:14.705Z","floede":"deduktiv-gratis-360-ljust","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T10:59:21.053Z","floede":"deduktiv-premium-1280-morkt","steg":"grund har 30 uppgifter i banken","ok":true,"antal":30}
+{"tid":"2026-10-12T10:59:27.839Z","floede":"deduktiv-premium-1280-morkt","steg":"mätraden: Uppgift 1 / 12 med aria-etikett","ok":true,"aria":"Uppgift 1 av 12","text":"Uppgift 1 / 12"}
+{"tid":"2026-10-12T10:59:27.839Z","floede":"deduktiv-premium-1280-morkt","steg":"numret står inte dubbelt i uppgiftsytan","ok":true}
+{"tid":"2026-10-12T10:59:35.521Z","floede":"deduktiv-premium-1280-morkt","steg":"bekräftelsen: Lämna in testet? med talord","ok":true,"dialog":"Lämna in testet? Du har svarat på tolv av tolv uppgifter. När du lämnar in rättas testet och du får lösningsgången direkt. Svaren går inte att ändra efteråt. Du har svarat på tolv av tolv uppgifter. När du lämnar in rättas testet och du får lösningsgången direkt. Svaren går inte att ändra efteråt. Tillbaka Lämna in och se resultatet"}
+{"tid":"2026-10-12T10:59:39.456Z","floede":"deduktiv-premium-1280-morkt","steg":"resultatet visar 8 av 12","ok":true}
+{"tid":"2026-10-12T10:59:41.297Z","floede":"deduktiv-premium-1280-morkt","steg":"genomgången: utfallet med komma, ingen mittpunkt","ok":true,"utfall":"Inte den här, 0:00","mittpunkt":false,"hoppad":false}
+{"tid":"2026-10-12T10:59:41.598Z","floede":"deduktiv-premium-1280-morkt","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T10:59:54.200Z","floede":"admin-admin-1280-ljust","steg":"deduktiv grund i Kalibrering: 25 per sida","ok":true,"rader":25,"forsta":"/admin/fragor/deduktiv/dd-g-d1-01"}
+{"tid":"2026-10-12T10:59:58.620Z","floede":"admin-admin-1280-ljust","steg":"deduktiv frågesida: lösningspanelen har tonbakgrund","ok":true,"bakgrund":"rgb(236, 230, 220)"}
+{"tid":"2026-10-12T11:00:04.089Z","floede":"admin-admin-1280-ljust","steg":"verbal frågesida: förklaringen har tonbakgrund","ok":true,"bakgrund":"rgb(236, 230, 220)"}
+{"tid":"2026-10-12T11:00:09.811Z","floede":"admin-admin-1280-ljust","steg":"verbalt grund i Kalibrering","ok":true,"rader":25}
+{"tid":"2026-10-12T11:00:14.622Z","floede":"admin-admin-1280-ljust","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T11:00:25.025Z","floede":"admin-admin-360-morkt","steg":"deduktiv grund i Kalibrering: 25 per sida","ok":true,"rader":25,"forsta":"/admin/fragor/deduktiv/dd-g-d1-01"}
+{"tid":"2026-10-12T11:00:27.734Z","floede":"admin-admin-360-morkt","steg":"deduktiv frågesida: lösningspanelen har tonbakgrund","ok":true,"bakgrund":"rgb(236, 230, 220)"}
+{"tid":"2026-10-12T11:00:30.796Z","floede":"admin-admin-360-morkt","steg":"verbal frågesida: förklaringen har tonbakgrund","ok":true,"bakgrund":"rgb(236, 230, 220)"}
+{"tid":"2026-10-12T11:00:31.808Z","floede":"admin-admin-360-morkt","steg":"sidfel","ok":false,"fel":"Error: Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings."}
+{"tid":"2026-10-12T11:00:34.036Z","floede":"admin-admin-360-morkt","steg":"verbalt grund i Kalibrering","ok":true,"rader":25}
+{"tid":"2026-10-12T11:00:37.030Z","floede":"admin-admin-360-morkt","steg":"klart","ok":false,"fel":["sidfel"]}
+{"tid":"2026-10-12T11:01:20.476Z","floede":"verbal-gratis-1280-ljust","steg":"avslutet svarade 200 (statistiken skickas i samma anrop)","ok":true,"avslut":[200]}
+{"tid":"2026-10-12T11:01:20.853Z","floede":"verbal-gratis-1280-ljust","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T11:02:01.611Z","floede":"verbal-premium-360-ljust","steg":"avslutet svarade 200 (statistiken skickas i samma anrop)","ok":true,"avslut":[200]}
+{"tid":"2026-10-12T11:02:01.983Z","floede":"verbal-premium-360-ljust","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T11:03:26.891Z","floede":"admin-admin-360-morkt","steg":"deduktiv grund i Kalibrering: 25 per sida","ok":true,"rader":25,"forsta":"/admin/fragor/deduktiv/dd-g-d1-01"}
+{"tid":"2026-10-12T11:03:29.611Z","floede":"admin-admin-360-morkt","steg":"deduktiv frågesida: lösningspanelen har tonbakgrund","ok":true,"bakgrund":"rgb(236, 230, 220)"}
+{"tid":"2026-10-12T11:03:32.719Z","floede":"admin-admin-360-morkt","steg":"verbal frågesida: förklaringen har tonbakgrund","ok":true,"bakgrund":"rgb(236, 230, 220)"}
+{"tid":"2026-10-12T11:03:36.283Z","floede":"admin-admin-360-morkt","steg":"verbalt grund i Kalibrering","ok":true,"rader":25}
+{"tid":"2026-10-12T11:03:40.354Z","floede":"admin-admin-360-morkt","steg":"klart","ok":true,"fel":[]}
+{"tid":"2026-10-12T11:03:51.636Z","floede":"admin-admin-360-morkt","steg":"deduktiv grund i Kalibrering: 25 per sida","ok":true,"rader":25,"forsta":"/admin/fragor/deduktiv/dd-g-d1-01"}
+{"tid":"2026-10-12T11:03:54.269Z","floede":"admin-admin-360-morkt","steg":"deduktiv frågesida: lösningspanelen har tonbakgrund","ok":true,"bakgrund":"rgb(236, 230, 220)"}
+{"tid":"2026-10-12T11:03:57.311Z","floede":"admin-admin-360-morkt","steg":"verbal frågesida: förklaringen har tonbakgrund","ok":true,"bakgrund":"rgb(236, 230, 220)"}
+{"tid":"2026-10-12T11:04:00.795Z","floede":"admin-admin-360-morkt","steg":"verbalt grund i Kalibrering","ok":true,"rader":25}
+{"tid":"2026-10-12T11:04:04.254Z","floede":"admin-admin-360-morkt","steg":"klart","ok":true,"fel":[]}
