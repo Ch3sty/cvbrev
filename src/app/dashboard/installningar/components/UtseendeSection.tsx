@@ -36,6 +36,7 @@ export default function UtseendeSection({ initialHjalpDold }: { initialHjalpDold
           onChange={valj}
           label={UTSEENDE.rubrik}
           className="sm:max-w-[420px]"
+          efterInnehall
           options={TEMAN.map((t) => ({ value: t, label: UTSEENDE.val[t] }))}
         />
       </div>

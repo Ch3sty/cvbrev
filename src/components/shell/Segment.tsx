@@ -21,6 +21,12 @@ export interface SegmentProps<T extends string> {
   /** Tillgängligt namn på gruppen. */
   label: string
   className?: string
+  /**
+   * Bredd efter innehåll: knapparna växer från sin textbredd i stället för
+   * att vara lika breda, och texten bryts aldrig. För etiketter av olika
+   * längd, som "Följer systemet" bredvid "Ljust", på 360 px.
+   */
+  efterInnehall?: boolean
 }
 
 export default function Segment<T extends string>({
@@ -29,6 +35,7 @@ export default function Segment<T extends string>({
   options,
   label,
   className,
+  efterInnehall = false,
 }: SegmentProps<T>) {
   return (
     <div role="radiogroup" aria-label={label} className={`flex gap-2 ${className ?? ''}`}>
@@ -42,7 +49,7 @@ export default function Segment<T extends string>({
             aria-checked={on}
             disabled={option.disabled}
             onClick={() => onChange(option.value)}
-            className={`h-11 flex-1 rounded-lg border bg-papper px-3 text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-papper-2 disabled:cursor-not-allowed disabled:opacity-60 ${
+            className={`h-11 ${efterInnehall ? 'flex-auto whitespace-nowrap px-2.5' : 'flex-1 px-3'} rounded-lg border bg-papper text-sm text-ink-1 transition-[border-color,background-color] duration-[120ms] hover:border-kant-stark active:bg-papper-2 disabled:cursor-not-allowed disabled:opacity-60 ${
               on ? 'border-ink-1 font-medium shadow-val' : 'border-kant'
             }`}
           >
