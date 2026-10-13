@@ -11,6 +11,10 @@
  * Slå på ljud och följer videons tid. Med reducerad rörelse spelar inget
  * förrän besökaren trycker på Spela.
  *
+ * start='klick' (artiklarna): inget spelar och ingen fil hämtas förrän
+ * besökaren trycker på Spela filmen, så att filmen inte konkurrerar med
+ * artikelns text och knappar.
+ *
  * Mäts med videoMatare (src/lib/analytics/publikt.ts).
  */
 
@@ -27,7 +31,17 @@ const LJUD = '/videos/tester-v3-ljud.m4a'
 // Avslutet börjar 15,6 s in, knappen i bild från 16,9 s.
 const KNAPP_FRAN = 16.9
 
-export default function Produktfilm({ page, position, knappHref }: { page: string; position: string; knappHref: string }) {
+export default function Produktfilm({
+  page,
+  position,
+  knappHref,
+  start = 'synlig',
+}: {
+  page: string
+  position: string
+  knappHref: string
+  start?: 'synlig' | 'klick'
+}) {
   const ram = useRef<HTMLDivElement>(null)
   const video = useRef<HTMLVideoElement>(null)
   const ljud = useRef<HTMLAudioElement | null>(null)
@@ -58,7 +72,7 @@ export default function Produktfilm({ page, position, knappHref }: { page: strin
         const v = video.current
         if (post.isIntersecting && post.intersectionRatio >= 0.5) {
           matare.visad()
-          if (lugn) return
+          if (lugn || start === 'klick') return
           setLaddad(true)
           if (v) v.play().catch(() => setSpelar(false))
         } else if (v && !v.paused) {
@@ -70,13 +84,15 @@ export default function Produktfilm({ page, position, knappHref }: { page: strin
     )
     obs.observe(el)
     return () => obs.disconnect()
-  }, [matare, lugn])
+  }, [matare, lugn, start])
 
   // När källan har satts startar vi uppspelningen.
   useEffect(() => {
     const v = video.current
-    if (laddad && v && !lugn) v.play().catch(() => setSpelar(false))
-  }, [laddad, lugn, variant])
+    // laddad blir sann antingen när filmen syns (start synlig, utan reducerad
+    // rörelse) eller när besökaren trycker Spela, så då ska den spela.
+    if (laddad && v) v.play().catch(() => setSpelar(false))
+  }, [laddad, variant])
 
   const spela = () => {
     setLaddad(true)
@@ -135,7 +151,7 @@ export default function Produktfilm({ page, position, knappHref }: { page: strin
         onPause={() => setSpelar(false)}
         onTimeUpdate={tid}
       />
-      {!spelar && (lugn || laddad) && (
+      {!spelar && (lugn || laddad || start === 'klick') && (
         <button type="button" className="pub-film-spela" onClick={spela}>
           Spela filmen
         </button>

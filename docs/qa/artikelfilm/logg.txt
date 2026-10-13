@@ -1,0 +1,11 @@
+pixel7 logiska-tester: före klick 1 filer, efter klick tid 1.93
+pixel7 alva-labs-logiktest: före klick 1 filer, efter klick tid 1.99
+pixel7 matrislogik-test-guide: före klick 1 filer, efter klick tid 1.98
+pixel7 numeriskt-test-guide: före klick 1 filer, efter klick tid 1.98
+desktop logiska-tester: före klick 1 filer, efter klick tid 1.98
+desktop alva-labs-logiktest: före klick 1 filer, efter klick tid 1.99
+desktop matrislogik-test-guide: före klick 1 filer, efter klick tid 1.98
+desktop numeriskt-test-guide: före klick 1 filer, efter klick tid 1.96
+Avvisa: händelser efter klick 2, anrop till PostHog vid nästa sida 0, cookies ["cvBrevCookieConsent"]
+
+Inga fel.

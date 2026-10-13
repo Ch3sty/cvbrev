@@ -61,6 +61,7 @@ import CVExample from '@/components/mdx/CVExample';
 import ArtikelRam, { datumText, type RelateradArtikel } from '@/components/artiklar/ArtikelRam';
 import { GratisKort, InlineKort, SlutKort } from '@/components/artiklar/reklam/ArtikelReklam';
 import Signatur from '@/components/publikt/innehall/Signatur';
+import ArtikelFilm from '@/components/artiklar/ArtikelFilm';
 import { KLUSTER_ETIKETT, hjalteKnapp } from '@/components/publikt/innehall/artikel-kluster';
 import MallMiniatyrer from '@/components/cv/MallMiniatyrer';
 import { BrevMallVisning, CvMallVisning } from '@/components/artiklar/MallVisningar';
@@ -461,6 +462,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         // Lägg till konverteringskomponenter som kan användas i MDX
         // Aliaset bevaras för äldre MDX som skriver ut komponenten själv.
         BroadConversionBanner: () => <InlineKort cluster={cluster} verktyg={verktyg} slug={slug} />,
+        // Produktfilmen i testartiklarna, klicka för att spela (ArtikelFilm.tsx).
+        Traningsfilm: () => <ArtikelFilm slug={slug} />,
         CVTemplateShowcase: CVTemplateShowcase,
         PersonligtBrevTemplateShowcase: BrevMallVisning,
         InteractiveCVShowcase: CvMallVisning,

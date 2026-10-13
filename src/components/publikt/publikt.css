@@ -1329,3 +1329,6 @@ a.pub-mall-mer {
   .pub-film { aspect-ratio: 9 / 16; max-height: 82vh; margin: 0 auto; }
   .pub-film-knapp { top: 53.9%; width: 43%; height: 5.8%; }
 }
+@media (max-width: 640px) {
+  .artikel-film .pub-film { max-height: 70vh; }
+}
