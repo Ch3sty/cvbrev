@@ -24,6 +24,11 @@ import { arTestEpost } from '@/lib/admin/undantag'
  * localStorage som förut. Annars körs PostHog med persistence 'memory':
  * inga cookies, ingen localStorage, och id:t lever bara i fliken. Trycker
  * hon Acceptera senare byts lagringen direkt och id:t följer med.
+ *
+ * Har besökaren tryckt Avvisa startar PostHog inte alls, och trycker hon
+ * Avvisa medan PostHog redan kör stängs mätningen av direkt
+ * (opt_out_capturing). Ägarens beslut 2026-10-13: Avvisa betyder ingen
+ * mätning, inte bara inga cookies.
  */
 
 let initierad = false
@@ -36,6 +41,16 @@ let aktuell: Anvandare | null = null
 type Posthog = typeof import('posthog-js').default
 
 const SAMTYCKE_COOKIE = 'cvBrevCookieConsent'
+
+/** Sant när besökaren har tryckt Avvisa i cookie-raden. */
+export function harAvvisat(): boolean {
+  if (typeof document === 'undefined') return false
+  try {
+    return new RegExp(`(?:^|; )${SAMTYCKE_COOKIE}=false(?:;|$)`).test(document.cookie)
+  } catch {
+    return false
+  }
+}
 
 /** Sant när besökaren har tryckt Acceptera i cookie-raden. */
 export function harAnalysSamtycke(): boolean {
@@ -59,7 +74,8 @@ function identifiera(posthog: Posthog, user: Anvandare): void {
 }
 
 /**
- * Byter till sparat id när besökaren trycker Acceptera. Cookie-raden är
+ * Byter till sparat id när besökaren trycker Acceptera och stänger av
+ * mätningen när hon trycker Avvisa. Cookie-raden är
  * server-HTML med ett eget skript (inte React), så vi lyssnar på klicket i
  * stället för att ändra raden. Bannerns skript sätter cookien i samma klick.
  */
@@ -69,9 +85,9 @@ function lyssnaPaSamtycke(posthog: Posthog): void {
     const knapp = mal?.closest?.('[data-samtycke]')
     if (!knapp) return
     document.removeEventListener('click', vidKlick, true)
-    if (knapp.getAttribute('data-samtycke') !== 'true') return
     try {
-      posthog.set_config({ persistence: 'localStorage+cookie' })
+      if (knapp.getAttribute('data-samtycke') === 'true') posthog.set_config({ persistence: 'localStorage+cookie' })
+      else posthog.opt_out_capturing()
     } catch {
       // Mätning får aldrig kasta vidare.
     }
@@ -82,6 +98,8 @@ function lyssnaPaSamtycke(posthog: Posthog): void {
 function starta(): void {
   if (initierad) return
   initierad = true
+  // Avvisa betyder ingen mätning alls: posthog-js hämtas inte ens.
+  if (harAvvisat()) return
   void import('posthog-js').then(({ default: posthog }) => {
     const samtycke = harAnalysSamtycke()
     posthog.init(process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN!, {

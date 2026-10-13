@@ -173,10 +173,18 @@ export default function PrivacyPolicyPage() {
           </p>
            <ul>
                <li><strong>Nödvändiga cookies:</strong> Krävs för grundläggande funktioner som inloggning och sessionshantering.</li>
-               <li><strong>Prestanda/Analys cookies (om tillämpligt):</strong> Hjälper oss förstå hur Tjänsten används så vi kan förbättra den (PostHog, med lagring inom EU).</li>
+               <li><strong>Analys (PostHog, lagring inom EU):</strong> Hjälper oss förstå hur Tjänsten används så att vi kan förbättra den, till exempel vilka sidor som besöks och hur många som startar ett test.</li>
            </ul>
            <p>
-            Du kan hantera dina cookie-inställningar via din webbläsare.
+            Så styr ditt val i cookie-rutan analysen:
+          </p>
+           <ul>
+               <li><strong>Acceptera:</strong> PostHog sparar ett anonymt id i en cookie och i din webbläsares lagring, så att vi kan se hur Tjänsten används över flera besök.</li>
+               <li><strong>Innan du har valt:</strong> vi räknar sidvisningar och klick utan cookies och utan att något sparas i din webbläsare. Id:t lever bara så länge fliken är öppen.</li>
+               <li><strong>Avvisa:</strong> ingen analys alls. PostHog laddas inte och ingenting om ditt besök skickas dit. Vi sparar bara ditt val, så att vi inte frågar igen.</li>
+           </ul>
+           <p>
+            Du kan ändra ditt val genom att rensa cookies för jobbcoach.ai i din webbläsare, så visas cookie-rutan igen.
           </p>
         </section>
 
