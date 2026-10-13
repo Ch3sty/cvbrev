@@ -1,0 +1,79 @@
+/* ============================================================
+   YRKESKARTAN: "Var jobben finns för [yrket]" på yrkessidorna
+   (YrkesKarta.tsx). Egen liten stil så att jobbkartan.css inte laddas.
+   Kopparrampen är Jobbkartans (validerad i jobbkartan.css), ljust och mörkt.
+   ============================================================ */
+.yk {
+  --yk-k0: #D8D1C4; --yk-k1: #E58E4F; --yk-k2: #DE7A33; --yk-k3: #C4621F; --yk-k4: #A14A17; --yk-k5: #742A0C;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .yk {
+    --yk-k0: #3A3842; --yk-k1: #9A4418; --yk-k2: #B5561E; --yk-k3: #CF6C2A; --yk-k4: #E38A4A; --yk-k5: #F2A86F;
+  }
+}
+:root[data-theme="dark"] .yk {
+  --yk-k0: #3A3842; --yk-k1: #9A4418; --yk-k2: #B5561E; --yk-k3: #CF6C2A; --yk-k4: #E38A4A; --yk-k5: #F2A86F;
+}
+.yk-g {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 240px);
+  grid-template-areas: 'huvud figur' 'kropp figur' 'fot figur';
+  grid-template-rows: auto auto 1fr;
+  column-gap: 48px;
+}
+.yk-huvud { grid-area: huvud; }
+.yk-kropp { grid-area: kropp; }
+.yk-fotdel { grid-area: fot; }
+.yk-figur { grid-area: figur; align-self: center; margin: 0; }
+.yk-rad {
+  margin-top: 16px;
+  font-size: clamp(19px, 2.4vw, 22px);
+  line-height: 1.4;
+  font-weight: 600;
+  color: var(--ink-1);
+  max-width: 40ch;
+}
+.yk-tal { margin-top: 22px; display: flex; flex-direction: column; gap: 2px; }
+.yk-tal b {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(30px, 4.4vw, 38px);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--ink-1);
+  font-variant-numeric: tabular-nums;
+}
+.yk-tal span { font-size: 14px; color: var(--ink-2); }
+.yk-fot { margin-top: 22px; font-size: 13px; line-height: 1.5; color: var(--ink-2); max-width: 52ch; }
+.yk-lank { display: inline-block; margin-top: 18px; color: var(--rum-ink); }
+.yk-karta { display: block; width: 100%; height: auto; }
+.yk-karta path { stroke: var(--rum-ton); stroke-width: 1.4; stroke-linejoin: round; }
+.yk-k0 { fill: var(--yk-k0); background: var(--yk-k0); }
+.yk-k1 { fill: var(--yk-k1); background: var(--yk-k1); }
+.yk-k2 { fill: var(--yk-k2); background: var(--yk-k2); }
+.yk-k3 { fill: var(--yk-k3); background: var(--yk-k3); }
+.yk-k4 { fill: var(--yk-k4); background: var(--yk-k4); }
+.yk-k5 { fill: var(--yk-k5); background: var(--yk-k5); }
+.yk-skala {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--ink-2);
+}
+.yk-ramp { display: inline-flex; gap: 2px; }
+.yk-ramp i { display: block; width: 16px; height: 8px; border-radius: 2px; }
+@media (max-width: 760px) {
+  .yk-g {
+    grid-template-columns: minmax(0, 1fr) 120px;
+    grid-template-areas: 'huvud huvud' 'kropp figur' 'fot fot';
+    grid-template-rows: auto auto auto;
+    column-gap: 20px;
+  }
+  .yk-figur { align-self: start; margin-top: 18px; }
+  .yk-skala { display: grid; grid-template-columns: auto auto; justify-content: space-between; gap: 4px 0; font-size: 11px; }
+  .yk-ramp { grid-column: 1 / -1; order: -1; display: flex; }
+  .yk-ramp i { flex: 1; width: auto; }
+}

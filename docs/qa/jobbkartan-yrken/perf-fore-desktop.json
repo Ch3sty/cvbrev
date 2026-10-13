@@ -1,0 +1,61 @@
+{
+  "tid": "2026-10-13T12:04:43.919Z",
+  "bas": "http://localhost:8300",
+  "korningar": 3,
+  "resultat": [
+    {
+      "path": "/cv-exempel/psykolog",
+      "clicks": 0,
+      "budget": 1500,
+      "m": {
+        "lcp": 280,
+        "cls": 0,
+        "fcp": 280,
+        "ttfb": 13,
+        "forfragningar": 73,
+        "bytes": 549,
+        "textLangd": 16423,
+        "lcpEl": "p.pub-ingress \"Professionellt CV-exempel för \"",
+        "jsKb": 290,
+        "jsFiler": 25,
+        "htmlRaKb": 157
+      }
+    },
+    {
+      "path": "/personligt-brev-exempel/elevassistent",
+      "clicks": 0,
+      "budget": 1500,
+      "m": {
+        "lcp": 180,
+        "cls": 0,
+        "fcp": 180,
+        "ttfb": 10,
+        "forfragningar": 73,
+        "bytes": 549,
+        "textLangd": 13777,
+        "lcpEl": "p \"I min nuvarande roll stöttar j\"",
+        "jsKb": 290,
+        "jsFiler": 25,
+        "htmlRaKb": 133
+      }
+    },
+    {
+      "path": "/cv-exempel/vardbitrade",
+      "clicks": 0,
+      "budget": 1500,
+      "m": {
+        "lcp": 180,
+        "cls": 0,
+        "fcp": 180,
+        "ttfb": 10,
+        "forfragningar": 73,
+        "bytes": 549,
+        "textLangd": 16895,
+        "lcpEl": "p.pub-ingress \"Som vårdbiträde är ditt CV din\"",
+        "jsKb": 290,
+        "jsFiler": 25,
+        "htmlRaKb": 150
+      }
+    }
+  ]
+}

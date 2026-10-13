@@ -1,0 +1,343 @@
+Klicktest 2026-10-13T12:28:41.161Z, http://localhost:8300, Chrome via puppeteer-core
+Fel: 0
+
+OK  pixel7 ljust /cv-exempel/psykolog: h2 "Var jobben finns för psykologer"
+OK  pixel7 ljust /cv-exempel/psykolog: rad "Vanligast i Uppsala län, 1,5 gånger landets snitt."
+OK  pixel7 ljust /cv-exempel/psykolog: lön 48 600 kr
+OK  pixel7 ljust /cv-exempel/psykolog: länk /jobbkartan#vy-03-2241-1480-8
+OK  pixel7 ljust /cv-exempel/psykolog: karta 21 län, 120x177 px, fyllning rgb(222, 122, 51), bakgrund rgb(220, 235, 221)
+OK  pixel7 ljust /cv-exempel/psykolog: före vanliga frågor
+OK  pixel7 ljust /cv-exempel/psykolog: ingen sidledes scroll
+OK  pixel7 ljust /cv-exempel/psykolog: inga jobbkartan-resurser laddade
+OK  pixel7 ljust /cv-exempel/psykolog: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  pixel7 ljust /cv-exempel/psykolog: målet /jobbkartan#vy-03-2241-1480-8 svarar 200
+OK  pixel7 ljust /cv-exempel/psykolog: konsolfel inga
+OK  pixel7 ljust /cv-exempel/psykolog: 4xx/5xx inga
+OK  pixel7 ljust /cv-exempel/elevassistent: h2 "Var jobben finns för elevassistenter"
+OK  pixel7 ljust /cv-exempel/elevassistent: rad "Vanligast i Kronobergs län, 1,6 gånger landets snitt."
+OK  pixel7 ljust /cv-exempel/elevassistent: lön 29 100 kr
+OK  pixel7 ljust /cv-exempel/elevassistent: länk /jobbkartan#vy-07-5312-1480-8
+OK  pixel7 ljust /cv-exempel/elevassistent: karta 21 län, 120x177 px, fyllning rgb(196, 98, 31), bakgrund rgb(220, 235, 221)
+OK  pixel7 ljust /cv-exempel/elevassistent: före vanliga frågor
+OK  pixel7 ljust /cv-exempel/elevassistent: ingen sidledes scroll
+OK  pixel7 ljust /cv-exempel/elevassistent: inga jobbkartan-resurser laddade
+OK  pixel7 ljust /cv-exempel/elevassistent: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  pixel7 ljust /cv-exempel/elevassistent: målet /jobbkartan#vy-07-5312-1480-8 svarar 304
+OK  pixel7 ljust /cv-exempel/elevassistent: konsolfel inga
+OK  pixel7 ljust /cv-exempel/elevassistent: 4xx/5xx inga
+OK  pixel7 ljust /cv-exempel/vardbitrade: h2 "Var jobben finns för vårdbiträden"
+OK  pixel7 ljust /cv-exempel/vardbitrade: rad "Vanligast i Västernorrlands län, 1,9 gånger landets snitt."
+OK  pixel7 ljust /cv-exempel/vardbitrade: lön 29 600 kr
+OK  pixel7 ljust /cv-exempel/vardbitrade: länk /jobbkartan#vy-22-5330-1480-8
+OK  pixel7 ljust /cv-exempel/vardbitrade: karta 21 län, 120x177 px, fyllning rgb(161, 74, 23), bakgrund rgb(220, 235, 221)
+OK  pixel7 ljust /cv-exempel/vardbitrade: före vanliga frågor
+OK  pixel7 ljust /cv-exempel/vardbitrade: ingen sidledes scroll
+OK  pixel7 ljust /cv-exempel/vardbitrade: inga jobbkartan-resurser laddade
+OK  pixel7 ljust /cv-exempel/vardbitrade: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  pixel7 ljust /cv-exempel/vardbitrade: målet /jobbkartan#vy-22-5330-1480-8 svarar 304
+OK  pixel7 ljust /cv-exempel/vardbitrade: konsolfel inga
+OK  pixel7 ljust /cv-exempel/vardbitrade: 4xx/5xx inga
+OK  pixel7 ljust /cv-exempel/fritidspedagog: h2 "Var jobben finns för fritidspedagoger"
+OK  pixel7 ljust /cv-exempel/fritidspedagog: rad "Vanligast i Jämtlands län, 2,0 gånger landets snitt."
+OK  pixel7 ljust /cv-exempel/fritidspedagog: lön 35 200 kr
+OK  pixel7 ljust /cv-exempel/fritidspedagog: länk /jobbkartan#vy-23-2342-1480-8
+OK  pixel7 ljust /cv-exempel/fritidspedagog: karta 21 län, 120x177 px, fyllning rgb(196, 98, 31), bakgrund rgb(220, 235, 221)
+OK  pixel7 ljust /cv-exempel/fritidspedagog: före vanliga frågor
+OK  pixel7 ljust /cv-exempel/fritidspedagog: ingen sidledes scroll
+OK  pixel7 ljust /cv-exempel/fritidspedagog: inga jobbkartan-resurser laddade
+OK  pixel7 ljust /cv-exempel/fritidspedagog: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  pixel7 ljust /cv-exempel/fritidspedagog: målet /jobbkartan#vy-23-2342-1480-8 svarar 304
+OK  pixel7 ljust /cv-exempel/fritidspedagog: konsolfel inga
+OK  pixel7 ljust /cv-exempel/fritidspedagog: 4xx/5xx inga
+OK  pixel7 ljust /cv-exempel/barista: h2 "Var jobben finns för baristor"
+OK  pixel7 ljust /cv-exempel/barista: rad "Vanligast i Stockholms län, 1,3 gånger landets snitt."
+OK  pixel7 ljust /cv-exempel/barista: lön 26 500 kr
+OK  pixel7 ljust /cv-exempel/barista: länk /jobbkartan#vy-01-9413-1480-8
+OK  pixel7 ljust /cv-exempel/barista: karta 21 län, 120x177 px, fyllning rgb(222, 122, 51), bakgrund rgb(220, 235, 221)
+OK  pixel7 ljust /cv-exempel/barista: före vanliga frågor
+OK  pixel7 ljust /cv-exempel/barista: ingen sidledes scroll
+OK  pixel7 ljust /cv-exempel/barista: inga jobbkartan-resurser laddade
+OK  pixel7 ljust /cv-exempel/barista: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  pixel7 ljust /cv-exempel/barista: målet /jobbkartan#vy-01-9413-1480-8 svarar 304
+OK  pixel7 ljust /cv-exempel/barista: konsolfel inga
+OK  pixel7 ljust /cv-exempel/barista: 4xx/5xx inga
+OK  pixel7 ljust /cv-exempel/butikssaljare: h2 "Var jobben finns för butikssäljare"
+OK  pixel7 ljust /cv-exempel/butikssaljare: rad "Vanligast i Hallands län, 1,3 gånger landets snitt."
+OK  pixel7 ljust /cv-exempel/butikssaljare: lön null
+OK  pixel7 ljust /cv-exempel/butikssaljare: länk /jobbkartan#vy-13-5223-1480-8
+OK  pixel7 ljust /cv-exempel/butikssaljare: karta 21 län, 120x177 px, fyllning rgb(196, 98, 31), bakgrund rgb(220, 235, 221)
+OK  pixel7 ljust /cv-exempel/butikssaljare: före vanliga frågor
+OK  pixel7 ljust /cv-exempel/butikssaljare: ingen sidledes scroll
+OK  pixel7 ljust /cv-exempel/butikssaljare: inga jobbkartan-resurser laddade
+OK  pixel7 ljust /cv-exempel/butikssaljare: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  pixel7 ljust /cv-exempel/butikssaljare: målet /jobbkartan#vy-13-5223-1480-8 svarar 304
+OK  pixel7 ljust /cv-exempel/butikssaljare: konsolfel inga
+OK  pixel7 ljust /cv-exempel/butikssaljare: 4xx/5xx inga
+OK  pixel7 ljust /personligt-brev-exempel/psykolog: h2 "Var jobben finns för psykologer"
+OK  pixel7 ljust /personligt-brev-exempel/psykolog: rad "Vanligast i Uppsala län, 1,5 gånger landets snitt."
+OK  pixel7 ljust /personligt-brev-exempel/psykolog: lön 48 600 kr
+OK  pixel7 ljust /personligt-brev-exempel/psykolog: länk /jobbkartan#vy-03-2241-1480-8
+OK  pixel7 ljust /personligt-brev-exempel/psykolog: karta 21 län, 120x177 px, fyllning rgb(222, 122, 51), bakgrund rgb(220, 235, 221)
+OK  pixel7 ljust /personligt-brev-exempel/psykolog: före vanliga frågor
+OK  pixel7 ljust /personligt-brev-exempel/psykolog: ingen sidledes scroll
+OK  pixel7 ljust /personligt-brev-exempel/psykolog: inga jobbkartan-resurser laddade
+OK  pixel7 ljust /personligt-brev-exempel/psykolog: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  pixel7 ljust /personligt-brev-exempel/psykolog: målet /jobbkartan#vy-03-2241-1480-8 svarar 304
+OK  pixel7 ljust /personligt-brev-exempel/psykolog: konsolfel inga
+OK  pixel7 ljust /personligt-brev-exempel/psykolog: 4xx/5xx inga
+OK  pixel7 ljust /personligt-brev-exempel/elevassistent: h2 "Var jobben finns för elevassistenter"
+OK  pixel7 ljust /personligt-brev-exempel/elevassistent: rad "Vanligast i Kronobergs län, 1,6 gånger landets snitt."
+OK  pixel7 ljust /personligt-brev-exempel/elevassistent: lön 29 100 kr
+OK  pixel7 ljust /personligt-brev-exempel/elevassistent: länk /jobbkartan#vy-07-5312-1480-8
+OK  pixel7 ljust /personligt-brev-exempel/elevassistent: karta 21 län, 120x177 px, fyllning rgb(196, 98, 31), bakgrund rgb(220, 235, 221)
+OK  pixel7 ljust /personligt-brev-exempel/elevassistent: före vanliga frågor
+OK  pixel7 ljust /personligt-brev-exempel/elevassistent: ingen sidledes scroll
+OK  pixel7 ljust /personligt-brev-exempel/elevassistent: inga jobbkartan-resurser laddade
+OK  pixel7 ljust /personligt-brev-exempel/elevassistent: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  pixel7 ljust /personligt-brev-exempel/elevassistent: målet /jobbkartan#vy-07-5312-1480-8 svarar 304
+OK  pixel7 ljust /personligt-brev-exempel/elevassistent: konsolfel inga
+OK  pixel7 ljust /personligt-brev-exempel/elevassistent: 4xx/5xx inga
+OK  pixel7 ljust /personligt-brev-exempel/vardbitrade: h2 "Var jobben finns för vårdbiträden"
+OK  pixel7 ljust /personligt-brev-exempel/vardbitrade: rad "Vanligast i Västernorrlands län, 1,9 gånger landets snitt."
+OK  pixel7 ljust /personligt-brev-exempel/vardbitrade: lön 29 600 kr
+OK  pixel7 ljust /personligt-brev-exempel/vardbitrade: länk /jobbkartan#vy-22-5330-1480-8
+OK  pixel7 ljust /personligt-brev-exempel/vardbitrade: karta 21 län, 120x177 px, fyllning rgb(161, 74, 23), bakgrund rgb(220, 235, 221)
+OK  pixel7 ljust /personligt-brev-exempel/vardbitrade: före vanliga frågor
+OK  pixel7 ljust /personligt-brev-exempel/vardbitrade: ingen sidledes scroll
+OK  pixel7 ljust /personligt-brev-exempel/vardbitrade: inga jobbkartan-resurser laddade
+OK  pixel7 ljust /personligt-brev-exempel/vardbitrade: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  pixel7 ljust /personligt-brev-exempel/vardbitrade: målet /jobbkartan#vy-22-5330-1480-8 svarar 304
+OK  pixel7 ljust /personligt-brev-exempel/vardbitrade: konsolfel inga
+OK  pixel7 ljust /personligt-brev-exempel/vardbitrade: 4xx/5xx inga
+OK  pixel7 ljust /personligt-brev-exempel/fritidspedagog: h2 "Var jobben finns för fritidspedagoger"
+OK  pixel7 ljust /personligt-brev-exempel/fritidspedagog: rad "Vanligast i Jämtlands län, 2,0 gånger landets snitt."
+OK  pixel7 ljust /personligt-brev-exempel/fritidspedagog: lön 35 200 kr
+OK  pixel7 ljust /personligt-brev-exempel/fritidspedagog: länk /jobbkartan#vy-23-2342-1480-8
+OK  pixel7 ljust /personligt-brev-exempel/fritidspedagog: karta 21 län, 120x177 px, fyllning rgb(196, 98, 31), bakgrund rgb(220, 235, 221)
+OK  pixel7 ljust /personligt-brev-exempel/fritidspedagog: före vanliga frågor
+OK  pixel7 ljust /personligt-brev-exempel/fritidspedagog: ingen sidledes scroll
+OK  pixel7 ljust /personligt-brev-exempel/fritidspedagog: inga jobbkartan-resurser laddade
+OK  pixel7 ljust /personligt-brev-exempel/fritidspedagog: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  pixel7 ljust /personligt-brev-exempel/fritidspedagog: målet /jobbkartan#vy-23-2342-1480-8 svarar 304
+OK  pixel7 ljust /personligt-brev-exempel/fritidspedagog: konsolfel inga
+OK  pixel7 ljust /personligt-brev-exempel/fritidspedagog: 4xx/5xx inga
+OK  pixel7 ljust /personligt-brev-exempel/barista: h2 "Var jobben finns för baristor"
+OK  pixel7 ljust /personligt-brev-exempel/barista: rad "Vanligast i Stockholms län, 1,3 gånger landets snitt."
+OK  pixel7 ljust /personligt-brev-exempel/barista: lön 26 500 kr
+OK  pixel7 ljust /personligt-brev-exempel/barista: länk /jobbkartan#vy-01-9413-1480-8
+OK  pixel7 ljust /personligt-brev-exempel/barista: karta 21 län, 120x177 px, fyllning rgb(222, 122, 51), bakgrund rgb(220, 235, 221)
+OK  pixel7 ljust /personligt-brev-exempel/barista: före vanliga frågor
+OK  pixel7 ljust /personligt-brev-exempel/barista: ingen sidledes scroll
+OK  pixel7 ljust /personligt-brev-exempel/barista: inga jobbkartan-resurser laddade
+OK  pixel7 ljust /personligt-brev-exempel/barista: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  pixel7 ljust /personligt-brev-exempel/barista: målet /jobbkartan#vy-01-9413-1480-8 svarar 304
+OK  pixel7 ljust /personligt-brev-exempel/barista: konsolfel inga
+OK  pixel7 ljust /personligt-brev-exempel/barista: 4xx/5xx inga
+OK  pixel7 ljust /personligt-brev-exempel/butikssaljare: h2 "Var jobben finns för butikssäljare"
+OK  pixel7 ljust /personligt-brev-exempel/butikssaljare: rad "Vanligast i Hallands län, 1,3 gånger landets snitt."
+OK  pixel7 ljust /personligt-brev-exempel/butikssaljare: lön null
+OK  pixel7 ljust /personligt-brev-exempel/butikssaljare: länk /jobbkartan#vy-13-5223-1480-8
+OK  pixel7 ljust /personligt-brev-exempel/butikssaljare: karta 21 län, 120x177 px, fyllning rgb(196, 98, 31), bakgrund rgb(220, 235, 221)
+OK  pixel7 ljust /personligt-brev-exempel/butikssaljare: före vanliga frågor
+OK  pixel7 ljust /personligt-brev-exempel/butikssaljare: ingen sidledes scroll
+OK  pixel7 ljust /personligt-brev-exempel/butikssaljare: inga jobbkartan-resurser laddade
+OK  pixel7 ljust /personligt-brev-exempel/butikssaljare: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  pixel7 ljust /personligt-brev-exempel/butikssaljare: målet /jobbkartan#vy-13-5223-1480-8 svarar 304
+OK  pixel7 ljust /personligt-brev-exempel/butikssaljare: konsolfel inga
+OK  pixel7 ljust /personligt-brev-exempel/butikssaljare: 4xx/5xx inga
+OK  pixel7 morkt /cv-exempel/psykolog: h2 "Var jobben finns för psykologer"
+OK  pixel7 morkt /cv-exempel/psykolog: rad "Vanligast i Uppsala län, 1,5 gånger landets snitt."
+OK  pixel7 morkt /cv-exempel/psykolog: lön 48 600 kr
+OK  pixel7 morkt /cv-exempel/psykolog: länk /jobbkartan#vy-03-2241-1480-8
+OK  pixel7 morkt /cv-exempel/psykolog: karta 21 län, 120x177 px, fyllning rgb(181, 86, 30), bakgrund rgb(20, 38, 27)
+OK  pixel7 morkt /cv-exempel/psykolog: före vanliga frågor
+OK  pixel7 morkt /cv-exempel/psykolog: ingen sidledes scroll
+OK  pixel7 morkt /cv-exempel/psykolog: inga jobbkartan-resurser laddade
+OK  pixel7 morkt /cv-exempel/psykolog: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  pixel7 morkt /cv-exempel/psykolog: målet /jobbkartan#vy-03-2241-1480-8 svarar 304
+OK  pixel7 morkt /cv-exempel/psykolog: konsolfel inga
+OK  pixel7 morkt /cv-exempel/psykolog: 4xx/5xx inga
+OK  pixel7 morkt /cv-exempel/butikssaljare: h2 "Var jobben finns för butikssäljare"
+OK  pixel7 morkt /cv-exempel/butikssaljare: rad "Vanligast i Hallands län, 1,3 gånger landets snitt."
+OK  pixel7 morkt /cv-exempel/butikssaljare: lön null
+OK  pixel7 morkt /cv-exempel/butikssaljare: länk /jobbkartan#vy-13-5223-1480-8
+OK  pixel7 morkt /cv-exempel/butikssaljare: karta 21 län, 120x177 px, fyllning rgb(207, 108, 42), bakgrund rgb(20, 38, 27)
+OK  pixel7 morkt /cv-exempel/butikssaljare: före vanliga frågor
+OK  pixel7 morkt /cv-exempel/butikssaljare: ingen sidledes scroll
+OK  pixel7 morkt /cv-exempel/butikssaljare: inga jobbkartan-resurser laddade
+OK  pixel7 morkt /cv-exempel/butikssaljare: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  pixel7 morkt /cv-exempel/butikssaljare: målet /jobbkartan#vy-13-5223-1480-8 svarar 304
+OK  pixel7 morkt /cv-exempel/butikssaljare: konsolfel inga
+OK  pixel7 morkt /cv-exempel/butikssaljare: 4xx/5xx inga
+OK  desktop ljust /cv-exempel/psykolog: h2 "Var jobben finns för psykologer"
+OK  desktop ljust /cv-exempel/psykolog: rad "Vanligast i Uppsala län, 1,5 gånger landets snitt."
+OK  desktop ljust /cv-exempel/psykolog: lön 48 600 kr
+OK  desktop ljust /cv-exempel/psykolog: länk /jobbkartan#vy-03-2241-1480-8
+OK  desktop ljust /cv-exempel/psykolog: karta 21 län, 240x354 px, fyllning rgb(222, 122, 51), bakgrund rgb(220, 235, 221)
+OK  desktop ljust /cv-exempel/psykolog: före vanliga frågor
+OK  desktop ljust /cv-exempel/psykolog: ingen sidledes scroll
+OK  desktop ljust /cv-exempel/psykolog: inga jobbkartan-resurser laddade
+OK  desktop ljust /cv-exempel/psykolog: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  desktop ljust /cv-exempel/psykolog: målet /jobbkartan#vy-03-2241-1480-8 svarar 304
+OK  desktop ljust /cv-exempel/psykolog: konsolfel inga
+OK  desktop ljust /cv-exempel/psykolog: 4xx/5xx inga
+OK  desktop ljust /cv-exempel/elevassistent: h2 "Var jobben finns för elevassistenter"
+OK  desktop ljust /cv-exempel/elevassistent: rad "Vanligast i Kronobergs län, 1,6 gånger landets snitt."
+OK  desktop ljust /cv-exempel/elevassistent: lön 29 100 kr
+OK  desktop ljust /cv-exempel/elevassistent: länk /jobbkartan#vy-07-5312-1480-8
+OK  desktop ljust /cv-exempel/elevassistent: karta 21 län, 240x354 px, fyllning rgb(196, 98, 31), bakgrund rgb(220, 235, 221)
+OK  desktop ljust /cv-exempel/elevassistent: före vanliga frågor
+OK  desktop ljust /cv-exempel/elevassistent: ingen sidledes scroll
+OK  desktop ljust /cv-exempel/elevassistent: inga jobbkartan-resurser laddade
+OK  desktop ljust /cv-exempel/elevassistent: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  desktop ljust /cv-exempel/elevassistent: målet /jobbkartan#vy-07-5312-1480-8 svarar 304
+OK  desktop ljust /cv-exempel/elevassistent: konsolfel inga
+OK  desktop ljust /cv-exempel/elevassistent: 4xx/5xx inga
+OK  desktop ljust /cv-exempel/vardbitrade: h2 "Var jobben finns för vårdbiträden"
+OK  desktop ljust /cv-exempel/vardbitrade: rad "Vanligast i Västernorrlands län, 1,9 gånger landets snitt."
+OK  desktop ljust /cv-exempel/vardbitrade: lön 29 600 kr
+OK  desktop ljust /cv-exempel/vardbitrade: länk /jobbkartan#vy-22-5330-1480-8
+OK  desktop ljust /cv-exempel/vardbitrade: karta 21 län, 240x354 px, fyllning rgb(161, 74, 23), bakgrund rgb(220, 235, 221)
+OK  desktop ljust /cv-exempel/vardbitrade: före vanliga frågor
+OK  desktop ljust /cv-exempel/vardbitrade: ingen sidledes scroll
+OK  desktop ljust /cv-exempel/vardbitrade: inga jobbkartan-resurser laddade
+OK  desktop ljust /cv-exempel/vardbitrade: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  desktop ljust /cv-exempel/vardbitrade: målet /jobbkartan#vy-22-5330-1480-8 svarar 304
+OK  desktop ljust /cv-exempel/vardbitrade: konsolfel inga
+OK  desktop ljust /cv-exempel/vardbitrade: 4xx/5xx inga
+OK  desktop ljust /cv-exempel/fritidspedagog: h2 "Var jobben finns för fritidspedagoger"
+OK  desktop ljust /cv-exempel/fritidspedagog: rad "Vanligast i Jämtlands län, 2,0 gånger landets snitt."
+OK  desktop ljust /cv-exempel/fritidspedagog: lön 35 200 kr
+OK  desktop ljust /cv-exempel/fritidspedagog: länk /jobbkartan#vy-23-2342-1480-8
+OK  desktop ljust /cv-exempel/fritidspedagog: karta 21 län, 240x354 px, fyllning rgb(196, 98, 31), bakgrund rgb(220, 235, 221)
+OK  desktop ljust /cv-exempel/fritidspedagog: före vanliga frågor
+OK  desktop ljust /cv-exempel/fritidspedagog: ingen sidledes scroll
+OK  desktop ljust /cv-exempel/fritidspedagog: inga jobbkartan-resurser laddade
+OK  desktop ljust /cv-exempel/fritidspedagog: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  desktop ljust /cv-exempel/fritidspedagog: målet /jobbkartan#vy-23-2342-1480-8 svarar 304
+OK  desktop ljust /cv-exempel/fritidspedagog: konsolfel inga
+OK  desktop ljust /cv-exempel/fritidspedagog: 4xx/5xx inga
+OK  desktop ljust /cv-exempel/barista: h2 "Var jobben finns för baristor"
+OK  desktop ljust /cv-exempel/barista: rad "Vanligast i Stockholms län, 1,3 gånger landets snitt."
+OK  desktop ljust /cv-exempel/barista: lön 26 500 kr
+OK  desktop ljust /cv-exempel/barista: länk /jobbkartan#vy-01-9413-1480-8
+OK  desktop ljust /cv-exempel/barista: karta 21 län, 240x354 px, fyllning rgb(222, 122, 51), bakgrund rgb(220, 235, 221)
+OK  desktop ljust /cv-exempel/barista: före vanliga frågor
+OK  desktop ljust /cv-exempel/barista: ingen sidledes scroll
+OK  desktop ljust /cv-exempel/barista: inga jobbkartan-resurser laddade
+OK  desktop ljust /cv-exempel/barista: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  desktop ljust /cv-exempel/barista: målet /jobbkartan#vy-01-9413-1480-8 svarar 304
+OK  desktop ljust /cv-exempel/barista: konsolfel inga
+OK  desktop ljust /cv-exempel/barista: 4xx/5xx inga
+OK  desktop ljust /cv-exempel/butikssaljare: h2 "Var jobben finns för butikssäljare"
+OK  desktop ljust /cv-exempel/butikssaljare: rad "Vanligast i Hallands län, 1,3 gånger landets snitt."
+OK  desktop ljust /cv-exempel/butikssaljare: lön null
+OK  desktop ljust /cv-exempel/butikssaljare: länk /jobbkartan#vy-13-5223-1480-8
+OK  desktop ljust /cv-exempel/butikssaljare: karta 21 län, 240x354 px, fyllning rgb(196, 98, 31), bakgrund rgb(220, 235, 221)
+OK  desktop ljust /cv-exempel/butikssaljare: före vanliga frågor
+OK  desktop ljust /cv-exempel/butikssaljare: ingen sidledes scroll
+OK  desktop ljust /cv-exempel/butikssaljare: inga jobbkartan-resurser laddade
+OK  desktop ljust /cv-exempel/butikssaljare: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  desktop ljust /cv-exempel/butikssaljare: målet /jobbkartan#vy-13-5223-1480-8 svarar 304
+OK  desktop ljust /cv-exempel/butikssaljare: konsolfel inga
+OK  desktop ljust /cv-exempel/butikssaljare: 4xx/5xx inga
+OK  desktop ljust /personligt-brev-exempel/psykolog: h2 "Var jobben finns för psykologer"
+OK  desktop ljust /personligt-brev-exempel/psykolog: rad "Vanligast i Uppsala län, 1,5 gånger landets snitt."
+OK  desktop ljust /personligt-brev-exempel/psykolog: lön 48 600 kr
+OK  desktop ljust /personligt-brev-exempel/psykolog: länk /jobbkartan#vy-03-2241-1480-8
+OK  desktop ljust /personligt-brev-exempel/psykolog: karta 21 län, 240x354 px, fyllning rgb(222, 122, 51), bakgrund rgb(220, 235, 221)
+OK  desktop ljust /personligt-brev-exempel/psykolog: före vanliga frågor
+OK  desktop ljust /personligt-brev-exempel/psykolog: ingen sidledes scroll
+OK  desktop ljust /personligt-brev-exempel/psykolog: inga jobbkartan-resurser laddade
+OK  desktop ljust /personligt-brev-exempel/psykolog: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  desktop ljust /personligt-brev-exempel/psykolog: målet /jobbkartan#vy-03-2241-1480-8 svarar 304
+OK  desktop ljust /personligt-brev-exempel/psykolog: konsolfel inga
+OK  desktop ljust /personligt-brev-exempel/psykolog: 4xx/5xx inga
+OK  desktop ljust /personligt-brev-exempel/elevassistent: h2 "Var jobben finns för elevassistenter"
+OK  desktop ljust /personligt-brev-exempel/elevassistent: rad "Vanligast i Kronobergs län, 1,6 gånger landets snitt."
+OK  desktop ljust /personligt-brev-exempel/elevassistent: lön 29 100 kr
+OK  desktop ljust /personligt-brev-exempel/elevassistent: länk /jobbkartan#vy-07-5312-1480-8
+OK  desktop ljust /personligt-brev-exempel/elevassistent: karta 21 län, 240x354 px, fyllning rgb(196, 98, 31), bakgrund rgb(220, 235, 221)
+OK  desktop ljust /personligt-brev-exempel/elevassistent: före vanliga frågor
+OK  desktop ljust /personligt-brev-exempel/elevassistent: ingen sidledes scroll
+OK  desktop ljust /personligt-brev-exempel/elevassistent: inga jobbkartan-resurser laddade
+OK  desktop ljust /personligt-brev-exempel/elevassistent: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  desktop ljust /personligt-brev-exempel/elevassistent: målet /jobbkartan#vy-07-5312-1480-8 svarar 304
+OK  desktop ljust /personligt-brev-exempel/elevassistent: konsolfel inga
+OK  desktop ljust /personligt-brev-exempel/elevassistent: 4xx/5xx inga
+OK  desktop ljust /personligt-brev-exempel/vardbitrade: h2 "Var jobben finns för vårdbiträden"
+OK  desktop ljust /personligt-brev-exempel/vardbitrade: rad "Vanligast i Västernorrlands län, 1,9 gånger landets snitt."
+OK  desktop ljust /personligt-brev-exempel/vardbitrade: lön 29 600 kr
+OK  desktop ljust /personligt-brev-exempel/vardbitrade: länk /jobbkartan#vy-22-5330-1480-8
+OK  desktop ljust /personligt-brev-exempel/vardbitrade: karta 21 län, 240x354 px, fyllning rgb(161, 74, 23), bakgrund rgb(220, 235, 221)
+OK  desktop ljust /personligt-brev-exempel/vardbitrade: före vanliga frågor
+OK  desktop ljust /personligt-brev-exempel/vardbitrade: ingen sidledes scroll
+OK  desktop ljust /personligt-brev-exempel/vardbitrade: inga jobbkartan-resurser laddade
+OK  desktop ljust /personligt-brev-exempel/vardbitrade: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  desktop ljust /personligt-brev-exempel/vardbitrade: målet /jobbkartan#vy-22-5330-1480-8 svarar 304
+OK  desktop ljust /personligt-brev-exempel/vardbitrade: konsolfel inga
+OK  desktop ljust /personligt-brev-exempel/vardbitrade: 4xx/5xx inga
+OK  desktop ljust /personligt-brev-exempel/fritidspedagog: h2 "Var jobben finns för fritidspedagoger"
+OK  desktop ljust /personligt-brev-exempel/fritidspedagog: rad "Vanligast i Jämtlands län, 2,0 gånger landets snitt."
+OK  desktop ljust /personligt-brev-exempel/fritidspedagog: lön 35 200 kr
+OK  desktop ljust /personligt-brev-exempel/fritidspedagog: länk /jobbkartan#vy-23-2342-1480-8
+OK  desktop ljust /personligt-brev-exempel/fritidspedagog: karta 21 län, 240x354 px, fyllning rgb(196, 98, 31), bakgrund rgb(220, 235, 221)
+OK  desktop ljust /personligt-brev-exempel/fritidspedagog: före vanliga frågor
+OK  desktop ljust /personligt-brev-exempel/fritidspedagog: ingen sidledes scroll
+OK  desktop ljust /personligt-brev-exempel/fritidspedagog: inga jobbkartan-resurser laddade
+OK  desktop ljust /personligt-brev-exempel/fritidspedagog: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  desktop ljust /personligt-brev-exempel/fritidspedagog: målet /jobbkartan#vy-23-2342-1480-8 svarar 304
+OK  desktop ljust /personligt-brev-exempel/fritidspedagog: konsolfel inga
+OK  desktop ljust /personligt-brev-exempel/fritidspedagog: 4xx/5xx inga
+OK  desktop ljust /personligt-brev-exempel/barista: h2 "Var jobben finns för baristor"
+OK  desktop ljust /personligt-brev-exempel/barista: rad "Vanligast i Stockholms län, 1,3 gånger landets snitt."
+OK  desktop ljust /personligt-brev-exempel/barista: lön 26 500 kr
+OK  desktop ljust /personligt-brev-exempel/barista: länk /jobbkartan#vy-01-9413-1480-8
+OK  desktop ljust /personligt-brev-exempel/barista: karta 21 län, 240x354 px, fyllning rgb(222, 122, 51), bakgrund rgb(220, 235, 221)
+OK  desktop ljust /personligt-brev-exempel/barista: före vanliga frågor
+OK  desktop ljust /personligt-brev-exempel/barista: ingen sidledes scroll
+OK  desktop ljust /personligt-brev-exempel/barista: inga jobbkartan-resurser laddade
+OK  desktop ljust /personligt-brev-exempel/barista: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  desktop ljust /personligt-brev-exempel/barista: målet /jobbkartan#vy-01-9413-1480-8 svarar 304
+OK  desktop ljust /personligt-brev-exempel/barista: konsolfel inga
+OK  desktop ljust /personligt-brev-exempel/barista: 4xx/5xx inga
+OK  desktop ljust /personligt-brev-exempel/butikssaljare: h2 "Var jobben finns för butikssäljare"
+OK  desktop ljust /personligt-brev-exempel/butikssaljare: rad "Vanligast i Hallands län, 1,3 gånger landets snitt."
+OK  desktop ljust /personligt-brev-exempel/butikssaljare: lön null
+OK  desktop ljust /personligt-brev-exempel/butikssaljare: länk /jobbkartan#vy-13-5223-1480-8
+OK  desktop ljust /personligt-brev-exempel/butikssaljare: karta 21 län, 240x354 px, fyllning rgb(196, 98, 31), bakgrund rgb(220, 235, 221)
+OK  desktop ljust /personligt-brev-exempel/butikssaljare: före vanliga frågor
+OK  desktop ljust /personligt-brev-exempel/butikssaljare: ingen sidledes scroll
+OK  desktop ljust /personligt-brev-exempel/butikssaljare: inga jobbkartan-resurser laddade
+OK  desktop ljust /personligt-brev-exempel/butikssaljare: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  desktop ljust /personligt-brev-exempel/butikssaljare: målet /jobbkartan#vy-13-5223-1480-8 svarar 304
+OK  desktop ljust /personligt-brev-exempel/butikssaljare: konsolfel inga
+OK  desktop ljust /personligt-brev-exempel/butikssaljare: 4xx/5xx inga
+OK  desktop morkt /cv-exempel/psykolog: h2 "Var jobben finns för psykologer"
+OK  desktop morkt /cv-exempel/psykolog: rad "Vanligast i Uppsala län, 1,5 gånger landets snitt."
+OK  desktop morkt /cv-exempel/psykolog: lön 48 600 kr
+OK  desktop morkt /cv-exempel/psykolog: länk /jobbkartan#vy-03-2241-1480-8
+OK  desktop morkt /cv-exempel/psykolog: karta 21 län, 240x354 px, fyllning rgb(181, 86, 30), bakgrund rgb(20, 38, 27)
+OK  desktop morkt /cv-exempel/psykolog: före vanliga frågor
+OK  desktop morkt /cv-exempel/psykolog: ingen sidledes scroll
+OK  desktop morkt /cv-exempel/psykolog: inga jobbkartan-resurser laddade
+OK  desktop morkt /cv-exempel/psykolog: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  desktop morkt /cv-exempel/psykolog: målet /jobbkartan#vy-03-2241-1480-8 svarar 304
+OK  desktop morkt /cv-exempel/psykolog: konsolfel inga
+OK  desktop morkt /cv-exempel/psykolog: 4xx/5xx inga
+OK  desktop morkt /cv-exempel/butikssaljare: h2 "Var jobben finns för butikssäljare"
+OK  desktop morkt /cv-exempel/butikssaljare: rad "Vanligast i Hallands län, 1,3 gånger landets snitt."
+OK  desktop morkt /cv-exempel/butikssaljare: lön null
+OK  desktop morkt /cv-exempel/butikssaljare: länk /jobbkartan#vy-13-5223-1480-8
+OK  desktop morkt /cv-exempel/butikssaljare: karta 21 län, 240x354 px, fyllning rgb(207, 108, 42), bakgrund rgb(20, 38, 27)
+OK  desktop morkt /cv-exempel/butikssaljare: före vanliga frågor
+OK  desktop morkt /cv-exempel/butikssaljare: ingen sidledes scroll
+OK  desktop morkt /cv-exempel/butikssaljare: inga jobbkartan-resurser laddade
+OK  desktop morkt /cv-exempel/butikssaljare: klickhändelse ["$autocapture","jobbkartan_teaser_clicked"]
+OK  desktop morkt /cv-exempel/butikssaljare: målet /jobbkartan#vy-13-5223-1480-8 svarar 304
+OK  desktop morkt /cv-exempel/butikssaljare: konsolfel inga
+OK  desktop morkt /cv-exempel/butikssaljare: 4xx/5xx inga
+OK  /cv-exempel/handlaggare: ingen figur (ingen säker koppling)
+OK  /cv-exempel/larare: ingen figur (ingen säker koppling)
+OK  /personligt-brev-exempel/handlaggare: ingen figur (ingen säker koppling)
+OK  /personligt-brev-exempel/larare: ingen figur (ingen säker koppling)

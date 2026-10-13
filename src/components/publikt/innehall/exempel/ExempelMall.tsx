@@ -28,6 +28,7 @@ import VarforLista from './VarforLista'
 import TipsKort from './TipsKort'
 import YrkesKort, { MiniPapper } from './YrkesKort'
 import AnsokanPar from './AnsokanPar'
+import YrkesKarta from '@/components/jobbkartan/YrkesKarta'
 import { punkter, fragor, numrera, ankarNummer, brevStycken, type ExempelTyp, type Not } from './exempel-data'
 import { brevFalt } from './Papper'
 import './exempel.css'
@@ -214,6 +215,9 @@ export default function ExempelMall({
           </div>
         </Rum>
       ) : null}
+
+      {/* 5b. Var jobben finns (Jobbkartan, bara yrken med säker SSYK-koppling) */}
+      <YrkesKarta slug={slug} page={cv ? `/cv-exempel/${slug}` : `/personligt-brev-exempel/${slug}`} />
 
       {/* 6. Frågorna */}
       {faq.length ? (

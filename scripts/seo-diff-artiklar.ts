@@ -464,6 +464,17 @@ const DEL_B_OVRIGA = [
   '/anvandarvillkor',
 ];
 
+/**
+ * Jobbkartan på yrkessidorna (2026-10-13): de 20 CV-exempel med flest klick i Search Console
+ * 14 september till 11 oktober, och brevexemplen för samma yrken. Välj med --urval jobbkartan-yrken.
+ */
+const JOBBKARTAN_YRKEN = [
+  'elevassistent', 'psykolog', 'fastighetsskotare', 'handlaggare', 'loneadministrator',
+  'vardbitrade', 'servitris-restaurangbitrade', 'vardadministrator', 'barnmorska', 'koksbitrade',
+  'redovisningsekonom', 'hemtjanst', 'vaktmastare', 'fritidspedagog', 'barnskotare',
+  'larare', 'ingenjor', 'saljare', 'barista', 'butikssaljare',
+].flatMap((s) => [`/cv-exempel/${s}`, `/personligt-brev-exempel/${s}`]);
+
 /** Del B:s urval: GSC topp 20 per typ (scripts/.publikt-urval-b.json, 90 dagar) plus komponenttäckningen. */
 function sidorDelB(): string[] {
   const fil = 'scripts/.publikt-urval-b.json';
@@ -927,7 +938,9 @@ async function main() {
   if (lage === 'ta') {
     const bas = arg('bas') ?? `http://localhost:${arg('port', '8300')}`;
     const ut = arg('ut', 'docs/qa/seo-diff/avtryck.json')!;
-    const lista = arg('sidor')?.split(',') ?? (arg('urval') === 'b' ? sidorDelB() : sidor());
+    const lista =
+      arg('sidor')?.split(',') ??
+      (arg('urval') === 'b' ? sidorDelB() : arg('urval') === 'jobbkartan-yrken' ? JOBBKARTAN_YRKEN : sidor());
     const avtryck: Avtryck[] = [];
     for (const s of lista) {
       const a = await ta(bas, s);
