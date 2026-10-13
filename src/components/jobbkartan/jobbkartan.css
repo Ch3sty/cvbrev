@@ -53,6 +53,8 @@
 .jk .lagst-hogst button { all: unset; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 .jk .lagst-hogst button:focus-visible { outline: var(--fokus); outline-offset: 2px; }
 .jk .data-kort a { text-decoration: underline; text-underline-offset: 3px; }
+/* Länken från yrkessidorna rullar hit (app.ts): rubriken under den fasta headern, inte bakom. */
+.jk #jk-yrke { scroll-margin-top: 24px; }
 /* Före JavaScript: diagrammen har sin höjd reserverad så att inget hoppar när de ritas. */
 .jk #jk-lanstaplar { aspect-ratio: 640 / 473; }
 .jk #jk-tidlinje { aspect-ratio: 1000 / 300; }

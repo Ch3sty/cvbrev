@@ -11,19 +11,22 @@
  *                                socialförsäkring, skatt, bistånd, övriga)
  *   servitris-restaurangbitrade  två yrken i ett (5131 servitörer och 9412 restaurangbiträden)
  *   hemtjanst                    hemtjänstpersonal är både undersköterskor (5321) och vårdbiträden (5330)
- *   larare                       sidan heter Lärare men exemplet är grundskollärare, sju lärarkoder
  *   ingenjor                     ett tjugotal ingenjörskoder, CV och brev har olika inriktning
  *   saljare                      sidan heter Säljare, exemplet är företagssäljare, åtta säljkoder
  *
  * Flera koder summeras bara när de tillsammans är exakt sidans yrke (butikssäljare =
- * dagligvaror + fackhandel). Då visas ingen lön, eftersom medellönen inte går att lägga ihop.
- * Den första koden är den som länken till /jobbkartan öppnar.
+ * dagligvaror + fackhandel). Då visas ingen lön, eftersom medellönen inte går att lägga ihop,
+ * och länken går till /jobbkartan utan förvald vy, eftersom kartan bara visar en kod åt gången.
+ *
+ * Lärare: sidan heter Lärare men både CV- och brevexemplet är grundskollärare, så figuren visar
+ * 2341 och säger grundskollärare i rubrik och text (ägarbeslut 2026-10-13).
  *
  * Yrkesfilerna importeras statiskt, så att de följer med serverbygget och läses utan fs.
  * Uppdateras när scripts/jobbkartan/hamta-data.mjs körs (filerna skrivs om på samma plats).
  */
 import y2222 from '../../../public/jobbkartan/data/yrke/2222.json'
 import y2241 from '../../../public/jobbkartan/data/yrke/2241.json'
+import y2341 from '../../../public/jobbkartan/data/yrke/2341.json'
 import y2342 from '../../../public/jobbkartan/data/yrke/2342.json'
 import y3313 from '../../../public/jobbkartan/data/yrke/3313.json'
 import y4112 from '../../../public/jobbkartan/data/yrke/4112.json'
@@ -51,6 +54,7 @@ export interface YrkeFil {
 export const YRKESFILER: Record<string, YrkeFil> = {
   '2222': y2222,
   '2241': y2241,
+  '2341': y2341,
   '2342': y2342,
   '3313': y3313,
   '4112': y4112,
@@ -67,7 +71,7 @@ export const YRKESFILER: Record<string, YrkeFil> = {
 } as Record<string, YrkeFil>
 
 export interface YrkesKoppling {
-  /** SSYK 2012, fyra siffror. Den första öppnas av länken till /jobbkartan. */
+  /** SSYK 2012, fyra siffror. Med en kod öppnar länken den på /jobbkartan, med flera ingen förvald vy. */
   koder: string[]
   /** Namnen så som de står i SCB:s data, i samma ordning som koderna. Kontrolleras av vitest. */
   scbNamn: string[]
@@ -95,6 +99,8 @@ export const YRKES_KOPPLING: Record<string, YrkesKoppling> = {
   redovisningsekonom: { koder: ['3313'], scbNamn: ['Redovisningsekonomer'], plural: 'redovisningsekonomer' },
   vaktmastare: { koder: ['9622'], scbNamn: ['Vaktmästare m.fl.'], plural: 'vaktmästare' },
   fritidspedagog: { koder: ['2342'], scbNamn: ['Fritidspedagoger'], plural: 'fritidspedagoger' },
+  // Exemplen är grundskollärare F-6 (CV) och F-3 (brev), ägarbeslut 2026-10-13.
+  larare: { koder: ['2341'], scbNamn: ['Grundskollärare'], plural: 'grundskollärare' },
   barnskotare: { koder: ['5311'], scbNamn: ['Barnskötare'], plural: 'barnskötare' },
   // Barista klassas i SSYK 2012 under 9413 Kafé- och konditoribiträden.
   barista: { koder: ['9413'], scbNamn: ['Kafé- och konditoribiträden'], plural: 'baristor' },

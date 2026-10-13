@@ -1,0 +1,63 @@
+Klicktest omgång 2 2026-10-13T12:55:30.495Z, http://localhost:8300, Chrome via puppeteer-core
+Fel: 0
+
+OK  pixel7 /cv-exempel/larare: figur finns
+OK  pixel7 /cv-exempel/larare: h2 "Var jobben finns för grundskollärare"
+OK  pixel7 /cv-exempel/larare: rad "Vanligast i Södermanlands län, 1,2 gånger landets snitt."
+OK  pixel7 /cv-exempel/larare: förklaringen säger grundskollärare
+OK  pixel7 /cv-exempel/larare: lön 41 600 kr
+OK  pixel7 /cv-exempel/larare: länk /jobbkartan#vy-04-2341-1480-8
+OK  pixel7 /cv-exempel/larare: 21 län
+OK  pixel7 /cv-exempel/larare: konsolfel inga
+OK  pixel7 /personligt-brev-exempel/larare: figur finns
+OK  pixel7 /personligt-brev-exempel/larare: h2 "Var jobben finns för grundskollärare"
+OK  pixel7 /personligt-brev-exempel/larare: rad "Vanligast i Södermanlands län, 1,2 gånger landets snitt."
+OK  pixel7 /personligt-brev-exempel/larare: förklaringen säger grundskollärare
+OK  pixel7 /personligt-brev-exempel/larare: lön 41 600 kr
+OK  pixel7 /personligt-brev-exempel/larare: länk /jobbkartan#vy-04-2341-1480-8
+OK  pixel7 /personligt-brev-exempel/larare: 21 län
+OK  pixel7 /personligt-brev-exempel/larare: konsolfel inga
+OK  pixel7 /cv-exempel/butikssaljare: länk /jobbkartan
+OK  pixel7 butikssäljare klick → /jobbkartan, scrollY 0
+OK  pixel7 butikssäljare: konsolfel inga
+OK  pixel7 psykolog → /jobbkartan#vy-03-2241-1480-8: yrkesavsnittet top 24 px, etiketten 80 px, rubriken 112-175 px, fast header slutar 65 px, scrollY 3204
+OK  pixel7 psykolog → /jobbkartan#vy-03-2241-1480-8: valt yrke "Psykologer"
+OK  pixel7 psykolog → /jobbkartan#vy-03-2241-1480-8: CLS 0.0000 (0 skift)
+OK  pixel7 psykolog → /jobbkartan#vy-03-2241-1480-8: konsolfel inga
+OK  pixel7 reducerad rörelse psykolog → /jobbkartan#vy-03-2241-1480-8: yrkesavsnittet top 24 px, etiketten 80 px, rubriken 112-175 px, fast header slutar 65 px, scrollY 3204
+OK  pixel7 reducerad rörelse psykolog → /jobbkartan#vy-03-2241-1480-8: valt yrke "Psykologer"
+OK  pixel7 reducerad rörelse psykolog → /jobbkartan#vy-03-2241-1480-8: CLS 0.0000 (0 skift)
+OK  pixel7 reducerad rörelse psykolog → /jobbkartan#vy-03-2241-1480-8: konsolfel inga
+OK  pixel7 /jobbkartan utan fragment: scrollY 0, CLS 0.0000
+OK  pixel7 /jobbkartan utan fragment: konsolfel inga
+OK  pixel7 /embed/jobbkartan#vy-03-2241-1480-8: scrollY 0
+OK  desktop /cv-exempel/larare: figur finns
+OK  desktop /cv-exempel/larare: h2 "Var jobben finns för grundskollärare"
+OK  desktop /cv-exempel/larare: rad "Vanligast i Södermanlands län, 1,2 gånger landets snitt."
+OK  desktop /cv-exempel/larare: förklaringen säger grundskollärare
+OK  desktop /cv-exempel/larare: lön 41 600 kr
+OK  desktop /cv-exempel/larare: länk /jobbkartan#vy-04-2341-1480-8
+OK  desktop /cv-exempel/larare: 21 län
+OK  desktop /cv-exempel/larare: konsolfel inga
+OK  desktop /personligt-brev-exempel/larare: figur finns
+OK  desktop /personligt-brev-exempel/larare: h2 "Var jobben finns för grundskollärare"
+OK  desktop /personligt-brev-exempel/larare: rad "Vanligast i Södermanlands län, 1,2 gånger landets snitt."
+OK  desktop /personligt-brev-exempel/larare: förklaringen säger grundskollärare
+OK  desktop /personligt-brev-exempel/larare: lön 41 600 kr
+OK  desktop /personligt-brev-exempel/larare: länk /jobbkartan#vy-04-2341-1480-8
+OK  desktop /personligt-brev-exempel/larare: 21 län
+OK  desktop /personligt-brev-exempel/larare: konsolfel inga
+OK  desktop /cv-exempel/butikssaljare: länk /jobbkartan
+OK  desktop butikssäljare klick → /jobbkartan, scrollY 0
+OK  desktop butikssäljare: konsolfel inga
+OK  desktop psykolog → /jobbkartan#vy-03-2241-1480-8: yrkesavsnittet top 24 px, etiketten 127 px, rubriken 159-256 px, fast header slutar 65 px, scrollY 2557
+OK  desktop psykolog → /jobbkartan#vy-03-2241-1480-8: valt yrke "Psykologer"
+OK  desktop psykolog → /jobbkartan#vy-03-2241-1480-8: CLS 0.0000 (0 skift)
+OK  desktop psykolog → /jobbkartan#vy-03-2241-1480-8: konsolfel inga
+OK  desktop reducerad rörelse psykolog → /jobbkartan#vy-03-2241-1480-8: yrkesavsnittet top 24 px, etiketten 127 px, rubriken 159-256 px, fast header slutar 65 px, scrollY 2557
+OK  desktop reducerad rörelse psykolog → /jobbkartan#vy-03-2241-1480-8: valt yrke "Psykologer"
+OK  desktop reducerad rörelse psykolog → /jobbkartan#vy-03-2241-1480-8: CLS 0.0000 (0 skift)
+OK  desktop reducerad rörelse psykolog → /jobbkartan#vy-03-2241-1480-8: konsolfel inga
+OK  desktop /jobbkartan utan fragment: scrollY 0, CLS 0.0000
+OK  desktop /jobbkartan utan fragment: konsolfel inga
+OK  desktop /embed/jobbkartan#vy-03-2241-1480-8: scrollY 0

@@ -111,9 +111,12 @@ export function starta(rot: HTMLElement, D: JobbkartanData): () => void {
   const NM = D.manader.length
 
   const state = { q: SIST, lan: LAN_STANDARD, yrke: YRKE_STANDARD, kommun: KOMMUN_STANDARD }
+  /** Sidan öppnades med en vy i fragmentet, t.ex. från Se hela kartan på yrkessidorna. */
+  let fragmentVy = false
   {
     const m = /^#vy-(\d\d)-(\d{4})-(\d{4})-(\d)$/.exec(location.hash || '')
     if (m) {
+      fragmentVy = true
       if (D.lanNamn[m[1]] && m[1] !== '00') state.lan = m[1]
       state.yrke = m[2]
       state.kommun = m[3]
@@ -1163,6 +1166,16 @@ export function starta(rot: HTMLElement, D: JobbkartanData): () => void {
     }
     stadning.push(() => io.disconnect())
   } else for (const [, fn] of senare) fn()
+
+  // Öppnad med en vy i fragmentet (länken från yrkessidorna): välj yrket direkt och rulla till
+  // yrkesavsnittet när det är ritat. Allt ovanför är redan ritat då, så inget hoppar efteråt.
+  // Inte i den inbäddade kartan (bäddkoden bär alltid en vy) och inte om besökaren redan rullat.
+  if (fragmentVy && !location.pathname.startsWith('/embed') && window.self === window.top) {
+    valjYrke(state.yrke, false).then(() => {
+      if (!faktaNu || scrollY > 40) return
+      $('jk-yrke')?.scrollIntoView({ behavior: lugn ? 'auto' : 'smooth', block: 'start' })
+    })
+  }
 
   rot.classList.add('jk-redo')
   return () => {

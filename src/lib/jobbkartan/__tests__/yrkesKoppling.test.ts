@@ -38,7 +38,7 @@ describe('yrkesKoppling', () => {
 
 describe('yrkesFigur', () => {
   it('ger ingen figur för sidor utan säker koppling', () => {
-    for (const s of ['handlaggare', 'larare', 'ingenjor', 'saljare', 'hemtjanst', 'servitris-restaurangbitrade', 'finns-inte']) {
+    for (const s of ['handlaggare', 'ingenjor', 'saljare', 'hemtjanst', 'servitris-restaurangbitrade', 'finns-inte']) {
       expect(yrkesFigur(s)).toBeNull()
     }
   })
@@ -58,11 +58,19 @@ describe('yrkesFigur', () => {
     expect(f.lon?.ar).toBe(OVERSIKT.lonAr.at(-1))
   })
 
-  it('visar ingen lön när flera koder summeras', () => {
+  it('lärarsidorna visar grundskollärare', () => {
+    const f = yrkesFigur('larare')!
+    expect(f.plural).toBe('grundskollärare')
+    expect(f.koder).toEqual(['2341'])
+    expect(f.href).toMatch(/^\/jobbkartan#vy-\d\d-2341-1480-\d$/)
+    expect(f.lon).not.toBeNull()
+  })
+
+  it('visar ingen lön och ingen förvald vy när flera koder summeras', () => {
     const f = yrkesFigur('butikssaljare')!
     expect(f).not.toBeNull()
     expect(f.lon).toBeNull()
-    expect(f.href).toContain('-5223-')
+    expect(f.href).toBe('/jobbkartan')
   })
 
   it('ger alla kopplade sidor en figur med steg för varje län', () => {

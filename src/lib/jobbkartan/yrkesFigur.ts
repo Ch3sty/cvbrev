@@ -71,7 +71,8 @@ export function yrkesFigur(slug: string): YrkesFigur | null {
 
   const q = OVERSIKT.kvartal.length - 1
   // Jobbkartan läser kvartalet som en siffra (#vy-LL-YYYY-KKKK-Q); utan fragment öppnas standardvyn.
-  const href = q <= 9 ? `/jobbkartan#vy-${topp}-${k.koder[0]}-${KOMMUN_STANDARD}-${q}` : '/jobbkartan'
+  // Summerade koder (butikssäljare) får ingen förvald vy, kartan kan bara visa en kod.
+  const href = q <= 9 && k.koder.length === 1 ? `/jobbkartan#vy-${topp}-${k.koder[0]}-${KOMMUN_STANDARD}-${q}` : '/jobbkartan'
 
   return {
     plural: k.plural,
