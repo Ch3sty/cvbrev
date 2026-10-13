@@ -1,0 +1,9 @@
+node_modules
+out
+# Musiken versioneras inte (licensen tillåter inte fristående spridning av spåren);
+# lägg filerna i musik/ lokalt, se musik/LICENS.md.
+musik/*.mp3
+musik/tmp
+musik/pcm
+# Genererat ljud (npm run ljud / npx tsx scripts/ljud3.ts)
+public/*.wav

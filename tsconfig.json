@@ -47,6 +47,7 @@
     "DEPLOYMENT_*.ts",
     "DEPLOY_*.ts",
     "scripts/**",
-    "docs/**"
+    "docs/**",
+    "video/**"
   ]
 }

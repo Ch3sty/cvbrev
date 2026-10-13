@@ -1,0 +1,27 @@
+{
+  "name": "jobbcoach-video",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Motion graphics för jobbcoach.ai, renderade med Remotion",
+  "scripts": {
+    "studio": "remotion studio",
+    "ljud": "tsx scripts/ljud.ts",
+    "stillbilder": "tsx scripts/stillbilder.ts",
+    "render:169": "remotion render Tester169 out/tester-16x9.mp4 --codec h264 --crf 18",
+    "render:45": "remotion render Tester45 out/tester-4x5.mp4 --codec h264 --crf 18",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.535",
+    "@remotion/motion-blur": "4.0.535",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "remotion": "4.0.535"
+  },
+  "devDependencies": {
+    "@types/node": "20.17.6",
+    "@types/react": "19.1.0",
+    "tsx": "4.19.2",
+    "typescript": "5.6.3"
+  }
+}
