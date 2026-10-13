@@ -451,7 +451,49 @@ export interface AnalyticsEvents {
     variant: 'niva' | 'aldrig_matt' | 'intervju' | 'spara_sokt'
   }
   sokta_tjanst_oppnad: { surface: 'dorr' | 'sidomeny' | 'lagesrad' | 'djuplank' | 'landning' }
+  /* ---------------------------------------------- produktvideon
+     docs/design/video-tester-brief-2026-10-13.md avsnitt 8. Talen vi är ute
+     efter: video_watched_75 delat med video_started, och video_cta_clicked
+     inom tio sekunder efter video_watched_75. Skicka via videoMatare i
+     src/lib/analytics/publikt.ts, som räknar watched_pct och device och
+     skickar varje steg en gång. */
+  video_shown: VideoEgenskaper
+  video_started: VideoEgenskaper
+  video_watched_25: VideoEgenskaper
+  video_watched_50: VideoEgenskaper
+  video_watched_75: VideoEgenskaper
+  video_completed: VideoEgenskaper
+  video_sound_on: VideoEgenskaper
+  video_cta_clicked: VideoEgenskaper
+  /* ---------------------------------------------- Jobbkartan
+     Teasern på andra sidor (visad, klickad), knapparna på kartan och
+     delningen (bäddkoden eller CSV-filen). */
+  jobbkartan_teaser_shown: { page: string }
+  jobbkartan_teaser_clicked: { page: string }
+  /** mal: vart knappen leder, till exempel '/register' eller '/verktyg/rekryteringstester'. */
+  jobbkartan_cta_clicked: { mal: string }
+  jobbkartan_delning: { typ: 'badd' | 'csv' }
 }
+
+/** 16:9 eller 9:16. */
+export type VideoVariant = '169' | '916'
+
+/** mobil under 768 px bredd, annars desktop (enhet() i publikt.ts). */
+export type VideoEnhet = 'mobil' | 'desktop'
+
+export interface VideoEgenskaper {
+  /** Sidans sökväg, till exempel '/verktyg/rekryteringstester'. */
+  page: string
+  /** Var på sidan videon står, till exempel 'hero' eller 'sa_fungerar'. */
+  position: string
+  variant: VideoVariant
+  device: VideoEnhet
+  /** Hur långt den spelats, 0 till 100, den längsta punkten hittills. */
+  watched_pct: number
+}
+
+export type VideoEventName = Extract<keyof AnalyticsEvents, `video_${string}`>
+export type JobbkartanEventName = Extract<keyof AnalyticsEvents, `jobbkartan_${string}`>
 
 export type AnalyticsEventName = keyof AnalyticsEvents
 
@@ -478,9 +520,9 @@ function posthogKlient(): PosthogKlient | null {
 /**
  * Händelser som inträffade innan klienten hunnit initieras.
  *
- * PostHogIdentify startar init:en först efter LCP, med ett tak på fyra
- * sekunder. Allt som mäts vid montering ligger alltså före klienten, och en
- * tyst no-op skulle tappa just de händelserna. Kön är avsiktligt liten: den
+ * PostHogIdentify startar init:en först efter LCP (inloggad) eller efter
+ * load när webbläsaren är ledig (publika sidor). Allt som mäts vid
+ * montering ligger alltså före klienten, och en tyst no-op skulle tappa just de händelserna. Kön är avsiktligt liten: den
  * håller ett rimligt antal och släpper de äldsta om något skulle spamma.
  */
 const KO_TAK = 50

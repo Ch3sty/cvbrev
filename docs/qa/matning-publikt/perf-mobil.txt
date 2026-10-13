@@ -1,0 +1,28 @@
+=== fore mobil (8311)
+OK   /                                                  LCP   808 (1000)  CLS     0  FCP  808   344 kB  JS 158 kB/13  HTML rå 190 kB
+     LCP-element: p.pub-ingress "Allt fler rekryterare låter re"
+OK   /verktyg/rekryteringstester                        LCP   768 (1500)  CLS     0  FCP  768   394 kB  JS 172 kB/16  HTML rå 187 kB
+     LCP-element: h1.pub-h1 "Träna på rekryteringstester in"
+OK   /jobbkartan                                        LCP   628 (1500)  CLS     0  FCP  628   365 kB  JS 173 kB/15  HTML rå 507 kB
+     LCP-element: p.ingress "Vi la ihop SCB:s arbetslösa oc"
+=== efter mobil (8312)
+OK   /                                                  LCP   788 (1000)  CLS     0  FCP  788   402 kB  JS 216 kB/18  HTML rå 190 kB
+     LCP-element: p.pub-ingress "Allt fler rekryterare låter re"
+OK   /verktyg/rekryteringstester                        LCP   804 (1500)  CLS     0  FCP  804   451 kB  JS 229 kB/21  HTML rå 187 kB
+     LCP-element: h1.pub-h1 "Träna på rekryteringstester in"
+OK   /jobbkartan                                        LCP   596 (1500)  CLS     0  FCP  596   423 kB  JS 231 kB/20  HTML rå 507 kB
+     LCP-element: p.ingress "Vi la ihop SCB:s arbetslösa oc"
+=== fore mobil (8311)
+OK   /                                                  LCP   716 (1000)  CLS     0  FCP  716   344 kB  JS 158 kB/13  HTML rå 190 kB
+     LCP-element: p.pub-ingress "Allt fler rekryterare låter re"
+OK   /verktyg/rekryteringstester                        LCP   692 (1500)  CLS     0  FCP  692   394 kB  JS 172 kB/16  HTML rå 187 kB
+     LCP-element: h1.pub-h1 "Träna på rekryteringstester in"
+OK   /jobbkartan                                        LCP   596 (1500)  CLS     0  FCP  596   365 kB  JS 173 kB/15  HTML rå 507 kB
+     LCP-element: p.ingress "Vi la ihop SCB:s arbetslösa oc"
+=== efter mobil (8312)
+OK   /                                                  LCP   728 (1000)  CLS     0  FCP  728   402 kB  JS 216 kB/18  HTML rå 190 kB
+     LCP-element: p.pub-ingress "Allt fler rekryterare låter re"
+OK   /verktyg/rekryteringstester                        LCP   732 (1500)  CLS     0  FCP  732   451 kB  JS 229 kB/21  HTML rå 187 kB
+     LCP-element: h1.pub-h1 "Träna på rekryteringstester in"
+OK   /jobbkartan                                        LCP   632 (1500)  CLS     0  FCP  632   423 kB  JS 231 kB/20  HTML rå 507 kB
+     LCP-element: p.ingress "Vi la ihop SCB:s arbetslösa oc"

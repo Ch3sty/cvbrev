@@ -1,0 +1,16 @@
+=== fore desktop (8311)
+OK   /                                                  LCP   212 (1000)  CLS     0  FCP  212   396 kB  JS 165 kB/15  HTML rå 190 kB
+OK   /verktyg/rekryteringstester                        LCP   196 (1500)  CLS     0  FCP  196   430 kB  JS 177 kB/17  HTML rå 187 kB
+OK   /jobbkartan                                        LCP   164 (1500)  CLS     0  FCP  164   416 kB  JS 180 kB/17  HTML rå 507 kB
+=== efter desktop (8312)
+OK   /                                                  LCP   364 (1000)  CLS     0  FCP  364   453 kB  JS 223 kB/20  HTML rå 190 kB
+OK   /verktyg/rekryteringstester                        LCP   300 (1500)  CLS     0  FCP  300   487 kB  JS 234 kB/22  HTML rå 187 kB
+OK   /jobbkartan                                        LCP   288 (1500)  CLS     0  FCP  288   474 kB  JS 238 kB/22  HTML rå 507 kB
+=== fore desktop (8311)
+OK   /                                                  LCP   608 (1000)  CLS     0  FCP  608   396 kB  JS 165 kB/15  HTML rå 190 kB
+OK   /verktyg/rekryteringstester                        LCP   764 (1500)  CLS     0  FCP  764   430 kB  JS 177 kB/17  HTML rå 187 kB
+OK   /jobbkartan                                        LCP   220 (1500)  CLS     0  FCP  220   416 kB  JS 180 kB/17  HTML rå 507 kB
+=== efter desktop (8312)
+OK   /                                                  LCP   232 (1000)  CLS     0  FCP  232   453 kB  JS 223 kB/20  HTML rå 190 kB
+OK   /verktyg/rekryteringstester                        LCP   200 (1500)  CLS     0  FCP  200   487 kB  JS 234 kB/22  HTML rå 187 kB
+OK   /jobbkartan                                        LCP   324 (1500)  CLS     0  FCP  200   474 kB  JS 238 kB/22  HTML rå 507 kB

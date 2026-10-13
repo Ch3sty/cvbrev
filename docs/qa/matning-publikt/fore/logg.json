@@ -1,0 +1,87 @@
+[
+  {
+    "scenario": "A ny besökare, ingen interaktion",
+    "sida": "/verktyg/rekryteringstester",
+    "loadMs": 1181,
+    "lcpMs": null,
+    "posthogJsMs": null,
+    "anrop": [],
+    "cookiesFore": [],
+    "cookiesEfter": [],
+    "localStorage": [],
+    "sessionStorage": []
+  },
+  {
+    "scenario": "A ny besökare, ingen interaktion",
+    "sida": "/",
+    "loadMs": 186,
+    "lcpMs": null,
+    "posthogJsMs": null,
+    "anrop": [],
+    "cookiesFore": [],
+    "cookiesEfter": [],
+    "localStorage": [],
+    "sessionStorage": []
+  },
+  {
+    "scenario": "A ny besökare, ingen interaktion",
+    "sida": "/jobbkartan",
+    "loadMs": 235,
+    "lcpMs": null,
+    "posthogJsMs": null,
+    "anrop": [],
+    "cookiesFore": [],
+    "cookiesEfter": [],
+    "localStorage": [],
+    "sessionStorage": []
+  },
+  {
+    "scenario": "B ny besökare trycker Acceptera",
+    "sida": "/verktyg/rekryteringstester",
+    "loadMs": 152,
+    "lcpMs": null,
+    "posthogJsMs": null,
+    "anrop": [],
+    "cookiesFore": [],
+    "cookiesEfter": [
+      "_ga_RVXQLWHDFY=GS2.1.s1791886728$o1$g0$…",
+      "_gcl_au=1.1.729869675.1791886735",
+      "cvBrevCookieConsent=true",
+      "_ga=GA1.1.62189182.179188672…"
+    ],
+    "localStorage": [
+      "_gcl_ls"
+    ],
+    "sessionStorage": []
+  },
+  {
+    "scenario": "C har redan accepterat",
+    "sida": "/verktyg/rekryteringstester",
+    "loadMs": 170,
+    "lcpMs": null,
+    "posthogJsMs": null,
+    "anrop": [],
+    "cookiesFore": [
+      "cvBrevCookieConsent=true"
+    ],
+    "cookiesEfter": [
+      "cvBrevCookieConsent=true"
+    ],
+    "localStorage": [],
+    "sessionStorage": []
+  },
+  {
+    "scenario": "D trycker Avvisa",
+    "sida": "/verktyg/rekryteringstester",
+    "loadMs": 199,
+    "lcpMs": null,
+    "posthogJsMs": null,
+    "anrop": [],
+    "cookiesFore": [],
+    "cookiesEfter": [
+      "cvBrevCookieConsent=false"
+    ],
+    "localStorage": [],
+    "sessionStorage": []
+  }
+]

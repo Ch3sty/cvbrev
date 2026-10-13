@@ -1,0 +1,43 @@
+Server http://localhost:8311, 2026-10-13T10:19:14.252Z
+
+== A ny besökare, ingen interaktion: /verktyg/rekryteringstester
+   LCP null ms, load klar 1181 ms, posthog-js hämtas - ms
+   inga anrop till PostHog
+   cookies före klick: (inga)
+   cookies efter:      (inga)
+   localStorage: (tom)   sessionStorage: (tom)
+
+== A ny besökare, ingen interaktion: /
+   LCP null ms, load klar 186 ms, posthog-js hämtas - ms
+   inga anrop till PostHog
+   cookies före klick: (inga)
+   cookies efter:      (inga)
+   localStorage: (tom)   sessionStorage: (tom)
+
+== A ny besökare, ingen interaktion: /jobbkartan
+   LCP null ms, load klar 235 ms, posthog-js hämtas - ms
+   inga anrop till PostHog
+   cookies före klick: (inga)
+   cookies efter:      (inga)
+   localStorage: (tom)   sessionStorage: (tom)
+
+== B ny besökare trycker Acceptera: /verktyg/rekryteringstester
+   LCP null ms, load klar 152 ms, posthog-js hämtas - ms
+   inga anrop till PostHog
+   cookies före klick: (inga)
+   cookies efter:      _ga_RVXQLWHDFY=GS2.1.s1791886728$o1$g0$…; _gcl_au=1.1.729869675.1791886735; cvBrevCookieConsent=true; _ga=GA1.1.62189182.179188672…
+   localStorage: _gcl_ls   sessionStorage: (tom)
+
+== C har redan accepterat: /verktyg/rekryteringstester
+   LCP null ms, load klar 170 ms, posthog-js hämtas - ms
+   inga anrop till PostHog
+   cookies före klick: cvBrevCookieConsent=true
+   cookies efter:      cvBrevCookieConsent=true
+   localStorage: (tom)   sessionStorage: (tom)
+
+== D trycker Avvisa: /verktyg/rekryteringstester
+   LCP null ms, load klar 199 ms, posthog-js hämtas - ms
+   inga anrop till PostHog
+   cookies före klick: (inga)
+   cookies efter:      cvBrevCookieConsent=false
+   localStorage: (tom)   sessionStorage: (tom)

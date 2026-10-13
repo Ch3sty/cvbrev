@@ -1,0 +1,81 @@
+Server http://localhost:8312, 2026-10-13T10:24:29.483Z
+
+== A ny besökare, ingen interaktion: /verktyg/rekryteringstester
+   LCP 436 ms, load klar 243 ms, posthog-js hämtas 586 ms
+   +612 ms https://eu-assets.i.posthog.com/static/exception-autocapture.js
+   +613 ms https://eu-assets.i.posthog.com/array/phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR/config.js
+   +622 ms https://eu.i.posthog.com/flags/  undefined []
+   +704 ms https://eu.i.posthog.com/e/  $pageview /verktyg/rekryteringstester [76555e]
+   +707 ms https://eu-assets.i.posthog.com/static/dead-clicks-autocapture.js
+   +707 ms https://eu-assets.i.posthog.com/static/web-vitals.js
+   +3598 ms https://eu.i.posthog.com/e/  $set /verktyg/rekryteringstester [dc7b53]
+   cookies före klick: (inga)
+   cookies efter:      (inga)
+   localStorage: (tom)   sessionStorage: (tom)
+
+== A ny besökare, ingen interaktion: /
+   LCP 192 ms, load klar 207 ms, posthog-js hämtas 343 ms
+   +371 ms https://eu-assets.i.posthog.com/static/exception-autocapture.js
+   +371 ms https://eu-assets.i.posthog.com/array/phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR/config.js
+   +385 ms https://eu.i.posthog.com/flags/  undefined []
+   +441 ms https://eu.i.posthog.com/e/  $pageview / [369e6b]
+   +458 ms https://eu-assets.i.posthog.com/static/dead-clicks-autocapture.js
+   +458 ms https://eu-assets.i.posthog.com/static/web-vitals.js
+   +3353 ms https://eu.i.posthog.com/e/  $set / [17c258]
+   cookies före klick: (inga)
+   cookies efter:      (inga)
+   localStorage: (tom)   sessionStorage: (tom)
+
+== A ny besökare, ingen interaktion: /jobbkartan
+   LCP 388 ms, load klar 345 ms, posthog-js hämtas 766 ms
+   +790 ms https://eu-assets.i.posthog.com/static/exception-autocapture.js
+   +790 ms https://eu-assets.i.posthog.com/array/phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR/config.js
+   +806 ms https://eu.i.posthog.com/flags/  undefined []
+   +875 ms https://eu.i.posthog.com/e/  $pageview /jobbkartan [1b2397]
+   +882 ms https://eu-assets.i.posthog.com/static/dead-clicks-autocapture.js
+   +882 ms https://eu-assets.i.posthog.com/static/web-vitals.js
+   +3775 ms https://eu.i.posthog.com/e/  $set /jobbkartan [4a145a]
+   cookies före klick: (inga)
+   cookies efter:      (inga)
+   localStorage: (tom)   sessionStorage: (tom)
+
+== B ny besökare trycker Acceptera: /verktyg/rekryteringstester
+   LCP 220 ms, load klar 239 ms, posthog-js hämtas 435 ms
+   +467 ms https://eu-assets.i.posthog.com/static/exception-autocapture.js
+   +468 ms https://eu-assets.i.posthog.com/array/phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR/config.js
+   +477 ms https://eu.i.posthog.com/flags/  undefined []
+   +501 ms https://eu.i.posthog.com/e/  $pageview /verktyg/rekryteringstester [33ea22]
+   +578 ms https://eu-assets.i.posthog.com/static/dead-clicks-autocapture.js
+   +578 ms https://eu-assets.i.posthog.com/static/web-vitals.js
+   +3548 ms https://eu.i.posthog.com/e/  $set /verktyg/rekryteringstester [382bbd]
+   +8621 ms https://eu.i.posthog.com/i/v0/e/  $web_vitals /verktyg/rekryteringstester [c1bc4c], $autocapture /verktyg/rekryteringstester [7d7d77]
+   cookies före klick: (inga)
+   cookies efter:      _ga_RVXQLWHDFY=GS2.1.s1791887041$o1$g0$…; _ga=GA1.1.890292142.17918870…; cvBrevCookieConsent=true; _gcl_au=1.1.1385134343.179188704…; ph_phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR_posthog=%7B%22%24device_id%22%3A…
+   localStorage: ph_phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR_posthog, _gcl_ls   sessionStorage: ph_phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR_posthog
+
+== C har redan accepterat: /verktyg/rekryteringstester
+   LCP 208 ms, load klar 250 ms, posthog-js hämtas 668 ms
+   +701 ms https://eu-assets.i.posthog.com/static/exception-autocapture.js
+   +701 ms https://eu-assets.i.posthog.com/array/phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR/config.js
+   +712 ms https://eu.i.posthog.com/flags/  undefined []
+   +794 ms https://eu.i.posthog.com/e/  $pageview /verktyg/rekryteringstester [3fcc53]
+   +822 ms https://eu-assets.i.posthog.com/static/dead-clicks-autocapture.js
+   +822 ms https://eu-assets.i.posthog.com/static/web-vitals.js
+   +3686 ms https://eu.i.posthog.com/e/  $set /verktyg/rekryteringstester [c2e0a6]
+   cookies före klick: cvBrevCookieConsent=true; ph_phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR_posthog=%7B%22%24device_id%22%3A…
+   cookies efter:      ph_phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR_posthog=%7B%22%24device_id%22%3A…; cvBrevCookieConsent=true
+   localStorage: ph_phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR_posthog   sessionStorage: ph_phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR_posthog, ph_phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR_window_id, ph_phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR_primary_window_exists
+
+== D trycker Avvisa: /verktyg/rekryteringstester
+   LCP 328 ms, load klar 410 ms, posthog-js hämtas 827 ms
+   +864 ms https://eu-assets.i.posthog.com/static/exception-autocapture.js
+   +864 ms https://eu-assets.i.posthog.com/array/phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR/config.js
+   +893 ms https://eu.i.posthog.com/flags/  undefined []
+   +894 ms https://eu.i.posthog.com/e/  $pageview /verktyg/rekryteringstester [b59359]
+   +1001 ms https://eu-assets.i.posthog.com/static/dead-clicks-autocapture.js
+   +1001 ms https://eu-assets.i.posthog.com/static/web-vitals.js
+   +3846 ms https://eu.i.posthog.com/e/  $set /verktyg/rekryteringstester [3d890b]
+   +9037 ms https://eu.i.posthog.com/i/v0/e/  $web_vitals /verktyg/rekryteringstester [bc3d69], $autocapture /verktyg/rekryteringstester [261ba0]
+   cookies före klick: (inga)
+   cookies efter:      cvBrevCookieConsent=false
+   localStorage: (tom)   sessionStorage: (tom)

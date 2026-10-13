@@ -1,0 +1,367 @@
+[
+  {
+    "scenario": "A ny besökare, ingen interaktion",
+    "sida": "/verktyg/rekryteringstester",
+    "loadMs": 243,
+    "lcpMs": 436,
+    "posthogJsMs": 586,
+    "anrop": [
+      {
+        "ms": 612,
+        "url": "https://eu-assets.i.posthog.com/static/exception-autocapture.js",
+        "handelser": []
+      },
+      {
+        "ms": 613,
+        "url": "https://eu-assets.i.posthog.com/array/phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR/config.js",
+        "handelser": []
+      },
+      {
+        "ms": 622,
+        "url": "https://eu.i.posthog.com/flags/",
+        "handelser": [
+          "undefined []"
+        ]
+      },
+      {
+        "ms": 704,
+        "url": "https://eu.i.posthog.com/e/",
+        "handelser": [
+          "$pageview /verktyg/rekryteringstester [76555e]"
+        ]
+      },
+      {
+        "ms": 707,
+        "url": "https://eu-assets.i.posthog.com/static/dead-clicks-autocapture.js",
+        "handelser": []
+      },
+      {
+        "ms": 707,
+        "url": "https://eu-assets.i.posthog.com/static/web-vitals.js",
+        "handelser": []
+      },
+      {
+        "ms": 3598,
+        "url": "https://eu.i.posthog.com/e/",
+        "handelser": [
+          "$set /verktyg/rekryteringstester [dc7b53]"
+        ]
+      }
+    ],
+    "cookiesFore": [],
+    "cookiesEfter": [],
+    "localStorage": [],
+    "sessionStorage": []
+  },
+  {
+    "scenario": "A ny besökare, ingen interaktion",
+    "sida": "/",
+    "loadMs": 207,
+    "lcpMs": 192,
+    "posthogJsMs": 343,
+    "anrop": [
+      {
+        "ms": 371,
+        "url": "https://eu-assets.i.posthog.com/static/exception-autocapture.js",
+        "handelser": []
+      },
+      {
+        "ms": 371,
+        "url": "https://eu-assets.i.posthog.com/array/phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR/config.js",
+        "handelser": []
+      },
+      {
+        "ms": 385,
+        "url": "https://eu.i.posthog.com/flags/",
+        "handelser": [
+          "undefined []"
+        ]
+      },
+      {
+        "ms": 441,
+        "url": "https://eu.i.posthog.com/e/",
+        "handelser": [
+          "$pageview / [369e6b]"
+        ]
+      },
+      {
+        "ms": 458,
+        "url": "https://eu-assets.i.posthog.com/static/dead-clicks-autocapture.js",
+        "handelser": []
+      },
+      {
+        "ms": 458,
+        "url": "https://eu-assets.i.posthog.com/static/web-vitals.js",
+        "handelser": []
+      },
+      {
+        "ms": 3353,
+        "url": "https://eu.i.posthog.com/e/",
+        "handelser": [
+          "$set / [17c258]"
+        ]
+      }
+    ],
+    "cookiesFore": [],
+    "cookiesEfter": [],
+    "localStorage": [],
+    "sessionStorage": []
+  },
+  {
+    "scenario": "A ny besökare, ingen interaktion",
+    "sida": "/jobbkartan",
+    "loadMs": 345,
+    "lcpMs": 388,
+    "posthogJsMs": 766,
+    "anrop": [
+      {
+        "ms": 790,
+        "url": "https://eu-assets.i.posthog.com/static/exception-autocapture.js",
+        "handelser": []
+      },
+      {
+        "ms": 790,
+        "url": "https://eu-assets.i.posthog.com/array/phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR/config.js",
+        "handelser": []
+      },
+      {
+        "ms": 806,
+        "url": "https://eu.i.posthog.com/flags/",
+        "handelser": [
+          "undefined []"
+        ]
+      },
+      {
+        "ms": 875,
+        "url": "https://eu.i.posthog.com/e/",
+        "handelser": [
+          "$pageview /jobbkartan [1b2397]"
+        ]
+      },
+      {
+        "ms": 882,
+        "url": "https://eu-assets.i.posthog.com/static/dead-clicks-autocapture.js",
+        "handelser": []
+      },
+      {
+        "ms": 882,
+        "url": "https://eu-assets.i.posthog.com/static/web-vitals.js",
+        "handelser": []
+      },
+      {
+        "ms": 3775,
+        "url": "https://eu.i.posthog.com/e/",
+        "handelser": [
+          "$set /jobbkartan [4a145a]"
+        ]
+      }
+    ],
+    "cookiesFore": [],
+    "cookiesEfter": [],
+    "localStorage": [],
+    "sessionStorage": []
+  },
+  {
+    "scenario": "B ny besökare trycker Acceptera",
+    "sida": "/verktyg/rekryteringstester",
+    "loadMs": 239,
+    "lcpMs": 220,
+    "posthogJsMs": 435,
+    "anrop": [
+      {
+        "ms": 467,
+        "url": "https://eu-assets.i.posthog.com/static/exception-autocapture.js",
+        "handelser": []
+      },
+      {
+        "ms": 468,
+        "url": "https://eu-assets.i.posthog.com/array/phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR/config.js",
+        "handelser": []
+      },
+      {
+        "ms": 477,
+        "url": "https://eu.i.posthog.com/flags/",
+        "handelser": [
+          "undefined []"
+        ]
+      },
+      {
+        "ms": 501,
+        "url": "https://eu.i.posthog.com/e/",
+        "handelser": [
+          "$pageview /verktyg/rekryteringstester [33ea22]"
+        ]
+      },
+      {
+        "ms": 578,
+        "url": "https://eu-assets.i.posthog.com/static/dead-clicks-autocapture.js",
+        "handelser": []
+      },
+      {
+        "ms": 578,
+        "url": "https://eu-assets.i.posthog.com/static/web-vitals.js",
+        "handelser": []
+      },
+      {
+        "ms": 3548,
+        "url": "https://eu.i.posthog.com/e/",
+        "handelser": [
+          "$set /verktyg/rekryteringstester [382bbd]"
+        ]
+      },
+      {
+        "ms": 8621,
+        "url": "https://eu.i.posthog.com/i/v0/e/",
+        "handelser": [
+          "$web_vitals /verktyg/rekryteringstester [c1bc4c]",
+          "$autocapture /verktyg/rekryteringstester [7d7d77]"
+        ]
+      }
+    ],
+    "cookiesFore": [],
+    "cookiesEfter": [
+      "_ga_RVXQLWHDFY=GS2.1.s1791887041$o1$g0$…",
+      "_ga=GA1.1.890292142.17918870…",
+      "cvBrevCookieConsent=true",
+      "_gcl_au=1.1.1385134343.179188704…",
+      "ph_phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR_posthog=%7B%22%24device_id%22%3A…"
+    ],
+    "localStorage": [
+      "ph_phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR_posthog",
+      "_gcl_ls"
+    ],
+    "sessionStorage": [
+      "ph_phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR_posthog"
+    ]
+  },
+  {
+    "scenario": "C har redan accepterat",
+    "sida": "/verktyg/rekryteringstester",
+    "loadMs": 250,
+    "lcpMs": 208,
+    "posthogJsMs": 668,
+    "anrop": [
+      {
+        "ms": 701,
+        "url": "https://eu-assets.i.posthog.com/static/exception-autocapture.js",
+        "handelser": []
+      },
+      {
+        "ms": 701,
+        "url": "https://eu-assets.i.posthog.com/array/phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR/config.js",
+        "handelser": []
+      },
+      {
+        "ms": 712,
+        "url": "https://eu.i.posthog.com/flags/",
+        "handelser": [
+          "undefined []"
+        ]
+      },
+      {
+        "ms": 794,
+        "url": "https://eu.i.posthog.com/e/",
+        "handelser": [
+          "$pageview /verktyg/rekryteringstester [3fcc53]"
+        ]
+      },
+      {
+        "ms": 822,
+        "url": "https://eu-assets.i.posthog.com/static/dead-clicks-autocapture.js",
+        "handelser": []
+      },
+      {
+        "ms": 822,
+        "url": "https://eu-assets.i.posthog.com/static/web-vitals.js",
+        "handelser": []
+      },
+      {
+        "ms": 3686,
+        "url": "https://eu.i.posthog.com/e/",
+        "handelser": [
+          "$set /verktyg/rekryteringstester [c2e0a6]"
+        ]
+      }
+    ],
+    "cookiesFore": [
+      "cvBrevCookieConsent=true",
+      "ph_phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR_posthog=%7B%22%24device_id%22%3A…"
+    ],
+    "cookiesEfter": [
+      "ph_phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR_posthog=%7B%22%24device_id%22%3A…",
+      "cvBrevCookieConsent=true"
+    ],
+    "localStorage": [
+      "ph_phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR_posthog"
+    ],
+    "sessionStorage": [
+      "ph_phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR_posthog",
+      "ph_phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR_window_id",
+      "ph_phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR_primary_window_exists"
+    ]
+  },
+  {
+    "scenario": "D trycker Avvisa",
+    "sida": "/verktyg/rekryteringstester",
+    "loadMs": 410,
+    "lcpMs": 328,
+    "posthogJsMs": 827,
+    "anrop": [
+      {
+        "ms": 864,
+        "url": "https://eu-assets.i.posthog.com/static/exception-autocapture.js",
+        "handelser": []
+      },
+      {
+        "ms": 864,
+        "url": "https://eu-assets.i.posthog.com/array/phc_12mTlUkaAFY69vSVhfzCXwsqpOoDHB64Viisn50VyDR/config.js",
+        "handelser": []
+      },
+      {
+        "ms": 893,
+        "url": "https://eu.i.posthog.com/flags/",
+        "handelser": [
+          "undefined []"
+        ]
+      },
+      {
+        "ms": 894,
+        "url": "https://eu.i.posthog.com/e/",
+        "handelser": [
+          "$pageview /verktyg/rekryteringstester [b59359]"
+        ]
+      },
+      {
+        "ms": 1001,
+        "url": "https://eu-assets.i.posthog.com/static/dead-clicks-autocapture.js",
+        "handelser": []
+      },
+      {
+        "ms": 1001,
+        "url": "https://eu-assets.i.posthog.com/static/web-vitals.js",
+        "handelser": []
+      },
+      {
+        "ms": 3846,
+        "url": "https://eu.i.posthog.com/e/",
+        "handelser": [
+          "$set /verktyg/rekryteringstester [3d890b]"
+        ]
+      },
+      {
+        "ms": 9037,
+        "url": "https://eu.i.posthog.com/i/v0/e/",
+        "handelser": [
+          "$web_vitals /verktyg/rekryteringstester [bc3d69]",
+          "$autocapture /verktyg/rekryteringstester [261ba0]"
+        ]
+      }
+    ],
+    "cookiesFore": [],
+    "cookiesEfter": [
+      "cvBrevCookieConsent=false"
+    ],
+    "localStorage": [],
+    "sessionStorage": []
+  }
+]
