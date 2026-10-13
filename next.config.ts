@@ -379,6 +379,18 @@ const nextConfig: NextConfig = {
     ]
   },
 
+  // Videorna i public/videos har versionen i filnamnet (tester-v3-...) och
+  // ändras aldrig under samma namn, så de får cachas ett år. Utan regeln ger
+  // Vercel statiska filer max-age=0 och varje uppspelning hämtar om filen.
+  async headers() {
+    return [
+      {
+        source: '/videos/:path*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+      },
+    ]
+  },
+
   // Räkna ut: en länk med kalkylatorns nyckelparameter visar den delade vyn,
   // som räknar resultatet på servern och pekar og:image på resultatets bild
   // (/api/og/rakna-ut/<slug>). Utan parametrar är sidan statisk som förut.

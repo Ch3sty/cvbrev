@@ -10,7 +10,8 @@
  * SEO: h1, metadata och alla h2/h3 i baslinjen (bilaga A) står kvar med samma
  * text och nivå. Schemat (WebApplication, HowTo, FAQPage) är oförändrat utom
  * FAQ-svaren om verbalt och numeriskt, som nu läser testConfig (ägarens beslut 1).
- * Serverkomponent; klient-JS bara för FastKnapprad och prova-kortets mätning.
+ * Serverkomponent; klient-JS bara för FastKnapprad, prova-kortets mätning och
+ * produktfilmen (laddas först när den syns), som också har ett VideoObject-schema.
  */
 import Link from 'next/link'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
@@ -31,7 +32,7 @@ import SvavandeObjekt from '@/components/publikt/SvavandeObjekt'
 import { MatrisBricka } from '@/components/publikt/MatrisExpert'
 import { TESTTAL } from '@/components/publikt/testtal'
 import SkarmMatris from '@/components/publikt/telefon/skarmar/SkarmMatris'
-import SkarmNivakoll from '@/components/publikt/telefon/skarmar/SkarmNivakoll'
+import Produktfilm from '@/components/publikt/Produktfilm'
 import SkarmPersonlighet from '@/components/publikt/telefon/skarmar/SkarmPersonlighet'
 import SkarmIntervjufragor from '@/components/publikt/telefon/skarmar/SkarmIntervjufragor'
 
@@ -206,12 +207,31 @@ export default function RekryteringstesterSida() {
     })),
   }
 
+  // Produktfilmen i Så fungerar det (ägarens beslut 2026-10-13). uploadDate är
+  // första publiceringen och ändras aldrig i efterhand.
+  const videoSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: 'Så tränar du på rekryteringstester hos Jobbcoach.ai',
+    description:
+      'Tjugo sekunder om hur träningen ser ut: logiktest, verbalt resonemang och numeriskt test i samma format som det riktiga testet, resultatet med din nivå direkt, regeln bakom varje fråga, nivåkurvan fram till provdagen och övningsprovet mot klockan.',
+    thumbnailUrl: ['https://www.jobbcoach.ai/videos/tester-v3-169-affisch.webp'],
+    uploadDate: '2026-10-14T09:00:00+02:00',
+    duration: 'PT20S',
+    inLanguage: 'sv',
+    contentUrl: 'https://www.jobbcoach.ai/videos/tester-v3-169.mp4',
+    transcript:
+      'Kallad till ett rekryteringstest? Logiktest. Samma format som det riktiga testet. Verbalt resonemang. Numeriskt test. Rätt, fel och nivå direkt. Och regeln bakom varje fråga. Din nivå fram till provdagen. Och övningsprov mot klockan. Träna nu. Kom förberedd sen. Starta gratis test.',
+    publisher: { '@type': 'Organization', name: 'Jobbcoach.ai', url: 'https://www.jobbcoach.ai' },
+  }
+
   return (
     <>
       <RedirectLoggedIn to="/dashboard/tester" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema) }} />
 
       <PubliktSida>
         <div id="innehall">
@@ -291,7 +311,7 @@ export default function RekryteringstesterSida() {
                 </div>
               </div>
               <div className="pub-mitt">
-                <SkarmNivakoll />
+                <Produktfilm page="/verktyg/rekryteringstester" position="sa_fungerar" knappHref={PROVA} />
               </div>
             </div>
           </Rum>

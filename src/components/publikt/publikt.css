@@ -1271,3 +1271,61 @@ a.pub-mall-mer {
 @media (max-width: 899px) {
   .pub-solfjader-hjalte { min-height: 668px; }
 }
+
+/* Produktfilmen (Produktfilm.tsx). Ytan är reserverad med aspect-ratio så att
+   inget hoppar när videon laddas; affischen ligger under videon. */
+.pub-film {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #1b2246;
+  box-shadow: 0 30px 60px -30px rgba(18, 23, 55, 0.55);
+}
+.pub-film-affisch,
+.pub-film-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.pub-film-ljud,
+.pub-film-spela {
+  position: absolute;
+  z-index: 2;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(18, 23, 55, 0.62);
+  color: #f5f6fc;
+  font: 600 14px/1 var(--font-inter, Inter, system-ui, sans-serif);
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+}
+.pub-film-ljud { right: 12px; bottom: 12px; }
+.pub-film-spela { left: 50%; top: 50%; transform: translate(-50%, -50%); min-height: 52px; padding: 0 24px; font-size: 16px; }
+.pub-film-ljud:focus-visible,
+.pub-film-spela:focus-visible,
+.pub-film-knapp:focus-visible { outline: 3px solid #f4b98a; outline-offset: 3px; }
+/* Länken ligger exakt över knappen som är ritad i filmens slutbild. */
+.pub-film-knapp {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 61.6%;
+  width: 24%;
+  height: 10.4%;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  color: transparent;
+  font-size: 1px;
+  overflow: hidden;
+}
+@media (max-width: 640px) {
+  .pub-film { aspect-ratio: 9 / 16; max-height: 82vh; margin: 0 auto; }
+  .pub-film-knapp { top: 53.9%; width: 43%; height: 5.8%; }
+}

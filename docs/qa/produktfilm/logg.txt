@@ -1,0 +1,13 @@
+pixel7: före scroll, hämtat []
+pixel7: efter scroll {"src":"http://localhost:8300/videos/tester-v3-916.mp4","tid":2.051204,"pausad":false,"b":380,"h":676,"spelaKnapp":false}
+pixel7: slutbildens länk {"href":"/verktyg/rekryteringstester/prova","x":124,"y":464,"b":163,"h":39}
+pixel7-lugn: före scroll, hämtat []
+pixel7-lugn: efter scroll {"src":"","tid":0,"pausad":true,"b":380,"h":676,"spelaKnapp":true}
+desktop: före scroll, hämtat ["/videos/tester-v3-169-affisch.webp"]
+desktop: efter scroll {"src":"http://localhost:8300/videos/tester-v3-169.mp4","tid":2.261427,"pausad":false,"b":528,"h":297,"spelaKnapp":false}
+desktop: slutbildens länk {"href":"/verktyg/rekryteringstester/prova","x":273,"y":419,"b":127,"h":31}
+desktop-lugn: före scroll, hämtat ["/videos/tester-v3-169-affisch.webp"]
+desktop-lugn: efter scroll {"src":"","tid":0,"pausad":true,"b":528,"h":297,"spelaKnapp":true}
+cache-control /videos: public, max-age=31536000, immutable
+
+Inga fel.
