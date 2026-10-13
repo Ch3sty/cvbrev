@@ -1,0 +1,310 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "h1": [
+      "Därför får du inte svar på dina ansökningar"
+    ],
+    "title": "Jobbcoach.ai - CV, personligt brev, jobbmatchning & rekryteringstester",
+    "description": "Skapa ATS-anpassade CV:n och personliga brev, få jobbmatchning och träna på rekryteringstester. Ett effektivt verktyg för arbetssökande i Sverige.",
+    "canonical": "https://www.jobbcoach.ai",
+    "ogImage": "https://www.jobbcoach.ai/opengraph-image",
+    "robots": "",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Tre verktyg som gör ansökan starkare"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Rekryteringstester"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "CV-analys"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Jobbmatchning"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vi matchar din erfarenhet mot tjänstens krav"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Jobbcoachen svarar hela vägen"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Robotarna har redan läst ditt CV."
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Och resten av jobbsöket"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Allt i Premium"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Svaren på det du undrar"
+      }
+    ],
+    "lankar": [
+      "#tre-verktyg",
+      "/cv-exempel",
+      "/funktioner#sokta-tjanster",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/priser",
+      "/priser",
+      "/skapa-brev/start",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"email\":\"info@jobbcoach.ai\",\"logo\":\"https://www.jobbcoach.ai/icon.png\",\"name\":\"Jobbcoach.ai\",\"sameAs\":[\"https://www.facebook.com/jobbcoach.ai\",\"https://www.instagram.com/jobbcoach.ai\"],\"url\":\"https://www.jobbcoach.ai\"},{\"@type\":\"WebSite\",\"inLanguage\":\"sv-SE\",\"name\":\"Jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"},{\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"ATS (Applicant Tracking System) är de rekryteringssystem de flesta större svenska arbetsgivare använder för att sortera ansökningar automatiskt. Är ditt CV inte läsbart för systemet kan du sorteras bort innan en människa ens öppnar det. Alla våra CV-mallar är byggda för att systemen ska kunna läsa dem.\"},\"name\":\"Vad är ATS, och varför ska mitt CV vara anpassat?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Vi skriver utkastet utifrån ditt CV och jobbannonsen. Du läser igenom, justerar tonen där det behövs och skickar. Resultatet låter som du, bara mer genomarbetat än om du skrivit varje brev från noll.\"},\"name\":\"Hur mycket av jobbet gör ni åt mig?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Runt 60 sekunder från att du klistrar in annonsen till ett färdigt utkast. Du sparar en kvart eller mer per ansökan jämfört med att skriva från grunden.\"},\"name\":\"Hur snabbt kan jag skapa ett personligt brev?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. Vi följer GDPR och all data lagras i EU. Vi säljer aldrig din information vidare, och du kan radera ditt konto med ett klick. Då försvinner allt, även våra kopior.\"},\"name\":\"Är mina uppgifter säkra?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Gratisnivån kräver inget kort: grundnivån i varje testtyp och personlighetstestet, 3 CV-mallar och en nedladdning, en CV-analys med poäng och tyngsta fyndet, första personliga brevet och sedan ett i veckan, 3 matchade jobb och 10 frågor till Jobbcoachen. Söker du på allvar ingår allt i Jobbcoach Premium, 149 kr i månaden. Ingen bindningstid, och du säger upp i ditt konto.\"},\"name\":\"Vad kostar det, och vad får jag utan att betala?\"}]}]}"
+    ],
+    "forstaBild": null,
+    "faq": [
+      "Vad är ATS, och varför ska mitt CV vara anpassat?",
+      "Hur mycket av jobbet gör ni åt mig?",
+      "Hur snabbt kan jag skapa ett personligt brev?",
+      "Är mina uppgifter säkra?",
+      "Vad kostar det, och vad får jag utan att betala?",
+      "ld: Vad är ATS, och varför ska mitt CV vara anpassat?",
+      "ld: Hur mycket av jobbet gör ni åt mig?",
+      "ld: Hur snabbt kan jag skapa ett personligt brev?",
+      "ld: Är mina uppgifter säkra?",
+      "ld: Vad kostar det, och vad får jag utan att betala?"
+    ],
+    "ord": 942
+  },
+  {
+    "path": "/jobbkartan",
+    "status": 200,
+    "h1": [
+      "I Jämtland går det 0,4 arbetslösa på varje ledigt jobb. I Södermanland 3,5."
+    ],
+    "title": "Jobbkartan: konkurrensen om jobben, yrken och kommuner",
+    "description": "Hur många arbetslösa går det på varje ledigt jobb i ditt län? Se kön, var ditt yrke är vanligt och arbetslösheten i din kommun på en karta byggd på SCB:s data.",
+    "canonical": "https://www.jobbcoach.ai/jobbkartan",
+    "ogImage": "https://www.jobbcoach.ai/opengraph-image",
+    "robots": "",
+    "rubriker": [
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Så lång är kön till varje ledigt jobb"
+      },
+      {
+        "tag": "h3",
+        "id": "jk-pikto-rubrik",
+        "text": "Stockholms län"
+      },
+      {
+        "tag": "h3",
+        "id": "jk-staplar-rubrik",
+        "text": "Alla län, andra kvartalet 2026"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Två år av kö, kvartal för kvartal"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Var är ditt yrke vanligast?"
+      },
+      {
+        "tag": "h3",
+        "id": "jk-yrke-namn",
+        "text": "Grundutbildade sjuksköterskor"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Annonserna för ditt yrke, där kön är kortast"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Månadslön, område för område"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Hur ser det ut där du bor?"
+      },
+      {
+        "tag": "h3",
+        "id": "jk-kommun-namn",
+        "text": "Göteborg"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Allt här går att kontrollera, ladda ner och bädda in"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Källor"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Metod i klartext"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Osäkerhet"
+      },
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Ta med dig det du ser"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga frågor om jobbkartan"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Sök där kön är kort, med ett CV som syns"
+      }
+    ],
+    "lankar": [
+      "/",
+      "/cv-exempel",
+      "/integritetspolicy#cookies",
+      "/verktyg/jobbmatchning"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"Dataset\",\"creator\":{\"@type\":\"Organization\",\"name\":\"Jobbcoach.ai\",\"url\":\"https://www.jobbcoach.ai\"},\"description\":\"Arbetslösa per ledigt jobb per län och kvartal, anställda per yrke och län, månadslön per riksområde och arbetslöshet per kommun och månad, sammanställt ur SCB:s statistikdatabas.\",\"distribution\":[{\"@type\":\"DataDownload\",\"contentUrl\":\"https://www.jobbcoach.ai/jobbkartan/data/kommuner.json\",\"encodingFormat\":\"application/json\"},{\"@type\":\"DataDownload\",\"contentUrl\":\"https://www.jobbcoach.ai/jobbkartan/data/yrken.json\",\"encodingFormat\":\"application/json\"}],\"inLanguage\":\"sv\",\"isAccessibleForFree\":true,\"isBasedOn\":{\"@type\":\"Organization\",\"name\":\"Statistiska centralbyrån (SCB)\",\"url\":\"https://www.scb.se\"},\"license\":\"https://creativecommons.org/publicdomain/zero/1.0/\",\"name\":\"Jobbkartan: konkurrensen om jobben, yrken och arbetslöshet per län och kommun\",\"spatialCoverage\":{\"@type\":\"Place\",\"name\":\"Sverige\"},\"temporalCoverage\":\"2020/2026-07\",\"url\":\"https://www.jobbcoach.ai/jobbkartan\",\"variableMeasured\":[\"Arbetslösa per ledigt jobb\",\"Anställda per yrke\",\"Månadslön\",\"Arbetslöshet\",\"Sysselsättningsgrad\"]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Det är antalet arbetslösa i länet delat med antalet lediga jobb hos arbetsgivarna i samma län och kvartal. 1,7 i hela landet andra kvartalet 2026 betyder att det gick ungefär 17 arbetslösa på tio lediga jobb. Ju lägre tal, desto kortare kö till varje jobb.\"},\"name\":\"Vad betyder arbetslösa per ledigt jobb?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Allt kommer från SCB:s statistikdatabas: arbetslösa ur Arbetskraftsundersökningarna, lediga jobb ur Konjunkturstatistik över lediga jobb, arbetslöshet per kommun ur Befolkningens arbetsmarknadsstatus, yrken per län ur yrkesregistret och lönerna ur lönestrukturstatistiken. Antalet platsannonser i dag kommer från Arbetsförmedlingen.\"},\"name\":\"Var kommer siffrorna ifrån?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Nyheterna citerar oftast Arbetskraftsundersökningarna, en urvalsundersökning bland 15 till 74 år. Kommunsiffrorna här är registerstatistik för 20 till 65 år och mäter inte exakt samma sak. Därför blandar vi dem aldrig i samma diagram.\"},\"name\":\"Varför skiljer sig arbetslösheten i min kommun från den i nyheterna?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Sök på yrket under Ditt yrke på kartan. Vi räknar hur stor del av länets anställda som har yrket och jämför med hela landet. 2,0 betyder att yrket är dubbelt så vanligt som i snitt, 0,5 att det är hälften så vanligt. Där yrket är vanligt finns oftast fler arbetsgivare att söka sig till.\"},\"name\":\"Hur vet jag om mitt yrke är vanligt där jag bor?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Platsannonserna läses om varje dygn. SCB:s siffror uppdaterar vi när SCB publicerar nytt: arbetslösheten per kommun varje månad, konkurrensen om jobben varje kvartal och yrkena och lönerna en gång om året.\"},\"name\":\"Hur ofta uppdateras jobbkartan?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja. SCB:s data är fri att använda (CC0) och du kan ladda ner det du ser som CSV eller bädda in kartan på din egen webbplats. Ange gärna SCB som källa och länka till jobbkartan.\"},\"name\":\"Får jag använda siffrorna och kartan?\"}]}"
+    ],
+    "forstaBild": null,
+    "faq": [
+      "Kartans siffror som tabell, alla län och kvartal",
+      "Vad betyder arbetslösa per ledigt jobb?",
+      "Var kommer siffrorna ifrån?",
+      "Varför skiljer sig arbetslösheten i min kommun från den i nyheterna?",
+      "Hur vet jag om mitt yrke är vanligt där jag bor?",
+      "Hur ofta uppdateras jobbkartan?",
+      "Får jag använda siffrorna och kartan?",
+      "ld: Vad betyder arbetslösa per ledigt jobb?",
+      "ld: Var kommer siffrorna ifrån?",
+      "ld: Varför skiljer sig arbetslösheten i min kommun från den i nyheterna?",
+      "ld: Hur vet jag om mitt yrke är vanligt där jag bor?",
+      "ld: Hur ofta uppdateras jobbkartan?",
+      "ld: Får jag använda siffrorna och kartan?"
+    ],
+    "ord": 1062
+  },
+  {
+    "path": "/embed/jobbkartan",
+    "status": 200,
+    "h1": [
+      "I Jämtland går det 0,4 arbetslösa på varje ledigt jobb. I Södermanland 3,5."
+    ],
+    "title": "Jobbkartan: arbetslösa per ledigt jobb, län för län",
+    "description": "Skapa ATS-anpassade CV:n och personliga brev, få jobbmatchning och träna på rekryteringstester. Ett effektivt verktyg för arbetssökande i Sverige.",
+    "canonical": "",
+    "ogImage": "https://www.jobbcoach.ai/opengraph-image",
+    "robots": "noindex, follow",
+    "rubriker": [],
+    "lankar": [
+      "/integritetspolicy#cookies",
+      "/jobbkartan"
+    ],
+    "ramLankar": [],
+    "jsonLd": [],
+    "forstaBild": null,
+    "faq": [],
+    "ord": 103
+  }
+]

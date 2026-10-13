@@ -7,7 +7,8 @@
  * Ordning: hjälten på mark med banan, mediebevisen, tre verktyg med
  * rekryteringstesterna först och störst, brevet, Jobbcoachen, medierna,
  * resten av jobbsöket, Premium på bläck och frågorna. Alla tal ur koden.
- * Serverkomponent; klient-JS bara för FastKnapprad.
+ * Serverkomponent; klient-JS bara för FastKnapprad och mätningen av Jobbkartans rad
+ * (TeaserMatare, ritar inget).
  *
  * SEO: h1, title och description oförändrade. Baslinjens h2 och h3 står kvar
  * med samma text och nivå. Ny h2: "Jobbcoachen svarar hela vägen". Nytt
@@ -22,6 +23,7 @@ import LankLista, { type LankRad } from '../LankLista'
 import PremiumBlock, { PremiumOrd } from '../PremiumBlock'
 import Faq, { faqSchema } from '../Faq'
 import FastKnapprad from '../FastKnapprad'
+import TeaserMatare from '@/components/jobbkartan/TeaserMatare'
 import SvavandeObjekt from '../SvavandeObjekt'
 import { storForst, talOrd } from '../talord'
 import SkarmBana from '../telefon/skarmar/SkarmBana'
@@ -83,6 +85,14 @@ const RESTEN: LankRad[] = [
   { href: '/verktyg/jobbcoachen', rubrik: 'Jobbcoachen', text: 'Lön, intervjufrågor, avtal och avslag, utifrån svensk arbetsmarknad och ditt CV.', objekt: 'chat', rum: 'neu' },
   { href: '/verktyg/linkedin-optimering', rubrik: 'LinkedIn-profilen', text: 'Rubrik och sammanfattning som rekryterare hittar när de söker.', objekt: 'linkedin', rum: 'cv' },
   { href: '/verktyg/bli-upptackt', rubrik: 'Bli upptäckt', text: 'Rekryterare hittar dig, anonymt tills du själv svarar.', objekt: 'upptackt', rum: 'jobb' },
+  {
+    href: '/jobbkartan',
+    rubrik: 'Jobbkartan',
+    text: 'Hur många som konkurrerar om varje jobb, län för län. SCB:s siffror på en karta.',
+    objekt: 'karta',
+    rum: 'jobb',
+    matning: 'jobbkartan-teaser',
+  },
   { href: '/cv-exempel', rubrik: 'CV-exempel', text: 'Färdiga CV:n yrke för yrke, att utgå ifrån.', objekt: 'exempel', rum: 'cv' },
   { href: '/personligt-brev-exempel', rubrik: 'Personligt brev-exempel', text: 'Brev som fungerat, yrke för yrke.', objekt: 'exempel', rum: 'brev' },
   {
@@ -381,6 +391,7 @@ export default function Startsidan({ konton }: { konton: number | null }) {
         </Rum>
       </div>
       <FastKnapprad text="Skapa konto gratis" href="/register" observera="hjalte" />
+      <TeaserMatare page="/" />
     </>
   )
 }

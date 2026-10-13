@@ -13,6 +13,8 @@ export interface LankRad {
   text: string
   objekt?: ObjektTyp
   rum?: RumNamn
+  /** data-matning på länken, så att en mätare kan hitta raden utan att raden blir en klientkomponent. */
+  matning?: string
 }
 
 export default function LankLista({
@@ -30,6 +32,7 @@ export default function LankLista({
         <Link
           key={l.href}
           href={l.href}
+          data-matning={l.matning}
           className={[l.rum ? `pub-rum-${l.rum}` : '', l.objekt ? '' : 'pub-utan-objekt'].filter(Boolean).join(' ') || undefined}
         >
           {l.objekt ? <Objekt typ={l.objekt} storlek={52} /> : null}

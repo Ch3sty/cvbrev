@@ -2,13 +2,14 @@
  * /jobbkartan: arbetsmarknaden på en karta, byggd på SCB:s öppna data. Konceptet godkändes som
  * artefakt 2026-10-13 (docs/design/koncept-jobbkartan-2026-10-13.html).
  *
- * Snabbt utan tunga beroenden: hjältekartan är SVG ritad på servern, översiktsdatan (cirka 13 kB)
- * följer med sidan och yrkena och kommunerna hämtas som små filer under /jobbkartan/data först när
- * avsnitten närmar sig skärmen. Platsannonserna läses från JobTech och cachas ett dygn som resten
+ * Snabbt utan tunga beroenden: hjältekartan är SVG ritad på servern, översikten och geometrin
+ * hämtar webbläsaren från /jobbkartan/data/karta.json (följer inte med sidan, se JobbkartanKlient)
+ * och yrkena och kommunerna hämtas som små filer under /jobbkartan/data först när avsnitten
+ * närmar sig skärmen. Platsannonserna läses från JobTech och cachas ett dygn som resten
  * av den publika sidan. SCB-datan uppdateras med scripts/jobbkartan/hamta-data.mjs.
  *
- * Avsnitten: 1 hjälten med kartan och tidsreglaget, 2 konkurrensen om jobben, 3 ditt yrke,
- * 4 din kommun, 5 för journalister, 6 vanliga frågor, 7 vägen vidare in i tjänsten.
+ * Avsnitten: 1 hjälten med kartan och tidsreglaget, 2 konkurrensen om jobben, 3 ditt yrke med
+ * kroken till jobbmatchningen före lönekartan, 4 din kommun, 5 för journalister, 6 vanliga frågor, 7 vägen vidare in i tjänsten.
  */
 import type { Metadata } from 'next'
 import Link from 'next/link'
@@ -19,9 +20,13 @@ import { HjalteTal, JkTillbehor, KartScen, Tidrad } from '@/components/jobbkarta
 import JobbkartanKlient from '@/components/jobbkartan/JobbkartanKlient'
 import { FJALL, GEO, OVERSIKT, extrem, hamtaAnnonser, kon, rubrik, type JobbkartanData } from '@/lib/jobbkartan/data'
 import { fmt, kortLan, kvartalKort, kvartalNamn, manadNamn } from '@/lib/jobbkartan/karta'
+import { FREE_TIER_JOB_LIMIT } from '@/lib/jobmatching/freeLimit'
+import { talOrd } from '@/components/publikt/talord'
 import '@/components/jobbkartan/jobbkartan.css'
 
 const URL_SIDA = 'https://www.jobbcoach.ai/jobbkartan'
+/** Registreringen med jobbmatchningen förvald, samma adress som /verktyg/jobbmatchning använder. */
+const REGISTRERA_JOBB = '/register?borja=jobb'
 
 export const metadata: Metadata = {
   title: 'Jobbkartan: konkurrensen om jobben, yrken och kommuner',
@@ -286,6 +291,20 @@ export default async function JobbkartanSida() {
                   </div>
                 </div>
               </div>
+            </div>
+            {/* Kroken: från kartan till annonserna. h3, inte h2, så att rubrikträdet står kvar. */}
+            <div className="krok kort" id="jk-krok">
+              <div>
+                <p className="kick">Från kartan till annonserna</p>
+                <h3 className="h3">Annonserna för ditt yrke, där kön är kortast</h3>
+                <p className="brod" style={{ marginTop: 8 }}>
+                  Kartan visar var jobben finns. Jobbmatchningen läser ditt CV och plockar ut annonserna som passar dig, med
+                  skälen utskrivna. Dina {talOrd(FREE_TIER_JOB_LIMIT)} bästa träffar ser du gratis.
+                </p>
+              </div>
+              <Link className="knapp" href={REGISTRERA_JOBB} data-jk-cta="">
+                Se mina träffar gratis
+              </Link>
             </div>
             <div className="sektionsrad">
               <h3 className="h3">Månadslön, område för område</h3>
@@ -570,7 +589,10 @@ export default async function JobbkartanSida() {
                 träff får ett skäl, och du kan skriva det personliga brevet direkt från annonsen.
               </p>
               <div className="vidare-knappar">
-                <Link className="knapp" href="/verktyg/jobbmatchning">
+                <Link className="knapp" href={REGISTRERA_JOBB} data-jk-cta="">
+                  Se mina träffar gratis
+                </Link>
+                <Link className="knapp-tunn" href="/verktyg/jobbmatchning">
                   Se jobbmatchningen
                 </Link>
                 <Link className="knapp-tunn" href="/cv-exempel">
@@ -582,7 +604,7 @@ export default async function JobbkartanSida() {
         </section>
         <JkTillbehor />
       </main>
-      <JobbkartanKlient data={D} />
+      <JobbkartanKlient annonser={D.annonser} />
     </PubliktSida>
   )
 }

@@ -231,6 +231,11 @@
 .jk .legend-rad i.band{height:10px;opacity:.25}
 .jk .sektionsrad{margin-top:48px}
 .jk .sektionsrad .h3{margin-bottom:6px}
+/* Kroken efter Ditt yrke: text till vänster, knappen till höger; staplat under 700 px. */
+.jk .krok{display:flex;align-items:center;justify-content:space-between;gap:clamp(16px,3vw,40px);margin-top:48px}
+.jk .krok .kick{margin-bottom:8px}
+.jk .krok .knapp{flex:none}
+@media (max-width:699px){.jk .krok{flex-direction:column;align-items:stretch}.jk .krok .knapp{width:100%}}
 
 /* ============================================================ Yrket */
 .jk .sok{position:relative;max-width:560px;margin-top:28px}

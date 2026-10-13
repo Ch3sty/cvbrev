@@ -1,7 +1,9 @@
 /**
- * Jobbkartans data på servern: översikten (inline i sidan), geometrin och platsannonserna.
- * Översikten byggs av scripts/jobbkartan/hamta-data.mjs. Yrkena och kommunerna ligger som
- * statiska filer under /jobbkartan/data och hämtas av webbläsaren först när de behövs.
+ * Jobbkartans data på servern: översikten, geometrin och platsannonserna. Servern ritar
+ * sidan av dem; webbläsaren hämtar översikten och geometrin från /jobbkartan/data/karta.json
+ * och får bara platsannonserna med sidan. Översikten byggs av scripts/jobbkartan/hamta-data.mjs.
+ * Yrkena och kommunerna ligger som statiska filer under /jobbkartan/data och hämtas av
+ * webbläsaren först när de behövs.
  */
 import oversiktJson from './data/oversikt.json'
 import geoJson from './sverige-lan.json'
@@ -43,10 +45,13 @@ export interface Annonser {
   totalt: number
   perLan: Record<string, number>
 }
-/** Allt som sidan behöver i webbläsaren från början. */
-export interface JobbkartanData extends Oversikt {
+/** Det som /jobbkartan/data/karta.json skickar: översikten och geometrin. */
+export interface JobbkartanKartdata extends Oversikt {
   geo: Lan[]
   fjall: number[][]
+}
+/** Allt som kartan behöver: kartdatan plus dagens platsannonser. */
+export interface JobbkartanData extends JobbkartanKartdata {
   annonser: Annonser | null
 }
 

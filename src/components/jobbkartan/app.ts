@@ -7,6 +7,7 @@
  * Yrkena och kommunerna hämtas som små statiska filer under /jobbkartan/data först när de behövs.
  */
 import type { JobbkartanData } from '@/lib/jobbkartan/data'
+import { jobbkartanEvent } from '@/lib/analytics/publikt'
 import {
   fmt,
   hojdFor,
@@ -1040,8 +1041,17 @@ export function starta(rot: HTMLElement, D: JobbkartanData): () => void {
     // Tabellen är serverrenderad; bara markeringen av valt kvartal följer reglaget.
     t.querySelectorAll('[data-q]').forEach((c) => c.classList.toggle('nu', +c.getAttribute('data-q')! === state.q))
   }
+  /**
+   * Iframen plus en vanlig textlänk efter den. Länken är källhänvisningen som följer med när
+   * någon klistrar in koden, och den enda delen av inbäddningen som sökmotorerna läser som en
+   * länk till oss (inbäddningssidan själv är noindex).
+   */
   function baddKod() {
-    return `<iframe src="https://www.jobbcoach.ai/embed/jobbkartan#${vyKod()}" width="600" height="1400" title="Jobbkartan från Jobbcoach.ai, data från SCB" loading="lazy" style="border:0;border-radius:16px;max-width:100%"></iframe>`
+    return (
+      `<iframe src="https://www.jobbcoach.ai/embed/jobbkartan#${vyKod()}" width="600" height="1400" title="Jobbkartan från Jobbcoach.ai, data från SCB" loading="lazy" style="border:0;border-radius:16px;max-width:100%"></iframe>
+` +
+      '<p>Källa: <a href="https://www.jobbcoach.ai/jobbkartan">Jobbkartan, jobbcoach.ai</a>, data från SCB och Arbetsförmedlingen</p>'
+    )
   }
   function visaBadd() {
     const c = $('jk-badd-kod')
@@ -1056,6 +1066,7 @@ export function starta(rot: HTMLElement, D: JobbkartanData): () => void {
       rader.push([namn(kod), D.kvartal[q], m.arbetslosa[q], m.lediga[q], m.lediga_osak[q], v == null ? null : Math.round(v * 100) / 100, 'SCB TAB6428'])
     }
     laddaNer(`jobbkartan-konkurrens-${D.kvartal[q]}.csv`, rader)
+    jobbkartanEvent('jobbkartan_delning', { typ: 'csv' })
   })
   $('jk-csv-yrke')?.addEventListener('click', async () => {
     const y = await hamtaYrke(state.yrke)
@@ -1073,6 +1084,7 @@ export function starta(rot: HTMLElement, D: JobbkartanData): () => void {
       ]),
     )
     laddaNer(`jobbkartan-yrke-${y.kod}.csv`, rader)
+    jobbkartanEvent('jobbkartan_delning', { typ: 'csv' })
   })
   $('jk-csv-kommun')?.addEventListener('click', async () => {
     const k = (await hamtaKommuner()).find((x) => x[0] === state.kommun)
@@ -1085,8 +1097,17 @@ export function starta(rot: HTMLElement, D: JobbkartanData): () => void {
       rader.push([m, k[2][i], k[3][i], D.lanBas[lanKod][0][i], D.lanBas[lanKod][1][i], D.lanBas['00'][0][i], D.lanBas['00'][1][i], 'SCB TAB5663']),
     )
     laddaNer(`jobbkartan-kommun-${k[0]}.csv`, rader)
+    jobbkartanEvent('jobbkartan_delning', { typ: 'csv' })
   })
-  $('jk-badd')?.addEventListener('click', () => kopiera(baddKod(), 'Bäddkoden är kopierad'))
+  $('jk-badd')?.addEventListener('click', () => {
+    kopiera(baddKod(), 'Bäddkoden är kopierad')
+    jobbkartanEvent('jobbkartan_delning', { typ: 'badd' })
+  })
+  // Knapparna in i tjänsten (kroken efter Ditt yrke, Vägen vidare) är serverrenderade länkar;
+  // klicket mäts här. mal är länkens adress.
+  rot.querySelectorAll<HTMLAnchorElement>('a[data-jk-cta]').forEach((a) =>
+    a.addEventListener('click', () => jobbkartanEvent('jobbkartan_cta_clicked', { mal: a.getAttribute('href') ?? '' })),
+  )
   $('jk-lank')?.addEventListener('click', () => kopiera(`${location.origin}/jobbkartan#${vyKod()}`, 'Länken är kopierad'))
 
   /* ------------------------------------------------------------ Storlek och start */

@@ -104,30 +104,67 @@ export function inuti(x: number, y: number, ytor: number[][]) {
   return inne
 }
 
-/** Ovansidan som en path på höjden h. */
-export function toppPath(ytor: number[][], p: Projektor, h: number) {
+/**
+ * Path-data kompakt: första punkten absolut, resten relativt i tiondelar, utan nollan före
+ * decimaltecknet och utan mellanslag före minus. Projektorn avrundar redan till tiondelar och
+ * skillnaderna räknas i heltal, så formen blir exakt densamma som med absoluta koordinater men
+ * ungefär hälften så lång. Hjältekartan står två gånger i HTML-svaret (markupen och Reacts
+ * serialisering), så varje byte här räknas dubbelt.
+ */
+function tal(t: number) {
+  // t är tiondelar som heltal.
+  const s = String(Math.abs(t) / 10).replace(/^0\./, '.')
+  return t < 0 ? '-' + s : s
+}
+function koordinater(par: number[]) {
   let s = ''
-  for (const r of ytor) {
-    for (let i = 0; i < r.length; i += 2) {
-      const q = p(r[i], r[i + 1], h)
-      s += (i ? 'L' : 'M') + q[0] + ' ' + q[1]
-    }
-    s += 'Z'
+  for (const t of par) {
+    const v = tal(t)
+    s += s && v[0] !== '-' ? ' ' + v : v
   }
   return s
 }
+const tiondel = (v: number) => Math.round(v * 10)
 
-/** Sidoytorna: en fyrhörning per kant mellan höjden h och marken. Ovansidan täcker de bakåtvända. */
+/** En ring som path: första punkten absolut, resten relativt, i tiondelar. */
+function ringPath(tiondelar: number[]) {
+  const n = tiondelar.length
+  if (!n) return ''
+  const d: number[] = []
+  for (let i = 2; i < n; i += 2) d.push(tiondelar[i] - tiondelar[i - 2], tiondelar[i + 1] - tiondelar[i - 1])
+  return 'M' + koordinater([tiondelar[0], tiondelar[1]]) + (d.length ? 'l' + koordinater(d) : '') + 'z'
+}
+function ringPa(r: number[], p: Projektor, h: number) {
+  const ut: number[] = []
+  for (let i = 0; i < r.length; i += 2) {
+    const q = p(r[i], r[i + 1], h)
+    ut.push(tiondel(q[0]), tiondel(q[1]))
+  }
+  return ut
+}
+
+/** Ovansidan som en path på höjden h. */
+export function toppPath(ytor: number[][], p: Projektor, h: number) {
+  let s = ''
+  for (const r of ytor) s += ringPath(ringPa(r, p, h))
+  return s
+}
+
+/**
+ * Sidoytorna mellan höjden h och marken. Tidigare en fyrhörning per kant (topp i, topp j,
+ * mark j, mark i), alla i samma path med fyllregeln nonzero. Fyrhörningarnas lodräta kanter tar
+ * ut varandra parvis, så summan av dem är exakt ovanringen framlänges plus markringen baklänges.
+ * Det är vad vi ritar nu: samma omloppstal i varje punkt och alltså samma fyllda yta, med två
+ * punkter per hörn i stället för fyra per kant. Ovansidan täcker det som ligger under den.
+ */
 export function sidPath(ytor: number[][], p: Projektor, h: number) {
   let s = ''
   for (const r of ytor) {
-    const n = r.length
-    for (let i = 0; i < n; i += 2) {
-      const j = (i + 2) % n
-      const a = p(r[i], r[i + 1], h), b = p(r[j], r[j + 1], h)
-      const c = p(r[j], r[j + 1], 0), d = p(r[i], r[i + 1], 0)
-      s += `M${a[0]} ${a[1]}L${b[0]} ${b[1]}L${c[0]} ${c[1]}L${d[0]} ${d[1]}Z`
-    }
+    s += ringPath(ringPa(r, p, h))
+    const mark = ringPa(r, p, 0)
+    const bak: number[] = []
+    for (let i = mark.length - 2; i >= 0; i -= 2) bak.push(mark[i], mark[i + 1])
+    s += ringPath(bak)
   }
   return s
 }

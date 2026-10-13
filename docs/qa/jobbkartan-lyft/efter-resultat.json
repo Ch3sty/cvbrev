@@ -1,0 +1,132 @@
+[
+  {
+    "enhet": "pixel7",
+    "steg": "jobbkartan-laddar",
+    "fel": null
+  },
+  {
+    "enhet": "pixel7",
+    "steg": "ditt-yrke",
+    "fel": null
+  },
+  {
+    "enhet": "pixel7",
+    "steg": "kroken",
+    "fel": null
+  },
+  {
+    "enhet": "pixel7",
+    "steg": "kroken-klick",
+    "fel": null
+  },
+  {
+    "enhet": "pixel7",
+    "steg": "vagen-vidare",
+    "fel": null
+  },
+  {
+    "enhet": "pixel7",
+    "steg": "baddkod",
+    "fel": null
+  },
+  {
+    "enhet": "pixel7",
+    "steg": "csv",
+    "fel": null
+  },
+  {
+    "enhet": "pixel7",
+    "steg": "din-kommun",
+    "fel": null
+  },
+  {
+    "enhet": "pixel7",
+    "steg": "embed",
+    "fel": null
+  },
+  {
+    "enhet": "pixel7",
+    "steg": "startsidan-rad",
+    "fel": null
+  },
+  {
+    "enhet": "pixel7",
+    "steg": "startsidan-rad-klick",
+    "fel": null
+  },
+  {
+    "enhet": "pixel7",
+    "steg": "konsol",
+    "fel": null
+  },
+  {
+    "enhet": "pixel7",
+    "steg": "natverk",
+    "fel": null
+  },
+  {
+    "enhet": "desktop",
+    "steg": "jobbkartan-laddar",
+    "fel": null
+  },
+  {
+    "enhet": "desktop",
+    "steg": "ditt-yrke",
+    "fel": null
+  },
+  {
+    "enhet": "desktop",
+    "steg": "kroken",
+    "fel": null
+  },
+  {
+    "enhet": "desktop",
+    "steg": "kroken-klick",
+    "fel": null
+  },
+  {
+    "enhet": "desktop",
+    "steg": "vagen-vidare",
+    "fel": null
+  },
+  {
+    "enhet": "desktop",
+    "steg": "baddkod",
+    "fel": null
+  },
+  {
+    "enhet": "desktop",
+    "steg": "csv",
+    "fel": null
+  },
+  {
+    "enhet": "desktop",
+    "steg": "din-kommun",
+    "fel": null
+  },
+  {
+    "enhet": "desktop",
+    "steg": "embed",
+    "fel": null
+  },
+  {
+    "enhet": "desktop",
+    "steg": "startsidan-rad",
+    "fel": null
+  },
+  {
+    "enhet": "desktop",
+    "steg": "startsidan-rad-klick",
+    "fel": null
+  },
+  {
+    "enhet": "desktop",
+    "steg": "konsol",
+    "fel": null
+  },
+  {
+    "enhet": "desktop",
+    "steg": "natverk",
+    "fel": null
+  }
+]

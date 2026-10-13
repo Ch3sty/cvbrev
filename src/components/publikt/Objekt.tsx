@@ -36,10 +36,20 @@ export type ObjektTyp =
   | 'rapport'
   | 'uppat'
   | 'ladda'
+  | 'karta'
 
 const K = 'var(--koppar)'
 
 const FORMER: Record<ObjektTyp, ReactNode> = {
+  /** Jobbkartan: den vikta kartan från menyns ikon, med en kopparnål. */
+  karta: (
+    <>
+      <path d="M8 16 23 10l18 6 15-6v38l-15 6-18-6-15 6z" />
+      <path d="M23 10v38M41 16v38" opacity=".45" />
+      <path d="M32 20a7 7 0 0 1 7 7c0 5-7 12-7 12s-7-7-7-12a7 7 0 0 1 7-7z" fill={K} stroke="none" />
+      <circle cx="32" cy="27" r="2.5" fill="var(--panel)" stroke="none" />
+    </>
+  ),
   matris: (
     <>
       <rect x="6" y="6" width="52" height="52" rx="8" />

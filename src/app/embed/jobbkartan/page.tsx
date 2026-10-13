@@ -44,7 +44,7 @@ export default async function JobbkartanInbaddad() {
         </section>
         <JkTillbehor />
       </main>
-      <JobbkartanKlient data={D} />
+      <JobbkartanKlient annonser={D.annonser} />
     </div>
   )
 }
