@@ -4,9 +4,9 @@ import type { Sok } from '@/lib/rakna/sok'
 import TimlonStart from '@/components/rakna/start/timlon-till-manadslon'
 
 export const metadata: Metadata = {
-  title: 'Räkna om timlön till månadslön (och tvärtom)',
+  title: 'Timlön till månadslön: gånger 174, räkna ut direkt',
   description:
-    'Konvertera timlön till månadslön eller månadslön till timlön med 174-timmarsschablonen. Justera timmarna för deltid och se årslönen direkt.',
+    '180 kr i timmen blir 31 320 kr i månaden vid heltid: timlönen gånger 174. Räkna om åt båda hållen, ändra timmarna för deltid och se årslönen.',
   alternates: { canonical: 'https://www.jobbcoach.ai/rakna-ut/timlon-till-manadslon' },
   openGraph: { images: ['https://www.jobbcoach.ai/images/rakna-ut.webp'] },
 }
