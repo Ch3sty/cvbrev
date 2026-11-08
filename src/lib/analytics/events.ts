@@ -42,6 +42,8 @@ export type BetalvaggPlats =
   | 'sidomeny'
   | 'mall'
   | 'testniva'
+  /** Statusraden på testresultatet: nästa nivå eller grundnivån i dag är låst (2026-11-08). */
+  | 'testresultat'
   | 'analys'
   | 'nedladdning'
   | 'cv_export'
@@ -199,6 +201,13 @@ export interface AnalyticsEvents {
   profile_photo_failed: { reason: 'too_large' | 'type' | 'network' }
   letter_tone_default_set: { tone: string }
   draft_claimed: { kind: 'letter' | 'cv' | 'test' | 'interview' | 'personality'; yrke_slug?: string }
+  /* Kontosteget efter provet (analysen 2026-11-08, punkt 2): varje steg ska
+     ha en händelse, och ett fel en felkod. draft_claim_failed när provet inte
+     gick att koppla till det nya kontot (felkod http_404, http_401, natverk).
+     sample_restored när provets resultat visas igen efter Tillbaka från
+     registreringen, i stället för att provet börjar om. */
+  draft_claim_failed: { kind: 'test'; felkod: string }
+  sample_restored: { kind: 'test' }
   activation_first_doc: { kind: 'letter' | 'cv' }
   /* ---------------------------------------------- jobbmatchningen, våg 1
      docs/plan-jobbmatchning.md avsnitt 3. Målet är andelen träffar som

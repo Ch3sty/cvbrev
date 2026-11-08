@@ -133,6 +133,11 @@ export function storePendingTestSession(token: string): void {
   }
 }
 
+/** Provets token som väntar på ett konto i den här fliken, eller null. */
+export function readPendingTestSession(): string | null {
+  return readSession(TEST_STORAGE_KEY)
+}
+
 /**
  * Kopplar en anonym provsession till det nya kontot (C9). Först här får
  * användaren tillgång till facit, förklaringar och normjämförelse.
@@ -153,15 +158,22 @@ export async function claimPendingTestSession(fran?: string | null): Promise<str
 
     clearSession(TEST_STORAGE_KEY)
 
-    if (!res.ok) return null
+    if (!res.ok) {
+      capture('draft_claim_failed', { kind: 'test', felkod: `http_${res.status}` })
+      return null
+    }
 
     const data = (await res.json()) as { redirect?: string }
-    if (!data.redirect) return null
+    if (!data.redirect) {
+      capture('draft_claim_failed', { kind: 'test', felkod: 'utan_redirect' })
+      return null
+    }
 
     capture('draft_claimed', { kind: 'test' })
     return data.redirect
   } catch (err) {
     console.error('[claim-draft] Kunde inte hämta provet:', err)
+    capture('draft_claim_failed', { kind: 'test', felkod: 'natverk' })
     clearSession(TEST_STORAGE_KEY)
     return null
   }

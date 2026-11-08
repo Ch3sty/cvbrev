@@ -125,6 +125,8 @@ export const SMAKPROV: Record<
     rubrik: 'Skapa konto och se alla svar med förklaring',
     knapp: 'Skapa konto och se svaren',
     status: 'Ditt svar är sparat i sju dagar',
+    /* Provet har ingen bedömning, bara svar och regler (klicktestet 2026-11-08). */
+    under: 'Alla fem svar och regeln bakom varje mönster sparas på kontot. Du landar på dem direkt.',
   },
   draft: {
     eyebrow: 'Ditt brev',

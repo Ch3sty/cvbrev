@@ -15,7 +15,7 @@ import { ArrowRight } from 'lucide-react'
 import { FigurV7, LuckaV7 } from '@/lib/logicTestV7/layered.v7'
 import type { LayeredCell } from '@/lib/logicTestV7/layered.v7'
 import { capture } from '@/lib/analytics/events'
-import { storePendingTestSession } from '@/lib/letters/claim-draft-client'
+import { readPendingTestSession, storePendingTestSession } from '@/lib/letters/claim-draft-client'
 import { IlluTestResultat } from '@/components/illustrations/StartFlowIllustrations'
 
 interface PublicQuestion {
@@ -38,6 +38,49 @@ interface ResultResponse {
 
 type Phase = 'intro' | 'running' | 'result'
 
+/**
+ * Resultatet sparas i fliken (analysen 2026-11-08, punkt 2). Den som gick
+ * till registreringen och tryckte Tillbaka fick förut börja om provet, och
+ * med tre prov per dygn och IP tog det ibland stopp. 80 av dem som lämnade
+ * kontosteget i P2 gick tillbaka till provet. Nu står resultatet kvar så
+ * länge provet väntar på ett konto i samma flik.
+ */
+const RESULTAT_KEY = 'jc_prova_resultat'
+const RESULTAT_MAX_MS = 24 * 60 * 60 * 1000
+
+function sparaResultat(token: string, result: ResultResponse) {
+  try {
+    sessionStorage.setItem(RESULTAT_KEY, JSON.stringify({ token, result, t: Date.now() }))
+  } catch {
+    /* privat läge: provet fungerar ändå, bara utan återställning */
+  }
+}
+
+function lasSparatResultat(): { token: string; result: ResultResponse } | null {
+  try {
+    const raw = sessionStorage.getItem(RESULTAT_KEY)
+    if (!raw) return null
+    const d = JSON.parse(raw) as { token?: unknown; result?: ResultResponse; t?: unknown }
+    const vantar = readPendingTestSession()
+    if (
+      typeof d.token !== 'string' ||
+      d.token !== vantar ||
+      typeof d.t !== 'number' ||
+      Date.now() - d.t > RESULTAT_MAX_MS ||
+      !d.result ||
+      typeof d.result.score !== 'number' ||
+      typeof d.result.total !== 'number' ||
+      typeof d.result.percentile !== 'number'
+    ) {
+      sessionStorage.removeItem(RESULTAT_KEY)
+      return null
+    }
+    return { token: d.token, result: d.result }
+  } catch {
+    return null
+  }
+}
+
 export default function ProvaFlow() {
   const [phase, setPhase] = useState<Phase>('intro')
   const [session, setSession] = useState<StartResponse | null>(null)
@@ -47,6 +90,33 @@ export default function ProvaFlow() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [registerHref, setRegisterHref] = useState<string | null>(null)
+  const aterstalld = useRef(false)
+  // Samtycket får inte ligga över svarsalternativen (useFriSikt). På Pixel 7
+  // täckte raden hela första raden av alternativen på fråga 1.
+  const fragaRef = useRef<HTMLDivElement>(null)
+  useFriSikt(fragaRef, phase === 'running')
+
+  // Frågan i bild (klicktestet 2026-11-08): på Pixel 7 låg svarsalternativen
+  // under skärmkanten efter sidans ingress. Rullar bara när kortet inte ryms.
+  useEffect(() => {
+    const el = fragaRef.current
+    if (phase !== 'running' || !el || typeof el.scrollIntoView !== 'function') return
+    const r = el.getBoundingClientRect()
+    if (r.top >= 0 && r.bottom <= window.innerHeight) return
+    const lugn = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    el.scrollIntoView({ block: 'start', behavior: lugn ? 'auto' : 'smooth' })
+  }, [phase, index])
+
+  // Tillbaka från registreringen: resultatet står kvar.
+  useEffect(() => {
+    const sparat = lasSparatResultat()
+    if (!sparat) return
+    aterstalld.current = true
+    setSession({ token: sparat.token, questions: [], total: sparat.result.total })
+    setResult(sparat.result)
+    setPhase('result')
+    capture('sample_restored', { kind: 'test' })
+  }, [])
 
   async function start() {
     setLoading(true)
@@ -88,6 +158,7 @@ export default function ProvaFlow() {
         return
       }
       setResult(data as ResultResponse)
+      sparaResultat(token, data as ResultResponse)
       setPhase('result')
     } catch {
       setError('Vi nådde inte servern. Försök igen.')
@@ -110,7 +181,7 @@ export default function ProvaFlow() {
   }
 
   useEffect(() => {
-    if (phase === 'result' && result) {
+    if (phase === 'result' && result && !aterstalld.current) {
       capture('sample_completed', { kind: 'test', cluster: 'test' })
       capture('signup_gate_shown', { kind: 'test', cluster: 'test' })
     }
@@ -177,7 +248,7 @@ export default function ProvaFlow() {
           </div>
         </div>
 
-        <div className="rounded-xl border border-neutral-200 bg-white p-4 sm:p-6">
+        <div ref={fragaRef} className="scroll-mt-28 rounded-xl border border-neutral-200 bg-white p-4 sm:p-6">
           {/*
             Ingen frågetitel och ingen regel före svar: båda beskriver mönstret
             i ord. De visas i genomgången när provet är hämtat till ett konto.
@@ -301,9 +372,7 @@ function ResultGate({ result, token }: { result: ResultResponse; token: string }
           Se vad jag missade
           <ArrowRight className="h-4 w-4" aria-hidden="true" />
         </Link>
-        <p className="mt-3 text-xs text-neutral-500">
-          Inget kreditkort · Avsluta när du vill
-        </p>
+        <p className="mt-3 text-xs text-neutral-500">Gratis konto, inget kreditkort.</p>
       </div>
     </div>
   )

@@ -1,0 +1,152 @@
+{
+  "tid": "2026-11-08T23:24:25.526Z",
+  "kor": false,
+  "konton": [
+    {
+      "epost": "qa-tratten-pixel7-1794178118025@jobbcoach-qa.example.com",
+      "id": "f21a48f8-c235-4114-a390-bf6baf926296",
+      "enhet": "pixel7",
+      "skapad": "2026-11-08T22:48:43.935Z"
+    },
+    {
+      "epost": "qa-tratten-grund-pixel7-1794178137637@jobbcoach-qa.example.com",
+      "id": "1dbdaffc-ee26-410d-bf5f-73c85cfe3387",
+      "enhet": "pixel7",
+      "skapad": "2026-11-08T22:48:59.808Z"
+    },
+    {
+      "epost": "qa-tratten-grund-pixel7-1794178151863@jobbcoach-qa.example.com",
+      "id": "d33a9916-1bff-46f2-b92f-52132a9c7209",
+      "enhet": "pixel7",
+      "skapad": "2026-11-08T22:49:14.174Z"
+    },
+    {
+      "epost": "qa-tratten-grund-desktop-1794178243408@jobbcoach-qa.example.com",
+      "id": "2d92873a-4808-4eba-a413-023a011d88b5",
+      "enhet": "desktop",
+      "skapad": "2026-11-08T22:50:48.393Z"
+    },
+    {
+      "epost": "qa-tratten-grund-pixel7-1794178358820@jobbcoach-qa.example.com",
+      "id": "4654997a-70b4-4ef0-bfeb-52006a36ce65",
+      "enhet": "pixel7",
+      "skapad": "2026-11-08T22:52:42.149Z"
+    },
+    {
+      "epost": "qa-tratten-grund-desktop-1794178451387@jobbcoach-qa.example.com",
+      "id": "463849fb-df5c-4587-b1fa-14c59f92a155",
+      "enhet": "desktop",
+      "skapad": "2026-11-08T22:54:14.211Z"
+    },
+    {
+      "epost": "qa-tratten-grund-pixel7-1794178558494@jobbcoach-qa.example.com",
+      "id": "c2a83fc2-adcc-4e04-af1b-126075143cc7",
+      "enhet": "pixel7",
+      "skapad": "2026-11-08T22:56:01.724Z"
+    },
+    {
+      "epost": "qa-tratten-grund-desktop-1794178651143@jobbcoach-qa.example.com",
+      "id": "b25a0446-05c9-4928-84da-504794519f79",
+      "enhet": "desktop",
+      "skapad": "2026-11-08T22:57:36.591Z"
+    },
+    {
+      "epost": "qa-tratten-pixel7-1794179461152@jobbcoach-qa.example.com",
+      "id": "1f7cec04-7c61-4cf9-8249-fefb072818cc",
+      "enhet": "pixel7",
+      "skapad": "2026-11-08T23:11:05.291Z"
+    },
+    {
+      "epost": "qa-tratten-grund-pixel7-1794179480036@jobbcoach-qa.example.com",
+      "id": "b8925560-3199-47ef-9b98-d253c8b48a70",
+      "enhet": "pixel7",
+      "skapad": "2026-11-08T23:11:21.989Z"
+    },
+    {
+      "epost": "qa-tratten-desktop-1794179518437@jobbcoach-qa.example.com",
+      "id": "00d08371-b5c3-4722-995d-047f70318a38",
+      "enhet": "desktop",
+      "skapad": "2026-11-08T23:12:01.556Z"
+    },
+    {
+      "epost": "qa-tratten-grund-desktop-1794179536930@jobbcoach-qa.example.com",
+      "id": "39edd3ff-bf3c-427b-89fe-eb64424b1038",
+      "enhet": "desktop",
+      "skapad": "2026-11-08T23:12:19.011Z"
+    },
+    {
+      "epost": "qa-tratten-pixel7-1794179753972@jobbcoach-qa.example.com",
+      "id": "6d12c23c-116e-4bbb-80e4-86d1219ea02e",
+      "enhet": "pixel7",
+      "skapad": "2026-11-08T23:15:57.824Z"
+    },
+    {
+      "epost": "qa-tratten-grund-pixel7-1794179771467@jobbcoach-qa.example.com",
+      "id": "a2bdd1e3-5414-4066-b36c-565c81a1b5b1",
+      "enhet": "pixel7",
+      "skapad": "2026-11-08T23:16:13.417Z"
+    },
+    {
+      "epost": "qa-tratten-desktop-1794179809446@jobbcoach-qa.example.com",
+      "id": "94735535-569b-49bf-8541-3a22fd113552",
+      "enhet": "desktop",
+      "skapad": "2026-11-08T23:16:52.282Z"
+    },
+    {
+      "epost": "qa-tratten-grund-desktop-1794179826198@jobbcoach-qa.example.com",
+      "id": "277cee4d-b384-46f6-bea1-3990360e1256",
+      "enhet": "desktop",
+      "skapad": "2026-11-08T23:17:09.109Z"
+    },
+    {
+      "epost": "qa-tratten-pixel7-1794180084832@jobbcoach-qa.example.com",
+      "id": "b101572d-02a3-4b23-8783-9974d3b9131c",
+      "enhet": "pixel7",
+      "skapad": "2026-11-08T23:21:29.064Z"
+    },
+    {
+      "epost": "qa-tratten-grund-pixel7-1794180103138@jobbcoach-qa.example.com",
+      "id": "abb581db-f493-4caf-8f43-85d41f39d73a",
+      "enhet": "pixel7",
+      "skapad": "2026-11-08T23:21:45.397Z"
+    },
+    {
+      "epost": "qa-tratten-desktop-1794180141402@jobbcoach-qa.example.com",
+      "id": "0912c976-2bbf-489b-8b42-0ab71ef05172",
+      "enhet": "desktop",
+      "skapad": "2026-11-08T23:22:24.172Z"
+    },
+    {
+      "epost": "qa-tratten-grund-desktop-1794180157711@jobbcoach-qa.example.com",
+      "id": "a678a8de-e299-4b03-8d7a-729e278acd6a",
+      "enhet": "desktop",
+      "skapad": "2026-11-08T23:22:39.532Z"
+    }
+  ],
+  "tabeller": [
+    {
+      "tabell": "email_confirmations",
+      "raknat": 20
+    },
+    {
+      "tabell": "email_schedule",
+      "raknat": 40
+    },
+    {
+      "tabell": "logic_test_v4_sessions",
+      "raknat": 27
+    },
+    {
+      "tabell": "user_activities",
+      "raknat": 181
+    }
+  ],
+  "anon": [
+    {
+      "tabell": "anon_test_sessions",
+      "raknat": 10
+    }
+  ],
+  "auth": [],
+  "kontroll": null
+}

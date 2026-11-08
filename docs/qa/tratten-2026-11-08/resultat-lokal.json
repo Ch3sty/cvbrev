@@ -1,0 +1,426 @@
+{
+  "tid": "2026-11-08T23:23:00.301Z",
+  "bas": "http://localhost:3119",
+  "ok": 59,
+  "fel": 1,
+  "resultat": [
+    {
+      "namn": "pixel7: provet laddat",
+      "ok": true,
+      "not": "1391 ms"
+    },
+    {
+      "namn": "pixel7: fråga 1, alternativ A fritt (samtycket täcker inte)",
+      "ok": true,
+      "not": "fri"
+    },
+    {
+      "namn": "pixel7: resultatets kontoknapp syns och är fri",
+      "ok": true,
+      "not": "fri"
+    },
+    {
+      "namn": "pixel7: resultat utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "pixel7: ingen mittpunkt i spärren",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "pixel7: kontosteget har rubrik, Google och tre fält",
+      "ok": true,
+      "not": "{\"h1\":\"Skapa konto och se alla svar med förklaring\",\"inputs\":3,\"google\":true}"
+    },
+    {
+      "namn": "pixel7: kontosteget utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "pixel7: Tillbaka visar resultatet igen",
+      "ok": true,
+      "not": "{\"gate\":true,\"start\":false}"
+    },
+    {
+      "namn": "pixel7: Google-knappen går mot Google",
+      "ok": true,
+      "not": "dbvbnbkvadvlhjhomibg.supabase.co"
+    },
+    {
+      "namn": "pixel7: jc_signup bär provet",
+      "ok": true,
+      "not": "{\"intent\":null,\"entry\":\"smakprov\",\"skipped\":false,\"fragaVisad\":true,\"smakprov\":{\"typ\":\"test\",\"token\":\"8acc3677-148f-4ce0-a690-60155ba507f8\"},\"paket\":null,\"redirect\":null}"
+    },
+    {
+      "namn": "pixel7: kontot landar på provets resultatsida",
+      "ok": true,
+      "not": "/dashboard/tester/prov/8acc3677-148f-4ce0-a690-60155ba507f8 efter 3792 ms"
+    },
+    {
+      "namn": "pixel7: knappen leder till Nivåkollen",
+      "ok": true,
+      "not": "{\"href\":\"/dashboard/tester/pass?typ=matning\",\"text\":\"Kolla min nivå, 5 min\"}"
+    },
+    {
+      "namn": "pixel7: ingen länk till det gamla grundtestet",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "pixel7: provsidan utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "pixel7: Nivåkollen-knappen syns utan att rulla",
+      "ok": true,
+      "not": "fri"
+    },
+    {
+      "namn": "pixel7: Nivåkollen, första frågan",
+      "ok": true,
+      "not": "1137 ms"
+    },
+    {
+      "namn": "pixel7: Nivåkollen, alla alternativ inom skärmen",
+      "ok": true,
+      "not": "{\"antal\":6,\"sistaNederkant\":771,\"vh\":915}"
+    },
+    {
+      "namn": "pixel7: Nivåkollen utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "pixel7: Nivåkollen, alternativ A fritt",
+      "ok": true,
+      "not": "fri"
+    },
+    {
+      "namn": "pixel7: numeriska testet laddat",
+      "ok": true,
+      "not": "2007 ms"
+    },
+    {
+      "namn": "pixel7: numeriska startsidan utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "pixel7: numeriska testet, första frågan",
+      "ok": true,
+      "not": "3879 ms"
+    },
+    {
+      "namn": "pixel7: numeriska frågan utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "pixel7: bar /register går direkt till kontot",
+      "ok": true,
+      "not": "{\"h1\":\"Skapa ditt konto\",\"fraga\":false,\"steg\":false}"
+    },
+    {
+      "namn": "pixel7: /register utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "pixel7: bar /register landar i spårvalet med frågan",
+      "ok": true,
+      "not": "/dashboard/valj-spar"
+    },
+    {
+      "namn": "pixel7: köpknappen i spärren över grundnivån",
+      "ok": true,
+      "not": "Köp Premium, 149 kr i månaden"
+    },
+    {
+      "namn": "pixel7: resultatet utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "pixel7: köpknappen går till köpsteget för Premium",
+      "ok": true,
+      "not": "/dashboard/valj-spar?paket=all_month&steg=kop&plats=testresultat"
+    },
+    {
+      "namn": "desktop: provet laddat",
+      "ok": true,
+      "not": "969 ms"
+    },
+    {
+      "namn": "desktop: fråga 1, alternativ A fritt (samtycket täcker inte)",
+      "ok": true,
+      "not": "utanfor (766-934 av 800)"
+    },
+    {
+      "namn": "desktop: resultatets kontoknapp syns och är fri",
+      "ok": true,
+      "not": "fri"
+    },
+    {
+      "namn": "desktop: resultat utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "desktop: ingen mittpunkt i spärren",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "desktop: kontosteget har rubrik, Google och tre fält",
+      "ok": true,
+      "not": "{\"h1\":\"Skapa konto och se alla svar med förklaring\",\"inputs\":3,\"google\":true}"
+    },
+    {
+      "namn": "desktop: kontosteget utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "desktop: Tillbaka visar resultatet igen",
+      "ok": true,
+      "not": "{\"gate\":true,\"start\":false}"
+    },
+    {
+      "namn": "desktop: Google-knappen går mot Google",
+      "ok": true,
+      "not": "dbvbnbkvadvlhjhomibg.supabase.co"
+    },
+    {
+      "namn": "desktop: jc_signup bär provet",
+      "ok": true,
+      "not": "{\"intent\":null,\"entry\":\"smakprov\",\"skipped\":false,\"fragaVisad\":true,\"smakprov\":{\"typ\":\"test\",\"token\":\"084fdc09-064b-44ff-9e13-48178202f7eb\"},\"paket\":null,\"redirect\":null}"
+    },
+    {
+      "namn": "desktop: kontot landar på provets resultatsida",
+      "ok": true,
+      "not": "/dashboard/tester/prov/084fdc09-064b-44ff-9e13-48178202f7eb efter 2586 ms"
+    },
+    {
+      "namn": "desktop: knappen leder till Nivåkollen",
+      "ok": true,
+      "not": "{\"href\":\"/dashboard/tester/pass?typ=matning\",\"text\":\"Kolla min nivå, 5 min\"}"
+    },
+    {
+      "namn": "desktop: ingen länk till det gamla grundtestet",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "desktop: provsidan utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "desktop: Nivåkollen-knappen syns utan att rulla",
+      "ok": true,
+      "not": "fri"
+    },
+    {
+      "namn": "desktop: Nivåkollen, första frågan",
+      "ok": true,
+      "not": "1105 ms"
+    },
+    {
+      "namn": "desktop: Nivåkollen, alla alternativ inom skärmen",
+      "ok": false,
+      "not": "{\"antal\":6,\"sistaNederkant\":804,\"vh\":800}"
+    },
+    {
+      "namn": "desktop: Nivåkollen utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "desktop: Nivåkollen, alternativ A fritt",
+      "ok": true,
+      "not": "fri"
+    },
+    {
+      "namn": "desktop: numeriska testet laddat",
+      "ok": true,
+      "not": "2184 ms"
+    },
+    {
+      "namn": "desktop: numeriska startsidan utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "desktop: numeriska testet, första frågan",
+      "ok": true,
+      "not": "3408 ms"
+    },
+    {
+      "namn": "desktop: numeriska frågan utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "desktop: bar /register går direkt till kontot",
+      "ok": true,
+      "not": "{\"h1\":\"Skapa ditt konto\",\"fraga\":false,\"steg\":false}"
+    },
+    {
+      "namn": "desktop: /register utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "desktop: bar /register landar i spårvalet med frågan",
+      "ok": true,
+      "not": "/dashboard/valj-spar"
+    },
+    {
+      "namn": "desktop: köpknappen i spärren över grundnivån",
+      "ok": true,
+      "not": "Köp Premium, 149 kr i månaden"
+    },
+    {
+      "namn": "desktop: resultatet utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "desktop: köpknappen går till köpsteget för Premium",
+      "ok": true,
+      "not": "/dashboard/valj-spar?paket=all_month&steg=kop&plats=testresultat"
+    },
+    {
+      "namn": "desktop mörkt: bar /register går direkt till kontot",
+      "ok": true,
+      "not": "{\"h1\":\"Skapa ditt konto\",\"fraga\":false,\"steg\":false}"
+    },
+    {
+      "namn": "desktop mörkt: /register utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    }
+  ],
+  "bilder": [
+    {
+      "fil": "lokal-pixel7-01-prova-intro.png",
+      "beskrivning": "Provet, startvyn"
+    },
+    {
+      "fil": "lokal-pixel7-02-prova-fraga1.png",
+      "beskrivning": "Provet, fråga 1 med samtyckesraden"
+    },
+    {
+      "fil": "lokal-pixel7-03-prova-resultat.png",
+      "beskrivning": "Provets resultat med kontoknappen"
+    },
+    {
+      "fil": "lokal-pixel7-04-register-smakprov.png",
+      "beskrivning": "Kontosteget i smakprovsform"
+    },
+    {
+      "fil": "lokal-pixel7-05-prova-tillbaka.png",
+      "beskrivning": "Tillbaka från kontosteget, resultatet står kvar"
+    },
+    {
+      "fil": "lokal-pixel7-06-provsida.png",
+      "beskrivning": "Provets resultatsida efter kontot, Nästa steg: Nivåkollen"
+    },
+    {
+      "fil": "lokal-pixel7-07-nivakollen-fraga1.png",
+      "beskrivning": "Nivåkollen, första frågan"
+    },
+    {
+      "fil": "lokal-pixel7-08-nivakollen-efter-svar.png",
+      "beskrivning": "Nivåkollen efter första svaret"
+    },
+    {
+      "fil": "lokal-pixel7-09-numeriskt-start.png",
+      "beskrivning": "Numeriska testet, startsidan"
+    },
+    {
+      "fil": "lokal-pixel7-10-numeriskt-fraga1.png",
+      "beskrivning": "Numeriska testet, första frågan"
+    },
+    {
+      "fil": "lokal-pixel7-11-register-bar.png",
+      "beskrivning": "Bar /register, kontosteget direkt"
+    },
+    {
+      "fil": "lokal-pixel7-12-sparval-efter-konto.png",
+      "beskrivning": "Landningen efter bar /register: spårvalet"
+    },
+    {
+      "fil": "lokal-pixel7-13-grund-resultat.png",
+      "beskrivning": "Grundnivåns resultat med köpknappen i statusraden"
+    },
+    {
+      "fil": "lokal-pixel7-14-kopsteg.png",
+      "beskrivning": "Köpsteget efter köpknappen"
+    },
+    {
+      "fil": "lokal-desktop-01-prova-intro.png",
+      "beskrivning": "Provet, startvyn"
+    },
+    {
+      "fil": "lokal-desktop-02-prova-fraga1.png",
+      "beskrivning": "Provet, fråga 1 med samtyckesraden"
+    },
+    {
+      "fil": "lokal-desktop-03-prova-resultat.png",
+      "beskrivning": "Provets resultat med kontoknappen"
+    },
+    {
+      "fil": "lokal-desktop-04-register-smakprov.png",
+      "beskrivning": "Kontosteget i smakprovsform"
+    },
+    {
+      "fil": "lokal-desktop-05-prova-tillbaka.png",
+      "beskrivning": "Tillbaka från kontosteget, resultatet står kvar"
+    },
+    {
+      "fil": "lokal-desktop-06-provsida.png",
+      "beskrivning": "Provets resultatsida efter kontot, Nästa steg: Nivåkollen"
+    },
+    {
+      "fil": "lokal-desktop-07-nivakollen-fraga1.png",
+      "beskrivning": "Nivåkollen, första frågan"
+    },
+    {
+      "fil": "lokal-desktop-08-nivakollen-efter-svar.png",
+      "beskrivning": "Nivåkollen efter första svaret"
+    },
+    {
+      "fil": "lokal-desktop-09-numeriskt-start.png",
+      "beskrivning": "Numeriska testet, startsidan"
+    },
+    {
+      "fil": "lokal-desktop-10-numeriskt-fraga1.png",
+      "beskrivning": "Numeriska testet, första frågan"
+    },
+    {
+      "fil": "lokal-desktop-11-register-bar.png",
+      "beskrivning": "Bar /register, kontosteget direkt"
+    },
+    {
+      "fil": "lokal-desktop-12-sparval-efter-konto.png",
+      "beskrivning": "Landningen efter bar /register: spårvalet"
+    },
+    {
+      "fil": "lokal-desktop-13-grund-resultat.png",
+      "beskrivning": "Grundnivåns resultat med köpknappen i statusraden"
+    },
+    {
+      "fil": "lokal-desktop-14-kopsteg.png",
+      "beskrivning": "Köpsteget efter köpknappen"
+    },
+    {
+      "fil": "lokal-desktop-mork-11-register-bar.png",
+      "beskrivning": "Bar /register, kontosteget direkt, mörkt läge"
+    }
+  ]
+}
