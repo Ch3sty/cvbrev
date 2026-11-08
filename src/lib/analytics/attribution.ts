@@ -39,16 +39,42 @@ export function readAttribution(): Attribution | null {
   return parseAttribution(m[1]);
 }
 
-/** Parsar ett rått cookie-värde. Används både på klient och server. */
+/**
+ * Parsar ett cookie-värde. Används både på klient och server.
+ *
+ * Värdet kan vara kodat en eller två gånger: proxyn kodar JSON:en själv och
+ * response.cookies.set kodar en gång till. Servern får det avkodat en gång
+ * av Next, men document.cookie ger det råa, dubbelkodade värdet. Läsaren
+ * avkodade bara en gång, så registreringen med e-post fick aldrig någon
+ * attribution (0 av 35 konton 12 okt till 8 nov, analysen 2026-11-08).
+ */
 export function parseAttribution(raw: string | undefined | null): Attribution | null {
   if (!raw) return null;
-  try {
-    const parsed = JSON.parse(decodeURIComponent(raw));
-    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return null;
-    return parsed as Attribution;
-  } catch {
-    return null;
+  let varde = raw;
+  for (let i = 0; i < 3; i++) {
+    try {
+      const parsed = JSON.parse(varde);
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return null;
+      return parsed as Attribution;
+    } catch {
+      try {
+        const nasta = decodeURIComponent(varde);
+        if (nasta === varde) return null;
+        varde = nasta;
+      } catch {
+        return null;
+      }
+    }
   }
+  return null;
+}
+
+/**
+ * Attributionen när cookien saknas (direktbesök utan referrer, blockerade
+ * kakor). Varje nytt konto ska ha en källa (analysen 2026-11-08, punkt 5c).
+ */
+export function direktAttribution(now: Date = new Date()): Attribution & { kalla: 'direkt' } {
+  return { kalla: 'direkt', first_seen: now.toISOString() };
 }
 
 /**

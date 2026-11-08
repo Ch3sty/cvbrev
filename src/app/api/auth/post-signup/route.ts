@@ -14,7 +14,7 @@ import { cookies } from 'next/headers'
 import { createServerClient } from '@/lib/supabase/server'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { onUserSignup } from '@/lib/email/lifecycle/hooks'
-import type { Attribution } from '@/lib/analytics/attribution'
+import { direktAttribution, type Attribution } from '@/lib/analytics/attribution'
 
 export async function POST(request: NextRequest) {
   try {
@@ -75,12 +75,21 @@ export async function POST(request: NextRequest) {
 
     // Ingen premium delas ut här längre. Kvar är bara varifrån kontot kom,
     // och den skrivs bara när klientdatan är rimlig till storleken, så att
-    // jsonb-kolumnen inte kan fyllas med skräp.
-    if (acquisition && typeof acquisition === 'object' && JSON.stringify(acquisition).length <= 2000) {
+    // jsonb-kolumnen inte kan fyllas med skräp. Saknas cookien (direktbesök
+    // utan referrer, blockerade kakor) skrivs källan direkt, så att varje
+    // nytt konto har en källa (analysen 2026-11-08, punkt 5c).
+    const giltig =
+      acquisition &&
+      typeof acquisition === 'object' &&
+      !Array.isArray(acquisition) &&
+      Object.keys(acquisition).length > 0 &&
+      JSON.stringify(acquisition).length <= 2000
+    {
       const { error: updateError } = await admin
         .from('profiles')
-        .update({ acquisition_source: acquisition })
+        .update({ acquisition_source: giltig ? acquisition : direktAttribution() })
         .eq('id', userId)
+        .is('acquisition_source', null)
       if (updateError) {
         // Attributionen är mätdata, inte ett krav för att kontot ska fungera.
         console.error('[POST SIGNUP] Kunde inte spara acquisition_source:', updateError.message)

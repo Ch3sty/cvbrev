@@ -13,6 +13,7 @@ import { logActivityServer } from '@/lib/activation-tracking'
 import { captureServer, distinctIdUrCookie, posthogCookieNamn, vantaMedTak } from '@/lib/analytics/server'
 import { VALKOMMEN_PATH } from '@/lib/onboarding/steps'
 import { SIGNUP_COOKIE, googleCallbackMal, lasSignupCookie } from '@/components/registrering/intent'
+import { ATTRIBUTION_COOKIE, parseAttribution } from '@/lib/analytics/attribution'
 
 /** Bara relativa paths inom appen släpps igenom, aldrig protokoll-relativa. */
 function safeNext(raw: string | null): string {
@@ -91,13 +92,8 @@ export async function GET(request: NextRequest) {
 
   // Attribution ligger i jc_attr-cookien (SameSite=Lax, så den överlever
   // Googles redirect). Vi skickar den vidare till post-signup som acquisition.
-  let acquisition: unknown = null
-  try {
-    const raw = cookieStore.get('jc_attr')?.value
-    if (raw) acquisition = JSON.parse(decodeURIComponent(raw))
-  } catch {
-    /* trasig cookie ska aldrig stoppa inloggningen */
-  }
+  // parseAttribution tål både enkel och dubbel kodning och kastar aldrig.
+  const acquisition: unknown = parseAttribution(cookieStore.get(ATTRIBUTION_COOKIE)?.value)
 
   // Registreringstratten (jc_signup): valet, ingången, smakprovet, paketet
   // och redirecten. Skrivs av /register före hoppet till Google, SameSite=Lax,

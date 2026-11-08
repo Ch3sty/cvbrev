@@ -27,6 +27,51 @@ async function main() {
   const u = await hamtaUndantag(getSupabaseAdmin() as any);
   console.log(`${undantagText(u)}.`);
 
+  // Raderade QA-konton (analysen 2026-11-08, punkt 5b). De finns inte längre
+  // i databasen, så admin_undantagna_konton() ser dem inte, men deras
+  // händelser ligger kvar i PostHog. Listan är en JSON-fil med id:n som
+  // kontrollerats mot auth.users (finns inte) och klassats som QA.
+  //   npx tsx scripts/posthog-markera-interna.ts --raderade <fil.json>
+  const i = process.argv.indexOf('--raderade');
+  if (i > 0) {
+    const fs = await import('node:fs');
+    const ids = JSON.parse(fs.readFileSync(process.argv[i + 1], 'utf8')) as string[];
+    const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+    const ogiltiga = ids.filter((id) => !UUID.test(id));
+    if (ogiltiga.length) throw new Error(`ogiltiga id: ${ogiltiga.join(', ')}`);
+    // Ett id som finns i databasen är inget raderat konto. Det markeras inte här.
+    const admin = getSupabaseAdmin() as any;
+    const kvar = new Set<string>();
+    for (const id of ids) {
+      const { data, error } = await admin.auth.admin.getUserById(id);
+      if (data?.user) kvar.add(id);
+      else if (error && error.status !== 404 && !/not found/i.test(error.message ?? '')) {
+        throw new Error(`kunde inte kontrollera ${id}: ${error.message}`);
+      }
+    }
+    let ok = 0;
+    for (const id of ids) {
+      if (kvar.has(id)) {
+        console.log(`hoppar över ${id}: kontot finns`);
+        continue;
+      }
+      const res = await fetch(`${host}/capture/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          api_key: token,
+          event: '$set',
+          distinct_id: id,
+          properties: { $set: { is_internal: true, intern_skal: 'raderat_qa' } },
+          timestamp: new Date().toISOString(),
+        }),
+      });
+      if (res.ok) ok++;
+      else console.log(`${id}  ${res.status}`);
+    }
+    console.log(`Raderade QA-konton markerade: ${ok} av ${ids.length}.`);
+  }
+
   for (const k of u.konton) {
     const res = await fetch(`${host}/capture/`, {
       method: 'POST',
