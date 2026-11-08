@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="sv"><head><meta charset="utf-8">
+<title>Fyra veckor med samma produkt</title>
+<style>
+:root{--ink:#111418;--dim:#5b646e;--faint:#8b949e;--line:#e4e7eb;--acc:#e8590c;--accbg:#fff4ed;--bg:#fff}
+*{box-sizing:border-box}
+@page{size:A4;margin:17mm 15mm 15mm}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{margin:0;font:10.5pt/1.55 Georgia,"Times New Roman",serif;color:var(--ink);background:var(--bg)}
+.wrap{max-width:180mm;margin:0 auto;padding:0 2mm}
+h1,h2,h3,h4,.meta,.ax,.val,.note,table,.kpi,.tag,.lead,.sub{font-family:"Helvetica Neue",Arial,"Segoe UI",sans-serif}
+h1{font-size:23pt;line-height:1.18;margin:0 0 6px;letter-spacing:-.4px;font-weight:600}
+.sub{color:var(--dim);font-size:10.5pt;margin:0 0 2px;line-height:1.4}
+.meta{color:var(--faint);font-size:8.5pt;margin:10px 0 22px;border-bottom:2px solid var(--acc);padding-bottom:12px}
+h2{font-size:14pt;margin:26px 0 10px;padding-top:10px;border-top:1px solid var(--line);font-weight:600;letter-spacing:-.2px;page-break-after:avoid;break-after:avoid}
+h2 .num{color:var(--acc);font-variant-numeric:tabular-nums;margin-right:9px}
+h2.ny{page-break-before:always;break-before:page;border-top:none;margin-top:0}
+h3{font-size:11pt;margin:17px 0 6px;font-weight:600;page-break-after:avoid;break-after:avoid}
+p{margin:0 0 9px;orphans:3;widows:3}
+.lead{font-size:9pt;color:var(--faint);margin:-6px 0 14px}
+ul,ol{margin:0 0 10px;padding-left:19px}
+li{margin-bottom:4px}
+strong{font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:8.5pt;margin:8px 0 14px;page-break-inside:avoid;break-inside:avoid}
+th{text-align:left;font-weight:600;font-size:7.6pt;letter-spacing:.4px;text-transform:uppercase;color:var(--dim);border-bottom:1.5px solid var(--ink);padding:5px 7px 5px 0}
+td{padding:5px 7px 5px 0;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.4}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;padding-right:10px;white-space:nowrap}
+tr.sum td{font-weight:600;border-top:1.5px solid var(--ink);border-bottom:none}
+.up{color:#17803d;font-weight:600}.down{color:#b42318;font-weight:600}
+.fig{page-break-inside:avoid;break-inside:avoid}
+.chart{width:100%;height:auto;margin:6px 0 4px;display:block}
+.grid{stroke:var(--line);stroke-width:1}
+.line{fill:none;stroke:var(--acc);stroke-width:2.2;stroke-linejoin:round}
+.area{fill:var(--accbg)}
+.dot{fill:#fff;stroke:var(--acc);stroke-width:1.8}
+.bar{fill:var(--acc)}.bar.pre{fill:#f5b38a}
+.pt{fill:var(--dim);opacity:.32}.pt.hot{fill:var(--acc);opacity:1}
+.leader{stroke:var(--faint);stroke-width:.7}
+.curve{fill:none;stroke:var(--dim);stroke-width:1.2;stroke-dasharray:4 3;opacity:.75}
+.ax{font-size:7.4pt;fill:var(--dim)}.ax.r{text-anchor:end}.ax.c{text-anchor:middle}.ax.dim{fill:var(--faint)}
+.val{font-size:7.6pt;fill:var(--ink);font-weight:600}.val.c{text-anchor:middle}
+.note{font-size:6.9pt;fill:var(--faint)}.note.c{text-anchor:middle}
+.figc{font-size:8pt;color:var(--faint);margin:0 0 16px;font-family:"Helvetica Neue",Arial,sans-serif;line-height:1.45}
+.kpis{display:flex;gap:9px;margin:14px 0 18px;page-break-inside:avoid}
+.kpi{flex:1;border:1px solid var(--line);border-left:2.5px solid var(--acc);padding:9px 10px}
+.kpi .k{font-size:7.2pt;text-transform:uppercase;letter-spacing:.5px;color:var(--dim);margin-bottom:3px}
+.kpi .v{font-size:16pt;font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi .d{font-size:7.6pt;color:var(--faint);margin-top:2px}
+.box{border:1px solid var(--line);background:#fafbfc;padding:11px 13px;margin:11px 0 14px;page-break-inside:avoid;break-inside:avoid}
+.box.acc{background:var(--accbg);border-color:#f7c7a8}
+.box h4{margin:0 0 6px;font-size:9.5pt;font-weight:600}
+.box p,.box li{font-size:9.2pt;margin-bottom:5px;line-height:1.5}
+.five{counter-reset:f;list-style:none;padding:0;margin:10px 0 4px}
+.five li{counter-increment:f;padding-left:27px;position:relative;margin-bottom:9px;font-size:10pt;line-height:1.5}
+.five li::before{content:counter(f);position:absolute;left:0;top:2px;width:18px;height:18px;background:var(--acc);color:#fff;font:600 8.5pt/18px "Helvetica Neue",Arial,sans-serif;text-align:center}
+.tag{display:inline-block;font-size:7pt;font-weight:600;letter-spacing:.4px;padding:1px 5px;border:1px solid var(--line);color:var(--dim);white-space:nowrap}
+.tag.s{border-color:#9fd3ae;color:#17803d}.tag.m{border-color:#f7c7a8;color:var(--acc)}.tag.l{border-color:#d9d9d9;color:var(--dim)}
+.sm{font-size:7.6pt;color:var(--faint);display:block;margin-top:2px;line-height:1.35}
+footer{margin-top:26px;padding-top:9px;border-top:1px solid var(--line);font-size:7.6pt;color:var(--faint);font-family:"Helvetica Neue",Arial,sans-serif;line-height:1.5}
+</style></head><body>
+<div class="wrap">
+
+<h1>Fyra veckor med samma produkt</h1>
+<p class="sub">Konvertering, ranking och inloggat beteende, 14 september till 8 november 2026. P1 är de fyra veckorna före omläggningen 11 till 13 oktober, P2 de fyra veckorna efter.</p>
+<p class="meta">Rapport till ägaren, skriven 8 november 2026. Källor: Search Console (sc-domain:jobbcoach.ai, data till och med 6 november), PostHog EU projekt 148688, Supabase (produktionsdata, ägarens konto och två QA-konton undantagna), Stripe live, Vercel (driftsättningstider). P1 = 14 sep till 11 okt. P2 = 12 okt till 8 nov för konton och köp, 12 okt till 6 nov för Search Console.</p>
+
+<h2><span class="num">1</span>Sammanfattning</h2>
+
+<div class="kpis">
+<div class="kpi"><div class="k">Organiska klick per dag</div><div class="v">32,8</div><div class="d">29,6 i P1, +11 %</div></div>
+<div class="kpi"><div class="k">Nya konton</div><div class="v">63</div><div class="d">91 i P1, −31 %</div></div>
+<div class="kpi"><div class="k">Nya köp</div><div class="v">5</div><div class="d">745 kr, mot 3 för 207 kr</div></div>
+<div class="kpi"><div class="k">Löpande intäkt per månad</div><div class="v">1&nbsp;043 kr</div><div class="d">894 kr efter uppsagda, 447 kr 11 okt</div></div>
+</div>
+
+<ol class="five">
+<li><strong>Intäkten har vänt fast kontona blev färre.</strong> P2 gav 5 nya köp av Premium för 745 kr, mot 3 köp för 207 kr i P1, och ingen av de nya har sagt upp. Köp per nytt konto gick från 3 till 8 procent. Löpande intäkt gick från 447 till 1&nbsp;043 kr i månaden (894 kr när den uppsagda junikunden slutar 2 december). Det är n=5, så riktningen är tydlig men nivån är inte säkrad. Första förnyelserna kommer 19 och 21 november.</li>
+<li><strong>Kontona föll med 31 procent, och fallet började före omläggningen.</strong> 91 nya konton blev 63. Registreringen sjönk redan 9 oktober, innan något driftsattes, så koden förklarar inte starten. Det som förklarar att det inte vände: artikelkorten pekar sedan 12 oktober på provet och inte på testsidan, och testsidans 41 konton i P1 har inte ersatts. Dessutom slutför färre registreringen: 178 personer startade den i P2 mot 126 i P1, men det blev färre konton.</li>
+<li><strong>Provet utan konto är motorn.</strong> 273 personer startade logiktestprovet i P2 (110 i P1), 85 procent gjorde klart det och 29 konton kom därifrån (9 i P1). Två köp gick hela vägen artikel, prov, konto och köp samma dag. Men provets resultat leder 16 av 29 nya konton till det gamla matrislogiktestet i stället för Nivåkollen och träningen. Det är den tydligaste buggen i perioden.</li>
+<li><strong>Omdesignen har inte kostat ranking, men vi lever på artiklarna.</strong> På samma fråga och sida står toppartiklarna på position 12,1 mot 12,6 före bytet. Artiklarna ger 79 procent av klicken. Startsidan, verktygen och exemplen ger tillsammans runt 4 klick per dag och vi rankar inte på huvudorden ("cv mall" position 54, "personligt brev" 39). logiska-tester är det största tappet (−42 klick).</li>
+<li><strong>De inloggade testar mindre första dygnet och bygger ingen vana.</strong> 40 procent gör ett test i kontot första dygnet mot 60 procent i P1. Ingen gratisanvändare har gjort pass två olika dagar, och avbrotten sker på första frågorna. Betalväggarna når 17 av 63 nya konton, men av dem köpte 3. 27 personer stoppades av spärren över grundnivån och bara 5 gick till kassan.</li>
+</ol>
+
+<div class="box acc">
+<h4>Vad som går att läsa och vad som är för ungt</h4>
+<p>Senaste driftsättningen gjordes 13 oktober 14:59, så P2 mäter en och samma produkt i 26 dagar. Trafik, prov och konton har dagliga volymer och går att läsa. Köpen är 5 och betalväggarna 17 personer, så de är tecken. Återkomsten dag 7 och dag 14 läses bara för kohorterna 12 och 19 oktober; veckorna 26 oktober och 2 november är inte mogna. Produktfilmens konvertering läses 17 november och Premium-köparnas första förnyelser 19 och 21 november.</p>
+</div>
+
+<table>
+<thead><tr><th>Live (svensk tid)</th><th>Vad som mäts i rapporten</th><th>Mätfönster 8 nov</th></tr></thead>
+<tbody>
+<tr><td>24 sep</td><td>Registreringstratten i tre steg och logiktestprovets landning. HBO-regeln skulle läsas 22 okt.</td><td>45 dagar</td></tr>
+<tr><td>11 okt 12:24</td><td>Jobbcoach Premium 149 kr/mån som enda köp, snål gratisnivå (smakprov, en mätning, ett grundpass dag 0), nya Premium-väggar och händelsen betalvagg_visad.</td><td>28 dagar</td></tr>
+<tr><td>11 okt 14:09 till 21:00</td><td>Tester-lyftet: Nivåkollen, passen, övningsprov, Din utveckling och resultatsidan.</td><td>28 dagar</td></tr>
+<tr><td>12 okt 11:13</td><td>Tratträttelser och signup_failed med felkod.</td><td>27 dagar</td></tr>
+<tr><td>12 okt 18:10 till 23:03</td><td>Publikt v2, del A och B. Artikelkorten pekar direkt på provet.</td><td>26 till 27 dagar</td></tr>
+<tr><td>13 okt 01:23 och 14:59</td><td>Jobbkartan och kortet på 15 yrkessidor.</td><td>26 dagar, 25 visningar, för tidigt</td></tr>
+<tr><td>13 okt 13:35 och 13:57</td><td>Produktfilmen på testsidan och i fyra artiklar. Samtidigt ändrad mätning: PostHog räknar passiva läsare igen, utan samtycke bara inom fliken, och Avvisa stänger av PostHog helt.</td><td>26 dagar, avläsning 17 nov</td></tr>
+</tbody>
+</table>
+
+<h2><span class="num">2</span>Utveckling över perioden</h2>
+
+<h3>Organisk trafik</h3>
+<div class="fig">
+<svg viewBox="0 0 680 372" class="chart" role="img" aria-label="Organiska klick och visningar per dag, veckosnitt sedan 17 augusti"><text x="52" y="20" class="ax" style="font-weight:600;fill:#111418">Klick per dag</text><line x1="52" y1="148.0" x2="648" y2="148.0" class="grid"/><text x="44" y="151.5" class="ax r">0</text><line x1="52" y1="108.0" x2="648" y2="108.0" class="grid"/><text x="44" y="111.5" class="ax r">15</text><line x1="52" y1="68.0" x2="648" y2="68.0" class="grid"/><text x="44" y="71.5" class="ax r">30</text><line x1="52" y1="28.0" x2="648" y2="28.0" class="grid"/><text x="44" y="31.5" class="ax r">45</text><line x1="485.5" y1="28" x2="485.5" y2="148" stroke="#8b949e" stroke-dasharray="3 3" stroke-width="1"/><path d="M 52 148 L 52.0 120.2 L 106.2 118.7 L 160.4 108.0 L 214.5 98.9 L 268.7 84.0 L 322.9 74.5 L 377.1 66.5 L 431.3 51.6 L 485.5 63.4 L 539.6 65.0 L 593.8 65.3 L 648.0 44.0 L 648 148 Z" class="area"/><path d="M 52.0 120.2 L 106.2 118.7 L 160.4 108.0 L 214.5 98.9 L 268.7 84.0 L 322.9 74.5 L 377.1 66.5 L 431.3 51.6 L 485.5 63.4 L 539.6 65.0 L 593.8 65.3 L 648.0 44.0" class="line"/><circle cx="52.0" cy="120.2" r="3" class="dot"/><circle cx="106.2" cy="118.7" r="3" class="dot"/><circle cx="160.4" cy="108.0" r="3" class="dot"/><circle cx="214.5" cy="98.9" r="3" class="dot"/><text x="214.5" y="90.9" class="val c">18,4</text><circle cx="268.7" cy="84.0" r="3" class="dot"/><circle cx="322.9" cy="74.5" r="3" class="dot"/><circle cx="377.1" cy="66.5" r="3" class="dot"/><circle cx="431.3" cy="51.6" r="3" class="dot"/><text x="431.3" y="43.6" class="val c">36,1</text><circle cx="485.5" cy="63.4" r="3" class="dot"/><text x="485.5" y="55.4" class="val c">31,7</text><circle cx="539.6" cy="65.0" r="3" class="dot"/><circle cx="593.8" cy="65.3" r="3" class="dot"/><text x="593.8" y="57.3" class="val c">31</text><circle cx="648.0" cy="44.0" r="3" class="dot"/><text x="648.0" y="36.0" class="val c">39</text><text x="52" y="192" class="ax" style="font-weight:600;fill:#111418">Visningar per dag</text><line x1="52" y1="320.0" x2="648" y2="320.0" class="grid"/><text x="44" y="323.5" class="ax r">0</text><line x1="52" y1="260.0" x2="648" y2="260.0" class="grid"/><text x="44" y="263.5" class="ax r">2 000</text><line x1="52" y1="200.0" x2="648" y2="200.0" class="grid"/><text x="44" y="203.5" class="ax r">4 000</text><line x1="485.5" y1="200" x2="485.5" y2="320" stroke="#8b949e" stroke-dasharray="3 3" stroke-width="1"/><path d="M 52.0 285.9 L 106.2 287.2 L 160.4 287.9 L 214.5 279.1 L 268.7 283.1 L 322.9 278.3 L 377.1 266.4 L 431.3 256.2 L 485.5 251.1 L 539.6 237.6 L 593.8 234.0 L 648.0 208.9" class="line"/><circle cx="52.0" cy="285.9" r="3" class="dot"/><text x="52.0" y="277.9" class="val c">1 140</text><circle cx="106.2" cy="287.2" r="3" class="dot"/><circle cx="160.4" cy="287.9" r="3" class="dot"/><circle cx="214.5" cy="279.1" r="3" class="dot"/><text x="214.5" y="271.1" class="val c">1 360</text><circle cx="268.7" cy="283.1" r="3" class="dot"/><circle cx="322.9" cy="278.3" r="3" class="dot"/><circle cx="377.1" cy="266.4" r="3" class="dot"/><circle cx="431.3" cy="256.2" r="3" class="dot"/><text x="431.3" y="248.2" class="val c">2 130</text><circle cx="485.5" cy="251.1" r="3" class="dot"/><text x="485.5" y="243.1" class="val c">2 300</text><circle cx="539.6" cy="237.6" r="3" class="dot"/><circle cx="593.8" cy="234.0" r="3" class="dot"/><text x="593.8" y="226.0" class="val c">2 870</text><circle cx="648.0" cy="208.9" r="3" class="dot"/><text x="648.0" y="200.9" class="val c">3 700</text><text x="480.5" y="20" class="note" text-anchor="end">12 okt, publikt v2</text><text x="52.0" y="338" class="ax c">17 aug</text><text x="160.4" y="338" class="ax c">31 aug</text><text x="268.7" y="338" class="ax c">14 sep</text><text x="377.1" y="338" class="ax c">28 sep</text><text x="485.5" y="338" class="ax c">12 okt</text><text x="593.8" y="338" class="ax c">26 okt</text><text x="648.0" y="338" class="ax c">2 nov</text><text x="648.0" y="350" class="note c">5 dagar</text></svg>
+<p class="figc">Klick och visningar per dag, snitt per vecka sedan 17 augusti. Streckad linje = 12 oktober, då publikt v2 gick live. Sista veckan har fem dagar. Två paneler med var sin skala i stället för två axlar i samma diagram.</p>
+</div>
+
+<table>
+<thead><tr><th>Period</th><th class="n">Dagar</th><th class="n">Klick/dag</th><th class="n">Visningar/dag</th><th class="n">CTR</th><th class="n">Position</th></tr></thead>
+<tbody>
+<tr><td>17 aug till 13 sep (baslinje)</td><td class="n">28</td><td class="n">13,7</td><td class="n"></td><td class="n"></td><td class="n">22,5</td></tr>
+<tr><td>P1, 14 sep till 11 okt</td><td class="n">28</td><td class="n">29,6</td><td class="n">1&nbsp;633</td><td class="n">1,81 %</td><td class="n">12,5</td></tr>
+<tr><td>P2, 12 okt till 6 nov</td><td class="n">26</td><td class="n">32,8</td><td class="n">2&nbsp;842</td><td class="n">1,15 %</td><td class="n">15,4</td></tr>
+<tr class="sum"><td>Förändring P1 till P2</td><td class="n"></td><td class="n up">+11 %</td><td class="n up">+74 %</td><td class="n down">−0,66 p</td><td class="n down">2,9 platser</td></tr>
+</tbody>
+</table>
+
+<p><strong>Drivkrafter.</strong> Klicken växte varje vecka fram till 5 oktober (36 per dag), låg still på 31 per dag i tre veckor efter bytet och är nu uppe i 39 per dag de fem första dagarna i november. Visningarna har växt hela tiden, mest för att sajten börjat synas på breda frågor långt ner ("personligt brev" från position 63 till 39, "personligt brev mall", "skriva cv"). Det drar ner både CTR och snittpositionen utan att vi tappat något. Antalet sökfrågor med visningar gick från 2&nbsp;238 till 2&nbsp;711.</p>
+
+<h3>Har omdesignen kostat position?</h3>
+<p>Snittpositionen säger lite när visningarna nästan fördubblas. Det rättvisa måttet är en fast korg: samma fråga och sida i båda perioderna.</p>
+<table>
+<thead><tr><th>Fast korg</th><th class="n">Par</th><th class="n">Position P1</th><th class="n">Position P2</th><th class="n">Bättre / sämre</th></tr></thead>
+<tbody>
+<tr><td>Topp 20 artiklar</td><td class="n">478</td><td class="n">12,6</td><td class="n up">12,1</td><td class="n">239 / 168</td></tr>
+<tr><td>Topp 20 exempelsidor</td><td class="n">70</td><td class="n">20,3</td><td class="n up">19,1</td><td class="n">33 / 28</td></tr>
+<tr><td>Hela sajten</td><td class="n">2&nbsp;202</td><td class="n">23,3</td><td class="n">23,3</td><td class="n">1&nbsp;059 / 921</td></tr>
+</tbody>
+</table>
+<p>Svar: nej, inte bestående. Toppartiklarna hade en svacka i tre veckor direkt efter bytet (25,1 klick per dag veckan före, sedan 20,1, 19,6 och 20, position ner till 11,2) och är nu tillbaka på 29,2 klick per dag och position 8,9. Svackan sammanfaller med bytet men kan lika gärna vara en Google-uppdatering eller omkrypning; Search Console kan inte skilja dem åt.</p>
+
+<h3>Per sidtyp</h3>
+<table>
+<thead><tr><th>Sidtyp</th><th class="n">Klick P1</th><th class="n">Klick P2</th><th class="n">Visningar P2</th><th class="n">Position P1 till P2</th></tr></thead>
+<tbody>
+<tr><td>/artiklar/*</td><td class="n">645</td><td class="n">676</td><td class="n">71&nbsp;158</td><td class="n">11,8 till 16,3</td></tr>
+<tr><td>/personligt-brev-exempel/*</td><td class="n">63</td><td class="n">52</td><td class="n">5&nbsp;615</td><td class="n">14,1 till 19,6</td></tr>
+<tr><td>/cv-exempel/*</td><td class="n">35</td><td class="n">32</td><td class="n">3&nbsp;832</td><td class="n">15,9 till 20,7</td></tr>
+<tr><td>/verktyg/*</td><td class="n">34</td><td class="n">28</td><td class="n">1&nbsp;997</td><td class="n">25,7 till 33,9</td></tr>
+<tr><td>/rakna-ut/*</td><td class="n">6</td><td class="n up">24</td><td class="n">7&nbsp;042</td><td class="n">10,4 till 11,7</td></tr>
+<tr><td>Hubbar (/cv-mallar, /exempel)</td><td class="n">25</td><td class="n">22</td><td class="n">3&nbsp;064</td><td class="n">19,7 till 27,5</td></tr>
+<tr><td>Startsidan</td><td class="n">15</td><td class="n">8</td><td class="n">507</td><td class="n">24,8 till 32,9</td></tr>
+<tr><td>/for-rekryterare*</td><td class="n">7</td><td class="n">7</td><td class="n">2&nbsp;557</td><td class="n">29,6 till 36,5</td></tr>
+<tr><td>/priser, /funktioner, /jobbkartan</td><td class="n">0</td><td class="n">0</td><td class="n">223</td><td class="n"></td></tr>
+</tbody>
+</table>
+<p class="lead">Artiklarna står för 79 procent av klicken i P2 (78 i P1). Utanför artiklar och Räkna ut ligger varje sidtyp på 0 till 2 klick per dag, så förändringar där är brus.</p>
+
+<h3>Topp 15 sidor</h3>
+<div class="fig">
+<svg viewBox="0 0 680 376" class="chart" role="img" aria-label="Topp 15 sidor efter klick i P2"><rect x="262" y="6" width="12" height="9" class="bar"/><text x="279" y="14" class="ax">Klick P2 (12 okt till 6 nov)</text><line x1="432" y1="5" x2="432" y2="16" stroke="#111418" stroke-width="2"/><text x="439" y="14" class="ax">Klick P1</text><text x="676" y="14" class="ax r">Position P2</text><text x="254" y="37" class="ax r">styrkor-svagheter-intervju</text><rect x="262" y="26" width="278.8" height="14" class="bar"/><line x1="554.9" y1="24" x2="554.9" y2="42" stroke="#111418" stroke-width="2"/><text x="560.9" y="37" class="val">99</text><text x="676" y="37" class="ax r dim">6,2</text><text x="254" y="59" class="ax r">alva-labs-logiktest</text><rect x="262" y="48" width="278.8" height="14" class="bar"/><line x1="462.0" y1="46" x2="462.0" y2="64" stroke="#111418" stroke-width="2"/><text x="546.8" y="59" class="val">99</text><text x="676" y="59" class="ax r dim">8,3</text><text x="254" y="81" class="ax r">logiska-tester</text><rect x="262" y="70" width="216.9" height="14" class="bar"/><line x1="597.2" y1="68" x2="597.2" y2="86" stroke="#111418" stroke-width="2"/><text x="603.2" y="81" class="val">77</text><text x="676" y="81" class="ax r dim">11</text><text x="254" y="103" class="ax r">map-test-personlighetstest</text><rect x="262" y="92" width="149.3" height="14" class="bar"/><line x1="332.4" y1="90" x2="332.4" y2="108" stroke="#111418" stroke-width="2"/><text x="417.3" y="103" class="val">53</text><text x="676" y="103" class="ax r dim">5,9</text><text x="254" y="125" class="ax r">kompetensbaserad-intervju-star-metoden</text><rect x="262" y="114" width="84.5" height="14" class="bar"/><line x1="332.4" y1="112" x2="332.4" y2="130" stroke="#111418" stroke-width="2"/><text x="352.5" y="125" class="val">30</text><text x="676" y="125" class="ax r dim">4</text><text x="254" y="147" class="ax r">matrislogik-test-guide</text><rect x="262" y="136" width="84.5" height="14" class="bar"/><line x1="312.7" y1="134" x2="312.7" y2="152" stroke="#111418" stroke-width="2"/><text x="352.5" y="147" class="val">30</text><text x="676" y="147" class="ax r dim">13,5</text><text x="254" y="169" class="ax r">kompetensbaserade-intervjufragor</text><rect x="262" y="158" width="78.9" height="14" class="bar"/><line x1="349.3" y1="156" x2="349.3" y2="174" stroke="#111418" stroke-width="2"/><text x="355.3" y="169" class="val">28</text><text x="676" y="169" class="ax r dim">11,5</text><text x="254" y="191" class="ax r">angest-infor-nytt-jobb</text><rect x="262" y="180" width="64.8" height="14" class="bar"/><line x1="301.4" y1="178" x2="301.4" y2="196" stroke="#111418" stroke-width="2"/><text x="332.8" y="191" class="val">23</text><text x="676" y="191" class="ax r dim">9,3</text><text x="254" y="213" class="ax r">/rakna-ut/timlon-till-manadslon</text><rect x="262" y="202" width="50.7" height="14" class="bar"/><line x1="267.6" y1="200" x2="267.6" y2="218" stroke="#111418" stroke-width="2"/><text x="318.7" y="213" class="val">18</text><text x="676" y="213" class="ax r dim">8,9</text><text x="254" y="235" class="ax r">personlighetstest-jobb-guide</text><rect x="262" y="224" width="50.7" height="14" class="bar"/><line x1="278.9" y1="222" x2="278.9" y2="240" stroke="#111418" stroke-width="2"/><text x="318.7" y="235" class="val">18</text><text x="676" y="235" class="ax r dim">17,4</text><text x="254" y="257" class="ax r">motivationsbrev-exempel</text><rect x="262" y="246" width="45.1" height="14" class="bar"/><line x1="338.1" y1="244" x2="338.1" y2="262" stroke="#111418" stroke-width="2"/><text x="344.1" y="257" class="val">16</text><text x="676" y="257" class="ax r dim">7,6</text><text x="254" y="279" class="ax r">personligt-brev-avslutning-exempel</text><rect x="262" y="268" width="39.4" height="14" class="bar"/><line x1="276.1" y1="266" x2="276.1" y2="284" stroke="#111418" stroke-width="2"/><text x="307.4" y="279" class="val">14</text><text x="676" y="279" class="ax r dim">7,3</text><text x="254" y="301" class="ax r">hur-ofta-byta-jobb</text><rect x="262" y="290" width="39.4" height="14" class="bar"/><line x1="307.1" y1="288" x2="307.1" y2="306" stroke="#111418" stroke-width="2"/><text x="313.1" y="301" class="val">14</text><text x="676" y="301" class="ax r dim">13,9</text><text x="254" y="323" class="ax r">rotation-test-guide</text><rect x="262" y="312" width="39.4" height="14" class="bar"/><line x1="290.2" y1="310" x2="290.2" y2="328" stroke="#111418" stroke-width="2"/><text x="307.4" y="323" class="val">14</text><text x="676" y="323" class="ax r dim">6,8</text><text x="254" y="345" class="ax r">bakgrundskontroll-vid-anstallning</text><rect x="262" y="334" width="33.8" height="14" class="bar"/><line x1="281.7" y1="332" x2="281.7" y2="350" stroke="#111418" stroke-width="2"/><text x="301.8" y="345" class="val">12</text><text x="676" y="345" class="ax r dim">27,6</text></svg>
+<p class="figc">Klick i P2 per sida, med P1 som svart streck och snittposition i P2 till höger. Alla utom en är artiklar under /artiklar/. logiska-tester är den enda stora som tappat: 119 till 77 klick, position 9,5 till 11, fast visningarna ökade från 2&nbsp;801 till 4&nbsp;419.</p>
+</div>
+
+<p><strong>/artiklar/hur-avslutar-man-personligt-brev med 0 visningar är inget tapp.</strong> Sidan slogs ihop med personligt-brev-avslutning-exempel 23 september (commit e2ee3628) och svarar med 308 till den. Sista visningen i Search Console var 2 oktober. Målsidan gick från 5 till 14 klick och från 775 till 1&nbsp;456 visningar, så sammanslagningen har gjort det den skulle.</p>
+
+<h3>Konton och köp</h3>
+<table>
+<thead><tr><th>Mått</th><th class="n">P1</th><th class="n">P2</th><th>Kommentar</th></tr></thead>
+<tbody>
+<tr><td>Nya konton (Supabase)</td><td class="n">91</td><td class="n down">63</td><td>Fallet syns från 9 okt, före alla driftsättningar</td></tr>
+<tr><td>Personer som startade registrering</td><td class="n">126</td><td class="n">178</td><td>PostHog; P2 räknas något för högt, se avsnitt 9</td></tr>
+<tr><td>Prov utan konto, startade</td><td class="n">110</td><td class="n up">273</td><td>85 procent slutför i P2</td></tr>
+<tr><td>Konton från provet (Supabase)</td><td class="n">9</td><td class="n up">29</td><td>13 procent av slutförda prov</td></tr>
+<tr><td>Test i kontot första dygnet</td><td class="n">55 (60 %)</td><td class="n down">25 (40 %)</td><td></td></tr>
+<tr><td>Mötte en betalvägg (personer)</td><td class="n">24</td><td class="n">17</td><td>3 köpte i båda perioderna</td></tr>
+<tr><td>Nya köp</td><td class="n">3 (207 kr)</td><td class="n up">5 (745 kr)</td><td>Alla P2-köp Premium 149 kr/mån</td></tr>
+<tr><td>Köp per nytt konto</td><td class="n">3 %</td><td class="n up">8 %</td><td>n=3 mot n=5</td></tr>
+<tr class="sum"><td>Intäkt i perioden</td><td class="n">654 kr</td><td class="n">894 kr</td><td>Inga återbetalningar, inga tvister</td></tr>
+</tbody>
+</table>
+
+<h2><span class="num">3</span>Vad som är bra</h2>
+<ul>
+<li><strong>Försäljningen fungerar när rätt person når rätt ställe.</strong> 5 köp i P2, alla Premium, ingen uppsagd. Fyra av fem köpte samma dag som de skapade konto. Fyra kom från testspåret och ett från CV och brev (köpet vid brevkvoten 7 nov). Veckopaketens problem från förra rapporten, köp som sades upp efter några timmar, är borta med bytet till månad.</li>
+<li><strong>Provet utan konto drar.</strong> Starterna ökade från 17 till 34 i veckan till 62 till 80. 85 procent gör klart provet och 62 procent av dem klickar vidare till registrering. Två köpare gick artikel, prov, konto och köp på under en dag (21 okt och 4 nov).</li>
+<li><strong>Rankingen håller.</strong> Ingen bestående förlust efter omdesignen, och klicken är på väg upp igen (39 per dag i november). alva-labs-logiktest (71 till 99 klick) och map-test-personlighetstest (25 till 53) från septemberomgången växer fortfarande.</li>
+<li><strong>Räkna ut har hittat sin publik.</strong> Visningarna gick från 1&nbsp;805 till 7&nbsp;042 och klicken från 6 till 24, nästan allt på timlon-till-manadslon på position 9.</li>
+<li><strong>Den som når träningen fastnar ofta.</strong> 9 av 13 som gjort klart Nivåkollen startar ett pass, och riktade pass slutförs till 90 procent. Testanvändare kommer tillbaka dagen efter dubbelt så ofta som andra (25 mot 13 procent).</li>
+<li><strong>Stabil drift.</strong> Serverfelloggen har en rad sedan 14 september. Inloggade fel i webbläsaren kommer från 2 personer, varav en serie "Maximum call stack size exceeded" 30 oktober.</li>
+</ul>
+
+<h2><span class="num">4</span>Vad som är dåligt</h2>
+<ul>
+<li><strong>Smakprovets resultat skickar folk till fel test.</strong> Av 29 konton från provet i P2 startar 16 det klassiska matrislogiktestet som första test, 3 Nivåkollen och 10 inget alls. Resultatsidan (/dashboard/tester/prov/&lt;token&gt;) länkar till matrislogik-grund. Hela träningsupplägget från 11 oktober, Nivåkollen, passen och Din utveckling, hoppas över av den största gruppen nya konton.</li>
+<li><strong>Färre registrerar sig klart.</strong> 178 personer startade registreringen i P2 och 63 konton skapades. I P1 var det 126 och 91. Veckovis gick kvoten konton per påbörjad registrering från 60 till 100 procent i P1 till 28 till 45 procent från veckan 12 oktober. En del är mätning (en person i två flikar räknas två gånger), men glappet är för stort för att bara vara det. signup_failed visar 11 personer med fel, varav 5 som nekade Google.</li>
+<li><strong>Testsidans flöde av konton är borta.</strong> Artikelkorten gick i P1 till testsidan (197 personer) och provet (107). I P2 går 254 till provet och 9 till testsidan. Testsidans "Börja gratis" gav 41 konton i P1 och 5 i P2.</li>
+<li><strong>Ingen bygger en vana.</strong> Ingen gratisanvändare har gjort pass två olika dagar. Det följer delvis av gratisnivån: dag2-väggen visades 25 gånger för 4 personer och ingen klickade. 20 av 30 pass i P2 kommer från två betalande. Bara 2 användare har nivåpunkter från mer än en dag, så kurvan i Din utveckling är tom för nästan alla.</li>
+<li><strong>Spärren över grundnivån säljer inte.</strong> feature_blocked för tester över grundnivån stoppade 27 personer. Händelsen har 0 registrerade klick i båda perioderna och bara 5 personer har startat en kassa totalt. Antingen saknar spärren en köpknapp eller så mäts klicket inte. Båda behöver rättas.</li>
+<li><strong>Huvudorden saknas.</strong> "cv exempel" position 35, "cv mall" 54, "personligt brev" 39. Startsidan tappade från position 24,8 till 32,9, /verktyg/rekryteringstester från 32 till 38. Exempelsidorna gav 65 klick i P1 och 27 i P2 bland topp 20, men på 1 till 2 klick per dag är det brus.</li>
+<li><strong>logiska-tester tappar.</strong> −42 klick, position 9,5 till 11. Den var bästa landningen för konton i P1 (19) och gav 7 i P2.</li>
+<li><strong>Låg CTR på bra positioner.</strong> Sajten får 1 till 1,3 procent CTR på position 3 till 15. Branschkurvor ligger på 3 till 10 procent. "cover letter svenska" har 618 visningar på position 6,8 och 1 klick.</li>
+</ul>
+
+<h2><span class="num">5</span>Var vi har mest att tjäna</h2>
+<p class="lead">Rangordnat efter bedömd effekt på köp. Effekterna är räknade på P2:s egna kvoter (13 procent konto av slutförda prov, 8 procent köp per konto, 3 köp av 17 som mötte en vägg) och är storleksordningar, inte prognoser.</p>
+<table>
+<thead><tr><th>#</th><th>Möjlighet</th><th>Underlag</th><th>Uppskattad effekt per månad</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>Kontosteget efter provet</strong></td><td>143 klickade från provets spärr till registrering, 29 fick konto. 178 startade registrering totalt, 63 konton.</td><td>Från 35 till 50 procent slutförda registreringar ger cirka 25 konton till och 2 köp, cirka 300 kr i löpande intäkt</td></tr>
+<tr><td>2</td><td><strong>Smakprovet till Nivåkollen och första passet</strong></td><td>3 av 29 provkonton gör Nivåkollen. 9 av 13 som gör den startar pass. Väggarna sitter efter passet.</td><td>Hälften av provkontona till Nivåkollen ger cirka 10 fler som når passet och väggen, 1 till 2 köp</td></tr>
+<tr><td>3</td><td><strong>Köpknapp i spärren över grundnivån</strong></td><td>27 stoppade, 0 klick registrerade. testniva-väggen med knapp: 3 visade, 2 köp i P2.</td><td>1 köp till, mer om dag2-beslutet ändras (avsnitt 10)</td></tr>
+<tr><td>4</td><td><strong>logiska-tester tillbaka till position 9</strong></td><td>119 klick och 19 konton i P1, 77 klick och 7 konton i P2</td><td>40 klick och 5 till 10 konton, knappt 1 köp</td></tr>
+<tr><td>5</td><td><strong>CTR på fyra sidor med bra position</strong></td><td>timlön (pos 8,9, CTR 0,29 %), styrkor och svagheter (6,2, 1,11 %), STAR (4, 1,19 %), cover letter (7,4, 0,3 %). Taket är 430 missade klick på 26 dagar.</td><td>En fjärdedel av taket ger cirka 100 klick. Lite köp, eftersom styrkor-svagheter och Räkna ut har gett 0 konton</td></tr>
+<tr><td>6</td><td><strong>Mobil återkomst</strong></td><td>Mobil testar mer dag 0 (63 mot 47 %) men är aktiv dag 1 till 7 hälften så ofta (16 mot 30 %)</td><td>Oklart. Kräver ett skäl att komma tillbaka, påminnelse eller PWA, och det beslutet är inte taget</td></tr>
+</tbody>
+</table>
+
+<h3>CTR mot position</h3>
+<div class="fig">
+<svg viewBox="0 0 680 266" class="chart" role="img" aria-label="CTR mot position per sida med över 100 visningar i P2"><line x1="52" y1="196.0" x2="648" y2="196.0" class="grid"/><text x="44" y="199.5" class="ax r">0 %</text><line x1="52" y1="136.7" x2="648" y2="136.7" class="grid"/><text x="44" y="140.2" class="ax r">2 %</text><line x1="52" y1="77.3" x2="648" y2="77.3" class="grid"/><text x="44" y="80.8" class="ax r">4 %</text><line x1="52" y1="18.0" x2="648" y2="18.0" class="grid"/><text x="44" y="21.5" class="ax r">6 %</text><text x="52.0" y="240" class="ax c">1</text><text x="157.6" y="240" class="ax c">2</text><text x="219.4" y="240" class="ax c">3</text><text x="297.2" y="240" class="ax c">5</text><text x="402.8" y="240" class="ax c">10</text><text x="508.4" y="240" class="ax c">20</text><text x="648.0" y="240" class="ax c">50+</text><text x="350" y="254" class="ax c">Snittposition i P2 (logaritmisk skala)</text><path d="M 219.4 32.8 L 311.7 32.8 L 311.7 121.8 L 410.2 121.8 L 410.2 172.3 L 512.2 172.3 L 512.2 187.1 L 648.0 187.1" class="curve"/><text x="223.4" y="27.8" class="note">grov branschkurva</text><circle cx="274.2" cy="21.6" r="3.2" class="pt"/><circle cx="277.7" cy="182.7" r="3.2" class="pt"/><circle cx="303.2" cy="89.5" r="3.2" class="pt"/><circle cx="303.2" cy="143.2" r="3.2" class="pt"/><circle cx="311.7" cy="150.0" r="3.2" class="pt"/><circle cx="322.4" cy="120.4" r="3.2" class="pt"/><circle cx="325.0" cy="181.8" r="3.2" class="pt"/><circle cx="330.0" cy="171.7" r="3.2" class="pt"/><circle cx="334.8" cy="167.5" r="3.2" class="pt"/><circle cx="344.0" cy="98.1" r="3.2" class="pt"/><circle cx="346.3" cy="182.1" r="3.2" class="pt"/><circle cx="348.5" cy="166.6" r="3.2" class="pt"/><circle cx="354.9" cy="169.3" r="3.2" class="pt"/><circle cx="356.9" cy="167.2" r="3.2" class="pt"/><circle cx="356.9" cy="181.5" r="3.2" class="pt"/><circle cx="361.0" cy="143.2" r="3.2" class="pt"/><circle cx="361.0" cy="196.0" r="3.2" class="pt"/><circle cx="363.0" cy="147.6" r="3.2" class="pt"/><circle cx="364.9" cy="130.4" r="3.2" class="pt"/><circle cx="366.9" cy="175.8" r="3.2" class="pt"/><circle cx="372.6" cy="196.0" r="3.2" class="pt"/><circle cx="374.4" cy="129.0" r="3.2" class="pt"/><circle cx="376.2" cy="173.5" r="3.2" class="pt"/><circle cx="376.2" cy="187.4" r="3.2" class="pt"/><circle cx="376.2" cy="174.6" r="3.2" class="pt"/><circle cx="378.0" cy="196.0" r="3.2" class="pt"/><circle cx="381.6" cy="177.9" r="3.2" class="pt"/><circle cx="383.3" cy="178.2" r="3.2" class="pt"/><circle cx="386.7" cy="176.4" r="3.2" class="pt"/><circle cx="390.1" cy="168.7" r="3.2" class="pt"/><circle cx="391.7" cy="143.5" r="3.2" class="pt"/><circle cx="393.4" cy="181.5" r="3.2" class="pt"/><circle cx="395.0" cy="156.8" r="3.2" class="pt"/><circle cx="395.0" cy="185.3" r="3.2" class="pt"/><circle cx="396.6" cy="156.8" r="3.2" class="pt"/><circle cx="402.8" cy="196.0" r="3.2" class="pt"/><circle cx="410.2" cy="170.5" r="3.2" class="pt"/><circle cx="411.7" cy="196.0" r="3.2" class="pt"/><circle cx="417.3" cy="144.4" r="3.2" class="pt"/><circle cx="418.7" cy="185.9" r="3.2" class="pt"/><circle cx="424.1" cy="160.7" r="3.2" class="pt"/><circle cx="428.0" cy="182.1" r="3.2" class="pt"/><circle cx="428.0" cy="196.0" r="3.2" class="pt"/><circle cx="429.3" cy="182.7" r="3.2" class="pt"/><circle cx="430.6" cy="196.0" r="3.2" class="pt"/><circle cx="434.3" cy="176.7" r="3.2" class="pt"/><circle cx="435.6" cy="172.9" r="3.2" class="pt"/><circle cx="439.2" cy="196.0" r="3.2" class="pt"/><circle cx="440.4" cy="134.3" r="3.2" class="pt"/><circle cx="441.6" cy="196.0" r="3.2" class="pt"/><circle cx="443.9" cy="187.1" r="3.2" class="pt"/><circle cx="445.1" cy="156.8" r="3.2" class="pt"/><circle cx="447.4" cy="178.5" r="3.2" class="pt"/><circle cx="447.4" cy="185.3" r="3.2" class="pt"/><circle cx="448.5" cy="123.6" r="3.2" class="pt"/><circle cx="448.5" cy="177.6" r="3.2" class="pt"/><circle cx="453.0" cy="164.6" r="3.2" class="pt"/><circle cx="454.1" cy="123.6" r="3.2" class="pt"/><circle cx="455.1" cy="175.8" r="3.2" class="pt"/><circle cx="457.3" cy="119.8" r="3.2" class="pt"/><circle cx="465.6" cy="187.1" r="3.2" class="pt"/><circle cx="465.6" cy="196.0" r="3.2" class="pt"/><circle cx="467.6" cy="196.0" r="3.2" class="pt"/><circle cx="467.6" cy="196.0" r="3.2" class="pt"/><circle cx="469.6" cy="144.1" r="3.2" class="pt"/><circle cx="469.6" cy="196.0" r="3.2" class="pt"/><circle cx="474.4" cy="196.0" r="3.2" class="pt"/><circle cx="478.2" cy="177.0" r="3.2" class="pt"/><circle cx="480.0" cy="196.0" r="3.2" class="pt"/><circle cx="482.7" cy="196.0" r="3.2" class="pt"/><circle cx="486.3" cy="172.6" r="3.2" class="pt"/><circle cx="486.3" cy="196.0" r="3.2" class="pt"/><circle cx="487.2" cy="139.0" r="3.2" class="pt"/><circle cx="487.2" cy="173.5" r="3.2" class="pt"/><circle cx="488.1" cy="143.8" r="3.2" class="pt"/><circle cx="490.6" cy="196.0" r="3.2" class="pt"/><circle cx="497.3" cy="196.0" r="3.2" class="pt"/><circle cx="499.0" cy="182.7" r="3.2" class="pt"/><circle cx="501.4" cy="174.0" r="3.2" class="pt"/><circle cx="511.4" cy="166.0" r="3.2" class="pt"/><circle cx="515.8" cy="196.0" r="3.2" class="pt"/><circle cx="516.6" cy="196.0" r="3.2" class="pt"/><circle cx="522.9" cy="196.0" r="3.2" class="pt"/><circle cx="522.9" cy="196.0" r="3.2" class="pt"/><circle cx="525.0" cy="196.0" r="3.2" class="pt"/><circle cx="531.0" cy="196.0" r="3.2" class="pt"/><circle cx="536.2" cy="196.0" r="3.2" class="pt"/><circle cx="542.4" cy="150.0" r="3.2" class="pt"/><circle cx="544.2" cy="196.0" r="3.2" class="pt"/><circle cx="550.7" cy="196.0" r="3.2" class="pt"/><circle cx="554.7" cy="188.0" r="3.2" class="pt"/><circle cx="557.5" cy="178.8" r="3.2" class="pt"/><circle cx="558.0" cy="196.0" r="3.2" class="pt"/><circle cx="562.9" cy="196.0" r="3.2" class="pt"/><circle cx="563.4" cy="186.8" r="3.2" class="pt"/><circle cx="567.1" cy="177.3" r="3.2" class="pt"/><circle cx="567.6" cy="196.0" r="3.2" class="pt"/><circle cx="575.2" cy="184.7" r="3.2" class="pt"/><circle cx="575.7" cy="196.0" r="3.2" class="pt"/><circle cx="577.6" cy="154.2" r="3.2" class="pt"/><circle cx="578.6" cy="186.5" r="3.2" class="pt"/><circle cx="583.3" cy="196.0" r="3.2" class="pt"/><circle cx="584.2" cy="149.1" r="3.2" class="pt"/><circle cx="585.2" cy="185.3" r="3.2" class="pt"/><circle cx="589.7" cy="196.0" r="3.2" class="pt"/><circle cx="590.1" cy="192.4" r="3.2" class="pt"/><circle cx="591.9" cy="180.3" r="3.2" class="pt"/><circle cx="592.8" cy="196.0" r="3.2" class="pt"/><circle cx="593.2" cy="196.0" r="3.2" class="pt"/><circle cx="595.8" cy="151.8" r="3.2" class="pt"/><circle cx="598.4" cy="190.4" r="3.2" class="pt"/><circle cx="602.5" cy="196.0" r="3.2" class="pt"/><circle cx="606.6" cy="173.5" r="3.2" class="pt"/><circle cx="607.4" cy="189.5" r="3.2" class="pt"/><circle cx="607.8" cy="147.1" r="3.2" class="pt"/><circle cx="614.4" cy="188.0" r="3.2" class="pt"/><circle cx="617.8" cy="185.9" r="3.2" class="pt"/><circle cx="617.8" cy="196.0" r="3.2" class="pt"/><circle cx="619.2" cy="196.0" r="3.2" class="pt"/><circle cx="628.9" cy="196.0" r="3.2" class="pt"/><circle cx="635.3" cy="196.0" r="3.2" class="pt"/><circle cx="638.6" cy="181.8" r="3.2" class="pt"/><circle cx="640.8" cy="196.0" r="3.2" class="pt"/><circle cx="642.7" cy="196.0" r="3.2" class="pt"/><circle cx="647.7" cy="196.0" r="3.2" class="pt"/><circle cx="648.0" cy="191.3" r="3.2" class="pt"/><circle cx="648.0" cy="196.0" r="3.2" class="pt"/><circle cx="648.0" cy="196.0" r="3.2" class="pt"/><circle cx="648.0" cy="196.0" r="3.2" class="pt"/><circle cx="648.0" cy="183.5" r="3.2" class="pt"/><circle cx="648.0" cy="196.0" r="3.2" class="pt"/><circle cx="648.0" cy="196.0" r="3.2" class="pt"/><circle cx="648.0" cy="196.0" r="3.2" class="pt"/><circle cx="648.0" cy="196.0" r="3.2" class="pt"/><circle cx="648.0" cy="196.0" r="3.2" class="pt"/><circle cx="648.0" cy="196.0" r="3.2" class="pt"/><circle cx="648.0" cy="196.0" r="3.2" class="pt"/><circle cx="648.0" cy="196.0" r="3.2" class="pt"/><circle cx="648.0" cy="196.0" r="3.2" class="pt"/><circle cx="648.0" cy="196.0" r="3.2" class="pt"/><circle cx="648.0" cy="196.0" r="3.2" class="pt"/><line x1="263.2" y1="160.7" x2="253.2" y2="129.7" class="leader"/><circle cx="263.2" cy="160.7" r="4.5" class="pt hot" stroke="#fff" stroke-width="1.5"/><text x="253.2" y="126.7" class="val" text-anchor="end">STAR-metoden, pos 4, CTR 1,19 %</text><line x1="330.0" y1="163.1" x2="340.0" y2="126.1" class="leader"/><circle cx="330.0" cy="163.1" r="4.5" class="pt hot" stroke="#fff" stroke-width="1.5"/><text x="340.0" y="123.1" class="val" text-anchor="start">styrkor och svagheter, pos 6,2, CTR 1,11 %</text><line x1="356.9" y1="187.1" x2="342.9" y2="204.1" class="leader"/><circle cx="356.9" cy="187.1" r="4.5" class="pt hot" stroke="#fff" stroke-width="1.5"/><text x="342.9" y="213.1" class="val" text-anchor="end">cover letter, pos 7,4, CTR 0,3 %</text><line x1="385.0" y1="187.4" x2="399.0" y2="204.4" class="leader"/><circle cx="385.0" cy="187.4" r="4.5" class="pt hot" stroke="#fff" stroke-width="1.5"/><text x="399.0" y="213.4" class="val" text-anchor="start">timlön till månadslön, pos 8,9, CTR 0,29 %</text></svg>
+<p class="figc">Sidor med över 100 visningar i P2 (145 st), positionen på logaritmisk skala. Streckad trappa = grov branschkurva för förväntad CTR, sannolikt för hög för svenska informationsfrågor där Google visar AI-översikt eller egen räknare. Sajtens egen CTR: 1,3 procent på position 3 till 5, 1,2 på 5 till 8, 1 på 8 till 10 och 0,3 på 20 till 30. De fyra markerade sidorna har bra position och flest missade klick.</p>
+</div>
+
+<h2><span class="num">6</span>Konvertering och intäkt</h2>
+
+<h3>Tratten per vecka</h3>
+<div class="fig">
+<svg viewBox="0 0 680 170" class="chart" role="img" aria-label="Tratten per vecka i fyra paneler"><text x="4" y="12" class="ax" style="font-weight:600;fill:#111418">Prov utan konto, startade</text><line x1="4" y1="126" x2="162" y2="126" stroke="#111418" stroke-width="1"/><line x1="83.0" y1="24" x2="83.0" y2="126" stroke="#8b949e" stroke-dasharray="3 3" stroke-width="1"/><rect x="6.0" y="105.6" width="15.8" height="20.4" class="bar pre"/><text x="13.9" y="101.6" class="val c" style="font-size:7pt">17</text><rect x="25.8" y="93.6" width="15.8" height="32.4" class="bar pre"/><text x="33.6" y="89.6" class="val c" style="font-size:7pt">27</text><rect x="45.5" y="85.2" width="15.8" height="40.8" class="bar pre"/><text x="53.4" y="81.2" class="val c" style="font-size:7pt">34</text><rect x="65.3" y="87.6" width="15.8" height="38.4" class="bar pre"/><text x="73.1" y="83.6" class="val c" style="font-size:7pt">32</text><rect x="85.0" y="44.4" width="15.8" height="81.6" class="bar"/><text x="92.9" y="40.4" class="val c" style="font-size:7pt">68</text><rect x="104.8" y="51.6" width="15.8" height="74.4" class="bar"/><text x="112.6" y="47.6" class="val c" style="font-size:7pt">62</text><rect x="124.5" y="51.6" width="15.8" height="74.4" class="bar"/><text x="132.4" y="47.6" class="val c" style="font-size:7pt">62</text><rect x="144.3" y="30.0" width="15.8" height="96.0" class="bar"/><text x="152.1" y="26.0" class="val c" style="font-size:7pt">80</text><text x="4" y="139" class="ax">14 sep</text><text x="83.0" y="139" class="ax c">12 okt</text><text x="162" y="139" class="ax r">2 nov</text><text x="177" y="12" class="ax" style="font-weight:600;fill:#111418">Nya konton (Supabase)</text><line x1="177" y1="126" x2="335" y2="126" stroke="#111418" stroke-width="1"/><line x1="256.0" y1="24" x2="256.0" y2="126" stroke="#8b949e" stroke-dasharray="3 3" stroke-width="1"/><rect x="179.0" y="68.4" width="15.8" height="57.6" class="bar pre"/><text x="186.9" y="64.4" class="val c" style="font-size:7pt">18</text><rect x="198.8" y="55.6" width="15.8" height="70.4" class="bar pre"/><text x="206.6" y="51.6" class="val c" style="font-size:7pt">22</text><rect x="218.5" y="42.8" width="15.8" height="83.2" class="bar pre"/><text x="226.4" y="38.8" class="val c" style="font-size:7pt">26</text><rect x="238.3" y="46.0" width="15.8" height="80.0" class="bar pre"/><text x="246.1" y="42.0" class="val c" style="font-size:7pt">25</text><rect x="258.0" y="84.4" width="15.8" height="41.6" class="bar"/><text x="265.9" y="80.4" class="val c" style="font-size:7pt">13</text><rect x="277.8" y="71.6" width="15.8" height="54.4" class="bar"/><text x="285.6" y="67.6" class="val c" style="font-size:7pt">17</text><rect x="297.5" y="81.2" width="15.8" height="44.8" class="bar"/><text x="305.4" y="77.2" class="val c" style="font-size:7pt">14</text><rect x="317.3" y="65.2" width="15.8" height="60.8" class="bar"/><text x="325.1" y="61.2" class="val c" style="font-size:7pt">19</text><text x="177" y="139" class="ax">14 sep</text><text x="256.0" y="139" class="ax c">12 okt</text><text x="335" y="139" class="ax r">2 nov</text><text x="350" y="12" class="ax" style="font-weight:600;fill:#111418">varav från provet</text><line x1="350" y1="126" x2="508" y2="126" stroke="#111418" stroke-width="1"/><line x1="429.0" y1="24" x2="429.0" y2="126" stroke="#8b949e" stroke-dasharray="3 3" stroke-width="1"/><rect x="352.0" y="126.0" width="15.8" height="0.0" class="bar pre"/><text x="359.9" y="122.0" class="val c" style="font-size:7pt">0</text><rect x="371.8" y="122.8" width="15.8" height="3.2" class="bar pre"/><text x="379.6" y="118.8" class="val c" style="font-size:7pt">1</text><rect x="391.5" y="110.0" width="15.8" height="16.0" class="bar pre"/><text x="399.4" y="106.0" class="val c" style="font-size:7pt">5</text><rect x="411.3" y="116.4" width="15.8" height="9.6" class="bar pre"/><text x="419.1" y="112.4" class="val c" style="font-size:7pt">3</text><rect x="431.0" y="110.0" width="15.8" height="16.0" class="bar"/><text x="438.9" y="106.0" class="val c" style="font-size:7pt">5</text><rect x="450.8" y="106.8" width="15.8" height="19.2" class="bar"/><text x="458.6" y="102.8" class="val c" style="font-size:7pt">6</text><rect x="470.5" y="103.6" width="15.8" height="22.4" class="bar"/><text x="478.4" y="99.6" class="val c" style="font-size:7pt">7</text><rect x="490.3" y="90.8" width="15.8" height="35.2" class="bar"/><text x="498.1" y="86.8" class="val c" style="font-size:7pt">11</text><text x="350" y="139" class="ax">14 sep</text><text x="429.0" y="139" class="ax c">12 okt</text><text x="508" y="139" class="ax r">2 nov</text><text x="523" y="12" class="ax" style="font-weight:600;fill:#111418">Nya köp (Stripe)</text><line x1="523" y1="126" x2="681" y2="126" stroke="#111418" stroke-width="1"/><line x1="602.0" y1="24" x2="602.0" y2="126" stroke="#8b949e" stroke-dasharray="3 3" stroke-width="1"/><rect x="525.0" y="126.0" width="15.8" height="0.0" class="bar pre"/><text x="532.9" y="122.0" class="val c" style="font-size:7pt">0</text><rect x="544.8" y="102.0" width="15.8" height="24.0" class="bar pre"/><text x="552.6" y="98.0" class="val c" style="font-size:7pt">1</text><rect x="564.5" y="78.0" width="15.8" height="48.0" class="bar pre"/><text x="572.4" y="74.0" class="val c" style="font-size:7pt">2</text><rect x="584.3" y="126.0" width="15.8" height="0.0" class="bar pre"/><text x="592.1" y="122.0" class="val c" style="font-size:7pt">0</text><rect x="604.0" y="126.0" width="15.8" height="0.0" class="bar"/><text x="611.9" y="122.0" class="val c" style="font-size:7pt">0</text><rect x="623.8" y="78.0" width="15.8" height="48.0" class="bar"/><text x="631.6" y="74.0" class="val c" style="font-size:7pt">2</text><rect x="643.5" y="126.0" width="15.8" height="0.0" class="bar"/><text x="651.4" y="122.0" class="val c" style="font-size:7pt">0</text><rect x="663.3" y="54.0" width="15.8" height="72.0" class="bar"/><text x="671.1" y="50.0" class="val c" style="font-size:7pt">3</text><text x="523" y="139" class="ax">14 sep</text><text x="602.0" y="139" class="ax c">12 okt</text><text x="681" y="139" class="ax r">2 nov</text><rect x="4" y="152" width="10" height="8" class="bar pre"/><text x="18" y="159" class="ax">P1, veckorna 14 sep till 5 okt</text><rect x="190" y="152" width="10" height="8" class="bar"/><text x="204" y="159" class="ax">P2, veckorna 12 okt till 2 nov (sista veckan 7 dagar i Supabase och Stripe)</text></svg>
+<p class="figc">Personer per vecka. Streckad linje = veckan 12 oktober. Provet tog fart direkt med publikt v2, kontona föll samtidigt och köpen kom i P2. Köpen är 0 till 3 i veckan, så veckoskillnader är brus.</p>
+</div>
+
+<table>
+<thead><tr><th>Vecka</th><th class="n">GSC-klick</th><th class="n">Prov start</th><th class="n">Prov klara</th><th class="n">Reg. start</th><th class="n">Konton</th><th class="n">varav prov</th><th class="n">Kassa</th><th class="n">Köp</th></tr></thead>
+<tbody>
+<tr><td>14 sep</td><td class="n">168</td><td class="n">17</td><td class="n">16</td><td class="n">18</td><td class="n">18</td><td class="n">0</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>21 sep</td><td class="n">193</td><td class="n">27</td><td class="n">26</td><td class="n">28</td><td class="n">22</td><td class="n">1</td><td class="n">6</td><td class="n">1</td></tr>
+<tr><td>28 sep</td><td class="n">214</td><td class="n">34</td><td class="n">29</td><td class="n">43</td><td class="n">26</td><td class="n">5</td><td class="n">2</td><td class="n">2</td></tr>
+<tr><td>5 okt</td><td class="n">253</td><td class="n">32</td><td class="n">28</td><td class="n">38</td><td class="n">25</td><td class="n">3</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>12 okt</td><td class="n">222</td><td class="n">68</td><td class="n">56</td><td class="n">46</td><td class="n">13</td><td class="n">5</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>19 okt</td><td class="n">218</td><td class="n">62</td><td class="n">53</td><td class="n">38</td><td class="n">17</td><td class="n">6</td><td class="n">2</td><td class="n">2</td></tr>
+<tr><td>26 okt</td><td class="n">217</td><td class="n">62</td><td class="n">54</td><td class="n">39</td><td class="n">14</td><td class="n">7</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>2 nov</td><td class="n">195 (5 d)</td><td class="n">80</td><td class="n">67</td><td class="n">55</td><td class="n">19</td><td class="n">11</td><td class="n">3</td><td class="n">3</td></tr>
+</tbody>
+</table>
+<p class="lead">Prov och registrering i PostHog, konton i Supabase, kassa och köp i Stripe. Aktiveringen inom 24 timmar (81 procent i P1, 73 i P2) är utelämnad: sedan 11 oktober räknas det kopplade provet in automatiskt, så den går inte att jämföra. Test i kontot är det jämförbara måttet, 60 mot 40 procent.</p>
+
+<h3>Var kontona kommer ifrån</h3>
+<table>
+<thead><tr><th>Registreringens ingång</th><th class="n">Konton P1</th><th class="n">Köp P1</th><th class="n">Konton P2</th><th class="n">Köp P2</th></tr></thead>
+<tbody>
+<tr><td>Testsidan ("Börja gratis")</td><td class="n">41</td><td class="n">2</td><td class="n down">5</td><td class="n">0</td></tr>
+<tr><td>Smakprov</td><td class="n">12</td><td class="n">0</td><td class="n up">26</td><td class="n">2</td></tr>
+<tr><td>Direkt</td><td class="n">4</td><td class="n">0</td><td class="n">13</td><td class="n">1</td></tr>
+<tr><td>Headern</td><td class="n">3</td><td class="n">0</td><td class="n">10</td><td class="n">1</td></tr>
+<tr><td>/priser</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">0</td></tr>
+</tbody>
+</table>
+<p class="lead">PostHog, som tappar en del av konton som loggar in med Google utan samtycke. Supabase ger 29 konton från provet, PostHog 26 från smakproven och 19 från logiktestprovet. Landningar som gav konton i P2: startsidan 8, logiska-tester 7, alva-labs-logiktest 7, map-test-personlighetstest 6. styrkor-svagheter-intervju har flest besökare i båda perioderna (163 och 205) och har gett 0 konton.</p>
+
+<h3>Provet utan konto</h3>
+<table>
+<thead><tr><th>Logiktestprovet</th><th class="n">P1</th><th class="n">P2</th></tr></thead>
+<tbody>
+<tr><td>Startade</td><td class="n">110</td><td class="n">273</td></tr>
+<tr><td>Slutförde och mötte spärren</td><td class="n">99</td><td class="n">231 (85 %)</td></tr>
+<tr><td>Klickade vidare till registrering</td><td class="n">55</td><td class="n">143 (62 %)</td></tr>
+<tr><td>Konto via kopplat prov (Supabase)</td><td class="n">9</td><td class="n">29 (13 % av slutförda)</td></tr>
+<tr class="sum"><td>Köp</td><td class="n">0</td><td class="n">2</td></tr>
+</tbody>
+</table>
+<p>Personlighetsprovet utan konto är för litet för att läsa: 11 starter, 3 konton och 1 köp i P2. Det största läckaget i hela tratten ligger mellan klicket vidare (143) och kontot (29).</p>
+
+<h3>Betalväggarna</h3>
+<table>
+<thead><tr><th>Yta i P2</th><th class="n">Personer visade</th><th class="n">Klickade</th><th class="n">Köpte inom 7 d</th></tr></thead>
+<tbody>
+<tr><td>Mätningen (efter Nivåkollen)</td><td class="n">9</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>Testtaket</td><td class="n">5</td><td class="n">0</td><td class="n">1</td></tr>
+<tr><td>Dag 2</td><td class="n">4 (25 visningar)</td><td class="n">0</td><td class="n">1</td></tr>
+<tr><td>Riktat pass</td><td class="n">4</td><td class="n">3</td><td class="n">0</td></tr>
+<tr><td>Testnivå</td><td class="n">3</td><td class="n">2</td><td class="n">2</td></tr>
+<tr><td>Nedladdning</td><td class="n">3</td><td class="n">0</td><td class="n">1</td></tr>
+<tr><td>Analys och kvot</td><td class="n">3</td><td class="n">2</td><td class="n">2</td></tr>
+<tr class="sum"><td>Alla, personer (P1 inom parentes)</td><td class="n">17 (24)</td><td class="n">8 (7)</td><td class="n">3 (3)</td></tr>
+</tbody>
+</table>
+<p>Räckvidden är problemet, inte väggen. 17 av 63 nya konton mötte en vägg. Den nya gratisnivån med vägg efter grundpasset dag 0 har inte gett fler exponeringar, eftersom få når passet. Den som når en vägg med köpknapp köper ofta: 3 av 17. Dagspassets återinförande styrs av regeln "under 10 procent vägg till köp efter 40 exponerade personer eller sex veckor". Utfallet är 3 av 17 efter fyra veckor, så regeln är inte avläst.</p>
+
+<h3>Köpen i P2</h3>
+<table>
+<thead><tr><th>Datum</th><th>Stripe-källa</th><th>Väg</th></tr></thead>
+<tbody>
+<tr><td>19 okt</td><td>/priser</td><td>Google-konto 14 okt, valde tester. Mötte dag2-, testtak- och testnivåväggen, köpte 5 dagar efter registreringen.</td></tr>
+<tr><td>21 okt</td><td>Testnivåväggen</td><td>Bing till testsidan, provet två gånger, konto, köp 3,5 timmar senare.</td></tr>
+<tr><td>4 nov</td><td>/priser</td><td>Google till alva-labs-logiktest, såg filmen, provet, konto, /priser, köp 15 minuter efter kontot.</td></tr>
+<tr><td>4 nov</td><td>Testtaket</td><td>Konto 21:02, köp 21:29. Ingen historik i PostHog.</td></tr>
+<tr><td>7 nov</td><td>Kvotväggen</td><td>Yahoo till hur-skriver-man-cv, personlighetsprovet, konto, CV och personliga brev, köp vid brevkvoten 2,7 timmar senare.</td></tr>
+</tbody>
+</table>
+<p>Alla fem är Premium 149 kr/mån och aktiva. Förnyelse i P2: den gamla månadskunden 2 november, som sade upp samma dag ("använder inte") och slutar 2 december. Intäkt P1 654 kr (207 kr nya köp), P2 894 kr (745 kr nya köp). Löpande intäkt 447 kr 11 oktober, 1&nbsp;043 kr nu och 894 kr efter 2 december.</p>
+
+<h3>Planerade avläsningar</h3>
+<table>
+<thead><tr><th>Avläsning</th><th>Live</th><th>Läge</th><th>Vad datan säger</th></tr></thead>
+<tbody>
+<tr><td>HBO-varianten (/priser före headern)</td><td>24 sep, läsning 22 okt</td><td><span class="tag l">KAN INTE LÄSAS</span></td><td>/priser som ingång har gett 0 konton på sex veckor. Headern 13 konton och 1 köp. De två köpen med Stripe-källan priser hade redan konto. Prissidan är ett köpsteg för befintliga konton, inte en ingång. Regeln talar inte för ett bygge.</td></tr>
+<tr><td>Registreringen steg 1, kill-regeln</td><td>24 sep</td><td><span class="tag m">UTLÖST</span></td><td>77 såg frågan, 27 nådde kontosteget: 61 till 65 procent tapp mot gränsen 25. Steg 1 berör bara cirka 20 personer i månaden, eftersom provet och testsidan har förvalt val.</td></tr>
+<tr><td>Registreringen steg 3, förslaget</td><td>24 sep</td><td><span class="tag s">EJ UTLÖST</span></td><td>54 såg förslaget, 44 valde gratis (81 %), 3 till kassan inom en timme (5,6 %). Ingen ändring.</td></tr>
+<tr><td>Produktfilmen, starter</td><td>13 okt</td><td><span class="tag s">LÄST</span></td><td>Testsidan: 27 visades, 3 nådde 75 procent. Artiklarna: 76 visades, 21 tryckte på spela, 13 nådde 75 procent.</td></tr>
+<tr><td>Produktfilmen, konvertering</td><td>13 okt</td><td><span class="tag l">17 NOV</span></td><td>En av fem P2-köpare startade filmen. Urvalet blir litet, eftersom testsidan har tappat sin trafik.</td></tr>
+<tr><td>Premium, förnyelser</td><td>11 okt</td><td><span class="tag l">19 OCH 21 NOV</span></td><td>Ingen av de fem har sagt upp.</td></tr>
+</tbody>
+</table>
+
+<h2><span class="num">7</span>Inloggat beteende och testerna</h2>
+<p>Nytt avsnitt. Kohorten är konton skapade 14 september till 8 november: 91 i P1 och 63 i P2. Tester-lyftet gick live 11 oktober, så P2 är första gången nya konton möter Nivåkollen, passen och den snåla gratisnivån.</p>
+
+<h3>Första dygnet</h3>
+<table>
+<thead><tr><th>Andel som gör det inom 24 timmar</th><th class="n">P1 (n=91)</th><th class="n">P2 (n=63)</th></tr></thead>
+<tbody>
+<tr><td>Kopplar ett smakprov från publika sidan</td><td class="n">9 %</td><td class="n up">46 %</td></tr>
+<tr><td>Gör något test i kontot</td><td class="n">60 %</td><td class="n down">40 %</td></tr>
+<tr><td>Nivåkollen</td><td class="n">finns ej</td><td class="n">25 % (16)</td></tr>
+<tr><td>Startar ett pass</td><td class="n">finns ej</td><td class="n">14 % (9)</td></tr>
+<tr><td>Klassiskt test (matrislogik m.fl.)</td><td class="n">54 %</td><td class="n">30 %</td></tr>
+<tr><td>Personlighetstest</td><td class="n">13 %</td><td class="n">6 %</td></tr>
+<tr><td>Laddar upp CV</td><td class="n">25 %</td><td class="n">16 %</td></tr>
+<tr><td>Skriver personligt brev</td><td class="n">8 %</td><td class="n">10 %</td></tr>
+<tr><td>Chattar med Jobbcoachen</td><td class="n">0 %</td><td class="n">0 %</td></tr>
+<tr class="sum"><td>Gör inget av ovan</td><td class="n">18 %</td><td class="n down">27 %</td></tr>
+</tbody>
+</table>
+<p>Fler kommer in med ett gjort prov, men färre testar sedan i kontot. Vägen förklarar det: 119 av 154 konton landar på välkomstsidan, och vanligaste vägen i P2 är välkomst till klassiskt test. Av 29 provkonton startar 16 matrislogik-grund inom 1 till 80 minuter, 3 Nivåkollen och 10 inget. Av de 34 som kom på annat sätt gjorde 5 Nivåkollen och 29 inget test alls första dygnet.</p>
+
+<h3>Återkomst per kohort</h3>
+<div class="fig">
+<svg viewBox="0 0 680 214" class="chart" role="img" aria-label="Återkomst per veckokohort"><defs><pattern id="hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="5" stroke="#c9ced4" stroke-width="1.6"/></pattern><pattern id="hatchacc" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="#fff4ed"/><line x1="0" y1="0" x2="0" y2="5" stroke="#e8590c" stroke-width="2"/></pattern></defs><text x="34" y="12" class="ax" style="font-weight:600;fill:#111418">Aktiv dag 1</text><line x1="34" y1="144.0" x2="334" y2="144.0" class="grid"/><text x="29" y="147.0" class="ax r">0 %</text><line x1="34" y1="89.0" x2="334" y2="89.0" class="grid"/><text x="29" y="92.0" class="ax r">25 %</text><line x1="34" y1="34.0" x2="334" y2="34.0" class="grid"/><text x="29" y="37.0" class="ax r">50 %</text><rect x="37.0" y="82.8" width="31.5" height="61.2" class="bar pre"/><text x="52.8" y="78.8" class="val c" style="font-size:7pt">5/18</text><text x="52.8" y="156" class="ax c" style="font-size:6.6pt">14 sep</text><rect x="74.5" y="104.0" width="31.5" height="40.0" class="bar pre"/><text x="90.3" y="100.0" class="val c" style="font-size:7pt">4/22</text><text x="90.3" y="156" class="ax c" style="font-size:6.6pt">21 sep</text><rect x="112.0" y="118.7" width="31.5" height="25.3" class="bar pre"/><text x="127.8" y="114.7" class="val c" style="font-size:7pt">3/26</text><text x="127.8" y="156" class="ax c" style="font-size:6.6pt">28 sep</text><rect x="149.5" y="108.8" width="31.5" height="35.2" class="bar pre"/><text x="165.3" y="104.8" class="val c" style="font-size:7pt">4/25</text><text x="165.3" y="156" class="ax c" style="font-size:6.6pt">5 okt</text><rect x="187.0" y="59.3" width="31.5" height="84.7" class="bar"/><text x="202.8" y="55.3" class="val c" style="font-size:7pt">5/13</text><text x="202.8" y="156" class="ax c" style="font-size:6.6pt">12 okt</text><rect x="224.5" y="118.0" width="31.5" height="26.0" class="bar"/><text x="240.3" y="114.0" class="val c" style="font-size:7pt">2/17</text><text x="240.3" y="156" class="ax c" style="font-size:6.6pt">19 okt</text><rect x="262.0" y="112.5" width="31.5" height="31.5" class="bar"/><text x="277.8" y="108.5" class="val c" style="font-size:7pt">2/14</text><text x="277.8" y="156" class="ax c" style="font-size:6.6pt">26 okt</text><rect x="299.5" y="65.5" width="31.5" height="78.5" class="bar" style="fill:url(#hatchacc);stroke:#e8590c;stroke-width:.8"/><text x="315.3" y="61.5" class="val c" style="font-size:7pt">5/14</text><text x="315.3" y="156" class="ax c" style="font-size:6.6pt">2 nov</text><text x="374" y="12" class="ax" style="font-weight:600;fill:#111418">Aktiv någon dag 1 till 7</text><line x1="374" y1="144.0" x2="674" y2="144.0" class="grid"/><text x="369" y="147.0" class="ax r">0 %</text><line x1="374" y1="89.0" x2="674" y2="89.0" class="grid"/><text x="369" y="92.0" class="ax r">25 %</text><line x1="374" y1="34.0" x2="674" y2="34.0" class="grid"/><text x="369" y="37.0" class="ax r">50 %</text><rect x="377.0" y="58.4" width="31.5" height="85.6" class="bar pre"/><text x="392.8" y="54.4" class="val c" style="font-size:7pt">7/18</text><text x="392.8" y="156" class="ax c" style="font-size:6.6pt">14 sep</text><rect x="414.5" y="104.0" width="31.5" height="40.0" class="bar pre"/><text x="430.3" y="100.0" class="val c" style="font-size:7pt">4/22</text><text x="430.3" y="156" class="ax c" style="font-size:6.6pt">21 sep</text><rect x="452.0" y="110.1" width="31.5" height="33.9" class="bar pre"/><text x="467.8" y="106.1" class="val c" style="font-size:7pt">4/26</text><text x="467.8" y="156" class="ax c" style="font-size:6.6pt">28 sep</text><rect x="489.5" y="82.4" width="31.5" height="61.6" class="bar pre"/><text x="505.3" y="78.4" class="val c" style="font-size:7pt">7/25</text><text x="505.3" y="156" class="ax c" style="font-size:6.6pt">5 okt</text><rect x="527.0" y="42.4" width="31.5" height="101.6" class="bar"/><text x="542.8" y="38.4" class="val c" style="font-size:7pt">6/13</text><text x="542.8" y="156" class="ax c" style="font-size:6.6pt">12 okt</text><rect x="564.5" y="79.3" width="31.5" height="64.7" class="bar"/><text x="580.3" y="75.3" class="val c" style="font-size:7pt">5/17</text><text x="580.3" y="156" class="ax c" style="font-size:6.6pt">19 okt</text><rect x="602.0" y="110.1" width="31.5" height="33.9" class="bar" style="fill:url(#hatchacc);stroke:#e8590c;stroke-width:.8"/><text x="617.8" y="106.1" class="val c" style="font-size:7pt">2/13</text><text x="617.8" y="156" class="ax c" style="font-size:6.6pt">26 okt</text><rect x="639.5" y="118" width="31.5" height="26" fill="url(#hatch)" stroke="#c9ced4" stroke-width=".8"/><text x="655.3" y="114" class="note c">ej mogen</text><text x="655.3" y="156" class="ax c" style="font-size:6.6pt">2 nov</text><rect x="28" y="186" width="10" height="8" class="bar pre"/><text x="42" y="193" class="ax">kohorter i P1</text><rect x="122" y="186" width="10" height="8" class="bar"/><text x="136" y="193" class="ax">kohorter i P2</text><rect x="214" y="186" width="10" height="8" fill="url(#hatch)" stroke="#c9ced4" stroke-width=".8"/><text x="228" y="193" class="ax">fönstret har inte passerat</text><rect x="360" y="186" width="10" height="8" fill="url(#hatchacc)" stroke="#e8590c" stroke-width=".8"/><text x="374" y="193" class="ax">bara en del av kohorten är mogen</text><text x="28" y="207" class="note">Talet över stapeln är aktiva av konton med moget fönster. En person flyttar en kohort 5 till 8 procentenheter.</text></svg>
+<p class="figc">Andel konton per registreringsvecka som var aktiva dag 1 och någon dag 1 till 7. Aktiv = en handling i databasen eller en klienthändelse i PostHog den dagen.</p>
+</div>
+<table>
+<thead><tr><th>Återkomst</th><th class="n">P1</th><th class="n">P2</th><th>Mognad i P2</th></tr></thead>
+<tbody>
+<tr><td>Dag 1</td><td class="n">18 % (16/91)</td><td class="n">24 % (14/58)</td><td>58 av 63 mogna</td></tr>
+<tr><td>Dag 7</td><td class="n">2 % (2/91)</td><td class="n">9 % (4/43)</td><td>bara kohorterna 12 och 19 okt helt mogna</td></tr>
+<tr><td>Dag 14</td><td class="n">0 % (0/91)</td><td class="n">8 % (2/26)</td><td>bara kohorterna 12 och 19 okt</td></tr>
+<tr><td>Någon dag 8 till 14</td><td class="n">7 %</td><td class="n">19 % (5/26)</td><td>två av de fem betalar</td></tr>
+</tbody>
+</table>
+<p>Återkomsten ser bättre ut i P2, men det är 4 och 2 personer och flera av dem betalar. Det är brus tills vi har två mogna kohorter till. Testanvändare kommer tillbaka dagen efter (25 mot 13 procent för andra) men inte veckan efter (4 mot 5 procent dag 7).</p>
+
+<h3>Testerna</h3>
+<table>
+<thead><tr><th>Typ i P2</th><th class="n">Startade</th><th class="n">Slutförda</th><th class="n">Användare</th><th>Var de avbryter</th></tr></thead>
+<tbody>
+<tr><td>Nivåkollen</td><td class="n">21</td><td class="n">13 (62 %)</td><td class="n">16</td><td>5 av 8 avbrutna efter 0 eller 1 av 12 frågor</td></tr>
+<tr><td>Pass</td><td class="n">20</td><td class="n">15 (75 %)</td><td class="n">9</td><td>4 av 5 avbrutna efter 1 till 2 av 9 frågor</td></tr>
+<tr><td>Riktat pass</td><td class="n">10</td><td class="n">9 (90 %)</td><td class="n">1</td><td></td></tr>
+<tr><td>Klassiska test</td><td class="n">54</td><td class="n">47 (87 %)</td><td class="n">21</td><td>numeriskt: 8 av 12 avbrutna hade 0 svar</td></tr>
+<tr><td>Övningsprov</td><td class="n">1</td><td class="n">1</td><td class="n">1</td><td></td></tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Passen bärs av två personer.</strong> 9 personer har gjort pass. 20 av 30 pass kommer från två betalande (12 och 8 pass). Pass per aktiv testanvändare och vecka: 0,43, 1,14, 0,8 och 1,88. Ingen gratisanvändare har gjort pass två olika dagar.</li>
+<li><strong>Avbrotten sker tidigt.</strong> Den som slutar gör det på första frågorna, inte på slutet. Det pekar på förväntan och start, inte uthållighet. Verbalt är undantaget: hälften slutar på första frågan och hälften efter 56 till 60 svar.</li>
+<li><strong>Nivån har ingen kurva än.</strong> 13 användare har nivåpunkter, första nivån jämnt fördelad på 4, 5 och 6 (medel 5,5). Bara 2 har punkter från mer än en dag. Längsta kurvan går från 6,6 till 7 över 6 punkter, hos en betalande.</li>
+<li><strong>Testplanerna används knappt.</strong> 7 planer, 1 med provdatum, 4 med leverantör (2 Alva, 2 Matrigma), inget utfall besvarat och ingen passtid satt.</li>
+<li><strong>Frågebanken saknar volym för kalibrering.</strong> 515 frågor och 1&nbsp;184 svar, men bara en fråga har 10 svar eller fler. Andel rätt: matris 73, numerisk 83, verbal 90 och deduktiv 92 procent.</li>
+</ul>
+
+<h3>Spärrar och betalande</h3>
+<p>27 personer stoppades av spärren över grundnivån, 25 såg testnivåväggen och 9 väggen efter Nivåkollen. 23 procent av kohorten i P1 och 30 procent i P2 har mött någon vägg. Från vägg till köp, alla aktiva: 76 såg priser, 17 klickade i en vägg, 13 nådde köpsteget och 5 startade kassan.</p>
+<p>7 aktiva prenumerationer. Av de 5 nya använder 4 bara tester (3 till 15 testsessioner, inga brev eller CV) och 1 CV och personliga brev. De 2 äldre använder brev och CV och har inte gjort något test. Alla tre som sagt upp sedan september var aktiva en enda dag.</p>
+
+<h3>Mobil mot desktop</h3>
+<table>
+<thead><tr><th>Hela kohorten</th><th class="n">Mobil (n=54)</th><th class="n">Desktop (n=76)</th></tr></thead>
+<tbody>
+<tr><td>Något test dag 0</td><td class="n">63 %</td><td class="n">47 %</td></tr>
+<tr><td>Nivåkollen dag 0</td><td class="n">15 %</td><td class="n">7 %</td></tr>
+<tr><td>Pass dag 0</td><td class="n">11 %</td><td class="n">4 %</td></tr>
+<tr><td>CV-uppladdning dag 0</td><td class="n">13 %</td><td class="n">28 %</td></tr>
+<tr><td>Aktiv dag 1</td><td class="n">16 %</td><td class="n">21 %</td></tr>
+<tr><td>Aktiv någon dag 1 till 7</td><td class="n down">16 %</td><td class="n">30 %</td></tr>
+<tr><td>Slutförda testsessioner</td><td class="n">76 %</td><td class="n">78 %</td></tr>
+</tbody>
+</table>
+<p class="lead">P1 och P2 tillsammans, eftersom P2 ensam ger 25 mobil och 23 desktop. 24 konton saknar spår i PostHog och har okänd enhet. Rage clicks: 63 av 90 på /dashboard/skapa-cv från 7 personer, mest före P2, på inaktiverade fält.</p>
+
+<h2><span class="num">8</span>Åtgärder de kommande fyra veckorna</h2>
+<table>
+<thead><tr><th>#</th><th>Åtgärd</th><th>Insats</th><th>Förväntad effekt</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>Smakprovets resultat till Nivåkollen.</strong> Resultatsidan för det kopplade provet leder till Nivåkollen och därefter första passet, inte matrislogik-grund. Provets svar räknas in i mätningen som i dag.</td><td><span class="tag s">S</span></td><td>Andelen provkonton som gör Nivåkollen dag 0 från 3 av 29 till över hälften. Läses efter två veckor.</td></tr>
+<tr><td>2</td><td><strong>Laga kontosteget.</strong> Klicktesta registreringen från provets spärr som ny användare på Pixel 7 och desktop, med Google och lösenord, och lägg en händelse per steg med felkod så att glappet mellan 143 klick och 29 konton syns.</td><td><span class="tag m">M</span></td><td>Slutförda registreringar från 35 till 50 procent, cirka 25 konton och 2 köp till i månaden.</td></tr>
+<tr><td>3</td><td><strong>Köpknapp i spärren över grundnivån.</strong> Samma utformning som testnivåväggen, med Premium och pris, och klicket mätt.</td><td><span class="tag s">S</span></td><td>Ett köp till i månaden. Ger också underlag till Dagspass-regeln.</td></tr>
+<tr><td>4</td><td><strong>CTR-omgång på åtta sidor.</strong> Titel och beskrivning för timlon-till-manadslon, styrkor-svagheter-intervju, STAR-metoden, cover-letter-sverige, personligt-brev-avslutning-exempel, ljuga-i-cv, soka-jobb-via-mail och rekommendationsbrev. Titeln ska lova svaret.</td><td><span class="tag s">S</span></td><td>Cirka 100 klick till i månaden. Läses fyra veckor efter driftsättning.</td></tr>
+<tr><td>5</td><td><strong>logiska-tester tillbaka.</strong> Uppdatera innehållet mot de frågor som tappat, och länka in från alva-labs-logiktest, matrislogik-test-guide och map-test.</td><td><span class="tag m">M</span></td><td>Från position 11 mot 9: 40 klick och 5 till 10 konton i månaden.</td></tr>
+<tr><td>6</td><td><strong>Mätningen.</strong> Raderade QA-konton ur PostHog-filtret, acquisition_source på alla nya konton, klickhändelse i feature_blocked.</td><td><span class="tag s">S</span></td><td>Nästa rapport kan läsa kanal per konto och spärrar utan handpåläggning.</td></tr>
+</tbody>
+</table>
+<p class="lead">Vi väntar med allt som rör filmen till 17 november och med prisfrågor till Premium-förnyelserna 19 och 21 november. En ändring i taget per yta, så att varje effekt går att läsa.</p>
+
+<h2><span class="num">9</span>Datakvalitet och vad vi inte kan se</h2>
+<ul>
+<li><strong>Två underlag, två tal: konton från provet.</strong> Supabase visar 29 konton som kopplat sitt prov, PostHog 19. Vi använder 29. Kopplingen sker i databasen när kontot skapas och missar inget, medan PostHog tappar förhistorien när någon loggar in med Google utan samtycke och inte ser alls den som tryckt Avvisa.</li>
+<li><strong>Två underlag, två tal: aktivering första dygnet.</strong> Konverteringsunderlaget säger 73 procent aktiverade, det inloggade 40 procent med test. Båda stämmer mot data.json. 73 procent räknar in det kopplade provet, som sker automatiskt vid registrering sedan 11 oktober. 40 procent (25 av 63) är test som gjorts i kontot, och det är det mått som går att jämföra med P1 (55 av 91). Mobilens 63 procent gäller båda perioderna, inte P2.</li>
+<li><strong>Samtycket gör att PostHog underskattar.</strong> Sedan 13 oktober stänger Avvisa av PostHog helt, och utan samtycke lever id:t bara i fliken. 24 av 154 konton (16 procent, 15 av dem i P2) saknar spår. Besökare till konto går inte att jämföra över 13 oktober. Search Console är trafikmåttet och Supabase kontomåttet.</li>
+<li><strong>QA-konton läcker in.</strong> PostHog-filtret (kohort 248676 och id-listan) släpper igenom raderade QA-konton: 87 av 100 personer med nivamatning_klar finns inte i databasen. Inloggade tal är därför begränsade till befintliga konton.</li>
+<li><strong>acquisition_source</strong> finns på 31 av 91 konton i P1 och 19 av 63 i P2, ungefär en tredjedel. Kanal per konto är en uppskattning.</li>
+<li><strong>Vercel Web Analytics är avstängt.</strong> Vi har inget samtyckesfritt mått på besök.</li>
+<li><strong>admin_undantagna_konton() kan inte anropas med läsrollen.</strong> Logiken återskapades i SQL. Ett konto med domänen test.se fångas inte av mönstret och ingår i talen.</li>
+<li><strong>Mindre saker.</strong> Anonyma prov som inte kopplas raderas, så de räknas bara framåt. fraga_statistik saknar user_id och innehåller QA-svar. fraga_rapporter har 1 rad mot 10 händelser i PostHog. user_activities loggas utan väntan och underskattar återkomst. checkout_started saknas för 2 av 5 köp i P2; Stripe är källan.</li>
+<li><strong>Vad vi inte kan se än.</strong> Om Premium-köparna stannar (19 och 21 november). Om filmen ger konton (17 november). Dag 7 och dag 14 för kohorterna 26 oktober och 2 november. Om svackan i ranking efter 12 oktober var omdesignen eller Google. Varför registreringen föll 9 oktober, före alla driftsättningar: ingen ändring hos oss förklarar det och Search Console låg still.</li>
+</ul>
+
+<h2><span class="num">10</span>Det som behöver ägarens beslut</h2>
+<ol>
+<li><strong>Gratisnivån och dag 2.</strong> Ingen gratisanvändare kan göra pass två olika dagar, och dag2-väggen visades 25 gånger för 4 personer utan ett klick. Vill du behålla den snåla nivån, eller släppa ett pass till dag 1 eller 2 så att vanan hinner börja innan väggen? Det är en fråga om gratisnivå och pris, och jag rör den inte utan dig.</li>
+<li><strong>Stryk HBO-varianten.</strong> /priser är ingen ingång (0 konton på sex veckor), så regeln kan aldrig avläsas. Förslag: inget bygge, och vi läser prissidan som köpsteg i stället.</li>
+<li><strong>Steg 1 i registreringen.</strong> Kill-regeln är utlöst (61 till 65 procent tapp, 77 ingångar). Förslag: ta bort frågan för den som kommer utan förval. Den berör cirka 20 personer i månaden.</li>
+<li><strong>Läsrollen och admin_undantagna_konton().</strong> Ge läsrollen rätt att anropa funktionen. Det är en prodmigrering och kräver ditt ja.</li>
+<li><strong>Vercel Web Analytics.</strong> Slå på det för ett samtyckesfritt besöksmått, mot en månadskostnad i Vercel. Ditt beslut.</li>
+<li><strong>Junikunden som sagt upp.</strong> Hen slutar 2 december med orsaken "använder inte" och var senast aktiv med brev i juni. Vill du att vi skickar ett erbjudande, eller låter vi det gå?</li>
+</ol>
+
+<footer>jobbcoach.ai, saas-lead. Rapporten är skrivskyddad analys: inga ändringar i kod, priser eller utskick. Sammanfattning i docs/rapporter/analys-2026-11-08.md.</footer>
+</div>
+</body></html>
