@@ -1,0 +1,833 @@
+{
+ "_om": "Undantag för SEO-omgången efter analysen 2026-11-08 (docs/plan-efter-analys-2026-11-08.md, punkt 7, 8, 9, 12). Läses av scripts/seo-diff-artiklar.ts.",
+ "META_BYTT": [
+  {
+   "path": "/artiklar/logiska-tester",
+   "falt": "title",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position"
+  },
+  {
+   "path": "/artiklar/logiska-tester",
+   "falt": "description",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position"
+  },
+  {
+   "path": "/artiklar/styrkor-svagheter-intervju",
+   "falt": "title",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position"
+  },
+  {
+   "path": "/artiklar/styrkor-svagheter-intervju",
+   "falt": "description",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position"
+  },
+  {
+   "path": "/artiklar/kompetensbaserad-intervju-star-metoden",
+   "falt": "title",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position"
+  },
+  {
+   "path": "/artiklar/kompetensbaserad-intervju-star-metoden",
+   "falt": "description",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position"
+  },
+  {
+   "path": "/artiklar/cover-letter-sverige",
+   "falt": "title",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position"
+  },
+  {
+   "path": "/artiklar/cover-letter-sverige",
+   "falt": "description",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position"
+  },
+  {
+   "path": "/artiklar/personligt-brev-avslutning-exempel",
+   "falt": "title",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position"
+  },
+  {
+   "path": "/artiklar/personligt-brev-avslutning-exempel",
+   "falt": "description",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position"
+  },
+  {
+   "path": "/artiklar/ljuga-i-cv",
+   "falt": "title",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position"
+  },
+  {
+   "path": "/artiklar/ljuga-i-cv",
+   "falt": "description",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position"
+  },
+  {
+   "path": "/artiklar/soka-jobb-via-mail",
+   "falt": "title",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position"
+  },
+  {
+   "path": "/artiklar/soka-jobb-via-mail",
+   "falt": "description",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position"
+  },
+  {
+   "path": "/artiklar/rekommendationsbrev-exempel-mall",
+   "falt": "title",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position"
+  },
+  {
+   "path": "/artiklar/rekommendationsbrev-exempel-mall",
+   "falt": "description",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position"
+  },
+  {
+   "path": "/artiklar/rotation-test-guide",
+   "falt": "title",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position"
+  },
+  {
+   "path": "/rakna-ut/timlon-till-manadslon",
+   "falt": "title",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position"
+  },
+  {
+   "path": "/rakna-ut/timlon-till-manadslon",
+   "falt": "description",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position"
+  },
+  {
+   "path": "/artiklar/rotation-test-guide",
+   "falt": "description",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position"
+  }
+ ],
+ "RUBRIK_NY": [
+  {
+   "path": "/artiklar/logiska-tester",
+   "rubrik": "h2#logiktest-begavningstest-och-intelligenstest-ar-det-samma-sak Logiktest, begåvningstest och intelligenstest: är det samma sak?",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position: fördjupning mot de frågor sidan tappat. Befintliga rubriker orörda."
+  },
+  {
+   "path": "/artiklar/logiska-tester",
+   "rubrik": "h2#logiktest-vid-rekrytering-nar-kommer-det-och-hur-gar-det-till Logiktest vid rekrytering: när kommer det och hur går det till?",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position: fördjupning mot de frågor sidan tappat. Befintliga rubriker orörda."
+  },
+  {
+   "path": "/artiklar/logiska-tester",
+   "rubrik": "h2#exempel-pa-logiska-fragor-med-facit Exempel på logiska frågor med facit",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position: fördjupning mot de frågor sidan tappat. Befintliga rubriker orörda."
+  },
+  {
+   "path": "/artiklar/logiska-tester",
+   "rubrik": "h2#gratis-logiktest-har-kan-du-ova Gratis logiktest: här kan du öva",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position: fördjupning mot de frågor sidan tappat. Befintliga rubriker orörda."
+  },
+  {
+   "path": "/artiklar/rotation-test-guide",
+   "rubrik": "h2#vad-ar-spatial-formaga Vad är spatial förmåga?",
+   "datum": "2026-11-08",
+   "skal": "analys 2026-11-08, CTR och position: fördjupning mot de frågor sidan tappat. Befintliga rubriker orörda."
+  }
+ ],
+ "LANK_BORTA": [
+  {
+   "path": "/artiklar/logiska-tester",
+   "lank": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/alva-labs-logiktest",
+   "lank": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/cover-letter-sverige",
+   "lank": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/ljuga-i-cv",
+   "lank": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/ljuga-i-cv",
+   "lank": "/artiklar/deduktivt-induktivt-test",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/soka-jobb-via-mail",
+   "lank": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/soka-jobb-via-mail",
+   "lank": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/rekommendationsbrev-exempel-mall",
+   "lank": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/rekommendationsbrev-exempel-mall",
+   "lank": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/rotation-test-guide",
+   "lank": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/rotation-test-guide",
+   "lank": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/rotation-test-guide",
+   "lank": "/artiklar/deduktivt-induktivt-test",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/matrislogik-test-guide",
+   "lank": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/matrislogik-test-guide",
+   "lank": "/artiklar/deduktivt-induktivt-test",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/deduktivt-induktivt-test",
+   "lank": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/deduktivt-induktivt-test",
+   "lank": "/artiklar/map-test-personlighetstest",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/map-test-personlighetstest",
+   "lank": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/map-test-personlighetstest",
+   "lank": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/numeriskt-test-guide",
+   "lank": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/numeriskt-test-guide",
+   "lank": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/numeriskt-test-guide",
+   "lank": "/artiklar/deduktivt-induktivt-test",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/personlighetstest-jobb-guide",
+   "lank": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/personlighetstest-jobb-guide",
+   "lank": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/motivationsbrev-exempel",
+   "lank": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/motivationsbrev-exempel",
+   "lank": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/motivationsbrev-exempel",
+   "lank": "/artiklar/deduktivt-induktivt-test",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/hur-ofta-byta-jobb",
+   "lank": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/hur-ofta-byta-jobb",
+   "lank": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/angest-infor-nytt-jobb",
+   "lank": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/angest-infor-nytt-jobb",
+   "lank": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/arbetsgivarintyg-tjanstgoringsbetyg",
+   "lank": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/arbetsgivarintyg-tjanstgoringsbetyg",
+   "lank": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/personligt-brev-folkhogskola",
+   "lank": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/personligt-brev-folkhogskola",
+   "lank": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/personligt-brev-folkhogskola",
+   "lank": "/artiklar/deduktivt-induktivt-test",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/cv-exempel-student-nyexaminerad",
+   "lank": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/cv-exempel-student-nyexaminerad",
+   "lank": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/cv-bild-guide",
+   "lank": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/cv-bild-guide",
+   "lank": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/saga-upp-sig",
+   "lank": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/saga-upp-sig",
+   "lank": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/vad-ar-ett-cv",
+   "lank": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/vad-ar-ett-cv",
+   "lank": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/vad-ar-ett-cv",
+   "lank": "/artiklar/deduktivt-induktivt-test",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "lank": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "lank": "/artiklar/deduktivt-induktivt-test",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/loneforhandling",
+   "lank": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/loneforhandling",
+   "lank": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/loneforhandling",
+   "lank": "/artiklar/deduktivt-induktivt-test",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/verbalt-test-guide",
+   "lank": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/verbalt-test-guide",
+   "lank": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/verbalt-test-guide",
+   "lank": "/artiklar/deduktivt-induktivt-test",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/europass-cv",
+   "lank": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/europass-cv",
+   "lank": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/europass-cv",
+   "lank": "/artiklar/deduktivt-induktivt-test",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar/vaga-byta-jobb",
+   "lank": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-08",
+   "skal": "Läs vidare-korten är automatiska; de fyra nya testartiklarna tränger undan äldre kort. Länken i brödtexten är orörd."
+  },
+  {
+   "path": "/artiklar",
+   "lank": "/artiklar/ai-jobbmatchning",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar",
+   "lank": "/artiklar/arbetslivserfarenhet-cv",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar",
+   "lank": "/artiklar/ats-vanligt-cv",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar",
+   "lank": "/artiklar/bli-hittad-av-rekryterare",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar",
+   "lank": "/artiklar?tag=ai%20jobbmatchning",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar",
+   "lank": "/artiklar?tag=alva%20test%20gratis",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar",
+   "lank": "/artiklar?tag=arbetslivserfarenhet%20cv",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar",
+   "lank": "/artiklar?tag=ats",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar",
+   "lank": "/artiklar?tag=ats-v%C3%A4nligt%20cv",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar",
+   "lank": "/artiklar?tag=beskriva%20arbetslivserfarenhet",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar",
+   "lank": "/artiklar?tag=bli%20hittad%20av%20rekryterare",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar",
+   "lank": "/artiklar?tag=bli%20kontaktad%20av%20rekryterare",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar",
+   "lank": "/artiklar?tag=jobbmatchning",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar?page=2",
+   "lank": "/artiklar/hur-langt-ska-ett-cv-vara",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar?page=2",
+   "lank": "/artiklar/korrekturlasa-cv",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar?page=2",
+   "lank": "/artiklar/ladda-upp-cv-linkedin",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar?page=2",
+   "lank": "/artiklar/ledarskapsformagor-cv",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar?page=2",
+   "lank": "/artiklar?tag=cv%20l%C3%A4ngd",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar?page=2",
+   "lank": "/artiklar?tag=cv%20p%C3%A5%20linkedin",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar?page=2",
+   "lank": "/artiklar?tag=hur%20l%C3%A5ngt%20ska%20ett%20cv%20vara",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar?page=2",
+   "lank": "/artiklar?tag=korrekturl%C3%A4sa%20cv",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar?page=2",
+   "lank": "/artiklar?tag=ladda%20upp%20cv%20linkedin",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar?page=2",
+   "lank": "/artiklar?tag=ledaregenskaper",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar?page=2",
+   "lank": "/artiklar?tag=ledarskapsf%C3%B6rm%C3%A5gor%20cv",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar?page=2",
+   "lank": "/artiklar?tag=stavfel%20cv",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  }
+ ],
+ "LD_UNDANTAG": [
+  {
+   "path": "/artiklar/logiska-tester",
+   "datum": "2026-11-08",
+   "andrade": [
+    "BlogPosting"
+   ],
+   "skal": "analys 2026-11-08, CTR och position: BlogPostings description, keywords, wordCount eller innehållsförteckning följer den nya metadatan och de nya avsnitten."
+  },
+  {
+   "path": "/artiklar/styrkor-svagheter-intervju",
+   "datum": "2026-11-08",
+   "andrade": [
+    "BlogPosting"
+   ],
+   "skal": "analys 2026-11-08, CTR och position: BlogPostings description, keywords, wordCount eller innehållsförteckning följer den nya metadatan och de nya avsnitten."
+  },
+  {
+   "path": "/artiklar/kompetensbaserad-intervju-star-metoden",
+   "datum": "2026-11-08",
+   "andrade": [
+    "BlogPosting"
+   ],
+   "skal": "analys 2026-11-08, CTR och position: BlogPostings description, keywords, wordCount eller innehållsförteckning följer den nya metadatan och de nya avsnitten."
+  },
+  {
+   "path": "/artiklar/cover-letter-sverige",
+   "datum": "2026-11-08",
+   "andrade": [
+    "BlogPosting"
+   ],
+   "skal": "analys 2026-11-08, CTR och position: BlogPostings description, keywords, wordCount eller innehållsförteckning följer den nya metadatan och de nya avsnitten."
+  },
+  {
+   "path": "/artiklar/personligt-brev-avslutning-exempel",
+   "datum": "2026-11-08",
+   "andrade": [
+    "BlogPosting"
+   ],
+   "skal": "analys 2026-11-08, CTR och position: BlogPostings description, keywords, wordCount eller innehållsförteckning följer den nya metadatan och de nya avsnitten."
+  },
+  {
+   "path": "/artiklar/ljuga-i-cv",
+   "datum": "2026-11-08",
+   "andrade": [
+    "BlogPosting"
+   ],
+   "skal": "analys 2026-11-08, CTR och position: BlogPostings description, keywords, wordCount eller innehållsförteckning följer den nya metadatan och de nya avsnitten."
+  },
+  {
+   "path": "/artiklar/soka-jobb-via-mail",
+   "datum": "2026-11-08",
+   "andrade": [
+    "BlogPosting"
+   ],
+   "skal": "analys 2026-11-08, CTR och position: BlogPostings description, keywords, wordCount eller innehållsförteckning följer den nya metadatan och de nya avsnitten."
+  },
+  {
+   "path": "/artiklar/rekommendationsbrev-exempel-mall",
+   "datum": "2026-11-08",
+   "andrade": [
+    "BlogPosting"
+   ],
+   "skal": "analys 2026-11-08, CTR och position: BlogPostings description, keywords, wordCount eller innehållsförteckning följer den nya metadatan och de nya avsnitten."
+  },
+  {
+   "path": "/artiklar/rotation-test-guide",
+   "datum": "2026-11-08",
+   "andrade": [
+    "BlogPosting"
+   ],
+   "skal": "analys 2026-11-08, CTR och position: BlogPostings description, keywords, wordCount eller innehållsförteckning följer den nya metadatan och de nya avsnitten."
+  },
+  {
+   "path": "/artiklar/matrislogik-test-guide",
+   "datum": "2026-11-08",
+   "andrade": [
+    "BlogPosting"
+   ],
+   "skal": "analys 2026-11-08, CTR och position: BlogPostings description, keywords, wordCount eller innehållsförteckning följer den nya metadatan och de nya avsnitten."
+  },
+  {
+   "path": "/artiklar/deduktivt-induktivt-test",
+   "datum": "2026-11-08",
+   "andrade": [
+    "BlogPosting"
+   ],
+   "skal": "analys 2026-11-08, CTR och position: BlogPostings description, keywords, wordCount eller innehållsförteckning följer den nya metadatan och de nya avsnitten."
+  },
+  {
+   "path": "/artiklar/personlighetstest-jobb-guide",
+   "datum": "2026-11-08",
+   "andrade": [
+    "BlogPosting"
+   ],
+   "skal": "analys 2026-11-08, CTR och position: BlogPostings description, keywords, wordCount eller innehållsförteckning följer den nya metadatan och de nya avsnitten."
+  },
+  {
+   "path": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-08",
+   "andrade": [
+    "BlogPosting"
+   ],
+   "skal": "Analys 2026-11-08: nya länkar eller nya artiklar i listan ändrar wordCount, innehållsförteckning eller listans poster."
+  },
+  {
+   "path": "/artiklar/numeriskt-test-guide",
+   "datum": "2026-11-08",
+   "andrade": [
+    "BlogPosting"
+   ],
+   "skal": "Fanns redan mot baslinjen före omgången (produktfilmen 2026-10-13, wordCount). Inget ändrat i omgången."
+  },
+  {
+   "path": "/artiklar",
+   "datum": "2026-11-08",
+   "andrade": [
+    "CollectionPage"
+   ],
+   "skal": "Analys 2026-11-08: nya länkar eller nya artiklar i listan ändrar wordCount, innehållsförteckning eller listans poster."
+  },
+  {
+   "path": "/artiklar?page=2",
+   "datum": "2026-11-08",
+   "andrade": [
+    "CollectionPage"
+   ],
+   "skal": "Analys 2026-11-08: nya länkar eller nya artiklar i listan ändrar wordCount, innehållsförteckning eller listans poster."
+  },
+  {
+   "path": "/rakna-ut/timlon-till-manadslon",
+   "datum": "2026-11-08",
+   "andrade": [
+    "FAQPage"
+   ],
+   "skal": "analys 2026-11-08, CTR och position: FAQ-svaret säger 31 320 kr i stället för ungefär 31 300, samma tal som den nya description. Frågan oförändrad."
+  }
+ ],
+ "RUBRIK_BORTA": [
+  {
+   "path": "/artiklar",
+   "rubrik": "h2 AI-jobbmatchning: så fungerar det när jobben hittar dig i stället",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar",
+   "rubrik": "h2 Arbetslivserfarenhet i CV:t: så beskriver du dina jobb så de säljer",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar",
+   "rubrik": "h2 ATS-vänligt CV: så fungerar rekryteringssystemen och så klarar du dem",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar",
+   "rubrik": "h2 Bli hittad av rekryterare: så vänder du på hela jobbsökandet",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar?page=2",
+   "rubrik": "h2 Hur långt ska ett CV vara? En eller två sidor, och vad du stryker",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar?page=2",
+   "rubrik": "h2 Korrekturläsa CV:t: checklistan som fångar felen innan rekryteraren gör det",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar?page=2",
+   "rubrik": "h2 Ladda upp CV:t på LinkedIn: tre sätt, och när du ska välja vilket",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  },
+  {
+   "path": "/artiklar?page=2",
+   "rubrik": "h2 Ledarskapsförmågor i CV:t: så visar du dem med bevis, med eller utan chefstitel",
+   "datum": "2026-11-08",
+   "skal": "Artikellistan visar de nyaste först; fyra nya artiklar flyttar äldre kort till nästa sida."
+  }
+ ]
+}

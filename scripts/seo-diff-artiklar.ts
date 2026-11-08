@@ -171,6 +171,21 @@ const RUBRIK_BYTT: Array<{ path: string; fore: string; efter: string; datum: str
  * Rubriker som får försvinna utan ersättare (en dubblett), med datum och skäl.
  * Matchas som "nivå text" och tar bort en förekomst.
  */
+/**
+ * Nya rubriker i artiklar som godkänts (analysen 2026-11-08: logiska-tester
+ * fördjupades). I artiklarna fäller annars varje ny h2/h3. Rubriken anges som
+ * "h2#id text", samma form som i jämförelsen. Befintliga rubriker ska ligga
+ * kvar i samma ordning.
+ */
+const RUBRIK_NY: Array<{ path: string; rubrik: string; datum: string; skal: string }> = [];
+
+/**
+ * Länkar som får försvinna ur en artikels innehåll, med skäl. Gäller bara
+ * kortlistan Läs vidare (relaterade artiklar väljs automatiskt efter taggar
+ * och datum, så nya artiklar tränger undan äldre). Analysen 2026-11-08.
+ */
+const LANK_BORTA: Array<{ path: string; lank: string; datum: string; skal: string }> = [];
+
 const RUBRIK_BORTA: Array<{ path: string; rubrik: string; datum: string; skal: string }> = [
   {
     path: '/kontakt',
@@ -307,6 +322,8 @@ function lasUndantagsfiler() {
     lagg(LD_UNDANTAG, 'LD_UNDANTAG')
     lagg(RUBRIK_BYTT, 'RUBRIK_BYTT')
     lagg(RUBRIK_BORTA, 'RUBRIK_BORTA')
+    lagg(RUBRIK_NY, 'RUBRIK_NY')
+    lagg(LANK_BORTA, 'LANK_BORTA')
     lagg(H1_BYTT, 'H1_BYTT')
     lagg(META_BYTT, 'META_BYTT')
     lagg(FAQ_BYTT, 'FAQ_BYTT')
@@ -761,7 +778,12 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
       const tillaten = (r: Rubrik) =>
         TILLATNA_RUBRIKER.some((t) => (t.length <= 8 ? r.text === t : r.text.startsWith(t)));
       const fr = f.rubriker.filter((r) => !tillaten(r)).map((r) => `${r.tag}#${r.id} ${r.text}`);
-      const er = e.rubriker.filter((r) => !tillaten(r)).map((r) => `${r.tag}#${r.id} ${r.text}`);
+      const nyaGodkanda = new Set(RUBRIK_NY.filter((n) => n.path === f.path).map((n) => n.rubrik));
+      const erAlla = e.rubriker.filter((r) => !tillaten(r)).map((r) => `${r.tag}#${r.id} ${r.text}`);
+      const er = erAlla.filter((r) => !nyaGodkanda.has(r));
+      for (const n of RUBRIK_NY.filter((n) => n.path === f.path)) {
+        if (erAlla.includes(n.rubrik)) info(`ny rubrik (${n.datum}): "${n.rubrik}". ${n.skal}`);
+      }
       if (f.path.startsWith('/artiklar/')) {
         if (JSON.stringify(fr) !== JSON.stringify(er)) {
           const d = multisetSkillnad(fr, er);
@@ -822,7 +844,12 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
       // Länkar i innehållet: ingen unik länk får försvinna.
       const dl = unikSkillnad(f.lankar, e.lankar);
       if (f.path.startsWith('/artiklar/') || f.path.startsWith('/artiklar')) {
-        if (dl.borta.length) brott(`interna länkar borta ur innehållet: ${JSON.stringify(dl.borta)}`);
+        const bortaKvar = dl.borta.filter((l) => {
+          const u = LANK_BORTA.find((b) => b.path === f.path && b.lank === l);
+          if (u) info(`länk ur Läs vidare (${u.datum}): ${l}. ${u.skal}`);
+          return !u;
+        });
+        if (bortaKvar.length) brott(`interna länkar borta ur innehållet: ${JSON.stringify(bortaKvar)}`);
       } else if (dl.borta.length) {
         // Omritade publika ytor: länkar i innehållet ska finnas kvar någonstans på sidan.
         const allaEfter = new Set([...e.lankar, ...e.ramLankar]);
