@@ -5,6 +5,7 @@
  */
 
 import { paketKort } from '@/lib/plans/plans'
+import { talord } from '@/lib/traning/copy'
 
 export const PROVSIDA = {
   eyebrow: 'Rekryteringstester',
@@ -15,13 +16,23 @@ export const PROVSIDA = {
   av: (totalt: number) => `rätt av ${totalt}`,
   meta: (datum: string) => `Provet utan konto, fem frågor, ${datum}`,
   omdome: (ratt: number, totalt: number): string => {
-    if (ratt === totalt) return 'Alla rätt. Grundnivån har femton frågor av samma sort, och efter den väntar avancerad nivå.'
+    if (ratt === totalt) return 'Alla rätt. Nivåkollen tar vid där provet slutar och visar hur långt du når.'
     if (ratt >= totalt - 1) return 'Nästan alla rätt. Läs regeln för den du missade, så känner du igen mönstret nästa gång.'
     if (ratt >= Math.ceil(totalt / 2)) return 'Mer än hälften rätt. Läs reglerna nedan: mönstren kommer tillbaka i det skarpa testet.'
-    return 'Mönstren blir lättare när du sett dem en gång. Läs regeln under varje fråga och gör sedan grundnivån.'
+    return 'Mönstren blir lättare när du sett dem en gång. Läs regeln under varje fråga och kolla sedan din nivå.'
+  },
+  /**
+   * Vidare till träningen (analysen 2026-11-08, punkt 1): Nivåkollen räknar
+   * in provets svar. Har hon redan gjort Nivåkollen väntar dagens pass.
+   */
+  vidare: {
+    nivakollRubrik: 'Nästa steg: Nivåkollen',
+    nivakollText: (n: number) =>
+      `Dina ${talord(n)} svar räknas in. Några frågor till som anpassar sig efter hur det går, sedan vet du din nivå och får ett pass för i dag.`,
+    passRubrik: 'Nästa steg: dagens pass',
+    passText: 'Du har gjort Nivåkollen. Passet ligger på din nivå och tar några minuter.',
   },
   genomgang: 'Tryck på en fråga för att visa eller dölja regeln och rätt svar.',
-  knapp: 'Gör grundnivån',
   traning: 'Se vad som ingår',
   traningText: `Alla nivåer, övningsprov mot klockan och förklaring till varje fråga ingår i ${paketKort()}.`,
   hubb: 'Till rekryteringstesterna',

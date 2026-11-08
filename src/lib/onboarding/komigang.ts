@@ -310,18 +310,21 @@ export function brickaText(
     case 'matris_grund':
       return {
         key,
-        titel: 'Matrislogik, grundnivå',
+        // Brickan leder till Nivåkollen och träningen, inte till det gamla
+        // grundtestet (analysen 2026-11-08, punkt 1). Båda räknas som gjorda
+        // (brickorForTestType).
+        titel: 'Nivåkollen',
         text:
           paket === 'tester'
-            ? 'Cirka 20 minuter, förklaring efter varje fråga'
-            : 'Gratis att prova, förklaring efter varje fråga',
+            ? 'Cirka åtta minuter, sedan ett pass på din nivå'
+            : 'Gratis, cirka åtta minuter, sedan ett pass på din nivå',
         klarText:
           typeof fakta.matrisRatt === 'number' && typeof fakta.matrisAv === 'number'
             ? `${fakta.matrisRatt} av ${fakta.matrisAv} rätt`
             : 'Gjord',
-        kort: 'matrislogik, grundnivå',
-        href: '/dashboard/tester/matrislogik-grund',
-        knapp: 'Börja med matrislogik',
+        kort: 'Nivåkollen',
+        href: TRANING_RUTT.matning,
+        knapp: 'Kolla min nivå',
       }
     case 'matris_avancerad':
       return {
@@ -389,7 +392,7 @@ export function brickaText(
 
 /** Gratisvarianterna ur designfilens slutcopy ("Kom igång, gratis"). */
 const GRATIS_TEXT: Partial<Record<BrickaKey, Pick<BrickaText, 'titel' | 'text'>>> = {
-  matris_grund: { titel: 'Matrislogik, grundnivå', text: 'Gratis att prova, förklaring efter varje fråga' },
+  matris_grund: { titel: 'Nivåkollen', text: 'Gratis, cirka åtta minuter, sedan ett pass på din nivå' },
   personlighet: { titel: 'Personlighetstestet', text: '50 påståenden, se vad rekryteraren läser ut' },
   intervjuprov: { titel: 'Intervjuprovet', text: 'En fråga, återkoppling på svaret' },
   analys_gratis: { titel: 'Analysera ditt CV', text: 'Poängen och det tyngsta fyndet' },

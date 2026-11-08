@@ -191,7 +191,7 @@ describe('kriterium 16: Kom igång per val för gratiskonton', () => {
     const lage = komIgangLage(null, [], false, 'tester')
     const titlar = lage.lista.map((k) => brickaText(k, null, {}, lage.gratisMedVal).titel)
     expect(titlar).toEqual([
-      'Matrislogik, grundnivå',
+      'Nivåkollen',
       'Personlighetstestet',
       'Intervjuprovet',
       'Analysera ditt CV',

@@ -28,13 +28,17 @@ import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 import { hamtaEllerGorAnsprakProv, provGenomgang } from '@/lib/tests/prov-rad'
 import { arBlandad } from '@/lib/logicTestV7/blanda'
 import { bankVersion } from '@/lib/logicTestV7/selectQuestions.v7'
+import { HEM } from '@/lib/traning/hem-copy'
+import { PASS_COPY } from '@/lib/traning/pass-copy'
+import { TRANING_RUTT } from '@/lib/traning/rutter'
 import { PROVSIDA } from '../prov-copy'
 
 export const metadata = { title: 'Ditt logiktestprov', robots: { index: false, follow: false } }
 export const dynamic = 'force-dynamic'
 
-const GRUNDNIVA_HREF = '/dashboard/tester/matrislogik-grund'
 const TESTER_HREF = '/dashboard/tester'
+/** Nivåkollens sessioner, samma test_type som hubben läser (getHubData). */
+const NIVAKOLL_TEST_TYPE = 'matrislogik-matning'
 const PANEL = 'rounded-xl border border-kant bg-panel p-4 sm:p-6'
 const TEXTLANK =
   'inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1'
@@ -51,14 +55,44 @@ export default async function LogiktestProvPage({ params }: { params: Promise<{ 
   if (!user) redirect('/login')
 
   const admin = getSupabaseAdmin() as unknown as SupabaseClient<any>
-  const [rad, scope] = await Promise.all([
+  const [rad, scope, harNivakoll] = await Promise.all([
     hamtaEllerGorAnsprakProv(admin, token, user.id),
     getUserScope(createServerClient({ cookies: await cookies() }), user.id).catch(() => null),
+    Promise.resolve(
+      admin
+        .from('logic_test_v4_sessions')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', user.id)
+        .eq('test_type', NIVAKOLL_TEST_TYPE)
+        .not('completed_at', 'is', null)
+    ).then(
+      (r) => (r.count ?? 0) > 0,
+      () => false
+    ),
   ])
   if (!rad) notFound()
 
   const { fragor, svar, ratt, totalt } = provGenomgang(rad.token, rad.answers ?? [], arBlandad(rad.meta), bankVersion(rad.meta))
   const gratis = scope === null
+
+  // Vidare till träningen (analysen 2026-11-08, punkt 1). Nivåkollen räknar in
+  // provets svar, så den som inte gjort den fortsätter dit. Har hon gjort den
+  // väntar dagens pass. Det gamla grundtestet är aldrig nästa steg härifrån.
+  const vidare = harNivakoll
+    ? {
+        href: TRANING_RUTT.pass,
+        knapp: PASS_COPY.knapp.startaPass,
+        cta: 'logiktestprov-pass',
+        rubrik: PROVSIDA.vidare.passRubrik,
+        text: PROVSIDA.vidare.passText,
+      }
+    : {
+        href: TRANING_RUTT.matning,
+        knapp: HEM.matning.smakprovKnapp(HEM.matning.smakprovMinuter(totalt)),
+        cta: 'logiktestprov-nivakollen',
+        rubrik: PROVSIDA.vidare.nivakollRubrik,
+        text: PROVSIDA.vidare.nivakollText(totalt),
+      }
 
   return (
     <>
@@ -84,24 +118,16 @@ export default async function LogiktestProvPage({ params }: { params: Promise<{ 
         <p className="mt-2.5 text-varde text-ink-1">{PROVSIDA.omdome(ratt, totalt)}</p>
       </section>
 
-      <p className="text-sm leading-[22px] text-ink-2">{PROVSIDA.genomgang}</p>
-      <MatrixQuestionReview
-        slug="matrislogik-grund"
-        answers={svar}
-        fragor={fragor}
-        utanTid
-        allaOppna
-      />
-
-      {/* Vidare: grundnivån först, vad som ingår i Premium bara för gratis. */}
-      <section className={PANEL} aria-label={PROVSIDA.knapp}>
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
-          <Link
-            href={GRUNDNIVA_HREF}
-            data-cta="logiktestprov-grundniva"
-            className={`${KNAPP_PRIMAR} sm:w-auto`}
-          >
-            {PROVSIDA.knapp}
+      {/* Vidare direkt under resultatet, så att vägen syns utan att rulla
+          förbi genomgången. Premium bara som länk för gratis. */}
+      <section className={PANEL} aria-labelledby="prov-vidare">
+        <h2 id="prov-vidare" className="text-kort-t text-ink-1">
+          {vidare.rubrik}
+        </h2>
+        <p className="mt-1 text-sm leading-[22px] text-ink-2">{vidare.text}</p>
+        <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
+          <Link href={vidare.href} data-cta={vidare.cta} className={`${KNAPP_PRIMAR} sm:w-auto`}>
+            {vidare.knapp}
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
           {gratis ? (
@@ -116,6 +142,22 @@ export default async function LogiktestProvPage({ params }: { params: Promise<{ 
         </div>
         {gratis ? <p className="mt-2 text-meta text-ink-3">{PROVSIDA.traningText}</p> : null}
       </section>
+
+      <p className="text-sm leading-[22px] text-ink-2">{PROVSIDA.genomgang}</p>
+      <MatrixQuestionReview
+        slug="matrislogik-grund"
+        answers={svar}
+        fragor={fragor}
+        utanTid
+        allaOppna
+      />
+
+      {/* Foten: samma mål som kortet ovan, för den som läst hela genomgången. */}
+      <div className="flex">
+        <Link href={vidare.href} data-cta={`${vidare.cta}-fot`} className={TEXTLANK}>
+          {vidare.knapp}
+        </Link>
+      </div>
     </div>
     </Golv>
     </>
