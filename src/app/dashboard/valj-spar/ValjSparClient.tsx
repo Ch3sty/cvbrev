@@ -25,6 +25,7 @@ import { LANK } from '@/components/shell/knappar'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import FlowShell from '@/components/shell/FlowShell'
+import { useFriSikt } from '@/components/shared/useFriSikt'
 import ChoiceCard from '@/components/shell/ChoiceCard'
 import FlowError from '@/components/shell/FlowError'
 import { Check } from '@/components/illustrations/RumIkoner'
@@ -100,6 +101,10 @@ export default function ValjSparClient({
   // consent_checked första gången rutan kryssas i. Skiljer "läste och
   // tvekade vid kryssrutan" från "tryckte Till betalning och kom inte fram".
   const samtyckeMatt = useRef(false)
+  // Samtycket till kakor ligger aldrig över köpvillkoret (klicktestet
+  // 2026-11-08: på Pixel 7 täckte det rutan som måste kryssas för kassan).
+  const villkorRef = useRef<HTMLLabelElement | null>(null)
+  useFriSikt(villkorRef, steg === 'kop')
   const bockaSamtycke = useCallback(
     (checked: boolean) => {
       setSamtycke(checked)
@@ -342,7 +347,7 @@ export default function ValjSparClient({
         </div>
       </section>
 
-      <label className="mt-4 flex min-h-11 cursor-pointer items-start gap-3 text-[13px] leading-[19px] text-ink-2">
+      <label ref={villkorRef} className="mt-4 flex min-h-11 cursor-pointer items-start gap-3 text-[13px] leading-[19px] text-ink-2">
         <input
           type="checkbox"
           checked={samtycke}

@@ -27,7 +27,10 @@
  * med det som finns: poängen, tiden och en rad om att genomgången saknas.
  */
 
-import { KNAPP_PRIMAR } from '@/components/shell/knappar'
+import { KNAPP_PRIMAR, KNAPP_SEKUNDAR } from '@/components/shell/knappar'
+import { capture } from '@/lib/analytics/events'
+import { SALD_PLAN, kopKnapp } from '@/lib/plans/plans'
+import { kopstegHref } from '@/lib/onboarding/steps'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
@@ -81,6 +84,49 @@ interface SessionData {
 
 
 const NASTA: Partial<Record<TestLevel, TestLevel>> = { grund: 'avancerad', avancerad: 'expert', expert: 'prov' }
+
+/**
+ * Är statusraden en spärr för gratisnivån? Grundnivån är gjord för i dag,
+ * eller nästa nivå (eller övningsprovet) ingår i Premium. Då får raden en
+ * köpknapp till köpsteget (analysen 2026-11-08, punkt 3: 27 stoppades här
+ * och raden hade bara en länk till Alla tester).
+ */
+function rytmLast(config: TestConfig, pct: number, scope: Scope | null | undefined): boolean {
+  if (scope === undefined || config.level === 'prov' || scopeHasFeature(scope, 'tests_above_base')) return false
+  if (pct < SITTER_PROCENT) return config.level === 'grund'
+  const nastaNiva = NASTA[config.level]
+  const nasta = nastaNiva ? TEST_CONFIGS.find((c) => c.kind === config.kind && c.level === nastaNiva) : undefined
+  return !!nasta?.requiresFeature && !scopeHasFeature(scope, nasta.requiresFeature)
+}
+
+/** Köpknappen i statusraden. betalvagg_visad en gång per montering, plats testresultat. */
+function StatusKop() {
+  const visad = useRef(false)
+  useEffect(() => {
+    if (visad.current) return
+    visad.current = true
+    capture('betalvagg_visad', { plats: 'testresultat', dagar_kvar: null })
+  }, [])
+  return (
+    <button
+      type="button"
+      data-cta="testresultat-kop"
+      onClick={() => {
+        capture('paywall_cta_clicked', {
+          variant: 'testniva',
+          surface: typeof window === 'undefined' ? '' : window.location.pathname,
+          cta: 'primary',
+          plan: SALD_PLAN,
+          plats: 'testresultat',
+        })
+        window.location.href = kopstegHref(SALD_PLAN, 'testresultat')
+      }}
+      className={`${KNAPP_SEKUNDAR} sm:w-auto`}
+    >
+      {kopKnapp(SALD_PLAN)}
+    </button>
+  )
+}
 
 /**
  * Rytmraden i statusraden. scope undefined: paketet är inte känt än, och
@@ -301,11 +347,12 @@ export default function TestResultsPage({
   const visaAlla = () => oppna([])
 
   const rytm = rytmrad(config, pct, scope)
+  const last = rytmLast(config, pct, scope)
   const utanCv = resultsData?.hasCv === false
   const status = (
     // Full bredd på dator: i en tredjedelskolumn bröts raden på sex till sju
     // rader (QA efter lyftet). Var du tappade spänner i stället över två rader.
-    <div className="steg s4 flex items-center justify-between gap-3 self-start rounded-xl lg:col-span-3 border border-kant bg-papper px-4 py-3 text-sm leading-5 text-ink-1">
+    <div className={`steg s4 flex items-center justify-between gap-3 self-start rounded-xl lg:col-span-3 border border-kant bg-papper px-4 py-3 text-sm leading-5 text-ink-1 ${last ? 'flex-wrap' : ''}`}>
       <span className="flex min-w-0 items-center gap-2.5">
         <span className="h-2 w-2 shrink-0 rounded-full bg-koppar" aria-hidden="true" />
         <span>
@@ -320,6 +367,11 @@ export default function TestResultsPage({
       >
         {utanCv ? RESULTAT.status.lankCv : RESULTAT.status.lank}
       </Link>
+      {last ? (
+        <span className="basis-full sm:basis-auto">
+          <StatusKop />
+        </span>
+      ) : null}
     </div>
   )
 
