@@ -146,3 +146,20 @@ Lyckas inte en sida vid andra avläsningen gör vi en av tre saker: ny titel om 
 - IndexNow-nyckel och Bing Webmaster Tools är på plats 2026-09-23 (importerat från Search Console, sajtkarta uppladdad).
 - Rekryterarsidor (beslut 4, 2026-09-24): ja, men först när resten av planen är klar. Kandidatsidorna går före hela kvartalet; rekryterarämnena "lönekartläggning krav" och "kompetensbaserad rekrytering" ligger i kö efter v52.
 - Personlighetstest (ändrat 2026-09-24): byggs nu, inte i oktober. Publikt smakprov i artiklarna där det passar (som intervjuprovet) och en röd tråd in i det inloggade läget: besökaren som gjort intervjuprovet eller personlighetstestet ska hitta sina resultat, kunna följa upp och göra om, även som betalande. Design i artefakt först.
+
+## Publicerat 2026-11-08 (analysen 8 november, punkt 12)
+
+Ingen ny sida hade kommit sedan 13 oktober. Den här omgången tar testklustret först, med ämnen ur tabellen ovan och ur de växande frågorna i analysen.
+
+| Plan-nr | Slug | Målfråga i Search Console (P2, 12 okt till 6 nov) | Kommentar |
+|---|---|---|---|
+| 5 | /artiklar/arbetspsykologiska-tester | "arbetspsykologiska tester exempel" (28 visningar, pos 27 med logiska-tester), "arbetspsykologiska tester" (20, pos 69), "intelligenstest rekrytering" (24, pos 52) | Navet för testklustret, en löst uppgift per testtyp. |
+| 7 | /artiklar/logiktest-exempel-med-losningar | "logiktest exempel" (ny fråga), "logiska frågor" (16, pos 9), "logiskt test figurer förklaring" (32, pos 10), "logiskt tänkande övningar med facit" (25, pos 4,5) | 20 egna uppgifter med lösning, graderade. |
+| 4 | /artiklar/matrigma-test | "matrigma test öva" (32, pos 24), "matrigma test gratis" (30, pos 27), båda i dag på matrislogik-test-guide | Fakta ur Assessios tekniska manual och kandidatsidor. |
+| 8 | /artiklar/aon-cut-e-test | ingen synlig fråga ännu | Modultabell ur Aons egna kandidatsidor och övningsfiler. |
+
+Omskrivningar i samma omgång: logiska-tester fick fyra nya avsnitt (begrepp, var i processen, exempel med facit, gratis övning) och ny seoTitle; rotation-test-guide fick "Vad är spatial förmåga?" (R8) och ny seoTitle. Hubblänkar till de nya sidorna lades i logiska-tester, matrislogik-test-guide, deduktivt-induktivt-test, alva-labs-logiktest, map-test-personlighetstest och personlighetstest-jobb-guide. Inget innehåll togs bort ur hubbarna (hubbtrimningen i avsnitt 2 skjuts upp; ägarens regel 2026-11-08 är att inget innehåll tas bort). Felaktigheten om att Assessio ingår i Hogan i matrislogik-test-guide rättades (Assessio ägs av Pollen Street sedan 2023 enligt assessio.com).
+
+Överlapp som stoppade nya sidor: "vanliga intervjufrågor" har redan vanliga-intervjufragor-svar (pos 29) och klassiska-intervjufragor-lista, "bakgrundskontroll" har bakgrundskontroll-vid-anstallning (pos 40) som delar frågan med /for-rekryterare/insikter/bakgrundskontroller, och "spatial förmåga" har rotation-test-guide (pos 8,6). De tre ska förbättras på befintlig sida, inte få nya.
+
+Avläsning: 6 december och 3 januari, samma krav som oktobers sidor i avsnitt 6. Kvar i planen för november och december: videointervju-tips, uppsagningsbrev-mall, tolka-testresultat, soka-sommarjobb och yrkesparen.

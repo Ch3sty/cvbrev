@@ -1,0 +1,415 @@
+---
+title: "Aon-testet (tidigare cut-e): modulerna, tiderna, sex lösta exempel och hur du övar"
+seoTitle: "Aon test (cut-e): moduler, tider och exempel att öva på"
+date: "2026-11-08"
+description: "Aon-testet, tidigare cut-e, består av korta moduler på 5 till 12 minuter med minuspoäng för fel svar. Här är modulerna, sex lösta exempel och gratis övning."
+author: "Teamet på jobbcoach.ai"
+image: "/images/artiklar/aon-cut-e-test.webp"
+tags: ["aon test", "cut-e test", "aon scales", "logiktest aon", "rekryteringstest", "switchChallenge", "aon numeriskt test"]
+faq:
+  - question: "Vad är Aon-testet och vad är cut-e?"
+    answer: "cut-e var ett tyskt testföretag från Hamburg, grundat 2002, som Aon köpte i maj 2017. Testerna säljs i dag under namnet Aon, men inbjudningar och övningssidor använder fortfarande namnet cut-e. Aon-testet är ingen enskild prövning utan en meny av korta moduler, till exempel scales numerical, scales verbal, switchChallenge och gapChallenge, som arbetsgivaren sätter ihop efter rollen."
+  - question: "Hur lång tid tar Aon-testet?"
+    answer: "Varje modul är kort. Enligt Aon tar scales numerical och scales verbal 12 minuter, switchChallenge, gapChallenge och scales clx 6 minuter och scales ix 5 minuter. Hur lång tid hela utskicket tar beror på hur många moduler arbetsgivaren har valt. Tiden mellan modulerna mäts inte, så du kan ta en paus mellan dem, men en påbörjad modul går inte att avbryta."
+  - question: "Får man minuspoäng för fel svar på Aon-testet?"
+    answer: "Ja, i regel. Aon skriver att prestationstesterna oftast ger poäng för varje rätt svar och drar av poäng för varje fel. Därför lönar det sig inte att gissa vilt när tiden rinner ut. Svara snabbt men noggrant, och hoppa hellre över en uppgift du inte förstår om modulen tillåter det."
+  - question: "Kan man öva på Aon-testet gratis?"
+    answer: "Ja. Aon har gratis övningsuppgifter som PDF för de vanligaste modulerna, med fem uppgifter, facit och förklaringar i varje. Före varje skarp modul får du dessutom en övningsuppgift som du kan göra om hur många gånger du vill. För matrislogik, verbala och numeriska uppgifter kan du också öva hos oss, där du provar fem matrisfrågor gratis utan konto."
+  - question: "Vad är ett bra resultat på Aon-testet?"
+    answer: "Det finns ingen fast gräns. Ditt resultat jämförs med en normgrupp, och Aon rekommenderar arbetsgivare att utgå från T-värdet, där medel är 50 och standardavvikelsen 10. Ett T-värde på 50 betyder att du presterade som genomsnittet i jämförelsegruppen. Vad som räcker bestäms av arbetsgivaren utifrån rollens krav."
+  - question: "Kan jag göra Aon-testet på mobilen?"
+    answer: "Det går, men Aon rekommenderar starkt dator eller bärbar dator med en uppdaterad webbläsare som Chrome eller Edge och en stabil uppkoppling. De numeriska och verbala modulerna har flera datablad att bläddra mellan, och det är betydligt lättare på en stor skärm."
+howto:
+  name: "Så förbereder du dig för Aon-testet på en vecka"
+  steps:
+    - name: "Ta reda på vilka moduler som väntar"
+      text: "Läs inbjudan noga och notera modulernas namn, till exempel scales numerical eller switchChallenge. Står det inget, fråga rekryteraren vilka delar som ingår."
+    - name: "Ladda ned Aons övningsuppgifter"
+      text: "Hämta Aons gratis PDF för varje modul du ska göra. Lös de fem uppgifterna utan att titta på facit och läs sedan förklaringarna."
+    - name: "Lär dig formatet utan klocka"
+      text: "Lös uppgifter av samma typ i lugn takt tills du kan förklara regeln eller svarsalternativen för dig själv utan att läsa instruktionen."
+    - name: "Öva med klocka"
+      text: "Ge dig själv samma tid som modulen har, till exempel sex minuter för switchChallenge, och räkna hur många rätt och fel du får. Sikta på färre fel snarare än fler svar."
+    - name: "Förbered det praktiska"
+      text: "Välj en tid när du är pigg, använd dator med uppdaterad webbläsare, ha papper, penna och miniräknare framme och stäng av mobilen."
+    - name: "Gör en modul i taget"
+      text: "Läs instruktionen och gör övningsuppgiften i testet en gång till. Ta en paus mellan modulerna om du behöver, eftersom tiden mellan dem inte räknas."
+---
+
+<CustomImage src="/images/artiklar/aon-cut-e-test.webp" alt="Aon-testet, tidigare cut-e, med korta moduler på fem till tolv minuter" priority={true} />
+
+Inbjudan nämner Aon, och i mejlet står ord som scales numerical och switchChallenge. Kanske står det cut-e någonstans också. Du har gjort logiktest förut, men det här ser inte ut som Matrigma, och klockan i varje del är kortare än en kaffepaus.
+
+Vi har gått igenom Aons eget material för kandidater: övningsuppgifterna, beskrivningarna av varje modul och det Aon skriver om hur resultaten räknas. Här får du modulerna med tider, sex lösta exempel i Aon-liknande format som vi har skrivit själva, hur resultatet läses och en förberedelseplan som håller på en vecka.
+
+<div className="my-8 bg-slate-50 border border-slate-200 rounded-lg p-6">
+  <h2 className="font-bold text-lg mb-3 mt-0">Snabbsvar: vad är Aon-testet (cut-e)?</h2>
+  <p className="text-sm text-slate-700 mb-0">Aon-testet är en uppsättning korta moduler från Aon, som köpte det tyska testföretaget cut-e 2017. Arbetsgivaren väljer vilka moduler du får, och de vanligaste är scales numerical och scales verbal (12 minuter var, påståenden som du bedömer som sant, falskt eller kan inte avgöra), switchChallenge och gapChallenge (deduktiv logik, 6 minuter var) och scales ix, clx och cls (induktiv logik, 5 till 12 minuter). De flesta hinner inte alla uppgifter, och fel svar ger oftast minuspoäng. Resultatet jämförs med en normgrupp. Aon har gratis övningsuppgifter för de flesta moduler, och formatet är ovant nog för att övning ska löna sig.</p>
+</div>
+
+## Vad är Aon-testet, och vad hände med cut-e?
+
+cut-e grundades 2002 i Hamburg och byggde korta onlinetester, frågeformulär och spelbaserade prov för urval. I maj 2017 meddelade Aon att de köpt företaget. Enligt Aons pressmeddelande genomförde cut-e då 12 miljoner bedömningar om året i över 70 länder och på 40 språk. Sedan dess har testerna gradvis bytt namn till Aon, men många inbjudningar, övningssajter och rekryterare säger fortfarande cut-e. Det är samma sak.
+
+I Sverige finns ett eget bolag, Aon Assessment Sweden. På sin svenska sida skriver Aon att de har över 40 tester för rekrytering, bedömning och utveckling, varav fler än tio generella problemlösningstest och fler än 30 färdighetstest. Det är förklaringen till att två personer som säger att de "gjort Aon-testet" kan ha gjort helt olika saker. Arbetsgivaren plockar ihop de moduler som passar rollen. En controller får kanske scales numerical och switchChallenge. En kundtjänstroll kan få scales verbal, ett test i att förstå instruktioner och ett personlighetsformulär.
+
+Hur lång tid hela utskicket tar beror på hur många moduler arbetsgivaren har valt och om ett personlighetsformulär ingår. ADEPT-15 tar ensamt cirka 30 minuter. Det enda du säkert vet är det som står i din inbjudan. Läs den med penna i handen och skriv upp modulernas namn. Resten av den här texten är byggd så att du kan hoppa direkt till de moduler du har fått.
+
+## Vilka moduler kan du få?
+
+Tabellen bygger på Aons engelska sida för kandidater, där varje modul beskrivs med tid och, när Aon anger det, antal uppgifter. Tiderna är Aons standard. Arbetsgivaren kan ha valt en annan version, och då är det tiden i inbjudan som gäller.
+
+<table className="w-full border-collapse my-6">
+  <thead>
+    <tr className="bg-slate-100">
+      <th className="border border-slate-300 px-4 py-3 text-left font-semibold">Modul</th>
+      <th className="border border-slate-300 px-4 py-3 text-left font-semibold">Mäter</th>
+      <th className="border border-slate-300 px-4 py-3 text-left font-semibold">Format</th>
+      <th className="border border-slate-300 px-4 py-3 text-left font-semibold">Tid enligt Aon</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td className="border border-slate-300 px-4 py-3">scales numerical</td>
+      <td className="border border-slate-300 px-4 py-3">Numerisk förmåga</td>
+      <td className="border border-slate-300 px-4 py-3">Datablad med tabeller och diagram, påståenden bedöms som sant, falskt eller kan inte avgöra</td>
+      <td className="border border-slate-300 px-4 py-3">12 minuter, 37 uppgifter</td>
+    </tr>
+    <tr className="bg-slate-50">
+      <td className="border border-slate-300 px-4 py-3">scales verbal</td>
+      <td className="border border-slate-300 px-4 py-3">Verbal förmåga</td>
+      <td className="border border-slate-300 px-4 py-3">Textblad, påståenden bedöms som sant, falskt eller kan inte avgöra</td>
+      <td className="border border-slate-300 px-4 py-3">12 minuter, 49 uppgifter</td>
+    </tr>
+    <tr>
+      <td className="border border-slate-300 px-4 py-3">switchChallenge</td>
+      <td className="border border-slate-300 px-4 py-3">Deduktiv logik</td>
+      <td className="border border-slate-300 px-4 py-3">Hitta den fyrsiffriga kod som gör om en rad figurer till en annan</td>
+      <td className="border border-slate-300 px-4 py-3">6 minuter, löpande uppgifter</td>
+    </tr>
+    <tr className="bg-slate-50">
+      <td className="border border-slate-300 px-4 py-3">gapChallenge</td>
+      <td className="border border-slate-300 px-4 py-3">Deduktiv logik</td>
+      <td className="border border-slate-300 px-4 py-3">Rutnät 4x4 eller 5x5 där ingen form upprepas i rad eller kolumn, hitta formen i rutan med frågetecken</td>
+      <td className="border border-slate-300 px-4 py-3">6 minuter, löpande uppgifter</td>
+    </tr>
+    <tr>
+      <td className="border border-slate-300 px-4 py-3">scales ix</td>
+      <td className="border border-slate-300 px-4 py-3">Induktiv logik</td>
+      <td className="border border-slate-300 px-4 py-3">Nio objekt, hitta det enda som bryter mot regeln</td>
+      <td className="border border-slate-300 px-4 py-3">5 minuter, 20 uppgifter</td>
+    </tr>
+    <tr className="bg-slate-50">
+      <td className="border border-slate-300 px-4 py-3">scales clx</td>
+      <td className="border border-slate-300 px-4 py-3">Induktiv logik</td>
+      <td className="border border-slate-300 px-4 py-3">Hitta det gemensamma mönstret i en grupp bilder</td>
+      <td className="border border-slate-300 px-4 py-3">6 minuter</td>
+    </tr>
+    <tr>
+      <td className="border border-slate-300 px-4 py-3">scales cls</td>
+      <td className="border border-slate-300 px-4 py-3">Induktiv logik</td>
+      <td className="border border-slate-300 px-4 py-3">Sortera nya bilder till rätt mönster</td>
+      <td className="border border-slate-300 px-4 py-3">12 minuter, 12 uppgifter</td>
+    </tr>
+    <tr className="bg-slate-50">
+      <td className="border border-slate-300 px-4 py-3">digitChallenge</td>
+      <td className="border border-slate-300 px-4 py-3">Räknefärdighet</td>
+      <td className="border border-slate-300 px-4 py-3">Fyll i siffror 1 till 9 så att en ekvation går ihop, varje siffra en gång</td>
+      <td className="border border-slate-300 px-4 py-3">6 minuter</td>
+    </tr>
+    <tr>
+      <td className="border border-slate-300 px-4 py-3">scales eql</td>
+      <td className="border border-slate-300 px-4 py-3">Grundläggande räkning</td>
+      <td className="border border-slate-300 px-4 py-3">Huvudräkning</td>
+      <td className="border border-slate-300 px-4 py-3">5 minuter</td>
+    </tr>
+    <tr className="bg-slate-50">
+      <td className="border border-slate-300 px-4 py-3">gridChallenge</td>
+      <td className="border border-slate-300 px-4 py-3">Arbetsminne</td>
+      <td className="border border-slate-300 px-4 py-3">Nio uppgifter som blir svårare, flera saker att hålla i huvudet samtidigt</td>
+      <td className="border border-slate-300 px-4 py-3">9 minuter</td>
+    </tr>
+    <tr>
+      <td className="border border-slate-300 px-4 py-3">motionChallenge</td>
+      <td className="border border-slate-300 px-4 py-3">Planering</td>
+      <td className="border border-slate-300 px-4 py-3">Pussel där du flyttar objekt förbi hinder till ett målläge</td>
+      <td className="border border-slate-300 px-4 py-3">6 minuter</td>
+    </tr>
+    <tr className="bg-slate-50">
+      <td className="border border-slate-300 px-4 py-3">scales verbal instruct</td>
+      <td className="border border-slate-300 px-4 py-3">Förstå skriftliga instruktioner</td>
+      <td className="border border-slate-300 px-4 py-3">Instruktioner följda av frågor, fungerar på mobil</td>
+      <td className="border border-slate-300 px-4 py-3">8 minuter, 24 uppgifter</td>
+    </tr>
+    <tr>
+      <td className="border border-slate-300 px-4 py-3">chatAssess</td>
+      <td className="border border-slate-300 px-4 py-3">Omdöme i arbetssituationer</td>
+      <td className="border border-slate-300 px-4 py-3">Spelbaserat, du svarar på meddelanden som i en chatt</td>
+      <td className="border border-slate-300 px-4 py-3">20 minuter</td>
+    </tr>
+    <tr className="bg-slate-50">
+      <td className="border border-slate-300 px-4 py-3">ADEPT-15</td>
+      <td className="border border-slate-300 px-4 py-3">Personlighet i arbetet</td>
+      <td className="border border-slate-300 px-4 py-3">Du jämför och värderar 100 påståenden, inga rätt eller fel svar</td>
+      <td className="border border-slate-300 px-4 py-3">Cirka 30 minuter, ingen tidsgräns</td>
+    </tr>
+  </tbody>
+</table>
+
+Står det ett modulnamn i din inbjudan som inte finns i tabellen, till exempel scales lst? Äldre cut-e-namn kan stå i inbjudan, och Aons nuvarande material använder dem inte. Fråga rekryteraren eller Aons svenska support vad modulen innebär. Det är en fullt normal fråga.
+
+## Varför Aon-testet känns annorlunda än andra logiktest
+
+Formatet skiljer sig från Matrigma och Alva på fem punkter, och alla fem påverkar hur du bör arbeta.
+
+**Modulerna är korta.** Aon skriver att de enskilda testerna i de flesta fall tar under en kvart, och på den svenska sidan att logiktesten tar i genomsnitt under sex minuter. Med sex minuter finns ingen tid att läsa instruktionen för första gången. Den som redan kan formatet börjar lösa uppgifter direkt.
+
+**Uppgifterna tar inte slut.** I switchChallenge och gapChallenge finns enligt Aons övningsmaterial inget fast antal uppgifter. Systemet ger dig en ny så fort du löst den förra. I de numeriska och verbala modulerna finns ett fast antal, men Aon skriver uttryckligen att du inte förväntas hinna alla. 37 uppgifter på 12 minuter är knappt 20 sekunder per påstående. Att inte bli klar är alltså inte ett tecken på att det gick dåligt.
+
+**Fel svar kostar.** Det här skiljer Aon från de flesta matristest. Aon skriver att prestationstesterna oftast ger poäng för varje rätt svar och drar av poäng för varje fel. Aon avråder också från att arbeta snabbare än du gjorde i skolan, eftersom felen drar ned resultatet. Vild gissning när klockan tickar ned är därför sämre här än hos leverantörer där ett fel bara är ett uteblivet rätt.
+
+**Testerna anpassar sig.** Aon skriver på sin svenska sida att testerna är adaptiva och att frågorna genereras ur stora frågebanker. I digitChallenge beskriver Aon det konkret: svarar du rätt blir nästa uppgift svårare, svarar du fel blir den lättare. I switchChallenge och gapChallenge står det att uppgifterna kan bli svårare ju längre du kommer.
+
+**En påbörjad modul går inte att pausa.** Aon skriver att du inte kan avbryta ett test när du väl har börjat. Däremot mäts inte tiden mellan modulerna. Du kan göra numeriskt på förmiddagen och switchChallenge efter lunch, om utskicket ligger öppet så länge.
+
+## Scales numerical: sant, falskt eller kan inte avgöra
+
+I scales numerical får du flera datablad med tabeller och diagram och en rad påståenden. Varje påstående hör till ett av bladen, och du ska avgöra om det är sant, falskt eller om underlaget inte räcker. Enligt Aons övningsmaterial ändras inte databladen under testet, och Aon ber dig ha penna, papper och miniräknare framme innan du börjar.
+
+Den svåra delen är sällan själva räkningen. Den är att hitta rätt blad snabbt och att hålla isär "falskt" och "kan inte avgöra". Mer om numeriska test i allmänhet finns i vår [guide till numeriska test](/artiklar/numeriskt-test-guide).
+
+<div className="my-8 bg-slate-50 border border-slate-200 rounded-lg p-6">
+  <h3 className="font-bold text-lg mb-3 mt-0">Exempel 1: datablad med tre påståenden</h3>
+  <p className="text-sm text-slate-700">Försäljning per region, miljoner kronor. Nord: år 1 40, år 2 46. Mitt: år 1 55, år 2 52. Syd: år 1 80, år 2 96.</p>
+  <p className="text-sm text-slate-700"><strong>A.</strong> Syd ökade sin försäljning med 20 procent mellan år 1 och år 2.<br /><strong>B.</strong> Nord ökade sin försäljning mer än Syd, räknat i procent.<br /><strong>C.</strong> Syd hade fler kunder år 2 än år 1.</p>
+  <p className="text-sm text-slate-700 mb-0"><strong>Lösning.</strong> A är sant: 96 delat med 80 är 1,2, alltså en ökning med 20 procent. B är falskt: Nord gick från 40 till 46, vilket är 6 delat med 40 eller 15 procent. Det är mindre än Syds 20 procent, trots att Nord ser ut att ha gjort ett stort hopp. C går inte att avgöra. Bladet visar försäljning i kronor, inte antal kunder. Högre försäljning kan komma från samma kunder som köper mer. Det är den klassiska fällan: påståendet låter rimligt, men det står inte i underlaget.</p>
+</div>
+
+En vana som sparar sekunder: räkna med kvoter i stället för procentsatser. "Ökade med 20 procent" är samma sak som "nya värdet är 1,2 gånger det gamla", och det är en enda knapptryckning på miniräknaren.
+
+## Scales verbal: samma tre svar, fast med text
+
+Scales verbal är byggd precis som den numeriska modulen, men databladen är texter. Aons övningsmaterial visar hur de resonerar. I ett av deras exempel står det i texten att ett nytt initiativ infördes ungefär samtidigt som en ny kreativ chef kom till företaget. Påståendet att chefen startade initiativet bedöms som "kan inte avgöra", eftersom texten aldrig säger vem som tog beslutet. Samtidighet är inte orsak.
+
+<div className="my-8 bg-slate-50 border border-slate-200 rounded-lg p-6">
+  <h3 className="font-bold text-lg mb-3 mt-0">Exempel 2: textblad med tre påståenden</h3>
+  <p className="text-sm text-slate-700">"Från och med den 1 februari gäller nya regler för distansarbete på ekonomiavdelningen. Medarbetare får arbeta hemifrån högst två dagar per vecka. Måndagar är kontorsdagar för hela avdelningen, utan undantag. Den som vill arbeta hemifrån registrerar det i schemat senast fredagen veckan innan. Medarbetare under provanställning omfattas inte av reglerna och arbetar på kontoret alla dagar."</p>
+  <p className="text-sm text-slate-700"><strong>A.</strong> En medarbetare på avdelningen kan arbeta hemifrån tre dagar samma vecka.<br /><strong>B.</strong> Ingen på ekonomiavdelningen får arbeta hemifrån en måndag.<br /><strong>C.</strong> Reglerna infördes för att fler skulle komma till kontoret.</p>
+  <p className="text-sm text-slate-700 mb-0"><strong>Lösning.</strong> A är falskt. Texten säger högst två dagar per vecka, och provanställda får inte arbeta hemifrån alls, så ingen på avdelningen kan ha tre hemmadagar. B är sant. Måndagar är kontorsdagar för hela avdelningen utan undantag, och de provanställda är på kontoret alla dagar. C går inte att avgöra. Texten beskriver reglerna men säger ingenting om varför de infördes. Att reglerna begränsar hemarbetet gör det lätt att gissa på ett syfte, och det är just den gissningen testet vill fånga.</p>
+</div>
+
+Lästekniken är densamma som i alla verbala test. Läs påståendet först, leta upp stället i texten som det handlar om och jämför ord för ord. Var extra vaksam på små ord som "alla", "bara", "oftast" och "fortfarande", för det är där påståenden blir falska. Vår [guide till verbala test](/artiklar/verbalt-test-guide) har fler exempel på den typen.
+
+## switchChallenge: hitta koden
+
+SwitchChallenge är modulen som får flest kandidater att stanna upp, för den liknar inget annat. Enligt Aons övningsmaterial består varje uppgift av tre delar: en rad med fyra figurer (indata), en kod och en ny rad med samma figurer i annan ordning (utdata). Din uppgift är att hitta koden som gör om den första raden till den andra.
+
+Koden läses så här. Siffran på första platsen säger vilken av de ursprungliga figurerna som hamnar först, siffran på andra platsen vilken som hamnar på plats två, och så vidare. Byter ingenting plats är koden 1-2-3-4. Byter figur två och tre plats är koden 1-3-2-4. I svårare uppgifter står koderna i flera rader, och då är utdata från den första koden indata till nästa.
+
+<div className="my-8 bg-slate-50 border border-slate-200 rounded-lg p-6">
+  <h3 className="font-bold text-lg mb-3 mt-0">Exempel 3: en kod och sedan två i rad</h3>
+  <p className="text-sm text-slate-700"><strong>Del 1.</strong> Indata: cirkel, kvadrat, triangel, stjärna. Utdata: triangel, cirkel, stjärna, kvadrat. Vilken kod är rätt: 2-4-1-3, 3-1-4-2 eller 3-4-1-2?</p>
+  <p className="text-sm text-slate-700"><strong>Lösning.</strong> 3-1-4-2. Gå igenom utdata från vänster. Först står triangeln, som var nummer 3. Sedan cirkeln, nummer 1. Sedan stjärnan, nummer 4. Sist kvadraten, nummer 2. Alternativet 2-4-1-3 är fällan. Det beskriver vart varje figur tar vägen (cirkeln flyttar till plats 2, kvadraten till plats 4) i stället för vilken figur som hamnar på varje plats. Det är exakt omvänd läsning, och en vanlig fälla i den här modulen.</p>
+  <p className="text-sm text-slate-700"><strong>Del 2.</strong> Indata: kvadrat, stjärna, cirkel, triangel. Första koden är 2-1-4-3. Slutresultatet efter den andra koden är triangel, stjärna, cirkel, kvadrat. Vilken är den andra koden?</p>
+  <p className="text-sm text-slate-700 mb-0"><strong>Lösning.</strong> 3-1-4-2. Räkna först fram mellanläget. Koden 2-1-4-3 byter plats på de två första och de två sista, så mellanläget blir stjärna, kvadrat, triangel, cirkel. Jämför sedan slutresultatet med mellanläget, inte med den ursprungliga raden. Triangeln var nummer 3, stjärnan nummer 1, cirkeln nummer 4 och kvadraten nummer 2.</p>
+</div>
+
+Tre vanor gör stor skillnad här. Bestäm dig för en läsriktning, "vilken figur hamnar på plats ett", och håll fast vid den. Leta efter figurer som står kvar på samma plats, för de ger dig siffror gratis. Och skriv ned mellanläget när det finns flera rader. Aon säger själva i övningsmaterialet att det är värt att fundera över hur utdata hade sett ut med de felaktiga koderna, och det är en bra övning: du lär dig känna igen fällorna innan de dyker upp.
+
+## gapChallenge: rutnätet där ingen form upprepas
+
+GapChallenge visar ett rutnät på 4x4 eller 5x5 rutor. En del rutor har en form, andra är tomma, och en ruta har ett frågetecken. Regeln är given: ingen form får förekomma två gånger i samma rad eller kolumn. Den som har löst sudoku känner igen tankegången.
+
+Aon påpekar en detalj som är lätt att missa. Testet låter dig fylla i de tomma rutorna, men uppgiften är inte att fylla hela rutnätet. Uppgiften är att hitta formen i frågeteckenrutan. Att lösa resten är bortkastad tid.
+
+<div className="my-8 bg-slate-50 border border-slate-200 rounded-lg p-6">
+  <h3 className="font-bold text-lg mb-3 mt-0">Exempel 4: vilken form ska stå vid frågetecknet?</h3>
+  <p className="text-sm text-slate-700">Formerna är cirkel ●, kvadrat ■, triangel ▲ och stjärna ★. Ingen form får upprepas i en rad eller kolumn.</p>
+  <table className="border-collapse my-4 text-center">
+    <tbody>
+      <tr>
+        <td className="border border-slate-300 w-12 h-12">●</td>
+        <td className="border border-slate-300 w-12 h-12">■</td>
+        <td className="border border-slate-300 w-12 h-12"></td>
+        <td className="border border-slate-300 w-12 h-12"></td>
+      </tr>
+      <tr>
+        <td className="border border-slate-300 w-12 h-12"></td>
+        <td className="border border-slate-300 w-12 h-12"></td>
+        <td className="border border-slate-300 w-12 h-12">●</td>
+        <td className="border border-slate-300 w-12 h-12 font-bold">?</td>
+      </tr>
+      <tr>
+        <td className="border border-slate-300 w-12 h-12"></td>
+        <td className="border border-slate-300 w-12 h-12"></td>
+        <td className="border border-slate-300 w-12 h-12"></td>
+        <td className="border border-slate-300 w-12 h-12">●</td>
+      </tr>
+      <tr>
+        <td className="border border-slate-300 w-12 h-12"></td>
+        <td className="border border-slate-300 w-12 h-12"></td>
+        <td className="border border-slate-300 w-12 h-12"></td>
+        <td className="border border-slate-300 w-12 h-12">▲</td>
+      </tr>
+    </tbody>
+  </table>
+  <p className="text-sm text-slate-700 mb-0"><strong>Lösning.</strong> Kvadrat. Frågetecknet står i rad 2 och kolumn 4. Rad 2 har redan en cirkel, och kolumn 4 har en cirkel och en triangel. Kvar finns kvadrat och stjärna, och det går inte att välja direkt. Titta då på rad 1. Den saknar triangel och stjärna, som måste stå i de två tomma rutorna. Rutan längst till höger i rad 1 ligger i kolumn 4, där triangeln redan finns. Alltså står stjärnan där. Då har kolumn 4 en stjärna, och för frågetecknet återstår bara kvadraten.</p>
+</div>
+
+Arbetssättet är alltid detsamma. Börja med raden och kolumnen där frågetecknet står och stryk det som redan finns. Räcker inte det, leta efter en rad eller kolumn som korsar frågeteckenkolumnen och som bara har två tomma rutor kvar. Det är ofta där svaret gömmer sig. Aon varnar också för att det inte alltid går att lista ut varje form i rutnätet, så försök inte.
+
+## Scales ix, clx och cls: de induktiva modulerna
+
+De tre induktiva modulerna bygger på samma förmåga: att hitta en regel som ingen har talat om för dig. I scales ix ser du enligt Aon nio objekt där alla utom ett följer en gemensam regel. Testet har 20 uppgifter som blir svårare, och du har fem minuter. Scales clx handlar om att hitta det gemensamma mönstret i en grupp, och i scales cls sorterar du nya bilder till det mönster de hör hemma i.
+
+Skillnaden mellan induktiv och deduktiv logik, och hur du tränar på båda, går vi igenom i [guiden till deduktiva och induktiva test](/artiklar/deduktivt-induktivt-test). Här tar vi ett exempel i ix-format.
+
+<div className="my-8 bg-slate-50 border border-slate-200 rounded-lg p-6">
+  <h3 className="font-bold text-lg mb-3 mt-0">Exempel 5: vilket objekt bryter mot regeln?</h3>
+  <p className="text-sm text-slate-700">Nio figurer, var och en med prickar inuti: en triangel med 3 prickar, en kvadrat med 4, en femhörning med 5, en rektangel med 4, en sexhörning med 5, en triangel med 3, en åttahörning med 8, en romb med 4 och en kvadrat med 4.</p>
+  <p className="text-sm text-slate-700 mb-0"><strong>Lösning.</strong> Sexhörningen. Regeln är att antalet prickar är lika med antalet hörn, och sexhörningen har bara fem prickar. Lägg märke till åttahörningen. Den sticker ut, är ensam om sin form och har flest prickar, och ögat dras dit först. Men den följer regeln. Testkonstruktörer placerar gärna ett sådant objekt i uppgiften för att fånga den som svarar på det som ser annorlunda ut i stället för det som bryter mot regeln.</p>
+</div>
+
+Aon skriver själva i övningsmaterialet för ix att induktiv förmåga inte är lätt att träna upp, men att mycket går att göra för att nå sin fulla potential, till exempel med talföljder och uppgifter där man ska stryka det som inte hör hemma. Matrisuppgifter tränar samma muskel. Du kan [prova fem matrisfrågor gratis utan konto](/verktyg/rekryteringstester/prova) och se direkt vad du fick rätt och fel på, och vår [guide till matrislogik](/artiklar/matrislogik-test-guide) går igenom regeltyperna en i taget.
+
+## DigitChallenge och de andra spelbaserade modulerna
+
+Aon har flera moduler som ser mer ut som spel än som prov. De har namn som slutar på Challenge och är byggda för att fungera bra på skärm.
+
+**DigitChallenge** ger dig enligt Aons övningsmaterial svaret på en ekvation, och du ska fylla i siffror från 1 till 9 så att den går ihop. Varje siffra får bara användas en gång, räknesätten är addition, subtraktion och multiplikation, och det kan finnas flera rätta svar. Modulen är adaptiv: rätt svar ger svårare uppgifter, fel svar lättare.
+
+<div className="my-8 bg-slate-50 border border-slate-200 rounded-lg p-6">
+  <h3 className="font-bold text-lg mb-3 mt-0">Exempel 6: fyll i rutorna</h3>
+  <p className="text-sm text-slate-700">_ × _ − _ = 19. Använd siffror från 1 till 9, varje siffra högst en gång.</p>
+  <p className="text-sm text-slate-700 mb-0"><strong>Lösning.</strong> Till exempel 4 × 6 − 5 = 19. Det finns flera svar, bland andra 3 × 8 − 5 och 7 × 3 − 2. Det snabbaste sättet är att börja med multiplikationen. Produkten måste vara lite större än 19, och skillnaden måste vara en siffra du inte redan använt. 24 minus 5 fungerar, 21 minus 2 fungerar. 20 minus 1 fungerar också, men bara som 4 × 5 − 1, inte som 2 × 10, eftersom 10 inte är en siffra.</p>
+</div>
+
+**GridChallenge** mäter arbetsminne. Aon beskriver nio uppgifter som blir svårare, där du ska hantera flera saker i huvudet samtidigt, och modulen tar nio minuter. **MotionChallenge** är ett pussel på sex minuter där du ska ta dig från ett läge till ett annat förbi hinder, och Aon säger att det mäter planering i flera steg. Det lönar sig att tänka igenom hela draget innan du börjar flytta. **ChatAssess** är ett situationsbaserat test på 20 minuter där du svarar på meddelanden som i en chatt, och där bedöms omdöme snarare än tempo.
+
+För gridChallenge, motionChallenge och chatAssess finns inga övningsuppgifter att ladda ned. Aon har korta filmer på sin sida för kandidater som visar hur testerna fungerar, och före varje modul får du instruktioner och en övningsuppgift. Läs instruktionen ordentligt och gör övningsuppgiften en gång extra. Det tar en minut och sparar betydligt mer än så i testet.
+
+## Hur tolkas resultatet?
+
+Ditt resultat är inte antal rätt. Det är din prestation jämförd med en normgrupp, alltså en större grupp som gjort samma modul. Aon förklarar i sin kunskapsbas för arbetsgivare hur resultaten redovisas. Den mest detaljerade rapporten visar råpoäng, percentil och T-värde, och Aon rekommenderar arbetsgivaren att utgå från T-värdet.
+
+<table className="w-full border-collapse my-6">
+  <thead>
+    <tr className="bg-slate-100">
+      <th className="border border-slate-300 px-4 py-3 text-left font-semibold">Mått</th>
+      <th className="border border-slate-300 px-4 py-3 text-left font-semibold">Vad det betyder</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td className="border border-slate-300 px-4 py-3">Råpoäng</td>
+      <td className="border border-slate-300 px-4 py-3">Poängen efter rätt och fel. Svårare uppgifter kan ge fler poäng.</td>
+    </tr>
+    <tr className="bg-slate-50">
+      <td className="border border-slate-300 px-4 py-3">Percentil</td>
+      <td className="border border-slate-300 px-4 py-3">Hur stor andel av normgruppen du presterade bättre än. Percentil 70 betyder bättre än 70 procent av jämförelsegruppen, inte 70 procent rätt.</td>
+    </tr>
+    <tr>
+      <td className="border border-slate-300 px-4 py-3">T-värde</td>
+      <td className="border border-slate-300 px-4 py-3">Skala där medel är 50 och standardavvikelsen 10. Ungefär två av tre hamnar mellan 40 och 60.</td>
+    </tr>
+    <tr className="bg-slate-50">
+      <td className="border border-slate-300 px-4 py-3">Snabbhet</td>
+      <td className="border border-slate-300 px-4 py-3">Hur många uppgifter du besvarade jämfört med normgruppen, på en skala i nio steg där 5 är medel.</td>
+    </tr>
+    <tr>
+      <td className="border border-slate-300 px-4 py-3">Träffsäkerhet</td>
+      <td className="border border-slate-300 px-4 py-3">Hur stor andel av dina besvarade uppgifter som var rätt, på samma skala i nio steg.</td>
+    </tr>
+  </tbody>
+</table>
+
+De två sista måtten är intressanta för dig som kandidat. De visar arbetssättet bakom poängen. Två personer med samma T-värde kan ha nått dit på olika vägar: den ena snabbt med några fel, den andra långsamt och nästan felfritt. Aon beskriver dem som en förklaring arbetsgivaren kan använda när en kandidat vill veta varför resultatet blev som det blev.
+
+Vilken normgrupp du jämförs med väljer arbetsgivaren, och det är därför samma prestation kan räcka i en rekrytering och inte i en annan. Det finns ingen allmän gräns för godkänt. Arbetsgivaren ställer resultatet mot rollens krav och väger in intervju, erfarenhet och referenser. Vill du förstå normgrupper och percentiler mer i grunden har vi ett avsnitt om det i översikten över [logiska tester](/artiklar/logiska-tester).
+
+Två saker till om vad som händer efter testet. Aon skriver att arbetsgivaren återkommer med besked om resultatet och nästa steg, och att varje test har en återkopplingsrapport som förklarar resultatet. Fråga gärna efter den om du inte får den. Aon skriver också att det ofta görs ett kontrolltest senare i processen, och att fusk i det första testet senast då kommer fram. Gör testet själv. Uppgifterna hämtas ur frågebanker, så ingen annan kan ändå ge dig rätt svar i förväg.
+
+## Kan man öva gratis på Aon-testet?
+
+Ja. Aon har övningsmaterial för kandidater på sin sida [Prepare for your online assessment](https://www.aon.com/en/capabilities/talent-and-rewards/prepare-for-your-online-assessment). Där finns PDF:er för bland annat scales numerical, scales verbal, switchChallenge, gapChallenge, digitChallenge, scales ix och scales clx. De PDF:er vi har gått igenom förklarar modulen, ger fem uppgifter och avslutas med lösningar och resonemang. Aon rekommenderar att du löser uppgifterna innan du tittar på facit. Den svenska [kandidatsidan](https://www.aonassessment.com/kandidatsida) har tips inför testet och en länk till övningsuppgifter för de vanligaste testerna.
+
+Före varje skarp modul får du dessutom instruktioner och en övningsuppgift som du kan göra hur många gånger du vill. Använd den. Den räknas inte, och den är din sista chans att se gränssnittet innan klockan startar.
+
+Här finns en motsägelse värd att reda ut. På den svenska sidan skriver Aon att frågebankerna minimerar inlärningseffekten, och att kandidater kan göra testerna många gånger utan att kunna träna upp sin prestation. Samtidigt publicerar Aon övningsmaterial och uppmanar kandidater att använda det. Båda sakerna stämmer. Du kan inte plugga in svar, för uppgifterna är nya varje gång. Men du kan slippa lägga de första två minuterna av sex på att förstå hur koden i switchChallenge ska läsas. Det är där övning gör skillnad, och det är just därför formatet är värt att öva på.
+
+Hos oss på jobbcoach.ai kan du träna på samma förmågor som Aons logik-, verbala och numeriska moduler mäter. Börja med att [prova fem matrisfrågor utan konto](/verktyg/rekryteringstester/prova) och se rätt och fel direkt. Med ett gratis konto får du Nivåkollen och ett första träningspass. I [rekryteringstesterna](/verktyg/rekryteringstester) finns övningstester i matrislogik, verbalt och numeriskt med facit och förklaring till varje fråga, och i Premium ingår övningsprov mot klockan och alla nivåer.
+
+## Förberedelseplan för Aon-testet steg för steg
+
+En vecka räcker gott. Planen förutsätter att du vet vilka moduler du ska göra.
+
+**Dag 1: kartlägg.** Skriv upp modulerna från inbjudan och tiden för var och en. Leta upp dem i tabellen ovan och läs avsnittet om varje.
+
+**Dag 2: hämta Aons material.** Ladda ned PDF:erna för dina moduler och lös de fem uppgifterna i varje utan att titta på facit. Läs sedan förklaringarna, särskilt för de uppgifter du missade.
+
+**Dag 3 och 4: lär dig formatet utan klocka.** Lös uppgifter av samma typ i lugn takt. I switchChallenge ska du kunna läsa en kod utan att tänka på hur den läses. I scales numerical ska du kunna skilja falskt från kan inte avgöra på första försöket. Exemplen i den här texten är en bra start.
+
+**Dag 5 och 6: lägg på klockan.** Ta samma tid som modulen har och räkna både rätt och fel. Eftersom fel svar ger minuspoäng hos Aon är målet inte flest svar, utan flest svar med få fel. Märker du att felen ökar när du skyndar dig, sänk tempot.
+
+**Dag 7 eller testdagen: förbered det praktiska.** Aon rekommenderar starkt dator framför mobil, en uppdaterad webbläsare som Chrome eller Edge och en stabil uppkoppling. Ha papper, penna och miniräknare framme. Stäng av mobilen och se till att ingen stör dig. Gör testet när du är pigg, inte direkt efter en lång arbetsdag. Aon skriver själva att det är ett dåligt tillfälle.
+
+En sak till: en viss nervositet är inget problem. Aon skriver på sin kandidatsida att lite nervositet före ett test kan fokusera uppmärksamheten och ge energi. Det är när du inte vet vad som väntar som nerverna tar över, och det har du nu åtgärdat.
+
+## Vanliga misstag på Aon-testet
+
+**Att gissa när tiden rinner ut.** På många andra test är en gissning gratis. Hos Aon ger fel svar oftast minuspoäng. Gissa bara när du har kunnat stryka minst ett alternativ.
+
+**Att läsa switchChallenge-koden baklänges.** Koden säger vilken figur som hamnar på varje plats, inte vart varje figur flyttar. En vanlig fälla är att den omvända koden finns bland svarsalternativen.
+
+**Att fylla i hela rutnätet i gapChallenge.** Du får poäng för formen i frågeteckenrutan, inget annat.
+
+**Att blanda ihop falskt och kan inte avgöra.** Falskt betyder att underlaget säger emot påståendet. Kan inte avgöra betyder att underlaget inte säger något alls.
+
+**Att tro att det gick dåligt för att du inte blev klar.** Aon skriver att det är normalt att inte hinna alla uppgifter. Testet är byggt så.
+
+**Att göra testet på mobilen på bussen.** Det går tekniskt, men det är ett sämre läge på alla sätt, och en påbörjad modul går inte att pausa.
+
+## Testet är en del av helheten
+
+Aon-testet är ett underlag bland flera. Arbetsgivaren läser resultatet mot rollens krav och mot det du visar i intervjun. Ofta finns ett personlighetsformulär i samma utskick, och om det handlar vår guide om [personlighetstest i arbetslivet](/artiklar/personlighetstest-jobb-guide). Vill du se hur Aon förhåller sig till Matrigma, Alva Labs och SHL har vi en översikt över [logiska tester vid rekrytering](/artiklar/logiska-tester), och Assessios test har en egen genomgång i [guiden till Matrigma](/artiklar/matrigma-test). Varför arbetsgivare använder tester över huvud taget, och vad de säger och inte säger, reder vi ut i texten om [arbetspsykologiska tester](/artiklar/arbetspsykologiska-tester). Fler lösta uppgifter i olika format finns i [logiktest med exempel och lösningar](/artiklar/logiktest-exempel-med-losningar).
+
+Och vill du kunna formatet innan klockan startar, [börja med fem gratis frågor](/verktyg/rekryteringstester/prova) i dag.
+
+**Mer om rekryteringstester:**
+- [Logiska tester vid rekrytering: alla testtyper och hur du övar](/artiklar/logiska-tester)
+- [Rekryteringstester: öva på matrislogik, verbalt och numeriskt](/verktyg/rekryteringstester)
+- [Prova ett rekryteringstest utan konto](/verktyg/rekryteringstester/prova)
+
+{ /* ---------- FAQ-SEKTION START (Visuell del) ---------- */ }
+<FAQContainer>
+
+  <FAQItem question="Vad är Aon-testet och vad är cut-e?">
+    cut-e var ett tyskt testföretag från Hamburg, grundat 2002, som Aon köpte i maj 2017. Testerna säljs i dag under namnet Aon, men inbjudningar och övningssidor använder fortfarande namnet cut-e. Aon-testet är ingen enskild prövning utan en meny av korta moduler, till exempel scales numerical, scales verbal, switchChallenge och gapChallenge, som arbetsgivaren sätter ihop efter rollen.
+  </FAQItem>
+
+  <FAQItem question="Hur lång tid tar Aon-testet?">
+    Varje modul är kort. Enligt Aon tar scales numerical och scales verbal 12 minuter, switchChallenge, gapChallenge och scales clx 6 minuter och scales ix 5 minuter. Hur lång tid hela utskicket tar beror på hur många moduler arbetsgivaren har valt. Tiden mellan modulerna mäts inte, så du kan ta en paus mellan dem, men en påbörjad modul går inte att avbryta.
+  </FAQItem>
+
+  <FAQItem question="Får man minuspoäng för fel svar på Aon-testet?">
+    Ja, i regel. Aon skriver att prestationstesterna oftast ger poäng för varje rätt svar och drar av poäng för varje fel. Därför lönar det sig inte att gissa vilt när tiden rinner ut. Svara snabbt men noggrant, och hoppa hellre över en uppgift du inte förstår om modulen tillåter det.
+  </FAQItem>
+
+  <FAQItem question="Kan man öva på Aon-testet gratis?">
+    Ja. Aon har gratis övningsuppgifter som PDF för de vanligaste modulerna, med fem uppgifter, facit och förklaringar i varje. Före varje skarp modul får du dessutom en övningsuppgift som du kan göra om hur många gånger du vill. För matrislogik, verbala och numeriska uppgifter kan du också öva hos oss, där du provar fem matrisfrågor gratis utan konto.
+  </FAQItem>
+
+  <FAQItem question="Vad är ett bra resultat på Aon-testet?">
+    Det finns ingen fast gräns. Ditt resultat jämförs med en normgrupp, och Aon rekommenderar arbetsgivare att utgå från T-värdet, där medel är 50 och standardavvikelsen 10. Ett T-värde på 50 betyder att du presterade som genomsnittet i jämförelsegruppen. Vad som räcker bestäms av arbetsgivaren utifrån rollens krav.
+  </FAQItem>
+
+  <FAQItem question="Kan jag göra Aon-testet på mobilen?">
+    Det går, men Aon rekommenderar starkt dator eller bärbar dator med en uppdaterad webbläsare som Chrome eller Edge och en stabil uppkoppling. De numeriska och verbala modulerna har flera datablad att bläddra mellan, och det är betydligt lättare på en stor skärm.
+  </FAQItem>
+
+</FAQContainer>
+{/* ---------- FAQ-SEKTION SLUT ---------- */}
+
+---
+
+*Källor: [Aon: Prepare for your online assessment](https://www.aon.com/en/capabilities/talent-and-rewards/prepare-for-your-online-assessment), [Aon: övningsuppgifter switchChallenge (PDF)](https://assets.aon.com/-/media/files/aon/capabilities/talent-and-rewards/practice-tasks--deductive-reasoning-switchchallenge.pdf), [Aon: övningsuppgifter gapChallenge (PDF)](https://assets.aon.com/-/media/files/aon/capabilities/talent-and-rewards/practice-tasks--deductive-reasoning-gapchallenge.pdf), [Aon: övningsuppgifter Numerical Reasoning (PDF)](https://assets.aon.com/-/media/files/aon/capabilities/talent-and-rewards/practice-tasks---numerical-reasoning.pdf), [Aon: övningsuppgifter Verbal Reasoning (PDF)](https://assets.aon.com/-/media/files/aon/capabilities/talent-and-rewards/practice-tasks---verbal-reasoning.pdf), [Aon: övningsuppgifter scales ix (PDF)](https://assets.aon.com/-/media/files/aon/capabilities/talent-and-rewards/practice-tasks--inductive-reasoning-ix.pdf), [Aon: övningsuppgifter digitChallenge (PDF)](https://assets.aon.com/-/media/files/aon/capabilities/talent-and-rewards/practice-tasks--deductive-numeracy-digitchallenge.pdf), [Aon Assessment Sverige: logiktest](https://www.aonassessment.com/aons-testutbud/logiktest), [Aon Assessment Sverige: färdighetstest](https://www.aonassessment.com/aons-testutbud/fardighetstest), [Aon Assessment Sverige: kandidatsida](https://www.aonassessment.com/kandidatsida), [Aon Assessment: tolkning av jämförelserapporter](https://aonassessment.deskpro.com/en-US/kb/articles/tolkning-av-sammenligningsrapporter), [Aon Assessment: rapporter för förmåge- och färdighetstest](https://aonassessment.deskpro.com/en-US/kb/articles/rapporter-til-evne-og-ferdighetstester) och [Aon: Aon Acquires Leading Provider of Talent Measurement and Psychometric Assessment](https://aon.mediaroom.com/news-releases?item=137577).*
