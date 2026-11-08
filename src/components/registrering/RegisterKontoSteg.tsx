@@ -68,6 +68,8 @@ export interface RegisterKontoStegProps {
   entry: SignupEntry
   /** Hoppade över steg 1. Går med i cookien och i signup_intent_selected. */
   skipped?: boolean
+  /** Frågan i steg 1 visades. Falsk på bar /register: frågan ställs i spårvalet. */
+  fragaVisad?: boolean
   /** "Ändra" i valraden och tillbaka-pilen: till steg 1 med valet kvar. */
   onAndraVal?: () => void
   /** Steg 1 finns i det här läget, så pilen och stegräknaren visas. */
@@ -107,6 +109,7 @@ export default function RegisterKontoSteg({
   redirect = null,
   entry,
   skipped = false,
+  fragaVisad = true,
   onAndraVal,
   visaSteg = false,
 }: RegisterKontoStegProps) {
@@ -128,7 +131,7 @@ export default function RegisterKontoSteg({
   const loginHref = loggaInHref({ intent, smakprov, paket, redirect })
 
   const skrivCookie = () =>
-    skrivSignupCookie({ intent, entry, skipped, smakprov, paket, redirect })
+    skrivSignupCookie({ intent, entry, skipped, fragaVisad, smakprov, paket, redirect })
 
   /** signup_failed med felkoden (undersökningen 2026-10-12). Aldrig adressen. */
   const matFel = (steg: 'validering' | 'turnstile' | 'signup', felkod: string) =>

@@ -4,9 +4,12 @@
  * Registreringens steg på klienten (Del B). Läget kommer från servern ur
  * adressen:
  *
- *   tratt     steg 1 (valet), sedan steg 2 (kontot) med valraden
+ *   tratt     bar /register: kontot direkt, som om frågan hoppats över.
+ *             Fråga 1 ("Vad vill du börja med?") togs bort 2026-11-08 när
+ *             kill-regeln slog till (61 till 65 procent tapp). Valet görs i
+ *             spårvalet efter kontot (landningsgren med skipped).
  *   konto     ?borja=: steg 2 direkt med valraden och Ändra, som leder till
- *             steg 1 med valet förvalt
+ *             valet med det förvalda markerat
  *   smakprov  ett enda steg, kontot i smakprovsform
  *   paket     bara kontot, utan valrad (köpsteget kommer efter)
  *   redirect  bara kontot, utan valrad
@@ -51,10 +54,13 @@ function lasIngang(ingang: RegisterIngang): SignupEntry {
 type Steg = 'val' | 'konto'
 
 export default function RegisterFlode({ ingang }: { ingang: RegisterIngang }) {
-  const harVal = ingang.lage === 'tratt' || ingang.lage === 'konto'
-  const [steg, setSteg] = useState<Steg>(ingang.lage === 'tratt' ? 'val' : 'konto')
+  // Bara ?borja= har ett val att ändra. Bar /register går direkt till
+  // kontot och frågan ställs efteråt i spårvalet.
+  const harVal = ingang.lage === 'konto'
+  const [steg, setSteg] = useState<Steg>('konto')
   const [intent, setIntent] = useState<SignupIntent | null>(ingang.intent)
-  const [skipped, setSkipped] = useState(false)
+  const [skipped, setSkipped] = useState(ingang.lage === 'tratt')
+  const [fragaVisad, setFragaVisad] = useState(false)
   const [entry, setEntry] = useState<SignupEntry>('direkt')
   const entryRef = useRef<SignupEntry | null>(null)
   const sedda = useRef(new Set<Steg>())
@@ -98,7 +104,11 @@ export default function RegisterFlode({ ingang }: { ingang: RegisterIngang }) {
     setSteg('konto')
   }, [])
 
-  if (steg === 'val') {
+  useEffect(() => {
+    if (steg === 'val') setFragaVisad(true)
+  }, [steg])
+
+  if (steg === 'val' && harVal) {
     return (
       <ValSteg
         forval={intent}
@@ -118,6 +128,7 @@ export default function RegisterFlode({ ingang }: { ingang: RegisterIngang }) {
       redirect={ingang.redirect}
       entry={entry}
       skipped={skipped}
+      fragaVisad={fragaVisad || ingang.lage !== 'tratt'}
       visaSteg={harVal}
       onAndraVal={harVal ? () => setSteg('val') : undefined}
     />

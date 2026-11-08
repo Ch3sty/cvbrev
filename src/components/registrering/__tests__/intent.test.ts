@@ -187,6 +187,11 @@ describe('Google-vägen, simulerad från knapp till landning', () => {
     expect(gren).toEqual({ via: 'sparval', destination: `${SPARVAL}?hoppat=1` })
   })
 
+  it('bar /register utan fråga 1 (2026-11-08): spårvalet ställer frågan, genom Google också', () => {
+    const { gren } = genomGoogle({ ...bas, skipped: true, fragaVisad: false }, true)
+    expect(gren).toEqual({ via: 'sparval', destination: SPARVAL })
+  })
+
   it('befintligt konto: hemskärmen, eller redirecten, eller valkommen om ett smakprov väntar', () => {
     expect(genomGoogle({ ...bas, intent: 'cv' }, false).mal).toBe('/dashboard')
     expect(genomGoogle({ ...bas, redirect: '/dashboard/tester' }, false).mal).toBe('/dashboard/tester')

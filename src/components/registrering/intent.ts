@@ -122,6 +122,12 @@ export interface SignupCookie {
   intent: SignupIntent | null
   entry: SignupEntry
   skipped: boolean
+  /**
+   * Fick hon se frågan "Vad vill du börja med?" i registreringen? Sedan
+   * 2026-11-08 visas den bara via Ändra på ?borja=. Utelämnad räknas som
+   * sann (cookies från före ändringen). Falsk: frågan ställs i spårvalet.
+   */
+  fragaVisad?: boolean
   smakprov?: Smakprov | null
   paket?: PlanKey | null
   redirect?: string | null
@@ -155,6 +161,7 @@ export function lasSignupCookie(raw: string | null | undefined): SignupCookie | 
     intent: lasIntent(d.intent),
     entry: lasEntry(d.entry) ?? 'direkt',
     skipped: d.skipped === true,
+    ...(d.fragaVisad === false ? { fragaVisad: false } : {}),
     smakprov: typ && token && giltigtSmakprov(typ, token) ? { typ, token } : null,
     paket: isPlanKey(d.paket) ? d.paket : null,
     redirect: sakerRedirect(d.redirect),
@@ -258,8 +265,9 @@ export function landningsgren(c: SignupCookie | null, sparvalPath: string): Land
   if (c?.intent) return { via: 'forslag', intent: c.intent }
   // Hoppade hon över "Vad vill du börja med?" i steg 1 ställs frågan inte
   // igen: Börja gratis i spårvalet går då direkt till hemskärmen
-  // (QA 2026-09-24, iakttagelse 2).
-  if (c?.skipped) return { via: 'sparval', destination: `${sparvalPath}?${HOPPAT_PARAM}=1` }
+  // (QA 2026-09-24, iakttagelse 2). Fick hon aldrig se frågan (bar
+  // /register sedan 2026-11-08) ställs den i spårvalet.
+  if (c?.skipped && c.fragaVisad !== false) return { via: 'sparval', destination: `${sparvalPath}?${HOPPAT_PARAM}=1` }
   return { via: 'sparval', destination: sparvalPath }
 }
 
