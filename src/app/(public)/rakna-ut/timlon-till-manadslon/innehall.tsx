@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const faq = [
   {
     q: 'Hur räknar man om timlön till månadslön?',
-    a: 'Multiplicera timlönen med 174, schablonen för antalet arbetstimmar per månad vid heltid med 40-timmarsvecka. En timlön på 180 kronor motsvarar alltså ungefär 31 300 kronor i månadslön. Schablonen kommer av att 40 timmar i veckan gånger 52 veckor delat på 12 månader blir 173,33 timmar, som i löneadministration avrundas till 174.',
+    a: 'Multiplicera timlönen med 174, schablonen för antalet arbetstimmar per månad vid heltid med 40-timmarsvecka. En timlön på 180 kronor motsvarar alltså 31 320 kronor i månadslön. Schablonen kommer av att 40 timmar i veckan gånger 52 veckor delat på 12 månader blir 173,33 timmar, som i löneadministration avrundas till 174.',
   },
   {
     q: 'Hur räknar man om månadslön till timlön?',

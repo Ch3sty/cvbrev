@@ -125,9 +125,9 @@ export const INLINE_PROVA = {
  * som <TestKort /> i MDX, till exempel i styrkor-svagheter-intervju.
  */
 export const TESTKORT_INTERVJU = {
-  etikett: 'Nästa steg efter intervjun',
-  rubrik: 'Efter intervjun kommer ofta testerna',
-  text: 'Logiktest och personlighetstest är vanliga i samma process som intervjun. Prova fem matrisfrågor gratis här, rätt och fel direkt, eller se alla tester med facit och förklaring.',
+  etikett: 'Inför intervjun',
+  rubrik: 'Intervjun kommer sällan ensam',
+  text: 'Logiktest och personlighetstest ingår ofta i samma process, före eller efter intervjun. Prova fem matrisfrågor gratis, rätt och fel direkt, eller se alla tester och nivåer.',
 } as const
 
 /** Karriär med lön, uppsägning eller jobbyte: räknarna först, coachen sedan. */
