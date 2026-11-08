@@ -15,6 +15,8 @@ import { LETTER_WINDOW_DAYS } from '@/lib/quota/quotaService'
 import {
   GRATIS_KORT,
   INLINE,
+  INLINE_PROVA,
+  TESTKORT_INTERVJU,
   INLINE_RAKNARE,
   LANKRAD,
   LISTA_SLUT,
@@ -22,7 +24,7 @@ import {
   SLUT,
 } from '../reklam-copy'
 
-const ALLA = { GRATIS_KORT, INLINE, INLINE_RAKNARE, LANKRAD, LISTA_SLUT, SIDO, SLUT }
+const ALLA = { GRATIS_KORT, INLINE, INLINE_PROVA, TESTKORT_INTERVJU, INLINE_RAKNARE, LANKRAD, LISTA_SLUT, SIDO, SLUT }
 
 /** Alla strängar i ett objekt, rekursivt. */
 function strangar(v: unknown): string[] {
@@ -123,5 +125,10 @@ describe('reklamkortens texter', () => {
     }
     expect(INLINE.brev.text).toContain('var sjunde dag')
     expect(SIDO.cv.gratisrad).toContain('var sjunde dag')
+  })
+
+  it('provkortet länkar både till provet och till testsidan (analysen 2026-11-08)', () => {
+    expect(INLINE_PROVA.href).toBe('/verktyg/rekryteringstester/prova')
+    expect(INLINE_PROVA.sekundar.href).toBe('/verktyg/rekryteringstester')
   })
 })

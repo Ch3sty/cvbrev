@@ -59,7 +59,8 @@ import CVExample from '@/components/mdx/CVExample';
 // Serverrenderad; enda klientkoden är ArtikelKlient (mätning och
 // innehållsförteckningens tråd), mallväljaren och mobilens klistrade knapp.
 import ArtikelRam, { datumText, type RelateradArtikel } from '@/components/artiklar/ArtikelRam';
-import { GratisKort, InlineKort, SlutKort } from '@/components/artiklar/reklam/ArtikelReklam';
+import { GratisKort, InlineKort, ProvKort, SlutKort } from '@/components/artiklar/reklam/ArtikelReklam';
+import { TESTKORT_INTERVJU } from '@/components/artiklar/reklam/reklam-copy';
 import Signatur from '@/components/publikt/innehall/Signatur';
 import ArtikelFilm from '@/components/artiklar/ArtikelFilm';
 import { KLUSTER_ETIKETT, hjalteKnapp } from '@/components/publikt/innehall/artikel-kluster';
@@ -462,6 +463,18 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         // Lägg till konverteringskomponenter som kan användas i MDX
         // Aliaset bevaras för äldre MDX som skriver ut komponenten själv.
         BroadConversionBanner: () => <InlineKort cluster={cluster} verktyg={verktyg} slug={slug} />,
+        // Provkortet med länken till testsidan i artiklar utanför testklustret
+        // (analysen 2026-11-08, punkt 10). Egen variant i mätningen.
+        TestKort: () => (
+            <ProvKort
+                cluster={cluster}
+                slug={slug}
+                etikett={TESTKORT_INTERVJU.etikett}
+                rubrik={TESTKORT_INTERVJU.rubrik}
+                text={TESTKORT_INTERVJU.text}
+                variant="testkort"
+            />
+        ),
         // Produktfilmen i testartiklarna, klicka för att spela (ArtikelFilm.tsx).
         Traningsfilm: () => <ArtikelFilm slug={slug} />,
         CVTemplateShowcase: CVTemplateShowcase,

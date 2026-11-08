@@ -58,7 +58,10 @@ export default function ArtikelHjalte({
           <h1 className="ib-h1">{titel}</h1>
           {ingress ? <p className="pub-ingress">{ingress}</p> : null}
           {primar || lasGuiden ? (
-            <div className="pub-handling">
+            // data-cta-position: hjältens knapp mäts som position hero och
+            // skiljs från provkortet, som pekar på samma mål (analysen 2026-11-08).
+            <div className="pub-handling" data-cta-position="hero" data-cta-variant="hjalte">
+
               {primar ? (
                 <Link className="pub-knapp" href={primar.href} data-primar="" data-cta-klick={primar.href}>
                   {primar.text}

@@ -112,6 +112,22 @@ export const INLINE_PROVA = {
   knapp: 'Prova fem frågor',
   href: '/verktyg/rekryteringstester/prova',
   paketrad: INLINE.test.paketrad,
+  /**
+   * Länken till testsidan bredvid provknappen (analysen 2026-11-08, punkt 9):
+   * testsidan gav 41 konton i P1 och 5 i P2 när korten bara pekade på provet.
+   */
+  sekundar: { text: 'Se alla tester och nivåer', href: '/verktyg/rekryteringstester' },
+} as const
+
+/**
+ * Testkortet i artiklar utanför testklustret (punkt 10): samma kort som
+ * provkortet, med en rubrik och text som passar intervjuartiklarna. Används
+ * som <TestKort /> i MDX, till exempel i styrkor-svagheter-intervju.
+ */
+export const TESTKORT_INTERVJU = {
+  etikett: 'Nästa steg efter intervjun',
+  rubrik: 'Efter intervjun kommer ofta testerna',
+  text: 'Logiktest och personlighetstest är vanliga i samma process som intervjun. Prova fem matrisfrågor gratis här, rätt och fel direkt, eller se alla tester med facit och förklaring.',
 } as const
 
 /** Karriär med lön, uppsägning eller jobbyte: räknarna först, coachen sedan. */

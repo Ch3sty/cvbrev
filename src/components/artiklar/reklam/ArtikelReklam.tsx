@@ -134,34 +134,7 @@ export function InlineKort({
   }
 
   if (verktyg === 'test') {
-    return (
-      <aside
-        className={`not-prose ib-prova ${rum}`}
-        aria-label={INLINE_PROVA.etikett}
-        {...matning('inline', cluster, verktyg)}
-        data-cta-slug={slug}
-      >
-        <div>
-          <p className="pub-kick">{INLINE_PROVA.etikett}</p>
-          <p className="ib-rub">{INLINE_PROVA.rubrik}</p>
-          <p className="ib-prova-text">{INLINE_PROVA.text}</p>
-          <div className="pub-handling">
-            <Link
-              href={INLINE_PROVA.href}
-              data-cta={`article-inline-${cluster}`}
-              data-cta-klick={INLINE_PROVA.href}
-              className="pub-knapp"
-            >
-              {INLINE_PROVA.knapp}
-            </Link>
-          </div>
-          <p className="pub-liten">{INLINE_PROVA.paketrad}</p>
-        </div>
-        <div className="ib-prova-sida">
-          <ProvMatris />
-        </div>
-      </aside>
-    )
+    return <ProvKort cluster={cluster} slug={slug} />
   }
 
   const copy = INLINE[verktyg]
@@ -185,6 +158,61 @@ export function InlineKort({
       </div>
       <div className="ib-prova-sida" aria-hidden="true">
         <Objekt typ={INLINE_OBJEKT[verktyg]} storlek={64} />
+      </div>
+    </aside>
+  )
+}
+
+/**
+ * Provkortet: expertfrågan i bild, knappen till provet och länken till
+ * testsidan bredvid (analysen 2026-11-08, punkt 9 och 10). Båda målen mäts
+ * som article_cta_clicked med target = länkens mål. I testklustret står det
+ * efter andra stycket; i andra artiklar läggs det in med <TestKort /> och
+ * egen rubrik och text, med variant 'testkort' så att de två går att skilja åt.
+ */
+export function ProvKort({
+  cluster,
+  slug,
+  etikett = INLINE_PROVA.etikett,
+  rubrik = INLINE_PROVA.rubrik,
+  text = INLINE_PROVA.text,
+  variant = 'test',
+}: {
+  cluster: CtaCluster
+  slug: string
+  etikett?: string
+  rubrik?: string
+  text?: string
+  variant?: string
+}) {
+  return (
+    <aside
+      className={`not-prose ib-prova pub-rum-${KLUSTER_RUM[cluster]}`}
+      aria-label={etikett}
+      {...matning('inline', cluster, variant)}
+      data-cta-slug={slug}
+    >
+      <div>
+        <p className="pub-kick">{etikett}</p>
+        <p className="ib-rub">{rubrik}</p>
+        <p className="ib-prova-text">{text}</p>
+        <div className="pub-handling">
+          <Link
+            href={INLINE_PROVA.href}
+            data-cta={`article-inline-${cluster}`}
+            data-cta-klick={INLINE_PROVA.href}
+            className="pub-knapp"
+          >
+            {INLINE_PROVA.knapp}
+          </Link>
+          <Link href={INLINE_PROVA.sekundar.href} data-cta-klick={INLINE_PROVA.sekundar.href} className="pub-lank">
+            {INLINE_PROVA.sekundar.text}
+          </Link>
+        </div>
+        <p className="pub-liten">{INLINE_PROVA.paketrad}</p>
+      </div>
+      <div className="ib-prova-sida">
+        <ProvMatris />
       </div>
     </aside>
   )
