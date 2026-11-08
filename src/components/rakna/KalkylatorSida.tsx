@@ -28,6 +28,7 @@ import SkarmCoach from '@/components/publikt/telefon/skarmar/SkarmCoach'
 import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
 import { FREE_CHAT_MESSAGES_PER_ACCOUNT } from '@/lib/quota/quotaService'
 import type { Slug } from '@/lib/rakna/delning'
+import ArtikelKlient from '@/components/artiklar/ArtikelKlient'
 import './rakna.css'
 
 type FaqPost = { q: string; a: string }
@@ -69,10 +70,21 @@ function KallIkon() {
   )
 }
 
-function Jobbcoachen() {
+/**
+ * Nästa steg efter lönesidorna: Jobbcoachen och testerna (analysen
+ * 2026-11-08, punkt 11). Klicken mäts av ArtikelKlient som
+ * article_cta_clicked med slug rakna-ut/<sidan> och target = målet.
+ */
+function Jobbcoachen({ slug }: { slug: Slug }) {
   return (
     <Rum yta="premium" id="lonesamtal">
-      <div className="pub-wrap pub-tva">
+      <div
+        className="pub-wrap pub-tva"
+        data-cta-position="final"
+        data-cta-cluster="career"
+        data-cta-variant="rakna-ut"
+        data-cta-slug={`rakna-ut/${slug}`}
+      >
         <div className="pub-tva-text">
           <p className="pub-kick">
             Ingår i {paketKort()}, {prisPeriod(SALD_PLAN)}
@@ -86,13 +98,24 @@ function Jobbcoachen() {
             Jobbcoachen, så mycket du vill, ingår i {paketKort()}, {prisPeriod(SALD_PLAN)}.
           </p>
           <div className="pub-handling">
-            <Link className="pub-knapp" href="/verktyg/jobbcoachen">
+            <Link className="pub-knapp" href="/verktyg/jobbcoachen" data-cta-klick="/verktyg/jobbcoachen">
               Fråga jobbcoachen
             </Link>
-            <Link className="pub-lank" href="/priser">
+            <Link className="pub-lank" href="/priser" data-cta-klick="/priser">
               Se vad som ingår
             </Link>
           </div>
+          <p className="pub-liten" style={{ marginTop: 20 }}>
+            Ska du på intervju? Många arbetsgivare har logiktest och personlighetstest i samma process.{' '}
+            <Link className="pub-lank" href="/verktyg/rekryteringstester/prova" data-cta-klick="/verktyg/rekryteringstester/prova">
+              Prova fem testfrågor gratis
+            </Link>{' '}
+            eller{' '}
+            <Link className="pub-lank" href="/verktyg/rekryteringstester" data-cta-klick="/verktyg/rekryteringstester">
+              se alla rekryteringstester
+            </Link>
+            .
+          </p>
         </div>
         <div className="pub-mitt">
           <SkarmCoach />
@@ -229,7 +252,7 @@ export default function KalkylatorSida({
           </Rum>
 
           {/* 3. Nästa steg */}
-          {kategori === 'lon' ? <Jobbcoachen /> : <Insikterna />}
+          {kategori === 'lon' ? <Jobbcoachen slug={slug} /> : <Insikterna />}
 
           {/* 4. Frågorna och Läs mer */}
           <Rum yta="mark" id="fragor">
@@ -250,6 +273,8 @@ export default function KalkylatorSida({
           </Rum>
         </main>
         <FastKnapprad text="Räkna ut" href="#kalkylator" observera="hjalte" />
+        {/* Mätningen av nästa steg (punkt 11). Utan slug: ingen article_viewed. */}
+        <ArtikelKlient cluster="career" />
       </PubliktSida>
     </>
   )

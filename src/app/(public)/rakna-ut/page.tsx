@@ -34,6 +34,7 @@ import { FORHANDLING_STANDARD, beraknaForhandling } from '@/lib/rakna/loneforhan
 import { ANSTALLD_STANDARD, beraknaAnstalld } from '@/lib/rakna/anstalldKostnad'
 import { kr, krTecken } from '@/lib/rakna/format'
 import '@/components/rakna/rakna.css'
+import ArtikelKlient from '@/components/artiklar/ArtikelKlient'
 
 export const metadata: Metadata = {
   title: 'Räkna ut: gratis kalkylatorer för lön, jobb och rekrytering',
@@ -245,7 +246,14 @@ export default function Page() {
 
         {/* 3. Bläck: löneförhandlingens värde och Jobbcoachen */}
         <Rum yta="premium" id="loneforhandling">
-          <div className="pub-wrap pub-tva">
+          {/* Nästa steg mäts som article_cta_clicked, slug rakna-ut (analysen 2026-11-08, punkt 11). */}
+          <div
+            className="pub-wrap pub-tva"
+            data-cta-position="final"
+            data-cta-cluster="career"
+            data-cta-variant="rakna-ut"
+            data-cta-slug="rakna-ut"
+          >
             <div className="pub-tva-text">
               <p className="pub-kick">{premie}</p>
               <p className="rk-storsiffra" aria-hidden="true">
@@ -260,13 +268,24 @@ export default function Page() {
                 Jobbcoachen, så mycket du vill, ingår i {paketKort()}, {prisPeriod(SALD_PLAN)}.
               </p>
               <div className="pub-handling">
-                <Link className="pub-knapp" href="/verktyg/jobbcoachen">
+                <Link className="pub-knapp" href="/verktyg/jobbcoachen" data-cta-klick="/verktyg/jobbcoachen">
                   Fråga jobbcoachen
                 </Link>
-                <Link className="pub-lank" href="/rakna-ut/loneforhandling">
+                <Link className="pub-lank" href="/rakna-ut/loneforhandling" data-cta-klick="/rakna-ut/loneforhandling">
                   Räkna på din egen höjning
                 </Link>
               </div>
+              <p className="pub-liten" style={{ marginTop: 20 }}>
+                Ska du på intervju? Många arbetsgivare har logiktest och personlighetstest i samma process.{' '}
+                <Link className="pub-lank" href="/verktyg/rekryteringstester/prova" data-cta-klick="/verktyg/rekryteringstester/prova">
+                  Prova fem testfrågor gratis
+                </Link>{' '}
+                eller{' '}
+                <Link className="pub-lank" href="/verktyg/rekryteringstester" data-cta-klick="/verktyg/rekryteringstester">
+                  se alla rekryteringstester
+                </Link>
+                .
+              </p>
             </div>
             <div className="pub-mitt">
               <SkarmCoach />
@@ -313,6 +332,7 @@ export default function Page() {
           </div>
         </Rum>
       </main>
+      <ArtikelKlient cluster="career" />
     </PubliktSida>
   )
 }
