@@ -20,6 +20,7 @@
  */
 
 import { useEffect, useRef } from 'react'
+import { useFriSikt } from '@/components/shared/useFriSikt'
 import NumericalTable from '@/components/tests/numerical-shared/NumericalTable'
 import NumericalChart from '@/components/tests/numerical-shared/NumericalChart'
 import { splitIntoParagraphs } from '@/components/tests/verbal-shared/splitParagraphs'
@@ -87,6 +88,10 @@ export function VnUppgift({ kind, punkt, nr, antal, vald, aterkoppling, last, on
   const rattText = ratt ? punkt.alternativ.find((a) => a.id === ratt)?.text ?? null : null
   // Förklaringen rullas fram ovanför foten när den kommer (som regelpanelen i matrispasset).
   const forklaringRef = useRef<HTMLDivElement | null>(null)
+  const uppgiftRef = useRef<HTMLDivElement | null>(null)
+  // Samtycket ligger aldrig över svarsalternativen (klicktestet 2026-11-08:
+  // på Pixel 7 täckte det alternativ B till D på första frågan).
+  useFriSikt(uppgiftRef)
   useEffect(() => {
     const el = forklaringRef.current
     if (!avslojad || last === false || !el || typeof el.scrollIntoView !== 'function') return
@@ -94,7 +99,7 @@ export function VnUppgift({ kind, punkt, nr, antal, vald, aterkoppling, last, on
     el.scrollIntoView({ block: 'nearest', behavior: lugn ? 'auto' : 'smooth' })
   }, [avslojad, last])
   return (
-    <div className="flex flex-col gap-3" data-vn-uppgift={punkt.nyckel}>
+    <div ref={uppgiftRef} className="flex flex-col gap-3" data-vn-uppgift={punkt.nyckel}>
       <p className="text-ey uppercase text-ink-3">{verbal ? C.fraga.pastaende(nr, antal) : C.fraga.fraga(nr, antal)}</p>
       <p className="font-display text-[19px] font-bold leading-[26px] tracking-[-.01em] text-ink-1">{punkt.text}</p>
       <div

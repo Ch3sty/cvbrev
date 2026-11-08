@@ -1,3 +1,6 @@
+'use client';
+import { useRef } from 'react';
+import { useFriSikt } from '@/components/shared/useFriSikt';
 import type { Statement, UserAnswer } from '@/lib/verbalTestV1/types.v1';
 
 interface StatementListProps {
@@ -24,8 +27,12 @@ export function StatementList({
   onSelectAnswer,
   isSaving,
 }: StatementListProps) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  // Samtycket ligger aldrig över svarsalternativen (klicktestet 2026-11-08:
+  // på Pixel 7 täckte det alternativ B till D på första frågan).
+  useFriSikt(ref);
   return (
-    <div className="space-y-3">
+    <div ref={ref} className="space-y-3">
       {statements.map((statement, index) => {
         const userAnswer = userAnswers[index];
 

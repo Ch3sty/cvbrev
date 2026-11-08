@@ -1,4 +1,6 @@
 'use client';
+import { useRef } from 'react';
+import { useFriSikt } from '@/components/shared/useFriSikt';
 
 type AnswerValue = 'true' | 'false' | 'cannot_say';
 
@@ -30,8 +32,12 @@ export default function StatementList({
   onAnswer,
   disabled = false,
 }: StatementListProps) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  // Samtycket ligger aldrig över svarsalternativen (klicktestet 2026-11-08:
+  // på Pixel 7 täckte det alternativ B till D på första frågan).
+  useFriSikt(ref);
   return (
-    <div className="space-y-3">
+    <div ref={ref} className="space-y-3">
       <div>
         <p className="text-sm font-medium text-ink-3">Bedöm påståendena</p>
         <p className="text-meta text-ink-3">Endast utifrån texten ovan, inte din egen kunskap.</p>

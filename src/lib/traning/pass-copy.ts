@@ -132,7 +132,7 @@ export const PASS_COPY = {
     matning: 'Nivåkollen',
     matningRad: 'Tolv uppgifter som följer dina svar',
     /** Spec 14.5: "fråga 1 av 7, fem räknas från smakprovet". */
-    matningSmakprov: (n: number) => `${versal(talord(n, 'en'))} räknas från smakprovet`,
+    matningSmakprov: (n: number) => `${versal(talord(n, 'ett'))} svar från provet räknas in`,
     ommatning: 'Ny nivåkoll',
     ommatningRad: 'Tolv uppgifter, som första gången',
     general: 'Övningsprov',

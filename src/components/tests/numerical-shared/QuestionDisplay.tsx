@@ -1,4 +1,6 @@
 'use client';
+import { useRef } from 'react';
+import { useFriSikt } from '@/components/shared/useFriSikt';
 
 import AnswerOptions from './AnswerOptions';
 import type { Question } from '@/lib/numericalTest/types';
@@ -27,9 +29,13 @@ export default function QuestionDisplay({
   disabled,
 }: QuestionDisplayProps) {
   const difficultyIdx = Math.min(2, Math.max(0, question.difficulty - 1));
+  const ref = useRef<HTMLElement | null>(null);
+  // Samtycket ligger aldrig över svarsalternativen (klicktestet 2026-11-08:
+  // på Pixel 7 täckte det alternativ B till D på första frågan).
+  useFriSikt(ref);
 
   return (
-    <section key={question.id} className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
+    <section ref={ref} key={question.id} className="rounded-xl border border-kant bg-panel p-4 sm:p-5">
       <p className="text-meta tabular-nums text-ink-3">
         Fråga {questionNumber} av {totalQuestions}
         <span aria-hidden="true"> · </span>

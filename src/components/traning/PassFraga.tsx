@@ -20,6 +20,8 @@
 
 import { FigurV7, LuckaV7, type LayeredCell, type VisadFraga } from '@/lib/logicTestV7/layered.v7'
 import { PASS_COPY } from '@/lib/traning/pass-copy'
+import { useRef } from 'react'
+import { useFriSikt } from '@/components/shared/useFriSikt'
 
 export interface PassFragaProps {
   fraga: Pick<VisadFraga, 'id' | 'grid' | 'options'>
@@ -64,11 +66,15 @@ export function Matris({ grid, ratt }: { grid: VisadFraga['grid']; ratt: Layered
 
 export default function PassFraga({ fraga, vald, ratt, last, onValj, visaText = true }: PassFragaProps) {
   const avslojad = ratt != null
+  // Samtycket ligger aldrig över svarsalternativen (klicktestet 2026-11-08:
+  // på desktop täckte det nedersta raden i Nivåkollens första fråga).
+  const altRef = useRef<HTMLDivElement | null>(null)
+  useFriSikt(altRef)
   return (
     <div className="flex flex-col gap-3.5">
       <Matris grid={fraga.grid} ratt={avslojad ? fraga.options[ratt] : null} />
       {visaText && !avslojad ? <p className="text-center text-meta text-ink-3">{PASS_COPY.fraga.text}</p> : null}
-      <div role="radiogroup" aria-label={PASS_COPY.fraga.alternativ} className="matrisyta grid grid-cols-3 gap-2.5">
+      <div ref={altRef} role="radiogroup" aria-label={PASS_COPY.fraga.alternativ} className="matrisyta grid grid-cols-3 gap-2.5">
         {fraga.options.map((opt, i) => {
           const bokstav = String.fromCharCode(65 + i)
           const arVald = vald === i

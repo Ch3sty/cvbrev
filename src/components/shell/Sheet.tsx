@@ -19,6 +19,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import { useFriSikt } from '@/components/shared/useFriSikt'
 
 export interface SheetProps {
   open: boolean
@@ -54,6 +55,9 @@ export default function Sheet({
   className,
 }: SheetProps) {
   const panelRef = useRef<HTMLDivElement | null>(null)
+  // Samtycket ligger aldrig över ett öppet ark (klicktestet 2026-11-08: på
+  // Pixel 7 täckte det "Avsluta och se resultat" i testets bekräftelse).
+  useFriSikt(panelRef, open)
   const restoreFocusRef = useRef<HTMLElement | null>(null)
   const touchStartY = useRef<number | null>(null)
   const [dragY, setDragY] = useState(0)

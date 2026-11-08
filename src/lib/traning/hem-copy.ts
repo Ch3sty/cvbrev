@@ -79,7 +79,7 @@ export const HEM = {
     smakprovKnapp: (m: number) => `Kolla min nivå, ${m} min`,
     /** 1as/T1s (testansvarig 19.5 fråga 2): en text, inte två. Ersätter `text` när smakprov finns. */
     smakprovText: (n: number) =>
-      `${versal(talord(12 - n))} nya figuruppgifter ovanpå de ${talord(n)} från smakprovet. Efteråt vet du din nivå.`,
+      `${versal(talord(12 - n))} nya figuruppgifter ovanpå de ${talord(n)} från provet du gjorde. Efteråt vet du din nivå.`,
   },
   /**
    * 1t (19.3 fråga 2): bara siffror eller bara text valt. Nivå och kurva

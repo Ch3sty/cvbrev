@@ -171,10 +171,10 @@ describe('tillstånden med konceptets exempeltal', () => {
   it('smakprovet räknas in i 1a och T1, en text (19.3 fråga 3, 19.5 fråga 2)', () => {
     const t = modell('T1s')
     expect(t.lyft.titel).toBe('Kolla din nivå. Cirka fem minuter.')
-    expect(t.lyft.text).toBe('Sju nya figuruppgifter ovanpå de fem från smakprovet. Efteråt vet du din nivå.')
+    expect(t.lyft.text).toBe('Sju nya figuruppgifter ovanpå de fem från provet du gjorde. Efteråt vet du din nivå.')
     expect(t.lyft.handling).toMatchObject({ text: 'Kolla min nivå, 5 min' })
     const a = modell('1as')
-    expect(a.lyft.text).toMatch(/^Sju nya figuruppgifter ovanpå de fem från smakprovet/)
+    expect(a.lyft.text).toMatch(/^Sju nya figuruppgifter ovanpå de fem från provet du gjorde/)
     expect(a.lyft.fot).toBe('Nivåkollen är gratis, med eller utan Premium.')
     expect(modell('T1').lyft.text).toMatch(/^Tolv figuruppgifter/)
   })
