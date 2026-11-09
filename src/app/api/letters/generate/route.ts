@@ -20,7 +20,7 @@ import { mergeProfileDataIntoLetter, ProfileDataForLetter, JobInfo } from '@/lib
 import { getDocxTemplate, DocxTemplateId } from '@/lib/letters/docx-templates';
 import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
 import { dokumentEpost } from '@/lib/profile/dokumentEpost';
-import { kandaUppgifterForMaskning } from '@/lib/profile/dokumentKontakt';
+import { arPlatshallareNamn, kandaUppgifterForMaskning } from '@/lib/profile/dokumentKontakt';
 // Dagskvot (2 brev/dag, midnatt svensk tid) — se docs/plan-kvotmodell.md
 import {
   resolveDailyLetterCounter,
@@ -72,7 +72,7 @@ export async function POST(request: Request) {
     // Hämta profil med nya dynamiska kvotfält
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
-      .select('subscription_tier, weekly_letter_count, weekly_letter_first_used_at, weekly_letter_reset_at')
+      .select('subscription_tier, weekly_letter_count, weekly_letter_first_used_at, weekly_letter_reset_at, full_name')
       .eq('id', user.id)
       .single();
 
@@ -127,6 +127,14 @@ export async function POST(request: Request) {
     if (!cv_id || !job_description) {
       logUserActivity(user.id, 'letter_generation_failed', 'Försökte generera brev men input saknades', { has_cv_id: !!cv_id, has_job_description: !!job_description });
       return NextResponse.json({ error: 'CV-ID och jobbannons krävs' }, { status: 400 });
+    }
+
+    // Brevet bär avsändarens namn i huvud och underskrift. Utan namn i
+    // profilen frågar klienten efter det (NameRequiredNotice) och gör om
+    // anropet, före modellanropet och utan att kvoten räknas. Ingen
+    // platshållare som "Namn saknas" hamnar någonsin i ett brev.
+    if (arPlatshallareNamn(profile.full_name)) {
+      return NextResponse.json({ error: 'name_required', code: 'name_required' }, { status: 422 });
     }
 
     // Sparande är alltid tillåtet. För gratisanvändare är i stället bara de
@@ -224,7 +232,8 @@ export async function POST(request: Request) {
 
       // *** STEG 7: Skapa ProfileDataForLetter-objekt ***
       const profileForLetter: ProfileDataForLetter = {
-        full_name: profileData.full_name || 'Namn saknas',
+        // Profilens namn finns: anropet stoppas ovan med name_required annars.
+        full_name: (profileData.full_name ?? '').trim(),
         // Sätts in här, efter modellanropet (src/lib/profile/dokumentEpost.ts).
         email: dokumentEpost(profileData, user),
         phone: profileData.phone || null,

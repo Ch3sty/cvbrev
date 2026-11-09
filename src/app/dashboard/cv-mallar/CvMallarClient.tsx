@@ -20,6 +20,8 @@ import GraValSheet from '@/components/paywall/GraValSheet';
 import type { Scope } from '@/lib/access/features';
 import type { PlanKey } from '@/lib/plans/plans';
 import { mallHuvud } from '@/lib/onboarding/paket-rader';
+import { arNamnKravs, kastaOmNamnKravs } from '@/lib/cv/namnKravs';
+import NameRequiredNotice from '@/components/shared/NameRequiredNotice';
 
 import CvMallarLayout from './components/CvMallarLayout';
 import CvMallarHero from './components/CvMallarHero';
@@ -75,6 +77,9 @@ export default function CvMallarClient({
   const [generationError, setGenerationError] = useState<string | null>(null);
   const [sparrOppen, setSparrOppen] = useState(false);
   const [bytCv, setBytCv] = useState(false);
+  // 422 name_required: valet sparas så att nedladdningen fortsätter när
+  // namnet är sparat (NameRequiredNotice).
+  const [namnFor, setNamnFor] = useState<Parameters<typeof handleGenerateCV>[0] | null>(null);
 
   const isPremium = initialIsPremium;
   const huvud = mallHuvud(scope);
@@ -124,6 +129,7 @@ export default function CvMallarClient({
         }),
       });
 
+      await kastaOmNamnKravs(response);
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Kunde inte generera CV');
@@ -157,6 +163,11 @@ export default function CvMallarClient({
 
       requestInstallPrompt('cv_template_downloaded');
     } catch (error: any) {
+      if (arNamnKravs(error)) {
+        setIsGenerating(false);
+        setNamnFor(params);
+        return;
+      }
       console.error('Fel vid CV-skapande:', error);
       setGenerationError(error?.message || 'Något gick fel. Försök igen.');
     }
@@ -223,6 +234,16 @@ export default function CvMallarClient({
           onUpgrade={handleUpgradeClick}
           onCvKontaktSparad={(cv) => setNyStrukturerad((prev) => ({ ...prev, [cv.id]: cv.structured_data }))}
         />
+        {namnFor ? (
+          <NameRequiredNotice
+            className="mt-4"
+            onSaved={() => {
+              const p = namnFor;
+              setNamnFor(null);
+              void handleGenerateCV(p);
+            }}
+          />
+        ) : null}
       </section>
 
       {sparrOppen ? (

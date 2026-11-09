@@ -57,6 +57,20 @@ describe('bar /register', () => {
     expect(vyer).toEqual(['konto'])
   })
 
+  it('kontosteget har två fält, e-post och lösenord, och inget namnfält (2026-11-09)', () => {
+    render(<RegisterFlode ingang={registerIngang(ur(''))} />)
+    expect(screen.getByLabelText(STEG2.epost)).toBeTruthy()
+    expect(screen.getByLabelText(STEG2.losen)).toBeTruthy()
+    expect(screen.queryByLabelText('Namn')).toBeNull()
+    expect(document.querySelector('input[autocomplete="name"]')).toBeNull()
+  })
+
+  it('smakprovets kontosteg har inte heller något namnfält', () => {
+    render(<RegisterFlode ingang={registerIngang(ur('test=abc'))} />)
+    expect(document.querySelector('input[autocomplete="name"]')).toBeNull()
+    expect(document.querySelectorAll('form input:not([type="hidden"])').length).toBe(2)
+  })
+
   it('cookien bär skipped och att frågan inte visats, så spårvalet ställer den', () => {
     render(<RegisterFlode ingang={registerIngang(ur(''))} />)
     fireEvent.click(screen.getByRole('button', { name: STEG2.google }))

@@ -27,7 +27,7 @@ export default function VerifyEmailPage() {
       setUser({
         id: data.user.id,
         email: data.user.email || '',
-        fullName: (data.user.user_metadata?.full_name as string) || 'Användare',
+        fullName: (data.user.user_metadata?.full_name as string) || '',
       });
 
       if (data.user.email_confirmed_at) {

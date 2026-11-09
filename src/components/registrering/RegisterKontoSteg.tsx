@@ -2,7 +2,10 @@
 
 /**
  * Steg 2, kontot (docs/design/profil-registrering-2026-09-24.html, Del B
- * steg 2). Google först, en avdelare och tre fält i profilens fältform.
+ * steg 2). Google först, en avdelare och två fält i profilens fältform.
+ * Namnfältet togs bort 2026-11-09: tappet skedde före första tangenttrycket
+ * (158 såg steget, 30 började). Namnet frågas efter där det behövs, i CV,
+ * personliga brev och profilen (NameRequiredNotice, KontaktuppgifterRad).
  * Skapa konto ligger i den klistrade foten så att knappen följer med
  * tangentbordet.
  *
@@ -49,7 +52,7 @@ import { SKAL, SMAKPROV, SMAKPROV_FOTNOT, SMAKPROV_UNDER, STEG2 } from './regist
 
 const MIN_LOSEN = 8
 
-type FaltFel = 'namn' | 'epost' | 'losen' | null
+type FaltFel = 'epost' | 'losen' | null
 
 interface Fel {
   rubrik: string
@@ -115,7 +118,6 @@ export default function RegisterKontoSteg({
 }: RegisterKontoStegProps) {
   const router = useRouter()
   const formId = useId()
-  const [namn, setNamn] = useState('')
   const [epost, setEpost] = useState('')
   const [losen, setLosen] = useState('')
   const [busy, setBusy] = useState(false)
@@ -142,11 +144,6 @@ export default function RegisterKontoSteg({
     if (busy) return
     setFel(null)
 
-    if (namn.trim().length < 2) {
-      setFel({ rubrik: STEG2.fel.namn, falt: 'namn' })
-      matFel('validering', 'namn')
-      return
-    }
     if (!epost.includes('@') || epost.trim().length < 4) {
       setFel({ rubrik: STEG2.fel.epost, falt: 'epost' })
       matFel('validering', 'epost')
@@ -188,7 +185,6 @@ export default function RegisterKontoSteg({
       const { data, error } = await supabase.auth.signUp({
         email: epost.trim(),
         password: losen,
-        options: { data: { full_name: namn.trim() } },
       })
 
       if (error) throw error
@@ -213,7 +209,7 @@ export default function RegisterKontoSteg({
       void fetch('/api/auth/send-confirmation', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: data.user.email, fullName: namn.trim(), userId, isInvitation: false }),
+        body: JSON.stringify({ email: data.user.email, userId, isInvitation: false }),
       }).catch((err) => console.error('[register] bekräftelsemail misslyckades:', err))
 
       void logUserActivity(userId, 'registered', 'Konto skapat med e-post och lösenord')
@@ -360,16 +356,6 @@ export default function RegisterKontoSteg({
       ) : null}
 
       <form id={formId} onSubmit={skicka} noValidate className="mt-3 grid gap-4">
-        <Falt
-          label={STEG2.namn}
-          id={`${formId}-namn`}
-          value={namn}
-          onChange={setNamn}
-          placeholder={STEG2.namnPlats}
-          autoComplete="name"
-          enterKeyHint="next"
-          invalid={fel?.falt === 'namn'}
-        />
         <Falt
           label={STEG2.epost}
           id={`${formId}-epost`}

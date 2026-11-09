@@ -52,9 +52,11 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { email, fullName, userId } = body
 
-    if (!email || !fullName || !userId) {
+    // Namnet är frivilligt: kontosteget frågar inte efter det sedan 2026-11-09.
+    // Utan namn hälsar mejlet med "Hej!".
+    if (!email || !userId) {
       return NextResponse.json({
-        error: 'Email, fullName, and userId are required'
+        error: 'Email and userId are required'
       }, { status: 400 })
     }
 
@@ -99,7 +101,7 @@ export async function POST(request: NextRequest) {
     // Send email via Resend
     const emailData = {
       userEmail: email,
-      userName: fullName,
+      userName: typeof fullName === 'string' ? fullName : null,
       confirmationUrl
     }
 

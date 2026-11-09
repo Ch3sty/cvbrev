@@ -26,6 +26,8 @@ import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { useFlowStep } from '@/lib/flow/useFlowStep';
 import FlowResumeBanner from '@/components/shell/FlowResumeBanner';
 import { IkonBugg } from '@/components/illustrations/Ikoner';
+import NameRequiredNotice from '@/components/shared/NameRequiredNotice';
+import { arNamnKravs, kastaOmNamnKravs } from '@/lib/cv/namnKravs';
 
 // Lazy load steps for performance
 const Step1Kontakt = lazy(() => import('./steps/Step1Kontakt'));
@@ -186,6 +188,8 @@ export default function CVCreatorWizard({
 
   // Saving state
   const [isSaving, setIsSaving] = useState(false);
+  // 422 name_required från PDF-exporten (src/lib/cv/namnKravs.ts).
+  const [namnKravs, setNamnKravs] = useState(false);
 
   /* Granskningens primärknapp bor i skalets fot. Steget registrerar text,
      handling och spärr; skalet ritar. */
@@ -427,6 +431,7 @@ export default function CVCreatorWizard({
   const handleComplete = useCallback(
     async (action: 'save' | 'download' | 'both') => {
       setIsSaving(true);
+      setNamnKravs(false);
 
       try {
         const metadata = buildCVMetadata();
@@ -479,6 +484,7 @@ export default function CVCreatorWizard({
             }),
           });
 
+          await kastaOmNamnKravs(response);
           if (!response.ok) {
             const errorData = await response.json().catch(() => ({}));
             throw new Error(errorData.error || 'Kunde inte generera PDF');
@@ -496,7 +502,10 @@ export default function CVCreatorWizard({
         }
         setCvKlart(true);
       } catch (error) {
-        console.error('Error completing wizard:', error);
+        // Varken CV:t eller profilen har ett namn: rutan frågar efter det
+        // och nedladdningen görs om när det är sparat.
+        if (arNamnKravs(error)) setNamnKravs(true);
+        else console.error('Error completing wizard:', error);
         throw error;
       } finally {
         setIsSaving(false);
@@ -591,6 +600,15 @@ export default function CVCreatorWizard({
     <Suspense fallback={<StepSkeleton />}>
       <div key={currentStep} className="motion-safe:animate-[threadEnter_200ms_ease-out_both]">
         {renderStepContent()}
+        {namnKravs && currentStep === 6 ? (
+          <NameRequiredNotice
+            className="mt-4"
+            onSaved={() => {
+              setNamnKravs(false);
+              void handleComplete('download').catch(() => undefined);
+            }}
+          />
+        ) : null}
       </div>
     </Suspense>
   );

@@ -1,0 +1,351 @@
+{
+  "bas": "http://localhost:3121",
+  "ok": 44,
+  "av": 46,
+  "resultat": [
+    {
+      "namn": "pixel7: /register har två fält, e-post och lösenord",
+      "ok": true,
+      "not": "[{\"type\":\"email\",\"ac\":\"email\"},{\"type\":\"password\",\"ac\":\"new-password\"}]"
+    },
+    {
+      "namn": "pixel7: inget namnfält på /register",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "pixel7: /register utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "pixel7: Skapa konto syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "pixel7: kontot skapat utan namn och landar inloggat",
+      "ok": true,
+      "not": "/dashboard/valkommen"
+    },
+    {
+      "namn": "pixel7: bekräftelsemejlet skickas utan namn (200, inget fullName)",
+      "ok": true,
+      "not": "200"
+    },
+    {
+      "namn": "pixel7: profilen saknar namn",
+      "ok": true,
+      "not": "{\"full_name\":null}"
+    },
+    {
+      "namn": "pixel7: landningen visar ingen platshållare för namnet",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "pixel7: hemvyn utan \"undefined\" eller platshållare",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "pixel7: CV-mallar har Skapa CV-PDF",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "pixel7: CV-exporten frågar efter namnet (422 name_required)",
+      "ok": true,
+      "not": "[{\"status\":422,\"typ\":\"application/json\"}]"
+    },
+    {
+      "namn": "pixel7: namnrutan rullas in i bild",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "pixel7: PDF:en laddas ned efter namnet",
+      "ok": false,
+      "not": "[{\"status\":422,\"typ\":\"application/json\"},{\"status\":500,\"typ\":\"application/json\"}]"
+    },
+    {
+      "namn": "pixel7: namnet sparat i profilen",
+      "ok": true,
+      "not": "{\"full_name\":\"Sara Lind\"}"
+    },
+    {
+      "namn": "pixel7: kontosteget efter provet har två fält",
+      "ok": true,
+      "not": "[{\"type\":\"email\",\"ac\":\"email\"},{\"type\":\"password\",\"ac\":\"new-password\"}]"
+    },
+    {
+      "namn": "pixel7: inget namnfält efter provet",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "pixel7: kontosteget efter provet utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "pixel7: kontot efter provet landar på provets resultatsida",
+      "ok": true,
+      "not": "/dashboard/tester/prov/83d26d81-0cae-46d1-8724-e236782b3ceb"
+    },
+    {
+      "namn": "pixel7: bekräftelsemejlet efter provet 200",
+      "ok": true,
+      "not": "200"
+    },
+    {
+      "namn": "pixel7: brevflödet når Skapa mitt brev",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "pixel7: brevet frågar efter namnet före modellanropet (422)",
+      "ok": true,
+      "not": "[{\"url\":\"/api/letters/generate-preview\",\"status\":422}]"
+    },
+    {
+      "namn": "pixel7: brevet skrevs efter namnet",
+      "ok": true,
+      "not": "[{\"url\":\"/api/letters/generate-preview\",\"status\":422},{\"url\":\"/api/letters/generate-preview\",\"status\":200}]"
+    },
+    {
+      "namn": "pixel7: brevet har namnet och ingen platshållare",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "desktop: /register har två fält, e-post och lösenord",
+      "ok": true,
+      "not": "[{\"type\":\"email\",\"ac\":\"email\"},{\"type\":\"password\",\"ac\":\"new-password\"}]"
+    },
+    {
+      "namn": "desktop: inget namnfält på /register",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "desktop: /register utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "desktop: Skapa konto syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "desktop: kontot skapat utan namn och landar inloggat",
+      "ok": true,
+      "not": "/dashboard/valkommen"
+    },
+    {
+      "namn": "desktop: bekräftelsemejlet skickas utan namn (200, inget fullName)",
+      "ok": true,
+      "not": "200"
+    },
+    {
+      "namn": "desktop: profilen saknar namn",
+      "ok": true,
+      "not": "{\"full_name\":null}"
+    },
+    {
+      "namn": "desktop: landningen visar ingen platshållare för namnet",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "desktop: hemvyn utan \"undefined\" eller platshållare",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "desktop: CV-mallar har Skapa CV-PDF",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "desktop: CV-exporten frågar efter namnet (422 name_required)",
+      "ok": true,
+      "not": "[{\"status\":422,\"typ\":\"application/json\"}]"
+    },
+    {
+      "namn": "desktop: namnrutan rullas in i bild",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "desktop: PDF:en laddas ned efter namnet",
+      "ok": false,
+      "not": "[{\"status\":422,\"typ\":\"application/json\"},{\"status\":500,\"typ\":\"application/json\"}]"
+    },
+    {
+      "namn": "desktop: namnet sparat i profilen",
+      "ok": true,
+      "not": "{\"full_name\":\"Sara Lind\"}"
+    },
+    {
+      "namn": "desktop: kontosteget efter provet har två fält",
+      "ok": true,
+      "not": "[{\"type\":\"email\",\"ac\":\"email\"},{\"type\":\"password\",\"ac\":\"new-password\"}]"
+    },
+    {
+      "namn": "desktop: inget namnfält efter provet",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "desktop: kontosteget efter provet utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "desktop: kontot efter provet landar på provets resultatsida",
+      "ok": true,
+      "not": "/dashboard/tester/prov/2cce5693-e63e-421f-ab09-66ec22a3bfcd"
+    },
+    {
+      "namn": "desktop: bekräftelsemejlet efter provet 200",
+      "ok": true,
+      "not": "200"
+    },
+    {
+      "namn": "desktop: brevflödet når Skapa mitt brev",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "desktop: brevet frågar efter namnet före modellanropet (422)",
+      "ok": true,
+      "not": "[{\"url\":\"/api/letters/generate-preview\",\"status\":422}]"
+    },
+    {
+      "namn": "desktop: brevet skrevs efter namnet",
+      "ok": true,
+      "not": "[{\"url\":\"/api/letters/generate-preview\",\"status\":422},{\"url\":\"/api/letters/generate-preview\",\"status\":200}]"
+    },
+    {
+      "namn": "desktop: brevet har namnet och ingen platshållare",
+      "ok": true,
+      "not": ""
+    }
+  ],
+  "bilder": [
+    {
+      "fil": "lokal-pixel7-01-register.png",
+      "beskrivning": "Bar /register: Google, e-post och lösenord, inget namnfält"
+    },
+    {
+      "fil": "lokal-pixel7-register-ifyllt.png",
+      "beskrivning": "Kontosteget ifyllt (register), två fält"
+    },
+    {
+      "fil": "lokal-pixel7-02-landning.png",
+      "beskrivning": "Landningen efter kontot, utan namn"
+    },
+    {
+      "fil": "lokal-pixel7-03-hem.png",
+      "beskrivning": "Hemvyn utan namn"
+    },
+    {
+      "fil": "lokal-pixel7-04-cv-mallar.png",
+      "beskrivning": "CV-mallar med ett CV utan namn"
+    },
+    {
+      "fil": "lokal-pixel7-05-cv-namnfraga.png",
+      "beskrivning": "CV-exporten: Vi behöver ditt namn först"
+    },
+    {
+      "fil": "lokal-pixel7-06-cv-klar.png",
+      "beskrivning": "CV-exporten efter namnet"
+    },
+    {
+      "fil": "lokal-pixel7-07-prova-resultat.png",
+      "beskrivning": "Provets resultat med kontoknappen"
+    },
+    {
+      "fil": "lokal-pixel7-08-register-efter-provet.png",
+      "beskrivning": "Kontosteget efter provet, utan namnfält"
+    },
+    {
+      "fil": "lokal-pixel7-provet-ifyllt.png",
+      "beskrivning": "Kontosteget ifyllt (provet), två fält"
+    },
+    {
+      "fil": "lokal-pixel7-09-provsida.png",
+      "beskrivning": "Provets resultatsida efter kontot"
+    },
+    {
+      "fil": "lokal-pixel7-10-brev-sammanfattning.png",
+      "beskrivning": "Brevflödet, steg 5 före genereringen"
+    },
+    {
+      "fil": "lokal-pixel7-11-brev-namnfraga.png",
+      "beskrivning": "Brevflödet: Vilket namn ska stå under brevet?"
+    },
+    {
+      "fil": "lokal-pixel7-12-brev-klart.png",
+      "beskrivning": "Brevet med namnet i huvud och underskrift"
+    },
+    {
+      "fil": "lokal-desktop-01-register.png",
+      "beskrivning": "Bar /register: Google, e-post och lösenord, inget namnfält"
+    },
+    {
+      "fil": "lokal-desktop-register-ifyllt.png",
+      "beskrivning": "Kontosteget ifyllt (register), två fält"
+    },
+    {
+      "fil": "lokal-desktop-02-landning.png",
+      "beskrivning": "Landningen efter kontot, utan namn"
+    },
+    {
+      "fil": "lokal-desktop-03-hem.png",
+      "beskrivning": "Hemvyn utan namn"
+    },
+    {
+      "fil": "lokal-desktop-04-cv-mallar.png",
+      "beskrivning": "CV-mallar med ett CV utan namn"
+    },
+    {
+      "fil": "lokal-desktop-05-cv-namnfraga.png",
+      "beskrivning": "CV-exporten: Vi behöver ditt namn först"
+    },
+    {
+      "fil": "lokal-desktop-06-cv-klar.png",
+      "beskrivning": "CV-exporten efter namnet"
+    },
+    {
+      "fil": "lokal-desktop-07-prova-resultat.png",
+      "beskrivning": "Provets resultat med kontoknappen"
+    },
+    {
+      "fil": "lokal-desktop-08-register-efter-provet.png",
+      "beskrivning": "Kontosteget efter provet, utan namnfält"
+    },
+    {
+      "fil": "lokal-desktop-provet-ifyllt.png",
+      "beskrivning": "Kontosteget ifyllt (provet), två fält"
+    },
+    {
+      "fil": "lokal-desktop-09-provsida.png",
+      "beskrivning": "Provets resultatsida efter kontot"
+    },
+    {
+      "fil": "lokal-desktop-10-brev-sammanfattning.png",
+      "beskrivning": "Brevflödet, steg 5 före genereringen"
+    },
+    {
+      "fil": "lokal-desktop-11-brev-namnfraga.png",
+      "beskrivning": "Brevflödet: Vilket namn ska stå under brevet?"
+    },
+    {
+      "fil": "lokal-desktop-12-brev-klart.png",
+      "beskrivning": "Brevet med namnet i huvud och underskrift"
+    }
+  ]
+}

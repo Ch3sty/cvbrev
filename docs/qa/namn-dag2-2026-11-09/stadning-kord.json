@@ -1,0 +1,172 @@
+{
+  "tid": "2026-11-09T09:00:10.969Z",
+  "kor": true,
+  "konton": [
+    {
+      "epost": "qa-namn-register-pixel7-1794213852762@jobbcoach-qa.example.com",
+      "id": "06a21997-faef-495b-82df-cceca98e8436",
+      "enhet": "pixel7",
+      "etikett": "register",
+      "skapad": "2026-11-09T08:44:16.423Z"
+    },
+    {
+      "epost": "qa-namn-provet-pixel7-1794213942794@jobbcoach-qa.example.com",
+      "id": "3d7296cf-040f-43fb-a8af-ef4eb1eb1818",
+      "enhet": "pixel7",
+      "etikett": "provet",
+      "skapad": "2026-11-09T08:45:49.186Z"
+    },
+    {
+      "epost": "qa-namn-register-desktop-1794213981713@jobbcoach-qa.example.com",
+      "id": "f533b33f-1a51-496f-9192-024d7430cca6",
+      "enhet": "desktop",
+      "etikett": "register",
+      "skapad": "2026-11-09T08:46:24.601Z"
+    },
+    {
+      "epost": "qa-namn-provet-desktop-1794214073018@jobbcoach-qa.example.com",
+      "id": "cb2870bd-8dad-4d6f-8cb6-89074dc9a130",
+      "enhet": "desktop",
+      "etikett": "provet",
+      "skapad": "2026-11-09T08:47:56.382Z"
+    },
+    {
+      "epost": "qa-namn-register-pixel7-1794214126592@jobbcoach-qa.example.com",
+      "id": "6e5795f2-0460-49d0-b6ea-9344e024d9a2",
+      "enhet": "pixel7",
+      "etikett": "register",
+      "skapad": "2026-11-09T08:48:49.392Z"
+    },
+    {
+      "epost": "qa-namn-register-desktop-1794214208677@jobbcoach-qa.example.com",
+      "id": "1a8af987-462d-48da-af06-6a325e3fd810",
+      "enhet": "desktop",
+      "etikett": "register",
+      "skapad": "2026-11-09T08:50:11.916Z"
+    },
+    {
+      "epost": "qa-namn-register-pixel7-1794214315114@jobbcoach-qa.example.com",
+      "id": "227ae544-0e3d-480c-99ea-90fa9f235c21",
+      "enhet": "pixel7",
+      "etikett": "register",
+      "skapad": "2026-11-09T08:51:58.716Z"
+    },
+    {
+      "epost": "qa-namn-register-desktop-1794214346701@jobbcoach-qa.example.com",
+      "id": "94eaf6a3-f86f-41d6-8d4d-e0582e72b313",
+      "enhet": "desktop",
+      "etikett": "register",
+      "skapad": "2026-11-09T08:52:29.538Z"
+    },
+    {
+      "epost": "qa-namn-register-pixel7-1794214680722@jobbcoach-qa.example.com",
+      "id": "2ab65e53-70cd-49be-af64-00d0cb621f0e",
+      "enhet": "pixel7",
+      "etikett": "register",
+      "skapad": "2026-11-09T08:58:05.656Z"
+    },
+    {
+      "epost": "qa-namn-register-desktop-1794214710499@jobbcoach-qa.example.com",
+      "id": "71c30124-2808-421b-a3bd-54ad108aeafe",
+      "enhet": "desktop",
+      "etikett": "register",
+      "skapad": "2026-11-09T08:58:32.775Z"
+    }
+  ],
+  "tabeller": [
+    {
+      "tabell": "cv_texts",
+      "raknat": 10,
+      "raderat": 10,
+      "varv": 0
+    },
+    {
+      "tabell": "email_confirmations",
+      "raknat": 10,
+      "raderat": 10,
+      "varv": 0
+    },
+    {
+      "tabell": "email_schedule",
+      "raknat": 20,
+      "raderat": 20,
+      "varv": 0
+    },
+    {
+      "tabell": "formatted_cv_downloads",
+      "raknat": 4,
+      "raderat": 4,
+      "varv": 0
+    },
+    {
+      "tabell": "letters",
+      "raknat": 2,
+      "raderat": 2,
+      "varv": 0
+    },
+    {
+      "tabell": "user_activities",
+      "raknat": 88,
+      "raderat": 88,
+      "varv": 0
+    },
+    {
+      "tabell": "profiles (id)",
+      "raknat": 10,
+      "raderat": 10
+    }
+  ],
+  "anon": [
+    {
+      "tabell": "anon_test_sessions",
+      "raknat": 2,
+      "raderat": 2
+    }
+  ],
+  "auth": [
+    {
+      "id": "06a21997-faef-495b-82df-cceca98e8436",
+      "resultat": "raderad"
+    },
+    {
+      "id": "3d7296cf-040f-43fb-a8af-ef4eb1eb1818",
+      "resultat": "raderad"
+    },
+    {
+      "id": "f533b33f-1a51-496f-9192-024d7430cca6",
+      "resultat": "raderad"
+    },
+    {
+      "id": "cb2870bd-8dad-4d6f-8cb6-89074dc9a130",
+      "resultat": "raderad"
+    },
+    {
+      "id": "6e5795f2-0460-49d0-b6ea-9344e024d9a2",
+      "resultat": "raderad"
+    },
+    {
+      "id": "1a8af987-462d-48da-af06-6a325e3fd810",
+      "resultat": "raderad"
+    },
+    {
+      "id": "227ae544-0e3d-480c-99ea-90fa9f235c21",
+      "resultat": "raderad"
+    },
+    {
+      "id": "94eaf6a3-f86f-41d6-8d4d-e0582e72b313",
+      "resultat": "raderad"
+    },
+    {
+      "id": "2ab65e53-70cd-49be-af64-00d0cb621f0e",
+      "resultat": "raderad"
+    },
+    {
+      "id": "71c30124-2808-421b-a3bd-54ad108aeafe",
+      "resultat": "raderad"
+    }
+  ],
+  "kontroll": {
+    "profiler": 0,
+    "auth": 0
+  }
+}

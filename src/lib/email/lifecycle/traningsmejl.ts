@@ -4,7 +4,7 @@
 // ersätter avsnitt 4.4). Högst två per användare, alla med avregistrering,
 // via hjälpredans schema i morgonslotten. Ingen egen cron.
 //
-//   pass_dag2           dag 2 efter Nivåkollen, på vald tidpunkt
+//   pass_dag2           dag 2 efter Nivåkollen, 07:00 till alla (sedan 2026-11-09)
 //   dagen_fore_provet   provdatum minus ett, 08:00
 //   vecka_utan_datum    dag 7 efter Nivåkollen, utan provdatum
 //
@@ -33,7 +33,14 @@ export const MAX_TRANINGSMEJL = 2;
 
 export type PassTid = 'morgon' | 'lunch' | 'kvall';
 
-/** Klockslagen i svensk tid (migreringen 20261012090000). */
+/**
+ * Dag 2-mejlet går 07:00 svensk tid till alla som gjorde Nivåkollen i går.
+ * Ägaren godkände 2026-11-09 att kravet på vald passtid (skiss 5) tas bort:
+ * mejlet hade aldrig skickats, eftersom 0 av 7 planer hade en tid.
+ */
+export const PASS_DAG2_KLOCKA = '07:00';
+
+/** Klockslagen i svensk tid (migreringen 20261012090000). Passvalet i inställningarna. */
 export const PASS_TID_KLOCKA: Readonly<Record<PassTid, string>> = {
   morgon: '07:00',
   lunch: '11:30',
@@ -107,6 +114,8 @@ export interface Nivakollen {
   fler: boolean;
   /** Senaste nivån (senaste nivåpunkten), eller null. */
   niva: number | null;
+  /** Första slutförda Nivåkollens session, för länken till genomgången. */
+  sessionId: string | null;
 }
 
 function numeriskt(v: unknown): number | null {
@@ -133,7 +142,7 @@ export async function lasNivakollar(admin: AnySupabase, userIds: readonly string
       .limit(10000),
     (admin as any)
       .from('logic_test_v4_sessions')
-      .select('user_id, completed_at')
+      .select('id, user_id, completed_at')
       .in('user_id', ids)
       .eq('test_type', NIVAKOLL_TEST_TYPE)
       .not('completed_at', 'is', null)
@@ -142,11 +151,14 @@ export async function lasNivakollar(admin: AnySupabase, userIds: readonly string
   if (punktRes.error) throw punktRes.error;
   if (sessRes.error) throw sessRes.error;
 
-  const perUser = new Map<string, { kollar: Dag[]; ommatning: boolean; punkter: { dag: Dag; skapad: number; niva: number }[]; sessioner: Dag[] }>();
+  const perUser = new Map<
+    string,
+    { kollar: Dag[]; ommatning: boolean; punkter: { dag: Dag; skapad: number; niva: number }[]; sessioner: Dag[]; forstaSession: { id: string; at: number } | null }
+  >();
   const hamta = (id: string) => {
     let u = perUser.get(id);
     if (!u) {
-      u = { kollar: [], ommatning: false, punkter: [], sessioner: [] };
+      u = { kollar: [], ommatning: false, punkter: [], sessioner: [], forstaSession: null };
       perUser.set(id, u);
     }
     return u;
@@ -166,7 +178,10 @@ export async function lasNivakollar(admin: AnySupabase, userIds: readonly string
   }
   for (const s of (sessRes.data ?? []) as Record<string, unknown>[]) {
     if (!s.completed_at) continue;
-    hamta(String(s.user_id)).sessioner.push(dagSthlm(String(s.completed_at)));
+    const u = hamta(String(s.user_id));
+    u.sessioner.push(dagSthlm(String(s.completed_at)));
+    const at = new Date(String(s.completed_at)).getTime();
+    if (s.id && (!u.forstaSession || at < u.forstaSession.at)) u.forstaSession = { id: String(s.id), at };
   }
 
   for (const [id, u] of perUser) {
@@ -180,6 +195,7 @@ export async function lasNivakollar(admin: AnySupabase, userIds: readonly string
       // en Nivåkoll en senare dag än den första.
       fler: u.ommatning || u.sessioner.length > 1 || alla.some((d) => d > forsta),
       niva: sorterade.length ? sorterade[sorterade.length - 1].niva : null,
+      sessionId: u.forstaSession?.id ?? null,
     });
   }
   return ut;
@@ -341,13 +357,14 @@ export async function valjTraningsmejl(admin: AnySupabase, now: Date = new Date(
       });
       continue;
     }
-    // Skiss 5: den som inte väljer tidpunkt får ingen påminnelse.
-    if (koll?.forsta === igar && plan?.passTid && rymsTill(sent, PASS_DAG2_TYPE)) {
+    // Alla som gjorde Nivåkollen i går, 07:00 (PASS_DAG2_KLOCKA). Kravet på
+    // vald passtid (skiss 5) togs bort 2026-11-09.
+    if (koll?.forsta === igar && rymsTill(sent, PASS_DAG2_TYPE)) {
       ut.push({
         userId,
         typ: PASS_DAG2_TYPE,
         emailType: `${PASS_DAG2_TYPE}_${idag}`,
-        metadata: { dag: idag, pass_tid: plan.passTid },
+        metadata: { dag: idag },
       });
       continue;
     }
@@ -370,7 +387,7 @@ interface ResendAvbryt {
 }
 
 /**
- * Passet gjordes mellan morgonkörningen och den valda tiden: avbryt dagens
+ * Passet gjordes mellan morgonkörningen och 07:00: avbryt dagens
  * schemalagda pass_dag2 hos Resend. Anropas från passets slutförande.
  *
  * Kastar aldrig. Returnerar true när ett schemalagt mejl avbröts hos Resend

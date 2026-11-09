@@ -29,7 +29,9 @@ import {
   VECKA_KARNA,
   VECKA_DATUMFRAGA,
   betalvaggText,
+  dag2Vaggrad,
 } from '../templates/traning';
+import { SALD_PLAN, prisPeriod } from '@/lib/plans/plans';
 import { stockholmKlockslag, valjTraningsmejl, avbrytSchemalagtPassmejl } from '../traningsmejl';
 import { scheduleTraningsmejl, scheduleKomIgangMejl, runLifecycleEmails, schemalaggTill } from '../runner';
 import { familjNamn } from '@/lib/logicTestV7/familjer';
@@ -144,30 +146,57 @@ describe('registret', () => {
 describe('pass_dag2', () => {
   it('Premium: temat, formen, nivån, länken till passet och avregistreringen', async () => {
     const db = grund();
-    const r = await passDag2Mejl.render(ctx(db, 'u1', { dag: IDAG, pass_tid: 'morgon' }));
+    const r = await passDag2Mejl.render(ctx(db, 'u1', { dag: IDAG }));
     const tema = familjNamn('vridning')!;
     expect(r.subject).toBe(`Dagens pass: ${tema}`);
     expect(r.preheader).toBe(PASS_FORM);
     expect(PASS_FORM).toBe('Nio uppgifter, cirka tio minuter.');
-    expect(r.html).toContain(`Hej Anna. Dagens tema: ${tema}. Nio uppgifter, cirka tio minuter.`);
-    expect(r.html).toContain('Din nivå är 5,4. Passet utgår från den.');
+    expect(r.html).toContain(`Hej Anna. Dagens tema är ${tema}. Nio uppgifter, cirka tio minuter.`);
+    expect(r.html).toContain('Nivåkollen gav dig 5,4, och passet börjar där.');
     expect(r.html).toContain('https://www.jobbcoach.ai/dashboard/tester/pass?typ=pass&utm_source=lifecycle');
-    expect(r.html).toContain('Starta passet');
+    expect(r.html).toContain('Starta dagens pass');
     expect(r.html).toContain('/api/email/unsubscribe?uid=u1');
     expect(r.html).not.toContain('ingår i Premium');
     utanTalstreck(r.subject, r.preheader, r.html);
   });
 
-  it('gratis: hemvyn som länk och en rak mening om Premium', async () => {
+  it('gratis: nivån, genomgången som är deras och väggens rad med priset ur plans', async () => {
     h.scope = null;
     const db = grund();
     const r = await passDag2Mejl.render(ctx(db, 'u1', { dag: IDAG }));
-    expect(r.html).toContain('Din nivå är 5,4. Dagens pass ingår i Premium.');
-    expect(r.html).toContain('https://www.jobbcoach.ai/dashboard/tester?utm_source=lifecycle');
-    expect(r.html).not.toContain('pass?typ=pass');
+    expect(r.subject).toBe('Din nivå är 5,4. Se vad som avgjorde.');
+    expect(r.html).toContain('Hej Anna. I går gjorde du Nivåkollen och landade på 5,4.');
+    expect(r.html).toContain('Genomgången är din, med eller utan Premium.');
+    // Genomgången av den första Nivåkollen, inte hemvyn.
+    expect(r.html).toContain('https://www.jobbcoach.ai/dashboard/tester/pass/s1?utm_source=lifecycle');
+    expect(r.html).toContain('Visa genomgången');
+    // Väggens besked, priset ur plans.
+    expect(dag2Vaggrad()).toBe(`Från dag två ingår passen i Premium, ${prisPeriod(SALD_PLAN)}.`);
+    expect(r.html).toContain(dag2Vaggrad());
+    expect(r.html).toContain('149 kr i månaden');
+    // Länken till dagens pass visar väggen (betalvagg_visad plats dag2).
+    expect(r.html).toContain('https://www.jobbcoach.ai/dashboard/tester/pass?typ=pass&utm_source=lifecycle');
     expect(r.html).toContain('Se dagens pass');
+    expect(r.html).not.toContain('Dagens tema');
     expect(r.html).toContain('/api/email/unsubscribe?uid=u1');
     utanTalstreck(r.subject, r.preheader, r.html);
+    // Inga mittpunkter mellan fakta.
+    expect(r.subject + r.preheader).not.toContain('·');
+  });
+
+  it('gratis utan nivåpunkt: ingen siffra, länken till hemvyn när sessionen saknas', async () => {
+    h.scope = null;
+    const db = fakeSupabase({
+      test_planer: [],
+      test_nivapunkter: [{ user_id: 'u1', test_kind: 'matris', dag: IGAR, typ: 'matning', niva: null, skapad_at: mitt(IGAR) }],
+      logic_test_v4_sessions: [],
+      email_schedule: [],
+      email_log: [],
+    });
+    const r = await passDag2Mejl.render(ctx(db, 'u1', { dag: IDAG }));
+    expect(r.subject).toBe('Genomgången från Nivåkollen är klar');
+    expect(r.html).toContain('Hej Anna. I går gjorde du Nivåkollen.');
+    expect(r.html).toContain('https://www.jobbcoach.ai/dashboard/tester?utm_source=lifecycle');
   });
 
   it('utan tema står Blandade mönster', async () => {
@@ -178,23 +207,24 @@ describe('pass_dag2', () => {
 
   it.each([
     ['morgon', IDAG, '2026-10-12T05:00:00.000Z'],
-    ['lunch', IDAG, '2026-10-12T09:30:00.000Z'],
-    ['kvall', IDAG, '2026-10-12T16:00:00.000Z'],
-    ['morgon', '2026-11-03', '2026-11-03T06:00:00.000Z'],
-    ['lunch', '2026-11-03', '2026-11-03T10:30:00.000Z'],
-    ['kvall', '2026-11-03', '2026-11-03T17:00:00.000Z'],
-  ])('vald tid %s den %s ger skickaVid %s', async (passTid, dag, iso) => {
+    ['kvall', IDAG, '2026-10-12T05:00:00.000Z'],
+    [null, IDAG, '2026-10-12T05:00:00.000Z'],
+    ['lunch', '2026-11-03', '2026-11-03T06:00:00.000Z'],
+    [null, '2026-11-10', '2026-11-10T06:00:00.000Z'],
+  ])('07:00 svensk tid oavsett passval (%s) den %s: %s', async (passTid, dag, iso) => {
     const r = await passDag2Mejl.render(ctx(grund({ passTid }), 'u1', { dag }));
     expect(r.skickaVid).toBe(iso);
   });
 
-  it('skickas dag 2 när tid är vald och passet inte är gjort', async () => {
+  it('skickas dag 2 när passet inte är gjort, med eller utan vald tidpunkt', async () => {
     expect(await passDag2Mejl.shouldSend(ctx(grund(), 'u1', { dag: IDAG }))).toBe(true);
+    expect(await passDag2Mejl.shouldSend(ctx(grund({ passTid: null }), 'u1', { dag: IDAG }))).toBe(true);
+    expect(await passDag2Mejl.shouldSend(ctx(grund({ utanKolumn: true }), 'u1', { dag: IDAG }))).toBe(true);
   });
 
-  it('tyst utan vald tidpunkt, och när kolumnen saknas', async () => {
-    expect(await passDag2Mejl.shouldSend(ctx(grund({ passTid: null }), 'u1', { dag: IDAG }))).toBe(false);
-    expect(await passDag2Mejl.shouldSend(ctx(grund({ utanKolumn: true }), 'u1', { dag: IDAG }))).toBe(false);
+  it('gratis får det också', async () => {
+    h.scope = null;
+    expect(await passDag2Mejl.shouldSend(ctx(grund({ passTid: null }), 'u1', { dag: IDAG }))).toBe(true);
   });
 
   it('tyst när dagens pass redan är gjort', async () => {
@@ -376,7 +406,7 @@ describe('urvalet i morgonslotten', () => {
     return fakeSupabase({
       test_nivapunkter: [
         punkt('a', IGAR), // dag 2, vald tid: pass_dag2
-        punkt('b', IGAR), // dag 2, ingen tid: inget
+        punkt('b', IGAR), // dag 2, ingen tid: pass_dag2 (sedan 2026-11-09)
         punkt('c', VECKA_SEDAN), // dag 7 utan datum: vecka_utan_datum
         punkt('d', VECKA_SEDAN),
         punkt('d', '2026-10-09', 'ommatning'), // ny nivåkoll: inget
@@ -416,6 +446,7 @@ describe('urvalet i morgonslotten', () => {
     const per = Object.fromEntries(urval.map((u) => [u.userId, u.emailType]));
     expect(per).toEqual({
       a: `pass_dag2_${IDAG}`,
+      b: `pass_dag2_${IDAG}`,
       c: `vecka_utan_datum_${IDAG}`,
       e: `dagen_fore_provet_${IDAG}`,
       f: `dagen_fore_provet_${IDAG}`,
@@ -426,16 +457,16 @@ describe('urvalet i morgonslotten', () => {
   it('scheduleTraningsmejl lägger raderna till nu och returnerar vilka som fick ett', async () => {
     const db = urvalsDb();
     const r = await scheduleTraningsmejl(db.client, NU);
-    expect(r).toMatchObject({ pass_dag2: 2, dagen_fore_provet: 2, vecka_utan_datum: 1 });
-    expect([...r.anvandare].sort()).toEqual(['a', 'c', 'e', 'f', 'k']);
+    expect(r).toMatchObject({ pass_dag2: 3, dagen_fore_provet: 2, vecka_utan_datum: 1 });
+    expect([...r.anvandare].sort()).toEqual(['a', 'b', 'c', 'e', 'f', 'k']);
     const nya = db.tables.email_schedule.filter((x) => x.sent_at === null);
-    expect(nya).toHaveLength(5);
+    expect(nya).toHaveLength(6);
     for (const rad of nya) expect(rad.send_after).toBe(NU.toISOString());
-    expect(nya.find((x) => x.user_id === 'a')?.metadata).toEqual({ dag: IDAG, pass_tid: 'lunch' });
+    expect(nya.find((x) => x.user_id === 'a')?.metadata).toEqual({ dag: IDAG });
 
     // Omkörning samma morgon ger inga dubbletter.
     await scheduleTraningsmejl(db.client, NU);
-    expect(db.tables.email_schedule.filter((x) => x.sent_at === null)).toHaveLength(5);
+    expect(db.tables.email_schedule.filter((x) => x.sent_at === null)).toHaveLength(6);
   });
 
   it('den som fått ett träningsmejl i dag får ingen komigang samma dag', async () => {
@@ -459,24 +490,26 @@ describe('urvalet i morgonslotten', () => {
 });
 
 describe('sändningen', () => {
-  it('runnern skickar passmejlet med scheduledAt på vald tid', async () => {
+  it('runnern skickar passmejlet med scheduledAt 07:00 när körningen går före sju', async () => {
+    const tidigt = new Date('2026-10-12T04:30:00.000Z'); // 06:30 svensk tid
+    vi.setSystemTime(tidigt);
     const db = grund({ passTid: 'kvall' });
     db.tables.profiles = [profil('u1')];
     db.tables.email_schedule.push({
       id: 'r1',
       user_id: 'u1',
       email_type: `pass_dag2_${IDAG}`,
-      send_after: NU.toISOString(),
+      send_after: tidigt.toISOString(),
       sent_at: null,
       canceled_at: null,
       attempts: 0,
-      metadata: { dag: IDAG, pass_tid: 'kvall' },
+      metadata: { dag: IDAG },
     });
     const res = await runLifecycleEmails(db.client);
     expect(res.sent).toBe(1);
     expect(h.send).toHaveBeenCalledTimes(1);
     const arg = h.send.mock.calls[0][0];
-    expect(arg.scheduledAt).toBe('2026-10-12T16:00:00.000Z');
+    expect(arg.scheduledAt).toBe('2026-10-12T05:00:00.000Z');
     expect(arg.subject).toBe(`Dagens pass: ${familjNamn('vridning')}`);
     expect(db.tables.email_log[0]).toMatchObject({ resend_id: 're_1', email_type: `pass_dag2_${IDAG}` });
   });

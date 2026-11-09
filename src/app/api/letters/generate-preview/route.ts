@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 import { dokumentEpost } from '@/lib/profile/dokumentEpost';
-import { kandaUppgifterForMaskning } from '@/lib/profile/dokumentKontakt';
+import { arPlatshallareNamn, kandaUppgifterForMaskning } from '@/lib/profile/dokumentKontakt';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { userHasAccess } from '@/lib/supabase/premiumAccess';
@@ -111,6 +111,14 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
+
+    // Brevet bär avsändarens namn i huvud och underskrift. Utan namn i
+    // profilen frågar klienten efter det (NameRequiredNotice i brevflödet)
+    // och gör om anropet, före modellanropet och utan att kvoten räknas.
+    // Ingen platshållare som "Ditt namn" hamnar i brevet.
+    if (arPlatshallareNamn(profile.full_name)) {
+      return NextResponse.json({ error: 'name_required', code: 'name_required' }, { status: 422 });
+    }
     
     // Skapa en unik nyckel för denna specifika kombination
     // Inkludera språket och mallen i nyckeln för att hålla isär genereringar på olika språk och mallar
@@ -214,7 +222,8 @@ export async function POST(request: Request) {
 
       // Bygg profilobjekt för template
       const profileForLetter: ProfileDataForLetter = {
-        full_name: profileData.full_name || 'Ditt namn',
+        // Profilens namn finns: anropet stoppas ovan med name_required annars.
+        full_name: (profileData.full_name ?? '').trim(),
         // Sätts in här, efter modellanropet (src/lib/profile/dokumentEpost.ts).
         email: dokumentEpost(profileData, user),
         phone: profileData.phone || undefined,

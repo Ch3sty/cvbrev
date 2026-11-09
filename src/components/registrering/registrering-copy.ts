@@ -67,8 +67,6 @@ export const STEG2 = {
   googleOppnar: 'Öppnar Google',
   googleFel: 'Google-inloggningen gick inte att starta. Försök igen.',
   eller: 'eller med e-post',
-  namn: 'Namn',
-  namnPlats: 'Förnamn och efternamn',
   epost: 'E-post',
   epostPlats: 'namn@exempel.se',
   losen: 'Lösenord',
@@ -92,7 +90,6 @@ export const STEG2 = {
     finnsRubrik: 'Det finns redan ett konto med den adressen',
     finnsText: 'Logga in i stället, så kommer du rätt. Ditt val följer med.',
     finnsLank: 'Logga in',
-    namn: 'Skriv ditt namn, minst två tecken.',
     losen: 'Lösenordet måste vara minst 8 tecken.',
     mansklig: 'Vi kunde inte bekräfta att du är en människa. Ladda om sidan och försök igen.',
     /** Rubriken för fel som inte har en egen. */

@@ -27,6 +27,7 @@ import { useNotification } from '@/context/notificationcontext';
 
 import LetterFlowLayout from './components/LetterFlowLayout';
 import LetterFlowSummary from './components/LetterFlowSummary';
+import NameRequiredNotice from '@/components/shared/NameRequiredNotice';
 import type { SparadKontakt } from '@/components/shell/KontaktuppgifterRad';
 import { bytKontaktIBrev } from '@/lib/profile/dokumentKontakt';
 import FlowShell from '@/components/shell/FlowShell';
@@ -236,6 +237,9 @@ export default function CreateLetterClient({
   const [remainingToday, setRemainingToday] = useState<number | null>(null);
 
   const [showPipeline, setShowPipeline] = useState(false);
+  // 422 name_required: profilen saknar namn. Rutan frågar efter det och
+  // brevet skrivs när namnet är sparat. Brevet får aldrig en platshållare.
+  const [namnKravs, setNamnKravs] = useState(false);
 
   // Sant medan genereringen pågår.
   //
@@ -421,6 +425,7 @@ export default function CreateLetterClient({
     if (isSubmitting) return;
 
     setError(null);
+    setNamnKravs(false);
     setShowPipeline(true);
     setIsSubmitting(true);
 
@@ -470,6 +475,11 @@ export default function CreateLetterClient({
       // En pågående generering är inget fel för användaren: det första
       // anropet är på väg att lyckas. Säg ingenting.
       if (err?.code === 'generation_in_progress') return;
+      if (err?.code === 'name_required' || err?.payload?.error === 'name_required') {
+        setShowPipeline(false);
+        setNamnKravs(true);
+        return;
+      }
       // Dagskvoten slut → visa spärrvyn i stället för generiskt fel
       if (err?.code === 'quota_exceeded' || err?.payload?.code === 'quota_exceeded') {
         setShowPipeline(false);
@@ -1014,6 +1024,18 @@ export default function CreateLetterClient({
             remainingLetters={remainingToday}
             hidePrimaryAction
           />
+          {namnKravs ? (
+            <NameRequiredNotice
+              className="mt-4"
+              rubrik="Vilket namn ska stå under brevet?"
+              text="Det står i brevhuvudet och under hälsningen."
+              knapp="Spara och skriv brevet"
+              onSaved={() => {
+                setNamnKravs(false);
+                void handleGenerateLetter();
+              }}
+            />
+          ) : null}
           {/* Brevet skrivs: rubriken säger vad som görs, tre rader fylls,
               meta säger hur länge. Felet visas i skalets banner. */}
           {(showPipeline || isSubmitting || isGenerating) && !error && (

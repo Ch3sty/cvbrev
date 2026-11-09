@@ -35,7 +35,7 @@ export default function EmailNotVerifiedNotice({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: address,
-          fullName: profile?.full_name || address || 'Användare',
+          fullName: profile?.full_name || '',
           userId: profile?.id,
           isInvitation: false,
         }),

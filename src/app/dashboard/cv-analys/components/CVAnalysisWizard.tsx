@@ -24,6 +24,31 @@ import FlowError from '@/components/shell/FlowError';
 import LoadingSkeleton from '@/components/shell/LoadingSkeleton';
 import { useFlowStep } from '@/lib/flow/useFlowStep';
 import type { Aterupptagning } from '../aterupptagning';
+import NameRequiredNotice from '@/components/shared/NameRequiredNotice';
+import { arNamnKravs, kastaOmNamnKravs } from '@/lib/cv/namnKravs';
+
+/** Hämtar CV:ts PDF och laddar ned den. Kastar NamnKravsError vid 422 name_required. */
+async function laddaNerCvPdf(requestBody: Record<string, unknown>, pdfFileName: string): Promise<void> {
+  const pdfResponse = await fetch('/api/cv/generate-formatted', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(requestBody),
+  });
+  await kastaOmNamnKravs(pdfResponse);
+  if (!pdfResponse.ok) {
+    const errorData = await pdfResponse.json().catch(() => ({}));
+    throw new Error(errorData.error || 'Kunde inte generera PDF');
+  }
+  const blob = await pdfResponse.blob();
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = pdfFileName;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
 
 // Lazy-loaded steps
 const CVSelectionStep = lazy(() => import('./steps/CVSelectionStep'));
@@ -168,6 +193,9 @@ export default function CVAnalysisWizard({
   const [improvedCV, setImprovedCV] = useState('');
 
   const [isSaving, setIsSaving] = useState(false);
+  // 422 name_required från PDF-exporten: anropet sparas och görs om när
+  // namnet är sparat (src/lib/cv/namnKravs.ts).
+  const [namnPdf, setNamnPdf] = useState<{ requestBody: Record<string, unknown>; pdfFileName: string } | null>(null);
   const [savedCvId, setSavedCvId] = useState<string | undefined>();
   const [quotaError, setQuotaError] = useState<string | null>(null);
   const [savedFileName, setSavedFileName] = useState('');
@@ -835,45 +863,36 @@ export default function CVAnalysisWizard({
         }
 
         let pdfFailed = false;
+        const pdfFileName = `${fileName.replace(/\.[^/.]+$/, '')}.pdf`;
+        const requestBody: any = {
+          template: selectedTemplate,
+          format: 'pdf',
+          templateOptions: {},
+        };
+
+        if (improvedStructuredCV) requestBody.structuredData = improvedStructuredCV;
+        else if (structuredCV) requestBody.structuredData = sanitizeStructuredCV(structuredCV);
+        else {
+          const fixedCVText = improvedCV
+            .replace(/([a-zåäö])([A-ZÅÄÖ])/g, '$1 $2')
+            .replace(/([0-9])([A-ZÅÄÖ])/g, '$1 $2')
+            .replace(/([a-zåäö])([0-9])/g, '$1 $2');
+          requestBody.cvText = fixedCVText;
+        }
+
         try {
-          const pdfFileName = `${fileName.replace(/\.[^/.]+$/, '')}.pdf`;
-          const requestBody: any = {
-            template: selectedTemplate,
-            format: 'pdf',
-            templateOptions: {},
-          };
-
-          if (improvedStructuredCV) requestBody.structuredData = improvedStructuredCV;
-          else if (structuredCV) requestBody.structuredData = sanitizeStructuredCV(structuredCV);
-          else {
-            const fixedCVText = improvedCV
-              .replace(/([a-zåäö])([A-ZÅÄÖ])/g, '$1 $2')
-              .replace(/([0-9])([A-ZÅÄÖ])/g, '$1 $2')
-              .replace(/([a-zåäö])([0-9])/g, '$1 $2');
-            requestBody.cvText = fixedCVText;
-          }
-
-          const pdfResponse = await fetch('/api/cv/generate-formatted', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(requestBody),
-          });
-
-          if (!pdfResponse.ok) {
-            const errorData = await pdfResponse.json();
-            throw new Error(errorData.error || 'Kunde inte generera PDF');
-          }
-
-          const blob = await pdfResponse.blob();
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = pdfFileName;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
+          await laddaNerCvPdf(requestBody, pdfFileName);
         } catch (pdfError: any) {
+          if (arNamnKravs(pdfError)) {
+            // Varken CV:t eller profilen har ett namn. Rutan frågar efter
+            // det, och PDF:en laddas ned när det är sparat.
+            clearInterval(progressInterval);
+            setNamnPdf({ requestBody, pdfFileName });
+            setIsSaving(false);
+            setShowSaveProgress(false);
+            setSaveProgress(0);
+            return;
+          }
           console.error('PDF generation error:', pdfError);
           pdfFailed = true;
         }
@@ -1480,6 +1499,30 @@ export default function CVAnalysisWizard({
           )}
 
           <Suspense fallback={<StepSkeleton />}>{renderStepContent()}</Suspense>
+
+          {namnPdf ? (
+            <NameRequiredNotice
+              className="mt-4"
+              onSaved={async () => {
+                const { requestBody, pdfFileName } = namnPdf;
+                setNamnPdf(null);
+                try {
+                  await laddaNerCvPdf(requestBody, pdfFileName);
+                } catch (err) {
+                  if (arNamnKravs(err)) {
+                    setNamnPdf({ requestBody, pdfFileName });
+                    return;
+                  }
+                  alert('Kunde inte generera PDF. Försök igen senare.');
+                  return;
+                }
+                if (!completedSteps.includes(currentStep)) {
+                  setCompletedSteps([...completedSteps, currentStep]);
+                }
+                setCurrentStep(currentStep + 1);
+              }}
+            />
+          ) : null}
       </AnalysisFlowLayout>
 
       {/* Tomt val på sista kategorin: en fråga, inte en spärrad knapp. */}

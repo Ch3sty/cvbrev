@@ -3,12 +3,22 @@
 
 export interface ConfirmationEmailData {
   userEmail: string;
-  userName: string;
+  /** Tomt eller saknat namn ger "Hej!". Kontosteget frågar inte efter namn sedan 2026-11-09. */
+  userName?: string | null;
   confirmationUrl: string;
+}
+
+const ESC: Record<string, string> = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+
+/** "Hej Anna!" med förnamnet, eller "Hej!" när namnet saknas. */
+export function halsning(userName?: string | null): string {
+  const fornamn = (userName ?? '').trim().split(/\s+/)[0] ?? '';
+  return fornamn ? `Hej ${fornamn}!` : 'Hej!';
 }
 
 export function generateConfirmationEmailHTML(data: ConfirmationEmailData): string {
   const { userName, confirmationUrl } = data;
+  const hej = halsning(userName).replace(/[&<>"']/g, (c) => ESC[c]);
 
   return `
 <!DOCTYPE html>
@@ -70,7 +80,7 @@ export function generateConfirmationEmailHTML(data: ConfirmationEmailData): stri
                     </div>
 
                     <h2 style="color: #131B32; font-size: 24px; margin: 0 0 20px 0; font-weight: 600;">
-                      Hej ${userName}!
+                      ${hej}
                     </h2>
 
 
@@ -149,7 +159,7 @@ export function generateConfirmationEmailText(data: ConfirmationEmailData): stri
   return `
 Välkommen till Jobbcoach.ai!
 
-Hej ${userName}!
+${halsning(userName)}
 
 Tack för att du registrerat dig! För att komma igång behöver du bekräfta din e-postadress.
 
