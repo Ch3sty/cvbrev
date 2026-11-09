@@ -1,0 +1,1473 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tester steg 2</title>
+<meta name="description" content="Skiss för godkännande: spatial förmåga, talserier, ordförråd, övningsprovet för I-prov 2025, väljaren Mitt test och Alla tester.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* =====================================================================
+   Tester steg 2. Skiss 2026-11-09, art-director. Sidans ram följer läsarens
+   tema; ramarna bär Testernas tokens och växlar ljust/mörkt med data-tema.
+   ===================================================================== */
+:root{
+  color-scheme:light;
+  --pg-bg:#E4E3DF;--pg-panel:#F4F3F0;--pg-ink:#1A1A1F;--pg-ink-2:#4A4A55;--pg-ink-3:#65656E;--pg-kant:#CFCDC6;
+  --display:"Schibsted Grotesk","Inter",system-ui,sans-serif;
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){color-scheme:dark;--pg-bg:#121318;--pg-panel:#1B1C23;--pg-ink:#F3F2F7;--pg-ink-2:#C4C3CC;--pg-ink-3:#9290A0;--pg-kant:#33343F}
+}
+:root[data-theme="dark"]{color-scheme:dark;--pg-bg:#121318;--pg-panel:#1B1C23;--pg-ink:#F3F2F7;--pg-ink-2:#C4C3CC;--pg-ink-3:#9290A0;--pg-kant:#33343F}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--body);font-size:15px;line-height:23px;-webkit-font-smoothing:antialiased;padding:0 16px 80px;overflow-x:hidden}
+h1,h2,h3,h4{margin:0;font-family:var(--display);letter-spacing:-0.02em}
+p{margin:0}
+svg{display:block}
+button{font:inherit;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:2px solid #A8491A;outline-offset:2px}
+
+/* ---------- Sidans ram ---------- */
+.wrap{max-width:1360px;margin:0 auto}
+.intro{padding-top:28px;max-width:820px}
+.intro h1{font-size:40px;line-height:44px;font-weight:800}
+.ey{font-size:12px;line-height:16px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--pg-ink-3)}
+.intro p{color:var(--pg-ink-2);margin-top:12px;font-size:16px;line-height:25px}
+.verktyg{position:sticky;top:0;z-index:20;background:var(--pg-bg);padding:14px 0 12px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;border-bottom:1px solid var(--pg-kant);margin-top:20px}
+.flikar,.lagen{display:flex;flex-wrap:wrap;gap:6px}
+.verktyg button{height:38px;padding:0 13px;border-radius:10px;border:1px solid var(--pg-kant);background:var(--pg-panel);color:var(--pg-ink);font-size:14px;font-weight:500}
+.verktyg button[aria-pressed="true"]{border-color:var(--pg-ink);box-shadow:inset 0 0 0 1px var(--pg-ink)}
+.verktyg .grp{display:flex;gap:6px;align-items:center}
+.verktyg .grp span{font-size:12px;color:var(--pg-ink-3);margin-right:2px}
+.sektion{display:none;margin-top:28px}
+.sektion.on{display:block}
+.sektion > h2{font-size:28px;line-height:34px;font-weight:700}
+.sektion > p.l{max-width:76ch;margin-top:8px;color:var(--pg-ink-2)}
+.rad{display:flex;gap:26px;align-items:flex-start;overflow-x:auto;padding:18px 0 14px;scrollbar-width:thin}
+.rad > div{flex:0 0 auto}
+.cap{font-size:12px;line-height:16px;letter-spacing:.06em;text-transform:uppercase;color:var(--pg-ink-3);font-weight:600;margin:0 0 8px 4px;max-width:360px}
+.cap em{display:block;font-style:normal;text-transform:none;letter-spacing:0;font-weight:400;margin-top:2px}
+body[data-lage="dator"] .cap{max-width:1280px}
+.notis{background:var(--pg-panel);border:1px solid var(--pg-kant);border-radius:14px;padding:20px 24px;margin-top:16px;max-width:900px}
+.notis h3{font-size:18px;line-height:24px;font-weight:700}
+.notis p,.notis li{color:var(--pg-ink-2);font-size:14px;line-height:21px}
+.notis p{margin-top:8px}
+.notis ul,.notis ol{margin:8px 0 0;padding-left:20px}
+.notis li+li{margin-top:6px}
+.notis b{color:var(--pg-ink);font-weight:600}
+.notis table{border-collapse:collapse;margin-top:10px;font-size:13px;line-height:18px;width:100%}
+.notis td,.notis th{text-align:left;padding:6px 8px;border-bottom:1px solid var(--pg-kant);vertical-align:top;color:var(--pg-ink-2)}
+.notis th{color:var(--pg-ink);font-weight:600}
+@media (max-width:760px){.intro h1{font-size:30px;line-height:34px}.sektion > h2{font-size:22px;line-height:28px}}
+
+/* ---------- Ramen: Testernas tokens ---------- */
+.frame{
+  color-scheme:light;
+  --koppar:#E07A2F;--koppar-ink:#A8491A;--koppar-ljus:#F4B98A;--koppar-text:#1A1206;--koppar-mjuk:#FBE3D0;
+  --ink-1:#1A1A1F;--ink-2:#4A4A55;--ink-3:#65656E;
+  --papper:#FFFFFF;--papper-2:#F4F3F0;--kant:#E3E1DC;--kant-stark:#C9C6BF;
+  --positiv:#2F7D5B;--positiv-mjuk:#DCEFE5;
+  --lyft:0 1px 2px rgba(20,20,40,.05),0 10px 24px -14px rgba(20,20,40,.18);
+  --golv:#EBEDF6;--vagg:#1B2246;--vagg-2:#2B3470;--vagg-3:#121737;--vagg-ink:#F5F6FC;--vagg-mjuk:#AEB4DA;--vagg-svag:#6F78B0;--vagg-kant:rgba(255,255,255,.12);--ton:#DFE3F6;--ton-ink:#3B4790;
+  --motsats:#6E2B59;--motsats-mjuk:#F0DCE8;
+  --m-ink:var(--ink-1);--m-gra:var(--kant-stark);--m-vit:var(--papper);--m-ram:var(--ink-3);
+  width:360px;height:780px;background:var(--golv);border:1px solid rgba(0,0,0,.14);border-radius:28px;position:relative;color:var(--ink-1);font-size:14px;line-height:21px;display:flex;overflow:hidden;font-family:var(--body)
+}
+body[data-tema="morkt"] .frame{
+  color-scheme:dark;
+  --golv:#0E1120;--papper:#171B2E;--papper-2:#1D2238;--kant:#293050;--kant-stark:#3B4470;--ton:#232B55;--ton-ink:#B9C2F2;
+  --ink-1:#F3F2F7;--ink-2:#C7C6D0;--ink-3:#9391A1;--koppar-ink:#F2A368;--koppar-mjuk:rgba(224,122,47,.18);
+  --positiv:#6CC79A;--positiv-mjuk:#1C3A2D;--motsats:#E8B8D8;--motsats-mjuk:#3E1F35;
+  --lyft:0 1px 2px rgba(0,0,0,.3),0 12px 28px -14px rgba(0,0,0,.6);border-color:rgba(255,255,255,.08)
+}
+body[data-lage="pixel"] .frame{width:412px;height:840px}
+body[data-lage="dator"] .frame{width:1280px;height:820px;border-radius:14px}
+.sidomeny{display:none}
+body[data-lage="dator"] .sidomeny{display:flex;flex-direction:column;width:248px;flex:0 0 auto;background:var(--papper);border-right:1px solid var(--kant);padding:18px 12px;gap:4px}
+.sidomeny .brand{font-family:var(--display);font-weight:800;font-size:17px;padding:4px 12px 14px;color:var(--ink-1)}
+.sidomeny a{display:flex;align-items:center;gap:10px;height:40px;padding:0 12px;border-radius:10px;text-decoration:none;color:var(--ink-2);font-size:14px;font-weight:500}
+.sidomeny a.on{background:var(--ton);color:var(--ton-ink);font-weight:600}
+.sidomeny .ic{width:20px;height:20px}
+.skarm{flex:1;min-width:0;display:flex;flex-direction:column;height:100%}
+.ic{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+.ic.s{width:20px;height:20px}
+.ic.xs{width:16px;height:16px;stroke-width:2}
+
+/* ---------- Passets skal ---------- */
+.topp{height:56px;display:flex;align-items:center;gap:8px;padding:0 10px 0 6px;background:var(--papper);border-bottom:1px solid var(--kant);flex:0 0 auto}
+.topp .titel{flex:1;min-width:0;font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:-.01em;line-height:18px}
+.topp .titel small{display:block;font-family:var(--body);font-weight:400;font-size:12px;line-height:15px;color:var(--ink-3);letter-spacing:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topp .raknare{font-size:13px;color:var(--ink-3);font-variant-numeric:tabular-nums;white-space:nowrap}
+.iknapp{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:10px;color:inherit;background:transparent;border:0;padding:0;flex:0 0 auto}
+.tidsrad{height:4px;background:var(--papper-2);flex:0 0 auto}
+.tidsrad i{display:block;height:100%;background:var(--ton-ink);border-radius:0 2px 2px 0}
+.tidmeta{display:flex;justify-content:space-between;padding:4px 16px 0;font-size:11px;line-height:14px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.segment{display:flex;gap:2px;padding:10px 16px 0}
+.segment i{flex:1;height:5px;border-radius:2px;background:var(--kant)}
+.segment i.g{background:var(--ton-ink)}
+.segment i.nu{background:var(--ink-1)}
+.segment i.hopp{background:var(--koppar-ljus)}
+.kropp{flex:1;min-height:0;overflow:auto;padding:12px 16px 16px;display:flex;flex-direction:column;gap:12px}
+body[data-lage="dator"] .topp,body[data-lage="dator"] .fot,body[data-lage="dator"] .tidmeta,body[data-lage="dator"] .segment{padding-left:calc((100% - 560px) / 2);padding-right:calc((100% - 560px) / 2)}
+body[data-lage="dator"] .tidsrad i{margin-left:calc((100% - 560px) / 2);max-width:560px}
+body[data-lage="dator"] .kropp{width:100%;max-width:440px;margin:0 auto;padding-top:16px}
+body[data-lage="dator"] .skarm.pass.bred .kropp{max-width:460px}
+.fot{display:flex;align-items:center;gap:10px;padding:12px 16px 14px;background:var(--papper);border-top:1px solid var(--kant);flex:0 0 auto}
+.fot .lank{min-height:44px;display:inline-flex;align-items:center;padding:0 6px;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;font-weight:500}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;border-radius:12px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid transparent;flex:1;white-space:nowrap}
+.btn.koppar{background:var(--koppar);color:var(--koppar-text);box-shadow:inset 0 -2px 0 rgba(0,0,0,.14)}
+.btn.sek{background:var(--papper);border-color:var(--ink-1);color:var(--ink-1)}
+.btn.vagg{background:var(--vagg-ink);color:var(--vagg);border-color:transparent}
+.btn.lank{background:transparent;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;font-weight:500;border:0;min-height:44px}
+.fot .btn.auto{flex:0 0 auto;min-width:150px}
+
+/* fråga: text */
+.fragetext{min-width:0;display:flex;flex-direction:column;justify-content:center}
+.fragetext .ey{color:var(--ink-3)}
+.fragetext h2{font-size:18px;line-height:23px;font-weight:700;margin-top:4px;color:var(--ink-1);letter-spacing:-.015em}
+.fragetext p{font-size:13px;line-height:18px;color:var(--ink-3);margin-top:6px}
+body[data-lage="pixel"] .fragetext h2{font-size:19px;line-height:24px}
+.fragerad h2{font-size:19px;line-height:24px}
+
+/* referensrad: figuren till vänster, frågan till höger */
+.refrad{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:stretch}
+.ruta{position:relative;aspect-ratio:1;border-radius:14px;border:1px solid var(--kant);background:var(--papper);display:flex;align-items:center;justify-content:center;box-shadow:var(--lyft)}
+.ruta svg{width:80%;height:80%}
+.ruta .etik{position:absolute;left:10px;top:7px;font-size:12px;line-height:16px;font-weight:600;color:var(--ink-3);letter-spacing:.02em}
+.ruta.ref{background:var(--papper-2);box-shadow:none}
+.ruta.ref .etik{text-transform:uppercase;letter-spacing:.06em;font-size:11px}
+
+/* fyra alternativ 2 × 2 */
+.alt4{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.alt4 .ruta{box-shadow:none}
+.alt4 .ruta.vald{border-color:var(--ink-1);box-shadow:inset 0 0 0 1.5px var(--ink-1)}
+.alt4 .ruta.vald .etik{color:var(--ink-1)}
+.alt4 .ruta.ratt{border-color:var(--koppar);box-shadow:inset 0 0 0 1.5px var(--koppar)}
+.alt4 .ruta.ratt .etik{color:var(--koppar-ink)}
+.alt4 .ruta.ratt::after{content:"";position:absolute;right:10px;top:10px;width:9px;height:9px;border-radius:50%;background:var(--koppar)}
+.alt4.svarat .ruta:not(.vald):not(.ratt){opacity:.38}
+.alt4.rad4{grid-template-columns:repeat(4,1fr);gap:8px}
+.alt4.rad4 .ruta{border-radius:11px}
+.alt4.rad4 .ruta .etik{left:7px;top:4px;font-size:11px}
+.alt4.rad4 .ruta.ratt::after{right:7px;top:7px;width:7px;height:7px}
+.alt4 .ruta.vald.ratt{outline:2px solid var(--koppar);outline-offset:3px}
+
+/* sekvens för pappersvikningen */
+.sekvens{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.sekvens .steg{position:relative;border-radius:12px;border:1px solid var(--kant);background:var(--papper-2);aspect-ratio:1;display:flex;align-items:center;justify-content:center}
+.sekvens .steg svg{width:86%;height:86%}
+.sekvens .steg small{position:absolute;left:0;right:0;bottom:4px;text-align:center;font-size:11px;line-height:14px;color:var(--ink-3);font-weight:600;letter-spacing:.02em}
+.sekvens .steg + .steg::before{content:"";position:absolute;left:-7px;top:50%;width:6px;height:6px;border-top:2px solid var(--ink-3);border-right:2px solid var(--ink-3);transform:translateY(-50%) rotate(45deg)}
+.sekvens.bak .steg{background:var(--papper)}
+
+/* genomgång */
+.regel{background:var(--papper);border:1px solid var(--kant);border-radius:14px;padding:12px 14px;box-shadow:var(--lyft)}
+.regel .ey{color:var(--koppar-ink)}
+.regel p{font-size:14px;line-height:20px;color:var(--ink-1);margin-top:4px}
+.regel p.m{color:var(--ink-2);margin-top:6px}
+.regel p.m b{color:var(--ink-1);font-weight:600}
+.parrad{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}
+.parrad .pil{width:22px;height:22px;color:var(--ink-3)}
+.parrad .ruta.ratt{border-color:var(--koppar);box-shadow:inset 0 0 0 1.5px var(--koppar)}
+.parrad .ruta.ratt .etik{color:var(--koppar-ink)}
+
+/* ---------- Talserier ---------- */
+.talrad{display:flex;gap:4px;justify-content:space-between}
+.tal{flex:1;min-width:0;height:44px;border-radius:9px;border:1px solid var(--kant);background:var(--papper);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--ink-1)}
+body[data-lage="pixel"] .tal,body[data-lage="dator"] .tal{font-size:17px;height:48px}
+.tal.lucka{background:var(--papper-2);border:2px dashed var(--kant-stark);color:var(--ink-3);font-weight:600}
+.tal.lucka.svar{border:2px solid var(--koppar);background:var(--koppar-mjuk);color:var(--koppar-ink)}
+.tal.s1{border-color:var(--ton-ink);box-shadow:inset 0 0 0 1px var(--ton-ink);color:var(--ton-ink)}
+.tal.s2{border-color:var(--koppar);box-shadow:inset 0 0 0 1px var(--koppar);color:var(--koppar-ink)}
+.diffrad{display:flex;gap:4px;margin-top:-4px;padding:0 calc(50% / 8)}
+.diffrad span{flex:1;text-align:center;font-size:11px;line-height:16px;color:var(--ink-3);font-variant-numeric:tabular-nums;font-weight:600;position:relative}
+.diffrad span::before{content:"";position:absolute;left:18%;right:18%;top:-3px;height:5px;border:1.5px solid var(--kant-stark);border-top:0;border-radius:0 0 6px 6px}
+.diffrad.ton span{color:var(--ton-ink)}
+.diffrad.ton span::before{border-color:var(--ton-ink)}
+.diffrad.kop span{color:var(--koppar-ink)}
+.diffrad.kop span::before{border-color:var(--koppar)}
+.talkort{background:var(--papper);border:1px solid var(--kant);border-radius:14px;padding:14px 12px 12px;box-shadow:var(--lyft)}
+.talkort .ey{color:var(--ink-3);padding:0 2px 8px}
+.radval{display:flex;flex-direction:column;gap:8px}
+.radval a{display:flex;align-items:center;gap:12px;min-height:48px;padding:0 14px;border-radius:12px;border:1px solid var(--kant);background:var(--papper);text-decoration:none;color:var(--ink-1);font-size:16px;font-weight:500;font-variant-numeric:tabular-nums}
+.radval a b{width:22px;font-size:13px;color:var(--ink-3);font-weight:600}
+.radval a.vald{border-color:var(--ink-1);box-shadow:inset 0 0 0 1.5px var(--ink-1)}
+.radval a.ratt{border-color:var(--koppar);box-shadow:inset 0 0 0 1.5px var(--koppar)}
+.radval a.ratt b{color:var(--koppar-ink)}
+.radval a.ratt::after{content:"";margin-left:auto;width:9px;height:9px;border-radius:50%;background:var(--koppar)}
+.radval.svarat a:not(.vald):not(.ratt){opacity:.38}
+.radval.tat a{min-height:44px;font-size:15px}
+.sparrad{font-size:12px;line-height:16px;color:var(--ink-3);padding:0 2px}
+
+/* ---------- Ordförråd ---------- */
+.ordkort{background:var(--papper);border:1px solid var(--kant);border-radius:16px;padding:16px 16px 18px;box-shadow:var(--lyft);text-align:center}
+.typrad{display:inline-flex;align-items:center;gap:7px;font-size:12px;line-height:16px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;padding:4px 10px 4px 8px;border-radius:999px}
+.typrad.syn{color:var(--ton-ink);background:var(--ton)}
+.typrad.mot{color:var(--motsats);background:var(--motsats-mjuk)}
+.typrad svg{width:16px;height:16px}
+.ordkort .ord{font-family:var(--display);font-size:30px;line-height:36px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;margin-top:12px;color:var(--ink-1)}
+.ordkort .fraga{font-size:15px;line-height:21px;color:var(--ink-2);margin-top:6px}
+.ordkort .mening{font-size:14px;line-height:20px;color:var(--ink-2);margin-top:10px;font-style:italic}
+.radval a .mis{margin-left:auto;font-size:12px;line-height:15px;color:var(--koppar-ink);font-weight:600;text-align:right}
+
+/* ---------- Vägg och golv ---------- */
+.vagg{position:relative;color:var(--vagg-ink);background:linear-gradient(168deg,var(--vagg-2) 0%,var(--vagg) 48%,var(--vagg-3) 100%);padding:0 16px 40px;border-radius:0 0 28px 28px;flex:0 0 auto}
+.vagg::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(120% 60% at 85% -10%,rgba(255,255,255,.08),transparent 60%)}
+.vagg > *{position:relative;z-index:1}
+.vagg.hel{flex:1;border-radius:0;display:flex;flex-direction:column}
+.topbar{height:56px;display:flex;align-items:center;gap:8px;margin:0 -6px}
+.topbar .brand{flex:1;text-align:center;font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:-.01em}
+.topbar .brand.v{text-align:left}
+.vagg .ey{color:var(--vagg-mjuk)}
+.vagg .ey.k{color:var(--koppar-ljus)}
+.h1{font-family:var(--display);font-size:28px;line-height:32px;font-weight:800;letter-spacing:-.025em;margin-top:6px}
+.h1.stor{font-size:34px;line-height:38px}
+.vagg p.vb{font-size:14px;line-height:21px;color:var(--vagg-mjuk);margin-top:8px}
+.vagg p.vb b{color:var(--vagg-ink);font-weight:600}
+.lage{display:inline-flex;gap:2px;padding:3px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--vagg-kant);flex:1;max-width:280px}
+.lage a{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;height:38px;border-radius:999px;text-decoration:none;font-size:14px;font-weight:600;color:var(--vagg-mjuk)}
+.lage a.on{background:var(--vagg-ink);color:var(--vagg)}
+.lage .ic{width:18px;height:18px}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--vagg-kant);border:1px solid var(--vagg-kant);display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--vagg-ink);flex:0 0 auto}
+.golv{flex:1;min-height:0;overflow:auto;padding:0 16px 20px;display:flex;flex-direction:column;gap:12px}
+.golv.lyft{padding-top:0}
+.kort{background:var(--papper);border:1px solid var(--kant);border-radius:16px;padding:14px 16px}
+.kort.upp{position:relative;z-index:2;margin-top:-28px;box-shadow:var(--lyft)}
+.kort .ey{color:var(--ink-3)}
+.kort .ey.k{color:var(--koppar-ink)}
+.kort h3{font-size:18px;line-height:23px;font-weight:700;margin-top:4px;color:var(--ink-1)}
+.kort p{font-size:14px;line-height:20px;color:var(--ink-2);margin-top:6px}
+.kort p b{color:var(--ink-1);font-weight:600}
+.sekt{font-size:13px;line-height:18px;font-weight:600;color:var(--ink-2);margin:6px 2px -4px}
+.rader{display:flex;flex-direction:column}
+.rader .r{display:flex;align-items:center;gap:12px;min-height:52px;padding:8px 0;border-top:1px solid var(--kant)}
+.rader .r:first-child{border-top:0}
+.rader .r .sym{width:36px;height:36px;color:var(--ton-ink);flex:0 0 auto}
+.rader .r .sym.svag{color:var(--ink-3)}
+.rader .r .t{flex:1;min-width:0}
+.rader .r .t b{display:block;font-size:15px;line-height:20px;font-weight:600;color:var(--ink-1)}
+.rader .r .t span{display:block;font-size:13px;line-height:18px;color:var(--ink-3);margin-top:1px}
+.rader .r .t .st{display:block;height:6px;border-radius:3px;border:1px solid var(--kant);background:var(--papper-2);margin-top:8px;overflow:hidden}
+.rader .r .t .st i{display:block;height:100%;border-radius:3px;background:var(--ton-ink)}
+.rader .r .t .st i.kop{background:var(--koppar)}
+.rader .r .h{flex:0 0 auto;font-size:13px;color:var(--ink-3);font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:6px}
+.rader .r .h.lank{color:var(--ink-1);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.rader .r .h .ic{width:18px;height:18px;color:var(--ink-3)}
+.chip{display:inline-flex;align-items:center;height:26px;padding:0 9px;border-radius:999px;font-size:12px;font-weight:600;background:var(--papper-2);border:1px solid var(--kant);color:var(--ink-2);white-space:nowrap}
+.chip.k{background:var(--koppar-mjuk);border-color:transparent;color:var(--koppar-ink)}
+.chip.t{background:var(--ton);border-color:transparent;color:var(--ton-ink)}
+.status{display:flex;align-items:center;gap:10px;min-height:44px;padding:10px 14px;border-radius:12px;border:1px solid var(--kant);background:var(--papper);font-size:14px;line-height:19px}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--koppar);flex:0 0 auto}
+.knappar{display:flex;flex-direction:column;gap:6px;padding-top:2px}
+.knappar .btn{flex:none}
+
+/* resultatring */
+.ring{position:relative;width:64px;height:64px;flex:0 0 auto}
+.ring svg{width:100%;height:100%}
+.ring .spar{fill:none;stroke:rgba(255,255,255,.14);stroke-width:5}
+.ring .fyll{fill:none;stroke:var(--koppar);stroke-width:5;stroke-linecap:round;transform:rotate(-90deg);transform-origin:center}
+.ring .bock{stroke:var(--vagg-ink);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.resrad{display:flex;align-items:center;gap:16px;margin-top:10px}
+.resrad .h1{margin-top:2px}
+.tvatal{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.tvatal div b{display:block;font-family:var(--display);font-size:22px;line-height:26px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.tvatal div span{display:block;font-size:12px;line-height:16px;color:var(--vagg-mjuk);margin-top:2px}
+
+/* tempo */
+.tempo{position:relative;height:10px;border-radius:5px;background:var(--papper-2);margin-top:10px}
+.tempo i{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:var(--ton-ink)}
+.tempo i.kop{background:var(--koppar)}
+.tempo em{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink-1);border-radius:1px}
+.tempometa{display:flex;justify-content:space-between;font-size:11px;line-height:14px;color:var(--ink-3);margin-top:6px;font-variant-numeric:tabular-nums}
+
+/* staplar per deltest (liggande) */
+.delst{display:flex;flex-direction:column;gap:9px;margin-top:10px}
+.delst .d{display:grid;grid-template-columns:118px 1fr 44px;align-items:center;gap:10px;font-size:13px;line-height:17px}
+.delst .d span:first-child{color:var(--ink-2)}
+.delst .d .b{height:10px;border-radius:5px;background:var(--papper-2);position:relative;overflow:hidden}
+.delst .d .b i{display:block;height:100%;border-radius:5px;background:var(--ton-ink)}
+.delst .d .b i.kop{background:var(--koppar)}
+.delst .d .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink-1);font-weight:600}
+.vagg .delst .d span:first-child{color:var(--vagg-mjuk)}
+.vagg .delst .d .b{background:rgba(255,255,255,.1)}
+.vagg .delst .d .b i{background:var(--vagg-ink)}
+.vagg .delst .d .b i.kop{background:var(--koppar)}
+.vagg .delst .d .v{color:var(--vagg-ink)}
+.delst.tunn .d .b{height:6px}
+.delst .d .b em{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink-1)}
+
+/* startark */
+.formatrad{display:flex;gap:14px;align-items:flex-start;margin-top:12px}
+.formatrad .bild{width:72px;flex:0 0 auto}
+.formatrad .bild svg{width:72px;height:56px}
+.formatrad b{display:block;font-size:15px;line-height:20px;font-weight:600}
+.formatrad span{display:block;font-size:13px;line-height:19px;color:var(--vagg-mjuk);margin-top:2px}
+.valrad{display:flex;gap:2px;padding:3px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid var(--vagg-kant);margin-top:12px}
+.valrad a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:50px;border-radius:9px;text-decoration:none;color:var(--vagg-mjuk);font-size:14px;font-weight:600;line-height:18px}
+.valrad a small{font-size:12px;font-weight:400;line-height:15px}
+.valrad a.on{background:var(--vagg-ink);color:var(--vagg)}
+.valrad a.on small{color:var(--vagg-2)}
+.dellista{margin-top:12px;border:1px solid var(--vagg-kant);border-radius:14px;overflow:hidden;background:rgba(255,255,255,.05)}
+.dellista div{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:center;min-height:38px;padding:4px 12px;font-size:13px;line-height:17px;border-top:1px solid var(--vagg-kant)}
+.dellista div:first-child{border-top:0}
+.dellista div i{font-style:normal;font-weight:700;color:var(--vagg-svag);font-family:var(--display)}
+.dellista div b{font-weight:600}
+.dellista div span{color:var(--vagg-mjuk);font-variant-numeric:tabular-nums;white-space:nowrap}
+.dellista div.klar i{color:var(--koppar-ljus)}
+.dellista div.nu{background:rgba(255,255,255,.08)}
+.regelrad{display:flex;gap:12px;align-items:flex-start;margin-top:12px;font-size:13px;line-height:19px;color:var(--vagg-mjuk)}
+.regelrad .ic{color:var(--vagg-ink);width:22px;height:22px}
+.regelrad b{color:var(--vagg-ink);font-weight:600}
+.paketrad{display:flex;align-items:center;gap:10px;font-size:13px;line-height:18px;color:var(--ink-2)}
+.paketrad .ic{width:18px;height:18px;color:var(--ink-3)}
+
+/* mellanblad */
+.mellan{flex:1;display:flex;flex-direction:column;justify-content:center;gap:10px;padding-bottom:20px}
+.mellan .nr{font-family:var(--display);font-size:84px;line-height:84px;font-weight:800;letter-spacing:-.04em;color:var(--koppar-ljus)}
+.mellan .nr small{font-size:22px;letter-spacing:-.02em;color:var(--vagg-mjuk);font-weight:600;margin-left:6px}
+.mellan .h1{margin-top:0}
+.delseg{display:flex;gap:4px;margin-top:8px}
+.delseg i{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.12)}
+.delseg i.g{background:var(--koppar)}
+.delseg i.nu{background:var(--vagg-ink)}
+
+/* klocka */
+.klocka{position:relative;width:44px;height:44px;flex:0 0 auto}
+.klocka svg{width:100%;height:100%}
+.klocka .spar{fill:none;stroke:var(--kant);stroke-width:4}
+.klocka .kvar{fill:none;stroke:var(--ink-2);stroke-width:4;stroke-linecap:round;transform:rotate(-90deg);transform-origin:center}
+.klocka b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:14px;font-weight:700;letter-spacing:-.02em;color:var(--ink-1);font-variant-numeric:tabular-nums}
+
+/* ingången: valkort */
+.flode{flex:1;min-height:0;overflow:auto;padding:14px 16px 16px;display:flex;flex-direction:column;gap:12px}
+.flode .steg-ey{color:var(--ink-3)}
+.flode h2{font-size:26px;line-height:30px;font-weight:800;letter-spacing:-.025em;color:var(--ink-1);margin-top:2px}
+.flode p.l{font-size:14px;line-height:20px;color:var(--ink-2);margin-top:6px}
+.valkort{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.valkort a{position:relative;display:flex;flex-direction:column;justify-content:flex-start;min-height:84px;min-width:0;hyphens:auto;padding:10px 11px;border-radius:14px;border:1px solid var(--kant);background:var(--papper);text-decoration:none;color:var(--ink-1)}
+.valkort a b{font-size:14px;line-height:18px;font-weight:600;padding-right:20px}
+body[data-lage="pixel"] .valkort a b,body[data-lage="dator"] .valkort a b{font-size:15px;line-height:19px}
+.valkort a span{font-size:12px;line-height:16px;color:var(--ink-3);margin-top:3px}
+.valkort a.on{border-color:var(--ink-1);box-shadow:inset 0 0 0 1.5px var(--ink-1)}
+.valkort a.on::after{content:"";position:absolute;right:10px;top:10px;width:18px;height:18px;border-radius:50%;background:var(--ink-1);-webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='12' r='12' fill='black'/><path d='M7 12.5l3 3 7-7' stroke='white' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='12' r='12' fill='black'/><path d='M7 12.5l3 3 7-7' stroke='white' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>") center/contain no-repeat}
+.valkort a.bred{grid-column:1/-1;min-height:0;flex-direction:row;align-items:center;gap:10px}
+.valkort a.bred b{flex:1}
+body[data-lage="dator"] .valkort{grid-template-columns:1fr 1fr 1fr 1fr}
+body[data-lage="dator"] .flode{max-width:760px;margin:0 auto;width:100%}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips a{display:inline-flex;align-items:center;min-height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--kant);background:var(--papper);text-decoration:none;color:var(--ink-1);font-size:14px;font-weight:500}
+.chips a.on{border-color:var(--ink-1);box-shadow:inset 0 0 0 1px var(--ink-1);font-weight:600}
+.kryss{display:flex;flex-direction:column;gap:6px}
+.kryss a{display:flex;align-items:center;gap:12px;min-height:44px;padding:0 12px;border-radius:12px;border:1px solid var(--kant);background:var(--papper);text-decoration:none;color:var(--ink-1);font-size:14px;font-weight:500}
+.kryss a i{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--kant-stark);flex:0 0 auto}
+.kryss a.on i{background:var(--ink-1);border-color:var(--ink-1);-webkit-mask:none}
+.kryss a.on i::after{content:"";display:block;width:20px;height:20px;background:var(--papper);-webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M5 10.5l3 3 7-7' stroke='black' stroke-width='2.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>") center/contain no-repeat;mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M5 10.5l3 3 7-7' stroke='black' stroke-width='2.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>") center/contain no-repeat}
+.meta{font-size:12px;line-height:17px;color:var(--ink-3)}
+.varum{font-size:12px;line-height:17px;color:var(--ink-3);padding:4px 2px 0}
+
+/* alla tester: kort */
+.testk{background:var(--papper);border:1px solid var(--kant);border-radius:16px;padding:14px 16px}
+.testk .huv{display:flex;gap:12px;align-items:flex-start}
+.testk .huv .sym{width:48px;height:48px;flex:0 0 auto;color:var(--ton-ink)}
+.testk .huv .ey{color:var(--ink-3)}
+.testk .huv h3{font-size:17px;line-height:22px;font-weight:700;margin-top:2px;color:var(--ink-1)}
+.testk .huv p{font-size:13px;line-height:18px;color:var(--ink-2);margin-top:4px}
+.nivaer{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px}
+.niva{min-height:58px;border-radius:12px;border:1px solid var(--kant);background:var(--papper);padding:8px 10px;display:flex;flex-direction:column;text-decoration:none;color:var(--ink-1)}
+.niva b{font-size:12px;line-height:16px;font-weight:600;color:var(--ink-2)}
+.niva em{font-style:normal;font-family:var(--display);font-size:20px;line-height:24px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-top:2px}
+.niva em.dim{color:var(--ink-3);font-size:14px;font-weight:600;font-family:var(--body);margin-top:4px}
+.niva.nasta{border-color:var(--koppar);box-shadow:inset 0 0 0 1px var(--koppar)}
+.niva.nasta b{color:var(--koppar-ink)}
+.niva.las{background:var(--papper-2)}
+.mittest{display:flex;align-items:center;gap:12px;background:var(--papper);border:1px solid var(--kant);border-radius:14px;padding:10px 14px;min-height:56px}
+.mittest .ic{color:var(--ton-ink)}
+.mittest .t{flex:1;min-width:0}
+.mittest .t b{display:block;font-size:15px;line-height:20px;font-weight:600;color:var(--ink-1)}
+.mittest .t span{display:block;font-size:13px;line-height:18px;color:var(--ink-3)}
+.mittest a{color:var(--ink-1);font-weight:600;font-size:14px;text-decoration:underline;text-underline-offset:3px}
+body[data-lage="dator"] .golv{padding:0 40px 40px;max-width:1200px;width:100%;margin:0 auto}
+body[data-lage="dator"] .vagg{padding:0 40px 36px;border-radius:0 0 32px 32px}
+body[data-lage="dator"] .vagg > *{max-width:1120px;margin-left:auto;margin-right:auto}
+body[data-lage="dator"] .vagg .h1{font-size:40px;line-height:44px}
+body[data-lage="dator"] .tvaspalt{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+body[data-lage="dator"] .trespalt{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;align-items:start}
+body[data-lage="dator"] .golv .kort.upp{margin-top:-28px}
+body[data-lage="dator"] .vagg.hel > *{width:100%;max-width:560px}
+body[data-lage="dator"] .vagg.smal > *{max-width:560px}
+body[data-lage="dator"] .topbar .avatar{margin-left:auto}
+body[data-lage="dator"] .golv.smal{max-width:640px}
+</style>
+</head>
+<body data-lage="mobil" data-tema="ljust">
+<div class="wrap">
+  <header class="intro">
+    <p class="ey">Skiss för godkännande, 9 november 2026</p>
+    <h1>Tester steg 2</h1>
+    <p>Fem nya ytor i Rekryteringstester: <b>Spatial förmåga</b> (vriden figur, pappersvikning, tärningar), <b>Talserier</b>, <b>Ordförråd</b>, <b>övningsprovet för I-prov 2025</b> och väljaren <b>Mitt test</b>. Allt ritat i samma skal som dagens pass och övningsprov, med grafik v3:s bläck på papper. Figurerna är beräknade i sidans skript, inte handritade: varje facit följer ur operationen.</p>
+  </header>
+
+  <nav class="verktyg" aria-label="Flikar och lägen">
+    <div class="flikar" id="flikar">
+      <button aria-pressed="true" data-flik="spatial">Spatial förmåga</button>
+      <button aria-pressed="false" data-flik="tal">Talserier</button>
+      <button aria-pressed="false" data-flik="ord">Ordförråd</button>
+      <button aria-pressed="false" data-flik="iprov">I-prov-provet</button>
+      <button aria-pressed="false" data-flik="mittest">Mitt test</button>
+      <button aria-pressed="false" data-flik="alla">Alla tester</button>
+      <button aria-pressed="false" data-flik="noter">Noter</button>
+    </div>
+    <div class="grp" id="lagen"><span>Läge</span>
+      <button aria-pressed="true" data-lage="mobil">Mobil 360</button>
+      <button aria-pressed="false" data-lage="pixel">Pixel 7</button>
+      <button aria-pressed="false" data-lage="dator">Dator</button>
+    </div>
+    <div class="grp" id="teman"><span>Tema</span>
+      <button aria-pressed="true" data-tema="ljust">Ljust</button>
+      <button aria-pressed="false" data-tema="morkt">Mörkt</button>
+    </div>
+  </nav>
+
+  <!-- ===================================================== SPATIAL -->
+  <section class="sektion on" data-sektion="spatial">
+    <h2>Spatial förmåga: tre uppgiftsformer, genomgång och resultat</h2>
+    <p class="l">Ett nivåtest blandar vriden figur, pappersvikning och tärningar. Referensen står alltid i samma rutstorlek som de fyra alternativen, så att det man jämför med ser ut som det man väljer. Passet har tidsraden, aldrig nedräkning.</p>
+
+    <div class="rad">
+      <div>
+        <p class="cap">Fråga, vriden figur <em>Grund, 3 × 3. Facit är figuren vriden 90 grader medurs.</em></p>
+        <div class="frame"><div class="skarm pass">
+          <header class="topp"><button class="iknapp" aria-label="Avsluta"><svg class="ic"><use href="#i-x"/></svg></button><div class="titel">Spatial förmåga<small>Dagens pass, uppgift 2 av 6</small></div><span class="raknare">2 / 6</span></header>
+          <div class="tidsrad"><i style="width:34%"></i></div>
+          <div class="tidmeta"><span>0:10</span><span>provets tid 0:30</span></div>
+          <div class="kropp">
+            <div class="refrad">
+              <div class="ruta ref"><span class="etik">Figuren</span><svg data-fig="brick" data-n="3" data-cells="0,0 0,1 1,0 1,1 2,0"></svg></div>
+              <div class="fragetext"><p class="ey">Vriden figur</p><h2>Vilken är samma figur, bara vriden?</h2><p>Spegelbilder räknas inte. Ett av fyra.</p></div>
+            </div>
+            <div class="alt4">
+              <a class="ruta" href="#"><span class="etik">A</span><svg data-fig="brick" data-n="3" data-cells="0,2 0,1 1,2 1,1 2,2"></svg></a>
+              <a class="ruta" href="#"><span class="etik">B</span><svg data-fig="brick" data-n="3" data-cells="0,0 0,1 1,0 2,0 2,1"></svg></a>
+              <a class="ruta" href="#"><span class="etik">C</span><svg data-fig="brick" data-n="3" data-cells="0,0 0,1 0,2 1,1 1,2"></svg></a>
+              <a class="ruta" href="#"><span class="etik">D</span><svg data-fig="brick" data-n="3" data-cells="1,1 1,2 2,0 2,1 2,2"></svg></a>
+            </div>
+          </div>
+          <footer class="fot"><a class="lank" href="#">Vet inte, visa lösningen</a></footer>
+        </div></div>
+      </div>
+
+      <div>
+        <p class="cap">Fråga, pappersvikning <em>Avancerad, två vikningar och ett hål. Grått är den halva som viks över.</em></p>
+        <div class="frame"><div class="skarm pass">
+          <header class="topp"><button class="iknapp" aria-label="Avsluta"><svg class="ic"><use href="#i-x"/></svg></button><div class="titel">Spatial förmåga<small>Dagens pass, uppgift 3 av 6</small></div><span class="raknare">3 / 6</span></header>
+          <div class="tidsrad"><i style="width:22%"></i></div>
+          <div class="tidmeta"><span>0:10</span><span>provets tid 0:45</span></div>
+          <div class="kropp">
+            <div class="sekvens">
+              <div class="steg"><svg data-fig="arkvik" data-w="4" data-h="4" data-linje="h" data-gra="bottom"></svg><small>Vik upp</small></div>
+              <div class="steg"><svg data-fig="arkvik" data-w="4" data-h="2" data-linje="v" data-gra="right"></svg><small>Vik över</small></div>
+              <div class="steg"><svg data-fig="arkstans" data-w="2" data-h="2" data-hal="0,1"></svg><small>Stansa</small></div>
+            </div>
+            <div class="fragetext fragerad"><p class="ey">Pappersvikning</p><h2>Hur ser arket ut när det viks upp?</h2></div>
+            <div class="alt4">
+              <a class="ruta" href="#"><span class="etik">A</span><svg data-fig="arkut" data-n="4" data-hal="0,1 0,2"></svg></a>
+              <a class="ruta" href="#"><span class="etik">B</span><svg data-fig="arkut" data-n="4" data-hal="0,1 0,2 3,1 3,2"></svg></a>
+              <a class="ruta" href="#"><span class="etik">C</span><svg data-fig="arkut" data-n="4" data-hal="0,1 0,2 2,1 2,2"></svg></a>
+              <a class="ruta" href="#"><span class="etik">D</span><svg data-fig="arkut" data-n="4" data-hal="0,1 0,2 3,1 3,3"></svg></a>
+            </div>
+          </div>
+          <footer class="fot"><a class="lank" href="#">Vet inte, visa lösningen</a></footer>
+        </div></div>
+      </div>
+
+      <div>
+        <p class="cap">Fråga, tärningar <em>Grund, sex symboler utan riktning. Facit delar två synliga sidor med referensen.</em></p>
+        <div class="frame"><div class="skarm pass">
+          <header class="topp"><button class="iknapp" aria-label="Avsluta"><svg class="ic"><use href="#i-x"/></svg></button><div class="titel">Spatial förmåga<small>Dagens pass, uppgift 4 av 6</small></div><span class="raknare">4 / 6</span></header>
+          <div class="tidsrad"><i style="width:48%"></i></div>
+          <div class="tidmeta"><span>0:22</span><span>provets tid 0:45</span></div>
+          <div class="kropp">
+            <div class="refrad">
+              <div class="ruta ref"><span class="etik">Tärningen</span><svg data-fig="kub" data-t="prick" data-l="kryss" data-r="ring"></svg></div>
+              <div class="fragetext"><p class="ey">Tärningar</p><h2>Vilken kan vara samma tärning, sedd från ett annat håll?</h2><p>Sex olika symboler, en per sida.</p></div>
+            </div>
+            <div class="alt4">
+              <a class="ruta" href="#"><span class="etik">A</span><svg data-fig="kub" data-t="prick" data-l="kryss" data-r="fkvadrat"></svg></a>
+              <a class="ruta" href="#"><span class="etik">B</span><svg data-fig="kub" data-t="prick" data-l="ring" data-r="kryss"></svg></a>
+              <a class="ruta" href="#"><span class="etik">C</span><svg data-fig="kub" data-t="prick" data-l="kryss" data-r="triangel"></svg></a>
+              <a class="ruta" href="#"><span class="etik">D</span><svg data-fig="kub" data-t="prick" data-l="ring" data-r="fkvadrat"></svg></a>
+            </div>
+          </div>
+          <footer class="fot"><a class="lank" href="#">Vet inte, visa lösningen</a></footer>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="rad">
+      <div>
+        <p class="cap">Genomgång, vriden figur <em>Valde A, rätt var C. Referens och facit sida vid sida, vridningen i text.</em></p>
+        <div class="frame"><div class="skarm pass">
+          <header class="topp"><button class="iknapp" aria-label="Avsluta"><svg class="ic"><use href="#i-x"/></svg></button><div class="titel">Spatial förmåga<small>Dagens pass, uppgift 2 av 6</small></div><span class="raknare">2 / 6</span></header>
+          <div class="tidsrad"><i style="width:100%"></i></div>
+          <div class="tidmeta"><span>0:41</span><span>provets tid 0:30</span></div>
+          <div class="kropp">
+            <div class="parrad">
+              <div class="ruta ref"><span class="etik">Figuren</span><svg data-fig="brick" data-n="3" data-cells="0,0 0,1 1,0 1,1 2,0"></svg></div>
+              <svg class="pil" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div class="ruta ratt"><span class="etik">C</span><svg data-fig="brick" data-n="3" data-cells="0,0 0,1 0,2 1,1 1,2"></svg></div>
+            </div>
+            <div class="regel">
+              <p class="ey">Rätt svar är C</p>
+              <p>Figuren vriden <b>90 grader medurs</b>. Den långa sidan med tre rutor hamnar överst och svansen pekar åt höger.</p>
+              <p class="m"><b>Du valde A.</b> Det är spegelbilden: vänster och höger har bytt plats. Hur du än vrider referensen får du aldrig fram den.</p>
+            </div>
+            <div class="alt4 rad4 svarat">
+              <a class="ruta vald" href="#"><span class="etik">A</span><svg data-fig="brick" data-n="3" data-cells="0,2 0,1 1,2 1,1 2,2"></svg></a>
+              <a class="ruta" href="#"><span class="etik">B</span><svg data-fig="brick" data-n="3" data-cells="0,0 0,1 1,0 2,0 2,1"></svg></a>
+              <a class="ruta ratt" href="#"><span class="etik">C</span><svg data-fig="brick" data-n="3" data-cells="0,0 0,1 0,2 1,1 1,2"></svg></a>
+              <a class="ruta" href="#"><span class="etik">D</span><svg data-fig="brick" data-n="3" data-cells="1,1 1,2 2,0 2,1 2,2"></svg></a>
+            </div>
+          </div>
+          <footer class="fot"><a class="btn koppar" href="#">Nästa uppgift</a></footer>
+        </div></div>
+      </div>
+
+      <div>
+        <p class="cap">Genomgång, pappersvikning <em>Valde A, rätt var B. Uppvikningen baklänges i tre rutor.</em></p>
+        <div class="frame"><div class="skarm pass">
+          <header class="topp"><button class="iknapp" aria-label="Avsluta"><svg class="ic"><use href="#i-x"/></svg></button><div class="titel">Spatial förmåga<small>Dagens pass, uppgift 3 av 6</small></div><span class="raknare">3 / 6</span></header>
+          <div class="tidsrad"><i style="width:80%"></i></div>
+          <div class="tidmeta"><span>0:36</span><span>provets tid 0:45</span></div>
+          <div class="kropp">
+            <div class="sekvens bak">
+              <div class="steg"><svg data-fig="arkstans" data-w="2" data-h="2" data-hal="0,1"></svg><small>Stansat</small></div>
+              <div class="steg"><svg data-fig="arkstans" data-w="4" data-h="2" data-hal="0,1 0,2"></svg><small>Vik ut åt höger</small></div>
+              <div class="steg"><svg data-fig="arkut" data-n="4" data-hal="0,1 0,2 3,1 3,2"></svg><small>Vik ner</small></div>
+            </div>
+            <div class="regel">
+              <p class="ey">Rätt svar är B</p>
+              <p>Baklänges: den sista vikningen speglar hålet åt höger, den första speglar båda hålen nedåt. <b>Fyra hål</b>, två upptill och två nedtill.</p>
+              <p class="m"><b>Du valde A.</b> Du vek bara upp den sista vikningen. Hålet gick genom två lager redan efter första vikningen, så det blir fyra, inte två.</p>
+            </div>
+            <div class="alt4 rad4 svarat">
+              <a class="ruta vald" href="#"><span class="etik">A</span><svg data-fig="arkut" data-n="4" data-hal="0,1 0,2"></svg></a>
+              <a class="ruta ratt" href="#"><span class="etik">B</span><svg data-fig="arkut" data-n="4" data-hal="0,1 0,2 3,1 3,2"></svg></a>
+              <a class="ruta" href="#"><span class="etik">C</span><svg data-fig="arkut" data-n="4" data-hal="0,1 0,2 2,1 2,2"></svg></a>
+              <a class="ruta" href="#"><span class="etik">D</span><svg data-fig="arkut" data-n="4" data-hal="0,1 0,2 3,1 3,3"></svg></a>
+            </div>
+          </div>
+          <footer class="fot"><a class="btn koppar" href="#">Nästa uppgift</a></footer>
+        </div></div>
+      </div>
+
+      <div>
+        <p class="cap">Genomgång, tärningar <em>Valde B, rätt var D. De två avslöjande sidorna i koppar.</em></p>
+        <div class="frame"><div class="skarm pass">
+          <header class="topp"><button class="iknapp" aria-label="Avsluta"><svg class="ic"><use href="#i-x"/></svg></button><div class="titel">Spatial förmåga<small>Dagens pass, uppgift 4 av 6</small></div><span class="raknare">4 / 6</span></header>
+          <div class="tidsrad"><i style="width:100%"></i></div>
+          <div class="tidmeta"><span>0:52</span><span>provets tid 0:45</span></div>
+          <div class="kropp">
+            <div class="parrad">
+              <div class="ruta ref"><span class="etik">Tärningen</span><svg data-fig="kub" data-t="prick" data-l="kryss" data-r="ring" data-kop="l r"></svg></div>
+              <svg class="pil" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div class="ruta ratt"><span class="etik">D</span><svg data-fig="kub" data-t="prick" data-l="ring" data-r="fkvadrat" data-kop="l"></svg></div>
+            </div>
+            <div class="regel">
+              <p class="ey">Rätt svar är D</p>
+              <p>Tärningen vriden ett kvarts varv åt vänster. Pricken står kvar upptill, <b>ringen</b> flyttar fram och sidan som var dold till höger syns nu.</p>
+              <p class="m"><b>Du valde B.</b> Där har kryss och ring bytt plats. Med pricken upp och krysset framför måste ringen sitta till höger, aldrig tvärtom. Det är en spegelvänd tärning.</p>
+            </div>
+            <div class="alt4 rad4 svarat">
+              <a class="ruta" href="#"><span class="etik">A</span><svg data-fig="kub" data-t="prick" data-l="kryss" data-r="fkvadrat"></svg></a>
+              <a class="ruta vald" href="#"><span class="etik">B</span><svg data-fig="kub" data-t="prick" data-l="ring" data-r="kryss"></svg></a>
+              <a class="ruta" href="#"><span class="etik">C</span><svg data-fig="kub" data-t="prick" data-l="kryss" data-r="triangel"></svg></a>
+              <a class="ruta ratt" href="#"><span class="etik">D</span><svg data-fig="kub" data-t="prick" data-l="ring" data-r="fkvadrat"></svg></a>
+            </div>
+          </div>
+          <footer class="fot"><a class="btn koppar" href="#">Nästa uppgift</a></footer>
+        </div></div>
+      </div>
+
+      <div>
+        <p class="cap">Resultat, nivåtest grund <em>Ingen nivåskala, ingen kurva. Tre staplar för var du tappar.</em></p>
+        <div class="frame"><div class="skarm">
+          <div class="vagg smal">
+            <div class="topbar"><span class="brand v">Spatial förmåga, grund</span><button class="iknapp" aria-label="Stäng"><svg class="ic"><use href="#i-x"/></svg></button></div>
+            <div class="resrad">
+              <div class="ring" role="img" aria-label="11 av 15 rätt"><svg viewBox="0 0 56 56"><circle class="spar" cx="28" cy="28" r="24"/><circle class="fyll" cx="28" cy="28" r="24" stroke-dasharray="151" stroke-dashoffset="40.3"/><path class="bock" d="M19 28.5l6 6 12-13"/></svg></div>
+              <div><p class="ey k">Klart</p><h1 class="h1">11 av 15 rätt</h1></div>
+            </div>
+            <dl class="tvatal"><div><b>13 min</b><span>av 15 i provformat</span></div><div><b>0</b><span>obesvarade</span></div></dl>
+          </div>
+          <div class="golv lyft smal">
+            <div class="kort upp">
+              <p class="ey">Var du tappar</p>
+              <div class="rader">
+                <div class="r"><div class="t"><b>Vriden figur</b><span class="st"><i style="width:100%"></i></span></div><span class="h">5 av 5</span></div>
+                <div class="r"><div class="t"><b>Pappersvikning</b><span class="st"><i style="width:80%"></i></span></div><span class="h">4 av 5</span></div>
+                <div class="r"><div class="t"><b>Tärningar</b><span class="st"><i class="kop" style="width:40%"></i></span></div><span class="h lank">2 av 5</span></div>
+              </div>
+            </div>
+            <div class="kort">
+              <p class="ey">Tempo</p>
+              <p>52 sekunder per uppgift mot provets 40.</p>
+              <div class="tempo"><i class="kop" style="width:86%"></i><em style="left:66%"></em></div>
+              <div class="tempometa"><span>0:52</span><span>provets tid 0:40</span></div>
+            </div>
+            <div class="status"><i></i><span>I morgon: riktat pass på tärningar, sex uppgifter.</span></div>
+            <div class="knappar"><a class="btn koppar" href="#">Gå igenom frågorna</a><a class="btn lank" href="#">Tillbaka till Alla tester</a></div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================== TALSERIER -->
+  <section class="sektion" data-sektion="tal">
+    <h2>Talserier: en lucka på grund, två från avancerad</h2>
+    <p class="l">Raden är rutor, inte text med kommatecken, så att luckorna syns. Alternativen står sorterade stigande på första talet: listan läses som en tallinje och positionen avslöjar inget. På två luckor är varje alternativ ett talpar i ordningen vänster, höger.</p>
+    <div class="rad">
+      <div>
+        <p class="cap">Fråga, en lucka <em>Grund. Aritmetisk, plus fem.</em></p>
+        <div class="frame"><div class="skarm pass">
+          <header class="topp"><button class="iknapp" aria-label="Avsluta"><svg class="ic"><use href="#i-x"/></svg></button><div class="titel">Talserier<small>Grund, uppgift 4 av 15</small></div><span class="raknare">4 / 15</span></header>
+          <div class="tidsrad"><i style="width:20%"></i></div>
+          <div class="tidmeta"><span>0:12</span><span>provets tid 1:00</span></div>
+          <div class="kropp">
+            <div class="talkort">
+              <p class="ey">Vilket tal kommer härnäst?</p>
+              <div class="talrad"><span class="tal">4</span><span class="tal">9</span><span class="tal">14</span><span class="tal">19</span><span class="tal">24</span><span class="tal lucka">?</span></div>
+            </div>
+            <div class="radval">
+              <a href="#"><b>A</b>25</a><a href="#"><b>B</b>28</a><a href="#"><b>C</b>29</a><a href="#"><b>D</b>30</a><a href="#"><b>E</b>34</a>
+            </div>
+          </div>
+          <footer class="fot"><a class="lank" href="#">Vet inte, visa regeln</a></footer>
+        </div></div>
+      </div>
+
+      <div>
+        <p class="cap">Fråga, två luckor <em>Expert. Åtta rutor med fyrsiffriga tal på 360.</em></p>
+        <div class="frame"><div class="skarm pass">
+          <header class="topp"><button class="iknapp" aria-label="Avsluta"><svg class="ic"><use href="#i-x"/></svg></button><div class="titel">Talserier<small>Expert, uppgift 9 av 15</small></div><span class="raknare">9 / 15</span></header>
+          <div class="tidsrad"><i style="width:55%"></i></div>
+          <div class="tidmeta"><span>0:40</span><span>provets tid 1:12</span></div>
+          <div class="kropp">
+            <div class="talkort">
+              <p class="ey">Vilka två tal kommer härnäst, i ordning?</p>
+              <div class="talrad"><span class="tal">7</span><span class="tal">15</span><span class="tal">31</span><span class="tal">63</span><span class="tal">127</span><span class="tal">255</span><span class="tal lucka">?</span><span class="tal lucka">?</span></div>
+            </div>
+            <div class="radval tat">
+              <a href="#"><b>A</b>510 och 1021</a><a href="#"><b>B</b>511 och 1022</a><a href="#"><b>C</b>511 och 1023</a><a href="#"><b>D</b>512 och 1025</a><a href="#"><b>E</b>767 och 1535</a>
+            </div>
+            <p class="sparrad">Första talet är den vänstra luckan, andra talet den högra.</p>
+          </div>
+          <footer class="fot"><a class="lank" href="#">Vet inte, visa regeln</a></footer>
+        </div></div>
+      </div>
+
+      <div>
+        <p class="cap">Genomgång, en regel <em>Valde B, rätt var C. Differensraden ritas mellan rutorna.</em></p>
+        <div class="frame"><div class="skarm pass">
+          <header class="topp"><button class="iknapp" aria-label="Avsluta"><svg class="ic"><use href="#i-x"/></svg></button><div class="titel">Talserier<small>Expert, uppgift 9 av 15</small></div><span class="raknare">9 / 15</span></header>
+          <div class="tidsrad"><i style="width:100%"></i></div>
+          <div class="tidmeta"><span>1:20</span><span>provets tid 1:12</span></div>
+          <div class="kropp">
+            <div class="talkort">
+              <p class="ey">Regeln: dubbla och lägg till ett</p>
+              <div class="talrad"><span class="tal">7</span><span class="tal">15</span><span class="tal">31</span><span class="tal">63</span><span class="tal">127</span><span class="tal">255</span><span class="tal lucka svar">511</span><span class="tal lucka svar">1023</span></div>
+              <div class="diffrad ton"><span>×2+1</span><span>×2+1</span><span>×2+1</span><span>×2+1</span><span>×2+1</span><span>×2+1</span><span>×2+1</span></div>
+            </div>
+            <div class="regel">
+              <p class="ey">Rätt svar är C</p>
+              <p>Varje tal är det förra gånger två plus ett. 255 ger 511, och 511 ger 1023.</p>
+              <p class="m"><b>Du valde B.</b> Första talet stämmer, men i andra steget dubblade du utan att lägga till ett. Regeln gäller i varje steg.</p>
+            </div>
+            <div class="radval tat svarat">
+              <a href="#"><b>A</b>510 och 1021</a><a class="vald" href="#"><b>B</b>511 och 1022</a><a class="ratt" href="#"><b>C</b>511 och 1023</a><a href="#"><b>D</b>512 och 1025</a><a href="#"><b>E</b>767 och 1535</a>
+            </div>
+          </div>
+          <footer class="fot"><a class="btn koppar" href="#">Nästa uppgift</a></footer>
+        </div></div>
+      </div>
+
+      <div>
+        <p class="cap">Genomgång, två varvade serier <em>Två färger på varannan ruta, en differensrad per serie.</em></p>
+        <div class="frame"><div class="skarm pass">
+          <header class="topp"><button class="iknapp" aria-label="Avsluta"><svg class="ic"><use href="#i-x"/></svg></button><div class="titel">Talserier<small>Avancerad, uppgift 11 av 15</small></div><span class="raknare">11 / 15</span></header>
+          <div class="tidsrad"><i style="width:70%"></i></div>
+          <div class="tidmeta"><span>0:50</span><span>provets tid 1:12</span></div>
+          <div class="kropp">
+            <div class="talkort">
+              <p class="ey">Regeln: två serier om vartannat</p>
+              <div class="talrad"><span class="tal s1">2</span><span class="tal s2">50</span><span class="tal s1">4</span><span class="tal s2">45</span><span class="tal s1">6</span><span class="tal s2">40</span><span class="tal lucka svar">8</span><span class="tal lucka svar">35</span></div>
+              <div class="diffrad ton" style="padding-left:calc(100% / 8 - 4px)"><span>+2</span><span></span><span>+2</span><span></span><span>+2</span><span></span><span></span></div>
+              <div class="diffrad kop" style="margin-top:-2px;padding-left:calc(100% / 8 * 2 - 6px)"><span>−5</span><span></span><span>−5</span><span></span><span>−5</span><span></span><span></span></div>
+            </div>
+            <div class="regel">
+              <p class="ey">Rätt svar är C</p>
+              <p>Vartannat tal hör ihop. Den <b>blå</b> serien ökar med två: 2, 4, 6, 8. Den <b>kopparfärgade</b> minskar med fem: 50, 45, 40, 35.</p>
+              <p class="m"><b>Du valde A.</b> Du tog den vänstra luckan ur fel serie. Luckorna följer ordningen: först blå, sedan koppar.</p>
+            </div>
+            <div class="radval tat svarat">
+              <a class="vald" href="#"><b>A</b>7 och 35</a><a href="#"><b>B</b>8 och 30</a><a class="ratt" href="#"><b>C</b>8 och 35</a><a href="#"><b>D</b>8 och 38</a><a href="#"><b>E</b>10 och 35</a>
+            </div>
+          </div>
+          <footer class="fot"><a class="btn koppar" href="#">Nästa uppgift</a></footer>
+        </div></div>
+      </div>
+
+      <div>
+        <p class="cap">Resultat, nivåtest avancerad <em>Var du tappar per regelfamilj. Samma vy som figurserier.</em></p>
+        <div class="frame"><div class="skarm">
+          <div class="vagg smal">
+            <div class="topbar"><span class="brand v">Talserier, avancerad</span><button class="iknapp" aria-label="Stäng"><svg class="ic"><use href="#i-x"/></svg></button></div>
+            <div class="resrad">
+              <div class="ring" role="img" aria-label="12 av 15 rätt"><svg viewBox="0 0 56 56"><circle class="spar" cx="28" cy="28" r="24"/><circle class="fyll" cx="28" cy="28" r="24" stroke-dasharray="151" stroke-dashoffset="30.2"/><path class="bock" d="M19 28.5l6 6 12-13"/></svg></div>
+              <div><p class="ey k">Klart</p><h1 class="h1">12 av 15 rätt</h1></div>
+            </div>
+            <dl class="tvatal"><div><b>14 min</b><span>av 15 i provformat</span></div><div><b>0</b><span>obesvarade</span></div></dl>
+          </div>
+          <div class="golv lyft smal">
+            <div class="kort upp">
+              <p class="ey">Var du tappar</p>
+              <div class="rader">
+                <div class="r"><div class="t"><b>Växelvis plus och minus</b><span class="st"><i style="width:100%"></i></span></div><span class="h">4 av 4</span></div>
+                <div class="r"><div class="t"><b>Växande differens</b><span class="st"><i style="width:100%"></i></span></div><span class="h">4 av 4</span></div>
+                <div class="r"><div class="t"><b>Gånger och plus</b><span class="st"><i style="width:75%"></i></span></div><span class="h">3 av 4</span></div>
+                <div class="r"><div class="t"><b>Två varvade serier</b><span class="st"><i class="kop" style="width:33%"></i></span></div><span class="h lank">1 av 3</span></div>
+              </div>
+            </div>
+            <div class="kort">
+              <p class="ey">Tempo</p>
+              <p>56 sekunder per uppgift mot provets 60.</p>
+              <div class="tempo"><i style="width:72%"></i><em style="left:78%"></em></div>
+              <div class="tempometa"><span>0:56</span><span>provets tid 1:00</span></div>
+            </div>
+            <div class="status"><i></i><span>I morgon: riktat pass på varvade serier.</span></div>
+            <div class="knappar"><a class="btn koppar" href="#">Gå igenom frågorna</a><a class="btn lank" href="#">Tillbaka till Alla tester</a></div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================== ORDFÖRRÅD -->
+  <section class="sektion" data-sektion="ord">
+    <h2>Ordförråd: synonymer och motsatsord</h2>
+    <p class="l">Ordet i versaler, frågan under, fem alternativ som rader. Frågetypen står i en rund etikett som byter både färg och tecken mellan blocken: två överlappande ringar för synonym, två pilar isär för motsatsord. Koppar används aldrig här, den är reserverad för rätt svar.</p>
+    <div class="rad">
+      <div>
+        <p class="cap">Fråga, synonym <em>Avancerad. Facit omsorgsfull.</em></p>
+        <div class="frame"><div class="skarm pass">
+          <header class="topp"><button class="iknapp" aria-label="Avsluta"><svg class="ic"><use href="#i-x"/></svg></button><div class="titel">Ordförråd<small>Avancerad, uppgift 6 av 20</small></div><span class="raknare">6 / 20</span></header>
+          <div class="tidsrad"><i style="width:30%"></i></div>
+          <div class="tidmeta"><span>0:06</span><span>provets tid 0:20</span></div>
+          <div class="kropp">
+            <div class="ordkort">
+              <span class="typrad syn"><svg viewBox="0 0 16 16"><circle cx="6" cy="8" r="4.5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="8" r="4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Synonym</span>
+              <p class="ord">Noggrann</p>
+              <p class="fraga">Vilket ord betyder ungefär detsamma?</p>
+            </div>
+            <div class="radval">
+              <a href="#"><b>A</b>försiktig</a><a href="#"><b>B</b>långsam</a><a href="#"><b>C</b>omsorgsfull</a><a href="#"><b>D</b>slarvig</a><a href="#"><b>E</b>sparsam</a>
+            </div>
+          </div>
+          <footer class="fot"><a class="lank" href="#">Vet inte, visa svaret</a></footer>
+        </div></div>
+      </div>
+
+      <div>
+        <p class="cap">Fråga, motsatsord <em>Grund. Facit snål. Etiketten byter färg och tecken.</em></p>
+        <div class="frame"><div class="skarm pass">
+          <header class="topp"><button class="iknapp" aria-label="Avsluta"><svg class="ic"><use href="#i-x"/></svg></button><div class="titel">Ordförråd<small>Grund, uppgift 12 av 20</small></div><span class="raknare">12 / 20</span></header>
+          <div class="tidsrad"><i style="width:15%"></i></div>
+          <div class="tidmeta"><span>0:03</span><span>provets tid 0:20</span></div>
+          <div class="kropp">
+            <div class="ordkort">
+              <span class="typrad mot"><svg viewBox="0 0 16 16"><path d="M7 4L2 8l5 4M9 4l5 4-5 4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>Motsatsord</span>
+              <p class="ord">Generös</p>
+              <p class="fraga">Vilket ord betyder motsatsen?</p>
+            </div>
+            <div class="radval">
+              <a href="#"><b>A</b>blyg</a><a href="#"><b>B</b>givmild</a><a href="#"><b>C</b>rik</a><a href="#"><b>D</b>snål</a><a href="#"><b>E</b>sträng</a>
+            </div>
+          </div>
+          <footer class="fot"><a class="lank" href="#">Vet inte, visa svaret</a></footer>
+        </div></div>
+      </div>
+
+      <div>
+        <p class="cap">Genomgång <em>Expert, synonym. Valde D, rätt var B. Antonymen som distraktor får raden "det är motsatsen".</em></p>
+        <div class="frame"><div class="skarm pass">
+          <header class="topp"><button class="iknapp" aria-label="Avsluta"><svg class="ic"><use href="#i-x"/></svg></button><div class="titel">Ordförråd<small>Expert, uppgift 3 av 20</small></div><span class="raknare">3 / 20</span></header>
+          <div class="tidsrad"><i style="width:100%"></i></div>
+          <div class="tidmeta"><span>0:24</span><span>provets tid 0:20</span></div>
+          <div class="kropp">
+            <div class="ordkort">
+              <span class="typrad syn"><svg viewBox="0 0 16 16"><circle cx="6" cy="8" r="4.5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="8" r="4.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Synonym</span>
+              <p class="ord">Konciliant</p>
+              <p class="fraga">Konciliant betyder <b>försonlig</b>, medgörlig.</p>
+              <p class="mening">"Hon var konciliant i förhandlingen och gick motparten till mötes på flera punkter."</p>
+            </div>
+            <div class="radval svarat">
+              <a href="#"><b>A</b>högdragen</a><a class="ratt" href="#"><b>B</b>försonlig</a><a href="#"><b>C</b>koncis</a><a class="vald" href="#"><b>D</b>stridbar<span class="mis">det är motsatsen</span></a><a href="#"><b>E</b>sorglös</a>
+            </div>
+            <div class="regel">
+              <p class="ey">Rätt svar är B</p>
+              <p class="m" style="margin-top:2px"><b>Du valde D.</b> Stridbar är motsatsen till konciliant. Koncis låter likt men betyder kortfattad.</p>
+            </div>
+          </div>
+          <footer class="fot"><a class="btn koppar" href="#">Nästa uppgift</a></footer>
+        </div></div>
+      </div>
+
+      <div>
+        <p class="cap">Resultat, nivåtest grund <em>Två staplar, synonymer och motsatsord. Tempo mot 20 sekunder.</em></p>
+        <div class="frame"><div class="skarm">
+          <div class="vagg smal">
+            <div class="topbar"><span class="brand v">Ordförråd, grund</span><button class="iknapp" aria-label="Stäng"><svg class="ic"><use href="#i-x"/></svg></button></div>
+            <div class="resrad">
+              <div class="ring" role="img" aria-label="18 av 20 rätt"><svg viewBox="0 0 56 56"><circle class="spar" cx="28" cy="28" r="24"/><circle class="fyll" cx="28" cy="28" r="24" stroke-dasharray="151" stroke-dashoffset="15.1"/><path class="bock" d="M19 28.5l6 6 12-13"/></svg></div>
+              <div><p class="ey k">Klart</p><h1 class="h1">18 av 20 rätt</h1></div>
+            </div>
+            <dl class="tvatal"><div><b>5 min</b><span>av 8 i provformat</span></div><div><b>0</b><span>obesvarade</span></div></dl>
+          </div>
+          <div class="golv lyft smal">
+            <div class="kort upp">
+              <p class="ey">Var du tappar</p>
+              <div class="rader">
+                <div class="r"><div class="t"><b>Synonymer</b><span class="st"><i style="width:100%"></i></span></div><span class="h">10 av 10</span></div>
+                <div class="r"><div class="t"><b>Motsatsord</b><span class="st"><i class="kop" style="width:80%"></i></span></div><span class="h lank">8 av 10</span></div>
+              </div>
+            </div>
+            <div class="kort">
+              <p class="ey">Tempo</p>
+              <p>15 sekunder per ord mot provets 20.</p>
+              <div class="tempo"><i style="width:60%"></i><em style="left:80%"></em></div>
+              <div class="tempometa"><span>0:15</span><span>provets tid 0:20</span></div>
+            </div>
+            <div class="status"><i></i><span>Nästa nivå, avancerad, är öppen.</span></div>
+            <div class="knappar"><a class="btn koppar" href="#">Gå igenom orden</a><a class="btn lank" href="#">Tillbaka till Alla tester</a></div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================== I-PROV -->
+  <section class="sektion" data-sektion="iprov">
+    <h2>Övningsprovet för I-prov 2025</h2>
+    <p class="l">Sex deltester i provets ordning, maxtid per deltest, ingen väg tillbaka. Halva provet är förvalt, hela provet står bredvid. Resultatet är antal rätt per deltest, aldrig en niogradig skala.</p>
+    <div class="rad">
+      <div>
+        <p class="cap">Startarket, öppet <em>Halva provet förvalt. Listan byter antal och tid med valet.</em></p>
+        <div class="frame"><div class="skarm">
+          <div class="vagg hel">
+            <div class="topbar"><button class="iknapp" aria-label="Tillbaka"><svg class="ic"><use href="#i-bakat"/></svg></button><span class="brand">Övningsprov</span><span style="width:44px"></span></div>
+            <p class="ey k" style="margin-top:6px">I-prov 2025, 23 dagar kvar</p>
+            <h1 class="h1">Övningsprovet</h1>
+            <div class="formatrad">
+              <div class="bild"><svg viewBox="0 0 72 56"><use href="#illu-iprov"/></svg></div>
+              <div><b>Samma deltester i samma ordning som I-prov 2025</b><span>Pliktverket publicerar inte antal och tider, så de här är våra.</span></div>
+            </div>
+            <div class="valrad"><a class="on" href="#">Halva provet<small>36 uppgifter, 29 min</small></a><a href="#">Hela provet<small>72 uppgifter, 58 min</small></a></div>
+            <div class="dellista">
+              <div><i>1</i><b>Synonymer</b><span>6 på 3 min</span></div>
+              <div><i>2</i><b>Pappersvikning</b><span>6 på 5 min</span></div>
+              <div><i>3</i><b>Talserier</b><span>6 på 6 min</span></div>
+              <div><i>4</i><b>Motsatsord</b><span>6 på 3 min</span></div>
+              <div><i>5</i><b>Tärningar</b><span>6 på 6 min</span></div>
+              <div><i>6</i><b>Pappersvikning med klipp</b><span>6 på 6 min</span></div>
+            </div>
+            <div class="regelrad"><svg class="ic"><use href="#i-las"/></svg><p><b>Du kan inte gå tillbaka till ett avslutat deltest.</b> Inom ett deltest kan du hoppa och ändra. Provet lämnas in när sista deltestet är klart.</p></div>
+          </div>
+          <footer class="fot"><a class="btn koppar" href="#">Starta övningsprovet</a></footer>
+        </div></div>
+      </div>
+
+      <div>
+        <p class="cap">Startarket, låst <em>Utan Premium byts foten mot paketraden. Formatet står kvar i klartext.</em></p>
+        <div class="frame"><div class="skarm">
+          <div class="vagg hel">
+            <div class="topbar"><button class="iknapp" aria-label="Tillbaka"><svg class="ic"><use href="#i-bakat"/></svg></button><span class="brand">Övningsprov</span><span style="width:44px"></span></div>
+            <p class="ey k" style="margin-top:6px">I-prov 2025, 23 dagar kvar</p>
+            <h1 class="h1">Övningsprovet</h1>
+            <div class="formatrad">
+              <div class="bild"><svg viewBox="0 0 72 56"><use href="#illu-iprov"/></svg></div>
+              <div><b>Samma deltester i samma ordning som I-prov 2025</b><span>Pliktverket publicerar inte antal och tider, så de här är våra.</span></div>
+            </div>
+            <div class="valrad"><a class="on" href="#">Halva provet<small>36 uppgifter, 29 min</small></a><a href="#">Hela provet<small>72 uppgifter, 58 min</small></a></div>
+            <div class="dellista">
+              <div><i>1</i><b>Synonymer</b><span>6 på 3 min</span></div>
+              <div><i>2</i><b>Pappersvikning</b><span>6 på 5 min</span></div>
+              <div><i>3</i><b>Talserier</b><span>6 på 6 min</span></div>
+              <div><i>4</i><b>Motsatsord</b><span>6 på 3 min</span></div>
+              <div><i>5</i><b>Tärningar</b><span>6 på 6 min</span></div>
+              <div><i>6</i><b>Pappersvikning med klipp</b><span>6 på 6 min</span></div>
+            </div>
+            <div class="regelrad"><svg class="ic"><use href="#i-las"/></svg><p><b>Du kan inte gå tillbaka till ett avslutat deltest.</b> Provet lämnas in när sista deltestet är klart.</p></div>
+          </div>
+          <footer class="fot" style="flex-direction:column;align-items:stretch;gap:8px">
+            <div class="paketrad"><svg class="ic"><use href="#i-las"/></svg><span>Övningsprovet ingår i Premium, 149 kr i månaden. Säg upp när du vill.</span></div>
+            <a class="btn koppar" href="#">Köp Premium, 149 kr i månaden</a>
+          </footer>
+        </div></div>
+      </div>
+
+      <div>
+        <p class="cap">Mellanbladet <em>Mellan två deltester. Hela skärmen är vägg, knappen i foten.</em></p>
+        <div class="frame"><div class="skarm">
+          <div class="vagg hel">
+            <div class="topbar"><button class="iknapp" aria-label="Avbryt provet"><svg class="ic"><use href="#i-x"/></svg></button><span class="brand">I-prov-provet</span><span style="width:44px"></span></div>
+            <div class="delseg"><i class="g"></i><i class="g"></i><i class="nu"></i><i></i><i></i><i></i></div>
+            <div class="mellan">
+              <p class="ey k">Deltest 3 av 6</p>
+              <p class="nr">3<small>av 6</small></p>
+              <h1 class="h1 stor">Talserier</h1>
+              <p class="vb"><b>6 uppgifter på högst 6 minuter.</b> Två tomma rutor sist i varje rad, du väljer talparet i rätt ordning.</p>
+              <p class="vb">Synonymer och pappersvikning är klara och går inte att öppna igen. Klockan startar när du trycker.</p>
+            </div>
+          </div>
+          <footer class="fot"><a class="btn koppar" href="#">Starta deltestet</a></footer>
+        </div></div>
+      </div>
+
+      <div>
+        <p class="cap">Fråga under provet <em>Deltest 6, pappersvikning med klipp. Klockan uppe till höger, segmentstapeln för deltestet.</em></p>
+        <div class="frame"><div class="skarm pass">
+          <header class="topp"><button class="iknapp" aria-label="Avbryt provet"><svg class="ic"><use href="#i-x"/></svg></button><div class="titel">I-prov-provet<small>Deltest 6 av 6, pappersvikning med klipp</small></div><div class="klocka" role="timer" aria-label="4 minuter kvar"><svg viewBox="0 0 48 48"><circle class="spar" cx="24" cy="24" r="20"/><circle class="kvar" cx="24" cy="24" r="20" stroke-dasharray="125.7" stroke-dashoffset="41.9"/></svg><b>4</b></div></header>
+          <div class="segment" role="progressbar" aria-label="Uppgift 3 av 6"><i class="g"></i><i class="g"></i><i class="nu"></i><i></i><i></i><i></i></div>
+          <div class="kropp">
+            <div class="sekvens">
+              <div class="steg"><svg data-fig="arkvik" data-w="4" data-h="4" data-linje="v" data-gra="right"></svg><small>Vik över</small></div>
+              <div class="steg"><svg data-fig="arkstans" data-w="2" data-h="4" data-hal="3,0" data-klipp="hoger"></svg><small>Stansa och klipp</small></div>
+              <div class="steg" style="visibility:hidden"></div>
+            </div>
+            <div class="fragetext fragerad"><p class="ey">Pappersvikning med klipp</p><h2>Hur ser arket ut när det viks upp?</h2></div>
+            <div class="alt4">
+              <a class="ruta" href="#"><span class="etik">A</span><svg data-fig="arkut" data-n="4" data-hal="3,0 3,3" data-notch="sidor"></svg></a>
+              <a class="ruta" href="#"><span class="etik">B</span><svg data-fig="arkut" data-n="4" data-hal="3,0" data-romb="1"></svg></a>
+              <a class="ruta" href="#"><span class="etik">C</span><svg data-fig="arkut" data-n="4" data-hal="3,0 3,3" data-romb="1"></svg></a>
+              <a class="ruta" href="#"><span class="etik">D</span><svg data-fig="arkut" data-n="4" data-hal="3,0 0,0" data-romb="1"></svg></a>
+            </div>
+          </div>
+          <footer class="fot"><a class="lank" href="#">Föregående</a><a class="btn sek" href="#">Nästa</a></footer>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="rad">
+      <div>
+        <p class="cap">Resultatet <em>Huvudtalet, sex staplar med namn, meningen om skalan, två länkar till riktade pass.</em></p>
+        <div class="frame"><div class="skarm">
+          <div class="vagg smal">
+            <div class="topbar"><span class="brand v">I-prov-provet</span><button class="iknapp" aria-label="Stäng"><svg class="ic"><use href="#i-x"/></svg></button></div>
+            <div class="resrad">
+              <div class="ring" role="img" aria-label="27 av 36 rätt"><svg viewBox="0 0 56 56"><circle class="spar" cx="28" cy="28" r="24"/><circle class="fyll" cx="28" cy="28" r="24" stroke-dasharray="151" stroke-dashoffset="37.8"/><path class="bock" d="M19 28.5l6 6 12-13"/></svg></div>
+              <div><p class="ey k">Halva provet, 9 november</p><h1 class="h1">27 av 36 rätt</h1></div>
+            </div>
+            <div class="delst">
+              <div class="d"><span>Synonymer</span><span class="b"><i style="width:100%"></i></span><span class="v">6 av 6</span></div>
+              <div class="d"><span>Pappersvikning</span><span class="b"><i style="width:83%"></i></span><span class="v">5 av 6</span></div>
+              <div class="d"><span>Talserier</span><span class="b"><i style="width:83%"></i></span><span class="v">5 av 6</span></div>
+              <div class="d"><span>Motsatsord</span><span class="b"><i style="width:83%"></i></span><span class="v">5 av 6</span></div>
+              <div class="d"><span>Tärningar</span><span class="b"><i class="kop" style="width:50%"></i></span><span class="v">3 av 6</span></div>
+              <div class="d"><span>Vikning med klipp</span><span class="b"><i class="kop" style="width:50%"></i></span><span class="v">3 av 6</span></div>
+            </div>
+          </div>
+          <div class="golv lyft smal">
+            <div class="kort upp">
+              <p class="ey">Var du tappar</p>
+              <div class="rader">
+                <div class="r"><svg class="sym" viewBox="0 0 40 40"><use href="#sym-kub"/></svg><div class="t"><b>Tärningar</b><span>Riktat pass, sex uppgifter</span></div><span class="h"><svg class="ic"><use href="#i-chev"/></svg></span></div>
+                <div class="r"><svg class="sym" viewBox="0 0 40 40"><use href="#sym-ark"/></svg><div class="t"><b>Pappersvikning med klipp</b><span>Riktat pass, sex uppgifter</span></div><span class="h"><svg class="ic"><use href="#i-chev"/></svg></span></div>
+              </div>
+            </div>
+            <div class="kort"><p>Polisen kräver minst 4 på I-provets niogradiga skala. Den räknas mot Pliktverkets normgrupp och går inte att härleda ur ett övningsprov.</p></div>
+            <div class="rader" style="background:var(--papper);border:1px solid var(--kant);border-radius:16px;padding:0 16px">
+              <div class="r"><div class="t"><b>Tid per deltest</b><span>Mot maxtiden</span></div><span class="h"><svg class="ic"><use href="#i-chev"/></svg></span></div>
+            </div>
+            <div class="knappar"><a class="btn koppar" href="#">Gå igenom, deltest för deltest</a><a class="btn lank" href="#">Tillbaka till Min plan</a></div>
+          </div>
+        </div></div>
+      </div>
+
+      <div>
+        <p class="cap">Detaljvyn <em>Tempo per deltest som tunna staplar mot maxtiden, och genomgången deltest för deltest.</em></p>
+        <div class="frame"><div class="skarm">
+          <div class="vagg smal" style="padding-bottom:22px">
+            <div class="topbar"><button class="iknapp" aria-label="Tillbaka"><svg class="ic"><use href="#i-bakat"/></svg></button><span class="brand">Genomgång</span><span style="width:44px"></span></div>
+            <p class="ey k" style="margin-top:4px">I-prov-provet, 9 november</p>
+            <h1 class="h1">Tid och genomgång</h1>
+          </div>
+          <div class="golv smal" style="padding-top:14px">
+            <div class="kort">
+              <p class="ey">Tid per deltest</p>
+              <div class="delst tunn">
+                <div class="d"><span>Synonymer</span><span class="b"><i style="width:60%"></i><em style="left:100%"></em></span><span class="v">1:48</span></div>
+                <div class="d"><span>Pappersvikning</span><span class="b"><i style="width:92%"></i><em style="left:100%"></em></span><span class="v">4:36</span></div>
+                <div class="d"><span>Talserier</span><span class="b"><i style="width:75%"></i><em style="left:100%"></em></span><span class="v">4:30</span></div>
+                <div class="d"><span>Motsatsord</span><span class="b"><i style="width:55%"></i><em style="left:100%"></em></span><span class="v">1:39</span></div>
+                <div class="d"><span>Tärningar</span><span class="b"><i class="kop" style="width:100%"></i><em style="left:100%"></em></span><span class="v">6:00</span></div>
+                <div class="d"><span>Vikning med klipp</span><span class="b"><i class="kop" style="width:100%"></i><em style="left:100%"></em></span><span class="v">6:00</span></div>
+              </div>
+              <p class="meta" style="margin-top:10px">Strecket är maxtiden. Koppar betyder att tiden tog slut.</p>
+            </div>
+            <p class="sekt">Genomgång</p>
+            <div class="rader" style="background:var(--papper);border:1px solid var(--kant);border-radius:16px;padding:0 16px">
+              <div class="r"><div class="t"><b>1 Synonymer</b><span>6 av 6 rätt</span></div><span class="h"><svg class="ic"><use href="#i-chev"/></svg></span></div>
+              <div class="r"><div class="t"><b>2 Pappersvikning</b><span>5 av 6 rätt</span></div><span class="h"><svg class="ic"><use href="#i-chev"/></svg></span></div>
+              <div class="r"><div class="t"><b>3 Talserier</b><span>5 av 6 rätt</span></div><span class="h"><svg class="ic"><use href="#i-chev"/></svg></span></div>
+              <div class="r"><div class="t"><b>4 Motsatsord</b><span>5 av 6 rätt</span></div><span class="h"><svg class="ic"><use href="#i-chev"/></svg></span></div>
+              <div class="r"><div class="t"><b>5 Tärningar</b><span>3 av 6 rätt, tiden tog slut</span></div><span class="h"><svg class="ic"><use href="#i-chev"/></svg></span></div>
+              <div class="r"><div class="t"><b>6 Pappersvikning med klipp</b><span>3 av 6 rätt, tiden tog slut</span></div><span class="h"><svg class="ic"><use href="#i-chev"/></svg></span></div>
+            </div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================== MITT TEST -->
+  <section class="sektion" data-sektion="mittest">
+    <h2>Mitt test är … : ingångens steg 2</h2>
+    <p class="l">Frågan i vanligt språk, leverantören som andra rad. Valet styr planen, passen, övningsprovet och vad Alla tester lyfter överst, och det står på samma skärm vad valet ger. Annat eller vet inte fäller ut dagens kryssrutor.</p>
+    <div class="rad">
+      <div>
+        <p class="cap">Polisen eller Försvarsmakten valt <em>Varianten under korten, vad valet ger i kortet, varumärkesraden sist.</em></p>
+        <div class="frame"><div class="skarm">
+          <header class="topp"><button class="iknapp" aria-label="Tillbaka"><svg class="ic"><use href="#i-bakat"/></svg></button><div class="titel" style="text-align:center">Rekryteringstester</div><span class="raknare">2 / 3</span><button class="iknapp" aria-label="Stäng"><svg class="ic"><use href="#i-x"/></svg></button></header>
+          <div class="tidsrad"><i style="width:66%;background:var(--koppar)"></i></div>
+          <div class="flode">
+            <div><p class="ey steg-ey">Steg 2 av 3</p><h2>Vad ska du göra för test?</h2><p class="l">Namnet står i kallelsen eller mejlet. Vet du inte, så börjar vi med det som oftast ingår.</p></div>
+            <div class="valkort">
+              <a class="on" href="#"><b>Polisen eller Försvarsmakten</b><span>I-prov 2025. Även mönstring, Tullverket, Kustbevakningen</span></a>
+              <a href="#"><b>Matrigma</b><span>Assessio</span></a>
+              <a href="#"><b>Alva Logic</b><span>Alva Labs</span></a>
+              <a href="#"><b>SHL Verify</b><span>SHL, även G+</span></a>
+              <a href="#"><b>Aon scales</b><span>cut-e</span></a>
+              <a href="#"><b>Lokförare</b><span>TCC, ProTrain, Trafikverksskolan, MTR</span></a>
+              <a href="#"><b>Annat eller vet inte</b><span>Du väljer delar själv</span></a>
+              <a href="#"><b>Bara personlighetstest</b><span>Inga rätta svar</span></a>
+            </div>
+            <div><p class="sekt" style="margin-top:0">Vilket av dem?</p>
+              <div class="chips" style="margin-top:8px"><a class="on" href="#">Polisen</a><a href="#">Värnplikt</a><a href="#">Officersprogrammet</a><a href="#">Vet inte</a></div>
+              <p class="meta" style="margin-top:6px">Valet ändrar bara texten i resultatet.</p></div>
+            <div class="kort">
+              <p class="ey">Så lägger vi upp det</p>
+              <div class="rader">
+                <div class="r"><svg class="sym" viewBox="0 0 40 40"><use href="#sym-plan"/></svg><div class="t"><b>Passen</b><span>Ord, pappersvikning, talserier och tärningar i tur och ordning.</span></div></div>
+                <div class="r"><svg class="sym" viewBox="0 0 40 40"><use href="#sym-prov"/></svg><div class="t"><b>Övningsprovet</b><span>I-prov-provet, sex deltester i provets ordning, två dagar före.</span></div></div>
+                <div class="r"><svg class="sym" viewBox="0 0 40 40"><use href="#sym-lista"/></svg><div class="t"><b>Alla tester</b><span>Dina fyra deltester överst, resten under Fler tester.</span></div></div>
+              </div>
+            </div>
+            <p class="varum">Leverantörsnamnen är deras varumärken. Vi samarbetar inte med dem och tränar i samma format, inte med deras uppgifter.</p>
+          </div>
+          <footer class="fot"><a class="btn koppar" href="#">Fortsätt</a></footer>
+        </div></div>
+      </div>
+
+      <div>
+        <p class="cap">Lokförare valt <em>Den ärliga anmärkningen står direkt under korten.</em></p>
+        <div class="frame"><div class="skarm">
+          <header class="topp"><button class="iknapp" aria-label="Tillbaka"><svg class="ic"><use href="#i-bakat"/></svg></button><div class="titel" style="text-align:center">Rekryteringstester</div><span class="raknare">2 / 3</span><button class="iknapp" aria-label="Stäng"><svg class="ic"><use href="#i-x"/></svg></button></header>
+          <div class="tidsrad"><i style="width:66%;background:var(--koppar)"></i></div>
+          <div class="flode">
+            <div><p class="ey steg-ey">Steg 2 av 3</p><h2>Vad ska du göra för test?</h2><p class="l">Namnet står i kallelsen eller mejlet. Vet du inte, så börjar vi med det som oftast ingår.</p></div>
+            <div class="valkort">
+              <a href="#"><b>Polisen eller Försvarsmakten</b><span>I-prov 2025. Även mönstring, Tullverket, Kustbevakningen</span></a>
+              <a href="#"><b>Matrigma</b><span>Assessio</span></a>
+              <a href="#"><b>Alva Logic</b><span>Alva Labs</span></a>
+              <a href="#"><b>SHL Verify</b><span>SHL, även G+</span></a>
+              <a href="#"><b>Aon scales</b><span>cut-e</span></a>
+              <a class="on" href="#"><b>Lokförare</b><span>TCC, ProTrain, Trafikverksskolan, MTR</span></a>
+              <a href="#"><b>Annat eller vet inte</b><span>Du väljer delar själv</span></a>
+              <a href="#"><b>Bara personlighetstest</b><span>Inga rätta svar</span></a>
+            </div>
+            <div class="status"><i></i><span>Koncentration, reaktion och minne ingår också i urvalet. Dem övar vi inte än.</span></div>
+            <div class="kort">
+              <p class="ey">Så lägger vi upp det</p>
+              <div class="rader">
+                <div class="r"><svg class="sym" viewBox="0 0 40 40"><use href="#sym-plan"/></svg><div class="t"><b>Passen</b><span>Figurserier, ord och text, siffror och deduktivt, i Aons tempo.</span></div></div>
+                <div class="r"><svg class="sym" viewBox="0 0 40 40"><use href="#sym-prov"/></svg><div class="t"><b>Övningsprovet</b><span>Figurserier, 20 uppgifter på 5 minuter.</span></div></div>
+              </div>
+            </div>
+            <p class="varum">Leverantörsnamnen är deras varumärken. Vi samarbetar inte med dem och tränar i samma format, inte med deras uppgifter.</p>
+          </div>
+          <footer class="fot"><a class="btn koppar" href="#">Fortsätt</a></footer>
+        </div></div>
+      </div>
+
+      <div>
+        <p class="cap">Annat eller vet inte <em>Dagens kryssrutor fälls ut under korten.</em></p>
+        <div class="frame"><div class="skarm">
+          <header class="topp"><button class="iknapp" aria-label="Tillbaka"><svg class="ic"><use href="#i-bakat"/></svg></button><div class="titel" style="text-align:center">Rekryteringstester</div><span class="raknare">2 / 3</span><button class="iknapp" aria-label="Stäng"><svg class="ic"><use href="#i-x"/></svg></button></header>
+          <div class="tidsrad"><i style="width:66%;background:var(--koppar)"></i></div>
+          <div class="flode">
+            <div><p class="ey steg-ey">Steg 2 av 3</p><h2>Vad ska du göra för test?</h2></div>
+            <div class="valkort">
+              <a href="#"><b>Polisen eller Försvarsmakten</b><span>I-prov 2025. Även mönstring, Tullverket, Kustbevakningen</span></a>
+              <a href="#"><b>Matrigma</b><span>Assessio</span></a>
+              <a href="#"><b>Alva Logic</b><span>Alva Labs</span></a>
+              <a href="#"><b>SHL Verify</b><span>SHL, även G+</span></a>
+              <a href="#"><b>Aon scales</b><span>cut-e</span></a>
+              <a href="#"><b>Lokförare</b><span>TCC, ProTrain, Trafikverksskolan, MTR</span></a>
+              <a class="on" href="#"><b>Annat eller vet inte</b><span>Du väljer delar själv</span></a>
+              <a href="#"><b>Bara personlighetstest</b><span>Inga rätta svar</span></a>
+            </div>
+            <div><p class="sekt" style="margin-top:0">Vad ska du testas på?</p><p class="meta" style="margin-top:4px">Välj det som står i kallelsen. Vet du inte, så börjar vi med figurer och mönster.</p>
+              <div class="kryss" style="margin-top:8px">
+                <a class="on" href="#"><i></i>Figurer och mönster</a>
+                <a href="#"><i></i>Figurserier</a>
+                <a href="#"><i></i>Deduktiv slutledning</a>
+                <a href="#"><i></i>Ord och text</a>
+                <a href="#"><i></i>Ordförråd</a>
+                <a href="#"><i></i>Siffror och tabeller</a>
+                <a href="#"><i></i>Talserier</a>
+                <a href="#"><i></i>Spatial förmåga</a>
+                <a href="#"><i></i>Personlighet</a>
+              </div></div>
+            <p class="varum">Leverantörsnamnen är deras varumärken. Vi samarbetar inte med dem och tränar i samma format, inte med deras uppgifter.</p>
+          </div>
+          <footer class="fot"><a class="btn koppar" href="#">Fortsätt</a></footer>
+        </div></div>
+      </div>
+
+      <div>
+        <p class="cap">Hemvyn med I-prov-valet <em>Planens rotation syns i veckan, dagens pass är spatial förmåga, övningsprovet heter I-prov-provet.</em></p>
+        <div class="frame"><div class="skarm">
+          <div class="vagg">
+            <div class="topbar"><div class="lage"><a class="on" href="#"><svg class="ic"><use href="#i-kal"/></svg>Min plan</a><a href="#"><svg class="ic"><use href="#i-rut"/></svg>Alla tester</a></div><span class="avatar" style="margin-left:auto">CK</span></div>
+            <p class="ey k" style="margin-top:10px">Polisen, I-prov 2025</p>
+            <h1 class="h1">23 dagar till provet</h1>
+            <div class="veckorad" style="display:flex;gap:6px;margin-top:14px">
+              <div style="flex:1;text-align:center"><div style="height:34px;border-radius:10px;background:var(--koppar);display:flex;align-items:center;justify-content:center"><svg class="ic s" style="color:var(--koppar-text)"><use href="#i-check"/></svg></div><small style="display:block;font-size:11px;line-height:14px;color:var(--vagg-mjuk);margin-top:4px">Ord</small></div>
+              <div style="flex:1;text-align:center"><div style="height:34px;border-radius:10px;background:var(--vagg-ink);display:flex;align-items:center;justify-content:center;color:var(--vagg);font-weight:700;font-size:12px">I dag</div><small style="display:block;font-size:11px;line-height:14px;color:var(--vagg-ink);margin-top:4px;font-weight:600">Spatial</small></div>
+              <div style="flex:1;text-align:center"><div style="height:34px;border-radius:10px;border:1.5px dashed var(--vagg-svag)"></div><small style="display:block;font-size:11px;line-height:14px;color:var(--vagg-mjuk);margin-top:4px">Talserier</small></div>
+              <div style="flex:1;text-align:center"><div style="height:34px;border-radius:10px;border:1.5px dashed var(--vagg-svag)"></div><small style="display:block;font-size:11px;line-height:14px;color:var(--vagg-mjuk);margin-top:4px">Ord</small></div>
+              <div style="flex:1;text-align:center"><div style="height:34px;border-radius:10px;border:1.5px dashed var(--vagg-svag)"></div><small style="display:block;font-size:11px;line-height:14px;color:var(--vagg-mjuk);margin-top:4px">Spatial</small></div>
+              <div style="flex:1;text-align:center"><div style="height:34px;border-radius:10px;border:1.5px dashed var(--vagg-svag)"></div><small style="display:block;font-size:11px;line-height:14px;color:var(--vagg-mjuk);margin-top:4px">Talserier</small></div>
+              <div style="flex:1;text-align:center"><div style="height:34px;border-radius:10px;border:1.5px dashed var(--vagg-svag)"></div><small style="display:block;font-size:11px;line-height:14px;color:var(--vagg-mjuk);margin-top:4px">Vila</small></div>
+            </div>
+          </div>
+          <div class="golv lyft">
+            <div class="kort upp">
+              <p class="ey k">Dagens pass</p>
+              <h3>Spatial förmåga, sex uppgifter</h3>
+              <p>Två vridna figurer, två pappersvikningar, två tärningar. Cirka fem minuter.</p>
+              <a class="btn koppar" href="#" style="display:flex;margin-top:12px">Starta passet</a>
+            </div>
+            <p class="sekt">Fram till provet</p>
+            <div class="rader" style="background:var(--papper);border:1px solid var(--kant);border-radius:16px;padding:0 16px">
+              <div class="r"><svg class="sym" viewBox="0 0 40 40"><use href="#sym-prov"/></svg><div class="t"><b>I-prov-provet</b><span>30 november, två dagar före provet. Halva eller hela.</span></div><span class="h"><svg class="ic"><use href="#i-chev"/></svg></span></div>
+              <div class="r"><svg class="sym svag" viewBox="0 0 40 40"><use href="#sym-kal"/></svg><div class="t"><b>Provdagen 2 december</b><span>Vila. Vi påminner dagen före.</span></div><span class="h lank">Ändra</span></div>
+            </div>
+            <div class="status"><i></i><span>Ordförråd i går: 18 av 20. Tärningarna är det som behöver mest.</span></div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================== ALLA TESTER -->
+  <section class="sektion" data-sektion="alla">
+    <h2>Alla tester med valet satt</h2>
+    <p class="l">Raden Mitt test överst, valets deltester i ett block, resten under Fler tester. De tre nya typerna har samma kort som de gamla: tre nivåer, bästa resultat per nivå, och provraden som bär formatet.</p>
+    <div class="rad">
+      <div>
+        <p class="cap">Alla tester, Polisen valt <em>Rullar. Ordförråd, spatial förmåga och talserier överst, provraden med formatet.</em></p>
+        <div class="frame"><div class="skarm">
+          <div class="vagg" style="padding-bottom:20px">
+            <div class="topbar"><div class="lage"><a href="#"><svg class="ic"><use href="#i-kal"/></svg>Min plan</a><a class="on" href="#"><svg class="ic"><use href="#i-rut"/></svg>Alla tester</a></div><span class="avatar" style="margin-left:auto">CK</span></div>
+            <h1 class="h1" style="margin-top:10px">Alla tester</h1>
+            <p class="vb">Nio testtyper i samma format som de stora leverantörerna. Dina står först.</p>
+          </div>
+          <div class="golv" style="padding-top:12px">
+            <div class="mittest"><svg class="ic"><use href="#i-mal"/></svg><div class="t"><b>Polisen, I-prov 2025</b><span>Mitt test. 23 dagar kvar.</span></div><a href="#">Ändra</a></div>
+            <p class="sekt">Ingår i ditt test</p>
+            <div class="tvaspalt">
+            <div class="testk">
+              <div class="huv"><svg class="sym" viewBox="0 0 48 48"><use href="#sym-ord"/></svg><div><p class="ey">Ordförråd</p><h3>Synonymer och motsatsord</h3><p>Ett ord i versaler, fem alternativ. Två deltester i I-provet.</p></div></div>
+              <div class="nivaer"><a class="niva" href="#"><b>Grund</b><em>18 av 20</em></a><a class="niva nasta" href="#"><b>Nästa</b><em class="dim">Avancerad</em></a><a class="niva las" href="#"><b>Expert</b><em class="dim">Premium</em></a></div>
+            </div>
+            <div class="testk">
+              <div class="huv"><svg class="sym" viewBox="0 0 48 48"><use href="#sym-kub48"/></svg><div><p class="ey">Spatial förmåga</p><h3>Vrida, vika och se i tre dimensioner</h3><p>Vriden figur, pappersvikning och tärningar. Kallas också rumsuppfattning.</p></div></div>
+              <div class="nivaer"><a class="niva" href="#"><b>Grund</b><em>11 av 15</em></a><a class="niva las" href="#"><b>Avancerad</b><em class="dim">Premium</em></a><a class="niva las" href="#"><b>Expert</b><em class="dim">Premium</em></a></div>
+            </div>
+            <div class="testk">
+              <div class="huv"><svg class="sym" viewBox="0 0 48 48"><use href="#sym-tal"/></svg><div><p class="ey">Talserier</p><h3>Vilka tal kommer härnäst?</h3><p>En lucka på grund, två från avancerad som i I-provet.</p></div></div>
+              <div class="nivaer"><a class="niva nasta" href="#"><b>Nästa</b><em class="dim">Grund</em></a><a class="niva las" href="#"><b>Avancerad</b><em class="dim">Premium</em></a><a class="niva las" href="#"><b>Expert</b><em class="dim">Premium</em></a></div>
+            </div>
+            <div class="testk" style="display:flex;gap:12px;align-items:center">
+              <svg class="sym" viewBox="0 0 40 40" style="width:40px;height:40px;color:var(--ton-ink);flex:0 0 auto"><use href="#sym-prov"/></svg>
+              <div style="flex:1;min-width:0"><b style="display:block;font-size:15px;line-height:20px">Övningsprovet, I-prov 2025</b><span class="meta">Sex deltester i provets ordning. Halva provet 36 på 29 minuter, hela 72 på 58.</span></div>
+              <svg class="ic" style="color:var(--ink-3)"><use href="#i-chev"/></svg>
+            </div>
+            </div>
+            <p class="sekt">Fler tester</p>
+            <div class="trespalt">
+            <div class="rader" style="background:var(--papper);border:1px solid var(--kant);border-radius:16px;padding:0 16px">
+              <div class="r"><svg class="sym" viewBox="0 0 40 40"><use href="#sym-matris"/></svg><div class="t"><b>Logiktest, matriser</b><span>Nivå 6 på skalan. Nivåkollen om fyra dagar.</span></div><span class="h"><svg class="ic"><use href="#i-chev"/></svg></span></div>
+              <div class="r"><svg class="sym" viewBox="0 0 40 40"><use href="#sym-serie"/></svg><div class="t"><b>Figurserier</b><span>Grund 13 av 15</span></div><span class="h"><svg class="ic"><use href="#i-chev"/></svg></span></div>
+              <div class="r"><svg class="sym" viewBox="0 0 40 40"><use href="#sym-deduktiv"/></svg><div class="t"><b>Deduktiv slutledning</b><span>Inte gjort än</span></div><span class="h"><svg class="ic"><use href="#i-chev"/></svg></span></div>
+              <div class="r"><svg class="sym" viewBox="0 0 40 40"><use href="#sym-text"/></svg><div class="t"><b>Verbalt resonemang</b><span>Grund 30 av 40</span></div><span class="h"><svg class="ic"><use href="#i-chev"/></svg></span></div>
+              <div class="r"><svg class="sym" viewBox="0 0 40 40"><use href="#sym-siffror"/></svg><div class="t"><b>Numeriskt test</b><span>Inte gjort än</span></div><span class="h"><svg class="ic"><use href="#i-chev"/></svg></span></div>
+              <div class="r"><svg class="sym" viewBox="0 0 40 40"><use href="#sym-person"/></svg><div class="t"><b>Personlighetstest</b><span>Inga rätta svar</span></div><span class="h"><svg class="ic"><use href="#i-chev"/></svg></span></div>
+            </div>
+            </div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================== NOTER -->
+  <section class="sektion" data-sektion="noter">
+    <h2>Noter: beslut, mått och frågor</h2>
+    <div class="notis">
+      <h3>Beslut jag har tagit</h3>
+      <ol>
+        <li><b>Namnet är Spatial förmåga.</b> Det är ordet i kallelser, i testförberedelser och i söket (126 visningar utan klick i dag). Rumsuppfattning finns med som förklaring i kortets andra rad ("Kallas också rumsuppfattning") och i artiklarna, så den som bara kan det ordet hittar ändå rätt. Briefen föreslog tvärtom; byter ägaren tillbaka ändras bara strängar.</li>
+        <li><b>Två gånger två för alla tre formerna.</b> Fyra i rad ger 59 px per alternativ på 360, för litet för vikta ark och kuber. Med 2 × 2 är varje alternativ 159 px på 360 och 185 px på Pixel 7, och referensen står i samma rutstorlek som alternativen, så det man jämför med ser ut som det man väljer. Frågetexten står till höger om referensen i stället för under, så hela uppgiften ryms utan rullning.</li>
+        <li><b>Brickfiguren har 2 enheters luft, inte 1.</b> En enhet är 1,3 px på 360 och försvinner; två enheter läses som bricka och ändå som en sammanhängande form. Rutorna i 3 × 3 är 18 enheter (23 px), i 5 × 5 blir de 10 enheter (12,7 px), över G5:s 8 px.</li>
+        <li><b>Arket är 72 enheter, inte 60, och sekvensen är tre rutor.</b> Första rutan är första vikningen (grått är halvan som viks över, streckad linje i ram-grått, pil i bläck), andra rutan andra vikningen, tredje rutan det stansade arket. Ett platt ark som första ruta sade inget. Med 72 blir kvartsarket 36 enheter och hålet 7,6 px på 360; med 60 hade det blivit 6,3. Allt ligger inom [14, 86].</li>
+        <li><b>Kubens sidor som briefen:</b> ovansida och höger i papper, vänster grå med bläckkontur, symboler alltid i bläck. I genomgången fylls de två avslöjande sidorna med koppar-mjuk, kopparkontur och symbol i koppar-bläck. Symbolerna är affint projicerade på sin sida (en matris per sida), som ritaren ska göra.</li>
+        <li><b>Talseriernas alternativ sorterade</b>, ja. Rutorna är 15 px tabulära siffror på 360 och 17 px på Pixel 7 och dator, inte 20: åtta rutor med fyra tecken ryms inte annars på 328 px. Luckan före svaret ser ut som matrisens lucka (streckad ram-grått, frågetecken), efter svaret kopparram med talet i koppar-bläck. Den dolda regeln ritas som små bågar mellan rutorna; varvade serier får blå och koppar på varannan ruta och en båge per serie.</li>
+        <li><b>Ordförrådets etikett byter färg och tecken</b>: synonym i ton-blått med två överlappande ringar, motsatsord i plommon med två pilar isär. Färgen ensam räcker inte, därför tecknet. Koppar används aldrig i etiketten.</li>
+        <li><b>Mellanbladet är hela väggen</b> med deltestets nummer stort, den sexdelade raden under toppraden och knappen i foten. Ingen klocka syns där, den startar när man trycker.</li>
+        <li><b>Halva provet är förval</b>, hela provet står bredvid i samma kontroll med antal och tid. 58 minuter på mobil fullföljs sällan; två dagar före provet föreslår planen hela provet i stället. Ägaren kan vända på det.</li>
+        <li><b>I-prov-resultatet har liggande staplar</b> med deltestets hela namn, inte stående med förkortningar. Sex rader ryms under huvudtalet på väggen utan rullning. Tempot ligger i detaljvyn som tunna staplar mot maxtiden, koppar när tiden tog slut.</li>
+        <li><b>Mitt test som åtta kort i två spalter</b>, samma mönster som dagens steg 1. Varianten (Polisen, värnplikt, officersprogrammet) som chips under korten, kortet "Så lägger vi upp det" visar vad valet ger innan man går vidare. Lokförare visar anmärkningen om koncentration, reaktion och minne direkt under korten.</li>
+        <li><b>Form C heter Tärningar överallt</b>, också i vårt eget nivåtest. Det är Pliktverkets ord, en kub med symboler är en tärning, och två namn för samma sak förvirrar.</li>
+      </ol>
+    </div>
+    <div class="notis">
+      <h3>Geometrin i exemplen, kontrollerad</h3>
+      <ul>
+        <li><b>Vriden figur.</b> Referensen är P-pentominon i 3 × 3 (rutorna 0,0 0,1 1,0 1,1 2,0). Den saknar rotations- och spegelsymmetri, så alla fyra vridningar och alla fyra speglingar är olika. Facit C är vridningen 90 grader medurs: (r, c) går till (c, 2 − r), vilket ger 0,0 0,1 0,2 1,1 1,2. A är spegelbilden över lodrät axel, D är spegelbilden vriden 90 grader medurs, B är referensen med en ruta flyttad (U-formen, en annan pentomino). Inget alternativ är lika med referensen.</li>
+        <li><b>Pappersvikning.</b> 4 × 4-ark. Vikning 1: nedre halvan upp (rad r speglas till 3 − r). Vikning 2: högra halvan över vänstra (kolumn c till 3 − c). Hålet stansas i rad 0, kolumn 1, inte på någon viklinje. Baklänges: spegla över lodrät linje ger 0,1 och 0,2; spegla över vågrät ger dessutom 3,1 och 3,2. Facit B har fyra hål, symmetriskt under båda vikta axlarna och inte under diagonalerna. A är bara sista uppvikningen, C är uppvikning runt fel linje, D har rätt antal men ett hål fel.</li>
+        <li><b>Pappersvikning med klipp</b> (I-prov-frågan). En vikning, höger över vänster. Klippet är en triangel i den vikta kanten mitt på arket, hålet i rad 3, kolumn 0. Uppvikt blir klippet en romb i arkets mitt och hålet får sin spegling i 3,3. Facit C. A speglade klippet till ytterkanterna, B glömde spegla hålet, D speglade hålet över fel axel.</li>
+        <li><b>Tärningar.</b> Referensen visar prick upp, kryss till vänster, ring till höger. Facit D är kuben vriden ett kvarts varv runt lodrät axel: ringen går fram till vänstersidan och den dolda sidan bakom ringen (fylld kvadrat) blir synlig till höger; pricken står kvar. Ordningen runt det övre hörnet (prick, ring, fylld kvadrat) har samma riktning som (prick, kryss, ring) i referensen, så det är en vridning, inte en spegling. A: med prick upp och kryss till vänster måste höger sida vara ring, inte fylld kvadrat. B: kryss och ring har bytt plats, spegelvänd. C: samma sak som A, med en symbol som inte finns på kuben.</li>
+        <li><b>Mått på 360</b> (alternativ 159 px, figur 80 procent = 127 px, 1,27 px per enhet): brickruta 23 px, luft 2,5 px, hål 11 px i alternativen och 7,6 px i sekvensens kvartsark, viklinje 3,2 px streckad, kubkant 3,8 px, minsta symbol på kubsida cirka 12 px i sin smala axel. Sekvensens rutor är 104 px med arket i 86 procent.</li>
+      </ul>
+    </div>
+    <div class="notis">
+      <h3>Orden i exemplen, kontrollerade</h3>
+      <p>Konciliant: försonlig, medgörlig (synonymer.se och SO). Noggrann: omsorgsfull, ordentlig (SO). Generös mot snål, ingen tvekan. Distraktorerna håller OF4 (längd inom fyra bokstäver från facit) och OF3 (inga två alternativ synonyma). Koncis är den falska vännen till konciliant. Varje facit i banken verifieras mot SO eller SAOL på svenska.se före befordran, som briefen kräver; sidan går inte att läsa maskinellt, så det görs i webbläsare.</p>
+    </div>
+    <div class="notis">
+      <h3>Frågor till ägaren</h3>
+      <ol>
+        <li><b>Lokförare som eget val</b> trots att koncentration, reaktion och minne saknas: skissen visar det med den ärliga anmärkningen. Vill du ha det så, eller vänta tills modulen finns?</li>
+        <li><b>Fri grundnivå</b> för spatial förmåga, talserier och ordförråd (grund fri, avancerad och expert i Premium, övningsprovet i Premium), som i dag för de andra typerna? Skissen antar det.</li>
+        <li><b>Halva provet som förval</b> är mitt beslut, hela provet står bredvid. Säg till om du vill ha tvärtom.</li>
+        <li><b>Namnet Spatial förmåga</b> är mitt beslut. Vill du ha Rumsuppfattning i produkten ändå?</li>
+        <li>Briefens egna frågor står kvar: Pliktverkets övningsuppgifter i webbläsare före bygget av tärningarna och tvåluckeformen, Gemini som kandidatskrivare för ordbanken, och migrationen av test_planer och fraga_rapporter som kräver ditt ja i manuellt läge.</li>
+      </ol>
+    </div>
+    <div class="notis">
+      <h3>Granskat</h3>
+      <p>Renderat i puppeteer i sex lägen (360 × 780, Pixel 7 412 × 840 och dator 1280 × 820, ljust och mörkt), 27 ramar per läge. Ingen ram har sidledsscroll i något läge. På Pixel 7 ryms varje fråga, genomgång, startark, mellanblad och resultat utan rullning. På 360 rullar tre resultatvyer med 17 till 36 px (talseriernas resultat, I-prov-resultatet och detaljvyn); allt som bär beslutet står ovanför vecket. Ingången Mitt test och Alla tester rullar, som i dag. Kontrollen ligger i sidans skript som <code>window.__kontroll()</code> och mäter varje rams rullhöjd och om något element sticker ut.</p>
+      <p>Färgerna i de varvade seriernas två differensrader (ton-blå och koppar) kördes genom dataviz-validatorn: CVD-separation 29 ΔE i ljust och 23 i mörkt, kontrast mot papper över 3:1 i båda. Validatorn anmärker på att produktens tokens ligger utanför dess generiska ljushetsband, vilket vi accepterar eftersom färgerna är Testernas egna och serierna dessutom skiljs av position (varannan ruta) och av sina texter i genomgången.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ===================================================== SYMBOLER -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-bakat" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+    <symbol id="i-las" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></symbol>
+    <symbol id="i-kal" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2.5"/><path d="M4 10h16M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-rut" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2.5"/><path d="M4 12h16M12 4v16"/></symbol>
+    <symbol id="i-mal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></symbol>
+    <!-- symboler 40 -->
+    <symbol id="sym-kub" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"><path d="M20 6l12 7v14l-12 7-12-7V13z"/><path d="M8 13l12 7 12-7M20 20v14"/></g><circle cx="20" cy="12.5" r="1.6" fill="currentColor"/><circle cx="14" cy="24" r="1.4" fill="currentColor"/><circle cx="26" cy="24" r="1.4" fill="currentColor"/></symbol>
+    <symbol id="sym-ark" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"><rect x="7" y="7" width="26" height="26" rx="2"/><path d="M20 7v26" stroke-dasharray="2.5 3"/></g><circle cx="13.5" cy="16" r="2" fill="currentColor"/><circle cx="26.5" cy="16" r="2" fill="currentColor"/></symbol>
+    <symbol id="sym-plan" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="6" y="9" width="28" height="24" rx="3"/><path d="M6 16h28M13 6v6M27 6v6"/></g><circle cx="14" cy="23" r="2" fill="currentColor"/><circle cx="20" cy="23" r="2" fill="currentColor"/><circle cx="26" cy="23" r="2" fill="currentColor" opacity=".4"/></symbol>
+    <symbol id="sym-prov" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="22" r="12"/><path d="M20 15v7l4.5 3M16 5h8"/></g></symbol>
+    <symbol id="sym-lista" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M13 11h20M13 20h20M13 29h20"/></g><circle cx="7.5" cy="11" r="2" fill="currentColor"/><circle cx="7.5" cy="20" r="2" fill="currentColor"/><circle cx="7.5" cy="29" r="2" fill="currentColor"/></symbol>
+    <symbol id="sym-kal" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="6" y="9" width="28" height="24" rx="3"/><path d="M6 16h28M13 6v6M27 6v6"/></g></symbol>
+    <symbol id="sym-matris" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.75"><rect x="6" y="6" width="28" height="28" rx="3"/><path d="M6 15.3h28M6 24.6h28M15.3 6v28M24.6 6v28"/></g><rect x="26.5" y="26.5" width="5" height="5" fill="currentColor" opacity=".5"/></symbol>
+    <symbol id="sym-serie" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.75"><rect x="4" y="13" width="9" height="14" rx="2"/><rect x="15.5" y="13" width="9" height="14" rx="2"/><rect x="27" y="13" width="9" height="14" rx="2" stroke-dasharray="2.5 2.5"/></g><circle cx="8.5" cy="20" r="1.6" fill="currentColor"/><circle cx="20" cy="20" r="2.4" fill="currentColor"/></symbol>
+    <symbol id="sym-deduktiv" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 10h24M8 20h16M8 30h10"/><path d="M28 24l3 3 5-6"/></g></symbol>
+    <symbol id="sym-text" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="7" y="6" width="26" height="28" rx="3"/><path d="M12 13h16M12 19h16M12 25h10"/></g></symbol>
+    <symbol id="sym-siffror" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"><rect x="6" y="6" width="28" height="28" rx="3"/><path d="M6 15h28M15 6v28"/></g><rect x="19" y="20" width="4" height="10" fill="currentColor" opacity=".45"/><rect x="26" y="24" width="4" height="6" fill="currentColor"/></symbol>
+    <symbol id="sym-person" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M6 28a14 14 0 0 1 28 0"/><path d="M20 28l6-9"/></g><circle cx="20" cy="28" r="2.2" fill="currentColor"/></symbol>
+    <symbol id="sym-ord" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="6" y="8" width="36" height="32" rx="4"/><path d="M13 19h22M13 26h14"/></g><circle cx="33" cy="31" r="2.2" fill="currentColor"/></symbol>
+    <symbol id="sym-kub48" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"><path d="M24 7l14 8v17l-14 8-14-8V15z"/><path d="M10 15l14 8 14-8M24 23v17"/></g><circle cx="24" cy="15" r="1.8" fill="currentColor"/><circle cx="17" cy="28" r="1.6" fill="currentColor"/><circle cx="31" cy="28" r="1.6" fill="currentColor"/></symbol>
+    <symbol id="sym-tal" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.75"><rect x="5" y="17" width="10" height="14" rx="2"/><rect x="19" y="17" width="10" height="14" rx="2"/><rect x="33" y="17" width="10" height="14" rx="2" stroke-dasharray="2.5 2.5"/></g><path d="M8.5 27l3-6M22 21v6M24.5 21v6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></symbol>
+    <!-- illustration på väggen: provarket med sex delar -->
+    <symbol id="illu-iprov" viewBox="0 0 72 56"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"><rect x="8" y="6" width="56" height="44" rx="4" fill="rgba(255,255,255,.08)"/><rect x="14" y="13" width="14" height="10" rx="2"/><rect x="29" y="13" width="14" height="10" rx="2"/><rect x="44" y="13" width="14" height="10" rx="2"/><rect x="14" y="27" width="14" height="10" rx="2"/><rect x="29" y="27" width="14" height="10" rx="2"/><rect x="44" y="27" width="14" height="10" rx="2"/><path d="M14 44h28"/></g><rect x="14" y="13" width="14" height="10" rx="2" fill="#E07A2F" opacity=".9"/><rect x="29" y="13" width="14" height="10" rx="2" fill="#E07A2F" opacity=".55"/></symbol>
+  </defs>
+</svg>
+
+<script>
+/* ===================================================== Figurritarna
+   Grafik v3:s färgroller via CSS-variabler på ramen: --m-ink, --m-gra,
+   --m-vit, --m-ram. Enheter: viewBox 0 till 100. Allt målat inom [14, 86]. */
+(function(){
+  const NS='http://www.w3.org/2000/svg';
+  const INK='var(--m-ink)', GRA='var(--m-gra)', VIT='var(--m-vit)', RAM='var(--m-ram)';
+  const KOP='var(--koppar)', KOPI='var(--koppar-ink)', KOPM='var(--koppar-mjuk)';
+  function el(tag, a){ const e=document.createElementNS(NS,tag); for(const k in a) e.setAttribute(k,a[k]); return e; }
+  function prep(svg){ svg.setAttribute('viewBox','0 0 100 100'); svg.setAttribute('shape-rendering','geometricPrecision'); svg.setAttribute('aria-hidden','true'); }
+
+  /* ---- brick: n×n, fyllda rutor som bläckbrickor, 2 enheters luft, hela figuren 60 enheter ---- */
+  function brick(svg){
+    prep(svg);
+    const n=+svg.dataset.n, cells=svg.dataset.cells.trim().split(/\s+/).map(s=>s.split(',').map(Number));
+    const mark=svg.dataset.mark?svg.dataset.mark.split(',').map(Number):null;
+    const pitch=60/n, size=pitch-2, o=20+1;
+    for(const [r,c] of cells){
+      const x=o+c*pitch, y=o+r*pitch;
+      const isMark=mark&&mark[0]===r&&mark[1]===c;
+      if(isMark) svg.appendChild(el('rect',{x:x+1.25,y:y+1.25,width:size-2.5,height:size-2.5,rx:2,fill:GRA,stroke:INK,'stroke-width':2.5}));
+      else svg.appendChild(el('rect',{x,y,width:size,height:size,rx:2,fill:INK}));
+    }
+  }
+
+  /* ---- ark: 72 enheter för hela arket, cell = 18 ---- */
+  const CELL=18;
+  function pappersrect(svg,w,h,fill){
+    const W=w*CELL,H=h*CELL,x0=50-W/2,y0=50-H/2;
+    svg.appendChild(el('rect',{x:x0,y:y0,width:W,height:H,rx:2.5,fill,stroke:INK,'stroke-width':3,'stroke-linejoin':'round'}));
+    return {x0,y0,W,H};
+  }
+  function arkvik(svg){
+    prep(svg);
+    const w=+svg.dataset.w,h=+svg.dataset.h,linje=svg.dataset.linje,gra=svg.dataset.gra;
+    const {x0,y0,W,H}=pappersrect(svg,w,h,VIT);
+    if(linje==='h'){
+      const gy = gra==='bottom' ? y0+H/2 : y0;
+      svg.appendChild(el('rect',{x:x0,y:gy,width:W,height:H/2,fill:GRA,stroke:INK,'stroke-width':3,'stroke-linejoin':'round'}));
+      svg.appendChild(el('line',{x1:x0,y1:50,x2:x0+W,y2:50,stroke:RAM,'stroke-width':2.5,'stroke-dasharray':'4 4','stroke-linecap':'round'}));
+      const fromY = gra==='bottom' ? y0+H*0.80 : y0+H*0.20, toY = gra==='bottom' ? y0+H*0.26 : y0+H*0.74, dir = gra==='bottom'?-1:1;
+      svg.appendChild(el('line',{x1:50,y1:fromY,x2:50,y2:toY-dir*2,stroke:INK,'stroke-width':3,'stroke-linecap':'round'}));
+      svg.appendChild(el('path',{d:`M${50-8} ${toY-dir*10} L50 ${toY} L${50+8} ${toY-dir*10} Z`,fill:INK,stroke:INK,'stroke-width':2.5,'stroke-linejoin':'round'}));
+    } else {
+      const gx = gra==='right' ? x0+W/2 : x0;
+      svg.appendChild(el('rect',{x:gx,y:y0,width:W/2,height:H,fill:GRA,stroke:INK,'stroke-width':3,'stroke-linejoin':'round'}));
+      svg.appendChild(el('line',{x1:50,y1:y0,x2:50,y2:y0+H,stroke:RAM,'stroke-width':2.5,'stroke-dasharray':'4 4','stroke-linecap':'round'}));
+      const fromX = gra==='right' ? x0+W*0.80 : x0+W*0.20, toX = gra==='right' ? x0+W*0.26 : x0+W*0.74, dir = gra==='right'?-1:1;
+      svg.appendChild(el('line',{x1:fromX,y1:50,x2:toX-dir*2,y2:50,stroke:INK,'stroke-width':3,'stroke-linecap':'round'}));
+      svg.appendChild(el('path',{d:`M${toX-dir*10} ${50-8} L${toX} 50 L${toX-dir*10} ${50+8} Z`,fill:INK,stroke:INK,'stroke-width':2.5,'stroke-linejoin':'round'}));
+    }
+  }
+  function hal(svg,x0,y0,r,c){ svg.appendChild(el('circle',{cx:x0+(c+0.5)*CELL,cy:y0+(r+0.5)*CELL,r:4.5,fill:INK})); }
+  function arkstans(svg){
+    prep(svg);
+    const w=+svg.dataset.w,h=+svg.dataset.h;
+    const W=w*CELL,H=h*CELL,x0=50-W/2,y0=50-H/2;
+    if(svg.dataset.klipp==='hoger'){
+      // vikt kant till höger, triangulärt klipp mitt på kanten (rad 1,5 till 2,5)
+      const xr=x0+W, ya=y0+1.5*CELL, yb=y0+2.5*CELL, ym=50;
+      svg.appendChild(el('path',{d:`M${x0} ${y0} H${xr} V${ya} L${xr-9} ${ym} L${xr} ${yb} V${y0+H} H${x0} Z`,fill:GRA,stroke:INK,'stroke-width':3,'stroke-linejoin':'round'}));
+    } else {
+      pappersrect(svg,w,h,GRA);
+    }
+    (svg.dataset.hal||'').trim().split(/\s+/).filter(Boolean).forEach(s=>{const [r,c]=s.split(',').map(Number); hal(svg,x0,y0,r,c);});
+  }
+  function arkut(svg){
+    prep(svg);
+    const n=+svg.dataset.n;
+    const W=n*CELL,x0=50-W/2,y0=50-W/2;
+    if(svg.dataset.notch==='sidor'){
+      const ya=y0+1.5*CELL,yb=y0+2.5*CELL;
+      svg.appendChild(el('path',{d:`M${x0} ${y0} H${x0+W} V${ya} L${x0+W-9} 50 L${x0+W} ${yb} V${y0+W} H${x0} V${yb} L${x0+9} 50 L${x0} ${ya} Z`,fill:VIT,stroke:INK,'stroke-width':3,'stroke-linejoin':'round'}));
+    } else {
+      pappersrect(svg,n,n,VIT);
+    }
+    if(svg.dataset.romb) svg.appendChild(el('path',{d:'M50 41 L59 50 L50 59 L41 50 Z',fill:INK}));
+    (svg.dataset.hal||'').trim().split(/\s+/).filter(Boolean).forEach(s=>{const [r,c]=s.split(',').map(Number); hal(svg,x0,y0,r,c);});
+  }
+
+  /* ---- kub: isometrisk, kant 36. Sidor T (upp), L (vänster), R (höger). ---- */
+  const T=[[50,50],[81.18,32],[50,14],[18.82,32]];
+  const L=[[18.82,32],[50,50],[50,86],[18.82,68]];
+  const R=[[50,50],[81.18,32],[81.18,68],[50,86]];
+  const M={ t:'matrix(15.59 9 -15.59 9 50 32)', l:'matrix(15.59 9 0 18 34.41 59)', r:'matrix(15.59 -9 0 18 65.59 59)' };
+  function symbol(g,namn,farg){
+    const sw=0.18;
+    const add=(tag,a)=>{a.stroke=a.stroke===undefined?farg:a.stroke; g.appendChild(el(tag,a));};
+    switch(namn){
+      case 'prick': add('circle',{cx:0,cy:0,r:0.42,fill:farg,stroke:'none'}); break;
+      case 'ring': add('circle',{cx:0,cy:0,r:0.48,fill:'none','stroke-width':sw}); break;
+      case 'kryss': add('path',{d:'M-0.42 -0.42 L0.42 0.42 M-0.42 0.42 L0.42 -0.42',fill:'none','stroke-width':sw,'stroke-linecap':'round'}); break;
+      case 'kvadrat': add('rect',{x:-0.42,y:-0.42,width:0.84,height:0.84,fill:'none','stroke-width':sw,'stroke-linejoin':'round'}); break;
+      case 'fkvadrat': add('rect',{x:-0.42,y:-0.42,width:0.84,height:0.84,fill:farg,stroke:'none'}); break;
+      case 'dubbelring': add('circle',{cx:0,cy:0,r:0.52,fill:'none','stroke-width':sw}); add('circle',{cx:0,cy:0,r:0.22,fill:'none','stroke-width':sw}); break;
+      case 'triangel': add('path',{d:'M0 -0.5 L0.5 0.42 L-0.5 0.42 Z',fill:'none','stroke-width':sw,'stroke-linejoin':'round'}); break;
+      case 'pil': add('path',{d:'M0 0.5 L0 -0.42 M-0.3 -0.12 L0 -0.46 L0.3 -0.12',fill:'none','stroke-width':sw,'stroke-linecap':'round','stroke-linejoin':'round'}); break;
+    }
+  }
+  function kub(svg){
+    prep(svg);
+    const kop=(svg.dataset.kop||'').split(/\s+/).filter(Boolean);
+    const sidor=[['t',T,VIT],['l',L,GRA],['r',R,VIT]];
+    for(const [k,pts,fill] of sidor){
+      const ar=kop.includes(k);
+      svg.appendChild(el('path',{d:'M'+pts.map(p=>p.join(' ')).join(' L ')+' Z',fill:ar?KOPM:fill,stroke:ar?KOP:INK,'stroke-width':3,'stroke-linejoin':'round'}));
+    }
+    for(const [k] of sidor){
+      const g=el('g',{transform:M[k]}); symbol(g,svg.dataset[k],kop.includes(k)?KOPI:INK); svg.appendChild(g);
+    }
+    // bläckkonturen ovanpå kopparfyllningen, så kanterna är hela
+    svg.appendChild(el('path',{d:'M50 50 L81.18 32 M50 50 L18.82 32 M50 50 L50 86',fill:'none',stroke:INK,'stroke-width':3,'stroke-linecap':'round'}));
+  }
+
+  const RIT={brick,arkvik,arkstans,arkut,kub};
+  document.querySelectorAll('svg[data-fig]').forEach(s=>RIT[s.dataset.fig]&&RIT[s.dataset.fig](s));
+
+  /* ===================================================== Flikar och lägen */
+  const body=document.body;
+  function tryck(grupp,attr,fn){
+    document.querySelectorAll(`#${grupp} button`).forEach(b=>b.addEventListener('click',()=>{
+      document.querySelectorAll(`#${grupp} button`).forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
+      fn(b.dataset[attr]);
+    }));
+  }
+  function visaFlik(id){ document.querySelectorAll('.sektion').forEach(s=>s.classList.toggle('on',s.dataset.sektion===id)); }
+  tryck('flikar','flik',visaFlik);
+  tryck('lagen','lage',v=>body.dataset.lage=v);
+  tryck('teman','tema',v=>body.dataset.tema=v);
+  window.__visa=function(flik,lage,tema){
+    visaFlik(flik); body.dataset.lage=lage; body.dataset.tema=tema;
+    document.querySelectorAll('#flikar button').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.flik===flik)));
+    document.querySelectorAll('#lagen button').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.lage===lage)));
+    document.querySelectorAll('#teman button').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.tema===tema)));
+  };
+
+  /* sidomenyn på dator: klonas in i varje ram */
+  const meny=document.createElement('nav'); meny.className='sidomeny'; meny.setAttribute('aria-label','Huvudmeny');
+  meny.innerHTML='<div class="brand">Jobbcoach</div><a class="on" href="#"><svg class="ic"><use href="#i-rut"/></svg>Rekryteringstester</a><a href="#"><svg class="ic"><use href="#i-kal"/></svg>CV</a><a href="#"><svg class="ic"><use href="#i-kal"/></svg>Personliga brev</a><a href="#"><svg class="ic"><use href="#i-kal"/></svg>Jobbsöket</a>';
+  document.querySelectorAll('.frame').forEach(f=>f.insertBefore(meny.cloneNode(true),f.firstChild));
+
+  /* ===================================================== Kontroll: rullning och sidledsscroll */
+  window.__kontroll=function(){
+    const ut=[];
+    document.querySelectorAll('.sektion.on .frame').forEach(f=>{
+      const cap=f.parentElement.querySelector('.cap');
+      const namn=cap?cap.childNodes[0].textContent.trim():'?';
+      const kropp=f.querySelector('.kropp, .flode, .golv');
+      const rullar=kropp?kropp.scrollHeight>kropp.clientHeight+1:false;
+      const fr=f.getBoundingClientRect();
+      const breda=[...f.querySelectorAll('*')].filter(e=>{const r=e.getBoundingClientRect();if(r.width===0&&r.height===0)return false;return r.right>fr.right+1||r.left<fr.left-1;});
+      const vilka=breda.slice(0,3).map(e=>e.tagName.toLowerCase()+'.'+[...e.classList].join('.')+' '+Math.round(e.getBoundingClientRect().right-fr.right)+'px');
+      ut.push({namn,rullar,rullPx:kropp?kropp.scrollHeight-kropp.clientHeight:0,sidled:f.scrollWidth>f.clientWidth+1||breda.length>0,vilka});
+    });
+    return ut;
+  };
+})();
+</script>
+</body>
+</html>
