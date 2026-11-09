@@ -79,6 +79,30 @@ describe('bar /register', () => {
     expect(landningsgren(c, '/dashboard/valj-spar')).toEqual({ via: 'sparval', destination: '/dashboard/valj-spar' })
   })
 
+  it('efter provet: panelen med resultatet och signup_flow_viewed en gång (skissen 2026-11-09)', () => {
+    const token = '11111111-2222-4333-8444-555555555555'
+    render(
+      <RegisterFlode
+        ingang={registerIngang(ur(`test=${token}`))}
+        provResultat={{ ratt: 4, totalt: 5, fel: [2] }}
+      />
+    )
+    expect(screen.getByRole('heading', { level: 1, name: 'Se vad du missade' })).toBeTruthy()
+    expect(screen.getByRole('heading', { level: 2, name: 'Kontot visar fråga 3 och regeln bakom' })).toBeTruthy()
+    expect(screen.getByRole('img', { name: 'Fråga 3 fel, de andra rätt' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Skapa konto och se svaren' })).toBeTruthy()
+    const vyer = capture.mock.calls.filter(([n]) => n === 'signup_flow_viewed')
+    expect(vyer).toHaveLength(1)
+    expect(vyer[0][1]).toMatchObject({ step: 'konto', entry: 'smakprov' })
+  })
+
+  it('utan resultat från servern visas panelen utan tal, aldrig ett påhittat', () => {
+    const token = '11111111-2222-4333-8444-555555555555'
+    render(<RegisterFlode ingang={registerIngang(ur(`test=${token}`))} provResultat={null} />)
+    expect(screen.queryByRole('img')).toBeNull()
+    expect(screen.getByRole('heading', { level: 2, name: 'Kontot visar alla svar och regeln bakom varje mönster' })).toBeTruthy()
+  })
+
   it('?borja= har kvar valraden och Ändra, som öppnar frågan', () => {
     render(<RegisterFlode ingang={registerIngang(ur('borja=tester'))} />)
     expect(screen.getByText(STEG2.steg)).toBeTruthy()

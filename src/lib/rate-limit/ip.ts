@@ -20,7 +20,7 @@ export function hashIp(ip: string): string {
  * Plockar klientens IP ur proxy-headers. Vercel sätter x-forwarded-for;
  * första adressen är klienten, resten är proxykedjan.
  */
-export function getClientIp(request: Request): string {
+export function getClientIp(request: { headers: Pick<Headers, 'get'> }): string {
   const forwarded = request.headers.get('x-forwarded-for')
   if (forwarded) {
     const first = forwarded.split(',')[0]?.trim()

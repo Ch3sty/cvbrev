@@ -4,8 +4,10 @@
  * POST utan body startar en session: fem slumpade matrislogikfrågor utan
  * facit. POST med { token, answers } rättar den och returnerar resultatet.
  *
- * Vad som lämnar servern före registrering: antal rätt och en grov percentil.
- * Vilka frågor som var fel, förklaringarna och normjämförelsen gör det inte.
+ * Vad som lämnar servern före registrering: antal rätt, vilka positioner
+ * (0 till 4) som blev fel och, när underlaget räcker, andelen som löser
+ * flest (prova-percentil.ts). Facit, vilket alternativ som var rätt och
+ * reglerna gör det aldrig (ägarens beslut 2026-11-09).
  */
 
 import { NextResponse } from 'next/server'
@@ -16,7 +18,7 @@ import {
   ANON_QUESTION_COUNT,
   getAnonSession,
   questionsForToken,
-  roughPercentile,
+  felIndex,
   tillOriginalSvar,
   toPublicQuestion,
 } from '@/lib/tests/anon-session'
@@ -24,6 +26,8 @@ import { arBlandad } from '@/lib/logicTestV7/blanda'
 import { bankVersion } from '@/lib/logicTestV7/selectQuestions.v7'
 import { skapaMedBlandning } from '@/lib/logicTestV7/fragor.server'
 import { sparaProvUtfall } from '@/lib/tests/prov-utfall.server'
+import { andelSomLoserFlest } from '@/lib/tests/prova-percentil'
+import { hamtaProvUtfall } from '@/lib/tests/prova-percentil.server'
 
 /** Tre provsessioner per IP och dygn. */
 const IP_LIMIT = 3
@@ -76,13 +80,16 @@ export async function POST(request: Request) {
 
     // Utfallet sparas anonymt i prov_utfall, en gång per prov (ägarens
     // beslut 2026-11-09). Databasfunktionen undantar ägaren och testkontona.
-    await sparaProvUtfall(admin, token)
+    // Utfallen läses samtidigt; det egna provet räknas in vid nästa cache.
+    const [, utfall] = await Promise.all([sparaProvUtfall(admin, token), hamtaProvUtfall(admin)])
 
     return NextResponse.json({
       score,
       total: questions.length,
-      percentile: roughPercentile(score, questions.length),
-      // Inga per-fråga-resultat här: de är låsta tills kontot finns.
+      // Positionerna som blev fel, aldrig rätt alternativ eller regeln.
+      fel: felIndex(questions, answers),
+      // Null tills minst 200 avslutade prov finns: raden döljs då.
+      percentile: utfall ? andelSomLoserFlest(score, utfall) : null,
     })
   }
 

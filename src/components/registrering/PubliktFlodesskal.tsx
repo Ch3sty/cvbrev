@@ -22,9 +22,16 @@ const useIsoLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : use
 export interface PubliktFlodesskalProps {
   /** Utelämnas i smakprovsläget och på inloggningen: linjen är då full. */
   steg?: { nu: number; av: number }
+  /** Trådens längd i procent när den inte följer steg (provet: 20 per fråga). */
+  framsteg?: number
   /** Ger tillbaka-pil och rubriken "Skapa konto" i stället för loggan. */
   onBack?: () => void
-  primar: {
+  /**
+   * Knappen i den klistrade foten. Utelämnas den har skalet ingen fot
+   * (skissen 2026-11-09, provet och kontosteget): knappen står i formuläret
+   * och samtycket ligger under den scrollande mitten i stället för över den.
+   */
+  primar?: {
     text: string
     onClick?: () => void
     /** Knappen skickar formuläret med det här id:t (Enter i sista fältet gör samma sak). */
@@ -39,6 +46,8 @@ export interface PubliktFlodesskalProps {
   fotnot?: ReactNode
   /** Länken till höger i toppraden. Standard är Logga in. */
   toppLank?: { href: string; text: string; forklaring?: string; onClick?: () => void }
+  /** full: mitten utan 560 px-spalten, innehållet sätter egen bredd (provet, kontosteget). */
+  bredd?: 'smal' | 'full'
   children: ReactNode
 }
 
@@ -47,19 +56,30 @@ const TEXTLANK =
 
 export default function PubliktFlodesskal({
   steg,
+  framsteg,
   onBack,
   primar,
   sekundar,
   fotnot,
   toppLank = { href: '/login', text: SKAL.loggaIn, forklaring: SKAL.harKonto },
+  bredd = 'smal',
   children,
 }: PubliktFlodesskalProps) {
-  const pct = steg ? Math.round((Math.min(steg.nu, steg.av) / steg.av) * 100) : 100
+  const pct =
+    typeof framsteg === 'number'
+      ? Math.max(0, Math.min(100, Math.round(framsteg)))
+      : steg
+        ? Math.round((Math.min(steg.nu, steg.av) / steg.av) * 100)
+        : 100
+  const medFot = Boolean(primar)
 
   // Cookie-bannern ligger fast i botten. Fotens höjd publiceras som i
-  // FlowShell så att bannern ställer sig ovanför Skapa konto.
+  // FlowShell så att bannern ställer sig ovanför Skapa konto. Utan fot
+  // behövs ingen mätning: globals.css krymper skalet med samtyckets höjd så
+  // att samtycket står under mitten (data-publikt-flode="utan-fot").
   const fotRef = useRef<HTMLElement | null>(null)
   useIsoLayoutEffect(() => {
+    if (!medFot) return
     const root = document.documentElement
     root.setAttribute('data-flow-active', 'true')
     const el = fotRef.current
@@ -74,12 +94,15 @@ export default function PubliktFlodesskal({
       root.removeAttribute('data-flow-active')
       root.style.removeProperty('--flow-footer-h')
     }
-  }, [])
+  }, [medFot])
 
-  const blockerad = primar.blockedReason && primar.disabled && !primar.busy
+  const blockerad = primar?.blockedReason && primar.disabled && !primar.busy
 
   return (
-    <div className="flex h-[100dvh] flex-col bg-mark" data-publikt-flode={blockerad ? 'blockerad' : 'fri'}>
+    <div
+      className={medFot ? 'flex h-[100dvh] flex-col bg-mark' : 'pub-flode-skal flex flex-col bg-mark'}
+      data-publikt-flode={!medFot ? 'utan-fot' : blockerad ? 'blockerad' : 'fri'}
+    >
       <header className="flex-shrink-0 border-b border-kant bg-panel">
         <div className="flex h-14 items-center gap-1 px-2 sm:px-6 lg:px-12">
           {onBack ? (
@@ -148,10 +171,15 @@ export default function PubliktFlodesskal({
         </div>
       </header>
 
-      <main className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
-        <div className="mx-auto w-full max-w-[560px] px-4 pb-6 pt-4 sm:pt-8">{children}</div>
+      <main className="min-h-0 flex-1 overflow-y-auto overflow-x-clip overscroll-contain">
+        {bredd === 'full' ? (
+          children
+        ) : (
+          <div className="mx-auto w-full max-w-[560px] px-4 pb-6 pt-4 sm:pt-8">{children}</div>
+        )}
       </main>
 
+      {primar ? (
       <footer
         ref={fotRef}
         className="flex-shrink-0 border-t border-kant bg-panel shadow-[0_-8px_24px_rgba(28,25,23,0.08)]"
@@ -187,6 +215,7 @@ export default function PubliktFlodesskal({
           </div>
         </div>
       </footer>
+      ) : null}
     </div>
   )
 }

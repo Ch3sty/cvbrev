@@ -62,7 +62,11 @@ export const STEG2 = {
   topp: 'Skapa konto',
   steg: 'Steg 2 av 3',
   rubrik: 'Skapa ditt konto',
-  under: 'Tar under en minut. Med Google räcker ett tryck.',
+  /** Kontosteget efter provet när allt var rätt: inget att missa. */
+  rubrikAllaRatt: 'Se regeln bakom varje mönster',
+  /** Skissen 2026-11-09: den fetstilta delen står i positiv färg. */
+  underFet: 'Gratis konto, inget kreditkort.',
+  under: 'Gratis konto, inget kreditkort. Klart på en minut.',
   google: 'Fortsätt med Google',
   googleOppnar: 'Öppnar Google',
   googleFel: 'Google-inloggningen gick inte att starta. Försök igen.',
@@ -119,11 +123,11 @@ export const SMAKPROV: Record<
   },
   test: {
     eyebrow: 'Ditt testprov',
-    rubrik: 'Skapa konto och se alla svar med förklaring',
+    /* Skissen 2026-11-09: panelen bredvid visar resultatet, rubriken säger vad kontot öppnar. */
+    rubrik: 'Se vad du missade',
     knapp: 'Skapa konto och se svaren',
     status: 'Ditt svar är sparat i sju dagar',
-    /* Provet har ingen bedömning, bara svar och regler (klicktestet 2026-11-08). */
-    under: 'Alla fem svar och regeln bakom varje mönster sparas på kontot. Du landar på dem direkt.',
+    under: 'Gratis konto, inget kreditkort. Du landar direkt på dina fem svar.',
   },
   draft: {
     eyebrow: 'Ditt brev',
@@ -279,6 +283,131 @@ export const STEG3_TESTER = {
   gratis: STEG3.forslag.tester.gratis,
   premiumEyebrow: 'När du vill träna varje dag',
   kop: () => kopKnapp(),
+} as const
+
+/* ------------------------------------------------------------ provet och panelen */
+
+/** "fråga 3", "fråga 2 och 4", "fråga 1, 3 och 5" (index från 0). */
+export function fragorText(fel: readonly number[]): string {
+  const n = fel.map((i) => String(i + 1))
+  if (n.length <= 1) return `fråga ${n[0] ?? ''}`.trim()
+  return `fråga ${n.slice(0, -1).join(', ')} och ${n[n.length - 1]}`
+}
+
+/** "Nivåkollen, 5 minuter": minuterna räknas som på hemvyn (HEM.matning.smakprovMinuter). */
+const nivakollMinuter = (svar: number) => Math.max(3, Math.round(((12 - svar) * 40) / 60))
+
+export interface PanelRad {
+  fet: string
+  text: string
+}
+
+/**
+ * Panelen i kontosteget efter provet och spärren under resultatet (skissen
+ * 2026-11-09). Raderna byggs av besökarens eget resultat: vilka frågor som
+ * blev fel. Inga tal i löptext utöver produktens egna.
+ */
+export const KONTO_PANEL = {
+  kick: 'Ditt prov, sparat i sju dagar',
+  av: (totalt: number) => `av ${totalt} rätt`,
+  /** Panelens rubrik. */
+  rubrik: (fel: readonly number[], totalt: number): string => {
+    if (fel.length === 0) return 'Kontot visar regeln bakom varje mönster'
+    if (fel.length === totalt) return 'Kontot visar alla svar och reglerna bakom'
+    if (fel.length === 1) return `Kontot visar ${fragorText(fel)} och regeln bakom`
+    if (fel.length >= 3) return `Kontot visar de ${talordProv(fel.length)} du missade och reglerna bakom`
+    return `Kontot visar ${fragorText(fel)} och reglerna bakom`
+  },
+  /** Utan resultat (anropet misslyckades): samma löfte utan tal. */
+  rubrikUtan: 'Kontot visar alla svar och regeln bakom varje mönster',
+  rader: (fel: readonly number[] | null, totalt: number): PanelRad[] => {
+    const forsta: PanelRad =
+      !fel || fel.length === 0 || fel.length === totalt
+        ? { fet: 'Rätt svar', text: ' och regeln bakom varje mönster' }
+        : fel.length === 1
+          ? { fet: versalFraga(fragorText(fel)), text: ' med rätt svar och regeln bakom mönstret' }
+          : { fet: versalFraga(fragorText(fel)), text: ' med rätt svar och reglerna bakom' }
+    return [
+      forsta,
+      { fet: 'Genomgång', text: ` av alla ${talordProv(totalt)} frågor` },
+      { fet: 'Nivåkollen', text: `, ${nivakollMinuter(totalt)} minuter, räknar in de här svaren` },
+    ]
+  },
+  /** Premium som text, aldrig knapp (ägarens beslut 2026-11-09). Pris ur PLANS. */
+  premium: {
+    namn: paketKort(),
+    text: `, ${prisPeriod(SALD_PLAN)}, när du sedan vill träna på din nivå varje dag. Först Nivåkollen, gratis.`,
+  },
+} as const
+
+/** Panelen på bar /register: vad som ingår gratis (skissen 2026-11-09). */
+export const KONTO_GRATIS = {
+  kick: 'Det här ingår gratis',
+  rubrik: 'Börja med det som avgör urvalet',
+  rader: [
+    { ikon: 'matris', namn: 'Nivåkollen', text: 'Var du står i rekryteringstesterna, med genomgång av varje fråga.' },
+    { ikon: 'cv', namn: 'CV-analysen', text: 'Poängen och det tyngsta fyndet i ditt CV.' },
+    { ikon: 'brev', namn: 'Ett personligt brev', text: 'Skrivet på annonsen utifrån ditt CV.' },
+  ] as const satisfies readonly { ikon: 'matris' | 'cv' | 'brev'; namn: string; text: string }[],
+  premium: `, ${prisPeriod(SALD_PLAN)}, när du vill ha allt utan tak. Säg upp när du vill.`,
+} as const
+
+/** Brickornas skärmläsartext: "Fråga 3 fel, de andra rätt". */
+export function brickorText(fel: readonly number[], totalt: number): string {
+  if (fel.length === 0) return `Alla ${talordProv(totalt)} rätt`
+  if (fel.length === totalt) return 'Alla fel'
+  return `${versalFraga(fragorText(fel))} fel, de andra rätt`
+}
+
+function versalFraga(s: string): string {
+  return s.length ? s[0].toUpperCase() + s.slice(1) : s
+}
+
+const TALORD_PROV = ['noll', 'en', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio']
+function talordProv(n: number): string {
+  return TALORD_PROV[n] ?? String(n)
+}
+
+/** Provets vyer (skissen 2026-11-09). */
+export const PROVA = {
+  intro: {
+    kick: 'Matrislogik, fem frågor',
+    h1: 'Prova ett rekryteringstest',
+    ingressFet: 'Samma typ av frågor som i de skarpa urvalstesten.',
+    ingress: ' Fem frågor, inget konto, ingen tidtagning. Resultatet får du direkt.',
+    steg: ['Fem frågor', 'Resultatet direkt', 'Kontot visar vad du missade'],
+    knapp: 'Starta provet',
+    knappBusy: 'Startar provet',
+    liten: 'Utan konto och utan tidtagning',
+    bladKick: 'Så ser en fråga ut',
+    bladFotRubrik: 'Regeln bakom mönstret',
+    bladFot: 'Visas för varje fråga när provet är hämtat till ditt konto.',
+    merFore: 'Vill du veta mer om hur testerna fungerar?',
+    merLank: 'Läs om rekryteringstester',
+    skapaKonto: 'Skapa ett gratiskonto',
+  },
+  fraga: {
+    kick: 'Matrislogik, provet',
+    rubrik: (nu: number, av: number) => `Fråga ${nu} av ${av}`,
+    fraga: 'Vilken figur saknas?',
+    under: 'Ingen tidtagning. Nästa fråga kommer när du svarat.',
+    rattar: 'Rättar provet',
+    alternativ: (bokstav: string) => `Svarsalternativ ${bokstav}`,
+  },
+  resultat: {
+    kick: 'Ditt resultat',
+    rubrik: (ratt: number, totalt: number) => `${versalFraga(talordProv(ratt))} rätt av ${talordProv(totalt)}`,
+    ringAv: (totalt: number) => `av ${totalt} rätt`,
+    percentil: (n: number) => `Bland de ${n} procent som löser flest`,
+    percentilUnder: 'av den här typen av frågor.',
+    sparr: (fel: readonly number[]): string => {
+      if (fel.length === 0) return 'Se regeln bakom varje mönster'
+      if (fel.length === 1) return 'Se vilken du missade och regeln bakom'
+      return 'Se vilka du missade och reglerna bakom'
+    },
+    knapp: (fel: readonly number[]) => (fel.length === 0 ? 'Se genomgången' : 'Se vad jag missade'),
+    liten: 'Gratis konto, inget kreditkort.',
+  },
 } as const
 
 /* ------------------------------------------------------------ bredden, hemskärmen */

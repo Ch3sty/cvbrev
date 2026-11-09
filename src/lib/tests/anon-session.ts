@@ -77,18 +77,16 @@ export function questionsForToken(token: string, version: BankVersion = 1): Laye
 }
 
 /**
- * Grov percentil utifrån antal rätt av fem. Medvetet trubbig: det är en
- * indikation, inte en normerad poäng. Den riktiga normjämförelsen ligger
- * bakom registreringen.
+ * Index (0 till 4) för frågorna som blev fel eller lämnades obesvarade, i
+ * provets ordning. `answers` är originalindex, som routen lagrar dem. Bara
+ * positionerna lämnar servern, aldrig vilket alternativ som var rätt.
  */
-export function roughPercentile(score: number, total: number): number {
-  const ratio = total > 0 ? score / total : 0
-  if (ratio >= 1) return 90
-  if (ratio >= 0.8) return 75
-  if (ratio >= 0.6) return 55
-  if (ratio >= 0.4) return 35
-  if (ratio >= 0.2) return 20
-  return 10
+export function felIndex(questions: readonly LayeredQuestion[], answers: readonly unknown[]): number[] {
+  const fel: number[] = []
+  questions.forEach((q, i) => {
+    if (answers[i] !== q.correctAnswer) fel.push(i)
+  })
+  return fel
 }
 
 export interface AnonSessionRow {

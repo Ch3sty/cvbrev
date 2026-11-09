@@ -687,6 +687,51 @@ html:has([data-publikt-flode='blockerad']) .cookie-banner-container {
   }
 }
 
+/* Flödesskalet utan fot: provet och kontosteget (skissen
+   docs/design/skiss-prov-konto-2026-11-09.html). Samtycket ligger under den
+   scrollande mitten, aldrig över den: skalet krymper med samtyckets höjd så
+   länge samtycket finns, och samtycket står i botten under skalet. Allt i
+   CSS och i första bilden, så inget skiftar. Svarar besökaren tas samtycket
+   bort och skalet växer, vilket är en följd av hennes tryck och inte räknas
+   som layoutskifte. useFriSikt behövs inte här. */
+.pub-flode-skal {
+  --samtycke-h: calc(64px + env(safe-area-inset-bottom, 0px));
+  height: 100dvh;
+}
+html:not([data-samtycke='svarat']):has(#jc-samtycke) .pub-flode-skal {
+  height: calc(100dvh - var(--samtycke-h));
+}
+html:has([data-publikt-flode='utan-fot']) .cookie-banner-container {
+  bottom: 0 !important;
+  height: calc(64px + env(safe-area-inset-bottom, 0px));
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  box-shadow: none;
+}
+html:has([data-publikt-flode='utan-fot']) .cookie-banner-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+html:has([data-publikt-flode='utan-fot']) .cookie-banner-buttons {
+  flex: none;
+}
+html:has([data-publikt-flode='utan-fot']) .cookie-banner-buttons button {
+  flex: none;
+  height: 40px;
+  padding: 0 14px;
+  font-size: 13px;
+}
+@media (min-width: 640px) {
+  .pub-flode-skal {
+    --samtycke-h: calc(56px + env(safe-area-inset-bottom, 0px));
+  }
+  html:has([data-publikt-flode='utan-fot']) .cookie-banner-container {
+    height: calc(56px + env(safe-area-inset-bottom, 0px));
+    gap: 24px;
+  }
+}
+
 /* En spärr med kontoknapp syns (useFriSikt): samtycket och mobilens
    klistrade knapprad glider ut nedåt så de aldrig ligger över knappen.
    Transform och visibility, aldrig höjd, så inget layoutskifte. Samtycket

@@ -1332,3 +1332,280 @@ a.pub-mall-mer {
 @media (max-width: 640px) {
   .artikel-film .pub-film { max-height: 70vh; }
 }
+
+/* ============================================================
+   PROVET OCH KONTOSTEGET (skissen docs/design/skiss-prov-konto-2026-11-09.html,
+   godkänd av ägaren 2026-11-09). Provet utan konto och kontosteget efter
+   det står i flödesskalet utan fot (PubliktFlodesskal bredd full). Väggen är
+   rummet Rekryteringstester (pub-rum-tran), papperskortet och kopparknappen
+   är publikt v2:s.
+   ============================================================ */
+
+.pub-prov-wrap { width: min(1040px, 100% - 32px); margin-inline: auto; }
+.pub-prov-h1 { font-size: clamp(34px, 8vw, 56px); line-height: 1; }
+.pub-prov-h2 { font-size: clamp(26px, 5.6vw, 40px); color: #fff; }
+.pub-prov-h3 { font-size: clamp(20px, 4.2vw, 26px); letter-spacing: -0.015em; }
+.pub-prov-pil { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.pub-prov-las { flex: none; width: 20px; height: 20px; stroke: var(--koppar-ink); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; margin-top: 2px; }
+.pub-prov-fel { margin-top: 18px; padding: 12px 14px; border-radius: 12px; background: var(--panel); color: var(--fel); font-size: 14px; line-height: 1.45; }
+.pub-prov-fel .pub-lank { color: var(--ink-1); display: inline-flex; min-height: 44px; align-items: center; }
+
+/* Intro: text till vänster, provbladet till höger, allt på väggen */
+.pub-prov-intro { padding: clamp(28px, 4vw, 48px) 0; }
+.pub-prov-intro-g { display: grid; gap: 32px; align-items: center; }
+.pub-prov-ingress { margin-top: 16px; max-width: 54ch; }
+.pub-prov-steg { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+.pub-prov-steg li {
+  display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--vagg-mjuk);
+  padding: 6px 12px 6px 6px; border-radius: 999px; background: rgba(255, 255, 255, 0.08); border: 1px solid var(--vagg-kant);
+}
+.pub-prov-steg b {
+  width: 24px; height: 24px; border-radius: 50%; background: var(--koppar); color: var(--koppar-text);
+  font-family: var(--display); font-weight: 800; font-size: 13px; display: grid; place-items: center;
+}
+.pub-prov-handling { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 26px; }
+@media (max-width: 640px) {
+  .pub-prov-handling { flex-direction: column; align-items: stretch; gap: 14px; }
+  .pub-prov-handling .pub-knapp { width: 100%; }
+  .pub-prov-handling .pub-liten { text-align: center; }
+}
+.pub-prov-mer { text-align: center; font-size: 14px; color: var(--ink-3); padding: 24px 16px 20px; }
+.pub-prov-mer .pub-lank { color: var(--ink-1); }
+
+/* Provbladet: papperskortet med matrisen */
+.pub-prov-blad {
+  background: var(--panel); border: 1px solid var(--kant); border-radius: var(--r-stor); padding: 16px;
+  box-shadow: var(--lyft-stor); position: relative; color: var(--ink-1);
+}
+.pub-prov-blad-topp { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
+.pub-prov-blad-topp .pub-kick { margin: 0; color: var(--koppar-ink); }
+.pub-prov-segment { display: flex; gap: 4px; }
+.pub-prov-segment i { display: block; height: 4px; width: 22px; border-radius: 2px; background: var(--kant); }
+.pub-prov-segment i.klar { background: var(--koppar); }
+.pub-prov-matris { background: var(--papper-skarm); border: 1px solid var(--kant-skarm); border-radius: 14px; padding: 6px; --m-vit: var(--papper-skarm); }
+.pub-prov-matris-g { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--kant-skarm); border-radius: 8px; overflow: hidden; }
+.pub-prov-matris-g > div { aspect-ratio: 1; background: var(--papper-skarm); display: grid; place-items: center; }
+.pub-prov-matris-g > div.lucka { background: var(--golv-skarm); }
+.pub-prov-matris-g > div > svg { width: 78%; height: 78%; }
+.pub-prov-blad-fraga .pub-prov-matris-g > div > svg { width: 100%; height: 100%; }
+.pub-prov-alt { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; --m-vit: var(--papper-skarm); }
+.pub-prov-alt > * {
+  position: relative; aspect-ratio: 1; min-height: 44px; background: var(--papper-skarm); border: 1.5px solid var(--kant-skarm);
+  border-radius: 12px; display: grid; place-items: center; padding: 0; color: inherit; font: inherit;
+}
+.pub-prov-alt > button { cursor: pointer; transition: border-color 0.15s, transform 0.15s; }
+.pub-prov-alt > button:hover { border-color: var(--koppar); transform: translateY(-1px); }
+.pub-prov-alt > button:disabled { opacity: 0.6; cursor: default; transform: none; }
+.pub-prov-alt b { position: absolute; top: 6px; left: 9px; font-size: 11px; line-height: 1; color: var(--ink-3); font-weight: 700; z-index: 1; }
+.pub-prov-alt > * > svg { width: 62%; height: 62%; }
+.pub-prov-alt > button > svg { width: 100%; height: 100%; }
+.pub-prov-alt .vald { border-color: var(--koppar); box-shadow: 0 0 0 3px var(--koppar-mjuk); }
+.pub-prov-alt .vald b { color: var(--koppar-ink); }
+.pub-prov-blad-fot {
+  margin-top: 14px; display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 12px;
+  background: var(--koppar-mjuk); color: var(--ink-1); font-size: 14px; line-height: 1.4;
+}
+.pub-prov-blad-fot b { display: block; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--koppar-ink); margin-bottom: 2px; }
+@media (max-width: 899px) {
+  .pub-prov-blad-intro { max-width: 400px; width: 100%; margin-inline: auto; }
+  .pub-prov-alt-intro { display: none; }
+}
+@media (min-width: 900px) {
+  .pub-prov-intro-g { grid-template-columns: minmax(0, 1fr) 380px; gap: 56px; }
+  .pub-prov-alt-intro { grid-template-columns: repeat(6, 1fr); gap: 8px; }
+  .pub-prov-alt-intro b { font-size: 9px; top: 4px; left: 6px; }
+  .pub-prov-alt-intro > * > svg { width: 58%; height: 58%; }
+}
+
+/* Frågan: smal vägg med räknaren, bladet på marken, två spalter på dator */
+.pub-prov-fraga-vagg { padding: 12px 0 46px; }
+.pub-prov-fraga-vagg .pub-prov-wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.pub-prov-fraga-vagg .pub-kick { margin: 0; }
+.pub-prov-fraga-vagg .pub-prov-segment i { background: rgba(255, 255, 255, 0.22); }
+.pub-prov-fraga-vagg .pub-prov-segment i.klar { background: var(--koppar); }
+.pub-prov-fraga-rub { font-family: var(--display); font-weight: 800; font-size: 20px; letter-spacing: -0.02em; line-height: 1.1; margin-top: 2px; }
+.pub-prov-fraga-kropp { margin-top: -36px; padding-bottom: 12px; }
+.pub-prov-blad-fraga { max-width: 960px; margin-inline: auto; padding: 14px; }
+@media (max-width: 420px) {
+  .pub-prov-fraga-kropp.pub-prov-wrap { width: calc(100% - 28px); }
+}
+.pub-prov-blad-fraga-g { display: grid; gap: 14px; }
+.pub-sida .pub-prov-fraga-txt { font-family: inherit; font-weight: 600; font-size: 15px; letter-spacing: 0; line-height: 1.4; margin: 2px 0 8px; }
+.pub-prov-under-blad { text-align: center; margin-top: 8px; }
+@media (min-width: 900px) {
+  .pub-prov-blad-fraga { padding: 18px; }
+  .pub-prov-blad-fraga-g { grid-template-columns: minmax(0, 1fr) 340px; gap: 32px; align-items: center; }
+  .pub-prov-blad-fraga .pub-prov-matris { width: 100%; max-width: 460px; margin-inline: auto; }
+  .pub-prov-blad-fraga .pub-prov-alt { margin-top: 0; gap: 12px; }
+  .pub-sida .pub-prov-fraga-txt { margin-top: 0; }
+}
+
+/* Resultatet: talet och kurvan på väggen, spärren på marken */
+.pub-prov-res-vagg { padding: 22px 0 72px; }
+.pub-prov-res-g { display: grid; gap: 20px; align-items: center; }
+@media (min-width: 760px) { .pub-prov-res-g { grid-template-columns: auto minmax(0, 1fr); gap: 40px; } }
+.pub-prov-ring { position: relative; width: 132px; height: 132px; flex: none; }
+.pub-prov-ring svg { width: 132px; height: 132px; transform: rotate(-90deg); }
+.pub-prov-ring circle { fill: none; stroke-width: 10; stroke-linecap: round; }
+.pub-prov-ring .bak { stroke: rgba(255, 255, 255, 0.16); }
+.pub-prov-ring .fram { stroke: var(--koppar); stroke-dasharray: 364; stroke-dashoffset: calc(364 - 364 * var(--p, 0.8)); }
+.pub-prov-ring .siffra {
+  position: absolute; inset: 0; display: grid; place-items: center; align-content: center;
+  font-family: var(--display); font-weight: 800; font-size: 46px; letter-spacing: -0.03em; color: #fff; line-height: 1;
+}
+.pub-prov-ring .siffra small {
+  display: block; font-family: var(--font-inter, Inter, system-ui, sans-serif); font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--vagg-mjuk); text-align: center; margin-top: 4px;
+}
+.pub-prov-kurva { margin-top: 14px; display: grid; grid-template-columns: 150px 1fr; gap: 14px; align-items: center; max-width: 460px; }
+.pub-prov-kurva svg { width: 150px; height: auto; color: var(--vagg-ink); }
+.pub-prov-kurva p { font-size: 14px; color: var(--vagg-mjuk); line-height: 1.4; }
+.pub-prov-kurva p b { color: #fff; font-weight: 600; display: block; font-size: 15px; }
+@media (max-width: 420px) { .pub-prov-kurva { grid-template-columns: 120px 1fr; } .pub-prov-kurva svg { width: 120px; } }
+.pub-prov-res-kropp { margin-top: -48px; padding-bottom: 20px; }
+.pub-prov-sparr { max-width: 760px; margin-inline: auto; display: grid; gap: 18px; padding: 24px; }
+@media (min-width: 760px) { .pub-prov-sparr { grid-template-columns: minmax(0, 1fr) 260px; gap: 28px; align-items: center; } }
+.pub-prov-sparr-handling { display: grid; gap: 10px; }
+.pub-prov-sparr-handling .pub-knapp { width: 100%; }
+.pub-prov-sparr-handling .pub-liten { text-align: center; }
+.pub-prov-sparr .pub-brickor { margin: 14px 0 18px; }
+
+/* Raderna med lås: vad kontot öppnar */
+.pub-prov-bock { display: grid; gap: 10px; margin-top: 12px; }
+.pub-prov-bock li { display: flex; gap: 12px; align-items: flex-start; line-height: 1.4; }
+.pub-prov-bock li b { font-weight: 600; color: var(--ink-1); }
+.pub-prov-bock li::before {
+  content: ''; flex: none; width: 22px; height: 22px; border-radius: 50%; margin-top: 1px;
+  background: var(--koppar-mjuk)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A8491A' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='11' width='14' height='10' rx='2'/%3E%3Cpath d='M8 11V8a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E")
+    center / 13px no-repeat;
+}
+
+/* Premium som text i bläck, aldrig knapp */
+.pub-prov-premium {
+  display: flex; align-items: center; gap: 12px; max-width: 760px; margin: 16px auto 0; padding: 12px 16px;
+  border-radius: 14px; background: var(--premium); color: var(--vagg-ink); font-size: 14px; line-height: 1.45;
+}
+.pub-prov-premium b { font-family: var(--display); font-weight: 800; letter-spacing: -0.01em; }
+.pub-prov-premium span span { color: var(--vagg-mjuk); }
+.pub-prov-premium svg { flex: none; width: 28px; height: 28px; stroke: var(--koppar-ljus); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Brickorna: besökarens fem frågor i miniatyr */
+.pub-brickor { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+.pub-bricka { position: relative; width: 56px; height: 56px; flex: none; }
+.pub-bricka-g {
+  display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); width: 100%; height: 100%;
+  background: var(--panel); border: 2px solid var(--ink-1); border-radius: 12px; overflow: hidden; --m-vit: var(--panel);
+}
+.pub-bricka-g > i { display: block; border-right: 1px solid var(--kant-stark); border-bottom: 1px solid var(--kant-stark); min-width: 0; min-height: 0; }
+.pub-bricka-g > i:nth-child(3n) { border-right: 0; }
+.pub-bricka-g > i:nth-child(n + 7) { border-bottom: 0; }
+.pub-bricka-g svg { width: 100%; height: 100%; padding: 6% !important; }
+.pub-bricka-g svg [stroke-width] { stroke-width: 8; }
+.pub-bricka-mark {
+  position: absolute; right: -5px; top: -5px; width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--positiv); color: #fff;
+}
+.pub-bricka-mark svg { width: 12px; height: 12px; stroke: #fff; fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.pub-bricka-fel .pub-bricka-mark { background: var(--koppar); }
+.pub-bricka-fel .pub-bricka-mark svg { stroke: var(--koppar-text); }
+.pub-bricka-fel { outline: 2px solid var(--koppar); outline-offset: 2px; border-radius: 12px; }
+.pub-bricka-nr { position: absolute; left: 0; right: 0; bottom: -18px; text-align: center; font-size: 11px; color: var(--ink-3); font-weight: 600; }
+
+/* ------------------------------------------------------------ kontosteget */
+.pub-konto { width: min(1040px, 100% - 32px); margin-inline: auto; padding: 12px 0; }
+.pub-konto:not(.pub-konto-med-panel) { width: min(480px, 100% - 32px); padding-top: 24px; }
+.pub-konto-g { display: grid; gap: 14px; }
+@media (min-width: 900px) {
+  .pub-konto { padding: 36px 0; }
+  .pub-konto-med-panel .pub-konto-g { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: stretch; }
+}
+.pub-konto-panel {
+  border-radius: var(--r-stor); padding: 14px 16px; color: var(--vagg-ink);
+  background: radial-gradient(120% 90% at 85% 0%, var(--rum-vagg-2) 0%, var(--rum-vagg) 60%);
+  display: grid; gap: 10px; align-content: start; position: relative; overflow: hidden;
+}
+.pub-konto-panel .pub-kick { color: var(--rum-ljus); margin: 0; }
+.pub-konto-panel h2 { font-size: clamp(19px, 4.6vw, 30px); color: #fff; }
+.pub-konto-prov-rad { display: flex; align-items: center; gap: 14px; padding: 4px 6px 2px 0; }
+.pub-konto-tal { font-family: var(--display); font-weight: 800; font-size: 40px; letter-spacing: -0.03em; line-height: 1; color: #fff; white-space: nowrap; }
+.pub-konto-tal small { font-family: var(--font-inter, Inter, system-ui, sans-serif); font-size: 14px; font-weight: 600; letter-spacing: 0; color: var(--vagg-mjuk); margin-left: 4px; }
+.pub-konto-panel .pub-brickor { margin: 0; gap: 6px; display: grid; grid-template-columns: repeat(5, minmax(0, 40px)); flex: 0 1 auto; min-width: 0; }
+.pub-konto-panel .pub-bricka { width: 100%; height: auto; aspect-ratio: 1; }
+.pub-konto-panel .pub-bricka-g { border-radius: 9px; border-width: 1.5px; }
+.pub-konto-panel .pub-bricka-fel { border-radius: 9px; }
+.pub-konto-panel .pub-bricka-mark { width: 16px; height: 16px; right: -4px; top: -4px; }
+.pub-konto-panel .pub-bricka-mark svg { width: 9px; height: 9px; }
+.pub-konto-panel .pub-prov-bock { gap: 8px; margin: 0; font-size: 14px; color: var(--vagg-mjuk); }
+.pub-konto-panel .pub-prov-bock b { color: #fff; }
+.pub-konto-panel .pub-prov-bock li::before {
+  background-color: rgba(255, 255, 255, 0.14);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F4B98A' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='11' width='14' height='10' rx='2'/%3E%3Cpath d='M8 11V8a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E");
+}
+.pub-konto-premium { color: var(--vagg-mjuk); font-size: 13px; line-height: 1.45; padding-top: 10px; border-top: 1px solid var(--vagg-kant); }
+.pub-konto-premium b { color: var(--koppar-ljus); font-weight: 700; }
+.pub-konto-dator { display: none; }
+.pub-konto-panel .pub-konto-lasbild { display: none; }
+@media (min-width: 900px) {
+  .pub-konto-panel { padding: 32px; gap: 18px; }
+  .pub-konto-panel-bild { padding-bottom: 150px; }
+  .pub-konto-tal { font-size: 56px; }
+  .pub-konto-panel .pub-brickor { grid-template-columns: repeat(5, minmax(0, 52px)); }
+  .pub-konto-panel .pub-bricka-mark { width: 20px; height: 20px; }
+  .pub-konto-panel .pub-bricka-mark svg { width: 12px; height: 12px; }
+  .pub-konto-panel .pub-prov-bock { font-size: 15px; gap: 12px; }
+  .pub-konto-dator { display: block; }
+  .pub-konto-panel .pub-konto-lasbild {
+    display: grid; position: absolute; right: -30px; bottom: -30px; width: 190px; height: 190px;
+    opacity: 0.9; transform: rotate(-8deg); filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.35)); border-radius: 28px; border-width: 4px;
+  }
+}
+.pub-konto-ger { display: grid; gap: 6px; }
+.pub-konto-ger li {
+  display: grid; grid-template-columns: 36px 1fr; gap: 10px; align-items: center; padding: 8px 10px; border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08); border: 1px solid var(--vagg-kant);
+}
+.pub-konto-obj { width: 36px; height: 36px; color: #fff; }
+.pub-konto-obj svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.pub-konto-ger b { display: block; font-family: var(--display); font-weight: 800; font-size: 15px; letter-spacing: -0.01em; color: #fff; }
+.pub-konto-ger span { display: block; font-size: 12.5px; line-height: 1.35; color: var(--vagg-mjuk); }
+@media (min-width: 900px) {
+  .pub-konto-ger li { padding: 14px 16px; }
+  .pub-konto-ger b { font-size: 17px; }
+  .pub-konto-ger span { font-size: 14px; }
+}
+
+.pub-konto-form { display: grid; gap: 10px; align-content: start; }
+@media (min-width: 900px) { .pub-konto-form { padding-top: 6px; } }
+.pub-konto-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
+.pub-konto-form h1 { font-size: clamp(26px, 6vw, 36px); }
+.pub-konto-under { color: var(--ink-2); font-size: 15px; }
+.pub-konto-under b { color: var(--positiv); font-weight: 600; }
+.pub-konto-google button {
+  min-height: 50px; height: auto; border-radius: 999px; border-width: 1.5px; background: var(--panel); font-size: 15px;
+}
+.pub-konto-eller { display: flex; align-items: center; gap: 12px; color: var(--ink-3); font-size: 13px; }
+.pub-konto-eller::before,
+.pub-konto-eller::after { content: ''; flex: 1; height: 1px; background: var(--kant); }
+.pub-konto-falt-g { display: grid; gap: 10px; }
+.pub-konto-falt { display: grid; gap: 5px; }
+.pub-konto-falt label { font-size: 14px; font-weight: 600; color: var(--ink-1); }
+.pub-konto-falt input {
+  height: 48px; border-radius: 12px; border: 1.5px solid var(--kant-stark); background: var(--panel); color: var(--ink-1);
+  padding: 0 14px; font-size: 16px; width: 100%; font-family: inherit;
+}
+.pub-konto-falt input::placeholder { color: var(--ink-3); }
+.pub-konto-falt input:focus { border-color: var(--koppar); outline: none; box-shadow: 0 0 0 3px var(--koppar-mjuk); }
+.pub-konto-falt input[aria-invalid='true'] { border-color: var(--fel); }
+.pub-konto-knapp { width: 100%; margin-top: 2px; }
+.pub-konto-villkor { font-size: 12px; color: var(--ink-3); line-height: 1.45; }
+.pub-konto-villkor a { color: var(--ink-2); text-decoration: underline; text-underline-offset: 3px; }
+.pub-konto-fel {
+  display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: 12px; background: var(--fel-mjuk, #f6e1de);
+  color: var(--fel); font-size: 14px; line-height: 1.4;
+}
+.pub-konto-fel svg { flex: none; margin-top: 1px; }
+.pub-konto-fel-rubrik { font-weight: 600; }
+/* Figurernas vita yta följer papperet i båda lägena (matrisyta i globals.css). */
+.pub-sida .pub-prov .matrisyta { --m-vit: var(--papper-skarm); }
+.pub-sida .pub-bricka-g.matrisyta { --m-vit: var(--panel); }

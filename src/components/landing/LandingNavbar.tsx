@@ -30,6 +30,7 @@ import { PLAN_BY_KEY, SALD_PLAN, paketMedPris } from '@/lib/plans/plans'
 import NavIkon from './NavIkon'
 import { GRUPPER, HEADER_EFTER, HEADER_FORE, type NavLank } from './nav-data'
 import { ENTRY_STORAGE_KEY } from '@/components/registrering/intent'
+import { PROVA_PATH } from '@/lib/flodessidor'
 
 /** Registreringens ingång (profil-registrering 2026-09-24): headern, utan att ändra adressen. */
 function markeraIngang(entry: 'header' | 'meny') {
@@ -123,6 +124,9 @@ export default function LandingNavbar() {
       {l.label}
     </Link>
   )
+
+  // Provet ligger i flödesskalet med egen topprad (skissen 2026-11-09).
+  if (pathname === PROVA_PATH) return null
 
   return (
     <header data-site-chrome="header" className="sticky top-0 z-40 border-b border-kant bg-panel">
