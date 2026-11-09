@@ -1,0 +1,90 @@
+{
+  "tid": "2026-11-09T00:03:47.684Z",
+  "kor": true,
+  "konton": [
+    {
+      "epost": "qa-tratten-grund-pixel7-1794180789383@jobbcoach-qa.example.com",
+      "id": "561e660c-3204-43a5-8239-76d03d09d529",
+      "enhet": "pixel7",
+      "skapad": "2026-11-08T23:33:18.433Z"
+    },
+    {
+      "epost": "qa-tratten-grund-desktop-1794180831865@jobbcoach-qa.example.com",
+      "id": "d81fe1fb-445c-4e07-a85e-be65eccd0d9c",
+      "enhet": "desktop",
+      "skapad": "2026-11-08T23:33:54.511Z"
+    },
+    {
+      "epost": "qa-tratten-pixel7-1794182455966@jobbcoach-qa.example.com",
+      "id": "6fcc4728-2363-40d2-a0d2-7203207b43fe",
+      "enhet": "pixel7",
+      "skapad": "2026-11-09T00:01:05.003Z"
+    },
+    {
+      "epost": "qa-tratten-desktop-1794182507130@jobbcoach-qa.example.com",
+      "id": "4fd4e865-175b-4994-ba02-a98fcd04374d",
+      "enhet": "desktop",
+      "skapad": "2026-11-09T00:01:53.186Z"
+    }
+  ],
+  "tabeller": [
+    {
+      "tabell": "email_confirmations",
+      "raknat": 4,
+      "raderat": 4,
+      "varv": 0
+    },
+    {
+      "tabell": "email_schedule",
+      "raknat": 8,
+      "raderat": 8,
+      "varv": 0
+    },
+    {
+      "tabell": "logic_test_v4_sessions",
+      "raknat": 6,
+      "raderat": 6,
+      "varv": 0
+    },
+    {
+      "tabell": "user_activities",
+      "raknat": 40,
+      "raderat": 40,
+      "varv": 0
+    },
+    {
+      "tabell": "profiles (id)",
+      "raknat": 4,
+      "raderat": 4
+    }
+  ],
+  "anon": [
+    {
+      "tabell": "anon_test_sessions",
+      "raknat": 2,
+      "raderat": 2
+    }
+  ],
+  "auth": [
+    {
+      "id": "561e660c-3204-43a5-8239-76d03d09d529",
+      "resultat": "raderad"
+    },
+    {
+      "id": "d81fe1fb-445c-4e07-a85e-be65eccd0d9c",
+      "resultat": "raderad"
+    },
+    {
+      "id": "6fcc4728-2363-40d2-a0d2-7203207b43fe",
+      "resultat": "raderad"
+    },
+    {
+      "id": "4fd4e865-175b-4994-ba02-a98fcd04374d",
+      "resultat": "raderad"
+    }
+  ],
+  "kontroll": {
+    "profiler": 0,
+    "auth": 0
+  }
+}

@@ -1,6 +1,6 @@
 # Tratten efter analysen 8 november, klicktest
 
-Del A punkt 1 till 6 i `docs/plan-efter-analys-2026-11-08.md`. Klicktest med `scripts/qa-tratten-2026-11-08.mjs` i riktig Chrome (puppeteer-core) på Pixel 7 (412 x 915) och desktop (1280 x 800) mot ett produktionsbygge. Resultat per kontroll i `resultat-lokal.json` (59 av 60 godkända) och efter driftsättning i `resultat-live.json`. Skärmdumparna ligger utanför git.
+Del A punkt 1 till 6 i `docs/plan-efter-analys-2026-11-08.md`. Klicktest med `scripts/qa-tratten-2026-11-08.mjs` i riktig Chrome (puppeteer-core) på Pixel 7 (412 x 915) och desktop (1280 x 800) mot ett produktionsbygge. Resultat per kontroll i `resultat-lokal.json` (59 av 60 godkända) och efter driftsättning i `resultat-live.json` (59 av 60, samma kvarvarande punkt: Nivåkollen 4 px under kanten på desktop). Skärmdumparna ligger utanför git.
 
 ## Vad klicktestet hittade
 
@@ -31,4 +31,4 @@ sample_started, sample_completed och signup_gate_shown (provet), signup_started 
 
 ## Testdata
 
-20 QA-konton (`qa-tratten-*@jobbcoach-qa.example.com`) och 10 anonyma prov raderades per id efter räkning, se `stadning-kord.json`. 7 egna rader i public_rate_limits (lokala QA-IP:n) raderades per ip_hash. Kontona är markerade som interna i PostHog.
+24 QA-konton (`qa-tratten-*@jobbcoach-qa.example.com`, 20 lokalt och 4 live) och 12 anonyma prov raderades per id efter räkning, se `stadning-kord.json` och `stadning-live-kord.json`. 7 egna rader i public_rate_limits (lokala QA-IP:n) raderades per ip_hash. Kontona är markerade som interna i PostHog.
