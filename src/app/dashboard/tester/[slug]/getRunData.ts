@@ -29,6 +29,8 @@ import { serieInnehall } from '@/lib/figurserierV1/fragor.server'
 import type { VisadSerie } from '@/lib/figurserierV1/types'
 import { deduktivInnehall } from '@/lib/deduktivV1/fragor.server'
 import type { VisadDeduktiv } from '@/lib/deduktivV1/types'
+import { arSteg2Kind } from '../testConfig'
+import { steg2Motor } from '@/lib/tester/steg2/motor.server'
 
 /**
  * Sessionsrader för matrislogik och proven ligger i logic_test_v4_sessions.
@@ -42,6 +44,9 @@ const TABLE_BY_API: Record<string, string> = {
   '/api/logicTestProv': 'logic_test_v4_sessions',
   '/api/figurserier': 'logic_test_v4_sessions',
   '/api/deduktiv': 'logic_test_v4_sessions',
+  '/api/steg2/talserie': 'logic_test_v4_sessions',
+  '/api/steg2/spatial': 'logic_test_v4_sessions',
+  '/api/steg2/ordforrad': 'logic_test_v4_sessions',
 }
 
 export interface SavedAnswer {
@@ -66,6 +71,8 @@ export interface RunSession {
   serie?: VisadSerie[]
   /** Deduktivens uppgifter i visad ordning, utan facit. */
   deduktiv?: VisadDeduktiv[]
+  /** Steg 2 (talserier, spatial förmåga, ordförråd): uppgifterna i visad ordning, utan facit. */
+  steg2?: unknown[]
 }
 
 export interface RunData {
@@ -134,6 +141,7 @@ export async function getRunData(
         ...(config.kind === 'matris' ? { fragor: matrisInnehall(row).fragor } : {}),
         ...(config.kind === 'figurserie' ? { serie: serieInnehall(row).fragor } : {}),
         ...(config.kind === 'deduktiv' ? { deduktiv: deduktivInnehall(row).fragor } : {}),
+        ...(arSteg2Kind(config.kind) ? { steg2: steg2Motor(config.kind)?.innehall(row).fragor ?? [] } : {}),
       },
       resolved: true,
     }

@@ -12,7 +12,10 @@ export type RapportOrsak = (typeof RAPPORT_ORSAKER)[number];
 // med test_kind matris (rutten), id:t fs-... skiljer dem åt.
 // deduktiv: omgång 3 (B1). Kräver 20261012160000_deduktiv_test_kind.sql; före
 // den sparas rapporten med test_kind matris, id:t dd-... skiljer dem åt.
-export const RAPPORT_TEST_KIND = ['matris', 'verbal', 'numerisk', 'figurserie', 'deduktiv'] as const;
+// talserie, spatial, ordforrad: testplanen steg 2. Kontrollvillkoret ändras
+// inte (bara additiva migreringar); rutten sparar dem med test_kind matris,
+// id:t ts-, sp- eller of- skiljer dem åt.
+export const RAPPORT_TEST_KIND = ['matris', 'verbal', 'numerisk', 'figurserie', 'deduktiv', 'talserie', 'spatial', 'ordforrad'] as const;
 export type RapportTestKind = (typeof RAPPORT_TEST_KIND)[number];
 
 /** Högst så många rapporter per konto och dag (svensk tid). */

@@ -13,6 +13,8 @@
 import { notFound } from 'next/navigation'
 import { figurserierSynliga } from '@/lib/figurserierV1/status'
 import { deduktivSynlig } from '@/lib/deduktivV1/status'
+import { steg2Synlig } from '@/lib/tester/steg2Status'
+import { arSteg2Kind } from '@/app/dashboard/tester/testConfig'
 import TestRunner from '@/components/tests/shared/TestRunner'
 import { getTestConfig } from '../../../testConfig'
 import { getRunData } from '../../getRunData'
@@ -29,6 +31,8 @@ export default async function TestRunPage({
   if (config.kind === 'figurserie' && !figurserierSynliga()) notFound()
   // Deduktiv syns först när banken är befordrad (src/lib/deduktivV1/status.ts).
   if (config.kind === 'deduktiv' && !deduktivSynlig()) notFound()
+  // Steg 2: syns när motor och vy är klara (src/lib/tester/steg2Status.ts).
+  if (arSteg2Kind(config.kind) && !steg2Synlig(config.kind)) notFound()
 
   const runData = await getRunData(config, sessionId)
 

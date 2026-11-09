@@ -240,7 +240,7 @@ const PASS_ORD: Record<Deltyp, string> = {
   ordforrad: 'ord',
   numerisk: 'siffror',
   talserie: 'talserier',
-  spatial: 'pappersvikning och tärningar',
+  spatial: 'spatial förmåga',
   personlighet: 'personlighet',
 };
 

@@ -339,6 +339,11 @@ export const HEM = {
     /** Deduktivpasset (testplanen steg 1). */
     deduktivpass: 'Deduktivpass',
     deduktivMeta: 'Fyra uppgifter med villkor att hålla reda på. Cirka fem minuter.',
+    /** Testplanen steg 2. */
+    talseriepass: 'Talseriepass',
+    talserieMeta: 'Sex talserier, regeln efter varje svar. Cirka sex minuter.',
+    spatialpass: 'Spatialpass',
+    spatialMeta: 'Två vridna figurer, två pappersvikningar, två tärningar. Cirka fem minuter.',
     /** Raden innan Nivåkollen för typen är gjord: Nivåkollen väljer passets nivå. */
     nivakollForst: 'Kolla din nivå först, så väljer vi passets nivå efter den.',
     kolla: 'Kolla min nivå',

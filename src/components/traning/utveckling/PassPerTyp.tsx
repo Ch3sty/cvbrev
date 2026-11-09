@@ -14,6 +14,9 @@ const RADER = [
   { nyckel: 'numerisk', namn: 'Siffror och tabeller' },
   { nyckel: 'figurserie', namn: 'Figurserier' },
   { nyckel: 'deduktiv', namn: 'Deduktivt' },
+  { nyckel: 'talserie', namn: 'Talserier' },
+  { nyckel: 'spatial', namn: 'Spatial förmåga' },
+  { nyckel: 'ordforrad', namn: 'Ordförråd' },
 ] as const
 
 export default function PassPerTyp({ pass, className }: { pass: DinUtvecklingData['passPerTyp']; className?: string }) {

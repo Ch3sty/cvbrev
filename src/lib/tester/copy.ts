@@ -16,6 +16,9 @@ export const TESTETS_FRAGA: Record<Exclude<TestKind, 'personlighet'>, string> = 
   matris: 'Vilken figur kommer härnäst?',
   figurserie: 'Vilken figur kommer härnäst i raden?',
   deduktiv: 'Vem står var när alla villkor gäller?',
+  talserie: 'Vilka tal kommer härnäst?',
+  spatial: 'Vrida, vika och se i tre dimensioner',
+  ordforrad: 'Vilket ord betyder samma sak?',
   verbal: 'Stämmer påståendet med texten?',
   numerisk: 'Läs tabellen och räkna under tid.',
 }
@@ -32,6 +35,9 @@ export const FORMATRAD: Record<Exclude<TestKind, 'personlighet'>, string> = {
   matris: 'Samma format som Matrigma från Assessio och Alva Logic.',
   figurserie: 'Samma format som figurserierna i SHL Verify och Aon scales ix.',
   deduktiv: 'Samma format som den deduktiva delen i SHL Verify G+ och Aons deduktiva test.',
+  talserie: 'Samma uppgiftstyp som talserierna i I-prov 2025.',
+  spatial: 'Samma uppgiftstyper som pappersvikning och tärningar i I-prov 2025.',
+  ordforrad: 'Samma uppgiftstyp som synonymer och motsatsord i I-prov 2025.',
   verbal: 'Samma svarsformat som SHL Verify verbal och Aons scales verbal.',
   numerisk: 'Samma format som det numeriska testet i SHL Verify.',
 }
@@ -102,7 +108,7 @@ export function enhetsord(kind: TestKind): Sakord {
 }
 
 export function sakord(kind: TestKind, slug: string): Sakord {
-  if (kind === 'figurserie' || kind === 'deduktiv') return { en: 'uppgift', flera: 'uppgifter', bestamd: 'uppgifterna', neutrum: false }
+  if (kind === 'figurserie' || kind === 'deduktiv' || kind === 'talserie' || kind === 'spatial' || kind === 'ordforrad') return { en: 'uppgift', flera: 'uppgifter', bestamd: 'uppgifterna', neutrum: false }
   if (kind === 'verbal' && slug !== 'verbal-resonemang-expert') {
     return { en: 'påstående', flera: 'påståenden', bestamd: 'påståendena', neutrum: true }
   }
@@ -131,6 +137,9 @@ export const RESULTAT = {
       matris: 'Regeln står vid varje fråga.',
       figurserie: 'Regeln står vid varje uppgift.',
       deduktiv: 'Lösningsgången står vid varje uppgift.',
+      talserie: 'Regeln står vid varje uppgift.',
+      spatial: 'Förklaringen står vid varje uppgift.',
+      ordforrad: 'Facit och en exempelmening står vid varje ord.',
       verbal: 'Förklaringen står vid varje påstående.',
       numerisk: 'Uträkningen står vid varje fråga.',
       prov: 'Facit står vid varje fråga.',
@@ -155,7 +164,7 @@ export const RESULTAT = {
     titel: (namn: string, r: number, t: number) => `${namn}, ${r} av ${t}`,
     allaSatt: (matris: boolean) => (matris ? 'Alla mönster satt' : 'Inga tapp i någon typ'),
     fot: (term: string, flera: string) => `${versal(term)} med minst två ${flera} i testet. Hela bilden finns i Din utveckling.`,
-    term: { matris: 'mönster', figurserie: 'mönster', deduktiv: 'villkorstyper', verbal: 'svarstyper', numerisk: 'uppgiftstyper' },
+    term: { matris: 'mönster', figurserie: 'mönster', deduktiv: 'villkorstyper', talserie: 'regler', spatial: 'uppgiftsformer', ordforrad: 'frågetyper', verbal: 'svarstyper', numerisk: 'uppgiftstyper' },
   },
   tempo: {
     rub: 'Tempo mot provets tid',

@@ -33,6 +33,8 @@ import type { GenomgangSerie } from '@/lib/figurserierV1/types'
 import { deduktivInnehall } from '@/lib/deduktivV1/fragor.server'
 import { deduktivFamiljNamn } from '@/lib/deduktivV1/familjer'
 import type { GenomgangDeduktiv } from '@/lib/deduktivV1/types'
+import { arSteg2Kind } from '../testConfig'
+import { steg2Motor } from '@/lib/tester/steg2/motor.server'
 
 export interface ResultsSession {
   id: string
@@ -50,6 +52,8 @@ export interface ResultsSession {
   serie?: GenomgangSerie[] | null
   /** Deduktivens genomgång: uppgifterna i visad ordning, rätt svar, lösningsgång och misstag. */
   deduktiv?: GenomgangDeduktiv[] | null
+  /** Steg 2: genomgången i visad ordning, med rätt svar och misstag. */
+  steg2?: unknown[] | null
   /** Sessionens meta (antal, underlagsversion, bankversion). */
   meta?: unknown
 }
@@ -169,6 +173,8 @@ export async function getResultsData(
     const genomgang = config.kind === 'matris' ? matrisInnehall(row).genomgang : null
     const serie = config.kind === 'figurserie' ? serieInnehall(row).genomgang : null
     const deduktiv = config.kind === 'deduktiv' ? deduktivInnehall(row).genomgang : null
+    const motor = arSteg2Kind(config.kind) ? steg2Motor(config.kind) : null
+    const steg2 = motor ? motor.innehall(row).genomgang : null
 
     const session: ResultsSession = {
       id: row.id,
@@ -180,6 +186,7 @@ export async function getResultsData(
       genomgang,
       serie,
       deduktiv,
+      steg2,
       meta: row.meta,
     }
 
@@ -188,6 +195,11 @@ export async function getResultsData(
         ? analysForMatris(config, genomgang, row.answers)
         : config.kind === 'figurserie'
         ? analysera(fragorMatris(serie ?? [], row.answers, serieFamiljNamn), budgetFor(config))
+        : motor
+        ? analysera(
+            fragorMatris(((steg2 ?? []) as { id: string }[]).map((g) => ({ id: g.id, family: motor.grupp(g.id) })), row.answers, (x) => x ?? null),
+            budgetFor(config)
+          )
         : config.kind === 'deduktiv'
         ? analysera(fragorMatris(deduktiv ?? [], row.answers, deduktivFamiljNamn), budgetFor(config))
         : analysera(fragorForUnderlag(config.slug, row.id, row.answers, row.meta), budgetFor(config))

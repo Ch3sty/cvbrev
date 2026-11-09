@@ -4,6 +4,7 @@ import { ovningsprovHref } from '@/lib/traning/rutter';
 import type { Provtyp } from '@/lib/ovningsprov/format';
 import { figurserierSynliga } from '@/lib/figurserierV1/status';
 import { deduktivSynlig } from '@/lib/deduktivV1/status';
+import { steg2Synlig } from '@/lib/tester/steg2Status';
 import type {
   TestCardVariant,
   TestCategoryLabel,
@@ -15,7 +16,7 @@ import type {
  * (korten) och "Din utveckling"-fliken så titlar/frågeantal aldrig spretar.
  */
 
-export type TestGroupKey = 'logik' | 'figurer' | 'deduktiv' | 'verbal' | 'numerisk' | 'personlighet';
+export type TestGroupKey = 'logik' | 'figurer' | 'deduktiv' | 'talserie' | 'spatial' | 'ordforrad' | 'verbal' | 'numerisk' | 'personlighet';
 
 /**
  * Frågeantal och tid kommer ur testConfig, som är enda sanningen. Katalogen
@@ -75,6 +76,9 @@ export const NIVA_GOR: Record<Exclude<TestGroupKey, 'personlighet'>, Record<Test
   logik: { Grund: 'en regel', Avancerad: 'två regler', Expert: 'tre regler' },
   figurer: { Grund: 'en regel', Avancerad: 'två regler', Expert: 'tre regler' },
   deduktiv: { Grund: 'tre villkor', Avancerad: 'fem villkor', Expert: 'villkor i rörelse' },
+  talserie: { Grund: 'en lucka', Avancerad: 'två luckor', Expert: 'blandade regler' },
+  spatial: { Grund: 'en vikning', Avancerad: 'två vikningar', Expert: 'speglingar, klipp' },
+  ordforrad: { Grund: 'vardagsord', Avancerad: 'formella ord', Expert: 'lånord' },
   verbal: { Grund: 'svaret står i texten', Avancerad: 'två ståndpunkter', Expert: 'argument' },
   numerisk: { Grund: 'läs av och räkna', Avancerad: 'flera räknesteg', Expert: 'prognos, marginal' },
 };
@@ -84,6 +88,9 @@ export const ENHET: Record<Exclude<TestGroupKey, 'personlighet'>, string> = {
   logik: 'uppgifter',
   figurer: 'uppgifter',
   deduktiv: 'uppgifter',
+  talserie: 'uppgifter',
+  spatial: 'uppgifter',
+  ordforrad: 'ord',
   verbal: 'påståenden',
   numerisk: 'frågor',
 };
@@ -302,6 +309,46 @@ const DEDUKTIV_GROUP: TestGroup = {
   prov: { typ: 'deduktiv', href: ovningsprovHref('deduktiv') },
 };
 
+/** Testplanen steg 2: tre nivåer per typ, samma kort som de gamla. */
+function steg2Tester(prefix: string, title: string, method: string): CognitiveTestDef[] {
+  return (['grund', 'avancerad', 'expert'] as const).map((niva) => ({
+    slug: `${prefix}-${niva}` as TestSlug,
+    variant: niva === 'grund' ? 'matrix-grund' : niva === 'avancerad' ? 'matrix-avancerad' : 'matrix-expert',
+    title,
+    method,
+    categoryLabel: 'Logik',
+    levelLabel: niva === 'grund' ? 'Grund' : niva === 'avancerad' ? 'Avancerad' : 'Expert',
+    ...counts(`${prefix}-${niva}`),
+    isPremiumLocked: false,
+  }));
+}
+
+export const TALSERIE_TESTS = steg2Tester('talserier', 'Talserier', 'Talföljder · luckor');
+export const SPATIAL_TESTS = steg2Tester('spatial', 'Spatial förmåga', 'Vrida · vika · tärningar');
+
+/** Provraden innan I-prov-provet finns: dämpad, utan lås. */
+const PROV_TYST_IPROV = { rad1: 'Övningsprov mot klockan', rad2: 'Kommer med övningsprovet för I-prov 2025.' };
+
+const TALSERIE_GROUP: TestGroup = {
+  key: 'talserie',
+  heading: 'Talserier',
+  blurb: 'En lucka på grund, två från avancerad som i I-provet. Du väljer talen som fortsätter raden.',
+  searchHint: 'Kallas även talföljder eller nummerserier',
+  cognitive: TALSERIE_TESTS,
+  personality: [],
+  provTyst: PROV_TYST_IPROV,
+};
+
+const SPATIAL_GROUP: TestGroup = {
+  key: 'spatial',
+  heading: 'Spatial förmåga',
+  blurb: 'Vriden figur, pappersvikning och tärningar. Kallas också rumsuppfattning.',
+  searchHint: 'Kallas även rumsuppfattning, rotationstest eller pappersvikning',
+  cognitive: SPATIAL_TESTS,
+  personality: [],
+  provTyst: PROV_TYST_IPROV,
+};
+
 export const TEST_GROUPS: TestGroup[] = [
   {
     key: 'logik',
@@ -315,6 +362,8 @@ export const TEST_GROUPS: TestGroup[] = [
   },
   ...(figurserierSynliga() ? [FIGURER_GROUP] : []),
   ...(deduktivSynlig() ? [DEDUKTIV_GROUP] : []),
+  ...(steg2Synlig('talserie') ? [TALSERIE_GROUP] : []),
+  ...(steg2Synlig('spatial') ? [SPATIAL_GROUP] : []),
   {
     key: 'verbal',
     heading: 'Verbalt test',
@@ -356,6 +405,9 @@ export const GRUPP_FOR_DELTYP: Record<string, TestGroupKey> = {
   matris: 'logik',
   figurserie: 'figurer',
   deduktiv: 'deduktiv',
+  talserie: 'talserie',
+  spatial: 'spatial',
+  ordforrad: 'ordforrad',
   verbal: 'verbal',
   numerisk: 'numerisk',
   personlighet: 'personlighet',

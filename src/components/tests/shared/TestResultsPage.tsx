@@ -34,7 +34,7 @@ import { kopstegHref } from '@/lib/onboarding/steps'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import { KIND_LABEL, LEVEL_LABEL, TEST_CONFIGS, testPaths, totalForSession, type TestConfig, type TestLevel } from '@/app/dashboard/tester/testConfig'
+import { KIND_LABEL, LEVEL_LABEL, TEST_CONFIGS, arSteg2Kind, testPaths, totalForSession, type TestConfig, type TestLevel } from '@/app/dashboard/tester/testConfig'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
 import { scopeHasFeature, type Scope } from '@/lib/access/features'
 import { logUserActivity } from '@/lib/activity-logger'
@@ -63,6 +63,7 @@ const MatrixQuestionReview = dynamic(() => import('./reviews/MatrixQuestionRevie
 const NumericalReview = dynamic(() => import('./reviews/NumericalReview'), { loading: ReviewFallback })
 const FigurserieReview = dynamic(() => import('@/components/tests/serie/FigurserieReview'), { loading: ReviewFallback })
 const DeduktivReview = dynamic(() => import('@/components/tests/deduktiv/DeduktivReview'), { loading: ReviewFallback })
+const Steg2Review = dynamic(() => import('@/components/tests/steg2/Steg2Review'), { loading: ReviewFallback })
 const VerbalReview = dynamic(() => import('./reviews/VerbalReview'), { loading: ReviewFallback })
 
 interface SessionData {
@@ -80,6 +81,8 @@ interface SessionData {
   serie?: GenomgangSerie[] | null
   /** Deduktivens genomgång, byggd på servern. */
   deduktiv?: GenomgangDeduktiv[] | null
+  /** Steg 2: genomgången, byggd på servern. */
+  steg2?: unknown[] | null
 }
 
 
@@ -176,6 +179,7 @@ export default function TestResultsPage({
           genomgang: fromServer.session.genomgang ?? null,
           serie: fromServer.session.serie ?? null,
           deduktiv: fromServer.session.deduktiv ?? null,
+          steg2: fromServer.session.steg2 ?? null,
           meta: fromServer.session.meta,
         }
       : null
@@ -208,7 +212,7 @@ export default function TestResultsPage({
     const load = async () => {
       try {
         // Matrislogikens session-API svarar på ?id= med raden och genomgången.
-        if (config.kind === 'matris' || config.kind === 'figurserie' || config.kind === 'deduktiv') {
+        if (config.kind === 'matris' || config.kind === 'figurserie' || config.kind === 'deduktiv' || arSteg2Kind(config.kind)) {
           const res = await fetch(`${config.api}/session?id=${sessionId}`)
           if (!res.ok) throw new Error('missing')
           const data = await res.json()
@@ -219,6 +223,8 @@ export default function TestResultsPage({
                 ? { ...(data.session as SessionData), serie: data.genomgang ?? null }
                 : config.kind === 'deduktiv'
                 ? { ...(data.session as SessionData), deduktiv: data.genomgang ?? null }
+                : arSteg2Kind(config.kind)
+                ? { ...(data.session as SessionData), steg2: data.genomgang ?? null }
                 : { ...(data.session as SessionData), genomgang: data.genomgang ?? null }
             )
             setState('ready')
@@ -329,7 +335,7 @@ export default function TestResultsPage({
     if (namn && n && n >= 2) samma = RESULTAT.genomgang.sammaFamilj(n, missar.length, namn, figur)
   }
 
-  const regel = prov ? RESULTAT.genomgang.regel.prov : RESULTAT.genomgang.regel[config.kind as 'matris' | 'figurserie' | 'deduktiv' | 'verbal' | 'numerisk']
+  const regel = prov ? RESULTAT.genomgang.regel.prov : RESULTAT.genomgang.regel[config.kind as Exclude<typeof config.kind, 'personlighet'>]
   const tempo = analys.tempo
   // Per underlag talar tempot om texter eller tabeller, annars om frågorna.
   const tempoOrd = tempo?.enhet === 'underlag' ? enhetsord(config.kind) : sak
@@ -341,7 +347,7 @@ export default function TestResultsPage({
   const rad = bast === null ? null : score >= bast ? RESULTAT.bast.nu : RESULTAT.bast.tidigare(bast, total)
 
   const harTappade = analys.grupper.length > 0
-  const term = RESULTAT.tappade.term[config.kind as 'matris' | 'figurserie' | 'deduktiv' | 'verbal' | 'numerisk']
+  const term = RESULTAT.tappade.term[config.kind as Exclude<typeof config.kind, 'personlighet'>]
 
   const gaIgenom = (nr?: number) => oppna(nr ? [nr - 1] : missar.map((f) => f.nr - 1))
   const visaAlla = () => oppna([])
@@ -399,6 +405,7 @@ export default function TestResultsPage({
             genomgang={matris ? session.genomgang : null}
             serie={serie ? session.serie : null}
             deduktiv={deduktiv ? session.deduktiv : null}
+            steg2={arSteg2Kind(config.kind) ? session.steg2 : null}
             sak={sak}
             regel={regel}
             samma={samma}
@@ -444,6 +451,15 @@ export default function TestResultsPage({
               <FigurserieReview
                 answers={answers as never}
                 fragor={session.serie ?? []}
+                sessionId={sessionId}
+                key={genomgang.join(',')}
+                oppnaFran={genomgang}
+              />
+            ) : arSteg2Kind(config.kind) ? (
+              <Steg2Review
+                kind={config.kind}
+                answers={answers as never}
+                fragor={session.steg2 ?? []}
                 sessionId={sessionId}
                 key={genomgang.join(',')}
                 oppnaFran={genomgang}

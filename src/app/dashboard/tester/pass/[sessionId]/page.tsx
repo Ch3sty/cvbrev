@@ -15,6 +15,8 @@ import { figurPassVy, hamtaFigurPass } from '@/lib/tester/pass-figur.server'
 import DeduktivPassFlode from '@/components/traning/deduktivpass/DeduktivPassFlode'
 import { deduktivPassVy, hamtaDeduktivPass } from '@/lib/tester/pass-deduktiv.server'
 import NivakollFlode from '@/components/traning/nivakoll/NivakollFlode'
+import Steg2PassFlode from '@/components/traning/steg2pass/Steg2PassFlode'
+import { hamtaSteg2Pass, steg2PassVy } from '@/lib/tester/steg2/pass.server'
 import { hamtaNivakoll, nivakollVy } from '@/lib/nivakoll/motor.server'
 import { testSkrivKlient } from '@/lib/tests/skrivKlient'
 import { passSida } from '../sida.server'
@@ -41,6 +43,10 @@ export default async function PassSessionSida({ params }: { params: Promise<{ se
     const dedu = await hamtaDeduktivPass(admin, userId, sessionId)
     const deduVy = dedu ? deduktivPassVy(dedu) : null
     if (deduVy) return <DeduktivPassFlode vy={deduVy} />
+    // Passen i testplanens steg 2 har samma adress.
+    const s2 = await hamtaSteg2Pass(admin, userId, sessionId)
+    const s2Vy = s2 ? steg2PassVy(s2) : null
+    if (s2Vy) return <Steg2PassFlode vy={s2Vy} />
     // Nivåkollen för de andra testtyperna har samma adress (testplanen steg 1).
     const koll = await hamtaNivakoll(admin, userId, sessionId)
     const kollVy = koll ? nivakollVy(koll) : null

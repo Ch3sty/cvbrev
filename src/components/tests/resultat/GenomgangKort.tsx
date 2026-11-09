@@ -22,6 +22,7 @@ import type { GenomgangSerie } from '@/lib/figurserierV1/types'
 import { SerieMiniatyr } from '@/components/tests/serie/FigurserieRad'
 import type { GenomgangDeduktiv } from '@/lib/deduktivV1/types'
 import { DeduktivMiniatyr } from '@/components/tests/deduktiv/DeduktivReview'
+import { Steg2Miniatyr } from '@/components/tests/steg2/Uppgifter'
 import type { ResultatFraga } from '@/lib/tester/resultat'
 import { RESULTAT, type Sakord } from '@/lib/tester/copy'
 
@@ -37,6 +38,8 @@ export interface GenomgangKortProps {
   serie?: GenomgangSerie[] | null
   /** Deduktivens uppgifter i visad ordning: miniatyren är remsan (deduktiv-spec 5.1). */
   deduktiv?: GenomgangDeduktiv[] | null
+  /** Steg 2: uppgifterna i visad ordning, miniatyren är talraden eller referensfiguren. */
+  steg2?: unknown[] | null
   sak: Sakord
   regel: string
   /** "Två av tre är samma familj: ..." eller null. */
@@ -87,6 +90,7 @@ export default function GenomgangKort(p: GenomgangKortProps) {
             const fraga = p.genomgang?.[f.nr - 1]
             const serie = p.serie?.[f.nr - 1]
             const deduktiv = p.deduktiv?.[f.nr - 1]
+            const steg2 = p.steg2?.[f.nr - 1]
             return (
               <li key={f.nr} className={i < VISAS ? 'min-w-0' : 'hidden min-w-0 lg:block'}>
                 <button
@@ -94,7 +98,9 @@ export default function GenomgangKort(p: GenomgangKortProps) {
                   onClick={() => p.onGaIgenom(f.nr)}
                   className={`block h-full w-full rounded-xl border border-kant bg-papper p-2 text-left hover:border-kant-stark sm:p-2.5 ${fler ? 'lg:p-1.5' : ''}`}
                 >
-                  {deduktiv ? (
+                  {steg2 ? (
+                    <Steg2Miniatyr g={steg2} />
+                  ) : deduktiv ? (
                     <span className="flex aspect-square items-center justify-center">
                       <DeduktivMiniatyr schema={deduktiv.losning.schema} />
                     </span>

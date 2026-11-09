@@ -19,7 +19,12 @@
 
 import type { Feature } from '@/lib/access/features'
 
-export type TestKind = 'matris' | 'figurserie' | 'deduktiv' | 'verbal' | 'numerisk' | 'personlighet'
+export type TestKind = 'matris' | 'figurserie' | 'deduktiv' | 'talserie' | 'spatial' | 'ordforrad' | 'verbal' | 'numerisk' | 'personlighet'
+/** Testplanen steg 2: de tre nya typerna med gemensam motorväg (/api/steg2/[kind]). */
+export type Steg2Kind = 'talserie' | 'spatial' | 'ordforrad'
+export function arSteg2Kind(k: unknown): k is Steg2Kind {
+  return k === 'talserie' || k === 'spatial' || k === 'ordforrad'
+}
 export type TestLevel = 'grund' | 'avancerad' | 'expert' | 'prov'
 
 /** Nivåns etikett i UI. Prov är inte en svårighetsgrad utan ett läge. */
@@ -35,9 +40,38 @@ export const KIND_LABEL: Record<TestKind, string> = {
   matris: 'Logiktest',
   figurserie: 'Figurserier',
   deduktiv: 'Deduktiv slutledning',
+  talserie: 'Talserier',
+  spatial: 'Spatial förmåga',
+  ordforrad: 'Ordförråd',
   verbal: 'Verbalt resonemang',
   numerisk: 'Numeriskt test',
   personlighet: 'Personlighetstest',
+}
+
+/** Steg 2: tre nivåtest per typ, 15 uppgifter, 12, 15 och 18 minuter (briefen avsnitt 2 och 3). */
+function steg2Nivaer(kind: Steg2Kind, prefix: string, namn: string, description: string, blurbs: [string, string, string]): TestConfig[] {
+  const nivaer = ['grund', 'avancerad', 'expert'] as const
+  const etikett = { grund: 'grundnivå', avancerad: 'avancerad nivå', expert: 'expertnivå' } as const
+  const minuter = { grund: 12, avancerad: 15, expert: 18 } as const
+  return nivaer.map((level, i) => {
+    const slug = `${prefix}-${level}`
+    return {
+      slug,
+      kind,
+      level,
+      title: `${namn}, ${etikett[level]}`,
+      description,
+      levelBlurb: blurbs[i],
+      api: `/api/steg2/${kind}`,
+      startBody: { test_type: slug },
+      sessionQuery: `test_type=${slug}`,
+      totalQuestions: 15,
+      minutes: minuter[level],
+      quotaFeature: `test:${slug}`,
+      ...(level === 'grund' ? {} : { requiresFeature: 'tests_above_base' as Feature }),
+      ...(i < 2 ? { nextSlug: `${prefix}-${nivaer[i + 1]}` } : {}),
+    }
+  })
 }
 
 export interface TestConfig {
@@ -270,6 +304,22 @@ export const TEST_CONFIGS: TestConfig[] = [
     quotaFeature: 'test:deduktiv-expert',
     requiresFeature: 'tests_above_base',
   },
+
+  /* ------------------------- Testplanen steg 2 --------------------------- */
+  // Talserier och spatial förmåga (brief-tester-steg2 avsnitt 2 och 3): 15
+  // uppgifter, 12, 15 och 18 minuter. Grund fri, övriga tests_above_base.
+  // Sessionerna i logic_test_v4_sessions med test_type = slugen. Syns först
+  // när motor och vy är klara (src/lib/tester/steg2Status.ts).
+  ...steg2Nivaer('talserie', 'talserier', 'Talserier', 'En rad tal och en eller två luckor sist. Du väljer talen som fortsätter raden.', [
+    'Fem eller sex tal och en lucka sist. Hitta regeln, ett steg i taget.',
+    'Sex tal och två luckor sist, som i I-provet. Den andra luckan beror ofta på den första.',
+    'Två luckor, negativa tal och regler som blandar gånger och plus. Leta efter två serier om vartannat.',
+  ]),
+  ...steg2Nivaer('spatial', 'spatial', 'Spatial förmåga', 'Vrida, vika och se i tre dimensioner. Kallas också rumsuppfattning.', [
+    'Vriden figur, pappersvikning och tärningar, fem av varje. Små figurer och en vikning.',
+    'Större figurer, två vikningar och tärningar med riktade symboler.',
+    'Speglingar som liknar vridningar, tre vikningar och tärningar där en sida räcker.',
+  ]),
 
   /* ---------------------------- Verbalt resonemang -------------------------- */
   {

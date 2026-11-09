@@ -35,7 +35,7 @@ import { lastAria } from '@/lib/traning/hem-copy';
 import { paketKort } from '@/lib/plans/plans';
 import { HjalpKnapp } from '@/components/hjalp';
 import { hjalpRuta, type HjalpId } from '@/lib/traning/hjalp-copy';
-import { IlluDeduktiv, IlluMatris, IlluNumeriskt, IlluVerbalt, type IlluProvbladProps } from '@/components/traning/illu';
+import { IlluDeduktiv, IlluMatris, IlluNumeriskt, IlluOrdforrad, IlluSpatial, IlluTalserie, IlluVerbalt, type IlluProvbladProps } from '@/components/traning/illu';
 
 interface Props {
   group: TestGroup;
@@ -51,6 +51,9 @@ export const FRAGA: Record<string, string> = {
   logik: 'Vilken figur kommer härnäst?',
   figurer: 'Vilken figur kommer härnäst i raden?',
   deduktiv: 'Vem står var när alla villkor gäller?',
+  talserie: 'Vilka tal kommer härnäst?',
+  spatial: 'Vrida, vika och se i tre dimensioner',
+  ordforrad: 'Synonymer och motsatsord',
   verbal: 'Stämmer påståendet med texten?',
   numerisk: 'Läs tabellen och räkna under tid.',
 };
@@ -60,6 +63,9 @@ export const BILD: Record<string, ComponentType<IlluProvbladProps>> = {
   logik: IlluMatris,
   figurer: IlluMatris,
   deduktiv: IlluDeduktiv,
+  talserie: IlluTalserie,
+  spatial: IlluSpatial,
+  ordforrad: IlluOrdforrad,
   verbal: IlluVerbalt,
   numerisk: IlluNumeriskt,
 };
@@ -74,6 +80,9 @@ const HJALP: Record<string, readonly HjalpId[]> = {
   logik: ['B1', 'B2'],
   figurer: ['B10'],
   deduktiv: ['B11'],
+  talserie: ['B12'],
+  spatial: ['B13'],
+  ordforrad: ['B14'],
   verbal: ['B3', 'B4'],
   numerisk: ['B5', 'B6'],
 };
@@ -86,6 +95,9 @@ const ETIKETT_KNAPP: Record<string, string> = {
   logik: 'Vad mäter logiktestet?',
   figurer: 'Vad är figurserier?',
   deduktiv: 'Vad är deduktiv slutledning?',
+  talserie: 'Vad är talserier?',
+  spatial: 'Vad är spatial förmåga?',
+  ordforrad: 'Vad är ordförråd?',
   verbal: 'Vad mäter det verbala testet?',
   numerisk: 'Vad mäter det numeriska testet?',
 };
@@ -215,7 +227,8 @@ export default function TestKategori({ group, perTest, plan = null, scope = null
       {nagotGjort ? <p className="mt-1.5 text-[11px] leading-[14px] text-ink-3">{NIVAETIKETT}</p> : null}
 
       {/* Nivåkollen per testtyp (testplanen steg 1): logiken har matrisens. */}
-      {group.key !== 'personlighet' ? (
+      {/* Nivåkollen finns inte för steg 2:s typer än (adaptiv nivå väntar på kalibrerade banker). */}
+      {group.key !== 'personlighet' && group.key !== 'talserie' && group.key !== 'spatial' && group.key !== 'ordforrad' ? (
         <NivakollRad
           href={group.key === 'logik' ? passHref('matning') : nivakollHref(group.key === 'figurer' ? 'figurserie' : group.key)}
           titel={NIVAKOLL_COPY.rad.titel}

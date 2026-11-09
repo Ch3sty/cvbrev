@@ -46,6 +46,7 @@ import MittTestRad from './components/MittTestRad';
 import FlerTester, { flerMeta, type FlerRad } from './components/FlerTester';
 import { GRUPP_FOR_DELTYP } from './components/testCatalog';
 import { SymDeduktiv, SymFigurer, SymMatris, SymOrd, SymPerson, SymSiffror } from '@/components/illustrations/RumSymboler';
+import { SymOrdforrad, SymSpatial, SymTalserie } from '@/components/tests/steg2/Symboler';
 import { MITT_TEST_COPY, deltesterForPlan, mittTestNamn, mittTestUrPlan } from '@/lib/traning/mittTest';
 import { dagarMellan, dagSthlm } from '@/lib/traning/datum';
 import AllaTesterVagg, { saGarDetTillSteg } from './components/AllaTesterVagg';
@@ -129,6 +130,9 @@ const SYM_FOR_GRUPP: Record<string, ComponentType<{ size?: number; className?: s
   verbal: SymOrd,
   numerisk: SymSiffror,
   personlighet: SymPerson,
+  talserie: SymTalserie,
+  spatial: SymSpatial,
+  ordforrad: SymOrdforrad,
 };
 
 function gruppFor(slug: string) {
@@ -165,11 +169,30 @@ export default function TesterHubClient({
   // Nästa test (analysen 22 september, avsnitt 4): logiktestet på grundnivå
   // för den som inte gjort något, annars det första test som ingår och inte
   // är gjort. Talen står i faktaraden, aldrig i texten.
+  // Med Mitt test valt föreslås nästa test bland valets deltester (steg 2).
+  const valdaGrupper = (deltesterForPlan(plan) ?? [])
+    .map((t) => TEST_GROUPS.find((g) => g.key === GRUPP_FOR_DELTYP[t]))
+    .filter((g): g is (typeof TEST_GROUPS)[number] => !!g && g.cognitive.length > 0);
+  const kandidater = valdaGrupper.length ? valdaGrupper.flatMap((g) => g.cognitive) : ALL_COGNITIVE_TESTS;
+
   const nasta: NastaTest | null = (() => {
     const fakta = (t: (typeof ALL_COGNITIVE_TESTS)[number]) => [
       { tal: String(t.questionCount), etikett: 'frågor' },
       { tal: t.timeLabel, etikett: 'minuter' },
     ];
+    if (!hasAnyData && valdaGrupper.length && valdaGrupper[0].key !== 'logik') {
+      const g = valdaGrupper[0];
+      const t = g.cognitive[0];
+      return {
+        eyebrow: 'Börja här',
+        titel: `${g.heading}, ${t.levelLabel.toLowerCase()}`,
+        text: 'Ingår i ditt test. Grundnivån är gratis, med genomgång efter testet.',
+        href: testPaths.hub(t.slug),
+        knapp: 'Starta första testet',
+        fakta: fakta(t),
+        Bild: BILD[g.key] ?? IlluMatris,
+      };
+    }
     if (!hasAnyData) {
       const t = ALL_COGNITIVE_TESTS[0];
       return {
@@ -182,7 +205,7 @@ export default function TesterHubClient({
         Bild: IlluMatris,
       };
     }
-    const t = ALL_COGNITIVE_TESTS.find((x) => {
+    const t = kandidater.find((x) => {
       const f = featureForSlug(x.slug);
       return (perTest[x.slug]?.attempts ?? 0) === 0 && (!f || scopeHasFeature(scope, f));
     });

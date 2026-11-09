@@ -34,7 +34,8 @@ import { HEM, ingarIPaketet, kopKnapp, jobbsokRad, lastAria, prisrad } from './h
 import { paketKort } from '@/lib/plans/plans';
 import type { BetalvaggPlats } from '@/lib/analytics/events';
 import { byggPlan, type PlanDag } from './plan';
-import { TRANING_RUTT, nivakollHref } from './rutter';
+import { TRANING_RUTT, nivakollHref, steg2PassHref } from './rutter';
+import { steg2Synlig } from '@/lib/tester/steg2Status';
 import type { NivakollKind } from '@/lib/nivakoll/niva';
 import { kryssUrPlan, mittTestUrPlan, passForDag, passtyper } from './mittTest';
 import {
@@ -93,7 +94,7 @@ export type Hoger =
   | { typ: 'bock'; text: string }
   | { typ: 'chev' };
 
-export type Symbol = 'matris' | 'siffror' | 'ord' | 'figurer' | 'deduktiv' | 'person' | 'jobb' | 'brev';
+export type Symbol = 'matris' | 'siffror' | 'ord' | 'figurer' | 'deduktiv' | 'talserie' | 'spatial' | 'person' | 'jobb' | 'brev';
 
 export interface RadModell {
   titel: string;
@@ -409,15 +410,15 @@ export function vnPassSektion(s: Traningsstatus, testtyper: readonly string[]): 
   const rader: RadModell[] = [];
   // Passrotationen (testplanen steg 2): deltestet på tur i dag står först.
   const iDag = dagensRotation(s);
-  const kinds: NivakollKind[] = [];
+  const kinds: string[] = [];
   /**
    * En passrad. Utan Nivåkoll för typen leder raden till Nivåkollen, som är
    * gratis och väljer passets nivå (testplanen steg 1); annars passet, låst
    * för gratis.
    */
-  const rad = (a: { kind: NivakollKind; titel: string; meta: string; symbol: Symbol; href: string; gjord: boolean; nivakollKravs: boolean }) => {
+  const rad = (a: { kind: NivakollKind | 'talserie' | 'spatial'; titel: string; meta: string; symbol: Symbol; href: string; gjord: boolean; nivakollKravs: boolean }) => {
     kinds.push(a.kind);
-    if (a.nivakollKravs && !a.gjord && !s.nivakoll?.[a.kind]) {
+    if (a.nivakollKravs && !a.gjord && a.kind !== 'talserie' && a.kind !== 'spatial' && !s.nivakoll?.[a.kind]) {
       rader.push({ titel: a.titel, meta: V.nivakollForst, symbol: a.symbol, svag: true, hoger: { typ: 'lank', text: V.kolla, href: nivakollHref(a.kind) } });
       return;
     }
@@ -474,6 +475,21 @@ export function vnPassSektion(s: Traningsstatus, testtyper: readonly string[]): 
       nivakollKravs: true,
     });
   }
+  // Testplanen steg 2: talseriepasset och spatialpasset när typen syns och
+  // planen har den, eller ett nivåtest i typen är gjort. Ingen Nivåkoll än.
+  for (const kind of ['talserie', 'spatial'] as const) {
+    if (!steg2Synlig(kind)) continue
+    if (!testtyper.includes(kind) && !s.steg2Gjord?.[kind]) continue
+    rad({
+      kind,
+      titel: kind === 'talserie' ? V.talseriepass : V.spatialpass,
+      meta: kind === 'talserie' ? V.talserieMeta : V.spatialMeta,
+      symbol: kind,
+      href: steg2PassHref(kind),
+      gjord: s.vnPassIdag?.[kind] ?? false,
+      nivakollKravs: false,
+    })
+  }
   const i = iDag ? kinds.indexOf(iDag) : -1;
   if (i > 0) rader.unshift(...rader.splice(i, 1));
   return rader.length ? { typ: 'rader', nyckel: 'vnpass', rubrik: V.rubrik, rader } : null;
@@ -487,14 +503,14 @@ const ROTATION_START: Dag = '2026-11-02';
  * dem som har ett pass i hemvyn. Null utan val, eller när valet bara har ett
  * deltest (då är dagens pass alltid detsamma).
  */
-export function dagensRotation(s: Pick<Traningsstatus, 'plan' | 'idag'>): NivakollKind | null {
+export function dagensRotation(s: Pick<Traningsstatus, 'plan' | 'idag'>): string | null {
   const p = s.plan;
   if (!p?.mitt_test) return null;
   const typer = passtyper(mittTestUrPlan(p), kryssUrPlan(p)).filter(
-    (t): t is NivakollKind => t === 'verbal' || t === 'numerisk' || t === 'figurserie' || t === 'deduktiv'
+    (t) => t === 'verbal' || t === 'numerisk' || t === 'figurserie' || t === 'deduktiv' || t === 'talserie' || t === 'spatial'
   );
   if (typer.length < 2) return null;
-  return passForDag(typer, ROTATION_START, s.idag) as NivakollKind | null;
+  return passForDag(typer, ROTATION_START, s.idag);
 }
 
 export const MITT_TEST_HEM = {
@@ -800,6 +816,37 @@ export function byggHemvy(inp: HemIn): HemModell {
           lank: { text: HEM.utanDatum.sattDatum, href: TRANING_RUTT.installningarSteg(3) },
         },
       ],
+    };
+  }
+
+  /* ---------- 1r: I-prov 2025 (testplanen steg 2). Matrisen ingår inte;
+     dagens pass är deltestet på tur i rotationen. Utan Premium leder kortet
+     till nivåtestet på grundnivå, som är gratis. */
+  const rotation = dagensRotation(s);
+  if (niva == null && s.plan?.mitt_test === 'iprov' && (rotation === 'talserie' || rotation === 'spatial' || (!rotation && testtyper.some((t) => t === 'talserie' || t === 'spatial')))) {
+    const kind = (rotation === 'talserie' || rotation === 'spatial' ? rotation : testtyper.includes('spatial') ? 'spatial' : 'talserie') as 'talserie' | 'spatial';
+    const V = HEM.vnPass;
+    const titel = kind === 'spatial' ? 'Spatial förmåga, sex uppgifter' : 'Talserier, sex uppgifter';
+    return {
+      tillstand: 'annat_test',
+      ram: '1t',
+      kontext: kontext(s),
+      nyPunkt: false,
+      vagg: {
+        rubrik: prov && dagarKvar != null && dagarKvar >= 0 ? rubrikForeProv(ri, dagarKvar) : HEM.rubrikUtanDatum,
+        rad: 'Passen går i tur och ordning mellan deltesterna i I-prov 2025. Ett kort pass varje dag.',
+      },
+      lyft: {
+        label: 'Dagens pass',
+        eyebrow: HEM.pass.eyebrow,
+        eyebrowTon: 'koppar',
+        titel,
+        text: kind === 'spatial' ? V.spatialMeta : V.talserieMeta,
+        handling: betalande
+          ? { typ: 'lank', text: HEM.pass.knapp, href: steg2PassHref(kind) }
+          : { typ: 'lank', text: 'Gör nivåtestet, grund', href: `/dashboard/tester/${kind === 'spatial' ? 'spatial' : 'talserier'}-grund` },
+      },
+      sektioner: [...vnLista, fler, jobb],
     };
   }
 

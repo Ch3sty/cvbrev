@@ -119,3 +119,32 @@ export const fetchNivakollApi: NivakollApi = {
   svara: (inp) => post('/api/traning/nivakoll/svar', inp),
   slutfor: (sessionId) => post('/api/traning/nivakoll/slutfor', { sessionId }),
 };
+
+/* ------------------------- Steg 2: talserier och spatial ------------------------- */
+// Testplanen steg 2: /api/traning/steg2pass. Prop i Steg2PassFlode.
+
+import type { Steg2Aterkoppling, Steg2PassKind, Steg2PassVy } from './steg2/pass';
+
+export interface Steg2PassApi {
+  skapa(kind: Steg2PassKind, grupp: string | null): Promise<{ ok: true; session: Steg2PassVy } | VnFel>;
+  svara(inp: { sessionId: string; nyckel: string; visat: number | null; tid: number }): Promise<
+    { ok: true; nyckel: string; aterkoppling: Steg2Aterkoppling; besvarade: number; antal: number; klar: boolean } | VnFel
+  >;
+  slutfor(sessionId: string): Promise<{ ok: true; session: Steg2PassVy } | VnFel>;
+  session(sessionId: string): Promise<Steg2PassVy | null>;
+}
+
+export const fetchSteg2PassApi: Steg2PassApi = {
+  skapa: (kind, grupp) => post('/api/traning/steg2pass/session', { kind, grupp }),
+  svara: (inp) => post('/api/traning/steg2pass/svar', inp),
+  slutfor: (sessionId) => post('/api/traning/steg2pass/slutfor', { sessionId }),
+  async session(sessionId) {
+    try {
+      const res = await fetch(`/api/traning/steg2pass/session?id=${encodeURIComponent(sessionId)}`, { cache: 'no-store' });
+      if (!res.ok) return null;
+      return ((await res.json()) as { session: Steg2PassVy }).session ?? null;
+    } catch {
+      return null;
+    }
+  },
+};

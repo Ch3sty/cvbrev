@@ -11,8 +11,8 @@ export type Steg2Typ = 'talserie' | 'spatial' | 'ordforrad';
 
 /** Sätts per typ när motor och vy är klara och klicktestade. */
 export const VY_KLAR: Record<Steg2Typ, boolean> = {
-  talserie: false,
-  spatial: false,
+  talserie: true,
+  spatial: true,
   ordforrad: false,
 };
 

@@ -19,7 +19,7 @@ export type HjalpGrupp = 'A' | 'B' | 'C' | 'D' | 'E'
 
 export type HjalpId =
   | 'A1' | 'A2' | 'A3' | 'A4' | 'A5'
-  | 'B1' | 'B2' | 'B3' | 'B4' | 'B5' | 'B6' | 'B7' | 'B8' | 'B9' | 'B10' | 'B11'
+  | 'B1' | 'B2' | 'B3' | 'B4' | 'B5' | 'B6' | 'B7' | 'B8' | 'B9' | 'B10' | 'B11' | 'B12' | 'B13' | 'B14'
   | 'C1' | 'C2' | 'C3' | 'C4' | 'C5' | 'C6'
   | 'D1' | 'D2' | 'D3'
   | 'E1' | 'E2' | 'E3'
@@ -145,6 +145,26 @@ export const HJALP_RUTOR: Record<HjalpId, HjalpRutaText> = {
     grupp: 'B',
     rubrik: 'Deduktiv slutledning: vad är det?',
     text: 'Du får några påståenden, eller några personer med villkor på var de står, och ska avgöra vad som måste gälla. Det mäter om du drar bara de slutsatser villkoren tillåter, varken fler eller färre. Samma format som den deduktiva delen i SHL Verify G+ och Aons deduktiva test. Läs ett villkor i taget och lås först det som bara kan stå på ett sätt.',
+  },
+
+  // Testplanen steg 2 (brief-tester-steg2 avsnitt 2 till 4).
+  B12: {
+    id: 'B12',
+    grupp: 'B',
+    rubrik: 'Talserier: vad är det?',
+    text: 'Du ser en rad tal och en eller två tomma rutor sist. Talen följer en regel, till exempel plus fem, gånger två, en skillnad som växer eller två serier som turas om, och du väljer talen som fortsätter raden. Med två luckor väljer du ett talpar i ordning, vänster lucka först. Samma uppgiftstyp som talserierna i I-prov 2025. Skriv ner skillnaden mellan talen innan du tittar på alternativen.',
+  },
+  B13: {
+    id: 'B13',
+    grupp: 'B',
+    rubrik: 'Spatial förmåga: vad är det?',
+    text: 'Spatial förmåga, eller rumsuppfattning, är hur väl du vrider, viker och vänder figurer i huvudet. Testet har tre slags uppgifter: en figur som ska vara vriden och inte speglad, ett papper som viks och stansas, och tärningar sedda från olika håll. Samma uppgiftstyper som pappersvikning och tärningar i I-prov 2025. Leta efter det som avslöjar ett fel alternativ, i stället för att föreställa dig hela figuren.',
+  },
+  B14: {
+    id: 'B14',
+    grupp: 'B',
+    rubrik: 'Ordförråd: vad är det?',
+    text: 'Du ser ett ord i versaler och väljer det ord som betyder ungefär detsamma, eller det som betyder motsatsen. Etiketten ovanför ordet säger vilket, så läs den varje gång. Samma uppgiftstyp som synonymer och motsatsord i I-prov 2025.',
   },
 
   C1: {

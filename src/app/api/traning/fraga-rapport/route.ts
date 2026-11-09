@@ -36,7 +36,7 @@ export async function POST(request: Request) {
     // Figurserier före migreringen 20261012130000 och deduktiv före
     // 20261012160000: kontrollvillkoret känner inte testtypen. Spara som
     // matris; id:t fs-... eller dd-... skiljer dem åt.
-    if (error?.code === '23514' && (rad.test_kind === 'figurserie' || rad.test_kind === 'deduktiv')) {
+    if (error?.code === '23514' && rad.test_kind !== 'matris') {
       ({ error } = await a.admin.from('fraga_rapporter').insert({ ...rad, test_kind: 'matris' }));
     }
     if (error) console.warn('[fraga-rapport] sparades inte, loggas här:', error.code ?? error.message, JSON.stringify(rad));

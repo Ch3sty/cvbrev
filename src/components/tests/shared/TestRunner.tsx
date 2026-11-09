@@ -20,6 +20,7 @@ import { MatrixTestSession } from '@/components/tests/matrix/MatrixTestSession'
 // Suspense-gräns och flyttade LCP efter JS-chunken (perf-inloggat 2026-10-12).
 import { FigurserieTestSession } from '@/components/tests/serie/FigurserieTestSession'
 import { DeduktivTestSession } from '@/components/tests/deduktiv/DeduktivTestSession'
+import { Steg2TestSession } from '@/components/tests/steg2/Steg2TestSession'
 import { NumericalTestSession } from '@/components/tests/numerical/NumericalTestSession'
 import { VerbalTestSession } from '@/components/tests/verbal/VerbalTestSession'
 import type { VerbalSessionPassage } from '@/components/tests/verbal/VerbalTestSession'
@@ -32,7 +33,7 @@ import { selectPassagesForSession as selectNumericalExpert } from '@/lib/numeric
 import { selectPassagesForSession as selectVerbalGrund } from '@/lib/verbalTestV1/selectPassages.v1'
 import { selectPassagesForSession as selectVerbalAvancerad } from '@/lib/verbalTestV2/selectPassages.v2'
 
-import { testPaths, type TestConfig } from '@/app/dashboard/tester/testConfig'
+import { arSteg2Kind, testPaths, type TestConfig } from '@/app/dashboard/tester/testConfig'
 import type { RunData } from '@/app/dashboard/tester/[slug]/getRunData'
 
 const TestLoading = () => (
@@ -155,6 +156,20 @@ export default function TestRunner({
   }
 
   // Deduktiv slutledning (beställningen omgång 3, B1): text, två spalter på dator.
+  // Testplanens steg 2: talserier, spatial förmåga, ordförråd.
+  if (arSteg2Kind(config.kind)) {
+    return (
+      <Steg2TestSession
+        kind={config.kind}
+        sessionId={sessionId}
+        level={config.level as 'grund' | 'avancerad' | 'expert'}
+        resultsPath={resultsPath}
+        initialRun={runData}
+        {...endpoints}
+      />
+    )
+  }
+
   if (config.kind === 'deduktiv') {
     return (
       <DeduktivTestSession

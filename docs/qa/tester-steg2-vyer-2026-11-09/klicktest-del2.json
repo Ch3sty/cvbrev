@@ -1,0 +1,1316 @@
+{
+  "bas": "http://localhost:5200",
+  "tid": "2026-11-09T15:25:29.019Z",
+  "ok": 166,
+  "totalt": 170,
+  "resultat": [
+    {
+      "namn": "p7-ljust-polisen-premium: kontot skapat",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: Fortsätt syns och är fri med samtyckesraden uppe",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: korten i ingången",
+      "ok": true,
+      "not": "iprov,matrigma,alva,shl,aon,lokforare,annat,personlighet"
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: varumärkesraden står med",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: ingången utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: Lokförare visar anmärkningen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: Annat fäller ut kryssrutorna, figurer förvalt",
+      "ok": true,
+      "not": "Figurer och mönster:true | Figurserier:false | Deduktiv slutledning:false | Ord och text:false | Siffror och tabeller:false | Talserier:false | Spatial förmåga:false | Personlighet:false"
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: Så lägger vi upp det för iprov",
+      "ok": true,
+      "not": "SÅ LÄGGER VI UPP DET | Passen | Spatial förmåga och talserier i tur och ordning. | Alla tester | Dina två deltester överst, resten under Fler tester."
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: ingången utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: planen sparad med valet",
+      "ok": true,
+      "not": "{\"mitt_test\":\"iprov\",\"mitt_test_variant\":\"polis\",\"extra_typer\":[\"ordforrad\",\"spatial\",\"talserie\"],\"testtyper\":[],\"leverantor\":null,\"provdatum\":\"2026-11-23\"}"
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: varianten Polisen sparad",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: hemvyn visar dagens pass ur I-provet",
+      "ok": true,
+      "not": "Bekräfta din e-post för att spara dokument permanent. |  | Skicka igen | Min plan | Alla tester | QA | 14 dagar till provet | Passen går i tur och ordning mellan deltesterna i I-prov 2025. Ett kort pass varje dag. | "
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: raden Mitt test överst",
+      "ok": true,
+      "not": "Polisen, I-prov 2025 | Mitt test. 14 dagar kvar. | Ändra"
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: Ingår i ditt test",
+      "ok": true,
+      "not": "spatial,talserie"
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: Fler tester har resten",
+      "ok": true,
+      "not": "logik,figurer,deduktiv,verbal,numerisk,personlighet"
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: Fler tester fäller ut kortet",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: Alla tester utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: Alla tester utan talstreck",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: talserier-grund visar en uppgift",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: talserier-grund uppgiften utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: talserier-grund sista alternativet syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: talserier-grund resultatet visas",
+      "ok": true,
+      "not": "Bekräfta din e-post för att spara dokument permanent. |  | Skicka igen | Talserier, grund | QA |  | TESTET KLART |  | 1 av 15 rätt |  | 0:02"
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: talserier-grund resultatet utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: talserier-grund genomgången visar facit",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatial-grund visar en uppgift",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatial-grund uppgiften utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatial-grund sista alternativet syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatial-grund resultatet visas",
+      "ok": true,
+      "not": "Bekräfta din e-post för att spara dokument permanent. |  | Skicka igen | Spatial förmåga, grund | QA |  | TESTET KLART |  | 1 av 15 rätt"
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatial-grund resultatet utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatial-grund genomgången visar facit",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatial-avancerad visar en uppgift",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatial-avancerad uppgiften utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatial-avancerad sista alternativet syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatial-avancerad resultatet visas",
+      "ok": true,
+      "not": "Bekräfta din e-post för att spara dokument permanent. |  | Skicka igen | Spatial förmåga, avancerad | QA |  | TESTET KLART |  | 2 av 15 "
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatial-avancerad resultatet utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatial-avancerad genomgången visar facit",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: talseriepasset utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: talseriepasset Vet inte syns och är fri",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: talseriepasset visar facit efter svaret",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: talseriepasset Nästa syns och är fri",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: talseriepassets resultat",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatialpasset utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatialpasset Vet inte syns och är fri",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatialpasset visar facit efter svaret",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatialpasset Nästa syns och är fri",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatialpassets resultat",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: hemvyn bockar passen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: Pass per testtyp räknar passen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: korten visar gjorda nivåer",
+      "ok": false,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: sessionerna sparade",
+      "ok": true,
+      "not": "[\"talserie-pass:1\",\"talserier-grund:1\",\"spatial-avancerad:2\",\"spatial-grund:1\",\"spatial-pass:1\"]"
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: inga konsolfel eller 4xx/5xx",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: kontot skapat",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: Fortsätt syns och är fri med samtyckesraden uppe",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: korten i ingången",
+      "ok": true,
+      "not": "iprov,matrigma,alva,shl,aon,lokforare,annat,personlighet"
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: varumärkesraden står med",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: ingången utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: Lokförare visar anmärkningen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: Annat fäller ut kryssrutorna, figurer förvalt",
+      "ok": true,
+      "not": "Figurer och mönster:true | Figurserier:false | Deduktiv slutledning:false | Ord och text:false | Siffror och tabeller:false | Talserier:false | Spatial förmåga:false | Personlighet:false"
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: Så lägger vi upp det för iprov",
+      "ok": true,
+      "not": "SÅ LÄGGER VI UPP DET | Passen | Spatial förmåga och talserier i tur och ordning. | Alla tester | Dina två deltester överst, resten under Fler tester."
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: ingången utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: planen sparad med valet",
+      "ok": true,
+      "not": "{\"mitt_test\":\"iprov\",\"mitt_test_variant\":\"polis\",\"extra_typer\":[\"ordforrad\",\"spatial\",\"talserie\"],\"testtyper\":[],\"leverantor\":null,\"provdatum\":\"2026-11-23\"}"
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: varianten Polisen sparad",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: hemvyn visar dagens pass ur I-provet",
+      "ok": true,
+      "not": "Bekräfta din e-post för att spara dokument permanent. |  | Skicka igen | Min plan | Alla tester | QA | 14 dagar till provet | Passen går i tur och ordning mellan deltesterna i I-prov 2025. Ett kort pass varje dag. | "
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: raden Mitt test överst",
+      "ok": true,
+      "not": "Polisen, I-prov 2025 | Mitt test. 14 dagar kvar. | Ändra"
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: Ingår i ditt test",
+      "ok": true,
+      "not": "spatial,talserie"
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: Fler tester har resten",
+      "ok": true,
+      "not": "logik,figurer,deduktiv,verbal,numerisk,personlighet"
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: Fler tester fäller ut kortet",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: Alla tester utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: Alla tester utan talstreck",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: talserier-grund visar en uppgift",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: talserier-grund uppgiften utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: talserier-grund sista alternativet syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: talserier-grund resultatet visas",
+      "ok": true,
+      "not": "Bekräfta din e-post för att spara dokument permanent. |  | Skicka igen | Talserier, grund | QA |  | TESTET KLART |  | 3 av 15 rätt |  | 0:02"
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: talserier-grund resultatet utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: talserier-grund genomgången visar facit",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: spatial-grund visar en uppgift",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: spatial-grund uppgiften utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: spatial-grund sista alternativet syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: spatial-grund resultatet visas",
+      "ok": true,
+      "not": "Bekräfta din e-post för att spara dokument permanent. |  | Skicka igen | Spatial förmåga, grund | QA |  | TESTET KLART |  | 3 av 15 rätt"
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: spatial-grund resultatet utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: spatial-grund genomgången visar facit",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: spatialpasset spärrat för gratis",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: korten visar gjorda nivåer",
+      "ok": false,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: sessionerna sparade",
+      "ok": true,
+      "not": "[\"talserier-grund:3\",\"spatial-grund:3\"]"
+    },
+    {
+      "namn": "p7-morkt-polisen-gratis: inga konsolfel eller 4xx/5xx",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: kontot skapat",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: Fortsätt syns och är fri med samtyckesraden uppe",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: korten i ingången",
+      "ok": true,
+      "not": "iprov,matrigma,alva,shl,aon,lokforare,annat,personlighet"
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: varumärkesraden står med",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: ingången utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: Lokförare visar anmärkningen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: Annat fäller ut kryssrutorna, figurer förvalt",
+      "ok": true,
+      "not": "Figurer och mönster:true | Figurserier:false | Deduktiv slutledning:false | Ord och text:false | Siffror och tabeller:false | Talserier:false | Spatial förmåga:false | Personlighet:false"
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: Så lägger vi upp det för iprov",
+      "ok": true,
+      "not": "SÅ LÄGGER VI UPP DET | Passen | Spatial förmåga och talserier i tur och ordning. | Alla tester | Dina två deltester överst, resten under Fler tester."
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: ingången utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: planen sparad med valet",
+      "ok": true,
+      "not": "{\"mitt_test\":\"iprov\",\"mitt_test_variant\":\"polis\",\"extra_typer\":[\"ordforrad\",\"spatial\",\"talserie\"],\"testtyper\":[],\"leverantor\":null,\"provdatum\":\"2026-11-23\"}"
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: varianten Polisen sparad",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: hemvyn visar dagens pass ur I-provet",
+      "ok": true,
+      "not": "Jobbcoach.ai | Rekryteringstester | CV | Personliga brev | Jobbsöket |  | REKRYTERINGSTESTER |  | Min plan | Kurvan | Alla tester | 8 | Övningsprov | Test och datum | Kom igång | 0 av 12 provade | 0/12 | QA | qa-steg2v-d1280-morkt-polis"
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: raden Mitt test överst",
+      "ok": true,
+      "not": "Polisen, I-prov 2025 | Mitt test. 14 dagar kvar. | Ändra"
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: Ingår i ditt test",
+      "ok": true,
+      "not": "spatial,talserie"
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: Fler tester har resten",
+      "ok": true,
+      "not": "logik,figurer,deduktiv,verbal,numerisk,personlighet"
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: Fler tester fäller ut kortet",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: Alla tester utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: Alla tester utan talstreck",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: talserier-grund visar en uppgift",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: talserier-grund uppgiften utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: talserier-grund sista alternativet syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: talserier-grund resultatet visas",
+      "ok": true,
+      "not": "Jobbcoach.ai | Rekryteringstester | CV | Personliga brev | Jobbsöket |  | REKRYTERINGSTESTER |  | Min plan | Kurvan | Alla tester | 8 | Övningsp"
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: talserier-grund resultatet utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: talserier-grund genomgången visar facit",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: spatial-grund visar en uppgift",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: spatial-grund uppgiften utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: spatial-grund sista alternativet syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: spatial-grund resultatet visas",
+      "ok": true,
+      "not": "Jobbcoach.ai | Rekryteringstester | CV | Personliga brev | Jobbsöket |  | REKRYTERINGSTESTER |  | Min plan | Kurvan | Alla tester | 8 | Övningsp"
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: spatial-grund resultatet utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: spatial-grund genomgången visar facit",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: spatial-avancerad visar en uppgift",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: spatial-avancerad uppgiften utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: spatial-avancerad sista alternativet syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: spatial-avancerad resultatet visas",
+      "ok": true,
+      "not": "Jobbcoach.ai | Rekryteringstester | CV | Personliga brev | Jobbsöket |  | REKRYTERINGSTESTER |  | Min plan | Kurvan | Alla tester | 8 | Övningsp"
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: spatial-avancerad resultatet utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: spatial-avancerad genomgången visar facit",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: talseriepasset utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: talseriepasset Vet inte syns och är fri",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: talseriepasset visar facit efter svaret",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: talseriepasset Nästa syns och är fri",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: talseriepassets resultat",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: spatialpasset utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: spatialpasset Vet inte syns och är fri",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: spatialpasset visar facit efter svaret",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: spatialpasset Nästa syns och är fri",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: spatialpassets resultat",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: hemvyn bockar passen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: Pass per testtyp räknar passen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: korten visar gjorda nivåer",
+      "ok": false,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: sessionerna sparade",
+      "ok": true,
+      "not": "[\"spatial-avancerad:2\",\"spatial-pass:1\",\"talserier-grund:4\",\"spatial-grund:2\",\"talserie-pass:1\"]"
+    },
+    {
+      "namn": "d1280-morkt-polisen-premium: inga konsolfel eller 4xx/5xx",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: kontot skapat",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: Fortsätt syns och är fri med samtyckesraden uppe",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: korten i ingången",
+      "ok": true,
+      "not": "iprov,matrigma,alva,shl,aon,lokforare,annat,personlighet"
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: varumärkesraden står med",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: ingången utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: Lokförare visar anmärkningen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: Annat fäller ut kryssrutorna, figurer förvalt",
+      "ok": true,
+      "not": "Figurer och mönster:true | Figurserier:false | Deduktiv slutledning:false | Ord och text:false | Siffror och tabeller:false | Talserier:false | Spatial förmåga:false | Personlighet:false"
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: Så lägger vi upp det för iprov",
+      "ok": true,
+      "not": "SÅ LÄGGER VI UPP DET | Passen | Spatial förmåga och talserier i tur och ordning. | Alla tester | Dina två deltester överst, resten under Fler tester."
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: ingången utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: planen sparad med valet",
+      "ok": true,
+      "not": "{\"mitt_test\":\"iprov\",\"mitt_test_variant\":\"polis\",\"extra_typer\":[\"ordforrad\",\"spatial\",\"talserie\"],\"testtyper\":[],\"leverantor\":null,\"provdatum\":\"2026-11-23\"}"
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: varianten Polisen sparad",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: hemvyn visar dagens pass ur I-provet",
+      "ok": true,
+      "not": "Jobbcoach.ai | Rekryteringstester | CV | Personliga brev | Jobbsöket |  | REKRYTERINGSTESTER |  | Min plan | Kurvan | Alla tester | 8 | Övningsprov | Övningsprov i vårt eget format: 18 uppgifter på 25 minuter. | Test och datum | K"
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: raden Mitt test överst",
+      "ok": true,
+      "not": "Polisen, I-prov 2025 | Mitt test. 14 dagar kvar. | Ändra"
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: Ingår i ditt test",
+      "ok": true,
+      "not": "spatial,talserie"
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: Fler tester har resten",
+      "ok": true,
+      "not": "logik,figurer,deduktiv,verbal,numerisk,personlighet"
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: Fler tester fäller ut kortet",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: Alla tester utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: Alla tester utan talstreck",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: talserier-grund visar en uppgift",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: talserier-grund uppgiften utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: talserier-grund sista alternativet syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: talserier-grund resultatet visas",
+      "ok": true,
+      "not": "Jobbcoach.ai | Rekryteringstester | CV | Personliga brev | Jobbsöket |  | REKRYTERINGSTESTER |  | Min plan | Kurvan | Alla tester | 8 | Övningsp"
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: talserier-grund resultatet utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: talserier-grund genomgången visar facit",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: spatial-grund visar en uppgift",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: spatial-grund uppgiften utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: spatial-grund sista alternativet syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: spatial-grund resultatet visas",
+      "ok": true,
+      "not": "Jobbcoach.ai | Rekryteringstester | CV | Personliga brev | Jobbsöket |  | REKRYTERINGSTESTER |  | Min plan | Kurvan | Alla tester | 8 | Övningsp"
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: spatial-grund resultatet utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: spatial-grund genomgången visar facit",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: spatialpasset spärrat för gratis",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: korten visar gjorda nivåer",
+      "ok": false,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: sessionerna sparade",
+      "ok": true,
+      "not": "[\"talserier-grund:1\",\"spatial-grund:4\"]"
+    },
+    {
+      "namn": "d1280-ljust-polisen-gratis: inga konsolfel eller 4xx/5xx",
+      "ok": true,
+      "not": ""
+    }
+  ],
+  "bilder": [
+    {
+      "fil": "del2-p7-ljust-polisen-premium-mitt-test-tom.png",
+      "beskrivning": "Mitt test, steg 1 av 2 innan något är valt"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-mitt-test-lokforare.png",
+      "beskrivning": "Lokförare valt: anmärkningen och Så lägger vi upp det"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-mitt-test-annat.png",
+      "beskrivning": "Annat eller vet inte: kryssrutorna"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-mitt-test-iprov.png",
+      "beskrivning": "Mitt test: iprov valt, Så lägger vi upp det"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-mitt-test-iprov-hel.png",
+      "beskrivning": "Mitt test: iprov, hela steget"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-datum.png",
+      "beskrivning": "Steg 2 av 2: provdatumet med planen"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-hem-iprov.png",
+      "beskrivning": "Hemvyn med Polisen valt: dagens pass i rotationen"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-alla.png",
+      "beskrivning": "Alla tester med Mitt test och Ingår i ditt test"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-alla-hel.png",
+      "beskrivning": "Alla tester, hela sidan"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-alla-fler-utfalld.png",
+      "beskrivning": "Fler tester: ett kort utfällt"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-talserier-grund-start.png",
+      "beskrivning": "Testsidan talserier-grund"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-talserier-grund-uppgift-1.png",
+      "beskrivning": "talserier-grund, första uppgiften"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-talserier-grund-uppgift-5.png",
+      "beskrivning": "talserier-grund, uppgift fem besvarad"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-talserier-grund-resultat.png",
+      "beskrivning": "talserier-grund, resultatet"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-talserier-grund-genomgang.png",
+      "beskrivning": "talserier-grund, genomgången"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-spatial-grund-start.png",
+      "beskrivning": "Testsidan spatial-grund"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-spatial-grund-uppgift-1.png",
+      "beskrivning": "spatial-grund, första uppgiften"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-spatial-grund-uppgift-5.png",
+      "beskrivning": "spatial-grund, uppgift fem besvarad"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-spatial-grund-resultat.png",
+      "beskrivning": "spatial-grund, resultatet"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-spatial-grund-genomgang.png",
+      "beskrivning": "spatial-grund, genomgången"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-spatial-avancerad-start.png",
+      "beskrivning": "Testsidan spatial-avancerad"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-spatial-avancerad-uppgift-1.png",
+      "beskrivning": "spatial-avancerad, första uppgiften"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-spatial-avancerad-uppgift-5.png",
+      "beskrivning": "spatial-avancerad, uppgift fem besvarad"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-spatial-avancerad-resultat.png",
+      "beskrivning": "spatial-avancerad, resultatet"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-spatial-avancerad-genomgang.png",
+      "beskrivning": "spatial-avancerad, genomgången"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-talseriepass-1.png",
+      "beskrivning": "talseriepasset, uppgift 1"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-talseriepass-genomgang.png",
+      "beskrivning": "talseriepasset, genomgången efter svaret"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-talseriepass-resultat.png",
+      "beskrivning": "talseriepasset klart: ringen, var du tappar, tempot"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-spatialpass-1.png",
+      "beskrivning": "spatialpasset, uppgift 1"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-spatialpass-genomgang.png",
+      "beskrivning": "spatialpasset, genomgången efter svaret"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-spatialpass-resultat.png",
+      "beskrivning": "spatialpasset klart: ringen, var du tappar, tempot"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-hem-efter.png",
+      "beskrivning": "Hemvyn efter passen: bockarna"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-utveckling.png",
+      "beskrivning": "Din utveckling: Pass per testtyp med talserier och spatial förmåga"
+    },
+    {
+      "fil": "del2-p7-ljust-polisen-premium-alla-efter.png",
+      "beskrivning": "Alla tester efter nivåtesten: korten visar resultaten"
+    },
+    {
+      "fil": "del2-p7-morkt-polisen-gratis-mitt-test-tom.png",
+      "beskrivning": "Mitt test, steg 1 av 2 innan något är valt"
+    },
+    {
+      "fil": "del2-p7-morkt-polisen-gratis-mitt-test-lokforare.png",
+      "beskrivning": "Lokförare valt: anmärkningen och Så lägger vi upp det"
+    },
+    {
+      "fil": "del2-p7-morkt-polisen-gratis-mitt-test-annat.png",
+      "beskrivning": "Annat eller vet inte: kryssrutorna"
+    },
+    {
+      "fil": "del2-p7-morkt-polisen-gratis-mitt-test-iprov.png",
+      "beskrivning": "Mitt test: iprov valt, Så lägger vi upp det"
+    },
+    {
+      "fil": "del2-p7-morkt-polisen-gratis-mitt-test-iprov-hel.png",
+      "beskrivning": "Mitt test: iprov, hela steget"
+    },
+    {
+      "fil": "del2-p7-morkt-polisen-gratis-datum.png",
+      "beskrivning": "Steg 2 av 2: provdatumet med planen"
+    },
+    {
+      "fil": "del2-p7-morkt-polisen-gratis-hem-iprov.png",
+      "beskrivning": "Hemvyn med Polisen valt: dagens pass i rotationen"
+    },
+    {
+      "fil": "del2-p7-morkt-polisen-gratis-alla.png",
+      "beskrivning": "Alla tester med Mitt test och Ingår i ditt test"
+    },
+    {
+      "fil": "del2-p7-morkt-polisen-gratis-alla-hel.png",
+      "beskrivning": "Alla tester, hela sidan"
+    },
+    {
+      "fil": "del2-p7-morkt-polisen-gratis-alla-fler-utfalld.png",
+      "beskrivning": "Fler tester: ett kort utfällt"
+    },
+    {
+      "fil": "del2-p7-morkt-polisen-gratis-talserier-grund-start.png",
+      "beskrivning": "Testsidan talserier-grund"
+    },
+    {
+      "fil": "del2-p7-morkt-polisen-gratis-talserier-grund-uppgift-1.png",
+      "beskrivning": "talserier-grund, första uppgiften"
+    },
+    {
+      "fil": "del2-p7-morkt-polisen-gratis-talserier-grund-uppgift-5.png",
+      "beskrivning": "talserier-grund, uppgift fem besvarad"
+    },
+    {
+      "fil": "del2-p7-morkt-polisen-gratis-talserier-grund-resultat.png",
+      "beskrivning": "talserier-grund, resultatet"
+    },
+    {
+      "fil": "del2-p7-morkt-polisen-gratis-talserier-grund-genomgang.png",
+      "beskrivning": "talserier-grund, genomgången"
+    },
+    {
+      "fil": "del2-p7-morkt-polisen-gratis-spatial-grund-start.png",
+      "beskrivning": "Testsidan spatial-grund"
+    },
+    {
+      "fil": "del2-p7-morkt-polisen-gratis-spatial-grund-uppgift-1.png",
+      "beskrivning": "spatial-grund, första uppgiften"
+    },
+    {
+      "fil": "del2-p7-morkt-polisen-gratis-spatial-grund-uppgift-5.png",
+      "beskrivning": "spatial-grund, uppgift fem besvarad"
+    },
+    {
+      "fil": "del2-p7-morkt-polisen-gratis-spatial-grund-resultat.png",
+      "beskrivning": "spatial-grund, resultatet"
+    },
+    {
+      "fil": "del2-p7-morkt-polisen-gratis-spatial-grund-genomgang.png",
+      "beskrivning": "spatial-grund, genomgången"
+    },
+    {
+      "fil": "del2-p7-morkt-polisen-gratis-spatialpass-betalvagg.png",
+      "beskrivning": "spatialpasset: betalväggen"
+    },
+    {
+      "fil": "del2-p7-morkt-polisen-gratis-spatial-avancerad-last.png",
+      "beskrivning": "Spatial förmåga avancerad för gratis"
+    },
+    {
+      "fil": "del2-p7-morkt-polisen-gratis-alla-efter.png",
+      "beskrivning": "Alla tester efter nivåtesten: korten visar resultaten"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-mitt-test-tom.png",
+      "beskrivning": "Mitt test, steg 1 av 2 innan något är valt"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-mitt-test-lokforare.png",
+      "beskrivning": "Lokförare valt: anmärkningen och Så lägger vi upp det"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-mitt-test-annat.png",
+      "beskrivning": "Annat eller vet inte: kryssrutorna"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-mitt-test-iprov.png",
+      "beskrivning": "Mitt test: iprov valt, Så lägger vi upp det"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-mitt-test-iprov-hel.png",
+      "beskrivning": "Mitt test: iprov, hela steget"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-datum.png",
+      "beskrivning": "Steg 2 av 2: provdatumet med planen"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-hem-iprov.png",
+      "beskrivning": "Hemvyn med Polisen valt: dagens pass i rotationen"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-alla.png",
+      "beskrivning": "Alla tester med Mitt test och Ingår i ditt test"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-alla-hel.png",
+      "beskrivning": "Alla tester, hela sidan"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-alla-fler-utfalld.png",
+      "beskrivning": "Fler tester: ett kort utfällt"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-talserier-grund-start.png",
+      "beskrivning": "Testsidan talserier-grund"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-talserier-grund-uppgift-1.png",
+      "beskrivning": "talserier-grund, första uppgiften"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-talserier-grund-uppgift-5.png",
+      "beskrivning": "talserier-grund, uppgift fem besvarad"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-talserier-grund-resultat.png",
+      "beskrivning": "talserier-grund, resultatet"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-talserier-grund-genomgang.png",
+      "beskrivning": "talserier-grund, genomgången"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-spatial-grund-start.png",
+      "beskrivning": "Testsidan spatial-grund"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-spatial-grund-uppgift-1.png",
+      "beskrivning": "spatial-grund, första uppgiften"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-spatial-grund-uppgift-5.png",
+      "beskrivning": "spatial-grund, uppgift fem besvarad"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-spatial-grund-resultat.png",
+      "beskrivning": "spatial-grund, resultatet"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-spatial-grund-genomgang.png",
+      "beskrivning": "spatial-grund, genomgången"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-spatial-avancerad-start.png",
+      "beskrivning": "Testsidan spatial-avancerad"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-spatial-avancerad-uppgift-1.png",
+      "beskrivning": "spatial-avancerad, första uppgiften"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-spatial-avancerad-uppgift-5.png",
+      "beskrivning": "spatial-avancerad, uppgift fem besvarad"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-spatial-avancerad-resultat.png",
+      "beskrivning": "spatial-avancerad, resultatet"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-spatial-avancerad-genomgang.png",
+      "beskrivning": "spatial-avancerad, genomgången"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-talseriepass-1.png",
+      "beskrivning": "talseriepasset, uppgift 1"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-talseriepass-genomgang.png",
+      "beskrivning": "talseriepasset, genomgången efter svaret"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-talseriepass-resultat.png",
+      "beskrivning": "talseriepasset klart: ringen, var du tappar, tempot"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-spatialpass-1.png",
+      "beskrivning": "spatialpasset, uppgift 1"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-spatialpass-genomgang.png",
+      "beskrivning": "spatialpasset, genomgången efter svaret"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-spatialpass-resultat.png",
+      "beskrivning": "spatialpasset klart: ringen, var du tappar, tempot"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-hem-efter.png",
+      "beskrivning": "Hemvyn efter passen: bockarna"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-utveckling.png",
+      "beskrivning": "Din utveckling: Pass per testtyp med talserier och spatial förmåga"
+    },
+    {
+      "fil": "del2-d1280-morkt-polisen-premium-alla-efter.png",
+      "beskrivning": "Alla tester efter nivåtesten: korten visar resultaten"
+    },
+    {
+      "fil": "del2-d1280-ljust-polisen-gratis-mitt-test-tom.png",
+      "beskrivning": "Mitt test, steg 1 av 2 innan något är valt"
+    },
+    {
+      "fil": "del2-d1280-ljust-polisen-gratis-mitt-test-lokforare.png",
+      "beskrivning": "Lokförare valt: anmärkningen och Så lägger vi upp det"
+    },
+    {
+      "fil": "del2-d1280-ljust-polisen-gratis-mitt-test-annat.png",
+      "beskrivning": "Annat eller vet inte: kryssrutorna"
+    },
+    {
+      "fil": "del2-d1280-ljust-polisen-gratis-mitt-test-iprov.png",
+      "beskrivning": "Mitt test: iprov valt, Så lägger vi upp det"
+    },
+    {
+      "fil": "del2-d1280-ljust-polisen-gratis-mitt-test-iprov-hel.png",
+      "beskrivning": "Mitt test: iprov, hela steget"
+    },
+    {
+      "fil": "del2-d1280-ljust-polisen-gratis-datum.png",
+      "beskrivning": "Steg 2 av 2: provdatumet med planen"
+    },
+    {
+      "fil": "del2-d1280-ljust-polisen-gratis-hem-iprov.png",
+      "beskrivning": "Hemvyn med Polisen valt: dagens pass i rotationen"
+    },
+    {
+      "fil": "del2-d1280-ljust-polisen-gratis-alla.png",
+      "beskrivning": "Alla tester med Mitt test och Ingår i ditt test"
+    },
+    {
+      "fil": "del2-d1280-ljust-polisen-gratis-alla-hel.png",
+      "beskrivning": "Alla tester, hela sidan"
+    },
+    {
+      "fil": "del2-d1280-ljust-polisen-gratis-alla-fler-utfalld.png",
+      "beskrivning": "Fler tester: ett kort utfällt"
+    },
+    {
+      "fil": "del2-d1280-ljust-polisen-gratis-talserier-grund-start.png",
+      "beskrivning": "Testsidan talserier-grund"
+    },
+    {
+      "fil": "del2-d1280-ljust-polisen-gratis-talserier-grund-uppgift-1.png",
+      "beskrivning": "talserier-grund, första uppgiften"
+    },
+    {
+      "fil": "del2-d1280-ljust-polisen-gratis-talserier-grund-uppgift-5.png",
+      "beskrivning": "talserier-grund, uppgift fem besvarad"
+    },
+    {
+      "fil": "del2-d1280-ljust-polisen-gratis-talserier-grund-resultat.png",
+      "beskrivning": "talserier-grund, resultatet"
+    },
+    {
+      "fil": "del2-d1280-ljust-polisen-gratis-talserier-grund-genomgang.png",
+      "beskrivning": "talserier-grund, genomgången"
+    },
+    {
+      "fil": "del2-d1280-ljust-polisen-gratis-spatial-grund-start.png",
+      "beskrivning": "Testsidan spatial-grund"
+    },
+    {
+      "fil": "del2-d1280-ljust-polisen-gratis-spatial-grund-uppgift-1.png",
+      "beskrivning": "spatial-grund, första uppgiften"
+    },
+    {
+      "fil": "del2-d1280-ljust-polisen-gratis-spatial-grund-uppgift-5.png",
+      "beskrivning": "spatial-grund, uppgift fem besvarad"
+    },
+    {
+      "fil": "del2-d1280-ljust-polisen-gratis-spatial-grund-resultat.png",
+      "beskrivning": "spatial-grund, resultatet"
+    },
+    {
+      "fil": "del2-d1280-ljust-polisen-gratis-spatial-grund-genomgang.png",
+      "beskrivning": "spatial-grund, genomgången"
+    },
+    {
+      "fil": "del2-d1280-ljust-polisen-gratis-spatialpass-betalvagg.png",
+      "beskrivning": "spatialpasset: betalväggen"
+    },
+    {
+      "fil": "del2-d1280-ljust-polisen-gratis-spatial-avancerad-last.png",
+      "beskrivning": "Spatial förmåga avancerad för gratis"
+    },
+    {
+      "fil": "del2-d1280-ljust-polisen-gratis-alla-efter.png",
+      "beskrivning": "Alla tester efter nivåtesten: korten visar resultaten"
+    }
+  ]
+}

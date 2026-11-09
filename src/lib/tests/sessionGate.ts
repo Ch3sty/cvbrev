@@ -22,6 +22,7 @@ import { arOvningsprovTestTyp } from '@/lib/ovningsprov/typer';
 import { arVnPassTestTyp } from '@/lib/tester/pass-typer';
 import { arFigurpassTestTyp } from '@/lib/tester/pass-figur';
 import { arDeduktivpassTestTyp } from '@/lib/tester/pass-deduktiv';
+import { arSteg2PassTestTyp } from '@/lib/tester/steg2/pass';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnySupabase = SupabaseClient<any, any, any>;
@@ -67,6 +68,8 @@ export function featureForTestType(testType: string): Feature | null {
   if (arDeduktivpassTestTyp(testType)) return 'test_daily_pass';
   // Deduktivpasset (testplanen steg 1).
   if (arDeduktivpassTestTyp(testType)) return 'test_daily_pass';
+  // Passen i testplanens steg 2.
+  if (arSteg2PassTestTyp(testType)) return 'test_daily_pass';
   const nyckel = ALIAS[testType] ?? testType;
   return FEATURE_BY_TEST_TYPE[nyckel] ?? null;
 }

@@ -35,7 +35,7 @@ import { useProfile } from '@/hooks/use-profile'
 import { useDashboardData } from '@/contexts/DashboardDataContext'
 import { scopeHasFeature } from '@/lib/access/features'
 import { testPaths, totalForSession, type TestConfig, type TestKind } from '@/app/dashboard/tester/testConfig'
-import { IlluDeduktiv, IlluMatris, IlluNumeriskt, IlluProvlage, IlluVerbalt, type IlluProvbladProps } from '@/components/traning/illu'
+import { IlluDeduktiv, IlluMatris, IlluNumeriskt, IlluOrdforrad, IlluProvlage, IlluSpatial, IlluTalserie, IlluVerbalt, type IlluProvbladProps } from '@/components/traning/illu'
 import { HjalpKnapp, HjalpProvider, HjalpRad } from '@/components/hjalp'
 import type { HjalpId } from '@/lib/traning/hjalp-copy'
 import { FORMATRAD, NIVA_NAMN, NIVA_TAL, PROVETS_FRAGA, TESTETS_FRAGA, TESTSIDA, sakord } from '@/lib/tester/copy'
@@ -59,6 +59,9 @@ const BILD: Record<Exclude<TestKind, 'personlighet'>, ComponentType<IlluProvblad
   matris: IlluMatris,
   figurserie: IlluMatris,
   deduktiv: IlluDeduktiv,
+  talserie: IlluTalserie,
+  spatial: IlluSpatial,
+  ordforrad: IlluOrdforrad,
   verbal: IlluVerbalt,
   numerisk: IlluNumeriskt,
 }
@@ -68,6 +71,9 @@ const HJALP: Record<Exclude<TestKind, 'personlighet'>, HjalpId[]> = {
   matris: ['C5', 'B1', 'B2'],
   figurserie: ['C5', 'B10'],
   deduktiv: ['C5', 'B11'],
+  talserie: ['C5', 'B12'],
+  spatial: ['C5', 'B13'],
+  ordforrad: ['C5', 'B14'],
   verbal: ['C5', 'B3', 'B4'],
   numerisk: ['C5', 'B5', 'B6'],
 }
@@ -77,6 +83,9 @@ const MATER: Record<Exclude<TestKind, 'personlighet'>, HjalpId> = {
   matris: 'B1',
   figurserie: 'B10',
   deduktiv: 'B11',
+  talserie: 'B12',
+  spatial: 'B13',
+  ordforrad: 'B14',
   verbal: 'B3',
   numerisk: 'B5',
 }

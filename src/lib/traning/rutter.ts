@@ -34,6 +34,16 @@ export function nivakollHref(kind: 'figurserie' | 'deduktiv' | 'verbal' | 'numer
   return `/dashboard/tester/pass?typ=nivakoll&kind=${kind}`;
 }
 
+/**
+ * Passen i testplanens steg 2: /dashboard/tester/pass?typ=steg2pass&kind=spatial,
+ * med grupp ett riktat pass (regelfamilj eller form).
+ */
+export function steg2PassHref(kind: 'talserie' | 'spatial' | 'ordforrad', grupp?: string | null): string {
+  const q = new URLSearchParams({ typ: 'steg2pass', kind });
+  if (grupp) q.set('grupp', grupp);
+  return `/dashboard/tester/pass?${q.toString()}`;
+}
+
 /** Sessionens egen adress: återupptagning, omladdning och genomgången (P4). */
 export function sessionHref(sessionId: string): string {
   return `/dashboard/tester/pass/${encodeURIComponent(sessionId)}`;

@@ -283,6 +283,135 @@ async function mitt(browser, enhet, vp, morkt, val, forvantat) {
   return k
 }
 
+/* ------------------------------------------------------------ nya typerna */
+
+/** Ett nivåtest: starta på testsidan, svara på alla uppgifter, lämna in, öppna genomgången. */
+async function nivatest(p, enhet, slug) {
+  await p.goto(`${BAS}/dashboard/tester/${slug}`, { waitUntil: 'networkidle2' })
+  await vanta(800)
+  await avvisaSamtycke(p)
+  await bild(p, `${enhet}-${slug}-start`, `Testsidan ${slug}`)
+  const start = await knappMedText(p, 'Starta testet')
+  if (!start) {
+    logg(`${enhet}: ${slug} har Starta testet`, false)
+    return false
+  }
+  await start.click()
+  await p.waitForSelector('[data-steg2] [data-steg2-alternativ] [role="radio"]', { timeout: 30000 }).catch(() => {})
+  // Vänta in hydreringen innan första trycket.
+  await vanta(2000)
+  await bild(p, `${enhet}-${slug}-uppgift-1`, `${slug}, första uppgiften`)
+  logg(`${enhet}: ${slug} visar en uppgift`, !!(await p.$('[data-steg2-uppgift]')))
+  logg(`${enhet}: ${slug} uppgiften utan sidledsscroll`, await sidled(p))
+  const fri = await synligOchFri(p, '[data-steg2-alternativ] [role="radio"]:last-child')
+  logg(`${enhet}: ${slug} sista alternativet syns utan att rulla`, fri.ok, fri.varfor)
+  for (let i = 0; i < 15; i++) {
+    await p.waitForFunction(() => document.querySelectorAll('[data-steg2-alternativ] [role="radio"]:not([disabled])').length > 0, { timeout: 15000 }).catch(() => {})
+    const fore = await p.evaluate(() => document.querySelector('[data-steg2-uppgift]')?.innerHTML.length ?? 0)
+    const alt = await p.$$('[data-steg2-alternativ] [role="radio"]:not([disabled])')
+    if (!alt.length) break
+    await alt[i % alt.length].click()
+    if (i === 4) await bild(p, `${enhet}-${slug}-uppgift-5`, `${slug}, uppgift fem besvarad`)
+    if (i < 14) await p.waitForFunction((f) => (document.querySelector('[data-steg2-uppgift]')?.innerHTML.length ?? 0) !== f, { timeout: 8000 }, fore).catch(() => {})
+    await vanta(250)
+  }
+  await vanta(800)
+  const lamna = await knappMedText(p, 'Lämna in')
+  if (lamna) await lamna.click()
+  await vanta(500)
+  const bekrafta = await knappMedText(p, 'Lämna in och se resultatet')
+  if (bekrafta) await bekrafta.click()
+  await p.waitForFunction(() => location.pathname.includes('/results'), { timeout: 30000 }).catch(() => {})
+  await vanta(2000)
+  await bild(p, `${enhet}-${slug}-resultat`, `${slug}, resultatet`)
+  const res = await p.evaluate(() => document.body.innerText)
+  logg(`${enhet}: ${slug} resultatet visas`, /av 15|rätt/i.test(res), res.slice(0, 120).replace(/\n/g, ' | '))
+  logg(`${enhet}: ${slug} resultatet utan talstreck och mittpunkt`, !/—|·/.test(res))
+  const ga = await knappMedText(p, 'Gå igenom', false)
+  if (ga) {
+    await ga.click()
+    await vanta(1500)
+    await bild(p, `${enhet}-${slug}-genomgang`, `${slug}, genomgången`, true)
+    logg(`${enhet}: ${slug} genomgången visar facit`, !!(await p.$('[data-steg2-facit]')))
+  } else logg(`${enhet}: ${slug} har Gå igenom`, false)
+  return true
+}
+
+/** Ett pass: svara på alla sex, genomgången efter varje svar, resultatet. */
+async function steg2pass(p, enhet, kind) {
+  await p.goto(`${BAS}/dashboard/tester/pass?typ=steg2pass&kind=${kind}`, { waitUntil: 'networkidle2' })
+  await p.waitForSelector('[data-steg2-uppgift], [data-steg2pass-betalvagg]', { timeout: 30000 }).catch(() => {})
+  await avvisaSamtycke(p)
+  await vanta(500)
+  if (await p.$('[data-steg2pass-betalvagg]')) {
+    await bild(p, `${enhet}-${kind}pass-betalvagg`, `${kind}passet: betalväggen`)
+    return 'betalvagg'
+  }
+  await bild(p, `${enhet}-${kind}pass-1`, `${kind}passet, uppgift 1`)
+  logg(`${enhet}: ${kind}passet utan sidledsscroll`, await sidled(p))
+  const vetInte = await synligOchFri(p, '[data-steg2pass-vetinte]')
+  logg(`${enhet}: ${kind}passet Vet inte syns och är fri`, vetInte.ok, vetInte.varfor)
+  for (let i = 0; i < 6; i++) {
+    const alt = await p.$$('[data-steg2-alternativ] [role="radio"]:not([disabled])')
+    if (!alt.length) break
+    await alt[(i + 1) % alt.length].click()
+    await p.waitForSelector('[data-steg2-facit]', { timeout: 15000 }).catch(() => {})
+    await vanta(400)
+    if (i === 0) {
+      await bild(p, `${enhet}-${kind}pass-genomgang`, `${kind}passet, genomgången efter svaret`)
+      logg(`${enhet}: ${kind}passet visar facit efter svaret`, !!(await p.$('[data-steg2-facit]')))
+      const nasta = await synligOchFri(p, '[data-steg2pass-nasta]')
+      logg(`${enhet}: ${kind}passet Nästa syns och är fri`, nasta.ok, nasta.varfor)
+    }
+    await p.click('[data-steg2pass-nasta]').catch(() => {})
+    await vanta(700)
+  }
+  await p.waitForSelector('[data-steg2-resultat]', { timeout: 30000 }).catch(() => {})
+  await vanta(600)
+  await bild(p, `${enhet}-${kind}pass-resultat`, `${kind}passet klart: ringen, var du tappar, tempot`)
+  logg(`${enhet}: ${kind}passets resultat`, !!(await p.$('[data-steg2-resultat]')))
+  return 'klart'
+}
+
+async function typer(browser, enhet, vp, morkt, premium) {
+  const { ctx, p, fel } = await ny(browser, vp, morkt)
+  const k = await skapaKonto(p, enhet)
+  logg(`${enhet}: kontot skapat`, !!k.uid)
+  if (premium) await ge_premium(k.uid, 'qa-tester-steg2-vyer')
+  await vanta(600)
+  await valjMittTest(p, enhet, 'iprov', 'Polisen')
+  const plan = await kontrolleraPlan(k.uid, 'iprov', enhet)
+  logg(`${enhet}: varianten Polisen sparad`, plan?.mitt_test_variant === 'polis')
+  const hem = await las(p, '/dashboard/tester', `${enhet}-hem-iprov`, 'Hemvyn med Polisen valt: dagens pass i rotationen')
+  logg(`${enhet}: hemvyn visar dagens pass ur I-provet`, /Spatial förmåga, sex uppgifter|Talserier, sex uppgifter/.test(hem), hem.slice(0, 200).replace(/\n/g, ' | '))
+  await allaTester(p, enhet, ['talserie', 'spatial'])
+  await nivatest(p, enhet, 'talserier-grund')
+  await nivatest(p, enhet, 'spatial-grund')
+  if (premium) {
+    await nivatest(p, enhet, 'spatial-avancerad')
+    for (const kind of ['talserie', 'spatial']) await steg2pass(p, enhet, kind)
+    const hem2 = await las(p, '/dashboard/tester', `${enhet}-hem-efter`, 'Hemvyn efter passen: bockarna')
+    logg(`${enhet}: hemvyn bockar passen`, (hem2.match(/Gjort/g) ?? []).length >= 2)
+    await p.goto(`${BAS}/dashboard/tester/alla?flik=utveckling`, { waitUntil: 'networkidle2' })
+    await vanta(2500)
+    await bild(p, `${enhet}-utveckling`, 'Din utveckling: Pass per testtyp med talserier och spatial förmåga', true)
+    const utv = await p.evaluate(() => document.body.innerText)
+    logg(`${enhet}: Pass per testtyp räknar passen`, /Talserier\s*\n?\s*1 pass/.test(utv) && /Spatial förmåga\s*\n?\s*1 pass/.test(utv))
+  } else {
+    const r = await steg2pass(p, enhet, 'spatial')
+    logg(`${enhet}: spatialpasset spärrat för gratis`, r === 'betalvagg')
+    await p.goto(`${BAS}/dashboard/tester/spatial-avancerad`, { waitUntil: 'networkidle2' })
+    await vanta(800)
+    await bild(p, `${enhet}-spatial-avancerad-last`, 'Spatial förmåga avancerad för gratis')
+  }
+  const alla = await las(p, '/dashboard/tester/alla', `${enhet}-alla-efter`, 'Alla tester efter nivåtesten: korten visar resultaten')
+  logg(`${enhet}: korten visar gjorda nivåer`, /talserier/i.test(alla) && /spatial/i.test(alla) && /av 15/.test(alla))
+  const { data: rader } = await admin.from('logic_test_v4_sessions').select('test_type, completed_at, score').eq('user_id', k.uid)
+  logg(`${enhet}: sessionerna sparade`, ['talserier-grund', 'spatial-grund'].every((t) => rader?.some((r) => r.test_type === t && r.completed_at)), JSON.stringify(rader?.map((r) => `${r.test_type}:${r.score}`)))
+  logg(`${enhet}: inga konsolfel eller 4xx/5xx`, fel.length === 0, fel.slice(0, 5).join(' ; '))
+  await ctx.close()
+}
+
 const browser = await puppeteer.launch({ executablePath: CHROME, headless: 'new', args: ['--no-sandbox'] })
 try {
   const korningar = []
@@ -292,6 +421,14 @@ try {
       ['p7-morkt-lokforare', () => mitt(browser, 'p7-morkt-lokforare', PIXEL7, true, 'lokforare', ['figurer', 'verbal', 'numerisk', 'deduktiv'])],
       ['d1280-ljust-matrigma', () => mitt(browser, 'd1280-ljust-matrigma', DESKTOP, false, 'matrigma', ['logik'])],
       ['d1280-morkt-aon', () => mitt(browser, 'd1280-morkt-aon', DESKTOP, true, 'aon', ['figurer', 'numerisk', 'verbal', 'deduktiv'])]
+    )
+  }
+  if (DELAR.includes('typer')) {
+    korningar.push(
+      ['p7-ljust-polisen-premium', () => typer(browser, 'p7-ljust-polisen-premium', PIXEL7, false, true)],
+      ['p7-morkt-polisen-gratis', () => typer(browser, 'p7-morkt-polisen-gratis', PIXEL7, true, false)],
+      ['d1280-morkt-polisen-premium', () => typer(browser, 'd1280-morkt-polisen-premium', DESKTOP, true, true)],
+      ['d1280-ljust-polisen-gratis', () => typer(browser, 'd1280-ljust-polisen-gratis', DESKTOP, false, false)]
     )
   }
   for (const [namn, f] of korningar) {

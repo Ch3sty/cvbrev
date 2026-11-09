@@ -17,6 +17,8 @@ import VnPassFlode from '@/components/traning/vnpass/VnPassFlode'
 import FigurPassFlode from '@/components/traning/figurpass/FigurPassFlode'
 import DeduktivPassFlode from '@/components/traning/deduktivpass/DeduktivPassFlode'
 import NivakollFlode from '@/components/traning/nivakoll/NivakollFlode'
+import Steg2PassFlode from '@/components/traning/steg2pass/Steg2PassFlode'
+import { steg2Synlig } from '@/lib/tester/steg2Status'
 import { arNivakollKind } from '@/lib/nivakoll/niva'
 import type { Begard } from '@/lib/traning/tillgang'
 import { passSida } from './sida.server'
@@ -49,6 +51,15 @@ export default async function PassStartSida({
     const { betalande } = await passSida()
     if (!arNivakollKind(kind)) return <PassFlode key="matning" start={{ typ: 'matning', family: null, format: null }} betalande={betalande} />
     return <NivakollFlode key={`nivakoll|${kind}`} kind={kind} betalande={betalande} />
+  }
+  // Passen i testplanens steg 2 (talserier, spatial förmåga).
+  if (typ === 'steg2pass') {
+    const kind = forsta(sp.kind)
+    if ((kind === 'talserie' || kind === 'spatial' || kind === 'ordforrad') && steg2Synlig(kind)) {
+      await passSida()
+      const grupp = forsta(sp.grupp)
+      return <Steg2PassFlode key={`${kind}|${grupp ?? ''}`} starta={{ kind, grupp }} />
+    }
   }
   // Deduktivpasset (testplanen steg 1).
   if (typ === 'deduktivpass') {

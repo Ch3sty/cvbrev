@@ -52,6 +52,13 @@ export const COGNITIVE_TEST_TYPE: Record<TestSlug, string> = {
   'deduktiv-grund': 'deduktiv-grund',
   'deduktiv-avancerad': 'deduktiv-avancerad',
   'deduktiv-expert': 'deduktiv-expert',
+  // Testplanen steg 2: test_type är slugen.
+  'talserier-grund': 'talserier-grund',
+  'talserier-avancerad': 'talserier-avancerad',
+  'talserier-expert': 'talserier-expert',
+  'spatial-grund': 'spatial-grund',
+  'spatial-avancerad': 'spatial-avancerad',
+  'spatial-expert': 'spatial-expert',
   'verbal-resonemang': 'verbal-resonemang',
   'verbal-resonemang-v2': 'verbal-resonemang-v2',
   'verbal-resonemang-expert': 'verbal-resonemang-expert',
