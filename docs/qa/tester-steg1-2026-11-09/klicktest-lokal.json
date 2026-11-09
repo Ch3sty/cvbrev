@@ -1,0 +1,567 @@
+{
+  "tid": "2026-11-09T13:47:59.502Z",
+  "ok": 111,
+  "totalt": 112,
+  "resultat": [
+    {
+      "namn": "p7-ljust-gratis: kontot skapat och inloggat",
+      "ok": true,
+      "not": "/dashboard/valkommen"
+    },
+    {
+      "namn": "p7-ljust-gratis: raden Nivåkollen på testkorten",
+      "ok": true,
+      "not": "5 rader"
+    },
+    {
+      "namn": "p7-ljust-gratis: deduktivt har en levande provrad",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-gratis: Alla tester utan talstreck",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-gratis: Nivåkollen figurserie, Svara syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-gratis: Nivåkollen figurserie utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-gratis: Nivåkollen figurserie ger en nivå",
+      "ok": true,
+      "not": "12 svar"
+    },
+    {
+      "namn": "p7-ljust-gratis: figurserie resultatet utan talstreck, mittpunkt och procent",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-gratis: figurserie resultatet nämner dagens pass",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-gratis: figurserie genomgången visar förklaringen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-gratis: Nivåkollen deduktiv, Svara syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-gratis: Nivåkollen deduktiv utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-gratis: Nivåkollen deduktiv ger en nivå",
+      "ok": true,
+      "not": "9 svar"
+    },
+    {
+      "namn": "p7-ljust-gratis: deduktiv resultatet utan talstreck, mittpunkt och procent",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-gratis: deduktiv resultatet nämner dagens pass",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-gratis: deduktiv genomgången visar förklaringen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-gratis: Nivåkollen verbal, Svara syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-gratis: Nivåkollen verbal utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-gratis: Nivåkollen verbal ger en nivå",
+      "ok": true,
+      "not": "11 svar"
+    },
+    {
+      "namn": "p7-ljust-gratis: verbal resultatet utan talstreck, mittpunkt och procent",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-gratis: verbal resultatet nämner dagens pass",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-gratis: verbal genomgången visar förklaringen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-gratis: Nivåkollen numerisk, Svara syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-gratis: Nivåkollen numerisk utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-gratis: Nivåkollen numerisk ger en nivå",
+      "ok": true,
+      "not": "10 svar"
+    },
+    {
+      "namn": "p7-ljust-gratis: numerisk resultatet utan talstreck, mittpunkt och procent",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-gratis: numerisk resultatet nämner dagens pass",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-gratis: numerisk genomgången visar förklaringen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-gratis: fyra nivåpunkter, en per typ",
+      "ok": true,
+      "not": "[{\"test_kind\":\"figurserie\",\"typ\":\"matning\",\"niva\":3},{\"test_kind\":\"deduktiv\",\"typ\":\"matning\",\"niva\":3.3},{\"test_kind\":\"verbal\",\"typ\":\"matning\",\"niva\":4},{\"test_kind\":\"numerisk\",\"typ\":\"matning\",\"niva\":3.3}]"
+    },
+    {
+      "namn": "p7-ljust-gratis: deduktivpasset spärrat för gratis",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-gratis: hemvyn visar deduktivpasset",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-gratis: Fler kurvor visar nivån per typ",
+      "ok": true,
+      "not": "Nivå 3 i Nivåkollen | Nivå 3,3 i Nivåkollen | Nivå 4 i Nivåkollen | Nivå 3,3 i Nivåkollen"
+    },
+    {
+      "namn": "p7-ljust-gratis: inga konsolfel eller 4xx/5xx",
+      "ok": false,
+      "not": "console: Failed to load resource: the server responded with a status of 403 (Forbidden)"
+    },
+    {
+      "namn": "d1280-morkt-gratis: kontot skapat och inloggat",
+      "ok": true,
+      "not": "/dashboard/valj-spar"
+    },
+    {
+      "namn": "d1280-morkt-gratis: raden Nivåkollen på testkorten",
+      "ok": true,
+      "not": "5 rader"
+    },
+    {
+      "namn": "d1280-morkt-gratis: deduktivt har en levande provrad",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-gratis: Alla tester utan talstreck",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-gratis: Nivåkollen figurserie, Svara syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-gratis: Nivåkollen figurserie utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-gratis: Nivåkollen figurserie ger en nivå",
+      "ok": true,
+      "not": "13 svar"
+    },
+    {
+      "namn": "d1280-morkt-gratis: figurserie resultatet utan talstreck, mittpunkt och procent",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-gratis: figurserie resultatet nämner dagens pass",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-gratis: figurserie genomgången visar förklaringen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-gratis: Nivåkollen deduktiv, Svara syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-gratis: Nivåkollen deduktiv utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-gratis: Nivåkollen deduktiv ger en nivå",
+      "ok": true,
+      "not": "9 svar"
+    },
+    {
+      "namn": "d1280-morkt-gratis: deduktiv resultatet utan talstreck, mittpunkt och procent",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-gratis: deduktiv resultatet nämner dagens pass",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-gratis: deduktiv genomgången visar förklaringen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-gratis: Nivåkollen verbal, Svara syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-gratis: Nivåkollen verbal utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-gratis: Nivåkollen verbal ger en nivå",
+      "ok": true,
+      "not": "10 svar"
+    },
+    {
+      "namn": "d1280-morkt-gratis: verbal resultatet utan talstreck, mittpunkt och procent",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-gratis: verbal resultatet nämner dagens pass",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-gratis: verbal genomgången visar förklaringen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-gratis: Nivåkollen numerisk, Svara syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-gratis: Nivåkollen numerisk utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-gratis: Nivåkollen numerisk ger en nivå",
+      "ok": true,
+      "not": "10 svar"
+    },
+    {
+      "namn": "d1280-morkt-gratis: numerisk resultatet utan talstreck, mittpunkt och procent",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-gratis: numerisk resultatet nämner dagens pass",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-gratis: numerisk genomgången visar förklaringen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-gratis: fyra nivåpunkter, en per typ",
+      "ok": true,
+      "not": "[{\"test_kind\":\"figurserie\",\"typ\":\"matning\",\"niva\":4.3},{\"test_kind\":\"deduktiv\",\"typ\":\"matning\",\"niva\":1.8},{\"test_kind\":\"verbal\",\"typ\":\"matning\",\"niva\":4.2},{\"test_kind\":\"numerisk\",\"typ\":\"matning\",\"niva\":4}]"
+    },
+    {
+      "namn": "d1280-morkt-gratis: deduktivpasset spärrat för gratis",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-gratis: hemvyn visar deduktivpasset",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-gratis: Fler kurvor visar nivån per typ",
+      "ok": true,
+      "not": "Nivå 4,3 i Nivåkollen | Nivå 1,8 i Nivåkollen | Nivå 4,2 i Nivåkollen | Nivå 4 i Nivåkollen"
+    },
+    {
+      "namn": "d1280-morkt-gratis: inga konsolfel eller 4xx/5xx",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-premium: kontot skapat",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-premium: Nivåkollen deduktiv, Svara syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-premium: Nivåkollen deduktiv utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-premium: Nivåkollen deduktiv ger en nivå",
+      "ok": true,
+      "not": "8 svar"
+    },
+    {
+      "namn": "p7-morkt-premium: deduktiv resultatet utan talstreck, mittpunkt och procent",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-premium: deduktiv resultatet nämner dagens pass",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-premium: deduktiv genomgången visar förklaringen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-premium: Premium ser Starta deduktivpasset i foten",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-premium: deduktivpasset startar",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-premium: Svara syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-premium: deduktivpasset utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-premium: lösningen visas efter svaret",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-premium: deduktivpassets resultat",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-premium: startarket har Starta övningsprovet",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-premium: övningsprovet visar en deduktiv uppgift",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-premium: övningsprovet utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-premium: övningsprovets resultat visas",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-premium: genomgången visar lösningen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-premium: hemvyn bockar deduktivpasset",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-premium: kurvan visar deduktivts nivå",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-premium: historiken räknar deduktivpasset",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-premium: sessionerna sparade",
+      "ok": true,
+      "not": "[\"deduktiv-nivakoll\",\"deduktiv-pass\",\"deduktiv-prov\"]"
+    },
+    {
+      "namn": "p7-morkt-premium: inga konsolfel eller 4xx/5xx",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-premium: kontot skapat",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-premium: Nivåkollen deduktiv, Svara syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-premium: Nivåkollen deduktiv utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-premium: Nivåkollen deduktiv ger en nivå",
+      "ok": true,
+      "not": "8 svar"
+    },
+    {
+      "namn": "d1280-ljust-premium: deduktiv resultatet utan talstreck, mittpunkt och procent",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-premium: deduktiv resultatet nämner dagens pass",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-premium: deduktiv genomgången visar förklaringen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-premium: Premium ser Starta deduktivpasset i foten",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-premium: deduktivpasset startar",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-premium: Svara syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-premium: deduktivpasset utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-premium: lösningen visas efter svaret",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-premium: deduktivpassets resultat",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-premium: startarket har Starta övningsprovet",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-premium: övningsprovet visar en deduktiv uppgift",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-premium: övningsprovet utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-premium: övningsprovets resultat visas",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-premium: genomgången visar lösningen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-premium: hemvyn bockar deduktivpasset",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-premium: kurvan visar deduktivts nivå",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-premium: historiken räknar deduktivpasset",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-premium: sessionerna sparade",
+      "ok": true,
+      "not": "[\"deduktiv-nivakoll\",\"deduktiv-pass\",\"deduktiv-prov\"]"
+    },
+    {
+      "namn": "d1280-ljust-premium: inga konsolfel eller 4xx/5xx",
+      "ok": true,
+      "not": ""
+    }
+  ]
+}

@@ -63,8 +63,11 @@ export interface DinUtvecklingProps {
 }
 
 /** Har hon gjort något alls som Din utveckling kan visa? */
-export function harUtveckling(d: Pick<DinUtvecklingData, 'kurva' | 'perTest'>): boolean {
-  return !!d.kurva || Object.values(d.perTest).some((s) => (s?.attempts ?? 0) > 0)
+export function harUtveckling(d: Pick<DinUtvecklingData, 'kurva' | 'perTest'> & Partial<Pick<DinUtvecklingData, 'passPerTyp'>>): boolean {
+  // Pass utan klassiskt test räknas också (testplanen steg 1): figur- och
+  // deduktivpassen ska synas i Pass per testtyp även före ett klassiskt test.
+  const pass = d.passPerTyp ? Object.values(d.passPerTyp).some((n) => (n ?? 0) > 0) : false
+  return !!d.kurva || pass || Object.values(d.perTest).some((s) => (s?.attempts ?? 0) > 0)
 }
 
 function RubrikMedHjalp({ rad }: { rad: string }) {

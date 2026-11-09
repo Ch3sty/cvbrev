@@ -1,0 +1,271 @@
+{
+  "tid": "2026-11-09T13:43:45.523Z",
+  "bas": "http://localhost:5200",
+  "korningar": 1,
+  "resultat": [
+    {
+      "namn": "tester",
+      "budget": "kritisk",
+      "m": {
+        "lcp": 1964,
+        "cls": 0,
+        "fcp": 1288,
+        "rundturer": 0,
+        "textLangd": 883,
+        "forfragningar": 74
+      }
+    },
+    {
+      "namn": "tester hemvy 1b",
+      "budget": "kritisk",
+      "m": {
+        "lcp": 844,
+        "cls": 0,
+        "fcp": 844,
+        "rundturer": 0,
+        "textLangd": 33,
+        "forfragningar": 43
+      }
+    },
+    {
+      "namn": "tester/alla",
+      "budget": "lista",
+      "m": {
+        "lcp": 1036,
+        "cls": 0,
+        "fcp": 636,
+        "rundturer": 0,
+        "textLangd": 4452,
+        "forfragningar": 66
+      }
+    },
+    {
+      "namn": "tester/kurvan",
+      "budget": "lista",
+      "m": {
+        "lcp": 980,
+        "cls": 0,
+        "fcp": 536,
+        "rundturer": 0,
+        "textLangd": 747,
+        "forfragningar": 75
+      }
+    },
+    {
+      "namn": "tester/installningar",
+      "budget": "flode",
+      "m": {
+        "lcp": 632,
+        "cls": 0,
+        "fcp": 632,
+        "rundturer": 0,
+        "textLangd": 615,
+        "forfragningar": 45
+      }
+    },
+    {
+      "namn": "tester/[slug]",
+      "budget": "lista",
+      "m": {
+        "lcp": 1160,
+        "cls": 0,
+        "fcp": 736,
+        "rundturer": 0,
+        "textLangd": 1687,
+        "forfragningar": 64
+      }
+    },
+    {
+      "namn": "tester/[slug] verbalt",
+      "budget": "lista",
+      "m": {
+        "lcp": 988,
+        "cls": 0,
+        "fcp": 580,
+        "rundturer": 0,
+        "textLangd": 1698,
+        "forfragningar": 63
+      }
+    },
+    {
+      "namn": "tester/[slug] numeriskt",
+      "budget": "lista",
+      "m": {
+        "lcp": 572,
+        "cls": 0,
+        "fcp": 480,
+        "rundturer": 0,
+        "textLangd": 1781,
+        "forfragningar": 63
+      }
+    },
+    {
+      "namn": "tester/personlighet",
+      "budget": "lista",
+      "m": {
+        "lcp": 640,
+        "cls": 0,
+        "fcp": 588,
+        "rundturer": 0,
+        "textLangd": 631,
+        "forfragningar": 63
+      }
+    },
+    {
+      "namn": "tester/ovningsprov logik",
+      "budget": "flode",
+      "m": {
+        "lcp": 916,
+        "cls": 0,
+        "fcp": 508,
+        "rundturer": 0,
+        "textLangd": 582,
+        "forfragningar": 48
+      }
+    },
+    {
+      "namn": "tester/ovningsprov verbalt",
+      "budget": "flode",
+      "m": {
+        "lcp": 780,
+        "cls": 0,
+        "fcp": 472,
+        "rundturer": 0,
+        "textLangd": 528,
+        "forfragningar": 48
+      }
+    },
+    {
+      "namn": "tester prov",
+      "budget": "flode",
+      "m": null,
+      "hoppat": "ingen testSession"
+    },
+    {
+      "namn": "tester resultat",
+      "budget": "flode",
+      "m": null,
+      "hoppat": "ingen testResult"
+    },
+    {
+      "namn": "figurserier testsida",
+      "budget": "lista",
+      "m": {
+        "lcp": 824,
+        "cls": 0,
+        "fcp": 488,
+        "rundturer": 0,
+        "textLangd": 1486,
+        "forfragningar": 63
+      }
+    },
+    {
+      "namn": "figurserier uppgift",
+      "budget": "flode",
+      "m": null,
+      "hoppat": "ingen serieSession"
+    },
+    {
+      "namn": "figurserier resultat",
+      "budget": "flode",
+      "m": null,
+      "hoppat": "ingen serieResult"
+    },
+    {
+      "namn": "figurpass uppgift",
+      "budget": "flode",
+      "m": null,
+      "hoppat": "ingen figurpass"
+    },
+    {
+      "namn": "deduktiv testsida",
+      "budget": "lista",
+      "m": {
+        "lcp": 5072,
+        "cls": 0,
+        "fcp": 5072,
+        "rundturer": 0,
+        "textLangd": 1343,
+        "forfragningar": 63
+      }
+    },
+    {
+      "namn": "deduktiv uppgift",
+      "budget": "flode",
+      "m": null,
+      "hoppat": "ingen dedSession"
+    },
+    {
+      "namn": "deduktiv resultat",
+      "budget": "flode",
+      "m": null,
+      "hoppat": "ingen dedResult"
+    },
+    {
+      "namn": "tester/ovningsprov figurer",
+      "budget": "flode",
+      "m": {
+        "lcp": 764,
+        "cls": 0,
+        "fcp": 680,
+        "rundturer": 0,
+        "textLangd": 656,
+        "forfragningar": 48
+      }
+    },
+    {
+      "namn": "figurprov uppgift",
+      "budget": "flode",
+      "m": null,
+      "hoppat": "ingen figurprov"
+    },
+    {
+      "namn": "deduktivpass uppgift",
+      "budget": "flode",
+      "m": {
+        "lcp": 840,
+        "cls": 0,
+        "fcp": 520,
+        "rundturer": 0,
+        "textLangd": 417,
+        "forfragningar": 52
+      }
+    },
+    {
+      "namn": "tester/ovningsprov deduktivt",
+      "budget": "flode",
+      "m": {
+        "lcp": 948,
+        "cls": 0,
+        "fcp": 596,
+        "rundturer": 0,
+        "textLangd": 629,
+        "forfragningar": 50
+      }
+    },
+    {
+      "namn": "deduktivprov uppgift",
+      "budget": "flode",
+      "m": {
+        "lcp": 504,
+        "cls": 0,
+        "fcp": 504,
+        "rundturer": 0,
+        "textLangd": 751,
+        "forfragningar": 51
+      }
+    },
+    {
+      "namn": "nivakoll uppgift eller resultat",
+      "budget": "flode",
+      "m": {
+        "lcp": 1020,
+        "cls": 0,
+        "fcp": 680,
+        "rundturer": 0,
+        "textLangd": 548,
+        "forfragningar": 53
+      }
+    }
+  ]
+}

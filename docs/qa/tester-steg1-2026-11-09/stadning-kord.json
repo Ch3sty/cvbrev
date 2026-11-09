@@ -1,0 +1,116 @@
+{
+  "tid": "2026-11-09T13:45:49.681Z",
+  "kor": true,
+  "konton": [
+    {
+      "epost": "qa-steg1-gratis-p7-ljust-gratis-1794229487959@jobbcoach-qa.example.com",
+      "id": "7540501e-06ec-47ec-8116-941757a4f38e",
+      "etikett": "gratis-p7-ljust-gratis",
+      "skapad": "2026-11-09T13:04:52.869Z"
+    },
+    {
+      "epost": "qa-steg1-gratis-d1280-morkt-gratis-1794229883018@jobbcoach-qa.example.com",
+      "id": "870fe68c-8d31-405d-9fbe-78949207d914",
+      "etikett": "gratis-d1280-morkt-gratis",
+      "skapad": "2026-11-09T13:11:27.101Z"
+    },
+    {
+      "epost": "qa-steg1-premium-p7-morkt-premium-1794230176546@jobbcoach-qa.example.com",
+      "id": "5a85477d-ae57-40ca-8a3a-1d12271ead13",
+      "etikett": "premium-p7-morkt-premium",
+      "skapad": "2026-11-09T13:16:20.089Z"
+    },
+    {
+      "epost": "qa-steg1-premium-d1280-ljust-premium-1794230274468@jobbcoach-qa.example.com",
+      "id": "8832a7e2-5b25-48a5-b18e-b2b299ce860b",
+      "etikett": "premium-d1280-ljust-premium",
+      "skapad": "2026-11-09T13:17:58.097Z"
+    },
+    {
+      "epost": "qa-steg1-premium-p7-morkt-premium-1794231461686@jobbcoach-qa.example.com",
+      "id": "8d34bfb1-002c-4a86-92db-dff9533bf6c4",
+      "etikett": "premium-p7-morkt-premium",
+      "skapad": "2026-11-09T13:37:47.513Z"
+    },
+    {
+      "epost": "qa-steg1-premium-d1280-ljust-premium-1794231578218@jobbcoach-qa.example.com",
+      "id": "724d0f3a-cd52-49ab-b5ae-994a2234689d",
+      "etikett": "premium-d1280-ljust-premium",
+      "skapad": "2026-11-09T13:39:42.224Z"
+    }
+  ],
+  "tabeller": [
+    {
+      "tabell": "email_confirmations",
+      "raknat": 6,
+      "raderat": 6,
+      "varv": 0
+    },
+    {
+      "tabell": "email_schedule",
+      "raknat": 12,
+      "raderat": 12,
+      "varv": 0
+    },
+    {
+      "tabell": "logic_test_v4_sessions",
+      "raknat": 20,
+      "raderat": 20,
+      "varv": 0
+    },
+    {
+      "tabell": "premium_grants",
+      "raknat": 4,
+      "raderat": 4,
+      "varv": 0
+    },
+    {
+      "tabell": "test_nivapunkter",
+      "raknat": 12,
+      "raderat": 12,
+      "varv": 0
+    },
+    {
+      "tabell": "user_activities",
+      "raknat": 114,
+      "raderat": 114,
+      "varv": 0
+    },
+    {
+      "tabell": "profiles (id)",
+      "raknat": 6,
+      "raderat": 6
+    }
+  ],
+  "anon": [],
+  "auth": [
+    {
+      "id": "7540501e-06ec-47ec-8116-941757a4f38e",
+      "resultat": "raderad"
+    },
+    {
+      "id": "870fe68c-8d31-405d-9fbe-78949207d914",
+      "resultat": "raderad"
+    },
+    {
+      "id": "5a85477d-ae57-40ca-8a3a-1d12271ead13",
+      "resultat": "raderad"
+    },
+    {
+      "id": "8832a7e2-5b25-48a5-b18e-b2b299ce860b",
+      "resultat": "raderad"
+    },
+    {
+      "id": "8d34bfb1-002c-4a86-92db-dff9533bf6c4",
+      "resultat": "raderad"
+    },
+    {
+      "id": "724d0f3a-cd52-49ab-b5ae-994a2234689d",
+      "resultat": "raderad"
+    }
+  ],
+  "kontroll": {
+    "profiler": 0,
+    "auth": 0
+  }
+}
