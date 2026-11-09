@@ -1,0 +1,6512 @@
+[
+ {
+  "ord": "konciliant",
+  "ordklass": "adjektiv",
+  "facit": "tillmötesgående",
+  "distraktorer": [
+   {
+    "ord": "koncis",
+    "typ": "falsk_van",
+    "forklaring": "som uttrycker sig kort och koncist"
+   },
+   {
+    "ord": "avvisande",
+    "typ": "antonym",
+    "forklaring": "som inte vill tillmötesgå eller hjälpa"
+   },
+   {
+    "ord": "passiv",
+    "typ": "samma_falt",
+    "forklaring": "som inte ingriper eller agerar"
+   },
+   {
+    "ord": "ödmjuk",
+    "typ": "nara",
+    "forklaring": "som visar beskedlighet och brist på stolthet"
+   }
+  ],
+  "exempel": "Förhandlaren intog en konciliant hållning för att nå en lösning.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "prekär",
+  "ordklass": "adjektiv",
+  "facit": "bekymmersam",
+  "distraktorer": [
+   {
+    "ord": "precis",
+    "typ": "falsk_van",
+    "forklaring": "exakt eller noggrann"
+   },
+   {
+    "ord": "gynnsam",
+    "typ": "antonym",
+    "forklaring": "som för med sig fördelar"
+   },
+   {
+    "ord": "riskabel",
+    "typ": "samma_falt",
+    "forklaring": "som innebär fara eller osäkerhet"
+   },
+   {
+    "ord": "allvarlig",
+    "typ": "nara",
+    "forklaring": "som väcker stora bekymmer"
+   }
+  ],
+  "exempel": "Företaget befinner sig i en mycket prekär ekonomisk situation.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "redundant",
+  "ordklass": "adjektiv",
+  "facit": "överflödig",
+  "distraktorer": [
+   {
+    "ord": "reducerad",
+    "typ": "falsk_van",
+    "forklaring": "som har minskat i mängd"
+   },
+   {
+    "ord": "nödvändig",
+    "typ": "antonym",
+    "forklaring": "som absolut behövs"
+   },
+   {
+    "ord": "bristfällig",
+    "typ": "samma_falt",
+    "forklaring": "som inte är tillräckligt bra"
+   },
+   {
+    "ord": "upprepad",
+    "typ": "nara",
+    "forklaring": "som har skett flera gånger"
+   }
+  ],
+  "exempel": "Texten innehöll flera redundanta formuleringar som kunde strykas.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "subtil",
+  "ordklass": "adjektiv",
+  "facit": "finstämd",
+  "distraktorer": [
+   {
+    "ord": "subjektiv",
+    "typ": "falsk_van",
+    "forklaring": "som bygger på personliga värderingar"
+   },
+   {
+    "ord": "uppenbar",
+    "typ": "antonym",
+    "forklaring": "som är mycket tydlig"
+   },
+   {
+    "ord": "osynlig",
+    "typ": "samma_falt",
+    "forklaring": "som inte går att se"
+   },
+   {
+    "ord": "nyanserad",
+    "typ": "nara",
+    "forklaring": "som innehåller flera facetter"
+   }
+  ],
+  "exempel": "Det fanns en subtil nyans av ironi i hennes röst.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "elakartad",
+  "ordklass": "adjektiv",
+  "facit": "farlig",
+  "distraktorer": [
+   {
+    "ord": "elak",
+    "typ": "falsk_van",
+    "forklaring": "som vill skada andra"
+   },
+   {
+    "ord": "godartad",
+    "typ": "antonym",
+    "forklaring": "som inte är farlig"
+   },
+   {
+    "ord": "smittsam",
+    "typ": "samma_falt",
+    "forklaring": "som lätt sprids vidare"
+   },
+   {
+    "ord": "skadlig",
+    "typ": "nara",
+    "forklaring": "som orsakar skada"
+   }
+  ],
+  "exempel": "Läkaren konstaterade att tumören dessvärre var elakartad.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "skrupulös",
+  "ordklass": "adjektiv",
+  "facit": "noggrann",
+  "distraktorer": [
+   {
+    "ord": "skrupelfri",
+    "typ": "falsk_van",
+    "forklaring": "som saknar samvete och hänsyn"
+   },
+   {
+    "ord": "slarvig",
+    "typ": "antonym",
+    "forklaring": "som inte bryr sig om detaljer"
+   },
+   {
+    "ord": "pedantisk",
+    "typ": "samma_falt",
+    "forklaring": "som är överdrivet petig"
+   },
+   {
+    "ord": "samvetsgrann",
+    "typ": "nara",
+    "forklaring": "som drivs av pliktkänsla"
+   }
+  ],
+  "exempel": "Revisorn gjorde en skrupulös granskning av räkenskaperna.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "implicit",
+  "ordklass": "adjektiv",
+  "facit": "underförstådd",
+  "distraktorer": [
+   {
+    "ord": "implicerad",
+    "typ": "falsk_van",
+    "forklaring": "som är indragen i något"
+   },
+   {
+    "ord": "uttrycklig",
+    "typ": "antonym",
+    "forklaring": "som klart uttalats"
+   },
+   {
+    "ord": "hemlig",
+    "typ": "samma_falt",
+    "forklaring": "som döljs för andra"
+   },
+   {
+    "ord": "otydlig",
+    "typ": "nara",
+    "forklaring": "som saknar klarhet"
+   }
+  ],
+  "exempel": "Det fanns ett implicit hot i hans uttalande.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "explicit",
+  "ordklass": "adjektiv",
+  "facit": "uttrycklig",
+  "distraktorer": [
+   {
+    "ord": "exklusiv",
+    "typ": "falsk_van",
+    "forklaring": "som är reserverad för ett fåtal"
+   },
+   {
+    "ord": "höljd",
+    "typ": "antonym",
+    "forklaring": "som inte framgår klart"
+   },
+   {
+    "ord": "skriftlig",
+    "typ": "samma_falt",
+    "forklaring": "som nedtecknats på papper"
+   },
+   {
+    "ord": "officiell",
+    "typ": "nara",
+    "forklaring": "som bekräftats offentligt"
+   }
+  ],
+  "exempel": "Hon gav explicita instruktioner om hur arbetet skulle utföras.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "anarki",
+  "ordklass": "substantiv",
+  "facit": "laglöshet",
+  "distraktorer": [
+   {
+    "ord": "arkiv",
+    "typ": "falsk_van",
+    "forklaring": "samling av handlingar"
+   },
+   {
+    "ord": "diktatur",
+    "typ": "antonym",
+    "forklaring": "styre med oinskränkt makt"
+   },
+   {
+    "ord": "uppror",
+    "typ": "samma_falt",
+    "forklaring": "väpnat motstånd mot myndighet"
+   },
+   {
+    "ord": "kaos",
+    "typ": "nara",
+    "forklaring": "tillstånd av total oordning"
+   }
+  ],
+  "exempel": "När polisen strejkade bröt ren anarki ut i staden.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "dogmatisk",
+  "ordklass": "adjektiv",
+  "facit": "tvärsäker",
+  "distraktorer": [
+   {
+    "ord": "dramatisk",
+    "typ": "falsk_van",
+    "forklaring": "händelserik och spännande"
+   },
+   {
+    "ord": "sökande",
+    "typ": "antonym",
+    "forklaring": "öppen för nya insikter"
+   },
+   {
+    "ord": "religiös",
+    "typ": "samma_falt",
+    "forklaring": "som hör till viss tro"
+   },
+   {
+    "ord": "principfast",
+    "typ": "nara",
+    "forklaring": "som stenhårt håller på regler"
+   }
+  ],
+  "exempel": "Han intog en dogmatisk inställning och vägrade lyssna på argument.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "anomali",
+  "ordklass": "substantiv",
+  "facit": "avvikelse",
+  "distraktorer": [
+   {
+    "ord": "anonymitet",
+    "typ": "falsk_van",
+    "forklaring": "tillstånd att vara okänd"
+   },
+   {
+    "ord": "norm",
+    "typ": "antonym",
+    "forklaring": "mönster för hur saker ska vara"
+   },
+   {
+    "ord": "felaktighet",
+    "typ": "samma_falt",
+    "forklaring": "något som inte stämmer"
+   },
+   {
+    "ord": "undantag",
+    "typ": "nara",
+    "forklaring": "fall som bryter mot reglerna"
+   }
+  ],
+  "exempel": "Forskarna upptäckte en anomali i mätdata från instrumentet.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "pragmatisk",
+  "ordklass": "adjektiv",
+  "facit": "praktisk",
+  "distraktorer": [
+   {
+    "ord": "praktiserande",
+    "typ": "falsk_van",
+    "forklaring": "som utövar ett yrke"
+   },
+   {
+    "ord": "teoretisk",
+    "typ": "antonym",
+    "forklaring": "som rör abstrakta läror"
+   },
+   {
+    "ord": "effektiv",
+    "typ": "samma_falt",
+    "forklaring": "som ger bra resultat"
+   },
+   {
+    "ord": "nykter",
+    "typ": "nara",
+    "forklaring": "saklig och realistisk"
+   }
+  ],
+  "exempel": "Vi måste ta ett pragmatiskt beslut i denna fråga.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "kontext",
+  "ordklass": "substantiv",
+  "facit": "sammanhang",
+  "distraktorer": [
+   {
+    "ord": "kontakt",
+    "typ": "falsk_van",
+    "forklaring": "förbindelse mellan personer"
+   },
+   {
+    "ord": "isolering",
+    "typ": "antonym",
+    "forklaring": "tillstånd utan koppling"
+   },
+   {
+    "ord": "bakgrund",
+    "typ": "samma_falt",
+    "forklaring": "underliggande orsaker"
+   },
+   {
+    "ord": "omgivning",
+    "typ": "nara",
+    "forklaring": "miljön runt omkring"
+   }
+  ],
+  "exempel": "Citatet kan lätt missuppfattas om det tas ur sin kontext.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "ambivalent",
+  "ordklass": "adjektiv",
+  "facit": "kluvendelad",
+  "distraktorer": [
+   {
+    "ord": "ambitiös",
+    "typ": "falsk_van",
+    "forklaring": "som strävar mycket hårt"
+   },
+   {
+    "ord": "målmedveten",
+    "typ": "antonym",
+    "forklaring": "helt på det klara med vad som ska göras"
+   },
+   {
+    "ord": "osäker",
+    "typ": "samma_falt",
+    "forklaring": "som känner tvivel"
+   },
+   {
+    "ord": "tveksam",
+    "typ": "nara",
+    "forklaring": "som har svårt att välja"
+   }
+  ],
+  "exempel": "Hon kände sig ambivalent inför det nya jobberbjudandet.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "kontinuerlig",
+  "ordklass": "adjektiv",
+  "facit": "oavbruten",
+  "distraktorer": [
+   {
+    "ord": "kontroversiell",
+    "typ": "falsk_van",
+    "forklaring": "som skapar stark debatt"
+   },
+   {
+    "ord": "ryckig",
+    "typ": "antonym",
+    "forklaring": "som sker i oregelbundna stötvis"
+   },
+   {
+    "ord": "regelbunden",
+    "typ": "samma_falt",
+    "forklaring": "som återkommer med jämna mellanrum"
+   },
+   {
+    "ord": "ständig",
+    "typ": "nara",
+    "forklaring": "som alltid pågår"
+   }
+  ],
+  "exempel": "Maskinen kräver kontinuerlig tillsyn under hela driftstiden.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "latens",
+  "ordklass": "substantiv",
+  "facit": "fördröjning",
+  "distraktorer": [
+   {
+    "ord": "latitud",
+    "typ": "falsk_van",
+    "forklaring": "breddgrad på jorden"
+   },
+   {
+    "ord": "snabbhet",
+    "typ": "antonym",
+    "forklaring": "förmåga att agera kortvarigt"
+   },
+   {
+    "ord": "avbrott",
+    "typ": "samma_falt",
+    "forklaring": "stopp i en process"
+   },
+   {
+    "ord": "väntetid",
+    "typ": "nara",
+    "forklaring": "tid man måste vänta"
+   }
+  ],
+  "exempel": "Det var en viss latens i nätverkssignalen.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "dogm",
+  "ordklass": "substantiv",
+  "facit": "lärosats",
+  "distraktorer": [
+   {
+    "ord": "drog",
+    "typ": "falsk_van",
+    "forklaring": "beroendeframkallande medel"
+   },
+   {
+    "ord": "hypotes",
+    "typ": "antonym",
+    "forklaring": "obevisat antagande"
+   },
+   {
+    "ord": "ideologi",
+    "typ": "samma_falt",
+    "forklaring": "system av politiska idéer"
+   },
+   {
+    "ord": "princip",
+    "typ": "nara",
+    "forklaring": "grundläggande regel"
+   }
+  ],
+  "exempel": "Partiet höll fast vid sin gamla dogm trots kritik.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "diskretion",
+  "ordklass": "substantiv",
+  "facit": "tystlåtenhet",
+  "distraktorer": [
+   {
+    "ord": "diskriminering",
+    "typ": "falsk_van",
+    "forklaring": "orättvis behandling"
+   },
+   {
+    "ord": "plumphet",
+    "typ": "antonym",
+    "forklaring": "brist på takt och stil"
+   },
+   {
+    "ord": "sekretess",
+    "typ": "samma_falt",
+    "forklaring": "juridiskt krav på tystnad"
+   },
+   {
+    "ord": "taktfullhet",
+    "typ": "nara",
+    "forklaring": "förmåga att uppträda smidigt"
+   }
+  ],
+  "exempel": "Personalen lovade full diskretion angående besökarens identitet.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "arkaisk",
+  "ordklass": "adjektiv",
+  "facit": "föråldrad",
+  "distraktorer": [
+   {
+    "ord": "arkitektonisk",
+    "typ": "falsk_van",
+    "forklaring": "som rör byggnadskonst"
+   },
+   {
+    "ord": "modern",
+    "typ": "antonym",
+    "forklaring": "som hör till samtiden"
+   },
+   {
+    "ord": "historisk",
+    "typ": "samma_falt",
+    "forklaring": "som rör det förflutna"
+   },
+   {
+    "ord": "otidsenlig",
+    "typ": "nara",
+    "forklaring": "som inte passar i tiden"
+   }
+  ],
+  "exempel": "Det juridiska dokumentet var skrivet i en arkaisk stil.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "sporadisk",
+  "ordklass": "adjektiv",
+  "facit": "enstaka",
+  "distraktorer": [
+   {
+    "ord": "sportig",
+    "typ": "falsk_van",
+    "forklaring": "som gillar idrott"
+   },
+   {
+    "ord": "oavbruten",
+    "typ": "antonym",
+    "forklaring": "som pågår hela tiden"
+   },
+   {
+    "ord": "tillfällig",
+    "typ": "samma_falt",
+    "forklaring": "som inte varar länge"
+   },
+   {
+    "ord": "oregelbunden",
+    "typ": "nara",
+    "forklaring": "som inträffar utan mönster"
+   }
+  ],
+  "exempel": "Under natten hördes bara sporadiska ljud från gatan.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "indikation",
+  "ordklass": "substantiv",
+  "facit": "antydan",
+  "distraktorer": [
+   {
+    "ord": "indiktamen",
+    "typ": "falsk_van",
+    "forklaring": "skriftligt prov efter uppläsning"
+   },
+   {
+    "ord": "motbevis",
+    "typ": "antonym",
+    "forklaring": "bevis som visar motsatsen"
+   },
+   {
+    "ord": "symptom",
+    "typ": "samma_falt",
+    "forklaring": "tecken på sjukdom"
+   },
+   {
+    "ord": "hänvisning",
+    "typ": "nara",
+    "forklaring": "upplysning om källa"
+   }
+  ],
+  "exempel": "Det finns ingen indikation på att priserna kommer att falla.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "skrupler",
+  "ordklass": "substantiv",
+  "facit": "betänkligheter",
+  "distraktorer": [
+   {
+    "ord": "skruvar",
+    "typ": "falsk_van",
+    "forklaring": "gängade fästelement"
+   },
+   {
+    "ord": "hänsynslöshet",
+    "typ": "antonym",
+    "forklaring": "brist på respekterande känsla"
+   },
+   {
+    "ord": "ånger",
+    "typ": "samma_falt",
+    "forklaring": "känsla av skuld efteråt"
+   },
+   {
+    "ord": "samvetsdubier",
+    "typ": "nara",
+    "forklaring": "tvivel av moralisk art"
+   }
+  ],
+  "exempel": "Mannen hade inga som helst skrupler inför att ljuga.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "symptomatisk",
+  "ordklass": "adjektiv",
+  "facit": "kännetecknande",
+  "distraktorer": [
+   {
+    "ord": "sympatisk",
+    "typ": "falsk_van",
+    "forklaring": "trevlig och tilltalande"
+   },
+   {
+    "ord": "ovanlig",
+    "typ": "antonym",
+    "forklaring": "som sällan förekommer"
+   },
+   {
+    "ord": "sjuklig",
+    "typ": "samma_falt",
+    "forklaring": "som har med ohälsa att göra"
+   },
+   {
+    "ord": "typisk",
+    "typ": "nara",
+    "forklaring": "som reprsenterar sin sort"
+   }
+  ],
+  "exempel": "Reaktionen var symptomatisk för stämningen i ledningsgruppen.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "verifiera",
+  "ordklass": "verb",
+  "facit": "bekräfta",
+  "distraktorer": [
+   {
+    "ord": "variera",
+    "typ": "falsk_van",
+    "forklaring": "göra förändringar i något"
+   },
+   {
+    "ord": "demantera",
+    "typ": "antonym",
+    "forklaring": "bestämt förneka ett påstående"
+   },
+   {
+    "ord": "undersöka",
+    "typ": "samma_falt",
+    "forklaring": "noggrant granska fakta"
+   },
+   {
+    "ord": "bevisa",
+    "typ": "nara",
+    "forklaring": "visa att något är sant"
+   }
+  ],
+  "exempel": "Systemet måste verifiera din identitet innan du kan logga in.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "falsifiera",
+  "ordklass": "verb",
+  "facit": "motbevisa",
+  "distraktorer": [
+   {
+    "ord": "filosofera",
+    "typ": "falsk_van",
+    "forklaring": "fundera över djupa frågor"
+   },
+   {
+    "ord": "verifiera",
+    "typ": "antonym",
+    "forklaring": "intyga sanningshalten"
+   },
+   {
+    "ord": "förfalska",
+    "typ": "samma_falt",
+    "forklaring": "tillverka en osann kopia"
+   },
+   {
+    "ord": "förkasta",
+    "typ": "nara",
+    "forklaring": "inte godta ett förslag"
+   }
+  ],
+  "exempel": "Forskaren försökte falsifiera den teoretiska modellen genom nya tester.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "koherent",
+  "ordklass": "adjektiv",
+  "facit": "sammanhängande",
+  "distraktorer": [
+   {
+    "ord": "konkret",
+    "typ": "falsk_van",
+    "forklaring": "som kan beröras eller ses"
+   },
+   {
+    "ord": "splittrad",
+    "typ": "antonym",
+    "forklaring": "som saknar inbördes samband"
+   },
+   {
+    "ord": "logisk",
+    "typ": "samma_falt",
+    "forklaring": "som följer tänkandets lagar"
+   },
+   {
+    "ord": "enhetlig",
+    "typ": "nara",
+    "forklaring": "som bildar en helhet"
+   }
+  ],
+  "exempel": "Rapporten gav en koherent bild av händelseförloppet.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "premiss",
+  "ordklass": "substantiv",
+  "facit": "förutsättning",
+  "distraktorer": [
+   {
+    "ord": "premie",
+    "typ": "falsk_van",
+    "forklaring": "avgift eller belöning"
+   },
+   {
+    "ord": "slutsats",
+    "typ": "antonym",
+    "forklaring": "resultat av en härledning"
+   },
+   {
+    "ord": "hypotes",
+    "typ": "samma_falt",
+    "forklaring": "gissning som prövas"
+   },
+   {
+    "ord": "utgångspunkt",
+    "typ": "nara",
+    "forklaring": "start för ett resonemang"
+   }
+  ],
+  "exempel": "Hela kalkylen bygger på en felaktig premiss.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "godtycke",
+  "ordklass": "substantiv",
+  "facit": "godtycklighet",
+  "distraktorer": [
+   {
+    "ord": "godhet",
+    "typ": "falsk_van",
+    "forklaring": "vänlig och omsorgsfull karaktär"
+   },
+   {
+    "ord": "regelverk",
+    "typ": "antonym",
+    "forklaring": "fastställda bestämmelser"
+   },
+   {
+    "ord": "orättvisa",
+    "typ": "samma_falt",
+    "forklaring": "brist på rättvis behandling"
+   },
+   {
+    "ord": "subjektivitet",
+    "typ": "nara",
+    "forklaring": "personligt färgats bedömning"
+   }
+  ],
+  "exempel": "Beslutet fattades helt efter chefens eget godtycke.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "anpasslig",
+  "ordklass": "adjektiv",
+  "facit": "medgörlig",
+  "distraktorer": [
+   {
+    "ord": "anpassad",
+    "typ": "falsk_van",
+    "forklaring": "ändrad för att passa"
+   },
+   {
+    "ord": "oböjlig",
+    "typ": "antonym",
+    "forklaring": "som vägrar ändra sig"
+   },
+   {
+    "ord": "flexibel",
+    "typ": "samma_falt",
+    "forklaring": "smidig inför förändringar"
+   },
+   {
+    "ord": "flat",
+    "typ": "nara",
+    "forklaring": "utan eget motstånd"
+   }
+  ],
+  "exempel": "Han var för anpasslig och vågade aldrig framföra egna åsikter.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "tribulation",
+  "ordklass": "substantiv",
+  "facit": "beprövelse",
+  "distraktorer": [
+   {
+    "ord": "tribunal",
+    "typ": "falsk_van",
+    "forklaring": "speciell domstol"
+   },
+   {
+    "ord": "framgång",
+    "typ": "antonym",
+    "forklaring": "positivt resultat av arbete"
+   },
+   {
+    "ord": "motgång",
+    "typ": "samma_falt",
+    "forklaring": "händelse som hindrar framsteg"
+   },
+   {
+    "ord": "lidande",
+    "typ": "nara",
+    "forklaring": "tillstånd av smärta"
+   }
+  ],
+  "exempel": "Efter många tribulations och motgångar nådde de slutligen målet.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "labil",
+  "ordklass": "adjektiv",
+  "facit": "ostadig",
+  "distraktorer": [
+   {
+    "ord": "stabil",
+    "typ": "antonym",
+    "forklaring": "som står stadigt och inte lätt förändras"
+   },
+   {
+    "ord": "labiliserad",
+    "typ": "falsk_van",
+    "forklaring": "ett tillstånd som har gjorts ostadigt"
+   },
+   {
+    "ord": "osäker",
+    "typ": "nara",
+    "forklaring": "som känner tvekan eller saknar trygghet"
+   },
+   {
+    "ord": "tillfällig",
+    "typ": "samma_falt",
+    "forklaring": "som bara gäller för en kort stund"
+   }
+  ],
+  "exempel": "Patientens humör var mycket labilt under hela morgonen.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "konkret",
+  "ordklass": "adjektiv",
+  "facit": "påtaglig",
+  "distraktorer": [
+   {
+    "ord": "abstrakt",
+    "typ": "antonym",
+    "forklaring": "teoretisk och svår att ta på"
+   },
+   {
+    "ord": "diskret",
+    "typ": "falsk_van",
+    "forklaring": "som inte väcker uppmärksamhet"
+   },
+   {
+    "ord": "praktisk",
+    "typ": "nara",
+    "forklaring": "som fungerar väl i nyttjande"
+   },
+   {
+    "ord": "tydlig",
+    "typ": "samma_falt",
+    "forklaring": "som är lätt att förstå"
+   }
+  ],
+  "exempel": "Vi behöver ett mer konkret förslag innan beslut fattas.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "indolent",
+  "ordklass": "adjektiv",
+  "facit": "bekväm",
+  "distraktorer": [
+   {
+    "ord": "flitig",
+    "typ": "antonym",
+    "forklaring": "som arbetar mycket och hårt"
+   },
+   {
+    "ord": "insolvent",
+    "typ": "falsk_van",
+    "forklaring": "som inte kan betala sina skulder"
+   },
+   {
+    "ord": "slö",
+    "typ": "nara",
+    "forklaring": "som saknar energi eller skärpa"
+   },
+   {
+    "ord": "likgiltig",
+    "typ": "samma_falt",
+    "forklaring": "som inte bryr sig om något"
+   }
+  ],
+  "exempel": "Den indolente medarbetaren skjuter alltid upp sina arbetsuppgifter.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "diskret",
+  "ordklass": "adjektiv",
+  "facit": "dämpad",
+  "distraktorer": [
+   {
+    "ord": "utmanande",
+    "typ": "antonym",
+    "forklaring": "som väcker stor uppmärksamhet eller provoserar"
+   },
+   {
+    "ord": "konkret",
+    "typ": "falsk_van",
+    "forklaring": "som är greppbar och tydlig"
+   },
+   {
+    "ord": "tystlåten",
+    "typ": "nara",
+    "forklaring": "som inte pratar särskilt mycket"
+   },
+   {
+    "ord": "försiktig",
+    "typ": "samma_falt",
+    "forklaring": "som undviker att ta risker"
+   }
+  ],
+  "exempel": "Personalen hanterade det känsliga ärendet på ett diskret sätt.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "renegat",
+  "ordklass": "substantiv",
+  "facit": "avfälling",
+  "distraktorer": [
+   {
+    "ord": "anhängare",
+    "typ": "antonym",
+    "forklaring": "person som stödjer en viss lära"
+   },
+   {
+    "ord": "regent",
+    "typ": "falsk_van",
+    "forklaring": "statsöverhuvud i en monarki"
+   },
+   {
+    "ord": "förrädare",
+    "typ": "nara",
+    "forklaring": "person som sviker sitt land eller sina vänner"
+   },
+   {
+    "ord": "flykting",
+    "typ": "samma_falt",
+    "forklaring": "person som flytt från sitt hemland"
+   }
+  ],
+  "exempel": "Han betraktades som en renegat efter att ha lämnat partiet.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "anemisk",
+  "ordklass": "adjektiv",
+  "facit": "blodfattig",
+  "distraktorer": [
+   {
+    "ord": "kraftfull",
+    "typ": "antonym",
+    "forklaring": "fylld av styrka och energi"
+   },
+   {
+    "ord": "anonym",
+    "typ": "falsk_van",
+    "forklaring": "som inte uppger sitt namn"
+   },
+   {
+    "ord": "svag",
+    "typ": "nara",
+    "forklaring": "som saknar kroppslig eller mentalt tryck"
+   },
+   {
+    "ord": "blek",
+    "typ": "samma_falt",
+    "forklaring": "som saknar färg i ansiktet"
+   }
+  ],
+  "exempel": "Utredningen gav ett anemiskt intryck och saknade skarpa förslag.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "fluktuera",
+  "ordklass": "verb",
+  "facit": "variera",
+  "distraktorer": [
+   {
+    "ord": "stabiliseras",
+    "typ": "antonym",
+    "forklaring": "bli stadig och slutgiltig"
+   },
+   {
+    "ord": "flambera",
+    "typ": "falsk_van",
+    "forklaring": "antända sprit över maträtt"
+   },
+   {
+    "ord": "pendla",
+    "typ": "nara",
+    "forklaring": "röra sig fram och tillbaka mellan två punkter"
+   },
+   {
+    "ord": "förändras",
+    "typ": "samma_falt",
+    "forklaring": "bli annorlunda än tidigare"
+   }
+  ],
+  "exempel": "Priserna på råvarumarknaden fortsätter att fluktuera kraftigt.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "karismatisk",
+  "ordklass": "adjektiv",
+  "facit": "personlighetsstark",
+  "distraktorer": [
+   {
+    "ord": "obetydlig",
+    "typ": "antonym",
+    "forklaring": "som inte gör något intryck"
+   },
+   {
+    "ord": "kromatisk",
+    "typ": "falsk_van",
+    "forklaring": "som har med färger eller halvtoner att göra"
+   },
+   {
+    "ord": "charmig",
+    "typ": "nara",
+    "forklaring": "som har en behaglig utstrålning"
+   },
+   {
+    "ord": "populär",
+    "typ": "samma_falt",
+    "forklaring": "omtyckt av många människor"
+   }
+  ],
+  "exempel": "Den karismatiske ledaren lyckades engagera hela publiken.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "stagnera",
+  "ordklass": "verb",
+  "facit": "avstanna",
+  "distraktorer": [
+   {
+    "ord": "utvecklas",
+    "typ": "antonym",
+    "forklaring": "gå framåt och förbättras"
+   },
+   {
+    "ord": "stagera",
+    "typ": "falsk_van",
+    "forklaring": "stötta upp med stöttor"
+   },
+   {
+    "ord": "avtaga",
+    "typ": "nara",
+    "forklaring": "bli mindre i styrka eller omfattning"
+   },
+   {
+    "ord": "hejdas",
+    "typ": "samma_falt",
+    "forklaring": "bli stoppad av något yttre"
+   }
+  ],
+  "exempel": "Ekonomin riskerar att stagnera om inga investeringar görs.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "fanatisk",
+  "ordklass": "adjektiv",
+  "facit": "blindtagen",
+  "distraktorer": [
+   {
+    "ord": "moderat",
+    "typ": "antonym",
+    "forklaring": "som håller sig till en rimlig medelväg"
+   },
+   {
+    "ord": "fantastisk",
+    "typ": "falsk_van",
+    "forklaring": "underbar och mycket god"
+   },
+   {
+    "ord": "extrem",
+    "typ": "nara",
+    "forklaring": "som går mycket långt i sin typ"
+   },
+   {
+    "ord": "engagerad",
+    "typ": "samma_falt",
+    "forklaring": "som bryr sig starkt om en fråga"
+   }
+  ],
+  "exempel": "Han har en fanatisk inställning till sin fotbollsklubb.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "insinuerad",
+  "ordklass": "adjektiv",
+  "facit": "antydd",
+  "distraktorer": [
+   {
+    "ord": "uttryckt",
+    "typ": "antonym",
+    "forklaring": "som har sagts direkt och klart"
+   },
+   {
+    "ord": "insisterad",
+    "typ": "falsk_van",
+    "forklaring": "som man har stått fast vid"
+   },
+   {
+    "ord": "påstådd",
+    "typ": "nara",
+    "forklaring": "som uppges vara på ett visst sätt"
+   },
+   {
+    "ord": "indirekt",
+    "typ": "samma_falt",
+    "forklaring": "som inte sker utan omvägar"
+   }
+  ],
+  "exempel": "Kritiken var bara insinuerad i rapportens sista avsnitt.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "arrogans",
+  "ordklass": "substantiv",
+  "facit": "övermod",
+  "distraktorer": [
+   {
+    "ord": "ödmjukhet",
+    "typ": "antonym",
+    "forklaring": "beskedenhet och avsaknad av skryt"
+   },
+   {
+    "ord": "elegans",
+    "typ": "falsk_van",
+    "forklaring": "stilfullhet och smidighet"
+   },
+   {
+    "ord": "högmod",
+    "typ": "nara",
+    "forklaring": "alltför höga tankar om sig själv"
+   },
+   {
+    "ord": "stolthet",
+    "typ": "samma_falt",
+    "forklaring": "känsla av tillfredsställelse över egen insats"
+   }
+  ],
+  "exempel": "Hennes arrogans gjorde att ingen i gruppen vill samarbeta.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "sanktionera",
+  "ordklass": "verb",
+  "facit": "godkänna",
+  "distraktorer": [
+   {
+    "ord": "förbjuda",
+    "typ": "antonym",
+    "forklaring": "göra något olagligt eller otillåtet"
+   },
+   {
+    "ord": "sammankalla",
+    "typ": "falsk_van",
+    "forklaring": "be flera personer att träffas"
+   },
+   {
+    "ord": "tillåta",
+    "typ": "nara",
+    "forklaring": "ge någon möjlighet att göra något"
+   },
+   {
+    "ord": "straffa",
+    "typ": "samma_falt",
+    "forklaring": "ge påföljd för ett regelbrott"
+   }
+  ],
+  "exempel": "Styrelsen valde att sanktionera den nya budgeten.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "anarki",
+  "ordklass": "substantiv",
+  "facit": "laglöshet",
+  "distraktorer": [
+   {
+    "ord": "diktatur",
+    "typ": "antonym",
+    "forklaring": "styre där en person har all makt"
+   },
+   {
+    "ord": "arkiv",
+    "typ": "falsk_van",
+    "forklaring": "plats för förvaring av handlingar"
+   },
+   {
+    "ord": "kaos",
+    "typ": "nara",
+    "forklaring": "fullständig oordning"
+   },
+   {
+    "ord": "uppror",
+    "typ": "samma_falt",
+    "forklaring": "våldsamt motstånd mot makten"
+   }
+  ],
+  "exempel": "Efter regeringens fall rådde total anarki i landet.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "kalkylera",
+  "ordklass": "verb",
+  "facit": "beräkna",
+  "distraktorer": [
+   {
+    "ord": "chansa",
+    "typ": "antonym",
+    "forklaring": "ta en risk utan beräkning"
+   },
+   {
+    "ord": "kapitulera",
+    "typ": "falsk_van",
+    "forklaring": "ge upp inför en fiende"
+   },
+   {
+    "ord": "uppskatta",
+    "typ": "nara",
+    "forklaring": "göra en ungefärlig bedömning"
+   },
+   {
+    "ord": "planera",
+    "typ": "samma_falt",
+    "forklaring": "tänka ut i förväg hur något ska göras"
+   }
+  ],
+  "exempel": "Projektledaren måste kalkylera alla kostnader i förväg.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "diffus",
+  "ordklass": "adjektiv",
+  "facit": "oklar",
+  "distraktorer": [
+   {
+    "ord": "distinkt",
+    "typ": "antonym",
+    "forklaring": "mycket tydlig och välavgränsad"
+   },
+   {
+    "ord": "profus",
+    "typ": "falsk_van",
+    "forklaring": "som förekommer i riklig mängd"
+   },
+   {
+    "ord": "suddig",
+    "typ": "nara",
+    "forklaring": "som saknar skarpa konturer"
+   },
+   {
+    "ord": "dunkel",
+    "typ": "samma_falt",
+    "forklaring": "svår att se eller förstå"
+   }
+  ],
+  "exempel": "Instruktionerna var väldigt diffusa och skapade förvirring.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "korrumpera",
+  "ordklass": "verb",
+  "facit": "muta",
+  "distraktorer": [
+   {
+    "ord": "förädla",
+    "typ": "antonym",
+    "forklaring": "göra något bättre och finare"
+   },
+   {
+    "ord": "korrigera",
+    "typ": "falsk_van",
+    "forklaring": "rätta till felaktigheter"
+   },
+   {
+    "ord": "fördärva",
+    "typ": "nara",
+    "forklaring": "förstöra moralen eller kvaliteten"
+   },
+   {
+    "ord": "påverka",
+    "typ": "samma_falt",
+    "forklaring": "ha inverkan på någon eller något"
+   }
+  ],
+  "exempel": "Maktbegäret riskerar att korrumpera även de mest ärliga.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "skeptisk",
+  "ordklass": "adjektiv",
+  "facit": "misstänksam",
+  "distraktorer": [
+   {
+    "ord": "lätttrogen",
+    "typ": "antonym",
+    "forklaring": "som lätt tror på vad som helst"
+   },
+   {
+    "ord": "septisk",
+    "typ": "falsk_van",
+    "forklaring": "som har med bakterieförgiftning att göra"
+   },
+   {
+    "ord": "tveksam",
+    "typ": "nara",
+    "forklaring": "som känner osäkerhet inför ett beslut"
+   },
+   {
+    "ord": "kristisk",
+    "typ": "samma_falt",
+    "forklaring": "som granskar noggrant och påpekar fel"
+   }
+  ],
+  "exempel": "Chefens nya förslag togs emot av en skeptisk personal.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "illusion",
+  "ordklass": "substantiv",
+  "facit": "villfarelse",
+  "distraktorer": [
+   {
+    "ord": "verklighet",
+    "typ": "antonym",
+    "forklaring": "tingens faktiska tillstånd"
+   },
+   {
+    "ord": "illustration",
+    "typ": "falsk_van",
+    "forklaring": "bild som förklarar en text"
+   },
+   {
+    "ord": "hägring",
+    "typ": "nara",
+    "forklaring": "synvilla orsakad av ljusbrytning"
+   },
+   {
+    "ord": "dröm",
+    "typ": "samma_falt",
+    "forklaring": "tankeupplevelse under sömn eller fantasi"
+   }
+  ],
+  "exempel": "Han gav sig inte hän åt någon illusion om snabba pengar.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "konsolidera",
+  "ordklass": "verb",
+  "facit": "stärka",
+  "distraktorer": [
+   {
+    "ord": "splittra",
+    "typ": "antonym",
+    "forklaring": "dela upp i flera mindre delar"
+   },
+   {
+    "ord": "konsultera",
+    "typ": "falsk_van",
+    "forklaring": "rådfråga någon med kunskap"
+   },
+   {
+    "ord": "förena",
+    "typ": "nara",
+    "forklaring": "slå ihop olika enheter till en"
+   },
+   {
+    "ord": "säkra",
+    "typ": "samma_falt",
+    "forklaring": "göra trygg mot faror eller förluster"
+   }
+  ],
+  "exempel": "Företaget vill konsolidera sin ställning på marknaden.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "synkron",
+  "ordklass": "adjektiv",
+  "facit": "samida",
+  "distraktorer": [
+   {
+    "ord": "asynkron",
+    "typ": "antonym",
+    "forklaring": "som inte sker vid samma tidpunkt"
+   },
+   {
+    "ord": "syndikerad",
+    "typ": "falsk_van",
+    "forklaring": "som distribueras till flera medier"
+   },
+   {
+    "ord": "samtidig",
+    "typ": "nara",
+    "forklaring": "som inträffar vid exakt samma tid"
+   },
+   {
+    "ord": "parallell",
+    "typ": "samma_falt",
+    "forklaring": "som löper bredvid utan att mötas"
+   }
+  ],
+  "exempel": "Systemen behöver vara synkrona för att data ska bli rätt.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "defensiv",
+  "ordklass": "adjektiv",
+  "facit": "skyddande",
+  "distraktorer": [
+   {
+    "ord": "offensiv",
+    "typ": "antonym",
+    "forklaring": "som angriper och går till attack"
+   },
+   {
+    "ord": "definitiv",
+    "typ": "falsk_van",
+    "forklaring": "som är slutgiltig och inte kan ändras"
+   },
+   {
+    "ord": "passiv",
+    "typ": "nara",
+    "forklaring": "som inte gör något motstånd eller agerar"
+   },
+   {
+    "ord": "försiktig",
+    "typ": "samma_falt",
+    "forklaring": "som undviker risker och agerar varligt"
+   }
+  ],
+  "exempel": "Laget intog en defensiv hållning under matchens sista minuter.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "initiera",
+  "ordklass": "verb",
+  "facit": "påbörja",
+  "distraktorer": [
+   {
+    "ord": "avsluta",
+    "typ": "antonym",
+    "forklaring": "föra något till sitt slut"
+   },
+   {
+    "ord": "imitera",
+    "typ": "falsk_van",
+    "forklaring": "härma någon annan"
+   },
+   {
+    "ord": "starta",
+    "typ": "nara",
+    "forklaring": "sätta i gång en verksamhet"
+   },
+   {
+    "ord": "föreslå",
+    "typ": "samma_falt",
+    "forklaring": "ge ett idéförslag för godkännande"
+   }
+  ],
+  "exempel": "Kommunen har valt att initiera en ny miljöutredning.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "ironisk",
+  "ordklass": "adjektiv",
+  "facit": "hånfull",
+  "distraktorer": [
+   {
+    "ord": "uppriktig",
+    "typ": "antonym",
+    "forklaring": "ärlig och menad från hjärtat"
+   },
+   {
+    "ord": "ikonisk",
+    "typ": "falsk_van",
+    "forklaring": "som är mycket känd och symbolisk"
+   },
+   {
+    "ord": "sarkastisk",
+    "typ": "nara",
+    "forklaring": "som innehåller skarp och bitande satir"
+   },
+   {
+    "ord": "rolig",
+    "typ": "samma_falt",
+    "forklaring": "som väcker skratt och glädje"
+   }
+  ],
+  "exempel": "Hennes ironiska leende avslöjade vad hon egentligen tyckte.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "allians",
+  "ordklass": "substantiv",
+  "facit": "förbund",
+  "distraktorer": [
+   {
+    "ord": "konflikt",
+    "typ": "antonym",
+    "forklaring": "motsättning och strid mellan parter"
+   },
+   {
+    "ord": "alibi",
+    "typ": "falsk_van",
+    "forklaring": "bevis på att man var någon annanstans"
+   },
+   {
+    "ord": "pakt",
+    "typ": "nara",
+    "forklaring": "skriftlig överenskommelse om samarbete"
+   },
+   {
+    "ord": "parti",
+    "typ": "samma_falt",
+    "forklaring": "politisk sammanslutning med gemensamt program"
+   }
+  ],
+  "exempel": "Länderna ingick en allians för att stärka sin säkerhet.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "explikera",
+  "ordklass": "verb",
+  "facit": "förklara",
+  "distraktorer": [
+   {
+    "ord": "fördunkla",
+    "typ": "antonym",
+    "forklaring": "göra svårare att förstå"
+   },
+   {
+    "ord": "exploatera",
+    "typ": "falsk_van",
+    "forklaring": "utnyttja resurser på ett cyniskt sätt"
+   },
+   {
+    "ord": "tolka",
+    "typ": "nara",
+    "forklaring": "ge en viss innebörd åt någonting"
+   },
+   {
+    "ord": "beskriva",
+    "typ": "samma_falt",
+    "forklaring": "ge en bild av någots egenskaper"
+   }
+  ],
+  "exempel": "Forskaren försökte explikera resultaten vid seminariet.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "autonom",
+  "ordklass": "adjektiv",
+  "facit": "självständig",
+  "distraktorer": [
+   {
+    "ord": "beroende",
+    "typ": "antonym",
+    "forklaring": "som behöver stöd från andra"
+   },
+   {
+    "ord": "automatisk",
+    "typ": "falsk_van",
+    "forklaring": "som sker av sig själv mekaniskt"
+   },
+   {
+    "ord": "fri",
+    "typ": "nara",
+    "forklaring": "som inte är fängslad eller tvingad"
+   },
+   {
+    "ord": "enskild",
+    "typ": "samma_falt",
+    "forklaring": "som avser en specifik person eller sak"
+   }
+  ],
+  "exempel": "Regionen beviljades en autonom ställning inom staten.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "exekvera",
+  "ordklass": "verb",
+  "facit": "verkställa",
+  "distraktorer": [
+   {
+    "ord": "avbryta",
+    "typ": "antonym",
+    "forklaring": "stoppa något innan det är klart"
+   },
+   {
+    "ord": "exekvera",
+    "typ": "falsk_van",
+    "forklaring": "samma ord i annan betydelse"
+   },
+   {
+    "ord": "genomföra",
+    "typ": "nara",
+    "forklaring": "föra en plan till färdig handling"
+   },
+   {
+    "ord": "utföra",
+    "typ": "samma_falt",
+    "forklaring": "göra en praktisk uppgift"
+   }
+  ],
+  "exempel": "Datorn kan exekvera koden på några sekunder.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "hypotetisk",
+  "ordklass": "adjektiv",
+  "facit": "antagen",
+  "distraktorer": [
+   {
+    "ord": "faktisk",
+    "typ": "antonym",
+    "forklaring": "som är sann och bevisad"
+   },
+   {
+    "ord": "hysterisk",
+    "typ": "falsk_van",
+    "forklaring": "som är utom sig av känsla"
+   },
+   {
+    "ord": "tänkbar",
+    "typ": "nara",
+    "forklaring": "som går att föreställa sig"
+   },
+   {
+    "ord": "osäker",
+    "typ": "samma_falt",
+    "forklaring": "som inte går att lita helt på"
+   }
+  ],
+  "exempel": "Diskussionen handlade bara om ett hypotetiskt fall.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "eliminera",
+  "ordklass": "verb",
+  "facit": "avlägsna",
+  "distraktorer": [
+   {
+    "ord": "tillföra",
+    "typ": "antonym",
+    "forklaring": "lägga till någonting nytt"
+   },
+   {
+    "ord": "illuminera",
+    "typ": "falsk_van",
+    "forklaring": "lysa upp någonting starkt"
+   },
+   {
+    "ord": "ta bort",
+    "typ": "nara",
+    "forklaring": "göra så att något försvinner"
+   },
+   {
+    "ord": "minska",
+    "typ": "samma_falt",
+    "forklaring": "göra volymen eller mängden mindre"
+   }
+  ],
+  "exempel": "Teknikerna lyckades eliminera risken för felmeddelanden.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "apercipiera",
+  "ordklass": "verb",
+  "facit": "uppfatta",
+  "distraktorer": [
+   {
+    "ord": "acceptera",
+    "typ": "falsk_van",
+    "forklaring": "Godta eller samtycka till något."
+   },
+   {
+    "ord": "förkasta",
+    "typ": "antonym",
+    "forklaring": "Slå ifrån sig eller avvisa helt."
+   },
+   {
+    "ord": "analysera",
+    "typ": "samma_falt",
+    "forklaring": "Noggrant undersöka och dela upp något."
+   },
+   {
+    "ord": "registrera",
+    "typ": "nara",
+    "forklaring": "Märka eller föra in i protokoll."
+   }
+  ],
+  "exempel": "Det var svårt att apercipiera den komplexa informationen under mötet.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "flathet",
+  "ordklass": "substantiv",
+  "facit": "undfallenhet",
+  "distraktorer": [
+   {
+    "ord": "flåsighet",
+    "typ": "falsk_van",
+    "forklaring": "Egenskapen att vara andfådd eller ytlig."
+   },
+   {
+    "ord": "fasthet",
+    "typ": "antonym",
+    "forklaring": "Förmåga att stå emot tryck och vara bestämd."
+   },
+   {
+    "ord": "feghet",
+    "typ": "nara",
+    "forklaring": "Minskad mod eller rädsla inför fara."
+   },
+   {
+    "ord": "passivitet",
+    "typ": "samma_falt",
+    "forklaring": "Brist på handling eller eget initiativ."
+   }
+  ],
+  "exempel": "Chefens flathet gentemot kraven skapade oreda i projektet.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "kristalliseras",
+  "ordklass": "verb",
+  "facit": "klarna",
+  "distraktorer": [
+   {
+    "ord": "krascha",
+    "typ": "falsk_van",
+    "forklaring": "Slås i spillror eller haverera."
+   },
+   {
+    "ord": "grumlas",
+    "typ": "antonym",
+    "forklaring": "Bli otydlig eller tappa sin skärpa."
+   },
+   {
+    "ord": "stelna",
+    "typ": "nara",
+    "forklaring": "Bli fast i formen eller upphöra att röra sig."
+   },
+   {
+    "ord": "forma",
+    "typ": "samma_falt",
+    "forklaring": "Ge en specifik yttre struktur åt något."
+   }
+  ],
+  "exempel": "Efter långa diskussioner började strategin äntligen att kristalliseras.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "indignerad",
+  "ordklass": "adjektiv",
+  "facit": "upprörd",
+  "distraktorer": [
+   {
+    "ord": "indikerad",
+    "typ": "falsk_van",
+    "forklaring": "Något som blivit antytt eller påvisat."
+   },
+   {
+    "ord": "opåverkad",
+    "typ": "antonym",
+    "forklaring": "Helt lugn och utan känslomässigt utslag."
+   },
+   {
+    "ord": "förgrymmad",
+    "typ": "nara",
+    "forklaring": "Mycket arga eller rasande inställd."
+   },
+   {
+    "ord": "misstänksam",
+    "typ": "samma_falt",
+    "forklaring": "Benägen att hysa tvivel om någons avsikter."
+   }
+  ],
+  "exempel": "Kunden blev indignerad över det dåliga bemötandet i butiken.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "adherera",
+  "ordklass": "verb",
+  "facit": "vidhäfta",
+  "distraktorer": [
+   {
+    "ord": "addera",
+    "typ": "falsk_van",
+    "forklaring": "Lägga ihop tal eller addera något."
+   },
+   {
+    "ord": "avlägsna",
+    "typ": "antonym",
+    "forklaring": "Ta bort eller ta av från något."
+   },
+   {
+    "ord": "ansluta",
+    "typ": "nara",
+    "forklaring": "Koppla samman eller gå med i någonting."
+   },
+   {
+    "ord": "klistra",
+    "typ": "samma_falt",
+    "forklaring": "Fästa ihop föremål med ett särskilt lim."
+   }
+  ],
+  "exempel": "Det nya materialet har en unik förmåga att adherera till ytan.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "skruda",
+  "ordklass": "verb",
+  "facit": "klä",
+  "distraktorer": [
+   {
+    "ord": "skrubba",
+    "typ": "falsk_van",
+    "forklaring": "Gnid hårt med borste för att rengöra."
+   },
+   {
+    "ord": "avklä",
+    "typ": "antonym",
+    "forklaring": "Ta av kläderna från någon eller något."
+   },
+   {
+    "ord": "smycka",
+    "typ": "nara",
+    "forklaring": "Göra något vackrare med dekorativa föremål."
+   },
+   {
+    "ord": "rusta",
+    "typ": "samma_falt",
+    "forklaring": "Förbereda eller utrusta inför en viss uppgift."
+   }
+  ],
+  "exempel": "Man valde att skruda salen i vackra blomsterarrangemang inför festen.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "eklektisk",
+  "ordklass": "adjektiv",
+  "facit": "blandad",
+  "distraktorer": [
+   {
+    "ord": "elektrisk",
+    "typ": "falsk_van",
+    "forklaring": "Som har att göra med ström och elektricitet."
+   },
+   {
+    "ord": "enhetlig",
+    "typ": "antonym",
+    "forklaring": "Helt konsekvent och formad av samma delar."
+   },
+   {
+    "ord": "varierad",
+    "typ": "nara",
+    "forklaring": "Som har många olika inslag och förändringar."
+   },
+   {
+    "ord": "mångsidig",
+    "typ": "samma_falt",
+    "forklaring": "Som behärskar eller täcker många olika områden."
+   }
+  ],
+  "exempel": "Inredningen i lägenheten bestod av en eklektisk samling av möbler.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "obskyr",
+  "ordklass": "adjektiv",
+  "facit": "skum",
+  "distraktorer": [
+   {
+    "ord": "okulär",
+    "typ": "falsk_van",
+    "forklaring": "Som rör ögat eller synintryck."
+   },
+   {
+    "ord": "känd",
+    "typ": "antonym",
+    "forklaring": "Välbekant för allmänheten eller en större grupp."
+   },
+   {
+    "ord": "dunkel",
+    "typ": "nara",
+    "forklaring": "Svår att se eller förstå sig på."
+   },
+   {
+    "ord": "hemlig",
+    "typ": "samma_falt",
+    "forklaring": "Dold för utomstående eller obehöriga personer."
+   }
+  ],
+  "exempel": "Boken var utgiven på ett obskyr förlag som få hört talas om.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "blamera",
+  "ordklass": "verb",
+  "facit": "skämma",
+  "distraktorer": [
+   {
+    "ord": "blockera",
+    "typ": "falsk_van",
+    "forklaring": "Hindra framfart eller spärra en väg."
+   },
+   {
+    "ord": "hylla",
+    "typ": "antonym",
+    "forklaring": "Ge offentligt beröm eller ärar någon."
+   },
+   {
+    "ord": "förnedra",
+    "typ": "nara",
+    "forklaring": "Minska någons stolthet på ett kränkande sätt."
+   },
+   {
+    "ord": "avslöja",
+    "typ": "samma_falt",
+    "forklaring": "Göra något okänt öppet för andra."
+   }
+  ],
+  "exempel": "Han var rädd att blamera sig inför hela styrelsen under presentationen.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "perifer",
+  "ordklass": "adjektiv",
+  "facit": "yttre",
+  "distraktorer": [
+   {
+    "ord": "perfekt",
+    "typ": "falsk_van",
+    "forklaring": "Helt utan fel och brister."
+   },
+   {
+    "ord": "central",
+    "typ": "antonym",
+    "forklaring": "Placerad i mitten eller av avgörande vikt."
+   },
+   {
+    "ord": "avlägsen",
+    "typ": "nara",
+    "forklaring": "Långt borta i rum eller tid."
+   },
+   {
+    "ord": "sekundär",
+    "typ": "samma_falt",
+    "forklaring": "Av lägre ordning eller underordnad betydelse."
+   }
+  ],
+  "exempel": "Frågan var av perifer betydelse för projektets slutgiltiga resultat.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "prekursor",
+  "ordklass": "substantiv",
+  "facit": "föregångare",
+  "distraktorer": [
+   {
+    "ord": "prokurist",
+    "typ": "falsk_van",
+    "forklaring": "Person som har handelsfullmakt i ett företag."
+   },
+   {
+    "ord": "efterföljare",
+    "typ": "antonym",
+    "forklaring": "Person som kommer efter någon annan."
+   },
+   {
+    "ord": "pionjär",
+    "typ": "nara",
+    "forklaring": "Bana väg inom ett nytt område."
+   },
+   {
+    "ord": "skapare",
+    "typ": "samma_falt",
+    "forklaring": "Person som har framställt något nytt."
+   }
+  ],
+  "exempel": "Denna tidiga modell betraktas som en prekursor till dagens datorer.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "kontaminera",
+  "ordklass": "verb",
+  "facit": "smutsa",
+  "distraktorer": [
+   {
+    "ord": "kondensera",
+    "typ": "falsk_van",
+    "forklaring": "Övergå från gasform till vätska."
+   },
+   {
+    "ord": "rengöra",
+    "typ": "antonym",
+    "forklaring": "Göra fri från smuts och orenheter."
+   },
+   {
+    "ord": "förgifta",
+    "typ": "nara",
+    "forklaring": "Tillföra ett farligt och skadligt ämne."
+   },
+   {
+    "ord": "förstöra",
+    "typ": "samma_falt",
+    "forklaring": "Göra obrukbar eller helt rasera."
+   }
+  ],
+  "exempel": "Kemikalierna riskerade att kontaminera grundvattnet i hela området.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "lakonisk",
+  "ordklass": "adjektiv",
+  "facit": "fåordig",
+  "distraktorer": [
+   {
+    "ord": "labil",
+    "typ": "falsk_van",
+    "forklaring": "Ostadig i humöret eller instabil."
+   },
+   {
+    "ord": "pratsam",
+    "typ": "antonym",
+    "forklaring": "Som tycker om att tala mycket."
+   },
+   {
+    "ord": "kortfattad",
+    "typ": "nara",
+    "forklaring": "Som uttrycks med få ord."
+   },
+   {
+    "ord": "tystlåten",
+    "typ": "samma_falt",
+    "forklaring": "Som sällan säger något självmant."
+   }
+  ],
+  "exempel": "Han gav ett lakonisk svar som inte lämnade rum för utfrågning.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "remiss",
+  "ordklass": "substantiv",
+  "facit": "hänvisning",
+  "distraktorer": [
+   {
+    "ord": "remissis",
+    "typ": "falsk_van",
+    "forklaring": "Minskning av symptom vid sjukdom."
+   },
+   {
+    "ord": "avslag",
+    "typ": "antonym",
+    "forklaring": "Nej på en ansökan eller en begäran."
+   },
+   {
+    "ord": "utredning",
+    "typ": "nara",
+    "forklaring": "Genomgång för att klarlägga ett ärende."
+   },
+   {
+    "ord": "förfrågan",
+    "typ": "samma_falt",
+    "forklaring": "Begäran om information eller synpunkter."
+   }
+  ],
+  "exempel": "Förslaget skickades ut på remiss till berörda myndigheter för synpunkter.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "kverulera",
+  "ordklass": "verb",
+  "facit": "klaga",
+  "distraktorer": [
+   {
+    "ord": "kvittera",
+    "typ": "falsk_van",
+    "forklaring": "Bekräfta mottagandet av en sändning."
+   },
+   {
+    "ord": "berömma",
+    "typ": "antonym",
+    "forklaring": "Uttrycka sin uppskattning eller beröm."
+   },
+   {
+    "ord": "jämra",
+    "typ": "nara",
+    "forklaring": "Ge ifrån sig smärtfyllda klagoskrik."
+   },
+   {
+    "ord": "protestera",
+    "typ": "samma_falt",
+    "forklaring": "Öppet visa sitt motstånd mot beslut."
+   }
+  ],
+  "exempel": "Det hjälper inte att kverulera över beslut som redan blivit fattade.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "tadel",
+  "ordklass": "substantiv",
+  "facit": "kritik",
+  "distraktorer": [
+   {
+    "ord": "tavla",
+    "typ": "falsk_van",
+    "forklaring": "Målning eller ett plötsligt misstag."
+   },
+   {
+    "ord": "beröm",
+    "typ": "antonym",
+    "forklaring": "Ord som visar stor uppskattning."
+   },
+   {
+    "ord": "klander",
+    "typ": "nara",
+    "forklaring": "Uttryck för missnöje eller felaktighet."
+   },
+   {
+    "ord": "varning",
+    "typ": "samma_falt",
+    "forklaring": "Upplysning om en farlig situation."
+   }
+  ],
+  "exempel": "Hans arbete var helt utan tadel och möttes av goda vitsord.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "insistera",
+  "ordklass": "verb",
+  "facit": "stå på sig",
+  "distraktorer": [
+   {
+    "ord": "inspirera",
+    "typ": "falsk_van",
+    "forklaring": "Ge någon nya idéer och skaparlust."
+   },
+   {
+    "ord": "ge vika",
+    "typ": "antonym",
+    "forklaring": "Ge upp sitt motstånd i en fråga."
+   },
+   {
+    "ord": "hävda",
+    "typ": "nara",
+    "forklaring": "Bestämt uttrycka sin personliga åsikt."
+   },
+   {
+    "ord": "kräva",
+    "typ": "samma_falt",
+    "forklaring": "Med eftertryck begära att få något."
+   }
+  ],
+  "exempel": "Kunden valde att insistera på sin rätt att få pengarna tillbaka.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "flanera",
+  "ordklass": "verb",
+  "facit": "ströva",
+  "distraktorer": [
+   {
+    "ord": "fladdra",
+    "typ": "falsk_van",
+    "forklaring": "Röra sig oregelbundet fram och tillbaka."
+   },
+   {
+    "ord": "rusa",
+    "typ": "antonym",
+    "forklaring": "Springa mycket snabbt mot ett mål."
+   },
+   {
+    "ord": "promenera",
+    "typ": "nara",
+    "forklaring": "Gå till fots i lugnt tempo."
+   },
+   {
+    "ord": "vandra",
+    "typ": "samma_falt",
+    "forklaring": "Gå en längre sträcka till fots."
+   }
+  ],
+  "exempel": "Det var trevligt att flanera längs gatorna i den gamla stadsdelen.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "frapperande",
+  "ordklass": "adjektiv",
+  "facit": "slående",
+  "distraktorer": [
+   {
+    "ord": "fragmenterad",
+    "typ": "falsk_van",
+    "forklaring": "Uppdelad i många mindre delar."
+   },
+   {
+    "ord": "osynlig",
+    "typ": "antonym",
+    "forklaring": "Som inte går att se med ögonen."
+   },
+   {
+    "ord": "märkbara",
+    "typ": "nara",
+    "forklaring": "Som går lätt att lägga märke till."
+   },
+   {
+    "ord": "ovanlig",
+    "typ": "samma_falt",
+    "forklaring": "Sällsynt och inte som det brukar."
+   }
+  ],
+  "exempel": "Skillnaden mellan de två förslagen var frapperande stor vid jämförelse.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "diskreditera",
+  "ordklass": "verb",
+  "facit": "svärta ner",
+  "distraktorer": [
+   {
+    "ord": "diskutera",
+    "typ": "falsk_van",
+    "forklaring": "Samtala och byta åsikter om något."
+   },
+   {
+    "ord": "upphöja",
+    "typ": "antonym",
+    "forklaring": "Ge någon mer makt eller ära."
+   },
+   {
+    "ord": "baktala",
+    "typ": "nara",
+    "forklaring": "Säga elaka saker bakom någons rygg."
+   },
+   {
+    "ord": "kritisera",
+    "typ": "samma_falt",
+    "forklaring": "Peka på fel eller brister hos något."
+   }
+  ],
+  "exempel": "Ett försök gjordes att diskreditera vittnet under rättegångens sista dag.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "arkaisk",
+  "ordklass": "adjektiv",
+  "facit": "ålderdomlig",
+  "distraktorer": [
+   {
+    "ord": "arkitektonisk",
+    "typ": "falsk_van",
+    "forklaring": "Som rör Byggnadskonst och gestaltning."
+   },
+   {
+    "ord": "modern",
+    "typ": "antonym",
+    "forklaring": "Som tillhör den nyaste tiden."
+   },
+   {
+    "ord": "föråldrad",
+    "typ": "nara",
+    "forklaring": "Inte längre i bruk eller inaktuell."
+   },
+   {
+    "ord": "historisk",
+    "typ": "samma_falt",
+    "forklaring": "Kopplad till det som hänt förr."
+   }
+  ],
+  "exempel": "Texten var skriven i en arkaisk stil som var svår att tolka.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "plausibel",
+  "ordklass": "adjektiv",
+  "facit": "rimlig",
+  "distraktorer": [
+   {
+    "ord": "plastisk",
+    "typ": "falsk_van",
+    "forklaring": "Formbar eller tillverkad av plast."
+   },
+   {
+    "ord": "orimlig",
+    "typ": "antonym",
+    "forklaring": "Helt utan logik eller förnuft."
+   },
+   {
+    "ord": "trolig",
+    "typ": "nara",
+    "forklaring": "Sannolik att hända eller stämma."
+   },
+   {
+    "ord": "möjlig",
+    "typ": "samma_falt",
+    "forklaring": "Något som kan inträffa eller genomföras."
+   }
+  ],
+  "exempel": "Mannen gav en plausibel förklaring till varför han kom för sent.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "interfoliera",
+  "ordklass": "verb",
+  "facit": "skjuta in",
+  "distraktorer": [
+   {
+    "ord": "intressera",
+    "typ": "falsk_van",
+    "forklaring": "Väcka nyfikenhet hos en annan person."
+   },
+   {
+    "ord": "utesluta",
+    "typ": "antonym",
+    "forklaring": "Ta bort eller vägra ta med något."
+   },
+   {
+    "ord": "blanda",
+    "typ": "nara",
+    "forklaring": "Röra ihop olika ämnen eller delar."
+   },
+   {
+    "ord": "komplettera",
+    "typ": "samma_falt",
+    "forklaring": "Lägga till något för fullständighet."
+   }
+  ],
+  "exempel": "Föreläsaren valde att interfoliera talet med korta anekdoter.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "kulminera",
+  "ordklass": "verb",
+  "facit": "nå sin höjd",
+  "distraktorer": [
+   {
+    "ord": "kalkylera",
+    "typ": "falsk_van",
+    "forklaring": "Beräkna eller räkna ut något matte."
+   },
+   {
+    "ord": "starta",
+    "typ": "antonym",
+    "forklaring": "Inleda eller påbörja ett skede."
+   },
+   {
+    "ord": "avsluta",
+    "typ": "nara",
+    "forklaring": "Nå till det slutgiltiga slutet."
+   },
+   {
+    "ord": "vända",
+    "typ": "samma_falt",
+    "forklaring": "Ändra riktning till motsatt håll."
+   }
+  ],
+  "exempel": "Konflikten beräknas kulminera under morgondagens avgörande förhandlingar.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "latens",
+  "ordklass": "substantiv",
+  "facit": "dvala",
+  "distraktorer": [
+   {
+    "ord": "latitud",
+    "typ": "falsk_van",
+    "forklaring": "Breddgrad på jordytan."
+   },
+   {
+    "ord": "aktivitet",
+    "typ": "antonym",
+    "forklaring": "Handling eller pågående rörelse."
+   },
+   {
+    "ord": "paus",
+    "typ": "nara",
+    "forklaring": "Kort avbrott i en verksamhet."
+   },
+   {
+    "ord": "väntan",
+    "typ": "samma_falt",
+    "forklaring": "Tid som tillbringas innan någonting sker."
+   }
+  ],
+  "exempel": "Sjukdomen har en lång latens innan de första symptomen bryter ut.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "anomali",
+  "ordklass": "substantiv",
+  "facit": "avvikelse",
+  "distraktorer": [
+   {
+    "ord": "anonymitet",
+    "typ": "falsk_van",
+    "forklaring": "Tillståndet att vara okänd till namnet."
+   },
+   {
+    "ord": "norm",
+    "typ": "antonym",
+    "forklaring": "Gällande regel eller det normala tillståndet."
+   },
+   {
+    "ord": "störning",
+    "typ": "nara",
+    "forklaring": "Avbrott eller oreda i ett system."
+   },
+   {
+    "ord": "mönster",
+    "typ": "samma_falt",
+    "forklaring": "Struktur eller regelbundenhet i något."
+   }
+  ],
+  "exempel": "Forskarna upptäckte en anomali i mätdata från satelliten.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "sedat",
+  "ordklass": "adjektiv",
+  "facit": "satt",
+  "distraktorer": [
+   {
+    "ord": "sedan",
+    "typ": "falsk_van",
+    "forklaring": "Tidsangivelse för vad som händer efteråt."
+   },
+   {
+    "ord": "vild",
+    "typ": "antonym",
+    "forklaring": "Otyglad och upprörd till sinnes."
+   },
+   {
+    "ord": "stillsam",
+    "typ": "nara",
+    "forklaring": "Lugn och fridsam till sitt sätt."
+   },
+   {
+    "ord": "passiv",
+    "typ": "samma_falt",
+    "forklaring": "Handlingsförlamad och utan eget driv."
+   }
+  ],
+  "exempel": "Mannen levde ett mycket sedat liv utan några större överraskningar.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "supplera",
+  "ordklass": "verb",
+  "facit": "fylla ut",
+  "distraktorer": [
+   {
+    "ord": "supplikera",
+    "typ": "falsk_van",
+    "forklaring": "Ödmjukt ansöka eller be om något."
+   },
+   {
+    "ord": "dra av",
+    "typ": "antonym",
+    "forklaring": "Minska eller ta bort en viss del."
+   },
+   {
+    "ord": "ersätta",
+    "typ": "nara",
+    "forklaring": "Sätta in något annat i stället."
+   },
+   {
+    "ord": "utöka",
+    "typ": "samma_falt",
+    "forklaring": "Göra större till omfång eller antal."
+   }
+  ],
+  "exempel": "Vi behöver supplera truppen med nya krafter inför nästa säsong.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "fostra",
+  "ordklass": "verb",
+  "facit": "uppfostra",
+  "distraktorer": [
+   {
+    "ord": "forstra",
+    "typ": "falsk_van",
+    "forklaring": "Det finns inget svenskt ord med denna stavning."
+   },
+   {
+    "ord": "vanvårda",
+    "typ": "antonym",
+    "forklaring": "Sköta om mycket dåligt eller försumma."
+   },
+   {
+    "ord": "skola",
+    "typ": "nara",
+    "forklaring": "Utbilda och ge undervisning i ämnen."
+   },
+   {
+    "ord": "vägleda",
+    "typ": "samma_falt",
+    "forklaring": "Ge råd och visa rätt väg för någon."
+   }
+  ],
+  "exempel": "Föräldrarnas uppgift är att fostra sina barn till goda samhällsmedborgare.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "impertinent",
+  "ordklass": "adjektiv",
+  "facit": "näsvis",
+  "distraktorer": [
+   {
+    "ord": "permanent",
+    "typ": "falsk_van",
+    "forklaring": "Bestående under mycket lång tid."
+   },
+   {
+    "ord": "höflig",
+    "typ": "antonym",
+    "forklaring": "Visar god stil och god ton."
+   },
+   {
+    "ord": "spydig",
+    "typ": "nara",
+    "forklaring": "Säger elaka och hånfulla saker."
+   },
+   {
+    "ord": "kaxig",
+    "typ": "samma_falt",
+    "forklaring": "Självsäker på ett utmanande sätt."
+   }
+  ],
+  "exempel": "Han fick en reprimand för sina impertinent kommentarer under lektionen.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "avog",
+  "ordklass": "adjektiv",
+  "facit": "fientlig",
+  "distraktorer": [
+   {
+    "ord": "vänligt",
+    "typ": "antonym",
+    "forklaring": "Betyder bemötande med god vilja och hjälpsamhet."
+   },
+   {
+    "ord": "avig",
+    "typ": "falsk_van",
+    "forklaring": "Betyder med vrängd utsida eller avvand."
+   },
+   {
+    "ord": "reserverad",
+    "typ": "nara",
+    "forklaring": "Betyder avvaktande och återhållsam men inte direkt fientlig."
+   },
+   {
+    "ord": "sträng",
+    "typ": "samma_falt",
+    "forklaring": "Betyder hård och krävande i regler."
+   }
+  ],
+  "exempel": "Han var starkt avog inställd till förslaget om omorganiseringen.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "bestrida",
+  "ordklass": "verb",
+  "facit": "förneka",
+  "distraktorer": [
+   {
+    "ord": "bekräfta",
+    "typ": "antonym",
+    "forklaring": "Betyder att intyga riktigheten i något."
+   },
+   {
+    "ord": "bestråla",
+    "typ": "falsk_van",
+    "forklaring": "Betyder att utsätta för strålning."
+   },
+   {
+    "ord": "protestera",
+    "typ": "nara",
+    "forklaring": "Betyder att öppet visa sitt missnöje."
+   },
+   {
+    "ord": "debattera",
+    "typ": "samma_falt",
+    "forklaring": "Betyder att offentligt diskutera en fråga."
+   }
+  ],
+  "exempel": "Företaget valde att bestrida den felaktiga fakturan från leverantören.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "börda",
+  "ordklass": "substantiv",
+  "facit": "tyngd",
+  "distraktorer": [
+   {
+    "ord": "lättnad",
+    "typ": "antonym",
+    "forklaring": "Betyder befrielse från press eller oro."
+   },
+   {
+    "ord": "bård",
+    "typ": "falsk_van",
+    "forklaring": "Betyder en mönstrad kant på textilier."
+   },
+   {
+    "ord": "ansvar",
+    "typ": "nara",
+    "forklaring": "Betyder skyldighet att svara för något."
+   },
+   {
+    "ord": "plikt",
+    "typ": "samma_falt",
+    "forklaring": "Betyder en moralisk eller juridisk skyldighet."
+   }
+  ],
+  "exempel": "Det stora ekonomiska ansvaret blev en tung börda för honom.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "dristig",
+  "ordklass": "adjektiv",
+  "facit": "orädd",
+  "distraktorer": [
+   {
+    "ord": "feg",
+    "typ": "antonym",
+    "forklaring": "Betyder brist på mod inför fara."
+   },
+   {
+    "ord": "drastisk",
+    "typ": "falsk_van",
+    "forklaring": "Betyder kraftfull och genomgripande."
+   },
+   {
+    "ord": "djärv",
+    "typ": "nara",
+    "forklaring": "Betyder övermodig eller mycket modig."
+   },
+   {
+    "ord": "aktiv",
+    "typ": "samma_falt",
+    "forklaring": "Betyder handlingskraftig och verksam."
+   }
+  ],
+  "exempel": "Hon gjorde en dristig satsning när hon startade företaget.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "eftergift",
+  "ordklass": "substantiv",
+  "facit": "kompromiss",
+  "distraktorer": [
+   {
+    "ord": "krav",
+    "typ": "antonym",
+    "forklaring": "Betyder ett ovillkorligt anspråk på något."
+   },
+   {
+    "ord": "efterskrift",
+    "typ": "falsk_van",
+    "forklaring": "Betyder en tillagd avslutande text."
+   },
+   {
+    "ord": "medgivande",
+    "typ": "nara",
+    "forklaring": "Betyder tillåtelse eller att hålla med."
+   },
+   {
+    "ord": "avtal",
+    "typ": "samma_falt",
+    "forklaring": "Betyder en överenskommelse mellan två parter."
+   }
+  ],
+  "exempel": "Ledningen tvingades göra en eftergift i förhandlingarna om lönerna.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "fata",
+  "ordklass": "verb",
+  "facit": "gripa",
+  "distraktorer": [
+   {
+    "ord": "tappa",
+    "typ": "antonym",
+    "forklaring": "Betyder att av misstag mista greppet."
+   },
+   {
+    "ord": "fatta",
+    "typ": "falsk_van",
+    "forklaring": "Betyder att förstå eller ta ett beslut."
+   },
+   {
+    "ord": "hålla",
+    "typ": "nara",
+    "forklaring": "Betyder att bärande ha något i handen."
+   },
+   {
+    "ord": "rör",
+    "typ": "samma_falt",
+    "forklaring": "Betyder att komma i kontakt med något."
+   }
+  ],
+  "exempel": "Han räckte ut handen för att fata tag i räcket.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "förfara",
+  "ordklass": "verb",
+  "facit": "agera",
+  "distraktorer": [
+   {
+    "ord": "tveka",
+    "typ": "antonym",
+    "forklaring": "Betyder att vara osäker och avvakta."
+   },
+   {
+    "ord": "förfalla",
+    "typ": "falsk_van",
+    "forklaring": "Betyder att bli förstörd eller förlora värde."
+   },
+   {
+    "ord": "hantera",
+    "typ": "nara",
+    "forklaring": "Betyder att sköta om en sak."
+   },
+   {
+    "ord": "utföra",
+    "typ": "samma_falt",
+    "forklaring": "Betyder att genomföra en specifik uppgift."
+   }
+  ],
+  "exempel": "Polisen måste förfara ytterst försiktigt vid sådana insatser.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "förfång",
+  "ordklass": "substantiv",
+  "facit": "skada",
+  "distraktorer": [
+   {
+    "ord": "nytta",
+    "typ": "antonym",
+    "forklaring": "Betyder positiv välgång eller fördel."
+   },
+   {
+    "ord": "förfånga",
+    "typ": "falsk_van",
+    "forklaring": "Ett icke-existerande verb bildat från substantivet."
+   },
+   {
+    "ord": "förlust",
+    "typ": "nara",
+    "forklaring": "Betyder att någonting går förlorat."
+   },
+   {
+    "ord": "hinder",
+    "typ": "samma_falt",
+    "forklaring": "Betyder någonting som stoppar framfarten."
+   }
+  ],
+  "exempel": "Beslutet fattades utan förfång för tredje parts rättigheter.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "förspilla",
+  "ordklass": "verb",
+  "facit": "slösa",
+  "distraktorer": [
+   {
+    "ord": "spara",
+    "typ": "antonym",
+    "forklaring": "Betyder att bevara resurser för framtiden."
+   },
+   {
+    "ord": "förspänna",
+    "typ": "falsk_van",
+    "forklaring": "Betyder att spänna för dragdjur."
+   },
+   {
+    "ord": "förlora",
+    "typ": "nara",
+    "forklaring": "Betyder att mista någonting."
+   },
+   {
+    "ord": "förstöra",
+    "typ": "samma_falt",
+    "forklaring": "Betyder att göra något obrukbart."
+   }
+  ],
+  "exempel": "Vi får inte förspilla denna unika chans till förändring.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "gagna",
+  "ordklass": "verb",
+  "facit": "nytta",
+  "distraktorer": [
+   {
+    "ord": "skada",
+    "typ": "antonym",
+    "forklaring": "Betyder att tillfoga ont eller förstöra."
+   },
+   {
+    "ord": "gapa",
+    "typ": "falsk_van",
+    "forklaring": "Betyder att öppna munnen brett."
+   },
+   {
+    "ord": "hjälpa",
+    "typ": "nara",
+    "forklaring": "Betyder att bistå någon i nöd."
+   },
+   {
+    "ord": "stärka",
+    "typ": "samma_falt",
+    "forklaring": "Betyder att göra något mer kraftfullt."
+   }
+  ],
+  "exempel": "De nya reglerna kommer att gagna hela organisationen på sikt.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "hävda",
+  "ordklass": "verb",
+  "facit": "påstå",
+  "distraktorer": [
+   {
+    "ord": "förneka",
+    "typ": "antonym",
+    "forklaring": "Betyder att neka till ett påstående."
+   },
+   {
+    "ord": "häva",
+    "typ": "falsk_van",
+    "forklaring": "Betyder att lyfta upp eller avbryta ett avtal."
+   },
+   {
+    "ord": "försvara",
+    "typ": "nara",
+    "forklaring": "Betyder att skydda mot kritik eller anfall."
+   },
+   {
+    "ord": "förklara",
+    "typ": "samma_falt",
+    "forklaring": "Betyder att göra något begripligt."
+   }
+  ],
+  "exempel": "Mannen fortsatte att hävda sin oskuld under hela förhöret.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "hänsyn",
+  "ordklass": "substantiv",
+  "facit": "respekt",
+  "distraktorer": [
+   {
+    "ord": "förakt",
+    "typ": "antonym",
+    "forklaring": "Betyder djup brist på respekt."
+   },
+   {
+    "ord": "hänvisning",
+    "typ": "falsk_van",
+    "forklaring": "Betyder hänvisning till en källanvisning."
+   },
+   {
+    "ord": "omtanke",
+    "typ": "nara",
+    "forklaring": "Betyder omsorg om andras välmående."
+   },
+   {
+    "ord": "vördnad",
+    "typ": "samma_falt",
+    "forklaring": "Betyder djup aktning eller vördnad."
+   }
+  ],
+  "exempel": "Det är viktigt att visa hänsyn mot sina grannar på kvällen.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "inlemma",
+  "ordklass": "verb",
+  "facit": "förena",
+  "distraktorer": [
+   {
+    "ord": "söndra",
+    "typ": "antonym",
+    "forklaring": "Betyder att skada sammanhållningen."
+   },
+   {
+    "ord": "inrama",
+    "typ": "falsk_van",
+    "forklaring": "Betyder att sätta en ram runt något."
+   },
+   {
+    "ord": "ansluta",
+    "typ": "nara",
+    "forklaring": "Betyder att koppla ihop två saker."
+   },
+   {
+    "ord": "blanda",
+    "typ": "samma_falt",
+    "forklaring": "Betyder att sammanföra olika element."
+   }
+  ],
+  "exempel": "Projektet ska inlemma de nya direktiven i verksamheten.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "intaga",
+  "ordklass": "verb",
+  "facit": "erövra",
+  "distraktorer": [
+   {
+    "ord": "lämna",
+    "typ": "antonym",
+    "forklaring": "Betyder att bege sig ifrån en plats."
+   },
+   {
+    "ord": "inta",
+    "typ": "falsk_van",
+    "forklaring": "Betyder att äta eller dricka något."
+   },
+   {
+    "ord": "besätta",
+    "typ": "nara",
+    "forklaring": "Betyder att ta en plats i besittning."
+   },
+   {
+    "ord": "anfalla",
+    "typ": "samma_falt",
+    "forklaring": "Betyder att inleda ett militärt grepp."
+   }
+  ],
+  "exempel": "Trupperna lyckades intaga fästningen efter tre veckors belägring.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "jämka",
+  "ordklass": "verb",
+  "facit": "justera",
+  "distraktorer": [
+   {
+    "ord": "låsa",
+    "typ": "antonym",
+    "forklaring": "Betyder att göra fast och oföränderlig."
+   },
+   {
+    "ord": "jämra",
+    "typ": "falsk_van",
+    "forklaring": "Betyder att klaga och ge ifrån sig smärtljud."
+   },
+   {
+    "ord": "anpassa",
+    "typ": "nara",
+    "forklaring": "Betyder att rätta sig efter omständigheterna."
+   },
+   {
+    "ord": "ändra",
+    "typ": "samma_falt",
+    "forklaring": "Betyder att göra annorlunda än förr."
+   }
+  ],
+  "exempel": "Parterna försökte jämka sina skilda krav i avtalsförhandlingen.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "karg",
+  "ordklass": "adjektiv",
+  "facit": "fattig",
+  "distraktorer": [
+   {
+    "ord": "bördig",
+    "typ": "antonym",
+    "forklaring": "Betyder med rik och god växtlighet."
+   },
+   {
+    "ord": "kaxig",
+    "typ": "falsk_van",
+    "forklaring": "Betyder självsäker på ett utmanande sätt."
+   },
+   {
+    "ord": "öde",
+    "typ": "nara",
+    "forklaring": "Betyder tom på människor och liv."
+   },
+   {
+    "ord": "torr",
+    "typ": "samma_falt",
+    "forklaring": "Betyder avsaknad av vätska eller fukt."
+   }
+  ],
+  "exempel": "Det karga landskapet i norr bestod mest av sten och mossa.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "kundgöra",
+  "ordklass": "verb",
+  "facit": "meddela",
+  "distraktorer": [
+   {
+    "ord": "dölja",
+    "typ": "antonym",
+    "forklaring": "Betyder att hålla något hemligt."
+   },
+   {
+    "ord": "kungöra",
+    "typ": "falsk_van",
+    "forklaring": "Betyder officiellt tillkännage."
+   },
+   {
+    "ord": "berätta",
+    "typ": "nara",
+    "forklaring": "Betyder att återge en händelse."
+   },
+   {
+    "ord": "förklara",
+    "typ": "samma_falt",
+    "forklaring": "Betyder att beskriva hur något förhåller sig."
+   }
+  ],
+  "exempel": "Direktören ville kundgöra det nya beslutet för alla anställda.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "labil",
+  "ordklass": "adjektiv",
+  "facit": "ostadig",
+  "distraktorer": [
+   {
+    "ord": "stabil",
+    "typ": "antonym",
+    "forklaring": "Betyder stadig och fast i sitt tillstånd."
+   },
+   {
+    "ord": "labilisera",
+    "typ": "falsk_van",
+    "forklaring": "Ett verb som betyder att göra ostadig."
+   },
+   {
+    "ord": "osäker",
+    "typ": "nara",
+    "forklaring": "Betyder fylld av tvivel eller fara."
+   },
+   {
+    "ord": "rörlig",
+    "typ": "samma_falt",
+    "forklaring": "Betyder lätt att förflytta."
+   }
+  ],
+  "exempel": "Patientens hälsotillstånd var ytterst labilt under natten.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "mäkta",
+  "ordklass": "verb",
+  "facit": "orka",
+  "distraktorer": [
+   {
+    "ord": "misslyckas",
+    "typ": "antonym",
+    "forklaring": "Betyder att inte nå avsett resultat."
+   },
+   {
+    "ord": "mäkta",
+    "typ": "falsk_van",
+    "forklaring": "Används också som adverb i betydelsen mycket."
+   },
+   {
+    "ord": "klara",
+    "typ": "nara",
+    "forklaring": "Betyder att genomföra någonting."
+   },
+   {
+    "ord": "hinna",
+    "typ": "samma_falt",
+    "forklaring": "Betyder att ha tillräckligt med tid."
+   }
+  ],
+  "exempel": "Han mäktade inte med att fullfölja det tunga arbetet.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "nödga",
+  "ordklass": "verb",
+  "facit": "tvinga",
+  "distraktorer": [
+   {
+    "ord": "befria",
+    "typ": "antonym",
+    "forklaring": "Betyder att göra någon fri från tvång."
+   },
+   {
+    "ord": "nöja",
+    "typ": "falsk_van",
+    "forklaring": "Betyder att vara tillfreds med något."
+   },
+   {
+    "ord": "pressa",
+    "typ": "nara",
+    "forklaring": "Betyder att utsätta någon för påtryckningar."
+   },
+   {
+    "ord": "kräva",
+    "typ": "samma_falt",
+    "forklaring": "Betyder att begära något bestämt."
+   }
+  ],
+  "exempel": "Omständigheterna nödgade honom att fatta ett snabbt beslut.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "ogridbar",
+  "ordklass": "adjektiv",
+  "facit": "otillgänglig",
+  "distraktorer": [
+   {
+    "ord": "nårbar",
+    "typ": "antonym",
+    "forklaring": "Betyder lätt att nå eller kontakta."
+   },
+   {
+    "ord": "ogripbar",
+    "typ": "falsk_van",
+    "forklaring": "Betyder omöjlig att förstå eller ta på."
+   },
+   {
+    "ord": "avlägsen",
+    "typ": "nara",
+    "forklaring": "Betyder belägen långt borta."
+   },
+   {
+    "ord": "isolerad",
+    "typ": "samma_falt",
+    "forklaring": "Betyder avskild från omvärlden."
+   }
+  ],
+  "exempel": "Terrängen i dalen var ogridbar på grund av de branta klipporna.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "olägenhet",
+  "ordklass": "substantiv",
+  "facit": "besvär",
+  "distraktorer": [
+   {
+    "ord": "fördel",
+    "typ": "antonym",
+    "forklaring": "Betyder en gynnsam omständighet."
+   },
+   {
+    "ord": "olägen",
+    "typ": "falsk_van",
+    "forklaring": "Ett obrukbart adjektiv utifrån substantivet."
+   },
+   {
+    "ord": "problem",
+    "typ": "nara",
+    "forklaring": "Betyder svårighet som kräver en lösning."
+   },
+   {
+    "ord": "hinder",
+    "typ": "samma_falt",
+    "forklaring": "Betyder något som stoppar utvecklingen."
+   }
+  ],
+  "exempel": "Vi beklagar den olägenhet som tågförseningarna har orsakat er.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "omständlig",
+  "ordklass": "adjektiv",
+  "facit": "vidlyftig",
+  "distraktorer": [
+   {
+    "ord": "koncis",
+    "typ": "antonym",
+    "forklaring": "Betyder kortfattad och kärnfull."
+   },
+   {
+    "ord": "omständig",
+    "typ": "falsk_van",
+    "forklaring": "En felaktig stavningsform av ordet."
+   },
+   {
+    "ord": "långrandig",
+    "typ": "nara",
+    "forklaring": "Betyder tråkigt utdragen i tiden."
+   },
+   {
+    "ord": "krånglig",
+    "typ": "samma_falt",
+    "forklaring": "Betyder svår att förstå eller hantera."
+   }
+  ],
+  "exempel": "Rapporten var så omständlig att ingen orkade läsa hela.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "påverka",
+  "ordklass": "verb",
+  "facit": "inverka",
+  "distraktorer": [
+   {
+    "ord": "lämna",
+    "typ": "antonym",
+    "forklaring": "Betyder att inte bry sig eller gå iväg."
+   },
+   {
+    "ord": "påverka",
+    "typ": "falsk_van",
+    "forklaring": "Samma ord kan inte användas som sin egen distraktor."
+   },
+   {
+    "ord": "förändra",
+    "typ": "nara",
+    "forklaring": "Betyder att göra något annorlunda."
+   },
+   {
+    "ord": "styra",
+    "typ": "samma_falt",
+    "forklaring": "Betyder att kontrollerande leda någon."
+   }
+  ],
+  "exempel": "Det dåliga vädret kommer att påverka resultatutvecklingen negativt.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "rannsaka",
+  "ordklass": "verb",
+  "facit": "granska",
+  "distraktorer": [
+   {
+    "ord": "godkänna",
+    "typ": "antonym",
+    "forklaring": "Betyder att acceptera utan invändning."
+   },
+   {
+    "ord": "rannsakan",
+    "typ": "falsk_van",
+    "forklaring": "Ett substantiv som betyder undersökning."
+   },
+   {
+    "ord": "undersöka",
+    "typ": "nara",
+    "forklaring": "Betyder att studera detaljer noga."
+   },
+   {
+    "ord": "bedöma",
+    "typ": "samma_falt",
+    "forklaring": "Betyder att bilda sig en uppfattning."
+   }
+  ],
+  "exempel": "Efter misslyckandet behövde alla rannsaka sitt eget agerande.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "redbar",
+  "ordklass": "adjektiv",
+  "facit": "ärlig",
+  "distraktorer": [
+   {
+    "ord": "falsk",
+    "typ": "antonym",
+    "forklaring": "Betyder oärlig och bedräglig."
+   },
+   {
+    "ord": "redbarhet",
+    "typ": "falsk_van",
+    "forklaring": "Ett substantiv för egenskapen att vara redbar."
+   },
+   {
+    "ord": "pålitlig",
+    "typ": "nara",
+    "forklaring": "Betyder som man kan lita på."
+   },
+   {
+    "ord": "rättvis",
+    "typ": "samma_falt",
+    "forklaring": "Betyder som behandlar alla lika."
+   }
+  ],
+  "exempel": "Han beskrevs alltid som en alltigenom redbar och noggrann man.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "saklig",
+  "ordklass": "adjektiv",
+  "facit": "objektiv",
+  "distraktorer": [
+   {
+    "ord": "partisk",
+    "typ": "antonym",
+    "forklaring": "Betyder orättvist favoriserande."
+   },
+   {
+    "ord": "saknad",
+    "typ": "falsk_van",
+    "forklaring": "Betyder känsla av tomhet efter någon."
+   },
+   {
+    "ord": "neutral",
+    "typ": "nara",
+    "forklaring": "Betyder som inte tar ställning."
+   },
+   {
+    "ord": "korrekt",
+    "typ": "samma_falt",
+    "forklaring": "Betyder helt fri från fel."
+   }
+  ],
+  "exempel": "Debatten hölls på en saklig nivå utan några personangrepp.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "skrupulös",
+  "ordklass": "adjektiv",
+  "facit": "noggrann",
+  "distraktorer": [
+   {
+    "ord": "slarvig",
+    "typ": "antonym",
+    "forklaring": "Betyder utan omsorg och noggrannhet."
+   },
+   {
+    "ord": "skrupel",
+    "typ": "falsk_van",
+    "forklaring": "Betyder samvetsbetänklighet."
+   },
+   {
+    "ord": "pedantisk",
+    "typ": "nara",
+    "forklaring": "Betyder överdrivet petig med detaljer."
+   },
+   {
+    "ord": "ordentlig",
+    "typ": "samma_falt",
+    "forklaring": "Betyder välskött och strukturerad."
+   }
+  ],
+  "exempel": "Forskaren var skrupulös i sin hantering av allt insamlat källmaterial.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "svårgripbar",
+  "ordklass": "adjektiv",
+  "facit": "obegriplig",
+  "distraktorer": [
+   {
+    "ord": "tydlig",
+    "typ": "antonym",
+    "forklaring": "Betyder lätt att se eller förstå."
+   },
+   {
+    "ord": "svårgripbarhet",
+    "typ": "falsk_van",
+    "forklaring": "Ett substantiv som anger svårigheten att greppa."
+   },
+   {
+    "ord": "oklar",
+    "typ": "nara",
+    "forklaring": "Betyder svår att uppfatta tydligt."
+   },
+   {
+    "ord": "dunkel",
+    "typ": "samma_falt",
+    "forklaring": "Betyder svagt upplyst eller otydlig."
+   }
+  ],
+  "exempel": "Filmens djupare budskap kändes ganska svårgripbart för publiken.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "tillskriva",
+  "ordklass": "verb",
+  "facit": "tillmäta",
+  "distraktorer": [
+   {
+    "ord": "frånta",
+    "typ": "antonym",
+    "forklaring": "Betyder att ta ifrån någon något."
+   },
+   {
+    "ord": "tillskriva",
+    "typ": "falsk_van",
+    "forklaring": "Kan i vardagligt tal förväxlas med att skriva brev till."
+   },
+   {
+    "ord": "ansé",
+    "typ": "nara",
+    "forklaring": "Betyder att ha en viss åsikt om."
+   },
+   {
+    "ord": "förklara",
+    "typ": "samma_falt",
+    "forklaring": "Betyder att ge anledningen till någonting."
+   }
+  ],
+  "exempel": "Man brukar tillskriva honom äran för hela projektets framgång.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "konformism",
+  "ordklass": "substantiv",
+  "facit": "likformighet",
+  "distraktorer": [
+   {
+    "ord": "konformitet",
+    "typ": "falsk_van",
+    "forklaring": "Överensstämmelse eller anpassning, nära besläktat begrepp men mer statiskt."
+   },
+   {
+    "ord": "avvikelse",
+    "typ": "antonym",
+    "forklaring": "Skillnad från det normala eller förväntade."
+   },
+   {
+    "ord": "passivitet",
+    "typ": "samma_falt",
+    "forklaring": "Brist på handling eller engagemang."
+   },
+   {
+    "ord": "anpassning",
+    "typ": "nara",
+    "forklaring": "Handlingen att rätta sig efter nya omständigheter."
+   }
+  ],
+  "exempel": "Företagets starka konformism hindrade nya och innovativa idéer från att utvecklas.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "obsolet",
+  "ordklass": "adjektiv",
+  "facit": "föråldrad",
+  "distraktorer": [
+   {
+    "ord": "obskyr",
+    "typ": "falsk_van",
+    "forklaring": "Okänd, svårförståelig eller skum."
+   },
+   {
+    "ord": "modern",
+    "typ": "antonym",
+    "forklaring": "Som tillhör nutiden eller senaste mode."
+   },
+   {
+    "ord": "sällsynt",
+    "typ": "samma_falt",
+    "forklaring": "Som inte förekommer ofta."
+   },
+   {
+    "ord": "otjänlig",
+    "typ": "nara",
+    "forklaring": "Som inte duger för sitt ändamål."
+   }
+  ],
+  "exempel": "Systemet ersattes eftersom den gamla tekniken snabbt blivit obsolet.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "sykofant",
+  "ordklass": "substantiv",
+  "facit": "ja-sägare",
+  "distraktorer": [
+   {
+    "ord": "elefant",
+    "typ": "falsk_van",
+    "forklaring": "Ett stort däggdjur med snabel."
+   },
+   {
+    "ord": "kritiker",
+    "typ": "antonym",
+    "forklaring": "Person som bedömer eller granskar något kritiskt."
+   },
+   {
+    "ord": "rådgivare",
+    "typ": "samma_falt",
+    "forklaring": "Person som ger expertråd."
+   },
+   {
+    "ord": "smickrare",
+    "typ": "nara",
+    "forklaring": "Person som ger beröm för egen vinning."
+   }
+  ],
+  "exempel": "Chefen omgav sig endast med sykofanter som aldrig ifrågasatte hans beslut.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "stoisk",
+  "ordklass": "adjektiv",
+  "facit": "lugn",
+  "distraktorer": [
+   {
+    "ord": "statisk",
+    "typ": "falsk_van",
+    "forklaring": "Stilla, oföränderlig eller utan rörelse."
+   },
+   {
+    "ord": "hysterisk",
+    "typ": "antonym",
+    "forklaring": "Behärskad av stark och obehärskad sinnesrörelse."
+   },
+   {
+    "ord": "likgiltig",
+    "typ": "samma_falt",
+    "forklaring": "Som inte bryr sig eller saknar intresse."
+   },
+   {
+    "ord": "härdig",
+    "typ": "nara",
+    "forklaring": "Som tål påfrestningar och hårt klimat."
+   }
+  ],
+  "exempel": "Hon behöll ett stoiskt lugn trots den svåra krisen på arbetsplatsen.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "kolludera",
+  "ordklass": "verb",
+  "facit": "samverka",
+  "distraktorer": [
+   {
+    "ord": "kollidera",
+    "typ": "falsk_van",
+    "forklaring": "Krocka eller stöta samman."
+   },
+   {
+    "ord": "motarbeta",
+    "typ": "antonym",
+    "forklaring": "Aktivt hindra någons strävanden."
+   },
+   {
+    "ord": "konplottera",
+    "typ": "samma_falt",
+    "forklaring": "Smida hemliga och skadliga planer."
+   },
+   {
+    "ord": "konspirera",
+    "typ": "nara",
+    "forklaring": "Ihemlighet planera något olagligt ihop."
+   }
+  ],
+  "exempel": "De två företagen misstänktes för att kolludera för att hålla priserna höga.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "insidiös",
+  "ordklass": "adjektiv",
+  "facit": "förrädisk",
+  "distraktorer": [
+   {
+    "ord": "insisterande",
+    "typ": "falsk_van",
+    "forklaring": "Envis och hårdnackad."
+   },
+   {
+    "ord": "ofarlig",
+    "typ": "antonym",
+    "forklaring": "Som inte utgör något hot."
+   },
+   {
+    "ord": "smygande",
+    "typ": "samma_falt",
+    "forklaring": "Som utvecklar sig tyst och gradvis."
+   },
+   {
+    "ord": "lömsk",
+    "typ": "nara",
+    "forklaring": "Som dolt vill skada någon."
+   }
+  ],
+  "exempel": "Sjukdomen hade ett insidiöst förlopp och upptäcktes därför mycket sent.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "skrupulös",
+  "ordklass": "adjektiv",
+  "facit": "noggrann",
+  "distraktorer": [
+   {
+    "ord": "skrupelfri",
+    "typ": "falsk_van",
+    "forklaring": "Hänsynslös och utan samvetsbetänkligheter."
+   },
+   {
+    "ord": "slarvig",
+    "typ": "antonym",
+    "forklaring": "Som gör saker utan omsorg."
+   },
+   {
+    "ord": "pedantisk",
+    "typ": "samma_falt",
+    "forklaring": "Överdrivet noggrann med smådetaljer."
+   },
+   {
+    "ord": "aktsam",
+    "typ": "nara",
+    "forklaring": "Som visar försiktighet och omsorg."
+   }
+  ],
+  "exempel": "Revisorn var skrupulös i sitt arbete och granskade varje enskilt kvitto.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "tystlåten",
+  "ordklass": "adjektiv",
+  "facit": "förbehållsam",
+  "distraktorer": [
+   {
+    "ord": "tystad",
+    "typ": "falsk_van",
+    "forklaring": "Som blivit tvingad att hålla tyst."
+   },
+   {
+    "ord": "pratsam",
+    "typ": "antonym",
+    "forklaring": "Som gillar att tala mycket."
+   },
+   {
+    "ord": "sluten",
+    "typ": "samma_falt",
+    "forklaring": "Som inte visar sina känslor."
+   },
+   {
+    "ord": "reserverad",
+    "typ": "nara",
+    "forklaring": "Avvaktande och lite avvisande."
+   }
+  ],
+  "exempel": "Han var en tystlåten man som sällan tog till ordet på mötena.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "indignation",
+  "ordklass": "substantiv",
+  "facit": "harm",
+  "distraktorer": [
+   {
+    "ord": "indikering",
+    "typ": "falsk_van",
+    "forklaring": "Tecken eller anvisning om något."
+   },
+   {
+    "ord": "beundran",
+    "typ": "antonym",
+    "forklaring": "Känsla av stor uppskattning."
+   },
+   {
+    "ord": "raseri",
+    "typ": "samma_falt",
+    "forklaring": "Extrem och våldsam ilska."
+   },
+   {
+    "ord": "vrede",
+    "typ": "nara",
+    "forklaring": "Stark ilska och upprördhet."
+   }
+  ],
+  "exempel": "Beslutet väckte stor indignation hos de anställda i organisationen.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "invektiv",
+  "ordklass": "substantiv",
+  "facit": "skällsord",
+  "distraktorer": [
+   {
+    "ord": "invektivum",
+    "typ": "falsk_van",
+    "forklaring": "Böjningsform eller felaktig variant av ordet."
+   },
+   {
+    "ord": "beröm",
+    "typ": "antonym",
+    "forklaring": "Uppskattande ord eller uttalande."
+   },
+   {
+    "ord": "kritik",
+    "typ": "samma_falt",
+    "forklaring": "Bedömning av starka och svaga sidor."
+   },
+   {
+    "ord": "hån",
+    "typ": "nara",
+    "forklaring": "Yttring av förakt eller förlöjligande."
+   }
+  ],
+  "exempel": "Debattörerna kasta invektiv mot varandra istället för att diskutera sakfrågan.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "eklektisk",
+  "ordklass": "adjektiv",
+  "facit": "blandad",
+  "distraktorer": [
+   {
+    "ord": "elektrisk",
+    "typ": "falsk_van",
+    "forklaring": "Som har med elektricitet att göra."
+   },
+   {
+    "ord": "enhetlig",
+    "typ": "antonym",
+    "forklaring": "Som har samma form eller karaktär alltigenom."
+   },
+   {
+    "ord": "varierad",
+    "typ": "samma_falt",
+    "forklaring": "Som visar mångfald och förändring."
+   },
+   {
+    "ord": "mångsidig",
+    "typ": "nara",
+    "forklaring": "Som behärskar eller täcker många områden."
+   }
+  ],
+  "exempel": "Hennes musiksmak var eklektisk och innehöll både jazz, klassiskt och pop.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "lakonisk",
+  "ordklass": "adjektiv",
+  "facit": "kortfattad",
+  "distraktorer": [
+   {
+    "ord": "lakritsartad",
+    "typ": "falsk_van",
+    "forklaring": "Som påminner om smak eller doft av lakrits."
+   },
+   {
+    "ord": "ordrik",
+    "typ": "antonym",
+    "forklaring": "Som använder väldigt många ord."
+   },
+   {
+    "ord": "tyst",
+    "typ": "samma_falt",
+    "forklaring": "Helt utan ljud eller tal."
+   },
+   {
+    "ord": "koncis",
+    "typ": "nara",
+    "forklaring": "Kort och kärnfull utan oväsentligheter."
+   }
+  ],
+  "exempel": "Han gav ett lakoniskt svar och lämnade sedan rummet direkt.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "kverulera",
+  "ordklass": "verb",
+  "facit": "klaga",
+  "distraktorer": [
+   {
+    "ord": "kvarbliva",
+    "typ": "falsk_van",
+    "forklaring": "Stanna kvar på en viss plats."
+   },
+   {
+    "ord": "berömma",
+    "typ": "antonym",
+    "forklaring": "Uttrycka uppskattning eller beundran."
+   },
+   {
+    "ord": "protestera",
+    "typ": "samma_falt",
+    "forklaring": "Öppet invända mot ett beslut."
+   },
+   {
+    "ord": "jämra",
+    "typ": "nara",
+    "forklaring": "Ge ifrån sig smärtfyllda klagorop."
+   }
+  ],
+  "exempel": "Det hjälper inte att kverulera över beslut som redan är fattade.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "perifer",
+  "ordklass": "adjektiv",
+  "facit": "oväsentlig",
+  "distraktorer": [
+   {
+    "ord": "periferisk",
+    "typ": "falsk_van",
+    "forklaring": "Nära besläktat ord som avser yttre delar i rummet."
+   },
+   {
+    "ord": "central",
+    "typ": "antonym",
+    "forklaring": "Som ligger i mitten eller är viktigast."
+   },
+   {
+    "ord": "avlägsen",
+    "typ": "samma_falt",
+    "forklaring": "Som befinner sig långt borta."
+   },
+   {
+    "ord": "sekundär",
+    "typ": "nara",
+    "forklaring": "Som kommer i andra hand i ordningen."
+   }
+  ],
+  "exempel": "Det var bara en perifer fråga som snabbt avhandlades i slutet.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "vedervåga",
+  "ordklass": "verb",
+  "facit": "riskera",
+  "distraktorer": [
+   {
+    "ord": "vedervärda",
+    "typ": "falsk_van",
+    "forklaring": "Ord som påminner i klang men saknar betydelse."
+   },
+   {
+    "ord": "trygga",
+    "typ": "antonym",
+    "forklaring": "Göra säker och skyddad mot fara."
+   },
+   {
+    "ord": "äventyra",
+    "typ": "samma_falt",
+    "forklaring": "Sätta något i fara eller på spel."
+   },
+   {
+    "ord": "satsa",
+    "typ": "nara",
+    "forklaring": "Investera resurser i hopp om vinst."
+   }
+  ],
+  "exempel": "Han var beredd att vedervåga hela sin förmögenhet på projektet.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "bemyndiga",
+  "ordklass": "verb",
+  "facit": "auktorisera",
+  "distraktorer": [
+   {
+    "ord": "myndigförklara",
+    "typ": "falsk_van",
+    "forklaring": "Förklara att någon uppnått rättslig myndighetsålder."
+   },
+   {
+    "ord": "frånta",
+    "typ": "antonym",
+    "forklaring": "Ta ifrån någon en rättighet eller egendom."
+   },
+   {
+    "ord": "tillåta",
+    "typ": "samma_falt",
+    "forklaring": "Ge samtycke till att något görs."
+   },
+   {
+    "ord": "uppdra",
+    "typ": "nara",
+    "forklaring": "Ge någon i uppgift att utföra något."
+   }
+  ],
+  "exempel": "Styrelsen valde att bemyndiga vd:n att teckna det nya avtalet.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "fostra",
+  "ordklass": "verb",
+  "facit": "uppfostra",
+  "distraktorer": [
+   {
+    "ord": "förstora",
+    "typ": "falsk_van",
+    "forklaring": "Göra större till storleken."
+   },
+   {
+    "ord": "vanvårda",
+    "typ": "antonym",
+    "forklaring": "Sköta mycket dåligt eller försumma."
+   },
+   {
+    "ord": "undervisa",
+    "typ": "samma_falt",
+    "forklaring": "Lära ut kunskaper i ett ämne."
+   },
+   {
+    "ord": "vägleda",
+    "typ": "nara",
+    "forklaring": "Ge råd och visa rätt riktning."
+   }
+  ],
+  "exempel": "Skolans uppdrag är inte bara att lära ut utan också att fostra.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "impertinent",
+  "ordklass": "adjektiv",
+  "facit": "näsvis",
+  "distraktorer": [
+   {
+    "ord": "impermanent",
+    "typ": "falsk_van",
+    "forklaring": "Som inte är permanent utan tillfällig."
+   },
+   {
+    "ord": "hövlig",
+    "typ": "antonym",
+    "forklaring": "Som visar mycket god uppfostran."
+   },
+   {
+    "ord": "opassande",
+    "typ": "samma_falt",
+    "forklaring": "Som inte lämpar sig för situationen."
+   },
+   {
+    "ord": "oförskämd",
+    "typ": "nara",
+    "forklaring": "Som saknar respekt och god ton."
+   }
+  ],
+  "exempel": "Journalisten ställde en impertinent fråga om ministerns privatliv.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "sedat",
+  "ordklass": "adjektiv",
+  "facit": "stilla",
+  "distraktorer": [
+   {
+    "ord": "sedativ",
+    "typ": "falsk_van",
+    "forklaring": "Som verkar lugnande (om läkemedel)."
+   },
+   {
+    "ord": "livlig",
+    "typ": "antonym",
+    "forklaring": "Fylld av energi och rörlighet."
+   },
+   {
+    "ord": "långsam",
+    "typ": "samma_falt",
+    "forklaring": "Som rör sig med låg hastighet."
+   },
+   {
+    "ord": "dämpad",
+    "typ": "nara",
+    "forklaring": "Som hålls tillbaka i styrka."
+   }
+  ],
+  "exempel": "Mötet förflöt i en sedat och ganska tråkig tempo.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "supplera",
+  "ordklass": "verb",
+  "facit": "komplettera",
+  "distraktorer": [
+   {
+    "ord": "supplikera",
+    "typ": "falsk_van",
+    "forklaring": "Ödmjukt be eller ansöka om något."
+   },
+   {
+    "ord": "reducera",
+    "typ": "antonym",
+    "forklaring": "Göra mindre eller minska till antalet."
+   },
+   {
+    "ord": "ersätta",
+    "typ": "samma_falt",
+    "forklaring": "Ta någonting annats plats."
+   },
+   {
+    "ord": "tillföra",
+    "typ": "nara",
+    "forklaring": "Ge ett tillskott av resurser."
+   }
+  ],
+  "exempel": "Vi behövde supplera vår utredning med ny statistik från registret.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "plausibel",
+  "ordklass": "adjektiv",
+  "facit": "trolig",
+  "distraktorer": [
+   {
+    "ord": "plausibilitet",
+    "typ": "falsk_van",
+    "forklaring": "Substantivformen för egenskapen att vara rimlig."
+   },
+   {
+    "ord": "orimlig",
+    "typ": "antonym",
+    "forklaring": "Som helt saknar förnuftig grund."
+   },
+   {
+    "ord": "möjlig",
+    "typ": "samma_falt",
+    "forklaring": "Som kan inträffa men inte säkert."
+   },
+   {
+    "ord": "rimlig",
+    "typ": "nara",
+    "forklaring": "Som verkar vettig och acceptabel."
+   }
+  ],
+  "exempel": "Polisen presenterade en plausibel förklaring till hur olyckan gått till.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "kulminera",
+  "ordklass": "verb",
+  "facit": "nå toppen",
+  "distraktorer": [
+   {
+    "ord": "kalkylera",
+    "typ": "falsk_van",
+    "forklaring": "Räkna ut eller beräkna siffervärden."
+   },
+   {
+    "ord": "avta",
+    "typ": "antonym",
+    "forklaring": "Minska i styrka eller omfattning."
+   },
+   {
+    "ord": "öka",
+    "typ": "samma_falt",
+    "forklaring": "Bli större eller fler till antalet."
+   },
+   {
+    "ord": "toppa",
+    "typ": "nara",
+    "forklaring": "Nå sin högsta punkt vid tillfälle."
+   }
+  ],
+  "exempel": "Protesterna väntas kulminera under eftermiddagens stora demonstration.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "avog",
+  "ordklass": "adjektiv",
+  "facit": "avogt inställd",
+  "distraktorer": [
+   {
+    "ord": "avig",
+    "typ": "falsk_van",
+    "forklaring": "Vänd åt fel håll eller klumpig."
+   },
+   {
+    "ord": "vänligt sinnad",
+    "typ": "antonym",
+    "forklaring": "Som visar välvilja och sympati."
+   },
+   {
+    "ord": "misstänksam",
+    "typ": "samma_falt",
+    "forklaring": "Som saknar tillit till andra."
+   },
+   {
+    "ord": "fientlig",
+    "typ": "nara",
+    "forklaring": "Som visar öppet motstånd eller hat."
+   }
+  ],
+  "exempel": "Styrelsen var avog mot det nya förslaget från ledningen.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "börda",
+  "ordklass": "substantiv",
+  "facit": "belastning",
+  "distraktorer": [
+   {
+    "ord": "bördsrätt",
+    "typ": "falsk_van",
+    "forklaring": "Rättighet grundad på släktskap eller härkomst."
+   },
+   {
+    "ord": "lättnad",
+    "typ": "antonym",
+    "forklaring": "Minskning av tryck eller oro."
+   },
+   {
+    "ord": "ansvar",
+    "typ": "samma_falt",
+    "forklaring": "Skyldighet att se till att något görs."
+   },
+   {
+    "ord": "påfrestning",
+    "typ": "nara",
+    "forklaring": "Hårt tryck på krafter eller resurser."
+   }
+  ],
+  "exempel": "Det höga skattetrycket upplevdes som en tung börda för småföretagarna.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "dristig",
+  "ordklass": "adjektiv",
+  "facit": "oförvägen",
+  "distraktorer": [
+   {
+    "ord": "dristighet",
+    "typ": "falsk_van",
+    "forklaring": "Substantivformen för mod eller utmanande beteende."
+   },
+   {
+    "ord": "feg",
+    "typ": "antonym",
+    "forklaring": "Som saknar mod vid fara."
+   },
+   {
+    "ord": "djärv",
+    "typ": "samma_falt",
+    "forklaring": "Som vågar ta stora risker."
+   },
+   {
+    "ord": "modig",
+    "typ": "nara",
+    "forklaring": "Som visar styrka inför fara."
+   }
+  ],
+  "exempel": "Det var en dristig satsning att öppna butik mitt i krisen.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "eftergift",
+  "ordklass": "substantiv",
+  "facit": "mötande",
+  "distraktorer": [
+   {
+    "ord": "eftergiftstest",
+    "typ": "falsk_van",
+    "forklaring": "Ett tekniskt test för att mäta materialets ge efter."
+   },
+   {
+    "ord": "krav",
+    "typ": "antonym",
+    "forklaring": "Bestämt anspråk på något."
+   },
+   {
+    "ord": "kompromiss",
+    "typ": "samma_falt",
+    "forklaring": "Överenskommelse där båda ger vika."
+   },
+   {
+    "ord": "medgivande",
+    "typ": "nara",
+    "forklaring": "Samtycke till att någon har rätt."
+   }
+  ],
+  "exempel": "Regeringen vägrade göra några eftergifter till de strejkande arbetarna.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "fata",
+  "ordklass": "verb",
+  "facit": "gripa",
+  "distraktorer": [
+   {
+    "ord": "fatta",
+    "typ": "falsk_van",
+    "forklaring": "Förstå någonting eller ta tag i."
+   },
+   {
+    "ord": "släppa",
+    "typ": "antonym",
+    "forklaring": "Mista greppet om någonting."
+   },
+   {
+    "ord": "fånga",
+    "typ": "samma_falt",
+    "forklaring": "Ta fast någon eller något."
+   },
+   {
+    "ord": "ta",
+    "typ": "nara",
+    "forklaring": "Röra eller hålla i något."
+   }
+  ],
+  "exempel": "Katten försökte fata tag i den lilla musen under bordet.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "förfara",
+  "ordklass": "verb",
+  "facit": "handla",
+  "distraktorer": [
+   {
+    "ord": "förfalla",
+    "typ": "falsk_van",
+    "forklaring": "Bli förstörd eller gå ut i tid."
+   },
+   {
+    "ord": "passivisera",
+    "typ": "antonym",
+    "forklaring": "Göra obrukbar eller osynlig."
+   },
+   {
+    "ord": "agera",
+    "typ": "samma_falt",
+    "forklaring": "Göra en aktiv insats."
+   },
+   {
+    "ord": "utföra",
+    "typ": "nara",
+    "forklaring": "Genomföra en viss uppgift."
+   }
+  ],
+  "exempel": "Vi måste förfara med stor försiktighet när vi hanterar kemikalierna.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "förfång",
+  "ordklass": "substantiv",
+  "facit": "skada",
+  "distraktorer": [
+   {
+    "ord": "förfånga",
+    "typ": "falsk_van",
+    "forklaring": "Verbform som saknar modern användning i svenskan."
+   },
+   {
+    "ord": "nytta",
+    "typ": "antonym",
+    "forklaring": "Gagn eller positiv effekt."
+   },
+   {
+    "ord": "förlust",
+    "typ": "samma_falt",
+    "forklaring": "Det att bli av med något."
+   },
+   {
+    "ord": "men",
+    "typ": "nara",
+    "forklaring": "Varaktig skada eller olägenhet."
+   }
+  ],
+  "exempel": "Beslutet läggs fram till förfång för de mindre leverantörerna.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "förspilla",
+  "ordklass": "verb",
+  "facit": "slösa",
+  "distraktorer": [
+   {
+    "ord": "förspilla",
+    "typ": "falsk_van",
+    "forklaring": "Böjningsform som är identisk med grundformen."
+   },
+   {
+    "ord": "tillvarata",
+    "typ": "antonym",
+    "forklaring": "Ta vara på och utnyttja."
+   },
+   {
+    "ord": "mista",
+    "typ": "samma_falt",
+    "forklaring": "Bli av med utan avsikt."
+   },
+   {
+    "ord": "förlora",
+    "typ": "nara",
+    "forklaring": "Gå miste om någonting värdefullt."
+   }
+  ],
+  "exempel": "Vi får inte förspilla denna unika chans att påverka framtiden.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "blamera",
+  "ordklass": "verb",
+  "facit": "skämma ut",
+  "distraktorer": [
+   {
+    "ord": "berömma",
+    "typ": "antonym",
+    "forklaring": "Att ge någon mycket beröm eller god vitsord."
+   },
+   {
+    "ord": "kritisera",
+    "typ": "nara",
+    "forklaring": "Att anmärka negativt på eller klandra någon."
+   },
+   {
+    "ord": "blockera",
+    "typ": "falsk_van",
+    "forklaring": "Att hindra någon eller något från att komma fram."
+   },
+   {
+    "ord": "lura",
+    "typ": "samma_falt",
+    "forklaring": "Att föra någon bakom ljuset eller bedra."
+   }
+  ],
+  "exempel": "VD:n var rädd för att blamera hela företaget under den viktiga presskonferensen.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "obskyr",
+  "ordklass": "adjektiv",
+  "facit": "dunkel",
+  "distraktorer": [
+   {
+    "ord": "tydlig",
+    "typ": "antonym",
+    "forklaring": "Något som är helt klart och lätt att förstå."
+   },
+   {
+    "ord": "okänd",
+    "typ": "nara",
+    "forklaring": "Något som inte är allmänt känt för folk."
+   },
+   {
+    "ord": "absurd",
+    "typ": "falsk_van",
+    "forklaring": "Något som är orimligt eller direkt skrattretande."
+   },
+   {
+    "ord": "hemlig",
+    "typ": "samma_falt",
+    "forklaring": "Något som avsiktligt hålls dolt för andra."
+   }
+  ],
+  "exempel": "Forskaren hittade en mycket obskyr skrift i det gamla arkivets källare.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "eklektisk",
+  "ordklass": "adjektiv",
+  "facit": "blandad",
+  "distraktorer": [
+   {
+    "ord": "enhetlig",
+    "typ": "antonym",
+    "forklaring": "Något som är konsekvent och har samma form."
+   },
+   {
+    "ord": "varierad",
+    "typ": "nara",
+    "forklaring": "Något som innehåller många olika inslag eller delar."
+   },
+   {
+    "ord": "elektrisk",
+    "typ": "falsk_van",
+    "forklaring": "Något som har att göra med ström eller elektricitet."
+   },
+   {
+    "ord": "mångsidig",
+    "typ": "samma_falt",
+    "forklaring": "Något som täcker många helt skilda områden."
+   }
+  ],
+  "exempel": "Inredningsarkitekten hade en utpräglat eklektisk stil med möbler från olika epoker.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "adherera",
+  "ordklass": "verb",
+  "facit": "vidlåta",
+  "distraktorer": [
+   {
+    "ord": "avvisa",
+    "typ": "antonym",
+    "forklaring": "Att inte ta emot eller direkt förkasta något."
+   },
+   {
+    "ord": "ansluta",
+    "typ": "nara",
+    "forklaring": "Att koppla ihop sig med eller gå med i."
+   },
+   {
+    "ord": "addera",
+    "typ": "falsk_van",
+    "forklaring": "Att lägga samman tal eller lägga till saker."
+   },
+   {
+    "ord": "bifoga",
+    "typ": "samma_falt",
+    "forklaring": "Att skicka med en extra fil eller handling."
+   }
+  ],
+  "exempel": "Materialet har förmågan att adherera till nästan vilken yta som helst.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "sedat",
+  "ordklass": "adjektiv",
+  "facit": "stillsam",
+  "distraktorer": [
+   {
+    "ord": "hetsig",
+    "typ": "antonym",
+    "forklaring": "Någon som är mycket nervös, snabb eller upprörd."
+   },
+   {
+    "ord": "lugn",
+    "typ": "nara",
+    "forklaring": "Någon som inte känner någon stress eller oro."
+   },
+   {
+    "ord": "senat",
+    "typ": "falsk_van",
+    "forklaring": "En lagstiftande församling i vissa demokratiska stater."
+   },
+   {
+    "ord": "långsam",
+    "typ": "samma_falt",
+    "forklaring": "Något som rör sig med mycket låg hastighet."
+   }
+  ],
+  "exempel": "Mötet avlöpte i en sedat och mycket balanserad ton.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "plausibel",
+  "ordklass": "adjektiv",
+  "facit": "rimlig",
+  "distraktorer": [
+   {
+    "ord": "orimlig",
+    "typ": "antonym",
+    "forklaring": "Något som saknar förnuftig grund eller sannolikhet."
+   },
+   {
+    "ord": "tänkbar",
+    "typ": "nara",
+    "forklaring": "Något som teoretiskt skulle kunna vara fallet."
+   },
+   {
+    "ord": "plastisk",
+    "typ": "falsk_van",
+    "forklaring": "Något som är formbart eller lätt att skulptera."
+   },
+   {
+    "ord": "bevisad",
+    "typ": "samma_falt",
+    "forklaring": "Något som bekräftats vara helt sant och stämma."
+   }
+  ],
+  "exempel": "Konsulten lade fram en plausibel förklaring till varför projektet hade försenats.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "insistera",
+  "ordklass": "verb",
+  "facit": "stå på sig",
+  "distraktorer": [
+   {
+    "ord": "ge vika",
+    "typ": "antonym",
+    "forklaring": "Att ge upp sina krav och ge efter."
+   },
+   {
+    "ord": "påstå",
+    "typ": "nara",
+    "forklaring": "Att uttala något utan att ha fullständiga bevis."
+   },
+   {
+    "ord": "investera",
+    "typ": "falsk_van",
+    "forklaring": "Att satsa pengar eller resurser i ett företag."
+   },
+   {
+    "ord": "kräva",
+    "typ": "samma_falt",
+    "forklaring": "Att begära något med stor eftertryck och skärpa."
+   }
+  ],
+  "exempel": "Kunden valde att insistera på sin rätt att få pengarna tillbaka.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "kontaminera",
+  "ordklass": "verb",
+  "facit": "förorena",
+  "distraktorer": [
+   {
+    "ord": "rengöra",
+    "typ": "antonym",
+    "forklaring": "Att ta bort smuts och göra helt snyggt."
+   },
+   {
+    "ord": "skada",
+    "typ": "nara",
+    "forklaring": "Att orsaka någon form av förstörelse eller smärta."
+   },
+   {
+    "ord": "kombinera",
+    "typ": "falsk_van",
+    "forklaring": "Att sätta ihop två eller flera skilda saker."
+   },
+   {
+    "ord": "smitta",
+    "typ": "samma_falt",
+    "forklaring": "Att överföra sjukdom eller bakterier till andra levande varelser."
+   }
+  ],
+  "exempel": "Utsläppet kunde kontaminera hela stadens dricksvatten om inte åtgärder vidtogs.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "kulminera",
+  "ordklass": "verb",
+  "facit": "nå toppen",
+  "distraktorer": [
+   {
+    "ord": "avta",
+    "typ": "antonym",
+    "forklaring": "Att minska i kraft, styrka eller intensiv omfattning."
+   },
+   {
+    "ord": "sluta",
+    "typ": "nara",
+    "forklaring": "Att komma till sitt slutliga upphörande helt."
+   },
+   {
+    "ord": "ackumulera",
+    "typ": "falsk_van",
+    "forklaring": "Att samla på hög under en längre tid."
+   },
+   {
+    "ord": "börja",
+    "typ": "samma_falt",
+    "forklaring": "Att sätta igång med en viss ny aktivitet."
+   }
+  ],
+  "exempel": "Konflikten beräknas kulminera under de avgörande förhandlingarna i morgon.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "frapperande",
+  "ordklass": "adjektiv",
+  "facit": "slående",
+  "distraktorer": [
+   {
+    "ord": "anonym",
+    "typ": "antonym",
+    "forklaring": "Något som är obemärkt och saknar eget namn."
+   },
+   {
+    "ord": "viktig",
+    "typ": "nara",
+    "forklaring": "Något som har stor betydelse eller avgörande roll."
+   },
+   {
+    "ord": "fragmenterad",
+    "typ": "falsk_van",
+    "forklaring": "Något som är uppdelat i små bitar."
+   },
+   {
+    "ord": "märkbar",
+    "typ": "samma_falt",
+    "forklaring": "Något som går lätt att uppfatta med sinnena."
+   }
+  ],
+  "exempel": "Det fanns en frapperande likhet mellan de två rapporterna som lämnats in.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "prekursor",
+  "ordklass": "substantiv",
+  "facit": "föregångare",
+  "distraktorer": [
+   {
+    "ord": "efterföljare",
+    "typ": "antonym",
+    "forklaring": "Någon eller något som kommer efter i tid."
+   },
+   {
+    "ord": "grundare",
+    "typ": "nara",
+    "forklaring": "Någon som startar en ny organisation eller rörelse."
+   },
+   {
+    "ord": "kursiv",
+    "typ": "falsk_van",
+    "forklaring": "Lutande stil på skriven eller tryckt text."
+   },
+   {
+    "ord": "orsak",
+    "typ": "samma_falt",
+    "forklaring": "Det som ger upphov till en viss händelse."
+   }
+  ],
+  "exempel": "Den tidiga modellen visade sig vara en viktig prekursor till dagens datorer.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "remiss",
+  "ordklass": "substantiv",
+  "facit": "hänvisning",
+  "distraktorer": [
+   {
+    "ord": "slutsats",
+    "typ": "antonym",
+    "forklaring": "Det slutgiltiga resultatet av ett resonemang eller undersökning."
+   },
+   {
+    "ord": "utredning",
+    "typ": "nara",
+    "forklaring": "En grundlig undersökning av en viss specifik fråga."
+   },
+   {
+    "ord": "remi",
+    "typ": "falsk_van",
+    "forklaring": "Ett oavgjort resultat i schack eller andra spel."
+   },
+   {
+    "ord": "beslut",
+    "typ": "samma_falt",
+    "forklaring": "Ett definitivt ställningstagande i en viss fråga."
+   }
+  ],
+  "exempel": "Läkaren skickade en remiss till specialistkliniken för vidare utredning av patienten.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "indignerad",
+  "ordklass": "adjektiv",
+  "facit": "upprörd",
+  "distraktorer": [
+   {
+    "ord": "belåten",
+    "typ": "antonym",
+    "forklaring": "Någon som känner sig helt nöjd med tillvaron."
+   },
+   {
+    "ord": "arg",
+    "typ": "nara",
+    "forklaring": "Någon som känner stark vrede eller ilska."
+   },
+   {
+    "ord": "indikerad",
+    "typ": "falsk_van",
+    "forklaring": "Något som anvisats eller rekommenderats av medicinska skäl."
+   },
+   {
+    "ord": "ledsen",
+    "typ": "samma_falt",
+    "forklaring": "Någon som känner sorg och nedstämdhet i sinnesron."
+   }
+  ],
+  "exempel": "Medborgaren blev mycket indignerad över det orättvisa beslutet i kommunen.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "supplera",
+  "ordklass": "verb",
+  "facit": "komplettera",
+  "distraktorer": [
+   {
+    "ord": "reducera",
+    "typ": "antonym",
+    "forklaring": "Att göra något mindre till storlek eller antal."
+   },
+   {
+    "ord": "förbättra",
+    "typ": "nara",
+    "forklaring": "Att göra något lite bättre än det var tidigare."
+   },
+   {
+    "ord": "supplikera",
+    "typ": "falsk_van",
+    "forklaring": "Att ödmjukt be eller bönfalla om nåd."
+   },
+   {
+    "ord": "ersätta",
+    "typ": "samma_falt",
+    "forklaring": "Att byta ut något mot en ny del."
+   }
+  ],
+  "exempel": "Vi måste supplera rapporten med färskare siffror från det sista kvartalet.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "interfoliera",
+  "ordklass": "verb",
+  "facit": "flika in",
+  "distraktorer": [
+   {
+    "ord": "utesluta",
+    "typ": "antonym",
+    "forklaring": "Att lämna bort eller vägra ta med något."
+   },
+   {
+    "ord": "blanda",
+    "typ": "nara",
+    "forklaring": "Att rör ihop olika saker till en helhet."
+   },
+   {
+    "ord": "intervjua",
+    "typ": "falsk_van",
+    "forklaring": "Att ställa frågor till någon för att få svar."
+   },
+   {
+    "ord": "skriva",
+    "typ": "samma_falt",
+    "forklaring": "Att fästa ord på papper eller i digital form."
+   }
+  ],
+  "exempel": "Författaren valde att interfoliera texten med personliga anteckningar och kommentarer.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "fostra",
+  "ordklass": "verb",
+  "facit": "uppfostra",
+  "distraktorer": [
+   {
+    "ord": "fördärva",
+    "typ": "antonym",
+    "forklaring": "Att helt förstöra moralen eller skada karaktären."
+   },
+   {
+    "ord": "undervisa",
+    "typ": "nara",
+    "forklaring": "Att lära ut kunskap i skolämnen eller färdigheter."
+   },
+   {
+    "ord": "fostra",
+    "typ": "falsk_van",
+    "forklaring": "Samma stam får inte användas enligt reglerna i testet."
+   },
+   {
+    "ord": "leda",
+    "typ": "samma_falt",
+    "forklaring": "Att visa vägen eller styra en viss grupp."
+   }
+  ],
+  "exempel": "Skolan har ett tydligt ansvar att fostra eleverna till goda och demokratiska medborgare.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "avog",
+  "ordklass": "adjektiv",
+  "facit": "fientlig",
+  "distraktorer": [
+   {
+    "ord": "vänlig",
+    "typ": "antonym",
+    "forklaring": "Någon som bemöter andra med godhet och värme."
+   },
+   {
+    "ord": "skeptisk",
+    "typ": "nara",
+    "forklaring": "Någon som tvivlar på sanningen i ett påstående."
+   },
+   {
+    "ord": "avig",
+    "typ": "falsk_van",
+    "forklaring": "Något som är vänt ut och in eller bakvänt."
+   },
+   {
+    "ord": "kall",
+    "typ": "samma_falt",
+    "forklaring": "Någon som visar brist på känslor och inlevelse."
+   }
+  ],
+  "exempel": "Styrelsen var mycket avog inställd till det nya ändringsförslaget från personalen.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "bestrida",
+  "ordklass": "verb",
+  "facit": "förneka",
+  "distraktorer": [
+   {
+    "ord": "medge",
+    "typ": "antonym",
+    "forklaring": "Att erkänna att något faktiskt är helt sant."
+   },
+   {
+    "ord": "protestera",
+    "typ": "nara",
+    "forklaring": "Att öppet visa sitt missnöje mot ett visst beslut."
+   },
+   {
+    "ord": "beskriva",
+    "typ": "falsk_van",
+    "forklaring": "Att återge egenskaper eller utseende hos något noggrant."
+   },
+   {
+    "ord": "anmäla",
+    "typ": "samma_falt",
+    "forklaring": "Att rapportera en händelse till en formell myndighet."
+   }
+  ],
+  "exempel": "Företaget valde att bestrida den felaktiga fakturan som de hade fått.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "börda",
+  "ordklass": "substantiv",
+  "facit": "last",
+  "distraktorer": [
+   {
+    "ord": "tillgång",
+    "typ": "antonym",
+    "forklaring": "En värdefull resurser eller positiv egenskap som hjälper."
+   },
+   {
+    "ord": "problem",
+    "typ": "nara",
+    "forklaring": "En svårighet som kräver en lösning för att försvinna."
+   },
+   {
+    "ord": "börs",
+    "typ": "falsk_van",
+    "forklaring": "En marknad för handel med värdepapper eller aktier."
+   },
+   {
+    "ord": "ansvar",
+    "typ": "samma_falt",
+    "forklaring": "Skyldigheten att se till att allt fungerar rätt."
+   }
+  ],
+  "exempel": "Den tunga ekonomiska bördan blev till slut för mycket för den lilla familjen.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "dristig",
+  "ordklass": "adjektiv",
+  "facit": "modig",
+  "distraktorer": [
+   {
+    "ord": "feg",
+    "typ": "antonym",
+    "forklaring": "Någon som lätt blir rädd och undviker alla faror."
+   },
+   {
+    "ord": "fräck",
+    "typ": "nara",
+    "forklaring": "Någon som saknar respekt och beter sig obotligt oblygt."
+   },
+   {
+    "ord": "dassig",
+    "typ": "falsk_van",
+    "forklaring": "Något som är av dålig kvalitet eller blekt."
+   },
+   {
+    "ord": "snabb",
+    "typ": "samma_falt",
+    "forklaring": "Något som rör sig eller agerar i väldigt hög fart."
+   }
+  ],
+  "exempel": "Schackspelaren gjorde ett dristigt drag som överraskade motståndaren totalt.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "eftergift",
+  "ordklass": "substantiv",
+  "facit": "prutmån",
+  "distraktorer": [
+   {
+    "ord": "krav",
+    "typ": "antonym",
+    "forklaring": "Ett bestämt anspråk som man inte vill pruta på."
+   },
+   {
+    "ord": "kompromiss",
+    "typ": "nara",
+    "forklaring": "En överenskommelse där båda parter ger med sig lite."
+   },
+   {
+    "ord": "efterskrift",
+    "typ": "falsk_van",
+    "forklaring": "En avslutande text i slutet av en färdig skrift."
+   },
+   {
+    "ord": "förlust",
+    "typ": "samma_falt",
+    "forklaring": "Att bli av med något värdefullt man ägde."
+   }
+  ],
+  "exempel": "Arbetsgivaren tvingades göra en stor eftergift i förhandlingarna om lönerna.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "förfara",
+  "ordklass": "verb",
+  "facit": "handla",
+  "distraktorer": [
+   {
+    "ord": "tveka",
+    "typ": "antonym",
+    "forklaring": "Att ha svårt att bestämma sig och dröja."
+   },
+   {
+    "ord": "agera",
+    "typ": "nara",
+    "forklaring": "Att utföra en handling i en specifik situation."
+   },
+   {
+    "ord": "förfalla",
+    "typ": "falsk_van",
+    "forklaring": "Att bli förstörd eller tappa i värde med tiden."
+   },
+   {
+    "ord": "planera",
+    "typ": "samma_falt",
+    "forklaring": "Att förbereda vad man ska göra i framtiden."
+   }
+  ],
+  "exempel": "Vi måste noggrant överväga hur vi ska förfara i detta komplicerade ärende.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "förfång",
+  "ordklass": "substantiv",
+  "facit": "skada",
+  "distraktorer": [
+   {
+    "ord": "nytta",
+    "typ": "antonym",
+    "forklaring": "En fördel eller någonting som är till gagn."
+   },
+   {
+    "ord": "nackdel",
+    "typ": "nara",
+    "forklaring": "En negativ omständighet som försämrar läget något."
+   },
+   {
+    "ord": "förfånga",
+    "typ": "falsk_van",
+    "forklaring": "Att fånga in eller övermanna någon med våld."
+   },
+   {
+    "ord": "hinder",
+    "typ": "samma_falt",
+    "forklaring": "Något som står i vägen för att nå målet."
+   }
+  ],
+  "exempel": "Det nya beslutet kan komma att läggas till förfång för projektets utveckling.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "hävda",
+  "ordklass": "verb",
+  "facit": "påstå",
+  "distraktorer": [
+   {
+    "ord": "medge",
+    "typ": "antonym",
+    "forklaring": "Att hålla med om att någonting faktiskt stämmer."
+   },
+   {
+    "ord": "försvara",
+    "typ": "nara",
+    "forklaring": "Att skydda någonting mot angrepp eller kritik."
+   },
+   {
+    "ord": "häva",
+    "typ": "falsk_van",
+    "forklaring": "Att stoppa eller bryta ett avtal med omedelbar verkan."
+   },
+   {
+    "ord": "bevisa",
+    "typ": "samma_falt",
+    "forklaring": "Att visa att någonting är helt säkert och sant."
+   }
+  ],
+  "exempel": "Forskaren fortsatte att hävda sin teori trots kritik från sina kollegor.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "intaga",
+  "ordklass": "verb",
+  "facit": "erövra",
+  "distraktorer": [
+   {
+    "ord": "lämna",
+    "typ": "antonym",
+    "forklaring": "Att gå ifrån en plats eller ge upp något."
+   },
+   {
+    "ord": "besätta",
+    "typ": "nara",
+    "forklaring": "Att ta kontroll över och fylla en viss plats."
+   },
+   {
+    "ord": "intala",
+    "typ": "falsk_van",
+    "forklaring": "Att få någon att tro på någonting osanning."
+   },
+   {
+    "ord": "anfalla",
+    "typ": "samma_falt",
+    "forklaring": "Att gå till attack mot en fiende eller motståndare."
+   }
+  ],
+  "exempel": "Styrkorna lyckades intaga den viktiga fästningen efter tre dagars hård strid.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "jämka",
+  "ordklass": "verb",
+  "facit": "justera",
+  "distraktorer": [
+   {
+    "ord": "låsa",
+    "typ": "antonym",
+    "forklaring": "Att göra något helt fast så att det inte förändras."
+   },
+   {
+    "ord": "anpassa",
+    "typ": "nara",
+    "forklaring": "Att ändra något så det passar bättre ihop med annat."
+   },
+   {
+    "ord": "jämra",
+    "typ": "falsk_van",
+    "forklaring": "Att klaga eller stanna i smärta och klagan."
+   },
+   {
+    "ord": "ändra",
+    "typ": "samma_falt",
+    "forklaring": "Att göra om någonting så det blir annorlunda."
+   }
+  ],
+  "exempel": "Mellanpartiet försökte jämka samman de två helt motsatta förslagen i budgeten.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "karg",
+  "ordklass": "adjektiv",
+  "facit": "mager",
+  "distraktorer": [
+   {
+    "ord": "fruktbar",
+    "typ": "antonym",
+    "forklaring": "Något som ger rik skörd och har god växtkraft."
+   },
+   {
+    "ord": "öde",
+    "typ": "nara",
+    "forklaring": "En plats där det inte finns några människor alls."
+   },
+   {
+    "ord": "kaxig",
+    "typ": "falsk_van",
+    "forklaring": "Någon som är mycket självsäker och utmanande i sitt sätt."
+   },
+   {
+    "ord": "torr",
+    "typ": "samma_falt",
+    "forklaring": "Något som saknar fuktighet eller vätska i sig."
+   }
+  ],
+  "exempel": "Växterna hade svårt att överleva i den karga miljön uppe på fjälltoppen.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "kundgöra",
+  "ordklass": "verb",
+  "facit": "utlysa",
+  "distraktorer": [
+   {
+    "ord": "dölja",
+    "typ": "antonym",
+    "forklaring": "Att gömma något så att ingen kan se det."
+   },
+   {
+    "ord": "meddela",
+    "typ": "nara",
+    "forklaring": "Att ge någon viss information om någonting."
+   },
+   {
+    "ord": "skvallra",
+    "typ": "falsk_van",
+    "forklaring": "Att berätta hemligheter för olämpliga personer i smyg."
+   },
+   {
+    "ord": "förklara",
+    "typ": "samma_falt",
+    "forklaring": "Att göra något begripligt och tydligt för andra."
+   }
+  ],
+  "exempel": "Styrelsen valde att kundgöra det slutgiltiga valresultatet på sin webbplats.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "mäkta",
+  "ordklass": "verb",
+  "facit": "orka",
+  "distraktorer": [
+   {
+    "ord": "misslyckas",
+    "typ": "antonym",
+    "forklaring": "Att inte uppnå det mål man har siktat mot."
+   },
+   {
+    "ord": "klara",
+    "typ": "nara",
+    "forklaring": "Att reda ut en svårighet med lyckat resultat."
+   },
+   {
+    "ord": "mäta",
+    "typ": "falsk_van",
+    "forklaring": "Att ta reda på storleken eller längden på något."
+   },
+   {
+    "ord": "försöka",
+    "typ": "samma_falt",
+    "forklaring": "Att göra ett ansträngande försök att utföra något."
+   }
+  ],
+  "exempel": "Han var så trött att han knappt mäktade med att slutföra sitt arbete.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "nödga",
+  "ordklass": "verb",
+  "facit": "tvinga",
+  "distraktorer": [
+   {
+    "ord": "tillåta",
+    "typ": "antonym",
+    "forklaring": "Att ge någon frihet att göra som den vill."
+   },
+   {
+    "ord": "övertala",
+    "typ": "nara",
+    "forklaring": "Att få någon att ändra åsikt genom argument."
+   },
+   {
+    "ord": "niga",
+    "typ": "falsk_van",
+    "forklaring": "Att göra en vördsam böjning på knäna för hälsning."
+   },
+   {
+    "ord": "behöva",
+    "typ": "samma_falt",
+    "forklaring": "Att ha behov av någonting för att klara sig."
+   }
+  ],
+  "exempel": "Omständigheterna kom att nödga ledningen att skära ner på personalstyrkan.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "aforistisk",
+  "ordklass": "adjektiv",
+  "facit": "kärnfull",
+  "distraktorer": [
+   {
+    "ord": "utdragande",
+    "typ": "antonym",
+    "forklaring": "som drar ut på tiden eller ordvalet"
+   },
+   {
+    "ord": "amorfisk",
+    "typ": "falsk_van",
+    "forklaring": "saknar bestämd form eller struktur"
+   },
+   {
+    "ord": "poetisk",
+    "typ": "samma_falt",
+    "forklaring": "stmningsfull eller stilsam som poesi"
+   },
+   {
+    "ord": "muntlig",
+    "typ": "nara",
+    "forklaring": "som framförs med rösten"
+   }
+  ],
+  "exempel": "hans aforistiska stil gjorde texten lätt att komma ihåg.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "anakronistisk",
+  "ordklass": "adjektiv",
+  "facit": "otidsenlig",
+  "distraktorer": [
+   {
+    "ord": "tidsenlig",
+    "typ": "antonym",
+    "forklaring": "som passar perfekt i sin egen tid"
+   },
+   {
+    "ord": "anarkistisk",
+    "typ": "falsk_van",
+    "forklaring": "som vill avskaffa all statlig styrning"
+   },
+   {
+    "ord": "historisk",
+    "typ": "samma_falt",
+    "forklaring": "som hör till det förflutna"
+   },
+   {
+    "ord": "gammalmodig",
+    "typ": "nara",
+    "forklaring": "som präglas av äldre tiders ideal"
+   }
+  ],
+  "exempel": "att använda fax kändes helt anakronistiskt i det moderna kontoret.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "apati",
+  "ordklass": "substantiv",
+  "facit": "likgiltighet",
+  "distraktorer": [
+   {
+    "ord": "entusiasm",
+    "typ": "antonym",
+    "forklaring": "starkt intresse och engagemang"
+   },
+   {
+    "ord": "sympati",
+    "typ": "falsk_van",
+    "forklaring": "medkänsla eller välvilja gentemot någon"
+   },
+   {
+    "ord": "trötthet",
+    "typ": "samma_falt",
+    "forklaring": "brist på fysisk eller mental energi"
+   },
+   {
+    "ord": "dvala",
+    "typ": "nara",
+    "forklaring": "tillstånd av mycket djup vila"
+   }
+  ],
+  "exempel": "efter det svåra beskedet hamnade han i total apati.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "bilaga",
+  "ordklass": "substantiv",
+  "facit": "tillägg",
+  "distraktorer": [
+   {
+    "ord": "huvudtext",
+    "typ": "antonym",
+    "forklaring": "den centrala delen av ett dokument"
+   },
+   {
+    "ord": "biljett",
+    "typ": "falsk_van",
+    "forklaring": "bevis på betald resa eller entré"
+   },
+   {
+    "ord": "rapport",
+    "typ": "samma_falt",
+    "forklaring": "skriftlig redogörelse för ett arbete"
+   },
+   {
+    "ord": "avsnitt",
+    "typ": "nara",
+    "forklaring": "avgränsad del av en skrift"
+   }
+  ],
+  "exempel": "se gärna bilaga tre för mer detaljerade siffror.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "borgenär",
+  "ordklass": "substantiv",
+  "facit": "fordringsägare",
+  "distraktorer": [
+   {
+    "ord": "gäldenär",
+    "typ": "antonym",
+    "forklaring": "person som har en skuld till någon"
+   },
+   {
+    "ord": "borgmästare",
+    "typ": "falsk_van",
+    "forklaring": "högste ämbetsman i en stad"
+   },
+   {
+    "ord": "investerare",
+    "typ": "samma_falt",
+    "forklaring": "person som satsar kapitel i företag"
+   },
+   {
+    "ord": "garant",
+    "typ": "nara",
+    "forklaring": "person som går i god för något"
+   }
+  ],
+  "exempel": "banken agerade borgenär vid fastighetsköpet.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "bravur",
+  "ordklass": "substantiv",
+  "facit": "skicklighet",
+  "distraktorer": [
+   {
+    "ord": "klumpighet",
+    "typ": "antonym",
+    "forklaring": "brist på smidighet och balans"
+   },
+   {
+    "ord": "gravyr",
+    "typ": "falsk_van",
+    "forklaring": "ristad bild eller mönster i metall"
+   },
+   {
+    "ord": "framgång",
+    "typ": "samma_falt",
+    "forklaring": "gynnsamt resultat av ett arbete"
+   },
+   {
+    "ord": "elegans",
+    "typ": "nara",
+    "forklaring": "smidig och stilfull utformning"
+   }
+  ],
+  "exempel": "hon genomförde den svåra presentationen med bravur.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "deklamera",
+  "ordklass": "verb",
+  "facit": "recitera",
+  "distraktorer": [
+   {
+    "ord": "viska",
+    "typ": "antonym",
+    "forklaring": "tala mycket lågt med anddräkt"
+   },
+   {
+    "ord": "deklarera",
+    "typ": "falsk_van",
+    "forklaring": "lämna uppgifter om inkomst till staten"
+   },
+   {
+    "ord": "föreläsa",
+    "typ": "samma_falt",
+    "forklaring": "hålla ett strukturerat anförande"
+   },
+   {
+    "ord": "tala",
+    "typ": "nara",
+    "forklaring": "uttrycka sig med ord inför andra"
+   }
+  ],
+  "exempel": "skådespelaren började deklamera dikten inför den tysta publiken.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "demagog",
+  "ordklass": "substantiv",
+  "facit": "folkuppviglare",
+  "distraktorer": [
+   {
+    "ord": "fredsmäklare",
+    "typ": "antonym",
+    "forklaring": "person som medlar mellan stridande parter"
+   },
+   {
+    "ord": "pedagog",
+    "typ": "falsk_van",
+    "forklaring": "person som arbetar med undervisning"
+   },
+   {
+    "ord": "politiker",
+    "typ": "samma_falt",
+    "forklaring": "person som engagerar sig i styrning"
+   },
+   {
+    "ord": "talare",
+    "typ": "nara",
+    "forklaring": "person som håller anföranden inför publik"
+   }
+  ],
+  "exempel": "ledaren stämplades som en demagog av sina politiska motståndare.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "disparat",
+  "ordklass": "adjektiv",
+  "facit": "olikartad",
+  "distraktorer": [
+   {
+    "ord": "enhetlig",
+    "typ": "antonym",
+    "forklaring": "som har samma form eller karaktär"
+   },
+   {
+    "ord": "desperat",
+    "typ": "falsk_van",
+    "forklaring": "drivs av förtvivlan eller desperation"
+   },
+   {
+    "ord": "blandad",
+    "typ": "samma_falt",
+    "forklaring": "sammansatt av flera olika delar"
+   },
+   {
+    "ord": "avvikande",
+    "typ": "nara",
+    "forklaring": "som skiljer sig från normen"
+   }
+  ],
+  "exempel": "gruppen bestod av ganska disparata element med helt olika mål.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "egensinnig",
+  "ordklass": "adjektiv",
+  "facit": "självständig",
+  "distraktorer": [
+   {
+    "ord": "anpasslig",
+    "typ": "antonym",
+    "forklaring": "som lätt rättar sig efter andra"
+   },
+   {
+    "ord": "egenkär",
+    "typ": "falsk_van",
+    "forklaring": "alltför upptagen av sig själv"
+   },
+   {
+    "ord": "bestämd",
+    "typ": "samma_falt",
+    "forklaring": "som står fast vid sitt beslut"
+   },
+   {
+    "ord": "envis",
+    "typ": "nara",
+    "forklaring": "som vägrar ge upp sin inställning"
+   }
+  ],
+  "exempel": "konstnären var känd för sin mycket egensinniga stil.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "ekvivalent",
+  "ordklass": "adjektiv",
+  "facit": "likvärdig",
+  "distraktorer": [
+   {
+    "ord": "olika",
+    "typ": "antonym",
+    "forklaring": "som saknar gemensamma egenskaper"
+   },
+   {
+    "ord": "ambivalent",
+    "typ": "falsk_van",
+    "forklaring": "som känner sig kluven inför val"
+   },
+   {
+    "ord": "jämförbar",
+    "typ": "samma_falt",
+    "forklaring": "som går att ställa bredvid varandra"
+   },
+   {
+    "ord": "identisk",
+    "typ": "nara",
+    "forklaring": "helt och hållet densamma"
+   }
+  ],
+  "exempel": "de båda utbildningarna anses ha ekvivalent värde på arbetsmarknaden.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "esoterisk",
+  "ordklass": "adjektiv",
+  "facit": "svårillgänglig",
+  "distraktorer": [
+   {
+    "ord": "allmän",
+    "typ": "antonym",
+    "forklaring": "som är tillgänglig och känd för alla"
+   },
+   {
+    "ord": "exotisk",
+    "typ": "falsk_van",
+    "forklaring": "som upplevs som främmande och spännande"
+   },
+   {
+    "ord": "filosofisk",
+    "typ": "samma_falt",
+    "forklaring": "som rör djupa existentiella frågor"
+   },
+   {
+    "ord": "hemlig",
+    "typ": "nara",
+    "forklaring": "som hålls dold för utomstående"
+   }
+  ],
+  "exempel": "avhandlingen behandlade en esoterisk del av medeltida teologi.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "eufemism",
+  "ordklass": "substantiv",
+  "facit": "skönmålning",
+  "distraktorer": [
+   {
+    "ord": "kraftuttryck",
+    "typ": "antonym",
+    "forklaring": "starkt och ofta grovt ordval"
+   },
+   {
+    "ord": "entusiasm",
+    "typ": "falsk_van",
+    "forklaring": "stark och smittande glädje"
+   },
+   {
+    "ord": "omskrivning",
+    "typ": "samma_falt",
+    "forklaring": "ett annat sätt att uttrycka något"
+   },
+   {
+    "ord": "metafor",
+    "typ": "nara",
+    "forklaring": "bildligt språkligt uttryck"
+   }
+  ],
+  "exempel": "att kalla uppsägningar för effektivisering är en typisk eufemism.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "exekution",
+  "ordklass": "substantiv",
+  "facit": "verkställande",
+  "distraktorer": [
+   {
+    "ord": "avbrytande",
+    "typ": "antonym",
+    "forklaring": "handlingen att stoppa ett förlopp"
+   },
+   {
+    "ord": "exkursion",
+    "typ": "falsk_van",
+    "forklaring": "kortare studieresa i utbildningssyfte"
+   },
+   {
+    "ord": "planering",
+    "typ": "samma_falt",
+    "forklaring": "förberedande utformning av ett arbete"
+   },
+   {
+    "ord": "genomförande",
+    "typ": "nara",
+    "forklaring": "praktiskt utförande av en uppgift"
+   }
+  ],
+  "exempel": "beslutet låg nu redo för omedelbar exekution.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "fasonera",
+  "ordklass": "verb",
+  "facit": "forma",
+  "distraktorer": [
+   {
+    "ord": "förstöra",
+    "typ": "antonym",
+    "forklaring": "göra sönder eller rasera något"
+   },
+   {
+    "ord": "fascinera",
+    "typ": "falsk_van",
+    "forklaring": "väcka starkt intresse och beundran"
+   },
+   {
+    "ord": "bearbeta",
+    "typ": "samma_falt",
+    "forklaring": "arbeta med ett material för förändring"
+   },
+   {
+    "ord": "skära",
+    "typ": "nara",
+    "forklaring": "dela upp något med ett vasst verktyg"
+   }
+  ],
+  "exempel": "hantverkaren började fasonera metallen efter ritningen.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "fluktuation",
+  "ordklass": "substantiv",
+  "facit": "svängning",
+  "distraktorer": [
+   {
+    "ord": "stabilitet",
+    "typ": "antonym",
+    "forklaring": "tillstånd av fasthet och oföränderlighet"
+   },
+   {
+    "ord": "frustration",
+    "typ": "falsk_van",
+    "forklaring": "känsla av maktlöshet och missnöje"
+   },
+   {
+    "ord": "förändring",
+    "typ": "samma_falt",
+    "forklaring": "övergång från ett tillstånd till ett annat"
+   },
+   {
+    "ord": "variation",
+    "typ": "nara",
+    "forklaring": "förekomst av olika alternativ eller värden"
+   }
+  ],
+  "exempel": "marknaden präglades av kraftiga fluktuationer under hela hösten.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "förebära",
+  "ordklass": "verb",
+  "facit": "invända",
+  "distraktorer": [
+   {
+    "ord": "godkänna",
+    "typ": "antonym",
+    "forklaring": "ge sitt samtycke till ett förslag"
+   },
+   {
+    "ord": "förebåda",
+    "typ": "falsk_van",
+    "forklaring": "ge tecken om framtida händelse"
+   },
+   {
+    "ord": "förklara",
+    "typ": "samma_falt",
+    "forklaring": "göra ett sammanhang begripligt"
+   },
+   {
+    "ord": "påstå",
+    "typ": "nara",
+    "forklaring": "hävda att något förhåller sig på ett visst sätt"
+   }
+  ],
+  "exempel": "han försökte förebära tidsbrist som skäl till förseningen.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "förfarande",
+  "ordklass": "substantiv",
+  "facit": "tillvägagångssätt",
+  "distraktorer": [
+   {
+    "ord": "passivitet",
+    "typ": "antonym",
+    "forklaring": "brist på handling eller initiativ"
+   },
+   {
+    "ord": "förfaringssätt",
+    "typ": "falsk_van",
+    "forklaring": "samma stam är ej tillåten"
+   },
+   {
+    "ord": "rutin",
+    "typ": "samma_falt",
+    "forklaring": "vanebaserat sätt att utföra uppgifter"
+   },
+   {
+    "ord": "metod",
+    "typ": "nara",
+    "forklaring": "systematiskt sätt att nå ett resultat"
+   }
+  ],
+  "exempel": "polisen granskade noggrant företagets förfarande vid utbetalningen.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "förpliktigande",
+  "ordklass": "adjektiv",
+  "facit": "bindande",
+  "distraktorer": [
+   {
+    "ord": "frivillig",
+    "typ": "antonym",
+    "forklaring": "som utförs utan något som helst tvång"
+   },
+   {
+    "ord": "förnuftig",
+    "typ": "falsk_van",
+    "forklaring": "som baseras på sunt förnuft och logik"
+   },
+   {
+    "ord": "avtalad",
+    "typ": "samma_falt",
+    "forklaring": "som överenskommits mellan parter"
+   },
+   {
+    "ord": "tvingande",
+    "typ": "nara",
+    "forklaring": "som inte lämnar något val"
+   }
+  ],
+  "exempel": "avtalet innehöll flera förpliktigande klausuler för båda parter.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "förslagen",
+  "ordklass": "adjektiv",
+  "facit": "finurlig",
+  "distraktorer": [
+   {
+    "ord": "naiv",
+    "typ": "antonym",
+    "forklaring": "som är lättrogen och okritisk"
+   },
+   {
+    "ord": "förslagenhet",
+    "typ": "falsk_van",
+    "forklaring": "substantivform av samma ord"
+   },
+   {
+    "ord": "klyftig",
+    "typ": "samma_falt",
+    "forklaring": "som har god snabbtänkt förmåga"
+   },
+   {
+    "ord": "sly",
+    "typ": "nara",
+    "forklaring": "som agerar beräknande i smyg"
+   }
+  ],
+  "exempel": "den förslagne affärsmannen hittade snabbt ett smidig kryphål.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "hängiven",
+  "ordklass": "adjektiv",
+  "facit": "engagerad",
+  "distraktorer": [
+   {
+    "ord": "likgiltig",
+    "typ": "antonym",
+    "forklaring": "som helt saknar intresse eller känsla"
+   },
+   {
+    "ord": "hänsynslös",
+    "typ": "falsk_van",
+    "forklaring": "som inte bryr sig om andra"
+   },
+   {
+    "ord": "intresserad",
+    "typ": "samma_falt",
+    "forklaring": "som finner nöje i en fråga"
+   },
+   {
+    "ord": "trogen",
+    "typ": "nara",
+    "forklaring": "som står fast vid sin relation eller plikt"
+   }
+  ],
+  "exempel": "hon var en mycket hängiven medarbetare som alltid ställde upp.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "ikonoklastisk",
+  "ordklass": "adjektiv",
+  "facit": "radikal",
+  "distraktorer": [
+   {
+    "ord": "traditionell",
+    "typ": "antonym",
+    "forklaring": "som följer gamla invanda mönster"
+   },
+   {
+    "ord": "ikonisk",
+    "typ": "falsk_van",
+    "forklaring": "som blivit en välkänd symbol"
+   },
+   {
+    "ord": "kritisk",
+    "typ": "samma_falt",
+    "forklaring": "som granskar och påpekar fel"
+   },
+   {
+    "ord": "nyskapande",
+    "typ": "nara",
+    "forklaring": "som introducerar helt nya idéer"
+   }
+  ],
+  "exempel": "hans ikonoklastiska syn på konsten väckte starka reaktioner.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "immanent",
+  "ordklass": "adjektiv",
+  "facit": "inneboende",
+  "distraktorer": [
+   {
+    "ord": "yttre",
+    "typ": "antonym",
+    "forklaring": "som kommer utifrån och inte hör till kärnan"
+   },
+   {
+    "ord": "imminent",
+    "typ": "falsk_van",
+    "forklaring": "som är omedelbart förestående"
+   },
+   {
+    "ord": "naturlig",
+    "typ": "samma_falt",
+    "forklaring": "som följer naturens vanliga ordning"
+   },
+   {
+    "ord": "medfödd",
+    "typ": "nara",
+    "forklaring": "som finns där från födseln"
+   }
+  ],
+  "exempel": "kritiken byggde på en analys av systemets immanenta logik.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "incitament",
+  "ordklass": "substantiv",
+  "facit": "drivkraft",
+  "distraktorer": [
+   {
+    "ord": "hinder",
+    "typ": "antonym",
+    "forklaring": "något som stoppar eller försvårar"
+   },
+   {
+    "ord": "incident",
+    "typ": "falsk_van",
+    "forklaring": "oväntad och oftast negativ händelse"
+   },
+   {
+    "ord": "belöning",
+    "typ": "samma_falt",
+    "forklaring": "uppskattning för väl utfört arbete"
+   },
+   {
+    "ord": "stimulans",
+    "typ": "nara",
+    "forklaring": "något som väcker ökad aktivitet"
+   }
+  ],
+  "exempel": "högre lön gav de anställda ett tydligt incitament att arbeta övertid.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "indoktrinera",
+  "ordklass": "verb",
+  "facit": "hjärntvätta",
+  "distraktorer": [
+   {
+    "ord": "upplysa",
+    "typ": "antonym",
+    "forklaring": "ge opartisk information och kunskap"
+   },
+   {
+    "ord": "indikera",
+    "typ": "falsk_van",
+    "forklaring": "ge tecken på eller tyda på något"
+   },
+   {
+    "ord": "undervisa",
+    "typ": "samma_falt",
+    "forklaring": "förmedla kunskap i ett ämne"
+   },
+   {
+    "ord": "påverka",
+    "typ": "nara",
+    "forklaring": "öva inlflytande på någons åsikt"
+   }
+  ],
+  "exempel": "regimen försökte indoktrinera ungdomarna genom skolsystemet.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "instruktiv",
+  "ordklass": "adjektiv",
+  "facit": "lärorik",
+  "distraktorer": [
+   {
+    "ord": "förvirrande",
+    "typ": "antonym",
+    "forklaring": "som gör sammanhang svåra att förstå"
+   },
+   {
+    "ord": "konstruktiv",
+    "typ": "falsk_van",
+    "forklaring": "som bygger upp och hjälper framåt"
+   },
+   {
+    "ord": "pedagogisk",
+    "typ": "samma_falt",
+    "forklaring": "som är väl anpassad för inlärning"
+   },
+   {
+    "ord": "tydlig",
+    "typ": "nara",
+    "forklaring": "som är lätt att se eller uppfatta"
+   }
+  ],
+  "exempel": "manualen innehöll en mycket instruktiv genomgång av programmet.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "interimistisk",
+  "ordklass": "adjektiv",
+  "facit": "tillfällig",
+  "distraktorer": [
+   {
+    "ord": "permanent",
+    "typ": "antonym",
+    "forklaring": "som är avsedd att bestå för alltid"
+   },
+   {
+    "ord": "intressant",
+    "typ": "falsk_van",
+    "forklaring": "som väcker nyfikenhet och uppmärksamhet"
+   },
+   {
+    "ord": "kortsiktig",
+    "typ": "samma_falt",
+    "forklaring": "som gäller under en kortare period"
+   },
+   {
+    "ord": "provisorisk",
+    "typ": "nara",
+    "forklaring": "som ordnats som en tillfällig lösning"
+   }
+  ],
+  "exempel": "en interimistisk styrelse tillsattes fram till årsmötet.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "intrigant",
+  "ordklass": "adjektiv",
+  "facit": "ränkfull",
+  "distraktorer": [
+   {
+    "ord": "uppriktig",
+    "typ": "antonym",
+    "forklaring": "som är helt ärlig och rak"
+   },
+   {
+    "ord": "intressant",
+    "typ": "falsk_van",
+    "forklaring": "som fångar någons intresse"
+   },
+   {
+    "ord": "falsk",
+    "typ": "samma_falt",
+    "forklaring": "som inte går att lita på"
+   },
+   {
+    "ord": "lurig",
+    "typ": "nara",
+    "forklaring": "som gärna hittar på finurliga knep"
+   }
+  ],
+  "exempel": "den intrigante kollegan försökte ställa de andra mot varandra.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "invertera",
+  "ordklass": "verb",
+  "facit": "omvända",
+  "distraktorer": [
+   {
+    "ord": "bevara",
+    "typ": "antonym",
+    "forklaring": "behålla något i sitt nuvarande skick"
+   },
+   {
+    "ord": "investera",
+    "typ": "falsk_van",
+    "forklaring": "satsa pengar eller tid i något"
+   },
+   {
+    "ord": "ändra",
+    "typ": "samma_falt",
+    "forklaring": "göra annorlunda än tidigare"
+   },
+   {
+    "ord": "vända",
+    "typ": "nara",
+    "forklaring": "ändra riktning på ett objekt"
+   }
+  ],
+  "exempel": "du kan invertera färgerna i bilden för bättre kontrast.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "preskriberad",
+  "ordklass": "adjektiv",
+  "facit": "förfallen",
+  "distraktorer": [
+   {
+    "ord": "giltig",
+    "typ": "antonym",
+    "forklaring": "som fortfarande gäller enligt alla regler"
+   },
+   {
+    "ord": "proskriberad",
+    "typ": "falsk_van",
+    "forklaring": "som är lyst i bann eller förvisad"
+   },
+   {
+    "ord": "avslutad",
+    "typ": "samma_falt",
+    "forklaring": "som inte längre är igång"
+   },
+   {
+    "ord": "inaktuell",
+    "typ": "nara",
+    "forklaring": "som inte längre stämmer med nutiden"
+   }
+  ],
+  "exempel": "brottet var preskriberat och kunde därför inte tas till domstol.",
+  "niva": "expert",
+  "typ": "synonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ }
+]

@@ -1,0 +1,4631 @@
+[
+ {
+  "ord": "billig",
+  "ordklass": "adjektiv",
+  "facit": "dyr",
+  "distraktorer": [
+   {
+    "ord": "prisvärd",
+    "typ": "synonym",
+    "forklaring": "som är värd sitt pris"
+   },
+   {
+    "ord": "gratis",
+    "typ": "samma_falt",
+    "forklaring": "som inte kostar någonting alls"
+   },
+   {
+    "ord": "enkel",
+    "typ": "annan",
+    "forklaring": "som inte är svår eller krånglig"
+   },
+   {
+    "ord": "snabb",
+    "typ": "annan",
+    "forklaring": "som rör sig med hög hastighet"
+   }
+  ],
+  "exempel": "Det var en väldigt billig lunch som smakade bra.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "stanna",
+  "ordklass": "verb",
+  "facit": "köra",
+  "distraktorer": [
+   {
+    "ord": "bromsa",
+    "typ": "samma_falt",
+    "forklaring": "att sänka hastigheten på ett fordon"
+   },
+   {
+    "ord": "parkera",
+    "typ": "samma_falt",
+    "forklaring": "att ställa ifrån sig ett fordon"
+   },
+   {
+    "ord": "vänta",
+    "typ": "nara",
+    "forklaring": "att bli kvar på en plats"
+   },
+   {
+    "ord": "titta",
+    "typ": "annan",
+    "forklaring": "att rikta blicken mot något"
+   }
+  ],
+  "exempel": "Bussen valde att stanna vid nästa hållplats.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "mörk",
+  "ordklass": "adjektiv",
+  "facit": "ljus",
+  "distraktorer": [
+   {
+    "ord": "dunkel",
+    "typ": "synonym",
+    "forklaring": "som har svag belysning"
+   },
+   {
+    "ord": "skuggig",
+    "typ": "samma_falt",
+    "forklaring": "som befinner sig i lä från solen"
+   },
+   {
+    "ord": "kall",
+    "typ": "annan",
+    "forklaring": "som har låg temperatur"
+   },
+   {
+    "ord": "tyst",
+    "typ": "annan",
+    "forklaring": "som inte ger ifrån sig ljud"
+   }
+  ],
+  "exempel": "Det var en mörk kväll i november.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "skratta",
+  "ordklass": "verb",
+  "facit": "gråta",
+  "distraktorer": [
+   {
+    "ord": "le",
+    "typ": "samma_falt",
+    "forklaring": "att visa glädje med munnen"
+   },
+   {
+    "ord": "jollra",
+    "typ": "nara",
+    "forklaring": "att göra glada barnljud"
+   },
+   {
+    "ord": "sjunga",
+    "typ": "annan",
+    "forklaring": "att frambringa musik med rösten"
+   },
+   {
+    "ord": "prata",
+    "typ": "annan",
+    "forklaring": "att tala med någon"
+   }
+  ],
+  "exempel": "Alla började skratta åt det roliga skämtet.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "hungrig",
+  "ordklass": "adjektiv",
+  "facit": "mätt",
+  "distraktorer": [
+   {
+    "ord": "törstig",
+    "typ": "samma_falt",
+    "forklaring": "som behöver dricka vätska"
+   },
+   {
+    "ord": "sugen",
+    "typ": "nara",
+    "forklaring": "som har lust att äta något gott"
+   },
+   {
+    "ord": "trött",
+    "typ": "annan",
+    "forklaring": "som behöver sova eller vila"
+   },
+   {
+    "ord": "sjuk",
+    "typ": "annan",
+    "forklaring": "som har drabbats av en infektion"
+   }
+  ],
+  "exempel": "Jag är väldigt hungrig efter det långa träningspasset.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "somna",
+  "ordklass": "verb",
+  "facit": "vakna",
+  "distraktorer": [
+   {
+    "ord": "vila",
+    "typ": "samma_falt",
+    "forklaring": "att ta det lugnt för återhämtning"
+   },
+   {
+    "ord": "drömma",
+    "typ": "samma_falt",
+    "forklaring": "att uppleva bilder under sömnen"
+   },
+   {
+    "ord": "snedda",
+    "typ": "annan",
+    "forklaring": "att gå i sned riktning"
+   },
+   {
+    "ord": "läsa",
+    "typ": "annan",
+    "forklaring": "att tyda skriven text"
+   }
+  ],
+  "exempel": "Barnet brukar somna direkt efter sagan.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "pigg",
+  "ordklass": "adjektiv",
+  "facit": "trött",
+  "distraktorer": [
+   {
+    "ord": "vaken",
+    "typ": "synonym",
+    "forklaring": "som inte sover"
+   },
+   {
+    "ord": "frisk",
+    "typ": "samma_falt",
+    "forklaring": "som mår bra och saknar sjukdom"
+   },
+   {
+    "ord": "glad",
+    "typ": "annan",
+    "forklaring": "som känner lycka och glädje"
+   },
+   {
+    "ord": "snabb",
+    "typ": "annan",
+    "forklaring": "som har en hög hastighet"
+   }
+  ],
+  "exempel": "Efter kaffet kände hon sig pigg igen.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "förlora",
+  "ordklass": "verb",
+  "facit": "vinna",
+  "distraktorer": [
+   {
+    "ord": "tappa",
+    "typ": "synonym",
+    "forklaring": "att miste något av misstag"
+   },
+   {
+    "ord": "kämpa",
+    "typ": "samma_falt",
+    "forklaring": "att anstränga sig väldigt hårt"
+   },
+   {
+    "ord": "satsa",
+    "typ": "samma_falt",
+    "forklaring": "att riskera pengar i ett spel"
+   },
+   {
+    "ord": "glömma",
+    "typ": "annan",
+    "forklaring": "att inte komma ihåg något"
+   }
+  ],
+  "exempel": "Laget ville inte förlora den viktiga matchen.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "tung",
+  "ordklass": "adjektiv",
+  "facit": "lätt",
+  "distraktorer": [
+   {
+    "ord": "massiv",
+    "typ": "nara",
+    "forklaring": "som är helt igenom fast och kraftig"
+   },
+   {
+    "ord": "hård",
+    "typ": "samma_falt",
+    "forklaring": "som inte ger efter för tryck"
+   },
+   {
+    "ord": "stor",
+    "typ": "annan",
+    "forklaring": "som har betydande mått"
+   },
+   {
+    "ord": "bred",
+    "typ": "annan",
+    "forklaring": "som har stort avstånd mellan sidorna"
+   }
+  ],
+  "exempel": "Väskan var för tung för att bäras själv.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "stänga",
+  "ordklass": "verb",
+  "facit": "öppna",
+  "distraktorer": [
+   {
+    "ord": "låsa",
+    "typ": "samma_falt",
+    "forklaring": "att tillsluta med en nyckel"
+   },
+   {
+    "ord": "dölja",
+    "typ": "nara",
+    "forklaring": "att göra osynlig för andra"
+   },
+   {
+    "ord": "flytta",
+    "typ": "annan",
+    "forklaring": "att ändra position på något"
+   },
+   {
+    "ord": "städa",
+    "typ": "annan",
+    "forklaring": "att göra rent i ett rum"
+   }
+  ],
+  "exempel": "Glöm inte att stänga dörren efter dig.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "ren",
+  "ordklass": "adjektiv",
+  "facit": "smutsig",
+  "distraktorer": [
+   {
+    "ord": "fräsch",
+    "typ": "synonym",
+    "forklaring": "som känns ren och ny"
+   },
+   {
+    "ord": "nytvättad",
+    "typ": "samma_falt",
+    "forklaring": "som nyligen har rengjorts med vatten"
+   },
+   {
+    "ord": "snygg",
+    "typ": "annan",
+    "forklaring": "som har ett tilltalande utseende"
+   },
+   {
+    "ord": "blank",
+    "typ": "annan",
+    "forklaring": "som reflekterar ljus väldigt väl"
+   }
+  ],
+  "exempel": "Tröjan var helt ren efter tvätten.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "sälja",
+  "ordklass": "verb",
+  "facit": "köpa",
+  "distraktorer": [
+   {
+    "ord": "byta",
+    "typ": "samma_falt",
+    "forklaring": "att lämna något och få något annat"
+   },
+   {
+    "ord": "lämna",
+    "typ": "annan",
+    "forklaring": "att gå ifrån en viss plats"
+   },
+   {
+    "ord": "tjäna",
+    "typ": "samma_falt",
+    "forklaring": "att få pengar för sitt arbete"
+   },
+   {
+    "ord": "skicka",
+    "typ": "annan",
+    "forklaring": "att posta något till en mottagare"
+   }
+  ],
+  "exempel": "Hon vill sälja sin gamla cykel på nätet.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "hård",
+  "ordklass": "adjektiv",
+  "facit": "mjuk",
+  "distraktorer": [
+   {
+    "ord": "fast",
+    "typ": "synonym",
+    "forklaring": "som inte viker sig eller ändrar form"
+   },
+   {
+    "ord": "stel",
+    "typ": "samma_falt",
+    "forklaring": "som har svårt att böja sig"
+   },
+   {
+    "ord": "varm",
+    "typ": "annan",
+    "forklaring": "som har en hög temperatur"
+   },
+   {
+    "ord": "vass",
+    "typ": "annan",
+    "forklaring": "som lätt kan skära eller sticka"
+   }
+  ],
+  "exempel": "Marken var helt hård efter nattens frost.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "tända",
+  "ordklass": "verb",
+  "facit": "släcka",
+  "distraktorer": [
+   {
+    "ord": "bränna",
+    "typ": "samma_falt",
+    "forklaring": "att förstöra något med hjälp av eld"
+   },
+   {
+    "ord": "värma",
+    "typ": "samma_falt",
+    "forklaring": "att göra något varmare med hetta"
+   },
+   {
+    "ord": "starta",
+    "typ": "nara",
+    "forklaring": "att sätta igång en viss apparat"
+   },
+   {
+    "ord": "lyfta",
+    "typ": "annan",
+    "forklaring": "att föra något uppåt med händerna"
+   }
+  ],
+  "exempel": "Det var dags att tända ljusen på bordet.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "bred",
+  "ordklass": "adjektiv",
+  "facit": "smal",
+  "distraktorer": [
+   {
+    "ord": "vid",
+    "typ": "synonym",
+    "forklaring": "som har en stor omfattning tvärsöver"
+   },
+   {
+    "ord": "djup",
+    "typ": "samma_falt",
+    "forklaring": "som sträcker sig långt nedåt"
+   },
+   {
+    "ord": "hög",
+    "typ": "annan",
+    "forklaring": "som når långt upp i luften"
+   },
+   {
+    "ord": "lång",
+    "typ": "annan",
+    "forklaring": "som sträcker sig över stort avstånd"
+   }
+  ],
+  "exempel": "Vägen var bred nog för två bilar bredvid varandra.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "sänka",
+  "ordklass": "verb",
+  "facit": "höja",
+  "distraktorer": [
+   {
+    "ord": "minska",
+    "typ": "synonym",
+    "forklaring": "att göra mindre till antal eller grad"
+   },
+   {
+    "ord": "fälla",
+    "typ": "samma_falt",
+    "forklaring": "att få något att ramla ned"
+   },
+   {
+    "ord": "tappa",
+    "typ": "annan",
+    "forklaring": "att av misstag miste ett föremål"
+   },
+   {
+    "ord": "flytta",
+    "typ": "annan",
+    "forklaring": "att ändra läge för ett föremål"
+   }
+  ],
+  "exempel": "De var tvungna att sänka priset på varan.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "torr",
+  "ordklass": "adjektiv",
+  "facit": "våt",
+  "distraktorer": [
+   {
+    "ord": "dammig",
+    "typ": "samma_falt",
+    "forklaring": "som är täckt av fint smuts"
+   },
+   {
+    "ord": "solig",
+    "typ": "annan",
+    "forklaring": "som har gott om varm solsken"
+   },
+   {
+    "ord": "het",
+    "typ": "annan",
+    "forklaring": "som har en väldigt hög temperatur"
+   },
+   {
+    "ord": "tom",
+    "typ": "annan",
+    "forklaring": "som inte innehåller någonting alls"
+   }
+  ],
+  "exempel": "Tvätten var helt torr efter en timme i solen.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "hämta",
+  "ordklass": "verb",
+  "facit": "lämna",
+  "distraktorer": [
+   {
+    "ord": "bära",
+    "typ": "samma_falt",
+    "forklaring": "att transportera något med händerna"
+   },
+   {
+    "ord": "lyfta",
+    "typ": "samma_falt",
+    "forklaring": "att föra upp ett föremål"
+   },
+   {
+    "ord": "söka",
+    "typ": "annan",
+    "forklaring": "att leta efter någonting försvunnet"
+   },
+   {
+    "ord": "öppna",
+    "typ": "annan",
+    "forklaring": "att ge tillgång till ett utrymme"
+   }
+  ],
+  "exempel": "Kan du hämta mina glasögon i köket?",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "mätt",
+  "ordklass": "adjektiv",
+  "facit": "hungrig",
+  "distraktorer": [
+   {
+    "ord": "belåten",
+    "typ": "nara",
+    "forklaring": "som känner sig nöjd med tillvaron"
+   },
+   {
+    "ord": "törstig",
+    "typ": "samma_falt",
+    "forklaring": "som behöver få i sig vätska"
+   },
+   {
+    "ord": "trött",
+    "typ": "annan",
+    "forklaring": "som har behov av vila eller sömn"
+   },
+   {
+    "ord": "varm",
+    "typ": "annan",
+    "forklaring": "som upplever hög temperatur"
+   }
+  ],
+  "exempel": "Jag kände mig mätt efter den goda middagen.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "minska",
+  "ordklass": "verb",
+  "facit": "öka",
+  "distraktorer": [
+   {
+    "ord": "sänka",
+    "typ": "synonym",
+    "forklaring": "att göra lägre eller mindre"
+   },
+   {
+    "ord": "korta",
+    "typ": "samma_falt",
+    "forklaring": "att göra mindre till längden"
+   },
+   {
+    "ord": "spara",
+    "typ": "annan",
+    "forklaring": "att lägga undan resurser för framtiden"
+   },
+   {
+    "ord": "sluta",
+    "typ": "annan",
+    "forklaring": "att inte fortsätta med en aktivitet"
+   }
+  ],
+  "exempel": "Företaget vill minska sina utgifter nästa år.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "full",
+  "ordklass": "adjektiv",
+  "facit": "tom",
+  "distraktorer": [
+   {
+    "ord": "fylld",
+    "typ": "synonym",
+    "forklaring": "som innehåller maximalt med saker"
+   },
+   {
+    "ord": "trång",
+    "typ": "samma_falt",
+    "forklaring": "som har mycket lite plats över"
+   },
+   {
+    "ord": "tung",
+    "typ": "annan",
+    "forklaring": "som har en mycket stor vikt"
+   },
+   {
+    "ord": "hel",
+    "typ": "annan",
+    "forklaring": "som inte är trasig eller trasad"
+   }
+  ],
+  "exempel": "Papperskorgen var helt full med gamla papper.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "skada",
+  "ordklass": "verb",
+  "facit": "läka",
+  "distraktorer": [
+   {
+    "ord": "slå",
+    "typ": "samma_falt",
+    "forklaring": "att träffa med en kraftig stöt"
+   },
+   {
+    "ord": "förstöra",
+    "typ": "synonym",
+    "forklaring": "att göra något oanvändbart"
+   },
+   {
+    "ord": "tappa",
+    "typ": "annan",
+    "forklaring": "att råka miste ett föremål"
+   },
+   {
+    "ord": "skrika",
+    "typ": "annan",
+    "forklaring": "att ge ifrån sig höga ljud"
+   }
+  ],
+  "exempel": "Det var tur att ingen lyckades skada sig.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "långsam",
+  "ordklass": "adjektiv",
+  "facit": "snabb",
+  "distraktorer": [
+   {
+    "ord": "trög",
+    "typ": "synonym",
+    "forklaring": "som rör sig mycket trögt"
+   },
+   {
+    "ord": "sen",
+    "typ": "samma_falt",
+    "forklaring": "som kommer efter avtalad tid"
+   },
+   {
+    "ord": "lugn",
+    "typ": "nara",
+    "forklaring": "som är harmonisk och utan stress"
+   },
+   {
+    "ord": "svag",
+    "typ": "annan",
+    "forklaring": "som saknar krafter och styrka"
+   }
+  ],
+  "exempel": "Bussen var väldigt långsam i den täta trafiken.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "glömma",
+  "ordklass": "verb",
+  "facit": "minnas",
+  "distraktorer": [
+   {
+    "ord": "tappa",
+    "typ": "samma_falt",
+    "forklaring": "att blir av med något av misstag"
+   },
+   {
+    "ord": "mista",
+    "typ": "synonym",
+    "forklaring": "att inte längre ha kvar någonting"
+   },
+   {
+    "ord": "söka",
+    "typ": "annan",
+    "forklaring": "att försöka hitta något förlorat"
+   },
+   {
+    "ord": "tänka",
+    "typ": "annan",
+    "forklaring": "att använda sitt förstånd"
+   }
+  ],
+  "exempel": "Det är lätt att glömma sin kod ibland.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "sjuk",
+  "ordklass": "adjektiv",
+  "facit": "frisk",
+  "distraktorer": [
+   {
+    "ord": "klen",
+    "typ": "synonym",
+    "forklaring": "som har svag hälsa eller kropp"
+   },
+   {
+    "ord": "trött",
+    "typ": "samma_falt",
+    "forklaring": "som saknar energi i kroppen"
+   },
+   {
+    "ord": "svag",
+    "typ": "nara",
+    "forklaring": "som saknar fysisk styrka"
+   },
+   {
+    "ord": "ledsen",
+    "typ": "annan",
+    "forklaring": "som känner sorg i sinnet"
+   }
+  ],
+  "exempel": "Han stannade hemma eftersom han var sjuk.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "tappa",
+  "ordklass": "verb",
+  "facit": "hitta",
+  "distraktorer": [
+   {
+    "ord": "förlora",
+    "typ": "synonym",
+    "forklaring": "att blir av med ett föremål"
+   },
+   {
+    "ord": "gömma",
+    "typ": "samma_falt",
+    "forklaring": "att lägga något så det inte syns"
+   },
+   {
+    "ord": "glömma",
+    "typ": "nara",
+    "forklaring": "att inte komma ihåg något"
+   },
+   {
+    "ord": "kasta",
+    "typ": "annan",
+    "forklaring": "att slunga iväg ett föremål"
+   }
+  ],
+  "exempel": "Det är lätt att tappa nycklarna i snön.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "djup",
+  "ordklass": "adjektiv",
+  "facit": "grund",
+  "distraktorer": [
+   {
+    "ord": "bottenlös",
+    "typ": "nara",
+    "forklaring": "som verkar sakna en botten"
+   },
+   {
+    "ord": "brant",
+    "typ": "samma_falt",
+    "forklaring": "som lutar väldigt mycket nedåt"
+   },
+   {
+    "ord": "mörk",
+    "typ": "annan",
+    "forklaring": "som har väldigt lite belysning"
+   },
+   {
+    "ord": "stor",
+    "typ": "annan",
+    "forklaring": "som har ett betydande omfång"
+   }
+  ],
+  "exempel": "Sjön var alldeles för djup för att simma i.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "låsa",
+  "ordklass": "verb",
+  "facit": "öppna",
+  "distraktorer": [
+   {
+    "ord": "stänga",
+    "typ": "samma_falt",
+    "forklaring": "att föra ihop en dörr"
+   },
+   {
+    "ord": "dölja",
+    "typ": "annan",
+    "forklaring": "att gömma något för andra"
+   },
+   {
+    "ord": "skydda",
+    "typ": "samma_falt",
+    "forklaring": "att försvara något mot fara"
+   },
+   {
+    "ord": "vakta",
+    "typ": "annan",
+    "forklaring": "att hålla uppsikt över någonting"
+   }
+  ],
+  "exempel": "Kom ihåg att låsa dörren när du går.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "glad",
+  "ordklass": "adjektiv",
+  "facit": "ledsen",
+  "distraktorer": [
+   {
+    "ord": "nöjd",
+    "typ": "synonym",
+    "forklaring": "som känner sig tillfreds"
+   },
+   {
+    "ord": "pigg",
+    "typ": "samma_falt",
+    "forklaring": "som har mycket energi kvar"
+   },
+   {
+    "ord": "snäll",
+    "typ": "annan",
+    "forklaring": "som är vänlig mot andra"
+   },
+   {
+    "ord": "lugn",
+    "typ": "annan",
+    "forklaring": "som är helt utan stress"
+   }
+  ],
+  "exempel": "Hon blev väldigt glad för den fina presenten.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "skicka",
+  "ordklass": "verb",
+  "facit": "få",
+  "distraktorer": [
+   {
+    "ord": "posta",
+    "typ": "synonym",
+    "forklaring": "att lämna in brev för transport"
+   },
+   {
+    "ord": "lämna",
+    "typ": "samma_falt",
+    "forklaring": "att överräcka någonting till någon"
+   },
+   {
+    "ord": "skriva",
+    "typ": "annan",
+    "forklaring": "att plocka ihop bokstäver till ord"
+   },
+   {
+    "ord": "läsa",
+    "typ": "annan",
+    "forklaring": "att ta del av en text"
+   }
+  ],
+  "exempel": "Glöm inte att skicka brevet innan stängning.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "god",
+  "ordklass": "adjektiv",
+  "facit": "ond",
+  "distraktorer": [
+   {
+    "ord": "varm",
+    "typ": "samma_falt",
+    "forklaring": "som har medelhög temperatur"
+   },
+   {
+    "ord": "fin",
+    "typ": "synonym",
+    "forklaring": "som är av god kvalitet eller utseende"
+   },
+   {
+    "ord": "glad",
+    "typ": "annan",
+    "forklaring": "som känner glädje och upprymdhet"
+   },
+   {
+    "ord": "snäll",
+    "typ": "synonym",
+    "forklaring": "som vill andra väl och är vänlig"
+   }
+  ],
+  "exempel": "Hon är en väldigt god människa som vill alla väl.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "ljus",
+  "ordklass": "adjektiv",
+  "facit": "mörk",
+  "distraktorer": [
+   {
+    "ord": "klar",
+    "typ": "samma_falt",
+    "forklaring": "som är ren och lätt att se igenom"
+   },
+   {
+    "ord": "blank",
+    "typ": "annan",
+    "forklaring": "som har en speglande och slät yta"
+   },
+   {
+    "ord": "skarp",
+    "typ": "annan",
+    "forklaring": "som har en vass egg eller tydlig kontur"
+   },
+   {
+    "ord": "vit",
+    "typ": "synonym",
+    "forklaring": "som har färgen som snö"
+   }
+  ],
+  "exempel": "Det var fortfarande mycket ljust ute när de gick hem.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "hög",
+  "ordklass": "adjektiv",
+  "facit": "låg",
+  "distraktorer": [
+   {
+    "ord": "lång",
+    "typ": "samma_falt",
+    "forklaring": "som sträcker sig långt i längdled"
+   },
+   {
+    "ord": "bred",
+    "typ": "annan",
+    "forklaring": "som har ett stort avstånd mellan sidorna"
+   },
+   {
+    "ord": "djup",
+    "typ": "annan",
+    "forklaring": "som sträcker sig långt ner eller in"
+   },
+   {
+    "ord": "reslig",
+    "typ": "synonym",
+    "forklaring": "som är hög och rak till växten"
+   }
+  ],
+  "exempel": "Byggnaden var mycket hög och syntes från långt håll.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "vaken",
+  "ordklass": "adjektiv",
+  "facit": "sovande",
+  "distraktorer": [
+   {
+    "ord": "pigg",
+    "typ": "samma_falt",
+    "forklaring": "som är full av energi och rask"
+   },
+   {
+    "ord": "snabb",
+    "typ": "annan",
+    "forklaring": "som rör sig med hög hastighet"
+   },
+   {
+    "ord": "skarp",
+    "typ": "annan",
+    "forklaring": "som är uppmärksam och har god uppfattning"
+   },
+   {
+    "ord": "alert",
+    "typ": "synonym",
+    "forklaring": "som är vaken och redo att reagera"
+   }
+  ],
+  "exempel": "Barnet var vaken under hela bilresan.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "skarp",
+  "ordklass": "adjektiv",
+  "facit": "slö",
+  "distraktorer": [
+   {
+    "ord": "spetsig",
+    "typ": "samma_falt",
+    "forklaring": "som löper ut i en fin punkt"
+   },
+   {
+    "ord": "tung",
+    "typ": "annan",
+    "forklaring": "som väger mycket"
+   },
+   {
+    "ord": "hård",
+    "typ": "annan",
+    "forklaring": "som inte ger efter för tryck"
+   },
+   {
+    "ord": "vass",
+    "typ": "synonym",
+    "forklaring": "som har en skärande egg"
+   }
+  ],
+  "exempel": "Var försiktig eftersom kniven är väldigt skarp.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "öka",
+  "ordklass": "verb",
+  "facit": "minska",
+  "distraktorer": [
+   {
+    "ord": "växa",
+    "typ": "samma_falt",
+    "forklaring": "som blir större genom naturlig utveckling"
+   },
+   {
+    "ord": "höja",
+    "typ": "synonym",
+    "forklaring": "som gör något högre eller mer intensivt"
+   },
+   {
+    "ord": "flytta",
+    "typ": "annan",
+    "forklaring": "som ändrar position för något"
+   },
+   {
+    "ord": "ändra",
+    "typ": "annan",
+    "forklaring": "som gör något annorlunda"
+   }
+  ],
+  "exempel": "Företaget vill öka sin försäljning under nästa år.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "vinna",
+  "ordklass": "verb",
+  "facit": "förlora",
+  "distraktorer": [
+   {
+    "ord": "tävla",
+    "typ": "samma_falt",
+    "forklaring": "som kämpar mot andra i en lek"
+   },
+   {
+    "ord": "segra",
+    "typ": "synonym",
+    "forklaring": "som står som slutgiltig vinnare"
+   },
+   {
+    "ord": "kämpa",
+    "typ": "annan",
+    "forklaring": "som anstränger sig hårt för något"
+   },
+   {
+    "ord": "starta",
+    "typ": "annan",
+    "forklaring": "som sätter igång någonting"
+   }
+  ],
+  "exempel": "Laget hoppas vinna dagens viktiga match.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "stiga",
+  "ordklass": "verb",
+  "facit": "sjunka",
+  "distraktorer": [
+   {
+    "ord": "höjas",
+    "typ": "samma_falt",
+    "forklaring": "som blir placerad på högre nivå"
+   },
+   {
+    "ord": "öka",
+    "typ": "synonym",
+    "forklaring": "som blir större i mängd eller grad"
+   },
+   {
+    "ord": "falla",
+    "typ": "annan",
+    "forklaring": "som rör sig snabbt nedåt"
+   },
+   {
+    "ord": "rulla",
+    "typ": "annan",
+    "forklaring": "som rör sig genom att snurra"
+   }
+  ],
+  "exempel": "Priserna fortsätter att stiga i snabb takt.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "skratta",
+  "ordklass": "verb",
+  "facit": "gråta",
+  "distraktorer": [
+   {
+    "ord": "le",
+    "typ": "samma_falt",
+    "forklaring": "som visar glädje med munnens rörelser"
+   },
+   {
+    "ord": "fnissa",
+    "typ": "synonym",
+    "forklaring": "som skrattar tyst och dämpat"
+   },
+   {
+    "ord": "prata",
+    "typ": "annan",
+    "forklaring": "som uttrycker tankar med ord"
+   },
+   {
+    "ord": "sucka",
+    "typ": "annan",
+    "forklaring": "som drar ett djupt andetag"
+   }
+  ],
+  "exempel": "Det var roligt att skratta tillsammans åt skämtet.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "köpa",
+  "ordklass": "verb",
+  "facit": "sälja",
+  "distraktorer": [
+   {
+    "ord": "betala",
+    "typ": "samma_falt",
+    "forklaring": "som lämnar pengar för en vara"
+   },
+   {
+    "ord": "handla",
+    "typ": "synonym",
+    "forklaring": "som skaffar varor mot ersättning"
+   },
+   {
+    "ord": "byta",
+    "typ": "annan",
+    "forklaring": "som ger någonting och får annat"
+   },
+   {
+    "ord": "låna",
+    "typ": "annan",
+    "forklaring": "som använder något under viss tid"
+   }
+  ],
+  "exempel": "Hon ska köpa en ny bil nästa vecka.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "tända",
+  "ordklass": "verb",
+  "facit": "släcka",
+  "distraktorer": [
+   {
+    "ord": "brinna",
+    "typ": "samma_falt",
+    "forklaring": "som står i lågor och avger värme"
+   },
+   {
+    "ord": "starta",
+    "typ": "synonym",
+    "forklaring": "som sätter igång en apparat"
+   },
+   {
+    "ord": "värma",
+    "typ": "annan",
+    "forklaring": "som gör att någonting blir varmare"
+   },
+   {
+    "ord": "lysa",
+    "typ": "annan",
+    "forklaring": "som sänder ut ett klart sken"
+   }
+  ],
+  "exempel": "Glöm inte att tända ljuset när det blir mörkt.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "somna",
+  "ordklass": "verb",
+  "facit": "vakna",
+  "distraktorer": [
+   {
+    "ord": "vila",
+    "typ": "samma_falt",
+    "forklaring": "som återhämtar krafterna i lugn och ro"
+   },
+   {
+    "ord": "slumra",
+    "typ": "synonym",
+    "forklaring": "som sover lätt under kort tid"
+   },
+   {
+    "ord": "drömma",
+    "typ": "annan",
+    "forklaring": "som upplever bilder under sin sömn"
+   },
+   {
+    "ord": "ligga",
+    "typ": "annan",
+    "forklaring": "som befinner sig i vågrätt läge"
+   }
+  ],
+  "exempel": "Barnet brukar somna väldigt fort på kvällen.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "hitta",
+  "ordklass": "verb",
+  "facit": "tappa",
+  "distraktorer": [
+   {
+    "ord": "söka",
+    "typ": "samma_falt",
+    "forklaring": "som letar efter något som saknas"
+   },
+   {
+    "ord": "finna",
+    "typ": "synonym",
+    "forklaring": "som Upptäcker var någonting finns"
+   },
+   {
+    "ord": "gömma",
+    "typ": "annan",
+    "forklaring": "som placerar ur sikte för andra"
+   },
+   {
+    "ord": "hålla",
+    "typ": "annan",
+    "forklaring": "som har fast grepp om något"
+   }
+  ],
+  "exempel": "Jag hoppas kunna hitta mina nycklar snart.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "komma",
+  "ordklass": "verb",
+  "facit": "gå",
+  "distraktorer": [
+   {
+    "ord": "anlända",
+    "typ": "synonym",
+    "forklaring": "som når fram till sitt mål"
+   },
+   {
+    "ord": "resa",
+    "typ": "samma_falt",
+    "forklaring": "som förflyttar sig till annan ort"
+   },
+   {
+    "ord": "möta",
+    "typ": "annan",
+    "forklaring": "som träffar någon på en plats"
+   },
+   {
+    "ord": "stanna",
+    "typ": "annan",
+    "forklaring": "som upphör att röra på sig"
+   }
+  ],
+  "exempel": "De ska komma hem till oss på middag ikväll.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "ge",
+  "ordklass": "verb",
+  "facit": "ta",
+  "distraktorer": [
+   {
+    "ord": "lämna",
+    "typ": "synonym",
+    "forklaring": "som överlämnar något till annan person"
+   },
+   {
+    "ord": "bära",
+    "typ": "samma_falt",
+    "forklaring": "som håller uppe och transporterar något"
+   },
+   {
+    "ord": "visa",
+    "typ": "annan",
+    "forklaring": "som gör något synligt för andra"
+   },
+   {
+    "ord": "låna",
+    "typ": "annan",
+    "forklaring": "som tillfälligt överlåter bruk av något"
+   }
+  ],
+  "exempel": "Kan du ge mig den där boken på bordet?",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "skicka",
+  "ordklass": "verb",
+  "facit": "ta emot",
+  "distraktorer": [
+   {
+    "ord": "sända",
+    "typ": "synonym",
+    "forklaring": "som transporterar iväg något till mottagare"
+   },
+   {
+    "ord": "bära",
+    "typ": "samma_falt",
+    "forklaring": "som lyfter och flyttar ett föremål"
+   },
+   {
+    "ord": "skriva",
+    "typ": "annan",
+    "forklaring": "som formar tecken på ett papper"
+   },
+   {
+    "ord": "läsa",
+    "typ": "annan",
+    "forklaring": "som tyder skriven eller tryckt text"
+   }
+  ],
+  "exempel": "Kom ihåg att skicka brevet så fort som möjligt.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "lasta",
+  "ordklass": "verb",
+  "facit": "lossa",
+  "distraktorer": [
+   {
+    "ord": "packa",
+    "typ": "synonym",
+    "forklaring": "som fyller en behållare med saker"
+   },
+   {
+    "ord": "bära",
+    "typ": "samma_falt",
+    "forklaring": "som transporterar tung börda med kroppen"
+   },
+   {
+    "ord": "lyfta",
+    "typ": "annan",
+    "forklaring": "som för något till en högre nivå"
+   },
+   {
+    "ord": "flytta",
+    "typ": "annan",
+    "forklaring": "som ändrar plats för ett föremål"
+   }
+  ],
+  "exempel": "Arbetarna börjar lasta varorna på lastbilen nu.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "höja",
+  "ordklass": "verb",
+  "facit": "sänka",
+  "distraktorer": [
+   {
+    "ord": "öka",
+    "typ": "synonym",
+    "forklaring": "som gör någonting större i mängd"
+   },
+   {
+    "ord": "lyfta",
+    "typ": "samma_falt",
+    "forklaring": "som för upp något från marken"
+   },
+   {
+    "ord": "ändra",
+    "typ": "annan",
+    "forklaring": "som gör en förändring av läget"
+   },
+   {
+    "ord": "vända",
+    "typ": "annan",
+    "forklaring": "som ändrar riktning på ett föremål"
+   }
+  ],
+  "exempel": "Chefen vill höja lönen för alla anställda.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "samla",
+  "ordklass": "verb",
+  "facit": "sprida",
+  "distraktorer": [
+   {
+    "ord": "förena",
+    "typ": "synonym",
+    "forklaring": "som för samman olika delar till ett"
+   },
+   {
+    "ord": "spara",
+    "typ": "samma_falt",
+    "forklaring": "som lägger undan resurser för framtiden"
+   },
+   {
+    "ord": "städa",
+    "typ": "annan",
+    "forklaring": "som gör rent och snyggt i rummet"
+   },
+   {
+    "ord": "hämta",
+    "typ": "annan",
+    "forklaring": "som går och tar med något tillbaka"
+   }
+  ],
+  "exempel": "Vi ska samla alla deltagare i den stora salen.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "lossa",
+  "ordklass": "verb",
+  "facit": "fästa",
+  "distraktorer": [
+   {
+    "ord": "öppna",
+    "typ": "synonym",
+    "forklaring": "som gör något tillgängligt eller olåst"
+   },
+   {
+    "ord": "knyta",
+    "typ": "samma_falt",
+    "forklaring": "som binder ihop snören med varandra"
+   },
+   {
+    "ord": "dra",
+    "typ": "annan",
+    "forklaring": "som utövar kraft mot sig själv"
+   },
+   {
+    "ord": "skruva",
+    "typ": "annan",
+    "forklaring": "som vrider runt en mekanisk del"
+   }
+  ],
+  "exempel": "Du måste lossa på skruven innan du tar bort knappen.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "morgon",
+  "ordklass": "substantiv",
+  "facit": "kväll",
+  "distraktorer": [
+   {
+    "ord": "dag",
+    "typ": "samma_falt",
+    "forklaring": "dygnets ljusa timmar mellan solens uppgång"
+   },
+   {
+    "ord": "gryning",
+    "typ": "synonym",
+    "forklaring": "tidpunkten då dagen börjar bli ljus"
+   },
+   {
+    "ord": "natt",
+    "typ": "annan",
+    "forklaring": "dygnets mörka timmar då man sover"
+   },
+   {
+    "ord": "timme",
+    "typ": "annan",
+    "forklaring": "tidsenhet som motsvarar sextio minuters varaktighet"
+   }
+  ],
+  "exempel": "Varje morgon dricker han en kopp kaffe.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "vinter",
+  "ordklass": "substantiv",
+  "facit": "sommar",
+  "distraktorer": [
+   {
+    "ord": "höst",
+    "typ": "samma_falt",
+    "forklaring": "årstiden mellan sommar och kall vinter"
+   },
+   {
+    "ord": "kyla",
+    "typ": "annan",
+    "forklaring": "låg temperatur i luften utomhus"
+   },
+   {
+    "ord": "snö",
+    "typ": "annan",
+    "forklaring": "fryst nederbörd i form av flingor"
+   },
+   {
+    "ord": "is",
+    "typ": "annan",
+    "forklaring": "vatten som har frusit till fast tillstånd"
+   }
+  ],
+  "exempel": "Det brukar falla mycket snö under vår vinter.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "glädje",
+  "ordklass": "substantiv",
+  "facit": "sorg",
+  "distraktorer": [
+   {
+    "ord": "lycka",
+    "typ": "synonym",
+    "forklaring": "stark känsla av välbefinnande och tillfredsställelse"
+   },
+   {
+    "ord": "skratt",
+    "typ": "samma_falt",
+    "forklaring": "ljudligt uttryck för humör och rolighet"
+   },
+   {
+    "ord": "hopp",
+    "typ": "annan",
+    "forklaring": "positiv förväntan inför vad framtiden bär"
+   },
+   {
+    "ord": "oro",
+    "typ": "annan",
+    "forklaring": "känsla av ängslan inför något okänt"
+   }
+  ],
+  "exempel": "Hennes ansikte strålade av ren glädje efter beskedet.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "seger",
+  "ordklass": "substantiv",
+  "facit": "förlust",
+  "distraktorer": [
+   {
+    "ord": "vinst",
+    "typ": "synonym",
+    "forklaring": "framgång i en tävling eller lotteri"
+   },
+   {
+    "ord": "match",
+    "typ": "samma_falt",
+    "forklaring": "tävling mellan två parter i sport"
+   },
+   {
+    "ord": "kamp",
+    "typ": "annan",
+    "forklaring": "hård strid för att nå målet"
+   },
+   {
+    "ord": "start",
+    "typ": "annan",
+    "forklaring": "början på ett lopp eller projekt"
+   }
+  ],
+  "exempel": "Laget firade sin seger med hela publiken.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "vän",
+  "ordklass": "substantiv",
+  "facit": "fiende",
+  "distraktorer": [
+   {
+    "ord": "kamrat",
+    "typ": "synonym",
+    "forklaring": "person som man umgås med gärna"
+   },
+   {
+    "ord": "granne",
+    "typ": "samma_falt",
+    "forklaring": "person som bor alldeles i närheten"
+   },
+   {
+    "ord": "ledare",
+    "typ": "annan",
+    "forklaring": "person som styr en viss grupp"
+   },
+   {
+    "ord": "gäst",
+    "typ": "annan",
+    "forklaring": "besökare som tas emot i hemmet"
+   }
+  ],
+  "exempel": "Han har varit min goda vän i många år.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "framtid",
+  "ordklass": "substantiv",
+  "facit": "dåtid",
+  "distraktorer": [
+   {
+    "ord": "nutid",
+    "typ": "samma_falt",
+    "forklaring": "den tid som pågår just nu"
+   },
+   {
+    "ord": "historia",
+    "typ": "annan",
+    "forklaring": "händelser som inträffat tidigare i tiden"
+   },
+   {
+    "ord": "plan",
+    "typ": "annan",
+    "forklaring": "tanke om vad som ska göras"
+   },
+   {
+    "ord": "dröm",
+    "typ": "annan",
+    "forklaring": "önskan om någonting som ska hända"
+   }
+  ],
+  "exempel": "Vi måste tänka mer på vår gemensamma framtid.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "start",
+  "ordklass": "substantiv",
+  "facit": "slut",
+  "distraktorer": [
+   {
+    "ord": "början",
+    "typ": "synonym",
+    "forklaring": "tidpunkt då någonting sätts i gång"
+   },
+   {
+    "ord": "linje",
+    "typ": "samma_falt",
+    "forklaring": "markerad gräns på en viss bana"
+   },
+   {
+    "ord": "paus",
+    "typ": "annan",
+    "forklaring": "kort avbrott i ett pågående arbete"
+   },
+   {
+    "ord": "fart",
+    "typ": "annan",
+    "forklaring": "hastighet som ett föremål rör sig"
+   }
+  ],
+  "exempel": "Löparna stod redo inför loppets korta start.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "fred",
+  "ordklass": "substantiv",
+  "facit": "krig",
+  "distraktorer": [
+   {
+    "ord": "lugn",
+    "typ": "synonym",
+    "forklaring": "tillstånd av ro och brist på strid"
+   },
+   {
+    "ord": "avtal",
+    "typ": "samma_falt",
+    "forklaring": "skriftlig överenskommelse mellan två olika parter"
+   },
+   {
+    "ord": "strid",
+    "typ": "annan",
+    "forklaring": "väpnad sammandrabbning mellan två fientliga grupper"
+   },
+   {
+    "ord": "frihet",
+    "typ": "annan",
+    "forklaring": "rätt att leva utan något tvång"
+   }
+  ],
+  "exempel": "Alla hoppas på en varaktig fred i världen.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "fråga",
+  "ordklass": "substantiv",
+  "facit": "svar",
+  "distraktorer": [
+   {
+    "ord": "fundering",
+    "typ": "synonym",
+    "forklaring": "tanke eller undran om ett ämne"
+   },
+   {
+    "ord": "samtal",
+    "typ": "samma_falt",
+    "forklaring": "utbyte av ord mellan flera personer"
+   },
+   {
+    "ord": "ämne",
+    "typ": "annan",
+    "forklaring": "sak som diskuteras i ett rum"
+   },
+   {
+    "ord": "teori",
+    "typ": "annan",
+    "forklaring": "antagande om hur någonting fungerar"
+   }
+  ],
+  "exempel": "Han ställde en viktig fråga till sin lärare.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "början",
+  "ordklass": "substantiv",
+  "facit": "slut",
+  "distraktorer": [
+   {
+    "ord": "start",
+    "typ": "synonym",
+    "forklaring": "inledning på ett lopp eller arbete"
+   },
+   {
+    "ord": "mitt",
+    "typ": "samma_falt",
+    "forklaring": "den centrala delen av ett område"
+   },
+   {
+    "ord": "grund",
+    "typ": "annan",
+    "forklaring": "bas som någonting vilar på ordentligt"
+   },
+   {
+    "ord": "del",
+    "typ": "annan",
+    "forklaring": "mindre stycke av en hel enhet"
+   }
+  ],
+  "exempel": "Filmen var väldigt spännande från första början.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "lång",
+  "ordklass": "adjektiv",
+  "facit": "kort",
+  "distraktorer": [
+   {
+    "ord": "bred",
+    "typ": "samma_falt",
+    "forklaring": "som har stor utsträckning i sidled"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "utsträckt i tiden eller rummet"
+   },
+   {
+    "ord": "rund",
+    "typ": "annan",
+    "forklaring": "som har formen av en cirkel eller sfär"
+   },
+   {
+    "ord": "mjuk",
+    "typ": "annan",
+    "forklaring": "som lätt ger efter för tryck"
+   }
+  ],
+  "exempel": "Han var för lång för att få plats i sängen.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "lyckas",
+  "ordklass": "verb",
+  "facit": "misslyckas",
+  "distraktorer": [
+   {
+    "ord": "segra",
+    "typ": "samma_falt",
+    "forklaring": "vinna en tävling eller strid"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "uppnå ett önskat resultat"
+   },
+   {
+    "ord": "försöka",
+    "typ": "annan",
+    "forklaring": "anstränga sig för att göra något"
+   },
+   {
+    "ord": "påbörja",
+    "typ": "annan",
+    "forklaring": "sätta i gång med en uppgift"
+   }
+  ],
+  "exempel": "Vi hoppas att alla ska lyckas med provet.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "billig",
+  "ordklass": "adjektiv",
+  "facit": "dyr",
+  "distraktorer": [
+   {
+    "ord": "gratis",
+    "typ": "samma_falt",
+    "forklaring": "som inte kostar några pengar alls"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "som kostar lite pengar"
+   },
+   {
+    "ord": "enkelt",
+    "typ": "annan",
+    "forklaring": "som inte kräver stor ansträngning"
+   },
+   {
+    "ord": "liten",
+    "typ": "annan",
+    "forklaring": "som inte är stor till storleken"
+   }
+  ],
+  "exempel": "Det var en väldigt billig jacka som hon köpte.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "somna",
+  "ordklass": "verb",
+  "facit": "vakna",
+  "distraktorer": [
+   {
+    "ord": "drömma",
+    "typ": "samma_falt",
+    "forklaring": "uppleva bilder och tankar under sömnen"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "falla i sömn"
+   },
+   {
+    "ord": "vila",
+    "typ": "annan",
+    "forklaring": "ta det lugnt för att återfå krafter"
+   },
+   {
+    "ord": "ligga",
+    "typ": "annan",
+    "forklaring": "befinna sig i vågrätt läge"
+   }
+  ],
+  "exempel": "Barnet brukar somna direkt efter sagan.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "ren",
+  "ordklass": "adjektiv",
+  "facit": "smutsig",
+  "distraktorer": [
+   {
+    "ord": "blank",
+    "typ": "samma_falt",
+    "forklaring": "som har en speglande eller slät yta"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "fri från smuts och fläckar"
+   },
+   {
+    "ord": "fräsch",
+    "typ": "nara",
+    "forklaring": "som känns ny och ren"
+   },
+   {
+    "ord": "torr",
+    "typ": "annan",
+    "forklaring": "fri från vätska eller fukt"
+   }
+  ],
+  "exempel": "Bilen var helt ren efter tvätten.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "tända",
+  "ordklass": "verb",
+  "facit": "släcka",
+  "distraktorer": [
+   {
+    "ord": "brinna",
+    "typ": "samma_falt",
+    "forklaring": "avge eld eller ljus"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "få något att börja brinna eller lysa"
+   },
+   {
+    "ord": "starta",
+    "typ": "annan",
+    "forklaring": "sätta i gång något"
+   },
+   {
+    "ord": "värma",
+    "typ": "annan",
+    "forklaring": "göra något varmare"
+   }
+  ],
+  "exempel": "Kom ihåg att tända ljusen på bordet.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "öppna",
+  "ordklass": "verb",
+  "facit": "stänga",
+  "distraktorer": [
+   {
+    "ord": "låsa",
+    "typ": "samma_falt",
+    "forklaring": "säkra en dörr med nyckel"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "göra tillgänglig eller ta bort hinder"
+   },
+   {
+    "ord": "flytta",
+    "typ": "annan",
+    "forklaring": "ändra plats på något"
+   },
+   {
+    "ord": "titta",
+    "typ": "annan",
+    "forklaring": "rikta blicken mot något"
+   }
+  ],
+  "exempel": "Kan du öppna fönstret och vädra lite?",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "tung",
+  "ordklass": "adjektiv",
+  "facit": "lätt",
+  "distraktorer": [
+   {
+    "ord": "hård",
+    "typ": "samma_falt",
+    "forklaring": "som inte ger efter för tryck"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "som väger mycket"
+   },
+   {
+    "ord": "svår",
+    "typ": "annan",
+    "forklaring": "som kräver stor ansträngning"
+   },
+   {
+    "ord": "tjock",
+    "typ": "annan",
+    "forklaring": "som har stor diameter eller bredd"
+   }
+  ],
+  "exempel": "Väskan var för tung för att bära själv.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "glad",
+  "ordklass": "adjektiv",
+  "facit": "ledsen",
+  "distraktorer": [
+   {
+    "ord": "arg",
+    "typ": "samma_falt",
+    "forklaring": "som känner ilska eller irritation"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "som känner glädje och mår bra"
+   },
+   {
+    "ord": "pigg",
+    "typ": "annan",
+    "forklaring": "som har mycket energi"
+   },
+   {
+    "ord": "lugn",
+    "typ": "annan",
+    "forklaring": "fri från stress och oro"
+   }
+  ],
+  "exempel": "Hon blev väldigt glad för den fina presenten.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "varm",
+  "ordklass": "adjektiv",
+  "facit": "kall",
+  "distraktorer": [
+   {
+    "ord": "het",
+    "typ": "samma_falt",
+    "forklaring": "som har en mycket hög temperatur"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "som har en hög eller behaglig temperatur"
+   },
+   {
+    "ord": "skön",
+    "typ": "annan",
+    "forklaring": "som ger en angenäm känsla"
+   },
+   {
+    "ord": "frisk",
+    "typ": "annan",
+    "forklaring": "som inte är sjuk"
+   }
+  ],
+  "exempel": "Det var skönt med en varm dusch efter träningen.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "skratta",
+  "ordklass": "verb",
+  "facit": "gråta",
+  "distraktorer": [
+   {
+    "ord": "le",
+    "typ": "samma_falt",
+    "forklaring": "visa ett glatt ansiktsuttryck"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "ge ifrån sig glada ljud"
+   },
+   {
+    "ord": "prata",
+    "typ": "annan",
+    "forklaring": "tala med någon"
+   },
+   {
+    "ord": "ropa",
+    "typ": "annan",
+    "forklaring": "tala med mycket hög röst"
+   }
+  ],
+  "exempel": "Filmen var så rolig att alla började skratta.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "hungrig",
+  "ordklass": "adjektiv",
+  "facit": "mätt",
+  "distraktorer": [
+   {
+    "ord": "törstig",
+    "typ": "samma_falt",
+    "forklaring": "som behöver dricka vätska"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "som behöver äta mat"
+   },
+   {
+    "ord": "trött",
+    "typ": "annan",
+    "forklaring": "som behöver vila eller sova"
+   },
+   {
+    "ord": "sjuk",
+    "typ": "annan",
+    "forklaring": "som inte mår bra i kroppen"
+   }
+  ],
+  "exempel": "Jag är väldigt hungrig eftersom jag hoppade över lunchen.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "mörk",
+  "ordklass": "adjektiv",
+  "facit": "ljus",
+  "distraktorer": [
+   {
+    "ord": "svart",
+    "typ": "samma_falt",
+    "forklaring": "som har den mörkaste färgen"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "som saknar eller har lite ljus"
+   },
+   {
+    "ord": "tyst",
+    "typ": "annan",
+    "forklaring": "fri från ljud och buller"
+   },
+   {
+    "ord": "dunkel",
+    "typ": "nara",
+    "forklaring": "som är halvoklar eller svagt upplyst"
+   }
+  ],
+  "exempel": "Det var helt mörkt i rummet när strömmen gick.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "börja",
+  "ordklass": "verb",
+  "facit": "sluta",
+  "distraktorer": [
+   {
+    "ord": "starta",
+    "typ": "samma_falt",
+    "forklaring": "sätta igång en process"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "inleda eller sätta i gång"
+   },
+   {
+    "ord": "fortsätta",
+    "typ": "annan",
+    "forklaring": "hålla på utan att avbryta"
+   },
+   {
+    "ord": "pausa",
+    "typ": "annan",
+    "forklaring": "göra ett kort avbrott"
+   }
+  ],
+  "exempel": "Mötet ska börja klockan nio i morgon.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "vacker",
+  "ordklass": "adjektiv",
+  "facit": "ful",
+  "distraktorer": [
+   {
+    "ord": "söt",
+    "typ": "samma_falt",
+    "forklaring": "som har ett tilltalande utseende"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "som är mycket fin att se på"
+   },
+   {
+    "ord": "snäll",
+    "typ": "annan",
+    "forklaring": "som är vänlig mot andra"
+   },
+   {
+    "ord": "ren",
+    "typ": "annan",
+    "forklaring": "fri från smuts"
+   }
+  ],
+  "exempel": "Det var en vacker utsikt över havet.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "vinna",
+  "ordklass": "verb",
+  "facit": "förlora",
+  "distraktorer": [
+   {
+    "ord": "kämpa",
+    "typ": "samma_falt",
+    "forklaring": "anstränga sig hårt för att nå något"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "ta hem segern i en tävling"
+   },
+   {
+    "ord": "deltaga",
+    "typ": "annan",
+    "forklaring": "vara med i ett sammanhang"
+   },
+   {
+    "ord": "spela",
+    "typ": "annan",
+    "forklaring": "utföra en match eller lek"
+   }
+  ],
+  "exempel": "Vårt lag hoppas vinna matchen på söndag.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "rik",
+  "ordklass": "adjektiv",
+  "facit": "fattig",
+  "distraktorer": [
+   {
+    "ord": "förmögen",
+    "typ": "samma_falt",
+    "forklaring": "som har stor förmögenhet och tillgångar"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "som har mycket pengar och tillgångar"
+   },
+   {
+    "ord": "snål",
+    "typ": "annan",
+    "forklaring": "som inte vill spendera pengar"
+   },
+   {
+    "ord": "dyr",
+    "typ": "annan",
+    "forklaring": "som kostar mycket pengar"
+   }
+  ],
+  "exempel": "Han blev rik efter att ha sålt sitt företag.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "stark",
+  "ordklass": "adjektiv",
+  "facit": "svag",
+  "distraktorer": [
+   {
+    "ord": "tålig",
+    "typ": "samma_falt",
+    "forklaring": "som klarar av stora påfrestningar"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "som har stor fysisk kraft"
+   },
+   {
+    "ord": "hård",
+    "typ": "annan",
+    "forklaring": "som har fast och stel struktur"
+   },
+   {
+    "ord": "tung",
+    "typ": "annan",
+    "forklaring": "som väger mycket"
+   }
+  ],
+  "exempel": "Han är stark nog att lyfta den tunga lådan.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "öka",
+  "ordklass": "verb",
+  "facit": "minska",
+  "distraktorer": [
+   {
+    "ord": "höja",
+    "typ": "samma_falt",
+    "forklaring": "placera eller göra något högre"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "göra större till antal eller mängd"
+   },
+   {
+    "ord": "ändra",
+    "typ": "annan",
+    "forklaring": "göra annorlunda än tidigare"
+   },
+   {
+    "ord": "mäta",
+    "typ": "annan",
+    "forklaring": "ta reda på storleken på något"
+   }
+  ],
+  "exempel": "Företaget vill öka sin försäljning i år.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "köpa",
+  "ordklass": "verb",
+  "facit": "sälja",
+  "distraktorer": [
+   {
+    "ord": "betala",
+    "typ": "samma_falt",
+    "forklaring": "lämna pengar för någonting"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "skaffa sig något genom att betala"
+   },
+   {
+    "ord": "låna",
+    "typ": "annan",
+    "forklaring": "ta emot någonting för tillfälligt bruk"
+   },
+   {
+    "ord": "byta",
+    "typ": "annan",
+    "forklaring": "lämna en sak och få en annan"
+   }
+  ],
+  "exempel": "Hon ska köpa en ny bil nästa vecka.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "hög",
+  "ordklass": "adjektiv",
+  "facit": "låg",
+  "distraktorer": [
+   {
+    "ord": "lång",
+    "typ": "samma_falt",
+    "forklaring": "som har stor utsträckning på höjden"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "som sträcker sig långt uppåt"
+   },
+   {
+    "ord": "bred",
+    "typ": "annan",
+    "forklaring": "som har stor utsträckning i sidled"
+   },
+   {
+    "ord": "stor",
+    "typ": "annan",
+    "forklaring": "som har betydande mått"
+   }
+  ],
+  "exempel": "Huset hade en mycket hög mur runt trädgården.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "skicka",
+  "ordklass": "verb",
+  "facit": "ta emot",
+  "distraktorer": [
+   {
+    "ord": "posta",
+    "typ": "samma_falt",
+    "forklaring": "lämna in brev eller paket för transport"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "sända iväg något till en mottagare"
+   },
+   {
+    "ord": "bära",
+    "typ": "annan",
+    "forklaring": "hålla och transportera något med kroppen"
+   },
+   {
+    "ord": "flytta",
+    "typ": "annan",
+    "forklaring": "ändra hemvist eller placering"
+   }
+  ],
+  "exempel": "Glöm inte att skicka brevet innan stängning.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "snabb",
+  "ordklass": "adjektiv",
+  "facit": "långsam",
+  "distraktorer": [
+   {
+    "ord": "kvick",
+    "typ": "samma_falt",
+    "forklaring": "som rör sig lätt och rörligt"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "som rör sig med hög hastighet"
+   },
+   {
+    "ord": "tidig",
+    "typ": "annan",
+    "forklaring": "som inträffar före väntad tid"
+   },
+   {
+    "ord": "kort",
+    "typ": "annan",
+    "forklaring": "som har liten längd"
+   }
+  ],
+  "exempel": "Tåget var väldigt snabbt och kom fram i tid.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "hitta",
+  "ordklass": "verb",
+  "facit": "tappa",
+  "distraktorer": [
+   {
+    "ord": "söka",
+    "typ": "samma_falt",
+    "forklaring": "leta efter någonting som saknas"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "upptäcka någonting som man letar efter"
+   },
+   {
+    "ord": "gömma",
+    "typ": "annan",
+    "forklaring": "placera något så att det inte syns"
+   },
+   {
+    "ord": "glömma",
+    "typ": "annan",
+    "forklaring": "inte komma ihåg någonting"
+   }
+  ],
+  "exempel": "Jag hoppas kunna hitta mina nycklar snart.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "enkel",
+  "ordklass": "adjektiv",
+  "facit": "svår",
+  "distraktorer": [
+   {
+    "ord": "lätt",
+    "typ": "samma_falt",
+    "forklaring": "som inte kräver stor ansträngning"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "okomplicerad och lätt att förstå"
+   },
+   {
+    "ord": "klar",
+    "typ": "annan",
+    "forklaring": "som är tydlig eller färdig"
+   },
+   {
+    "ord": "ren",
+    "typ": "annan",
+    "forklaring": "fri från smuts eller fläckar"
+   }
+  ],
+  "exempel": "Uppgiften var väldigt enkel att lösa på egen hand.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "fråga",
+  "ordklass": "verb",
+  "facit": "svara",
+  "distraktorer": [
+   {
+    "ord": "undra",
+    "typ": "samma_falt",
+    "forklaring": "tänka på och önska veta något"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "ställa en fråga till någon"
+   },
+   {
+    "ord": "prata",
+    "typ": "annan",
+    "forklaring": "säga ord till varandra"
+   },
+   {
+    "ord": "lyssna",
+    "typ": "annan",
+    "forklaring": "uppmärksamt höra på något"
+   }
+  ],
+  "exempel": "Du måste fråga läraren om du inte förstår.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "mjuk",
+  "ordklass": "adjektiv",
+  "facit": "hård",
+  "distraktorer": [
+   {
+    "ord": "len",
+    "typ": "samma_falt",
+    "forklaring": "som känns mycket slät mot huden"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "som lätt ger efter för tryck"
+   },
+   {
+    "ord": "varm",
+    "typ": "annan",
+    "forklaring": "som har hög temperatur"
+   },
+   {
+    "ord": "skön",
+    "typ": "annan",
+    "forklaring": "som ger en behaglig känsla"
+   }
+  ],
+  "exempel": "Kudden i soffan var skön och mjuk.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "tyst",
+  "ordklass": "adjektiv",
+  "facit": "högljudd",
+  "distraktorer": [
+   {
+    "ord": "lugn",
+    "typ": "samma_falt",
+    "forklaring": "fri från stress och oro"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "helt fri från ljud eller buller"
+   },
+   {
+    "ord": "mörk",
+    "typ": "annan",
+    "forklaring": "som saknar tillräckligt med ljus"
+   },
+   {
+    "ord": "tom",
+    "typ": "annan",
+    "forklaring": "som inte innehåller något alls"
+   }
+  ],
+  "exempel": "Det var helt tyst i biblioteket under studierna.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "bygga",
+  "ordklass": "verb",
+  "facit": "riva",
+  "distraktorer": [
+   {
+    "ord": "skapa",
+    "typ": "samma_falt",
+    "forklaring": "framställa något helt nytt"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "konstruera eller uppföra något"
+   },
+   {
+    "ord": "måla",
+    "typ": "annan",
+    "forklaring": "stryka färg på en yta"
+   },
+   {
+    "ord": "laga",
+    "typ": "annan",
+    "forklaring": "reparera någonting som gått sönder"
+   }
+  ],
+  "exempel": "De ska bygga ett nytt hus på tomten.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "djup",
+  "ordklass": "adjektiv",
+  "facit": "grund",
+  "distraktorer": [
+   {
+    "ord": "låg",
+    "typ": "samma_falt",
+    "forklaring": "som inte är särskilt hög"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "som sträcker sig långt nedåt"
+   },
+   {
+    "ord": "bred",
+    "typ": "annan",
+    "forklaring": "som har stor utsträckning i sidled"
+   },
+   {
+    "ord": "mörk",
+    "typ": "annan",
+    "forklaring": "som saknar eller har lite ljus"
+   }
+  ],
+  "exempel": "Sjön var känd för att vara väldigt djup.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "renovera",
+  "ordklass": "verb",
+  "facit": "upprusta",
+  "distraktorer": [
+   {
+    "ord": "bygga",
+    "typ": "samma_falt",
+    "forklaring": "skapa en ny byggnad eller konstruktion"
+   },
+   {
+    "ord": "städa",
+    "typ": "nara",
+    "forklaring": "göra rent i ett rum eller hus"
+   },
+   {
+    "ord": "flytta",
+    "typ": "annan",
+    "forklaring": "byta bostad eller ändra läge"
+   },
+   {
+    "ord": "förstöra",
+    "typ": "annan",
+    "forklaring": "göra sönder något så det förstörs"
+   }
+  ],
+  "exempel": "Familjen ska renovera sitt gamla kök under sommaren.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "orädd",
+  "ordklass": "adjektiv",
+  "facit": "rädd",
+  "distraktorer": [
+   {
+    "ord": "lugn",
+    "typ": "samma_falt",
+    "forklaring": "fri från stress och oro"
+   },
+   {
+    "ord": "dristig",
+    "typ": "synonym",
+    "forklaring": "som vågar ta stora risker"
+   },
+   {
+    "ord": "stolt",
+    "typ": "annan",
+    "forklaring": "mycket nöjd med sin prestation"
+   },
+   {
+    "ord": "svag",
+    "typ": "annan",
+    "forklaring": "som saknar kroppslig eller mental styrka"
+   }
+  ],
+  "exempel": "Katten var orädd när den mötte den stora hunden.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "belysning",
+  "ordklass": "substantiv",
+  "facit": "belysning har ingen motsats",
+  "distraktorer": [],
+  "exempel": "Rummet har mycket god belysning från fönstren.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "sörja",
+  "ordklass": "verb",
+  "facit": "klaga",
+  "distraktorer": [
+   {
+    "ord": "sakna",
+    "typ": "samma_falt",
+    "forklaring": "känna tomhet efter någon som fattas"
+   },
+   {
+    "ord": "gråta",
+    "typ": "nara",
+    "forklaring": "göra tårar rinna av smärta"
+   },
+   {
+    "ord": "vänta",
+    "typ": "annan",
+    "forklaring": "dröja kvar i avvaktan på något"
+   },
+   {
+    "ord": "skratta",
+    "typ": "annan",
+    "forklaring": "visa glädje med ljud och leende"
+   }
+  ],
+  "exempel": "Många samlades i kyrkan för att sörja sin vän.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "fuktig",
+  "ordklass": "adjektiv",
+  "facit": "blöt",
+  "distraktorer": [
+   {
+    "ord": "varm",
+    "typ": "samma_falt",
+    "forklaring": "som har hög temperatur"
+   },
+   {
+    "ord": "kall",
+    "typ": "nara",
+    "forklaring": "som har låg temperatur"
+   },
+   {
+    "ord": "mjuk",
+    "typ": "annan",
+    "forklaring": "som lätt ger efter för tryck"
+   },
+   {
+    "ord": "tät",
+    "typ": "annan",
+    "forklaring": "som inte släpper igenom vätska"
+   }
+  ],
+  "exempel": "Gräset var fortfarande fuktigt av morgondaggen.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "generat",
+  "ordklass": "adjektiv",
+  "facit": "stolt",
+  "distraktorer": [
+   {
+    "ord": "rädd",
+    "typ": "samma_falt",
+    "forklaring": "känna skräck eller stor oro"
+   },
+   {
+    "ord": "blyg",
+    "typ": "synonym",
+    "forklaring": "som känner osäkerhet inför andra"
+   },
+   {
+    "ord": "arg",
+    "typ": "annan",
+    "forklaring": "känna stark ilska mot något"
+   },
+   {
+    "ord": "trött",
+    "typ": "annan",
+    "forklaring": "i behov av vila eller sömn"
+   }
+  ],
+  "exempel": "Han kände sig generat när alla tittade på honom.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "framgångsrik",
+  "ordklass": "adjektiv",
+  "facit": "lyckosam",
+  "distraktorer": [
+   {
+    "ord": "känd",
+    "typ": "samma_falt",
+    "forklaring": "som många personer känner till"
+   },
+   {
+    "ord": "rik",
+    "typ": "nara",
+    "forklaring": "som har mycket pengar eller tillgångar"
+   },
+   {
+    "ord": "snabb",
+    "typ": "annan",
+    "forklaring": "som rör sig med hög hastighet"
+   },
+   {
+    "ord": "stark",
+    "typ": "annan",
+    "forklaring": "som har stor fysisk kraft"
+   }
+  ],
+  "exempel": "Företaget blev mycket framgångsrikt efter den nya lanseringen.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "anlända",
+  "ordklass": "verb",
+  "facit": "resa",
+  "distraktorer": [
+   {
+    "ord": "åka",
+    "typ": "samma_falt",
+    "forklaring": "förflytta sig med ett fordon"
+   },
+   {
+    "ord": "komma",
+    "typ": "synonym",
+    "forklaring": "nå fram till en destination"
+   },
+   {
+    "ord": "stanna",
+    "typ": "annan",
+    "forklaring": "inte röra sig vidare"
+   },
+   {
+    "ord": "vänta",
+    "typ": "annan",
+    "forklaring": "dröja kvar i avvaktan"
+   }
+  ],
+  "exempel": "Tåget ska anlända till stationen om fem minuter.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "oviss",
+  "ordklass": "adjektiv",
+  "facit": "säker",
+  "distraktorer": [
+   {
+    "ord": "okänd",
+    "typ": "samma_falt",
+    "forklaring": "som ingen vet något om"
+   },
+   {
+    "ord": "oklar",
+    "typ": "synonym",
+    "forklaring": "som saknar tydlig struktur eller svar"
+   },
+   {
+    "ord": "svår",
+    "typ": "annan",
+    "forklaring": "kräver stor ansträngning att lösa"
+   },
+   {
+    "ord": "lång",
+    "typ": "annan",
+    "forklaring": "som har stor sträckning i rummet"
+   }
+  ],
+  "exempel": "Framtiden känns oviss för många anställda just nu.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "luta",
+  "ordklass": "verb",
+  "facit": "sätta",
+  "distraktorer": [
+   {
+    "ord": "böja",
+    "typ": "samma_falt",
+    "forklaring": "vinkla en kroppskropp eller sak"
+   },
+   {
+    "ord": "falla",
+    "typ": "nara",
+    "forklaring": "ramla ner mot marken plötsligt"
+   },
+   {
+    "ord": "dra",
+    "typ": "annan",
+    "forklaring": "flytta något mot sig själv"
+   },
+   {
+    "ord": "rulla",
+    "typ": "annan",
+    "forklaring": "röra sig genom att snurra"
+   }
+  ],
+  "exempel": "Stolen började luta när han satte sig längst ut.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "skymning",
+  "ordklass": "substantiv",
+  "facit": "gryning",
+  "distraktorer": [
+   {
+    "ord": "natt",
+    "typ": "samma_falt",
+    "forklaring": "dygnets mörka timmar när vi sover"
+   },
+   {
+    "ord": "kväll",
+    "typ": "synonym",
+    "forklaring": "tiden mellan eftermiddag och natt"
+   },
+   {
+    "ord": "sol",
+    "typ": "annan",
+    "forklaring": "stjärnan som ger jorden ljus"
+   },
+   {
+    "ord": "skugga",
+    "typ": "annan",
+    "forklaring": "mörkt område där ljuset hindras"
+   }
+  ],
+  "exempel": "Det var vackert ute när skymningen föll över staden.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "avsky",
+  "ordklass": "verb",
+  "facit": "älska",
+  "distraktorer": [
+   {
+    "ord": "gilla",
+    "typ": "samma_falt",
+    "forklaring": "tycka om något eller någon"
+   },
+   {
+    "ord": "hata",
+    "typ": "synonym",
+    "forklaring": "känna en mycket stark fiendskap"
+   },
+   {
+    "ord": "tro",
+    "typ": "annan",
+    "forklaring": "ha en personlig uppfattning om"
+   },
+   {
+    "ord": "se",
+    "typ": "annan",
+    "forklaring": "uppfatta med hjälp av synen"
+   }
+  ],
+  "exempel": "Han kom att avsky den kalla maten i matsalen.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "noggrann",
+  "ordklass": "adjektiv",
+  "facit": "slarvig",
+  "distraktorer": [
+   {
+    "ord": "snabb",
+    "typ": "samma_falt",
+    "forklaring": "som gör saker på kort tid"
+   },
+   {
+    "ord": "exakt",
+    "typ": "synonym",
+    "forklaring": "som stämmer in in i minsta detalj"
+   },
+   {
+    "ord": "lugn",
+    "typ": "annan",
+    "forklaring": "som inte blir stressad eller upprörd"
+   },
+   {
+    "ord": "hård",
+    "typ": "annan",
+    "forklaring": "fast och inte lätt att forma"
+   }
+  ],
+  "exempel": "Hon var alltid mycket noggrann när hon förde protokoll.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "belöna",
+  "ordklass": "verb",
+  "facit": "straffa",
+  "distraktorer": [
+   {
+    "ord": "berömma",
+    "typ": "samma_falt",
+    "forklaring": "säga snälla ord om någons prestation"
+   },
+   {
+    "ord": "ge",
+    "typ": "synonym",
+    "forklaring": "överlämna någonting till någon annan"
+   },
+   {
+    "ord": "köpa",
+    "typ": "annan",
+    "forklaring": "betala pengar för att få en vara"
+   },
+   {
+    "ord": "låna",
+    "typ": "annan",
+    "forklaring": "ta emot något för tillfälligt bruk"
+   }
+  ],
+  "exempel": "Chefen vill belöna teamet för deras hårda arbete.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "rikta",
+  "ordklass": "verb",
+  "facit": "peka",
+  "distraktorer": [
+   {
+    "ord": "vända",
+    "typ": "samma_falt",
+    "forklaring": "ändra riktning på kroppen eller saken"
+   },
+   {
+    "ord": "hålla",
+    "typ": "nara",
+    "forklaring": "bära eller gripa tag i någonting"
+   },
+   {
+    "ord": "tappa",
+    "typ": "annan",
+    "forklaring": "mista sitt grepp om en sak"
+   },
+   {
+    "ord": "skicka",
+    "typ": "annan",
+    "forklaring": "sända iväg ett brev eller paket"
+   }
+  ],
+  "exempel": "Polisen valde att rikta uppmärksamheten mot trafiken.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "gammaldags",
+  "ordklass": "adjektiv",
+  "facit": "modern",
+  "distraktorer": [
+   {
+    "ord": "ny",
+    "typ": "samma_falt",
+    "forklaring": "som nyss har skapats eller köpts"
+   },
+   {
+    "ord": "antik",
+    "typ": "synonym",
+    "forklaring": "som har sitt ursprung långt tillbaka"
+   },
+   {
+    "ord": "ful",
+    "typ": "annan",
+    "forklaring": "som inte ser tilltalande ut för ögat"
+   },
+   {
+    "ord": "dyr",
+    "typ": "annan",
+    "forklaring": "som kostar väldigt mycket pengar"
+   }
+  ],
+  "exempel": "Möblerna i huset gav ett väldigt gammaldags intryck.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "förstärka",
+  "ordklass": "verb",
+  "facit": "försvaga",
+  "distraktorer": [
+   {
+    "ord": "öka",
+    "typ": "samma_falt",
+    "forklaring": "göra större till antal eller mängd"
+   },
+   {
+    "ord": "stärka",
+    "typ": "synonym",
+    "forklaring": "göra tåligare eller mer kraftfull"
+   },
+   {
+    "ord": "bygga",
+    "typ": "annan",
+    "forklaring": "sätta ihop material till en helhet"
+   },
+   {
+    "ord": "mäta",
+    "typ": "annan",
+    "forklaring": "ta reda på storlek eller mängd"
+   }
+  ],
+  "exempel": "Vi måste förstärka dörren så att ingen tar sig in.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "synlig",
+  "ordklass": "adjektiv",
+  "facit": "osynlig",
+  "distraktorer": [
+   {
+    "ord": "gömd",
+    "typ": "samma_falt",
+    "forklaring": "placerad där ingen kan upptäcka den"
+   },
+   {
+    "ord": "klar",
+    "typ": "synonym",
+    "forklaring": "som är mycket lätt att se tydligt"
+   },
+   {
+    "ord": "stor",
+    "typ": "annan",
+    "forklaring": "som tar upp mycket plats i rummet"
+   },
+   {
+    "ord": "mörk",
+    "typ": "annan",
+    "forklaring": "som saknar tillräckligt med ljus"
+   }
+  ],
+  "exempel": "Skylten var väl synlig för alla som passerade.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "tvekan",
+  "ordklass": "substantiv",
+  "facit": "visshet",
+  "distraktorer": [
+   {
+    "ord": "hopp",
+    "typ": "samma_falt",
+    "forklaring": "en stark önskan om att något ska ske"
+   },
+   {
+    "ord": "tvivel",
+    "typ": "synonym",
+    "forklaring": "känsla av osäkerhet inför ett val"
+   },
+   {
+    "ord": "rädsla",
+    "typ": "annan",
+    "forklaring": "stark olustkänsla inför en fara"
+   },
+   {
+    "ord": "vrede",
+    "typ": "annan",
+    "forklaring": "stark känsla av ilska och irritation"
+   }
+  ],
+  "exempel": "Det fanns ingen tvekan om vem som hade vunnit spelet.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "tillåta",
+  "ordklass": "verb",
+  "facit": "förbjuda",
+  "distraktorer": [
+   {
+    "ord": "stoppa",
+    "typ": "samma_falt",
+    "forklaring": "hindra någonting från att fortsätta"
+   },
+   {
+    "ord": "godkänna",
+    "typ": "synonym",
+    "forklaring": "ge sitt formella samtycke till något"
+   },
+   {
+    "ord": "glömma",
+    "typ": "annan",
+    "forklaring": "inte komma ihåg en sak eller regel"
+   },
+   {
+    "ord": "ändra",
+    "typ": "annan",
+    "forklaring": "göra på ett annat sätt än förut"
+   }
+  ],
+  "exempel": "Skolan valde att tillåta eleverna att ha mobiltelefoner.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "fientlig",
+  "ordklass": "adjektiv",
+  "facit": "vänlig",
+  "distraktorer": [
+   {
+    "ord": "snäll",
+    "typ": "samma_falt",
+    "forklaring": "som vill andra väl och hjälper dem"
+   },
+   {
+    "ord": "taskig",
+    "typ": "synonym",
+    "forklaring": "som uppför sig elakt mot sin omgivning"
+   },
+   {
+    "ord": "tyst",
+    "typ": "annan",
+    "forklaring": "som inte gör några hörbara ljud"
+   },
+   {
+    "ord": "kall",
+    "typ": "annan",
+    "forklaring": "som saknar värme eller medkänsla"
+   }
+  ],
+  "exempel": "Hunden verkade fientlig mot alla främlingar på gården.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "samla",
+  "ordklass": "verb",
+  "facit": "sprida",
+  "distraktorer": [
+   {
+    "ord": "dela",
+    "typ": "samma_falt",
+    "forklaring": "ge ut delar av en helhet till flera"
+   },
+   {
+    "ord": "spara",
+    "typ": "synonym",
+    "forklaring": "lägga undan saker för framtida bruk"
+   },
+   {
+    "ord": "hitta",
+    "typ": "annan",
+    "forklaring": "upptäcka något som var borta"
+   },
+   {
+    "ord": "bära",
+    "typ": "annan",
+    "forklaring": "hålla uppe och förflytta något"
+   }
+  ],
+  "exempel": "Läraren ville samla klassen för att ge ett viktigt besked.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "tät",
+  "ordklass": "adjektiv",
+  "facit": "gles",
+  "distraktorer": [
+   {
+    "ord": "öppen",
+    "typ": "samma_falt",
+    "forklaring": "fri från hinder eller stängda dörrar"
+   },
+   {
+    "ord": "tjock",
+    "typ": "synonym",
+    "forklaring": "som har stor diameter eller omkrets"
+   },
+   {
+    "ord": "lång",
+    "typ": "annan",
+    "forklaring": "som har stor utsträckning i längden"
+   },
+   {
+    "ord": "tung",
+    "typ": "annan",
+    "forklaring": "som har en hög vikt att bära"
+   }
+  ],
+  "exempel": "Det var en mycket tät dimma över sjön i morse.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "skrämma",
+  "ordklass": "verb",
+  "facit": "lugna",
+  "distraktorer": [
+   {
+    "ord": "trösta",
+    "typ": "samma_falt",
+    "forklaring": "ge stöd åt någon som är ledsen"
+   },
+   {
+    "ord": "hota",
+    "typ": "synonym",
+    "forklaring": "säga att man ska skada någon"
+   },
+   {
+    "ord": "väcka",
+    "typ": "annan",
+    "forklaring": "göra så att någon slutar sova"
+   },
+   {
+    "ord": "gömma",
+    "typ": "annan",
+    "forklaring": "placera någon så att denne inte syns"
+   }
+  ],
+  "exempel": "Mannen försökte skrämma bort katten från sin trädgård.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "sällsynt",
+  "ordklass": "adjektiv",
+  "facit": "vanlig",
+  "distraktorer": [
+   {
+    "ord": "ofta",
+    "typ": "samma_falt",
+    "forklaring": "som inträffar vid många tillfällen"
+   },
+   {
+    "ord": "unik",
+    "typ": "synonym",
+    "forklaring": "som bara finns i ett enda exemplar"
+   },
+   {
+    "ord": "dyr",
+    "typ": "annan",
+    "forklaring": "som kostar väldigt mycket pengar"
+   },
+   {
+    "ord": "fin",
+    "typ": "annan",
+    "forklaring": "som ser bra ut eller är av god kvalitet"
+   }
+  ],
+  "exempel": "Att se en uggla här på dagen är mycket sällsynt.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "skynda",
+  "ordklass": "verb",
+  "facit": "dröja",
+  "distraktorer": [
+   {
+    "ord": "stanna",
+    "typ": "samma_falt",
+    "forklaring": "helt sluta röra sig framåt"
+   },
+   {
+    "ord": "rusa",
+    "typ": "synonym",
+    "forklaring": "springa med mycket hög hastighet"
+   },
+   {
+    "ord": "ringa",
+    "typ": "annan",
+    "forklaring": "slå ett telefonnummer till någon"
+   },
+   {
+    "ord": "titta",
+    "typ": "annan",
+    "forklaring": "rikta blicken mot någonting"
+   }
+  ],
+  "exempel": "Vi måste skynda oss om vi ska hinna med bussen.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "motsatt",
+  "ordklass": "adjektiv",
+  "facit": "lika",
+  "distraktorer": [
+   {
+    "ord": "samma",
+    "typ": "samma_falt",
+    "forklaring": "helt identisk med något annat"
+   },
+   {
+    "ord": "olika",
+    "typ": "synonym",
+    "forklaring": "som inte stämmer överens med varandra"
+   },
+   {
+    "ord": "sned",
+    "typ": "annan",
+    "forklaring": "som inte står helt rakt upp"
+   },
+   {
+    "ord": "bortom",
+    "typ": "annan",
+    "forklaring": "på andra sidan av ett område"
+   }
+  ],
+  "exempel": "De två syskonen har helt motsatta åsikter om politik.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "slösa",
+  "ordklass": "verb",
+  "facit": "spara",
+  "distraktorer": [
+   {
+    "ord": "samla",
+    "typ": "samma_falt",
+    "forklaring": "föra samman saker på ett ställe"
+   },
+   {
+    "ord": "kasta",
+    "typ": "synonym",
+    "forklaring": "göra sig av med något i soporna"
+   },
+   {
+    "ord": "köpa",
+    "typ": "annan",
+    "forklaring": "skaffa sig något mot betalning"
+   },
+   {
+    "ord": "låna",
+    "typ": "annan",
+    "forklaring": "ge eller ta något under en tid"
+   }
+  ],
+  "exempel": "Det är dumt att slösa bort sina pengar på godis.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "smal",
+  "ordklass": "adjektiv",
+  "facit": "bred",
+  "distraktorer": [
+   {
+    "ord": "stor",
+    "typ": "samma_falt",
+    "forklaring": "som har stor volym eller yta"
+   },
+   {
+    "ord": "tunn",
+    "typ": "synonym",
+    "forklaring": "som har väldigt litet djup eller mått"
+   },
+   {
+    "ord": "lång",
+    "typ": "annan",
+    "forklaring": "som har stor utsträckning i höjd/längd"
+   },
+   {
+    "ord": "rak",
+    "typ": "annan",
+    "forklaring": "som går utan några böjar alls"
+   }
+  ],
+  "exempel": "Vägen över berget var alldeles för smal för bussen.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "tvinga",
+  "ordklass": "verb",
+  "facit": "locka",
+  "distraktorer": [
+   {
+    "ord": "be",
+    "typ": "samma_falt",
+    "forklaring": "fråga snällt om någon vill göra något"
+   },
+   {
+    "ord": "kräva",
+    "typ": "synonym",
+    "forklaring": "bestämma att något måste utföras"
+   },
+   {
+    "ord": "hjälpa",
+    "typ": "annan",
+    "forklaring": "göra det lättare för någon annan"
+   },
+   {
+    "ord": "visa",
+    "typ": "annan",
+    "forklaring": "låta någon annan se någonting"
+   }
+  ],
+  "exempel": "Man kan inte tvinga någon att äta upp maten.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "vinst",
+  "ordklass": "substantiv",
+  "facit": "förlust",
+  "distraktorer": [
+   {
+    "ord": "avdrag",
+    "typ": "samma_falt",
+    "forklaring": "minskning av belopp"
+   },
+   {
+    "ord": "skatt",
+    "typ": "nara",
+    "forklaring": "avgift till staten"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "ekonomisk avkastning"
+   },
+   {
+    "ord": "fordran",
+    "typ": "annan",
+    "forklaring": "ekonomiskt krav"
+   }
+  ],
+  "exempel": "Företaget gjorde en stor vinst under det sista kvartalet.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "stänga",
+  "ordklass": "verb",
+  "facit": "öppna",
+  "distraktorer": [
+   {
+    "ord": "låsa",
+    "typ": "samma_falt",
+    "forklaring": "fästa med nyckel"
+   },
+   {
+    "ord": "regla",
+    "typ": "nara",
+    "forklaring": "skjuta för en bom"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "tillsluta en öppning"
+   },
+   {
+    "ord": "täta",
+    "typ": "annan",
+    "forklaring": "göra helt tät"
+   }
+  ],
+  "exempel": "Kom ihåg att stänga dörren ordentligt efter dig.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "torr",
+  "ordklass": "adjektiv",
+  "facit": "våt",
+  "distraktorer": [
+   {
+    "ord": "varm",
+    "typ": "samma_falt",
+    "forklaring": "som har hög temperatur"
+   },
+   {
+    "ord": "hård",
+    "typ": "nara",
+    "forklaring": "som inte ger efter"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "fri från vätska"
+   },
+   {
+    "ord": "kall",
+    "typ": "annan",
+    "forklaring": "som har låg temperatur"
+   }
+  ],
+  "exempel": "Tröjan var helt torr efter några timmar i solen.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "hämta",
+  "ordklass": "verb",
+  "facit": "lämna",
+  "distraktorer": [
+   {
+    "ord": "bära",
+    "typ": "samma_falt",
+    "forklaring": "transportera i händerna"
+   },
+   {
+    "ord": "lyfta",
+    "typ": "nara",
+    "forklaring": "föra uppåt"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "gå och ta med"
+   },
+   {
+    "ord": "hålla",
+    "typ": "annan",
+    "forklaring": "ha ett grepp om"
+   }
+  ],
+  "exempel": "Kan du hämta barnen från förskolan idag?",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "mätt",
+  "ordklass": "adjektiv",
+  "facit": "hungrig",
+  "distraktorer": [
+   {
+    "ord": "törstig",
+    "typ": "samma_falt",
+    "forklaring": "i behov av dryck"
+   },
+   {
+    "ord": "trött",
+    "typ": "nara",
+    "forklaring": "i behov av vila"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "utan behov av mat"
+   },
+   {
+    "ord": "pigg",
+    "typ": "annan",
+    "forklaring": "full av energi"
+   }
+  ],
+  "exempel": "Han kände sig mätt och belåten efter middagen.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "full",
+  "ordklass": "adjektiv",
+  "facit": "tom",
+  "distraktorer": [
+   {
+    "ord": "trång",
+    "typ": "samma_falt",
+    "forklaring": "som har lite utrymme"
+   },
+   {
+    "ord": "tät",
+    "typ": "nara",
+    "forklaring": "som sitter ihop nära"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "helt fylld med något"
+   },
+   {
+    "ord": "bred",
+    "typ": "annan",
+    "forklaring": "som har stort mått"
+   }
+  ],
+  "exempel": "Papperskorgen var helt full och behövde tömmas.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "morgon",
+  "ordklass": "substantiv",
+  "facit": "kväll",
+  "distraktorer": [
+   {
+    "ord": "natt",
+    "typ": "samma_falt",
+    "forklaring": "dygnets mörka timmar"
+   },
+   {
+    "ord": "middag",
+    "typ": "nara",
+    "forklaring": "mitten av dygnet"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "början av dygnet"
+   },
+   {
+    "ord": "timme",
+    "typ": "annan",
+    "forklaring": "tidsenhet om sextio minuter"
+   }
+  ],
+  "exempel": "Vi brukar dricka kaffe ihop varje morgon.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "vinter",
+  "ordklass": "substantiv",
+  "facit": "sommar",
+  "distraktorer": [
+   {
+    "ord": "höst",
+    "typ": "samma_falt",
+    "forklaring": "årstiden före vintern"
+   },
+   {
+    "ord": "vår",
+    "typ": "nara",
+    "forklaring": "årstiden efter vintern"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "dygnets kallaste årstid"
+   },
+   {
+    "ord": "kyla",
+    "typ": "annan",
+    "forklaring": "låg temperatur"
+   }
+  ],
+  "exempel": "Det kom väldigt mycket snö denna vinter.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "seger",
+  "ordklass": "substantiv",
+  "facit": "förlust",
+  "distraktorer": [
+   {
+    "ord": "kamp",
+    "typ": "samma_falt",
+    "forklaring": "hård strid eller tävling"
+   },
+   {
+    "ord": "remis",
+    "typ": "nara",
+    "forklaring": "oavgjort resultat i spel"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "vinst i en tävling"
+   },
+   {
+    "ord": "match",
+    "typ": "annan",
+    "forklaring": "tävling mellan två parter"
+   }
+  ],
+  "exempel": "Laget firade sin fantastiska seger i finalen.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "vän",
+  "ordklass": "substantiv",
+  "facit": "fiende",
+  "distraktorer": [
+   {
+    "ord": "granne",
+    "typ": "samma_falt",
+    "forklaring": "person som bor nära"
+   },
+   {
+    "ord": "kollega",
+    "typ": "nara",
+    "forklaring": "person på samma arbetsplats"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "person man tycker om"
+   },
+   {
+    "ord": "bekant",
+    "typ": "annan",
+    "forklaring": "person man känner lite"
+   }
+  ],
+  "exempel": "Han är en mycket nära vän sedan barndomen.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "framtid",
+  "ordklass": "substantiv",
+  "facit": "dåtid",
+  "distraktorer": [
+   {
+    "ord": "nutid",
+    "typ": "samma_falt",
+    "forklaring": "tiden som är nu"
+   },
+   {
+    "ord": "skede",
+    "typ": "nara",
+    "forklaring": "avgränsad tidsperiod"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "tiden som kommer sen"
+   },
+   {
+    "ord": "stund",
+    "typ": "annan",
+    "forklaring": "kortare tidsrymd"
+   }
+  ],
+  "exempel": "Vi måste planera noggrant inför företagets framtid.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "fred",
+  "ordklass": "substantiv",
+  "facit": "krig",
+  "distraktorer": [
+   {
+    "ord": "kris",
+    "typ": "samma_falt",
+    "forklaring": "svår och osäker situation"
+   },
+   {
+    "ord": "strid",
+    "typ": "nara",
+    "forklaring": "lokal väpnad sammandrabbning"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "tillstånd utan konflikt"
+   },
+   {
+    "ord": "hot",
+    "typ": "annan",
+    "forklaring": "uttryckt avsikt att skada"
+   }
+  ],
+  "exempel": "Länderna undertecknade ett avtal om fred.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "mjuk",
+  "ordklass": "adjektiv",
+  "facit": "hård",
+  "distraktorer": [
+   {
+    "ord": "grov",
+    "typ": "samma_falt",
+    "forklaring": "som har ojämn yta"
+   },
+   {
+    "ord": "fast",
+    "typ": "nara",
+    "forklaring": "som inte ändrar form"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "som är lätt böjlig"
+   },
+   {
+    "ord": "sval",
+    "typ": "annan",
+    "forklaring": "behagligt kylig"
+   }
+  ],
+  "exempel": "Katten har en otroligt mjuk pälskrage.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "fuktig",
+  "ordklass": "adjektiv",
+  "facit": "torr",
+  "distraktorer": [
+   {
+    "ord": "varm",
+    "typ": "samma_falt",
+    "forklaring": "som har hög temperatur"
+   },
+   {
+    "ord": "blöt",
+    "typ": "nara",
+    "forklaring": "helt dränkt i vätska"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "som innehåller lite vätska"
+   },
+   {
+    "ord": "sval",
+    "typ": "annan",
+    "forklaring": "behagligt kylig"
+   }
+  ],
+  "exempel": "Luften i källaren kändes väldigt fuktig.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "smal",
+  "ordklass": "adjektiv",
+  "facit": "bred",
+  "distraktorer": [
+   {
+    "ord": "lång",
+    "typ": "samma_falt",
+    "forklaring": "som har stor sträckning"
+   },
+   {
+    "ord": "tunn",
+    "typ": "nara",
+    "forklaring": "som har lite djup"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "som har litet tvärmått"
+   },
+   {
+    "ord": "djup",
+    "typ": "annan",
+    "forklaring": "som når långt ner"
+   }
+  ],
+  "exempel": "Vägen över bron var alldeles för smal.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "skrik",
+  "ordklass": "substantiv",
+  "facit": "viskning",
+  "distraktorer": [
+   {
+    "ord": "buller",
+    "typ": "samma_falt",
+    "forklaring": "störande och starkt ljud"
+   },
+   {
+    "ord": "samtal",
+    "typ": "nara",
+    "forklaring": "prat mellan personer"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "mycket högt rop"
+   },
+   {
+    "ord": "eko",
+    "typ": "annan",
+    "forklaring": "ljud som studsar tillbaka"
+   }
+  ],
+  "exempel": "Ett högt skrik hördes från gården utanför.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "köp",
+  "ordklass": "substantiv",
+  "facit": "försäljning",
+  "distraktorer": [
+   {
+    "ord": "byte",
+    "typ": "samma_falt",
+    "forklaring": "utväxling av varor"
+   },
+   {
+    "ord": "skuld",
+    "typ": "nara",
+    "forklaring": "pengar man är skyldig"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "anskaffning mot betalning"
+   },
+   {
+    "ord": "pant",
+    "typ": "annan",
+    "forklaring": "säkerhet för ett lån"
+   }
+  ],
+  "exempel": "Han var mycket nöjd med sitt sista köp.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "skugga",
+  "ordklass": "substantiv",
+  "facit": "solsken",
+  "distraktorer": [
+   {
+    "ord": "mörker",
+    "typ": "samma_falt",
+    "forklaring": "frånvaro av allt ljus"
+   },
+   {
+    "ord": "dimma",
+    "typ": "nara",
+    "forklaring": "fuktig luft som skymmer"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "område skärmat från ljus"
+   },
+   {
+    "ord": "moln",
+    "typ": "annan",
+    "forklaring": "ansamling av vattenånga"
+   }
+  ],
+  "exempel": "Det var skönt att sitta i trädets skugga.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "skratt",
+  "ordklass": "substantiv",
+  "facit": "gråt",
+  "distraktorer": [
+   {
+    "ord": "suck",
+    "typ": "samma_falt",
+    "forklaring": "hörbar utandning vid känsla"
+   },
+   {
+    "ord": "hån",
+    "typ": "nara",
+    "forklaring": "nedlåtande uppträdande"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "ljudligt uttryck för glädje"
+   },
+   {
+    "ord": "skrik",
+    "typ": "annan",
+    "forklaring": "högt och gällt rop"
+   }
+  ],
+  "exempel": "Ett glatt skratt spreds snabbt i rummet.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "frihet",
+  "ordklass": "substantiv",
+  "facit": "fångenskap",
+  "distraktorer": [
+   {
+    "ord": "tvång",
+    "typ": "samma_falt",
+    "forklaring": "handling utan eget val"
+   },
+   {
+    "ord": "straff",
+    "typ": "nara",
+    "forklaring": "påföljd för ett brott"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "rätten att välja själv"
+   },
+   {
+    "ord": "ansvar",
+    "typ": "annan",
+    "forklaring": "skyldighet att svara för"
+   }
+  ],
+  "exempel": "Att resa ger en fantastisk känsla av frihet.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "sorg",
+  "ordklass": "substantiv",
+  "facit": "glädje",
+  "distraktorer": [
+   {
+    "ord": "vånda",
+    "typ": "samma_falt",
+    "forklaring": "stark inre ångest"
+   },
+   {
+    "ord": "vrede",
+    "typ": "nara",
+    "forklaring": "mycket stark ilska"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "djup känsla av smärta"
+   },
+   {
+    "ord": "längtan",
+    "typ": "annan",
+    "forklaring": "stark önskan om något"
+   }
+  ],
+  "exempel": "Familjen kände stor sorg efter beskedet.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "vinst",
+  "ordklass": "substantiv",
+  "facit": "nederlag",
+  "distraktorer": [
+   {
+    "ord": "kamp",
+    "typ": "samma_falt",
+    "forklaring": "hård ansträngning eller strid"
+   },
+   {
+    "ord": "tävling",
+    "typ": "nara",
+    "forklaring": "mätning av prestationer"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "framgång i en tävling"
+   },
+   {
+    "ord": "pokal",
+    "typ": "annan",
+    "forklaring": "pris i form av bägare"
+   }
+  ],
+  "exempel": "Matchen slutade med en klar vinst för oss.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "ingång",
+  "ordklass": "substantiv",
+  "facit": "utgång",
+  "distraktorer": [
+   {
+    "ord": "trappa",
+    "typ": "samma_falt",
+    "forklaring": "steg för att gå uppåt"
+   },
+   {
+    "ord": "dörr",
+    "typ": "nara",
+    "forklaring": "öppningsbar platta i vägg"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "väg in i en byggnad"
+   },
+   {
+    "ord": "fönster",
+    "typ": "annan",
+    "forklaring": "glasad öppning i vägg"
+   }
+  ],
+  "exempel": "Byggnadens ingång hittar du på baksidan.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "fråga",
+  "ordklass": "substantiv",
+  "facit": "svar",
+  "distraktorer": [
+   {
+    "ord": "tvekan",
+    "typ": "samma_falt",
+    "forklaring": "osäkerhet inför ett beslut"
+   },
+   {
+    "ord": "undran",
+    "typ": "nara",
+    "forklaring": "fundering kring ett förhållande"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "begäran om ett besked"
+   },
+   {
+    "ord": "åsikt",
+    "typ": "annan",
+    "forklaring": "personlig uppfattning i sak"
+   }
+  ],
+  "exempel": "Läraren ställde en svår fråga till klassen.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "sanning",
+  "ordklass": "substantiv",
+  "facit": "lögn",
+  "distraktorer": [
+   {
+    "ord": "myt",
+    "typ": "samma_falt",
+    "forklaring": "gammal folklig berättelse"
+   },
+   {
+    "ord": "faktum",
+    "typ": "nara",
+    "forklaring": "sakförhållande som är sant"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "det som överensstämmer helt"
+   },
+   {
+    "ord": "teori",
+    "typ": "annan",
+    "forklaring": "vetenskaplig modell för förklaring"
+   }
+  ],
+  "exempel": "Det tog lång tid innan hela sanningen kom fram.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "glädje",
+  "ordklass": "substantiv",
+  "facit": "sorg",
+  "distraktorer": [
+   {
+    "ord": "ilska",
+    "typ": "samma_falt",
+    "forklaring": "stark känsloreaktion mot något"
+   },
+   {
+    "ord": "lycka",
+    "typ": "nara",
+    "forklaring": "djup känsla av välbefinnande"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "känsla av stor belåtenhet"
+   },
+   {
+    "ord": "skam",
+    "typ": "annan",
+    "forklaring": "känsla av skuld inför andra"
+   }
+  ],
+  "exempel": "Barnens skratt fyllde huset med stor glädje.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "hastighet",
+  "ordklass": "substantiv",
+  "facit": "tröghet",
+  "distraktorer": [
+   {
+    "ord": "fart",
+    "typ": "samma_falt",
+    "forklaring": "rörelse med viss rörelsemängd"
+   },
+   {
+    "ord": "tempo",
+    "typ": "nara",
+    "forklaring": "takt som något sker i"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "förflyttning per enhet tid"
+   },
+   {
+    "ord": "broms",
+    "typ": "annan",
+    "forklaring": "anordning för att sänka fart"
+   }
+  ],
+  "exempel": "Bilen höll en alldeles för hög hastighet.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "styrka",
+  "ordklass": "substantiv",
+  "facit": "svaghet",
+  "distraktorer": [
+   {
+    "ord": "kraft",
+    "typ": "samma_falt",
+    "forklaring": "förmåga att uträtta arbete"
+   },
+   {
+    "ord": "hälsa",
+    "typ": "nara",
+    "forklaring": "tillstånd av fullt välbefinnande"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "förmåga att tåla belastning"
+   },
+   {
+    "ord": "skada",
+    "typ": "annan",
+    "forklaring": "fysisk eller psykisk förslitning"
+   }
+  ],
+  "exempel": "Det krävs stor fysisk styrka för yrket.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "nytta",
+  "ordklass": "substantiv",
+  "facit": "skada",
+  "distraktorer": [
+   {
+    "ord": "vinst",
+    "typ": "samma_falt",
+    "forklaring": "ekonomiskt överskott från verksamhet"
+   },
+   {
+    "ord": "värde",
+    "typ": "nara",
+    "forklaring": "uppskattad god egenskap hos något"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "gynnsam effekt av någonting"
+   },
+   {
+    "ord": "kostnad",
+    "typ": "annan",
+    "forklaring": "utgift för en viss resurs"
+   }
+  ],
+  "exempel": "Det nya verktyget var till stor nytta.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ },
+ {
+  "ord": "kärlek",
+  "ordklass": "substantiv",
+  "facit": "hat",
+  "distraktorer": [
+   {
+    "ord": "avsky",
+    "typ": "samma_falt",
+    "forklaring": "stark känsla av motvilja"
+   },
+   {
+    "ord": "vänskap",
+    "typ": "nara",
+    "forklaring": "nära relation mellan vänner"
+   },
+   {
+    "ord": "synonym",
+    "typ": "synonym",
+    "forklaring": "stark känsla av tillgivenhet"
+   },
+   {
+    "ord": "avund",
+    "typ": "annan",
+    "forklaring": "missunsamhet mot någon annan"
+   }
+  ],
+  "exempel": "De visade sin kärlek inför alla gästerna.",
+  "niva": "grund",
+  "typ": "antonym",
+  "kalla_kandidat": "gemini:gemini-3.5-flash"
+ }
+]

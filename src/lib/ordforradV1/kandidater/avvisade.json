@@ -1,0 +1,9132 @@
+[
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "börja",
+  "facit": "starta",
+  "skal": [
+   "OF1 starta är inte belagt som synonym till börja"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "farlig",
+  "facit": "hård",
+  "skal": [
+   "OF1 hård är inte belagt som synonym till farlig"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "sakna",
+  "facit": "mista",
+  "skal": [
+   "OF1 mista är inte belagt som synonym till sakna"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "lugn",
+  "facit": "stilla",
+  "skal": [
+   "OF1 stilla är inte belagt som synonym till lugn"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "stor",
+  "facit": "väldig",
+  "skal": [
+   "OF1 väldig är inte belagt som synonym till stor"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "köpa",
+  "facit": "handla",
+  "skal": [
+   "OF1 handla är inte belagt som synonym till köpa"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "gammal",
+  "facit": "ålderstigen",
+  "skal": [
+   "OF6 ålderstigen är markerat skämts"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "skriva",
+  "facit": "pränta",
+  "skal": [
+   "OF1 pränta är inte belagt som synonym till skriva"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "kall",
+  "facit": "kylig",
+  "skal": [
+   "OF1 kylig är inte belagt som synonym till kall"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "visa",
+  "facit": "påvisa",
+  "skal": [
+   "OF5 facit har samma stam som ordet"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "fråga",
+  "facit": "underhöra",
+  "skal": [
+   "OF2 underhöra finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "varm",
+  "facit": "het",
+  "skal": [
+   "OF1 het är inte belagt som synonym till varm"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "tyst",
+  "facit": "ljudlös",
+  "skal": [
+   "OF1 ljudlös är inte belagt som synonym till tyst"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "göra",
+  "facit": "utföra",
+  "skal": [
+   "OF1 utföra är inte belagt som synonym till göra"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "vänlig",
+  "facit": "snäll",
+  "skal": [
+   "OF1 snäll är inte belagt som synonym till vänlig"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "öppna",
+  "facit": "låsa upp",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "svag",
+  "facit": "kraftlös",
+  "skal": [
+   "OF1 kraftlös är inte belagt som synonym till svag"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "titta",
+  "facit": "skåda",
+  "skal": [
+   "OF6 skåda är markerat skämts"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "aktuell",
+  "facit": "gällande",
+  "skal": [
+   "OF1 gällande är inte belagt som synonym till aktuell"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "besked",
+  "facit": "svar",
+  "skal": [
+   "OF1 svar är inte belagt som synonym till besked"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "nyss",
+  "facit": "nyligen",
+  "skal": [
+   "OF1 nyligen är inte belagt som synonym till nyss"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "lugna",
+  "facit": "dämpa",
+  "skal": [
+   "OF1 dämpa är inte belagt som synonym till lugna"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "ändra",
+  "facit": "göra om",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "ibland",
+  "facit": "stundom",
+  "skal": [
+   "OF6 stundom är markerat åld"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "upptäcka",
+  "facit": "finna",
+  "skal": [
+   "OF1 finna är inte belagt som synonym till upptäcka"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "sällan",
+  "facit": "sparsamt",
+  "skal": [
+   "OF2 sparsamt finns inte som adverb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "skicklig",
+  "facit": "duktig",
+  "skal": [
+   "OF1 duktig är inte belagt som synonym till skicklig"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "skydda",
+  "facit": "vakta",
+  "skal": [
+   "OF1 vakta är inte belagt som synonym till skydda"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "uppdrag",
+  "facit": "uppgift",
+  "skal": [
+   "OF1 uppgift är inte belagt som synonym till uppdrag"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "noggrant",
+  "facit": "omsorgsfullt",
+  "skal": [
+   "OF2 noggrant finns inte som adverb i SO eller SAOL",
+   "OF2 omsorgsfullt finns inte som adverb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "noggrann",
+  "facit": "ordentlig",
+  "skal": [
+   "OF1 ordentlig är inte belagt som synonym till noggrann"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "avbryta",
+  "facit": "stoppa",
+  "skal": [
+   "OF1 stoppa är inte belagt som synonym till avbryta"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "förslag",
+  "facit": "idé",
+  "skal": [
+   "OF1 idé är inte belagt som synonym till förslag"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "förklara",
+  "facit": "tydliggöra",
+  "skal": [
+   "OF1 tydliggöra är inte belagt som synonym till förklara"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "allvarlig",
+  "facit": "seriös",
+  "skal": [
+   "OF6 allvarlig är markerat skämts"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "skillnad",
+  "facit": "avvikelse",
+  "skal": [
+   "OF1 avvikelse är inte belagt som synonym till skillnad"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "kort",
+  "facit": "koncis",
+  "skal": [
+   "OF1 koncis är inte belagt som synonym till kort"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "känsla",
+  "facit": "intryck",
+  "skal": [
+   "OF1 intryck är inte belagt som synonym till känsla"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "ofta",
+  "facit": "tätt",
+  "skal": [
+   "OF2 tätt finns inte som adverb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "klok",
+  "facit": "vis",
+  "skal": [
+   "OF1 vis är inte belagt som synonym till klok"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "beslut",
+  "facit": "dom",
+  "skal": [
+   "OF1 dom är inte belagt som synonym till beslut"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "köra",
+  "facit": "rulla",
+  "skal": [
+   "OF6 köra är markerat vard"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "plats",
+  "facit": "yta",
+  "skal": [
+   "OF1 yta är inte belagt som synonym till plats"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "gärna",
+  "facit": "lätt",
+  "skal": [
+   "OF2 lätt finns inte som adverb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "säker",
+  "facit": "trygg",
+  "skal": [
+   "OF7 facit är redan alternativ i två uppgifter"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "vinst",
+  "facit": "pot",
+  "skal": [
+   "OF2 pot finns inte som substantiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "tidig",
+  "facit": "bitti",
+  "skal": [
+   "OF2 bitti finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "flytta",
+  "facit": "röra",
+  "skal": [
+   "OF1 röra är inte belagt som synonym till flytta"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "länge",
+  "facit": "drygt",
+  "skal": [
+   "OF2 drygt finns inte som adverb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "enkel",
+  "facit": "lätt",
+  "skal": [
+   "OF7 enkel är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "önska",
+  "facit": "vilja",
+  "skal": [
+   "OF1 vilja är inte belagt som synonym till önska"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "grupp",
+  "facit": "skara",
+  "skal": [
+   "OF1 skara är inte belagt som synonym till grupp"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "ibland",
+  "facit": "stundom",
+  "skal": [
+   "OF6 stundom är markerat åld"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "lugn",
+  "facit": "stilla",
+  "skal": [
+   "OF1 stilla är inte belagt som synonym till lugn"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "vänta",
+  "facit": "bida",
+  "skal": [
+   "OF6 bida är markerat åld"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "fråga",
+  "facit": "punkt",
+  "skal": [
+   "OF1 punkt är inte belagt som synonym till fråga"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "stark",
+  "facit": "hård",
+  "skal": [
+   "OF1 hård är inte belagt som synonym till stark"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "tänka",
+  "facit": "tro",
+  "skal": [
+   "OF7 tänka är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "nära",
+  "facit": "intill",
+  "skal": [
+   "OF1 intill är inte belagt som synonym till nära"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "samla",
+  "facit": "förena",
+  "skal": [
+   "OF1 förena är inte belagt som synonym till samla"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "låna",
+  "facit": "hyra",
+  "skal": [
+   "OF1 hyra är inte belagt som synonym till låna"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "lita",
+  "facit": "tro",
+  "skal": [
+   "OF1 tro är inte belagt som synonym till lita"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "skära",
+  "facit": "klippa",
+  "skal": [
+   "OF6 skära är markerat åld"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "sova",
+  "facit": "slumra",
+  "skal": [
+   "OF1 slumra är inte belagt som synonym till sova"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "städa",
+  "facit": "rensa",
+  "skal": [
+   "OF1 rensa är inte belagt som synonym till städa"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "svara",
+  "facit": "replikera",
+  "skal": [
+   "OF7 svara är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "välja",
+  "facit": "utse",
+  "skal": [
+   "OF1 utse är inte belagt som synonym till välja"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "växa",
+  "facit": "gro",
+  "skal": [
+   "OF1 gro är inte belagt som synonym till växa"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "öppna",
+  "facit": "låsa upp",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "billig",
+  "facit": "prisvärd",
+  "skal": [
+   "OF1 prisvärd är inte belagt som synonym till billig"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "djup",
+  "facit": "bottnlös",
+  "skal": [
+   "OF2 bottnlös finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "gammal",
+  "facit": "ålderstigen",
+  "skal": [
+   "OF6 ålderstigen är markerat skämts"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "glad",
+  "facit": "lycklig",
+  "skal": [
+   "OF7 glad är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "kall",
+  "facit": "kylig",
+  "skal": [
+   "OF1 kylig är inte belagt som synonym till kall"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "lugn",
+  "facit": "stilla",
+  "skal": [
+   "OF1 stilla är inte belagt som synonym till lugn"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "mörk",
+  "facit": "dunkel",
+  "skal": [
+   "OF1 dunkel är inte belagt som synonym till mörk"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "rik",
+  "facit": "förmögen",
+  "skal": [
+   "OF7 rik är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "svår",
+  "facit": "komplicerad",
+  "skal": [
+   "OF7 svår är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "varm",
+  "facit": "ljummen",
+  "skal": [
+   "OF6 ljummen är markerat vard"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "sak",
+  "facit": "pryl",
+  "skal": [
+   "OF6 pryl är markerat vard"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "svårighet",
+  "facit": "hinder",
+  "skal": [
+   "OF1 hinder är inte belagt som synonym till svårighet"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "billig",
+  "facit": "dyr",
+  "skal": [
+   "OF1 dyr är inte belagt som motsats till billig"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "stanna",
+  "facit": "köra",
+  "skal": [
+   "OF6 köra är markerat vard"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "hungrig",
+  "facit": "mätt",
+  "skal": [
+   "OF1 mätt är inte belagt som motsats till hungrig"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "somna",
+  "facit": "vakna",
+  "skal": [
+   "OF1 vakna är inte belagt som motsats till somna"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "hård",
+  "facit": "mjuk",
+  "skal": [
+   "OF7 hård är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "bred",
+  "facit": "smal",
+  "skal": [
+   "OF7 bred är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "hämta",
+  "facit": "lämna",
+  "skal": [
+   "OF7 facit är redan alternativ i två uppgifter"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "mätt",
+  "facit": "hungrig",
+  "skal": [
+   "OF1 hungrig är inte belagt som motsats till mätt"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "skada",
+  "facit": "läka",
+  "skal": [
+   "OF1 läka är inte belagt som motsats till skada"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "långsam",
+  "facit": "snabb",
+  "skal": [
+   "OF7 facit är redan alternativ i två uppgifter"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "tappa",
+  "facit": "hitta",
+  "skal": [
+   "OF1 hitta är inte belagt som motsats till tappa"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "låsa",
+  "facit": "öppna",
+  "skal": [
+   "OF1 öppna är inte belagt som motsats till låsa"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "glad",
+  "facit": "ledsen",
+  "skal": [
+   "OF7 glad är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "skicka",
+  "facit": "få",
+  "skal": [
+   "OF1 få är inte belagt som motsats till skicka"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "vaken",
+  "facit": "sovande",
+  "skal": [
+   "OF2 sovande finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "stiga",
+  "facit": "sjunka",
+  "skal": [
+   "OF1 sjunka är inte belagt som motsats till stiga"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "skratta",
+  "facit": "gråta",
+  "skal": [
+   "OF7 skratta är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "tända",
+  "facit": "släcka",
+  "skal": [
+   "OF7 tända är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "somna",
+  "facit": "vakna",
+  "skal": [
+   "OF1 vakna är inte belagt som motsats till somna"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "hitta",
+  "facit": "tappa",
+  "skal": [
+   "OF1 tappa är inte belagt som motsats till hitta"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "komma",
+  "facit": "gå",
+  "skal": [
+   "OF1 gå är inte belagt som motsats till komma"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "ge",
+  "facit": "ta",
+  "skal": [
+   "OF1 ta är inte belagt som motsats till ge"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "skicka",
+  "facit": "ta emot",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "samla",
+  "facit": "sprida",
+  "skal": [
+   "OF1 sprida är inte belagt som motsats till samla"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "lossa",
+  "facit": "fästa",
+  "skal": [
+   "OF1 fästa är inte belagt som motsats till lossa"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "morgon",
+  "facit": "kväll",
+  "skal": [
+   "OF1 kväll är inte belagt som motsats till morgon"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "vinter",
+  "facit": "sommar",
+  "skal": [
+   "OF1 sommar är inte belagt som motsats till vinter"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "glädje",
+  "facit": "sorg",
+  "skal": [
+   "OF1 sorg är inte belagt som motsats till glädje"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "framtid",
+  "facit": "dåtid",
+  "skal": [
+   "OF1 dåtid är inte belagt som motsats till framtid"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "start",
+  "facit": "slut",
+  "skal": [
+   "OF1 slut är inte belagt som motsats till start"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "början",
+  "facit": "slut",
+  "skal": [
+   "OF1 slut är inte belagt som motsats till början"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "lyckas",
+  "facit": "misslyckas",
+  "skal": [
+   "OF5 facit har samma stam som ordet"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "billig",
+  "facit": "dyr",
+  "skal": [
+   "OF1 dyr är inte belagt som motsats till billig"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "somna",
+  "facit": "vakna",
+  "skal": [
+   "OF1 vakna är inte belagt som motsats till somna"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "ren",
+  "facit": "smutsig",
+  "skal": [
+   "OF7 ren är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "tända",
+  "facit": "släcka",
+  "skal": [
+   "OF7 tända är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "tung",
+  "facit": "lätt",
+  "skal": [
+   "OF7 tung är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "glad",
+  "facit": "ledsen",
+  "skal": [
+   "OF7 glad är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "skratta",
+  "facit": "gråta",
+  "skal": [
+   "OF7 skratta är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "hungrig",
+  "facit": "mätt",
+  "skal": [
+   "OF1 mätt är inte belagt som motsats till hungrig"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "mörk",
+  "facit": "ljus",
+  "skal": [
+   "OF7 mörk är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "vacker",
+  "facit": "ful",
+  "skal": [
+   "OF7 vacker är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "vinna",
+  "facit": "förlora",
+  "skal": [
+   "OF7 vinna är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "rik",
+  "facit": "fattig",
+  "skal": [
+   "OF7 rik är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "stark",
+  "facit": "svag",
+  "skal": [
+   "OF7 stark är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "öka",
+  "facit": "minska",
+  "skal": [
+   "OF7 öka är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "köpa",
+  "facit": "sälja",
+  "skal": [
+   "OF7 köpa är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "hög",
+  "facit": "låg",
+  "skal": [
+   "OF7 hög är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "skicka",
+  "facit": "ta emot",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "snabb",
+  "facit": "långsam",
+  "skal": [
+   "OF7 snabb är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "hitta",
+  "facit": "tappa",
+  "skal": [
+   "OF1 tappa är inte belagt som motsats till hitta"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "enkel",
+  "facit": "svår",
+  "skal": [
+   "OF7 enkel är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "fråga",
+  "facit": "svara",
+  "skal": [
+   "OF1 svara är inte belagt som motsats till fråga"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "tyst",
+  "facit": "högljudd",
+  "skal": [
+   "OF1 högljudd är inte belagt som motsats till tyst"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "bygga",
+  "facit": "riva",
+  "skal": [
+   "OF7 bygga är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "djup",
+  "facit": "grund",
+  "skal": [
+   "OF7 djup är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "renovera",
+  "facit": "upprusta",
+  "skal": [
+   "OF1 upprusta är inte belagt som motsats till renovera"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "orädd",
+  "facit": "rädd",
+  "skal": [
+   "OF5 facit har samma stam som ordet"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "belysning",
+  "facit": "belysning har ingen motsats",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "sörja",
+  "facit": "klaga",
+  "skal": [
+   "OF1 klaga är inte belagt som motsats till sörja"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "fuktig",
+  "facit": "blöt",
+  "skal": [
+   "OF1 blöt är inte belagt som motsats till fuktig"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "generat",
+  "facit": "stolt",
+  "skal": [
+   "OF2 generat finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "framgångsrik",
+  "facit": "lyckosam",
+  "skal": [
+   "OF1 lyckosam är inte belagt som motsats till framgångsrik"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "anlända",
+  "facit": "resa",
+  "skal": [
+   "OF1 resa är inte belagt som motsats till anlända"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "oviss",
+  "facit": "säker",
+  "skal": [
+   "OF1 säker är inte belagt som motsats till oviss"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "luta",
+  "facit": "sätta",
+  "skal": [
+   "OF1 sätta är inte belagt som motsats till luta"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "avsky",
+  "facit": "älska",
+  "skal": [
+   "OF1 älska är inte belagt som motsats till avsky"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "noggrann",
+  "facit": "slarvig",
+  "skal": [
+   "OF1 slarvig är inte belagt som motsats till noggrann"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "belöna",
+  "facit": "straffa",
+  "skal": [
+   "OF1 straffa är inte belagt som motsats till belöna"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "rikta",
+  "facit": "peka",
+  "skal": [
+   "OF1 peka är inte belagt som motsats till rikta"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "gammaldags",
+  "facit": "modern",
+  "skal": [
+   "OF1 modern är inte belagt som motsats till gammaldags"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "synlig",
+  "facit": "osynlig",
+  "skal": [
+   "OF5 facit har samma stam som ordet"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "tvekan",
+  "facit": "visshet",
+  "skal": [
+   "OF1 visshet är inte belagt som motsats till tvekan"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "fientlig",
+  "facit": "vänlig",
+  "skal": [
+   "OF1 vänlig är inte belagt som motsats till fientlig"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "samla",
+  "facit": "sprida",
+  "skal": [
+   "OF1 sprida är inte belagt som motsats till samla"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "skrämma",
+  "facit": "lugna",
+  "skal": [
+   "OF1 lugna är inte belagt som motsats till skrämma"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "skynda",
+  "facit": "dröja",
+  "skal": [
+   "OF1 dröja är inte belagt som motsats till skynda"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "motsatt",
+  "facit": "lika",
+  "skal": [
+   "OF1 lika är inte belagt som motsats till motsatt"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "tvinga",
+  "facit": "locka",
+  "skal": [
+   "OF1 locka är inte belagt som motsats till tvinga"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "vinst",
+  "facit": "förlust",
+  "skal": [
+   "OF7 vinst är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "stänga",
+  "facit": "öppna",
+  "skal": [
+   "OF7 stänga är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "torr",
+  "facit": "våt",
+  "skal": [
+   "OF7 torr är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "hämta",
+  "facit": "lämna",
+  "skal": [
+   "OF7 facit är redan alternativ i två uppgifter"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "mätt",
+  "facit": "hungrig",
+  "skal": [
+   "OF1 hungrig är inte belagt som motsats till mätt"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "full",
+  "facit": "tom",
+  "skal": [
+   "OF7 full är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "morgon",
+  "facit": "kväll",
+  "skal": [
+   "OF1 kväll är inte belagt som motsats till morgon"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "vinter",
+  "facit": "sommar",
+  "skal": [
+   "OF1 sommar är inte belagt som motsats till vinter"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "seger",
+  "facit": "förlust",
+  "skal": [
+   "OF7 seger är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "vän",
+  "facit": "fiende",
+  "skal": [
+   "OF7 vän är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "framtid",
+  "facit": "dåtid",
+  "skal": [
+   "OF1 dåtid är inte belagt som motsats till framtid"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "fred",
+  "facit": "krig",
+  "skal": [
+   "OF7 fred är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "mjuk",
+  "facit": "hård",
+  "skal": [
+   "OF7 mjuk är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "smal",
+  "facit": "bred",
+  "skal": [
+   "OF7 smal är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "skrik",
+  "facit": "viskning",
+  "skal": [
+   "OF1 viskning är inte belagt som motsats till skrik"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "köp",
+  "facit": "försäljning",
+  "skal": [
+   "OF1 försäljning är inte belagt som motsats till köp"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "skugga",
+  "facit": "solsken",
+  "skal": [
+   "OF1 solsken är inte belagt som motsats till skugga"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "skratt",
+  "facit": "gråt",
+  "skal": [
+   "OF1 gråt är inte belagt som motsats till skratt"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "frihet",
+  "facit": "fångenskap",
+  "skal": [
+   "OF1 fångenskap är inte belagt som motsats till frihet"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "sorg",
+  "facit": "glädje",
+  "skal": [
+   "OF1 glädje är inte belagt som motsats till sorg"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "vinst",
+  "facit": "nederlag",
+  "skal": [
+   "OF7 vinst är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "ingång",
+  "facit": "utgång",
+  "skal": [
+   "OF6 utgång är markerat vard"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "fråga",
+  "facit": "svar",
+  "skal": [
+   "OF7 fråga är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "glädje",
+  "facit": "sorg",
+  "skal": [
+   "OF1 sorg är inte belagt som motsats till glädje"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "hastighet",
+  "facit": "tröghet",
+  "skal": [
+   "OF1 tröghet är inte belagt som motsats till hastighet"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "nytta",
+  "facit": "skada",
+  "skal": [
+   "OF1 skada är inte belagt som motsats till nytta"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "kärlek",
+  "facit": "hat",
+  "skal": [
+   "OF1 hat är inte belagt som motsats till kärlek"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "försumma",
+  "facit": "missköta",
+  "skal": [
+   "OF1 missköta är inte belagt som synonym till försumma"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "bestående",
+  "facit": "varaktig",
+  "skal": [
+   "OF1 varaktig är inte belagt som synonym till bestående"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "avböja",
+  "facit": "tacka nej",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "befogad",
+  "facit": "motiverad",
+  "skal": [
+   "OF2 motiverad finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "koncis",
+  "facit": "kortfattad",
+  "skal": [
+   "OF1 kortfattad är inte belagt som synonym till koncis"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "avskräcka",
+  "facit": "avskrämma",
+  "skal": [
+   "OF5 facit har samma stam som ordet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "förhindra",
+  "facit": "förebygga",
+  "skal": [
+   "OF1 förebygga är inte belagt som synonym till förhindra"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "omfattande",
+  "facit": "storskalig",
+  "skal": [
+   "OF1 storskalig är inte belagt som synonym till omfattande"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "motsägelsefull",
+  "facit": "inkonsistent",
+  "skal": [
+   "OF1 inkonsistent är inte belagt som synonym till motsägelsefull"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "vedergälla",
+  "facit": "hämnas",
+  "skal": [
+   "OF6 vedergälla är markerat åld"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "svårgripbar",
+  "facit": "abstrakt",
+  "skal": [
+   "OF1 abstrakt är inte belagt som synonym till svårgripbar"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "framhålla",
+  "facit": "understryka",
+  "skal": [
+   "OF1 understryka är inte belagt som synonym till framhålla"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "otillräcklig",
+  "facit": "bristfällig",
+  "skal": [
+   "OF1 bristfällig är inte belagt som synonym till otillräcklig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "återuppta",
+  "facit": "nystarta",
+  "skal": [
+   "OF2 nystarta finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "vederhäftig",
+  "facit": "tillförlitlig",
+  "skal": [
+   "OF1 tillförlitlig är inte belagt som synonym till vederhäftig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "bistra",
+  "facit": "hårdna",
+  "skal": [
+   "OF2 bistra finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "vedervåga",
+  "facit": "riskera",
+  "skal": [
+   "OF6 vedervåga är markerat åld"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "sporrande",
+  "facit": "eggande",
+  "skal": [
+   "OF2 sporrande finns inte som adjektiv i SO eller SAOL",
+   "OF2 eggande finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "rannsakan",
+  "facit": "prövning",
+  "skal": [
+   "OF1 prövning är inte belagt som synonym till rannsakan"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "undantagslös",
+  "facit": "absolut",
+  "skal": [
+   "OF1 absolut är inte belagt som synonym till undantagslös"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "vackla",
+  "facit": "tveka",
+  "skal": [
+   "OF1 tveka är inte belagt som synonym till vackla"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "ynkedom",
+  "facit": "elände",
+  "skal": [
+   "OF1 elände är inte belagt som synonym till ynkedom"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "påpasslig",
+  "facit": "uppmärksam",
+  "skal": [
+   "OF1 uppmärksam är inte belagt som synonym till påpasslig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "gagna",
+  "facit": "gynna",
+  "skal": [
+   "OF1 gynna är inte belagt som synonym till gagna"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "belysa",
+  "facit": "förklara",
+  "skal": [
+   "OF1 förklara är inte belagt som synonym till belysa"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "försåtlig",
+  "facit": "svikfull",
+  "skal": [
+   "OF2 svikfull finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "yppig",
+  "facit": "rikdagsinriktad",
+  "skal": [
+   "OF2 rikdagsinriktad finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "undanhålla",
+  "facit": "mörka",
+  "skal": [
+   "OF6 mörka är markerat vard"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "tvekabrott",
+  "facit": "valkyria",
+  "skal": [
+   "OF2 tvekabrott finns inte som substantiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "eftertänksam",
+  "facit": "reflekterande",
+  "skal": [
+   "OF2 reflekterande finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "avvakta",
+  "facit": "bida",
+  "skal": [
+   "OF6 bida är markerat åld"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "vedervåga",
+  "facit": "riskera",
+  "skal": [
+   "OF6 vedervåga är markerat åld"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "vederlägga",
+  "facit": "motbevisa",
+  "skal": [
+   "OF7 vederlägga är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "ynkedom",
+  "facit": "uselhet",
+  "skal": [
+   "OF1 uselhet är inte belagt som synonym till ynkedom"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "vackla",
+  "facit": "tveka",
+  "skal": [
+   "OF1 tveka är inte belagt som synonym till vackla"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "gagna",
+  "facit": "nytta",
+  "skal": [
+   "OF1 nytta är inte belagt som synonym till gagna"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "saklig",
+  "facit": "objektiv",
+  "skal": [
+   "OF7 saklig är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "belysa",
+  "facit": "klarlägga",
+  "skal": [
+   "OF1 klarlägga är inte belagt som synonym till belysa"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "försåtlig",
+  "facit": "svikfull",
+  "skal": [
+   "OF2 svikfull finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "yppa",
+  "facit": "avslöja",
+  "skal": [
+   "OF7 yppa är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "påtaglig",
+  "facit": "märkbar",
+  "skal": [
+   "OF7 påtaglig är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "otvetydig",
+  "facit": "klar",
+  "skal": [
+   "OF7 otvetydig är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "invecklad",
+  "facit": "komplex",
+  "skal": [
+   "OF1 komplex är inte belagt som synonym till invecklad"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "bemyndiga",
+  "facit": "berättiga",
+  "skal": [
+   "OF1 berättiga är inte belagt som synonym till bemyndiga"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "vedervärdig",
+  "facit": "avskyvärd",
+  "skal": [
+   "OF7 vedervärdig är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "eftertänksam",
+  "facit": "begrundande",
+  "skal": [
+   "OF2 begrundande finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "avvika",
+  "facit": "skilja",
+  "skal": [
+   "OF1 skilja är inte belagt som synonym till avvika"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "beprövad",
+  "facit": "testad",
+  "skal": [
+   "OF2 testad finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "vedervåga",
+  "facit": "chansa",
+  "skal": [
+   "OF6 vedervåga är markerat åld"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "vedergällning",
+  "facit": "hämnd",
+  "skal": [
+   "OF6 vedergällning är markerat åld"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "vederstygglig",
+  "facit": "hemsk",
+  "skal": [
+   "OF6 vederstygglig är markerat åld"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "rannsaka",
+  "facit": "pröva",
+  "skal": [
+   "OF7 rannsaka är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "undanhålla",
+  "facit": "dölja",
+  "skal": [
+   "OF1 dölja är inte belagt som synonym till undanhålla"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "tillkännage",
+  "facit": "meddela",
+  "skal": [
+   "OF7 tillkännage är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "vedergälla",
+  "facit": "hämnas",
+  "skal": [
+   "OF6 vedergälla är markerat åld"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "avsked",
+  "facit": "avskedande",
+  "skal": [
+   "OF5 facit har samma stam som ordet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "påtaglig",
+  "facit": "uppenbar",
+  "skal": [
+   "OF7 påtaglig är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "framgång",
+  "facit": "resultat",
+  "skal": [
+   "OF1 resultat är inte belagt som synonym till framgång"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "motstånd",
+  "facit": "opposition",
+  "skal": [
+   "OF1 opposition är inte belagt som synonym till motstånd"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "otillräcklig",
+  "facit": "bristfällig",
+  "skal": [
+   "OF1 bristfällig är inte belagt som synonym till otillräcklig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "bemöta",
+  "facit": "besvara",
+  "skal": [
+   "OF1 besvara är inte belagt som synonym till bemöta"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "uppmuntra",
+  "facit": "stimulera",
+  "skal": [
+   "OF1 stimulera är inte belagt som synonym till uppmuntra"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "påstående",
+  "facit": "uttalande",
+  "skal": [
+   "OF1 uttalande är inte belagt som synonym till påstående"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "granska",
+  "facit": "inspektera",
+  "skal": [
+   "OF1 inspektera är inte belagt som synonym till granska"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "pålitlig",
+  "facit": "pålitlig",
+  "skal": [
+   "OF5 facit har samma stam som ordet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "uppstå",
+  "facit": "bildas",
+  "skal": [
+   "OF2 bildas finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "varaktighet",
+  "facit": "beständighet",
+  "skal": [
+   "OF1 beständighet är inte belagt som synonym till varaktighet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "tydlighet",
+  "facit": "klarhet",
+  "skal": [
+   "OF1 klarhet är inte belagt som synonym till tydlighet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "tillfällig",
+  "facit": "provisorisk",
+  "skal": [
+   "OF1 provisorisk är inte belagt som synonym till tillfällig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "invändning",
+  "facit": "protest",
+  "skal": [
+   "OF1 protest är inte belagt som synonym till invändning"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "förstärka",
+  "facit": "intensifiera",
+  "skal": [
+   "OF1 intensifiera är inte belagt som synonym till förstärka"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "motvillig",
+  "facit": "motsträvig",
+  "skal": [
+   "OF1 motsträvig är inte belagt som synonym till motvillig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "påverka",
+  "facit": "inverka",
+  "skal": [
+   "OF1 inverka är inte belagt som synonym till påverka"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "noggrannhet",
+  "facit": "precisionsgrad",
+  "skal": [
+   "OF2 precisionsgrad finns inte som substantiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "ersätta",
+  "facit": "substituera",
+  "skal": [
+   "OF1 substituera är inte belagt som synonym till ersätta"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "vansköta",
+  "facit": "försumma",
+  "skal": [
+   "OF1 försumma är inte belagt som synonym till vansköta"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "bestående",
+  "facit": "varaktig",
+  "skal": [
+   "OF1 varaktig är inte belagt som synonym till bestående"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "avböja",
+  "facit": "tacka nej",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "befogad",
+  "facit": "motiverad",
+  "skal": [
+   "OF2 motiverad finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "avskräcka",
+  "facit": "skrämma",
+  "skal": [
+   "OF1 skrämma är inte belagt som synonym till avskräcka"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "omfattande",
+  "facit": "stor",
+  "skal": [
+   "OF1 stor är inte belagt som synonym till omfattande"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "bifalla",
+  "facit": "godkänna",
+  "skal": [
+   "OF7 bifalla är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "godtycklig",
+  "facit": "slumpmässig",
+  "skal": [
+   "OF7 godtycklig är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "gynnsam",
+  "facit": "fördelaktig",
+  "skal": [
+   "OF7 gynnsam är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "tillgodose",
+  "facit": "uppfylla",
+  "skal": [
+   "OF7 tillgodose är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "otillräcklig",
+  "facit": "bristfällig",
+  "skal": [
+   "OF1 bristfällig är inte belagt som synonym till otillräcklig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "obarmhärtig",
+  "facit": "skoningslös",
+  "skal": [
+   "OF7 obarmhärtig är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "tillämpa",
+  "facit": "använda",
+  "skal": [
+   "OF7 tillämpa är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "återuppta",
+  "facit": "börja om",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "opartisk",
+  "facit": "objektiv",
+  "skal": [
+   "OF7 opartisk är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "vederhäftig",
+  "facit": "tillförlitlig",
+  "skal": [
+   "OF1 tillförlitlig är inte belagt som synonym till vederhäftig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "varsam",
+  "facit": "försiktig",
+  "skal": [
+   "OF7 varsam är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "vackla",
+  "facit": "tveka",
+  "skal": [
+   "OF1 tveka är inte belagt som synonym till vackla"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "förhala",
+  "facit": "fördröja",
+  "skal": [
+   "OF7 förhala är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "gagna",
+  "facit": "nätta",
+  "skal": [
+   "OF2 nätta finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "belysa",
+  "facit": "förklara",
+  "skal": [
+   "OF1 förklara är inte belagt som synonym till belysa"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "överskåda",
+  "facit": "överblicka",
+  "skal": [
+   "OF7 överskåda är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "yppa",
+  "facit": "avslöja",
+  "skal": [
+   "OF7 yppa är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "otvetydig",
+  "facit": "tydlig",
+  "skal": [
+   "OF7 otvetydig är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "bemyndiga",
+  "facit": "ge rätt",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "passiv",
+  "facit": "aktiv",
+  "skal": [
+   "OF6 passiv är markerat nedsätt"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "expandera",
+  "facit": "krympa",
+  "skal": [
+   "OF1 krympa är inte belagt som motsats till expandera"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "definitiv",
+  "facit": "osäker",
+  "skal": [
+   "OF1 osäker är inte belagt som motsats till definitiv"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "harmoni",
+  "facit": "konflikt",
+  "skal": [
+   "OF1 konflikt är inte belagt som motsats till harmoni"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "accelerera",
+  "facit": "bromsa",
+  "skal": [
+   "OF1 bromsa är inte belagt som motsats till accelerera"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "acceptera",
+  "facit": "vägra",
+  "skal": [
+   "OF1 vägra är inte belagt som motsats till acceptera"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "kondensera",
+  "facit": "förånga",
+  "skal": [
+   "OF1 förånga är inte belagt som motsats till kondensera"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "kaos",
+  "facit": "ordning",
+  "skal": [
+   "OF1 ordning är inte belagt som motsats till kaos"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "stimulera",
+  "facit": "dämpa",
+  "skal": [
+   "OF1 dämpa är inte belagt som motsats till stimulera"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "stabil",
+  "facit": "ostadig",
+  "skal": [
+   "OF1 ostadig är inte belagt som motsats till stabil"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "koncentrera",
+  "facit": "splittra",
+  "skal": [
+   "OF1 splittra är inte belagt som motsats till koncentrera"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "expandering",
+  "facit": "minskning",
+  "skal": [
+   "OF1 minskning är inte belagt som motsats till expandering"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "central",
+  "facit": "perifer",
+  "skal": [
+   "OF1 perifer är inte belagt som motsats till central"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "accelererande",
+  "facit": "avtagande",
+  "skal": [
+   "OF2 accelererande finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "verifiering",
+  "facit": "avslag",
+  "skal": [
+   "OF1 avslag är inte belagt som motsats till verifiering"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "komprimera",
+  "facit": "utvidga",
+  "skal": [
+   "OF1 utvidga är inte belagt som motsats till komprimera"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "konstruktion",
+  "facit": "rivning",
+  "skal": [
+   "OF1 rivning är inte belagt som motsats till konstruktion"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "distinkt",
+  "facit": "otydlig",
+  "skal": [
+   "OF1 otydlig är inte belagt som motsats till distinkt"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "befrämja",
+  "facit": "motverka",
+  "skal": [
+   "OF1 motverka är inte belagt som motsats till befrämja"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "gästfri",
+  "facit": "avvisande",
+  "skal": [
+   "OF1 avvisande är inte belagt som motsats till gästfri"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "upphöja",
+  "facit": "nedvärdera",
+  "skal": [
+   "OF1 nedvärdera är inte belagt som motsats till upphöja"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "sinnrik",
+  "facit": "klumpig",
+  "skal": [
+   "OF1 klumpig är inte belagt som motsats till sinnrik"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "rekrytera",
+  "facit": "avskeda",
+  "skal": [
+   "OF1 avskeda är inte belagt som motsats till rekrytera"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "överskådlig",
+  "facit": "obegriplig",
+  "skal": [
+   "OF1 obegriplig är inte belagt som motsats till överskådlig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "skör",
+  "facit": "hållbar",
+  "skal": [
+   "OF1 hållbar är inte belagt som motsats till skör"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "belasta",
+  "facit": "avlasta",
+  "skal": [
+   "OF1 avlasta är inte belagt som motsats till belasta"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "förankra",
+  "facit": "lösgöra",
+  "skal": [
+   "OF1 lösgöra är inte belagt som motsats till förankra"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "medgörlig",
+  "facit": "motsträvig",
+  "skal": [
+   "OF1 motsträvig är inte belagt som motsats till medgörlig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "sammandrabbning",
+  "facit": "försoning",
+  "skal": [
+   "OF1 försoning är inte belagt som motsats till sammandrabbning"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "anhopa",
+  "facit": "sprida",
+  "skal": [
+   "OF1 sprida är inte belagt som motsats till anhopa"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "skingra",
+  "facit": "församla",
+  "skal": [
+   "OF1 församla är inte belagt som motsats till skingra"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "förlikas",
+  "facit": "tvista",
+  "skal": [
+   "OF1 tvista är inte belagt som motsats till förlikas"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "vederkvicka",
+  "facit": "utmätta",
+  "skal": [
+   "OF2 utmätta finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "bejakande",
+  "facit": "avvisande",
+  "skal": [
+   "OF2 bejakande finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "inviga",
+  "facit": "avsluta",
+  "skal": [
+   "OF6 avsluta är markerat åld"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "lättsinnig",
+  "facit": "ansvarsfull",
+  "skal": [
+   "OF1 ansvarsfull är inte belagt som motsats till lättsinnig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "sammanfoga",
+  "facit": "isärta",
+  "skal": [
+   "OF2 isärta finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "förhala",
+  "facit": "påskynda",
+  "skal": [
+   "OF1 påskynda är inte belagt som motsats till förhala"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "framhärda",
+  "facit": "kapitulera",
+  "skal": [
+   "OF1 kapitulera är inte belagt som motsats till framhärda"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "skörda",
+  "facit": "plantera",
+  "skal": [
+   "OF1 plantera är inte belagt som motsats till skörda"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "överseende",
+  "facit": "sträng",
+  "skal": [
+   "OF1 sträng är inte belagt som motsats till överseende"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "sammanfatta",
+  "facit": "brodera",
+  "skal": [
+   "OF1 brodera är inte belagt som motsats till sammanfatta"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "vankelmodig",
+  "facit": "målmedveten",
+  "skal": [
+   "OF1 målmedveten är inte belagt som motsats till vankelmodig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "uppmuntra",
+  "facit": "avskräcka",
+  "skal": [
+   "OF1 avskräcka är inte belagt som motsats till uppmuntra"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "vederlägga",
+  "facit": "bekräfta",
+  "skal": [
+   "OF1 bekräfta är inte belagt som motsats till vederlägga"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "sammanhållning",
+  "facit": "splittring",
+  "skal": [
+   "OF1 splittring är inte belagt som motsats till sammanhållning"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "överskådlighet",
+  "facit": "oklarhet",
+  "skal": [
+   "OF1 oklarhet är inte belagt som motsats till överskådlighet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "missgynna",
+  "facit": "gynna",
+  "skal": [
+   "OF5 facit har samma stam som ordet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "förskona",
+  "facit": "drabba",
+  "skal": [
+   "OF1 drabba är inte belagt som motsats till förskona"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "motsäga",
+  "facit": "bekräfta",
+  "skal": [
+   "OF1 bekräfta är inte belagt som motsats till motsäga"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "medgiva",
+  "facit": "förneka",
+  "skal": [
+   "OF2 medgiva finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "sammanställd",
+  "facit": "uppdelad",
+  "skal": [
+   "OF2 sammanställd finns inte som adjektiv i SO eller SAOL",
+   "OF2 uppdelad finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "svårtydd",
+  "facit": "enkel",
+  "skal": [
+   "OF1 enkel är inte belagt som motsats till svårtydd"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "utpräglad",
+  "facit": "svag",
+  "skal": [
+   "OF1 svag är inte belagt som motsats till utpräglad"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "godtycklighet",
+  "facit": "rättvisa",
+  "skal": [
+   "OF1 rättvisa är inte belagt som motsats till godtycklighet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "mångtydighet",
+  "facit": "klarhet",
+  "skal": [
+   "OF1 klarhet är inte belagt som motsats till mångtydighet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "tillkortakommande",
+  "facit": "tillgång",
+  "skal": [
+   "OF1 tillgång är inte belagt som motsats till tillkortakommande"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "frångå",
+  "facit": "följa",
+  "skal": [
+   "OF1 följa är inte belagt som motsats till frångå"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "tillsätta",
+  "facit": "avskeda",
+  "skal": [
+   "OF1 avskeda är inte belagt som motsats till tillsätta"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "vederlägga",
+  "facit": "bevisa",
+  "skal": [
+   "OF1 bevisa är inte belagt som motsats till vederlägga"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "ombytlig",
+  "facit": "stabil",
+  "skal": [
+   "OF1 stabil är inte belagt som motsats till ombytlig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "oförutsägbar",
+  "facit": "väntad",
+  "skal": [
+   "OF2 väntad finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "motsägelsefull",
+  "facit": "logisk",
+  "skal": [
+   "OF1 logisk är inte belagt som motsats till motsägelsefull"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "oförsonlighet",
+  "facit": "mildhet",
+  "skal": [
+   "OF1 mildhet är inte belagt som motsats till oförsonlighet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "tillgänglighet",
+  "facit": "hinder",
+  "skal": [
+   "OF1 hinder är inte belagt som motsats till tillgänglighet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "missuppfatta",
+  "facit": "förstå",
+  "skal": [
+   "OF1 förstå är inte belagt som motsats till missuppfatta"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "tillintetgöra",
+  "facit": "skapa",
+  "skal": [
+   "OF1 skapa är inte belagt som motsats till tillintetgöra"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "sammandraga",
+  "facit": "sprida",
+  "skal": [
+   "OF2 sammandraga finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "svåröverskådlig",
+  "facit": "enkel",
+  "skal": [
+   "OF1 enkel är inte belagt som motsats till svåröverskådlig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "oförutsedd",
+  "facit": "väntad",
+  "skal": [
+   "OF2 väntad finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "tillfyllest",
+  "facit": "klen",
+  "skal": [
+   "OF2 tillfyllest finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "genomskådlig",
+  "facit": "oklar",
+  "skal": [
+   "OF1 oklar är inte belagt som motsats till genomskådlig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "motsättningsfull",
+  "facit": "enig",
+  "skal": [
+   "OF2 motsättningsfull finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "samstämmighet",
+  "facit": "oenighet",
+  "skal": [
+   "OF1 oenighet är inte belagt som motsats till samstämmighet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "bortse",
+  "facit": "beakta",
+  "skal": [
+   "OF1 beakta är inte belagt som motsats till bortse"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "bevara",
+  "facit": "förstöra",
+  "skal": [
+   "OF1 förstöra är inte belagt som motsats till bevara"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "tydliggöra",
+  "facit": "förvilla",
+  "skal": [
+   "OF1 förvilla är inte belagt som motsats till tydliggöra"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "motsättning",
+  "facit": "enighet",
+  "skal": [
+   "OF1 enighet är inte belagt som motsats till motsättning"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "vedertagen",
+  "facit": "ovanlig",
+  "skal": [
+   "OF1 ovanlig är inte belagt som motsats till vedertagen"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "berömma",
+  "facit": "kritisera",
+  "skal": [
+   "OF1 kritisera är inte belagt som motsats till berömma"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "gynna",
+  "facit": "skada",
+  "skal": [
+   "OF1 skada är inte belagt som motsats till gynna"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "uppenbar",
+  "facit": "dold",
+  "skal": [
+   "OF1 dold är inte belagt som motsats till uppenbar"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "framhäva",
+  "facit": "dölja",
+  "skal": [
+   "OF1 dölja är inte belagt som motsats till framhäva"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "lättnad",
+  "facit": "börda",
+  "skal": [
+   "OF1 börda är inte belagt som motsats till lättnad"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "obegriplig",
+  "facit": "enkel",
+  "skal": [
+   "OF1 enkel är inte belagt som motsats till obegriplig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "avsky",
+  "facit": "älska",
+  "skal": [
+   "OF1 älska är inte belagt som motsats till avsky"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "omedveten",
+  "facit": "klar",
+  "skal": [
+   "OF1 klar är inte belagt som motsats till omedveten"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "bortse",
+  "facit": "beakta",
+  "skal": [
+   "OF1 beakta är inte belagt som motsats till bortse"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "slösaktig",
+  "facit": "snål",
+  "skal": [
+   "OF1 snål är inte belagt som motsats till slösaktig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "förändra",
+  "facit": "bevara",
+  "skal": [
+   "OF1 bevara är inte belagt som motsats till förändra"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "saknad",
+  "facit": "glädje",
+  "skal": [
+   "OF6 saknad är markerat åld"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "motsäga",
+  "facit": "stärka",
+  "skal": [
+   "OF1 stärka är inte belagt som motsats till motsäga"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "pålitlig",
+  "facit": "falsk",
+  "skal": [
+   "OF1 falsk är inte belagt som motsats till pålitlig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "bekräfta",
+  "facit": "förneka",
+  "skal": [
+   "OF1 förneka är inte belagt som motsats till bekräfta"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "obekant",
+  "facit": "känd",
+  "skal": [
+   "OF1 känd är inte belagt som motsats till obekant"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "förstora",
+  "facit": "minska",
+  "skal": [
+   "OF1 minska är inte belagt som motsats till förstora"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "avvakta",
+  "facit": "handla",
+  "skal": [
+   "OF1 handla är inte belagt som motsats till avvakta"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "ofullständig",
+  "facit": "hel",
+  "skal": [
+   "OF1 hel är inte belagt som motsats till ofullständig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "tillåta",
+  "facit": "förbjuda",
+  "skal": [
+   "OF7 tillåta är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "osäkerhet",
+  "facit": "ro",
+  "skal": [
+   "OF1 ro är inte belagt som motsats till osäkerhet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "försvåra",
+  "facit": "lätta",
+  "skal": [
+   "OF1 lätta är inte belagt som motsats till försvåra"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "varaktig",
+  "facit": "kort",
+  "skal": [
+   "OF1 kort är inte belagt som motsats till varaktig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "påskynda",
+  "facit": "fördröja",
+  "skal": [
+   "OF1 fördröja är inte belagt som motsats till påskynda"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "auktoritet",
+  "facit": "maktlöshet",
+  "skal": [
+   "OF1 maktlöshet är inte belagt som motsats till auktoritet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "apatisk",
+  "facit": "engagerad",
+  "skal": [
+   "OF1 engagerad är inte belagt som motsats till apatisk"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "konsekvent",
+  "facit": "motsägelsefull",
+  "skal": [
+   "OF1 motsägelsefull är inte belagt som motsats till konsekvent"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "hämma",
+  "facit": "stimulera",
+  "skal": [
+   "OF1 stimulera är inte belagt som motsats till hämma"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "harmonisera",
+  "facit": "skära",
+  "skal": [
+   "OF6 skära är markerat åld"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "konsolidera",
+  "facit": "splittra",
+  "skal": [
+   "OF1 splittra är inte belagt som motsats till konsolidera"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "bifalla",
+  "facit": "avslå",
+  "skal": [
+   "OF1 avslå är inte belagt som motsats till bifalla"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "stabilisera",
+  "facit": "rubba",
+  "skal": [
+   "OF1 rubba är inte belagt som motsats till stabilisera"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "subtil",
+  "facit": "uppenbar",
+  "skal": [
+   "OF1 uppenbar är inte belagt som motsats till subtil"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "expansiv",
+  "facit": "avtagande",
+  "skal": [
+   "OF1 avtagande är inte belagt som motsats till expansiv"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "initiera",
+  "facit": "avsluta",
+  "skal": [
+   "OF6 avsluta är markerat åld"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "auktorisera",
+  "facit": "förbjuda",
+  "skal": [
+   "OF1 förbjuda är inte belagt som motsats till auktorisera"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "expansionsfas",
+  "facit": "tillbakagång",
+  "skal": [
+   "OF2 expansionsfas finns inte som substantiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "diskreditera",
+  "facit": "hylla",
+  "skal": [
+   "OF1 hylla är inte belagt som motsats till diskreditera"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "kontinuitet",
+  "facit": "avbrott",
+  "skal": [
+   "OF1 avbrott är inte belagt som motsats till kontinuitet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "korrumpera",
+  "facit": "förädla",
+  "skal": [
+   "OF1 förädla är inte belagt som motsats till korrumpera"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "karismatisk",
+  "facit": "alldaglig",
+  "skal": [
+   "OF1 alldaglig är inte belagt som motsats till karismatisk"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "konformism",
+  "facit": "avvikelse",
+  "skal": [
+   "OF1 avvikelse är inte belagt som motsats till konformism"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "anarkistisk",
+  "facit": "laglydig",
+  "skal": [
+   "OF1 laglydig är inte belagt som motsats till anarkistisk"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "auktoritär",
+  "facit": "tillåtande",
+  "skal": [
+   "OF1 tillåtande är inte belagt som motsats till auktoritär"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "dogmatism",
+  "facit": "öppenhet",
+  "skal": [
+   "OF1 öppenhet är inte belagt som motsats till dogmatism"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "relativisera",
+  "facit": "absolutifiera",
+  "skal": [
+   "OF2 absolutifiera finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "subversiv",
+  "facit": "lojal",
+  "skal": [
+   "OF1 lojal är inte belagt som motsats till subversiv"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "stagnation",
+  "facit": "utveckling",
+  "skal": [
+   "OF1 utveckling är inte belagt som motsats till stagnation"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "restriktiv",
+  "facit": "frikostig",
+  "skal": [
+   "OF1 frikostig är inte belagt som motsats till restriktiv"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "korrosiv",
+  "facit": "bevarande",
+  "skal": [
+   "OF2 bevarande finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "despot",
+  "facit": "befriare",
+  "skal": [
+   "OF1 befriare är inte belagt som motsats till despot"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "avspänd",
+  "facit": "spänd",
+  "skal": [
+   "OF5 facit har samma stam som ordet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "bevara",
+  "facit": "förstöra",
+  "skal": [
+   "OF1 förstöra är inte belagt som motsats till bevara"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "samstämmig",
+  "facit": "oenig",
+  "skal": [
+   "OF1 oenig är inte belagt som motsats till samstämmig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "tillväxt",
+  "facit": "nedgång",
+  "skal": [
+   "OF1 nedgång är inte belagt som motsats till tillväxt"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "medveten",
+  "facit": "oövertänkt",
+  "skal": [
+   "OF1 oövertänkt är inte belagt som motsats till medveten"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "öka",
+  "facit": "minska",
+  "skal": [
+   "OF7 öka är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "stadig",
+  "facit": "ostadig",
+  "skal": [
+   "OF5 facit har samma stam som ordet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "mottaga",
+  "facit": "avsända",
+  "skal": [
+   "OF2 mottaga finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "uppgång",
+  "facit": "fall",
+  "skal": [
+   "OF1 fall är inte belagt som motsats till uppgång"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "generös",
+  "facit": "snål",
+  "skal": [
+   "OF1 snål är inte belagt som motsats till generös"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "förstärka",
+  "facit": "försvaga",
+  "skal": [
+   "OF7 förstärka är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "skärpa",
+  "facit": "slöhet",
+  "skal": [
+   "OF1 slöhet är inte belagt som motsats till skärpa"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "frivillig",
+  "facit": "tvingad",
+  "skal": [
+   "OF2 tvingad finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "påskynda",
+  "facit": "fördröja",
+  "skal": [
+   "OF1 fördröja är inte belagt som motsats till påskynda"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "försiktig",
+  "facit": "oförsiktig",
+  "skal": [
+   "OF5 facit har samma stam som ordet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "utvidga",
+  "facit": "minska",
+  "skal": [
+   "OF1 minska är inte belagt som motsats till utvidga"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "tydliggöra",
+  "facit": "förvirra",
+  "skal": [
+   "OF1 förvirra är inte belagt som motsats till tydliggöra"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "noggrann",
+  "facit": "slarvig",
+  "skal": [
+   "OF1 slarvig är inte belagt som motsats till noggrann"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "försumma",
+  "facit": "sköta",
+  "skal": [
+   "OF1 sköta är inte belagt som motsats till försumma"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "avsiktlig",
+  "facit": "ofrivillig",
+  "skal": [
+   "OF1 ofrivillig är inte belagt som motsats till avsiktlig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "fastställa",
+  "facit": "ändra",
+  "skal": [
+   "OF1 ändra är inte belagt som motsats till fastställa"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "enighet",
+  "facit": "splittring",
+  "skal": [
+   "OF1 splittring är inte belagt som motsats till enighet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "synlig",
+  "facit": "dold",
+  "skal": [
+   "OF1 dold är inte belagt som motsats till synlig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "tillåta",
+  "facit": "förbjuda",
+  "skal": [
+   "OF7 tillåta är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "säkerhet",
+  "facit": "fara",
+  "skal": [
+   "OF1 fara är inte belagt som motsats till säkerhet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "vedertagen",
+  "facit": "ovanlig",
+  "skal": [
+   "OF1 ovanlig är inte belagt som motsats till vedertagen"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "obarmhärtig",
+  "facit": "nådig",
+  "skal": [
+   "OF1 nådig är inte belagt som motsats till obarmhärtig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "hämma",
+  "facit": "främja",
+  "skal": [
+   "OF1 främja är inte belagt som motsats till hämma"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "konsekvent",
+  "facit": "motsägelsefull",
+  "skal": [
+   "OF1 motsägelsefull är inte belagt som motsats till konsekvent"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "avskräcka",
+  "facit": "locka",
+  "skal": [
+   "OF1 locka är inte belagt som motsats till avskräcka"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "harmoni",
+  "facit": "konflikt",
+  "skal": [
+   "OF1 konflikt är inte belagt som motsats till harmoni"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "obetydlig",
+  "facit": "väsentlig",
+  "skal": [
+   "OF1 väsentlig är inte belagt som motsats till obetydlig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "bemyndiga",
+  "facit": "förbjuda",
+  "skal": [
+   "OF1 förbjuda är inte belagt som motsats till bemyndiga"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "uppriktig",
+  "facit": "falsk",
+  "skal": [
+   "OF7 uppriktig är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "stabilisera",
+  "facit": "rubba",
+  "skal": [
+   "OF1 rubba är inte belagt som motsats till stabilisera"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "redbar",
+  "facit": "otillförlitlig",
+  "skal": [
+   "OF6 redbar är markerat åld"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "initiera",
+  "facit": "avsluta",
+  "skal": [
+   "OF6 avsluta är markerat åld"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "passiv",
+  "facit": "aktiv",
+  "skal": [
+   "OF6 passiv är markerat nedsätt"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "befrämja",
+  "facit": "motverka",
+  "skal": [
+   "OF1 motverka är inte belagt som motsats till befrämja"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "destruktiv",
+  "facit": "uppbygglig",
+  "skal": [
+   "OF1 uppbygglig är inte belagt som motsats till destruktiv"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "konsolidera",
+  "facit": "splittra",
+  "skal": [
+   "OF1 splittra är inte belagt som motsats till konsolidera"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "fluktuera",
+  "facit": "bestå",
+  "skal": [
+   "OF1 bestå är inte belagt som motsats till fluktuera"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "subtil",
+  "facit": "påtaglig",
+  "skal": [
+   "OF1 påtaglig är inte belagt som motsats till subtil"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "repressiv",
+  "facit": "medgivande",
+  "skal": [
+   "OF2 medgivande finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "stagnera",
+  "facit": "utvecklas",
+  "skal": [
+   "OF1 utvecklas är inte belagt som motsats till stagnera"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "arrogans",
+  "facit": "ödmjukhet",
+  "skal": [
+   "OF1 ödmjukhet är inte belagt som motsats till arrogans"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "sanktionera",
+  "facit": "förbjuda",
+  "skal": [
+   "OF1 förbjuda är inte belagt som motsats till sanktionera"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "diffus",
+  "facit": "klar",
+  "skal": [
+   "OF1 klar är inte belagt som motsats till diffus"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "skeptisk",
+  "facit": "lätttrogen",
+  "skal": [
+   "OF2 lätttrogen finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "autonom",
+  "facit": "beroende",
+  "skal": [
+   "OF1 beroende är inte belagt som motsats till autonom"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "flathet",
+  "facit": "fasthet",
+  "skal": [
+   "OF1 fasthet är inte belagt som motsats till flathet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "perifer",
+  "facit": "central",
+  "skal": [
+   "OF1 central är inte belagt som motsats till perifer"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "lakonisk",
+  "facit": "mångordig",
+  "skal": [
+   "OF1 mångordig är inte belagt som motsats till lakonisk"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "kverulera",
+  "facit": "berömma",
+  "skal": [
+   "OF6 kverulera är markerat åld"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "tadel",
+  "facit": "beröm",
+  "skal": [
+   "OF6 tadel är markerat åld"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "impertinent",
+  "facit": "hövlig",
+  "skal": [
+   "OF1 hövlig är inte belagt som motsats till impertinent"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "auktorisera",
+  "facit": "förbjuda",
+  "skal": [
+   "OF1 förbjuda är inte belagt som motsats till auktorisera"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "redundant",
+  "facit": "nödvändig",
+  "skal": [
+   "OF1 nödvändig är inte belagt som motsats till redundant"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "diskretion",
+  "facit": "hänsynslöshet",
+  "skal": [
+   "OF1 hänsynslöshet är inte belagt som motsats till diskretion"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "flanera",
+  "facit": "rusa",
+  "skal": [
+   "OF1 rusa är inte belagt som motsats till flanera"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "impertinent",
+  "facit": "vördnadsfull",
+  "skal": [
+   "OF1 vördnadsfull är inte belagt som motsats till impertinent"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "kverulera",
+  "facit": "berömma",
+  "skal": [
+   "OF6 kverulera är markerat åld"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "konciliant",
+  "facit": "avvisande",
+  "skal": [
+   "OF6 konciliant är markerat åld"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "lakonisk",
+  "facit": "mångordig",
+  "skal": [
+   "OF1 mångordig är inte belagt som motsats till lakonisk"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "prekär",
+  "facit": "stabil",
+  "skal": [
+   "OF1 stabil är inte belagt som motsats till prekär"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "skrupulös",
+  "facit": "hänsynslös",
+  "skal": [
+   "OF1 hänsynslös är inte belagt som motsats till skrupulös"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "explicit",
+  "facit": "underförstådd",
+  "skal": [
+   "OF2 underförstådd finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "anarki",
+  "facit": "laglydnad",
+  "skal": [
+   "OF1 laglydnad är inte belagt som motsats till anarki"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "anomali",
+  "facit": "normalkvalitet",
+  "skal": [
+   "OF2 normalkvalitet finns inte som substantiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "pragmatisk",
+  "facit": "teoretiserande",
+  "skal": [
+   "OF2 teoretiserande finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "latens",
+  "facit": "aktivitet",
+  "skal": [
+   "OF1 aktivitet är inte belagt som motsats till latens"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "arkaisk",
+  "facit": "modern",
+  "skal": [
+   "OF6 arkaisk är markerat åld"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "indikation",
+  "facit": "motbevis",
+  "skal": [
+   "OF1 motbevis är inte belagt som motsats till indikation"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "symptomatisk",
+  "facit": "otypisk",
+  "skal": [
+   "OF2 symptomatisk finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "koherent",
+  "facit": "spretig",
+  "skal": [
+   "OF1 spretig är inte belagt som motsats till koherent"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "premiss",
+  "facit": "slutsats",
+  "skal": [
+   "OF1 slutsats är inte belagt som motsats till premiss"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "anpasslig",
+  "facit": "oböjlig",
+  "skal": [
+   "OF6 anpasslig är markerat nedsätt"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "indolent",
+  "facit": "energisk",
+  "skal": [
+   "OF1 energisk är inte belagt som motsats till indolent"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "renegat",
+  "facit": "anhängare",
+  "skal": [
+   "OF6 renegat är markerat nedsätt, åld"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "anemisk",
+  "facit": "kraftfull",
+  "skal": [
+   "OF1 kraftfull är inte belagt som motsats till anemisk"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "fanatisk",
+  "facit": "måttfull",
+  "skal": [
+   "OF1 måttfull är inte belagt som motsats till fanatisk"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "insinuerad",
+  "facit": "uttryckt",
+  "skal": [
+   "OF2 insinuerad finns inte som adjektiv i SO eller SAOL",
+   "OF2 uttryckt finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "synkron",
+  "facit": "osynkron",
+  "skal": [
+   "OF5 facit har samma stam som ordet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "avspänd",
+  "facit": "spänd",
+  "skal": [
+   "OF5 facit har samma stam som ordet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "gynna",
+  "facit": "skada",
+  "skal": [
+   "OF1 skada är inte belagt som motsats till gynna"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "samstämmig",
+  "facit": "oenig",
+  "skal": [
+   "OF1 oenig är inte belagt som motsats till samstämmig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "skärpa",
+  "facit": "slöhet",
+  "skal": [
+   "OF1 slöhet är inte belagt som motsats till skärpa"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "medveten",
+  "facit": "aningslös",
+  "skal": [
+   "OF1 aningslös är inte belagt som motsats till medveten"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "förstärka",
+  "facit": "försvaga",
+  "skal": [
+   "OF7 förstärka är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "stadig",
+  "facit": "ostadig",
+  "skal": [
+   "OF5 facit har samma stam som ordet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "mottaga",
+  "facit": "avsända",
+  "skal": [
+   "OF2 mottaga finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "frivillig",
+  "facit": "tvingad",
+  "skal": [
+   "OF2 tvingad finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "tillväxt",
+  "facit": "nedgång",
+  "skal": [
+   "OF1 nedgång är inte belagt som motsats till tillväxt"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "försiktig",
+  "facit": "oförsiktig",
+  "skal": [
+   "OF5 facit har samma stam som ordet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "överskott",
+  "facit": "underskott",
+  "skal": [
+   "OF7 överskott är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "utvidga",
+  "facit": "krympa",
+  "skal": [
+   "OF1 krympa är inte belagt som motsats till utvidga"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "redbar",
+  "facit": "opålitlig",
+  "skal": [
+   "OF6 redbar är markerat åld"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "fastställa",
+  "facit": "ändra",
+  "skal": [
+   "OF1 ändra är inte belagt som motsats till fastställa"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "enighet",
+  "facit": "oenighet",
+  "skal": [
+   "OF5 facit har samma stam som ordet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "medgång",
+  "facit": "motgång",
+  "skal": [
+   "OF7 medgång är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "ordning",
+  "facit": "oordning",
+  "skal": [
+   "OF5 facit har samma stam som ordet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "säkerhet",
+  "facit": "osäkerhet",
+  "skal": [
+   "OF5 facit har samma stam som ordet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "diffus",
+  "facit": "tydlig",
+  "skal": [
+   "OF1 tydlig är inte belagt som motsats till diffus"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "skeptisk",
+  "facit": "troende",
+  "skal": [
+   "OF1 troende är inte belagt som motsats till skeptisk"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "autonom",
+  "facit": "beroende",
+  "skal": [
+   "OF1 beroende är inte belagt som motsats till autonom"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "perifer",
+  "facit": "central",
+  "skal": [
+   "OF1 central är inte belagt som motsats till perifer"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "redundant",
+  "facit": "saknad",
+  "skal": [
+   "OF1 saknad är inte belagt som motsats till redundant"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "explicit",
+  "facit": "antydd",
+  "skal": [
+   "OF2 antydd finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "anarki",
+  "facit": "ordning",
+  "skal": [
+   "OF1 ordning är inte belagt som motsats till anarki"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "pragmatisk",
+  "facit": "låst",
+  "skal": [
+   "OF1 låst är inte belagt som motsats till pragmatisk"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "dogmatisk",
+  "facit": "öppen",
+  "skal": [
+   "OF1 öppen är inte belagt som motsats till dogmatisk"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "samvetsgrann",
+  "facit": "slarvig",
+  "skal": [
+   "OF1 slarvig är inte belagt som motsats till samvetsgrann"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "avsiktlig",
+  "facit": "ofrivillig",
+  "skal": [
+   "OF1 ofrivillig är inte belagt som motsats till avsiktlig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "försumma",
+  "facit": "sköta",
+  "skal": [
+   "OF1 sköta är inte belagt som motsats till försumma"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "generös",
+  "facit": "snål",
+  "skal": [
+   "OF1 snål är inte belagt som motsats till generös"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "bestående",
+  "facit": "kortvarig",
+  "skal": [
+   "OF1 kortvarig är inte belagt som motsats till bestående"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "avböja",
+  "facit": "antaga",
+  "skal": [
+   "OF2 antaga finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "befogad",
+  "facit": "grundlös",
+  "skal": [
+   "OF1 grundlös är inte belagt som motsats till befogad"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "obetydlig",
+  "facit": "väsentlig",
+  "skal": [
+   "OF1 väsentlig är inte belagt som motsats till obetydlig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "upphöra",
+  "facit": "starta",
+  "skal": [
+   "OF7 upphöra är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "koncis",
+  "facit": "ordrik",
+  "skal": [
+   "OF1 ordrik är inte belagt som motsats till koncis"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "pålitlig",
+  "facit": "sviklig",
+  "skal": [
+   "OF1 sviklig är inte belagt som motsats till pålitlig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "förhindra",
+  "facit": "främja",
+  "skal": [
+   "OF1 främja är inte belagt som motsats till förhindra"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "omfattande",
+  "facit": "begränsad",
+  "skal": [
+   "OF1 begränsad är inte belagt som motsats till omfattande"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "bifalla",
+  "facit": "avslå",
+  "skal": [
+   "OF1 avslå är inte belagt som motsats till bifalla"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "godtycklig",
+  "facit": "systematisk",
+  "skal": [
+   "OF1 systematisk är inte belagt som motsats till godtycklig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "gynnsam",
+  "facit": "skadlig",
+  "skal": [
+   "OF1 skadlig är inte belagt som motsats till gynnsam"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "obarmhärtig",
+  "facit": "skonsam",
+  "skal": [
+   "OF7 obarmhärtig är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "tillämpa",
+  "facit": "frångå",
+  "skal": [
+   "OF1 frångå är inte belagt som motsats till tillämpa"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "opartisk",
+  "facit": "partisk",
+  "skal": [
+   "OF5 facit har samma stam som ordet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "varsam",
+  "facit": "hänsynslös",
+  "skal": [
+   "OF1 hänsynslös är inte belagt som motsats till varsam"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "gagna",
+  "facit": "skada",
+  "skal": [
+   "OF1 skada är inte belagt som motsats till gagna"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "saklig",
+  "facit": "känslosam",
+  "skal": [
+   "OF1 känslosam är inte belagt som motsats till saklig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "yppig",
+  "facit": "karg",
+  "skal": [
+   "OF1 karg är inte belagt som motsats till yppig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "yppa",
+  "facit": "dölja",
+  "skal": [
+   "OF1 dölja är inte belagt som motsats till yppa"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "påtaglig",
+  "facit": "osynlig",
+  "skal": [
+   "OF1 osynlig är inte belagt som motsats till påtaglig"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "invecklad",
+  "facit": "enkel",
+  "skal": [
+   "OF7 invecklad är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "varaktig",
+  "facit": "tillfällig",
+  "skal": [
+   "OF7 varaktig är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "sträng",
+  "facit": "mild",
+  "skal": [
+   "OF7 sträng är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "uppmuntra",
+  "facit": "avskräcka",
+  "skal": [
+   "OF1 avskräcka är inte belagt som motsats till uppmuntra"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "omedelbar",
+  "facit": "fördröjd",
+  "skal": [
+   "OF2 fördröjd finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "konciliant",
+  "facit": "tillmötesgående",
+  "skal": [
+   "OF6 konciliant är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "subtil",
+  "facit": "finstämd",
+  "skal": [
+   "OF1 finstämd är inte belagt som synonym till subtil"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "elakartad",
+  "facit": "farlig",
+  "skal": [
+   "OF7 elakartad är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "skrupulös",
+  "facit": "noggrann",
+  "skal": [
+   "OF1 noggrann är inte belagt som synonym till skrupulös"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "implicit",
+  "facit": "underförstådd",
+  "skal": [
+   "OF2 underförstådd finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "anomali",
+  "facit": "avvikelse",
+  "skal": [
+   "OF1 avvikelse är inte belagt som synonym till anomali"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "kontext",
+  "facit": "sammanhang",
+  "skal": [
+   "OF1 sammanhang är inte belagt som synonym till kontext"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "ambivalent",
+  "facit": "kluvendelad",
+  "skal": [
+   "OF2 kluvendelad finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "kontinuerlig",
+  "facit": "oavbruten",
+  "skal": [
+   "OF1 oavbruten är inte belagt som synonym till kontinuerlig"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "latens",
+  "facit": "fördröjning",
+  "skal": [
+   "OF1 fördröjning är inte belagt som synonym till latens"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "dogm",
+  "facit": "lärosats",
+  "skal": [
+   "OF1 lärosats är inte belagt som synonym till dogm"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "diskretion",
+  "facit": "tystlåtenhet",
+  "skal": [
+   "OF1 tystlåtenhet är inte belagt som synonym till diskretion"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "arkaisk",
+  "facit": "föråldrad",
+  "skal": [
+   "OF6 arkaisk är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "sporadisk",
+  "facit": "enstaka",
+  "skal": [
+   "OF7 sporadisk är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "skrupler",
+  "facit": "betänkligheter",
+  "skal": [
+   "OF2 betänkligheter finns inte som substantiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "symptomatisk",
+  "facit": "kännetecknande",
+  "skal": [
+   "OF2 symptomatisk finns inte som adjektiv i SO eller SAOL",
+   "OF2 kännetecknande finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "verifiera",
+  "facit": "bekräfta",
+  "skal": [
+   "OF1 bekräfta är inte belagt som synonym till verifiera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "falsifiera",
+  "facit": "motbevisa",
+  "skal": [
+   "OF1 motbevisa är inte belagt som synonym till falsifiera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "koherent",
+  "facit": "sammanhängande",
+  "skal": [
+   "OF1 sammanhängande är inte belagt som synonym till koherent"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "godtycke",
+  "facit": "godtycklighet",
+  "skal": [
+   "OF5 facit har samma stam som ordet"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "anpasslig",
+  "facit": "medgörlig",
+  "skal": [
+   "OF6 anpasslig är markerat nedsätt"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "tribulation",
+  "facit": "beprövelse",
+  "skal": [
+   "OF2 tribulation finns inte som substantiv i SO eller SAOL",
+   "OF2 beprövelse finns inte som substantiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "labil",
+  "facit": "ostadig",
+  "skal": [
+   "OF7 labil är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "indolent",
+  "facit": "bekväm",
+  "skal": [
+   "OF1 bekväm är inte belagt som synonym till indolent"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "diskret",
+  "facit": "dämpad",
+  "skal": [
+   "OF1 dämpad är inte belagt som synonym till diskret"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "renegat",
+  "facit": "avfälling",
+  "skal": [
+   "OF6 renegat är markerat nedsätt, åld",
+   "OF6 avfälling är markerat nedsätt"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "fluktuera",
+  "facit": "variera",
+  "skal": [
+   "OF1 variera är inte belagt som synonym till fluktuera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "karismatisk",
+  "facit": "personlighetsstark",
+  "skal": [
+   "facit har fler än 16 bokstäver (ryms inte på en rad)"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "stagnera",
+  "facit": "avstanna",
+  "skal": [
+   "OF1 avstanna är inte belagt som synonym till stagnera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "fanatisk",
+  "facit": "blindtagen",
+  "skal": [
+   "OF2 blindtagen finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "insinuerad",
+  "facit": "antydd",
+  "skal": [
+   "OF2 insinuerad finns inte som adjektiv i SO eller SAOL",
+   "OF2 antydd finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "arrogans",
+  "facit": "övermod",
+  "skal": [
+   "OF1 övermod är inte belagt som synonym till arrogans"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "anarki",
+  "facit": "laglöshet",
+  "skal": [
+   "OF7 anarki är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "illusion",
+  "facit": "villfarelse",
+  "skal": [
+   "OF1 villfarelse är inte belagt som synonym till illusion"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "konsolidera",
+  "facit": "stärka",
+  "skal": [
+   "OF1 stärka är inte belagt som synonym till konsolidera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "synkron",
+  "facit": "samida",
+  "skal": [
+   "OF2 samida finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "defensiv",
+  "facit": "skyddande",
+  "skal": [
+   "OF2 skyddande finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "initiera",
+  "facit": "påbörja",
+  "skal": [
+   "OF1 påbörja är inte belagt som synonym till initiera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "explikera",
+  "facit": "förklara",
+  "skal": [
+   "OF2 explikera finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "autonom",
+  "facit": "självständig",
+  "skal": [
+   "OF1 självständig är inte belagt som synonym till autonom"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "hypotetisk",
+  "facit": "antagen",
+  "skal": [
+   "OF2 antagen finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "apercipiera",
+  "facit": "uppfatta",
+  "skal": [
+   "OF2 apercipiera finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "flathet",
+  "facit": "undfallenhet",
+  "skal": [
+   "OF1 undfallenhet är inte belagt som synonym till flathet"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "kristalliseras",
+  "facit": "klarna",
+  "skal": [
+   "OF2 kristalliseras finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "indignerad",
+  "facit": "upprörd",
+  "skal": [
+   "OF1 upprörd är inte belagt som synonym till indignerad"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "adherera",
+  "facit": "vidhäfta",
+  "skal": [
+   "OF2 adherera finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "eklektisk",
+  "facit": "blandad",
+  "skal": [
+   "OF6 eklektisk är markerat nedsätt"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "blamera",
+  "facit": "skämma",
+  "skal": [
+   "OF1 skämma är inte belagt som synonym till blamera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "prekursor",
+  "facit": "föregångare",
+  "skal": [
+   "OF2 prekursor finns inte som substantiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "kontaminera",
+  "facit": "smutsa",
+  "skal": [
+   "OF1 smutsa är inte belagt som synonym till kontaminera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "remiss",
+  "facit": "hänvisning",
+  "skal": [
+   "OF1 hänvisning är inte belagt som synonym till remiss"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "kverulera",
+  "facit": "klaga",
+  "skal": [
+   "OF6 kverulera är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "tadel",
+  "facit": "kritik",
+  "skal": [
+   "OF6 tadel är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "insistera",
+  "facit": "stå på sig",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "flanera",
+  "facit": "ströva",
+  "skal": [
+   "OF1 ströva är inte belagt som synonym till flanera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "diskreditera",
+  "facit": "svärta ner",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "arkaisk",
+  "facit": "ålderdomlig",
+  "skal": [
+   "OF6 arkaisk är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "interfoliera",
+  "facit": "skjuta in",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "kulminera",
+  "facit": "nå sin höjd",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "latens",
+  "facit": "dvala",
+  "skal": [
+   "OF1 dvala är inte belagt som synonym till latens"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "anomali",
+  "facit": "avvikelse",
+  "skal": [
+   "OF1 avvikelse är inte belagt som synonym till anomali"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "sedat",
+  "facit": "satt",
+  "skal": [
+   "OF2 sedat finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "supplera",
+  "facit": "fylla ut",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "fostra",
+  "facit": "uppfostra",
+  "skal": [
+   "OF5 facit har samma stam som ordet"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "börda",
+  "facit": "tyngd",
+  "skal": [
+   "OF1 tyngd är inte belagt som synonym till börda"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "dristig",
+  "facit": "orädd",
+  "skal": [
+   "OF1 orädd är inte belagt som synonym till dristig"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "eftergift",
+  "facit": "kompromiss",
+  "skal": [
+   "OF1 kompromiss är inte belagt som synonym till eftergift"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "fata",
+  "facit": "gripa",
+  "skal": [
+   "OF2 fata finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "förfara",
+  "facit": "agera",
+  "skal": [
+   "OF1 agera är inte belagt som synonym till förfara"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "förfång",
+  "facit": "skada",
+  "skal": [
+   "OF1 skada är inte belagt som synonym till förfång"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "förspilla",
+  "facit": "slösa",
+  "skal": [
+   "OF1 slösa är inte belagt som synonym till förspilla"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "gagna",
+  "facit": "nytta",
+  "skal": [
+   "OF1 nytta är inte belagt som synonym till gagna"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "hänsyn",
+  "facit": "respekt",
+  "skal": [
+   "OF1 respekt är inte belagt som synonym till hänsyn"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "inlemma",
+  "facit": "förena",
+  "skal": [
+   "OF1 förena är inte belagt som synonym till inlemma"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "intaga",
+  "facit": "erövra",
+  "skal": [
+   "OF1 erövra är inte belagt som synonym till intaga"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "jämka",
+  "facit": "justera",
+  "skal": [
+   "OF1 justera är inte belagt som synonym till jämka"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "karg",
+  "facit": "fattig",
+  "skal": [
+   "OF1 fattig är inte belagt som synonym till karg"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "kundgöra",
+  "facit": "meddela",
+  "skal": [
+   "OF2 kundgöra finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "labil",
+  "facit": "ostadig",
+  "skal": [
+   "OF7 labil är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "nödga",
+  "facit": "tvinga",
+  "skal": [
+   "OF6 nödga är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "ogridbar",
+  "facit": "otillgänglig",
+  "skal": [
+   "OF2 ogridbar finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "omständlig",
+  "facit": "vidlyftig",
+  "skal": [
+   "OF1 vidlyftig är inte belagt som synonym till omständlig"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "påverka",
+  "facit": "inverka",
+  "skal": [
+   "OF1 inverka är inte belagt som synonym till påverka"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "rannsaka",
+  "facit": "granska",
+  "skal": [
+   "OF7 rannsaka är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "redbar",
+  "facit": "ärlig",
+  "skal": [
+   "OF6 redbar är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "saklig",
+  "facit": "objektiv",
+  "skal": [
+   "OF7 saklig är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "skrupulös",
+  "facit": "noggrann",
+  "skal": [
+   "OF1 noggrann är inte belagt som synonym till skrupulös"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "svårgripbar",
+  "facit": "obegriplig",
+  "skal": [
+   "OF1 obegriplig är inte belagt som synonym till svårgripbar"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "konformism",
+  "facit": "likformighet",
+  "skal": [
+   "OF1 likformighet är inte belagt som synonym till konformism"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "obsolet",
+  "facit": "föråldrad",
+  "skal": [
+   "OF6 obsolet är markerat föråldr"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "sykofant",
+  "facit": "ja-sägare",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "stoisk",
+  "facit": "lugn",
+  "skal": [
+   "OF1 lugn är inte belagt som synonym till stoisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "kolludera",
+  "facit": "samverka",
+  "skal": [
+   "OF2 kolludera finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "insidiös",
+  "facit": "förrädisk",
+  "skal": [
+   "OF1 förrädisk är inte belagt som synonym till insidiös"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "skrupulös",
+  "facit": "noggrann",
+  "skal": [
+   "OF1 noggrann är inte belagt som synonym till skrupulös"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "invektiv",
+  "facit": "skällsord",
+  "skal": [
+   "OF6 skällsord är markerat nedsätt"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "eklektisk",
+  "facit": "blandad",
+  "skal": [
+   "OF6 eklektisk är markerat nedsätt"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "lakonisk",
+  "facit": "kortfattad",
+  "skal": [
+   "OF7 lakonisk är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "kverulera",
+  "facit": "klaga",
+  "skal": [
+   "OF6 kverulera är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "perifer",
+  "facit": "oväsentlig",
+  "skal": [
+   "OF7 perifer är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "vedervåga",
+  "facit": "riskera",
+  "skal": [
+   "OF6 vedervåga är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "bemyndiga",
+  "facit": "auktorisera",
+  "skal": [
+   "OF7 bemyndiga är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "fostra",
+  "facit": "uppfostra",
+  "skal": [
+   "OF5 facit har samma stam som ordet"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "impertinent",
+  "facit": "näsvis",
+  "skal": [
+   "OF7 impertinent är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "sedat",
+  "facit": "stilla",
+  "skal": [
+   "OF2 sedat finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "supplera",
+  "facit": "komplettera",
+  "skal": [
+   "OF1 komplettera är inte belagt som synonym till supplera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "plausibel",
+  "facit": "trolig",
+  "skal": [
+   "OF1 trolig är inte belagt som synonym till plausibel"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "kulminera",
+  "facit": "nå toppen",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "avog",
+  "facit": "avogt inställd",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "börda",
+  "facit": "belastning",
+  "skal": [
+   "OF1 belastning är inte belagt som synonym till börda"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "dristig",
+  "facit": "oförvägen",
+  "skal": [
+   "OF1 oförvägen är inte belagt som synonym till dristig"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "eftergift",
+  "facit": "mötande",
+  "skal": [
+   "OF2 mötande finns inte som substantiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "fata",
+  "facit": "gripa",
+  "skal": [
+   "OF2 fata finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "förfara",
+  "facit": "handla",
+  "skal": [
+   "OF1 handla är inte belagt som synonym till förfara"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "förfång",
+  "facit": "skada",
+  "skal": [
+   "OF1 skada är inte belagt som synonym till förfång"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "förspilla",
+  "facit": "slösa",
+  "skal": [
+   "OF1 slösa är inte belagt som synonym till förspilla"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "blamera",
+  "facit": "skämma ut",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "obskyr",
+  "facit": "dunkel",
+  "skal": [
+   "OF7 obskyr är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "eklektisk",
+  "facit": "blandad",
+  "skal": [
+   "OF6 eklektisk är markerat nedsätt"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "adherera",
+  "facit": "vidlåta",
+  "skal": [
+   "OF2 adherera finns inte som verb i SO eller SAOL",
+   "OF2 vidlåta finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "sedat",
+  "facit": "stillsam",
+  "skal": [
+   "OF2 sedat finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "plausibel",
+  "facit": "rimlig",
+  "skal": [
+   "OF7 plausibel är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "insistera",
+  "facit": "stå på sig",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "kulminera",
+  "facit": "nå toppen",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "frapperande",
+  "facit": "slående",
+  "skal": [
+   "OF7 frapperande är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "prekursor",
+  "facit": "föregångare",
+  "skal": [
+   "OF2 prekursor finns inte som substantiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "remiss",
+  "facit": "hänvisning",
+  "skal": [
+   "OF1 hänvisning är inte belagt som synonym till remiss"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "indignerad",
+  "facit": "upprörd",
+  "skal": [
+   "OF1 upprörd är inte belagt som synonym till indignerad"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "supplera",
+  "facit": "komplettera",
+  "skal": [
+   "OF1 komplettera är inte belagt som synonym till supplera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "interfoliera",
+  "facit": "flika in",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "fostra",
+  "facit": "uppfostra",
+  "skal": [
+   "OF5 facit har samma stam som ordet"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "avog",
+  "facit": "fientlig",
+  "skal": [
+   "OF7 avog är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "bestrida",
+  "facit": "förneka",
+  "skal": [
+   "OF7 bestrida är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "dristig",
+  "facit": "modig",
+  "skal": [
+   "OF1 modig är inte belagt som synonym till dristig"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "eftergift",
+  "facit": "prutmån",
+  "skal": [
+   "OF1 prutmån är inte belagt som synonym till eftergift"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "förfara",
+  "facit": "handla",
+  "skal": [
+   "OF1 handla är inte belagt som synonym till förfara"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "förfång",
+  "facit": "skada",
+  "skal": [
+   "OF1 skada är inte belagt som synonym till förfång"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "hävda",
+  "facit": "påstå",
+  "skal": [
+   "OF7 hävda är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "intaga",
+  "facit": "erövra",
+  "skal": [
+   "OF1 erövra är inte belagt som synonym till intaga"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "jämka",
+  "facit": "justera",
+  "skal": [
+   "OF1 justera är inte belagt som synonym till jämka"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "karg",
+  "facit": "mager",
+  "skal": [
+   "OF1 mager är inte belagt som synonym till karg"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "kundgöra",
+  "facit": "utlysa",
+  "skal": [
+   "OF2 kundgöra finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "mäkta",
+  "facit": "orka",
+  "skal": [
+   "OF7 mäkta är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "nödga",
+  "facit": "tvinga",
+  "skal": [
+   "OF6 nödga är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "aforistisk",
+  "facit": "kärnfull",
+  "skal": [
+   "OF1 kärnfull är inte belagt som synonym till aforistisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "anakronistisk",
+  "facit": "otidsenlig",
+  "skal": [
+   "OF1 otidsenlig är inte belagt som synonym till anakronistisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "bravur",
+  "facit": "skicklighet",
+  "skal": [
+   "OF1 skicklighet är inte belagt som synonym till bravur"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "demagog",
+  "facit": "folkuppviglare",
+  "skal": [
+   "OF1 folkuppviglare är inte belagt som synonym till demagog"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "egensinnig",
+  "facit": "självständig",
+  "skal": [
+   "OF1 självständig är inte belagt som synonym till egensinnig"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "esoterisk",
+  "facit": "svårillgänglig",
+  "skal": [
+   "OF2 svårillgänglig finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "eufemism",
+  "facit": "skönmålning",
+  "skal": [
+   "OF1 skönmålning är inte belagt som synonym till eufemism"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "exekution",
+  "facit": "verkställande",
+  "skal": [
+   "OF1 verkställande är inte belagt som synonym till exekution"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "fluktuation",
+  "facit": "svängning",
+  "skal": [
+   "OF1 svängning är inte belagt som synonym till fluktuation"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "förebära",
+  "facit": "invända",
+  "skal": [
+   "OF1 invända är inte belagt som synonym till förebära"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "förfarande",
+  "facit": "tillvägagångssätt",
+  "skal": [
+   "facit har fler än 16 bokstäver (ryms inte på en rad)"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "förpliktigande",
+  "facit": "bindande",
+  "skal": [
+   "OF2 förpliktigande finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "förslagen",
+  "facit": "finurlig",
+  "skal": [
+   "OF1 finurlig är inte belagt som synonym till förslagen"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "ikonoklastisk",
+  "facit": "radikal",
+  "skal": [
+   "OF2 ikonoklastisk finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "incitament",
+  "facit": "drivkraft",
+  "skal": [
+   "OF1 drivkraft är inte belagt som synonym till incitament"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "invertera",
+  "facit": "omvända",
+  "skal": [
+   "OF1 omvända är inte belagt som synonym till invertera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "preskriberad",
+  "facit": "förfallen",
+  "skal": [
+   "OF2 preskriberad finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "avoga",
+  "facit": "vänligt inställd",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "kapitulera",
+  "facit": "bjuda motstånd",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "barmhärtig",
+  "facit": "hänsynslös",
+  "skal": [
+   "OF1 hänsynslös är inte belagt som motsats till barmhärtig"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "befrukta",
+  "facit": "sterilisera",
+  "skal": [
+   "OF1 sterilisera är inte belagt som motsats till befrukta"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "bestörtning",
+  "facit": "sinneslugn",
+  "skal": [
+   "OF1 sinneslugn är inte belagt som motsats till bestörtning"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "subversiv",
+  "facit": "lojal",
+  "skal": [
+   "OF1 lojal är inte belagt som motsats till subversiv"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "anarkistisk",
+  "facit": "laglydig",
+  "skal": [
+   "OF1 laglydig är inte belagt som motsats till anarkistisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "despotisk",
+  "facit": "demokratisk",
+  "skal": [
+   "OF1 demokratisk är inte belagt som motsats till despotisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "dogmatism",
+  "facit": "öppenhet",
+  "skal": [
+   "OF1 öppenhet är inte belagt som motsats till dogmatism"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "förtvina",
+  "facit": "blomstra",
+  "skal": [
+   "OF1 blomstra är inte belagt som motsats till förtvina"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "blidka",
+  "facit": "reta upp",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "stagnera",
+  "facit": "utvecklas",
+  "skal": [
+   "OF1 utvecklas är inte belagt som motsats till stagnera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "pretentiös",
+  "facit": "anspråkslös",
+  "skal": [
+   "OF1 anspråkslös är inte belagt som motsats till pretentiös"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "inkompensabel",
+  "facit": "ersättningsbar",
+  "skal": [
+   "OF2 inkompensabel finns inte som adjektiv i SO eller SAOL",
+   "OF2 ersättningsbar finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "apatisk",
+  "facit": "engagerad",
+  "skal": [
+   "OF1 engagerad är inte belagt som motsats till apatisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "obskurantism",
+  "facit": "upplysning",
+  "skal": [
+   "OF1 upplysning är inte belagt som motsats till obskurantism"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "provisorisk",
+  "facit": "beständig",
+  "skal": [
+   "OF1 beständig är inte belagt som motsats till provisorisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "kontaminera",
+  "facit": "renrena",
+  "skal": [
+   "OF2 renrena finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "lakonisk",
+  "facit": "mångordig",
+  "skal": [
+   "OF1 mångordig är inte belagt som motsats till lakonisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "eklektisk",
+  "facit": "enhetlig",
+  "skal": [
+   "OF6 eklektisk är markerat nedsätt"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "kulminera",
+  "facit": "avta",
+  "skal": [
+   "OF1 avta är inte belagt som motsats till kulminera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "latens",
+  "facit": "synlighet",
+  "skal": [
+   "OF1 synlighet är inte belagt som motsats till latens"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "blamera",
+  "facit": "hylla",
+  "skal": [
+   "OF1 hylla är inte belagt som motsats till blamera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "koherent",
+  "facit": "spretig",
+  "skal": [
+   "OF1 spretig är inte belagt som motsats till koherent"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "sedat",
+  "facit": "livlig",
+  "skal": [
+   "OF2 sedat finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "fluktuera",
+  "facit": "förbli fast",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "kverulera",
+  "facit": "berömma",
+  "skal": [
+   "OF6 kverulera är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "dogmatisk",
+  "facit": "frisinnad",
+  "skal": [
+   "OF6 frisinnad är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "impertinent",
+  "facit": "hövlig",
+  "skal": [
+   "OF1 hövlig är inte belagt som motsats till impertinent"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "auktoritär",
+  "facit": "demokratisk",
+  "skal": [
+   "OF1 demokratisk är inte belagt som motsats till auktoritär"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "anarkistisk",
+  "facit": "laglydig",
+  "skal": [
+   "OF1 laglydig är inte belagt som motsats till anarkistisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "expansiv",
+  "facit": "stagnerande",
+  "skal": [
+   "OF2 stagnerande finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "konfrontativ",
+  "facit": "försonlig",
+  "skal": [
+   "OF1 försonlig är inte belagt som motsats till konfrontativ"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "kapitulera",
+  "facit": "avslå",
+  "skal": [
+   "OF1 avslå är inte belagt som motsats till kapitulera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "restriktiv",
+  "facit": "tillåtande",
+  "skal": [
+   "OF1 tillåtande är inte belagt som motsats till restriktiv"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "despotisk",
+  "facit": "human",
+  "skal": [
+   "OF1 human är inte belagt som motsats till despotisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "destruktiv",
+  "facit": "gagnelig",
+  "skal": [
+   "OF6 gagnelig är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "ekonomisera",
+  "facit": "slösa",
+  "skal": [
+   "OF7 ekonomisera är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "pretentiös",
+  "facit": "anspråkslös",
+  "skal": [
+   "OF1 anspråkslös är inte belagt som motsats till pretentiös"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "blidka",
+  "facit": "reta",
+  "skal": [
+   "OF1 reta är inte belagt som motsats till blidka"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "apatisk",
+  "facit": "engagerad",
+  "skal": [
+   "OF1 engagerad är inte belagt som motsats till apatisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "provisorisk",
+  "facit": "beständig",
+  "skal": [
+   "OF1 beständig är inte belagt som motsats till provisorisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "förtvina",
+  "facit": "blomma",
+  "skal": [
+   "OF1 blomma är inte belagt som motsats till förtvina"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "dogmatism",
+  "facit": "öppenhet",
+  "skal": [
+   "OF1 öppenhet är inte belagt som motsats till dogmatism"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "repressiv",
+  "facit": "befriande",
+  "skal": [
+   "OF1 befriande är inte belagt som motsats till repressiv"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "korrosiv",
+  "facit": "skyddande",
+  "skal": [
+   "OF2 skyddande finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "skepticism",
+  "facit": "tillit",
+  "skal": [
+   "OF1 tillit är inte belagt som motsats till skepticism"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "stagnation",
+  "facit": "utveckling",
+  "skal": [
+   "OF1 utveckling är inte belagt som motsats till stagnation"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "obskurantism",
+  "facit": "upplysning",
+  "skal": [
+   "OF1 upplysning är inte belagt som motsats till obskurantism"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "dogmatisk",
+  "facit": "lyhörd",
+  "skal": [
+   "OF1 lyhörd är inte belagt som motsats till dogmatisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "labil",
+  "facit": "stadig",
+  "skal": [
+   "OF7 labil är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "indolent",
+  "facit": "flitig",
+  "skal": [
+   "OF1 flitig är inte belagt som motsats till indolent"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "fluktuera",
+  "facit": "bestå",
+  "skal": [
+   "OF1 bestå är inte belagt som motsats till fluktuera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "fanatisk",
+  "facit": "måttfull",
+  "skal": [
+   "OF1 måttfull är inte belagt som motsats till fanatisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "arrogans",
+  "facit": "ödmjukhet",
+  "skal": [
+   "OF1 ödmjukhet är inte belagt som motsats till arrogans"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "sanktionera",
+  "facit": "förbjuda",
+  "skal": [
+   "OF1 förbjuda är inte belagt som motsats till sanktionera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "diffus",
+  "facit": "klar",
+  "skal": [
+   "OF1 klar är inte belagt som motsats till diffus"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "koncis",
+  "facit": "vidlyftig",
+  "skal": [
+   "OF1 vidlyftig är inte belagt som motsats till koncis"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "avskyvärd",
+  "facit": "underbar",
+  "skal": [
+   "OF1 underbar är inte belagt som motsats till avskyvärd"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "despot",
+  "facit": "demokrat",
+  "skal": [
+   "OF1 demokrat är inte belagt som motsats till despot"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "renegat",
+  "facit": "lojalist",
+  "skal": [
+   "OF6 renegat är markerat nedsätt, åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "elakartad",
+  "facit": "godartad",
+  "skal": [
+   "OF7 elakartad är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "insinuerad",
+  "facit": "uttryckt",
+  "skal": [
+   "OF2 insinuerad finns inte som adjektiv i SO eller SAOL",
+   "OF2 uttryckt finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "obskyr",
+  "facit": "berömd",
+  "skal": [
+   "OF1 berömd är inte belagt som motsats till obskyr"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "lakonisk",
+  "facit": "ordrik",
+  "skal": [
+   "OF1 ordrik är inte belagt som motsats till lakonisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "kulminera",
+  "facit": "börja",
+  "skal": [
+   "OF1 börja är inte belagt som motsats till kulminera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "impertinent",
+  "facit": "höflig",
+  "skal": [
+   "OF2 höflig finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "eklektisk",
+  "facit": "enhetlig",
+  "skal": [
+   "OF6 eklektisk är markerat nedsätt"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "fluktuera",
+  "facit": "stabiliseras",
+  "skal": [
+   "OF2 stabiliseras finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "kverulera",
+  "facit": "berömma",
+  "skal": [
+   "OF6 kverulera är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "frappera",
+  "facit": "lämna oberörd",
+  "skal": [
+   "flerordsuttryck eller tecken i ord eller facit"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "falsifiera",
+  "facit": "bekräfta",
+  "skal": [
+   "OF1 bekräfta är inte belagt som motsats till falsifiera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "dogmatisk",
+  "facit": "öppen",
+  "skal": [
+   "OF1 öppen är inte belagt som motsats till dogmatisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "stagnera",
+  "facit": "utvecklas",
+  "skal": [
+   "OF1 utvecklas är inte belagt som motsats till stagnera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "implicit",
+  "facit": "uttrycklig",
+  "skal": [
+   "OF1 uttrycklig är inte belagt som motsats till implicit"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "sykofant",
+  "facit": "kritiker",
+  "skal": [
+   "OF6 sykofant är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "obsolet",
+  "facit": "modern",
+  "skal": [
+   "OF6 obsolet är markerat föråldr"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "kapitulera",
+  "facit": "anfalla",
+  "skal": [
+   "OF1 anfalla är inte belagt som motsats till kapitulera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "barmhärtig",
+  "facit": "skoningslös",
+  "skal": [
+   "OF1 skoningslös är inte belagt som motsats till barmhärtig"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "subversiv",
+  "facit": "bevarande",
+  "skal": [
+   "OF2 bevarande finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "anarkistisk",
+  "facit": "laglydig",
+  "skal": [
+   "OF1 laglydig är inte belagt som motsats till anarkistisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "obskurantism",
+  "facit": "upplysning",
+  "skal": [
+   "OF1 upplysning är inte belagt som motsats till obskurantism"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "insidiös",
+  "facit": "ärlig",
+  "skal": [
+   "OF1 ärlig är inte belagt som motsats till insidiös"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "invektiv",
+  "facit": "hyllning",
+  "skal": [
+   "OF1 hyllning är inte belagt som motsats till invektiv"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "konformism",
+  "facit": "avvikelse",
+  "skal": [
+   "OF1 avvikelse är inte belagt som motsats till konformism"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "förtvina",
+  "facit": "blomstra",
+  "skal": [
+   "OF1 blomstra är inte belagt som motsats till förtvina"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "konciliant",
+  "facit": "oförsonlig",
+  "skal": [
+   "OF6 konciliant är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "redundant",
+  "facit": "nödvändig",
+  "skal": [
+   "OF1 nödvändig är inte belagt som motsats till redundant"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "subtil",
+  "facit": "uppenbar",
+  "skal": [
+   "OF1 uppenbar är inte belagt som motsats till subtil"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "prekär",
+  "facit": "stabil",
+  "skal": [
+   "OF1 stabil är inte belagt som motsats till prekär"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "anomali",
+  "facit": "normality",
+  "skal": [
+   "OF2 normality finns inte som substantiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "implicit",
+  "facit": "uttrycklig",
+  "skal": [
+   "OF1 uttrycklig är inte belagt som motsats till implicit"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "explicit",
+  "facit": "dold",
+  "skal": [
+   "OF1 dold är inte belagt som motsats till explicit"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "dogmatisk",
+  "facit": "pragmatisk",
+  "skal": [
+   "OF7 dogmatisk är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "pragmatisk",
+  "facit": "teoretisk",
+  "skal": [
+   "OF1 teoretisk är inte belagt som motsats till pragmatisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "ambivalent",
+  "facit": "målmedveten",
+  "skal": [
+   "OF1 målmedveten är inte belagt som motsats till ambivalent"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "kontinuerlig",
+  "facit": "avbruten",
+  "skal": [
+   "OF1 avbruten är inte belagt som motsats till kontinuerlig"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "arkaisk",
+  "facit": "modern",
+  "skal": [
+   "OF6 arkaisk är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "sporadisk",
+  "facit": "ständig",
+  "skal": [
+   "OF1 ständig är inte belagt som motsats till sporadisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "koherent",
+  "facit": "spretig",
+  "skal": [
+   "OF1 spretig är inte belagt som motsats till koherent"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "anpasslig",
+  "facit": "oböjlig",
+  "skal": [
+   "OF6 anpasslig är markerat nedsätt"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "labil",
+  "facit": "stabil",
+  "skal": [
+   "OF7 labil är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "indolent",
+  "facit": "drivande",
+  "skal": [
+   "OF1 drivande är inte belagt som motsats till indolent"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "anemisk",
+  "facit": "kraftfull",
+  "skal": [
+   "OF1 kraftfull är inte belagt som motsats till anemisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "fluktuera",
+  "facit": "stabiliseras",
+  "skal": [
+   "OF2 stabiliseras finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "stagnera",
+  "facit": "utvecklas",
+  "skal": [
+   "OF1 utvecklas är inte belagt som motsats till stagnera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "fanatisk",
+  "facit": "måttfull",
+  "skal": [
+   "OF1 måttfull är inte belagt som motsats till fanatisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "arrogans",
+  "facit": "ödmjukhet",
+  "skal": [
+   "OF1 ödmjukhet är inte belagt som motsats till arrogans"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "diffus",
+  "facit": "skarpskuren",
+  "skal": [
+   "OF1 skarpskuren är inte belagt som motsats till diffus"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "skeptisk",
+  "facit": "lätttrogen",
+  "skal": [
+   "OF2 lätttrogen finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "synkron",
+  "facit": "osamtidig",
+  "skal": [
+   "OF2 osamtidig finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "autonom",
+  "facit": "osjälvständig",
+  "skal": [
+   "OF1 osjälvständig är inte belagt som motsats till autonom"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "flathet",
+  "facit": "fasthet",
+  "skal": [
+   "OF1 fasthet är inte belagt som motsats till flathet"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "lakonisk",
+  "facit": "mångordig",
+  "skal": [
+   "OF1 mångordig är inte belagt som motsats till lakonisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "sedat",
+  "facit": "livfull",
+  "skal": [
+   "OF2 sedat finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "impertinent",
+  "facit": "hänsynsfull",
+  "skal": [
+   "OF1 hänsynsfull är inte belagt som motsats till impertinent"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "redundant",
+  "facit": "nödvändig",
+  "skal": [
+   "OF1 nödvändig är inte belagt som motsats till redundant"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "konciliant",
+  "facit": "stridslysten",
+  "skal": [
+   "OF6 konciliant är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "subtil",
+  "facit": "uppenbar",
+  "skal": [
+   "OF1 uppenbar är inte belagt som motsats till subtil"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "prekär",
+  "facit": "trygg",
+  "skal": [
+   "OF1 trygg är inte belagt som motsats till prekär"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "lakonisk",
+  "facit": "mångordig",
+  "skal": [
+   "OF1 mångordig är inte belagt som motsats till lakonisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "kverulera",
+  "facit": "berömma",
+  "skal": [
+   "OF6 kverulera är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "impertinent",
+  "facit": "hövlig",
+  "skal": [
+   "OF1 hövlig är inte belagt som motsats till impertinent"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "diskretion",
+  "facit": "skvaller",
+  "skal": [
+   "OF1 skvaller är inte belagt som motsats till diskretion"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "sporadisk",
+  "facit": "ständig",
+  "skal": [
+   "OF1 ständig är inte belagt som motsats till sporadisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "explicit",
+  "facit": "antydd",
+  "skal": [
+   "OF2 antydd finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "anomali",
+  "facit": "normality",
+  "skal": [
+   "OF2 normality finns inte som substantiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "pragmatisk",
+  "facit": "teoretisk",
+  "skal": [
+   "OF1 teoretisk är inte belagt som motsats till pragmatisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "latens",
+  "facit": "utbrott",
+  "skal": [
+   "OF1 utbrott är inte belagt som motsats till latens"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "arkaisk",
+  "facit": "modern",
+  "skal": [
+   "OF6 arkaisk är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "koherent",
+  "facit": "splittrad",
+  "skal": [
+   "OF1 splittrad är inte belagt som motsats till koherent"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "premiss",
+  "facit": "slutsats",
+  "skal": [
+   "OF1 slutsats är inte belagt som motsats till premiss"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "anpasslig",
+  "facit": "oböjlig",
+  "skal": [
+   "OF6 anpasslig är markerat nedsätt"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "indolent",
+  "facit": "energisk",
+  "skal": [
+   "OF1 energisk är inte belagt som motsats till indolent"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "renegat",
+  "facit": "anhängare",
+  "skal": [
+   "OF6 renegat är markerat nedsätt, åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "anemisk",
+  "facit": "kraftfull",
+  "skal": [
+   "OF1 kraftfull är inte belagt som motsats till anemisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "synkron",
+  "facit": "osamtidig",
+  "skal": [
+   "OF2 osamtidig finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "implicit",
+  "facit": "uttrycklig",
+  "skal": [
+   "OF1 uttrycklig är inte belagt som motsats till implicit"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "dogmatisk",
+  "facit": "lyhörd",
+  "skal": [
+   "OF1 lyhörd är inte belagt som motsats till dogmatisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "kontext",
+  "facit": "isolering",
+  "skal": [
+   "OF1 isolering är inte belagt som motsats till kontext"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "ambivalent",
+  "facit": "målmedveten",
+  "skal": [
+   "OF1 målmedveten är inte belagt som motsats till ambivalent"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "kontinuerlig",
+  "facit": "avbruten",
+  "skal": [
+   "OF1 avbruten är inte belagt som motsats till kontinuerlig"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "skrupler",
+  "facit": "hänsynslöshet",
+  "skal": [
+   "OF1 hänsynslöshet är inte belagt som motsats till skrupler"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "verifiera",
+  "facit": "motbevisa",
+  "skal": [
+   "OF1 motbevisa är inte belagt som motsats till verifiera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "falsifiera",
+  "facit": "bevisa",
+  "skal": [
+   "OF1 bevisa är inte belagt som motsats till falsifiera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "godtycke",
+  "facit": "rättvisa",
+  "skal": [
+   "OF1 rättvisa är inte belagt som motsats till godtycke"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "flegmatisk",
+  "facit": "engagerad",
+  "skal": [
+   "OF6 flegmatisk är markerat nedsätt"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "inskränkt",
+  "facit": "vidsynt",
+  "skal": [
+   "OF1 vidsynt är inte belagt som motsats till inskränkt"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "kapriös",
+  "facit": "pålitlig",
+  "skal": [
+   "OF2 kapriös finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "konnivera",
+  "facit": "ingripa",
+  "skal": [
+   "OF2 konnivera finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "barmhärtighet",
+  "facit": "grymhet",
+  "skal": [
+   "OF1 grymhet är inte belagt som motsats till barmhärtighet"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "promsk",
+  "facit": "långsam",
+  "skal": [
+   "OF2 promsk finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "perfid",
+  "facit": "lojal",
+  "skal": [
+   "OF1 lojal är inte belagt som motsats till perfid"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "skrupelfri",
+  "facit": "nogräknad",
+  "skal": [
+   "OF1 nogräknad är inte belagt som motsats till skrupelfri"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "sedesam",
+  "facit": "utmanande",
+  "skal": [
+   "OF6 sedesam är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "dissonans",
+  "facit": "samklang",
+  "skal": [
+   "OF1 samklang är inte belagt som motsats till dissonans"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "befordra",
+  "facit": "stoppa",
+  "skal": [
+   "OF1 stoppa är inte belagt som motsats till befordra"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "labil",
+  "facit": "stabil",
+  "skal": [
+   "OF7 labil är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "förtäta",
+  "facit": "gallra",
+  "skal": [
+   "OF1 gallra är inte belagt som motsats till förtäta"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "avsky",
+  "facit": "beundran",
+  "skal": [
+   "OF1 beundran är inte belagt som motsats till avsky"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "excentrisk",
+  "facit": "alldaglig",
+  "skal": [
+   "OF1 alldaglig är inte belagt som motsats till excentrisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "vedervåga",
+  "facit": "skydda",
+  "skal": [
+   "OF6 vedervåga är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "förskona",
+  "facit": "drabba",
+  "skal": [
+   "OF1 drabba är inte belagt som motsats till förskona"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "flathet",
+  "facit": "fasthet",
+  "skal": [
+   "OF1 fasthet är inte belagt som motsats till flathet"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "otvetydig",
+  "facit": "oklar",
+  "skal": [
+   "OF1 oklar är inte belagt som motsats till otvetydig"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "frappera",
+  "facit": "undgå",
+  "skal": [
+   "OF1 undgå är inte belagt som motsats till frappera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "insidiös",
+  "facit": "öppen",
+  "skal": [
+   "OF1 öppen är inte belagt som motsats till insidiös"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "försåtlig",
+  "facit": "ärlig",
+  "skal": [
+   "OF1 ärlig är inte belagt som motsats till försåtlig"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "vederlägga",
+  "facit": "bekräfta",
+  "skal": [
+   "OF1 bekräfta är inte belagt som motsats till vederlägga"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "indignerad",
+  "facit": "oberörd",
+  "skal": [
+   "OF1 oberörd är inte belagt som motsats till indignerad"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "kulminera",
+  "facit": "starta",
+  "skal": [
+   "OF1 starta är inte belagt som motsats till kulminera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "eklektisk",
+  "facit": "enhetlig",
+  "skal": [
+   "OF6 eklektisk är markerat nedsätt"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "skrupulös",
+  "facit": "slarvig",
+  "skal": [
+   "OF1 slarvig är inte belagt som motsats till skrupulös"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "konsolidera",
+  "facit": "splittra",
+  "skal": [
+   "OF1 splittra är inte belagt som motsats till konsolidera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "konciliant",
+  "facit": "oförsonlig",
+  "skal": [
+   "OF6 konciliant är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "prekär",
+  "facit": "trygg",
+  "skal": [
+   "OF1 trygg är inte belagt som motsats till prekär"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "redundant",
+  "facit": "omisskännlig",
+  "skal": [
+   "OF1 omisskännlig är inte belagt som motsats till redundant"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "subtil",
+  "facit": "uppenbar",
+  "skal": [
+   "OF1 uppenbar är inte belagt som motsats till subtil"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "eklektisk",
+  "facit": "enhetlig",
+  "skal": [
+   "OF6 eklektisk är markerat nedsätt"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "obskyr",
+  "facit": "välkänd",
+  "skal": [
+   "OF1 välkänd är inte belagt som motsats till obskyr"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "plausibel",
+  "facit": "orimlig",
+  "skal": [
+   "OF1 orimlig är inte belagt som motsats till plausibel"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "sedat",
+  "facit": "hetsig",
+  "skal": [
+   "OF2 sedat finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "avog",
+  "facit": "välvillig",
+  "skal": [
+   "OF1 välvillig är inte belagt som motsats till avog"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "dristig",
+  "facit": "feg",
+  "skal": [
+   "OF1 feg är inte belagt som motsats till dristig"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "karg",
+  "facit": "frodig",
+  "skal": [
+   "OF1 frodig är inte belagt som motsats till karg"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "sykofant",
+  "facit": "kritiker",
+  "skal": [
+   "OF6 sykofant är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "stoisk",
+  "facit": "hysterisk",
+  "skal": [
+   "OF6 hysterisk är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "insidiös",
+  "facit": "öppen",
+  "skal": [
+   "OF1 öppen är inte belagt som motsats till insidiös"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "invektiv",
+  "facit": "hyllning",
+  "skal": [
+   "OF1 hyllning är inte belagt som motsats till invektiv"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "barmhärtig",
+  "facit": "grym",
+  "skal": [
+   "OF1 grym är inte belagt som motsats till barmhärtig"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "pretentiös",
+  "facit": "anspråkslös",
+  "skal": [
+   "OF1 anspråkslös är inte belagt som motsats till pretentiös"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "provisorisk",
+  "facit": "bestående",
+  "skal": [
+   "OF1 bestående är inte belagt som motsats till provisorisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "konfrontativ",
+  "facit": "undvikande",
+  "skal": [
+   "OF1 undvikande är inte belagt som motsats till konfrontativ"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "skepticism",
+  "facit": "lätttrohet",
+  "skal": [
+   "OF2 lätttrohet finns inte som substantiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "konservativ",
+  "facit": "radikal",
+  "skal": [
+   "OF7 konservativ är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "rigid",
+  "facit": "flexibel",
+  "skal": [
+   "OF7 rigid är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "altruistisk",
+  "facit": "egoistisk",
+  "skal": [
+   "OF7 altruistisk är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "avskyvärd",
+  "facit": "underbar",
+  "skal": [
+   "OF1 underbar är inte belagt som motsats till avskyvärd"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "flegmatisk",
+  "facit": "engagerad",
+  "skal": [
+   "OF6 flegmatisk är markerat nedsätt"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "inskränkt",
+  "facit": "vidsynt",
+  "skal": [
+   "OF1 vidsynt är inte belagt som motsats till inskränkt"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "kapriös",
+  "facit": "pålitlig",
+  "skal": [
+   "OF2 kapriös finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "promsk",
+  "facit": "långsam",
+  "skal": [
+   "OF2 promsk finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "perfid",
+  "facit": "lojal",
+  "skal": [
+   "OF1 lojal är inte belagt som motsats till perfid"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "sedesam",
+  "facit": "utmanande",
+  "skal": [
+   "OF6 sedesam är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "konnivenens",
+  "facit": "motstånd",
+  "skal": [
+   "OF2 konnivenens finns inte som substantiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "obskurantisk",
+  "facit": "upplysande",
+  "skal": [
+   "OF2 obskurantisk finns inte som adjektiv i SO eller SAOL",
+   "OF2 upplysande finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "sykofantisk",
+  "facit": "rakryggad",
+  "skal": [
+   "OF2 sykofantisk finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "kollusion",
+  "facit": "ärlighet",
+  "skal": [
+   "OF1 ärlighet är inte belagt som motsats till kollusion"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "sedativ",
+  "facit": "uppiggande",
+  "skal": [
+   "OF1 uppiggande är inte belagt som motsats till sedativ"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "blamera",
+  "facit": "hedera",
+  "skal": [
+   "OF2 hedera finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "supplera",
+  "facit": "reducera",
+  "skal": [
+   "OF1 reducera är inte belagt som motsats till supplera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "apercipiera",
+  "facit": "förbise",
+  "skal": [
+   "OF2 apercipiera finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "insidiös",
+  "facit": "uppriktig",
+  "skal": [
+   "OF1 uppriktig är inte belagt som motsats till insidiös"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "interfoliera",
+  "facit": "avskilja",
+  "skal": [
+   "OF1 avskilja är inte belagt som motsats till interfoliera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "plausibel",
+  "facit": "otrolig",
+  "skal": [
+   "OF1 otrolig är inte belagt som motsats till plausibel"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "frapperande",
+  "facit": "obemärkt",
+  "skal": [
+   "OF1 obemärkt är inte belagt som motsats till frapperande"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "kontaminera",
+  "facit": "rengöra",
+  "skal": [
+   "OF1 rengöra är inte belagt som motsats till kontaminera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "prekursor",
+  "facit": "efterföljare",
+  "skal": [
+   "OF2 prekursor finns inte som substantiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "eklektisk",
+  "facit": "enhetlig",
+  "skal": [
+   "OF6 eklektisk är markerat nedsätt"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "adherera",
+  "facit": "lossna",
+  "skal": [
+   "OF2 adherera finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "kristalliseras",
+  "facit": "upplösas",
+  "skal": [
+   "OF2 kristalliseras finns inte som verb i SO eller SAOL",
+   "OF2 upplösas finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "indignerad",
+  "facit": "opåverkad",
+  "skal": [
+   "OF1 opåverkad är inte belagt som motsats till indignerad"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "skruda",
+  "facit": "avkläda",
+  "skal": [
+   "OF1 avkläda är inte belagt som motsats till skruda"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "ekonomisera",
+  "facit": "slösa",
+  "skal": [
+   "OF7 ekonomisera är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "blidka",
+  "facit": "reta",
+  "skal": [
+   "OF1 reta är inte belagt som motsats till blidka"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "förtvina",
+  "facit": "frodas",
+  "skal": [
+   "OF1 frodas är inte belagt som motsats till förtvina"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "bestörtning",
+  "facit": "lättnad",
+  "skal": [
+   "OF1 lättnad är inte belagt som motsats till bestörtning"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "sedesam",
+  "facit": "utmanande",
+  "skal": [
+   "OF6 sedesam är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "skrupelfri",
+  "facit": "nogräknad",
+  "skal": [
+   "OF1 nogräknad är inte belagt som motsats till skrupelfri"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "promsk",
+  "facit": "långsam",
+  "skal": [
+   "OF2 promsk finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "obskurantism",
+  "facit": "upplysning",
+  "skal": [
+   "OF1 upplysning är inte belagt som motsats till obskurantism"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "inkompensabel",
+  "facit": "ersättlig",
+  "skal": [
+   "OF2 inkompensabel finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "perfid",
+  "facit": "pålitlig",
+  "skal": [
+   "OF1 pålitlig är inte belagt som motsats till perfid"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "flegmatisk",
+  "facit": "häftig",
+  "skal": [
+   "OF6 flegmatisk är markerat nedsätt"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "koncis",
+  "facit": "vidlyftig",
+  "skal": [
+   "OF1 vidlyftig är inte belagt som motsats till koncis"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "sträng",
+  "facit": "överseende",
+  "skal": [
+   "OF1 överseende är inte belagt som motsats till sträng"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "gynnsam",
+  "facit": "ofördelaktig",
+  "skal": [
+   "OF1 ofördelaktig är inte belagt som motsats till gynnsam"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "bifalla",
+  "facit": "avslå",
+  "skal": [
+   "OF1 avslå är inte belagt som motsats till bifalla"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "opartisk",
+  "facit": "fördomsfull",
+  "skal": [
+   "OF1 fördomsfull är inte belagt som motsats till opartisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "varsam",
+  "facit": "vårdslös",
+  "skal": [
+   "OF1 vårdslös är inte belagt som motsats till varsam"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "vederlägga",
+  "facit": "bekräfta",
+  "skal": [
+   "OF1 bekräfta är inte belagt som motsats till vederlägga"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "ynkedom",
+  "facit": "storhet",
+  "skal": [
+   "OF1 storhet är inte belagt som motsats till ynkedom"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "förhala",
+  "facit": "påskynda",
+  "skal": [
+   "OF1 påskynda är inte belagt som motsats till förhala"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "gagna",
+  "facit": "skada",
+  "skal": [
+   "OF1 skada är inte belagt som motsats till gagna"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "försåtlig",
+  "facit": "uppriktig",
+  "skal": [
+   "OF1 uppriktig är inte belagt som motsats till försåtlig"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "påtaglig",
+  "facit": "obemärkt",
+  "skal": [
+   "OF1 obemärkt är inte belagt som motsats till påtaglig"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "vedervärdig",
+  "facit": "underbar",
+  "skal": [
+   "OF1 underbar är inte belagt som motsats till vedervärdig"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "förnimma",
+  "facit": "missa",
+  "skal": [
+   "OF6 missa är markerat vard"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "vedergällning",
+  "facit": "belöning",
+  "skal": [
+   "OF6 vedergällning är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "vederstygglig",
+  "facit": "tilltalande",
+  "skal": [
+   "OF6 vederstygglig är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "avfärda",
+  "facit": "godta",
+  "skal": [
+   "OF1 godta är inte belagt som motsats till avfärda"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "bevara",
+  "facit": "förstöra",
+  "skal": [
+   "OF1 förstöra är inte belagt som motsats till bevara"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "bemöta",
+  "facit": "ignorera",
+  "skal": [
+   "OF1 ignorera är inte belagt som motsats till bemöta"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "samvetsgrann",
+  "facit": "vårdslös",
+  "skal": [
+   "OF1 vårdslös är inte belagt som motsats till samvetsgrann"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "vansköta",
+  "facit": "vårda",
+  "skal": [
+   "OF1 vårda är inte belagt som motsats till vansköta"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "altruistisk",
+  "facit": "egoistisk",
+  "skal": [
+   "OF7 altruistisk är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "avskyvärd",
+  "facit": "underbar",
+  "skal": [
+   "OF1 underbar är inte belagt som motsats till avskyvärd"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "flegmatisk",
+  "facit": "energisk",
+  "skal": [
+   "OF6 flegmatisk är markerat nedsätt"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "kapriös",
+  "facit": "pålitlig",
+  "skal": [
+   "OF2 kapriös finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "barmhärtighet",
+  "facit": "grymhet",
+  "skal": [
+   "OF1 grymhet är inte belagt som motsats till barmhärtighet"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "sedesam",
+  "facit": "oblyg",
+  "skal": [
+   "OF6 sedesam är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "dissonans",
+  "facit": "harmoni",
+  "skal": [
+   "OF1 harmoni är inte belagt som motsats till dissonans"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "befordra",
+  "facit": "degradera",
+  "skal": [
+   "OF1 degradera är inte belagt som motsats till befordra"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "förtäta",
+  "facit": "förtunna",
+  "skal": [
+   "OF1 förtunna är inte belagt som motsats till förtäta"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "koncis",
+  "facit": "vidlyftig",
+  "skal": [
+   "OF1 vidlyftig är inte belagt som motsats till koncis"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "bifalla",
+  "facit": "avslå",
+  "skal": [
+   "OF1 avslå är inte belagt som motsats till bifalla"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "vederlägga",
+  "facit": "bekräfta",
+  "skal": [
+   "OF1 bekräfta är inte belagt som motsats till vederlägga"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "frikostig",
+  "facit": "snål",
+  "skal": [
+   "OF1 snål är inte belagt som motsats till frikostig"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "påskynda",
+  "facit": "förhala",
+  "skal": [
+   "OF1 förhala är inte belagt som motsats till påskynda"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "expansiv",
+  "facit": "stagnerande",
+  "skal": [
+   "OF2 stagnerande finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "gagna",
+  "facit": "skada",
+  "skal": [
+   "OF1 skada är inte belagt som motsats till gagna"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "auktoritär",
+  "facit": "demokratisk",
+  "skal": [
+   "OF1 demokratisk är inte belagt som motsats till auktoritär"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "blidka",
+  "facit": "reta",
+  "skal": [
+   "OF1 reta är inte belagt som motsats till blidka"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "subtil",
+  "facit": "uppenbar",
+  "skal": [
+   "OF1 uppenbar är inte belagt som motsats till subtil"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "initiera",
+  "facit": "avsluta",
+  "skal": [
+   "OF6 avsluta är markerat åld"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "repressiv",
+  "facit": "främjande",
+  "skal": [
+   "OF2 främjande finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "konsolidera",
+  "facit": "splittra",
+  "skal": [
+   "OF1 splittra är inte belagt som motsats till konsolidera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "pragmatisk",
+  "facit": "teoretisk",
+  "skal": [
+   "OF1 teoretisk är inte belagt som motsats till pragmatisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "försumma",
+  "facit": "sköta",
+  "skal": [
+   "OF1 sköta är inte belagt som motsats till försumma"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "implicit",
+  "facit": "uttrycklig",
+  "skal": [
+   "OF1 uttrycklig är inte belagt som motsats till implicit"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "diskreditera",
+  "facit": "upprätta",
+  "skal": [
+   "OF1 upprätta är inte belagt som motsats till diskreditera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "rigorös",
+  "facit": "slapp",
+  "skal": [
+   "OF1 slapp är inte belagt som motsats till rigorös"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "kondensera",
+  "facit": "förånga",
+  "skal": [
+   "OF1 förånga är inte belagt som motsats till kondensera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "anomali",
+  "facit": "normalläge",
+  "skal": [
+   "OF1 normalläge är inte belagt som motsats till anomali"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "relativisera",
+  "facit": "absolutifiera",
+  "skal": [
+   "OF2 absolutifiera finns inte som verb i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "altruistisk",
+  "facit": "egoistisk",
+  "skal": [
+   "OF7 altruistisk är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "stagnera",
+  "facit": "utvecklas",
+  "skal": [
+   "OF1 utvecklas är inte belagt som motsats till stagnera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "labil",
+  "facit": "stabil",
+  "skal": [
+   "OF7 labil är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "harmonisera",
+  "facit": "kontrastera",
+  "skal": [
+   "OF1 kontrastera är inte belagt som motsats till harmonisera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "dogmatisk",
+  "facit": "öppen",
+  "skal": [
+   "OF1 öppen är inte belagt som motsats till dogmatisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "verifiera",
+  "facit": "falsifiera",
+  "skal": [
+   "OF1 falsifiera är inte belagt som motsats till verifiera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "konformism",
+  "facit": "originalitet",
+  "skal": [
+   "OF1 originalitet är inte belagt som motsats till konformism"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "auktorisera",
+  "facit": "förbjuda",
+  "skal": [
+   "OF1 förbjuda är inte belagt som motsats till auktorisera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "redig",
+  "facit": "förvirrad",
+  "skal": [
+   "OF1 förvirrad är inte belagt som motsats till redig"
+  ]
+ }
+]
