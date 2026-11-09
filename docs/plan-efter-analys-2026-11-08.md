@@ -84,6 +84,7 @@ Ordningen nedan är genomförandeordningen. Det som kräver ägaren ligger sist.
     - rebase mot main
     Målet är att provet till konto går från 18 till 30 %, och det avläses fyra veckor efter driftsättning.
 30. **Ägarens beslut: percentilraden på provets resultat.** Den döljs tills minst 200 avslutade prov finns, och i dag finns 132. Cronen rensar ohämtade prov efter sju dagar, så underlaget når kanske aldrig 200. Ska vi föra en egen logg över utfallen, utan personuppgifter?
+    Status: ägaren sa ja 2026-11-09. Klart och live på main. Tabellen `prov_utfall` sparar dag, testtyp, antal rätt, antal frågor och bankversion, utan konto, IP eller token. Bara servern når den (RLS utan policyer, anon och authenticated nekas, kontrollerat). Databasfunktionen `spara_prov_utfall` skriver en rad per rättat prov och undantar ägaren och testkontona som percentilen gör. Rättningen anropar den och fälls aldrig av ett fel. Backfillen förde in 135 prov och kan köras igen utan dubbletter. På grenen feat/prov-konto-v2 läser percentilen nu `prov_utfall`, med samma gräns på 200 och raden dold i nedre halvan. 65 prov saknas till 200. Begränsning: ett testkontos första prov från en ny adress räknas, eftersom raden inte går att koppla tillbaka när kontot sedan hämtar provet.
 31. **Ägarens beslut: nya testtyper.** Se docs/rapporter/gap-testtyper-2026-11-09.md. Testansvarig rekommenderar i den här ordningen: spatial förmåga, talserier, deduktivt som pass och övningsprov, koncentration som egen modul för lokförare och piloter, och Nivåkoll för figurserier.
 
 ## Arbetsregler

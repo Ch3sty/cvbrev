@@ -23,6 +23,7 @@ import {
 import { arBlandad } from '@/lib/logicTestV7/blanda'
 import { bankVersion } from '@/lib/logicTestV7/selectQuestions.v7'
 import { skapaMedBlandning } from '@/lib/logicTestV7/fragor.server'
+import { sparaProvUtfall } from '@/lib/tests/prov-utfall.server'
 
 /** Tre provsessioner per IP och dygn. */
 const IP_LIMIT = 3
@@ -72,6 +73,10 @@ export async function POST(request: Request) {
       .update({ answers, score })
       .eq('token', token)
       .is('claimed_by', null)
+
+    // Utfallet sparas anonymt i prov_utfall, en gång per prov (ägarens
+    // beslut 2026-11-09). Databasfunktionen undantar ägaren och testkontona.
+    await sparaProvUtfall(admin, token)
 
     return NextResponse.json({
       score,
