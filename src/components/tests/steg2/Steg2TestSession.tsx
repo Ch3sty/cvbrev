@@ -351,7 +351,7 @@ export function Steg2TestSession({ kind, sessionId, level, answerEndpoint, compl
         </div>
       }
     >
-      <div className="mx-auto w-full max-w-[420px] space-y-5 sm:space-y-6" data-steg2={kind}>
+      <div className="mx-auto w-full max-w-[420px] space-y-5 lg:max-w-[560px] sm:space-y-6" data-steg2={kind}>
         {/* Frågan tonar in på plats med ren opacity: ingenting flyttar sig (CLS 0). */}
         <div key={currentQuestion} className="space-y-3.5 [animation:fadeInPlace_0.25s_ease-out] motion-reduce:animate-none">
           {/* Numret står i mätraden (copy-avrundning 5); frågan står ensam. */}

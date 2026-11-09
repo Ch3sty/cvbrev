@@ -119,6 +119,9 @@ const ROUTES: RouteDef[] = [
   { path: '/dashboard/tester/pass/ID', namn: 'figurpass uppgift', budget: 'flode', dynamisk: 'figurpass' },
   // Deduktiv slutledning (omgång 3, B1): mät med --epost <qa-konto> som har deduktivsessioner.
   { path: '/dashboard/tester/deduktiv-grund', namn: 'deduktiv testsida', budget: 'lista' },
+  // Testplanen steg 2: nivåtestens startsidor och I-prov-provets startark.
+  { path: '/dashboard/tester/talserier-grund', namn: 'talserier testsida', budget: 'lista' },
+  { path: '/dashboard/tester/spatial-grund', namn: 'spatial testsida', budget: 'lista' },
   { path: '/dashboard/tester/deduktiv-grund/test/ID', namn: 'deduktiv uppgift', budget: 'flode', dynamisk: 'dedSession' },
   { path: '/dashboard/tester/deduktiv-grund/test/ID/results', namn: 'deduktiv resultat', budget: 'flode', dynamisk: 'dedResult' },
   { path: '/dashboard/tester/ovningsprov/figurer', namn: 'tester/ovningsprov figurer', budget: 'flode' },

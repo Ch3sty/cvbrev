@@ -365,7 +365,7 @@ export default function Steg2PassFlode({ api = fetchSteg2PassApi, starta = null,
         )
       }
     >
-      <div className="mx-auto w-full max-w-[420px]" data-steg2pass={kind}>
+      <div className="mx-auto w-full max-w-[420px] lg:max-w-[560px]" data-steg2pass={kind}>
         {at ? (
           <>
             <Steg2Genomgang kind={kind} g={at.genomgang} valt={at.valtVisat} />

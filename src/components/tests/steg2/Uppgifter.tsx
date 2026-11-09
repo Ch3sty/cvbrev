@@ -225,7 +225,7 @@ export function SpatialAlternativ({
 }) {
   const avslojad = ratt != null
   return (
-    <div role="radiogroup" aria-label="Svarsalternativ" className={`matrisyta grid gap-2.5 ${liten ? 'grid-cols-4 gap-2' : 'grid-cols-2'}`} data-steg2-alternativ>
+    <div role="radiogroup" aria-label="Svarsalternativ" className={`matrisyta grid gap-2.5 ${liten ? 'grid-cols-4 gap-2' : 'grid-cols-2 lg:grid-cols-4'}`} data-steg2-alternativ>
       {options.map((o, i) => {
         const arVald = valt === i
         const arRatt = avslojad && ratt === i
@@ -257,7 +257,7 @@ export function SpatialAlternativ({
 /** Pappersvikningens sekvens: tre eller fyra små rutor med pil mellan (skissen). */
 function Sekvens({ figurer, etiketter }: { figurer: SpatialFigur[]; etiketter?: string[] }) {
   return (
-    <div className="matrisyta flex items-stretch gap-1" data-spatial-sekvens>
+    <div className="matrisyta flex items-stretch gap-1 lg:max-w-[400px]" data-spatial-sekvens>
       {figurer.map((f, i) => (
         <div key={i} className="contents">
           {i > 0 ? (

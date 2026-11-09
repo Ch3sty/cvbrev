@@ -520,7 +520,7 @@ export default function IprovFlode({ vy: start }: { vy: IprovVy }) {
       }
     >
       {fel ? <p role="alert" className="mb-3 rounded-xl border border-kant bg-papper px-4 py-2.5 text-sm text-ink-1">{fel}</p> : null}
-      <div className="mx-auto max-w-[420px]" data-iprov-fraga={del.nr}>
+      <div className="mx-auto max-w-[420px] lg:max-w-[560px]" data-iprov-fraga={del.nr}>
         {u ? <Steg2Uppgift key={u.nyckel} kind={del.kind} u={u} valt={svar[u.nyckel] ?? null} onValj={(i) => valj(u.nyckel, i)} /> : null}
       </div>
       <ConfirmDialog
