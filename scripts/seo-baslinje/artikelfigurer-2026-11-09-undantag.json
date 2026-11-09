@@ -1,0 +1,29 @@
+{
+ "_om": "Undantag för saas-leads beslut 3 (2026-11-09): testartiklarnas matris- och figuruppgifter ritas med testernas figurritare (MatrisUppgift), och rotation-test-guide lovar inte längre ett rotationstest som inte finns. Läses av scripts/seo-diff-artiklar.ts.",
+ "LD_UNDANTAG": [
+  {
+   "path": "/artiklar/logiktest-exempel-med-losningar",
+   "datum": "2026-11-09",
+   "skal": "riktiga figurer i stället för tecken: BlogPostings wordCount följer den nya texten. Rubriker, FAQ och länkar orörda.",
+   "andrade": ["BlogPosting"]
+  },
+  {
+   "path": "/artiklar/matrigma-test",
+   "datum": "2026-11-09",
+   "skal": "riktiga figurer i stället för tecken: BlogPostings wordCount följer den nya texten. Rubriker, FAQ och länkar orörda.",
+   "andrade": ["BlogPosting"]
+  },
+  {
+   "path": "/artiklar/logiska-tester",
+   "datum": "2026-11-09",
+   "skal": "riktiga figurer i stället för tecken: BlogPostings wordCount följer den nya texten.",
+   "andrade": ["BlogPosting"]
+  },
+  {
+   "path": "/artiklar/rotation-test-guide",
+   "datum": "2026-11-09",
+   "skal": "felaktigt löfte om rotationstest: FAQ-svaret om var man kan öva gratis lovade ett rotationstest i verktyget. Svaret pekar nu på matrislogiken och provet utan konto. Frågan är densamma. BlogPosting följer den nya texten och uppgiften med vridning mot spegling.",
+   "andrade": ["BlogPosting", "FAQPage"]
+  }
+ ]
+}

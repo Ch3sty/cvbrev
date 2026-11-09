@@ -56,12 +56,12 @@ Gör så här. Lös uppgiften utan att öppna lösningen, gärna med papper och 
     <tr className="bg-slate-50">
       <td className="border border-slate-300 px-4 py-3">Figurserier</td>
       <td className="border border-slate-300 px-4 py-3">4 till 6</td>
-      <td className="border border-slate-300 px-4 py-3">Antal, fyllning, rörelse i en följd</td>
+      <td className="border border-slate-300 px-4 py-3">Antal, vridning, växling och rörelse med växande steg</td>
     </tr>
     <tr>
       <td className="border border-slate-300 px-4 py-3">Matriser</td>
       <td className="border border-slate-300 px-4 py-3">7 till 9</td>
-      <td className="border border-slate-300 px-4 py-3">Rader, kolumner, latinsk kvadrat, kombination av rutor</td>
+      <td className="border border-slate-300 px-4 py-3">Vridning, spegling och överlägg av rutor</td>
     </tr>
     <tr className="bg-slate-50">
       <td className="border border-slate-300 px-4 py-3">Deduktiva slutledningar</td>
@@ -164,98 +164,67 @@ Därför känns figurer svårare än tal, fast reglerna är lika enkla. Förklar
 
 ### Uppgift 4 (lätt)
 
-<div className="overflow-x-auto my-6">
-<table className="border-collapse text-xl">
-  <tbody>
-    <tr>
-      <td className="border border-slate-300 px-3 py-3 text-center">●</td>
-      <td className="border border-slate-300 px-3 py-3 text-center">●●</td>
-      <td className="border border-slate-300 px-3 py-3 text-center">●●●</td>
-      <td className="border border-slate-300 px-3 py-3 text-center">●●●●</td>
-      <td className="border border-slate-300 px-3 py-3 text-center bg-amber-50">?</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+Fem cirklar delade i åtta bitar. Vilken cirkel kommer härnäst?
 
-A) ●●●●● B) ●●●● C) ○○○○○ D) ●●●●●●
+<MatrisUppgift id="logik-u4" />
 
 <details className="my-4 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
 <summary className="cursor-pointer font-semibold">Visa lösning</summary>
 
-**Rätt svar: A, fem fyllda cirklar.**
+**Rätt svar: A, sex svarta bitar från klockan tolv.**
 
-Antalet cirklar ökar med en per steg: en, två, tre, fyra. Nästa ruta har fem. Alla cirklar i serien är fyllda, så alternativ C med fem ofyllda cirklar bryter mot det som är konstant.
+<MatrisFacit id="logik-u4" />
 
-*Regeltyp:* antal som ökar. Uppgiften är en uppvärmning, men lägg märke till alternativ C. Den här typen av svarsalternativ, rätt på en egenskap och fel på en annan, finns i nästan varje figuruppgift.
+Antalet svarta bitar ökar med en per steg: en, två, tre, fyra, fem. Nästa cirkel har sex. Den första svarta biten står kvar vid klockan tolv, och de nya läggs till medurs. B har en bit för mycket. C till F har för få svarta bitar, och bitarna har dessutom flyttat bort från klockan tolv, något som ingen cirkel i serien gör.
+
+*Regeltyp:* antal som ökar. Uppgiften är en uppvärmning, men lägg märke till B. Den ser rätt ut vid en snabb blick och skiljer sig bara på en egenskap. Den typen av svarsalternativ, rätt på nästan allt och fel på en detalj, finns i nästan varje figuruppgift.
 
 </details>
 
 ### Uppgift 5 (medel)
 
-<div className="overflow-x-auto my-6">
-<table className="border-collapse text-xl">
-  <tbody>
-    <tr>
-      <td className="border border-slate-300 px-3 py-3 text-center">▲</td>
-      <td className="border border-slate-300 px-3 py-3 text-center">△△</td>
-      <td className="border border-slate-300 px-3 py-3 text-center">▲▲▲</td>
-      <td className="border border-slate-300 px-3 py-3 text-center">△△△△</td>
-      <td className="border border-slate-300 px-3 py-3 text-center bg-amber-50">?</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+En pil i fem steg. Vilken pil kommer härnäst?
 
-A) △△△△△ B) ▲▲▲▲ C) ▲▲▲▲▲ D) △△△△
+<MatrisUppgift id="logik-u5" />
 
 <details className="my-4 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
 <summary className="cursor-pointer font-semibold">Visa lösning</summary>
 
-**Rätt svar: C, fem fyllda trianglar.**
+**Rätt svar: C, en pil snett nedåt vänster med öppen spets.**
+
+<MatrisFacit id="logik-u5" />
 
 Här verkar två regler samtidigt.
 
-1. Antal: en, två, tre, fyra. Nästa ruta har fem trianglar.
-2. Fyllning: fylld, ofylld, fylld, ofylld. Nästa ruta är fylld.
+1. Riktning: pilen vrids ett åttondels varv moturs i varje steg. Höger, snett uppåt höger, uppåt, snett uppåt vänster, vänster. Nästa steg är snett nedåt vänster.
+2. Spetsen: fylld, öppen, fylld, öppen, fylld. Nästa spets är öppen.
 
-Bara C uppfyller båda. A har rätt antal men fel fyllning. B har rätt fyllning men fel antal.
+Bara C uppfyller båda. B har rätt riktning men fylld spets. A och E har vridits ett steg för långt och pekar nedåt, och E har dessutom fel spets. D och F är korta, fast pilen är lång i hela serien.
 
-*Regeltyp:* två oberoende regler, antal och växling. Hittar du en regel, fortsätt leta tills du har förklarat varje skillnad mellan rutorna.
+*Regeltyp:* två oberoende regler, vridning och växling. Hittar du en regel, fortsätt leta tills du har förklarat varje skillnad mellan rutorna.
 
 </details>
 
 ### Uppgift 6 (svår)
 
-<div className="overflow-x-auto my-6">
-<table className="border-collapse text-xl">
-  <tbody>
-    <tr>
-      <td className="border border-slate-300 px-3 py-3 text-center">● ■ △</td>
-      <td className="border border-slate-300 px-3 py-3 text-center">■ △ ○</td>
-      <td className="border border-slate-300 px-3 py-3 text-center">△ ○ □</td>
-      <td className="border border-slate-300 px-3 py-3 text-center">○ □ ▲</td>
-      <td className="border border-slate-300 px-3 py-3 text-center bg-amber-50">?</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+En prick på en bana och en kvadrat i mitten. Vilken figur kommer härnäst?
 
-A) □ ▲ ○ B) ● ■ △ C) ▲ □ ● D) □ ▲ ●
+<MatrisUppgift id="logik-u6" />
 
 <details className="my-4 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
 <summary className="cursor-pointer font-semibold">Visa lösning</summary>
 
-**Rätt svar: D, □ ▲ ●.**
+**Rätt svar: D, pricken vid halv elva och en svart kvadrat.**
 
-1. Jämför ruta ett och två. Cirkeln längst till vänster har flyttat sist, och de andra två har flyttat ett steg åt vänster.
-2. Cirkeln har också bytt fyllning, från fylld till ofylld.
-3. Kontrollera mot nästa steg. I ruta tre har kvadraten flyttat sist och gått från fylld till ofylld. I ruta fyra flyttar triangeln sist och går åt andra hållet, från ofylld till fylld. Regeln är alltså inte "blir ofylld" utan "byter fyllning".
-4. I ruta fem flyttar den ofyllda cirkeln sist och byter fyllning, alltså till fylld. Resultatet blir □ ▲ ●.
+<MatrisFacit id="logik-u6" />
 
-A är fällan för den som ser flytten men missar bytet av fyllning. B är fällan för den som tror att serien börjar om. C har rätt figurer men fel ordning.
+1. Följ pricken och räkna stegen. Ett steg är ett åttondels varv. Från klockan tolv till halv två är ett steg medurs. Till halv fem är två steg. Till nio är tre steg. Till tre är fyra steg, förbi klockan tolv.
+2. Steget växer alltså med ett varje gång. Nästa är fem steg, från tre till halv elva.
+3. Kvadraten i mitten växlar mellan ofylld och svart: ofylld, svart, ofylld, svart, ofylld. Nästa är svart.
 
-*Regeltyp:* rörelse plus egenskapsbyte. Följ ett enskilt objekt genom serien i stället för att jämföra hela rutor.
+A är fällan för den som ser att pricken flyttar men inte att steget växer. Den har tagit fyra steg igen, och den har dessutom en cirkel i mitten. B har rätt läge men ofylld kvadrat. C, E och F har gått fem steg åt fel håll, moturs.
+
+*Regeltyp:* rörelse med växande steg, plus växling. Följ ett enskilt element genom serien och räkna stegen, i stället för att jämföra hela rutor med varandra.
 
 </details>
 
@@ -265,117 +234,66 @@ Matrisen är det format du troligast möter. Både Matrigma från Assessio och A
 
 ### Uppgift 7 (lätt)
 
-<table className="my-6 border-collapse text-xl">
-  <tbody>
-    <tr>
-      <td className="border border-slate-300 w-24 h-16 text-center">●</td>
-      <td className="border border-slate-300 w-24 h-16 text-center">●●</td>
-      <td className="border border-slate-300 w-24 h-16 text-center">●●●</td>
-    </tr>
-    <tr>
-      <td className="border border-slate-300 w-24 h-16 text-center">■</td>
-      <td className="border border-slate-300 w-24 h-16 text-center">■■</td>
-      <td className="border border-slate-300 w-24 h-16 text-center">■■■</td>
-    </tr>
-    <tr>
-      <td className="border border-slate-300 w-24 h-16 text-center">▲</td>
-      <td className="border border-slate-300 w-24 h-16 text-center">▲▲</td>
-      <td className="border border-slate-300 w-24 h-16 text-center bg-amber-50">?</td>
-    </tr>
-  </tbody>
-</table>
-
-A) ▲▲▲ B) ▲▲ C) ■■■ D) △△△
+<MatrisUppgift id="logik-u7" />
 
 <details className="my-4 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
 <summary className="cursor-pointer font-semibold">Visa lösning</summary>
 
-**Rätt svar: A, tre fyllda trianglar.**
+**Rätt svar: A.**
 
-Varje rad har en egen form, och antalet ökar från en till tre åt höger. Rad tre består av trianglar, så den sista rutan ska ha tre fyllda trianglar. C har rätt antal men fel form för raden. D har rätt form och antal men fel fyllning.
+<MatrisFacit id="logik-u7" />
 
-*Regeltyp:* progression i raden. Kolumnerna bekräftar: kolumn tre har tre figurer i varje ruta.
+Varje rad börjar med ett eget mönster av svarta rutor. För varje steg åt höger vrids mönstret ett kvarts varv medurs. Rad tre ska alltså sluta med mittrutans mönster vridet ett kvarts varv till.
+
+B är samma som rutan till vänster och har inte vridits sista steget. C har vridits ett kvarts varv för mycket, och D har vridits tillbaka till samma läge som första rutan. E och F är spegelbilder av rätt svar, inte vridningar. Spegling och vridning är lätta att blanda ihop, och därför står de med.
+
+*Regeltyp:* vridning i raden. Kontrollera med rad ett och två att det är samma vridning i varje steg, ett kvarts varv medurs.
 
 </details>
 
 ### Uppgift 8 (medel)
 
-<table className="my-6 border-collapse text-xl">
-  <tbody>
-    <tr>
-      <td className="border border-slate-300 w-24 h-16 text-center">●</td>
-      <td className="border border-slate-300 w-24 h-16 text-center">▲▲</td>
-      <td className="border border-slate-300 w-24 h-16 text-center">■■■</td>
-    </tr>
-    <tr>
-      <td className="border border-slate-300 w-24 h-16 text-center">▲</td>
-      <td className="border border-slate-300 w-24 h-16 text-center">■■</td>
-      <td className="border border-slate-300 w-24 h-16 text-center">●●●</td>
-    </tr>
-    <tr>
-      <td className="border border-slate-300 w-24 h-16 text-center">■</td>
-      <td className="border border-slate-300 w-24 h-16 text-center">●●</td>
-      <td className="border border-slate-300 w-24 h-16 text-center bg-amber-50">?</td>
-    </tr>
-  </tbody>
-</table>
-
-A) ●●● B) ▲▲ C) ■■■ D) △△△ E) ▲▲▲
+<MatrisUppgift id="logik-u8" />
 
 <details className="my-4 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
 <summary className="cursor-pointer font-semibold">Visa lösning</summary>
 
-**Rätt svar: E, tre fyllda trianglar.**
+**Rätt svar: E.**
 
-1. Form: varje rad innehåller en cirkel, en triangel och en kvadrat. Rad tre har kvadrat och cirkel, så triangeln saknas. Kolumn tre har kvadrat och cirkel, så även där saknas triangeln.
-2. Antal: kolumn ett har en figur per ruta, kolumn två har två, kolumn tre har tre.
-3. Svaret är tre trianglar, fyllda som alla andra figurer i matrisen.
+<MatrisFacit id="logik-u8" />
 
-*Regeltyp:* latinsk kvadrat (varje form en gång per rad och kolumn) kombinerad med antal per kolumn. Den latinska kvadraten är den regel du ska pröva först när samma tre figurer återkommer i olika ordning.
+1. Rad ett: jämför första och andra rutan. Mönstret har bytt sida, så att vänster blir höger. Det är en spegling i en lodrät linje genom mitten.
+2. Jämför andra och tredje rutan. Nu har mönstret vänts upp och ned, en spegling i en vågrät linje.
+3. Kontrollera mot rad två. Samma två speglingar, i samma ordning.
+4. Rad tre: ta mittrutan och vänd den upp och ned. Rutan i nedre högra hörnet hamnar i övre högra, nedre mitten hamnar i övre mitten, övre vänstra hamnar i nedre vänstra och mittrutan står kvar.
+
+A är fällan. Den är samma som mittrutan, så den andra speglingen saknas. C är samma som första rutan. B, D och F är speglade i fel linje eller vridna i stället för speglade.
+
+*Regeltyp:* spegling i två steg. Två speglingar efter varandra, en lodrät och en vågrät, ger samma resultat som ett halvt varv. Det kan du använda som kontroll: den högra rutan ska vara den vänstra vriden ett halvt varv.
 
 </details>
 
 ### Uppgift 9 (svår)
 
-Den här gången gäller regeln bara raderna. I varje rad är den tredje rutan resultatet av de två första.
+Den här gången gäller regeln bara raderna. I varje rad är den tredje rutan resultatet av de två första. Strecken går ut från mitten, åt samma håll som visarna på en klocka.
 
-<table className="my-6 border-collapse text-xl">
-  <tbody>
-    <tr>
-      <td className="border border-slate-300 w-28 h-16 text-center">○ □ △</td>
-      <td className="border border-slate-300 w-28 h-16 text-center">□ ◇</td>
-      <td className="border border-slate-300 w-28 h-16 text-center">○ △ ◇</td>
-    </tr>
-    <tr>
-      <td className="border border-slate-300 w-28 h-16 text-center">△ ◇</td>
-      <td className="border border-slate-300 w-28 h-16 text-center">○ △ □</td>
-      <td className="border border-slate-300 w-28 h-16 text-center">○ □ ◇</td>
-    </tr>
-    <tr>
-      <td className="border border-slate-300 w-28 h-16 text-center">○ □ ◇</td>
-      <td className="border border-slate-300 w-28 h-16 text-center">○ △</td>
-      <td className="border border-slate-300 w-28 h-16 text-center bg-amber-50">?</td>
-    </tr>
-  </tbody>
-</table>
-
-Figurernas ordning inne i en ruta spelar ingen roll.
-
-A) ○ □ △ ◇ B) □ ◇ C) ○ D) △ ◇ E) □ △ ◇
+<MatrisUppgift id="logik-u9" />
 
 <details className="my-4 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
 <summary className="cursor-pointer font-semibold">Visa lösning</summary>
 
-**Rätt svar: E, □ △ ◇.**
+**Rätt svar: E, streck mot klockan tolv, tre, halv åtta och nio.**
 
-1. Rad ett: första rutan har cirkel, kvadrat och triangel, andra har kvadrat och romb. Tredje rutan har cirkel, triangel och romb. Kvadraten, som fanns i båda, är borta.
-2. Rad två: triangel och romb, sedan cirkel, triangel och kvadrat. Tredje rutan har cirkel, kvadrat och romb. Triangeln, som fanns i båda, är borta.
+<MatrisFacit id="logik-u9" />
+
+1. Rad ett: lägg de två första rutorna ovanpå varandra. Strecket mot klockan tre finns i båda. I tredje rutan är det borta, medan alla streck som bara fanns i en av rutorna är kvar.
+2. Rad två: strecken mot halv två och sex finns i båda och är borta i tredje rutan. Kvar blir halv fem och nio.
 3. Regeln är alltså: lägg ihop de två rutorna och stryk det som finns i båda.
-4. Rad tre: cirkel, kvadrat och romb, sedan cirkel och triangel. Cirkeln finns i båda och stryks. Kvar blir kvadrat, triangel och romb.
+4. Rad tre: första rutan har streck mot tolv, halv fem och nio, andra mot tre, halv fem och halv åtta. Halv fem finns i båda och stryks. Kvar blir tolv, tre, halv åtta och nio.
 
-A är fällan. Den lägger ihop allt utan att stryka något, och det är den regel de flesta testar först. Prövar du den på rad ett ser du att den inte håller, eftersom kvadraten då skulle ha funnits kvar. B har strukit cirkeln men tappat triangeln, och D har tappat kvadraten.
+A är fällan. Den lägger ihop allt utan att stryka något, och det är den regel de flesta testar först. Prövar du den på rad ett ser du att den inte håller, eftersom strecket mot tre då hade funnits kvar. B gör tvärtom och behåller bara det gemensamma. C har strukit allt från den andra rutan, D har rätt antal streck men vridna ett åttondels varv, och F har ett streck för mycket.
 
-*Regeltyp:* kombination med strykning. I bildbaserade matriser ser den ut som två figurer som läggs ovanpå varandra, där linjer som finns i båda försvinner. Den är en av de svåraste regeltyperna eftersom den inte syns förrän du jämför rutor parvis.
+*Regeltyp:* överlägg med strykning. Ett överlägg finns i tre varianter: allt från båda rutorna följer med, bara det gemensamma blir kvar, eller bara det som skiljer blir kvar. Pröva alla tre på första raden innan du väljer. Typen är en av de svåraste eftersom den inte syns förrän du jämför rutor parvis.
 
 </details>
 
@@ -558,33 +476,20 @@ A, kilo, är fällan. Kilo är en enhet för vikt. I det första paret står ter
 
 ### Uppgift 18 (medel)
 
-<div className="overflow-x-auto my-6">
-<table className="border-collapse text-xl">
-  <tbody>
-    <tr>
-      <td className="border border-slate-300 px-3 py-3 text-center">●●</td>
-      <td className="px-3 py-3 text-center text-base">förhåller sig till</td>
-      <td className="border border-slate-300 px-3 py-3 text-center">○○○</td>
-    </tr>
-    <tr>
-      <td className="border border-slate-300 px-3 py-3 text-center">■■■</td>
-      <td className="px-3 py-3 text-center text-base">förhåller sig till</td>
-      <td className="border border-slate-300 px-3 py-3 text-center bg-amber-50">?</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+Den första figuren förhåller sig till den andra som den tredje förhåller sig till vilken?
 
-A) ■■■■ B) □□□ C) □□□□ D) ▲▲▲▲
+<MatrisUppgift id="logik-u18" />
 
 <details className="my-4 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
 <summary className="cursor-pointer font-semibold">Visa lösning</summary>
 
-**Rätt svar: C, fyra ofyllda kvadrater.**
+**Rätt svar: C, en ofylld kvadrat med kryss.**
 
-I det första paret händer två saker: antalet ökar med ett (från två till tre) och figurerna går från fyllda till ofyllda. Formen är densamma. Använd samma två ändringar på tre fyllda kvadrater och du får fyra ofyllda kvadrater.
+<MatrisFacit id="logik-u18" />
 
-B har bara den ena ändringen. A har bara den andra. D byter form, vilket det första paret aldrig gör.
+I det första paret händer två saker: figuren går från svart till ofylld, och plustecknet vrids ett åttondels varv och blir ett kryss. Formen är densamma. Använd samma två ändringar på den svarta kvadraten med plustecken och du får en ofylld kvadrat med kryss.
+
+A har bara den ena ändringen, B har bara den andra. D har vridit hela figuren i stället för tecknet, och en kvadrat som vrids ett åttondels varv blir en romb. Formen ändras aldrig i det första paret.
 
 *Regeltyp:* figuranalogi med två ändringar. Lista allt som ändras i det första paret och allt som förblir detsamma, innan du tittar på alternativen.
 
@@ -661,26 +566,31 @@ En stor del av skillnaden mellan en snabb och en långsam lösare ligger i rutin
     </tr>
     <tr>
       <td className="border border-slate-300 px-4 py-3">Antal som ändras</td>
-      <td className="border border-slate-300 px-4 py-3">Samma figur i olika antal</td>
-      <td className="border border-slate-300 px-4 py-3">4, 7</td>
+      <td className="border border-slate-300 px-4 py-3">Fler eller färre av samma sak för varje steg</td>
+      <td className="border border-slate-300 px-4 py-3">4</td>
     </tr>
     <tr className="bg-slate-50">
       <td className="border border-slate-300 px-4 py-3">Två regler samtidigt</td>
       <td className="border border-slate-300 px-4 py-3">Mer än en egenskap ändras mellan rutorna</td>
-      <td className="border border-slate-300 px-4 py-3">5, 8, 18</td>
+      <td className="border border-slate-300 px-4 py-3">5, 18</td>
     </tr>
     <tr>
-      <td className="border border-slate-300 px-4 py-3">Rörelse och egenskapsbyte</td>
-      <td className="border border-slate-300 px-4 py-3">Samma figurer återkommer men på nya platser</td>
+      <td className="border border-slate-300 px-4 py-3">Rörelse med växande steg</td>
+      <td className="border border-slate-300 px-4 py-3">Något flyttar, men olika långt varje gång</td>
       <td className="border border-slate-300 px-4 py-3">6</td>
     </tr>
     <tr className="bg-slate-50">
-      <td className="border border-slate-300 px-4 py-3">Latinsk kvadrat</td>
-      <td className="border border-slate-300 px-4 py-3">Samma tre figurer i varje rad, i olika ordning</td>
+      <td className="border border-slate-300 px-4 py-3">Vridning</td>
+      <td className="border border-slate-300 px-4 py-3">Samma mönster i ett nytt läge, ett kvarts varv i taget</td>
+      <td className="border border-slate-300 px-4 py-3">7</td>
+    </tr>
+    <tr>
+      <td className="border border-slate-300 px-4 py-3">Spegling</td>
+      <td className="border border-slate-300 px-4 py-3">Mönstret byter sida eller vänds upp och ned, och det går inte att få fram genom att vrida</td>
       <td className="border border-slate-300 px-4 py-3">8</td>
     </tr>
     <tr>
-      <td className="border border-slate-300 px-4 py-3">Kombination med strykning</td>
+      <td className="border border-slate-300 px-4 py-3">Överlägg med strykning</td>
       <td className="border border-slate-300 px-4 py-3">Tredje rutan har delar från båda de första, men inte allt</td>
       <td className="border border-slate-300 px-4 py-3">9</td>
     </tr>

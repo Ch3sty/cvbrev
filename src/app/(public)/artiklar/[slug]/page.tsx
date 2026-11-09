@@ -63,6 +63,8 @@ import { GratisKort, InlineKort, ProvKort, SlutKort } from '@/components/artikla
 import { TESTKORT_INTERVJU } from '@/components/artiklar/reklam/reklam-copy';
 import Signatur from '@/components/publikt/innehall/Signatur';
 import ArtikelFilm from '@/components/artiklar/ArtikelFilm';
+// Matris- och serieuppgifterna i testartiklarna, testernas figurritare (2026-11-09).
+import { MatrisUppgift, MatrisFacit } from '@/components/artiklar/MatrisUppgift';
 import { KLUSTER_ETIKETT, hjalteKnapp } from '@/components/publikt/innehall/artikel-kluster';
 import MallMiniatyrer from '@/components/cv/MallMiniatyrer';
 import { BrevMallVisning, CvMallVisning } from '@/components/artiklar/MallVisningar';
@@ -477,6 +479,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         ),
         // Produktfilmen i testartiklarna, klicka för att spela (ArtikelFilm.tsx).
         Traningsfilm: () => <ArtikelFilm slug={slug} />,
+        MatrisUppgift: MatrisUppgift,
+        MatrisFacit: MatrisFacit,
         CVTemplateShowcase: CVTemplateShowcase,
         PersonligtBrevTemplateShowcase: BrevMallVisning,
         InteractiveCVShowcase: CvMallVisning,

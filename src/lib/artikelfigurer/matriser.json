@@ -1,0 +1,767 @@
+[
+ {
+  "id": "logik-u7",
+  "title": "Blocket vrids",
+  "difficulty": 1,
+  "rule": "Blocket vrids ett kvarts varv medurs för varje steg åt höger i raden.",
+  "grid": [
+   [
+    {
+     "kind": "tile",
+     "pattern": 39
+    },
+    {
+     "kind": "tile",
+     "pattern": 420
+    },
+    {
+     "kind": "tile",
+     "pattern": 456
+    }
+   ],
+   [
+    {
+     "kind": "tile",
+     "pattern": 329
+    },
+    {
+     "kind": "tile",
+     "pattern": 71
+    },
+    {
+     "kind": "tile",
+     "pattern": 293
+    }
+   ],
+   [
+    {
+     "kind": "tile",
+     "pattern": 163
+    },
+    {
+     "kind": "tile",
+     "pattern": 172
+    },
+    null
+   ]
+  ],
+  "options": [
+   {
+    "kind": "tile",
+    "pattern": 394
+   },
+   {
+    "kind": "tile",
+    "pattern": 172
+   },
+   {
+    "kind": "tile",
+    "pattern": 106
+   },
+   {
+    "kind": "tile",
+    "pattern": 163
+   },
+   {
+    "kind": "tile",
+    "pattern": 226
+   },
+   {
+    "kind": "tile",
+    "pattern": 142
+   }
+  ],
+  "correctAnswer": 0,
+  "beskrivning": "Matris med tre rader och tre kolumner, den nedre högra rutan är tom. Figurerna är rutblock om tre gånger tre rutor där några rutor är svarta. Rad ett: svart i övre vänstra, övre mitten, övre högra och mitten höger; svart i övre högra, mitten höger, nedre mitten och nedre högra; svart i mitten vänster, nedre vänstra, nedre mitten och nedre högra. Rad två: svart i övre vänstra, mitten vänster, nedre vänstra och nedre högra; svart i övre vänstra, övre mitten, övre högra och nedre vänstra; svart i övre vänstra, övre högra, mitten höger och nedre högra. Rad tre: svart i övre vänstra, övre mitten, mitten höger och nedre mitten; svart i övre högra, mitten vänster, mitten höger och nedre mitten; den tomma rutan. Alternativ A: svart i övre mitten, mitten vänster, nedre mitten och nedre högra. B: svart i övre högra, mitten vänster, mitten höger och nedre mitten. C: svart i övre mitten, mitten vänster, mitten höger och nedre vänstra. D: svart i övre vänstra, övre mitten, mitten höger och nedre mitten. E: svart i övre mitten, mitten höger, nedre vänstra och nedre mitten. F: svart i övre mitten, övre högra, mitten vänster och nedre mitten.",
+  "family": "monsterrotation",
+  "misstag": [
+   "",
+   "Mönstret har inte vridit sig sista steget.",
+   "Mönstret har vridit sig ett steg för långt.",
+   "Mönstret har vridit sig åt fel håll.",
+   "Det är en spegelbild, men mönstret ska vridas.",
+   "Det är en spegelbild, men mönstret ska vridas."
+  ]
+ },
+ {
+  "id": "rotation-u1",
+  "title": "Vridning eller spegling",
+  "difficulty": 2,
+  "rule": "Blocket vrids ett kvarts varv moturs för varje steg åt höger i raden.",
+  "grid": [
+   [
+    {
+     "kind": "tile",
+     "pattern": 147
+    },
+    {
+     "kind": "tile",
+     "pattern": 120
+    },
+    {
+     "kind": "tile",
+     "pattern": 402
+    }
+   ],
+   [
+    {
+     "kind": "tile",
+     "pattern": 298
+    },
+    {
+     "kind": "tile",
+     "pattern": 142
+    },
+    {
+     "kind": "tile",
+     "pattern": 169
+    }
+   ],
+   [
+    {
+     "kind": "tile",
+     "pattern": 15
+    },
+    {
+     "kind": "tile",
+     "pattern": 201
+    },
+    null
+   ]
+  ],
+  "options": [
+   {
+    "kind": "tile",
+    "pattern": 456
+   },
+   {
+    "kind": "tile",
+    "pattern": 480
+   },
+   {
+    "kind": "tile",
+    "pattern": 201
+   },
+   {
+    "kind": "tile",
+    "pattern": 294
+   },
+   {
+    "kind": "tile",
+    "pattern": 39
+   },
+   {
+    "kind": "tile",
+    "pattern": 15
+   }
+  ],
+  "correctAnswer": 1,
+  "beskrivning": "Matris med tre rader och tre kolumner, den nedre högra rutan är tom. Figurerna är rutblock om tre gånger tre rutor där några rutor är svarta. Rad ett: svart i övre vänstra, övre mitten, mitten och nedre mitten; svart i mitten vänster, mitten, mitten höger och nedre vänstra; svart i övre mitten, mitten, nedre mitten och nedre högra. Rad två: svart i övre mitten, mitten vänster, mitten höger och nedre högra; svart i övre mitten, övre högra, mitten vänster och nedre mitten; svart i övre vänstra, mitten vänster, mitten höger och nedre mitten. Rad tre: svart i övre vänstra, övre mitten, övre högra och mitten vänster; svart i övre vänstra, mitten vänster, nedre vänstra och nedre mitten; den tomma rutan. Alternativ A: svart i mitten vänster, nedre vänstra, nedre mitten och nedre högra. B: svart i mitten höger, nedre vänstra, nedre mitten och nedre högra. C: svart i övre vänstra, mitten vänster, nedre vänstra och nedre mitten. D: svart i övre mitten, övre högra, mitten höger och nedre högra. E: svart i övre vänstra, övre mitten, övre högra och mitten höger. F: svart i övre vänstra, övre mitten, övre högra och mitten vänster.",
+  "family": "monsterrotation",
+  "misstag": [
+   "Det är en spegelbild, men mönstret ska vridas.",
+   "",
+   "Mönstret har inte vridit sig sista steget.",
+   "Mönstret har vridit sig ett steg för långt.",
+   "Det är en spegelbild, men mönstret ska vridas.",
+   "Mönstret har vridit sig åt fel håll."
+  ]
+ },
+ {
+  "id": "logik-u8",
+  "title": "Spegling i två steg",
+  "difficulty": 2,
+  "rule": "Mittrutan är den vänstra speglad åt sidan. Den högra är mittrutan speglad upp och ned.",
+  "grid": [
+   [
+    {
+     "kind": "tile",
+     "pattern": 201
+    },
+    {
+     "kind": "tile",
+     "pattern": 420
+    },
+    {
+     "kind": "tile",
+     "pattern": 294
+    }
+   ],
+   [
+    {
+     "kind": "tile",
+     "pattern": 35
+    },
+    {
+     "kind": "tile",
+     "pattern": 14
+    },
+    {
+     "kind": "tile",
+     "pattern": 392
+    }
+   ],
+   [
+    {
+     "kind": "tile",
+     "pattern": 212
+    },
+    {
+     "kind": "tile",
+     "pattern": 401
+    },
+    null
+   ]
+  ],
+  "options": [
+   {
+    "kind": "tile",
+    "pattern": 401
+   },
+   {
+    "kind": "tile",
+    "pattern": 275
+   },
+   {
+    "kind": "tile",
+    "pattern": 212
+   },
+   {
+    "kind": "tile",
+    "pattern": 305
+   },
+   {
+    "kind": "tile",
+    "pattern": 86
+   },
+   {
+    "kind": "tile",
+    "pattern": 116
+   }
+  ],
+  "correctAnswer": 4,
+  "beskrivning": "Matris med tre rader och tre kolumner, den nedre högra rutan är tom. Figurerna är rutblock om tre gånger tre rutor där några rutor är svarta. Rad ett: svart i övre vänstra, mitten vänster, nedre vänstra och nedre mitten; svart i övre högra, mitten höger, nedre mitten och nedre högra; svart i övre mitten, övre högra, mitten höger och nedre högra. Rad två: svart i övre vänstra, övre mitten och mitten höger; svart i övre mitten, övre högra och mitten vänster; svart i mitten vänster, nedre mitten och nedre högra. Rad tre: svart i övre högra, mitten, nedre vänstra och nedre mitten; svart i övre vänstra, mitten, nedre mitten och nedre högra; den tomma rutan. Alternativ A: svart i övre vänstra, mitten, nedre mitten och nedre högra. B: svart i övre vänstra, övre mitten, mitten och nedre högra. C: svart i övre högra, mitten, nedre vänstra och nedre mitten. D: svart i övre vänstra, mitten, mitten höger och nedre högra. E: svart i övre mitten, övre högra, mitten och nedre vänstra. F: svart i övre högra, mitten, mitten höger och nedre vänstra.",
+  "family": "spegling",
+  "misstag": [
+   "Samma som rutan till vänster. Den andra speglingen saknas.",
+   "Vrider i stället för att spegla.",
+   "Kopierar den första rutan i raden.",
+   "Speglar i fel linje.",
+   "",
+   "Vrider i stället för att spegla."
+  ]
+ },
+ {
+  "id": "logik-u9",
+  "title": "Överlägg",
+  "difficulty": 4,
+  "rule": "Lägg de två första rutorna i raden ovanpå varandra. Streck som finns i båda försvinner, streck som finns i bara en av dem blir kvar.",
+  "grid": [
+   [
+    {
+     "kind": "ray",
+     "rays": [
+      0,
+      2,
+      5
+     ]
+    },
+    {
+     "kind": "ray",
+     "rays": [
+      2,
+      3,
+      7
+     ]
+    },
+    {
+     "kind": "ray",
+     "rays": [
+      0,
+      3,
+      5,
+      7
+     ]
+    }
+   ],
+   [
+    {
+     "kind": "ray",
+     "rays": [
+      1,
+      4,
+      6
+     ]
+    },
+    {
+     "kind": "ray",
+     "rays": [
+      1,
+      3,
+      4
+     ]
+    },
+    {
+     "kind": "ray",
+     "rays": [
+      3,
+      6
+     ]
+    }
+   ],
+   [
+    {
+     "kind": "ray",
+     "rays": [
+      0,
+      3,
+      6
+     ]
+    },
+    {
+     "kind": "ray",
+     "rays": [
+      2,
+      3,
+      5
+     ]
+    },
+    null
+   ]
+  ],
+  "options": [
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     2,
+     3,
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     3
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     6
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     1,
+     3,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     2,
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     2,
+     4,
+     5,
+     6
+    ]
+   }
+  ],
+  "correctAnswer": 4,
+  "beskrivning": "Matris med tre rader och tre kolumner, den nedre högra rutan är tom. Figurerna är streck som går ut från en mittpunkt, åt samma håll som visarna på en klocka. Rad ett: streck mot klockan tolv, tre och halv åtta; streck mot tre, halv fem och halv elva; streck mot klockan tolv, halv fem, halv åtta och halv elva. Rad två: streck mot halv två, sex och nio; streck mot halv två, halv fem och sex; streck mot halv fem och nio. Rad tre: streck mot klockan tolv, halv fem och nio; streck mot tre, halv fem och halv åtta; den tomma rutan. Alternativ A: streck mot klockan tolv, tre, halv fem, halv åtta och nio. B: ett streck mot halv fem. C: streck mot klockan tolv och nio. D: streck mot halv två, halv fem, nio och halv elva. E: streck mot klockan tolv, tre, halv åtta och nio. F: streck mot klockan tolv, tre, sex, halv åtta och nio.",
+  "family": "overlagring",
+  "misstag": [
+   "Tar med det som finns i båda. Det gemensamma ska bort.",
+   "Visar bara det gemensamma. Det ska bort, resten ska med.",
+   "",
+   "",
+   "",
+   "Ett streck för mycket."
+  ],
+  "misstagGranskas": [
+   2,
+   3
+  ]
+ },
+ {
+  "id": "matrigma-e1",
+  "title": "Form och antal hörn",
+  "difficulty": 2,
+  "rule": "Varje rad och kolumn har en romb, en femhörning och en sexhörning, och en vit, en grå och en svart figur.",
+  "grid": [
+   [
+    {
+     "kind": "poly",
+     "sides": 4,
+     "rotation": 0,
+     "fill": "none"
+    },
+    {
+     "kind": "poly",
+     "sides": 5,
+     "rotation": 0,
+     "fill": "black"
+    },
+    {
+     "kind": "poly",
+     "sides": 6,
+     "rotation": 0,
+     "fill": "gray"
+    }
+   ],
+   [
+    {
+     "kind": "poly",
+     "sides": 5,
+     "rotation": 0,
+     "fill": "gray"
+    },
+    {
+     "kind": "poly",
+     "sides": 6,
+     "rotation": 0,
+     "fill": "none"
+    },
+    {
+     "kind": "poly",
+     "sides": 4,
+     "rotation": 0,
+     "fill": "black"
+    }
+   ],
+   [
+    {
+     "kind": "poly",
+     "sides": 6,
+     "rotation": 0,
+     "fill": "black"
+    },
+    {
+     "kind": "poly",
+     "sides": 4,
+     "rotation": 0,
+     "fill": "gray"
+    },
+    null
+   ]
+  ],
+  "options": [
+   {
+    "kind": "poly",
+    "sides": 5,
+    "rotation": 0,
+    "fill": "black"
+   },
+   {
+    "kind": "poly",
+    "sides": 4,
+    "rotation": 0,
+    "fill": "none"
+   },
+   {
+    "kind": "poly",
+    "sides": 5,
+    "rotation": 0,
+    "fill": "none"
+   },
+   {
+    "kind": "poly",
+    "sides": 6,
+    "rotation": 0,
+    "fill": "gray"
+   },
+   {
+    "kind": "poly",
+    "sides": 4,
+    "rotation": 0,
+    "fill": "gray"
+   },
+   {
+    "kind": "poly",
+    "sides": 6,
+    "rotation": 0,
+    "fill": "black"
+   }
+  ],
+  "correctAnswer": 2,
+  "beskrivning": "Matris med tre rader och tre kolumner, den nedre högra rutan är tom. Figurerna är romber, femhörningar och sexhörningar, ofyllda, grå eller svarta. Rad ett: ofylld romb; svart femhörning; grå sexhörning. Rad två: grå femhörning; ofylld sexhörning; svart romb. Rad tre: svart sexhörning; grå romb; den tomma rutan. Alternativ A: svart femhörning. B: ofylld romb. C: ofylld femhörning. D: grå sexhörning. E: grå romb. F: svart sexhörning.",
+  "family": "latin-flera",
+  "misstag": [
+   "Formen stämmer, men tredje raden och tredje kolumnen har redan en svart.",
+   "",
+   "",
+   "Tredje raden och tredje kolumnen har redan en sexhörning och en grå.",
+   "Samma som rutan till vänster.",
+   "Tredje raden och tredje kolumnen har redan en sexhörning och en svart."
+  ],
+  "misstagGranskas": [
+   1
+  ]
+ },
+ {
+  "id": "matrigma-e2",
+  "title": "Rotation och växlande fyllning",
+  "difficulty": 2,
+  "rule": "Pilen vrids ett kvarts varv medurs för varje steg åt höger. Varje rad börjar ett åttondels varv längre medurs än raden ovanför. Spetsen växlar mellan fylld och öppen.",
+  "grid": [
+   [
+    {
+     "kind": "vector",
+     "angle": 0,
+     "length": "long",
+     "head": "filled"
+    },
+    {
+     "kind": "vector",
+     "angle": 90,
+     "length": "long",
+     "head": "open"
+    },
+    {
+     "kind": "vector",
+     "angle": 180,
+     "length": "long",
+     "head": "filled"
+    }
+   ],
+   [
+    {
+     "kind": "vector",
+     "angle": 45,
+     "length": "long",
+     "head": "open"
+    },
+    {
+     "kind": "vector",
+     "angle": 135,
+     "length": "long",
+     "head": "filled"
+    },
+    {
+     "kind": "vector",
+     "angle": 225,
+     "length": "long",
+     "head": "open"
+    }
+   ],
+   [
+    {
+     "kind": "vector",
+     "angle": 90,
+     "length": "long",
+     "head": "filled"
+    },
+    {
+     "kind": "vector",
+     "angle": 180,
+     "length": "long",
+     "head": "open"
+    },
+    null
+   ]
+  ],
+  "options": [
+   {
+    "kind": "vector",
+    "angle": 270,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 180,
+    "length": "long",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 315,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 270,
+    "length": "long",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 315,
+    "length": "long",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 180,
+    "length": "long",
+    "head": "open"
+   }
+  ],
+  "correctAnswer": 3,
+  "beskrivning": "Matris med tre rader och tre kolumner, den nedre högra rutan är tom. Figurerna är pilar. Rad ett: pil uppåt med fylld spets; pil åt höger med öppen spets; pil nedåt med fylld spets. Rad två: pil snett uppåt höger med öppen spets; pil snett nedåt höger med fylld spets; pil snett nedåt vänster med öppen spets. Rad tre: pil åt höger med fylld spets; pil nedåt med öppen spets; den tomma rutan. Alternativ A: pil åt vänster med öppen spets. B: pil nedåt med fylld spets. C: pil snett uppåt vänster med öppen spets. D: pil åt vänster med fylld spets. E: pil snett uppåt vänster med fylld spets. F: pil nedåt med öppen spets.",
+  "family": "rotation-med-byte",
+  "misstag": [
+   "Vridningen stämmer, men spetsen har inte växlat mellan fylld och öppen.",
+   "Spetsen stämmer, men pilen har inte vridit sig sista steget.",
+   "Pilen hamnar 45 grader för långt. Spetsen har inte växlat mellan fylld och öppen.",
+   "",
+   "Spetsen stämmer, men pilen hamnar 45 grader för långt.",
+   "Pilen har inte vridit sig sista steget. Spetsen har inte växlat mellan fylld och öppen."
+  ]
+ },
+ {
+  "id": "matrigma-e3",
+  "title": "Lägg ihop och stryk det gemensamma",
+  "difficulty": 3,
+  "rule": "Lägg de två första hjulen ovanpå varandra. Sektorer som är svarta i båda blir vita, sektorer som är svarta i bara det ena blir kvar.",
+  "grid": [
+   [
+    {
+     "kind": "sectorwheel",
+     "filled": [
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "kind": "sectorwheel",
+     "filled": [
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "kind": "sectorwheel",
+     "filled": [
+      0,
+      1,
+      3,
+      4
+     ]
+    }
+   ],
+   [
+    {
+     "kind": "sectorwheel",
+     "filled": [
+      4,
+      5,
+      6
+     ]
+    },
+    {
+     "kind": "sectorwheel",
+     "filled": [
+      0,
+      5
+     ]
+    },
+    {
+     "kind": "sectorwheel",
+     "filled": [
+      0,
+      4,
+      6
+     ]
+    }
+   ],
+   [
+    {
+     "kind": "sectorwheel",
+     "filled": [
+      1,
+      2,
+      6
+     ]
+    },
+    {
+     "kind": "sectorwheel",
+     "filled": [
+      2,
+      7
+     ]
+    },
+    null
+   ]
+  ],
+  "options": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     1,
+     2,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     1,
+     6
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     1,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     2,
+     7
+    ]
+   }
+  ],
+  "correctAnswer": 3,
+  "beskrivning": "Matris med tre rader och tre kolumner, den nedre högra rutan är tom. Figurerna är cirklar delade i åtta bitar. Bitarna räknas medurs från klockan tolv, bit ett till åtta. Rad ett: bit ett, två och tre svarta; bit tre, fyra och fem svarta; bit ett, två, fyra och fem svarta. Rad två: bit fem, sex och sju svarta; bit ett och sex svarta; bit ett, fem och sju svarta. Rad tre: bit två, tre och sju svarta; bit tre och åtta svarta; den tomma rutan. Alternativ A: bit två, tre, sju och åtta svarta. B: bit tre svart. C: bit två och sju svarta. D: bit två, sju och åtta svarta. E: bit sju och åtta svarta. F: bit ett, tre och åtta svarta.",
+  "family": "overlagring",
+  "misstag": [
+   "Tar med det som finns i båda. Det gemensamma ska bort.",
+   "Visar bara det gemensamma. Det ska bort, resten ska med.",
+   "En svart sektor saknas.",
+   "",
+   "En svart sektor saknas.",
+   ""
+  ],
+  "misstagGranskas": [
+   5
+  ]
+ }
+]

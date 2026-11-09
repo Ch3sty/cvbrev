@@ -1,0 +1,61 @@
+[
+ {
+  "id": "logik-u18",
+  "title": "Figuranalogi",
+  "difficulty": 2,
+  "rule": "Figuren blir ofylld och tecknet vrids ett åttondels varv, plus blir kryss. Formen är densamma.",
+  "grid": [
+   [
+    {
+     "kind": "stack",
+     "base": "circle",
+     "symbol": "plus",
+     "baseFill": "black"
+    },
+    {
+     "kind": "stack",
+     "base": "circle",
+     "symbol": "cross",
+     "baseFill": "none"
+    }
+   ],
+   [
+    {
+     "kind": "stack",
+     "base": "square",
+     "symbol": "plus",
+     "baseFill": "black"
+    },
+    null
+   ]
+  ],
+  "options": [
+   {
+    "kind": "stack",
+    "base": "square",
+    "symbol": "plus",
+    "baseFill": "none"
+   },
+   {
+    "kind": "stack",
+    "base": "square",
+    "symbol": "cross",
+    "baseFill": "black"
+   },
+   {
+    "kind": "stack",
+    "base": "square",
+    "symbol": "cross",
+    "baseFill": "none"
+   },
+   {
+    "kind": "stack",
+    "base": "diamond",
+    "symbol": "cross",
+    "baseFill": "none"
+   }
+  ],
+  "correctAnswer": 2,
+  "beskrivning": "Figuranalogi i två par. Första paret: svart cirkel med plustecken förhåller sig till ofylld cirkel med kryss. Andra paret: svart kvadrat med plustecken förhåller sig till den tomma rutan. Alternativ A: ofylld kvadrat med plustecken. B: svart kvadrat med kryss. C: ofylld kvadrat med kryss. D: ofylld romb med kryss."
+ }
+]

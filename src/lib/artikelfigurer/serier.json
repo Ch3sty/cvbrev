@@ -1,0 +1,493 @@
+[
+ {
+  "id": "logik-u4",
+  "niva": "grund",
+  "difficulty": 1,
+  "title": "Sektorhjulet, en regel",
+  "rule": "En sektor till blir svart medurs i varje steg.",
+  "rad": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     2
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     2,
+     3
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     2,
+     3,
+     4
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     4,
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     3
+    ]
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "En svart sektor för många.",
+   "De svarta sektorerna är vridna, men i raden står de still. Antalet ska vara sex, inte fyra.",
+   "De svarta sektorerna är vridna, men i raden står de still. Antalet ska vara sex, inte tre.",
+   "De svarta sektorerna är vridna, men i raden står de still. Antalet ska vara sex, inte en.",
+   "De svarta sektorerna är vridna, men i raden står de still. Antalet ska vara sex, inte två."
+  ],
+  "regler": {
+   "prim": "sektor",
+   "dims": {
+    "start": {
+     "regel": "konstant",
+     "v": 0
+    },
+    "antal": {
+     "regel": "steg",
+     "s0": 1,
+     "k": 1
+    }
+   }
+  },
+  "beskrivning": "Serie med fem figurer och en tom ruta sist. Figurerna är cirklar delade i åtta bitar. Bitarna räknas medurs från klockan tolv, bit ett till åtta. Ett: bit ett svart. Två: bit ett och två svarta. Tre: bit ett, två och tre svarta. Fyra: bit ett, två, tre och fyra svarta. Fem: bit ett, två, tre, fyra och fem svarta. Alternativ A: bit ett, två, tre, fyra, fem och sex svarta. B: bit ett, två, tre, fyra, fem, sex och sju svarta. C: bit tre, fyra, fem och sex svarta. D: bit fem, sex och sju svarta. E: bit tre svart. F: bit tre och fyra svarta."
+ },
+ {
+  "id": "logik-u5",
+  "niva": "grund",
+  "difficulty": 2,
+  "title": "Pilen, två regler",
+  "rule": "Pilen vrids 45 grader moturs i varje steg. Spetsen växlar mellan fylld och öppen. Pilen är lång i hela raden.",
+  "rad": [
+   {
+    "kind": "vector",
+    "angle": 90,
+    "length": "long",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 45,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 0,
+    "length": "long",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 315,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 270,
+    "length": "long",
+    "head": "filled"
+   }
+  ],
+  "options": [
+   {
+    "kind": "vector",
+    "angle": 180,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 225,
+    "length": "long",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 225,
+    "length": "long",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 180,
+    "length": "short",
+    "head": "open"
+   },
+   {
+    "kind": "vector",
+    "angle": 180,
+    "length": "long",
+    "head": "filled"
+   },
+   {
+    "kind": "vector",
+    "angle": 90,
+    "length": "short",
+    "head": "open"
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Pilen har vridits ett steg för långt.",
+   "Spetsen ska vara öppen, inte fylld.",
+   "",
+   "Pilen har vridits ett steg för långt. Pilen ska vara lång, som i hela raden.",
+   "Pilen har vridits ett steg för långt. Spetsen ska vara öppen, inte fylld.",
+   "Pilen pekar åt höger, men ska peka snett nedåt vänster. Pilen ska vara lång, som i hela raden."
+  ],
+  "regler": {
+   "prim": "pil",
+   "dims": {
+    "vinkel": {
+     "regel": "steg",
+     "s0": 2,
+     "k": -1
+    },
+    "langd": {
+     "regel": "konstant",
+     "v": "long"
+    },
+    "spets": {
+     "regel": "cykel",
+     "varden": [
+      "filled",
+      "open"
+     ]
+    }
+   }
+  },
+  "beskrivning": "Serie med fem figurer och en tom ruta sist. Figurerna är pilar. Ett: pil åt höger med fylld spets. Två: pil snett uppåt höger med öppen spets. Tre: pil uppåt med fylld spets. Fyra: pil snett uppåt vänster med öppen spets. Fem: pil åt vänster med fylld spets. Alternativ A: pil nedåt med öppen spets. B: pil snett nedåt vänster med fylld spets. C: pil snett nedåt vänster med öppen spets. D: kort pil nedåt med öppen spets. E: pil nedåt med fylld spets. F: kort pil åt höger med öppen spets."
+ },
+ {
+  "id": "logik-u6",
+  "niva": "avancerad",
+  "difficulty": 3,
+  "title": "Pricken på banan, två regler",
+  "rule": "Pricken går medurs runt banan, och steget växer med ett varje gång: ett, två, tre steg och så vidare. Formen i mitten växlar mellan ofylld och svart. Formen i mitten är kvadrat i hela raden.",
+  "rad": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 0
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 1
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 3
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 2
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   }
+  ],
+  "options": [
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 6
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "form",
+     "form": "circle",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 7
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "none"
+    }
+   },
+   {
+    "kind": "duo",
+    "ytter": {
+     "typ": "orbital",
+     "lage": 5
+    },
+    "karna": {
+     "typ": "form",
+     "form": "square",
+     "fyllning": "black"
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Steget har inte vuxit sista gången. Formen i mitten ska vara kvadrat, som i hela raden.",
+   "Formen i mitten ska vara svart, inte ofylld.",
+   "Pricken går åt fel håll. Formen i mitten ska vara kvadrat, som i hela raden.",
+   "",
+   "Pricken går åt fel håll. Formen i mitten ska vara svart, inte ofylld.",
+   "Pricken går åt fel håll."
+  ],
+  "regler": {
+   "prim": "duo-orbital-form",
+   "dims": {
+    "ylage": {
+     "regel": "vaxande",
+     "s0": 0,
+     "d0": 1,
+     "dd": 1
+    },
+    "kform": {
+     "regel": "konstant",
+     "v": "square"
+    },
+    "kfyll": {
+     "regel": "cykel",
+     "varden": [
+      "none",
+      "black"
+     ]
+    }
+   }
+  },
+  "beskrivning": "Serie med fem figurer och en tom ruta sist. Figurerna är en prick på en streckad cirkelbana och en form i mitten. Ett: pricken vid klockan tolv, ofylld kvadrat i mitten. Två: pricken vid halv två, svart kvadrat i mitten. Tre: pricken vid halv fem, ofylld kvadrat i mitten. Fyra: pricken vid nio, svart kvadrat i mitten. Fem: pricken vid tre, ofylld kvadrat i mitten. Alternativ A: pricken vid nio, svart cirkel i mitten. B: pricken vid halv elva, ofylld kvadrat i mitten. C: pricken vid halv åtta, svart cirkel i mitten. D: pricken vid halv elva, svart kvadrat i mitten. E: pricken vid halv åtta, ofylld kvadrat i mitten. F: pricken vid halv åtta, svart kvadrat i mitten."
+ },
+ {
+  "id": "logiska-u3",
+  "niva": "grund",
+  "difficulty": 2,
+  "title": "Rutorna längs kanten, två regler",
+  "rule": "De svarta rutorna går två steg medurs längs kanten i varje steg. En ruta till blir svart medurs längs kanten i varje steg.",
+  "rad": [
+   {
+    "kind": "tile",
+    "pattern": 1
+   },
+   {
+    "kind": "tile",
+    "pattern": 36
+   },
+   {
+    "kind": "tile",
+    "pattern": 448
+   },
+   {
+    "kind": "tile",
+    "pattern": 75
+   },
+   {
+    "kind": "tile",
+    "pattern": 295
+   }
+  ],
+  "options": [
+   {
+    "kind": "tile",
+    "pattern": 457
+   },
+   {
+    "kind": "tile",
+    "pattern": 492
+   },
+   {
+    "kind": "tile",
+    "pattern": 493
+   },
+   {
+    "kind": "tile",
+    "pattern": 463
+   },
+   {
+    "kind": "tile",
+    "pattern": 484
+   },
+   {
+    "kind": "tile",
+    "pattern": 111
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "De svarta rutorna har gått ett steg för långt. Antalet svarta rutor har inte ökat. Luckan ska ha en mer än den femte figuren.",
+   "",
+   "En svart ruta för många.",
+   "De svarta rutorna har gått ett steg för långt. En svart ruta för många.",
+   "Antalet svarta rutor har inte ökat. Luckan ska ha en mer än den femte figuren.",
+   "De svarta rutorna går åt fel håll."
+  ],
+  "regler": {
+   "prim": "block",
+   "dims": {
+    "start": {
+     "regel": "steg",
+     "s0": 0,
+     "k": 2
+    },
+    "antal": {
+     "regel": "steg",
+     "s0": 1,
+     "k": 1
+    }
+   }
+  },
+  "beskrivning": "Serie med fem figurer och en tom ruta sist. Figurerna är rutblock om tre gånger tre rutor där några rutor är svarta. Ett: svart i övre vänstra. Två: svart i övre högra och mitten höger. Tre: svart i nedre vänstra, nedre mitten och nedre högra. Fyra: svart i övre vänstra, övre mitten, mitten vänster och nedre vänstra. Fem: svart i övre vänstra, övre mitten, övre högra, mitten höger och nedre högra. Alternativ A: svart i övre vänstra, mitten vänster, nedre vänstra, nedre mitten och nedre högra. B: svart i övre högra, mitten vänster, mitten höger, nedre vänstra, nedre mitten och nedre högra. C: svart i övre vänstra, övre högra, mitten vänster, mitten höger, nedre vänstra, nedre mitten och nedre högra. D: svart i övre vänstra, övre mitten, övre högra, mitten vänster, nedre vänstra, nedre mitten och nedre högra. E: svart i övre högra, mitten höger, nedre vänstra, nedre mitten och nedre högra. F: svart i övre vänstra, övre mitten, övre högra, mitten vänster, mitten höger och nedre vänstra."
+ }
+]

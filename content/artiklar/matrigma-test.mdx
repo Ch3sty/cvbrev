@@ -122,164 +122,43 @@ Regeltyperna går i stort sett igen i alla matristest. Leverantörerna kallar de
 
 ## Tre exempeluppgifter i Matrigma-stil, lösta steg för steg
 
-Assessios riktiga uppgifter är skyddade, så de här tre är våra egna. Figurerna är förenklade till tecken, men logiken är densamma som i ett riktigt matristest. Försök lösa varje uppgift innan du läser lösningen.
+Assessios riktiga uppgifter är skyddade, så de här tre är våra egna. Figurerna är ritade på samma sätt som i våra rekryteringstester, och logiken är densamma som i ett riktigt matristest. Försök lösa varje uppgift innan du läser lösningen.
 
 ### Exempel 1: form och antal
 
-<table className="border-collapse my-6 mx-auto">
-  <tbody>
-    <tr>
-      <td className="border border-slate-300 w-24 h-20 text-center text-2xl">○</td>
-      <td className="border border-slate-300 w-24 h-20 text-center text-2xl">□□</td>
-      <td className="border border-slate-300 w-24 h-20 text-center text-2xl">△△△</td>
-    </tr>
-    <tr>
-      <td className="border border-slate-300 w-24 h-20 text-center text-2xl">□</td>
-      <td className="border border-slate-300 w-24 h-20 text-center text-2xl">△△</td>
-      <td className="border border-slate-300 w-24 h-20 text-center text-2xl">○○○</td>
-    </tr>
-    <tr>
-      <td className="border border-slate-300 w-24 h-20 text-center text-2xl">△</td>
-      <td className="border border-slate-300 w-24 h-20 text-center text-2xl">○○</td>
-      <td className="border border-slate-300 w-24 h-20 text-center text-2xl bg-slate-50">?</td>
-    </tr>
-  </tbody>
-</table>
-
-<table className="w-full border-collapse my-6">
-  <thead>
-    <tr className="bg-slate-100">
-      <th className="border border-slate-300 px-4 py-3 text-center font-semibold">A</th>
-      <th className="border border-slate-300 px-4 py-3 text-center font-semibold">B</th>
-      <th className="border border-slate-300 px-4 py-3 text-center font-semibold">C</th>
-      <th className="border border-slate-300 px-4 py-3 text-center font-semibold">D</th>
-      <th className="border border-slate-300 px-4 py-3 text-center font-semibold">E</th>
-      <th className="border border-slate-300 px-4 py-3 text-center font-semibold">F</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td className="border border-slate-300 px-2 py-3 text-center text-xl">□□</td>
-      <td className="border border-slate-300 px-2 py-3 text-center text-xl">△△△</td>
-      <td className="border border-slate-300 px-2 py-3 text-center text-xl">□□□</td>
-      <td className="border border-slate-300 px-2 py-3 text-center text-xl">■■■</td>
-      <td className="border border-slate-300 px-2 py-3 text-center text-xl">○○○</td>
-      <td className="border border-slate-300 px-2 py-3 text-center text-xl">□□□□</td>
-    </tr>
-  </tbody>
-</table>
+<MatrisUppgift id="matrigma-e1" />
 
 <div className="my-8 bg-slate-50 border border-slate-200 rounded-lg p-6">
-  <p className="text-sm text-slate-700 mt-0"><strong>Steg 1, raderna.</strong> Antalet figurer ökar från en till tre i varje rad. Den tomma rutan ska alltså ha tre figurer. Det stryker A och F.</p>
-  <p className="text-sm text-slate-700"><strong>Steg 2, formen.</strong> Varje rad innehåller cirkel, kvadrat och triangel en gång var. Rad tre har redan triangel och cirkel, så kvadraten saknas. Det stryker B och E.</p>
-  <p className="text-sm text-slate-700"><strong>Steg 3, detaljen.</strong> Kvar är C och D. Alla figurer i matrisen är ofyllda, så D med fyllda kvadrater bryter mönstret.</p>
-  <p className="text-sm text-slate-700 mb-0"><strong>Svar: C.</strong> Kontrollera mot kolumnen: tredje kolumnen har tre trianglar och tre cirklar, så tre kvadrater fullbordar den.</p>
+  <p className="text-sm text-slate-700 mt-0"><strong>Steg 1, antalet hörn.</strong> Räkna hörnen. Rad ett har fyra, fem och sex, rad två fem, sex och fyra. Varje rad och kolumn har alltså en romb, en femhörning och en sexhörning. Rad tre har redan sexhörningen och romben, så femhörningen saknas. Det stryker B, D, E och F.</p>
+  <p className="text-sm text-slate-700"><strong>Steg 2, fyllningen.</strong> Fyllningen följer samma regel, men förskjuten åt andra hållet: varje rad och kolumn har en ofylld, en grå och en svart figur. Rad tre har redan en svart och en grå, så den saknade är ofylld. Det stryker A.</p>
+  <p className="text-sm text-slate-700"><strong>Steg 3, kontrollen.</strong> Formen och fyllningen går inte i takt. Romben är ofylld i rad ett, svart i rad två och grå i rad tre, så du kan inte lösa den ena regeln och få den andra gratis.</p>
+  <p className="text-sm text-slate-700 mb-0"><strong>Svar: C</strong>, en ofylld femhörning. Kontrollera mot kolumnen: tredje kolumnen har en grå sexhörning och en svart romb, så en ofylld femhörning fullbordar den.</p>
 </div>
 
-Lägg märke till D. Den har rätt form och rätt antal men fel fyllning. Det är så de flesta felaktiga alternativ är byggda, och därför ska du alltid titta efter en detalj till innan du klickar.
+Lägg märke till A. Den har rätt form men fel fyllning. Det är så de flesta felaktiga alternativ är byggda, och därför ska du alltid titta efter en detalj till innan du klickar.
 
 ### Exempel 2: rotation och växlande fyllning
 
-<table className="border-collapse my-6 mx-auto">
-  <tbody>
-    <tr>
-      <td className="border border-slate-300 w-24 h-20 text-center text-3xl">▲</td>
-      <td className="border border-slate-300 w-24 h-20 text-center text-3xl">▷</td>
-      <td className="border border-slate-300 w-24 h-20 text-center text-3xl">▼</td>
-    </tr>
-    <tr>
-      <td className="border border-slate-300 w-24 h-20 text-center text-3xl">▷</td>
-      <td className="border border-slate-300 w-24 h-20 text-center text-3xl">▼</td>
-      <td className="border border-slate-300 w-24 h-20 text-center text-3xl">◁</td>
-    </tr>
-    <tr>
-      <td className="border border-slate-300 w-24 h-20 text-center text-3xl">▼</td>
-      <td className="border border-slate-300 w-24 h-20 text-center text-3xl">◁</td>
-      <td className="border border-slate-300 w-24 h-20 text-center text-2xl bg-slate-50">?</td>
-    </tr>
-  </tbody>
-</table>
-
-<table className="w-full border-collapse my-6">
-  <thead>
-    <tr className="bg-slate-100">
-      <th className="border border-slate-300 px-4 py-3 text-center font-semibold">A</th>
-      <th className="border border-slate-300 px-4 py-3 text-center font-semibold">B</th>
-      <th className="border border-slate-300 px-4 py-3 text-center font-semibold">C</th>
-      <th className="border border-slate-300 px-4 py-3 text-center font-semibold">D</th>
-      <th className="border border-slate-300 px-4 py-3 text-center font-semibold">E</th>
-      <th className="border border-slate-300 px-4 py-3 text-center font-semibold">F</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td className="border border-slate-300 px-2 py-3 text-center text-2xl">△</td>
-      <td className="border border-slate-300 px-2 py-3 text-center text-2xl">▶</td>
-      <td className="border border-slate-300 px-2 py-3 text-center text-2xl">◀</td>
-      <td className="border border-slate-300 px-2 py-3 text-center text-2xl">▲</td>
-      <td className="border border-slate-300 px-2 py-3 text-center text-2xl">▽</td>
-      <td className="border border-slate-300 px-2 py-3 text-center text-2xl">▼</td>
-    </tr>
-  </tbody>
-</table>
+<MatrisUppgift id="matrigma-e2" />
 
 <div className="my-8 bg-slate-50 border border-slate-200 rounded-lg p-6">
-  <p className="text-sm text-slate-700 mt-0"><strong>Steg 1, riktningen.</strong> Följ första raden: uppåt, höger, nedåt. Triangeln vrids ett kvarts varv medurs för varje steg åt höger. Rad tre börjar nedåt och fortsätter åt vänster, så nästa steg medurs är uppåt. Det lämnar A och D.</p>
-  <p className="text-sm text-slate-700"><strong>Steg 2, fyllningen.</strong> Fyllningen växlar för varje steg: fylld, ofylld, fylld i rad ett och ofylld, fylld, ofylld i rad två. Rad tre går fylld, ofylld, och då ska nästa vara fylld.</p>
-  <p className="text-sm text-slate-700 mb-0"><strong>Svar: D</strong>, en fylld triangel som pekar uppåt. A har rätt riktning men fel fyllning och är uppgiftens fälla.</p>
+  <p className="text-sm text-slate-700 mt-0"><strong>Steg 1, riktningen.</strong> Följ första raden: uppåt, höger, nedåt. Pilen vrids ett kvarts varv medurs för varje steg åt höger. Rad två gör samma sak men börjar snett uppåt höger, ett åttondels varv längre medurs än rad ett. Rad tre börjar åt höger och fortsätter nedåt, så nästa steg medurs är åt vänster. Det lämnar A och D.</p>
+  <p className="text-sm text-slate-700"><strong>Steg 2, fyllningen.</strong> Spetsen växlar för varje steg: fylld, öppen, fylld i rad ett och öppen, fylld, öppen i rad två. Rad tre går fylld, öppen, och då ska nästa vara fylld.</p>
+  <p className="text-sm text-slate-700 mb-0"><strong>Svar: D</strong>, en pil åt vänster med fylld spets. A har rätt riktning men fel spets och är uppgiftens fälla.</p>
 </div>
 
 Två regler som var för sig är enkla blir svåra när de verkar samtidigt. Den som hittar rotationen och känner sig klar har femtio procents chans att välja rätt. Lös en egenskap i taget och stryk alternativ längs vägen, så sjunker risken för slarvfel.
 
 ### Exempel 3: lägg ihop och stryk det gemensamma
 
-<table className="border-collapse my-6 mx-auto">
-  <tbody>
-    <tr>
-      <td className="border border-slate-300 w-24 h-20 text-center text-xl">● ▲</td>
-      <td className="border border-slate-300 w-24 h-20 text-center text-xl">▲ ■</td>
-      <td className="border border-slate-300 w-24 h-20 text-center text-xl">● ■</td>
-    </tr>
-    <tr>
-      <td className="border border-slate-300 w-24 h-20 text-center text-xl">■ ◆</td>
-      <td className="border border-slate-300 w-24 h-20 text-center text-xl">◆ ●</td>
-      <td className="border border-slate-300 w-24 h-20 text-center text-xl">■ ●</td>
-    </tr>
-    <tr>
-      <td className="border border-slate-300 w-24 h-20 text-center text-xl">▲ ●</td>
-      <td className="border border-slate-300 w-24 h-20 text-center text-xl">● ◆</td>
-      <td className="border border-slate-300 w-24 h-20 text-center text-2xl bg-slate-50">?</td>
-    </tr>
-  </tbody>
-</table>
+Hjulen är delade i åtta bitar som vi räknar medurs från klockan tolv, bit ett till åtta.
 
-<table className="w-full border-collapse my-6">
-  <thead>
-    <tr className="bg-slate-100">
-      <th className="border border-slate-300 px-4 py-3 text-center font-semibold">A</th>
-      <th className="border border-slate-300 px-4 py-3 text-center font-semibold">B</th>
-      <th className="border border-slate-300 px-4 py-3 text-center font-semibold">C</th>
-      <th className="border border-slate-300 px-4 py-3 text-center font-semibold">D</th>
-      <th className="border border-slate-300 px-4 py-3 text-center font-semibold">E</th>
-      <th className="border border-slate-300 px-4 py-3 text-center font-semibold">F</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td className="border border-slate-300 px-2 py-3 text-center text-lg">▲ ● ◆</td>
-      <td className="border border-slate-300 px-2 py-3 text-center text-lg">●</td>
-      <td className="border border-slate-300 px-2 py-3 text-center text-lg">▲ ■</td>
-      <td className="border border-slate-300 px-2 py-3 text-center text-lg">▲ ◆</td>
-      <td className="border border-slate-300 px-2 py-3 text-center text-lg">◆ ■</td>
-      <td className="border border-slate-300 px-2 py-3 text-center text-lg">▲</td>
-    </tr>
-  </tbody>
-</table>
+<MatrisUppgift id="matrigma-e3" />
 
 <div className="my-8 bg-slate-50 border border-slate-200 rounded-lg p-6">
-  <p className="text-sm text-slate-700 mt-0"><strong>Steg 1, pröva det enkla först.</strong> Är tredje rutan bara de två första ihop? I rad ett skulle det ge cirkel, triangel och kvadrat. Men tredje rutan har bara cirkel och kvadrat. Triangeln, som finns i båda de första rutorna, har försvunnit.</p>
-  <p className="text-sm text-slate-700"><strong>Steg 2, formulera regeln.</strong> Figurer som finns i båda rutorna stryks. Figurer som finns i bara en av dem följer med. Kontrollera mot rad två: romben finns i båda och försvinner, kvadraten och cirkeln blir kvar. Det stämmer.</p>
-  <p className="text-sm text-slate-700"><strong>Steg 3, tillämpa.</strong> Rad tre har triangel och cirkel, sedan cirkel och romb. Cirkeln finns i båda och stryks. Kvar blir triangel och romb.</p>
+  <p className="text-sm text-slate-700 mt-0"><strong>Steg 1, pröva det enkla först.</strong> Är tredje hjulet bara de två första ihop? I rad ett skulle det ge bit ett till fem svarta. Men tredje hjulet har bara bit ett, två, fyra och fem. Bit tre, som är svart i båda de första hjulen, har försvunnit.</p>
+  <p className="text-sm text-slate-700"><strong>Steg 2, formulera regeln.</strong> Bitar som är svarta i båda hjulen stryks. Bitar som är svarta i bara det ena följer med. Kontrollera mot rad två: bit sex är svart i båda och försvinner, bit ett, fem och sju blir kvar. Det stämmer.</p>
+  <p className="text-sm text-slate-700"><strong>Steg 3, tillämpa.</strong> Rad tre har bit två, tre och sju, sedan bit tre och åtta. Bit tre finns i båda och stryks. Kvar blir bit två, sju och åtta.</p>
   <p className="text-sm text-slate-700 mb-0"><strong>Svar: D.</strong> A är fällan för den som bara lägger ihop, och B är fällan för den som behåller det gemensamma i stället för att stryka det.</p>
 </div>
 

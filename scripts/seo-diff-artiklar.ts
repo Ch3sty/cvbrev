@@ -266,7 +266,17 @@ const LD_TERMER: Array<{ path: string; andrade: string[]; skal: string }> = [
 ];
 
 function ldUndantag(sida: string): { datum: string; skal: string; nya?: boolean; andrade?: string[] } | undefined {
-  const bas = LD_UNDANTAG.find((u) => u.path === sida);
+  // Flera vågor kan ha undantag för samma sida (till exempel 2026-11-08 och
+  // 2026-11-09): de slås ihop, typerna som får ändras läggs samman.
+  const alla = LD_UNDANTAG.filter((u) => u.path === sida);
+  const bas = alla.length <= 1
+    ? alla[0]
+    : {
+        datum: alla.map((u) => u.datum).sort().join(' och '),
+        skal: alla.map((u) => `${u.datum}: ${u.skal}`).join(' '),
+        nya: alla.some((u) => u.nya),
+        andrade: [...new Set(alla.flatMap((u) => u.andrade ?? []))],
+      };
   const termer = LD_TERMER.find((u) => u.path === sida);
   if (!termer) return bas;
   return {
@@ -777,8 +787,13 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
       // Rubriker: samma ordning och id, utom tillåtna reklamkortsrubriker.
       const tillaten = (r: Rubrik) =>
         TILLATNA_RUBRIKER.some((t) => (t.length <= 8 ? r.text === t : r.text.startsWith(t)));
-      const fr = f.rubriker.filter((r) => !tillaten(r)).map((r) => `${r.tag}#${r.id} ${r.text}`);
       const nyaGodkanda = new Set(RUBRIK_NY.filter((n) => n.path === f.path).map((n) => n.rubrik));
+      // En godkänd ny rubrik räknas bort på båda sidor, så att jämförelsen
+      // också håller när baslinjen tagits efter att rubriken gick live.
+      const fr = f.rubriker
+        .filter((r) => !tillaten(r))
+        .map((r) => `${r.tag}#${r.id} ${r.text}`)
+        .filter((r) => !nyaGodkanda.has(r));
       const erAlla = e.rubriker.filter((r) => !tillaten(r)).map((r) => `${r.tag}#${r.id} ${r.text}`);
       const er = erAlla.filter((r) => !nyaGodkanda.has(r));
       for (const n of RUBRIK_NY.filter((n) => n.path === f.path)) {
