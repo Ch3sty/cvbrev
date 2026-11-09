@@ -53,6 +53,8 @@ Ordningen nedan är genomförandeordningen. Det som kräver ägaren ligger sist.
 - Premium-förnyelser: 19 och 21 nov.
 - Dag 2-väggen: senast 22 nov, eller när 40 personer har exponerats. Väggen ligger kvar till dess (beslut 1).
 - Fråga 1: fyra veckor efter deploy, minst 60 ingångar.
+- Kontosteget utan namnfält: 7 dec. signup_flow_viewed (step konto) till signup_completed, baslinjen 29 av 158.
+- Dag 2-mejlet: 7 dec. email_log och email_events (öppning, klick) för pass_dag2, betalvagg_visad plats dag2 och paywall_cta_clicked från mejlets länkar (utm_campaign pass_dag2).
 
 ## D. Kräver ägaren (sist)
 
@@ -60,10 +62,12 @@ Ordningen nedan är genomförandeordningen. Det som kräver ägaren ligger sist.
 15. **Mejl till kunden som slutar 2 december.** Vi skriver utkastet: tack, fråga vad som saknades, erbjud tre månaders paus. Ingen rabatt (beslut 6). Ägaren skickar.
 16. **Indexering i Search Console och Bing** av de omskrivna sidorna efter punkt 7–12. Det går bara att göra i deras webbgränssnitt.
 17. **Ägarens fråga: påminnelser till den som testat en gång.** Ett mejl eller en notis om nästa pass. Ingen gratisanvändare har gjort pass två olika dagar, och mobilanvändare återkommer hälften så ofta. Hänger ihop med avläsningen av dag 2-väggen.
+    Status: dag 2-mejlet klart 2026-11-09 (godkänt av ägaren), 14897c97, live. Kravet på vald passtid (skiss 5) är borta: mejlet går 07:00 svensk tid till alla som gjorde Nivåkollen i går, i morgonslotten 06:00 UTC. Taket på två träningsmejl, quota_emails_opt_out och avregistreringen står kvar. Betalande får dagens pass. Gratis får nivån, länken till Nivåkollens genomgång och raden "Från dag två ingår passen i Premium, 149 kr i månaden" (pris ur plans) med länk till dagens pass, där väggen mäts. Ett riktigt testmejl gick till en egen QA-adress (delivered i email_events), kontot raderat per id. Torrtest `scripts/torrtest-dag2.ts`: 0 mottagare 10 nov (ingen ny Nivåkoll i dag kl. 10), 0 till 2 per dag de senaste två veckorna. Kvar: notis i appen, avläsning 7 dec.
 18. **Ägarens fråga: test.se-kontot.** Det fångas inte av undantagsmönstret. Ska det in?
 19. **Sammanslagningarna M1 och M8** i docs/plan-huvudord-2026-12.md. Ska de göras?
 20. **Numeriska testet visar tabellen före frågan**, så att frågan hamnar under skärmkanten på mobil. Nivåkollens nedersta svarsrad slutar 4 px under kanten på desktop. Båda är designbeslut.
 21. **Namnfältet i kontosteget**: behålla eller ta bort? Färre fält kan ge fler konton.
+    Status: borttaget 2026-11-09 (godkänt av ägaren), 14897c97, live. /register och kontosteget efter provet har e-post och lösenord. send-confirmation fungerar utan namn ("Hej!"). CV-exporten (cv-mallar, skapa-cv, cv-analys) och brevet (generate och generate-preview) svarar 422 name_required och frågar efter namnet med NameRequiredNotice; brevet stoppas före modellanropet och får aldrig "Namn saknas" eller "Ditt namn". Topprad och sidomeny har reserv, hemvyn tilltalar utan namn, ProfilKomplettering ber om namnet. Klicktest Pixel 7 och desktop, docs/qa/namn-dag2-2026-11-09. Kvar: avläsning 7 dec mot baslinjen 29 av 158.
 22. **Tre raderade konton från september** med riktig webbläsare är inte markerade som interna, eftersom de kan vara riktiga användare. Ägaren bedömer.
 23. **Testa riktig Google-inloggning** från provet hela vägen. Det kan bara ägaren göra.
 24. **Provsidan och kontosidan har den gamla designen** (/verktyg/rekryteringstester/prova och /register). De är vår viktigaste konverteringsväg men omfattades inte av publikt v2. Förslag: art-director tar fram en skiss i samma linje.
