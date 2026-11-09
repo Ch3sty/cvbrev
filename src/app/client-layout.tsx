@@ -10,6 +10,7 @@ import ActivityTracker from '@/components/ActivityTracker';
 import PostHogIdentify from '@/components/PostHogProvider';
 import { usePathname } from 'next/navigation';
 import dynamic from 'next/dynamic';
+import { arFlodessida } from '@/lib/flodessidor';
 
 // Service workern och installationseventen (docs/plan-pwa.md). Renderar
 // ingenting, registrerar efter load på idle, och laddas bara på appytorna.
@@ -38,7 +39,8 @@ export default function ClientLayout({
   // Registreringen och inloggningen är flöden i ett eget skal på hela
   // skärmen (docs/design/profil-registrering-2026-09-24.html). Footern hör
   // inte hemma under dem.
-  const arFlode = pathname === '/register' || pathname === '/login';
+  // Provet utan konto också (skissen 2026-11-09).
+  const arFlode = arFlodessida(pathname);
   // Inbäddningarna (/embed/...) visas i en ram på andra webbplatser och har en
   // egen källrad in till sajten; sidfoten skulle bara fylla ramen.
   const arInbaddad = pathname?.startsWith('/embed/');

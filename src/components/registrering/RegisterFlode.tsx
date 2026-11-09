@@ -22,6 +22,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { capture } from '@/lib/analytics/events'
 import { getSignupAnalyticsContext } from '@/lib/analytics/attribution'
 import RegisterKontoSteg, { loggaInHref } from './RegisterKontoSteg'
+import type { ProvResultat } from '@/lib/tests/prov-resultat.server'
 import ValSteg from './ValSteg'
 import {
   ENTRY_STORAGE_KEY,
@@ -53,7 +54,14 @@ function lasIngang(ingang: RegisterIngang): SignupEntry {
 
 type Steg = 'val' | 'konto'
 
-export default function RegisterFlode({ ingang }: { ingang: RegisterIngang }) {
+export default function RegisterFlode({
+  ingang,
+  provResultat = null,
+}: {
+  ingang: RegisterIngang
+  /** Provets resultat ur servern (bara antal rätt, totalt och felens positioner). */
+  provResultat?: ProvResultat | null
+}) {
   // Bara ?borja= har ett val att ändra. Bar /register går direkt till
   // kontot och frågan ställs efteråt i spårvalet.
   const harVal = ingang.lage === 'konto'
@@ -64,6 +72,11 @@ export default function RegisterFlode({ ingang }: { ingang: RegisterIngang }) {
   const [entry, setEntry] = useState<SignupEntry>('direkt')
   const entryRef = useRef<SignupEntry | null>(null)
   const sedda = useRef(new Set<Steg>())
+  // Efter provet skickas signup_flow_viewed först när panelen med
+  // resultatet är renderad (skissen 2026-11-09), så att måttet mäter samma
+  // skärm som förut fast med panelen.
+  const [panelKlar, setPanelKlar] = useState(ingang.smakprov?.typ !== 'test')
+  const panelRenderad = useCallback(() => setPanelKlar(true), [])
 
   // Ingången läses en gång, efter mount (sessionStorage och referrer finns
   // inte på servern).
@@ -80,7 +93,7 @@ export default function RegisterFlode({ ingang }: { ingang: RegisterIngang }) {
   // signup_flow_viewed en gång per besök på steget.
   useEffect(() => {
     const e = entryRef.current
-    if (!e || sedda.current.has(steg)) return
+    if (!e || !panelKlar || sedda.current.has(steg)) return
     sedda.current.add(steg)
     capture('signup_flow_viewed', {
       step: steg,
@@ -88,7 +101,7 @@ export default function RegisterFlode({ ingang }: { ingang: RegisterIngang }) {
       preset_intent: ingang.intent,
       ...getSignupAnalyticsContext(),
     })
-  }, [steg, entry, ingang.intent])
+  }, [steg, entry, ingang.intent, panelKlar])
 
   const fortsatt = useCallback((valt: SignupIntent) => {
     setIntent(valt)
@@ -131,6 +144,8 @@ export default function RegisterFlode({ ingang }: { ingang: RegisterIngang }) {
       fragaVisad={fragaVisad || ingang.lage !== 'tratt'}
       visaSteg={harVal}
       onAndraVal={harVal ? () => setSteg('val') : undefined}
+      provResultat={provResultat}
+      onPanelRenderad={panelRenderad}
     />
   )
 }

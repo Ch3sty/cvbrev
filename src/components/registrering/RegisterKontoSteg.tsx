@@ -21,7 +21,7 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useEffect, useId, useState, type ReactNode } from 'react'
+import { useEffect, useId, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { logUserActivity } from '@/lib/activity-logger'
 import { capture, identifyUser } from '@/lib/analytics/events'
@@ -33,10 +33,12 @@ import {
   storePendingPersonlighet,
   storePendingTestSession,
 } from '@/lib/letters/claim-draft-client'
-import GoogleSignInButton, { AuthDivider } from '@/components/auth/GoogleSignInButton'
+import GoogleSignInButton from '@/components/auth/GoogleSignInButton'
 import TurnstileWidget, { TURNSTILE_SITE_KEY } from '@/components/auth/TurnstileWidget'
 import StatusRow from '@/components/shell/StatusRow'
-import { INPUT_CLASS } from '@/app/dashboard/profil/components/ProfileField'
+import ProvBrickor, { ProvBricka } from '@/components/publikt/ProvBrickor'
+import { lasSparatProv, type Rutnat } from '@/lib/tests/prova-lokalt'
+import type { ProvResultat } from '@/lib/tests/prov-resultat.server'
 import { VALKOMMEN_PATH, TRACK_CHOICE_PATH } from '@/lib/onboarding/steps'
 import type { PlanKey } from '@/lib/plans/plans'
 import PubliktFlodesskal, { TEXTLANK } from './PubliktFlodesskal'
@@ -48,7 +50,15 @@ import {
   type SignupIntent,
   type Smakprov,
 } from './intent'
-import { SKAL, SMAKPROV, SMAKPROV_FOTNOT, SMAKPROV_UNDER, STEG2 } from './registrering-copy'
+import {
+  KONTO_GRATIS,
+  KONTO_PANEL,
+  SKAL,
+  SMAKPROV,
+  SMAKPROV_UNDER,
+  STEG2,
+  type PanelRad,
+} from './registrering-copy'
 
 const MIN_LOSEN = 8
 
@@ -77,6 +87,10 @@ export interface RegisterKontoStegProps {
   onAndraVal?: () => void
   /** Steg 1 finns i det här läget, så pilen och stegräknaren visas. */
   visaSteg?: boolean
+  /** Provets resultat ur servern (bara antal rätt, totalt och felens positioner). */
+  provResultat?: ProvResultat | null
+  /** Anropas när panelen är renderad, för signup_flow_viewed. */
+  onPanelRenderad?: () => void
 }
 
 export function smakprovTillSession(s: Smakprov | null | undefined): void {
@@ -115,6 +129,8 @@ export default function RegisterKontoSteg({
   fragaVisad = true,
   onAndraVal,
   visaSteg = false,
+  provResultat = null,
+  onPanelRenderad,
 }: RegisterKontoStegProps) {
   const router = useRouter()
   const formId = useId()
@@ -257,10 +273,35 @@ export default function RegisterKontoSteg({
 
   const smak = smakprov ? SMAKPROV[smakprov.typ] : null
   const medPil = visaSteg && Boolean(onAndraVal)
+  const arTest = smakprov?.typ === 'test'
 
-  const eyebrow = smak ? smak.eyebrow : visaSteg ? STEG2.steg : null
-  const rubrik = smak ? smak.rubrik : STEG2.rubrik
+  // Panelen bredvid formuläret (skissen 2026-11-09): efter provet visar den
+  // besökarens resultat, på bar /register vad som ingår gratis. Övriga
+  // lägen har bara formuläret.
+  const panel: 'prov' | 'gratis' | null = arTest ? 'prov' : lage === 'tratt' ? 'gratis' : null
+
+  const eyebrow = arTest ? null : smak ? smak.eyebrow : visaSteg ? STEG2.steg : null
+  const rubrik =
+    arTest && provResultat && provResultat.fel.length === 0
+      ? STEG2.rubrikAllaRatt
+      : smak
+        ? smak.rubrik
+        : STEG2.rubrik
   const under = smak ? (smak.under ?? SMAKPROV_UNDER) : STEG2.under
+  const underFet = under.startsWith(STEG2.underFet) ? STEG2.underFet : null
+
+  // Brickornas figurer: rutnäten besökaren redan sett, ur fliken.
+  const [rutnat, setRutnat] = useState<Rutnat[]>([])
+  useEffect(() => {
+    if (!arTest || !smakprov) return
+    setRutnat(lasSparatProv(smakprov.token)?.rutnat ?? [])
+  }, [arTest, smakprov])
+
+  // Panelen står i första bilden (resultatet kommer från servern), så den är
+  // renderad när effekten körs.
+  useEffect(() => {
+    onPanelRenderad?.()
+  }, [onPanelRenderad])
 
   const google = (
     <GoogleSignInButton
@@ -270,19 +311,8 @@ export default function RegisterKontoSteg({
       errorText={STEG2.googleFel}
       signup={{ intent, entry }}
       onBeforeRedirect={skrivCookie}
-      className="mt-4"
+      className="pub-konto-google"
     />
-  )
-
-  const fotnot: ReactNode = smak ? (
-    SMAKPROV_FOTNOT
-  ) : (
-    <>
-      {SKAL.harKonto}{' '}
-      <Link href={loginHref} className="text-ink-1 underline decoration-kant-stark underline-offset-[3px]">
-        {SKAL.loggaIn}
-      </Link>
-    </>
   )
 
   return (
@@ -290,115 +320,234 @@ export default function RegisterKontoSteg({
       steg={medPil ? { nu: 2, av: 3 } : undefined}
       onBack={medPil ? onAndraVal : undefined}
       toppLank={{ href: loginHref, text: SKAL.loggaIn, forklaring: SKAL.harKonto }}
-      primar={{
-        text: smak ? smak.knapp : STEG2.primar,
-        formId,
-        busy,
-        busyText: STEG2.busy,
-      }}
-      fotnot={fotnot}
+      bredd="full"
     >
-      {eyebrow ? <p className="text-steg uppercase text-ink-3">{eyebrow}</p> : null}
-      <h1 className="mt-1 font-display text-[26px] font-bold leading-[31px] tracking-[-0.025em] text-ink-1">
-        {rubrik}
-      </h1>
-      {fel ? null : <p className="mt-1 text-sm leading-[22px] text-ink-2">{under}</p>}
+      <div className={`pub-konto${panel ? ' pub-konto-med-panel' : ''}`}>
+        <div className="pub-konto-g">
+          {panel === 'prov' ? <ProvPanel resultat={provResultat} rutnat={rutnat} /> : null}
+          {panel === 'gratis' ? <GratisPanel /> : null}
 
-      {fel ? (
-        <div
-          role="alert"
-          className="mt-3 flex items-start gap-2.5 rounded-lg border border-fel-kant bg-fel-mjuk p-3 text-fel"
-        >
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" className="mt-px shrink-0" aria-hidden="true">
-            <circle cx="12" cy="12" r="9" />
-            <path d="M12 7.5v5.5M12 16.5v.01" />
-          </svg>
-          <div className="min-w-0">
-            <p className="text-sm font-semibold leading-5">{fel.rubrik}</p>
-            {fel.text ? <p className="mt-0.5 text-sm leading-[22px] text-fel-morker">{fel.text}</p> : null}
-            {fel.loggaIn ? (
-              <Link
-                href={loginHref}
-                className="inline-flex min-h-11 items-center text-sm font-medium text-fel-morker underline decoration-fel-kant underline-offset-4"
-              >
-                {STEG2.fel.finnsLank}
-              </Link>
+          <div className="pub-konto-form">
+            {eyebrow ? <p className="pub-konto-eyebrow">{eyebrow}</p> : null}
+            <h1>{rubrik}</h1>
+            {fel ? null : (
+              <p className="pub-konto-under">
+                {underFet ? (
+                  <>
+                    <b>{underFet}</b>
+                    {under.slice(underFet.length)}
+                  </>
+                ) : (
+                  under
+                )}
+              </p>
+            )}
+
+            {fel ? (
+              <div role="alert" className="pub-konto-fel">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M12 7.5v5.5M12 16.5v.01" />
+                </svg>
+                <div className="min-w-0">
+                  <p className="pub-konto-fel-rubrik">{fel.rubrik}</p>
+                  {fel.text ? <p>{fel.text}</p> : null}
+                  {fel.loggaIn ? (
+                    <Link href={loginHref} className="pub-lank inline-flex min-h-11 items-center">
+                      {STEG2.fel.finnsLank}
+                    </Link>
+                  ) : null}
+                </div>
+              </div>
             ) : null}
+
+            {smak && !arTest && !fel ? (
+              <StatusRow tone="positive" showDot>
+                {smak.status}
+              </StatusRow>
+            ) : null}
+
+            {intent && !smak && !fel && (lage === 'tratt' || lage === 'konto') ? (
+              <div className="flex min-h-11 items-center justify-between gap-3 rounded-lg border border-kant bg-panel px-3 py-2">
+                <span className="flex min-w-0 items-center gap-2 text-sm font-medium text-ink-1">
+                  <IntentIkon intent={intent} size={20} className="shrink-0 text-ink-2" />
+                  <span>{STEG2.valrad[intent]}</span>
+                </span>
+                {onAndraVal ? (
+                  <button type="button" onClick={onAndraVal} className={`${TEXTLANK} shrink-0 text-ink-2`}>
+                    {STEG2.andra}
+                  </button>
+                ) : null}
+              </div>
+            ) : null}
+
+            {!fel ? (
+              <>
+                {google}
+                <p className="pub-konto-eller" aria-hidden="true">
+                  {STEG2.eller}
+                </p>
+              </>
+            ) : null}
+
+            <form id={formId} onSubmit={skicka} noValidate className="pub-konto-falt-g">
+              <Falt
+                label={STEG2.epost}
+                id={`${formId}-epost`}
+                type="email"
+                inputMode="email"
+                value={epost}
+                onChange={setEpost}
+                placeholder={STEG2.epostPlats}
+                autoComplete="email"
+                enterKeyHint="next"
+                autoCapitalize="none"
+                invalid={fel?.falt === 'epost'}
+              />
+              <Falt
+                label={STEG2.losen}
+                id={`${formId}-losen`}
+                type="password"
+                value={losen}
+                onChange={setLosen}
+                placeholder={STEG2.losenPlats}
+                autoComplete="new-password"
+                enterKeyHint="done"
+                invalid={fel?.falt === 'losen'}
+              />
+              <TurnstileWidget onToken={setTurnstileToken} />
+              <button type="submit" disabled={busy} aria-disabled={busy || undefined} className="pub-knapp pub-konto-knapp">
+                {busy ? STEG2.busy : smak ? smak.knapp : STEG2.primar}
+              </button>
+            </form>
+
+            {fel ? google : null}
+
+            <p className="pub-konto-villkor">
+              {STEG2.villkorFore}
+              <Link href="/anvandarvillkor">{STEG2.villkorLank}</Link>
+              {STEG2.villkorMitt}
+              <Link href="/integritetspolicy">{STEG2.integritetLank}</Link>
+              {STEG2.villkorEfter}
+            </p>
           </div>
         </div>
-      ) : null}
+      </div>
+    </PubliktFlodesskal>
+  )
+}
 
-      {smak && !fel ? (
-        <StatusRow tone="positive" showDot className="mt-4">
-          {smak.status}
-        </StatusRow>
-      ) : null}
+/* ------------------------------------------------------------ panelerna */
 
-      {intent && !smak && !fel && (lage === 'tratt' || lage === 'konto') ? (
-        <div className="mt-4 flex min-h-11 items-center justify-between gap-3 rounded-lg border border-kant bg-panel px-3 py-2">
-          <span className="flex min-w-0 items-center gap-2 text-sm font-medium text-ink-1">
-            <IntentIkon intent={intent} size={20} className="shrink-0 text-ink-2" />
-            <span>{STEG2.valrad[intent]}</span>
+function PanelRader({ rader }: { rader: readonly PanelRad[] }) {
+  return (
+    <ul className="pub-prov-bock">
+      {rader.map((r) => (
+        <li key={r.fet}>
+          <span>
+            <b>{r.fet}</b>
+            {r.text}
           </span>
-          {onAndraVal ? (
-            <button type="button" onClick={onAndraVal} className={`${TEXTLANK} shrink-0 text-ink-2`}>
-              {STEG2.andra}
-            </button>
-          ) : null}
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+function PremiumRad({ text }: { text: string }) {
+  return (
+    <p className="pub-konto-premium">
+      <b>{KONTO_PANEL.premium.namn}</b>
+      {text}
+    </p>
+  )
+}
+
+/**
+ * Efter provet: talet, de fem brickorna med den missade markerad och vad
+ * kontot öppnar. Utan resultat (provet hämtat, utgånget eller över
+ * gränsen) samma löfte utan tal, aldrig ett påhittat resultat.
+ */
+function ProvPanel({ resultat, rutnat }: { resultat: ProvResultat | null; rutnat: Rutnat[] }) {
+  const totalt = resultat?.totalt ?? 5
+  const forstaFel = resultat?.fel[0]
+  const lasbild = typeof forstaFel === 'number' ? rutnat[forstaFel] : undefined
+  return (
+    <aside className={`pub-rum-tran pub-konto-panel${resultat && resultat.fel.length ? ' pub-konto-panel-bild' : ''}`}>
+      <p className="pub-kick">{KONTO_PANEL.kick}</p>
+      {resultat ? (
+        <div className="pub-konto-prov-rad">
+          <p className="pub-konto-tal">
+            {resultat.ratt}
+            <small>{KONTO_PANEL.av(resultat.totalt)}</small>
+          </p>
+          <ProvBrickor totalt={resultat.totalt} fel={resultat.fel} rutnat={rutnat} numrerade={false} />
         </div>
       ) : null}
+      <h2>{resultat ? KONTO_PANEL.rubrik(resultat.fel, resultat.totalt) : KONTO_PANEL.rubrikUtan}</h2>
+      <PanelRader rader={KONTO_PANEL.rader(resultat?.fel ?? null, totalt)} />
+      <div className="pub-konto-dator">
+        <PremiumRad text={KONTO_PANEL.premium.text} />
+      </div>
+      {lasbild ? <ProvBricka rutnat={lasbild} className="pub-konto-lasbild" /> : null}
+    </aside>
+  )
+}
 
-      {!fel ? (
-        <>
-          {google}
-          <AuthDivider text={STEG2.eller} />
-        </>
-      ) : null}
+/** Bar /register: vad som ingår gratis, samma panel. */
+function GratisPanel() {
+  return (
+    <aside className="pub-rum-tran pub-konto-panel">
+      <p className="pub-kick">{KONTO_GRATIS.kick}</p>
+      <h2>{KONTO_GRATIS.rubrik}</h2>
+      <ul className="pub-konto-ger">
+        {KONTO_GRATIS.rader.map((r) => (
+          <li key={r.namn}>
+            <span className="pub-konto-obj" aria-hidden="true">
+              <GratisIkon typ={r.ikon} />
+            </span>
+            <div>
+              <b>{r.namn}</b>
+              <span>{r.text}</span>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <div className="pub-konto-dator">
+        <PremiumRad text={KONTO_GRATIS.premium} />
+      </div>
+    </aside>
+  )
+}
 
-      <form id={formId} onSubmit={skicka} noValidate className="mt-3 grid gap-4">
-        <Falt
-          label={STEG2.epost}
-          id={`${formId}-epost`}
-          type="email"
-          inputMode="email"
-          value={epost}
-          onChange={setEpost}
-          placeholder={STEG2.epostPlats}
-          autoComplete="email"
-          enterKeyHint="next"
-          autoCapitalize="none"
-          invalid={fel?.falt === 'epost'}
-        />
-        <Falt
-          label={STEG2.losen}
-          id={`${formId}-losen`}
-          type="password"
-          value={losen}
-          onChange={setLosen}
-          placeholder={STEG2.losenPlats}
-          autoComplete="new-password"
-          enterKeyHint="done"
-          invalid={fel?.falt === 'losen'}
-        />
-        <TurnstileWidget onToken={setTurnstileToken} />
-      </form>
-
-      {fel ? google : null}
-
-      {!smak ? (
-        <p className="mt-4 text-meta text-ink-3">
-          {STEG2.villkorFore}
-          <Link href="/anvandarvillkor" className="underline decoration-kant-stark underline-offset-[3px]">
-            {STEG2.villkorLank}
-          </Link>
-          {STEG2.villkorMitt}
-          <Link href="/integritetspolicy" className="underline decoration-kant-stark underline-offset-[3px]">
-            {STEG2.integritetLank}
-          </Link>
-          {STEG2.villkorEfter}
-        </p>
-      ) : null}
-    </PubliktFlodesskal>
+function GratisIkon({ typ }: { typ: 'matris' | 'cv' | 'brev' }) {
+  if (typ === 'matris')
+    return (
+      <svg viewBox="0 0 64 64" focusable="false">
+        <rect x="6" y="6" width="52" height="52" rx="8" />
+        <path d="M23 6v52M41 6v52M6 23h52M6 41h52" opacity=".45" />
+        <circle cx="14.5" cy="14.5" r="3.5" />
+        <path d="M28 18h8v-7" />
+        <circle cx="32" cy="32" r="3.5" />
+        <rect x="44" y="44" width="10" height="10" rx="2" fill="var(--koppar)" stroke="none" />
+      </svg>
+    )
+  if (typ === 'cv')
+    return (
+      <svg viewBox="0 0 64 64" focusable="false">
+        <rect x="10" y="6" width="40" height="52" rx="6" />
+        <circle cx="22" cy="19" r="4" />
+        <path d="M31 17h12M18 31h28M18 39h28M18 47h18" />
+        <circle cx="50" cy="12" r="9" fill="var(--rum-vagg)" />
+        <path d="M50 4a8 8 0 1 1-7 4" stroke="var(--koppar)" strokeWidth="3" />
+      </svg>
+    )
+  return (
+    <svg viewBox="0 0 64 64" focusable="false">
+      <path d="M12 6h26l14 14v36a2 2 0 0 1-2 2H12a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" />
+      <path d="M38 6v14h14M18 30h24M18 38h28M18 46h28" />
+      <rect x="18" y="51" width="18" height="4" rx="2" fill="var(--koppar)" stroke="none" />
+    </svg>
   )
 }
 
@@ -428,8 +577,8 @@ function Falt({
   autoCapitalize?: 'none'
 }) {
   return (
-    <div>
-      <label htmlFor={id} className="block text-sm font-medium text-ink-1">
+    <div className="pub-konto-falt">
+      <label htmlFor={id}>
         {label}
       </label>
       <input
@@ -443,7 +592,6 @@ function Falt({
         enterKeyHint={enterKeyHint}
         autoCapitalize={autoCapitalize}
         aria-invalid={invalid || undefined}
-        className={INPUT_CLASS}
       />
     </div>
   )
