@@ -7,20 +7,20 @@ Ordningen nedan är genomförandeordningen. Det som kräver ägaren ligger sist.
 ## A. Rätta tratten (Opus, worktree .claude/worktrees/publikt-v2)
 
 1. **Provets resultat leder till Nivåkollen och första passet**, inte till det gamla matrislogiktestet. I P2 hamnade 16 av 29 konton från provet i det gamla testet.
-   Status: ej påbörjad
+   Status: klar 2026-11-09, b83626f8, live. Provets resultatsida har Nästa steg: Nivåkollen ("Kolla min nivå, 5 min", räknar in provets svar), dagens pass om Nivåkollen är gjord. Kom igång-brickan för matrislogik leder också till Nivåkollen. Kvar: avläsning, andel provkonton med Nivåkollen som första test, omkring 23 nov.
 2. **Laga kontosteget efter provet.** 143 klick på provets kontoknapp gav 29 konton. Klicktesta vägen på Pixel 7 och desktop, mät varje steg med felkod och rätta där användarna faller bort.
-   Status: ej påbörjad
+   Status: klar 2026-11-09, 8ff9acd1, live. Klicktest Pixel 7 och desktop (docs/qa/tratten-2026-11-08). Tappet sker före första tangenttrycket (158 såg kontosteget, 30 började). Rättat: Tillbaka startade om provet (nu står resultatet kvar), samtycket täckte provets svar, köpstegets villkorsruta och testets bekräftelse. Nya händelser sample_restored och draft_claim_failed med felkod. Kvar: namnfältet behölls (kräver beslut), riktig Google-inloggning testas av ägaren.
 3. **Köpknapp i spärren över grundnivån.** 27 personer stoppades där och knappen fick 0 klick. Ge spärren en direkt väg till kassan för Premium, 149 kr i månaden, och mät klick.
-   Status: ej påbörjad
+   Status: klar 2026-11-09, 24952967, live. Statusraden på testresultatet har Köp Premium, 149 kr i månaden (pris ur plans) direkt till köpsteget, plats testresultat, mätt med betalvagg_visad och paywall_cta_clicked. Kvar: avläsning av klick och köp, omkring 23 nov.
 4. **Fråga 1 i registreringen tas bort.** Kill-regeln slog till med 61–65 % tapp. Utan förvalt intent går /register direkt till kontosteget, och valet görs i valj-spar efteråt. **HBO-varianten stryks** ur plan och minne.
-   Status: ej påbörjad
+   Status: klar 2026-11-09, 233ae609, live. Bar /register går direkt till kontot, frågan ställs i spårvalet. HBO-regeln struken i beslutsdokumentet och minnet. Kvar: avläsning fyra veckor efter deploy enligt C.
 5. **Mätningen rättas:**
    - grant execute på `admin_undantagna_konton()` till `supabase_read_only_user` (additiv, beslut 5)
    - raderade QA-konton ut ur PostHog-filtret
    - `acquisition_source` på alla nya konton
-   Status: ej påbörjad
+   Status: klar 2026-11-09, 18fba2e7, live. (a) grant körd mot Jobbcoach och som migration, läsrollen har rätten, anon och authenticated inte. (b) 198 raderade QA-konton markerade, kohort 248676 räknas om, nivamatning_klar har 13 personer utanför kohorten, alla befintliga konton (var 108). (c) jc_attr var dubbelkodad och lästes fel i klienten: 0 av 35 e-postkonton hade källa. Rättat, och kontot får källan direkt när cookien saknas. Kvar: tre raderade konton med riktig webbläsare i september är inte markerade (kan vara riktiga användare).
 6. **Början av Nivåkollen och passen.** De flesta avbrott sker på fråga 0–1. I numeriskt har 8 av 12 avbrutna inte svarat på en enda fråga. Se över första skärmen, instruktionen och tempot, särskilt på mobil.
-   Status: ej påbörjad
+   Status: klar 2026-11-09, a698e6d9, live. Samtycket täckte svarsalternativ i numeriska testet på Pixel 7 (8 av 12 avbröt utan svar) och Avsluta-knappen i testets bekräftelse. Nu hålls samtycket undan från svarslistor och ark. Nivåkollens första fråga laddar på 1,1 till 1,5 s. "smakprovet" ersatt med "provet". Kräver designbeslut: numeriska testet visar underlaget före frågan, så frågan ligger under skärmkanten på första skärmen.
 
 ## B. SEO (Opus skriver, SEO-agenten granskar; huvudcheckouten C:\Users\chris\cvbrev på egen gren)
 
@@ -61,6 +61,13 @@ Ordningen nedan är genomförandeordningen. Det som kräver ägaren ligger sist.
 16. **Indexering i Search Console och Bing** av de omskrivna sidorna efter punkt 7–12. Det går bara att göra i deras webbgränssnitt.
 17. **Ägarens fråga: påminnelser till den som testat en gång.** Ett mejl eller en notis om nästa pass. Ingen gratisanvändare har gjort pass två olika dagar, och mobilanvändare återkommer hälften så ofta. Hänger ihop med avläsningen av dag 2-väggen.
 18. **Ägarens fråga: test.se-kontot.** Det fångas inte av undantagsmönstret. Ska det in?
+19. **Sammanslagningarna M1 och M8** i docs/plan-huvudord-2026-12.md. Ska de göras?
+20. **Numeriska testet visar tabellen före frågan**, så att frågan hamnar under skärmkanten på mobil. Nivåkollens nedersta svarsrad slutar 4 px under kanten på desktop. Båda är designbeslut.
+21. **Namnfältet i kontosteget**: behålla eller ta bort? Färre fält kan ge fler konton.
+22. **Tre raderade konton från september** med riktig webbläsare är inte markerade som interna, eftersom de kan vara riktiga användare. Ägaren bedömer.
+23. **Testa riktig Google-inloggning** från provet hela vägen. Det kan bara ägaren göra.
+24. **Provsidan och kontosidan har den gamla designen** (/verktyg/rekryteringstester/prova och /register). De är vår viktigaste konverteringsväg men omfattades inte av publikt v2. Förslag: art-director tar fram en skiss i samma linje.
+25. **Ett vitest-test faller redan på main** (kandidater.test för /for-rekryterare). Det påverkar inte sajten men bör rättas i nästa omgång.
 
 ## Arbetsregler
 
