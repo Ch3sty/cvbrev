@@ -15,6 +15,12 @@
  *   2  När är provet? Datum, chips, planen som bild. Hoppa över synligt.
  *      Bara personlighet: när är testet, inget sikte, ingen plan.
  *
+ * Provdatumskärmen efter kontot (efterKonto, saas-leads beslut 4,
+ * 2026-11-10): samma datumsteg som ett eget, enda steg, för konton som kom
+ * från en artikel med valet I-prov eller lokförare. I-prov får varianten
+ * (Polisen, värnplikt, officersprogrammet) på samma skärm. Hoppa över och
+ * krysset går vidare utan att spara, dit kontot var på väg (nasta).
+ *
  * Sparar med PUT /api/traning/plan (mittTest.ts planFranVal). Går det inte
  * står felet kvar i foten och ingenting säger "sparat"; användaren står kvar
  * på steget.
@@ -22,13 +28,14 @@
  * Klient (FlowShell äger skärmen).
  */
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import FlowShell from '@/components/shell/FlowShell'
 import { LANK } from '@/components/shell/knappar'
 import { IkonKalender, SymPerson, SymPlan } from '@/components/illustrations/RumSymboler'
 import { capture } from '@/lib/analytics/events'
+import { sparaKontokalla } from '@/lib/analytics/provkalla'
 import { INGANG } from '@/lib/traning/hem-copy'
 import { dagarMellan, laggTill, type Dag } from '@/lib/traning/datum'
 import { byggPlan, raknaPlan } from '@/lib/traning/plan'
@@ -41,6 +48,7 @@ import {
   MITT_TEST_COPY,
   MITT_TEST_KORT,
   deltypSynlig,
+  mittTestNamn,
   iprovProvText,
   kryssUrPlan,
   mittTestUrPlan,
@@ -137,11 +145,14 @@ export default function Ingang({
   plan,
   startSteg,
   forsta,
+  efterKonto = null,
 }: {
   idag: Dag
   plan: IngangPlan | null
   startSteg: 'test' | 'datum'
   forsta: boolean
+  /** Provdatumskärmen efter kontot: ett enda steg, sedan nasta. */
+  efterKonto?: { nasta: string } | null
 }) {
   const router = useRouter()
   const valen = useMemo(() => synligaVal(), [])
@@ -158,6 +169,17 @@ export default function Ingang({
   const [datum, setDatum] = useState<string>(plan?.provdatum ?? '')
   const [sparar, setSparar] = useState(false)
   const [fel, setFel] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (efterKonto && sparatVal) capture('provdatum_skarm_visad', { mitt_test: sparatVal })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  /** Efter kontot: vidare dit kontot var på väg, med eller utan datum. */
+  const vidare = () => {
+    if (!efterKonto) return
+    router.replace(efterKonto.nasta)
+  }
 
   const kryssLista = (): Deltyp[] => {
     const k = DELTYPER.filter((t) => kryss.has(t))
@@ -203,15 +225,23 @@ export default function Ingang({
         body: JSON.stringify(kropp),
       })
       if (!svar.ok) throw new Error(String(svar.status))
+      // Valet följer med till betalväggens händelser (provkalla.ts).
+      sparaKontokalla({ mitt_test: p.mitt_test })
       if (provdatum) {
         capture('provdatum_satt', {
           dagar_kvar: dagarMellan(idag, provdatum),
           leverantor: p.leverantor,
           typer: [...p.testtyper, ...p.extra_typer],
-          surface: forsta ? 'ingang' : 'installningar',
+          surface: efterKonto ? 'efter_konto' : forsta ? 'ingang' : 'installningar',
+          mitt_test: p.mitt_test,
+          variant: p.mitt_test_variant,
         })
       } else if (hoppade) {
-        capture('provdatum_hoppat_over', { steg: 3 })
+        capture('provdatum_hoppat_over', efterKonto ? { steg: 'efter_konto', mitt_test: p.mitt_test } : { steg: 3 })
+      }
+      if (efterKonto) {
+        vidare()
+        return
       }
       router.push(TRANING_RUTT.hem)
       router.refresh()
@@ -223,6 +253,11 @@ export default function Ingang({
 
   /** Krysset. Första gången sparas en tom plan, så ingången inte kommer tillbaka vid varje besök. */
   const lamna = async () => {
+    if (efterKonto) {
+      capture('provdatum_hoppat_over', { steg: 'efter_konto', mitt_test: sparatVal })
+      vidare()
+      return
+    }
     if (forsta) {
       try {
         const r = await fetch('/api/traning/plan', {
@@ -253,9 +288,16 @@ export default function Ingang({
   }
 
   const stegNr = steg === 'test' ? 1 : 2
+  const totalt = efterKonto ? 1 : 2
   const undertitel = steg === 'test' ? MITT_TEST_COPY.fraga : val ? MITT_TEST_KORT[val].titel : ''
 
-  const primar = steg === 'datum' ? (baraPersonlighet ? INGANG.datum.knappPersonlighet : INGANG.datum.knapp) : INGANG.fortsatt
+  const primar = efterKonto
+    ? INGANG.fortsatt
+    : steg === 'datum'
+      ? baraPersonlighet
+        ? INGANG.datum.knappPersonlighet
+        : INGANG.datum.knapp
+      : INGANG.fortsatt
   const sparrad = steg === 'test' ? !val : !!datumFel
 
   const chips: { text: string; dag: Dag }[] = [
@@ -276,10 +318,10 @@ export default function Ingang({
   return (
     <FlowShell
       title={INGANG.flode}
-      step={stegNr}
-      totalSteps={2}
+      step={efterKonto ? 1 : stegNr}
+      totalSteps={totalt}
       smal
-      onBack={steg === 'datum' ? () => setSteg('test') : undefined}
+      onBack={steg === 'datum' && !efterKonto ? () => setSteg('test') : undefined}
       onExit={lamna}
       exitLabel={INGANG.stang}
       primaryLabel={primar}
@@ -289,7 +331,7 @@ export default function Ingang({
       primaryBusy={sparar}
       busyLabel={INGANG.sparar}
       footerSecondary={
-        forsta ? (
+        forsta && !efterKonto ? (
           // Förbi planen (beslut-hemvy 2026-10-11): en länk, aldrig en knapp.
           <Link href={TRANING_RUTT.alla} className={`${LANK} inline-flex min-h-9 items-center`} data-ingang-alla>
             {INGANG.allaTester}
@@ -299,8 +341,8 @@ export default function Ingang({
     >
       <div className="flex flex-col gap-3.5 pb-4" data-steg={steg}>
         <p className="text-xs font-semibold uppercase leading-4 tracking-[.06em] text-ink-3">
-          {INGANG.stegEtikett(stegNr, 2, false)}
-          <span className="sr-only">. {undertitel}</span>
+          {efterKonto && val ? mittTestNamn(val, varianten()) : INGANG.stegEtikett(stegNr, 2, false)}
+          {efterKonto ? null : <span className="sr-only">. {undertitel}</span>}
         </p>
 
         {steg === 'test' ? (
@@ -432,6 +474,18 @@ export default function Ingang({
               </h1>
               <p className="mt-1.5 text-meta text-ink-3">{baraPersonlighet ? INGANG.datum.ledtradPersonlighet : INGANG.datum.ledtrad}</p>
             </div>
+            {efterKonto && val === 'iprov' ? (
+              <div className="px-0.5" data-variant>
+                <p className="text-[13px] font-semibold leading-[18px] text-ink-2">{MITT_TEST_COPY.variantRubrik}</p>
+                <div className="mt-2 flex flex-wrap gap-2" role="radiogroup" aria-label={MITT_TEST_COPY.variantRubrik}>
+                  {IPROV_VAR.map((v) => (
+                    <button key={v} type="button" role="radio" aria-checked={iprovVar === v} onClick={() => setIprovVar(v)} className={chipKlass(iprovVar === v)}>
+                      {MITT_TEST_COPY.iprovVariant[v === 'vet_inte' ? 'vetInte' : v]}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : null}
             <div>
               <label htmlFor="provdatum" className="mb-1.5 block text-sm font-medium text-ink-2">
                 {baraPersonlighet ? INGANG.datum.faltPersonlighet : INGANG.datum.falt}
@@ -475,9 +529,15 @@ export default function Ingang({
               </div>
             ) : null}
             <div className="flex flex-col items-start gap-1 px-1">
-              <button type="button" className={`${LANK} min-h-11 text-left`} disabled={sparar} onClick={() => void spara(null, true)}>
-                {INGANG.datum.hoppaOver}
-              </button>
+              {efterKonto ? (
+                <button type="button" className={`${LANK} min-h-11 text-left`} disabled={sparar} onClick={() => (val === 'iprov' && iprovVar !== 'vet_inte' ? void spara(null, true) : void lamna())} data-hoppa-over>
+                  {INGANG.datum.ingetDatum}
+                </button>
+              ) : (
+                <button type="button" className={`${LANK} min-h-11 text-left`} disabled={sparar} onClick={() => void spara(null, true)}>
+                  {INGANG.datum.hoppaOver}
+                </button>
+              )}
               {plan?.provdatum ? (
                 <button type="button" className={`${LANK} min-h-11 text-left`} disabled={sparar} onClick={() => void spara(null, false)}>
                   {INGANG.datum.taBort}

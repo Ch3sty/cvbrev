@@ -15,6 +15,7 @@ import { ArrowRight } from 'lucide-react'
 import { FigurV7, LuckaV7 } from '@/lib/logicTestV7/layered.v7'
 import type { LayeredCell } from '@/lib/logicTestV7/layered.v7'
 import { capture } from '@/lib/analytics/events'
+import { sparaProvkalla, sparaProvkallaUrAdress } from '@/lib/analytics/provkalla'
 import { readPendingTestSession, storePendingTestSession } from '@/lib/letters/claim-draft-client'
 import { IlluTestResultat } from '@/components/illustrations/StartFlowIllustrations'
 
@@ -107,6 +108,11 @@ export default function ProvaFlow() {
     el.scrollIntoView({ block: 'start', behavior: lugn ? 'auto' : 'smooth' })
   }, [phase, index])
 
+  // Valet och artikeln ur adressen (?mitt_test=, ?fran=), för kontots källa.
+  useEffect(() => {
+    sparaProvkallaUrAdress(window.location.search, 'smakprov')
+  }, [])
+
   // Tillbaka från registreringen: resultatet står kvar.
   useEffect(() => {
     const sparat = lasSparatResultat()
@@ -136,6 +142,8 @@ export default function ProvaFlow() {
       setIndex(0)
       setPhase('running')
       capture('sample_started', { kind: 'test', cluster: 'test' })
+      // Kom besökaren från en artikel blir källan smakprov:<slug>.
+      sparaProvkalla({ via: 'smakprov' })
     } catch {
       setError('Vi nådde inte servern. Kontrollera uppkopplingen och försök igen.')
     } finally {

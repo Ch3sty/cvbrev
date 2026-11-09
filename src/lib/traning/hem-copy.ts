@@ -440,6 +440,8 @@ export const INGANG = {
     personlighetKort: (datum: string) => `Personlighetstest den ${datum}.`,
     personlighetText: 'Inga rätta svar, men det hjälper att veta hur det tolkas. Inga pass och ingen nivå.',
     hoppaOver: 'Hoppa över, jag vet inte än',
+    /** Provdatumskärmen efter kontot (beslut 4, 2026-11-10). */
+    ingetDatum: 'Jag har inget datum än',
     taBort: 'Ta bort datumet',
     knapp: 'Visa min plan',
     knappPersonlighet: 'Visa hur det tolkas',

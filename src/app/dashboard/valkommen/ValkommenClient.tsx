@@ -22,6 +22,9 @@ import {
 } from '@/lib/letters/claim-draft-client'
 import { capture } from '@/lib/analytics/events'
 import { TRACK_CHOICE_PATH } from '@/lib/onboarding/steps'
+import { rensaProvkalla, sparaKontokalla } from '@/lib/analytics/provkalla'
+import { TRANING_RUTT } from '@/lib/traning/rutter'
+import type { MittTest } from '@/lib/traning/mittTest'
 import ForslagSteg from './ForslagSteg'
 import {
   landningsgren,
@@ -48,12 +51,29 @@ export async function hamtkedjan(signup: SignupCookie | null): Promise<string | 
   }
 }
 
+/** Källan och valet från artikeln (page.tsx, provkalla.ts). */
+export interface ValkommenKalla {
+  kalla: string | null
+  mittTest: MittTest | null
+  /** Valet sattes på planen nu. */
+  satt: boolean
+  surface: 'artikel' | 'hubb'
+  /** Provdatumskärmen före landningen (I-prov och lokförare utan datum). */
+  provdatumSkarm: boolean
+}
+
+/** Provdatumskärmen efter kontot, med landningen som nästa steg. */
+export function provdatumHref(nasta: string): string {
+  return `${TRANING_RUTT.provdatum}?nasta=${encodeURIComponent(nasta)}`
+}
+
 export interface ValkommenClientProps {
   signup: SignupCookie | null
   fornamn: string | null
+  kalla?: ValkommenKalla | null
 }
 
-export default function ValkommenClient({ signup, fornamn }: ValkommenClientProps) {
+export default function ValkommenClient({ signup, fornamn, kalla = null }: ValkommenClientProps) {
   const router = useRouter()
   const kord = useRef(false)
   const [forslag, setForslag] = useState<SignupIntent | null>(null)
@@ -65,6 +85,22 @@ export default function ValkommenClient({ signup, fornamn }: ValkommenClientProp
       const intent = signup?.intent ?? null
       const hamtat = await hamtkedjan(signup)
       rensaSignupCookie()
+      if (kalla) {
+        // Källan och valet följer kontot till betalväggens händelser.
+        sparaKontokalla({ ...(kalla.kalla ? { kalla: kalla.kalla } : {}), ...(kalla.mittTest ? { mitt_test: kalla.mittTest } : {}) })
+        rensaProvkalla()
+        if (kalla.satt && kalla.mittTest) {
+          capture('mitt_test_valt', { val: kalla.mittTest, variant: null, surface: kalla.surface, forsta: true, ...(kalla.kalla ? { kalla: kalla.kalla } : {}) })
+        }
+        // I-prov och lokförare: provdatumet först, sedan dit kontot var på väg.
+        if (kalla.provdatumSkarm) {
+          const gren = landningsgren(signup, TRACK_CHOICE_PATH)
+          const nasta = hamtat ?? (gren.via === 'forslag' ? TRANING_RUTT.hem : gren.destination)
+          capture('signup_landed', { destination: nasta, intent, claimed: !!hamtat, via: hamtat ? 'smakprov' : gren.via })
+          router.replace(provdatumHref(nasta))
+          return
+        }
+      }
       if (hamtat) {
         capture('signup_landed', { destination: hamtat, intent, claimed: true, via: 'smakprov' })
         router.replace(hamtat)
@@ -85,7 +121,7 @@ export default function ValkommenClient({ signup, fornamn }: ValkommenClientProp
       capture('signup_landed', { destination: gren.destination, intent, claimed: false, via: gren.via })
       router.replace(gren.destination)
     })()
-  }, [signup, router])
+  }, [signup, router, kalla])
 
   if (forslag) return <ForslagSteg intent={forslag} fornamn={fornamn} entry={signup?.entry} />
 

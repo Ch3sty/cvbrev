@@ -14,6 +14,7 @@ import { captureServer, distinctIdUrCookie, posthogCookieNamn, vantaMedTak } fro
 import { VALKOMMEN_PATH } from '@/lib/onboarding/steps'
 import { SIGNUP_COOKIE, googleCallbackMal, lasSignupCookie } from '@/components/registrering/intent'
 import { ATTRIBUTION_COOKIE, parseAttribution } from '@/lib/analytics/attribution'
+import { PROVKALLA_COOKIE, acquisitionFalt, lasProvkalla } from '@/lib/analytics/provkalla'
 
 /** Bara relativa paths inom appen släpps igenom, aldrig protokoll-relativa. */
 function safeNext(raw: string | null): string {
@@ -93,7 +94,12 @@ export async function GET(request: NextRequest) {
   // Attribution ligger i jc_attr-cookien (SameSite=Lax, så den överlever
   // Googles redirect). Vi skickar den vidare till post-signup som acquisition.
   // parseAttribution tål både enkel och dubbel kodning och kastar aldrig.
-  const acquisition: unknown = parseAttribution(cookieStore.get(ATTRIBUTION_COOKIE)?.value)
+  // Artikeln och valet före kontot (jc_provkalla, saas-leads beslut 6):
+  // kalla 'smakprov:<slug>' eller 'artikel:<slug>', artikel och mitt_test.
+  const attribution = parseAttribution(cookieStore.get(ATTRIBUTION_COOKIE)?.value)
+  const kallaFalt = acquisitionFalt(lasProvkalla(cookieStore.get(PROVKALLA_COOKIE)?.value))
+  const acquisition: unknown =
+    attribution || Object.keys(kallaFalt).length ? { ...(attribution ?? {}), ...kallaFalt } : null
 
   // Registreringstratten (jc_signup): valet, ingången, smakprovet, paketet
   // och redirecten. Skrivs av /register före hoppet till Google, SameSite=Lax,

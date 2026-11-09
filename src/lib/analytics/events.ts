@@ -14,6 +14,7 @@ import type { PaywallVariant } from '@/components/paywall/paywall-copy'
 import type { PlanKey, PlanLength } from '@/lib/plans/plans'
 import type { FragaId } from '@/components/artiklar/intervjuprov/fragor'
 import type { SignupEntry, SignupIntent } from '@/components/registrering/intent'
+import { lasKontokallaKlient } from '@/lib/analytics/provkalla'
 
 /** Var i sidan en CTA satt när den visades eller klickades. */
 export type CtaPosition = 'inline' | 'final' | 'sticky' | 'hero' | 'sidebar'
@@ -273,6 +274,9 @@ export interface AnalyticsEvents {
     cta: 'primary' | 'secondary'
     /** Exponeringen knappen satt i, samma värde som i betalvagg_visad. */
     plats?: BetalvaggPlats
+    /** Kontots källa och val (jc_kontokalla), läggs på av capture(). */
+    konto_kalla?: string
+    mitt_test?: string
   }
   /* Prissidan finns på två ytor: den publika /priser och den inloggade
      prenumerationsvyn (docs/plan-paket-och-onboarding.md, Fas 2D). surface
@@ -421,11 +425,23 @@ export interface AnalyticsEvents {
     dagar_kvar: number
     leverantor: string | null
     typer: string[]
-    surface: 'ingang' | 'installningar'
+    surface: 'ingang' | 'installningar' | 'efter_konto'
+    /** Valet i "Mitt test", när det finns. */
+    mitt_test?: string | null
+    variant?: string | null
   }
-  provdatum_hoppat_over: { steg: 2 | 3 }
+  provdatum_hoppat_over: { steg: 2 | 3 | 'efter_konto'; mitt_test?: string | null }
+  /** Provdatumskärmen efter kontot (beslut 4, 2026-11-10), för I-prov och lokförare. */
+  provdatum_skarm_visad: { mitt_test: string }
   /** "Mitt test är …" (brief-tester-steg2 avsnitt 7). Läggs till, ersätter inte ingang_steg. */
-  mitt_test_valt: { val: string; variant: string | null; surface: 'ingang' | 'alla_tester' | 'hem'; forsta: boolean }
+  mitt_test_valt: {
+    val: string
+    variant: string | null
+    /** artikel och hubb: valet följde med tyst från artikeln eller testsidan till kontot (beslut 6). */
+    surface: 'ingang' | 'alla_tester' | 'hem' | 'artikel' | 'hubb'
+    forsta: boolean
+    kalla?: string
+  }
   traning_hem_visad: {
     tillstand: 'ny' | 'tomt' | 'utan_datum' | 'mitt_i' | 'infor' | 'provdag' | 'efter' | 'personlighet' | 'annat_test' | 'fel'
     /** 'lagesrad' när visningen kom från lägesraden (beslut-hemvy 2026-10-11). */
@@ -449,6 +465,9 @@ export interface AnalyticsEvents {
     kalla?: string
     /** Testtypen vid övningsprovets betalvägg: logik, verbal, numerisk. */
     test_kind?: string
+    /** Kontots källa ('smakprov:<slug>', 'artikel:<slug>', 'hubb') och val, läggs på av capture(). */
+    konto_kalla?: string
+    mitt_test?: string
   }
   /* ---------------------------------------------- Rummen, våg 4
      rum_bytt vid varje byte mellan två rum (inte landningen), med varifrån
@@ -544,9 +563,31 @@ const KO_TAK = 50
 let ko: Array<[string, Record<string, unknown> | undefined]> = []
 let tomningSchemalagd = false
 
+/**
+ * Väggen per källa och val (saas-leads beslut 6, 2026-11-10): kontots källa
+ * och "Mitt test" ur jc_kontokalla läggs på betalväggens två händelser, utan
+ * att varje vägg behöver läsa planen själv.
+ */
+const MED_KONTOKALLA = new Set(['betalvagg_visad', 'paywall_cta_clicked'])
+
+function medKontokalla(event: string, properties?: Record<string, unknown>): Record<string, unknown> | undefined {
+  if (!MED_KONTOKALLA.has(event)) return properties
+  try {
+    const k = lasKontokallaKlient()
+    if (!k) return properties
+    return {
+      ...(k.kalla ? { konto_kalla: k.kalla } : {}),
+      ...(k.mitt_test ? { mitt_test: k.mitt_test } : {}),
+      ...properties,
+    }
+  } catch {
+    return properties
+  }
+}
+
 function skicka(ph: PosthogKlient, event: string, properties?: Record<string, unknown>): void {
   try {
-    ph.capture(event, properties)
+    ph.capture(event, medKontokalla(event, properties))
   } catch {
     // Mätning får aldrig kasta vidare.
   }

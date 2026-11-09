@@ -3,6 +3,7 @@
 // Cookien sätts i proxy.ts vid första request och skrivs aldrig över.
 
 import { getCtaVariantForTags } from '@/lib/cta/clusters'
+import { acquisitionFalt, lasProvkallaKlient } from '@/lib/analytics/provkalla'
 
 export interface Attribution {
   landing_path?: string;
@@ -14,6 +15,10 @@ export interface Attribution {
   utm_content?: string;
   utm_term?: string;
   first_seen?: string;
+  /** Artikeln och valet före kontot (provkalla.ts). */
+  kalla?: string;
+  artikel?: string;
+  mitt_test?: string;
 }
 
 export const ATTRIBUTION_COOKIE = 'jc_attr';
@@ -158,5 +163,10 @@ export function getSignupAnalyticsContext(): {
  * vid registrering. Registreringen (RegisterKontoSteg) och Google-callbacken anropar den.
  */
 export function getAcquisitionSource(): Attribution | null {
-  return readAttribution();
+  const attribution = readAttribution();
+  // Artikeln och valet (provkalla.ts): kalla 'smakprov:<slug>' eller
+  // 'artikel:<slug>', artikel och mitt_test (saas-leads beslut 6, 2026-11-10).
+  const kalla = acquisitionFalt(lasProvkallaKlient());
+  if (!attribution && Object.keys(kalla).length === 0) return null;
+  return { ...(attribution ?? {}), ...kalla };
 }

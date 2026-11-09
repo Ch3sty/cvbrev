@@ -90,6 +90,8 @@ export const TRANING_RUTT = {
   /** Ingången E1 till E3 och "Test och datum". steg=2 öppnar leverantören, steg=3 datumet. */
   installningar: '/dashboard/tester/installningar',
   installningarSteg: (steg: 1 | 2 | 3) => `/dashboard/tester/installningar?steg=${steg}`,
+  /** Provdatumskärmen efter kontot för I-prov och lokförare (beslut 4, 2026-11-10), ?nasta= dit kontot var på väg. */
+  provdatum: '/dashboard/tester/provdatum',
   kurvan: KURVAN_HREF,
   alla: '/dashboard/tester/alla',
   /** Sidomenyns "Övningsprov": startarket för logikens övningsprov i planens format. */

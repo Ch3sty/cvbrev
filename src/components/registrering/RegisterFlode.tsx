@@ -21,6 +21,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { capture } from '@/lib/analytics/events'
 import { getSignupAnalyticsContext } from '@/lib/analytics/attribution'
+import { sparaProvkallaUrAdress } from '@/lib/analytics/provkalla'
 import RegisterKontoSteg, { loggaInHref } from './RegisterKontoSteg'
 import ValSteg from './ValSteg'
 import {
@@ -71,6 +72,8 @@ export default function RegisterFlode({ ingang }: { ingang: RegisterIngang }) {
     if (entryRef.current) return
     const e = lasIngang(ingang)
     entryRef.current = e
+    // ?mitt_test= från testsidans kort och artiklarna (provkalla.ts).
+    sparaProvkallaUrAdress(window.location.search, 'artikel')
     setEntry(e)
     if (ingang.lage === 'konto' && ingang.intent) {
       capture('signup_intent_selected', { intent: ingang.intent, preset: true, skipped: false })

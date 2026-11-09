@@ -20,6 +20,7 @@ import { PLAN_BY_KEY, SALD_PLAN, isPlanKey } from '@/lib/plans/plans'
 import { getStripePriceId } from '@/lib/stripe/planPrices'
 import { VECKA_START_PATH } from '@/lib/onboarding/steps'
 import { KOPSTEG, samtyckeVidKop } from '@/components/pricing/paket-copy'
+import { kopKallaMetadata } from '@/lib/stripe/kopKalla.server'
 
 export async function POST(request: NextRequest) {
   try {
@@ -152,6 +153,8 @@ export async function POST(request: NextRequest) {
       // text här (PAKETSKARM.samtycke) som kunden aldrig såg.
       angerratt_samtycke_at: new Date().toISOString(),
       angerratt_samtycke_text: samtyckeVidKop(selected.key),
+      // Källan, valet och dagarna till provet vid köpet (saas-leads beslut 6).
+      ...(await kopKallaMetadata(getSupabaseAdmin(), user.id)),
     }
 
     const session = await stripe.checkout.sessions.create({

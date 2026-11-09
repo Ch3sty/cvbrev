@@ -9,12 +9,18 @@
  * Ett konto som inte är nytt och inte har något smakprov att hämta hem
  * skickas direkt vidare, så att sidan aldrig blir en återvändsgränd för den
  * som loggar in med Google från registreringen.
+ *
+ * Från en testartikel (kakan jc_provkalla, saas-leads beslut 4 och 6,
+ * 2026-11-10): valet sätts tyst på testplanen, och för I-prov och lokförare
+ * visas provdatumskärmen före landningen.
  */
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { SIGNUP_COOKIE, lasIntent, lasSignupCookie, type SignupIntent } from '@/components/registrering/intent'
+import { PROVKALLA_COOKIE, kallaText, lasProvkalla } from '@/lib/analytics/provkalla'
+import { sattMittTestFranKalla } from '@/lib/traning/mittTestFranKalla.server'
 import ValkommenClient from './ValkommenClient'
 
 export const metadata = { title: 'Kom igång' }
@@ -58,5 +64,18 @@ export default async function ValkommenPage() {
   // Befintligt konto utan smakprov att hämta: dit det var på väg.
   if (!nytt && signup && !signup.smakprov) redirect(signup.redirect ?? '/dashboard')
 
-  return <ValkommenClient signup={signup} fornamn={fornamn} />
+  // Valet från artikeln, bara för nya konton.
+  const provkalla = nytt ? lasProvkalla(cookieStore.get(PROVKALLA_COOKIE)?.value) : null
+  const mittTest = provkalla ? await sattMittTestFranKalla(getSupabaseAdmin() as any, user.id, provkalla) : null
+  const kalla = provkalla
+    ? {
+        kalla: kallaText(provkalla),
+        mittTest: mittTest?.mittTest ?? null,
+        satt: mittTest?.satt ?? false,
+        surface: provkalla.via === 'hubb' ? ('hubb' as const) : ('artikel' as const),
+        provdatumSkarm: mittTest?.provdatumSkarm ?? false,
+      }
+    : null
+
+  return <ValkommenClient signup={signup} fornamn={fornamn} kalla={kalla} />
 }
