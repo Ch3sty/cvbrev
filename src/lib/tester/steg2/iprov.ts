@@ -86,10 +86,12 @@ export interface IprovVy {
 }
 
 export const IPROV_COPY = {
-  titel: 'I-prov-provet',
+  titel: 'I-provet, övningsprov',
   startRubrik: 'Övningsprovet',
-  eyebrow: (dagar: number | null) => (dagar != null && dagar > 0 ? `I-prov 2025, ${dagar === 1 ? '1 dag' : `${dagar} dagar`} kvar` : 'I-prov 2025'),
-  format: 'Samma deltester i samma ordning som I-prov 2025',
+  eyebrow: (dagar: number | null) => (dagar != null && dagar > 0 ? `I-provet, ${dagar === 1 ? '1 dag' : `${dagar} dagar`} kvar` : 'I-provet'),
+  format: 'Samma deltester i samma ordning som I-provet',
+  /** Versionen står en gång, på startarket (ägaren 2026-11-10). */
+  version: 'Versionen heter I-prov 2025 och används sedan maj 2025.',
   formatRad: 'Pliktverket publicerar inte antal och tider, så de här är våra.',
   halvt: 'Halva provet',
   helt: 'Hela provet',

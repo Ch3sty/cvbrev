@@ -835,7 +835,7 @@ export function byggHemvy(inp: HemIn): HemModell {
       nyPunkt: false,
       vagg: {
         rubrik: prov && dagarKvar != null && dagarKvar >= 0 ? rubrikForeProv(ri, dagarKvar) : HEM.rubrikUtanDatum,
-        rad: 'Passen går i tur och ordning mellan deltesterna i I-prov 2025. Ett kort pass varje dag.',
+        rad: 'Passen går i tur och ordning mellan deltesterna i I-provet. Ett kort pass varje dag.',
       },
       lyft: {
         label: 'Dagens pass',
@@ -857,7 +857,7 @@ export function byggHemvy(inp: HemIn): HemModell {
                 rubrik: HEM.provdagen.rubrik,
                 rader: [
                   {
-                    titel: 'I-prov-provet',
+                    titel: 'I-provet, övningsprov',
                     meta: prov ? `${kortDatum(laggTill(prov, -2))}, två dagar före provet. Halva eller hela.` : 'Sex deltester i provets ordning. Halva eller hela.',
                     hoger: behorig.harProvlage ? ({ typ: 'chev' } as Hoger) : ({ typ: 'las', text: ingarIPaketet(), feature: 'test_exam_mode', plats: 'generalrepetition' } as Hoger),
                     href: '/dashboard/tester/iprov',

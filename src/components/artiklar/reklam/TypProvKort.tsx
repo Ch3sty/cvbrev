@@ -53,8 +53,8 @@ export const TYP_PROVKORT: Record<ProvKortTyp, TypCopy> = {
     text: 'Grundnivån är gratis med konto: femton talserier på tolv minuter och genomgång av varje rad. Sedan två luckor som i I-provet.',
     knapp: 'Gör nivåtestet i talserier',
     href: viaKonto('/dashboard/tester/talserier-grund'),
-    sekundar: { text: 'I-prov-provet', href: viaKonto('/dashboard/tester/iprov') },
-    paketrad: `Avancerad och expert, pass varje dag och I-prov-provet ingår i ${KORT_PRIS}.`,
+    sekundar: { text: 'I-provet, övningsprov', href: viaKonto('/dashboard/tester/iprov') },
+    paketrad: `Avancerad och expert, pass varje dag och I-provets övningsprov ingår i ${KORT_PRIS}.`,
   },
   spatial: {
     etikett: 'Öva spatial förmåga',
@@ -62,8 +62,8 @@ export const TYP_PROVKORT: Record<ProvKortTyp, TypCopy> = {
     text: 'Grundnivån i spatial förmåga är gratis med konto: femton uppgifter på tolv minuter och genomgång av varje figur.',
     knapp: 'Gör nivåtestet i spatial förmåga',
     href: viaKonto('/dashboard/tester/spatial-grund'),
-    sekundar: { text: 'I-prov-provet', href: viaKonto('/dashboard/tester/iprov') },
-    paketrad: `Avancerad och expert, pass varje dag och I-prov-provet ingår i ${KORT_PRIS}.`,
+    sekundar: { text: 'I-provet, övningsprov', href: viaKonto('/dashboard/tester/iprov') },
+    paketrad: `Avancerad och expert, pass varje dag och I-provets övningsprov ingår i ${KORT_PRIS}.`,
   },
   ordforrad: {
     etikett: 'Öva ordförståelse',
@@ -71,8 +71,8 @@ export const TYP_PROVKORT: Record<ProvKortTyp, TypCopy> = {
     text: 'Grundnivån är gratis med konto: tjugo ord på åtta minuter, och efteråt betydelsen och en exempelmening för varje ord.',
     knapp: 'Gör nivåtestet i ordförråd',
     href: viaKonto('/dashboard/tester/ordforrad-grund'),
-    sekundar: { text: 'I-prov-provet', href: viaKonto('/dashboard/tester/iprov') },
-    paketrad: `Avancerad och expert, pass varje dag och I-prov-provet ingår i ${KORT_PRIS}.`,
+    sekundar: { text: 'I-provet, övningsprov', href: viaKonto('/dashboard/tester/iprov') },
+    paketrad: `Avancerad och expert, pass varje dag och I-provets övningsprov ingår i ${KORT_PRIS}.`,
   },
   iprov: {
     etikett: 'Öva inför I-provet',
@@ -80,8 +80,8 @@ export const TYP_PROVKORT: Record<ProvKortTyp, TypCopy> = {
     text: 'Grundnivån i synonymer och motsatsord, talserier och spatial förmåga är gratis med konto. Övningsprovet med tid per deltest ingår i Premium.',
     knapp: 'Börja med grundnivån gratis',
     href: viaKonto('/dashboard/tester'),
-    sekundar: { text: 'Se I-prov-provet', href: viaKonto('/dashboard/tester/iprov') },
-    paketrad: `Halva och hela I-prov-provet, alla nivåer och pass varje dag ingår i ${KORT_PRIS}.`,
+    sekundar: { text: 'Se I-provet, övningsprov', href: viaKonto('/dashboard/tester/iprov') },
+    paketrad: `Halva och hela övningsprovet för I-provet, alla nivåer och pass varje dag ingår i ${KORT_PRIS}.`,
   },
 }
 

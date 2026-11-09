@@ -60,8 +60,8 @@ describe('Mitt test är …', () => {
   })
 
   it('namnet i raden Mitt test', () => {
-    expect(mittTestNamn('iprov', 'polis')).toBe('Polisen, I-prov 2025')
-    expect(mittTestNamn('iprov', null)).toBe('I-prov 2025')
+    expect(mittTestNamn('iprov', 'polis')).toBe('Polisen, I-provet')
+    expect(mittTestNamn('iprov', null)).toBe('I-provet')
     expect(mittTestNamn('shl')).toBe('SHL Verify')
   })
 

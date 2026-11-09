@@ -328,7 +328,7 @@ export const SPATIAL_TESTS = steg2Tester('spatial', 'Spatial förmåga', 'Rumsup
 export const ORDFORRAD_TESTS = steg2Tester('ordforrad', 'Ordförråd', 'Synonymer · motsatsord');
 
 /** Provraden innan I-prov-provet finns: dämpad, utan lås. */
-const PROV_TYST_IPROV = { rad1: 'Övningsprov mot klockan', rad2: 'Kommer med övningsprovet för I-prov 2025.' };
+const PROV_TYST_IPROV = { rad1: 'Övningsprov mot klockan', rad2: 'Kommer med I-provets övningsprov.' };
 
 const TALSERIE_GROUP: TestGroup = {
   key: 'talserie',

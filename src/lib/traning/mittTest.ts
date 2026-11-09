@@ -185,7 +185,7 @@ export function planFranVal(val: MittTest, variant: MittVariant | null, kryss: r
 
 /** Korten i ingången: vanligt språk först, leverantören som andra rad (skissen). */
 export const MITT_TEST_KORT: Record<MittTest, { titel: string; rad: string }> = {
-  iprov: { titel: 'Polisen eller Försvarsmakten', rad: 'I-prov 2025. Även mönstring, Tullverket, Kustbevakningen' },
+  iprov: { titel: 'Polisen eller Försvarsmakten', rad: 'I-provet. Även mönstring, Tullverket, Kustbevakningen' },
   matrigma: { titel: 'Matrigma', rad: 'Assessio' },
   alva: { titel: 'Alva Logic', rad: 'Alva Labs' },
   shl: { titel: 'SHL Verify', rad: 'SHL, även G+' },
@@ -199,7 +199,7 @@ export const MITT_TEST_KORT: Record<MittTest, { titel: string; rad: string }> = 
 export function mittTestNamn(val: MittTest, variant?: string | null): string {
   if (val === 'iprov') {
     const vem = variant === 'varnplikt' ? 'Mönstringen' : variant === 'officer' ? 'Officersprogrammet' : variant === 'polis' ? 'Polisen' : null;
-    return vem ? `${vem}, I-prov 2025` : 'I-prov 2025';
+    return vem ? `${vem}, I-provet` : 'I-provet';
   }
   if (val === 'annat') return 'Eget urval';
   if (val === 'personlighet') return 'Personlighetstest';
@@ -299,7 +299,7 @@ export function upplagg(val: MittTest, kryss: readonly string[], ovningsprovText
 
 /** Övningsprovets rad för I-prov 2025, när provpaketet finns. */
 export function iprovProvText(): string | null {
-  return iprovProvSynligt() ? 'I-prov-provet, sex deltester i provets ordning, två dagar före.' : null;
+  return iprovProvSynligt() ? 'I-provet, övningsprov: sex deltester i provets ordning, två dagar före.' : null;
 }
 
 export const MITT_TEST_COPY = {

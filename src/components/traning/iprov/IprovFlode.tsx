@@ -178,7 +178,7 @@ export function IprovStartark({
             </svg>
             <div className="min-w-0">
               <b className="block font-display text-[16px] font-bold leading-[21px] tracking-[-.015em] text-vagg-ink">{C.format}</b>
-              <span className="mt-1 block text-[13px] leading-[18px] text-vagg-mjuk">{C.formatRad}</span>
+              <span className="mt-1 block text-[13px] leading-[18px] text-vagg-mjuk">{C.version} {C.formatRad}</span>
             </div>
           </div>
           <div role="radiogroup" aria-label="Halva eller hela provet" className="mt-3.5 flex gap-1 rounded-[14px] border border-vagg-kant bg-white/[.06] p-1">
