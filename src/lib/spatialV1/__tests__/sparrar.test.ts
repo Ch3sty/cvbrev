@@ -12,6 +12,8 @@ import { valideraSpatial } from '../../../../scripts/validate-spatial.mjs'
 import * as A from '../../../../scripts/lib/spatial/brick.mjs'
 // @ts-ignore ren JavaScript
 import * as B from '../../../../scripts/lib/spatial/vikning.mjs'
+// @ts-ignore ren JavaScript
+import * as C from '../../../../scripts/lib/spatial/kub.mjs'
 import { matSpatialBank } from '../svgMatt'
 import { valjSpatial, poolFor, FORMER, PER_FORM } from '../select'
 import { spatialInnehall, hittaSpatial, bedomSpatialSvar, rattaSpatialSvar } from '../fragor.server'
@@ -142,6 +144,66 @@ describe('form B: vikningsmotorn och spärrfixturer', () => {
     expect(B.papperHel([[0, 1], [1, 0]])).toBe(false)
     expect(B.papperHel([[0, 0], [1, 0], [2, 0], [3, 0]])).toBe(false)
     expect(B.papperHel([[3, 1], [3, 2]])).toBe(true)
+  })
+})
+
+describe('form C: tärningar, lösaren och spärrfixturer', () => {
+  const ett = (n = 'Avancerad') => kopia(bank(n).find((q: Q) => q.form === 'C'))
+  const fel = (q: Q) => (C.sparrarC(q) as string[]).join(' | ')
+  const vy = (v: Q): Q => ({ t: v.t, l: v.l, r: v.r })
+
+  it('24 vridningar, alla olika', () => {
+    expect(C.VRIDNINGAR.length).toBe(24)
+    expect(new Set(C.VRIDNINGAR.map((M: Q) => JSON.stringify(M))).size).toBe(24)
+  })
+  it('varje vy av kuben går ihop med referensen, ingen vy av spegelbilden gör det (kiraliteten)', () => {
+    for (const n of NIVAER) {
+      for (const q of bank(n).filter((x: Q) => x.form === 'C')) {
+        const ref = vy(q.referens)
+        for (const Q of C.VRIDNINGAR) expect(C.konsistent(ref, C.vy(q.kub, Q))).toBe(true)
+        const sp = C.spegla(q.kub)
+        const speglade = C.VRIDNINGAR.map((Q: Q) => C.vy(sp, Q)).filter((v: Q) => ['t', 'l', 'r'].every((p) => ['t', 'l', 'r'].some((r) => ref[r].symbol === v[p].symbol)))
+        for (const v of speglade) expect(C.konsistent(ref, v)).toBe(false)
+      }
+    }
+  })
+  it('SP-C1 och SP-C3 fäller en distraktor som också är en vy av kuben', () => {
+    const q = ett()
+    const d = q.correctAnswer === 0 ? 1 : 0
+    q.options[d] = { kind: 'kub', ...C.vy(q.kub, C.VRIDNINGAR[5]) }
+    expect(fel(q)).toMatch(/SP-C1|SP-C3/)
+  })
+  it('SP-C2 fäller ett spegelvänt facit', () => {
+    const q = ett()
+    const sp = C.spegla(q.kub)
+    q.options[q.correctAnswer] = { kind: 'kub', ...C.vy(sp, q.orientering) }
+    expect(fel(q)).toMatch(/SP-C2/)
+  })
+  it('SP-C4 fäller en vriden riktningslös symbol', () => {
+    const q = ett('Grund')
+    q.options[0].t = { ...q.options[0].t, riktning: 2 }
+    expect(fel(q)).toMatch(/SP-C4/)
+  })
+  it('SP-C5 fäller samma symbol två gånger i en vy', () => {
+    const q = ett()
+    const d = q.correctAnswer === 0 ? 1 : 0
+    q.options[d].l = { ...q.options[d].t }
+    expect(fel(q)).toMatch(/SP-C5/)
+  })
+  it('SP-C7 fäller två spegelvända distraktorer', () => {
+    const q = ett()
+    const sp = C.spegla(q.kub)
+    const refSp = C.vy(sp, C.VRIDNINGAR.find((M: Q) => M[0][0] === 1 && M[1][1] === 1 && M[2][2] === 1))
+    const andra = C.VRIDNINGAR.map((Q: Q) => C.vy(sp, Q)).filter((v: Q) => C.konsistent(refSp, v) && C.vyNyckel(v) !== C.vyNyckel(refSp))
+    const d = [0, 1, 2, 3].filter((i) => i !== q.correctAnswer)
+    q.options[d[0]] = { kind: 'kub', ...refSp }
+    q.options[d[1]] = { kind: 'kub', ...andra[0] }
+    expect(fel(q)).toMatch(/SP-C7/)
+  })
+  it('expert: de tre distraktorerna har rätt sidor och en riktning fel var', () => {
+    for (const q of bank('Expert').filter((x: Q) => x.form === 'C')) {
+      expect(q.typer.filter((t: string) => t === 'vriden').length).toBe(3)
+    }
   })
 })
 

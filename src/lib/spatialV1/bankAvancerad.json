@@ -11910,5 +11910,5127 @@
   "difficulty": 3,
   "p_prior": 0.6,
   "fran_version": 1
+ },
+ {
+  "id": "sp-a-c-01",
+  "niva": "avancerad",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "kryss",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "prick",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 2
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "fel_symbol",
+   "framande",
+   "spegel",
+   ""
+  ],
+  "misstag": [
+   "Med pricken och krysset placerade så här måste höger sida visa en kvadrat, inte en triangel.",
+   "En fylld kvadrat kan inte sitta där. Med pricken och krysset placerade så här måste höger sida visa en kvadrat.",
+   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.",
+   ""
+  ],
+  "avslojande": [
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   []
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Krysset och kvadraten sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "kryss",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    -1,
+    0
+   ],
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    1
+   ]
+  ],
+  "difficulty": 3,
+  "p_prior": 0.6,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-a-c-02",
+  "niva": "avancerad",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "kryss",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "prick",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "ring",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 1
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kryss",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kryss",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "fel_symbol",
+   "spegel",
+   "framande",
+   ""
+  ],
+  "misstag": [
+   "Med ringen och krysset placerade så här måste höger sida visa en prick, inte en triangel.",
+   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.",
+   "En fylld kvadrat kan inte sitta där. Med ringen och krysset placerade så här måste ovansidan visa en prick.",
+   ""
+  ],
+  "avslojande": [
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   []
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Pricken och krysset sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "kryss",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    0,
+    1,
+    0
+   ]
+  ],
+  "difficulty": 3,
+  "p_prior": 0.6,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-a-c-03",
+  "niva": "avancerad",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "ring",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "prick",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "triangel",
+    "riktning": 1
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 3
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 2
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 3
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "spegel",
+   "fel_symbol",
+   "framande",
+   ""
+  ],
+  "misstag": [
+   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.",
+   "Med pilen och pricken placerade så här måste höger sida visa en ring, inte en triangel.",
+   "En dubbelring kan inte sitta där. Med triangeln och ringen placerade så här måste höger sida visa en prick.",
+   ""
+  ],
+  "avslojande": [
+   [
+    "t",
+    "r"
+   ],
+   [
+    "l",
+    "r"
+   ],
+   [
+    "l",
+    "r"
+   ],
+   []
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Pricken och ringen sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "kryss",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "ring",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    0,
+    1,
+    0
+   ]
+  ],
+  "difficulty": 3,
+  "p_prior": 0.6,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-a-c-04",
+  "niva": "avancerad",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "kryss",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "ring",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "triangel",
+    "riktning": 2
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 1
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 2
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "fel_symbol",
+   "",
+   "spegel",
+   "vriden"
+  ],
+  "misstag": [
+   "Med triangeln och ringen placerade så här måste vänster sida visa ett kryss, inte en kvadrat.",
+   "",
+   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.",
+   "Rätt sidor, men triangeln på höger sida pekar åt fel håll när tärningen vrids så."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "r"
+   ],
+   [],
+   [
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "r"
+   ]
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Krysset och triangeln sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "kryss",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "prick",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    1,
+    0,
+    0
+   ]
+  ],
+  "difficulty": 3,
+  "p_prior": 0.6,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-a-c-05",
+  "niva": "avancerad",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "kryss",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "triangel",
+    "riktning": 1
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 2
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 3
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kryss",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "vriden",
+   "",
+   "spegel",
+   "fel_symbol"
+  ],
+  "misstag": [
+   "Rätt sidor, men triangeln på höger sida pekar åt fel håll när tärningen vrids så.",
+   "",
+   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.",
+   "Med pilen och kvadraten placerade så här måste höger sida visa en triangel, inte ett kryss."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "r"
+   ],
+   [],
+   [
+    "t",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ]
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Kvadraten och triangeln sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "kryss",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "prick",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    1,
+    0,
+    0
+   ]
+  ],
+  "difficulty": 3,
+  "p_prior": 0.6,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-a-c-06",
+  "niva": "avancerad",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "prick",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "ring",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "kryss",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 2
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "kryss",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 2
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "fel_symbol",
+   "spegel",
+   "framande",
+   ""
+  ],
+  "misstag": [
+   "Med pricken och triangeln placerade så här måste ovansidan visa en ring, inte ett kryss.",
+   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.",
+   "En dubbelring kan inte sitta där. Med krysset och pricken placerade så här måste ovansidan visa en ring.",
+   ""
+  ],
+  "avslojande": [
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   []
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Ringen och pricken sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "kryss",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "prick",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    0,
+    -1,
+    0
+   ],
+   [
+    -1,
+    0,
+    0
+   ]
+  ],
+  "difficulty": 3,
+  "p_prior": 0.6,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-a-c-07",
+  "niva": "avancerad",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "ring",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "kryss",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "triangel",
+    "riktning": 3
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 2
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 1
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "vriden",
+   "fel_symbol",
+   "",
+   "spegel"
+  ],
+  "misstag": [
+   "Rätt sidor, men triangeln på höger sida pekar åt fel håll när tärningen vrids så.",
+   "Med triangeln och ringen placerade så här måste höger sida visa ett kryss, inte en pil.",
+   "",
+   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "r"
+   ],
+   [
+    "l",
+    "r"
+   ],
+   [],
+   [
+    "t",
+    "r"
+   ]
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Krysset och triangeln sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "kryss",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "ring",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    -1,
+    0,
+    0
+   ]
+  ],
+  "difficulty": 3,
+  "p_prior": 0.6,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-a-c-08",
+  "niva": "avancerad",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "triangel",
+    "riktning": 2
+   },
+   "r": {
+    "symbol": "kryss",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kryss",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "l": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "fel_symbol",
+   "",
+   "spegel",
+   "framande"
+  ],
+  "misstag": [
+   "Med krysset och kvadraten placerade så här måste höger sida visa en triangel, inte en pil.",
+   "",
+   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.",
+   "En dubbelring kan inte sitta där. Med krysset och kvadraten placerade så här måste höger sida visa en triangel."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ]
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Triangeln och krysset sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "kryss",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    -1,
+    0,
+    0
+   ]
+  ],
+  "difficulty": 3,
+  "p_prior": 0.6,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-a-c-09",
+  "niva": "avancerad",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "prick",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "kryss",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "pil",
+    "riktning": 2
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 3
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "l": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "vriden",
+   "fel_symbol",
+   "",
+   "spegel"
+  ],
+  "misstag": [
+   "Rätt sidor, men pilen på ovansidan pekar åt fel håll när tärningen vrids så.",
+   "Med krysset och pilen placerade så här måste höger sida visa en prick, inte en kvadrat.",
+   "",
+   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "r"
+   ],
+   [
+    "t",
+    "r"
+   ],
+   [],
+   [
+    "l",
+    "r"
+   ]
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Pilen och krysset sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "kryss",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    0,
+    -1,
+    0
+   ]
+  ],
+  "difficulty": 3,
+  "p_prior": 0.6,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-a-c-10",
+  "niva": "avancerad",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "triangel",
+    "riktning": 3
+   },
+   "l": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "ring",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kryss",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 1
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 1
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "spegel",
+   "fel_symbol",
+   "framande",
+   ""
+  ],
+  "misstag": [
+   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.",
+   "Med ringen och triangeln placerade så här måste ovansidan visa en kvadrat, inte en pil.",
+   "En fylld kvadrat kan inte sitta där. Med kvadraten och triangeln placerade så här måste vänster sida visa en ring.",
+   ""
+  ],
+  "avslojande": [
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l"
+   ],
+   [
+    "t",
+    "r"
+   ],
+   []
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Kvadraten och ringen sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "kryss",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    -1,
+    0,
+    0
+   ]
+  ],
+  "difficulty": 3,
+  "p_prior": 0.6,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-a-c-11",
+  "niva": "avancerad",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "pil",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "ring",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "triangel",
+    "riktning": 1
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 2
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 3
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 1
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 3
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "spegel",
+   "vriden",
+   "",
+   "fel_symbol"
+  ],
+  "misstag": [
+   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.",
+   "Rätt sidor, men pilen på höger sida pekar åt fel håll när tärningen vrids så.",
+   "",
+   "Med pilen och ringen placerade så här måste ovansidan visa en triangel, inte en kvadrat."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "r"
+   ],
+   [
+    "t",
+    "l"
+   ],
+   [],
+   [
+    "t",
+    "r"
+   ]
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Ringen och pilen sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "kryss",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "pil",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "prick",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    0,
+    1,
+    0
+   ]
+  ],
+  "difficulty": 3,
+  "p_prior": 0.6,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-a-c-12",
+  "niva": "avancerad",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "pil",
+    "riktning": 2
+   },
+   "l": {
+    "symbol": "triangel",
+    "riktning": 3
+   },
+   "r": {
+    "symbol": "kryss",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kryss",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 3
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 1
+    }
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "fel_symbol",
+   "",
+   "spegel",
+   "vriden"
+  ],
+  "misstag": [
+   "Med pilen och ringen placerade så här måste höger sida visa en triangel, inte ett kryss.",
+   "",
+   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.",
+   "Rätt sidor, men triangeln på höger sida pekar åt fel håll när tärningen vrids så."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "l"
+   ],
+   [],
+   [
+    "t",
+    "l"
+   ],
+   [
+    "t",
+    "l"
+   ]
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Pilen och triangeln sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "kryss",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "pil",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    -1,
+    0
+   ],
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    1
+   ]
+  ],
+  "difficulty": 3,
+  "p_prior": 0.6,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-a-c-13",
+  "niva": "avancerad",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "ring",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "pil",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "prick",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 3
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 2
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "spegel",
+   "framande",
+   "fel_symbol"
+  ],
+  "misstag": [
+   "",
+   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.",
+   "En fylld kvadrat kan inte sitta där. Med pricken och ringen placerade så här måste höger sida visa en pil.",
+   "Med pricken och ringen placerade så här måste höger sida visa en pil, inte en triangel."
+  ],
+  "avslojande": [
+   [],
+   [
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ]
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Ringen och pilen sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "kryss",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    -1,
+    0
+   ],
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    1
+   ]
+  ],
+  "difficulty": 3,
+  "p_prior": 0.6,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-a-c-14",
+  "niva": "avancerad",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "prick",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "triangel",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "kryss",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "framande",
+   "",
+   "fel_symbol",
+   "spegel"
+  ],
+  "misstag": [
+   "En dubbelring kan inte sitta där. Med krysset och pricken placerade så här måste höger sida visa en triangel.",
+   "",
+   "Med krysset och pricken placerade så här måste höger sida visa en triangel, inte en ring.",
+   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "l",
+    "r"
+   ]
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Pricken och triangeln sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "kryss",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "prick",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "ring",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    -1,
+    0
+   ],
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    1
+   ]
+  ],
+  "difficulty": 3,
+  "p_prior": 0.6,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-a-c-15",
+  "niva": "avancerad",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "triangel",
+    "riktning": 3
+   },
+   "l": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "prick",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "l": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 3
+    },
+    "l": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 3
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "vriden",
+   "spegel",
+   "fel_symbol"
+  ],
+  "misstag": [
+   "",
+   "Rätt sidor, men triangeln på ovansidan pekar åt fel håll när tärningen vrids så.",
+   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.",
+   "Med triangeln och kvadraten placerade så här måste ovansidan visa en prick, inte en ring."
+  ],
+  "avslojande": [
+   [],
+   [
+    "t",
+    "l"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "r"
+   ]
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Triangeln och kvadraten sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "kryss",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "pil",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    -1,
+    0
+   ],
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    1
+   ]
+  ],
+  "difficulty": 3,
+  "p_prior": 0.6,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-a-c-16",
+  "niva": "avancerad",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "triangel",
+    "riktning": 2
+   },
+   "l": {
+    "symbol": "prick",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "ring",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 3
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "spegel",
+   "",
+   "framande",
+   "fel_symbol"
+  ],
+  "misstag": [
+   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.",
+   "",
+   "En fylld kvadrat kan inte sitta där. Med ringen och triangeln placerade så här måste höger sida visa en prick.",
+   "Med ringen och triangeln placerade så här måste höger sida visa en prick, inte en kvadrat."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "r"
+   ],
+   [],
+   [
+    "t",
+    "l"
+   ],
+   [
+    "t",
+    "l"
+   ]
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Ringen och pricken sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "kryss",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "triangel",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "pil",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    -1
+   ]
+  ],
+  "difficulty": 3,
+  "p_prior": 0.6,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-a-c-17",
+  "niva": "avancerad",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "prick",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "kryss",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "ring",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "spegel",
+   "fel_symbol",
+   "",
+   "framande"
+  ],
+  "misstag": [
+   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.",
+   "Med ringen och pricken placerade så här måste höger sida visa ett kryss, inte en pil.",
+   "",
+   "En dubbelring kan inte sitta där. Med ringen och pricken placerade så här måste höger sida visa ett kryss."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [],
+   [
+    "t",
+    "l",
+    "r"
+   ]
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Pricken och ringen sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "kryss",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "prick",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    -1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    1
+   ]
+  ],
+  "difficulty": 3,
+  "p_prior": 0.6,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-a-c-18",
+  "niva": "avancerad",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "kryss",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "ring",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 1
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 2
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kryss",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kryss",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "fel_symbol",
+   "framande",
+   "spegel"
+  ],
+  "misstag": [
+   "",
+   "Med kvadraten och krysset placerade så här måste ovansidan visa en ring, inte en pil.",
+   "En fylld kvadrat kan inte sitta där. Med kvadraten och krysset placerade så här måste ovansidan visa en ring.",
+   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild."
+  ],
+  "avslojande": [
+   [],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ]
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Kvadraten och ringen sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "kryss",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "pil",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    0,
+    -1,
+    0
+   ]
+  ],
+  "difficulty": 3,
+  "p_prior": 0.6,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-a-c-19",
+  "niva": "avancerad",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "kryss",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "prick",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 1
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 3
+    },
+    "l": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kryss",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "fel_symbol",
+   "spegel",
+   "",
+   "framande"
+  ],
+  "misstag": [
+   "Med kvadraten och krysset placerade så här måste höger sida visa en prick, inte en triangel.",
+   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.",
+   "",
+   "En fylld kvadrat kan inte sitta där. Med kvadraten och krysset placerade så här måste ovansidan visa en prick."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [],
+   [
+    "t",
+    "l",
+    "r"
+   ]
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Krysset och kvadraten sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "kryss",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    -1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    1
+   ]
+  ],
+  "difficulty": 3,
+  "p_prior": 0.6,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-a-c-20",
+  "niva": "avancerad",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "triangel",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "kryss",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 2
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kryss",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 2
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 3
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "spegel",
+   "vriden",
+   "fel_symbol",
+   ""
+  ],
+  "misstag": [
+   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.",
+   "Rätt sidor, men triangeln på höger sida pekar åt fel håll när tärningen vrids så.",
+   "Med kvadraten och krysset placerade så här måste vänster sida visa en triangel, inte en pil.",
+   ""
+  ],
+  "avslojande": [
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   []
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Kvadraten och triangeln sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "kryss",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "triangel",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    -1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    0,
+    -1,
+    0
+   ]
+  ],
+  "difficulty": 3,
+  "p_prior": 0.6,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-a-c-21",
+  "niva": "avancerad",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "triangel",
+    "riktning": 3
+   },
+   "l": {
+    "symbol": "kryss",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "prick",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kryss",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 1
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "r": {
+     "symbol": "kryss",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "spegel",
+   "fel_symbol",
+   "framande",
+   ""
+  ],
+  "misstag": [
+   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.",
+   "Med krysset och triangeln placerade så här måste vänster sida visa en prick, inte en kvadrat.",
+   "En dubbelring kan inte sitta där. Med triangeln och krysset placerade så här måste ovansidan visa en prick.",
+   ""
+  ],
+  "avslojande": [
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "r"
+   ],
+   [
+    "t",
+    "r"
+   ],
+   []
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Krysset och pricken sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "kryss",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    -1,
+    0,
+    0
+   ]
+  ],
+  "difficulty": 3,
+  "p_prior": 0.6,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-a-c-22",
+  "niva": "avancerad",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "prick",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "triangel",
+    "riktning": 1
+   },
+   "r": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 3
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "framande",
+   "spegel",
+   "",
+   "fel_symbol"
+  ],
+  "misstag": [
+   "En fylld kvadrat kan inte sitta där. Med kvadraten och pricken placerade så här måste ovansidan visa en triangel.",
+   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.",
+   "",
+   "Med krysset och kvadraten placerade så här måste höger sida visa en triangel, inte en prick."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l"
+   ],
+   [],
+   [
+    "t",
+    "l",
+    "r"
+   ]
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Kvadraten och triangeln sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "prick",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "kryss",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    -1
+   ]
+  ],
+  "difficulty": 3,
+  "p_prior": 0.6,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-a-c-23",
+  "niva": "avancerad",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "prick",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "ring",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "triangel",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "fel_symbol",
+   "",
+   "spegel",
+   "framande"
+  ],
+  "misstag": [
+   "Med ringen och triangeln placerade så här måste höger sida visa en prick, inte en kvadrat.",
+   "",
+   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.",
+   "En dubbelring kan inte sitta där. Med ringen och triangeln placerade så här måste höger sida visa en prick."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "r"
+   ],
+   [],
+   [
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "r"
+   ]
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Ringen och pricken sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "kryss",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    0,
+    -1,
+    0
+   ],
+   [
+    -1,
+    0,
+    0
+   ]
+  ],
+  "difficulty": 3,
+  "p_prior": 0.6,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-a-c-24",
+  "niva": "avancerad",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "triangel",
+    "riktning": 2
+   },
+   "l": {
+    "symbol": "prick",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kryss",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "spegel",
+   "fel_symbol",
+   "",
+   "framande"
+  ],
+  "misstag": [
+   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.",
+   "Med kvadraten och triangeln placerade så här måste ovansidan visa en prick, inte ett kryss.",
+   "",
+   "En dubbelring kan inte sitta där. Med kvadraten och triangeln placerade så här måste höger sida visa en prick."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l"
+   ],
+   [],
+   [
+    "t",
+    "l"
+   ]
+  ],
+  "forklaring": "Rätt tärning är samma tärning vriden. Pricken och kvadraten sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "triangel",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "kryss",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    -1,
+    0,
+    0
+   ]
+  ],
+  "difficulty": 3,
+  "p_prior": 0.6,
+  "fran_version": 1
  }
 ]

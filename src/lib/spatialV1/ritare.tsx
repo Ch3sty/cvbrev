@@ -320,7 +320,8 @@ const Kub: React.FC<{ fig: KubFigur }> = ({ fig }) => {
       {sidor.map(([k]) => (
         <g key={`s${k}`}>{kubSymbol(k, fig[k], mark.includes(k) ? F.kopparInk : F.ink)}</g>
       ))}
-      <path d="M50 50 L81.18 32 M50 50 L18.82 32 M50 50 L50 86" fill="none" stroke={F.ink} strokeWidth={G.kontur.sw} strokeLinecap="round" />
+      {/* bläckkanterna mot det närmaste hörnet ovanpå fyllningen, så att kanterna är hela även med koppar */}
+      <path d={`M${K.T[0][0]} ${K.T[0][1]} L${K.T[1][0]} ${K.T[1][1]} M${K.T[0][0]} ${K.T[0][1]} L${K.T[3][0]} ${K.T[3][1]} M${K.L[1][0]} ${K.L[1][1]} L${K.L[2][0]} ${K.L[2][1]}`} fill="none" stroke={F.ink} strokeWidth={G.kontur.sw} strokeLinecap="round" />
     </>
   );
 };

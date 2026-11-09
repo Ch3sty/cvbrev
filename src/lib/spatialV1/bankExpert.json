@@ -18010,5 +18010,5093 @@
   "difficulty": 4,
   "p_prior": 0.42,
   "fran_version": 1
+ },
+ {
+  "id": "sp-e-c-01",
+  "niva": "expert",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "pil",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "fkvadrat",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "triangel",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 3
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 2
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "vriden",
+   "vriden",
+   "",
+   "vriden"
+  ],
+  "misstag": [
+   "Rätt sidor, men pilen på vänster sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men pilen på vänster sida pekar åt fel håll när tärningen vrids så.",
+   "",
+   "Rätt sidor, men pilen på vänster sida pekar åt fel håll när tärningen vrids så."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "r"
+   ],
+   [
+    "t",
+    "l"
+   ],
+   [],
+   [
+    "t",
+    "l"
+   ]
+  ],
+  "forklaring": "Bara pilen syns på båda. Grannarna runt den har vridits bort, och dess riktning stämmer bara i det här alternativet.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "pil",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    -1,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    0
+   ]
+  ],
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-e-c-02",
+  "niva": "expert",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "triangel",
+    "riktning": 2
+   },
+   "l": {
+    "symbol": "ring",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "pil",
+    "riktning": 2
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 3
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "vriden",
+   "vriden",
+   "",
+   "vriden"
+  ],
+  "misstag": [
+   "Rätt sidor, men triangeln på vänster sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men triangeln på vänster sida pekar åt fel håll när tärningen vrids så.",
+   "",
+   "Rätt sidor, men triangeln på vänster sida pekar åt fel håll när tärningen vrids så."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "r"
+   ],
+   [
+    "t",
+    "l"
+   ],
+   [],
+   [
+    "t",
+    "l"
+   ]
+  ],
+  "forklaring": "Bara triangeln syns på båda. Grannarna runt den har vridits bort, och dess riktning stämmer bara i det här alternativet.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "triangel",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    -1,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    0
+   ]
+  ],
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-e-c-03",
+  "niva": "expert",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "ring",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "triangel",
+    "riktning": 3
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 3
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 3
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 3
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 3
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 1
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 3
+    }
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "vriden",
+   "",
+   "vriden",
+   "vriden"
+  ],
+  "misstag": [
+   "Rätt sidor, men triangeln på ovansidan pekar åt fel håll när tärningen vrids så.",
+   "",
+   "Rätt sidor, men triangeln på ovansidan pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men triangeln på ovansidan pekar åt fel håll när tärningen vrids så."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "r"
+   ],
+   [],
+   [
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "r"
+   ]
+  ],
+  "forklaring": "Bara triangeln syns på båda. Grannarna runt den har vridits bort, och dess riktning stämmer bara i det här alternativet.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "ring",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    -1,
+    0,
+    0
+   ],
+   [
+    0,
+    -1,
+    0
+   ]
+  ],
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-e-c-04",
+  "niva": "expert",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "ring",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "triangel",
+    "riktning": 1
+   },
+   "r": {
+    "symbol": "pil",
+    "riktning": 1
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 3
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 2
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "vriden",
+   "vriden",
+   "vriden",
+   ""
+  ],
+  "misstag": [
+   "Rätt sidor, men pilen på ovansidan pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men pilen på ovansidan pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men pilen på ovansidan pekar åt fel håll när tärningen vrids så.",
+   ""
+  ],
+  "avslojande": [
+   [
+    "t",
+    "r"
+   ],
+   [
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "r"
+   ],
+   []
+  ],
+  "forklaring": "Bara pilen syns på båda. Grannarna runt den har vridits bort, och dess riktning stämmer bara i det här alternativet.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    -1,
+    0,
+    0
+   ],
+   [
+    0,
+    -1,
+    0
+   ]
+  ],
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-e-c-05",
+  "niva": "expert",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "pil",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "prick",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "triangel",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 1
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 3
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 2
+    }
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "vriden",
+   "",
+   "vriden",
+   "vriden"
+  ],
+  "misstag": [
+   "Rätt sidor, men pilen på höger sida pekar åt fel håll när tärningen vrids så.",
+   "",
+   "Rätt sidor, men pilen på höger sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men pilen på höger sida pekar åt fel håll när tärningen vrids så."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "l"
+   ],
+   [],
+   [
+    "t",
+    "r"
+   ],
+   [
+    "t",
+    "l"
+   ]
+  ],
+  "forklaring": "Bara pilen syns på båda. Grannarna runt den har vridits bort, och dess riktning stämmer bara i det här alternativet.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "pil",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    -1,
+    0
+   ],
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    1,
+    0,
+    0
+   ]
+  ],
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-e-c-06",
+  "niva": "expert",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "prick",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "triangel",
+    "riktning": 3
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 3
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 2
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 2
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 1
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 2
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 2
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "vriden",
+   "vriden",
+   "vriden"
+  ],
+  "misstag": [
+   "",
+   "Rätt sidor, men triangeln på ovansidan pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men triangeln på ovansidan pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men triangeln på ovansidan pekar åt fel håll när tärningen vrids så."
+  ],
+  "avslojande": [
+   [],
+   [
+    "t",
+    "r"
+   ],
+   [
+    "t",
+    "r"
+   ],
+   [
+    "l",
+    "r"
+   ]
+  ],
+  "forklaring": "Bara triangeln syns på båda. Grannarna runt den har vridits bort, och dess riktning stämmer bara i det här alternativet.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "prick",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    -1,
+    0,
+    0
+   ],
+   [
+    0,
+    -1,
+    0
+   ]
+  ],
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-e-c-07",
+  "niva": "expert",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "triangel",
+    "riktning": 2
+   },
+   "l": {
+    "symbol": "fkvadrat",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "pil",
+    "riktning": 3
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 1
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 3
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "vriden",
+   "",
+   "vriden",
+   "vriden"
+  ],
+  "misstag": [
+   "Rätt sidor, men triangeln på ovansidan pekar åt fel håll när tärningen vrids så.",
+   "",
+   "Rätt sidor, men triangeln på ovansidan pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men triangeln på ovansidan pekar åt fel håll när tärningen vrids så."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "l"
+   ],
+   [],
+   [
+    "t",
+    "l"
+   ],
+   [
+    "t",
+    "r"
+   ]
+  ],
+  "forklaring": "Bara triangeln syns på båda. Grannarna runt den har vridits bort, och dess riktning stämmer bara i det här alternativet.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "triangel",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    -1,
+    0,
+    0
+   ],
+   [
+    0,
+    -1,
+    0
+   ],
+   [
+    0,
+    0,
+    1
+   ]
+  ],
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-e-c-08",
+  "niva": "expert",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "triangel",
+    "riktning": 3
+   },
+   "l": {
+    "symbol": "fkvadrat",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "pil",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 3
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "vriden",
+   "vriden",
+   "vriden",
+   ""
+  ],
+  "misstag": [
+   "Rätt sidor, men triangeln på vänster sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men triangeln på vänster sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men triangeln på vänster sida pekar åt fel håll när tärningen vrids så.",
+   ""
+  ],
+  "avslojande": [
+   [
+    "t",
+    "l"
+   ],
+   [
+    "t",
+    "l"
+   ],
+   [
+    "t",
+    "r"
+   ],
+   []
+  ],
+  "forklaring": "Bara triangeln syns på båda. Grannarna runt den har vridits bort, och dess riktning stämmer bara i det här alternativet.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    -1,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    0
+   ]
+  ],
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-e-c-09",
+  "niva": "expert",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "triangel",
+    "riktning": 1
+   },
+   "l": {
+    "symbol": "fkvadrat",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 3
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "vriden",
+   "vriden",
+   "vriden"
+  ],
+  "misstag": [
+   "",
+   "Rätt sidor, men triangeln på vänster sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men triangeln på vänster sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men triangeln på vänster sida pekar åt fel håll när tärningen vrids så."
+  ],
+  "avslojande": [
+   [],
+   [
+    "t",
+    "l"
+   ],
+   [
+    "t",
+    "l"
+   ],
+   [
+    "t",
+    "r"
+   ]
+  ],
+  "forklaring": "Bara triangeln syns på båda. Grannarna runt den har vridits bort, och dess riktning stämmer bara i det här alternativet.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    -1,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    0
+   ]
+  ],
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-e-c-10",
+  "niva": "expert",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "fkvadrat",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "triangel",
+    "riktning": 3
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 3
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 2
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 1
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "vriden",
+   "vriden",
+   "vriden",
+   ""
+  ],
+  "misstag": [
+   "Rätt sidor, men triangeln på höger sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men triangeln på höger sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men triangeln på höger sida pekar åt fel håll när tärningen vrids så.",
+   ""
+  ],
+  "avslojande": [
+   [
+    "t",
+    "r"
+   ],
+   [
+    "t",
+    "r"
+   ],
+   [
+    "l",
+    "r"
+   ],
+   []
+  ],
+  "forklaring": "Bara triangeln syns på båda. Grannarna runt den har vridits bort, och dess riktning stämmer bara i det här alternativet.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    -1,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    0,
+    0,
+    -1
+   ]
+  ],
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-e-c-11",
+  "niva": "expert",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "pil",
+    "riktning": 3
+   },
+   "l": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "prick",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 3
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 2
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "vriden",
+   "vriden",
+   "",
+   "vriden"
+  ],
+  "misstag": [
+   "Rätt sidor, men pilen på ovansidan pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men pilen på ovansidan pekar åt fel håll när tärningen vrids så.",
+   "",
+   "Rätt sidor, men pilen på ovansidan pekar åt fel håll när tärningen vrids så."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "r"
+   ],
+   [
+    "t",
+    "l"
+   ],
+   [],
+   [
+    "t",
+    "l"
+   ]
+  ],
+  "forklaring": "Bara pilen syns på båda. Grannarna runt den har vridits bort, och dess riktning stämmer bara i det här alternativet.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    -1,
+    0,
+    0
+   ],
+   [
+    0,
+    -1,
+    0
+   ],
+   [
+    0,
+    0,
+    1
+   ]
+  ],
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-e-c-12",
+  "niva": "expert",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "fkvadrat",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "pil",
+    "riktning": 2
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 2
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 3
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "vriden",
+   "vriden",
+   "vriden",
+   ""
+  ],
+  "misstag": [
+   "Rätt sidor, men pilen på vänster sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men pilen på vänster sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men pilen på vänster sida pekar åt fel håll när tärningen vrids så.",
+   ""
+  ],
+  "avslojande": [
+   [
+    "t",
+    "r"
+   ],
+   [
+    "t",
+    "r"
+   ],
+   [
+    "l",
+    "r"
+   ],
+   []
+  ],
+  "forklaring": "Bara pilen syns på båda. Grannarna runt den har vridits bort, och dess riktning stämmer bara i det här alternativet.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    1,
+    0,
+    0
+   ]
+  ],
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-e-c-13",
+  "niva": "expert",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "triangel",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "ring",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 2
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 2
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 2
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 2
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 3
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "vriden",
+   "vriden",
+   "",
+   "vriden"
+  ],
+  "misstag": [
+   "Rätt sidor, men triangeln på vänster sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men triangeln på vänster sida pekar åt fel håll när tärningen vrids så.",
+   "",
+   "Rätt sidor, men triangeln på vänster sida pekar åt fel håll när tärningen vrids så."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "r"
+   ],
+   [
+    "t",
+    "l"
+   ],
+   [],
+   [
+    "t",
+    "l"
+   ]
+  ],
+  "forklaring": "Bara triangeln syns på båda. Grannarna runt den har vridits bort, och dess riktning stämmer bara i det här alternativet.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "triangel",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    -1,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    0
+   ]
+  ],
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-e-c-14",
+  "niva": "expert",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "triangel",
+    "riktning": 2
+   },
+   "l": {
+    "symbol": "fkvadrat",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "pil",
+    "riktning": 3
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 2
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 3
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "vriden",
+   "",
+   "vriden",
+   "vriden"
+  ],
+  "misstag": [
+   "Rätt sidor, men pilen på vänster sida pekar åt fel håll när tärningen vrids så.",
+   "",
+   "Rätt sidor, men pilen på vänster sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men pilen på vänster sida pekar åt fel håll när tärningen vrids så."
+  ],
+  "avslojande": [
+   [
+    "l",
+    "r"
+   ],
+   [],
+   [
+    "t",
+    "r"
+   ],
+   [
+    "t",
+    "r"
+   ]
+  ],
+  "forklaring": "Bara pilen syns på båda. Grannarna runt den har vridits bort, och dess riktning stämmer bara i det här alternativet.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "triangel",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    1,
+    0,
+    0
+   ]
+  ],
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-e-c-15",
+  "niva": "expert",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "triangel",
+    "riktning": 2
+   },
+   "l": {
+    "symbol": "ring",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "prick",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 3
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "vriden",
+   "vriden",
+   "vriden"
+  ],
+  "misstag": [
+   "",
+   "Rätt sidor, men triangeln på vänster sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men triangeln på vänster sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men triangeln på vänster sida pekar åt fel håll när tärningen vrids så."
+  ],
+  "avslojande": [
+   [],
+   [
+    "t",
+    "l"
+   ],
+   [
+    "t",
+    "l"
+   ],
+   [
+    "t",
+    "r"
+   ]
+  ],
+  "forklaring": "Bara triangeln syns på båda. Grannarna runt den har vridits bort, och dess riktning stämmer bara i det här alternativet.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "triangel",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    -1,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    0
+   ]
+  ],
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-e-c-16",
+  "niva": "expert",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "pil",
+    "riktning": 2
+   },
+   "l": {
+    "symbol": "fkvadrat",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "ring",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 2
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 1
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 3
+    }
+   }
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "vriden",
+   "vriden",
+   "vriden"
+  ],
+  "misstag": [
+   "",
+   "Rätt sidor, men pilen på höger sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men pilen på höger sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men pilen på höger sida pekar åt fel håll när tärningen vrids så."
+  ],
+  "avslojande": [
+   [],
+   [
+    "t",
+    "r"
+   ],
+   [
+    "t",
+    "l"
+   ],
+   [
+    "t",
+    "l"
+   ]
+  ],
+  "forklaring": "Bara pilen syns på båda. Grannarna runt den har vridits bort, och dess riktning stämmer bara i det här alternativet.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "pil",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "prick",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    -1,
+    0
+   ],
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    1,
+    0,
+    0
+   ]
+  ],
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-e-c-17",
+  "niva": "expert",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "prick",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "ring",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "pil",
+    "riktning": 3
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 2
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 3
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "vriden",
+   "vriden",
+   "",
+   "vriden"
+  ],
+  "misstag": [
+   "Rätt sidor, men pilen på ovansidan pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men pilen på ovansidan pekar åt fel håll när tärningen vrids så.",
+   "",
+   "Rätt sidor, men pilen på ovansidan pekar åt fel håll när tärningen vrids så."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "r"
+   ],
+   [
+    "l",
+    "r"
+   ],
+   [],
+   [
+    "t",
+    "r"
+   ]
+  ],
+  "forklaring": "Bara pilen syns på båda. Grannarna runt den har vridits bort, och dess riktning stämmer bara i det här alternativet.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "prick",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    -1,
+    0,
+    0
+   ],
+   [
+    0,
+    -1,
+    0
+   ]
+  ],
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-e-c-18",
+  "niva": "expert",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "fkvadrat",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "triangel",
+    "riktning": 3
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 3
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 2
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 1
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "vriden",
+   "vriden",
+   "vriden",
+   ""
+  ],
+  "misstag": [
+   "Rätt sidor, men triangeln på höger sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men triangeln på höger sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men triangeln på höger sida pekar åt fel håll när tärningen vrids så.",
+   ""
+  ],
+  "avslojande": [
+   [
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "r"
+   ],
+   [
+    "t",
+    "r"
+   ],
+   []
+  ],
+  "forklaring": "Bara triangeln syns på båda. Grannarna runt den har vridits bort, och dess riktning stämmer bara i det här alternativet.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "prick",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    -1,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    0,
+    0,
+    -1
+   ]
+  ],
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-e-c-19",
+  "niva": "expert",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "prick",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "triangel",
+    "riktning": 3
+   },
+   "r": {
+    "symbol": "pil",
+    "riktning": 2
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 3
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 1
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 2
+    }
+   }
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "vriden",
+   "vriden",
+   "vriden"
+  ],
+  "misstag": [
+   "",
+   "Rätt sidor, men pilen på höger sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men pilen på höger sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men pilen på höger sida pekar åt fel håll när tärningen vrids så."
+  ],
+  "avslojande": [
+   [],
+   [
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "r"
+   ],
+   [
+    "t",
+    "r"
+   ]
+  ],
+  "forklaring": "Bara pilen syns på båda. Grannarna runt den har vridits bort, och dess riktning stämmer bara i det här alternativet.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "prick",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    -1,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    0,
+    0,
+    -1
+   ]
+  ],
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-e-c-20",
+  "niva": "expert",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "fkvadrat",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "triangel",
+    "riktning": 1
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 3
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "l": {
+     "symbol": "triangel",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "vriden",
+   "vriden",
+   "",
+   "vriden"
+  ],
+  "misstag": [
+   "Rätt sidor, men triangeln på vänster sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men triangeln på vänster sida pekar åt fel håll när tärningen vrids så.",
+   "",
+   "Rätt sidor, men triangeln på vänster sida pekar åt fel håll när tärningen vrids så."
+  ],
+  "avslojande": [
+   [
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "r"
+   ],
+   [],
+   [
+    "t",
+    "r"
+   ]
+  ],
+  "forklaring": "Bara triangeln syns på båda. Grannarna runt den har vridits bort, och dess riktning stämmer bara i det här alternativet.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "prick",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    1,
+    0,
+    0
+   ]
+  ],
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-e-c-21",
+  "niva": "expert",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "pil",
+    "riktning": 2
+   },
+   "l": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "triangel",
+    "riktning": 1
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 1
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 3
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "pil",
+     "riktning": 2
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "vriden",
+   "vriden",
+   "vriden",
+   ""
+  ],
+  "misstag": [
+   "Rätt sidor, men pilen på höger sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men pilen på höger sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men pilen på höger sida pekar åt fel håll när tärningen vrids så.",
+   ""
+  ],
+  "avslojande": [
+   [
+    "t",
+    "l"
+   ],
+   [
+    "t",
+    "r"
+   ],
+   [
+    "t",
+    "l"
+   ],
+   []
+  ],
+  "forklaring": "Bara pilen syns på båda. Grannarna runt den har vridits bort, och dess riktning stämmer bara i det här alternativet.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "pil",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    -1,
+    0
+   ],
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    1,
+    0,
+    0
+   ]
+  ],
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-e-c-22",
+  "niva": "expert",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "pil",
+    "riktning": 2
+   },
+   "l": {
+    "symbol": "prick",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "fkvadrat",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 3
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "triangel",
+     "riktning": 2
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 2
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "vriden",
+   "",
+   "vriden",
+   "vriden"
+  ],
+  "misstag": [
+   "Rätt sidor, men pilen på vänster sida pekar åt fel håll när tärningen vrids så.",
+   "",
+   "Rätt sidor, men pilen på vänster sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men pilen på vänster sida pekar åt fel håll när tärningen vrids så."
+  ],
+  "avslojande": [
+   [
+    "t",
+    "l"
+   ],
+   [],
+   [
+    "t",
+    "l"
+   ],
+   [
+    "t",
+    "r"
+   ]
+  ],
+  "forklaring": "Bara pilen syns på båda. Grannarna runt den har vridits bort, och dess riktning stämmer bara i det här alternativet.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "pil",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    0,
+    -1
+   ],
+   [
+    -1,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    0
+   ]
+  ],
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-e-c-23",
+  "niva": "expert",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "triangel",
+    "riktning": 3
+   },
+   "l": {
+    "symbol": "ring",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "pil",
+    "riktning": 1
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 2
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 3
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "vriden",
+   "vriden",
+   "vriden",
+   ""
+  ],
+  "misstag": [
+   "Rätt sidor, men pilen på ovansidan pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men pilen på ovansidan pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men pilen på ovansidan pekar åt fel håll när tärningen vrids så.",
+   ""
+  ],
+  "avslojande": [
+   [
+    "t",
+    "r"
+   ],
+   [
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "r"
+   ],
+   []
+  ],
+  "forklaring": "Bara pilen syns på båda. Grannarna runt den har vridits bort, och dess riktning stämmer bara i det här alternativet.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "prick",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    -1,
+    0,
+    0
+   ],
+   [
+    0,
+    -1,
+    0
+   ]
+  ],
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-e-c-24",
+  "niva": "expert",
+  "form": "C",
+  "fraga": "Vilken tärning kan vara samma tärning som den första, sedd från ett annat håll?",
+  "referens": {
+   "kind": "kub",
+   "t": {
+    "symbol": "kvadrat",
+    "riktning": 0
+   },
+   "l": {
+    "symbol": "ring",
+    "riktning": 0
+   },
+   "r": {
+    "symbol": "triangel",
+    "riktning": 0
+   }
+  },
+  "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 3
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 1
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "pil",
+     "riktning": 1
+    },
+    "r": {
+     "symbol": "triangel",
+     "riktning": 2
+    }
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "vriden",
+   "vriden",
+   "vriden",
+   ""
+  ],
+  "misstag": [
+   "Rätt sidor, men triangeln på höger sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men triangeln på höger sida pekar åt fel håll när tärningen vrids så.",
+   "Rätt sidor, men triangeln på höger sida pekar åt fel håll när tärningen vrids så.",
+   ""
+  ],
+  "avslojande": [
+   [
+    "t",
+    "r"
+   ],
+   [
+    "t",
+    "r"
+   ],
+   [
+    "l",
+    "r"
+   ],
+   []
+  ],
+  "forklaring": "Bara triangeln syns på båda. Grannarna runt den har vridits bort, och dess riktning stämmer bara i det här alternativet.",
+  "kub": [
+   {
+    "n": [
+     1,
+     0,
+     0
+    ],
+    "symbol": "pil",
+    "upp": [
+     0,
+     -1,
+     0
+    ]
+   },
+   {
+    "n": [
+     -1,
+     0,
+     0
+    ],
+    "symbol": "ring",
+    "upp": [
+     0,
+     0,
+     -1
+    ]
+   },
+   {
+    "n": [
+     0,
+     1,
+     0
+    ],
+    "symbol": "prick",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     -1,
+     0
+    ],
+    "symbol": "triangel",
+    "upp": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     1
+    ],
+    "symbol": "kvadrat",
+    "upp": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "n": [
+     0,
+     0,
+     -1
+    ],
+    "symbol": "fkvadrat",
+    "upp": [
+     -1,
+     0,
+     0
+    ]
+   }
+  ],
+  "orientering": [
+   [
+    -1,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    0,
+    0,
+    -1
+   ]
+  ],
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 1
  }
 ]
