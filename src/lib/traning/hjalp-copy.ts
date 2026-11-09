@@ -152,19 +152,19 @@ export const HJALP_RUTOR: Record<HjalpId, HjalpRutaText> = {
     id: 'B12',
     grupp: 'B',
     rubrik: 'Talserier: vad är det?',
-    text: 'Du ser en rad tal och en eller två tomma rutor sist. Talen följer en regel, till exempel plus fem, gånger två, en skillnad som växer eller två serier som turas om, och du väljer talen som fortsätter raden. Med två luckor väljer du ett talpar i ordning, vänster lucka först. Samma uppgiftstyp som talserierna i I-provet. Skriv ner skillnaden mellan talen innan du tittar på alternativen.',
+    text: 'Du ser en rad tal och en eller två tomma rutor sist. Talen följer en regel, till exempel plus fem, gånger två, en skillnad som växer eller två serier som turas om, och du väljer talen som fortsätter raden. Med två luckor väljer du ett talpar i ordning, vänster lucka först. Tränar samma förmåga som talserierna i I-provet. Skriv ner skillnaden mellan talen innan du tittar på alternativen.',
   },
   B13: {
     id: 'B13',
     grupp: 'B',
     rubrik: 'Spatial förmåga: vad är det?',
-    text: 'Spatial förmåga (rumsuppfattning) är hur väl du vrider, viker och vänder figurer i huvudet. Testet har tre slags uppgifter: en figur som ska vara vriden och inte speglad, ett papper som viks och stansas, och tärningar sedda från olika håll. Samma uppgiftstyper som pappersvikning och tärningar i I-provet. Leta efter det som avslöjar ett fel alternativ, i stället för att föreställa dig hela figuren.',
+    text: 'Spatial förmåga (rumsuppfattning) är hur väl du vrider, viker och vänder figurer i huvudet. Testet har tre slags uppgifter: en figur som ska vara vriden och inte speglad, ett papper som viks och stansas, och tärningar sedda från olika håll. Tränar samma förmåga som pappersvikning och tärningar i I-provet. I I-provets pappersvikning väljer du hur arket ser ut ihopvikt; här går vikningen åt andra hållet och du väljer hur det ser ut uppvikt. Leta efter det som avslöjar ett fel alternativ, i stället för att föreställa dig hela figuren.',
   },
   B14: {
     id: 'B14',
     grupp: 'B',
     rubrik: 'Ordförråd: vad är det?',
-    text: 'Du ser ett ord i versaler och väljer det ord som betyder ungefär detsamma, eller det som betyder motsatsen. Etiketten ovanför ordet säger vilket, så läs den varje gång. Samma uppgiftstyp som synonymer och motsatsord i I-provet.',
+    text: 'Du ser ett ord i versaler och väljer det ord som betyder ungefär detsamma, eller det som betyder motsatsen. Etiketten ovanför ordet säger vilket, så läs den varje gång. Tränar samma förmåga som synonymer och motsatsord i I-provet.',
   },
 
   C1: {

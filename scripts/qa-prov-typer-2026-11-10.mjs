@@ -263,7 +263,8 @@ async function flodeArtikel(browser, slug, typ, vy, vyNamn, morkt, medKonto) {
     await p.waitForSelector(scope, { timeout: 30000 })
     const r = await svaraUppgift(p, scope, i)
     if (r !== 'ok') logg(`${namn}: svar ${i + 1}`, false, r)
-    await vanta(i === 0 ? 1500 : 600)
+    await vanta(600)
+    if (i === 0) await p.waitForFunction(() => /Uppgift 2/.test(document.querySelector('[data-artikel-prov] .art-prov-rad')?.textContent ?? ''), { timeout: 30000 }).catch(() => {})
     if (i === 0) await skott(p, `${namn}-uppgift2`, 'Uppgift 2 efter svaret i artikeln')
   }
   await p.waitForSelector('[data-artikel-prov] [data-prov-resultat]', { timeout: 30000 }).catch(() => {})

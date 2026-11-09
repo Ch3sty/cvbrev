@@ -30,7 +30,7 @@ export interface IprovDelDef {
 /** Hela provet: 72 uppgifter på 58 minuter (briefen 5.1). */
 export const IPROV_DELAR: readonly IprovDelDef[] = [
   { nr: 1, namn: 'Synonymer', kort: 'Synonymer', kind: 'ordforrad', form: 'synonym', antal: 12, minuter: 6, beskrivning: 'Ett ord i versaler, fem alternativ. Välj ordet som betyder ungefär detsamma.' },
-  { nr: 2, namn: 'Pappersvikning', kort: 'Pappersvikning', kind: 'spatial', form: 'B', antal: 12, minuter: 10, beskrivning: 'Arket viks och stansas. Välj hur det ser ut när det viks upp.' },
+  { nr: 2, namn: 'Pappersvikning', kort: 'Pappersvikning', kind: 'spatial', form: 'B', antal: 12, minuter: 10, beskrivning: 'Arket viks och stansas. Välj hur det ser ut när det viks upp. I I-provet går vikningen åt andra hållet.' },
   { nr: 3, namn: 'Talserier', kort: 'Talserier', kind: 'talserie', form: 'talpar', antal: 12, minuter: 12, beskrivning: 'Två tomma rutor sist i varje rad, du väljer talparet i rätt ordning.' },
   { nr: 4, namn: 'Motsatsord', kort: 'Motsatsord', kind: 'ordforrad', form: 'antonym', antal: 12, minuter: 6, beskrivning: 'Ett ord i versaler, fem alternativ. Välj ordet som betyder motsatsen.' },
   { nr: 5, namn: 'Tärningar', kort: 'Tärningar', kind: 'spatial', form: 'C', antal: 12, minuter: 12, beskrivning: 'En tärning och fyra till. Välj den som kan vara samma tärning sedd från ett annat håll.' },
@@ -89,7 +89,7 @@ export const IPROV_COPY = {
   titel: 'I-provet, övningsprov',
   startRubrik: 'Övningsprovet',
   eyebrow: (dagar: number | null) => (dagar != null && dagar > 0 ? `I-provet, ${dagar === 1 ? '1 dag' : `${dagar} dagar`} kvar` : 'I-provet'),
-  format: 'Samma deltester i samma ordning som I-provet',
+  format: 'Samma deltester i samma ordning som I-provet, med uppgifter som tränar samma förmåga',
   /** Versionen står en gång, på startarket (ägaren 2026-11-10). */
   version: 'Versionen heter I-prov 2025 och används sedan maj 2025.',
   formatRad: 'Pliktverket publicerar inte antal och tider, så de här är våra.',

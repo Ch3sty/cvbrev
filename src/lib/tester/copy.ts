@@ -35,9 +35,9 @@ export const FORMATRAD: Record<Exclude<TestKind, 'personlighet'>, string> = {
   matris: 'Samma format som Matrigma från Assessio och Alva Logic.',
   figurserie: 'Samma format som figurserierna i SHL Verify och Aon scales ix.',
   deduktiv: 'Samma format som den deduktiva delen i SHL Verify G+ och Aons deduktiva test.',
-  talserie: 'Samma uppgiftstyp som talserierna i I-provet.',
-  spatial: 'Samma uppgiftstyper som pappersvikning och tärningar i I-provet.',
-  ordforrad: 'Samma uppgiftstyp som synonymer och motsatsord i I-provet.',
+  talserie: 'Tränar samma förmåga som talserierna i I-provet.',
+  spatial: 'Tränar samma förmåga som pappersvikning och tärningar i I-provet. Vikningen går åt andra hållet: här viker du upp arket, i I-provet väljer du hur det ser ut ihopvikt.',
+  ordforrad: 'Tränar samma förmåga som synonymer och motsatsord i I-provet.',
   verbal: 'Samma svarsformat som SHL Verify verbal och Aons scales verbal.',
   numerisk: 'Samma format som det numeriska testet i SHL Verify.',
 }
