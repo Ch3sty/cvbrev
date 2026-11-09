@@ -163,3 +163,17 @@ Omskrivningar i samma omgång: logiska-tester fick fyra nya avsnitt (begrepp, va
 Överlapp som stoppade nya sidor: "vanliga intervjufrågor" har redan vanliga-intervjufragor-svar (pos 29) och klassiska-intervjufragor-lista, "bakgrundskontroll" har bakgrundskontroll-vid-anstallning (pos 40) som delar frågan med /for-rekryterare/insikter/bakgrundskontroller, och "spatial förmåga" har rotation-test-guide (pos 8,6). De tre ska förbättras på befintlig sida, inte få nya.
 
 Avläsning: 6 december och 3 januari, samma krav som oktobers sidor i avsnitt 6. Kvar i planen för november och december: videointervju-tips, uppsagningsbrev-mall, tolka-testresultat, soka-sommarjobb och yrkesparen.
+
+## Publicerat 2026-11-10 (SEO-planen för de nya testerna)
+
+Ägarens beslut 2026-11-10: SEO-planen genomförs i ett svep (`docs/plan-seo-nya-tester-2026-11-10.md`, saas-leads slutliga beslut). Testsidorna går före resten av novembers plan. Namnregel: "I-provet" i rubriker, kort och knappar, I-prov 2025 bara som versionsnamn. Uppgifterna i artiklarna är egna (`src/lib/artikelfigurer`, kontrolleras av `scripts/artikel-steg2-check.mjs`) och finns inte i testernas banker.
+
+| Plan-nr | Slug | Huvudord | Kommentar |
+|---|---|---|---|
+| N1 | /artiklar/i-prov | i-prov, i-provet, i-prov 2025 | Säljsida: sex deltester med en löst uppgift var, mönstringen, polisens prövning, kraven med källa, ändringen från UNIQ, fyra veckors övning (howto), varför inget övningsprov ger stanine. Övningsprovet för I-provet i Premium. |
+| N2 | /artiklar/talserier | talserier, talserier test | Åtta regeltyper, differensraden, två luckor som i I-provet, tolv graderade uppgifter. |
+| N3 | /artiklar/ordforstaelse-test | ordförståelse test | Formatet i I-provet, fyra fälltyper, tjugo ord med facit, skillnaden mot HP-ORD. |
+
+Omskrivningar i samma omgång: rotation-test-guide (U1, seoTitle "Spatial förmåga: vad det är och test att öva gratis", pappersvikning och tärningar med lösta uppgifter, FAQ om att testet finns), deduktivt-induktivt-test (U3, provkort och tre länkar med "deduktivt test"), /verktyg/rekryteringstester (U2, åtta testtyper och "Vilket test ska du göra?"), logiktest-exempel (U4), logiska-tester (U5), aon-cut-e-test (U6, "Aon-testet för lokförare"), arbetspsykologiska-tester (U7) och /funktioner (U9). U8, Matrigma-ägarskapet, väntar till efter avläsningen 7 december.
+
+Avläsning enligt SEO-planen 7.2: 13 nov (U3 indexerad?), 7 dec, 18 dec, 19 jan, 9 feb och 9 mar. Kvar i planen för november och december: videointervju-tips, uppsagningsbrev-mall, tolka-testresultat, soka-sommarjobb och yrkesparen.
