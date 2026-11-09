@@ -22,18 +22,20 @@ const CACHE_MS = 60 * 60 * 1000
 const SIDA = 1000
 const MAX_RADER = 200_000
 
-let cache: { t: number; utfall: number[] } | null = null
+const cache = new Map<string, { t: number; utfall: number[] }>()
 
-export async function hamtaProvUtfall(admin: SupabaseClient<any>): Promise<number[] | null> {
-  if (cache && Date.now() - cache.t < CACHE_MS) return cache.utfall
+/** Utfallen per testtyp (testtyp '<typ>-prova'); matrisen som förut. */
+export async function hamtaProvUtfall(admin: SupabaseClient<any>, testKind = 'matris', antal = ANON_QUESTION_COUNT): Promise<number[] | null> {
+  const c = cache.get(testKind)
+  if (c && Date.now() - c.t < CACHE_MS) return c.utfall
   try {
     const utfall: number[] = []
     for (let fran = 0; fran < MAX_RADER; fran += SIDA) {
       const { data, error } = await admin
         .from('prov_utfall')
         .select('ratt')
-        .eq('testtyp', 'matris-prova')
-        .eq('totalt', ANON_QUESTION_COUNT)
+        .eq('testtyp', testKind === 'matris' ? 'matris-prova' : `${testKind}-prova`)
+        .eq('totalt', antal)
         .order('id')
         .range(fran, fran + SIDA - 1)
       if (error || !data) return null
@@ -42,7 +44,7 @@ export async function hamtaProvUtfall(admin: SupabaseClient<any>): Promise<numbe
       }
       if (data.length < SIDA) break
     }
-    cache = { t: Date.now(), utfall }
+    cache.set(testKind, { t: Date.now(), utfall })
     return utfall
   } catch (err) {
     console.error('[prova-percentil] Kunde inte läsa utfallen:', err)

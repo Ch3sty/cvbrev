@@ -23,6 +23,9 @@ import { arProvToken, hamtaEllerGorAnsprakProv, provGenomgang, provResultatHref 
 import { logActivityServer } from '@/lib/activation-tracking'
 import { arBlandad } from '@/lib/logicTestV7/blanda'
 import { bankVersion } from '@/lib/logicTestV7/selectQuestions.v7'
+import { arNyProvTyp } from '@/lib/tests/prov-typer'
+import { provSeed } from '@/lib/tests/anon-session'
+import { lasRefs, lasSvar } from '@/lib/tests/prov-typer.server'
 
 export async function POST(request: Request) {
   let token: unknown
@@ -56,14 +59,20 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Provet finns inte längre eller har gått ut.' }, { status: 404 })
   }
 
-  const { ratt, totalt } = provGenomgang(rad.token, rad.answers ?? [], arBlandad(rad.meta), bankVersion(rad.meta))
+  // Typerna utöver matrisen: antal rätt ur de rättade svaren i raden.
+  const testKind = (rad as { test_kind?: unknown }).test_kind
+  const ny = arNyProvTyp(testKind)
+  const nyttTotalt = ny ? (lasRefs((rad as { questions?: unknown }).questions)?.length ?? 0) : 0
+  const { ratt, totalt } = ny
+    ? { ratt: lasSvar(rad.answers).filter((s) => s.correct).length, totalt: nyttTotalt }
+    : provGenomgang(provSeed(rad), (rad.answers as number[] | null) ?? [], arBlandad(rad.meta), bankVersion(rad.meta))
 
   // Aktiviteten loggas bara vid första hämtningen, så att en omladdning
   // inte ger dubbletter i historiken.
   if (!redanHamtad) {
     try {
       await logActivityServer(user.id, 'test_completed', 'Gjorde provet utan konto', {
-        slug: 'matrislogik-prova',
+        slug: ny ? `${testKind}-prova` : 'matrislogik-prova',
         score: ratt,
         total: totalt,
         anonymous_origin: true,

@@ -24,9 +24,11 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { checkIpRateLimit } from '@/lib/rate-limit/ip'
-import { felIndex, getAnonSession, questionsForToken } from '@/lib/tests/anon-session'
+import { felIndex, getAnonSession, provSeed, questionsForToken } from '@/lib/tests/anon-session'
 import { arProvToken } from '@/lib/tests/prov-rad'
 import { bankVersion } from '@/lib/logicTestV7/selectQuestions.v7'
+import { arNyProvTyp, type ProvTyp } from '@/lib/tests/prov-typer'
+import { felPositioner, lasRefs, lasSvar } from '@/lib/tests/prov-typer.server'
 
 /** Kontosteget laddas om några gånger per prov; 30 per dygn räcker gott. */
 export const PROV_RESULTAT_IP_LIMIT = 30
@@ -36,6 +38,8 @@ export interface ProvResultat {
   ratt: number
   totalt: number
   fel: number[]
+  /** Provets typ (matris som förut, eller en av de nya typerna). */
+  typ?: ProvTyp
 }
 
 export async function hamtaProvResultat(
@@ -57,7 +61,15 @@ export async function hamtaProvResultat(
       return null
     }
 
-    const fragor = questionsForToken(token, bankVersion(session.meta))
+    const testKind = (session as { test_kind?: unknown }).test_kind
+    if (arNyProvTyp(testKind)) {
+      const refs = lasRefs(session.questions)
+      if (!refs) return null
+      const fel = felPositioner(lasSvar(session.answers), refs.length)
+      return { ratt: refs.length - fel.length, totalt: refs.length, fel, typ: testKind }
+    }
+
+    const fragor = questionsForToken(provSeed(session), bankVersion(session.meta))
     const fel = felIndex(fragor, session.answers)
     return { ratt: fragor.length - fel.length, totalt: fragor.length, fel }
   } catch (err) {

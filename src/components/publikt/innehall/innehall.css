@@ -675,3 +675,40 @@
 .ib-typdelar li { counter-increment: del; display: flex; gap: 8px; align-items: center; font-size: 13px; }
 .ib-typdelar li::before { content: counter(del); display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 999px; background: var(--rum-ton, var(--insunken)); color: var(--rum-ink, var(--ink-1)); font-weight: 700; font-size: 12px; flex: none; }
 .ib-typlista { margin: 0; padding: 0 0 0 18px; display: grid; gap: 4px; font-size: 13px; line-height: 1.4; color: var(--ink-2); list-style: upper-alpha; }
+
+/* -------------------------------------------- provet i artikeln (ArtikelProv) */
+.pub-sida .art-prov {
+  margin: 32px 0;
+  padding: 18px;
+  border-radius: 24px;
+  background: var(--rum-ton, var(--panel));
+  border-left: 6px solid var(--rum-ink, var(--koppar));
+  box-shadow: var(--lyft);
+}
+@media (min-width: 700px) {
+  .pub-sida .art-prov { padding: 26px; }
+}
+.art-prov-text { font-size: 15px; line-height: 1.55; color: var(--ink-2); margin: 0 0 14px; max-width: 62ch; }
+.art-prov-ram { background: var(--papper); border: 1px solid var(--kant); border-radius: 18px; padding: 14px; }
+@media (min-width: 700px) {
+  .art-prov-ram { padding: 18px; }
+}
+.art-prov-topp { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.art-prov .pub-kick { color: var(--rum-ink, var(--koppar-ink)); }
+.art-prov-rad { margin: 2px 0 0; font-size: 15px; font-weight: 600; color: var(--ink-1); }
+.art-prov-matris { display: grid; gap: 12px; }
+@media (min-width: 700px) {
+  .art-prov-matris { grid-template-columns: minmax(0, 300px) minmax(0, 1fr); align-items: start; gap: 18px; }
+  .art-prov-matris .pub-prov-alt { margin-top: 0; }
+}
+.art-prov-matris .pub-prov-matris { max-width: 300px; }
+.art-prov-under { margin-top: 10px; }
+.art-prov-fel { margin-top: 10px; font-size: 14px; color: var(--fel-morker, #9a3412); }
+.art-prov-tal { font-family: var(--display); font-weight: 800; font-size: 40px; line-height: 1; margin: 6px 0 10px; color: var(--ink-1); }
+.art-prov-tal small { font-family: inherit; font-size: 15px; font-weight: 500; color: var(--ink-3); }
+.art-prov-brickor { display: flex; gap: 6px; margin-bottom: 12px; }
+.art-prov-brickor i { display: block; height: 6px; flex: 1; max-width: 48px; border-radius: 3px; background: var(--ink-1); }
+.art-prov-brickor i.fel { background: var(--koppar); }
+.art-prov-sparr { font-weight: 700; color: var(--ink-1); margin: 0; }
+.art-prov-resultat .pub-handling { margin-top: 16px; }
+.art-prov-resultat .pub-liten { margin-top: 8px; }

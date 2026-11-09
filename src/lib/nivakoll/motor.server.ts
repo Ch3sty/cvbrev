@@ -26,7 +26,7 @@ import 'server-only';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { sparaTestsvar, unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
 import { captureServer } from '@/lib/analytics/server';
-import { dagSthlm, type Dag } from '@/lib/traning/datum';
+import { dagSthlm, laggTill, type Dag } from '@/lib/traning/datum';
 import { matningsNiva } from '@/lib/traning/niva';
 import { beslutaTillgang } from '@/lib/traning/tillgang';
 import { lasBehorighet } from '@/lib/traning/motor.server';
@@ -87,6 +87,8 @@ export interface NivakollMeta {
   budget_s: number;
   deduktiv_version?: number;
   resultat?: NivakollResultat;
+  /** Provet utan konto som räknas in (spec-prov-fler-typer avsnitt 5): token och antal svar. */
+  smakprov?: { token: string; antal: number };
 }
 
 interface Rad {
@@ -185,7 +187,7 @@ async function lasSedda(admin: Klient, userId: string, kind: NivakollKind): Prom
 
 /* ------------------------------- Klientformen ------------------------------ */
 
-function uppgiftFor(kind: NivakollKind, nyckel: string, niva: BankNiva, sessionId: string, delar: readonly string[]): NivakollUppgift | null {
+export function uppgiftFor(kind: NivakollKind, nyckel: string, niva: BankNiva, sessionId: string, delar: readonly string[]): NivakollUppgift | null {
   if (kind === 'figurserie') {
     const q = hittaFigurFraga(nyckel);
     if (!q) return null;
@@ -207,7 +209,7 @@ function uppgiftFor(kind: NivakollKind, nyckel: string, niva: BankNiva, sessionI
 }
 
 /** Rättningen av ett svar (null = "Vet inte"): selected i originalindex, och genomgången. */
-function bedom(kind: NivakollKind, u: NivakollUppgift, svar: string | null, sessionId: string): { selected: number; correct: boolean; genomgang: NivakollGenomgang } | null {
+export function bedom(kind: NivakollKind, u: NivakollUppgift, svar: string | null, sessionId: string): { selected: number; correct: boolean; genomgang: NivakollGenomgang } | null {
   if (kind === 'figurserie') {
     const q = hittaFigurFraga(u.nyckel);
     if (!q) return null;
@@ -342,8 +344,11 @@ export async function skapaNivakoll(args: { supabase: Klient; admin: Klient; use
   const forePunkt = punktRes.error ? null : Number((punktRes.data ?? [])[0]?.niva);
   const fore = forePunkt != null && Number.isFinite(forePunkt) && forePunkt > 0 ? forePunkt : null;
   const seed = `${args.userId}:${idag}:${rader.length}:nivakoll:${args.kind}`;
-  const val = valjNivakoll(args.kind, sedda, idag, seed);
-  if (val.fragor.length === 0) return { ok: false, status: 422, fel: 'banken_tom' };
+  const val0 = valjNivakoll(args.kind, sedda, idag, seed);
+  if (val0.fragor.length === 0) return { ok: false, status: 422, fel: 'banken_tom' };
+  // Första Nivåkollen räknar in provet utan konto i samma typ (specen avsnitt 5).
+  const smak = slutforda === 0 && fore == null ? await lasSmakprovTyp(args.admin, args.userId, args.kind, idag) : null;
+  const val = smak ? medSmakprov(val0, smak) : val0;
 
   const meta: NivakollMeta = {
     nivakoll: 1,
@@ -359,6 +364,7 @@ export async function skapaNivakoll(args: { supabase: Klient; admin: Klient; use
     antal: val.fragor.length,
     budget_s: NIVAKOLL_BUDGET_S[args.kind],
     ...(args.kind === 'deduktiv' ? { deduktiv_version: DEDUKTIV_VERSION } : {}),
+    ...(smak ? { smakprov: { token: smak.token, antal: smak.svar.length } } : {}),
   };
   const { data, error } = await args.admin
     .from('logic_test_v4_sessions')
@@ -366,9 +372,105 @@ export async function skapaNivakoll(args: { supabase: Klient; admin: Klient; use
     .select(KOLUMNER)
     .single();
   if (error || !data) throw error ?? new Error('Nivåkollen skapades inte');
-  const vy = nivakollVy(data as Rad);
+  let rad = data as Rad;
+  if (smak) rad = await fyllSmakprov(args.admin, args.userId, rad, meta, smak);
+  const vy = nivakollVy(rad);
   if (!vy) throw new Error('Nivåkollens meta gick inte att läsa');
   return { ok: true, vy };
+}
+
+/* ------------------------------ Provet utan konto ------------------------------ */
+
+interface SmakprovTyp {
+  token: string;
+  /** Besvarade uppgifter ur provet: nyckel, nivå, underlag, originalindex, svaret och rätt eller fel. */
+  svar: { nyckel: string; niva: BankNiva; underlag: string | null; selected: number; svar: string; correct: boolean }[];
+}
+
+/** Färre besvarade än så: provet räknas inte in (samma regel som matrisens smakprov). */
+const SMAKPROV_MIN = 3;
+
+/** Senaste hämtade provet utan konto i typen, högst 30 dagar gammalt, med minst tre svar. */
+async function lasSmakprovTyp(admin: Klient, userId: string, kind: NivakollKind, idag: Dag): Promise<SmakprovTyp | null> {
+  try {
+    const { data, error } = await admin
+      .from('anon_test_sessions')
+      .select('token, questions, answers, created_at')
+      .eq('claimed_by', userId)
+      .eq('test_kind', kind)
+      .order('created_at', { ascending: false })
+      .limit(1);
+    if (error || !data?.length) return null;
+    const r = data[0] as { token: string; questions: unknown; answers: unknown; created_at: string };
+    if (dagSthlm(r.created_at) < laggTill(idag, -30)) return null;
+    const refs = Array.isArray(r.questions) ? (r.questions as { k?: string; n?: string; v?: BankNiva; u?: string }[]) : [];
+    const svar = Array.isArray(r.answers) ? (r.answers as { svar?: unknown; selected?: unknown; correct?: unknown }[]) : [];
+    const ut: SmakprovTyp['svar'] = [];
+    refs.forEach((ref, i) => {
+      const s = svar[i];
+      if (ref?.k !== kind || typeof ref.n !== 'string' || !s || typeof s.svar !== 'string' || typeof s.selected !== 'number' || s.selected < 0) return;
+      ut.push({ nyckel: ref.n, niva: ref.v ?? 'grund', underlag: ref.u ?? null, selected: s.selected, svar: s.svar, correct: s.correct === true });
+    });
+    return ut.length >= SMAKPROV_MIN ? { token: r.token, svar: ut } : null;
+  } catch (e) {
+    console.error('[nivakoll] provet utan konto gick inte att läsa', e);
+    return null;
+  }
+}
+
+/** Provets uppgifter först, sedan urvalet utan dubbletter, lika många som urvalet. */
+export function medSmakprov(
+  val: ReturnType<typeof valjNivakoll>,
+  smak: Pick<SmakprovTyp, 'svar'>
+): ReturnType<typeof valjNivakoll> {
+  const forst = smak.svar.map((s) => s.nyckel);
+  const smakUnderlag = new Set(smak.svar.map((s) => s.underlag).filter((u): u is string => !!u));
+  const rest = val.fragor.filter((n) => !forst.includes(n));
+  const fragor = [...forst, ...rest].slice(0, Math.max(val.fragor.length, forst.length));
+  const nivaer: Record<string, BankNiva> = { ...val.nivaer };
+  for (const s of smak.svar) nivaer[s.nyckel] = s.niva;
+  const delar = val.delar ? [...new Set([...smakUnderlag, ...val.delar])] : undefined;
+  // Provets svar räknas i nivån men inte i frågestatistiken (ingen tid uppmätt).
+  const upprepade = [...new Set([...val.upprepade.filter((n) => fragor.includes(n)), ...forst])];
+  return { fragor, nivaer, ...(delar ? { delar } : {}), upprepade };
+}
+
+/**
+ * Svaren ur provet läggs in i Nivåkollen. Alternativen visas i sessionens
+ * egen ordning, så visat index räknas om ur originalindex (figurserier,
+ * deduktivt). Verbalt och numeriskt svarar med alternativets id, som inte
+ * beror på ordningen.
+ */
+async function fyllSmakprov(admin: Klient, userId: string, rad: Rad, meta: NivakollMeta, smak: SmakprovTyp): Promise<Rad> {
+  const svar: Svar[] = [];
+  for (const s of smak.svar) {
+    const u = uppgiftFor(meta.test_kind, s.nyckel, s.niva, rad.id, meta.delar ?? []);
+    if (!u) continue;
+    let visat: string | null = null;
+    if (u.kind === 'figurserie' || u.kind === 'deduktiv') {
+      for (let v = 0; v < u.options.length && visat === null; v++) {
+        if (bedom(meta.test_kind, u, String(v), rad.id)?.selected === s.selected) visat = String(v);
+      }
+    } else {
+      visat = s.svar;
+    }
+    const b = visat === null ? null : bedom(meta.test_kind, u, visat, rad.id);
+    if (!b) continue;
+    svar.push({ q_id: s.nyckel, svar: visat, selected: b.selected, correct: b.correct, time_spent: 0 });
+  }
+  if (svar.length === 0) return rad;
+  const { data, error } = await admin
+    .from('logic_test_v4_sessions')
+    .update({ answers: svar })
+    .eq('id', rad.id)
+    .eq('user_id', userId)
+    .select(KOLUMNER)
+    .single();
+  if (error || !data) {
+    console.error('[nivakoll] provets svar gick inte att lägga in', error);
+    return rad;
+  }
+  return data as Rad;
 }
 
 /* ---------------------------------- Svaret --------------------------------- */
@@ -502,7 +604,7 @@ export async function slutforNivakoll(args: { admin: Klient; userId: string; ses
       over_tid: resultat.over_tid,
       familjer: resultat.tappade.map((t) => t.namn),
       tid_s: resultat.tid_s,
-      smakprov: 0,
+      smakprov: meta.smakprov?.antal ?? 0,
       test_kind: kind,
     });
   } else {

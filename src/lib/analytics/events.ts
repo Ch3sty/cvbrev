@@ -77,6 +77,10 @@ interface ClusterContext {
 interface SampleIntervju {
   question?: FragaId
   slug?: string
+  /** Provets testtyp (spec-prov-fler-typer avsnitt 6): matris, figurserie, verbal, numerisk, deduktiv, spatial, talserie, ordforrad, iprov. */
+  test_kind?: string
+  /** Var provet startade: prova (provsidan) eller artikel (uppgift 1 i artikeln). */
+  plats?: 'prova' | 'artikel'
 }
 
 /**

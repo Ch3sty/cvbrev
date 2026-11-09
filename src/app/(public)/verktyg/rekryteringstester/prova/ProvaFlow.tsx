@@ -30,6 +30,16 @@ import { loggaInHref } from '@/components/registrering/RegisterKontoSteg'
 import { KONTO_PANEL, PROVA, SKAL } from '@/components/registrering/registrering-copy'
 import ProvBrickor from '@/components/publikt/ProvBrickor'
 import { MATRIS_EXPERT_ALTERNATIV, MATRIS_EXPERT_RUTOR, MatrisFigur, MatrisLucka } from '@/components/publikt/MatrisExpert'
+import TypUppgiftVy from '@/components/publikt/prov/TypUppgiftVy'
+import { PROV_TYP_PANEL } from '@/components/registrering/registrering-copy'
+import { PROV_COPY, PROV_MITT_TEST, arNyProvTyp, provAntal, type ProvStart, type ProvTyp, type PublikUppgift } from '@/lib/tests/prov-typer'
+import type { VnUnderlag } from '@/lib/tester/pass-typer'
+
+/** Introts exempel för typerna utöver matrisen: en riktig uppgift ur banken, utan facit. */
+export interface ProvExempel {
+  uppgift: PublikUppgift
+  underlag: Record<string, VnUnderlag>
+}
 
 interface PublicQuestion {
   id: string
@@ -47,9 +57,13 @@ type Phase = 'intro' | 'running' | 'result'
 
 const BOKSTAV = 'ABCDEFGH'
 
-export default function ProvaFlow() {
+export default function ProvaFlow({ typ: typProp = 'matris', exempel = null }: { typ?: ProvTyp; exempel?: ProvExempel | null }) {
   const [phase, setPhase] = useState<Phase>('intro')
+  const [typ, setTyp] = useState<ProvTyp>(typProp)
   const [session, setSession] = useState<StartResponse | null>(null)
+  // Typerna utöver matrisen (spec-prov-fler-typer-2026-11-09).
+  const [typSession, setTypSession] = useState<ProvStart | null>(null)
+  const [typSvar, setTypSvar] = useState<(string | null)[]>([])
   const [rutnat, setRutnat] = useState<Rutnat[]>([])
   const [index, setIndex] = useState(0)
   const [answers, setAnswers] = useState<number[]>([])
@@ -76,6 +90,7 @@ export default function ProvaFlow() {
     const sparat = lasSparatProv(readPendingTestSession())
     if (!sparat) return
     aterstalld.current = true
+    if (sparat.typ && arNyProvTyp(sparat.typ)) setTyp(sparat.typ)
     setSession({ token: sparat.token, questions: [], total: sparat.result.total })
     setRutnat(sparat.rutnat)
     setResult(sparat.result)
@@ -88,11 +103,28 @@ export default function ProvaFlow() {
     setError(null)
     setRegisterHref(null)
     try {
-      const res = await fetch('/api/public/test-session', { method: 'POST' })
+      const ny = arNyProvTyp(typ)
+      const res = await fetch('/api/public/test-session', {
+        method: 'POST',
+        ...(ny ? { headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ typ }) } : {}),
+      })
       const data = await res.json()
       if (!res.ok) {
         setError(data.message ?? data.error ?? 'Kunde inte starta provet.')
         if (typeof data.registerHref === 'string') setRegisterHref(data.registerHref)
+        return
+      }
+      if (ny) {
+        const s = data as ProvStart
+        setTypSession(s)
+        setSession({ token: s.token, questions: [], total: s.total })
+        setRutnat([])
+        setTypSvar(new Array(s.uppgifter.length).fill(null))
+        setIndex(0)
+        setPhase('running')
+        capture('sample_started', { kind: 'test', cluster: 'test', test_kind: typ, plats: 'prova' })
+        const mitt = PROV_MITT_TEST[typ]
+        sparaProvkalla({ via: 'smakprov', ...(mitt ? { mitt_test: mitt } : {}) })
         return
       }
       const started = data as StartResponse
@@ -111,7 +143,7 @@ export default function ProvaFlow() {
     }
   }
 
-  async function submit(finalAnswers: number[], token: string) {
+  async function submit(finalAnswers: (number | string | null)[], token: string) {
     setLoading(true)
     setError(null)
     try {
@@ -132,7 +164,7 @@ export default function ProvaFlow() {
         percentile: typeof data.percentile === 'number' ? data.percentile : null,
       }
       setResult(r)
-      sparaProv(token, r, rutnat)
+      sparaProv(token, r, rutnat, typ)
       setPhase('result')
     } catch {
       setError('Vi nådde inte servern. Försök igen.')
@@ -154,14 +186,23 @@ export default function ProvaFlow() {
     }
   }
 
+  function chooseTyp(svar: string) {
+    if (!typSession || loading) return
+    const next = [...typSvar]
+    next[index] = svar
+    setTypSvar(next)
+    if (index + 1 < typSession.uppgifter.length) setIndex(index + 1)
+    else void submit(next, typSession.token)
+  }
+
   useEffect(() => {
     if (phase === 'result' && result && !aterstalld.current) {
-      capture('sample_completed', { kind: 'test', cluster: 'test' })
-      capture('signup_gate_shown', { kind: 'test', cluster: 'test' })
+      capture('sample_completed', { kind: 'test', cluster: 'test', test_kind: typ })
+      capture('signup_gate_shown', { kind: 'test', cluster: 'test', test_kind: typ })
     }
-  }, [phase, result])
+  }, [phase, result, typ])
 
-  const antal = session?.questions.length || session?.total || 5
+  const antal = typSession?.uppgifter.length || session?.questions.length || session?.total || provAntal(typ)
   const framsteg = phase === 'intro' ? 0 : phase === 'running' ? ((index + 1) / antal) * 100 : 100
   const loginHref = loggaInHref({
     intent: null,
@@ -176,10 +217,24 @@ export default function ProvaFlow() {
     >
       <div ref={rotRef} className="pub-prov">
         {phase === 'intro' ? (
-          <Intro loading={loading} error={error} registerHref={registerHref} onStart={start} />
+          <Intro typ={typ} exempel={exempel} loading={loading} error={error} registerHref={registerHref} onStart={start} />
         ) : null}
 
-        {phase === 'running' && session ? (
+        {phase === 'running' && typSession && typSession.uppgifter[index] ? (
+          <TypFraga
+            typ={typ}
+            uppgift={typSession.uppgifter[index]}
+            underlag={typSession.underlag}
+            seed={typSession.token}
+            nu={index + 1}
+            av={typSession.uppgifter.length}
+            loading={loading}
+            error={error}
+            onSvar={chooseTyp}
+          />
+        ) : null}
+
+        {phase === 'running' && session && !typSession ? (
           <Fraga
             fraga={session.questions[index]}
             nu={index + 1}
@@ -191,7 +246,7 @@ export default function ProvaFlow() {
         ) : null}
 
         {phase === 'result' && result && session ? (
-          <ResultGate result={result} token={session.token} rutnat={rutnat} />
+          <ResultGate result={result} token={session.token} rutnat={rutnat} typ={typ} />
         ) : null}
       </div>
     </PubliktFlodesskal>
@@ -219,17 +274,42 @@ function Segment({ av, klara, className = '' }: { av: number; klara: number; cla
 }
 
 function Intro({
+  typ,
+  exempel,
   loading,
   error,
   registerHref,
   onStart,
 }: {
+  typ: ProvTyp
+  exempel: ProvExempel | null
   loading: boolean
   error: string | null
   registerHref: string | null
   onStart: () => void
 }) {
-  const t = PROVA.intro
+  const c = arNyProvTyp(typ) ? PROV_COPY[typ] : null
+  const n = provAntal(typ)
+  const t = c
+    ? {
+        ...PROVA.intro,
+        kick: c.kick,
+        h1: c.h1,
+        ingressFet: c.ingressFet,
+        ingress: c.ingress,
+        steg: [n === 6 ? 'Sex uppgifter' : 'Fem uppgifter', 'Resultatet direkt', 'Kontot visar vad du missade'],
+        bladKick: 'Så ser en uppgift ut',
+        bladFotRubrik:
+          c.forklaring === 'regeln'
+            ? 'Regeln bakom uppgiften'
+            : c.forklaring === 'lösningen'
+              ? 'Lösningen'
+              : c.forklaring === 'tekniken'
+                ? 'Tekniken bakom svaret'
+                : 'Förklaringen',
+        bladFot: 'Visas för varje uppgift när provet är hämtat till ditt konto.',
+      }
+    : PROVA.intro
   return (
     <>
       <section className="pub-rum-tran pub-yta-vagg pub-prov-intro">
@@ -268,6 +348,22 @@ function Intro({
             </div>
           </div>
 
+          {c && exempel ? (
+            <div className="pub-prov-blad pub-prov-blad-intro pub-prov-blad-typ" aria-hidden="true" inert>
+              <div className="pub-prov-blad-topp">
+                <p className="pub-kick">{t.bladKick}</p>
+                <Segment av={n} klara={1} />
+              </div>
+              <TypUppgiftVy uppgift={exempel.uppgift} underlag={exempel.underlag} nr={1} antal={n} seed="exempel" onSvar={() => {}} disabled />
+              <div className="pub-prov-blad-fot">
+                <Las />
+                <div>
+                  <b>{t.bladFotRubrik}</b>
+                  {t.bladFot}
+                </div>
+              </div>
+            </div>
+          ) : (
           <div className="pub-prov-blad pub-prov-blad-intro" aria-hidden="true">
             <div className="pub-prov-blad-topp">
               <p className="pub-kick">{t.bladKick}</p>
@@ -307,6 +403,7 @@ function Intro({
               </div>
             </div>
           </div>
+          )}
         </div>
       </section>
       <p className="pub-prov-mer">
@@ -403,14 +500,66 @@ function Fraga({
   )
 }
 
+/** En uppgift i typerna utöver matrisen, i samma skal som matrisens fråga. */
+function TypFraga({
+  typ,
+  uppgift,
+  underlag,
+  seed,
+  nu,
+  av,
+  loading,
+  error,
+  onSvar,
+}: {
+  typ: ProvTyp
+  uppgift: PublikUppgift
+  underlag: Record<string, VnUnderlag>
+  seed: string
+  nu: number
+  av: number
+  loading: boolean
+  error: string | null
+  onSvar: (svar: string) => void
+}) {
+  const c = arNyProvTyp(typ) ? PROV_COPY[typ] : null
+  return (
+    <>
+      <section className="pub-rum-tran pub-yta-vagg pub-prov-fraga-vagg">
+        <div className="pub-prov-wrap">
+          <div>
+            <p className="pub-kick">{c?.fragaKick ?? PROVA.fraga.kick}</p>
+            <p className="pub-prov-fraga-rub">{PROV_TYP_PANEL.fraga(nu, av)}</p>
+          </div>
+          <Segment av={av} klara={nu} />
+        </div>
+      </section>
+      <section className="pub-prov-wrap pub-prov-fraga-kropp">
+        <div className="pub-prov-blad pub-prov-blad-typ" key={uppgift.nyckel}>
+          <TypUppgiftVy uppgift={uppgift} underlag={underlag} nr={nu} antal={av} seed={seed} onSvar={onSvar} disabled={loading} />
+          {error ? (
+            <p className="pub-prov-fel" role="alert">
+              {error}
+            </p>
+          ) : null}
+        </div>
+        <p className="pub-liten pub-prov-under-blad" aria-live="polite">
+          {loading ? PROVA.fraga.rattar : 'Ingen tidtagning. Nästa uppgift kommer när du svarat.'}
+        </p>
+      </section>
+    </>
+  )
+}
+
 /**
  * Resultatet och spärren. Antal rätt, vilka som blev fel och, när
  * underlaget räcker, percentilen. Rätt svar och reglerna ligger kvar på
  * servern tills kontot finns. ResultGate behåller data-cta="prova-gate".
  */
-function ResultGate({ result, token, rutnat }: { result: ProvaResultat; token: string; rutnat: Rutnat[] }) {
+function ResultGate({ result, token, rutnat, typ }: { result: ProvaResultat; token: string; rutnat: Rutnat[]; typ: ProvTyp }) {
   const registerHref = `/register?test=${encodeURIComponent(token)}`
   const t = PROVA.resultat
+  const ny = arNyProvTyp(typ) ? typ : null
   const andel = Math.max(0, Math.min(1, result.total ? result.score / result.total : 0))
 
   useEffect(() => {
@@ -449,10 +598,10 @@ function ResultGate({ result, token, rutnat }: { result: ProvaResultat; token: s
       <section className="pub-prov-wrap pub-prov-res-kropp">
         <div className="pub-kort pub-prov-sparr">
           <div>
-            <h2 className="pub-prov-h3">{t.sparr(result.fel)}</h2>
+            <h2 className="pub-prov-h3">{ny ? PROV_TYP_PANEL.sparr(ny, result.fel) : t.sparr(result.fel)}</h2>
             <ProvBrickor totalt={result.total} fel={result.fel} rutnat={rutnat} />
             <ul className="pub-prov-bock">
-              {KONTO_PANEL.rader(result.fel, result.total).map((r) => (
+              {(ny ? PROV_TYP_PANEL.rader(ny, result.fel, result.total) : KONTO_PANEL.rader(result.fel, result.total)).map((r) => (
                 <li key={r.fet}>
                   <span>
                     <b>{r.fet}</b>
@@ -484,7 +633,7 @@ function ResultGate({ result, token, rutnat }: { result: ProvaResultat; token: s
           <PremiumIkon />
           <span>
             <b className="pub-gradord">{KONTO_PANEL.premium.namn}</b>
-            <span>{KONTO_PANEL.premium.text}</span>
+            <span>{ny ? PROV_TYP_PANEL.premium(ny) : KONTO_PANEL.premium.text}</span>
           </span>
         </p>
       </section>

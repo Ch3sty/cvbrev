@@ -15,6 +15,8 @@
 import type { Metadata } from 'next'
 import PubliktSida from '@/components/publikt/PubliktSida'
 import ProvaFlow from './ProvaFlow'
+import { arNyProvTyp, provTypUrAdress } from '@/lib/tests/prov-typer'
+import { artikelUppgift } from '@/lib/tests/prov-typer.server'
 
 const BASE_URL = 'https://www.jobbcoach.ai'
 
@@ -26,10 +28,19 @@ export const metadata: Metadata = {
   alternates: { canonical: `${BASE_URL}/verktyg/rekryteringstester` },
 }
 
-export default function ProvaSida() {
+/**
+ * ?typ= väljer provet (spec-prov-fler-typer-2026-11-09 avsnitt 2): figurer,
+ * verbal, numerisk, deduktiv, spatial, talserie, ordforrad och iprov. Utan
+ * parameter matrislogik som förut. Introts exempel är en riktig uppgift ur
+ * typens bank, utan facit, ritad på servern.
+ */
+export default async function ProvaSida({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  const sp = await searchParams
+  const typ = provTypUrAdress(Array.isArray(sp.typ) ? sp.typ[0] : sp.typ)
+  const exempel = arNyProvTyp(typ) ? artikelUppgift(typ, 'prova-intro') : null
   return (
     <PubliktSida>
-      <ProvaFlow />
+      <ProvaFlow key={typ} typ={typ} exempel={exempel} />
     </PubliktSida>
   )
 }

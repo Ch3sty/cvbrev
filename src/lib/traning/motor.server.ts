@@ -23,7 +23,7 @@ import { bedomSvar, rattaMatrisSvar } from '@/lib/logicTestV7/fragor.server';
 import { genomgaFraga, visaFraga } from '@/lib/logicTestV7/visning';
 import type { GenomgangsFraga, VisadFraga } from '@/lib/logicTestV7/layered.v7';
 import { sparaTestsvar, unikaSvar, SVARSNYCKLAR } from '@/lib/tests/sparaSvar';
-import { questionsForToken } from '@/lib/tests/anon-session';
+import { provSeed, questionsForToken } from '@/lib/tests/anon-session';
 import { bankVersion } from '@/lib/logicTestV7/selectQuestions.v7';
 import { getUserScope } from '@/lib/supabase/premiumAccess';
 import { scopeHasFeature, type Feature } from '@/lib/access/features';
@@ -504,7 +504,7 @@ export function tolkaSmakprov(
   if (!arBlandad(rad.meta) || !Array.isArray(rad.answers) || !rad.created_at) return null;
   const dag = dagSthlm(rad.created_at);
   if (dagarMellan(dag, idag) > SMAKPROV_MAX_DAGAR) return null;
-  const fragor = questionsForToken(rad.token, bankVersion(rad.meta));
+  const fragor = questionsForToken(provSeed(rad), bankVersion(rad.meta));
   const svar: Smakprov['svar'] = [];
   fragor.forEach((q, i) => {
     const orig = (rad.answers as unknown[])[i];
@@ -522,6 +522,8 @@ async function lasSmakprov(admin: Klient, userId: string, idag: Dag): Promise<Sm
     .from('anon_test_sessions')
     .select('*')
     .eq('claimed_by', userId)
+    // Bara matrisens prov: de andra typerna räknas in i sin egen Nivåkoll.
+    .eq('test_kind', 'matris')
     .not('answers', 'is', null)
     .gte('created_at', fran)
     .order('created_at', { ascending: false })

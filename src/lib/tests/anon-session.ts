@@ -77,6 +77,22 @@ export function questionsForToken(token: string, version: BankVersion = 1): Laye
 }
 
 /**
+ * Fröet för provets urval och alternativens ordning. Ett prov som startade
+ * med uppgift 1 i en artikel (ArtikelProv) har artikelns fasta frö i
+ * meta.urval_seed, så att uppgift 1 är den som stod i artikelns HTML. Alla
+ * andra prov seedas på token som förut.
+ */
+export function provSeed(row: { token: string; meta?: unknown }): string {
+  const s = (row.meta as { urval_seed?: unknown } | null | undefined)?.urval_seed
+  return typeof s === 'string' && s.startsWith('artikel:') ? s : row.token
+}
+
+/** Artikelns fasta frö för matrisens prov: samma för alla besökare av artikeln. */
+export function artikelSeedMatris(slug: string): string {
+  return `artikel:matris:${slug}`
+}
+
+/**
  * Index (0 till 4) för frågorna som blev fel eller lämnades obesvarade, i
  * provets ordning. `answers` är originalindex, som routen lagrar dem. Bara
  * positionerna lämnar servern, aldrig vilket alternativ som var rätt.

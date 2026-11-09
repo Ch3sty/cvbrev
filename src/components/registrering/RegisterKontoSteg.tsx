@@ -37,6 +37,7 @@ import GoogleSignInButton from '@/components/auth/GoogleSignInButton'
 import TurnstileWidget, { TURNSTILE_SITE_KEY } from '@/components/auth/TurnstileWidget'
 import StatusRow from '@/components/shell/StatusRow'
 import ProvBrickor, { ProvBricka } from '@/components/publikt/ProvBrickor'
+import { arNyProvTyp } from '@/lib/tests/prov-typer'
 import { lasSparatProv, type Rutnat } from '@/lib/tests/prova-lokalt'
 import type { ProvResultat } from '@/lib/tests/prov-resultat.server'
 import { VALKOMMEN_PATH, TRACK_CHOICE_PATH } from '@/lib/onboarding/steps'
@@ -53,6 +54,7 @@ import {
 import {
   KONTO_GRATIS,
   KONTO_PANEL,
+  PROV_TYP_PANEL,
   SKAL,
   SMAKPROV,
   SMAKPROV_UNDER,
@@ -470,6 +472,9 @@ function PremiumRad({ text }: { text: string }) {
  */
 function ProvPanel({ resultat, rutnat }: { resultat: ProvResultat | null; rutnat: Rutnat[] }) {
   const totalt = resultat?.totalt ?? 5
+  // Typerna utöver matrisen (spec-prov-fler-typer avsnitt 4): samma panel, egna rader.
+  const ny = resultat?.typ && arNyProvTyp(resultat.typ) ? resultat.typ : null
+  if (ny) rutnat = []
   const forstaFel = resultat?.fel[0]
   const lasbild = typeof forstaFel === 'number' ? rutnat[forstaFel] : undefined
   return (
@@ -484,10 +489,10 @@ function ProvPanel({ resultat, rutnat }: { resultat: ProvResultat | null; rutnat
           <ProvBrickor totalt={resultat.totalt} fel={resultat.fel} rutnat={rutnat} numrerade={false} />
         </div>
       ) : null}
-      <h2>{resultat ? KONTO_PANEL.rubrik(resultat.fel, resultat.totalt) : KONTO_PANEL.rubrikUtan}</h2>
-      <PanelRader rader={KONTO_PANEL.rader(resultat?.fel ?? null, totalt)} />
+      <h2>{ny && resultat ? PROV_TYP_PANEL.rubrik(ny, resultat.fel, resultat.totalt) : resultat ? KONTO_PANEL.rubrik(resultat.fel, resultat.totalt) : KONTO_PANEL.rubrikUtan}</h2>
+      <PanelRader rader={ny ? PROV_TYP_PANEL.rader(ny, resultat?.fel ?? null, totalt) : KONTO_PANEL.rader(resultat?.fel ?? null, totalt)} />
       <div className="pub-konto-dator">
-        <PremiumRad text={KONTO_PANEL.premium.text} />
+        <PremiumRad text={ny ? PROV_TYP_PANEL.premium(ny) : KONTO_PANEL.premium.text} />
       </div>
       {lasbild ? <ProvBricka rutnat={lasbild} className="pub-konto-lasbild" /> : null}
     </aside>

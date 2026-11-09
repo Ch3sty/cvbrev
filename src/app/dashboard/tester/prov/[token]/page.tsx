@@ -32,6 +32,11 @@ import { HEM } from '@/lib/traning/hem-copy'
 import { PASS_COPY } from '@/lib/traning/pass-copy'
 import { TRANING_RUTT } from '@/lib/traning/rutter'
 import { PROVSIDA } from '../prov-copy'
+import { arNyProvTyp } from '@/lib/tests/prov-typer'
+import { genomgaProv, lasRefs, lasSvar, nivakollKindFor, underlagFor } from '@/lib/tests/prov-typer.server'
+import { NIVAKOLL_TEST_TYPE as NIVAKOLL_PER_TYP } from '@/lib/nivakoll/niva'
+import ProvTypSida from './ProvTypSida'
+import { provSeed } from '@/lib/tests/anon-session'
 
 export const metadata = { title: 'Ditt logiktestprov', robots: { index: false, follow: false } }
 export const dynamic = 'force-dynamic'
@@ -72,7 +77,38 @@ export default async function LogiktestProvPage({ params }: { params: Promise<{ 
   ])
   if (!rad) notFound()
 
-  const { fragor, svar, ratt, totalt } = provGenomgang(rad.token, rad.answers ?? [], arBlandad(rad.meta), bankVersion(rad.meta))
+  // Typerna utöver matrisen (spec-prov-fler-typer-2026-11-09).
+  const testKind = (rad as { test_kind?: unknown }).test_kind
+  if (arNyProvTyp(testKind)) {
+    const refs = lasRefs((rad as { questions?: unknown }).questions)
+    if (!refs) notFound()
+    const nk = nivakollKindFor(testKind)
+    const harTypensNivakoll = nk
+      ? await Promise.resolve(
+          admin
+            .from('logic_test_v4_sessions')
+            .select('id', { count: 'exact', head: true })
+            .eq('user_id', user.id)
+            .eq('test_type', NIVAKOLL_PER_TYP[nk])
+            .not('completed_at', 'is', null)
+        ).then(
+          (r) => (r.count ?? 0) > 0,
+          () => false
+        )
+      : false
+    return (
+      <ProvTypSida
+        typ={testKind}
+        token={rad.token}
+        skapad={rad.created_at}
+        uppgifter={genomgaProv(refs, lasSvar(rad.answers))}
+        underlag={underlagFor(refs)}
+        harNivakoll={harTypensNivakoll}
+      />
+    )
+  }
+
+  const { fragor, svar, ratt, totalt } = provGenomgang(provSeed(rad), (rad.answers as number[] | null) ?? [], arBlandad(rad.meta), bankVersion(rad.meta))
   const gratis = scope === null
 
   // Vidare till träningen (analysen 2026-11-08, punkt 1). Nivåkollen räknar in

@@ -7,6 +7,7 @@
  * brev" och aldrig "spår" publikt.
  */
 
+import { PROV_COPY, type NyProvTyp } from '@/lib/tests/prov-typer'
 import { SALD_PLAN, kopKnapp, paketKort, prisPeriod, type PlanKey } from '@/lib/plans/plans'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import type { SignupIntent, SmakprovTyp } from './intent'
@@ -127,7 +128,7 @@ export const SMAKPROV: Record<
     rubrik: 'Se vad du missade',
     knapp: 'Skapa konto och se svaren',
     status: 'Ditt svar är sparat i sju dagar',
-    under: 'Gratis konto, inget kreditkort. Du landar direkt på dina fem svar.',
+    under: 'Gratis konto, inget kreditkort. Du landar direkt på dina svar.',
   },
   draft: {
     eyebrow: 'Ditt brev',
@@ -426,4 +427,51 @@ export const PROVA_OCKSA = {
     text: 'Analysen visar poängen och det tyngsta fyndet, gratis.',
     href: '/dashboard/cv-analys',
   },
+} as const
+
+/* ------------------------------------------------------------ provet per typ */
+
+/** "uppgift 3", "uppgift 2 och 4" (index från 0), för typerna utöver matrisen. */
+export function uppgifterText(fel: readonly number[]): string {
+  return fragorText(fel).replace(/^fråga/, 'uppgift')
+}
+
+/**
+ * Spärren och kontostegets panel för typerna utöver matrisen
+ * (spec-prov-fler-typer-2026-11-09 avsnitt 4). Matrisen behåller KONTO_PANEL
+ * och PROVA. I-provets Premiumrad är saas-leads beslut 1 (2026-11-10):
+ * övningsprovet i provets ordning, med tid per deltest, ingår i Premium.
+ */
+export const PROV_TYP_PANEL = {
+  rubrik: (typ: NyProvTyp, fel: readonly number[], totalt: number): string => {
+    const f = PROV_COPY[typ].forklaring
+    if (fel.length === 0) return `Kontot visar ${f} bakom varje uppgift`
+    if (fel.length === totalt) return `Kontot visar alla svar och ${f} bakom`
+    if (fel.length === 1) return `Kontot visar ${uppgifterText(fel)} och ${f} bakom`
+    return `Kontot visar ${uppgifterText(fel)} och ${f} bakom`
+  },
+  rader: (typ: NyProvTyp, fel: readonly number[] | null, totalt: number): PanelRad[] => {
+    const c = PROV_COPY[typ]
+    const forsta: PanelRad =
+      !fel || fel.length === 0 || fel.length === totalt
+        ? { fet: 'Rätt svar', text: ` och ${c.forklaring} bakom varje uppgift` }
+        : { fet: versalFraga(uppgifterText(fel)), text: ` med rätt svar och ${c.forklaring} bakom` }
+    const tredje: PanelRad = c.nivakollMinuter
+      ? { fet: 'Nivåkollen', text: `, cirka ${c.nivakollMinuter} minuter, räknar in de här svaren` }
+      : typ === 'iprov'
+        ? { fet: 'Grundnivån', text: ' i alla deltester, gratis med kontot' }
+        : { fet: 'Grundtestet', text: ` i ${c.namn}, gratis med kontot` }
+    return [forsta, { fet: 'Genomgång', text: ` av alla ${talordProv(totalt)} uppgifter` }, tredje]
+  },
+  premium: (typ: NyProvTyp): string =>
+    typ === 'iprov'
+      ? `, ${prisPeriod(SALD_PLAN)}: hela övningsprovet i I-provets ordning, med tid per deltest.`
+      : `, ${prisPeriod(SALD_PLAN)}, när du sedan vill träna på din nivå varje dag.`,
+  sparr: (typ: NyProvTyp, fel: readonly number[]): string => {
+    const f = PROV_COPY[typ].forklaring
+    if (fel.length === 0) return `Se ${f} bakom varje uppgift`
+    if (fel.length === 1) return `Se vilken du missade och ${f} bakom`
+    return `Se vilka du missade och ${f} bakom`
+  },
+  fraga: (nu: number, av: number) => `Uppgift ${nu} av ${av}`,
 } as const

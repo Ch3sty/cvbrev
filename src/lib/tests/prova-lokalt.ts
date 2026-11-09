@@ -34,6 +34,8 @@ export interface SparatProv {
   token: string
   result: ProvaResultat
   rutnat: Rutnat[]
+  /** Provets typ (prov-typer.ts); saknas för matrisens äldre sparade prov. */
+  typ?: string
 }
 
 export function arProvaResultat(r: unknown): r is ProvaResultat {
@@ -48,9 +50,9 @@ export function arProvaResultat(r: unknown): r is ProvaResultat {
   )
 }
 
-export function sparaProv(token: string, result: ProvaResultat, rutnat: Rutnat[]): void {
+export function sparaProv(token: string, result: ProvaResultat, rutnat: Rutnat[], typ?: string): void {
   try {
-    sessionStorage.setItem(PROVA_RESULTAT_KEY, JSON.stringify({ token, result, rutnat, t: Date.now() }))
+    sessionStorage.setItem(PROVA_RESULTAT_KEY, JSON.stringify({ token, result, rutnat, t: Date.now(), ...(typ ? { typ } : {}) }))
   } catch {
     /* privat läge: provet fungerar ändå, bara utan återställning */
   }
@@ -62,7 +64,7 @@ export function lasSparatProv(token: string | null): SparatProv | null {
   try {
     const raw = sessionStorage.getItem(PROVA_RESULTAT_KEY)
     if (!raw) return null
-    const d = JSON.parse(raw) as { token?: unknown; result?: unknown; rutnat?: unknown; t?: unknown }
+    const d = JSON.parse(raw) as { token?: unknown; result?: unknown; rutnat?: unknown; t?: unknown; typ?: unknown }
     if (
       d.token !== token ||
       typeof d.t !== 'number' ||
@@ -72,7 +74,7 @@ export function lasSparatProv(token: string | null): SparatProv | null {
       return null
     }
     const rutnat = Array.isArray(d.rutnat) ? (d.rutnat as Rutnat[]) : []
-    return { token, result: d.result, rutnat }
+    return { token, result: d.result, rutnat, ...(typeof d.typ === 'string' ? { typ: d.typ } : {}) }
   } catch {
     return null
   }

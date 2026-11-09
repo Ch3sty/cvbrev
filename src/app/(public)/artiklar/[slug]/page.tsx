@@ -62,6 +62,7 @@ import ArtikelRam, { datumText, type RelateradArtikel } from '@/components/artik
 import { GratisKort, InlineKort, ProvKort, SlutKort } from '@/components/artiklar/reklam/ArtikelReklam';
 import { TESTKORT_INTERVJU } from '@/components/artiklar/reklam/reklam-copy';
 import TypProvKort, { type ProvKortTyp } from '@/components/artiklar/reklam/TypProvKort';
+import ArtikelProv from '@/components/artiklar/prov/ArtikelProv';
 import { SALD_PLAN as PREMIUM_PLAN, prisPeriod as premiumPris } from '@/lib/plans/plans';
 import Signatur from '@/components/publikt/innehall/Signatur';
 import ArtikelFilm from '@/components/artiklar/ArtikelFilm';
@@ -489,6 +490,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         ),
         // Provkortet per testtyp (SEO-planen för de nya testerna, 5.1).
         TypProvKort: (p: { typ: ProvKortTyp }) => <TypProvKort typ={p.typ} cluster={cluster} slug={slug} />,
+        // Uppgift 1 i artikeln, provet startar på sidan (SEO-planen 4.2, våg 1 och 2).
+        ArtikelProv: (p: { typ: string }) => <ArtikelProv typ={p.typ} slug={slug} cluster={cluster} />,
         // Premiumpriset ur PLANS i löptext: "149 kr i månaden".
         PremiumPris: () => <>{premiumPris(PREMIUM_PLAN)}</>,
         // Produktfilmen i testartiklarna, klicka för att spela (ArtikelFilm.tsx).
