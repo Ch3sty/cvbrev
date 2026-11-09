@@ -8,8 +8,13 @@
  *   npx tsx scripts/torrtest-dag2.ts 2026-11-10
  *   npx tsx scripts/torrtest-dag2.ts 2026-11-10 --json
  *
- * Utskicksdagen D väljer dem vars första Nivåkoll var D minus ett. För i
- * morgon räknas alltså dagens Nivåkollar fram till nu.
+ * Utskicksdagen D väljer dem vars första start var D minus ett: första
+ * Nivåkollen i vilken testtyp som helst, och för konton med valet I-prov 2025
+ * första grundtestet i spatial förmåga, talserier eller ordförråd (saas-leads
+ * beslut 3, 2026-11-10). För i morgon räknas alltså dagens starter fram till
+ * nu. Raderna visar typen och vägen, summan antalet per typ.
+ *
+ *   npx tsx scripts/torrtest-dag2.ts --bakat 14  (de senaste 14 utskicksdagarna, bara antal)
  */
 
 import { laddaEnv } from './_env';
@@ -21,8 +26,25 @@ import { dagSthlm, laggTill, arGiltigDag } from '../src/lib/traning/datum';
 import { getUserScope } from '../src/lib/supabase/premiumAccess';
 import { scopeHasFeature } from '../src/lib/access/features';
 
+async function bakat(n: number, admin: any) {
+  const idag = dagSthlm(new Date());
+  let summa = 0;
+  for (let i = n - 1; i >= 0; i--) {
+    const dag = laggTill(idag, -i);
+    const urval = (await valjTraningsmejl(admin, stockholmKlockslag(dag, PASS_DAG2_KLOCKA))).filter((u) => u.typ === PASS_DAG2_TYPE);
+    const per: Record<string, number> = {};
+    for (const u of urval) {
+      const k = `${u.metadata.kind}${u.metadata.via === 'grundtest' ? ' (grundtest)' : ''}`;
+      per[k] = (per[k] ?? 0) + 1;
+    }
+    summa += urval.length;
+    console.log(dag, urval.length, JSON.stringify(per));
+  }
+  console.log(`Summa ${n} dagar: ${summa}. Uppskattning: redan skickade mejl räknas som i dag.`);
+}
+
 async function main() {
-  const arg = process.argv.slice(2).find((a) => !a.startsWith('--'));
+  const arg = process.argv.slice(2).find((a) => !a.startsWith('--') && arGiltigDag(a));
   const json = process.argv.includes('--json');
   const dag = arg && arGiltigDag(arg) ? arg : laggTill(dagSthlm(new Date()), 1);
   const kl = stockholmKlockslag(dag, PASS_DAG2_KLOCKA);
@@ -31,6 +53,8 @@ async function main() {
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) throw new Error('NEXT_PUBLIC_SUPABASE_URL eller SUPABASE_SERVICE_ROLE_KEY saknas');
   const admin = createClient(url, key, { auth: { persistSession: false } });
+  const bi = process.argv.indexOf('--bakat');
+  if (bi >= 0) return bakat(Math.max(1, Number(process.argv[bi + 1]) || 14), admin);
 
   const urval = (await valjTraningsmejl(admin as any, kl)).filter((u) => u.typ === PASS_DAG2_TYPE);
   const ids = urval.map((u) => u.userId);
@@ -51,8 +75,11 @@ async function main() {
   for (const id of ids) {
     const p = perId.get(id);
     const scope = await getUserScope(admin as any, id).catch(() => null);
+    const u = urval.find((x) => x.userId === id);
     rader.push({
       id,
+      typ: String(u?.metadata.kind ?? ''),
+      vag: String(u?.metadata.via ?? ''),
       betalande: scopeHasFeature(scope as any, 'tests_above_base'),
       avregistrerad: p?.quota_emails_opt_out === true,
       saknarEpost: !p?.email,
@@ -76,6 +103,11 @@ async function main() {
     utanInterna: gar.filter((r) => !r.intern).length,
     avregistrerade: rader.filter((r) => r.avregistrerad).length,
     utanEpost: rader.filter((r) => r.saknarEpost).length,
+    perTyp: gar.reduce<Record<string, number>>((acc, r) => {
+      const k = r.vag === 'grundtest' ? `${r.typ} (grundtest)` : r.typ;
+      acc[k] = (acc[k] ?? 0) + 1;
+      return acc;
+    }, {}),
   };
 
   if (json) console.log(JSON.stringify({ summa, rader }, null, 2));

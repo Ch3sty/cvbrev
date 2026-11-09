@@ -4,7 +4,10 @@
 // ersätter avsnitt 4.4). Högst två per användare, alla med avregistrering,
 // via hjälpredans schema i morgonslotten. Ingen egen cron.
 //
-//   pass_dag2           dag 2 efter Nivåkollen, 07:00 till alla (sedan 2026-11-09)
+//   pass_dag2           dag 2 efter första Nivåkollen i vilken testtyp som helst,
+//                       07:00 till alla (sedan 2026-11-09). För konton med valet
+//                       I-prov 2025 också första grundtestet i spatial förmåga,
+//                       talserier eller ordförråd (saas-leads beslut 3, 2026-11-10).
 //   dagen_fore_provet   provdatum minus ett, 08:00
 //   vecka_utan_datum    dag 7 efter Nivåkollen, utan provdatum
 //
@@ -20,6 +23,11 @@ import { Resend } from 'resend';
 import type { AnySupabase } from './types';
 import { cancelScheduled } from './schedule';
 import { arGiltigDag, dagSthlm, laggTill, type Dag } from '@/lib/traning/datum';
+import { NIVAKOLL_TEST_TYPER } from '@/lib/nivakoll/niva';
+import { VN_PASS_TEST_TYPER } from '@/lib/tester/pass-typer';
+import { FIGURPASS_TEST_TYPE } from '@/lib/tester/pass-figur';
+import { DEDUKTIVPASS_TEST_TYPE } from '@/lib/tester/pass-deduktiv';
+import { STEG2_PASS_TEST_TYPE } from '@/lib/tester/steg2/pass';
 
 export const PASS_DAG2_TYPE = 'pass_dag2';
 export const DAGEN_FORE_PROVET_TYPE = 'dagen_fore_provet';
@@ -49,10 +57,44 @@ export const PASS_TID_KLOCKA: Readonly<Record<PassTid, string>> = {
 
 export const DAGEN_FORE_KLOCKA = '08:00';
 
-/** Passets test_type som räknas som "dagens pass gjort" (samma som hemvyn). */
-const PASS_TEST_TYPER = ['matrislogik-pass', 'matrislogik-riktat', 'matrislogik-general'];
+/**
+ * Passens test_type som räknas som "dagens pass gjort": matrisens som i
+ * hemvyn, och sedan 2026-11-10 alla testtypers pass, eftersom dag 2-mejlet
+ * gäller alla typer.
+ */
+const PASS_TEST_TYPER = [
+  'matrislogik-pass',
+  'matrislogik-riktat',
+  'matrislogik-general',
+  FIGURPASS_TEST_TYPE,
+  DEDUKTIVPASS_TEST_TYPE,
+  ...VN_PASS_TEST_TYPER,
+  ...Object.values(STEG2_PASS_TEST_TYPE),
+];
 /** Nivåkollen och ny nivåkoll har samma test_type. */
 const NIVAKOLL_TEST_TYPE = 'matrislogik-matning';
+
+/** Typerna som kan utlösa dag 2-mejlet. */
+export type StartKind = 'matris' | 'figurserie' | 'deduktiv' | 'verbal' | 'numerisk' | 'talserie' | 'spatial' | 'ordforrad';
+const NIVAKOLL_KIND: Readonly<Record<string, StartKind>> = {
+  [NIVAKOLL_TEST_TYPE]: 'matris',
+  'figurserie-nivakoll': 'figurserie',
+  'deduktiv-nivakoll': 'deduktiv',
+  'verbal-nivakoll': 'verbal',
+  'numerisk-nivakoll': 'numerisk',
+};
+const START_KINDS: readonly StartKind[] = ['matris', 'figurserie', 'deduktiv', 'verbal', 'numerisk', 'talserie', 'spatial', 'ordforrad'];
+/**
+ * I-prov 2025 saknar Nivåkoll i sina typer (spatial förmåga, talserier,
+ * ordförråd). För konton med valet räknas första avslutade grundtestet.
+ */
+export const IPROV_GRUNDTEST: Readonly<Record<string, StartKind>> = {
+  'spatial-grund': 'spatial',
+  'talserier-grund': 'talserie',
+  'ordforrad-grund': 'ordforrad',
+};
+/** Alla sessioner som kan utlösa dag 2-mejlet. */
+const START_TEST_TYPER = [NIVAKOLL_TEST_TYPE, ...NIVAKOLL_TEST_TYPER, ...Object.keys(IPROV_GRUNDTEST)];
 
 export function lasPassTid(v: unknown): PassTid | null {
   return v === 'morgon' || v === 'lunch' || v === 'kvall' ? v : null;
@@ -207,6 +249,8 @@ export interface Traningsplan {
   testtyper: string[];
   leverantor: string | null;
   variant: string | null;
+  /** Valet "Mitt test" (steg 2), null för planer från före steg 2. */
+  mittTest: string | null;
 }
 
 export function tolkaPlan(rad: Record<string, unknown> | null | undefined): Traningsplan | null {
@@ -218,6 +262,7 @@ export function tolkaPlan(rad: Record<string, unknown> | null | undefined): Tran
     testtyper: Array.isArray(rad.testtyper) ? (rad.testtyper as string[]) : [],
     leverantor: (rad.leverantor as string | null | undefined) ?? null,
     variant: (rad.variant as string | null | undefined) ?? null,
+    mittTest: typeof rad.mitt_test === 'string' ? rad.mitt_test : null,
   };
 }
 
@@ -229,6 +274,112 @@ export async function lasPlaner(admin: AnySupabase, userIds: readonly string[]):
   for (const rad of (data ?? []) as Record<string, unknown>[]) {
     const plan = tolkaPlan(rad);
     if (plan) ut.set(String(rad.user_id), plan);
+  }
+  return ut;
+}
+
+/**
+ * Första träningsstarten per användare, det som utlöser dag 2-mejlet
+ * (saas-leads beslut 3, 2026-11-10): första Nivåkollen i vilken testtyp som
+ * helst, och för konton med valet I-prov 2025 också första avslutade
+ * grundtestet i spatial förmåga, talserier eller ordförråd. Den tidigaste
+ * vinner, så mejlet kommer en gång, dagen efter.
+ */
+export interface ForstaStart {
+  /** Dagen för första starten, svensk tid. */
+  forsta: Dag;
+  kind: StartKind;
+  via: 'nivakoll' | 'grundtest';
+  /** Senaste nivån i typen (Nivåkollen), annars null. */
+  niva: number | null;
+  /** Första startens session, för länken till genomgången. */
+  sessionId: string | null;
+  /** Grundtestets slug (spatial-grund och så vidare), för länken till resultatet. */
+  slug: string | null;
+}
+
+export async function lasForstaStarter(
+  admin: AnySupabase,
+  userIds: readonly string[],
+  planer?: Map<string, Traningsplan>
+): Promise<Map<string, ForstaStart>> {
+  const ut = new Map<string, ForstaStart>();
+  if (userIds.length === 0) return ut;
+  const ids = [...userIds];
+  const planKarta = planer ?? (await lasPlaner(admin, ids));
+
+  const [punktRes, sessRes] = await Promise.all([
+    (admin as any)
+      .from('test_nivapunkter')
+      .select('user_id, dag, typ, niva, skapad_at, test_kind')
+      .in('user_id', ids)
+      .in('typ', ['matning', 'ommatning'])
+      .limit(10000),
+    (admin as any)
+      .from('logic_test_v4_sessions')
+      .select('id, user_id, test_type, completed_at')
+      .in('user_id', ids)
+      .in('test_type', START_TEST_TYPER)
+      .not('completed_at', 'is', null)
+      .limit(10000),
+  ]);
+  if (punktRes.error) throw punktRes.error;
+  if (sessRes.error) throw sessRes.error;
+
+  type Handelse = { dag: Dag; at: number; kind: StartKind; via: 'nivakoll' | 'grundtest'; sessionId: string | null; slug: string | null };
+  const handelser = new Map<string, Handelse[]>();
+  const nivaer = new Map<string, Map<StartKind, { dag: Dag; at: number; niva: number }>>();
+  const lagg = (id: string, h: Handelse) => {
+    const l = handelser.get(id) ?? [];
+    l.push(h);
+    handelser.set(id, l);
+  };
+
+  for (const p of (punktRes.data ?? []) as Record<string, unknown>[]) {
+    const id = String(p.user_id);
+    const kind = p.test_kind as StartKind;
+    const dag = p.dag;
+    if (!arGiltigDag(dag) || !START_KINDS.includes(kind)) continue;
+    const at = p.skapad_at ? new Date(String(p.skapad_at)).getTime() : 0;
+    lagg(id, { dag, at, kind, via: 'nivakoll', sessionId: null, slug: null });
+    const niva = numeriskt(p.niva);
+    if (niva !== null && niva > 0) {
+      const perKind = nivaer.get(id) ?? new Map<StartKind, { dag: Dag; at: number; niva: number }>();
+      const forra = perKind.get(kind);
+      if (!forra || dag > forra.dag || (dag === forra.dag && at > forra.at)) perKind.set(kind, { dag, at, niva });
+      nivaer.set(id, perKind);
+    }
+  }
+  for (const s of (sessRes.data ?? []) as Record<string, unknown>[]) {
+    if (!s.completed_at) continue;
+    const id = String(s.user_id);
+    const typ = String(s.test_type);
+    const at = new Date(String(s.completed_at)).getTime();
+    const dag = dagSthlm(String(s.completed_at));
+    const nivakoll = NIVAKOLL_KIND[typ];
+    if (nivakoll) {
+      lagg(id, { dag, at, kind: nivakoll, via: 'nivakoll', sessionId: s.id ? String(s.id) : null, slug: null });
+      continue;
+    }
+    const grund = IPROV_GRUNDTEST[typ];
+    if (grund && planKarta.get(id)?.mittTest === 'iprov') {
+      lagg(id, { dag, at, kind: grund, via: 'grundtest', sessionId: s.id ? String(s.id) : null, slug: typ });
+    }
+  }
+
+  for (const [id, lista] of handelser) {
+    const sorterad = [...lista].sort((a, b) => (a.dag < b.dag ? -1 : a.dag > b.dag ? 1 : a.at - b.at));
+    const forsta = sorterad[0];
+    // Samma dag och typ: den med session (länken till genomgången) före punkten utan.
+    const medSession = sorterad.find((h) => h.dag === forsta.dag && h.kind === forsta.kind && h.sessionId) ?? forsta;
+    ut.set(id, {
+      forsta: forsta.dag,
+      kind: forsta.kind,
+      via: medSession.via,
+      niva: medSession.via === 'nivakoll' ? (nivaer.get(id)?.get(forsta.kind)?.niva ?? null) : null,
+      sessionId: medSession.sessionId,
+      slug: medSession.slug,
+    });
   }
   return ut;
 }
@@ -310,14 +461,13 @@ export async function valjTraningsmejl(admin: AnySupabase, now: Date = new Date(
       .from('test_nivapunkter')
       .select('user_id, dag')
       .eq('typ', 'matning')
-      // Bara matrisens Nivåkoll: de andra testtypernas nivåkoller (testplanen steg 1) ger inget dag 2-mejl.
-      .eq('test_kind', 'matris')
+      // Alla testtypers Nivåkoll sedan 2026-11-10 (beslut 3). Veckomejlet läser fortfarande bara matrisens.
       .in('dag', [igar, veckaSedan])
       .limit(5000),
     (admin as any)
       .from('logic_test_v4_sessions')
       .select('user_id, completed_at')
-      .eq('test_type', NIVAKOLL_TEST_TYPE)
+      .in('test_type', START_TEST_TYPER)
       .gte('completed_at', stockholmKlockslag(veckaSedan, '00:00').toISOString())
       .lt('completed_at', stockholmKlockslag(idag, '00:00').toISOString())
       .limit(5000),
@@ -343,12 +493,14 @@ export async function valjTraningsmejl(admin: AnySupabase, now: Date = new Date(
     lasPlaner(admin, ids),
     lasSkickade(admin, ids),
   ]);
+  const starter = await lasForstaStarter(admin, ids, planer);
 
   const ut: Traningsurval[] = [];
   for (const userId of ids) {
     const sent = skickade.get(userId) ?? [];
     const plan = planer.get(userId) ?? null;
     const koll = kollar.get(userId) ?? null;
+    const start = starter.get(userId) ?? null;
 
     if (plan?.provdatum === imorgon && rymsTill(sent, DAGEN_FORE_PROVET_TYPE)) {
       ut.push({
@@ -359,14 +511,15 @@ export async function valjTraningsmejl(admin: AnySupabase, now: Date = new Date(
       });
       continue;
     }
-    // Alla som gjorde Nivåkollen i går, 07:00 (PASS_DAG2_KLOCKA). Kravet på
-    // vald passtid (skiss 5) togs bort 2026-11-09.
-    if (koll?.forsta === igar && rymsTill(sent, PASS_DAG2_TYPE)) {
+    // Alla vars första start (Nivåkollen i vilken typ som helst, eller för
+    // I-prov första grundtestet) var i går, 07:00 (PASS_DAG2_KLOCKA). Kravet
+    // på vald passtid (skiss 5) togs bort 2026-11-09.
+    if (start?.forsta === igar && rymsTill(sent, PASS_DAG2_TYPE)) {
       ut.push({
         userId,
         typ: PASS_DAG2_TYPE,
         emailType: `${PASS_DAG2_TYPE}_${idag}`,
-        metadata: { dag: idag },
+        metadata: { dag: idag, kind: start.kind, via: start.via },
       });
       continue;
     }

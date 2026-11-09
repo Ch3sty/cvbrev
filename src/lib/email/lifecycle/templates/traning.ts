@@ -4,9 +4,13 @@
 // Högst två per användare, alla med avregistrering. Urvalet görs av
 // scheduleTraningsmejl i runner.ts; shouldSend räknar om läget vid sändning.
 //
-//   pass_dag2_<dag>          dag 2 efter Nivåkollen, 07:00. Betalande: dagens
-//                            pass. Gratis: nivån, genomgången och raden om
-//                            Premium (samma besked som väggen dag 2).
+//   pass_dag2_<dag>          dag 2 efter första Nivåkollen i vilken typ som
+//                            helst (för I-prov också första grundtestet i
+//                            spatial förmåga, talserier eller ordförråd),
+//                            07:00. Nämner typen och länkar till typens pass.
+//                            Betalande: dagens pass. Gratis: nivån,
+//                            genomgången och raden om Premium (samma besked
+//                            som väggen dag 2).
 //   dagen_fore_provet_<dag>  övningsprovet i leverantörens format, 08:00
 //   vecka_utan_datum_<dag>   en vecka sedan Nivåkollen, kolla igen, datum?
 //
@@ -24,6 +28,7 @@ import {
   PASS_DAG2_KLOCKA,
   PASS_DAG2_TYPE,
   VECKA_UTAN_DATUM_TYPE,
+  lasForstaStarter,
   lasNivakollar,
   lasPlaner,
   lasSkickade,
@@ -31,9 +36,12 @@ import {
   passGjortDag,
   rymsTill,
   stockholmKlockslag,
+  type ForstaStart,
+  type StartKind,
   type Traningsmejl,
   type Traningsplan,
 } from '../traningsmejl';
+import { HEM } from '@/lib/traning/hem-copy';
 import { dagensTemaFor } from '../traningsmejl-tema';
 import { dagSthlm, laggTill } from '@/lib/traning/datum';
 import { familjNamn } from '@/lib/logicTestV7/familjer';
@@ -42,7 +50,7 @@ import { getUserScope } from '@/lib/supabase/premiumAccess';
 import { scopeHasFeature, type Feature } from '@/lib/access/features';
 import { SALD_PLAN, paketKort, paketNamn, prisPeriod } from '@/lib/plans/plans';
 import { kopstegHref } from '@/lib/onboarding/steps';
-import { sessionHref } from '@/lib/traning/rutter';
+import { sessionHref, steg2PassHref, vnPassHref } from '@/lib/traning/rutter';
 
 export { PASS_DAG2_TYPE, DAGEN_FORE_PROVET_TYPE, VECKA_UTAN_DATUM_TYPE };
 
@@ -51,6 +59,28 @@ const BLANDAT = 'Blandade mönster';
 
 /** Passets form, ordagrant ur riktlinjerna 4.2. */
 export const PASS_FORM = 'Nio uppgifter, cirka tio minuter.';
+
+/**
+ * Typens namn i mejlet (saas-leads beslut 3, 2026-11-10: mejlet nämner
+ * typen), passets namn, form och länk. Formen är samma rad som under
+ * passen i hemvyn (HEM.vnPass), så mejlet och väggen säger samma sak.
+ */
+export const DAG2_TYP: Readonly<Record<Exclude<StartKind, 'matris'>, { namn: string; pass: string; form: string; lank: string }>> = {
+  figurserie: { namn: 'figurserier', pass: HEM.vnPass.figurpass, form: HEM.vnPass.figurMeta, lank: '/dashboard/tester/pass?typ=figurpass' },
+  deduktiv: { namn: 'deduktiv slutledning', pass: HEM.vnPass.deduktivpass, form: HEM.vnPass.deduktivMeta, lank: '/dashboard/tester/pass?typ=deduktivpass' },
+  verbal: { namn: 'verbalt test', pass: HEM.vnPass.textpass, form: HEM.vnPass.textMeta, lank: vnPassHref('verbal') },
+  numerisk: { namn: 'numeriskt test', pass: HEM.vnPass.sifferpass, form: HEM.vnPass.sifferMeta, lank: vnPassHref('numerisk') },
+  talserie: { namn: 'talserier', pass: HEM.vnPass.talseriepass, form: HEM.vnPass.talserieMeta, lank: steg2PassHref('talserie') },
+  spatial: { namn: 'spatial förmåga', pass: HEM.vnPass.spatialpass, form: HEM.vnPass.spatialMeta, lank: steg2PassHref('spatial') },
+  ordforrad: { namn: 'ordförråd', pass: HEM.vnPass.ordpass, form: HEM.vnPass.ordMeta, lank: steg2PassHref('ordforrad') },
+};
+
+/** Länken till genomgången: Nivåkollens session, grundtestets resultat, annars hemvyn. */
+function genomgangLank(start: ForstaStart | null): string {
+  if (!start) return LANK.hem;
+  if (start.via === 'grundtest' && start.slug) return `/dashboard/tester/${start.slug}`;
+  return start.sessionId ? sessionHref(start.sessionId) : LANK.hem;
+}
 
 export const LANK = {
   pass: '/dashboard/tester/pass?typ=pass',
@@ -95,6 +125,10 @@ async function nivakollen(ctx: LifecycleContext) {
   return (await lasNivakollar(ctx.admin, [ctx.userId])).get(ctx.userId) ?? null;
 }
 
+async function forstaStart(ctx: LifecycleContext): Promise<ForstaStart | null> {
+  return (await lasForstaStarter(ctx.admin, [ctx.userId])).get(ctx.userId) ?? null;
+}
+
 /** En sekundär länk i brödtexten, i accentfärgen. */
 function textLank(label: string, url: string, typ: string): string {
   return `<a href="${withUtm(url, typ)}" target="_blank" style="color:#EA580C;font-weight:600;text-decoration:underline;">${escapeHtml(label)}</a>`;
@@ -110,6 +144,75 @@ export function dag2Vaggrad(): string {
   return `Från dag två ingår passen i ${paketKort()}, ${prisPeriod(SALD_PLAN)}.`;
 }
 
+/**
+ * Dag 2-mejlet för testtyperna utöver matrisen (saas-leads beslut 3,
+ * 2026-11-10). Samma två lägen som matrisens: betalande får dagens pass i
+ * typen, gratis får nivån, genomgången och samma besked som väggen dag 2.
+ */
+function passDag2Typ(ctx: LifecycleContext, start: ForstaStart, premium: boolean, skickaVid: string) {
+  const t = DAG2_TYP[start.kind as Exclude<StartKind, 'matris'>];
+  const niva = start.niva;
+  const vad = start.via === 'grundtest' ? `grundtestet i ${t.namn}` : `Nivåkollen i ${t.namn}`;
+
+  if (premium) {
+    const subject = `Dagens pass: ${t.pass}`;
+    const preheader = t.form;
+    const stycken = [
+      paragraph(`${hej(ctx)} I går gjorde du ${escapeHtml(vad)}. I dag väntar ${escapeHtml(t.pass.toLowerCase())}. ${escapeHtml(t.form)}`),
+      paragraph(
+        niva !== null
+          ? `Nivåkollen gav dig ${nivaText(niva)}, och passet börjar där. Vi förklarar varje svar när du är klar.`
+          : 'Vi förklarar varje svar när du är klar.'
+      ),
+    ];
+    return {
+      subject,
+      preheader,
+      skickaVid,
+      html: renderLayout({
+        type: PASS_DAG2_TYPE,
+        userId: ctx.userId,
+        preheader,
+        body: heading('Dagens pass') + stycken.join(''),
+        ctaLabel: 'Starta dagens pass',
+        ctaUrl: t.lank,
+      }),
+    };
+  }
+
+  const subject =
+    niva !== null ? `Din nivå i ${t.namn} är ${nivaText(niva)}. Se vad som avgjorde.` : `Genomgången av ${vad.replace(/^N/, 'n')} är klar`;
+  const preheader = 'Varje uppgift med ditt svar, rätt svar och förklaringen.';
+  const forsta =
+    niva !== null
+      ? `${hej(ctx)} I går gjorde du ${escapeHtml(vad)} och landade på ${nivaText(niva)}.`
+      : `${hej(ctx)} I går gjorde du ${escapeHtml(vad)}.`;
+  const stycken = [
+    paragraph(forsta),
+    paragraph(
+      `Genomgången är din, med eller utan ${paketKort()}. Där ser du varje uppgift med ditt svar, rätt svar och förklaringen. Börja med dem du missade, där lär du dig mest.`
+    ),
+  ];
+  const note =
+    paragraph(`${dag2Vaggrad()} ${escapeHtml(t.pass)}: ${escapeHtml(t.form)}`) +
+    `<p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.65;">${textLank('Se dagens pass', t.lank, PASS_DAG2_TYPE)}</p>`;
+
+  return {
+    subject,
+    preheader,
+    skickaVid,
+    html: renderLayout({
+      type: PASS_DAG2_TYPE,
+      userId: ctx.userId,
+      preheader,
+      body: heading(start.via === 'grundtest' ? 'Ditt resultat efter grundtestet' : 'Din nivå efter Nivåkollen') + stycken.join(''),
+      ctaLabel: 'Visa genomgången',
+      ctaUrl: genomgangLank(start),
+      note,
+    }),
+  };
+}
+
 export const passDag2Mejl: LifecycleEmail = {
   type: PASS_DAG2_TYPE,
   shouldSend: async (ctx) => {
@@ -117,16 +220,20 @@ export const passDag2Mejl: LifecycleEmail = {
     // En rad som misslyckades i går och försöks igen i dag gäller fel dag.
     if (dag !== dagSthlm()) return false;
     if (!(await ryms(ctx, PASS_DAG2_TYPE))) return false;
-    // Alla som gjorde Nivåkollen i går. Vald passtid krävs inte sedan 2026-11-09.
-    const koll = await nivakollen(ctx);
-    if (koll?.forsta !== laggTill(dag, -1)) return false;
+    // Alla vars första start var i går: Nivåkollen i vilken typ som helst,
+    // för I-prov också första grundtestet (2026-11-10). Vald passtid krävs
+    // inte sedan 2026-11-09.
+    const start = await forstaStart(ctx);
+    if (start?.forsta !== laggTill(dag, -1)) return false;
     // Tyst om dagens pass redan är gjort.
     return !(await passGjortDag(ctx.admin, ctx.userId, dag));
   },
   render: async (ctx) => {
     const dag = mejlDag(ctx.metadata);
     const skickaVid = stockholmKlockslag(dag, PASS_DAG2_KLOCKA).toISOString();
-    const [koll, premium] = await Promise.all([nivakollen(ctx), har(ctx, 'tests_above_base')]);
+    const [start, premium] = await Promise.all([forstaStart(ctx), har(ctx, 'tests_above_base')]);
+    if (start && start.kind !== 'matris') return passDag2Typ(ctx, start, premium, skickaVid);
+    const koll = await nivakollen(ctx);
     const niva = koll?.niva ?? null;
 
     if (premium) {

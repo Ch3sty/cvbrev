@@ -270,6 +270,99 @@ describe('pass_dag2', () => {
   });
 });
 
+describe('pass_dag2 för alla testtyper (beslut 3, 2026-11-10)', () => {
+  function typDb(opts: { mittTest?: string | null; punkter?: Record<string, unknown>[]; sessioner?: Record<string, unknown>[] }) {
+    return fakeSupabase({
+      test_planer: [{ user_id: 'u1', testtyper: [], leverantor: null, variant: null, provdatum: null, mitt_test: opts.mittTest ?? null, pass_tid: null }],
+      test_nivapunkter: opts.punkter ?? [],
+      logic_test_v4_sessions: opts.sessioner ?? [],
+      email_schedule: [],
+      email_log: [],
+    });
+  }
+
+  it('första Nivåkollen i figurserier utlöser mejlet, som nämner typen och länkar till figurpasset', async () => {
+    const db = typDb({
+      punkter: [{ user_id: 'u1', test_kind: 'figurserie', dag: IGAR, typ: 'matning', niva: 4.2, skapad_at: mitt(IGAR) }],
+      sessioner: [{ id: 'f1', user_id: 'u1', test_type: 'figurserie-nivakoll', completed_at: mitt(IGAR) }],
+    });
+    expect(await passDag2Mejl.shouldSend(ctx(db, 'u1', { dag: IDAG }))).toBe(true);
+
+    h.scope = null;
+    const gratis = await passDag2Mejl.render(ctx(db, 'u1', { dag: IDAG }));
+    expect(gratis.subject).toBe('Din nivå i figurserier är 4,2. Se vad som avgjorde.');
+    expect(gratis.html).toContain('Nivåkollen i figurserier');
+    expect(gratis.html).toContain(dag2Vaggrad());
+    expect(gratis.html).toContain('typ=figurpass');
+    expect(gratis.html).toContain('/dashboard/tester/pass/f1');
+    utanTalstreck(gratis.subject, gratis.html);
+
+    h.scope = 'allt';
+    const betalande = await passDag2Mejl.render(ctx(db, 'u1', { dag: IDAG }));
+    expect(betalande.subject).toBe('Dagens pass: Figurpass');
+    expect(betalande.html).toContain('typ=figurpass');
+  });
+
+  it('en Nivåkoll i en ny typ efter den första ger inget mejl', async () => {
+    const db = typDb({
+      punkter: [
+        { user_id: 'u1', test_kind: 'matris', dag: '2026-10-01', typ: 'matning', niva: 5, skapad_at: mitt('2026-10-01') },
+        { user_id: 'u1', test_kind: 'deduktiv', dag: IGAR, typ: 'matning', niva: 6, skapad_at: mitt(IGAR) },
+      ],
+    });
+    expect(await passDag2Mejl.shouldSend(ctx(db, 'u1', { dag: IDAG }))).toBe(false);
+  });
+
+  it('I-prov: första grundtestet i spatial förmåga utlöser mejlet, med länk till spatialpasset', async () => {
+    const db = typDb({
+      mittTest: 'iprov',
+      sessioner: [{ id: 'g1', user_id: 'u1', test_type: 'spatial-grund', completed_at: mitt(IGAR) }],
+    });
+    expect(await passDag2Mejl.shouldSend(ctx(db, 'u1', { dag: IDAG }))).toBe(true);
+    h.scope = null;
+    const r = await passDag2Mejl.render(ctx(db, 'u1', { dag: IDAG }));
+    expect(r.html).toContain('grundtestet i spatial förmåga');
+    expect(r.html).toContain('kind=spatial');
+    expect(r.html).toContain('/dashboard/tester/spatial-grund');
+    expect(r.html).toContain(prisPeriod(SALD_PLAN));
+    utanTalstreck(r.subject, r.html);
+  });
+
+  it('grundtestet räknas inte för konton utan valet I-prov', async () => {
+    const db = typDb({
+      mittTest: 'matrigma',
+      sessioner: [{ id: 'g1', user_id: 'u1', test_type: 'spatial-grund', completed_at: mitt(IGAR) }],
+    });
+    expect(await passDag2Mejl.shouldSend(ctx(db, 'u1', { dag: IDAG }))).toBe(false);
+  });
+
+  it('urvalet tar figurserier och I-provets grundtest, och taket gäller som förut', async () => {
+    const db = fakeSupabase({
+      test_planer: [
+        { user_id: 'x', testtyper: [], provdatum: null, mitt_test: null },
+        { user_id: 'y', testtyper: [], provdatum: null, mitt_test: 'iprov' },
+        { user_id: 'z', testtyper: [], provdatum: null, mitt_test: 'iprov' },
+      ],
+      test_nivapunkter: [{ user_id: 'x', test_kind: 'figurserie', dag: IGAR, typ: 'matning', niva: 4, skapad_at: mitt(IGAR) }],
+      logic_test_v4_sessions: [
+        { id: 'y1', user_id: 'y', test_type: 'ordforrad-grund', completed_at: mitt(IGAR) },
+        { id: 'z1', user_id: 'z', test_type: 'talserier-grund', completed_at: mitt(IGAR) },
+      ],
+      email_schedule: [
+        { user_id: 'z', email_type: 'vecka_utan_datum_2026-09-01', sent_at: '2026-09-01T06:00:00Z', canceled_at: null },
+        { user_id: 'z', email_type: 'dagen_fore_provet_2026-09-02', sent_at: '2026-09-02T06:00:00Z', canceled_at: null },
+      ],
+      email_log: [],
+    });
+    const urval = await valjTraningsmejl(db.client, NU);
+    const per = Object.fromEntries(urval.map((u) => [u.userId, u.metadata]));
+    expect(per).toEqual({
+      x: { dag: IDAG, kind: 'figurserie', via: 'nivakoll' },
+      y: { dag: IDAG, kind: 'ordforrad', via: 'grundtest' },
+    });
+  });
+});
+
 describe('dagen_fore_provet', () => {
   it('Premium: formatet och länken till övningsprovets startark', async () => {
     const db = grund({ provdatum: IMORGON });
@@ -462,7 +555,7 @@ describe('urvalet i morgonslotten', () => {
     const nya = db.tables.email_schedule.filter((x) => x.sent_at === null);
     expect(nya).toHaveLength(6);
     for (const rad of nya) expect(rad.send_after).toBe(NU.toISOString());
-    expect(nya.find((x) => x.user_id === 'a')?.metadata).toEqual({ dag: IDAG });
+    expect(nya.find((x) => x.user_id === 'a')?.metadata).toEqual({ dag: IDAG, kind: 'matris', via: 'nivakoll' });
 
     // Omkörning samma morgon ger inga dubbletter.
     await scheduleTraningsmejl(db.client, NU);
