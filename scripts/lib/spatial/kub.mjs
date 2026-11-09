@@ -138,13 +138,15 @@ const delade = (Q) => {
 // ----------------------------------------------------------- generering
 
 export const NIVAER_C = {
-  grund: { symboler: ['prick', 'ring', 'kryss', 'kvadrat', 'dubbelring', 'fkvadrat'], framande: ['triangel'], delar: 2 },
-  avancerad: { symboler: ['prick', 'ring', 'kryss', 'kvadrat', 'triangel', 'pil'], framande: ['dubbelring', 'fkvadrat'], delar: 2 },
-  expert: { symboler: ['prick', 'ring', 'kvadrat', 'fkvadrat', 'triangel', 'pil'], framande: ['kryss', 'dubbelring'], delar: 1 },
+  // Krysset byttes mot en åttaarmad stjärna (granskningen 2026-11-09): kryssets
+  // armar följer sidans diagonaler, så det såg ut som ett plus på ovansidan.
+  grund: { symboler: ['prick', 'ring', 'stjarna', 'kvadrat', 'dubbelring', 'fkvadrat'], framande: ['triangel'], delar: 2 },
+  avancerad: { symboler: ['prick', 'ring', 'stjarna', 'kvadrat', 'triangel', 'pil'], framande: ['dubbelring', 'fkvadrat'], delar: 2 },
+  expert: { symboler: ['prick', 'ring', 'kvadrat', 'fkvadrat', 'triangel', 'pil'], framande: ['stjarna', 'dubbelring'], delar: 1 },
 };
 
-const NAMN = { prick: 'en prick', ring: 'en ring', kryss: 'ett kryss', kvadrat: 'en kvadrat', fkvadrat: 'en fylld kvadrat', dubbelring: 'en dubbelring', triangel: 'en triangel', pil: 'en pil' };
-const BEST = { prick: 'pricken', ring: 'ringen', kryss: 'krysset', kvadrat: 'kvadraten', fkvadrat: 'den fyllda kvadraten', dubbelring: 'dubbelringen', triangel: 'triangeln', pil: 'pilen' };
+const NAMN = { prick: 'en prick', ring: 'en ring', kryss: 'ett kryss', stjarna: 'en stjärna', kvadrat: 'en kvadrat', fkvadrat: 'en fylld kvadrat', dubbelring: 'en dubbelring', triangel: 'en triangel', pil: 'en pil' };
+const BEST = { prick: 'pricken', ring: 'ringen', kryss: 'krysset', stjarna: 'stjärnan', kvadrat: 'kvadraten', fkvadrat: 'den fyllda kvadraten', dubbelring: 'dubbelringen', triangel: 'triangeln', pil: 'pilen' };
 const PLATS = { t: 'ovansidan', l: 'vänster sida', r: 'höger sida' };
 
 function slumpKub(rng, symboler) {
@@ -189,10 +191,15 @@ export function byggUppgiftC({ niva, id, fro }) {
   const sp = spegla(kub);
   for (const Q of VRIDNINGAR) {
     const v = vy(sp, Q);
-    if (SIDOR.filter((p) => SIDOR.some((q) => ref[q].symbol === v[p].symbol)).length >= 2) lagg('spegel', v);
+    // Spegeldistraktorn är referensens eget hörn speglat: samma tre symboler i
+    // omvänd ordning (granskningen 2026-11-09), så att misstagstexten stämmer.
+    if (SIDOR.every((p) => SIDOR.some((q) => ref[q].symbol === v[p].symbol))) lagg('spegel', v);
   }
   // två sidor bytta i facit
-  for (const [a, b] of [['t', 'l'], ['t', 'r'], ['l', 'r']]) lagg('bytta', { ...facit, [a]: facit[b], [b]: facit[a] });
+  for (const [a, b] of [['t', 'l'], ['t', 'r'], ['l', 'r']]) {
+    const refSym = SIDOR.map((p) => ref[p].symbol);
+    if (refSym.includes(facit[a].symbol) && refSym.includes(facit[b].symbol)) lagg('bytta', { ...facit, [a]: facit[b], [b]: facit[a] }, { par: [a, b] });
+  }
   // en riktad symbol vriden fel
   for (const p of SIDOR) {
     if (!RIKTADE.has(facit[p].symbol)) continue;
@@ -253,8 +260,9 @@ export function byggUppgiftC({ niva, id, fro }) {
     const refSym = new Set(SIDOR.map((p) => ref[p].symbol));
     switch (c.typ) {
       case 'spegel':
+        return 'Spegelvänd. Samma tre sidor, men i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.';
       case 'bytta':
-        return 'Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.';
+        return `${stor(BEST[c.v[c.par[0]].symbol])} och ${BEST[c.v[c.par[1]].symbol]} har bytt plats. Då hamnar de i omvänd ordning jämfört med den första tärningen, och det är en spegelbild.`;
       case 'vriden':
         return `Rätt sidor, men ${BEST[c.v[c.plats].symbol]} på ${PLATS[c.plats]} pekar åt fel håll när tärningen vrids så.`;
       case 'fel_symbol':

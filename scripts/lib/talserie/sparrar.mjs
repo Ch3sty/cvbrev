@@ -13,8 +13,11 @@
 //  TS5  varje distraktor har en typ ur listan och en misstagstext
 //  TS6  alla tal inom nivåns gräns och högst fyra tecken
 //  TS7  två luckor: minst en distraktor har rätt första tal och fel andra
-//  TS8  nivå: samma familj och parametrar högst en gång; ett urval om 15 har
-//       högst fem av samma familj (kontrolleras i select-testet)
+//  TS8  nivå: samma familj och parametrar högst en gång, samma regel (familj
+//       och regelnyckel, startvärdet oräknat) högst två gånger, och ett urval
+//       om 15 har högst fem av samma familj (select-testet). Variera regeln,
+//       inte startvärdet (V7-regel 8, granskningen 2026-11-09).
+//  TS6  undantag: den geometriska familjen på grund har taket 400
 //  TS9  två luckor: facit är inte ensamt om att dela flest tal med de andra
 //       alternativen (annars går facit att gissa utan att räkna)
 //  TS10 nivå: facit står på samma plats i den sorterade listan i högst
@@ -22,7 +25,7 @@
 // =============================================================================
 
 import { entydighet } from './losare.mjs';
-import { NIVAER, DISTRAKTORTYPER, ts9Ok } from './generera.mjs';
+import { NIVAER, DISTRAKTORTYPER, ts9Ok, GEOMETRISK_MAX_GRUND } from './generera.mjs';
 
 const tecken = (x) => String(x).length;
 
@@ -61,8 +64,9 @@ export function sparrFel(q) {
   });
 
   const alla = [...q.visade, ...q.options.flat()];
+  const max = q.family === 'geometrisk' && q.niva === 'grund' ? GEOMETRISK_MAX_GRUND : N.max;
   for (const x of alla) {
-    if (!Number.isInteger(x) || x < N.min || x > N.max || tecken(x) > 4) fel.push(`${id}: TS6 talet ${x} utanför ${N.min} till ${N.max} eller över fyra tecken`);
+    if (!Number.isInteger(x) || x < N.min || x > max || tecken(x) > 4) fel.push(`${id}: TS6 talet ${x} utanför ${N.min} till ${N.max} eller över fyra tecken`);
   }
 
   if (q.luckor === 2) {
@@ -90,6 +94,12 @@ export function nivaFel(bank) {
     const dubbel = bank.find((x) => x !== q && x.visade.join(',') === rad);
     if (dubbel && q.id < dubbel.id) fel.push(`${q.id}: TS8 samma rad som ${dubbel.id}`);
   }
+  const regler = new Map();
+  for (const q of bank) {
+    const n = `${q.family}:${q.regelnyckel}`;
+    regler.set(n, [...(regler.get(n) ?? []), q.id]);
+  }
+  for (const [n, ids] of regler) if (ids.length > 2) fel.push(`TS8 regeln ${n} förekommer ${ids.length} gånger (${ids.join(', ')}), högst två`);
   const platser = new Map();
   for (const q of bank) platser.set(q.correctAnswer, (platser.get(q.correctAnswer) ?? 0) + 1);
   for (const [p, n] of platser) {

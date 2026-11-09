@@ -4,6 +4,183 @@
   "niva": "grund",
   "form": "A",
   "fraga": "Vilken figur är samma som den första, bara vriden?",
+  "n": 3,
+  "referens": {
+   "kind": "brick",
+   "n": 3,
+   "cells": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     0
+    ]
+   ]
+  },
+  "options": [
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "spegel",
+   "",
+   "flyttad",
+   "spegel_vriden"
+  ],
+  "misstag": [
+   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
+   "",
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
+   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet."
+  ],
+  "forklaring": "Rätt figur är den första vriden 90 grader moturs.",
+  "vridning": 270,
+  "difficulty": 1,
+  "p_prior": 0.8,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-g-a-02",
+  "niva": "grund",
+  "form": "A",
+  "fraga": "Vilken figur är samma som den första, bara vriden?",
   "n": 4,
   "referens": {
    "kind": "brick",
@@ -14,19 +191,23 @@
      0
     ],
     [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
      1,
      0
     ],
     [
-     2,
-     0
-    ],
-    [
-     2,
-     1
-    ],
-    [
-     3,
+     1,
      1
     ]
    ]
@@ -36,6 +217,70 @@
     "kind": "brick",
     "n": 4,
     "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
      [
       0,
       1
@@ -50,37 +295,11 @@
      ],
      [
       1,
-      0
-     ],
-     [
-      1,
-      1
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 4,
-    "cells": [
-     [
-      0,
-      0
-     ],
-     [
-      0,
-      1
-     ],
-     [
-      0,
       2
      ],
      [
       1,
-      0
-     ],
-     [
-      1,
-      1
+      3
      ]
     ]
    },
@@ -90,33 +309,7 @@
     "cells": [
      [
       0,
-      1
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      2,
       0
-     ],
-     [
-      2,
-      1
-     ],
-     [
-      3,
-      0
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 4,
-    "cells": [
-     [
-      0,
-      1
      ],
      [
       1,
@@ -127,12 +320,16 @@
       1
      ],
      [
+      1,
+      2
+     ],
+     [
       2,
       0
      ],
      [
-      3,
-      0
+      2,
+      1
      ]
     ]
    }
@@ -140,175 +337,18 @@
   "correctAnswer": 0,
   "typer": [
    "",
-   "flyttad",
+   "spegel_vriden",
    "spegel",
-   "spegel_vriden"
+   "flyttad"
   ],
   "misstag": [
    "",
-   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
-   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
-   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet."
-  ],
-  "forklaring": "Rätt figur är den första vriden 90 grader medurs.",
-  "vridning": 90,
-  "difficulty": 1,
-  "p_prior": 0.8,
-  "fran_version": 1
- },
- {
-  "id": "sp-g-a-02",
-  "niva": "grund",
-  "form": "A",
-  "fraga": "Vilken figur är samma som den första, bara vriden?",
-  "n": 3,
-  "referens": {
-   "kind": "brick",
-   "n": 3,
-   "cells": [
-    [
-     0,
-     0
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     1,
-     0
-    ],
-    [
-     1,
-     1
-    ],
-    [
-     1,
-     2
-    ]
-   ]
-  },
-  "options": [
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      0
-     ],
-     [
-      0,
-      1
-     ],
-     [
-      0,
-      2
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      1
-     ],
-     [
-      0,
-      2
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      1,
-      2
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      1
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      1,
-      2
-     ],
-     [
-      2,
-      0
-     ],
-     [
-      2,
-      1
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      0
-     ],
-     [
-      0,
-      1
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      2,
-      0
-     ]
-    ]
-   }
-  ],
-  "correctAnswer": 3,
-  "typer": [
-   "spegel_vriden",
-   "spegel",
-   "flyttad",
-   ""
-  ],
-  "misstag": [
    "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
    "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
-   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
-   ""
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits."
   ],
-  "forklaring": "Rätt figur är den första vriden 90 grader medurs.",
-  "vridning": 90,
+  "forklaring": "Rätt figur är den första vriden 90 grader moturs.",
+  "vridning": 270,
   "difficulty": 1,
   "p_prior": 0.8,
   "fran_version": 1
@@ -325,11 +365,7 @@
    "cells": [
     [
      0,
-     1
-    ],
-    [
-     0,
-     2
+     0
     ],
     [
      1,
@@ -338,6 +374,14 @@
     [
      1,
      1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     0
     ],
     [
      2,
@@ -359,26 +403,8 @@
       1
      ],
      [
-      1,
-      1
-     ],
-     [
-      1,
-      2
-     ],
-     [
-      2,
-      1
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
       0,
-      1
+      2
      ],
      [
       1,
@@ -390,10 +416,6 @@
      ],
      [
       1,
-      2
-     ],
-     [
-      2,
       2
      ]
     ]
@@ -421,6 +443,40 @@
      [
       2,
       1
+     ],
+     [
+      2,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
      ]
     ]
    },
@@ -446,26 +502,30 @@
      ],
      [
       1,
+      2
+     ],
+     [
+      2,
       2
      ]
     ]
    }
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 3,
   "typer": [
+   "flyttad",
    "spegel",
-   "",
    "spegel_vriden",
-   "flyttad"
+   ""
   ],
   "misstag": [
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
    "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
-   "",
    "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
-   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits."
+   ""
   ],
-  "forklaring": "Rätt figur är den första vriden 90 grader medurs.",
-  "vridning": 90,
+  "forklaring": "Rätt figur är den första vriden ett halvt varv (180 grader).",
+  "vridning": 180,
   "difficulty": 1,
   "p_prior": 0.8,
   "fran_version": 1
@@ -482,27 +542,91 @@
    "cells": [
     [
      0,
-     2
-    ],
-    [
-     1,
-     0
+     1
     ],
     [
      1,
      1
     ],
     [
-     1,
-     2
+     2,
+     0
     ],
     [
-     1,
-     3
+     2,
+     1
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
     ]
    ]
   },
   "options": [
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ]
+    ]
+   },
    {
     "kind": "brick",
     "n": 4,
@@ -525,6 +649,10 @@
      ],
      [
       3,
+      0
+     ],
+     [
+      3,
       1
      ]
     ]
@@ -542,64 +670,16 @@
       1
      ],
      [
-      0,
-      2
-     ],
-     [
-      0,
-      3
-     ],
-     [
-      1,
-      2
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 4,
-    "cells": [
-     [
-      0,
-      1
-     ],
-     [
       1,
       0
      ],
      [
       1,
       1
-     ],
-     [
-      1,
-      2
-     ],
-     [
-      1,
-      3
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 4,
-    "cells": [
-     [
-      0,
-      0
-     ],
-     [
-      1,
-      0
      ],
      [
       2,
       0
-     ],
-     [
-      2,
-      1
      ],
      [
       3,
@@ -621,8 +701,8 @@
    "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
    ""
   ],
-  "forklaring": "Rätt figur är den första vriden 90 grader medurs.",
-  "vridning": 90,
+  "forklaring": "Rätt figur är den första vriden ett halvt varv (180 grader).",
+  "vridning": 180,
   "difficulty": 1,
   "p_prior": 0.8,
   "fran_version": 1
@@ -632,18 +712,22 @@
   "niva": "grund",
   "form": "A",
   "fraga": "Vilken figur är samma som den första, bara vriden?",
-  "n": 4,
+  "n": 3,
   "referens": {
    "kind": "brick",
-   "n": 4,
+   "n": 3,
    "cells": [
     [
      0,
-     0
+     1
     ],
     [
      1,
-     0
+     1
+    ],
+    [
+     1,
+     2
     ],
     [
      2,
@@ -654,23 +738,61 @@
      1
     ],
     [
-     3,
-     0
+     2,
+     2
     ]
    ]
   },
   "options": [
    {
     "kind": "brick",
-    "n": 4,
+    "n": 3,
     "cells": [
+     [
+      0,
+      0
+     ],
      [
       0,
       1
      ],
      [
       1,
+      0
+     ],
+     [
+      1,
       1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
      ],
      [
       2,
@@ -679,42 +801,12 @@
      [
       2,
       1
-     ],
-     [
-      3,
-      1
      ]
     ]
    },
    {
     "kind": "brick",
-    "n": 4,
-    "cells": [
-     [
-      0,
-      1
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      1,
-      2
-     ],
-     [
-      1,
-      3
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 4,
+    "n": 3,
     "cells": [
      [
       0,
@@ -723,28 +815,6 @@
      [
       0,
       1
-     ],
-     [
-      0,
-      2
-     ],
-     [
-      0,
-      3
-     ],
-     [
-      1,
-      1
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 4,
-    "cells": [
-     [
-      0,
-      2
      ],
      [
       1,
@@ -761,22 +831,52 @@
      [
       2,
       1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
      ]
     ]
    }
   ],
-  "correctAnswer": 2,
+  "correctAnswer": 1,
   "typer": [
-   "spegel",
    "spegel_vriden",
    "",
-   "flyttad"
+   "flyttad",
+   "spegel"
   ],
   "misstag": [
-   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
    "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
    "",
-   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits."
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
+   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka."
   ],
   "forklaring": "Rätt figur är den första vriden 90 grader medurs.",
   "vridning": 90,
@@ -808,11 +908,15 @@
     ],
     [
      1,
-     1
+     0
     ],
     [
-     1,
-     2
+     2,
+     0
+    ],
+    [
+     2,
+     1
     ]
    ]
   },
@@ -826,6 +930,70 @@
       0
      ],
      [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
       1,
       0
      ],
@@ -834,8 +1002,155 @@
       1
      ],
      [
+      1,
+      2
+     ],
+     [
       2,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
       0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "spegel_vriden",
+   "spegel",
+   "flyttad",
+   ""
+  ],
+  "misstag": [
+   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
+   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
+   ""
+  ],
+  "forklaring": "Rätt figur är den första vriden 90 grader medurs.",
+  "vridning": 90,
+  "difficulty": 1,
+  "p_prior": 0.8,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-g-a-07",
+  "niva": "grund",
+  "form": "A",
+  "fraga": "Vilken figur är samma som den första, bara vriden?",
+  "n": 3,
+  "referens": {
+   "kind": "brick",
+   "n": 3,
+   "cells": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ]
+   ]
+  },
+  "options": [
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
      ],
      [
       2,
@@ -849,23 +1164,27 @@
     "cells": [
      [
       0,
+      0
+     ],
+     [
+      0,
       1
      ],
      [
       1,
-      0
+      1
      ],
      [
       1,
-      1
-     ],
-     [
-      2,
-      0
+      2
      ],
      [
       2,
       1
+     ],
+     [
+      2,
+      2
      ]
     ]
    },
@@ -892,32 +1211,10 @@
      [
       2,
       1
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      0
      ],
      [
-      0,
-      1
-     ],
-     [
-      0,
+      2,
       2
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
      ]
     ]
    }
@@ -935,14 +1232,14 @@
    "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
    "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka."
   ],
-  "forklaring": "Rätt figur är den första vriden 90 grader medurs.",
-  "vridning": 90,
+  "forklaring": "Rätt figur är den första vriden ett halvt varv (180 grader).",
+  "vridning": 180,
   "difficulty": 1,
   "p_prior": 0.8,
   "fran_version": 1
  },
  {
-  "id": "sp-g-a-07",
+  "id": "sp-g-a-08",
   "niva": "grund",
   "form": "A",
   "fraga": "Vilken figur är samma som den första, bara vriden?",
@@ -956,24 +1253,58 @@
      0
     ],
     [
-     1,
-     0
-    ],
-    [
-     1,
+     0,
      1
     ],
     [
-     2,
-     0
+     0,
+     2
     ],
     [
-     3,
-     0
+     0,
+     3
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     3
     ]
    ]
   },
   "options": [
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      2
+     ]
+    ]
+   },
    {
     "kind": "brick",
     "n": 4,
@@ -996,32 +1327,10 @@
      ],
      [
       1,
-      2
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 4,
-    "cells": [
-     [
-      0,
-      1
-     ],
-     [
-      1,
       0
      ],
      [
       1,
-      1
-     ],
-     [
-      2,
-      1
-     ],
-     [
-      3,
       1
      ]
     ]
@@ -1030,76 +1339,84 @@
     "kind": "brick",
     "n": 4,
     "cells": [
-     [
-      0,
-      0
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      2,
-      0
-     ],
-     [
-      2,
-      1
-     ],
-     [
-      3,
-      0
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 4,
-    "cells": [
-     [
-      0,
-      0
-     ],
-     [
-      0,
-      1
-     ],
      [
       0,
       2
      ],
      [
+      0,
+      3
+     ],
+     [
       1,
       0
      ],
      [
       1,
       1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
      ]
     ]
    }
   ],
-  "correctAnswer": 0,
+  "correctAnswer": 3,
   "typer": [
-   "",
+   "flyttad",
    "spegel",
    "spegel_vriden",
-   "flyttad"
+   ""
   ],
   "misstag": [
-   "",
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
    "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
    "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
-   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits."
+   ""
   ],
-  "forklaring": "Rätt figur är den första vriden 90 grader medurs.",
-  "vridning": 90,
+  "forklaring": "Rätt figur är den första vriden ett halvt varv (180 grader).",
+  "vridning": 180,
   "difficulty": 1,
   "p_prior": 0.8,
   "fran_version": 1
  },
  {
-  "id": "sp-g-a-08",
+  "id": "sp-g-a-09",
   "niva": "grund",
   "form": "A",
   "fraga": "Vilken figur är samma som den första, bara vriden?",
@@ -1110,11 +1427,7 @@
    "cells": [
     [
      0,
-     0
-    ],
-    [
-     0,
-     1
+     2
     ],
     [
      1,
@@ -1123,6 +1436,10 @@
     [
      1,
      1
+    ],
+    [
+     1,
+     2
     ],
     [
      2,
@@ -1137,7 +1454,7 @@
     "cells": [
      [
       0,
-      2
+      0
      ],
      [
       1,
@@ -1153,7 +1470,7 @@
      ],
      [
       2,
-      0
+      1
      ]
     ]
    },
@@ -1166,10 +1483,6 @@
       1
      ],
      [
-      0,
-      2
-     ],
-     [
       1,
       0
      ],
@@ -1179,6 +1492,10 @@
      ],
      [
       1,
+      2
+     ],
+     [
+      2,
       2
      ]
     ]
@@ -1205,7 +1522,7 @@
      ],
      [
       2,
-      0
+      1
      ]
     ]
    },
@@ -1223,191 +1540,34 @@
      ],
      [
       1,
-      0
-     ],
-     [
-      1,
       1
      ],
      [
       1,
       2
+     ],
+     [
+      2,
+      1
      ]
     ]
    }
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 3,
   "typer": [
-   "flyttad",
-   "",
-   "spegel",
-   "spegel_vriden"
-  ],
-  "misstag": [
-   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
-   "",
-   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
-   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet."
-  ],
-  "forklaring": "Rätt figur är den första vriden 90 grader medurs.",
-  "vridning": 90,
-  "difficulty": 1,
-  "p_prior": 0.8,
-  "fran_version": 1
- },
- {
-  "id": "sp-g-a-09",
-  "niva": "grund",
-  "form": "A",
-  "fraga": "Vilken figur är samma som den första, bara vriden?",
-  "n": 4,
-  "referens": {
-   "kind": "brick",
-   "n": 4,
-   "cells": [
-    [
-     0,
-     1
-    ],
-    [
-     1,
-     1
-    ],
-    [
-     2,
-     0
-    ],
-    [
-     2,
-     1
-    ],
-    [
-     3,
-     1
-    ]
-   ]
-  },
-  "options": [
-   {
-    "kind": "brick",
-    "n": 4,
-    "cells": [
-     [
-      0,
-      1
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      1,
-      2
-     ],
-     [
-      1,
-      3
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 4,
-    "cells": [
-     [
-      0,
-      0
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      2,
-      0
-     ],
-     [
-      2,
-      1
-     ],
-     [
-      3,
-      0
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 4,
-    "cells": [
-     [
-      0,
-      0
-     ],
-     [
-      0,
-      1
-     ],
-     [
-      0,
-      2
-     ],
-     [
-      0,
-      3
-     ],
-     [
-      1,
-      1
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 4,
-    "cells": [
-     [
-      0,
-      0
-     ],
-     [
-      0,
-      1
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      1,
-      2
-     ],
-     [
-      1,
-      3
-     ]
-    ]
-   }
-  ],
-  "correctAnswer": 0,
-  "typer": [
-   "",
    "spegel",
    "spegel_vriden",
-   "flyttad"
+   "flyttad",
+   ""
   ],
   "misstag": [
-   "",
    "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
    "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
-   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits."
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
+   ""
   ],
-  "forklaring": "Rätt figur är den första vriden 90 grader medurs.",
-  "vridning": 90,
+  "forklaring": "Rätt figur är den första vriden 90 grader moturs.",
+  "vridning": 270,
   "difficulty": 1,
   "p_prior": 0.8,
   "fran_version": 1
@@ -1439,8 +1599,8 @@
      1
     ],
     [
-     2,
-     0
+     1,
+     2
     ]
    ]
   },
@@ -1451,6 +1611,32 @@
     "cells": [
      [
       0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
       0
      ],
      [
@@ -1467,7 +1653,7 @@
      ],
      [
       2,
-      1
+      0
      ]
     ]
    },
@@ -1477,11 +1663,11 @@
     "cells": [
      [
       0,
-      2
+      0
      ],
      [
-      1,
-      0
+      0,
+      1
      ],
      [
       1,
@@ -1520,48 +1706,22 @@
      [
       1,
       1
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      0
-     ],
-     [
-      0,
-      1
-     ],
-     [
-      0,
-      2
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      1,
-      2
      ]
     ]
    }
   ],
-  "correctAnswer": 3,
+  "correctAnswer": 1,
   "typer": [
    "spegel",
+   "",
    "flyttad",
-   "spegel_vriden",
-   ""
+   "spegel_vriden"
   ],
   "misstag": [
    "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
+   "",
    "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
-   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
-   ""
+   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet."
   ],
   "forklaring": "Rätt figur är den första vriden 90 grader medurs.",
   "vridning": 90,
@@ -1574,18 +1734,18 @@
   "niva": "grund",
   "form": "A",
   "fraga": "Vilken figur är samma som den första, bara vriden?",
-  "n": 3,
+  "n": 4,
   "referens": {
    "kind": "brick",
-   "n": 3,
+   "n": 4,
    "cells": [
     [
      0,
      0
     ],
     [
-     1,
-     0
+     0,
+     1
     ],
     [
      1,
@@ -1598,13 +1758,47 @@
     [
      2,
      1
+    ],
+    [
+     3,
+     0
     ]
    ]
   },
   "options": [
    {
     "kind": "brick",
-    "n": 3,
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
     "cells": [
      [
       0,
@@ -1613,6 +1807,62 @@
      [
       0,
       1
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
      ],
      [
       0,
@@ -1625,46 +1875,6 @@
      [
       1,
       1
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      0
-     ],
-     [
-      0,
-      1
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      2,
-      0
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      1
-     ],
-     [
-      1,
-      1
      ],
      [
       1,
@@ -1673,52 +1883,22 @@
      [
       2,
       0
-     ],
-     [
-      2,
-      1
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      1
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      2,
-      0
-     ],
-     [
-      2,
-      1
      ]
     ]
    }
   ],
-  "correctAnswer": 0,
+  "correctAnswer": 1,
   "typer": [
-   "",
    "spegel_vriden",
-   "flyttad",
-   "spegel"
+   "",
+   "spegel",
+   "flyttad"
   ],
   "misstag": [
-   "",
    "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
-   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
-   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka."
+   "",
+   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits."
   ],
   "forklaring": "Rätt figur är den första vriden 90 grader medurs.",
   "vridning": 90,
@@ -1755,6 +1935,10 @@
     [
      1,
      2
+    ],
+    [
+     2,
+     0
     ]
    ]
   },
@@ -1777,62 +1961,44 @@
      ],
      [
       2,
+      1
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
       0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
      ],
      [
       2,
-      1
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 4,
-    "cells": [
-     [
-      0,
-      0
-     ],
-     [
-      0,
-      1
-     ],
-     [
-      0,
-      2
-     ],
-     [
-      1,
-      2
-     ],
-     [
-      1,
-      3
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 4,
-    "cells": [
-     [
-      0,
-      0
-     ],
-     [
-      0,
-      1
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      1,
-      2
-     ],
-     [
-      1,
       3
      ]
     ]
@@ -1848,6 +2014,10 @@
      [
       1,
       0
+     ],
+     [
+      1,
+      1
      ],
      [
       2,
@@ -1862,23 +2032,53 @@
       1
      ]
     ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      0
+     ]
+    ]
    }
   ],
-  "correctAnswer": 3,
+  "correctAnswer": 0,
   "typer": [
-   "flyttad",
-   "spegel_vriden",
+   "",
    "spegel",
-   ""
+   "flyttad",
+   "spegel_vriden"
   ],
   "misstag": [
-   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
-   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
+   "",
    "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
-   ""
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
+   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet."
   ],
-  "forklaring": "Rätt figur är den första vriden 90 grader medurs.",
-  "vridning": 90,
+  "forklaring": "Rätt figur är den första vriden 90 grader moturs.",
+  "vridning": 270,
   "difficulty": 1,
   "p_prior": 0.8,
   "fran_version": 1
@@ -1888,53 +2088,91 @@
   "niva": "grund",
   "form": "A",
   "fraga": "Vilken figur är samma som den första, bara vriden?",
-  "n": 3,
+  "n": 4,
   "referens": {
    "kind": "brick",
-   "n": 3,
+   "n": 4,
    "cells": [
     [
      0,
-     0
-    ],
-    [
-     0,
      1
     ],
     [
-     0,
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
      2
     ],
     [
-     1,
-     0
-    ],
-    [
-     1,
-     1
+     3,
+     2
     ]
    ]
   },
   "options": [
    {
     "kind": "brick",
-    "n": 3,
+    "n": 4,
     "cells": [
      [
       0,
       1
      ],
      [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
       0,
       2
      ],
      [
       1,
-      0
+      1
      ],
      [
       1,
-      1
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      0
      ],
      [
       2,
@@ -1944,12 +2182,8 @@
    },
    {
     "kind": "brick",
-    "n": 3,
+    "n": 4,
     "cells": [
-     [
-      0,
-      0
-     ],
      [
       0,
       1
@@ -1965,28 +2199,10 @@
      [
       1,
       2
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
+     ],
      [
-      0,
+      2,
       0
-     ],
-     [
-      0,
-      1
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
      ],
      [
       2,
@@ -1996,7 +2212,7 @@
    },
    {
     "kind": "brick",
-    "n": 3,
+    "n": 4,
     "cells": [
      [
       0,
@@ -2008,30 +2224,34 @@
      ],
      [
       1,
-      0
-     ],
-     [
-      1,
       1
      ],
      [
       1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
       2
      ]
     ]
    }
   ],
-  "correctAnswer": 2,
+  "correctAnswer": 1,
   "typer": [
-   "flyttad",
    "spegel",
    "",
+   "flyttad",
    "spegel_vriden"
   ],
   "misstag": [
-   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
    "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
    "",
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
    "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet."
   ],
   "forklaring": "Rätt figur är den första vriden 90 grader medurs.",
@@ -2052,11 +2272,7 @@
    "cells": [
     [
      0,
-     1
-    ],
-    [
-     0,
-     2
+     0
     ],
     [
      1,
@@ -2067,8 +2283,12 @@
      1
     ],
     [
-     1,
-     2
+     2,
+     0
+    ],
+    [
+     2,
+     1
     ]
    ]
   },
@@ -2079,32 +2299,6 @@
     "cells": [
      [
       0,
-      0
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      2,
-      0
-     ],
-     [
-      2,
-      1
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
       1
      ],
      [
@@ -2160,39 +2354,65 @@
       1
      ],
      [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
       1,
       1
      ],
      [
       1,
       2
-     ],
-     [
-      2,
-      0
-     ],
-     [
-      2,
-      1
      ]
     ]
    }
   ],
-  "correctAnswer": 0,
+  "correctAnswer": 3,
   "typer": [
-   "",
-   "spegel_vriden",
    "spegel",
-   "flyttad"
+   "spegel_vriden",
+   "flyttad",
+   ""
   ],
   "misstag": [
-   "",
-   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
    "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
-   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits."
+   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
+   ""
   ],
-  "forklaring": "Rätt figur är den första vriden 90 grader medurs.",
-  "vridning": 90,
+  "forklaring": "Rätt figur är den första vriden 90 grader moturs.",
+  "vridning": 270,
   "difficulty": 1,
   "p_prior": 0.8,
   "fran_version": 1
@@ -2209,23 +2429,27 @@
    "cells": [
     [
      0,
+     0
+    ],
+    [
+     0,
      1
+    ],
+    [
+     0,
+     2
     ],
     [
      1,
-     1
+     2
     ],
     [
      2,
-     0
+     2
     ],
     [
      2,
-     1
-    ],
-    [
-     3,
-     0
+     3
     ]
    ]
   },
@@ -2236,89 +2460,15 @@
     "cells": [
      [
       0,
-      1
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      1,
       2
      ],
      [
       1,
-      3
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 4,
-    "cells": [
-     [
-      0,
       0
-     ],
-     [
-      0,
-      1
-     ],
-     [
-      1,
-      1
      ],
      [
       1,
       2
-     ],
-     [
-      1,
-      3
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 4,
-    "cells": [
-     [
-      0,
-      2
-     ],
-     [
-      0,
-      3
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      1,
-      2
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 4,
-    "cells": [
-     [
-      0,
-      0
-     ],
-     [
-      1,
-      0
      ],
      [
       2,
@@ -2327,26 +2477,116 @@
      [
       2,
       1
+     ],
+     [
+      2,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
      ],
      [
       3,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
       1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      3,
+      2
      ]
     ]
    }
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 2,
   "typer": [
    "flyttad",
+   "spegel",
    "",
-   "spegel_vriden",
-   "spegel"
+   "spegel_vriden"
   ],
   "misstag": [
    "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
+   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
    "",
-   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
-   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka."
+   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet."
   ],
   "forklaring": "Rätt figur är den första vriden 90 grader medurs.",
   "vridning": 90,
@@ -2377,12 +2617,16 @@
      2
     ],
     [
-     0,
-     3
+     1,
+     2
     ],
     [
-     1,
-     1
+     2,
+     2
+    ],
+    [
+     3,
+     2
     ]
    ]
   },
@@ -2400,6 +2644,213 @@
       1
      ],
      [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      3,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      2
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "spegel_vriden",
+   "spegel",
+   "flyttad",
+   ""
+  ],
+  "misstag": [
+   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
+   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
+   ""
+  ],
+  "forklaring": "Rätt figur är den första vriden ett halvt varv (180 grader).",
+  "vridning": 180,
+  "difficulty": 1,
+  "p_prior": 0.8,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-g-a-17",
+  "niva": "grund",
+  "form": "A",
+  "fraga": "Vilken figur är samma som den första, bara vriden?",
+  "n": 4,
+  "referens": {
+   "kind": "brick",
+   "n": 4,
+   "cells": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     1
+    ]
+   ]
+  },
+  "options": [
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
       1,
       1
      ],
@@ -2409,33 +2860,11 @@
      ],
      [
       2,
-      1
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 4,
-    "cells": [
-     [
-      0,
-      1
-     ],
-     [
-      1,
       0
      ],
      [
-      1,
-      1
-     ],
-     [
-      1,
-      2
-     ],
-     [
-      1,
-      3
+      3,
+      0
      ]
     ]
    },
@@ -2462,6 +2891,10 @@
      [
       1,
       2
+     ],
+     [
+      2,
+      2
      ]
     ]
    },
@@ -2469,6 +2902,145 @@
     "kind": "brick",
     "n": 4,
     "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      3,
+      0
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "flyttad",
+   "spegel_vriden",
+   "spegel",
+   ""
+  ],
+  "misstag": [
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
+   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
+   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
+   ""
+  ],
+  "forklaring": "Rätt figur är den första vriden 90 grader moturs.",
+  "vridning": 270,
+  "difficulty": 1,
+  "p_prior": 0.8,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-g-a-18",
+  "niva": "grund",
+  "form": "A",
+  "fraga": "Vilken figur är samma som den första, bara vriden?",
+  "n": 3,
+  "referens": {
+   "kind": "brick",
+   "n": 3,
+   "cells": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ]
+   ]
+  },
+  "options": [
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      0
+     ],
      [
       0,
       1
@@ -2480,6 +3052,107 @@
      [
       1,
       1
+     ],
+     [
+      2,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "spegel_vriden",
+   "flyttad",
+   "",
+   "spegel"
+  ],
+  "misstag": [
+   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
+   "",
+   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka."
+  ],
+  "forklaring": "Rätt figur är den första vriden 90 grader moturs.",
+  "vridning": 270,
+  "difficulty": 1,
+  "p_prior": 0.8,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-g-a-19",
+  "niva": "grund",
+  "form": "A",
+  "fraga": "Vilken figur är samma som den första, bara vriden?",
+  "n": 4,
+  "referens": {
+   "kind": "brick",
+   "n": 4,
+   "cells": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     3
+    ]
+   ]
+  },
+  "options": [
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
      ],
      [
       2,
@@ -2488,6 +3161,84 @@
      [
       3,
       1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      0
      ]
     ]
    }
@@ -2512,321 +3263,7 @@
   "fran_version": 1
  },
  {
-  "id": "sp-g-a-17",
-  "niva": "grund",
-  "form": "A",
-  "fraga": "Vilken figur är samma som den första, bara vriden?",
-  "n": 3,
-  "referens": {
-   "kind": "brick",
-   "n": 3,
-   "cells": [
-    [
-     0,
-     1
-    ],
-    [
-     1,
-     0
-    ],
-    [
-     1,
-     1
-    ],
-    [
-     2,
-     1
-    ],
-    [
-     2,
-     2
-    ]
-   ]
-  },
-  "options": [
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      0
-     ],
-     [
-      0,
-      1
-     ],
-     [
-      0,
-      2
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      1
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      1,
-      2
-     ],
-     [
-      2,
-      0
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      0
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      1,
-      2
-     ],
-     [
-      2,
-      1
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      1
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      1,
-      2
-     ],
-     [
-      2,
-      0
-     ],
-     [
-      2,
-      1
-     ]
-    ]
-   }
-  ],
-  "correctAnswer": 1,
-  "typer": [
-   "flyttad",
-   "",
-   "spegel_vriden",
-   "spegel"
-  ],
-  "misstag": [
-   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
-   "",
-   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
-   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka."
-  ],
-  "forklaring": "Rätt figur är den första vriden 90 grader medurs.",
-  "vridning": 90,
-  "difficulty": 1,
-  "p_prior": 0.8,
-  "fran_version": 1
- },
- {
-  "id": "sp-g-a-18",
-  "niva": "grund",
-  "form": "A",
-  "fraga": "Vilken figur är samma som den första, bara vriden?",
-  "n": 3,
-  "referens": {
-   "kind": "brick",
-   "n": 3,
-   "cells": [
-    [
-     0,
-     1
-    ],
-    [
-     1,
-     0
-    ],
-    [
-     1,
-     1
-    ],
-    [
-     2,
-     0
-    ],
-    [
-     2,
-     1
-    ]
-   ]
-  },
-  "options": [
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      0
-     ],
-     [
-      0,
-      1
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      1,
-      2
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      0
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      1,
-      2
-     ],
-     [
-      2,
-      2
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      0
-     ],
-     [
-      0,
-      1
-     ],
-     [
-      0,
-      2
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      0
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      2,
-      0
-     ],
-     [
-      2,
-      1
-     ]
-    ]
-   }
-  ],
-  "correctAnswer": 0,
-  "typer": [
-   "",
-   "flyttad",
-   "spegel_vriden",
-   "spegel"
-  ],
-  "misstag": [
-   "",
-   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
-   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
-   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka."
-  ],
-  "forklaring": "Rätt figur är den första vriden 90 grader medurs.",
-  "vridning": 90,
-  "difficulty": 1,
-  "p_prior": 0.8,
-  "fran_version": 1
- },
- {
-  "id": "sp-g-a-19",
+  "id": "sp-g-a-20",
   "niva": "grund",
   "form": "A",
   "fraga": "Vilken figur är samma som den första, bara vriden?",
@@ -2841,11 +3278,15 @@
     ],
     [
      1,
-     0
+     1
     ],
     [
      1,
-     1
+     2
+    ],
+    [
+     2,
+     0
     ],
     [
      2,
@@ -2853,7 +3294,7 @@
     ],
     [
      3,
-     1
+     0
     ]
    ]
   },
@@ -2864,7 +3305,7 @@
     "cells": [
      [
       0,
-      0
+      1
      ],
      [
       1,
@@ -2876,11 +3317,15 @@
      ],
      [
       2,
-      0
+      1
+     ],
+     [
+      2,
+      2
      ],
      [
       3,
-      0
+      2
      ]
     ]
    },
@@ -2890,33 +3335,11 @@
     "cells": [
      [
       0,
-      1
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      1,
       2
      ],
      [
-      1,
+      0,
       3
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 4,
-    "cells": [
-     [
-      0,
-      2
      ],
      [
       1,
@@ -2931,8 +3354,38 @@
       2
      ],
      [
+      2,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      2
+     ],
+     [
       1,
-      3
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      1
      ]
     ]
    },
@@ -2950,15 +3403,19 @@
      ],
      [
       1,
-      0
-     ],
-     [
-      1,
       1
      ],
      [
-      1,
-      2
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      1
      ]
     ]
    }
@@ -2976,165 +3433,8 @@
    "",
    "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits."
   ],
-  "forklaring": "Rätt figur är den första vriden 90 grader medurs.",
-  "vridning": 90,
-  "difficulty": 1,
-  "p_prior": 0.8,
-  "fran_version": 1
- },
- {
-  "id": "sp-g-a-20",
-  "niva": "grund",
-  "form": "A",
-  "fraga": "Vilken figur är samma som den första, bara vriden?",
-  "n": 3,
-  "referens": {
-   "kind": "brick",
-   "n": 3,
-   "cells": [
-    [
-     0,
-     1
-    ],
-    [
-     1,
-     1
-    ],
-    [
-     1,
-     2
-    ],
-    [
-     2,
-     0
-    ],
-    [
-     2,
-     1
-    ]
-   ]
-  },
-  "options": [
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      1
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      2,
-      1
-     ],
-     [
-      2,
-      2
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      0
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      1,
-      2
-     ],
-     [
-      2,
-      1
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      0
-     ],
-     [
-      0,
-      1
-     ],
-     [
-      0,
-      2
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      1,
-      2
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      1
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      1,
-      2
-     ],
-     [
-      2,
-      0
-     ]
-    ]
-   }
-  ],
-  "correctAnswer": 1,
-  "typer": [
-   "spegel",
-   "",
-   "flyttad",
-   "spegel_vriden"
-  ],
-  "misstag": [
-   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
-   "",
-   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
-   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet."
-  ],
-  "forklaring": "Rätt figur är den första vriden 90 grader medurs.",
-  "vridning": 90,
+  "forklaring": "Rätt figur är den första vriden ett halvt varv (180 grader).",
+  "vridning": 180,
   "difficulty": 1,
   "p_prior": 0.8,
   "fran_version": 1
@@ -3154,20 +3454,20 @@
      0
     ],
     [
-     0,
-     1
+     1,
+     0
     ],
     [
      1,
      1
     ],
     [
-     1,
-     2
+     2,
+     0
     ],
     [
-     1,
-     3
+     3,
+     0
     ]
    ]
   },
@@ -3178,19 +3478,19 @@
     "cells": [
      [
       0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
       2
      ],
      [
       0,
       3
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
      ],
      [
       1,
@@ -3216,7 +3516,33 @@
      ],
      [
       2,
+      1
+     ],
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
       0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
      ],
      [
       3,
@@ -3230,6 +3556,10 @@
     "cells": [
      [
       0,
+      0
+     ],
+     [
+      0,
       1
      ],
      [
@@ -3237,56 +3567,26 @@
       2
      ],
      [
-      0,
-      3
-     ],
-     [
       1,
       0
      ],
      [
       1,
       1
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 4,
-    "cells": [
-     [
-      0,
-      0
-     ],
-     [
-      0,
-      1
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      2,
-      0
      ]
     ]
    }
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 0,
   "typer": [
-   "spegel",
    "",
+   "spegel",
    "spegel_vriden",
    "flyttad"
   ],
   "misstag": [
-   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
    "",
+   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
    "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
    "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits."
   ],
@@ -3298,163 +3598,6 @@
  },
  {
   "id": "sp-g-a-22",
-  "niva": "grund",
-  "form": "A",
-  "fraga": "Vilken figur är samma som den första, bara vriden?",
-  "n": 3,
-  "referens": {
-   "kind": "brick",
-   "n": 3,
-   "cells": [
-    [
-     0,
-     0
-    ],
-    [
-     1,
-     0
-    ],
-    [
-     1,
-     1
-    ],
-    [
-     1,
-     2
-    ],
-    [
-     2,
-     1
-    ]
-   ]
-  },
-  "options": [
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      2
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      1,
-      2
-     ],
-     [
-      2,
-      1
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      1
-     ],
-     [
-      0,
-      2
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      2,
-      1
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      1
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      1,
-      2
-     ],
-     [
-      2,
-      0
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
-     [
-      0,
-      0
-     ],
-     [
-      0,
-      1
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
-     ],
-     [
-      2,
-      1
-     ]
-    ]
-   }
-  ],
-  "correctAnswer": 1,
-  "typer": [
-   "spegel",
-   "",
-   "spegel_vriden",
-   "flyttad"
-  ],
-  "misstag": [
-   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
-   "",
-   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
-   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits."
-  ],
-  "forklaring": "Rätt figur är den första vriden 90 grader medurs.",
-  "vridning": 90,
-  "difficulty": 1,
-  "p_prior": 0.8,
-  "fran_version": 1
- },
- {
-  "id": "sp-g-a-23",
   "niva": "grund",
   "form": "A",
   "fraga": "Vilken figur är samma som den första, bara vriden?",
@@ -3472,16 +3615,20 @@
      1
     ],
     [
-     0,
-     2
-    ],
-    [
-     0,
-     3
-    ],
-    [
      1,
-     2
+     0
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     3,
+     0
     ]
    ]
   },
@@ -3492,15 +3639,7 @@
     "cells": [
      [
       0,
-      0
-     ],
-     [
-      0,
       1
-     ],
-     [
-      0,
-      2
      ],
      [
       0,
@@ -3508,7 +3647,19 @@
      ],
      [
       1,
+      0
+     ],
+     [
+      1,
       1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
      ]
     ]
    },
@@ -3518,7 +3669,7 @@
     "cells": [
      [
       0,
-      1
+      0
      ],
      [
       0,
@@ -3526,15 +3677,19 @@
      ],
      [
       1,
-      1
-     ],
-     [
-      2,
       0
      ],
      [
-      2,
+      1,
       1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
      ]
     ]
    },
@@ -3542,6 +3697,40 @@
     "kind": "brick",
     "n": 4,
     "cells": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 4,
+    "cells": [
+     [
+      0,
+      0
+     ],
      [
       0,
       1
@@ -3553,32 +3742,6 @@
      [
       2,
       0
-     ],
-     [
-      2,
-      1
-     ],
-     [
-      3,
-      1
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 4,
-    "cells": [
-     [
-      0,
-      1
-     ],
-     [
-      1,
-      0
-     ],
-     [
-      1,
-      1
      ],
      [
       2,
@@ -3591,27 +3754,27 @@
     ]
    }
   ],
-  "correctAnswer": 2,
+  "correctAnswer": 1,
   "typer": [
-   "spegel",
-   "flyttad",
+   "spegel_vriden",
    "",
-   "spegel_vriden"
+   "flyttad",
+   "spegel"
   ],
   "misstag": [
-   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
-   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
+   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
    "",
-   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet."
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
+   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka."
   ],
-  "forklaring": "Rätt figur är den första vriden 90 grader medurs.",
-  "vridning": 90,
+  "forklaring": "Rätt figur är den första vriden 90 grader moturs.",
+  "vridning": 270,
   "difficulty": 1,
   "p_prior": 0.8,
   "fran_version": 1
  },
  {
-  "id": "sp-g-a-24",
+  "id": "sp-g-a-23",
   "niva": "grund",
   "form": "A",
   "fraga": "Vilken figur är samma som den första, bara vriden?",
@@ -3638,7 +3801,11 @@
     ],
     [
      2,
-     1
+     0
+    ],
+    [
+     2,
+     2
     ]
    ]
   },
@@ -3649,37 +3816,15 @@
     "cells": [
      [
       0,
-      1
-     ],
-     [
-      1,
       0
      ],
-     [
-      1,
-      1
-     ],
-     [
-      2,
-      1
-     ],
-     [
-      2,
-      2
-     ]
-    ]
-   },
-   {
-    "kind": "brick",
-    "n": 3,
-    "cells": [
      [
       0,
       1
      ],
      [
-      1,
-      0
+      0,
+      2
      ],
      [
       1,
@@ -3717,7 +3862,11 @@
      ],
      [
       2,
-      1
+      0
+     ],
+     [
+      2,
+      2
      ]
     ]
    },
@@ -3725,6 +3874,40 @@
     "kind": "brick",
     "n": 3,
     "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      0
+     ],
      [
       0,
       1
@@ -3738,8 +3921,8 @@
       0
      ],
      [
-      1,
-      1
+      2,
+      0
      ],
      [
       2,
@@ -3748,21 +3931,198 @@
     ]
    }
   ],
-  "correctAnswer": 0,
+  "correctAnswer": 2,
   "typer": [
-   "",
-   "flyttad",
+   "spegel_vriden",
    "spegel",
-   "spegel_vriden"
+   "",
+   "flyttad"
   ],
   "misstag": [
-   "",
-   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
+   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
    "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka.",
-   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet."
+   "",
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits."
   ],
-  "forklaring": "Rätt figur är den första vriden 90 grader medurs.",
-  "vridning": 90,
+  "forklaring": "Rätt figur är den första vriden 90 grader moturs.",
+  "vridning": 270,
+  "difficulty": 1,
+  "p_prior": 0.8,
+  "fran_version": 1
+ },
+ {
+  "id": "sp-g-a-24",
+  "niva": "grund",
+  "form": "A",
+  "fraga": "Vilken figur är samma som den första, bara vriden?",
+  "n": 3,
+  "referens": {
+   "kind": "brick",
+   "n": 3,
+   "cells": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     2
+    ]
+   ]
+  },
+  "options": [
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "brick",
+    "n": 3,
+    "cells": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      0
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "flyttad",
+   "",
+   "spegel_vriden",
+   "spegel"
+  ],
+  "misstag": [
+   "En ruta sitter på fel ställe. Jämför rutorna en i taget, figuren har inte bara vridits.",
+   "",
+   "Spegelvänd och dessutom vriden. En spegling går aldrig att vrida tillbaka till originalet.",
+   "Spegelvänd. Figuren är speglad i en lodrät linje, och en spegling går aldrig att vrida tillbaka."
+  ],
+  "forklaring": "Rätt figur är den första vriden 90 grader moturs.",
+  "vridning": 270,
   "difficulty": 1,
   "p_prior": 0.8,
   "fran_version": 1
@@ -8571,26 +8931,11 @@
      "riktning": 0
     },
     "l": {
-     "symbol": "ring",
+     "symbol": "prick",
      "riktning": 0
     },
     "r": {
-     "symbol": "prick",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
-     "symbol": "kvadrat",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "fkvadrat",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "prick",
+     "symbol": "triangel",
      "riktning": 0
     }
    },
@@ -8616,27 +8961,42 @@
      "riktning": 0
     },
     "l": {
-     "symbol": "prick",
+     "symbol": "ring",
      "riktning": 0
     },
     "r": {
-     "symbol": "triangel",
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "prick",
      "riktning": 0
     }
    }
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 3,
   "typer": [
+   "framande",
    "fel_symbol",
-   "",
    "fel_symbol",
-   "framande"
+   ""
   ],
   "misstag": [
-   "Ringen syns redan på den första tärningen och kan inte hamna på vänster sida när kvadraten och pricken står så här.",
-   "",
+   "En triangel kan inte sitta där. Med kvadraten och pricken placerade så här måste höger sida visa en ring.",
    "Med kvadraten och pricken placerade så här måste höger sida visa en ring, inte en dubbelring.",
-   "En triangel kan inte sitta där. Med kvadraten och pricken placerade så här måste höger sida visa en ring."
+   "Ringen syns redan på den första tärningen och kan inte hamna på vänster sida när kvadraten och pricken står så här.",
+   ""
   ],
   "avslojande": [
    [
@@ -8644,7 +9004,6 @@
     "l",
     "r"
    ],
-   [],
    [
     "t",
     "l",
@@ -8654,7 +9013,8 @@
     "t",
     "l",
     "r"
-   ]
+   ],
+   []
   ],
   "forklaring": "Rätt tärning är samma tärning vriden. Kvadraten och pricken sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
   "kub": [
@@ -8690,7 +9050,7 @@
      1,
      0
     ],
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "upp": [
      1,
      0,
@@ -8770,7 +9130,7 @@
     "riktning": 0
    },
    "l": {
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "riktning": 0
    },
    "r": {
@@ -8812,7 +9172,7 @@
    {
     "kind": "kub",
     "t": {
-     "symbol": "kryss",
+     "symbol": "dubbelring",
      "riktning": 0
     },
     "l": {
@@ -8820,22 +9180,22 @@
      "riktning": 0
     },
     "r": {
-     "symbol": "dubbelring",
+     "symbol": "ring",
      "riktning": 0
     }
    },
    {
     "kind": "kub",
     "t": {
-     "symbol": "prick",
+     "symbol": "stjarna",
      "riktning": 0
     },
     "l": {
-     "symbol": "dubbelring",
+     "symbol": "fkvadrat",
      "riktning": 0
     },
     "r": {
-     "symbol": "fkvadrat",
+     "symbol": "dubbelring",
      "riktning": 0
     }
    }
@@ -8849,9 +9209,9 @@
   ],
   "misstag": [
    "",
-   "En triangel kan inte sitta där. Med dubbelringen och den fyllda kvadraten placerade så här måste ovansidan visa ett kryss.",
-   "Krysset syns redan på den första tärningen och kan inte hamna på ovansidan när den fyllda kvadraten och dubbelringen står så här.",
-   "Med dubbelringen och den fyllda kvadraten placerade så här måste ovansidan visa ett kryss, inte en prick."
+   "En triangel kan inte sitta där. Med dubbelringen och den fyllda kvadraten placerade så här måste ovansidan visa en stjärna.",
+   "Med dubbelringen och den fyllda kvadraten placerade så här måste höger sida visa en stjärna, inte en ring.",
+   "Stjärnan syns redan på den första tärningen och kan inte hamna på ovansidan när den fyllda kvadraten och dubbelringen står så här."
   ],
   "avslojande": [
    [],
@@ -8892,7 +9252,7 @@
      0,
      0
     ],
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "upp": [
      0,
      -1,
@@ -8989,11 +9349,41 @@
     "riktning": 0
    },
    "r": {
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "riktning": 0
    }
   },
   "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "stjarna",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "stjarna",
+     "riktning": 0
+    }
+   },
    {
     "kind": "kub",
     "t": {
@@ -9005,7 +9395,7 @@
      "riktning": 0
     },
     "r": {
-     "symbol": "kryss",
+     "symbol": "stjarna",
      "riktning": 0
     }
    },
@@ -9016,64 +9406,29 @@
      "riktning": 2
     },
     "l": {
-     "symbol": "kryss",
+     "symbol": "stjarna",
      "riktning": 0
     },
     "r": {
      "symbol": "prick",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
-     "symbol": "ring",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "dubbelring",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "kryss",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
-     "symbol": "prick",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "dubbelring",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "kryss",
      "riktning": 0
     }
    }
   ],
-  "correctAnswer": 2,
+  "correctAnswer": 1,
   "typer": [
    "fel_symbol",
-   "framande",
    "",
-   "fel_symbol"
+   "fel_symbol",
+   "framande"
   ],
   "misstag": [
-   "Pricken syns redan på den första tärningen och kan inte hamna på vänster sida när ringen och krysset står så här.",
-   "En triangel kan inte sitta där. Med krysset och pricken placerade så här måste ovansidan visa en ring.",
+   "Med stjärnan och pricken placerade så här måste ovansidan visa en ring, inte en kvadrat.",
    "",
-   "Med dubbelringen och krysset placerade så här måste ovansidan visa en ring, inte en prick."
+   "Pricken syns redan på den första tärningen och kan inte hamna på vänster sida när ringen och stjärnan står så här.",
+   "En triangel kan inte sitta där. Med stjärnan och pricken placerade så här måste ovansidan visa en ring."
   ],
   "avslojande": [
-   [
-    "t",
-    "l",
-    "r"
-   ],
    [
     "t",
     "l",
@@ -9084,9 +9439,14 @@
     "t",
     "l",
     "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
    ]
   ],
-  "forklaring": "Rätt tärning är samma tärning vriden. Ringen och krysset sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "forklaring": "Rätt tärning är samma tärning vriden. Ringen och stjärnan sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
   "kub": [
    {
     "n": [
@@ -9133,7 +9493,7 @@
      -1,
      0
     ],
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "upp": [
      -1,
      0,
@@ -9204,7 +9564,7 @@
     "riktning": 0
    },
    "r": {
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "riktning": 0
    }
   },
@@ -9212,22 +9572,7 @@
    {
     "kind": "kub",
     "t": {
-     "symbol": "kryss",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "prick",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "ring",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
-     "symbol": "kryss",
+     "symbol": "stjarna",
      "riktning": 0
     },
     "l": {
@@ -9242,7 +9587,7 @@
    {
     "kind": "kub",
     "t": {
-     "symbol": "kryss",
+     "symbol": "stjarna",
      "riktning": 0
     },
     "l": {
@@ -9261,27 +9606,42 @@
      "riktning": 0
     },
     "l": {
-     "symbol": "kryss",
+     "symbol": "stjarna",
      "riktning": 0
     },
     "r": {
      "symbol": "fkvadrat",
      "riktning": 0
     }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "stjarna",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
    }
   ],
-  "correctAnswer": 3,
+  "correctAnswer": 2,
   "typer": [
    "fel_symbol",
-   "fel_symbol",
    "framande",
-   ""
+   "",
+   "fel_symbol"
   ],
   "misstag": [
-   "Med krysset och ringen placerade så här måste vänster sida visa en dubbelring, inte en prick.",
-   "Med krysset och dubbelringen placerade så här måste höger sida visa en ring, inte en prick.",
-   "En triangel kan inte sitta där. Med krysset och dubbelringen placerade så här måste höger sida visa en ring.",
-   ""
+   "Med stjärnan och dubbelringen placerade så här måste höger sida visa en ring, inte en prick.",
+   "En triangel kan inte sitta där. Med stjärnan och dubbelringen placerade så här måste höger sida visa en ring.",
+   "",
+   "Med stjärnan och ringen placerade så här måste vänster sida visa en dubbelring, inte en prick."
   ],
   "avslojande": [
    [
@@ -9294,14 +9654,14 @@
     "l",
     "r"
    ],
+   [],
    [
     "t",
     "l",
     "r"
-   ],
-   []
+   ]
   ],
-  "forklaring": "Rätt tärning är samma tärning vriden. Dubbelringen och krysset sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "forklaring": "Rätt tärning är samma tärning vriden. Dubbelringen och stjärnan sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
   "kub": [
    {
     "n": [
@@ -9348,7 +9708,7 @@
      -1,
      0
     ],
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "upp": [
      0,
      0,
@@ -9411,7 +9771,7 @@
   "referens": {
    "kind": "kub",
    "t": {
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "riktning": 0
    },
    "l": {
@@ -9427,11 +9787,26 @@
    {
     "kind": "kub",
     "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "stjarna",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
      "symbol": "prick",
      "riktning": 0
     },
     "l": {
-     "symbol": "kryss",
+     "symbol": "stjarna",
      "riktning": 0
     },
     "r": {
@@ -9442,36 +9817,6 @@
    {
     "kind": "kub",
     "t": {
-     "symbol": "fkvadrat",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "kvadrat",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "kryss",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
-     "symbol": "ring",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "fkvadrat",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "kryss",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
      "symbol": "kvadrat",
      "riktning": 0
     },
@@ -9480,43 +9825,58 @@
      "riktning": 0
     },
     "r": {
-     "symbol": "kryss",
+     "symbol": "stjarna",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "stjarna",
      "riktning": 0
     }
    }
   ],
-  "correctAnswer": 2,
+  "correctAnswer": 0,
   "typer": [
+   "",
    "framande",
    "fel_symbol",
-   "",
    "fel_symbol"
   ],
   "misstag": [
-   "En triangel kan inte sitta där. Med pricken och krysset placerade så här måste höger sida visa en fylld kvadrat.",
-   "Med den fyllda kvadraten och krysset placerade så här måste vänster sida visa en prick, inte en kvadrat.",
    "",
-   "Med pricken och krysset placerade så här måste ovansidan visa en fylld kvadrat, inte en kvadrat."
+   "En triangel kan inte sitta där. Med pricken och stjärnan placerade så här måste höger sida visa en fylld kvadrat.",
+   "Med pricken och stjärnan placerade så här måste ovansidan visa en fylld kvadrat, inte en kvadrat.",
+   "Med den fyllda kvadraten och stjärnan placerade så här måste vänster sida visa en prick, inte en kvadrat."
   ],
   "avslojande": [
-   [
-    "t",
-    "l",
-    "r"
-   ],
-   [
-    "t",
-    "l",
-    "r"
-   ],
    [],
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
    [
     "t",
     "l",
     "r"
    ]
   ],
-  "forklaring": "Rätt tärning är samma tärning vriden. Den fyllda kvadraten och krysset sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "forklaring": "Rätt tärning är samma tärning vriden. Den fyllda kvadraten och stjärnan sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
   "kub": [
    {
     "n": [
@@ -9576,7 +9936,7 @@
      0,
      1
     ],
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "upp": [
      0,
      -1,
@@ -9642,36 +10002,6 @@
    {
     "kind": "kub",
     "t": {
-     "symbol": "prick",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "kryss",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "dubbelring",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
-     "symbol": "prick",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "dubbelring",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "ring",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
      "symbol": "triangel",
      "riktning": 3
     },
@@ -9698,33 +10028,63 @@
      "symbol": "dubbelring",
      "riktning": 0
     }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "stjarna",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    }
    }
   ],
-  "correctAnswer": 0,
+  "correctAnswer": 2,
   "typer": [
-   "",
-   "fel_symbol",
    "framande",
+   "fel_symbol",
+   "",
    "fel_symbol"
   ],
   "misstag": [
-   "",
-   "Med pricken och dubbelringen placerade så här måste höger sida visa en fylld kvadrat, inte en ring.",
    "En triangel kan inte sitta där. Med pricken och dubbelringen placerade så här måste ovansidan visa en fylld kvadrat.",
-   "Med den fyllda kvadraten och dubbelringen placerade så här måste vänster sida visa en prick, inte en kvadrat."
+   "Med den fyllda kvadraten och dubbelringen placerade så här måste vänster sida visa en prick, inte en kvadrat.",
+   "",
+   "Med pricken och dubbelringen placerade så här måste ovansidan visa en fylld kvadrat, inte en ring."
   ],
   "avslojande": [
+   [
+    "t",
+    "l",
+    "r"
+   ],
+   [
+    "t",
+    "l",
+    "r"
+   ],
    [],
-   [
-    "t",
-    "l",
-    "r"
-   ],
-   [
-    "t",
-    "l",
-    "r"
-   ],
    [
     "t",
     "l",
@@ -9739,7 +10099,7 @@
      0,
      0
     ],
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "upp": [
      0,
      0,
@@ -9845,7 +10205,7 @@
     "riktning": 0
    },
    "l": {
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "riktning": 0
    },
    "r": {
@@ -9854,6 +10214,21 @@
    }
   },
   "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "stjarna",
+     "riktning": 0
+    }
+   },
    {
     "kind": "kub",
     "t": {
@@ -9872,15 +10247,15 @@
    {
     "kind": "kub",
     "t": {
-     "symbol": "prick",
+     "symbol": "dubbelring",
      "riktning": 0
     },
     "l": {
-     "symbol": "ring",
+     "symbol": "prick",
      "riktning": 0
     },
     "r": {
-     "symbol": "kryss",
+     "symbol": "fkvadrat",
      "riktning": 0
     }
    },
@@ -9895,46 +10270,31 @@
      "riktning": 0
     },
     "r": {
-     "symbol": "kryss",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
-     "symbol": "ring",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "dubbelring",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "prick",
+     "symbol": "stjarna",
      "riktning": 0
     }
    }
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 0,
   "typer": [
-   "framande",
    "",
+   "framande",
    "fel_symbol",
    "fel_symbol"
   ],
   "misstag": [
-   "En triangel kan inte sitta där. Med dubbelringen och pricken placerade så här måste ovansidan visa ett kryss.",
    "",
-   "Med dubbelringen och krysset placerade så här måste vänster sida visa en prick, inte en ring.",
-   "Med dubbelringen och pricken placerade så här måste ovansidan visa ett kryss, inte en ring."
+   "En triangel kan inte sitta där. Med dubbelringen och pricken placerade så här måste ovansidan visa en stjärna.",
+   "Med dubbelringen och pricken placerade så här måste höger sida visa en stjärna, inte en fylld kvadrat.",
+   "Med dubbelringen och stjärnan placerade så här måste vänster sida visa en prick, inte en ring."
   ],
   "avslojande": [
+   [],
    [
     "t",
     "l",
     "r"
    ],
-   [],
    [
     "t",
     "l",
@@ -9946,7 +10306,7 @@
     "r"
    ]
   ],
-  "forklaring": "Rätt tärning är samma tärning vriden. Pricken och krysset sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "forklaring": "Rätt tärning är samma tärning vriden. Pricken och stjärnan sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
   "kub": [
    {
     "n": [
@@ -9967,7 +10327,7 @@
      0,
      0
     ],
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "upp": [
      0,
      0,
@@ -10056,7 +10416,7 @@
   "referens": {
    "kind": "kub",
    "t": {
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "riktning": 0
    },
    "l": {
@@ -10072,7 +10432,7 @@
    {
     "kind": "kub",
     "t": {
-     "symbol": "kvadrat",
+     "symbol": "fkvadrat",
      "riktning": 0
     },
     "l": {
@@ -10080,7 +10440,7 @@
      "riktning": 0
     },
     "r": {
-     "symbol": "kryss",
+     "symbol": "stjarna",
      "riktning": 0
     }
    },
@@ -10091,26 +10451,11 @@
      "riktning": 0
     },
     "l": {
-     "symbol": "kryss",
+     "symbol": "stjarna",
      "riktning": 0
     },
     "r": {
      "symbol": "ring",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
-     "symbol": "dubbelring",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "fkvadrat",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "kryss",
      "riktning": 0
     }
    },
@@ -10125,7 +10470,22 @@
      "riktning": 0
     },
     "r": {
-     "symbol": "kryss",
+     "symbol": "stjarna",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "stjarna",
      "riktning": 0
     }
    }
@@ -10134,14 +10494,14 @@
   "typer": [
    "fel_symbol",
    "",
-   "fel_symbol",
-   "framande"
+   "framande",
+   "fel_symbol"
   ],
   "misstag": [
-   "Med ringen och krysset placerade så här måste ovansidan visa en dubbelring, inte en kvadrat.",
+   "Med ringen och stjärnan placerade så här måste ovansidan visa en dubbelring, inte en fylld kvadrat.",
    "",
-   "Med dubbelringen och krysset placerade så här måste vänster sida visa en ring, inte en fylld kvadrat.",
-   "En triangel kan inte sitta där. Med ringen och krysset placerade så här måste ovansidan visa en dubbelring."
+   "En triangel kan inte sitta där. Med ringen och stjärnan placerade så här måste ovansidan visa en dubbelring.",
+   "Med dubbelringen och stjärnan placerade så här måste vänster sida visa en ring, inte en fylld kvadrat."
   ],
   "avslojande": [
    [
@@ -10161,7 +10521,7 @@
     "r"
    ]
   ],
-  "forklaring": "Rätt tärning är samma tärning vriden. Krysset och ringen sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "forklaring": "Rätt tärning är samma tärning vriden. Stjärnan och ringen sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
   "kub": [
    {
     "n": [
@@ -10221,7 +10581,7 @@
      0,
      1
     ],
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "upp": [
      0,
      1,
@@ -10287,30 +10647,15 @@
    {
     "kind": "kub",
     "t": {
-     "symbol": "prick",
-     "riktning": 0
-    },
-    "l": {
      "symbol": "ring",
      "riktning": 0
     },
-    "r": {
-     "symbol": "kryss",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
+    "l": {
      "symbol": "prick",
      "riktning": 0
     },
-    "l": {
+    "r": {
      "symbol": "kvadrat",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "ring",
      "riktning": 0
     }
    },
@@ -10332,6 +10677,21 @@
    {
     "kind": "kub",
     "t": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "stjarna",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
      "symbol": "triangel",
      "riktning": 1
     },
@@ -10345,17 +10705,17 @@
     }
    }
   ],
-  "correctAnswer": 2,
+  "correctAnswer": 1,
   "typer": [
-   "fel_symbol",
    "spegel",
    "",
+   "fel_symbol",
    "framande"
   ],
   "misstag": [
-   "Med pricken och ringen placerade så här måste höger sida visa en kvadrat, inte ett kryss.",
-   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.",
+   "Spegelvänd. Samma tre sidor, men i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.",
    "",
+   "Med pricken och ringen placerade så här måste höger sida visa en kvadrat, inte en stjärna.",
    "En triangel kan inte sitta där. Med pricken och ringen placerade så här måste ovansidan visa en kvadrat."
   ],
   "avslojande": [
@@ -10364,12 +10724,12 @@
     "l",
     "r"
    ],
+   [],
    [
     "t",
     "l",
     "r"
    ],
-   [],
    [
     "t",
     "l",
@@ -10449,7 +10809,7 @@
      0,
      -1
     ],
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "upp": [
      0,
      -1,
@@ -10502,51 +10862,6 @@
    {
     "kind": "kub",
     "t": {
-     "symbol": "ring",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "dubbelring",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "fkvadrat",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
-     "symbol": "dubbelring",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "kvadrat",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "fkvadrat",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
-     "symbol": "fkvadrat",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "kryss",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "ring",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
      "symbol": "triangel",
      "riktning": 2
     },
@@ -10558,20 +10873,65 @@
      "symbol": "fkvadrat",
      "riktning": 0
     }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "stjarna",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    }
    }
   ],
-  "correctAnswer": 2,
+  "correctAnswer": 1,
   "typer": [
-   "fel_symbol",
-   "fel_symbol",
+   "framande",
    "",
-   "framande"
+   "fel_symbol",
+   "fel_symbol"
   ],
   "misstag": [
-   "Med ringen och den fyllda kvadraten placerade så här måste vänster sida visa en kvadrat, inte en dubbelring.",
-   "Med kvadraten och den fyllda kvadraten placerade så här måste ovansidan visa en ring, inte en dubbelring.",
+   "En triangel kan inte sitta där. Med kvadraten och den fyllda kvadraten placerade så här måste ovansidan visa en ring.",
    "",
-   "En triangel kan inte sitta där. Med kvadraten och den fyllda kvadraten placerade så här måste ovansidan visa en ring."
+   "Med ringen och den fyllda kvadraten placerade så här måste vänster sida visa en kvadrat, inte en dubbelring.",
+   "Med kvadraten och den fyllda kvadraten placerade så här måste höger sida visa en ring, inte en dubbelring."
   ],
   "avslojande": [
    [
@@ -10579,12 +10939,12 @@
     "l",
     "r"
    ],
+   [],
    [
     "t",
     "l",
     "r"
    ],
-   [],
    [
     "t",
     "l",
@@ -10625,7 +10985,7 @@
      1,
      0
     ],
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "upp": [
      1,
      0,
@@ -10732,6 +11092,21 @@
    {
     "kind": "kub",
     "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
      "symbol": "prick",
      "riktning": 0
     },
@@ -10741,21 +11116,6 @@
     },
     "r": {
      "symbol": "ring",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
-     "symbol": "kvadrat",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "dubbelring",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "fkvadrat",
      "riktning": 0
     }
    },
@@ -10784,8 +11144,8 @@
   ],
   "misstag": [
    "",
+   "Med dubbelringen och den fyllda kvadraten placerade så här måste ovansidan visa en prick, inte en ring.",
    "Med pricken och dubbelringen placerade så här måste höger sida visa en fylld kvadrat, inte en ring.",
-   "Med dubbelringen och den fyllda kvadraten placerade så här måste ovansidan visa en prick, inte en kvadrat.",
    "En triangel kan inte sitta där. Med dubbelringen och den fyllda kvadraten placerade så här måste ovansidan visa en prick."
   ],
   "avslojande": [
@@ -10814,7 +11174,7 @@
      0,
      0
     ],
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "upp": [
      0,
      -1,
@@ -10932,15 +11292,30 @@
    {
     "kind": "kub",
     "t": {
-     "symbol": "fkvadrat",
+     "symbol": "dubbelring",
      "riktning": 0
     },
     "l": {
-     "symbol": "prick",
+     "symbol": "ring",
      "riktning": 0
     },
     "r": {
+     "symbol": "triangel",
+     "riktning": 2
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
      "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "prick",
      "riktning": 0
     }
    },
@@ -10962,22 +11337,7 @@
    {
     "kind": "kub",
     "t": {
-     "symbol": "dubbelring",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "ring",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "triangel",
-     "riktning": 2
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
-     "symbol": "dubbelring",
+     "symbol": "fkvadrat",
      "riktning": 0
     },
     "l": {
@@ -10990,21 +11350,20 @@
     }
    }
   ],
-  "correctAnswer": 0,
+  "correctAnswer": 3,
   "typer": [
-   "",
-   "fel_symbol",
    "framande",
-   "spegel"
+   "spegel",
+   "fel_symbol",
+   ""
   ],
   "misstag": [
-   "",
-   "Med dubbelringen och ringen placerade så här måste höger sida visa en prick, inte en kvadrat.",
    "En triangel kan inte sitta där. Med dubbelringen och ringen placerade så här måste höger sida visa en prick.",
-   "Spegelvänd. Sidorna sitter i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild."
+   "Spegelvänd. Samma tre sidor, men i omvänd ordning runt hörnet jämfört med den första tärningen, och en tärning går aldrig att vrida till sin spegelbild.",
+   "Med dubbelringen och ringen placerade så här måste höger sida visa en prick, inte en kvadrat.",
+   ""
   ],
   "avslojande": [
-   [],
    [
     "t",
     "l",
@@ -11019,7 +11378,8 @@
     "t",
     "l",
     "r"
-   ]
+   ],
+   []
   ],
   "forklaring": "Rätt tärning är samma tärning vriden. Pricken och ringen sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
   "kub": [
@@ -11029,7 +11389,7 @@
      0,
      0
     ],
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "upp": [
      0,
      0,
@@ -11162,6 +11522,21 @@
    {
     "kind": "kub",
     "t": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
      "symbol": "ring",
      "riktning": 0
     },
@@ -11186,37 +11561,22 @@
     },
     "r": {
      "symbol": "ring",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
-     "symbol": "kvadrat",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "prick",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "kryss",
      "riktning": 0
     }
    }
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 2,
   "typer": [
    "framande",
-   "",
    "fel_symbol",
+   "",
    "fel_symbol"
   ],
   "misstag": [
    "En triangel kan inte sitta där. Med kvadraten och pricken placerade så här måste höger sida visa en fylld kvadrat.",
+   "Med kvadraten och pricken placerade så här måste ovansidan visa en fylld kvadrat, inte en dubbelring.",
    "",
-   "Med kvadraten och pricken placerade så här måste höger sida visa en fylld kvadrat, inte en ring.",
-   "Med kvadraten och pricken placerade så här måste höger sida visa en fylld kvadrat, inte ett kryss."
+   "Med kvadraten och pricken placerade så här måste höger sida visa en fylld kvadrat, inte en ring."
   ],
   "avslojande": [
    [
@@ -11224,12 +11584,12 @@
     "l",
     "r"
    ],
-   [],
    [
     "t",
     "l",
     "r"
    ],
+   [],
    [
     "t",
     "l",
@@ -11270,7 +11630,7 @@
      1,
      0
     ],
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "upp": [
      0,
      0,
@@ -11350,7 +11710,7 @@
     "riktning": 0
    },
    "l": {
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "riktning": 0
    },
    "r": {
@@ -11366,41 +11726,11 @@
      "riktning": 0
     },
     "l": {
-     "symbol": "kvadrat",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "kryss",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
-     "symbol": "fkvadrat",
-     "riktning": 0
-    },
-    "l": {
      "symbol": "prick",
      "riktning": 0
     },
     "r": {
-     "symbol": "dubbelring",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
      "symbol": "kvadrat",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "dubbelring",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "prick",
      "riktning": 0
     }
    },
@@ -11418,20 +11748,50 @@
      "symbol": "prick",
      "riktning": 0
     }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "stjarna",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    }
    }
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 3,
   "typer": [
    "fel_symbol",
-   "",
+   "framande",
    "fel_symbol",
-   "framande"
+   ""
   ],
   "misstag": [
-   "Med dubbelringen och krysset placerade så här måste vänster sida visa en prick, inte en kvadrat.",
-   "",
-   "Med dubbelringen och pricken placerade så här måste ovansidan visa ett kryss, inte en kvadrat.",
-   "En triangel kan inte sitta där. Med dubbelringen och pricken placerade så här måste ovansidan visa ett kryss."
+   "Med dubbelringen och pricken placerade så här måste höger sida visa en stjärna, inte en kvadrat.",
+   "En triangel kan inte sitta där. Med dubbelringen och pricken placerade så här måste ovansidan visa en stjärna.",
+   "Med dubbelringen och stjärnan placerade så här måste vänster sida visa en prick, inte en kvadrat.",
+   ""
   ],
   "avslojande": [
    [
@@ -11439,7 +11799,6 @@
     "l",
     "r"
    ],
-   [],
    [
     "t",
     "l",
@@ -11449,7 +11808,8 @@
     "t",
     "l",
     "r"
-   ]
+   ],
+   []
   ],
   "forklaring": "Rätt tärning är samma tärning vriden. Pricken och dubbelringen sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
   "kub": [
@@ -11472,7 +11832,7 @@
      0,
      0
     ],
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "upp": [
      0,
      -1,
@@ -11581,11 +11941,26 @@
      "riktning": 0
     },
     "l": {
-     "symbol": "prick",
+     "symbol": "ring",
      "riktning": 0
     },
     "r": {
      "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "ring",
      "riktning": 0
     }
    },
@@ -11615,41 +11990,25 @@
      "riktning": 0
     },
     "r": {
-     "symbol": "ring",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
-     "symbol": "fkvadrat",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "ring",
-     "riktning": 0
-    },
-    "r": {
      "symbol": "kvadrat",
      "riktning": 0
     }
    }
   ],
-  "correctAnswer": 0,
+  "correctAnswer": 3,
   "typer": [
-   "",
-   "framande",
    "fel_symbol",
-   "fel_symbol"
+   "fel_symbol",
+   "framande",
+   ""
   ],
   "misstag": [
-   "",
+   "Med den fyllda kvadraten och kvadraten placerade så här måste vänster sida visa en prick, inte en ring.",
+   "Med den fyllda kvadraten och pricken placerade så här måste höger sida visa en kvadrat, inte en ring.",
    "En triangel kan inte sitta där. Med pricken och ringen placerade så här måste höger sida visa en kvadrat.",
-   "Med pricken och ringen placerade så här måste ovansidan visa en kvadrat, inte en fylld kvadrat.",
-   "Med den fyllda kvadraten och kvadraten placerade så här måste vänster sida visa en prick, inte en ring."
+   ""
   ],
   "avslojande": [
-   [],
    [
     "t",
     "l",
@@ -11664,7 +12023,8 @@
     "t",
     "l",
     "r"
-   ]
+   ],
+   []
   ],
   "forklaring": "Rätt tärning är samma tärning vriden. Pricken och kvadraten sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
   "kub": [
@@ -11674,7 +12034,7 @@
      0,
      0
     ],
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "upp": [
      0,
      1,
@@ -11776,7 +12136,7 @@
   "referens": {
    "kind": "kub",
    "t": {
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "riktning": 0
    },
    "l": {
@@ -11792,11 +12152,26 @@
    {
     "kind": "kub",
     "t": {
+     "symbol": "stjarna",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
      "symbol": "kvadrat",
      "riktning": 0
     },
     "l": {
-     "symbol": "kryss",
+     "symbol": "stjarna",
      "riktning": 0
     },
     "r": {
@@ -11807,7 +12182,7 @@
    {
     "kind": "kub",
     "t": {
-     "symbol": "prick",
+     "symbol": "fkvadrat",
      "riktning": 0
     },
     "l": {
@@ -11815,7 +12190,7 @@
      "riktning": 0
     },
     "r": {
-     "symbol": "kryss",
+     "symbol": "stjarna",
      "riktning": 0
     }
    },
@@ -11830,40 +12205,26 @@
      "riktning": 0
     },
     "r": {
-     "symbol": "kryss",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
-     "symbol": "kryss",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "ring",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "kvadrat",
+     "symbol": "stjarna",
      "riktning": 0
     }
    }
   ],
-  "correctAnswer": 3,
+  "correctAnswer": 0,
   "typer": [
+   "",
    "fel_symbol",
    "fel_symbol",
-   "framande",
-   ""
+   "framande"
   ],
   "misstag": [
-   "Med krysset och dubbelringen placerade så här måste ovansidan visa en ring, inte en kvadrat.",
-   "Med ringen och krysset placerade så här måste ovansidan visa en dubbelring, inte en prick.",
-   "En triangel kan inte sitta där. Med ringen och krysset placerade så här måste ovansidan visa en dubbelring.",
-   ""
+   "",
+   "Med stjärnan och dubbelringen placerade så här måste ovansidan visa en ring, inte en kvadrat.",
+   "Med ringen och stjärnan placerade så här måste ovansidan visa en dubbelring, inte en fylld kvadrat.",
+   "En triangel kan inte sitta där. Med ringen och stjärnan placerade så här måste ovansidan visa en dubbelring."
   ],
   "avslojande": [
+   [],
    [
     "t",
     "l",
@@ -11878,10 +12239,9 @@
     "t",
     "l",
     "r"
-   ],
-   []
+   ]
   ],
-  "forklaring": "Rätt tärning är samma tärning vriden. Krysset och ringen sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
+  "forklaring": "Rätt tärning är samma tärning vriden. Stjärnan och ringen sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
   "kub": [
    {
     "n": [
@@ -11941,7 +12301,7 @@
      0,
      1
     ],
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "upp": [
      -1,
      0,
@@ -11995,7 +12355,7 @@
     "riktning": 0
    },
    "l": {
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "riktning": 0
    },
    "r": {
@@ -12004,6 +12364,21 @@
    }
   },
   "options": [
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "ring",
+     "riktning": 0
+    }
+   },
    {
     "kind": "kub",
     "t": {
@@ -12022,7 +12397,7 @@
    {
     "kind": "kub",
     "t": {
-     "symbol": "kvadrat",
+     "symbol": "ring",
      "riktning": 0
     },
     "l": {
@@ -12030,7 +12405,7 @@
      "riktning": 0
     },
     "r": {
-     "symbol": "ring",
+     "symbol": "prick",
      "riktning": 0
     }
    },
@@ -12048,43 +12423,28 @@
      "symbol": "dubbelring",
      "riktning": 0
     }
-   },
-   {
-    "kind": "kub",
-    "t": {
-     "symbol": "fkvadrat",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "ring",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "dubbelring",
-     "riktning": 0
-    }
    }
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 0,
   "typer": [
-   "fel_symbol",
    "",
-   "framande",
-   "fel_symbol"
+   "fel_symbol",
+   "fel_symbol",
+   "framande"
   ],
   "misstag": [
-   "Med ringen och dubbelringen placerade så här måste ovansidan visa ett kryss, inte en kvadrat.",
    "",
-   "En triangel kan inte sitta där. Med ringen och dubbelringen placerade så här måste ovansidan visa ett kryss.",
-   "Med ringen och dubbelringen placerade så här måste ovansidan visa ett kryss, inte en fylld kvadrat."
+   "Med ringen och dubbelringen placerade så här måste ovansidan visa en stjärna, inte en kvadrat.",
+   "Med ringen och dubbelringen placerade så här måste höger sida visa en stjärna, inte en prick.",
+   "En triangel kan inte sitta där. Med ringen och dubbelringen placerade så här måste ovansidan visa en stjärna."
   ],
   "avslojande": [
+   [],
    [
     "t",
     "l",
     "r"
    ],
-   [],
    [
     "t",
     "l",
@@ -12117,7 +12477,7 @@
      0,
      0
     ],
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "upp": [
      0,
      0,
@@ -12222,6 +12582,21 @@
    {
     "kind": "kub",
     "t": {
+     "symbol": "triangel",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
      "symbol": "kvadrat",
      "riktning": 0
     },
@@ -12237,15 +12612,15 @@
    {
     "kind": "kub",
     "t": {
-     "symbol": "kvadrat",
+     "symbol": "fkvadrat",
      "riktning": 0
     },
     "l": {
-     "symbol": "prick",
+     "symbol": "kvadrat",
      "riktning": 0
     },
     "r": {
-     "symbol": "kryss",
+     "symbol": "prick",
      "riktning": 0
     }
    },
@@ -12256,50 +12631,35 @@
      "riktning": 0
     },
     "l": {
-     "symbol": "kryss",
+     "symbol": "stjarna",
      "riktning": 0
     },
     "r": {
      "symbol": "dubbelring",
      "riktning": 0
     }
-   },
-   {
-    "kind": "kub",
-    "t": {
-     "symbol": "triangel",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "kvadrat",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "prick",
-     "riktning": 0
-    }
    }
   ],
-  "correctAnswer": 0,
+  "correctAnswer": 1,
   "typer": [
+   "framande",
    "",
    "fel_symbol",
-   "fel_symbol",
-   "framande"
+   "fel_symbol"
   ],
   "misstag": [
+   "En triangel kan inte sitta där. Med kvadraten och pricken placerade så här måste ovansidan visa en dubbelring.",
    "",
-   "Med kvadraten och pricken placerade så här måste höger sida visa en dubbelring, inte ett kryss.",
-   "Med kvadraten och dubbelringen placerade så här måste vänster sida visa en prick, inte ett kryss.",
-   "En triangel kan inte sitta där. Med kvadraten och pricken placerade så här måste ovansidan visa en dubbelring."
+   "Med kvadraten och pricken placerade så här måste ovansidan visa en dubbelring, inte en fylld kvadrat.",
+   "Med kvadraten och dubbelringen placerade så här måste vänster sida visa en prick, inte en stjärna."
   ],
   "avslojande": [
-   [],
    [
     "t",
     "l",
     "r"
    ],
+   [],
    [
     "t",
     "l",
@@ -12345,7 +12705,7 @@
      1,
      0
     ],
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "upp": [
      0,
      0,
@@ -12437,11 +12797,26 @@
    {
     "kind": "kub",
     "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
      "symbol": "fkvadrat",
      "riktning": 0
     },
     "l": {
-     "symbol": "kryss",
+     "symbol": "stjarna",
      "riktning": 0
     },
     "r": {
@@ -12471,21 +12846,6 @@
      "riktning": 0
     },
     "l": {
-     "symbol": "prick",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "dubbelring",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
-     "symbol": "fkvadrat",
-     "riktning": 0
-    },
-    "l": {
      "symbol": "ring",
      "riktning": 0
     },
@@ -12495,26 +12855,26 @@
     }
    }
   ],
-  "correctAnswer": 0,
+  "correctAnswer": 1,
   "typer": [
+   "fel_symbol",
    "",
    "framande",
-   "fel_symbol",
    "fel_symbol"
   ],
   "misstag": [
+   "Med den fyllda kvadraten och pricken placerade så här måste ovansidan visa en kvadrat, inte en ring.",
    "",
    "En triangel kan inte sitta där. Med den fyllda kvadraten och pricken placerade så här måste ovansidan visa en kvadrat.",
-   "Med den fyllda kvadraten och pricken placerade så här måste höger sida visa en kvadrat, inte en dubbelring.",
    "Med den fyllda kvadraten och kvadraten placerade så här måste vänster sida visa en prick, inte en ring."
   ],
   "avslojande": [
-   [],
    [
     "t",
     "l",
     "r"
    ],
+   [],
    [
     "t",
     "l",
@@ -12534,7 +12894,7 @@
      0,
      0
     ],
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "upp": [
      0,
      0,
@@ -12640,7 +13000,7 @@
     "riktning": 0
    },
    "l": {
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "riktning": 0
    },
    "r": {
@@ -12656,41 +13016,26 @@
      "riktning": 0
     },
     "l": {
-     "symbol": "dubbelring",
+     "symbol": "prick",
      "riktning": 0
     },
     "r": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
      "symbol": "kvadrat",
      "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
-     "symbol": "fkvadrat",
-     "riktning": 0
     },
     "l": {
-     "symbol": "prick",
+     "symbol": "fkvadrat",
      "riktning": 0
     },
     "r": {
      "symbol": "dubbelring",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
-     "symbol": "fkvadrat",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "prick",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "kryss",
      "riktning": 0
     }
    },
@@ -12708,28 +13053,43 @@
      "symbol": "dubbelring",
      "riktning": 0
     }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "stjarna",
+     "riktning": 0
+    }
    }
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 0,
   "typer": [
-   "fel_symbol",
    "",
    "fel_symbol",
-   "framande"
+   "framande",
+   "fel_symbol"
   ],
   "misstag": [
-   "Med den fyllda kvadraten och dubbelringen placerade så här måste höger sida visa ett kryss, inte en kvadrat.",
    "",
-   "Med den fyllda kvadraten och pricken placerade så här måste höger sida visa en dubbelring, inte ett kryss.",
-   "En triangel kan inte sitta där. Med den fyllda kvadraten och dubbelringen placerade så här måste ovansidan visa ett kryss."
+   "Med den fyllda kvadraten och dubbelringen placerade så här måste ovansidan visa en stjärna, inte en kvadrat.",
+   "En triangel kan inte sitta där. Med den fyllda kvadraten och dubbelringen placerade så här måste ovansidan visa en stjärna.",
+   "Med den fyllda kvadraten och pricken placerade så här måste höger sida visa en dubbelring, inte en stjärna."
   ],
   "avslojande": [
+   [],
    [
     "t",
     "l",
     "r"
    ],
-   [],
    [
     "t",
     "l",
@@ -12762,7 +13122,7 @@
      0,
      0
     ],
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "upp": [
      0,
      -1,
@@ -12867,7 +13227,7 @@
    {
     "kind": "kub",
     "t": {
-     "symbol": "prick",
+     "symbol": "stjarna",
      "riktning": 0
     },
     "l": {
@@ -12875,7 +13235,22 @@
      "riktning": 0
     },
     "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
      "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "stjarna",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "fkvadrat",
      "riktning": 0
     }
    },
@@ -12905,41 +13280,25 @@
      "riktning": 0
     },
     "r": {
-     "symbol": "fkvadrat",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
      "symbol": "kvadrat",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "kryss",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "fkvadrat",
      "riktning": 0
     }
    }
   ],
-  "correctAnswer": 0,
+  "correctAnswer": 3,
   "typer": [
-   "",
-   "framande",
    "fel_symbol",
-   "fel_symbol"
+   "fel_symbol",
+   "framande",
+   ""
   ],
   "misstag": [
-   "",
+   "Med dubbelringen och den fyllda kvadraten placerade så här måste ovansidan visa en kvadrat, inte en stjärna.",
+   "Med kvadraten och den fyllda kvadraten placerade så här måste vänster sida visa en dubbelring, inte en stjärna.",
    "En triangel kan inte sitta där. Med dubbelringen och den fyllda kvadraten placerade så här måste ovansidan visa en kvadrat.",
-   "Med pricken och dubbelringen placerade så här måste höger sida visa en kvadrat, inte en fylld kvadrat.",
-   "Med kvadraten och den fyllda kvadraten placerade så här måste vänster sida visa en dubbelring, inte ett kryss."
+   ""
   ],
   "avslojande": [
-   [],
    [
     "t",
     "l",
@@ -12954,7 +13313,8 @@
     "t",
     "l",
     "r"
-   ]
+   ],
+   []
   ],
   "forklaring": "Rätt tärning är samma tärning vriden. Dubbelringen och kvadraten sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
   "kub": [
@@ -12990,7 +13350,7 @@
      1,
      0
     ],
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "upp": [
      1,
      0,
@@ -13086,7 +13446,7 @@
      "riktning": 0
     },
     "l": {
-     "symbol": "ring",
+     "symbol": "dubbelring",
      "riktning": 0
     },
     "r": {
@@ -13112,49 +13472,48 @@
    {
     "kind": "kub",
     "t": {
-     "symbol": "prick",
+     "symbol": "ring",
      "riktning": 0
     },
     "l": {
-     "symbol": "dubbelring",
+     "symbol": "stjarna",
      "riktning": 0
     },
     "r": {
-     "symbol": "fkvadrat",
+     "symbol": "dubbelring",
      "riktning": 0
     }
    },
    {
     "kind": "kub",
     "t": {
-     "symbol": "ring",
+     "symbol": "prick",
      "riktning": 0
     },
     "l": {
-     "symbol": "kryss",
+     "symbol": "ring",
      "riktning": 0
     },
     "r": {
-     "symbol": "dubbelring",
+     "symbol": "fkvadrat",
      "riktning": 0
     }
    }
   ],
-  "correctAnswer": 0,
+  "correctAnswer": 3,
   "typer": [
-   "",
+   "fel_symbol",
    "framande",
    "fel_symbol",
-   "fel_symbol"
+   ""
   ],
   "misstag": [
-   "",
+   "Med pricken och dubbelringen placerade så här måste höger sida visa en ring, inte en fylld kvadrat.",
    "En triangel kan inte sitta där. Med pricken och dubbelringen placerade så här måste höger sida visa en ring.",
-   "Med pricken och den fyllda kvadraten placerade så här måste vänster sida visa en ring, inte en dubbelring.",
-   "Med ringen och dubbelringen placerade så här måste vänster sida visa en prick, inte ett kryss."
+   "Med ringen och dubbelringen placerade så här måste vänster sida visa en prick, inte en stjärna.",
+   ""
   ],
   "avslojande": [
-   [],
    [
     "t",
     "l",
@@ -13169,7 +13528,8 @@
     "t",
     "l",
     "r"
-   ]
+   ],
+   []
   ],
   "forklaring": "Rätt tärning är samma tärning vriden. Pricken och ringen sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
   "kub": [
@@ -13179,7 +13539,7 @@
      0,
      0
     ],
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "upp": [
      0,
      0,
@@ -13297,11 +13657,41 @@
    {
     "kind": "kub",
     "t": {
+     "symbol": "kvadrat",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "prick",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "fkvadrat",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
      "symbol": "prick",
      "riktning": 0
     },
     "l": {
      "symbol": "fkvadrat",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "dubbelring",
+     "riktning": 0
+    }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "stjarna",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "prick",
      "riktning": 0
     },
     "r": {
@@ -13323,58 +13713,28 @@
      "symbol": "triangel",
      "riktning": 0
     }
-   },
-   {
-    "kind": "kub",
-    "t": {
-     "symbol": "kvadrat",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "prick",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "kryss",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
-     "symbol": "kryss",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "prick",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "dubbelring",
-     "riktning": 0
-    }
    }
   ],
-  "correctAnswer": 0,
+  "correctAnswer": 1,
   "typer": [
-   "",
-   "framande",
    "fel_symbol",
-   "fel_symbol"
+   "",
+   "fel_symbol",
+   "framande"
   ],
   "misstag": [
+   "Med kvadraten och pricken placerade så här måste höger sida visa en dubbelring, inte en fylld kvadrat.",
    "",
-   "En triangel kan inte sitta där. Med kvadraten och pricken placerade så här måste höger sida visa en dubbelring.",
-   "Med kvadraten och pricken placerade så här måste höger sida visa en dubbelring, inte ett kryss.",
-   "Med pricken och dubbelringen placerade så här måste ovansidan visa en kvadrat, inte ett kryss."
+   "Med pricken och dubbelringen placerade så här måste ovansidan visa en kvadrat, inte en stjärna.",
+   "En triangel kan inte sitta där. Med kvadraten och pricken placerade så här måste höger sida visa en dubbelring."
   ],
   "avslojande": [
-   [],
    [
     "t",
     "l",
     "r"
    ],
+   [],
    [
     "t",
     "l",
@@ -13459,7 +13819,7 @@
      0,
      -1
     ],
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "upp": [
      1,
      0,
@@ -13504,7 +13864,7 @@
     "riktning": 0
    },
    "r": {
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "riktning": 0
    }
   },
@@ -13512,22 +13872,7 @@
    {
     "kind": "kub",
     "t": {
-     "symbol": "kryss",
-     "riktning": 0
-    },
-    "l": {
-     "symbol": "fkvadrat",
-     "riktning": 0
-    },
-    "r": {
-     "symbol": "kvadrat",
-     "riktning": 0
-    }
-   },
-   {
-    "kind": "kub",
-    "t": {
-     "symbol": "kryss",
+     "symbol": "stjarna",
      "riktning": 0
     },
     "l": {
@@ -13546,18 +13891,18 @@
      "riktning": 0
     },
     "l": {
-     "symbol": "kryss",
+     "symbol": "fkvadrat",
      "riktning": 0
     },
     "r": {
-     "symbol": "prick",
+     "symbol": "kvadrat",
      "riktning": 0
     }
    },
    {
     "kind": "kub",
     "t": {
-     "symbol": "ring",
+     "symbol": "stjarna",
      "riktning": 0
     },
     "l": {
@@ -13568,20 +13913,35 @@
      "symbol": "kvadrat",
      "riktning": 0
     }
+   },
+   {
+    "kind": "kub",
+    "t": {
+     "symbol": "ring",
+     "riktning": 0
+    },
+    "l": {
+     "symbol": "stjarna",
+     "riktning": 0
+    },
+    "r": {
+     "symbol": "prick",
+     "riktning": 0
+    }
    }
   ],
-  "correctAnswer": 3,
+  "correctAnswer": 1,
   "typer": [
-   "fel_symbol",
    "framande",
+   "",
    "fel_symbol",
-   ""
+   "fel_symbol"
   ],
   "misstag": [
-   "Med krysset och den fyllda kvadraten placerade så här måste höger sida visa en ring, inte en kvadrat.",
-   "En triangel kan inte sitta där. Med krysset och den fyllda kvadraten placerade så här måste höger sida visa en ring.",
-   "Med ringen och krysset placerade så här måste höger sida visa en fylld kvadrat, inte en prick.",
-   ""
+   "En triangel kan inte sitta där. Med stjärnan och den fyllda kvadraten placerade så här måste höger sida visa en ring.",
+   "",
+   "Med stjärnan och den fyllda kvadraten placerade så här måste höger sida visa en ring, inte en kvadrat.",
+   "Med ringen och stjärnan placerade så här måste höger sida visa en fylld kvadrat, inte en prick."
   ],
   "avslojande": [
    [
@@ -13589,6 +13949,7 @@
     "l",
     "r"
    ],
+   [],
    [
     "t",
     "l",
@@ -13598,8 +13959,7 @@
     "t",
     "l",
     "r"
-   ],
-   []
+   ]
   ],
   "forklaring": "Rätt tärning är samma tärning vriden. Ringen och den fyllda kvadraten sitter som förut i förhållande till varandra, och den tredje sidan är en som var dold.",
   "kub": [
@@ -13648,7 +14008,7 @@
      -1,
      0
     ],
-    "symbol": "kryss",
+    "symbol": "stjarna",
     "upp": [
      0,
      0,

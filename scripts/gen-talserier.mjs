@@ -20,7 +20,9 @@ const MAL_PER_NIVA = 72;
 const FRO = 'talserier-v1-2026-11-09';
 const torr = process.argv.includes('--torr');
 
+/** Andel rätt innan uppgiften har svar: nivåns band, justerat per familj (granskningen 2026-11-09). */
 const P_PRIOR = { grund: 0.78, avancerad: 0.58, expert: 0.42 };
+const P_FAMILJ = { aritmetisk: 0.07, geometrisk: 0.03, vaxelvis: 0, andra_ordningen: -0.06, varvad: 0.02, geodiff: -0.02, affin: -0.03, summa: 0.02 };
 const SVARIGHET = {
   aritmetisk: 1,
   geometrisk: 1,
@@ -65,6 +67,7 @@ function nivaBank(niva) {
     const f = byggFraga({ familj, params, niva, visade: nVisade, id });
     if (!f) continue;
     if (bank.some((b) => b.visade.join(',') === f.visade.join(','))) continue;
+    if (bank.filter((b) => b.family === familj && b.regelnyckel === f.regelnyckel).length >= 2) continue;
     const val = valjAlternativ(f, anvanda, rng);
     if (!val) {
       avvisade.alternativ = (avvisade.alternativ ?? 0) + 1;
@@ -76,8 +79,9 @@ function nivaBank(niva) {
       family: familj,
       params,
       difficulty: Math.min(4, SVARIGHET[familj] + (niva === 'expert' ? 1 : 0)),
-      p_prior: P_PRIOR[niva],
+      p_prior: Math.round((P_PRIOR[niva] + P_FAMILJ[familj]) * 100) / 100,
       regel: f.regel,
+      regelnyckel: f.regelnyckel,
       visade: f.visade,
       luckor: N.luckor,
       options: val.alla.map((x) => x.v),

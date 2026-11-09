@@ -44,6 +44,8 @@ export interface TalserieFraga {
   params: Record<string, unknown>;
   difficulty: 1 | 2 | 3 | 4;
   p_prior: number;
+  /** Regeln utan startvärde (TS8: samma regel högst två gånger per nivå). */
+  regelnyckel: string;
   /** Regeln i klartext, ordagrant i genomgången. */
   regel: string;
   /** De visade talen, fem eller sex. */

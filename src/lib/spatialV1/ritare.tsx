@@ -292,6 +292,13 @@ export function kubSymbol(sida: 't' | 'l' | 'r', s: KubSida, farg: string) {
       const [a, b, c, d] = [P([-x, -x]), P([x, x]), P([-x, x]), P([x, -x])];
       return [<path key="x" d={`M${a[0]} ${a[1]} L${b[0]} ${b[1]} M${c[0]} ${c[1]} L${d[0]} ${d[1]}`} fill="none" stroke={farg} strokeWidth={sw} strokeLinecap="round" />];
     }
+    case 'stjarna': {
+      // åttaarmad stjärna: fyra streck genom mitten, läses lika i alla lägen och under projektionen
+      const r = S.stjarna;
+      const d = r / Math.SQRT2;
+      const streck = [[[0, -r], [0, r]], [[-r, 0], [r, 0]], [[-d, -d], [d, d]], [[-d, d], [d, -d]]] as [Punkt, Punkt][];
+      return [<path key="st" d={streck.map(([a, b]) => { const [u, v] = [P(a), P(b)]; return `M${u[0]} ${u[1]} L${v[0]} ${v[1]}`; }).join(' ')} fill="none" stroke={farg} strokeWidth={sw} strokeLinecap="round" />];
+    }
     case 'triangel':
       return [poly(S.triangel as Punkt[], false, 't')];
     case 'pil': {

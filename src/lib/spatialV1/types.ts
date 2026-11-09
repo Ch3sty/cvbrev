@@ -53,7 +53,7 @@ export interface ArkUtFigur {
   klipp: Ruta[];
 }
 
-export type KubSymbol = 'prick' | 'ring' | 'kryss' | 'kvadrat' | 'fkvadrat' | 'dubbelring' | 'triangel' | 'pil';
+export type KubSymbol = 'prick' | 'ring' | 'kryss' | 'stjarna' | 'kvadrat' | 'fkvadrat' | 'dubbelring' | 'triangel' | 'pil';
 /** En synlig sida: symbolen och dess riktning, 0 till 3 kvarts varv medurs från sidans "upp". */
 export interface KubSida {
   symbol: KubSymbol;

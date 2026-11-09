@@ -21,6 +21,8 @@ export const NIVAER = {
 };
 
 export const KORT = { grund: 'g', avancerad: 'a', expert: 'e' };
+/** Taket för den geometriska familjen på grund (TS6-undantaget, se familjen). */
+export const GEOMETRISK_MAX_GRUND = 400;
 
 const fmt = (x) => (x < 0 ? `−${-x}` : `${x}`);
 const steg = (d) => (d < 0 ? `−${-d}` : d === 0 ? '0' : `+${d}`);
@@ -49,6 +51,7 @@ const FAMILJER = {
     },
     serie: (p, n) => iterera([p.a], n, (s) => s[s.length - 1] + p.d),
     regel: (p) => (p.d > 0 ? `Varje tal är ${p.d} mer än det förra.` : `Varje tal är ${-p.d} mindre än det förra.`),
+    nyckel: (p) => `${p.d}`,
     bagar: (p, s) => differensbagar(s),
     fel: (p) => [
       { typ: 'okande', f: (s) => s[s.length - 1] + (s[s.length - 1] - s[s.length - 2]) + Math.sign(p.d) },
@@ -59,15 +62,21 @@ const FAMILJER = {
   },
   geometrisk: {
     params(rng) {
-      const r = valj(rng, ['2', '2', '1/2']);
-      if (r === '2') return { a: randInt(rng, 1, 3), r: 2, q: 1 };
-      return { a: valj(rng, [64, 96]), r: 1, q: 2 };
+      // Grund har talgränsen 100, men en geometrisk rad med fem tal går inte
+      // under den (granskningen 2026-11-09). Familjen får därför taket
+      // GEOMETRISK_MAX_GRUND (tre siffror, ryms i rutan).
+      const r = valj(rng, ['2', '2', '3']);
+      if (r === '2') return { a: randInt(rng, 1, 12), r: 2, q: 1 };
+      if (r === '3') return { a: randInt(rng, 1, 3), r: 3, q: 1 };
+      return { a: valj(rng, [64, 96, 128, 160, 192, 224, 256, 320]), r: 1, q: 2 };
     },
     serie: (p, n) => iterera([p.a], n, (s) => (s[s.length - 1] * p.r) / p.q),
     regel: (p) => (p.q === 1 ? `Varje tal är ${p.r} gånger det förra.` : `Varje tal är hälften av det förra.`),
+    nyckel: (p) => `${p.r}/${p.q}`,
     bagar: (p, s) => s.slice(1).map((_, i) => ({ fran: [i], till: i + 1, text: p.q === 1 ? `×${p.r}` : '÷2' })),
     fel: (p) => [
       { typ: 'okande_kvot', f: (s) => (p.q === 1 ? s[s.length - 1] * (p.r + 1) : s[s.length - 1] / 4) },
+      ...(p.r >= 3 ? [{ typ: 'okande_kvot', f: (s) => s[s.length - 1] * (p.r - 1) }] : []),
     ],
   },
   andra_ordningen: {
@@ -78,6 +87,7 @@ const FAMILJER = {
       return s < 0 ? { a: randInt(rng, 10, 80), d: randInt(rng, -6, 4), s } : { a: randInt(rng, -80, -10), d: randInt(rng, -4, 6), s };
     },
     serie: (p, n) => iterera([p.a], n, (s) => s[s.length - 1] + p.d + (s.length - 1) * p.s),
+    nyckel: (p) => `${p.d},${p.s}`,
     regel: (p) =>
       p.s > 0
         ? `Steget växer med ${p.s} för varje tal (${steg(p.d)}, ${steg(p.d + p.s)}, ${steg(p.d + 2 * p.s)} och så vidare).`
@@ -99,6 +109,7 @@ const FAMILJER = {
       const st = p.forst === 'upp' ? [p.upp, -p.ned] : [-p.ned, p.upp];
       return iterera([p.a], n, (s) => s[s.length - 1] + st[(s.length - 1) % 2]);
     },
+    nyckel: (p) => `${p.upp},${p.ned},${p.forst}`,
     regel: (p) => `Stegen växlar: ${p.forst === 'upp' ? `+${p.upp}, sedan −${p.ned}` : `−${p.ned}, sedan +${p.upp}`}, och så vidare.`,
     bagar: (p, s) => differensbagar(s),
     fel: (p) => {
@@ -137,6 +148,7 @@ const FAMILJER = {
       const nasta = (d, i) => (d.g ? d.a * d.d ** i : d.a + d.d * i);
       return Array.from({ length: n }, (_, i) => nasta(i % 2 === 0 ? x : y, Math.floor(i / 2)));
     },
+    nyckel: (p) => `${p.d0},${p.g0},${p.d1},${p.g1},${p.byt}`,
     regel: (p) => {
       const t = (a, d, g) => (g ? `gånger ${d}` : d > 0 ? `plus ${d}` : `minus ${-d}`);
       const del = [t(p.a0, p.d0, p.g0), t(p.a1, p.d1, p.g1)];
@@ -184,6 +196,7 @@ const FAMILJER = {
       return { a: randInt(rng, -20, 40), d: randInt(rng, 1, 5) * valj(rng, [1, 1, -1]), r: valj(rng, [2, 2, 3]) };
     },
     serie: (p, n) => iterera([p.a], n, (s) => s[s.length - 1] + p.d * p.r ** (s.length - 1)),
+    nyckel: (p) => `${p.d},${p.r}`,
     regel: (p) => `Steget blir ${p.r} gånger större för varje tal (${steg(p.d)}, ${steg(p.d * p.r)}, ${steg(p.d * p.r * p.r)} och så vidare).`,
     bagar: (p, s) => differensbagar(s),
     fel: (p) => [
@@ -192,11 +205,12 @@ const FAMILJER = {
   },
   affin: {
     params(rng, niva) {
-      const k = niva === 'avancerad' ? 2 : valj(rng, [2, 3, -2]);
+      const k = valj(rng, niva === 'avancerad' ? [2, 2, -2, 3] : [2, 3, -2]);
       const c = valj(rng, [-9, -7, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6, 7, 9]);
       return { a: randInt(rng, -6, 12), k, c };
     },
     serie: (p, n) => iterera([p.a], n, (s) => p.k * s[s.length - 1] + p.c),
+    nyckel: (p) => `${p.k},${p.c}`,
     regel: (p) => `Varje tal är det förra gånger ${p.k < 0 ? `minus ${-p.k}` : p.k}, ${p.c > 0 ? `plus ${p.c}` : `minus ${-p.c}`}.`,
     bagar: (p, s) => s.slice(1).map((_, i) => ({ fran: [i], till: i + 1, text: `×${p.k < 0 ? `(−${-p.k})` : p.k} ${p.c > 0 ? '+' : '−'}${Math.abs(p.c)}` })),
     fel: (p) => [
@@ -206,11 +220,13 @@ const FAMILJER = {
   },
   summa: {
     params(rng) {
-      return { a: randInt(rng, -12, 20), b: randInt(rng, -8, 25) };
+      // c varierar regeln (summan plus eller minus ett fast tal), inte bara startvärdena
+      return { a: randInt(rng, -12, 20), b: randInt(rng, -8, 25), c: valj(rng, [0, 0, -3, -2, -1, 1, 2, 3]) };
     },
-    serie: (p, n) => iterera([p.a, p.b], n, (s) => s[s.length - 1] + s[s.length - 2]),
-    regel: () => 'Varje tal är summan av de två talen närmast före.',
-    bagar: (p, s) => s.slice(2).map((x, j) => ({ fran: [j, j + 1], till: j + 2, text: 'summa' })),
+    serie: (p, n) => iterera([p.a, p.b], n, (s) => s[s.length - 1] + s[s.length - 2] + (p.c ?? 0)),
+    regel: (p) => (p.c ? `Varje tal är summan av de två talen närmast före, ${p.c > 0 ? `plus ${p.c}` : `minus ${-p.c}`}.` : 'Varje tal är summan av de två talen närmast före.'),
+    nyckel: (p) => `${p.c ?? 0}`,
+    bagar: (p, s) => s.slice(2).map((x, j) => ({ fran: [j, j + 1], till: j + 2, text: p.c ? `summa ${p.c > 0 ? '+' : '−'}${Math.abs(p.c)}` : 'summa' })),
     fel: () => [
       { typ: 'summa_fel_par', f: (s) => s[s.length - 1] + s[s.length - 3] },
       { typ: 'dubbel', f: (s) => 2 * s[s.length - 1] },
@@ -291,7 +307,8 @@ export function byggFraga({ familj, params, niva, visade: nVisade, id }) {
   const visade = full.slice(0, nVisade);
   const facit = full.slice(nVisade, nVisade + k);
   const efter = full[nVisade + k];
-  const inom = (x) => heltal(x) && x >= N.min && x <= N.max && tecken(x) <= 4;
+  const max = familj === 'geometrisk' && niva === 'grund' ? GEOMETRISK_MAX_GRUND : N.max;
+  const inom = (x) => heltal(x) && x >= N.min && x <= max && tecken(x) <= 4 && !(familj === 'geometrisk' && x <= 0);
   if (![...visade, ...facit].every(inom)) return null;
 
   // Kandidater av typade fel
@@ -308,7 +325,9 @@ export function byggFraga({ familj, params, niva, visade: nVisade, id }) {
     kand.push({ v: [efter], typer: ['ett_steg_for_langt'] });
   } else {
     for (const r of regler) {
-      kand.push({ v: fortsatt(r.f, visade, 2), typer: [r.typ] });
+      // fel_serie för båda luckorna ger ett tal ingen räknar fram (granskningen
+      // 2026-11-09): på varvade serier används bytt_ordning för det felet.
+      if (!(familj === 'varvad' && r.typ === 'fel_serie')) kand.push({ v: fortsatt(r.f, visade, 2), typer: [r.typ] });
       kand.push({ v: [facit[0], ...fortsatt(r.f, [...visade, facit[0]], 1)], typer: ['ratt', r.typ] });
     }
     const t1 = visade[nVisade - 1] - (facit[0] - visade[nVisade - 1]);
@@ -327,7 +346,7 @@ export function byggFraga({ familj, params, niva, visade: nVisade, id }) {
     sedda.add(nyckel(c.v));
     giltiga.push(c);
   }
-  return { id, niva, familj, params, visade, facit, efter, kandidater: giltiga, regel: F.regel(params), bagar: F.bagar(params, [...visade, ...facit]) };
+  return { id, niva, familj, params, regelnyckel: F.nyckel(params), visade, facit, efter, kandidater: giltiga, regel: F.regel(params), bagar: F.bagar(params, [...visade, ...facit]) };
 }
 
 /**

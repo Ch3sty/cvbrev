@@ -163,7 +163,7 @@ export function matFigur(fig: SpatialFigur, skala: number, var_: string): string
     for (const sida of ['t', 'l', 'r'] as const) {
       const m = G.kub.matris[sida] as [number, number, number, number, number, number];
       const S = G.kub.symbol;
-      const rho = { prick: S.prickR, ring: S.ringR, dubbelring: S.dubbelInre, kvadrat: S.kvadrat, fkvadrat: S.kvadrat, kryss: S.kryss, triangel: 0.45, pil: 0.5 }[fig[sida].symbol];
+      const rho = { prick: S.prickR, ring: S.ringR, dubbelring: S.dubbelInre, kvadrat: S.kvadrat, fkvadrat: S.kvadrat, kryss: S.kryss, stjarna: S.stjarna, triangel: 0.45, pil: 0.5 }[fig[sida].symbol];
       // minsta axeln: symbolens utsträckning (2 rho) i sidans smalaste riktning
       const e = ellips(m, rho);
       const minAxel = 2 * Math.min(e.rx, e.ry) * skala;

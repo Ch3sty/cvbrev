@@ -115,6 +115,9 @@ const FORBJUDNA_RAA = [
   [[0, 1], [1, 0], [1, 1], [1, 2], [2, 0], [2, 2]], // pil
 ];
 const FORBJUDNA = new Set(FORBJUDNA_RAA.flatMap((cells) => attaOperationer({ cells }).map(nyckel)));
+/** Formens nyckel oberoende av läge (alla åtta operationer, markören inräknad). */
+export const friForm = (fig) => attaOperationer({ cells: fig.cells, mark: fig.mark }).map(nyckel).sort()[0];
+
 export const arForbjuden = (fig) => FORBJUDNA.has(nyckel({ cells: fig.cells }));
 
 // ----------------------------------------------------------- generering
@@ -124,8 +127,11 @@ export const NIVAER_A = {
   // former som klarar SP-A1, SP-A2 och SP-A7 (P- och F-pentominon); fyra rutor
   // ger bara L, som är förbjudet. Därför får grund också en 4×4-ram med fem
   // rutor (N och Y tillkommer). Figuren är lika liten, bara ramen är större.
-  grund: { n: [3, 4], rutor: [5], facit: [90, 180], mark: false },
-  avancerad: { n: [4], rutor: [5, 6, 7], facit: [90, 180, 270], mark: false },
+  // Granskningen 2026-11-09: grund får fem eller sex rutor och alla tre
+  // vridningarna (fyra former räckte inte), avancerad sex eller sju (fem rutor
+  // i 4×4 var för lätt).
+  grund: { n: [3, 4], rutor: [5, 6], facit: [90, 180, 270], mark: false },
+  avancerad: { n: [4], rutor: [6, 7], facit: [90, 180, 270], mark: false },
   expert: { n: [5], rutor: [7, 8, 9], facit: [90, 180, 270], mark: true },
 };
 
@@ -171,7 +177,7 @@ export function flyttaRuta(rng, fig, n) {
   return null;
 }
 
-const GRADTEXT = { 90: 'vriden 90 grader medurs', 180: 'vriden ett halvt varv', 270: 'vriden 90 grader moturs' };
+const GRADTEXT = { 90: 'vriden 90 grader medurs', 180: 'vriden ett halvt varv (180 grader)', 270: 'vriden 90 grader moturs' };
 const AXELTEXT = { lodrat: 'en lodrät linje', vagrat: 'en vågrät linje', diagonal: 'en diagonal', motdiagonal: 'en diagonal' };
 
 /** Misstagstexten för en spegling: vilken axel, och att den inte går att vrida tillbaka. */
@@ -257,6 +263,13 @@ export function sparrarA(q) {
 
   if (new Set(vr).size !== 4) fel.push(`${id}: SP-A1 figuren har rotationssymmetri`);
   if (sp.some((k) => vr.includes(k))) fel.push(`${id}: SP-A2 figuren har spegelsymmetri`);
+  // Granskningen 2026-11-09: den grå rutan är en hjälp, aldrig den enda
+  // asymmetrin. Formen utan markör ska klara SP-A1 och SP-A2 för sig.
+  if (ref.mark) {
+    const utan = { cells: ref.cells };
+    const vr0 = vridningar(utan).map(nyckel);
+    if (new Set(vr0).size !== 4 || speglingar(utan).map(nyckel).some((k) => vr0.includes(k))) fel.push(`${id}: SP-A2 formen utan den grå rutan är symmetrisk`);
+  }
 
   const alt = q.options.map((o) => nyckel(fig(o)));
   if (new Set(alt).size !== alt.length) fel.push(`${id}: SP-A3 två alternativ är lika`);

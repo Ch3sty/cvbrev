@@ -14,7 +14,7 @@
 // =============================================================================
 
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
-import { byggUppgiftA, sparrarA, nyckel as brickNyckel } from './lib/spatial/brick.mjs';
+import { byggUppgiftA, sparrarA, nyckel as brickNyckel, friForm } from './lib/spatial/brick.mjs';
 
 const PER_FORM = 24;
 const FRO = 'spatial-v1-2026-11-09';
@@ -29,7 +29,8 @@ const formArg = arg.includes('--form') ? arg[arg.indexOf('--form') + 1] : null;
 
 /** Formerna: byggare, spärrar och en nyckel som stoppar dubbletter. */
 export const FORMER = {
-  A: { bygg: byggUppgiftA, sparrar: sparrarA, nyckel: (q) => `${brickNyckel(q.referens)}|${brickNyckel(q.options[q.correctAnswer])}` },
+  // grupp + tak: högst så många uppgifter per fri form och nivå (granskningen 2026-11-09)
+  A: { bygg: byggUppgiftA, sparrar: sparrarA, nyckel: (q) => `${brickNyckel(q.referens)}|${brickNyckel(q.options[q.correctAnswer])}`, grupp: (q) => friForm(q.referens), tak: { grund: 3, avancerad: 2, expert: 2 } },
 };
 
 export async function laddaFormer() {
@@ -64,6 +65,10 @@ function formBank(form, niva) {
     }
     const n = F.nyckel(q);
     if (sedda.has(n)) continue;
+    if (F.grupp) {
+      const g = F.grupp(q);
+      if (ut.filter((x) => F.grupp(x) === g).length >= F.tak[niva]) continue;
+    }
     sedda.add(n);
     ut.push({ ...q, difficulty: SVARIGHET[niva] + (form === 'A' ? 0 : 1), p_prior: P_PRIOR[niva], fran_version: 1 });
   }
