@@ -87,6 +87,15 @@ Ordningen nedan är genomförandeordningen. Det som kräver ägaren ligger sist.
     Status: ägaren sa ja 2026-11-09. Klart och live på main. Tabellen `prov_utfall` sparar dag, testtyp, antal rätt, antal frågor och bankversion, utan konto, IP eller token. Bara servern når den (RLS utan policyer, anon och authenticated nekas, kontrollerat). Databasfunktionen `spara_prov_utfall` skriver en rad per rättat prov och undantar ägaren och testkontona som percentilen gör. Rättningen anropar den och fälls aldrig av ett fel. Backfillen förde in 135 prov och kan köras igen utan dubbletter. På grenen feat/prov-konto-v2 läser percentilen nu `prov_utfall`, med samma gräns på 200 och raden dold i nedre halvan. 65 prov saknas till 200. Begränsning: ett testkontos första prov från en ny adress räknas, eftersom raden inte går att koppla tillbaka när kontot sedan hämtar provet.
 31. **Ägarens beslut: nya testtyper.** Se docs/rapporter/gap-testtyper-2026-11-09.md. Testansvarig rekommenderar i den här ordningen: spatial förmåga, talserier, deduktivt som pass och övningsprov, koncentration som egen modul för lokförare och piloter, och Nivåkoll för figurserier.
 
+## F. Testplanen steg 1–3 (godkänd av ägaren 2026-11-09)
+
+32. **Deduktivt får pass och övningsprov.**
+    Status: klar 2026-11-09, 61096067, live (5afd0d84). Deduktivpasset (fyra uppgifter, lösningen efter varje svar, test_daily_pass) och övningsprovet (SHL Verify deduktiv 12 uppgifter på 18 minuter, vårt format 16 på 20, test_exam_mode). Räknas i dagsringen, serien och Pass per testtyp. Banken: DD7 till DD9 nya, 31 uppgifter pensionerade från bankversion 2 och ersatta av lagade kopior som testansvarig godkänt (docs/qa/deduktiv/granskning-03.md). Kvar: dd-a-d2-22 och platstyngden (testansvarig, nästa omgång).
+33. **Nivåkollen för figurserier, deduktivt, verbalt och numeriskt.**
+    Status: klar 2026-11-09, c29a938b och 5afd0d84, live. Samma räkning och skala som matrisens, nivåpunkt per testtyp, dagens pass väljs efter nivån, gratis första gången per typ. Kalibreringen i docs/qa/tester-steg1-2026-11-09/resultat.md. Klicktest 111 av 112 (den röda en förväntad 403), perf inom budget. Kvar: avläsning av nivamatning_klar per test_kind omkring 23 nov; dag 2-mejlet gäller fortfarande bara matrisen (beslut för ägaren).
+34. **Provet utan konto för verbalt, numeriskt och figurserier.**
+    Status: spec klar 2026-11-09, 5d87ff2b (docs/design/spec-prov-fler-typer-2026-11-09.md). Byggs efter 23 nov på feat/prov-konto-v2. Kräver före bygget: art-directors beslut om numeriskt på mobil (punkt 20), testansvarig om fem uppgifter i verbalt och numeriskt, ägarens ja till en additiv migrering (test_kind på anon_test_sessions och prov_utfall).
+
 ## Arbetsregler
 
 - Högst två arbetsplatser: `.claude/worktrees/publikt-v2` för A och huvudcheckouten för B. Inga nya worktrees, ingen `npm ci` per kopia.
