@@ -674,3 +674,4 @@
 .ib-typdelar { margin: 0; padding: 0; list-style: none; counter-reset: del; display: grid; gap: 6px; }
 .ib-typdelar li { counter-increment: del; display: flex; gap: 8px; align-items: center; font-size: 13px; }
 .ib-typdelar li::before { content: counter(del); display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 999px; background: var(--rum-ton, var(--insunken)); color: var(--rum-ink, var(--ink-1)); font-weight: 700; font-size: 12px; flex: none; }
+.ib-typlista { margin: 0; padding: 0 0 0 18px; display: grid; gap: 4px; font-size: 13px; line-height: 1.4; color: var(--ink-2); list-style: upper-alpha; }

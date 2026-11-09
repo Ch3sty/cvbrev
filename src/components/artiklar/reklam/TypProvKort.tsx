@@ -18,6 +18,7 @@ import { KLUSTER_RUM } from '@/components/publikt/innehall/artikel-kluster'
 import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
 import { SpatialSvg } from '@/lib/spatialV1/ritare'
 import type { KubFigur } from '@/lib/spatialV1/types'
+import { nivakollHref, ovningsprovHref } from '@/lib/traning/rutter'
 
 export type ProvKortTyp = 'deduktiv' | 'talserie' | 'spatial' | 'ordforrad' | 'iprov'
 
@@ -39,11 +40,11 @@ interface TypCopy {
 export const TYP_PROVKORT: Record<ProvKortTyp, TypCopy> = {
   deduktiv: {
     etikett: 'Öva deduktivt',
-    rubrik: 'Deduktivt test med regel efter varje svar',
+    rubrik: 'Deduktivt test med lösningen efter varje svar',
     text: 'Börja med Nivåkollen i deduktivt. Den är gratis med konto, visar var du ligger och går igenom varje uppgift efteråt.',
     knapp: 'Gör Nivåkollen i deduktivt',
-    href: viaKonto('/dashboard/tester/pass?typ=nivakoll&kind=deduktiv'),
-    sekundar: { text: 'Övningsprovet i SHL-format', href: viaKonto('/dashboard/tester/ovningsprov/deduktiv') },
+    href: viaKonto(nivakollHref('deduktiv')),
+    sekundar: { text: 'Övningsprovet mot klockan', href: viaKonto(ovningsprovHref('deduktiv')) },
     paketrad: `Pass varje dag, avancerad och expert och övningsprovet mot klockan ingår i ${KORT_PRIS}.`,
   },
   talserie: {
@@ -118,6 +119,7 @@ function Bild({ typ }: { typ: ProvKortTyp }) {
   if (typ === 'ordforrad') {
     return (
       <div className="ib-typbild" aria-hidden="true">
+        <p className="ib-typpremiss">Synonym</p>
         <p className="ib-typord">ENTYDIG</p>
         <div className="ib-typalt">
           {['klar', 'ensam', 'lugn', 'bred', 'saklig'].map((o) => (
@@ -131,12 +133,12 @@ function Bild({ typ }: { typ: ProvKortTyp }) {
     return (
       <div className="ib-typbild" aria-hidden="true">
         <p className="ib-typpremiss">Alla som gått kursen får ett intyg. Omar har inget intyg.</p>
-        <p className="ib-typpastaende">Omar har gått kursen.</p>
-        <div className="ib-typalt">
-          {['Sant', 'Falskt', 'Går inte att avgöra'].map((o) => (
-            <span key={o}>{o}</span>
+        <p className="ib-typpastaende">Vad måste gälla?</p>
+        <ol className="ib-typlista">
+          {['Omar har inte gått kursen.', 'Alla med intyg har gått kursen.', 'Omar har gått kursen.', 'Någon utan intyg har gått kursen.'].map((o) => (
+            <li key={o}>{o}</li>
           ))}
-        </div>
+        </ol>
       </div>
     )
   }
