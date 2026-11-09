@@ -323,7 +323,7 @@ export const TEST_CONFIGS: TestConfig[] = [
     'Sex tal och två luckor sist, som i I-provet. Den andra luckan beror ofta på den första.',
     'Två luckor, negativa tal och regler som blandar gånger och plus. Leta efter två serier om vartannat.',
   ]),
-  ...steg2Nivaer('spatial', 'spatial', 'Spatial förmåga', 'Vrida, vika och se i tre dimensioner. Kallas också rumsuppfattning.', [
+  ...steg2Nivaer('spatial', 'spatial', 'Spatial förmåga', 'Rumsuppfattning: vrida, vika och se figurer i tre dimensioner.', [
     'Vriden figur, pappersvikning och tärningar, fem av varje. Små figurer och en vikning.',
     'Större figurer, två vikningar och tärningar med riktade symboler.',
     'Speglingar som liknar vridningar, tre vikningar och tärningar där en sida räcker.',

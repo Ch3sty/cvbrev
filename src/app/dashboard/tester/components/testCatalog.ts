@@ -324,7 +324,7 @@ function steg2Tester(prefix: string, title: string, method: string): CognitiveTe
 }
 
 export const TALSERIE_TESTS = steg2Tester('talserier', 'Talserier', 'Talföljder · luckor');
-export const SPATIAL_TESTS = steg2Tester('spatial', 'Spatial förmåga', 'Vrida · vika · tärningar');
+export const SPATIAL_TESTS = steg2Tester('spatial', 'Spatial förmåga', 'Rumsuppfattning: vridna figurer, pappersvikning, tärningar');
 export const ORDFORRAD_TESTS = steg2Tester('ordforrad', 'Ordförråd', 'Synonymer · motsatsord');
 
 /** Provraden innan I-prov-provet finns: dämpad, utan lås. */
@@ -343,7 +343,9 @@ const TALSERIE_GROUP: TestGroup = {
 const SPATIAL_GROUP: TestGroup = {
   key: 'spatial',
   heading: 'Spatial förmåga',
-  blurb: 'Vriden figur, pappersvikning och tärningar. Kallas också rumsuppfattning.',
+  // Namnet enligt saas-leads beslut 2 (2026-11-10): Spatial förmåga som
+  // rubrik och rumsuppfattning som underrad.
+  blurb: 'Rumsuppfattning: vridna figurer, pappersvikning, tärningar.',
   searchHint: 'Kallas även rumsuppfattning, rotationstest eller pappersvikning',
   cognitive: SPATIAL_TESTS,
   personality: [],
