@@ -75,6 +75,11 @@ export const DAG2_TYP: Readonly<Record<Exclude<StartKind, 'matris'>, { namn: str
   ordforrad: { namn: 'ordförråd', pass: HEM.vnPass.ordpass, form: HEM.vnPass.ordMeta, lank: steg2PassHref('ordforrad') },
 };
 
+/** Allt utom matrisen har sitt eget dag 2-mejl (passDag2Typ). */
+function annanTyp(start: ForstaStart): boolean {
+  return start.kind !== 'matris';
+}
+
 /** Länken till genomgången: Nivåkollens session, grundtestets resultat, annars hemvyn. */
 function genomgangLank(start: ForstaStart | null): string {
   if (!start) return LANK.hem;
@@ -232,7 +237,7 @@ export const passDag2Mejl: LifecycleEmail = {
     const dag = mejlDag(ctx.metadata);
     const skickaVid = stockholmKlockslag(dag, PASS_DAG2_KLOCKA).toISOString();
     const [start, premium] = await Promise.all([forstaStart(ctx), har(ctx, 'tests_above_base')]);
-    if (start && start.kind !== 'matris') return passDag2Typ(ctx, start, premium, skickaVid);
+    if (start && annanTyp(start)) return passDag2Typ(ctx, start, premium, skickaVid);
     const koll = await nivakollen(ctx);
     const niva = koll?.niva ?? null;
 

@@ -322,6 +322,8 @@ export default function Ingang({
       totalSteps={totalt}
       smal
       onBack={steg === 'datum' && !efterKonto ? () => setSteg('test') : undefined}
+      // Efter kontot finns inget steg att backa till: bara krysset, som går vidare.
+      utanTillbaka={!!efterKonto}
       onExit={lamna}
       exitLabel={INGANG.stang}
       primaryLabel={primar}

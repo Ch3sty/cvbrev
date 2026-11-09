@@ -154,7 +154,7 @@ export async function POST(request: NextRequest) {
       angerratt_samtycke_at: new Date().toISOString(),
       angerratt_samtycke_text: samtyckeVidKop(selected.key),
       // Källan, valet och dagarna till provet vid köpet (saas-leads beslut 6).
-      ...(await kopKallaMetadata(getSupabaseAdmin(), user.id)),
+      ...(await kopKallaMetadata(user.id)),
     }
 
     const session = await stripe.checkout.sessions.create({

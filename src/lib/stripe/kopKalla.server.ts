@@ -15,10 +15,12 @@
 
 import 'server-only';
 import { arGiltigDag, dagSthlm, dagarMellan } from '@/lib/traning/datum';
+import { getSupabaseAdmin } from '@/lib/supabase/admin';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function kopKallaMetadata(admin: any, userId: string): Promise<Record<string, string>> {
+export async function kopKallaMetadata(userId: string): Promise<Record<string, string>> {
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const admin = getSupabaseAdmin() as any;
     const [profilRes, planRes] = await Promise.all([
       admin.from('profiles').select('acquisition_source').eq('id', userId).maybeSingle(),
       admin.from('test_planer').select('mitt_test, mitt_test_variant, provdatum').eq('user_id', userId).maybeSingle(),
