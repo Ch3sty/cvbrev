@@ -632,8 +632,8 @@ function ResultGate({ result, token, rutnat, typ }: { result: ProvaResultat; tok
         <p className="pub-prov-premium">
           <PremiumIkon />
           <span>
-            <b className="pub-gradord">{KONTO_PANEL.premium.namn}</b>
-            <span>{ny ? PROV_TYP_PANEL.premium(ny) : KONTO_PANEL.premium.text}</span>
+            <b className="pub-gradord">{KONTO_PANEL.premiumRad.namn}</b>
+            <span>{ny ? PROV_TYP_PANEL.premium(ny) : KONTO_PANEL.premiumRad.text}</span>
           </span>
         </p>
       </section>

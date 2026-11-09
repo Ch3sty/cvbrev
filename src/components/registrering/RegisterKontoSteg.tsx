@@ -459,7 +459,7 @@ function PanelRader({ rader }: { rader: readonly PanelRad[] }) {
 function PremiumRad({ text }: { text: string }) {
   return (
     <p className="pub-konto-premium">
-      <b>{KONTO_PANEL.premium.namn}</b>
+      <b>{KONTO_PANEL.premiumRad.namn}</b>
       {text}
     </p>
   )
@@ -492,7 +492,7 @@ function ProvPanel({ resultat, rutnat }: { resultat: ProvResultat | null; rutnat
       <h2>{ny && resultat ? PROV_TYP_PANEL.rubrik(ny, resultat.fel, resultat.totalt) : resultat ? KONTO_PANEL.rubrik(resultat.fel, resultat.totalt) : KONTO_PANEL.rubrikUtan}</h2>
       <PanelRader rader={ny ? PROV_TYP_PANEL.rader(ny, resultat?.fel ?? null, totalt) : KONTO_PANEL.rader(resultat?.fel ?? null, totalt)} />
       <div className="pub-konto-dator">
-        <PremiumRad text={ny ? PROV_TYP_PANEL.premium(ny) : KONTO_PANEL.premium.text} />
+        <PremiumRad text={ny ? PROV_TYP_PANEL.premium(ny) : KONTO_PANEL.premiumRad.text} />
       </div>
       {lasbild ? <ProvBricka rutnat={lasbild} className="pub-konto-lasbild" /> : null}
     </aside>

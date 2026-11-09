@@ -48,12 +48,12 @@ describe('panelens text', () => {
   })
 
   it('priset kommer ur PLANS och Premium står som text', () => {
-    expect(KONTO_PANEL.premium.namn).toBe('Premium')
-    expect(KONTO_PANEL.premium.text).toContain('149 kr i månaden')
+    expect(KONTO_PANEL.premiumRad.namn).toBe('Premium')
+    expect(KONTO_PANEL.premiumRad.text).toContain('149 kr i månaden')
   })
 
   it('inga talstreck och inga mittpunkter', () => {
-    const allt = JSON.stringify([KONTO_PANEL.rader([1, 3], 5), KONTO_PANEL.premium, KONTO_PANEL.rubrik([1], 5)])
+    const allt = JSON.stringify([KONTO_PANEL.rader([1, 3], 5), KONTO_PANEL.premiumRad, KONTO_PANEL.rubrik([1], 5)])
     expect(allt).not.toMatch(/[—–·]/)
   })
 })

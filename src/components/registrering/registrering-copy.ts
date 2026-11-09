@@ -335,7 +335,7 @@ export const KONTO_PANEL = {
     ]
   },
   /** Premium som text, aldrig knapp (ägarens beslut 2026-11-09). Pris ur PLANS. */
-  premium: {
+  premiumRad: {
     namn: paketKort(),
     text: `, ${prisPeriod(SALD_PLAN)}, när du sedan vill träna på din nivå varje dag. Först Nivåkollen, gratis.`,
   },
