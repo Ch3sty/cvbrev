@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Provet och kontot</title>
+<meta name="description" content="Skiss: provet utan konto och kontosteget i samma linje som publikt v2, med vad kontot låser upp synligt innan första tangenttrycket.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Schibsted+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Tokens, ordagrant ur skiss-publikt-v2-2026-10-12 (version 4)
+   ============================================================ */
+:root{
+  --display:"Schibsted Grotesk",Inter,system-ui,sans-serif;
+  --body:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mark:#EDE8DF; --panel:#FFFFFF; --insunken:#E4DED3;
+  --kant:#DBD2C4; --kant-stark:#C4B9A8;
+  --ink-1:#1C1917; --ink-2:#57534E; --ink-3:#6B645E;
+  --koppar:#E07A2F; --koppar-djup:#C4621F; --koppar-ink:#A8491A;
+  --koppar-ljus:#F4B98A; --koppar-text:#1A1206; --koppar-mjuk:#FBE3D0;
+  --positiv:#2F7D5B; --positiv-mjuk:#DCEFE5; --varning:#985A08; --fel:#B3382E; --fel-mjuk:#F6E1DE;
+  --black:#0F0E12; --black-2:#1A191F; --black-kant:rgba(255,255,255,.12);
+  --tran:#1B2246; --tran-2:#2B3470; --tran-ljus:#93A0EC; --tran-ton:#DFE3F6; --tran-ink:#3B4790;
+  --cv:#113538;   --cv-2:#1D4D51;   --cv-ljus:#7FCFCA;   --cv-ton:#D7ECEA;   --cv-ink:#1E5F5F;
+  --brev:#3A1930; --brev-2:#56284A; --brev-ljus:#E29DCB; --brev-ton:#F0DCE8; --brev-ink:#6E2B59;
+  --vagg-ink:#F5F6FC; --vagg-mjuk:rgba(255,255,255,.74); --vagg-kant:rgba(255,255,255,.14);
+  --golv-skarm:#F3F1EC; --papper-skarm:#FFFFFF; --kant-skarm:#E3E1DC;
+  --lyft:0 1px 2px rgba(28,25,23,.06),0 12px 32px -12px rgba(28,25,23,.22);
+  --lyft-stor:0 2px 4px rgba(20,16,10,.08),0 40px 80px -30px rgba(20,16,10,.45);
+  --r:14px; --r-stor:24px;
+  --fokus:3px solid var(--koppar);
+  --ad-h:0px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --mark:#141317; --panel:#1E1D22; --insunken:#26252B;
+    --kant:#2F2E35; --kant-stark:#45444C;
+    --ink-1:#F3F2F7; --ink-2:#C7C6D0; --ink-3:#9391A1;
+    --koppar-ink:#F2A368; --koppar-mjuk:rgba(224,122,47,.18);
+    --positiv:#6CC79A; --positiv-mjuk:#1C3A2D; --varning:#E3A85A; --fel:#E57F74; --fel-mjuk:#3A1F1C;
+    --black:#09090C; --black-2:#121116;
+    --tran-ton:#161B36; --tran-ink:#AEB4DA;
+    --cv-ton:#0E2A2C; --cv-ink:#A3C9C8;
+    --brev-ton:#2A1224; --brev-ink:#D6AFC8;
+    --golv-skarm:#17171B; --papper-skarm:#232227; --kant-skarm:#34333A;
+    --lyft:0 1px 2px rgba(0,0,0,.3),0 12px 32px -12px rgba(0,0,0,.6);
+    --lyft-stor:0 2px 4px rgba(0,0,0,.4),0 40px 80px -30px rgba(0,0,0,.8);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --mark:#141317; --panel:#1E1D22; --insunken:#26252B;
+  --kant:#2F2E35; --kant-stark:#45444C;
+  --ink-1:#F3F2F7; --ink-2:#C7C6D0; --ink-3:#9391A1;
+  --koppar-ink:#F2A368; --koppar-mjuk:rgba(224,122,47,.18);
+  --positiv:#6CC79A; --positiv-mjuk:#1C3A2D; --varning:#E3A85A; --fel:#E57F74; --fel-mjuk:#3A1F1C;
+  --black:#09090C; --black-2:#121116;
+  --tran-ton:#161B36; --tran-ink:#AEB4DA;
+  --cv-ton:#0E2A2C; --cv-ink:#A3C9C8;
+  --brev-ton:#2A1224; --brev-ink:#D6AFC8;
+  --golv-skarm:#17171B; --papper-skarm:#232227; --kant-skarm:#34333A;
+  --lyft:0 1px 2px rgba(0,0,0,.3),0 12px 32px -12px rgba(0,0,0,.6);
+  --lyft-stor:0 2px 4px rgba(0,0,0,.4),0 40px 80px -30px rgba(0,0,0,.8);
+  color-scheme:dark;
+}
+
+/* ============================================================
+   Grund
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;overflow-x:hidden;height:100%}
+body{margin:0;background:var(--mark);color:var(--ink-1);font-family:var(--body);font-size:16px;line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased;min-height:100%}
+svg{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--display);letter-spacing:-.02em;line-height:1.05;margin:0;font-weight:800;text-wrap:balance}
+p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+button,input{font:inherit}
+:focus-visible{outline:var(--fokus);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1040px,100% - 32px);margin-inline:auto}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.h1{font-size:clamp(34px,8vw,56px);line-height:1}
+.h2{font-size:clamp(26px,5.6vw,40px)}
+.h3{font-size:clamp(20px,4.2vw,26px);letter-spacing:-.015em}
+.kick{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--koppar-ink);margin-bottom:12px}
+.ingress{font-size:clamp(17px,2vw,19px);line-height:1.5;color:var(--ink-2);max-width:54ch}
+.ingress b{color:var(--ink-1);font-weight:600}
+.brod{color:var(--ink-2);max-width:62ch}
+.liten{font-size:14px;color:var(--ink-3)}
+.vagg{color:var(--vagg-ink)}
+.vagg .kick{color:var(--tran-ljus)}
+.vagg .ingress,.vagg .brod,.vagg .liten{color:var(--vagg-mjuk)}
+.vagg .ingress b{color:#fff}
+.yta-vagg{background:radial-gradient(120% 90% at 85% 0%,var(--tran-2) 0%,var(--tran) 60%)}
+
+/* Knappar: exakt en fylld per vy, alltid koppar med mörk text */
+.knapp{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 24px;border-radius:999px;background:linear-gradient(180deg,var(--koppar),var(--koppar-djup));color:var(--koppar-text);font-weight:700;font-size:16px;line-height:1.2;text-decoration:none;border:0;cursor:pointer;box-shadow:0 1px 0 rgba(255,255,255,.25) inset,0 6px 18px -6px rgba(196,98,31,.6);transition:transform .15s ease,box-shadow .15s ease}
+.knapp:hover{transform:translateY(-1px)}
+.knapp:active{transform:none}
+.knapp svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.knapp-bred{width:100%}
+.lank{font-weight:600;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1.5px;color:inherit}
+.handling{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:26px}
+@media (max-width:640px){.handling{flex-direction:column;align-items:stretch;gap:14px}.handling .knapp{width:100%}.handling .liten{text-align:center}}
+
+.bock{display:grid;gap:10px}
+.bock li{display:flex;gap:12px;align-items:flex-start;line-height:1.4}
+.bock li::before{content:"";flex:none;width:22px;height:22px;border-radius:50%;margin-top:1px;background:var(--koppar) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231A1206' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/14px no-repeat}
+.bock-las li::before{background:var(--koppar-mjuk) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A8491A' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='11' width='14' height='10' rx='2'/%3E%3Cpath d='M8 11V8a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E") center/13px no-repeat}
+.vagg .bock-las li::before{background-color:rgba(255,255,255,.14);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F4B98A' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='11' width='14' height='10' rx='2'/%3E%3Cpath d='M8 11V8a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E")}
+
+.kort{background:var(--panel);border:1px solid var(--kant);border-radius:var(--r-stor);padding:24px;box-shadow:var(--lyft)}
+
+/* ============================================================
+   Flödesskalet: topprad, scrollande mitt, samtycke och fot under mitten.
+   Ingenting under mitten kan täcka något i mitten.
+   ============================================================ */
+.skal{display:flex;flex-direction:column;height:calc(100dvh - var(--ad-h));background:var(--mark)}
+.topp{flex:none;background:var(--panel);border-bottom:1px solid var(--kant)}
+.topp-i{display:flex;align-items:center;justify-content:space-between;gap:12px;height:56px;width:min(1040px,100% - 32px);margin-inline:auto}
+.logo{display:inline-flex;align-items:center;gap:9px;font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.02em;text-decoration:none}
+.logo-m{width:28px;height:28px;border-radius:8px;background:linear-gradient(180deg,var(--koppar),var(--koppar-djup));color:var(--koppar-text);display:grid;place-items:center;font-size:17px}
+.logo em{font-style:normal;color:var(--koppar-ink)}
+.topp-h{font-size:14px;color:var(--ink-2);display:flex;align-items:center;gap:6px;min-height:44px}
+.topp-h span{display:none}
+@media (min-width:640px){.topp-h span{display:inline}}
+.topp-h a{color:var(--ink-1)}
+.trad{height:2px;background:var(--kant)}
+.trad i{display:block;height:100%;background:var(--koppar);width:var(--w,100%)}
+.mitt{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain}
+
+/* Samtycket: en rad, alltid under mitten, aldrig över något */
+.samtycke{flex:none;background:var(--panel);border-top:1px solid var(--kant);font-size:13px;color:var(--ink-2)}
+.samtycke-i{display:flex;align-items:center;gap:8px 14px;flex-wrap:wrap;width:min(1040px,100% - 32px);margin-inline:auto;padding:8px 0 calc(8px + env(safe-area-inset-bottom,0px))}
+.samtycke p{flex:1 1 220px}
+.samtycke .lank{font-weight:500;text-decoration-thickness:1px}
+.samtycke-k{display:flex;gap:8px;margin-left:auto}
+.samtycke button{min-height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--kant-stark);background:transparent;color:var(--ink-1);font-size:13px;font-weight:600;cursor:pointer}
+.samtycke button.fyll{background:var(--ink-1);color:var(--mark);border-color:var(--ink-1)}
+
+/* ============================================================
+   Provet
+   ============================================================ */
+.vy{display:none}
+.vy.aktiv{display:block}
+
+/* Intro: text till vänster, provbladet till höger, allt på väggen */
+.intro{padding:clamp(28px,4vw,48px) 0 clamp(32px,4vw,48px)}
+.intro-g{display:grid;gap:32px;align-items:center}
+@media (min-width:900px){.intro-g{grid-template-columns:minmax(0,1fr) 380px;gap:56px}.intro .alt{grid-template-columns:repeat(6,1fr);gap:8px}.intro .alt b{font-size:9px;top:4px;left:6px}.intro .alt svg{width:58%;height:58%}}
+.intro .bock{margin-top:20px;max-width:46ch}
+.intro .bock li{color:var(--vagg-mjuk)}
+.intro .bock li b{color:#fff;font-weight:600}
+.intro-steg{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.intro-steg li{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--vagg-mjuk);padding:6px 12px 6px 6px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--vagg-kant)}
+.intro-steg b{width:24px;height:24px;border-radius:50%;background:var(--koppar);color:var(--koppar-text);font-family:var(--display);font-weight:800;font-size:13px;display:grid;place-items:center}
+
+/* Provbladet: papperskort med matrisen, som i telefonen fast i full storlek */
+.blad{background:var(--panel);border:1px solid var(--kant);border-radius:var(--r-stor);padding:16px;box-shadow:var(--lyft-stor);position:relative;color:var(--ink-1)}
+.blad-topp{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+.blad-topp .kick{margin:0}
+.segment{display:flex;gap:4px}
+.segment i{display:block;height:4px;width:22px;border-radius:2px;background:var(--kant)}
+.segment i.klar{background:var(--koppar)}
+.matris{background:var(--papper-skarm);border:1px solid var(--kant-skarm);border-radius:14px;padding:6px}
+.matris-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--kant-skarm);border-radius:8px;overflow:hidden}
+.matris-g>div{aspect-ratio:1;background:var(--papper-skarm);display:grid;place-items:center}
+.matris-g>div.lucka{background:var(--golv-skarm)}
+.matris-g svg{width:78%;height:78%}
+.alt{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.alt>*{position:relative;aspect-ratio:1;min-height:44px;background:var(--papper-skarm);border:1.5px solid var(--kant-skarm);border-radius:12px;display:grid;place-items:center;padding:0;cursor:pointer;color:inherit;transition:border-color .15s,transform .15s}
+.alt>*:hover{border-color:var(--koppar);transform:translateY(-1px)}
+.alt b{position:absolute;top:6px;left:9px;font-size:11px;color:var(--ink-3);font-weight:700}
+.alt svg{width:62%;height:62%}
+.alt .vald{border-color:var(--koppar);box-shadow:0 0 0 3px var(--koppar-mjuk)}
+.alt .vald b{color:var(--koppar-ink)}
+.blad-fot{margin-top:14px;display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:12px;background:var(--koppar-mjuk);color:var(--ink-1);font-size:14px;line-height:1.4}
+.blad-fot b{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--koppar-ink);margin-bottom:2px}
+.blad-fot svg{flex:none;width:20px;height:20px;stroke:var(--koppar-ink);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;margin-top:2px}
+@media (max-width:899px){.intro .blad{max-width:400px;margin-inline:auto}.intro .blad .alt{display:none}}
+
+/* Frågan: smal vägg med räknaren, bladet på marken, två spalter på dator */
+.fraga-vagg{padding:12px 0 46px}
+.fraga-vagg .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.fraga-vagg .kick{margin:0}
+.fraga-vagg .segment i{background:rgba(255,255,255,.22)}
+.fraga-vagg .segment i.klar{background:var(--koppar)}
+.fraga-rub{font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.02em;line-height:1.1;margin-top:2px}
+.fraga-kropp{margin-top:-36px;padding-bottom:12px}
+.blad-fraga{max-width:960px;margin-inline:auto;padding:14px}
+.blad-fraga-g{display:grid;gap:14px}
+@media (min-width:900px){.blad-fraga{padding:18px}.blad-fraga-g{grid-template-columns:minmax(0,1fr) 340px;gap:32px;align-items:center}.blad-fraga .matris{width:100%;max-width:460px;margin-inline:auto}.blad-fraga .alt{margin-top:0;gap:12px}}
+.fraga-txt{font-weight:600;font-size:15px;margin:2px 0 8px}
+@media (min-width:900px){.fraga-txt{margin-top:0}}
+.under-blad{text-align:center;margin-top:8px}
+
+/* Resultatet: talet och kurvan på väggen, spärren på marken */
+.res-vagg{padding:22px 0 72px}
+.res-g{display:grid;gap:20px;align-items:center}
+@media (min-width:760px){.res-g{grid-template-columns:auto minmax(0,1fr);gap:40px}}
+.ring{position:relative;width:132px;height:132px;flex:none}
+.ring svg{width:132px;height:132px;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:10;stroke-linecap:round}
+.ring .bak{stroke:rgba(255,255,255,.16)}
+.ring .fram{stroke:var(--koppar);stroke-dasharray:364;stroke-dashoffset:calc(364 - 364 * var(--p,.8))}
+.ring .siffra{position:absolute;inset:0;display:grid;place-items:center;align-content:center;font-family:var(--display);font-weight:800;font-size:46px;letter-spacing:-.03em;color:#fff;line-height:1}
+.ring .siffra small{display:block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--vagg-mjuk);text-align:center;margin-top:4px}
+.res-text .h2{color:#fff}
+.kurva{margin-top:14px;display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:center;max-width:460px}
+.kurva svg{width:150px;height:auto;color:var(--vagg-ink)}
+.kurva p{font-size:14px;color:var(--vagg-mjuk);line-height:1.4}
+.kurva p b{color:#fff;font-weight:600;display:block;font-size:15px}
+@media (max-width:420px){.kurva{grid-template-columns:120px 1fr}.kurva svg{width:120px}}
+.res-kropp{margin-top:-48px;padding-bottom:20px}
+.sparr{max-width:760px;margin-inline:auto;display:grid;gap:18px}
+@media (min-width:760px){.sparr{grid-template-columns:minmax(0,1fr) 260px;gap:28px;align-items:center}}
+.brickor{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.bricka{position:relative;width:56px;height:56px;flex:none}
+.bricka svg{width:56px;height:56px}
+.bricka i{position:absolute;right:-5px;top:-5px;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--positiv);color:#fff}
+.bricka i svg{width:12px;height:12px;stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.bricka.fel i{background:var(--koppar);color:var(--koppar-text)}
+.bricka.fel i svg{stroke:var(--koppar-text)}
+.bricka.fel{outline:2px solid var(--koppar);outline-offset:2px;border-radius:12px}
+.bricka span{position:absolute;left:0;right:0;bottom:-18px;text-align:center;font-size:11px;color:var(--ink-3);font-weight:600}
+.brickor{margin-bottom:18px}
+.sparr-handling{display:grid;gap:10px}
+.sparr-handling .knapp{width:100%}
+.sparr-handling .liten{text-align:center}
+.premium-rad{display:flex;align-items:center;gap:12px;max-width:760px;margin:16px auto 0;padding:12px 16px;border-radius:14px;background:var(--black);color:var(--vagg-ink);font-size:14px}
+.premium-rad b{font-family:var(--display);font-weight:800;letter-spacing:-.01em}
+.gradord{background:linear-gradient(92deg,#F4B98A 0%,#FFD9B0 45%,#F2A368 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.premium-rad span{color:var(--vagg-mjuk)}
+.premium-rad svg{flex:none;width:28px;height:28px;stroke:var(--koppar-ljus);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ============================================================
+   Kontosteget
+   ============================================================ */
+.konto{padding:12px 0 12px}
+.konto-g{display:grid;gap:14px}
+@media (min-width:900px){.konto{padding:36px 0}.konto-g{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:stretch}}
+.panel-prov{border-radius:var(--r-stor);padding:14px 16px;color:var(--vagg-ink);background:radial-gradient(120% 90% at 85% 0%,var(--tran-2) 0%,var(--tran) 60%);display:grid;gap:10px;align-content:start;position:relative;overflow:hidden}
+@media (min-width:900px){.panel-prov{padding:32px;gap:18px}}
+.panel-prov .kick{color:var(--tran-ljus);margin:0}
+.prov-rad{display:flex;align-items:center;gap:14px}
+.prov-tal{font-family:var(--display);font-weight:800;font-size:40px;letter-spacing:-.03em;line-height:1;color:#fff}
+.prov-tal small{font-size:14px;font-weight:600;letter-spacing:0;color:var(--vagg-mjuk);margin-left:4px}
+@media (min-width:900px){.prov-tal{font-size:56px}}
+.panel-prov .brickor{margin:0;gap:6px}
+.panel-prov .bricka{width:40px;height:40px}
+.panel-prov .bricka svg{width:40px;height:40px}
+.panel-prov .bricka span{display:none}
+.panel-prov .bricka i{width:16px;height:16px;right:-4px;top:-4px}
+.panel-prov .bricka i svg{width:9px;height:9px}
+@media (min-width:900px){.panel-prov .bricka{width:52px;height:52px}.panel-prov .bricka svg{width:52px;height:52px}.panel-prov .bricka i{width:20px;height:20px}.panel-prov .bricka i svg{width:12px;height:12px}}
+.panel-prov h2{font-size:clamp(19px,4.6vw,30px);color:#fff}
+.panel-prov .bock{gap:8px;font-size:14px;color:var(--vagg-mjuk)}
+.panel-prov .bock b{color:#fff;font-weight:600}
+@media (min-width:900px){.panel-prov .bock{font-size:15px;gap:12px}}
+.panel-prov .liten{color:var(--vagg-mjuk);font-size:13px;padding-top:10px;border-top:1px solid var(--vagg-kant)}
+.panel-prov .liten b{color:var(--koppar-ljus);font-weight:700}
+.panel-prov .lasbild{display:none}
+@media (min-width:900px){.panel-prov.med-bild{padding-bottom:150px}}
+@media (min-width:900px){.panel-prov .lasbild{display:block;position:absolute;right:-30px;bottom:-30px;width:190px;opacity:.9;transform:rotate(-8deg);filter:drop-shadow(0 18px 24px rgba(0,0,0,.35))}}
+.mobil-bara{display:block}
+@media (min-width:900px){.mobil-bara{display:none}}
+.dator-bara{display:none}
+@media (min-width:900px){.dator-bara{display:block}}
+
+.form{display:grid;gap:10px;align-content:start}
+@media (min-width:900px){.form{padding-top:6px}}
+.form h1{font-size:clamp(26px,6vw,36px)}
+.form .under{color:var(--ink-2);font-size:15px}
+.form .under b{color:var(--positiv);font-weight:600}
+.google{display:flex;align-items:center;justify-content:center;gap:10px;min-height:50px;border-radius:999px;border:1.5px solid var(--kant-stark);background:var(--panel);color:var(--ink-1);font-weight:600;font-size:15px;cursor:pointer;text-decoration:none}
+.google svg{width:20px;height:20px}
+.eller{display:flex;align-items:center;gap:12px;color:var(--ink-3);font-size:13px}
+.eller::before,.eller::after{content:"";flex:1;height:1px;background:var(--kant)}
+.falt{display:grid;gap:5px}
+.falt label{font-size:14px;font-weight:600}
+.falt input{height:48px;border-radius:12px;border:1.5px solid var(--kant-stark);background:var(--panel);color:var(--ink-1);padding:0 14px;font-size:16px;width:100%}
+.falt input::placeholder{color:var(--ink-3)}
+.falt input:focus{border-color:var(--koppar);outline:none;box-shadow:0 0 0 3px var(--koppar-mjuk)}
+.form .knapp{margin-top:2px}
+.villkor{font-size:12px;color:var(--ink-3);line-height:1.45}
+.villkor a{color:var(--ink-2)}
+.fel-ruta{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:12px;background:var(--fel-mjuk);color:var(--fel);font-size:14px;line-height:1.4}
+.fel-ruta svg{flex:none;width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;margin-top:2px}
+.fel-ruta b{display:block;font-weight:600}
+
+/* /register utan prov: samma panel, innehållet är det kontot ger */
+.ger{display:grid;gap:6px}
+.ger li{display:grid;grid-template-columns:36px 1fr;gap:10px;align-items:center;padding:8px 10px;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid var(--vagg-kant)}
+.ger .obj{width:36px;height:36px;color:#fff}
+.ger .obj svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.ger b{display:block;font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:-.01em;color:#fff}
+.ger span{display:block;font-size:12.5px;line-height:1.35;color:var(--vagg-mjuk)}
+@media (min-width:900px){.ger li{padding:14px 16px}.ger b{font-size:17px}.ger span{font-size:14px}}
+
+/* ============================================================
+   Artefaktens verktygsrad, noter och mobilram
+   ============================================================ */
+.ad{position:sticky;top:0;z-index:100;background:#0F0E12;color:#F5F6FC;border-bottom:1px solid rgba(255,255,255,.12);font-size:13px}
+.ad-i{display:flex;align-items:center;gap:8px;padding:8px 16px;flex-wrap:wrap}
+.ad b{font-family:var(--display);font-size:14px;margin-right:8px}
+.ad button{background:transparent;border:1px solid rgba(255,255,255,.18);color:inherit;border-radius:999px;padding:6px 12px;cursor:pointer;font-size:13px}
+.ad button[aria-pressed="true"]{background:var(--koppar);color:var(--koppar-text);border-color:var(--koppar);font-weight:700}
+.ad .sep{width:1px;height:20px;background:rgba(255,255,255,.18);margin:0 4px}
+.ad .hoger{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.ad .under{display:flex;gap:8px;padding:0 16px 8px;flex-wrap:wrap;align-items:center;color:rgba(255,255,255,.7)}
+.ad .under:empty{display:none}
+.ad .under button[aria-pressed="true"]{background:#F5F6FC;color:#0F0E12;border-color:#F5F6FC}
+.sida{display:none}
+.sida.aktiv{display:block}
+body.inbaddad .ad{display:none}
+.mobilram{display:none;padding:28px 16px 48px;justify-content:center;background:var(--mark)}
+.mobilram.aktiv{display:flex}
+.mobilram .tel{border-radius:48px;background:#1B1A1F;padding:10px;box-shadow:var(--lyft-stor),inset 0 0 0 2px #3C3A42}
+.mobilram .tel iframe{border:0;border-radius:40px;background:var(--mark);display:block}
+.mobilram .tel.m360 iframe{width:360px;height:740px}
+.mobilram .tel.pixel7 iframe{width:412px;height:915px}
+.mobilram figcaption{margin-top:12px;text-align:center;font-size:13px;color:var(--ink-3)}
+.noter{max-width:800px;margin:0 auto;padding:40px 16px 96px}
+.noter h2{font-size:26px;margin:36px 0 12px}
+.noter h2:first-child{margin-top:0}
+.noter h3{font-size:18px;margin:22px 0 8px}
+.noter p,.noter li{color:var(--ink-2);line-height:1.55}
+.noter li{padding:9px 0;border-bottom:1px solid var(--kant)}
+.noter li b{color:var(--ink-1)}
+.noter table{width:100%;border-collapse:collapse;font-size:14px;margin-top:10px}
+.noter th,.noter td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--kant);vertical-align:top;color:var(--ink-2)}
+.noter th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.noter td:first-child{color:var(--ink-1);font-weight:600}
+.noter .mal{display:flex;gap:28px;flex-wrap:wrap;margin:14px 0 4px}
+.noter .mal li{border:0;padding:0;display:grid;gap:2px}
+.noter .mal b{font-family:var(--display);font-weight:800;font-size:34px;letter-spacing:-.02em;line-height:1}
+.noter .mal span{font-size:13px;color:var(--ink-3)}
+</style>
+</head>
+<body>
+
+<div class="ad" id="ad">
+  <div class="ad-i">
+    <b>Provet och kontot</b>
+    <button type="button" data-sida="prov" aria-pressed="true">Provet</button>
+    <button type="button" data-sida="konto" aria-pressed="false">Kontosteget efter provet</button>
+    <button type="button" data-sida="register" aria-pressed="false">/register utan prov</button>
+    <button type="button" data-sida="noter" aria-pressed="false">Noter</button>
+    <div class="hoger">
+      <button type="button" data-lage="dator" aria-pressed="true">Dator</button>
+      <button type="button" data-lage="m360" aria-pressed="false">Mobil 360</button>
+      <button type="button" data-lage="pixel7" aria-pressed="false">Pixel 7</button>
+      <span class="sep"></span>
+      <button type="button" data-tema="ljus" aria-pressed="true">Ljust</button>
+      <button type="button" data-tema="mork" aria-pressed="false">Mörkt</button>
+    </div>
+  </div>
+  <div class="under" id="ad-under"></div>
+</div>
+
+<div class="mobilram" id="mobilram"><figure style="margin:0"><div class="tel m360" id="mobil-tel"><iframe id="mobil-if" title="Mobilvy"></iframe></div><figcaption id="mobil-text">Mobil 360 × 740</figcaption></figure></div>
+
+<!-- ============================================================ PROVET -->
+<section class="sida aktiv" data-sida="prov">
+<div class="skal">
+  <header class="topp">
+    <div class="topp-i">
+      <a class="logo" href="#"><span class="logo-m">J</span><span>Jobbcoach<em>.ai</em></span></a>
+      <p class="topp-h"><span>Har du redan ett konto?</span><a class="lank" href="#">Logga in</a></p>
+    </div>
+    <div class="trad"><i style="--w:var(--trad-w,20%)"></i></div>
+  </header>
+
+  <div class="mitt">
+
+    <!-- Intro -->
+    <div class="vy aktiv" data-vy="intro">
+      <section class="yta-vagg vagg intro">
+        <div class="wrap intro-g">
+          <div>
+            <p class="kick">Matrislogik, fem frågor</p>
+            <h1 class="h1">Prova ett rekryteringstest</h1>
+            <p class="ingress" style="margin-top:16px"><b>Samma typ av frågor som i de skarpa urvalstesten.</b> Fem frågor, inget konto, ingen tidtagning. Resultatet får du direkt.</p>
+            <ol class="intro-steg">
+              <li><b>1</b>Fem frågor</li>
+              <li><b>2</b>Resultatet direkt</li>
+              <li><b>3</b>Kontot visar vad du missade</li>
+            </ol>
+            <div class="handling">
+              <button type="button" class="knapp" data-ga="fraga">Starta provet <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+              <span class="liten">Utan konto och utan tidtagning</span>
+            </div>
+          </div>
+          <div class="blad" aria-hidden="true">
+            <div class="blad-topp"><p class="kick">Så ser en fråga ut</p><div class="segment"><i class="klar"></i><i></i><i></i><i></i><i></i></div></div>
+            <div class="matris"><div class="matris-g" data-matris="expert"></div></div>
+            <div class="alt" data-alt="expert"></div>
+            <div class="blad-fot"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><div><b>Regeln bakom mönstret</b>Visas för varje fråga när provet är hämtat till ditt konto.</div></div>
+          </div>
+        </div>
+      </section>
+      <section class="wrap" style="padding:24px 0 20px">
+        <p class="liten" style="text-align:center">Vill du veta mer om hur testerna fungerar? <a class="lank" href="#">Läs om rekryteringstester</a></p>
+      </section>
+    </div>
+
+    <!-- Frågan -->
+    <div class="vy" data-vy="fraga">
+      <section class="yta-vagg vagg fraga-vagg">
+        <div class="wrap">
+          <div><p class="kick">Matrislogik, provet</p><p class="fraga-rub">Fråga 1 av 5</p></div>
+          <div class="segment" aria-hidden="true"><i class="klar"></i><i></i><i></i><i></i><i></i></div>
+        </div>
+      </section>
+      <section class="wrap fraga-kropp">
+        <div class="blad blad-fraga">
+          <div class="blad-fraga-g">
+            <div class="matris"><div class="matris-g" data-matris="poly"></div></div>
+            <div>
+              <p class="fraga-txt">Vilken figur saknas?</p>
+              <div class="alt" data-alt="poly"></div>
+            </div>
+          </div>
+        </div>
+        <p class="liten under-blad">Ingen tidtagning. Nästa fråga kommer när du svarat.</p>
+      </section>
+    </div>
+
+    <!-- Resultatet -->
+    <div class="vy" data-vy="resultat">
+      <section class="yta-vagg vagg res-vagg">
+        <div class="wrap res-g">
+          <div class="ring" style="--p:.8" aria-hidden="true"><svg viewBox="0 0 132 132"><circle class="bak" cx="66" cy="66" r="58"/><circle class="fram" cx="66" cy="66" r="58"/></svg><div class="siffra">4<small>av 5 rätt</small></div></div>
+          <div class="res-text">
+            <p class="kick">Ditt resultat</p>
+            <h1 class="h2">Fyra rätt av fem</h1>
+            <div class="kurva">
+              <svg viewBox="0 0 160 100" fill="none" stroke-linecap="round" stroke-linejoin="round" id="kurva" aria-hidden="true"></svg>
+              <p><b>Bland de 30 procent som löser flest</b>av den här typen av frågor.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="wrap res-kropp">
+        <div class="kort sparr">
+          <div>
+            <h2 class="h3">Se vilken du missade och regeln bakom</h2>
+            <div class="brickor" data-brickor aria-hidden="true"></div>
+            <ul class="bock bock-las" style="margin-top:12px">
+              <li>Fråga 3 med rätt svar och regeln bakom mönstret</li>
+              <li>Genomgång av alla fem frågor</li>
+              <li>Nivåkollen, 5 minuter, räknar in de här svaren</li>
+            </ul>
+          </div>
+          <div class="sparr-handling">
+            <a class="knapp" href="#" data-ga="konto">Se vad jag missade <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <p class="liten">Gratis konto, inget kreditkort.</p>
+          </div>
+        </div>
+        <div class="premium-rad">
+          <svg viewBox="0 0 64 64"><rect x="6" y="6" width="52" height="52" rx="8"/><path d="M23 6v52M41 6v52M6 23h52M6 41h52" opacity=".45"/><circle cx="14.5" cy="14.5" r="3.5"/><path d="M28 18h8v-7"/><circle cx="32" cy="32" r="3.5"/><rect x="44" y="44" width="10" height="10" rx="2" fill="var(--koppar)" stroke="none"/></svg>
+          <p><b class="gradord">Premium</b>, 149 kr i månaden, <span>när du sedan vill träna på din nivå varje dag. Först Nivåkollen, gratis.</span></p>
+        </div>
+      </section>
+    </div>
+
+  </div>
+
+  <div class="samtycke"><div class="samtycke-i"><p>Vi använder kakor för att göra tjänsten bättre. <a class="lank" href="#">Läs mer</a></p><div class="samtycke-k"><button type="button">Avvisa</button><button type="button" class="fyll">Acceptera</button></div></div></div>
+</div>
+</section>
+
+<!-- ============================================================ KONTOSTEGET EFTER PROVET -->
+<section class="sida" data-sida="konto">
+<div class="skal">
+  <header class="topp">
+    <div class="topp-i">
+      <a class="logo" href="#"><span class="logo-m">J</span><span>Jobbcoach<em>.ai</em></span></a>
+      <p class="topp-h"><span>Har du redan ett konto?</span><a class="lank" href="#">Logga in</a></p>
+    </div>
+    <div class="trad"><i></i></div>
+  </header>
+  <div class="mitt">
+    <div class="wrap konto">
+      <div class="konto-g">
+        <aside class="panel-prov med-bild">
+          <p class="kick">Ditt prov, sparat i sju dagar</p>
+          <div class="prov-rad">
+            <p class="prov-tal">4<small>av 5 rätt</small></p>
+            <div class="brickor" data-brickor aria-hidden="true"></div>
+          </div>
+          <h2>Kontot visar fråga 3 och regeln bakom</h2>
+          <ul class="bock bock-las">
+            <li><span><b>Fråga 3</b> med rätt svar och regeln bakom mönstret</span></li>
+            <li><span><b>Genomgång</b> av alla fem frågor</span></li>
+            <li><span><b>Nivåkollen</b>, 5 minuter, räknar in de här svaren</span></li>
+          </ul>
+          <p class="liten dator-bara"><b>Premium</b>, 149 kr i månaden, när du sedan vill träna på din nivå varje dag. Först Nivåkollen, gratis.</p>
+          <svg class="lasbild" viewBox="0 0 96 96" fill="none" aria-hidden="true" data-lasbild></svg>
+        </aside>
+        <form class="form" onsubmit="return false">
+          <h1>Se vad du missade</h1>
+          <p class="under"><b>Gratis konto, inget kreditkort.</b> Du landar direkt på dina fem svar.</p>
+          <a class="google" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5a5.6 5.6 0 0 1-2.4 3.6v3h3.9c2.3-2.1 3.5-5.2 3.5-8.8z"/><path fill="#34A853" d="M12 24c3.2 0 6-1.1 7.9-2.9l-3.9-3c-1.1.7-2.4 1.2-4 1.2-3.1 0-5.7-2.1-6.7-4.9H1.3v3.1A12 12 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.3 14.4a7.2 7.2 0 0 1 0-4.6V6.7H1.3a12 12 0 0 0 0 10.8l4-3.1z"/><path fill="#EA4335" d="M12 4.8c1.8 0 3.3.6 4.6 1.8l3.4-3.4A12 12 0 0 0 1.3 6.7l4 3.1c1-2.9 3.6-5 6.7-5z"/></svg>Fortsätt med Google</a>
+          <p class="eller">eller med e-post</p>
+          <div class="falt"><label for="k-epost">E-post</label><input id="k-epost" type="email" inputmode="email" autocomplete="email" placeholder="namn@exempel.se"></div>
+          <div class="falt"><label for="k-losen">Lösenord</label><input id="k-losen" type="password" autocomplete="new-password" placeholder="Minst 8 tecken"></div>
+          <button type="submit" class="knapp knapp-bred">Skapa konto och se svaren</button>
+          <p class="villkor">Genom att skapa konto godkänner du våra <a href="#">användarvillkor</a> och vår <a href="#">integritetspolicy</a>.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="samtycke"><div class="samtycke-i"><p>Vi använder kakor för att göra tjänsten bättre. <a class="lank" href="#">Läs mer</a></p><div class="samtycke-k"><button type="button">Avvisa</button><button type="button" class="fyll">Acceptera</button></div></div></div>
+</div>
+</section>
+
+<!-- ============================================================ /REGISTER UTAN PROV -->
+<section class="sida" data-sida="register">
+<div class="skal">
+  <header class="topp">
+    <div class="topp-i">
+      <a class="logo" href="#"><span class="logo-m">J</span><span>Jobbcoach<em>.ai</em></span></a>
+      <p class="topp-h"><span>Har du redan ett konto?</span><a class="lank" href="#">Logga in</a></p>
+    </div>
+    <div class="trad"><i></i></div>
+  </header>
+  <div class="mitt">
+    <div class="wrap konto">
+      <div class="konto-g">
+        <aside class="panel-prov">
+          <p class="kick">Det här ingår gratis</p>
+          <h2>Börja med det som avgör urvalet</h2>
+          <ul class="ger">
+            <li><span class="obj"><svg viewBox="0 0 64 64"><rect x="6" y="6" width="52" height="52" rx="8"/><path d="M23 6v52M41 6v52M6 23h52M6 41h52" opacity=".45"/><circle cx="14.5" cy="14.5" r="3.5"/><path d="M28 18h8v-7"/><circle cx="32" cy="32" r="3.5"/><rect x="44" y="44" width="10" height="10" rx="2" fill="var(--koppar)" stroke="none"/></svg></span><div><b>Nivåkollen</b><span>Var du står i rekryteringstesterna, med genomgång av varje fråga.</span></div></li>
+            <li><span class="obj"><svg viewBox="0 0 64 64"><rect x="10" y="6" width="40" height="52" rx="6"/><circle cx="22" cy="19" r="4"/><path d="M31 17h12M18 31h28M18 39h28M18 47h18"/><circle cx="50" cy="12" r="9" fill="var(--tran)"/><path d="M50 4a8 8 0 1 1-7 4" stroke="var(--koppar)" stroke-width="3"/></svg></span><div><b>CV-analysen</b><span>Poängen och det tyngsta fyndet i ditt CV.</span></div></li>
+            <li><span class="obj"><svg viewBox="0 0 64 64"><path d="M12 6h26l14 14v36a2 2 0 0 1-2 2H12a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/><path d="M38 6v14h14M18 30h24M18 38h28M18 46h28"/><rect x="18" y="51" width="18" height="4" rx="2" fill="var(--koppar)" stroke="none"/></svg></span><div><b>Ett personligt brev</b><span>Skrivet på annonsen utifrån ditt CV.</span></div></li>
+          </ul>
+          <p class="liten dator-bara"><b>Premium</b>, 149 kr i månaden, när du vill ha allt utan tak. Säg upp när du vill.</p>
+        </aside>
+        <form class="form" onsubmit="return false">
+          <h1>Skapa ditt konto</h1>
+          <p class="under"><b>Gratis konto, inget kreditkort.</b> Klart på en minut.</p>
+          <a class="google" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5a5.6 5.6 0 0 1-2.4 3.6v3h3.9c2.3-2.1 3.5-5.2 3.5-8.8z"/><path fill="#34A853" d="M12 24c3.2 0 6-1.1 7.9-2.9l-3.9-3c-1.1.7-2.4 1.2-4 1.2-3.1 0-5.7-2.1-6.7-4.9H1.3v3.1A12 12 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.3 14.4a7.2 7.2 0 0 1 0-4.6V6.7H1.3a12 12 0 0 0 0 10.8l4-3.1z"/><path fill="#EA4335" d="M12 4.8c1.8 0 3.3.6 4.6 1.8l3.4-3.4A12 12 0 0 0 1.3 6.7l4 3.1c1-2.9 3.6-5 6.7-5z"/></svg>Fortsätt med Google</a>
+          <p class="eller">eller med e-post</p>
+          <div class="falt"><label for="r-epost">E-post</label><input id="r-epost" type="email" inputmode="email" autocomplete="email" placeholder="namn@exempel.se"></div>
+          <div class="falt"><label for="r-losen">Lösenord</label><input id="r-losen" type="password" autocomplete="new-password" placeholder="Minst 8 tecken"></div>
+          <button type="submit" class="knapp knapp-bred">Skapa konto</button>
+          <p class="villkor">Genom att skapa konto godkänner du våra <a href="#">användarvillkor</a> och vår <a href="#">integritetspolicy</a>.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="samtycke"><div class="samtycke-i"><p>Vi använder kakor för att göra tjänsten bättre. <a class="lank" href="#">Läs mer</a></p><div class="samtycke-k"><button type="button">Avvisa</button><button type="button" class="fyll">Acceptera</button></div></div></div>
+</div>
+</section>
+
+<!-- ============================================================ NOTER -->
+<section class="sida" data-sida="noter">
+<div class="noter">
+  <h2>Samma rum hela vägen</h2>
+  <p>Idén i tre meningar. Provet och kontosteget är fortsättningen på testsidan, inte en annan sajt: samma indigovägg, samma papperskort, samma kopparknapp. Kontot säljs med besökarens eget resultat, inte med löften: de fem frågorna står som brickor, den missade är markerad, och kontot är nyckeln till just den. Allt som kan täcka ett svar eller en knapp har flyttats ut ur den scrollande ytan.</p>
+
+  <h2>Vad skissen löser</h2>
+  <ul>
+    <li><b>(a) Tappet före första tangenttrycket.</b> Kontosteget visar först vad kontot låser upp, med besökarens eget resultat: talet, fem brickor med den missade markerad, tre rader (fråga 3 och regeln, genomgång av alla fem, Nivåkollen 5 minuter). Google står först, sedan bara e-post och lösenord. Rubriken är "Se vad du missade" och raden under lyder "Gratis konto, inget kreditkort." Hela steget inklusive samtyckesraden ryms på Pixel 7 (412 × 915) utan rullning, kontrollerat i rendering.</li>
+    <li><b>(b) Förtroende.</b> Tokens, typsnitt, knapp och kort är publikt v2:s. Figurerna är MatrisExpert-frågan (v7e-plus-p2-17, facit C) i intron och provets egen V7-figurfamilj (polygoner med tre fyllningar) i frågan och på brickorna. Premium syns som en rad i bläck under spärren och som en liten rad i panelen på dator, aldrig som knapp. Inga tal utöver produktens: fem frågor, 5 minuter för Nivåkollen, 149 kr i månaden, sju dagar, minst 8 tecken. Talen 4 av 5 och 30 procent är platshållare för besökarens egna värden ur svaret från servern.</li>
+    <li><b>(c) Provet.</b> Intron, frågan och resultatet ligger i flödesskalet: topprad med logga och Logga in, en scrollande mitt, samtycket under mitten. På dator står matrisen och alternativen bredvid varandra i ett kort på högst 880 px, så hela frågan syns på 1280 × 800 utan rullning. På mobil är kortet smalare än i dag (14 px luft i stället för 24) och sidhuvudets ingress är borta under frågan, så frågan och alla sex alternativ ryms på Pixel 7. Samtycket kan aldrig täcka något, eftersom det inte längre ligger över den scrollande ytan.</li>
+  </ul>
+
+  <h2>Mått</h2>
+  <ul class="mal">
+    <li><b>18 %</b><span>provet till konto i P2 (29 av 158)</span></li>
+    <li><b>30 %</b><span>målet efter bygget</span></li>
+    <li><b>85 %</b><span>slutförde provet i P2, ska inte sjunka</span></li>
+  </ul>
+  <table>
+    <thead><tr><th>Händelse</th><th>Var i skissen</th><th>Baslinje P2</th></tr></thead>
+    <tbody>
+      <tr><td>sample_started</td><td>Starta provet i intron</td><td>273</td></tr>
+      <tr><td>sample_completed</td><td>femte svaret, resultatet visas</td><td>85 % av starterna</td></tr>
+      <tr><td>signup_gate_shown</td><td>spärren under resultatet</td><td>143 fick spärren</td></tr>
+      <tr><td>signup_flow_viewed</td><td>kontosteget laddat (step konto, entry smakprov)</td><td>158</td></tr>
+      <tr><td>signup_completed</td><td>kontot skapat, Google eller lösenord</td><td>29</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:12px">Avläsning fyra veckor efter driftsättning. Målet är att signup_completed delat med signup_flow_viewed går från 18 till 30 procent, utan att sample_completed delat med sample_started faller under 85 procent.</p>
+
+  <h2>Beslut tagna i skissen</h2>
+  <ul>
+    <li><b>Provet får flödesskalets topprad</b> (logga, "Har du redan ett konto? Logga in") i stället för hela publika menyn. Sidan är noindex och en väg till konto; menyn är en väg ut. Ägaren kan vilja ha kvar menyn, se öppna frågor.</li>
+    <li><b>Samtycket ligger i flödet, under den scrollande mitten.</b> Det är ett flex-barn under main, inte position fixed. På de här två sidorna behövs inte useFriSikt. Samtyckets höjd ingår i måttet för Pixel 7.</li>
+    <li><b>Tråden i toppraden</b> visar provets framsteg (20 procent per fråga) och står full på resultatet och kontosteget.</li>
+    <li><b>Brickorna visar frågorna i ordning</b>, alla fem syns. Den missade får kopparring och lås, de rätta grön bock. Antalet rätt står som huvudtal, percentilen som kurva med en mening. Inga tal uppradade i löptext.</li>
+    <li><b>Kontosteget är två spalter från 900 px</b>, panelen med provet till vänster och formuläret till höger. Under 900 px står panelen först, formuläret under. Panelen är indigoväggen, formuläret på marken.</li>
+    <li><b>Premium står som text, inte knapp</b>, på två ställen: raden i bläck under spärren och den lilla raden i panelen på dator. På mobil bara under spärren, så att kontosteget ryms.</li>
+    <li><b>Ett svarsalternativ är en knapp med bokstav</b>, minst 44 px, och svaret skickas direkt vid tryck, som i dag. Ingen bekräftelseknapp.</li>
+    <li><b>Mobil 360 × 740 rullar</b> på frågan (cirka 120 px, alternativen D till F under kanten), på kontosteget och på /register (cirka 230 px). Kravet utan rullning gäller Pixel 7 och är uppfyllt där. Samtycket täcker ingenting i något läge.</li>
+  </ul>
+
+  <h2>Vad som ändras i koden</h2>
+  <ul>
+    <li><b>src/app/(public)/verktyg/rekryteringstester/prova/page.tsx:</b> byt main med sidhuvud och ingress mot flödesskalet. H1 flyttar in i intron på väggen. Länken "Läs om rekryteringstester" står kvar under intron. Metadata orörd.</li>
+    <li><b>ProvaFlow.tsx:</b> tre vyer i skalet. Intron som vägg med provbladet (MatrisExpertSkarm i full storlek, aria-hidden). Frågan med två spalter från 900 px, FigurV7 och LuckaV7 som i dag, alternativen med bokstav. Resultatet med ringen, IlluTestResultat på väggen i vagg-ink, spärren som kort med brickor. ResultGate behåller data-cta="prova-gate" och händelserna. Brickorna byggs av frågornas egna celler (FigurV7 i 28 px) så det är besökarens frågor, inte en mall.</li>
+    <li><b>Nytt: PubliktFlodesskal får läget utan klistrad fot</b> (knappen i formuläret) och tar emot samtycket som sista barn, så att CookieBanner på de här två sidorna renderas i skalet i stället för fixed. Alternativt en prop på CookieBanner: placering "flode".</li>
+    <li><b>RegisterKontoSteg.tsx:</b> smakprovsläget test får panelen (resultatet läses ur token via ett nytt serveranrop som bara returnerar antal rätt, total och vilka index som var fel, aldrig facit). Namnfältet bort i smakprovsläget och på bar /register (parallellt bygge: send-confirmation och profilen klarar tomt namn, förnamnet tas från e-posten eller Google). Knapptexten ur SMAKPROV.test.knapp, "Skapa konto och se svaren". Google-knappen får formen .google här (vit, rund kant), ingen ändring i GoogleSignInButton-logiken.</li>
+    <li><b>registrering-copy.ts:</b> SMAKPROV.test.rubrik blir "Se vad du missade", under blir "Gratis konto, inget kreditkort. Du landar direkt på dina fem svar." STEG2.under blir "Gratis konto, inget kreditkort. Klart på en minut." Panelens rader läggs i en ny konstant KONTO_PANEL.</li>
+    <li><b>publikt.css:</b> nya klasser med prefix pub- för blad, segment, alt, ring, brickor, panel-prov, form och samtycke i flödet. Tokens finns redan i globals.css under PUBLIKT V2; sidorna får .pub-sida så att tokens lyfts till roten och mörkt läge följer.</li>
+    <li><b>Mätning:</b> oförändrade händelser. signup_flow_viewed skickas när panelen är renderad med resultatet, så att måttet mäter samma skärm som förut.</li>
+  </ul>
+
+  <h2>Öppna frågor till ägaren</h2>
+  <ul>
+    <li>Ska provet ha den publika menyn kvar i toppraden, eller räcker logga och Logga in som i skissen?</li>
+    <li>Namnfältet: skissen förutsätter att det tas bort på båda kontostegen (smakprov och bar /register). Bekräfta att det parallella bygget gäller båda.</li>
+    <li>Kontosteget hämtar antal rätt och vilka index som var fel från servern före konto. Facit och regler lämnas aldrig ut. Går det bra att visa vilken fråga som var fel innan kontot finns?</li>
+    <li>Premium syns på två ställen i text. Vill ägaren ha det på ett ställe bara?</li>
+  </ul>
+</div>
+</section>
+
+<script>
+/* ------------------------------------------------------------ figurer */
+const SW = 3.6;
+function svgWrap(inner, extra) {
+  return `<svg viewBox="0 0 100 100" stroke="var(--ink-1)" stroke-width="${SW}" stroke-linecap="round" stroke-linejoin="round" fill="none" aria-hidden="true" ${extra||''}>${inner}</svg>`;
+}
+/* MatrisExpert (src/components/publikt/MatrisExpert.tsx), v7e-plus-p2-17 */
+function expertFig(r) {
+  const dy = r.form === 'triangel' ? 9 : 0;
+  const fyll = r.fyll === 'ljus' ? 'var(--papper-skarm)' : 'var(--kant-stark)';
+  let s = '';
+  if (r.form === 'triangel') s += `<path d="M50 18 L82 80 L18 80 Z" fill="${fyll}"/>`;
+  if (r.form === 'cirkel') s += `<circle cx="50" cy="50" r="30" fill="${fyll}"/>`;
+  if (r.form === 'kvadrat') s += `<rect x="20" y="20" width="60" height="60" rx="4" fill="${fyll}"/>`;
+  if (r.marke === 'plus') s += `<path d="M40 ${50+dy} H60 M50 ${40+dy} V${60+dy}"/>`;
+  if (r.marke === 'minus') s += `<path d="M40 ${50+dy} H60"/>`;
+  if (r.marke === 'prick') s += `<circle cx="50" cy="${50+dy}" r="5" fill="var(--ink-1)" stroke="none"/>`;
+  return s;
+}
+const LUCKA = `<svg viewBox="0 0 100 100" fill="none" stroke="var(--ink-3)" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="16" y="16" width="68" height="68" rx="8" stroke-width="2.6" stroke-dasharray="5 4"/><path d="M38 40 A12 12 0 1 1 55 51 Q50 55 50 62" stroke-width="5"/><circle cx="50" cy="73" r="3.2" fill="var(--ink-3)" stroke="none"/></svg>`;
+const EXPERT = [
+  ['triangel','ljus','plus'],['cirkel','mork','minus'],['kvadrat','ljus','prick'],
+  ['cirkel','mork','prick'],['kvadrat','ljus','plus'],['triangel','mork','minus'],
+  ['kvadrat','ljus','minus'],['triangel','mork','prick']
+].map(([form,fyll,marke]) => ({form,fyll,marke}));
+const EXPERT_ALT = [
+  ['cirkel','ljus','minus'],['kvadrat','mork','plus'],['cirkel','ljus','plus'],
+  ['kvadrat','mork','minus'],['cirkel','ljus','prick'],['kvadrat','mork','prick']
+].map(([form,fyll,marke]) => ({form,fyll,marke}));
+
+/* Provets V7-familj: polygoner med tre fyllningar (frågan i live 2026-11-09) */
+function poly(n, fill) {
+  const pts = [];
+  for (let i = 0; i < n; i++) { const a = -Math.PI/2 + i * 2*Math.PI/n; pts.push((50 + 31*Math.cos(a)).toFixed(1) + ',' + (50 + 31*Math.sin(a)).toFixed(1)); }
+  const f = fill === 'black' ? 'var(--ink-1)' : fill === 'gray' ? 'var(--kant-stark)' : 'var(--papper-skarm)';
+  return `<polygon points="${pts.join(' ')}" fill="${f}" ${fill === 'black' ? 'stroke="none"' : ''} stroke-width="3"/>`;
+}
+const POLY = [[7,'none'],[6,'black'],[5,'gray'],[6,'gray'],[5,'none'],[7,'black'],[5,'black'],[7,'gray']];
+const POLY_ALT = [[5,'none'],[7,'none'],[5,'gray'],[6,'black'],[6,'none'],[6,'gray']];
+
+function fyllMatris(el, typ) {
+  const celler = typ === 'expert' ? EXPERT.map(r => svgWrap(expertFig(r))) : POLY.map(([n,f]) => svgWrap(poly(n,f)));
+  el.innerHTML = celler.map(c => `<div>${c}</div>`).join('') + `<div class="lucka">${LUCKA}</div>`;
+}
+function fyllAlt(el, typ) {
+  const alt = typ === 'expert' ? EXPERT_ALT.map(r => svgWrap(expertFig(r))) : POLY_ALT.map(([n,f]) => svgWrap(poly(n,f)));
+  const vald = typ === 'expert' ? 2 : -1;
+  el.innerHTML = alt.map((a, i) => `<button type="button" class="${i===vald?'vald':''}" aria-label="Svarsalternativ ${'ABCDEF'[i]}"><b>${'ABCDEF'[i]}</b>${a}</button>`).join('');
+}
+document.querySelectorAll('[data-matris]').forEach(el => fyllMatris(el, el.dataset.matris));
+document.querySelectorAll('[data-alt]').forEach(el => fyllAlt(el, el.dataset.alt));
+
+/* Brickorna: besökarens fem frågor i miniatyr (MatrisBricka-mönstret, 96 × 96) */
+function bricka(celler, lucka) {
+  const pos = [6, 34, 62];
+  let s = `<rect x="3" y="3" width="90" height="90" rx="14" fill="var(--panel)" stroke="var(--ink-1)" stroke-width="2.5"/><path d="M34 6v84M62 6v84M6 34h84M6 62h84" stroke="var(--kant-stark)" stroke-width="1.5"/>`;
+  celler.forEach((c, i) => { s += `<svg x="${pos[i%3]}" y="${pos[Math.floor(i/3)]}" width="28" height="28" viewBox="0 0 100 100" stroke="var(--ink-1)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none">${c}</svg>`; });
+  s += `<svg x="62" y="62" width="28" height="28" viewBox="0 0 100 100" fill="none" stroke="var(--ink-3)" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="16" width="68" height="68" rx="8" stroke-width="7" stroke-dasharray="5 4"/><path d="M38 40 A12 12 0 1 1 55 51 Q50 55 50 62" stroke-width="12"/><circle cx="50" cy="73" r="5" fill="var(--ink-3)" stroke="none"/></svg>`;
+  return `<svg viewBox="0 0 96 96" fill="none" aria-hidden="true">${s}</svg>`;
+}
+function rotera(arr, k) { return arr.map((_, i) => arr[(i + k) % arr.length]); }
+const FEM = [
+  POLY.map(([n,f]) => poly(n,f)),
+  rotera(POLY, 3).map(([n,f]) => poly(n,f)),
+  EXPERT.map(expertFig),
+  rotera(POLY, 5).map(([n,f]) => poly(n,f)),
+  rotera(EXPERT, 3).map(expertFig)
+];
+const BOCK = `<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>`;
+const LAS = `<svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>`;
+document.querySelectorAll('[data-brickor]').forEach(el => {
+  el.innerHTML = FEM.map((c, i) => `<div class="bricka ${i===2?'fel':''}">${bricka(c)}<i>${i===2?LAS:BOCK}</i><span>${i+1}</span></div>`).join('');
+});
+document.querySelectorAll('[data-lasbild]').forEach(el => { el.outerHTML = bricka(FEM[2]).replace('<svg ', '<svg class="lasbild" '); });
+
+/* Kurvan: IlluTestResultat (StartFlowIllustrations.tsx) med markören på 30 procent */
+(function () {
+  const el = document.getElementById('kurva'); if (!el) return;
+  const p = Math.min(.95, Math.max(.05, .30));
+  const x = 16 + p * 128, bell = Math.exp(-Math.pow((p - .5) / .24, 2) / 2), y = 78 - bell * 52;
+  el.innerHTML = `<path d="M12 78h136" stroke="currentColor" stroke-width="3" stroke-opacity=".35"/><path d="M16 78c18 0 26-4 34-22s14-30 30-30 22 12 30 30 16 22 34 22" stroke="currentColor" stroke-width="3"/><path d="M${x.toFixed(1)} ${y.toFixed(1)}v${(78-y).toFixed(1)}" stroke="currentColor" stroke-width="3" stroke-opacity=".45" stroke-dasharray="4 5"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="8" fill="var(--koppar)" stroke="currentColor" stroke-width="3"/>`;
+})();
+
+/* ------------------------------------------------------------ verktygsraden */
+const q = new URLSearchParams(location.search);
+const state = { sida: q.get('sida') || 'prov', vy: q.get('vy') || 'intro', lage: 'dator', tema: q.get('tema') || 'ljus' };
+const inbaddad = q.get('inbaddad') === '1';
+if (inbaddad) document.body.classList.add('inbaddad');
+const UNDER = { prov: [['intro','Intro'],['fraga','Fråga'],['resultat','Resultat']] };
+
+function sattTema() {
+  if (state.tema === 'mork') document.documentElement.setAttribute('data-theme', 'dark');
+  else document.documentElement.setAttribute('data-theme', 'light');
+}
+function visaVy() {
+  document.querySelectorAll('[data-sida="prov"] .vy').forEach(v => v.classList.toggle('aktiv', v.dataset.vy === state.vy));
+  const w = state.vy === 'intro' ? '20%' : state.vy === 'fraga' ? '20%' : '100%';
+  document.querySelector('[data-sida="prov"] .trad i').style.setProperty('--w', w);
+}
+function rita() {
+  sattTema();
+  const mobil = !inbaddad && state.lage !== 'dator';
+  document.querySelectorAll('.sida').forEach(s => s.classList.toggle('aktiv', !mobil && s.dataset.sida === state.sida));
+  visaVy();
+  const ram = document.getElementById('mobilram');
+  ram.classList.toggle('aktiv', mobil);
+  if (mobil) {
+    const tel = document.getElementById('mobil-tel');
+    tel.className = 'tel ' + state.lage;
+    const src = location.pathname + `?inbaddad=1&sida=${state.sida}&vy=${state.vy}&tema=${state.tema}`;
+    const f = document.getElementById('mobil-if');
+    if (f.getAttribute('src') !== src) f.setAttribute('src', src);
+    document.getElementById('mobil-text').textContent = state.lage === 'pixel7' ? 'Pixel 7, 412 × 915' : 'Mobil 360 × 740';
+  }
+  document.querySelectorAll('.ad [data-sida]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.sida === state.sida)));
+  document.querySelectorAll('.ad [data-lage]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lage === state.lage)));
+  document.querySelectorAll('.ad [data-tema]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.tema === state.tema)));
+  const under = document.getElementById('ad-under');
+  const alt = UNDER[state.sida] || [];
+  under.innerHTML = alt.length ? 'Vy: ' + alt.map(([k, t]) => `<button type="button" data-vy="${k}" aria-pressed="${k === state.vy}">${t}</button>`).join('') : '';
+  under.querySelectorAll('[data-vy]').forEach(b => b.addEventListener('click', () => { state.vy = b.dataset.vy; rita(); }));
+  const ad = document.getElementById('ad');
+  document.documentElement.style.setProperty('--ad-h', inbaddad ? '0px' : ad.getBoundingClientRect().height + 'px');
+}
+document.querySelectorAll('.ad [data-sida]').forEach(b => b.addEventListener('click', () => { state.sida = b.dataset.sida; if (state.sida === 'noter') state.lage = 'dator'; rita(); }));
+document.querySelectorAll('.ad [data-lage]').forEach(b => b.addEventListener('click', () => { state.lage = b.dataset.lage; rita(); }));
+document.querySelectorAll('.ad [data-tema]').forEach(b => b.addEventListener('click', () => { state.tema = b.dataset.tema; rita(); }));
+/* Knapparna inne i skissen leder vidare i flödet */
+document.querySelectorAll('[data-ga]').forEach(b => b.addEventListener('click', e => {
+  e.preventDefault();
+  if (b.dataset.ga === 'fraga') { state.vy = 'fraga'; rita(); }
+  if (b.dataset.ga === 'konto') { state.sida = 'konto'; rita(); if (inbaddad) { /* i ramen: visa kontosteget direkt */ document.querySelectorAll('.sida').forEach(s => s.classList.toggle('aktiv', s.dataset.sida === 'konto')); } }
+}));
+document.querySelectorAll('[data-alt="poly"] button').forEach(b => b.addEventListener('click', () => { state.vy = 'resultat'; rita(); }));
+window.addEventListener('resize', () => { const ad = document.getElementById('ad'); document.documentElement.style.setProperty('--ad-h', inbaddad ? '0px' : ad.getBoundingClientRect().height + 'px'); });
+rita();
+</script>
+</body>
+</html>
