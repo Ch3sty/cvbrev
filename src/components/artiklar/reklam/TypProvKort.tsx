@@ -81,7 +81,7 @@ export const TYP_PROVKORT: Record<ProvKortTyp, TypCopy> = {
     knapp: 'Börja med grundnivån gratis',
     href: viaKonto('/dashboard/tester'),
     sekundar: { text: 'Se I-provet, övningsprov', href: viaKonto('/dashboard/tester/iprov') },
-    paketrad: `Halva och hela övningsprovet för I-provet, alla nivåer och pass varje dag ingår i ${KORT_PRIS}.`,
+    paketrad: `Halva och hela I-provets övningsprov, alla nivåer och pass varje dag ingår i ${KORT_PRIS}.`,
   },
 }
 

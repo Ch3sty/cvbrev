@@ -45,19 +45,19 @@ function hamta<T>(m: Map<string, T>, id: string, namn: string): T {
 
 function Rad({ visade, luckor, facit }: { visade: number[]; luckor: number; facit?: number[] }) {
   return (
-    <div className="flex flex-wrap justify-center gap-1.5">
+    <div className="flex flex-wrap justify-center gap-1">
       {visade.map((t, i) => (
-        <span key={i} className="min-w-[44px] rounded-lg border border-kant bg-papper px-1.5 py-2 text-center text-[17px] font-semibold tabular-nums text-ink-1">
+        <span key={i} className="min-w-[38px] rounded-lg border border-kant bg-papper px-1 py-2 text-center text-[16px] font-semibold tabular-nums text-ink-1">
           {visaTal(t)}
         </span>
       ))}
       {Array.from({ length: luckor }, (_, i) =>
         facit ? (
-          <span key={`l${i}`} className="min-w-[44px] rounded-lg border-2 border-koppar bg-papper px-1.5 py-2 text-center text-[17px] font-semibold tabular-nums text-ink-1">
+          <span key={`l${i}`} className="min-w-[38px] rounded-lg border-2 border-koppar bg-papper px-1 py-2 text-center text-[16px] font-semibold tabular-nums text-ink-1">
             {visaTal(facit[i])}
           </span>
         ) : (
-          <span key={`l${i}`} className="min-w-[44px] rounded-lg border border-dashed border-ink-3 bg-papper-2 px-1.5 py-2 text-center text-[17px] font-semibold text-ink-3">
+          <span key={`l${i}`} className="min-w-[38px] rounded-lg border border-dashed border-ink-3 bg-papper-2 px-1 py-2 text-center text-[16px] font-semibold text-ink-3">
             ?
           </span>
         )
@@ -98,7 +98,7 @@ export function TalserieUppgift({ id, facit = false }: { id: string; facit?: boo
 
 function Ruta({ fig, etikett, ratt = false }: { fig: SpatialFigur; etikett?: string; ratt?: boolean }) {
   return (
-    <div className={`relative aspect-square rounded-xl border bg-papper ${ratt ? 'border-2 border-koppar' : 'border-kant'}`}>
+    <div className={`relative [aspect-ratio:1/1] rounded-xl border bg-papper ${ratt ? 'border-2 border-koppar' : 'border-kant'}`}>
       {etikett ? <span className="absolute left-2 top-1.5 z-10 text-[11px] font-semibold leading-4 text-ink-3">{etikett}</span> : null}
       <span className="absolute inset-2">
         <SpatialSvg fig={fig} className="block h-full w-full" />
@@ -124,7 +124,7 @@ function Sekvens({ figurer, etiketter }: { figurer: SpatialFigur[]; etiketter: s
         <div key={i} className="contents">
           {i > 0 ? <Pil /> : null}
           <div className="flex min-w-0 flex-1 flex-col items-center rounded-xl border border-kant bg-papper-2 p-1">
-            <span className="block aspect-square w-full">
+            <span className="block [aspect-ratio:1/1] w-full">
               <SpatialSvg fig={f} className="block h-full w-full" />
             </span>
             <span className="text-[11px] font-semibold leading-4 text-ink-3">{etiketter[i]}</span>

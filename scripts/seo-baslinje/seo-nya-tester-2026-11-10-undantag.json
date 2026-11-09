@@ -5,25 +5,133 @@
    "path": "/artiklar/deduktivt-induktivt-test",
    "datum": "2026-11-10",
    "skal": "SEO-plan nya tester (U3): deduktivt har pass och övningsprov, provkortet för deduktivt och en mening om nivåerna. FAQ-svaret om att öva gratis nämner Nivåkollen och övningsprovet. Frågorna är desamma. BlogPosting följer den nya texten.",
-   "andrade": ["BlogPosting", "FAQPage"]
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
   },
   {
    "path": "/artiklar/logiska-tester",
    "datum": "2026-11-10",
    "skal": "SEO-plan nya tester (U3, U5): länken med ankartexten deduktivt test i avsnittet om testtyperna. BlogPostings wordCount följer texten.",
-   "andrade": ["BlogPosting"]
+   "andrade": [
+    "BlogPosting"
+   ]
   },
   {
    "path": "/artiklar/aon-cut-e-test",
    "datum": "2026-11-10",
    "skal": "SEO-plan nya tester (U3): en mening med länken deduktivt test i switchChallenge-avsnittet. BlogPostings wordCount följer texten.",
-   "andrade": ["BlogPosting"]
+   "andrade": [
+    "BlogPosting"
+   ]
   },
   {
    "path": "/artiklar/arbetspsykologiska-tester",
    "datum": "2026-11-10",
    "skal": "SEO-plan nya tester (U3): länken med ankartexten deduktivt test i avsnittet om deduktiv logik. BlogPostings wordCount följer texten.",
-   "andrade": ["BlogPosting"]
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/rotation-test-guide",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester (U1): spatial förmåga finns som test. FAQ-svaret om var man övar gratis säger att testet finns, med nivåer. Frågan är densamma. BlogPosting följer ny description, taggar och de två nya avsnitten.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  }
+ ],
+ "RUBRIK_NY": [
+  {
+   "path": "/artiklar/rotation-test-guide",
+   "rubrik": "h2#pappersvikning-med-hal-och-klipp Pappersvikning med hål och klipp",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester (U1): nytt avsnitt med en löst egen uppgift i SpatialSvg. Befintliga rubriker orörda."
+  },
+  {
+   "path": "/artiklar/rotation-test-guide",
+   "rubrik": "h2#tarningar-samma-tarning-eller-inte Tärningar: samma tärning eller inte?",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester (U1): nytt avsnitt med en löst egen uppgift i SpatialSvg. Befintliga rubriker orörda."
+  }
+ ],
+ "META_BYTT": [
+  {
+   "path": "/artiklar/rotation-test-guide",
+   "falt": "title",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester (U1): seoTitle Spatial förmåga: vad det är och test att öva gratis (saas-leads slutliga beslut). H1 och title orörda."
+  },
+  {
+   "path": "/artiklar/rotation-test-guide",
+   "falt": "description",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester (U1): description med spatial förmåga test tidigt och de lösta uppgifterna."
+  }
+ ],
+ "LANK_BORTA": [
+  {
+   "path": "/artiklar/rotation-test-guide",
+   "lank": "/artiklar/aon-cut-e-test",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester: Läs vidare-korten är automatiska och de nya artiklarna talserier, ordforstaelse-test och i-prov tränger undan äldre kort. Länkarna i brödtexten är orörda."
+  },
+  {
+   "path": "/artiklar/rotation-test-guide",
+   "lank": "/artiklar/arbetspsykologiska-tester",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester: Läs vidare-korten är automatiska och de nya artiklarna talserier, ordforstaelse-test och i-prov tränger undan äldre kort. Länkarna i brödtexten är orörda."
+  },
+  {
+   "path": "/artiklar/rotation-test-guide",
+   "lank": "/artiklar/logiktest-exempel-med-losningar",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester: Läs vidare-korten är automatiska och de nya artiklarna talserier, ordforstaelse-test och i-prov tränger undan äldre kort. Länkarna i brödtexten är orörda."
+  },
+  {
+   "path": "/artiklar/numeriskt-test-guide",
+   "lank": "/artiklar/aon-cut-e-test",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester: Läs vidare-korten är automatiska och de nya artiklarna talserier, ordforstaelse-test och i-prov tränger undan äldre kort. Länkarna i brödtexten är orörda."
+  },
+  {
+   "path": "/artiklar/numeriskt-test-guide",
+   "lank": "/artiklar/arbetspsykologiska-tester",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester: Läs vidare-korten är automatiska och de nya artiklarna talserier, ordforstaelse-test och i-prov tränger undan äldre kort. Länkarna i brödtexten är orörda."
+  },
+  {
+   "path": "/artiklar/numeriskt-test-guide",
+   "lank": "/artiklar/logiktest-exempel-med-losningar",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester: Läs vidare-korten är automatiska och de nya artiklarna talserier, ordforstaelse-test och i-prov tränger undan äldre kort. Länkarna i brödtexten är orörda."
+  },
+  {
+   "path": "/artiklar/deduktivt-induktivt-test",
+   "lank": "/artiklar/arbetspsykologiska-tester",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester: Läs vidare-korten är automatiska och de nya artiklarna talserier, ordforstaelse-test och i-prov tränger undan äldre kort. Länkarna i brödtexten är orörda."
+  },
+  {
+   "path": "/artiklar/logiska-tester",
+   "lank": "/artiklar/verifierade-testresultat-vs-cv",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester: Läs vidare-korten är automatiska och de nya artiklarna talserier, ordforstaelse-test och i-prov tränger undan äldre kort. Länkarna i brödtexten är orörda."
+  },
+  {
+   "path": "/artiklar/matrigma-test",
+   "lank": "/artiklar/aon-cut-e-test",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester: Läs vidare-korten är automatiska och de nya artiklarna talserier, ordforstaelse-test och i-prov tränger undan äldre kort. Länkarna i brödtexten är orörda."
+  },
+  {
+   "path": "/artiklar/alva-labs-logiktest",
+   "lank": "/artiklar/arbetspsykologiska-tester",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester: Läs vidare-korten är automatiska och de nya artiklarna talserier, ordforstaelse-test och i-prov tränger undan äldre kort. Länkarna i brödtexten är orörda."
   }
  ]
 }
