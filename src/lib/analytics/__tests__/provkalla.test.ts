@@ -12,7 +12,10 @@ import {
   kallaText,
   lasKontokalla,
   lasProvkalla,
+  lasProvkallaKlient,
   mittTestForArtikel,
+  sparaProvkalla,
+  sparaProvkallaUrAdress,
 } from '../provkalla'
 
 describe('lasProvkalla', () => {
@@ -72,6 +75,34 @@ describe('fragaProvdatumEfterKonto', () => {
     expect(fragaProvdatumEfterKonto('lokforare')).toBe(true)
     expect(fragaProvdatumEfterKonto('matrigma')).toBe(false)
     expect(fragaProvdatumEfterKonto(null)).toBe(false)
+  })
+})
+
+describe('sparaProvkalla från hubbens kort', () => {
+  it('källan förblir hubb när provet startar utan artikel', () => {
+    let kaka = ''
+    const g = globalThis as unknown as { document?: unknown }
+    const forra = g.document
+    g.document = {
+      get cookie() {
+        return kaka
+      },
+      set cookie(v: string) {
+        kaka = v.split(';')[0]
+      },
+    }
+    try {
+      sparaProvkallaUrAdress('?typ=iprov&mitt_test=iprov', 'smakprov')
+      sparaProvkalla({ via: 'smakprov', mitt_test: 'iprov' })
+      const k = lasProvkallaKlient()
+      expect(k).toEqual({ via: 'hubb', mitt_test: 'iprov' })
+      expect(acquisitionFalt(k)).toEqual({ kalla: 'hubb', mitt_test: 'iprov' })
+      // En artikel efteråt tar över som vanligt.
+      sparaProvkalla({ slug: 'i-prov', via: 'smakprov', mitt_test: 'iprov' })
+      expect(kallaText(lasProvkallaKlient())).toBe('smakprov:i-prov')
+    } finally {
+      g.document = forra
+    }
   })
 })
 

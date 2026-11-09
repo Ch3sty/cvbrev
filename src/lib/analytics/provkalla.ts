@@ -166,8 +166,11 @@ export function sparaProvkalla(ny: Partial<Provkalla>): void {
   const sammaArtikel = !ny.slug || ny.slug === forra?.slug
   const slug = ny.slug ?? forra?.slug
   const mitt_test = ny.mitt_test ?? (sammaArtikel ? forra?.mitt_test : undefined)
-  const via: ProvkallaVia =
+  let via: ProvkallaVia =
     ny.via === 'smakprov' || (sammaArtikel && forra?.via === 'smakprov') ? 'smakprov' : (ny.via ?? forra?.via ?? 'artikel')
+  // Från hubbens kort till provet: utan artikel finns ingen smakprov:<slug>,
+  // så källan förblir 'hubb' i stället för att försvinna.
+  if (!slug && forra?.via === 'hubb') via = 'hubb'
   if (!slug && !mitt_test) return
   const varde: Provkalla = { via, ...(slug ? { slug } : {}), ...(mitt_test ? { mitt_test } : {}) }
   skrivKaka(PROVKALLA_COOKIE, encodeURIComponent(JSON.stringify(varde)), PROVKALLA_MAX_AGE)

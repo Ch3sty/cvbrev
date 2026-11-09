@@ -179,5 +179,42 @@
    "datum": "2026-11-10",
    "skal": "SEO-plan nya tester (U2): namnbeslutet, spatial förmåga. Länken till rotation-test-guide står kvar."
   }
+ ],
+ "LANK_BYTT": [
+  {
+   "path": "/verktyg/rekryteringstester",
+   "fore": "/verktyg/rekryteringstester/prova?mitt_test=matrigma",
+   "efter": "/verktyg/rekryteringstester/prova?typ=matris&mitt_test=matrigma",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester 5.2 (U2): provlänken i Vilket test ska du göra? får ?typ= enligt tabellen, så att valet öppnar rätt prov. Samma noindex-sida, valet följer med som förut."
+  },
+  {
+   "path": "/verktyg/rekryteringstester",
+   "fore": "/verktyg/rekryteringstester/prova?mitt_test=alva",
+   "efter": "/verktyg/rekryteringstester/prova?typ=matris&mitt_test=alva",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester 5.2 (U2): provlänken i Vilket test ska du göra? får ?typ= enligt tabellen, så att valet öppnar rätt prov. Samma noindex-sida, valet följer med som förut."
+  },
+  {
+   "path": "/verktyg/rekryteringstester",
+   "fore": "/verktyg/rekryteringstester/prova?mitt_test=aon",
+   "efter": "/verktyg/rekryteringstester/prova?typ=figurserie&mitt_test=aon",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester 5.2 (U2): provlänken i Vilket test ska du göra? får ?typ= enligt tabellen, så att valet öppnar rätt prov. Samma noindex-sida, valet följer med som förut."
+  },
+  {
+   "path": "/verktyg/rekryteringstester",
+   "fore": "/verktyg/rekryteringstester/prova?mitt_test=lokforare",
+   "efter": "/verktyg/rekryteringstester/prova?typ=figurserie&mitt_test=lokforare",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester 5.2 (U2): provlänken i Vilket test ska du göra? får ?typ= enligt tabellen, så att valet öppnar rätt prov. Samma noindex-sida, valet följer med som förut."
+  },
+  {
+   "path": "/verktyg/rekryteringstester",
+   "fore": "/verktyg/rekryteringstester/prova?mitt_test=annat",
+   "efter": "/verktyg/rekryteringstester/prova?typ=matris&mitt_test=annat",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester 5.2 (U2): provlänken i Vilket test ska du göra? får ?typ= enligt tabellen, så att valet öppnar rätt prov. Samma noindex-sida, valet följer med som förut."
+  }
  ]
 }

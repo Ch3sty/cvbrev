@@ -36,6 +36,8 @@ import Produktfilm from '@/components/publikt/Produktfilm'
 import SkarmPersonlighet from '@/components/publikt/telefon/skarmar/SkarmPersonlighet'
 import SkarmIntervjufragor from '@/components/publikt/telefon/skarmar/SkarmIntervjufragor'
 import { SpatialSvg } from '@/lib/spatialV1/ritare'
+import type { ProvTyp } from '@/lib/tests/prov-typer'
+import type { MittTest } from '@/lib/traning/mittTest'
 
 const PROVA = '/verktyg/rekryteringstester/prova'
 const PREMIUM = paketKort()
@@ -143,17 +145,25 @@ const TESTTYPER: {
 /**
  * Vilket test ska du göra? (SEO-planen för de nya testerna, U2 och 5.2.) Den
  * publika motsvarigheten till valet Mitt test i kontot: varje kort har
- * artikeln och provet. ?mitt_test= följer med till kontot (provkalla.ts).
+ * artikeln och provet. Provlänken bär ?typ= (provet utan konto i alla typer)
+ * och ?mitt_test=, som följer med till kontot (provkalla.ts). Artikellänkarna
+ * är rena: artikeln sätter sitt eget val vid klick till produkten
+ * (ARTIKEL_MITT_TEST), och en parameter på en indexerad sida ger bara
+ * dubbla adresser. Klicken mäts som article_cta_clicked med variant och target.
  */
-const VAL: { rubrik: string; text: string; artikel: { text: string; href: string }; prov: { text: string; href: string } }[] = [
-  { rubrik: 'Polisen eller Försvarsmakten', text: 'I-provet vid mönstringen och i polisens prövning: sex deltester i ord, tal och rumsuppfattning.', artikel: { text: 'Så fungerar I-provet', href: '/artiklar/i-prov' }, prov: { text: 'Börja med grundnivån gratis', href: '/register?mitt_test=iprov' } },
-  { rubrik: 'Matrigma', text: 'Assessios matristest, det vanligaste enskilda logiktestet i svensk rekrytering.', artikel: { text: 'Så fungerar Matrigma', href: '/artiklar/matrigma-test' }, prov: { text: 'Prova fem matrisfrågor', href: `${PROVA}?mitt_test=matrigma` } },
-  { rubrik: 'Alva Labs', text: 'Adaptivt logiktest med matriser, vanligt i tech och tjänsteföretag.', artikel: { text: 'Så fungerar Alvas logiktest', href: '/artiklar/alva-labs-logiktest' }, prov: { text: 'Prova fem matrisfrågor', href: `${PROVA}?mitt_test=alva` } },
-  { rubrik: 'SHL', text: 'Verify med deduktiva, induktiva och numeriska uppgifter, ofta i större koncerner.', artikel: { text: 'Deduktivt och induktivt test', href: '/artiklar/deduktivt-induktivt-test' }, prov: { text: 'Gör Nivåkollen i deduktivt', href: '/register?mitt_test=shl' } },
-  { rubrik: 'Aon', text: 'Korta moduler på fem till tolv minuter, tidigare cut-e.', artikel: { text: 'Så fungerar Aon-testet', href: '/artiklar/aon-cut-e-test' }, prov: { text: 'Prova fem matrisfrågor', href: `${PROVA}?mitt_test=aon` } },
-  { rubrik: 'Lokförare', text: 'Lokförartestet bygger ofta på Aons moduler. Vi har figurserier, deduktivt, siffror och ord i Aons tempo, men inte koncentration, reaktion eller navigering.', artikel: { text: 'Aon-testet för lokförare', href: '/artiklar/aon-cut-e-test#aon-testet-for-lokforare' }, prov: { text: 'Prova fem matrisfrågor', href: `${PROVA}?mitt_test=lokforare` } },
-  { rubrik: 'Annat eller vet inte', text: 'Vet du inte vilket test som väntar? Börja med översikten och fråga rekryteraren.', artikel: { text: 'Arbetspsykologiska tester', href: '/artiklar/arbetspsykologiska-tester' }, prov: { text: 'Prova fem matrisfrågor', href: `${PROVA}?mitt_test=annat` } },
-  { rubrik: 'Personlighet', text: 'Big Five i MAP, Alva och NEO. Inga rätta svar, men det går att förbereda sig.', artikel: { text: 'Personlighetstest vid rekrytering', href: '/artiklar/personlighetstest-jobb-guide' }, prov: { text: 'Gör personlighetsprovet', href: '/verktyg/personlighetstest' } },
+function provHref(typ: ProvTyp, mitt: MittTest): string {
+  return `${PROVA}?typ=${typ}&mitt_test=${mitt}`
+}
+
+const VAL: { val: MittTest; rubrik: string; text: string; artikel: { text: string; href: string }; prov: { text: string; href: string } }[] = [
+  { val: 'iprov', rubrik: 'Polisen eller Försvarsmakten', text: 'I-provet vid mönstringen och i polisens prövning: sex deltester i ord, tal och rumsuppfattning.', artikel: { text: 'Så fungerar I-provet', href: '/artiklar/i-prov' }, prov: { text: 'Prova sex uppgifter ur I-provet', href: provHref('iprov', 'iprov') } },
+  { val: 'matrigma', rubrik: 'Matrigma', text: 'Assessios matristest, det vanligaste enskilda logiktestet i svensk rekrytering.', artikel: { text: 'Så fungerar Matrigma', href: '/artiklar/matrigma-test' }, prov: { text: 'Prova fem matrisfrågor', href: provHref('matris', 'matrigma') } },
+  { val: 'alva', rubrik: 'Alva Labs', text: 'Adaptivt logiktest med matriser, vanligt i tech och tjänsteföretag.', artikel: { text: 'Så fungerar Alvas logiktest', href: '/artiklar/alva-labs-logiktest' }, prov: { text: 'Prova fem matrisfrågor', href: provHref('matris', 'alva') } },
+  { val: 'shl', rubrik: 'SHL', text: 'Verify med deduktiva, induktiva och numeriska uppgifter, ofta i större koncerner.', artikel: { text: 'Deduktivt och induktivt test', href: '/artiklar/deduktivt-induktivt-test' }, prov: { text: 'Prova fem deduktiva uppgifter', href: provHref('deduktiv', 'shl') } },
+  { val: 'aon', rubrik: 'Aon', text: 'Korta moduler på fem till tolv minuter, tidigare cut-e.', artikel: { text: 'Så fungerar Aon-testet', href: '/artiklar/aon-cut-e-test' }, prov: { text: 'Prova fem figurserier', href: provHref('figurserie', 'aon') } },
+  { val: 'lokforare', rubrik: 'Lokförare', text: 'Lokförartestet bygger ofta på Aons moduler. Vi har figurserier, deduktivt, siffror och ord i Aons tempo, men inte koncentration, reaktion eller navigering.', artikel: { text: 'Aon-testet för lokförare', href: '/artiklar/aon-cut-e-test#aon-testet-for-lokforare' }, prov: { text: 'Prova fem figurserier', href: provHref('figurserie', 'lokforare') } },
+  { val: 'annat', rubrik: 'Annat eller vet inte', text: 'Vet du inte vilket test som väntar? Börja med översikten och fråga rekryteraren.', artikel: { text: 'Arbetspsykologiska tester', href: '/artiklar/arbetspsykologiska-tester' }, prov: { text: 'Prova fem matrisfrågor', href: provHref('matris', 'annat') } },
+  { val: 'personlighet', rubrik: 'Personlighet', text: 'Big Five i MAP, Alva och NEO. Inga rätta svar, men det går att förbereda sig.', artikel: { text: 'Personlighetstest vid rekrytering', href: '/artiklar/personlighetstest-jobb-guide' }, prov: { text: 'Gör personlighetsprovet', href: '/verktyg/personlighetstest' } },
 ]
 
 /** De fem dimensionerna i baslinjens ordning och namn, med exempelprofilens nivå. */
@@ -479,12 +489,22 @@ export default function RekryteringstesterSida() {
                     <h3 className="pub-h4">{v.rubrik}</h3>
                     <p>{v.text}</p>
                     <div className="pub-handling" style={{ marginTop: 12 }}>
-                      <Link className="pub-lank" href={v.artikel.href} data-matning="hub-val-artikel">
+                      <MattLank
+                        className="pub-lank"
+                        href={v.artikel.href}
+                        handelse="article_cta_clicked"
+                        egenskaper={{ cluster: 'test', position: 'inline', variant: `hub-val-artikel-${v.val}`, target: v.artikel.href }}
+                      >
                         {v.artikel.text}
-                      </Link>
-                      <Link className="pub-lank" href={v.prov.href} data-matning="hub-val-prov">
+                      </MattLank>
+                      <MattLank
+                        className="pub-lank"
+                        href={v.prov.href}
+                        handelse="article_cta_clicked"
+                        egenskaper={{ cluster: 'test', position: 'inline', variant: `hub-val-prov-${v.val}`, target: v.prov.href }}
+                      >
                         {v.prov.text}
-                      </Link>
+                      </MattLank>
                     </div>
                   </div>
                 ))}
