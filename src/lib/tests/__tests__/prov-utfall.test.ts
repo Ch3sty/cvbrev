@@ -21,3 +21,22 @@ describe('sparaProvUtfall', () => {
     logg.mockRestore()
   })
 })
+
+describe('hamtaProvUtfall', () => {
+  it('läser prov_utfall i sidor om 1000 och bara dagens provtyp', async () => {
+    const { hamtaProvUtfall } = await import('../prova-percentil.server')
+    const sidor = [new Array(1000).fill({ ratt: 4 }), [{ ratt: 5 }, { ratt: 2 }]]
+    const anrop: unknown[][] = []
+    const kedja: Record<string, unknown> = {}
+    for (const m of ['select', 'order']) kedja[m] = () => kedja
+    kedja.eq = (...a: unknown[]) => (anrop.push(['eq', ...a]), kedja)
+    kedja.range = (fran: number) => Promise.resolve({ data: sidor[fran / 1000], error: null })
+    const from = vi.fn(() => kedja)
+    const utfall = await hamtaProvUtfall({ from } as unknown as SupabaseClient<any>)
+    expect(from).toHaveBeenCalledWith('prov_utfall')
+    expect(anrop).toContainEqual(['eq', 'testtyp', 'matris-prova'])
+    expect(anrop).toContainEqual(['eq', 'totalt', 5])
+    expect(utfall).toHaveLength(1002)
+    expect(utfall?.slice(-2)).toEqual([5, 2])
+  })
+})
