@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title:
-    'Rekryteringstester: träna inför urvalet | Jobbcoach.ai',
+    'Rekryteringstester: öva logik, I-provet och mer gratis',
   description:
-    'Träna på matrislogik, verbalt och numeriskt resonemang i samma format som SHL, Cut-e och Assessio använder. Grundnivån är gratis, ingen kortuppgift.',
+    'Öva på matrislogik, deduktivt, verbalt, numeriskt, talserier, spatial förmåga och ordförråd, och inför I-provet. Grundnivån är gratis, ingen kortuppgift.',
   keywords: [
     'rekryteringstester',
     'logiska tester',

@@ -70,6 +70,10 @@ export const REKRYTERINGSTESTER_FAQ_ITEMS: FaqItem[] = [
     a: tidSvar(),
   },
   {
+    q: 'Kan jag öva på I-provet?',
+    a: 'Ja. I-provet, som görs vid mönstringen och i polisens prövning, har sex deltester: synonymer, pappersvikning, talserier, motsatsord, tärningar och pappersvikning med klipp. Versionen som används sedan maj 2025 heter I-prov 2025. Hos oss övar du på ordförråd, talserier och spatial förmåga i tre nivåer, och grundnivån är gratis med konto. Övningsprovet för I-provet, halvt eller helt, med de sex deltesterna i provets ordning och tid per deltest, ingår i ' + paketKort() + ', ' + prisPeriod(SALD_PLAN) + '. Vi visar antal rätt per deltest men aldrig ett resultat på provets niogradiga skala, och vi har ingen koppling till Plikt- och prövningsverket, Polisen eller Försvarsmakten.',
+  },
+  {
     q: 'Är testerna gratis?',
     a: 'Att börja är gratis. Fem frågor med facit provar du direkt här, utan konto. Med ett gratiskonto gör du Nivåkollen med full genomgång och ett första träningspass, utan att lämna kortuppgifter, och resultatet är ditt. Att träna vidare, med avancerad nivå och expertnivå, övningsprov mot klockan och din utveckling över tid, ingår i ' + paketKort() + ', ' + prisPeriod(SALD_PLAN) + '. Där ingår också det fördjupade personlighetstestet med ' + T.personlighetFordjupad.fragor + ' påståenden; grundtestet är gratis.',
   },

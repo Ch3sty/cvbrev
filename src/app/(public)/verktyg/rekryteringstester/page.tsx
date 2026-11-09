@@ -35,6 +35,7 @@ import SkarmMatris from '@/components/publikt/telefon/skarmar/SkarmMatris'
 import Produktfilm from '@/components/publikt/Produktfilm'
 import SkarmPersonlighet from '@/components/publikt/telefon/skarmar/SkarmPersonlighet'
 import SkarmIntervjufragor from '@/components/publikt/telefon/skarmar/SkarmIntervjufragor'
+import { SpatialSvg } from '@/lib/spatialV1/ritare'
 
 const PROVA = '/verktyg/rekryteringstester/prova'
 const PREMIUM = paketKort()
@@ -57,10 +58,12 @@ const FARDIGHETER: { rubrik: string; text: string; objekt: ObjektTyp }[] = [
   { objekt: 'tabell', rubrik: 'Tabelltolkning', text: 'Hitta rätt cell snabbt i en tabell med fem rader och fyra kolumner. Den som läser av tabellen smart får mer tid över till själva räknandet.' },
 ]
 
+type TypBildNamn = 'matris' | 'verbal' | 'numerisk' | 'figur' | 'deduktiv' | 'tal' | 'spatial' | 'ord'
+
 const TESTTYPER: {
   rubrik: string
   text: string
-  bild: 'matris' | 'verbal' | 'numerisk'
+  bild: TypBildNamn
   fakta: { niva: string; text: string }[]
 }[] = [
   {
@@ -90,6 +93,67 @@ const TESTTYPER: {
       { niva: 'Avancerad nivå', text: `${T.numeriskAvancerad.fragor} frågor, cirka ${T.numeriskAvancerad.minuter} minuter` },
     ],
   },
+  {
+    rubrik: 'Figurserier',
+    bild: 'figur',
+    text: 'En rad figurer som följer en regel, och du väljer nästa. Induktiv logik i samma format som Aon scales ix och SHL Inductive Reasoning.',
+    fakta: [
+      { niva: 'Grundnivå', text: `${T.figurGrund.fragor} frågor, cirka ${T.figurGrund.minuter} minuter` },
+      { niva: 'Avancerad och expert', text: `I ${PREMIUM}` },
+    ],
+  },
+  {
+    rubrik: 'Deduktiv slutledning',
+    bild: 'deduktiv',
+    text: 'Villkor i text och en fråga om vad som måste gälla. Övningsprovet har samma antal uppgifter och samma tid som SHL Verify deduktiv.',
+    fakta: [
+      { niva: 'Grundnivå', text: `${T.deduktivGrund.fragor} uppgifter, cirka ${T.deduktivGrund.minuter} minuter` },
+      { niva: 'Avancerad och expert', text: `I ${PREMIUM}` },
+    ],
+  },
+  {
+    rubrik: 'Talserier',
+    bild: 'tal',
+    text: 'En rad tal och en eller två luckor sist. Ett av deltesterna i I-provet, och vanligt i logiktest vid rekrytering.',
+    fakta: [
+      { niva: 'Grundnivå', text: `${T.talserieGrund.fragor} talserier, cirka ${T.talserieGrund.minuter} minuter` },
+      { niva: 'Avancerad nivå', text: `${T.talserieAvancerad.fragor} talserier med två luckor, ${T.talserieAvancerad.minuter} minuter` },
+    ],
+  },
+  {
+    rubrik: 'Spatial förmåga',
+    bild: 'spatial',
+    text: 'Rumsuppfattning: vridna figurer, pappersvikning och tärningar. Tre av de sex deltesterna i I-provet bygger på förmågan.',
+    fakta: [
+      { niva: 'Grundnivå', text: `${T.spatialGrund.fragor} uppgifter, cirka ${T.spatialGrund.minuter} minuter` },
+      { niva: 'Avancerad nivå', text: `${T.spatialAvancerad.fragor} uppgifter, cirka ${T.spatialAvancerad.minuter} minuter` },
+    ],
+  },
+  {
+    rubrik: 'Ordförråd',
+    bild: 'ord',
+    text: 'Ett ord i versaler och fem alternativ: synonymer och motsatsord, som i I-provets två orddeltester.',
+    fakta: [
+      { niva: 'Grundnivå', text: `${T.ordGrund.fragor} ord, cirka ${T.ordGrund.minuter} minuter` },
+      { niva: 'Avancerad nivå', text: `${T.ordAvancerad.fragor} ord, cirka ${T.ordAvancerad.minuter} minuter` },
+    ],
+  },
+]
+
+/**
+ * Vilket test ska du göra? (SEO-planen för de nya testerna, U2 och 5.2.) Den
+ * publika motsvarigheten till valet Mitt test i kontot: varje kort har
+ * artikeln och provet. ?mitt_test= följer med till kontot (provkalla.ts).
+ */
+const VAL: { rubrik: string; text: string; artikel: { text: string; href: string }; prov: { text: string; href: string } }[] = [
+  { rubrik: 'Polisen eller Försvarsmakten', text: 'I-provet vid mönstringen och i polisens prövning: sex deltester i ord, tal och rumsuppfattning.', artikel: { text: 'Så fungerar I-provet', href: '/artiklar/i-prov' }, prov: { text: 'Börja med grundnivån gratis', href: '/register?mitt_test=iprov' } },
+  { rubrik: 'Matrigma', text: 'Assessios matristest, det vanligaste enskilda logiktestet i svensk rekrytering.', artikel: { text: 'Så fungerar Matrigma', href: '/artiklar/matrigma-test' }, prov: { text: 'Prova fem matrisfrågor', href: `${PROVA}?mitt_test=matrigma` } },
+  { rubrik: 'Alva Labs', text: 'Adaptivt logiktest med matriser, vanligt i tech och tjänsteföretag.', artikel: { text: 'Så fungerar Alvas logiktest', href: '/artiklar/alva-labs-logiktest' }, prov: { text: 'Prova fem matrisfrågor', href: `${PROVA}?mitt_test=alva` } },
+  { rubrik: 'SHL', text: 'Verify med deduktiva, induktiva och numeriska uppgifter, ofta i större koncerner.', artikel: { text: 'Deduktivt och induktivt test', href: '/artiklar/deduktivt-induktivt-test' }, prov: { text: 'Gör Nivåkollen i deduktivt', href: '/register?mitt_test=shl' } },
+  { rubrik: 'Aon', text: 'Korta moduler på fem till tolv minuter, tidigare cut-e.', artikel: { text: 'Så fungerar Aon-testet', href: '/artiklar/aon-cut-e-test' }, prov: { text: 'Prova fem matrisfrågor', href: `${PROVA}?mitt_test=aon` } },
+  { rubrik: 'Lokförare', text: 'Lokförarskolornas Aon-moduler. Vi har logik, siffror, ord och spatial förmåga, inte koncentration.', artikel: { text: 'Aon-testet för lokförare', href: '/artiklar/aon-cut-e-test#aon-testet-for-lokforare' }, prov: { text: 'Prova fem matrisfrågor', href: `${PROVA}?mitt_test=lokforare` } },
+  { rubrik: 'Annat eller vet inte', text: 'Vet du inte vilket test som väntar? Börja med översikten och fråga rekryteraren.', artikel: { text: 'Arbetspsykologiska tester', href: '/artiklar/arbetspsykologiska-tester' }, prov: { text: 'Prova fem matrisfrågor', href: `${PROVA}?mitt_test=annat` } },
+  { rubrik: 'Personlighet', text: 'Big Five i MAP, Alva och NEO. Inga rätta svar, men det går att förbereda sig.', artikel: { text: 'Personlighetstest vid rekrytering', href: '/artiklar/personlighetstest-jobb-guide' }, prov: { text: 'Gör personlighetsprovet', href: '/verktyg/personlighetstest' } },
 ]
 
 /** De fem dimensionerna i baslinjens ordning och namn, med exempelprofilens nivå. */
@@ -117,7 +181,10 @@ const GUIDER = [
   { rubrik: 'Matrislogik', text: 'Regeltyperna bakom matriserna och lösta exempel steg för steg.', href: '/artiklar/matrislogik-test-guide' },
   { rubrik: 'Numeriska test', text: 'Tabelläsning, procent och huvudräkning som håller under tidspress.', href: '/artiklar/numeriskt-test-guide' },
   { rubrik: 'Verbala test', text: 'Sant, falskt eller går ej att avgöra, och fällan som fäller flest.', href: '/artiklar/verbalt-test-guide' },
-  { rubrik: 'Rotationstest', text: 'Spatial förmåga, att vrida figurer i huvudet. Vanligt i tekniska roller och ingenjörsyrken.', href: '/artiklar/rotation-test-guide' },
+  { rubrik: 'I-provet', text: 'Mönstringen och polisens prövning: de sex deltesterna, kraven och en löst uppgift per deltest.', href: '/artiklar/i-prov' },
+  { rubrik: 'Spatial förmåga', text: 'Rumsuppfattning: vridna figurer, pappersvikning och tärningar, med lösta uppgifter.', href: '/artiklar/rotation-test-guide' },
+  { rubrik: 'Talserier', text: 'Åtta regeltyper, differensraden och tjugo talserier med lösning.', href: '/artiklar/talserier' },
+  { rubrik: 'Ordförståelse test', text: 'Synonymer och motsatsord, fällorna bland alternativen och tjugo ord med facit.', href: '/artiklar/ordforstaelse-test' },
   { rubrik: 'Personlighetstest', text: 'Femfaktormodellen, vad dimensionerna betyder för olika roller och varför ärlighet lönar sig.', href: '/artiklar/personlighetstest-jobb-guide' },
   { rubrik: 'Deduktiva och induktiva test', text: 'Regel till slutsats eller exempel till regel. Sex lösta uppgifter och vilka tester Aon och SHL använder.', href: '/artiklar/deduktivt-induktivt-test' },
   { rubrik: 'Alva Labs logiktest', text: 'Tjugo adaptiva matrisuppgifter med två minuter var, och hur skalan 1 till 10 ska läsas.', href: '/artiklar/alva-labs-logiktest' },
@@ -125,8 +192,33 @@ const GUIDER = [
 ]
 
 /** Bilderna på testtypskorten: matrisbrickan, en textpassage, en tabell. */
-function TyppBild({ typ }: { typ: 'matris' | 'verbal' | 'numerisk' }) {
+function TyppBild({ typ }: { typ: TypBildNamn }) {
   if (typ === 'matris') return <MatrisBricka className="pub-mini-matris" bredd={140} />
+  if (typ === 'spatial') {
+    return (
+      <div className="matrisyta" style={{ width: 120, margin: '0 auto' }}>
+        <SpatialSvg fig={{ kind: 'kub', t: { symbol: 'stjarna', riktning: 0 }, l: { symbol: 'ring', riktning: 0 }, r: { symbol: 'fkvadrat', riktning: 0 } }} />
+      </div>
+    )
+  }
+  if (typ === 'tal' || typ === 'ord' || typ === 'deduktiv' || typ === 'figur') {
+    const rad = typ === 'tal' ? ['11', '90', '15', '84', '?', '?'] : typ === 'ord' ? ['ENTYDIG'] : typ === 'figur' ? ['▲', '▶', '▼', '?'] : ['A → B', 'B → C', '?']
+    return (
+      <svg viewBox="0 0 220 120" fill="none" aria-hidden="true" focusable="false">
+        <rect x="8" y="8" width="204" height="104" rx="12" fill="var(--panel)" stroke="var(--ink-1)" strokeWidth="2" />
+        {rad.map((t, i) => {
+          const w = 188 / rad.length
+          const x = 16 + i * w
+          return (
+            <g key={i}>
+              <rect x={x + 2} y="38" width={w - 4} height="44" rx="8" fill={t === '?' ? 'var(--koppar-mjuk)' : 'var(--insunken)'} stroke={t === '?' ? 'var(--koppar)' : 'var(--kant-stark)'} strokeWidth="2" />
+              <text x={x + w / 2} y="67" textAnchor="middle" fontSize={typ === 'ord' ? 18 : 16} fontWeight="700" fill="var(--ink-1)">{t}</text>
+            </g>
+          )
+        })}
+      </svg>
+    )
+  }
   if (typ === 'verbal') {
     return (
       <svg viewBox="0 0 220 120" fill="none" aria-hidden="true" focusable="false">
@@ -159,7 +251,7 @@ export default function RekryteringstesterSida() {
     name: 'Jobbcoach.ai Rekryteringstester',
     url: 'https://www.jobbcoach.ai/verktyg/rekryteringstester',
     description:
-      'Träna på rekryteringstester och bygg din personlighetsprofil innan arbetsgivaren testar dig. Matrislogik, verbalt resonemang, numeriskt resonemang och Big Five-baserad personlighetsanalys.',
+      'Träna på rekryteringstester och bygg din personlighetsprofil innan arbetsgivaren testar dig. Matrislogik, figurserier, deduktiv slutledning, verbalt och numeriskt resonemang, talserier, spatial förmåga, ordförråd, ett övningsprov inför I-provet och Big Five-baserad personlighetsanalys.',
     applicationCategory: 'EducationalApplication',
     operatingSystem: 'Web browser',
     offers: {
@@ -169,7 +261,7 @@ export default function RekryteringstesterSida() {
       description: 'Fem frågor utan konto, Nivåkollen och ett första träningspass med gratiskonto, utan kortuppgift',
     },
     featureList:
-      `Matrislogik i rutnät om tre gånger tre, verbalt resonemang med sant, falskt eller går inte att avgöra, numeriskt resonemang med tabeller och procent, personlighetsprofil enligt Big Five med ${T.personlighetGrund.fragor} eller ${T.personlighetFordjupad.fragor} påståenden, resultat och tid direkt efter varje pass, genomgång fråga för fråga med rätt svar, obegränsat antal försök med ${paketNamn(SALD_PLAN)}`,
+      `Matrislogik i rutnät om tre gånger tre, figurserier, deduktiv slutledning med övningsprov i SHL:s antal uppgifter och tid, verbalt resonemang med sant, falskt eller går inte att avgöra, numeriskt resonemang med tabeller och procent, talserier med en eller två luckor, spatial förmåga med vridna figurer, pappersvikning och tärningar, ordförråd med synonymer och motsatsord, övningsprov inför I-provet med de sex deltesterna i provets ordning, personlighetsprofil enligt Big Five med ${T.personlighetGrund.fragor} eller ${T.personlighetFordjupad.fragor} påståenden, resultat och tid direkt efter varje pass, genomgång fråga för fråga med rätt svar, obegränsat antal försök med ${paketNamn(SALD_PLAN)}`,
   }
 
   // Stegens namn är de synliga h3:orna och texten deras brödtext, så att
@@ -248,7 +340,7 @@ export default function RekryteringstesterSida() {
             ]}
             kick="Rekryteringstester, kom förberedd till provet"
             h1="Träna på rekryteringstester innan arbetsgivaren testar dig"
-            ingress="Matrislogik, verbalt resonemang och numeriskt resonemang i samma format som SHL, Cut-e och Assessio använder."
+            ingress="Matrislogik, verbalt och numeriskt resonemang i samma format som SHL, Cut-e och Assessio använder, och talserier, spatial förmåga och ordförråd inför I-provet."
             fet="Fem frågor gratis här och Nivåkollen gratis med konto. Ingen kortuppgift, och du ser rätt och fel direkt efter varje pass."
             primar={{ text: 'Starta gratis test', href: PROVA, dataCta: 'hero-primary' }}
             sekundar={{ text: 'Se alla tester', href: '#testtyper' }}
@@ -340,10 +432,10 @@ export default function RekryteringstesterSida() {
           <Rum yta="mark" id="testtyper">
             <div className="pub-wrap">
               <p className="pub-kick">Kognitiva tester</p>
-              <h2 className="pub-h2">Tre testtyper, alla gratis att börja</h2>
+              <h2 className="pub-h2">Åtta testtyper, alla gratis att börja</h2>
               <p className="pub-ingress" style={{ margin: '16px 0 36px' }}>
-                Med ett gratiskonto gör du Nivåkollen med full genomgång och ett första träningspass samma dag, och resultatet är
-                ditt. Att träna vidare, med avancerad nivå, expertnivå och övningsprov mot klockan, ingår i {PREMIUM}, {PRIS}. Säg
+                Med ett gratiskonto gör du grundnivån i varje testtyp, Nivåkollen med full genomgång och ett första träningspass
+                samma dag, och resultatet är ditt. Att träna vidare, med avancerad nivå, expertnivå och övningsprov mot klockan, ingår i {PREMIUM}, {PRIS}. Säg
                 upp när du vill.
               </p>
               <div className="pub-raster pub-raster-3 pub-rum-tran">
@@ -369,6 +461,33 @@ export default function RekryteringstesterSida() {
                 <Link className="pub-knapp" href={PROVA}>
                   Starta gratis test
                 </Link>
+              </div>
+            </div>
+          </Rum>
+
+          {/* 5b. Vilket test ska du göra? De åtta valen i Mitt test, publikt (SEO-planen U2). */}
+          <Rum yta="panel" id="vilket-test">
+            <div className="pub-wrap">
+              <p className="pub-kick">Mitt test är …</p>
+              <h2 className="pub-h2">Vilket test ska du göra?</h2>
+              <p className="pub-ingress" style={{ margin: '16px 0 36px' }}>
+                Välj testet i inbjudan eller prövningen du ska göra. Varje val har en guide till formatet och en väg in i övningen.
+              </p>
+              <div className="pub-raster pub-raster-2 pub-rum-tran">
+                {VAL.map((v) => (
+                  <div className="pub-kort" key={v.rubrik}>
+                    <h3 className="pub-h4">{v.rubrik}</h3>
+                    <p>{v.text}</p>
+                    <div className="pub-handling" style={{ marginTop: 12 }}>
+                      <Link className="pub-lank" href={v.artikel.href} data-matning="hub-val-artikel">
+                        {v.artikel.text}
+                      </Link>
+                      <Link className="pub-lank" href={v.prov.href} data-matning="hub-val-prov">
+                        {v.prov.text}
+                      </Link>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </Rum>
