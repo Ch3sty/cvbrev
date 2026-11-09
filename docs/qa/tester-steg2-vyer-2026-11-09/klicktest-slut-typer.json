@@ -1,0 +1,488 @@
+{
+  "bas": "http://localhost:5200",
+  "tid": "2026-11-09T18:18:15.727Z",
+  "ok": 61,
+  "totalt": 62,
+  "resultat": [
+    {
+      "namn": "p7-ljust-polisen-premium: kontot skapat",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: Fortsätt syns och är fri med samtyckesraden uppe",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: korten i ingången",
+      "ok": true,
+      "not": "iprov,matrigma,alva,shl,aon,lokforare,annat,personlighet"
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: varumärkesraden står med",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: ingången utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: Lokförare visar anmärkningen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: Annat fäller ut kryssrutorna, figurer förvalt",
+      "ok": true,
+      "not": "Figurer och mönster:true | Figurserier:false | Deduktiv slutledning:false | Ord och text:false | Ordförråd:false | Siffror och tabeller:false | Talserier:false | Spatial förmåga:false | Personlighet:false"
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: Så lägger vi upp det för iprov",
+      "ok": true,
+      "not": "SÅ LÄGGER VI UPP DET | Passen | Ord, spatial förmåga och talserier i tur och ordning. | Övningsprovet | I-prov-provet, sex deltester i provets ordning, två dagar före. | Alla tester | Dina tre deltester överst, resten un"
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: ingången utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: planen sparad med valet",
+      "ok": true,
+      "not": "{\"mitt_test\":\"iprov\",\"mitt_test_variant\":\"polis\",\"extra_typer\":[\"ordforrad\",\"spatial\",\"talserie\"],\"testtyper\":[],\"leverantor\":null,\"provdatum\":\"2026-11-23\"}"
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: varianten Polisen sparad",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: hemvyn visar dagens pass ur I-provet",
+      "ok": true,
+      "not": "Bekräfta din e-post för att spara dokument permanent. |  | Skicka igen | Min plan | Alla tester | QA | 14 dagar till provet | Passen går i tur och ordning mellan deltesterna i I-prov 2025. Ett kort pass varje dag. | "
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: raden Mitt test överst",
+      "ok": true,
+      "not": "Polisen, I-prov 2025 | Mitt test. 14 dagar kvar. | Ändra"
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: Ingår i ditt test",
+      "ok": true,
+      "not": "ordforrad,spatial,talserie"
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: Fler tester har resten",
+      "ok": true,
+      "not": "logik,figurer,deduktiv,verbal,numerisk,personlighet"
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: Fler tester fäller ut kortet",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: Alla tester utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: Alla tester utan talstreck",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: talserier-grund visar en uppgift",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: talserier-grund uppgiften utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: talserier-grund sista alternativet syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: talserier-grund resultatet visas",
+      "ok": true,
+      "not": "Bekräfta din e-post för att spara dokument permanent. |  | Skicka igen | Talserier, grund | QA |  | TESTET KLART |  | 2 av 15 rätt |  | 0:02"
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: talserier-grund resultatet utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: talserier-grund genomgången visar facit",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatial-grund visar en uppgift",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatial-grund uppgiften utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatial-grund sista alternativet syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatial-grund resultatet visas",
+      "ok": true,
+      "not": "Bekräfta din e-post för att spara dokument permanent. |  | Skicka igen | Spatial förmåga, grund | QA |  | TESTET KLART |  | 4 av 15 rätt"
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatial-grund resultatet utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatial-grund genomgången visar facit",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: ordforrad-grund visar en uppgift",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: ordforrad-grund uppgiften utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: ordforrad-grund sista alternativet syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: ordforrad-grund resultatet visas",
+      "ok": true,
+      "not": "Bekräfta din e-post för att spara dokument permanent. |  | Skicka igen | Ordförråd, grund | QA |  | TESTET KLART |  | 3 av 20 rätt |  | 0:03"
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: ordforrad-grund resultatet utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: ordforrad-grund genomgången visar facit",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatial-avancerad visar en uppgift",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatial-avancerad uppgiften utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatial-avancerad sista alternativet syns utan att rulla",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatial-avancerad resultatet visas",
+      "ok": true,
+      "not": "Bekräfta din e-post för att spara dokument permanent. |  | Skicka igen | Spatial förmåga, avancerad | QA |  | TESTET KLART |  | 2 av 15 "
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatial-avancerad resultatet utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatial-avancerad genomgången visar facit",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: talseriepasset utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: talseriepasset Vet inte syns och är fri",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: talseriepasset visar facit efter svaret",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: talseriepasset Nästa syns och är fri",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: talseriepassets resultat",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatialpasset utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatialpasset Vet inte syns och är fri",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatialpasset visar facit efter svaret",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatialpasset Nästa syns och är fri",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: spatialpassets resultat",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: ordforradpasset utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: ordforradpasset Vet inte syns och är fri",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: ordforradpasset visar facit efter svaret",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: ordforradpasset Nästa syns och är fri",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: ordforradpassets resultat",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: hemvyn bockar passen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: Pass per testtyp räknar passen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: korten visar gjorda nivåer",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: sessionerna sparade",
+      "ok": true,
+      "not": "[\"talserie-pass:0\",\"talserier-grund:2\",\"spatial-grund:4\",\"ordforrad-grund:3\",\"ordforrad-pass:0\",\"spatial-avancerad:2\",\"spatial-pass:3\"]"
+    },
+    {
+      "namn": "p7-ljust-polisen-premium: inga konsolfel eller 4xx/5xx",
+      "ok": false,
+      "not": "pageerror: Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
+    }
+  ],
+  "bilder": [
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-mitt-test-tom.png",
+      "beskrivning": "Mitt test, steg 1 av 2 innan något är valt"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-mitt-test-lokforare.png",
+      "beskrivning": "Lokförare valt: anmärkningen och Så lägger vi upp det"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-mitt-test-annat.png",
+      "beskrivning": "Annat eller vet inte: kryssrutorna"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-mitt-test-iprov.png",
+      "beskrivning": "Mitt test: iprov valt, Så lägger vi upp det"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-mitt-test-iprov-hel.png",
+      "beskrivning": "Mitt test: iprov, hela steget"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-datum.png",
+      "beskrivning": "Steg 2 av 2: provdatumet med planen"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-hem-iprov.png",
+      "beskrivning": "Hemvyn med Polisen valt: dagens pass i rotationen"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-alla.png",
+      "beskrivning": "Alla tester med Mitt test och Ingår i ditt test"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-alla-hel.png",
+      "beskrivning": "Alla tester, hela sidan"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-alla-fler-utfalld.png",
+      "beskrivning": "Fler tester: ett kort utfällt"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-talserier-grund-start.png",
+      "beskrivning": "Testsidan talserier-grund"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-talserier-grund-uppgift-1.png",
+      "beskrivning": "talserier-grund, första uppgiften"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-talserier-grund-uppgift-5.png",
+      "beskrivning": "talserier-grund, uppgift fem besvarad"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-talserier-grund-resultat.png",
+      "beskrivning": "talserier-grund, resultatet"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-talserier-grund-genomgang.png",
+      "beskrivning": "talserier-grund, genomgången"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-spatial-grund-start.png",
+      "beskrivning": "Testsidan spatial-grund"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-spatial-grund-uppgift-1.png",
+      "beskrivning": "spatial-grund, första uppgiften"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-spatial-grund-uppgift-5.png",
+      "beskrivning": "spatial-grund, uppgift fem besvarad"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-spatial-grund-resultat.png",
+      "beskrivning": "spatial-grund, resultatet"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-spatial-grund-genomgang.png",
+      "beskrivning": "spatial-grund, genomgången"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-ordforrad-grund-start.png",
+      "beskrivning": "Testsidan ordforrad-grund"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-ordforrad-grund-uppgift-1.png",
+      "beskrivning": "ordforrad-grund, första uppgiften"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-ordforrad-grund-uppgift-5.png",
+      "beskrivning": "ordforrad-grund, uppgift fem besvarad"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-ordforrad-grund-resultat.png",
+      "beskrivning": "ordforrad-grund, resultatet"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-ordforrad-grund-genomgang.png",
+      "beskrivning": "ordforrad-grund, genomgången"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-spatial-avancerad-start.png",
+      "beskrivning": "Testsidan spatial-avancerad"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-spatial-avancerad-uppgift-1.png",
+      "beskrivning": "spatial-avancerad, första uppgiften"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-spatial-avancerad-uppgift-5.png",
+      "beskrivning": "spatial-avancerad, uppgift fem besvarad"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-spatial-avancerad-resultat.png",
+      "beskrivning": "spatial-avancerad, resultatet"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-spatial-avancerad-genomgang.png",
+      "beskrivning": "spatial-avancerad, genomgången"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-talseriepass-1.png",
+      "beskrivning": "talseriepasset, uppgift 1"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-talseriepass-genomgang.png",
+      "beskrivning": "talseriepasset, genomgången efter svaret"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-talseriepass-resultat.png",
+      "beskrivning": "talseriepasset klart: ringen, var du tappar, tempot"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-spatialpass-1.png",
+      "beskrivning": "spatialpasset, uppgift 1"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-spatialpass-genomgang.png",
+      "beskrivning": "spatialpasset, genomgången efter svaret"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-spatialpass-resultat.png",
+      "beskrivning": "spatialpasset klart: ringen, var du tappar, tempot"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-ordforradpass-1.png",
+      "beskrivning": "ordforradpasset, uppgift 1"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-ordforradpass-genomgang.png",
+      "beskrivning": "ordforradpasset, genomgången efter svaret"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-ordforradpass-resultat.png",
+      "beskrivning": "ordforradpasset klart: ringen, var du tappar, tempot"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-hem-efter.png",
+      "beskrivning": "Hemvyn efter passen: bockarna"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-utveckling.png",
+      "beskrivning": "Din utveckling: Pass per testtyp med talserier och spatial förmåga"
+    },
+    {
+      "fil": "slut-typer-p7-ljust-polisen-premium-alla-efter.png",
+      "beskrivning": "Alla tester efter nivåtesten: korten visar resultaten"
+    }
+  ]
+}

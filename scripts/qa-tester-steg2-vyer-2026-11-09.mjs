@@ -132,7 +132,7 @@ async function ny(browser, vp, morkt) {
   await p.emulateMediaFeatures([{ name: 'prefers-color-scheme', value: morkt ? 'dark' : 'light' }])
   p.setDefaultTimeout(30000)
   const fel = []
-  p.on('pageerror', (e) => fel.push(`pageerror: ${e.message}`))
+  p.on("pageerror", (e) => fel.push(`pageerror ${new URL(p.url()).pathname}: ${e.message.slice(0, 60)}`))
   p.on('console', (m) => {
     if (m.type() === 'error' && !/favicon|posthog|Failed to load resource: net::ERR|status of 40[23]|turnstile|cloudflare|i\.posthog|vercel/i.test(m.text())) fel.push(`console: ${m.text().slice(0, 160)}`)
   })
@@ -305,14 +305,15 @@ async function nivatest(p, enhet, slug) {
   logg(`${enhet}: ${slug} uppgiften utan sidledsscroll`, await sidled(p))
   const fri = await synligOchFri(p, '[data-steg2-alternativ] [role="radio"]:last-child')
   logg(`${enhet}: ${slug} sista alternativet syns utan att rulla`, fri.ok, fri.varfor)
-  for (let i = 0; i < 15; i++) {
+  const totalt = await p.evaluate(() => Number((document.body.innerText.match(/Uppgift\s*\d+\s*\/\s*(\d+)/) ?? [])[1]) || 15)
+  for (let i = 0; i < totalt; i++) {
     await p.waitForFunction(() => document.querySelectorAll('[data-steg2-alternativ] [role="radio"]:not([disabled])').length > 0, { timeout: 15000 }).catch(() => {})
     const fore = await p.evaluate(() => document.querySelector('[data-steg2-uppgift]')?.innerHTML.length ?? 0)
     const alt = await p.$$('[data-steg2-alternativ] [role="radio"]:not([disabled])')
     if (!alt.length) break
     await alt[i % alt.length].click()
     if (i === 4) await bild(p, `${enhet}-${slug}-uppgift-5`, `${slug}, uppgift fem besvarad`)
-    if (i < 14) await p.waitForFunction((f) => (document.querySelector('[data-steg2-uppgift]')?.innerHTML.length ?? 0) !== f, { timeout: 8000 }, fore).catch(() => {})
+    if (i < totalt - 1) await p.waitForFunction((f) => (document.querySelector('[data-steg2-uppgift]')?.innerHTML.length ?? 0) !== f, { timeout: 8000 }, fore).catch(() => {})
     await vanta(250)
   }
   await vanta(800)
@@ -325,7 +326,7 @@ async function nivatest(p, enhet, slug) {
   await vanta(2000)
   await bild(p, `${enhet}-${slug}-resultat`, `${slug}, resultatet`)
   const res = await p.evaluate(() => document.body.innerText)
-  logg(`${enhet}: ${slug} resultatet visas`, /av 15|rätt/i.test(res), res.slice(0, 120).replace(/\n/g, ' | '))
+  logg(`${enhet}: ${slug} resultatet visas`, p.url().includes('/results') && /rätt/i.test(res), res.slice(0, 120).replace(/\n/g, ' | '))
   logg(`${enhet}: ${slug} resultatet utan talstreck och mittpunkt`, !/—|·/.test(res))
   const ga = await knappMedText(p, 'Gå igenom', false)
   if (ga) {
@@ -387,9 +388,10 @@ async function typer(browser, enhet, vp, morkt, premium) {
   await allaTester(p, enhet, ['talserie', 'spatial'])
   await nivatest(p, enhet, 'talserier-grund')
   await nivatest(p, enhet, 'spatial-grund')
+  if (process.env.QA_ORD === '1') await nivatest(p, enhet, 'ordforrad-grund')
   if (premium) {
     await nivatest(p, enhet, 'spatial-avancerad')
-    for (const kind of ['talserie', 'spatial']) await steg2pass(p, enhet, kind)
+    for (const kind of process.env.QA_ORD === '1' ? ['talserie', 'spatial', 'ordforrad'] : ['talserie', 'spatial']) await steg2pass(p, enhet, kind)
     const hem2 = await las(p, '/dashboard/tester', `${enhet}-hem-efter`, 'Hemvyn efter passen: bockarna')
     logg(`${enhet}: hemvyn bockar passen`, (hem2.match(/Gjort/g) ?? []).length >= 2)
     await p.goto(`${BAS}/dashboard/tester/alla?flik=utveckling`, { waitUntil: 'networkidle2' })
@@ -405,7 +407,7 @@ async function typer(browser, enhet, vp, morkt, premium) {
     await bild(p, `${enhet}-spatial-avancerad-last`, 'Spatial förmåga avancerad för gratis')
   }
   const alla = await las(p, '/dashboard/tester/alla', `${enhet}-alla-efter`, 'Alla tester efter nivåtesten: korten visar resultaten')
-  logg(`${enhet}: korten visar gjorda nivåer`, /talserier/i.test(alla) && /spatial/i.test(alla) && /av 15/.test(alla))
+  logg(`${enhet}: korten visar gjorda nivåer`, /talserier/i.test(alla) && /spatial/i.test(alla) && /Bästa resultat per nivå/.test(alla))
   const { data: rader } = await admin.from('logic_test_v4_sessions').select('test_type, completed_at, score').eq('user_id', k.uid)
   logg(`${enhet}: sessionerna sparade`, ['talserier-grund', 'spatial-grund'].every((t) => rader?.some((r) => r.test_type === t && r.completed_at)), JSON.stringify(rader?.map((r) => `${r.test_type}:${r.score}`)))
   logg(`${enhet}: inga konsolfel eller 4xx/5xx`, fel.length === 0, fel.slice(0, 5).join(' ; '))
