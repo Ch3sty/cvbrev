@@ -43,7 +43,7 @@ async function hamta(ordbok, ord) {
   throw new Error(`svenska.se svarade inte för ${ordbok} ${ord}`);
 }
 
-const ren = (html) => (html ?? '').replace(/<[^>]+>/g, '').replace(/\d/g, '').trim().toLowerCase();
+const ren = (html) => (html ?? '').replace(/<[^>]+>/g, '').replace(/\d/g, '').replace(/\s+/g, ' ').trim().toLowerCase();
 const ord = (text) => (text ?? '').toLowerCase().replace(/<[^>]+>/g, ' ').match(/[a-zåäöéü]+/g) ?? [];
 
 function samla(o, ut) {

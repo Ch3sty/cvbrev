@@ -164,8 +164,10 @@ const betyder = async (w, klass) => {
 const kand = [];
 for (const n of NIVAER)
   for (const t of TYPER) {
-    const f = `src/lib/ordforradV1/kandidater/${n}-${t}.json`;
-    if (existsSync(f)) kand.push(...JSON.parse(readFileSync(f, 'utf8')).map((x) => ({ ...x, niva: n, typ: t })));
+    // Geminis kandidater från första omgången, sedan de handskrivna (ägarens beslut 2026-11-09)
+    for (const f of [`src/lib/ordforradV1/kandidater/${n}-${t}.json`, `src/lib/ordforradV1/kandidater/hand-${n}-${t}.json`]) {
+      if (existsSync(f)) kand.push(...JSON.parse(readFileSync(f, 'utf8')).map((x) => ({ ...x, niva: n, typ: t })));
+    }
   }
 
 // poolen: alla ord i nivåns kandidater, per ordklass, som finns i SO eller SAOL utan stilmarkering

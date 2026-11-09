@@ -84,9 +84,16 @@ export function valideraOrd(filer = ORD_BANKER, { minst = MINST_PER_TYP } = {}) 
     }
     for (const [o, n] of somAlt) if (n > 2) fel.push(`${fil}: OF7 ${o} är alternativ i ${n} uppgifter (högst två)`);
     if (extrem > 0.25 * bank.length) fel.push(`${fil}: OF4 facit är ensamt längst eller kortast i ${extrem} av ${bank.length}`);
-    for (const t of ['synonym', 'antonym']) {
-      const n = bank.filter((q) => q.typ === t).length;
-      if (n < minst) fel.push(`${fil}: ${n} uppgifter av typen ${t}, minst ${minst} före live`);
+    // grund och avancerad 40 av varje typ; expert 40 totalt och minst 5 motsatsord (ägarens beslut 2026-11-09)
+    const syn = bank.filter((q) => q.typ === 'synonym').length;
+    const ant = bank.filter((q) => q.typ === 'antonym').length;
+    if (minst > 0) {
+      if (/Expert/.test(fil)) {
+        if (syn + ant < minst || ant < 5) fel.push(`${fil}: ${syn} synonymer och ${ant} motsatsord, expert kräver ${minst} totalt och minst 5 motsatsord`);
+      } else {
+        if (syn < minst) fel.push(`${fil}: ${syn} synonymer, minst ${minst} före live`);
+        if (ant < minst) fel.push(`${fil}: ${ant} motsatsord, minst ${minst} före live`);
+      }
     }
   }
   return fel;

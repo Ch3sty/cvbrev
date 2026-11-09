@@ -1,0 +1,553 @@
+[
+ {
+  "ord": "arg",
+  "ordklass": "adjektiv",
+  "facit": "ilsken",
+  "distraktorer": [
+   {
+    "ord": "ledsen",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "trött",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "rädd",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "stolt",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Han blev arg när bussen inte kom.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "klok",
+  "ordklass": "adjektiv",
+  "facit": "förståndig",
+  "distraktorer": [
+   {
+    "ord": "snäll",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "ärlig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "modern",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "flitig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Det var ett klokt beslut att vänta.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "konstig",
+  "ordklass": "adjektiv",
+  "facit": "underlig",
+  "distraktorer": [
+   {
+    "ord": "rolig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "farlig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "ovanlig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "tråkig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Det hördes ett konstigt ljud från motorn.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "försöka",
+  "ordklass": "verb",
+  "facit": "pröva",
+  "distraktorer": [
+   {
+    "ord": "lyckas",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "vänta",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "öva",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "välja",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Hon ville försöka igen nästa år.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "förstå",
+  "ordklass": "verb",
+  "facit": "begripa",
+  "distraktorer": [
+   {
+    "ord": "lyssna",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "minnas",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "förklara",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "tro",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Jag förstår inte vad du menar.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "välja",
+  "ordklass": "verb",
+  "facit": "utse",
+  "distraktorer": [
+   {
+    "ord": "köpa",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "byta",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "pröva",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "dela",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Laget fick välja en ny kapten.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "laga",
+  "ordklass": "verb",
+  "facit": "reparera",
+  "distraktorer": [
+   {
+    "ord": "bygga",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "tvätta",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "måla",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "ändra",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Han lagade cykeln på en kvart.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "jobb",
+  "ordklass": "substantiv",
+  "facit": "arbete",
+  "distraktorer": [
+   {
+    "ord": "lön",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "chef",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "kontor",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "semester",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Hon fick ett nytt jobb i våras.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "fel",
+  "ordklass": "substantiv",
+  "facit": "misstag",
+  "distraktorer": [
+   {
+    "ord": "olycka",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "fråga",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "skada",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "brist",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Det blev ett fel i räkningen.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "trött",
+  "ordklass": "adjektiv",
+  "facit": "utmattad",
+  "distraktorer": [
+   {
+    "ord": "sjuk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "hungrig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "lat",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "ledsen",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Efter resan var alla trötta.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "duktig",
+  "ordklass": "adjektiv",
+  "facit": "skicklig",
+  "distraktorer": [
+   {
+    "ord": "snäll",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "flitig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "stark",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "glad",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Hon är duktig på att förklara.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "ilska",
+  "ordklass": "substantiv",
+  "facit": "vrede",
+  "distraktorer": [
+   {
+    "ord": "sorg",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "rädsla",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "glädje",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "skam",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Han kunde inte dölja sin ilska.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "rolig",
+  "ordklass": "adjektiv",
+  "facit": "lustig",
+  "distraktorer": [
+   {
+    "ord": "glad",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "snäll",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "konstig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "ovanlig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Det var en rolig film.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "bestämma",
+  "ordklass": "verb",
+  "facit": "besluta",
+  "distraktorer": [
+   {
+    "ord": "föreslå",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "fråga",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "tänka",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "planera",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Vi måste bestämma oss före fredag.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "kanske",
+  "ordklass": "adverb",
+  "facit": "möjligen",
+  "distraktorer": [
+   {
+    "ord": "aldrig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "säkert",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "sällan",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "gärna",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Vi ses kanske på fredag.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "rädd",
+  "ordklass": "adjektiv",
+  "facit": "skrämd",
+  "distraktorer": [
+   {
+    "ord": "arg",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "trött",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "ledsen",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "blyg",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Hunden var rädd för åskan.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "hel",
+  "ordklass": "adjektiv",
+  "facit": "oskadd",
+  "distraktorer": [
+   {
+    "ord": "ren",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "ny",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "stor",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "tom",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Vasen var hel trots fallet.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "vänta",
+  "ordklass": "verb",
+  "facit": "avvakta",
+  "distraktorer": [
+   {
+    "ord": "stanna",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "hoppas",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "lyssna",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "sova",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Vi får vänta på besked från banken.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "smutsig",
+  "ordklass": "adjektiv",
+  "facit": "oren",
+  "distraktorer": [
+   {
+    "ord": "blöt",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "gammal",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "mörk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "trasig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Golvet var smutsigt efter festen.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ }
+]

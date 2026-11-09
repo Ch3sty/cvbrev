@@ -54,10 +54,10 @@
   "ord": "tydlig",
   "ordklass": "adjektiv",
   "options": [
-   "ensam",
+   "elak",
    "mild",
    "klar",
-   "kraftig",
+   "väldig",
    "varm"
   ],
   "correctAnswer": 2,
@@ -69,10 +69,10 @@
    "annan"
   ],
   "misstag": [
-   "Ensam betyder som är utan sällskap av någon annan.",
+   "Elak betyder bland annat som vill andra människor illa.",
    "Mild betyder bland annat skonsam och behaglig för sinnena.",
    "",
-   "Kraftig betyder bland annat som har stor och muskulös byggnad.",
+   "Väldig betyder bland annat mycket stor.",
    "Varm betyder som har hög temperatur."
   ],
   "facit_betyder": "fri från allt som fördunklar",
@@ -105,7 +105,7 @@
    "stark",
    "tapper",
    "glad",
-   "gammal",
+   "orolig",
    "vaken"
   ],
   "correctAnswer": 1,
@@ -120,7 +120,7 @@
    "Stark betyder bland annat som har stor muskelkraft.",
    "",
    "Glad betyder bland annat som känner upprymdhet och tillfredsställelse.",
-   "Gammal betyder bland annat som har existerat under lång tid.",
+   "Orolig betyder som känner oro.",
    "Vaken betyder som inte sover."
   ],
   "facit_betyder": "som trots personlig fara handlar utan fruktan för följderna",
@@ -150,7 +150,7 @@
   "ord": "skrika",
   "ordklass": "verb",
   "options": [
-   "förklara",
+   "utföra",
    "söka",
    "höra",
    "ropa",
@@ -165,7 +165,7 @@
    "samma_falt"
   ],
   "misstag": [
-   "Förklara betyder bland annat tillkännage som sin ståndpunkt.",
+   "Utföra betyder bland annat vara verksam med och föra (uppdrag eller handling) till sitt slut.",
    "Söka betyder bland annat anstränga sig för att hitta.",
    "Höra betyder bland annat uppfatta (ljud) med hörselsinnet.",
    "",
@@ -200,7 +200,7 @@
   "ord": "viktig",
   "ordklass": "adjektiv",
   "options": [
-   "bestämd",
+   "smutsig",
    "central",
    "svår",
    "äkta",
@@ -215,7 +215,7 @@
    "annan"
   ],
   "misstag": [
-   "Bestämd betyder bland annat fastlagd som styrande eller bindande.",
+   "Smutsig betyder bemängd med smuts.",
    "",
    "Svår betyder bland annat som kräver betydande ansträngning.",
    "Äkta betyder bland annat som verkligen är vad det tycks vara.",
@@ -250,10 +250,10 @@
   "ordklass": "verb",
   "options": [
    "stödja",
-   "gråta",
+   "förstöra",
    "visa",
    "följa",
-   "arbeta"
+   "klaga"
   ],
   "correctAnswer": 0,
   "typer": [
@@ -265,10 +265,10 @@
   ],
   "misstag": [
    "",
-   "Gråta betyder fälla tårar.",
+   "Förstöra betyder göra helt oduglig eller värdelös.",
    "Visa betyder bland annat låta (någon) se.",
    "Följa betyder bland annat förflytta sig längs den väg eller bana som just tagits av.",
-   "Arbeta betyder bland annat utföra vissa uppgifter eller tjänster mot betalning."
+   "Klaga betyder bland annat framföra sitt missnöje."
   ],
   "facit_betyder": "låta kropp(sdel) vila",
   "exempel": "Kan du hjälpa mig att flytta bordet?",
@@ -299,9 +299,9 @@
   "ordklass": "adjektiv",
   "options": [
    "lycklig",
-   "erfaren",
+   "komplicerad",
    "snäll",
-   "häftig",
+   "hög",
    "trygg"
   ],
   "correctAnswer": 0,
@@ -314,9 +314,9 @@
   ],
   "misstag": [
    "",
-   "Erfaren betyder som har långvarigt utövande av någon verksamhet bakom sig.",
+   "Komplicerad betyder sammansatt på ett invecklat sätt.",
    "Snäll betyder som (ofta) låter sitt handlande styras av omtanke om andra.",
-   "Häftig betyder bland annat som kännetecknas av plötslig och mycket stark kraftutveckling.",
+   "Hög betyder bland annat som har stor utsträckning i riktning uppåt.",
    "Trygg betyder bland annat fri från oroande eller hotande inslag."
   ],
   "facit_betyder": "som känner varaktig, djup glädje och tillfredsställelse",
@@ -351,7 +351,7 @@
    "vänta",
    "ändra",
    "upphöra",
-   "godkänna"
+   "parkera"
   ],
   "correctAnswer": 3,
   "typer": [
@@ -366,7 +366,7 @@
    "Vänta betyder bland annat (under viss tid) hålla sig mer eller mindre overksam och avvakta (händelse)utvecklingen.",
    "Ändra betyder ge annan form eller annat innehåll.",
    "",
-   "Godkänna betyder bedöma (någon/något) uppfylla fastställda krav."
+   "Parkera betyder placera (fordon) på särskild uppställningsplats."
   ],
   "facit_betyder": "komma till ett slut",
   "exempel": "Regnet ser ut att sluta om några minuter.",
@@ -397,7 +397,7 @@
   "ordklass": "verb",
   "options": [
    "svara",
-   "söka",
+   "öva",
    "viska",
    "fråga",
    "tala"
@@ -412,7 +412,7 @@
   ],
   "misstag": [
    "Svara betyder bland annat ge svar.",
-   "Söka betyder bland annat anstränga sig för att hitta.",
+   "Öva betyder bland annat metodiskt försöka förbättra sin färdighet i (något) genom särskilt anpassade (upprepade) aktiviteter.",
    "Viska betyder bland annat tala tyst utan att stämbanden vibrerar.",
    "Fråga betyder be (någon) att få vissa upplysningar.",
    ""
@@ -448,7 +448,7 @@
    "rädd",
    "arg",
    "ensam",
-   "märklig"
+   "kraftig"
   ],
   "correctAnswer": 0,
   "typer": [
@@ -463,7 +463,7 @@
    "Rädd betyder bland annat som känner rädsla.",
    "Arg betyder bland annat som känner vrede eller ilska.",
    "Ensam betyder som är utan sällskap av någon annan.",
-   "Märklig betyder som har ovanliga egenskaper och därför väcker uppmärksamhet eller förundran."
+   "Kraftig betyder bland annat som har stor och muskulös byggnad."
   ],
   "facit_betyder": "som känner sorg",
   "exempel": "Han blev ledsen när han tappade bort sin nyckel.",
@@ -493,25 +493,25 @@
   "ordklass": "verb",
   "options": [
    "finna",
-   "gömma",
-   "handla",
-   "bromsa",
-   "tillåta"
+   "söka",
+   "tjäna",
+   "låsa",
+   "gömma"
   ],
   "correctAnswer": 0,
   "typer": [
    "",
-   "annan",
+   "samma_falt",
    "annan",
    "annan",
    "annan"
   ],
   "misstag": [
    "",
-   "Gömma betyder bland annat placera (något) så att det ska vara svårt att upptäcka.",
-   "Handla betyder bland annat utveckla målinriktad verksamhet.",
-   "Bromsa betyder hastigt minska farten.",
-   "Tillåta betyder (förklara sig) inte lägga några hinder i vägen för."
+   "Söka betyder bland annat anstränga sig för att hitta.",
+   "Tjäna betyder bland annat (regelbundet och i enlighet med avtal) få som ersättning för arbete.",
+   "Låsa betyder säkra tillslutning av (något) med lås.",
+   "Gömma betyder bland annat placera (något) så att det ska vara svårt att upptäcka."
   ],
   "facit_betyder": "upptäcka efter att ha sökt",
   "exempel": "Jag kan inte hitta mina glasögon någonstans.",
@@ -532,7 +532,7 @@
    "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
    "of6_stil": "ingen stilmarkering i SO eller SAOL",
    "kandidat_fran": "gemini:gemini-3.5-flash",
-   "ifyllda_distraktorer": 3
+   "ifyllda_distraktorer": 2
   },
   "fran_version": 1
  },
@@ -543,11 +543,11 @@
   "ord": "svår",
   "ordklass": "adjektiv",
   "options": [
-   "smutsig",
+   "framgångsrik",
    "komplicerad",
    "törstig",
-   "osynlig",
-   "framgångsrik"
+   "kraftig",
+   "noggrann"
   ],
   "correctAnswer": 1,
   "typer": [
@@ -558,11 +558,11 @@
    "annan"
   ],
   "misstag": [
-   "Smutsig betyder bemängd med smuts.",
+   "Framgångsrik betyder som uppnått goda resultat.",
    "",
    "Törstig betyder som känner starkt behov av att dricka.",
-   "Osynlig betyder som inte syns.",
-   "Framgångsrik betyder som uppnått goda resultat."
+   "Kraftig betyder bland annat som har stor och muskulös byggnad.",
+   "Noggrann betyder grundlig och omsorgsfull."
   ],
   "facit_betyder": "sammansatt på ett invecklat sätt",
   "exempel": "Det var en svår uppgift som tog lång tid.",
@@ -595,7 +595,7 @@
    "skön",
    "ren",
    "varm",
-   "smidig"
+   "farlig"
   ],
   "correctAnswer": 1,
   "typer": [
@@ -610,7 +610,7 @@
    "",
    "Ren betyder bland annat fri från (partiklar av) främmande, oönskade ämnen.",
    "Varm betyder som har hög temperatur.",
-   "Smidig betyder spänstig och böjlig."
+   "Farlig betyder som utgör en fara."
   ],
   "facit_betyder": "fulländat vacker",
   "exempel": "Det var en mycket vacker utsikt över sjön.",
@@ -641,7 +641,7 @@
   "options": [
    "drömma",
    "minnas",
-   "straffa",
+   "skratta",
    "veta",
    "fundera"
   ],
@@ -656,7 +656,7 @@
   "misstag": [
    "Drömma betyder bland annat uppleva en följd av synbilder under sömnen.",
    "Minnas betyder återfå eller aktualisera lagrad själslig föreställning av.",
-   "Straffa betyder bland annat döma till straff.",
+   "Skratta betyder (reflexmässigt) uttrycka känsla av munterhet eller glädje genom stötvisa ljud i kombination med glatt ansiktsuttryck.",
    "Veta betyder ha säker kunskap eller kännedom om.",
    ""
   ],
@@ -691,7 +691,7 @@
    "kort",
    "ren",
    "snabb",
-   "exakt",
+   "jämn",
    "lätt"
   ],
   "correctAnswer": 4,
@@ -706,7 +706,7 @@
    "Kort betyder bland annat som har liten utsträckning i sin längdriktning.",
    "Ren betyder bland annat fri från (partiklar av) främmande, oönskade ämnen.",
    "Snabb betyder som utför något på kort tid.",
-   "Exakt betyder fullkomligt riktig och tillförlitlig.",
+   "Jämn betyder bland annat fri från (mer markanta) upphöjningar eller fördjupningar.",
    ""
   ],
   "facit_betyder": "som har liten vikt",
@@ -737,10 +737,10 @@
   "ord": "springa",
   "ordklass": "verb",
   "options": [
-   "hitta",
-   "kosta",
-   "skruva",
-   "hota",
+   "locka",
+   "hjälpa",
+   "gömma",
+   "se",
    "löpa"
   ],
   "correctAnswer": 4,
@@ -752,10 +752,10 @@
    ""
   ],
   "misstag": [
-   "Hitta betyder komma att upptäcka.",
-   "Kosta betyder ha som pris.",
-   "Skruva betyder bland annat vrida skruv.",
-   "Hota betyder varnande tillkännage sin avsikt.",
+   "Locka betyder bland annat göra lockig.",
+   "Hjälpa betyder bland annat ge (någon) hjälp.",
+   "Gömma betyder bland annat placera (något) så att det ska vara svårt att upptäcka.",
+   "Se betyder bland annat uppfatta med synen.",
    ""
   ],
   "facit_betyder": "förflytta sig med snabba steg, varvid tidvis ingen av fötterna har markkontakt",
@@ -788,8 +788,8 @@
   "options": [
    "känd",
    "stolt",
-   "trång",
-   "komplicerad",
+   "dålig",
+   "personlig",
    "förmögen"
   ],
   "correctAnswer": 4,
@@ -803,8 +803,8 @@
   "misstag": [
    "Känd betyder bland annat som många känner till.",
    "Stolt betyder fylld av tillfredsställelse och självkänsla.",
-   "Trång betyder bland annat som innesluter ett utrymme som är i minsta laget.",
-   "Komplicerad betyder sammansatt på ett invecklat sätt.",
+   "Dålig betyder bland annat som har negativa egenskaper.",
+   "Personlig betyder bland annat som har att göra med eller tillhör enskilda personer.",
    ""
   ],
   "facit_betyder": "väl försedd med ekonomiska tillgångar",
@@ -839,7 +839,7 @@
    "flytta",
    "laga",
    "måla",
-   "parkera",
+   "misslyckas",
    "uppföra"
   ],
   "correctAnswer": 4,
@@ -854,7 +854,7 @@
    "Flytta betyder bland annat föra.",
    "Laga betyder bland annat återställa i funktionsdugligt skick.",
    "Måla betyder bland annat överdra med skyddande och prydande skikt av färg.",
-   "Parkera betyder placera (fordon) på särskild uppställningsplats.",
+   "Misslyckas betyder utan framgång försöka uppnå.",
    ""
   ],
   "facit_betyder": "(låta) bygga",
@@ -885,11 +885,11 @@
   "ord": "tappa",
   "ordklass": "verb",
   "options": [
-   "gömma",
-   "ropa",
+   "forma",
+   "skynda",
    "kasta",
    "mista",
-   "fästa"
+   "förstöra"
   ],
   "correctAnswer": 3,
   "typer": [
@@ -900,11 +900,11 @@
    "annan"
   ],
   "misstag": [
-   "Gömma betyder bland annat placera (något) så att det ska vara svårt att upptäcka.",
-   "Ropa betyder frambringa rop.",
+   "Forma betyder ge yttre gestalt åt.",
+   "Skynda betyder arbeta eller utföra (något) hastigt.",
    "Kasta betyder bland annat få (något) att fara i en båge genom luften, med hjälp av en svängande rörelse av armen.",
    "",
-   "Fästa betyder bland annat sätta (något) i ett fast läge i omedelbar anslutning till något annat."
+   "Förstöra betyder göra helt oduglig eller värdelös."
   ],
   "facit_betyder": "förlora",
   "exempel": "Var försiktig så att du inte tappar dina nycklar.",
@@ -922,7 +922,7 @@
    "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
    "of6_stil": "ingen stilmarkering i SO eller SAOL",
    "kandidat_fran": "gemini:gemini-3.5-flash",
-   "ifyllda_distraktorer": 2
+   "ifyllda_distraktorer": 3
   },
   "fran_version": 1
  },
@@ -930,77 +930,29 @@
   "id": "of-g-s-20",
   "niva": "grund",
   "typ": "synonym",
-  "ord": "stark",
-  "ordklass": "adjektiv",
+  "ord": "dröja",
+  "ordklass": "verb",
   "options": [
-   "hungrig",
-   "ytlig",
-   "tung",
-   "kraftig",
-   "snabb"
+   "måla",
+   "glömma",
+   "somna",
+   "vänta",
+   "lyssna"
   ],
   "correctAnswer": 3,
   "typer": [
    "annan",
    "annan",
-   "annan",
+   "nara",
    "",
    "annan"
   ],
   "misstag": [
-   "Hungrig betyder som känner behov av föda.",
-   "Ytlig betyder som håller sig till ytskiktet.",
-   "Tung betyder bland annat som väger mycket.",
-   "",
-   "Snabb betyder som utför något på kort tid."
-  ],
-  "facit_betyder": "som har stor och muskulös byggnad",
-  "exempel": "Det behövdes en stark person för att bära skåpet.",
-  "kalla": {
-   "verifierad_mot": "SAOL",
-   "belagg": [
-    "SAOL kraftig: förklaras med stark (\"kraftfull, stark\")"
-   ],
-   "so_id": "340224",
-   "hamtad": "2026-11-09"
-  },
-  "popularitet": 935304,
-  "granskning": {
-   "of2_ordklass": "adjektiv",
-   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
-   "of6_stil": "ingen stilmarkering i SO eller SAOL",
-   "kandidat_fran": "gemini:gemini-3.5-flash",
-   "ifyllda_distraktorer": 2
-  },
-  "fran_version": 1
- },
- {
-  "id": "of-g-s-21",
-  "niva": "grund",
-  "typ": "synonym",
-  "ord": "dröja",
-  "ordklass": "verb",
-  "options": [
-   "glömma",
-   "lyssna",
-   "korta",
-   "somna",
-   "vänta"
-  ],
-  "correctAnswer": 4,
-  "typer": [
-   "annan",
-   "annan",
-   "annan",
-   "nara",
-   ""
-  ],
-  "misstag": [
+   "Måla betyder bland annat överdra med skyddande och prydande skikt av färg.",
    "Glömma betyder förlora ur minnet.",
-   "Lyssna betyder medvetet använda hörselsinnet.",
-   "Korta betyder göra kortare.",
    "Somna betyder bland annat falla i sömn.",
-   ""
+   "",
+   "Lyssna betyder medvetet använda hörselsinnet."
   ],
   "facit_betyder": "(under viss tid) hålla sig mer eller mindre overksam och avvakta (händelse)utvecklingen",
   "exempel": "Bussen kommer att dröja minst tjugo minuter till.",
@@ -1024,31 +976,31 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-s-22",
+  "id": "of-g-s-21",
   "niva": "grund",
   "typ": "synonym",
   "ord": "samarbete",
   "ordklass": "substantiv",
   "options": [
-   "hastighet",
-   "förening",
    "styrka",
    "kamrat",
+   "hastighet",
+   "förening",
    "samverkan"
   ],
   "correctAnswer": 4,
   "typer": [
    "annan",
-   "samma_falt",
-   "annan",
    "nara",
+   "annan",
+   "samma_falt",
    ""
   ],
   "misstag": [
-   "Hastighet betyder tillryggalagd vägsträcka per tidsenhet.",
-   "Förening betyder bland annat organiserad grupp med viss välbestämd verksamhet.",
    "Styrka betyder bland annat inneboende muskelkraft.",
    "Kamrat betyder person som deltar eller ingår i samma verksamhet.",
+   "Hastighet betyder tillryggalagd vägsträcka per tidsenhet.",
+   "Förening betyder bland annat organiserad grupp med viss välbestämd verksamhet.",
    ""
   ],
   "facit_betyder": "gemensamt handlande för visst syfte",
@@ -1073,32 +1025,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-s-23",
+  "id": "of-g-s-22",
   "niva": "grund",
   "typ": "synonym",
   "ord": "orolig",
   "ordklass": "adjektiv",
   "options": [
-   "ängslig",
-   "strålande",
-   "arg",
+   "aktuell",
    "trött",
-   "elak"
+   "elak",
+   "arg",
+   "ängslig"
   ],
-  "correctAnswer": 0,
+  "correctAnswer": 4,
   "typer": [
-   "",
-   "annan",
    "annan",
    "nara",
-   "annan"
+   "annan",
+   "annan",
+   ""
   ],
   "misstag": [
-   "",
-   "Strålande betyder utomordentlig.",
-   "Arg betyder bland annat som känner vrede eller ilska.",
+   "Aktuell betyder som (nödvändigtvis) tilldrar sig uppmärksamhet vid det givna tillfället.",
    "Trött betyder bland annat som inte orkar utföra (mycket mer) arbete utan är i behov av vila.",
-   "Elak betyder bland annat som vill andra människor illa."
+   "Elak betyder bland annat som vill andra människor illa.",
+   "Arg betyder bland annat som känner vrede eller ilska.",
+   ""
   ],
   "facit_betyder": "som känner ängslan",
   "exempel": "Hon blev orolig när barnet inte kom hem i tid.",
@@ -1121,32 +1073,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-s-24",
+  "id": "of-g-s-23",
   "niva": "grund",
   "typ": "synonym",
   "ord": "syfte",
   "ordklass": "substantiv",
   "options": [
-   "orsak",
    "mål",
-   "skratt",
+   "del",
    "vinst",
-   "myt"
+   "orsak",
+   "fiende"
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 0,
   "typer": [
-   "samma_falt",
    "",
    "annan",
    "annan",
+   "samma_falt",
    "annan"
   ],
   "misstag": [
-   "Orsak betyder tillstånd, händelse eller handling som (direkt) ger upphov till annat tillstånd eller annan händelse eller handling.",
    "",
-   "Skratt betyder det att skratta.",
+   "Del betyder bland annat mindre företeelse som fullständigt ingår i större.",
    "Vinst betyder bland annat ökning av tillgångarnas värde (för person eller företag) som uppkommit genom affärshandlingar.",
-   "Myt betyder berättelse om övernaturliga ting, nedärvd från äldsta tider."
+   "Orsak betyder tillstånd, händelse eller handling som (direkt) ger upphov till annat tillstånd eller annan händelse eller handling.",
+   "Fiende betyder motståndare (till någon eller något) som är beredd att skada."
   ],
   "facit_betyder": "avsett resultat av verksamhet",
   "exempel": "Syftet med projektet var att förbättra miljön.",
@@ -1169,32 +1121,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-s-25",
+  "id": "of-g-s-24",
   "niva": "grund",
   "typ": "synonym",
   "ord": "märklig",
   "ordklass": "adjektiv",
   "options": [
-   "noggrann",
+   "okänd",
+   "underlig",
    "dålig",
    "farlig",
-   "okänd",
-   "underlig"
+   "noggrann"
   ],
-  "correctAnswer": 4,
+  "correctAnswer": 1,
   "typer": [
-   "annan",
+   "samma_falt",
+   "",
    "annan",
    "nara",
-   "samma_falt",
-   ""
+   "annan"
   ],
   "misstag": [
-   "Noggrann betyder grundlig och omsorgsfull.",
+   "Okänd betyder bland annat som ingen (eller mycket få) känner till.",
+   "",
    "Dålig betyder bland annat som har negativa egenskaper.",
    "Farlig betyder som utgör en fara.",
-   "Okänd betyder bland annat som ingen (eller mycket få) känner till.",
-   ""
+   "Noggrann betyder grundlig och omsorgsfull."
   ],
   "facit_betyder": "svår att förstå sig på",
   "exempel": "Det var en mycket märklig händelse som ingen kunde förklara.",
@@ -1217,32 +1169,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-s-26",
+  "id": "of-g-s-25",
   "niva": "grund",
   "typ": "synonym",
   "ord": "oftast",
   "ordklass": "adverb",
   "options": [
-   "alltid",
-   "snart",
+   "möjligen",
    "gärna",
-   "vanligen",
-   "ibland"
+   "ibland",
+   "alltid",
+   "vanligen"
   ],
-  "correctAnswer": 3,
+  "correctAnswer": 4,
   "typer": [
+   "annan",
+   "annan",
+   "nara",
    "samma_falt",
-   "annan",
-   "annan",
-   "",
-   "nara"
+   ""
   ],
   "misstag": [
-   "Alltid betyder bland annat vid varje tillfälle (av betydelse).",
-   "Snart betyder inom kort.",
+   "Möjligen betyder med viss möjlighet.",
    "Gärna betyder bland annat med nöje.",
-   "",
-   "Ibland betyder vid vissa tillfällen."
+   "Ibland betyder vid vissa tillfällen.",
+   "Alltid betyder bland annat vid varje tillfälle (av betydelse).",
+   ""
   ],
   "facit_betyder": "i normala fall",
   "exempel": "Hon brukar oftast äta lunch klockan tolv.",
@@ -1260,35 +1212,35 @@
    "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
    "of6_stil": "ingen stilmarkering i SO eller SAOL",
    "kandidat_fran": "gemini:gemini-3.5-flash",
-   "ifyllda_distraktorer": 0
+   "ifyllda_distraktorer": 1
   },
   "fran_version": 1
  },
  {
-  "id": "of-g-s-27",
+  "id": "of-g-s-26",
   "niva": "grund",
   "typ": "synonym",
   "ord": "skapa",
   "ordklass": "verb",
   "options": [
-   "tävla",
-   "samla",
    "ordna",
+   "bestämma",
+   "samla",
    "bilda",
    "flytta"
   ],
   "correctAnswer": 3,
   "typer": [
-   "annan",
-   "annan",
    "nara",
+   "annan",
+   "annan",
    "",
    "annan"
   ],
   "misstag": [
-   "Tävla betyder mäta sin förmåga (med andra) för att fastställa vem som är bäst.",
-   "Samla betyder bringa samman till en uppsättning.",
    "Ordna betyder bland annat upprätta regelbundet inbördes förhållande mellan.",
+   "Bestämma betyder bland annat lägga fast regler eller principer för.",
+   "Samla betyder bringa samman till en uppsättning.",
    "",
    "Flytta betyder bland annat föra."
   ],
@@ -1314,32 +1266,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-s-28",
+  "id": "of-g-s-27",
   "niva": "grund",
   "typ": "synonym",
   "ord": "hända",
   "ordklass": "verb",
   "options": [
+   "le",
    "ändra",
-   "stanna",
-   "ske",
    "börja",
-   "öva"
+   "ske",
+   "stanna"
   ],
-  "correctAnswer": 2,
+  "correctAnswer": 3,
   "typer": [
    "annan",
    "annan",
-   "",
    "samma_falt",
+   "",
    "annan"
   ],
   "misstag": [
+   "Le betyder låta mungiporna dra sig utåt och uppåt som tyst tecken på munterhet eller vänlighet.",
    "Ändra betyder ge annan form eller annat innehåll.",
-   "Stanna betyder bland annat upphöra att förflytta sig.",
-   "",
    "Börja betyder övergå till att utföra eller utsättas för.",
-   "Öva betyder bland annat metodiskt försöka förbättra sin färdighet i (något) genom särskilt anpassade (upprepade) aktiviteter."
+   "",
+   "Stanna betyder bland annat upphöra att förflytta sig."
   ],
   "facit_betyder": "äga rum",
   "exempel": "Ingen vet riktigt vad som kommer att hända imorgon.",
@@ -1363,32 +1315,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-s-29",
+  "id": "of-g-s-28",
   "niva": "grund",
   "typ": "synonym",
   "ord": "snäll",
   "ordklass": "adjektiv",
   "options": [
-   "osynlig",
+   "skarp",
    "tyst",
    "god",
-   "rak",
-   "lugn"
+   "lugn",
+   "fri"
   ],
   "correctAnswer": 2,
   "typer": [
    "annan",
    "annan",
    "",
-   "annan",
-   "samma_falt"
+   "samma_falt",
+   "annan"
   ],
   "misstag": [
-   "Osynlig betyder som inte syns.",
+   "Skarp betyder bland annat som har en spetsig kant.",
    "Tyst betyder som inte ger något (nämnvärt) ljud ifrån sig.",
    "",
-   "Rak betyder bland annat som följer en väg som är den kortaste möjliga.",
-   "Lugn betyder bland annat som kännetecknas av sparsam rörelse."
+   "Lugn betyder bland annat som kännetecknas av sparsam rörelse.",
+   "Fri betyder bland annat som inte är fysiskt instängd eller hindrad."
   ],
   "facit_betyder": "som har (ett överskott av) de nödvändiga egenskaperna",
   "exempel": "Han är alltid mycket snäll mot sina arbetskamrater.",
@@ -1412,32 +1364,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-s-30",
+  "id": "of-g-s-29",
   "niva": "grund",
   "typ": "synonym",
   "ord": "söka",
   "ordklass": "verb",
   "options": [
-   "titta",
-   "önska",
-   "leta",
+   "bygga",
    "lämna",
-   "visa"
+   "leta",
+   "täta",
+   "önska"
   ],
   "correctAnswer": 2,
   "typer": [
    "annan",
-   "nara",
+   "annan",
    "",
    "annan",
-   "annan"
+   "nara"
   ],
   "misstag": [
-   "Titta betyder bland annat använda synsinnet.",
-   "Önska betyder föreställa sig och vilja få (något) förverkligat.",
-   "",
+   "Bygga betyder bland annat framställa (komplicerat föremål) genom att foga samman delar.",
    "Lämna betyder bland annat låta (något) vara kvar.",
-   "Visa betyder bland annat låta (någon) se."
+   "",
+   "Täta betyder göra (mer) ogenomtränglig för vätska eller gas.",
+   "Önska betyder föreställa sig och vilja få (något) förverkligat."
   ],
   "facit_betyder": "anstränga sig för att hitta",
   "exempel": "Han tänker söka ett nytt jobb till hösten.",
@@ -1463,32 +1415,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-s-31",
+  "id": "of-g-s-30",
   "niva": "grund",
   "typ": "synonym",
   "ord": "grund",
   "ordklass": "substantiv",
   "options": [
-   "vana",
-   "bas",
+   "dörr",
    "mål",
-   "seger",
-   "oro"
+   "bas",
+   "moln",
+   "kärlek"
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 2,
   "typer": [
    "annan",
-   "",
    "annan",
+   "",
    "annan",
    "annan"
   ],
   "misstag": [
-   "Vana betyder sätt att bete sig eller förhålla sig (i viss situation) som har lärts in genom ständig upprepning.",
-   "",
+   "Dörr betyder vertikal (svängbar eller skjutbar) skiva eller dylikt för tillslutning av ingång till en byggnad.",
    "Mål betyder bland annat avsett resultat av verksamhet.",
-   "Seger betyder det att utgå som den bäste.",
-   "Oro betyder (lättare) upprördhet, rädsla och olust."
+   "",
+   "Moln betyder bland annat synlig, avgränsad förtätning i atmosfären.",
+   "Kärlek betyder mycket stark, positiv känsla (för någon) som kännetecknas av ömhet och ibland sexuell åtrå."
   ],
   "facit_betyder": "mansröst i det djupaste stämläget",
   "exempel": "Föreningslivet står på en stadig grund i kommunen.",
@@ -1513,32 +1465,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-s-32",
+  "id": "of-g-s-31",
   "niva": "grund",
   "typ": "synonym",
   "ord": "snart",
   "ordklass": "adverb",
   "options": [
-   "strax",
    "länge",
-   "aldrig",
+   "strax",
+   "nyss",
    "långt",
-   "nyss"
+   "aldrig"
   ],
-  "correctAnswer": 0,
+  "correctAnswer": 1,
   "typer": [
+   "annan",
    "",
+   "nara",
    "annan",
-   "annan",
-   "annan",
-   "nara"
+   "annan"
   ],
   "misstag": [
-   "",
    "Länge betyder under tidsperiod av större utsträckning.",
-   "Aldrig betyder inte vid någon tidpunkt.",
+   "",
+   "Nyss betyder vid en tidpunkt alldeles före nuet.",
    "Långt betyder bland annat på stort avstånd.",
-   "Nyss betyder vid en tidpunkt alldeles före nuet."
+   "Aldrig betyder inte vid någon tidpunkt."
   ],
   "facit_betyder": "inom en mycket kort tid",
   "exempel": "Mötet kommer snart att starta i storsalen.",
@@ -1563,32 +1515,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-s-33",
+  "id": "of-g-s-32",
   "niva": "grund",
   "typ": "synonym",
   "ord": "regel",
   "ordklass": "substantiv",
   "options": [
-   "bevis",
-   "frihet",
    "norm",
-   "straff",
-   "gråt"
+   "frihet",
+   "bevis",
+   "oro",
+   "straff"
   ],
-  "correctAnswer": 2,
+  "correctAnswer": 0,
   "typer": [
-   "annan",
-   "annan",
    "",
+   "annan",
+   "annan",
    "annan",
    "annan"
   ],
   "misstag": [
-   "Bevis betyder bland annat faktum eller omständighet som används för att demonstrera riktigheten hos ett påstående.",
-   "Frihet betyder bland annat fritt tillstånd.",
    "",
-   "Straff betyder påföljd för brott i form av frihetsberövande eller böter.",
-   "Gråt betyder det att gråta."
+   "Frihet betyder bland annat fritt tillstånd.",
+   "Bevis betyder bland annat faktum eller omständighet som används för att demonstrera riktigheten hos ett påstående.",
+   "Oro betyder (lättare) upprördhet, rädsla och olust.",
+   "Straff betyder påföljd för brott i form av frihetsberövande eller böter."
   ],
   "facit_betyder": "(allmänt godtagen) regel för handlande eller tänkande",
   "exempel": "Det finns en tydlig regel för hur arvodet ska fördelas.",
@@ -1612,32 +1564,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-s-34",
+  "id": "of-g-s-33",
   "niva": "grund",
   "typ": "synonym",
   "ord": "kasta",
   "ordklass": "verb",
   "options": [
-   "rulla",
-   "värdera",
+   "försöka",
    "lyfta",
    "slunga",
-   "handla"
+   "rulla",
+   "hota"
   ],
-  "correctAnswer": 3,
+  "correctAnswer": 2,
   "typer": [
-   "samma_falt",
    "annan",
    "annan",
    "",
+   "samma_falt",
    "annan"
   ],
   "misstag": [
-   "Rulla betyder bland annat förflyttas på ett underlag genom vridning runt en mittpunkt eller axel.",
-   "Värdera betyder bland annat bedöma värdet  av.",
+   "Försöka betyder handla på ett sätt som syftar till och bör ha möjlighet till att åstadkomma.",
    "Lyfta betyder bland annat föra rakt uppåt.",
    "",
-   "Handla betyder bland annat utveckla målinriktad verksamhet."
+   "Rulla betyder bland annat förflyttas på ett underlag genom vridning runt en mittpunkt eller axel.",
+   "Hota betyder varnande tillkännage sin avsikt."
   ],
   "facit_betyder": "kasta med stor svepande armrörelse",
   "exempel": "Pojken tycker om att kasta sten i vattnet.",
@@ -1660,17 +1612,17 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-s-35",
+  "id": "of-g-s-34",
   "niva": "grund",
   "typ": "synonym",
   "ord": "bred",
   "ordklass": "adjektiv",
   "options": [
-   "farlig",
-   "aktiv",
-   "ny",
+   "grund",
+   "seriös",
+   "vass",
    "vid",
-   "klok"
+   "het"
   ],
   "correctAnswer": 3,
   "typer": [
@@ -1681,11 +1633,11 @@
    "annan"
   ],
   "misstag": [
-   "Farlig betyder som utgör en fara.",
-   "Aktiv betyder bland annat som deltar på ett verkningsfullt sätt.",
-   "Ny betyder bland annat som börjat existera för helt kort tid sedan.",
+   "Grund betyder som har litet avstånd mellan yta och botten.",
+   "Seriös betyder som framträder med anspråk på att tas på allvar och respekteras.",
+   "Vass betyder som har mycket spetsig vinkel.",
    "",
-   "Klok betyder bland annat som har gott förstånd och omdöme."
+   "Het betyder bland annat mycket varm."
   ],
   "facit_betyder": "som utbreder sig långt åt sidorna",
   "exempel": "Vägen är bred nog för två bilar.",
@@ -1708,32 +1660,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-s-36",
+  "id": "of-g-s-35",
   "niva": "grund",
   "typ": "synonym",
   "ord": "hård",
   "ordklass": "adjektiv",
   "options": [
-   "god",
-   "häftig",
+   "tidig",
+   "okänd",
+   "blek",
    "fast",
-   "liten",
-   "blyg"
+   "klok"
   ],
-  "correctAnswer": 2,
+  "correctAnswer": 3,
   "typer": [
    "annan",
    "annan",
-   "",
    "annan",
+   "",
    "annan"
   ],
   "misstag": [
-   "God betyder bland annat som har (ett överskott av) de nödvändiga egenskaperna.",
-   "Häftig betyder bland annat som kännetecknas av plötslig och mycket stark kraftutveckling.",
+   "Tidig betyder som infaller i början av en viss tidsperiod.",
+   "Okänd betyder bland annat som ingen (eller mycket få) känner till.",
+   "Blek betyder bland annat som har svag, vitaktig färg.",
    "",
-   "Liten betyder bland annat som har obetydlig utsträckning i rummet.",
-   "Blyg betyder som känner sig osäker eller utlämnad vid umgänge med andra."
+   "Klok betyder bland annat som har gott förstånd och omdöme."
   ],
   "facit_betyder": "som har beständig form och volym",
   "exempel": "Marken var helt hård efter frosten.",
@@ -1756,32 +1708,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-s-37",
+  "id": "of-g-s-36",
   "niva": "grund",
   "typ": "synonym",
   "ord": "plats",
   "ordklass": "substantiv",
   "options": [
+   "undran",
    "tomhet",
-   "tidsrymd",
-   "middag",
    "ställe",
-   "solsken"
+   "skratt",
+   "tidsrymd"
   ],
-  "correctAnswer": 3,
+  "correctAnswer": 2,
   "typer": [
    "annan",
    "annan",
-   "annan",
    "",
+   "annan",
    "annan"
   ],
   "misstag": [
+   "Undran betyder det att någon undrar.",
    "Tomhet betyder det att vara tom.",
-   "Tidsrymd betyder (längre) sammanhängande tidsavsnitt.",
-   "Middag betyder bland annat period omkring och något efter dagens mitt.",
    "",
-   "Solsken betyder det att solens strålar når jorden."
+   "Skratt betyder det att skratta.",
+   "Tidsrymd betyder (längre) sammanhängande tidsavsnitt."
   ],
   "facit_betyder": "plats",
   "exempel": "Vi hittade en fin plats för vår picknick.",
@@ -1805,32 +1757,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-s-38",
+  "id": "of-g-s-37",
   "niva": "grund",
   "typ": "synonym",
   "ord": "resurs",
   "ordklass": "substantiv",
   "options": [
-   "kyla",
-   "tillgång",
-   "styrka",
    "skuld",
-   "avvikelse"
+   "styrka",
+   "försäljning",
+   "tillgång",
+   "krig"
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 3,
   "typer": [
    "annan",
-   "",
    "nara",
    "annan",
+   "",
    "annan"
   ],
   "misstag": [
-   "Kyla betyder låg temperatur.",
-   "",
+   "Skuld betyder bland annat (lånad) penningsumma som man är skyldig att betala (tillbaka).",
    "Styrka betyder bland annat inneboende muskelkraft.",
-   "Skuld betyder bland annat (lånad) penningsumma som man är skyldig  att betala (tillbaka).",
-   "Avvikelse betyder bland annat uppvisad eller uppmätt skillnad."
+   "Försäljning betyder planmässigt säljande (av vissa varor).",
+   "",
+   "Krig betyder tillstånd av väpnad kamp i stor skala."
   ],
   "facit_betyder": "möjlighet att skaffa eller utnyttja något",
   "exempel": "Tid är en viktig resurs i projektet.",
@@ -1853,32 +1805,570 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-m-01",
+  "id": "of-g-s-38",
   "niva": "grund",
-  "typ": "antonym",
-  "ord": "mörk",
+  "typ": "synonym",
+  "ord": "arg",
   "ordklass": "adjektiv",
   "options": [
-   "ljus",
-   "dunkel",
-   "tyst",
-   "kall",
-   "skuggig"
+   "rädd",
+   "ilsken",
+   "ledsen",
+   "trött",
+   "stolt"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "samma_falt",
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Rädd betyder bland annat som känner rädsla.",
+   "",
+   "Ledsen betyder som känner sig nedstämd.",
+   "Trött betyder bland annat som inte orkar utföra (mycket mer) arbete utan är i behov av vila.",
+   "Stolt betyder fylld av tillfredsställelse och självkänsla."
+  ],
+  "facit_betyder": "som visar ilska",
+  "exempel": "Han blev arg när bussen inte kom.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL ilsken: förklaras med arg (\"arg, vred\")"
+   ],
+   "so_id": "106955",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 810364,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-g-s-39",
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "klok",
+  "ordklass": "adjektiv",
+  "options": [
+   "förståndig",
+   "modern",
+   "framgångsrik",
+   "seriös",
+   "flitig"
   ],
   "correctAnswer": 0,
   "typer": [
    "",
-   "annan",
+   "samma_falt",
    "annan",
    "annan",
    "samma_falt"
   ],
   "misstag": [
    "",
-   "Dunkel betyder bland annat som har liten grad av ljus.",
+   "Modern betyder bland annat som hänger samman med nutiden.",
+   "Framgångsrik betyder som uppnått goda resultat.",
+   "Seriös betyder som framträder med anspråk på att tas på allvar och respekteras.",
+   "Flitig betyder benägen att ständigt vara verksam."
+  ],
+  "facit_betyder": "som har gott förstånd",
+  "exempel": "Det var ett klokt beslut att vänta.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO klok: förklaras med förståndig (\"\")"
+   ],
+   "so_id": "208153",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 169735,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 2
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-g-s-40",
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "konstig",
+  "ordklass": "adjektiv",
+  "options": [
+   "snygg",
+   "underlig",
+   "personlig",
+   "snål",
+   "tråkig"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "annan",
+   "",
+   "annan",
+   "annan",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Snygg betyder bland annat (ren och) ordentlig.",
+   "",
+   "Personlig betyder bland annat som har att göra med eller tillhör enskilda personer.",
+   "Snål betyder bland annat överdrivet sparsam med utgifter.",
+   "Tråkig betyder som inte förmår väcka någon glädje eller något intresse."
+  ],
+  "facit_betyder": "svår att förstå sig på",
+  "exempel": "Det hördes ett konstigt ljud från motorn.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL underlig: förklaras med konstig (\"märklig, konstig\")"
+   ],
+   "so_id": "213572",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 360225,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 3
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-g-s-41",
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "försöka",
+  "ordklass": "verb",
+  "options": [
+   "välja",
+   "lyckas",
+   "öva",
+   "pröva",
+   "skynda"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "",
+   "annan"
+  ],
+  "misstag": [
+   "Välja betyder bestämma sig för att bland flera alternativ stanna för.",
+   "Lyckas betyder bland annat med skicklighet eller tur uppnå.",
+   "Öva betyder bland annat metodiskt försöka förbättra sin färdighet i (något) genom särskilt anpassade (upprepade) aktiviteter.",
+   "",
+   "Skynda betyder arbeta eller utföra (något) hastigt."
+  ],
+  "facit_betyder": "utföra prov på",
+  "exempel": "Hon ville försöka igen nästa år.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO försöka: förklaras med pröva (\"\")"
+   ],
+   "so_id": "165221",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 2883241,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 1
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-g-s-42",
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "förstå",
+  "ordklass": "verb",
+  "options": [
+   "förklara",
+   "lyssna",
+   "tro",
+   "minnas",
+   "begripa"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   ""
+  ],
+  "misstag": [
+   "Förklara betyder bland annat tillkännage som sin ståndpunkt.",
+   "Lyssna betyder medvetet använda hörselsinnet.",
+   "Tro betyder bland annat ha en fast religiös övertygelse.",
+   "Minnas betyder återfå eller aktualisera lagrad själslig föreställning av.",
+   ""
+  ],
+  "facit_betyder": "förstå",
+  "exempel": "Jag förstår inte vad du menar.",
+  "kalla": {
+   "verifierad_mot": "SO och SAOL",
+   "belagg": [
+    "SO förstå: synonym begripa",
+    "SO begripa: synonym förstå",
+    "SO begripa: förklaras med förstå (\"förstå\")",
+    "SAOL begripa: förklaras med förstå (\"förstå\")"
+   ],
+   "so_id": "164586",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 1862846,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-g-s-43",
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "laga",
+  "ordklass": "verb",
+  "options": [
+   "reparera",
+   "tvätta",
+   "bygga",
+   "betala",
+   "fortsätta"
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "samma_falt",
+   "samma_falt",
+   "annan",
+   "annan"
+  ],
+  "misstag": [
+   "",
+   "Tvätta betyder rengöra med hjälp av vatten.",
+   "Bygga betyder bland annat framställa (komplicerat föremål) genom att foga samman delar.",
+   "Betala betyder lämna ifrån sig (viss summa pengar) i utbyte mot.",
+   "Fortsätta betyder hålla i gång påbörjad verksamhet."
+  ],
+  "facit_betyder": "återställa (skadat eller utslitet föremål) i användbart skick",
+  "exempel": "Han lagade cykeln på en kvart.",
+  "kalla": {
+   "verifierad_mot": "SO och SAOL",
+   "belagg": [
+    "SO laga: synonym reparera",
+    "SAOL laga: förklaras med reparera (\"reparera\")",
+    "SO reparera: synonym laga",
+    "SAOL reparera: förklaras med laga (\"laga, iståndsätta; avhjälpa\")"
+   ],
+   "so_id": "225016",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 480802,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 2
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-g-s-44",
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "ilska",
+  "ordklass": "substantiv",
+  "options": [
+   "skam",
+   "vrede",
+   "hån",
+   "sorg",
+   "rädsla"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "samma_falt",
+   "",
+   "annan",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Skam betyder känsla av blygsel över oförmåga eller förkastlig handling.",
+   "",
+   "Hån betyder illvillig och förlöjligande kritik.",
+   "Sorg betyder (långvarig) känsla av stark, smärtsam nedstämdhet.",
+   "Rädsla betyder obehaglig känsla som uppkommer av att någon eller något upplevs som hotande."
+  ],
+  "facit_betyder": "djup och stark känsla av att ha blivit förorättad på ett sätt som kräver upprättelse",
+  "exempel": "Han kunde inte dölja sin ilska.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL vrede: förklaras med ilska (\"förbittring, ilska\")"
+   ],
+   "so_id": "191597",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 149009,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 1
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-g-s-45",
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "rolig",
+  "ordklass": "adjektiv",
+  "options": [
+   "snäll",
+   "ovanlig",
+   "våt",
+   "lustig",
+   "lugn"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "annan",
+   "",
+   "annan"
+  ],
+  "misstag": [
+   "Snäll betyder som (ofta) låter sitt handlande styras av omtanke om andra.",
+   "Ovanlig betyder som förekommer sparsamt.",
+   "Våt betyder bland annat genomdränkt av eller överdragen med vatten.",
+   "",
+   "Lugn betyder bland annat som kännetecknas av sparsam rörelse."
+  ],
+  "facit_betyder": "som lätt lockar till munterhet",
+  "exempel": "Det var en rolig film.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL lustig: förklaras med rolig (\"rolig\")"
+   ],
+   "so_id": "299915",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 596578,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 2
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-g-s-46",
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "bestämma",
+  "ordklass": "verb",
+  "options": [
+   "tänka",
+   "föreslå",
+   "besluta",
+   "betala",
+   "fråga"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "annan",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Tänka betyder bland annat låta sin (omedelbara) intellektuella verksamhet vara inriktad.",
+   "Föreslå betyder framhålla (person, handling etc.) som lämplig.",
+   "",
+   "Betala betyder lämna ifrån sig (viss summa pengar) i utbyte mot.",
+   "Fråga betyder be (någon) att få vissa upplysningar."
+  ],
+  "facit_betyder": "fatta beslut i",
+  "exempel": "Vi måste bestämma oss före fredag.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL bestämma: förklaras med besluta (\"ha sista ordet; besluta\")"
+   ],
+   "so_id": "117515",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 760369,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 1
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-g-s-47",
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "kanske",
+  "ordklass": "adverb",
+  "options": [
+   "aldrig",
+   "säkert",
+   "gärna",
+   "möjligen",
+   "sällan"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Aldrig betyder inte vid någon tidpunkt.",
+   "Säkert betyder (högst) sannolikt.",
+   "Gärna betyder bland annat med nöje.",
+   "",
+   "Sällan betyder inte ofta."
+  ],
+  "facit_betyder": "med viss möjlighet",
+  "exempel": "Vi ses kanske på fredag.",
+  "kalla": {
+   "verifierad_mot": "SO och SAOL",
+   "belagg": [
+    "SO kanske: synonym möjligen",
+    "SAOL kanske: förklaras med möjligen (\"möjligen, kanhända\")",
+    "SO möjligen: synonym kanske",
+    "SAOL möjligen: förklaras med kanske (\"kanske, eventuellt\")"
+   ],
+   "so_id": "203063",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 16900942,
+  "granskning": {
+   "of2_ordklass": "adverb",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-g-s-48",
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "vänta",
+  "ordklass": "verb",
+  "options": [
+   "förbjuda",
+   "ordna",
+   "sova",
+   "avvakta",
+   "hoppas"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "annan",
+   "annan",
+   "samma_falt",
+   "",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Förbjuda betyder bestämma att något inte får göras eller förekomma.",
+   "Ordna betyder bland annat upprätta regelbundet inbördes förhållande mellan.",
+   "Sova betyder bland annat befinna sig i sömn.",
+   "",
+   "Hoppas betyder önska och i viss mån tro."
+  ],
+  "facit_betyder": "tills vidare avstå från att handla under inväntande av",
+  "exempel": "Vi får vänta på besked från banken.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL vänta: förklaras med avvakta (\"avvakta\")",
+    "SAOL avvakta: förklaras med vänta (\"vänta\")"
+   ],
+   "so_id": "396007",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 2185641,
+  "granskning": {
+   "of2_ordklass": "verb",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 2
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-g-m-01",
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "mörk",
+  "ordklass": "adjektiv",
+  "options": [
+   "tyst",
+   "dunkel",
+   "kall",
+   "skuggig",
+   "ljus"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "annan",
+   "annan",
+   "annan",
+   "samma_falt",
+   ""
+  ],
+  "misstag": [
    "Tyst betyder som inte ger något (nämnvärt) ljud ifrån sig.",
+   "Dunkel betyder bland annat som har liten grad av ljus.",
    "Kall betyder som har låg temperatur.",
-   "Skuggig betyder som ligger i skugga."
+   "Skuggig betyder som ligger i skugga.",
+   ""
   ],
   "facit_betyder": "som har stor tillförsel av ljus",
   "exempel": "Det var en mörk kväll i november.",
@@ -1908,26 +2398,26 @@
   "ord": "skratta",
   "ordklass": "verb",
   "options": [
-   "sjunga",
    "gråta",
-   "jaga",
    "prata",
-   "jollra"
+   "jollra",
+   "sjunga",
+   "dröja"
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 0,
   "typer": [
-   "annan",
    "",
    "annan",
+   "nara",
    "annan",
-   "nara"
+   "annan"
   ],
   "misstag": [
-   "Sjunga betyder frambringa toner med rösten.",
    "",
-   "Jaga betyder bland annat vidta åtgärder i syfte att fånga eller döda.",
    "Prata betyder tala (på ett vardagligare sätt).",
-   "Jollra betyder frambringa meningslösa, språkliknande ljudkombinationer."
+   "Jollra betyder frambringa meningslösa, språkliknande ljudkombinationer.",
+   "Sjunga betyder frambringa toner med rösten.",
+   "Dröja betyder bland annat ta viss (lång) tid."
   ],
   "facit_betyder": "fälla tårar",
   "exempel": "Alla började skratta åt det roliga skämtet.",
@@ -1953,77 +2443,29 @@
   "id": "of-g-m-03",
   "niva": "grund",
   "typ": "antonym",
-  "ord": "pigg",
-  "ordklass": "adjektiv",
-  "options": [
-   "glad",
-   "vaken",
-   "frisk",
-   "trött",
-   "modern"
-  ],
-  "correctAnswer": 3,
-  "typer": [
-   "annan",
-   "synonym",
-   "samma_falt",
-   "",
-   "annan"
-  ],
-  "misstag": [
-   "Glad betyder bland annat som känner upprymdhet och tillfredsställelse.",
-   "Vaken betyder ungefär detsamma som pigg, inte motsatsen.",
-   "Frisk betyder bland annat som har god hälsa.",
-   "",
-   "Modern betyder bland annat som hänger samman med nutiden."
-  ],
-  "facit_betyder": "som inte orkar utföra (mycket mer) arbete utan är i behov av vila",
-  "exempel": "Efter kaffet kände hon sig pigg igen.",
-  "kalla": {
-   "verifierad_mot": "SO",
-   "belagg": [
-    "SO pigg: motsats trött"
-   ],
-   "so_id": "279219",
-   "hamtad": "2026-11-09"
-  },
-  "popularitet": 294549,
-  "granskning": {
-   "of2_ordklass": "adjektiv",
-   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
-   "of6_stil": "ingen stilmarkering i SO eller SAOL",
-   "kandidat_fran": "gemini:gemini-3.5-flash",
-   "ifyllda_distraktorer": 1
-  },
-  "fran_version": 1
- },
- {
-  "id": "of-g-m-04",
-  "niva": "grund",
-  "typ": "antonym",
   "ord": "förlora",
   "ordklass": "verb",
   "options": [
-   "satsa",
-   "tappa",
    "glömma",
    "kämpa",
-   "vinna"
+   "vinna",
+   "satsa",
+   "tappa"
   ],
-  "correctAnswer": 4,
+  "correctAnswer": 2,
   "typer": [
-   "samma_falt",
-   "synonym",
    "annan",
    "samma_falt",
-   ""
+   "",
+   "samma_falt",
+   "synonym"
   ],
   "misstag": [
-   "Satsa betyder tillföra av egna tillgångar eller ansträngningar (till någon eller något) i syfte att skapa gynnsamma förutsättningar.",
-   "Tappa betyder ungefär detsamma som förlora, inte motsatsen.",
    "Glömma betyder förlora ur minnet.",
    "Kämpa betyder (försöka) försvara eller genomdriva sina intressen (mot viss motståndare) med kraft.",
-   ""
+   "",
+   "Satsa betyder tillföra av egna tillgångar eller ansträngningar (till någon eller något) i syfte att skapa gynnsamma förutsättningar.",
+   "Tappa betyder ungefär detsamma som förlora, inte motsatsen."
   ],
   "facit_betyder": "utgå som segrare",
   "exempel": "Laget ville inte förlora den viktiga matchen.",
@@ -2047,32 +2489,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-m-05",
+  "id": "of-g-m-04",
   "niva": "grund",
   "typ": "antonym",
   "ord": "tung",
   "ordklass": "adjektiv",
   "options": [
-   "lätt",
+   "modig",
    "hård",
    "massiv",
-   "bred",
-   "säker"
+   "lätt",
+   "bred"
   ],
-  "correctAnswer": 0,
+  "correctAnswer": 3,
   "typer": [
-   "",
+   "annan",
    "samma_falt",
    "nara",
-   "annan",
+   "",
    "annan"
   ],
   "misstag": [
-   "",
+   "Modig betyder bland annat som kan handla utan fruktan för följder.",
    "Hård betyder bland annat som inte ger efter för tryck och böjning.",
    "Massiv betyder bland annat tung och kompakt.",
-   "Bred betyder bland annat som har stor utsträckning på tvären mot (tänkt) huvudriktning.",
-   "Säker betyder bland annat som inte medför eller innebär fara."
+   "",
+   "Bred betyder bland annat som har stor utsträckning på tvären mot (tänkt) huvudriktning."
   ],
   "facit_betyder": "som har liten vikt",
   "exempel": "Väskan var för tung för att bäras själv.",
@@ -2096,32 +2538,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-m-06",
+  "id": "of-g-m-05",
   "niva": "grund",
   "typ": "antonym",
   "ord": "stänga",
   "ordklass": "verb",
   "options": [
-   "hämta",
-   "öppna",
-   "styra",
    "dölja",
-   "städa"
+   "ringa",
+   "städa",
+   "öppna",
+   "handla"
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 3,
   "typer": [
+   "nara",
+   "annan",
    "annan",
    "",
-   "annan",
-   "nara",
    "annan"
   ],
   "misstag": [
-   "Hämta betyder bege sig i väg till platsen för något och föra med sig (det) tillbaka.",
-   "",
-   "Styra betyder bland annat få (något) att ta viss riktning vid förflyttning.",
    "Dölja betyder placera (något) så att det inte lätt kan upptäckas.",
-   "Städa betyder ordna och göra rent i."
+   "Ringa betyder bland annat ge ifrån sig utdraget eller (snabbt) upprepat, klingande ljud.",
+   "Städa betyder ordna och göra rent i.",
+   "",
+   "Handla betyder bland annat utveckla målinriktad verksamhet."
   ],
   "facit_betyder": "bringa (spärrande anordning) till öppet (eller öppnare) läge",
   "exempel": "Glöm inte att stänga dörren efter dig.",
@@ -2145,7 +2587,7 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-m-07",
+  "id": "of-g-m-06",
   "niva": "grund",
   "typ": "antonym",
   "ord": "ren",
@@ -2153,24 +2595,24 @@
   "options": [
    "fräsch",
    "snygg",
-   "blank",
    "smutsig",
-   "törstig"
+   "aktuell",
+   "blank"
   ],
-  "correctAnswer": 3,
+  "correctAnswer": 2,
   "typer": [
    "annan",
    "annan",
-   "annan",
    "",
+   "annan",
    "annan"
   ],
   "misstag": [
    "Fräsch betyder som har kvar sin ursprungliga friska kvalitet.",
    "Snygg betyder bland annat (ren och) ordentlig.",
-   "Blank betyder bland annat som har ren, slät och glansig yta.",
    "",
-   "Törstig betyder som känner starkt behov av att dricka."
+   "Aktuell betyder som (nödvändigtvis) tilldrar sig uppmärksamhet vid det givna tillfället.",
+   "Blank betyder bland annat som har ren, slät och glansig yta."
   ],
   "facit_betyder": "bemängd med smuts",
   "exempel": "Tröjan var helt ren efter tvätten.",
@@ -2194,32 +2636,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-m-08",
+  "id": "of-g-m-07",
   "niva": "grund",
   "typ": "antonym",
   "ord": "sälja",
   "ordklass": "verb",
   "options": [
-   "skicka",
-   "lämna",
+   "dela",
    "köpa",
-   "hata",
-   "tjäna"
+   "tjäna",
+   "skicka",
+   "lämna"
   ],
-  "correctAnswer": 2,
+  "correctAnswer": 1,
   "typer": [
    "annan",
-   "annan",
    "",
+   "samma_falt",
    "annan",
-   "samma_falt"
+   "annan"
   ],
   "misstag": [
-   "Skicka betyder bland annat få (någon) att bege sig.",
-   "Lämna betyder bland annat låta (något) vara kvar.",
+   "Dela betyder bland annat åstadkomma delar av.",
    "",
-   "Hata betyder bland annat känna hat mot.",
-   "Tjäna betyder bland annat (regelbundet och i enlighet med avtal) få som ersättning för arbete."
+   "Tjäna betyder bland annat (regelbundet och i enlighet med avtal) få som ersättning för arbete.",
+   "Skicka betyder bland annat få (någon) att bege sig.",
+   "Lämna betyder bland annat låta (något) vara kvar."
   ],
   "facit_betyder": "skaffa sig (något) som sin egendom mot ersättning",
   "exempel": "Hon vill sälja sin gamla cykel på nätet.",
@@ -2243,31 +2685,31 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-m-09",
+  "id": "of-g-m-08",
   "niva": "grund",
   "typ": "antonym",
   "ord": "tända",
   "ordklass": "verb",
   "options": [
-   "bränna",
    "värma",
-   "lyfta",
    "släcka",
+   "bränna",
+   "lyfta",
    "starta"
   ],
-  "correctAnswer": 3,
+  "correctAnswer": 1,
   "typer": [
    "samma_falt",
+   "",
    "samma_falt",
    "annan",
-   "",
    "nara"
   ],
   "misstag": [
-   "Bränna betyder bland annat få att brinna upp.",
    "Värma betyder bland annat göra varmare.",
-   "Lyfta betyder bland annat föra rakt uppåt.",
    "",
+   "Bränna betyder bland annat få att brinna upp.",
+   "Lyfta betyder bland annat föra rakt uppåt.",
    "Starta betyder bland annat få att sätta igång och börja röra sig."
   ],
   "facit_betyder": "få (eld) att upphöra att brinna",
@@ -2292,32 +2734,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-m-10",
+  "id": "of-g-m-09",
   "niva": "grund",
   "typ": "antonym",
   "ord": "sänka",
   "ordklass": "verb",
   "options": [
-   "röra",
-   "sjunga",
-   "fälla",
    "höja",
-   "minska"
+   "neka",
+   "renovera",
+   "minska",
+   "fälla"
   ],
-  "correctAnswer": 3,
+  "correctAnswer": 0,
   "typer": [
-   "annan",
-   "annan",
-   "samma_falt",
    "",
-   "synonym"
+   "annan",
+   "annan",
+   "synonym",
+   "samma_falt"
   ],
   "misstag": [
-   "Röra betyder bland annat försätta sig i (lätt eller försiktig) direkt kontakt med.",
-   "Sjunga betyder frambringa toner med rösten.",
-   "Fälla betyder bland annat få (varelse eller växt) att falla genom att använda fysisk kraft.",
    "",
-   "Minska betyder ungefär detsamma som sänka, inte motsatsen."
+   "Neka betyder bland annat hävda avsaknad av sanning.",
+   "Renovera betyder bygga om (byggnad eller dylikt) med bevarande av den gamla karaktären.",
+   "Minska betyder ungefär detsamma som sänka, inte motsatsen.",
+   "Fälla betyder bland annat få (varelse eller växt) att falla genom att använda fysisk kraft."
   ],
   "facit_betyder": "förflytta till en högre nivå",
   "exempel": "De var tvungna att sänka priset på varan.",
@@ -2341,32 +2783,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-m-11",
+  "id": "of-g-m-10",
   "niva": "grund",
   "typ": "antonym",
   "ord": "torr",
   "ordklass": "adjektiv",
   "options": [
-   "tom",
-   "dammig",
    "het",
+   "våt",
+   "dammig",
    "solig",
-   "våt"
+   "tom"
   ],
-  "correctAnswer": 4,
+  "correctAnswer": 1,
   "typer": [
    "annan",
+   "",
    "samma_falt",
    "annan",
-   "annan",
-   ""
+   "annan"
   ],
   "misstag": [
-   "Tom betyder bland annat som helt saknar påtagligt och konkret innehåll.",
-   "Dammig betyder som innehåller eller är täckt av mycket damm.",
    "Het betyder bland annat mycket varm.",
+   "",
+   "Dammig betyder som innehåller eller är täckt av mycket damm.",
    "Solig betyder belyst av solen.",
-   ""
+   "Tom betyder bland annat som helt saknar påtagligt och konkret innehåll."
   ],
   "facit_betyder": "genomdränkt av eller överdragen med vatten",
   "exempel": "Tvätten var helt torr efter en timme i solen.",
@@ -2390,32 +2832,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-m-12",
+  "id": "of-g-m-11",
   "niva": "grund",
   "typ": "antonym",
   "ord": "minska",
   "ordklass": "verb",
   "options": [
-   "öka",
    "sluta",
    "sänka",
-   "spara",
-   "se"
+   "se",
+   "öka",
+   "spara"
   ],
-  "correctAnswer": 0,
+  "correctAnswer": 3,
   "typer": [
-   "",
    "annan",
    "synonym",
    "annan",
+   "",
    "annan"
   ],
   "misstag": [
-   "",
    "Sluta betyder komma till ett slut.",
    "Sänka betyder ungefär detsamma som minska, inte motsatsen.",
-   "Spara betyder bland annat behålla (något) som resurs för framtida behov genom att avstå från omedelbar förbrukning.",
-   "Se betyder bland annat uppfatta med synen."
+   "Se betyder bland annat uppfatta med synen.",
+   "",
+   "Spara betyder bland annat behålla (något) som resurs för framtida behov genom att avstå från omedelbar förbrukning."
   ],
   "facit_betyder": "bli större",
   "exempel": "Företaget vill minska sina utgifter nästa år.",
@@ -2439,32 +2881,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-m-13",
+  "id": "of-g-m-12",
   "niva": "grund",
   "typ": "antonym",
   "ord": "full",
   "ordklass": "adjektiv",
   "options": [
-   "hög",
+   "tät",
+   "vid",
+   "trång",
    "tung",
-   "tom",
-   "vänlig",
-   "trång"
+   "tom"
   ],
-  "correctAnswer": 2,
+  "correctAnswer": 4,
   "typer": [
    "annan",
    "annan",
-   "",
+   "samma_falt",
    "annan",
-   "samma_falt"
+   ""
   ],
   "misstag": [
-   "Hög betyder bland annat som har stor utsträckning i riktning uppåt.",
+   "Tät betyder bland annat vars naturliga ingående delar befinner sig nära varandra.",
+   "Vid betyder som utbreder sig långt åt sidorna.",
+   "Trång betyder bland annat som innesluter ett utrymme som är i minsta laget.",
    "Tung betyder bland annat som väger mycket.",
-   "",
-   "Vänlig betyder som visar positiv inställning.",
-   "Trång betyder bland annat som innesluter ett utrymme som är i minsta laget."
+   ""
   ],
   "facit_betyder": "som helt saknar påtagligt och konkret innehåll",
   "exempel": "Papperskorgen var helt full med gamla papper.",
@@ -2488,81 +2930,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-m-14",
-  "niva": "grund",
-  "typ": "antonym",
-  "ord": "glömma",
-  "ordklass": "verb",
-  "options": [
-   "skicka",
-   "tänka",
-   "tappa",
-   "minnas",
-   "ta"
-  ],
-  "correctAnswer": 3,
-  "typer": [
-   "annan",
-   "annan",
-   "samma_falt",
-   "",
-   "annan"
-  ],
-  "misstag": [
-   "Skicka betyder bland annat få (någon) att bege sig.",
-   "Tänka betyder bland annat låta sin (omedelbara) intellektuella verksamhet vara inriktad.",
-   "Tappa betyder bland annat låta (vätska) rinna ut.",
-   "",
-   "Ta betyder bland annat skaffa sig kontroll över genom att gripa."
-  ],
-  "facit_betyder": "återfå eller aktualisera lagrad själslig föreställning av",
-  "exempel": "Det är lätt att glömma sin kod ibland.",
-  "kalla": {
-   "verifierad_mot": "SO",
-   "belagg": [
-    "SO glömma: motsats minnas",
-    "SO minnas: motsats glömma"
-   ],
-   "so_id": "171364",
-   "hamtad": "2026-11-09"
-  },
-  "popularitet": 444980,
-  "granskning": {
-   "of2_ordklass": "verb",
-   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
-   "of6_stil": "ingen stilmarkering i SO eller SAOL",
-   "kandidat_fran": "gemini:gemini-3.5-flash",
-   "ifyllda_distraktorer": 2
-  },
-  "fran_version": 1
- },
- {
-  "id": "of-g-m-15",
+  "id": "of-g-m-13",
   "niva": "grund",
   "typ": "antonym",
   "ord": "sjuk",
   "ordklass": "adjektiv",
   "options": [
-   "klen",
-   "hög",
+   "ledsen",
    "svag",
    "frisk",
-   "ledsen"
+   "klen",
+   "ärlig"
   ],
-  "correctAnswer": 3,
+  "correctAnswer": 2,
   "typer": [
-   "annan",
    "annan",
    "nara",
    "",
+   "annan",
    "annan"
   ],
   "misstag": [
-   "Klen betyder bland annat som är tunn och inte håller för påfrestningar.",
-   "Hög betyder bland annat som har stor utsträckning i riktning uppåt.",
+   "Ledsen betyder som känner sig nedstämd.",
    "Svag betyder bland annat som har liten muskelkraft.",
    "",
-   "Ledsen betyder som känner sig nedstämd."
+   "Klen betyder bland annat som är tunn och inte håller för påfrestningar.",
+   "Ärlig betyder bland annat som håller sig till sanningen och inte döljer något."
   ],
   "facit_betyder": "som har god hälsa",
   "exempel": "Han stannade hemma eftersom han var sjuk.",
@@ -2586,32 +2979,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-m-16",
+  "id": "of-g-m-14",
   "niva": "grund",
   "typ": "antonym",
   "ord": "djup",
   "ordklass": "adjektiv",
   "options": [
-   "bottenlös",
    "brant",
+   "mörk",
    "grund",
    "stor",
-   "mörk"
+   "bottenlös"
   ],
   "correctAnswer": 2,
   "typer": [
-   "nara",
    "samma_falt",
+   "annan",
    "",
    "annan",
-   "annan"
+   "nara"
   ],
   "misstag": [
-   "Bottenlös betyder som har så stort djup eller så stor utsträckning att det knappast kan mätas eller anges.",
    "Brant betyder som sluttar kraftigt.",
+   "Mörk betyder bland annat som har sparsam tillförsel av ljus.",
    "",
    "Stor betyder bland annat som har en utsträckning i rummet som klart överskrider genomsnittet.",
-   "Mörk betyder bland annat som har sparsam tillförsel av ljus."
+   "Bottenlös betyder som har så stort djup eller så stor utsträckning att det knappast kan mätas eller anges."
   ],
   "facit_betyder": "som har litet avstånd mellan yta och botten",
   "exempel": "Sjön var alldeles för djup för att simma i.",
@@ -2635,31 +3028,31 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-m-17",
+  "id": "of-g-m-15",
   "niva": "grund",
   "typ": "antonym",
   "ord": "god",
   "ordklass": "adjektiv",
   "options": [
-   "vid",
    "ond",
-   "snäll",
-   "svart",
+   "glad",
+   "trasig",
+   "aktiv",
    "fin"
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 0,
   "typer": [
-   "annan",
    "",
-   "synonym",
+   "annan",
+   "annan",
    "annan",
    "synonym"
   ],
   "misstag": [
-   "Vid betyder som utbreder sig långt åt sidorna.",
    "",
-   "Snäll betyder ungefär detsamma som god, inte motsatsen.",
-   "Svart betyder bland annat som har färg som liknar sot.",
+   "Glad betyder bland annat som känner upprymdhet och tillfredsställelse.",
+   "Trasig betyder behäftad med fel eller skada.",
+   "Aktiv betyder bland annat som deltar på ett verkningsfullt sätt.",
    "Fin betyder ungefär detsamma som god, inte motsatsen."
   ],
   "facit_betyder": "inriktad på att vålla skada",
@@ -2684,17 +3077,17 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-m-18",
+  "id": "of-g-m-16",
   "niva": "grund",
   "typ": "antonym",
   "ord": "hög",
   "ordklass": "adjektiv",
   "options": [
-   "tidig",
+   "falsk",
    "låg",
+   "lycklig",
    "reslig",
-   "ond",
-   "svart"
+   "fin"
   ],
   "correctAnswer": 1,
   "typer": [
@@ -2705,11 +3098,11 @@
    "annan"
   ],
   "misstag": [
-   "Tidig betyder som infaller i början av en viss tidsperiod.",
+   "Falsk betyder bland annat som strider mot verkliga förhållanden.",
    "",
+   "Lycklig betyder bland annat som känner varaktig, djup glädje och tillfredsställelse.",
    "Reslig betyder som har stor kroppslängd.",
-   "Ond betyder bland annat inriktad på att vålla skada.",
-   "Svart betyder bland annat som har färg som liknar sot."
+   "Fin betyder bland annat som har hög kvalitet."
   ],
   "facit_betyder": "som har liten utsträckning i höjdled",
   "exempel": "Byggnaden var mycket hög och syntes från långt håll.",
@@ -2733,32 +3126,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-m-19",
+  "id": "of-g-m-17",
   "niva": "grund",
   "typ": "antonym",
   "ord": "skarp",
   "ordklass": "adjektiv",
   "options": [
+   "sen",
    "slö",
-   "dyr",
-   "märklig",
+   "tung",
    "vass",
-   "mätt"
+   "liten"
   ],
-  "correctAnswer": 0,
+  "correctAnswer": 1,
   "typer": [
-   "",
    "annan",
+   "",
    "annan",
    "synonym",
    "annan"
   ],
   "misstag": [
+   "Sen betyder bland annat som inträffar mot slutet.",
    "",
-   "Dyr betyder bland annat som kostar mycket.",
-   "Märklig betyder som har ovanliga egenskaper och därför väcker uppmärksamhet eller förundran.",
+   "Tung betyder bland annat som väger mycket.",
    "Vass betyder ungefär detsamma som skarp, inte motsatsen.",
-   "Mätt betyder som har intagit tillräcklig mängd föda."
+   "Liten betyder bland annat som har obetydlig utsträckning i rummet."
   ],
   "facit_betyder": "som inte är tillräckligt vass",
   "exempel": "Var försiktig eftersom kniven är väldigt skarp.",
@@ -2777,37 +3170,37 @@
    "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
    "of6_stil": "ingen stilmarkering i SO eller SAOL",
    "kandidat_fran": "gemini:gemini-3.5-flash",
-   "ifyllda_distraktorer": 3
+   "ifyllda_distraktorer": 2
   },
   "fran_version": 1
  },
  {
-  "id": "of-g-m-20",
+  "id": "of-g-m-18",
   "niva": "grund",
   "typ": "antonym",
   "ord": "lasta",
   "ordklass": "verb",
   "options": [
    "leta",
-   "lossa",
    "packa",
-   "bära",
-   "vakna"
+   "lossa",
+   "begripa",
+   "bära"
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 2,
   "typer": [
+   "annan",
    "annan",
    "",
    "annan",
-   "samma_falt",
-   "annan"
+   "samma_falt"
   ],
   "misstag": [
    "Leta betyder anstränga sig för att hitta.",
-   "",
    "Packa betyder bland annat stoppa in viss mängd av.",
-   "Bära betyder bland annat förflytta (något) genom att hålla det ovanför underlaget och själv vanligen röra sig.",
-   "Vakna betyder bli vaken."
+   "",
+   "Begripa betyder förstå.",
+   "Bära betyder bland annat förflytta (något) genom att hålla det ovanför underlaget och själv vanligen röra sig."
   ],
   "facit_betyder": "upphäva bindande eller spärrande verkan av",
   "exempel": "Arbetarna börjar lasta varorna på lastbilen nu.",
@@ -2831,32 +3224,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-m-21",
+  "id": "of-g-m-19",
   "niva": "grund",
   "typ": "antonym",
   "ord": "seger",
   "ordklass": "substantiv",
   "options": [
-   "start",
-   "vinst",
-   "framtid",
+   "match",
+   "historia",
    "förlust",
-   "match"
+   "start",
+   "vinst"
   ],
-  "correctAnswer": 3,
+  "correctAnswer": 2,
   "typer": [
-   "annan",
-   "synonym",
+   "samma_falt",
    "annan",
    "",
-   "samma_falt"
+   "annan",
+   "synonym"
   ],
   "misstag": [
-   "Start betyder igångsättning (av någon/något) för förflyttning.",
-   "Vinst betyder ungefär detsamma som seger, inte motsatsen.",
-   "Framtid betyder tidsskede som börjar i nuet och sträcker sig ett (långt) stycke framåt i tiden.",
+   "Match betyder bland annat omgång av tävling som är ett avslutat helt.",
+   "Historia betyder bland annat (vetenskapen om) mänsklighetens politiska, sociala och kulturella utveckling.",
    "",
-   "Match betyder bland annat omgång av tävling som är ett avslutat helt."
+   "Start betyder igångsättning (av någon/något) för förflyttning.",
+   "Vinst betyder ungefär detsamma som seger, inte motsatsen."
   ],
   "facit_betyder": "ofrivilligt slut på förfogande över något (värdefullt)",
   "exempel": "Laget firade sin seger med hela publiken.",
@@ -2880,31 +3273,31 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-m-22",
+  "id": "of-g-m-20",
   "niva": "grund",
   "typ": "antonym",
   "ord": "vän",
   "ordklass": "substantiv",
   "options": [
-   "gäst",
-   "ledare",
    "kamrat",
    "granne",
+   "gäst",
+   "ledare",
    "fiende"
   ],
   "correctAnswer": 4,
   "typer": [
-   "annan",
-   "annan",
    "synonym",
    "samma_falt",
+   "annan",
+   "annan",
    ""
   ],
   "misstag": [
-   "Gäst betyder bland annat (inbjuden) person som besöker någons hem.",
-   "Ledare betyder bland annat person i högsta bestämmande ställning.",
    "Kamrat betyder ungefär detsamma som vän, inte motsatsen.",
    "Granne betyder person som bor nära viss annan person.",
+   "Gäst betyder bland annat (inbjuden) person som besöker någons hem.",
+   "Ledare betyder bland annat person i högsta bestämmande ställning.",
    ""
   ],
   "facit_betyder": "motståndare (till någon eller något) som är beredd att skada",
@@ -2929,32 +3322,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-m-23",
+  "id": "of-g-m-21",
   "niva": "grund",
   "typ": "antonym",
   "ord": "fred",
   "ordklass": "substantiv",
   "options": [
-   "frihet",
    "avtal",
+   "frihet",
+   "is",
    "krig",
-   "lugn",
-   "myt"
+   "stund"
   ],
-  "correctAnswer": 2,
+  "correctAnswer": 3,
   "typer": [
-   "annan",
    "samma_falt",
-   "",
    "annan",
+   "annan",
+   "",
    "annan"
   ],
   "misstag": [
-   "Frihet betyder bland annat fritt tillstånd.",
    "Avtal betyder formell överenskommelse i viss fråga.",
+   "Frihet betyder bland annat fritt tillstånd.",
+   "Is betyder fruset vatten i hård form och med blank, glatt yta.",
    "",
-   "Lugn betyder bland annat tillstånd av sparsam rörelse.",
-   "Myt betyder berättelse om övernaturliga ting, nedärvd från äldsta tider."
+   "Stund betyder kortare tidsperiod."
   ],
   "facit_betyder": "tillstånd av väpnad kamp i stor skala",
   "exempel": "Alla hoppas på en varaktig fred i världen.",
@@ -2972,37 +3365,37 @@
    "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
    "of6_stil": "ingen stilmarkering i SO eller SAOL",
    "kandidat_fran": "gemini:gemini-3.5-flash",
-   "ifyllda_distraktorer": 1
+   "ifyllda_distraktorer": 2
   },
   "fran_version": 1
  },
  {
-  "id": "of-g-m-24",
+  "id": "of-g-m-22",
   "niva": "grund",
   "typ": "antonym",
   "ord": "fråga",
   "ordklass": "substantiv",
   "options": [
-   "teori",
-   "granne",
    "svar",
-   "vän",
-   "samtal"
+   "samtal",
+   "teori",
+   "fart",
+   "kollega"
   ],
-  "correctAnswer": 2,
+  "correctAnswer": 0,
   "typer": [
-   "annan",
-   "annan",
    "",
+   "samma_falt",
    "annan",
-   "samma_falt"
+   "annan",
+   "annan"
   ],
   "misstag": [
-   "Teori betyder system av antaganden som grundas på noggranna överväganden om faktiska förhållanden.",
-   "Granne betyder person som bor nära viss annan person.",
    "",
-   "Vän betyder bland annat person som (viss) annan person känner väl och hyser tillgivenhet för och tillit till.",
-   "Samtal betyder muntligt utbyte av synpunkter eller upplysningar."
+   "Samtal betyder muntligt utbyte av synpunkter eller upplysningar.",
+   "Teori betyder system av antaganden som grundas på noggranna överväganden om faktiska förhållanden.",
+   "Fart betyder bland annat tillryggalagd vägsträcka per tidsenhet.",
+   "Kollega betyder arbetskamrat."
   ],
   "facit_betyder": "yttrande eller dylikt som förväntas som reaktion på en fråga, en uppmaning etc.",
   "exempel": "Han ställde en viktig fråga till sin lärare.",
@@ -3026,32 +3419,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-m-25",
+  "id": "of-g-m-23",
   "niva": "grund",
   "typ": "antonym",
   "ord": "lång",
   "ordklass": "adjektiv",
   "options": [
+   "ful",
+   "rund",
    "kort",
    "mjuk",
-   "blyg",
-   "våt",
-   "rund"
+   "blek"
   ],
-  "correctAnswer": 0,
+  "correctAnswer": 2,
   "typer": [
+   "annan",
+   "annan",
    "",
-   "annan",
-   "annan",
    "annan",
    "annan"
   ],
   "misstag": [
+   "Ful betyder bland annat som har ett mindre tilltalande utseende.",
+   "Rund betyder bland annat som har böjd form längs hela sin omkrets, ungefär som en cirkel, en cylinder eller ett klot.",
    "",
    "Mjuk betyder bland annat som ger efter för tryck och böjning.",
-   "Blyg betyder som känner sig osäker eller utlämnad vid umgänge med andra.",
-   "Våt betyder bland annat genomdränkt av eller överdragen med vatten.",
-   "Rund betyder bland annat som har böjd form längs hela sin omkrets, ungefär som en cirkel, en cylinder eller ett klot."
+   "Blek betyder bland annat som har svag, vitaktig färg."
   ],
   "facit_betyder": "som har liten utsträckning i sin längdriktning",
   "exempel": "Han var för lång för att få plats i sängen.",
@@ -3075,32 +3468,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-m-26",
+  "id": "of-g-m-24",
   "niva": "grund",
   "typ": "antonym",
   "ord": "varm",
   "ordklass": "adjektiv",
   "options": [
-   "viktig",
-   "kall",
-   "noggrann",
+   "väldig",
+   "ensam",
    "skön",
-   "duktig"
+   "kall",
+   "hemlig"
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 3,
   "typer": [
    "annan",
+   "annan",
+   "annan",
    "",
-   "annan",
-   "annan",
    "annan"
   ],
   "misstag": [
-   "Viktig betyder bland annat som utgör en kraftigt inverkande faktor.",
-   "",
-   "Noggrann betyder grundlig och omsorgsfull.",
+   "Väldig betyder bland annat mycket stor.",
+   "Ensam betyder som är utan sällskap av någon annan.",
    "Skön betyder bland annat fulländat vacker.",
-   "Duktig betyder bland annat som har god förmåga."
+   "",
+   "Hemlig betyder som bör vara bekant bara för några få (invigda)."
   ],
   "facit_betyder": "som har låg temperatur",
   "exempel": "Det var skönt med en varm dusch efter träningen.",
@@ -3124,130 +3517,81 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-m-27",
+  "id": "of-g-m-25",
   "niva": "grund",
   "typ": "antonym",
-  "ord": "börja",
-  "ordklass": "verb",
-  "options": [
-   "ordna",
-   "sluta",
-   "fortsätta",
-   "lära",
-   "skapa"
-  ],
-  "correctAnswer": 1,
-  "typer": [
-   "annan",
-   "",
-   "annan",
-   "annan",
-   "annan"
-  ],
-  "misstag": [
-   "Ordna betyder bland annat upprätta regelbundet inbördes förhållande mellan.",
-   "",
-   "Fortsätta betyder hålla i gång påbörjad verksamhet.",
-   "Lära betyder bland annat förmedla kunskaper eller färdigheter till (någon) i.",
-   "Skapa betyder bringa till existens."
-  ],
-  "facit_betyder": "komma till ett slut",
-  "exempel": "Mötet ska börja klockan nio i morgon.",
-  "kalla": {
-   "verifierad_mot": "SO",
-   "belagg": [
-    "SO börja: motsats sluta",
-    "SO sluta: motsats börja"
-   ],
-   "so_id": "129481",
-   "hamtad": "2026-11-09"
-  },
-  "popularitet": 3696876,
-  "granskning": {
-   "of2_ordklass": "verb",
-   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
-   "of6_stil": "ingen stilmarkering i SO eller SAOL",
-   "kandidat_fran": "gemini:gemini-3.5-flash",
-   "ifyllda_distraktorer": 3
-  },
-  "fran_version": 1
- },
- {
-  "id": "of-g-m-28",
-  "niva": "grund",
-  "typ": "antonym",
-  "ord": "mjuk",
+  "ord": "stark",
   "ordklass": "adjektiv",
   "options": [
-   "oklar",
-   "sällsynt",
+   "vanlig",
+   "massiv",
+   "tålig",
    "hård",
-   "smal",
-   "het"
+   "svag"
   ],
-  "correctAnswer": 2,
+  "correctAnswer": 4,
   "typer": [
    "annan",
    "annan",
-   "",
+   "samma_falt",
    "annan",
-   "annan"
+   ""
   ],
   "misstag": [
-   "Oklar betyder mindre klar eller synlig.",
-   "Sällsynt betyder som förekommer i ett mycket litet antal fall.",
-   "",
-   "Smal betyder bland annat som har liten bredd.",
-   "Het betyder bland annat mycket varm."
+   "Vanlig betyder som förekommer ofta.",
+   "Massiv betyder bland annat tung och kompakt.",
+   "Tålig betyder bland annat som kan uthärda påfrestningar utan att klaga.",
+   "Hård betyder bland annat som inte ger efter för tryck och böjning.",
+   ""
   ],
-  "facit_betyder": "som inte ger efter för tryck och böjning",
-  "exempel": "Kudden i soffan var skön och mjuk.",
+  "facit_betyder": "som har liten muskelkraft",
+  "exempel": "Han är stark nog att lyfta den tunga lådan.",
   "kalla": {
    "verifierad_mot": "SO",
    "belagg": [
-    "SO mjuk: motsats hård",
-    "SO hård: motsats mjuk"
+    "SO stark: motsats svag",
+    "SO svag: motsats stark"
    ],
-   "so_id": "246132",
+   "so_id": "340224",
    "hamtad": "2026-11-09"
   },
-  "popularitet": 154559,
+  "popularitet": 935304,
   "granskning": {
    "of2_ordklass": "adjektiv",
    "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
    "of6_stil": "ingen stilmarkering i SO eller SAOL",
    "kandidat_fran": "gemini:gemini-3.5-flash",
-   "ifyllda_distraktorer": 4
+   "ifyllda_distraktorer": 2
   },
   "fran_version": 1
  },
  {
-  "id": "of-g-m-29",
+  "id": "of-g-m-26",
   "niva": "grund",
   "typ": "antonym",
   "ord": "förstärka",
   "ordklass": "verb",
   "options": [
+   "flyga",
+   "fortsätta",
    "mäta",
-   "godkänna",
-   "försvaga",
-   "öppna",
-   "bygga"
+   "korta",
+   "försvaga"
   ],
-  "correctAnswer": 2,
+  "correctAnswer": 4,
   "typer": [
    "annan",
    "annan",
-   "",
    "annan",
-   "annan"
+   "annan",
+   ""
   ],
   "misstag": [
+   "Flyga betyder bland annat förflytta sig i luften med hjälp av vingar.",
+   "Fortsätta betyder hålla i gång påbörjad verksamhet.",
    "Mäta betyder bland annat fastställa utsträckning av.",
-   "Godkänna betyder bedöma (någon/något) uppfylla fastställda krav.",
-   "",
-   "Öppna betyder bland annat bringa (spärrande anordning) till öppet (eller öppnare) läge.",
-   "Bygga betyder bland annat framställa (komplicerat föremål) genom att foga samman delar."
+   "Korta betyder göra kortare.",
+   ""
   ],
   "facit_betyder": "göra svagare",
   "exempel": "Vi måste förstärka dörren så att ingen tar sig in.",
@@ -3266,37 +3610,37 @@
    "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
    "of6_stil": "ingen stilmarkering i SO eller SAOL",
    "kandidat_fran": "gemini:gemini-3.5-flash",
-   "ifyllda_distraktorer": 2
+   "ifyllda_distraktorer": 3
   },
   "fran_version": 1
  },
  {
-  "id": "of-g-m-30",
+  "id": "of-g-m-27",
   "niva": "grund",
   "typ": "antonym",
   "ord": "tillåta",
   "ordklass": "verb",
   "options": [
-   "kosta",
-   "försöka",
-   "förklara",
-   "stiga",
-   "förbjuda"
+   "förena",
+   "slösa",
+   "godkänna",
+   "förbjuda",
+   "tveka"
   ],
-  "correctAnswer": 4,
+  "correctAnswer": 3,
   "typer": [
    "annan",
    "annan",
-   "annan",
-   "annan",
-   ""
+   "synonym",
+   "",
+   "annan"
   ],
   "misstag": [
-   "Kosta betyder ha som pris.",
-   "Försöka betyder handla på ett sätt som syftar till och bör ha möjlighet till att åstadkomma.",
-   "Förklara betyder bland annat tillkännage som sin ståndpunkt.",
-   "Stiga betyder bland annat förflytta sig med (långa) steg.",
-   ""
+   "Förena betyder bland annat föra samman och ombilda (lägre enheter) till en ny, högre enhet.",
+   "Slösa betyder använda för mycket av.",
+   "Godkänna betyder ungefär detsamma som tillåta, inte motsatsen.",
+   "",
+   "Tveka betyder väga flera handlings- eller förhållningssätt mot varandra och dröja med att slutgiltigt bestämma sig för någotdera."
   ],
   "facit_betyder": "bestämma att något inte får göras eller förekomma",
   "exempel": "Skolan valde att tillåta eleverna att ha mobiltelefoner.",
@@ -3315,37 +3659,37 @@
    "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
    "of6_stil": "ingen stilmarkering i SO eller SAOL",
    "kandidat_fran": "gemini:gemini-3.5-flash",
-   "ifyllda_distraktorer": 4
+   "ifyllda_distraktorer": 3
   },
   "fran_version": 1
  },
  {
-  "id": "of-g-m-31",
+  "id": "of-g-m-28",
   "niva": "grund",
   "typ": "antonym",
   "ord": "tät",
   "ordklass": "adjektiv",
   "options": [
-   "öppen",
    "tjock",
    "lång",
-   "gles",
-   "fräsch"
+   "trög",
+   "öppen",
+   "gles"
   ],
-  "correctAnswer": 3,
+  "correctAnswer": 4,
   "typer": [
+   "annan",
+   "annan",
+   "annan",
    "samma_falt",
-   "annan",
-   "annan",
-   "",
-   "annan"
+   ""
   ],
   "misstag": [
-   "Öppen betyder bland annat som är i ett läge som medger direkt kontakt mellan innanför och utanför liggande utrymmen.",
    "Tjock betyder bland annat som har stor utsträckning i en riktning som är vinkelrät mot längd (eller höjd) och bredd.",
    "Lång betyder bland annat som har stor utsträckning i en rumsdimension.",
-   "",
-   "Fräsch betyder som har kvar sin ursprungliga friska kvalitet."
+   "Trög betyder bland annat som bara med möda kan fås att röra sig.",
+   "Öppen betyder bland annat som är i ett läge som medger direkt kontakt mellan innanför och utanför liggande utrymmen.",
+   ""
   ],
   "facit_betyder": "vars delar befinner sig förhållandevis långt ifrån varandra",
   "exempel": "Det var en mycket tät dimma över sjön i morse.",
@@ -3369,7 +3713,7 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-m-32",
+  "id": "of-g-m-29",
   "niva": "grund",
   "typ": "antonym",
   "ord": "sällsynt",
@@ -3377,9 +3721,9 @@
   "options": [
    "vanlig",
    "unik",
-   "dyr",
-   "obetydlig",
-   "fin"
+   "blyg",
+   "hungrig",
+   "dyr"
   ],
   "correctAnswer": 0,
   "typer": [
@@ -3392,9 +3736,9 @@
   "misstag": [
    "",
    "Unik betyder fullständigt ensam i sitt slag.",
-   "Dyr betyder bland annat som kostar mycket.",
-   "Obetydlig betyder som knappast betyder något.",
-   "Fin betyder bland annat som har hög kvalitet."
+   "Blyg betyder som känner sig osäker eller utlämnad vid umgänge med andra.",
+   "Hungrig betyder som känner behov av föda.",
+   "Dyr betyder bland annat som kostar mycket."
   ],
   "facit_betyder": "som förekommer ofta",
   "exempel": "Att se en uggla här på dagen är mycket sällsynt.",
@@ -3413,36 +3757,36 @@
    "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
    "of6_stil": "ingen stilmarkering i SO eller SAOL",
    "kandidat_fran": "gemini:gemini-3.5-flash",
-   "ifyllda_distraktorer": 1
+   "ifyllda_distraktorer": 2
   },
   "fran_version": 1
  },
  {
-  "id": "of-g-m-33",
+  "id": "of-g-m-30",
   "niva": "grund",
   "typ": "antonym",
   "ord": "slösa",
   "ordklass": "verb",
   "options": [
-   "böja",
+   "köpa",
+   "hindra",
    "kasta",
    "spara",
-   "köpa",
    "låna"
   ],
-  "correctAnswer": 2,
+  "correctAnswer": 3,
   "typer": [
    "annan",
    "annan",
-   "",
    "annan",
+   "",
    "annan"
   ],
   "misstag": [
-   "Böja betyder bland annat göra (långsmalt föremål) krökt i en mjuk båge.",
+   "Köpa betyder skaffa sig (något) som sin egendom mot ersättning.",
+   "Hindra betyder skapa eller utgöra hinder för.",
    "Kasta betyder bland annat få (något) att fara i en båge genom luften, med hjälp av en svängande rörelse av armen.",
    "",
-   "Köpa betyder skaffa sig (något) som sin egendom mot ersättning.",
    "Låna betyder bland annat få eller disponera (något som någon annan äger) för tillfälligt utnyttjande."
   ],
   "facit_betyder": "behålla (något) som resurs för framtida behov genom att avstå från omedelbar förbrukning",
@@ -3467,17 +3811,17 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-m-34",
+  "id": "of-g-m-31",
   "niva": "grund",
   "typ": "antonym",
-  "ord": "smal",
-  "ordklass": "adjektiv",
+  "ord": "sanning",
+  "ordklass": "substantiv",
   "options": [
-   "rak",
-   "konstig",
-   "tunn",
-   "bred",
-   "seriös"
+   "kyla",
+   "teori",
+   "förslag",
+   "lögn",
+   "tempo"
   ],
   "correctAnswer": 3,
   "typer": [
@@ -3488,60 +3832,11 @@
    "annan"
   ],
   "misstag": [
-   "Rak betyder bland annat som följer en väg som är den kortaste möjliga.",
-   "Konstig betyder som på ett påfallande sätt avviker från det vanliga.",
-   "Tunn betyder bland annat som har liten tjocklek.",
-   "",
-   "Seriös betyder som framträder med anspråk på att tas på allvar och respekteras."
-  ],
-  "facit_betyder": "som har stor utsträckning på tvären mot (tänkt) huvudriktning",
-  "exempel": "Vägen över berget var alldeles för smal för bussen.",
-  "kalla": {
-   "verifierad_mot": "SO",
-   "belagg": [
-    "SO smal: motsats bred",
-    "SO bred: motsats smal"
-   ],
-   "so_id": "328105",
-   "hamtad": "2026-11-09"
-  },
-  "popularitet": 251061,
-  "granskning": {
-   "of2_ordklass": "adjektiv",
-   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
-   "of6_stil": "ingen stilmarkering i SO eller SAOL",
-   "kandidat_fran": "gemini:gemini-3.5-flash",
-   "ifyllda_distraktorer": 2
-  },
-  "fran_version": 1
- },
- {
-  "id": "of-g-m-35",
-  "niva": "grund",
-  "typ": "antonym",
-  "ord": "sanning",
-  "ordklass": "substantiv",
-  "options": [
-   "ledare",
-   "hat",
-   "teori",
-   "morgon",
-   "lögn"
-  ],
-  "correctAnswer": 4,
-  "typer": [
-   "annan",
-   "annan",
-   "annan",
-   "annan",
-   ""
-  ],
-  "misstag": [
-   "Ledare betyder bland annat person i högsta bestämmande ställning.",
-   "Hat betyder ytterst djupt känd motvilja.",
+   "Kyla betyder låg temperatur.",
    "Teori betyder system av antaganden som grundas på noggranna överväganden om faktiska förhållanden.",
-   "Morgon betyder bland annat tid (omkring soluppgången) när dagens normala verksamhet inleds.",
-   ""
+   "Förslag betyder angivande av lämpligt handlingssätt eller tänkbar möjlighet.",
+   "",
+   "Tempo betyder bland annat hastighet."
   ],
   "facit_betyder": "medvetet osant påstående",
   "exempel": "Det tog lång tid innan hela sanningen kom fram.",
@@ -3565,32 +3860,32 @@
   "fran_version": 1
  },
  {
-  "id": "of-g-m-36",
+  "id": "of-g-m-32",
   "niva": "grund",
   "typ": "antonym",
   "ord": "styrka",
   "ordklass": "substantiv",
   "options": [
+   "svaghet",
+   "fönster",
    "skada",
-   "skillnad",
    "hälsa",
-   "plan",
-   "svaghet"
+   "timme"
   ],
-  "correctAnswer": 4,
+  "correctAnswer": 0,
   "typer": [
+   "",
    "annan",
    "annan",
    "nara",
-   "annan",
-   ""
+   "annan"
   ],
   "misstag": [
+   "",
+   "Fönster betyder bland annat inramad glasruta som fyller ut en ljusöppning i en vägg (ibland en dörr) eller ett tak.",
    "Skada betyder bland annat det att något inte fungerar normalt eller har normalt utseende.",
-   "Skillnad betyder bland annat det att två eller flera företeelser är olika.",
    "Hälsa betyder tillstånd av välbefinnande och fullgoda kroppsfunktioner.",
-   "Plan betyder bland annat större, helt jämn yta utan böjningar och krökningar.",
-   ""
+   "Timme betyder bland annat (en tidsenhet som motsvarar) ett tjugofjärdedels dygn."
   ],
   "facit_betyder": "det att vara svag",
   "exempel": "Det krävs stor fysisk styrka för yrket.",
@@ -3610,6 +3905,544 @@
    "of6_stil": "ingen stilmarkering i SO eller SAOL",
    "kandidat_fran": "gemini:gemini-3.5-flash",
    "ifyllda_distraktorer": 2
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-g-m-33",
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "stor",
+  "ordklass": "adjektiv",
+  "options": [
+   "vänlig",
+   "ny",
+   "fri",
+   "liten",
+   "hel"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "annan",
+   "samma_falt",
+   "annan",
+   "",
+   "annan"
+  ],
+  "misstag": [
+   "Vänlig betyder som visar positiv inställning.",
+   "Ny betyder bland annat som börjat existera för helt kort tid sedan.",
+   "Fri betyder bland annat som inte är fysiskt instängd eller hindrad.",
+   "",
+   "Hel betyder bland annat som omfattar alla delar av."
+  ],
+  "facit_betyder": "som har obetydlig utsträckning i rummet",
+  "exempel": "Det var en stor skillnad mellan förslagen.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO stor: motsats liten",
+    "SO liten: motsats stor"
+   ],
+   "so_id": "343238",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 5813592,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 3
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-g-m-34",
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "fattig",
+  "ordklass": "adjektiv",
+  "options": [
+   "rik",
+   "sjuk",
+   "söt",
+   "ovanlig",
+   "snål"
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "samma_falt",
+   "annan",
+   "annan",
+   "samma_falt"
+  ],
+  "misstag": [
+   "",
+   "Sjuk betyder bland annat som inte har god hälsa.",
+   "Söt betyder bland annat som har ett (näpet och) angenämt utseende.",
+   "Ovanlig betyder som förekommer sparsamt.",
+   "Snål betyder bland annat överdrivet sparsam med utgifter."
+  ],
+  "facit_betyder": "mycket väl försedd med ekonomiska tillgångar",
+  "exempel": "Han växte upp i en fattig familj på landet.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO fattig: motsats rik",
+    "SO rik: motsats fattig"
+   ],
+   "so_id": "147475",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 118681,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 2
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-g-m-35",
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "ärlig",
+  "ordklass": "adjektiv",
+  "options": [
+   "blyg",
+   "sträng",
+   "falsk",
+   "lång",
+   "blöt"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "annan",
+   "annan"
+  ],
+  "misstag": [
+   "Blyg betyder som känner sig osäker eller utlämnad vid umgänge med andra.",
+   "Sträng betyder bland annat som ställer hårda krav på uppförande och lydnad.",
+   "",
+   "Lång betyder bland annat som har stor utsträckning i en rumsdimension.",
+   "Blöt betyder helt genomdränkt av eller överdragen med vatten."
+  ],
+  "facit_betyder": "som strider mot verkliga förhållanden",
+  "exempel": "Hon gav ett ärligt svar på en svår fråga.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO ärlig: motsats falsk"
+   ],
+   "so_id": "402768",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 324542,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 2
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-g-m-36",
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "tidig",
+  "ordklass": "adjektiv",
+  "options": [
+   "lat",
+   "sen",
+   "dyr",
+   "jämn",
+   "ny"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "annan",
+   "",
+   "annan",
+   "annan",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Lat betyder obenägen att utföra arbete.",
+   "",
+   "Dyr betyder bland annat som kostar mycket.",
+   "Jämn betyder bland annat fri från (mer markanta) upphöjningar eller fördjupningar.",
+   "Ny betyder bland annat som börjat existera för helt kort tid sedan."
+  ],
+  "facit_betyder": "som inträffar mot slutet",
+  "exempel": "Vi tog ett tidigt tåg för att hinna till mötet.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO tidig: motsats sen",
+    "SO sen: motsats tidig"
+   ],
+   "so_id": "360088",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 272575,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 3
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-g-m-37",
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "framgång",
+  "ordklass": "substantiv",
+  "options": [
+   "tävling",
+   "motgång",
+   "glädje",
+   "chans",
+   "sanning"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "samma_falt",
+   "",
+   "annan",
+   "samma_falt",
+   "annan"
+  ],
+  "misstag": [
+   "Tävling betyder särskilt anordnad begivenhet varvid flera personer (eller lag) mäter sin förmåga för att fastställa vem som är bäst.",
+   "",
+   "Glädje betyder känsla av upprymdhet och tillfredsställelse.",
+   "Chans betyder möjlighet till lyckat resultat.",
+   "Sanning betyder yttrande eller tanke som överensstämmer med verkligheten."
+  ],
+  "facit_betyder": "misslyckat resultat av verksamhet",
+  "exempel": "Projektet blev en stor framgång för hela laget.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO framgång: motsats motgång",
+    "SO motgång: motsats framgång"
+   ],
+   "so_id": "154833",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 233454,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 2
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-g-m-38",
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "rak",
+  "ordklass": "adjektiv",
+  "options": [
+   "långsam",
+   "krokig",
+   "låg",
+   "törstig",
+   "rik"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "annan",
+   "",
+   "annan",
+   "annan",
+   "annan"
+  ],
+  "misstag": [
+   "Långsam betyder bland annat som sker eller utförs med liten hastighet.",
+   "",
+   "Låg betyder bland annat som har liten utsträckning i höjdled.",
+   "Törstig betyder som känner starkt behov av att dricka.",
+   "Rik betyder bland annat mycket väl försedd med ekonomiska tillgångar."
+  ],
+  "facit_betyder": "krökt",
+  "exempel": "Vägen var rak hela vägen fram till sjön.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO rak: motsats krokig",
+    "SO krokig: motsats rak"
+   ],
+   "so_id": "292634",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 151197,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 4
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-g-m-39",
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "tunn",
+  "ordklass": "adjektiv",
+  "options": [
+   "mjuk",
+   "strålande",
+   "tjock",
+   "smal",
+   "fattig"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "annan",
+   "",
+   "samma_falt",
+   "annan"
+  ],
+  "misstag": [
+   "Mjuk betyder bland annat som ger efter för tryck och böjning.",
+   "Strålande betyder utomordentlig.",
+   "",
+   "Smal betyder bland annat som har liten bredd.",
+   "Fattig betyder dåligt försedd med tillgångar."
+  ],
+  "facit_betyder": "som har stor utsträckning i en riktning som är vinkelrät mot längd (eller höjd) och bredd",
+  "exempel": "Isen var för tunn för att gå på.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO tunn: motsats tjock",
+    "SO tjock: motsats tunn"
+   ],
+   "so_id": "371328",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 120291,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 2
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-g-m-40",
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "vild",
+  "ordklass": "adjektiv",
+  "options": [
+   "smidig",
+   "slö",
+   "tam",
+   "svår",
+   "bra"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "annan",
+   "annan",
+   "",
+   "annan",
+   "annan"
+  ],
+  "misstag": [
+   "Smidig betyder spänstig och böjlig.",
+   "Slö betyder bland annat som inte är tillräckligt vass.",
+   "",
+   "Svår betyder bland annat som kräver betydande ansträngning.",
+   "Bra betyder bland annat som har lämpliga eller tillfredsställande egenskaper."
+  ],
+  "facit_betyder": "van vid att leva bland människor",
+  "exempel": "Det finns många vilda djur i skogen.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO vild: motsats tam",
+    "SO tam: motsats vild"
+   ],
+   "so_id": "390809",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 77918,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 4
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-g-m-41",
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "lat",
+  "ordklass": "adjektiv",
+  "options": [
+   "fräsch",
+   "full",
+   "trasig",
+   "flitig",
+   "lustig"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "annan",
+   "annan",
+   "annan",
+   "",
+   "annan"
+  ],
+  "misstag": [
+   "Fräsch betyder som har kvar sin ursprungliga friska kvalitet.",
+   "Full betyder bland annat som innehåller allt som kan rymmas.",
+   "Trasig betyder behäftad med fel eller skada.",
+   "",
+   "Lustig betyder som lätt lockar till munterhet."
+  ],
+  "facit_betyder": "benägen att ständigt vara verksam",
+  "exempel": "Katten låg lat i solen hela eftermiddagen.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO lat: motsats flitig",
+    "SO flitig: motsats lat"
+   ],
+   "so_id": "226974",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 376358,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 4
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-g-m-42",
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "ung",
+  "ordklass": "adjektiv",
+  "options": [
+   "frisk",
+   "modig",
+   "konstig",
+   "fast",
+   "gammal"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "samma_falt",
+   "annan",
+   "annan",
+   "annan",
+   ""
+  ],
+  "misstag": [
+   "Frisk betyder bland annat som har god hälsa.",
+   "Modig betyder bland annat som kan handla utan fruktan för följder.",
+   "Konstig betyder som på ett påfallande sätt avviker från det vanliga.",
+   "Fast betyder bland annat som har beständig form och volym.",
+   ""
+  ],
+  "facit_betyder": "som har existerat under lång tid",
+  "exempel": "Hon var ung när hon flyttade till Stockholm.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO ung: motsats gammal",
+    "SO gammal: motsats ung"
+   ],
+   "so_id": "376593",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 722690,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 3
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-g-m-43",
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "privat",
+  "ordklass": "adjektiv",
+  "options": [
+   "offentlig",
+   "strålande",
+   "hemlig",
+   "rimlig",
+   "modern"
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "annan",
+   "samma_falt",
+   "annan",
+   "annan"
+  ],
+  "misstag": [
+   "",
+   "Strålande betyder utomordentlig.",
+   "Hemlig betyder som bör vara bekant bara för några få (invigda).",
+   "Rimlig betyder bland annat som det finns (förnuftig) anledning att tro på.",
+   "Modern betyder bland annat som hänger samman med nutiden."
+  ],
+  "facit_betyder": "öppen eller tillgänglig för alla människor",
+  "exempel": "Det här är ett privat samtal.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO privat: motsats offentlig",
+    "SO offentlig: motsats privat"
+   ],
+   "so_id": "286235",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 595160,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 3
   },
   "fran_version": 1
  }

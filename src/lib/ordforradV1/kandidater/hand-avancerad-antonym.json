@@ -1,0 +1,930 @@
+[
+ {
+  "ord": "frivillig",
+  "ordklass": "adjektiv",
+  "facit": "obligatorisk",
+  "distraktorer": [
+   {
+    "ord": "självvald",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "kostsam",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "offentlig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "tillfällig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Kursen är frivillig men rekommenderas.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "implicit",
+  "ordklass": "adjektiv",
+  "facit": "explicit",
+  "distraktorer": [
+   {
+    "ord": "underförstådd",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "formell",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "abstrakt",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "teoretisk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Det fanns ett implicit krav på övertid.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "subjektiv",
+  "ordklass": "adjektiv",
+  "facit": "objektiv",
+  "distraktorer": [
+   {
+    "ord": "personlig",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "teoretisk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "abstrakt",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "kritisk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Bedömningen blev alltför subjektiv.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "generell",
+  "ordklass": "adjektiv",
+  "facit": "specifik",
+  "distraktorer": [
+   {
+    "ord": "allmän",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "teoretisk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "formell",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "abstrakt",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Regeln är generell och gäller alla avdelningar.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "kvalitativ",
+  "ordklass": "adjektiv",
+  "facit": "kvantitativ",
+  "distraktorer": [
+   {
+    "ord": "teoretisk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "empirisk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "statistisk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "praktisk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Studien bygger på kvalitativa intervjuer.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "primär",
+  "ordklass": "adjektiv",
+  "facit": "sekundär",
+  "distraktorer": [
+   {
+    "ord": "främst",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "teoretisk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "tillfällig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "formell",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Säkerheten är vår primära uppgift.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "positiv",
+  "ordklass": "adjektiv",
+  "facit": "negativ",
+  "distraktorer": [
+   {
+    "ord": "neutral",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "kritisk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "tydlig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "saklig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Svaret från kunden var positivt.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "extrovert",
+  "ordklass": "adjektiv",
+  "facit": "introvert",
+  "distraktorer": [
+   {
+    "ord": "utåtriktad",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "självsäker",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "nervös",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "impulsiv",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Hon är extrovert och trivs i stora grupper.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "tillväxt",
+  "ordklass": "substantiv",
+  "facit": "nedgång",
+  "distraktorer": [
+   {
+    "ord": "ökning",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "förändring",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "utveckling",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "stabilitet",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Företaget hade en stark tillväxt i fjol.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "försumma",
+  "ordklass": "verb",
+  "facit": "sköta",
+  "distraktorer": [
+   {
+    "ord": "åsidosätta",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "kontrollera",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "avsluta",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "planera",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Han försummade sina plikter under hösten.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "acceptera",
+  "ordklass": "verb",
+  "facit": "förkasta",
+  "distraktorer": [
+   {
+    "ord": "godta",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "diskutera",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "pröva",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "granska",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Styrelsen valde att acceptera förslaget.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "godkänna",
+  "ordklass": "verb",
+  "facit": "underkänna",
+  "distraktorer": [
+   {
+    "ord": "bifalla",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "granska",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "pröva",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "bedöma",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Läraren godkände uppsatsen.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "befordra",
+  "ordklass": "verb",
+  "facit": "degradera",
+  "distraktorer": [
+   {
+    "ord": "anställa",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "utbilda",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "belöna",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "omplacera",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Hon befordrades till avdelningschef.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "anställa",
+  "ordklass": "verb",
+  "facit": "avskeda",
+  "distraktorer": [
+   {
+    "ord": "rekrytera",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "utbilda",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "befordra",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "omplacera",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Företaget ska anställa tio nya säljare.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "uppmuntra",
+  "ordklass": "verb",
+  "facit": "avskräcka",
+  "distraktorer": [
+   {
+    "ord": "stötta",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "påminna",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "informera",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "utmana",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Chefen uppmuntrade oss att komma med idéer.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "underskatta",
+  "ordklass": "verb",
+  "facit": "överskatta",
+  "distraktorer": [
+   {
+    "ord": "bedöma",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "beräkna",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "ifrågasätta",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "jämföra",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Man ska inte underskatta hur lång tid flytten tar.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "ödmjuk",
+  "ordklass": "adjektiv",
+  "facit": "högfärdig",
+  "distraktorer": [
+   {
+    "ord": "anspråkslös",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "blyg",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "tyst",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "försiktig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Trots framgången var han ödmjuk.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "sparsam",
+  "ordklass": "adjektiv",
+  "facit": "slösaktig",
+  "distraktorer": [
+   {
+    "ord": "ekonomisk",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "försiktig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "noggrann",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "flitig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Hon är sparsam med pengar.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "frånvaro",
+  "ordklass": "substantiv",
+  "facit": "närvaro",
+  "distraktorer": [
+   {
+    "ord": "sjukdom",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "ledighet",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "försening",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "uppehåll",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Hans frånvaro märktes på mötet.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "import",
+  "ordklass": "substantiv",
+  "facit": "export",
+  "distraktorer": [
+   {
+    "ord": "handel",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "tull",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "leverans",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "transport",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Importen av kaffe ökade under året.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "ankomst",
+  "ordklass": "substantiv",
+  "facit": "avgång",
+  "distraktorer": [
+   {
+    "ord": "resa",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "försening",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "hållplats",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "landning",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Tågets ankomst var försenad.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "inkomst",
+  "ordklass": "substantiv",
+  "facit": "utgift",
+  "distraktorer": [
+   {
+    "ord": "intäkt",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "skatt",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "lön",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "budget",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Familjens inkomst räckte inte till allt.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "fiktiv",
+  "ordklass": "adjektiv",
+  "facit": "verklig",
+  "distraktorer": [
+   {
+    "ord": "påhittad",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "historisk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "tänkbar",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "trolig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Personerna i boken är fiktiva.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "monoton",
+  "ordklass": "adjektiv",
+  "facit": "omväxlande",
+  "distraktorer": [
+   {
+    "ord": "enformig",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "långsam",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "krävande",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "stressig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Arbetet vid bandet var monotont.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "framsteg",
+  "ordklass": "substantiv",
+  "facit": "bakslag",
+  "distraktorer": [
+   {
+    "ord": "förändring",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "utveckling",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "försök",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "uppehåll",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Forskarna gjorde stora framsteg.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "ömtålig",
+  "ordklass": "adjektiv",
+  "facit": "robust",
+  "distraktorer": [
+   {
+    "ord": "bräcklig",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "dyr",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "gammal",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "tunn",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Paketet innehåller ömtåliga glas.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "vag",
+  "ordklass": "adjektiv",
+  "facit": "tydlig",
+  "distraktorer": [
+   {
+    "ord": "oklar",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "kortfattad",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "formell",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "allmän",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Svaret var vagt och lämnade frågor kvar.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "snål",
+  "ordklass": "adjektiv",
+  "facit": "generös",
+  "distraktorer": [
+   {
+    "ord": "gnidig",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "fattig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "försiktig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "sträng",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Han var för snål för att bjuda på kaffe.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "kortsiktig",
+  "ordklass": "adjektiv",
+  "facit": "långsiktig",
+  "distraktorer": [
+   {
+    "ord": "tillfällig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "snabb",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "hastig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "begränsad",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Det var en kortsiktig lösning på problemet.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "beundra",
+  "ordklass": "verb",
+  "facit": "förakta",
+  "distraktorer": [
+   {
+    "ord": "uppskatta",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "avundas",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "respektera",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "minnas",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Många beundrade hennes mod.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "tillit",
+  "ordklass": "substantiv",
+  "facit": "misstro",
+  "distraktorer": [
+   {
+    "ord": "förtroende",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "respekt",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "lojalitet",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "hopp",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Det tar tid att bygga upp tillit i en grupp.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "detaljerad",
+  "ordklass": "adjektiv",
+  "facit": "översiktlig",
+  "distraktorer": [
+   {
+    "ord": "ingående",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "omfattande",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "teknisk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "formell",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Hon lämnade en detaljerad rapport.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ }
+]

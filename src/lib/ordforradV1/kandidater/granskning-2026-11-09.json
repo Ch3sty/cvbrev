@@ -25,14 +25,77 @@
   "dogmatisk": "svagt facit och svag distraktor"
  },
  "forbjudna_alternativ": {
-  "bifalla": ["stödja"],
-  "intensiv": ["lugn"],
-  "sanktionera": ["straffa"],
-  "altruistisk": ["autistisk"],
-  "kasta": ["tappa"],
-  "snäll": ["ond"],
-  "hård": ["mjuk"],
-  "lätt": ["svår"]
+  "bifalla": [
+   "stödja"
+  ],
+  "intensiv": [
+   "lugn"
+  ],
+  "sanktionera": [
+   "straffa"
+  ],
+  "altruistisk": [
+   "autistisk"
+  ],
+  "kasta": [
+   "tappa"
+  ],
+  "snäll": [
+   "ond"
+  ],
+  "hård": [
+   "mjuk"
+  ],
+  "lätt": [
+   "svår"
+  ],
+  "vild": [
+   "mild",
+   "stilla"
+  ],
+  "substantiell": [
+   "materiell",
+   "omfattande"
+  ],
+  "frivillig": [
+   "självvald"
+  ],
+  "anställa": [
+   "rekrytera",
+   "befordra"
+  ],
+  "latent": [
+   "uppenbar"
+  ],
+  "ambivalent": [
+   "övertygad"
+  ],
+  "notorisk": [
+   "okänd"
+  ],
+  "underskatta": [
+   "brodera"
+  ],
+  "inkomst": [
+   "tro"
+  ],
+  "konfidentiell": [
+   "näsvis"
+  ],
+  "kvintessens": [
+   "latitud"
+  ],
+  "sparsam": [
+   "positiv"
+  ]
  },
- "forbjudna_overallt": ["synonym", "antonym", "motsats", "motsatsord"]
+ "forbjudna_overallt": [
+  "synonym",
+  "antonym",
+  "motsats",
+  "motsatsord",
+  "motsatt",
+  "liknande",
+  "samma"
+ ]
 }

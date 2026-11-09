@@ -1,0 +1,437 @@
+[
+ {
+  "ord": "konsekvens",
+  "ordklass": "substantiv",
+  "facit": "följd",
+  "distraktorer": [
+   {
+    "ord": "orsak",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "risk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "åtgärd",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "beslut",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Beslutet fick oväntade konsekvenser.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "tvetydig",
+  "ordklass": "adjektiv",
+  "facit": "dubbeltydig",
+  "distraktorer": [
+   {
+    "ord": "entydig",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "oärlig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "invecklad",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "avsiktlig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Formuleringen i avtalet var tvetydig.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "avsevärd",
+  "ordklass": "adjektiv",
+  "facit": "betydande",
+  "distraktorer": [
+   {
+    "ord": "obetydlig",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "tillfällig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "oväntad",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "onödig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Det krävdes en avsevärd insats för att bli klar.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "befogad",
+  "ordklass": "adjektiv",
+  "facit": "berättigad",
+  "distraktorer": [
+   {
+    "ord": "obefogad",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "oväntad",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "officiell",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "avsiktlig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Kritiken mot förslaget var befogad.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "angelägen",
+  "ordklass": "adjektiv",
+  "facit": "brådskande",
+  "distraktorer": [
+   {
+    "ord": "frivillig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "tillfällig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "intressant",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "formell",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Det är angeläget att vi hittar en lösning.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "framstående",
+  "ordklass": "adjektiv",
+  "facit": "berömd",
+  "distraktorer": [
+   {
+    "ord": "okänd",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "erfaren",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "ambitiös",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "förmögen",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Hon är en framstående forskare inom fältet.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "väsentlig",
+  "ordklass": "adjektiv",
+  "facit": "betydelsefull",
+  "distraktorer": [
+   {
+    "ord": "oväsentlig",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "tillfällig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "omfattande",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "avsiktlig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Det finns en väsentlig skillnad mellan förslagen.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "reducera",
+  "ordklass": "verb",
+  "facit": "minska",
+  "distraktorer": [
+   {
+    "ord": "öka",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "avsluta",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "förändra",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "fördela",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Vi måste reducera kostnaderna med tio procent.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "utvärdera",
+  "ordklass": "verb",
+  "facit": "bedöma",
+  "distraktorer": [
+   {
+    "ord": "genomföra",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "planera",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "förbättra",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "avsluta",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Projektet ska utvärderas i december.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "negligera",
+  "ordklass": "verb",
+  "facit": "ignorera",
+  "distraktorer": [
+   {
+    "ord": "uppmärksamma",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "avvisa",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "kritisera",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "glömma",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Man får inte negligera riskerna.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "precisera",
+  "ordklass": "verb",
+  "facit": "specificera",
+  "distraktorer": [
+   {
+    "ord": "förenkla",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "förkorta",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "motivera",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "bekräfta",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Kan du precisera vad du menar?",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "etablera",
+  "ordklass": "verb",
+  "facit": "grunda",
+  "distraktorer": [
+   {
+    "ord": "avveckla",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "utveckla",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "finansiera",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "flytta",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "De etablerade företaget i Göteborg 1998.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "återhållsam",
+  "ordklass": "adjektiv",
+  "facit": "måttfull",
+  "distraktorer": [
+   {
+    "ord": "omåttlig",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "blyg",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "tystlåten",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "försiktig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Hon var återhållsam med sina kommentarer.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "metodisk",
+  "ordklass": "adjektiv",
+  "facit": "systematisk",
+  "distraktorer": [
+   {
+    "ord": "slarvig",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "teoretisk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "praktisk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "snabb",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Han arbetar metodiskt och noggrant.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "motivera",
+  "ordklass": "verb",
+  "facit": "sporra",
+  "distraktorer": [
+   {
+    "ord": "avskräcka",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "informera",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "belöna",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "övertala",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Ledaren lyckades motivera hela laget.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ }
+]

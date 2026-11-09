@@ -1,0 +1,147 @@
+[
+ {
+  "ord": "homogen",
+  "ordklass": "adjektiv",
+  "facit": "heterogen",
+  "distraktorer": [
+   {
+    "ord": "enhetlig",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "komplex",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "kompakt",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "stabil",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Gruppen var mycket homogen.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "progressiv",
+  "ordklass": "adjektiv",
+  "facit": "reaktionär",
+  "distraktorer": [
+   {
+    "ord": "framstegsvänlig",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "radikal",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "liberal",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "moderat",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Partiet drev en progressiv politik.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "empirisk",
+  "ordklass": "adjektiv",
+  "facit": "teoretisk",
+  "distraktorer": [
+   {
+    "ord": "erfarenhetsbaserad",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "statistisk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "praktisk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "kritisk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Slutsatserna bygger på empiriska data.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "ortodox",
+  "ordklass": "adjektiv",
+  "facit": "kättersk",
+  "distraktorer": [
+   {
+    "ord": "renlärig",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "konservativ",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "religiös",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "sträng",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Han hade en ortodox syn på reglerna.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "explicit",
+  "ordklass": "adjektiv",
+  "facit": "underförstådd",
+  "distraktorer": [
+   {
+    "ord": "uttalad",
+    "typ": "synonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "formell",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "konkret",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "tydlig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Avtalet innehöll ett explicit förbud.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ }
+]

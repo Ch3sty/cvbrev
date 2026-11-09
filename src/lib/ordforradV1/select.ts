@@ -58,11 +58,26 @@ export function valjTyp(niva: OrdNiva, typ: OrdTyp, seed: string, antal: number,
   return [...farska, ...ordning.filter((q) => opts.undvik?.has(q.id))].slice(0, antal);
 }
 
-/** Nivåtestet: tio av varje typ, i block om fem som växlar (synonym eller motsats först, seedat). */
+/**
+ * Nivåtestet: tio av varje typ, i block om fem som växlar (synonym eller
+ * motsats först, seedat). Har en typ färre än tio (expert har få motsatsord,
+ * ägarens beslut 2026-11-09) fylls testet med den andra typen.
+ */
 export function valjOrd(niva: OrdNiva, sessionId: string, version: number = ORD_VERSION): OrdFraga[] {
   const halva = FRAGOR_PER_SESSION / 2;
-  const syn = valjTyp(niva, 'synonym', sessionId, halva, { version });
-  const ant = valjTyp(niva, 'antonym', sessionId, halva, { version });
+  const antPool = poolFor(niva, version).filter((q) => q.typ === 'antonym').length;
+  const synPool = poolFor(niva, version).filter((q) => q.typ === 'synonym').length;
+  const antAntal = Math.min(halva, antPool);
+  const synAntal = Math.min(FRAGOR_PER_SESSION - antAntal, synPool);
+  const syn = valjTyp(niva, 'synonym', sessionId, synAntal, { version });
+  const ant = valjTyp(niva, 'antonym', sessionId, Math.min(FRAGOR_PER_SESSION - synAntal, antPool), { version });
+  if (ant.length < halva || syn.length < halva) {
+    // block om fem så långt det går, resten av den större typen sist
+    const ut: OrdFraga[] = [];
+    const [stor, liten] = syn.length >= ant.length ? [syn, ant] : [ant, syn];
+    for (let i = 0; i < Math.max(stor.length, liten.length); i += BLOCK) ut.push(...stor.slice(i, i + BLOCK), ...liten.slice(i, i + BLOCK));
+    return ut;
+  }
   const forst = mulberry32(hashString(sessionId))() < 0.5;
   const [a, b] = forst ? [syn, ant] : [ant, syn];
   const ut: OrdFraga[] = [];

@@ -1,0 +1,814 @@
+[
+ {
+  "ord": "obsolet",
+  "ordklass": "adjektiv",
+  "facit": "föråldrad",
+  "distraktorer": [
+   {
+    "ord": "aktuell",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "oanvändbar",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "överflödig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "ovanlig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Systemet blev obsolet när den nya versionen kom.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "eklatant",
+  "ordklass": "adjektiv",
+  "facit": "påfallande",
+  "distraktorer": [
+   {
+    "ord": "obetydlig",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "elegant",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "tillfällig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "ovanlig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Det var ett eklatant exempel på slöseri.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "latent",
+  "ordklass": "adjektiv",
+  "facit": "dold",
+  "distraktorer": [
+   {
+    "ord": "uppenbar",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "tillfällig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "farlig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "kronisk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Konflikten hade varit latent i flera år.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "ambivalent",
+  "ordklass": "adjektiv",
+  "facit": "kluven",
+  "distraktorer": [
+   {
+    "ord": "övertygad",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "likgiltig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "osäker",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "nervös",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Hon var ambivalent till erbjudandet.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "notorisk",
+  "ordklass": "adjektiv",
+  "facit": "ökänd",
+  "distraktorer": [
+   {
+    "ord": "okänd",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "ovanlig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "kriminell",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "farlig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Han var en notorisk lögnare.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "kryptisk",
+  "ordklass": "adjektiv",
+  "facit": "gåtfull",
+  "distraktorer": [
+   {
+    "ord": "begriplig",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "kritisk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "teknisk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "kortfattad",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Meddelandet var kryptiskt och svårt att tolka.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "arbiträr",
+  "ordklass": "adjektiv",
+  "facit": "godtycklig",
+  "distraktorer": [
+   {
+    "ord": "motiverad",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "tillfällig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "orättvis",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "formell",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Gränsen verkade helt arbiträr.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "konsensus",
+  "ordklass": "substantiv",
+  "facit": "enighet",
+  "distraktorer": [
+   {
+    "ord": "oenighet",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "kompromiss",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "majoritet",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "debatt",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Gruppen nådde konsensus efter en lång diskussion.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "diskrepans",
+  "ordklass": "substantiv",
+  "facit": "avvikelse",
+  "distraktorer": [
+   {
+    "ord": "överensstämmelse",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "fel",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "förändring",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "brist",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Det fanns en diskrepans mellan budget och utfall.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "adekvat",
+  "ordklass": "adjektiv",
+  "facit": "lämplig",
+  "distraktorer": [
+   {
+    "ord": "olämplig",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "exakt",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "aktuell",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "tillräcklig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Patienten fick adekvat vård.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "marginell",
+  "ordklass": "adjektiv",
+  "facit": "obetydlig",
+  "distraktorer": [
+   {
+    "ord": "avgörande",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "tillfällig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "gradvis",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "sällsynt",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Förändringen var marginell.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "eminent",
+  "ordklass": "adjektiv",
+  "facit": "framstående",
+  "distraktorer": [
+   {
+    "ord": "medelmåttig",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "erfaren",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "betydande",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "framgångsrik",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Hon är en eminent pianist.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "lukrativ",
+  "ordklass": "adjektiv",
+  "facit": "lönsam",
+  "distraktorer": [
+   {
+    "ord": "olönsam",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "riskfylld",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "kostsam",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "populär",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Affären visade sig vara lukrativ.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "volatil",
+  "ordklass": "adjektiv",
+  "facit": "flyktig",
+  "distraktorer": [
+   {
+    "ord": "stabil",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "farlig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "snabb",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "osäker",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Marknaden har varit volatil hela året.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "reciprok",
+  "ordklass": "adjektiv",
+  "facit": "ömsesidig",
+  "distraktorer": [
+   {
+    "ord": "ensidig",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "gemensam",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "samtidig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "jämlik",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Avtalet bygger på reciproka åtaganden.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "rudimentär",
+  "ordklass": "adjektiv",
+  "facit": "grundläggande",
+  "distraktorer": [
+   {
+    "ord": "avancerad",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "ofullständig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "primitiv",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "tillfällig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Han hade bara rudimentära kunskaper i tyska.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "konfidentiell",
+  "ordklass": "adjektiv",
+  "facit": "förtrolig",
+  "distraktorer": [
+   {
+    "ord": "offentlig",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "personlig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "officiell",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "formell",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Uppgifterna i rapporten är konfidentiella.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "ackurat",
+  "ordklass": "adjektiv",
+  "facit": "noggrann",
+  "distraktorer": [
+   {
+    "ord": "slarvig",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "snabb",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "aktuell",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "korrekt",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Mätningen var mycket ackurat.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "kvintessens",
+  "ordklass": "substantiv",
+  "facit": "kärna",
+  "distraktorer": [
+   {
+    "ord": "bisak",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "sammanfattning",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "slutsats",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "början",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Det är kvintessensen av hela resonemanget.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "postulera",
+  "ordklass": "verb",
+  "facit": "påstå",
+  "distraktorer": [
+   {
+    "ord": "bestrida",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "bevisa",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "förklara",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "undersöka",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Teorin postulerar att tiden är relativ.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "emfas",
+  "ordklass": "substantiv",
+  "facit": "eftertryck",
+  "distraktorer": [
+   {
+    "ord": "likgiltighet",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "betoning",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "känsla",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "ironi",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Hon sade det med stor emfas.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "tentativ",
+  "ordklass": "adjektiv",
+  "facit": "preliminär",
+  "distraktorer": [
+   {
+    "ord": "definitiv",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "försiktig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "tvivelaktig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "frivillig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Vi har en tentativ tidplan för projektet.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "unison",
+  "ordklass": "adjektiv",
+  "facit": "enhällig",
+  "distraktorer": [
+   {
+    "ord": "splittrad",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "samtidig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "gemensam",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "harmonisk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Beslutet fattades med unison röst.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "substantiell",
+  "ordklass": "adjektiv",
+  "facit": "väsentlig",
+  "distraktorer": [
+   {
+    "ord": "obetydlig",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "omfattande",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "konkret",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "materiell",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Det krävs en substantiell förbättring.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "kursorisk",
+  "ordklass": "adjektiv",
+  "facit": "översiktlig",
+  "distraktorer": [
+   {
+    "ord": "grundlig",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "snabb",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "tillfällig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "ytlig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Han gjorde en kursorisk genomgång av materialet.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "distinkt",
+  "ordklass": "adjektiv",
+  "facit": "tydlig",
+  "distraktorer": [
+   {
+    "ord": "oklar",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "särskild",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "exakt",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "skarp",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Det fanns en distinkt doft av kanel.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "trivial",
+  "ordklass": "adjektiv",
+  "facit": "banal",
+  "distraktorer": [
+   {
+    "ord": "originell",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "enkel",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "obetydlig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "vardaglig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Frågan kan verka trivial men är viktig.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "inert",
+  "ordklass": "adjektiv",
+  "facit": "trög",
+  "distraktorer": [
+   {
+    "ord": "reaktiv",
+    "typ": "antonym",
+    "forklaring": ""
+   },
+   {
+    "ord": "passiv",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "stel",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "långsam",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Ädelgaser är kemiskt inerta.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ }
+]

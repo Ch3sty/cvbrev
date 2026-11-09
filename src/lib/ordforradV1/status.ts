@@ -12,6 +12,13 @@ import expert from './bankExpert.json';
 import type { OrdFraga, OrdNiva, OrdTyp } from './types';
 
 export const MINST_PER_NIVA_OCH_TYP = 40;
+/**
+ * Expert (ägarens beslut 2026-11-09): svåra ord saknar ofta ett entydigt
+ * motsatsord, så expert får färre motsatsord om nivån totalt har minst 40
+ * uppgifter. Det som fattas fylls med svåra synonymer.
+ */
+export const EXPERT_MINST_TOTALT = 40;
+export const EXPERT_MINST_MOTSATS = 5;
 
 const BANK: Record<OrdNiva, OrdFraga[]> = {
   grund: grund as unknown as OrdFraga[],
@@ -29,9 +36,15 @@ export function ordforradAntal(): Record<OrdNiva, Record<OrdTyp, number>> {
   };
 }
 
-/** Sant när nivån har minst 40 av varje typ. Utan nivå: alla tre nivåerna. */
+/** Kravet för en nivå: grund och avancerad 40 av varje typ, expert 40 totalt och minst 5 motsatsord. */
+export function nivaRedo(n: OrdNiva, a: Record<OrdTyp, number>): boolean {
+  if (n === 'expert') return a.synonym + a.antonym >= EXPERT_MINST_TOTALT && a.antonym >= EXPERT_MINST_MOTSATS;
+  return a.synonym >= MINST_PER_NIVA_OCH_TYP && a.antonym >= MINST_PER_NIVA_OCH_TYP;
+}
+
+/** Sant när nivån når sitt krav. Utan nivå: alla tre nivåerna. */
 export function ordforradRedo(niva?: OrdNiva): boolean {
   const a = ordforradAntal();
   const nivaer = niva ? [niva] : (['grund', 'avancerad', 'expert'] as const);
-  return nivaer.every((n) => a[n].synonym >= MINST_PER_NIVA_OCH_TYP && a[n].antonym >= MINST_PER_NIVA_OCH_TYP);
+  return nivaer.every((n) => nivaRedo(n, a[n]));
 }

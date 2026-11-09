@@ -6,11 +6,11 @@
   "ord": "prekär",
   "ordklass": "adjektiv",
   "options": [
-   "avvikande",
+   "anspråkslös",
    "bekymmersam",
-   "frivillig",
+   "sekundär",
    "gynnsam",
-   "svårgripbar"
+   "flyktig"
   ],
   "correctAnswer": 1,
   "typer": [
@@ -21,11 +21,11 @@
    "annan"
   ],
   "misstag": [
-   "Avvikande betyder som klart avviker.",
+   "Anspråkslös betyder som har små anspråk.",
    "",
-   "Frivillig betyder som utförs av fri vilja.",
+   "Sekundär betyder som kommer i andra hand.",
    "Gynnsam betyder fördelaktig.",
-   "Svårgripbar betyder äv. vag, svårtolkad."
+   "Flyktig betyder bland annat som lätt övergår i gasform."
   ],
   "facit_betyder": "som orsakar bekymmer",
   "exempel": "Företaget befinner sig i en mycket prekär ekonomisk situation.",
@@ -54,7 +54,7 @@
   "ord": "redundant",
   "ordklass": "adjektiv",
   "options": [
-   "ordrik",
+   "extrem",
    "bristfällig",
    "överflödig",
    "nödvändig",
@@ -69,7 +69,7 @@
    "nara"
   ],
   "misstag": [
-   "Ordrik betyder som har ett stort ordförråd.",
+   "Extrem betyder som går (alltför) långt i en riktning.",
    "Bristfällig betyder som har påtagliga brister.",
    "",
    "Det är motsatsen. Nödvändig betyder som inte får saknas.",
@@ -103,7 +103,7 @@
   "ordklass": "adjektiv",
   "options": [
    "officiell",
-   "excentrisk",
+   "motsägelsefull",
    "uttrycklig",
    "skriftlig",
    "exklusiv"
@@ -118,7 +118,7 @@
   ],
   "misstag": [
    "Officiell betyder bland annat fastslagen eller skapad av (statlig) myndighet.",
-   "Excentrisk betyder bland annat som ligger utanför eller avlägsnar sig från medelpunkten.",
+   "Motsägelsefull betyder som innehåller motstridiga tankegångar.",
    "",
    "Skriftlig betyder som uttrycks i skriven form.",
    "Exklusiv liknar explicit till ljudet men betyder bland annat ensam i sitt slag."
@@ -153,7 +153,7 @@
    "arkiv",
    "avsnitt",
    "laglöshet",
-   "anpassning",
+   "eftergift",
    "uppror"
   ],
   "correctAnswer": 2,
@@ -168,7 +168,7 @@
    "Arkiv liknar anarki till ljudet men betyder samling av tryckta eller digitala dokument, handlingar m.m..",
    "Avsnitt betyder avgränsad del som bildar naturlig egen helhet.",
    "",
-   "Anpassning betyder ordnande (av något) efter omständigheterna.",
+   "Eftergift betyder bland annat (partiellt) övergivande av egna krav för att tillfredsställa någon annans vilja.",
    "Uppror betyder (organiserat och inte tillfälligt) angrepp mot statsmakten av någon grupp i samma land."
   ],
   "facit_betyder": "",
@@ -201,7 +201,7 @@
    "praktisk",
    "nykter",
    "effektiv",
-   "bestämd",
+   "begränsad",
    "teoretisk"
   ],
   "correctAnswer": 0,
@@ -216,7 +216,7 @@
    "",
    "Nykter betyder bland annat opåverkad av alkohol.",
    "Effektiv betyder bland annat som snabbt eller ofta når avsett resultat.",
-   "Bestämd betyder bland annat fastlagd som styrande eller bindande.",
+   "Begränsad betyder innesluten av vissa gränser.",
    "Det är motsatsen. Teoretisk betyder som har att göra med teori."
   ],
   "facit_betyder": "som har att göra med företeelser och händelser i det verkliga livet",
@@ -251,7 +251,7 @@
    "antydan",
    "motbevis",
    "belöning",
-   "avsnitt"
+   "ramverk"
   ],
   "correctAnswer": 1,
   "typer": [
@@ -266,7 +266,7 @@
    "",
    "Motbevis betyder bevis som förringar värdet av ett annat bevis.",
    "Belöning betyder pengar eller utmärkelse som delas ut som ersättning.",
-   "Avsnitt betyder avgränsad del som bildar naturlig egen helhet."
+   "Ramverk betyder konstruktion bestående av en eller flera ramar."
   ],
   "facit_betyder": "flyktigt omnämnande eller flyktig behandling",
   "exempel": "Det finns ingen indikation på att priserna kommer att falla.",
@@ -296,11 +296,11 @@
   "ord": "premiss",
   "ordklass": "substantiv",
   "options": [
+   "entusiasm",
+   "efterföljare",
    "beställning",
-   "hänvisning",
-   "felaktighet",
    "förutsättning",
-   "subjektivitet"
+   "diskriminering"
   ],
   "correctAnswer": 3,
   "typer": [
@@ -311,11 +311,11 @@
    "annan"
   ],
   "misstag": [
+   "Entusiasm betyder (tillstånd av) starkt positivt intresse.",
+   "Efterföljare betyder person som rättar sig efter (viss) förebild.",
    "Beställning betyder det att beställa.",
-   "Hänvisning betyder bland annat påvisande av möjligheten att söka kontakt (med någon/något).",
-   "Felaktighet betyder avvikelse från det rätta eller riktiga.",
    "",
-   "Subjektivitet betyder det att vara subjektiv."
+   "Diskriminering betyder orättvis behandling av viss (minoritets)grupp."
   ],
   "facit_betyder": "(antagen) omständighet som utgör en nödvändig grund för något",
   "exempel": "Hela kalkylen bygger på en felaktig premiss.",
@@ -347,7 +347,7 @@
    "påtaglig",
    "praktisk",
    "diskret",
-   "fräck",
+   "dold",
    "abstrakt"
   ],
   "correctAnswer": 0,
@@ -362,7 +362,7 @@
    "",
    "Praktisk betyder bland annat som har att göra med företeelser och händelser i det verkliga livet.",
    "Diskret liknar konkret till ljudet men betyder bland annat som undviker att väcka olämplig uppmärksamhet.",
-   "Fräck betyder bland annat som ohämmat följer sina impulser.",
+   "Dold betyder gömd.",
    "Det är motsatsen. Abstrakt betyder som inte kan uppfattas med sinnena."
   ],
   "facit_betyder": "tydligt märkbar",
@@ -395,8 +395,8 @@
    "kraftfull",
    "anonym",
    "blodfattig",
-   "jämförbar",
-   "konfrontativ"
+   "fientlig",
+   "självständig"
   ],
   "correctAnswer": 2,
   "typer": [
@@ -410,8 +410,8 @@
    "Kraftfull betyder som har stor kraft.",
    "Anonym liknar anemisk till ljudet men betyder bland annat vars upphovsman inte kan identifieras.",
    "",
-   "Jämförbar betyder som kan likställas.",
-   "Konfrontativ betyder inriktad på konfrontationer."
+   "Fientlig betyder starkt negativt inställd.",
+   "Självständig betyder bland annat som har förmåga att handla och tänka utan att rätta sig efter andra."
   ],
   "facit_betyder": "som tycks sakna kraft och liv",
   "exempel": "Utredningen gav ett anemiskt intryck och saknade skarpa förslag.",
@@ -440,11 +440,11 @@
   "ord": "sanktionera",
   "ordklass": "verb",
   "options": [
-   "förskona",
+   "förebära",
    "godkänna",
    "sammankalla",
    "förbjuda",
-   "beskriva"
+   "blomstra"
   ],
   "correctAnswer": 1,
   "typer": [
@@ -455,11 +455,11 @@
    "annan"
   ],
   "misstag": [
-   "Förskona betyder låta slippa.",
+   "Förebära betyder anföra som skäl eller ursäkt.",
    "",
    "Sammankalla liknar sanktionera till ljudet men betyder kalla till möte.",
    "Det är motsatsen. Förbjuda betyder bestämma att något inte får göras eller förekomma.",
-   "Beskriva betyder bland annat redogöra för de väsentliga egenskaperna hos (någon eller något) i syfte att ge en helhetsbild."
+   "Blomstra betyder bära (många och välutvecklade) blommor."
   ],
   "facit_betyder": "bedöma (någon/något) uppfylla fastställda krav",
   "exempel": "Styrelsen valde att sanktionera den nya budgeten.",
@@ -491,8 +491,8 @@
    "chansa",
    "kapitulera",
    "beräkna",
-   "stämpla",
-   "minska"
+   "fördröja",
+   "spärra"
   ],
   "correctAnswer": 2,
   "typer": [
@@ -506,8 +506,8 @@
    "Chansa betyder välja att handla (på visst sätt) i medvetande om att möjligheten till framgång är begränsad och beroende på slumpen.",
    "Kapitulera liknar kalkylera till ljudet men betyder formellt ge upp allt (väpnat) motstånd.",
    "",
-   "Stämpla betyder bland annat förse med stämpelavtryck.",
-   "Minska betyder bland annat bli mindre."
+   "Fördröja betyder få (något) att inträffa senare.",
+   "Spärra betyder bland annat hindra rörelse i viss riktning på."
   ],
   "facit_betyder": "göra en beräkning av",
   "exempel": "Projektledaren måste kalkylera alla kostnader i förväg.",
@@ -536,10 +536,10 @@
   "ord": "diffus",
   "ordklass": "adjektiv",
   "options": [
-   "absolut",
+   "giltig",
    "oklar",
-   "aggressiv",
-   "avog",
+   "hård",
+   "ilsken",
    "distinkt"
   ],
   "correctAnswer": 1,
@@ -551,10 +551,10 @@
    "antonym"
   ],
   "misstag": [
-   "Absolut betyder som är utan inskränkning.",
+   "Giltig betyder som räknas som (formellt) tillräcklig i sammanhanget.",
    "",
-   "Aggressiv betyder öppet fientligt inställd.",
-   "Avog betyder som har avvisande eller negativ inställning.",
+   "Hård betyder bland annat som inte ger efter för tryck och böjning.",
+   "Ilsken betyder som visar ilska.",
    "Det är motsatsen. Distinkt betyder som har lätt urskiljbara konturer."
   ],
   "facit_betyder": "mindre klar eller synlig",
@@ -585,9 +585,9 @@
   "ordklass": "adjektiv",
   "options": [
    "misstänksam",
-   "periodisk",
-   "tänkbar",
-   "osjälvständig",
+   "oväsentlig",
+   "plastisk",
+   "högtravande",
    "septisk"
   ],
   "correctAnswer": 0,
@@ -600,9 +600,9 @@
   ],
   "misstag": [
    "",
-   "Periodisk betyder som uppträder (på samma sätt) med jämna mellanrum.",
-   "Tänkbar betyder som man kan tänka sig.",
-   "Osjälvständig betyder som låter andra styra sitt tänkande och handlande.",
+   "Oväsentlig betyder som inte har stor betydelse.",
+   "Plastisk betyder bland annat som har att göra med plastik.",
+   "Högtravande betyder onaturligt högstämd eller högtidlig.",
    "Septisk liknar skeptisk till ljudet men betyder som åstadkommer förruttnelse."
   ],
   "facit_betyder": "som (ofta) hyser misstankar",
@@ -637,7 +637,7 @@
    "ikonisk",
    "hånfull",
    "rolig",
-   "livfull"
+   "utmanande"
   ],
   "correctAnswer": 2,
   "typer": [
@@ -652,7 +652,7 @@
    "Ikonisk liknar ironisk till ljudet men betyder som har uppnått ikonstatus; starkt typisk.",
    "",
    "Rolig betyder som lockar till munterhet.",
-   "Livfull betyder full av kraft och energi."
+   "Utmanande betyder fräck och provocerande."
   ],
   "facit_betyder": "som uttrycker låg värdering (av någon/något) på ett illvilligt och förlöjligande sätt",
   "exempel": "Hennes ironiska leende avslöjade vad hon egentligen tyckte.",
@@ -682,10 +682,10 @@
   "ordklass": "substantiv",
   "options": [
    "alibi",
-   "motstånd",
+   "arrogans",
    "förbund",
    "konflikt",
-   "mångfald"
+   "skada"
   ],
   "correctAnswer": 2,
   "typer": [
@@ -697,10 +697,10 @@
   ],
   "misstag": [
    "Alibi liknar allians till ljudet men betyder faktum som bevisar att en person inte kan ha begått ett visst brott.",
-   "Motstånd betyder bland annat aktiva försök att motverka påtvingad utveckling.",
+   "Arrogans betyder utmanande självsäkerhet och högdragenhet.",
    "",
    "Konflikt betyder svårartad motsättning som måste lösas.",
-   "Mångfald betyder bland annat stort och varierat antal."
+   "Skada betyder bland annat det att något inte fungerar normalt eller har normalt utseende."
   ],
   "facit_betyder": "avtal om samverkan",
   "exempel": "Länderna ingick en allians för att stärka sin säkerhet.",
@@ -731,11 +731,11 @@
   "ord": "exekvera",
   "ordklass": "verb",
   "options": [
-   "granska",
-   "förfalla",
+   "förebåda",
+   "undersöka",
    "verkställa",
    "avbryta",
-   "indoktrinera"
+   "protestera"
   ],
   "correctAnswer": 2,
   "typer": [
@@ -746,11 +746,11 @@
    "annan"
   ],
   "misstag": [
-   "Granska betyder noggrant undersöka.",
-   "Förfalla betyder bland annat fortskridande starkt försämras.",
+   "Förebåda betyder ge en första antydan om.",
+   "Undersöka betyder noggrant studera för att skaffa fram fakta om.",
    "",
    "Avbryta betyder hastigt få att upphöra.",
-   "Indoktrinera betyder utsätta (någon) för ensidig (och ständig) intellektuell påverkan."
+   "Protestera betyder bland annat uttrycka protest."
   ],
   "facit_betyder": "åstadkomma utförandet av",
   "exempel": "Datorn kan exekvera koden på några sekunder.",
@@ -783,7 +783,7 @@
    "avlägsna",
    "minska",
    "tillföra",
-   "blomstra",
+   "kalkylera",
    "illuminera"
   ],
   "correctAnswer": 0,
@@ -798,7 +798,7 @@
    "",
    "Minska betyder bland annat bli mindre.",
    "Tillföra betyder förse med.",
-   "Blomstra betyder bära (många och välutvecklade) blommor.",
+   "Kalkylera betyder beräkna det troliga utfallet av.",
    "Illuminera liknar eliminera till ljudet men betyder bland annat festligt lysa upp."
   ],
   "facit_betyder": "ta bort",
@@ -828,11 +828,11 @@
   "ord": "frapperande",
   "ordklass": "adjektiv",
   "options": [
-   "förslagen",
+   "central",
    "ovanlig",
    "slående",
    "osynlig",
-   "identisk"
+   "kryptisk"
   ],
   "correctAnswer": 2,
   "typer": [
@@ -843,11 +843,11 @@
    "annan"
   ],
   "misstag": [
-   "Förslagen betyder som behärskar okonventionella, inte helt accepterade metoder.",
+   "Central betyder bland annat som befinner sig nära (geografisk) mittpunkt.",
    "Ovanlig betyder som förekommer sparsamt.",
    "",
    "Osynlig betyder som inte syns.",
-   "Identisk betyder som utgör samma sak eller person."
+   "Kryptisk betyder ytterst svårbegriplig."
   ],
   "facit_betyder": "som gör ett starkt intryck",
   "exempel": "Skillnaden mellan de två förslagen var frapperande stor vid jämförelse.",
@@ -880,8 +880,8 @@
   "options": [
    "rimlig",
    "plastisk",
-   "anonym",
-   "osorterad",
+   "ombytlig",
+   "rask",
    "orimlig"
   ],
   "correctAnswer": 0,
@@ -895,8 +895,8 @@
   "misstag": [
    "",
    "Plastisk liknar plausibel till ljudet men betyder bland annat som har att göra med plastik.",
-   "Anonym betyder bland annat vars upphovsman inte kan identifieras.",
-   "Osorterad betyder som inte har sorterats.",
+   "Ombytlig betyder som ofta ändrar sin inställning eller sitt beteende.",
+   "Rask betyder som utför något snabbt och effektivt.",
    "Det är motsatsen. Orimlig betyder uppenbart helt felaktig."
   ],
   "facit_betyder": "som det finns (förnuftig) anledning att tro på",
@@ -928,7 +928,7 @@
   "options": [
    "debattera",
    "besätta",
-   "samstämma",
+   "blomstra",
    "förneka",
    "bekräfta"
   ],
@@ -943,7 +943,7 @@
   "misstag": [
    "Debattera betyder delta i debatt om.",
    "Besätta betyder bland annat sätta sig i läge att militärt kontrollera.",
-   "Samstämma betyder stämma överens.",
+   "Blomstra betyder bära (många och välutvecklade) blommor.",
    "",
    "Det är motsatsen. Bekräfta betyder bland annat intyga riktigheten av."
   ],
@@ -976,8 +976,8 @@
   "ord": "hävda",
   "ordklass": "verb",
   "options": [
-   "befordra",
-   "utvecklas",
+   "hålla",
+   "blidka",
    "häva",
    "påstå",
    "förneka"
@@ -991,8 +991,8 @@
    "annan"
   ],
   "misstag": [
-   "Befordra betyder bland annat åstadkomma förflyttning av.",
-   "Utvecklas betyder utveckla sig.",
+   "Hålla betyder bland annat utsätta (någon/något) för ett fast tag.",
+   "Blidka betyder göra mindre arg eller sträng.",
    "Häva liknar hävda till ljudet men betyder bland annat förflytta uppåt med en kraftig, ögonblicklig rörelse.",
    "",
    "Förneka betyder bland annat hävda avsaknad av sanning i."
@@ -1025,9 +1025,9 @@
   "ord": "mäkta",
   "ordklass": "verb",
   "options": [
-   "häva",
    "ansluta",
-   "lämna",
+   "häva",
+   "intyga",
    "hinna",
    "orka"
   ],
@@ -1040,9 +1040,9 @@
    ""
   ],
   "misstag": [
-   "Häva betyder bland annat förflytta uppåt med en kraftig, ögonblicklig rörelse.",
    "Ansluta betyder bland annat åstadkomma förbindelse av.",
-   "Lämna betyder bland annat låta (något) vara kvar.",
+   "Häva betyder bland annat förflytta uppåt med en kraftig, ögonblicklig rörelse.",
+   "Intyga betyder utfärda intyg om.",
    "Hinna betyder bland annat ha tillräckligt mycket tid för att.",
    ""
   ],
@@ -1073,11 +1073,11 @@
   "ord": "olägenhet",
   "ordklass": "substantiv",
   "options": [
-   "diskretion",
+   "klander",
    "fördel",
-   "ideologi",
+   "borgenär",
    "besvär",
-   "smickrare"
+   "samklang"
   ],
   "correctAnswer": 3,
   "typer": [
@@ -1088,11 +1088,11 @@
    "annan"
   ],
   "misstag": [
-   "Diskretion betyder det att undvika att väcka olämplig uppmärksamhet.",
+   "Klander betyder bland annat ogillande yttrande.",
    "Fördel betyder gynnsam faktor eller egenskap.",
-   "Ideologi betyder sammanhängande system av (politiska) idéer och värderingar.",
+   "Borgenär betyder part i en ekonomisk överenskommelse som har fordringar på den andra parten.",
    "",
-   "Smickrare betyder person som (ofta) smickrar."
+   "Samklang betyder det att stämma överens."
   ],
   "facit_betyder": "omständighet(er) som medför ansträngning eller obehag",
   "exempel": "Vi beklagar den olägenhet som tågförseningarna har orsakat er.",
@@ -1122,8 +1122,8 @@
   "ordklass": "verb",
   "options": [
    "förklara",
-   "sköta",
-   "ingripa",
+   "befordra",
+   "förånga",
    "frånta",
    "tillmäta"
   ],
@@ -1137,8 +1137,8 @@
   ],
   "misstag": [
    "Förklara betyder bland annat tillkännage som sin ståndpunkt.",
-   "Sköta betyder ge nödvändig tillsyn och behandling.",
-   "Ingripa betyder aktivt blanda sig in.",
+   "Befordra betyder bland annat åstadkomma förflyttning av.",
+   "Förånga betyder omvandla till ånga.",
    "Frånta betyder beröva.",
    ""
   ],
@@ -1169,11 +1169,11 @@
   "ord": "tystlåten",
   "ordklass": "adjektiv",
   "options": [
-   "exklusiv",
-   "ekonomisk",
+   "tillförlitlig",
+   "kättersk",
    "förbehållsam",
-   "kontroversiell",
-   "skriftlig"
+   "arbiträr",
+   "ersättlig"
   ],
   "correctAnswer": 2,
   "typer": [
@@ -1184,11 +1184,11 @@
    "annan"
   ],
   "misstag": [
-   "Exklusiv betyder bland annat ensam i sitt slag.",
-   "Ekonomisk betyder bland annat som har att göra med ekonomi.",
+   "Tillförlitlig betyder som man kan lita på.",
+   "Kättersk betyder som har tankar som avviker från den officiella läran.",
    "",
-   "Kontroversiell betyder som det finns blandade (till stor del kritiska) uppfattningar om.",
-   "Skriftlig betyder som uttrycks i skriven form."
+   "Arbiträr betyder som kan väljas eller bestämmas på vilket sätt som helst.",
+   "Ersättlig betyder möjlig att ersätta."
   ],
   "facit_betyder": "som undviker att meddela sig i onödan",
   "exempel": "Han var en tystlåten man som sällan tog till ordet på mötena.",
@@ -1217,10 +1217,10 @@
   "ord": "indignation",
   "ordklass": "substantiv",
   "options": [
-   "oro",
-   "mångfald",
+   "samklang",
+   "remiss",
    "harm",
-   "defekt",
+   "paus",
    "beundran"
   ],
   "correctAnswer": 2,
@@ -1232,10 +1232,10 @@
    "annan"
   ],
   "misstag": [
-   "Oro betyder (lättare) upprördhet, rädsla och olust.",
-   "Mångfald betyder bland annat stort och varierat antal.",
+   "Samklang betyder det att stämma överens.",
+   "Remiss betyder bland annat hänvisning av ett ärende till myndigheter eller organisationer för yttrande.",
    "",
-   "Defekt betyder brist i funktion eller utseende.",
+   "Paus betyder (kortare) uppehåll.",
    "Beundran betyder känsla av stark uppskattning av någon eller något såsom särskilt framstående."
   ],
   "facit_betyder": "(moraliskt betingad) vrede",
@@ -1269,7 +1269,7 @@
   "options": [
    "kombinera",
    "skada",
-   "diskutera",
+   "kungöra",
    "förorena",
    "rengöra"
   ],
@@ -1284,7 +1284,7 @@
   "misstag": [
    "Kombinera liknar kontaminera till ljudet men betyder bland annat ställa samman (olika företeelser) till ny helhet.",
    "Skada betyder tillfoga (någon) skada.",
-   "Diskutera betyder delta i diskussion om.",
+   "Kungöra betyder officiellt tillkännage.",
    "",
    "Rengöra betyder (grundligt) befria från smuts."
   ],
@@ -1363,8 +1363,8 @@
   "ord": "apati",
   "ordklass": "substantiv",
   "options": [
-   "subjektivitet",
-   "tribunal",
+   "efterföljare",
+   "kollision",
    "entusiasm",
    "trötthet",
    "likgiltighet"
@@ -1378,8 +1378,8 @@
    ""
   ],
   "misstag": [
-   "Subjektivitet betyder det att vara subjektiv.",
-   "Tribunal betyder (mer tillfällig och informell) domstol.",
+   "Efterföljare betyder person som rättar sig efter (viss) förebild.",
+   "Kollision betyder häftig sammanstötning.",
    "Det är motsatsen. Entusiasm betyder (tillstånd av) starkt positivt intresse.",
    "Trötthet betyder bland annat det att vara trött.",
    ""
@@ -1414,8 +1414,8 @@
    "fordringsägare",
    "investerare",
    "borgmästare",
-   "originalitet",
-   "förfaringssätt"
+   "stagnation",
+   "diskriminering"
   ],
   "correctAnswer": 0,
   "typer": [
@@ -1429,8 +1429,8 @@
    "",
    "Investerare betyder (juridisk) person som gjort investering.",
    "Borgmästare liknar borgenär till ljudet men betyder (titel för) högste ämbetsman i en stad.",
-   "Originalitet betyder (det att ha) unika egenskaper.",
-   "Förfaringssätt betyder sätt att förfara."
+   "Stagnation betyder det att stagnera.",
+   "Diskriminering betyder orättvis behandling av viss (minoritets)grupp."
   ],
   "facit_betyder": "person som någon står i skuld till",
   "exempel": "Banken agerade borgenär vid fastighetsköpet.",
@@ -1461,7 +1461,7 @@
   "ord": "deklamera",
   "ordklass": "verb",
   "options": [
-   "bevilja",
+   "budgetera",
    "föreläsa",
    "viska",
    "tala",
@@ -1476,7 +1476,7 @@
    ""
   ],
   "misstag": [
-   "Bevilja betyder lämna sitt godkännande till.",
+   "Budgetera betyder utarbeta budget för.",
    "Föreläsa betyder hålla föreläsning.",
    "Viska betyder bland annat tala tyst utan att stämbanden vibrerar.",
    "Tala betyder bland annat uttrycka (något) språkligt med hjälp av talorganen.",
@@ -1509,8 +1509,8 @@
   "ord": "disparat",
   "ordklass": "adjektiv",
   "options": [
-   "lämplig",
-   "osjälvständig",
+   "vördsam",
+   "kristallisk",
    "enhetlig",
    "desperat",
    "olikartad"
@@ -1524,8 +1524,8 @@
    ""
   ],
   "misstag": [
-   "Lämplig betyder som väl motsvarar omständigheternas krav.",
-   "Osjälvständig betyder som låter andra styra sitt tänkande och handlande.",
+   "Vördsam betyder som tyder på vördnad.",
+   "Kristallisk betyder som liknar kristall.",
    "Enhetlig betyder som utgör eller ger intryck av att vara en enhet.",
    "Desperat liknar disparat till ljudet men betyder bland annat som känner desperation.",
    ""
@@ -1558,10 +1558,10 @@
   "ordklass": "adjektiv",
   "options": [
    "ambivalent",
-   "förslagen",
+   "självupptagen",
    "identisk",
    "likvärdig",
-   "hetsig"
+   "dimmig"
   ],
   "correctAnswer": 3,
   "typer": [
@@ -1573,10 +1573,10 @@
   ],
   "misstag": [
    "Ambivalent liknar ekvivalent till ljudet men betyder som präglas av ambivalens.",
-   "Förslagen betyder som behärskar okonventionella, inte helt accepterade metoder.",
+   "Självupptagen betyder alltför intresserad av den egna personen.",
    "Identisk betyder som utgör samma sak eller person.",
    "",
-   "Hetsig betyder bland annat som lätt blir starkt engagerad och upprörd."
+   "Dimmig betyder insvept i dimma."
   ],
   "facit_betyder": "värd lika mycket",
   "exempel": "De båda utbildningarna anses ha ekvivalent värde på arbetsmarknaden.",
@@ -1607,10 +1607,10 @@
   "ordklass": "adjektiv",
   "options": [
    "hänsynslös",
-   "omisskännlig",
+   "falsk",
    "engagerad",
-   "nykter",
-   "orimlig"
+   "perifer",
+   "absolut"
   ],
   "correctAnswer": 2,
   "typer": [
@@ -1622,10 +1622,10 @@
   ],
   "misstag": [
    "Hänsynslös liknar hängiven till ljudet men betyder som handlar utan tanke på de negativa följderna för omgivningen.",
-   "Omisskännlig betyder omöjlig att inte uppfatta.",
+   "Falsk betyder bland annat som strider mot verkliga förhållanden.",
    "",
-   "Nykter betyder bland annat opåverkad av alkohol.",
-   "Orimlig betyder uppenbart helt felaktig."
+   "Perifer betyder som ligger långt från centrum.",
+   "Absolut betyder som är utan inskränkning."
   ],
   "facit_betyder": "som känner (starkt) engagemang",
   "exempel": "Hon var en mycket hängiven medarbetare som alltid ställde upp.",
@@ -1654,11 +1654,11 @@
   "ord": "immanent",
   "ordklass": "adjektiv",
   "options": [
-   "konfrontativ",
-   "destruktiv",
+   "spontan",
+   "religiös",
    "inneboende",
-   "hänsynsfull",
-   "septisk"
+   "oväsentlig",
+   "prominent"
   ],
   "correctAnswer": 2,
   "typer": [
@@ -1669,11 +1669,11 @@
    "annan"
   ],
   "misstag": [
-   "Konfrontativ betyder inriktad på konfrontationer.",
-   "Destruktiv betyder inriktad på att åstadkomma skada.",
+   "Spontan betyder bland annat som sker av en plötslig impuls.",
+   "Religiös betyder bland annat starkt engagerad i en religion.",
    "",
-   "Hänsynsfull betyder som visar hänsyn.",
-   "Septisk betyder som åstadkommer förruttnelse."
+   "Oväsentlig betyder som inte har stor betydelse.",
+   "Prominent betyder bland annat framstående."
   ],
   "facit_betyder": "inackorderad",
   "exempel": "Kritiken byggde på en analys av systemets immanenta logik.",
@@ -1704,7 +1704,7 @@
   "options": [
    "undervisa",
    "hjärntvätta",
-   "interfoliera",
+   "komplettera",
    "påverka",
    "indikera"
   ],
@@ -1719,7 +1719,7 @@
   "misstag": [
    "Undervisa betyder förmedla kunskaper eller färdigheter.",
    "",
-   "Interfoliera betyder häfta in (blanka blad) mellan tryckta sidor i bok.",
+   "Komplettera betyder tillföra saknade delar eller egenskaper till.",
    "Påverka betyder (fortlöpande) inverka på.",
    "Indikera liknar indoktrinera till ljudet men betyder utgöra tecken på."
   ],
@@ -1752,7 +1752,7 @@
   "ordklass": "adjektiv",
   "options": [
    "konstruktiv",
-   "avskild",
+   "avskyvärd",
    "lärorik",
    "pedagogisk",
    "tydlig"
@@ -1767,7 +1767,7 @@
   ],
   "misstag": [
    "Konstruktiv liknar instruktiv till ljudet men betyder bland annat som (på ett positivt sätt) är inriktad på att bygga upp eller förbättra något.",
-   "Avskild betyder isolerad från omgivningen.",
+   "Avskyvärd betyder som väcker avsky.",
    "",
    "Pedagogisk betyder bland annat som har att göra med (metoder för) uppfostran och undervisning.",
    "Tydlig betyder lätt att uppfatta med (något av) sinnena."
@@ -1801,7 +1801,7 @@
   "options": [
    "kortsiktig",
    "tillfällig",
-   "vidlyftig",
+   "osjälvständig",
    "permanent",
    "intressant"
   ],
@@ -1816,7 +1816,7 @@
   "misstag": [
    "Kortsiktig betyder som gäller inom ett kort tidsavstånd.",
    "",
-   "Vidlyftig betyder (alltför) omfattande.",
+   "Osjälvständig betyder som låter andra styra sitt tänkande och handlande.",
    "Det är motsatsen. Permanent betyder som avses eller säkert kommer att bestå eller fungera under överskådlig tid.",
    "Intressant liknar interimistisk till ljudet men betyder som kan fånga och hålla kvar uppmärksamheten."
   ],
@@ -1852,7 +1852,7 @@
    "ränkfull",
    "lurig",
    "uppriktig",
-   "otidsenlig",
+   "immanent",
    "intressant"
   ],
   "correctAnswer": 0,
@@ -1867,7 +1867,7 @@
    "",
    "Lurig betyder som har förmåga att lura andra.",
    "Uppriktig betyder som låter sitt handlande (särskilt sina yttranden) svara mot sina egentliga (innersta) känslor och övertygelser.",
-   "Otidsenlig betyder som avviker från det typiska under viss tidsperiod.",
+   "Immanent betyder som utgör en oskiljbar, organisk del.",
    "Intressant liknar intrigant till ljudet men betyder som kan fånga och hålla kvar uppmärksamheten."
   ],
   "facit_betyder": "",
@@ -1891,32 +1891,758 @@
   "fran_version": 1
  },
  {
+  "id": "of-e-s-40",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "eklatant",
+  "ordklass": "adjektiv",
+  "options": [
+   "elegant",
+   "påfallande",
+   "obetydlig",
+   "tillfällig",
+   "sällsynt"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "samma_falt",
+   "",
+   "annan",
+   "samma_falt",
+   "annan"
+  ],
+  "misstag": [
+   "Elegant betyder som har ett fint och smakfullt utseende.",
+   "",
+   "Obetydlig betyder som knappast betyder något.",
+   "Tillfällig betyder bland annat som förekommer eller är verksam bara under begränsad tid.",
+   "Sällsynt betyder som förekommer i ett mycket litet antal fall."
+  ],
+  "facit_betyder": "som man tydligt märker",
+  "exempel": "Det var ett eklatant exempel på slöseri.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL eklatant: förklaras med påfallande (\"påfallande, slående, uppenbar\")"
+   ],
+   "so_id": "141454",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 93,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 1
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-e-s-41",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "latent",
+  "ordklass": "adjektiv",
+  "options": [
+   "kronisk",
+   "lönsam",
+   "dold",
+   "dryg",
+   "farlig"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "annan",
+   "",
+   "annan",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Kronisk betyder som har ett mycket långvarigt förlopp.",
+   "Lönsam betyder som ger gott ekonomiskt utbyte.",
+   "",
+   "Dryg betyder bland annat som räcker förhållandevis länge.",
+   "Farlig betyder som utgör en fara."
+  ],
+  "facit_betyder": "gömd",
+  "exempel": "Konflikten hade varit latent i flera år.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL latent: förklaras med dold (\"dold, förborgad\")"
+   ],
+   "so_id": "226988",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 17991,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 2
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-e-s-42",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "ambivalent",
+  "ordklass": "adjektiv",
+  "options": [
+   "gammal",
+   "kluven",
+   "riskabel",
+   "nervös",
+   "likgiltig"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "annan",
+   "",
+   "annan",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Gammal betyder bland annat som har existerat under lång tid.",
+   "",
+   "Riskabel betyder som innebär vissa risker.",
+   "Nervös betyder bland annat som har orolig läggning.",
+   "Likgiltig betyder bland annat helt ointresserad."
+  ],
+  "facit_betyder": "delad genom klyvning",
+  "exempel": "Hon var ambivalent till erbjudandet.",
+  "kalla": {
+   "verifierad_mot": "SO och SAOL",
+   "belagg": [
+    "SO ambivalent: synonym kluven",
+    "SAOL ambivalent: förklaras med kluven (\"kluven, tvehågsen, vacklande\")",
+    "SO kluven: synonym ambivalent"
+   ],
+   "so_id": "103214",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 9896,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 2
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-e-s-43",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "notorisk",
+  "ordklass": "adjektiv",
+  "options": [
+   "hemsk",
+   "ökänd",
+   "farlig",
+   "kriminell",
+   "ovanlig"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "annan",
+   "",
+   "samma_falt",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Hemsk betyder som inger rysningar eller skräckkänslor.",
+   "",
+   "Farlig betyder som utgör en fara.",
+   "Kriminell betyder som (vanemässigt) begår brott.",
+   "Ovanlig betyder som förekommer sparsamt."
+  ],
+  "facit_betyder": "allmänt känd för sina dåliga egenskaper",
+  "exempel": "Han var en notorisk lögnare.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL notorisk: förklaras med ökänd (\"allbekant; otvivelaktig; ökänd\")"
+   ],
+   "so_id": "260659",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 4502,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 1
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-e-s-44",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "arbiträr",
+  "ordklass": "adjektiv",
+  "options": [
+   "godtycklig",
+   "slarvig",
+   "formell",
+   "demokratisk",
+   "orättvis"
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "annan",
+   "samma_falt",
+   "annan",
+   "samma_falt"
+  ],
+  "misstag": [
+   "",
+   "Slarvig betyder som inte är tillräckligt noggrann och ordentlig.",
+   "Formell betyder som uppfyller vissa krav på den yttre formen.",
+   "Demokratisk betyder bland annat som verkar med demokratins metoder.",
+   "Orättvis betyder som inte behandlar inblandade parter lika."
+  ],
+  "facit_betyder": "grundad på godtycke",
+  "exempel": "Gränsen verkade helt arbiträr.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL arbiträr: förklaras med godtycklig (\"godtycklig\")"
+   ],
+   "so_id": "106903",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 499,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 2
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-e-s-45",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "diskrepans",
+  "ordklass": "substantiv",
+  "options": [
+   "avvikelse",
+   "förändring",
+   "alibi",
+   "brist",
+   "beundran"
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "samma_falt",
+   "annan",
+   "samma_falt",
+   "annan"
+  ],
+  "misstag": [
+   "",
+   "Förändring betyder det att förändra(s).",
+   "Alibi betyder faktum som bevisar att en person inte kan ha begått ett visst brott.",
+   "Brist betyder bland annat tillstånd av otillräcklig tillgång eller mängd.",
+   "Beundran betyder känsla av stark uppskattning av någon eller något såsom särskilt framstående."
+  ],
+  "facit_betyder": "uppvisad eller uppmätt skillnad",
+  "exempel": "Det fanns en diskrepans mellan budget och utfall.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL diskrepans: förklaras med avvikelse (\"brist på överensstämmelse, avvikelse\")"
+   ],
+   "so_id": "135714",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 7316,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 2
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-e-s-46",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "eminent",
+  "ordklass": "adjektiv",
+  "options": [
+   "erfaren",
+   "konstruktiv",
+   "framgångsrik",
+   "medelmåttig",
+   "framstående"
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   "samma_falt",
+   "annan",
+   "samma_falt",
+   "antonym",
+   ""
+  ],
+  "misstag": [
+   "Erfaren betyder som har långvarigt utövande av någon verksamhet bakom sig.",
+   "Konstruktiv betyder bland annat som (på ett positivt sätt) är inriktad på att bygga upp eller förbättra något.",
+   "Framgångsrik betyder som uppnått goda resultat.",
+   "Det är motsatsen. Medelmåttig betyder som ligger omkring genomsnittet.",
+   ""
+  ],
+  "facit_betyder": "som har goda kvaliteter eller erkänd ställning",
+  "exempel": "Hon är en eminent pianist.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL eminent: förklaras med framstående (\"framstående, utomordentlig\")"
+   ],
+   "so_id": "827652",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 3204,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 1
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-e-s-47",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "lukrativ",
+  "ordklass": "adjektiv",
+  "options": [
+   "populär",
+   "riskfylld",
+   "lönsam",
+   "kostsam",
+   "olönsam"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "samma_falt",
+   "",
+   "samma_falt",
+   "antonym"
+  ],
+  "misstag": [
+   "Populär betyder bland annat allmänt omtyckt.",
+   "Riskfylld betyder som medför stora risker.",
+   "",
+   "Kostsam betyder som har högt pris.",
+   "Det är motsatsen. Olönsam betyder som ger dåligt ekonomiskt utbyte."
+  ],
+  "facit_betyder": "som ger gott ekonomiskt utbyte",
+  "exempel": "Affären visade sig vara lukrativ.",
+  "kalla": {
+   "verifierad_mot": "SO och Wiktionary",
+   "belagg": [
+    "SO lukrativ: jämför lönsam",
+    "Wiktionary: lukrativ och lönsam listas som synonymer"
+   ],
+   "so_id": "232556",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 4550,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-e-s-48",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "reciprok",
+  "ordklass": "adjektiv",
+  "options": [
+   "filantropisk",
+   "ömsesidig",
+   "ensidig",
+   "samtidig",
+   "jämlik"
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "annan",
+   "",
+   "antonym",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "Filantropisk betyder präglad av filantropi.",
+   "",
+   "Det är motsatsen. Ensidig betyder bland annat som har att göra med (bara) en sida.",
+   "Samtidig betyder som inträffar eller existerar vid samma tillfälle.",
+   "Jämlik betyder som anses ha lika stort värde som varje annan person."
+  ],
+  "facit_betyder": "som gäller för, sker med eller utförs av båda de ingående parterna",
+  "exempel": "Avtalet bygger på reciproka åtaganden.",
+  "kalla": {
+   "verifierad_mot": "SO och SAOL",
+   "belagg": [
+    "SO reciprok: förklaras med ömsesidig (\"ömsesidig\")",
+    "SAOL reciprok: förklaras med ömsesidig (\"ömsesidig\")"
+   ],
+   "so_id": "293992",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 454,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 1
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-e-s-49",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "konfidentiell",
+  "ordklass": "adjektiv",
+  "options": [
+   "formell",
+   "distinkt",
+   "förtrolig",
+   "tillräcklig",
+   "offentlig"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "samma_falt",
+   "annan",
+   "",
+   "annan",
+   "antonym"
+  ],
+  "misstag": [
+   "Formell betyder som uppfyller vissa krav på den yttre formen.",
+   "Distinkt betyder som har lätt urskiljbara konturer.",
+   "",
+   "Tillräcklig betyder som har en omfattning som svarar mot behovet.",
+   "Det är motsatsen. Offentlig betyder bland annat öppen eller tillgänglig för alla människor."
+  ],
+  "facit_betyder": "vänskapligt öppen och tillitsfull",
+  "exempel": "Uppgifterna i rapporten är konfidentiella.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL konfidentiell: förklaras med förtrolig (\"meddelad i förtroende, förtrolig, hemlig\")"
+   ],
+   "so_id": "212721",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 2667,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 2
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-e-s-50",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "kvintessens",
+  "ordklass": "substantiv",
+  "options": [
+   "kärna",
+   "nedgång",
+   "bisak",
+   "slutsats",
+   "början"
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "annan",
+   "annan",
+   "samma_falt",
+   "samma_falt"
+  ],
+  "misstag": [
+   "",
+   "Nedgång betyder bland annat det att något rör sig nedåt.",
+   "Bisak betyder mindre viktig sak eller faktor.",
+   "Slutsats betyder omdöme som man kommit fram till genom slutledning.",
+   "Början betyder allra första del."
+  ],
+  "facit_betyder": "(hölje för) frö i nöt, frukt, bär eller dylikt",
+  "exempel": "Det är kvintessensen av hela resonemanget.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL kvintessens: förklaras med kärna (\"det väsentliga el. bästa, kärna\")"
+   ],
+   "so_id": "222044",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 140,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 1
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-e-s-51",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "emfas",
+  "ordklass": "substantiv",
+  "options": [
+   "utgångspunkt",
+   "sammanhang",
+   "känsla",
+   "eftertryck",
+   "sinneslugn"
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "annan",
+   "annan",
+   "samma_falt",
+   "",
+   "annan"
+  ],
+  "misstag": [
+   "Utgångspunkt betyder plats som en förflyttning börjar från.",
+   "Sammanhang betyder bland annat anknytande eller omgivande omständigheter.",
+   "Känsla betyder bland annat (kroppslig) upplevelse som uppkommer av yttre eller inre förnimmelse.",
+   "",
+   "Sinneslugn betyder själsligt lugn."
+  ],
+  "facit_betyder": "extra kraftigt tryck eller understrykande",
+  "exempel": "Hon sade det med stor emfas.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL emfas: förklaras med eftertryck (\"eftertryck; stark betoning\")"
+   ],
+   "so_id": "142733",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 5642,
+  "granskning": {
+   "of2_ordklass": "substantiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 3
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-e-s-52",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "substantiell",
+  "ordklass": "adjektiv",
+  "options": [
+   "okulär",
+   "konkret",
+   "väsentlig",
+   "obetydlig",
+   "statistisk"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "annan",
+   "samma_falt",
+   "",
+   "annan",
+   "annan"
+  ],
+  "misstag": [
+   "Okulär betyder som utförs med (enbart) ögonen.",
+   "Konkret betyder som direkt kan uppfattas med sinnena.",
+   "",
+   "Obetydlig betyder som knappast betyder något.",
+   "Statistisk betyder som utförs eller erhålls enligt statistikens metoder."
+  ],
+  "facit_betyder": "som rör den viktigaste eller största delen",
+  "exempel": "Det krävs en substantiell förbättring.",
+  "kalla": {
+   "verifierad_mot": "SAOL",
+   "belagg": [
+    "SAOL substantiell: förklaras med väsentlig (\"väsentlig; påtaglig; kraftig, bastant\")"
+   ],
+   "so_id": "348570",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 1880,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 2
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-e-s-53",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "distinkt",
+  "ordklass": "adjektiv",
+  "options": [
+   "tydlig",
+   "exakt",
+   "kärnfull",
+   "särskild",
+   "oklar"
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "samma_falt",
+   "annan",
+   "samma_falt",
+   "annan"
+  ],
+  "misstag": [
+   "",
+   "Exakt betyder fullkomligt riktig och tillförlitlig.",
+   "Kärnfull betyder kraftig och innehållsrik.",
+   "Särskild betyder bland annat som är skild (i rummet eller tiden) från anknutna företeelser.",
+   "Oklar betyder mindre klar eller synlig."
+  ],
+  "facit_betyder": "lätt att uppfatta med (något av) sinnena",
+  "exempel": "Det fanns en distinkt doft av kanel.",
+  "kalla": {
+   "verifierad_mot": "SO och SAOL",
+   "belagg": [
+    "SO distinkt: förklaras med tydlig (\"\")",
+    "SAOL distinkt: förklaras med tydlig (\"tydlig, markerad\")"
+   ],
+   "so_id": "135994",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 11774,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 1
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-e-s-54",
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "trivial",
+  "ordklass": "adjektiv",
+  "options": [
+   "elakartad",
+   "originell",
+   "banal",
+   "dum",
+   "flat"
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "annan",
+   "antonym",
+   "",
+   "annan",
+   "annan"
+  ],
+  "misstag": [
+   "Elakartad betyder som utvecklas mot allt svårare tillstånd.",
+   "Det är motsatsen. Originell betyder som har unika eller ovanliga egenskaper.",
+   "",
+   "Dum betyder bland annat som har dålig fattningsförmåga.",
+   "Flat betyder bland annat som saknar fördjupningar och upphöjningar."
+  ],
+  "facit_betyder": "alltför ofta använd eller förekommande",
+  "exempel": "Frågan kan verka trivial men är viktig.",
+  "kalla": {
+   "verifierad_mot": "Wiktionary och synonymer.se (SO och SAOL saknar uppgiften)",
+   "belagg": [
+    "Wiktionary: trivial och banal listas som synonymer",
+    "synonymer.se: trivial och banal listas som synonymer"
+   ],
+   "so_id": "368263",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 6215,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 3
+  },
+  "fran_version": 1
+ },
+ {
   "id": "of-e-m-01",
   "niva": "expert",
   "typ": "antonym",
   "ord": "ekonomisera",
   "ordklass": "verb",
   "options": [
-   "budgetera",
    "slösa",
+   "bläddra",
    "spara",
-   "främja",
-   "vila"
+   "granska",
+   "budgetera"
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 0,
   "typer": [
-   "nara",
    "",
+   "annan",
    "synonym",
    "annan",
-   "annan"
+   "nara"
   ],
   "misstag": [
-   "Budgetera betyder utarbeta budget för.",
    "",
+   "Bläddra betyder vända blad för att ta fram nytt uppslag.",
    "Spara betyder ungefär detsamma som ekonomisera, inte motsatsen.",
-   "Främja betyder skapa gynnsamma förutsättningar för.",
-   "Vila betyder bland annat (för tillfället) inte vara i verksamhet."
+   "Granska betyder noggrant undersöka.",
+   "Budgetera betyder utarbeta budget för."
   ],
   "facit_betyder": "använda för mycket av",
   "exempel": "Företaget måste ekonomisera med sina resurser under krisen.",
@@ -1946,26 +2672,26 @@
   "ord": "konservativ",
   "ordklass": "adjektiv",
   "options": [
-   "politisk",
-   "bristfällig",
+   "fientlig",
+   "populär",
    "radikal",
-   "avog",
-   "försiktig"
+   "försiktig",
+   "politisk"
   ],
   "correctAnswer": 2,
   "typer": [
-   "samma_falt",
+   "annan",
    "annan",
    "",
-   "annan",
-   "nara"
+   "nara",
+   "samma_falt"
   ],
   "misstag": [
-   "Politisk betyder som har att göra med politik.",
-   "Bristfällig betyder som har påtagliga brister.",
+   "Fientlig betyder starkt negativt inställd.",
+   "Populär betyder bland annat allmänt omtyckt.",
    "",
-   "Avog betyder som har avvisande eller negativ inställning.",
-   "Försiktig betyder som (på goda grunder) undviker att ta risker."
+   "Försiktig betyder som (på goda grunder) undviker att ta risker.",
+   "Politisk betyder som har att göra med politik."
   ],
   "facit_betyder": "som innebär stora, grundläggande förändringar",
   "exempel": "Styrelsen tog ett konservativt beslut och avstod från investeringen.",
@@ -1995,26 +2721,26 @@
   "ord": "rigid",
   "ordklass": "adjektiv",
   "options": [
-   "bestämd",
-   "flexibel",
-   "stram",
    "rigorös",
-   "labyrintisk"
+   "stram",
+   "flexibel",
+   "bestämd",
+   "skriftlig"
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 2,
   "typer": [
-   "samma_falt",
-   "",
-   "nara",
    "falsk_van",
+   "nara",
+   "",
+   "samma_falt",
    "annan"
   ],
   "misstag": [
-   "Bestämd betyder bland annat fastlagd som styrande eller bindande.",
-   "",
-   "Stram betyder spänd.",
    "Rigorös liknar rigid till ljudet men betyder som är mycket hård och fordrande och som ska följas på ett exakt sätt.",
-   "Labyrintisk betyder invecklad på samma sätt som en labyrint."
+   "Stram betyder spänd.",
+   "",
+   "Bestämd betyder bland annat fastlagd som styrande eller bindande.",
+   "Skriftlig betyder som uttrycks i skriven form."
   ],
   "facit_betyder": "som (på ett smidigt sätt) kan anpassas efter omständigheterna",
   "exempel": "Arbetsplatsen hade en rigid regelbok som ingen fick avvika från.",
@@ -2044,26 +2770,26 @@
   "ord": "altruistisk",
   "ordklass": "adjektiv",
   "options": [
-   "egensinnig",
+   "oegennyttig",
+   "jämförbar",
    "egoistisk",
-   "empatisk",
    "filantropisk",
-   "oegennyttig"
+   "empatisk"
   ],
-  "correctAnswer": 1,
+  "correctAnswer": 2,
   "typer": [
+   "synonym",
    "annan",
    "",
-   "samma_falt",
    "nara",
-   "synonym"
+   "samma_falt"
   ],
   "misstag": [
-   "Egensinnig betyder som följer enbart sin egen mening.",
+   "Oegennyttig betyder ungefär detsamma som altruistisk, inte motsatsen.",
+   "Jämförbar betyder som kan likställas.",
    "",
-   "Empatisk betyder som har att göra med empati.",
    "Filantropisk betyder präglad av filantropi.",
-   "Oegennyttig betyder ungefär detsamma som altruistisk, inte motsatsen."
+   "Empatisk betyder som har att göra med empati."
   ],
   "facit_betyder": "som enbart eller huvudsakligen tar hänsyn till sig själv",
   "exempel": "Hans altruistiska arbete på sjukhuset uppskattades av alla.",
@@ -2093,26 +2819,26 @@
   "ord": "tillfällig",
   "ordklass": "adjektiv",
   "options": [
-   "bestående",
    "snabb",
-   "kortvarig",
-   "svårartad",
-   "provisorisk"
+   "provisorisk",
+   "bestående",
+   "parallell",
+   "kortvarig"
   ],
-  "correctAnswer": 0,
+  "correctAnswer": 2,
   "typer": [
-   "",
    "samma_falt",
-   "nara",
+   "synonym",
+   "",
    "annan",
-   "synonym"
+   "nara"
   ],
   "misstag": [
-   "",
    "Snabb betyder som utför något på kort tid.",
-   "Kortvarig betyder som inte varar länge.",
-   "Svårartad betyder mycket allvarlig och besvärande.",
-   "Provisorisk betyder ungefär detsamma som tillfällig, inte motsatsen."
+   "Provisorisk betyder ungefär detsamma som tillfällig, inte motsatsen.",
+   "",
+   "Parallell betyder som har exakt samma riktning.",
+   "Kortvarig betyder som inte varar länge."
   ],
   "facit_betyder": "som fortsätter att finnas",
   "exempel": "Det här är bara en tillfällig lösning tills vi hittar något bättre.",
@@ -2132,6 +2858,104 @@
    "of6_stil": "ingen stilmarkering i SO eller SAOL",
    "kandidat_fran": "gemini:gemini-3.5-flash",
    "ifyllda_distraktorer": 1
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-e-m-06",
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "homogen",
+  "ordklass": "adjektiv",
+  "options": [
+   "heterogen",
+   "stabil",
+   "komplex",
+   "enhetlig",
+   "kompakt"
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "samma_falt",
+   "samma_falt",
+   "synonym",
+   "samma_falt"
+  ],
+  "misstag": [
+   "",
+   "Stabil betyder som har väl sammanhållen konstruktion och god förmåga att stå emot yttre påverkan.",
+   "Komplex betyder bland annat som består av många delar som hänger samman på ett svåröverskådligt sätt.",
+   "Enhetlig betyder ungefär detsamma som homogen, inte motsatsen.",
+   "Kompakt betyder sammanpressad till mindre omfång än normalt eller förväntat."
+  ],
+  "facit_betyder": "uppbyggd av olikartade beståndsdelar",
+  "exempel": "Gruppen var mycket homogen.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO homogen: motsats heterogen",
+    "SO heterogen: motsats homogen"
+   ],
+   "so_id": "183517",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 23426,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 0
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "of-e-m-07",
+  "niva": "expert",
+  "typ": "antonym",
+  "ord": "empirisk",
+  "ordklass": "adjektiv",
+  "options": [
+   "teoretisk",
+   "statistisk",
+   "tillitsfull",
+   "kritisk",
+   "neutral"
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "samma_falt",
+   "annan",
+   "samma_falt",
+   "annan"
+  ],
+  "misstag": [
+   "",
+   "Statistisk betyder som utförs eller erhålls enligt statistikens metoder.",
+   "Tillitsfull betyder full av tillit.",
+   "Kritisk betyder bland annat som innebär värderande granskning av förtjänster och brister.",
+   "Neutral betyder bland annat som inte tar ställning för någondera parten."
+  ],
+  "facit_betyder": "som har att göra med teori",
+  "exempel": "Slutsatserna bygger på empiriska data.",
+  "kalla": {
+   "verifierad_mot": "SO",
+   "belagg": [
+    "SO empirisk: motsats teoretisk",
+    "SO teoretisk: motsats empirisk"
+   ],
+   "so_id": "142842",
+   "hamtad": "2026-11-09"
+  },
+  "popularitet": 12534,
+  "granskning": {
+   "of2_ordklass": "adjektiv",
+   "of3_parvis": "inga synonympar i SO, SAOL, Wiktionary eller synonymer.se mot ordet och facit, inga mellan distraktorerna i SO, SAOL eller Wiktionary",
+   "of6_stil": "ingen stilmarkering i SO eller SAOL",
+   "kandidat_fran": "handskrivet 2026-11-09",
+   "ifyllda_distraktorer": 2
   },
   "fran_version": 1
  }

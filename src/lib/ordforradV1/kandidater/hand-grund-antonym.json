@@ -1,0 +1,582 @@
+[
+ {
+  "ord": "billig",
+  "ordklass": "adjektiv",
+  "facit": "dyr",
+  "distraktorer": [
+   {
+    "ord": "ny",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "stor",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "ful",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "sen",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Vi hittade en billig lägenhet nära stationen.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "stor",
+  "ordklass": "adjektiv",
+  "facit": "liten",
+  "distraktorer": [
+   {
+    "ord": "bred",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "tung",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "ny",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "låg",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Det var en stor skillnad mellan förslagen.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "svag",
+  "ordklass": "adjektiv",
+  "facit": "stark",
+  "distraktorer": [
+   {
+    "ord": "trött",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "sjuk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "blek",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "tyst",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Signalen var för svag för att samtalet skulle gå fram.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "öppen",
+  "ordklass": "adjektiv",
+  "facit": "stängd",
+  "distraktorer": [
+   {
+    "ord": "tom",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "ljus",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "fri",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "bred",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Butiken är öppen till klockan åtta på kvällen.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "fattig",
+  "ordklass": "adjektiv",
+  "facit": "rik",
+  "distraktorer": [
+   {
+    "ord": "sjuk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "ensam",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "snål",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "trött",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Han växte upp i en fattig familj på landet.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "ärlig",
+  "ordklass": "adjektiv",
+  "facit": "falsk",
+  "distraktorer": [
+   {
+    "ord": "snäll",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "tyst",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "blyg",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "sträng",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Hon gav ett ärligt svar på en svår fråga.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "tidig",
+  "ordklass": "adjektiv",
+  "facit": "sen",
+  "distraktorer": [
+   {
+    "ord": "snabb",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "kort",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "ny",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "kall",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Vi tog ett tidigt tåg för att hinna till mötet.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "framgång",
+  "ordklass": "substantiv",
+  "facit": "motgång",
+  "distraktorer": [
+   {
+    "ord": "tävling",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "vinst",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "chans",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "lycka",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Projektet blev en stor framgång för hela laget.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "början",
+  "ordklass": "substantiv",
+  "facit": "slut",
+  "distraktorer": [
+   {
+    "ord": "mitt",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "del",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "paus",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "start",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "I början av veckan var det lugnt på kontoret.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "rak",
+  "ordklass": "adjektiv",
+  "facit": "krokig",
+  "distraktorer": [
+   {
+    "ord": "bred",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "lång",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "jämn",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "platt",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Vägen var rak hela vägen fram till sjön.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "hungrig",
+  "ordklass": "adjektiv",
+  "facit": "mätt",
+  "distraktorer": [
+   {
+    "ord": "trött",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "törstig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "sjuk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "glad",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Efter passet var alla hungriga.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "tunn",
+  "ordklass": "adjektiv",
+  "facit": "tjock",
+  "distraktorer": [
+   {
+    "ord": "smal",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "mjuk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "lätt",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "kort",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Isen var för tunn för att gå på.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "dag",
+  "ordklass": "substantiv",
+  "facit": "natt",
+  "distraktorer": [
+   {
+    "ord": "vecka",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "morgon",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "timme",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "kväll",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Hon arbetade hela dagen utan paus.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "vinter",
+  "ordklass": "substantiv",
+  "facit": "sommar",
+  "distraktorer": [
+   {
+    "ord": "höst",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "vår",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "snö",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "år",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Vintern var lång och kall det året.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "stiga",
+  "ordklass": "verb",
+  "facit": "sjunka",
+  "distraktorer": [
+   {
+    "ord": "växa",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "flyga",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "klättra",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "falla",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Priserna fortsatte att stiga under hösten.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "vild",
+  "ordklass": "adjektiv",
+  "facit": "tam",
+  "distraktorer": [
+   {
+    "ord": "farlig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "stark",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "arg",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "fri",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Det finns många vilda djur i skogen.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "lat",
+  "ordklass": "adjektiv",
+  "facit": "flitig",
+  "distraktorer": [
+   {
+    "ord": "trött",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "snäll",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "tyst",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "glad",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Katten låg lat i solen hela eftermiddagen.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "ung",
+  "ordklass": "adjektiv",
+  "facit": "gammal",
+  "distraktorer": [
+   {
+    "ord": "liten",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "frisk",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "ny",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "glad",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Hon var ung när hon flyttade till Stockholm.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "privat",
+  "ordklass": "adjektiv",
+  "facit": "offentlig",
+  "distraktorer": [
+   {
+    "ord": "hemlig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "personlig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "dyr",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "enkel",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Det här är ett privat samtal.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ },
+ {
+  "ord": "bra",
+  "ordklass": "adjektiv",
+  "facit": "dålig",
+  "distraktorer": [
+   {
+    "ord": "stor",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "ny",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "snabb",
+    "typ": "samma_falt",
+    "forklaring": ""
+   },
+   {
+    "ord": "rolig",
+    "typ": "samma_falt",
+    "forklaring": ""
+   }
+  ],
+  "exempel": "Det var en bra idé att boka i förväg.",
+  "kalla_kandidat": "handskrivet 2026-11-09"
+ }
+]
