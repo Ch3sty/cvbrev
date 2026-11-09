@@ -64,7 +64,7 @@ interface RouteDef {
   namn: string;
   budget: Budget;
   /** Slås upp i databasen först, till exempel ett brev-id. */
-  dynamisk?: 'letter' | 'application' | 'testSession' | 'testResult' | 'serieSession' | 'serieResult' | 'figurpass' | 'figurprov';
+  dynamisk?: 'letter' | 'application' | 'testSession' | 'testResult' | 'serieSession' | 'serieResult' | 'figurpass' | 'figurprov' | 'dedSession' | 'dedResult' | 'deduktivpass' | 'deduktivprov' | 'nivakoll';
   /**
    * Våg 3b:s förhandsvisning (fixturer, ingen databas). Finns bara när
    * servern startats med TRANING_FORHANDSVISNING=1; mäts bara med
@@ -123,6 +123,11 @@ const ROUTES: RouteDef[] = [
   { path: '/dashboard/tester/deduktiv-grund/test/ID/results', namn: 'deduktiv resultat', budget: 'flode', dynamisk: 'dedResult' },
   { path: '/dashboard/tester/ovningsprov/figurer', namn: 'tester/ovningsprov figurer', budget: 'flode' },
   { path: '/dashboard/tester/ovningsprov/figurer/ID', namn: 'figurprov uppgift', budget: 'flode', dynamisk: 'figurprov' },
+  // Testplanen steg 1: deduktivpasset, deduktivens övningsprov och Nivåkollen för de andra typerna.
+  { path: '/dashboard/tester/pass/ID', namn: 'deduktivpass uppgift', budget: 'flode', dynamisk: 'deduktivpass' },
+  { path: '/dashboard/tester/ovningsprov/deduktiv', namn: 'tester/ovningsprov deduktivt', budget: 'flode' },
+  { path: '/dashboard/tester/ovningsprov/deduktiv/ID', namn: 'deduktivprov uppgift', budget: 'flode', dynamisk: 'deduktivprov' },
+  { path: '/dashboard/tester/pass/ID', namn: 'nivakoll uppgift eller resultat', budget: 'flode', dynamisk: 'nivakoll' },
 
   // Flödessidor och deras steg. Stegen bär tyngst innehåll och mäts var för sig.
   { path: '/dashboard/skapa-brev', namn: 'skapa-brev', budget: 'flode' },
@@ -267,7 +272,15 @@ async function main() {
     sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'deduktiv-grund').is('completed_at', null).limit(1),
     sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'deduktiv-grund').not('completed_at', 'is', null).limit(1),
   ]);
+  const [{ data: dedPass }, { data: dedProv }, { data: koll }] = await Promise.all([
+    sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'deduktiv-pass').limit(1),
+    sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).eq('test_type', 'deduktiv-prov').limit(1),
+    sb.from('logic_test_v4_sessions').select('id').eq('user_id', userId).in('test_type', ['deduktiv-nivakoll', 'figurserie-nivakoll', 'verbal-nivakoll', 'numerisk-nivakoll']).limit(1),
+  ]);
   const idPerTyp: Record<string, string | null> = {
+    deduktivpass: dedPass?.[0]?.id ?? null,
+    deduktivprov: dedProv?.[0]?.id ?? null,
+    nivakoll: koll?.[0]?.id ?? null,
     dedSession: ded?.[0]?.id ?? null,
     dedResult: dedKlar?.[0]?.id ?? null,
     serieSession: serie?.[0]?.id ?? null,

@@ -17,7 +17,10 @@ import Golv from '@/components/rum/Golv'
 import LyftKort from '@/components/rum/LyftKort'
 import Rader, { Rad } from '@/components/rum/Rader'
 import SektRubrik from '@/components/rum/SektRubrik'
-import { SymOrd, SymSiffror, SymPlan } from '@/components/illustrations/RumSymboler'
+import { SymOrd, SymSiffror, SymPlan, SymFigurer, SymDeduktiv } from '@/components/illustrations/RumSymboler'
+import { nivakollHref } from '@/lib/traning/rutter'
+import { KIND_NAMN, MINUTER } from '@/lib/nivakoll/copy'
+import type { NivakollKind } from '@/lib/nivakoll/niva'
 import { KNAPP_PRIMAR, LANK, LANK_VAGG } from '@/components/shell/knappar'
 import type { Traningsstatus } from '@/lib/traning/motor.server'
 import { kurvansLabel, type FlerTesterIn } from '@/lib/traning/hemvy'
@@ -30,6 +33,38 @@ import { TRANING_RUTT } from '@/lib/traning/rutter'
 import { talord } from '@/lib/traning/copy'
 import Kurva from './Kurva'
 import { LasChip } from './HemKlient'
+
+/**
+ * Fler kurvor (testplanen steg 1): en rad per testtyp med Nivåkoll. Senaste
+ * nivån som tal och en liten stapel av skalan, annars vägen till Nivåkollen.
+ */
+function FlerKurvor({ s }: { s: Traningsstatus | null }) {
+  const rader: { kind: NivakollKind; titel: string; symbol: React.ReactNode }[] = [
+    { kind: 'figurserie', titel: KIND_NAMN.figurserie, symbol: <SymFigurer size={40} /> },
+    { kind: 'deduktiv', titel: KIND_NAMN.deduktiv, symbol: <SymDeduktiv size={40} /> },
+    { kind: 'verbal', titel: HEM.flerTester.ord, symbol: <SymOrd size={40} /> },
+    { kind: 'numerisk', titel: HEM.flerTester.siffror, symbol: <SymSiffror size={40} /> },
+  ]
+  return (
+    <Rader label={KURVAN.flerKurvor}>
+      <p className="hidden px-4 pb-0 pt-3.5 text-ey text-ink-3 lg:block">{KURVAN.flerKurvor}</p>
+      {rader.map((r) => {
+        const k = s?.nivakoll?.[r.kind] ?? null
+        return (
+          <Rad
+            key={r.kind}
+            symbol={r.symbol}
+            svag={!k}
+            titel={r.titel}
+            meta={k ? KURVAN.nivaRad(nivaKort(k.niva), kortDatum(k.dag)) : KURVAN.ingenNiva(MINUTER[r.kind])}
+            stapel={k ? { andel: Math.min(1, k.niva / 10), ton: 'ton' } : undefined}
+            href={nivakollHref(r.kind)}
+          />
+        )
+      })}
+    </Rader>
+  )
+}
 
 function Legendpunkt({ typ }: { typ: 'pass' | 'matning' | 'sikte' | 'plan' }) {
   return (
@@ -76,6 +111,12 @@ export default function Helkurva({ s, fler }: { s: Traningsstatus | null; fler: 
               </Link>
             }
           />
+          <div className="flex flex-col gap-4">
+            <div className="lg:hidden">
+              <SektRubrik>{KURVAN.flerKurvor}</SektRubrik>
+            </div>
+            <FlerKurvor s={s} />
+          </div>
         </Golv>
       </div>
     )
@@ -136,23 +177,7 @@ export default function Helkurva({ s, fler }: { s: Traningsstatus | null; fler: 
           <div className="lg:hidden">
             <SektRubrik>{KURVAN.flerKurvor}</SektRubrik>
           </div>
-          <Rader label={KURVAN.flerKurvor}>
-            <p className="hidden px-4 pb-0 pt-3.5 text-ey text-ink-3 lg:block">{KURVAN.flerKurvor}</p>
-            <Rad
-              symbol={<SymOrd size={40} />}
-              svag={!fler.verbalSenast}
-              titel={HEM.flerTester.ord}
-              meta={KURVAN.ingenKurva(fler.verbalSenast ? kortDatum(dagSv(fler.verbalSenast)) : null)}
-              href={TRANING_RUTT.text}
-            />
-            <Rad
-              symbol={<SymSiffror size={40} />}
-              svag={!fler.numeriskSenast}
-              titel={HEM.flerTester.siffror}
-              meta={KURVAN.ingenKurva(fler.numeriskSenast ? kortDatum(dagSv(fler.numeriskSenast)) : null)}
-              href={TRANING_RUTT.siffror}
-            />
-          </Rader>
+          <FlerKurvor s={s} />
         </div>
         <div className="flex min-h-11 items-center justify-between gap-3 rounded-xl border border-kant bg-papper px-4 py-3 text-sm leading-5 text-ink-1 lg:order-2 lg:col-span-2">
           <span className="flex items-center gap-2.5">

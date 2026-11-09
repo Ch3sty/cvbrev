@@ -30,11 +30,16 @@ export function pFor(kind: NivakollKind, id: string, stat?: FragaStatistik | nul
   return pForFraga(svarighetPrior(3), stat ?? null, priorFor(kind, id));
 }
 
-/** Grundbankens andelar per typ (registret, de aktiva), för passets nivå. */
-export function pGrund(kind: NivakollKind): number[] {
+/** En banknivås andelar per typ (registret, de aktiva). */
+export function pNiva(kind: NivakollKind, niva: 'grund' | 'avancerad' | 'expert'): number[] {
   return register()
-    .filter((r) => r.test_kind === kind && r.niva === 'grund' && !r.pensionerad)
+    .filter((r) => r.test_kind === kind && r.niva === niva && !r.pensionerad)
     .map((r) => r.p_prior);
+}
+
+/** Grundbankens andelar per typ, för passets nivå. */
+export function pGrund(kind: NivakollKind): number[] {
+  return pNiva(kind, 'grund');
 }
 
 /** Senaste nivån ur Nivåkollen för typen, null utan Nivåkoll. */

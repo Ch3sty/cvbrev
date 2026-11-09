@@ -100,3 +100,22 @@ export const fetchDeduktivPassApi: DeduktivPassApi = {
     }
   },
 };
+
+/* -------------------------------- Nivåkollen ------------------------------- */
+// Testplanen steg 1: /api/traning/nivakoll för figurserier, deduktivt,
+// verbalt och numeriskt. Prop i NivakollFlode.
+
+import type { NivakollVy } from '@/lib/nivakoll/typer';
+import type { NivakollKind } from '@/lib/nivakoll/niva';
+
+export interface NivakollApi {
+  skapa(kind: NivakollKind): Promise<{ ok: true; session: NivakollVy } | VnFel>;
+  svara(inp: { sessionId: string; nyckel: string; svar: string | null; tid: number }): Promise<{ ok: true; besvarade: number; antal: number; klar: boolean } | VnFel>;
+  slutfor(sessionId: string): Promise<{ ok: true; session: NivakollVy } | VnFel>;
+}
+
+export const fetchNivakollApi: NivakollApi = {
+  skapa: (kind) => post('/api/traning/nivakoll/session', { kind }),
+  svara: (inp) => post('/api/traning/nivakoll/svar', inp),
+  slutfor: (sessionId) => post('/api/traning/nivakoll/slutfor', { sessionId }),
+};

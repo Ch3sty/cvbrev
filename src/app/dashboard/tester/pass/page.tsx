@@ -16,6 +16,8 @@ import PassFlode from '@/components/traning/PassFlode'
 import VnPassFlode from '@/components/traning/vnpass/VnPassFlode'
 import FigurPassFlode from '@/components/traning/figurpass/FigurPassFlode'
 import DeduktivPassFlode from '@/components/traning/deduktivpass/DeduktivPassFlode'
+import NivakollFlode from '@/components/traning/nivakoll/NivakollFlode'
+import { arNivakollKind } from '@/lib/nivakoll/niva'
 import type { Begard } from '@/lib/traning/tillgang'
 import { passSida } from './sida.server'
 
@@ -40,6 +42,13 @@ export default async function PassStartSida({
   if (typ === 'figurpass') {
     await passSida()
     return <FigurPassFlode key="figurpass" starta />
+  }
+  // Nivåkollen för figurserier, deduktivt, verbalt och numeriskt (testplanen steg 1).
+  if (typ === 'nivakoll') {
+    const kind = forsta(sp.kind)
+    const { betalande } = await passSida()
+    if (!arNivakollKind(kind)) return <PassFlode key="matning" start={{ typ: 'matning', family: null, format: null }} betalande={betalande} />
+    return <NivakollFlode key={`nivakoll|${kind}`} kind={kind} betalande={betalande} />
   }
   // Deduktivpasset (testplanen steg 1).
   if (typ === 'deduktivpass') {

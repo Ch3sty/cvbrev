@@ -23,6 +23,9 @@ export const KURVAN = {
     planMeta: 'Ihåliga märken längst ner. Söndag är vilodag och lämnar en lucka utan att bryta dina dagar i rad.',
   },
   flerKurvor: 'Fler kurvor',
+  /** Nivåkollen per testtyp (testplanen steg 1): senaste nivån som tal och liten stapel. */
+  nivaRad: (niva: string, datum: string) => `Nivå ${niva} i Nivåkollen ${datum}.`,
+  ingenNiva: (minuter: number) => `Ingen nivå än. Kolla din nivå på cirka ${minuter} minuter.`,
   ingenKurva: (senast: string | null) =>
     senast ? `Ingen kurva än: nivån mäts bara i figurer och mönster. Senast gjort ${senast}.` : 'Ingen kurva än: nivån mäts bara i figurer och mönster.',
   personlighet: (datum: string | null) =>

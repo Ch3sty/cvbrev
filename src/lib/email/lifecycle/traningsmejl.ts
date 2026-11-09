@@ -310,6 +310,8 @@ export async function valjTraningsmejl(admin: AnySupabase, now: Date = new Date(
       .from('test_nivapunkter')
       .select('user_id, dag')
       .eq('typ', 'matning')
+      // Bara matrisens Nivåkoll: de andra testtypernas nivåkoller (testplanen steg 1) ger inget dag 2-mejl.
+      .eq('test_kind', 'matris')
       .in('dag', [igar, veckaSedan])
       .limit(5000),
     (admin as any)

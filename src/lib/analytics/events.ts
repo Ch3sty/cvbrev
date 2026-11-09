@@ -380,11 +380,13 @@ export interface AnalyticsEvents {
     tid_s: number
     /** Antal frågor ur smakprovet som räknades in i mätningen (spec 14.5). */
     smakprov: number
+    /** Testtypen (testplanen steg 1). Saknas för matrisen. */
+    test_kind?: string
   }
   pass_klart: PassKlart
   /** Riktat text- eller sifferpass (beställning omgång 2, B3). Riktade matrispass skjuter pass_klart med typ riktat. */
   riktat_klart: PassKlart
-  ommatning_klar: { niva: number; delta: number }
+  ommatning_klar: { niva: number; delta: number; test_kind?: string }
   generalrepetition_klar: { format: string; ratt: number; antal: number; test_kind?: string; obesvarade?: number; fran?: string | null }
   kalibreringsfraga_svarad: { fraga_id: string; typ: string; correct: boolean }
   /** Rapportknappen "Något ser fel ut" (tillagg-variation 3.2). */
@@ -432,7 +434,7 @@ export interface AnalyticsEvents {
      kvittot och betalväggen. betalvagg_visad skickas när M1:s betalvägg
      visas (plats matning) och när ett pass spärras vid start (dag2, riktat,
      provlage, ommatning). */
-  nivamatning_startad: { ommatning: boolean; smakprov: number }
+  nivamatning_startad: { ommatning: boolean; smakprov: number; test_kind?: string }
   pass_startat: { typ: 'pass' | 'riktat' | 'general'; variant: 'grund' | 'niva' }
   vet_inte_tryckt: { fraga_index: number }
   milstolpe_kvitto_visat: { nyckel: string }

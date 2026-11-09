@@ -21,6 +21,9 @@
 import type { ComponentType } from 'react';
 import { ENHET, NIVA_GOR, PROV_FEATURE, type TestGroup } from './testCatalog';
 import ProvCard, { ProvTyst } from './ProvCard';
+import NivakollRad from './NivakollRad';
+import { NIVAKOLL_COPY } from '@/lib/nivakoll/copy';
+import { nivakollHref, passHref } from '@/lib/traning/rutter';
 import NivaSegment, { type NivaLage } from './NivaSegment';
 import Fakta, { spann } from './Fakta';
 import { ovningsformat, provradTexter } from '@/lib/ovningsprov/format';
@@ -210,6 +213,15 @@ export default function TestKategori({ group, perTest, plan = null, scope = null
         ))}
       </ul>
       {nagotGjort ? <p className="mt-1.5 text-[11px] leading-[14px] text-ink-3">{NIVAETIKETT}</p> : null}
+
+      {/* Nivåkollen per testtyp (testplanen steg 1): logiken har matrisens. */}
+      {group.key !== 'personlighet' ? (
+        <NivakollRad
+          href={group.key === 'logik' ? passHref('matning') : nivakollHref(group.key === 'figurer' ? 'figurserie' : group.key)}
+          titel={NIVAKOLL_COPY.rad.titel}
+          text={group.key === 'logik' ? NIVAKOLL_COPY.rad.textMatris : NIVAKOLL_COPY.rad.text(group.key === 'figurer' ? 'figurserie' : group.key)}
+        />
+      ) : null}
 
       {prov && provText ? (
         <ProvCard
