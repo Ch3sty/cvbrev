@@ -94,7 +94,7 @@ describe('form B: vikningsmotorn och spärrfixturer', () => {
   it('briefens exempel: nedre halvan upp, högra över vänstra, hål i rad 0 kolumn 1 ger fyra hål', () => {
     const v = [{ typ: 'h', k: 2, flytt: 1 }, { typ: 'v', k: 2, flytt: 1 }]
     const r = B.vik(v)
-    const ut = B.uppvik([[0, 1]], v, r.steg.map((s: Q) => s.fore)).slut.map((x: number[]) => x.join(',')).sort()
+    const ut = B.uppvik([[0, 1]], v, r!.steg.map((s: Q) => s.fore)).slut.map((x: number[]) => x.join(',')).sort()
     expect(ut).toEqual(['0,1', '0,2', '3,1', '3,2'])
   })
   it('framlänges och baklänges ger samma hål för varje uppgift (SP-B0)', () => {
