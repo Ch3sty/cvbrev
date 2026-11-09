@@ -49,10 +49,18 @@ export const KIND_LABEL: Record<TestKind, string> = {
 }
 
 /** Steg 2: tre nivåtest per typ, 15 uppgifter, 12, 15 och 18 minuter (briefen avsnitt 2 och 3). */
-function steg2Nivaer(kind: Steg2Kind, prefix: string, namn: string, description: string, blurbs: [string, string, string]): TestConfig[] {
+function steg2Nivaer(
+  kind: Steg2Kind,
+  prefix: string,
+  namn: string,
+  description: string,
+  blurbs: [string, string, string],
+  antal = 15,
+  tider: Record<'grund' | 'avancerad' | 'expert', number> = { grund: 12, avancerad: 15, expert: 18 }
+): TestConfig[] {
   const nivaer = ['grund', 'avancerad', 'expert'] as const
   const etikett = { grund: 'grundnivå', avancerad: 'avancerad nivå', expert: 'expertnivå' } as const
-  const minuter = { grund: 12, avancerad: 15, expert: 18 } as const
+  const minuter = tider
   return nivaer.map((level, i) => {
     const slug = `${prefix}-${level}`
     return {
@@ -65,7 +73,7 @@ function steg2Nivaer(kind: Steg2Kind, prefix: string, namn: string, description:
       api: `/api/steg2/${kind}`,
       startBody: { test_type: slug },
       sessionQuery: `test_type=${slug}`,
-      totalQuestions: 15,
+      totalQuestions: antal,
       minutes: minuter[level],
       quotaFeature: `test:${slug}`,
       ...(level === 'grund' ? {} : { requiresFeature: 'tests_above_base' as Feature }),
@@ -320,6 +328,14 @@ export const TEST_CONFIGS: TestConfig[] = [
     'Större figurer, två vikningar och tärningar med riktade symboler.',
     'Speglingar som liknar vridningar, tre vikningar och tärningar där en sida räcker.',
   ]),
+
+  // Ordförråd (briefen avsnitt 4): 20 ord, tio synonymer och tio motsatsord,
+  // 8, 10 och 12 minuter.
+  ...steg2Nivaer('ordforrad', 'ordforrad', 'Ordförråd', 'Ett ord i versaler och fem alternativ: synonymer och motsatsord.', [
+    'Vanliga ord ur vardag och nyheter. Läs etiketten: synonym eller motsatsord.',
+    'Mindre vanliga och formella ord. Motsatsen kan stå bland synonymalternativen.',
+    'Lågfrekventa ord, lånord och kanslispråk, med falska vänner bland alternativen.',
+  ], 20, { grund: 8, avancerad: 10, expert: 12 }),
 
   /* ---------------------------- Verbalt resonemang -------------------------- */
   {

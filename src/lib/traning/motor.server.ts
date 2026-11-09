@@ -95,7 +95,7 @@ import { STEG2_PASS_TEST_TYPE, steg2PassKind } from '@/lib/tester/steg2/pass';
 /** Passen utanför matrisen: text, siffror, figurpasset (omgång 3, A3) och deduktivpasset (testplanen steg 1). */
 type AndraKind = VnKind | 'figurserie' | 'deduktiv' | 'talserie' | 'spatial' | 'ordforrad';
 /** Testplanen steg 2: nivåtesten som gör passraden synlig. */
-const STEG2_KLASSISKA_TYPER = ['talserier-grund', 'talserier-avancerad', 'talserier-expert', 'spatial-grund', 'spatial-avancerad', 'spatial-expert'];
+const STEG2_KLASSISKA_TYPER = ['talserier-grund', 'talserier-avancerad', 'talserier-expert', 'spatial-grund', 'spatial-avancerad', 'spatial-expert', 'ordforrad-grund', 'ordforrad-avancerad', 'ordforrad-expert'];
 const FIGUR_KLASSISKA_TYPER = ['figurserier-grund', 'figurserier-avancerad', 'figurserier-expert'];
 const DEDUKTIV_KLASSISKA_TYPER = ['deduktiv-grund', 'deduktiv-avancerad', 'deduktiv-expert'];
 function andraKind(t: string | null | undefined): AndraKind | null {
@@ -167,7 +167,7 @@ export interface Lage {
   deduktivGjord?: boolean;
   deduktivNiva?: 'grund' | 'avancerad';
   /** Steg 2: nivåtest gjorda per typ (talserie, spatial). */
-  steg2Gjord?: { talserie: boolean; spatial: boolean };
+  steg2Gjord?: { talserie: boolean; spatial: boolean; ordforrad?: boolean };
   /** Nivåkollen per testtyp utanför matrisen (testplanen steg 1). */
   nivakoll?: NivakollLage;
   /** Passets nivå per text och siffror efter Nivåkollen, null utan Nivåkoll. */
@@ -285,6 +285,7 @@ export async function lasLage(admin: Klient, userId: string, idag: Dag = dagSthl
     steg2Gjord: {
       talserie: allaRader.some((r) => (r.test_type ?? '').startsWith('talserier-') && !!r.completed_at),
       spatial: allaRader.some((r) => (r.test_type ?? '').startsWith('spatial-') && !!r.completed_at),
+      ordforrad: allaRader.some((r) => (r.test_type ?? '').startsWith('ordforrad-') && !!r.completed_at),
     },
     deduktivNiva: passNivaFor('deduktiv', nivakoll.deduktiv?.niva ?? null, passNiva(bastaDeduktivGrundProcent(allaSomRader))),
     nivakoll,
@@ -1268,9 +1269,9 @@ export interface Traningsstatus {
   ovisade: string[];
   dagensPassGjort: boolean;
   /** Text- och sifferpasset gjort i dag (beställning omgång 2, B2). Saknas i äldre fixturer. */
-  vnPassIdag?: { verbal: boolean; numerisk: boolean; figurserie?: boolean; deduktiv?: boolean; talserie?: boolean; spatial?: boolean };
+  vnPassIdag?: { verbal: boolean; numerisk: boolean; figurserie?: boolean; deduktiv?: boolean; talserie?: boolean; spatial?: boolean; ordforrad?: boolean };
   /** Steg 2: nivåtest gjorda per typ. Saknas i äldre fixturer. */
-  steg2Gjord?: { talserie: boolean; spatial: boolean };
+  steg2Gjord?: { talserie: boolean; spatial: boolean; ordforrad?: boolean };
   /** Ett klassiskt figurserietest är slutfört (figurpassraden, omgång 3 A3). Saknas i äldre fixturer. */
   figurserieGjord?: boolean;
   /** Figurpassets nivå, som ord på hemvyn ("Expertnivån: gör nivåtestet" på avancerad). */
@@ -1434,6 +1435,7 @@ export async function hamtaTraningsstatus(args: {
       deduktiv: lage.andraPass.some((p) => p.kind === 'deduktiv' && p.dag === idag),
       talserie: lage.andraPass.some((p) => p.kind === 'talserie' && p.dag === idag),
       spatial: lage.andraPass.some((p) => p.kind === 'spatial' && p.dag === idag),
+      ordforrad: lage.andraPass.some((p) => p.kind === 'ordforrad' && p.dag === idag),
     },
     figurserieGjord: lage.figurserieGjord ?? false,
     figurNiva: lage.figurNiva ?? 'grund',

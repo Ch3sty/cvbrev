@@ -20,6 +20,9 @@ import type { TalserieFraga } from '@/lib/talserierV1/types';
 import * as S from '@/lib/spatialV1/fragor.server';
 import { poolFor as spatialPool, SPATIAL_VERSION, SEKUNDER_PER_UPPGIFT as SPATIAL_S } from '@/lib/spatialV1/select';
 import type { SpatialFraga } from '@/lib/spatialV1/types';
+import * as O from '@/lib/ordforradV1/fragor.server';
+import { poolFor as ordPool, ORD_VERSION, SEKUNDER_PER_UPPGIFT as ORD_S } from '@/lib/ordforradV1/select';
+import type { OrdFraga } from '@/lib/ordforradV1/types';
 import { FAMILJ_NAMN, FORM_NAMN } from './namn';
 
 export type Niva = 'grund' | 'avancerad' | 'expert';
@@ -119,7 +122,35 @@ const spatial: Steg2Motor = {
   version: SPATIAL_VERSION,
 };
 
-const MOTORER: Partial<Record<Steg2Kind, Steg2Motor>> = { talserie, spatial };
+
+const ordforrad: Steg2Motor = {
+  kind: 'ordforrad',
+  arTestTyp: O.arOrdTestTyp,
+  nivaFor: (t) => t.replace(/^ordforrad-/, '') as Niva,
+  meta: (t) => O.ordMeta(t.replace(/^ordforrad-/, '') as Niva),
+  innehall: O.ordInnehall,
+  visa: (id, seed) => {
+    const q = O.hittaOrd(id);
+    return q ? O.visaOrd(q, seed, true) : null;
+  },
+  genomga: (id, seed) => O.genomgaOrd(O.hittaOrd(id) as OrdFraga, seed, true) as never,
+  bedom: (id, seed, meta, visat) => {
+    const q = O.hittaOrd(id);
+    return q ? O.bedomOrdSvar(q, seed, meta === true ? true : arBlandad(meta), visat) : null;
+  },
+  ratta: O.rattaOrdSvar,
+  statistik: O.ordStatistik,
+  grupp: (id) => {
+    const q = O.hittaOrd(id);
+    return q ? (q.typ === 'synonym' ? 'Synonymer' : 'Motsatsord') : null;
+  },
+  gruppNyckel: (id) => O.hittaOrd(id)?.typ ?? null,
+  pool: (n) => ordPool(n),
+  budget: () => ORD_S,
+  version: ORD_VERSION,
+};
+
+const MOTORER: Partial<Record<Steg2Kind, Steg2Motor>> = { talserie, spatial, ordforrad };
 
 export function steg2Motor(kind: unknown): Steg2Motor | null {
   return typeof kind === 'string' ? MOTORER[kind as Steg2Kind] ?? null : null;

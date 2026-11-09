@@ -47,7 +47,7 @@ import Nivaskala from './Nivaskala'
 import { EfterProvet, ForsokIgen, HemMatning, KopKnapp, LasChip, TaBortSvar } from './HemKlient'
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { PRISER_HREF } from '@/lib/onboarding/steps'
-import { SymSpatial, SymTalserie } from '@/components/tests/steg2/Symboler'
+import { SymOrdforrad, SymSpatial, SymTalserie } from '@/components/tests/steg2/Symboler'
 
 
 function SymbolFor({ s }: { s: Symbol }) {
@@ -66,6 +66,8 @@ function SymbolFor({ s }: { s: Symbol }) {
       return <SymTalserie size={40} />
     case 'spatial':
       return <SymSpatial size={40} />
+    case 'ordforrad':
+      return <SymOrdforrad size={40} />
     case 'person':
       return <SymPerson size={40} />
     case 'jobb':

@@ -325,6 +325,7 @@ function steg2Tester(prefix: string, title: string, method: string): CognitiveTe
 
 export const TALSERIE_TESTS = steg2Tester('talserier', 'Talserier', 'Talföljder · luckor');
 export const SPATIAL_TESTS = steg2Tester('spatial', 'Spatial förmåga', 'Vrida · vika · tärningar');
+export const ORDFORRAD_TESTS = steg2Tester('ordforrad', 'Ordförråd', 'Synonymer · motsatsord');
 
 /** Provraden innan I-prov-provet finns: dämpad, utan lås. */
 const PROV_TYST_IPROV = { rad1: 'Övningsprov mot klockan', rad2: 'Kommer med övningsprovet för I-prov 2025.' };
@@ -349,6 +350,16 @@ const SPATIAL_GROUP: TestGroup = {
   provTyst: PROV_TYST_IPROV,
 };
 
+const ORDFORRAD_GROUP: TestGroup = {
+  key: 'ordforrad',
+  heading: 'Ordförråd',
+  blurb: 'Ett ord i versaler, fem alternativ. Synonymer och motsatsord, två deltester i I-provet.',
+  searchHint: 'Kallas även synonymtest, ordtest eller motsatsord',
+  cognitive: ORDFORRAD_TESTS,
+  personality: [],
+  provTyst: PROV_TYST_IPROV,
+};
+
 export const TEST_GROUPS: TestGroup[] = [
   {
     key: 'logik',
@@ -364,6 +375,7 @@ export const TEST_GROUPS: TestGroup[] = [
   ...(deduktivSynlig() ? [DEDUKTIV_GROUP] : []),
   ...(steg2Synlig('talserie') ? [TALSERIE_GROUP] : []),
   ...(steg2Synlig('spatial') ? [SPATIAL_GROUP] : []),
+  ...(steg2Synlig('ordforrad') ? [ORDFORRAD_GROUP] : []),
   {
     key: 'verbal',
     heading: 'Verbalt test',

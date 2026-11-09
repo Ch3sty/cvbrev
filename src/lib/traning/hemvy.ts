@@ -94,7 +94,7 @@ export type Hoger =
   | { typ: 'bock'; text: string }
   | { typ: 'chev' };
 
-export type Symbol = 'matris' | 'siffror' | 'ord' | 'figurer' | 'deduktiv' | 'talserie' | 'spatial' | 'person' | 'jobb' | 'brev';
+export type Symbol = 'matris' | 'siffror' | 'ord' | 'figurer' | 'deduktiv' | 'talserie' | 'spatial' | 'ordforrad' | 'person' | 'jobb' | 'brev';
 
 export interface RadModell {
   titel: string;
@@ -416,9 +416,9 @@ export function vnPassSektion(s: Traningsstatus, testtyper: readonly string[]): 
    * gratis och väljer passets nivå (testplanen steg 1); annars passet, låst
    * för gratis.
    */
-  const rad = (a: { kind: NivakollKind | 'talserie' | 'spatial'; titel: string; meta: string; symbol: Symbol; href: string; gjord: boolean; nivakollKravs: boolean }) => {
+  const rad = (a: { kind: NivakollKind | 'talserie' | 'spatial' | 'ordforrad'; titel: string; meta: string; symbol: Symbol; href: string; gjord: boolean; nivakollKravs: boolean }) => {
     kinds.push(a.kind);
-    if (a.nivakollKravs && !a.gjord && a.kind !== 'talserie' && a.kind !== 'spatial' && !s.nivakoll?.[a.kind]) {
+    if (a.nivakollKravs && !a.gjord && a.kind !== 'talserie' && a.kind !== 'spatial' && a.kind !== 'ordforrad' && !s.nivakoll?.[a.kind]) {
       rader.push({ titel: a.titel, meta: V.nivakollForst, symbol: a.symbol, svag: true, hoger: { typ: 'lank', text: V.kolla, href: nivakollHref(a.kind) } });
       return;
     }
@@ -477,13 +477,13 @@ export function vnPassSektion(s: Traningsstatus, testtyper: readonly string[]): 
   }
   // Testplanen steg 2: talseriepasset och spatialpasset när typen syns och
   // planen har den, eller ett nivåtest i typen är gjort. Ingen Nivåkoll än.
-  for (const kind of ['talserie', 'spatial'] as const) {
+  for (const kind of ['ordforrad', 'talserie', 'spatial'] as const) {
     if (!steg2Synlig(kind)) continue
     if (!testtyper.includes(kind) && !s.steg2Gjord?.[kind]) continue
     rad({
       kind,
-      titel: kind === 'talserie' ? V.talseriepass : V.spatialpass,
-      meta: kind === 'talserie' ? V.talserieMeta : V.spatialMeta,
+      titel: kind === 'talserie' ? V.talseriepass : kind === 'spatial' ? V.spatialpass : V.ordpass,
+      meta: kind === 'talserie' ? V.talserieMeta : kind === 'spatial' ? V.spatialMeta : V.ordMeta,
       symbol: kind,
       href: steg2PassHref(kind),
       gjord: s.vnPassIdag?.[kind] ?? false,
@@ -507,7 +507,7 @@ export function dagensRotation(s: Pick<Traningsstatus, 'plan' | 'idag'>): string
   const p = s.plan;
   if (!p?.mitt_test) return null;
   const typer = passtyper(mittTestUrPlan(p), kryssUrPlan(p)).filter(
-    (t) => t === 'verbal' || t === 'numerisk' || t === 'figurserie' || t === 'deduktiv' || t === 'talserie' || t === 'spatial'
+    (t) => t === 'verbal' || t === 'numerisk' || t === 'figurserie' || t === 'deduktiv' || t === 'talserie' || t === 'spatial' || t === 'ordforrad'
   );
   if (typer.length < 2) return null;
   return passForDag(typer, ROTATION_START, s.idag);
@@ -823,10 +823,11 @@ export function byggHemvy(inp: HemIn): HemModell {
      dagens pass är deltestet på tur i rotationen. Utan Premium leder kortet
      till nivåtestet på grundnivå, som är gratis. */
   const rotation = dagensRotation(s);
-  if (niva == null && s.plan?.mitt_test === 'iprov' && (rotation === 'talserie' || rotation === 'spatial' || (!rotation && testtyper.some((t) => t === 'talserie' || t === 'spatial')))) {
-    const kind = (rotation === 'talserie' || rotation === 'spatial' ? rotation : testtyper.includes('spatial') ? 'spatial' : 'talserie') as 'talserie' | 'spatial';
+  const iprovTyper = (['ordforrad', 'spatial', 'talserie'] as const).filter((t) => steg2Synlig(t) && testtyper.includes(t));
+  if (niva == null && s.plan?.mitt_test === 'iprov' && iprovTyper.length > 0) {
+    const kind = iprovTyper.find((t) => t === rotation) ?? iprovTyper[0];
     const V = HEM.vnPass;
-    const titel = kind === 'spatial' ? 'Spatial förmåga, sex uppgifter' : 'Talserier, sex uppgifter';
+    const titel = kind === 'spatial' ? 'Spatial förmåga, sex uppgifter' : kind === 'talserie' ? 'Talserier, sex uppgifter' : 'Ordförråd, sex ord';
     return {
       tillstand: 'annat_test',
       ram: '1t',
@@ -841,10 +842,10 @@ export function byggHemvy(inp: HemIn): HemModell {
         eyebrow: HEM.pass.eyebrow,
         eyebrowTon: 'koppar',
         titel,
-        text: kind === 'spatial' ? V.spatialMeta : V.talserieMeta,
+        text: kind === 'spatial' ? V.spatialMeta : kind === 'talserie' ? V.talserieMeta : V.ordMeta,
         handling: betalande
           ? { typ: 'lank', text: HEM.pass.knapp, href: steg2PassHref(kind) }
-          : { typ: 'lank', text: 'Gör nivåtestet, grund', href: `/dashboard/tester/${kind === 'spatial' ? 'spatial' : 'talserier'}-grund` },
+          : { typ: 'lank', text: 'Gör nivåtestet, grund', href: `/dashboard/tester/${kind === 'talserie' ? 'talserier' : kind}-grund` },
       },
       sektioner: [
         ...vnLista,

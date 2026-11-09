@@ -17,12 +17,13 @@ describe('steg 2: motorvägen', () => {
   for (const [kind, slug] of [
     ['talserie', 'talserier-avancerad'],
     ['spatial', 'spatial-grund'],
+    ['ordforrad', 'ordforrad-grund'],
   ] as const) {
     it(`${kind}: rätt svar i visad ordning rättas som rätt, ett annat som fel`, () => {
       const m = steg2Motor(kind)!
       const session = { id: '0b8c6a1e-6a55-4d3c-9d0e-5f4c2b1a0f01', test_type: slug, meta: m.meta(slug), completed_at: '2026-11-09T10:00:00Z' }
       const { fragor, genomgang } = m.innehall(session)
-      expect(fragor).toHaveLength(15)
+      expect(fragor).toHaveLength(kind === 'ordforrad' ? 20 : 15)
       const g = genomgang as { id: string; rattVisat: number }[]
       const ratt = m.bedom(g[0].id, session.id, session.meta, g[0].rattVisat)
       expect(ratt?.correct).toBe(true)
