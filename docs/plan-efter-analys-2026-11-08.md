@@ -71,7 +71,20 @@ Ordningen nedan är genomförandeordningen. Det som kräver ägaren ligger sist.
 22. **Tre raderade konton från september** med riktig webbläsare är inte markerade som interna, eftersom de kan vara riktiga användare. Ägaren bedömer.
 23. **Testa riktig Google-inloggning** från provet hela vägen. Det kan bara ägaren göra.
 24. **Provsidan och kontosidan har den gamla designen** (/verktyg/rekryteringstester/prova och /register). De är vår viktigaste konverteringsväg men omfattades inte av publikt v2. Förslag: art-director tar fram en skiss i samma linje.
-25. **Ett vitest-test faller redan på main** (kandidater.test för /for-rekryterare). Det påverkar inte sajten men bör rättas i nästa omgång.
+25. **vitest är inte grönt på main:** kandidater.test faller, och vitest i huvudcheckouten räknar in kopior under .claude/worktrees. Sajten påverkas inte. Rättas i nästa omgång: exkludera .claude i vitest-konfigurationen och laga testet.
+
+## E. Omgång 2026-11-09 (saas-leads beslut, godkända av ägaren)
+
+26. **Namnfältet borta ur kontosteget.** Klart och live 14897c97. Brev och CV-export frågar efter namnet när det behövs. Avläses 7 dec mot 29 av 158.
+27. **Dag 2-mejlet utan krav på passtid.** Klart och live 14897c97. Går 07:00 (08:00 sommartid) till alla som gjort Nivåkollen dagen innan. Avläses 22 nov med väggen, sedan 20 dec.
+28. **Riktiga figurer i testartiklarna**, med testernas egen ritare (`<MatrisUppgift>`). Klart och live 6e6d771e. Gäller logiktest-exempel-med-losningar, matrigma-test, logiska-tester och rotation-test-guide. I rotationsguiden är det falska löftet om rotationstest borta. Position avläses 7 dec.
+29. **Provet och kontosteget i ny design** enligt den godkända skissen docs/design/skiss-prov-konto-2026-11-09.html. Byggt och testat på grenen feat/prov-konto-v2 (e57697da), inte på main. Ska gå live tidigast 23 nov enligt saas-lead. Före driftsättning:
+    - ägaren ger Vercel-åtkomst eller en bypass-hemlighet så att förhandsvisningen kan klicktestas
+    - ägaren testar riktig Google-inloggning
+    - rebase mot main
+    Målet är att provet till konto går från 18 till 30 %, och det avläses fyra veckor efter driftsättning.
+30. **Ägarens beslut: percentilraden på provets resultat.** Den döljs tills minst 200 avslutade prov finns, och i dag finns 132. Cronen rensar ohämtade prov efter sju dagar, så underlaget når kanske aldrig 200. Ska vi föra en egen logg över utfallen, utan personuppgifter?
+31. **Ägarens beslut: nya testtyper.** Se docs/rapporter/gap-testtyper-2026-11-09.md. Testansvarig rekommenderar i den här ordningen: spatial förmåga, talserier, deduktivt som pass och övningsprov, koncentration som egen modul för lokförare och piloter, och Nivåkoll för figurserier.
 
 ## Arbetsregler
 
