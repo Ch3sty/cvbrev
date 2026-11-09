@@ -1,0 +1,63 @@
+{
+  "_om": "Mått för Spatial förmåga (brief-tester-steg2-2026-11-09.md avsnitt 2 och skissens noter). Läses av ritaren (ritare.tsx) och av scripts/spatial-geometri-check.mjs, så att ritning och kontroll inte glider isär. Enhet: viewBox 0 till 100 per ruta. Färgerna är V7:s (logicTestV7/geometri.json) så att .matrisyta mappar dem till tokens.",
+  "regler": {
+    "inre": [14, 86],
+    "minGap": 4
+  },
+  "skala360": {
+    "_om": "Pixel per enhet på en 360-mobil. Alternativen står två gånger två, 159 px per ruta med figuren i 80 procent (skissens beslut 2). Sekvensen i form B har tre rutor om 104 px eller fyra om 76 px.",
+    "alternativ": 1.27,
+    "referens": 1.27,
+    "sekvens3": 0.84,
+    "sekvens4": 0.76
+  },
+  "g5": {
+    "minRutaPx": 8,
+    "minHalPx": 6,
+    "minKlippPx": 8,
+    "minSymbolPx": 10,
+    "minKonturPx": 2,
+    "minLuftPx": 2
+  },
+  "kontur": { "sw": 3, "tunn": 2.5 },
+  "brick": {
+    "_om": "Figurens omskrivna kvadrat är 60 enheter oavsett n, rutorna har 2 enheters luft (skissens beslut 3). Den markerade rutan på expert är grå med bläckkontur, insatt så att yttermåttet är detsamma.",
+    "yttermatt": 60,
+    "start": 20,
+    "luft": 2,
+    "rx": 2,
+    "markSw": 2.5
+  },
+  "ark": {
+    "_om": "Arket är 68 enheter (skissens 72 minus 4, så att konturen ryms i [14, 86]). Hål är bläckskivor i rutans mitt, r 4,5 i 4×4 och 4 i 6×6 (4 enheters fritt mellan grannhål). Viklinjen är ram-grått, streckad.",
+    "sida": 68,
+    "halR": { "4": 4.5, "6": 4 },
+    "rx": 2.5,
+    "viklinjeSw": 2.5,
+    "viklinjeStreck": "4 4",
+    "pil": { "maxLangd": 30, "huvudHalv": 7, "huvudLangd": 9, "sw": 3 }
+  },
+  "kub": {
+    "_om": "Isometrisk kub med kant 36 (skissens kub). Sidorna T (ovansida), L (vänster) och R (höger) med var sin affina avbildning från sidans lokala koordinater [-1, 1] (x åt höger, y nedåt) till rutan.",
+    "T": [[50, 50], [81.18, 32], [50, 14], [18.82, 32]],
+    "L": [[18.82, 32], [50, 50], [50, 86], [18.82, 68]],
+    "R": [[50, 50], [81.18, 32], [81.18, 68], [50, 86]],
+    "matris": {
+      "t": [15.59, 9, -15.59, 9, 50, 32],
+      "l": [15.59, 9, 0, 18, 34.41, 59],
+      "r": [15.59, -9, 0, 18, 65.59, 59]
+    },
+    "symbol": { "prickR": 0.4, "ringR": 0.5, "dubbelYttre": 0.56, "dubbelInre": 0.24, "kvadrat": 0.42, "kryss": 0.42, "triangel": [[0, -0.55], [0.5, 0.4], [-0.5, 0.4]], "pil": { "svans": 0.55, "spets": -0.55, "huvud": 0.32, "huvudDjup": 0.34 } },
+    "symbolSw": 3
+  },
+  "noder": { "brickMax": 80, "arkMax": 120, "kubMax": 120, "bytes": 16384 },
+  "farger": {
+    "papper": "#FFFFFF",
+    "ink": "#020617",
+    "gra": "#CBD5E1",
+    "ram": "#64748B",
+    "koppar": "#E07A2F",
+    "kopparInk": "#A8491A",
+    "kopparMjuk": "#FBE3D0"
+  }
+}
