@@ -384,6 +384,8 @@ export interface AnalyticsEvents {
     test_kind?: string
   }
   pass_klart: PassKlart
+  /** Övningsprovet för I-prov 2025 (brief-tester-steg2 avsnitt 7). */
+  provpaket_klart: { paket: 'iprov' | 'shl_gplus'; halvt: boolean; ratt_per_del: number[]; tid_per_del_s: number[]; obesvarade: number }
   /** Riktat text- eller sifferpass (beställning omgång 2, B3). Riktade matrispass skjuter pass_klart med typ riktat. */
   riktat_klart: PassKlart
   ommatning_klar: { niva: number; delta: number; test_kind?: string }

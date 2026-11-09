@@ -362,6 +362,86 @@ export function SpatialGenomgangVy({ g, valt }: { g: GenomgangSpatial; valt: num
   )
 }
 
+/* ================================================================ Ordförråd */
+
+/** Uppgiften som ordförrådets motor visar (ordforradV1 VisadOrd). */
+export interface OrdUppgiftData {
+  id: string
+  typ: 'synonym' | 'antonym'
+  ord: string
+  options: string[]
+}
+/** Genomgången (ordforradV1 GenomgangOrd). */
+export interface OrdGenomgangData extends OrdUppgiftData {
+  rattVisat: number
+  misstag: string[]
+  facit_betyder: string
+  exempel: string
+  arMotsats: boolean[]
+}
+
+/** Etiketten byter färg och tecken mellan synonym och motsatsord (skissens beslut 7). */
+function OrdEtikett({ typ }: { typ: 'synonym' | 'antonym' }) {
+  const syn = typ === 'synonym'
+  return (
+    <p className={`inline-flex items-center gap-1.5 text-ey uppercase ${syn ? 'text-ton-ink' : 'text-[color:var(--motsats)]'}`} data-ord-typ={typ}>
+      <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true">
+        {syn ? (
+          <g fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="7.5" cy="10" r="5" /><circle cx="12.5" cy="10" r="5" /></g>
+        ) : (
+          <path d="M8 10H2.5M5 7l-3 3 3 3M12 10h5.5M15 7l3 3-3 3" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        )}
+      </svg>
+      {syn ? 'Synonym' : 'Motsatsord'}
+    </p>
+  )
+}
+
+export function OrdUppgift({ u, valt, ratt = null, onValj, disabled }: { u: OrdUppgiftData; valt: number | null; ratt?: number | null; onValj?: (i: number) => void; disabled?: boolean }) {
+  const avslojad = ratt != null
+  return (
+    <div className="flex flex-col gap-3" data-steg2-uppgift="ordforrad">
+      <div className="rounded-2xl border border-kant bg-papper px-4 py-3.5">
+        <OrdEtikett typ={u.typ} />
+        <p className="mt-1.5 break-words font-display text-[28px] font-bold uppercase leading-[34px] tracking-[.02em] text-ink-1">{u.ord}</p>
+        <p className="mt-1 text-[13px] leading-[18px] text-ink-3">{u.typ === 'synonym' ? 'Vilket ord betyder ungefär detsamma?' : 'Vilket ord betyder motsatsen?'}</p>
+      </div>
+      <div role="radiogroup" aria-label="Ditt svar" className="flex flex-col gap-2" data-steg2-alternativ>
+        {u.options.map((o, i) => {
+          const arVald = valt === i
+          const arRatt = avslojad && ratt === i
+          return (
+            <button
+              key={i}
+              type="button"
+              role="radio"
+              aria-checked={arVald}
+              aria-label={`${BOKSTAV[i]}. ${o}${arVald ? ', ditt svar' : ''}${arRatt ? ', rätt svar' : ''}`}
+              disabled={disabled || avslojad}
+              onClick={() => onValj?.(i)}
+              className={`relative flex min-h-[46px] touch-manipulation items-center gap-3 rounded-xl border bg-papper px-3.5 py-2 text-left text-[17px] leading-5 text-ink-1 transition-[border-color,opacity] duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-koppar-ink ${altKlass(arVald, arRatt, avslojad)}`}
+            >
+              <span className={`w-4 shrink-0 text-[12px] font-semibold ${arRatt ? 'text-koppar-ink' : arVald ? 'text-ink-1' : 'text-ink-3'}`} aria-hidden="true">{BOKSTAV[i]}</span>
+              <span className="min-w-0 flex-1">{o}</span>
+              {arRatt ? <span className="absolute right-3 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-koppar" aria-hidden="true" /> : null}
+            </button>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export function OrdGenomgangVy({ g, valt }: { g: OrdGenomgangData; valt: number | null }) {
+  const misstag = valt !== null && valt !== g.rattVisat ? (g.arMotsats[valt] ? 'Det är motsatsen.' : g.misstag[valt] || null) : null
+  return (
+    <div className="flex flex-col gap-3" data-steg2-genomgang="ordforrad">
+      <OrdUppgift u={g} valt={valt} ratt={g.rattVisat} disabled />
+      <Facitkort ratt={g.rattVisat} forklaring={`${g.options[g.rattVisat]}: ${g.facit_betyder} ${g.exempel}`} valt={valt} misstag={misstag} />
+    </div>
+  )
+}
+
 /* =============================================================== Gemensamt */
 
 /** "Rätt svar är C", förklaringen och misstaget för hennes val (skissen). */
@@ -414,6 +494,7 @@ export function Steg2Uppgift(p: {
 }) {
   if (p.kind === 'talserie') return <TalserieUppgift u={p.u as VisadTalserie} valt={p.valt} ratt={p.ratt} onValj={p.onValj} disabled={p.disabled} />
   if (p.kind === 'spatial') return <SpatialUppgift u={p.u as VisadSpatial} valt={p.valt} ratt={p.ratt} onValj={p.onValj} disabled={p.disabled} />
+  if (p.kind === 'ordforrad') return <OrdUppgift u={p.u as OrdUppgiftData} valt={p.valt} ratt={p.ratt} onValj={p.onValj} disabled={p.disabled} />
   return null
 }
 
@@ -421,6 +502,7 @@ export function Steg2Uppgift(p: {
 export function Steg2Genomgang({ kind, g, valt }: { kind: Steg2Kind; g: unknown; valt: number | null }) {
   if (kind === 'talserie') return <TalserieGenomgangVy g={g as GenomgangTalserie} valt={valt} />
   if (kind === 'spatial') return <SpatialGenomgangVy g={g as GenomgangSpatial} valt={valt} />
+  if (kind === 'ordforrad') return <OrdGenomgangVy g={g as OrdGenomgangData} valt={valt} />
   return null
 }
 

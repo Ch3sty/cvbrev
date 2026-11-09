@@ -1,0 +1,489 @@
+{
+  "bas": "http://localhost:5200",
+  "tid": "2026-11-09T15:44:00.149Z",
+  "ok": 61,
+  "totalt": 63,
+  "resultat": [
+    {
+      "namn": "p7-ljust-iprov-premium: Fortsätt syns och är fri med samtyckesraden uppe",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-iprov-premium: korten i ingången",
+      "ok": true,
+      "not": "iprov,matrigma,alva,shl,aon,lokforare,annat,personlighet"
+    },
+    {
+      "namn": "p7-ljust-iprov-premium: varumärkesraden står med",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-iprov-premium: ingången utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-iprov-premium: Lokförare visar anmärkningen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-iprov-premium: Annat fäller ut kryssrutorna, figurer förvalt",
+      "ok": true,
+      "not": "Figurer och mönster:true | Figurserier:false | Deduktiv slutledning:false | Ord och text:false | Siffror och tabeller:false | Talserier:false | Spatial förmåga:false | Personlighet:false"
+    },
+    {
+      "namn": "p7-ljust-iprov-premium: Så lägger vi upp det för iprov",
+      "ok": true,
+      "not": "SÅ LÄGGER VI UPP DET | Passen | Spatial förmåga och talserier i tur och ordning. | Övningsprovet | I-prov-provet, sex deltester i provets ordning, två dagar före. | Alla tester | Dina två deltester överst, resten under F"
+    },
+    {
+      "namn": "p7-ljust-iprov-premium: ingången utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-iprov-premium: startarket har halva provet förvalt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-iprov-premium: startarket säger att talen är våra",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-iprov-premium: startarket utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-iprov-premium: Starta övningsprovet syns och är fri",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-iprov-premium: mellanbladet visar ingen klocka",
+      "ok": true,
+      "not": "Bekräfta din e-post för att spara dokument permanent. |  | Skicka igen |  | I-prov-prove"
+    },
+    {
+      "namn": "p7-ljust-iprov-premium: frågan har klockan",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-iprov-premium: frågan har segmentstapeln",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-iprov-premium: frågan utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-iprov-premium: alla deltest genomförda",
+      "ok": true,
+      "not": "4 deltest"
+    },
+    {
+      "namn": "p7-ljust-iprov-premium: resultatet har en stapel per deltest",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-iprov-premium: resultatet utan stanine-tal, med meningen om skalan",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-iprov-premium: resultatet utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-iprov-premium: ett avslutat deltest går inte att öppna igen",
+      "ok": true,
+      "not": "status 409"
+    },
+    {
+      "namn": "p7-ljust-iprov-premium: detaljvyn visar tempot",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-iprov-premium: genomgången visar facit",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-iprov-premium: provet sparat och rättat",
+      "ok": true,
+      "not": "[{\"test_type\":\"iprov-prov\",\"score\":5,\"completed_at\":\"2026-11-09T15:42:42.367+00:00\"}]"
+    },
+    {
+      "namn": "p7-ljust-iprov-premium: inga konsolfel eller 4xx/5xx",
+      "ok": false,
+      "not": "409 /api/traning/iprov/del ; console: Failed to load resource: the server responded with a status of 409 (Conflict)"
+    },
+    {
+      "namn": "p7-morkt-iprov-gratis: Fortsätt syns och är fri med samtyckesraden uppe",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-iprov-gratis: korten i ingången",
+      "ok": true,
+      "not": "iprov,matrigma,alva,shl,aon,lokforare,annat,personlighet"
+    },
+    {
+      "namn": "p7-morkt-iprov-gratis: varumärkesraden står med",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-iprov-gratis: ingången utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-iprov-gratis: Lokförare visar anmärkningen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-iprov-gratis: Annat fäller ut kryssrutorna, figurer förvalt",
+      "ok": true,
+      "not": "Figurer och mönster:true | Figurserier:false | Deduktiv slutledning:false | Ord och text:false | Siffror och tabeller:false | Talserier:false | Spatial förmåga:false | Personlighet:false"
+    },
+    {
+      "namn": "p7-morkt-iprov-gratis: Så lägger vi upp det för iprov",
+      "ok": true,
+      "not": "SÅ LÄGGER VI UPP DET | Passen | Spatial förmåga och talserier i tur och ordning. | Övningsprovet | I-prov-provet, sex deltester i provets ordning, två dagar före. | Alla tester | Dina två deltester överst, resten under F"
+    },
+    {
+      "namn": "p7-morkt-iprov-gratis: ingången utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-iprov-gratis: startarket har halva provet förvalt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-iprov-gratis: startarket säger att talen är våra",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-iprov-gratis: startarket utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-iprov-gratis: startarket låst med pris ur planen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-iprov-gratis: inga konsolfel eller 4xx/5xx",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: Fortsätt syns och är fri med samtyckesraden uppe",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: korten i ingången",
+      "ok": true,
+      "not": "iprov,matrigma,alva,shl,aon,lokforare,annat,personlighet"
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: varumärkesraden står med",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: ingången utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: Lokförare visar anmärkningen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: Annat fäller ut kryssrutorna, figurer förvalt",
+      "ok": true,
+      "not": "Figurer och mönster:true | Figurserier:false | Deduktiv slutledning:false | Ord och text:false | Siffror och tabeller:false | Talserier:false | Spatial förmåga:false | Personlighet:false"
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: Så lägger vi upp det för iprov",
+      "ok": true,
+      "not": "SÅ LÄGGER VI UPP DET | Passen | Spatial förmåga och talserier i tur och ordning. | Övningsprovet | I-prov-provet, sex deltester i provets ordning, två dagar före. | Alla tester | Dina två deltester överst, resten under F"
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: ingången utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: startarket har halva provet förvalt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: startarket säger att talen är våra",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: startarket utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: Starta övningsprovet syns och är fri",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: mellanbladet visar ingen klocka",
+      "ok": true,
+      "not": "Jobbcoach.ai | Rekryteringstester | CV | Personliga brev | Jobbsöket |  | REKRYTERINGSTESTER"
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: frågan har klockan",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: frågan har segmentstapeln",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: frågan utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: alla deltest genomförda",
+      "ok": true,
+      "not": "4 deltest"
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: resultatet har en stapel per deltest",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: resultatet utan stanine-tal, med meningen om skalan",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: resultatet utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: ett avslutat deltest går inte att öppna igen",
+      "ok": true,
+      "not": "status 409"
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: detaljvyn visar tempot",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: genomgången visar facit",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: provet sparat och rättat",
+      "ok": true,
+      "not": "[{\"test_type\":\"iprov-prov\",\"score\":7,\"completed_at\":\"2026-11-09T15:43:55.434+00:00\"}]"
+    },
+    {
+      "namn": "d1280-morkt-iprov-premium: inga konsolfel eller 4xx/5xx",
+      "ok": false,
+      "not": "409 /api/traning/iprov/del ; console: Failed to load resource: the server responded with a status of 409 (Conflict)"
+    }
+  ],
+  "bilder": [
+    {
+      "fil": "del3-p7-ljust-iprov-premium-mitt-test-tom.png",
+      "beskrivning": "Mitt test, steg 1 av 2 innan något är valt"
+    },
+    {
+      "fil": "del3-p7-ljust-iprov-premium-mitt-test-lokforare.png",
+      "beskrivning": "Lokförare valt: anmärkningen och Så lägger vi upp det"
+    },
+    {
+      "fil": "del3-p7-ljust-iprov-premium-mitt-test-annat.png",
+      "beskrivning": "Annat eller vet inte: kryssrutorna"
+    },
+    {
+      "fil": "del3-p7-ljust-iprov-premium-mitt-test-iprov.png",
+      "beskrivning": "Mitt test: iprov valt, Så lägger vi upp det"
+    },
+    {
+      "fil": "del3-p7-ljust-iprov-premium-mitt-test-iprov-hel.png",
+      "beskrivning": "Mitt test: iprov, hela steget"
+    },
+    {
+      "fil": "del3-p7-ljust-iprov-premium-datum.png",
+      "beskrivning": "Steg 2 av 2: provdatumet med planen"
+    },
+    {
+      "fil": "del3-p7-ljust-iprov-premium-iprov-startark.png",
+      "beskrivning": "Startarket, halva provet förvalt"
+    },
+    {
+      "fil": "del3-p7-ljust-iprov-premium-iprov-mellanblad-1.png",
+      "beskrivning": "Mellanbladet före deltest 1"
+    },
+    {
+      "fil": "del3-p7-ljust-iprov-premium-iprov-fraga-1.png",
+      "beskrivning": "Deltest 1: frågan med klockan och segmentstapeln"
+    },
+    {
+      "fil": "del3-p7-ljust-iprov-premium-iprov-avsluta-fraga.png",
+      "beskrivning": "Bekräftelsen: deltestet går inte att öppna igen"
+    },
+    {
+      "fil": "del3-p7-ljust-iprov-premium-iprov-mellanblad-2.png",
+      "beskrivning": "Mellanbladet före deltest 2"
+    },
+    {
+      "fil": "del3-p7-ljust-iprov-premium-iprov-fraga-2.png",
+      "beskrivning": "Deltest 2: frågan med klockan och segmentstapeln"
+    },
+    {
+      "fil": "del3-p7-ljust-iprov-premium-iprov-mellanblad-3.png",
+      "beskrivning": "Mellanbladet före deltest 3"
+    },
+    {
+      "fil": "del3-p7-ljust-iprov-premium-iprov-mellanblad-4.png",
+      "beskrivning": "Mellanbladet före deltest 4"
+    },
+    {
+      "fil": "del3-p7-ljust-iprov-premium-iprov-resultat.png",
+      "beskrivning": "Resultatet: huvudtalet och liggande staplar per deltest"
+    },
+    {
+      "fil": "del3-p7-ljust-iprov-premium-iprov-detalj.png",
+      "beskrivning": "Detaljvyn: tempo per deltest och genomgången"
+    },
+    {
+      "fil": "del3-p7-ljust-iprov-premium-iprov-genomgang.png",
+      "beskrivning": "Genomgången av första deltestet"
+    },
+    {
+      "fil": "del3-p7-morkt-iprov-gratis-mitt-test-tom.png",
+      "beskrivning": "Mitt test, steg 1 av 2 innan något är valt"
+    },
+    {
+      "fil": "del3-p7-morkt-iprov-gratis-mitt-test-lokforare.png",
+      "beskrivning": "Lokförare valt: anmärkningen och Så lägger vi upp det"
+    },
+    {
+      "fil": "del3-p7-morkt-iprov-gratis-mitt-test-annat.png",
+      "beskrivning": "Annat eller vet inte: kryssrutorna"
+    },
+    {
+      "fil": "del3-p7-morkt-iprov-gratis-mitt-test-iprov.png",
+      "beskrivning": "Mitt test: iprov valt, Så lägger vi upp det"
+    },
+    {
+      "fil": "del3-p7-morkt-iprov-gratis-mitt-test-iprov-hel.png",
+      "beskrivning": "Mitt test: iprov, hela steget"
+    },
+    {
+      "fil": "del3-p7-morkt-iprov-gratis-datum.png",
+      "beskrivning": "Steg 2 av 2: provdatumet med planen"
+    },
+    {
+      "fil": "del3-p7-morkt-iprov-gratis-iprov-startark.png",
+      "beskrivning": "Startarket låst: paketraden i foten"
+    },
+    {
+      "fil": "del3-d1280-morkt-iprov-premium-mitt-test-tom.png",
+      "beskrivning": "Mitt test, steg 1 av 2 innan något är valt"
+    },
+    {
+      "fil": "del3-d1280-morkt-iprov-premium-mitt-test-lokforare.png",
+      "beskrivning": "Lokförare valt: anmärkningen och Så lägger vi upp det"
+    },
+    {
+      "fil": "del3-d1280-morkt-iprov-premium-mitt-test-annat.png",
+      "beskrivning": "Annat eller vet inte: kryssrutorna"
+    },
+    {
+      "fil": "del3-d1280-morkt-iprov-premium-mitt-test-iprov.png",
+      "beskrivning": "Mitt test: iprov valt, Så lägger vi upp det"
+    },
+    {
+      "fil": "del3-d1280-morkt-iprov-premium-mitt-test-iprov-hel.png",
+      "beskrivning": "Mitt test: iprov, hela steget"
+    },
+    {
+      "fil": "del3-d1280-morkt-iprov-premium-datum.png",
+      "beskrivning": "Steg 2 av 2: provdatumet med planen"
+    },
+    {
+      "fil": "del3-d1280-morkt-iprov-premium-iprov-startark.png",
+      "beskrivning": "Startarket, halva provet förvalt"
+    },
+    {
+      "fil": "del3-d1280-morkt-iprov-premium-iprov-mellanblad-1.png",
+      "beskrivning": "Mellanbladet före deltest 1"
+    },
+    {
+      "fil": "del3-d1280-morkt-iprov-premium-iprov-fraga-1.png",
+      "beskrivning": "Deltest 1: frågan med klockan och segmentstapeln"
+    },
+    {
+      "fil": "del3-d1280-morkt-iprov-premium-iprov-avsluta-fraga.png",
+      "beskrivning": "Bekräftelsen: deltestet går inte att öppna igen"
+    },
+    {
+      "fil": "del3-d1280-morkt-iprov-premium-iprov-mellanblad-2.png",
+      "beskrivning": "Mellanbladet före deltest 2"
+    },
+    {
+      "fil": "del3-d1280-morkt-iprov-premium-iprov-fraga-2.png",
+      "beskrivning": "Deltest 2: frågan med klockan och segmentstapeln"
+    },
+    {
+      "fil": "del3-d1280-morkt-iprov-premium-iprov-mellanblad-3.png",
+      "beskrivning": "Mellanbladet före deltest 3"
+    },
+    {
+      "fil": "del3-d1280-morkt-iprov-premium-iprov-mellanblad-4.png",
+      "beskrivning": "Mellanbladet före deltest 4"
+    },
+    {
+      "fil": "del3-d1280-morkt-iprov-premium-iprov-resultat.png",
+      "beskrivning": "Resultatet: huvudtalet och liggande staplar per deltest"
+    },
+    {
+      "fil": "del3-d1280-morkt-iprov-premium-iprov-detalj.png",
+      "beskrivning": "Detaljvyn: tempo per deltest och genomgången"
+    },
+    {
+      "fil": "del3-d1280-morkt-iprov-premium-iprov-genomgang.png",
+      "beskrivning": "Genomgången av första deltestet"
+    }
+  ]
+}

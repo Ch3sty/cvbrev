@@ -34,6 +34,7 @@ export type ServerEventName =
   /** Testmotorn, /api/traning/pass/complete (spec-rummen avsnitt 7). */
   | 'nivamatning_klar'
   | 'pass_klart'
+  | 'provpaket_klart'
   | 'riktat_klart'
   | 'ommatning_klar'
   | 'generalrepetition_klar'

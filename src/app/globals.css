@@ -1997,3 +1997,10 @@ html {
 /* Logotypens ord följer läget på de ombyggda publika sidorna (mörkt läge). */
 :root:has(.pub-sida) .logo-ord { fill: var(--ink-1); }
 :root:has(.pub-sida) .logo-ai { fill: var(--ink-3); }
+
+/* Ordförrådets motsatsord (skiss-tester-steg2, beslut 7): plommon, aldrig koppar. */
+:root { --motsats: #6E2B59; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --motsats: #E8B8D8; }
+}
+:root[data-theme="dark"] { --motsats: #E8B8D8; }

@@ -412,6 +412,102 @@ async function typer(browser, enhet, vp, morkt, premium) {
   await ctx.close()
 }
 
+/* ------------------------------------------------------------ I-prov-provet */
+
+async function iprov(browser, enhet, vp, morkt, premium) {
+  const { ctx, p, fel } = await ny(browser, vp, morkt)
+  const k = await skapaKonto(p, enhet)
+  if (premium) await ge_premium(k.uid, 'qa-tester-steg2-vyer')
+  await vanta(600)
+  await valjMittTest(p, enhet, 'iprov', 'Polisen')
+  await p.goto(`${BAS}/dashboard/tester/iprov`, { waitUntil: 'networkidle2' })
+  await vanta(1000)
+  await avvisaSamtycke(p)
+  await bild(p, `${enhet}-iprov-startark`, premium ? 'Startarket, halva provet förvalt' : 'Startarket låst: paketraden i foten')
+  const text = await p.evaluate(() => document.body.innerText)
+  logg(`${enhet}: startarket har halva provet förvalt`, (await p.$eval('[data-iprov-val="halvt"]', (e) => e.getAttribute('aria-checked')).catch(() => null)) === 'true')
+  logg(`${enhet}: startarket säger att talen är våra`, text.includes('Pliktverket publicerar inte antal och tider'))
+  logg(`${enhet}: startarket utan sidledsscroll`, await sidled(p))
+  if (!premium) {
+    logg(`${enhet}: startarket låst med pris ur planen`, !!(await p.$('[data-iprov-last]')) && /149 kr i månaden/.test(text))
+    logg(`${enhet}: inga konsolfel eller 4xx/5xx`, fel.length === 0, fel.slice(0, 5).join(' ; '))
+    await ctx.close()
+    return
+  }
+  const fri = await synligOchFri(p, '[data-iprov-starta]')
+  logg(`${enhet}: Starta övningsprovet syns och är fri`, fri.ok, fri.varfor)
+  await p.click('[data-iprov-starta]')
+  await p.waitForSelector('[data-iprov-mellanblad]', { timeout: 30000 }).catch(() => {})
+  await vanta(800)
+  let delnr = 0
+  for (let varv = 0; varv < 8; varv++) {
+    if (await p.$('[data-iprov-resultat]')) break
+    if (!(await p.$('[data-iprov-mellanblad]'))) break
+    delnr++
+    await bild(p, `${enhet}-iprov-mellanblad-${delnr}`, `Mellanbladet före deltest ${delnr}`)
+    if (delnr === 1) {
+      const t = await p.evaluate(() => document.body.innerText)
+      logg(`${enhet}: mellanbladet visar ingen klocka`, !(await p.$('[data-klocka]')), t.slice(0, 80).replace(/\n/g, ' | '))
+    }
+    await p.click('[data-iprov-starta-del]')
+    await p.waitForSelector('[data-iprov-fraga] [data-steg2-alternativ] [role="radio"]', { timeout: 20000 }).catch(() => {})
+    await vanta(800)
+    if (delnr <= 2) await bild(p, `${enhet}-iprov-fraga-${delnr}`, `Deltest ${delnr}: frågan med klockan och segmentstapeln`)
+    if (delnr === 1) {
+      logg(`${enhet}: frågan har klockan`, !!(await p.$('[data-klocka]')))
+      logg(`${enhet}: frågan har segmentstapeln`, !!(await p.$('[data-segmentstapel]')))
+      logg(`${enhet}: frågan utan sidledsscroll`, await sidled(p))
+    }
+    // Svara på alla utom den sista, hoppa sedan dit och avsluta deltestet.
+    const antal = await p.$$eval('[data-segmentstapel] button', (b) => b.length)
+    for (let i = 0; i < antal - 1; i++) {
+      const alt = await p.$$('[data-iprov-fraga] [data-steg2-alternativ] [role="radio"]')
+      if (alt.length) await alt[i % alt.length].click()
+      await vanta(450)
+    }
+    if (!(await p.$('[data-iprov-avsluta-del]'))) {
+      const seg = await p.$$('[data-segmentstapel] button')
+      if (seg.length) await seg[seg.length - 1].click()
+      await vanta(300)
+    }
+    await p.click('[data-iprov-avsluta-del]').catch(() => {})
+    await vanta(500)
+    const bekrafta = await knappMedText(p, 'Avsluta deltestet')
+    if (delnr === 1) await bild(p, `${enhet}-iprov-avsluta-fraga`, 'Bekräftelsen: deltestet går inte att öppna igen')
+    // Två knappar heter Avsluta deltestet: den i dialogen är den sista.
+    const knappar = await p.$$('button')
+    const dialogKnapp = (await Promise.all(knappar.map(async (b) => [b, await b.evaluate((e) => e.textContent?.trim() === 'Avsluta deltestet' && !e.hasAttribute('data-iprov-avsluta-del'))]))).filter(([, ok]) => ok).map(([b]) => b).pop()
+    if (dialogKnapp) await dialogKnapp.click()
+    else if (bekrafta) await bekrafta.click()
+    await p.waitForSelector('[data-iprov-mellanblad], [data-iprov-resultat]', { timeout: 20000 }).catch(() => {})
+    await vanta(900)
+  }
+  logg(`${enhet}: alla deltest genomförda`, delnr >= 4, `${delnr} deltest`)
+  await p.waitForSelector('[data-iprov-resultat]', { timeout: 30000 }).catch(() => {})
+  await vanta(800)
+  await bild(p, `${enhet}-iprov-resultat`, 'Resultatet: huvudtalet och liggande staplar per deltest')
+  const res = await p.evaluate(() => document.body.innerText)
+  logg(`${enhet}: resultatet har en stapel per deltest`, (await p.$$('[data-iprov-stapel]')).length === delnr)
+  logg(`${enhet}: resultatet utan stanine-tal, med meningen om skalan`, /niogradiga skala/.test(res) && !/stanine/i.test(res))
+  logg(`${enhet}: resultatet utan talstreck och mittpunkt`, !/—|·/.test(res))
+  // Ingen väg tillbaka: deltest 1 kan inte startas igen.
+  const id = new URL(p.url()).pathname.split('/').pop()
+  const igen = await p.evaluate(async (sid) => (await fetch('/api/traning/iprov/del', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ sessionId: sid, nr: 2, handling: 'starta' }) })).status, id)
+  logg(`${enhet}: ett avslutat deltest går inte att öppna igen`, igen === 409, `status ${igen}`)
+  await p.click('[data-iprov-ga-igenom]').catch(() => {})
+  await vanta(800)
+  await bild(p, `${enhet}-iprov-detalj`, 'Detaljvyn: tempo per deltest och genomgången')
+  logg(`${enhet}: detaljvyn visar tempot`, !!(await p.$('[data-iprov-tempo]')))
+  await p.click('[data-iprov-genomga]').catch(() => {})
+  await vanta(800)
+  await bild(p, `${enhet}-iprov-genomgang`, 'Genomgången av första deltestet')
+  logg(`${enhet}: genomgången visar facit`, !!(await p.$('[data-steg2-facit]')))
+  const { data: rad } = await admin.from('logic_test_v4_sessions').select('test_type, score, completed_at').eq('user_id', k.uid).eq('test_type', 'iprov-prov')
+  logg(`${enhet}: provet sparat och rättat`, rad?.[0]?.completed_at && typeof rad[0].score === 'number', JSON.stringify(rad))
+  logg(`${enhet}: inga konsolfel eller 4xx/5xx`, fel.filter((f) => !f.includes('/api/traning/iprov/del')).length === 0, fel.slice(0, 5).join(' ; '))
+  await ctx.close()
+}
+
 const browser = await puppeteer.launch({ executablePath: CHROME, headless: 'new', args: ['--no-sandbox'] })
 try {
   const korningar = []
@@ -429,6 +525,13 @@ try {
       ['p7-morkt-polisen-gratis', () => typer(browser, 'p7-morkt-polisen-gratis', PIXEL7, true, false)],
       ['d1280-morkt-polisen-premium', () => typer(browser, 'd1280-morkt-polisen-premium', DESKTOP, true, true)],
       ['d1280-ljust-polisen-gratis', () => typer(browser, 'd1280-ljust-polisen-gratis', DESKTOP, false, false)]
+    )
+  }
+  if (DELAR.includes('iprov')) {
+    korningar.push(
+      ['p7-ljust-iprov-premium', () => iprov(browser, 'p7-ljust-iprov-premium', PIXEL7, false, true)],
+      ['p7-morkt-iprov-gratis', () => iprov(browser, 'p7-morkt-iprov-gratis', PIXEL7, true, false)],
+      ['d1280-morkt-iprov-premium', () => iprov(browser, 'd1280-morkt-iprov-premium', DESKTOP, true, true)]
     )
   }
   for (const [namn, f] of korningar) {

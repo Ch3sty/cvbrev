@@ -42,7 +42,8 @@ import { testHuvud } from '@/lib/onboarding/paket-rader';
 import TesterTabs, { type TesterTab } from './components/TesterTabs';
 import TestKategori, { BILD } from './components/TestKategori';
 import PersonlighetKort, { PERSONLIGHET_KORT } from './components/PersonlighetKort';
-import MittTestRad from './components/MittTestRad';
+import MittTestRad, { IprovRad } from './components/MittTestRad';
+import { iprovProvSynligt } from '@/lib/tester/steg2Status';
 import FlerTester, { flerMeta, type FlerRad } from './components/FlerTester';
 import { GRUPP_FOR_DELTYP } from './components/testCatalog';
 import { SymDeduktiv, SymFigurer, SymMatris, SymOrd, SymPerson, SymSiffror } from '@/components/illustrations/RumSymboler';
@@ -318,6 +319,7 @@ export default function TesterHubClient({
                           </div>
                         ))}
                       {ingarPersonlighet ? kortFor(TEST_GROUPS.find((g) => g.key === 'personlighet')!) : null}
+                      {mitt === 'iprov' && iprovProvSynligt() ? <IprovRad /> : null}
                     </section>
                     <HjalpRad ids={['C5', 'B8']} rubrik="Vad betyder nivåerna?" className="lg:hidden" />
                     <FlerTester rubrik={MITT_TEST_COPY.fler} rader={flerRader} />
