@@ -1,0 +1,38 @@
+{
+ "_om": "Testansvarigs granskning av ordbanken 2026-11-09. struk: uppslagsord som inte får bli uppgifter (fel nivå, svagt facit, exempelmening i fel betydelse eller med grammatikfel). forbjudna_alternativ: ord som inte får stå som distraktor till uppslagsordet (lika försvarbara eller fel betydelse i misstagstexten). Läses av scripts/ordforrad/bygg-bank.mjs.",
+ "struk": {
+  "svara": "replikera är formellt, fel nivå för grund",
+  "liten": "facit avancerat, exemplet i fysisk betydelse",
+  "knappast": "näppeligen är ålderdomligt",
+  "samla": "hopa passar inte samla på frimärken",
+  "kosta": "betinga är formellt, fel nivå",
+  "vinst": "utbyte är ett svagt facit för vinst",
+  "orsak": "grammatikfel i exemplet",
+  "genast": "grammatikfel i exemplet",
+  "pålitlig": "vederhäftig passar inte exemplet",
+  "våda": "ålderdomligt, onaturligt exempel",
+  "avgörande": "exemplet i annan betydelse",
+  "varaktig": "stavfel i exemplet",
+  "bilaga": "grundord på expert",
+  "fasonera": "för ovanligt, bearbeta lika försvarbart",
+  "korrumpera": "exemplet i annan betydelse",
+  "perifer": "exemplet i annan betydelse",
+  "obskyr": "kongruensfel i exemplet",
+  "lakonisk": "kongruensfel i exemplet",
+  "impertinent": "kongruensfel i exemplet",
+  "avog": "fel i exemplet",
+  "skruda": "för arkaiskt",
+  "dogmatisk": "svagt facit och svag distraktor"
+ },
+ "forbjudna_alternativ": {
+  "bifalla": ["stödja"],
+  "intensiv": ["lugn"],
+  "sanktionera": ["straffa"],
+  "altruistisk": ["autistisk"],
+  "kasta": ["tappa"],
+  "snäll": ["ond"],
+  "hård": ["mjuk"],
+  "lätt": ["svår"]
+ },
+ "forbjudna_overallt": ["synonym", "antonym", "motsats", "motsatsord"]
+}

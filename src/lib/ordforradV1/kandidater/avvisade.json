@@ -155,6 +155,24 @@
  {
   "niva": "grund",
   "typ": "synonym",
+  "ord": "svara",
+  "facit": "replikera",
+  "skal": [
+   "granskning: replikera är formellt, fel nivå för grund"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "liten",
+  "facit": "obetydlig",
+  "skal": [
+   "granskning: facit avancerat, exemplet i fysisk betydelse"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
   "ord": "titta",
   "facit": "skåda",
   "skal": [
@@ -218,10 +236,28 @@
  {
   "niva": "grund",
   "typ": "synonym",
+  "ord": "förskräcklig",
+  "facit": "hemsk",
+  "skal": [
+   "frekvens 5630 utanför nivåns band"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
   "ord": "upptäcka",
   "facit": "finna",
   "skal": [
    "OF1 finna är inte belagt som synonym till upptäcka"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "orsak",
+  "facit": "grund",
+  "skal": [
+   "granskning: grammatikfel i exemplet"
   ]
  },
  {
@@ -266,8 +302,7 @@
   "ord": "noggrant",
   "facit": "omsorgsfullt",
   "skal": [
-   "OF2 noggrant finns inte som adverb i SO eller SAOL",
-   "OF2 omsorgsfullt finns inte som adverb i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -300,10 +335,28 @@
  {
   "niva": "grund",
   "typ": "synonym",
+  "ord": "knappast",
+  "facit": "näppeligen",
+  "skal": [
+   "granskning: näppeligen är ålderdomligt"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
   "ord": "förklara",
   "facit": "tydliggöra",
   "skal": [
    "OF1 tydliggöra är inte belagt som synonym till förklara"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "vinst",
+  "facit": "utbyte",
+  "skal": [
+   "granskning: utbyte är ett svagt facit för vinst"
   ]
  },
  {
@@ -318,10 +371,28 @@
  {
   "niva": "grund",
   "typ": "synonym",
+  "ord": "samla",
+  "facit": "hopa",
+  "skal": [
+   "granskning: hopa passar inte samla på frimärken"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
   "ord": "skillnad",
   "facit": "avvikelse",
   "skal": [
    "OF1 avvikelse är inte belagt som synonym till skillnad"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "genast",
+  "facit": "direkt",
+  "skal": [
+   "granskning: grammatikfel i exemplet"
   ]
  },
  {
@@ -411,7 +482,7 @@
   "ord": "vinst",
   "facit": "pot",
   "skal": [
-   "OF2 pot finns inte som substantiv i SO eller SAOL"
+   "granskning: utbyte är ett svagt facit för vinst"
   ]
  },
  {
@@ -537,7 +608,16 @@
   "ord": "samla",
   "facit": "förena",
   "skal": [
-   "OF1 förena är inte belagt som synonym till samla"
+   "granskning: hopa passar inte samla på frimärken"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "kosta",
+  "facit": "betinga",
+  "skal": [
+   "granskning: betinga är formellt, fel nivå"
   ]
  },
  {
@@ -556,6 +636,15 @@
   "facit": "tro",
   "skal": [
    "OF1 tro är inte belagt som synonym till lita"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "skina",
+  "facit": "stråla",
+  "skal": [
+   "frekvens 10977 utanför nivåns band"
   ]
  },
  {
@@ -591,7 +680,7 @@
   "ord": "svara",
   "facit": "replikera",
   "skal": [
-   "OF7 svara är redan uppslagsord"
+   "granskning: replikera är formellt, fel nivå för grund"
   ]
  },
  {
@@ -942,7 +1031,7 @@
   "ord": "samla",
   "facit": "sprida",
   "skal": [
-   "OF1 sprida är inte belagt som motsats till samla"
+   "granskning: hopa passar inte samla på frimärken"
   ]
  },
  {
@@ -951,7 +1040,7 @@
   "ord": "lossa",
   "facit": "fästa",
   "skal": [
-   "OF1 fästa är inte belagt som motsats till lossa"
+   "frekvens 18187 utanför nivåns band"
   ]
  },
  {
@@ -1275,7 +1364,7 @@
   "ord": "fuktig",
   "facit": "blöt",
   "skal": [
-   "OF1 blöt är inte belagt som motsats till fuktig"
+   "frekvens 25900 utanför nivåns band"
   ]
  },
  {
@@ -1284,7 +1373,7 @@
   "ord": "generat",
   "facit": "stolt",
   "skal": [
-   "OF2 generat finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -1302,7 +1391,7 @@
   "ord": "anlända",
   "facit": "resa",
   "skal": [
-   "OF1 resa är inte belagt som motsats till anlända"
+   "frekvens 13373 utanför nivåns band"
   ]
  },
  {
@@ -1311,7 +1400,7 @@
   "ord": "oviss",
   "facit": "säker",
   "skal": [
-   "OF1 säker är inte belagt som motsats till oviss"
+   "frekvens 17052 utanför nivåns band"
   ]
  },
  {
@@ -1321,6 +1410,15 @@
   "facit": "sätta",
   "skal": [
    "OF1 sätta är inte belagt som motsats till luta"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "skymning",
+  "facit": "gryning",
+  "skal": [
+   "frekvens 10168 utanför nivåns band"
   ]
  },
  {
@@ -1347,7 +1445,7 @@
   "ord": "belöna",
   "facit": "straffa",
   "skal": [
-   "OF1 straffa är inte belagt som motsats till belöna"
+   "frekvens 23733 utanför nivåns band"
   ]
  },
  {
@@ -1392,7 +1490,7 @@
   "ord": "fientlig",
   "facit": "vänlig",
   "skal": [
-   "OF1 vänlig är inte belagt som motsats till fientlig"
+   "frekvens 12918 utanför nivåns band"
   ]
  },
  {
@@ -1401,7 +1499,7 @@
   "ord": "samla",
   "facit": "sprida",
   "skal": [
-   "OF1 sprida är inte belagt som motsats till samla"
+   "granskning: hopa passar inte samla på frimärken"
   ]
  },
  {
@@ -1446,7 +1544,7 @@
   "ord": "vinst",
   "facit": "förlust",
   "skal": [
-   "OF7 vinst är redan uppslagsord"
+   "granskning: utbyte är ett svagt facit för vinst"
   ]
  },
  {
@@ -1560,6 +1658,15 @@
  {
   "niva": "grund",
   "typ": "antonym",
+  "ord": "fuktig",
+  "facit": "torr",
+  "skal": [
+   "frekvens 25900 utanför nivåns band"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
   "ord": "smal",
   "facit": "bred",
   "skal": [
@@ -1626,7 +1733,7 @@
   "ord": "vinst",
   "facit": "nederlag",
   "skal": [
-   "OF7 vinst är redan uppslagsord"
+   "granskning: utbyte är ett svagt facit för vinst"
   ]
  },
  {
@@ -1740,6 +1847,15 @@
  {
   "niva": "avancerad",
   "typ": "synonym",
+  "ord": "pålitlig",
+  "facit": "vederhäftig",
+  "skal": [
+   "granskning: vederhäftig passar inte exemplet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
   "ord": "förhindra",
   "facit": "förebygga",
   "skal": [
@@ -1779,7 +1895,7 @@
   "ord": "svårgripbar",
   "facit": "abstrakt",
   "skal": [
-   "OF1 abstrakt är inte belagt som synonym till svårgripbar"
+   "frekvens 315 utanför nivåns band"
   ]
  },
  {
@@ -1824,7 +1940,7 @@
   "ord": "bistra",
   "facit": "hårdna",
   "skal": [
-   "OF2 bistra finns inte som verb i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -1833,7 +1949,7 @@
   "ord": "vedervåga",
   "facit": "riskera",
   "skal": [
-   "OF6 vedervåga är markerat åld"
+   "frekvens 49 utanför nivåns band"
   ]
  },
  {
@@ -1842,8 +1958,7 @@
   "ord": "sporrande",
   "facit": "eggande",
   "skal": [
-   "OF2 sporrande finns inte som adjektiv i SO eller SAOL",
-   "OF2 eggande finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -1903,6 +2018,15 @@
  {
   "niva": "avancerad",
   "typ": "synonym",
+  "ord": "våda",
+  "facit": "fara",
+  "skal": [
+   "granskning: ålderdomligt, onaturligt exempel"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
   "ord": "belysa",
   "facit": "förklara",
   "skal": [
@@ -1942,7 +2066,7 @@
   "ord": "tvekabrott",
   "facit": "valkyria",
   "skal": [
-   "OF2 tvekabrott finns inte som substantiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -1969,7 +2093,7 @@
   "ord": "vedervåga",
   "facit": "riskera",
   "skal": [
-   "OF6 vedervåga är markerat åld"
+   "frekvens 49 utanför nivåns band"
   ]
  },
  {
@@ -2122,7 +2246,7 @@
   "ord": "vedervåga",
   "facit": "chansa",
   "skal": [
-   "OF6 vedervåga är markerat åld"
+   "frekvens 49 utanför nivåns band"
   ]
  },
  {
@@ -2140,7 +2264,7 @@
   "ord": "vederstygglig",
   "facit": "hemsk",
   "skal": [
-   "OF6 vederstygglig är markerat åld"
+   "frekvens 195 utanför nivåns band"
   ]
  },
  {
@@ -2177,6 +2301,15 @@
   "facit": "hämnas",
   "skal": [
    "OF6 vedergälla är markerat åld"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "varaktig",
+  "facit": "beständig",
+  "skal": [
+   "granskning: stavfel i exemplet"
   ]
  },
  {
@@ -2335,6 +2468,15 @@
  {
   "niva": "avancerad",
   "typ": "synonym",
+  "ord": "avgörande",
+  "facit": "beslut",
+  "skal": [
+   "granskning: exemplet i annan betydelse"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
   "ord": "påverka",
   "facit": "inverka",
   "skal": [
@@ -2365,7 +2507,7 @@
   "ord": "vansköta",
   "facit": "försumma",
   "skal": [
-   "OF1 försumma är inte belagt som synonym till vansköta"
+   "frekvens 196 utanför nivåns band"
   ]
  },
  {
@@ -2707,7 +2849,7 @@
   "ord": "accelererande",
   "facit": "avtagande",
   "skal": [
-   "OF2 accelererande finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -2761,7 +2903,7 @@
   "ord": "gästfri",
   "facit": "avvisande",
   "skal": [
-   "OF1 avvisande är inte belagt som motsats till gästfri"
+   "frekvens 284 utanför nivåns band"
   ]
  },
  {
@@ -2851,7 +2993,7 @@
   "ord": "anhopa",
   "facit": "sprida",
   "skal": [
-   "OF1 sprida är inte belagt som motsats till anhopa"
+   "frekvens 26 utanför nivåns band"
   ]
  },
  {
@@ -2878,7 +3020,7 @@
   "ord": "vederkvicka",
   "facit": "utmätta",
   "skal": [
-   "OF2 utmätta finns inte som verb i SO eller SAOL"
+   "frekvens 111 utanför nivåns band"
   ]
  },
  {
@@ -2887,7 +3029,7 @@
   "ord": "bejakande",
   "facit": "avvisande",
   "skal": [
-   "OF2 bejakande finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -2968,7 +3110,7 @@
   "ord": "vankelmodig",
   "facit": "målmedveten",
   "skal": [
-   "OF1 målmedveten är inte belagt som motsats till vankelmodig"
+   "frekvens 345 utanför nivåns band"
   ]
  },
  {
@@ -3040,7 +3182,7 @@
   "ord": "medgiva",
   "facit": "förneka",
   "skal": [
-   "OF2 medgiva finns inte som verb i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -3049,8 +3191,7 @@
   "ord": "sammanställd",
   "facit": "uppdelad",
   "skal": [
-   "OF2 sammanställd finns inte som adjektiv i SO eller SAOL",
-   "OF2 uppdelad finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -3194,7 +3335,7 @@
   "ord": "sammandraga",
   "facit": "sprida",
   "skal": [
-   "OF2 sammandraga finns inte som verb i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -3221,7 +3362,7 @@
   "ord": "tillfyllest",
   "facit": "klen",
   "skal": [
-   "OF2 tillfyllest finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -3230,7 +3371,7 @@
   "ord": "genomskådlig",
   "facit": "oklar",
   "skal": [
-   "OF1 oklar är inte belagt som motsats till genomskådlig"
+   "frekvens 65 utanför nivåns band"
   ]
  },
  {
@@ -3239,7 +3380,7 @@
   "ord": "motsättningsfull",
   "facit": "enig",
   "skal": [
-   "OF2 motsättningsfull finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -3419,7 +3560,7 @@
   "ord": "pålitlig",
   "facit": "falsk",
   "skal": [
-   "OF1 falsk är inte belagt som motsats till pålitlig"
+   "granskning: vederhäftig passar inte exemplet"
   ]
  },
  {
@@ -3500,7 +3641,7 @@
   "ord": "varaktig",
   "facit": "kort",
   "skal": [
-   "OF1 kort är inte belagt som motsats till varaktig"
+   "granskning: stavfel i exemplet"
   ]
  },
  {
@@ -3626,7 +3767,7 @@
   "ord": "expansionsfas",
   "facit": "tillbakagång",
   "skal": [
-   "OF2 expansionsfas finns inte som substantiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -3653,7 +3794,7 @@
   "ord": "korrumpera",
   "facit": "förädla",
   "skal": [
-   "OF1 förädla är inte belagt som motsats till korrumpera"
+   "granskning: exemplet i annan betydelse"
   ]
  },
  {
@@ -3743,7 +3884,7 @@
   "ord": "korrosiv",
   "facit": "bevarande",
   "skal": [
-   "OF2 bevarande finns inte som adjektiv i SO eller SAOL"
+   "frekvens 158 utanför nivåns band"
   ]
  },
  {
@@ -3824,7 +3965,7 @@
   "ord": "mottaga",
   "facit": "avsända",
   "skal": [
-   "OF2 mottaga finns inte som verb i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -4076,7 +4217,7 @@
   "ord": "redbar",
   "facit": "otillförlitlig",
   "skal": [
-   "OF6 redbar är markerat åld"
+   "frekvens 484 utanför nivåns band"
   ]
  },
  {
@@ -4220,7 +4361,7 @@
   "ord": "perifer",
   "facit": "central",
   "skal": [
-   "OF1 central är inte belagt som motsats till perifer"
+   "granskning: exemplet i annan betydelse"
   ]
  },
  {
@@ -4229,7 +4370,7 @@
   "ord": "lakonisk",
   "facit": "mångordig",
   "skal": [
-   "OF1 mångordig är inte belagt som motsats till lakonisk"
+   "granskning: kongruensfel i exemplet"
   ]
  },
  {
@@ -4238,7 +4379,7 @@
   "ord": "kverulera",
   "facit": "berömma",
   "skal": [
-   "OF6 kverulera är markerat åld"
+   "frekvens 366 utanför nivåns band"
   ]
  },
  {
@@ -4247,7 +4388,7 @@
   "ord": "tadel",
   "facit": "beröm",
   "skal": [
-   "OF6 tadel är markerat åld"
+   "frekvens 258 utanför nivåns band"
   ]
  },
  {
@@ -4256,7 +4397,7 @@
   "ord": "impertinent",
   "facit": "hövlig",
   "skal": [
-   "OF1 hövlig är inte belagt som motsats till impertinent"
+   "granskning: kongruensfel i exemplet"
   ]
  },
  {
@@ -4301,7 +4442,7 @@
   "ord": "impertinent",
   "facit": "vördnadsfull",
   "skal": [
-   "OF1 vördnadsfull är inte belagt som motsats till impertinent"
+   "granskning: kongruensfel i exemplet"
   ]
  },
  {
@@ -4310,7 +4451,7 @@
   "ord": "kverulera",
   "facit": "berömma",
   "skal": [
-   "OF6 kverulera är markerat åld"
+   "frekvens 366 utanför nivåns band"
   ]
  },
  {
@@ -4319,7 +4460,7 @@
   "ord": "konciliant",
   "facit": "avvisande",
   "skal": [
-   "OF6 konciliant är markerat åld"
+   "frekvens 46 utanför nivåns band"
   ]
  },
  {
@@ -4328,7 +4469,7 @@
   "ord": "lakonisk",
   "facit": "mångordig",
   "skal": [
-   "OF1 mångordig är inte belagt som motsats till lakonisk"
+   "granskning: kongruensfel i exemplet"
   ]
  },
  {
@@ -4346,7 +4487,7 @@
   "ord": "skrupulös",
   "facit": "hänsynslös",
   "skal": [
-   "OF1 hänsynslös är inte belagt som motsats till skrupulös"
+   "frekvens 153 utanför nivåns band"
   ]
  },
  {
@@ -4418,7 +4559,7 @@
   "ord": "symptomatisk",
   "facit": "otypisk",
   "skal": [
-   "OF2 symptomatisk finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -4445,7 +4586,7 @@
   "ord": "anpasslig",
   "facit": "oböjlig",
   "skal": [
-   "OF6 anpasslig är markerat nedsätt"
+   "frekvens 272 utanför nivåns band"
   ]
  },
  {
@@ -4454,7 +4595,7 @@
   "ord": "indolent",
   "facit": "energisk",
   "skal": [
-   "OF1 energisk är inte belagt som motsats till indolent"
+   "frekvens 306 utanför nivåns band"
   ]
  },
  {
@@ -4463,7 +4604,7 @@
   "ord": "renegat",
   "facit": "anhängare",
   "skal": [
-   "OF6 renegat är markerat nedsätt, åld"
+   "frekvens 92 utanför nivåns band"
   ]
  },
  {
@@ -4490,8 +4631,7 @@
   "ord": "insinuerad",
   "facit": "uttryckt",
   "skal": [
-   "OF2 insinuerad finns inte som adjektiv i SO eller SAOL",
-   "OF2 uttryckt finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -4572,7 +4712,7 @@
   "ord": "mottaga",
   "facit": "avsända",
   "skal": [
-   "OF2 mottaga finns inte som verb i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -4626,7 +4766,7 @@
   "ord": "redbar",
   "facit": "opålitlig",
   "skal": [
-   "OF6 redbar är markerat åld"
+   "frekvens 484 utanför nivåns band"
   ]
  },
  {
@@ -4707,7 +4847,7 @@
   "ord": "perifer",
   "facit": "central",
   "skal": [
-   "OF1 central är inte belagt som motsats till perifer"
+   "granskning: exemplet i annan betydelse"
   ]
  },
  {
@@ -4752,7 +4892,7 @@
   "ord": "dogmatisk",
   "facit": "öppen",
   "skal": [
-   "OF1 öppen är inte belagt som motsats till dogmatisk"
+   "granskning: svagt facit och svag distraktor"
   ]
  },
  {
@@ -4851,7 +4991,7 @@
   "ord": "pålitlig",
   "facit": "sviklig",
   "skal": [
-   "OF1 sviklig är inte belagt som motsats till pålitlig"
+   "granskning: vederhäftig passar inte exemplet"
   ]
  },
  {
@@ -4995,7 +5135,7 @@
   "ord": "varaktig",
   "facit": "tillfällig",
   "skal": [
-   "OF7 varaktig är redan uppslagsord"
+   "granskning: stavfel i exemplet"
   ]
  },
  {
@@ -5031,7 +5171,7 @@
   "ord": "konciliant",
   "facit": "tillmötesgående",
   "skal": [
-   "OF6 konciliant är markerat åld"
+   "frekvens 46 utanför nivåns band"
   ]
  },
  {
@@ -5068,6 +5208,15 @@
   "facit": "underförstådd",
   "skal": [
    "OF2 underförstådd finns inte som adjektiv i SO eller SAOL"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "dogmatisk",
+  "facit": "tvärsäker",
+  "skal": [
+   "granskning: svagt facit och svag distraktor"
   ]
  },
  {
@@ -5166,8 +5315,7 @@
   "ord": "symptomatisk",
   "facit": "kännetecknande",
   "skal": [
-   "OF2 symptomatisk finns inte som adjektiv i SO eller SAOL",
-   "OF2 kännetecknande finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -5221,8 +5369,7 @@
   "ord": "tribulation",
   "facit": "beprövelse",
   "skal": [
-   "OF2 tribulation finns inte som substantiv i SO eller SAOL",
-   "OF2 beprövelse finns inte som substantiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -5304,8 +5451,7 @@
   "ord": "insinuerad",
   "facit": "antydd",
   "skal": [
-   "OF2 insinuerad finns inte som adjektiv i SO eller SAOL",
-   "OF2 antydd finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -5324,6 +5470,15 @@
   "facit": "laglöshet",
   "skal": [
    "OF7 anarki är redan uppslagsord"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "korrumpera",
+  "facit": "muta",
+  "skal": [
+   "granskning: exemplet i annan betydelse"
   ]
  },
  {
@@ -5377,7 +5532,7 @@
   "ord": "explikera",
   "facit": "förklara",
   "skal": [
-   "OF2 explikera finns inte som verb i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -5404,7 +5559,7 @@
   "ord": "apercipiera",
   "facit": "uppfatta",
   "skal": [
-   "OF2 apercipiera finns inte som verb i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -5422,7 +5577,7 @@
   "ord": "kristalliseras",
   "facit": "klarna",
   "skal": [
-   "OF2 kristalliseras finns inte som verb i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -5440,7 +5595,16 @@
   "ord": "adherera",
   "facit": "vidhäfta",
   "skal": [
-   "OF2 adherera finns inte som verb i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "skruda",
+  "facit": "klä",
+  "skal": [
+   "granskning: för arkaiskt"
   ]
  },
  {
@@ -5455,6 +5619,15 @@
  {
   "niva": "expert",
   "typ": "synonym",
+  "ord": "obskyr",
+  "facit": "skum",
+  "skal": [
+   "granskning: kongruensfel i exemplet"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
   "ord": "blamera",
   "facit": "skämma",
   "skal": [
@@ -5464,10 +5637,19 @@
  {
   "niva": "expert",
   "typ": "synonym",
+  "ord": "perifer",
+  "facit": "yttre",
+  "skal": [
+   "granskning: exemplet i annan betydelse"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
   "ord": "prekursor",
   "facit": "föregångare",
   "skal": [
-   "OF2 prekursor finns inte som substantiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -5477,6 +5659,15 @@
   "facit": "smutsa",
   "skal": [
    "OF1 smutsa är inte belagt som synonym till kontaminera"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "lakonisk",
+  "facit": "fåordig",
+  "skal": [
+   "granskning: kongruensfel i exemplet"
   ]
  },
  {
@@ -5584,7 +5775,7 @@
   "ord": "sedat",
   "facit": "satt",
   "skal": [
-   "OF2 sedat finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -5603,6 +5794,24 @@
   "facit": "uppfostra",
   "skal": [
    "OF5 facit har samma stam som ordet"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "impertinent",
+  "facit": "näsvis",
+  "skal": [
+   "granskning: kongruensfel i exemplet"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "avog",
+  "facit": "fientlig",
+  "skal": [
+   "granskning: fel i exemplet"
   ]
  },
  {
@@ -5638,7 +5847,7 @@
   "ord": "fata",
   "facit": "gripa",
   "skal": [
-   "OF2 fata finns inte som verb i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -5683,7 +5892,7 @@
   "ord": "hänsyn",
   "facit": "respekt",
   "skal": [
-   "OF1 respekt är inte belagt som synonym till hänsyn"
+   "frekvens 1067325 utanför nivåns band"
   ]
  },
  {
@@ -5728,7 +5937,7 @@
   "ord": "kundgöra",
   "facit": "meddela",
   "skal": [
-   "OF2 kundgöra finns inte som verb i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -5755,7 +5964,7 @@
   "ord": "ogridbar",
   "facit": "otillgänglig",
   "skal": [
-   "OF2 ogridbar finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -5773,7 +5982,7 @@
   "ord": "påverka",
   "facit": "inverka",
   "skal": [
-   "OF1 inverka är inte belagt som synonym till påverka"
+   "frekvens 650158 utanför nivåns band"
   ]
  },
  {
@@ -5863,7 +6072,7 @@
   "ord": "kolludera",
   "facit": "samverka",
   "skal": [
-   "OF2 kolludera finns inte som verb i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -5872,7 +6081,7 @@
   "ord": "insidiös",
   "facit": "förrädisk",
   "skal": [
-   "OF1 förrädisk är inte belagt som synonym till insidiös"
+   "frekvens 6 utanför nivåns band"
   ]
  },
  {
@@ -5908,7 +6117,7 @@
   "ord": "lakonisk",
   "facit": "kortfattad",
   "skal": [
-   "OF7 lakonisk är redan uppslagsord"
+   "granskning: kongruensfel i exemplet"
   ]
  },
  {
@@ -5926,7 +6135,7 @@
   "ord": "perifer",
   "facit": "oväsentlig",
   "skal": [
-   "OF7 perifer är redan uppslagsord"
+   "granskning: exemplet i annan betydelse"
   ]
  },
  {
@@ -5935,7 +6144,7 @@
   "ord": "vedervåga",
   "facit": "riskera",
   "skal": [
-   "OF6 vedervåga är markerat åld"
+   "frekvens 49 utanför nivåns band"
   ]
  },
  {
@@ -5962,7 +6171,7 @@
   "ord": "impertinent",
   "facit": "näsvis",
   "skal": [
-   "OF7 impertinent är redan uppslagsord"
+   "granskning: kongruensfel i exemplet"
   ]
  },
  {
@@ -5971,7 +6180,7 @@
   "ord": "sedat",
   "facit": "stilla",
   "skal": [
-   "OF2 sedat finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -6043,7 +6252,7 @@
   "ord": "fata",
   "facit": "gripa",
   "skal": [
-   "OF2 fata finns inte som verb i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -6088,7 +6297,7 @@
   "ord": "obskyr",
   "facit": "dunkel",
   "skal": [
-   "OF7 obskyr är redan uppslagsord"
+   "granskning: kongruensfel i exemplet"
   ]
  },
  {
@@ -6106,8 +6315,7 @@
   "ord": "adherera",
   "facit": "vidlåta",
   "skal": [
-   "OF2 adherera finns inte som verb i SO eller SAOL",
-   "OF2 vidlåta finns inte som verb i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -6116,7 +6324,7 @@
   "ord": "sedat",
   "facit": "stillsam",
   "skal": [
-   "OF2 sedat finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -6161,7 +6369,7 @@
   "ord": "prekursor",
   "facit": "föregångare",
   "skal": [
-   "OF2 prekursor finns inte som substantiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -6215,7 +6423,7 @@
   "ord": "avog",
   "facit": "fientlig",
   "skal": [
-   "OF7 avog är redan uppslagsord"
+   "granskning: fel i exemplet"
   ]
  },
  {
@@ -6305,7 +6513,7 @@
   "ord": "kundgöra",
   "facit": "utlysa",
   "skal": [
-   "OF2 kundgöra finns inte som verb i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -6342,6 +6550,15 @@
   "facit": "otidsenlig",
   "skal": [
    "OF1 otidsenlig är inte belagt som synonym till anakronistisk"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
+  "ord": "bilaga",
+  "facit": "tillägg",
+  "skal": [
+   "granskning: grundord på expert"
   ]
  },
  {
@@ -6401,6 +6618,15 @@
  {
   "niva": "expert",
   "typ": "synonym",
+  "ord": "fasonera",
+  "facit": "forma",
+  "skal": [
+   "granskning: för ovanligt, bearbeta lika försvarbart"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "synonym",
   "ord": "fluktuation",
   "facit": "svängning",
   "skal": [
@@ -6413,7 +6639,7 @@
   "ord": "förebära",
   "facit": "invända",
   "skal": [
-   "OF1 invända är inte belagt som synonym till förebära"
+   "frekvens 44 utanför nivåns band"
   ]
  },
  {
@@ -6431,7 +6657,7 @@
   "ord": "förpliktigande",
   "facit": "bindande",
   "skal": [
-   "OF2 förpliktigande finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -6449,7 +6675,7 @@
   "ord": "ikonoklastisk",
   "facit": "radikal",
   "skal": [
-   "OF2 ikonoklastisk finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -6476,7 +6702,7 @@
   "ord": "preskriberad",
   "facit": "förfallen",
   "skal": [
-   "OF2 preskriberad finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -6602,8 +6828,7 @@
   "ord": "inkompensabel",
   "facit": "ersättningsbar",
   "skal": [
-   "OF2 inkompensabel finns inte som adjektiv i SO eller SAOL",
-   "OF2 ersättningsbar finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -6648,7 +6873,7 @@
   "ord": "lakonisk",
   "facit": "mångordig",
   "skal": [
-   "OF1 mångordig är inte belagt som motsats till lakonisk"
+   "granskning: kongruensfel i exemplet"
   ]
  },
  {
@@ -6702,7 +6927,7 @@
   "ord": "sedat",
   "facit": "livlig",
   "skal": [
-   "OF2 sedat finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -6729,7 +6954,7 @@
   "ord": "dogmatisk",
   "facit": "frisinnad",
   "skal": [
-   "OF6 frisinnad är markerat åld"
+   "granskning: svagt facit och svag distraktor"
   ]
  },
  {
@@ -6738,7 +6963,7 @@
   "ord": "impertinent",
   "facit": "hövlig",
   "skal": [
-   "OF1 hövlig är inte belagt som motsats till impertinent"
+   "granskning: kongruensfel i exemplet"
   ]
  },
  {
@@ -6927,7 +7152,7 @@
   "ord": "dogmatisk",
   "facit": "lyhörd",
   "skal": [
-   "OF1 lyhörd är inte belagt som motsats till dogmatisk"
+   "granskning: svagt facit och svag distraktor"
   ]
  },
  {
@@ -7044,8 +7269,7 @@
   "ord": "insinuerad",
   "facit": "uttryckt",
   "skal": [
-   "OF2 insinuerad finns inte som adjektiv i SO eller SAOL",
-   "OF2 uttryckt finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -7054,7 +7278,7 @@
   "ord": "obskyr",
   "facit": "berömd",
   "skal": [
-   "OF1 berömd är inte belagt som motsats till obskyr"
+   "granskning: kongruensfel i exemplet"
   ]
  },
  {
@@ -7063,7 +7287,7 @@
   "ord": "lakonisk",
   "facit": "ordrik",
   "skal": [
-   "OF1 ordrik är inte belagt som motsats till lakonisk"
+   "granskning: kongruensfel i exemplet"
   ]
  },
  {
@@ -7081,7 +7305,7 @@
   "ord": "impertinent",
   "facit": "höflig",
   "skal": [
-   "OF2 höflig finns inte som adjektiv i SO eller SAOL"
+   "granskning: kongruensfel i exemplet"
   ]
  },
  {
@@ -7135,7 +7359,7 @@
   "ord": "dogmatisk",
   "facit": "öppen",
   "skal": [
-   "OF1 öppen är inte belagt som motsats till dogmatisk"
+   "granskning: svagt facit och svag distraktor"
   ]
  },
  {
@@ -7162,7 +7386,7 @@
   "ord": "sykofant",
   "facit": "kritiker",
   "skal": [
-   "OF6 sykofant är markerat åld"
+   "frekvens 42 utanför nivåns band"
   ]
  },
  {
@@ -7225,7 +7449,7 @@
   "ord": "insidiös",
   "facit": "ärlig",
   "skal": [
-   "OF1 ärlig är inte belagt som motsats till insidiös"
+   "frekvens 6 utanför nivåns band"
   ]
  },
  {
@@ -7261,7 +7485,7 @@
   "ord": "konciliant",
   "facit": "oförsonlig",
   "skal": [
-   "OF6 konciliant är markerat åld"
+   "frekvens 46 utanför nivåns band"
   ]
  },
  {
@@ -7324,7 +7548,7 @@
   "ord": "dogmatisk",
   "facit": "pragmatisk",
   "skal": [
-   "OF7 dogmatisk är redan uppslagsord"
+   "granskning: svagt facit och svag distraktor"
   ]
  },
  {
@@ -7504,7 +7728,7 @@
   "ord": "lakonisk",
   "facit": "mångordig",
   "skal": [
-   "OF1 mångordig är inte belagt som motsats till lakonisk"
+   "granskning: kongruensfel i exemplet"
   ]
  },
  {
@@ -7513,7 +7737,7 @@
   "ord": "sedat",
   "facit": "livfull",
   "skal": [
-   "OF2 sedat finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -7522,7 +7746,7 @@
   "ord": "impertinent",
   "facit": "hänsynsfull",
   "skal": [
-   "OF1 hänsynsfull är inte belagt som motsats till impertinent"
+   "granskning: kongruensfel i exemplet"
   ]
  },
  {
@@ -7540,7 +7764,7 @@
   "ord": "konciliant",
   "facit": "stridslysten",
   "skal": [
-   "OF6 konciliant är markerat åld"
+   "frekvens 46 utanför nivåns band"
   ]
  },
  {
@@ -7567,7 +7791,7 @@
   "ord": "lakonisk",
   "facit": "mångordig",
   "skal": [
-   "OF1 mångordig är inte belagt som motsats till lakonisk"
+   "granskning: kongruensfel i exemplet"
   ]
  },
  {
@@ -7585,7 +7809,7 @@
   "ord": "impertinent",
   "facit": "hövlig",
   "skal": [
-   "OF1 hövlig är inte belagt som motsats till impertinent"
+   "granskning: kongruensfel i exemplet"
   ]
  },
  {
@@ -7729,7 +7953,7 @@
   "ord": "dogmatisk",
   "facit": "lyhörd",
   "skal": [
-   "OF1 lyhörd är inte belagt som motsats till dogmatisk"
+   "granskning: svagt facit och svag distraktor"
   ]
  },
  {
@@ -7819,7 +8043,7 @@
   "ord": "kapriös",
   "facit": "pålitlig",
   "skal": [
-   "OF2 kapriös finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -7828,7 +8052,7 @@
   "ord": "konnivera",
   "facit": "ingripa",
   "skal": [
-   "OF2 konnivera finns inte som verb i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -7846,7 +8070,7 @@
   "ord": "promsk",
   "facit": "långsam",
   "skal": [
-   "OF2 promsk finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -7915,6 +8139,15 @@
  {
   "niva": "expert",
   "typ": "antonym",
+  "ord": "ekonomisk",
+  "facit": "slösaktig",
+  "skal": [
+   "frekvens 516746 utanför nivåns band"
+  ]
+ },
+ {
+  "niva": "expert",
+  "typ": "antonym",
   "ord": "avsky",
   "facit": "beundran",
   "skal": [
@@ -7936,7 +8169,7 @@
   "ord": "vedervåga",
   "facit": "skydda",
   "skal": [
-   "OF6 vedervåga är markerat åld"
+   "frekvens 49 utanför nivåns band"
   ]
  },
  {
@@ -7981,7 +8214,7 @@
   "ord": "insidiös",
   "facit": "öppen",
   "skal": [
-   "OF1 öppen är inte belagt som motsats till insidiös"
+   "frekvens 6 utanför nivåns band"
   ]
  },
  {
@@ -8053,7 +8286,7 @@
   "ord": "konciliant",
   "facit": "oförsonlig",
   "skal": [
-   "OF6 konciliant är markerat åld"
+   "frekvens 46 utanför nivåns band"
   ]
  },
  {
@@ -8098,7 +8331,7 @@
   "ord": "obskyr",
   "facit": "välkänd",
   "skal": [
-   "OF1 välkänd är inte belagt som motsats till obskyr"
+   "granskning: kongruensfel i exemplet"
   ]
  },
  {
@@ -8116,7 +8349,7 @@
   "ord": "sedat",
   "facit": "hetsig",
   "skal": [
-   "OF2 sedat finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -8125,7 +8358,7 @@
   "ord": "avog",
   "facit": "välvillig",
   "skal": [
-   "OF1 välvillig är inte belagt som motsats till avog"
+   "granskning: fel i exemplet"
   ]
  },
  {
@@ -8152,7 +8385,7 @@
   "ord": "sykofant",
   "facit": "kritiker",
   "skal": [
-   "OF6 sykofant är markerat åld"
+   "frekvens 42 utanför nivåns band"
   ]
  },
  {
@@ -8170,7 +8403,7 @@
   "ord": "insidiös",
   "facit": "öppen",
   "skal": [
-   "OF1 öppen är inte belagt som motsats till insidiös"
+   "frekvens 6 utanför nivåns band"
   ]
  },
  {
@@ -8287,7 +8520,7 @@
   "ord": "kapriös",
   "facit": "pålitlig",
   "skal": [
-   "OF2 kapriös finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -8296,7 +8529,7 @@
   "ord": "promsk",
   "facit": "långsam",
   "skal": [
-   "OF2 promsk finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -8323,7 +8556,7 @@
   "ord": "konnivenens",
   "facit": "motstånd",
   "skal": [
-   "OF2 konnivenens finns inte som substantiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -8332,8 +8565,7 @@
   "ord": "obskurantisk",
   "facit": "upplysande",
   "skal": [
-   "OF2 obskurantisk finns inte som adjektiv i SO eller SAOL",
-   "OF2 upplysande finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -8342,7 +8574,7 @@
   "ord": "sykofantisk",
   "facit": "rakryggad",
   "skal": [
-   "OF2 sykofantisk finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -8387,7 +8619,7 @@
   "ord": "apercipiera",
   "facit": "förbise",
   "skal": [
-   "OF2 apercipiera finns inte som verb i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -8396,7 +8628,7 @@
   "ord": "insidiös",
   "facit": "uppriktig",
   "skal": [
-   "OF1 uppriktig är inte belagt som motsats till insidiös"
+   "frekvens 6 utanför nivåns band"
   ]
  },
  {
@@ -8405,7 +8637,7 @@
   "ord": "interfoliera",
   "facit": "avskilja",
   "skal": [
-   "OF1 avskilja är inte belagt som motsats till interfoliera"
+   "frekvens 43 utanför nivåns band"
   ]
  },
  {
@@ -8441,7 +8673,7 @@
   "ord": "prekursor",
   "facit": "efterföljare",
   "skal": [
-   "OF2 prekursor finns inte som substantiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -8459,7 +8691,7 @@
   "ord": "adherera",
   "facit": "lossna",
   "skal": [
-   "OF2 adherera finns inte som verb i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -8468,8 +8700,7 @@
   "ord": "kristalliseras",
   "facit": "upplösas",
   "skal": [
-   "OF2 kristalliseras finns inte som verb i SO eller SAOL",
-   "OF2 upplösas finns inte som verb i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -8487,7 +8718,7 @@
   "ord": "skruda",
   "facit": "avkläda",
   "skal": [
-   "OF1 avkläda är inte belagt som motsats till skruda"
+   "granskning: för arkaiskt"
   ]
  },
  {
@@ -8550,7 +8781,7 @@
   "ord": "promsk",
   "facit": "långsam",
   "skal": [
-   "OF2 promsk finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -8568,7 +8799,7 @@
   "ord": "inkompensabel",
   "facit": "ersättlig",
   "skal": [
-   "OF2 inkompensabel finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -8811,7 +9042,7 @@
   "ord": "kapriös",
   "facit": "pålitlig",
   "skal": [
-   "OF2 kapriös finns inte som adjektiv i SO eller SAOL"
+   "frekvens 0 utanför nivåns band"
   ]
  },
  {
@@ -9090,7 +9321,7 @@
   "ord": "dogmatisk",
   "facit": "öppen",
   "skal": [
-   "OF1 öppen är inte belagt som motsats till dogmatisk"
+   "granskning: svagt facit och svag distraktor"
   ]
  },
  {
@@ -9127,6 +9358,96 @@
   "facit": "förvirrad",
   "skal": [
    "OF1 förvirrad är inte belagt som motsats till redig"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "synonym",
+  "ord": "lätt",
+  "facit": "enkel",
+  "skal": [
+   "spegelpar: samma ordpar finns redan åt andra hållet"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "ljus",
+  "facit": "mörk",
+  "skal": [
+   "spegelpar: samma ordpar finns redan åt andra hållet"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "öka",
+  "facit": "minska",
+  "skal": [
+   "spegelpar: samma ordpar finns redan åt andra hållet"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "vinna",
+  "facit": "förlora",
+  "skal": [
+   "spegelpar: samma ordpar finns redan åt andra hållet"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "köpa",
+  "facit": "sälja",
+  "skal": [
+   "spegelpar: samma ordpar finns redan åt andra hållet"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "höja",
+  "facit": "sänka",
+  "skal": [
+   "spegelpar: samma ordpar finns redan åt andra hållet"
+  ]
+ },
+ {
+  "niva": "grund",
+  "typ": "antonym",
+  "ord": "öppna",
+  "facit": "stänga",
+  "skal": [
+   "spegelpar: samma ordpar finns redan åt andra hållet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "synonym",
+  "ord": "slumpmässig",
+  "facit": "godtycklig",
+  "skal": [
+   "spegelpar: samma ordpar finns redan åt andra hållet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "defensiv",
+  "facit": "offensiv",
+  "skal": [
+   "spegelpar: samma ordpar finns redan åt andra hållet"
+  ]
+ },
+ {
+  "niva": "avancerad",
+  "typ": "antonym",
+  "ord": "destruktiv",
+  "facit": "konstruktiv",
+  "skal": [
+   "spegelpar: samma ordpar finns redan åt andra hållet"
   ]
  }
 ]

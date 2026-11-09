@@ -34,6 +34,10 @@ const MAX_PER = 60;
 const torr = process.argv.includes('--torr');
 /** Minsta popularitet i SO för ett ord som fylls i som distraktor, per nivå. */
 const POOL_MINST = { grund: 40000, avancerad: 5000, expert: 0 };
+/** Testansvarigs granskning (struk, förbjudna alternativ). */
+const GRANSKNING = JSON.parse(readFileSync('src/lib/ordforradV1/kandidater/granskning-2026-11-09.json', 'utf8'));
+/** Uppslagsordets frekvensband i SO (popularitet): grund vanliga ord, expert inga grundord och inga nästan okända. */
+const BAND = { grund: [30000, Infinity], avancerad: [500, Infinity], expert: [50, 300000] };
 const KORT = { grund: 'g', avancerad: 'a', expert: 'e', synonym: 's', antonym: 'm' };
 
 const stor = (t) => t[0].toUpperCase() + t.slice(1);
@@ -76,9 +80,13 @@ async function provaKarna(k) {
   if (!rent(ord) || !rent(facit)) return { skal: ['flerordsuttryck eller tecken i ord eller facit'] };
   if (facit.length > 16) return { skal: ['facit har fler än 16 bokstäver (ryms inte på en rad)'] };
   if (ord === facit || prefix(ord, facit) >= 5 || ord.includes(facit) || facit.includes(ord)) return { skal: ['OF5 facit har samma stam som ordet'] };
+  if (GRANSKNING.struk[ord]) return { skal: [`granskning: ${GRANSKNING.struk[ord]}`] };
   const O = await info(ord);
   const F = await info(facit);
   const skal = [];
+  const pop = Math.max(0, ...iKlass(O, klass).map((e) => e.pop));
+  const [lo, hi] = BAND[k.niva];
+  if (pop < lo || pop > hi) return { skal: [`frekvens ${pop} utanför nivåns band`] };
   for (const [w, I] of [[ord, O], [facit, F]]) {
     if (!finns(I, klass)) skal.push(`OF2 ${w} finns inte som ${klass} i SO eller SAOL`);
     else if (stil(I, klass).length) skal.push(`OF6 ${w} är markerat ${stil(I, klass).join(', ')}`);
@@ -119,9 +127,13 @@ async function provaDistraktor(k, karna, d, typ) {
   const { ord, facit, klass, O, F } = karna;
   if (!rent(d)) return 'tecken';
   if (d === ord || d === facit) return 'dubblett';
+  if (GRANSKNING.forbjudna_overallt.includes(d) || (GRANSKNING.forbjudna_alternativ[ord] ?? []).includes(d)) return `granskning: ${d} förbjuden`;
   const D = await info(d);
   if (!finns(D, klass)) return `OF2 ${d} finns inte som ${klass}`;
   if (stil(D, klass).length) return `OF6 ${d} är stilmarkerat`;
+  if (!iKlass(D, klass).some((e) => e.definitioner.length)) return `${d} saknar definition i SO och SAOL (ingen misstagstext)`;
+  // OF8: på grund får ingen distraktor vara motsatsen, inte ens otypad (granskningen 2026-11-09)
+  if (k.niva === 'grund' && k.typ === 'synonym' && relaterade(O, D, ord, d, 'antonym', klass)) return `OF8 ${d} är motsatsen till ${ord}`;
   const r1 = relaterade(O, D, ord, d, k.typ, klass);
   if (r1) return `OF1 ${d} kan försvaras som rätt (${r1})`;
   if (k.typ === 'antonym' && typ !== 'synonym') {
@@ -140,6 +152,12 @@ const definition = async (w, klass) => {
   const I = await info(w);
   const e = iKlass(I, klass).find((x) => x.kalla === 'SO' && x.definitioner.length) ?? iKlass(I, klass).find((x) => x.definitioner.length);
   return e?.definitioner[0] ?? null;
+};
+/** "betyder" eller "betyder bland annat" när SO har flera huvudbetydelser (granskningen: fel betydelse i misstagstexten). */
+const betyder = async (w, klass) => {
+  const I = await info(w);
+  const e = iKlass(I, klass).find((x) => x.kalla === 'SO' && x.definitioner.length) ?? iKlass(I, klass).find((x) => x.definitioner.length);
+  return e && e.definitioner.length > 1 ? 'betyder bland annat' : 'betyder';
 };
 
 // --------------------------------------------------------------- körning
@@ -262,13 +280,15 @@ for (const k of kand) {
   // misstagstexter ur SO
   const misstag = [];
   for (const d of valda) {
-    const def = (await definition(d.ord, karna.klass)) ?? d.forklaring;
-    if (d.typ === 'antonym') misstag.push(`Det är motsatsen. ${stor(d.ord)} betyder ${def}.`);
+    const def = await definition(d.ord, karna.klass);
+    const bet = await betyder(d.ord, karna.klass);
+    if (d.typ === 'antonym') misstag.push(`Det är motsatsen. ${stor(d.ord)} ${bet} ${def}.`);
     else if (d.typ === 'synonym') misstag.push(`${stor(d.ord)} betyder ungefär detsamma som ${karna.ord}, inte motsatsen.`);
-    else if (d.typ === 'falsk_van') misstag.push(`${stor(d.ord)} liknar ${karna.ord} till ljudet men betyder ${def}.`);
-    else misstag.push(`${stor(d.ord)} betyder ${def}.`);
+    else if (d.typ === 'falsk_van') misstag.push(`${stor(d.ord)} liknar ${karna.ord} till ljudet men ${bet} ${def}.`);
+    else misstag.push(`${stor(d.ord)} ${bet} ${def}.`);
   }
-  const exempel = (k.exempel ?? '').trim();
+  const exempel0 = (k.exempel ?? '').trim();
+  const exempel = exempel0 ? exempel0[0].toUpperCase() + exempel0.slice(1) : '';
   if (misstag.some((m) => tankstreck.test(m)) || tankstreck.test(exempel) || !exempel.toLowerCase().includes(karna.ord.slice(0, Math.max(4, karna.ord.length - 2)))) {
     avvisade.push({ niva: k.niva, typ: k.typ, ord: k.ord, facit: k.facit, skal: ['exempelmeningen saknar ordet eller texten har tankstreck'] });
     continue;
@@ -306,7 +326,18 @@ for (const k of kand) {
 
 // OF1 (banknivå): ingen distraktor är facit till samma ord i en annan uppgift
 const par = new Set(godkanda.map((u) => `${u.typ}:${[u.ord, u.facit].sort().join('|')}`));
-const bank = Object.fromEntries(NIVAER.map((n) => [n, godkanda.filter((u) => u.niva === n && !u.dist.some((d) => par.has(`${u.typ}:${[u.ord, d.ord].sort().join('|')}`)))]));
+// spegelpar (mörk och ljus, ljus och mörk): samma par får bara finnas en gång i hela banken
+const settaPar = new Set();
+const utanSpegel = godkanda.filter((u) => {
+  const n = [u.ord, u.facit].sort().join('|');
+  if (settaPar.has(n)) {
+    avvisade.push({ niva: u.niva, typ: u.typ, ord: u.ord, facit: u.facit, skal: ['spegelpar: samma ordpar finns redan åt andra hållet'] });
+    return false;
+  }
+  settaPar.add(n);
+  return true;
+});
+const bank = Object.fromEntries(NIVAER.map((n) => [n, utanSpegel.filter((u) => u.niva === n && !u.dist.some((d) => par.has(`${u.typ}:${[u.ord, d.ord].sort().join('|')}`)))]));
 
 // ordning, id och OF4 andra delen (facit ensamt längst eller kortast i högst 25 procent)
 const ut = {};
