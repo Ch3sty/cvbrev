@@ -56,6 +56,24 @@
    "rubrik": "h2#tarningar-samma-tarning-eller-inte Tärningar: samma tärning eller inte?",
    "datum": "2026-11-10",
    "skal": "SEO-plan nya tester (U1): nytt avsnitt med en löst egen uppgift i SpatialSvg. Befintliga rubriker orörda."
+  },
+  {
+   "path": "/artiklar/aon-cut-e-test",
+   "rubrik": "h2#aon-testet-for-lokforare Aon-testet för lokförare",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester (U6): ärligt avsnitt om vad vi har och inte har för lokförartestet. Befintliga rubriker orörda."
+  },
+  {
+   "path": "/artiklar/arbetspsykologiska-tester",
+   "rubrik": "h3#talserier Talserier",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester (U7): navet får en löst uppgift per ny typ."
+  },
+  {
+   "path": "/artiklar/arbetspsykologiska-tester",
+   "rubrik": "h3#ordforstaelse Ordförståelse",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester (U7): navet får en löst uppgift per ny typ."
   }
  ],
  "META_BYTT": [
@@ -70,6 +88,18 @@
    "falt": "description",
    "datum": "2026-11-10",
    "skal": "SEO-plan nya tester (U1): description med spatial förmåga test tidigt och de lösta uppgifterna."
+  },
+  {
+   "path": "/verktyg/rekryteringstester",
+   "falt": "title",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester (U2): title med fler testtyper och I-provet."
+  },
+  {
+   "path": "/verktyg/rekryteringstester",
+   "falt": "description",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester (U2): description med de nya testtyperna och I-provet."
   }
  ],
  "LANK_BORTA": [
@@ -132,6 +162,22 @@
    "lank": "/artiklar/arbetspsykologiska-tester",
    "datum": "2026-11-10",
    "skal": "SEO-plan nya tester: Läs vidare-korten är automatiska och de nya artiklarna talserier, ordforstaelse-test och i-prov tränger undan äldre kort. Länkarna i brödtexten är orörda."
+  }
+ ],
+ "RUBRIK_BYTT": [
+  {
+   "path": "/verktyg/rekryteringstester",
+   "fore": "h2 Tre testtyper, alla gratis att börja",
+   "efter": "h2 Åtta testtyper, alla gratis att börja",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester (U2): fem nya testtyper i korten."
+  },
+  {
+   "path": "/verktyg/rekryteringstester",
+   "fore": "h3 Rotationstest",
+   "efter": "h3 Spatial förmåga",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester (U2): namnbeslutet, spatial förmåga. Länken till rotation-test-guide står kvar."
   }
  ]
 }
