@@ -35,7 +35,7 @@ import { paketKort } from '@/lib/plans/plans';
 import type { BetalvaggPlats } from '@/lib/analytics/events';
 import { byggPlan, type PlanDag } from './plan';
 import { TRANING_RUTT, nivakollHref, steg2PassHref } from './rutter';
-import { steg2Synlig } from '@/lib/tester/steg2Status';
+import { iprovProvSynligt, steg2Synlig } from '@/lib/tester/steg2Status';
 import type { NivakollKind } from '@/lib/nivakoll/niva';
 import { kryssUrPlan, mittTestUrPlan, passForDag, passtyper } from './mittTest';
 import {
@@ -846,7 +846,28 @@ export function byggHemvy(inp: HemIn): HemModell {
           ? { typ: 'lank', text: HEM.pass.knapp, href: steg2PassHref(kind) }
           : { typ: 'lank', text: 'Gör nivåtestet, grund', href: `/dashboard/tester/${kind === 'spatial' ? 'spatial' : 'talserier'}-grund` },
       },
-      sektioner: [...vnLista, fler, jobb],
+      sektioner: [
+        ...vnLista,
+        ...(iprovProvSynligt()
+          ? [
+              {
+                typ: 'rader' as const,
+                nyckel: 'provdagen',
+                rubrik: HEM.provdagen.rubrik,
+                rader: [
+                  {
+                    titel: 'I-prov-provet',
+                    meta: prov ? `${kortDatum(laggTill(prov, -2))}, två dagar före provet. Halva eller hela.` : 'Sex deltester i provets ordning. Halva eller hela.',
+                    hoger: behorig.harProvlage ? ({ typ: 'chev' } as Hoger) : ({ typ: 'las', text: ingarIPaketet(), feature: 'test_exam_mode', plats: 'generalrepetition' } as Hoger),
+                    href: '/dashboard/tester/iprov',
+                  },
+                ],
+              },
+            ]
+          : []),
+        fler,
+        jobb,
+      ],
     };
   }
 
