@@ -95,6 +95,21 @@ export interface PersonalityStat {
   latestScores: BigFiveScores | null;
 }
 
+/**
+ * Planen som Alla tester behöver: leverantör och variant för provraden, och
+ * sedan steg 2 valet "Mitt test är …" med deltesterna och provdatumet för
+ * raden Mitt test och blocket Ingår i ditt test.
+ */
+export interface HubPlan {
+  leverantor: string | null;
+  variant: string | null;
+  testtyper: string[];
+  provdatum: string | null;
+  mitt_test: string | null;
+  mitt_test_variant: string | null;
+  extra_typer: string[];
+}
+
 export interface TesterHubData {
   perTest: Record<TestSlug, PerTestStats>;
   aggregate: {
@@ -117,7 +132,7 @@ export interface TesterHubData {
    */
   provformat: FormatNyckel;
   /** Planens leverantör och variant för provraden, null utan plan eller vid fel. */
-  plan: { leverantor: string | null; variant: string | null } | null;
+  plan: HubPlan | null;
   /** Har kontot gjort Nivåkollen? Styr raden längst ner i Alla tester. */
   harNivakoll: boolean;
   isPremium: boolean;
@@ -321,7 +336,7 @@ export async function getTesterHubData(
     // Planen ger generalrepetitionens format. Ett fel här får aldrig fälla
     // hubben: utan rad eller vid fel gäller vårt eget format.
     Promise.resolve(
-      supabase.from('test_planer').select('leverantor, variant').eq('user_id', userId).maybeSingle()
+      supabase.from('test_planer').select('leverantor, variant, testtyper, provdatum, mitt_test, mitt_test_variant, extra_typer').eq('user_id', userId).maybeSingle()
     ).catch((e: unknown) => ({ data: null, error: e })),
   ]);
 
@@ -332,10 +347,7 @@ export async function getTesterHubData(
     console.error('Testhubben: kunde inte läsa personlighetssessioner', personalityRes.error);
   }
 
-  const plan = (planRes?.error ? null : planRes?.data) as
-    | { leverantor: string | null; variant: string | null }
-    | null
-    | undefined;
+  const plan = (planRes?.error ? null : planRes?.data) as HubPlan | null | undefined;
   if (planRes?.error) {
     console.error('Testhubben: kunde inte läsa planen', planRes.error);
   }
@@ -430,7 +442,17 @@ export async function getTesterHubData(
     },
     provBestPercent,
     provformat,
-    plan: plan ? { leverantor: plan.leverantor ?? null, variant: plan.variant ?? null } : null,
+    plan: plan
+      ? {
+          leverantor: plan.leverantor ?? null,
+          variant: plan.variant ?? null,
+          testtyper: plan.testtyper ?? [],
+          provdatum: plan.provdatum ?? null,
+          mitt_test: plan.mitt_test ?? null,
+          mitt_test_variant: plan.mitt_test_variant ?? null,
+          extra_typer: plan.extra_typer ?? [],
+        }
+      : null,
     harNivakoll: (byType.get(NIVAKOLL_TEST_TYPE) ?? []).some((s) => s.completed_at),
     isPremium,
     hasHistory,

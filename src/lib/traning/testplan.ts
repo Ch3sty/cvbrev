@@ -7,6 +7,7 @@
 
 import { arGiltigDag, dagarMellan, laggTill, type Dag } from './datum';
 import { nivaTak } from './flaggor';
+import { EXTRA_TYPER, arMittTest, arMittVariant, type MittTest, type MittVariant } from './mittTest';
 
 export const TESTTYPER = ['matris', 'numerisk', 'verbal', 'personlighet'] as const;
 export const LEVERANTORER = ['matrigma', 'alva', 'shl', 'aon', 'annat'] as const;
@@ -40,6 +41,10 @@ export interface PlanAndring {
   leverantor?: string | null;
   variant?: string | null;
   provdatum?: Dag | null;
+  /** Steg 2 (2026-11-09): valet i ingången, varianten och de nya deltesterna. */
+  mitt_test?: MittTest | null;
+  mitt_test_variant?: MittVariant | null;
+  extra_typer?: string[];
 }
 
 export type Validering<T> = { ok: true; data: T } | { ok: false; fel: string };
@@ -82,6 +87,20 @@ export function validerPlan(body: unknown, idag: Dag): Validering<PlanAndring> {
       if (n > PROVDATUM_MAX_DAGAR) return { ok: false, fel: 'provdatum_for_langt_fram' };
       ut.provdatum = b.provdatum;
     }
+  }
+  if (har(b, 'mitt_test')) {
+    if (b.mitt_test !== null && !arMittTest(b.mitt_test)) return { ok: false, fel: 'ogiltigt_mitt_test' };
+    ut.mitt_test = b.mitt_test as MittTest | null;
+  }
+  if (har(b, 'mitt_test_variant')) {
+    if (b.mitt_test_variant !== null && !arMittVariant(b.mitt_test_variant)) return { ok: false, fel: 'ogiltig_mitt_test_variant' };
+    ut.mitt_test_variant = b.mitt_test_variant as MittVariant | null;
+  }
+  if (har(b, 'extra_typer')) {
+    if (!Array.isArray(b.extra_typer) || !b.extra_typer.every((t) => (EXTRA_TYPER as readonly unknown[]).includes(t))) {
+      return { ok: false, fel: 'ogiltiga_extra_typer' };
+    }
+    ut.extra_typer = [...new Set(b.extra_typer as string[])];
   }
   // Varianten gäller bara Matrigma.
   if (ut.leverantor !== undefined && ut.leverantor !== 'matrigma' && !har(b, 'variant')) ut.variant = null;

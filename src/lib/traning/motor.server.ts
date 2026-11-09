@@ -135,6 +135,10 @@ export interface Testplan {
   utfall_fraga_igen_at: Dag | null;
   /** Vald tidpunkt för passet, null utan val eller före migreringen 20261012090000. */
   pass_tid?: PassTid | null;
+  /** "Mitt test är …" (steg 2, 20261109140000). Null: planen läses ur leverantor. */
+  mitt_test?: string | null;
+  mitt_test_variant?: string | null;
+  extra_typer?: string[];
 }
 
 export interface Lage {
@@ -220,6 +224,9 @@ export async function lasLage(admin: Klient, userId: string, idag: Dag = dagSthl
         utfall_svarat_at: (planRad.utfall_svarat_at as string | null) ?? null,
         utfall_fraga_igen_at: arGiltigDag(planRad.utfall_fraga_igen_at) ? planRad.utfall_fraga_igen_at : null,
         pass_tid: arPassTid(planRad.pass_tid) ? planRad.pass_tid : null,
+        mitt_test: typeof planRad.mitt_test === 'string' ? planRad.mitt_test : null,
+        mitt_test_variant: typeof planRad.mitt_test_variant === 'string' ? planRad.mitt_test_variant : null,
+        extra_typer: Array.isArray(planRad.extra_typer) ? (planRad.extra_typer as string[]) : [],
       }
     : null;
 

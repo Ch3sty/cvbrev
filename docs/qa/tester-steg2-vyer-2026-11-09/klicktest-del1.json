@@ -1,0 +1,566 @@
+{
+  "bas": "http://localhost:5200",
+  "tid": "2026-11-09T14:23:50.491Z",
+  "ok": 76,
+  "totalt": 76,
+  "resultat": [
+    {
+      "namn": "p7-ljust-shl: kontot skapat och inloggat",
+      "ok": true,
+      "not": "/dashboard/valj-spar"
+    },
+    {
+      "namn": "p7-ljust-shl: Fortsätt syns och är fri med samtyckesraden uppe",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-shl: korten i ingången",
+      "ok": true,
+      "not": "matrigma,alva,shl,aon,lokforare,annat,personlighet"
+    },
+    {
+      "namn": "p7-ljust-shl: varumärkesraden står med",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-shl: ingången utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-shl: Lokförare visar anmärkningen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-shl: Annat fäller ut kryssrutorna, figurer förvalt",
+      "ok": true,
+      "not": "Figurer och mönster:true | Figurserier:false | Deduktiv slutledning:false | Ord och text:false | Siffror och tabeller:false | Personlighet:false"
+    },
+    {
+      "namn": "p7-ljust-shl: Så lägger vi upp det för shl",
+      "ok": true,
+      "not": "SÅ LÄGGER VI UPP DET | Passen | Siffror, deduktivt, figurserier och ord och text i tur och ordning. | Övningsprovet | Samma format som SHL Verify: cirka 18 uppgifter på 25 minuter, två dagar före. | Alla tester | Dina fy"
+    },
+    {
+      "namn": "p7-ljust-shl: ingången utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-shl: planen sparad med valet",
+      "ok": true,
+      "not": "{\"mitt_test\":\"shl\",\"mitt_test_variant\":null,\"extra_typer\":[\"deduktiv\",\"figurserie\"],\"testtyper\":[\"numerisk\",\"verbal\"],\"leverantor\":\"shl\",\"provdatum\":\"2026-11-23\"}"
+    },
+    {
+      "namn": "p7-ljust-shl: hemvyn ritas",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-shl: hemvyn utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-shl: raden Mitt test överst",
+      "ok": true,
+      "not": "SHL Verify | Mitt test. 14 dagar kvar. | Ändra"
+    },
+    {
+      "namn": "p7-ljust-shl: Ingår i ditt test",
+      "ok": true,
+      "not": "numerisk,deduktiv,figurer,verbal"
+    },
+    {
+      "namn": "p7-ljust-shl: Fler tester har resten",
+      "ok": true,
+      "not": "logik,personlighet"
+    },
+    {
+      "namn": "p7-ljust-shl: Fler tester fäller ut kortet",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-shl: Alla tester utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-shl: Alla tester utan talstreck",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-ljust-shl: inga konsolfel eller 4xx/5xx",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-lokforare: kontot skapat och inloggat",
+      "ok": true,
+      "not": "/dashboard/valj-spar"
+    },
+    {
+      "namn": "p7-morkt-lokforare: Fortsätt syns och är fri med samtyckesraden uppe",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-lokforare: korten i ingången",
+      "ok": true,
+      "not": "matrigma,alva,shl,aon,lokforare,annat,personlighet"
+    },
+    {
+      "namn": "p7-morkt-lokforare: varumärkesraden står med",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-lokforare: ingången utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-lokforare: Lokförare visar anmärkningen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-lokforare: Annat fäller ut kryssrutorna, figurer förvalt",
+      "ok": true,
+      "not": "Figurer och mönster:true | Figurserier:false | Deduktiv slutledning:false | Ord och text:false | Siffror och tabeller:false | Personlighet:false"
+    },
+    {
+      "namn": "p7-morkt-lokforare: Så lägger vi upp det för lokforare",
+      "ok": true,
+      "not": "SÅ LÄGGER VI UPP DET | Passen | Figurserier, ord och text, siffror och deduktivt i tur och ordning, i Aons tempo. | Övningsprovet | Figurserier, cirka 20 uppgifter på 5 minuter. | Alla tester | Dina fyra deltester överst"
+    },
+    {
+      "namn": "p7-morkt-lokforare: ingången utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-lokforare: planen sparad med valet",
+      "ok": true,
+      "not": "{\"mitt_test\":\"lokforare\",\"mitt_test_variant\":null,\"extra_typer\":[\"figurserie\",\"deduktiv\"],\"testtyper\":[\"verbal\",\"numerisk\"],\"leverantor\":\"aon\",\"provdatum\":\"2026-11-23\"}"
+    },
+    {
+      "namn": "p7-morkt-lokforare: hemvyn ritas",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-lokforare: hemvyn utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-lokforare: raden Mitt test överst",
+      "ok": true,
+      "not": "Lokförare | Mitt test. 14 dagar kvar. | Ändra"
+    },
+    {
+      "namn": "p7-morkt-lokforare: Ingår i ditt test",
+      "ok": true,
+      "not": "figurer,verbal,numerisk,deduktiv"
+    },
+    {
+      "namn": "p7-morkt-lokforare: Fler tester har resten",
+      "ok": true,
+      "not": "logik,personlighet"
+    },
+    {
+      "namn": "p7-morkt-lokforare: Fler tester fäller ut kortet",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-lokforare: Alla tester utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-lokforare: Alla tester utan talstreck",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "p7-morkt-lokforare: inga konsolfel eller 4xx/5xx",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-matrigma: kontot skapat och inloggat",
+      "ok": true,
+      "not": "/dashboard/valj-spar"
+    },
+    {
+      "namn": "d1280-ljust-matrigma: Fortsätt syns och är fri med samtyckesraden uppe",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-matrigma: korten i ingången",
+      "ok": true,
+      "not": "matrigma,alva,shl,aon,lokforare,annat,personlighet"
+    },
+    {
+      "namn": "d1280-ljust-matrigma: varumärkesraden står med",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-matrigma: ingången utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-matrigma: Lokförare visar anmärkningen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-matrigma: Annat fäller ut kryssrutorna, figurer förvalt",
+      "ok": true,
+      "not": "Figurer och mönster:true | Figurserier:false | Deduktiv slutledning:false | Ord och text:false | Siffror och tabeller:false | Personlighet:false"
+    },
+    {
+      "namn": "d1280-ljust-matrigma: Så lägger vi upp det för matrigma",
+      "ok": true,
+      "not": "SÅ LÄGGER VI UPP DET | Passen | Figurer och mönster varje passdag. | Övningsprovet | Samma format som Matrigma: cirka 35 uppgifter på 40 minuter, två dagar före. | Alla tester | Ditt deltest överst, resten under Fler tes"
+    },
+    {
+      "namn": "d1280-ljust-matrigma: ingången utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-matrigma: planen sparad med valet",
+      "ok": true,
+      "not": "{\"mitt_test\":\"matrigma\",\"mitt_test_variant\":null,\"extra_typer\":[],\"testtyper\":[\"matris\"],\"leverantor\":\"matrigma\",\"provdatum\":\"2026-11-23\"}"
+    },
+    {
+      "namn": "d1280-ljust-matrigma: hemvyn ritas",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-matrigma: hemvyn utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-matrigma: raden Mitt test överst",
+      "ok": true,
+      "not": "Matrigma | Mitt test. 14 dagar kvar. | Ändra"
+    },
+    {
+      "namn": "d1280-ljust-matrigma: Ingår i ditt test",
+      "ok": true,
+      "not": "logik"
+    },
+    {
+      "namn": "d1280-ljust-matrigma: Fler tester har resten",
+      "ok": true,
+      "not": "figurer,deduktiv,verbal,numerisk,personlighet"
+    },
+    {
+      "namn": "d1280-ljust-matrigma: Fler tester fäller ut kortet",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-matrigma: Alla tester utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-matrigma: Alla tester utan talstreck",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-ljust-matrigma: inga konsolfel eller 4xx/5xx",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-aon: kontot skapat och inloggat",
+      "ok": true,
+      "not": "/dashboard/valkommen"
+    },
+    {
+      "namn": "d1280-morkt-aon: Fortsätt syns och är fri med samtyckesraden uppe",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-aon: korten i ingången",
+      "ok": true,
+      "not": "matrigma,alva,shl,aon,lokforare,annat,personlighet"
+    },
+    {
+      "namn": "d1280-morkt-aon: varumärkesraden står med",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-aon: ingången utan talstreck och mittpunkt",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-aon: Lokförare visar anmärkningen",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-aon: Annat fäller ut kryssrutorna, figurer förvalt",
+      "ok": true,
+      "not": "Figurer och mönster:true | Figurserier:false | Deduktiv slutledning:false | Ord och text:false | Siffror och tabeller:false | Personlighet:false"
+    },
+    {
+      "namn": "d1280-morkt-aon: Så lägger vi upp det för aon",
+      "ok": true,
+      "not": "SÅ LÄGGER VI UPP DET | Passen | Figurserier, siffror, ord och text och deduktivt i tur och ordning. | Övningsprovet | Figurserier, cirka 20 uppgifter på 5 minuter. | Alla tester | Dina fyra deltester överst, resten under"
+    },
+    {
+      "namn": "d1280-morkt-aon: ingången utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-aon: planen sparad med valet",
+      "ok": true,
+      "not": "{\"mitt_test\":\"aon\",\"mitt_test_variant\":null,\"extra_typer\":[\"figurserie\",\"deduktiv\"],\"testtyper\":[\"numerisk\",\"verbal\"],\"leverantor\":\"aon\",\"provdatum\":\"2026-11-23\"}"
+    },
+    {
+      "namn": "d1280-morkt-aon: hemvyn ritas",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-aon: hemvyn utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-aon: raden Mitt test överst",
+      "ok": true,
+      "not": "Aon scales | Mitt test. 14 dagar kvar. | Ändra"
+    },
+    {
+      "namn": "d1280-morkt-aon: Ingår i ditt test",
+      "ok": true,
+      "not": "figurer,numerisk,verbal,deduktiv"
+    },
+    {
+      "namn": "d1280-morkt-aon: Fler tester har resten",
+      "ok": true,
+      "not": "logik,personlighet"
+    },
+    {
+      "namn": "d1280-morkt-aon: Fler tester fäller ut kortet",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-aon: Alla tester utan sidledsscroll",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-aon: Alla tester utan talstreck",
+      "ok": true,
+      "not": ""
+    },
+    {
+      "namn": "d1280-morkt-aon: inga konsolfel eller 4xx/5xx",
+      "ok": true,
+      "not": ""
+    }
+  ],
+  "bilder": [
+    {
+      "fil": "del1-p7-ljust-shl-mitt-test-tom.png",
+      "beskrivning": "Mitt test, steg 1 av 2 innan något är valt"
+    },
+    {
+      "fil": "del1-p7-ljust-shl-mitt-test-lokforare.png",
+      "beskrivning": "Lokförare valt: anmärkningen och Så lägger vi upp det"
+    },
+    {
+      "fil": "del1-p7-ljust-shl-mitt-test-annat.png",
+      "beskrivning": "Annat eller vet inte: kryssrutorna"
+    },
+    {
+      "fil": "del1-p7-ljust-shl-mitt-test-shl.png",
+      "beskrivning": "Mitt test: shl valt, Så lägger vi upp det"
+    },
+    {
+      "fil": "del1-p7-ljust-shl-mitt-test-shl-hel.png",
+      "beskrivning": "Mitt test: shl, hela steget"
+    },
+    {
+      "fil": "del1-p7-ljust-shl-datum.png",
+      "beskrivning": "Steg 2 av 2: provdatumet med planen"
+    },
+    {
+      "fil": "del1-p7-ljust-shl-hem.png",
+      "beskrivning": "Hemvyn med shl valt"
+    },
+    {
+      "fil": "del1-p7-ljust-shl-hem-hel.png",
+      "beskrivning": "Hemvyn med shl, hela sidan"
+    },
+    {
+      "fil": "del1-p7-ljust-shl-alla.png",
+      "beskrivning": "Alla tester med Mitt test och Ingår i ditt test"
+    },
+    {
+      "fil": "del1-p7-ljust-shl-alla-hel.png",
+      "beskrivning": "Alla tester, hela sidan"
+    },
+    {
+      "fil": "del1-p7-ljust-shl-alla-fler-utfalld.png",
+      "beskrivning": "Fler tester: ett kort utfällt"
+    },
+    {
+      "fil": "del1-p7-morkt-lokforare-mitt-test-tom.png",
+      "beskrivning": "Mitt test, steg 1 av 2 innan något är valt"
+    },
+    {
+      "fil": "del1-p7-morkt-lokforare-mitt-test-lokforare.png",
+      "beskrivning": "Lokförare valt: anmärkningen och Så lägger vi upp det"
+    },
+    {
+      "fil": "del1-p7-morkt-lokforare-mitt-test-annat.png",
+      "beskrivning": "Annat eller vet inte: kryssrutorna"
+    },
+    {
+      "fil": "del1-p7-morkt-lokforare-mitt-test-lokforare.png",
+      "beskrivning": "Mitt test: lokforare valt, Så lägger vi upp det"
+    },
+    {
+      "fil": "del1-p7-morkt-lokforare-mitt-test-lokforare-hel.png",
+      "beskrivning": "Mitt test: lokforare, hela steget"
+    },
+    {
+      "fil": "del1-p7-morkt-lokforare-datum.png",
+      "beskrivning": "Steg 2 av 2: provdatumet med planen"
+    },
+    {
+      "fil": "del1-p7-morkt-lokforare-hem.png",
+      "beskrivning": "Hemvyn med lokforare valt"
+    },
+    {
+      "fil": "del1-p7-morkt-lokforare-hem-hel.png",
+      "beskrivning": "Hemvyn med lokforare, hela sidan"
+    },
+    {
+      "fil": "del1-p7-morkt-lokforare-alla.png",
+      "beskrivning": "Alla tester med Mitt test och Ingår i ditt test"
+    },
+    {
+      "fil": "del1-p7-morkt-lokforare-alla-hel.png",
+      "beskrivning": "Alla tester, hela sidan"
+    },
+    {
+      "fil": "del1-p7-morkt-lokforare-alla-fler-utfalld.png",
+      "beskrivning": "Fler tester: ett kort utfällt"
+    },
+    {
+      "fil": "del1-d1280-ljust-matrigma-mitt-test-tom.png",
+      "beskrivning": "Mitt test, steg 1 av 2 innan något är valt"
+    },
+    {
+      "fil": "del1-d1280-ljust-matrigma-mitt-test-lokforare.png",
+      "beskrivning": "Lokförare valt: anmärkningen och Så lägger vi upp det"
+    },
+    {
+      "fil": "del1-d1280-ljust-matrigma-mitt-test-annat.png",
+      "beskrivning": "Annat eller vet inte: kryssrutorna"
+    },
+    {
+      "fil": "del1-d1280-ljust-matrigma-mitt-test-matrigma.png",
+      "beskrivning": "Mitt test: matrigma valt, Så lägger vi upp det"
+    },
+    {
+      "fil": "del1-d1280-ljust-matrigma-mitt-test-matrigma-hel.png",
+      "beskrivning": "Mitt test: matrigma, hela steget"
+    },
+    {
+      "fil": "del1-d1280-ljust-matrigma-datum.png",
+      "beskrivning": "Steg 2 av 2: provdatumet med planen"
+    },
+    {
+      "fil": "del1-d1280-ljust-matrigma-hem.png",
+      "beskrivning": "Hemvyn med matrigma valt"
+    },
+    {
+      "fil": "del1-d1280-ljust-matrigma-hem-hel.png",
+      "beskrivning": "Hemvyn med matrigma, hela sidan"
+    },
+    {
+      "fil": "del1-d1280-ljust-matrigma-alla.png",
+      "beskrivning": "Alla tester med Mitt test och Ingår i ditt test"
+    },
+    {
+      "fil": "del1-d1280-ljust-matrigma-alla-hel.png",
+      "beskrivning": "Alla tester, hela sidan"
+    },
+    {
+      "fil": "del1-d1280-ljust-matrigma-alla-fler-utfalld.png",
+      "beskrivning": "Fler tester: ett kort utfällt"
+    },
+    {
+      "fil": "del1-d1280-morkt-aon-mitt-test-tom.png",
+      "beskrivning": "Mitt test, steg 1 av 2 innan något är valt"
+    },
+    {
+      "fil": "del1-d1280-morkt-aon-mitt-test-lokforare.png",
+      "beskrivning": "Lokförare valt: anmärkningen och Så lägger vi upp det"
+    },
+    {
+      "fil": "del1-d1280-morkt-aon-mitt-test-annat.png",
+      "beskrivning": "Annat eller vet inte: kryssrutorna"
+    },
+    {
+      "fil": "del1-d1280-morkt-aon-mitt-test-aon.png",
+      "beskrivning": "Mitt test: aon valt, Så lägger vi upp det"
+    },
+    {
+      "fil": "del1-d1280-morkt-aon-mitt-test-aon-hel.png",
+      "beskrivning": "Mitt test: aon, hela steget"
+    },
+    {
+      "fil": "del1-d1280-morkt-aon-datum.png",
+      "beskrivning": "Steg 2 av 2: provdatumet med planen"
+    },
+    {
+      "fil": "del1-d1280-morkt-aon-hem.png",
+      "beskrivning": "Hemvyn med aon valt"
+    },
+    {
+      "fil": "del1-d1280-morkt-aon-hem-hel.png",
+      "beskrivning": "Hemvyn med aon, hela sidan"
+    },
+    {
+      "fil": "del1-d1280-morkt-aon-alla.png",
+      "beskrivning": "Alla tester med Mitt test och Ingår i ditt test"
+    },
+    {
+      "fil": "del1-d1280-morkt-aon-alla-hel.png",
+      "beskrivning": "Alla tester, hela sidan"
+    },
+    {
+      "fil": "del1-d1280-morkt-aon-alla-fler-utfalld.png",
+      "beskrivning": "Fler tester: ett kort utfällt"
+    }
+  ]
+}

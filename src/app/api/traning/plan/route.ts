@@ -10,7 +10,7 @@ import { formatForPlan } from '@/lib/traning/tempo';
 import { fel, inloggad, internt, lasKropp } from '@/lib/traning/rutt.server';
 
 const KOLUMNER =
-  'user_id, testtyper, leverantor, variant, provdatum, sikte, utfall, utfall_svarat_at, utfall_fraga_igen_at, skapad_at, uppdaterad_at';
+  'user_id, testtyper, leverantor, variant, provdatum, sikte, utfall, utfall_svarat_at, utfall_fraga_igen_at, skapad_at, uppdaterad_at, mitt_test, mitt_test_variant, extra_typer';
 
 export async function GET() {
   const a = await inloggad();

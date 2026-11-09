@@ -112,7 +112,8 @@ export function kognitivaTyper(testtyper: readonly string[]): Exclude<Testtyp, '
 
 /** Bara personlighetstestet valt: ingen nedräkning, ingen ring, ingen kurva (1p). */
 export function baraPersonlighet(testtyper: readonly string[]): boolean {
-  return testtyper.includes('personlighet') && kognitivaTyper(testtyper).length === 0;
+  // Steg 2: också figurserier, deduktivt och de nya typerna räknas som kognitiva.
+  return testtyper.includes('personlighet') && testtyper.every((t) => t === 'personlighet');
 }
 
 /** Vad rubriken räknar ner mot: leverantören, typen eller "provet". */

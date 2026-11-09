@@ -147,7 +147,7 @@ describe('getTesterHubData och planen', () => {
   it('läser planens leverantör och variant', async () => {
     const d = await getTesterHubData(fake({ leverantor: 'matrigma', variant: 'adaptiv' }), 'u', true)
     expect(d.provformat).toBe('matrigma_adaptiv')
-    expect(d.plan).toEqual({ leverantor: 'matrigma', variant: 'adaptiv' })
+    expect(d.plan).toMatchObject({ leverantor: 'matrigma', variant: 'adaptiv' })
   })
 
   it('utan plan eller vid fel: eget och ingen plan', async () => {

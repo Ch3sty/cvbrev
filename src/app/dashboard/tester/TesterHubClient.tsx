@@ -21,7 +21,7 @@
  * låsta nivåer har lås och "Premium", och ett tryck öppnar betalväggen.
  */
 
-import { Suspense, lazy, use, useState, type ReactNode } from 'react';
+import { Suspense, lazy, use, useState, type ComponentType, type ReactNode } from 'react';
 import Link from 'next/link';
 import { LANK } from '@/components/shell/knappar';
 import { TRANING_RUTT } from '@/lib/traning/rutter';
@@ -41,7 +41,13 @@ import { SALD_PLAN, paketKort, paketNamn, prisPeriod, type PlanKey } from '@/lib
 import { testHuvud } from '@/lib/onboarding/paket-rader';
 import TesterTabs, { type TesterTab } from './components/TesterTabs';
 import TestKategori, { BILD } from './components/TestKategori';
-import PersonlighetKort from './components/PersonlighetKort';
+import PersonlighetKort, { PERSONLIGHET_KORT } from './components/PersonlighetKort';
+import MittTestRad from './components/MittTestRad';
+import FlerTester, { flerMeta, type FlerRad } from './components/FlerTester';
+import { GRUPP_FOR_DELTYP } from './components/testCatalog';
+import { SymDeduktiv, SymFigurer, SymMatris, SymOrd, SymPerson, SymSiffror } from '@/components/illustrations/RumSymboler';
+import { MITT_TEST_COPY, deltesterForPlan, mittTestNamn, mittTestUrPlan } from '@/lib/traning/mittTest';
+import { dagarMellan, dagSthlm } from '@/lib/traning/datum';
 import AllaTesterVagg, { saGarDetTillSteg } from './components/AllaTesterVagg';
 import NastaTestKort, { type NastaTest } from './components/NastaTestKort';
 import { spann } from './components/Fakta';
@@ -114,6 +120,16 @@ export interface HjalpLageProps {
   /** Första gången: inget test är gjort än. */
   forsta: boolean;
 }
+
+/** Symbolen i raderna under Fler tester (skissen), samma som i ingången och hemvyn. */
+const SYM_FOR_GRUPP: Record<string, ComponentType<{ size?: number; className?: string }>> = {
+  logik: SymMatris,
+  figurer: SymFigurer,
+  deduktiv: SymDeduktiv,
+  verbal: SymOrd,
+  numerisk: SymSiffror,
+  personlighet: SymPerson,
+};
 
 function gruppFor(slug: string) {
   return TEST_GROUPS.find((g) => g.cognitive.some((t) => t.slug === slug)) ?? TEST_GROUPS[0];
@@ -200,6 +216,34 @@ export default function TesterHubClient({
 
   const kognitiva = TEST_GROUPS.filter((g) => g.key !== 'personlighet');
 
+  // Mitt test (testplanen steg 2): valets deltester överst, resten under
+  // Fler tester. Utan val ritas katalogen som förut.
+  const mitt = mittTestUrPlan(plan);
+  const ingarKeys = mitt
+    ? [...new Set((deltesterForPlan(plan) ?? []).map((t) => GRUPP_FOR_DELTYP[t]).filter(Boolean))]
+    : [];
+  const ingarGrupper = ingarKeys
+    .map((k) => TEST_GROUPS.find((g) => g.key === k))
+    .filter((g): g is (typeof TEST_GROUPS)[number] => !!g);
+  const ingarPersonlighet = ingarKeys.includes('personlighet');
+  const dagarKvar = plan?.provdatum ? dagarMellan(dagSthlm(), plan.provdatum) : null;
+
+  const kortFor = (group: (typeof TEST_GROUPS)[number]) =>
+    group.key === 'personlighet' ? (
+      <PersonlighetKort personality={personality} scope={scope} onLocked={(feature) => setSparr(feature)} />
+    ) : (
+      <TestKategori group={group} perTest={perTest} plan={plan} scope={scope} onLocked={(feature) => setSparr(feature)} />
+    );
+  const flerRader: FlerRad[] = mitt
+    ? TEST_GROUPS.filter((g) => !ingarKeys.includes(g.key)).map((g) => ({
+        key: g.key,
+        titel: g.heading,
+        meta: g.key === 'personlighet' ? PERSONLIGHET_KORT.rad : flerMeta(g, perTest),
+        Sym: SYM_FOR_GRUPP[g.key] ?? SymMatris,
+        kort: kortFor(g),
+      }))
+    : [];
+
   return (
     <HjalpProvider dold={hjalp.dold} forsta={hjalp.forsta}>
       {tab === 'utveckling' ? (
@@ -236,27 +280,50 @@ export default function TesterHubClient({
                   </StatusRow>
                 ) : null}
 
-                {kognitiva.map((group, i) => (
-                  <div key={group.key} className="contents">
-                    <TestKategori
-                      group={group}
-                      perTest={perTest}
-                      plan={plan}
+                {mitt ? (
+                  <>
+                    <MittTestRad namn={mittTestNamn(mitt, plan?.mitt_test_variant)} dagarKvar={dagarKvar} />
+                    <section aria-labelledby="ingar-i-ditt-test" className="flex flex-col gap-2.5" data-ingar>
+                      <h2 id="ingar-i-ditt-test" className="px-0.5 text-[13px] font-semibold leading-[18px] text-ink-2">
+                        {MITT_TEST_COPY.ingar}
+                      </h2>
+                      {ingarGrupper
+                        .filter((g) => g.key !== 'personlighet')
+                        .map((group) => (
+                          <div key={group.key} className="contents">
+                            {kortFor(group)}
+                          </div>
+                        ))}
+                      {ingarPersonlighet ? kortFor(TEST_GROUPS.find((g) => g.key === 'personlighet')!) : null}
+                    </section>
+                    <HjalpRad ids={['C5', 'B8']} rubrik="Vad betyder nivåerna?" className="lg:hidden" />
+                    <FlerTester rubrik={MITT_TEST_COPY.fler} rader={flerRader} />
+                  </>
+                ) : (
+                  <>
+                    {kognitiva.map((group, i) => (
+                      <div key={group.key} className="contents">
+                        <TestKategori
+                          group={group}
+                          perTest={perTest}
+                          plan={plan}
+                          scope={scope}
+                          onLocked={(feature) => setSparr(feature)}
+                        />
+                        {/* Nivåernas hjälp efter andra kortet på mobil, som i skissen. */}
+                        {i === 1 ? (
+                          <HjalpRad ids={['C5', 'B8']} rubrik="Vad betyder nivåerna?" className="lg:hidden" />
+                        ) : null}
+                      </div>
+                    ))}
+
+                    <PersonlighetKort
+                      personality={personality}
                       scope={scope}
                       onLocked={(feature) => setSparr(feature)}
                     />
-                    {/* Nivåernas hjälp efter andra kortet på mobil, som i skissen. */}
-                    {i === 1 ? (
-                      <HjalpRad ids={['C5', 'B8']} rubrik="Vad betyder nivåerna?" className="lg:hidden" />
-                    ) : null}
-                  </div>
-                ))}
-
-                <PersonlighetKort
-                  personality={personality}
-                  scope={scope}
-                  onLocked={(feature) => setSparr(feature)}
-                />
+                  </>
+                )}
 
                 <StatusRow
                   tone="warm"

@@ -26,7 +26,7 @@ export default async function Installningar({
   try {
     const { data, error } = await testSkrivKlient()
       .from('test_planer')
-      .select('testtyper, leverantor, variant, provdatum, utfall')
+      .select('testtyper, leverantor, variant, provdatum, utfall, mitt_test, mitt_test_variant, extra_typer')
       .eq('user_id', user.id)
       .maybeSingle();
     if (error) throw error;
@@ -36,7 +36,9 @@ export default async function Installningar({
   }
 
   const stegParam = Number(Array.isArray(sp.steg) ? sp.steg[0] : sp.steg);
-  const steg = stegParam === 2 || stegParam === 3 ? stegParam : 1;
+  // Steg 2 (2026-11-09): typ och leverantör är ett steg, "Mitt test". steg=1
+  // och steg=2 öppnar det, steg=3 datumet (länkarna i hemvyn står kvar).
+  const steg = stegParam === 3 ? 'datum' : 'test';
 
   return <Ingang idag={dagSthlm()} plan={plan} startSteg={steg} forsta={sp.forsta === '1'} />;
 }

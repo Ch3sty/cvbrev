@@ -95,6 +95,10 @@ Ordningen nedan är genomförandeordningen. Det som kräver ägaren ligger sist.
     Status: klar 2026-11-09, c29a938b och 5afd0d84, live. Samma räkning och skala som matrisens, nivåpunkt per testtyp, dagens pass väljs efter nivån, gratis första gången per typ. Kalibreringen i docs/qa/tester-steg1-2026-11-09/resultat.md. Klicktest 111 av 112 (den röda en förväntad 403), perf inom budget. Kvar: avläsning av nivamatning_klar per test_kind omkring 23 nov; dag 2-mejlet gäller fortfarande bara matrisen (beslut för ägaren).
 34. **Provet utan konto för verbalt, numeriskt och figurserier.**
     Status: spec klar 2026-11-09, 5d87ff2b (docs/design/spec-prov-fler-typer-2026-11-09.md). Byggs efter 23 nov på feat/prov-konto-v2. Kräver före bygget: art-directors beslut om numeriskt på mobil (punkt 20), testansvarig om fem uppgifter i verbalt och numeriskt, ägarens ja till en additiv migrering (test_kind på anon_test_sessions och prov_utfall).
+35. **Steg 2, vyerna: Mitt test är … och Alla tester.**
+    Status: klar 2026-11-09, live (vyagenten, feat/tester-steg2-vyer). Ingången har två steg: "Vad ska du göra för test?" med åtta val (Polisen eller Försvarsmakten syns först när en av I-provets typer är live), varianter som chips, "Så lägger vi upp det", Lokförares anmärkning och kryssrutorna under Annat. Valet sparas i test_planer.mitt_test, mitt_test_variant och extra_typer (additiv migrering 20261109140000, körd i prod, RLS oförändrad: en SELECT-policy, inga skrivrättigheter för anon eller authenticated). Alla tester: raden Mitt test, Ingår i ditt test överst, Fler tester som rader som fäller ut kortet. Hemvyn: passraderna roterar efter valet. Klicktest 76 av 76 (docs/qa/tester-steg2-vyer-2026-11-09/klicktest-del1.json). Kvar: CLS 0,018 på /dashboard/tester/installningar kommer från cookiebannern och finns redan i produktion.
+36. **Steg 2, vyerna per ny testtyp och I-prov-provet.**
+    Status: väntar på motorerna på main (talserier, spatial förmåga, ordförråd). Flaggor per typ i src/lib/tester/steg2Status.ts.
 
 ## Arbetsregler
 

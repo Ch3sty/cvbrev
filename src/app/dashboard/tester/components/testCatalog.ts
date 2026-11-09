@@ -348,6 +348,19 @@ export const TEST_GROUPS: TestGroup[] = [
   },
 ];
 
+/**
+ * Deltestet i "Mitt test är …" (src/lib/traning/mittTest.ts) till gruppen
+ * i Alla tester. Steg 2:s nya typer får sina grupper när de syns.
+ */
+export const GRUPP_FOR_DELTYP: Record<string, TestGroupKey> = {
+  matris: 'logik',
+  figurserie: 'figurer',
+  deduktiv: 'deduktiv',
+  verbal: 'verbal',
+  numerisk: 'numerisk',
+  personlighet: 'personlighet',
+};
+
 /** Platt lista över alla kognitiva test (för utvecklingsvyn). */
 export const ALL_COGNITIVE_TESTS: CognitiveTestDef[] = [
   ...LOGIK_TESTS,

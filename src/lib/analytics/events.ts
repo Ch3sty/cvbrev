@@ -422,6 +422,8 @@ export interface AnalyticsEvents {
     surface: 'ingang' | 'installningar'
   }
   provdatum_hoppat_over: { steg: 2 | 3 }
+  /** "Mitt test är …" (brief-tester-steg2 avsnitt 7). Läggs till, ersätter inte ingang_steg. */
+  mitt_test_valt: { val: string; variant: string | null; surface: 'ingang' | 'alla_tester' | 'hem'; forsta: boolean }
   traning_hem_visad: {
     tillstand: 'ny' | 'tomt' | 'utan_datum' | 'mitt_i' | 'infor' | 'provdag' | 'efter' | 'personlighet' | 'annat_test' | 'fel'
     /** 'lagesrad' när visningen kom från lägesraden (beslut-hemvy 2026-10-11). */
