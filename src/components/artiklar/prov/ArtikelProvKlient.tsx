@@ -112,6 +112,7 @@ export function TypProv({
           seed={lage.token ?? 'artikel'}
           onSvar={(s) => void svara(s)}
           disabled={lage.laddar}
+          rubrik="p"
         />
       </div>
     </ArtikelProvRam>

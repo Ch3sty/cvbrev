@@ -1,5 +1,6 @@
 'use client'
 
+import { useRubrikTagg } from '@/components/tests/RubrikTagg'
 /**
  * Uppgifterna i testplanens steg 2 (skiss-tester-steg2-2026-11-09, flikarna
  * Talserier och Spatial förmåga): frågan och alternativen under testet, och
@@ -292,10 +293,11 @@ export function SpatialUppgift({
   onValj?: (i: number) => void
   disabled?: boolean
 }) {
+  const H = useRubrikTagg()
   const fraga = (
     <div className="min-w-0">
       <p className="text-ey uppercase text-ink-3">{formNamn(u)}</p>
-      <h2 className="mt-1 font-display text-[19px] font-bold leading-[24px] tracking-[-.015em] text-ink-1 min-[400px]:text-[20px]">{u.fraga}</h2>
+      <H className="mt-1 font-display text-[19px] font-bold leading-[24px] tracking-[-.015em] text-ink-1 min-[400px]:text-[20px]">{u.fraga}</H>
       {u.form === 'A' ? <p className="mt-1.5 text-[13px] leading-[18px] text-ink-3">Spegelbilder räknas inte. Ett av fyra.</p> : null}
     </div>
   )

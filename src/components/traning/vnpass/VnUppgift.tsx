@@ -1,5 +1,6 @@
 'use client'
 
+import { useRubrikTagg } from '@/components/tests/RubrikTagg'
 /**
  * En uppgift i text- och sifferpasset (beställning omgång 2, B2), med
  * underlaget överst.
@@ -30,6 +31,7 @@ import type { VnAterkoppling, VnKind, VnPunkt, VnUnderlag } from '@/lib/tester/p
 const C = VN_PASS_COPY
 
 export function Underlag({ kind, underlag }: { kind: VnKind; underlag: VnUnderlag }) {
+  const H = useRubrikTagg()
   if (kind === 'verbal') {
     return (
       <section
@@ -38,7 +40,7 @@ export function Underlag({ kind, underlag }: { kind: VnKind; underlag: VnUnderla
         data-vn-underlag="text"
       >
         <div className="rounded-xl border border-kant bg-panel p-4">
-          <h2 className="text-kort text-ink-1">{underlag.titel}</h2>
+          <H className="text-kort text-ink-1">{underlag.titel}</H>
           <div className="mt-2 space-y-2.5 text-[15px] leading-[24px] text-ink-1">
             {splitIntoParagraphs(underlag.text ?? '').map((p, i) => (
               <p key={i}>{p}</p>
@@ -51,7 +53,7 @@ export function Underlag({ kind, underlag }: { kind: VnKind; underlag: VnUnderla
   return (
     <section aria-label={underlag.titel} className="flex flex-col gap-2.5" data-vn-underlag="siffror">
       <div className="flex items-baseline justify-between gap-3">
-        <h2 className="text-kort text-ink-1">{underlag.titel}</h2>
+        <H className="text-kort text-ink-1">{underlag.titel}</H>
         <span className="shrink-0 text-meta text-ink-3">{C.raknare}</span>
       </div>
       {underlag.kontext ? (

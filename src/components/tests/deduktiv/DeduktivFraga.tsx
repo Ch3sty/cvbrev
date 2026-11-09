@@ -1,5 +1,6 @@
 'use client'
 
+import { useRubrikTagg } from '@/components/tests/RubrikTagg'
 /**
  * Deduktiv slutledning, frågevyn (deduktiv-spec.md 1 och 3).
  *
@@ -138,11 +139,12 @@ export function Fragerad({
   forsta?: boolean
   nummer?: 'sr' | 'ingen'
 }) {
+  const H = useRubrikTagg()
   return (
     <div>
       {forsta ? <p className="mb-2 text-[13px] leading-[18px] text-ink-3">{DEDUKTIV_FORSTA_RAD}</p> : null}
       {nummer === 'sr' ? <p className="sr-only">{`Uppgift ${nr} av ${antal}`}</p> : null}
-      <h2 className="mt-1 font-display text-[19px] font-bold leading-[26px] tracking-[-.01em] text-ink-1">{fraga}</h2>
+      <H className="mt-1 font-display text-[19px] font-bold leading-[26px] tracking-[-.01em] text-ink-1">{fraga}</H>
     </div>
   )
 }
