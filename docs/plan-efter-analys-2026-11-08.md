@@ -118,7 +118,15 @@ Del 1, live på main (4c2e5b45, Vercel Ready):
 - [x] 6. Dag 2-mejlet för alla typer (61fffdfb). Torrtest 10 nov: 0 mottagare i morgon, 6 de senaste 14 dagarna, alla matris. Inga Nivåkollar i de nya typerna i prod än.
 - Klicktest del 1: 46 av 46 i riktig Chrome (Pixel 7 och 1280, ljust och mörkt), namnet 16 av 16. Testkonton raderade per id. Upp till 7 rader i `prov_utfall` från klicktestet går inte att peka ut (anonyma, ingen nyckel) och står kvar.
 
-Del 2 (gren `feat/prov-konto-v2`, går till main 23 nov): se nedan.
+Del 2, live på main samma dag (ägaren 2026-11-10: allt i ett svep, inte 23 nov). Gren `feat/prov-konto-v2` rebasad och fast-forward till main:
+
+- [x] 7. Provet och kontosteget i ny design (skissen 2026-11-09) live.
+- [x] 8. Provet utan konto i alla typer: `/verktyg/rekryteringstester/prova?typ=` figurer, verbal, numerisk, deduktiv, spatial, talserie, ordforrad och iprov (sex uppgifter, en per deltest, utan tid). Urval, rättning och genomgång med testernas motorer (`src/lib/tests/prov-typer.server.ts`), facit lämnar aldrig servern före kontot. Utfallen per `test_kind` i `prov_utfall` (sparas av servern, databasfunktionen orörd). Första Nivåkollen i figurserier, deduktivt, verbalt och numeriskt räknar in provets svar. Steg 2:s typer fortsätter i grundtestet, I-provet i deltestet där hon tappade mest, med övningsprovet i Premium.
+- [x] 9. `<ArtikelProv typ=... />`: uppgift 1 i artikelns HTML med alternativen synliga, inga rubriker, ett svar startar provet på sidan. Våg 1: alva-labs-logiktest, matrigma-test, logiska-tester, logiktest-exempel-med-losningar (matris), rotation-test-guide (spatial), deduktivt-induktivt-test. Våg 2: verbalt-test-guide, numeriskt-test-guide, aon-cut-e-test (figurserier), talserier, ordforstaelse-test, i-prov. `/prova` är noindex som förut.
+- [x] Sakfelet om pappersvikningen (SEO-agenten 10 nov): texterna säger samma deltester i samma ordning och uppgifter som tränar samma förmåga, och att vår vikning går åt andra hållet. Den omvända riktningen (ark med hål, välj ihopvikt form) kräver ny generator, ny form i banken, nya spärrar och genomgång; inte gjort.
+- Numeriskt på mobil (specens öppna fråga till art-director): frågan och alternativen först, underlaget under, från 1024 px som i testerna. Art-director kan ändra.
+- Grind: tsc, build, vitest (3 kända fel från main: kandidater, admin frågor), SEO-diff 0 fel på 48 sidor, LCP 0,42 till 0,63 s på artiklarna med prov, `/prova` och `/register`, inloggat inom budget. Klicktest 270 av 271 och 216 av 216 i riktig Chrome mot produktionsbygget (alla typer till konto och genomgång, Pixel 7 och 1280, ljust och mörkt, alla tolv artiklar). Testkonton raderade per id, 85 rader i `prov_utfall` från klicktestet raderade per id.
+- Förhandsvisningen klicktestades inte: `VERCEL_AUTOMATION_BYPASS_SECRET` saknas i `.env.local`.
 
 ## G. SEO-planen för de nya testerna, innehållsdelen (ägarens beslut 2026-11-10)
 
