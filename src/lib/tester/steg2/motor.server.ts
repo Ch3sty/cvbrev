@@ -23,6 +23,7 @@ import type { SpatialFraga } from '@/lib/spatialV1/types';
 import * as O from '@/lib/ordforradV1/fragor.server';
 import { poolFor as ordPool, ORD_VERSION, SEKUNDER_PER_UPPGIFT as ORD_S } from '@/lib/ordforradV1/select';
 import type { OrdFraga } from '@/lib/ordforradV1/types';
+import { ordforradRedo } from '@/lib/ordforradV1/status';
 import { FAMILJ_NAMN, FORM_NAMN } from './namn';
 
 export type Niva = 'grund' | 'avancerad' | 'expert';
@@ -153,6 +154,8 @@ const ordforrad: Steg2Motor = {
 const MOTORER: Partial<Record<Steg2Kind, Steg2Motor>> = { talserie, spatial, ordforrad };
 
 export function steg2Motor(kind: unknown): Steg2Motor | null {
+  // Ordförrådet körs först när banken når briefens krav (motoragentens ordforradRedo).
+  if (kind === 'ordforrad' && !ordforradRedo()) return null;
   return typeof kind === 'string' ? MOTORER[kind as Steg2Kind] ?? null : null;
 }
 

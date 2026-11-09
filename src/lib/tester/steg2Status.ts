@@ -13,11 +13,12 @@ export type Steg2Typ = 'talserie' | 'spatial' | 'ordforrad';
 export const VY_KLAR: Record<Steg2Typ, boolean> = {
   talserie: true,
   spatial: true,
-  ordforrad: false,
+  // Ordförrådet: servern kör det bara när ordforradRedo() är sant (motor.server.ts).
+  ordforrad: true,
 };
 
 /** I-prov-provet (provpaketet): kräver alla tre typerna och sin egen vy. */
-export const IPROV_PROV_KLART = false;
+export const IPROV_PROV_KLART = true;
 
 const qa = () => process.env.NEXT_PUBLIC_STEG2_QA === '1';
 

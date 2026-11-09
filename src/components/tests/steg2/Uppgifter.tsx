@@ -529,6 +529,14 @@ export function Steg2Miniatyr({ g }: { g: unknown }) {
       </span>
     )
   }
-  const fig = t.referens ?? t.sekvens?.[t.sekvens.length - 1] ?? t.options?.[0]
+  const ord = (g as Partial<OrdUppgiftData>).ord
+  if (typeof ord === 'string') {
+    return (
+      <span className="flex [aspect-ratio:1/1] items-center justify-center overflow-hidden rounded-md border border-kant bg-papper-2 px-1" aria-hidden="true">
+        <span className="truncate text-[11px] font-bold uppercase tracking-[.02em] text-ink-1">{ord}</span>
+      </span>
+    )
+  }
+  const fig = t.referens ?? t.sekvens?.[t.sekvens.length - 1] ?? (t.options?.[0] as SpatialFigur | undefined)
   return <span className="matrisyta block [aspect-ratio:1/1]">{fig ? <Figur fig={fig} /> : null}</span>
 }
