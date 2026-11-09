@@ -91,7 +91,9 @@ export function matFigur(fig: SpatialFigur, skala: number, var_: string): string
   const t = taggar(svg).filter((x) => !x.startsWith('<svg') && !x.startsWith('<g'));
   const fel: string[] = [];
   for (const x of t) {
-    const r = maladRam(x);
+    // Klippets utsuddning (rutan i papperets färg utan kontur, som täcker konturen i hacket) räknas inte som målad
+    const sudd = x.startsWith('<rect') && attr(x, 'fill') === G.farger.papper && !attr(x, 'stroke');
+    const r = sudd ? null : maladRam(x);
     if (r && (r.x0 < INRE_MIN - 1e-6 || r.y0 < INRE_MIN - 1e-6 || r.x1 > INRE_MAX + 1e-6 || r.y1 > INRE_MAX + 1e-6)) {
       fel.push(`${var_}: G2 ${namn(x)} målas utanför [14, 86] (${[r.x0, r.y0, r.x1, r.y1].map((v) => Math.round(v * 10) / 10).join(', ')})`);
     }

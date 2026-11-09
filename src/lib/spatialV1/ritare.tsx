@@ -76,26 +76,6 @@ const bana = (pts: Punkt[]) => 'M' + pts.map((p) => `${p[0]} ${p[1]}`).join(' L'
 /** Hålets radie för arkets rutnät. */
 export const halR = (n: number) => (G.ark.halR as Record<string, number>)[String(n)];
 
-/** Ligger sträckan p0 till p1 på polygonens rand? */
-function paRand(poly: Punkt[], p0: Punkt, p1: Punkt) {
-  return poly.some((a, i) => {
-    const b = poly[(i + 1) % poly.length];
-    const kors = (p: Punkt) => (b[0] - a[0]) * (p[1] - a[1]) - (b[1] - a[1]) * (p[0] - a[0]);
-    const inom = (p: Punkt) => p[0] >= Math.min(a[0], b[0]) - 1e-9 && p[0] <= Math.max(a[0], b[0]) + 1e-9 && p[1] >= Math.min(a[1], b[1]) - 1e-9 && p[1] <= Math.max(a[1], b[1]) + 1e-9;
-    return Math.abs(kors(p0)) < 1e-9 && Math.abs(kors(p1)) < 1e-9 && inom(p0) && inom(p1);
-  });
-}
-
-/**
- * Klippet i det vikta arket (expert): rutans sidor som ligger på polygonens
- * rand (där klippet är öppet) och de inre sidorna (där kanten går efter klippet).
- */
-export function klippSidor(poly: Punkt[], [r, c]: [number, number]) {
-  const h: Punkt[] = [[c, r], [c + 1, r], [c + 1, r + 1], [c, r + 1]];
-  const sidor = h.map((p, i) => [p, h[(i + 1) % 4]] as [Punkt, Punkt]);
-  return { oppna: sidor.filter(([a, b]) => paRand(poly, a, b)), inre: sidor.filter(([a, b]) => !paRand(poly, a, b)) };
-}
-
 const ArkVik: React.FC<{ fig: ArkVikFigur }> = ({ fig }) => {
   const { t } = arkTransform(fig.n, fig.poly);
   const P = G.ark.pil;
@@ -117,35 +97,50 @@ const ArkVik: React.FC<{ fig: ArkVikFigur }> = ({ fig }) => {
   );
 };
 
+/**
+ * Det vikta arket med klipp: regionen är alltid hela rutor när arket har
+ * klipp (expert viker bara längs rutlinjer), så konturen räknas som för det
+ * uppvikta arket: regionens rutor minus klippen. Klipp som inte når kanten
+ * blir bläckrutor.
+ */
+export function stansDelar(fig: ArkStansFigur) {
+  const klippt = new Set((fig.klipp ?? []).map((k) => k.join(',')));
+  const rutor: [number, number][] = [];
+  for (let r = 0; r < fig.n; r++)
+    for (let c = 0; c < fig.n; c++) {
+      const hel = [[c, r], [c + 1, r], [c + 1, r + 1], [c, r + 1]].every((p) => inomPoly(fig.poly, p as Punkt));
+      if (hel) rutor.push([r, c]);
+    }
+  const iRegion = new Set(rutor.map((x) => x.join(',')));
+  const inre = (fig.klipp ?? []).filter(([r, c]) => [[1, 0], [-1, 0], [0, 1], [0, -1]].every(([dr, dc]) => iRegion.has(`${r + dr},${c + dc}`) && !klippt.has(`${r + dr},${c + dc}`)));
+  const inreS = new Set(inre.map((x) => x.join(',')));
+  const kvar = rutor.filter((x) => !klippt.has(x.join(',')) || inreS.has(x.join(',')));
+  return { kontur: rutKontur(kvar), inre };
+}
+
+function inomPoly(poly: Punkt[], p: Punkt) {
+  let tecken = 0;
+  for (let i = 0; i < poly.length; i++) {
+    const a = poly[i];
+    const b = poly[(i + 1) % poly.length];
+    const k = (b[0] - a[0]) * (p[1] - a[1]) - (b[1] - a[1]) * (p[0] - a[0]);
+    if (Math.abs(k) < 1e-9) continue;
+    if (tecken && Math.sign(k) !== tecken) return false;
+    tecken = Math.sign(k);
+  }
+  return true;
+}
+
 const ArkStans: React.FC<{ fig: ArkStansFigur }> = ({ fig }) => {
   const { t, s } = arkTransform(fig.n, fig.poly);
-  // Klippet: rutan målas i papperets färg, utdragen förbi randen så att konturen där försvinner,
-  // och de inre sidorna ritas i bläck. Resultatet läses som ett hack i kanten.
-  const klipp = fig.klipp ? klippSidor(fig.poly, fig.klipp) : null;
-  const ut = G.kontur.sw;
-  let hack = null;
-  if (fig.klipp && klipp) {
-    const [r, c] = fig.klipp;
-    let [x0, y0, x1, y1] = [c, r, c + 1, r + 1].map((v) => v);
-    const e = ut / s;
-    for (const [a, b] of klipp.oppna) {
-      if (a[1] === b[1] && a[1] === r) y0 -= e;
-      if (a[1] === b[1] && a[1] === r + 1) y1 += e;
-      if (a[0] === b[0] && a[0] === c) x0 -= e;
-      if (a[0] === b[0] && a[0] === c + 1) x1 += e;
-    }
-    const [p0, p1] = [t([x0, y0]), t([x1, y1])];
-    hack = (
-      <>
-        <rect x={p0[0]} y={p0[1]} width={r2(p1[0] - p0[0])} height={r2(p1[1] - p0[1])} fill={F.papper} />
-        <path d={klipp.inre.map(([a, b]) => { const [u, v] = [t(a), t(b)]; return `M${u[0]} ${u[1]} L${v[0]} ${v[1]}`; }).join(' ')} fill="none" stroke={F.ink} strokeWidth={G.kontur.sw} strokeLinecap="round" />
-      </>
-    );
-  }
+  const delar = fig.klipp?.length ? stansDelar(fig) : null;
   return (
     <>
-      <path d={bana(fig.poly.map(t))} fill={F.gra} stroke={F.ink} strokeWidth={G.kontur.sw} strokeLinejoin="round" />
-      {hack}
+      <path d={bana((delar ? delar.kontur : fig.poly).map(t))} fill={F.gra} stroke={F.ink} strokeWidth={G.kontur.sw} strokeLinejoin="round" />
+      {delar?.inre.map(([r, c], i) => {
+        const [x, y] = t([c, r]);
+        return <rect key={`k${i}`} x={x} y={y} width={r2(s)} height={r2(s)} fill={F.ink} />;
+      })}
       {fig.hal.map(([r, c], i) => {
         const [x, y] = t([c + 0.5, r + 0.5]);
         return <circle key={i} cx={x} cy={y} r={halR(fig.n)} fill={F.ink} />;

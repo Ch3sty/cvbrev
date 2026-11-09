@@ -10,6 +10,8 @@ import { readFileSync } from 'node:fs'
 import { valideraSpatial } from '../../../../scripts/validate-spatial.mjs'
 // @ts-ignore ren JavaScript
 import * as A from '../../../../scripts/lib/spatial/brick.mjs'
+// @ts-ignore ren JavaScript
+import * as B from '../../../../scripts/lib/spatial/vikning.mjs'
 import { matSpatialBank } from '../svgMatt'
 import { valjSpatial, poolFor, FORMER, PER_FORM } from '../select'
 import { spatialInnehall, hittaSpatial, bedomSpatialSvar, rattaSpatialSvar } from '../fragor.server'
@@ -82,6 +84,64 @@ describe('form A: spärrfixturer', () => {
         expect(A.nyckel(A.vrid(q.referens, q.vridning))).toBe(A.nyckel(q.options[q.correctAnswer]))
       }
     }
+  })
+})
+
+describe('form B: vikningsmotorn och spärrfixturer', () => {
+  const ett = (n = 'Avancerad') => kopia(bank(n).find((q: Q) => q.form === 'B'))
+  const fel = (q: Q) => (B.sparrarB(q) as string[]).join(' | ')
+
+  it('briefens exempel: nedre halvan upp, högra över vänstra, hål i rad 0 kolumn 1 ger fyra hål', () => {
+    const v = [{ typ: 'h', k: 2, flytt: 1 }, { typ: 'v', k: 2, flytt: 1 }]
+    const r = B.vik(v)
+    const ut = B.uppvik([[0, 1]], v, r.steg.map((s: Q) => s.fore)).slut.map((x: number[]) => x.join(',')).sort()
+    expect(ut).toEqual(['0,1', '0,2', '3,1', '3,2'])
+  })
+  it('framlänges och baklänges ger samma hål för varje uppgift (SP-B0)', () => {
+    for (const n of NIVAER) for (const q of bank(n).filter((x: Q) => x.form === 'B')) expect(fel(q), q.id).not.toMatch(/SP-B0|stämmer inte/)
+  })
+  it('SP-B1 fäller ett hål på en viklinje', () => {
+    const q = kopia(bank('Avancerad').find((x: Q) => x.form === 'B' && x.vikningar.some((v: Q) => v.typ === 'd' || v.typ === 'a')) ?? ett())
+    const v = q.vikningar.find((x: Q) => x.typ === 'd' || x.typ === 'a')
+    if (v) {
+      q.sekvens[q.sekvens.length - 1].hal = [v.typ === 'd' ? [v.k > 0 ? v.k : 0, v.k > 0 ? 0 : -v.k] : [0, v.k - 1]]
+      expect(fel(q)).toMatch(/SP-B1/)
+    }
+  })
+  it('SP-B3 fäller två lika alternativ', () => {
+    const q = ett()
+    const d = q.correctAnswer === 0 ? 1 : 0
+    q.options[d] = kopia(q.options[q.correctAnswer])
+    expect(fel(q)).toMatch(/SP-B3/)
+  })
+  it('SP-B4 fäller ett facit som är symmetriskt kring en axel som inte vikts', () => {
+    const q = kopia(bank('Grund').find((x: Q) => x.form === 'B' && x.vikningar[0].typ === 'v'))
+    q.sekvens[1].hal = [[0, q.vikningar[0].flytt === 1 ? 1 : 2]]
+    q.options[q.correctAnswer] = { kind: 'ark-ut', n: 4, hal: [[0, 1], [0, 2], [3, 1], [3, 2]], klipp: [] }
+    expect(fel(q)).toMatch(/SP-B4|SP-B0|stämmer inte/)
+  })
+  it('SP-B5 fäller en pil som pekar fel', () => {
+    const q = ett()
+    q.sekvens[0].pil = [q.sekvens[0].pil[1], q.sekvens[0].pil[0]]
+    expect(fel(q)).toMatch(/SP-B5/)
+  })
+  it('SP-B6 fäller klipp på grund och ett klipp mitt i det vikta arket', () => {
+    const g = kopia(bank('Grund').find((x: Q) => x.form === 'B'))
+    g.sekvens[g.sekvens.length - 1].klipp = [[0, 0]]
+    expect(fel(g)).toMatch(/klipp på grund/)
+    const e = kopia(bank('Expert').find((x: Q) => x.form === 'B'))
+    e.sekvens[e.sekvens.length - 1].klipp = []
+    expect(fel(e)).toMatch(/SP-B6/)
+  })
+  it('SP-B7 fäller fem rutor i sekvensen', () => {
+    const q = kopia(bank('Expert').find((x: Q) => x.form === 'B'))
+    q.sekvens.unshift(q.sekvens[0])
+    expect(fel(q)).toMatch(/SP-B7/)
+  })
+  it('papperet får aldrig hänga i ett hörn eller sakna en hel rad', () => {
+    expect(B.papperHel([[0, 1], [1, 0]])).toBe(false)
+    expect(B.papperHel([[0, 0], [1, 0], [2, 0], [3, 0]])).toBe(false)
+    expect(B.papperHel([[3, 1], [3, 2]])).toBe(true)
   })
 })
 

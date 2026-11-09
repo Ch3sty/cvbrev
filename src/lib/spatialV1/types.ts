@@ -41,8 +41,8 @@ export interface ArkStansFigur {
   n: 4 | 6;
   poly: Punkt[];
   hal: Ruta[];
-  /** Bortskuren ruta i kanten (expert), högst en. */
-  klipp?: Ruta;
+  /** Bortskurna rutor: i det stansade arket en ruta i kanten (expert, SP-B6); i uppvikningens mellansteg fler. */
+  klipp?: Ruta[];
 }
 
 /** Form B, arket uppvikt: hålen och de rutor som klippet tog bort. */
