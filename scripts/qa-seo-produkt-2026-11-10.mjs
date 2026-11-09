@@ -327,6 +327,7 @@ async function stada() {
   for (const [tabell, kol] of [
     ['anon_test_sessions', 'claimed_by'],
     ['test_planer', 'user_id'],
+    ['logic_test_v4_sessions', 'user_id'],
   ]) {
     const { error } = await admin.from(tabell).delete().in(kol, ids)
     if (error) console.error(tabell, error.message)
@@ -343,11 +344,16 @@ async function main() {
   if (process.argv.includes('--stada')) return stada()
   const browser = await puppeteer.launch({ executablePath: CHROME, headless: true, args: ['--no-sandbox'] })
   try {
-    await flodeIprov(browser, PIXEL7, 'pixel7', false, false)
-    await flodeIprov(browser, DESKTOP, 'desktop', true, true)
-    await flodeUtanKalla(browser, PIXEL7, 'pixel7', true)
-    await flodeUtanKalla(browser, DESKTOP, 'desktop', false)
-    await flodeAlva(browser, DESKTOP, 'desktop', false)
+    const bara = process.env.QA_BARA
+    if (!bara || bara === 'iprov') {
+      await flodeIprov(browser, PIXEL7, 'pixel7', false, false)
+      await flodeIprov(browser, DESKTOP, 'desktop', true, true)
+    }
+    if (!bara || bara === 'utan') {
+      await flodeUtanKalla(browser, PIXEL7, 'pixel7', true)
+      await flodeUtanKalla(browser, DESKTOP, 'desktop', false)
+    }
+    if (!bara || bara === 'alva') await flodeAlva(browser, DESKTOP, 'desktop', false)
   } finally {
     await browser.close()
   }

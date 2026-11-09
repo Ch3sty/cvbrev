@@ -104,6 +104,8 @@ export default function ValkommenClient({ signup, fornamn, kalla = null }: Valko
       if (hamtat) {
         capture('signup_landed', { destination: hamtat, intent, claimed: true, via: 'smakprov' })
         router.replace(hamtat)
+        // Planen fick valet på servern under den här sidan: sidomenyns övningsprov läser den.
+        if (kalla?.satt) router.refresh()
         return
       }
       const gren = landningsgren(signup, TRACK_CHOICE_PATH)
@@ -120,6 +122,7 @@ export default function ValkommenClient({ signup, fornamn, kalla = null }: Valko
       }
       capture('signup_landed', { destination: gren.destination, intent, claimed: false, via: gren.via })
       router.replace(gren.destination)
+      if (kalla?.satt) router.refresh()
     })()
   }, [signup, router, kalla])
 
