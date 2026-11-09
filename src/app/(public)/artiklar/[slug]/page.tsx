@@ -61,10 +61,14 @@ import CVExample from '@/components/mdx/CVExample';
 import ArtikelRam, { datumText, type RelateradArtikel } from '@/components/artiklar/ArtikelRam';
 import { GratisKort, InlineKort, ProvKort, SlutKort } from '@/components/artiklar/reklam/ArtikelReklam';
 import { TESTKORT_INTERVJU } from '@/components/artiklar/reklam/reklam-copy';
+import TypProvKort, { type ProvKortTyp } from '@/components/artiklar/reklam/TypProvKort';
+import { SALD_PLAN as PREMIUM_PLAN, prisPeriod as premiumPris } from '@/lib/plans/plans';
 import Signatur from '@/components/publikt/innehall/Signatur';
 import ArtikelFilm from '@/components/artiklar/ArtikelFilm';
 // Matris- och serieuppgifterna i testartiklarna, testernas figurritare (2026-11-09).
 import { MatrisUppgift, MatrisFacit } from '@/components/artiklar/MatrisUppgift';
+// Talserier, spatial förmåga och ordförråd som lösta uppgifter (SEO-planen 2026-11-10).
+import { TalserieUppgift, SpatialUppgift, SpatialFacit, OrdUppgift } from '@/components/artiklar/Steg2Uppgift';
 import { KLUSTER_ETIKETT, hjalteKnapp } from '@/components/publikt/innehall/artikel-kluster';
 import MallMiniatyrer from '@/components/cv/MallMiniatyrer';
 import { BrevMallVisning, CvMallVisning } from '@/components/artiklar/MallVisningar';
@@ -274,6 +278,12 @@ function injectClusterCta(content: string, verktyg: InlineVerktyg): string {
         return content;
     }
 
+    // Artikeln har ett eget provkort för sin testtyp (TypProvKort med
+    // ersatterProvkort): då ska klustrets matriskort inte läggas till.
+    if (content.includes('ersatterProvkort')) {
+        return content;
+    }
+
     // Dela upp innehållet i stycken
     const paragraphs = content.split('\n\n');
 
@@ -477,10 +487,18 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 variant="testkort"
             />
         ),
+        // Provkortet per testtyp (SEO-planen för de nya testerna, 5.1).
+        TypProvKort: (p: { typ: ProvKortTyp }) => <TypProvKort typ={p.typ} cluster={cluster} slug={slug} />,
+        // Premiumpriset ur PLANS i löptext: "149 kr i månaden".
+        PremiumPris: () => <>{premiumPris(PREMIUM_PLAN)}</>,
         // Produktfilmen i testartiklarna, klicka för att spela (ArtikelFilm.tsx).
         Traningsfilm: () => <ArtikelFilm slug={slug} />,
         MatrisUppgift: MatrisUppgift,
         MatrisFacit: MatrisFacit,
+        TalserieUppgift: TalserieUppgift,
+        SpatialUppgift: SpatialUppgift,
+        SpatialFacit: SpatialFacit,
+        OrdUppgift: OrdUppgift,
         CVTemplateShowcase: CVTemplateShowcase,
         PersonligtBrevTemplateShowcase: BrevMallVisning,
         InteractiveCVShowcase: CvMallVisning,

@@ -1,0 +1,29 @@
+{
+ "_om": "Undantag för SEO-planen för de nya testerna (docs/plan-seo-nya-tester-2026-11-10.md, ägarbeslut 2026-11-10). Läses av scripts/seo-diff-artiklar.ts. Inga rubriker, länkar eller FAQ-frågor tas bort.",
+ "LD_UNDANTAG": [
+  {
+   "path": "/artiklar/deduktivt-induktivt-test",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester (U3): deduktivt har pass och övningsprov, provkortet för deduktivt och en mening om nivåerna. FAQ-svaret om att öva gratis nämner Nivåkollen och övningsprovet. Frågorna är desamma. BlogPosting följer den nya texten.",
+   "andrade": ["BlogPosting", "FAQPage"]
+  },
+  {
+   "path": "/artiklar/logiska-tester",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester (U3, U5): länken med ankartexten deduktivt test i avsnittet om testtyperna. BlogPostings wordCount följer texten.",
+   "andrade": ["BlogPosting"]
+  },
+  {
+   "path": "/artiklar/aon-cut-e-test",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester (U3): en mening med länken deduktivt test i switchChallenge-avsnittet. BlogPostings wordCount följer texten.",
+   "andrade": ["BlogPosting"]
+  },
+  {
+   "path": "/artiklar/arbetspsykologiska-tester",
+   "datum": "2026-11-10",
+   "skal": "SEO-plan nya tester (U3): länken med ankartexten deduktivt test i avsnittet om deduktiv logik. BlogPostings wordCount följer texten.",
+   "andrade": ["BlogPosting"]
+  }
+ ]
+}

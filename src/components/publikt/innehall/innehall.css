@@ -657,3 +657,20 @@
   line-height: 1.05;
   text-wrap: balance;
 }
+
+/* Provkortet per testtyp (TypProvKort): uppgiften utan markerat svar, i samma
+   papper och kant som matriskortets rutnät. */
+.ib-typbild { width: 100%; max-width: 230px; background: var(--papper-skarm); border-radius: 16px; padding: 14px; box-shadow: var(--lyft); color: var(--ink-1); }
+.ib-typbild-fig { max-width: 170px; padding: 8px; }
+.ib-typbild-fig svg { display: block; width: 100%; height: auto; }
+.ib-typrad { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.ib-typrad span { min-width: 34px; padding: 6px 4px; border-radius: 10px; border: 1px solid var(--kant-skarm); text-align: center; font-weight: 700; font-variant-numeric: tabular-nums; }
+.ib-typrad .ib-typlucka { border-style: dashed; color: var(--ink-3); }
+.ib-typord { font-family: var(--display); font-weight: 800; letter-spacing: 0.04em; font-size: 20px; text-align: center; margin: 0 0 10px; }
+.ib-typpremiss { font-size: 13px; line-height: 1.45; margin: 0; color: var(--ink-2); }
+.ib-typpastaende { font-size: 14px; font-weight: 700; line-height: 1.4; margin: 8px 0 10px; }
+.ib-typalt { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.ib-typalt span { padding: 4px 10px; border-radius: 999px; border: 1px solid var(--kant-skarm); font-size: 13px; color: var(--ink-2); }
+.ib-typdelar { margin: 0; padding: 0; list-style: none; counter-reset: del; display: grid; gap: 6px; }
+.ib-typdelar li { counter-increment: del; display: flex; gap: 8px; align-items: center; font-size: 13px; }
+.ib-typdelar li::before { content: counter(del); display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 999px; background: var(--rum-ton, var(--insunken)); color: var(--rum-ink, var(--ink-1)); font-weight: 700; font-size: 12px; flex: none; }

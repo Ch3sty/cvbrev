@@ -1,0 +1,2434 @@
+[
+ {
+  "id": "ts-art-fam-aritmetisk",
+  "niva": "grund",
+  "family": "aritmetisk",
+  "params": {
+   "a": 34,
+   "d": 3
+  },
+  "regel": "Varje tal är 3 mer än det förra.",
+  "regelnyckel": "3",
+  "visade": [
+   34,
+   37,
+   40,
+   43,
+   46
+  ],
+  "luckor": 1,
+  "options": [
+   [
+    47
+   ],
+   [
+    48
+   ],
+   [
+    49
+   ],
+   [
+    50
+   ],
+   [
+    52
+   ]
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   [
+    "minskande"
+   ],
+   [
+    "minskande"
+   ],
+   [],
+   [
+    "okande"
+   ],
+   [
+    "ett_steg_for_langt"
+   ]
+  ],
+  "misstag": [
+   "Du tog steget +1, men steget är +3 hela vägen.",
+   "Du tog steget +2, men steget är +3 hela vägen.",
+   "",
+   "Du tog steget +4, men steget är +3 hela vägen.",
+   "Det här talet kommer ett steg senare. Du hoppade över ett tal."
+  ],
+  "bagar": [
+   {
+    "fran": [
+     0
+    ],
+    "till": 1,
+    "text": "+3"
+   },
+   {
+    "fran": [
+     1
+    ],
+    "till": 2,
+    "text": "+3"
+   },
+   {
+    "fran": [
+     2
+    ],
+    "till": 3,
+    "text": "+3"
+   },
+   {
+    "fran": [
+     3
+    ],
+    "till": 4,
+    "text": "+3"
+   },
+   {
+    "fran": [
+     4
+    ],
+    "till": 5,
+    "text": "+3"
+   }
+  ],
+  "difficulty": 1,
+  "p_prior": 0.5,
+  "fran_version": 1
+ },
+ {
+  "id": "ts-art-fam-geometrisk",
+  "niva": "grund",
+  "family": "geometrisk",
+  "params": {
+   "a": 6,
+   "r": 2,
+   "q": 1
+  },
+  "regel": "Varje tal är 2 gånger det förra.",
+  "regelnyckel": "2/1",
+  "visade": [
+   6,
+   12,
+   24,
+   48,
+   96
+  ],
+  "luckor": 1,
+  "options": [
+   [
+    144
+   ],
+   [
+    168
+   ],
+   [
+    192
+   ],
+   [
+    288
+   ],
+   [
+    384
+   ]
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   [
+    "forra_differensen"
+   ],
+   [
+    "kvadratisk_tolkning"
+   ],
+   [],
+   [
+    "okande_kvot"
+   ],
+   [
+    "ett_steg_for_langt"
+   ]
+  ],
+  "misstag": [
+   "Du fortsatte med samma steg som sist, men steget ändras från tal till tal.",
+   "Du lät steget ändras lika mycket varje gång. Här följer steget en annan regel.",
+   "",
+   "Du multiplicerade med fel tal. Kvoten mellan talen är densamma hela vägen.",
+   "Det här talet kommer ett steg senare. Du hoppade över ett tal."
+  ],
+  "bagar": [
+   {
+    "fran": [
+     0
+    ],
+    "till": 1,
+    "text": "×2"
+   },
+   {
+    "fran": [
+     1
+    ],
+    "till": 2,
+    "text": "×2"
+   },
+   {
+    "fran": [
+     2
+    ],
+    "till": 3,
+    "text": "×2"
+   },
+   {
+    "fran": [
+     3
+    ],
+    "till": 4,
+    "text": "×2"
+   },
+   {
+    "fran": [
+     4
+    ],
+    "till": 5,
+    "text": "×2"
+   }
+  ],
+  "difficulty": 1,
+  "p_prior": 0.5,
+  "fran_version": 1
+ },
+ {
+  "id": "ts-art-fam-andra",
+  "niva": "grund",
+  "family": "andra_ordningen",
+  "params": {
+   "a": 24,
+   "d": 1,
+   "s": 1
+  },
+  "regel": "Steget växer med 1 för varje tal (+1, +2, +3 och så vidare).",
+  "regelnyckel": "1,1",
+  "visade": [
+   24,
+   25,
+   27,
+   30,
+   34,
+   39
+  ],
+  "luckor": 1,
+  "options": [
+   [
+    33
+   ],
+   [
+    43
+   ],
+   [
+    45
+   ],
+   [
+    46
+   ],
+   [
+    52
+   ]
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   [
+    "tecken"
+   ],
+   [
+    "tecken_andra"
+   ],
+   [],
+   [
+    "dubbel_okning"
+   ],
+   [
+    "ett_steg_for_langt"
+   ]
+  ],
+  "misstag": [
+   "Rätt storlek på steget men åt fel håll.",
+   "Du ändrade steget åt fel håll. Titta på hur stegen utvecklas.",
+   "",
+   "Du ändrade steget dubbelt så mycket som serien gör.",
+   "Det här talet kommer ett steg senare. Du hoppade över ett tal."
+  ],
+  "bagar": [
+   {
+    "fran": [
+     0
+    ],
+    "till": 1,
+    "text": "+1"
+   },
+   {
+    "fran": [
+     1
+    ],
+    "till": 2,
+    "text": "+2"
+   },
+   {
+    "fran": [
+     2
+    ],
+    "till": 3,
+    "text": "+3"
+   },
+   {
+    "fran": [
+     3
+    ],
+    "till": 4,
+    "text": "+4"
+   },
+   {
+    "fran": [
+     4
+    ],
+    "till": 5,
+    "text": "+5"
+   },
+   {
+    "fran": [
+     5
+    ],
+    "till": 6,
+    "text": "+6"
+   }
+  ],
+  "difficulty": 1,
+  "p_prior": 0.5,
+  "fran_version": 1
+ },
+ {
+  "id": "ts-art-fam-vaxelvis",
+  "niva": "grund",
+  "family": "vaxelvis",
+  "params": {
+   "a": 25,
+   "upp": 8,
+   "ned": 3,
+   "forst": "upp"
+  },
+  "regel": "Stegen växlar: +8, sedan −3, och så vidare.",
+  "regelnyckel": "8,3,upp",
+  "visade": [
+   25,
+   33,
+   30,
+   38,
+   35
+  ],
+  "luckor": 1,
+  "options": [
+   [
+    21
+   ],
+   [
+    27
+   ],
+   [
+    32
+   ],
+   [
+    40
+   ],
+   [
+    43
+   ]
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   [
+    "kvadratisk_tolkning"
+   ],
+   [
+    "tecken"
+   ],
+   [
+    "fel_fas"
+   ],
+   [
+    "netto"
+   ],
+   []
+  ],
+  "misstag": [
+   "Du lät steget ändras lika mycket varje gång. Här följer steget en annan regel.",
+   "Rätt storlek på steget men åt fel håll.",
+   "Du tog fel steg i växlingen. Stegen turas om, ett i taget.",
+   "Du räknade med nettot av de två stegen, men serien tar dem ett i taget.",
+   ""
+  ],
+  "bagar": [
+   {
+    "fran": [
+     0
+    ],
+    "till": 1,
+    "text": "+8"
+   },
+   {
+    "fran": [
+     1
+    ],
+    "till": 2,
+    "text": "−3"
+   },
+   {
+    "fran": [
+     2
+    ],
+    "till": 3,
+    "text": "+8"
+   },
+   {
+    "fran": [
+     3
+    ],
+    "till": 4,
+    "text": "−3"
+   },
+   {
+    "fran": [
+     4
+    ],
+    "till": 5,
+    "text": "+8"
+   }
+  ],
+  "difficulty": 1,
+  "p_prior": 0.5,
+  "fran_version": 1
+ },
+ {
+  "id": "ts-art-fam-varvad",
+  "niva": "avancerad",
+  "family": "varvad",
+  "params": {
+   "a0": 7,
+   "d0": 6,
+   "g0": false,
+   "a1": 173,
+   "d1": -3,
+   "g1": false,
+   "byt": false
+  },
+  "regel": "Två serier varvas. Tal 1, 3, 5 och så vidare går plus 6 för varje steg, tal 2, 4, 6 går minus 3.",
+  "regelnyckel": "6,false,-3,false,false",
+  "visade": [
+   7,
+   173,
+   13,
+   170,
+   19,
+   167
+  ],
+  "luckor": 2,
+  "options": [
+   [
+    25,
+    31
+   ],
+   [
+    25,
+    164
+   ],
+   [
+    164,
+    25
+   ],
+   [
+    164,
+    31
+   ],
+   [
+    315,
+    463
+   ]
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   [
+    "ratt",
+    "fel_serie"
+   ],
+   [],
+   [
+    "bytt_ordning"
+   ],
+   [
+    "ett_steg_for_langt"
+   ],
+   [
+    "forra_differensen"
+   ]
+  ],
+  "misstag": [
+   "Första talet stämmer, men i det andra fortsatte du fel delserie.",
+   "",
+   "Rätt tal men i fel ordning.",
+   "Det här talet kommer ett steg senare. Du hoppade över ett tal.",
+   "Du fortsatte med samma steg som sist, men steget ändras från tal till tal."
+  ],
+  "bagar": [
+   {
+    "fran": [
+     0
+    ],
+    "till": 2,
+    "text": "+6",
+    "serie": 0
+   },
+   {
+    "fran": [
+     1
+    ],
+    "till": 3,
+    "text": "−3",
+    "serie": 1
+   },
+   {
+    "fran": [
+     2
+    ],
+    "till": 4,
+    "text": "+6",
+    "serie": 0
+   },
+   {
+    "fran": [
+     3
+    ],
+    "till": 5,
+    "text": "−3",
+    "serie": 1
+   },
+   {
+    "fran": [
+     4
+    ],
+    "till": 6,
+    "text": "+6",
+    "serie": 0
+   },
+   {
+    "fran": [
+     5
+    ],
+    "till": 7,
+    "text": "−3",
+    "serie": 1
+   }
+  ],
+  "difficulty": 1,
+  "p_prior": 0.5,
+  "fran_version": 1
+ },
+ {
+  "id": "ts-art-fam-geodiff",
+  "niva": "avancerad",
+  "family": "geodiff",
+  "params": {
+   "a": 31,
+   "d": 2,
+   "r": 2
+  },
+  "regel": "Steget blir 2 gånger större för varje tal (+2, +4, +8 och så vidare).",
+  "regelnyckel": "2,2",
+  "visade": [
+   31,
+   33,
+   37,
+   45,
+   61,
+   93
+  ],
+  "luckor": 2,
+  "options": [
+   [
+    125,
+    157
+   ],
+   [
+    157,
+    221
+   ],
+   [
+    157,
+    253
+   ],
+   [
+    157,
+    285
+   ],
+   [
+    285,
+    157
+   ]
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   [
+    "forra_differensen"
+   ],
+   [
+    "ratt",
+    "forra_differensen"
+   ],
+   [
+    "ratt",
+    "kvadratisk_tolkning"
+   ],
+   [],
+   [
+    "bytt_ordning"
+   ]
+  ],
+  "misstag": [
+   "Du fortsatte med samma steg som sist, men steget ändras från tal till tal.",
+   "Första talet stämmer, men i det andra fortsatte du med samma steg som sist.",
+   "Första talet stämmer, men i det andra lät du steget ändras lika mycket som förra gången.",
+   "",
+   "Rätt tal men i fel ordning."
+  ],
+  "bagar": [
+   {
+    "fran": [
+     0
+    ],
+    "till": 1,
+    "text": "+2"
+   },
+   {
+    "fran": [
+     1
+    ],
+    "till": 2,
+    "text": "+4"
+   },
+   {
+    "fran": [
+     2
+    ],
+    "till": 3,
+    "text": "+8"
+   },
+   {
+    "fran": [
+     3
+    ],
+    "till": 4,
+    "text": "+16"
+   },
+   {
+    "fran": [
+     4
+    ],
+    "till": 5,
+    "text": "+32"
+   },
+   {
+    "fran": [
+     5
+    ],
+    "till": 6,
+    "text": "+64"
+   },
+   {
+    "fran": [
+     6
+    ],
+    "till": 7,
+    "text": "+128"
+   }
+  ],
+  "difficulty": 1,
+  "p_prior": 0.5,
+  "fran_version": 1
+ },
+ {
+  "id": "ts-art-fam-affin",
+  "niva": "avancerad",
+  "family": "affin",
+  "params": {
+   "a": 3,
+   "k": 2,
+   "c": -1
+  },
+  "regel": "Varje tal är det förra gånger 2, minus 1.",
+  "regelnyckel": "2,-1",
+  "visade": [
+   3,
+   5,
+   9,
+   17,
+   33,
+   65
+  ],
+  "luckor": 2,
+  "options": [
+   [
+    128,
+    254
+   ],
+   [
+    129,
+    225
+   ],
+   [
+    129,
+    257
+   ],
+   [
+    129,
+    258
+   ],
+   [
+    257,
+    129
+   ]
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   [
+    "fel_ordning"
+   ],
+   [
+    "ratt",
+    "kvadratisk_tolkning"
+   ],
+   [],
+   [
+    "ratt",
+    "utan_c"
+   ],
+   [
+    "bytt_ordning"
+   ]
+  ],
+  "misstag": [
+   "Du lade till före multiplikationen. Regeln multiplicerar först.",
+   "Första talet stämmer, men i det andra lät du steget ändras lika mycket som förra gången.",
+   "",
+   "Första talet stämmer, men i det andra glömde du tillägget efter multiplikationen.",
+   "Rätt tal men i fel ordning."
+  ],
+  "bagar": [
+   {
+    "fran": [
+     0
+    ],
+    "till": 1,
+    "text": "×2 −1"
+   },
+   {
+    "fran": [
+     1
+    ],
+    "till": 2,
+    "text": "×2 −1"
+   },
+   {
+    "fran": [
+     2
+    ],
+    "till": 3,
+    "text": "×2 −1"
+   },
+   {
+    "fran": [
+     3
+    ],
+    "till": 4,
+    "text": "×2 −1"
+   },
+   {
+    "fran": [
+     4
+    ],
+    "till": 5,
+    "text": "×2 −1"
+   },
+   {
+    "fran": [
+     5
+    ],
+    "till": 6,
+    "text": "×2 −1"
+   },
+   {
+    "fran": [
+     6
+    ],
+    "till": 7,
+    "text": "×2 −1"
+   }
+  ],
+  "difficulty": 1,
+  "p_prior": 0.5,
+  "fran_version": 1
+ },
+ {
+  "id": "ts-art-fam-summa",
+  "niva": "expert",
+  "family": "summa",
+  "params": {
+   "a": -5,
+   "b": 19,
+   "c": 2
+  },
+  "regel": "Varje tal är summan av de två talen närmast före, plus 2.",
+  "regelnyckel": "2",
+  "visade": [
+   -5,
+   19,
+   16,
+   37,
+   55,
+   94
+  ],
+  "luckor": 2,
+  "options": [
+   [
+    133,
+    172
+   ],
+   [
+    151,
+    208
+   ],
+   [
+    151,
+    247
+   ],
+   [
+    151,
+    302
+   ],
+   [
+    247,
+    151
+   ]
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   [
+    "forra_differensen"
+   ],
+   [
+    "ratt",
+    "forra_differensen"
+   ],
+   [],
+   [
+    "ratt",
+    "dubbel"
+   ],
+   [
+    "bytt_ordning"
+   ]
+  ],
+  "misstag": [
+   "Du fortsatte med samma steg som sist, men steget ändras från tal till tal.",
+   "Första talet stämmer, men i det andra fortsatte du med samma steg som sist.",
+   "",
+   "Första talet stämmer, men i det andra dubblade du förra talet.",
+   "Rätt tal men i fel ordning."
+  ],
+  "bagar": [
+   {
+    "fran": [
+     0,
+     1
+    ],
+    "till": 2,
+    "text": "summa +2"
+   },
+   {
+    "fran": [
+     1,
+     2
+    ],
+    "till": 3,
+    "text": "summa +2"
+   },
+   {
+    "fran": [
+     2,
+     3
+    ],
+    "till": 4,
+    "text": "summa +2"
+   },
+   {
+    "fran": [
+     3,
+     4
+    ],
+    "till": 5,
+    "text": "summa +2"
+   },
+   {
+    "fran": [
+     4,
+     5
+    ],
+    "till": 6,
+    "text": "summa +2"
+   },
+   {
+    "fran": [
+     5,
+     6
+    ],
+    "till": 7,
+    "text": "summa +2"
+   }
+  ],
+  "difficulty": 1,
+  "p_prior": 0.5,
+  "fran_version": 1
+ },
+ {
+  "id": "ts-art-01",
+  "niva": "grund",
+  "family": "aritmetisk",
+  "params": {
+   "a": 65,
+   "d": -3
+  },
+  "regel": "Varje tal är 3 mindre än det förra.",
+  "regelnyckel": "-3",
+  "visade": [
+   65,
+   62,
+   59,
+   56,
+   53,
+   50
+  ],
+  "luckor": 1,
+  "options": [
+   [
+    44
+   ],
+   [
+    45
+   ],
+   [
+    46
+   ],
+   [
+    47
+   ],
+   [
+    48
+   ]
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   [
+    "ett_steg_for_langt"
+   ],
+   [
+    "okande"
+   ],
+   [
+    "okande"
+   ],
+   [],
+   [
+    "minskande"
+   ]
+  ],
+  "misstag": [
+   "Det här talet kommer ett steg senare. Du hoppade över ett tal.",
+   "Du tog steget −5, men steget är −3 hela vägen.",
+   "Du tog steget −4, men steget är −3 hela vägen.",
+   "",
+   "Du tog steget −2, men steget är −3 hela vägen."
+  ],
+  "bagar": [
+   {
+    "fran": [
+     0
+    ],
+    "till": 1,
+    "text": "−3"
+   },
+   {
+    "fran": [
+     1
+    ],
+    "till": 2,
+    "text": "−3"
+   },
+   {
+    "fran": [
+     2
+    ],
+    "till": 3,
+    "text": "−3"
+   },
+   {
+    "fran": [
+     3
+    ],
+    "till": 4,
+    "text": "−3"
+   },
+   {
+    "fran": [
+     4
+    ],
+    "till": 5,
+    "text": "−3"
+   },
+   {
+    "fran": [
+     5
+    ],
+    "till": 6,
+    "text": "−3"
+   }
+  ],
+  "difficulty": 1,
+  "p_prior": 0.5,
+  "fran_version": 1
+ },
+ {
+  "id": "ts-art-02",
+  "niva": "grund",
+  "family": "geometrisk",
+  "params": {
+   "a": 1,
+   "r": 2,
+   "q": 1
+  },
+  "regel": "Varje tal är 2 gånger det förra.",
+  "regelnyckel": "2/1",
+  "visade": [
+   1,
+   2,
+   4,
+   8,
+   16,
+   32
+  ],
+  "luckor": 1,
+  "options": [
+   [
+    48
+   ],
+   [
+    56
+   ],
+   [
+    64
+   ],
+   [
+    96
+   ],
+   [
+    128
+   ]
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   [
+    "forra_differensen"
+   ],
+   [
+    "kvadratisk_tolkning"
+   ],
+   [],
+   [
+    "okande_kvot"
+   ],
+   [
+    "ett_steg_for_langt"
+   ]
+  ],
+  "misstag": [
+   "Du fortsatte med samma steg som sist, men steget ändras från tal till tal.",
+   "Du lät steget ändras lika mycket varje gång. Här följer steget en annan regel.",
+   "",
+   "Du multiplicerade med fel tal. Kvoten mellan talen är densamma hela vägen.",
+   "Det här talet kommer ett steg senare. Du hoppade över ett tal."
+  ],
+  "bagar": [
+   {
+    "fran": [
+     0
+    ],
+    "till": 1,
+    "text": "×2"
+   },
+   {
+    "fran": [
+     1
+    ],
+    "till": 2,
+    "text": "×2"
+   },
+   {
+    "fran": [
+     2
+    ],
+    "till": 3,
+    "text": "×2"
+   },
+   {
+    "fran": [
+     3
+    ],
+    "till": 4,
+    "text": "×2"
+   },
+   {
+    "fran": [
+     4
+    ],
+    "till": 5,
+    "text": "×2"
+   },
+   {
+    "fran": [
+     5
+    ],
+    "till": 6,
+    "text": "×2"
+   }
+  ],
+  "difficulty": 1,
+  "p_prior": 0.5,
+  "fran_version": 1
+ },
+ {
+  "id": "ts-art-03",
+  "niva": "grund",
+  "family": "vaxelvis",
+  "params": {
+   "a": 4,
+   "upp": 9,
+   "ned": 7,
+   "forst": "upp"
+  },
+  "regel": "Stegen växlar: +9, sedan −7, och så vidare.",
+  "regelnyckel": "9,7,upp",
+  "visade": [
+   4,
+   13,
+   6,
+   15,
+   8,
+   17
+  ],
+  "luckor": 1,
+  "options": [
+   [
+    10
+   ],
+   [
+    19
+   ],
+   [
+    24
+   ],
+   [
+    26
+   ],
+   [
+    42
+   ]
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   [],
+   [
+    "netto"
+   ],
+   [
+    "tecken"
+   ],
+   [
+    "fel_fas"
+   ],
+   [
+    "kvadratisk_tolkning"
+   ]
+  ],
+  "misstag": [
+   "",
+   "Du räknade med nettot av de två stegen, men serien tar dem ett i taget.",
+   "Rätt storlek på steget men åt fel håll.",
+   "Du tog fel steg i växlingen. Stegen turas om, ett i taget.",
+   "Du lät steget ändras lika mycket varje gång. Här följer steget en annan regel."
+  ],
+  "bagar": [
+   {
+    "fran": [
+     0
+    ],
+    "till": 1,
+    "text": "+9"
+   },
+   {
+    "fran": [
+     1
+    ],
+    "till": 2,
+    "text": "−7"
+   },
+   {
+    "fran": [
+     2
+    ],
+    "till": 3,
+    "text": "+9"
+   },
+   {
+    "fran": [
+     3
+    ],
+    "till": 4,
+    "text": "−7"
+   },
+   {
+    "fran": [
+     4
+    ],
+    "till": 5,
+    "text": "+9"
+   },
+   {
+    "fran": [
+     5
+    ],
+    "till": 6,
+    "text": "−7"
+   }
+  ],
+  "difficulty": 1,
+  "p_prior": 0.5,
+  "fran_version": 1
+ },
+ {
+  "id": "ts-art-04",
+  "niva": "grund",
+  "family": "andra_ordningen",
+  "params": {
+   "a": 23,
+   "d": 1,
+   "s": 2
+  },
+  "regel": "Steget växer med 2 för varje tal (+1, +3, +5 och så vidare).",
+  "regelnyckel": "1,2",
+  "visade": [
+   23,
+   24,
+   27,
+   32,
+   39,
+   48
+  ],
+  "luckor": 1,
+  "options": [
+   [
+    37
+   ],
+   [
+    55
+   ],
+   [
+    59
+   ],
+   [
+    61
+   ],
+   [
+    72
+   ]
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   [
+    "tecken"
+   ],
+   [
+    "tecken_andra"
+   ],
+   [],
+   [
+    "dubbel_okning"
+   ],
+   [
+    "ett_steg_for_langt"
+   ]
+  ],
+  "misstag": [
+   "Rätt storlek på steget men åt fel håll.",
+   "Du ändrade steget åt fel håll. Titta på hur stegen utvecklas.",
+   "",
+   "Du ändrade steget dubbelt så mycket som serien gör.",
+   "Det här talet kommer ett steg senare. Du hoppade över ett tal."
+  ],
+  "bagar": [
+   {
+    "fran": [
+     0
+    ],
+    "till": 1,
+    "text": "+1"
+   },
+   {
+    "fran": [
+     1
+    ],
+    "till": 2,
+    "text": "+3"
+   },
+   {
+    "fran": [
+     2
+    ],
+    "till": 3,
+    "text": "+5"
+   },
+   {
+    "fran": [
+     3
+    ],
+    "till": 4,
+    "text": "+7"
+   },
+   {
+    "fran": [
+     4
+    ],
+    "till": 5,
+    "text": "+9"
+   },
+   {
+    "fran": [
+     5
+    ],
+    "till": 6,
+    "text": "+11"
+   }
+  ],
+  "difficulty": 1,
+  "p_prior": 0.5,
+  "fran_version": 1
+ },
+ {
+  "id": "ts-art-05",
+  "niva": "avancerad",
+  "family": "vaxelvis",
+  "params": {
+   "a": 127,
+   "upp": 48,
+   "ned": 4,
+   "forst": "upp"
+  },
+  "regel": "Stegen växlar: +48, sedan −4, och så vidare.",
+  "regelnyckel": "48,4,upp",
+  "visade": [
+   127,
+   175,
+   171,
+   219,
+   215,
+   263
+  ],
+  "luckor": 2,
+  "options": [
+   [
+    259,
+    303
+   ],
+   [
+    259,
+    307
+   ],
+   [
+    307,
+    303
+   ],
+   [
+    307,
+    351
+   ],
+   [
+    311,
+    307
+   ]
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   [
+    "ratt",
+    "netto"
+   ],
+   [],
+   [
+    "ett_steg_for_langt"
+   ],
+   [
+    "netto"
+   ],
+   [
+    "fel_fas"
+   ]
+  ],
+  "misstag": [
+   "Första talet stämmer, men i det andra räknade du med nettot av stegen.",
+   "",
+   "Det här talet kommer ett steg senare. Du hoppade över ett tal.",
+   "Du räknade med nettot av de två stegen, men serien tar dem ett i taget.",
+   "Du tog fel steg i växlingen. Stegen turas om, ett i taget."
+  ],
+  "bagar": [
+   {
+    "fran": [
+     0
+    ],
+    "till": 1,
+    "text": "+48"
+   },
+   {
+    "fran": [
+     1
+    ],
+    "till": 2,
+    "text": "−4"
+   },
+   {
+    "fran": [
+     2
+    ],
+    "till": 3,
+    "text": "+48"
+   },
+   {
+    "fran": [
+     3
+    ],
+    "till": 4,
+    "text": "−4"
+   },
+   {
+    "fran": [
+     4
+    ],
+    "till": 5,
+    "text": "+48"
+   },
+   {
+    "fran": [
+     5
+    ],
+    "till": 6,
+    "text": "−4"
+   },
+   {
+    "fran": [
+     6
+    ],
+    "till": 7,
+    "text": "+48"
+   }
+  ],
+  "difficulty": 1,
+  "p_prior": 0.5,
+  "fran_version": 1
+ },
+ {
+  "id": "ts-art-06",
+  "niva": "avancerad",
+  "family": "varvad",
+  "params": {
+   "a0": -2,
+   "d0": 15,
+   "g0": false,
+   "a1": 142,
+   "d1": -4,
+   "g1": false,
+   "byt": false
+  },
+  "regel": "Två serier varvas. Tal 1, 3, 5 och så vidare går plus 15 för varje steg, tal 2, 4, 6 går minus 4.",
+  "regelnyckel": "15,false,-4,false,false",
+  "visade": [
+   -2,
+   142,
+   13,
+   138,
+   28,
+   134
+  ],
+  "luckor": 2,
+  "options": [
+   [
+    43,
+    -48
+   ],
+   [
+    43,
+    58
+   ],
+   [
+    43,
+    130
+   ],
+   [
+    130,
+    43
+   ],
+   [
+    130,
+    58
+   ]
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   [
+    "ratt",
+    "forra_differensen"
+   ],
+   [
+    "ratt",
+    "fel_serie"
+   ],
+   [],
+   [
+    "bytt_ordning"
+   ],
+   [
+    "ett_steg_for_langt"
+   ]
+  ],
+  "misstag": [
+   "Första talet stämmer, men i det andra fortsatte du med samma steg som sist.",
+   "Första talet stämmer, men i det andra fortsatte du fel delserie.",
+   "",
+   "Rätt tal men i fel ordning.",
+   "Det här talet kommer ett steg senare. Du hoppade över ett tal."
+  ],
+  "bagar": [
+   {
+    "fran": [
+     0
+    ],
+    "till": 2,
+    "text": "+15",
+    "serie": 0
+   },
+   {
+    "fran": [
+     1
+    ],
+    "till": 3,
+    "text": "−4",
+    "serie": 1
+   },
+   {
+    "fran": [
+     2
+    ],
+    "till": 4,
+    "text": "+15",
+    "serie": 0
+   },
+   {
+    "fran": [
+     3
+    ],
+    "till": 5,
+    "text": "−4",
+    "serie": 1
+   },
+   {
+    "fran": [
+     4
+    ],
+    "till": 6,
+    "text": "+15",
+    "serie": 0
+   },
+   {
+    "fran": [
+     5
+    ],
+    "till": 7,
+    "text": "−4",
+    "serie": 1
+   }
+  ],
+  "difficulty": 1,
+  "p_prior": 0.5,
+  "fran_version": 1
+ },
+ {
+  "id": "ts-art-07",
+  "niva": "avancerad",
+  "family": "geodiff",
+  "params": {
+   "a": 21,
+   "d": 3,
+   "r": 2
+  },
+  "regel": "Steget blir 2 gånger större för varje tal (+3, +6, +12 och så vidare).",
+  "regelnyckel": "3,2",
+  "visade": [
+   21,
+   24,
+   30,
+   42,
+   66,
+   114
+  ],
+  "luckor": 2,
+  "options": [
+   [
+    162,
+    210
+   ],
+   [
+    210,
+    306
+   ],
+   [
+    210,
+    354
+   ],
+   [
+    210,
+    402
+   ],
+   [
+    402,
+    210
+   ]
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   [
+    "forra_differensen"
+   ],
+   [
+    "ratt",
+    "forra_differensen"
+   ],
+   [
+    "ratt",
+    "kvadratisk_tolkning"
+   ],
+   [],
+   [
+    "bytt_ordning"
+   ]
+  ],
+  "misstag": [
+   "Du fortsatte med samma steg som sist, men steget ändras från tal till tal.",
+   "Första talet stämmer, men i det andra fortsatte du med samma steg som sist.",
+   "Första talet stämmer, men i det andra lät du steget ändras lika mycket som förra gången.",
+   "",
+   "Rätt tal men i fel ordning."
+  ],
+  "bagar": [
+   {
+    "fran": [
+     0
+    ],
+    "till": 1,
+    "text": "+3"
+   },
+   {
+    "fran": [
+     1
+    ],
+    "till": 2,
+    "text": "+6"
+   },
+   {
+    "fran": [
+     2
+    ],
+    "till": 3,
+    "text": "+12"
+   },
+   {
+    "fran": [
+     3
+    ],
+    "till": 4,
+    "text": "+24"
+   },
+   {
+    "fran": [
+     4
+    ],
+    "till": 5,
+    "text": "+48"
+   },
+   {
+    "fran": [
+     5
+    ],
+    "till": 6,
+    "text": "+96"
+   },
+   {
+    "fran": [
+     6
+    ],
+    "till": 7,
+    "text": "+192"
+   }
+  ],
+  "difficulty": 1,
+  "p_prior": 0.5,
+  "fran_version": 1
+ },
+ {
+  "id": "ts-art-08",
+  "niva": "avancerad",
+  "family": "affin",
+  "params": {
+   "a": -3,
+   "k": 2,
+   "c": 5
+  },
+  "regel": "Varje tal är det förra gånger 2, plus 5.",
+  "regelnyckel": "2,5",
+  "visade": [
+   -3,
+   -1,
+   3,
+   11,
+   27,
+   59
+  ],
+  "luckor": 2,
+  "options": [
+   [
+    91,
+    123
+   ],
+   [
+    107,
+    171
+   ],
+   [
+    118,
+    236
+   ],
+   [
+    123,
+    246
+   ],
+   [
+    123,
+    251
+   ]
+  ],
+  "correctAnswer": 4,
+  "typer": [
+   [
+    "forra_differensen"
+   ],
+   [
+    "kvadratisk_tolkning"
+   ],
+   [
+    "utan_c"
+   ],
+   [
+    "ratt",
+    "utan_c"
+   ],
+   []
+  ],
+  "misstag": [
+   "Du fortsatte med samma steg som sist, men steget ändras från tal till tal.",
+   "Du lät steget ändras lika mycket varje gång. Här följer steget en annan regel.",
+   "Du multiplicerade men glömde tillägget efteråt.",
+   "Första talet stämmer, men i det andra glömde du tillägget efter multiplikationen.",
+   ""
+  ],
+  "bagar": [
+   {
+    "fran": [
+     0
+    ],
+    "till": 1,
+    "text": "×2 +5"
+   },
+   {
+    "fran": [
+     1
+    ],
+    "till": 2,
+    "text": "×2 +5"
+   },
+   {
+    "fran": [
+     2
+    ],
+    "till": 3,
+    "text": "×2 +5"
+   },
+   {
+    "fran": [
+     3
+    ],
+    "till": 4,
+    "text": "×2 +5"
+   },
+   {
+    "fran": [
+     4
+    ],
+    "till": 5,
+    "text": "×2 +5"
+   },
+   {
+    "fran": [
+     5
+    ],
+    "till": 6,
+    "text": "×2 +5"
+   },
+   {
+    "fran": [
+     6
+    ],
+    "till": 7,
+    "text": "×2 +5"
+   }
+  ],
+  "difficulty": 1,
+  "p_prior": 0.5,
+  "fran_version": 1
+ },
+ {
+  "id": "ts-art-09",
+  "niva": "expert",
+  "family": "andra_ordningen",
+  "params": {
+   "a": -74,
+   "d": 6,
+   "s": 3
+  },
+  "regel": "Steget växer med 3 för varje tal (+6, +9, +12 och så vidare).",
+  "regelnyckel": "6,3",
+  "visade": [
+   -74,
+   -68,
+   -59,
+   -47,
+   -32,
+   -14
+  ],
+  "luckor": 2,
+  "options": [
+   [
+    7,
+    25
+   ],
+   [
+    7,
+    28
+   ],
+   [
+    7,
+    31
+   ],
+   [
+    31,
+    7
+   ],
+   [
+    31,
+    58
+   ]
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   [
+    "ratt",
+    "tecken_andra"
+   ],
+   [
+    "ratt",
+    "forra_differensen"
+   ],
+   [],
+   [
+    "bytt_ordning"
+   ],
+   [
+    "ett_steg_for_langt"
+   ]
+  ],
+  "misstag": [
+   "Första talet stämmer, men i det andra ändrade du steget åt fel håll.",
+   "Första talet stämmer, men i det andra fortsatte du med samma steg som sist.",
+   "",
+   "Rätt tal men i fel ordning.",
+   "Det här talet kommer ett steg senare. Du hoppade över ett tal."
+  ],
+  "bagar": [
+   {
+    "fran": [
+     0
+    ],
+    "till": 1,
+    "text": "+6"
+   },
+   {
+    "fran": [
+     1
+    ],
+    "till": 2,
+    "text": "+9"
+   },
+   {
+    "fran": [
+     2
+    ],
+    "till": 3,
+    "text": "+12"
+   },
+   {
+    "fran": [
+     3
+    ],
+    "till": 4,
+    "text": "+15"
+   },
+   {
+    "fran": [
+     4
+    ],
+    "till": 5,
+    "text": "+18"
+   },
+   {
+    "fran": [
+     5
+    ],
+    "till": 6,
+    "text": "+21"
+   },
+   {
+    "fran": [
+     6
+    ],
+    "till": 7,
+    "text": "+24"
+   }
+  ],
+  "difficulty": 1,
+  "p_prior": 0.5,
+  "fran_version": 1
+ },
+ {
+  "id": "ts-art-10",
+  "niva": "expert",
+  "family": "varvad",
+  "params": {
+   "a0": 21,
+   "d0": 2,
+   "g0": true,
+   "a1": 337,
+   "d1": -7,
+   "g1": false,
+   "byt": true
+  },
+  "regel": "Två serier varvas. Tal 1, 3, 5 och så vidare går minus 7 för varje steg, tal 2, 4, 6 går gånger 2.",
+  "regelnyckel": "2,true,-7,false,true",
+  "visade": [
+   337,
+   21,
+   330,
+   42,
+   323,
+   84
+  ],
+  "luckor": 2,
+  "options": [
+   [
+    -148,
+    0
+   ],
+   [
+    168,
+    316
+   ],
+   [
+    316,
+    126
+   ],
+   [
+    316,
+    168
+   ],
+   [
+    316,
+    548
+   ]
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   [
+    "tecken"
+   ],
+   [
+    "bytt_ordning"
+   ],
+   [
+    "aritmetisk_geo"
+   ],
+   [],
+   [
+    "ratt",
+    "forra_differensen"
+   ]
+  ],
+  "misstag": [
+   "Rätt storlek på steget men åt fel håll.",
+   "Rätt tal men i fel ordning.",
+   "Du räknade delserien med addition, men den multipliceras.",
+   "",
+   "Första talet stämmer, men i det andra fortsatte du med samma steg som sist."
+  ],
+  "bagar": [
+   {
+    "fran": [
+     0
+    ],
+    "till": 2,
+    "text": "−7",
+    "serie": 0
+   },
+   {
+    "fran": [
+     1
+    ],
+    "till": 3,
+    "text": "×2",
+    "serie": 1
+   },
+   {
+    "fran": [
+     2
+    ],
+    "till": 4,
+    "text": "−7",
+    "serie": 0
+   },
+   {
+    "fran": [
+     3
+    ],
+    "till": 5,
+    "text": "×2",
+    "serie": 1
+   },
+   {
+    "fran": [
+     4
+    ],
+    "till": 6,
+    "text": "−7",
+    "serie": 0
+   },
+   {
+    "fran": [
+     5
+    ],
+    "till": 7,
+    "text": "×2",
+    "serie": 1
+   }
+  ],
+  "difficulty": 1,
+  "p_prior": 0.5,
+  "fran_version": 1
+ },
+ {
+  "id": "ts-art-11",
+  "niva": "expert",
+  "family": "affin",
+  "params": {
+   "a": 9,
+   "k": 2,
+   "c": 4
+  },
+  "regel": "Varje tal är det förra gånger 2, plus 4.",
+  "regelnyckel": "2,4",
+  "visade": [
+   9,
+   22,
+   48,
+   100,
+   204,
+   412
+  ],
+  "luckor": 2,
+  "options": [
+   [
+    620,
+    828
+   ],
+   [
+    724,
+    1140
+   ],
+   [
+    828,
+    1656
+   ],
+   [
+    828,
+    1660
+   ],
+   [
+    828,
+    1664
+   ]
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   [
+    "forra_differensen"
+   ],
+   [
+    "kvadratisk_tolkning"
+   ],
+   [
+    "ratt",
+    "utan_c"
+   ],
+   [],
+   [
+    "ratt",
+    "fel_ordning"
+   ]
+  ],
+  "misstag": [
+   "Du fortsatte med samma steg som sist, men steget ändras från tal till tal.",
+   "Du lät steget ändras lika mycket varje gång. Här följer steget en annan regel.",
+   "Första talet stämmer, men i det andra glömde du tillägget efter multiplikationen.",
+   "",
+   "Första talet stämmer, men i det andra lade du till före multiplikationen."
+  ],
+  "bagar": [
+   {
+    "fran": [
+     0
+    ],
+    "till": 1,
+    "text": "×2 +4"
+   },
+   {
+    "fran": [
+     1
+    ],
+    "till": 2,
+    "text": "×2 +4"
+   },
+   {
+    "fran": [
+     2
+    ],
+    "till": 3,
+    "text": "×2 +4"
+   },
+   {
+    "fran": [
+     3
+    ],
+    "till": 4,
+    "text": "×2 +4"
+   },
+   {
+    "fran": [
+     4
+    ],
+    "till": 5,
+    "text": "×2 +4"
+   },
+   {
+    "fran": [
+     5
+    ],
+    "till": 6,
+    "text": "×2 +4"
+   },
+   {
+    "fran": [
+     6
+    ],
+    "till": 7,
+    "text": "×2 +4"
+   }
+  ],
+  "difficulty": 1,
+  "p_prior": 0.5,
+  "fran_version": 1
+ },
+ {
+  "id": "ts-art-12",
+  "niva": "expert",
+  "family": "summa",
+  "params": {
+   "a": -9,
+   "b": 14,
+   "c": 2
+  },
+  "regel": "Varje tal är summan av de två talen närmast före, plus 2.",
+  "regelnyckel": "2",
+  "visade": [
+   -9,
+   14,
+   7,
+   23,
+   32,
+   57
+  ],
+  "luckor": 2,
+  "options": [
+   [
+    82,
+    107
+   ],
+   [
+    91,
+    134
+   ],
+   [
+    91,
+    150
+   ],
+   [
+    98,
+    155
+   ],
+   [
+    114,
+    228
+   ]
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   [
+    "forra_differensen"
+   ],
+   [
+    "ratt",
+    "kvadratisk_tolkning"
+   ],
+   [],
+   [
+    "kvadratisk_tolkning"
+   ],
+   [
+    "dubbel"
+   ]
+  ],
+  "misstag": [
+   "Du fortsatte med samma steg som sist, men steget ändras från tal till tal.",
+   "Första talet stämmer, men i det andra lät du steget ändras lika mycket som förra gången.",
+   "",
+   "Du lät steget ändras lika mycket varje gång. Här följer steget en annan regel.",
+   "Du dubblade förra talet i stället för att lägga ihop de två närmast före."
+  ],
+  "bagar": [
+   {
+    "fran": [
+     0,
+     1
+    ],
+    "till": 2,
+    "text": "summa +2"
+   },
+   {
+    "fran": [
+     1,
+     2
+    ],
+    "till": 3,
+    "text": "summa +2"
+   },
+   {
+    "fran": [
+     2,
+     3
+    ],
+    "till": 4,
+    "text": "summa +2"
+   },
+   {
+    "fran": [
+     3,
+     4
+    ],
+    "till": 5,
+    "text": "summa +2"
+   },
+   {
+    "fran": [
+     4,
+     5
+    ],
+    "till": 6,
+    "text": "summa +2"
+   },
+   {
+    "fran": [
+     5,
+     6
+    ],
+    "till": 7,
+    "text": "summa +2"
+   }
+  ],
+  "difficulty": 1,
+  "p_prior": 0.5,
+  "fran_version": 1
+ },
+ {
+  "id": "ts-art-iprov",
+  "niva": "avancerad",
+  "family": "varvad",
+  "params": {
+   "a0": 38,
+   "d0": 3,
+   "g0": false,
+   "a1": 135,
+   "d1": -10,
+   "g1": false,
+   "byt": false
+  },
+  "regel": "Två serier varvas. Tal 1, 3, 5 och så vidare går plus 3 för varje steg, tal 2, 4, 6 går minus 10.",
+  "regelnyckel": "3,false,-10,false,false",
+  "visade": [
+   38,
+   135,
+   41,
+   125,
+   44,
+   115
+  ],
+  "luckor": 2,
+  "options": [
+   [
+    47,
+    -21
+   ],
+   [
+    47,
+    50
+   ],
+   [
+    47,
+    105
+   ],
+   [
+    105,
+    50
+   ],
+   [
+    186,
+    257
+   ]
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   [
+    "ratt",
+    "forra_differensen"
+   ],
+   [
+    "ratt",
+    "fel_serie"
+   ],
+   [],
+   [
+    "ett_steg_for_langt"
+   ],
+   [
+    "forra_differensen"
+   ]
+  ],
+  "misstag": [
+   "Första talet stämmer, men i det andra fortsatte du med samma steg som sist.",
+   "Första talet stämmer, men i det andra fortsatte du fel delserie.",
+   "",
+   "Det här talet kommer ett steg senare. Du hoppade över ett tal.",
+   "Du fortsatte med samma steg som sist, men steget ändras från tal till tal."
+  ],
+  "bagar": [
+   {
+    "fran": [
+     0
+    ],
+    "till": 2,
+    "text": "+3",
+    "serie": 0
+   },
+   {
+    "fran": [
+     1
+    ],
+    "till": 3,
+    "text": "−10",
+    "serie": 1
+   },
+   {
+    "fran": [
+     2
+    ],
+    "till": 4,
+    "text": "+3",
+    "serie": 0
+   },
+   {
+    "fran": [
+     3
+    ],
+    "till": 5,
+    "text": "−10",
+    "serie": 1
+   },
+   {
+    "fran": [
+     4
+    ],
+    "till": 6,
+    "text": "+3",
+    "serie": 0
+   },
+   {
+    "fran": [
+     5
+    ],
+    "till": 7,
+    "text": "−10",
+    "serie": 1
+   }
+  ],
+  "difficulty": 1,
+  "p_prior": 0.5,
+  "fran_version": 1
+ }
+]
