@@ -12,13 +12,16 @@
 // alternativ (D1 fyra, D2 och D3 fem), correctAnswer, en etikett per
 // alternativ, ett misstag per distraktor, lösningsgång och remsa (D2, D3,
 // DV1), fran_version 1, inga tankstreck och inga ord som "lätt", "snart",
-// "kommer", "samma test" (DV7), DD1 till DD5 och DV2, DV3, DV5 (sparrar.mjs).
+// "kommer", "samma test" (DV7), DD1 till DD6 och DV2, DV3, DV5 (sparrar.mjs).
+// Bankens aktiva uppgifter (inte pensionerade) dessutom DD7 till DD9, och
+// bankversionerna: fran_version 1 eller 2, pensionerad_fran 2, ersättarna
+// pekar på en pensionerad uppgift (scripts/laga-deduktiv-v2.mjs).
 // Över allt: unika id och ingen uppgift två gånger.
 // Exit 1 vid fel.
 // =============================================================================
 
 import { readFileSync, existsSync } from 'node:fs';
-import { sparrFel } from './lib/deduktiv/sparrar.mjs';
+import { sparrFel, dd7, dd8, dd9 } from './lib/deduktiv/sparrar.mjs';
 import { strukturNyckel, P_PRIOR } from './lib/deduktiv/generera.mjs';
 import { FAMILJER } from './lib/deduktiv/tema.mjs';
 
@@ -60,7 +63,10 @@ for (const fil of filer) {
     if (!TILLATEN_NIVA[q.typ]?.includes(q.niva)) f(`${q.typ} hör inte hemma på ${q.niva}`);
     if (!FAMILJER.includes(q.family)) f(`okänd familj ${q.family}`);
     if (q.p_prior !== P_PRIOR[q.typ]) f(`p_prior ${q.p_prior}, ${q.typ} ska ha ${P_PRIOR[q.typ]}`);
-    if (q.fran_version !== 1) f('fran_version ska vara 1');
+    if (q.fran_version !== 1 && q.fran_version !== 2) f('fran_version ska vara 1 eller 2');
+    if (q.pensionerad_fran != null && q.pensionerad_fran !== 2) f('pensionerad_fran ska vara 2');
+    if (q.pensionerad_fran != null && q.pensionerad_fran <= q.fran_version) f('pensionerad före sin första version');
+    if (q.ersatter && !fragor.some((x) => x.id === q.ersatter && x.pensionerad_fran === q.fran_version)) f(`ersätter ${q.ersatter}, som inte är pensionerad i version ${q.fran_version}`);
     const antalAlt = q.typ === 'D1' ? 4 : 5;
     if (!Array.isArray(q.options) || q.options.length !== antalAlt) f(`${antalAlt} alternativ krävs`);
     if (!Array.isArray(q.etiketter) || q.etiketter.length !== q.options?.length) f('en etikett per alternativ krävs');
@@ -80,9 +86,14 @@ for (const fil of filer) {
     if (q.typ === 'D2' && q.villkor && (q.villkor.length < 3 || q.villkor.length > 5)) f(`D2 ska ha tre till fem villkor, har ${q.villkor.length}`);
     if (q.typ === 'D3' && q.villkor && (q.villkor.length < 5 || q.villkor.length > 6)) f(`D3 ska ha fem till sex villkor, har ${q.villkor.length}`);
     for (const x of sparrFel(q)) f(x);
+    const aktiv = slag === 'bank' && !q.pensionerad_fran;
+    if (aktiv) for (const x of [...dd7(q), ...dd8(q), ...dd9(q)]) f(x);
+    // Strukturen jämförs bland de aktiva; en ersättare har samma pussel som den pensionerade.
     const k = strukturNyckel(q);
-    if (nycklar.has(k)) f('samma uppgift finns redan i filen');
-    nycklar.add(k);
+    if (!q.pensionerad_fran) {
+      if (nycklar.has(k)) f('samma uppgift finns redan i filen');
+      nycklar.add(k);
+    }
     perTyp[q.typ] = (perTyp[q.typ] ?? 0) + 1;
   }
   info.push(`${fil}: ${fragor.length} uppgifter ${JSON.stringify(perTyp)}`);

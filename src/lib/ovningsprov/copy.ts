@@ -11,8 +11,8 @@ import { paketKort, paketNamn, prisPeriod, SALD_PLAN, kopKnapp } from '@/lib/pla
 import { talord, versal } from '@/lib/traning/copy';
 import { antalTid, formatTitel, type Ovningsformat, type Provtyp } from './format';
 
-export const TYP_NAMN: Record<Provtyp, string> = { logik: 'Logik', verbal: 'Verbalt', numerisk: 'Numeriskt', figurer: 'Figurserier' };
-const TYP_GEMEN: Record<Provtyp, string> = { logik: 'logik', verbal: 'verbalt', numerisk: 'numeriskt', figurer: 'figurserier' };
+export const TYP_NAMN: Record<Provtyp, string> = { logik: 'Logik', verbal: 'Verbalt', numerisk: 'Numeriskt', figurer: 'Figurserier', deduktiv: 'Deduktivt' };
+const TYP_GEMEN: Record<Provtyp, string> = { logik: 'logik', verbal: 'verbalt', numerisk: 'numeriskt', figurer: 'figurserier', deduktiv: 'deduktivt' };
 
 /** Ordet för en uppgift i texterna. */
 export const PUNKT_ORD: Record<Provtyp, { en: string; flera: string; best: string; bestFlera: string }> = {
@@ -20,6 +20,7 @@ export const PUNKT_ORD: Record<Provtyp, { en: string; flera: string; best: strin
   verbal: { en: 'påstående', flera: 'påståenden', best: 'påståendet', bestFlera: 'påståendena' },
   numerisk: { en: 'fråga', flera: 'frågor', best: 'frågan', bestFlera: 'frågorna' },
   figurer: { en: 'uppgift', flera: 'uppgifter', best: 'uppgiften', bestFlera: 'uppgifterna' },
+  deduktiv: { en: 'uppgift', flera: 'uppgifter', best: 'uppgiften', bestFlera: 'uppgifterna' },
 };
 
 export const START = {
@@ -43,6 +44,8 @@ export const START = {
   efter: 'Genomgången med rätt svar och förklaring kommer direkt efteråt.',
   /** Figurserier (copy-omgang3 3.3). */
   efterFigurer: 'Genomgången med regeln och rätt svar vid varje uppgift visas direkt efteråt.',
+  /** Testplanen steg 1. */
+  efterDeduktiv: 'Genomgången med lösningen steg för steg vid varje miss visas direkt efteråt.',
   tvaFormer: 'Två sorters uppgifter: fortsätt raden, eller hitta figuren som bryter mönstret. Frågan står över varje uppgift.',
   knapp: 'Starta övningsprovet',
   startar: 'Startar provet',
@@ -155,7 +158,7 @@ export const RESULTAT = {
     ditt: (svar: string) => `Ditt svar: ${svar}`,
     ratt: (svar: string) => `Rätt: ${svar}`,
     punkt: (typ: Provtyp, delNr: number, iDel: number, ord: 'texter' | 'underlag') =>
-      typ === 'figurer' ? `Uppgift ${delNr}` : `${ord === 'texter' ? 'Text' : 'Underlag'} ${delNr}, ${PUNKT_ORD[typ].en} ${iDel}`,
+      typ === 'figurer' || typ === 'deduktiv' ? `Uppgift ${delNr}` : `${ord === 'texter' ? 'Text' : 'Underlag'} ${delNr}, ${PUNKT_ORD[typ].en} ${iDel}`,
     bryterEtikett: 'Bryter mönstret',
     regel: 'Regeln',
   },

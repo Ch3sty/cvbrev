@@ -21,6 +21,7 @@ import { arTraningsTestTyp, featureForTraningsTyp } from '@/lib/traning/tillgang
 import { arOvningsprovTestTyp } from '@/lib/ovningsprov/typer';
 import { arVnPassTestTyp } from '@/lib/tester/pass-typer';
 import { arFigurpassTestTyp } from '@/lib/tester/pass-figur';
+import { arDeduktivpassTestTyp } from '@/lib/tester/pass-deduktiv';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnySupabase = SupabaseClient<any, any, any>;
@@ -62,6 +63,10 @@ export function featureForTestType(testType: string): Feature | null {
   if (arVnPassTestTyp(testType)) return 'test_daily_pass';
   // Figurpasset (beställning omgång 3, A3).
   if (arFigurpassTestTyp(testType)) return 'test_daily_pass';
+  // Deduktivpasset (testplanen steg 1).
+  if (arDeduktivpassTestTyp(testType)) return 'test_daily_pass';
+  // Deduktivpasset (testplanen steg 1).
+  if (arDeduktivpassTestTyp(testType)) return 'test_daily_pass';
   const nyckel = ALIAS[testType] ?? testType;
   return FEATURE_BY_TEST_TYPE[nyckel] ?? null;
 }

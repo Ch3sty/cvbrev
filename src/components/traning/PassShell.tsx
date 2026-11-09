@@ -57,6 +57,11 @@ export interface PassShellProps {
    * så att sex rutor står i en remsa. Topprad, tidsrad och fot står kvar på 560.
    */
   bred?: boolean
+  /**
+   * Deduktiv slutledning (deduktiv-spec.md 1): två spalter på dator, villkoren
+   * till vänster och frågan till höger, i 1000 px som de klassiska testen.
+   */
+  deduktiv?: boolean
   /** Övningsprovet: klockan i toppradens högra hörn i stället för räknaren. */
   hoger?: ReactNode
   /** Övningsprovet: segmentstapeln under toppraden i stället för tidsraden. */
@@ -133,6 +138,7 @@ export default function PassShell({
   banner,
   nyckel,
   bred = false,
+  deduktiv = false,
   hoger,
   underTopp,
   children,
@@ -176,7 +182,7 @@ export default function PassShell({
       ) : null}
 
       <main ref={mainRef} className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
-        <div className={`mx-auto flex w-full flex-col gap-3.5 px-4 pb-4 pt-3 ${bred ? 'serie-kolumn max-w-[672px]' : 'max-w-[560px] lg:max-w-[432px]'}`}>
+        <div className={`mx-auto flex w-full flex-col gap-3.5 px-4 pb-4 pt-3 ${deduktiv ? 'max-w-[560px] lg:max-w-[1000px]' : bred ? 'serie-kolumn max-w-[672px]' : 'max-w-[560px] lg:max-w-[432px]'}`}>
           {banner}
           {children}
         </div>

@@ -87,13 +87,20 @@ import { beslutaTillgang, TEST_TYPE, TRANINGS_TEST_TYPER, type Begard, type Till
 import { VN_PASS_TEST_TYPER, kindForTestTyp, type VnKind } from '@/lib/tester/pass-typer';
 import { FIGURPASS_TEST_TYPE, bastaFigurGrundProcent } from '@/lib/tester/pass-figur';
 import { passNiva } from '@/lib/tester/pass-urval';
+import { DEDUKTIVPASS_TEST_TYPE, bastaDeduktivGrundProcent } from '@/lib/tester/pass-deduktiv';
+import { NIVAKOLL_KINDS, NIVAKOLL_TEST_TYPER, type NivakollKind } from '@/lib/nivakoll/niva';
+import { passNivaFor } from '@/lib/nivakoll/las.server';
 
-/** Passen utanför matrisen: text, siffror och figurpasset (omgång 3, A3). */
-type AndraKind = VnKind | 'figurserie';
+/** Passen utanför matrisen: text, siffror, figurpasset (omgång 3, A3) och deduktivpasset (testplanen steg 1). */
+type AndraKind = VnKind | 'figurserie' | 'deduktiv';
 const FIGUR_KLASSISKA_TYPER = ['figurserier-grund', 'figurserier-avancerad', 'figurserier-expert'];
+const DEDUKTIV_KLASSISKA_TYPER = ['deduktiv-grund', 'deduktiv-avancerad', 'deduktiv-expert'];
 function andraKind(t: string | null | undefined): AndraKind | null {
-  return kindForTestTyp(t) ?? (t === FIGURPASS_TEST_TYPE ? 'figurserie' : null);
+  return kindForTestTyp(t) ?? (t === FIGURPASS_TEST_TYPE ? 'figurserie' : t === DEDUKTIVPASS_TEST_TYPE ? 'deduktiv' : null);
 }
+
+/** Nivåkollen per testtyp utanför matrisen: senaste nivån och dagen (testplanen steg 1). */
+export type NivakollLage = Partial<Record<NivakollKind, { niva: number; dag: Dag }>>;
 import type { SlutfordSession } from './milstolpar';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -149,6 +156,13 @@ export interface Lage {
   figurserieGjord?: boolean;
   /** Figurpassets nivå (omgång 3, A3): avancerad när bästa figurserier-grund sitter. */
   figurNiva?: 'grund' | 'avancerad';
+  /** Ett klassiskt deduktivt test är slutfört (deduktivpassraden, testplanen steg 1). */
+  deduktivGjord?: boolean;
+  deduktivNiva?: 'grund' | 'avancerad';
+  /** Nivåkollen per testtyp utanför matrisen (testplanen steg 1). */
+  nivakoll?: NivakollLage;
+  /** Passets nivå per text och siffror efter Nivåkollen, null utan Nivåkoll. */
+  vnNiva?: { verbal: 'grund' | 'avancerad' | null; numerisk: 'grund' | 'avancerad' | null };
 }
 
 /** Matrisens slutförda sessioner och text- och sifferpassen, för dagarna. */
@@ -163,7 +177,7 @@ function numeriskt(v: unknown): number | null {
 
 /** Läser allt motorn behöver om ett konto, i en parallell rundtur. */
 export async function lasLage(admin: Klient, userId: string, idag: Dag = dagSthlm()): Promise<Lage> {
-  const [planRes, punktRes, sessRes, milRes, statRes] = await Promise.all([
+  const [planRes, punktRes, sessRes, milRes, statRes, andraPunktRes] = await Promise.all([
     admin.from('test_planer').select('*').eq('user_id', userId).maybeSingle(),
     admin
       .from('test_nivapunkter')
@@ -176,11 +190,18 @@ export async function lasLage(admin: Klient, userId: string, idag: Dag = dagSthl
       .from('logic_test_v4_sessions')
       .select('id, test_type, meta, answers, score, created_at, completed_at')
       .eq('user_id', userId)
-      .in('test_type', [...MATRIS_TYPER, ...VN_PASS_TEST_TYPER, FIGURPASS_TEST_TYPE, ...FIGUR_KLASSISKA_TYPER])
+      .in('test_type', [...MATRIS_TYPER, ...VN_PASS_TEST_TYPER, FIGURPASS_TEST_TYPE, ...FIGUR_KLASSISKA_TYPER, DEDUKTIVPASS_TEST_TYPE, ...DEDUKTIV_KLASSISKA_TYPER, ...NIVAKOLL_TEST_TYPER])
       .order('created_at', { ascending: false })
       .limit(400),
     admin.from('test_milstolpar').select('nyckel, nadd_at, visad_at').eq('user_id', userId),
     admin.from('fraga_statistik').select('fraga_id, antal, ratt').eq('test_kind', 'matris'),
+    admin
+      .from('test_nivapunkter')
+      .select('test_kind, dag, niva, skapad_at')
+      .eq('user_id', userId)
+      .in('test_kind', NIVAKOLL_KINDS as unknown as string[])
+      .order('dag', { ascending: true })
+      .order('skapad_at', { ascending: true }),
   ]);
   for (const r of [planRes, punktRes, sessRes, milRes, statRes]) {
     if (r.error) throw r.error;
@@ -219,7 +240,19 @@ export async function lasLage(admin: Klient, userId: string, idag: Dag = dagSthl
   const allaRader = (sessRes.data ?? []) as SessionRad[];
   // Text- och sifferpassen läses i samma rundtur men hålls utanför matrisens rader.
   // Figurpasset och de klassiska figurserietesten likaså (omgång 3, A3).
-  const rader = allaRader.filter((r) => !andraKind(r.test_type) && !FIGUR_KLASSISKA_TYPER.includes(r.test_type ?? ''));
+  const utanfor = (t: string | null) =>
+    !!andraKind(t) || FIGUR_KLASSISKA_TYPER.includes(t ?? '') || DEDUKTIV_KLASSISKA_TYPER.includes(t ?? '') || NIVAKOLL_TEST_TYPER.includes(t ?? '');
+  const rader = allaRader.filter((r) => !utanfor(r.test_type));
+  // Nivåkollen per typ: senaste punkten vinner (raderna står i tidsordning).
+  const nivakoll: NivakollLage = {};
+  if (!andraPunktRes.error) {
+    for (const p of (andraPunktRes.data ?? []) as { test_kind: NivakollKind; dag: string; niva: unknown }[]) {
+      const n = numeriskt(p.niva);
+      if (n != null && n > 0 && arGiltigDag(p.dag)) nivakoll[p.test_kind] = { niva: n, dag: p.dag };
+    }
+  }
+  const deduktivGjord = allaRader.some((r) => DEDUKTIV_KLASSISKA_TYPER.includes(r.test_type ?? '') && !!r.completed_at);
+  const allaSomRader = allaRader as unknown as Parameters<typeof bastaFigurGrundProcent>[0];
   const andraPass = allaRader
     .filter((r) => andraKind(r.test_type) && r.completed_at)
     .map((r) => ({ dag: dagSthlm(r.completed_at as string), typ: 'pass' as const, kind: andraKind(r.test_type) as AndraKind }));
@@ -235,7 +268,14 @@ export async function lasLage(admin: Klient, userId: string, idag: Dag = dagSthl
     bank: bankInfo(statistik),
     andraPass,
     figurserieGjord,
-    figurNiva: passNiva(bastaFigurGrundProcent(allaRader as unknown as Parameters<typeof bastaFigurGrundProcent>[0])) as 'grund' | 'avancerad',
+    figurNiva: passNivaFor('figurserie', nivakoll.figurserie?.niva ?? null, passNiva(bastaFigurGrundProcent(allaSomRader))),
+    deduktivGjord,
+    deduktivNiva: passNivaFor('deduktiv', nivakoll.deduktiv?.niva ?? null, passNiva(bastaDeduktivGrundProcent(allaSomRader))),
+    nivakoll,
+    vnNiva: {
+      verbal: nivakoll.verbal ? passNivaFor('verbal', nivakoll.verbal.niva, 'grund') : null,
+      numerisk: nivakoll.numerisk ? passNivaFor('numerisk', nivakoll.numerisk.niva, 'grund') : null,
+    },
   };
 }
 
@@ -1212,11 +1252,17 @@ export interface Traningsstatus {
   ovisade: string[];
   dagensPassGjort: boolean;
   /** Text- och sifferpasset gjort i dag (beställning omgång 2, B2). Saknas i äldre fixturer. */
-  vnPassIdag?: { verbal: boolean; numerisk: boolean; figurserie?: boolean };
+  vnPassIdag?: { verbal: boolean; numerisk: boolean; figurserie?: boolean; deduktiv?: boolean };
   /** Ett klassiskt figurserietest är slutfört (figurpassraden, omgång 3 A3). Saknas i äldre fixturer. */
   figurserieGjord?: boolean;
   /** Figurpassets nivå, som ord på hemvyn ("Expertnivån: gör nivåtestet" på avancerad). */
   figurNiva?: 'grund' | 'avancerad';
+  /** Deduktivpassets rad och nivå (testplanen steg 1). Saknas i äldre fixturer. */
+  deduktivGjord?: boolean;
+  deduktivNiva?: 'grund' | 'avancerad';
+  /** Nivåkollen per testtyp utanför matrisen (testplanen steg 1). Saknas i äldre fixturer. */
+  nivakoll?: NivakollLage;
+  vnNiva?: { verbal: 'grund' | 'avancerad' | null; numerisk: 'grund' | 'avancerad' | null };
   dagarKvar: number | null;
   /** Dag 1 till 7 efter mätningen, för kvittot K1. Satt när Första veckan nåtts (spec 14.3). */
   forstaVeckan: ReturnType<typeof forstaVeckanSammanfattning> | null;
@@ -1367,9 +1413,14 @@ export async function hamtaTraningsstatus(args: {
       verbal: lage.andraPass.some((p) => p.kind === 'verbal' && p.dag === idag),
       numerisk: lage.andraPass.some((p) => p.kind === 'numerisk' && p.dag === idag),
       figurserie: lage.andraPass.some((p) => p.kind === 'figurserie' && p.dag === idag),
+      deduktiv: lage.andraPass.some((p) => p.kind === 'deduktiv' && p.dag === idag),
     },
     figurserieGjord: lage.figurserieGjord ?? false,
     figurNiva: lage.figurNiva ?? 'grund',
+    deduktivGjord: lage.deduktivGjord ?? false,
+    deduktivNiva: lage.deduktivNiva ?? 'grund',
+    nivakoll: lage.nivakoll ?? {},
+    vnNiva: lage.vnNiva ?? { verbal: null, numerisk: null },
     dagarKvar: prov ? dagarMellan(idag, prov) : null,
     forstaVeckan:
       start && milstolpar.some((m) => m.nyckel === 'forsta_veckan')

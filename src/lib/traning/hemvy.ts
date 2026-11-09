@@ -34,7 +34,8 @@ import { HEM, ingarIPaketet, kopKnapp, jobbsokRad, lastAria, prisrad } from './h
 import { paketKort } from '@/lib/plans/plans';
 import type { BetalvaggPlats } from '@/lib/analytics/events';
 import { byggPlan, type PlanDag } from './plan';
-import { TRANING_RUTT } from './rutter';
+import { TRANING_RUTT, nivakollHref } from './rutter';
+import type { NivakollKind } from '@/lib/nivakoll/niva';
 import {
   RUM_RUBRIK,
   baraPersonlighet,
@@ -91,7 +92,7 @@ export type Hoger =
   | { typ: 'bock'; text: string }
   | { typ: 'chev' };
 
-export type Symbol = 'matris' | 'siffror' | 'ord' | 'figurer' | 'person' | 'jobb' | 'brev';
+export type Symbol = 'matris' | 'siffror' | 'ord' | 'figurer' | 'deduktiv' | 'person' | 'jobb' | 'brev';
 
 export interface RadModell {
   titel: string;
@@ -389,52 +390,83 @@ function flerTester(inp: FlerTesterIn, testtyper: readonly string[], medFigurer:
  * "Ingår i Premium" för gratis. Null när planen inte har verbalt eller
  * numeriskt.
  */
-/** Ska figurpassraden stå? (beställning omgång 3, A3) */
-export function visaFigurpass(s: Pick<Traningsstatus, 'figurserieGjord' | 'plan'>, testtyper: readonly string[]): boolean {
+/** Ska figurpassraden stå? (beställning omgång 3, A3; Nivåkollen för figurserier, testplanen steg 1) */
+export function visaFigurpass(s: Pick<Traningsstatus, 'figurserieGjord' | 'plan' | 'nivakoll'>, testtyper: readonly string[]): boolean {
   const lev = s.plan?.leverantor ?? null;
-  return testtyper.includes('figurserie') || !!s.figurserieGjord || lev === 'aon' || lev === 'shl';
+  return testtyper.includes('figurserie') || !!s.figurserieGjord || !!s.nivakoll?.figurserie || lev === 'aon' || lev === 'shl';
+}
+
+/** Ska deduktivpassraden stå? (testplanen steg 1): testet gjort, Nivåkollen gjord, eller en leverantör med deduktiva test. */
+export function visaDeduktivpass(s: Pick<Traningsstatus, 'deduktivGjord' | 'plan' | 'nivakoll'>): boolean {
+  const lev = s.plan?.leverantor ?? null;
+  return !!s.deduktivGjord || !!s.nivakoll?.deduktiv || lev === 'aon' || lev === 'shl';
 }
 
 export function vnPassSektion(s: Traningsstatus, testtyper: readonly string[]): Sektion | null {
   const betalande = s.behorighet?.harOvanGrund ?? false;
   const V = HEM.vnPass;
   const rader: RadModell[] = [];
-  for (const kind of ['verbal', 'numerisk'] as const) {
-    if (!testtyper.includes(kind)) continue;
-    const gjord = s.vnPassIdag?.[kind] ?? false;
-    const titel = kind === 'verbal' ? V.textpass : V.sifferpass;
-    const meta = gjord ? V.gjortMeta : kind === 'verbal' ? V.textMeta : V.sifferMeta;
+  /**
+   * En passrad. Utan Nivåkoll för typen leder raden till Nivåkollen, som är
+   * gratis och väljer passets nivå (testplanen steg 1); annars passet, låst
+   * för gratis.
+   */
+  const rad = (a: { kind: NivakollKind; titel: string; meta: string; symbol: Symbol; href: string; gjord: boolean; nivakollKravs: boolean }) => {
+    if (a.nivakollKravs && !a.gjord && !s.nivakoll?.[a.kind]) {
+      rader.push({ titel: a.titel, meta: V.nivakollForst, symbol: a.symbol, svag: true, hoger: { typ: 'lank', text: V.kolla, href: nivakollHref(a.kind) } });
+      return;
+    }
     rader.push({
-      titel,
-      meta,
-      symbol: kind === 'verbal' ? 'ord' : 'siffror',
-      svag: !gjord,
-      hoger: gjord
+      titel: a.titel,
+      meta: a.gjord ? V.gjortMeta : a.meta,
+      symbol: a.symbol,
+      svag: !a.gjord,
+      hoger: a.gjord
         ? { typ: 'bock', text: V.gjort }
         : betalande
-          ? { typ: 'lank', text: V.starta, href: kind === 'verbal' ? TRANING_RUTT.textpass : TRANING_RUTT.sifferpass }
+          ? { typ: 'lank', text: V.starta, href: a.href }
           : { typ: 'las', text: V.last, feature: 'tests_above_base', plats: 'dag2' },
-      label: betalande ? undefined : `${titel}. ${meta} ${V.last}. ${lastAria()}`,
+      label: betalande || a.gjord ? undefined : `${a.titel}. ${a.meta} ${V.last}. ${lastAria()}`,
+    });
+  };
+  for (const kind of ['verbal', 'numerisk'] as const) {
+    if (!testtyper.includes(kind) && !s.nivakoll?.[kind]) continue;
+    rad({
+      kind,
+      titel: kind === 'verbal' ? V.textpass : V.sifferpass,
+      meta: kind === 'verbal' ? V.textMeta : V.sifferMeta,
+      symbol: kind === 'verbal' ? 'ord' : 'siffror',
+      href: kind === 'verbal' ? TRANING_RUTT.textpass : TRANING_RUTT.sifferpass,
+      gjord: s.vnPassIdag?.[kind] ?? false,
+      nivakollKravs: true,
     });
   }
   // Figurpasset (beställning omgång 3, A3): när planen har figurserier, när
-  // hon gjort ett klassiskt figurserietest, eller när planens leverantör har
-  // figurserier i sitt test (Aon scales ix, SHL Verify G+). Nivån som ord,
-  // aldrig tal: på avancerad står "Expertnivån: gör nivåtestet" i metan.
+  // hon gjort ett klassiskt figurserietest eller Nivåkollen, eller när planens
+  // leverantör har figurserier i sitt test (Aon scales ix, SHL Verify G+).
+  // Nivån som ord, aldrig tal: på avancerad står "Expertnivån: gör
+  // nivåtestet" i metan.
   if (visaFigurpass(s, testtyper)) {
-    const gjord = s.vnPassIdag?.figurserie ?? false;
-    const meta = gjord ? V.gjortMeta : s.figurNiva === 'avancerad' ? V.expertRad : V.figurMeta;
-    rader.push({
+    rad({
+      kind: 'figurserie',
       titel: V.figurpass,
-      meta,
+      meta: s.figurNiva === 'avancerad' ? V.expertRad : V.figurMeta,
       symbol: 'figurer',
-      svag: !gjord,
-      hoger: gjord
-        ? { typ: 'bock', text: V.gjort }
-        : betalande
-          ? { typ: 'lank', text: V.starta, href: TRANING_RUTT.figurpass }
-          : { typ: 'las', text: V.last, feature: 'tests_above_base', plats: 'dag2' },
-      label: betalande ? undefined : `${V.figurpass}. ${meta} ${V.last}. ${lastAria()}`,
+      href: TRANING_RUTT.figurpass,
+      gjord: s.vnPassIdag?.figurserie ?? false,
+      nivakollKravs: true,
+    });
+  }
+  // Deduktivpasset (testplanen steg 1), samma regel.
+  if (visaDeduktivpass(s)) {
+    rad({
+      kind: 'deduktiv',
+      titel: V.deduktivpass,
+      meta: s.deduktivNiva === 'avancerad' ? V.expertRad : V.deduktivMeta,
+      symbol: 'deduktiv',
+      href: TRANING_RUTT.deduktivpass,
+      gjord: s.vnPassIdag?.deduktiv ?? false,
+      nivakollKravs: true,
     });
   }
   return rader.length ? { typ: 'rader', nyckel: 'vnpass', rubrik: V.rubrik, rader } : null;

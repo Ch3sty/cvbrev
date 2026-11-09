@@ -12,6 +12,8 @@ import { hamtaVnPass, vnPassVy } from '@/lib/tester/pass.server'
 import VnPassFlode from '@/components/traning/vnpass/VnPassFlode'
 import FigurPassFlode from '@/components/traning/figurpass/FigurPassFlode'
 import { figurPassVy, hamtaFigurPass } from '@/lib/tester/pass-figur.server'
+import DeduktivPassFlode from '@/components/traning/deduktivpass/DeduktivPassFlode'
+import { deduktivPassVy, hamtaDeduktivPass } from '@/lib/tester/pass-deduktiv.server'
 import { testSkrivKlient } from '@/lib/tests/skrivKlient'
 import { passSida } from '../sida.server'
 
@@ -32,8 +34,12 @@ export default async function PassSessionSida({ params }: { params: Promise<{ se
     // Figurpasset har samma adress (beställning omgång 3, A3).
     const figur = await hamtaFigurPass(admin, userId, sessionId)
     const figurVy = figur ? figurPassVy(figur) : null
-    if (!figurVy) notFound()
-    return <FigurPassFlode vy={figurVy} />
+    if (figurVy) return <FigurPassFlode vy={figurVy} />
+    // Deduktivpasset har samma adress (testplanen steg 1).
+    const dedu = await hamtaDeduktivPass(admin, userId, sessionId)
+    const deduVy = dedu ? deduktivPassVy(dedu) : null
+    if (!deduVy) notFound()
+    return <DeduktivPassFlode vy={deduVy} />
   }
   return <PassFlode vy={vy} betalande={betalande} />
 }

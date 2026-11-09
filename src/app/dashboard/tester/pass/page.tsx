@@ -15,6 +15,7 @@
 import PassFlode from '@/components/traning/PassFlode'
 import VnPassFlode from '@/components/traning/vnpass/VnPassFlode'
 import FigurPassFlode from '@/components/traning/figurpass/FigurPassFlode'
+import DeduktivPassFlode from '@/components/traning/deduktivpass/DeduktivPassFlode'
 import type { Begard } from '@/lib/traning/tillgang'
 import { passSida } from './sida.server'
 
@@ -39,6 +40,11 @@ export default async function PassStartSida({
   if (typ === 'figurpass') {
     await passSida()
     return <FigurPassFlode key="figurpass" starta />
+  }
+  // Deduktivpasset (testplanen steg 1).
+  if (typ === 'deduktivpass') {
+    await passSida()
+    return <DeduktivPassFlode key="deduktivpass" starta />
   }
   const begard: Begard = TYPER.includes(typ as Begard) ? (typ as Begard) : 'pass'
   const { betalande } = await passSida()

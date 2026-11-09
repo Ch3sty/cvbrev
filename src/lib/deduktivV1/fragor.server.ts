@@ -11,7 +11,7 @@
 // =============================================================================
 
 import { arBlandad, BLANDAD_META, permutationForSession, tillOriginal, tillVisat } from '@/lib/logicTestV7/blanda';
-import { allaFragor, valjFragor, FRAGOR_PER_SESSION, DEDUKTIV_VERSION, TIDSGRANS_S } from './select';
+import { allaFragor, deduktivVersion, valjFragor, FRAGOR_PER_SESSION, DEDUKTIV_VERSION, TIDSGRANS_S } from './select';
 import type { DeduktivFraga, DeduktivNiva, GenomgangDeduktiv, VisadDeduktiv } from './types';
 
 export const DEDUKTIV_TEST_TYPER = ['deduktiv-grund', 'deduktiv-avancerad', 'deduktiv-expert'] as const;
@@ -63,7 +63,7 @@ export function deduktivInnehall(session: {
   if (!arDeduktivTestTyp(session.test_type)) return { fragor: [], genomgang: null };
   const niva = nivaForTestTyp(session.test_type);
   const blandade = arBlandad(session.meta);
-  const urval = valjFragor(niva, session.id);
+  const urval = valjFragor(niva, session.id, FRAGOR_PER_SESSION, deduktivVersion(session.meta));
   return {
     fragor: urval.map((q) => visaDeduktiv(q, session.id, blandade)),
     genomgang: session.completed_at ? urval.map((q) => genomgaDeduktiv(q, session.id, blandade)) : null,

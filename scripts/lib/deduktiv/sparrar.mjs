@@ -216,6 +216,72 @@ export function dd6(q) {
   return k >= 0 ? [`DD6: facit är omöjligt ur antagandet och villkor ${k + 1} ensamt`] : [];
 }
 
+/**
+ * DD7 (granskning 02 avsnitt 3, testplanen steg 1 2026-11-09): inget
+ * alternativ medför ett annat alternativ utan hjälp av villkoren (i D3 med
+ * antagandet, som står i frågan). Annars kan den provvana stryka ett
+ * alternativ utan att lösa uppgiften. Gäller måste- och omöjligt-frågor.
+ * Par (i, j): i medför j.
+ */
+export function medforPar(q) {
+  if (q.typ === 'D1') return [];
+  const f = q.formell;
+  if (f.fraga.form === 'vem') return [];
+  const g = grupperFor(f);
+  const alla = allaTilldelningar(f.namn.length).filter((p) => !f.antagande || uppfyllt(f.antagande, p, g));
+  const ut = [];
+  f.alternativ.forEach((xi, i) => {
+    const dar = alla.filter((p) => uppfyllt(xi, p, g));
+    if (!dar.length) return;
+    f.alternativ.forEach((xj, j) => {
+      if (i !== j && dar.every((p) => uppfyllt(xj, p, g))) ut.push([i, j]);
+    });
+  });
+  return ut;
+}
+
+export function dd7(q) {
+  return medforPar(q).map(([i, j]) => `DD7: alternativ ${'ABCDE'[i]} medför alternativ ${'ABCDE'[j]}`);
+}
+
+/** Minsta villkorsmängd (index) som tillsammans med antagandet ger facit. */
+export function minstaVillkorForFacit(q) {
+  const f = q.formell;
+  const n = f.namn.length;
+  const g = grupperFor(f);
+  const facit = f.alternativ[q.correctAnswer];
+  const V = f.villkor;
+  for (let k = 1; k <= V.length; k++) {
+    const urval = [];
+    let hittad = null;
+    const rek = (i) => {
+      if (hittad) return;
+      if (urval.length === k) {
+        const vill = urval.map((x) => V[x]);
+        const S = losningar(n, f.antagande ? [...vill, f.antagande] : vill, g);
+        if (S.length && S.every((p) => vore(f, facit, p))) hittad = urval.slice();
+        return;
+      }
+      for (let j = i; j < V.length; j++) {
+        urval.push(j);
+        rek(j + 1);
+        urval.pop();
+      }
+    };
+    rek(0);
+    if (hittad) return hittad;
+  }
+  return V.map((_, i) => i);
+}
+
+/** DD8 (granskning 02 avsnitt 3, D2): facit kräver alla villkor vid tre, minst alla utom ett vid fyra eller fler. */
+export function dd8(q) {
+  if (q.typ !== 'D2') return [];
+  const krav = q.villkor.length <= 3 ? q.villkor.length : q.villkor.length - 1;
+  const m = minstaVillkorForFacit(q);
+  return m.length < krav ? [`DD8: facit följer ur villkor ${m.map((i) => i + 1).join(', ')}, minst ${krav} villkor krävs`] : [];
+}
+
 /** Texterna i uppgiften måste vara mallarnas (villkor och alternativ). */
 export function textFel(q) {
   if (q.typ === 'D1') return [];
@@ -229,4 +295,36 @@ export function textFel(q) {
 
 export function sparrFel(q) {
   return [...dd1(q), ...dd2(q), ...dd3(q), ...dd4(q), ...dd5(q), ...dd6(q), ...textFel(q)];
+}
+
+/** Elementen ett påstående nämner. */
+const elementIPastaende = (x) => (x.b != null ? [x.a, x.b] : [x.a]);
+
+/**
+ * DD9 (granskning 03, testansvarig 2026-11-09): inget drag förenar alla fyra
+ * distraktorer och saknas i facit, varken samma form (villkorstyp) eller
+ * samma element. Annars väljer den provvana det udda alternativet utan att
+ * lösa. Gäller måste- och omöjligt-frågor.
+ */
+export function dd9(q) {
+  if (q.typ === 'D1') return [];
+  const f = q.formell;
+  if (f.fraga.form === 'vem') return [];
+  const facit = f.alternativ[q.correctAnswer];
+  const distr = f.alternativ.filter((_, i) => i !== q.correctAnswer);
+  const fel = [];
+  if (distr.every((d) => d.typ === distr[0].typ) && facit.typ !== distr[0].typ) fel.push(`DD9: alla distraktorer är ${distr[0].typ}, facit är det inte`);
+  for (let e = 0; e < f.namn.length; e++) {
+    if (distr.every((d) => elementIPastaende(d).includes(e)) && !elementIPastaende(facit).includes(e)) fel.push(`DD9: alla distraktorer nämner ${f.namn[e]}, facit gör det inte`);
+  }
+  // Facit ensamt om både sin form och ett element (granskning 03, dd-a-d2-40).
+  const ensamForm = distr.every((d) => d.typ !== facit.typ);
+  const ensamt = elementIPastaende(facit).find((e) => distr.every((d) => !elementIPastaende(d).includes(e)));
+  if (ensamForm && ensamt != null) fel.push(`DD9: facit är ensamt om formen ${facit.typ} och om ${f.namn[ensamt]}`);
+  return fel;
+}
+
+/** Spärrarna för bankens uppgifter från version 2: DD1 till DD8. */
+export function sparrFelV2(q) {
+  return [...sparrFel(q), ...dd7(q), ...dd8(q)];
 }

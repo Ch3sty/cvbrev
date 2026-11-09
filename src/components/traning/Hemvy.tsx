@@ -37,6 +37,7 @@ import {
   SymPerson,
   SymPlan,
   SymSiffror,
+  SymDeduktiv,
 } from '@/components/illustrations/RumSymboler'
 import { KNAPP_PRIMAR, LANK, LANK_VAGG } from '@/components/shell/knappar'
 import type { HemModell, Hoger, LyftModell, RadModell, Sektion, Symbol, Tal } from '@/lib/traning/hemvy'
@@ -58,6 +59,8 @@ function SymbolFor({ s }: { s: Symbol }) {
       return <SymOrd size={40} />
     case 'figurer':
       return <SymFigurer size={40} />
+    case 'deduktiv':
+      return <SymDeduktiv size={40} />
     case 'person':
       return <SymPerson size={40} />
     case 'jobb':

@@ -36,9 +36,14 @@ import { genomgaFigur, hittaFigurFraga, visaFigur, figurPermutation } from '@/li
 import { bryterPool, harnastPool } from '@/lib/figurserierV1/select';
 import { serieFamiljNamn } from '@/lib/figurserierV1/familjer';
 import { tillOriginal } from '@/lib/logicTestV7/blanda';
+import { genomgaDeduktiv, hittaDeduktivFraga, visaDeduktiv } from '@/lib/deduktivV1/fragor.server';
+import { DEDUKTIV_VERSION, poolFor as deduktivPool } from '@/lib/deduktivV1/select';
+import { deduktivFamiljNamn } from '@/lib/deduktivV1/familjer';
+import { seddaDeduktivaUrRader, seddaDeduktivTestTyper } from '@/lib/tester/sedda.server';
 import { ovningsformat, ovningsformatUrNyckel } from './format';
 import {
   OVNINGSPROV_TEST_TYPE,
+  type DeduktivDel,
   type FigurDel,
   type Genomgangspunkt,
   type NumeriskDel,
@@ -146,8 +151,9 @@ export const URVAL = {
  * Delarnas id i provets ordning, grund först och de svåraste sist. Poolen är
  * underlagsversionens (version 1: de frysta bankerna, som förut).
  */
-export function valjDelar(typ: OvningsTyp, seed: string, sedda: ReadonlySet<string> = new Set(), version: UnderlagVersion = 1): string[] {
+export function valjDelar(typ: OvningsTyp, seed: string, sedda: ReadonlySet<string> = new Set(), version: UnderlagVersion = 1, antal = 16): string[] {
   if (typ === 'figurer') return valjFigurDelar(seed, sedda);
+  if (typ === 'deduktiv') return valjDeduktivDelar(seed, sedda, antal);
   if (typ === 'verbal') {
     return [
       ...valj(verbalPool('grund', version), URVAL.verbal.grund, `${seed}:grund`, sedda),
@@ -187,6 +193,25 @@ export function valjFigurDelar(seed: string, sedda: ReadonlySet<string> = new Se
   return [...niva('grund'), ...niva('avancerad'), ...valj(harnastPool('expert'), u.harnast.expert, `${seed}:expert`, sedda)].map((q) => q.id);
 }
 
+/**
+ * Deduktivens uppgifter (testplanen steg 1): en fjärdedel grund, hälften
+ * avancerad och resten expert, i fast ordning med de svåraste sist. 12 ger
+ * 3, 5 och 4; 16 ger 4, 7 och 5. Det hon haft (klassiska test, pass,
+ * Nivåkollen, övningsprov) väljs sist.
+ */
+export function deduktivUrval(antal: number): { grund: number; avancerad: number; expert: number } {
+  const grund = Math.round(antal / 4);
+  const expert = Math.round((antal * 5) / 16);
+  return { grund, avancerad: antal - grund - expert, expert };
+}
+
+export function valjDeduktivDelar(seed: string, sedda: ReadonlySet<string> = new Set(), antal = 16): string[] {
+  const u = deduktivUrval(antal);
+  return (['grund', 'avancerad', 'expert'] as const)
+    .flatMap((n) => valj(deduktivPool(n, DEDUKTIV_VERSION), u[n], `${seed}:${n}`, sedda))
+    .map((q) => q.id);
+}
+
 // Uppslaget täcker alla versioner: delarnas id står i meta.
 const VERBAL_PER_ID = new Map<string, VerbalPassage>(VERBAL_ALLA.map((p) => [p.id, p]));
 const NUM_PER_ID = new Map<string, NumeriskPassage>(NUM_ALLA.map((p) => [p.id, p]));
@@ -197,7 +222,7 @@ export const rubrikUtanNummer = visningstitel;
 export function punkterFor(typ: OvningsTyp, delar: readonly string[]): Punkt[] {
   const ut: Punkt[] = [];
   delar.forEach((id, d) => {
-    if (typ === 'figurer') {
+    if (typ === 'figurer' || typ === 'deduktiv') {
       ut.push({ nyckel: id, del: id, punkt: id, delNr: d + 1, iDel: 1 });
     } else if (typ === 'verbal') {
       const p = VERBAL_PER_ID.get(id);
@@ -211,7 +236,16 @@ export function punkterFor(typ: OvningsTyp, delar: readonly string[]): Punkt[] {
 }
 
 /** Klientens form av delarna, utan facit. Numeriska alternativ blandas per session och fråga. */
-function klientDelar(typ: OvningsTyp, delar: readonly string[], seed: string): VerbalDel[] | NumeriskDel[] | FigurDel[] {
+function klientDelar(typ: OvningsTyp, delar: readonly string[], seed: string): VerbalDel[] | NumeriskDel[] | FigurDel[] | DeduktivDel[] {
+  if (typ === 'deduktiv') {
+    return delar
+      .map((id) => hittaDeduktivFraga(id))
+      .filter((q): q is NonNullable<typeof q> => !!q)
+      .map((q) => {
+        const v = visaDeduktiv(q, seed, true);
+        return { id: q.id, intro: v.intro, villkor: v.villkor, fraga: v.fraga, options: v.options, premisser: q.typ === 'D1' };
+      });
+  }
   if (typ === 'figurer') {
     return delar
       .map((id) => hittaFigurFraga(id))
@@ -246,6 +280,10 @@ function klientDelar(typ: OvningsTyp, delar: readonly string[], seed: string): V
 
 /** Rätt svar och förklaring för en punkt. */
 function facit(typ: OvningsTyp, p: Punkt, seed = ''): { ratt: string; forklaring: string | null } | null {
+  if (typ === 'deduktiv') {
+    const q = hittaDeduktivFraga(p.del);
+    return q ? { ratt: String(genomgaDeduktiv(q, seed, true).rattVisat), forklaring: null } : null;
+  }
   if (typ === 'figurer') {
     const q = hittaFigurFraga(p.del);
     return q ? { ratt: String(genomgaFigur(q, seed).rattVisat), forklaring: q.rule } : null;
@@ -261,6 +299,10 @@ function facit(typ: OvningsTyp, p: Punkt, seed = ''): { ratt: string; forklaring
 /** Är svaret ett giltigt svar på punkten? */
 export function giltigtSvar(typ: OvningsTyp, p: Punkt, svar: unknown): svar is string {
   if (typeof svar !== 'string') return false;
+  if (typ === 'deduktiv') {
+    const q = hittaDeduktivFraga(p.del);
+    return !!q && /^\d$/.test(svar) && Number(svar) < q.options.length;
+  }
   if (typ === 'figurer') {
     const q = hittaFigurFraga(p.del);
     const n = q ? (q.form === 'bryter' ? q.rad.length : q.options.length) : 0;
@@ -275,7 +317,7 @@ export function giltigtSvar(typ: OvningsTyp, p: Punkt, svar: unknown): svar is s
 
 export function lasMeta(v: unknown): OvningsMeta | null {
   const m = v as Partial<OvningsMeta> | null;
-  if (!m || m.ovningsprov !== 1 || (m.typ !== 'verbal' && m.typ !== 'numerisk' && m.typ !== 'figurer') || !Array.isArray(m.delar)) return null;
+  if (!m || m.ovningsprov !== 1 || (m.typ !== 'verbal' && m.typ !== 'numerisk' && m.typ !== 'figurer' && m.typ !== 'deduktiv') || !Array.isArray(m.delar)) return null;
   return m as OvningsMeta;
 }
 
@@ -320,10 +362,28 @@ export function raknaResultat(args: {
     const s = perNyckel.get(p.nyckel) ?? null;
     const korrekt = !!s && s.svar === f.ratt;
     const fq = typ === 'figurer' ? hittaFigurFraga(p.del) : undefined;
-    const misstag = fq && s && !korrekt ? fq.misstag[tillOriginal(figurPermutation(fq, meta.seed ?? ''), Number(s.svar))] || null : null;
-    genomgang.push({ nyckel: p.nyckel, svar: s?.svar ?? null, ratt: f.ratt, korrekt, forklaring: f.forklaring, tid_s: s?.tid ?? 0, ...(typ === 'figurer' ? { misstag } : {}) });
+    const dq = typ === 'deduktiv' ? hittaDeduktivFraga(p.del) : undefined;
+    const dg = dq ? genomgaDeduktiv(dq, meta.seed ?? '', true) : null;
+    const misstag =
+      fq && s && !korrekt
+        ? fq.misstag[tillOriginal(figurPermutation(fq, meta.seed ?? ''), Number(s.svar))] || null
+        : dg && s && !korrekt
+          ? dg.misstag[Number(s.svar)] || null
+          : null;
+    genomgang.push({
+      nyckel: p.nyckel,
+      svar: s?.svar ?? null,
+      ratt: f.ratt,
+      korrekt,
+      forklaring: f.forklaring,
+      tid_s: s?.tid ?? 0,
+      ...(typ === 'figurer' || typ === 'deduktiv' ? { misstag } : {}),
+      ...(dg ? { losning: dg.losning } : {}),
+    });
     const grupp =
-      typ === 'figurer'
+      typ === 'deduktiv'
+        ? deduktivFamiljNamn(dq?.family) ?? 'Deduktivt'
+        : typ === 'figurer'
         ? serieFamiljNamn(fq?.family) ?? 'Figurserier'
         : typ === 'verbal' ? SVARSTYP_NAMN[f.ratt] : UNDERLAGSTYP_NAMN[NUM_PER_ID.get(p.del)?.type ?? ''] ?? 'Underlag';
     const g = grupper.get(grupp) ?? { ratt: 0, antal: 0 };
@@ -343,7 +403,7 @@ export function raknaResultat(args: {
   const tid_s = Math.max(0, Math.min(meta.tidsgrans_s, Math.round((slut - start) / 1000)));
   const ratt = genomgang.filter((g) => g.korrekt).length;
   const titel = (id: string) =>
-    typ === 'figurer'
+    typ === 'figurer' || typ === 'deduktiv'
       ? `Uppgift ${meta.delar.indexOf(id) + 1}`
       : typ === 'verbal' ? rubrikUtanNummer(VERBAL_PER_ID.get(id)?.title ?? id) : visningstitel(NUM_PER_ID.get(id)?.title ?? id);
 
@@ -444,7 +504,12 @@ export async function skapaOvningsprov(args: {
       .order('created_at', { ascending: false })
       .limit(20),
     // Det hon haft i alla källor (klassiska test, provet, passen, övningsprov), sedda.server.ts.
-    (args.typ === 'figurer' ? lasSeddaFigurer(args.admin, args.userId) : lasSeddaUnderlag(args.admin, args.userId, args.typ)).catch((e) => {
+    (args.typ === 'figurer'
+      ? lasSeddaFigurer(args.admin, args.userId)
+      : args.typ === 'deduktiv'
+        ? lasSeddaDeduktiva(args.admin, args.userId)
+        : lasSeddaUnderlag(args.admin, args.userId, args.typ)
+    ).catch((e) => {
       console.error('[ovningsprov] sedda underlag', e);
       return null;
     }),
@@ -469,7 +534,7 @@ export async function skapaOvningsprov(args: {
   const f = ovningsformat(args.typ, plan?.leverantor ?? null, plan?.variant ?? null);
   const sedda = new Set([...rader.flatMap((r) => lasMeta(r.meta)?.delar ?? []), ...(seddaAlla?.sedda.keys() ?? [])]);
   const seed = `${args.userId}:${idag}:${rader.length}:${args.typ}`;
-  const delar = valjDelar(args.typ, seed, sedda, UNDERLAG_VERSION);
+  const delar = valjDelar(args.typ, seed, sedda, UNDERLAG_VERSION, f.antal);
   const meta: OvningsMeta = {
     ovningsprov: 1,
     typ: args.typ,
@@ -478,7 +543,7 @@ export async function skapaOvningsprov(args: {
     minuter: f.minuter,
     tidsgrans_s: f.minuter * 60,
     budget_s: f.budget_s,
-    del_budget_s: f.delar?.budget_s ?? (args.typ === 'figurer' ? f.budget_s : f.budget_s * 4),
+    del_budget_s: f.delar?.budget_s ?? (args.typ === 'figurer' || args.typ === 'deduktiv' ? f.budget_s : f.budget_s * 4),
     delar,
     seed,
     dag: idag,
@@ -508,6 +573,19 @@ async function lasSeddaFigurer(admin: Klient, userId: string): Promise<{ sedda: 
     .limit(300);
   if (error) throw error;
   return { sedda: seddaFigurerUrRader((data ?? []) as SeddRad[]) };
+}
+
+/** Deduktiva uppgifter hon haft (testplanen steg 1): klassiska test, pass, Nivåkollen och övningsprov. */
+async function lasSeddaDeduktiva(admin: Klient, userId: string): Promise<{ sedda: Map<string, Dag> }> {
+  const { data, error } = await admin
+    .from('logic_test_v4_sessions')
+    .select('id, test_type, meta, created_at')
+    .eq('user_id', userId)
+    .in('test_type', seddaDeduktivTestTyper())
+    .order('created_at', { ascending: false })
+    .limit(300);
+  if (error) throw error;
+  return { sedda: seddaDeduktivaUrRader((data ?? []) as SeddRad[]) };
 }
 
 /* ---------------------------------- Svaret --------------------------------- */

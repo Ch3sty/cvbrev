@@ -64,8 +64,8 @@ export function ovningsResultat(vy: Ovningsvy, opt: { datum: string | null; daga
   const typ = vy.typ;
   const ord = vy.format.delar?.ord ?? 'underlag';
   // Figurserier: varje uppgift är en del (omgång 3, A4).
-  const delOrd = typ === 'figurer' ? 'uppgifter' : ord === 'texter' ? 'texter' : 'underlag';
-  const delEn = typ === 'figurer' ? 'uppgift' : ord === 'texter' ? 'text' : 'underlag';
+  const delOrd = typ === 'figurer' || typ === 'deduktiv' ? 'uppgifter' : ord === 'texter' ? 'texter' : 'underlag';
+  const delEn = typ === 'figurer' || typ === 'deduktiv' ? 'uppgift' : ord === 'texter' ? 'text' : 'underlag';
   const besvarade = r.antal - r.obesvarade;
   const missar = r.antal - r.ratt;
   const over = r.delar.filter((d) => d.tid_s > d.budget_s).length;

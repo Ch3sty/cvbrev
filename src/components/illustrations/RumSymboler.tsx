@@ -264,6 +264,24 @@ export function SymFigurer(p: IlluProps) {
   )
 }
 
+/**
+ * Deduktivt (testplanen steg 1): IlluDeduktivs motiv i 48 px. Två
+ * villkorsrader och en remsa med fyra platser, platsen svaret fyller i koppar.
+ */
+export function SymDeduktiv(p: IlluProps) {
+  return (
+    <IlluSvg box={48} {...p}>
+      <path d="M8 11h22M8 18h15" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" opacity=".7" />
+      <rect x="4" y="25" width="40" height="15" rx="4" fill="none" stroke="currentColor" strokeWidth="2" />
+      <path d="M14 25v15M24 25v15M34 25v15" stroke="currentColor" strokeWidth="1.5" opacity=".5" />
+      <rect x="7" y="30" width="4" height="5" rx="1" fill="currentColor" />
+      <rect x="17" y="30" width="4" height="5" rx="1" fill="currentColor" />
+      <rect x="27" y="29" width="6" height="7" rx="1.5" fill={K} />
+      <rect x="37" y="30" width="4" height="5" rx="1" fill="currentColor" />
+    </IlluSvg>
+  )
+}
+
 /** Siffror (#s-siffror): tabell och staplar, den höga stapeln i koppar. */
 export function SymSiffror(p: IlluProps) {
   return (

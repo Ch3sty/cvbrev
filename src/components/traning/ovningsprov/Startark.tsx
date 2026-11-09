@@ -208,7 +208,7 @@ export default function Startark({ typ, format, dagarKvar, last, pagaende = null
                 <p className="mt-2 text-center text-meta text-ink-3">{START.avbryt}</p>
               </section>
             )}
-            <p className="mx-1 mt-4 text-[13px] leading-5 text-ink-2">{typ === 'logik' ? START.efterLogik : typ === 'figurer' ? START.efterFigurer : START.efter}</p>
+            <p className="mx-1 mt-4 text-[13px] leading-5 text-ink-2">{typ === 'logik' ? START.efterLogik : typ === 'figurer' ? START.efterFigurer : typ === 'deduktiv' ? START.efterDeduktiv : START.efter}</p>
           </div>
         </div>
       </main>

@@ -104,7 +104,7 @@ export function brickorForTestType(testType: string | null | undefined): Array<B
   if (t.endsWith('-prov')) return ['provlage']
   // Träningens generalrepetition är provläget i rummet (spec 19.6).
   // Övningsprovet mot klockan, alla tre testtyper (Testerna v2).
-  if (t === 'matrislogik-general' || t === 'verbal-general' || t === 'numerisk-general') return ['provlage']
+  if (t === 'matrislogik-general' || t === 'verbal-general' || t === 'numerisk-general' || t === 'figurserie-prov' || t === 'deduktiv-prov') return ['provlage']
   // Träningens nivåmätning står för "Mät din nivå", som grundtestet.
   if (t === 'matrislogik' || t === 'matrislogik-matning') return ['matris_grund']
   if (t === 'matrislogik-avancerad' || t === 'matrislogik-expert') return ['matris_avancerad']

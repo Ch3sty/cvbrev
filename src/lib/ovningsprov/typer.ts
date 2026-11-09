@@ -9,7 +9,7 @@
 
 import type { Ovningsformat } from './format';
 
-export type OvningsTyp = 'verbal' | 'numerisk' | 'figurer';
+export type OvningsTyp = 'verbal' | 'numerisk' | 'figurer' | 'deduktiv';
 
 /** test_type i logic_test_v4_sessions. Logikens övningsprov är matrislogik-general. */
 export const OVNINGSPROV_TEST_TYPE: Readonly<Record<OvningsTyp, string>> = {
@@ -17,9 +17,11 @@ export const OVNINGSPROV_TEST_TYPE: Readonly<Record<OvningsTyp, string>> = {
   numerisk: 'numerisk-general',
   /** Figurseriernas övningsprov (beställning omgång 3, A4). */
   figurer: 'figurserie-prov',
+  /** Deduktivens övningsprov (testplanen steg 1). */
+  deduktiv: 'deduktiv-prov',
 };
 
-export const OVNINGSPROV_TEST_TYPER = ['verbal-general', 'numerisk-general', 'figurserie-prov'] as const;
+export const OVNINGSPROV_TEST_TYPER = ['verbal-general', 'numerisk-general', 'figurserie-prov', 'deduktiv-prov'] as const;
 
 export function arOvningsprovTestTyp(t: unknown): boolean {
   return typeof t === 'string' && (OVNINGSPROV_TEST_TYPER as readonly string[]).includes(t);
@@ -64,6 +66,20 @@ export interface FigurDel {
   options: import('@/lib/logicTestV7/types.v7').V7Cell[];
 }
 
+/**
+ * En deduktiv uppgift i provet (testplanen steg 1): villkoren, frågan och
+ * alternativen i sessionens blandade ordning. Utan facit och lösning.
+ */
+export interface DeduktivDel {
+  id: string;
+  intro: string | null;
+  villkor: string[];
+  fraga: string;
+  options: string[];
+  /** D1 har premisser, D2 och D3 villkor. */
+  premisser: boolean;
+}
+
 /** En uppgift i provet, i ordning: del (text eller underlag) och punkt i delen. */
 export interface Punkt {
   /** "delId:index" (verbalt) eller "delId:frågeId" (numeriskt). */
@@ -85,8 +101,10 @@ export interface Genomgangspunkt {
   korrekt: boolean;
   forklaring: string | null;
   tid_s: number;
-  /** Figurserier: misstaget för hennes val, null när rätt eller obesvarad. */
+  /** Figurserier och deduktivt: misstaget för hennes val, null när rätt eller obesvarad. */
   misstag?: string | null;
+  /** Deduktivt: lösningsgången och remsan efter avslutet. */
+  losning?: import('@/lib/deduktivV1/types').DeduktivLosning | null;
 }
 
 export interface Ovningsresultat {
@@ -111,7 +129,7 @@ export interface Ovningsvy {
   startad: string;
   tidsgrans_s: number;
   avslutad: boolean;
-  delar: VerbalDel[] | NumeriskDel[] | FigurDel[];
+  delar: VerbalDel[] | NumeriskDel[] | FigurDel[] | DeduktivDel[];
   punkter: Punkt[];
   /** Hennes svar per punktnyckel. */
   svar: Record<string, string>;

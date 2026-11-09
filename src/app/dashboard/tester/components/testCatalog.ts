@@ -289,7 +289,7 @@ const FIGURER_GROUP: TestGroup = {
 
 /**
  * Deduktiv slutledning. Står efter figurserierna när banken är befordrad
- * (deduktivSynlig). Inget övningsprov än: provraden är dämpad.
+ * (deduktivSynlig). Provraden lever sedan testplanen steg 1 (2026-11-09).
  */
 const DEDUKTIV_GROUP: TestGroup = {
   key: 'deduktiv',
@@ -299,7 +299,7 @@ const DEDUKTIV_GROUP: TestGroup = {
   searchHint: 'Kallas även deduktivt test, logiskt resonemang eller schemapussel',
   cognitive: DEDUKTIV_TESTS,
   personality: [],
-  provTyst: { rad1: 'Övningsprov mot klockan', rad2: 'Inte än för deduktiv slutledning. Logikens övningsprov övar tempot.' },
+  prov: { typ: 'deduktiv', href: ovningsprovHref('deduktiv') },
 };
 
 export const TEST_GROUPS: TestGroup[] = [

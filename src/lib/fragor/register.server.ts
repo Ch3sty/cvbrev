@@ -91,7 +91,7 @@ function bygg(): RegisterRad[] {
     ut.push({ test_kind: 'figurserie', id: q.id, niva: q.niva, band: q.niva, familj: q.family, p_prior: q.p_prior, bankfil: `src/lib/figurserierV1/bank (${q.niva})`, pensionerad: (q as { pensionerad_fran?: number }).pensionerad_fran != null });
   }
   for (const q of allaDeduktiva()) {
-    ut.push({ test_kind: 'deduktiv', id: q.id, niva: q.niva, band: q.niva, familj: q.family, p_prior: q.p_prior, bankfil: `src/lib/deduktivV1/bank (${q.niva})`, pensionerad: false });
+    ut.push({ test_kind: 'deduktiv', id: q.id, niva: q.niva, band: q.niva, familj: q.family, p_prior: q.p_prior, bankfil: `src/lib/deduktivV1/bank (${q.niva})`, pensionerad: q.pensionerad_fran != null });
   }
 
   const verbal = (lista: readonly unknown[], niva: Niva, fil: string) => {

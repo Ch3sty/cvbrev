@@ -26,6 +26,7 @@ import { scopeHasFeature } from '@/lib/access/features';
 import { dagSthlm, type Dag } from '@/lib/traning/datum';
 import { totalForSession } from '@/app/dashboard/tester/testConfig';
 import { UNDERLAG_VERSION, type UnderlagVersion } from './underlagVersion';
+import { passNivaFor, senasteNivakollNiva } from '@/lib/nivakoll/las.server';
 import { seddaTestTyper, seddaUrRader, type SeddRad } from './sedda.server';
 import { passNiva, riktadeFamiljer, tappadeFamiljer, valjUnderlag, type Sedda } from './pass-urval';
 import {
@@ -145,16 +146,23 @@ export interface VnLage {
 }
 
 async function lasVnLage(admin: Klient, userId: string, kind: VnKind, idag: Dag): Promise<VnLage> {
-  const { data, error } = await admin
-    .from('logic_test_v4_sessions')
-    .select(KOLUMNER)
-    .eq('user_id', userId)
-    .in('test_type', seddaTestTyper(kind))
-    .order('created_at', { ascending: false })
-    .limit(300);
+  const [{ data, error }, nivakoll] = await Promise.all([
+    admin
+      .from('logic_test_v4_sessions')
+      .select(KOLUMNER)
+      .eq('user_id', userId)
+      .in('test_type', seddaTestTyper(kind))
+      .order('created_at', { ascending: false })
+      .limit(300),
+    // Nivåkollen för typen väljer passets nivå när den finns (testplanen steg 1).
+    senasteNivakollNiva(admin, userId, kind).catch((e) => {
+      console.error('[vnpass] Nivåkollens nivå', e);
+      return null;
+    }),
+  ]);
   if (error) throw error;
   const rader = (data ?? []) as VnRad[];
-  return { idag, niva: passNiva(bastaGrundProcent(kind, rader)), sedda: seddaUrRader(kind, rader as SeddRad[]), rader };
+  return { idag, niva: passNivaFor(kind, nivakoll, passNiva(bastaGrundProcent(kind, rader))), sedda: seddaUrRader(kind, rader as SeddRad[]), rader };
 }
 
 /** Familjerna med ett riktat pass på hennes nivå. */

@@ -27,6 +27,7 @@ import { dagSthlm, type Dag } from '@/lib/traning/datum';
 import { bedomFigur, genomgaFigur, hittaFigurFraga, visaFigur } from '@/lib/figurserierV1/fragor.server';
 import { bryterPool, harnastPool, SERIE_VERSION } from '@/lib/figurserierV1/select';
 import { harVnPass } from './pass.server';
+import { passNivaFor, senasteNivakollNiva } from '@/lib/nivakoll/las.server';
 import { passNiva, tappadeFamiljer } from './pass-urval';
 import { seddaFigurerUrRader, seddaFigurTestTyper, type SeddRad } from './sedda.server';
 import {
@@ -101,16 +102,24 @@ function lasFigurSvar(answers: unknown): FigurSvar[] {
 
 
 async function lasFigurLage(admin: Klient, userId: string, idag: Dag) {
-  const { data, error } = await admin
-    .from('logic_test_v4_sessions')
-    .select(KOLUMNER)
-    .eq('user_id', userId)
-    .in('test_type', seddaFigurTestTyper())
-    .order('created_at', { ascending: false })
-    .limit(300);
+  const [{ data, error }, nivakoll] = await Promise.all([
+    admin
+      .from('logic_test_v4_sessions')
+      .select(KOLUMNER)
+      .eq('user_id', userId)
+      .in('test_type', seddaFigurTestTyper())
+      .order('created_at', { ascending: false })
+      .limit(300),
+    // Nivåkollen för figurserier väljer passets nivå när den finns (testplanen steg 1).
+    senasteNivakollNiva(admin, userId, 'figurserie').catch((e) => {
+      console.error('[figurpass] Nivåkollens nivå', e);
+      return null;
+    }),
+  ]);
   if (error) throw error;
   const rader = (data ?? []) as FigurRad[];
-  return { idag, niva: passNiva(bastaFigurGrundProcent(rader)) as FigurNiva, sedda: seddaFigurerUrRader(rader as SeddRad[]), rader };
+  const niva = passNivaFor('figurserie', nivakoll, passNiva(bastaFigurGrundProcent(rader))) as FigurNiva;
+  return { idag, niva, sedda: seddaFigurerUrRader(rader as SeddRad[]), rader };
 }
 
 /** Familjen per besvarad fråga, för "Var du tappade". */

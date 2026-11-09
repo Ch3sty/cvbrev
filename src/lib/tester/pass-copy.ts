@@ -160,3 +160,61 @@ export const FIGUR_PASS_COPY = {
     ingenNiva: 'Figurpasset ändrar inte din nivå. Den sätts i Nivåkollen.',
   },
 } as const;
+
+/**
+ * Deduktivpassets texter (testplanen steg 1). Samma form som
+ * FIGUR_PASS_COPY; nivån står som ord i toppraden, aldrig som tal.
+ */
+export const DEDUKTIV_PASS_COPY = {
+  namn: 'Deduktivpass',
+  topp: {
+    titel: 'Deduktivpass',
+    rad: (niva: VnNiva) => `Dagens deduktivpass, ${NIVA_NAMN[niva].toLowerCase()}`,
+    avsluta: 'Avsluta passet',
+  },
+  fraga: {
+    uppgift: (n: number, av: number) => `Uppgift ${n} av ${av}`,
+  },
+  aterkoppling: {
+    vetInte: 'Vet inte, visa lösningen',
+  },
+  knapp: {
+    svara: 'Svara',
+    nasta: 'Nästa',
+    visaResultat: 'Visa resultatet',
+    genomga: 'Gå igenom passet',
+    tillResultatet: 'Till resultatet',
+    foregaende: 'Föregående',
+    tillbaka: 'Tillbaka till Rekryteringstester',
+    forsokIgen: 'Försök igen',
+  },
+  fel: {
+    hamta: 'Passet gick inte att hämta.',
+    hamtaRad: 'Försök igen. Dina pass är sparade, ingenting försvann.',
+    svar: 'Svaret gick inte att spara. Inget är förlorat, försök igen.',
+    avslut: 'Resultatet gick inte att räkna fram. Svaren är sparade, försök igen.',
+    betalvagg: 'Deduktivpasset ingår i Premium.',
+    betalvaggRad: 'Fyra uppgifter varje dag, med lösningen steg för steg efter varje svar.',
+  },
+  laddar: {
+    session: 'Hämtar passet',
+    resultat: 'Räknar fram resultatet',
+  },
+  resultat: {
+    eyebrow: 'Deduktivpasset klart',
+    rubrik: (ratt: number, antal: number) => `${ratt} av ${antal} rätt.`,
+    ringAria: (ratt: number, antal: number) => `${ratt} av ${antal} rätt`,
+    tempoRubrik: 'Tempot',
+    tempo: (tid: number, budget: number) =>
+      tid <= budget ? 'Inom tiden provet ger per uppgift.' : 'Över tiden provet ger per uppgift. Tempot växer med passen.',
+    tempoAria: (tidPer: number, budgetPer: number) => `Tid ${tidPer} sekunder per uppgift mot provets ${budgetPer}`,
+    budgetEtikett: 'provets tid',
+    tid: (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`,
+    tappadeRubrik: 'Var du tappade',
+    tappadeMeta: (ratt: number, antal: number) => `${ratt} av ${antal} rätt i passen`,
+    upprepad: 'Du har haft den här uppgiften förut. Den räknas inte i statistiken.',
+    expertRad: 'Du är på expertnivå. Gör nivåtestet i stället.',
+    imorgon: 'I morgon: ett nytt deduktivpass.',
+    ingenNiva: 'Passet ändrar inte din nivå. Den sätts i Nivåkollen.',
+  },
+} as const;

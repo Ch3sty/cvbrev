@@ -1,0 +1,348 @@
+{
+ "forsta_korningen": [
+  {
+   "id": "dd-g-d2-05",
+   "fel": [
+    "DD7: alternativ A medför alternativ C"
+   ],
+   "ersattAv": "dd-g-d2-12",
+   "byttFacit": false,
+   "behallna": 3
+  },
+  {
+   "id": "dd-g-d2-08",
+   "fel": [
+    "DD7: alternativ D medför alternativ E"
+   ],
+   "ersattAv": "dd-g-d2-13",
+   "byttFacit": false,
+   "behallna": 3
+  },
+  {
+   "id": "dd-g-d2-09",
+   "fel": [
+    "DD7: alternativ E medför alternativ D"
+   ],
+   "ersattAv": "dd-g-d2-14",
+   "byttFacit": false,
+   "behallna": 3
+  },
+  {
+   "id": "dd-g-d2-10",
+   "fel": [
+    "DD7: alternativ B medför alternativ C",
+    "DD7: alternativ E medför alternativ C"
+   ],
+   "ersattAv": "dd-g-d2-15",
+   "byttFacit": false,
+   "behallna": 3
+  },
+  {
+   "id": "dd-g-d2-11",
+   "fel": [
+    "DD7: alternativ D medför alternativ C",
+    "DD8: facit följer ur villkor 1, 3, minst 3 villkor krävs"
+   ],
+   "ersattAv": "dd-g-d2-16",
+   "byttFacit": true,
+   "behallna": 3
+  },
+  {
+   "id": "dd-a-d2-02",
+   "fel": [
+    "DD7: alternativ C medför alternativ E"
+   ],
+   "ersattAv": "dd-a-d2-31",
+   "byttFacit": false,
+   "behallna": 3
+  },
+  {
+   "id": "dd-a-d2-04",
+   "fel": [
+    "DD8: facit följer ur villkor 1, 4, 5, minst 4 villkor krävs"
+   ],
+   "ersattAv": "dd-a-d2-32",
+   "byttFacit": true,
+   "behallna": 4
+  },
+  {
+   "id": "dd-a-d2-08",
+   "fel": [
+    "DD7: alternativ B medför alternativ A"
+   ],
+   "ersattAv": "dd-a-d2-33",
+   "byttFacit": false,
+   "behallna": 3
+  },
+  {
+   "id": "dd-a-d2-10",
+   "fel": [
+    "DD7: alternativ D medför alternativ A"
+   ],
+   "ersattAv": "dd-a-d2-34",
+   "byttFacit": false,
+   "behallna": 3
+  },
+  {
+   "id": "dd-a-d2-12",
+   "fel": [
+    "DD7: alternativ C medför alternativ D",
+    "DD7: alternativ E medför alternativ A"
+   ],
+   "ersattAv": "dd-a-d2-35",
+   "byttFacit": false,
+   "behallna": 2
+  },
+  {
+   "id": "dd-a-d2-14",
+   "fel": [
+    "DD8: facit följer ur villkor 2, 4, 5, minst 4 villkor krävs"
+   ],
+   "ersattAv": "dd-a-d2-36",
+   "byttFacit": true,
+   "behallna": 4
+  },
+  {
+   "id": "dd-a-d2-16",
+   "fel": [
+    "DD7: alternativ B medför alternativ D"
+   ],
+   "ersattAv": "dd-a-d2-37",
+   "byttFacit": false,
+   "behallna": 3
+  },
+  {
+   "id": "dd-a-d2-20",
+   "fel": [
+    "DD7: alternativ C medför alternativ A",
+    "DD7: alternativ C medför alternativ D"
+   ],
+   "ersattAv": "dd-a-d2-38",
+   "byttFacit": false,
+   "behallna": 2
+  },
+  {
+   "id": "dd-a-d2-24",
+   "fel": [
+    "DD8: facit följer ur villkor 1, 2, 3, minst 4 villkor krävs"
+   ],
+   "ersattAv": "dd-a-d2-39",
+   "byttFacit": true,
+   "behallna": 4
+  },
+  {
+   "id": "dd-a-d2-28",
+   "fel": [
+    "DD8: facit följer ur villkor 1, 4, minst 3 villkor krävs"
+   ],
+   "ersattAv": "dd-a-d2-40",
+   "byttFacit": true,
+   "behallna": 4
+  },
+  {
+   "id": "dd-a-d2-30",
+   "fel": [
+    "DD7: alternativ A medför alternativ D",
+    "DD7: alternativ B medför alternativ C"
+   ],
+   "ersattAv": "dd-a-d2-41",
+   "byttFacit": false,
+   "behallna": 2
+  },
+  {
+   "id": "dd-e-d3-02",
+   "fel": [
+    "DD7: alternativ A medför alternativ E"
+   ],
+   "ersattAv": "dd-e-d3-25",
+   "byttFacit": false,
+   "behallna": 3
+  },
+  {
+   "id": "dd-e-d3-03",
+   "fel": [
+    "DD7: alternativ E medför alternativ B"
+   ],
+   "ersattAv": "dd-e-d3-26",
+   "byttFacit": false,
+   "behallna": 3
+  },
+  {
+   "id": "dd-e-d3-08",
+   "fel": [
+    "DD7: alternativ A medför alternativ B"
+   ],
+   "ersattAv": "dd-e-d3-27",
+   "byttFacit": false,
+   "behallna": 3
+  },
+  {
+   "id": "dd-e-d3-09",
+   "fel": [
+    "DD7: alternativ A medför alternativ C"
+   ],
+   "ersattAv": "dd-e-d3-28",
+   "byttFacit": false,
+   "behallna": 3
+  },
+  {
+   "id": "dd-e-d3-12",
+   "fel": [
+    "DD7: alternativ A medför alternativ D",
+    "DD7: alternativ A medför alternativ E",
+    "DD7: alternativ C medför alternativ E",
+    "DD7: alternativ D medför alternativ A",
+    "DD7: alternativ D medför alternativ E"
+   ],
+   "ersattAv": "dd-e-d3-29",
+   "byttFacit": false,
+   "behallna": 2
+  },
+  {
+   "id": "dd-e-d3-13",
+   "fel": [
+    "DD7: alternativ A medför alternativ B",
+    "DD7: alternativ D medför alternativ B",
+    "DD7: alternativ D medför alternativ E"
+   ],
+   "ersattAv": "dd-e-d3-30",
+   "byttFacit": false,
+   "behallna": 2
+  },
+  {
+   "id": "dd-e-d3-15",
+   "fel": [
+    "DD7: alternativ A medför alternativ C"
+   ],
+   "ersattAv": "dd-e-d3-31",
+   "byttFacit": false,
+   "behallna": 3
+  },
+  {
+   "id": "dd-e-d3-17",
+   "fel": [
+    "DD7: alternativ C medför alternativ A"
+   ],
+   "ersattAv": "dd-e-d3-32",
+   "byttFacit": false,
+   "behallna": 3
+  },
+  {
+   "id": "dd-e-d3-18",
+   "fel": [
+    "DD7: alternativ A medför alternativ B",
+    "DD7: alternativ B medför alternativ A",
+    "DD7: alternativ D medför alternativ E"
+   ],
+   "ersattAv": "dd-e-d3-33",
+   "byttFacit": false,
+   "behallna": 2
+  },
+  {
+   "id": "dd-e-d3-19",
+   "fel": [
+    "DD7: alternativ C medför alternativ B"
+   ],
+   "ersattAv": "dd-e-d3-34",
+   "byttFacit": false,
+   "behallna": 3
+  },
+  {
+   "id": "dd-e-d3-23",
+   "fel": [
+    "DD7: alternativ E medför alternativ A"
+   ],
+   "ersattAv": "dd-e-d3-35",
+   "byttFacit": false,
+   "behallna": 3
+  }
+ ],
+ "efter_granskning_03": [
+  {
+   "id": "dd-g-d2-07",
+   "fel": [
+    "DD9: alla distraktorer nämner Viktor, facit gör det inte"
+   ],
+   "ersattAv": "dd-g-d2-17",
+   "byttFacit": false,
+   "behallna": 3
+  },
+  {
+   "id": "dd-a-d2-10",
+   "fel": [
+    "DD7: alternativ D medför alternativ A",
+    "DD9: alla distraktorer nämner blå, facit gör det inte",
+    "DD9: facit är ensamt om formen direkt_vanster_om och om lila"
+   ],
+   "ersattAv": "dd-a-d2-42",
+   "byttFacit": false,
+   "behallna": 3
+  },
+  {
+   "id": "dd-a-d2-14",
+   "fel": [
+    "DD8: facit följer ur villkor 2, 4, 5, minst 4 villkor krävs",
+    "DD9: alla distraktorer nämner Rut, facit gör det inte"
+   ],
+   "ersattAv": "dd-a-d2-43",
+   "byttFacit": true,
+   "behallna": 3
+  },
+  {
+   "id": "dd-a-d2-18",
+   "fel": [
+    "DD9: alla distraktorer nämner Gun, facit gör det inte"
+   ],
+   "ersattAv": "dd-a-d2-44",
+   "byttFacit": false,
+   "behallna": 3
+  },
+  {
+   "id": "dd-a-d2-28",
+   "fel": [
+    "DD8: facit följer ur villkor 1, 4, minst 3 villkor krävs"
+   ],
+   "ersattAv": "dd-a-d2-45",
+   "byttFacit": true,
+   "behallna": 3
+  },
+  {
+   "id": "dd-e-d3-02",
+   "fel": [
+    "DD7: alternativ A medför alternativ E",
+    "DD9: facit är ensamt om formen samma_grupp och om Cilla"
+   ],
+   "ersattAv": "dd-e-d3-36",
+   "byttFacit": false,
+   "behallna": 3
+  },
+  {
+   "id": "dd-e-d3-05",
+   "fel": [
+    "DD9: alla distraktorer är plats, facit är det inte"
+   ],
+   "ersattAv": "dd-e-d3-37",
+   "byttFacit": false,
+   "behallna": 3
+  },
+  {
+   "id": "dd-e-d3-06",
+   "fel": [
+    "DD9: facit är ensamt om formen vanster_om och om vit"
+   ],
+   "ersattAv": "dd-e-d3-38",
+   "byttFacit": false,
+   "behallna": 3
+  },
+  {
+   "id": "dd-e-d3-29",
+   "fel": [
+    "DD9: facit är ensamt om formen vanster_om och om svart"
+   ],
+   "ersattAv": "dd-e-d3-39",
+   "byttFacit": false,
+   "behallna": 3
+  }
+ ],
+ "anmarkning": "Granskning 03 strök dd-a-d2-34, 36, 40 och dd-e-d3-25; deras original lagades om med DD9. dd-e-d3-29 föll på den skärpta DD9 innan version 2 gick live; dd-e-d3-39 ersätter dd-e-d3-12 i stället."
+}

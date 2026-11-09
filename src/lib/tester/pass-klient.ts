@@ -71,3 +71,32 @@ export const fetchFigurPassApi: FigurPassApi = {
     }
   },
 };
+
+/* ------------------------------ Deduktivpasset ----------------------------- */
+// Testplanen steg 1: /api/traning/deduktivpass. Prop i DeduktivPassFlode.
+
+import type { DeduktivAterkoppling, DeduktivPassVy } from './pass-deduktiv';
+
+export interface DeduktivPassApi {
+  skapa(): Promise<{ ok: true; session: DeduktivPassVy } | VnFel>;
+  svara(inp: { sessionId: string; nyckel: string; visat: number | null; tid: number }): Promise<
+    { ok: true; nyckel: string; aterkoppling: DeduktivAterkoppling; besvarade: number; antal: number; klar: boolean } | VnFel
+  >;
+  slutfor(sessionId: string): Promise<{ ok: true; session: DeduktivPassVy } | VnFel>;
+  session(sessionId: string): Promise<DeduktivPassVy | null>;
+}
+
+export const fetchDeduktivPassApi: DeduktivPassApi = {
+  skapa: () => post('/api/traning/deduktivpass/session', {}),
+  svara: (inp) => post('/api/traning/deduktivpass/svar', inp),
+  slutfor: (sessionId) => post('/api/traning/deduktivpass/slutfor', { sessionId }),
+  async session(sessionId) {
+    try {
+      const res = await fetch(`/api/traning/deduktivpass/session?id=${encodeURIComponent(sessionId)}`, { cache: 'no-store' });
+      if (!res.ok) return null;
+      return ((await res.json()) as { session: DeduktivPassVy }).session ?? null;
+    } catch {
+      return null;
+    }
+  },
+};

@@ -20,6 +20,7 @@ import { selectPassagesForSession as numAvancerad } from '@/lib/numericalTestV2/
 import { selectProvPassagesForSession as numProv } from '@/lib/numericalTestProv/selectProv';
 import { dagSthlm, type Dag } from '@/lib/traning/datum';
 import { FRAGOR_PER_SESSION as FIGUR_PER_SESSION, serieVersion, valjFragor as valjFigurserier } from '@/lib/figurserierV1/select';
+import { FRAGOR_PER_SESSION as DEDUKTIV_PER_SESSION, deduktivVersion, valjFragor as valjDeduktiva } from '@/lib/deduktivV1/select';
 import { underlagsVersion, type UnderlagVersion } from './underlagVersion';
 import type { VnKind } from './pass-typer';
 
@@ -48,8 +49,8 @@ const KLASSISKA: Record<VnKind, Record<string, Valj>> = {
 
 /** Typerna som sparar sitt urval i meta: övningsprovet (delar) och passen (underlag_id). */
 const MED_META: Record<VnKind, string[]> = {
-  verbal: ['verbal-general', 'verbal-pass', 'verbal-riktat'],
-  numerisk: ['numerisk-general', 'numerisk-pass', 'numerisk-riktat'],
+  verbal: ['verbal-general', 'verbal-pass', 'verbal-riktat', 'verbal-nivakoll'],
+  numerisk: ['numerisk-general', 'numerisk-pass', 'numerisk-riktat', 'numerisk-nivakoll'],
 };
 
 export function seddaTestTyper(kind: VnKind): string[] {
@@ -113,7 +114,7 @@ export async function lasSeddaUnderlag(admin: Klient, userId: string, kind: VnKi
 // övningsprovet (frågornas id i meta.fragor).
 
 export const FIGUR_KLASSISKA = ['figurserier-grund', 'figurserier-avancerad', 'figurserier-expert'] as const;
-export const FIGUR_MED_META = ['figurserie-pass', 'figurserie-prov'] as const;
+export const FIGUR_MED_META = ['figurserie-pass', 'figurserie-prov', 'figurserie-nivakoll'] as const;
 
 export function seddaFigurTestTyper(): string[] {
   return [...FIGUR_KLASSISKA, ...FIGUR_MED_META];
@@ -126,8 +127,10 @@ export function figurerForSession(rad: SeddRad): string[] {
     const niva = t.slice('figurserier-'.length) as 'grund' | 'avancerad' | 'expert';
     return valjFigurserier(niva, rad.id, FIGUR_PER_SESSION, serieVersion(rad.meta)).map((q) => q.id);
   }
-  const m = (rad.meta ?? {}) as { fragor?: unknown };
-  return Array.isArray(m.fragor) ? m.fragor.filter((d): d is string => typeof d === 'string') : [];
+  // Övningsprovet sparar sitt urval i meta.delar, passen och Nivåkollen i meta.fragor.
+  const m = (rad.meta ?? {}) as { fragor?: unknown; delar?: unknown };
+  const lista = Array.isArray(m.fragor) ? m.fragor : Array.isArray(m.delar) ? m.delar : [];
+  return lista.filter((d): d is string => typeof d === 'string');
 }
 
 /** Senast sedd dag per figurseriefråga. Ren, för tester. */
@@ -136,6 +139,44 @@ export function seddaFigurerUrRader(rader: readonly SeddRad[]): Map<string, Dag>
   for (const r of rader) {
     const dag = dagSthlm(r.created_at);
     for (const id of figurerForSession(r)) {
+      const forra = ut.get(id);
+      if (!forra || forra < dag) ut.set(id, dag);
+    }
+  }
+  return ut;
+}
+
+/* ------------------------------ Deduktivt ------------------------------- */
+// Testplanen steg 1 (2026-11-09): slaget deduktiv räknas över de klassiska
+// nivåtesten (urvalet räknas om ur sessionens id och bankversion),
+// deduktivpasset, Nivåkollen och övningsprovet (uppgifternas id i
+// meta.fragor eller meta.delar).
+
+export const DEDUKTIV_KLASSISKA = ['deduktiv-grund', 'deduktiv-avancerad', 'deduktiv-expert'] as const;
+export const DEDUKTIV_MED_META = ['deduktiv-pass', 'deduktiv-nivakoll', 'deduktiv-prov'] as const;
+
+export function seddaDeduktivTestTyper(): string[] {
+  return [...DEDUKTIV_KLASSISKA, ...DEDUKTIV_MED_META];
+}
+
+/** Uppgifterna en deduktiv session visade. Ren, för tester. */
+export function deduktivaForSession(rad: SeddRad): string[] {
+  const t = rad.test_type ?? '';
+  if ((DEDUKTIV_KLASSISKA as readonly string[]).includes(t)) {
+    const niva = t.slice('deduktiv-'.length) as 'grund' | 'avancerad' | 'expert';
+    return valjDeduktiva(niva, rad.id, DEDUKTIV_PER_SESSION, deduktivVersion(rad.meta)).map((q) => q.id);
+  }
+  const m = (rad.meta ?? {}) as { fragor?: unknown; delar?: unknown };
+  const lista = Array.isArray(m.fragor) ? m.fragor : Array.isArray(m.delar) ? m.delar : [];
+  return lista.filter((d): d is string => typeof d === 'string');
+}
+
+/** Senast sedd dag per deduktiv uppgift. Ren, för tester. */
+export function seddaDeduktivaUrRader(rader: readonly SeddRad[]): Map<string, Dag> {
+  const ut = new Map<string, Dag>();
+  for (const r of rader) {
+    const dag = dagSthlm(r.created_at);
+    for (const id of deduktivaForSession(r)) {
       const forra = ut.get(id);
       if (!forra || forra < dag) ut.set(id, dag);
     }

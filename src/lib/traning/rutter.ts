@@ -25,6 +25,15 @@ export function vnPassHref(kind: 'verbal' | 'numerisk', familj?: string | null):
   return `/dashboard/tester/pass?${q.toString()}`;
 }
 
+/**
+ * Nivåkollen för figurserier, deduktivt, verbalt och numeriskt (testplanen
+ * steg 1): /dashboard/tester/pass?typ=nivakoll&kind=deduktiv. Matrisens
+ * Nivåkoll är passHref('matning').
+ */
+export function nivakollHref(kind: 'figurserie' | 'deduktiv' | 'verbal' | 'numerisk'): string {
+  return `/dashboard/tester/pass?typ=nivakoll&kind=${kind}`;
+}
+
 /** Sessionens egen adress: återupptagning, omladdning och genomgången (P4). */
 export function sessionHref(sessionId: string): string {
   return `/dashboard/tester/pass/${encodeURIComponent(sessionId)}`;
@@ -36,12 +45,12 @@ export function sessionHref(sessionId: string): string {
  * numeriskt. Logikens prov körs sedan i passflödet (passHref('general')),
  * verbalt och numeriskt på ovningsprovSessionHref.
  */
-export function ovningsprovHref(typ: 'logik' | 'verbal' | 'numerisk' | 'figurer'): string {
+export function ovningsprovHref(typ: 'logik' | 'verbal' | 'numerisk' | 'figurer' | 'deduktiv'): string {
   return `/dashboard/tester/ovningsprov/${typ}`;
 }
 
 /** Ett pågående eller avslutat övningsprov i verbalt eller numeriskt. */
-export function ovningsprovSessionHref(typ: 'verbal' | 'numerisk' | 'figurer', sessionId: string): string {
+export function ovningsprovSessionHref(typ: 'verbal' | 'numerisk' | 'figurer' | 'deduktiv', sessionId: string): string {
   return `/dashboard/tester/ovningsprov/${typ}/${encodeURIComponent(sessionId)}`;
 }
 
@@ -83,6 +92,8 @@ export const TRANING_RUTT = {
   sifferpass: vnPassHref('numerisk'),
   /** Figurpasset (beställning omgång 3, A3). */
   figurpass: '/dashboard/tester/pass?typ=figurpass',
+  /** Deduktivpasset (testplanen steg 1). */
+  deduktivpass: '/dashboard/tester/pass?typ=deduktivpass',
   /** Övningsprovet går alltid via startarket (riktlinjerna 5.1). */
   general: ovningsprovHref('logik'),
   /** Passflödets egen start av logikens övningsprov, bara från startarket. */

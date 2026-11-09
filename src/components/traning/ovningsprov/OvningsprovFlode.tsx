@@ -27,7 +27,9 @@ import NumericalTable from '@/components/tests/numerical-shared/NumericalTable'
 import NumericalChart, { type ChartConfig } from '@/components/tests/numerical-shared/NumericalChart'
 import { FRAGA, RESULTAT } from '@/lib/ovningsprov/copy'
 import { ovningsResultat } from '@/lib/ovningsprov/resultat'
-import type { FigurDel, NumeriskDel, Ovningsvy, VerbalDel } from '@/lib/ovningsprov/typer'
+import type { DeduktivDel, FigurDel, NumeriskDel, Ovningsvy, VerbalDel } from '@/lib/ovningsprov/typer'
+import { BOKSTAV, DeduktivAlternativ, DeduktivLayout, Fragerad, Villkorskort } from '@/components/tests/deduktiv/DeduktivFraga'
+import DeduktivLosning from '@/components/tests/deduktiv/DeduktivLosning'
 import { FigurserieAlternativ, FigurserieBryter, FigurserieRad, SerieMiniatyr } from '@/components/tests/serie/FigurserieRad'
 import { FIGUR_PASS_COPY } from '@/lib/tester/pass-copy'
 import { TRANING_RUTT } from '@/lib/traning/rutter'
@@ -183,7 +185,9 @@ export default function OvningsprovFlode({ vy: start, dagarKvar, datum }: Ovning
   const p = vy.punkter[idx]
   const verbal = vy.typ === 'verbal'
   const figurer = vy.typ === 'figurer'
-  const delar = vy.delar as (VerbalDel | NumeriskDel | FigurDel)[]
+  const deduktiv = vy.typ === 'deduktiv'
+  const bredd = deduktiv ? 'max-w-[640px] lg:max-w-[1000px]' : 'max-w-[640px]'
+  const delar = vy.delar as (VerbalDel | NumeriskDel | FigurDel | DeduktivDel)[]
   const del = p ? delar.find((d) => d.id === p.del) ?? null : null
   const iDelAntal = p ? vy.punkter.filter((x) => x.del === p.del).length : 0
   const sista = idx === vy.punkter.length - 1
@@ -217,13 +221,13 @@ export default function OvningsprovFlode({ vy: start, dagarKvar, datum }: Ovning
         <div className="flex justify-between pt-1 text-[12px] leading-4 text-ink-3">
           <span>{p && vy.format.delar ? FRAGA.delMeta(vy.format.delar.ord, p.delNr, vy.format.delar.antal) : null}</span>
           <span>
-            {hoppad >= 0 ? FRAGA.hoppade(vy.typ, hoppad + 1) : !verbal && !figurer && p?.iDel === 1 ? FRAGA.rakning : p ? FRAGA.punktMeta(vy.typ, idx + 1) : null}
+            {hoppad >= 0 ? FRAGA.hoppade(vy.typ, hoppad + 1) : !verbal && !figurer && !deduktiv && p?.iDel === 1 ? FRAGA.rakning : p ? FRAGA.punktMeta(vy.typ, idx + 1) : null}
           </span>
         </div>
       </div>
 
       <main className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
-        <div className="mx-auto flex w-full max-w-[640px] flex-col gap-3.5 px-4 pb-4 pt-3">
+        <div className={`mx-auto flex w-full ${bredd} flex-col gap-3.5 px-4 pb-4 pt-3`}>
           {sparfel ? (
             <p role="alert" className="rounded-xl border border-kant bg-papper px-4 py-3 text-sm leading-5 text-ink-1">
               {FRAGA.sparfel}
@@ -240,7 +244,9 @@ export default function OvningsprovFlode({ vy: start, dagarKvar, datum }: Ovning
             </section>
           ) : null}
           {p && del && fas === 'fraga' ? (
-            figurer ? (
+            deduktiv ? (
+              <Deduktivt del={del as DeduktivDel} nr={idx + 1} antal={vy.punkter.length} vald={vald} onValj={valj} />
+            ) : figurer ? (
               <Figurer del={del as FigurDel} nr={idx + 1} vald={vald} onValj={valj} />
             ) : verbal ? (
               <Verbalt del={del as VerbalDel} punkt={Number(p.punkt)} iDel={p.iDel} antal={iDelAntal} vald={vald} onValj={valj} />
@@ -416,6 +422,70 @@ function Figurer({ del, nr, vald, onValj }: { del: FigurDel; nr: number; vald: s
   )
 }
 
+/**
+ * En deduktiv uppgift i provet (testplanen steg 1): deduktivens layout med
+ * villkoren klistrade på mobil och i vänsterspalt på dator. Ingen
+ * återkoppling; valet står kvar tills provet lämnas in.
+ */
+function Deduktivt({ del, nr, antal, vald, onValj }: { del: DeduktivDel; nr: number; antal: number; vald: string | null; onValj: (v: string) => void }) {
+  return (
+    <DeduktivLayout
+      villkor={<Villkorskort intro={del.intro} villkor={del.villkor} premisser={del.premisser} />}
+      hoger={
+        <>
+          <Fragerad nr={nr} antal={antal} fraga={del.fraga} forsta={nr === 1} />
+          <DeduktivAlternativ options={del.options} valt={vald == null ? null : Number(vald)} onValj={(i) => onValj(String(i))} />
+        </>
+      }
+    />
+  )
+}
+
+/** Genomgången för deduktivt: varje miss med villkoren, alternativen och lösningen. */
+function DeduktivGenomgang({ vy }: { vy: Ovningsvy }) {
+  const G = RESULTAT.genomgang
+  const per = new Map((vy.delar as DeduktivDel[]).map((d) => [d.id, d]))
+  const missar = (vy.genomgang ?? []).filter((g) => !g.korrekt)
+  return (
+    <>
+      {missar.map((g) => {
+        const p = vy.punkter.find((x) => x.nyckel === g.nyckel)
+        const d = per.get(g.nyckel)
+        if (!p || !d) return null
+        const ratt = Number(g.ratt)
+        const valt = g.svar == null ? null : Number(g.svar)
+        return (
+          <article
+            key={g.nyckel}
+            className={`rounded-2xl border bg-papper p-4 ${g.svar === null ? 'border-dashed border-kant-stark' : 'border-kant'}`}
+            data-genomgang-punkt
+          >
+            <p className="mb-3 text-ey uppercase text-ink-3">{G.punkt(vy.typ, p.delNr, p.iDel, 'underlag')}</p>
+            <DeduktivLayout
+              fast
+              villkor={<Villkorskort fast intro={d.intro} villkor={d.villkor} premisser={d.premisser} />}
+              hoger={
+                <>
+                  <Fragerad nr={p.delNr} antal={vy.punkter.length} fraga={d.fraga} />
+                  <DeduktivAlternativ options={d.options} valt={valt} ratt={ratt} disabled />
+                  {g.losning ? (
+                    <DeduktivLosning
+                      losning={g.losning}
+                      utfall={g.svar === null ? G.obesvarad : 'Inte den här'}
+                      misstag={g.misstag && valt !== null ? { bokstav: BOKSTAV[valt], text: g.misstag } : null}
+                      rapport={{ qId: d.id, sessionId: vy.id, testKind: 'deduktiv', bankVersion: null }}
+                    />
+                  ) : null}
+                </>
+              }
+            />
+          </article>
+        )
+      })}
+    </>
+  )
+}
+
 /** Genomgången för figurserier: varje miss med miniatyren, facit i raden, regeln och misstaget. */
 function FigurGenomgang({ vy }: { vy: Ovningsvy }) {
   const G = RESULTAT.genomgang
@@ -467,6 +537,7 @@ function FigurGenomgang({ vy }: { vy: Ovningsvy }) {
 /** Genomgången under resultatet: varje fel och obesvarad punkt som ett provblad. */
 function Genomgang({ vy }: { vy: Ovningsvy }) {
   if (vy.typ === 'figurer') return <FigurGenomgang vy={vy} />
+  if (vy.typ === 'deduktiv') return <DeduktivGenomgang vy={vy} />
   const G = RESULTAT.genomgang
   const ord = vy.format.delar?.ord ?? 'underlag'
   const per = new Map(vy.punkter.map((p) => [p.nyckel, p]))

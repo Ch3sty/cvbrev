@@ -74,5 +74,5 @@ export interface DinUtvecklingData {
   familjer: Familjestatistik[] | null
   tempo: UtvecklingTempo | null
   /** Slutförda pass per testtyp (matrispass och riktade, text- och sifferpass). Saknas i äldre fixturer. */
-  passPerTyp?: { matris: number; verbal: number; numerisk: number } | null
+  passPerTyp?: { matris: number; verbal: number; numerisk: number; figurserie?: number; deduktiv?: number } | null
 }

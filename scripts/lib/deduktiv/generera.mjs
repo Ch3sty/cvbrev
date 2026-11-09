@@ -84,7 +84,7 @@ export function byggD1(u, id, facitPlats, r) {
 /* ------------------------------- D2 och D3 -------------------------------- */
 
 const VIKT = { plats: 1, inte_plats: 2, granne: 4, inte_granne: 3, vanster_om: 4, direkt_vanster_om: 4, ordning: 5, samma_grupp: 5 };
-const PASTAENDE_TYPER = ['plats', 'granne', 'inte_granne', 'vanster_om', 'direkt_vanster_om', 'ordning', 'samma_grupp'];
+export const PASTAENDE_TYPER = ['plats', 'granne', 'inte_granne', 'vanster_om', 'direkt_vanster_om', 'ordning', 'samma_grupp'];
 
 /** Högst så många element i en kedja av före-villkor; längre kedjor ger ordningen gratis. */
 export const KEDJA_TAK = 4;
@@ -103,7 +103,7 @@ export function langstaKedja(n, villkor) {
 }
 
 /** Alla villkor av temats typer över n element. */
-function allaVillkor(tema, n, typer) {
+export function allaVillkor(tema, n, typer) {
   const ut = [];
   for (const typ of typer) {
     for (let a = 0; a < n; a++) {
@@ -132,12 +132,12 @@ const viktatVal = (r, lista) => {
   return lista[lista.length - 1];
 };
 
-function foljerAv(n, c, s, g) {
+export function foljerAv(n, c, s, g) {
   return allaTilldelningar(n)
     .filter((p) => uppfyllt(c, p, g))
     .every((p) => uppfyllt(s, p, g));
 }
-function motsagsAv(n, c, s, g) {
+export function motsagsAv(n, c, s, g) {
   return allaTilldelningar(n)
     .filter((p) => uppfyllt(c, p, g))
     .every((p) => !uppfyllt(s, p, g));

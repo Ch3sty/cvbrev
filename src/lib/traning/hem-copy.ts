@@ -336,6 +336,12 @@ export const HEM = {
     expertRad: 'Du är på expertnivå. Gör nivåtestet i stället.',
     textMeta: 'En text, fyra påståenden. Cirka tre minuter.',
     sifferMeta: 'Ett underlag, fyra frågor. Cirka fem minuter.',
+    /** Deduktivpasset (testplanen steg 1). */
+    deduktivpass: 'Deduktivpass',
+    deduktivMeta: 'Fyra uppgifter med villkor att hålla reda på. Cirka fem minuter.',
+    /** Raden innan Nivåkollen för typen är gjord: Nivåkollen väljer passets nivå. */
+    nivakollForst: 'Kolla din nivå först, så väljer vi passets nivå efter den.',
+    kolla: 'Kolla min nivå',
     gjortMeta: 'Gjort i dag.',
     gjort: 'Gjort',
     starta: 'Starta',

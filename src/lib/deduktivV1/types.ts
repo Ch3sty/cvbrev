@@ -46,7 +46,11 @@ export interface DeduktivFraga {
   losning: DeduktivLosning;
   /** Lösarens form (visas aldrig). */
   formell?: unknown;
-  fran_version: 1;
+  fran_version: 1 | 2;
+  /** Bankversionen uppgiften pensioneras från (DD7, DD8); gamla sessioner läser den ändå. */
+  pensionerad_fran?: 2;
+  /** Den pensionerade uppgift som den här lagade kopian ersätter. */
+  ersatter?: string;
 }
 
 /** Ett steg i lösningsgången: villkorens nummer i märket ('Om' för antagandet), villkoren ordagrant och följden. */

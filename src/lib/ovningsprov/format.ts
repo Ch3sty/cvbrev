@@ -18,11 +18,11 @@
 import { paketKort } from '@/lib/plans/plans';
 import { formatForPlan, PROVFORMAT, type FormatNyckel, type Provformat } from '@/lib/traning/tempo';
 
-export type Provtyp = 'logik' | 'verbal' | 'numerisk' | 'figurer';
-export const PROVTYPER: readonly Provtyp[] = ['logik', 'verbal', 'numerisk', 'figurer'];
+export type Provtyp = 'logik' | 'verbal' | 'numerisk' | 'figurer' | 'deduktiv';
+export const PROVTYPER: readonly Provtyp[] = ['logik', 'verbal', 'numerisk', 'figurer', 'deduktiv'];
 
 export function arProvtyp(v: unknown): v is Provtyp {
-  return v === 'logik' || v === 'verbal' || v === 'numerisk' || v === 'figurer';
+  return v === 'logik' || v === 'verbal' || v === 'numerisk' || v === 'figurer' || v === 'deduktiv';
 }
 
 export type Enhet = 'uppgifter' | 'påståenden' | 'frågor';
@@ -30,11 +30,13 @@ export type Enhet = 'uppgifter' | 'påståenden' | 'frågor';
 export type FormatNyckelVN = 'verbal_shl' | 'verbal_eget' | 'numerisk_shl' | 'numerisk_eget';
 /** Figurseriernas övningsprov (beställning omgång 3, A4). */
 export type FormatNyckelFigur = 'figurer_aon' | 'figurer_eget';
+/** Deduktivens övningsprov (testplanen steg 1). */
+export type FormatNyckelDeduktiv = 'deduktiv_shl' | 'deduktiv_eget';
 
 export interface Ovningsformat {
   typ: Provtyp;
   /** Logik: PROVFORMAT-nyckeln. Verbalt och numeriskt: verbal_shl, numerisk_eget ... */
-  nyckel: FormatNyckel | FormatNyckelVN | FormatNyckelFigur;
+  nyckel: FormatNyckel | FormatNyckelVN | FormatNyckelFigur | FormatNyckelDeduktiv;
   /** Namnet efter "Samma format som". Null: vårt format. */
   namn: string | null;
   antal: number;
@@ -105,6 +107,13 @@ export const ANMARKNING = {
     matrigma: 'Assessio har inga figurserier. Får du bara Matrigma behöver du inte öva det här.',
     alva: 'Alva har inga figurserier. Får du bara Alva Logic behöver du inte öva det här.',
   },
+  /** Testplanen steg 1. SHL:s tal ur deras interaktiva deduktiva test (12 uppgifter, 18 minuter). */
+  deduktiv: {
+    shl: 'I SHL Verify deduktiv placerar du själv ut namnen i ett schema. Här väljer du bland alternativ, med samma antal uppgifter och samma tid.',
+    aon: 'Aons deduktiva test är ett rutnät med symboler, inte villkor i text. Övningsprovet övar slutledningen under tidspress.',
+    matrigma: 'Assessio har inget deduktivt test. Får du bara Matrigma behöver du inte öva det här.',
+    alva: 'Alva har inget deduktivt test. Får du bara Alva Logic behöver du inte öva det här.',
+  },
   okand: 'Vet du leverantören så byter vi format.',
 } as const;
 
@@ -125,6 +134,25 @@ export const OVNINGSFORMAT_FIGUR: Readonly<Record<FormatNyckelFigur, Omit<Ovning
   figurer_aon: { ...FIGUR_BAS, nyckel: 'figurer_aon', namn: PROVFORMAT.aon.namn, antal: PROVFORMAT.aon.antal, minuter: PROVFORMAT.aon.minuter, budget_s: PROVFORMAT.aon.budget_s, cirka: PROVFORMAT.aon.cirka },
   figurer_eget: { ...FIGUR_BAS, nyckel: 'figurer_eget', namn: null, minuter: 15, budget_s: 45, cirka: false },
 };
+
+/**
+ * Deduktivt (testplanen steg 1): SHL Verify deduktiv har 12 uppgifter på 18
+ * minuter (det interaktiva testet, JobTestPrep och Psychometric Success
+ * 2026), 90 sekunder per uppgift. Vårt format 16 uppgifter på 20 minuter,
+ * 75 sekunder per uppgift som i de klassiska testen. Fast ordning, de
+ * svåraste sist.
+ */
+const DEDUKTIV_BAS = { typ: 'deduktiv' as const, adaptiv: false, tidsform: 'total' as const, enhet: 'uppgifter' as const, delar: null, cirka: false };
+export const OVNINGSFORMAT_DEDUKTIV: Readonly<Record<FormatNyckelDeduktiv, Omit<Ovningsformat, 'anmarkning' | 'okandLeverantor'>>> = {
+  deduktiv_shl: { ...DEDUKTIV_BAS, nyckel: 'deduktiv_shl', namn: 'SHL Verify deduktiv', antal: 12, minuter: 18, budget_s: 90 },
+  deduktiv_eget: { ...DEDUKTIV_BAS, nyckel: 'deduktiv_eget', namn: null, antal: 16, minuter: 20, budget_s: 75 },
+};
+
+function deduktivformat(leverantor: string | null | undefined): Ovningsformat {
+  if (leverantor === 'shl') return { ...OVNINGSFORMAT_DEDUKTIV.deduktiv_shl, anmarkning: ANMARKNING.deduktiv.shl, okandLeverantor: false };
+  const lev = leverantor === 'aon' || leverantor === 'matrigma' || leverantor === 'alva' ? leverantor : null;
+  return { ...OVNINGSFORMAT_DEDUKTIV.deduktiv_eget, anmarkning: lev ? ANMARKNING.deduktiv[lev] : null, okandLeverantor: !lev };
+}
 
 function figurformat(leverantor: string | null | undefined): Ovningsformat {
   if (leverantor === 'aon') return { ...OVNINGSFORMAT_FIGUR.figurer_aon, anmarkning: ANMARKNING.figurer.aon, okandLeverantor: false };
@@ -166,6 +194,7 @@ export function ovningsformat(
 ): Ovningsformat {
   if (typ === 'logik') return franLogik(formatForPlan(leverantor, variant));
   if (typ === 'figurer') return figurformat(leverantor);
+  if (typ === 'deduktiv') return deduktivformat(leverantor);
   const nyckel: FormatNyckelVN = leverantor === 'shl' ? `${typ}_shl` : `${typ}_eget`;
   const lev = leverantor === 'shl' || leverantor === 'aon' || leverantor === 'matrigma' || leverantor === 'alva' ? leverantor : null;
   return { ...OVNINGSFORMAT_VN[nyckel], anmarkning: lev ? ANMARKNING[typ][lev] : null };
@@ -177,6 +206,7 @@ export function ovningsformatUrNyckel(typ: Provtyp, nyckel: string): Ovningsform
   if (typ === 'logik' && nyckel === 'aon') return franLogik(PROVFORMAT.aon);
   if (typ === 'logik') return franLogik(formatForPlan(nyckelTillLeverantor(nyckel), nyckel === 'matrigma_adaptiv' ? 'adaptiv' : null));
   if (typ === 'figurer') return nyckel === 'figurer_aon' ? figurformat('aon') : { ...OVNINGSFORMAT_FIGUR.figurer_eget, anmarkning: null, okandLeverantor: false };
+  if (typ === 'deduktiv') return nyckel === 'deduktiv_shl' ? deduktivformat('shl') : { ...OVNINGSFORMAT_DEDUKTIV.deduktiv_eget, anmarkning: null, okandLeverantor: false };
   return arFormatNyckelVN(nyckel) ? { ...OVNINGSFORMAT_VN[nyckel], anmarkning: null } : ovningsformat(typ, null);
 }
 

@@ -1,0 +1,58 @@
+{
+  "datum": "2026-11-09",
+  "godkanda": [
+    "dd-g-d2-12",
+    "dd-g-d2-13",
+    "dd-g-d2-14",
+    "dd-g-d2-15",
+    "dd-g-d2-16",
+    "dd-g-d2-17",
+    "dd-a-d2-31",
+    "dd-a-d2-32",
+    "dd-a-d2-33",
+    "dd-a-d2-35",
+    "dd-a-d2-37",
+    "dd-a-d2-38",
+    "dd-a-d2-39",
+    "dd-a-d2-41",
+    "dd-a-d2-42",
+    "dd-a-d2-43",
+    "dd-a-d2-44",
+    "dd-a-d2-45",
+    "dd-e-d3-26",
+    "dd-e-d3-27",
+    "dd-e-d3-28",
+    "dd-e-d3-30",
+    "dd-e-d3-31",
+    "dd-e-d3-32",
+    "dd-e-d3-33",
+    "dd-e-d3-34",
+    "dd-e-d3-35",
+    "dd-e-d3-36",
+    "dd-e-d3-37",
+    "dd-e-d3-38",
+    "dd-e-d3-39"
+  ],
+  "strukna": [
+    {
+      "id": "dd-a-d2-34",
+      "skal": "Udda facit: alla fyra distraktorer handlar om den blå pärmen, facit (lila direkt till vänster om svart) är det enda alternativet som inte gör det. Mönstret fanns i originalet dd-a-d2-10. Lagad om som dd-a-d2-42."
+    },
+    {
+      "id": "dd-a-d2-36",
+      "skal": "Udda facit: alla fyra distraktorer handlar om Rut, facit (Frida på plats 4) är det enda om Frida. Mönstret fanns i originalet dd-a-d2-14. Lagad om som dd-a-d2-43."
+    },
+    {
+      "id": "dd-a-d2-40",
+      "skal": "Udda facit: facit (Disa på plats 2) är det enda platspåståendet och det enda som nämner Disa, de fyra distraktorerna är relationer mellan Ulla, Eva och Jenny. Uppstod när facit byttes. Lagad om som dd-a-d2-45."
+    },
+    {
+      "id": "dd-e-d3-25",
+      "skal": "Udda facit: alla fyra distraktorer är platspåståenden, facit (Cilla och Sven går samma dag) är det enda samma-dag-påståendet. Uppstod när E byttes till ett platspåstående. Lagad om som dd-e-d3-36."
+    },
+    {
+      "id": "dd-e-d3-29",
+      "skal": "Godkänd i första vändan men föll på den skärpta DD9: facit (svart någonstans till vänster om lila) var ensamt om sin form och om den svarta pärmen. Borttagen av lagningen, ersatt av dd-e-d3-39."
+    }
+  ]
+}
