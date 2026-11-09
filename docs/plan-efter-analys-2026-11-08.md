@@ -137,7 +137,7 @@ Plan: docs/plan-seo-nya-tester-2026-11-10.md, avsnitt 3 och 5. Grind per push: t
 - [x] N2. /artiklar/talserier och U4 länken från logiktest-exempel (07454b68).
 - [x] N3. /artiklar/ordforstaelse-test (f494a316).
 - [x] N1. /artiklar/i-prov, säljsidan (c2e45952).
-- [x] U2. /verktyg/rekryteringstester: åtta testtyper, "Vilket test ska du göra?", FAQ om I-provet, featureList (a4e7e652).
+- [x] U2. /verktyg/rekryteringstester: åtta testtyper, "Vilket test ska du göra?", FAQ om I-provet, featureList (a4e7e652). Korten 2026-11-10: provlänkarna bär ?typ= och ?mitt_test= enligt 5.2 (Polisen till I-provet, SHL deduktivt, Aon och Lokförare figurserier, övriga matrisprovet), artikellänkarna rena eftersom artikeln sätter sitt eget val, klicken mäts med variant hub-val-artikel/prov-<val> och target, källan förblir 'hubb' genom provet. Klicktestat Polisen till konto på Pixel 7 och 1280: mitt_test iprov, acquisition_source kalla hubb (2c7496c1).
 - [x] U5, U6, U7, U9. Länkarna, "Aon-testet för lokförare", navet, /funktioner (751cae7a).
 - [ ] U8. Matrigma-ägarskapet: efter avläsningen 7 dec.
 - [ ] U10. Inbäddade prov i numeriskt- och verbalt-guide: produktsidan, efter 23 nov.
