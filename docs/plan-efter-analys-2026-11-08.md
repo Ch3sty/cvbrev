@@ -106,6 +106,37 @@ Ordningen nedan är genomförandeordningen. Det som kräver ägaren ligger sist.
     - Ordförråd: `src/lib/ordforradV1`, 251 uppgifter (grund 48 synonymer och 43 motsatsord, avancerad 55 och 44, expert 54 och 7). `ordforradRedo()` är sann. Ägarens beslut 2026-11-09: nya kandidater skrivs för hand, inte av Gemini (`scripts/ordforrad/handskrivna.mjs`, 66 i banken; de 185 från första omgången står kvar, granskade), och expert kräver 40 uppgifter totalt och minst 5 motsatsord, resten svåra synonymer (`nivaRedo` i status.ts; `valjOrd` fyller testet med synonymer när motsatsorden inte räcker). Facit verifierat mot SO och SAOL via svenska.se:s sök-API; där de saknar uppgiften krävs Wiktionary och synonymer.se båda och raden märks så (43 rader). OF1 till OF8 i `scripts/validate-ordforrad.mjs`. Testansvarig granskade de 66 handskrivna: 62 godkända, underkännandena (en exempelmening, alternativ som kan försvaras) är rättade. Kvar: några avancerade motsatsord (import, inkomst, ankomst) är vardagsord, följs upp i kalibreringen.
     - Testansvarig har granskat alla tre typerna. Underkännandena (distraktorer, misstagstexter, variation, krysset, ord på fel nivå) är rättade i generatorerna, ordbankens strykningar står i `src/lib/ordforradV1/kandidater/granskning-2026-11-09.json`. Kvar enligt granskningen: ifyllda distraktorer i ordbanken är ibland slumpmässiga (kräv minst en ur samma fält i nästa omgång), grund C kan hamna under 70 procent (kalibreras efter avläsningen).
 
+## G. SEO-planen för de nya testerna, produktdelen (saas-leads slutliga beslut 2026-11-10)
+
+Del 1, live på main (4c2e5b45, Vercel Ready):
+
+- [x] 1. `test_kind` på `anon_test_sessions` och `prov_utfall`, standard `matris` (32ce2c07). Körd i prod 10 nov: 166 och 142 rader före och efter, RLS och rättigheter oförändrade.
+- [x] 2. "Spatial förmåga" som namn, "Rumsuppfattning: vridna figurer, pappersvikning, tärningar" som underrad (86bdbae9).
+- [x] 2b. Ägaren 10 nov: "I-provet" och "I-provet, övningsprov" i stället för "I-prov 2025". Startarket säger en gång att versionen heter I-prov 2025 och används sedan maj 2025 (0e7ec545).
+- [x] 3 och 4. `mitt_test` och källan från artikeln (e3628840). Kakan `jc_provkalla` sätts vid klick från en testartikel till testerna, provet eller registreringen, och av `?mitt_test=` på provet och registreringen. Länkar på hubben och i artiklar kan bära `?mitt_test=iprov|matrigma|alva|shl|aon|lokforare`. `acquisition_source.kalla` blir `smakprov:<slug>` eller `artikel:<slug>`, planen får valet tyst på valkommen-sidan, `mitt_test_valt` med surface artikel eller hubb. `betalvagg_visad` och `paywall_cta_clicked` får `konto_kalla` och `mitt_test`, kassans metadata `konto_kalla`, `mitt_test` och `provdatum`.
+- [x] 5. Provdatumskärmen `/dashboard/tester/provdatum` efter kontot, bara för iprov och lokforare utan datum, variant och datum, "Jag har inget datum än". Aldrig i kontosteget.
+- [x] 6. Dag 2-mejlet för alla typer (61fffdfb). Torrtest 10 nov: 0 mottagare i morgon, 6 de senaste 14 dagarna, alla matris. Inga Nivåkollar i de nya typerna i prod än.
+- Klicktest del 1: 46 av 46 i riktig Chrome (Pixel 7 och 1280, ljust och mörkt), namnet 16 av 16. Testkonton raderade per id. Upp till 7 rader i `prov_utfall` från klicktestet går inte att peka ut (anonyma, ingen nyckel) och står kvar.
+
+Del 2 (gren `feat/prov-konto-v2`, går till main 23 nov): se nedan.
+
+## G. SEO-planen för de nya testerna, innehållsdelen (ägarens beslut 2026-11-10)
+
+Plan: docs/plan-seo-nya-tester-2026-11-10.md, avsnitt 3 och 5. Grind per push: tsc, build, SEO-diffen (undantag i scripts/seo-baslinje/seo-nya-tester-2026-11-10-undantag.json), perf på mobil under 1,0 s, SEO-agenten mot tre svenska konkurrenter och testansvarig. Skärmdumpar utanför git.
+
+- [x] U3. deduktivt-induktivt-test: provkort med Nivåkollen, nivåer, pass och övningsprov; länkar med "deduktivt test" från logiska-tester, aon-cut-e-test och arbetspsykologiska-tester. Sajtkartan har sidan, två klick från startsidan (1485283c, 14b711ce). Indexering: ägaren.
+- [x] U1. rotation-test-guide: seoTitle, description, Spatial förmåga (rumsuppfattning), pappersvikning och tärningar med egna lösta uppgifter, FAQ om testet (38a28b29).
+- [x] N2. /artiklar/talserier och U4 länken från logiktest-exempel (07454b68).
+- [x] N3. /artiklar/ordforstaelse-test (f494a316).
+- [x] N1. /artiklar/i-prov, säljsidan (c2e45952).
+- [x] U2. /verktyg/rekryteringstester: åtta testtyper, "Vilket test ska du göra?", FAQ om I-provet, featureList (a4e7e652).
+- [x] U5, U6, U7, U9. Länkarna, "Aon-testet för lokförare", navet, /funktioner (751cae7a).
+- [ ] U8. Matrigma-ägarskapet: efter avläsningen 7 dec.
+- [ ] U10. Inbäddade prov i numeriskt- och verbalt-guide: produktsidan, efter 23 nov.
+- Gemensamt beslut 2026-11-10 (saas-lead, säljansvarig, SEO): hubbens title "Rekryteringstester: gratis logiktest, I-provet och mer" (54 tecken) prövas inte nu utan vid avläsningen 7 dec, och tidigast efter baslinjen 18 dec. Saas-lead: titeln ändrades just i U2 och planens regel är att inte ändra titlar under avläsningsfönstret, annars går effekten inte att läsa av. Sälj: ordet logiktest drar delvis den som aldrig betalar (logiktester.se är gratis utan konto), så bytet ska vägas mot konton per källa, inte bara klick. SEO: logiktester.se är starkast på "logiktest gratis" och vår title saknar ordet, så det är rätt nästa test, men ett byte i taget. Ingen säger emot att vänta.
+- Gemensamt beslut 2026-11-10: tabellen med lokförarmodulerna (Aon e3+, NAV, rt med flera) läggs i aon-cut-e-test först när N5 är beslutad 9 feb. Saas-lead: modulen och N5 avgörs av räknaren för valet Lokförare (minst 15 konton), och innehållet ska följa produktbeslutet. Sälj: en tabell full av moduler vi saknar skickar den köpbenägna besökaren till konkurrenten innan vi har något att sälja. SEO: JobTestPrep vinner på modulnamnen, men H2:n tar söket på ärlighet och källa tills dess. Ingen säger emot.
+- Fynd till ägaren: produktens texter för pappersvikning (iprov.ts, copy.ts) säger "viks upp" och "samma uppgiftstyper", men Plikt- och prövningsverkets deltest frågar hur arket ser ut ihopvikt och om tärningar kan vara lika. Artiklarna beskriver skillnaden ärligt.
+
 ## Arbetsregler
 
 - Högst två arbetsplatser: `.claude/worktrees/publikt-v2` för A och huvudcheckouten för B. Inga nya worktrees, ingen `npm ci` per kopia.
