@@ -56,7 +56,7 @@ const ANKARE = [
 ] as const
 
 const ALLA: LankRad[] = [
-  { href: '/verktyg/rekryteringstester', rubrik: 'Rekryteringstester', text: 'Matrislogik, verbalt och numeriskt i tre nivåer, övningsprov mot klockan.', objekt: 'matris', rum: 'tran' },
+  { href: '/verktyg/rekryteringstester', rubrik: 'Rekryteringstester', text: 'Matrislogik, deduktivt, verbalt, numeriskt, talserier, spatial förmåga och ordförråd i tre nivåer, övningsprov mot klockan och inför I-provet.', objekt: 'matris', rum: 'tran' },
   { href: '/verktyg/personlighetstest', rubrik: 'Personlighetstest', text: 'Big Five-profilen rekryteraren jämför med, och frågorna du lär få.', objekt: 'person', rum: 'tran' },
   { href: '/verktyg/personligt-brev', rubrik: 'Personligt brev', text: 'Skrivet på annonsen, utifrån ditt CV, i den ton du väljer.', objekt: 'brev', rum: 'brev' },
   { href: '/verktyg/cv-analys', rubrik: 'CV-analys', text: 'Poäng per område och varje fynd med åtgärd.', objekt: 'cv', rum: 'cv' },
