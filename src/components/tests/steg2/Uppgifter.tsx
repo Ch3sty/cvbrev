@@ -207,6 +207,8 @@ function formNamn(u: Pick<VisadSpatial, 'form' | 'klipp'>) {
 }
 
 const STEG_ETIKETT = ['Vik', 'Vik', 'Vik', 'Stansa']
+/** Form D: varje ruta är en vikning i tur och ordning. */
+const vikEtiketter = (n: number) => Array.from({ length: n }, (_, i) => `Vik ${i + 1}`)
 
 export function SpatialAlternativ({
   options,
@@ -266,7 +268,8 @@ function Sekvens({ figurer, etiketter }: { figurer: SpatialFigur[]; etiketter?: 
               <svg viewBox="0 0 10 10" width="10" height="10"><path d="M3 2l4 3-4 3" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
             </span>
           ) : null}
-          <div className="flex min-w-0 flex-1 flex-col items-center rounded-xl border border-kant bg-papper-2 px-1 pb-1 pt-1">
+          {/* En eller två rutor (pappersvikning med en vikning) får samma bredd som tre, annars blir figuren större än alternativen */}
+          <div className={`flex min-w-0 flex-col items-center rounded-xl border border-kant bg-papper-2 px-1 pb-1 pt-1 ${figurer.length < 3 ? 'w-[calc((100%-2.5rem)/3)] flex-none' : 'flex-1'}`}>
             <span className="block [aspect-ratio:1/1] w-full">
               <Figur fig={f} />
             </span>
@@ -299,13 +302,14 @@ export function SpatialUppgift({
       <p className="text-ey uppercase text-ink-3">{formNamn(u)}</p>
       <H className="mt-1 font-display text-[19px] font-bold leading-[24px] tracking-[-.015em] text-ink-1 min-[400px]:text-[20px]">{u.fraga}</H>
       {u.form === 'A' ? <p className="mt-1.5 text-[13px] leading-[18px] text-ink-3">Spegelbilder räknas inte. Ett av fyra.</p> : null}
+      {u.form === 'D' ? <p className="mt-1.5 text-[13px] leading-[18px] text-ink-3">Hål och klipp syns bara där de går genom alla lager.</p> : null}
     </div>
   )
   return (
     <div className="flex flex-col gap-3" data-steg2-uppgift="spatial" data-form={u.form}>
-      {u.form === 'B' && u.sekvens ? (
+      {(u.form === 'B' || u.form === 'D') && u.sekvens ? (
         <>
-          <Sekvens figurer={u.sekvens} />
+          <Sekvens figurer={u.sekvens} etiketter={u.form === 'D' ? vikEtiketter(u.sekvens.length) : undefined} />
           {fraga}
         </>
       ) : u.referens ? (
@@ -330,7 +334,9 @@ export function SpatialUppgift({
 export function SpatialGenomgangVy({ g, valt }: { g: GenomgangSpatial; valt: number | null }) {
   const facit = g.options[g.rattVisat]
   let bild: ReactNode
-  if (g.form === 'B' && g.uppvikning?.length) {
+  if (g.form === 'D' && g.hopvikning?.length) {
+    bild = <Sekvens figurer={g.hopvikning} etiketter={g.hopvikning.map((_, i, a) => (i === 0 ? 'Arket' : i === a.length - 1 ? 'Ihopvikt' : `Vik ${i}`))} />
+  } else if (g.form === 'B' && g.uppvikning?.length) {
     bild = <Sekvens figurer={g.uppvikning} etiketter={g.uppvikning.map((_, i, a) => (i === a.length - 1 ? 'Uppvikt' : 'Vik upp'))} />
   } else if (g.referens) {
     const markera = g.form === 'C' && valt !== null && valt !== g.rattVisat ? g.avslojande?.[valt] ?? [] : []

@@ -123,7 +123,7 @@ function Sekvens({ figurer, etiketter }: { figurer: SpatialFigur[]; etiketter: s
       {figurer.map((f, i) => (
         <div key={i} className="contents">
           {i > 0 ? <Pil /> : null}
-          <div className="flex min-w-0 flex-1 flex-col items-center rounded-xl border border-kant bg-papper-2 p-1">
+          <div className={`flex min-w-0 flex-col items-center rounded-xl border border-kant bg-papper-2 p-1 ${figurer.length < 3 ? 'w-[calc((100%-2.5rem)/3)] flex-none' : 'flex-1'}`}>
             <span className="block [aspect-ratio:1/1] w-full">
               <SpatialSvg fig={f} className="block h-full w-full" />
             </span>
@@ -139,6 +139,10 @@ const sekvensEtiketter = (n: number) => Array.from({ length: n }, (_, i) => (i =
 
 function spatialBeskrivning(u: SpatialFraga): string {
   if (u.form === 'C') return 'Tärningar: en tärning och fyra alternativ, A till D. Vilken kan vara samma tärning sedd från ett annat håll?'
+  if (u.form === 'D') {
+    const n = u.sekvens?.length ?? 1
+    return `Pappersvikning: ett utvikt ark med hål${u.sekvens?.[0] && 'klipp' in u.sekvens[0] && u.sekvens[0].klipp?.length ? ' och klipp' : ''} viks ${n === 1 ? 'en gång' : n === 2 ? 'två gånger' : 'tre gånger'} längs streckade linjer. Fyra alternativ, A till D, visar arket ihopvikt. Hål syns bara där de går genom alla lager.`
+  }
   const vik = (u.sekvens?.length ?? 1) - 1
   return `Pappersvikning${u.klipp ? ' med klipp' : ''}: arket viks ${vik === 1 ? 'en gång' : `${vik} gånger`} och ${u.klipp ? 'ett hål stansas och ett hörn klipps' : 'ett hål stansas'}. Fyra alternativ, A till D, visar arket uppvikt.`
 }
@@ -148,7 +152,9 @@ export function SpatialUppgift({ id }: { id: string }) {
   return (
     <figure className="not-prose matrisyta my-6" data-spatialuppgift={u.id}>
       <div aria-hidden="true" className="mx-auto w-full max-w-[460px]">
-        {u.form === 'B' && u.sekvens ? (
+        {u.form === 'D' && u.sekvens ? (
+          <Sekvens figurer={u.sekvens} etiketter={u.sekvens.map((_, i) => `Vik ${i + 1}`)} />
+        ) : u.form === 'B' && u.sekvens ? (
           <Sekvens figurer={u.sekvens} etiketter={sekvensEtiketter(u.sekvens.length)} />
         ) : u.referens ? (
           <div className="mx-auto w-1/2 max-w-[200px]">
@@ -171,6 +177,16 @@ export function SpatialUppgift({ id }: { id: string }) {
 export function SpatialFacit({ id }: { id: string }) {
   const u = hamta(SP, id, 'SpatialFacit')
   const ratt = u.options[u.correctAnswer]
+  if (u.form === 'D' && u.hopvikning?.length) {
+    const steg = u.hopvikning as SpatialFigur[]
+    return (
+      <div className="not-prose matrisyta my-4" aria-hidden="true" data-spatialfacit={u.id}>
+        <div className="w-full max-w-[460px]">
+          <Sekvens figurer={steg} etiketter={steg.map((_, i) => (i === 0 ? 'Arket' : i === steg.length - 1 ? 'Ihopvikt' : `Vik ${i}`))} />
+        </div>
+      </div>
+    )
+  }
   if (u.form === 'B') {
     const stans = u.sekvens?.[u.sekvens.length - 1]
     const steg = [stans, ...(u.uppvikning ?? [])].filter(Boolean) as SpatialFigur[]

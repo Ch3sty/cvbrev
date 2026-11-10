@@ -14,8 +14,11 @@ import * as A from '../../../../scripts/lib/spatial/brick.mjs'
 import * as B from '../../../../scripts/lib/spatial/vikning.mjs'
 // @ts-ignore ren JavaScript
 import * as C from '../../../../scripts/lib/spatial/kub.mjs'
+// @ts-ignore ren JavaScript
+import * as Dmod from '../../../../scripts/lib/spatial/hopvikning.mjs'
+const D: any = Dmod // eslint-disable-line @typescript-eslint/no-explicit-any
 import { matSpatialBank } from '../svgMatt'
-import { valjSpatial, poolFor, FORMER, PER_FORM } from '../select'
+import { valjSpatial, poolFor, FORMER, PER_FORM, perFormFor } from '../select'
 import { spatialInnehall, hittaSpatial, bedomSpatialSvar, rattaSpatialSvar } from '../fragor.server'
 import type { SpatialFraga } from '../types'
 
@@ -208,13 +211,24 @@ describe('form C: tärningar, lösaren och spärrfixturer', () => {
 })
 
 describe('urvalet och API:t', () => {
-  it('fem per form, och aldrig två av samma form i följd när flera former finns', () => {
+  it('version 2: 4 A, 3 B, 4 C och 4 D, och aldrig två av samma form i följd', () => {
     for (const niva of ['grund', 'avancerad', 'expert'] as const) {
-      const former = FORMER.filter((f) => poolFor(niva).some((q) => q.form === f))
       for (let s = 0; s < 100; s++) {
         const u = valjSpatial(niva, `s-${s}`)
-        expect(u.length).toBe(PER_FORM * former.length)
-        if (former.length > 1) for (let i = 1; i < u.length; i++) expect(u[i].form, `${niva} ${s} ${i}`).not.toBe(u[i - 1].form)
+        expect(u.length).toBe(15)
+        const antal = Object.fromEntries(FORMER.map((f) => [f, u.filter((q) => q.form === f).length]))
+        expect(antal).toEqual(perFormFor(2))
+        for (let i = 1; i < u.length; i++) expect(u[i].form, `${niva} ${s} ${i}`).not.toBe(u[i - 1].form)
+      }
+    }
+  })
+  it('version 1: gamla sessioner får fem av A, B och C och aldrig form D', () => {
+    for (const niva of ['grund', 'avancerad', 'expert'] as const) {
+      for (let s = 0; s < 50; s++) {
+        const u = valjSpatial(niva, `s-${s}`, 1)
+        expect(u.length).toBe(15)
+        expect(u.some((q) => q.form === 'D')).toBe(false)
+        for (const f of ['A', 'B', 'C']) expect(u.filter((q) => q.form === f).length).toBe(PER_FORM)
       }
     }
   })
@@ -228,5 +242,130 @@ describe('urvalet och API:t', () => {
     expect(bedomSpatialSvar(q, s.id, true, g.rattVisat)?.correct).toBe(true)
     const sel = bedomSpatialSvar(q, s.id, true, g.rattVisat)!.selected
     expect(rattaSpatialSvar([{ q_id: q.id, selected: sel }])).toBe(1)
+  })
+})
+
+describe('form D: pappersvikning ihopvikt, motorn och spärrfixturer', () => {
+  const alla = (n: string) => bank(n).filter((q: Q) => q.form === 'D')
+  const ett = (n = 'Avancerad') => kopia(alla(n)[0])
+  const fel = (q: Q) => (D.sparrarD(q) as string[]).join(' | ')
+
+  it('minst 24 uppgifter per nivå, med version 2', () => {
+    for (const n of NIVAER) {
+      expect(alla(n).length).toBeGreaterThanOrEqual(24)
+      for (const q of alla(n)) expect(q.fran_version).toBe(2)
+    }
+  })
+  it('distraktorerna varierar: ingen typ eller uppsättning dominerar nivån (testansvarig 2026-11-10)', () => {
+    for (const n of NIVAER) {
+      const b = alla(n)
+      const andel = (t: string) => b.filter((q: Q) => q.typer.includes(t)).length / b.length
+      expect(andel('hal_extra'), n).toBeLessThanOrEqual(0.6)
+      expect(andel('hal_saknas'), n).toBeGreaterThanOrEqual(0.3)
+      expect(andel('spegelvand'), n).toBeGreaterThanOrEqual(0.3)
+      if (n !== 'Grund') expect(andel('klipp_fel_kant'), n).toBeGreaterThanOrEqual(0.4)
+      const set = new Map<string, number>()
+      for (const q of b) {
+        const k = q.typer.filter(Boolean).sort().join('+')
+        set.set(k, (set.get(k) ?? 0) + 1)
+      }
+      expect(Math.max(...set.values()) / b.length, n).toBeLessThanOrEqual(0.5)
+    }
+  })
+  it('expert har tre vikningar, minst fyra hål i arket och fel linje med samma ram som facit', () => {
+    for (const q of alla('Expert')) {
+      expect(q.vikningar.length).toBe(3)
+      expect(q.ark.hal.length).toBeGreaterThanOrEqual(4)
+    }
+    for (const n of ['Avancerad', 'Expert'])
+      for (const q of alla(n)) q.typer.forEach((t: string, i: number) => t === 'fel_linje' && expect(D.samRam(q.options[i], q.options[q.correctAnswer]), q.id).toBe(true))
+  })
+  it('ett handräknat exempel: högra halvan över den vänstra, ett hål syns och ett täcks', () => {
+    const v = [{ typ: 'v', k: 2, flytt: 1 }]
+    const ark = { hal: [[3, 0], [3, 2], [3, 3]], klipp: [] }
+    const u = D.hopvik(ark, v)
+    expect(u.hal).toEqual([[3, 0]])
+    expect(u.dolda.map((d: Q) => d.ruta)).toEqual([[3, 1]])
+    expect(D.hopvikBaklanges(ark, v).hal).toEqual([[3, 0]])
+  })
+  it('ett klipp syns bara där alla lager är klippta', () => {
+    const v = [{ typ: 'h', k: 2, flytt: -1 }]
+    expect(D.hopvik({ hal: [], klipp: [[0, 0], [3, 0]] }, v).klipp).toEqual([[3, 0]])
+    expect(D.hopvik({ hal: [], klipp: [[3, 0]] }, v).klipp).toEqual([])
+  })
+  it('facit framlänges och baklänges ger samma figur för varje uppgift (SP-B2-1)', () => {
+    for (const n of NIVAER)
+      for (const q of alla(n)) {
+        const fram = D.hopvik(q.ark, q.vikningar)
+        const bak = D.hopvikBaklanges(q.ark, q.vikningar)
+        expect(D.figurNyckel(D.stansFigur(fram)), q.id).toBe(D.figurNyckel(D.stansFigur(bak)))
+        expect(D.figurNyckel(q.options[q.correctAnswer]), q.id).toBe(D.figurNyckel(D.stansFigur(fram)))
+      }
+  })
+  it('SP-B2-1 fäller ett facit som inte stämmer med vikningen', () => {
+    const q = ett()
+    q.options[q.correctAnswer] = { ...q.options[q.correctAnswer], hal: [] }
+    expect(fel(q)).toMatch(/SP-B2-1/)
+  })
+  it('SP-B2-2 fäller två lika alternativ och en distraktor som är facit vridet', () => {
+    const q = ett()
+    const d = q.correctAnswer === 0 ? 1 : 0
+    q.options[d] = kopia(q.options[q.correctAnswer])
+    expect(fel(q)).toMatch(/SP-B2-2 två alternativ är lika/)
+    // facit vridet ett halvt varv i sin ram, på en uppgift där det skiljer sig från facit
+    const g = alla('Grund').map(kopia).find((x: Q) => {
+      const f = x.options[x.correctAnswer]
+      return D.vridnaNycklar(f)[1] !== D.figurNyckel(f)
+    })
+    const dg = g.correctAnswer === 0 ? 1 : 0
+    const f = g.options[g.correctAnswer]
+    const xs = f.poly.map((p: number[]) => p[0])
+    const ys = f.poly.map((p: number[]) => p[1])
+    const [c0, c1, r0, r1] = [Math.min(...xs), Math.max(...xs) - 1, Math.min(...ys), Math.max(...ys) - 1]
+    g.options[dg] = { ...f, hal: f.hal.map(([r, c]: number[]) => [r0 + r1 - r, c0 + c1 - c]) }
+    expect(fel(g)).toMatch(/SP-B2-2 alternativ [0-9] är facit vridet/)
+  })
+  it('SP-B2-3 fäller ett spegelsymmetriskt facit', () => {
+    const q = ett('Grund')
+    const f = q.options[q.correctAnswer]
+    const xs = f.poly.map((p: number[]) => p[0])
+    const ys = f.poly.map((p: number[]) => p[1])
+    const [c0, c1, r0] = [Math.min(...xs), Math.max(...xs) - 1, Math.min(...ys)]
+    q.options[q.correctAnswer] = { ...f, hal: [[r0, c0], [r0, c1]] }
+    expect(fel(q)).toMatch(/SP-B2-3/)
+  })
+  it('SP-B2-4 fäller en uppgift utan dolt hål', () => {
+    const q = ett('Grund')
+    const u = D.hopvik(q.ark, q.vikningar)
+    q.ark = { ...q.ark, hal: q.ark.hal.filter((h: number[]) => !u.dolda.some((d: Q) => q.vikningar && D.hopvik({ hal: [h], klipp: [] }, q.vikningar).dolda.some((x: Q) => x.ruta.join() === d.ruta.join()))) }
+    expect(fel(q)).toMatch(/SP-B2-4|SP-B2-1/)
+  })
+  it('SP-B2-6 fäller klipp på grund', () => {
+    const q = ett('Grund')
+    q.ark = { ...q.ark, klipp: [[0, 0]] }
+    expect(fel(q)).toMatch(/SP-B2-6 klipp på grund/)
+  })
+  it('SP-B2-7 fäller en pil som pekar fel och en rad hål i en senare ruta', () => {
+    const q = ett()
+    q.sekvens[0].pil = [q.sekvens[0].pil[1], q.sekvens[0].pil[0]]
+    expect(fel(q)).toMatch(/SP-B2-7 pilen i ruta 1 pekar fel/)
+    const r = ett()
+    r.sekvens[1].hal = [[0, 0]]
+    expect(fel(r)).toMatch(/SP-B2-7 ruta 2 visar hål/)
+  })
+  it('SP-B2-8 fäller en pil som ligger över ett hål', () => {
+    const q = ett('Grund')
+    const [r, c] = q.ark.hal[0]
+    q.sekvens[0].pil = [[c + 0.1, r + 0.5], [c + 0.9, r + 0.5]]
+    expect(fel(q)).toMatch(/SP-B2-8/)
+  })
+  it('SP-B2-9 fäller en genomgång som inte slutar i facit', () => {
+    const q = ett()
+    q.hopvikning = q.hopvikning.slice(0, -1)
+    expect(fel(q)).toMatch(/SP-B2-9/)
+  })
+  it('genomgången visas efter testet och följer med till klienten', () => {
+    const q = alla('Avancerad')[0] as SpatialFraga
+    expect(q.hopvikning?.length).toBe(q.sekvens!.length + 1)
   })
 })

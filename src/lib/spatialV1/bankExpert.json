@@ -23038,5 +23038,14786 @@
   "difficulty": 4,
   "p_prior": 0.42,
   "fran_version": 1
+ },
+ {
+  "id": "sp-e-d-01",
+  "niva": "expert",
+  "form": "D",
+  "fraga": "Arket viks längs de streckade linjerna, i tur och ordning. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      1
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      1
+     ],
+     [
+      4,
+      1
+     ]
+    ],
+    "pil": [
+     [
+      2,
+      0.5
+     ],
+     [
+      2,
+      1.5
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "rorlig": [
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "linje": [
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      3.5,
+      2.5
+     ],
+     [
+      2.5,
+      2.5
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "rorlig": [
+     [
+      3,
+      4
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "linje": [
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      2.5,
+      2.5
+     ],
+     [
+      1.5,
+      2.5
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      0
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      2,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "hal": [],
+    "klipp": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      2,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      2,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      0
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "klipp_fel_kant",
+   "fel_linje",
+   "spegelvand",
+   ""
+  ],
+  "misstag": [
+   "Klippet sitter på fel kant. Följ den bortklippta rutan genom varje vikning.",
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta.",
+   "Spegelvänd. Du vek fel del över linjen, eller ser arket från baksidan. Den grå delen viks över den vita, och arket ligger kvar med samma sida upp.",
+   ""
+  ],
+  "forklaring": "Arket viks tre gånger. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger ett hål i det vikta arket. Ett hål går bara genom en del av lagren och täcks av papperet. Klippet går genom alla lager och syns i kanten.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      2,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      0
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "h",
+    "k": 1,
+    "flytt": -1
+   },
+   {
+    "typ": "v",
+    "k": 3,
+    "flytt": 1
+   },
+   {
+    "typ": "v",
+    "k": 2,
+    "flytt": 1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     3
+    ]
+   ],
+   "klipp": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ]
+  },
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 2
+ },
+ {
+  "id": "sp-e-d-02",
+  "niva": "expert",
+  "form": "D",
+  "fraga": "Arket viks längs de streckade linjerna, i tur och ordning. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      3,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      3,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      3.5,
+      2
+     ],
+     [
+      2.5,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      3,
+      3
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      3
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      1.5,
+      3.5
+     ],
+     [
+      1.5,
+      2.5
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "rorlig": [
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      2
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "pil": [
+     [
+      1.5,
+      2.5
+     ],
+     [
+      1.5,
+      1.5
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [],
+    "klipp": [
+     [
+      0,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [],
+    "klipp": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "hal_saknas",
+   "klipp_fel_kant",
+   "fel_linje",
+   ""
+  ],
+  "misstag": [
+   "Ett hål för lite. Där hålen hamnar på varandra i alla lager syns hålet.",
+   "Klippet sitter på fel kant. Följ den bortklippta rutan genom varje vikning.",
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta.",
+   ""
+  ],
+  "forklaring": "Arket viks tre gånger. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger ett hål i det vikta arket. Ett hål går bara genom en del av lagren och täcks av papperet. Klippet går genom alla lager och syns i kanten.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "v",
+    "k": 3,
+    "flytt": 1
+   },
+   {
+    "typ": "h",
+    "k": 3,
+    "flytt": 1
+   },
+   {
+    "typ": "h",
+    "k": 2,
+    "flytt": 1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     1,
+     0
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     3,
+     0
+    ]
+   ],
+   "klipp": [
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     3
+    ]
+   ]
+  },
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 2
+ },
+ {
+  "id": "sp-e-d-03",
+  "niva": "expert",
+  "form": "D",
+  "fraga": "Arket viks längs de streckade linjerna, i tur och ordning. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      2.882353,
+      2
+     ],
+     [
+      1.117647,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      2,
+      3
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      1,
+      3.5
+     ],
+     [
+      1,
+      2.5
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "rorlig": [
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "pil": [
+     [
+      1,
+      2.5
+     ],
+     [
+      1,
+      1.5
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      0
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "hal_extra",
+   "",
+   "fel_linje",
+   "klipp_fel_kant"
+  ],
+  "misstag": [
+   "Ett hål för mycket. Hålet går bara genom ett av lagren, och papperet i de andra lagren täcker det.",
+   "",
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta.",
+   "Klippet sitter på fel kant. Följ den bortklippta rutan genom varje vikning."
+  ],
+  "forklaring": "Arket viks tre gånger. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger ett hål i det vikta arket. Ett hål går bara genom en del av lagren och täcks av papperet. Klippet går genom alla lager och syns i kanten.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      3,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "v",
+    "k": 2,
+    "flytt": 1
+   },
+   {
+    "typ": "h",
+    "k": 3,
+    "flytt": 1
+   },
+   {
+    "typ": "h",
+    "k": 2,
+    "flytt": 1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     3
+    ]
+   ],
+   "klipp": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ]
+   ]
+  },
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 2
+ },
+ {
+  "id": "sp-e-d-04",
+  "niva": "expert",
+  "form": "D",
+  "fraga": "Arket viks längs de streckade linjerna, i tur och ordning. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      4,
+      3
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      3
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      2,
+      3.5
+     ],
+     [
+      2,
+      2.5
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "rorlig": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      2
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "pil": [
+     [
+      2,
+      2.5
+     ],
+     [
+      2,
+      1.5
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "pil": [
+     [
+      0.5,
+      1
+     ],
+     [
+      1.5,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      3
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [],
+    "klipp": [
+     [
+      1,
+      3
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "fel_linje",
+   "klipp_fel_kant",
+   "",
+   "hal_saknas"
+  ],
+  "misstag": [
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta.",
+   "Klippet sitter på fel kant. Följ den bortklippta rutan genom varje vikning.",
+   "",
+   "Ett hål för lite. Där hålen hamnar på varandra i alla lager syns hålet."
+  ],
+  "forklaring": "Arket viks tre gånger. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger ett hål i det vikta arket. Ett hål går bara genom en del av lagren och täcks av papperet. Klippet går genom alla lager och syns i kanten.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      3
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "h",
+    "k": 3,
+    "flytt": 1
+   },
+   {
+    "typ": "h",
+    "k": 2,
+    "flytt": 1
+   },
+   {
+    "typ": "v",
+    "k": 1,
+    "flytt": -1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ]
+   ],
+   "klipp": [
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     3
+    ]
+   ]
+  },
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 2
+ },
+ {
+  "id": "sp-e-d-05",
+  "niva": "expert",
+  "form": "D",
+  "fraga": "Arket viks längs de streckade linjerna, i tur och ordning. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      1
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      1
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "pil": [
+     [
+      2,
+      0.5
+     ],
+     [
+      2,
+      1.5
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "rorlig": [
+     [
+      1,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      0.5,
+      2.5
+     ],
+     [
+      1.5,
+      2.5
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "rorlig": [
+     [
+      2,
+      4
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      1
+     ]
+    ],
+    "linje": [
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      1.5,
+      2.5
+     ],
+     [
+      2.5,
+      2.5
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      3
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      2,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      2,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      2,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      2,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      2
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "hal_saknas",
+   "",
+   "spegelvand",
+   "klipp_fel_kant"
+  ],
+  "misstag": [
+   "Ett hål för lite. Där hålen hamnar på varandra i alla lager syns hålet.",
+   "",
+   "Spegelvänd. Du vek fel del över linjen, eller ser arket från baksidan. Den grå delen viks över den vita, och arket ligger kvar med samma sida upp.",
+   "Klippet sitter på fel kant. Följ den bortklippta rutan genom varje vikning."
+  ],
+  "forklaring": "Arket viks tre gånger. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger två hål i det vikta arket. Ett hål går bara genom en del av lagren och täcks av papperet. Klippet går genom alla lager och syns i kanten.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      2,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      3
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "h",
+    "k": 1,
+    "flytt": -1
+   },
+   {
+    "typ": "v",
+    "k": 1,
+    "flytt": -1
+   },
+   {
+    "typ": "v",
+    "k": 2,
+    "flytt": -1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     0
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     3
+    ]
+   ],
+   "klipp": [
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     3
+    ]
+   ]
+  },
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 2
+ },
+ {
+  "id": "sp-e-d-06",
+  "niva": "expert",
+  "form": "D",
+  "fraga": "Arket viks längs de streckade linjerna, i tur och ordning. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      3,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      3,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      3.5,
+      2
+     ],
+     [
+      2.5,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      1
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "pil": [
+     [
+      1.5,
+      0.5
+     ],
+     [
+      1.5,
+      1.5
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "rorlig": [
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      2
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "pil": [
+     [
+      1.5,
+      1.5
+     ],
+     [
+      1.5,
+      2.5
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      2
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [],
+    "klipp": [
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      2
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "fel_linje",
+   "klipp_fel_kant",
+   "",
+   "hal_saknas"
+  ],
+  "misstag": [
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta.",
+   "Klippet sitter på fel kant. Följ den bortklippta rutan genom varje vikning.",
+   "",
+   "Ett hål för lite. Där hålen hamnar på varandra i alla lager syns hålet."
+  ],
+  "forklaring": "Arket viks tre gånger. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger två hål i det vikta arket. Två hål går bara genom en del av lagren och täcks av papperet. Klippet går genom alla lager och syns i kanten.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      2
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "v",
+    "k": 3,
+    "flytt": 1
+   },
+   {
+    "typ": "h",
+    "k": 1,
+    "flytt": -1
+   },
+   {
+    "typ": "h",
+    "k": 2,
+    "flytt": -1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     0
+    ]
+   ],
+   "klipp": [
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ]
+   ]
+  },
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 2
+ },
+ {
+  "id": "sp-e-d-07",
+  "niva": "expert",
+  "form": "D",
+  "fraga": "Arket viks längs de streckade linjerna, i tur och ordning. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      0.5,
+      2
+     ],
+     [
+      1.5,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      4,
+      3
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      3
+     ],
+     [
+      4,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      2.5,
+      3.5
+     ],
+     [
+      2.5,
+      2.5
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "rorlig": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      2
+     ],
+     [
+      4,
+      2
+     ]
+    ],
+    "pil": [
+     [
+      2.5,
+      2.5
+     ],
+     [
+      2.5,
+      1.5
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "klipp_fel_kant",
+   "hal_saknas",
+   "spegelvand",
+   ""
+  ],
+  "misstag": [
+   "Klippet sitter på fel kant. Följ den bortklippta rutan genom varje vikning.",
+   "Ett hål för lite. Där hålen hamnar på varandra i alla lager syns hålet.",
+   "Spegelvänd. Du vek fel del över linjen, eller ser arket från baksidan. Den grå delen viks över den vita, och arket ligger kvar med samma sida upp.",
+   ""
+  ],
+  "forklaring": "Arket viks tre gånger. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger två hål i det vikta arket. Ett hål går bara genom en del av lagren och täcks av papperet. Klippet går genom alla lager och syns i kanten.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "v",
+    "k": 1,
+    "flytt": -1
+   },
+   {
+    "typ": "h",
+    "k": 3,
+    "flytt": 1
+   },
+   {
+    "typ": "h",
+    "k": 2,
+    "flytt": 1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ]
+   ],
+   "klipp": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ]
+  },
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 2
+ },
+ {
+  "id": "sp-e-d-08",
+  "niva": "expert",
+  "form": "D",
+  "fraga": "Arket viks längs de streckade linjerna, i tur och ordning. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      4,
+      3
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      2,
+      3.5
+     ],
+     [
+      2,
+      2.5
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "rorlig": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "linje": [
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      2.882353,
+      1.5
+     ],
+     [
+      1.117647,
+      1.5
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      1
+     ],
+     [
+      2,
+      1
+     ]
+    ],
+    "pil": [
+     [
+      1,
+      0.5
+     ],
+     [
+      1,
+      1.5
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "hal": [],
+    "klipp": [
+     [
+      2,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "fel_linje",
+   "hal_saknas",
+   "hal_extra",
+   ""
+  ],
+  "misstag": [
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta.",
+   "Ett hål för lite. Där hålen hamnar på varandra i alla lager syns hålet.",
+   "Ett hål för mycket. Hålet går bara genom ett av lagren, och papperet i de andra lagren täcker det.",
+   ""
+  ],
+  "forklaring": "Arket viks tre gånger. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger ett hål i det vikta arket. Två hål går bara genom en del av lagren och täcks av papperet. Klippet går genom alla lager och syns i kanten.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "h",
+    "k": 3,
+    "flytt": 1
+   },
+   {
+    "typ": "v",
+    "k": 2,
+    "flytt": 1
+   },
+   {
+    "typ": "h",
+    "k": 1,
+    "flytt": -1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     1
+    ]
+   ],
+   "klipp": [
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     3
+    ]
+   ]
+  },
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 2
+ },
+ {
+  "id": "sp-e-d-09",
+  "niva": "expert",
+  "form": "D",
+  "fraga": "Arket viks längs de streckade linjerna, i tur och ordning. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      4,
+      3
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      3
+     ],
+     [
+      4,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      2,
+      3.5
+     ],
+     [
+      2,
+      2.5
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "linje": [
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      1.117647,
+      1.5
+     ],
+     [
+      2.882353,
+      1.5
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "rorlig": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "linje": [
+     [
+      2,
+      2
+     ],
+     [
+      4,
+      2
+     ]
+    ],
+    "pil": [
+     [
+      3,
+      2.5
+     ],
+     [
+      3,
+      1.5
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      3
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "spegelvand",
+   "",
+   "hal_extra",
+   "fel_linje"
+  ],
+  "misstag": [
+   "Spegelvänd. Du vek fel del över linjen, eller ser arket från baksidan. Den grå delen viks över den vita, och arket ligger kvar med samma sida upp.",
+   "",
+   "Ett hål för mycket. Hålet går bara genom ett av lagren, och papperet i de andra lagren täcker det.",
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta."
+  ],
+  "forklaring": "Arket viks tre gånger. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger ett hål i det vikta arket. Två hål går bara genom en del av lagren och täcks av papperet. Klippet går genom alla lager och syns i kanten.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      3
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "h",
+    "k": 3,
+    "flytt": 1
+   },
+   {
+    "typ": "v",
+    "k": 2,
+    "flytt": -1
+   },
+   {
+    "typ": "h",
+    "k": 2,
+    "flytt": 1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ]
+   ],
+   "klipp": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     3
+    ]
+   ]
+  },
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 2
+ },
+ {
+  "id": "sp-e-d-10",
+  "niva": "expert",
+  "form": "D",
+  "fraga": "Arket viks längs de streckade linjerna, i tur och ordning. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      4,
+      3
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      3
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      2,
+      3.5
+     ],
+     [
+      2,
+      2.5
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      0.5,
+      1.5
+     ],
+     [
+      1.5,
+      1.5
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "rorlig": [
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "linje": [
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      1.5,
+      1.5
+     ],
+     [
+      2.5,
+      1.5
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      3
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      3
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "spegelvand",
+   "klipp_fel_kant",
+   "",
+   "hal_saknas"
+  ],
+  "misstag": [
+   "Spegelvänd. Du vek fel del över linjen, eller ser arket från baksidan. Den grå delen viks över den vita, och arket ligger kvar med samma sida upp.",
+   "Klippet sitter på fel kant. Följ den bortklippta rutan genom varje vikning.",
+   "",
+   "Ett hål för lite. Där hålen hamnar på varandra i alla lager syns hålet."
+  ],
+  "forklaring": "Arket viks tre gånger. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger två hål i det vikta arket. Två hål går bara genom en del av lagren och täcks av papperet. Klippet går genom alla lager och syns i kanten.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      3
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "h",
+    "k": 3,
+    "flytt": 1
+   },
+   {
+    "typ": "v",
+    "k": 1,
+    "flytt": -1
+   },
+   {
+    "typ": "v",
+    "k": 2,
+    "flytt": -1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     0
+    ]
+   ],
+   "klipp": [
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     3
+    ]
+   ]
+  },
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 2
+ },
+ {
+  "id": "sp-e-d-11",
+  "niva": "expert",
+  "form": "D",
+  "fraga": "Arket viks längs de streckade linjerna, i tur och ordning. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      0.5,
+      2
+     ],
+     [
+      1.5,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      4,
+      3
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      3
+     ],
+     [
+      4,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      2.5,
+      3.5
+     ],
+     [
+      2.5,
+      2.5
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "rorlig": [
+     [
+      3,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "linje": [
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      3.5,
+      1.5
+     ],
+     [
+      2.5,
+      1.5
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      3,
+      4
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      1
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "hal_saknas",
+   "fel_linje",
+   "klipp_fel_kant"
+  ],
+  "misstag": [
+   "",
+   "Ett hål för lite. Där hålen hamnar på varandra i alla lager syns hålet.",
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta.",
+   "Klippet sitter på fel kant. Följ den bortklippta rutan genom varje vikning."
+  ],
+  "forklaring": "Arket viks tre gånger. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger två hål i det vikta arket. Ett hål går bara genom en del av lagren och täcks av papperet. Klippet går genom alla lager och syns i kanten.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "v",
+    "k": 1,
+    "flytt": -1
+   },
+   {
+    "typ": "h",
+    "k": 3,
+    "flytt": 1
+   },
+   {
+    "typ": "v",
+    "k": 3,
+    "flytt": 1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     3,
+     3
+    ]
+   ],
+   "klipp": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ]
+  },
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 2
+ },
+ {
+  "id": "sp-e-d-12",
+  "niva": "expert",
+  "form": "D",
+  "fraga": "Arket viks längs de streckade linjerna, i tur och ordning. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      0.5,
+      2
+     ],
+     [
+      1.5,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      2
+     ],
+     [
+      4,
+      2
+     ]
+    ],
+    "pil": [
+     [
+      2.5,
+      2.882353
+     ],
+     [
+      2.5,
+      1.117647
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ],
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "rorlig": [
+     [
+      3,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "linje": [
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "pil": [
+     [
+      3.5,
+      1
+     ],
+     [
+      2.5,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      1
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "hal_saknas",
+   "fel_linje",
+   "",
+   "klipp_fel_kant"
+  ],
+  "misstag": [
+   "Ett hål för lite. Där hålen hamnar på varandra i alla lager syns hålet.",
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta.",
+   "",
+   "Klippet sitter på fel kant. Följ den bortklippta rutan genom varje vikning."
+  ],
+  "forklaring": "Arket viks tre gånger. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger ett hål i det vikta arket. Ett hål går bara genom en del av lagren och täcks av papperet. Klippet går genom alla lager och syns i kanten.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ],
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "v",
+    "k": 1,
+    "flytt": -1
+   },
+   {
+    "typ": "h",
+    "k": 2,
+    "flytt": 1
+   },
+   {
+    "typ": "v",
+    "k": 3,
+    "flytt": 1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     2
+    ]
+   ],
+   "klipp": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ]
+   ]
+  },
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 2
+ },
+ {
+  "id": "sp-e-d-13",
+  "niva": "expert",
+  "form": "D",
+  "fraga": "Arket viks längs de streckade linjerna, i tur och ordning. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      2.882353,
+      2
+     ],
+     [
+      1.117647,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      2,
+      3
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      1,
+      3.5
+     ],
+     [
+      1,
+      2.5
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "rorlig": [
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "pil": [
+     [
+      1,
+      2.5
+     ],
+     [
+      1,
+      1.5
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      1
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "hal_saknas",
+   "hal_extra",
+   "",
+   "spegelvand"
+  ],
+  "misstag": [
+   "Ett hål för lite. Där hålen hamnar på varandra i alla lager syns hålet.",
+   "Ett hål för mycket. Hålet går bara genom ett av lagren, och papperet i de andra lagren täcker det.",
+   "",
+   "Spegelvänd. Du vek fel del över linjen, eller ser arket från baksidan. Den grå delen viks över den vita, och arket ligger kvar med samma sida upp."
+  ],
+  "forklaring": "Arket viks tre gånger. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger ett hål i det vikta arket. Två hål går bara genom en del av lagren och täcks av papperet. Klippet går genom alla lager och syns i kanten.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "v",
+    "k": 2,
+    "flytt": 1
+   },
+   {
+    "typ": "h",
+    "k": 3,
+    "flytt": 1
+   },
+   {
+    "typ": "h",
+    "k": 2,
+    "flytt": 1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     3
+    ]
+   ],
+   "klipp": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ]
+   ]
+  },
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 2
+ },
+ {
+  "id": "sp-e-d-14",
+  "niva": "expert",
+  "form": "D",
+  "fraga": "Arket viks längs de streckade linjerna, i tur och ordning. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      2.882353,
+      2
+     ],
+     [
+      1.117647,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      1
+     ],
+     [
+      2,
+      1
+     ]
+    ],
+    "pil": [
+     [
+      1,
+      0.5
+     ],
+     [
+      1,
+      1.5
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "rorlig": [
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "pil": [
+     [
+      1,
+      1.5
+     ],
+     [
+      1,
+      2.5
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      1
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "hal": []
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [],
+    "klipp": [
+     [
+      3,
+      1
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "fel_linje",
+   "hal_extra",
+   "",
+   "hal_saknas"
+  ],
+  "misstag": [
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta.",
+   "Ett hål för mycket. Hålet går bara genom ett av lagren, och papperet i de andra lagren täcker det.",
+   "",
+   "Ett hål för lite. Där hålen hamnar på varandra i alla lager syns hålet."
+  ],
+  "forklaring": "Arket viks tre gånger. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger ett hål i det vikta arket. Två hål går bara genom en del av lagren och täcks av papperet. Klippet går genom alla lager och syns i kanten.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      1
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "v",
+    "k": 2,
+    "flytt": 1
+   },
+   {
+    "typ": "h",
+    "k": 1,
+    "flytt": -1
+   },
+   {
+    "typ": "h",
+    "k": 2,
+    "flytt": -1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     3
+    ]
+   ],
+   "klipp": [
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ]
+   ]
+  },
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 2
+ },
+ {
+  "id": "sp-e-d-15",
+  "niva": "expert",
+  "form": "D",
+  "fraga": "Arket viks längs de streckade linjerna, i tur och ordning. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      1
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      1
+     ],
+     [
+      4,
+      1
+     ]
+    ],
+    "pil": [
+     [
+      2,
+      0.5
+     ],
+     [
+      2,
+      1.5
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "rorlig": [
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "linje": [
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      3.5,
+      2.5
+     ],
+     [
+      2.5,
+      2.5
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "rorlig": [
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      3
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      1.5,
+      3.5
+     ],
+     [
+      1.5,
+      2.5
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      0
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      0
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "hal_extra",
+   "spegelvand",
+   "fel_linje",
+   ""
+  ],
+  "misstag": [
+   "Ett hål för mycket. Hålet går bara genom ett av lagren, och papperet i de andra lagren täcker det.",
+   "Spegelvänd. Du vek fel del över linjen, eller ser arket från baksidan. Den grå delen viks över den vita, och arket ligger kvar med samma sida upp.",
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta.",
+   ""
+  ],
+  "forklaring": "Arket viks tre gånger. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger ett hål i det vikta arket. Ett hål går bara genom en del av lagren och täcks av papperet. Klippet går genom alla lager och syns i kanten.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      0
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "h",
+    "k": 1,
+    "flytt": -1
+   },
+   {
+    "typ": "v",
+    "k": 3,
+    "flytt": 1
+   },
+   {
+    "typ": "h",
+    "k": 3,
+    "flytt": 1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ]
+   ],
+   "klipp": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ]
+  },
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 2
+ },
+ {
+  "id": "sp-e-d-16",
+  "niva": "expert",
+  "form": "D",
+  "fraga": "Arket viks längs de streckade linjerna, i tur och ordning. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      0.5,
+      2
+     ],
+     [
+      1.5,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      1
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      1
+     ],
+     [
+      4,
+      1
+     ]
+    ],
+    "pil": [
+     [
+      2.5,
+      0.5
+     ],
+     [
+      2.5,
+      1.5
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "rorlig": [
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      2
+     ],
+     [
+      4,
+      2
+     ]
+    ],
+    "pil": [
+     [
+      2.5,
+      1.5
+     ],
+     [
+      2.5,
+      2.5
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      1
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      2
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      1
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "hal_extra",
+   "",
+   "spegelvand",
+   "hal_saknas"
+  ],
+  "misstag": [
+   "Ett hål för mycket. Hålet går bara genom ett av lagren, och papperet i de andra lagren täcker det.",
+   "",
+   "Spegelvänd. Du vek fel del över linjen, eller ser arket från baksidan. Den grå delen viks över den vita, och arket ligger kvar med samma sida upp.",
+   "Ett hål för lite. Där hålen hamnar på varandra i alla lager syns hålet."
+  ],
+  "forklaring": "Arket viks tre gånger. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger två hål i det vikta arket. Två hål går bara genom en del av lagren och täcks av papperet. Klippet går genom alla lager och syns i kanten.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      1
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "v",
+    "k": 1,
+    "flytt": -1
+   },
+   {
+    "typ": "h",
+    "k": 1,
+    "flytt": -1
+   },
+   {
+    "typ": "h",
+    "k": 2,
+    "flytt": -1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ]
+   ],
+   "klipp": [
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ]
+   ]
+  },
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 2
+ },
+ {
+  "id": "sp-e-d-17",
+  "niva": "expert",
+  "form": "D",
+  "fraga": "Arket viks längs de streckade linjerna, i tur och ordning. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      2
+     ],
+     [
+      4,
+      2
+     ]
+    ],
+    "pil": [
+     [
+      2,
+      1.117647
+     ],
+     [
+      2,
+      2.882353
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "rorlig": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "linje": [
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      3.5,
+      3
+     ],
+     [
+      2.5,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "rorlig": [
+     [
+      3,
+      4
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "linje": [
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      2.5,
+      3
+     ],
+     [
+      1.5,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      3,
+      4
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "hal": [],
+    "klipp": [
+     [
+      2,
+      0
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "hal_extra",
+   "fel_linje",
+   "",
+   "hal_saknas"
+  ],
+  "misstag": [
+   "Ett hål för mycket. Hålet går bara genom ett av lagren, och papperet i de andra lagren täcker det.",
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta.",
+   "",
+   "Ett hål för lite. Där hålen hamnar på varandra i alla lager syns hålet."
+  ],
+  "forklaring": "Arket viks tre gånger. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger ett hål i det vikta arket. Två hål går bara genom en del av lagren och täcks av papperet. Klippet går genom alla lager och syns i kanten.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      0
+     ],
+     [
+      2,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "h",
+    "k": 2,
+    "flytt": -1
+   },
+   {
+    "typ": "v",
+    "k": 3,
+    "flytt": 1
+   },
+   {
+    "typ": "v",
+    "k": 2,
+    "flytt": 1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ]
+   ],
+   "klipp": [
+    [
+     1,
+     0
+    ],
+    [
+     2,
+     0
+    ]
+   ]
+  },
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 2
+ },
+ {
+  "id": "sp-e-d-18",
+  "niva": "expert",
+  "form": "D",
+  "fraga": "Arket viks längs de streckade linjerna, i tur och ordning. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      1.117647,
+      2
+     ],
+     [
+      2.882353,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      1
+     ],
+     [
+      2,
+      1
+     ]
+    ],
+    "linje": [
+     [
+      2,
+      1
+     ],
+     [
+      4,
+      1
+     ]
+    ],
+    "pil": [
+     [
+      3,
+      0.5
+     ],
+     [
+      3,
+      1.5
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      2,
+      1
+     ]
+    ],
+    "rorlig": [
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      1
+     ]
+    ],
+    "linje": [
+     [
+      2,
+      2
+     ],
+     [
+      4,
+      2
+     ]
+    ],
+    "pil": [
+     [
+      3,
+      1.5
+     ],
+     [
+      3,
+      2.5
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      3
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "hal": [],
+    "klipp": [
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      3
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "hal_saknas",
+   "klipp_fel_kant",
+   "spegelvand"
+  ],
+  "misstag": [
+   "",
+   "Ett hål för lite. Där hålen hamnar på varandra i alla lager syns hålet.",
+   "Klippet sitter på fel kant. Följ den bortklippta rutan genom varje vikning.",
+   "Spegelvänd. Du vek fel del över linjen, eller ser arket från baksidan. Den grå delen viks över den vita, och arket ligger kvar med samma sida upp."
+  ],
+  "forklaring": "Arket viks tre gånger. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger ett hål i det vikta arket. Ett hål går bara genom en del av lagren och täcks av papperet. Klippet går genom alla lager och syns i kanten.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      2,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      3
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      3
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "v",
+    "k": 2,
+    "flytt": -1
+   },
+   {
+    "typ": "h",
+    "k": 1,
+    "flytt": -1
+   },
+   {
+    "typ": "h",
+    "k": 2,
+    "flytt": -1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ]
+   ],
+   "klipp": [
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     3
+    ]
+   ]
+  },
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 2
+ },
+ {
+  "id": "sp-e-d-19",
+  "niva": "expert",
+  "form": "D",
+  "fraga": "Arket viks längs de streckade linjerna, i tur och ordning. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      4,
+      3
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      3
+     ],
+     [
+      4,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      2,
+      3.5
+     ],
+     [
+      2,
+      2.5
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ],
+     [
+      3,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "rorlig": [
+     [
+      3,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "linje": [
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      3.5,
+      1.5
+     ],
+     [
+      2.5,
+      1.5
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "rorlig": [
+     [
+      2,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "linje": [
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      2.5,
+      1.5
+     ],
+     [
+      1.5,
+      1.5
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "spegelvand",
+   "klipp_fel_kant",
+   "",
+   "hal_saknas"
+  ],
+  "misstag": [
+   "Spegelvänd. Du vek fel del över linjen, eller ser arket från baksidan. Den grå delen viks över den vita, och arket ligger kvar med samma sida upp.",
+   "Klippet sitter på fel kant. Följ den bortklippta rutan genom varje vikning.",
+   "",
+   "Ett hål för lite. Där hålen hamnar på varandra i alla lager syns hålet."
+  ],
+  "forklaring": "Arket viks tre gånger. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger två hål i det vikta arket. Ett hål går bara genom en del av lagren och täcks av papperet. Klippet går genom alla lager och syns i kanten.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ],
+     [
+      3,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      0
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "h",
+    "k": 3,
+    "flytt": 1
+   },
+   {
+    "typ": "v",
+    "k": 3,
+    "flytt": 1
+   },
+   {
+    "typ": "v",
+    "k": 2,
+    "flytt": 1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     3
+    ]
+   ],
+   "klipp": [
+    [
+     2,
+     0
+    ],
+    [
+     3,
+     0
+    ]
+   ]
+  },
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 2
+ },
+ {
+  "id": "sp-e-d-20",
+  "niva": "expert",
+  "form": "D",
+  "fraga": "Arket viks längs de streckade linjerna, i tur och ordning. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      3,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      3,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      3.5,
+      2
+     ],
+     [
+      2.5,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      1
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "pil": [
+     [
+      1.5,
+      0.5
+     ],
+     [
+      1.5,
+      1.5
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "rorlig": [
+     [
+      1,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      0.5,
+      2.5
+     ],
+     [
+      1.5,
+      2.5
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      2
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      2,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "hal": []
+   }
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "klipp_fel_kant",
+   "spegelvand",
+   "fel_linje"
+  ],
+  "misstag": [
+   "",
+   "Klippet sitter på fel kant. Följ den bortklippta rutan genom varje vikning.",
+   "Spegelvänd. Du vek fel del över linjen, eller ser arket från baksidan. Den grå delen viks över den vita, och arket ligger kvar med samma sida upp.",
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta."
+  ],
+  "forklaring": "Arket viks tre gånger. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger ett hål i det vikta arket. Två hål går bara genom en del av lagren och täcks av papperet. Klippet går genom alla lager och syns i kanten.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      3,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      3,
+      2
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "v",
+    "k": 3,
+    "flytt": 1
+   },
+   {
+    "typ": "h",
+    "k": 1,
+    "flytt": -1
+   },
+   {
+    "typ": "v",
+    "k": 1,
+    "flytt": -1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ]
+   ],
+   "klipp": [
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ]
+   ]
+  },
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 2
+ },
+ {
+  "id": "sp-e-d-21",
+  "niva": "expert",
+  "form": "D",
+  "fraga": "Arket viks längs de streckade linjerna, i tur och ordning. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      2,
+      1
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      1.117647,
+      2
+     ],
+     [
+      2.882353,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      4,
+      3
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "linje": [
+     [
+      2,
+      3
+     ],
+     [
+      4,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      3,
+      3.5
+     ],
+     [
+      3,
+      2.5
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "rorlig": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "linje": [
+     [
+      2,
+      2
+     ],
+     [
+      4,
+      2
+     ]
+    ],
+    "pil": [
+     [
+      3,
+      2.5
+     ],
+     [
+      3,
+      1.5
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "hal": [],
+    "klipp": [
+     [
+      0,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      4,
+      1
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      2,
+      1
+     ]
+    ],
+    "hal": [
+     [
+      2,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 3,
+  "typer": [
+   "hal_saknas",
+   "hal_extra",
+   "fel_linje",
+   ""
+  ],
+  "misstag": [
+   "Ett hål för lite. Där hålen hamnar på varandra i alla lager syns hålet.",
+   "Ett hål för mycket. Hålet går bara genom ett av lagren, och papperet i de andra lagren täcker det.",
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta.",
+   ""
+  ],
+  "forklaring": "Arket viks tre gånger. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger ett hål i det vikta arket. Två hål går bara genom en del av lagren och täcks av papperet. Klippet går genom alla lager och syns i kanten.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      2,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "v",
+    "k": 2,
+    "flytt": -1
+   },
+   {
+    "typ": "h",
+    "k": 3,
+    "flytt": 1
+   },
+   {
+    "typ": "h",
+    "k": 2,
+    "flytt": 1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ]
+   ],
+   "klipp": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ]
+   ]
+  },
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 2
+ },
+ {
+  "id": "sp-e-d-22",
+  "niva": "expert",
+  "form": "D",
+  "fraga": "Arket viks längs de streckade linjerna, i tur och ordning. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      0.5,
+      2
+     ],
+     [
+      1.5,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      4,
+      3
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      3
+     ],
+     [
+      4,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      2.5,
+      3.5
+     ],
+     [
+      2.5,
+      2.5
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "rorlig": [
+     [
+      4,
+      2
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      2
+     ],
+     [
+      4,
+      2
+     ]
+    ],
+    "pil": [
+     [
+      2.5,
+      2.5
+     ],
+     [
+      2.5,
+      1.5
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [],
+    "klipp": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 2,
+  "typer": [
+   "klipp_fel_kant",
+   "fel_linje",
+   "",
+   "hal_saknas"
+  ],
+  "misstag": [
+   "Klippet sitter på fel kant. Följ den bortklippta rutan genom varje vikning.",
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta.",
+   "",
+   "Ett hål för lite. Där hålen hamnar på varandra i alla lager syns hålet."
+  ],
+  "forklaring": "Arket viks tre gånger. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger två hål i det vikta arket. Ett hål går bara genom en del av lagren och täcks av papperet. Klippet går genom alla lager och syns i kanten.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "v",
+    "k": 1,
+    "flytt": -1
+   },
+   {
+    "typ": "h",
+    "k": 3,
+    "flytt": 1
+   },
+   {
+    "typ": "h",
+    "k": 2,
+    "flytt": 1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     2
+    ]
+   ],
+   "klipp": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ]
+  },
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 2
+ },
+ {
+  "id": "sp-e-d-23",
+  "niva": "expert",
+  "form": "D",
+  "fraga": "Arket viks längs de streckade linjerna, i tur och ordning. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      3,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      3,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      3,
+      1
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      3.5,
+      2
+     ],
+     [
+      2.5,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "linje": [
+     [
+      0,
+      2
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "pil": [
+     [
+      1.5,
+      2.882353
+     ],
+     [
+      1.5,
+      1.117647
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ],
+     [
+      3,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "pil": [
+     [
+      0.5,
+      1
+     ],
+     [
+      1.5,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      1,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      2
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 0,
+  "typer": [
+   "",
+   "hal_extra",
+   "fel_linje",
+   "spegelvand"
+  ],
+  "misstag": [
+   "",
+   "Ett hål för mycket. Hålet går bara genom ett av lagren, och papperet i de andra lagren täcker det.",
+   "Du vek längs fel linje. Följ den streckade viklinjen och pilen i varje ruta.",
+   "Spegelvänd. Du vek fel del över linjen, eller ser arket från baksidan. Den grå delen viks över den vita, och arket ligger kvar med samma sida upp."
+  ],
+  "forklaring": "Arket viks tre gånger. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger ett hål i det vikta arket. Två hål går bara genom en del av lagren och täcks av papperet. Klippet går genom alla lager och syns i kanten.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ],
+     [
+      3,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      0,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "v",
+    "k": 3,
+    "flytt": 1
+   },
+   {
+    "typ": "h",
+    "k": 2,
+    "flytt": 1
+   },
+   {
+    "typ": "v",
+    "k": 1,
+    "flytt": -1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ]
+   ],
+   "klipp": [
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ]
+   ]
+  },
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 2
+ },
+ {
+  "id": "sp-e-d-24",
+  "niva": "expert",
+  "form": "D",
+  "fraga": "Arket viks längs de streckade linjerna, i tur och ordning. Hur ser det ut ihopvikt?",
+  "sekvens": [
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      0
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      0,
+      4
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      4
+     ]
+    ],
+    "pil": [
+     [
+      0.5,
+      2
+     ],
+     [
+      1.5,
+      2
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ]
+    ],
+    "rorlig": [
+     [
+      4,
+      3
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "linje": [
+     [
+      1,
+      3
+     ],
+     [
+      4,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      2.5,
+      3.5
+     ],
+     [
+      2.5,
+      2.5
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-vik",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "rorlig": [
+     [
+      3,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "linje": [
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "pil": [
+     [
+      3.5,
+      1.5
+     ],
+     [
+      2.5,
+      1.5
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      1,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      1
+     ],
+     [
+      2,
+      1
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      2
+     ]
+    ]
+   }
+  ],
+  "correctAnswer": 1,
+  "typer": [
+   "hal_extra",
+   "",
+   "klipp_fel_kant",
+   "spegelvand"
+  ],
+  "misstag": [
+   "Ett hål för mycket. Hålet går bara genom ett av lagren, och papperet i de andra lagren täcker det.",
+   "",
+   "Klippet sitter på fel kant. Följ den bortklippta rutan genom varje vikning.",
+   "Spegelvänd. Du vek fel del över linjen, eller ser arket från baksidan. Den grå delen viks över den vita, och arket ligger kvar med samma sida upp."
+  ],
+  "forklaring": "Arket viks tre gånger. Följ hålen genom vikningarna. Där hål hamnar på varandra i alla lager syns de, och det ger två hål i det vikta arket. Ett hål går bara genom en del av lagren och täcks av papperet. Klippet går genom alla lager och syns i kanten.",
+  "hopvikning": [
+   {
+    "kind": "ark-ut",
+    "n": 4,
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      1,
+      4
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      3,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      2
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "kind": "ark-stans",
+    "n": 4,
+    "poly": [
+     [
+      1,
+      0
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      3,
+      3
+     ],
+     [
+      1,
+      3
+     ]
+    ],
+    "hal": [
+     [
+      0,
+      2
+     ],
+     [
+      2,
+      2
+     ]
+    ],
+    "klipp": [
+     [
+      0,
+      1
+     ]
+    ]
+   }
+  ],
+  "vikningar": [
+   {
+    "typ": "v",
+    "k": 1,
+    "flytt": -1
+   },
+   {
+    "typ": "h",
+    "k": 3,
+    "flytt": 1
+   },
+   {
+    "typ": "v",
+    "k": 3,
+    "flytt": 1
+   }
+  ],
+  "ark": {
+   "hal": [
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ]
+   ],
+   "klipp": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ]
+  },
+  "difficulty": 4,
+  "p_prior": 0.42,
+  "fran_version": 2
  }
 ]

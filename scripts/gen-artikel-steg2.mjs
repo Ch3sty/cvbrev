@@ -108,9 +108,11 @@ const spNycklar = new Set(spBank.map((q) => FORMER[q.form].nyckel(q)));
 const SPATIAL = [
   ['sp-art-u1-vik', 'B', 'grund'],
   ['sp-art-u1-kub', 'C', 'grund'],
-  ['sp-art-iprov-vik', 'B', 'avancerad'],
   ['sp-art-iprov-klipp', 'B', 'expert'],
   ['sp-art-iprov-kub', 'C', 'avancerad'],
+  // Pappersvikning i I-provets riktning (form D, 2026-11-10): deltest 2 i i-prov och rotationsguiden
+  ['sp-art-iprov-ihop', 'D', 'avancerad'],
+  ['sp-art-u1-ihop', 'D', 'grund'],
 ];
 
 function byggSpatial(id, form, niva, egna) {

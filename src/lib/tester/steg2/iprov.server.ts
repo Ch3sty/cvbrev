@@ -8,7 +8,9 @@
 //   emot medan deltestet är öppet och inom maxtiden (med tio sekunders
 //   marginal för nätet), och ett avslutat deltest öppnas aldrig igen.
 // - Deltesterna drar ur nivåerna i ordningen lätt till svår (tredjedelar),
-//   som matrisprovet. Pappersvikning med klipp finns bara på expert.
+//   som matrisprovet. Pappersvikning (deltest 2) är form D, ihopvikt som i
+//   I-provet. Pappersvikning med klipp (deltest 6) är form B med klipp,
+//   uppvikt som i I-provet, och finns bara på expert.
 // - Resultatet är antal rätt per deltest och tiden per deltest. Aldrig
 //   stanine. Frågestatistiken får typ prov.
 // - Alla skrivningar med service role, villkorade på user_id.
@@ -67,7 +69,7 @@ function kalla(d: IprovDelDef): { motor: Steg2Motor | null; nivaer: Niva[]; filt
   if (d.kind === 'ordforrad') return { motor, nivaer: ['grund', 'avancerad', 'expert'], filter: (m, id) => m.gruppNyckel(id) === d.form };
   if (d.kind === 'talserie') return { motor, nivaer: ['avancerad', 'expert'], filter: () => true };
   if (d.form === 'Bklipp') return { motor, nivaer: ['expert'], filter: (m, id) => m.gruppNyckel(id) === 'B' };
-  if (d.form === 'B') return { motor, nivaer: ['grund', 'avancerad'], filter: (m, id) => m.gruppNyckel(id) === 'B' };
+  if (d.form === 'D') return { motor, nivaer: ['grund', 'avancerad', 'expert'], filter: (m, id) => m.gruppNyckel(id) === 'D' };
   return { motor, nivaer: ['grund', 'avancerad', 'expert'], filter: (m, id) => m.gruppNyckel(id) === 'C' };
 }
 

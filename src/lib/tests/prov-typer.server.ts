@@ -132,15 +132,16 @@ function steg2Ur(kind: Steg2ProvKind, niva: Niva, grupp: string | null, seed: st
 }
 
 function steg2Urval(kind: Steg2ProvKind, seed: string): ProvRef[] {
-  // Spatial: formerna blandade A, B, C, A, B. Talserier: tre grund, två avancerad.
+  // Spatial: formerna blandade A, D, C, D, B (D är pappersvikning ihopvikt, I-provets
+  // riktning). Talserier: tre grund, två avancerad.
   // Ordförråd: synonymer och motsatsord om vartannat, grundnivån.
   const plan: [Niva, string | null][] =
     kind === 'spatial'
       ? [
           ['grund', 'A'],
-          ['grund', 'B'],
+          ['grund', 'D'],
           ['grund', 'C'],
-          ['avancerad', 'A'],
+          ['avancerad', 'D'],
           ['avancerad', 'B'],
         ]
       : kind === 'talserie'
@@ -181,7 +182,7 @@ function iprovUrval(seed: string): ProvRef[] {
           ? ['avancerad', null]
           : d.form === 'Bklipp'
             ? ['expert', 'B']
-            : [d.form === 'B' ? 'grund' : 'grund', d.form]
+            : ['grund', d.form]
     const id = steg2Ur(d.kind, niva, grupp, `${seed}:${d.nr}`, tagna)
     if (!id) continue
     tagna.add(id)

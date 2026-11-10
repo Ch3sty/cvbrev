@@ -86,16 +86,61 @@ const ArkVik: React.FC<{ fig: ArkVikFigur }> = ({ fig }) => {
   const bas: Punkt = [b[0] - u[0] * P.huvudLangd, b[1] - u[1] * P.huvudLangd];
   const huvud: Punkt[] = [b, [r2(bas[0] + v[0] * P.huvudHalv), r2(bas[1] + v[1] * P.huvudHalv)], [r2(bas[0] - v[0] * P.huvudHalv), r2(bas[1] - v[1] * P.huvudHalv)]];
   const [l0, l1] = fig.linje.map(t);
+  // Form D, första rutan: det utvikta arket med hål och klipp (konturen som ArkUt), och den grå delen utan hacken.
+  const arket = fig.hal || fig.klipp ? arkVikArket(fig) : null;
   return (
     <>
-      <path d={bana(fig.poly.map(t))} fill={F.papper} stroke={F.ink} strokeWidth={G.kontur.sw} strokeLinejoin="round" />
-      <path d={bana(fig.rorlig.map(t))} fill={F.gra} stroke={F.ink} strokeWidth={G.kontur.sw} strokeLinejoin="round" />
+      <path d={bana((arket ? arket.kontur : fig.poly).map(t))} fill={F.papper} stroke={F.ink} strokeWidth={G.kontur.sw} strokeLinejoin="round" />
+      <path d={bana((arket ? arket.gra : fig.rorlig).map(t))} fill={F.gra} stroke={F.ink} strokeWidth={G.kontur.sw} strokeLinejoin="round" />
+      {arket?.inre.map(([r, c], i) => {
+        const [x, y] = t([c, r]);
+        return <rect key={`k${i}`} x={x} y={y} width={r2(G.ark.sida / fig.n)} height={r2(G.ark.sida / fig.n)} fill={F.ink} />;
+      })}
+      {(fig.hal ?? []).map(([r, c], i) => {
+        const [x, y] = t([c + 0.5, r + 0.5]);
+        return <circle key={`h${i}`} cx={x} cy={y} r={halR(fig.n)} fill={F.ink} />;
+      })}
       <line x1={l0[0]} y1={l0[1]} x2={l1[0]} y2={l1[1]} stroke={F.ram} strokeWidth={G.ark.viklinjeSw} strokeDasharray={G.ark.viklinjeStreck} strokeLinecap="round" />
       <line x1={a[0]} y1={a[1]} x2={r2(bas[0] + u[0])} y2={r2(bas[1] + u[1])} stroke={F.ink} strokeWidth={P.sw} strokeLinecap="round" />
       <path d={bana(huvud)} fill={F.ink} stroke={F.ink} strokeWidth={G.kontur.tunn} strokeLinejoin="round" />
     </>
   );
 };
+
+/**
+ * Form D, första rutan: arkets kontur med hacken, de inre klippen och den grå
+ * delen (det som viks först) utan hacken. Arket är helt utvikt, så konturen
+ * räknas som för ArkUt. Spärren SP-B2-6 kräver att den grå delen hänger ihop.
+ */
+export function arkVikArket(fig: ArkVikFigur) {
+  const rutorI = (poly: Punkt[]) => {
+    const ut: [number, number][] = [];
+    for (let r = 0; r < fig.n; r++)
+      for (let c = 0; c < fig.n; c++) if ([[c, r], [c + 1, r], [c + 1, r + 1], [c, r + 1]].every((p) => inomPoly(poly, p as Punkt))) ut.push([r, c]);
+    return ut;
+  };
+  // klipp som når regionens kant (genom andra klipp) blir hack, övriga är inre bläckrutor
+  const region = rutorI(fig.poly);
+  const iRegion = new Set(region.map((x) => x.join(',')));
+  const klippt = new Set((fig.klipp ?? []).map((x) => x.join(',')));
+  const grannar = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+  const ko = (fig.klipp ?? []).filter(([r, c]) => grannar.some(([dr, dc]) => !iRegion.has(`${r + dr},${c + dc}`)));
+  const kant = new Set(ko.map((x) => x.join(',')));
+  while (ko.length) {
+    const [r, c] = ko.pop()!;
+    for (const [dr, dc] of grannar) {
+      const k = `${r + dr},${c + dc}`;
+      if (klippt.has(k) && !kant.has(k)) {
+        kant.add(k);
+        ko.push([r + dr, c + dc]);
+      }
+    }
+  }
+  const inre = (fig.klipp ?? []).filter((x) => !kant.has(x.join(',')));
+  const papper = region.filter((x) => !kant.has(x.join(',')));
+  const gra = rutorI(fig.rorlig).filter((x) => !kant.has(x.join(',')));
+  return { kontur: rutKontur(papper), gra: rutKontur(gra), inre };
+}
 
 /**
  * Det vikta arket med klipp: regionen är alltid hela rutor när arket har

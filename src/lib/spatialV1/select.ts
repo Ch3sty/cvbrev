@@ -1,7 +1,7 @@
 // src/lib/spatialV1/select.ts
 // =============================================================================
 // Urvalet för Spatial förmåga (briefen avsnitt 2): 15 uppgifter per nivåtest,
-// fem per form, blandade men aldrig två av samma form i följd. Seedat på
+// fördelade på formerna (perFormFor), blandade men aldrig två av samma form i följd. Seedat på
 // sessionId som figurserierna, så att test- och resultatsida härleder samma
 // urval. Poolen en session drar ur ändras aldrig: nya uppgifter kommer med ny
 // SPATIAL_VERSION (meta.spatial_version), gamla pensioneras med
@@ -19,12 +19,21 @@ import type { SpatialForm, SpatialFraga, SpatialNiva } from './types';
 
 export const FRAGOR_PER_SESSION = 15;
 export const PER_FORM = 5;
-export const SPATIAL_VERSION = 1;
-export const FORMER: SpatialForm[] = ['A', 'B', 'C'];
+/**
+ * Version 2 (2026-11-10): form D, pappersvikning i I-provets riktning, kommer
+ * in. Nivåtestet blir 4 A, 3 B, 4 C och 4 D. Sessioner med version 1 drar
+ * som förut, fem av A, B och C (D har fran_version 2 och finns inte i deras pool).
+ */
+export const SPATIAL_VERSION = 2;
+export const FORMER: SpatialForm[] = ['A', 'B', 'C', 'D'];
+/** Antal per form i nivåtestet, per version. */
+export function perFormFor(version: number): Partial<Record<SpatialForm, number>> {
+  return version >= 2 ? { A: 4, B: 3, C: 4, D: 4 } : { A: PER_FORM, B: PER_FORM, C: PER_FORM };
+}
 /** Ungefärlig tid för nivåtestet (briefen avsnitt 2). */
 export const TIDSGRANS_S: Record<SpatialNiva, number> = { grund: 12 * 60, avancerad: 15 * 60, expert: 18 * 60 };
 /** Tid per uppgift i provformat (briefen avsnitt 2.4), läses av passets tidsrad. */
-export const SEKUNDER_PER_UPPGIFT: Record<SpatialForm, number> = { A: 30, B: 45, C: 45 };
+export const SEKUNDER_PER_UPPGIFT: Record<SpatialForm, number> = { A: 30, B: 45, C: 45, D: 45 };
 
 const BANK: Record<SpatialNiva, SpatialFraga[]> = {
   grund: grund as unknown as SpatialFraga[],
@@ -66,14 +75,17 @@ export function valjForm(
   return blanda(pool, mulberry32(hashString(`${seed}:${form}`))).slice(0, antal);
 }
 
-/** Nivåtestet: fem per form, aldrig två av samma form i följd. */
+/** Nivåtestet: formerna enligt versionen, aldrig två av samma form i följd. */
 export function valjSpatial(niva: SpatialNiva, sessionId: string, version: number = SPATIAL_VERSION): SpatialFraga[] {
   const rng = mulberry32(hashString(sessionId));
-  const perForm = new Map(FORMER.map((f) => [f, valjForm(niva, f, sessionId, PER_FORM, { version })]));
+  const antal = perFormFor(version);
+  const former = FORMER.filter((f) => antal[f]);
+  const perForm = new Map(former.map((f) => [f, valjForm(niva, f, sessionId, antal[f]!, { version })]));
   const ut: SpatialFraga[] = [];
   let forra: SpatialForm | null = null;
-  for (let varv = 0; varv < PER_FORM; varv++) {
-    let ordning = blanda(FORMER, rng).filter((f) => (perForm.get(f)?.length ?? 0) > varv);
+  const varv_ = Math.max(...former.map((f) => antal[f]!));
+  for (let varv = 0; varv < varv_; varv++) {
+    let ordning = blanda(former, rng).filter((f) => (perForm.get(f)?.length ?? 0) > varv);
     if (ordning.length > 1 && ordning[0] === forra) ordning = [...ordning.slice(1), ordning[0]];
     for (const f of ordning) {
       ut.push(perForm.get(f)![varv]);

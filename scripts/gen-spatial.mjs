@@ -1,7 +1,8 @@
 // scripts/gen-spatial.mjs
 // =============================================================================
 // Bygger bankerna för Spatial förmåga (brief-tester-steg2-2026-11-09.md
-// avsnitt 2): form A (brickfigur), B (pappersvikning) och C (tärningar).
+// avsnitt 2): form A (brickfigur), B (pappersvikning, uppvikt), C (tärningar)
+// och D (pappersvikning ihopvikt, I-provets riktning, 2026-11-10).
 //
 // Kör: node scripts/gen-spatial.mjs              (alla former)
 //      node scripts/gen-spatial.mjs --form A     (bara form A, övriga former i
@@ -43,6 +44,12 @@ export async function laddaFormer() {
     const C = await import('./lib/spatial/kub.mjs');
     FORMER.C = { bygg: C.byggUppgiftC, sparrar: C.sparrarC, nyckel: C.nyckelC };
   }
+  // D: pappersvikning i I-provets riktning, ihopvikt (2026-11-10, SPATIAL_VERSION 2)
+  if (existsSync('scripts/lib/spatial/hopvikning.mjs')) {
+    const D = await import('./lib/spatial/hopvikning.mjs');
+    // grupp + tak: ingen uppsättning distraktortyper i mer än hälften av nivåns uppgifter (testansvarig 2026-11-10, Ä1)
+    FORMER.D = { bygg: D.byggUppgiftD, sparrar: D.sparrarD, nyckel: D.nyckelD, grupp: (q) => q.typer.filter(Boolean).sort().join('+'), tak: { grund: 12, avancerad: 8, expert: 8 } };
+  }
 }
 
 function formBank(form, niva) {
@@ -70,7 +77,7 @@ function formBank(form, niva) {
       if (ut.filter((x) => F.grupp(x) === g).length >= F.tak[niva]) continue;
     }
     sedda.add(n);
-    ut.push({ ...q, difficulty: SVARIGHET[niva] + (form === 'A' ? 0 : 1), p_prior: P_PRIOR[niva], fran_version: 1 });
+    ut.push({ ...q, difficulty: SVARIGHET[niva] + (form === 'A' ? 0 : 1), p_prior: P_PRIOR[niva], fran_version: form === 'D' ? 2 : 1 });
   }
   return { ut, avvisade };
 }

@@ -262,7 +262,7 @@ const tyngdpunktRam = (poly) => {
 };
 
 /** Möjliga vikningar av en region: linjer genom heltal och halvtal, båda sidorna. */
-function kandidater(poly) {
+export function kandidater(poly) {
   const xs = poly.map((p) => p[0]);
   const ys = poly.map((p) => p[1]);
   const ut = [];
@@ -550,7 +550,7 @@ export function randRuta(poly, [r, c]) {
 }
 
 /** Rutan i sekvensen: regionen före vikningen, delen som viks, linjen och pilen. */
-function vikFigur({ v, fore, rorlig }) {
+export function vikFigur({ v, fore, rorlig }) {
   const linje = linjeISpolygon(fore, v);
   const t = tyngdpunkt(rorlig);
   const s = spegelPunkt(v, t);

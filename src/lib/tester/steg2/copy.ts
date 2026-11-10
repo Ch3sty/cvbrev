@@ -39,7 +39,7 @@ export function steg2PassCopy(kind: Steg2PassKind) {
       betalvagg: `${NAMN[kind]}et ingår i Premium.`,
       betalvaggRad:
         kind === 'spatial'
-          ? 'Sex uppgifter varje dag, två vridna figurer, två pappersvikningar och två tärningar, med lösningen efter varje svar.'
+          ? 'Sex uppgifter varje dag, två vridna figurer, tre pappersvikningar och en tärning, med lösningen efter varje svar.'
           : 'Sex talserier varje dag, med regeln efter varje svar.',
     },
     laddar: { session: 'Hämtar passet', resultat: 'Räknar fram resultatet' },

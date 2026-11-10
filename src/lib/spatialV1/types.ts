@@ -5,12 +5,14 @@
 //   A  vriden eller speglad brickfigur (2D)
 //   B  pappersvikning med hål, på expert med klipp (I-provets två vikningsdeltest)
 //   C  tärningar: kubrotation i 3D (I-provets namn, skissens beslut 12)
+//   D  pappersvikning i I-provets riktning: utvikt ark med hål och klipp,
+//      välj hur det ser ut ihopvikt (ägarens beslut 2026-11-10, version 2)
 // Fyra alternativ A till D, blandade per session med logicTestV7/blanda.ts.
 // Ren typfil.
 // =============================================================================
 
 export type SpatialNiva = 'grund' | 'avancerad' | 'expert';
-export type SpatialForm = 'A' | 'B' | 'C';
+export type SpatialForm = 'A' | 'B' | 'C' | 'D';
 
 /** Koordinater i rutnätet: [rad, kolumn]. */
 export type Ruta = [number, number];
@@ -33,6 +35,9 @@ export interface ArkVikFigur {
   rorlig: Punkt[];
   linje: [Punkt, Punkt];
   pil: [Punkt, Punkt];
+  /** Form D, första rutan: arkets hål och klipp (arket är helt utvikt, poly är hela arket). */
+  hal?: Ruta[];
+  klipp?: Ruta[];
 }
 
 /** Form B, det vikta arket med hålen (och klippet) som stansades. Alla lager är grå. */
@@ -71,10 +76,12 @@ export interface KubFigur {
 export type SpatialFigur = BrickFigur | ArkVikFigur | ArkStansFigur | ArkUtFigur | KubFigur;
 
 export interface SpatialFraga {
-  /** sp-<g|a|e>-<a|b|c>-<nn> */
+  /** sp-<g|a|e>-<a|b|c|d>-<nn> */
   id: string;
   niva: SpatialNiva;
   form: SpatialForm;
+  /** Form D: vikningen framåt till genomgången, arket först och sist det ihopvikta arket. */
+  hopvikning?: (ArkUtFigur | ArkStansFigur)[];
   /** Form B: true när uppgiften har klipp (I-provets "pappersvikning med klipp"). */
   klipp?: boolean;
   difficulty: 1 | 2 | 3 | 4;
@@ -98,7 +105,7 @@ export interface SpatialFraga {
   uppvikning?: (ArkStansFigur | ArkUtFigur)[];
   /** Form C: referensen med de sidor som avslöjar varje distraktor markerade, per alternativ (tom för facit). */
   avslojande?: (('t' | 'l' | 'r')[])[];
-  fran_version: 1;
+  fran_version: 1 | 2;
   pensionerad_fran?: number;
 }
 
@@ -120,6 +127,8 @@ export interface GenomgangSpatial extends VisadSpatial {
   misstag: string[];
   forklaring: string;
   uppvikning?: (ArkStansFigur | ArkUtFigur)[];
+  /** Form D: arket och varje vikt läge med det som syns. */
+  hopvikning?: (ArkUtFigur | ArkStansFigur)[];
   /** Per visat alternativ: referensens sidor som avslöjar det (form C). */
   avslojande?: (('t' | 'l' | 'r')[])[];
 }

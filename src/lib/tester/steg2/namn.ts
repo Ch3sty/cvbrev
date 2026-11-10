@@ -18,9 +18,12 @@ export const FAMILJ_NAMN: Record<string, string> = {
 
 export const FORM_NAMN = {
   A: 'Vriden figur',
-  B: 'Pappersvikning',
+  /** Form B utan klipp: vikt och stansat ark, välj hur det ser ut uppvikt. */
+  B: 'Uppvikning',
   Bklipp: 'Pappersvikning med klipp',
   C: 'Tärningar',
+  /** Form D: utvikt ark, välj hur det ser ut ihopvikt (I-provets deltest 2). */
+  D: 'Pappersvikning',
 } as const;
 
 /** Passets namn per typ (hemvyn, toppraden). */

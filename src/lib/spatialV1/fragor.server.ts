@@ -52,6 +52,7 @@ export function genomgaSpatial(q: SpatialFraga, seed: string, blandade = true): 
     misstag: p.map((o) => q.misstag[o] ?? ''),
     forklaring: q.forklaring,
     ...(q.uppvikning ? { uppvikning: q.uppvikning } : {}),
+    ...(q.hopvikning ? { hopvikning: q.hopvikning } : {}),
     ...(q.avslojande ? { avslojande: p.map((o) => q.avslojande![o] ?? []) } : {}),
   };
 }
@@ -92,10 +93,10 @@ export function rattaSpatialSvar(answers: readonly unknown[]): number {
   return ratt;
 }
 
-/** Antal rätt per form, för "Var du tappar" (A, B, C). */
+/** Antal rätt per form, för "Var du tappar" (A, B, C, D). */
 export function spatialPerForm(answers: readonly { q_id: string; correct: boolean }[]) {
   const form = new Map(allaSpatial().map((q) => [q.id, q.form]));
-  const ut: Record<'A' | 'B' | 'C', { ratt: number; antal: number }> = { A: { ratt: 0, antal: 0 }, B: { ratt: 0, antal: 0 }, C: { ratt: 0, antal: 0 } };
+  const ut: Record<'A' | 'B' | 'C' | 'D', { ratt: number; antal: number }> = { A: { ratt: 0, antal: 0 }, B: { ratt: 0, antal: 0 }, C: { ratt: 0, antal: 0 }, D: { ratt: 0, antal: 0 } };
   for (const a of answers) {
     const f = form.get(a.q_id);
     if (!f) continue;

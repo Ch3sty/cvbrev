@@ -1,0 +1,22 @@
+{
+ "_om": "Undantag för pappersvikning i I-provets riktning (ägarens beslut 2026-11-10, gren feat/vikning-ihop). Läses av scripts/seo-diff-artiklar.ts. Inga rubriker, länkar eller FAQ-frågor tas bort.",
+ "LD_UNDANTAG": [
+  {
+   "path": "/artiklar/i-prov",
+   "datum": "2026-11-10",
+   "skal": "pappersvikning i I-provets riktning: avsnittet om deltest 2 har en ny löst uppgift där arket viks ihop, och HowTo-steget för vecka 2 säger att följa varje hål genom lagren i stället för att öppna baklänges. BlogPosting följer texten.",
+   "andrade": [
+    "BlogPosting",
+    "HowTo"
+   ]
+  },
+  {
+   "path": "/artiklar/rotation-test-guide",
+   "datum": "2026-11-10",
+   "skal": "pappersvikning i I-provets riktning: avsnittet om pappersvikning beskriver båda riktningarna och har en andra löst uppgift där arket viks ihop. BlogPosting följer texten.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  }
+ ]
+}

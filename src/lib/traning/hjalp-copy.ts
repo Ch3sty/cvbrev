@@ -158,7 +158,7 @@ export const HJALP_RUTOR: Record<HjalpId, HjalpRutaText> = {
     id: 'B13',
     grupp: 'B',
     rubrik: 'Spatial förmåga: vad är det?',
-    text: 'Spatial förmåga (rumsuppfattning) är hur väl du vrider, viker och vänder figurer i huvudet. Testet har tre slags uppgifter: en figur som ska vara vriden och inte speglad, ett papper som viks och stansas, och tärningar sedda från olika håll. Tränar samma förmåga som pappersvikning och tärningar i I-provet. I I-provets pappersvikning väljer du hur arket ser ut ihopvikt; här går vikningen åt andra hållet och du väljer hur det ser ut uppvikt. Leta efter det som avslöjar ett fel alternativ, i stället för att föreställa dig hela figuren.',
+    text: 'Spatial förmåga (rumsuppfattning) är hur väl du vrider, viker och vänder figurer i huvudet. Testet har fyra slags uppgifter: en figur som ska vara vriden och inte speglad, ett utvikt ark som du ska se ihopvikt, ett vikt och stansat ark som du ska se uppvikt, och tärningar sedda från olika håll. Tränar samma förmåga som pappersvikning och tärningar i I-provet, där pappersvikningen går från utvikt till ihopvikt. I ihopvikningen syns ett hål bara där det går genom alla lager. Leta efter det som avslöjar ett fel alternativ, i stället för att föreställa dig hela figuren.',
   },
   B14: {
     id: 'B14',

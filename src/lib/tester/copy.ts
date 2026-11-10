@@ -36,7 +36,7 @@ export const FORMATRAD: Record<Exclude<TestKind, 'personlighet'>, string> = {
   figurserie: 'Samma format som figurserierna i SHL Verify och Aon scales ix.',
   deduktiv: 'Samma format som den deduktiva delen i SHL Verify G+ och Aons deduktiva test.',
   talserie: 'Tränar samma förmåga som talserierna i I-provet.',
-  spatial: 'Tränar samma förmåga som pappersvikning och tärningar i I-provet. Vikningen går åt andra hållet: här viker du upp arket, i I-provet väljer du hur det ser ut ihopvikt.',
+  spatial: 'Tränar samma förmåga som pappersvikning och tärningar i I-provet. Pappersvikningen går åt båda hållen: välj hur arket ser ut ihopvikt, som i I-provet, eller uppvikt.',
   ordforrad: 'Tränar samma förmåga som synonymer och motsatsord i I-provet.',
   verbal: 'Samma svarsformat som SHL Verify verbal och Aons scales verbal.',
   numerisk: 'Samma format som det numeriska testet i SHL Verify.',

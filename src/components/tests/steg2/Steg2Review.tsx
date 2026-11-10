@@ -27,7 +27,7 @@ export interface Steg2Svar {
 const tid = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`
 
 /** Gruppens namn ur genomgången: talseriens familj eller spatial förmågas form. */
-export function gruppNamn(g: { family?: string; form?: 'A' | 'B' | 'C'; klipp?: boolean }): string | null {
+export function gruppNamn(g: { family?: string; form?: 'A' | 'B' | 'C' | 'D'; klipp?: boolean }): string | null {
   if (g.family) return FAMILJ_NAMN[g.family] ?? null
   if (g.form) return g.form === 'B' && g.klipp ? FORM_NAMN.Bklipp : FORM_NAMN[g.form]
   return null
@@ -59,7 +59,7 @@ export default function Steg2Review({
   return (
     <section aria-label="Uppgift för uppgift">
       <ul className="divide-y divide-kant rounded-xl border border-kant bg-panel" data-steg2-review>
-        {(fragor as { id: string; family?: string; form?: 'A' | 'B' | 'C'; klipp?: boolean }[]).map((q, i) => {
+        {(fragor as { id: string; family?: string; form?: 'A' | 'B' | 'C' | 'D'; klipp?: boolean }[]).map((q, i) => {
           const svar = answers.find((a) => a.q_id === q.id)
           const isOpen = oppna.has(i)
           return (

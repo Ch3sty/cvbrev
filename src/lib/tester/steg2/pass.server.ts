@@ -178,19 +178,24 @@ export async function hamtaSteg2Pass(admin: Klient, userId: string, sessionId: s
   return rad && lasSteg2PassMeta(rad.meta) ? rad : null;
 }
 
-/** Passets uppgifter: spatial två per form i ordningen A, B, C; övriga seedat ur poolen. Riktat: en grupp. */
+/**
+ * Passets uppgifter. Spatial: sex i ordningen A, D, C, A, D, B (vriden figur,
+ * pappersvikning ihopvikt, tärningar, uppvikning), aldrig två av samma form i
+ * följd; övriga seedat ur poolen. Riktat: en grupp.
+ */
+export const SPATIAL_PASS_ORDNING = ['A', 'D', 'C', 'A', 'D', 'B'] as const;
 function valjUppgifter(m: Steg2Motor, niva: Steg2PassNiva, grupp: string | null, sedda: Map<string, Dag>, idag: Dag, seed: string) {
   const pool = m.pool(niva).filter((q) => !grupp || m.gruppNyckel(q.id) === grupp);
   if (m.kind === 'spatial' && !grupp) {
-    const ids: string[] = [];
+    const perForm = new Map<string, string[]>();
     let upprepad = false;
-    for (const form of ['A', 'B', 'C']) {
-      const v = valjFigurer(pool.filter((q) => m.gruppNyckel(q.id) === form), 2, sedda, idag, `${seed}:${form}`);
-      ids.push(...v.ids);
+    for (const form of new Set(SPATIAL_PASS_ORDNING)) {
+      const antal = SPATIAL_PASS_ORDNING.filter((f) => f === form).length;
+      const v = valjFigurer(pool.filter((q) => m.gruppNyckel(q.id) === form), antal, sedda, idag, `${seed}:${form}`);
+      perForm.set(form, [...v.ids]);
       upprepad = upprepad || v.upprepad;
     }
-    // Aldrig två av samma form i följd: A, B, C, A, B, C.
-    const ordning = [0, 2, 4, 1, 3, 5].map((i) => ids[i]).filter(Boolean);
+    const ordning = SPATIAL_PASS_ORDNING.map((f) => perForm.get(f)?.shift()).filter((x): x is string => !!x);
     return { ids: ordning, upprepad };
   }
   const v = valjFigurer(pool, STEG2_PASS_ANTAL, sedda, idag, seed);

@@ -343,7 +343,7 @@ export const HEM = {
     talseriepass: 'Talseriepass',
     talserieMeta: 'Sex talserier, regeln efter varje svar. Cirka sex minuter.',
     spatialpass: 'Spatialpass',
-    spatialMeta: 'Två vridna figurer, två pappersvikningar, två tärningar. Cirka fem minuter.',
+    spatialMeta: 'Två vridna figurer, tre pappersvikningar, en tärning. Cirka fem minuter.',
     ordpass: 'Ordpass',
     ordMeta: 'Sex ord, synonymer och motsatsord. Cirka två minuter.',
     /** Raden innan Nivåkollen för typen är gjord: Nivåkollen väljer passets nivå. */

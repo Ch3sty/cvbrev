@@ -79,6 +79,7 @@ export const uppgiftensFigurer = (q: SpatialFraga): { fig: SpatialFigur; skala: 
   q.sekvens?.forEach((f, i) => ut.push({ fig: f, skala: sk, var: `sekvens ${i + 1}` }));
   q.options.forEach((f, i) => ut.push({ fig: f, skala: S.alternativ, var: `alternativ ${'ABCD'[i]}` }));
   q.uppvikning?.forEach((f, i) => ut.push({ fig: f, skala: S.sekvens3, var: `uppvikning ${i + 1}` }));
+  q.hopvikning?.forEach((f, i) => ut.push({ fig: f, skala: (q.hopvikning?.length ?? 0) > 3 ? S.sekvens4 : S.sekvens3, var: `hopvikning ${i + 1}` }));
   return ut;
 };
 
@@ -124,7 +125,41 @@ export function matFigur(fig: SpatialFigur, skala: number, var_: string): string
     if (minLuft <= 0) fel.push(`${var_}: brickrutor rör varandra (luft ${minLuft.toFixed(2)})`);
     else if (minLuft !== Infinity && minLuft * skala < g5.minLuftPx) fel.push(`${var_}: luften mellan rutor är ${(minLuft * skala).toFixed(1)} px, minst ${g5.minLuftPx}`);
   }
-  if (fig.kind === 'ark-stans' || fig.kind === 'ark-ut') {
+  if (fig.kind === 'ark-vik' && (fig.hal?.length || fig.klipp?.length)) {
+    // Form D, första rutan: pilen (skaft och huvud) håller minst 1 enhet fritt till varje hål och inre klipp (SP-B2-8)
+    const skaft = t.find((x) => x.startsWith('<line') && attr(x, 'stroke') === G.farger.ink);
+    const huvud = t.find((x) => x.startsWith('<path') && attr(x, 'fill') === G.farger.ink);
+    const seg: [[number, number], [number, number]][] = [];
+    if (skaft) seg.push([[num(skaft, 'x1'), num(skaft, 'y1')], [num(skaft, 'x2'), num(skaft, 'y2')]]);
+    const hp = (attr(huvud ?? '', 'd') ?? '').match(/-?\d+(\.\d+)?/g)?.map(Number) ?? [];
+    const H: [number, number][] = [];
+    for (let i = 0; i + 1 < hp.length; i += 2) H.push([hp[i], hp[i + 1]]);
+    H.forEach((p, i) => seg.push([p, H[(i + 1) % H.length]]));
+    const swPil = G.ark.pil.sw / 2;
+    const dSeg = (p: [number, number], a: [number, number], b: [number, number]) => {
+      const ab = [b[0] - a[0], b[1] - a[1]];
+      const l2 = ab[0] ** 2 + ab[1] ** 2;
+      const u = l2 ? Math.max(0, Math.min(1, ((p[0] - a[0]) * ab[0] + (p[1] - a[1]) * ab[1]) / l2)) : 0;
+      return Math.hypot(p[0] - a[0] - u * ab[0], p[1] - a[1] - u * ab[1]);
+    };
+    for (const c of t.filter((x) => x.startsWith('<circle'))) {
+      const p: [number, number] = [num(c, 'cx'), num(c, 'cy')];
+      const fritt = Math.min(...seg.map(([a, b]) => dSeg(p, a, b))) - num(c, 'r') - swPil;
+      if (fritt < 1 - 1e-6) fel.push(`${var_}: SP-B2-8 pilen har ${fritt.toFixed(1)} enheter fritt till ett hål, minst 1`);
+    }
+    for (const k of t.filter((x) => x.startsWith('<rect') && attr(x, 'fill') === G.farger.ink)) {
+      const [x0, y0, w, h] = ['x', 'y', 'width', 'height'].map((a) => num(k, a));
+      // punkter var 0,25 enhet längs pilens streck mot rektangeln
+      const dRekt = (p: [number, number]) => Math.hypot(Math.max(x0 - p[0], 0, p[0] - x0 - w), Math.max(y0 - p[1], 0, p[1] - y0 - h));
+      let min = Infinity;
+      for (const [a, b] of seg) {
+        const n = Math.max(1, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / 0.25));
+        for (let i = 0; i <= n; i++) min = Math.min(min, dRekt([a[0] + ((b[0] - a[0]) * i) / n, a[1] + ((b[1] - a[1]) * i) / n]));
+      }
+      if (min - swPil < 1 - 1e-6) fel.push(`${var_}: SP-B2-8 pilen har ${(min - swPil).toFixed(1)} enheter fritt till ett klipp, minst 1`);
+    }
+  }
+  if (fig.kind === 'ark-stans' || fig.kind === 'ark-ut' || (fig.kind === 'ark-vik' && (fig.hal?.length || fig.klipp?.length))) {
     const hal = t.filter((x) => x.startsWith('<circle')).map((x) => ({ cx: num(x, 'cx'), cy: num(x, 'cy'), r: num(x, 'r') }));
     for (const h of hal) if (2 * h.r * skala < g5.minHalPx) fel.push(`${var_}: hålet är ${(2 * h.r * skala).toFixed(1)} px, minst ${g5.minHalPx}`);
     for (let i = 0; i < hal.length; i++)
@@ -182,14 +217,14 @@ export function matFigur(fig: SpatialFigur, skala: number, var_: string): string
 export function matUppgift(q: SpatialFraga): SpatialMatt {
   const figurer = uppgiftensFigurer(q);
   // V11 räknas på det som visas samtidigt: referens eller sekvens och alternativen
-  const visas = figurer.filter((f) => !f.var.startsWith('uppvikning'));
+  const visas = figurer.filter((f) => !f.var.startsWith('uppvikning') && !f.var.startsWith('hopvikning'));
   const markup = visas.map((f) => figurSvg(f.fig)).join('');
   const t = taggar(markup);
   const fel: string[] = [];
   const forbjudna = [...new Set(t.map(namn).filter((n) => FORBJUDNA.some((f) => f.toLowerCase() === n.toLowerCase())))];
   if (forbjudna.length) fel.push(`V12 förbjudna element: ${forbjudna.join(', ')}`);
   if (/url\(/.test(markup)) fel.push('V12 url( i markupen');
-  const max = q.form === 'A' ? G.noder.brickMax : q.form === 'B' ? G.noder.arkMax : G.noder.kubMax;
+  const max = q.form === 'A' ? G.noder.brickMax : q.form === 'B' || q.form === 'D' ? G.noder.arkMax : G.noder.kubMax;
   if (t.length > max) fel.push(`V11 ${t.length} noder, högst ${max}`);
   const bytes = Buffer.byteLength(markup, 'utf8');
   if (bytes > G.noder.bytes) fel.push(`V11 ${bytes} bytes, högst ${G.noder.bytes}`);

@@ -19,8 +19,8 @@ export interface IprovDelDef {
   /** Kort namn i resultatets staplar ("Vikning med klipp"). */
   kort: string;
   kind: IprovDelKind;
-  /** ordforrad: synonym eller antonym. spatial: B, Bklipp eller C. */
-  form: 'synonym' | 'antonym' | 'B' | 'Bklipp' | 'C' | 'talpar';
+  /** ordforrad: synonym eller antonym. spatial: D (ihopvikt), Bklipp (uppvikt med klipp) eller C. */
+  form: 'synonym' | 'antonym' | 'D' | 'Bklipp' | 'C' | 'talpar';
   antal: number;
   minuter: number;
   /** Mellanbladets rad om uppgiftens form. */
@@ -30,7 +30,7 @@ export interface IprovDelDef {
 /** Hela provet: 72 uppgifter på 58 minuter (briefen 5.1). */
 export const IPROV_DELAR: readonly IprovDelDef[] = [
   { nr: 1, namn: 'Synonymer', kort: 'Synonymer', kind: 'ordforrad', form: 'synonym', antal: 12, minuter: 6, beskrivning: 'Ett ord i versaler, fem alternativ. Välj ordet som betyder ungefär detsamma.' },
-  { nr: 2, namn: 'Pappersvikning', kort: 'Pappersvikning', kind: 'spatial', form: 'B', antal: 12, minuter: 10, beskrivning: 'Arket viks och stansas. Välj hur det ser ut när det viks upp. I I-provet går vikningen åt andra hållet.' },
+  { nr: 2, namn: 'Pappersvikning', kort: 'Pappersvikning', kind: 'spatial', form: 'D', antal: 12, minuter: 10, beskrivning: 'Ett utvikt ark med hål och streckade viklinjer. Välj hur det ser ut ihopvikt. Hål och klipp syns bara där de går genom alla lager.' },
   { nr: 3, namn: 'Talserier', kort: 'Talserier', kind: 'talserie', form: 'talpar', antal: 12, minuter: 12, beskrivning: 'Två tomma rutor sist i varje rad, du väljer talparet i rätt ordning.' },
   { nr: 4, namn: 'Motsatsord', kort: 'Motsatsord', kind: 'ordforrad', form: 'antonym', antal: 12, minuter: 6, beskrivning: 'Ett ord i versaler, fem alternativ. Välj ordet som betyder motsatsen.' },
   { nr: 5, namn: 'Tärningar', kort: 'Tärningar', kind: 'spatial', form: 'C', antal: 12, minuter: 12, beskrivning: 'En tärning och fyra till. Välj den som kan vara samma tärning sedd från ett annat håll.' },
