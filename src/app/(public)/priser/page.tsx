@@ -24,6 +24,7 @@ import PrisTabell from '@/components/publikt/PrisTabell'
 import Faq from '@/components/publikt/Faq'
 import FastKnapprad from '@/components/publikt/FastKnapprad'
 import { PremiumOrd, PrisRad } from '@/components/publikt/PremiumBlock'
+import { KampanjVarianter } from '@/components/kampanj/Kampanj'
 import { TESTTAL, PROV_MINUTER } from '@/components/publikt/testtal'
 import { talOrd } from '@/components/publikt/talord'
 import SkarmPersonlighet from '@/components/publikt/telefon/skarmar/SkarmPersonlighet'
@@ -72,6 +73,9 @@ const GRATIS_RAD: { objekt: ObjektTyp; rum: 'tran' | 'cv' | 'brev' | 'jobb'; tal
   { objekt: 'match', rum: 'jobb', tal: FREE_TIER_JOB_LIMIT, text: 'matchade jobb' },
 ]
 
+/** Köpknappens text, med kampanjvarianterna (lib/kampanj). */
+const KNAPP = <KampanjVarianter ord={PAKET_KORT.allt.knapp} kampanj={(k) => k.copy.prisKnapp} />
+
 export default function PriserSida() {
   const tester = funktion('rekryteringstester')
   const analys = funktion('cv-analys')
@@ -103,8 +107,10 @@ export default function PriserSida() {
                 </p>
                 <PrisRad style={{ marginTop: 28 }} />
                 <div className="pub-handling" style={{ marginTop: 20 }}>
-                  <PriserKopKnapp primar />
-                  <span className="pub-liten">{PAKET_KORT.allt.fotnot}</span>
+                  <PriserKopKnapp primar etikett={KNAPP} />
+                  <span className="pub-liten">
+                    <KampanjVarianter ord={PAKET_KORT.allt.fotnot} kampanj={(k) => k.copy.prisFotnot} />
+                  </span>
                 </div>
                 <h2 className="pub-h3" style={{ marginTop: 40 }}>
                   {PAKET_KORT.allt.listEtikett}
@@ -276,7 +282,7 @@ export default function PriserSida() {
             rubrikNiva="h3"
             gratisRad={coach.sub}
             text={coach.text}
-            knapp={<PriserKopKnapp cta="secondary" />}
+            knapp={<PriserKopKnapp cta="secondary" etikett={KNAPP} />}
             knappNot="Säg upp när du vill"
             telefon={<SkarmCoach />}
           />
@@ -331,7 +337,7 @@ export default function PriserSida() {
                 fragor={PRISER_FAQ_ITEMS}
                 efter={
                   <div className="pub-handling" style={{ marginTop: 36 }}>
-                    <PriserKopKnapp cta="secondary" />
+                    <PriserKopKnapp cta="secondary" etikett={KNAPP} />
                     <Link className="pub-lank" href="/register">
                       Eller börja gratis
                     </Link>
@@ -342,7 +348,7 @@ export default function PriserSida() {
           </Rum>
         </div>
         <FastKnapprad text={PAKET_KORT.allt.knapp} href="/register" observera="hjalte">
-          <PriserKopKnapp cta="secondary" />
+          <PriserKopKnapp cta="secondary" etikett={KNAPP} />
         </FastKnapprad>
       </PubliktSida>
 

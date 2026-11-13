@@ -71,6 +71,9 @@ export default function InstallningarClient({ epost, inloggningSatt }: { epost: 
           <MejlSection
             initialDigestOptOut={profil?.weekly_digest_opt_out === true}
             initialQuotaOptOut={profil?.quota_emails_opt_out === true}
+            // null (ej tillfrågad, konton före 2026-11-13) får kampanjmejlen,
+            // så växeln visar på. Bara ett uttryckligt nej är av.
+            initialErbjudandenOptOut={profil?.erbjudanden_mejl === false}
           />
 
           <PrenumerationSection titel={prenumeration.titel} text={prenumeration.text} chip={prenumeration.chip} />

@@ -6,6 +6,7 @@ import localFont from 'next/font/local'
 import Script from 'next/script'
 import ClientLayout from './client-layout'
 import CookieBanner, { SamtyckeHuvud } from '@/components/samtycke/CookieBanner'
+import { KampanjHuvud } from '@/components/kampanj/Kampanj'
 
 // Typsnitten ligger i repot (src/assets/fonts, OFL-licenserna bredvid) i
 // stället för att hämtas från Google vid bygget (beslut-banners-2026-10-12,
@@ -148,6 +149,10 @@ export default function RootLayout({
         {/* Har besökaren redan svarat på cookies döljs samtycket här, före
             första målningen (CookieBanner.tsx). */}
         <SamtyckeHuvud />
+
+        {/* Kampanjerna (lib/kampanj): väljer variant på de cachade publika
+            sidorna före första målningen. Ingenting efter sista kampanjen. */}
+        <KampanjHuvud />
 
         {/* Ensure dataLayer exists synchronously before GTM */}
         <script dangerouslySetInnerHTML={{

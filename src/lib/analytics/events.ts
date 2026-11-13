@@ -320,7 +320,13 @@ export interface AnalyticsEvents {
      så att en bortfallen kryssruta går att skilja från en bortfallen kassa. */
   purchase_step_viewed: { plan: PlanKey; surface: string }
   consent_checked: { plan: PlanKey }
-  checkout_started: { plan: PlanKey; length: PlanLength }
+  checkout_started: { plan: PlanKey; length: PlanLength; kampanj?: string | null }
+  /* Kampanjerna (lib/kampanj). Raden visad och klickad, publikt och
+     inloggat, och kassans besked när priset bytts medan köpsteget var öppet. */
+  kampanj_rad_visad: { kampanj: string; yta: 'publikt' | 'inloggat' }
+  kampanj_rad_klickad: { kampanj: string; yta: 'publikt' | 'inloggat' }
+  kampanj_rad_stangd: { kampanj: string }
+  kampanj_pris_andrat: { till: string }
   /* Välkomstskärmen efter köpet, /dashboard/vecka/start. */
   welcome_viewed: { paket: 'cv' | 'tester' | 'allt'; has_cv: boolean }
   /* Kvitteringarna skjuts från servern (src/lib/analytics/server.ts) när

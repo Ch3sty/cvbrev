@@ -81,6 +81,8 @@ export const STEG2 = {
   villkorMitt: ' och vår ',
   integritetLank: 'integritetspolicy',
   villkorEfter: '.',
+  /** Mejlvalet, frivilligt och oikryssat (ägarens beslut 2026-11-13). */
+  erbjudanden: 'Mejla mig erbjudanden och tips om tester och jobbsök. Avsluta när du vill.',
   primar: 'Skapa konto',
   busy: 'Skapar kontot',
   valrad: {

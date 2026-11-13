@@ -15,7 +15,7 @@
  * frågorna och i den fasta knappraden.
  */
 
-import { useCallback, useState } from 'react'
+import { useCallback, useState, type ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { PAKET_KORT } from '@/components/pricing/paket-copy'
@@ -24,7 +24,16 @@ import { useAuth } from '@/contexts/AuthContext'
 import { SALD_PLAN } from '@/lib/plans/plans'
 import { kopstegHref } from '@/lib/onboarding/steps'
 
-export default function PriserKopKnapp({ primar = false, cta = 'primary' }: { primar?: boolean; cta?: 'primary' | 'secondary' } = {}) {
+export default function PriserKopKnapp({
+  primar = false,
+  cta = 'primary',
+  etikett,
+}: {
+  primar?: boolean
+  cta?: 'primary' | 'secondary'
+  /** Knapptexten. Prissidan skickar kampanjvarianterna härifrån (servern). */
+  etikett?: ReactNode
+} = {}) {
   const router = useRouter()
   // Ur AuthContext, som bara laddar Supabase-klienten när det finns en
   // sessionscookie. Prissidan betalade annars klienten för varje besökare.
@@ -52,7 +61,7 @@ export default function PriserKopKnapp({ primar = false, cta = 'primary' }: { pr
       data-primar={primar ? '' : undefined}
       className="pub-knapp"
     >
-      {PAKET_KORT.allt.knapp}
+      {etikett ?? PAKET_KORT.allt.knapp}
     </button>
   )
 }

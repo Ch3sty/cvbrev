@@ -131,6 +131,8 @@ export interface SignupCookie {
   smakprov?: Smakprov | null
   paket?: PlanKey | null
   redirect?: string | null
+  /** Mejlvalet i registreringen. Utelämnat: rutan fanns inte. */
+  erbjudanden?: boolean
 }
 
 export function serialiseraSignupCookie(c: SignupCookie): string {
@@ -165,6 +167,7 @@ export function lasSignupCookie(raw: string | null | undefined): SignupCookie | 
     smakprov: typ && token && giltigtSmakprov(typ, token) ? { typ, token } : null,
     paket: isPlanKey(d.paket) ? d.paket : null,
     redirect: sakerRedirect(d.redirect),
+    ...(typeof d.erbjudanden === 'boolean' ? { erbjudanden: d.erbjudanden } : {}),
   }
 }
 

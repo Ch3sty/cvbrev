@@ -352,6 +352,13 @@ export const SPARVAL = {
 
 /* ----------------------------------------------------------- köpsteget */
 
+/** Det copyn behöver av en kampanj (KampanjVisning i lib/kampanj). */
+export interface KampanjPris {
+  namn: string
+  pris: number
+  giltigTill: string
+}
+
 export const KOPSTEG = {
   /** Rubriken bär fulla namnet; prisraden under har kort form. */
   rubrik: (plan: PlanKey = SALD_PLAN) => paketNamn(saljbarPlan(plan)),
@@ -390,7 +397,7 @@ export const KOPSTEG = {
    * oförändrat). Beloppet är paketets pris och datumet nästa dragning räknad
    * som Stripe räknar den (nastaDragningEfter i plans.ts).
    */
-  samtycke: (plan: PlanKey, nasta?: string) => {
+  samtycke: (plan: PlanKey, nasta?: string, kampanj?: KampanjPris | null) => {
     const p = PLAN_BY_KEY[plan]
     const start =
       'Jag vill att innehållet startar direkt och förstår att ångerrätten därmed inte gäller.'
@@ -404,10 +411,26 @@ export const KOPSTEG = {
           ? 'varje månad på samma datum'
           : 'var tredje månad på samma datum'
     const nastaGang = nasta ? `, nästa gång ${nasta},` : ''
+    // Kampanjen sänker bara första dragningen. Texten säger båda beloppen,
+    // eftersom den sparas som bevis i Stripe (create-plan-session).
+    if (kampanj && p.length === 'månad') {
+      return `${start} ${kampanj.pris} kr dras i dag, sedan ${p.amount} kr ${takt}${nastaGang} tills jag säger upp prenumerationen.`
+    }
     return `${start} ${p.amount} kr dras ${takt}${nastaGang} tills jag säger upp prenumerationen.`
   },
   samtyckeSparr: 'Kryssa i rutan ovanför för att fortsätta.',
-  primar: (plan: PlanKey = SALD_PLAN) => `Till betalning, ${PLAN_BY_KEY[saljbarPlan(plan)].amount} kr`,
+  primar: (plan: PlanKey = SALD_PLAN, kampanj?: KampanjPris | null) =>
+    `Till betalning, ${kampanj ? kampanj.pris : PLAN_BY_KEY[saljbarPlan(plan)].amount} kr`,
+  /** Prisraden under rubriken när en kampanj gäller kontot. */
+  prisradKampanj: (k: KampanjPris) =>
+    `${k.pris} kr första månaden, sedan ${PLAN_BY_KEY[SALD_PLAN].amount} kr i månaden. Säg upp när du vill.`,
+  /** Raden ovanför rubriken: "Black Week, gäller till söndag 29 november 23.59". */
+  kampanjRad: (k: KampanjPris) => `${k.namn}, gäller ${k.giltigTill}`,
+  /** 409 prisAndrat: kampanjen hann börja eller sluta medan steget var öppet. */
+  prisAndrat: (ny: KampanjPris | null) =>
+    ny
+      ? `Priset har ändrats. ${ny.namn} började medan sidan var öppen, och första månaden kostar nu ${ny.pris} kr. Inget har dragits från ditt kort. Kryssa i rutan igen för att fortsätta.`
+      : `Priset har ändrats. Kampanjen tog slut medan sidan var öppen, och ${PREMIUM} kostar nu ${PLAN_BY_KEY[SALD_PLAN].amount} kr i månaden från första dragningen. Inget har dragits från ditt kort. Kryssa i rutan igen för att fortsätta.`,
   busy: 'Öppnar kassan',
   fotnot: 'Kortbetalning via Stripe. Kvitto på mejl.',
   /** 400 med saljs: false. Aldrig "klart": kassan öppnades inte. */
@@ -450,9 +473,13 @@ export function nastaDragningText(plan: PlanKey, nu: Date = new Date()): string 
  * lägger exakt den här texten i sessionens metadata, så beviset och det
  * kunden läste är samma mening.
  */
-export function samtyckeVidKop(plan: PlanKey, nu: Date = new Date()): string {
+export function samtyckeVidKop(
+  plan: PlanKey,
+  nu: Date = new Date(),
+  kampanj?: KampanjPris | null
+): string {
   const engangs = PLAN_BY_KEY[plan].mode === 'payment'
-  return KOPSTEG.samtycke(plan, engangs ? undefined : nastaDragningText(plan, nu))
+  return KOPSTEG.samtycke(plan, engangs ? undefined : nastaDragningText(plan, nu), engangs ? null : kampanj)
 }
 
 /* -------------------------------------------------------- kontosidan */

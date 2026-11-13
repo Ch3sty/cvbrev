@@ -25,7 +25,7 @@ import { ToggleSwitch, INPUT_CLASS } from '@/app/dashboard/profil/components/Pro
 import { KONTO_SEKTION } from '@/app/dashboard/profil/profil-copy'
 
 interface MejlRad {
-  key: 'digest' | 'quota'
+  key: 'digest' | 'quota' | 'erbjudanden'
   endpoint: string
   title: string
   body: string
@@ -46,6 +46,15 @@ const MEJL: MejlRad[] = [
     title: 'Påminnelser om din kvot',
     body: 'Mejl när dina gratisbrev återställs och när något du använt tagit slut. Av om du hellre håller koll själv.',
     ariaLabel: 'Påminnelser om din kvot via mejl',
+  },
+  {
+    // Mejlvalet (ägarens beslut 2026-11-13). Samma val som rutan i
+    // registreringen och avregistreringslänken i kampanjmejlen.
+    key: 'erbjudanden',
+    endpoint: '/api/email/erbjudanden-preference',
+    title: 'Erbjudanden och tips på mejl',
+    body: 'Ibland mejlar vi om kampanjer, nya tester och sådant som gör jobbsöket lättare. Kvitton och påminnelser om ditt provdatum kommer oavsett.',
+    ariaLabel: 'Ta emot erbjudanden och tips',
   },
 ]
 
@@ -86,13 +95,16 @@ function Huvud({ id, titel, under }: { id: string; titel: string; under?: string
 export function MejlSection({
   initialDigestOptOut,
   initialQuotaOptOut,
+  initialErbjudandenOptOut = false,
 }: {
   initialDigestOptOut: boolean
   initialQuotaOptOut: boolean
+  initialErbjudandenOptOut?: boolean
 }) {
   const [optOut, setOptOut] = useState<Record<MejlRad['key'], boolean>>({
     digest: initialDigestOptOut,
     quota: initialQuotaOptOut,
+    erbjudanden: initialErbjudandenOptOut,
   })
 
   return (

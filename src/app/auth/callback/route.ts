@@ -198,6 +198,8 @@ export async function GET(request: NextRequest) {
           userId: user.id,
           source: 'google',
           acquisition,
+          // Mejlvalet följer med genom Google i jc_signup.
+          ...(typeof signup?.erbjudanden === 'boolean' ? { erbjudanden: signup.erbjudanden } : {}),
         }),
       })
     } catch (trialError) {

@@ -21,6 +21,8 @@ import { getStripePriceId } from '@/lib/stripe/planPrices'
 import { VECKA_START_PATH } from '@/lib/onboarding/steps'
 import { KOPSTEG, samtyckeVidKop } from '@/components/pricing/paket-copy'
 import { kopKallaMetadata } from '@/lib/stripe/kopKalla.server'
+import { isKampanjNyckel, kampanjNu, visning } from '@/lib/kampanj/kampanj'
+import { kampanjForKop } from '@/lib/kampanj/kampanj.server'
 
 export async function POST(request: NextRequest) {
   try {
@@ -33,10 +35,12 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json().catch(() => ({}))
-    const { plan, source, consent } = body as {
+    const { plan, source, consent, kampanj: visadKampanj } = body as {
       plan?: unknown
       source?: unknown
       consent?: unknown
+      /** Kampanjen köpsteget visade, eller null för ordinarie pris. */
+      kampanj?: unknown
     }
 
     if (!isPlanKey(plan)) {
@@ -133,6 +137,24 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Kampanjpriset (lib/kampanj). Servern är facit: pågår en kampanj och har
+    // kontot aldrig betalat läggs kupongen på. Visade köpsteget ett annat pris
+    // än det som gäller nu (kampanjen hann börja eller sluta medan sidan var
+    // öppen) öppnas ingen kassa. Kunden får se det nya priset och kryssa i
+    // samtycket igen, eftersom samtyckestexten nämner beloppet.
+    const nu = kampanjNu()
+    const kampanj =
+      selected.key === SALD_PLAN && selected.mode === 'subscription'
+        ? await kampanjForKop(user.id, customerId, nu)
+        : null
+    const visad = isKampanjNyckel(visadKampanj) ? visadKampanj : null
+    if ((kampanj?.nyckel ?? null) !== visad) {
+      return NextResponse.json(
+        { error: KOPSTEG.prisAndrat(kampanj), prisAndrat: true, kampanj: visning(kampanj) },
+        { status: 409 }
+      )
+    }
+
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.jobbcoach.ai'
     // scope och planKey följer med hela vägen till webhooken, som skriver
     // premium_scope ur dem. Saknas de faller webhooken tillbaka på
@@ -152,7 +174,8 @@ export async function POST(request: NextRequest) {
       // faktiskt läste inte kan glida isär. Förut stod en äldre, kortare
       // text här (PAKETSKARM.samtycke) som kunden aldrig såg.
       angerratt_samtycke_at: new Date().toISOString(),
-      angerratt_samtycke_text: samtyckeVidKop(selected.key),
+      angerratt_samtycke_text: samtyckeVidKop(selected.key, nu, kampanj),
+      ...(kampanj ? { kampanj: kampanj.nyckel } : {}),
       // Källan, valet och dagarna till provet vid köpet (saas-leads beslut 6).
       ...(await kopKallaMetadata(user.id)),
     }
@@ -163,6 +186,16 @@ export async function POST(request: NextRequest) {
       customer: customerId,
       locale: 'sv',
       line_items: [{ price: priceId, quantity: 1 }],
+      // Kupongen har samma id som kampanjnyckeln (scripts/stripe-kampanj-
+      // kuponger.ts). Kampanjkassan stänger efter drygt 30 minuter, Stripes
+      // minsta tid, så ett pris som setts före midnatt inte kan betalas
+      // dagar senare.
+      ...(kampanj
+        ? {
+            discounts: [{ coupon: kampanj.nyckel }],
+            expires_at: Math.floor(Date.now() / 1000) + 31 * 60,
+          }
+        : {}),
       // Köpreturen går till veckans start, inte till hemskärmen. Det är där
       // det första steget i paketet ligger.
       success_url: `${baseUrl}${VECKA_START_PATH}?premium_activated=true&plan=${selected.key}`,

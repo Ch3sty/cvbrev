@@ -129,6 +129,13 @@ export async function updateSession(request: NextRequest, efterInloggning?: Efte
   if (!user && isProtectedRoute(pathname)) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'
+    // Köpsteget nås från kampanjmejlen (lib/kampanj). Den som är utloggad
+    // ska tillbaka dit efter inloggningen, inte till hemskärmen. Bara den
+    // vägen bär med sig målet, så att inget annat inloggningsflöde ändras.
+    if (pathname === '/dashboard/valj-spar') {
+      url.search = ''
+      url.searchParams.set('redirect', pathname + request.nextUrl.search)
+    }
     return NextResponse.redirect(url)
   }
 

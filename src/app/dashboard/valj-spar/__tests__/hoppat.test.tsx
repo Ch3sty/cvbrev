@@ -105,7 +105,7 @@ describe('köpsteget', () => {
     await waitFor(() => expect(fetchMock).toHaveBeenCalled())
     const anrop = fetchMock.mock.calls.find(([u]) => String(u).includes('create-plan-session'))!
     const kropp = JSON.parse((anrop[1] as RequestInit).body as string)
-    expect(kropp).toEqual({ plan: 'all_month', source: 'betalvagg:matning', consent: true })
+    expect(kropp).toEqual({ plan: 'all_month', source: 'betalvagg:matning', consent: true, kampanj: null })
     href.mockRestore()
   })
 

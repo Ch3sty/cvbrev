@@ -20,6 +20,8 @@ import { SALD_PLAN, paketNamn, saljbarPlan } from '@/lib/plans/plans'
 import ValjSparClient from './ValjSparClient'
 import { HOPPAT_PARAM } from '@/components/registrering/intent'
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
+import { kampanjNu, visning } from '@/lib/kampanj/kampanj'
+import { kampanjForVisning } from '@/lib/kampanj/kampanj.server'
 
 export const metadata = { title: paketNamn(SALD_PLAN) }
 
@@ -55,10 +57,17 @@ export default async function ValjSparPage({
     /* ett läsfel får aldrig stoppa köpet, steget fungerar utan tidigare svar */
   }
 
+  // Kampanjpriset om en kampanj pågår och kontot aldrig betalat. Kassan
+  // kontrollerar samma sak igen och är facit (create-plan-session).
+  const plan = saljbarPlan(params.paket)
+  const { kampanj, behorig } =
+    plan === SALD_PLAN ? await kampanjForVisning(user.id, kampanjNu()) : { kampanj: null, behorig: null }
+
   return (
     <ValjSparClient
+      kampanj={behorig ? visning(kampanj) : null}
       initialTrack={initialTrack}
-      plan={saljbarPlan(params.paket)}
+      plan={plan}
       plats={lasPlats(params.plats)}
       // Frågan i steg 1 hoppades över: Börja gratis ställer den inte igen.
       utanGratisfraga={params[HOPPAT_PARAM] === '1'}

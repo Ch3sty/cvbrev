@@ -26,6 +26,8 @@ import { rumForPath, VAGG_FARG, type Rum } from '@/lib/rum/rum';
 import { PATHNAME_HEADER } from '@/lib/rum/pathname-header';
 import { EPOSTBANNER_AVFARDAD_COOKIE } from '@/components/dashboard/epostbanner-cookie';
 import { OMSTYRNING_SKRIPT } from './profil/omstyrning';
+import { KAMPANJ_STANGD_COOKIE, kampanjNu, visning } from '@/lib/kampanj/kampanj';
+import { kampanjForVisning } from '@/lib/kampanj/kampanj.server';
 
 /** Rummet för requesten, ur sökvägen som proxyn lägger på (spec 5). */
 async function rumForRequest(): Promise<Rum> {
@@ -66,8 +68,16 @@ export default async function DashboardLayout({
   // senaste dygnet får den i HTML:en. Ett bekräftat konto får ingen rad och
   // ingen platshållare, så inget kan falla ihop och skifta sidan. Saknas
   // summeringen (läsfel) visas ingen rad; hellre det än en gissning.
-  const avfardad = (await cookies()).has(EPOSTBANNER_AVFARDAD_COOKIE);
+  const cookieStore = await cookies();
+  const avfardad = cookieStore.has(EPOSTBANNER_AVFARDAD_COOKIE);
   const visaEpostbanner = initialSummary?.emailVerified === false && !avfardad;
+
+  // Kampanjraden (lib/kampanj) avgörs också här: bara under en kampanj, bara
+  // för konton som aldrig haft Premium och bara om raden inte stängts för
+  // just den kampanjen. Utanför kampanjerna görs ingen extra läsning.
+  const { kampanj, behorig } = await kampanjForVisning(user.id, kampanjNu());
+  const kampanjStangd = kampanj && cookieStore.get(KAMPANJ_STANGD_COOKIE)?.value === kampanj.nyckel;
+  const kampanjRad = kampanj && behorig && !kampanjStangd ? visning(kampanj) : null;
 
   return (
     <>
@@ -80,6 +90,8 @@ export default async function DashboardLayout({
         initialSummary={initialSummary}
         rum={rum}
         visaEpostbanner={visaEpostbanner}
+        kampanjRad={kampanjRad}
+        kampanjBehorig={behorig}
       >
         {children}
       </DashboardShell>

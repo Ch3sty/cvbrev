@@ -1,4 +1,5 @@
 import LandingNavbar from '@/components/landing/LandingNavbar';
+import { KampanjRadPublik } from '@/components/kampanj/Kampanj';
 
 /**
  * Layout för alla publika sidor (besokare som inte är inloggade i dashboard).
@@ -23,6 +24,9 @@ export default function PublicLayout({
   return (
     <>
       <LandingNavbar />
+      {/* Under menyn, inte ovanför: menyn är sticky och mobilmenyn räknar
+          med 64 px från toppen. Raden rullar bort med sidan. */}
+      <KampanjRadPublik />
       {children}
     </>
   );

@@ -27,6 +27,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import type { User } from '@supabase/supabase-js';
 import EmailVerificationBanner from '@/components/dashboard/email-verification-banner';
+import KampanjRadInloggad from '@/components/kampanj/KampanjRadInloggad';
+import { KAMPANJ_EJ_COOKIE, type KampanjVisning } from '@/lib/kampanj/kampanj';
 import NavigationProgress from '@/components/ui/NavigationProgress';
 import { KomIgangProvider } from '@/components/dashboard/KomIgangContext';
 import KomIgangRad from '@/components/dashboard/KomIgangRad';
@@ -101,6 +103,8 @@ export default function DashboardShell({
   initialSummary,
   rum: serverRum,
   visaEpostbanner,
+  kampanjRad = null,
+  kampanjBehorig = null,
 }: {
   children: React.ReactNode;
   user: User;
@@ -112,10 +116,25 @@ export default function DashboardShell({
    * avfärdats det senaste dygnet (layout.tsx). Klienten gissar aldrig.
    */
   visaEpostbanner: boolean;
+  /** Kampanjraden, om servern sett att kontot kan få priset och inte stängt den. */
+  kampanjRad?: KampanjVisning | null;
+  /** Under en kampanj: kan kontot få priset? Null utanför kampanjerna. */
+  kampanjBehorig?: boolean | null;
 }) {
   const pathname = usePathname();
   const router = useRouter();
   const rum: Rum = pathname ? rumForPath(pathname) : serverRum;
+
+  // De publika sidorna är CDN-cachade och vet inte vem som tittar. En cookie
+  // säger åt kampanjskriptet där att inte visa raden för den som redan har
+  // eller har haft Premium (lib/kampanj, KAMPANJ_EJ_COOKIE).
+  useEffect(() => {
+    if (kampanjBehorig === null) return;
+    const secure = location.protocol === 'https:' ? ';Secure' : '';
+    document.cookie = kampanjBehorig
+      ? `${KAMPANJ_EJ_COOKIE}=;max-age=0;path=/;SameSite=Lax${secure}`
+      : `${KAMPANJ_EJ_COOKIE}=1;max-age=${30 * 24 * 60 * 60};path=/;SameSite=Lax${secure}`;
+  }, [kampanjBehorig]);
 
   // Ett flöde är ett läge: FlowShell äger hela skärmen och har sin egen
   // topprad och fot. E-postbannern hoppas över direkt, pathname är känd
@@ -268,7 +287,9 @@ export default function DashboardShell({
 
           {/* Innehåll */}
           <div className="relative z-10 flex flex-1 flex-col overflow-hidden">
-            {visaEpostbanner && !isFlowRoute && (
+            {kampanjRad && !isFlowRoute && <KampanjRadInloggad kampanj={kampanjRad} />}
+
+            {visaEpostbanner && !kampanjRad && !isFlowRoute && (
               <EmailVerificationBanner
                 userId={user.id}
                 email={user.email ?? ''}

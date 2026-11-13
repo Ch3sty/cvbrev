@@ -105,6 +105,9 @@ export default function PrivacyPolicyPage() {
               <strong>Kommunikation:</strong> Om du kontaktar oss (t.ex. via e-post) kan vi spara korrespondensen för att kunna hjälpa dig.
             </li>
             <li>
+              <strong>Erbjudanden och tips på mejl:</strong> Ibland mejlar vi om kampanjer, nya tester och sådant som gör jobbsöket lättare. Nya konton får sådana mejl bara om de kryssat i rutan för det vid registreringen. Du kan när som helst stänga av dem via länken i mejlet eller under Inställningar i din profil. Kvitton och mejl som rör ditt konto skickas oavsett.
+            </li>
+            <li>
               <strong>Cookies och spårningstekniker:</strong> Se avsnitt 5.
             </li>
           </ul>

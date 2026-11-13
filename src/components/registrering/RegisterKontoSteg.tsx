@@ -141,6 +141,8 @@ export default function RegisterKontoSteg({
   const [busy, setBusy] = useState(false)
   const [fel, setFel] = useState<Fel | null>(null)
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  // Mejlvalet: frivilligt, oikryssat, stoppar aldrig kontot.
+  const [erbjudanden, setErbjudanden] = useState(false)
 
   // Smakprovets token läggs också i sessionStorage, som överlever Googles
   // redirect i samma flik. Cookien är huvudvägen, det här är reserven.
@@ -151,7 +153,7 @@ export default function RegisterKontoSteg({
   const loginHref = loggaInHref({ intent, smakprov, paket, redirect })
 
   const skrivCookie = () =>
-    skrivSignupCookie({ intent, entry, skipped, fragaVisad, smakprov, paket, redirect })
+    skrivSignupCookie({ intent, entry, skipped, fragaVisad, smakprov, paket, redirect, erbjudanden })
 
   /** signup_failed med felkoden (undersökningen 2026-10-12). Aldrig adressen. */
   const matFel = (steg: 'validering' | 'turnstile' | 'signup', felkod: string) =>
@@ -221,7 +223,7 @@ export default function RegisterKontoSteg({
       void fetch('/api/auth/post-signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId, source: 'password', acquisition: getAcquisitionSource() }),
+        body: JSON.stringify({ userId, source: 'password', acquisition: getAcquisitionSource(), erbjudanden }),
       }).catch((err) => console.error('[register] post-signup misslyckades:', err))
 
       void fetch('/api/auth/send-confirmation', {
@@ -418,6 +420,17 @@ export default function RegisterKontoSteg({
                 invalid={fel?.falt === 'losen'}
               />
               <TurnstileWidget onToken={setTurnstileToken} />
+              {/* Mejlvalet: frivilligt och oikryssat, före knappen så att valet
+                  syns innan kontot skapas. Följer med genom Google i jc_signup. */}
+              <label className="pub-konto-villkor" style={{ display: 'flex', gap: 10, alignItems: 'flex-start', cursor: 'pointer', minHeight: 44, fontSize: 13 }}>
+                <input
+                  type="checkbox"
+                  checked={erbjudanden}
+                  onChange={(e) => setErbjudanden(e.target.checked)}
+                  style={{ width: 18, height: 18, marginTop: 1, flexShrink: 0, accentColor: 'var(--ink-1)', cursor: 'pointer' }}
+                />
+                <span>{STEG2.erbjudanden}</span>
+              </label>
               <button type="submit" disabled={busy} aria-disabled={busy || undefined} className="pub-knapp pub-konto-knapp">
                 {busy ? STEG2.busy : smak ? smak.knapp : STEG2.primar}
               </button>

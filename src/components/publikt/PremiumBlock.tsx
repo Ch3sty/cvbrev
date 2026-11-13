@@ -9,6 +9,7 @@ import Link from 'next/link'
 import type { CSSProperties, ReactNode } from 'react'
 import { PLAN_BY_KEY, SALD_PLAN, paketKort } from '@/lib/plans/plans'
 import Rum from './Rum'
+import { KampanjPris, KampanjVarianter } from '@/components/kampanj/Kampanj'
 
 /** "Premium" med gradienten. Bara på bläck. */
 export function PremiumOrd() {
@@ -20,7 +21,14 @@ export function PrisRad({ className = '', style }: { className?: string; style?:
   const plan = PLAN_BY_KEY[SALD_PLAN]
   return (
     <p className={`pub-pris ${className}`.trim()} style={style}>
-      {plan.amount} kr<small>{plan.suffix}, säg upp när du vill</small>
+      <KampanjVarianter
+        ord={
+          <>
+            {plan.amount} kr<small>{plan.suffix}, säg upp när du vill</small>
+          </>
+        }
+        kampanj={(k) => <KampanjPris k={k} />}
+      />
     </p>
   )
 }

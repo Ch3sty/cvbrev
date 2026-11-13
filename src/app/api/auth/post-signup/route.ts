@@ -19,10 +19,12 @@ import { direktAttribution, type Attribution } from '@/lib/analytics/attribution
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json().catch(() => ({}))
-    const { userId, source, acquisition } = body as {
+    const { userId, source, acquisition, erbjudanden } = body as {
       userId?: unknown
       source?: unknown
       acquisition?: Attribution
+      /** Mejlvalet i registreringen (ruta, oikryssad). */
+      erbjudanden?: unknown
     }
 
     if (typeof userId !== 'string' || !userId) {
@@ -94,6 +96,16 @@ export async function POST(request: NextRequest) {
         // Attributionen är mätdata, inte ett krav för att kontot ska fungera.
         console.error('[POST SIGNUP] Kunde inte spara acquisition_source:', updateError.message)
       }
+    }
+
+    // Mejlvalet. Kolumnens standard är false (20261113120000), så bara ett ja
+    // behöver skrivas, men vi skriver valet och tiden i båda fallen.
+    if (typeof erbjudanden === 'boolean') {
+      const { error: valFel } = await admin
+        .from('profiles')
+        .update({ erbjudanden_mejl: erbjudanden, erbjudanden_mejl_at: new Date().toISOString() })
+        .eq('id', userId)
+      if (valFel) console.error('[POST SIGNUP] Kunde inte spara mejlvalet:', valFel.message)
     }
 
     // Livscykelmailen ska aldrig kunna fälla registreringen.

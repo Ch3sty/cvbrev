@@ -34,6 +34,7 @@ import { IlluScenCv } from '@/components/illustrations/PriserScener'
 import { capture } from '@/lib/analytics/events'
 import { SPARVAL_GRATIS, type Track } from '@/lib/onboarding/program'
 import { PLAN_BY_KEY, SALD_PLAN, type PlanKey } from '@/lib/plans/plans'
+import type { KampanjVisning } from '@/lib/kampanj/kampanj'
 import {
   KOPSTEG,
   PAKET_KORT,
@@ -68,6 +69,8 @@ export interface ValjSparClientProps {
    * gång (QA 2026-09-24, iakttagelse 2).
    */
   utanGratisfraga?: boolean
+  /** Kampanjpriset som gäller kontot just nu, eller null (lib/kampanj). */
+  kampanj?: KampanjVisning | null
 }
 
 export default function ValjSparClient({
@@ -75,11 +78,15 @@ export default function ValjSparClient({
   plan = SALD_PLAN,
   plats = null,
   utanGratisfraga = false,
+  kampanj: kampanjFranServern = null,
 }: ValjSparClientProps) {
   const router = useRouter()
   const [steg, setSteg] = useState<Steg>('kop')
   const [gratisVal, setGratisVal] = useState<'cv' | 'tester' | 'ingen' | null>(null)
   const [samtycke, setSamtycke] = useState(false)
+  // Kampanjen kan bytas av kassan (409 prisAndrat) om den börjar eller slutar
+  // medan steget är öppet. Då visas det nya priset och rutan kryssas ur.
+  const [kampanj, setKampanj] = useState<KampanjVisning | null>(kampanjFranServern)
   const [busy, setBusy] = useState(false)
   const [fel, setFel] = useState<string | null>(null)
   // Spårkunden (409 med upgradeAvailable) byter på prenumerationssidan, inte i
@@ -194,9 +201,17 @@ export default function ValjSparClient({
         // rutten svarar 400 utan det, och kryssrutan spärrar redan knappen,
         // så fältet är alltid true här. Det är beviskedjan: kryssrutan blir
         // ett fält i kroppen som blir metadata på sessionen.
-        body: JSON.stringify({ plan, source: kopSource(plats), consent: samtycke }),
+        body: JSON.stringify({ plan, source: kopSource(plats), consent: samtycke, kampanj: kampanj?.nyckel ?? null }),
       })
       const json = await res.json().catch(() => ({}))
+      if (res.status === 409 && json?.prisAndrat) {
+        setBusy(false)
+        setKampanj((json.kampanj as KampanjVisning | null) ?? null)
+        setSamtycke(false)
+        setFel(json?.error || KOPSTEG.felKassa)
+        capture('kampanj_pris_andrat', { till: json?.kampanj?.nyckel ?? 'ordinarie' })
+        return
+      }
       // 400 med saljs: false betyder att paketet inte säljs. Det är ett fel
       // med en förklaring, aldrig ett tyst "klart".
       if (res.status === 400 && json?.saljs === false) throw new Error(KOPSTEG.saljsInte)
@@ -210,13 +225,13 @@ export default function ValjSparClient({
       if (!res.ok || !json?.url) throw new Error(json?.error || KOPSTEG.felKassa)
       // Omdirigeringen till Stripe är trattens femte steg. Skjuts precis
       // före hoppet: efter det finns ingen sida kvar som kan skicka något.
-      capture('checkout_started', { plan, length: PLAN_BY_KEY[plan].length })
+      capture('checkout_started', { plan, length: PLAN_BY_KEY[plan].length, kampanj: kampanj?.nyckel ?? null })
       window.location.href = json.url as string
     } catch (error: any) {
       setBusy(false)
       setFel(error?.message || KOPSTEG.felKassa)
     }
-  }, [samtycke, busy, plan, plats, initialTrack, sparaSpar])
+  }, [samtycke, busy, plan, plats, initialTrack, sparaSpar, kampanj])
 
   const felBanner = fel ? (
     tillByte ? (
@@ -289,7 +304,7 @@ export default function ValjSparClient({
       step={1}
       totalSteps={1}
       onExit={() => router.push('/dashboard')}
-      primaryLabel={KOPSTEG.primar(plan)}
+      primaryLabel={KOPSTEG.primar(plan, kampanj)}
       onPrimary={tillKassan}
       primaryDisabled={!samtycke}
       primaryBlockedReason={KOPSTEG.samtyckeSparr}
@@ -305,8 +320,22 @@ export default function ValjSparClient({
         </div>
       }
     >
+      {kampanj ? (
+        <p className="mb-2 inline-flex items-center rounded-md bg-ink-1 px-2 py-1 text-[12px] font-semibold text-papper">
+          {KOPSTEG.kampanjRad(kampanj)}
+        </p>
+      ) : null}
       <h2 className="text-kort-t text-ink-1">{KOPSTEG.rubrik(plan)}</h2>
-      <p className="mt-1 text-sm leading-[21px] text-ink-2">{KOPSTEG.prisrad(plan)}</p>
+      <p className="mt-1 text-sm leading-[21px] text-ink-2">
+        {kampanj ? (
+          <>
+            <s className="mr-1.5 text-ink-3">{PLAN_BY_KEY[plan].amount} kr</s>
+            {KOPSTEG.prisradKampanj(kampanj)}
+          </>
+        ) : (
+          KOPSTEG.prisrad(plan)
+        )}
+      </p>
       <p className="mt-0.5 text-meta text-ink-3">{KOPSTEG.under}</p>
 
       <section
@@ -357,7 +386,7 @@ export default function ValjSparClient({
           style={{ accentColor: 'var(--ink-1)' }}
           className="mt-px h-5 w-5 shrink-0 cursor-pointer rounded border-kant-stark focus:ring-1 focus:ring-ink-1"
         />
-        <span>{samtyckeVidKop(plan)}</span>
+        <span>{samtyckeVidKop(plan, new Date(), kampanj)}</span>
       </label>
     </FlowShell>
   )

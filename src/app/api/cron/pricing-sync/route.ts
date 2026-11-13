@@ -16,6 +16,8 @@ import { cleanupExpiredAnonSessions } from '@/lib/tests/anon-session';
 import { cleanupExpiredIntervjuprov } from '@/lib/intervju/rad';
 import { cleanupExpiredSmakprov } from '@/lib/personlighet/smakprov-rad';
 import { collectAdminMetrics, dagStr } from '@/lib/admin/collect';
+import { KAMPANJER, arStartdag } from '@/lib/kampanj/kampanj';
+import { kampanjMottagare, skickaKampanj } from '@/lib/email/kampanjUtskick';
 
 /**
  * Vercel Cron job endpoint
@@ -63,6 +65,27 @@ export async function GET(request: NextRequest) {
       followUpNotifications: null,
       draftCleanup: null
     };
+
+    // ====================================
+    // 0. KAMPANJMEJLEN (morgonslotten, lib/kampanj)
+    // ====================================
+    // Först i körningen, så att inget annat hinner äta upp funktionens 60 s.
+    // Gör något bara på en kampanjs första svenska kalenderdag. Utskicket
+    // hoppar över redan loggade mottagare, så en andra körning samma dag är
+    // ofarlig.
+    if (isMorningSlot) {
+      for (const k of KAMPANJER) {
+        if (!arStartdag(k, now)) continue;
+        try {
+          const { kvar } = await kampanjMottagare(supabaseAdmin, k);
+          results.kampanjmejl = await skickaKampanj(supabaseAdmin, k, kvar);
+          console.log('[Kampanj] utskick:', results.kampanjmejl);
+        } catch (error: any) {
+          console.error('[Kampanj] utskicket föll:', error);
+          results.kampanjmejl = { success: false, error: error.message };
+        }
+      }
+    }
 
     // ====================================
     // 1. PREMIUM EXPIRATION (körs varje timme)
