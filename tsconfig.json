@@ -48,6 +48,7 @@
     "DEPLOY_*.ts",
     "scripts/**",
     "docs/**",
-    "video/**"
+    "video/**",
+    "mobilapp/**"
   ]
 }
