@@ -1,0 +1,432 @@
+/*
+ * Onboarding, Nivåkollens start, nivåögonblicket och kontot i appen
+ * (konceptet docs/design/app-koncept-2026-11-13.html: .val, .datumval,
+ * .steg-rad, .eller, .ordmarke, .tal-stor, .tal-tre och nattens rum).
+ * Bygger på appens tokens i testklar.css och gäller bara under [data-mobilapp].
+ */
+
+[data-mobilapp] .tk-onb {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  min-height: 100%;
+}
+[data-mobilapp] .tk-onb-fot {
+  margin-top: auto;
+  padding: 16px 0 14px;
+  display: grid;
+  gap: 12px;
+}
+[data-mobilapp] .tk-onb .tk-lank {
+  text-align: center;
+  min-height: 40px;
+}
+
+/* Ordmärket: Testklar med kopparrutan. */
+[data-mobilapp] .tk-ordmarke {
+  font-family: var(--tk-disp);
+  font-variation-settings: 'opsz' 48;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  display: inline-flex;
+  align-items: baseline;
+  line-height: 1;
+  white-space: nowrap;
+}
+[data-mobilapp] .tk-ordmarke i {
+  display: inline-block;
+  width: 0.3em;
+  height: 0.3em;
+  border-radius: 0.08em;
+  background: var(--kop);
+  margin-left: 0.1em;
+}
+
+/* Stegraden, fyra streck. */
+[data-mobilapp] .tk-steg-rad {
+  display: flex;
+  gap: 6px;
+  height: 44px;
+  align-items: center;
+}
+[data-mobilapp] .tk-steg-rad i {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--a-kant-stark);
+  flex: 1;
+}
+[data-mobilapp] .tk-steg-rad i.gjord {
+  background: var(--a-ink);
+}
+[data-mobilapp] .tk-steg-rad i.nu {
+  background: var(--kop);
+}
+
+/* Valet av test. */
+[data-mobilapp] .tk-val {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+[data-mobilapp] .tk-val button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  text-align: left;
+  background: var(--a-papper);
+  border: 1.5px solid var(--a-kant);
+  border-radius: 18px;
+  padding: 12px 12px 11px;
+  color: var(--a-ink);
+  position: relative;
+  min-height: 104px;
+  transition: border-color 0.15s, transform 0.12s;
+}
+[data-mobilapp] .tk-val button b {
+  font-size: 14.5px;
+  line-height: 18px;
+  font-weight: 600;
+  padding-right: 18px;
+}
+[data-mobilapp] .tk-val button span.rad {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--a-ink-3);
+}
+[data-mobilapp] .tk-val button[aria-pressed='true'] {
+  border-color: var(--a-ink);
+  box-shadow: inset 0 0 0 1px var(--a-ink);
+}
+[data-mobilapp] .tk-val button[aria-pressed='true']::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--a-ink)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E")
+    center / 13px no-repeat;
+}
+[data-mobilapp] .tk-val button.bred {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+  min-height: 60px;
+}
+[data-mobilapp] .tk-val button.bred .t {
+  flex: 1;
+  display: grid;
+  gap: 2px;
+}
+
+/* Provdatumet. */
+[data-mobilapp] .tk-datumval {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+[data-mobilapp] .tk-datumval button {
+  height: 52px;
+  border-radius: 14px;
+  border: 1.5px solid var(--a-kant);
+  background: var(--a-papper);
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--a-ink);
+}
+[data-mobilapp] .tk-datumval button[aria-pressed='true'] {
+  border-color: var(--a-ink);
+  box-shadow: inset 0 0 0 1px var(--a-ink);
+}
+[data-mobilapp] .tk-datumval .bred {
+  grid-column: 1 / -1;
+}
+[data-mobilapp] .tk-datumval .vet-inte {
+  border-style: dashed;
+  color: var(--a-ink-3);
+}
+[data-mobilapp] .tk-datumval input[type='date'] {
+  grid-column: 1 / -1;
+}
+
+/* Planremsan. */
+[data-mobilapp] .tk-remsa {
+  display: flex;
+  gap: 3px;
+  align-items: flex-end;
+  height: 22px;
+}
+[data-mobilapp] .tk-remsa i {
+  flex: 1;
+  border-radius: 3px;
+}
+[data-mobilapp] .tk-remsa-forklaring {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+  font-size: 11.5px;
+  color: var(--a-ink-3);
+}
+[data-mobilapp] .tk-remsa-forklaring i {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+[data-mobilapp] .tk-natt .tk-remsa-forklaring {
+  color: var(--natt-mjuk);
+}
+
+/* Tre fakta i Nivåkollens start. */
+[data-mobilapp] .tk-fakta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 18px;
+}
+[data-mobilapp] .tk-fakta .tk-kort {
+  padding: 12px 10px;
+  text-align: center;
+}
+[data-mobilapp] .tk-fakta b {
+  display: block;
+  font-family: var(--tk-disp);
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Kontot. */
+[data-mobilapp] .tk-eller {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--a-ink-3);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  margin: 6px 0;
+}
+[data-mobilapp] .tk-eller::before,
+[data-mobilapp] .tk-eller::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--a-kant);
+}
+[data-mobilapp] .tk-onb-fel {
+  display: flex;
+  gap: 10px;
+  background: var(--fel-mjuk);
+  color: var(--fel);
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+}
+[data-mobilapp] .tk-etikett {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--a-ink-2);
+  margin-bottom: 6px;
+}
+[data-mobilapp] .tk-falt[aria-invalid='true'] {
+  border-color: var(--fel);
+}
+[data-mobilapp] .tk-bara-ios {
+  position: absolute;
+  top: -9px;
+  right: 12px;
+  background: var(--a-bg);
+  color: var(--a-ink-3);
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 0 6px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Nattens rum: nivåögonblicket och startskärmen. */
+[data-mobilapp] .tk-natt {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(120% 70% at 50% -10%, var(--natt-2), var(--natt) 55%, var(--natt-3));
+  color: var(--natt-ink);
+  font-family: var(--tk-text);
+  min-height: 100%;
+}
+[data-mobilapp] .tk-natt .tk-ey {
+  color: var(--natt-mjuk);
+}
+[data-mobilapp] .tk-natt .tk-ey.kop {
+  color: #f6b07a;
+}
+[data-mobilapp] .tk-natt .tk-p,
+[data-mobilapp] .tk-natt .tk-meta {
+  color: var(--natt-mjuk);
+}
+[data-mobilapp] .tk-natt .tk-lank {
+  color: var(--natt-mjuk);
+  text-decoration-color: var(--natt-svag);
+}
+[data-mobilapp] .tk-natt .tk-kort {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--natt-kant);
+  color: var(--natt-ink);
+}
+[data-mobilapp] .tk-natt .tk-kort.papper {
+  background: var(--a-papper);
+  color: var(--a-ink);
+  border: 0;
+}
+[data-mobilapp] .tk-natt .tk-kort.papper .tk-p {
+  color: var(--a-ink-2);
+}
+[data-mobilapp] .tk-natt .tk-kort.papper .tk-ey.kop {
+  color: var(--kop-ink);
+}
+[data-mobilapp] .tk-natt-topp {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 52px;
+  padding: 0 14px 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+[data-mobilapp] .tk-natt-topp .tk-ik {
+  color: var(--natt-ink);
+}
+[data-mobilapp] .tk-tal-stor {
+  font-family: var(--tk-disp);
+  font-variation-settings: 'opsz' 96;
+  font-size: 84px;
+  line-height: 80px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+[data-mobilapp] .tk-tal-tre {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 10px 0 0;
+}
+[data-mobilapp] .tk-tal-tre div {
+  display: flex;
+  flex-direction: column-reverse;
+}
+[data-mobilapp] .tk-tal-tre dt {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--natt-mjuk);
+  margin-top: 2px;
+}
+[data-mobilapp] .tk-tal-tre dd {
+  margin: 0;
+  font-family: var(--tk-disp);
+  font-size: 26px;
+  line-height: 30px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+[data-mobilapp] .tk-stapel {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.12);
+  margin-top: 6px;
+  overflow: hidden;
+}
+[data-mobilapp] .tk-stapel i {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+}
+
+/* Rörelse: stegen i nivåögonblicket kommer i tur och ordning. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-mobilapp] .tk-onb-in {
+    animation: tkOnbIn 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+  [data-mobilapp] .tk-natt-in {
+    animation: tkOnbNatt 0.42s ease-out both;
+  }
+  [data-mobilapp] .tk-s1,
+  [data-mobilapp] .tk-s2,
+  [data-mobilapp] .tk-s3,
+  [data-mobilapp] .tk-s4,
+  [data-mobilapp] .tk-s5 {
+    animation: tkOnbSteg 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+  [data-mobilapp] .tk-s2 {
+    animation-delay: 0.9s;
+  }
+  [data-mobilapp] .tk-s3 {
+    animation-delay: 1.15s;
+  }
+  [data-mobilapp] .tk-s4 {
+    animation-delay: 1.35s;
+  }
+  [data-mobilapp] .tk-s5 {
+    animation-delay: 1.5s;
+  }
+  [data-mobilapp] .tk-dyk {
+    animation: tkOnbDyk 3.2s ease-in-out infinite;
+  }
+  [data-mobilapp] .tk-skala-rita {
+    stroke-dasharray: 360;
+    stroke-dashoffset: 360;
+    animation: tkRita 0.9s ease-out forwards;
+  }
+}
+@keyframes tkOnbIn {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes tkOnbNatt {
+  from {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes tkOnbSteg {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes tkOnbDyk {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}

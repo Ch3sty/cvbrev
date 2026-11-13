@@ -4,7 +4,7 @@
  * Logga ut och Radera mitt konto, flyttade oförändrade från ProfilClient
  * när kortet Konto flyttade till Inställningar (skiss-installningar-2026-10-12).
  * Samma loggning, samma ordning: CV och brev först, sedan kontot, med
- * delete_user_account som reserv när admin-anropet saknar behörighet.
+ * radering på servern (api/konto/radera), som också avslutar Stripe.
  */
 
 import { useRouter } from 'next/navigation';
@@ -55,23 +55,25 @@ export function useKontoHandlingar() {
       console.warn('Kunde inte ta bort alla brev:', err);
     }
 
-    const { error: deleteError } = await supabase.auth.admin.deleteUser(profile?.id || '');
-
-    if (deleteError) {
-      if (deleteError.message.includes('permissions')) {
-        await supabase.auth.signOut();
-        const { error: clientDeleteError } = await supabase.rpc('delete_user_account');
-        if (clientDeleteError) {
-          throw new Error(`Kontoborttagning misslyckades: ${clientDeleteError.message}`);
-        }
-      } else {
-        throw deleteError;
-      }
+    // Raderingen görs på servern (api/konto/radera): webbläsarens nyckel får
+    // inte ta bort användare, och den gamla reserven delete_user_account har
+    // aldrig funnits. Servern avslutar också en levande Stripe-prenumeration.
+    const svar = await fetch('/api/konto/radera', { method: 'DELETE' });
+    if (!svar.ok) {
+      const kropp = (await svar.json().catch(() => null)) as { error?: string } | null;
+      throw new Error(
+        kropp?.error === 'prenumeration_kvar'
+          ? 'Prenumerationen kunde inte avslutas, så kontot är kvar. Försök igen eller kontakta oss.'
+          : 'Kontot kunde inte raderas. Försök igen eller kontakta oss.'
+      );
     }
+    await supabase.auth.signOut().catch(() => {});
 
     successWithMascot('Ditt konto är raderat. Tack för att du använde Jobbcoach.ai.', 'account-deleted', 4000, false);
 
-    setTimeout(() => router.push('/'), 2000);
+    // Hel omladdning: sessionen är borta, och klientens router skulle annars
+    // ligga kvar på den skyddade sidan.
+    setTimeout(() => window.location.assign('/'), 2000);
   };
 
   return { handleLogout, handleDeleteAccount, harPaket: subscriptionTier === 'premium' };

@@ -104,6 +104,13 @@ export async function POST(req: NextRequest) {
       return new Response('Unauthorized', { status: 401 });
     }
 
+    // Anonyma konton (appens Nivåkoll före kontot) får inte använda
+    // Jobbcoachen. Rutten tar token i headern och passerar därför proxyns
+    // spärr (lib/mobilapp/anonym.ts) utan cookie.
+    if (user.is_anonymous) {
+      return new Response('Konto krävs', { status: 403 });
+    }
+
     // Kontokvot: tio användarmeddelanden per konto på gratisnivån
     // (docs/plan-paket-och-onboarding.md avsnitt 4). Räknas mot ai_messages
     // (role='user') över hela historiken, alltså exakt de rader den här

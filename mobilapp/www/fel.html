@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ingen anslutning</title>
+<style>
+  html,body{margin:0;height:100%;background:#1B2246;color:#EDE8DF;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  main{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;text-align:center;box-sizing:border-box}
+  h1{font-size:22px;margin:0;font-weight:600}
+  p{margin:0;max-width:300px;line-height:1.5;opacity:.8}
+  button{margin-top:8px;min-height:48px;padding:0 28px;border:0;border-radius:12px;background:#D9480F;color:#fff;font-size:16px;font-weight:600}
+</style>
+</head>
+<body>
+<main>
+  <h1>Ingen anslutning</h1>
+  <p>Testerna rättas på vår server, så appen behöver nät. Kontrollera anslutningen och försök igen.</p>
+  <button onclick="location.href='https://www.jobbcoach.ai/dashboard/tester'">Försök igen</button>
+</main>
+<script>
+  // Startskärmen döljs även här, om bryggan finns i felvyn (annars efter högst 3 s).
+  try { window.Capacitor && window.Capacitor.nativePromise('SplashScreen', 'hide', {}).catch(function () {}); } catch (e) {}
+</script>
+</body>
+</html>

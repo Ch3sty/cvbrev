@@ -4,6 +4,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { updateLastActive } from '@/lib/utils/activity-tracker'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { ANVANDARE_HEADER, signeraAnvandare } from '@/lib/supabase/anvandare-header'
+import { ANONYM_TILL_KONTO, anonymTillaten } from '@/lib/mobilapp/anonym'
 
 // Routes som KRÄVER inloggning (allt annat är publikt)
 // Next.js 16: Ändrad från "blocka alla, tillåt några" till "tillåt alla, blocka specifika"
@@ -137,6 +138,19 @@ export async function updateSession(request: NextRequest, efterInloggning?: Efte
       url.searchParams.set('redirect', pathname + request.nextUrl.search)
     }
     return NextResponse.redirect(url)
+  }
+
+  // Anonyma konton (appens Nivåkoll före kontot) når bara testerna, appens
+  // sidor och registreringen (lib/mobilapp/anonym.ts). Resten nekas, så att
+  // ingen kan gå förbi registreringen och använda AI-funktionerna anonymt.
+  if (user?.is_anonymous && !anonymTillaten(pathname)) {
+    if (pathname.startsWith('/api/')) {
+      return NextResponse.json({ error: 'konto_kravs' }, { status: 403 })
+    }
+    const url = new URL(ANONYM_TILL_KONTO, request.url)
+    const omdirigering = NextResponse.redirect(url)
+    supabaseResponse.cookies.getAll().forEach((cookie) => omdirigering.cookies.set(cookie))
+    return omdirigering
   }
 
   // Sträng rollseparation: en godkänd rekryterare hör hemma i /rekryterare och

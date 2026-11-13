@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Nattens färg ur appikonen (konceptet, Ikon och butik). -->
+    <color name="ic_launcher_background">#121325</color>
+    <color name="natt">#121325</color>
+    <color name="koppar">#E8732A</color>
+</resources>

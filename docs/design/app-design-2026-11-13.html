@@ -1,0 +1,1158 @@
+<title>Jobbcoach-appen</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --koppar:#E07A2F;--koppar-ink:#A8491A;--koppar-djup:#C4621F;--koppar-ljus:#F4B98A;--koppar-text:#1A1206;--koppar-mjuk:#FBE3D0;
+  --ink-1:#1A1A1F;--ink-2:#4A4A55;--ink-3:#65656E;
+  --papper:#FFFFFF;--papper-2:#F4F3F0;--kant:#E3E1DC;--kant-stark:#C9C6BF;
+  --positiv:#2F7D5B;--positiv-mjuk:#DCEFE5;--fel:#B3382E;--fel-mjuk:#F8E1DE;
+  --vagg:#1B2246;--vagg-2:#2B3470;--vagg-3:#121737;--vagg-ink:#F5F6FC;--vagg-mjuk:#AEB4DA;--vagg-svag:#6F78B0;--vagg-kant:rgba(255,255,255,.12);
+  --golv:#EBEDF6;--ton:#DFE3F6;--ton-ink:#3B4790;--ljus:#93A0EC;
+  --g-vagg:#26262C;--g-vagg-2:#36363E;--g-vagg-3:#1A1A1F;--g-vagg-mjuk:#B9B8C2;--g-golv:#ECEBE9;--g-ton:#E2E1E6;--g-ton-ink:#3C3C46;
+  --lyft:0 1px 2px rgba(20,20,40,.05),0 10px 24px -14px rgba(20,20,40,.18);--lyft-kant:transparent;
+  --dimma:rgba(10,12,30,.55);
+  --doc-bg:#F4F3F0;--doc-papper:#FFFFFF;--doc-kant:#E3E1DC;--doc-ink:#1A1A1F;--doc-ink-2:#4A4A55;--doc-ink-3:#65656E;--doc-ton:#EFE4D9;
+  --bezel:#101014;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --koppar-ink:#F2A368;--koppar-mjuk:rgba(224,122,47,.18);
+    --ink-1:#F3F2F7;--ink-2:#C7C6D0;--ink-3:#9391A1;
+    --papper:#171B2E;--papper-2:#1D2238;--kant:#293050;--kant-stark:#3B4470;
+    --positiv:#6CC79A;--positiv-mjuk:#1C3A2D;--fel:#E57F74;--fel-mjuk:#3F1F1C;
+    --golv:#0E1120;--ton:#232B55;--ton-ink:#B9C2F2;
+    --g-golv:#121318;--g-ton:#2A2A33;--g-ton-ink:#C9C8D2;
+    --lyft:0 1px 2px rgba(0,0,0,.3),0 12px 28px -14px rgba(0,0,0,.6);--lyft-kant:var(--kant);
+    --doc-bg:#0E1120;--doc-papper:#171B2E;--doc-kant:#293050;--doc-ink:#F3F2F7;--doc-ink-2:#C7C6D0;--doc-ink-3:#9391A1;--doc-ton:#2B2420;
+    --bezel:#2A2A33;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --koppar-ink:#F2A368;--koppar-mjuk:rgba(224,122,47,.18);
+  --ink-1:#F3F2F7;--ink-2:#C7C6D0;--ink-3:#9391A1;
+  --papper:#171B2E;--papper-2:#1D2238;--kant:#293050;--kant-stark:#3B4470;
+  --positiv:#6CC79A;--positiv-mjuk:#1C3A2D;--fel:#E57F74;--fel-mjuk:#3F1F1C;
+  --golv:#0E1120;--ton:#232B55;--ton-ink:#B9C2F2;
+  --g-golv:#121318;--g-ton:#2A2A33;--g-ton-ink:#C9C8D2;
+  --lyft:0 1px 2px rgba(0,0,0,.3),0 12px 28px -14px rgba(0,0,0,.6);--lyft-kant:var(--kant);
+  --doc-bg:#0E1120;--doc-papper:#171B2E;--doc-kant:#293050;--doc-ink:#F3F2F7;--doc-ink-2:#C7C6D0;--doc-ink-3:#9391A1;--doc-ton:#2B2420;
+  --bezel:#2A2A33;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--doc-bg);color:var(--doc-ink);font-family:Inter,system-ui,sans-serif;font-size:15px;line-height:22px;padding-inline:16px;padding-block:0 80px}
+.disp{font-family:"Schibsted Grotesk",Inter,sans-serif}
+.wrap{max-width:1180px;margin:0 auto}
+h1,h2,h3{margin:0;text-wrap:balance}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--koppar-ink);outline-offset:2px}
+
+/* ---- dokumentets chrome ---- */
+.huvud{padding:40px 0 24px;border-bottom:1px solid var(--doc-kant);display:flex;flex-direction:column;gap:12px}
+.huvud .ey{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--koppar-ink)}
+.huvud h1{font-size:40px;line-height:44px;font-weight:800;letter-spacing:-.025em}
+.huvud p{margin:0;max-width:62ch;color:var(--doc-ink-2)}
+.meta{font-size:13px;color:var(--doc-ink-3);display:flex;gap:18px;flex-wrap:wrap}
+.fragor{margin:24px 0 0;background:var(--doc-papper);border:1px solid var(--doc-kant);border-radius:16px;padding:20px 20px 8px}
+.fragor h2{font-size:22px;line-height:27px;font-weight:700;letter-spacing:-.02em;margin-bottom:6px}
+.fragor ol{margin:0;padding:0 0 0 22px;color:var(--doc-ink-2)}
+.fragor li{margin:0 0 12px}
+.fragor li b{color:var(--doc-ink)}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 0}
+.toc a{font-size:13px;font-weight:500;text-decoration:none;border:1px solid var(--doc-kant);background:var(--doc-papper);padding:7px 12px;border-radius:999px;color:var(--doc-ink-2)}
+.toc a:hover{color:var(--doc-ink);border-color:var(--kant-stark)}
+section.del{padding:48px 0 0;border-top:1px solid var(--doc-kant);margin-top:48px}
+section.del>header{display:flex;flex-direction:column;gap:8px;margin-bottom:24px;max-width:70ch}
+section.del>header .nr{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--doc-ink-3)}
+section.del>header h2{font-size:30px;line-height:34px;font-weight:800;letter-spacing:-.025em}
+section.del>header p{margin:0;color:var(--doc-ink-2)}
+.rad{display:grid;grid-template-columns:minmax(0,1fr);gap:24px;align-items:start}
+@media (min-width:900px){.rad{grid-template-columns:minmax(0,1fr) 320px}.rad.tva{grid-template-columns:minmax(0,1fr) 320px}}
+.telrad{display:flex;gap:24px;overflow-x:auto;padding:4px 4px 16px;scroll-snap-type:x proximity}
+.telrad>*{scroll-snap-align:start}
+.noter{display:flex;flex-direction:column;gap:16px;position:sticky;top:16px}
+.not{background:var(--doc-papper);border:1px solid var(--doc-kant);border-radius:16px;padding:16px 18px}
+.not h3{font-size:13px;font-weight:600;color:var(--doc-ink-3);margin-bottom:8px}
+.not ul{margin:0;padding-left:18px;color:var(--doc-ink-2);font-size:14px;line-height:21px}
+.not li{margin-bottom:6px}
+.not li b{color:var(--doc-ink);font-weight:600}
+.not.data{border-color:color-mix(in srgb,var(--koppar) 35%,var(--doc-kant))}
+.not.data h3{color:var(--koppar-ink)}
+.not code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;background:var(--papper-2);padding:1px 5px;border-radius:5px;color:var(--ink-1)}
+.bildtext{font-size:13px;color:var(--doc-ink-3);margin:8px 0 0;text-align:center}
+.telkol{display:flex;flex-direction:column;flex:0 0 auto;width:min(412px,100%)}
+
+/* ---- telefonen ---- */
+.tel{width:min(412px,100%);height:915px;background:var(--golv);border-radius:38px;border:8px solid var(--bezel);box-shadow:0 30px 60px -30px rgba(10,12,30,.5);overflow:hidden;position:relative;display:flex;flex-direction:column;color:var(--ink-1);font-family:Inter,system-ui,sans-serif;font-size:14px;line-height:21px;flex:0 0 auto}
+.tel.grafit{--vagg:var(--g-vagg);--vagg-2:var(--g-vagg-2);--vagg-3:var(--g-vagg-3);--vagg-mjuk:var(--g-vagg-mjuk);--golv:var(--g-golv);--ton:var(--g-ton);--ton-ink:var(--g-ton-ink);background:var(--golv)}
+.status{height:30px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;font-size:12px;font-weight:600;color:var(--vagg-ink);background:var(--vagg-2);flex:0 0 auto}
+.status.ljus{background:var(--golv);color:var(--ink-1)}
+.status .sig{display:flex;gap:4px;align-items:center}
+.status .sig i{display:block;width:12px;height:12px;border-radius:3px;background:currentColor;opacity:.85}
+.status .sig i:last-child{width:18px;border-radius:3px;opacity:1}
+.skarm{flex:1;min-height:0;display:flex;flex-direction:column;position:relative}
+.innehall{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;scrollbar-width:none}
+.innehall::-webkit-scrollbar{display:none}
+.vagg{position:relative;color:var(--vagg-ink);background:linear-gradient(168deg,var(--vagg-2) 0%,var(--vagg) 48%,var(--vagg-3) 100%);border-radius:0 0 28px 28px;padding:0 16px 44px;box-shadow:inset 0 -1px 0 rgba(255,255,255,.06);flex:0 0 auto}
+.vagg.tat{padding-bottom:24px}
+.vagg .ey{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--koppar-ljus)}
+.vagg h1{font-size:34px;line-height:36px;font-weight:800;letter-spacing:-.025em;color:var(--vagg-ink)}
+.vagg p{margin:0;font-size:15px;line-height:22px;color:var(--vagg-mjuk)}
+.topprad{height:60px;display:flex;align-items:center;justify-content:space-between}
+.topprad .brand{font-family:"Schibsted Grotesk",Inter,sans-serif;font-size:15px;font-weight:700;color:var(--vagg-ink)}
+.topprad .datum{font-size:13px;color:var(--vagg-mjuk)}
+.topprad .knapp44{width:44px;height:44px;display:grid;place-items:center;border:0;background:transparent;color:var(--vagg-ink);border-radius:12px;margin-right:-10px}
+.glas{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 12px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid var(--vagg-kant);color:var(--vagg-ink);font-size:13px;font-weight:500;text-decoration:none}
+.golv{padding:0 16px 24px;display:flex;flex-direction:column;gap:14px;flex:1}
+.golv.lyft{margin-top:-30px;position:relative;z-index:1}
+.kort{background:var(--papper);border:1px solid var(--kant);border-radius:16px;padding:16px}
+.kort.lyftkort{box-shadow:var(--lyft);border-color:var(--lyft-kant)}
+.kort .ey{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.kort .ey.koppar{color:var(--koppar-ink)}
+.kort h2{font-family:"Schibsted Grotesk",Inter,sans-serif;font-size:22px;line-height:27px;font-weight:700;letter-spacing:-.02em;margin:4px 0 6px}
+.kort p{margin:0;color:var(--ink-2);font-size:14px;line-height:21px}
+.kort .fot{margin-top:12px;padding-top:10px;border-top:1px solid var(--kant);font-size:13px;line-height:18px;color:var(--ink-3)}
+.knapp{display:flex;align-items:center;justify-content:center;gap:8px;height:48px;border-radius:12px;border:0;font-size:15px;font-weight:600;width:100%;white-space:nowrap;text-decoration:none}
+.knapp.primar{background:linear-gradient(180deg,#E8863B,var(--koppar) 60%,var(--koppar-djup));color:var(--koppar-text);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 1px 2px rgba(120,60,10,.25);margin-top:14px}
+.knapp.sekundar{background:var(--papper);border:1px solid var(--kant-stark);color:var(--ink-1)}
+.knapp.ghost{background:transparent;border:1.5px dashed var(--kant-stark);color:var(--ink-3);position:relative}
+.knapp.ghost .tagg{position:absolute;top:-9px;right:12px;background:var(--golv);color:var(--ink-3);font-size:11px;font-weight:600;padding:0 6px;letter-spacing:.04em;text-transform:uppercase}
+.lank{color:var(--ink-1);text-decoration:underline;text-decoration-color:var(--kant-stark);text-underline-offset:3px;font-weight:500;background:none;border:0;padding:0}
+.lank.fel{color:var(--fel);text-decoration-color:color-mix(in srgb,var(--fel) 40%,transparent)}
+.knapprad{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:4px}
+.sekt{font-size:13px;font-weight:600;color:var(--ink-3);padding:4px 2px 0}
+.rader{background:var(--papper);border:1px solid var(--kant);border-radius:16px;overflow:hidden}
+.r{display:flex;align-items:center;gap:12px;min-height:56px;padding:10px 14px;border-top:1px solid var(--kant);color:inherit;text-decoration:none;width:100%;background:none;border-left:0;border-right:0;border-bottom:0;text-align:left;font:inherit}
+.r:first-child{border-top:0}
+.r .t{flex:1;min-width:0}
+.r .t b{display:block;font-size:15px;font-weight:600;line-height:19px;color:var(--ink-1)}
+.r .t span{display:block;font-size:13px;line-height:18px;color:var(--ink-3);margin-top:2px}
+.r .sym{width:36px;height:36px;color:var(--ton-ink);flex:0 0 auto}
+.r .sym.svag{color:var(--ink-3)}
+.r .chev{color:var(--ink-3);width:20px;height:20px;flex:0 0 auto}
+.r .varde{font-size:14px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.chip{display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 10px;border-radius:8px;font-size:12.5px;font-weight:600;background:var(--ton);color:var(--ton-ink);white-space:nowrap}
+.chip.las{background:var(--papper-2);color:var(--ink-3)}
+.chip.gjord{background:var(--positiv-mjuk);color:var(--positiv)}
+.chip svg{width:14px;height:14px}
+.statusrad{display:flex;align-items:center;gap:10px;background:var(--papper);border:1px solid var(--kant);border-radius:12px;padding:10px 14px;font-size:13px;line-height:18px;color:var(--ink-2)}
+.statusrad i{width:7px;height:7px;border-radius:50%;background:var(--ink-3);flex:0 0 auto}
+.statusrad.varm i{background:var(--koppar)}
+.statusrad .lank{margin-left:auto;font-size:13px;white-space:nowrap}
+.vippa{width:44px;height:26px;border-radius:13px;background:var(--kant-stark);position:relative;flex:0 0 auto}
+.vippa::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--papper)}
+.vippa.pa{background:var(--koppar)}
+.vippa.pa::after{left:21px}
+
+/* flikrad */
+.flikrad{flex:0 0 auto;height:88px;padding:6px 8px 22px;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:var(--papper);border-top:1px solid var(--kant);position:relative}
+.flikrad::after{content:"";position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:110px;height:4px;border-radius:2px;background:var(--ink-1);opacity:.7}
+.flik{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:0;background:none;border-radius:12px;padding:6px 0 4px;color:var(--ink-3);font-size:11.5px;font-weight:500;text-decoration:none;line-height:14px}
+.flik svg{width:24px;height:24px}
+.flik .pill{width:52px;height:30px;border-radius:15px;display:grid;place-items:center}
+.flik.aktiv{color:var(--ink-1);font-weight:600}
+.flik.aktiv .pill{background:var(--ton);color:var(--ton-ink)}
+
+/* dagsring, veckorad, kurvan */
+.dagsrad{display:flex;align-items:center;gap:16px;margin-top:8px}
+.tal-stor{font-family:"Schibsted Grotesk",Inter,sans-serif;font-size:64px;line-height:64px;font-weight:800;letter-spacing:-.035em;font-variant-numeric:tabular-nums;color:var(--vagg-ink)}
+.tal-stor small{display:block;font-family:Inter,sans-serif;font-size:13px;line-height:18px;font-weight:500;letter-spacing:0;color:var(--vagg-mjuk);margin-top:2px}
+.vecka{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:18px}
+.vecka div{display:flex;flex-direction:column;align-items:center;gap:5px;font-size:11px;font-weight:500;color:var(--vagg-mjuk)}
+.vecka div.idag{color:var(--vagg-ink);font-weight:600}
+.vecka svg{width:30px;height:30px}
+.serietext{margin-top:12px;font-size:13px;color:var(--vagg-mjuk);display:flex;align-items:center;gap:8px}
+.serietext b{color:var(--vagg-ink);font-weight:600}
+.kurva{width:100%;height:auto;display:block;margin-top:10px;overflow:visible}
+.kurva text{font-family:Inter,sans-serif;font-size:11px;font-weight:500;fill:var(--vagg-mjuk)}
+.kurva text.du{fill:var(--vagg-ink);font-weight:600;font-size:12px}
+.kurva text.sikte{fill:var(--ljus)}
+.ark-dimma{position:absolute;inset:0;background:var(--dimma);z-index:50;display:flex;align-items:flex-end}
+.ark{background:var(--papper);border-radius:24px 24px 0 0;padding:10px 16px 28px;width:100%;color:var(--ink-1);max-height:92%;overflow-y:auto}
+.ark .handtag{width:36px;height:4px;border-radius:2px;background:var(--kant-stark);margin:0 auto 14px}
+.ark h2{font-family:"Schibsted Grotesk",Inter,sans-serif;font-size:22px;line-height:27px;font-weight:700;letter-spacing:-.02em;margin:0 0 6px}
+.ark p{margin:0;color:var(--ink-2);font-size:14px;line-height:21px}
+.ark ul.ingar{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.ark ul.ingar li{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:20px;color:var(--ink-1)}
+.ark ul.ingar li svg{width:20px;height:20px;flex:0 0 auto;color:var(--ink-1)}
+.prisrad{margin-top:16px;font-size:14px;font-weight:500;color:var(--ink-1)}
+.tidchips{display:flex;gap:8px;margin-top:14px}
+.tidchips button{flex:1;height:44px;border-radius:12px;border:1px solid var(--kant-stark);background:var(--papper);color:var(--ink-1);font-size:14px;font-weight:600;font-variant-numeric:tabular-nums}
+.tidchips button.vald{border:2px solid var(--ink-1);position:relative}
+.tidchips button.vald::after{content:"";position:absolute;top:-7px;right:-7px;width:18px;height:18px;border-radius:50%;background:var(--ink-1);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E");background-size:12px;background-repeat:no-repeat;background-position:center}
+.toast{position:absolute;left:50%;bottom:110px;transform:translateX(-50%);background:var(--ink-1);color:var(--papper);font-size:13px;font-weight:500;padding:10px 16px;border-radius:999px;z-index:70;white-space:nowrap;box-shadow:var(--lyft)}
+
+/* onboarding */
+.onb{padding:0 20px;display:flex;flex-direction:column;flex:1;min-height:0}
+.onb .steg{display:flex;gap:6px;height:60px;align-items:center}
+.onb .steg i{height:4px;border-radius:2px;background:var(--kant-stark);flex:1}
+.onb .steg i.gjord{background:var(--ink-1)}
+.onb .steg i.nu{background:var(--koppar)}
+.onb .scen{flex:0 0 auto;display:grid;place-items:center;padding:8px 0 20px}
+.onb .scen svg{width:100%;max-width:300px;height:auto;display:block}
+.onb h1{font-family:"Schibsted Grotesk",Inter,sans-serif;font-size:32px;line-height:35px;font-weight:800;letter-spacing:-.025em;color:var(--ink-1)}
+.onb p{margin:10px 0 0;color:var(--ink-2);font-size:15px;line-height:22px}
+.onb .fot{margin-top:auto;padding:16px 0 28px;display:flex;flex-direction:column;gap:12px}
+.onb .fot .knapp.primar{margin-top:0}
+.val{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.val button{display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;background:var(--papper);border:1px solid var(--kant);border-radius:16px;padding:12px 12px 10px;color:var(--ink-1);position:relative;min-height:92px}
+.val button b{font-size:14px;line-height:18px;font-weight:600}
+.val button span{font-size:12px;line-height:16px;color:var(--ink-3)}
+.val button svg.sym{width:28px;height:28px;color:var(--ton-ink)}
+.val button.vald{border:2px solid var(--ink-1);padding:11px 11px 9px}
+.val button.vald::after{content:"";position:absolute;top:10px;right:10px;width:20px;height:20px;border-radius:50%;background:var(--ink-1);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E");background-size:13px;background-repeat:no-repeat;background-position:center}
+.val button.bred{grid-column:1/-1;flex-direction:row;align-items:center;min-height:56px}
+.val button.bred b{flex:1}
+.falt{height:48px;border:1px solid var(--kant-stark);background:var(--papper-2);border-radius:12px;display:flex;align-items:center;padding:0 14px;color:var(--ink-3);font-size:15px}
+.eller{display:flex;align-items:center;gap:12px;color:var(--ink-3);font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.eller::before,.eller::after{content:"";flex:1;height:1px;background:var(--kant)}
+
+/* passets ruta */
+.passruta{flex:1;margin:16px;border:2px dashed var(--kant-stark);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:24px;color:var(--ink-2)}
+.passruta b{font-family:"Schibsted Grotesk",Inter,sans-serif;font-size:20px;color:var(--ink-1)}
+.passruta .tidsrad{width:100%;height:3px;background:var(--kant);border-radius:2px;overflow:hidden}
+.passruta .tidsrad i{display:block;width:38%;height:100%;background:var(--koppar)}
+
+/* flöde och tabeller */
+.flode{display:flex;gap:10px;flex-wrap:wrap;align-items:stretch}
+.flode .box{background:var(--doc-papper);border:1px solid var(--doc-kant);border-radius:12px;padding:10px 14px;font-size:13px;line-height:18px;min-width:140px;flex:1}
+.flode .box b{display:block;font-weight:600;color:var(--doc-ink)}
+.flode .box span{color:var(--doc-ink-3)}
+.flode .box.vagg{background:var(--vagg);color:var(--vagg-ink);border-color:var(--vagg)}
+.flode .box.vagg b{color:var(--vagg-ink)}
+.flode .box.vagg span{color:var(--vagg-mjuk)}
+.flode .pil{display:grid;place-items:center;color:var(--doc-ink-3);flex:0 0 auto}
+table{border-collapse:collapse;width:100%;font-size:14px;line-height:20px}
+th,td{text-align:left;padding:10px 12px;border-top:1px solid var(--doc-kant);vertical-align:top}
+th{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--doc-ink-3);border-top:0}
+td b{font-weight:600}
+.tabell{overflow-x:auto;background:var(--doc-papper);border:1px solid var(--doc-kant);border-radius:16px}
+.tabell table{min-width:640px}
+
+/* butik */
+.butik{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.skarmbild{aspect-ratio:9/16;border-radius:20px;background:linear-gradient(168deg,var(--vagg-2),var(--vagg) 48%,var(--vagg-3));color:var(--vagg-ink);padding:24px 20px 0;display:flex;flex-direction:column;gap:6px;overflow:hidden;position:relative}
+.skarmbild .ey{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--koppar-ljus)}
+.skarmbild h3{font-family:"Schibsted Grotesk",Inter,sans-serif;font-size:26px;line-height:29px;font-weight:800;letter-spacing:-.025em}
+.skarmbild .minitel{margin:14px auto 0;width:78%;flex:1;min-height:0;position:relative;overflow:hidden;border-radius:26px 26px 0 0;border:6px solid var(--bezel);border-bottom:0;background:var(--golv)}
+.skarmbild .minitel>.tel{transform-origin:top left;position:absolute;top:0;left:0;border:0;border-radius:0;box-shadow:none}
+.ikoner{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-end}
+.ikoner figure{margin:0;display:flex;flex-direction:column;gap:8px;align-items:center;font-size:12px;color:var(--doc-ink-3)}
+.ikon-hem{background:linear-gradient(160deg,#4B5BB0,#1B2246);border-radius:20px;padding:22px;display:flex;gap:18px;align-items:flex-start}
+.ikon-hem figure{color:#DDE2FF}
+.ikon-hem figcaption{font-weight:500}
+.beslut{background:var(--doc-ton);border-radius:16px;padding:16px 18px;color:var(--doc-ink-2);font-size:14px;line-height:21px;margin-top:16px}
+.beslut b{color:var(--doc-ink)}
+.kolumner{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+@media (prefers-reduced-motion:no-preference){
+  .tel .ark{animation:upp .24s ease-out}
+  @keyframes upp{from{transform:translateY(24px);opacity:.6}to{transform:none;opacity:1}}
+}
+.dold{display:none !important}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="s-matris" viewBox="0 0 48 48"><rect x="6" y="6" width="36" height="36" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M18 6v36M30 6v36M6 18h36M6 30h36" stroke="currentColor" stroke-width="1.5" opacity=".5"/><circle cx="12" cy="12" r="2.6" fill="currentColor"/><rect x="21.5" y="9.5" width="5" height="5" rx="1" fill="currentColor"/><path d="M36 9.4l3 5.2h-6z" fill="currentColor"/><rect x="9.5" y="21.5" width="5" height="5" rx="1" fill="currentColor"/><path d="M24 21.4l3 5.2h-6z" fill="currentColor"/><circle cx="36" cy="24" r="2.6" fill="currentColor"/><path d="M12 33.4l3 5.2h-6z" fill="currentColor"/><circle cx="24" cy="36" r="2.6" fill="currentColor"/><rect x="31.5" y="31.5" width="9" height="9" rx="2" fill="none" stroke="#E07A2F" stroke-width="2" stroke-dasharray="3 2.5"/></symbol>
+    <symbol id="s-figurer" viewBox="0 0 48 48"><rect x="4" y="15" width="40" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M17.3 15v18M30.6 15v18" stroke="currentColor" stroke-width="1.5" opacity=".5"/><path d="M10.7 19.5l3.6 6.2h-7.2z" fill="currentColor"/><rect x="21.6" y="21.6" width="4.8" height="4.8" rx="1" fill="currentColor"/><rect x="33.6" y="19.6" width="8" height="8" rx="2" fill="none" stroke="#E07A2F" stroke-width="2" stroke-dasharray="3 2.5"/></symbol>
+    <symbol id="s-deduktiv" viewBox="0 0 48 48"><path d="M8 11h22M8 18h15" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity=".7"/><rect x="4" y="25" width="40" height="15" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 25v15M24 25v15M34 25v15" stroke="currentColor" stroke-width="1.5" opacity=".5"/><rect x="7" y="30" width="4" height="5" rx="1" fill="currentColor"/><rect x="17" y="30" width="4" height="5" rx="1" fill="currentColor"/><rect x="27" y="29" width="6" height="7" rx="1.5" fill="#E07A2F"/><rect x="37" y="30" width="4" height="5" rx="1" fill="currentColor"/></symbol>
+    <symbol id="s-siffror" viewBox="0 0 48 48"><rect x="5" y="8" width="22" height="30" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 16h22M5 24h22M5 32h22M14 8v30" stroke="currentColor" stroke-width="1.5" opacity=".5"/><rect x="31" y="26" width="5" height="12" rx="1.5" fill="currentColor" opacity=".55"/><rect x="38" y="14" width="5" height="24" rx="1.5" fill="#E07A2F"/><path d="M29 40h15" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="s-ord" viewBox="0 0 48 48"><rect x="6" y="7" width="36" height="34" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 16h24M12 23h9M12 30h24M12 37h16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity=".7"/><rect x="23" y="20" width="14" height="6" rx="3" fill="#E07A2F"/></symbol>
+    <symbol id="s-person" viewBox="0 0 48 48"><path d="M8 30a16 16 0 0 1 32 0" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 30h32" stroke="currentColor" stroke-width="2"/><path d="M12 21l3 2M24 14v4M36 21l-3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".6"/><circle cx="29" cy="22" r="3.5" fill="#E07A2F"/><path d="M24 30l5-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 38h28" stroke="currentColor" stroke-width="1.5" opacity=".5"/></symbol>
+    <symbol id="s-talserie" viewBox="0 0 48 48"><rect x="4" y="15" width="40" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 15v18M24 15v18M34 15v18" stroke="currentColor" stroke-width="1.5" opacity=".5"/><text x="9" y="28.5" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="currentColor">2</text><text x="19" y="28.5" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="currentColor">5</text><text x="29" y="28.5" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="currentColor">9</text><rect x="35.5" y="19.5" width="7" height="9" rx="2" fill="none" stroke="#E07A2F" stroke-width="2" stroke-dasharray="3 2.5"/></symbol>
+    <symbol id="s-spatial" viewBox="0 0 48 48"><path d="M10 18l14-7 14 7v14l-14 7-14-7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M10 18l14 7 14-7M24 25v14" stroke="currentColor" stroke-width="1.5" opacity=".6"/><path d="M24 11v7" stroke="currentColor" stroke-width="1.5" opacity=".4"/><circle cx="31" cy="21" r="3" fill="#E07A2F"/></symbol>
+    <symbol id="s-ordforrad" viewBox="0 0 48 48"><rect x="6" y="9" width="36" height="30" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><text x="24" y="24" font-family="Inter,sans-serif" font-size="9" font-weight="700" letter-spacing="1" text-anchor="middle" fill="currentColor">LYHÖRD</text><rect x="12" y="29" width="10" height="4" rx="2" fill="currentColor" opacity=".5"/><rect x="26" y="29" width="10" height="4" rx="2" fill="#E07A2F"/></symbol>
+    <symbol id="s-plan" viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="9" fill="none" stroke="currentColor" stroke-width="2" opacity=".6"/><circle cx="24" cy="24" r="2.4" fill="#E07A2F"/></symbol>
+    <symbol id="i-idag" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.75"/><path d="M12 3.5a8.5 8.5 0 0 1 8.5 8.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="12" cy="12" r="2" fill="currentColor"/></symbol>
+    <symbol id="i-tester" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M9.2 3.5v17M14.8 3.5v17M3.5 9.2h17M3.5 14.8h17" opacity=".55"/></g><path d="M15.4 15.4h4.1v4.1h-4.1z" fill="currentColor" opacity=".9"/></symbol>
+    <symbol id="i-utv" viewBox="0 0 24 24"><path d="M3.5 17.5c3-1 4.5-6 7.5-7s4.5 3 8 1.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/><circle cx="19" cy="12" r="2.2" fill="currentColor"/><path d="M3.5 20.5h17" stroke="currentColor" stroke-width="1.5" opacity=".5"/></symbol>
+    <symbol id="i-konto" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c.8-3.6 3.5-5.5 7-5.5s6.2 1.9 7 5.5"/></g></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-las" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.75"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></g></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></symbol>
+    <symbol id="i-tillbaka" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-ut" viewBox="0 0 24 24"><path d="M14 5h5v5M19 5l-8 8M10 6H6.5A1.5 1.5 0 0 0 5 7.5v10A1.5 1.5 0 0 0 6.5 19h10a1.5 1.5 0 0 0 1.5-1.5V14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-klocka" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="12" cy="13" r="7.5"/><path d="M12 9v4.5l3 2M9 3.5h6"/></g></symbol>
+    <symbol id="i-google" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></symbol>
+    <symbol id="i-apple" viewBox="0 0 24 24"><path d="M16.4 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.8 3-.8s1.8.8 3 .8c1.3 0 2-1.1 2.8-2.3.9-1.3 1.2-2.6 1.3-2.6-.1 0-2.5-1-2.5-3.8zM14.1 5.9c.6-.8 1.1-1.8 1-2.9-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.8 1 .1 2.1-.5 2.7-1.3z" fill="currentColor"/></symbol>
+    <symbol id="ring-kvar" viewBox="0 0 56 56"><circle cx="28" cy="28" r="24" fill="none" stroke="var(--vagg-kant)" stroke-width="5"/><circle cx="28" cy="28" r="24" fill="none" stroke="#E07A2F" stroke-width="5" stroke-dasharray="6 7" stroke-linecap="round"/><circle cx="28" cy="28" r="6" fill="none" stroke="var(--vagg-mjuk)" stroke-width="2"/></symbol>
+    <symbol id="ring-gjord" viewBox="0 0 56 56"><circle cx="28" cy="28" r="24" fill="none" stroke="#E07A2F" stroke-width="5"/><path d="M19 28.5l6 6 12-13" fill="none" stroke="var(--vagg-ink)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ring-tom" viewBox="0 0 56 56"><circle cx="28" cy="28" r="24" fill="none" stroke="var(--vagg-kant)" stroke-width="5"/></symbol>
+    <symbol id="ring-fri" viewBox="0 0 56 56"><circle cx="28" cy="28" r="24" fill="none" stroke="var(--vagg-kant)" stroke-width="5" stroke-dasharray="3 6" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+<header class="huvud">
+  <div class="ey">Design för godkännande</div>
+  <h1 class="disp">Jobbcoach-appen: allt runt testerna</h1>
+  <p>Androidappen av rekryteringstesterna, med iOS i åtanke. Passen är samma kod som webben och ritas här bara som en ruta. Allt annat är appens eget: onboarding, inloggning, Idag, Tester, Utveckling, Konto, köp, notisfrågan, flikraden och butiksmaterialet.</p>
+  <div class="meta"><span>13 november 2026</span><span>Art director, Fable</span><span>Pixel 7, 412 px, huvudformat</span><span>Följer docs/designsystem.md v3 och docs/plan-app.md avsnitt 3</span></div>
+</header>
+
+<div class="fragor">
+  <h2 class="disp">Fyra frågor till ägaren</h2>
+  <ol>
+    <li><b>Appikonen.</b> Jag föreslår samma motiv som PWA-ikonen (mappen och arket) men på Träningens indigovägg, så att den syns på hemskärmen och säger "tester". Alternativet är att behålla den benvita PWA-ikonen rakt av. Indigo eller benvit?</li>
+    <li><b>Konto som fjärde flik.</b> Fyra flikar: Idag, Tester, Utveckling, Konto. Alternativet är tre flikar och kontot bakom avataren i toppraden. Jag har valt fyra, eftersom påminnelsetiden och prenumerationen ska vara lätta att hitta i en app. Godkänt?</li>
+    <li><b>Samtycket till analys</b> ligger som steg tre i onboardingen med två lika stora knappar, Ja och Nej tack. Det är ärligt mot användaren och håller för granskning i butikerna. Alternativet är att fråga först efter första passet. Steg tre?</li>
+    <li><b>Påminnelsens standardtid.</b> Notisfrågan föreslår klockslaget då hon gjorde första passet, avrundat till närmaste halvtimme, med 07:30 och 12:00 som alternativ. Alternativet är en fast tid, 18:30, för alla. Hennes egen tid?</li>
+  </ol>
+</div>
+
+<nav class="toc" aria-label="Avsnitt">
+  <a href="#flode">Så hänger det ihop</a><a href="#onboarding">1 Onboarding</a><a href="#login">2 Logga in</a><a href="#idag">3 Idag</a><a href="#tester">4 Tester</a><a href="#utveckling">5 Utveckling</a><a href="#konto">6 Konto</a><a href="#kop">7 Köpvy</a><a href="#notis">8 Notisfrågan</a><a href="#flikrad">9 Flikrad och övergångar</a><a href="#butik">10 Ikon och butik</a><a href="#data">Data per vy</a>
+</nav>
+
+<!-- ============================================================ FLÖDE -->
+<section class="del" id="flode">
+  <header><div class="nr">Översikt</div><h2 class="disp">Så hänger det ihop</h2><p>Appen öppnar direkt i testerna. Första gången: tre steg onboarding, sedan konto. Varje gång därefter: Idag. Passen öppnas i helskärm ovanpå flikarna och stängs tillbaka dit de kom ifrån.</p></header>
+  <div class="flode">
+    <div class="box"><b>Onboarding 1</b><span>Vad appen gör</span></div><div class="pil">›</div>
+    <div class="box"><b>Onboarding 2</b><span>Vilket test</span></div><div class="pil">›</div>
+    <div class="box"><b>Onboarding 3</b><span>Samtycke</span></div><div class="pil">›</div>
+    <div class="box"><b>Konto</b><span>Google, e-post, Apple</span></div><div class="pil">›</div>
+    <div class="box vagg"><b>Idag</b><span>Dagens pass, serien, Mitt test</span></div><div class="pil">›</div>
+    <div class="box"><b>Passet</b><span>Samma som webben, helskärm</span></div><div class="pil">›</div>
+    <div class="box"><b>Resultat</b><span>Samma som webben</span></div><div class="pil">›</div>
+    <div class="box"><b>Notisfrågan</b><span>Bara efter första passet</span></div>
+  </div>
+  <div class="beslut"><b>Tre grepp som gör den till en app och inte webben.</b> Väggen tar hela toppen av skärmen och bär dagens instrument stort: dagsringen, nivån som huvudtal och veckoraden med serien. Flikraden byter vy utan att ladda sida och utan glid. Allt som kostar nät (passen) öppnas som ett eget lager ovanpå, med Android-tillbaka kopplad till passets egen stängning. Samma tokens som Rummen, men vyerna är komponerade om för en hand och en tumme.</div>
+</section>
+
+<!-- ============================================================ 1 ONBOARDING -->
+<section class="del" id="onboarding">
+  <header><div class="nr">1</div><h2 class="disp">Onboarding, tre steg</h2><p>Ljust golv och stora illustrationer, ingen vägg än: väggen är belöningen när hon har ett konto. Steg två är det som faktiskt styr produkten, så det får mest yta.</p></header>
+  <div class="rad">
+    <div class="telrad">
+
+      <div class="telkol">
+      <div class="tel" aria-label="Onboarding steg 1">
+        <div class="status ljus"><span>14:07</span><span class="sig"><i></i><i></i><i></i></span></div>
+        <div class="skarm"><div class="innehall"><div class="onb">
+          <div class="steg"><i class="nu"></i><i></i><i></i></div>
+          <div class="scen">
+            <svg viewBox="0 0 300 220" aria-hidden="true">
+              <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2B3470"/><stop offset="1" stop-color="#121737"/></linearGradient></defs>
+              <rect x="20" y="20" width="200" height="180" rx="22" fill="url(#g1)"/>
+              <g stroke="#F5F6FC" stroke-width="2.5" fill="none" opacity=".35"><path d="M86 20v180M153 20v180M20 80h200M20 140h200"/></g>
+              <g fill="#F5F6FC"><circle cx="53" cy="50" r="9"/><rect x="109" y="40" width="22" height="22" rx="4"/><path d="M186 38l13 22h-26z"/><rect x="42" y="100" width="22" height="22" rx="4"/><path d="M120 98l13 22h-26z"/><circle cx="186" cy="110" r="9"/><path d="M53 158l13 22h-26z"/><circle cx="120" cy="170" r="9"/></g>
+              <rect x="168" y="152" width="36" height="36" rx="8" fill="none" stroke="#E07A2F" stroke-width="3" stroke-dasharray="6 5"/>
+              <g transform="translate(206 112)"><rect x="0" y="0" width="80" height="96" rx="14" fill="#FFFFFF" stroke="#1A1A1F" stroke-width="3"/><path d="M14 60c10-4 16-24 26-26s16 10 28 2" fill="none" stroke="#E07A2F" stroke-width="4" stroke-linecap="round"/><circle cx="68" cy="36" r="5" fill="#E07A2F"/><path d="M16 22h30M16 32h20" stroke="#C9C6BF" stroke-width="3" stroke-linecap="round"/></g>
+            </svg>
+          </div>
+          <h1>Träna inför ditt rekryteringstest</h1>
+          <p>Nio uppgifter om dagen i samma format som provet. Vi förklarar varje svar, och du ser nivån stiga vecka för vecka.</p>
+          <div class="fot"><button class="knapp primar">Fortsätt</button><div style="text-align:center"><button class="lank" style="font-size:14px">Jag har redan ett konto</button></div></div>
+        </div></div></div>
+      </div>
+      <p class="bildtext">Steg 1 av 3: vad appen gör. Tillbaka stänger appen.</p>
+      </div>
+
+      <div class="telkol">
+      <div class="tel" aria-label="Onboarding steg 2">
+        <div class="status ljus"><span>14:07</span><span class="sig"><i></i><i></i><i></i></span></div>
+        <div class="skarm"><div class="innehall"><div class="onb">
+          <div class="steg"><i class="gjord"></i><i class="nu"></i><i></i></div>
+          <h1>Vilket test ska du göra?</h1>
+          <p>Valet styr vilka deltester du tränar och vad passen roterar mellan. Går att ändra när som helst.</p>
+          <div class="val">
+            <button class="vald"><svg class="sym"><use href="#s-spatial"/></svg><b>Polisen eller Försvarsmakten</b><span>I-provet. Även mönstring, Tullverket, Kustbevakningen</span></button>
+            <button><svg class="sym"><use href="#s-matris"/></svg><b>Matrigma</b><span>Assessio</span></button>
+            <button><svg class="sym"><use href="#s-matris"/></svg><b>Alva Logic</b><span>Alva Labs</span></button>
+            <button><svg class="sym"><use href="#s-deduktiv"/></svg><b>SHL Verify</b><span>SHL, även G+</span></button>
+            <button><svg class="sym"><use href="#s-figurer"/></svg><b>Aon scales</b><span>cut-e</span></button>
+            <button><svg class="sym"><use href="#s-siffror"/></svg><b>Lokförare</b><span>TCC, ProTrain, Trafikverksskolan, MTR</span></button>
+            <button class="bred"><svg class="sym"><use href="#s-person"/></svg><b>Bara personlighetstest</b><span>Inga rätta svar</span></button>
+            <button class="bred"><svg class="sym"><use href="#s-plan"/></svg><b>Annat eller vet inte</b><span>Du väljer delar själv</span></button>
+          </div>
+          <div class="fot"><button class="knapp primar">Fortsätt med I-provet</button></div>
+        </div></div></div>
+      </div>
+      <p class="bildtext">Steg 2 av 3: samma åtta val som ingången på webben. Valt kort får bläckkant och bock, aldrig koppar.</p>
+      </div>
+
+      <div class="telkol">
+      <div class="tel" aria-label="Onboarding steg 3">
+        <div class="status ljus"><span>14:07</span><span class="sig"><i></i><i></i><i></i></span></div>
+        <div class="skarm"><div class="innehall"><div class="onb">
+          <div class="steg"><i class="gjord"></i><i class="gjord"></i><i class="nu"></i></div>
+          <div class="scen">
+            <svg viewBox="0 0 300 200" aria-hidden="true">
+              <rect x="40" y="30" width="220" height="140" rx="20" fill="#FFFFFF" stroke="#1A1A1F" stroke-width="3"/>
+              <g fill="#DFE3F6"><rect x="70" y="110" width="26" height="36" rx="6"/><rect x="110" y="84" width="26" height="62" rx="6"/><rect x="150" y="98" width="26" height="48" rx="6"/></g>
+              <rect x="190" y="62" width="26" height="84" rx="6" fill="#E07A2F"/>
+              <path d="M62 150h180" stroke="#C9C6BF" stroke-width="3" stroke-linecap="round"/>
+              <g transform="translate(218 18)"><circle cx="30" cy="30" r="28" fill="#1A1A1F"/><path d="M18 31l8 8 16-17" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g>
+              <g stroke="#1A1A1F" stroke-width="3" stroke-linecap="round" opacity=".35"><path d="M70 56h40M70 66h24"/></g>
+            </svg>
+          </div>
+          <h1>Får vi se hur appen används?</h1>
+          <p>Anonym statistik om vilka vyer som öppnas och var folk fastnar. Aldrig dina svar, aldrig din nivå. Du kan ändra dig när som helst under Konto.</p>
+          <div class="fot"><button class="knapp primar">Ja, det går bra</button><button class="knapp sekundar">Nej tack</button></div>
+        </div></div></div>
+      </div>
+      <p class="bildtext">Steg 3 av 3: samtycket. Två lika stora knappar, båda går vidare till kontot.</p>
+      </div>
+
+    </div>
+    <aside class="noter">
+      <div class="not"><h3>Beslut</h3><ul>
+        <li><b>Inget hopp över.</b> Tre steg på under en minut; "Jag har redan ett konto" i steg ett går rakt till inloggningen och hämtar Mitt test från webben.</li>
+        <li><b>Valet sparas lokalt</b> tills kontot finns, sedan skrivs det till <code>test_planer</code> som på webben (<code>planFranVal</code>). Har kontot redan en plan vinner planen, och appen säger det på Idag.</li>
+        <li><b>Samtycket</b> styr PostHog i appen. Nej betyder att bara <code>app_installed</code> och köphändelser utan person skickas.</li>
+        <li>Progressen är tre streck, inte prickar: steget man står på är koppar, gjorda är bläck.</li>
+      </ul></div>
+      <div class="not data"><h3>Data från servern</h3><ul>
+        <li>Inget. Steg 1 till 3 är helt lokala.</li>
+        <li>Listan över val är <code>synligaVal()</code> ur <code>mittTest.ts</code>, så att Polisen bara syns när I-provets typer är befordrade.</li>
+      </ul></div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============================================================ 2 LOGIN -->
+<section class="del" id="login">
+  <header><div class="nr">2</div><h2 class="disp">Logga in och skapa konto</h2><p>En vy för båda: den som har konto känns igen på adressen. Google och e-post på Android. Apples knapp har sin plats överst och fylls i på iOS.</p></header>
+  <div class="rad">
+    <div class="telrad">
+      <div class="telkol">
+      <div class="tel" aria-label="Logga in">
+        <div class="status ljus"><span>14:08</span><span class="sig"><i></i><i></i><i></i></span></div>
+        <div class="skarm"><div class="innehall"><div class="onb">
+          <div class="steg" style="justify-content:flex-start"><button class="knapp44" style="width:44px;height:44px;border:0;background:none;color:var(--ink-1);margin-left:-12px;display:grid;place-items:center;border-radius:12px"><svg width="24" height="24"><use href="#i-tillbaka"/></svg></button></div>
+          <div class="scen" style="padding-bottom:12px">
+            <svg viewBox="0 0 300 150" aria-hidden="true">
+              <g transform="translate(60 10)"><rect x="0" y="0" width="100" height="126" rx="16" fill="#FFFFFF" stroke="#1A1A1F" stroke-width="3"/><circle cx="50" cy="42" r="18" fill="#DFE3F6" stroke="#1A1A1F" stroke-width="3"/><path d="M22 96c4-16 14-24 28-24s24 8 28 24" fill="#DFE3F6" stroke="#1A1A1F" stroke-width="3"/></g>
+              <path d="M170 70c14 0 18-30 40-30s24 30 36 30" fill="none" stroke="#E07A2F" stroke-width="4" stroke-linecap="round"/>
+              <circle cx="246" cy="70" r="7" fill="#E07A2F"/>
+              <path d="M170 100h76" stroke="#C9C6BF" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h1>Spara din nivå</h1>
+          <p>Samma konto som på jobbcoach.ai. Nivån, passen och Premium följer med åt båda hållen.</p>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:22px">
+            <button class="knapp ghost"><span class="tagg">iOS, kommer</span><svg width="20" height="20"><use href="#i-apple"/></svg>Fortsätt med Apple</button>
+            <button class="knapp sekundar"><svg width="20" height="20"><use href="#i-google"/></svg>Fortsätt med Google</button>
+            <div class="eller">eller</div>
+            <div class="falt">E-postadress</div>
+            <button class="knapp primar" style="margin-top:0">Fortsätt med e-post</button>
+            <p style="font-size:13px;line-height:18px;margin-top:0;color:var(--ink-3)">Nästa steg: lösenord, eller en länk i mejlen om du hellre slipper ett.</p>
+          </div>
+          <div class="fot" style="padding-top:0"><p style="font-size:12px;line-height:17px;color:var(--ink-3);margin:0;text-align:center">Genom att fortsätta godkänner du <u>villkoren</u> och <u>integritetspolicyn</u>.</p></div>
+        </div></div></div>
+      </div>
+      <p class="bildtext">Android: Apples knapp ritas inte, raden faller bort. iOS: Apple överst i svart, Google under.</p>
+      </div>
+    </div>
+    <aside class="noter">
+      <div class="not"><h3>Beslut</h3><ul>
+        <li><b>En vy, inte två.</b> Skriv adressen, så avgör servern om det är inloggning eller nytt konto. Ingen "Har du redan konto?"-växel.</li>
+        <li><b>Apple överst på iOS</b> enligt riktlinje 4.8: aldrig mindre eller längre ner än Google. På Android finns den inte alls.</li>
+        <li>Kopparknappen är e-posten, eftersom den är det steg som kräver mest av henne. Google är sekundär på papper med kant.</li>
+        <li>Mejllänkar öppnar appen (App Links) och landar på Idag med en toast "Du är inloggad".</li>
+      </ul></div>
+      <div class="not data"><h3>Data från servern</h3><ul>
+        <li>Google: id-token till <code>signInWithIdToken</code>. E-post: samma rutter som <code>LoginFlode</code>.</li>
+        <li>Efter inloggning: <code>profiles</code> (namn, <code>traning_sedd_at</code>), <code>test_planer</code> (finns plan?), <code>premium_grants</code>.</li>
+        <li>Skriv lokalt valt Mitt test till <code>test_planer</code> om kontot saknar plan.</li>
+      </ul></div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============================================================ 3 IDAG -->
+<section class="del" id="idag">
+  <header><div class="nr">3</div><h2 class="disp">Idag</h2><p>Hemmet. Väggen bär dagens instrument: dagsringen, nivån och veckoraden med serien. Det lyfta kortet är dagens pass, en enda kopparknapp. Under det står Mitt test och nästa steg som rader.</p></header>
+  <div class="rad">
+    <div class="telrad">
+
+      <div class="telkol">
+      <div class="tel" id="tel-idag" aria-label="Idag, Premium, dag fem">
+        <div class="status"><span>14:08</span><span class="sig"><i></i><i></i><i></i></span></div>
+        <div class="skarm">
+          <div class="innehall">
+            <div class="vagg">
+              <div class="topprad"><span class="brand">Jobbcoach</span><span class="datum">Fredag 13 november</span></div>
+              <div class="ey">Dagens pass</div>
+              <div class="dagsrad">
+                <svg width="96" height="96" role="img" aria-label="Dagens pass inte gjort än"><use href="#ring-kvar"/></svg>
+                <div class="tal-stor">5,8<small>din nivå, från 5,2 i måndags</small></div>
+              </div>
+              <div class="vecka" role="img" aria-label="Veckan: måndag till torsdag gjorda, fredag kvar, söndag är fri">
+                <div><svg><use href="#ring-gjord"/></svg>Mån</div>
+                <div><svg><use href="#ring-gjord"/></svg>Tis</div>
+                <div><svg><use href="#ring-gjord"/></svg>Ons</div>
+                <div><svg><use href="#ring-gjord"/></svg>Tor</div>
+                <div class="idag"><svg><use href="#ring-kvar"/></svg>Fre</div>
+                <div><svg><use href="#ring-tom"/></svg>Lör</div>
+                <div><svg><use href="#ring-fri"/></svg>Sön</div>
+              </div>
+              <div class="serietext"><b>Fyra dagar i rad.</b> Söndag är fri och bryter inget.</div>
+            </div>
+            <div class="golv lyft">
+              <div class="kort lyftkort">
+                <div class="ey koppar">Dag 5 av 28</div>
+                <h2>Spatial förmåga, nio uppgifter</h2>
+                <p>Pappersvikning och tärningar på din nivå, cirka tio minuter. Vi förklarar varje svar.</p>
+                <button class="knapp primar" data-oppna="pass">Starta dagens pass</button>
+                <div class="fot">I går ord, i morgon talserier. Passen följer I-provets ordning.</div>
+              </div>
+              <div class="sekt">Mitt test</div>
+              <div class="rader">
+                <a class="r" href="#tester"><svg class="sym"><use href="#s-plan"/></svg><div class="t"><b>Polisen, I-provet</b><span>Provet söndag 6 december, 23 dagar kvar</span></div><svg class="chev"><use href="#i-chev"/></svg></a>
+                <div class="r" style="min-height:48px"><div class="t" style="display:flex;gap:6px;flex-wrap:wrap"><span class="chip gjord" style="margin:0"><svg><use href="#i-check"/></svg>Ord</span><span class="chip" style="margin:0">Spatial, i dag</span><span class="chip las" style="margin:0">Talserier, i morgon</span></div></div>
+              </div>
+              <div class="sekt">Nästa steg</div>
+              <div class="rader">
+                <a class="r" href="#utveckling"><svg class="sym"><use href="#i-klocka"/></svg><div class="t"><b>Ny nivåkoll på måndag</b><span>Var sjunde dag. Du ser om passen flyttat dig.</span></div><svg class="chev"><use href="#i-chev"/></svg></a>
+                <a class="r" href="#tester"><svg class="sym"><use href="#s-ordforrad"/></svg><div class="t"><b>I-provet, övningsprov</b><span>Halva provet på 45 minuter, i provets ordning</span></div><svg class="chev"><use href="#i-chev"/></svg></a>
+              </div>
+            </div>
+          </div>
+          <nav class="flikrad" aria-label="Huvudmeny">
+            <a class="flik aktiv" href="#idag" aria-current="page"><span class="pill"><svg><use href="#i-idag"/></svg></span>Idag</a>
+            <a class="flik" href="#tester"><span class="pill"><svg><use href="#i-tester"/></svg></span>Tester</a>
+            <a class="flik" href="#utveckling"><span class="pill"><svg><use href="#i-utv"/></svg></span>Utveckling</a>
+            <a class="flik" href="#konto"><span class="pill"><svg><use href="#i-konto"/></svg></span>Konto</a>
+          </nav>
+          <div class="ark-dimma dold" data-ark="pass" style="align-items:stretch;background:var(--golv)">
+            <div style="display:flex;flex-direction:column;width:100%">
+              <div style="height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 8px 0 16px"><b style="font-family:'Schibsted Grotesk',Inter,sans-serif;font-size:15px">Dagens pass</b><button class="knapp44" data-stang style="color:var(--ink-1)"><svg width="24" height="24"><use href="#i-x"/></svg></button></div>
+              <div class="passruta"><div class="tidsrad"><i></i></div><b>Passet, samma som webben</b><span>PassShell, frågan, regelpanelen och resultatet. Delad kod, ändras aldrig här.</span><span style="font-size:12px;color:var(--ink-3)">Android-tillbaka gör samma sak som krysset.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="bildtext">Premium, dag fem. Tryck på kopparknappen för att se var passet öppnas.</p>
+      </div>
+
+      <div class="telkol">
+      <div class="tel" aria-label="Idag, gratis, dag två">
+        <div class="status"><span>09:12</span><span class="sig"><i></i><i></i><i></i></span></div>
+        <div class="skarm">
+          <div class="innehall">
+            <div class="vagg">
+              <div class="topprad"><span class="brand">Jobbcoach</span><span class="datum">Tisdag 10 november</span></div>
+              <div class="ey">Dagens pass</div>
+              <div class="dagsrad">
+                <svg width="96" height="96" role="img" aria-label="Dagens pass ingår i Premium"><use href="#ring-tom"/></svg>
+                <div class="tal-stor">5,2<small>din nivå efter nivåkollen</small></div>
+              </div>
+              <div class="vecka">
+                <div><svg><use href="#ring-gjord"/></svg>Mån</div>
+                <div class="idag"><svg><use href="#ring-tom"/></svg>Tis</div>
+                <div><svg><use href="#ring-tom"/></svg>Ons</div>
+                <div><svg><use href="#ring-tom"/></svg>Tor</div>
+                <div><svg><use href="#ring-tom"/></svg>Fre</div>
+                <div><svg><use href="#ring-tom"/></svg>Lör</div>
+                <div><svg><use href="#ring-fri"/></svg>Sön</div>
+              </div>
+              <div class="serietext"><b>En dag i rad.</b> Grundpasset i går var gratis.</div>
+            </div>
+            <div class="golv lyft">
+              <div class="kort lyftkort">
+                <div class="ey koppar">Ingår i Premium</div>
+                <h2>Dagens pass ingår i Premium</h2>
+                <p>Nio uppgifter med extra övning på pappersvikning. Från dag två ingår passen i Premium.</p>
+                <div class="prisrad">Jobbcoach Premium, 149 kr i månaden. Säg upp när du vill.</div>
+                <button class="knapp primar" data-oppna="kop">Köp Premium, 149 kr i månaden</button>
+                <div class="fot">Nivåkollen, resultatet och genomgången är dina, med eller utan Premium.</div>
+              </div>
+              <div class="sekt">Mitt test</div>
+              <div class="rader">
+                <a class="r" href="#tester"><svg class="sym"><use href="#s-plan"/></svg><div class="t"><b>Polisen, I-provet</b><span>Provet söndag 6 december, 26 dagar kvar</span></div><svg class="chev"><use href="#i-chev"/></svg></a>
+              </div>
+              <div class="statusrad"><i></i>Gratis att prova: nivåkollen en gång med genomgång och ett första pass samma dag.</div>
+            </div>
+          </div>
+          <nav class="flikrad" aria-label="Huvudmeny">
+            <a class="flik aktiv" href="#idag" aria-current="page"><span class="pill"><svg><use href="#i-idag"/></svg></span>Idag</a>
+            <a class="flik" href="#tester"><span class="pill"><svg><use href="#i-tester"/></svg></span>Tester</a>
+            <a class="flik" href="#utveckling"><span class="pill"><svg><use href="#i-utv"/></svg></span>Utveckling</a>
+            <a class="flik" href="#konto"><span class="pill"><svg><use href="#i-konto"/></svg></span>Konto</a>
+          </nav>
+          <div class="ark-dimma dold" data-ark="kop">
+            <div class="ark">
+              <div class="handtag"></div>
+              <h2>Dagens pass ingår i Premium</h2>
+              <p>Ett pass om dagen på din nivå, med genomgång. Och allt det här:</p>
+              <ul class="ingar">
+                <li><svg><use href="#i-check"/></svg>Alla pass, alla nivåer och övningsproven i I-provets format</li>
+                <li><svg><use href="#i-check"/></svg>Ny nivåkoll varje vecka och hela kurvan bakåt</li>
+                <li><svg><use href="#i-check"/></svg>Riktade pass på det du tappar</li>
+                <li><svg><use href="#i-check"/></svg>På webben: CV, personliga brev, jobbmatchning och Jobbcoachen</li>
+              </ul>
+              <div class="prisrad">Jobbcoach Premium, 149 kr i månaden. Säg upp när du vill i Google Play.</div>
+              <button class="knapp primar">Köp Premium, 149 kr i månaden</button>
+              <div class="rader" style="margin-top:12px"><button class="r"><div class="t"><b>Bara i dag? Dagspasset, 49 kr</b><span>Allt i Premium i 24 timmar. Engångsköp, inget dras igen.</span></div><svg class="chev"><use href="#i-chev"/></svg></button></div>
+              <p style="font-size:12px;line-height:17px;margin-top:12px;color:var(--ink-3)">Betalningen går via Google Play. Har du redan Premium från webben räcker det att vara inloggad.</p>
+              <div style="text-align:center;margin-top:14px"><button class="lank" data-stang style="font-size:14px">Inte nu</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="bildtext">Gratis, dag två: det lyfta kortet är betalväggen. Tryck på knappen för köpvyn (avsnitt 7).</p>
+      </div>
+
+    </div>
+    <aside class="noter">
+      <div class="not"><h3>Beslut</h3><ul>
+        <li><b>Veckoraden är serien.</b> Sju ringar i dagsringens språk: fyllda är gjorda, streckad koppar är i dag, söndag har glesa prickar som fri dag. Serien står som mening under, aldrig som ett ensamt tal.</li>
+        <li><b>Nivån är huvudtalet</b>, 64 px, med "från" i raden under. Siffran får bara stå stor på väggen.</li>
+        <li>Lyftkortets eyebrow är "Dag 5 av 28" (dagar till provet). Utan provdatum: "Dag 5".</li>
+        <li>Mitt test-raden går till Tester; chipraden visar rotationen tre dagar: gjort, i dag, i morgon.</li>
+        <li>Tillstånden ur <code>hemvy.ts</code> gäller alla: tomt, ny, mitt_i, efter_pass, infor, provdag, efter. Provdagen har ingen dagsring, bara datumet och "Lycka till".</li>
+        <li>Efter klart pass: ringen fylls med andelen rätt, bocken i väggens bläck, knappen blir "Se genomgången" som sekundär. Dagen efter första passet ställs notisfrågan (avsnitt 8).</li>
+      </ul></div>
+      <div class="not data"><h3>Data från servern</h3><ul>
+        <li><code>getTraningSummary(userId)</code>: <code>status.niva</code>, <code>status.punkter</code> (för "från"), <code>status.serie</code> (dagar, status, gjordIdag), <code>status.plandagar</code> (veckoraden), dagens pass (typ ur <code>passForDag</code>, nivå, strack), <code>passKvar</code>.</li>
+        <li><code>test_planer</code>: mitt_test, variant, provdatum, deltester.</li>
+        <li><code>premium_grants</code> via <code>premiumAccess</code>: vilket kort som lyfts, pass eller betalvägg.</li>
+        <li>Nivåkoll nästa: <code>nastaOmmatning</code> ur motorn. Övningsprovet: <code>iprovProvSynligt()</code>.</li>
+      </ul></div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============================================================ 4 TESTER -->
+<section class="del" id="tester">
+  <header><div class="nr">4</div><h2 class="disp">Tester</h2><p>Katalogen. Mitt test överst med det som ingår, resten under "Fler tester". Nivåkollen är det lyfta kortet tills den är gjord i varje ingående typ, sedan en rad i varje kort.</p></header>
+  <div class="rad">
+    <div class="telrad">
+      <div class="telkol">
+      <div class="tel" id="tel-tester" aria-label="Tester">
+        <div class="status"><span>14:09</span><span class="sig"><i></i><i></i><i></i></span></div>
+        <div class="skarm">
+          <div class="innehall">
+            <div class="vagg">
+              <div class="topprad"><span class="brand">Tester</span><a class="glas" href="#konto">Ändra mitt test</a></div>
+              <h1>Nio testtyper</h1>
+              <p style="margin-top:6px">Grundnivån är gratis i varje test. Alla nivåer och övningsproven ingår i Premium.</p>
+              <div style="display:flex;gap:16px;margin-top:18px;align-items:center">
+                <svg width="64" height="64" style="color:var(--vagg-ink)"><use href="#s-ordforrad"/></svg>
+                <svg width="64" height="64" style="color:var(--vagg-ink)"><use href="#s-spatial"/></svg>
+                <svg width="64" height="64" style="color:var(--vagg-ink)"><use href="#s-talserie"/></svg>
+                <div style="font-size:13px;color:var(--vagg-mjuk);line-height:18px">Tre av dem<br>ingår i I-provet</div>
+              </div>
+            </div>
+            <div class="golv lyft">
+              <div class="kort lyftkort">
+                <div class="ey koppar">Nivåkollen</div>
+                <h2>Kolla din nivå i talserier</h2>
+                <p>Tolv uppgifter som anpassar sig efter dina svar. Cirka åtta minuter, gratis första gången.</p>
+                <button class="knapp primar" data-oppna="pass">Kolla min nivå, 8 min</button>
+                <div class="fot">Ord och spatial förmåga har du redan kollat.</div>
+              </div>
+              <div class="sekt">Ingår i ditt test, I-provet</div>
+              <div class="kort" style="padding:14px 14px 10px">
+                <div style="display:flex;gap:12px;align-items:flex-start"><svg width="44" height="44" style="color:var(--ton-ink);flex:0 0 auto"><use href="#s-ordforrad"/></svg><div style="flex:1;min-width:0"><b style="font-size:16px;line-height:20px;display:block">Ordförråd</b><p style="margin-top:2px">Ett ord i versaler, fem alternativ. Synonymer och motsatsord.</p></div></div>
+                <div style="display:flex;gap:6px;margin-top:12px;flex-wrap:wrap"><span class="chip gjord"><svg><use href="#i-check"/></svg>Grund 17 av 20</span><span class="chip">Avancerad</span><span class="chip">Expert</span></div>
+                <a class="r" href="#utveckling" style="padding-left:0;padding-right:0;margin-top:6px;border-top:1px solid var(--kant)"><svg class="sym"><use href="#s-plan"/></svg><div class="t"><b>Nivåkoll gjord, 6,1</b><span>Formella ord sitter oftare rätt än fel</span></div><svg class="chev"><use href="#i-chev"/></svg></a>
+              </div>
+              <div class="kort" style="padding:14px 14px 10px">
+                <div style="display:flex;gap:12px;align-items:flex-start"><svg width="44" height="44" style="color:var(--ton-ink);flex:0 0 auto"><use href="#s-spatial"/></svg><div style="flex:1;min-width:0"><b style="font-size:16px;line-height:20px;display:block">Spatial förmåga</b><p style="margin-top:2px">Rumsuppfattning: vridna figurer, pappersvikning, tärningar.</p></div></div>
+                <div style="display:flex;gap:6px;margin-top:12px;flex-wrap:wrap"><span class="chip gjord"><svg><use href="#i-check"/></svg>Grund 12 av 15</span><span class="chip">Avancerad</span><span class="chip las"><svg><use href="#i-las"/></svg>Expert</span></div>
+                <a class="r" href="#utveckling" style="padding-left:0;padding-right:0;margin-top:6px;border-top:1px solid var(--kant)"><svg class="sym"><use href="#s-plan"/></svg><div class="t"><b>Nivåkoll gjord, 5,8</b><span>Två vikningar blir rätt varannan gång</span></div><svg class="chev"><use href="#i-chev"/></svg></a>
+              </div>
+              <div class="kort" style="padding:14px 14px 10px">
+                <div style="display:flex;gap:12px;align-items:flex-start"><svg width="44" height="44" style="color:var(--ton-ink);flex:0 0 auto"><use href="#s-talserie"/></svg><div style="flex:1;min-width:0"><b style="font-size:16px;line-height:20px;display:block">Talserier</b><p style="margin-top:2px">En lucka på grund, två från avancerad som i I-provet.</p></div></div>
+                <div style="display:flex;gap:6px;margin-top:12px;flex-wrap:wrap"><span class="chip">Grund</span><span class="chip las"><svg><use href="#i-las"/></svg>Avancerad</span><span class="chip las"><svg><use href="#i-las"/></svg>Expert</span></div>
+                <div class="r" style="padding-left:0;padding-right:0;margin-top:6px;border-top:1px solid var(--kant)"><svg class="sym svag"><use href="#s-plan"/></svg><div class="t"><b style="color:var(--ink-3)">Nivåkollen inte gjord än</b><span>Kortet högst upp.</span></div></div>
+              </div>
+              <div class="rader">
+                <a class="r" href="#idag"><svg class="sym"><use href="#i-klocka"/></svg><div class="t"><b>I-provet, övningsprov</b><span>Sex deltester i provets ordning. Halva provet på 45 minuter, hela på 90.</span></div><span class="chip las" style="margin:0"><svg><use href="#i-las"/></svg>Premium</span></a>
+              </div>
+              <div class="sekt">Fler tester</div>
+              <div class="rader">
+                <a class="r" href="#tester"><svg class="sym"><use href="#s-matris"/></svg><div class="t"><b>Logiktest</b><span>Matriser. Grund, avancerad, expert och prov</span></div><svg class="chev"><use href="#i-chev"/></svg></a>
+                <a class="r" href="#tester"><svg class="sym"><use href="#s-figurer"/></svg><div class="t"><b>Figurserier</b><span>Fem figurer i rad och en lucka sist</span></div><svg class="chev"><use href="#i-chev"/></svg></a>
+                <a class="r" href="#tester"><svg class="sym"><use href="#s-deduktiv"/></svg><div class="t"><b>Deduktiv slutledning</b><span>Villkor i text, vem står var</span></div><svg class="chev"><use href="#i-chev"/></svg></a>
+                <a class="r" href="#tester"><svg class="sym"><use href="#s-ord"/></svg><div class="t"><b>Verbalt test</b><span>Läs en text, avgör påståenden</span></div><svg class="chev"><use href="#i-chev"/></svg></a>
+                <a class="r" href="#tester"><svg class="sym"><use href="#s-siffror"/></svg><div class="t"><b>Numeriskt test</b><span>Tabeller och diagram under tidspress</span></div><svg class="chev"><use href="#i-chev"/></svg></a>
+                <a class="r" href="#tester"><svg class="sym"><use href="#s-person"/></svg><div class="t"><b>Personlighetstest</b><span>Inga rätta svar. Grund gratis, fördjupat i Premium</span></div><svg class="chev"><use href="#i-chev"/></svg></a>
+              </div>
+              <div class="statusrad varm"><i></i><span style="color:var(--ink-1)">Till träningen: dagens pass, nio uppgifter.</span><a class="lank" href="#idag">Idag</a></div>
+            </div>
+          </div>
+          <nav class="flikrad" aria-label="Huvudmeny">
+            <a class="flik" href="#idag"><span class="pill"><svg><use href="#i-idag"/></svg></span>Idag</a>
+            <a class="flik aktiv" href="#tester" aria-current="page"><span class="pill"><svg><use href="#i-tester"/></svg></span>Tester</a>
+            <a class="flik" href="#utveckling"><span class="pill"><svg><use href="#i-utv"/></svg></span>Utveckling</a>
+            <a class="flik" href="#konto"><span class="pill"><svg><use href="#i-konto"/></svg></span>Konto</a>
+          </nav>
+          <div class="ark-dimma dold" data-ark="pass" style="align-items:stretch;background:var(--golv)">
+            <div style="display:flex;flex-direction:column;width:100%">
+              <div style="height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 8px 0 16px"><b style="font-family:'Schibsted Grotesk',Inter,sans-serif;font-size:15px">Nivåkollen, talserier</b><button class="knapp44" data-stang style="color:var(--ink-1)"><svg width="24" height="24"><use href="#i-x"/></svg></button></div>
+              <div class="passruta"><div class="tidsrad"><i></i></div><b>Nivåkollen, samma som webben</b><span>NivakollFlode och resultatvyn. Delad kod.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="bildtext">Med Polisen valt. Utan val visas alla nio typer som kort, som på webben.</p>
+      </div>
+    </div>
+    <aside class="noter">
+      <div class="not"><h3>Beslut</h3><ul>
+        <li><b>Väggen presenterar typerna som bild</b>, tre symboler i väggens bläck, inte som uppräknad text.</li>
+        <li><b>Nivåerna är chips i tre lägen:</b> gjord (grön med resultat), öppen (ton) och låst (lås). Ett tryck på låst öppnar köparket, aldrig en kopparknapp.</li>
+        <li>Varje kort slutar med nivåkollens rad: gjord med nivån och modellens mening, eller "inte gjord än" dämpad.</li>
+        <li>Testtypens egen sida (nivåer, prov, resultat) är en undersida som glider in från höger; passet öppnas därifrån som helskärm.</li>
+        <li>Ändra mitt test är glasknappen på väggen och går till samma val som onboardingens steg två.</li>
+      </ul></div>
+      <div class="not data"><h3>Data från servern</h3><ul>
+        <li><code>getTesterHubData</code>: <code>perTest</code> (attempts, bästa, lastAttempt), <code>harNivakoll</code>, <code>personality</code>, <code>scope</code>, <code>isPremium</code>.</li>
+        <li><code>TEST_GROUPS</code> filtrerat genom <code>deltesterForPlan(plan)</code> och <code>GRUPP_FOR_DELTYP</code>.</li>
+        <li>Nivåkoll per typ: <code>lib/nivakoll/las.server</code> (niva, vantat per banknivå, <code>nivaMening</code>).</li>
+        <li><code>iprovSumma()</code> för övningsprovets rad.</li>
+      </ul></div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============================================================ 5 UTVECKLING -->
+<section class="del" id="utveckling">
+  <header><div class="nr">5</div><h2 class="disp">Utveckling</h2><p>Kurvan på väggen, nivåerna per testtyp, märkena och tempot på golvet. Ingen kopparknapp: den här vyn är till för att läsa.</p></header>
+  <div class="rad">
+    <div class="telrad">
+      <div class="telkol">
+      <div class="tel" id="tel-utv" aria-label="Utveckling">
+        <div class="status"><span>14:10</span><span class="sig"><i></i><i></i><i></i></span></div>
+        <div class="skarm">
+          <div class="innehall">
+            <div class="vagg">
+              <div class="topprad"><span class="brand">Utveckling</span><a class="glas" href="#konto">Sikte 6,5, ändra</a></div>
+              <div class="dagsrad" style="margin-top:0;align-items:flex-end"><div class="tal-stor">5,8<small>din nivå i figurer och mönster</small></div><div style="margin-left:auto;text-align:right;font-size:13px;color:var(--vagg-mjuk);line-height:18px">Provet 6 dec<br><b style="color:var(--vagg-ink)">23 dagar</b></div></div>
+              <svg class="kurva" viewBox="0 0 380 170" role="img" aria-label="Nivåkurvan: måndag 5,2, tisdag 5,4, onsdag 5,5, torsdag 5,8, i dag kvar. Sikte 6,5. Provet 6 december.">
+                <defs><linearGradient id="g-yta" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E07A2F" stop-opacity=".38"/><stop offset="1" stop-color="#E07A2F" stop-opacity="0"/></linearGradient></defs>
+                <g stroke="var(--vagg-kant)" stroke-width="1"><path d="M30 130h336M30 75h336M30 20h336"/></g>
+                <rect x="30" y="17" width="336" height="6" fill="var(--ljus)" opacity=".10"/>
+                <path d="M30 47.5h336" stroke="var(--ljus)" stroke-width="1.5" stroke-dasharray="4 4"/>
+                <path d="M366 12v124" stroke="var(--vagg-mjuk)" stroke-width="1.5"/>
+                <path d="M30 119L42.4 108L54.9 102.5L67.3 86L67.3 130L30 130Z" fill="url(#g-yta)"/>
+                <path d="M30 119L42.4 108L54.9 102.5L67.3 86" fill="none" stroke="#E07A2F" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="30" cy="119" r="5.5" fill="#E07A2F" stroke="#F4B98A" stroke-width="1.5"/>
+                <circle cx="42.4" cy="108" r="3.5" fill="#E07A2F"/>
+                <circle cx="54.9" cy="102.5" r="3.5" fill="#E07A2F"/>
+                <circle cx="67.3" cy="86" r="4.5" fill="#E07A2F" stroke="#FBE3D0" stroke-width="2"/>
+                <circle cx="79.8" cy="86" r="3.5" fill="none" stroke="#E07A2F" stroke-width="1.75" stroke-dasharray="2 2"/>
+                <text x="26" y="134" text-anchor="start">5</text>
+                <text x="26" y="79" text-anchor="start" style="opacity:.0">6</text>
+                <text x="18" y="24">7</text>
+                <text x="18" y="79">6</text>
+                <text x="18" y="134">5</text>
+                <text class="sikte" x="84" y="43">Sikte 6,5</text>
+                <text class="du" x="84" y="82">Du 5,8</text>
+                <text x="30" y="152">9 nov</text>
+                <text x="79.8" y="152" text-anchor="middle">i dag</text>
+                <text x="366" y="152" text-anchor="end">Prov 6 dec</text>
+                <g transform="translate(30 160)">
+                  <circle cx="0" cy="0" r="2.6" fill="var(--vagg-mjuk)"/><circle cx="12.4" cy="0" r="2.6" fill="var(--vagg-mjuk)"/><circle cx="24.9" cy="0" r="2.6" fill="var(--vagg-mjuk)"/><circle cx="37.3" cy="0" r="2.6" fill="var(--vagg-mjuk)"/>
+                  <circle cx="49.8" cy="0" r="2.6" fill="none" stroke="var(--vagg-mjuk)" stroke-width="1.2"/><circle cx="62.2" cy="0" r="2.6" fill="none" stroke="var(--vagg-mjuk)" stroke-width="1.2"/>
+                  <circle cx="87.1" cy="0" r="3.4" fill="none" stroke="var(--vagg-mjuk)" stroke-width="1.8"/>
+                  <circle cx="99.5" cy="0" r="2.6" fill="none" stroke="var(--vagg-mjuk)" stroke-width="1.2"/><circle cx="111.9" cy="0" r="2.6" fill="none" stroke="var(--vagg-mjuk)" stroke-width="1.2"/><circle cx="124.4" cy="0" r="2.6" fill="none" stroke="var(--vagg-mjuk)" stroke-width="1.2"/><circle cx="136.8" cy="0" r="2.6" fill="none" stroke="var(--vagg-mjuk)" stroke-width="1.2"/><circle cx="149.3" cy="0" r="2.6" fill="none" stroke="var(--vagg-mjuk)" stroke-width="1.2"/>
+                  <circle cx="174.1" cy="0" r="3.4" fill="none" stroke="var(--vagg-mjuk)" stroke-width="1.8"/>
+                  <circle cx="186.6" cy="0" r="2.6" fill="none" stroke="var(--vagg-mjuk)" stroke-width="1.2"/><circle cx="199" cy="0" r="2.6" fill="none" stroke="var(--vagg-mjuk)" stroke-width="1.2"/><circle cx="211.5" cy="0" r="2.6" fill="none" stroke="var(--vagg-mjuk)" stroke-width="1.2"/><circle cx="223.9" cy="0" r="2.6" fill="none" stroke="var(--vagg-mjuk)" stroke-width="1.2"/><circle cx="236.3" cy="0" r="2.6" fill="none" stroke="var(--vagg-mjuk)" stroke-width="1.2"/>
+                  <circle cx="261.2" cy="0" r="3.4" fill="none" stroke="var(--vagg-mjuk)" stroke-width="1.8"/>
+                  <circle cx="273.6" cy="0" r="2.6" fill="none" stroke="var(--vagg-mjuk)" stroke-width="1.2"/><circle cx="286.1" cy="0" r="2.6" fill="none" stroke="var(--vagg-mjuk)" stroke-width="1.2"/><circle cx="298.5" cy="0" r="2.6" fill="none" stroke="var(--vagg-mjuk)" stroke-width="1.2"/>
+                  <rect x="308" y="-3" width="6" height="6" fill="none" stroke="var(--vagg-mjuk)" stroke-width="1.2"/><rect x="320.4" y="-3" width="6" height="6" fill="none" stroke="var(--vagg-mjuk)" stroke-width="1.2"/>
+                </g>
+              </svg>
+              <p style="font-size:12px;line-height:16px;margin-top:4px;color:var(--vagg-svag)">Planraden: ihåliga märken är kommande dagar, större ringar nivåkoller, rutor generalrepetitionen.</p>
+            </div>
+            <div class="golv" style="padding-top:16px">
+              <div class="sekt">Nivåerna i ditt test</div>
+              <div class="kort" style="display:flex;flex-direction:column;gap:14px">
+                <div><div style="display:flex;justify-content:space-between;font-size:14px;font-weight:600"><span>Ordförråd</span><span style="color:var(--ink-3);font-weight:500">6,1</span></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;margin-top:6px"><i style="height:8px;border-radius:4px;background:var(--koppar)"></i><i style="height:8px;border-radius:4px;background:var(--koppar);opacity:.55"></i><i style="height:8px;border-radius:4px;border:1.5px solid var(--kant-stark)"></i></div><div style="display:flex;justify-content:space-between;font-size:11.5px;color:var(--ink-3);margin-top:4px"><span>Grund sitter</span><span>Avancerad oftare rätt</span><span>Expert</span></div></div>
+                <div><div style="display:flex;justify-content:space-between;font-size:14px;font-weight:600"><span>Spatial förmåga</span><span style="color:var(--ink-3);font-weight:500">5,8</span></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;margin-top:6px"><i style="height:8px;border-radius:4px;background:var(--koppar)"></i><i style="height:8px;border-radius:4px;background:var(--koppar);opacity:.3"></i><i style="height:8px;border-radius:4px;border:1.5px solid var(--kant-stark)"></i></div><div style="display:flex;justify-content:space-between;font-size:11.5px;color:var(--ink-3);margin-top:4px"><span>Grund sitter</span><span>Avancerad varannan</span><span>Expert</span></div></div>
+                <div><div style="display:flex;justify-content:space-between;font-size:14px;font-weight:600"><span>Talserier</span><span style="color:var(--ink-3);font-weight:500">inte kollad</span></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;margin-top:6px"><i style="height:8px;border-radius:4px;border:1.5px solid var(--kant-stark)"></i><i style="height:8px;border-radius:4px;border:1.5px solid var(--kant-stark)"></i><i style="height:8px;border-radius:4px;border:1.5px solid var(--kant-stark)"></i></div><div style="display:flex;justify-content:space-between;font-size:11.5px;color:var(--ink-3);margin-top:4px"><span>Grund</span><span>Avancerad</span><span>Expert</span></div></div>
+              </div>
+              <div class="sekt">Märken</div>
+              <div class="kort" style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;text-align:center;font-size:11px;line-height:14px;color:var(--ink-3)">
+                <div><svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="var(--koppar-mjuk)" stroke="var(--koppar)" stroke-width="2"/><circle cx="24" cy="24" r="6" fill="var(--koppar)"/></svg><div style="color:var(--ink-1);font-weight:600">Första mätningen</div></div>
+                <div><svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="none" stroke="var(--kant-stark)" stroke-width="2" stroke-dasharray="4 4"/><path d="M14 24h20M24 14v20" stroke="var(--kant-stark)" stroke-width="2" opacity=".6"/></svg><div>Första veckan<br>om 3 dagar</div></div>
+                <div><svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="none" stroke="var(--kant-stark)" stroke-width="2" stroke-dasharray="4 4"/><path d="M16 30l8-12 8 12" fill="none" stroke="var(--kant-stark)" stroke-width="2" stroke-linejoin="round"/></svg><div>Nivån upp<br>vid 6,0</div></div>
+                <div><svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="none" stroke="var(--kant-stark)" stroke-width="2" stroke-dasharray="4 4"/><rect x="17" y="17" width="14" height="14" fill="none" stroke="var(--kant-stark)" stroke-width="2"/></svg><div>General-<br>repetitionen</div></div>
+                <div><svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="none" stroke="var(--kant-stark)" stroke-width="2" stroke-dasharray="4 4"/><path d="M16 20h16M16 26h10" stroke="var(--kant-stark)" stroke-width="2" stroke-linecap="round"/></svg><div>Provdagen<br>6 dec</div></div>
+              </div>
+              <div class="sekt">Tempo</div>
+              <div class="kort">
+                <div style="display:flex;align-items:flex-end;gap:14px"><div><div style="font-family:'Schibsted Grotesk',Inter,sans-serif;font-size:28px;line-height:30px;font-weight:700;font-variant-numeric:tabular-nums">38 s</div><div style="font-size:12px;color:var(--ink-3)">per uppgift i går</div></div><div style="flex:1;display:flex;align-items:flex-end;gap:4px;height:44px"><i style="flex:1;height:70%;background:var(--ton);border-radius:3px 3px 0 0"></i><i style="flex:1;height:84%;background:var(--ton);border-radius:3px 3px 0 0"></i><i style="flex:1;height:62%;background:var(--ton);border-radius:3px 3px 0 0"></i><i style="flex:1;height:60%;background:var(--koppar);border-radius:3px 3px 0 0"></i><i style="flex:1;height:100%;border:1.5px dashed var(--kant-stark);border-bottom:0;border-radius:3px 3px 0 0"></i></div></div>
+                <p style="margin-top:8px;font-size:13px;line-height:18px">Provet ger 45 sekunder. Den streckade stapeln är budgeten, kopparstapeln i går.</p>
+              </div>
+              <div class="statusrad"><i></i>Hela kurvan bakåt och tempot per pass ingår i Premium.<a class="lank" href="#kop">Se vad som ingår</a></div>
+            </div>
+          </div>
+          <nav class="flikrad" aria-label="Huvudmeny">
+            <a class="flik" href="#idag"><span class="pill"><svg><use href="#i-idag"/></svg></span>Idag</a>
+            <a class="flik" href="#tester"><span class="pill"><svg><use href="#i-tester"/></svg></span>Tester</a>
+            <a class="flik aktiv" href="#utveckling" aria-current="page"><span class="pill"><svg><use href="#i-utv"/></svg></span>Utveckling</a>
+            <a class="flik" href="#konto"><span class="pill"><svg><use href="#i-konto"/></svg></span>Konto</a>
+          </nav>
+        </div>
+      </div>
+      <p class="bildtext">Premium. Gratisnivån ser bara senaste punkten på kurvan och statusraden längst ner.</p>
+      </div>
+    </div>
+    <aside class="noter">
+      <div class="not"><h3>Beslut</h3><ul>
+        <li><b>Kurvan är webbens Kurva-komponent i mobilens viewBox</b> (380 bred), med texten i HTML-lager som på webben, ritad på väggen. Samma regler: punktens tal vinner över axeln, ytan 0,38 till 0.</li>
+        <li><b>Nivåerna per typ</b> är tre staplar i rad: fylld koppar sitter, halv är oftare rätt, ihålig inte nådd. Nivåtalet står till höger, ett per rad.</li>
+        <li><b>Märkena</b> är fem ringar: nådda i koppar-mjuk med kopparkant, kommande streckade med nästa villkor under.</li>
+        <li>Tempo: ett tal och en liten stapelrad, aldrig fem tal i text.</li>
+        <li>Sikte ändras via glasknappen på väggen, som på webben (bara verbet är länk).</li>
+      </ul></div>
+      <div class="not data"><h3>Data från servern</h3><ul>
+        <li><code>DinUtvecklingData</code> ur <code>utveckling/data.server.ts</code>: <code>kurva</code> (punkter, plan, start, prov, sikte, historikLast, passKvar), <code>varDuStar</code>, <code>familjer</code>, <code>tempo</code>, <code>passPerTyp</code>.</li>
+        <li>Nivåkoll per typ som i Tester.</li>
+        <li><code>test_milstolpar</code> (nådd_at per märke).</li>
+      </ul></div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============================================================ 6 KONTO -->
+<section class="del" id="konto">
+  <header><div class="nr">6</div><h2 class="disp">Konto</h2><p>Grafitrummet, som på webben. Premium-statusen står på väggen, påminnelsen är första raden på golvet. Uppsägning sker i Google Play, och vyn säger var.</p></header>
+  <div class="rad">
+    <div class="telrad">
+      <div class="telkol">
+      <div class="tel grafit" id="tel-konto" aria-label="Konto">
+        <div class="status"><span>14:11</span><span class="sig"><i></i><i></i><i></i></span></div>
+        <div class="skarm">
+          <div class="innehall">
+            <div class="vagg tat">
+              <div class="topprad"><span class="brand">Konto</span></div>
+              <div style="display:flex;gap:14px;align-items:center;margin-top:4px"><div style="width:56px;height:56px;border-radius:50%;background:var(--vagg-2);border:1px solid var(--vagg-kant);display:grid;place-items:center;font-family:'Schibsted Grotesk',Inter,sans-serif;font-size:22px;font-weight:700">A</div><div><div style="font-family:'Schibsted Grotesk',Inter,sans-serif;font-size:22px;line-height:26px;font-weight:700">Anna Lindqvist</div><div style="font-size:13px;color:var(--vagg-mjuk)">anna.lindqvist@gmail.com</div></div></div>
+              <div style="display:flex;align-items:center;gap:10px;margin-top:18px;padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid var(--vagg-kant);font-size:13px"><i style="width:7px;height:7px;border-radius:50%;background:var(--koppar)"></i><span><b>Jobbcoach Premium</b> till 12 december, via Google Play</span></div>
+            </div>
+            <div class="golv" style="padding-top:16px">
+              <div class="sekt">Påminnelse</div>
+              <div class="rader">
+                <div class="r"><svg class="sym"><use href="#i-klocka"/></svg><div class="t"><b>Dagens pass väntar</b><span>En notis om dagen, bara när passet inte är gjort</span></div><span class="vippa pa" role="switch" aria-checked="true" aria-label="Påminnelse på"></span></div>
+                <button class="r"><div class="t" style="padding-left:48px"><b>Klockan 18:30</b><span>Tryck för att ändra tiden</span></div><svg class="chev"><use href="#i-chev"/></svg></button>
+              </div>
+              <div class="sekt">Träningen</div>
+              <div class="rader">
+                <a class="r" href="#onboarding"><svg class="sym"><use href="#s-plan"/></svg><div class="t"><b>Mitt test</b><span>Polisen, I-provet</span></div><span class="varde">Ändra</span><svg class="chev"><use href="#i-chev"/></svg></a>
+                <a class="r" href="#utveckling"><svg class="sym"><use href="#i-utv"/></svg><div class="t"><b>Provdatum och sikte</b><span>6 december, sikte 6,5</span></div><svg class="chev"><use href="#i-chev"/></svg></a>
+              </div>
+              <div class="sekt">Premium</div>
+              <div class="rader">
+                <button class="r"><div class="t"><b>Hantera prenumerationen</b><span>Byt, pausa eller säg upp i Google Play</span></div><svg class="chev" style="width:20px;height:20px"><use href="#i-ut"/></svg></button>
+                <button class="r"><div class="t"><b>Återställ köp</b><span>Om Premium inte syns efter ett byte av telefon</span></div><svg class="chev"><use href="#i-chev"/></svg></button>
+              </div>
+              <div class="sekt">Appen</div>
+              <div class="rader">
+                <div class="r"><div class="t"><b>Utseende</b><span>Följer systemet</span></div><span class="varde">Ljust, Mörkt</span><svg class="chev"><use href="#i-chev"/></svg></div>
+                <div class="r"><div class="t"><b>Dela hur appen används</b><span>Anonymt, aldrig dina svar</span></div><span class="vippa pa" role="switch" aria-checked="true" aria-label="Analys på"></span></div>
+                <button class="r"><div class="t"><b>Skriv till oss</b><span>hej@jobbcoach.ai</span></div><svg class="chev"><use href="#i-chev"/></svg></button>
+              </div>
+              <div class="knapprad" style="margin-top:8px"><button class="knapp sekundar">Logga ut</button><button class="lank fel" data-oppna="radera" style="font-size:14px">Radera kontot</button></div>
+              <p style="text-align:center;font-size:12px;color:var(--ink-3);margin:0">Jobbcoach 1.0.0 (Android)</p>
+            </div>
+          </div>
+          <nav class="flikrad" aria-label="Huvudmeny">
+            <a class="flik" href="#idag"><span class="pill"><svg><use href="#i-idag"/></svg></span>Idag</a>
+            <a class="flik" href="#tester"><span class="pill"><svg><use href="#i-tester"/></svg></span>Tester</a>
+            <a class="flik" href="#utveckling"><span class="pill"><svg><use href="#i-utv"/></svg></span>Utveckling</a>
+            <a class="flik aktiv" href="#konto" aria-current="page"><span class="pill"><svg><use href="#i-konto"/></svg></span>Konto</a>
+          </nav>
+          <div class="ark-dimma dold" data-ark="radera">
+            <div class="ark">
+              <div class="handtag"></div>
+              <h2>Radera kontot?</h2>
+              <p>Nivån, passen, resultaten och personlighetsprofilen försvinner. En pågående prenumeration måste du säga upp i Google Play, annars fortsätter den att dras.</p>
+              <div class="falt" style="margin-top:16px">Skriv RADERA för att bekräfta</div>
+              <button class="knapp primar" style="background:var(--fel);box-shadow:none;color:#fff">Radera kontot för gott</button>
+              <div style="text-align:center;margin-top:14px"><button class="lank" data-stang style="font-size:14px">Avbryt</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="bildtext">Tryck på "Radera kontot" för bekräftelsearket. Google Play kräver att radering går att göra i appen.</p>
+      </div>
+    </div>
+    <aside class="noter">
+      <div class="not"><h3>Beslut</h3><ul>
+        <li><b>Status på väggen, Hantera först på golvet</b> för den som har Premium, enligt designsystemets prenumerationsregel. Gratis: väggen säger "Gratisnivån" och Premium-kortet är lyftkort först på golvet med köpknappen.</li>
+        <li><b>Påminnelsen är två rader:</b> vippan och tiden. Tiden öppnar systemets klockväljare.</li>
+        <li>Hantera prenumerationen öppnar Google Plays prenumerationssida (extern-ikon). Appen visar aldrig Stripe.</li>
+        <li>Radera kontot är fel-länken, aldrig en knapp, och bekräftas med skrivet ord i ett ark.</li>
+        <li>Loggas hon ut landar hon i inloggningen, inte i onboardingen.</li>
+      </ul></div>
+      <div class="not data"><h3>Data från servern</h3><ul>
+        <li><code>profiles</code> (namn, e-post, utseende, <code>hjalp_dold</code>), <code>premium_grants</code> (källa, giltig till).</li>
+        <li><code>app_enheter</code>: <code>paminnelse_tid</code>, <code>aktiv</code> för den här enheten.</li>
+        <li><code>test_planer</code>: mitt_test, provdatum, sikte.</li>
+        <li>Radering: samma rutt som webbens kontoradering, plus avregistrering av push-token.</li>
+      </ul></div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============================================================ 7 KÖP -->
+<section class="del" id="kop">
+  <header><div class="nr">7</div><h2 class="disp">Köpvyn</h2><p>Ett ark, aldrig en sida. Rubriken namnger det hon tryckte på. Premium är kopparknappen, Dagspasset en rad under. Köpet går genom Google Play, och arket säger det.</p></header>
+  <div class="rad">
+    <div class="telrad">
+      <div class="telkol">
+      <div class="tel" aria-label="Köpvyn">
+        <div class="status" style="background:color-mix(in srgb,var(--vagg-2),#000 55%)"><span>14:12</span><span class="sig"><i></i><i></i><i></i></span></div>
+        <div class="skarm">
+          <div class="innehall" style="filter:brightness(.6)">
+            <div class="vagg tat"><div class="topprad"><span class="brand">Tester</span></div><h1>Nio testtyper</h1></div>
+            <div class="golv" style="padding-top:16px"><div class="kort" style="height:120px"></div><div class="kort" style="height:120px"></div></div>
+          </div>
+          <div class="ark-dimma" style="background:transparent">
+            <div class="ark" style="box-shadow:0 -10px 40px rgba(0,0,0,.35)">
+              <div class="handtag"></div>
+              <div class="ey" style="font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--koppar-ink);margin-bottom:4px">Ingår i Premium</div>
+              <h2>Expertnivån i spatial förmåga</h2>
+              <p>Speglingar som liknar vridningar, tre vikningar och tärningar där en sida räcker. Och allt det här:</p>
+              <ul class="ingar">
+                <li><svg><use href="#i-check"/></svg>Alla pass, alla nivåer och övningsproven i I-provets format</li>
+                <li><svg><use href="#i-check"/></svg>Ny nivåkoll varje vecka och hela kurvan bakåt</li>
+                <li><svg><use href="#i-check"/></svg>Riktade pass på det du tappar</li>
+                <li><svg><use href="#i-check"/></svg>På webben: CV, personliga brev, jobbmatchning och Jobbcoachen</li>
+              </ul>
+              <div class="prisrad">Jobbcoach Premium, 149 kr i månaden. Säg upp när du vill i Google Play.</div>
+              <button class="knapp primar">Köp Premium, 149 kr i månaden</button>
+              <div class="rader" style="margin-top:12px"><button class="r"><div class="t"><b>Bara i dag? Dagspasset, 49 kr</b><span>Allt i Premium i 24 timmar. Engångsköp, inget dras igen.</span></div><svg class="chev"><use href="#i-chev"/></svg></button></div>
+              <p style="font-size:12px;line-height:17px;margin-top:12px;color:var(--ink-3)">Betalningen går via Google Play. Har du redan Premium från webben räcker det att vara inloggad.</p>
+              <div style="text-align:center;margin-top:14px"><button class="lank" style="font-size:14px">Inte nu</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="bildtext">Öppnat från ett låst chip i Tester. Efter köpet stängs arket och det hon tryckte på öppnas direkt.</p>
+      </div>
+    </div>
+    <aside class="noter">
+      <div class="not"><h3>Beslut</h3><ul>
+        <li><b>Betalväggens anatomi från webben</b>, oförändrad: eyebrow, rubrik i kort-t, text, prisrad med fulla namnet, kopparknapp, en länk. Ingen kopparkant, ingen illustration.</li>
+        <li><b>Dagspasset är en rad, inte ett andra kort.</b> Den som vill ha 24 timmar hittar det; den som tvekar ser ett pris, inte två.</li>
+        <li>Rubriken följer vad hon tryckte: "Dagens pass ingår i Premium", "Expertnivån i spatial förmåga", "Övningsprovet ingår i Premium".</li>
+        <li>Google Plays egen köpdialog kommer ovanpå arket; vid klart köp en toast "Premium är på" och arket stängs.</li>
+        <li>Priset i appen är samma som webben tills ägaren beslutar annat (plan avsnitt 9).</li>
+      </ul></div>
+      <div class="not data"><h3>Data från servern</h3><ul>
+        <li>RevenueCat: produkterna <code>premium_manad_149</code> och <code>dagspasset_49</code>, lokaliserat pris från Play.</li>
+        <li>Webhook skriver <code>premium_grants</code> med källa <code>play</code>; appen läser om <code>premiumAccess</code> efter köp.</li>
+        <li>Händelser: <code>iap_viewed</code> (med plats), <code>iap_started</code>, <code>iap_completed</code>, <code>iap_cancelled</code>.</li>
+      </ul></div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============================================================ 8 NOTIS -->
+<section class="del" id="notis">
+  <header><div class="nr">8</div><h2 class="disp">Notisfrågan</h2><p>Visas en gång, ovanpå resultatet efter första klara passet. Vår egen fråga först, systemets dialog bara om hon säger ja. Aldrig vid start.</p></header>
+  <div class="rad">
+    <div class="telrad">
+      <div class="telkol">
+      <div class="tel" aria-label="Notisfrågan">
+        <div class="status" style="background:color-mix(in srgb,var(--vagg-2),#000 55%)"><span>18:34</span><span class="sig"><i></i><i></i><i></i></span></div>
+        <div class="skarm">
+          <div class="innehall" style="filter:brightness(.6)">
+            <div class="vagg"><div class="topprad"><span class="brand">Resultat</span></div><div class="ey">Dagens pass</div><div class="dagsrad"><svg width="96" height="96"><use href="#ring-gjord"/></svg><div class="tal-stor">7<small>av 9 rätt</small></div></div></div>
+            <div class="golv lyft"><div class="kort lyftkort" style="height:140px"></div></div>
+          </div>
+          <div class="ark-dimma" style="background:transparent">
+            <div class="ark" style="box-shadow:0 -10px 40px rgba(0,0,0,.35)">
+              <div class="handtag"></div>
+              <div style="display:flex;justify-content:center;padding:4px 0 12px">
+                <svg width="120" height="96" viewBox="0 0 120 96" aria-hidden="true">
+                  <circle cx="60" cy="52" r="34" fill="var(--koppar-mjuk)"/>
+                  <circle cx="60" cy="52" r="26" fill="none" stroke="var(--ink-1)" stroke-width="3"/>
+                  <path d="M60 36v16l10 7" fill="none" stroke="var(--ink-1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M50 14h20" stroke="var(--ink-1)" stroke-width="3" stroke-linecap="round"/>
+                  <circle cx="96" cy="22" r="12" fill="var(--koppar)"/>
+                  <path d="M90 22l4 4 8-8" fill="none" stroke="#1A1206" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <h2 style="text-align:center">Bra jobbat. Ska vi påminna dig i morgon?</h2>
+              <p style="text-align:center">En notis om dagen när passet väntar. Inget annat, och du stänger av den under Konto.</p>
+              <div class="tidchips"><button>07:30</button><button>12:00</button><button class="vald">18:30</button></div>
+              <p style="text-align:center;font-size:12px;margin-top:8px;color:var(--ink-3)">18:30 är ungefär när du gjorde passet i dag.</p>
+              <button class="knapp primar">Ja, påminn mig 18:30</button>
+              <div style="text-align:center;margin-top:14px"><button class="lank" style="font-size:14px">Inte nu</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="bildtext">Säger hon Inte nu frågar vi aldrig igen; vippan under Konto finns kvar.</p>
+      </div>
+    </div>
+    <aside class="noter">
+      <div class="not"><h3>Beslut</h3><ul>
+        <li><b>Egen fråga före systemets.</b> Android 13 ger bara en chans till systemdialogen; vår fråga filtrerar bort nej innan den bränns.</li>
+        <li><b>Tiden väljs i frågan</b>, tre chips, hennes egen tid förvald. Då är inställningen gjord i samma rörelse som samtycket.</li>
+        <li>Notisens text: "Dagens pass väntar. Spatial förmåga, nio uppgifter." Ett tryck öppnar Idag.</li>
+        <li>Skickas aldrig när dagens pass redan är gjort, aldrig på provdagen, aldrig på fria söndagar utan pass i planen.</li>
+      </ul></div>
+      <div class="not data"><h3>Data från servern</h3><ul>
+        <li>Skriver <code>app_enheter</code> (token, plattform, paminnelse_tid, aktiv).</li>
+        <li>Utskicket läser <code>plandagar</code> och dagens status per användare i edge-funktionen (pg_cron var kvart).</li>
+        <li>Händelser: <code>push_permission_shown</code>, <code>push_permission_granted</code>, <code>push_sent</code>, <code>push_opened</code>.</li>
+      </ul></div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============================================================ 9 FLIKRAD -->
+<section class="del" id="flikrad">
+  <header><div class="nr">9</div><h2 class="disp">Flikrad, övergångar och tillbakaknappen</h2><p>Fyra flikar, 72 px plus gestfältet. Den aktiva fliken har en pillerform i rummets ton, som dörrnavet på webben, men ikonerna är appens egna: ringen för Idag, rutnätet för Tester, kurvan för Utveckling, personen för Konto.</p></header>
+  <div class="kolumner">
+    <div class="tabell"><table>
+      <thead><tr><th>Rörelse</th><th>Hur</th><th>Tid</th></tr></thead>
+      <tbody>
+        <tr><td><b>Byte av flik</b></td><td>Korsblandning, inget glid. Andra trycket på samma flik rullar till toppen.</td><td>160 ms ease</td></tr>
+        <tr><td><b>In i en undersida</b> (testtyp, tidsväljaren, Mitt test)</td><td>Glider in från höger, flikraden står kvar. Tillbaka glider ut.</td><td>240 ms ease-out</td></tr>
+        <tr><td><b>Passet och nivåkollen</b></td><td>Helskärm ovanpå allt, glider upp. Flikraden försvinner. Krysset uppe till höger är passets eget.</td><td>240 ms ease-out</td></tr>
+        <tr><td><b>Ark</b> (köp, notis, radera)</td><td>sheetUp från botten med dimma. Dras ner eller stängs med Inte nu.</td><td>240 ms ease-out</td></tr>
+        <tr><td><b>Dagsringen fylls</b></td><td>Bara när en ny punkt kommit (nyPunkt), som på webben.</td><td>500 ms från 300</td></tr>
+        <tr><td><b>Haptik</b></td><td>Lätt vid svar i passet, tydlig vid klart pass och vid klart köp. Inget annat.</td><td>skalet</td></tr>
+        <tr><td><b>Reducerad rörelse</b></td><td>Sluttillståndet direkt, hela vägen.</td><td>0</td></tr>
+      </tbody>
+    </table></div>
+    <div class="tabell"><table>
+      <thead><tr><th>Android-tillbaka, var hon står</th><th>Vad som händer</th></tr></thead>
+      <tbody>
+        <tr><td><b>Ett ark är öppet</b></td><td>Arket stängs. Inget annat.</td></tr>
+        <tr><td><b>I passet eller nivåkollen</b></td><td>Samma som krysset: passets egen fråga "Avsluta passet?" (delad kod). Aldrig ett tyst avbrott.</td></tr>
+        <tr><td><b>På en undersida</b></td><td>Tillbaka till fliken den öppnades från.</td></tr>
+        <tr><td><b>På Tester, Utveckling eller Konto</b></td><td>Till Idag.</td></tr>
+        <tr><td><b>På Idag</b></td><td>Toast "Tryck igen för att stänga". Andra trycket inom två sekunder stänger appen.</td></tr>
+        <tr><td><b>Onboarding steg 2 eller 3, inloggningen</b></td><td>Föregående steg. Steg 1 stänger appen.</td></tr>
+        <tr><td><b>Utan nät</b></td><td>Felläget "Ingen anslutning, försök igen" är paketerat lokalt; tillbaka stänger appen.</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="beslut"><b>Systemfältet</b> följer väggen: indigo <code style="font-family:ui-monospace,monospace">#2B3470</code> i Idag, Tester och Utveckling, grafit i Konto, golvets färg i onboarding och inloggning. Gestfältet längst ner står alltid på papper. Mörkt läge byter golv och papper per Rummens tabell; väggen byter aldrig.</div>
+</section>
+
+<!-- ============================================================ 10 BUTIK -->
+<section class="del" id="butik">
+  <header><div class="nr">10</div><h2 class="disp">Appikon och Google Play</h2><p>Ikonen utgår från PWA-ikonen, mappen och arket som lyfter, men ställs på Träningens indigovägg. Skärmbilderna är tre och säger en sak var.</p></header>
+  <div class="kolumner" style="align-items:start">
+    <div>
+      <div class="ikon-hem">
+        <figure>
+          <svg width="96" height="96" viewBox="0 0 512 512" role="img" aria-label="Appikonen, indigo">
+            <defs><linearGradient id="gi" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2B3470"/><stop offset="1" stop-color="#121737"/></linearGradient></defs>
+            <rect width="512" height="512" rx="112" fill="url(#gi)"/>
+            <g fill="#1B2246" stroke="#F5F6FC" stroke-width="28" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M132 312V240a20 20 0 0 1 20-20h56l26 26h146a20 20 0 0 1 20 20v46z"/>
+              <g transform="rotate(-8 266 176)"><rect x="200" y="76" width="134" height="174" rx="22" fill="#F5F6FC"/></g>
+              <path d="M104 306h304l-30 100a20 20 0 0 1-19 14H153a20 20 0 0 1-19-14z"/>
+            </g>
+            <circle cx="380" cy="128" r="50" fill="#E07A2F"/>
+            <path d="M380 152v-48M360 124l20-20 20 20" fill="none" stroke="#1A1206" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <figcaption>Jobbcoach</figcaption>
+        </figure>
+        <figure>
+          <svg width="96" height="96" viewBox="0 0 512 512" role="img" aria-label="Maskable, beskuren till cirkel">
+            <clipPath id="cirk"><circle cx="256" cy="256" r="256"/></clipPath>
+            <g clip-path="url(#cirk)">
+              <rect width="512" height="512" fill="url(#gi)"/>
+              <g transform="translate(256 256) scale(0.78) translate(-262 -248)">
+                <g fill="#1B2246" stroke="#F5F6FC" stroke-width="35.9" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M132 312V240a20 20 0 0 1 20-20h56l26 26h146a20 20 0 0 1 20 20v46z"/>
+                  <g transform="rotate(-8 266 176)"><rect x="200" y="76" width="134" height="174" rx="22" fill="#F5F6FC"/></g>
+                  <path d="M104 306h304l-30 100a20 20 0 0 1-19 14H153a20 20 0 0 1-19-14z"/>
+                </g>
+                <circle cx="380" cy="128" r="50" fill="#E07A2F"/>
+                <path d="M380 152v-48M360 124l20-20 20 20" fill="none" stroke="#1A1206" stroke-width="30.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+            </g>
+          </svg>
+          <figcaption>Maskable, cirkel</figcaption>
+        </figure>
+        <figure>
+          <svg width="48" height="48" viewBox="0 0 512 512" role="img" aria-label="Ikonen i 48 px"><rect width="512" height="512" rx="112" fill="url(#gi)"/><g fill="#1B2246" stroke="#F5F6FC" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"><path d="M132 312V240a20 20 0 0 1 20-20h56l26 26h146a20 20 0 0 1 20 20v46z"/><g transform="rotate(-8 266 176)"><rect x="200" y="76" width="134" height="174" rx="22" fill="#F5F6FC"/></g><path d="M104 306h304l-30 100a20 20 0 0 1-19 14H153a20 20 0 0 1-19-14z"/></g><circle cx="380" cy="128" r="50" fill="#E07A2F"/><path d="M380 152v-48M360 124l20-20 20 20" fill="none" stroke="#1A1206" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <figcaption>48 px</figcaption>
+        </figure>
+        <figure>
+          <svg width="96" height="96" viewBox="0 0 512 512" role="img" aria-label="PWA-ikonen i dag, benvit"><rect width="512" height="512" rx="112" fill="#EDE8DF"/><g fill="#EDE8DF" stroke="#1C1917" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"><path d="M132 312V240a20 20 0 0 1 20-20h56l26 26h146a20 20 0 0 1 20 20v46z"/><g transform="rotate(-8 266 176)"><rect x="200" y="76" width="134" height="174" rx="22"/></g><path d="M104 306h304l-30 100a20 20 0 0 1-19 14H153a20 20 0 0 1-19-14z"/></g><circle cx="380" cy="128" r="46" fill="#D9480F"/><path d="M380 150v-44M362 124l18-18 18 18" fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <figcaption>PWA i dag, för jämförelse</figcaption>
+        </figure>
+      </div>
+      <div class="beslut"><b>Ikonbeslutet.</b> Samma motiv, så att den som redan har PWA:n känner igen sig, men indigo vägg, ark i väggens bläck och pilen i koppar med mörk pil (koppar bär aldrig vit text, och pilen är text nog). Mappen är fylld i väggens mörkare ton så att den läser som en mapp även i 48 px. Fråga 1 till ägaren.</div>
+      <div class="not" style="margin-top:16px"><h3>Butikstexter, Google Play</h3><ul>
+        <li><b>Namn:</b> Jobbcoach: Rekryteringstester (30 tecken, hjälper butikssök; ägarens beslut 2 i planen)</li>
+        <li><b>Kort beskrivning (80):</b> Träna inför rekryteringstestet. Ett pass om dagen, i samma format som provet.</li>
+        <li><b>Lång beskrivning, inledning:</b> Logiktest, figurserier, talserier, spatial förmåga, ordförråd, deduktiv slutledning, verbalt, numeriskt och personlighetstest. Välj ditt prov, Matrigma, SHL, Aon, Alva eller I-provet, så lägger vi upp passen fram till dagen. Nivåkollen är gratis. Alla nivåer ingår i Jobbcoach Premium, 149 kr i månaden.</li>
+        <li><b>Kategori:</b> Utbildning. <b>Innehåll:</b> alla åldrar.</li>
+      </ul></div>
+    </div>
+    <div class="butik" id="butikbilder">
+      <div class="skarmbild"><div class="ey">1 av 3</div><h3>Ett pass om dagen</h3><div class="minitel" data-klon="tel-idag"></div></div>
+      <div class="skarmbild"><div class="ey">2 av 3</div><h3>Samma format som provet</h3><div class="minitel" data-klon="tel-tester"></div></div>
+      <div class="skarmbild"><div class="ey">3 av 3</div><h3>Se nivån stiga</h3><div class="minitel" data-klon="tel-utv"></div></div>
+    </div>
+  </div>
+  <p class="bildtext" style="text-align:left">Skärmbilderna är 1080 × 1920, telefonen beskuren nedtill. Rubriken i Schibsted Grotesk 800 på väggen, en mening var, ingen brödtext. Samma tre bilder i 6,9 tum för App Store senare.</p>
+</section>
+
+<!-- ============================================================ DATA -->
+<section class="del" id="data">
+  <header><div class="nr">Bilaga</div><h2 class="disp">Data per vy, samlat</h2><p>Allt finns redan på servern. Appen behöver inga nya läsningar, bara två nya tabeller: <code style="font-family:ui-monospace,monospace">app_enheter</code> för push och RevenueCats rader i <code style="font-family:ui-monospace,monospace">premium_grants</code>.</p></header>
+  <div class="tabell"><table>
+    <thead><tr><th>Vy</th><th>Läser</th><th>Skriver</th><th>Nytt för appen</th></tr></thead>
+    <tbody>
+      <tr><td><b>Onboarding</b></td><td>synligaVal()</td><td>Lokalt: val, samtycke</td><td>app_onboarding_completed</td></tr>
+      <tr><td><b>Logga in</b></td><td>profiles, test_planer, premium_grants</td><td>test_planer (planFranVal) om plan saknas</td><td>Google id-token, Apple-leverantör i Supabase, App Links</td></tr>
+      <tr><td><b>Idag</b></td><td>getTraningSummary: status (niva, punkter, serie, plandagar, dagens pass), test_planer, premiumAccess</td><td>traning_sedd_at efter ritning</td><td>Inget</td></tr>
+      <tr><td><b>Tester</b></td><td>getTesterHubData, TEST_GROUPS, nivåkoll per typ, iprovSumma</td><td>Inget</td><td>Inget</td></tr>
+      <tr><td><b>Utveckling</b></td><td>DinUtvecklingData, test_milstolpar</td><td>Inget</td><td>Inget</td></tr>
+      <tr><td><b>Konto</b></td><td>profiles, premium_grants (källa), app_enheter, test_planer</td><td>app_enheter.paminnelse_tid och aktiv, profiles.utseende, kontoradering</td><td>app_enheter</td></tr>
+      <tr><td><b>Köpvyn</b></td><td>RevenueCat-erbjudanden, premiumAccess</td><td>premium_grants via webhook (källa play)</td><td>api/app/revenuecat, iap_*-händelser</td></tr>
+      <tr><td><b>Notisfrågan</b></td><td>Inget</td><td>app_enheter (token, tid)</td><td>FCM-token, push_*-händelser, edge-funktionen för utskicket</td></tr>
+    </tbody>
+  </table></div>
+</section>
+</div>
+
+<script>
+(function(){
+  // ark och passruta i telefonerna
+  document.querySelectorAll('.tel').forEach(function(tel){
+    tel.querySelectorAll('[data-oppna]').forEach(function(k){
+      k.addEventListener('click',function(e){
+        e.preventDefault();
+        var ark=tel.querySelector('[data-ark="'+k.getAttribute('data-oppna')+'"]');
+        if(ark) ark.classList.remove('dold');
+      });
+    });
+    tel.querySelectorAll('[data-stang]').forEach(function(k){
+      k.addEventListener('click',function(){ var a=k.closest('[data-ark]'); if(a) a.classList.add('dold'); });
+    });
+    tel.querySelectorAll('.ark-dimma[data-ark]').forEach(function(d){
+      d.addEventListener('click',function(e){ if(e.target===d) d.classList.add('dold'); });
+    });
+  });
+  // butiksbilderna: kloner av telefonerna, skalade
+  function klona(){
+    document.querySelectorAll('.minitel[data-klon]').forEach(function(m){
+      var src=document.getElementById(m.getAttribute('data-klon'));
+      if(!src) return;
+      m.innerHTML='';
+      var k=src.cloneNode(true);
+      k.removeAttribute('id');
+      k.querySelectorAll('[data-ark]').forEach(function(a){a.remove();});
+      k.setAttribute('aria-hidden','true');
+      var skala=m.clientWidth/412;
+      k.style.width='412px';k.style.height='915px';k.style.transform='scale('+skala+')';
+      m.appendChild(k);
+    });
+  }
+  klona();
+  var t;window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(klona,150);});
+})();
+</script>

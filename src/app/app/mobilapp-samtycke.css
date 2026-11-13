@@ -1,0 +1,10 @@
+/*
+ * Webbens kakbanner (CookieBanner.tsx, #jc-samtycke i rotlayouten) visas
+ * aldrig i appen. Samtycket frågas i appens onboarding och skrivs i samma
+ * cookie (src/lib/mobilapp/onboarding.ts, skrivSamtycke). Bara appens layout
+ * laddar filen, och regeln gäller bara när appens ram finns på sidan.
+ */
+html:has([data-mobilapp]) #jc-samtycke,
+html:has([data-mobilapp]) #jc-samtycke-rot {
+  display: none !important;
+}

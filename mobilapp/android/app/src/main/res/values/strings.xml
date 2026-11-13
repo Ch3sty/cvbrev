@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Testklar</string>
+    <string name="title_activity_main">Testklar</string>
+    <string name="package_name">ai.jobbcoach.testklar</string>
+    <string name="custom_url_scheme">ai.jobbcoach.testklar</string>
+</resources>

@@ -1,0 +1,138 @@
+/*
+ * Köpvyn, notisfrågan och kontots påminnelse (konceptet
+ * docs/design/app-koncept-2026-11-13.html: prisrad, tidchips, vippa på,
+ * toast). Scopat under [data-mobilapp] som testklar.css; webben laddar det aldrig.
+ */
+
+[data-mobilapp] .tk-prisrad {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1.5px solid var(--a-kant);
+  border-radius: 18px;
+  text-align: left;
+  background: var(--a-papper);
+  width: 100%;
+  color: inherit;
+}
+[data-mobilapp] .tk-prisrad.vald {
+  border-color: var(--a-ink);
+  box-shadow: inset 0 0 0 1px var(--a-ink);
+}
+[data-mobilapp] .tk-prisrad .t {
+  flex: 1;
+  min-width: 0;
+}
+[data-mobilapp] .tk-prisrad .t b {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+}
+[data-mobilapp] .tk-prisrad .t span {
+  display: block;
+  font-size: 13px;
+  color: var(--a-ink-3);
+  line-height: 18px;
+}
+[data-mobilapp] .tk-prisrad .pris {
+  font-family: var(--tk-disp);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+[data-mobilapp] .tk-prisrad .pris small {
+  display: block;
+  font-family: var(--tk-text);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--a-ink-3);
+  text-align: right;
+  letter-spacing: 0;
+}
+
+[data-mobilapp] .tk-tidchips {
+  display: flex;
+  gap: 8px;
+}
+[data-mobilapp] .tk-tidchips button {
+  flex: 1;
+  height: 48px;
+  border-radius: 14px;
+  border: 1.5px solid var(--a-kant);
+  background: var(--a-papper);
+  color: var(--a-ink);
+  font-size: 15px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+[data-mobilapp] .tk-tidchips button.vald {
+  border-color: var(--a-ink);
+  box-shadow: inset 0 0 0 1px var(--a-ink);
+}
+[data-mobilapp] .tk-tidchips.liten button {
+  height: 40px;
+  font-size: 14px;
+}
+
+/* Vippan i konceptet: koppar när den är på. */
+[data-mobilapp] .tk-vippa {
+  transition: background 0.2s;
+  cursor: pointer;
+}
+[data-mobilapp] .tk-vippa::after {
+  transition: left 0.2s;
+}
+[data-mobilapp] .tk-vippa[aria-checked='true'] {
+  background: var(--kop);
+}
+[data-mobilapp] .tk-vippa[aria-checked='true']::after {
+  left: 21px;
+}
+[data-mobilapp] .tk-vippa[aria-disabled='true'] {
+  opacity: 0.5;
+  cursor: default;
+}
+
+[data-mobilapp] .tk-toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(96px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  background: var(--a-ink);
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 500;
+  padding: 11px 16px;
+  border-radius: 999px;
+  z-index: 60;
+  white-space: nowrap;
+  box-shadow: var(--lyft);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  animation: tk-toast 0.26s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes tk-toast {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-mobilapp] .tk-toast {
+    animation: none;
+  }
+}
+
+[data-mobilapp] .tk-kop-not {
+  border-radius: 14px;
+  background: var(--a-papper-2);
+  border: 1px solid var(--a-kant);
+  padding: 12px 14px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--a-ink-2);
+}

@@ -1,0 +1,852 @@
+/*
+ * Testklar, appens egna tokens och byggstenar (docs/design/app-koncept-2026-11-13.html,
+ * klasserna under ".tel" och "appens byggstenar"). Allt står under appens rot
+ * [data-mobilapp] och bär prefixet tk-, så att varken webben eller passens
+ * delade komponenter (som ritas i samma rot) påverkas.
+ *
+ * Fast ljust rum och mörka ögonblick, oavsett systemets tema: appen har
+ * inget mörkt läge än (konceptet, Konto).
+ */
+
+[data-mobilapp] {
+  --a-bg: #f1f1ee;
+  --a-papper: #ffffff;
+  --a-papper-2: #f6f6f3;
+  --a-kant: #e3e2dc;
+  --a-kant-stark: #c9c8c0;
+  --a-ink: #16151c;
+  --a-ink-2: #4a4953;
+  --a-ink-3: #76757f;
+  --kop: #e8732a;
+  --kop-djup: #c95f1c;
+  --kop-mjuk: #fbe4d2;
+  --kop-ink: #a64a18;
+  --natt: #121325;
+  --natt-2: #1b1d38;
+  --natt-3: #0b0c19;
+  --natt-ink: #f4f3fa;
+  --natt-mjuk: #a9acc9;
+  --natt-svag: #6b6f97;
+  --natt-kant: rgba(255, 255, 255, 0.12);
+  --ton: #e4e7f3;
+  --ton-ink: #3a4480;
+  --pos: #2f7d5b;
+  --pos-mjuk: #dcefe5;
+  --fel: #b3382e;
+  --fel-mjuk: #f8e1de;
+  --himmel: #d9e4fa;
+  --himmel-ink: #2c4a98;
+  --salvia: #d5e9dc;
+  --salvia-ink: #1f6a45;
+  --syren: #e8dcf7;
+  --syren-ink: #5b3e9e;
+  --sand: #f7e0c6;
+  --sand-ink: #9a5a16;
+  --rosa: #f9d9dd;
+  --rosa-ink: #9b2f43;
+  --gul: #f6ecc3;
+  --gul-ink: #7a5e0b;
+  --turkos: #cfe9ea;
+  --turkos-ink: #0f6b70;
+  --lyft: 0 1px 2px rgba(20, 20, 30, 0.05), 0 12px 28px -16px rgba(20, 20, 30, 0.22);
+  --tk-disp: var(--font-bricolage), 'Bricolage Grotesque', var(--font-figtree), system-ui, sans-serif;
+  --tk-text: var(--font-figtree), Figtree, 'Segoe UI', system-ui, sans-serif;
+}
+
+/* Flikarnas vyer bär appens egen botten; passen bär sin egen. */
+[data-mobilapp] main:has(.tk-flik) {
+  padding-bottom: 0;
+}
+
+[data-mobilapp] .tk {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--a-bg);
+  color: var(--a-ink);
+  font-family: var(--tk-text);
+  font-size: 15px;
+  line-height: 22px;
+  -webkit-font-smoothing: antialiased;
+}
+[data-mobilapp] .tk h1,
+[data-mobilapp] .tk h2,
+[data-mobilapp] .tk h3,
+[data-mobilapp] .tk p {
+  margin: 0;
+}
+[data-mobilapp] .tk button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+[data-mobilapp] .tk a {
+  color: inherit;
+  text-decoration: none;
+}
+[data-mobilapp] .tk :focus-visible {
+  outline: 2px solid var(--kop);
+  outline-offset: 2px;
+}
+[data-mobilapp] .tk-pad {
+  padding: 0 20px;
+}
+[data-mobilapp] .tk-stack {
+  display: grid;
+  gap: 12px;
+  padding-top: 6px;
+  padding-bottom: 16px;
+}
+[data-mobilapp] .tk-disp {
+  font-family: var(--tk-disp);
+  font-variation-settings: 'opsz' 48;
+}
+
+/* ---------- rörelse ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  [data-mobilapp] .tk-in {
+    animation: tkFlik 0.16s ease-out both;
+  }
+  [data-mobilapp] .tk-tryck {
+    transition: transform 0.12s ease;
+  }
+  [data-mobilapp] .tk-tryck:active {
+    transform: scale(0.97);
+  }
+  [data-mobilapp] .tk-ark-lager {
+    animation: tkDim 0.22s ease-out both;
+  }
+  [data-mobilapp] .tk-ark {
+    animation: tkUpp 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+  [data-mobilapp] .tk-kurva-rita {
+    stroke-dasharray: 600;
+    stroke-dashoffset: 600;
+    animation: tkRita 1.2s ease-out 0.2s forwards;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-mobilapp] .tk-in {
+    animation: tkTona 0.12s ease-out both;
+  }
+}
+@keyframes tkFlik {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes tkTona {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes tkDim {
+  from {
+    background: rgba(8, 9, 22, 0);
+  }
+  to {
+    background: rgba(8, 9, 22, 0.55);
+  }
+}
+@keyframes tkUpp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes tkRita {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes tkSkimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* ---------- knappar och text ---------- */
+[data-mobilapp] .tk-knapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 52px;
+  border-radius: 16px;
+  border: 0;
+  font-size: 16px;
+  font-weight: 600;
+  width: 100%;
+  white-space: nowrap;
+  letter-spacing: -0.005em;
+}
+[data-mobilapp] .tk-knapp.kop {
+  background: linear-gradient(180deg, #f08a45 0%, var(--kop) 55%, var(--kop-djup) 100%);
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 6px 18px -8px rgba(201, 95, 28, 0.7);
+}
+[data-mobilapp] .tk-knapp.morkt {
+  background: var(--a-ink);
+  color: #fff;
+}
+[data-mobilapp] .tk-knapp.ljus {
+  background: var(--a-papper);
+  border: 1.5px solid var(--a-kant-stark);
+  color: var(--a-ink);
+}
+[data-mobilapp] .tk-knapp.glas {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--natt-kant);
+  color: var(--natt-ink);
+}
+[data-mobilapp] .tk-knapp.vit {
+  background: #fff;
+  color: var(--a-ink);
+}
+[data-mobilapp] .tk-knapp.fel {
+  background: var(--fel);
+  color: #fff;
+}
+[data-mobilapp] .tk-knapp.liten {
+  height: 40px;
+  font-size: 14px;
+  border-radius: 12px;
+}
+[data-mobilapp] .tk-knapp[disabled] {
+  opacity: 0.45;
+  pointer-events: none;
+}
+[data-mobilapp] .tk-lank {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-weight: 500;
+  color: var(--a-ink-2);
+  text-decoration: underline;
+  text-decoration-color: var(--a-kant-stark);
+  text-underline-offset: 3px;
+  font-size: 14px;
+}
+[data-mobilapp] .tk-ey {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--a-ink-3);
+}
+[data-mobilapp] .tk-ey.kop {
+  color: var(--kop-ink);
+}
+[data-mobilapp] .tk-h1 {
+  font-family: var(--tk-disp);
+  font-variation-settings: 'opsz' 48;
+  font-size: 30px;
+  line-height: 33px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+[data-mobilapp] .tk-h2 {
+  font-family: var(--tk-disp);
+  font-variation-settings: 'opsz' 32;
+  font-size: 21px;
+  line-height: 25px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+[data-mobilapp] .tk-p {
+  color: var(--a-ink-2);
+  font-size: 15px;
+  line-height: 22px;
+}
+[data-mobilapp] .tk-meta {
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--a-ink-3);
+}
+[data-mobilapp] .tk-rubrik {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+/* ---------- kort och rader ---------- */
+[data-mobilapp] .tk-kort {
+  background: var(--a-papper);
+  border: 1px solid var(--a-kant);
+  border-radius: 20px;
+  padding: 16px;
+}
+[data-mobilapp] .tk-kort.lyft {
+  box-shadow: var(--lyft);
+  border-color: transparent;
+}
+[data-mobilapp] .tk-kort.natt {
+  background: radial-gradient(120% 90% at 50% -20%, var(--natt-2), var(--natt) 60%, var(--natt-3));
+  color: var(--natt-ink);
+  border: 0;
+  padding: 16px 16px 12px;
+}
+[data-mobilapp] .tk-natt .tk-ey,
+[data-mobilapp] .tk-kort.natt .tk-ey,
+[data-mobilapp] .tk-natt .tk-meta,
+[data-mobilapp] .tk-kort.natt .tk-meta {
+  color: var(--natt-mjuk);
+}
+[data-mobilapp] .tk-rader {
+  background: var(--a-papper);
+  border: 1px solid var(--a-kant);
+  border-radius: 20px;
+  overflow: hidden;
+}
+[data-mobilapp] .tk-rad {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 60px;
+  padding: 10px 16px;
+  border: 0;
+  border-top: 1px solid var(--a-kant);
+  width: 100%;
+  background: none;
+  text-align: left;
+}
+[data-mobilapp] .tk-rad:first-child {
+  border-top: 0;
+}
+[data-mobilapp] .tk-rad .t {
+  flex: 1;
+  min-width: 0;
+}
+[data-mobilapp] .tk-rad .t b {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 20px;
+}
+[data-mobilapp] .tk-rad .t span {
+  display: block;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--a-ink-3);
+  margin-top: 1px;
+}
+[data-mobilapp] .tk-sym {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+[data-mobilapp] .tk-chev {
+  width: 20px;
+  height: 20px;
+  color: var(--a-ink-3);
+  flex: 0 0 auto;
+}
+[data-mobilapp] .tk-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 26px;
+  padding: 0 9px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--ton);
+  color: var(--ton-ink);
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+[data-mobilapp] .tk-chip.las {
+  background: var(--a-papper-2);
+  color: var(--a-ink-3);
+}
+[data-mobilapp] .tk-chip.gjord {
+  background: var(--pos-mjuk);
+  color: var(--pos);
+}
+[data-mobilapp] .tk-chip.kop {
+  background: var(--kop-mjuk);
+  color: var(--kop-ink);
+}
+[data-mobilapp] .tk-chip.fri {
+  background: var(--salvia);
+  color: var(--salvia-ink);
+}
+[data-mobilapp] .tk-chip svg {
+  width: 13px;
+  height: 13px;
+}
+[data-mobilapp] .tk-vippa {
+  width: 46px;
+  height: 28px;
+  border-radius: 14px;
+  background: var(--a-kant-stark);
+  position: relative;
+  flex: 0 0 auto;
+  border: 0;
+}
+[data-mobilapp] .tk-vippa::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+/* ---------- topprad och flikrad ---------- */
+[data-mobilapp] .tk-topprad {
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px 0 20px;
+}
+[data-mobilapp] .tk-topprad .brand {
+  font-family: var(--tk-disp);
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  flex: 1;
+}
+[data-mobilapp] .tk-topprad .rubrik {
+  font-family: var(--tk-disp);
+  font-variation-settings: 'opsz' 48;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 26px;
+}
+[data-mobilapp] .tk-ik {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  border-radius: 14px;
+}
+[data-mobilapp] .tk-ik svg {
+  width: 24px;
+  height: 24px;
+}
+[data-mobilapp] .tk-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--syren);
+  color: var(--syren-ink);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 14px;
+  border: 0;
+  flex: 0 0 auto;
+}
+/* Träffytan är 44 px även om bilden är 36 (konceptet, topprad). */
+[data-mobilapp] .tk-avatar-yta {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+}
+[data-mobilapp] .tk-flik {
+  position: sticky;
+  bottom: 0;
+  z-index: 20;
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: var(--a-papper);
+  border-top: 1px solid var(--a-kant);
+  padding: 6px 10px env(safe-area-inset-bottom);
+  font-family: var(--tk-text);
+}
+[data-mobilapp] .tk-flik a {
+  height: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: var(--a-ink-3);
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 14px;
+  border-radius: 14px;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+[data-mobilapp] .tk-flik .pill {
+  width: 56px;
+  height: 30px;
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+  transition: background 0.18s;
+}
+[data-mobilapp] .tk-flik svg {
+  width: 24px;
+  height: 24px;
+}
+[data-mobilapp] .tk-flik a[aria-current='page'] {
+  color: var(--a-ink);
+  font-weight: 600;
+}
+[data-mobilapp] .tk-flik a[aria-current='page'] .pill {
+  background: var(--kop-mjuk);
+  color: var(--kop-ink);
+}
+
+/* ---------- Idag ---------- */
+[data-mobilapp] .tk-dagkort {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  padding: 18px 18px 16px;
+  color: #fff;
+  background: linear-gradient(135deg, #f28b46 0%, var(--kop) 45%, #b9531a 100%);
+  box-shadow: 0 18px 36px -18px rgba(201, 95, 28, 0.75);
+}
+[data-mobilapp] .tk-dagkort.natt {
+  background: radial-gradient(120% 90% at 50% -20%, var(--natt-2), var(--natt) 60%, var(--natt-3));
+  box-shadow: var(--lyft);
+}
+[data-mobilapp] .tk-dagkort .tk-ey {
+  color: rgba(255, 255, 255, 0.8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.07em;
+}
+[data-mobilapp] .tk-dagkort.natt .tk-ey {
+  color: #f6b07a;
+}
+[data-mobilapp] .tk-dagkort .rad2 {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 4px;
+}
+[data-mobilapp] .tk-dagkort .rad2 > div {
+  flex: 1;
+  min-width: 0;
+}
+[data-mobilapp] .tk-dagkort .tk-h2 {
+  color: #fff;
+  font-size: 23px;
+  line-height: 26px;
+}
+[data-mobilapp] .tk-dagkort p.text {
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 14px;
+  line-height: 20px;
+  margin-top: 6px;
+}
+[data-mobilapp] .tk-dagkort .illu {
+  width: 92px;
+  height: 92px;
+  flex: 0 0 auto;
+  margin-right: -4px;
+}
+[data-mobilapp] .tk-dagkort .tk-knapp {
+  margin-top: 16px;
+  height: 50px;
+}
+[data-mobilapp] .tk-dagkort .fot {
+  margin-top: 10px;
+  font-size: 12.5px;
+  line-height: 17px;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+}
+[data-mobilapp] .tk-vecka {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+[data-mobilapp] .tk-vecka div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--a-ink-3);
+}
+[data-mobilapp] .tk-vecka div.idag {
+  color: var(--a-ink);
+  font-weight: 700;
+}
+[data-mobilapp] .tk-vecka svg {
+  width: 34px;
+  height: 34px;
+}
+[data-mobilapp] .tk-niva-tal {
+  font-family: var(--tk-disp);
+  font-variation-settings: 'opsz' 96;
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 44px;
+  font-variant-numeric: tabular-nums;
+}
+[data-mobilapp] .tk-tal-stor {
+  font-family: var(--tk-disp);
+  font-variation-settings: 'opsz' 96;
+  font-size: 56px;
+  line-height: 56px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+[data-mobilapp] .tk-kurva {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+[data-mobilapp] .tk-kurva text {
+  font-family: var(--tk-text);
+  font-size: 11px;
+  font-weight: 500;
+  fill: var(--a-ink-3);
+}
+[data-mobilapp] .tk-kurva.natt text {
+  fill: var(--natt-mjuk);
+}
+[data-mobilapp] .tk-kurva text.du {
+  font-weight: 700;
+  font-size: 12px;
+  fill: var(--a-ink);
+}
+[data-mobilapp] .tk-kurva.natt text.du {
+  fill: var(--natt-ink);
+}
+[data-mobilapp] .tk-status {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--a-ink-2);
+  padding: 2px 4px;
+}
+[data-mobilapp] .tk-status.koppar {
+  color: var(--kop-ink);
+}
+
+/* ---------- Tester ---------- */
+[data-mobilapp] .tk-katalog {
+  display: grid;
+  gap: 10px;
+}
+[data-mobilapp] .tk-tkort {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  background: var(--a-papper);
+  border: 1px solid var(--a-kant);
+  border-radius: 20px;
+  padding: 12px 14px 12px 12px;
+  text-align: left;
+  width: 100%;
+}
+[data-mobilapp] .tk-tkort .bild {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+[data-mobilapp] .tk-tkort .bild svg {
+  width: 44px;
+  height: 44px;
+}
+[data-mobilapp] .tk-tkort .t {
+  flex: 1;
+  min-width: 0;
+}
+[data-mobilapp] .tk-tkort .t b {
+  display: block;
+  font-size: 15.5px;
+  font-weight: 600;
+  line-height: 20px;
+}
+[data-mobilapp] .tk-tkort .t > span {
+  display: block;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--a-ink-3);
+  margin-top: 2px;
+}
+[data-mobilapp] .tk-nivaer {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
+}
+[data-mobilapp] .tk-nivaer i {
+  height: 5px;
+  flex: 1;
+  border-radius: 3px;
+  background: var(--a-kant);
+}
+[data-mobilapp] .tk-nivaer i.fri {
+  background: var(--a-ink);
+}
+[data-mobilapp] .tk-nivaer i.kop {
+  background: var(--kop);
+}
+
+/* ---------- Utveckling ---------- */
+[data-mobilapp] .tk-marken {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+[data-mobilapp] .tk-marken div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  line-height: 13px;
+  text-align: center;
+  color: var(--a-ink-3);
+}
+[data-mobilapp] .tk-marken svg {
+  width: 52px;
+  height: 52px;
+}
+[data-mobilapp] .tk-marken div.nadd {
+  color: var(--a-ink);
+  font-weight: 600;
+}
+[data-mobilapp] .tk-tomt {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+  padding: 0 20px 40px;
+}
+
+/* ---------- ark, banner, skelett ---------- */
+[data-mobilapp] .tk-ark-lager {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: flex-end;
+  background: rgba(8, 9, 22, 0.55);
+}
+[data-mobilapp] .tk-ark {
+  background: var(--a-papper);
+  border-radius: 28px 28px 0 0;
+  padding: 10px 20px calc(24px + env(safe-area-inset-bottom));
+  width: 100%;
+  color: var(--a-ink);
+  max-height: 94%;
+  overflow-y: auto;
+  scrollbar-width: none;
+  font-family: var(--tk-text);
+}
+[data-mobilapp] .tk-ark .handtag {
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--a-kant-stark);
+  margin: 0 auto 16px;
+}
+[data-mobilapp] .tk-falt {
+  height: 52px;
+  border: 1.5px solid var(--a-kant-stark);
+  background: var(--a-papper);
+  border-radius: 14px;
+  padding: 0 16px;
+  color: var(--a-ink);
+  font-size: 15px;
+  width: 100%;
+  font-family: inherit;
+}
+[data-mobilapp] .tk-banner {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  background: var(--fel-mjuk);
+  color: var(--fel);
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 14px;
+  line-height: 20px;
+}
+[data-mobilapp] .tk-banner b {
+  display: block;
+  font-weight: 600;
+}
+[data-mobilapp] .tk-banner span {
+  color: var(--a-ink-2);
+}
+[data-mobilapp] .tk-banner button {
+  margin-left: auto;
+  align-self: center;
+  background: var(--a-papper);
+  border: 1px solid var(--a-kant-stark);
+  border-radius: 10px;
+  height: 34px;
+  padding: 0 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--a-ink);
+  white-space: nowrap;
+}
+[data-mobilapp] .tk-skelett {
+  background: linear-gradient(90deg, var(--a-papper-2) 25%, #ececE8 50%, var(--a-papper-2) 75%);
+  background-size: 200% 100%;
+  animation: tkSkimmer 1.4s linear infinite;
+  border-radius: 10px;
+}
+[data-mobilapp] .tk-ingar {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 9px;
+}
+[data-mobilapp] .tk-ingar li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 14px;
+  line-height: 20px;
+}
+[data-mobilapp] .tk-ingar li svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  color: var(--kop-ink);
+}
+
+/* Nivåstaplarna ligger i kortets textkolumn; raden ska vara flex, inte block. */
+[data-mobilapp] .tk-tkort .t > span.tk-nivaer {
+  display: flex;
+}

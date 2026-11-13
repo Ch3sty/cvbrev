@@ -29,6 +29,7 @@ import {
   serializeAttribution,
 } from '@/lib/analytics/attribution'
 import { PATHNAME_HEADER } from '@/lib/rum/pathname-header'
+import { appVag, arAppen, arAppSida, arStripeKassa } from '@/lib/mobilapp/appvag'
 
 /**
  * First touch-attribution (docs/plan-konvertering.md, C1).
@@ -101,9 +102,39 @@ export async function proxy(request: NextRequest) {
     request.headers.set(PATHNAME_HEADER, request.nextUrl.pathname)
   }
 
+  // Appens sidor (docs/plan-app.md) nås bara från appskalet.
+  const appen = arAppen(request.headers.get('user-agent'))
+  if (!appen && arAppSida(request.nextUrl.pathname)) {
+    return NextResponse.redirect(new URL('/dashboard/tester', request.url))
+  }
+  // Stripes kassor öppnas aldrig i appen (Google Plays regler). Betalväggarna
+  // i passen får appens köpvy som adress i stället, /priser blir /app/premium.
+  if (appen && arStripeKassa(request.nextUrl.pathname)) {
+    return NextResponse.json({ url: '/priser', appKop: true })
+  }
+
   const response = await updateSession(request, intervjuKontroll(request))
+  if (appen) return tillAppen(request, response)
   setAttributionCookie(request, response)
   return response
+}
+
+/**
+ * Appskalets förfrågningar renderas i appens egen ram under /app. Adressen i
+ * appen står kvar, så testflödenas länkar fungerar som på webben.
+ * Omdirigeringar (inloggning) och proxyns egna omskrivningar går igenom
+ * orörda, och förnyade sessionscookies följer med både till sidan och till
+ * appen.
+ */
+function tillAppen(request: NextRequest, response: NextResponse): NextResponse {
+  if (response.headers.has('location') || response.headers.has('x-middleware-rewrite')) return response
+  const mal = appVag(request.nextUrl.pathname)
+  if (!mal) return response
+  const url = new URL(mal, request.url)
+  url.search = request.nextUrl.search
+  const omskriven = NextResponse.rewrite(url, { request: { headers: request.headers } })
+  for (const cookie of response.cookies.getAll()) omskriven.cookies.set(cookie)
+  return omskriven
 }
 
 /**

@@ -1,0 +1,1051 @@
+<meta charset="utf-8">
+<title>Testklar, appkonceptet</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* =====================================================================
+   Dokumentets tokens (följer läsarens tema). Appens egna tokens ligger
+   på .tel och är fasta: appen har sitt eget ljusa rum och sina mörka
+   ögonblick oavsett hur dokumentet visas.
+   ===================================================================== */
+:root{
+  color-scheme:light;
+  --d-bg:#EEF0F3;--d-papper:#FFFFFF;--d-papper-2:#F5F6F8;--d-kant:#DDE0E6;--d-kant-stark:#C3C8D2;
+  --d-ink:#15161C;--d-ink-2:#474A56;--d-ink-3:#6E717E;
+  --d-accent:#E0702A;--d-accent-ink:#A84C14;--d-accent-mjuk:#FBE5D4;
+  --d-natt:#141529;--d-natt-ink:#F3F3FA;--d-natt-mjuk:#AEB1CC;
+  --d-lyft:0 1px 2px rgba(20,22,40,.06),0 14px 32px -18px rgba(20,22,40,.28);
+  --bezel:#0F0F14;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --d-bg:#0F1016;--d-papper:#171922;--d-papper-2:#1E2030;--d-kant:#2A2D3D;--d-kant-stark:#3C4055;
+    --d-ink:#F1F1F6;--d-ink-2:#C3C5D2;--d-ink-3:#8E91A3;
+    --d-accent:#F0813A;--d-accent-ink:#F5A66E;--d-accent-mjuk:rgba(240,129,58,.16);
+    --d-lyft:0 1px 2px rgba(0,0,0,.4),0 16px 36px -18px rgba(0,0,0,.7);
+    --bezel:#2A2B36;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --d-bg:#0F1016;--d-papper:#171922;--d-papper-2:#1E2030;--d-kant:#2A2D3D;--d-kant-stark:#3C4055;
+  --d-ink:#F1F1F6;--d-ink-2:#C3C5D2;--d-ink-3:#8E91A3;
+  --d-accent:#F0813A;--d-accent-ink:#F5A66E;--d-accent-mjuk:rgba(240,129,58,.16);
+  --d-lyft:0 1px 2px rgba(0,0,0,.4),0 16px 36px -18px rgba(0,0,0,.7);
+  --bezel:#2A2B36;
+}
+*{box-sizing:border-box}
+html,body{height:auto}
+body{margin:0;background:var(--d-bg);color:var(--d-ink);font-family:Figtree,"Segoe UI",system-ui,sans-serif;font-size:15px;line-height:23px;padding-inline:16px;padding-block:0 96px;-webkit-font-smoothing:antialiased}
+.disp{font-family:"Bricolage Grotesque",Figtree,system-ui,sans-serif;font-variation-settings:"opsz" 96}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+button{font:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:2px solid var(--d-accent);outline-offset:2px}
+.wrap{max-width:1240px;margin:0 auto}
+
+/* ---------- dokumentets delar ---------- */
+.huvud{padding:44px 0 28px;display:grid;gap:14px}
+.huvud .ey{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--d-accent-ink)}
+.huvud h1{font-size:clamp(34px,5vw,56px);line-height:1;font-weight:800;letter-spacing:-.03em}
+.huvud p.ingress{max-width:66ch;font-size:17px;line-height:26px;color:var(--d-ink-2)}
+.meta{display:flex;gap:6px 18px;flex-wrap:wrap;font-size:13px;color:var(--d-ink-3)}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.toc a{font-size:13px;font-weight:500;text-decoration:none;border:1px solid var(--d-kant);background:var(--d-papper);padding:7px 12px;border-radius:999px;color:var(--d-ink-2)}
+.toc a:hover{border-color:var(--d-kant-stark);color:var(--d-ink)}
+section.del{padding-top:44px;margin-top:44px;border-top:1px solid var(--d-kant)}
+section.del>header{display:grid;gap:8px;margin-bottom:22px;max-width:72ch}
+section.del>header .nr{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--d-ink-3)}
+section.del>header h2{font-size:clamp(26px,3.2vw,34px);line-height:1.08;font-weight:800;letter-spacing:-.025em}
+section.del>header p{color:var(--d-ink-2)}
+.kolumner{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.ruta{background:var(--d-papper);border:1px solid var(--d-kant);border-radius:18px;padding:18px 20px}
+.ruta h3{font-size:17px;font-weight:700;letter-spacing:-.01em;margin-bottom:6px}
+.ruta p,.ruta li{color:var(--d-ink-2);font-size:14px;line-height:21px}
+.ruta ul,.ruta ol{margin:0;padding-left:18px}
+.ruta li{margin-bottom:6px}
+.ruta li b,.ruta p b{color:var(--d-ink);font-weight:600}
+.ruta.accent{border-color:color-mix(in srgb,var(--d-accent) 45%,var(--d-kant))}
+.ruta .nummer{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:9px;background:var(--d-accent-mjuk);color:var(--d-accent-ink);font-weight:700;font-size:13px;margin-bottom:10px}
+.fragor{background:var(--d-natt);color:var(--d-natt-ink);border-radius:22px;padding:24px 24px 12px;margin-top:20px}
+.fragor h2{font-size:22px;font-weight:700;letter-spacing:-.02em;margin-bottom:8px}
+.fragor ol{margin:0;padding-left:22px;color:var(--d-natt-mjuk)}
+.fragor li{margin-bottom:12px}
+.fragor li b{color:var(--d-natt-ink)}
+.tabell{overflow-x:auto;background:var(--d-papper);border:1px solid var(--d-kant);border-radius:18px}
+.tabell table{min-width:720px}
+table{border-collapse:collapse;width:100%;font-size:14px;line-height:20px}
+th,td{text-align:left;padding:11px 14px;border-top:1px solid var(--d-kant);vertical-align:top;color:var(--d-ink-2)}
+th{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--d-ink-3);border-top:0}
+td b{color:var(--d-ink);font-weight:600}
+td a{color:var(--d-accent-ink);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--d-accent) 40%,transparent)}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;background:var(--d-papper-2);padding:1px 5px;border-radius:5px}
+.kallor{font-size:13px;color:var(--d-ink-3);columns:2;column-gap:28px;margin-top:14px}
+.kallor li{break-inside:avoid;margin-bottom:4px}
+.kallor a{color:var(--d-ink-2);text-decoration:none;border-bottom:1px solid var(--d-kant-stark)}
+@media (max-width:700px){.kallor{columns:1}}
+
+/* ---------- prototypens scen ---------- */
+.scen{display:grid;grid-template-columns:minmax(0,1fr);gap:24px;align-items:start}
+@media (min-width:1000px){.scen{grid-template-columns:452px minmax(0,1fr)}.scen .telkol{position:sticky;top:16px}}
+.telkol{display:grid;gap:12px;justify-items:center}
+.haptik{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--d-ink-3);min-height:28px}
+.haptik i{width:10px;height:10px;border-radius:50%;background:var(--d-kant-stark);transition:background .2s,box-shadow .2s}
+.haptik.pa i{background:var(--d-accent);box-shadow:0 0 0 6px var(--d-accent-mjuk)}
+.haptik b{color:var(--d-ink);font-weight:600}
+.karta{display:grid;gap:14px}
+.karta h3{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--d-ink-3);margin:6px 0 2px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{border:1px solid var(--d-kant);background:var(--d-papper);border-radius:999px;padding:7px 12px;font-size:13px;font-weight:500;color:var(--d-ink-2)}
+.chips button:hover{border-color:var(--d-kant-stark);color:var(--d-ink)}
+.chips button.aktiv{background:var(--d-ink);color:var(--d-bg);border-color:var(--d-ink)}
+.not{background:var(--d-papper);border:1px solid var(--d-kant);border-radius:16px;padding:14px 16px;font-size:14px;line-height:21px;color:var(--d-ink-2)}
+.not h4{font-size:13px;font-weight:600;color:var(--d-ink-3);margin-bottom:6px}
+.not ul{margin:0;padding-left:18px}
+.not li{margin-bottom:5px}
+.not b{color:var(--d-ink);font-weight:600}
+.galleri{display:grid;grid-template-columns:repeat(auto-fill,minmax(176px,1fr));gap:18px 14px}
+.mini{display:grid;gap:8px;justify-items:center;cursor:pointer;border:0;background:none;padding:0;text-align:center;font-size:12px;color:var(--d-ink-3)}
+.mini .ram{width:176px;height:390px;overflow:hidden;border-radius:20px;border:4px solid var(--bezel);position:relative;background:#F1F1EE}
+.mini .ram .tel{position:absolute;top:0;left:0;transform:scale(.4078);transform-origin:top left;border:0;border-radius:0;box-shadow:none;pointer-events:none}
+.mini .ram .tel,.skarmbild .minitel .tel{width:412px;height:915px;max-width:none}
+.mini .ram .tel *{animation:none !important;transition:none !important}
+.mini b{color:var(--d-ink);font-weight:600;display:block}
+
+/* =====================================================================
+   TELEFONEN: appens egna tokens. Fast ljust rum, mörka ögonblick.
+   ===================================================================== */
+.tel{
+  --a-bg:#F1F1EE;--a-papper:#FFFFFF;--a-papper-2:#F6F6F3;--a-kant:#E3E2DC;--a-kant-stark:#C9C8C0;
+  --a-ink:#16151C;--a-ink-2:#4A4953;--a-ink-3:#76757F;
+  --kop:#E8732A;--kop-djup:#C95F1C;--kop-mjuk:#FBE4D2;--kop-ink:#A64A18;--kop-text:#1C1105;
+  --natt:#121325;--natt-2:#1B1D38;--natt-3:#0B0C19;--natt-ink:#F4F3FA;--natt-mjuk:#A9ACC9;--natt-svag:#6B6F97;--natt-kant:rgba(255,255,255,.12);
+  --ton:#E4E7F3;--ton-ink:#3A4480;
+  --pos:#2F7D5B;--pos-mjuk:#DCEFE5;
+  --fel:#B3382E;--fel-mjuk:#F8E1DE;
+  --himmel:#D9E4FA;--himmel-ink:#2C4A98;--salvia:#D5E9DC;--salvia-ink:#1F6A45;--syren:#E8DCF7;--syren-ink:#5B3E9E;
+  --sand:#F7E0C6;--sand-ink:#9A5A16;--rosa:#F9D9DD;--rosa-ink:#9B2F43;--gul:#F6ECC3;--gul-ink:#7A5E0B;--turkos:#CFE9EA;--turkos-ink:#0F6B70;
+  --lyft:0 1px 2px rgba(20,20,30,.05),0 12px 28px -16px rgba(20,20,30,.22);
+  width:412px;height:915px;max-width:100%;background:var(--a-bg);border-radius:46px;border:10px solid var(--bezel);
+  box-shadow:0 40px 80px -36px rgba(10,12,30,.55);overflow:hidden;position:relative;color:var(--a-ink);
+  font-family:Figtree,"Segoe UI",system-ui,sans-serif;font-size:15px;line-height:22px;flex:0 0 auto;isolation:isolate
+}
+.tel .disp{font-variation-settings:"opsz" 48}
+.tel .lager{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--a-bg);will-change:transform,opacity}
+.tel .lager.natt{background:radial-gradient(120% 70% at 50% -10%,var(--natt-2) 0%,var(--natt) 55%,var(--natt-3) 100%);color:var(--natt-ink)}
+.tel .stat{height:40px;flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 26px;font-size:13px;font-weight:600;letter-spacing:.01em}
+.tel .stat .sig{display:flex;gap:5px;align-items:center}
+.tel .stat .sig i{display:block;width:13px;height:11px;border-radius:2px;background:currentColor;opacity:.9}
+.tel .stat .sig i:last-child{width:20px;border-radius:3px}
+.tel .kropp{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;display:flex;flex-direction:column}
+.tel .kropp::-webkit-scrollbar{display:none}
+.tel .gest{height:22px;flex:0 0 auto;position:relative}
+.tel .gest::after{content:"";position:absolute;left:50%;bottom:7px;transform:translateX(-50%);width:120px;height:4px;border-radius:2px;background:currentColor;opacity:.55}
+.tel .pad{padding:0 20px}
+
+/* övergångar */
+@media (prefers-reduced-motion:no-preference){
+  .lager.in-push{animation:inPush .34s cubic-bezier(.2,.8,.2,1) both}
+  .lager.out-push{animation:outPush .34s cubic-bezier(.2,.8,.2,1) both}
+  .lager.in-pop{animation:inPop .3s cubic-bezier(.2,.8,.2,1) both}
+  .lager.out-pop{animation:outPop .3s cubic-bezier(.2,.8,.2,1) both}
+  .lager.in-flik{animation:inFlik .2s ease-out both}
+  .lager.out-flik{animation:outFlik .14s ease-in both}
+  .lager.in-expand{animation:inExpand .42s cubic-bezier(.2,.8,.2,1) both}
+  .lager.out-expand{animation:outExpand .3s ease-in both}
+  .lager.in-natt{animation:inNatt .5s ease-out both}
+  .lager.out-natt{animation:outFlik .3s ease-in both}
+  .lager.in-byt{animation:inByt .22s ease-out both}
+  .lager.out-byt{animation:outByt .16s ease-in both}
+  .steg{animation:steg .5s cubic-bezier(.2,.8,.2,1) both}
+  .steg.s2{animation-delay:.3s}.steg.s3{animation-delay:.6s}.steg.s4{animation-delay:.9s}.steg.s5{animation-delay:1.2s}
+  .ark-lager{animation:dim .22s ease-out both}
+  .ark{animation:upp .32s cubic-bezier(.2,.8,.2,1) both}
+  .ark-lager.bort{animation:dimBort .2s ease-in both}
+  .ark-lager.bort .ark{animation:ner .22s ease-in both}
+  .toast{animation:toast .26s cubic-bezier(.2,.8,.2,1) both}
+  .tryck:active{transform:scale(.97)}
+  .tryck{transition:transform .12s ease}
+  .puls{animation:puls 1.6s ease-in-out infinite}
+}
+@keyframes inPush{from{transform:translateX(100%)}to{transform:none}}
+@keyframes outPush{from{transform:none}to{transform:translateX(-28%);opacity:.6}}
+@keyframes inPop{from{transform:translateX(-28%);opacity:.6}to{transform:none;opacity:1}}
+@keyframes outPop{from{transform:none}to{transform:translateX(100%)}}
+@keyframes inFlik{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes outFlik{from{opacity:1}to{opacity:0}}
+@keyframes inExpand{from{opacity:0;transform:scale(.94) translateY(28px);border-radius:28px}to{opacity:1;transform:none}}
+@keyframes outExpand{from{opacity:1}to{opacity:0;transform:scale(.98)}}
+@keyframes inNatt{from{opacity:0;transform:scale(1.02)}to{opacity:1;transform:none}}
+@keyframes inByt{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+@keyframes outByt{from{opacity:1}to{opacity:0;transform:translateX(-16px)}}
+@keyframes steg{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes dim{from{background:rgba(8,9,22,0)}to{background:rgba(8,9,22,.55)}}
+@keyframes dimBort{from{background:rgba(8,9,22,.55)}to{background:rgba(8,9,22,0)}}
+@keyframes upp{from{transform:translateY(100%)}to{transform:none}}
+@keyframes ner{from{transform:none}to{transform:translateY(100%)}}
+@keyframes toast{from{opacity:0;transform:translate(-50%,10px)}to{opacity:1;transform:translate(-50%,0)}}
+@keyframes puls{0%,100%{box-shadow:0 0 0 0 rgba(232,115,42,.45)}60%{box-shadow:0 0 0 14px rgba(232,115,42,0)}}
+@keyframes ringFyll{to{stroke-dashoffset:0}}
+@keyframes skimmer{from{background-position:200% 0}to{background-position:-200% 0}}
+@keyframes rita{to{stroke-dashoffset:0}}
+@keyframes dyk{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+
+/* ---------- appens byggstenar ---------- */
+.a-knapp{display:flex;align-items:center;justify-content:center;gap:8px;height:52px;border-radius:16px;border:0;font-size:16px;font-weight:600;width:100%;white-space:nowrap;text-decoration:none;letter-spacing:-.005em}
+.a-knapp.kop{background:linear-gradient(180deg,#F08A45 0%,var(--kop) 55%,var(--kop-djup) 100%);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 6px 18px -8px rgba(201,95,28,.7)}
+.a-knapp.morkt{background:var(--a-ink);color:#fff}
+.a-knapp.ljus{background:var(--a-papper);border:1.5px solid var(--a-kant-stark);color:var(--a-ink)}
+.a-knapp.glas{background:rgba(255,255,255,.1);border:1px solid var(--natt-kant);color:var(--natt-ink)}
+.a-knapp.vit{background:#fff;color:var(--a-ink)}
+.a-knapp.liten{height:40px;font-size:14px;border-radius:12px}
+.a-knapp[disabled]{opacity:.45;pointer-events:none}
+.a-lank{background:none;border:0;padding:0;font-weight:500;color:var(--a-ink-2);text-decoration:underline;text-decoration-color:var(--a-kant-stark);text-underline-offset:3px;font-size:14px}
+.natt .a-lank{color:var(--natt-mjuk);text-decoration-color:var(--natt-svag)}
+.a-ey{font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--a-ink-3)}
+.a-ey.kop{color:var(--kop-ink)}
+.natt .a-ey{color:var(--natt-mjuk)}
+.natt .a-ey.kop{color:#F6B07A}
+.a-h1{font-family:"Bricolage Grotesque",Figtree,sans-serif;font-variation-settings:"opsz" 48;font-size:30px;line-height:33px;font-weight:800;letter-spacing:-.025em}
+.a-h2{font-family:"Bricolage Grotesque",Figtree,sans-serif;font-variation-settings:"opsz" 32;font-size:21px;line-height:25px;font-weight:700;letter-spacing:-.02em}
+.a-p{color:var(--a-ink-2);font-size:15px;line-height:22px}
+.natt .a-p{color:var(--natt-mjuk)}
+.a-meta{font-size:13px;line-height:18px;color:var(--a-ink-3)}
+.natt .a-meta{color:var(--natt-mjuk)}
+.kort{background:var(--a-papper);border:1px solid var(--a-kant);border-radius:20px;padding:16px}
+.kort.lyft{box-shadow:var(--lyft);border-color:transparent}
+.natt .kort{background:rgba(255,255,255,.06);border-color:var(--natt-kant)}
+.rad{display:flex;align-items:center;gap:12px;min-height:60px;padding:10px 16px;border-top:1px solid var(--a-kant);width:100%;background:none;border-left:0;border-right:0;border-bottom:0;text-align:left;font:inherit;color:inherit}
+.rad:first-child{border-top:0}
+.rad .t{flex:1;min-width:0}
+.rad .t b{display:block;font-size:15px;font-weight:600;line-height:20px}
+.rad .t span{display:block;font-size:13px;line-height:18px;color:var(--a-ink-3);margin-top:1px}
+.rad .sym{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;flex:0 0 auto}
+.rad .chev{width:20px;height:20px;color:var(--a-ink-3);flex:0 0 auto}
+.rad .varde{font-size:14px;color:var(--a-ink-2);font-variant-numeric:tabular-nums}
+.rader{background:var(--a-papper);border:1px solid var(--a-kant);border-radius:20px;overflow:hidden}
+.chip{display:inline-flex;align-items:center;gap:5px;height:26px;padding:0 9px;border-radius:8px;font-size:12px;font-weight:600;background:var(--ton);color:var(--ton-ink);white-space:nowrap}
+.chip.las{background:var(--a-papper-2);color:var(--a-ink-3)}
+.chip.gjord{background:var(--pos-mjuk);color:var(--pos)}
+.chip.kop{background:var(--kop-mjuk);color:var(--kop-ink)}
+.chip.fri{background:var(--salvia);color:var(--salvia-ink)}
+.chip svg{width:13px;height:13px}
+.vippa{width:46px;height:28px;border-radius:14px;background:var(--a-kant-stark);position:relative;flex:0 0 auto;transition:background .2s}
+.vippa::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:left .2s}
+.vippa.pa{background:var(--kop)}
+.vippa.pa::after{left:21px}
+.topprad{height:56px;display:flex;align-items:center;gap:8px;padding:0 12px 0 20px}
+.topprad .brand{font-family:"Bricolage Grotesque",Figtree,sans-serif;font-weight:800;font-size:18px;letter-spacing:-.02em;flex:1}
+.topprad .ik{width:44px;height:44px;display:grid;place-items:center;border:0;background:transparent;border-radius:14px;color:inherit}
+.topprad .ik svg{width:24px;height:24px}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--syren);color:var(--syren-ink);display:grid;place-items:center;font-weight:700;font-size:14px;border:0}
+.flik{flex:0 0 auto;height:70px;display:grid;grid-template-columns:repeat(3,1fr);background:var(--a-papper);border-top:1px solid var(--a-kant);padding:6px 10px 0}
+.flik button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:0;background:none;color:var(--a-ink-3);font-size:11.5px;font-weight:500;line-height:14px;border-radius:14px}
+.flik button .pill{width:56px;height:30px;border-radius:15px;display:grid;place-items:center;transition:background .18s}
+.flik button svg{width:24px;height:24px}
+.flik button.aktiv{color:var(--a-ink);font-weight:600}
+.flik button.aktiv .pill{background:var(--kop-mjuk);color:var(--kop-ink)}
+.ark-lager{position:absolute;inset:0;z-index:40;display:flex;align-items:flex-end;background:rgba(8,9,22,.55)}
+.ark{background:var(--a-papper);border-radius:28px 28px 0 0;padding:10px 20px 34px;width:100%;color:var(--a-ink);max-height:94%;overflow-y:auto;scrollbar-width:none}
+.ark::-webkit-scrollbar{display:none}
+.ark .handtag{width:40px;height:4px;border-radius:2px;background:var(--a-kant-stark);margin:0 auto 16px}
+.ark.natt{background:var(--natt);color:var(--natt-ink)}
+.toast{position:absolute;left:50%;bottom:104px;transform:translateX(-50%);background:var(--a-ink);color:#fff;font-size:13.5px;font-weight:500;padding:11px 16px;border-radius:999px;z-index:60;white-space:nowrap;box-shadow:var(--lyft);display:flex;gap:8px;align-items:center}
+.toast svg{width:16px;height:16px}
+.banner{display:flex;gap:10px;align-items:flex-start;background:var(--fel-mjuk);color:var(--fel);border-radius:14px;padding:12px 14px;font-size:14px;line-height:20px}
+.banner b{display:block;font-weight:600}
+.banner span{color:var(--a-ink-2)}
+.banner button{margin-left:auto;align-self:center;background:var(--a-papper);border:1px solid var(--a-kant-stark);border-radius:10px;height:34px;padding:0 12px;font-size:13px;font-weight:600;color:var(--a-ink);white-space:nowrap}
+.skelett{background:linear-gradient(90deg,var(--a-papper-2) 25%,#ECECE8 50%,var(--a-papper-2) 75%);background-size:200% 100%;animation:skimmer 1.4s linear infinite;border-radius:10px}
+.val{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.val button{display:flex;flex-direction:column;align-items:flex-start;gap:8px;text-align:left;background:var(--a-papper);border:1.5px solid var(--a-kant);border-radius:18px;padding:12px 12px 11px;color:var(--a-ink);position:relative;min-height:104px;transition:border-color .15s,transform .12s}
+.val button b{font-size:14.5px;line-height:18px;font-weight:600}
+.val button span{font-size:12px;line-height:16px;color:var(--a-ink-3)}
+.val button .ik{width:34px;height:34px;border-radius:10px;display:grid;place-items:center}
+.val button .ik svg{width:22px;height:22px}
+.val button.vald{border-color:var(--a-ink);box-shadow:inset 0 0 0 1px var(--a-ink)}
+.val button.vald::after{content:"";position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:var(--a-ink);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E");background-size:13px;background-repeat:no-repeat;background-position:center}
+.val button.bred{grid-column:1/-1;flex-direction:row;align-items:center;min-height:60px}
+.val button.bred b{flex:1}
+.falt{height:52px;border:1.5px solid var(--a-kant-stark);background:var(--a-papper);border-radius:14px;display:flex;align-items:center;padding:0 16px;color:var(--a-ink-3);font-size:15px}
+.falt.fylld{color:var(--a-ink)}
+.eller{display:flex;align-items:center;gap:12px;color:var(--a-ink-3);font-size:12px;text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+.eller::before,.eller::after{content:"";flex:1;height:1px;background:var(--a-kant)}
+.steg-rad{display:flex;gap:6px;height:44px;align-items:center}
+.steg-rad i{height:4px;border-radius:2px;background:var(--a-kant-stark);flex:1}
+.steg-rad i.gjord{background:var(--a-ink)}
+.steg-rad i.nu{background:var(--kop)}
+.datumval{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.datumval button{height:52px;border-radius:14px;border:1.5px solid var(--a-kant);background:var(--a-papper);font-size:14.5px;font-weight:600;color:var(--a-ink)}
+.datumval button.vald{border-color:var(--a-ink);box-shadow:inset 0 0 0 1px var(--a-ink)}
+.datumval button.bred{grid-column:1/-1}
+.tidchips{display:flex;gap:8px}
+.tidchips button{flex:1;height:48px;border-radius:14px;border:1.5px solid var(--a-kant);background:var(--a-papper);color:var(--a-ink);font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}
+.tidchips button.vald{border-color:var(--a-ink);box-shadow:inset 0 0 0 1px var(--a-ink)}
+.natt .tidchips button{background:rgba(255,255,255,.07);border-color:var(--natt-kant);color:var(--natt-ink)}
+.natt .tidchips button.vald{border-color:#fff;box-shadow:inset 0 0 0 1px #fff}
+
+/* passets skal: samma som webben (PassShell) */
+.pass-topp{height:56px;flex:0 0 auto;display:flex;align-items:center;gap:8px;padding:0 8px 0 4px;background:var(--a-papper);border-bottom:1px solid var(--a-kant)}
+.pass-topp .x{width:44px;height:44px;display:grid;place-items:center;border:0;background:none;border-radius:10px;color:var(--a-ink)}
+.pass-topp .x svg{width:22px;height:22px}
+.pass-topp .titel{flex:1;min-width:0}
+.pass-topp .titel b{display:block;font-size:14px;font-weight:600;line-height:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pass-topp .titel span{display:block;font-size:12px;font-weight:500;line-height:16px;color:var(--a-ink-3)}
+.pass-topp .raknare{font-size:13px;color:var(--a-ink-3);font-variant-numeric:tabular-nums;padding-right:8px}
+.tidsrad{height:4px;background:var(--a-papper-2);position:relative;flex:0 0 auto}
+.tidsrad i{position:absolute;inset:0 auto 0 0;background:var(--kop);border-radius:0 2px 2px 0;transition:width .25s linear}
+.tidsrad-text{display:flex;justify-content:space-between;padding:6px 16px 0;font-size:11px;line-height:16px;color:var(--a-ink-3);font-variant-numeric:tabular-nums}
+.pass-main{flex:1;min-height:0;overflow-y:auto;padding:12px 16px 16px;display:flex;flex-direction:column;gap:14px;scrollbar-width:none}
+.pass-main::-webkit-scrollbar{display:none}
+.pass-fot{flex:0 0 auto;background:var(--a-papper);border-top:1px solid var(--a-kant);padding:12px 16px 4px;display:flex;flex-direction:column;gap:8px}
+.pass-fot .a-knapp{height:48px;border-radius:12px;font-size:15px}
+.matris{background:var(--a-papper);border:1px solid var(--a-kant);border-radius:16px;padding:10px;box-shadow:var(--lyft)}
+.matris .rutor{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--a-kant);overflow:hidden}
+.matris .rutor div{aspect-ratio:1;background:var(--a-papper);display:grid;place-items:center}
+.matris .rutor div.lucka{background:var(--a-papper-2)}
+.matris .rutor svg{width:80%;height:80%}
+.alts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.alts button{position:relative;aspect-ratio:1;min-height:80px;border-radius:12px;border:1px solid var(--a-kant);background:var(--a-papper);display:grid;place-items:center;transition:border-color .15s,opacity .15s;padding:0}
+.alts button svg{width:80%;height:80%}
+.alts button .bok{position:absolute;left:8px;top:6px;font-size:11px;font-weight:600;color:var(--a-ink-3)}
+.alts button.vald{border-color:var(--a-ink);box-shadow:inset 0 0 0 1px var(--a-ink)}
+.alts button.vald .bok{color:var(--a-ink)}
+.alts button.ratt{border-color:var(--kop);box-shadow:inset 0 0 0 1px var(--kop)}
+.alts button.ratt.vald{box-shadow:inset 0 0 0 1px var(--kop),0 0 0 3px var(--kop-mjuk)}
+.alts button.ratt .bok{color:var(--kop-ink)}
+.alts button.ratt::after{content:"";position:absolute;right:8px;top:8px;width:10px;height:10px;border-radius:50%;background:var(--kop)}
+.alts button.dim{opacity:.38}
+.regelpanel{background:var(--ton);color:var(--ton-ink);border-radius:14px;padding:14px 16px}
+.regelpanel .topp{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.regelpanel .topp .a-ey{color:var(--ton-ink)}
+.regelpanel .topp span{font-size:12px;color:var(--a-ink-3)}
+.regelpanel .regel{margin-top:4px;font-family:"Bricolage Grotesque",Figtree,sans-serif;font-size:18px;line-height:23px;font-weight:700;letter-spacing:-.01em}
+.regelpanel .misstag{margin-top:12px}
+.regelpanel .misstag p{margin-top:4px;font-size:14px;line-height:20px;color:var(--a-ink)}
+.segment{display:flex;gap:2px;padding:8px 16px 0;height:16px}
+.segment i{flex:1;height:5px;border-radius:2px;background:var(--a-kant)}
+.segment i.gjord{background:var(--a-ink)}
+.segment i.nu{background:var(--kop)}
+.klocka{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 10px;border-radius:9px;background:var(--a-papper-2);font-size:14px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--a-ink)}
+.klocka svg{width:16px;height:16px}
+
+/* hemmets delar */
+.dagkort{position:relative;overflow:hidden;border-radius:24px;padding:18px 18px 16px;color:#fff;background:linear-gradient(135deg,#F28B46 0%,var(--kop) 45%,#B9531A 100%);box-shadow:0 18px 36px -18px rgba(201,95,28,.75)}
+.dagkort .a-ey{color:rgba(255,255,255,.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.07em}
+.dagkort .rad2{display:flex;gap:12px;align-items:center;margin-top:4px}
+.dagkort .rad2>div{flex:1;min-width:0}
+.dagkort .a-h2{color:#fff;font-size:23px;line-height:26px}
+.dagkort p{color:rgba(255,255,255,.86);font-size:14px;line-height:20px;margin-top:6px}
+.dagkort .illu{width:92px;height:92px;flex:0 0 auto;margin-right:-4px}
+.dagkort .a-knapp{margin-top:16px;height:50px}
+.vecka{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.vecka div{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;font-weight:500;color:var(--a-ink-3)}
+.vecka div.idag{color:var(--a-ink);font-weight:700}
+.vecka svg{width:34px;height:34px}
+.natt .vecka div{color:var(--natt-mjuk)}
+.natt .vecka div.idag{color:var(--natt-ink)}
+.tal-stor{font-family:"Bricolage Grotesque",Figtree,sans-serif;font-variation-settings:"opsz" 96;font-size:84px;line-height:80px;font-weight:800;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.tal-tre{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tal-tre div{display:flex;flex-direction:column-reverse}
+.tal-tre dt{font-size:12px;line-height:16px;color:var(--natt-mjuk);margin-top:2px}
+.tal-tre dd{margin:0;font-family:"Bricolage Grotesque",Figtree,sans-serif;font-size:26px;line-height:30px;font-weight:700;letter-spacing:-.02em}
+.kurva{width:100%;height:auto;display:block;overflow:visible}
+.kurva text{font-family:Figtree,sans-serif;font-size:11px;font-weight:500;fill:var(--a-ink-3)}
+.natt .kurva text{fill:var(--natt-mjuk)}
+.kurva text.du{font-weight:700;font-size:12px;fill:var(--a-ink)}
+.natt .kurva text.du{fill:var(--natt-ink)}
+.marken{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.marken div{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:10.5px;line-height:13px;text-align:center;color:var(--a-ink-3)}
+.marken svg{width:52px;height:52px}
+.marken div.nadd{color:var(--a-ink);font-weight:600}
+.katalog{display:grid;gap:10px}
+.tkort{display:flex;gap:14px;align-items:center;background:var(--a-papper);border:1px solid var(--a-kant);border-radius:20px;padding:12px 14px 12px 12px;text-align:left;width:100%;color:inherit}
+.tkort .bild{width:64px;height:64px;border-radius:16px;display:grid;place-items:center;flex:0 0 auto}
+.tkort .bild svg{width:44px;height:44px}
+.tkort .t{flex:1;min-width:0}
+.tkort .t b{display:block;font-size:15.5px;font-weight:600;line-height:20px}
+.tkort .t span{display:block;font-size:13px;line-height:18px;color:var(--a-ink-3);margin-top:2px}
+.tkort .nivaer{display:flex;gap:4px;margin-top:8px}
+.tkort .nivaer i{height:5px;flex:1;border-radius:3px;background:var(--a-kant)}
+.tkort .nivaer i.fri{background:var(--a-ink)}
+.tkort .nivaer i.kop{background:var(--kop)}
+.utan-nat{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 32px;gap:12px}
+.sm-ikon{display:grid;place-items:center}
+.prisrad{display:flex;align-items:center;gap:12px;padding:14px 16px;border:1.5px solid var(--a-kant);border-radius:18px;text-align:left;background:var(--a-papper);width:100%;color:inherit}
+.prisrad.vald{border-color:var(--a-ink);box-shadow:inset 0 0 0 1px var(--a-ink)}
+.prisrad .t{flex:1}
+.prisrad .t b{display:block;font-size:16px;font-weight:700}
+.prisrad .t span{display:block;font-size:13px;color:var(--a-ink-3);line-height:18px}
+.prisrad .pris{font-family:"Bricolage Grotesque",Figtree,sans-serif;font-size:22px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.prisrad .pris small{display:block;font-family:Figtree,sans-serif;font-size:11px;font-weight:500;color:var(--a-ink-3);text-align:right;letter-spacing:0}
+.ingar{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.ingar li{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:20px}
+.ingar li svg{width:20px;height:20px;flex:0 0 auto;color:var(--kop-ink)}
+.ordmarke{font-family:"Bricolage Grotesque",Figtree,sans-serif;font-variation-settings:"opsz" 48;font-weight:800;letter-spacing:-.035em;display:inline-flex;align-items:baseline;line-height:1;white-space:nowrap}
+.ordmarke i{display:inline-block;width:.3em;height:.3em;border-radius:.08em;background:var(--kop,#E8732A);margin-left:.1em;transform:translateY(-.02em)}
+.ordmarke small{font-family:Figtree,sans-serif;font-weight:500;letter-spacing:0;font-size:.42em;margin-left:.5em;opacity:.75;align-self:baseline}
+.dold{display:none !important}
+
+/* ---------- butik och ikon ---------- */
+.ikoner{display:flex;gap:26px;flex-wrap:wrap;align-items:flex-end}
+.ikoner figure{margin:0;display:grid;gap:8px;justify-items:center;font-size:12px;color:var(--d-ink-3)}
+.hemskarm{background:linear-gradient(160deg,#4652A6 0%,#1C1F45 100%);border-radius:22px;padding:22px 24px;display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap}
+.hemskarm figure{color:#E2E5FF}
+.butik{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.skarmbild{aspect-ratio:9/16;border-radius:22px;color:#fff;padding:26px 22px 0;display:flex;flex-direction:column;gap:6px;overflow:hidden;position:relative;max-width:100%}
+.skarmbild .a-ey{color:rgba(255,255,255,.75)}
+.skarmbild h3{font-family:"Bricolage Grotesque",Figtree,sans-serif;font-size:27px;line-height:30px;font-weight:800;letter-spacing:-.03em;color:#fff}
+.skarmbild .minitel{margin:16px auto 0;width:74%;flex:1;min-height:0;position:relative;overflow:hidden;border-radius:30px 30px 0 0;border:6px solid #0F0F14;border-bottom:0;background:#F1F1EE}
+.skarmbild .minitel .tel{position:absolute;top:0;left:0;transform-origin:top left;border:0;border-radius:0;box-shadow:none;pointer-events:none}
+.skarmbild .minitel .tel *{animation:none !important}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+<symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-las" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></g></symbol>
+<symbol id="i-klocka" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12.5" r="7.5"/><path d="M12 8.5v4.5l3 2M9 3h6"/></g></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z M10 20a2 2 0 0 0 4 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+<symbol id="i-idag" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 4a8 8 0 0 1 8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/><circle cx="12" cy="12" r="2.2" fill="currentColor"/></symbol>
+<symbol id="i-tester" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="3.5"/><path d="M9.2 3.5v17M14.8 3.5v17M3.5 9.2h17M3.5 14.8h17" opacity=".5"/></g><rect x="15" y="15" width="4.4" height="4.4" rx="1" fill="currentColor"/></symbol>
+<symbol id="i-utv" viewBox="0 0 24 24"><path d="M3.5 17.5c3-1 4.5-6.5 7.5-7.5s4.5 3.5 8 1.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><circle cx="19" cy="11.5" r="2.3" fill="currentColor"/></symbol>
+<symbol id="i-google" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></symbol>
+<symbol id="i-apple" viewBox="0 0 24 24"><path d="M16.4 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.8 3-.8s1.8.8 3 .8c1.3 0 2-1.1 2.8-2.3.9-1.3 1.2-2.6 1.3-2.6-.1 0-2.5-1-2.5-3.8zM14.1 5.9c.6-.8 1.1-1.8 1-2.9-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.8 1 .1 2.1-.5 2.7-1.3z" fill="currentColor"/></symbol>
+<symbol id="i-moln" viewBox="0 0 64 64"><path d="M20 46h26a10 10 0 0 0 1-20 14 14 0 0 0-27 3 9 9 0 0 0 0 17z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M14 52L50 14" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol>
+</defs></svg>
+
+<div class="wrap">
+<header class="huvud">
+  <div class="ey">Koncept för godkännande</div>
+  <h1 class="disp">Testklar: ett pass om dagen, fram till provet</h1>
+  <p class="ingress">Testklar, appen från jobbcoach.ai, som klickbar prototyp i en Pixel-ram: första start, Nivåkollen, dagens pass, kurvan, provdagen, köp, påminnelser och alla kanter. Passens frågevyer är webbens delade kod och ritas troget. Allt runt dem är appens eget och är det du godkänner här.</p>
+  <div class="meta"><span>13 november 2026</span><span>Art director, Fable</span><span>Pixel 7, 412 × 915</span><span>Android först, byggt för iOS</span><span>Källa: docs/design/app-koncept-2026-11-13.html</span></div>
+  <nav class="toc" aria-label="Avsnitt"><a href="#principer">Principer</a><a href="#konkurrenter">Så slår vi konkurrenterna</a><a href="#fragor">Beslutat</a><a href="#prototyp">Prototypen</a><a href="#alla">Alla vyer</a><a href="#rorelse">Rörelse och känsla</a><a href="#prestanda">Prestanda</a><a href="#butik">Ikon och butik</a><a href="#webben">Förslag som även påverkar webben</a><a href="#data">Data och nytt att bygga</a></nav>
+</header>
+
+<!-- ================================================================ PRINCIPER -->
+<section class="del" id="principer" style="margin-top:8px;border-top:0;padding-top:24px">
+  <header><div class="nr">Designprinciper</div><h2 class="disp">Fyra regler som styr varje vy</h2><p>Målgruppen står inför ett prov som avgör om de får jobbet. Appen ska kännas som en tränare som tar det på allvar: levande och varm, men aldrig barnslig.</p></header>
+  <div class="kolumner">
+    <div class="ruta"><span class="nummer">1</span><h3>Vardagen är ljus, ögonblicken är mörka</h3><p>Hemmet, katalogen och passet står i ett ljust, lugnt rum. När något är värt att minnas, nivån efter Nivåkollen, passet klart, en ny nivå på kurvan, släcks rummet och resultatet får hela skärmen i natt och koppar. Kontrasten gör att belöningen känns utan konfetti.</p></div>
+    <div class="ruta"><span class="nummer">2</span><h3>Ett tryck till passet, aldrig en snurra</h3><p>Appen öppnar i Idag med dagens pass redan hämtat. Knappen expanderar till passet i stället för att ladda en sida. Svar bekräftas direkt och sparas i bakgrunden; nästa fråga ligger redan i minnet. Där vi måste vänta visar vi skelett av vyn, aldrig en snurra.</p></div>
+    <div class="ruta"><span class="nummer">3</span><h3>Nivån är berättelsen, inte poängen</h3><p>Inga XP, inga liv, ingen energi. Det enda talet som bär är nivån 1 till 10 och hur den rör sig mot provdatumet. Dagarna i rad finns, men med söndag fri och paus runt provet, så att serien aldrig blir en plikt. Data visas som bild: ring, skala, kurva.</p></div>
+    <div class="ruta"><span class="nummer">4</span><h3>Illustrerat, aldrig dekorerat</h3><p>Varje testtyp har en egen ton och en egen figur som återkommer från onboarding till katalog till notis. Figurerna är byggda av uppgifternas egna former: matriser, serier, vikt papper, talrader. Det gör appen rik att titta på utan att en maskot måste bära den.</p></div>
+  </div>
+</section>
+
+<!-- ================================================================ KONKURRENTER -->
+<section class="del" id="konkurrenter">
+  <header><div class="nr">Konkurrentanalys</div><h2 class="disp">Så slår vi dem</h2><p>Genomgång 13 november av testprep-tjänsterna och de bästa apparna inom hjärnträning och lärande, med recensioner på Trustpilot, Google Play och i appbloggar. Markeringen V betyder att sidan hämtades och lästes; S att uppgiften bara kommer från sökresultat.</p></header>
+  <div class="tabell"><table>
+    <thead><tr><th>Aktör</th><th>Vad de gör bra</th><th>Var de är svaga</th><th>Vad användarna säger</th></tr></thead>
+    <tbody>
+      <tr><td><b><a href="https://www.jobtestprep.se/assessio">JobTestPrep</a></b> (V)<br>ca 89 USD/mån</td><td>Störst katalog: Matrigma, Alva, I-prov 2025, Aon. Svenska förklaringar.</td><td>Priset syns först i kassan, 2 till 4 gratisfrågor, åtkomst som försvinner när tiden går ut. Ingen app, ingen rytm.</td><td>Trustpilot 4,6 (578), 14 % enstjärnigt: "liknar inte riktiga testet", krångel med återbetalning.</td></tr>
+      <tr><td><b><a href="https://www.practiceaptitudetests.com/pricing/">Practice Aptitude Tests</a></b> (V)<br>29 GBP/mån</td><td>Lösning på varje fråga, dashboard, svarar på all kritik.</td><td>Dold autoförnyelse, dålig mobil, månadspriset upplevs högt.</td><td>Trustpilot 4,0 (279): oväntade dragningar, nekad återbetalning, "gör en mobilversion".</td></tr>
+      <tr><td><b><a href="https://www.trustpilot.com/review/www.assessment-training.com">Assessment-Training</a></b> (V)</td><td>Brett utbud, snabb support.</td><td>Ofullständiga förklaringar, språkfel, format som inte liknar provet.</td><td>Trustpilot 4,3 (80), 15 % enstjärnigt.</td></tr>
+      <tr><td><b><a href="https://logiktester.se/">Logiktester.se</a></b> (V)<br>gratis, Pro 99 kr/mån</td><td>Matrigma, Alva, I-prov, SHL, Aon på svenska. Noll friktion, tidtagna simuleringar.</td><td>Ingen app, ingen nivå, ingen kurva utan Pro, generisk webb. Vår närmaste svenska konkurrent på innehåll.</td><td>Inga butiksbetyg (webb).</td></tr>
+      <tr><td><b><a href="https://testttalent.se/">Test the Talent</a></b>, <b><a href="https://www.neurobics.se/">Neurobics</a></b>, <b><a href="https://cogniprep.app/games/assessio">CogniPrep</a></b> (V)</td><td>Svenska simuleringar, Neurobics har Android-app och "din kurva sparad".</td><td>Otydliga priser, ett gratisprov, CogniPrep säger "optimerad för skrivbord", Neurobics saknar iPhone till 2027.</td><td>Små, få recensioner.</td></tr>
+      <tr><td><b>Play-sök "logiktest", "aptitude test"</b> (S)</td><td>Trasco 4,6 (35 000), Nithra 4,5 (54 000): stora banker.</td><td>Annonser som inte går att hoppa över, engelska, indiskt provfokus. Ingen svensk rekryteringstestapp finns.</td><td>"Annonser efter varje fråga."</td></tr>
+      <tr><td><b><a href="https://languageappguide.com/app-reviews/duolingo-review/">Duolingo</a></b> (V), Play 4,7 (S)</td><td>Bäst i klassen på onboarding utan konto, dagligt mål, streak med frysning, rörelse och ljud.</td><td>Energisystemet 2025 straffar även rätta svar, notiser som "passivt-aggressiv spam", streaken blir ångest 23:59.</td><td>Gen Z-panel: "manipulativ".</td></tr>
+      <tr><td><b><a href="https://mwm.ai/apps/elevate-brain-training-games/875063456">Elevate</a></b> (V), 4,7 (1,3 M)</td><td>Startbedömning sätter nivå, pass under tio minuter, kurva per kategori, "resultatet känns konkret".</td><td>Sex årsalternativ med tre priser i kassan, repetitivt efter några veckor, hastighet före tanke.</td><td>"Förvirrande kassa."</td></tr>
+      <tr><td><b><a href="https://upskillwise.com/reviews/brilliant/">Brilliant</a></b> (V), <b>Peak</b>, <b>Lumosity</b>, <b><a href="https://justuseapp.com/en/app/1451295827/impulse-brain-training-games/reviews">Impulse</a></b> (S/V)</td><td>Brilliant: gör-själv-lektioner med feedback direkt. Peak: modernast visuellt.</td><td>Brilliant dyrt. Peak aggressiv upsell. Impulse: veckodebitering via "Fortsätt"-knapp, annonser trots betalning.</td><td>Impulse är kategorins varnande exempel på kassa.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="kolumner" style="margin-top:18px">
+    <div class="ruta accent"><h3>1. Priset på första skärmen</h3><p>JobTestPrep och Test the Talent gömmer priset, Elevate förvirrar med sex alternativ. Vi säger i onboardingen: Nivåkollen och ett grundpass gratis, Premium 149 kr i månaden. En köpvy, ett erbjudande, "säg upp när du vill" synligt.</p></div>
+    <div class="ruta accent"><h3>2. Nivåkollen är onboardingen</h3><p>Elevates startbedömning är det som får resultatet att kännas personligt. Hos oss är Nivåkollen första riktiga minuten i appen, och nivåögonblicket efteråt är första skärmen man vill visa någon.</p></div>
+    <div class="ruta accent"><h3>3. Rytm utan skuld</h3><p>Duolingos streak fungerar men hatas när den blir plikt. Vår serie räknar dagar i rad med söndag fri och paus runt provet (reglerna finns redan i serie.ts). En notis om dagen, med riktigt innehåll: "Talserier väntar, sex minuter." Aldrig "din serie dör".</p></div>
+    <div class="ruta accent"><h3>4. Kurvan är gratis att se</h3><p>Ingen svensk konkurrent visar en kurva över tid utan betalning (Logiktester tar 99 kr för jämförelsen). Vi visar senaste punkten gratis och hela kurvan i Premium, som bild i hemmet och i Utveckling.</p></div>
+    <div class="ruta accent"><h3>5. Provläget speglar provet</h3><p>Vanligaste klagomålet på JobTestPrep och Assessment-Training är "liknar inte riktiga testet". Övningsprovet har provets klocka, antal och tempo (Matrigma 35 på 40 minuter, Alva 20 uppgifter, I-provets sex deltester), tydligt märkt som prov, inte övning.</p></div>
+    <div class="ruta accent"><h3>6. Förklaringen lär, mobilen är hemmaplan</h3><p>Play-apparna ger facit utan regel; CogniPrep ber om skrivbord. Regeln och misstaget står efter varje svar (webbens regelpanel), uppgiften står i bild utan rullning, haptik bekräftar varje svar och kassan har inga fällor.</p></div>
+  </div>
+  <ol class="kallor">
+    <li><a href="https://www.trustpilot.com/review/jobtestprep.com">trustpilot.com/review/jobtestprep.com</a> (V)</li>
+    <li><a href="https://www.trustpilot.com/review/practiceaptitudetests.com">trustpilot.com/review/practiceaptitudetests.com</a> (V)</li>
+    <li><a href="https://www.jobtestprep.se/gratis-lamplighetstest">jobtestprep.se/gratis-lamplighetstest</a> (V)</li>
+    <li><a href="https://edureviewer.com/test-prep/job-test-prep-review/">edureviewer.com, JobTestPrep-priser</a> (V)</li>
+    <li><a href="https://logiktester.se/pro/">logiktester.se/pro</a> (V)</li>
+    <li><a href="https://www.neurobics.se/tester/">neurobics.se/tester</a> (V)</li>
+    <li><a href="https://aced.se/">aced.se</a> (V)</li>
+    <li><a href="https://provly.se/">provly.se</a>, tydligaste prissidan i urvalet (V)</li>
+    <li><a href="https://pliktguiden.pliktverket.se/monstring/sa-gar-monstringen-till/testerna-pa-monstringen">pliktguiden.pliktverket.se, testerna på mönstringen</a> (V)</li>
+    <li><a href="https://nibble-app.com/blog/elevate-app-review">nibble-app.com, Elevate-recension</a> (V)</li>
+    <li><a href="https://www.themycenaean.org/2026/03/duolingo-the-worst-language-app-out-there/">themycenaean.org om Duolingos energisystem</a> (V)</li>
+    <li><a href="https://unstar.app/blog/lumosity-elevate-peak-cognifit-neuronation-brain-training-apps-ranked-2026">unstar.app, hjärnträningsappar rankade 2026</a> (V)</li>
+    <li><a href="https://play.google.com/store/apps/details?id=com.duolingo">Google Play, Duolingo</a> (S)</li>
+    <li><a href="https://play.google.com/store/apps/details?id=nithra.math.logicalreasoning">Google Play, Logical Reasoning Test</a> (S)</li>
+    <li><a href="https://www.gameassessmentprep.com/aon">Aon TestIt via gameassessmentprep.com</a> (S)</li>
+    <li><a href="https://adapty.io/paywall-library/neuronation/">adapty.io, NeuroNations betalvägg</a> (S)</li>
+  </ol>
+</section>
+
+<!-- ================================================================ FRÅGOR -->
+<div class="fragor" id="fragor">
+  <h2 class="disp">Beslutat 2026-11-13</h2>
+  <ol>
+    <li><b>Appen heter Testklar.</b> Titeln i Google Play är "Testklar: Logiktest &amp; övning". Avsändaren "från jobbcoach.ai" står i undertitel, startskärm och butik, aldrig i titeln. Ordmärket finns under Ikon och butik.</li>
+    <li><b>Ett erbjudande: Premium 149 kr i månaden,</b> samma som webben. Inget Dagspass och ingen provperiod. Köpvyn har en rad och en knapp.</li>
+    <li><b>Egna typsnitt i appen:</b> Bricolage Grotesque för rubriker och tal, Figtree för löptext. Passens frågevyer behåller webbens typsnitt eftersom de är delad kod.</li>
+    <li><b>Tre flikar:</b> Idag, Tester och Utveckling. Konto och inställningar ligger bakom profilbilden uppe till höger.</li>
+    <li><b>Nivåkollen före kontot.</b> Användaren gör Nivåkollen direkt efter samtycket; nivån och planen sparas i appen tills de skapar kontot i vyn efter nivåögonblicket.</li>
+  </ol>
+</div>
+
+<!-- ================================================================ PROTOTYP -->
+<section class="del" id="prototyp">
+  <header><div class="nr">Prototypen</div><h2 class="disp">Klicka dig genom hela appen</h2><p>Allt är klickbart i ramen. Starta från början eller hoppa till en vy med knapparna. Raden under telefonen visar haptiken i varje ögonblick. Passens frågevyer är webbens komponenter ritade troget: PassShell med topprad, tidsrad, matris i papperskort, sex alternativ och regelpanelen.</p></header>
+  <div class="scen">
+    <div class="telkol">
+      <div class="tel" id="tel" aria-label="Prototyp av appen"></div>
+      <div class="haptik" id="haptik"><i></i><span>Haptik: <b>ingen</b></span></div>
+    </div>
+    <div class="karta">
+      <h3>Börja</h3>
+      <div class="chips"><button onclick="demo('splash')" class="aktiv">Första start</button><button onclick="demo('onb1')">Onboarding</button><button onclick="demo('nkStart')">Nivåkollen</button><button onclick="demo('nkResultat')">Nivåögonblicket</button><button onclick="demo('konto')">Spara nivån, konto</button></div>
+      <h3>Varje dag</h3>
+      <div class="chips"><button onclick="demo('hem')">Idag, gratis dag 0</button><button onclick="demo('hemPremium')">Idag, Premium dag 5</button><button onclick="demo('pass')">Dagens pass</button><button onclick="demo('passResultat')">Passet klart och serien</button><button onclick="demo('notis')">Notisfrågan</button><button onclick="demo('utveckling')">Utveckling</button><button onclick="demo('tester')">Tester</button><button onclick="demo('testDetalj')">Ett test</button></div>
+      <h3>Provet</h3>
+      <div class="chips"><button onclick="demo('hemProv')">Två dagar kvar</button><button onclick="demo('ovStart')">Övningsprovets startark</button><button onclick="demo('ovFraga')">Provet mot klockan</button><button onclick="demo('provdag')">Provdagen</button></div>
+      <h3>Köp och konto</h3>
+      <div class="chips"><button onclick="demo('kop')">Köpvyn</button><button onclick="demo('kontoVy')">Konto och inställningar</button><button onclick="demo('radera')">Radera konto</button></div>
+      <h3>Kanterna</h3>
+      <div class="chips"><button onclick="demo('laddar')">Laddning, skelett</button><button onclick="demo('tomUtv')">Tomt tillstånd</button><button onclick="demo('utanNat')">Utan nät</button><button onclick="demo('fel')">Fel i passet</button></div>
+      <div class="not" id="vynot"><h4>Om vyn</h4><p>Välj en vy.</p></div>
+      <div class="not"><h4>Android och iOS</h4><ul><li><b>Tillbaka</b> (gest eller knapp) går ett steg i onboarding, stänger ark, och i passet frågar den "Avsluta passet?" bara om ett svar är obesvarat; svaren är redan sparade.</li><li><b>Material-gester:</b> ark dras ner för att stängas, flikar byter utan glid, listor har overscroll-studs.</li><li><b>iOS:</b> Apple-knappen överst i inloggningen, kanthalvsvep tillbaka, samma vyer i övrigt. Statusfältets färg följer vyn: mörk text i det ljusa rummet, ljus i natten.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ ALLA VYER -->
+<section class="del" id="alla">
+  <header><div class="nr">Översikt</div><h2 class="disp">Alla vyer, i flödets ordning</h2><p>Varje bild är prototypens egen vy i förminskning. Tryck på en bild så öppnas den i ramen ovanför.</p></header>
+  <div class="galleri" id="galleri"></div>
+</section>
+
+<!-- ================================================================ RÖRELSE -->
+<section class="del" id="rorelse">
+  <header><div class="nr">Rörelse och känsla</div><h2 class="disp">Så känns den snabb och levande</h2><p>Rörelsen har ett jobb per ögonblick: visa vart något tog vägen, bekräfta ett tryck, eller göra ett resultat värt att minnas. Allt annat står still. Haptiken bekräftar, den straffar aldrig: ett fel svar ger ingen vibration.</p></header>
+  <div class="tabell"><table>
+    <thead><tr><th>Ögonblick</th><th>Rörelse</th><th>Haptik</th><th>Tid</th></tr></thead>
+    <tbody>
+      <tr><td><b>Kallstart</b></td><td>Systemets startskärm med märket, rummet tonar in bakom. Märket flyttar sig aldrig.</td><td>ingen</td><td>högst 400 ms synlig</td></tr>
+      <tr><td><b>Onboarding, nästa steg</b></td><td>Vyn skjuts in från höger, den förra glider en tredjedel åt vänster och tonas.</td><td>ingen</td><td>340 ms</td></tr>
+      <tr><td><b>Välja kort</b></td><td>Kortet får bläckkant och bock direkt, trycket ger en skalning till 97 procent.</td><td>lätt tick</td><td>120 ms</td></tr>
+      <tr><td><b>Starta passet</b></td><td>Dagkortet växer till helskärm och blir passets skal. Första frågan står redan i det.</td><td>lätt tick</td><td>420 ms</td></tr>
+      <tr><td><b>Svar i passet</b></td><td>Alternativet får bläckkant samma bildruta som trycket. Rätt svar i koppar, regelpanelen rullar fram under (webbens beteende).</td><td>lätt tick vid tryck, dubbelt tick vid rätt, inget vid fel</td><td>0 ms upplevt</td></tr>
+      <tr><td><b>Passet klart</b></td><td>Rummet släcks, dagsringen fylls, rubriken, skalan, serien och morgondagen kommer i fyra steg.</td><td>framgång när ringen sluts</td><td>600 ms ring, 300 ms per steg</td></tr>
+      <tr><td><b>Nivåögonblicket</b></td><td>Talet räknar upp från 1 till din nivå medan skalan fylls. Meningen om vad nivån betyder tonar in under.</td><td>medel när talet landar</td><td>900 ms</td></tr>
+      <tr><td><b>Dagen i rad</b></td><td>Dagens ring i veckoraden fylls i koppar, serietexten byts.</td><td>lätt tick</td><td>300 ms</td></tr>
+      <tr><td><b>Märke nått</b></td><td>Märket lyfts in i resultatvyn som ett eget steg, aldrig som en popup över passet.</td><td>framgång</td><td>500 ms</td></tr>
+      <tr><td><b>Flikbyte</b></td><td>Ny vy tonar in och lyfter 10 px. Inget glid, ingen omladdning.</td><td>ingen</td><td>200 ms</td></tr>
+      <tr><td><b>Ark (köp, notis, ett test)</b></td><td>Glider upp, bakgrunden dimmas. Dras ned eller tillbaka för att stängas.</td><td>lätt tick när det släpper</td><td>320 ms</td></tr>
+      <tr><td><b>Köp klart</b></td><td>Google Plays ark stängs, vår toast "Premium aktivt", och det du tryckte på öppnas direkt.</td><td>framgång</td><td>260 ms</td></tr>
+      <tr><td><b>Väntan</b></td><td>Skelett i vyns egen layout med ett långsamt skimmer. Aldrig en snurra i huvudflödet.</td><td>ingen</td><td>1,4 s per svep</td></tr>
+      <tr><td><b>Minskad rörelse</b></td><td>Alla övergångar blir 120 ms toning, talen står stilla från start, ringar ritas färdiga.</td><td>oförändrad</td><td>120 ms</td></tr>
+    </tbody>
+  </table></div>
+  <div class="kolumner" style="margin-top:18px">
+    <div class="ruta"><h3>Direkt svar</h3><p>Varje tryck ändrar vyn i samma bildruta. Svaret i passet låses lokalt och skickas i bakgrunden. Misslyckas sändningen står svaret kvar och bannern "Svaret gick inte att spara" visas med Försök igen, aldrig ett förlorat svar.</p></div>
+    <div class="ruta"><h3>Förhämtning</h3><p>Dagens pass hämtas när Idag ritas, så knappen leder till en fråga som redan finns. Nästa fråga ligger i minnet medan du svarar. Utveckling hämtas när passet lämnas in, så kurvan står klar när du går dit.</p></div>
+    <div class="ruta"><h3>Lokalt minne</h3><p>Senaste Idag-vyn sparas i skalet. Vid kallstart visas den på en gång och uppdateras tyst när servern svarat (stale-while-revalidate). Utan nät visas den med raden "Senast uppdaterad 14:02" och passet säger "Ingen anslutning".</p></div>
+    <div class="ruta"><h3>Inga sidladdningar</h3><p>Flikarna byter vy i skalet. Passen öppnas som ett lager ovanpå och stängs tillbaka dit de kom ifrån. Adressen byts med history så att en omstart återupptar passet, som på webben.</p></div>
+  </div>
+</section>
+
+<!-- ================================================================ PRESTANDA -->
+<section class="del" id="prestanda">
+  <header><div class="nr">Prestanda</div><h2 class="disp">Mål som mäts på riktig telefon</h2><p>Appen omfattas av prestandabudgeten för inloggat (LCP under 1,5 s, CLS 0). Här är målen per ögonblick, mätta på en Pixel 7 över 4G med appens user agent, med scripts/perf-inloggat.ts och PostHog-händelserna app_open och idag_visad.</p></header>
+  <div class="tabell"><table>
+    <thead><tr><th>Mått</th><th>Mål</th><th>Så når vi det</th></tr></thead>
+    <tbody>
+      <tr><td><b>Kallstart till Idag läsbar</b></td><td>under 1,2 s</td><td>Startskärm högst 400 ms, Idag ur lokalt minne direkt, /app serverrenderad med initial data i samma svar.</td></tr>
+      <tr><td><b>Varm start</b></td><td>under 400 ms</td><td>Webbvyn hålls vid liv i bakgrunden, Idag uppdateras tyst.</td></tr>
+      <tr><td><b>Tryck till första frågan</b></td><td>under 300 ms</td><td>Passet förhämtat när Idag ritas, övergången är kortet som växer, inte en laddning.</td></tr>
+      <tr><td><b>Svar till nästa fråga</b></td><td>0 ms upplevt, bekräftat under 500 ms</td><td>Optimistiskt lås, sändning i bakgrunden, nästa fråga i minnet.</td></tr>
+      <tr><td><b>LCP och CLS i /app</b></td><td>LCP under 1,0 s, CLS 0</td><td>Skelett med vyns exakta mått, typsnitt subsettade och förladdade, inga bilder som laddas sent.</td></tr>
+      <tr><td><b>Appens storlek</b></td><td>skalet under 8 MB</td><td>Capacitor utan extra ramverk, ikon och startskärm som vektor, typsnitten på servern med lång cache.</td></tr>
+      <tr><td><b>Nätet borta</b></td><td>felvyn inom 200 ms</td><td>Lokalt paketerad vy i skalet, inte en serversida.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================================================================ BUTIK -->
+<section class="del" id="butik">
+  <header><div class="nr">Ikon och butik</div><h2 class="disp">Märket, startskärmen och fyra butiksbilder</h2><p>Märket är matrisen med luckan: tre gånger tre rutor i natt, en lucka i koppar. Det säger "testet" på en gång och fungerar i 48 px. Samma märke på startskärmen och som fallback-avatar i appen.</p></header>
+  <div class="kolumner">
+    <div class="ruta">
+      <h3>Appikonen</h3>
+      <div class="ikoner" style="margin-top:10px">
+        <figure><svg width="96" height="96" viewBox="0 0 96 96" aria-label="Appikon, vanlig"><rect width="96" height="96" rx="22" fill="#121325"/><g fill="#F4F3FA"><circle cx="30" cy="30" r="6"/><rect x="42" y="24" width="12" height="12" rx="2.5"/><path d="M66 23l7 13H59z"/><rect x="24" y="42" width="12" height="12" rx="2.5"/><path d="M48 41l7 13H41z"/><circle cx="66" cy="48" r="6"/><path d="M30 59l7 13H23z"/><circle cx="48" cy="66" r="6"/></g><rect x="57" y="57" width="18" height="18" rx="4" fill="#E8732A"/></svg><figcaption>Vanlig, 22 % radie</figcaption></figure>
+        <figure><svg width="96" height="96" viewBox="0 0 96 96" aria-label="Appikon, maskable"><rect width="96" height="96" fill="#121325"/><g fill="#F4F3FA" transform="translate(48 48) scale(.8) translate(-48 -48)"><circle cx="30" cy="30" r="6"/><rect x="42" y="24" width="12" height="12" rx="2.5"/><path d="M66 23l7 13H59z"/><rect x="24" y="42" width="12" height="12" rx="2.5"/><path d="M48 41l7 13H41z"/><circle cx="66" cy="48" r="6"/><path d="M30 59l7 13H23z"/><circle cx="48" cy="66" r="6"/><rect x="57" y="57" width="18" height="18" rx="4" fill="#E8732A"/></g><circle cx="48" cy="48" r="38.4" fill="none" stroke="rgba(255,255,255,.35)" stroke-dasharray="3 3"/></svg><figcaption>Maskable, säker zon 80 %</figcaption></figure>
+        <figure><svg width="96" height="96" viewBox="0 0 96 96" aria-label="Appikon, cirkelmask"><clipPath id="cirk"><circle cx="48" cy="48" r="48"/></clipPath><g clip-path="url(#cirk)"><rect width="96" height="96" fill="#121325"/><g fill="#F4F3FA" transform="translate(48 48) scale(.8) translate(-48 -48)"><circle cx="30" cy="30" r="6"/><rect x="42" y="24" width="12" height="12" rx="2.5"/><path d="M66 23l7 13H59z"/><rect x="24" y="42" width="12" height="12" rx="2.5"/><path d="M48 41l7 13H41z"/><circle cx="66" cy="48" r="6"/><path d="M30 59l7 13H23z"/><circle cx="48" cy="66" r="6"/><rect x="57" y="57" width="18" height="18" rx="4" fill="#E8732A"/></g></g></svg><figcaption>Samsung och Pixel, cirkel</figcaption></figure>
+        <figure><svg width="48" height="48" viewBox="0 0 96 96" aria-label="Appikon i 48 px"><rect width="96" height="96" rx="22" fill="#121325"/><g fill="#F4F3FA"><circle cx="30" cy="30" r="6"/><rect x="42" y="24" width="12" height="12" rx="2.5"/><path d="M66 23l7 13H59z"/><rect x="24" y="42" width="12" height="12" rx="2.5"/><path d="M48 41l7 13H41z"/><circle cx="66" cy="48" r="6"/><path d="M30 59l7 13H23z"/><circle cx="48" cy="66" r="6"/></g><rect x="57" y="57" width="18" height="18" rx="4" fill="#E8732A"/></svg><figcaption>48 px</figcaption></figure>
+      </div>
+      <p style="margin-top:12px">Vit variant på mörka teman: samma märke med nattens figurer i vitt på koppar för notisikonen (Android kräver en enfärgad siluett). Monokrom ikon för Android 13+: luckan ensam som siluett.</p>
+    </div>
+    <div class="ruta">
+      <h3>Startskärmen</h3>
+      <div class="hemskarm" style="margin-top:10px;background:radial-gradient(120% 70% at 50% -10%,#1B1D38 0%,#121325 55%,#0B0C19 100%);justify-content:center;padding:40px 24px">
+        <figure style="gap:14px"><svg width="72" height="72" viewBox="0 0 96 96"><rect width="96" height="96" rx="22" fill="#121325" stroke="rgba(255,255,255,.12)"/><g fill="#F4F3FA"><circle cx="30" cy="30" r="6"/><rect x="42" y="24" width="12" height="12" rx="2.5"/><path d="M66 23l7 13H59z"/><rect x="24" y="42" width="12" height="12" rx="2.5"/><path d="M48 41l7 13H41z"/><circle cx="66" cy="48" r="6"/><path d="M30 59l7 13H23z"/><circle cx="48" cy="66" r="6"/></g><rect x="57" y="57" width="18" height="18" rx="4" fill="#E8732A"/></svg><figcaption style="display:grid;gap:6px;justify-items:center"><span class="ordmarke" style="font-size:28px;color:#F4F3FA">Testklar<i></i></span><span style="font-family:Figtree,sans-serif;font-size:13px;color:#A9ACC9">från jobbcoach.ai</span></figcaption></figure>
+      </div>
+      <p style="margin-top:12px">Android 12-startskärmen: märket i 288 dp centrerat på natt, ingen text (systemet tillåter ingen). Appen tar över med samma natt, ordmärket Testklar och raden "från jobbcoach.ai" tonar in under märket och Idag följer. iOS: samma bild som LaunchScreen.</p>
+    </div>
+  </div>
+  <div class="kolumner" style="margin-top:16px"><div class="ruta"><h3>Ordmärket</h3><p>Testklar i Bricolage Grotesque 800 med tät spärrning. Luckan ur appikonen står som en kopparpunkt efter ordet: samma tecken i märket, ordmärket och appen. Avsändaren "från jobbcoach.ai" i Figtree 500 under eller efter, aldrig i titeln.</p><div style="display:grid;gap:14px;margin-top:14px"><div style="background:radial-gradient(120% 70% at 50% -10%,#1B1D38 0%,#121325 55%,#0B0C19 100%);border-radius:16px;padding:22px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap"><span class="ordmarke" style="font-size:40px;color:#F4F3FA">Testklar<i></i></span><span style="font-family:Figtree,sans-serif;font-size:14px;color:#A9ACC9">från jobbcoach.ai</span></div><div style="background:#FFFFFF;border:1px solid #E3E2DC;border-radius:16px;padding:22px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap"><span class="ordmarke" style="font-size:40px;color:#16151C">Testklar<i></i></span><span style="font-family:Figtree,sans-serif;font-size:14px;color:#76757F">från jobbcoach.ai</span></div><div style="background:#E8732A;border-radius:16px;padding:18px 20px;display:flex;align-items:center;gap:16px"><span class="ordmarke" style="font-size:28px;color:#fff">Testklar<i style="background:#fff"></i></span><span class="ordmarke" style="font-size:18px;color:#fff;margin-left:auto">Testklar<i style="background:#fff"></i></span></div></div></div><div class="ruta"><h3>Där namnet står</h3><ul><li><b>Startskärmen och onboardingens första vy:</b> ordmärket med "från jobbcoach.ai" under.</li><li><b>Google Play:</b> titeln "Testklar: Logiktest &amp; övning", utvecklaren Jobbcoach under titeln, butiksbilderna bär ordmärket nederst.</li><li><b>Notiser:</b> "Dags för dagens pass i Testklar: talserier, nio uppgifter". Notisikonen är luckan som siluett.</li><li><b>Appen i övrigt:</b> namnet står inte i topprader; vyerna heter Idag, Tester, Utveckling. Kontovyn avslutar med "Testklar 1.0 · från jobbcoach.ai".</li><li><b>Appikonen</b> bär inget ordmärke: märket räcker i 48 px.</li></ul></div></div>
+  <h3 class="disp" style="font-size:22px;font-weight:700;margin:28px 0 12px">Fyra butiksbilder, 1080 × 1920</h3>
+  <div class="butik">
+    <div class="skarmbild" style="background:linear-gradient(170deg,#F28B46,#C95F1C 70%,#9E4612)"><div class="a-ey" style="display:flex;justify-content:space-between;align-items:baseline"><span class="ordmarke" style="font-size:16px;color:#fff;letter-spacing:-.02em;text-transform:none">Testklar<i style="background:#fff;opacity:.9"></i></span><span>1 av 4</span></div><h3>Ett pass om dagen, fram till provet</h3><div class="minitel" data-klon="hemPremium"></div></div>
+    <div class="skarmbild" style="background:radial-gradient(120% 70% at 50% -10%,#1B1D38 0%,#121325 55%,#0B0C19 100%)"><div class="a-ey" style="display:flex;justify-content:space-between;align-items:baseline"><span class="ordmarke" style="font-size:16px;color:#fff;letter-spacing:-.02em;text-transform:none">Testklar<i style="background:#fff;opacity:.9"></i></span><span>2 av 4</span></div><h3>Nivåkollen gratis. Din nivå på åtta minuter.</h3><div class="minitel" data-klon="nkResultat"></div></div>
+    <div class="skarmbild" style="background:linear-gradient(170deg,#2C4A98,#1B2A5E 70%,#121325)"><div class="a-ey" style="display:flex;justify-content:space-between;align-items:baseline"><span class="ordmarke" style="font-size:16px;color:#fff;letter-spacing:-.02em;text-transform:none">Testklar<i style="background:#fff;opacity:.9"></i></span><span>3 av 4</span></div><h3>Samma format som ditt test, mot klockan</h3><div class="minitel" data-klon="ovFraga"></div></div>
+    <div class="skarmbild" style="background:linear-gradient(170deg,#1F6A45,#14492F 70%,#0C2A1B)"><div class="a-ey" style="display:flex;justify-content:space-between;align-items:baseline"><span class="ordmarke" style="font-size:16px;color:#fff;letter-spacing:-.02em;text-transform:none">Testklar<i style="background:#fff;opacity:.9"></i></span><span>4 av 4</span></div><h3>Se nivån stiga, vecka för vecka</h3><div class="minitel" data-klon="utveckling"></div></div>
+  </div>
+  <div class="kolumner" style="margin-top:18px">
+    <div class="ruta"><h3>Butikstexter, Google Play</h3><ul>
+      <li><b>Namn (30 tecken):</b> Testklar: Logiktest &amp; övning</li><li><b>Utvecklare:</b> Jobbcoach, med jobbcoach.ai som webbplats. Står under titeln i butiken.</li>
+      <li><b>Kort beskrivning (80):</b> Träna inför Matrigma, Alva, SHL, Aon och I-provet. Ett pass om dagen.</li>
+      <li><b>Fullständig beskrivning, inledning:</b> Du har fått ett rekryteringstest i kallelsen. Testklar, appen från jobbcoach.ai, tränar dig fram till dagen. Gör Nivåkollen gratis och få din nivå på åtta minuter. Sedan ett pass om dagen i samma format som provet: figurer och mönster, talserier, ordförråd, spatial förmåga, deduktiv slutledning, text och siffror. Regeln efter varje svar, så att du lär dig i stället för att gissa. Kurvan visar hur nivån rör sig vecka för vecka, och de sista dagarna gör du övningsprov mot klockan, i provets format. Premium 149 kr i månaden, säg upp när du vill. Samma konto och samma Premium som på jobbcoach.ai.</li>
+      <li><b>Kategori:</b> Utbildning. <b>Taggar:</b> rekryteringstest, logiktest, Matrigma, I-provet, aptitude test.</li>
+    </ul></div>
+    <div class="ruta"><h3>Bildregler</h3><ul><li>Ordmärket Testklar överst till vänster på varje bild, rubriken i Bricolage Grotesque 800 under, en mening, aldrig brödtext.</li><li>Telefonen beskuren nedtill, 74 procent av bredden, ramen i samma natt som ikonen.</li><li>Bild 1 är orange: den enda i sin färg i hela kategorin på Play, så att den syns i sökresultatet.</li><li>Samma fyra bilder i 6,9 tum för App Store senare, med Apple-knappen i inloggningen.</li></ul></div>
+  </div>
+</section>
+
+<!-- ================================================================ WEBBEN -->
+<section class="del" id="webben">
+  <header><div class="nr">Separat avsnitt</div><h2 class="disp">Förslag som även påverkar webben</h2><p>Det här ingår inte i det som godkänns för appen. Passens frågevyer är delad kod, så varje punkt här går genom den vanliga processen för testerna och syns på webben också.</p></header>
+  <div class="kolumner">
+    <div class="ruta"><h3>1. Liknande uppgift direkt efter ett fel</h3><p>Brilliants starkaste grepp. När regeln visats i regelpanelen erbjuds "Prova en till på samma regel" som en länk under panelen. Uppgiften räknas inte på nivån. Kräver att motorn kan ge en syskonfråga ur samma familj.</p></div>
+    <div class="ruta"><h3>2. Trycket i alternativen</h3><p>Alternativknapparna i PassFraga får en skalning till 97 procent vid tryck (transform, 120 ms, respekterar prefers-reduced-motion). Ingen färg ändras, bara formen svarar. Gör passet märkbart mer "app" även i webbläsaren.</p></div>
+    <div class="ruta"><h3>3. Haptik via data-attribut</h3><p>PassFlode sätter data-haptik="latt" på kroppen vid svar och data-haptik="framgang" vid klart pass. Appskalet lyssnar och vibrerar; webben ignorerar. Noll synlig ändring på webben.</p></div>
+    <div class="ruta"><h3>4. "Vet inte, visa regeln" som knapp</h3><p>Länken i foten är liten för tummen. Som sekundär knapp i full bredd under kopparknappen blir den 48 px hög och lättare att välja, utan att konkurrera med Nästa fråga. Samma vikt i texten som i dag.</p></div>
+  </div>
+</section>
+
+<!-- ================================================================ DATA -->
+<section class="del" id="data">
+  <header><div class="nr">Bilaga</div><h2 class="disp">Data per vy och vad som är nytt att bygga</h2><p>Nästan allt finns redan på servern. Det nya är appens egna vyer, tre inbyggda delar (inloggning, köp, push) och ett par små krokar i delad kod.</p></header>
+  <div class="tabell"><table>
+    <thead><tr><th>Vy</th><th>Data som redan finns</th><th>Nytt att bygga</th></tr></thead>
+    <tbody>
+      <tr><td><b>Onboarding</b></td><td><code>MITT_TEST_KORT</code>, <code>planFranVal</code>, <code>byggPlan</code> för planförhandsvisningen, provdatum i <code>test_planer</code></td><td>Appens vyer. Samtycket lagras i skalet och styr PostHog opt-in.</td></tr>
+      <tr><td><b>Konto</b></td><td>Supabase auth, LoginFlode-funktionerna</td><td>Inbyggd Google-inloggning (id-token), Apple-leverantör för iOS, Universal/App Links. Vyn kommer efter nivåögonblicket och säger vad som sparas.</td></tr>
+      <tr><td><b>Nivåkollen</b></td><td>PassFlode matning, NivakollFlode, <code>/api/traning/*</code>, <code>/api/nivakoll/*</code></td><td>Sessionen startas utan konto: skalet skapar en anonym Supabase-session, och när kontot skapas efter resultatet knyts sessionen och nivån till det. Frågevyerna oförändrade.</td></tr>
+      <tr><td><b>Nivåögonblicket</b></td><td><code>matningResultat</code> (nivå, tappade familjer, föreslaget sikte), <code>byggPlan</code></td><td>Appens resultatvy, läser samma vymodell. PassFlode får en prop för att byta ut resultatvyn.</td></tr>
+      <tr><td><b>Idag</b></td><td><code>getTraningSummary</code>, <code>hemvy.ts</code> (dagens pass, serie, plan, nivå, provdatum, Mitt test), <code>milstolpar.ts</code></td><td>Serverrenderad <code>/app</code> med initial data, lokalt minne i skalet, förhämtning av passet.</td></tr>
+      <tr><td><b>Dagens pass</b></td><td>PassFlode och syskonen, <code>passgenerator</code></td><td>Haptik-krok i skalet (Capacitor Haptics), expandera-övergången.</td></tr>
+      <tr><td><b>Passet klart, serien</b></td><td><code>passResultat</code>, <code>serie.ts</code>, <code>imorgon.ts</code>, märken</td><td>Appens vy.</td></tr>
+      <tr><td><b>Notisfrågan</b></td><td>Påminnelsetiden i planen (mejl i dag)</td><td>Tabell <code>app_enheter</code>, push-token, pg_cron var kvart till en edge-funktion, FCM.</td></tr>
+      <tr><td><b>Utveckling</b></td><td><code>utveckling/data.server.ts</code>: kurvan, nivå per typ, tempo, märken</td><td>Appens vy, gratisnivåns lås på historiken.</td></tr>
+      <tr><td><b>Tester</b></td><td><code>TEST_GROUPS</code>, <code>deltesterForPlan</code>, <code>steg2Status</code>, Nivåkollens status per typ</td><td>Appens vy och arket för ett test.</td></tr>
+      <tr><td><b>Provdagen och övningsprovet</b></td><td><code>PROVFORMAT</code>, Startark, OvningsprovFlode, IprovFlode, dagar kvar ur planen</td><td>Nedräkningen och checklistan i Idag.</td></tr>
+      <tr><td><b>Köp</b></td><td><code>premium_grants</code>, <code>premiumAccess</code></td><td>RevenueCat-plugin, en produkt i Play Console (Premium, månad), webhook-rutten som skriver grants med källa play.</td></tr>
+      <tr><td><b>Konto och inställningar</b></td><td>Profil, radera konto, Premium-status och källa</td><td>Länk till Plays prenumerationssida, vippan för analys, appens vy.</td></tr>
+      <tr><td><b>Kanterna</b></td><td>Felvyn utan nät finns i <code>mobilapp/www</code></td><td>Skelett per vy, bannern i passet finns redan i PassFlode.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+</div>
+
+<script>
+(function(){
+'use strict';
+const $ = (s, el) => (el || document).querySelector(s);
+const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
+
+/* ------------------------------------------------------------ tillstånd */
+const BAS = {
+  vy: 'splash', test: 'matrigma', datumVal: '3v', samtycke: true, inloggad: false,
+  niva: null, premium: false, dagNr: 0, serie: 0, gjortIdag: false, passGjorda: 0,
+  notis: null, paminnelse: '18:30', epostLage: false,
+  nk: { idx: 0, vald: null, last: false },
+  pass: { idx: 0, vald: null, avslojad: false, ratt: 0, fel: false },
+  ov: { idx: 3, vald: null },
+  fas: 'normal', laddar: false, tom: false, raderaOk: false,
+};
+let S = JSON.parse(JSON.stringify(BAS));
+const nyS = (over) => { S = Object.assign(JSON.parse(JSON.stringify(BAS)), over || {}); };
+
+/* ------------------------------------------------------------ testtyper */
+const TYPER = {
+  matris:      { namn: 'Figurer och mönster', kort: 'Figurer', ton: 'himmel', svg: `<g fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="6" width="36" height="36" rx="5"/><path d="M18 6v36M30 6v36M6 18h36M6 30h36" opacity=".45"/></g><g fill="currentColor"><circle cx="12" cy="12" r="2.6"/><rect x="21.5" y="9.5" width="5" height="5" rx="1"/><path d="M36 9.4l3 5.2h-6z"/><rect x="9.5" y="21.5" width="5" height="5" rx="1"/><path d="M24 21.4l3 5.2h-6z"/><circle cx="36" cy="24" r="2.6"/><path d="M12 33.4l3 5.2h-6z"/><circle cx="24" cy="36" r="2.6"/></g><rect x="31.5" y="31.5" width="9" height="9" rx="2" fill="none" stroke="#E8732A" stroke-width="2" stroke-dasharray="3 2.5"/>` },
+  figurserie:  { namn: 'Figurserier', kort: 'Serier', ton: 'turkos', svg: `<rect x="4" y="15" width="40" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M17.3 15v18M30.6 15v18" stroke="currentColor" stroke-width="1.5" opacity=".45"/><path d="M10.7 19.5l3.6 6.2h-7.2z" fill="currentColor"/><rect x="21.6" y="21.6" width="4.8" height="4.8" rx="1" fill="currentColor"/><rect x="33.6" y="19.6" width="8" height="8" rx="2" fill="none" stroke="#E8732A" stroke-width="2" stroke-dasharray="3 2.5"/>` },
+  deduktiv:    { namn: 'Deduktiv slutledning', kort: 'Deduktivt', ton: 'rosa', svg: `<path d="M8 11h22M8 18h15" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity=".65"/><rect x="4" y="25" width="40" height="15" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 25v15M24 25v15M34 25v15" stroke="currentColor" stroke-width="1.5" opacity=".45"/><rect x="7" y="30" width="4" height="5" rx="1" fill="currentColor"/><rect x="17" y="30" width="4" height="5" rx="1" fill="currentColor"/><rect x="27" y="29" width="6" height="7" rx="1.5" fill="#E8732A"/><rect x="37" y="30" width="4" height="5" rx="1" fill="currentColor"/>` },
+  verbal:      { namn: 'Ord och text', kort: 'Text', ton: 'gul', svg: `<rect x="6" y="7" width="36" height="34" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 16h24M12 23h9M12 30h24M12 37h16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity=".65"/><rect x="23" y="20" width="14" height="6" rx="3" fill="#E8732A"/>` },
+  ordforrad:   { namn: 'Ordförråd', kort: 'Ord', ton: 'syren', svg: `<rect x="6" y="9" width="36" height="30" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><text x="24" y="24" font-family="Figtree,sans-serif" font-size="9" font-weight="700" letter-spacing="1" text-anchor="middle" fill="currentColor">LYHÖRD</text><rect x="12" y="29" width="10" height="4" rx="2" fill="currentColor" opacity=".5"/><rect x="26" y="29" width="10" height="4" rx="2" fill="#E8732A"/>` },
+  numerisk:    { namn: 'Siffror och tabeller', kort: 'Siffror', ton: 'salvia', svg: `<rect x="5" y="8" width="22" height="30" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 16h22M5 24h22M5 32h22M14 8v30" stroke="currentColor" stroke-width="1.5" opacity=".45"/><rect x="31" y="26" width="5" height="12" rx="1.5" fill="currentColor" opacity=".55"/><rect x="38" y="14" width="5" height="24" rx="1.5" fill="#E8732A"/><path d="M29 40h15" stroke="currentColor" stroke-width="2"/>` },
+  talserie:    { namn: 'Talserier', kort: 'Talserier', ton: 'salvia', svg: `<rect x="4" y="15" width="40" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 15v18M24 15v18M34 15v18" stroke="currentColor" stroke-width="1.5" opacity=".45"/><text x="9" y="28.5" font-family="Figtree,sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="currentColor">2</text><text x="19" y="28.5" font-family="Figtree,sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="currentColor">5</text><text x="29" y="28.5" font-family="Figtree,sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="currentColor">9</text><rect x="35.5" y="19.5" width="7" height="9" rx="2" fill="none" stroke="#E8732A" stroke-width="2" stroke-dasharray="3 2.5"/>` },
+  spatial:     { namn: 'Spatial förmåga', kort: 'Spatial', ton: 'sand', svg: `<path d="M10 18l14-7 14 7v14l-14 7-14-7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M10 18l14 7 14-7M24 25v14" stroke="currentColor" stroke-width="1.5" opacity=".55"/><circle cx="31" cy="21" r="3" fill="#E8732A"/>` },
+  personlighet:{ namn: 'Personlighet', kort: 'Person', ton: 'rosa', svg: `<path d="M8 30a16 16 0 0 1 32 0" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 30h32" stroke="currentColor" stroke-width="2"/><circle cx="29" cy="22" r="3.5" fill="#E8732A"/><path d="M24 30l5-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>` },
+  plan:        { namn: 'Eget urval', kort: 'Eget', ton: 'himmel', svg: `<circle cx="24" cy="24" r="17" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="9" fill="none" stroke="currentColor" stroke-width="2" opacity=".55"/><circle cx="24" cy="24" r="2.6" fill="#E8732A"/>` },
+};
+const TON = { himmel: ['var(--himmel)', 'var(--himmel-ink)'], salvia: ['var(--salvia)', 'var(--salvia-ink)'], syren: ['var(--syren)', 'var(--syren-ink)'], sand: ['var(--sand)', 'var(--sand-ink)'], rosa: ['var(--rosa)', 'var(--rosa-ink)'], gul: ['var(--gul)', 'var(--gul-ink)'], turkos: ['var(--turkos)', 'var(--turkos-ink)'] };
+function ikon(typ, px) {
+  const t = TYPER[typ] || TYPER.plan; const [bg, ink] = TON[t.ton];
+  return `<span class="sm-ikon" style="width:${px}px;height:${px}px;border-radius:${Math.round(px * .3)}px;background:${bg};color:${ink}"><svg viewBox="0 0 48 48" style="width:${Math.round(px * .68)}px;height:${Math.round(px * .68)}px">${t.svg}</svg></span>`;
+}
+const MITT_TEST = [
+  ['matrigma', 'Matrigma', 'Assessio', 'matris'], ['iprov', 'Polisen eller Försvarsmakten', 'I-provet. Även mönstring, Tullverket', 'spatial'],
+  ['alva', 'Alva Logic', 'Alva Labs', 'matris'], ['shl', 'SHL Verify', 'SHL, även G+', 'deduktiv'],
+  ['aon', 'Aon scales', 'cut-e', 'figurserie'], ['lokforare', 'Lokförare', 'TCC, ProTrain, MTR', 'numerisk'],
+  ['personlighet', 'Bara personlighetstest', 'Inga rätta svar', 'personlighet', 'bred'], ['annat', 'Annat eller vet inte', 'Du väljer delar själv', 'plan', 'bred'],
+];
+const TESTNAMN = Object.fromEntries(MITT_TEST.map(r => [r[0], r[1]]));
+const DELTESTER = { matrigma: ['matris'], alva: ['matris'], iprov: ['ordforrad', 'spatial', 'talserie'], shl: ['numerisk', 'deduktiv', 'figurserie', 'verbal'], aon: ['figurserie', 'numerisk', 'verbal', 'deduktiv'], lokforare: ['figurserie', 'verbal', 'numerisk', 'deduktiv'], personlighet: ['personlighet'], annat: ['matris'] };
+const FORMAT = { matrigma: '35 uppgifter på 40 minuter', alva: '20 uppgifter, två minuter var', shl: '18 uppgifter på 25 minuter', aon: '20 uppgifter på 5 minuter', iprov: 'sex deltester i provets ordning', lokforare: '20 uppgifter på 5 minuter', annat: '18 uppgifter på 25 minuter', personlighet: 'inget prov' };
+const DAGAR_KVAR = { '1v': 7, '2v': 14, '3v': 23, '1m': 30, 'kal': 23, 'ej': null };
+const DATUMTEXT = { '1v': '20 november', '2v': '27 november', '3v': '6 december', '1m': '13 december', 'kal': '6 december', 'ej': null };
+const dagarKvar = () => S.fas === 'prov2' ? 2 : S.fas === 'provdag' ? 0 : (DAGAR_KVAR[S.datumVal] == null ? null : DAGAR_KVAR[S.datumVal] - S.dagNr);
+const provdatum = () => DATUMTEXT[S.datumVal];
+const passtyp = () => { const d = DELTESTER[S.test].filter(t => t !== 'personlighet'); return d[S.dagNr % d.length] || 'matris'; };
+const imorgonTyp = () => { const d = DELTESTER[S.test].filter(t => t !== 'personlighet'); return d[(S.dagNr + 1) % d.length] || 'matris'; };
+
+/* ------------------------------------------------------------ figurer i matrisen */
+function fig(sh, fill, rot) {
+  const ink = '#16151C', pap = '#FFFFFF'; rot = rot || 0;
+  if (sh[0] === 'p') {
+    const n = +sh[1]; const pos = [[24, 24], [13, 24], [35, 24], [24, 13], [24, 35]];
+    return `<svg viewBox="0 0 48 48">${pos.slice(0, n).map(p => `<circle cx="${p[0]}" cy="${p[1]}" r="4.2" fill="${ink}"/>`).join('')}</svg>`;
+  }
+  const form = { c: 'circle cx="24" cy="24" r="15"', k: 'rect x="9" y="9" width="30" height="30" rx="2"', t: 'path d="M24 7l17 30H7z"', r: 'path d="M24 6l18 18-18 18L6 24z"' }[sh];
+  const tag = form.split(' ')[0];
+  const fylld = `<${form} fill="${ink}"/>`, tom = `<${form} fill="none" stroke="${ink}" stroke-width="2.6" stroke-linejoin="round"/>`;
+  let kropp = fill === 'f' ? fylld : fill === 't' ? tom : `${fylld}<rect x="24" y="0" width="24" height="48" fill="${pap}"/>${tom}`;
+  void tag;
+  return `<svg viewBox="0 0 48 48"><g transform="rotate(${rot} 24 24)">${kropp}</g></svg>`;
+}
+const F = (a) => fig(a[0], a[1], a[2]);
+const LUCKA = `<svg viewBox="0 0 48 48"><rect x="6" y="6" width="36" height="36" rx="4" fill="none" stroke="#C9C8C0" stroke-width="2" stroke-dasharray="5 4"/><text x="24" y="31" text-anchor="middle" font-family="Figtree,sans-serif" font-size="18" font-weight="600" fill="#C9C8C0">?</text></svg>`;
+function matris(q, visaRatt) {
+  return `<div class="matris"><div class="rutor">${q.grid.map(c => c ? `<div>${F(c)}</div>` : `<div class="lucka">${visaRatt ? `<span style="display:contents">${F(q.alts[q.ratt])}</span>` : LUCKA}</div>`).join('')}</div></div>`;
+}
+function alts(q, vald, ratt, onValj, last) {
+  return `<div class="alts" role="radiogroup">${q.alts.map((a, i) => {
+    const kl = [ratt === i ? 'ratt' : '', vald === i ? 'vald' : '', ratt != null && vald !== i && ratt !== i ? 'dim' : '', 'tryck'].join(' ');
+    return `<button class="${kl}" ${last ? 'disabled' : ''} onclick="${onValj}(${i})" aria-label="Svarsalternativ ${'ABCDEF'[i]}"><span class="bok">${'ABCDEF'[i]}</span>${F(a)}</button>`;
+  }).join('')}</div>`;
+}
+const NK_FRAGOR = [
+  { grid: [['c', 't'], ['c', 'h'], ['c', 'f'], ['k', 't'], ['k', 'h'], ['k', 'f'], ['t', 't'], ['t', 'h'], null], ratt: 2, alts: [['t', 't'], ['k', 'f'], ['t', 'f'], ['t', 'h'], ['c', 'f'], ['r', 'f']] },
+  { grid: [['t', 'f', 0], ['t', 'f', 45], ['t', 'f', 90], ['r', 't', 0], ['r', 't', 45], ['r', 't', 90], ['k', 'h', 0], ['k', 'h', 45], null], ratt: 4, alts: [['k', 'h', 0], ['k', 'f', 90], ['k', 't', 90], ['t', 'h', 90], ['k', 'h', 90], ['r', 'h', 90]] },
+  { grid: [['p1'], ['p2'], ['p3'], ['p2'], ['p3'], ['p4'], ['p3'], ['p4'], null], ratt: 2, alts: [['p4'], ['p2'], ['p5'], ['p3'], ['p1'], ['c', 'f']] },
+];
+const PASS_FRAGOR = [
+  { titel: 'Rotation med byte', grid: [['t', 'f', 0], ['t', 't', 90], ['t', 'f', 180], ['k', 'f', 0], ['k', 't', 90], ['k', 'f', 180], ['r', 'f', 0], ['r', 't', 90], null], ratt: 3, alts: [['r', 't', 180], ['r', 'f', 90], ['r', 't', 0], ['r', 'f', 180], ['k', 'f', 180], ['c', 'f', 0]],
+    regel: 'Figuren vrider sig 90 grader för varje ruta i raden, och fyllningen växlar mellan fylld och tom.',
+    misstag: { 0: 'A har rätt vridning men fel fyllning. Fyllningen växlar varje ruta, så den tredje är fylld igen.', 1: 'B har rätt fyllning men fel vridning. Halva regeln ger alltid ett alternativ som ser rätt ut.', 2: 'C har varken vridningen eller fyllningen. Läs raden från vänster: vad ändras mellan ruta ett och två?', 4: 'E är en kvadrat från raden ovanför. Formen följer raden, inte kolumnen.', 5: 'F har rätt fyllning men fel form. Formen är densamma i hela raden.' } },
+  { titel: 'Räkning över raden', grid: [['p1'], ['p2'], ['p3'], ['p2'], ['p3'], ['p4'], ['p3'], ['p4'], null], ratt: 1, alts: [['p4'], ['p5'], ['p3'], ['p2'], ['p1'], ['c', 'f']],
+    regel: 'Antalet prickar ökar med en för varje ruta i raden. Varje rad börjar en högre än raden ovanför.',
+    misstag: { 0: 'A upprepar rutan före. Antalet ska öka med en, inte stå still.', 2: 'C går bakåt i raden. Följ raden åt höger: tre, fyra och sedan fem.', 3: 'D är radens början. Luckan sitter sist, där antalet är som störst.', 4: 'E är en enda prick. Raden har redan tre och fyra, så fem är det enda som fortsätter.', 5: 'F är en figur, inte en räkning. I den här matrisen är det antalet som bär regeln.' } },
+  { titel: 'Spegling', grid: [['c', 'h', 0], ['c', 'h', 180], ['c', 'h', 0], ['k', 'h', 0], ['k', 'h', 180], ['k', 'h', 0], ['t', 'h', 0], ['t', 'h', 180], null], ratt: 0, alts: [['t', 'h', 0], ['t', 'h', 180], ['t', 'f', 0], ['t', 't', 0], ['k', 'h', 0], ['t', 'h', 90]],
+    regel: 'Varje ruta speglas i den lodräta axeln mot rutan före. Tredje rutan blir därför som den första.',
+    misstag: { 1: 'B är den andra rutan igen. Speglar du den en gång till får du tillbaka den första.', 2: 'C är helt fylld. Fyllningen är halv i hela matrisen, det är sidan som byter.', 3: 'D är tom. Fyllningen försvinner aldrig, den byter sida.', 4: 'E är en kvadrat från raden ovanför. Formen följer raden.', 5: 'F är vriden, inte speglad. Spegling byter sida utan att vrida.' } },
+];
+
+/* ------------------------------------------------------------ byggstenar */
+const stat = (mork) => `<div class="stat" style="color:${mork ? 'var(--natt-ink)' : 'var(--a-ink)'}"><span>9:41</span><span class="sig"><i></i><i></i><i></i></span></div>`;
+const gest = () => `<div class="gest"></div>`;
+const sv = (id, kl) => `<svg class="${kl || ''}" style="width:20px;height:20px"><use href="#${id}"/></svg>`;
+function flikrad(aktiv) {
+  const f = [['hem', 'Idag', 'i-idag'], ['tester', 'Tester', 'i-tester'], ['utveckling', 'Utveckling', 'i-utv']];
+  return `<nav class="flik" aria-label="Flikar">${f.map(x => `<button class="${aktiv === x[0] ? 'aktiv' : ''}" onclick="app.go('${x[0]}','flik')"><span class="pill"><svg><use href="#${x[2]}"/></svg></span>${x[1]}</button>`).join('')}</nav>`;
+}
+const toppradApp = (titel, hoger) => `<div class="topprad"><span class="brand">${titel}</span>${hoger || `<button class="avatar tryck" aria-label="Konto" onclick="app.go('kontoVy','push')">C</button>`}</div>`;
+const toppradTillbaka = (titel, mal, anim) => `<div class="topprad" style="padding-left:6px"><button class="ik tryck" aria-label="Tillbaka" onclick="app.go('${mal}','${anim || 'pop'}')">${sv('i-back')}</button><span class="brand" style="font-size:17px">${titel}</span></div>`;
+function ring(status) {
+  const d = { gjord: `<circle cx="28" cy="28" r="22" fill="none" stroke="var(--kop)" stroke-width="5"/><path d="M19 28.5l6 6 12-13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`,
+    idag: `<circle cx="28" cy="28" r="22" fill="none" stroke="var(--kop)" stroke-width="5" stroke-dasharray="5 6" stroke-linecap="round"/><circle cx="28" cy="28" r="5" fill="none" stroke="currentColor" stroke-width="2" opacity=".6"/>`,
+    kvar: `<circle cx="28" cy="28" r="22" fill="none" stroke="currentColor" stroke-width="5" opacity=".18"/>`,
+    fri: `<circle cx="28" cy="28" r="22" fill="none" stroke="currentColor" stroke-width="5" stroke-dasharray="2 7" stroke-linecap="round" opacity=".35"/>`,
+    paus: `<circle cx="28" cy="28" r="22" fill="none" stroke="currentColor" stroke-width="5" opacity=".18"/><path d="M24 22v12M32 22v12" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".5"/>`,
+    missad: `<circle cx="28" cy="28" r="22" fill="none" stroke="currentColor" stroke-width="5" opacity=".18"/><circle cx="28" cy="28" r="4" fill="currentColor" opacity=".3"/>` }[status];
+  return `<svg viewBox="0 0 56 56">${d}</svg>`;
+}
+function veckorad(mall) { // mall: [[etikett,status,datum],...]
+  return `<div class="vecka">${mall.map(d => `<div class="${d[1] === 'idag' ? 'idag' : ''}">${ring(d[1])}<span>${d[0]}</span></div>`).join('')}</div>`;
+}
+const VECKA_DAG0 = [['tor', 'idag'], ['fre', 'kvar'], ['lör', 'kvar'], ['sön', 'fri'], ['mån', 'kvar'], ['tis', 'kvar'], ['ons', 'kvar']];
+const VECKA_DAG0_GJORD = [['tor', 'gjord'], ['fre', 'kvar'], ['lör', 'kvar'], ['sön', 'fri'], ['mån', 'kvar'], ['tis', 'kvar'], ['ons', 'kvar']];
+const VECKA_DAG5 = [['tor', 'gjord'], ['fre', 'gjord'], ['lör', 'gjord'], ['sön', 'fri'], ['mån', 'gjord'], ['tis', 'idag'], ['ons', 'kvar']];
+const VECKA_DAG5_GJORD = [['tor', 'gjord'], ['fre', 'gjord'], ['lör', 'gjord'], ['sön', 'fri'], ['mån', 'gjord'], ['tis', 'gjord'], ['ons', 'kvar']];
+const VECKA_PROV = [['mån', 'gjord'], ['tis', 'gjord'], ['ons', 'gjord'], ['tor', 'idag'], ['fre', 'paus'], ['lör', 'paus'], ['sön', 'fri']];
+
+function skala(nu, fran, sikte, natt) {
+  const x = n => 16 + (n - 1) * 38.667;
+  const spar = natt ? 'rgba(255,255,255,.16)' : 'var(--a-kant)';
+  const ink = natt ? 'var(--natt-ink)' : 'var(--a-ink)'; const mjuk = natt ? 'var(--natt-mjuk)' : 'var(--a-ink-3)';
+  let s = `<svg viewBox="0 0 380 60" style="width:100%;height:auto;overflow:visible;display:block" aria-label="Nivåskala 1 till 10, din nivå ${String(nu).replace('.', ',')}">`;
+  s += `<line x1="${x(1)}" y1="26" x2="${x(10)}" y2="26" stroke="${spar}" stroke-width="6" stroke-linecap="round"/>`;
+  s += `<line x1="${x(1)}" y1="26" x2="${x(nu)}" y2="26" stroke="var(--kop)" stroke-width="6" stroke-linecap="round"/>`;
+  for (let n = 1; n <= 10; n++) { const h = (n === 1 || n === 5 || n === 10) ? 7 : 4; s += `<line x1="${x(n)}" y1="${26 - h}" x2="${x(n)}" y2="${26 + h}" stroke="${mjuk}" stroke-width="1.5" opacity=".7"/>`; }
+  if (sikte) s += `<path d="M${x(sikte) - 6} 8l6 8 6-8z" fill="${natt ? '#8FA3F0' : 'var(--himmel-ink)'}"/>`;
+  if (fran != null && Math.abs(fran - nu) > .05) s += `<circle cx="${x(fran)}" cy="26" r="6" fill="${natt ? 'var(--natt)' : 'var(--a-bg)'}" stroke="${mjuk}" stroke-width="2"/>`;
+  s += `<circle cx="${x(nu)}" cy="26" r="9" fill="var(--kop)" stroke="${natt ? 'var(--natt)' : 'var(--a-bg)'}" stroke-width="3"/>`;
+  s += `<text x="${x(1)}" y="52" font-family="Figtree,sans-serif" font-size="11" font-weight="500" fill="${mjuk}" text-anchor="middle">1</text><text x="${x(5)}" y="52" font-family="Figtree,sans-serif" font-size="11" font-weight="500" fill="${mjuk}" text-anchor="middle">5</text><text x="${x(10)}" y="52" font-family="Figtree,sans-serif" font-size="11" font-weight="500" fill="${mjuk}" text-anchor="middle">10</text>`;
+  if (sikte) s += `<text x="${x(sikte)}" y="4" font-family="Figtree,sans-serif" font-size="10.5" font-weight="600" fill="${natt ? '#8FA3F0' : 'var(--himmel-ink)'}" text-anchor="middle">mål ${String(sikte).replace('.', ',')}</text>`;
+  s += `</svg>`; return s;
+}
+function kurva(punkter, opts) {
+  opts = opts || {}; const natt = opts.natt; const W = 360, H = 150, L = 28, R = 46, T = 18, B = 26;
+  const dagar = opts.dagar || 23; const yMin = 3, yMax = 8;
+  const X = d => L + (d / dagar) * (W - L - R), Y = n => T + (1 - (n - yMin) / (yMax - yMin)) * (H - T - B);
+  const mjuk = natt ? 'var(--natt-mjuk)' : 'var(--a-ink-3)'; const ink = natt ? 'var(--natt-ink)' : 'var(--a-ink)';
+  const grid = natt ? 'rgba(255,255,255,.1)' : 'var(--a-kant)';
+  let s = `<svg class="kurva" viewBox="0 0 ${W} ${H}" aria-label="Nivån över tid, från ${String(punkter[0][1]).replace('.', ',')} till ${String(punkter[punkter.length - 1][1]).replace('.', ',')}">`;
+  for (let n = 4; n <= 7; n++) s += `<line x1="${L}" y1="${Y(n)}" x2="${W - R}" y2="${Y(n)}" stroke="${grid}" stroke-width="1"/><text x="${L - 8}" y="${Y(n) + 4}" text-anchor="end">${n}</text>`;
+  if (opts.sikte) s += `<line x1="${L}" y1="${Y(opts.sikte)}" x2="${W - R}" y2="${Y(opts.sikte)}" stroke="${natt ? '#8FA3F0' : 'var(--himmel-ink)'}" stroke-width="1.5" stroke-dasharray="4 4"/><text x="${W - R + 6}" y="${Y(opts.sikte) + 4}" style="fill:${natt ? '#8FA3F0' : 'var(--himmel-ink)'};font-weight:600">mål ${String(opts.sikte).replace('.', ',')}</text>`;
+  if (opts.prov != null) s += `<line x1="${X(opts.prov)}" y1="${T - 4}" x2="${X(opts.prov)}" y2="${H - B + 4}" stroke="${mjuk}" stroke-width="1.5" stroke-dasharray="3 4"/><text x="${X(opts.prov)}" y="${H - 6}" text-anchor="middle">provet</text>`;
+  if (punkter.length > 1) {
+    const d = punkter.map((p, i) => `${i ? 'L' : 'M'}${X(p[0])} ${Y(p[1])}`).join(' ');
+    s += `<path d="${d}" fill="none" stroke="${ink}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"${opts.rita ? ' style="stroke-dasharray:600;stroke-dashoffset:600;animation:rita 1.2s ease-out .2s forwards"' : ''}/>`;
+    punkter.slice(0, -1).forEach(p => { if (p[2]) s += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="4" fill="${natt ? 'var(--natt)' : 'var(--a-papper)'}" stroke="${ink}" stroke-width="2"/>`; });
+  }
+  const sista = punkter[punkter.length - 1];
+  s += `<circle cx="${X(sista[0])}" cy="${Y(sista[1])}" r="6.5" fill="var(--kop)" stroke="${natt ? 'var(--natt)' : 'var(--a-papper)'}" stroke-width="3"/>`;
+  s += `<text class="du" x="${X(sista[0]) + 10}" y="${Y(sista[1]) - 9}">${String(sista[1]).replace('.', ',')}</text>`;
+  s += `<text x="${L}" y="${H - 6}">${opts.start || '13 nov'}</text>`;
+  s += `</svg>`; return s;
+}
+function planremsa(dagar, natt) {
+  const typ = i => i === 0 ? 'm' : i === dagar ? 'prov' : (i === dagar - 1 || i === dagar - 2) ? 'g' : (i % 7 === 0) ? 'o' : ((i + 4) % 7 === 0) ? 'v' : 'p';
+  const f = { m: 'var(--kop)', p: natt ? 'rgba(255,255,255,.55)' : 'var(--a-ink)', v: 'transparent', o: 'var(--kop)', g: natt ? '#8FA3F0' : 'var(--himmel-ink)', prov: natt ? '#fff' : 'var(--a-ink)' };
+  let s = `<div style="display:flex;gap:3px;align-items:flex-end;height:22px">`;
+  for (let i = 0; i <= dagar; i++) { const t = typ(i); const h = t === 'prov' ? 22 : t === 'o' || t === 'g' ? 16 : t === 'm' ? 16 : 10; const bord = t === 'v' ? `border:1.5px dashed ${natt ? 'rgba(255,255,255,.35)' : 'var(--a-kant-stark)'};` : ''; s += `<i style="flex:1;height:${h}px;border-radius:3px;background:${f[t]};${bord}"></i>`; }
+  s += `</div><div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;font-size:11.5px;color:${natt ? 'var(--natt-mjuk)' : 'var(--a-ink-3)'}"><span><i style="display:inline-block;width:8px;height:8px;border-radius:2px;background:${f.p};vertical-align:middle;margin-right:4px"></i>pass</span><span><i style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--kop);vertical-align:middle;margin-right:4px"></i>nivåkoll</span><span><i style="display:inline-block;width:8px;height:8px;border-radius:2px;background:${f.g};vertical-align:middle;margin-right:4px"></i>övningsprov</span><span><i style="display:inline-block;width:8px;height:8px;border-radius:2px;border:1.5px dashed ${natt ? 'rgba(255,255,255,.35)' : 'var(--a-kant-stark)'};vertical-align:middle;margin-right:4px"></i>söndag fri</span></div>`;
+  return s;
+}
+function dagsring(px, fyll) {
+  const r = 26, c = 2 * Math.PI * r;
+  return `<svg viewBox="0 0 64 64" style="width:${px}px;height:${px}px"><circle cx="32" cy="32" r="${r}" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="6"/><circle cx="32" cy="32" r="${r}" fill="none" stroke="var(--kop)" stroke-width="6" stroke-linecap="round" transform="rotate(-90 32 32)" style="stroke-dasharray:${c};stroke-dashoffset:${fyll ? c : 0};${fyll ? 'animation:ringFyll .7s cubic-bezier(.2,.8,.2,1) .15s forwards' : ''}"/><path d="M22 33l7 7 13-14" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="${fyll ? 'steg s3' : ''}"/></svg>`;
+}
+const dagkortIllu = `<svg class="illu" viewBox="0 0 132 132" aria-hidden="true"><g fill="none" stroke="rgba(255,255,255,.35)" stroke-width="2"><rect x="18" y="18" width="96" height="96" rx="12"/><path d="M50 18v96M82 18v96M18 50h96M18 82h96"/></g><g fill="#fff" opacity=".95"><circle cx="34" cy="34" r="7"/><rect x="58" y="26" width="16" height="16" rx="3"/><path d="M98 25l9 17H89z"/><rect x="26" y="58" width="16" height="16" rx="3"/><path d="M66 57l9 17H57z"/><circle cx="98" cy="66" r="7"/><path d="M34 89l9 17H25z"/><circle cx="66" cy="98" r="7"/></g><rect x="88" y="88" width="20" height="20" rx="4" fill="none" stroke="#fff" stroke-width="2.5" stroke-dasharray="4 3"/></svg>`;
+const marke = (typ, nadd) => {
+  const g = nadd ? 'var(--kop)' : 'var(--a-kant-stark)';
+  const inre = { matning: `<circle cx="26" cy="26" r="5" fill="${g}"/>`, vecka: `<path d="M17 27h18M26 18v18" stroke="${g}" stroke-width="3" stroke-linecap="round"/>`, niva: `<path d="M18 32l8-12 8 12" fill="none" stroke="${g}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`, general: `<circle cx="26" cy="26" r="8" fill="none" stroke="${g}" stroke-width="3"/><path d="M26 21v5l3 2" stroke="${g}" stroke-width="2.5" stroke-linecap="round"/>`, prov: `<path d="M19 27l5 5 10-11" fill="none" stroke="${g}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>` }[typ];
+  return `<svg viewBox="0 0 52 52"><path d="M26 4l19 11v22L26 48 7 37V15z" fill="${nadd ? 'var(--kop-mjuk)' : 'var(--a-papper)'}" stroke="${g}" stroke-width="2.5" stroke-linejoin="round"/>${inre}</svg>`;
+};
+
+/* ------------------------------------------------------------ vyerna */
+const V = {};
+V.splash = { mork: true, not: 'Startskärmen är systemets egen (Android 12 splash API): märket på natt, högst 400 ms. Appen tonar in Idag bakom samma natt, så bytet syns inte. Första gången går den till onboardingen.',
+  html: () => `${stat(true)}<div class="kropp" style="align-items:center;justify-content:center;gap:16px"><svg width="88" height="88" viewBox="0 0 96 96"><rect width="96" height="96" rx="22" fill="#121325" stroke="rgba(255,255,255,.12)"/><g fill="#F4F3FA"><circle cx="30" cy="30" r="6"/><rect x="42" y="24" width="12" height="12" rx="2.5"/><path d="M66 23l7 13H59z"/><rect x="24" y="42" width="12" height="12" rx="2.5"/><path d="M48 41l7 13H41z"/><circle cx="66" cy="48" r="6"/><path d="M30 59l7 13H23z"/><circle cx="48" cy="66" r="6"/></g><rect x="57" y="57" width="18" height="18" rx="4" fill="#E8732A"/></svg><div style="display:grid;gap:8px;justify-items:center"><span class="ordmarke" style="font-size:30px;color:var(--natt-ink)">Testklar<i></i></span><span class="a-meta" style="color:var(--natt-mjuk)">från jobbcoach.ai</span></div></div>${gest()}`,
+  efter: () => setTimeout(() => { if (S.vy === 'splash') app.go('onb1', 'flik'); }, 1100) };
+
+const ONB_SCEN1 = `<svg viewBox="0 0 340 230" style="width:100%;max-width:330px;height:auto;display:block;margin:0 auto" aria-hidden="true">
+<defs><linearGradient id="og1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1B1D38"/><stop offset="1" stop-color="#0B0C19"/></linearGradient></defs>
+<rect x="28" y="22" width="190" height="190" rx="24" fill="url(#og1)"/>
+<g stroke="rgba(255,255,255,.3)" stroke-width="2" fill="none"><path d="M91 22v190M155 22v190M28 85h190M28 149h190"/></g>
+<g fill="#F4F3FA"><circle cx="60" cy="54" r="10"/><rect x="111" y="42" width="24" height="24" rx="5"/><path d="M186 40l14 24h-28z"/><rect x="48" y="105" width="24" height="24" rx="5"/><path d="M123 103l14 24h-28z"/><circle cx="186" cy="117" r="10"/><path d="M60 167l14 24h-28z"/><circle cx="123" cy="181" r="10"/></g>
+<rect x="168" y="162" width="36" height="36" rx="8" fill="none" stroke="#E8732A" stroke-width="3" stroke-dasharray="6 5"/>
+<g transform="translate(206 96)"><rect x="0" y="0" width="118" height="116" rx="18" fill="#FFFFFF" stroke="#16151C" stroke-width="3"/><path d="M18 80c14-4 22-30 36-32s22 10 46 0" fill="none" stroke="#E8732A" stroke-width="5" stroke-linecap="round"/><circle cx="100" cy="48" r="7" fill="#E8732A"/><path d="M20 26h40M20 38h26" stroke="#C9C8C0" stroke-width="4" stroke-linecap="round"/><text x="18" y="104" font-family="Bricolage Grotesque,sans-serif" font-size="13" font-weight="800" fill="#16151C">nivå 5 → 6,5</text></g>
+<g transform="translate(236 12)" style="animation:dyk 3s ease-in-out infinite"><rect x="0" y="0" width="64" height="64" rx="16" fill="#D5E9DC"/><text x="32" y="40" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-size="20" font-weight="800" fill="#1F6A45">2 5 9</text></g>
+</svg>`;
+V.onb1 = { not: 'Steg 1 av 4: löftet och priset på samma skärm. Ingen konkurrent säger priset här. Tillbaka stänger appen.',
+  html: () => `${stat()}<div class="kropp pad"><div class="steg-rad" style="justify-content:space-between"><span class="ordmarke" style="font-size:19px;color:var(--a-ink)">Testklar<i></i></span><span class="a-meta">från jobbcoach.ai</span></div><div style="padding:6px 0 18px">${ONB_SCEN1}</div><h1 class="a-h1">Träna inför ditt rekryteringstest</h1><p class="a-p" style="margin-top:10px">Ett pass om dagen i samma format som provet. Regeln efter varje svar, och nivån som stiger vecka för vecka fram till provdagen.</p><div style="margin-top:auto;padding:16px 0 10px;display:grid;gap:12px"><p class="a-meta" style="display:flex;gap:8px;align-items:flex-start"><svg style="width:18px;height:18px;flex:0 0 auto;color:var(--kop-ink)"><use href="#i-check"/></svg><span>Nivåkollen och första passet är gratis. Premium 149 kr i månaden. Säg upp när du vill.</span></p><button class="a-knapp kop tryck" onclick="app.go('onb2')">Kom igång</button><button class="a-lank" style="text-align:center" onclick="app.set({inloggad:false});app.go('konto')">Jag har redan ett konto</button></div></div>${gest()}` };
+V.onb2 = { not: 'Steg 2: samma åtta val som webbens ingång (MITT_TEST_KORT). Valet styr passens rotation, övningsprovets format och katalogen. Varje val har sin figur och ton.',
+  html: () => `${stat()}<div class="kropp pad"><div class="steg-rad"><i class="gjord"></i><i class="nu"></i><i></i><i></i></div><h1 class="a-h1">Vad ska du göra för test?</h1><p class="a-p" style="margin:8px 0 16px">Namnet står i kallelsen eller mejlet. Går att ändra när som helst.</p><div class="val">${MITT_TEST.map(r => `<button class="${r[0] === S.test ? 'vald' : ''} ${r[4] || ''} tryck" onclick="app.set({test:'${r[0]}'});app.rita()">${ikon(r[3], 34)}<b>${r[1]}</b><span>${r[2]}</span></button>`).join('')}</div><div style="padding:18px 0 10px"><button class="a-knapp kop tryck" onclick="app.go('onb3')">Fortsätt med ${TESTNAMN[S.test]}</button></div></div>${gest()}` };
+V.onb3 = { not: 'Steg 3: provdatumet. Planen ritas direkt när datumet väljs: pass, nivåkoll var sjunde dag, övningsprov två dagar före, söndag fri (byggPlan). "Vet inte än" ger en rullande plan.',
+  html: () => { const n = DAGAR_KVAR[S.datumVal]; return `${stat()}<div class="kropp pad"><div class="steg-rad"><i class="gjord"></i><i class="gjord"></i><i class="nu"></i><i></i></div><h1 class="a-h1">När är provet?</h1><p class="a-p" style="margin:8px 0 16px">Vi lägger passen fram till dagen, med ny nivåkoll varje vecka och övningsprov de sista dagarna.</p><div class="datumval">${[['1v', 'Inom en vecka'], ['2v', 'Om två veckor'], ['3v', 'Om tre veckor'], ['1m', 'Om en månad']].map(d => `<button class="${S.datumVal === d[0] ? 'vald' : ''} tryck" onclick="app.set({datumVal:'${d[0]}'});app.rita()">${d[1]}</button>`).join('')}<button class="bred ${S.datumVal === 'kal' ? 'vald' : ''} tryck" onclick="app.set({datumVal:'kal'});app.rita()">Välj datum i kalendern</button><button class="bred tryck ${S.datumVal === 'ej' ? 'vald' : ''}" style="border-style:dashed;color:var(--a-ink-3)" onclick="app.set({datumVal:'ej'});app.rita()">Vet inte än</button></div><div class="kort" style="margin-top:16px"><p class="a-ey">${n ? `Planen till ${provdatum()}` : 'Planen, en vecka i taget'}</p><p style="font-weight:600;margin:4px 0 12px">${n ? `${n} dagar, ${n - 2 - Math.floor(n / 7) - Math.floor((n + 3) / 7)} pass, ${Math.floor(n / 7)} nivåkoller, två övningsprov` : 'Ett pass om dagen, ny nivåkoll var sjunde dag'}</p>${planremsa(n || 7)}</div><div style="padding:16px 0 10px"><button class="a-knapp kop tryck" onclick="app.go('onb4')">Fortsätt</button></div></div>${gest()}`; } };
+V.onb4 = { not: 'Steg 4: samtycket till analys, ärligt och med två lika stora knappar. Båda går vidare. Valet går att ändra under Konto. Butikerna kräver att frågan ställs före mätning.',
+  html: () => `${stat()}<div class="kropp pad"><div class="steg-rad"><i class="gjord"></i><i class="gjord"></i><i class="gjord"></i><i class="nu"></i></div><div style="padding:14px 0 22px"><svg viewBox="0 0 300 190" style="width:100%;max-width:290px;height:auto;display:block;margin:0 auto" aria-hidden="true"><rect x="40" y="24" width="220" height="140" rx="20" fill="#FFFFFF" stroke="#16151C" stroke-width="3"/><g fill="#E4E7F3"><rect x="70" y="104" width="26" height="36" rx="6"/><rect x="110" y="78" width="26" height="62" rx="6"/><rect x="150" y="92" width="26" height="48" rx="6"/></g><rect x="190" y="56" width="26" height="84" rx="6" fill="#E8732A"/><path d="M62 144h180" stroke="#C9C8C0" stroke-width="3" stroke-linecap="round"/><g transform="translate(218 12)"><circle cx="30" cy="30" r="28" fill="#16151C"/><path d="M18 31l8 8 16-17" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g><path d="M70 50h40M70 60h24" stroke="#16151C" stroke-width="3" stroke-linecap="round" opacity=".3"/></svg></div><h1 class="a-h1">Får vi se hur appen används?</h1><p class="a-p" style="margin-top:10px">Anonym statistik om vilka vyer som öppnas och var folk fastnar. Aldrig dina svar, aldrig din nivå. Du kan ändra dig när som helst under Konto.</p><div style="margin-top:auto;padding:16px 0 10px;display:grid;gap:10px"><button class="a-knapp kop tryck" onclick="app.set({samtycke:true});app.go('nkStart')">Ja, det går bra</button><button class="a-knapp ljus tryck" onclick="app.set({samtycke:false});app.go('nkStart')">Nej tack</button></div></div>${gest()}` };
+
+V.konto = { not: 'Kontot skapas efter Nivåkollen: vyn säger vad som sparas (nivån, planen, dagens grundpass). Skapa konto och logga in i samma vy. Android: Google och e-post. iOS: Apple-knappen överst (ritad här med markering). Google-inloggningen är inbyggd (id-token), ingen omdirigering. Samma konto som webben.',
+  html: () => `${stat()}<div class="kropp pad"><div style="height:44px;display:flex;align-items:center;margin-left:-14px"><button class="ik tryck" style="width:44px;height:44px;border:0;background:none;display:grid;place-items:center;border-radius:14px" aria-label="Tillbaka" onclick="app.go(S.niva ? 'nkResultat' : 'onb1','pop')">${sv('i-back')}</button></div><h1 class="a-h1" style="margin-top:8px">${S.epostLage === 'login' ? 'Logga in' : 'Spara din nivå'}</h1><p class="a-p" style="margin-top:10px">${S.epostLage === 'login' ? 'Samma konto som på jobbcoach.ai. Nivå, pass och Premium följer med åt båda hållen.' : `Nivå ${S.niva || 5}, planen och dagens grundpass sparas på kontot. Samma konto som på jobbcoach.ai, så nivå, pass och Premium följer med åt båda hållen.`}</p><div style="display:grid;gap:10px;margin-top:26px"><div style="position:relative"><button class="a-knapp morkt tryck" onclick="app.loggaIn('Apple')"><svg style="width:20px;height:20px"><use href="#i-apple"/></svg>Fortsätt med Apple</button><span style="position:absolute;top:-9px;right:12px;background:var(--a-bg);color:var(--a-ink-3);font-size:10.5px;font-weight:600;padding:0 6px;letter-spacing:.06em;text-transform:uppercase">bara iOS</span></div><button class="a-knapp ljus tryck" onclick="app.loggaIn('Google')"><svg style="width:20px;height:20px"><use href="#i-google"/></svg>Fortsätt med Google</button><div class="eller" style="margin:6px 0">eller</div><button class="a-knapp ljus tryck" onclick="app.ark('epost')">Fortsätt med e-post</button></div><p class="a-meta" style="margin-top:18px;text-align:center">Genom att fortsätta godkänner du <u>villkoren</u> och <u>integritetspolicyn</u>.</p><div style="margin-top:auto;padding:16px 0 10px;text-align:center"><button class="a-lank" onclick="app.set({epostLage:'login'});app.rita()">Har du redan ett konto? Logga in</button></div></div>${gest()}` };
+
+const NK_ILLU = `<svg viewBox="0 0 300 200" style="width:100%;max-width:280px;height:auto;display:block;margin:0 auto" aria-hidden="true"><rect x="60" y="20" width="180" height="160" rx="20" fill="#FFFFFF" stroke="#16151C" stroke-width="3"/><g stroke="#E3E2DC" stroke-width="2"><path d="M120 20v160M180 20v160M60 73h180M60 127h180"/></g><g fill="#16151C"><circle cx="90" cy="47" r="9"/><rect x="139" y="36" width="22" height="22" rx="4"/><path d="M210 35l12 22h-24z"/><rect x="79" y="90" width="22" height="22" rx="4"/><path d="M150 89l12 22h-24z"/><circle cx="210" cy="100" r="9"/><path d="M90 143l12 22h-24z"/><circle cx="150" cy="154" r="9"/></g><rect x="194" y="138" width="32" height="32" rx="6" fill="none" stroke="#E8732A" stroke-width="3" stroke-dasharray="6 4"/><g transform="translate(14 120)" style="animation:dyk 3.4s ease-in-out infinite"><rect width="78" height="56" rx="14" fill="#D9E4FA"/><text x="39" y="36" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-size="22" font-weight="800" fill="#2C4A98">8 min</text></g></svg>`;
+V.nkStart = { not: 'Nivåkollens startvy är appens egen: vad som händer, hur länge, vad som kommer efteråt. Tre fakta som rutor, en knapp. Inget konto behövs: sessionen startas anonymt och sparas i skalet tills kontot skapas efter resultatet. Härifrån öppnas webbens flöde (PassFlode matning) som ett lager.',
+  html: () => `${stat()}<div class="kropp pad">${toppradTillbaka('', 'onb4').replace('class="topprad"', 'class="topprad" style="padding-left:0;margin-left:-14px"')}<div style="padding:6px 0 18px">${NK_ILLU}</div><p class="a-ey kop">Gratis, inget konto behövs än</p><h1 class="a-h1" style="margin-top:6px">Nivåkollen</h1><p class="a-p" style="margin-top:10px">Tolv uppgifter som följer dina svar: rätt ger svårare, fel ger lättare. Ingen förklaring under tiden, allt efteråt. Du får en nivå mellan 1 och 10 och passen börjar där.</p><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px">${[['12', 'uppgifter'], ['8 min', 'ungefär'], ['1 till 10', 'din nivå']].map(x => `<div class="kort" style="padding:12px 10px;text-align:center"><div class="disp" style="font-size:20px;font-weight:800;letter-spacing:-.02em">${x[0]}</div><div class="a-meta">${x[1]}</div></div>`).join('')}</div><div style="margin-top:auto;padding:16px 0 10px;display:grid;gap:10px"><button class="a-knapp kop tryck" onclick="app.set({nk:{idx:0,vald:null,last:false}});app.go('nkFraga','expand')">Starta Nivåkollen</button><p class="a-meta" style="text-align:center">Du kan pausa. Svaren sparas efter varje fråga, kontot skapar du efteråt.</p></div></div>${gest()}` };
+
+function passSkal(o) {
+  return `${stat()}<header class="pass-topp"><button class="x tryck" aria-label="${o.avsluta || 'Avsluta passet'}" onclick="${o.onX}">${sv('i-x')}</button><div class="titel"><b>${o.titel}</b><span>${o.under}</span></div>${o.hoger || `<span class="raknare">${o.fraga} / ${o.antal}</span>`}</header>${o.underTopp || `<div class="tidsrad"><i id="tid-i" style="width:${o.andel || 0}%"></i></div><div class="tidsrad-text"><span id="tid-s">${o.tid || '0:00'}</span><span>provets tid ${o.budget || '1:08'}</span></div>`}<main class="pass-main">${o.banner || ''}${o.main}</main>${o.fot ? `<footer class="pass-fot">${o.fot}</footer>` : ''}${gest()}`;
+}
+V.nkFraga = { not: 'Webbens frågevy, troget: PassShell med X, titel, räknare, tidsraden som fylls mot provets tid (aldrig nedräkning), matrisen i papperskort, sex alternativ med bokstav. I mätningen ger ett tryck svaret och nästa fråga kommer direkt, ingen regel förrän efteråt. Prototypen visar tre av tolv.',
+  html: () => { const q = NK_FRAGOR[S.nk.idx]; return passSkal({ titel: 'Nivåkollen', under: 'Tolv uppgifter som följer dina svar', fraga: S.nk.idx + 1, antal: 12, onX: "app.go('nkStart','pop')", tid: '0:00', budget: '1:08',
+    main: `${matris(q)}<p class="a-meta" style="text-align:center">Vilken figur passar i den tomma rutan?</p>${alts(q, S.nk.vald, null, 'app.nkSvar', S.nk.last)}`,
+    fot: `<button class="a-lank" style="text-align:center;min-height:36px" onclick="app.nkSvar(-1)">Vet inte</button>` }); },
+  efter: (el) => app.startTid(el, 68) };
+V.nkRaknar = { mork: true, not: 'Ingen snurra: skalan ritas medan nivån räknas fram. Varar högst 1,5 s, sedan ögonblicket.',
+  html: () => `${stat(true)}<div class="kropp pad" style="justify-content:center;gap:20px"><p class="a-ey kop" style="text-align:center">Räknar fram nivån</p><div style="padding:0 6px">${skala(1, null, null, true).replace('stroke="var(--kop)" stroke-width="6"', 'stroke="var(--kop)" stroke-width="6" style="stroke-dasharray:360;stroke-dashoffset:360;animation:rita 1.3s ease-out forwards"')}</div><p class="a-p" style="text-align:center">Tolv svar, tolv tider.</p></div>${gest()}`,
+  efter: () => setTimeout(() => { if (S.vy === 'nkRaknar') { app.set({ niva: 5 }); app.go('nkResultat', 'natt'); } }, 1500) };
+V.nkResultat = { mork: true, not: 'Nivåögonblicket: rummet släcks, talet räknar upp från 1 till 5 med haptik när det landar, skalan fylls, meningen säger vad nivån betyder (NIVAMENING). Tre tal, målet som förslag, sedan en enda kopparknapp: utan konto "Spara och fortsätt" (kontot skapas här, nivån och planen följer med), med konto dagens grundpass. Var du tappade som staplar, planen som remsa.',
+  html: () => { const n = dagarKvar(); return `${stat(true)}<div class="kropp"><div class="topprad" style="padding-left:6px"><button class="ik tryck" aria-label="Stäng" onclick="app.set({dagNr:0});app.go('hem','natt')">${sv('i-x')}</button><span style="font-size:14px;font-weight:600;flex:1">Nivåkollen</span><span class="a-meta" style="font-variant-numeric:tabular-nums">12 / 12</span></div><div class="pad"><div class="steg s1"><p class="a-ey kop" style="margin-top:6px">Din nivå</p><p class="tal-stor" style="margin-top:4px"><span id="nivatal">5</span><span class="disp" style="font-size:22px;font-weight:700;letter-spacing:0;color:var(--natt-mjuk);margin-left:8px">av 10</span></p><p class="a-p" style="margin-top:8px;max-width:36ch">Du klarar det mesta på grundnivå. När två saker ändras samtidigt, som en figur som både vrider sig och byter fyllning, blir det rätt ungefär varannan gång.</p></div><div class="steg s2" style="margin-top:14px">${skala(5, null, 6.5, true)}<dl class="tal-tre" style="margin:10px 0 0">${[['8 av 12', 'rätt'], ['2 av 12', 'över provets tid'], ['41 s', 'snitt, provet ger 68']].map(t => `<div><dt>${t[1]}</dt><dd>${t[0]}</dd></div>`).join('')}</dl><p style="margin-top:12px;font-size:14px;font-weight:600;display:flex;justify-content:space-between"><span>${n ? `Mål till provet: nivå 6,5` : 'Mål om en vecka: nivå 6'}</span><button class="a-lank">Ändra</button></p></div></div><div class="pad" style="margin-top:22px;display:grid;gap:12px;padding-bottom:20px"><div class="kort lyft steg s3" style="background:var(--a-papper);color:var(--a-ink);border:0">${S.inloggad ? `<p class="a-ey kop">I dag, gratis</p><h2 class="a-h2" style="margin-top:4px">Ett grundpass på din nivå</h2><p class="a-p" style="margin-top:6px">Nio uppgifter, cirka tio minuter. Regeln efter varje svar. Från i morgon ingår passen i Premium.</p><button class="a-knapp kop tryck" style="margin-top:14px" onclick="app.set({dagNr:0,pass:{idx:0,vald:null,avslojad:false,ratt:0,fel:false}});app.go('pass','expand')">Gör dagens grundpass</button>` : `<p class="a-ey kop">Spara nivån</p><h2 class="a-h2" style="margin-top:4px">Ett konto, så står nivån kvar</h2><p class="a-p" style="margin-top:6px">Nivå 5, planen till ${provdatum() || 'provet'} och dagens grundpass, gratis i dag. Samma konto som på jobbcoach.ai.</p><button class="a-knapp kop tryck" style="margin-top:14px" onclick="app.go('konto','push')">Spara och fortsätt</button>`}</div><div class="kort steg s4"><p class="a-ey">Var du tappade</p>${[['Rotation med byte', 1, 3, true], ['Räkning över raden', 2, 4, false]].map(f => `<div style="margin-top:10px"><div style="display:flex;justify-content:space-between;font-size:14px"><b style="font-weight:600">${f[0]}</b><span class="a-meta">${f[1]} av ${f[2]} rätt</span></div><div style="height:6px;border-radius:3px;background:rgba(255,255,255,.12);margin-top:6px;overflow:hidden"><i style="display:block;height:100%;width:${Math.round(100 * f[1] / f[2])}%;background:${f[3] ? 'var(--kop)' : 'var(--natt-mjuk)'};border-radius:3px"></i></div></div>`).join('')}<p class="a-meta" style="margin-top:10px">Mest tappar du på ett mönster. Passen övar det extra.</p></div><div class="kort steg s5"><p class="a-ey">${n ? `Planen till ${provdatum()}` : 'Planen, en vecka framåt'}</p><div style="margin-top:10px">${planremsa(n || 7, true)}</div></div><button class="a-lank steg s5" style="text-align:center;min-height:40px">Gå igenom de tolv frågorna</button></div></div>${gest()}`; },
+  efter: (el) => { app.raknaUpp($('#nivatal', el), 1, 5, 900); setTimeout(() => app.hap('medel'), 900); } };
+
+V.hem = { not: 'Idag. Dagkortet i koppar är den enda starka ytan: dagens pass med typ, nivå och tid. Under det dagarna i rad som veckorad (söndag fri), nivån som bild, Mitt test och nästa nivåkoll som rader. Gratis dag 0: grundpasset är gratis; gjort pass visar morgondagens lås ärligt.',
+  html: () => { const n = dagarKvar(); const t = TYPER[passtyp()]; const gratisKvar = !S.premium && S.gjortIdag;
+    const dagkort = gratisKvar
+      ? `<div class="kort lyft" style="padding:18px"><div style="display:flex;gap:14px;align-items:center"><span style="color:var(--a-ink)">${dagsring(56, false).replace('rgba(255,255,255,.14)', 'var(--a-kant)').replace('stroke="#fff"', 'stroke="var(--a-ink)"')}</span><div><p class="a-ey">Dagens pass gjort</p><h2 class="a-h2" style="margin-top:2px">7 av 9 rätt, nivå 5,2</h2></div></div><div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--a-kant)"><p class="a-ey kop">I morgon</p><p style="font-weight:600;margin-top:2px">Passet på din nivå, ${t.namn.toLowerCase()}</p><p class="a-meta">Nio uppgifter nära nivå 5. Ingår i Premium, 149 kr i månaden.</p><button class="a-knapp morkt tryck" style="margin-top:12px;height:46px" onclick="app.ark('kop')">Se vad som ingår</button></div></div>`
+      : `<div class="dagkort"><p class="a-ey">${S.premium ? `Dagens pass · ${t.kort}` : 'Grundpass · gratis i dag'}</p><div class="rad2"><div><h2 class="a-h2">${S.premium ? `Nio uppgifter nära nivå ${S.niva || 5}` : 'Nio uppgifter på grundnivå'}</h2><p>Cirka tio minuter. Regeln efter varje svar.</p></div>${dagkortIllu}</div><button class="a-knapp vit tryck" onclick="app.set({pass:{idx:0,vald:null,avslojad:false,ratt:0,fel:false}});app.hap('lätt');app.go('pass','expand')">Starta passet</button></div>`;
+    const vecka = S.premium ? (S.gjortIdag ? VECKA_DAG5_GJORD : VECKA_DAG5) : (S.gjortIdag ? VECKA_DAG0_GJORD : VECKA_DAG0);
+    const serietext = S.premium ? (S.gjortIdag ? 'Fem dagar i rad.' : 'Fyra dagar i rad. Dagens pass gör det fem.') : (S.gjortIdag ? 'Första dagen i rad.' : 'Dagarna i rad börjar i dag.');
+    const punkter = S.premium ? [[0, 5.0, 1], [1, 5.1], [2, 5.3], [3, 5.2], [4, 5.4]] : [[0, S.niva || 5]];
+    return `${stat()}<div class="kropp"><div class="topprad"><div style="flex:1"><p class="a-ey">${S.premium ? 'tisdag 18 november' : 'torsdag 13 november'}</p><p class="disp" style="font-size:22px;font-weight:800;letter-spacing:-.025em;line-height:26px">${n != null ? `${n} dagar till provet` : 'Ett pass om dagen'}</p></div><button class="avatar tryck" aria-label="Konto" onclick="app.go('kontoVy','push')">C</button></div><div class="pad" style="display:grid;gap:12px;padding-top:6px;padding-bottom:16px">${dagkort}<div class="kort"><div style="display:flex;justify-content:space-between;align-items:baseline"><p class="a-ey">Dagar i rad</p><span class="a-meta">söndag fri</span></div><div style="margin-top:12px">${veckorad(vecka)}</div><p style="margin-top:12px;font-size:14px;font-weight:600">${serietext}</p></div><div class="kort"><div style="display:flex;justify-content:space-between;align-items:baseline"><p class="a-ey">Din nivå</p><button class="a-lank" style="font-size:13px" onclick="app.go('utveckling','flik')">Kurvan</button></div><div style="display:flex;gap:14px;align-items:center;margin-top:8px"><div class="disp" style="font-size:44px;font-weight:800;letter-spacing:-.04em;line-height:44px">${S.premium ? '5,4' : '5'}</div><div style="flex:1;min-width:0">${S.premium ? kurva(punkter, { sikte: 6.5, prov: 23 }) : `<p class="a-meta">Första punkten på kurvan. Varje pass och varje nivåkoll bygger vidare på den. Mål till provet: 6,5.</p>`}</div></div></div><div class="rader"><button class="rad tryck" onclick="app.go('tester','flik')"><span class="sym">${ikon(DELTESTER[S.test][0], 40)}</span><span class="t"><b>Mitt test: ${TESTNAMN[S.test]}</b><span>${n != null ? `${provdatum()}, ${n} dagar kvar` : 'Inget datum satt'}</span></span>${sv('i-chev', 'chev')}</button><button class="rad tryck"><span class="sym" style="background:var(--kop-mjuk);color:var(--kop-ink)">${sv('i-klocka')}</span><span class="t"><b>Ny nivåkoll torsdag 20 nov</b><span>Åtta minuter. Du ser om passen flyttat dig.</span></span>${S.premium ? sv('i-chev', 'chev') : '<span class="chip las">' + sv('i-las') + 'Premium</span>'}</button><button class="rad tryck" onclick="app.ark('kop')"><span class="sym" style="background:var(--himmel);color:var(--himmel-ink)"><svg viewBox="0 0 48 48" style="width:26px;height:26px">${TYPER.plan.svg}</svg></span><span class="t"><b>Övningsprov 4 och 5 dec</b><span>${TESTNAMN[S.test]}: ${FORMAT[S.test]}</span></span>${S.premium ? sv('i-chev', 'chev') : '<span class="chip las">' + sv('i-las') + 'Premium</span>'}</button></div></div></div>${flikrad('hem')}${gest()}`; } };
+
+V.pass = { not: 'Dagens pass: webbens PassFlode, troget. Titeln är passets tema, undertiteln "Dagens pass, nivå 5", räknaren 1 / 9. Ett tryck svarar: valt i bläck, rätt i koppar, aldrig rött, de andra tonas. Regeln och misstaget rullar fram under (regelpanelen). Prototypen visar tre av nio frågor.',
+  html: () => { const q = PASS_FRAGOR[S.pass.idx]; const p = S.pass; const sek = p.avslojad ? [52, 29, 38][p.idx] : null;
+    const panel = p.avslojad ? `<div class="regelpanel" id="regelpanel"><p class="topp"><span class="a-ey">Regeln</span><span>${p.vald === q.ratt ? `Rätt på ${sek} s` : p.vald === -1 ? `Vet inte, ${sek} s` : `Inte den här, ${sek} s`}</span></p><p class="regel">${q.regel}</p>${p.vald !== q.ratt && p.vald !== -1 ? `<div class="misstag"><p class="a-ey">Ditt misstag</p><p>${q.misstag[p.vald] || 'Alternativet har bara en av regelns två delar.'}</p></div>` : ''}</div>` : '';
+    return passSkal({ titel: q.titel, under: S.premium ? 'Dagens pass, nivå 5' : 'Dagens pass på grundnivå', fraga: p.idx + 1, antal: 9, onX: "app.go('hem','pop')", tid: p.avslojad ? `0:${sek}` : '0:00', andel: p.avslojad ? Math.round(100 * sek / 68) : 0, budget: '1:08',
+      banner: p.fel ? `<div class="banner"><span><b>Svaret gick inte att spara.</b><span>Inget är förlorat, försök igen.</span></span><button onclick="app.set({pass:Object.assign(app.S.pass,{fel:false})});app.passSvar(${p.vald})">Försök igen</button></div>` : '',
+      main: `${matris(q, p.avslojad)}${p.avslojad ? '' : '<p class="a-meta" style="text-align:center">Vilken figur passar i den tomma rutan?</p>'}${alts(q, p.vald, p.avslojad ? q.ratt : null, 'app.passSvar', p.avslojad)}${panel}`,
+      fot: p.avslojad ? `<button class="a-knapp kop tryck" onclick="app.passNasta()">${p.idx === PASS_FRAGOR.length - 1 ? 'Visa resultatet' : 'Nästa fråga'}</button>` : `<button class="a-lank" style="text-align:center;min-height:36px" onclick="app.passSvar(-1)">Vet inte, visa regeln</button>` }); },
+  efter: (el) => { if (!S.pass.avslojad) app.startTid(el, 68); else { const r = $('#regelpanel', el); if (r) requestAnimationFrame(() => r.scrollIntoView({ behavior: 'smooth', block: 'end' })); } } };
+
+V.passResultat = { mork: true, not: 'Passet klart, appens egen vy. Fyra steg om 300 ms: ringen sluts med haptik, rubriken ur passResultat, skalan med förflyttningen, serien med dagens ring som fylls, och morgondagen. Första gången följer notisfrågan som ark när du trycker Klart.',
+  html: () => { const vecka = S.premium ? VECKA_DAG5_GJORD : VECKA_DAG0_GJORD; const t = TYPER[imorgonTyp()];
+    return `${stat(true)}<div class="kropp"><div class="topprad" style="padding-left:6px"><button class="ik tryck" aria-label="Stäng" onclick="app.passKlart()">${sv('i-x')}</button><span style="font-size:14px;font-weight:600;flex:1">${S.premium ? 'Dagens pass sparat' : 'Grundpasset sparat'}</span><span class="a-meta" style="font-variant-numeric:tabular-nums">9 / 9</span></div><div class="pad"><div class="steg s1" style="display:flex;gap:16px;align-items:center;margin-top:6px">${dagsring(64, true)}<div><p class="a-ey kop">Passet klart</p><h1 class="a-h2" style="font-size:24px;line-height:28px;margin-top:2px">7 av 9 rätt. Nivån steg till ${S.premium ? '5,6' : '5,2'}.</h1></div></div><div class="steg s2" style="margin-top:16px">${skala(S.premium ? 5.6 : 5.2, S.premium ? 5.4 : 5, 6.5, true)}<p class="a-meta" style="margin-top:6px">Passen flyttar nivån lite i taget. Nivåkollen torsdag flyttar den mer.</p></div></div><div class="pad" style="margin-top:18px;display:grid;gap:12px;padding-bottom:20px"><div class="kort steg s3"><div style="display:flex;justify-content:space-between;align-items:baseline"><p class="a-ey">Dagar i rad</p><span class="a-meta">söndag fri</span></div><div style="margin-top:12px">${veckorad(vecka)}</div><p style="margin-top:12px;font-size:15px;font-weight:600">${S.premium ? 'Fem dagar i rad.' : 'Första dagen i rad.'}</p></div><div class="kort steg s4"><p class="a-ey">Vad som hände</p><p style="font-weight:600;margin-top:4px">Två missar, båda på Rotation med byte</p><p class="a-meta" style="margin-top:2px">Fem av sex rätt i dag på det mönstret, mot två av tre vid starten. Mönstret går att öva i ett extrapass.</p><button class="a-lank" style="margin-top:8px">Gå igenom de två missarna</button></div><div class="kort lyft steg s5" style="background:var(--a-papper);color:var(--a-ink);border:0;display:flex;gap:14px;align-items:center">${ikon(imorgonTyp(), 48)}<div style="flex:1"><p class="a-ey kop">I morgon</p><p style="font-weight:600;margin-top:2px">${S.premium ? `${t.namn}, nio uppgifter nära nivå 5` : 'Passet på din nivå'}</p><p class="a-meta">${S.premium ? (S.notis ? `Vi påminner kl ${S.paminnelse}.` : 'Cirka tio minuter.') : 'Ingår i Premium, 149 kr i månaden.'}</p></div></div></div></div><footer class="pass-fot" style="background:transparent;border-top-color:var(--natt-kant)"><button class="a-knapp kop tryck" onclick="app.passKlart()">Klart för i dag</button></footer>${gest()}`; },
+  efter: () => setTimeout(() => app.hap('framgång'), 850) };
+
+V.utveckling = { not: 'Utveckling: kurvan i ett nattkort som hjälte med mål och provdag, sedan nivå per testtyp, märkena och tempot. Gratis: bara senaste punkten syns och kortet säger ärligt att historiken ingår i Premium.',
+  html: () => { if (S.tom) return V.tomUtv.html(); const punkter = S.premium ? [[0, 5.0, 1], [1, 5.1], [2, 5.3], [3, 5.2], [4, 5.4]] : [[0, 5]]; const typer = DELTESTER[S.test].filter(t => t !== 'personlighet');
+    return `${stat()}<div class="kropp">${toppradApp('Utveckling')}<div class="pad" style="display:grid;gap:12px;padding-bottom:16px"><div class="kort natt" style="background:radial-gradient(120% 90% at 50% -20%,var(--natt-2),var(--natt) 60%,var(--natt-3));color:var(--natt-ink);border:0;padding:16px 16px 12px"><div style="display:flex;justify-content:space-between;align-items:baseline"><p class="a-ey" style="color:var(--natt-mjuk)">Nivån, ${TESTNAMN[S.test]}</p><span class="a-meta" style="color:var(--natt-mjuk)">${S.premium ? 'dag 5 av 23' : 'dag 0 av 23'}</span></div><div style="display:flex;gap:12px;align-items:flex-end;margin-top:4px"><div class="tal-stor" style="font-size:56px;line-height:56px">${S.premium ? '5,4' : '5'}</div><p class="a-meta" style="color:var(--natt-mjuk);padding-bottom:8px">${S.premium ? 'upp 0,4 sedan starten' : 'startpunkten'}</p></div><div style="margin-top:8px;position:relative">${kurva(punkter, { natt: true, sikte: 6.5, prov: 23, rita: S.premium })}${S.premium ? '' : `<div style="position:absolute;inset:auto 0 22px 0;display:flex;justify-content:center"><button class="chip" style="background:rgba(255,255,255,.12);color:var(--natt-ink);height:32px;padding:0 12px" onclick="app.ark('kop')">${sv('i-las')} Hela kurvan ingår i Premium</button></div>`}</div></div><div class="kort"><p class="a-ey">Nivå per testtyp</p><div style="display:grid;gap:10px;margin-top:10px">${typer.map((t, i) => `<div style="display:flex;gap:12px;align-items:center">${ikon(t, 36)}<div style="flex:1"><div style="display:flex;justify-content:space-between;font-size:14px"><b style="font-weight:600">${TYPER[t].namn}</b><span class="a-meta">${S.premium ? ['5,4', '4,8', '6,1'][i] : i === 0 ? '5' : 'ej mätt'}</span></div>${skala(S.premium ? [5.4, 4.8, 6.1][i] : i === 0 ? 5 : 1, null, null, false).replace('viewBox="0 0 380 60"', 'viewBox="0 0 380 40"').replace(/<text[\s\S]*?<\/text>/g, '')}</div></div>`).join('')}</div></div><div class="kort"><p class="a-ey">Märken</p><div class="marken" style="margin-top:12px">${[['matning', 'Första nivåkollen', true], ['vecka', 'Första veckan', S.premium && S.dagNr >= 7], ['niva', 'Nivån upp', false], ['general', 'Övningsprovet', false], ['prov', 'Provdagen', false]].map(m => `<div class="${m[2] ? 'nadd' : ''}">${marke(m[0], m[2])}<span>${m[1]}</span></div>`).join('')}</div></div><div class="kort"><div style="display:flex;justify-content:space-between;align-items:baseline"><p class="a-ey">Tempo</p><span class="a-meta">provet ger 68 s</span></div><p style="font-weight:600;margin-top:4px">${S.premium ? 'Två av nio över provets tid i dag' : 'Två av tolv över provets tid'}</p><div style="display:flex;gap:4px;align-items:flex-end;height:48px;margin-top:10px;position:relative"><i style="position:absolute;left:0;right:0;top:34%;border-top:1.5px dashed var(--a-kant-stark)"></i>${[31, 44, 29, 52, 71, 38, 40, 83, 36].map((s, i) => `<i style="flex:1;height:${Math.round(48 * s / 90)}px;border-radius:3px 3px 0 0;background:${s > 68 ? 'var(--kop)' : 'var(--a-ink)'};opacity:${i === 1 || i === 7 ? .35 : 1}"></i>`).join('')}</div><p class="a-meta" style="margin-top:8px">Streckad linje: provets tid. Ljusa staplar: fel svar.</p></div></div></div>${flikrad('utveckling')}${gest()}`; } };
+
+V.tester = { not: 'Tester: Mitt test överst med deltesterna som ingår, varje typ som kort med sin figur och nivåstaplar (grund fri, högre nivåer i Premium). Övningsprovet som rad med provets format. Fler tester under. Personlighetstestet sist.',
+  html: () => { const mina = DELTESTER[S.test]; const alla = ['matris', 'figurserie', 'deduktiv', 'talserie', 'spatial', 'ordforrad', 'verbal', 'numerisk', 'personlighet']; const n = dagarKvar();
+    const kort = (t) => `<button class="tkort tryck" onclick="app.ark('testDetalj','${t}')"><span class="bild" style="background:${TON[TYPER[t].ton][0]};color:${TON[TYPER[t].ton][1]}"><svg viewBox="0 0 48 48">${TYPER[t].svg}</svg></span><span class="t"><b>${TYPER[t].namn}</b><span>${t === 'personlighet' ? 'Femtio påståenden, en profil' : mina.includes(t) && S.niva ? `Nivåkoll gjord, nivå ${t === mina[0] ? S.premium ? '5,4' : '5' : '4,8'}` : 'Nivåkoll, 8 min'}</span>${t === 'personlighet' ? '' : `<span class="nivaer"><i class="fri"></i><i class="${S.premium ? 'kop' : ''}"></i><i class="${S.premium ? 'kop' : ''}"></i></span>`}</span>${sv('i-chev', 'chev')}</button>`;
+    return `${stat()}<div class="kropp">${toppradApp('Tester')}<div class="pad" style="display:grid;gap:12px;padding-bottom:16px"><div class="rader"><button class="rad tryck" onclick="app.go('onb2','push')"><span class="sym" style="background:var(--kop-mjuk);color:var(--kop-ink)"><svg viewBox="0 0 48 48" style="width:26px;height:26px">${TYPER.plan.svg}</svg></span><span class="t"><b>Mitt test: ${TESTNAMN[S.test]}</b><span>${n != null ? `${n} dagar kvar` : 'Inget datum'} · ${FORMAT[S.test]}</span></span><span class="a-lank" style="font-size:13px">Ändra</span></button></div><p class="a-ey" style="padding:4px 2px 0">Ingår i ditt test</p><div class="katalog">${mina.map(kort).join('')}<button class="tkort tryck" onclick="${S.premium ? "app.go('ovStart','push')" : "app.ark('kop')"}"><span class="bild" style="background:var(--a-ink);color:#fff">${sv('i-klocka').replace('width:20px;height:20px', 'width:28px;height:28px')}</span><span class="t"><b>Övningsprov mot klockan</b><span>${TESTNAMN[S.test]}: ${FORMAT[S.test]}</span></span>${S.premium ? sv('i-chev', 'chev') : `<span class="chip las">${sv('i-las')}Premium</span>`}</button></div><p class="a-ey" style="padding:8px 2px 0">Fler tester</p><div class="katalog">${alla.filter(t => !mina.includes(t)).map(kort).join('')}</div></div></div>${flikrad('tester')}${gest()}`; } };
+
+V.hemProv = { not: 'Två dagar kvar: Idag byter läge. Dagkortet blir natt och bär generalrepetitionen (övningsprovet i provets format). Serien pausar utan att brytas. Checklistan inför provdagen är kort och lugn.',
+  html: () => `${stat()}<div class="kropp"><div class="topprad"><div style="flex:1"><p class="a-ey">torsdag 4 december</p><p class="disp" style="font-size:22px;font-weight:800;letter-spacing:-.025em;line-height:26px">Två dagar till provet</p></div><button class="avatar tryck" aria-label="Konto" onclick="app.go('kontoVy','push')">C</button></div><div class="pad" style="display:grid;gap:12px;padding-top:6px;padding-bottom:16px"><div class="dagkort" style="background:radial-gradient(120% 90% at 50% -20%,var(--natt-2),var(--natt) 60%,var(--natt-3));box-shadow:var(--lyft)"><p class="a-ey" style="color:#F6B07A">Generalrepetition · dag 1 av 2</p><div class="rad2"><div><h2 class="a-h2">Övningsprov mot klockan</h2><p>${TESTNAMN[S.test]}: ${FORMAT[S.test]}. Ingen förklaring under provet.</p></div>${dagkortIllu.replace('class="illu"', 'class="illu" style="opacity:.9"')}</div><button class="a-knapp vit tryck" onclick="app.go('ovStart','push')">Starta övningsprovet</button></div><div class="kort"><div style="display:flex;justify-content:space-between;align-items:baseline"><p class="a-ey">Dagar i rad</p><span class="a-meta">paus runt provet</span></div><div style="margin-top:12px">${veckorad(VECKA_PROV)}</div><p style="margin-top:12px;font-size:14px;font-weight:600">Dagarna i rad pausar, inget bryts.</p></div><div class="kort"><div style="display:flex;justify-content:space-between;align-items:baseline"><p class="a-ey">Din nivå</p><button class="a-lank" style="font-size:13px" onclick="app.go('utveckling','flik')">Kurvan</button></div><div style="display:flex;gap:14px;align-items:center;margin-top:8px"><div class="disp" style="font-size:44px;font-weight:800;letter-spacing:-.04em;line-height:44px">6,3</div><div style="flex:1;min-width:0">${kurva([[0, 5.0, 1], [2, 5.3], [4, 5.4], [7, 5.8, 1], [10, 6.0], [14, 6.2, 1], [18, 6.1], [21, 6.3]], { sikte: 6.5, prov: 23 })}</div></div></div><div class="kort"><p class="a-ey">Inför provdagen</p><ul class="ingar" style="margin-top:10px">${['I morgon: övningsprov två, sedan vila.', 'På provdagen bara tre uppvärmningsfrågor, ingen tid.', 'Nivåkollen och passen pausar. Kurvan står kvar.'].map(x => `<li>${sv('i-check')}<span>${x}</span></li>`).join('')}</ul></div></div></div>${flikrad('hem')}${gest()}` };
+V.provdag = { not: 'Provdagen: dagkortet säger lycka till och erbjuder bara uppvärmningen (webbens Uppvärmning, tre frågor, inget sparas). Efteråt en rad för att berätta hur det gick, som sätter märket Provdagen.',
+  html: () => `${stat()}<div class="kropp"><div class="topprad"><div style="flex:1"><p class="a-ey">lördag 6 december</p><p class="disp" style="font-size:22px;font-weight:800;letter-spacing:-.025em;line-height:26px">Provdagen</p></div><button class="avatar tryck" aria-label="Konto" onclick="app.go('kontoVy','push')">C</button></div><div class="pad" style="display:grid;gap:12px;padding-top:6px;padding-bottom:16px"><div class="dagkort" style="background:radial-gradient(120% 90% at 50% -20%,var(--natt-2),var(--natt) 60%,var(--natt-3));box-shadow:var(--lyft)"><p class="a-ey" style="color:#F6B07A">I dag</p><h2 class="a-h2">Lycka till.</h2><p>Du gick från 5 till 6,3 på 23 dagar. Tre uppvärmningsfrågor om du vill, ingen tid, inget sparas.</p><button class="a-knapp glas tryck" style="margin-top:16px">Värm upp, tre frågor</button></div><div class="kort" style="display:flex;gap:14px;align-items:center"><span style="width:48px;height:48px;flex:0 0 auto;display:block">${marke('prov', true)}</span><div style="flex:1;min-width:0"><p class="a-ey kop">Efter provet</p><p style="font-weight:600;margin-top:2px">Berätta hur det gick</p><p class="a-meta">Två frågor. Det hjälper oss göra passen bättre.</p></div>${sv('i-chev', 'chev')}</div><div class="kort"><div style="display:flex;justify-content:space-between;align-items:baseline"><p class="a-ey">Dagar i rad</p><span class="a-meta">paus i dag</span></div><div style="margin-top:12px">${veckorad([['mån', 'gjord'], ['tis', 'gjord'], ['ons', 'gjord'], ['tor', 'gjord'], ['fre', 'gjord'], ['lör', 'paus'], ['sön', 'fri']])}</div><p style="margin-top:12px;font-size:14px;font-weight:600">Nitton dagar i rad. Nästa datum sätter du när du vill.</p></div></div></div>${flikrad('hem')}${gest()}` };
+
+V.ovStart = { not: 'Startarket för övningsprovet (webbens Startark i appens ram): formatet, reglerna och en knapp. Klockan startar först när du trycker.',
+  html: () => `${stat()}${toppradTillbaka('Övningsprov', S.fas === 'prov2' ? 'hemProv' : 'tester')}<div class="kropp pad" style="gap:12px;padding-top:6px"><div class="kort natt" style="background:radial-gradient(120% 90% at 50% -20%,var(--natt-2),var(--natt) 60%,var(--natt-3));color:var(--natt-ink);border:0;padding:18px"><p class="a-ey" style="color:#F6B07A">Samma format som ${TESTNAMN[S.test]}</p><h1 class="a-h1" style="font-size:26px;line-height:30px;margin-top:4px">${FORMAT[S.test].charAt(0).toUpperCase() + FORMAT[S.test].slice(1)}</h1><p class="a-p" style="margin-top:8px">Frågor från alla nivåer, blandade i provets ordning. Klockan går hela tiden.</p></div><ul class="ingar kort" style="padding:16px">${['Ingen förklaring under provet, allt efteråt.', 'Obesvarade frågor räknas som fel när tiden är slut.', 'Resultatet väger tyngre på kurvan än ett vanligt pass.', 'Du kan inte pausa. Lägg undan telefonen i 40 minuter.'].map(x => `<li>${sv('i-check')}<span>${x}</span></li>`).join('')}</ul><div style="margin-top:auto;padding:12px 0 10px"><button class="a-knapp kop tryck" onclick="app.set({ov:{idx:3,vald:null}});app.go('ovFraga','expand')">Starta provet</button><p class="a-meta" style="text-align:center;margin-top:10px">Nästa övningsprov i morgon.</p></div></div>${gest()}` };
+V.ovFraga = { not: 'Övningsprovet mot klockan: webbens OvningsprovFlode. Klockan i toppradens högra hörn, segmentstapeln under toppraden i stället för tidsraden, inget avslöjas efter svaret. Fotens knapp går vidare.',
+  html: () => { const q = NK_FRAGOR[S.ov.idx % 3]; const i = S.ov.idx; return passSkal({ titel: 'Övningsprov', under: `Samma format som ${TESTNAMN[S.test]}`, onX: "app.go('ovStart','pop')", avsluta: 'Avsluta provet',
+    hoger: `<span class="klocka" id="klocka">${sv('i-klocka')}<span>36:48</span></span>`,
+    underTopp: `<div class="segment" aria-label="Fråga ${i + 1} av 35">${Array.from({ length: 35 }, (_, k) => `<i class="${k < i ? 'gjord' : k === i ? 'nu' : ''}"></i>`).join('')}</div>`,
+    main: `<p class="a-meta" style="display:flex;justify-content:space-between"><span>Uppgift ${i + 1} av 35</span><span>ingen förklaring under provet</span></p>${matris(q)}${alts(q, S.ov.vald, null, 'app.ovValj', false)}`,
+    fot: `<button class="a-knapp kop tryck" ${S.ov.vald == null ? 'disabled' : ''} onclick="app.ovNasta()">Nästa</button>` }); },
+  efter: (el) => app.startKlocka(el) };
+
+V.kontoVy = { not: 'Konto: Premium-status och var prenumerationen hanteras (Google Play, aldrig Stripe i appen), påminnelsen, Mitt test, analysen, mörkt läge. Logga ut och Radera kontot längst ner. Allt på en skärm, inga undermenyer.',
+  html: () => `${stat()}${toppradTillbaka('Konto', 'hem')}<div class="kropp pad" style="gap:12px;padding-top:4px;padding-bottom:16px"><div style="display:flex;gap:14px;align-items:center;padding:6px 2px 4px"><span class="avatar" style="width:52px;height:52px;font-size:20px">C</span><div><p style="font-weight:700;font-size:17px">Christian</p><p class="a-meta">christian@exempel.se · Google</p></div></div><div class="kort ${S.premium ? 'lyft' : ''}"><div style="display:flex;justify-content:space-between;align-items:center"><div><p class="a-ey kop">${S.premium ? 'Premium' : 'Gratis'}</p><p style="font-weight:600;margin-top:2px">${S.premium ? 'Via Google Play, förnyas 13 december' : 'Nivåkollen och resultaten ingår'}</p><p class="a-meta">${S.premium ? '149 kr i månaden. Gäller även på jobbcoach.ai.' : 'Passen varje dag ingår i Premium, 149 kr i månaden.'}</p></div></div>${S.premium ? `<button class="a-knapp ljus liten tryck" style="margin-top:12px" onclick="app.toast('Öppnar Google Play, prenumerationer')">Hantera i Google Play</button>` : `<button class="a-knapp kop liten tryck" style="margin-top:12px" onclick="app.ark('kop')">Se Premium</button>`}</div><div class="rader"><div class="rad"><span class="sym" style="background:var(--kop-mjuk);color:var(--kop-ink)">${sv('i-bell')}</span><span class="t"><b>Påminnelse</b><span>${S.notis ? `Varje dag kl ${S.paminnelse}` : 'Av'}</span></span><button class="vippa ${S.notis ? 'pa' : ''}" aria-label="Påminnelse" onclick="app.set({notis:${S.notis ? 'null' : 'true'}});app.hap('lätt');app.rita()"></button></div><button class="rad tryck" onclick="app.go('onb2','push')"><span class="sym">${ikon(DELTESTER[S.test][0], 40)}</span><span class="t"><b>Mitt test</b><span>${TESTNAMN[S.test]}${provdatum() ? `, ${provdatum()}` : ''}</span></span>${sv('i-chev', 'chev')}</button><div class="rad"><span class="sym" style="background:var(--himmel);color:var(--himmel-ink)"><svg viewBox="0 0 48 48" style="width:26px;height:26px">${TYPER.numerisk.svg}</svg></span><span class="t"><b>Dela användningsstatistik</b><span>Anonymt, aldrig dina svar</span></span><button class="vippa ${S.samtycke ? 'pa' : ''}" aria-label="Analys" onclick="app.set({samtycke:${!S.samtycke}});app.rita()"></button></div><button class="rad tryck"><span class="sym" style="background:var(--a-papper-2);color:var(--a-ink-2)"><svg viewBox="0 0 24 24" style="width:22px;height:22px"><path d="M12 3a9 9 0 1 0 0 18V3z" fill="currentColor"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span><span class="t"><b>Utseende</b><span>Följer systemet</span></span>${sv('i-chev', 'chev')}</button></div><div class="rader"><button class="rad tryck"><span class="t"><b>Så räknas nivån</b></span>${sv('i-chev', 'chev')}</button><button class="rad tryck"><span class="t"><b>Hjälp och kontakt</b></span>${sv('i-chev', 'chev')}</button><button class="rad tryck"><span class="t"><b>Villkor och integritet</b></span>${sv('i-chev', 'chev')}</button></div><div class="rader"><button class="rad tryck" onclick="app.toast('Utloggad')"><span class="t"><b>Logga ut</b></span></button><button class="rad tryck" onclick="app.ark('radera')"><span class="t"><b style="color:var(--fel)">Radera kontot</b><span>Konto, nivå och resultat tas bort</span></span></button></div><p class="a-meta" style="text-align:center">Testklar 1.0 (Android) · från jobbcoach.ai</p></div>${gest()}` };
+
+V.laddar = { not: 'Skelett i Idag-vyns exakta mått: dagkortet, veckoraden, nivån och raderna. Skimmer 1,4 s. Visas bara när lokalt minne saknas, alltså första starten efter installation eller efter utloggning.',
+  html: () => `${stat()}<div class="kropp"><div class="topprad"><div style="flex:1;display:grid;gap:8px"><div class="skelett" style="width:120px;height:12px"></div><div class="skelett" style="width:200px;height:22px"></div></div><div class="skelett" style="width:36px;height:36px;border-radius:50%"></div></div><div class="pad" style="display:grid;gap:12px;padding-top:6px"><div class="skelett" style="height:196px;border-radius:24px"></div><div class="kort" style="display:grid;gap:12px"><div class="skelett" style="width:80px;height:11px"></div><div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">${Array(7).fill('<div class="skelett" style="width:34px;height:34px;border-radius:50%;margin:0 auto"></div>').join('')}</div><div class="skelett" style="width:160px;height:14px"></div></div><div class="kort" style="display:grid;gap:12px"><div class="skelett" style="width:60px;height:11px"></div><div style="display:flex;gap:14px"><div class="skelett" style="width:70px;height:44px"></div><div class="skelett" style="flex:1;height:44px"></div></div></div><div class="rader">${Array(3).fill('<div class="rad"><div class="skelett" style="width:40px;height:40px;border-radius:12px"></div><div style="flex:1;display:grid;gap:6px"><div class="skelett" style="width:60%;height:14px"></div><div class="skelett" style="width:40%;height:11px"></div></div></div>').join('')}</div></div></div>${flikrad('hem')}${gest()}` };
+V.tomUtv = { not: 'Tomt tillstånd i Utveckling: ingen nivåkoll gjord. Illustrationen är kurvans tomma papper, texten säger exakt vad som behövs och knappen går dit. Aldrig ett streck eller "ingen data".',
+  html: () => `${stat()}<div class="kropp">${toppradApp('Utveckling')}<div class="pad" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:12px;padding-bottom:40px"><svg viewBox="0 0 220 150" style="width:220px;height:auto" aria-hidden="true"><rect x="10" y="10" width="200" height="130" rx="18" fill="#FFFFFF" stroke="#16151C" stroke-width="3"/><path d="M34 110h152M34 80h152M34 50h152" stroke="#E3E2DC" stroke-width="2"/><path d="M40 112c20-6 30-30 50-32" fill="none" stroke="#C9C8C0" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 9"/><circle cx="40" cy="112" r="9" fill="#E8732A" stroke="#fff" stroke-width="3"/><text x="150" y="60" font-family="Bricolage Grotesque,sans-serif" font-size="30" font-weight="800" fill="#E3E2DC">?</text></svg><h2 class="a-h2">Kurvan börjar med Nivåkollen</h2><p class="a-p">Tolv uppgifter, cirka åtta minuter. Du får din nivå och första punkten på kurvan. Gratis.</p><button class="a-knapp kop tryck" style="margin-top:8px;max-width:280px" onclick="app.set({tom:false});app.go('nkStart','push')">Gör Nivåkollen</button></div></div>${flikrad('utveckling')}${gest()}` };
+V.utanNat = { not: 'Utan nät: en lokalt paketerad vy i skalet, synlig inom 200 ms. Säger att inget försvann, visar när appen senast var synkad och erbjuder ett nytt försök. Idag ur lokalt minne visas om det finns.',
+  html: () => `${stat()}<div class="kropp"><div class="utan-nat"><svg viewBox="0 0 64 64" style="width:72px;height:72px;color:var(--a-ink-3)"><use href="#i-moln"/></svg><h2 class="a-h2">Ingen anslutning</h2><p class="a-p">Passen behöver nät. Din nivå och dina pass är sparade, inget försvann.</p><button class="a-knapp morkt tryck" style="max-width:240px;margin-top:8px" onclick="app.go('hem','flik')">Försök igen</button><p class="a-meta">Senast uppdaterad i dag 14:02</p></div></div>${gest()}` };
+V.fel = { not: 'Fel i passet: svaret gick inte att spara. Bannern står överst i passets huvud (webbens beteende), svaret står kvar markerat, inget avslöjas och knappen Försök igen skickar om. Aldrig ett förlorat svar.',
+  html: () => { S.pass = { idx: 0, vald: 1, avslojad: false, ratt: 0, fel: true }; return V.pass.html(); } };
+
+/* ------------------------------------------------------------ ark */
+const ARK = {
+  epost: () => `<h2 class="a-h2">Med e-post</h2><p class="a-p" style="margin-top:4px">Vi skickar en länk som öppnar appen. Inget lösenord att komma ihåg.</p><div class="falt fylld" style="margin-top:16px">christian@exempel.se</div><button class="a-knapp kop tryck" style="margin-top:12px" onclick="app.stangArk();app.toast('Länk skickad till christian@exempel.se');setTimeout(()=>app.loggaIn('e-post'),1200)">Skicka länken</button>`,
+  kop: () => `<p class="a-ey kop">Ingår i Premium</p><h2 class="a-h2" style="margin-top:4px">Passen på din nivå, varje dag</h2><ul class="ingar" style="margin-top:14px">${[`Ett pass om dagen nära din nivå, extrapass på det du tappar`, 'Ny nivåkoll varje vecka och hela kurvan', `Övningsprov i samma format som ${TESTNAMN[S.test]}`, 'Samma Premium på jobbcoach.ai, med personliga brev och Jobbcoachen'].map(x => `<li>${sv('i-check')}<span>${x}</span></li>`).join('')}</ul><div class="prisrad vald" style="margin-top:18px"><span class="t"><b>Premium</b><span>Månadsvis. Säg upp när du vill i Google Play.</span></span><span class="pris">149 kr<small>i månaden</small></span></div><button class="a-knapp kop tryck" style="margin-top:14px" onclick="app.ark('play')">Fortsätt till Google Play</button><p class="a-meta" style="text-align:center;margin-top:10px">Betalningen går genom Google Play. Samma pris och samma Premium som på jobbcoach.ai.</p>`,
+  play: () => `<div style="display:flex;align-items:center;gap:12px"><svg width="40" height="40" viewBox="0 0 96 96"><rect width="96" height="96" rx="22" fill="#121325"/><g fill="#F4F3FA"><circle cx="30" cy="30" r="6"/><rect x="42" y="24" width="12" height="12" rx="2.5"/><path d="M66 23l7 13H59z"/><rect x="24" y="42" width="12" height="12" rx="2.5"/><path d="M48 41l7 13H41z"/><circle cx="66" cy="48" r="6"/><path d="M30 59l7 13H23z"/><circle cx="48" cy="66" r="6"/></g><rect x="57" y="57" width="18" height="18" rx="4" fill="#E8732A"/></svg><div><p style="font-weight:600">Testklar Premium</p><p class="a-meta">Google Play</p></div></div><div style="margin-top:16px;padding:14px 0;border-top:1px solid var(--a-kant);border-bottom:1px solid var(--a-kant);display:flex;justify-content:space-between"><span>Prenumeration, månadsvis</span><b>149,00 kr/månad</b></div><p class="a-meta" style="margin-top:12px">Avsluta när som helst i Google Play. Debiteras månadsvis tills du avslutar.</p><button class="a-knapp tryck" style="margin-top:16px;background:#1A73E8;color:#fff;border-radius:999px" onclick="app.kopKlart()">Prenumerera</button><p class="a-meta" style="text-align:center;margin-top:10px">Systemets eget ark. Vi ritar det inte.</p>`,
+  notis: () => `<div style="display:flex;gap:14px;align-items:center"><span class="sym" style="width:48px;height:48px;border-radius:14px;background:var(--kop-mjuk);color:var(--kop-ink);display:grid;place-items:center">${sv('i-bell').replace('width:20px;height:20px', 'width:26px;height:26px')}</span><div><h2 class="a-h2">Ska vi påminna dig?</h2></div></div><p class="a-p" style="margin-top:12px">En notis om dagen med vad som väntar, till exempel "Dags för dagens pass i Testklar: ${TYPER[imorgonTyp()].namn.toLowerCase()}, nio uppgifter". Aldrig mer än en, och du stänger av när du vill.</p><p class="a-ey" style="margin-top:16px">När passar det?</p><div class="tidchips" style="margin-top:8px">${['07:30', '12:00', '18:30'].map(t => `<button class="${S.paminnelse === t ? 'vald' : ''} tryck" onclick="app.set({paminnelse:'${t}'});app.rita()">${t}</button>`).join('')}</div><button class="a-knapp kop tryck" style="margin-top:16px" onclick="app.ark('system')">Påminn mig kl ${S.paminnelse}</button><button class="a-lank" style="display:block;margin:14px auto 0" onclick="app.set({notis:false});app.stangArk()">Inte nu</button>`,
+  system: () => `<div style="padding:4px 2px"><p style="font-weight:600;font-size:17px">Tillåta att Testklar skickar aviseringar?</p><div style="display:flex;justify-content:flex-end;gap:18px;margin-top:22px"><button class="a-lank" style="text-decoration:none;color:#1A73E8;font-weight:600" onclick="app.set({notis:false});app.stangArk()">Tillåt inte</button><button class="a-lank" style="text-decoration:none;color:#1A73E8;font-weight:600" onclick="app.set({notis:true});app.stangArk();app.hap('lätt');app.toast('Påminnelse kl '+app.S.paminnelse)">Tillåt</button></div><p class="a-meta" style="margin-top:14px">Systemets dialog, visas bara om du sagt ja till vår fråga först.</p></div>`,
+  radera: () => `<h2 class="a-h2">Radera kontot?</h2><p class="a-p" style="margin-top:6px">Konto, nivå, pass och resultat raderas inom 30 dagar. En Premium-prenumeration avslutar du själv i Google Play, raderingen gör det inte.</p><div class="falt ${S.raderaOk ? 'fylld' : ''} tryck" style="margin-top:16px;cursor:pointer" onclick="app.set({raderaOk:true});app.rita()">${S.raderaOk ? 'RADERA' : 'Skriv RADERA för att bekräfta'}</div><button class="a-knapp tryck" style="margin-top:12px;background:var(--fel);color:#fff" ${S.raderaOk ? '' : 'disabled'} onclick="app.stangArk();app.toast('Kontot raderas');setTimeout(()=>app.demo('onb1'),1400)">Radera kontot</button><button class="a-knapp ljus tryck" style="margin-top:8px" onclick="app.stangArk()">Avbryt</button>`,
+  testDetalj: (t) => { t = t || 'talserie'; const T = TYPER[t]; const nivaer = { matris: ['en regel', 'två regler', 'tre regler'], figurserie: ['en regel', 'två regler', 'tre regler'], deduktiv: ['tre villkor', 'fem villkor', 'villkor i rörelse'], talserie: ['en lucka', 'två luckor', 'blandade regler'], spatial: ['en vikning', 'två vikningar', 'speglingar, klipp'], ordforrad: ['vardagsord', 'formella ord', 'lånord'], verbal: ['svaret står i texten', 'två ståndpunkter', 'argument'], numerisk: ['läs av och räkna', 'flera räknesteg', 'prognos, marginal'], personlighet: ['femtio påståenden', 'facetter', ''] }[t];
+    return `<div style="display:flex;gap:14px;align-items:center">${ikon(t, 56)}<div><h2 class="a-h2">${T.namn}</h2><p class="a-meta">${t === 'talserie' ? 'Kallas även talföljder' : t === 'spatial' ? 'Kallas även rumsuppfattning' : t === 'matris' ? 'Kallas även Matrigma eller IQ-test' : 'Ingår i rekryteringstester'}</p></div></div><div class="rader" style="margin-top:16px"><button class="rad tryck" onclick="app.stangArk();app.go('nkStart','push')"><span class="t"><b>Nivåkollen</b><span>Tolv uppgifter, åtta minuter</span></span>${DELTESTER[S.test].includes(t) && S.niva ? `<span class="chip gjord">${sv('i-check')}nivå 5</span>` : '<span class="chip fri">Gratis</span>'}</button>${[['Grundnivå', nivaer[0], true], ['Avancerad nivå', nivaer[1], S.premium], ['Expertnivå', nivaer[2], S.premium]].map(n => `<button class="rad tryck" onclick="${n[2] ? "app.stangArk();app.set({pass:{idx:0,vald:null,avslojad:false,ratt:0,fel:false}});app.go('pass','expand')" : "app.stangArk();setTimeout(()=>app.ark('kop'),260)"}"><span class="t"><b>${n[0]}</b><span>${n[1]}, 15 uppgifter</span></span>${n[2] ? sv('i-chev', 'chev') : `<span class="chip las">${sv('i-las')}Premium</span>`}</button>`).join('')}<button class="rad tryck"><span class="t"><b>Övningsprov mot klockan</b><span>${FORMAT[S.test]}</span></span>${S.premium ? sv('i-chev', 'chev') : `<span class="chip las">${sv('i-las')}Premium</span>`}</button></div>`; },
+};
+
+/* ------------------------------------------------------------ motorn */
+let tidTimer = null, arkEl = null, toastTimer = null;
+const app = {
+  get S() { return S; },
+  set(o) { Object.assign(S, o); },
+  go(key, anim) {
+    anim = anim || 'push'; const v = V[key]; if (!v) return; S.vy = key; app.stoppaTid();
+    const tel = $('#tel'); const gamla = $$('.lager', tel); app.stangArk(true);
+    const ny = document.createElement('div'); ny.className = `lager ${v.mork ? 'natt ' : ''}in-${anim}`; ny.innerHTML = v.html(); tel.appendChild(ny);
+    gamla.forEach(g => { g.className = `lager ${g.classList.contains('natt') ? 'natt ' : ''}out-${anim}`; g.style.pointerEvents = 'none'; setTimeout(() => g.remove(), 560); });
+    if (v.efter) v.efter(ny);
+    const not = $('#vynot'); if (not) not.innerHTML = `<h4>Om vyn</h4><p>${v.not || ''}</p>`;
+  },
+  rita() { const v = V[S.vy]; const l = $$('.lager', $('#tel')).pop(); if (!l) return; const sc = $('.kropp', l)?.scrollTop || 0; l.innerHTML = v.html(); const k = $('.kropp', l); if (k) k.scrollTop = sc; if (arkEl) { const typ = arkEl.dataset.typ, arg = arkEl.dataset.arg; $('.ark', arkEl).innerHTML = `<div class="handtag"></div>${ARK[typ](arg)}`; } },
+  ark(typ, arg) { app.stangArk(true); const tel = $('#tel'); arkEl = document.createElement('div'); arkEl.className = 'ark-lager'; arkEl.dataset.typ = typ; arkEl.dataset.arg = arg || ''; arkEl.innerHTML = `<div class="ark">${typ === 'system' ? '' : '<div class="handtag"></div>'}${ARK[typ](arg)}</div>`; if (typ === 'system') { arkEl.style.alignItems = 'center'; arkEl.style.padding = '24px'; $('.ark', arkEl).style.borderRadius = '28px'; } arkEl.addEventListener('click', e => { if (e.target === arkEl) app.stangArk(); }); tel.appendChild(arkEl); app.hap('lätt'); },
+  stangArk(direkt) { if (!arkEl) return; const el = arkEl; arkEl = null; if (direkt) { el.remove(); return; } el.classList.add('bort'); setTimeout(() => el.remove(), 240); },
+  toast(text) { const tel = $('#tel'); $$('.toast', tel).forEach(t => t.remove()); const t = document.createElement('div'); t.className = 'toast'; t.innerHTML = `${sv('i-check')}${text}`; tel.appendChild(t); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.remove(), 2400); },
+  hap(typ) { const h = $('#haptik'); if (!h) return; h.querySelector('b').textContent = typ; h.classList.add('pa'); clearTimeout(h._t); h._t = setTimeout(() => h.classList.remove('pa'), 600); },
+  raknaUpp(el, fran, till, ms) { if (!el) return; const lugn = matchMedia('(prefers-reduced-motion: reduce)').matches; if (lugn) { el.textContent = till; return; } const t0 = performance.now(); const steg = (t) => { const p = Math.min(1, (t - t0) / ms); const e = 1 - Math.pow(1 - p, 3); el.textContent = Math.round(fran + (till - fran) * e); if (p < 1) requestAnimationFrame(steg); }; requestAnimationFrame(steg); },
+  startTid(el, budget) { app.stoppaTid(); const i = $('#tid-i', el), s = $('#tid-s', el); if (!i || !s) return; let sek = 0; const t0 = performance.now(); tidTimer = setInterval(() => { sek = (performance.now() - t0) / 1000; i.style.width = `${Math.min(100, 100 * sek / budget)}%`; s.textContent = `${Math.floor(sek / 60)}:${String(Math.floor(sek % 60)).padStart(2, '0')}`; }, 250); },
+  startKlocka(el) { app.stoppaTid(); const k = $('#klocka span:last-child', el); if (!k) return; let kvar = 36 * 60 + 48; tidTimer = setInterval(() => { kvar--; k.textContent = `${Math.floor(kvar / 60)}:${String(kvar % 60).padStart(2, '0')}`; }, 1000); },
+  stoppaTid() { if (tidTimer) { clearInterval(tidTimer); tidTimer = null; } },
+  loggaIn(via) { const ny = !S.niva; app.set({ inloggad: true, niva: S.niva || 5, dagNr: 0 }); app.hap('lätt'); app.toast(ny ? `Inloggad med ${via}` : `Nivån sparad, inloggad med ${via}`); setTimeout(() => app.go('hem', 'natt'), 700); },
+  nkSvar(i) { if (S.nk.last) return; S.nk.vald = i; S.nk.last = true; app.hap('lätt'); app.rita(); setTimeout(() => { if (S.nk.idx < NK_FRAGOR.length - 1) { S.nk = { idx: S.nk.idx + 1, vald: null, last: false }; const l = $('.lager', $('#tel')).pop(); if (l) { l.innerHTML = V.nkFraga.html(); V.nkFraga.efter(l); } } else app.go('nkRaknar', 'natt'); }, 380); },
+  passSvar(i) { if (S.pass.avslojad) return; const q = PASS_FRAGOR[S.pass.idx]; S.pass.vald = i; S.pass.avslojad = true; if (i === q.ratt) { S.pass.ratt++; app.hap('dubbelt tick'); } else app.hap('lätt'); app.rita(); const l = $('.lager', $('#tel')).pop(); if (l) V.pass.efter(l); app.stoppaTid(); },
+  passNasta() { if (S.pass.idx < PASS_FRAGOR.length - 1) { S.pass = { idx: S.pass.idx + 1, vald: null, avslojad: false, ratt: S.pass.ratt, fel: false }; const l = $('.lager', $('#tel')).pop(); if (l) { l.classList.remove('in-expand'); l.innerHTML = V.pass.html(); const m = $('.pass-main', l); if (m) m.style.animation = 'inByt .22s ease-out both'; V.pass.efter(l); } } else { S.gjortIdag = true; S.passGjorda++; app.go('passResultat', 'natt'); } },
+  passKlart() { const forsta = S.passGjorda === 1 && S.notis === null; app.go('hem', 'natt'); if (forsta) setTimeout(() => app.ark('notis'), 600); },
+  ovValj(i) { S.ov.vald = i; app.hap('lätt'); app.rita(); },
+  ovNasta() { S.ov = { idx: S.ov.idx + 1, vald: null }; const l = $('.lager', $('#tel')).pop(); if (l) { l.innerHTML = V.ovFraga.html(); V.ovFraga.efter(l); } },
+  kopKlart() { app.set({ premium: true }); app.stangArk(); app.hap('framgång'); app.toast('Premium aktivt'); setTimeout(() => app.rita(), 300); },
+  demo(key) { DEMO[key](); $$('.chips button').forEach(b => b.classList.toggle('aktiv', b.getAttribute('onclick') === `demo('${key}')`)); },
+};
+window.app = app; window.demo = app.demo;
+
+const DEMO = {
+  splash: () => { nyS(); app.go('splash', 'flik'); },
+  onb1: () => { nyS(); app.go('onb1', 'flik'); },
+  onb2: () => { nyS(); app.go('onb2', 'flik'); },
+  onb3: () => { nyS(); app.go('onb3', 'flik'); },
+  onb4: () => { nyS(); app.go('onb4', 'flik'); },
+  konto: () => { nyS({ samtycke: true, niva: 5 }); app.go('konto', 'flik'); },
+  nkStart: () => { nyS({ samtycke: true }); app.go('nkStart', 'flik'); },
+  nkFraga: () => { nyS({ samtycke: true }); app.go('nkFraga', 'expand'); },
+  nkRaknar: () => { nyS({ samtycke: true }); app.go('nkRaknar', 'natt'); },
+  nkResultat: () => { nyS({ samtycke: true, niva: 5 }); app.go('nkResultat', 'natt'); },
+  hem: () => { nyS({ inloggad: true, niva: 5 }); app.go('hem', 'flik'); },
+  hemGjord: () => { nyS({ inloggad: true, niva: 5, gjortIdag: true, passGjorda: 1 }); app.go('hem', 'flik'); },
+  hemPremium: () => { nyS({ inloggad: true, niva: 5.4, premium: true, dagNr: 5, serie: 4, notis: true }); app.go('hem', 'flik'); },
+  pass: () => { nyS({ inloggad: true, niva: 5.4, premium: true, dagNr: 5, notis: true }); app.go('pass', 'expand'); },
+  passSvar: () => { nyS({ inloggad: true, niva: 5.4, premium: true, dagNr: 5, notis: true, pass: { idx: 0, vald: 1, avslojad: true, ratt: 0, fel: false } }); app.go('pass', 'flik'); },
+  passResultat: () => { nyS({ inloggad: true, niva: 5, gjortIdag: true, passGjorda: 1 }); app.go('passResultat', 'natt'); },
+  notis: () => { nyS({ inloggad: true, niva: 5, gjortIdag: true, passGjorda: 1 }); app.go('hem', 'flik'); setTimeout(() => app.ark('notis'), 350); },
+  utveckling: () => { nyS({ inloggad: true, niva: 5.4, premium: true, dagNr: 5, notis: true }); app.go('utveckling', 'flik'); },
+  tester: () => { nyS({ inloggad: true, niva: 5, test: 'iprov' }); app.go('tester', 'flik'); },
+  testDetalj: () => { nyS({ inloggad: true, niva: 5, test: 'iprov' }); app.go('tester', 'flik'); setTimeout(() => app.ark('testDetalj', 'talserie'), 350); },
+  hemProv: () => { nyS({ inloggad: true, niva: 6.3, premium: true, dagNr: 21, fas: 'prov2', notis: true }); app.go('hemProv', 'flik'); },
+  ovStart: () => { nyS({ inloggad: true, niva: 6.3, premium: true, dagNr: 21, fas: 'prov2', notis: true }); app.go('ovStart', 'flik'); },
+  ovFraga: () => { nyS({ inloggad: true, niva: 6.3, premium: true, dagNr: 21, fas: 'prov2', notis: true }); app.go('ovFraga', 'expand'); },
+  provdag: () => { nyS({ inloggad: true, niva: 6.3, premium: true, dagNr: 23, fas: 'provdag', notis: true }); app.go('provdag', 'flik'); },
+  kop: () => { nyS({ inloggad: true, niva: 5, gjortIdag: true, passGjorda: 1 }); app.go('hem', 'flik'); setTimeout(() => app.ark('kop'), 350); },
+  kopPlay: () => { nyS({ inloggad: true, niva: 5, gjortIdag: true, passGjorda: 1 }); app.go('hem', 'flik'); setTimeout(() => app.ark('play'), 350); },
+  kontoVy: () => { nyS({ inloggad: true, niva: 5.4, premium: true, dagNr: 5, notis: true }); app.go('kontoVy', 'flik'); },
+  radera: () => { nyS({ inloggad: true, niva: 5.4, premium: true, dagNr: 5, notis: true }); app.go('kontoVy', 'flik'); setTimeout(() => app.ark('radera'), 350); },
+  laddar: () => { nyS({ inloggad: true }); app.go('laddar', 'flik'); },
+  tomUtv: () => { nyS({ inloggad: true, tom: true }); app.go('tomUtv', 'flik'); },
+  utanNat: () => { nyS({ inloggad: true, niva: 5 }); app.go('utanNat', 'flik'); },
+  fel: () => { nyS({ inloggad: true, niva: 5 }); app.go('fel', 'flik'); },
+};
+
+/* ------------------------------------------------------------ galleri och butiksbilder */
+const GALLERI = [['splash', 'Första start'], ['onb1', 'Löftet och priset'], ['onb2', 'Välj ditt test'], ['onb3', 'Provdatum och plan'], ['onb4', 'Samtycke'], ['nkStart', 'Nivåkollen'], ['nkFraga', 'Fråga i Nivåkollen'], ['nkRaknar', 'Räknar fram nivån'], ['nkResultat', 'Nivåögonblicket'], ['konto', 'Spara nivån, konto'], ['hem', 'Idag, gratis dag 0'], ['pass', 'Dagens pass'], ['passSvar', 'Efter svaret'], ['passResultat', 'Passet klart, serien'], ['notis', 'Notisfrågan'], ['hemGjord', 'Idag, passet gjort'], ['kop', 'Köpvyn'], ['kopPlay', 'Google Play'], ['hemPremium', 'Idag, Premium dag 5'], ['utveckling', 'Utveckling'], ['tester', 'Tester, I-provet'], ['testDetalj', 'Ett test'], ['hemProv', 'Två dagar kvar'], ['ovStart', 'Startark'], ['ovFraga', 'Provet mot klockan'], ['provdag', 'Provdagen'], ['kontoVy', 'Konto'], ['radera', 'Radera konto'], ['laddar', 'Skelett'], ['tomUtv', 'Tomt tillstånd'], ['utanNat', 'Utan nät'], ['fel', 'Fel i passet']];
+const STATISK = {
+  splash: [{}, 'splash'], onb1: [{}, 'onb1'], onb2: [{}, 'onb2'], onb3: [{}, 'onb3'], onb4: [{}, 'onb4'], konto: [{ samtycke: true, niva: 5 }, 'konto'],
+  nkStart: [{ samtycke: true }, 'nkStart'], nkFraga: [{ samtycke: true, nk: { idx: 1, vald: null, last: false } }, 'nkFraga'], nkRaknar: [{ samtycke: true }, 'nkRaknar'], nkResultat: [{ samtycke: true, niva: 5 }, 'nkResultat'],
+  hem: [{ inloggad: true, niva: 5 }, 'hem'], hemGjord: [{ inloggad: true, niva: 5, gjortIdag: true, passGjorda: 1 }, 'hem'], hemPremium: [{ inloggad: true, niva: 5.4, premium: true, dagNr: 5, notis: true }, 'hem'],
+  pass: [{ inloggad: true, niva: 5.4, premium: true, dagNr: 5 }, 'pass'], passSvar: [{ inloggad: true, niva: 5.4, premium: true, dagNr: 5, pass: { idx: 0, vald: 1, avslojad: true, ratt: 0, fel: false } }, 'pass'],
+  passResultat: [{ inloggad: true, niva: 5, gjortIdag: true, passGjorda: 1 }, 'passResultat'], notis: [{ inloggad: true, niva: 5, gjortIdag: true, passGjorda: 1 }, 'hem', 'notis'],
+  kop: [{ inloggad: true, niva: 5, gjortIdag: true, passGjorda: 1 }, 'hem', 'kop'], kopPlay: [{ inloggad: true, niva: 5 }, 'hem', 'play'],
+  utveckling: [{ inloggad: true, niva: 5.4, premium: true, dagNr: 5 }, 'utveckling'], tester: [{ inloggad: true, niva: 5, test: 'iprov' }, 'tester'], testDetalj: [{ inloggad: true, niva: 5, test: 'iprov' }, 'tester', 'testDetalj', 'talserie'],
+  hemProv: [{ inloggad: true, niva: 6.3, premium: true, dagNr: 21, fas: 'prov2', notis: true }, 'hemProv'], ovStart: [{ inloggad: true, premium: true, fas: 'prov2' }, 'ovStart'], ovFraga: [{ inloggad: true, premium: true, fas: 'prov2' }, 'ovFraga'], provdag: [{ inloggad: true, premium: true, fas: 'provdag' }, 'provdag'],
+  kontoVy: [{ inloggad: true, niva: 5.4, premium: true, dagNr: 5, notis: true }, 'kontoVy'], radera: [{ inloggad: true, premium: true, notis: true }, 'kontoVy', 'radera'],
+  laddar: [{ inloggad: true }, 'laddar'], tomUtv: [{ inloggad: true, tom: true }, 'tomUtv'], utanNat: [{ inloggad: true }, 'utanNat'], fel: [{ inloggad: true, niva: 5 }, 'fel'],
+};
+function statisk(key) {
+  const [over, vy, arkTyp, arkArg] = STATISK[key]; const spar = S; S = Object.assign(JSON.parse(JSON.stringify(BAS)), over); S.vy = vy;
+  const v = V[vy]; let html = `<div class="tel"><div class="lager ${v.mork ? 'natt' : ''}">${v.html()}</div>`;
+  if (arkTyp) html += `<div class="ark-lager" style="${arkTyp === 'system' ? 'align-items:center;padding:24px' : ''}"><div class="ark" style="${arkTyp === 'system' ? 'border-radius:28px' : ''}">${arkTyp === 'system' ? '' : '<div class="handtag"></div>'}${ARK[arkTyp](arkArg)}</div></div>`;
+  html += `</div>`; S = spar; return html;
+}
+function byggGalleri() {
+  const g = $('#galleri'); if (!g) return;
+  g.innerHTML = GALLERI.map(([key, namn], i) => `<div class="mini" role="button" tabindex="0" onclick="demo('${key}');document.getElementById('prototyp').scrollIntoView({behavior:'smooth',block:'start'})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}"><span class="ram">${statisk(key)}</span><span><b>${i + 1}. ${namn}</b></span></div>`).join('');
+  $$('.mini .ram .tel').forEach(t => { t.querySelectorAll('[id]').forEach(e => e.removeAttribute('id')); });
+}
+function byggButik() {
+  $$('.skarmbild .minitel').forEach(m => { m.innerHTML = statisk(m.dataset.klon); const t = $('.tel', m); t.querySelectorAll('[id]').forEach(e => e.removeAttribute('id')); const skala = () => { const w = m.clientWidth; t.style.transform = `scale(${w / 412})`; }; skala(); new ResizeObserver(skala).observe(m); });
+}
+
+/* ------------------------------------------------------------ start */
+function start() { byggGalleri(); byggButik(); app.demo('splash'); }
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>

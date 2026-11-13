@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="sv"><head><meta charset="utf-8">
+<title>Rekryteringstesterna som app</title>
+<style>
+:root{--ink:#111418;--dim:#5b646e;--faint:#8b949e;--line:#e4e7eb;--acc:#e8590c;--accbg:#fff4ed;--bg:#fff}
+*{box-sizing:border-box}
+@page{size:A4;margin:17mm 15mm 15mm}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{margin:0;font:10.5pt/1.55 Georgia,"Times New Roman",serif;color:var(--ink);background:var(--bg)}
+.wrap{max-width:180mm;margin:0 auto;padding:0 2mm}
+h1,h2,h3,h4,.meta,.ax,.val,.note,table,.kpi,.tag,.lead,.sub{font-family:"Helvetica Neue",Arial,"Segoe UI",sans-serif}
+h1{font-size:23pt;line-height:1.18;margin:0 0 6px;letter-spacing:-.4px;font-weight:600}
+.sub{color:var(--dim);font-size:10.5pt;margin:0 0 2px;line-height:1.4}
+.meta{color:var(--faint);font-size:8.5pt;margin:10px 0 22px;border-bottom:2px solid var(--acc);padding-bottom:12px}
+h2{font-size:14pt;margin:26px 0 10px;padding-top:10px;border-top:1px solid var(--line);font-weight:600;letter-spacing:-.2px;page-break-after:avoid;break-after:avoid}
+h2 .num{color:var(--acc);font-variant-numeric:tabular-nums;margin-right:9px}
+h2.ny{page-break-before:always;break-before:page;border-top:none;margin-top:0}
+h3{font-size:11pt;margin:17px 0 6px;font-weight:600;page-break-after:avoid;break-after:avoid}
+p{margin:0 0 9px;orphans:3;widows:3}
+.lead{font-size:9pt;color:var(--faint);margin:-6px 0 14px}
+ul,ol{margin:0 0 10px;padding-left:19px}
+li{margin-bottom:4px}
+strong{font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:8.5pt;margin:8px 0 14px;page-break-inside:avoid;break-inside:avoid}
+th{text-align:left;font-weight:600;font-size:7.6pt;letter-spacing:.4px;text-transform:uppercase;color:var(--dim);border-bottom:1.5px solid var(--ink);padding:5px 7px 5px 0}
+td{padding:5px 7px 5px 0;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.4}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;padding-right:10px;white-space:nowrap}
+tr.sum td{font-weight:600;border-top:1.5px solid var(--ink);border-bottom:none}
+.up{color:#17803d;font-weight:600}.down{color:#b42318;font-weight:600}
+.fig{page-break-inside:avoid;break-inside:avoid}
+.chart{width:100%;height:auto;margin:6px 0 4px;display:block}
+.grid{stroke:var(--line);stroke-width:1}
+.line{fill:none;stroke:var(--acc);stroke-width:2.2;stroke-linejoin:round}
+.area{fill:var(--accbg)}
+.dot{fill:#fff;stroke:var(--acc);stroke-width:1.8}
+.bar{fill:var(--acc)}.bar.pre{fill:#f5b38a}
+.pt{fill:var(--dim);opacity:.32}.pt.hot{fill:var(--acc);opacity:1}
+.leader{stroke:var(--faint);stroke-width:.7}
+.curve{fill:none;stroke:var(--dim);stroke-width:1.2;stroke-dasharray:4 3;opacity:.75}
+.ax{font-size:7.4pt;fill:var(--dim)}.ax.r{text-anchor:end}.ax.c{text-anchor:middle}.ax.dim{fill:var(--faint)}
+.val{font-size:7.6pt;fill:var(--ink);font-weight:600}.val.c{text-anchor:middle}
+.note{font-size:6.9pt;fill:var(--faint)}.note.c{text-anchor:middle}
+.figc{font-size:8pt;color:var(--faint);margin:0 0 16px;font-family:"Helvetica Neue",Arial,sans-serif;line-height:1.45}
+.kpis{display:flex;gap:9px;margin:14px 0 18px;page-break-inside:avoid}
+.kpi{flex:1;border:1px solid var(--line);border-left:2.5px solid var(--acc);padding:9px 10px}
+.kpi .k{font-size:7.2pt;text-transform:uppercase;letter-spacing:.5px;color:var(--dim);margin-bottom:3px}
+.kpi .v{font-size:16pt;font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi .d{font-size:7.6pt;color:var(--faint);margin-top:2px}
+.box{border:1px solid var(--line);background:#fafbfc;padding:11px 13px;margin:11px 0 14px;page-break-inside:avoid;break-inside:avoid}
+.box.acc{background:var(--accbg);border-color:#f7c7a8}
+.box h4{margin:0 0 6px;font-size:9.5pt;font-weight:600}
+.box p,.box li{font-size:9.2pt;margin-bottom:5px;line-height:1.5}
+.five{counter-reset:f;list-style:none;padding:0;margin:10px 0 4px}
+.five li{counter-increment:f;padding-left:27px;position:relative;margin-bottom:9px;font-size:10pt;line-height:1.5}
+.five li::before{content:counter(f);position:absolute;left:0;top:2px;width:18px;height:18px;background:var(--acc);color:#fff;font:600 8.5pt/18px "Helvetica Neue",Arial,sans-serif;text-align:center}
+.tag{display:inline-block;font-size:7pt;font-weight:600;letter-spacing:.4px;padding:1px 5px;border:1px solid var(--line);color:var(--dim);white-space:nowrap}
+.tag.s{border-color:#9fd3ae;color:#17803d}.tag.m{border-color:#f7c7a8;color:var(--acc)}.tag.l{border-color:#d9d9d9;color:var(--dim)}
+.sm{font-size:7.6pt;color:var(--faint);display:block;margin-top:2px;line-height:1.35}
+footer{margin-top:26px;padding-top:9px;border-top:1px solid var(--line);font-size:7.6pt;color:var(--faint);font-family:"Helvetica Neue",Arial,sans-serif;line-height:1.5}
+</style></head><body>
+</head><body>
+<div class="wrap">
+
+<h1>Rekryteringstesterna som app</h1>
+<p class="sub">Utredning om att ge ut testerna som app för iPhone och Android: vilken väg, vad butikerna kräver, vad det kostar och vad vi måste bygga.</p>
+<p class="meta">Rapport till ägaren, skriven 13 november 2026. Källor: koden på main (accc3468), PostHog EU projekt 148688 (30 och 60 dagar till och med 13 november), Apples besked om nya EU-villkor (augusti 2026, gäller från 1 oktober 2026), Googles EEA External Offers Program (gäller från 4 juni 2026), Apples App Review Guidelines. Löpande intäkt och köp är hämtade ur analysen från 8 november.</p>
+
+<h2><span class="num">1</span>Sammanfattning</h2>
+
+<div class="kpis">
+<div class="kpi"><div class="k">Mobil på testsidan</div><div class="v">48 %</div><div class="d">183 av 381 besökare, 30 dagar</div></div>
+<div class="kpi"><div class="k">iPhone mot Android</div><div class="v">16 : 7</div><div class="d">inloggade i testerna, 30 dagar</div></div>
+<div class="kpi"><div class="k">PWA-installationer</div><div class="v">1</div><div class="d">av 19 som fått frågan, 60 dagar</div></div>
+<div class="kpi"><div class="k">Uppskattad insats</div><div class="v">4–6 v</div><div class="d">skal, köp i appen, push, granskning</div></div>
+</div>
+
+<ol class="five">
+<li><strong>Det går, och det mesta finns redan.</strong> Testerna är redan byggda som en tunn klient mot servern: varje fråga hämtas och rättas i våra API-rutter, facit lämnar aldrig servern. En app kan därför visa samma sidor i ett appskal och prata med samma rutter. Vi behöver inte skriva om de cirka 1&nbsp;550 uppgifterna eller motorerna.</li>
+<li><strong>Det svåra är inte tekniken utan betalningen.</strong> Apple kräver köp i appen (In-App Purchase) när en app låser upp digitalt innehåll, och Google kräver Play Billing eller sitt EEA-program. Stripe Checkout kan inte ligga kvar som enda väg i appen. Räkna med 15 procent i avgift på köp som görs i appen, mot dagens Stripe-avgift.</li>
+<li><strong>iPhone är plattformen som räknas.</strong> Bland inloggade som gör tester är iPhone-användarna drygt dubbelt så många som Android-användarna. En billig Android-lösning först (Trusted Web Activity i Play) når minoriteten och löser inte betalningsfrågan. Gör båda samtidigt eller börja med iPhone.</li>
+<li><strong>Appen måste vara mer än webbsidan, annars stoppar Apple den.</strong> Riktlinje 4.2 avvisar appar som bara är en inslagen webbplats. Det som både klarar granskningen och ger oss något på riktigt är en daglig påminnelse om dagens pass via push, inloggning med Apple, och att appen öppnar direkt i testerna. Push är dessutom den återkomstkanal som PWA:n aldrig gav oss (1 installation på 60 dagar).</li>
+<li><strong>Rekommendation: Capacitor-skal kring de befintliga testsidorna, byggstart efter Black Week, i butikerna före januari.</strong> Januari är jobbsökarnas högsäsong. Insatsen är 4 till 6 veckor och kostnaden utanför arbetstiden är runt 1&nbsp;400 kr första året. Appen ska ses som en återkomst- och synlighetskanal, inte som en ny trafikkälla i sig: vi har 67 inloggade på 30 dagar och butikssökningar på svenska efter "logiktest" är okänd volym.</li>
+</ol>
+
+<h2><span class="num">2</span>Nuläget i koden</h2>
+<p>Det som avgör hur svårt det blir är hur testerna är byggda. Kort:</p>
+<table>
+<tr><th>Del</th><th>Hur det fungerar i dag</th><th>Vad det betyder för en app</th></tr>
+<tr><td>Frågor och facit</td><td>Statisk JSON i repot (matrislogik V7 cirka 490, spatial 288, ordförråd 251, talserier 216, figurserier 190, deduktivt 111). Läses bara på servern via <code>fragor.server.ts</code>.</td><td>Bra. Ingenting behöver flyttas in i appen, och facit kan inte läsas ur en nedladdad app.</td></tr>
+<tr><td>Testflödet</td><td>Session, svar och slutför går via <code>/api/traning/*</code>. Servern rättar varje svar.</td><td>Kräver nät. Inget offlineläge utan att bygga om rättningen, och det vill vi inte.</td></tr>
+<tr><td>Inloggning</td><td>Supabase med cookies, förnyelse i <code>proxy.ts</code>. E-post och lösenord samt Google.</td><td>E-post fungerar i appskalet. Google blockerar inloggning i inbäddade webbvyer, så den måste gå via systemets inloggningsfönster eller en inbyggd Google-knapp. Inloggning med Apple saknas och krävs.</td></tr>
+<tr><td>Köp</td><td>Stripe Checkout som omdirigering, en inbäddad variant för uppgradering. Åtkomst via <code>premiumAccess.ts</code> och <code>premium_grants</code>.</td><td>Måste kompletteras med köp i appen. Åtkomstkontrollen kan vara kvar som den är om appens köp skriver en rad i <code>premium_grants</code>.</td></tr>
+<tr><td>Mejllänkar</td><td>Bekräftelse och återställning öppnar webbläsaren.</td><td>Behöver Universal Links (iPhone) och App Links (Android) så att de öppnar appen.</td></tr>
+<tr><td>Radera konto</td><td>Finns i inställningarna (<code>KontoSection.tsx</code>).</td><td>Apples krav 5.1.1(v) är redan uppfyllt.</td></tr>
+<tr><td>PWA</td><td>Manifest, en service worker som inte cachar något, installationsrad efter fyra triggers.</td><td>Kan stå kvar för webben. Gav 1 installation och 2 personer som startat från hemskärmen på 60 dagar.</td></tr>
+</table>
+
+<h2><span class="num">3</span>Fyra vägar</h2>
+<table>
+<tr><th>Väg</th><th>Vad det är</th><th class="n">Insats</th><th>Fördel</th><th>Nackdel</th></tr>
+<tr><td><strong>A. Bara PWA</strong></td><td>Det vi har.</td><td class="n">0</td><td>Ingen avgift, inget att granska.</td><td>Ingen närvaro i butikerna, ingen push på iPhone utan installation, och nästan ingen installerar.</td></tr>
+<tr><td><strong>B. Android TWA</strong></td><td>PWA:n i ett Chrome-fönster, utgiven i Google Play.</td><td class="n">1 v</td><td>Billigast. Google-inloggning och cookies fungerar eftersom det är Chrome.</td><td>Bara Android, som är minoriteten. Betalningskraven gäller ändå.</td></tr>
+<tr><td><strong>C. Capacitor-skal</strong></td><td>Ett inbyggt skal för båda plattformarna som visar våra testsidor, plus inbyggda delar för push, köp och inloggning.</td><td class="n">4–6 v</td><td>Återanvänder allt. Ett kodträd. Push och köp i appen blir inbyggda.</td><td>Känns som webben i en ram om vi inte lägger arbete på övergångar och laddning.</td></tr>
+<tr><td><strong>D. Egen app</strong></td><td>React Native (Expo) med nytt gränssnitt mot samma API-rutter.</td><td class="n">3–4 mån</td><td>Bäst känsla.</td><td>Två gränssnitt att underhålla för varje ny testtyp. Figurerna i matris och spatial måste ritas om.</td></tr>
+</table>
+<p>Vi väljer C. D är inte motiverat med dagens volym, och varje ny testtyp vi bygger (vi har lagt till fyra på en vecka i november) skulle behöva byggas två gånger. C kan bli D senare för just testflödet om appen visar sig bära.</p>
+
+<h2><span class="num">4</span>Butikernas regler och avgifter</h2>
+<h3>Betalning, Sverige och EU</h3>
+<table>
+<tr><th>Sätt att ta betalt</th><th class="n">Apple</th><th class="n">Google</th><th>Kommentar</th></tr>
+<tr><td>Köp i appen via butiken</td><td class="n">15 %</td><td class="n">15 %</td><td>Apples Small Business Program (under 1 miljon dollar om året). 26 % utan programmet. Google 15 % på första miljonen.</td></tr>
+<tr><td>Länk ut till vår webb (Stripe)</td><td class="n">10–15 %</td><td class="n">10 % / 20 %</td><td>Apple: 10 % för programmedlemmar, och valet låses i 12 månader. Google: 10 % på prenumerationer, 20 % på engångsköp, plus 1,20 euro per installation, och då får appen inte ha Play Billing i EEA.</td></tr>
+<tr><td>Annan betalleverantör inne i appen</td><td class="n">10–20 %</td><td class="n">cirka 11 %</td><td>Kräver avtal och egen hantering av moms och återbetalning per plattform.</td></tr>
+<tr><td>Inget köp i appen alls</td><td class="n">nej</td><td class="n">ja</td><td>Google tillåter en app som bara använder det man köpt på webben. Apple kräver att det som låses upp också går att köpa i appen.</td></tr>
+</table>
+<p>Länk ut sparar högst fem procentenheter hos Apple men kostar ett extra steg till webbläsaren, och hos Google blir den dyrare på Dagspasset. Köp i appen konverterar bättre och är enklast att få godkänt. <strong>Vi tar köp i appen på båda plattformarna och låter webben ha kvar Stripe.</strong> På 149 kr är avgiften cirka 22 kr per månad och köpare, på Dagspasset 49 kr cirka 7 kr.</p>
+<p>Black Week-kampanjen (99 kr 23 till 29 november, 49 kr 30 november) bygger på Stripe-kuponger och berörs inte. Kampanjpriser i butikerna sätts separat per plattform och behöver förberedas veckor i förväg.</p>
+
+<h3>Krav som påverkar bygget</h3>
+<ul>
+<li><strong>Riktlinje 4.2 (Apple):</strong> appen får inte bara vara webbplatsen. Push för dagens pass, inbyggd inloggning, inbyggda köp och att appen startar i testerna räcker i praktiken, men det är den vanligaste grunden för avslag för den här sortens appar.</li>
+<li><strong>Riktlinje 4.8 (Apple):</strong> erbjuder vi Google-inloggning måste vi också erbjuda Inloggning med Apple. Det kräver en ny leverantör i Supabase och en knapp även på webben om kontot ska kunna användas på båda ställena.</li>
+<li><strong>Integritetsuppgifter:</strong> Apples integritetsetiketter och Googles Data safety-formulär. PostHog och Gemini måste redovisas.</li>
+<li><strong>Konton:</strong> Apple Developer Program 99 dollar om året, Google Play 25 dollar en gång. Som företag krävs ett D-U-N-S-nummer (gratis, tar en till två veckor). Ett privat Google-konto kräver dessutom 12 testare i 14 dagar före publicering, ett företagskonto gör det inte.</li>
+<li><strong>Granskning:</strong> Apple brukar svara inom ett till två dygn, första versionen kan ta flera rundor. Räkna med en vecka.</li>
+</ul>
+
+<h2 class="ny"><span class="num">5</span>Vad som ska byggas</h2>
+<table>
+<tr><th>Del</th><th>Innehåll</th><th class="n">Insats</th></tr>
+<tr><td>Appskal</td><td>Capacitor-projekt i en egen mapp (<code>app/</code> i repot, som <code>video/</code>), laddar jobbcoach.ai och startar i <code>/dashboard/tester</code>. Ikoner och startskärm från PWA-grafiken. Bottennavet visar bara testdelarna i appen.</td><td class="n">3–4 d</td></tr>
+<tr><td>Inloggning</td><td>Inloggning med Apple (Supabase-leverantör, knapp i appen och på webben), Google via systemets inloggningsfönster, Universal Links och App Links för mejllänkar.</td><td class="n">4–5 d</td></tr>
+<tr><td>Köp i appen</td><td>Produkter i App Store Connect och Play Console (månad 149 kr som prenumeration, Dagspasset 49 kr som engångsköp). RevenueCat för kvitton och prenumerationsstatus (gratis upp till 2&nbsp;500 dollar i månadsintäkt), webhook som skriver <code>premium_grants</code> med källa app_store eller play. PaywallCard visar butikens köp när sidan körs i appen.</td><td class="n">6–8 d</td></tr>
+<tr><td>Push</td><td>Firebase Cloud Messaging för båda plattformarna, en tabell för enhetstoken, påminnelse om dagens pass vid vald tid via befintlig cron. Inställning för av och på.</td><td class="n">3–4 d</td></tr>
+<tr><td>Butiksmaterial</td><td>Skärmbilder för 6,9 tum och Android, texter på svenska, integritetsuppgifter, åldersgräns. Design via artefakt för ägarens godkännande.</td><td class="n">2–3 d</td></tr>
+<tr><td>Test och granskning</td><td>Riktig iPhone och Android som ny användare (registrera, gör pass, köp i sandlåda, push, radera konto), TestFlight och intern testkanal, granskningsrundor.</td><td class="n">5–7 d</td></tr>
+<tr class="sum"><td>Totalt</td><td></td><td class="n">23–31 d</td></tr>
+</table>
+<p>Två tekniska förbehåll. Capacitor-bygget för iPhone kräver en Mac med Xcode; vi har Windows. Det löses med en molnbyggtjänst (Codemagic eller Expo EAS för Capacitor, gratisnivå räcker för låg takt) eller en hyrd Mac. Och sidorna laddas från nätet, så laddtiden i appen är vår prestandabudget för inloggat (LCP under 1,5 s på appytorna); den ska mätas i appen, inte bara i Chrome.</p>
+
+<h2><span class="num">6</span>Kostnad och intäkt</h2>
+<table>
+<tr><th>Post</th><th class="n">Första året</th></tr>
+<tr><td>Apple Developer Program</td><td class="n">cirka 1&nbsp;100 kr</td></tr>
+<tr><td>Google Play (engång)</td><td class="n">cirka 280 kr</td></tr>
+<tr><td>RevenueCat, Firebase, molnbygge</td><td class="n">0 kr på gratisnivåerna</td></tr>
+<tr><td>Butiksavgift på köp i appen</td><td class="n">15 % av appköpen</td></tr>
+<tr class="sum"><td>Fast kostnad</td><td class="n">cirka 1&nbsp;400 kr</td></tr>
+</table>
+<p>Appen betalar de fasta kostnaderna med ungefär en månadsprenumeration var tredje månad. Det är inte den kalkylen som avgör. Det som avgör är om push för dagens pass ökar hur många som kommer tillbaka och om köp i appen (ett tryck med Face ID i stället för kortuppgifter) höjer andelen som köper på mobil. Båda går att mäta från första veckan.</p>
+<p>Det vi inte ska räkna med: att appen i sig ger ny trafik. Butikssök på svenska efter logiktest och rekryteringstest har okänd volym, och appar utan recensioner syns dåligt de första månaderna.</p>
+
+<h2><span class="num">7</span>Plan</h2>
+<table>
+<tr><th>När</th><th>Vad</th></tr>
+<tr><td>Nu till 30 nov</td><td>Ägaren skaffar D-U-N-S-nummer och företagskonton hos Apple och Google (ledtiden är längst här). Ingen kod under Black Week.</td></tr>
+<tr><td>1–12 dec</td><td>Appskal, inloggning med Apple, länkar. Design av butiksbilder och appens startvy i artefakt.</td></tr>
+<tr><td>8–19 dec</td><td>Köp i appen med RevenueCat, push för dagens pass.</td></tr>
+<tr><td>15–23 dec</td><td>Klicktest på riktiga telefoner, TestFlight och intern testkanal, inskickning till granskning.</td></tr>
+<tr><td>Början av jan</td><td>Publicering i båda butikerna, i tid till januari. Avläsning efter fyra veckor.</td></tr>
+</table>
+<h3>Mätning</h3>
+<ul>
+<li>Nya händelser: app_open (plattform), push_sent, push_opened, iap_started, iap_completed (produkt, plattform).</li>
+<li>Jämförelse efter fyra veckor: andel som gör ett pass dag 2 till 7, appanvändare mot mobilwebb; köp per aktiv användare, app mot mobilwebb.</li>
+<li>Avbrottsgräns: under 30 installationer eller ingen skillnad i återkomst efter åtta veckor betyder att vi slutar lägga tid och låter appen stå i underhållsläge.</li>
+</ul>
+
+<h2><span class="num">8</span>Datakvalitet och vad vi inte kan se</h2>
+<ul>
+<li>Volymerna är små. 67 inloggade på 30 dagar och 23 inloggade som gjort tester med känt system. Fördelningen iPhone mot Android är riktning, inte nivå.</li>
+<li>Siffrorna från PostHog är inte filtrerade mot testkontona i <code>admin_undantagna_konton</code>. Ägarens och QA:s besök kan ligga i desktopsiffran för inloggade.</li>
+<li>Butikssökvolymen på svenska kan vi inte mäta före publicering. App Store Connect visar visningar och sökningar först när appen finns.</li>
+<li>Avgifterna är hämtade från Apples och Googles besked i höstas. Apples EU-villkor gäller sedan 1 oktober 2026 och har ändrats tre gånger på två år, så de ska kontrolleras igen vid inskickning.</li>
+<li>Påståendet att RevenueCat och Firebase räcker på gratisnivå bygger på dagens volym.</li>
+</ul>
+
+<div class="box acc">
+<h4>Behöver ägarens beslut</h4>
+<ol>
+<li><strong>Gå vidare eller inte.</strong> Väg C, 4 till 6 veckor, start 1 december.</li>
+<li><strong>Företagskonton.</strong> D-U-N-S-nummer och utvecklarkonton hos Apple och Google i företagets namn. Det kan bara du göra.</li>
+<li><strong>Pris i appen.</strong> Samma pris som på webben (149 kr och 49 kr) och vi tar avgiften, eller högre pris i appen. Vi rekommenderar samma pris.</li>
+<li><strong>Vad appen innehåller.</strong> Bara testerna, eller hela Jobbcoach. Vi rekommenderar bara testerna: tydligare i butiken, mindre att granska, och i linje med att testerna är kärnan.</li>
+<li><strong>Push.</strong> Påminnelse om dagens pass, en gång per dag på vald tid, av som standard eller på som standard. Vi rekommenderar att fråga efter första passet.</li>
+</ol>
+</div>
+
+<footer>jobbcoach.ai · utredning-app-tester-2026-11-13 · Källor om avgifter: apple.com/newsroom/2026/08/apple-announces-changes-for-apps-in-the-european-union, Googles EEA External Offers Program (sammanfattat av RevenueCat och Strataigize). Inget i rapporten är driftsatt.</footer>
+</div>
+</body></html>
