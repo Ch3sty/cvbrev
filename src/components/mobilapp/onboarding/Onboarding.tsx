@@ -63,7 +63,7 @@ const FIGUR: Record<MittTest, AppTyp> = {
 };
 /** Ordningen i konceptet: två och två, de breda sist. */
 const ORDNING: MittTest[] = ['matrigma', 'iprov', 'alva', 'shl', 'aon', 'lokforare', 'personlighet', 'annat'];
-const KORT_RAD: Partial<Record<MittTest, string>> = { iprov: 'I-provet. Även mönstring, Tullverket', lokforare: 'TCC, ProTrain, MTR' };
+const KORT_RAD: Partial<Record<MittTest, string>> = { iprov: 'I-provet. Även mönstringen', lokforare: 'TCC, ProTrain, MTR' };
 
 type Resultat = { vm: MatningResultat; antal: number; sessionId: string };
 

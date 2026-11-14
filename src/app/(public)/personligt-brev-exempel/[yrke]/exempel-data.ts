@@ -695,8 +695,8 @@ Emma Andersson`
 
     relateradeArtiklar: [
       {
-        titel: 'Sommarjobb för studenter: guide till ansökan 2026',
-        slug: 'sommarjobb-student-guide'
+        titel: 'Söka sommarjobb: när ansökningarna öppnar, regler och lön',
+        slug: 'soka-sommarjobb'
       },
       {
         titel: 'CV-tips för studenter utan arbetslivserfarenhet',

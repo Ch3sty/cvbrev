@@ -280,7 +280,9 @@ function injectClusterCta(content: string, verktyg: InlineVerktyg): string {
     }
 
     // Artikeln har ett eget provkort för sin testtyp (TypProvKort med
-    // ersatterProvkort): då ska klustrets matriskort inte läggas till.
+    // ersatterProvkort) eller ett inbäddat prov som ersätter kortet
+    // (<ArtikelProv ... ersatterProvkort />): då ska klustrets matriskort inte
+    // läggas till, annars får sidan två prov.
     if (content.includes('ersatterProvkort')) {
         return content;
     }

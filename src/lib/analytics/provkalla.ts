@@ -60,6 +60,7 @@ export const ARTIKEL_MITT_TEST: Readonly<Record<string, MittTest>> = {
   'shl-test': 'shl',
   'aon-cut-e-test': 'aon',
   'lokforare-test': 'lokforare',
+  'tester-hos-myndigheter': 'annat',
 }
 
 /** Valen där provdatumet frågas direkt efter kontot (beslut 4). */

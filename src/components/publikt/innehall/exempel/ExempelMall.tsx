@@ -31,6 +31,7 @@ import AnsokanPar from './AnsokanPar'
 import YrkesKarta from '@/components/jobbkartan/YrkesKarta'
 import { punkter, fragor, numrera, ankarNummer, brevStycken, type ExempelTyp, type Not } from './exempel-data'
 import { brevFalt } from './Papper'
+import { getAllPostsMeta } from '@/lib/blog'
 import './exempel.css'
 
 function kategoriNamn(kategori: string | undefined): string | undefined {
@@ -73,6 +74,12 @@ export default function ExempelMall({
     const g = galleri.find((y) => y.slug === r.slug) ?? CV_GALLERI.find((y) => y.slug === r.slug)
     return { yrke: r.yrke, slug: r.slug, kategori: g?.kategori, kategoriNamn: kategoriNamn(g?.kategori) }
   })
+
+  // Relaterade artiklar: bara de som finns, som länkar (aldrig 'Kommer snart').
+  const finns = new Set(getAllPostsMeta().map((p) => p.slug))
+  const artiklar = ((data.relateradeArtiklar ?? []) as { titel: string; slug: string }[]).filter(
+    (a, i, alla) => finns.has(a.slug) && alla.findIndex((b) => b.slug === a.slug) === i,
+  )
 
   const brev = cv ? null : brevFalt(data.exempelBrev)
   const papperId = 'exempel-papper'
@@ -244,7 +251,7 @@ export default function ExempelMall({
       </Rum>
 
       {/* 8. Fler yrken, och för brev med relaterade artiklar och verktyg */}
-      {relaterade.length || data.relateradeArtiklar?.length || data.relateradeVerktyg?.length ? (
+      {relaterade.length || artiklar.length || data.relateradeVerktyg?.length ? (
         <Rum yta="mark">
           <div className="pub-wrap">
             {relaterade.length ? (
@@ -257,16 +264,16 @@ export default function ExempelMall({
                 <YrkesKort yrken={relaterade} typ={typ} />
               </>
             ) : null}
-            {data.relateradeArtiklar?.length ? (
+            {artiklar.length ? (
               <div style={{ marginTop: 56 }}>
                 <p className="pub-kick">Läs mer</p>
                 <h2 className="pub-h2">Mer om {yrkeLitet}</h2>
                 <div className="ib-lankkort">
-                  {(data.relateradeArtiklar as { titel: string; slug: string }[]).map((a) => (
-                    <div key={a.slug}>
+                  {artiklar.map((a) => (
+                    <Link key={a.slug} href={`/artiklar/${a.slug}`}>
                       <h3>{a.titel}</h3>
-                      <p>Kommer snart</p>
-                    </div>
+                      <span className="pub-lank">Läs artikeln</span>
+                    </Link>
                   ))}
                 </div>
               </div>

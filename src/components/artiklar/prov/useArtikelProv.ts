@@ -13,7 +13,7 @@ import { capture } from '@/lib/analytics/events'
 import { mittTestForArtikel, sparaProvkalla } from '@/lib/analytics/provkalla'
 import { storePendingTestSession } from '@/lib/letters/claim-draft-client'
 import { sparaProv, type ProvaResultat, type Rutnat } from '@/lib/tests/prova-lokalt'
-import type { ProvTyp } from '@/lib/tests/prov-typer'
+import { PROV_MITT_TEST, type ProvTyp } from '@/lib/tests/prov-typer'
 
 export type ArtikelProvFas = 'forsta' | 'pagar' | 'resultat'
 
@@ -113,7 +113,7 @@ export function useArtikelProv<U>({
           const uppgifter = lasUppgifter(data)
           extra.current = data
           svar.current = [s]
-          const mitt = mittTestForArtikel(slug)
+          const mitt = mittTestForArtikel(slug) ?? PROV_MITT_TEST[typ]
           sparaProvkalla({ slug, via: 'smakprov', ...(mitt ? { mitt_test: mitt } : {}) })
           capture('sample_started', { kind: 'test', cluster: 'test', test_kind: typ, plats: 'artikel', slug })
           setLage((l) => ({ ...l, fas: 'pagar', uppgifter, index: 1, total: uppgifter.length, token: String(data.token), laddar: false }))
