@@ -133,7 +133,7 @@ export default function ProvaFlow({ typ: typProp = 'matris', exempel = null }: {
       setAnswers(new Array(started.questions.length).fill(-1))
       setIndex(0)
       setPhase('running')
-      capture('sample_started', { kind: 'test', cluster: 'test' })
+      capture('sample_started', { kind: 'test', cluster: 'test', test_kind: typ, plats: 'prova' })
       // Kom besökaren från en artikel blir källan smakprov:<slug>.
       sparaProvkalla({ via: 'smakprov' })
     } catch {

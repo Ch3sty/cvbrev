@@ -1,0 +1,370 @@
+{
+ "_om": "Undantag för Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md), plan H (K4 till K6), 2026-11-14. Inga länkar eller FAQ-frågor tas bort. H2:n i personligt-brev-exempel-generella står kvar (\"30+ yrken\" är sant med 89, och artiklarnas rubrikträd får inte ändras).",
+ "META_BYTT": [
+  {
+   "path": "/cv-mallar",
+   "falt": "title",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: \"CV-mall\" först, 41 mallar och 3 gratis ur konstanterna; ItemList description utan påståendet att alla är ATS-säkra; FAQ tvättad och tre frågor om chef, karriärbyte och byte av mall (K6)."
+  },
+  {
+   "path": "/cv-mallar",
+   "falt": "description",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: \"CV-mall\" först, 41 mallar och 3 gratis ur konstanterna; ItemList description utan påståendet att alla är ATS-säkra; FAQ tvättad och tre frågor om chef, karriärbyte och byte av mall (K6)."
+  },
+  {
+   "path": "/exempel",
+   "falt": "title",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 c: /exempel är hubb, inte målsida; WebPage-schemat följer ny title och description, 41 mallar ur konstanten i stället för 25."
+  },
+  {
+   "path": "/exempel",
+   "falt": "description",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 c: /exempel är hubb, inte målsida; WebPage-schemat följer ny title och description, 41 mallar ur konstanten i stället för 25."
+  },
+  {
+   "path": "/cv-exempel",
+   "falt": "title",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: huvudordet först, inget årtal; FAQ-svaret om gratis rättat (en CV-analys per konto) och tre frågor om situationer (K6)."
+  },
+  {
+   "path": "/cv-exempel",
+   "falt": "description",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: huvudordet först, inget årtal; FAQ-svaret om gratis rättat (en CV-analys per konto) och tre frågor om situationer (K6)."
+  },
+  {
+   "path": "/personligt-brev-exempel",
+   "falt": "title",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: galleriet tar exempelorden, mallordet ägs av personligt-brev-mall-gratis; ItemList med exempelnamn; FAQ-svaret om gratis rättat (ett brev i veckan) och tre frågor om situationer (K6)."
+  },
+  {
+   "path": "/personligt-brev-exempel",
+   "falt": "description",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: galleriet tar exempelorden, mallordet ägs av personligt-brev-mall-gratis; ItemList med exempelnamn; FAQ-svaret om gratis rättat (ett brev i veckan) och tre frågor om situationer (K6)."
+  },
+  {
+   "path": "/artiklar/skriva-personligt-brev-guide",
+   "falt": "title",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: \"Personligt brev\" först, mallordet ur title och description; länk till mallartikeln och 89 yrken (K4 b)."
+  },
+  {
+   "path": "/artiklar/skriva-personligt-brev-guide",
+   "falt": "description",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: \"Personligt brev\" först, mallordet ur title och description; länk till mallartikeln och 89 yrken (K4 b)."
+  },
+  {
+   "path": "/artiklar/personligt-brev-mall-gratis",
+   "falt": "title",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: titeln lovar inte nedladdning av exempel; 76 blir 89 i text och FAQ-svar."
+  },
+  {
+   "path": "/artiklar/personligt-brev-mall-gratis",
+   "falt": "description",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: titeln lovar inte nedladdning av exempel; 76 blir 89 i text och FAQ-svar."
+  },
+  {
+   "path": "/artiklar/cv-mall-gratis-guide",
+   "falt": "title",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: stödsidan slutar konkurrera om \"cv mall\", länk till /cv-mallar högt upp, 74 blir 89 i text och FAQ-svar."
+  },
+  {
+   "path": "/artiklar/cv-mall-gratis-guide",
+   "falt": "description",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: stödsidan slutar konkurrera om \"cv mall\", länk till /cv-mallar högt upp, 74 blir 89 i text och FAQ-svar."
+  },
+  {
+   "path": "/artiklar/personligt-brev-exempel-generella",
+   "falt": "title",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: stödsidan tar sin egen långsvans, länk till galleriet, \"30+\" och \"över 30\" blir 89 i text, H2 och FAQ-svar."
+  },
+  {
+   "path": "/artiklar/personligt-brev-exempel-generella",
+   "falt": "description",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: stödsidan tar sin egen långsvans, länk till galleriet, \"30+\" och \"över 30\" blir 89 i text, H2 och FAQ-svar."
+  }
+ ],
+ "H1_BYTT": [
+  {
+   "path": "/cv-mallar",
+   "fore": "CV-mallar för svenska yrken gratis eller i Premium",
+   "efter": "CV-mallar att fylla i och ladda ner. 41 mallar, 3 gratis.",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: \"CV-mall\" först, 41 mallar och 3 gratis ur konstanterna; ItemList description utan påståendet att alla är ATS-säkra; FAQ tvättad och tre frågor om chef, karriärbyte och byte av mall (K6)."
+  },
+  {
+   "path": "/exempel",
+   "fore": "CV-exempel, brev-exempel och CV-mallar för svenska yrken.",
+   "efter": "Exempel för din jobbansökan: CV, personligt brev och mallar.",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 c: /exempel är hubb, inte målsida; WebPage-schemat följer ny title och description, 41 mallar ur konstanten i stället för 25."
+  },
+  {
+   "path": "/cv-exempel",
+   "fore": "89 CV-exempel. Ett för ditt yrke.",
+   "efter": "CV-exempel för 89 yrken. Börja med ditt.",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: huvudordet först, inget årtal; FAQ-svaret om gratis rättat (en CV-analys per konto) och tre frågor om situationer (K6)."
+  },
+  {
+   "path": "/personligt-brev-exempel",
+   "fore": "Personligt brev-mallar och exempel: 89 yrken (gratis)",
+   "efter": "Personligt brev-exempel för 89 yrken. Börja med ditt.",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: galleriet tar exempelorden, mallordet ägs av personligt-brev-mall-gratis; ItemList med exempelnamn; FAQ-svaret om gratis rättat (ett brev i veckan) och tre frågor om situationer (K6)."
+  },
+  {
+   "path": "/artiklar/skriva-personligt-brev-guide",
+   "fore": "Skriva personligt brev: så får du rekryteraren att läsa hela",
+   "efter": "Personligt brev: så skriver du ett som rekryteraren läser hela",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: \"Personligt brev\" först, mallordet ur title och description; länk till mallartikeln och 89 yrken (K4 b)."
+  },
+  {
+   "path": "/artiklar/personligt-brev-mall-gratis",
+   "fore": "Personligt brev mall gratis: vad du ska använda",
+   "efter": "Personligt brev mall gratis: den som fungerar och de du ska undvika",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: titeln lovar inte nedladdning av exempel; 76 blir 89 i text och FAQ-svar."
+  }
+ ],
+ "LD_UNDANTAG": [
+  {
+   "path": "/cv-mallar",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: \"CV-mall\" först, 41 mallar och 3 gratis ur konstanterna; ItemList description utan påståendet att alla är ATS-säkra; FAQ tvättad och tre frågor om chef, karriärbyte och byte av mall (K6).",
+   "andrade": [
+    "FAQPage",
+    "ItemList"
+   ]
+  },
+  {
+   "path": "/exempel",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 c: /exempel är hubb, inte målsida; WebPage-schemat följer ny title och description, 41 mallar ur konstanten i stället för 25.",
+   "andrade": [
+    "WebPage"
+   ]
+  },
+  {
+   "path": "/cv-exempel",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: huvudordet först, inget årtal; FAQ-svaret om gratis rättat (en CV-analys per konto) och tre frågor om situationer (K6).",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/personligt-brev-exempel",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: galleriet tar exempelorden, mallordet ägs av personligt-brev-mall-gratis; ItemList med exempelnamn; FAQ-svaret om gratis rättat (ett brev i veckan) och tre frågor om situationer (K6).",
+   "andrade": [
+    "FAQPage",
+    "ItemList"
+   ]
+  },
+  {
+   "path": "/cv-exempel/projektledare",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 c: BreadcrumbList följer den synliga brödsmulan (Hem, Exempel, galleriet, yrket) med namnen CV-exempel och Personligt brev-exempel.",
+   "andrade": [
+    "BreadcrumbList"
+   ]
+  },
+  {
+   "path": "/personligt-brev-exempel/projektledare",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 c: BreadcrumbList följer den synliga brödsmulan (Hem, Exempel, galleriet, yrket) med namnen CV-exempel och Personligt brev-exempel.",
+   "andrade": [
+    "BreadcrumbList"
+   ]
+  },
+  {
+   "path": "/cv-exempel/student",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 c: BreadcrumbList följer den synliga brödsmulan (Hem, Exempel, galleriet, yrket) med namnen CV-exempel och Personligt brev-exempel.",
+   "andrade": [
+    "BreadcrumbList"
+   ]
+  },
+  {
+   "path": "/personligt-brev-exempel/student",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 c: BreadcrumbList följer den synliga brödsmulan (Hem, Exempel, galleriet, yrket) med namnen CV-exempel och Personligt brev-exempel.",
+   "andrade": [
+    "BreadcrumbList"
+   ]
+  },
+  {
+   "path": "/artiklar/skriva-personligt-brev-guide",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: \"Personligt brev\" först, mallordet ur title och description; länk till mallartikeln och 89 yrken (K4 b).",
+   "andrade": [
+    "BlogPosting",
+    "BreadcrumbList"
+   ]
+  },
+  {
+   "path": "/artiklar/personligt-brev-mall-gratis",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: titeln lovar inte nedladdning av exempel; 76 blir 89 i text och FAQ-svar.",
+   "andrade": [
+    "BlogPosting",
+    "BreadcrumbList",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-mall-gratis-guide",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: stödsidan slutar konkurrera om \"cv mall\", länk till /cv-mallar högt upp, 74 blir 89 i text och FAQ-svar.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-mall-word-gratis",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: en mening med länk till målsidan och huvudordet i ankartexten högt upp, gamla antal rättade; BlogPostings wordCount följer texten.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-mall-pdf-gratis",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: en mening med länk till målsidan och huvudordet i ankartexten högt upp, gamla antal rättade; BlogPostings wordCount följer texten.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/vad-ar-ett-personligt-brev",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: en mening med länk till målsidan och huvudordet i ankartexten högt upp, gamla antal rättade; BlogPostings wordCount följer texten.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-och-personligt-brev",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: en mening med länk till målsidan och huvudordet i ankartexten högt upp, gamla antal rättade; BlogPostings wordCount följer texten.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/personligt-brev-jobbansokan",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: en mening med länk till målsidan och huvudordet i ankartexten högt upp, gamla antal rättade; BlogPostings wordCount följer texten.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/hur-skriver-man-ett-personligt-brev",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: en mening med länk till målsidan och huvudordet i ankartexten högt upp, gamla antal rättade; BlogPostings wordCount följer texten.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/tips-pa-personligt-brev",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: en mening med länk till målsidan och huvudordet i ankartexten högt upp, gamla antal rättade; BlogPostings wordCount följer texten.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/bra-personligt-brev",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: en mening med länk till målsidan och huvudordet i ankartexten högt upp, gamla antal rättade; BlogPostings wordCount följer texten.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/personligt-brev-mall-word",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: en mening med länk till målsidan och huvudordet i ankartexten högt upp, gamla antal rättade; BlogPostings wordCount följer texten.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/personligt-brev-exempel-generella",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: stödsidan tar sin egen långsvans, länk till galleriet, \"30+\" och \"över 30\" blir 89 i text, H2 och FAQ-svar.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-exempel-yrken",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: en mening med länk till målsidan och huvudordet i ankartexten högt upp, gamla antal rättade; BlogPostings wordCount följer texten.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/exempel-pa-cv-guide",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: en mening med länk till målsidan och huvudordet i ankartexten högt upp, gamla antal rättade; BlogPostings wordCount följer texten.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/skriva-cv-guide",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: en mening med länk till målsidan och huvudordet i ankartexten högt upp, gamla antal rättade; BlogPostings wordCount följer texten.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  }
+ ],
+ "RUBRIK_BYTT": [
+  {
+   "path": "/cv-exempel",
+   "fore": "h2 Allt du behöver veta om CV-mallar",
+   "efter": "h2 Så använder du ett CV-exempel som mall",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K6: guiden på galleriet tar exempelordet, så att sidan slutar konkurrera med /cv-mallar om mallorden."
+  },
+  {
+   "path": "/personligt-brev-exempel",
+   "fore": "h2 Allt du behöver veta om mallar för personligt brev",
+   "efter": "h2 Så använder du ett exempel på personligt brev som mall",
+   "datum": "2026-11-14",
+   "skal": "Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K6: guiden på galleriet tar exempelordet, mallordet ägs av personligt-brev-mall-gratis."
+  },
+  {
+   "path": "/cv-mallar",
+   "fore": "h2 Yrkesmallar — för ditt specifika yrke",
+   "efter": "h2 Yrkesmallar för ditt specifika yrke",
+   "datum": "2026-11-14",
+   "skal": "Talstreck: rubriken utan talstreck, samma ord (SEO-granskningen K4 till K6, punkt 4)."
+  }
+ ]
+}

@@ -15,7 +15,8 @@
  */
 import Link from 'next/link'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
-import { REKRYTERINGSTESTER_FAQ_ITEMS } from './components/rekryteringstester-faq-data'
+import { MYNDIGHETER_SLUG, faqMedMyndigheter } from './components/rekryteringstester-faq-data'
+import { getPostBySlug } from '@/lib/blog'
 import { SALD_PLAN, paketKort, paketNamn, prisPeriod } from '@/lib/plans/plans'
 import PubliktSida from '@/components/publikt/PubliktSida'
 import Hjalte from '@/components/publikt/Hjalte'
@@ -151,6 +152,42 @@ const TESTTYPER: {
  * (ARTIKEL_MITT_TEST), och en parameter på en indexerad sida ger bara
  * dubbla adresser. Klicken mäts som article_cta_clicked med variant och target.
  */
+/**
+ * Inför testet (SEO-planen U15, förslaget K5, 2026-11-14): tre guider från
+ * inbjudan till resultatet. Ett kort visas bara när artikeln finns i bygget,
+ * så att blocket kan ligga på main före artiklarna och tändas av sig självt
+ * när de publiceras, utan komponentändring under kampanjfrysen.
+ */
+const INFOR_TESTET = [
+  {
+    slug: 'logiktest-tips',
+    rubrik: 'Tips inför testet',
+    text: 'Vad forskningen säger om övning, en plan för veckan före och sju saker att komma ihåg på testdagen.',
+    variant: 'tips',
+  },
+  {
+    slug: 'stanine-testresultat',
+    rubrik: 'Så läser du resultatet',
+    text: 'Stanine 4, C 6 eller 7 av 10? Vi går igenom stanineskalan steg för steg, hur den förhåller sig till percentil och C-skala och vad 4 på I-provet betyder.',
+    variant: 'resultat',
+  },
+  {
+    slug: MYNDIGHETER_SLUG,
+    rubrik: 'Tester hos myndigheter',
+    text: 'Vad nio statliga myndigheter själva skriver om sina tester, från Skatteverket till Säkerhetspolisen, och hur du förbereder dig när du inte vet vilket test det är.',
+    variant: 'myndigheter',
+  },
+] as const
+
+/** Samma läsning som artikelsidan (lib/blog), så att samma filer följer med bygget. */
+function artikelFinns(slug: string): boolean {
+  try {
+    return getPostBySlug(slug) !== null
+  } catch {
+    return false
+  }
+}
+
 function provHref(typ: ProvTyp, mitt: MittTest): string {
   return `${PROVA}?typ=${typ}&mitt_test=${mitt}`
 }
@@ -251,6 +288,8 @@ function TyppBild({ typ }: { typ: TypBildNamn }) {
 }
 
 export default function RekryteringstesterSida() {
+  const inforTestet = INFOR_TESTET.filter((g) => artikelFinns(g.slug))
+  const fragor = faqMedMyndigheter(artikelFinns(MYNDIGHETER_SLUG))
   // Inloggade hör hemma i verktyget, inte på säljsidan (C2).
 
   // === Schema.org markup ===
@@ -299,7 +338,7 @@ export default function RekryteringstesterSida() {
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: REKRYTERINGSTESTER_FAQ_ITEMS.map((item) => ({
+    mainEntity: fragor.map((item) => ({
       '@type': 'Question',
       name: item.q,
       acceptedAnswer: {
@@ -624,6 +663,49 @@ export default function RekryteringstesterSida() {
             </div>
           </Rum>
 
+          {/* 8b. Inför testet: tre guider, bara de som finns i bygget (U15). Efter Förbered dig, inte i säljföljden (säljgranskningen 14 nov). */}
+          {inforTestet.length ? (
+            <Rum yta="panel" id="infor-testet">
+              <div className="pub-wrap">
+                <p className="pub-kick">{inforTestet.length === 1 ? 'En guide' : inforTestet.length === 2 ? 'Två guider' : 'Tre guider'}</p>
+                <h2 className="pub-h2">Inför testet</h2>
+                <p className="pub-ingress" style={{ margin: '16px 0 36px' }}>
+                  Vet du vilket test som väntar, eller står det bara ”test” i inbjudan?{' '}
+                  {inforTestet.length === 3 ? 'De här tre guiderna' : 'Guiderna här'} tar dig från inbjudan till resultatet.
+                </p>
+                <div className="pub-raster pub-raster-3 pub-rum-tran">
+                  {inforTestet.map((g) => (
+                    <div className="pub-kort" key={g.slug}>
+                      <h3 className="pub-h4">{g.rubrik}</h3>
+                      <p>{g.text}</p>
+                      <div className="pub-handling" style={{ marginTop: 12 }}>
+                        <MattLank
+                          className="pub-lank"
+                          href={`/artiklar/${g.slug}`}
+                          handelse="article_cta_clicked"
+                          egenskaper={{ cluster: 'test', position: 'inline', variant: `hub-infor-${g.variant}`, target: `/artiklar/${g.slug}` }}
+                        >
+                          {g.rubrik}
+                        </MattLank>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {/* Vägen tillbaka till provet, mätt för sig (säljgranskningen 14 nov). */}
+                <div className="pub-handling" style={{ marginTop: 24 }}>
+                  <MattLank
+                    className="pub-lank"
+                    href={PROVA}
+                    handelse="article_cta_clicked"
+                    egenskaper={{ cluster: 'test', position: 'inline', variant: 'hub-infor-prov', target: PROVA }}
+                  >
+                    Prova fem frågor utan konto
+                  </MattLank>
+                </div>
+              </div>
+            </Rum>
+          ) : null}
+
           {/* 9. Guiderna, synliga utan klick */}
           <Rum yta="mark" id="guider">
             <div className="pub-wrap">
@@ -664,7 +746,7 @@ export default function RekryteringstesterSida() {
                     .
                   </>
                 }
-                fragor={REKRYTERINGSTESTER_FAQ_ITEMS}
+                fragor={fragor}
               />
             </div>
           </Rum>

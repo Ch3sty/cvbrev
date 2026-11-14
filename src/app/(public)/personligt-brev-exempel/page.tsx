@@ -1,5 +1,5 @@
 /**
- * /personligt-brev-exempel - galleri-sida med 76 personliga brev-exempel.
+ * /personligt-brev-exempel - galleri-sida med personligt brev-exempel per yrke.
  * Renderar GalleriPageContent med brev-yrkes-data.
  * SEO: ItemList + BreadcrumbList + FAQPage JSON-LD + dynamisk metadata.
  */
@@ -7,18 +7,22 @@ import type { Metadata } from 'next'
 import GalleriPageContent from '@/app/(public)/exempel/components/GalleriPageContent'
 import { BREV_GALLERI } from '@/app/(public)/exempel/components/galleri-data'
 import { BREV_GALLERI_FAQ } from '@/app/(public)/exempel/components/galleri-faq'
+import { KATEGORIER } from '@/app/(public)/exempel/components/exempel-data'
 
 const ANTAL_BREV = BREV_GALLERI.length
+// Huvudordsplanen steg 1 (SEO-förslaget K4 a, 2026-11-14): galleriet tar
+// exempelorden, mallordet ägs av artikeln personligt-brev-mall-gratis.
+const TITEL = `Personligt brev exempel: ${ANTAL_BREV} färdiga brev för svenska yrken`
+const BESKRIVNING = `Personligt brev exempel för ${ANTAL_BREV} yrken, skrivna för svenska rekryterare. Se inledning, koppling till annonsen och avslutning, och använd brevet som mall.`
 
 export function generateMetadata(): Metadata {
   return {
-    title: `Personligt brev-mallar: ${ANTAL_BREV} färdiga exempel för svenska jobb | Jobbcoach.ai`,
-    description: `${ANTAL_BREV} färdiga mallar för personligt brev inom vård, tech, ekonomi, service, utbildning, offentlig sektor och hantverk. Skrivna för svenska rekryterare och gratis att använda som mall.`,
-    keywords:
-      'personligt brev mall, personligt brev mall gratis, gratis personligt brev mall, mall personligt brev, ansökningsbrev mall, personligt brev exempel, personligt brev mall word, jobbansökan exempel',
+    title: TITEL,
+    description: BESKRIVNING,
+    keywords: 'personligt brev exempel, exempel på personligt brev, personligt brev exempel yrke, jobbansökan exempel',
     openGraph: {
-      title: `${ANTAL_BREV} mallar för personligt brev till svenska yrken | Jobbcoach.ai`,
-      description: `Färdiga mallar för personligt brev till ${ANTAL_BREV} yrken. Skrivna för svenska rekryterare. Helt gratis.`,
+      title: TITEL,
+      description: BESKRIVNING,
       type: 'website',
       locale: 'sv_SE',
       url: 'https://www.jobbcoach.ai/personligt-brev-exempel',
@@ -26,8 +30,8 @@ export function generateMetadata(): Metadata {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${ANTAL_BREV} mallar för personligt brev till svenska yrken | Jobbcoach.ai`,
-      description: `Färdiga mallar för personligt brev till ${ANTAL_BREV} yrken. Helt gratis.`,
+      title: TITEL,
+      description: BESKRIVNING,
     },
     alternates: {
       canonical: 'https://www.jobbcoach.ai/personligt-brev-exempel',
@@ -40,13 +44,13 @@ export default function PersonligtBrevExempelGalleri() {
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'Mallar för personligt brev till svenska yrken',
-    description: `Bibliotek med ${ANTAL_BREV} mallar för personligt brev inom vård, tech, ekonomi, service, utbildning, offentlig sektor och hantverk.`,
+    name: 'Personligt brev-exempel för svenska yrken',
+    description: `${ANTAL_BREV} exempel på personligt brev för yrken i ${KATEGORIER.length} kategorier.`,
     numberOfItems: BREV_GALLERI.length,
     itemListElement: BREV_GALLERI.map((y, idx) => ({
       '@type': 'ListItem',
       position: idx + 1,
-      name: `Mall för personligt brev: ${y.namn}`,
+      name: `Personligt brev-exempel: ${y.namn}`,
       url: `https://www.jobbcoach.ai/personligt-brev-exempel/${y.slug}`,
     })),
   }

@@ -6,6 +6,7 @@ import 'server-only'
  * saknar spår av ett gammalt köp ändå inte får rabatten.
  */
 
+import { cache } from 'react'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { stripe } from '@/lib/stripe/server'
 import { aktivKampanj, harBetalat, type BetalProfil, type Kampanj } from './kampanj'
@@ -24,6 +25,12 @@ async function lasProfil(userId: string): Promise<ProfilRad | null> {
   return (data as ProfilRad | null) ?? null
 }
 
+/**
+ * Visningens läsning delas inom samma rendering: dashboard-layouten och
+ * provsidan frågar båda under kampanjen. Kassan läser alltid färskt.
+ */
+const lasProfilForVisning = cache(lasProfil)
+
 export interface Behorighet {
   /** Kampanjen som pågår, oavsett konto. */
   kampanj: Kampanj | null
@@ -36,7 +43,7 @@ export async function kampanjForVisning(userId: string, nu: Date): Promise<Behor
   const kampanj = aktivKampanj(nu)
   if (!kampanj) return { kampanj: null, behorig: null }
   try {
-    const profil = await lasProfil(userId)
+    const profil = await lasProfilForVisning(userId)
     return { kampanj, behorig: !harBetalat(profil) }
   } catch (error) {
     // Ett läsfel visar ingen kampanj. Hellre det än ett pris kassan sedan nekar.

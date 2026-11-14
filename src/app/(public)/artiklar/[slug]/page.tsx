@@ -64,6 +64,7 @@ import { TESTKORT_INTERVJU } from '@/components/artiklar/reklam/reklam-copy';
 import TypProvKort, { type ProvKortTyp } from '@/components/artiklar/reklam/TypProvKort';
 import ArtikelProv from '@/components/artiklar/prov/ArtikelProv';
 import { SALD_PLAN as PREMIUM_PLAN, prisPeriod as premiumPris } from '@/lib/plans/plans';
+import { MedKampanjPris } from '@/components/kampanj/Kampanj';
 import Signatur from '@/components/publikt/innehall/Signatur';
 import ArtikelFilm from '@/components/artiklar/ArtikelFilm';
 // Matris- och serieuppgifterna i testartiklarna, testernas figurritare (2026-11-09).
@@ -494,8 +495,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         TypProvKort: (p: { typ: ProvKortTyp }) => <TypProvKort typ={p.typ} cluster={cluster} slug={slug} />,
         // Uppgift 1 i artikeln, provet startar på sidan (SEO-planen 4.2, våg 1 och 2).
         ArtikelProv: (p: { typ: string }) => <ArtikelProv typ={p.typ} slug={slug} cluster={cluster} />,
-        // Premiumpriset ur PLANS i löptext: "149 kr i månaden".
-        PremiumPris: () => <>{premiumPris(PREMIUM_PLAN)}</>,
+        // Premiumpriset ur PLANS i löptext: "149 kr i månaden", under en
+        // kampanj "99 kr första månaden, sedan 149 kr i månaden" (H2).
+        PremiumPris: () => <MedKampanjPris text={premiumPris(PREMIUM_PLAN)} />,
         // Produktfilmen i testartiklarna, klicka för att spela (ArtikelFilm.tsx).
         Traningsfilm: () => <ArtikelFilm slug={slug} />,
         MatrisUppgift: MatrisUppgift,

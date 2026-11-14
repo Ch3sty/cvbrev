@@ -19,6 +19,7 @@ import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
 import { SpatialSvg } from '@/lib/spatialV1/ritare'
 import type { KubFigur } from '@/lib/spatialV1/types'
 import { nivakollHref, ovningsprovHref } from '@/lib/traning/rutter'
+import { MedKampanjPris } from '@/components/kampanj/Kampanj'
 
 export type ProvKortTyp = 'deduktiv' | 'talserie' | 'spatial' | 'ordforrad' | 'iprov'
 
@@ -176,7 +177,9 @@ export default function TypProvKort({ typ, cluster, slug }: { typ: ProvKortTyp; 
             {c.sekundar.text}
           </Link>
         </div>
-        <p className="pub-liten">{c.paketrad}</p>
+        <p className="pub-liten">
+          <MedKampanjPris text={c.paketrad} />
+        </p>
       </div>
       <div className="ib-prova-sida">
         <Bild typ={typ} />

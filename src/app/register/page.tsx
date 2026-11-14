@@ -12,9 +12,12 @@
 // står i .pub-sida, så att publikt v2:s tokens och mörkt läge gäller.
 
 import { headers } from 'next/headers'
+import { redirect } from 'next/navigation'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import RegisterFlode from '@/components/registrering/RegisterFlode'
-import { registerIngang } from '@/components/registrering/intent'
+import { inloggadFranRegister, registerIngang } from '@/components/registrering/intent'
+import { TRACK_CHOICE_PATH, VALKOMMEN_PATH } from '@/lib/onboarding/steps'
+import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 import PubliktSida from '@/components/publikt/PubliktSida'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { getClientIp } from '@/lib/rate-limit/ip'
@@ -30,6 +33,14 @@ export default async function RegisterPage({
     const v = params[namn]
     return typeof v === 'string' ? v : null
   })
+
+  // Redan inloggad (inte appens anonyma konto): inget formulär, utan dit
+  // registreringen skulle leda (H3, 2026-11-14). Proxyn har redan läst
+  // sessionen, så det här kostar ingen extra rundtur.
+  const inloggad = await hamtaVerifieradAnvandare().catch(() => null)
+  if (inloggad && !inloggad.is_anonymous) {
+    redirect(inloggadFranRegister(ingang, { valkommenPath: VALKOMMEN_PATH, sparvalPath: TRACK_CHOICE_PATH }))
+  }
 
   let provResultat = null
   if (ingang.smakprov?.typ === 'test') {

@@ -14,7 +14,7 @@ import { PLAN_BY_KEY, isPlanKey, type PlanKey, type PlanScope } from '@/lib/plan
 import { priceIdToPlanKey } from '@/lib/stripe/planPrices';
 import { captureServer } from '@/lib/analytics/server';
 import { scopeFromSubscription } from '@/lib/stripe/subscriptionScope';
-import { platsUrSource } from '@/lib/stripe/plats';
+import { kopKallaUrMetadata, platsUrSource } from '@/lib/stripe/plats';
 import type { Database } from '@/types/database.types';
 import {
   onPaymentFailed,
@@ -93,6 +93,8 @@ const capturePaidServerside = (params: {
     amountSek?: number;
     /** metadata.source på sessionen eller prenumerationen (spec-rummen avsnitt 7). */
     source?: unknown;
+    /** Kassans metadata, som bär konto_kalla och mitt_test (kopKalla.server.ts). */
+    metadata?: Record<string, string | undefined> | null;
 }): void => {
     // "betalvagg:matning" blir plats "matning"; annan source står som den är.
     const plats = platsUrSource(params.source);
@@ -101,6 +103,7 @@ const capturePaidServerside = (params: {
         scope: params.scope,
         amount_sek: params.amountSek,
         ...(plats ? { plats } : {}),
+        ...kopKallaUrMetadata(params.metadata),
     });
 };
 
@@ -388,6 +391,7 @@ export async function POST(request: Request) {
                              scope: updated.scope ?? 'allt',
                              amountSek: betaltOre !== null ? betaltOre / 100 : plan ? PLAN_BY_KEY[plan].amount : undefined,
                              source: fullSubscription.metadata?.source,
+                             metadata: fullSubscription.metadata,
                          });
                      }
 
@@ -484,6 +488,7 @@ export async function POST(request: Request) {
                        scope: 'allt',
                        amountSek: belopp,
                        source: eventData.metadata?.source,
+                       metadata: eventData.metadata,
                      });
 
                      // Kvittot. grantPremiumDays har redan spärrat omsända

@@ -9,7 +9,7 @@ import { ChevronRight, ShieldCheck, Crown, FileText, ArrowRight, CheckCircle2, E
 
 import Breadcrumb from '@/components/Breadcrumb'
 import FaqAccordion from '@/components/exempel-shared/FaqAccordion'
-import { getTemplateById } from '@/lib/cv/simple-templates'
+import { getTemplateById, isTemplateFree } from '@/lib/cv/simple-templates'
 import {
   IconVard,
   IconTech,
@@ -86,6 +86,10 @@ interface YrkesmallContentProps {
 
 export default function YrkesmallContent({ data, relaterade }: YrkesmallContentProps) {
   const freeTemplate = getTemplateById(data.freeMallId)
+  // Den första mallen är inte alltid en gratismall (YRKE_TILL_MALLAR pekar
+  // för många yrken på en mall i Premium). Märkningen följer registret, så
+  // att sidan aldrig kallar en Premium-mall gratis (SEO-förslaget F8, 2026-11-14).
+  const forstaGratis = isTemplateFree(data.freeMallId)
   const premiumTemplate = getTemplateById(data.premiumMallId)
 
   // Bygger generisk exempel-CV fOr den interaktiva preview-komponenten
@@ -179,25 +183,25 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
                 {freeTemplate && (
                   <Image
                     src={freeTemplate.imagePath}
-                    alt={`${freeTemplate.name} CV-mall för ${data.namnBestamd} (gratis)`}
+                    alt={`${freeTemplate.name} CV-mall för ${data.namnBestamd}${forstaGratis ? ' (gratis)' : ''}`}
                     fill
                     className="object-cover object-top"
                     sizes="(min-width: 1024px) 200px, 50vw"
                     priority
                   />
                 )}
-                <span className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-600 text-white text-[10px] font-bold">
-                  Gratis
+                <span className={`absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-white text-[10px] font-bold ${forstaGratis ? 'bg-emerald-600' : 'bg-amber-500'}`}>
+                  {forstaGratis ? 'Gratis' : `Ingår i ${PAKETRADER.bricka}`}
                 </span>
               </div>
               <div className="p-3 flex-1 flex flex-col">
                 <div className="font-black text-sm text-slate-900">{data.freeMallNamn}</div>
-                <div className="text-[11px] text-slate-600 mb-2">ATS-säker · ren design</div>
+                <div className="text-[11px] text-slate-600 mb-2">ATS-säker, ren design</div>
                 <Link
                   href="/verktyg/cv-mallar"
                   className="mt-auto inline-flex items-center justify-center gap-1 px-3 py-2 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition-colors"
                 >
-                  Använd gratis
+                  {forstaGratis ? 'Använd gratis' : 'Använd mallen'}
                   <ArrowRight className="w-3 h-3" strokeWidth={2.5} />
                 </Link>
               </div>
@@ -221,7 +225,7 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
               </div>
               <div className="p-3 flex-1 flex flex-col">
                 <div className="font-black text-sm text-slate-900">{data.premiumMallNamn}</div>
-                <div className="text-[11px] text-slate-600 mb-2">Foto + LinkedIn · visuellt rikare</div>
+                <div className="text-[11px] text-slate-600 mb-2">Foto och LinkedIn, visuellt rikare</div>
                 <Link
                   href="/verktyg/cv-mallar"
                   className="mt-auto inline-flex items-center justify-center gap-1 px-3 py-2 rounded-full text-white font-bold text-xs transition-all hover:shadow-lg"
@@ -265,7 +269,11 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
             Se ditt {data.namnBestamd}-CV i olika designer
           </h2>
           <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
-            Förhandsgranska ditt CV i vår gratismall {data.freeMallNamn} eller i {data.premiumMallNamn}, som ingår i Premium. Byt mall och typsnitt och se skillnaderna direkt.
+            Förhandsgranska ditt CV i{' '}
+            {forstaGratis
+              ? `vår gratismall ${data.freeMallNamn} eller i ${data.premiumMallNamn}, som ingår i Premium`
+              : `${data.freeMallNamn} eller ${data.premiumMallNamn}. Båda ingår i Premium`}
+            . Byt mall och typsnitt och se skillnaderna direkt.
           </p>
         </div>
         <YrkesmallInteractivePreview

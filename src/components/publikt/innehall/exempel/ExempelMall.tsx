@@ -259,7 +259,17 @@ export default function ExempelMall({
                 <p className="pub-kick">Andra yrken</p>
                 <h2 className="pub-h2">{cv ? 'Fler CV-exempel' : 'Fler personliga brev-exempel'}</h2>
                 <p className="pub-ingress" style={{ marginTop: 14 }}>
-                  Hitta inspiration från liknande yrken. Alla exempel följer samma ATS-optimerade upplägg.
+                  {cv ? (
+                    <>
+                      Hitta inspiration från liknande yrken, eller se alla{' '}
+                      <Link href="/cv-exempel">{CV_GALLERI.length} CV-exempel</Link>. Alla följer samma ATS-optimerade upplägg.
+                    </>
+                  ) : (
+                    <>
+                      Hitta inspiration från liknande yrken, eller se alla{' '}
+                      <Link href="/personligt-brev-exempel">{BREV_GALLERI.length} personligt brev-exempel</Link>. Alla följer samma upplägg.
+                    </>
+                  )}
                 </p>
                 <YrkesKort yrken={relaterade} typ={typ} />
               </>

@@ -538,6 +538,11 @@
 .ib-filter a em { font-style: normal; font-size: 12px; color: var(--vagg-mjuk); }
 .ib-filter a.aktiv { background: #fff; color: var(--rum-vagg); border-color: #fff; }
 .ib-filter a.aktiv em { color: var(--rum-vagg); }
+/* Situationsraden på galleriorna (K6, 2026-11-14), ovanför branschfiltret. */
+.ib-situation { align-items: center; margin-top: 20px; }
+.ib-situation > span { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--vagg-mjuk); margin-right: 4px; }
+.ib-situation + .ib-filter { margin-top: 12px; }
+.ib-galleri-ingress { max-width: 72ch; margin: -8px 0 24px; }
 .ib-arkiv-lista { padding-top: clamp(32px, 4vw, 56px); }
 .ib-arkiv-gratis { grid-column: 1 / -1; }
 .ib-sidor { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 24px; margin-top: 36px; font-size: 14px; color: var(--ink-3); }

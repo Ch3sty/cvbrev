@@ -10,6 +10,11 @@ import type { ReactNode } from 'react'
 export interface FaqFraga {
   q: string
   a: string
+  /**
+   * Länk efter svaret, i samma details (SEO-förslaget K5 och K6,
+   * 2026-11-14). Schemat läser bara texten i a.
+   */
+  lank?: { text: string; href: string }
 }
 
 export function faqSchema(fragor: readonly FaqFraga[]) {
@@ -61,6 +66,13 @@ export default function Faq({
           <details key={f.q} open={forstaOppen && i === 0}>
             <summary>{f.q}</summary>
             <p>{f.a}</p>
+            {f.lank ? (
+              <p>
+                <a className="pub-lank" href={f.lank.href}>
+                  {f.lank.text}
+                </a>
+              </p>
+            ) : null}
           </details>
         ))}
       </div>

@@ -296,3 +296,26 @@ export function googleCallbackMal(input: {
   if (cookie?.smakprov) return valkommenPath
   return cookie?.redirect ?? '/dashboard'
 }
+
+/* ------------------------------------------------------------ redan inloggad */
+
+/**
+ * Vart /register skickar den som redan är inloggad (H3, 2026-11-14). Sex av
+ * tio misslyckade lösenordsregistreringar på 28 dagar var samma inloggade
+ * konto som fick formuläret efter provet och skrev in sin egen adress
+ * (user_already_exists). Formuläret visas därför bara för den som inte är
+ * inloggad, och den inloggade går dit registreringen ändå skulle leda:
+ * smakprovet hämtas hem på valkommen-sidan, annars redirecten, köpsteget,
+ * valets verktyg eller hemskärmen.
+ */
+export function inloggadFranRegister(
+  ingang: Pick<RegisterIngang, 'smakprov' | 'redirect' | 'paket' | 'intent'>,
+  vagar: { valkommenPath: string; sparvalPath: string }
+): string {
+  const { smakprov, redirect, paket, intent } = ingang
+  if (smakprov) return `${vagar.valkommenPath}?${smakprov.typ}=${encodeURIComponent(smakprov.token)}`
+  if (redirect) return redirect
+  if (paket) return `${vagar.sparvalPath}?paket=${encodeURIComponent(paket)}&steg=kop`
+  if (intent) return INTENTS[intent].landning
+  return '/dashboard'
+}

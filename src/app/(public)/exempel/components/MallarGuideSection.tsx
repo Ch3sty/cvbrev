@@ -23,8 +23,12 @@ export default function MallarGuideSection({ type, antal }: { type: 'cv' | 'brev
   return (
     <Rum yta="panel">
       <div className="pub-wrap ib-hubb-guide">
-        <p className="pub-kick">Guide till {nounMallar}</p>
-        <h2 className="pub-h2">Allt du behöver veta om {nounMallar}</h2>
+        {/* Rubriken tar exempelordet, så att galleriet slutar konkurrera med
+            /cv-mallar och mallartikeln om mallorden (SEO-förslaget K6, 2026-11-14). */}
+        <p className="pub-kick">Guide till exemplen</p>
+        <h2 className="pub-h2">
+          {isCV ? 'Så använder du ett CV-exempel som mall' : 'Så använder du ett exempel på personligt brev som mall'}
+        </h2>
         <p>Vad är skillnaden mellan en mall och ett exempel? Hur väljer du rätt? Är de gratis? Här är svaren.</p>
 
         <article>
@@ -41,7 +45,17 @@ export default function MallarGuideSection({ type, antal }: { type: 'cv' | 'brev
           <p>
             I praktiken används orden ofta synonymt. Våra {antal} yrkesexempel funkar som mallar du kan kopiera strukturen från och
             anpassa till din situation. När någon säger &quot;jag behöver en {nounMall}&quot; menar de oftast just det här: en konkret
-            förlaga att utgå från.
+            förlaga att utgå från.{' '}
+            {isCV ? (
+              <>
+                Vill du ha en tom design att fylla i finns alla våra <Link href="/cv-mallar">CV-mallar</Link> på en egen sida.
+              </>
+            ) : (
+              <>
+                Letar du efter en tom mall har vi gått igenom vilka som fungerar i{' '}
+                <Link href="/artiklar/personligt-brev-mall-gratis">Personligt brev mall gratis</Link>.
+              </>
+            )}
           </p>
         </article>
 
@@ -123,9 +137,9 @@ export default function MallarGuideSection({ type, antal }: { type: 'cv' | 'brev
         </article>
 
         <div className="ib-guide-slut">
-          <p>Redo att börja? Plocka en {nounMall} som passar ditt yrke.</p>
+          <p>Redo att börja? Välj ett exempel som passar ditt yrke.</p>
           <Link className="pub-lank" href={`${galleriPath}#yrken`}>
-            Bläddra alla {nounMallar}
+            {isCV ? 'Bläddra alla CV-exempel' : 'Bläddra alla personligt brev-exempel'}
           </Link>
         </div>
       </div>

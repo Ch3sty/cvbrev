@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { platsUrSource } from '../plats'
+import { kopKallaUrMetadata, platsUrSource } from '../plats'
 
 describe('platsUrSource: subscription_paid får platsen ur metadata.source', () => {
   it('tar delen efter betalvagg:', () => {
@@ -18,5 +18,21 @@ describe('platsUrSource: subscription_paid får platsen ur metadata.source', () 
     expect(platsUrSource('')).toBeUndefined()
     expect(platsUrSource(null)).toBeUndefined()
     expect(platsUrSource('betalvagg:')).toBeUndefined()
+  })
+})
+
+describe('kopKallaUrMetadata: subscription_paid får källan och valet', () => {
+  it('tar konto_kalla och mitt_test ur kassans metadata', () => {
+    expect(
+      kopKallaUrMetadata({ supabaseUUID: 'u1', plan: 'all_month', konto_kalla: 'smakprov:alva-labs-logiktest', mitt_test: 'alva', provdatum: '2026-12-01' }),
+    ).toEqual({ konto_kalla: 'smakprov:alva-labs-logiktest', mitt_test: 'alva' })
+    expect(kopKallaUrMetadata({ konto_kalla: 'hubb' })).toEqual({ konto_kalla: 'hubb' })
+  })
+
+  it('ger inget utan metadata eller med skräp', () => {
+    expect(kopKallaUrMetadata(undefined)).toEqual({})
+    expect(kopKallaUrMetadata(null)).toEqual({})
+    expect(kopKallaUrMetadata({ plan: 'all_month' })).toEqual({})
+    expect(kopKallaUrMetadata({ konto_kalla: 'någon@exempel.se', mitt_test: 'Alva Labs!' })).toEqual({})
   })
 })

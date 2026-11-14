@@ -7,6 +7,8 @@
 export interface FaqItem {
   q: string
   a: string
+  /** Länk efter svaret (Faq.tsx). Schemat läser bara a. */
+  lank?: { text: string; href: string }
 }
 
 export const CV_GALLERI_FAQ: FaqItem[] = [
@@ -32,7 +34,23 @@ export const CV_GALLERI_FAQ: FaqItem[] = [
   },
   {
     q: 'Är CV-exemplen gratis att använda?',
-    a: 'Ja. Alla våra CV-exempel är helt kostnadsfria att läsa och inspireras av. Du behöver inte skapa konto. Vill du sedan bygga ditt eget CV med våra verktyg så registrerar du dig gratis och får en CV-analys var tredje dag utan att betala något.',
+    a: 'Ja. Alla våra CV-exempel är helt kostnadsfria att läsa och inspireras av. Du behöver inte skapa konto. Vill du sedan bygga ditt eget CV med våra verktyg registrerar du dig gratis, och då ingår en CV-analys.',
+  },
+  // Situationerna (SEO-förslaget K6, 2026-11-14).
+  {
+    q: 'Finns det CV-exempel för den som saknar arbetslivserfarenhet?',
+    a: 'Ja. Exemplen för gymnasieelev, student och sommarjobb visar hur ett CV ser ut när arbetslivserfarenheten är kort. Gymnasieelevens CV fylls till exempel med prao och föreningsuppdrag. Alla tre finns under kategorin Student.',
+    lank: { text: 'CV utan erfarenhet', href: '/artiklar/cv-utan-erfarenhet' },
+  },
+  {
+    q: 'Finns det CV-exempel för chefer?',
+    a: 'Ja, för flera nivåer: chef, enhetschef, butikschef, lagerchef, produktchef och teamledare. Välj det som ligger närmast din roll och din bransch, och läs hur ansvaret för personal och resultat är beskrivet.',
+    lank: { text: 'CV-exempel för chef', href: '/cv-exempel/chef' },
+  },
+  {
+    q: 'Hur skriver jag CV vid ett karriärbyte?',
+    a: 'Börja med en profiltext som förklarar bytet och vad du tar med dig. Lyft de kompetenser som gäller i det nya yrket före titlarna från det gamla, och välj ett exempel från yrket du söker dig till, inte det du lämnar.',
+    lank: { text: 'CV vid karriärbyte', href: '/artiklar/hur-skriver-man-cv#cv-vid-karriarbyte' },
   },
 ]
 
@@ -59,6 +77,22 @@ export const BREV_GALLERI_FAQ: FaqItem[] = [
   },
   {
     q: 'Är brev-exemplen gratis att använda?',
-    a: 'Ja. Alla brev-exempel är helt kostnadsfria att läsa och inspireras av, och du behöver inte skapa konto för det. Vill du sedan bygga ditt eget brev med våra verktyg får du ett brev om dagen helt gratis när du registrerat dig.',
+    a: 'Ja. Alla brev-exempel är helt kostnadsfria att läsa och inspireras av, och du behöver inte skapa konto för det. Vill du sedan skriva ditt eget brev med våra verktyg ingår ett brev i veckan när du har registrerat dig.',
+  },
+  // Situationerna (SEO-förslaget K6, 2026-11-14).
+  {
+    q: 'Hur skriver jag ett personligt brev utan erfarenhet?',
+    a: 'Skriv om det du faktiskt har gjort, som skolprojekt, föreningsuppdrag, extrajobb eller praktik, och koppla varje exempel till ett krav i annonsen. Exemplen för student, gymnasieelev och sommarjobb visar hur det kan se ut.',
+    lank: { text: 'Personligt brev utan erfarenhet', href: '/artiklar/personligt-brev-utan-erfarenhet' },
+  },
+  {
+    q: 'Vad skriver jag i ett personligt brev vid karriärbyte?',
+    a: 'Förklara bytet tidigt, i en eller två meningar, och lägg resten av brevet på det du tar med dig. Utgå från ett exempel i yrket du söker dig till och använd dess ord för din egen erfarenhet.',
+    lank: { text: 'Personligt brev vid karriärbyte', href: '/artiklar/personligt-brev-exempel-situationer#personligt-brev-vid-karriarbyte' },
+  },
+  {
+    q: 'Finns det exempel på personligt brev för chefstjänster?',
+    a: 'Ja, för chef, enhetschef, butikschef, lagerchef, produktchef och teamledare. Välj det som ligger närmast din roll och läs hur brevet kopplar ledarerfarenheten till annonsens krav.',
+    lank: { text: 'Personligt brev för chef', href: '/personligt-brev-exempel/chef' },
   },
 ]

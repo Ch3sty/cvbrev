@@ -12,18 +12,22 @@ import type { Metadata } from 'next'
 import CvMallarPageContent from './components/CvMallarPageContent'
 import { YRKESMALL_LIST } from './yrkesmall-data'
 import { CV_MALLAR_FAQ } from './components/cv-mallar-faq'
+import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+
+// Huvudordsplanen steg 1 (SEO-förslaget K4 a, 2026-11-14): "CV-mall" först,
+// bara löften sidan håller. Talen ur konstanterna.
+const TITEL = `CV-mall: ${TEMPLATE_COUNT} mallar att fylla i och ladda ner, ${FREE_TEMPLATE_COUNT} gratis`
+const BESKRIVNING = `CV-mallar för svenska jobb: ${TEMPLATE_COUNT} mallar att fylla i direkt och ladda ner som PDF, ${FREE_TEMPLATE_COUNT} av dem gratis. Se vilken mall som passar ditt yrke och din erfarenhet.`
 
 export function generateMetadata(): Metadata {
   return {
-    title: 'CV-mallar 2026 — gratis och premium-mallar att ladda ner | Jobbcoach.ai',
-    description:
-      'Välj bland färdiga ATS-säkra CV-mallar för svenska yrken. Gratis att ladda ner, anpassade per bransch och uppdaterade för 2026. Modern, traditionell, kreativ — välj din stil.',
+    title: TITEL,
+    description: BESKRIVNING,
     keywords:
       'cv mall, cv mallar, gratis cv mall, cv mall ladda ner, cv mall gratis, professionell cv-mall, cv-mall, ats-säker cv-mall, cv mall pdf, cv mall word, modern cv mall',
     openGraph: {
-      title: 'CV-mallar 2026 — gratis och premium-mallar | Jobbcoach.ai',
-      description:
-        'Färdiga ATS-säkra CV-mallar för svenska yrken. Modern, traditionell, kreativ — välj rätt design för ditt yrke.',
+      title: TITEL,
+      description: BESKRIVNING,
       type: 'website',
       locale: 'sv_SE',
       url: 'https://www.jobbcoach.ai/cv-mallar',
@@ -31,8 +35,8 @@ export function generateMetadata(): Metadata {
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'CV-mallar 2026 — gratis och premium-mallar | Jobbcoach.ai',
-      description: 'Färdiga ATS-säkra CV-mallar för svenska yrken. Helt gratis.',
+      title: TITEL,
+      description: BESKRIVNING,
     },
     alternates: {
       canonical: 'https://www.jobbcoach.ai/cv-mallar',
@@ -47,7 +51,7 @@ export default function CvMallarHub() {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: 'CV-mallar för svenska yrken',
-    description: `Bibliotek med yrkesspecifika CV-mallar för ${YRKESMALL_LIST.length} yrken. ATS-säkra, gratis och anpassade för svenska arbetsgivare.`,
+    description: `CV-mallar för ${YRKESMALL_LIST.length} svenska yrken, med rätt sektioner och rekryterarens tips per yrke.`,
     numberOfItems: YRKESMALL_LIST.length,
     itemListElement: YRKESMALL_LIST.map((y, idx) => ({
       '@type': 'ListItem',
