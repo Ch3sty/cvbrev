@@ -5,19 +5,35 @@
    "path": "/artiklar/alva-labs-logiktest",
    "datum": "2026-11-14",
    "skal": "H7 (U11): FAQ-svaret om bra resultat får Alvas tre band, svaret om att se resultatet säger 24 månader, och en ny fråga om vad arbetsgivaren ser. Övriga frågor oförändrade. BlogPosting följer ny description, taggar och de nya avsnitten.",
-   "andrade": ["BlogPosting", "FAQPage"]
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
   },
   {
    "path": "/artiklar/numeriskt-test-guide",
    "datum": "2026-11-14",
    "skal": "H8 (U17): ny description. BlogPosting bär description.",
-   "andrade": ["BlogPosting"]
+   "andrade": [
+    "BlogPosting"
+   ]
   },
   {
    "path": "/artiklar/verbalt-test-guide",
    "datum": "2026-11-14",
    "skal": "H8 (U17): ny description. BlogPosting bär description.",
-   "andrade": ["BlogPosting"]
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/i-prov",
+   "datum": "2026-11-14",
+   "skal": "H11 (U13): nytt avsnitt Är I-provet ett IQ-test? med länk till stanine-sidan, Kustbevakningen och Tullverket belagda med Plikt- och prövningsverkets årsredovisning 2025 och Kustbevakningens egen sida, ny FAQ om gratis IQ-test för polisen och taggen iq test polis. Övriga frågor oförändrade.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
   }
  ],
  "META_BYTT": [
