@@ -82,5 +82,87 @@
    "datum": "2026-11-14",
    "skal": "H8 (U17): description med provet tidigt, utan löfte om svar utan konto."
   }
+ ],
+ "RUBRIK_NY": [
+  {
+   "path": "/artiklar/alva-labs-logiktest",
+   "rubrik": "h2#kan-man-gora-om-alva-labs-logiktest Kan man göra om Alva Labs logiktest?",
+   "datum": "2026-11-14",
+   "skal": "H7 (U11): nytt avsnitt ur Alvas hjälpcenter. Befintliga rubriker orörda."
+  },
+  {
+   "path": "/artiklar/alva-labs-logiktest",
+   "rubrik": "h2#tips-infor-alva-labs-logiktest Tips inför Alva Labs logiktest",
+   "datum": "2026-11-14",
+   "skal": "H7 (U11): tips-H2. Befintliga rubriker orörda."
+  },
+  {
+   "path": "/artiklar/i-prov",
+   "rubrik": "h2#ar-i-provet-ett-iq-test Är I-provet ett IQ-test?",
+   "datum": "2026-11-14",
+   "skal": "H11 (U13): nytt kort H2 för iq test polis. Befintliga rubriker orörda."
+  },
+  {
+   "path": "/artiklar/personlighetstest-jobb-guide",
+   "rubrik": "h2#hur-ska-man-svara-pa-ett-personlighetstest Hur ska man svara på ett personlighetstest?",
+   "datum": "2026-11-14",
+   "skal": "A7 (U12): nytt H2 med leverantörernas råd. Befintliga rubriker orörda."
+  }
+ ],
+ "LANK_BORTA": [
+  {
+   "path": "/artiklar/alva-labs-logiktest",
+   "lank": "/artiklar/i-prov",
+   "datum": "2026-11-14",
+   "skal": "Läs vidare-korten är automatiska; de nya testartiklarna (logiktest-tips, stanine-testresultat, cubiks-logiks-test) tränger undan äldre kort. Ingen länk i brödtexten är borttagen."
+  },
+  {
+   "path": "/artiklar/alva-labs-logiktest",
+   "lank": "/artiklar/ordforstaelse-test",
+   "datum": "2026-11-14",
+   "skal": "Läs vidare-korten är automatiska; de nya testartiklarna (logiktest-tips, stanine-testresultat, cubiks-logiks-test) tränger undan äldre kort. Ingen länk i brödtexten är borttagen."
+  },
+  {
+   "path": "/artiklar/numeriskt-test-guide",
+   "lank": "/artiklar/i-prov",
+   "datum": "2026-11-14",
+   "skal": "Läs vidare-korten är automatiska; de nya testartiklarna (logiktest-tips, stanine-testresultat, cubiks-logiks-test) tränger undan äldre kort. Ingen länk i brödtexten är borttagen."
+  },
+  {
+   "path": "/artiklar/numeriskt-test-guide",
+   "lank": "/artiklar/ordforstaelse-test",
+   "datum": "2026-11-14",
+   "skal": "Läs vidare-korten är automatiska; de nya testartiklarna (logiktest-tips, stanine-testresultat, cubiks-logiks-test) tränger undan äldre kort. Ingen länk i brödtexten är borttagen."
+  },
+  {
+   "path": "/artiklar/numeriskt-test-guide",
+   "lank": "/artiklar/talserier",
+   "datum": "2026-11-14",
+   "skal": "Läs vidare-korten är automatiska; de nya testartiklarna (logiktest-tips, stanine-testresultat, cubiks-logiks-test) tränger undan äldre kort. Ingen länk i brödtexten är borttagen."
+  },
+  {
+   "path": "/artiklar/verbalt-test-guide",
+   "lank": "/artiklar/i-prov",
+   "datum": "2026-11-14",
+   "skal": "Läs vidare-korten är automatiska; de nya testartiklarna (logiktest-tips, stanine-testresultat, cubiks-logiks-test) tränger undan äldre kort. Ingen länk i brödtexten är borttagen."
+  },
+  {
+   "path": "/artiklar/verbalt-test-guide",
+   "lank": "/artiklar/ordforstaelse-test",
+   "datum": "2026-11-14",
+   "skal": "Läs vidare-korten är automatiska; de nya testartiklarna (logiktest-tips, stanine-testresultat, cubiks-logiks-test) tränger undan äldre kort. Ingen länk i brödtexten är borttagen."
+  },
+  {
+   "path": "/artiklar/verbalt-test-guide",
+   "lank": "/artiklar/talserier",
+   "datum": "2026-11-14",
+   "skal": "Läs vidare-korten är automatiska; de nya testartiklarna (logiktest-tips, stanine-testresultat, cubiks-logiks-test) tränger undan äldre kort. Ingen länk i brödtexten är borttagen."
+  },
+  {
+   "path": "/artiklar/personlighetstest-jobb-guide",
+   "lank": "/artiklar/i-prov",
+   "datum": "2026-11-14",
+   "skal": "Läs vidare-korten är automatiska; de nya testartiklarna (logiktest-tips, stanine-testresultat, cubiks-logiks-test) tränger undan äldre kort. Ingen länk i brödtexten är borttagen."
+  }
  ]
 }
