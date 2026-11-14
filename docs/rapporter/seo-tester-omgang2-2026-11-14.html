@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="sv"><head><meta charset="utf-8">
+<title>Konton före klick</title>
+<style>
+:root{--ink:#111418;--dim:#5b646e;--faint:#8b949e;--line:#e4e7eb;--acc:#e8590c;--accbg:#fff4ed;--bg:#fff}
+*{box-sizing:border-box}
+@page{size:A4;margin:17mm 15mm 15mm}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{margin:0;font:10.5pt/1.55 Georgia,"Times New Roman",serif;color:var(--ink);background:var(--bg)}
+.wrap{max-width:180mm;margin:0 auto;padding:0 2mm}
+h1,h2,h3,h4,.meta,.ax,.val,.note,table,.kpi,.tag,.lead,.sub{font-family:"Helvetica Neue",Arial,"Segoe UI",sans-serif}
+h1{font-size:23pt;line-height:1.18;margin:0 0 6px;letter-spacing:-.4px;font-weight:600}
+.sub{color:var(--dim);font-size:10.5pt;margin:0 0 2px;line-height:1.4}
+.meta{color:var(--faint);font-size:8.5pt;margin:10px 0 22px;border-bottom:2px solid var(--acc);padding-bottom:12px}
+h2{font-size:14pt;margin:26px 0 10px;padding-top:10px;border-top:1px solid var(--line);font-weight:600;letter-spacing:-.2px;page-break-after:avoid;break-after:avoid}
+h2 .num{color:var(--acc);font-variant-numeric:tabular-nums;margin-right:9px}
+h2.ny{page-break-before:always;break-before:page;border-top:none;margin-top:0}
+h3{font-size:11pt;margin:17px 0 6px;font-weight:600;page-break-after:avoid;break-after:avoid}
+p{margin:0 0 9px;orphans:3;widows:3}
+.lead{font-size:9pt;color:var(--faint);margin:-6px 0 14px}
+ul,ol{margin:0 0 10px;padding-left:19px}
+li{margin-bottom:4px}
+strong{font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:8.5pt;margin:8px 0 14px;page-break-inside:avoid;break-inside:avoid}
+th{text-align:left;font-weight:600;font-size:7.6pt;letter-spacing:.4px;text-transform:uppercase;color:var(--dim);border-bottom:1.5px solid var(--ink);padding:5px 7px 5px 0}
+td{padding:5px 7px 5px 0;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.4}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;padding-right:10px;white-space:nowrap}
+tr.sum td{font-weight:600;border-top:1.5px solid var(--ink);border-bottom:none}
+.up{color:#17803d;font-weight:600}.down{color:#b42318;font-weight:600}
+.fig{page-break-inside:avoid;break-inside:avoid}
+.chart{width:100%;height:auto;margin:6px 0 4px;display:block}
+.grid{stroke:var(--line);stroke-width:1}
+.line{fill:none;stroke:var(--acc);stroke-width:2.2;stroke-linejoin:round}
+.area{fill:var(--accbg)}
+.dot{fill:#fff;stroke:var(--acc);stroke-width:1.8}
+.bar{fill:var(--acc)}.bar.pre{fill:#f5b38a}
+.pt{fill:var(--dim);opacity:.32}.pt.hot{fill:var(--acc);opacity:1}
+.leader{stroke:var(--faint);stroke-width:.7}
+.curve{fill:none;stroke:var(--dim);stroke-width:1.2;stroke-dasharray:4 3;opacity:.75}
+.ax{font-size:7.4pt;fill:var(--dim)}.ax.r{text-anchor:end}.ax.c{text-anchor:middle}.ax.dim{fill:var(--faint)}
+.val{font-size:7.6pt;fill:var(--ink);font-weight:600}.val.c{text-anchor:middle}
+.note{font-size:6.9pt;fill:var(--faint)}.note.c{text-anchor:middle}
+.figc{font-size:8pt;color:var(--faint);margin:0 0 16px;font-family:"Helvetica Neue",Arial,sans-serif;line-height:1.45}
+.kpis{display:flex;gap:9px;margin:14px 0 18px;page-break-inside:avoid}
+.kpi{flex:1;border:1px solid var(--line);border-left:2.5px solid var(--acc);padding:9px 10px}
+.kpi .k{font-size:7.2pt;text-transform:uppercase;letter-spacing:.5px;color:var(--dim);margin-bottom:3px}
+.kpi .v{font-size:16pt;font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi .d{font-size:7.6pt;color:var(--faint);margin-top:2px}
+.box{border:1px solid var(--line);background:#fafbfc;padding:11px 13px;margin:11px 0 14px;page-break-inside:avoid;break-inside:avoid}
+.box.acc{background:var(--accbg);border-color:#f7c7a8}
+.box h4{margin:0 0 6px;font-size:9.5pt;font-weight:600}
+.box p,.box li{font-size:9.2pt;margin-bottom:5px;line-height:1.5}
+.five{counter-reset:f;list-style:none;padding:0;margin:10px 0 4px}
+.five li{counter-increment:f;padding-left:27px;position:relative;margin-bottom:9px;font-size:10pt;line-height:1.5}
+.five li::before{content:counter(f);position:absolute;left:0;top:2px;width:18px;height:18px;background:var(--acc);color:#fff;font:600 8.5pt/18px "Helvetica Neue",Arial,sans-serif;text-align:center}
+.tag{display:inline-block;font-size:7pt;font-weight:600;letter-spacing:.4px;padding:1px 5px;border:1px solid var(--line);color:var(--dim);white-space:nowrap}
+.tag.s{border-color:#9fd3ae;color:#17803d}.tag.m{border-color:#f7c7a8;color:var(--acc)}.tag.l{border-color:#d9d9d9;color:var(--dim)}
+.sm{font-size:7.6pt;color:var(--faint);display:block;margin-top:2px;line-height:1.35}
+footer{margin-top:26px;padding-top:9px;border-top:1px solid var(--line);font-size:7.6pt;color:var(--faint);font-family:"Helvetica Neue",Arial,sans-serif;line-height:1.5}
+.steg th{width:23%;text-transform:none;letter-spacing:0;font-size:8.2pt;color:var(--ink);border-bottom:1px solid var(--line);vertical-align:top;padding-top:6px}
+.steg td{padding-top:6px}
+.steg ul{margin:4px 0 0}
+.steg{margin-top:4px}
+</style></head><body>
+<div class="wrap">
+
+<h1>Konton före klick</h1>
+<p class="sub">Testklustret omgång 2, inpassad i planen efter analysen 8 november och huvudordsplanen för december. Vad vi gör de kommande fyra veckorna, i vilken ordning och hur vi vet om det fungerade.</p>
+<p class="meta">Rapport till ägaren, skriven 14 november 2026 av saas-lead efter SEO-strategens plan och säljansvarigs granskning. Källor: Search Console (sc-domain:jobbcoach.ai, 15 okt till 11 nov, hämtad 14 nov), PostHog EU projekt 148688 (hämtat 14 nov av säljansvarig), Supabase (produktionsdata, ägaren och testkontona undantagna), koden på main 14 nov. Besluten genomförs som avsnitt H i docs/plan-efter-analys-2026-11-08.md.</p>
+
+<h2><span class="num">1</span>Sammanfattning</h2>
+
+<div class="kpis">
+<div class="kpi"><div class="k">Prov till konto</div><div class="v">19 %</div><div class="d">74 såg kontosteget sedan 10 nov, 14 konton. Mål 30 %</div></div>
+<div class="kpi"><div class="k">Nya konton 28 dagar</div><div class="v">79</div><div class="d">5 köp, 6 % per konto</div></div>
+<div class="kpi"><div class="k">Testklustret CTR</div><div class="v">0,8 %</div><div class="d">8&nbsp;067 visningar, 67 klick, 28 dagar</div></div>
+<div class="kpi"><div class="k">Alva-sidan</div><div class="v">2&nbsp;129</div><div class="d">visningar, 29 klick, position 10,7</div></div>
+</div>
+
+<ol class="five">
+<li><strong>Intäkten avgörs i produkten, inte på sidorna.</strong> Inget av de sex köpen de senaste 28 dagarna kom direkt efter ett prov. De kom när kontot hade övat och slog i en nivå, ett tak eller kvoten, eller på prissidan. Varje nytt konto är därför en möjlig köpare, och steget från prov till konto väger mest.</li>
+<li><strong>Kontosteget får sin avläsning innan vi gör om det.</strong> Det nya kontosteget gick live 10 nov och ska läsas efter fyra veckor, 8 dec, tillsammans med det borttagna namnfältet. 19 procent på fyra och en halv dag är för tidigt för en slutsats om utformningen. Fel som stoppar registreringen lagas däremot nu.</li>
+<li><strong>Alva-sidan är säljsidan.</strong> Den ger flest konton av testsidorna (4 sedan 10 nov) och veckans enda köp från en testartikel. Den får en titel som tar de största frågorna och sätter övningen först, måndag 16 nov, så att den hinner synas när Black Week börjar.</li>
+<li><strong>Black Week ska visa ett pris.</strong> Artiklarnas provkort visar 149 kr medan raden överst visar 99 kr första månaden. Korten följer kampanjen från 20 nov, och köp och val av test går att läsa per sida under kampanjen.</li>
+<li><strong>Allt som inte beror på en avläsning görs nu.</strong> Tips-, stanine- och myndighetssidan, tillägget på I-prov-sidan och huvudordens titlar går ut före kampanjen, 17 till 22 nov, så att de hinner mogna till januari. Resten av kön, från Cubiks till yrkesexemplen, publiceras före julen 14 dec. Bara fyra steg väntar på en avläsning 7 och 8 dec.</li>
+</ol>
+
+<div class="box acc">
+<h4>Vad som går att läsa och vad som är för ungt</h4>
+<p>Allt i tratten från artikel till konto byttes ut 9 och 10 november. Fönstret är fyra och en halv dag, så talen därifrån är tecken, inte nivåer. Black Week 23 till 30 nov ligger mitt i kontostegets avläsningsfönster och redovisas för sig. Köpen är för få för att bedöma per sida före mars.</p>
+</div>
+
+<table>
+<thead><tr><th>Live (svensk tid)</th><th>Vad som mäts i rapporten</th><th>Mätfönster 14 nov</th></tr></thead>
+<tbody>
+<tr><td>9 nov</td><td>Namnfältet borta ur kontosteget. Dag 2-mejlet. Fyra nya testartiklar (arbetspsykologiska-tester, logiktest-exempel, matrigma-test, aon-cut-e-test).</td><td>5 dagar</td></tr>
+<tr><td>10 nov</td><td>Provet och kontosteget i ny design. Provet utan konto i alla nio typer. Uppgift 1 inbäddad i tolv artiklar. Valt test och källa följer från artikeln till kontot. Provdatumskärmen. I-prov, talserier och ordförståelse publicerade.</td><td>4,5 dagar</td></tr>
+<tr><td>13 nov</td><td>Black Week-koden på main. Kampanjen syns 23 till 30 nov.</td><td>Börjar 23 nov</td></tr>
+<tr><td>15 okt till 11 nov</td><td>Search Console-fönstret för testklustret. Allt som gick live 9 och 10 nov finns bara i fönstrets sista dagar.</td><td>28 dagar</td></tr>
+</tbody>
+</table>
+
+<h2><span class="num">2</span>Läget i siffror</h2>
+
+<h3>Provet och kontona per vecka</h3>
+<div class="fig">
+<svg viewBox="0 0 680 306" class="chart" role="img" aria-label="Provstarter och nya konton per vecka, 12 oktober till 14 november">
+<text x="60" y="20" class="ax" style="font-weight:600;fill:#111418">Provstarter per vecka</text>
+<line x1="60" y1="130" x2="650" y2="130" class="grid"/><text x="52" y="133.5" class="ax r">0</text>
+<line x1="60" y1="80" x2="650" y2="80" class="grid"/><text x="52" y="83.5" class="ax r">60</text>
+<line x1="60" y1="30" x2="650" y2="30" class="grid"/><text x="52" y="33.5" class="ax r">120</text>
+<rect x="89" y="61.7" width="60" height="68.3" class="bar"/><text x="119" y="56" class="val c">82</text>
+<rect x="207" y="65" width="60" height="65" class="bar"/><text x="237" y="59" class="val c">78</text>
+<rect x="325" y="66.7" width="60" height="63.3" class="bar"/><text x="355" y="61" class="val c">76</text>
+<rect x="443" y="52.5" width="60" height="77.5" class="bar"/><text x="473" y="47" class="val c">93</text>
+<rect x="561" y="44.2" width="60" height="85.8" class="bar pre"/><text x="591" y="38.5" class="val c">103</text>
+<text x="60" y="170" class="ax" style="font-weight:600;fill:#111418">Nya konton per vecka, alla källor, och köp</text>
+<line x1="60" y1="270" x2="650" y2="270" class="grid"/><text x="52" y="273.5" class="ax r">0</text>
+<line x1="60" y1="234" x2="650" y2="234" class="grid"/><text x="52" y="237.5" class="ax r">10</text>
+<line x1="60" y1="198" x2="650" y2="198" class="grid"/><text x="52" y="201.5" class="ax r">20</text>
+<rect x="89" y="226.8" width="60" height="43.2" class="bar"/><text x="119" y="221" class="val c">12, 0 köp</text>
+<rect x="207" y="226.8" width="60" height="43.2" class="bar"/><text x="237" y="221" class="val c">12, 2 köp</text>
+<rect x="325" y="219.6" width="60" height="50.4" class="bar"/><text x="355" y="214" class="val c">14, 0 köp</text>
+<rect x="443" y="208.8" width="60" height="61.2" class="bar"/><text x="473" y="203" class="val c">17, 3 köp</text>
+<rect x="561" y="194.4" width="60" height="75.6" class="bar pre"/><text x="591" y="188.5" class="val c">21, 1 köp</text>
+<text x="119" y="288" class="ax c">12 okt</text><text x="237" y="288" class="ax c">19 okt</text><text x="355" y="288" class="ax c">26 okt</text><text x="473" y="288" class="ax c">2 nov</text><text x="591" y="288" class="ax c">9 nov</text>
+<text x="591" y="299" class="note c">6 dagar, ny tratt från 10 nov</text>
+</svg>
+<p class="figc">Unika personer i PostHog per vecka från måndag. Ljus stapel = veckan med den nya tratten, sex dagar. PostHog underskattar konton eftersom Avvisa stänger av mätningen; kontona räknas därför i Supabase i målen. Provstarterna växer, men andelen som blir konto har inte rört sig än.</p>
+</div>
+
+<h3>Testklustret i Search Console</h3>
+<div class="fig">
+<svg viewBox="0 0 680 270" class="chart" role="img" aria-label="Visningar och klick per testsida, 15 oktober till 11 november">
+<text x="210" y="14" class="ax" style="font-weight:600;fill:#111418">Visningar på 28 dagar, klick i texten</text>
+<text x="202" y="35.5" class="ax r">logiska-tester</text><rect x="210" y="24" width="389.5" height="15" fill="#c9ced4"/><text x="605" y="35.5" class="ax">2 497 / 10</text>
+<text x="202" y="59.5" class="ax r">alva-labs-logiktest</text><rect x="210" y="48" width="332.1" height="15" class="bar"/><text x="548" y="59.5" class="val">2 129 / 29</text>
+<text x="202" y="83.5" class="ax r">map-test-personlighetstest</text><rect x="210" y="72" width="188.8" height="15" fill="#c9ced4"/><text x="405" y="83.5" class="ax">1 210 / 22</text>
+<text x="202" y="107.5" class="ax r">personlighetstest-jobb-guide</text><rect x="210" y="96" width="87.5" height="15" fill="#c9ced4"/><text x="304" y="107.5" class="ax">561 / 3</text>
+<text x="202" y="131.5" class="ax r">rotation-test-guide</text><rect x="210" y="120" width="66.3" height="15" fill="#c9ced4"/><text x="283" y="131.5" class="ax">425 / 1</text>
+<text x="202" y="155.5" class="ax r">matrislogik-test-guide</text><rect x="210" y="144" width="63.5" height="15" fill="#c9ced4"/><text x="280" y="155.5" class="ax">407 / 1</text>
+<text x="202" y="179.5" class="ax r">/verktyg/rekryteringstester</text><rect x="210" y="168" width="59.6" height="15" fill="#c9ced4"/><text x="276" y="179.5" class="ax">382 / 0</text>
+<text x="202" y="203.5" class="ax r">numeriskt-test-guide</text><rect x="210" y="192" width="51.3" height="15" class="bar"/><text x="268" y="203.5" class="val">329 / 0</text>
+<text x="202" y="227.5" class="ax r">verbalt-test-guide</text><rect x="210" y="216" width="20.6" height="15" class="bar"/><text x="237" y="227.5" class="val">132 / 0</text>
+<text x="202" y="251.5" class="ax r">matrigma-test</text><rect x="210" y="240" width="16.8" height="15" fill="#c9ced4"/><text x="233" y="251.5" class="ax">108 / 1</text>
+</svg>
+<p class="figc">Summan av de frågor Search Console visar per sida, 15 okt till 11 nov. Golv, inte tak: sällsynta frågor döljs. Orange = sidorna som ändras 16 nov. Alva har 29 klick på 2 129 visningar på position 10,7; numeriskt och verbalt har 461 visningar på position 4 till 13 och inga klick.</p>
+</div>
+
+<h3>Testartiklarna sedan 10 november</h3>
+<table>
+<thead><tr><th>Sida</th><th class="n">Läsare</th><th class="n">Klick på provet</th><th class="n">Konton</th><th class="n">Köp</th></tr></thead>
+<tbody>
+<tr><td>alva-labs-logiktest</td><td class="n">29</td><td class="n">18</td><td class="n">4</td><td class="n">1</td></tr>
+<tr><td>matrigma-test</td><td class="n">28</td><td class="n">22</td><td class="n">3</td><td class="n">0</td></tr>
+<tr><td>logiska-tester</td><td class="n">17</td><td class="n">12</td><td class="n">2</td><td class="n">0</td></tr>
+<tr><td>map-test-personlighetstest</td><td class="n">11</td><td class="n">8</td><td class="n">3</td><td class="n">0</td></tr>
+<tr><td>i-prov</td><td class="n">7</td><td class="n">5</td><td class="n">2</td><td class="n">0</td></tr>
+<tr><td>aon-cut-e-test</td><td class="n">4</td><td class="n">2</td><td class="n">2</td><td class="n">0</td></tr>
+<tr><td>numeriskt- och verbalt-guide</td><td class="n">2</td><td class="n">1</td><td class="n">0</td><td class="n">0</td></tr>
+</tbody>
+</table>
+<p class="lead">Läsare och klick ur PostHog, konton och köp ur Supabase, 10 till 14 nov. Båda I-prov-kontona satte ett provdatum direkt, med fem och sex dagar kvar.</p>
+
+<h2><span class="num">3</span>Vad vi gör och varför</h2>
+<p>Ägarens ordning gäller: först fler köp av dem som redan har konto, sedan fler konton, sist fler besökare. Det ger fyra spår, i den här ordningen.</p>
+<ol>
+<li><strong>Kampanjen och mätningen, före 20 nov.</strong> Artiklarnas provkort och sidokort, och provsidan i inloggat läge, visar kampanjpriset när kampanjraden gör det. Det är det pris som redan är beslutat, inte ett nytt. Samtidigt lagas mätningen så att varje köp under kampanjen kan kopplas till sidan och testet det kom från. Kontostegets egen prisrad rörs inte, eftersom kontosteget är under avläsning.</li>
+<li><strong>Kontosteget, beslut 8 dec.</strong> Fel som stoppar registreringen lagas nu, utan att utformningen rörs. Vi kartlägger var besökarna lämnar, per testtyp, källa och enhet. Den 8 december läser vi av kontosteget och namnfältet som planen säger. Ligger det under 30 procent tar art-director och copywriter fram ett nytt kontosteg i en artefakt, och det byggs direkt efter. Inget mål i den här rapporten räknar med att det lyfter.</li>
+<li><strong>Säljsidorna, 16 nov.</strong> Alva-sidan får titeln "Alva logiktest: öva gratis och förstå resultatet 1 till 10", ett svar på om testet går att göra om som slutar med provet, och fler tips. Numeriskt- och verbalt-guiden får titlar som säger att de har exempel med lösning. Ingen av dem rörs 23 till 30 nov.</li>
+<li><strong>Nya sidor efter köpnärhet.</strong> Tips inför logiktest 17 till 19 nov (leder till valet av test). Stanine och testresultat 18 till 20 nov (leder till I-provet). Tillägg på I-prov-sidan 19 till 20 nov. Tester hos myndigheter 20 till 22 nov (besökaren har en inbjudan; vi citerar bara myndigheternas egna sidor och skriver att vi saknar koppling till dem). Cubiks 24 till 26 nov. Sedan sommarjobb, videointervjuer, intervjufrågor i vården, uppsägningsbrev och yrkesexempel, allt före 14 dec. Figursidan 8 till 11 dec, efter avläsningen.</li>
+</ol>
+
+<h2><span class="num">4</span>Hur det hänger ihop med de andra planerna</h2>
+<table>
+<thead><tr><th>Plan</th><th>Vad som gäller nu</th></tr></thead>
+<tbody>
+<tr><td>Planen efter analysen 8 nov</td><td>Omgången står som ett eget avsnitt med kryssrutor och status i den planen, efter de tidigare omgångarna. Kontosteget och namnfältet avläses 8 dec som i avsnitt C. Dag 2-väggen och köpknappen i spärren läses 22 till 23 nov och är underlag till samma beslut. En punkt som stod som ej klar (inbäddade prov i numeriskt- och verbalt-guiden) var redan gjord och är rättad.</td></tr>
+<tr><td>Huvudordsplanen för december</td><td>Titel och huvudrubrik på målsidorna för "cv mall", "personligt brev" och "cv exempel", länkarna från stödsidorna och den tekniska grunden 18 till 22 nov, före kampanjen. Galleriernas innehåll 1 till 3 dec, direkt efter. De sidorna läses för sig. Testklustrets titlar rörs inte i december, så två titelbyten aldrig delar fönster. Sammanslagningarna av sidor tar bort sidor och omdirigerar dem, och är ditt beslut enligt huvudordsplanen.</td></tr>
+<tr><td>Kvartalsplanen</td><td>Alla kvartalsplanens sidor för november och december ligger i kön och publiceras före 14 dec: sommarjobb, videointervjuer, intervjufrågor för undersköterska och sjuksköterska, uppsägningsbrevsmallen och tre yrkespar. Stanine-sidan ersätter tolka-testresultat.</td></tr>
+<tr><td>Black Week 23 till 30 nov</td><td>Inga ändringar i publika komponenter och ingen ändring på Alva-sidan den veckan. Inga kampanjord i titlar, beskrivningar eller sidtext. Ren text får publiceras, så artiklarna i kön fortsätter den veckan. Kampanjköp räknas för sig i alla avläsningar.</td></tr>
+<tr><td>Testklar för Android</td><td>Ingen krock. Appen återanvänder webbens testsidor och rör inga artiklar.</td></tr>
+</tbody>
+</table>
+
+<h2 class="ny"><span class="num">5</span>Beslutade nästa steg</h2>
+
+<p>Först hela kön, sedan ett block per steg i samma ordning. Varje block svarar på samma frågor: vad som görs, varför, vem det når, hur det leder till intäkt, hur vi vet om det fungerade och vem som gör det. Tre ord återkommer. <strong>Position</strong> är sidans snittplats i Googles träfflista, där 1 till 10 är första sidan. <strong>CTR</strong> är andelen av dem som ser sidan i träfflistan som klickar. <strong>Indexering</strong> betyder att Google läser in sidan på nytt; vi kan be om det i Search Console samma dag som sidan ändras.</p>
+
+<p>Allt som inte beror på en avläsning hos oss ligger i kön och görs nu, i ordning efter hur nära köp besökaren är. Två agenter arbetar parallellt: en med koden (mätningen, priskorten, registreringen, hubben och gallerierna) och en med artiklarna. Källkontroll ingår i skrivandet av varje sida. Sidans delar ändras inte 23 till 30 nov, så de stegen ligger före eller direkt efter kampanjen. Bara fyra saker väntar på en avläsning, och ett steg kräver ditt beslut. De står sist.</p>
+<table style="page-break-inside:auto;break-inside:auto">
+<thead><tr><th>Datum</th><th>Steg</th><th>Sida</th></tr></thead>
+<tbody>
+<tr><td>mån 16 nov</td><td>Alva-sidan</td><td>/artiklar/alva-labs-logiktest</td></tr>
+<tr><td>mån 16 nov</td><td>Numeriskt- och verbalt-guiden</td><td>/artiklar/numeriskt-test-guide, /artiklar/verbalt-test-guide</td></tr>
+<tr><td>16 till 20 nov</td><td>Mätningen lagas</td><td>Statistiken bakom provet, kontot och köpet</td></tr>
+<tr><td>16 till 20 nov</td><td>Felen i registreringen lagas</td><td>Kontosteget efter provet och /register</td></tr>
+<tr><td>16 till 20 nov</td><td>Kampanjpriset i artiklarnas priskort</td><td>Testartiklarna och provsidan i kontot</td></tr>
+<tr><td>16 nov till 8 dec</td><td>Underlag om kontosteget</td><td>Kontosteget efter provet</td></tr>
+<tr><td>17 till 19 nov</td><td>Ny sida: tips inför logiktest</td><td>/artiklar/logiktest-tips</td></tr>
+<tr><td>18 till 20 nov</td><td>Ny sida: stanine och testresultat</td><td>/artiklar/stanine-testresultat</td></tr>
+<tr><td>19 till 20 nov</td><td>Tillägg på I-prov-sidan</td><td>/artiklar/i-prov</td></tr>
+<tr><td>18 till 22 nov</td><td>Huvudorden: titlar, länkar och teknisk grund</td><td>/cv-mallar, /cv-exempel, /personligt-brev-exempel, två brevartiklar, /exempel</td></tr>
+<tr><td>20 till 22 nov</td><td>Hubbens block "Inför testet"</td><td>/verktyg/rekryteringstester</td></tr>
+<tr><td>20 till 22 nov</td><td>Ny sida: tester hos myndigheter</td><td>/artiklar/tester-hos-myndigheter</td></tr>
+<tr><td>22 till 24 nov</td><td>Tillägg på personlighetstestsidan</td><td>/artiklar/personlighetstest-jobb-guide</td></tr>
+<tr><td>23 till 30 nov</td><td>Black Week och Cyber Monday: bara ren text publiceras</td><td></td></tr>
+<tr><td>24 till 26 nov</td><td>Ny sida: Cubiks och Talogy</td><td>/artiklar/cubiks-logiks-test</td></tr>
+<tr><td>26 till 28 nov</td><td>Ny sida: söka sommarjobb</td><td>/artiklar/soka-sommarjobb</td></tr>
+<tr><td>29 nov till 1 dec</td><td>Ny sida: videointervjuer</td><td>/artiklar/videointervju-tips</td></tr>
+<tr><td>1 till 3 dec</td><td>Huvudorden: innehåll i gallerierna</td><td>/cv-mallar, /cv-exempel, /personligt-brev-exempel</td></tr>
+<tr><td>2 till 4 dec</td><td>Två nya sidor: intervjufrågor för undersköterska och sjuksköterska</td><td>/artiklar/intervjufragor-underskoterska, -sjukskoterska</td></tr>
+<tr><td>5 till 6 dec</td><td>Ny sida: mall för uppsägningsbrev</td><td>/artiklar/uppsagningsbrev-mall</td></tr>
+<tr><td>7 till 11 dec</td><td>Tre yrkespar, CV- och brevexempel</td><td>vvs-montör, byggnadsarbetare, frisör</td></tr>
+<tr><td>senast 14 dec</td><td>Sista publicering före julen</td><td></td></tr>
+<tr><td>8 dec</td><td>Väntar på avläsning: beslut om kontosteget och Dagspasset</td><td></td></tr>
+<tr><td>8 till 9 dec</td><td>Väntar på avläsning: länkar på logiska-tester och navet, Assessio på matrigma-test</td><td>tre befintliga sidor</td></tr>
+<tr><td>8 till 11 dec</td><td>Väntar på avläsning: ny sida om figurer</td><td>/artiklar/logiskt-test-figurer</td></tr>
+</tbody>
+</table>
+
+
+<h3>16 november: Alva-sidan</h3>
+<table class="steg"><tbody>
+<tr><th>Vad</th><td>Sidan /artiklar/alva-labs-logiktest får ny titel i Googles träfflista: från "Alva Labs logiktest: format, resultat och öva gratis" till "Alva logiktest: öva gratis och förstå resultatet 1 till 10". Rubriken på själva sidan står kvar. Nytt avsnitt "Kan man göra om Alva Labs logiktest?" med Alvas eget svar, som slutar med provet. Nytt avsnitt med fem tips inför testet. Två nya vanliga frågor: vad ett bra resultat är, och om arbetsgivaren ser hur många rätt man fick (bara om Alva själv svarar på det). Tabellen över resultatet 1 till 10 kompletteras bara med Alvas egna uppgifter. Provet med logikuppgifter står kvar högt upp, före resultattabellen.</td></tr>
+<tr><th>Varför</th><td>Klustrets största sida: 2&nbsp;129 visningar och 29 klick på 28 dagar, position 10,7, alltså längst ner på första sidan. De största sökningarna är "alva logiktest" (489 visningar, position 9,6) och "alva logiktest öva" (363, position 7,0), och de orden står inte först i titeln i dag. Varianterna med "Labs" har 281 visningar. Google föreslår också "alva labs logiktest resultat 6" till "10" och "alva labs göra om test", som sidan bara delvis svarar på.</td></tr>
+<tr><th>Vem den når</th><td>Främst den som fått en inbjudan till Alvas logiktest från en arbetsgivare och har några dagar på sig. Dessutom den som redan gjort testet och undrar vad siffran betyder.</td></tr>
+<tr><th>Så leder det till intäkt</th><td>Besökaren gör provet på sidan, skapar konto och har då Alva redan valt som sitt test. Första dagens övning är gratis. Pass varje dag och övningsprovet i Alvas format, 20 uppgifter med två minuter var, ingår i Premium, 149 kr i månaden. Sedan 10 november har sidan gett 4 konton och 1 köp.</td></tr>
+<tr><th>Så vet vi om det fungerade</th><td>2 dec: har klicken fallit 30 procent eller mer jämfört med de 14 dagarna före, vid ungefär lika många visningar, tar vi tillbaka den gamla titeln samma dag. 9 feb: 50 klick på 28 dagar, position under 8 och 1,5 gånger fler konton per vecka än före 16 nov. 9 mar: 70 klick.</td></tr>
+<tr><th>Insats och vem</th><td>En till två dagar. Opus skriver, SEO-strategen granskar, du begär indexering samma dag. Inga ändringar på sidan 23 till 30 nov, så att kampanjen inte blandas ihop med titelns effekt.</td></tr>
+</tbody></table>
+
+<h3>16 november: numeriskt- och verbalt-guiden</h3>
+<table class="steg"><tbody>
+<tr><th>Vad</th><td>Bara titlar och beskrivningar, alltså texten under titeln i träfflistan. /artiklar/numeriskt-test-guide går från "Numeriskt test rekrytering: guide + öva gratis 2026" till "Numeriskt test: exempel med lösning och öva gratis". /artiklar/verbalt-test-guide går från "Verbalt test rekrytering: guide + öva gratis 2026" till "Verbalt resonemang test: exempel med svar, öva gratis". Beskrivningarna nämner provet med fem uppgifter tidigt. Innehållet rörs inte; proven ligger på sidorna sedan 10 nov.</td></tr>
+<tr><th>Varför</th><td>De två sidorna visades 461 gånger på 28 dagar på position 4 till 13 och fick noll klick. "numeriskt test" står på position 4,1. Titlarna ser ut som alla andra i träfflistan och säger inte att det finns uppgifter med lösning.</td></tr>
+<tr><th>Vem den når</th><td>Den som fått en inbjudan med numeriska eller verbala delar, ofta från SHL, Aon eller Talogy.</td></tr>
+<tr><th>Så leder det till intäkt</th><td>Prov på sidan, konto, Nivåkollen (vår gratis nivåmätning) räknar in provets svar, och pass varje dag och övningsprov ingår i Premium. Vi räknar med omkring 3 köp per 100 konton härifrån.</td></tr>
+<tr><th>Så vet vi om det fungerade</th><td>7 dec första tecken på andelen klick. 9 feb 10 klick på 28 dagar, 9 mar 15.</td></tr>
+<tr><th>Insats och vem</th><td>Under en dag. Opus, SEO-strategen granskar, du begär indexering.</td></tr>
+</tbody></table>
+
+<h3>16 till 20 november: mätningen lagas</h3>
+<table class="steg"><tbody>
+<tr><th>Vad</th><td>Tre fel i statistiken rättas. (1) Den som kommer från en artikel med ett test förvalt, till exempel Alva, och skapar konto ska synas i besöksstatistiken med det valet. I dag syns 4 sådana val, men 16 konton har valet sparat. Antingen räknas valet bara i vissa fall eller så försvinner det när besökaren tackar nej till kakor. Vi tar reda på vilket och lagar det (händelsen mitt_test_valt). (2) När någon startar logikprovet på provsidan sparas inte vilket prov det var. Det gäller bara logikprovet, men det är där de flesta prov startas: 71 sedan 10 nov. (3) När någon betalar registreras paket och belopp, men inte vilken sida kontot kom från eller vilket test hen övar för. Uppgifterna finns redan i betalningen hos Stripe och förs över till statistiken.</td></tr>
+<tr><th>Varför</th><td>Utan detta kan vi inte se vilken sida som gav ett köp under Black Week utan att räkna för hand i databasen, och vi kan inte jämföra provtyperna med varandra.</td></tr>
+<tr><th>Vem den når</th><td>Ingen besökare. Det är för våra beslut 8 dec, 9 feb och 9 mar.</td></tr>
+<tr><th>Så leder det till intäkt</th><td>Indirekt: arbetet läggs på de sidor som faktiskt ger köp, inte på dem som ger mest trafik.</td></tr>
+<tr><th>Så vet vi om det fungerade</th><td>24 nov kontrollerar vi att alla tre uppgifterna kommer fram. Från 23 nov går kampanjköpen att läsa per sida.</td></tr>
+<tr><th>Insats och vem</th><td>Under en dag. Opus. Du pushar senast fredag 20 nov.</td></tr>
+</tbody></table>
+
+
+<h3>16 till 20 november: felen i registreringen lagas</h3>
+<table class="steg"><tbody>
+<tr><th>Vad</th><td>14 registreringar misslyckades de senaste 28 dagarna, 10 med lösenord och 4 med Google, och statistiken säger inte varför. Vi lägger till skälet när en registrering misslyckas (händelsen signup_failed), läser Supabase inloggningslogg för de 14 och lagar det som är ett fel. Själva kontosteget, alltså utformning och text, rörs inte.</td></tr>
+<tr><th>Varför</th><td>Formuläret öppnas omkring 65 gånger och skickas omkring 21. En del av det är val, men ett fel som stoppar den som vill skapa konto ska inte vänta på en avläsning.</td></tr>
+<tr><th>Vem den når</th><td>Alla som försöker skapa konto, från alla sidor.</td></tr>
+<tr><th>Så leder det till intäkt</th><td>Varje registrering som lyckas i stället för att fastna är ett konto som kan köpa.</td></tr>
+<tr><th>Så vet vi om det fungerade</th><td>Färre misslyckade registreringar, och ett skäl på varje som ändå misslyckas. Dagen för rättelsen noteras, så att avläsningen 8 dec kan jämföra före och efter.</td></tr>
+<tr><th>Insats och vem</th><td>Under en dag. Opus. Du pushar senast fredag 20 nov.</td></tr>
+</tbody></table>
+<h3>Senast 20 november: kampanjpriset i artiklarnas priskort</h3>
+<table class="steg"><tbody>
+<tr><th>Vad</th><td>Under Black Week 23 till 29 nov visar raden överst på alla sidor 99 kr första månaden, och 30 nov 49 kr. Provkortet och sidokortet i testartiklarna visar samtidigt 149 kr. Korten får visa samma kampanjpris som raden, med orden "första månaden". Samma sak på provsidan inne i kontot, för konton som aldrig haft Premium. Det är det pris du redan beslutat, inget nytt. Kontostegets egen prisrad rörs inte, eftersom kontosteget mäts just nu. Kampanjens klicktest utökas med en artikel.</td></tr>
+<tr><th>Varför</th><td>Två priser på samma sida ser ut som ett fel precis när besökaren funderar på att köpa. Kassan tar redan rätt pris, så det här gäller bara vad besökaren ser.</td></tr>
+<tr><th>Vem den når</th><td>Alla som läser en testartikel under kampanjveckan, och konton som skapas då.</td></tr>
+<tr><th>Så leder det till intäkt</th><td>Ett pris i stället för två tar bort en anledning att tveka i kampanjens enda vecka.</td></tr>
+<tr><th>Så vet vi om det fungerade</th><td>Kampanjköpen räknas för sig, per sida, 18 dec. 23 och 30 dec ser vi hur många som fortsätter betala efter första månaden.</td></tr>
+<tr><th>Insats och vem</th><td>Under en dag. Opus. Du pushar senast fredag 20 nov, och inget av detta ändras 23 till 30 nov.</td></tr>
+</tbody></table>
+
+<h3>16 november till 8 december: underlag om kontosteget</h3>
+<table class="steg"><tbody>
+<tr><th>Vad</th><td>En kartläggning av var besökarna lämnar mellan att de ser kontosteget efter provet, börjar fylla i och har ett konto. Uppdelat på provtyp, vilken artikel de kom från, mobil eller dator och Google-inloggning eller e-post. Kampanjveckan redovisas för sig, och tiden före och efter att registreringsfelen lagas jämförs. Utformningen ändras inte före 8 dec.</td></tr>
+<tr><th>Varför</th><td>19 procent av dem som gjort provet och ser kontosteget skapar konto (74 och 14 sedan 10 nov). Målet är 30. Steget byttes 10 nov och har inte haft sina fyra veckor, så vi vet ännu inte om det nya steget är bättre eller sämre än det gamla.</td></tr>
+<tr><th>Vem den når</th><td>Alla som gör ett prov, från alla sidor.</td></tr>
+<tr><th>Så leder det till intäkt</th><td>Inga köp sker utan konto. 30 procent i stället för 19 ger drygt hälften fler konton på samma trafik, mer än alla nya sidor i den här rapporten tillsammans. Ingen sådan vinst är inräknad i målen.</td></tr>
+<tr><th>Så vet vi om det fungerade</th><td>Underlaget är klart till beslutet 8 dec.</td></tr>
+<tr><th>Insats och vem</th><td>Under en dag. Opus.</td></tr>
+</tbody></table>
+
+<h3>17 till 19 november: ny sida om tips inför logiktest</h3>
+<table class="steg"><tbody>
+<tr><th>Vad</th><td>Ny sida på /artiklar/logiktest-tips, arbetsrubrik "Logiktest tips: så förbereder du dig och vad övning faktiskt ger". Innehåll: ett kort svar först (övning höjer resultatet, men måttligt; en sammanställning av 50 studier med 134&nbsp;436 personer fann ungefär en fjärdedels standardavvikelse vid omtest, mer med vägledning och med samma testform), veckan före testet, testdagen, ett ärligt svar på om det går att fuska, råd vid dyslexi eller svenska som andraspråk, vad du gör efter testet, och ett stycke om personlighetstest. Logikprovet ligger inbäddat efter det korta svaret. Sidan länkar till Alva-, Matrigma-, Aon- och SHL-sidorna, till stanine-sidan och till personlighetstestsidan.</td></tr>
+<tr><th>Varför</th><td>Google föreslår elva varianter av frågan, bland andra "logiktest tips", "tips inför logiktest", "hur klarar man logiktest" och "kan man öva på logiktest". Vi syns inte på någon av dem. Konkurrenterna svarar med säljsidor eller korta stycken, och ingen av dem har forskningen om vad övning ger.</td></tr>
+<tr><th>Vem den når</th><td>Den som har ett test framför sig och ofta inte vet vilket.</td></tr>
+<tr><th>Så leder det till intäkt</th><td>Prov, konto och valet "Mitt test är …", där besökaren anger testet. Pass varje dag fram till testet ingår i Premium. Det korta svaret är samtidigt skälet att köpa: övning hjälper mest i samma format som testet.</td></tr>
+<tr><th>Så vet vi om det fungerade</th><td>7 dec: inläst av Google. 9 feb: 150 visningar och 4 klick på 28 dagar. 9 mar: 400 visningar och 12 klick. Konton räknas ihop med myndighets- och stanine-sidan: 6 på 28 dagar till 9 feb.</td></tr>
+<tr><th>Insats och vem</th><td>Två till fyra dagar. Opus skriver, SEO-strategen granskar. Publiceras före kampanjveckan, så att Google hinner läsa in sidan och den mognar till januari. Du begär indexering samma dag.</td></tr>
+</tbody></table>
+
+<h3>18 till 20 november: ny sida om stanine och testresultat</h3>
+<table class="steg"><tbody>
+<tr><th>Vad</th><td>Ny sida på /artiklar/stanine-testresultat, arbetsrubrik "Stanine: så läser du ditt testresultat". Innehåll: ett kort svar först (en niogradig skala där 5 är mitten och 4 till 6 täcker drygt hälften), en mening om att sidan handlar om arbetstester och inte skolans stanine, en tabell över stegen 1 till 9, en jämförelse med percentil, Matrigmas skala, sten och Alvas 1 till 10 med länkar till de sidorna, vad en normgrupp är, stanine i I-provet (polisen kräver minst 4, med källa), att arbetsgivaren och inte skalan bestämmer vad som är bra, vad du gör om det gick dåligt, och varför vårt prov visar en jämförelse med andra som gjort det men aldrig ett stanine-värde. I-provets prov med sex uppgifter ligger inbäddat. Logikprovet står som länk. Sidan ersätter den planerade sidan om att tolka testresultat.</td></tr>
+<tr><th>Varför</th><td>Google föreslår tio varianter av "stanine", bland andra "stanineskala", "stanine 1" till "9" och "vad betyder stanine 3". De svenska svaren i dag är svaga: engelska Wikipedia, ett hjälpcenter och skolmaterial.</td></tr>
+<tr><th>Vem den når</th><td>Tre grupper. Den som ska göra I-provet till polisen, Försvarsmakten eller Tullverket och har ett datum. Den som gjort ett test och fått ett resultat. Och föräldrar som söker skolans stanine, som snabbt ska förstå att sidan inte är för dem.</td></tr>
+<tr><th>Så leder det till intäkt</th><td>I-provets prov sätter valet Polisen eller Försvarsmakten på kontot, kontot frågar efter provdatum, och övningsprovet i I-provets ordning med tid per deltest ingår i Premium. Båda kontona från I-prov-sidan hittills satte datum direkt. Den som ska göra om ett test leds till att ange sitt nya datum. Vi räknar med omkring 10 köp per 100 konton i I-provsgruppen och 2 för övriga.</td></tr>
+<tr><th>Så vet vi om det fungerade</th><td>9 feb: 200 visningar och 4 klick på 28 dagar. Väljer färre än en av fem konton härifrån I-provet bedömer vi sidan som en trafiksida. 9 mar: 500 visningar och 12 klick.</td></tr>
+<tr><th>Insats och vem</th><td>Två till fyra dagar. Opus skriver och kontrollerar polisens krav mot källan, SEO-strategen granskar, du begär indexering. Publiceras före kampanjveckan.</td></tr>
+</tbody></table>
+
+
+<h3>19 till 20 november: tillägg på I-prov-sidan</h3>
+<table class="steg"><tbody>
+<tr><th>Vad</th><td>/artiklar/i-prov får ett nytt avsnitt "Är I-provet ett IQ-test?" och en vanlig fråga om det finns ett gratis IQ-test för polisen, båda först när uppgifterna är kontrollerade hos Polisen och Plikt- och prövningsverket. Uppgiften om att Kustbevakningen använder I-provet får en källa eller stryks. Länk till stanine-sidan. Titeln rörs inte.</td></tr>
+<tr><th>Varför</th><td>"iq test polis" har tio autoförslag och vi står på position 44. Dessutom står Kustbevakningen i dag på sidan utan källa, och ett obelagt påstående ska inte stå kvar.</td></tr>
+<tr><th>Vem den når</th><td>Den som ska söka till polisutbildningen eller göra mönstringen och har ett datum.</td></tr>
+<tr><th>Så leder det till intäkt</th><td>Sidan har högst köpvilja per besökare: båda kontona härifrån satte provdatum direkt. I-provets prov, provdatum och övningsprovet med tid per deltest i Premium.</td></tr>
+<tr><th>Så vet vi om det fungerade</th><td>9 feb: "iq test polis" under position 20. 9 mar: under 12. Avläsningen 7 dec av sidan gäller att den är inläst av Google, vilket tillägget inte stör.</td></tr>
+<tr><th>Insats och vem</th><td>Under en dag. Opus kontrollerar källorna, SEO-strategen granskar. Ren text.</td></tr>
+</tbody></table>
+<h3>18 till 22 november: huvudorden, titlar och länkar</h3>
+<table class="steg"><tbody>
+<tr><th>Vad</th><td>Varje huvudord får en utsedd sida: /cv-mallar för "cv mall", /artiklar/skriva-personligt-brev-guide för "personligt brev", /artiklar/personligt-brev-mall-gratis för "personligt brev mall", /personligt-brev-exempel för "personligt brev exempel" och /cv-exempel för "cv exempel". De fem får titel och rubrik med ordet först och det sökaren vill ha (antal mallar, gratis, Word och PDF, antal yrken). Sidorna runt omkring får en länk högt upp till den utsedda sidan, med ordet i länktexten.</td></tr>
+<tr><th>Varför</th><td>Sökningarna växer snabbt: "personligt brev" från 84 till 340 visningar och "cv exempel" från 84 till 327 på fyra veckor. Vi får 0 till 1 klick och står på sida 3 till 8. Varje ord visas med fyra till sex av våra sidor, så ingen av dem når upp.</td></tr>
+<tr><th>Vem den når</th><td>Den som ska skriva CV eller personligt brev, ofta tidigt i jobbsöket.</td></tr>
+<tr><th>Så leder det till intäkt</th><td>CV och brev byggs gratis med konto. Nedladdningen ingår i Premium. Vägen till köp är längre än för testerna, men volymen är störst.</td></tr>
+<tr><th>Så vet vi om det fungerade</th><td>18 dec första tecken. 19 jan och 9 feb: en sida per ord i Search Console, och position under 20 på minst två av de tre orden.</td></tr>
+<tr><th>Insats och vem</th><td>En dag. Opus, SEO-strategen granskar, du begär indexering av de fem sidorna. Görs före kampanjveckan, eftersom gallerierna är byggda med sidans delar.</td></tr>
+</tbody></table>
+
+<h3>18 till 22 november: huvudorden, galleriernas tekniska grund</h3>
+<table class="steg"><tbody>
+<tr><th>Vad</th><td>Yrkessidorna under /cv-exempel och /personligt-brev-exempel får länka tillbaka till sitt galleri med orden "CV-exempel" respektive "personligt brev exempel". /exempel ska vara en översiktssida och inte konkurrera om huvudorden. Galleriernas strukturerade data, alltså listan över sidorna som Google läser maskinellt, kontrolleras och kompletteras.</td></tr>
+<tr><th>Varför, vem och intäkt</th><td>Samma som titlarna: Google ska förstå vilken sida som är svaret på huvudordet. /exempel visas i dag för "cv exempel" på position 44 med 111 visningar, nästan lika ofta som /cv-exempel.</td></tr>
+<tr><th>Så vet vi om det fungerade</th><td>Läses med titlarna, 18 dec, 19 jan och 9 feb.</td></tr>
+<tr><th>Insats och vem</th><td>Under en dag. Opus.</td></tr>
+</tbody></table>
+
+
+<h3>20 till 22 november: hubbens block "Inför testet"</h3>
+<table class="steg"><tbody>
+<tr><th>Vad</th><td>/verktyg/rekryteringstester får ett kort block "Inför testet" med länkar till tips-, stanine- och myndighetssidan, och en vanlig fråga om vilka tester myndigheterna använder. Titel och beskrivning rörs inte.</td></tr>
+<tr><th>Varför, vem och intäkt</th><td>Hubben är testernas samlingssida och ger fler konton per besök än artiklarna. Länkarna ger de nya sidorna kraft och leder besökaren till rätt sida inför sitt test.</td></tr>
+<tr><th>Så vet vi om det fungerade</th><td>Klick från hubben till de tre sidorna, läses 9 feb.</td></tr>
+<tr><th>Insats och vem</th><td>Under en dag. Opus. Görs före kampanjveckan, eftersom hubben är byggd med sidans delar. Myndighetslänken följer med om sidan är publicerad, annars läggs den 1 dec.</td></tr>
+</tbody></table>
+<h3>20 till 22 november: ny sida om tester hos myndigheter</h3>
+<table class="steg"><tbody>
+<tr><th>Vad</th><td>Ny sida på /artiklar/tester-hos-myndigheter, arbetsrubrik "Arbetspsykologiska tester hos myndigheter: vad de själva säger". Innehåll: ett kort svar först (många myndigheter skickar webbaserade tester efter första urvalet, oftast ett kapacitetstest och ett personlighetstest), och direkt efter en ruta som säger att vi inte har någon koppling till myndigheterna och inte vet vilket test en viss myndighet använder. Därefter ett avsnitt per myndighet som själv beskriver sin process, med citat och länk: Skatteverket, Kronofogden och Säkerhetspolisen. Tullverket bara med en källa från Tullverket eller Plikt- och prövningsverket, och Kustbevakningen bara om vi hittar en källa. Myndigheter som inte beskriver sina tester får ett stycke utan gissningar. Sidan förklarar Varbi (rekryteringssystemet, inte testet) och att kommuner och regioner köper tester via ett gemensamt ramavtal som säger vilka leverantörer som får säljas, inte vem som köper. Logikprovet ligger inbäddat. Tullverket länkar till I-prov-sidan. Inga logotyper och inga myndighetsnamn i titeln eller bilden.</td></tr>
+<tr><th>Varför</th><td>Google föreslår "arbetspsykologiska tester skatteverket", "vilka arbetspsykologiska tester använder skatteverket" och samma sak för Kronofogden, Försäkringskassan och Migrationsverket, plus "säpo test", "tullverket tester" och "varbi tester". Vi syns inte alls. Den största konkurrenten påstår vilket test varje myndighet använder; vi skriver bara det myndigheten själv säger.</td></tr>
+<tr><th>Vem den når</th><td>Den som fått en inbjudan från en myndighet men inte vet vilket test som väntar. Hög köpvilja, eftersom testet ligger nära i tid.</td></tr>
+<tr><th>Så leder det till intäkt</th><td>Prov, konto, valet "Annat" med kryss för de testtyper inbjudan nämner, och pass och övningsprov i Premium. Vi räknar med omkring 5 köp per 100 konton.</td></tr>
+<tr><th>Så vet vi om det fungerade</th><td>9 feb: 100 visningar och 3 klick på 28 dagar. Under 50 visningar betyder inga fler myndighetssidor. 9 mar: 300 visningar och 10 klick.</td></tr>
+<tr><th>Insats och vem</th><td>Två till fyra dagar. Opus skriver och kontrollerar varje källa, SEO-strategen granskar. Källorna kontrolleras när sidan skrivs, myndighet för myndighet. Det som inte går att belägga, till exempel om Tullverkets sida fortfarande inte går att läsa, står inte på sidan.</td></tr>
+</tbody></table>
+
+
+<h3>22 till 24 november: tillägg på personlighetstestsidan</h3>
+<table class="steg"><tbody>
+<tr><th>Vad</th><td>/artiklar/personlighetstest-jobb-guide får ett nytt avsnitt "Hur ska man svara på ett personlighetstest?" med sju råd och en vanlig fråga om man kan misslyckas. Titeln och beskrivningen rörs inte.</td></tr>
+<tr><th>Varför</th><td>Sidan stiger, från position 30 till 10,5 på "personlighetstest rekrytering exempel", men svarar inte på tipsfrågorna som Google föreslår ("personlighetstest tips", "hur ska man svara på personlighetstest").</td></tr>
+<tr><th>Vem den når</th><td>Den som fått ett personlighetstest i en rekrytering.</td></tr>
+<tr><th>Så leder det till intäkt</th><td>Konton, men inga köp: personlighetsprovet har ingen betalvägg. Därför efter sidorna med köpväg.</td></tr>
+<tr><th>Så vet vi om det fungerade</th><td>9 feb: position under 15 och 8 klick på 28 dagar. 9 mar: 12 klick.</td></tr>
+<tr><th>Insats och vem</th><td>Under en dag. Opus, SEO-strategen granskar. Ren text, så den kan gå ut under kampanjveckan.</td></tr>
+</tbody></table>
+
+<h3>24 till 26 november: ny sida om Cubiks och Talogy</h3>
+<table class="steg"><tbody>
+<tr><th>Vad</th><td>Ny sida på /artiklar/cubiks-logiks-test, arbetsrubrik "Cubiks Logiks test: så är Talogys test byggt och så övar du". Innehåll: vad Talogy är (tidigare Cubiks), delarna i Logiks (numeriskt, verbalt, abstrakt), skillnaden mellan Intermediate och Advanced med antal uppgifter och tider bara där Talogy själv anger dem, en egen löst uppgift per del, länk till Talogys egna gratis övningstester, och vad vi har som de inte har (nivåer, dagliga pass, övningsprov). En ruta säger att vi saknar koppling till Talogy. Det numeriska provet ligger inbäddat. Sidan lovar inget Cubiks-prov.</td></tr>
+<tr><th>Varför</th><td>Google föreslår "cubiks test", "cubiks test gratis", "cubiks logiks", "talogy test" och "talogy logiks". Vi syns inte. Talogy är en av leverantörerna i kommunernas och regionernas ramavtal, så testet möter många jobbsökare.</td></tr>
+<tr><th>Vem den når</th><td>Den som fått en inbjudan till Talogys test, ofta med några dagars varsel. Hög köpvilja.</td></tr>
+<tr><th>Så leder det till intäkt</th><td>Numeriskt prov, konto, valet "Annat" i "Mitt test" med kryss för numeriskt, verbalt och figurer, och pass och övningsprov i Premium. Kontot bär sidan som källa, så köpen går att läsa per sida.</td></tr>
+<tr><th>Så vet vi om det fungerade</th><td>9 feb: sidan visas för Cubiks- och Talogy-sökningarna, och vi sätter mål för mars på den första läsningen. Ett eget val för Cubiks i "Mitt test" prövas då mot antalet konton.</td></tr>
+<tr><th>Insats och vem</th><td>Två till fyra dagar. Opus, med Talogys uppgifter kontrollerade i flödet, SEO-strategen granskar. Ren text.</td></tr>
+</tbody></table>
+<h3>26 till 28 november: ny sida om att söka sommarjobb</h3>
+<table class="steg"><tbody>
+<tr><th>Vad</th><td>Ny sida på /artiklar/soka-sommarjobb, arbetsrubrik "Söka sommarjobb 2027: när du ska söka, CV och personligt brev". Innehåll: när arbetsgivarna rekryterar, hur ett CV utan mycket erfarenhet byggs, ett personligt brev för sommarjobb, och länkar till mallen för sommarjobb och exemplen.</td></tr>
+<tr><th>Varför</th><td>"sommarjobb cv" har 307 visningar på 100 dagar på position 46, där mallsidan visas i stället för en guide. "cv sommarjobb" (68, position 37) och "cv för sommarjobb" (67, position 42) likaså. Ansökningstoppen är januari till mars, och en ny sida behöver några veckor för att ranka. Därför december.</td></tr>
+<tr><th>Vem den når</th><td>Unga som söker sommarjobb, ofta med sitt första CV.</td></tr>
+<tr><th>Så leder det till intäkt</th><td>Mall eller brev byggs gratis med konto, nedladdningen ingår i Premium. Lägre köpvilja än testsidorna; sidan ger mest konton och trafik.</td></tr>
+<tr><th>Så vet vi om det fungerade</th><td>Första sidan i Google för "cv för sommarjobb" eller "sommarjobb cv" före 1 feb. 20 till 40 klick i månaden januari till mars.</td></tr>
+<tr><th>Insats och vem</th><td>Två till fyra dagar. Opus, SEO-strategen granskar, du begär indexering. Ren text, kan gå ut under kampanjveckan.</td></tr>
+</tbody></table>
+
+
+<h3>29 november till 1 december: ny sida om videointervjuer</h3>
+<table class="steg"><tbody>
+<tr><th>Vad</th><td>Ny sida på /artiklar/videointervju-tips, arbetsrubrik "Videointervju: så förbereder du dig för inspelad och digital intervju". Innehåll: skillnaden mellan inspelad och direktsänd videointervju, teknik, ljus och plats, hur du svarar på inspelade frågor med tidsgräns, och vanliga frågor. Intervjuprovet ligger på sidan. Search Console kontrolleras när sidan skrivs, och sidans ord väljs efter de frågor som faktiskt syns.</td></tr>
+<tr><th>Varför</th><td>Digitala förstaintervjuer saknas helt hos oss, och intervjusidorna har störst läsarskara på sajten. Sökdatan för just videointervjuer är inte hämtad än; det görs i skrivandet.</td></tr>
+<tr><th>Vem den når</th><td>Den som gått vidare efter testet och fått en inbjudan till en inspelad eller digital intervju.</td></tr>
+<tr><th>Så leder det till intäkt</th><td>Intervjuprovet bedömer ett svar och visar återkopplingen med konto. Ett prov per dygn är gratis, obegränsat ingår i Premium.</td></tr>
+<tr><th>Så vet vi om det fungerade</th><td>9 feb: 10 till 20 klick i månaden och provstarter i intervjuprovet från sidan.</td></tr>
+<tr><th>Insats och vem</th><td>Två till fyra dagar. Opus, SEO-strategen granskar.</td></tr>
+</tbody></table>
+<h3>1 till 3 december: huvudorden, innehåll i gallerierna</h3>
+<table class="steg"><tbody>
+<tr><th>Vad</th><td>/cv-mallar, /cv-exempel och /personligt-brev-exempel får ett kort svar överst, filter efter situation (student, utan erfarenhet, karriärbyte, chef), en guide på 300 till 600 ord längre ner och vanliga frågor. Allt som finns i dag står kvar.</td></tr>
+<tr><th>Varför</th><td>De sidor som toppar på "cv mall" och "cv exempel" är gallerier med text. Våra gallerier är tunna i jämförelse, och det är en av orsakerna till att vi står på sida 3 till 4.</td></tr>
+<tr><th>Vem och intäkt</th><td>Som titlarna: den som ska skriva CV eller brev. Mallen väljs gratis, nedladdningen ingår i Premium.</td></tr>
+<tr><th>Så vet vi om det fungerade</th><td>19 jan och 9 feb.</td></tr>
+<tr><th>Insats och vem</th><td>Två till tre dagar. Opus, SEO-strategen granskar. Görs direkt efter kampanjveckan, eftersom gallerierna är byggda med sidans delar och de fryses 23 till 30 nov.</td></tr>
+</tbody></table>
+
+
+<h3>2 till 4 december: intervjufrågor för undersköterska och sjuksköterska</h3>
+<table class="steg"><tbody>
+<tr><th>Vad</th><td>Två nya sidor, /artiklar/intervjufragor-underskoterska och /artiklar/intervjufragor-sjukskoterska, med de vanligaste frågorna i vårdens intervjuer, vad intervjuaren vill höra och exempelsvar. Intervjuprovet ligger på båda. Korten "Kommer snart" på 15 brevexempel får länka hit.</td></tr>
+<tr><th>Varför</th><td>Du sa ja till de två sidorna i september. 15 brevexempel lovar i dag sidorna med ett "Kommer snart"-kort, och ett löfte vi inte levererar ska bort.</td></tr>
+<tr><th>Vem den når</th><td>Undersköterskor och sjuksköterskor som har en intervju bokad.</td></tr>
+<tr><th>Så leder det till intäkt</th><td>Intervjuprovet, konto, obegränsade prov i Premium.</td></tr>
+<tr><th>Så vet vi om det fungerade</th><td>9 feb: visningar och klick per sida, provstarter från sidorna.</td></tr>
+<tr><th>Insats och vem</th><td>Två till fyra dagar för båda. Opus, SEO-strategen granskar.</td></tr>
+</tbody></table>
+
+<h3>5 till 6 december: mall för uppsägningsbrev</h3>
+<table class="steg"><tbody>
+<tr><th>Vad</th><td>Ny sida på /artiklar/uppsagningsbrev-mall med en mall att kopiera, några exempel och en länk till kalkylatorn för uppsägningstid. Sidan om att säga upp sig trimmas samtidigt, så att de två inte konkurrerar.</td></tr>
+<tr><th>Varför</th><td>"hur man skriver ett uppsägningsbrev" har 61 visningar på 100 dagar på position 52, och "egen uppsägning" 60 på position 67. Sökaren vill ha en mall, och den visas i dag på fel sida.</td></tr>
+<tr><th>Vem den når</th><td>Den som har fått ett nytt jobb och ska säga upp sig.</td></tr>
+<tr><th>Så leder det till intäkt</th><td>Svagt. Sidan ger besökare och leder vidare till kalkylatorerna. Den som byter jobb har redan lyckats, så köpen är få.</td></tr>
+<tr><th>Så vet vi om det fungerade</th><td>9 feb: 10 till 20 klick i månaden och sidan visas för mallfrågorna i stället för sidan om att säga upp sig.</td></tr>
+<tr><th>Insats och vem</th><td>Under en dag. Opus.</td></tr>
+</tbody></table>
+
+<h3>7 till 11 december: tre yrkespar, CV- och brevexempel</h3>
+<table class="steg"><tbody>
+<tr><th>Vad</th><td>CV-exempel och personligt brev-exempel för vvs-montör, byggnadsarbetare och frisör, med samma person i CV och brev, på /cv-exempel/ och /personligt-brev-exempel/ för varje yrke.</td></tr>
+<tr><th>Varför</th><td>Hantverksyrkena har i dag bara snickare och elektriker. Ingen sökning syns ännu i Search Console för de tre yrkena; valet bygger på att kategorin saknas och kontrolleras mot Search Console när exemplen skrivs.</td></tr>
+<tr><th>Vem den når</th><td>Den som söker jobb i yrket och vill se ett färdigt exempel.</td></tr>
+<tr><th>Så leder det till intäkt</th><td>CV och brev byggs gratis med konto, nedladdningen ingår i Premium. Under ett konto i månaden per par enligt kvartalsplanen.</td></tr>
+<tr><th>Så vet vi om det fungerade</th><td>4 jan och 1 feb: 5 till 10 klick i månaden per par.</td></tr>
+<tr><th>Insats och vem</th><td>Två till fyra dagar för alla tre. Opus. Exemplen är data, inte sidans delar, så frysen gäller dem inte.</td></tr>
+</tbody></table>
+<h3>8 december: beslut om kontosteget och Dagspasset</h3>
+<table class="steg"><tbody>
+<tr><th>Vad</th><td>Vi läser av kontosteget och det borttagna namnfältet efter fyra veckor, före och efter att registreringsfelen lagades, mot utgångsläget 18 procent och 29 av 158. Ligger kontosteget under 30 procent tar art-director och copywriter fram ett nytt förslag som bild 9 till 16 dec, test- och säljansvarig stämmer av och Opus bygger. Det går live 17 till 18 dec eller 7 jan. Samtidigt läser vi om konton som har provet inom sju dagar väljer Dagspasset, 49 kr för ett dygn, oftare än månaden. Gör de det visas Dagspasset först för dem. Samma produkt och samma pris som i dag.</td></tr>
+<tr><th>Varför</th><td>Utformningen väntar av ett enda skäl: 74 personer ger ett intervall på ungefär 11 till 29 procent, så vi vet inte om det nya steget är bättre eller sämre än det gamla. Felen i registreringen lagas redan nu (se 16 till 20 november). Båda I-prov-kontona hittills hade fem och sex dagar kvar till provet, och för dem är en månad mer än de behöver.</td></tr>
+<tr><th>Vem den når</th><td>Alla som gör ett prov, och de som ska göra sitt test inom en vecka.</td></tr>
+<tr><th>Så leder det till intäkt</th><td>Fler konton på samma trafik, och ett köp som passar den som har bråttom.</td></tr>
+<tr><th>Så vet vi om det fungerade</th><td>Ett nytt kontosteg läses av fyra veckor efter att det gått live, med januari som första rena period.</td></tr>
+<tr><th>Insats och vem</th><td>Beslutet tar saas-lead med säljansvarig. Ett nytt kontosteg är två till fyra dagars arbete.</td></tr>
+</tbody></table>
+
+
+<h3>8 till 9 december: länkar på logiska-tester och navet, Assessio på matrigma-test</h3>
+<table class="steg"><tbody>
+<tr><th>Vad</th><td>/artiklar/logiska-tester och /artiklar/arbetspsykologiska-tester får en mening och länk var till tips-, stanine-, myndighets- och figursidan. /artiklar/matrigma-test får ett utbyggt avsnitt om Assessios tester, Matrigma och MAP, så att sidan tar sökningen "assessio test". Inga titlar ändras.</td></tr>
+<tr><th>Varför</th><td>De två stora sidorna ger de nya sidorna kraft i Google. "assessio test" visas i dag på fel sida, position 55.</td></tr>
+<tr><th>Vem och intäkt</th><td>Den som fått en inbjudan och läser om testerna i allmänhet, och den som fått en inbjudan från Assessio. Matrigma-sidan har högst andel klick till provet av alla testsidor.</td></tr>
+<tr><th>Så vet vi om det fungerade</th><td>Klick till de nya sidorna, och "assessio test" på matrigma-test, 9 feb.</td></tr>
+<tr><th>Insats och vem</th><td>Under en dag per sida. Opus. Väntar av ett skäl: de tre sidorna läses av 7 dec, och en ändring före dess gör avläsningen oläslig.</td></tr>
+</tbody></table>
+
+<h3>8 till 11 december: ny sida om logiska tester med figurer</h3>
+<table class="steg"><tbody>
+<tr><th>Vad</th><td>Ny sida på /artiklar/logiskt-test-figurer, arbetsrubrik "Logiskt test med figurer: reglerna och hur du hittar dem". Innehåll: ett kort svar först (figuruppgifterna styrs av ett fåtal regler: förflyttning, rotation, antal, addition och subtraktion, spegling, färg och fyllnad), en löst uppgift per regel ritad med testernas egen figurritare, skillnaden mellan figurserier och matriser, vad du gör när två regler gäller samtidigt, och vilka leverantörer som använder figurer. Figurprovet ligger inbäddat. Sidan länkar till matrisguiden och sidan med logiktest med lösningar, och den sidan länkar tillbaka.</td></tr>
+<tr><th>Varför</th><td>"logiskt test figurer förklaring" visas 267 gånger på position 9,8 och ger noll klick, eftersom Google visar logiska-tester, som inte förklarar figurer.</td></tr>
+<tr><th>Vem den når</th><td>Den som vill förstå figuruppgifterna, och en del som övar inför ett test.</td></tr>
+<tr><th>Så leder det till intäkt</th><td>Figurprovet, konto, Nivåkollen i figurserier, och pass och övningsprov i Premium. Lägst köpvilja av de nya sidorna; sidan ger mest trafik och konton.</td></tr>
+<tr><th>Så vet vi om det fungerade</th><td>9 feb: sidan visas för figursökningarna och har 6 klick på 28 dagar. 9 mar: 10 klick och position under 8.</td></tr>
+<tr><th>Insats och vem</th><td>Två till fyra dagar. Opus, SEO-strategen granskar. Flyttad hit från januari. Väntar till 8 dec av ett skäl: logiska-tester läses av 7 dec, och en ny sida på samma sökning före dess gör avläsningen oläslig.</td></tr>
+</tbody></table>
+
+<h3>Väntar på en avläsning, och ett undantag</h3>
+<table class="steg"><tbody>
+<tr><th>Länkar på logiska-tester och navet, Assessio på matrigma-test</th><td>8 till 9 dec. Skäl: sidorna läses av 7 dec.</td></tr>
+<tr><th>Figursidan och länken från logiktest med lösningar</th><td>8 till 11 dec. Skäl: logiska-tester, som tar figursökningen i dag, läses av 7 dec.</td></tr>
+<tr><th>Kontostegets utformning</th><td>Beslut 8 dec. Skäl: avläsningen efter fyra veckor.</td></tr>
+<tr><th>Dagspasset först för korta horisonter</th><td>Beslut 8 dec. Skäl: avläsningen av valt paket mot dagar kvar, som börjar 23 nov.</td></tr>
+<tr><th>Sammanslagningarna i huvudordsplanen</th><td>Enda undantaget. Sammanslagning betyder att sidor tas bort och omdirigeras, och det är ditt beslut enligt huvudordsplanen. Görs i så fall inte under julen.</td></tr>
+</tbody></table>
+
+<h2><span class="num">6</span>Avläsningar</h2>
+<table>
+<thead><tr><th>Datum</th><th>Vad vi läser</th><th>Vad som händer</th></tr></thead>
+<tbody>
+<tr><td>22 till 23 nov</td><td>Dag 2-väggen och köpknappen i spärren</td><td>Underlag till beslutet 8 dec</td></tr>
+<tr><td>2 dec</td><td>Alva-sidans klick 14 dagar efter mot 14 dagar före</td><td>Minus 30 procent eller mer vid ungefär lika många visningar: gamla titeln tillbaka samma dag</td></tr>
+<tr><td>7 till 8 dec</td><td>Kontosteget och namnfältet (baslinje 18 procent och 29 av 158), före och efter att registreringsfelen lagades, första tecken på Alva och guiderna, de nya sidorna inlästa av Google, Dagspasset mot dagar kvar till provet</td><td>Beslut om kontosteget och Dagspasset</td></tr>
+<tr><td>18 dec</td><td>Baslinje före jul, köp med och utan kampanjköp. Sidorna från före kampanjen har då fyra veckor, och huvudordens titlar ger första tecken.</td><td>Köpmålen bedöms utan kampanjköp</td></tr>
+<tr><td>23 och 30 dec</td><td>Hur många kampanjköpare som betalar vid andra dragningen, per sida</td><td>Visar om Alva-köparen blir kund</td></tr>
+<tr><td>19 jan</td><td>Första fönstret efter jul, huvudordens målsidor</td><td></td></tr>
+<tr><td>9 feb</td><td>Klick, visningar och konton per sida</td><td>Alva-sidan 1,5 gånger kontotakten före 16 nov. Tips, myndigheter och stanine tillsammans 6 konton på 28 dagar. Testklustret 1,3 procent CTR.</td></tr>
+<tr><td>9 mar</td><td>Köp</td><td>3 till 6 köp på 28 dagar från testsidorna i omgången, utan kampanjköp. De nya sidorna 15 konton.</td></tr>
+</tbody>
+</table>
+<p class="lead">Julveckorna 21 dec till 6 jan räknas inte in i trender. Alla kontomål bygger på dagens 19 procent i kontosteget.</p>
+
+<h2><span class="num">7</span>Det som bara du kan göra</h2>
+<ol>
+<li><strong>Begär indexering i Search Console</strong> för alva-labs-logiktest, numeriskt-test-guide och verbalt-test-guide måndag 16 nov, och för varje ny sida och huvudordens målsidor samma dag de publiceras: alltså de datum som står i översikten i avsnitt 5.</li>
+<li><strong>Pusha till main</strong> på datumen i avsnitt 5. Kampanjens prisrader, mätningen, registreringsfelen, hubben och huvudordens titlar senast söndag 22 nov. Inget som ändrar komponenter 23 till 30 nov.</li>
+</ol>
+
+<footer>jobbcoach.ai, saas-lead. Inga ändringar i kod, priser eller utskick i den här rapporten. Beslut i docs/beslut-seo-tester-omgang2-saas-lead-2026-11-14.md, status i docs/plan-efter-analys-2026-11-08.md avsnitt H, sammanfattning i docs/rapporter/seo-tester-omgang2-2026-11-14.md.</footer>
+</div>
+</body></html>

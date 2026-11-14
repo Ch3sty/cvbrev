@@ -141,10 +141,67 @@ Plan: docs/plan-seo-nya-tester-2026-11-10.md, avsnitt 3 och 5. Grind per push: t
 - [x] U2. /verktyg/rekryteringstester: åtta testtyper, "Vilket test ska du göra?", FAQ om I-provet, featureList (a4e7e652). Korten 2026-11-10: provlänkarna bär ?typ= och ?mitt_test= enligt 5.2 (Polisen till I-provet, SHL deduktivt, Aon och Lokförare figurserier, övriga matrisprovet), artikellänkarna rena eftersom artikeln sätter sitt eget val, klicken mäts med variant hub-val-artikel/prov-<val> och target, källan förblir 'hubb' genom provet. Klicktestat Polisen till konto på Pixel 7 och 1280: mitt_test iprov, acquisition_source kalla hubb (2c7496c1).
 - [x] U5, U6, U7, U9. Länkarna, "Aon-testet för lokförare", navet, /funktioner (751cae7a).
 - [ ] U8. Matrigma-ägarskapet: efter avläsningen 7 dec.
-- [ ] U10. Inbäddade prov i numeriskt- och verbalt-guide: produktsidan, efter 23 nov.
+- [x] U10. Inbäddade prov i numeriskt- och verbalt-guide. Gjort i produktdelen punkt 9 (våg 2, live 10 nov): `<ArtikelProv typ="numerisk" />` och `typ="verbal"` står i båda guiderna. Rättat 14 nov.
 - Gemensamt beslut 2026-11-10 (saas-lead, säljansvarig, SEO): hubbens title "Rekryteringstester: gratis logiktest, I-provet och mer" (54 tecken) prövas inte nu utan vid avläsningen 7 dec, och tidigast efter baslinjen 18 dec. Saas-lead: titeln ändrades just i U2 och planens regel är att inte ändra titlar under avläsningsfönstret, annars går effekten inte att läsa av. Sälj: ordet logiktest drar delvis den som aldrig betalar (logiktester.se är gratis utan konto), så bytet ska vägas mot konton per källa, inte bara klick. SEO: logiktester.se är starkast på "logiktest gratis" och vår title saknar ordet, så det är rätt nästa test, men ett byte i taget. Ingen säger emot att vänta.
 - Gemensamt beslut 2026-11-10: tabellen med lokförarmodulerna (Aon e3+, NAV, rt med flera) läggs i aon-cut-e-test först när N5 är beslutad 9 feb. Saas-lead: modulen och N5 avgörs av räknaren för valet Lokförare (minst 15 konton), och innehållet ska följa produktbeslutet. Sälj: en tabell full av moduler vi saknar skickar den köpbenägna besökaren till konkurrenten innan vi har något att sälja. SEO: JobTestPrep vinner på modulnamnen, men H2:n tar söket på ärlighet och källa tills dess. Ingen säger emot.
 - Fynd till ägaren: produktens texter för pappersvikning (iprov.ts, copy.ts) sade "viks upp". Rättat 10 nov med form D; tärningarnas svarsformat (lika eller olika) skiljer sig fortfarande från vårt.
+
+## H. Testklustret omgång 2 och december (saas-leads slutliga beslut 2026-11-14)
+
+Plan: `docs/plan-seo-tester-omgang2-2026-11-14.md`. Granskningar: `docs/beslut-seo-tester-omgang2-salj-2026-11-14.md` och `docs/beslut-seo-tester-omgang2-saas-lead-2026-11-14.md` (avgörandena). Rapport till ägaren: `docs/rapporter/seo-tester-omgang2-2026-11-14.{html,pdf,md}`. Samma grind som G. Huvudordsplanens decemberåtgärder (`docs/plan-huvudord-2026-12.md` avsnitt 3) och kvartalsplanens sidor för november och december ligger här.
+
+**Ägarens regel 2026-11-14 kväll:** allt som inte beror på en avläsning hos oss körs nu. Källkontroll ingår i artikelflödet och är inget hinder. Kapacitet och granskningsordning är inget skäl att skjuta upp. Kampanjfrysen 23 till 30 nov gäller komponentändringar, så komponentsteg ligger före 23 nov eller direkt efter 30 nov. Kön nedan är i ordning efter köpnärhet. Två Opus-agenter kör parallellt: **kod** i `.claude/worktrees/publikt-v2` på grenen `feat/matning-kampanj`, **artiklar** i huvudkopian på grenen `feat/seo-tester-omgang2`. Varje sida går genom artikelflödet (Search Console, källkontroll, copy utan AI-mönster och talstreck, GEO-snabbsvar, slop-kontroll, egen SVG, tabeller som JSX, SEO-diff) och granskas av SEO-strategen. Den som gör ett steg bockar av och skriver commit och datum på raden.
+
+**Regler för omgången**
+- Kontostegets utformning (E 29, live 10 nov) och namnfältet (E 26) avläses 8 dec mot 18 procent respektive 29 av 158. Utformningen och premiumraden ändras inte före dess. Fel som hindrar registreringen lagas nu (K3), med tidpunkten noterad. Inga mål räknar med en vinst i kontosteget; kontomålen bygger på dagens 19 procent.
+- 23 till 30 nov: inga ändringar i publika komponenter, inga ändringar på alva-labs-logiktest, inga kampanjord i title, description, H1, snabbsvar, FAQ eller schema. Ren MDX får publiceras.
+- Ett titelbyte per sida och avläsningsfönster. Testklustrets titlar rörs inte i december utom om backningsregeln för Alva slår till.
+- Ett inbäddat prov per sida. Varje påstående om en myndighet, leverantör eller ett krav har en källa; det som inte går att belägga skrivs inte.
+- Julregeln: sista publicering 14 dec.
+
+### Körkön
+
+**Kod** (`feat/matning-kampanj`)
+- [ ] K1. Mätkontroll, 16 till 20 nov. (a) `mitt_test_valt` från artikeln skjuts i `ValkommenClient` bara när `kalla.satt` är sann; 4 händelser mot 16 konton med `mitt_test` sedan 10 nov. Ta reda på om det är en bugg eller samtyckesbortfall och laga. (b) `sample_started` för matrisprovet på `/prova` saknar `test_kind` (`ProvaFlow.tsx`, den andra grenen). (c) `subscription_paid` i Stripe-webhooken skickar inte `konto_kalla` och `mitt_test` fast kassans metadata bär dem; för vidare dem. S.
+- [ ] K2. Prisraderna följer kampanjen, 16 till 20 nov. `TypProvKort` och `ArtikelReklam` med `KampanjVarianter` och `KampanjPris` som `PremiumBlock`, "första månaden"; `ProvTypSida` i inloggat läge med `aktivKampanj` och aldrig-Premium-regeln. Kontostegets premiumrad rörs inte. `scripts/qa-kampanj.mjs` får en artikel med provkort. S.
+- [ ] K3. Registreringsfelen, 16 till 20 nov. 14 misslyckade registreringar på 28 dagar (10 lösenord, 4 Google) saknar skäl på `signup_failed`; omkring 65 öppnade formulär mot 21 skickade. Lägg till skälet, läs Supabase auth-loggen för de 14, laga det som är fel. Utformningen rörs inte. Fixtiden skrivs här. S.
+- [ ] K4. Huvudord steg 1, 3 och 4, 18 till 22 nov: titel och H1 på /cv-mallar, /artiklar/skriva-personligt-brev-guide, /artiklar/personligt-brev-mall-gratis, /personligt-brev-exempel och /cv-exempel; länkar från stödsidorna med ordet i ankartexten; yrkessidornas länk tillbaka till galleriet, /exempel som hubb, galleriernas ItemList. SEO-diff med undantag. S, S, S.
+- [ ] K5. Hubben /verktyg/rekryteringstester, 20 till 22 nov: blocket "Inför testet" med länkar till tips-, stanine- och myndighetssidan och FAQ om myndigheterna. Myndighetslänken med om sidan är publicerad, annars 1 dec. Title och description orörda. S.
+- [ ] K6. Huvudord steg 2, 1 till 3 dec: snabbsvar, filter efter situation, guide 300 till 600 ord och FAQ på /cv-mallar, /cv-exempel och /personligt-brev-exempel. Inget tas bort. M.
+- [ ] K7. Underlag för kontosteget, 16 nov till 8 dec: var besökaren lämnar mellan `signup_gate_shown`, `signup_started` och `signup_completed`, per `test_kind`, källa, enhet och inloggningssätt, före och efter K3, kampanjveckan för sig. S.
+
+**Artiklar** (`feat/seo-tester-omgang2`, i ordning)
+- [ ] A1. alva-labs-logiktest, 16 nov. seoTitle "Alva logiktest: öva gratis och förstå resultatet 1 till 10", H1 orörd. Resultattabellen bara med Alvas uppgifter. H2 "Kan man göra om Alva Labs logiktest?" ur Alvas hjälpcenter som slutar med provet och `?mitt_test=alva`. Tips-H2 och FAQ. Backningsregel: klicken 14 dagar efter mot 14 före, visningar inom 20 procent, minus 30 procent ger gamla titeln tillbaka; läses 2 dec. Inga ändringar 23 till 30 nov. S till M.
+- [ ] A2. numeriskt-test-guide och verbalt-test-guide, 16 nov. seoTitle "Numeriskt test: exempel med lösning och öva gratis" och "Verbalt resonemang test: exempel med svar, öva gratis", description utan löfte om svar utan konto. S.
+- [ ] A3. /artiklar/logiktest-tips med matrisprovet, 17 till 19 nov. M.
+- [ ] A4. /artiklar/stanine-testresultat med I-provets smakprov, matrisprovet som textlänk, 18 till 20 nov. Ersätter tolka-testresultat. M.
+- [ ] A5. i-prov, 19 till 20 nov. "Är I-provet ett IQ-test?" och FAQ om gratis IQ-test för polisen med uppgifter kontrollerade hos Polisen och Plikt- och prövningsverket; Kustbevakningen får källa eller stryks; länk till stanine-sidan. S.
+- [ ] A6. /artiklar/tester-hos-myndigheter med matrisprovet, 20 till 22 nov. Varje myndighet bara ur sin egen sida med länk och hämtdatum; det som inte går att belägga skrivs inte. Ingen leverantör kopplas till en myndighet; Addas ramavtal som vilka som får säljas; inga logotyper, ingen myndighet i bild, OG-bild, seoTitle eller schema; faktarutan om att vi saknar koppling direkt efter snabbsvaret. M.
+- [ ] A7. personlighetstest-jobb-guide, 22 till 24 nov. H2 om hur man svarar, FAQ, titel och description orörda. S.
+- [ ] A8. /artiklar/cubiks-logiks-test med numeriskt prov, 24 till 26 nov. Talogys uppgifter med källa, annars utelämnade; faktaruta om att vi saknar koppling; inget löfte om Cubiks-prov; "Mitt test" Annat. M.
+- [ ] A9. /artiklar/soka-sommarjobb, 26 till 28 nov. M.
+- [ ] A10. /artiklar/videointervju-tips med intervjuprovet, 29 nov till 1 dec. Search Console kontrolleras när den skrivs och styr orden. M.
+- [ ] A11. /artiklar/intervjufragor-underskoterska och /artiklar/intervjufragor-sjukskoterska med intervjuprovet, 2 till 4 dec. "Kommer snart"-korten på brevexemplen länkar hit. M.
+- [ ] A12. /artiklar/uppsagningsbrev-mall, 5 till 6 dec. Trimma saga-upp-sig i samma commit. S.
+- [ ] A13. Yrkesparen vvs-montör, byggnadsarbetare och frisör, CV- och brevexempel med samma persona, 7 till 11 dec. Paritetsdiff före push. M.
+
+### Väntar på avläsning
+- [ ] V1. Länkar på logiska-tester och arbetspsykologiska-tester till tips-, stanine-, myndighets- och figursidan, och U8 utökad matrigma-test (Assessio), 8 till 9 dec. Skäl: avläsningen 7 dec.
+- [ ] V2. /artiklar/logiskt-test-figurer med figurserieprovet och länken från logiktest-exempel-med-losningar, 8 till 11 dec. Skäl: avläsningen 7 dec av logiska-tester.
+- [ ] V3. Kontostegets utformning, beslut 8 dec (saas-lead med säljansvarig). Under 30 procent: förslag i artefakt av art-director och copywriter 9 till 16 dec, Opus bygger. Skäl: avläsningen efter fyra veckor.
+- [ ] V4. Dagspasset först för konton med under sju dagar kvar till provet, beslut 8 dec. Skäl: avläsningen av vald plan mot dagar kvar från 23 nov.
+
+**Enda undantaget:** sammanslagningarna M1 och M8 i huvudordsplanen är 301 och därmed ägarbeslut (D 19), och inga 301 under julen.
+
+**Avläsningar**
+- 22 till 23 nov: dag 2-väggen och köpknappen i spärren (A 3, C), underlag till 8 dec.
+- 2 dec: backningsregeln för Alva.
+- 7 till 8 dec: kontosteget och namnfältet (C), före och efter K3; Alva, numeriskt och verbalt tidig CTR; de nya sidorna indexerade; förra omgångens sidor; Dagspasset.
+- 18 dec: baslinje före jul, köp med och utan kampanjköp (kupongerna `black-week-2026` och `cyber-monday-2026`); köpmålen bedöms utan. Sidorna från före kampanjen har då fyra veckor.
+- 23 och 30 dec: kampanjköpare som betalar vid andra dragningen, per källa.
+- 19 jan: första fönstret efter jul, huvudordens målsidor.
+- 9 feb: huvudavläsningen. Alva 1,5 gånger kontotakten de 14 dagarna före 16 nov; tips-, stanine- och myndighetssidan tillsammans 6 konton på 28 dagar; planens visnings- och klickmål.
+- 9 mar: 3 till 6 köp på 28 dagar från testsidorna i omgången, utan kampanjköp. De nya testsidorna 15 konton.
 
 ## Arbetsregler
 
