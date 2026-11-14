@@ -34,6 +34,15 @@
     "BlogPosting",
     "FAQPage"
    ]
+  },
+  {
+   "path": "/artiklar/personlighetstest-jobb-guide",
+   "datum": "2026-11-14",
+   "skal": "A7 (U12): nytt avsnitt Hur ska man svara på ett personlighetstest? med Assessios och Alvas egna råd, ny FAQ Kan man misslyckas på ett personlighetstest?. Titel, description och övriga frågor oförändrade.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
   }
  ],
  "META_BYTT": [
@@ -65,7 +74,7 @@
    "path": "/artiklar/verbalt-test-guide",
    "falt": "title",
    "datum": "2026-11-14",
-   "skal": "H8 (U17): seoTitle Verbalt resonemang test: exempel med svar, öva gratis."
+   "skal": "H8 (U17): seoTitle Verbalt resonemang: testexempel med svar, öva gratis (copywriterns formulering av saas-leads beslut, samma sökord)."
   },
   {
    "path": "/artiklar/verbalt-test-guide",
