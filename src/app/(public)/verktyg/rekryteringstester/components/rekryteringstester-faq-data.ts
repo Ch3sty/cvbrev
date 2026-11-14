@@ -30,6 +30,30 @@ function tidSvar(): string {
 export interface FaqItem {
   q: string
   a: string
+  /** Länk efter svaret (Faq.tsx). Schemat läser bara a. */
+  lank?: { text: string; href: string }
+}
+
+/**
+ * Frågan om myndigheterna (SEO-planen U15, förslaget K5, 2026-11-14). Står i
+ * listan bara när myndighetssidan finns i bygget (page.tsx), så att schemat
+ * aldrig svarar med en sida som saknas. Varje påstående finns i
+ * myndighetssidans tabell, med myndigheternas egna sidor som källa.
+ */
+export const MYNDIGHETER_SLUG = 'tester-hos-myndigheter'
+export const MYNDIGHETER_FAQ: FaqItem = {
+  q: 'Vilka tester använder myndigheterna?',
+  a: 'Det skiljer sig mellan myndigheterna, och ingen av dem skriver vilket test du får i en viss rekrytering. Skatteverket, Kronofogden, Försäkringskassan och Arbetsförmedlingen skriver att de ofta använder webbaserade tester av personliga egenskaper och problemlösningsförmåga i urvalet, oftast före intervjun. Säkerhetspolisen har begåvningstest, personlighetstester och en psykologbedömning. Tullaspiranter gör ett databaserat begåvningstest hos Plikt- och prövningsverket. Kriminalvården beskriver inget teststeg. Vilket test det blir står i inbjudan.',
+  lank: { text: 'Tester hos myndigheter', href: `/artiklar/${MYNDIGHETER_SLUG}` },
+}
+
+/** Listan med myndighetsfrågan direkt efter frågan om I-provet. */
+export function faqMedMyndigheter(finns: boolean): FaqItem[] {
+  if (!finns) return REKRYTERINGSTESTER_FAQ_ITEMS
+  const i = REKRYTERINGSTESTER_FAQ_ITEMS.findIndex((f) => f.q === 'Kan jag öva på I-provet?')
+  const ut = [...REKRYTERINGSTESTER_FAQ_ITEMS]
+  ut.splice(i < 0 ? ut.length : i + 1, 0, MYNDIGHETER_FAQ)
+  return ut
 }
 
 export const REKRYTERINGSTESTER_FAQ_ITEMS: FaqItem[] = [
