@@ -43,6 +43,30 @@
     "BlogPosting",
     "FAQPage"
    ]
+  },
+  {
+   "path": "/artiklar/saga-upp-sig",
+   "datum": "2026-11-14",
+   "skal": "A12: länkar till uppsagningsbrev-mall i snabbsvaret och mallavsnittet, bara tillägg. BlogPostings wordCount följer texten.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/olika-intervjutyper-tips",
+   "datum": "2026-11-14",
+   "skal": "A10: en länkmening till videointervju-tips i H2 Videointervju. BlogPostings wordCount följer texten.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-exempel-student-nyexaminerad",
+   "datum": "2026-11-14",
+   "skal": "A9: en länkmening till soka-sommarjobb efter sommarjobbsexemplet. BlogPostings wordCount följer texten.",
+   "andrade": [
+    "BlogPosting"
+   ]
   }
  ],
  "META_BYTT": [
@@ -163,6 +187,36 @@
    "lank": "/artiklar/i-prov",
    "datum": "2026-11-14",
    "skal": "Läs vidare-korten är automatiska; de nya testartiklarna (logiktest-tips, stanine-testresultat, cubiks-logiks-test) tränger undan äldre kort. Ingen länk i brödtexten är borttagen."
+  },
+  {
+   "path": "/artiklar/saga-upp-sig",
+   "lank": "/artiklar/i-prov",
+   "datum": "2026-11-14",
+   "skal": "Läs vidare-korten är automatiska; de nya artiklarna i omgången tränger undan äldre kort. Ingen länk i brödtexten är borttagen."
+  },
+  {
+   "path": "/artiklar/saga-upp-sig",
+   "lank": "/artiklar/ordforstaelse-test",
+   "datum": "2026-11-14",
+   "skal": "Läs vidare-korten är automatiska; de nya artiklarna i omgången tränger undan äldre kort. Ingen länk i brödtexten är borttagen."
+  },
+  {
+   "path": "/artiklar/olika-intervjutyper-tips",
+   "lank": "/artiklar/beratta-om-dig-sjalv-intervju",
+   "datum": "2026-11-14",
+   "skal": "Läs vidare-korten är automatiska; de nya artiklarna i omgången tränger undan äldre kort. Ingen länk i brödtexten är borttagen."
+  },
+  {
+   "path": "/artiklar/cv-exempel-student-nyexaminerad",
+   "lank": "/artiklar/i-prov",
+   "datum": "2026-11-14",
+   "skal": "Läs vidare-korten är automatiska; de nya artiklarna i omgången tränger undan äldre kort. Ingen länk i brödtexten är borttagen."
+  },
+  {
+   "path": "/artiklar/cv-exempel-student-nyexaminerad",
+   "lank": "/artiklar/ordforstaelse-test",
+   "datum": "2026-11-14",
+   "skal": "Läs vidare-korten är automatiska; de nya artiklarna i omgången tränger undan äldre kort. Ingen länk i brödtexten är borttagen."
   }
  ]
 }
