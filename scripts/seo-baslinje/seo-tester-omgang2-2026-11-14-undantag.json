@@ -1,0 +1,61 @@
+{
+ "_om": "Undantag för testklustret omgång 2 (docs/plan-seo-tester-omgang2-2026-11-14.md, saas-leads slutliga beslut 2026-11-14, avsnitt H i docs/plan-efter-analys-2026-11-08.md). Läses av scripts/seo-diff-artiklar.ts. Inga rubriker, länkar eller FAQ-frågor tas bort.",
+ "LD_UNDANTAG": [
+  {
+   "path": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-14",
+   "skal": "H7 (U11): FAQ-svaret om bra resultat får Alvas tre band, svaret om att se resultatet säger 24 månader, och en ny fråga om vad arbetsgivaren ser. Övriga frågor oförändrade. BlogPosting följer ny description, taggar och de nya avsnitten.",
+   "andrade": ["BlogPosting", "FAQPage"]
+  },
+  {
+   "path": "/artiklar/numeriskt-test-guide",
+   "datum": "2026-11-14",
+   "skal": "H8 (U17): ny description. BlogPosting bär description.",
+   "andrade": ["BlogPosting"]
+  },
+  {
+   "path": "/artiklar/verbalt-test-guide",
+   "datum": "2026-11-14",
+   "skal": "H8 (U17): ny description. BlogPosting bär description.",
+   "andrade": ["BlogPosting"]
+  }
+ ],
+ "META_BYTT": [
+  {
+   "path": "/artiklar/alva-labs-logiktest",
+   "falt": "title",
+   "datum": "2026-11-14",
+   "skal": "H7 (U11): seoTitle Alva logiktest: öva gratis och förstå resultatet 1 till 10 (saas-leads avgörande 2026-11-14). H1 och title orörda. Backas om klicken 14 dagar efter ligger 30 procent eller mer under 14 dagar före, läses 2 dec."
+  },
+  {
+   "path": "/artiklar/alva-labs-logiktest",
+   "falt": "description",
+   "datum": "2026-11-14",
+   "skal": "H7 (U11): description med Alva logiktest först, öva gratis och vad 6, 7 eller 8 betyder."
+  },
+  {
+   "path": "/artiklar/numeriskt-test-guide",
+   "falt": "title",
+   "datum": "2026-11-14",
+   "skal": "H8 (U17): seoTitle Numeriskt test: exempel med lösning och öva gratis. 461 visningar och noll klick på 28 dagar för numeriskt och verbalt."
+  },
+  {
+   "path": "/artiklar/numeriskt-test-guide",
+   "falt": "description",
+   "datum": "2026-11-14",
+   "skal": "H8 (U17): description med provet tidigt, utan löfte om svar utan konto."
+  },
+  {
+   "path": "/artiklar/verbalt-test-guide",
+   "falt": "title",
+   "datum": "2026-11-14",
+   "skal": "H8 (U17): seoTitle Verbalt resonemang test: exempel med svar, öva gratis."
+  },
+  {
+   "path": "/artiklar/verbalt-test-guide",
+   "falt": "description",
+   "datum": "2026-11-14",
+   "skal": "H8 (U17): description med provet tidigt, utan löfte om svar utan konto."
+  }
+ ]
+}
