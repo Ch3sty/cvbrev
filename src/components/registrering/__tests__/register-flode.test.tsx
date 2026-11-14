@@ -68,7 +68,7 @@ describe('bar /register', () => {
   it('smakprovets kontosteg har inte heller något namnfält', () => {
     render(<RegisterFlode ingang={registerIngang(ur('test=abc'))} />)
     expect(document.querySelector('input[autocomplete="name"]')).toBeNull()
-    expect(document.querySelectorAll('form input:not([type="hidden"])').length).toBe(2)
+    expect(document.querySelectorAll('form input:not([type="hidden"]):not([type="checkbox"])').length).toBe(2)
   })
 
   it('cookien bär skipped och att frågan inte visats, så spårvalet ställer den', () => {
