@@ -23,7 +23,13 @@
 import puppeteer from 'puppeteer-core'
 import fs from 'node:fs'
 import path from 'node:path'
+import { createClient } from '@supabase/supabase-js'
 
+const ENV = Object.fromEntries(
+  fs.readFileSync('.env.local', 'utf8').split(/\r?\n/).filter((r) => r.includes('=') && !r.trim().startsWith('#'))
+    .map((r) => { const i = r.indexOf('='); return [r.slice(0, i).trim(), r.slice(i + 1).trim().replace(/^["']|["']$/g, '')] })
+)
+const admin = createClient(ENV.NEXT_PUBLIC_SUPABASE_URL, ENV.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } })
 const BAS = process.env.BAS || 'http://localhost:3471'
 const SCRATCH = process.env.SCRATCH
 if (!SCRATCH) throw new Error('Sätt SCRATCH')
@@ -32,7 +38,7 @@ fs.mkdirSync(UT, { recursive: true })
 const RESULTAT = path.join(UT, 'resultat.jsonl')
 const KONTON = fs.existsSync(`${SCRATCH}/qa-kampanj-konton.json`) ? JSON.parse(fs.readFileSync(`${SCRATCH}/qa-kampanj-konton.json`, 'utf8')) : {}
 const [floede, bredd] = process.argv.slice(2)
-const prefix = `${floede}-${bredd}`
+const prefix = `${floede}-${bredd}${process.env.MORKT === '1' ? '-morkt' : ''}`
 let nr = 0
 const fel = []
 const vanta = (ms) => new Promise((r) => setTimeout(r, ms))
@@ -46,8 +52,8 @@ async function bild(p, namn, hel = false) {
   nr += 1
   await p.screenshot({ path: path.join(UT, `${prefix}-${String(nr).padStart(2, '0')}-${namn}.png`), fullPage: hel }).catch(() => {})
 }
-async function ga(p, u) {
-  await p.goto(BAS + u, { waitUntil: 'networkidle2', timeout: 180000 })
+async function ga(p, u, waitUntil = 'networkidle2') {
+  await p.goto(BAS + u, { waitUntil, timeout: 180000 })
   await vanta(700)
 }
 async function avvisaKakor(p) {
@@ -126,7 +132,9 @@ const PRISORD = { fore: null, bw: '99 kr första månaden', cm: '49 kr första m
  * schema. Samma CDN-cachade HTML i alla lägen, variant väljs i <head>.
  */
 async function artikel(p, lage) {
-  await ga(p, '/artiklar/talserier')
+  // Artikeln har filmen och prov på sidan; nätet blir aldrig helt stilla.
+  await ga(p, '/artiklar/talserier', 'load')
+  await vanta(1500)
   await avvisaKakor(p)
   const kort = await p.evaluate(() =>
     [...document.querySelectorAll('aside.ib-prova .pub-liten')].map((e) => e.innerText.replace(/\s+/g, ' ').trim()).filter(Boolean)
@@ -155,6 +163,18 @@ async function artikel(p, lage) {
   await p.evaluate(() => document.querySelector('aside.ib-prova')?.scrollIntoView({ block: 'center' }))
   await vanta(300)
   await bild(p, `artikel-${lage}`)
+
+  // I-provsidan har priset i löptexten (<PremiumPris />) direkt under
+  // provkortet (säljgranskningen 14 nov): under kampanjen får ingen synlig
+  // text säga "149 kr i månaden" utan "sedan" före, alltså ett pris per sida.
+  await ga(p, '/artiklar/i-prov', 'load')
+  await vanta(1500)
+  const tvaPriser = await p.evaluate(() => {
+    const t = document.querySelector('main')?.innerText.replace(/\s+/g, ' ') ?? ''
+    const traffar = [...t.matchAll(/(.{0,12})149 kr i månaden/g)].map((m) => m[1])
+    return { antal: traffar.length, utanSedan: traffar.filter((f) => !/sedan\s*$/.test(f)).length }
+  })
+  logg(`${lage}: i-prov har ett pris per sida`, ord ? tvaPriser.utanSedan === 0 && tvaPriser.antal > 0 : tvaPriser.antal > 0, tvaPriser)
 }
 
 /**
@@ -164,18 +184,25 @@ async function artikel(p, lage) {
  */
 async function provsida(p, kontoNamn) {
   const ip = `203.0.113.${Math.floor(Math.random() * 250) + 2}`
-  const svar = await p.evaluate(async (ip) => {
+  const start = await p.evaluate(async (ip) => {
     const r = await fetch('/api/public/test-session', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-forwarded-for': ip }, body: JSON.stringify({ typ: 'talserie' }) })
     const j = await r.json()
-    if (!r.ok || !j.token) return { status: r.status, fel: j.error }
-    const c = await fetch('/api/public/test-session/claim', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token: j.token }) })
-    const cj = await c.json()
-    return { status: c.status, token: j.token, redirect: cj.redirect }
+    return { status: r.status, token: j.token ?? null, fel: j.error }
   }, ip)
   const fil = `${SCRATCH}/qa-kampanj-konton.json`
   const k = JSON.parse(fs.readFileSync(fil, 'utf8'))
-  k.prov = [...(k.prov ?? []), { token: svar.token ?? null, ip, konto: kontoNamn }]
+  k.prov = [...(k.prov ?? []), { token: start.token, ip, konto: kontoNamn }]
   fs.writeFileSync(fil, JSON.stringify(k, null, 2))
+  // Svaren sätts tomma direkt i raden: ett besvarat prov skriver en rad i
+  // prov_utfall som saknar nyckel och inte går att radera per id.
+  if (start.token) await admin.from('anon_test_sessions').update({ answers: [] }).eq('token', start.token)
+  const svar = start.token
+    ? await p.evaluate(async (token) => {
+        const c = await fetch('/api/public/test-session/claim', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token }) })
+        const cj = await c.json()
+        return { status: c.status, token, redirect: cj.redirect }
+      }, start.token)
+    : start
   if (!svar.redirect) {
     logg('provsidan: provet hämtades', false, svar)
     return
@@ -263,6 +290,11 @@ async function nySida(browser, mobil) {
   const p = await browser.newPage()
   await p.setViewport(mobil ? { width: 412, height: 915, deviceScaleFactor: 2.625, isMobile: true, hasTouch: true } : { width: 1280, height: 860, deviceScaleFactor: 1 })
   p.on('pageerror', (e) => logg('sidfel', false, { fel: String(e).slice(0, 300) }))
+  // MORKT=1 ger mörkt läge. PostHog stängs alltid av, så att klicktestet
+  // aldrig hamnar i produktionens mätning.
+  if (process.env.MORKT === '1') await p.emulateMediaFeatures([{ name: 'prefers-color-scheme', value: 'dark' }])
+  await p.setRequestInterception(true)
+  p.on('request', (r) => (/posthog\.com|\/ingest\//.test(r.url()) ? r.abort() : r.continue()))
   return p
 }
 

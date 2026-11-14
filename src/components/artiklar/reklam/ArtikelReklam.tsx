@@ -411,7 +411,7 @@ export function ListaSlutKort() {
         kick={LISTA_SLUT.etikett}
         rubrik={gradientSlut(LISTA_SLUT.rubrik.replace(', ', '. '))}
         rubrikNiva="p"
-        text={LISTA_SLUT.text}
+        text={<MedKampanjPris text={LISTA_SLUT.text} />}
         punkter={LISTA_SLUT.rader}
         knapp={
           <Link href={LISTA_SLUT.href} data-cta-klick={LISTA_SLUT.href} className="pub-knapp">
