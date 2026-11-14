@@ -29,7 +29,7 @@
   {
    "path": "/artiklar/i-prov",
    "datum": "2026-11-14",
-   "skal": "H11 (U13): nytt avsnitt Är I-provet ett IQ-test? med länk till stanine-sidan, Kustbevakningen och Tullverket belagda med Plikt- och prövningsverkets årsredovisning 2025 och Kustbevakningens egen sida, ny FAQ om gratis IQ-test för polisen och taggen iq test polis. Övriga frågor oförändrade.",
+   "skal": "H11 (U13): nytt avsnitt Är I-provet ett IQ-test? med länk till stanine-sidan och ny FAQ om gratis IQ-test för polisen, taggen iq test polis. Obelagda påståenden om Tullverket och Kustbevakningen strukna efter testansvarigs granskning. Övriga frågor oförändrade.",
    "andrade": [
     "BlogPosting",
     "FAQPage"
@@ -66,6 +66,46 @@
    "skal": "A9: en länkmening till soka-sommarjobb efter sommarjobbsexemplet. BlogPostings wordCount följer texten.",
    "andrade": [
     "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/talserier",
+   "datum": "2026-11-14",
+   "skal": "Fynd i omgång 2: obelagt påstående om att Tullverket och Kustbevakningen gör I-provet struket (testansvarig). BlogPostings wordCount följer texten.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/ordforstaelse-test",
+   "datum": "2026-11-14",
+   "skal": "Fynd i omgång 2: obelagt påstående om att Tullverket och Kustbevakningen gör I-provet struket (testansvarig). BlogPostings wordCount följer texten.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/personligt-brev-exempel/underskoterska",
+   "datum": "2026-11-14",
+   "skal": "K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md): yrkessidornas BreadcrumbList följer den synliga smulan via /exempel.",
+   "andrade": [
+    "BreadcrumbList"
+   ]
+  },
+  {
+   "path": "/personligt-brev-exempel/sjukskoterska",
+   "datum": "2026-11-14",
+   "skal": "K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md): yrkessidornas BreadcrumbList följer den synliga smulan via /exempel.",
+   "andrade": [
+    "BreadcrumbList"
+   ]
+  },
+  {
+   "path": "/personligt-brev-exempel/student",
+   "datum": "2026-11-14",
+   "skal": "K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md): yrkessidornas BreadcrumbList följer den synliga smulan via /exempel.",
+   "andrade": [
+    "BreadcrumbList"
    ]
   }
  ],
@@ -217,6 +257,98 @@
    "lank": "/artiklar/ordforstaelse-test",
    "datum": "2026-11-14",
    "skal": "Läs vidare-korten är automatiska; de nya artiklarna i omgången tränger undan äldre kort. Ingen länk i brödtexten är borttagen."
+  },
+  {
+   "path": "/artiklar/talserier",
+   "lank": "/artiklar/logiska-tester",
+   "datum": "2026-11-14",
+   "skal": "Läs vidare-korten är automatiska; de nya artiklarna i omgång 2 tränger undan äldre kort. Ingen länk i brödtexten är borttagen (kontrollerat mot main)."
+  },
+  {
+   "path": "/artiklar/ordforstaelse-test",
+   "lank": "/artiklar/aon-cut-e-test",
+   "datum": "2026-11-14",
+   "skal": "Läs vidare-korten är automatiska; de nya artiklarna i omgång 2 tränger undan äldre kort. Ingen länk i brödtexten är borttagen (kontrollerat mot main)."
+  },
+  {
+   "path": "/artiklar/personligt-brev-mall-word",
+   "lank": "/artiklar/i-prov",
+   "datum": "2026-11-14",
+   "skal": "Läs vidare-korten är automatiska; de nya artiklarna i omgång 2 tränger undan äldre kort. Ingen länk i brödtexten är borttagen (kontrollerat mot main)."
+  },
+  {
+   "path": "/artiklar/personligt-brev-mall-word",
+   "lank": "/artiklar/ordforstaelse-test",
+   "datum": "2026-11-14",
+   "skal": "Läs vidare-korten är automatiska; de nya artiklarna i omgång 2 tränger undan äldre kort. Ingen länk i brödtexten är borttagen (kontrollerat mot main)."
+  },
+  {
+   "path": "/artiklar/exempel-pa-cv-guide",
+   "lank": "/artiklar/i-prov",
+   "datum": "2026-11-14",
+   "skal": "Läs vidare-korten är automatiska; de nya artiklarna i omgång 2 tränger undan äldre kort. Ingen länk i brödtexten är borttagen (kontrollerat mot main)."
+  }
+ ],
+ "RUBRIK_BORTA": [
+  {
+   "path": "/personligt-brev-exempel/underskoterska",
+   "rubrik": "h3 Hur du skriver ett ATS-optimerat CV som undersköterska",
+   "datum": "2026-11-14",
+   "skal": "Kommer snart-korten på exempelsidorna ersatta av länkar till artiklar som finns; kort för artiklar som inte finns visas inte (fynd i omgång 2). Länkarna är nya, inga borttagna."
+  },
+  {
+   "path": "/personligt-brev-exempel/underskoterska",
+   "rubrik": "h3 Karriärvägar inom vården: från undersköterska till specialist",
+   "datum": "2026-11-14",
+   "skal": "Kommer snart-korten på exempelsidorna ersatta av länkar till artiklar som finns; kort för artiklar som inte finns visas inte (fynd i omgång 2). Länkarna är nya, inga borttagna."
+  },
+  {
+   "path": "/personligt-brev-exempel/underskoterska",
+   "rubrik": "h3 Medicindelegering för undersköterskor: så tar du nästa steg",
+   "datum": "2026-11-14",
+   "skal": "Kommer snart-korten på exempelsidorna ersatta av länkar till artiklar som finns; kort för artiklar som inte finns visas inte (fynd i omgång 2). Länkarna är nya, inga borttagna."
+  },
+  {
+   "path": "/personligt-brev-exempel/sjukskoterska",
+   "rubrik": "h3 Hur du skriver ett ATS-optimerat CV som sjuksköterska",
+   "datum": "2026-11-14",
+   "skal": "Kommer snart-korten på exempelsidorna ersatta av länkar till artiklar som finns; kort för artiklar som inte finns visas inte (fynd i omgång 2). Länkarna är nya, inga borttagna."
+  },
+  {
+   "path": "/personligt-brev-exempel/sjukskoterska",
+   "rubrik": "h3 Specialistutbildningar för sjuksköterskor: guide till valen",
+   "datum": "2026-11-14",
+   "skal": "Kommer snart-korten på exempelsidorna ersatta av länkar till artiklar som finns; kort för artiklar som inte finns visas inte (fynd i omgång 2). Länkarna är nya, inga borttagna."
+  },
+  {
+   "path": "/personligt-brev-exempel/sjukskoterska",
+   "rubrik": "h3 Karriärvägar inom vården: från sjuksköterska till specialist",
+   "datum": "2026-11-14",
+   "skal": "Kommer snart-korten på exempelsidorna ersatta av länkar till artiklar som finns; kort för artiklar som inte finns visas inte (fynd i omgång 2). Länkarna är nya, inga borttagna."
+  },
+  {
+   "path": "/personligt-brev-exempel/student",
+   "rubrik": "h3 Sommarjobb för studenter: guide till ansökan 2026",
+   "datum": "2026-11-14",
+   "skal": "Kommer snart-korten på exempelsidorna ersatta av länkar till artiklar som finns; kort för artiklar som inte finns visas inte (fynd i omgång 2). Länkarna är nya, inga borttagna."
+  },
+  {
+   "path": "/personligt-brev-exempel/student",
+   "rubrik": "h3 CV-tips för studenter utan arbetslivserfarenhet",
+   "datum": "2026-11-14",
+   "skal": "Kommer snart-korten på exempelsidorna ersatta av länkar till artiklar som finns; kort för artiklar som inte finns visas inte (fynd i omgång 2). Länkarna är nya, inga borttagna."
+  },
+  {
+   "path": "/personligt-brev-exempel/student",
+   "rubrik": "h3 Så lyckas du kombinera extrajobb och studier",
+   "datum": "2026-11-14",
+   "skal": "Kommer snart-korten på exempelsidorna ersatta av länkar till artiklar som finns; kort för artiklar som inte finns visas inte (fynd i omgång 2). Länkarna är nya, inga borttagna."
+  },
+  {
+   "path": "/personligt-brev-exempel/student",
+   "rubrik": "h3 Traineeprogram för studenter: vad du behöver veta",
+   "datum": "2026-11-14",
+   "skal": "Kommer snart-korten på exempelsidorna ersatta av länkar till artiklar som finns; kort för artiklar som inte finns visas inte (fynd i omgång 2). Länkarna är nya, inga borttagna."
   }
  ]
 }
