@@ -256,7 +256,11 @@
   border: 1px solid var(--kant);
   border-radius: 18px;
   background: var(--panel);
-  overflow: auto;
+  /* Bara sidled: ramen får aldrig bli ett lodrätt scrollfönster som tar
+     sidans scroll (2026-11-14). */
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior: auto;
   max-width: none;
   -webkit-overflow-scrolling: touch;
 }

@@ -1298,10 +1298,16 @@ html {
 
 /* Improve touch scrolling for all scrollable elements */
 .overflow-y-auto,
-.overflow-x-auto,
 .overflow-auto {
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
+}
+/* Sidledsscroll håller bara kvar rörelsen i sidled. Med contain i båda led
+   fastnade ett lodrätt svep eller hjul över en tabell i tabellen, och sidan
+   gick inte att scrolla förbi den (2026-11-14). */
+.overflow-x-auto {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
 }
 
 /* Safe area insets for notched devices (iPhone X+) */
