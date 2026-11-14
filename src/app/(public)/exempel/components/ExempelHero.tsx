@@ -30,7 +30,7 @@ export default function ExempelHero() {
         <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-10 lg:gap-12 items-center">
           {/* Vänster: text */}
           <motion.div
-            initial={{ opacity: 0, y: 14 }}
+            initial={false} // Rubriken målas direkt (LCP), ingen intoning.
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, ease: 'easeOut' }}
             className="text-center lg:text-left"
