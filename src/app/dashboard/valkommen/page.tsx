@@ -18,7 +18,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
-import { SIGNUP_COOKIE, lasIntent, lasSignupCookie, type SignupIntent } from '@/components/registrering/intent'
+import { SIGNUP_COOKIE, lasIntent, lasSignupCookie, smakprovUrParams, type SignupIntent } from '@/components/registrering/intent'
 import { PROVKALLA_COOKIE, kallaText, lasProvkalla } from '@/lib/analytics/provkalla'
 import { sattMittTestFranKalla } from '@/lib/traning/mittTestFranKalla.server'
 import ValkommenClient from './ValkommenClient'
@@ -28,12 +28,28 @@ export const metadata = { title: 'Kom igång' }
 /** Konton äldre än så här räknas inte som nya på valkommen-sidan. */
 const NYTT_KONTO_MS = 30 * 60 * 1000
 
-export default async function ValkommenPage() {
+export default async function ValkommenPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>
+}) {
   const user = await hamtaVerifieradAnvandare()
   if (!user) redirect('/login')
 
   const cookieStore = await cookies()
   let signup = lasSignupCookie(cookieStore.get(SIGNUP_COOKIE)?.value)
+
+  // Inloggad som öppnade registreringen efter ett smakprov (/register
+  // skickar hit med smakprovet i adressen, H3 2026-11-14): hämta hem det.
+  if (!signup) {
+    const params = await searchParams
+    const smakprov = smakprovUrParams((namn) => {
+      const v = params[namn]
+      return typeof v === 'string' ? v : null
+    })
+    // Går hämtningen inte att göra: hemskärmen, inte spårvalet.
+    if (smakprov) signup = { intent: null, entry: 'smakprov', skipped: false, smakprov, redirect: '/dashboard' }
+  }
 
   let fornamn: string | null = null
   let skapad: number | null = null
