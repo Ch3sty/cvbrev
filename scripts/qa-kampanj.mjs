@@ -10,8 +10,13 @@
 //
 // publikt: /priser och / utan inloggning, med besökarens klocka flyttad via
 //   localStorage 'kampanj_nu' till före, Black Week, Cyber Monday och efter.
+//   Sedan 2026-11-14 (H2) också /artiklar/talserier: provkortet och
+//   sidokortet följer kampanjen, inga kampanjord i title, H1, FAQ eller schema.
 // gratis/betalt: servern startas med KAMPANJ_NU. Raden i inloggat,
 //   köpsteget, samtyckestexten och (gratis) hela vägen till Stripes testkassa.
+//   Sist provsidan (ProvTypSida) efter ett talserieprov som hämtats till
+//   kontot: kampanjpriset för gratis, ordinarie för en före detta kund.
+//   Provets token och IP sparas i kontofilen och raderas med kontona.
 // registrering: rutan för mejlvalet finns och är oikryssad.
 // installningar: växeln för erbjudanden finns och sparar.
 
@@ -107,8 +112,81 @@ async function publikt(browser, mobil) {
         })
     )
     logg(`${lage}: CLS`, cls < 0.01, { cls })
+    await artikel(p, lage)
     await p.close()
   }
+}
+
+/** Väntade prisord per läge, för provkorten och sidokortet (H2, 2026-11-14). */
+const PRISORD = { fore: null, bw: '99 kr första månaden', cm: '49 kr första månaden', efter: null }
+
+/**
+ * Artikeln med provkort (TypProvKort) och sidokort: prisraden följer
+ * kampanjen, och kampanjen står aldrig i title, H1, snabbsvar, FAQ eller
+ * schema. Samma CDN-cachade HTML i alla lägen, variant väljs i <head>.
+ */
+async function artikel(p, lage) {
+  await ga(p, '/artiklar/talserier')
+  await avvisaKakor(p)
+  const kort = await p.evaluate(() =>
+    [...document.querySelectorAll('aside.ib-prova .pub-liten')].map((e) => e.innerText.replace(/\s+/g, ' ').trim()).filter(Boolean)
+  )
+  const sido = await p.evaluate(() =>
+    [...document.querySelectorAll('.ib-black .ib-pris-l')].filter((e) => e.offsetParent !== null).map((e) => e.innerText.replace(/\s+/g, ' ').trim())
+  )
+  const ord = PRISORD[lage]
+  const kortOk = kort.length > 0 && kort.every((t) => (ord ? t.includes(ord) && t.includes('sedan 149 kr i månaden') : t.includes('149 kr i månaden') && !t.includes('första månaden')))
+  logg(`${lage}: artikelns provkort följer kampanjen`, kortOk, { kort })
+  // Sidokortet syns bara från 1024 px; på mobil räknas det inte.
+  if (sido.length) {
+    const sidoOk = sido.every((t) => (ord ? t.startsWith(ord.split(' ')[0] + ' kr') && t.includes('149 kr') : t.startsWith('149 kr') && !t.includes('första månaden')))
+    logg(`${lage}: artikelns sidokort följer kampanjen`, sidoOk, { sido })
+  } else logg(`${lage}: sidokortet syns inte i den här bredden`, null, {})
+  const seo = await p.evaluate(() => ({
+    title: document.title,
+    h1: document.querySelector('h1')?.innerText ?? '',
+    desc: document.querySelector('meta[name="description"]')?.getAttribute('content') ?? '',
+    schema: [...document.querySelectorAll('script[type="application/ld+json"]')].map((s) => s.textContent).join(' '),
+    faq: [...document.querySelectorAll('details, [data-faq], .faq')].map((e) => e.textContent).join(' '),
+  }))
+  const kampanjord = /Black Week|Cyber Monday|99 kr|49 kr|första månaden|rabatt/i
+  const smutsigt = Object.entries(seo).filter(([, v]) => kampanjord.test(v)).map(([k]) => k)
+  logg(`${lage}: inga kampanjord i title, H1, description, FAQ eller schema`, smutsigt.length === 0, { smutsigt })
+  await p.evaluate(() => document.querySelector('aside.ib-prova')?.scrollIntoView({ block: 'center' }))
+  await vanta(300)
+  await bild(p, `artikel-${lage}`)
+}
+
+/**
+ * Provsidan i inloggat (ProvTypSida): ett talserieprov utan konto, hämtat
+ * till kontot. Fejkad x-forwarded-for i TEST-NET-3 så att IP-gränsen inte
+ * delas med någon annan; token och IP sparas och raderas per nyckel.
+ */
+async function provsida(p, kontoNamn) {
+  const ip = `203.0.113.${Math.floor(Math.random() * 250) + 2}`
+  const svar = await p.evaluate(async (ip) => {
+    const r = await fetch('/api/public/test-session', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-forwarded-for': ip }, body: JSON.stringify({ typ: 'talserie' }) })
+    const j = await r.json()
+    if (!r.ok || !j.token) return { status: r.status, fel: j.error }
+    const c = await fetch('/api/public/test-session/claim', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token: j.token }) })
+    const cj = await c.json()
+    return { status: c.status, token: j.token, redirect: cj.redirect }
+  }, ip)
+  const fil = `${SCRATCH}/qa-kampanj-konton.json`
+  const k = JSON.parse(fs.readFileSync(fil, 'utf8'))
+  k.prov = [...(k.prov ?? []), { token: svar.token ?? null, ip, konto: kontoNamn }]
+  fs.writeFileSync(fil, JSON.stringify(k, null, 2))
+  if (!svar.redirect) {
+    logg('provsidan: provet hämtades', false, svar)
+    return
+  }
+  await ga(p, svar.redirect)
+  const text = await p.evaluate(() => document.querySelector('[data-prov-typ]')?.innerText.replace(/\s+/g, ' ') ?? '')
+  const ok = kontoNamn === 'gratis'
+    ? text.includes('Premium, 99 kr första månaden, sedan 149 kr i månaden')
+    : text.includes('Premium, 149 kr i månaden') && !text.includes('första månaden')
+  logg('provsidan visar rätt pris', ok, { url: svar.redirect, utdrag: text.slice(text.indexOf('Nästa steg'), text.indexOf('Nästa steg') + 220) })
+  await bild(p, 'provsida')
 }
 
 async function inloggat(browser, mobil, kontoNamn) {
@@ -147,7 +225,9 @@ async function inloggat(browser, mobil, kontoNamn) {
     const stripeText = await p.evaluate(() => document.body.innerText)
     logg('Stripes kassa visar 99 kr att betala', /99,00|99 kr|SEK 99|99,00 kr/.test(stripeText) && /Black Week/i.test(stripeText), { url: p.url().slice(0, 60) })
     await bild(p, 'stripe-kassa')
+    await ga(p, '/dashboard')
   }
+  await provsida(p, kontoNamn)
   await p.close()
 }
 

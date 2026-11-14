@@ -36,6 +36,8 @@ import { arNyProvTyp } from '@/lib/tests/prov-typer'
 import { genomgaProv, lasRefs, lasSvar, nivakollKindFor, underlagFor } from '@/lib/tests/prov-typer.server'
 import { NIVAKOLL_TEST_TYPE as NIVAKOLL_PER_TYP } from '@/lib/nivakoll/niva'
 import ProvTypSida from './ProvTypSida'
+import { kampanjNu } from '@/lib/kampanj/kampanj'
+import { kampanjForVisning } from '@/lib/kampanj/kampanj.server'
 import { provSeed } from '@/lib/tests/anon-session'
 
 export const metadata = { title: 'Ditt logiktestprov', robots: { index: false, follow: false } }
@@ -83,8 +85,9 @@ export default async function LogiktestProvPage({ params }: { params: Promise<{ 
     const refs = lasRefs((rad as { questions?: unknown }).questions)
     if (!refs) notFound()
     const nk = nivakollKindFor(testKind)
-    const harTypensNivakoll = nk
-      ? await Promise.resolve(
+    // Priset på sidan följer kampanjraden: samma klocka och aldrig-Premium-regel (H2).
+    const nivakollKlar = nk
+      ? Promise.resolve(
           admin
             .from('logic_test_v4_sessions')
             .select('id', { count: 'exact', head: true })
@@ -95,7 +98,11 @@ export default async function LogiktestProvPage({ params }: { params: Promise<{ 
           (r) => (r.count ?? 0) > 0,
           () => false
         )
-      : false
+      : Promise.resolve(false)
+    const [harTypensNivakoll, { kampanj, behorig }] = await Promise.all([
+      nivakollKlar,
+      kampanjForVisning(user.id, kampanjNu()),
+    ])
     return (
       <ProvTypSida
         typ={testKind}
@@ -104,6 +111,7 @@ export default async function LogiktestProvPage({ params }: { params: Promise<{ 
         uppgifter={genomgaProv(refs, lasSvar(rad.answers))}
         underlag={underlagFor(refs)}
         harNivakoll={harTypensNivakoll}
+        kampanj={kampanj && behorig ? kampanj : null}
       />
     )
   }

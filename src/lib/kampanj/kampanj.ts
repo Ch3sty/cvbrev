@@ -26,7 +26,7 @@
  * 23.58 hinner betala det pris hen såg.
  */
 
-import { PLAN_BY_KEY, SALD_PLAN } from '@/lib/plans/plans'
+import { PLAN_BY_KEY, SALD_PLAN, prisPeriod } from '@/lib/plans/plans'
 
 export type KampanjNyckel = 'black-week-2026' | 'cyber-monday-2026'
 
@@ -117,6 +117,15 @@ export function isKampanjNyckel(v: unknown): v is KampanjNyckel {
 }
 
 export const ORDINARIE_PRIS = ORDINARIE
+
+/**
+ * Priset i löptext under kampanjen: "99 kr första månaden, sedan 149 kr i
+ * månaden". Ersätter prisPeriod(SALD_PLAN) i prisraderna på provkorten,
+ * sidokortet och provsidan (H2, 2026-11-14). Samma ord som KampanjPris.
+ */
+export function kampanjPrisPeriod(k: Pick<Kampanj, 'pris'>): string {
+  return `${k.pris} kr första månaden, sedan ${prisPeriod(SALD_PLAN)}`
+}
 
 const ms = (iso: string) => Date.parse(iso)
 

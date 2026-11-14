@@ -12,8 +12,8 @@
  */
 
 import type { ReactNode } from 'react'
-import { PLAN_BY_KEY, SALD_PLAN } from '@/lib/plans/plans'
-import { kampanjSkript, kampanjerKvar, type Kampanj } from '@/lib/kampanj/kampanj'
+import { PLAN_BY_KEY, SALD_PLAN, prisPeriod } from '@/lib/plans/plans'
+import { kampanjPrisPeriod, kampanjSkript, kampanjerKvar, type Kampanj } from '@/lib/kampanj/kampanj'
 import KampanjMatning from './KampanjMatning'
 
 /** Stil och skript i <head>. Måste stå före allt som bär data-kv. */
@@ -33,7 +33,8 @@ export function KampanjHuvud() {
     `.kampanj-rad--indigo{background:#1B2246;color:#DDE1F6}.kampanj-rad--indigo b{color:#93A0EC}` +
     `.kampanj-rad:focus-visible{outline:2px solid #E07A2F;outline-offset:-4px}` +
     `@media (max-width:640px){.kampanj-rad{font-size:13px;padding:8px 14px}.kampanj-rad u{display:none}}` +
-    `.pub-pris s{font-size:.42em;font-weight:600;letter-spacing:0;color:var(--vagg-mjuk);margin-left:10px}`
+    `.pub-pris s{font-size:.42em;font-weight:600;letter-spacing:0;color:var(--vagg-mjuk);margin-left:10px}` +
+    `.ib-pris-l s{font-size:.5em;font-weight:600;letter-spacing:0;color:var(--vagg-mjuk);margin-left:8px}`
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: css }} />
@@ -96,6 +97,25 @@ export function KampanjPris({ k }: { k: Kampanj }) {
     <>
       {k.pris} kr<s>{ord} kr</s>
       <small>första månaden, sedan {ord} kr i månaden. Säg upp när du vill.</small>
+    </>
+  )
+}
+
+/**
+ * En prisrad i löptext där "149 kr i månaden" följer kampanjen (H2,
+ * 2026-11-14): provkorten, verktygskorten och sidokortet i artiklarna.
+ * Bara själva priset byts, resten av meningen står som förut. Text utan
+ * priset ritas som den är.
+ */
+export function MedKampanjPris({ text }: { text: string }) {
+  const pris = prisPeriod(SALD_PLAN)
+  const i = text.indexOf(pris)
+  if (i < 0) return <>{text}</>
+  return (
+    <>
+      {text.slice(0, i)}
+      <KampanjVarianter ord={pris} kampanj={(k) => kampanjPrisPeriod(k)} />
+      {text.slice(i + pris.length)}
     </>
   )
 }

@@ -31,6 +31,7 @@ import SkarmMallar from '@/components/publikt/telefon/skarmar/SkarmMallar'
 import SkarmMatchning from '@/components/publikt/telefon/skarmar/SkarmMatchning'
 import SkarmCoach from '@/components/publikt/telefon/skarmar/SkarmCoach'
 import { PLAN_BY_KEY, SALD_PLAN } from '@/lib/plans/plans'
+import { KampanjPris, KampanjVarianter, MedKampanjPris } from '@/components/kampanj/Kampanj'
 import {
   GRATIS_KORT,
   INLINE,
@@ -154,7 +155,9 @@ export function InlineKort({
             {copy.knapp}
           </Link>
         </div>
-        <p className="pub-liten">{copy.paketrad}</p>
+        <p className="pub-liten">
+          <MedKampanjPris text={copy.paketrad} />
+        </p>
       </div>
       <div className="ib-prova-sida" aria-hidden="true">
         <Objekt typ={INLINE_OBJEKT[verktyg]} storlek={64} />
@@ -209,7 +212,9 @@ export function ProvKort({
             {INLINE_PROVA.sekundar.text}
           </Link>
         </div>
-        <p className="pub-liten">{INLINE_PROVA.paketrad}</p>
+        <p className="pub-liten">
+          <MedKampanjPris text={INLINE_PROVA.paketrad} />
+        </p>
       </div>
       <div className="ib-prova-sida">
         <ProvMatris />
@@ -255,8 +260,16 @@ export function SidoPaketKort({ paket, cluster, slug }: { paket: ArtikelPaket; c
         {copy.text}
       </p>
       <p className="ib-pris-l">
-        {copy.belopp}
-        <small>{copy.under}</small>
+        {/* Priset följer kampanjen som PremiumBlock (H2, 2026-11-14). */}
+        <KampanjVarianter
+          ord={
+            <>
+              {copy.belopp}
+              <small>{copy.under}</small>
+            </>
+          }
+          kampanj={(k) => <KampanjPris k={k} />}
+        />
       </p>
       <Link href="/priser" data-cta-klick="/priser" className="ib-knapp-ram">
         Se vad som ingår

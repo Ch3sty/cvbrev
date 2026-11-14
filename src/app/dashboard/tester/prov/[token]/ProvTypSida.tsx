@@ -21,6 +21,7 @@ import { PROV_COPY, type GenomgangUppgift, type NyProvTyp } from '@/lib/tests/pr
 import type { VnUnderlag } from '@/lib/tester/pass-typer'
 import { nivakollHref } from '@/lib/traning/rutter'
 import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
+import { kampanjPrisPeriod, type Kampanj } from '@/lib/kampanj/kampanj'
 import { talord } from '@/lib/traning/copy'
 import ProvTypGenomgang from './ProvTypGenomgang'
 
@@ -49,6 +50,7 @@ export default function ProvTypSida({
   uppgifter,
   underlag,
   harNivakoll,
+  kampanj = null,
 }: {
   typ: NyProvTyp
   token: string
@@ -56,11 +58,14 @@ export default function ProvTypSida({
   uppgifter: GenomgangUppgift[]
   underlag: Record<string, VnUnderlag>
   harNivakoll: boolean
+  /** Pågående kampanj när kontot aldrig haft Premium (kampanjForVisning), annars null. */
+  kampanj?: Pick<Kampanj, 'pris'> | null
 }) {
   const c = PROV_COPY[typ]
   const ratt = uppgifter.filter((u) => ('valt' in u ? u.correct : u.genomgang.correct)).length
   const totalt = uppgifter.length
-  const premium = `${paketKort()}, ${prisPeriod(SALD_PLAN)}`
+  // Priset följer kampanjraden (H2, 2026-11-14): samma behörighet på servern.
+  const premium = `${paketKort()}, ${kampanj ? kampanjPrisPeriod(kampanj) : prisPeriod(SALD_PLAN)}`
 
   let vidare: { href: string; knapp: string; rubrik: string; text: string; cta: string }
   if (typ === 'figurserie' || typ === 'deduktiv' || typ === 'verbal' || typ === 'numerisk') {

@@ -12,6 +12,7 @@
 //   delete (feedback_testdata_stadning).
 
 import fs from 'node:fs'
+import { createHash } from 'node:crypto'
 import { createClient } from '@supabase/supabase-js'
 
 const env = Object.fromEntries(
@@ -66,8 +67,31 @@ async function skapa() {
 
 const TABELLER = ['user_activities', 'user_activity', 'user_activity_log', 'email_log', 'email_schedule', 'test_planer', 'profiles']
 
+/** Provsidans prov (qa-kampanj.mjs provsida): raden per token och IP-gränsen per exakt nyckel. */
+async function raderaProv(ut) {
+  for (const prov of ut.prov ?? []) {
+    if (prov.token) {
+      const { count } = await admin.from('anon_test_sessions').select('*', { count: 'exact', head: true }).eq('token', prov.token)
+      if (count) {
+        const { error } = await admin.from('anon_test_sessions').delete().eq('token', prov.token)
+        console.log(`prov ${prov.token}: anon_test_sessions ${count} rad ${error ? 'FEL ' + error.message : 'raderad'}`)
+      }
+      // Provet besvaras aldrig, så ingen rad i prov_utfall (som saknar nyckel) skrivs.
+    }
+    const hash = createHash('sha256').update(prov.ip + (env.RATE_LIMIT_PEPPER ?? 'jobbcoach')).digest('hex')
+    const { count: rc } = await admin.from('public_rate_limits').select('*', { count: 'exact', head: true }).eq('ip_hash', hash).eq('scope', 'anon_test')
+    if (rc) {
+      const { error } = await admin.from('public_rate_limits').delete().eq('ip_hash', hash).eq('scope', 'anon_test')
+      console.log(`prov ${prov.ip}: public_rate_limits ${rc} rader ${error ? 'FEL ' + error.message : 'raderade'}`)
+    }
+  }
+  delete ut.prov
+  spara(ut)
+}
+
 async function radera() {
   const ut = las()
+  await raderaProv(ut)
   for (const namn of NAMN) {
     const k = ut[namn]
     if (!k) continue
