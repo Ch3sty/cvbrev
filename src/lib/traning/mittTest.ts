@@ -185,7 +185,7 @@ export function planFranVal(val: MittTest, variant: MittVariant | null, kryss: r
 
 /** Korten i ingången: vanligt språk först, leverantören som andra rad (skissen). */
 export const MITT_TEST_KORT: Record<MittTest, { titel: string; rad: string }> = {
-  iprov: { titel: 'Polisen eller Försvarsmakten', rad: 'I-provet. Även mönstring, Tullverket, Kustbevakningen' },
+  iprov: { titel: 'Polisen eller Försvarsmakten', rad: 'I-provet. Även mönstringen' },
   matrigma: { titel: 'Matrigma', rad: 'Assessio' },
   alva: { titel: 'Alva Logic', rad: 'Alva Labs' },
   shl: { titel: 'SHL Verify', rad: 'SHL, även G+' },

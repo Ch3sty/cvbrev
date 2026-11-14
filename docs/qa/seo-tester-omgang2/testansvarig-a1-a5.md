@@ -78,3 +78,20 @@ Granskat bara rättelserna och de nya länkarna.
 - **A3 tabellen:** `mitt_test=alva`, `matrigma`, `shl`, `aon` och `iprov` är giltiga val i mittTest.ts, `fran=logiktest-tips` klarar SLUG-regexen och `typ=iprov` är en giltig provtyp. Valet följer med till kontot via provkalla. Texten "Öva med X som ditt test" lovar formatet för träningen, inte att smakprovet är leverantörens test, och det håller.
 - **A5:** Kustbevakningsmeningen är ersatt som föreslaget. Smakprovslänken `?typ=iprov&mitt_test=iprov&fran=i-prov` fungerar, och "en uppgift ur varje deltest, i provets ordning" stämmer med provrutans text och med de sex uppgifterna.
 - **Förslag, inget krav:** för Aon kan länken bära `&typ=figurserie`, eftersom Aon scales ix är figurserier och Aons format i produkten ligger under Figurserier. Utan den landar besökaren i matrisprovet, vilket också är rimligt men ligger längre från Aon.
+
+## Omgång 3 (2026-11-14, ocommittat i arbetskopian)
+
+Granskat bara A5 i-prov och mittTest.ts mot ägarens villkor: inget påstående om att Säkerhetspolisen, Tullverket eller Kustbevakningen använder I-provet.
+
+| Sida | Utlåtande |
+|---|---|
+| A5 i-prov | UNDERKÄND, en rest kvar |
+
+Godkänt i diffen:
+- **Snabbsvaret och FAQ "Vad är I-provet?":** Tullverket är struket, och det står bara polisutbildningen och officersprogrammet plus "Plikt- och prövningsverket använder det också i prövningar för andra myndigheter". Det håller.
+- **Rad 188:** kedjan med urvalsuppdragen är bruten ("men inte vilka uppdrag det gäller"). Tullverket och Kustbevakningen återges som de själva skriver, och "Ingen av dem skriver vilket begåvningstest det är, så det är kallelsen som avgör" stämmer mot båda sidorna. Tullverkets sida står i källraden.
+- **mittTest.ts rad 188:** "I-provet. Även mönstringen" bryter inte mot villkoret. Ersätter mitt eget förslag från omgång 1 ("och Tullverket"), som var fel.
+
+Fel:
+- **Kravtabellen, raden "Tullverkets aspirantutbildning | 4 | Polistidningens faktaruta", och FAQ-svaret om kravnivån (rad 17 och rad 311: "4 för Tullverkets aspirantutbildning").** Ett lägsta resultat på I-provets skala är ett påstående om att Tullverket använder I-provet. Att det tillskrivs Polistidningen ändrar inte det, för vi publicerar det ändå, och tidningen är inte myndighetens egen sida. Raden motsäger dessutom den nya rad 188, som säger att kallelsen avgör vilket test det är.
+  Rättelse: stryk tabellraden. Stryk "4 för Tullverkets aspirantutbildning" i FAQ-svaret på båda ställena, så att det blir "Samma tidning anger 3 för värnplikt och 6 för officersprogrammet." På rad 202 blir "kraven för tre utbildningar till" i stället "kraven för två utbildningar till".
