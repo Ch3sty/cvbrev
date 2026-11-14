@@ -155,12 +155,18 @@ export default async function Page({ params }: { params: Promise<{ yrke: string 
       {
         "@type": "ListItem",
         "position": 2,
-        "name": "Personligt Brev Exempel",
-        "item": "https://www.jobbcoach.ai/personligt-brev-exempel"
+        "name": "Exempel",
+        "item": "https://www.jobbcoach.ai/exempel"
       },
       {
         "@type": "ListItem",
         "position": 3,
+        "name": "Personligt brev-exempel",
+        "item": "https://www.jobbcoach.ai/personligt-brev-exempel"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
         "name": data.yrke,
         "item": `https://www.jobbcoach.ai/personligt-brev-exempel/${yrke}`
       }

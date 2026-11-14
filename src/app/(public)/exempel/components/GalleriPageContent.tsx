@@ -34,6 +34,23 @@ interface GalleriPageContentProps {
   faqItems: FaqItem[]
 }
 
+/**
+ * Situationsraden (SEO-förslaget K6, 2026-11-14): vanliga länkar till sidor
+ * och avsnitt som redan finns, inget klientfilter och inga nya adresser.
+ */
+const SITUATION_CV = [
+  { text: 'Student', href: '/cv-exempel/kategori/student' },
+  { text: 'Utan erfarenhet', href: '/artiklar/cv-utan-erfarenhet' },
+  { text: 'Karriärbyte', href: '/artiklar/hur-skriver-man-cv#cv-vid-karriarbyte' },
+  { text: 'Chef', href: '/cv-exempel/chef' },
+] as const
+const SITUATION_BREV = [
+  { text: 'Student', href: '/personligt-brev-exempel/kategori/student' },
+  { text: 'Utan erfarenhet', href: '/artiklar/personligt-brev-utan-erfarenhet' },
+  { text: 'Karriärbyte', href: '/artiklar/personligt-brev-exempel-situationer#personligt-brev-vid-karriarbyte' },
+  { text: 'Chef', href: '/personligt-brev-exempel/chef' },
+] as const
+
 /** Galleridatan skriver 'teknik' där kategorierna heter 'tech'. */
 function normalizeKategori(input: string): Kategori['slug'] {
   if (input === 'teknik') return 'tech'
@@ -99,14 +116,15 @@ export default function GalleriPageContent({ type, yrken, faqItems }: GalleriPag
               ]}
             />
             <p className="pub-kick">{isCV ? 'CV-exempel' : 'Personligt brev-exempel'}</p>
+            {/* Huvudordsplanen steg 1 och 2 (SEO-förslaget K4 a och K6, 2026-11-14). */}
             <h1 className="ib-h1-stor">
-              {isCV ? `${yrken.length} CV-exempel.` : 'Personligt brev-mallar och exempel:'}{' '}
-              <span>{isCV ? 'Ett för ditt yrke.' : `${yrken.length} yrken (gratis)`}</span>
+              {isCV ? `CV-exempel för ${yrken.length} yrken.` : `Personligt brev-exempel för ${yrken.length} yrken.`}{' '}
+              <span>Börja med ditt.</span>
             </h1>
             <p className="pub-ingress">
               {isCV
-                ? 'Inspiration för ditt eget CV. Se färdiga, ATS-optimerade CV-exempel inom vård, tech, ekonomi, service, utbildning och offentlig sektor, perfekta att utgå från för din egen jobbansökan.'
-                : 'Hitta rätt mall för ditt personliga brev. Färdiga exempel skrivna med rätt ton, struktur och nyckelord för svenska rekryterare som du kan använda som mall för ditt eget brev.'}
+                ? `Ett CV-exempel är ett färdigt CV för ett visst yrke, skrivet som en riktig ansökan. Vi har ${yrken.length}, från undersköterska till systemutvecklare. Välj ditt yrke eller det som ligger närmast, se hur profilen, erfarenheten och kompetenserna är formulerade och skriv sedan ditt eget med samma upplägg. Att läsa exemplen är gratis och kräver inget konto.`
+                : `Ett exempel på personligt brev är ett färdigt brev för ett visst yrke. Vi har ${yrken.length}, skrivna för svenska rekryterare. Varje brev har en inledning, ett mittparti och en avslutning, och vi förklarar varför styckena fungerar. Låna upplägget, byt ut innehållet mot dina egna erfarenheter och håll brevet till en A4-sida.`}
             </p>
             <HubbSok
               action={bas}
@@ -115,6 +133,14 @@ export default function GalleriPageContent({ type, yrken, faqItems }: GalleriPag
               rubrikId="yrken-rubrik"
               tomId="yrken-tom"
             />
+            <nav className="ib-filter ib-situation" aria-label="Välj efter situation">
+              <span>Din situation</span>
+              {(isCV ? SITUATION_CV : SITUATION_BREV).map((s) => (
+                <Link key={s.href} href={s.href}>
+                  {s.text}
+                </Link>
+              ))}
+            </nav>
             <nav className="ib-filter" aria-label="Filtrera efter bransch">
               <a className="aktiv" href="#yrken" aria-current="page">
                 Alla yrken <em>{yrken.length}</em>
@@ -136,6 +162,12 @@ export default function GalleriPageContent({ type, yrken, faqItems }: GalleriPag
           <div className="ib-hubb-rubrik">
             <h2 id="yrken-rubrik">{yrken.length} yrken</h2>
           </div>
+          {/* Den tidigare ingressen, flyttad under snabbsvaret (K6). */}
+          <p className="pub-liten ib-galleri-ingress">
+            {isCV
+              ? 'Inspiration för ditt eget CV. Se färdiga, ATS-optimerade CV-exempel inom vård, tech, ekonomi, service, utbildning och offentlig sektor, perfekta att utgå från för din egen jobbansökan.'
+              : 'Hitta rätt mall för ditt personliga brev. Färdiga exempel skrivna med rätt ton, struktur och nyckelord för svenska rekryterare som du kan använda som mall för ditt eget brev.'}
+          </p>
           <YrkesKort yrken={kort} typ={type} id="yrken" />
           <p id="yrken-tom" className="pub-liten ib-yrke-tom" hidden>
             Inga yrken matchar sökningen. Prova ett närliggande yrke eller välj en bransch ovan.

@@ -1,5 +1,5 @@
 /**
- * /cv-exempel - galleri-sida med 74 CV-exempel.
+ * /cv-exempel - galleri-sida med CV-exempel per yrke.
  * Renderar GalleriPageContent med CV-yrkes-data.
  * SEO: ItemList + BreadcrumbList + FAQPage JSON-LD + dynamisk metadata.
  */
@@ -9,16 +9,19 @@ import { CV_GALLERI } from '@/app/(public)/exempel/components/galleri-data'
 import { CV_GALLERI_FAQ } from '@/app/(public)/exempel/components/galleri-faq'
 
 const ANTAL_CV = CV_GALLERI.length
+const TITEL = `CV-exempel: ${ANTAL_CV} färdiga CV för svenska yrken | Jobbcoach.ai`
+const BESKRIVNING = `CV-exempel för ${ANTAL_CV} svenska yrken, från undersköterska till systemutvecklare. Se hur profil, erfarenhet och kompetenser formuleras och använd exemplet som mall.`
 
 export function generateMetadata(): Metadata {
   return {
-    title: `${ANTAL_CV} CV-exempel för svenska yrken 2026 — gratis och ATS-optimerade | Jobbcoach.ai`,
-    description: `Se färdiga CV-exempel för ${ANTAL_CV} svenska yrken — vård, tech, ekonomi, service, utbildning, offentlig sektor och hantverk. Lärorika exempel för din egen jobbansökan.`,
+    // Huvudordsplanen steg 1 (SEO-förslaget K4 a, 2026-11-14): huvudordet först, inget årtal.
+    title: `CV-exempel: ${ANTAL_CV} färdiga CV för svenska yrken | Jobbcoach.ai`,
+    description: BESKRIVNING,
     keywords:
       'cv exempel, exempel cv, bra cv exempel, cv exempel student, cv exempel säljare, cv exempel barnskötare, ats-optimerat cv, professionellt cv, svenska cv, jobbansökan',
     openGraph: {
-      title: `${ANTAL_CV} CV-exempel för svenska yrken | Jobbcoach.ai`,
-      description: `Professionella CV-exempel för ${ANTAL_CV} yrken. ATS-optimerade och anpassade för svenska arbetsgivare. Helt gratis.`,
+      title: TITEL,
+      description: BESKRIVNING,
       type: 'website',
       locale: 'sv_SE',
       url: 'https://www.jobbcoach.ai/cv-exempel',
@@ -26,8 +29,8 @@ export function generateMetadata(): Metadata {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${ANTAL_CV} CV-exempel för svenska yrken | Jobbcoach.ai`,
-      description: `Professionella CV-exempel för ${ANTAL_CV} yrken. ATS-optimerade. Helt gratis.`,
+      title: TITEL,
+      description: BESKRIVNING,
     },
     alternates: {
       canonical: 'https://www.jobbcoach.ai/cv-exempel',

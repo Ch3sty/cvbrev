@@ -9,7 +9,8 @@ import { useState, useMemo } from 'react'
 
 import Breadcrumb from '@/components/Breadcrumb'
 import FaqAccordion from '@/components/exempel-shared/FaqAccordion'
-import { SIMPLE_TEMPLATES } from '@/lib/cv/simple-templates'
+import { SIMPLE_TEMPLATES, FREE_TEMPLATE_IDS, getTemplateById } from '@/lib/cv/simple-templates'
+import { CV_GALLERI } from '@/app/(public)/exempel/components/galleri-data'
 import {
   IconVard,
   IconTech,
@@ -36,6 +37,23 @@ const KATEGORI_ICON: Record<Yrkesmall['kategori'], ({ className }: { className?:
   'logistik': IconLogistik,
   'student': IconStudent,
 }
+
+/** Gratismallarnas namn ur registret och antalet ATS-märkta (SEO-förslaget F3 och K6). */
+const GRATIS_NAMN = FREE_TEMPLATE_IDS.map((id) => getTemplateById(id)?.name).filter(Boolean) as string[]
+const ATS_ANTAL = SIMPLE_TEMPLATES.filter((t) => t.features?.atsSafe).length
+const GRATIS_ATS = FREE_TEMPLATE_IDS.every((id) => getTemplateById(id)?.features?.atsSafe)
+
+function uppraknat(namn: string[]): string {
+  return namn.length < 2 ? namn.join('') : `${namn.slice(0, -1).join(', ')} och ${namn[namn.length - 1]}`
+}
+
+/** Situationsraden: vanliga länkar till sidor och avsnitt som redan finns. */
+const SITUATION = [
+  { text: 'Student', href: '/cv-mallar/student' },
+  { text: 'Utan erfarenhet', href: '/artiklar/cv-utan-erfarenhet' },
+  { text: 'Karriärbyte', href: '/artiklar/hur-skriver-man-cv#cv-vid-karriarbyte' },
+  { text: 'Chef', href: '/cv-mallar/chef' },
+] as const
 
 type FilterType = 'all' | 'free' | 'premium' | 'yrkesmallar' | 'modern' | 'traditional' | 'creative'
 
@@ -115,8 +133,9 @@ export default function CvMallarPageContent({
             {SIMPLE_TEMPLATES.length} CV-mallar
           </div>
 
+          {/* Huvudordsplanen steg 1 och 2 (SEO-förslaget K4 a och K6, 2026-11-14). */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.05] tracking-tight mb-5">
-            CV-mallar för svenska yrken{' '}
+            CV-mallar att fylla i och ladda ner.{' '}
             <span
               style={{
                 background: 'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
@@ -125,12 +144,15 @@ export default function CvMallarPageContent({
                 backgroundClip: 'text',
               }}
             >
-              gratis eller i {PAKETRADER.bricka}
+              {SIMPLE_TEMPLATES.length} mallar, {GRATIS_NAMN.length} gratis.
             </span>
           </h1>
 
-          <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed mb-8 max-w-2xl mx-auto">
-            Välj rätt design för din ansökan. Alla mallar är ATS-säkra, anpassade för svenska arbetsgivare och uppdaterade för 2026. Yrkesmallar hjälper dig välja det som passar din bransch.
+          <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-8 max-w-2xl mx-auto">
+            En CV-mall är en färdig layout som du fyller med dina egna uppgifter. Vi har {SIMPLE_TEMPLATES.length} mallar, och{' '}
+            {GRATIS_NAMN.length} av dem är gratis: {uppraknat(GRATIS_NAMN)}.{' '}
+            {GRATIS_ATS ? 'De är alla märkta ATS-säkra, alltså byggda så att rekryteringssystemen läser texten i rätt ordning. ' : ''}
+            Med ett gratiskonto fyller du i en av dem och laddar ner ditt CV som PDF.
           </p>
 
           {/* Sok */}
@@ -144,6 +166,19 @@ export default function CvMallarPageContent({
               className="w-full pl-11 pr-4 py-3 bg-white border border-orange-200 rounded-2xl focus:outline-none focus:border-orange-400 text-slate-900 placeholder-slate-400"
             />
           </div>
+
+          <nav aria-label="Välj efter situation" className="flex flex-wrap items-center justify-center gap-2">
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500 mr-1">Börja från din situation</span>
+            {SITUATION.map((s) => (
+              <Link
+                key={s.href}
+                href={s.href}
+                className="inline-flex min-h-10 items-center px-4 rounded-full bg-white border border-orange-200 text-sm font-bold text-slate-700 hover:border-orange-400"
+              >
+                {s.text}
+              </Link>
+            ))}
+          </nav>
         </div>
       </section>
 
@@ -157,11 +192,11 @@ export default function CvMallarPageContent({
               aria-hidden
             />
             <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-              Yrkesmallar — för ditt specifika yrke
+              Yrkesmallar för ditt specifika yrke
             </h2>
           </div>
           <p className="text-base text-slate-600 leading-relaxed mb-6 max-w-3xl">
-            Mallar designade för specifika yrken med sektioner som lyfter rätt meriter — legitimationer, behörigheter, kompetensområden. Klicka för att se varför mallen passar yrket och vad rekryterare letar efter.
+            Mallar designade för specifika yrken med sektioner som lyfter rätt meriter: legitimationer, behörigheter och kompetensområden. Klicka för att se varför mallen passar yrket och vad rekryterare letar efter.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
@@ -216,8 +251,11 @@ export default function CvMallarPageContent({
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mb-2">
             Alla våra CV-mallar
           </h2>
+          <p className="text-base text-slate-600 max-w-2xl mx-auto mb-2">
+            Välj rätt design för din ansökan. {ATS_ANTAL} av mallarna är märkta ATS-säkra och anpassade för svenska arbetsgivare. Yrkesmallarna hjälper dig välja det som passar din bransch.
+          </p>
           <p className="text-base text-slate-600">
-            Filtrera efter typ, stil eller tier. Klicka på en mall för att se den i aktion.
+            Filtrera efter typ, stil eller gratis och Premium. Klicka på en mall för att se den i aktion.
           </p>
         </div>
 
@@ -312,7 +350,7 @@ export default function CvMallarPageContent({
               title="Mallen måste passera rekryteringssystemet"
             >
               <p>
-                Innan en människa läser ditt CV passerar det ofta ett ATS — Applicant Tracking System. Det är mjukvara som indexerar texten, sorterar in kandidater på sökord och rangordnar matchningar. ATS-system har problem med vissa designval: clip-paths, absolutpositionerade textfält, ovanliga typsnitt, och kolumner där läsordningen blir fel.
+                Innan en människa läser ditt CV passerar det ofta ett ATS, ett Applicant Tracking System. Det är mjukvara som indexerar texten, sorterar in kandidater på sökord och rangordnar matchningar. ATS-system har problem med vissa designval: clip-paths, absolutpositionerade textfält, ovanliga typsnitt, och kolumner där läsordningen blir fel.
               </p>
               <p>
                 Våra ATS-säkra mallar (märkta med grön ATS-badge) använder vanlig flödeslayout, standardrubriker som "Arbetslivserfarenhet" och "Utbildning", och typsnitt som finns i alla operativsystem. Du får designkänslan utan att riskera att rekryteringssystemet sorterar bort dig innan en människa ens ser ditt CV.
@@ -321,10 +359,10 @@ export default function CvMallarPageContent({
 
             <GuideBlock
               eyebrow="Branschmatchning"
-              title="Olika yrken kräver olika mall-DNA"
+              title="Olika yrken kräver olika upplägg"
             >
               <p>
-                En läkare, en barnskötare och en säljare har helt olika meriter att lyfta — legitimationer, pedagogiska metoder, säljsiffror. En generisk mall sätter alla i samma form, vilket sällan funkar. Yrkesspecifika mallar har sektioner och rubriker anpassade till branschen: "Klinisk tjänstgöring" istället för "Arbetslivserfarenhet" för läkare. "Pedagogisk erfarenhet" för lärare.
+                En läkare, en barnskötare och en säljare har helt olika meriter att lyfta: legitimationer, pedagogiska metoder, säljsiffror. En generisk mall sätter alla i samma form, vilket sällan fungerar. Yrkesspecifika mallar har sektioner och rubriker anpassade till branschen: "Klinisk tjänstgöring" i stället för "Arbetslivserfarenhet" för läkare. "Pedagogisk erfarenhet" för lärare.
               </p>
               <p>
                 Det handlar också om visuell kod. Vården och offentlig sektor förväntar sig dämpade färger och tydlig struktur. Marknadsföring och kreativa yrken har utrymme för djärvare grepp. Välj en mall vars visuella språk matchar branschen du söker dig till.
@@ -336,26 +374,26 @@ export default function CvMallarPageContent({
               title="Mallen ska passa hur långt du kommit i karriären"
             >
               <p>
-                Som student utan jobberfarenhet är fokus utbildning, projekt och praktik. Student-mallen flippar sektionsordningen och ger plats för det. Som senior konsult med 15+ års erfarenhet behöver du kompakt typografi som ryms — Konsulten-mallen kör 12.5px body istället för 13.5px för att få plats med fler jobb utan att verka cramad.
+                Som student utan jobberfarenhet är fokus utbildning, projekt och praktik. Student-mallen flippar sektionsordningen och ger plats för det. Som senior konsult med mer än 15 års erfarenhet behöver du kompakt typografi som ryms. Konsulten-mallen har en mindre brödtext för att få plats med fler jobb utan att verka trång.
               </p>
               <p>
-                Generella mallar (Norrsken, Aspekt) fungerar bra i mitten av karriären. Executive-mallar (Atlas) signalerar prestige och passar för C-suite eller styrelseroller där tradition väger tungt.
+                Generella mallar (Norrsken, Aspekt) fungerar bra i mitten av karriären. Mallar för högsta ledningen (Atlas) signalerar prestige och passar för ledningsgrupp eller styrelseroller där tradition väger tungt.
               </p>
             </GuideBlock>
 
             <GuideBlock
-              eyebrow="Mall vs exempel"
-              title="Använd båda — de är kompletterande"
+              eyebrow="Mall eller exempel"
+              title="Använd båda, de kompletterar varandra"
             >
               <p>
-                En CV-mall är design-strukturen — typsnitt, sektionsordning, färger, layout. Ett{' '}
+                En CV-mall är designen: typsnitt, sektionsordning, färger och layout. Ett{' '}
                 <Link href="/cv-exempel" className="text-orange-700 font-bold underline underline-offset-2">
                   CV-exempel
                 </Link>{' '}
                 är ett färdigt CV med någon annans innehåll som du kan låta dig inspireras av. När du skriver ditt eget, börja med exempel-sidan för ditt yrke (för att få bra formuleringar) och välj sedan en mall för designen.
               </p>
               <p>
-                För varje yrkesmall här länkar vi till motsvarande CV-exempel — så du kan både se ett färdigt CV och välja den mall som passar bäst. Använd mallväljaren i appen för att testa hur ditt CV ser ut i olika designer.
+                För varje yrkesmall här länkar vi till motsvarande CV-exempel, så att du både kan se ett färdigt CV och välja den mall som passar bäst. Använd mallväljaren i appen för att testa hur ditt CV ser ut i olika designer.
               </p>
             </GuideBlock>
           </div>
@@ -379,10 +417,10 @@ export default function CvMallarPageContent({
       <section className="container mx-auto px-3 sm:px-4 py-8 sm:py-12 max-w-4xl">
         <div className="bg-gradient-to-br from-orange-50 to-white border border-orange-200 rounded-3xl p-6 sm:p-10 text-center">
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mb-3">
-            Letar du efter ett färdigt CV-exempel istället?
+            Letar du efter ett färdigt CV-exempel i stället?
           </h2>
           <p className="text-base text-slate-600 mb-5 max-w-xl mx-auto">
-            Vi har 74 färdiga CV-exempel skrivna för specifika yrken — perfekta att inspireras av när du skriver ditt eget innehåll.
+            Vi har {CV_GALLERI.length} färdiga CV-exempel för specifika yrken. Använd dem som inspiration när du skriver ditt eget innehåll.
           </p>
           <Link
             href="/cv-exempel"

@@ -23481,12 +23481,18 @@ export default async function Page({ params }: { params: Promise<{ yrke: string 
       {
         "@type": "ListItem",
         "position": 2,
-        "name": "CV Exempel",
-        "item": "https://www.jobbcoach.ai/cv-exempel"
+        "name": "Exempel",
+        "item": "https://www.jobbcoach.ai/exempel"
       },
       {
         "@type": "ListItem",
         "position": 3,
+        "name": "CV-exempel",
+        "item": "https://www.jobbcoach.ai/cv-exempel"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
         "name": data.yrke,
         "item": `https://www.jobbcoach.ai/cv-exempel/${yrke}`
       }

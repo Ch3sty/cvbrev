@@ -1,6 +1,8 @@
 'use client'
 
 import Link from 'next/link'
+import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { TOTAL_EXEMPEL } from './exempel-data'
 import { motion } from 'framer-motion'
 import {
   ArrowRight,
@@ -251,10 +253,10 @@ export default function MallarHubGuideSection() {
             title="Är alla mallar verkligen gratis?"
           >
             <p>
-              Ja. Alla 151 mallar i biblioteket är gratis att läsa och
-              använda. Du behöver inget konto. Det finns inga
-              vattenstämplar, inga premium-versioner, inga dolda avgifter.
-              Vi tar inte betalt för innehållet.
+              Ja, alla {TOTAL_EXEMPEL} exempel i biblioteket är gratis att läsa
+              och använda, och du behöver inget konto. CV-mallarna är en
+              annan sak: {FREE_TEMPLATE_COUNT} av {TEMPLATE_COUNT} är gratis, resten ingår i
+              Premium. Vi tar aldrig betalt för att du läser.
             </p>
             <p>
               Det vi tar betalt för är de avancerade verktygen som
@@ -270,7 +272,7 @@ export default function MallarHubGuideSection() {
                 href="/artiklar/cv-mall-gratis-guide"
                 className="text-orange-700 font-bold hover:text-orange-800 underline-offset-2 hover:underline"
               >
-                CV-mallar 2026
+                var du hittar en gratis CV-mall
               </Link>
               {' '}och{' '}
               <Link
@@ -278,6 +280,13 @@ export default function MallarHubGuideSection() {
                 className="text-orange-700 font-bold hover:text-orange-800 underline-offset-2 hover:underline"
               >
                 mallar för personligt brev
+              </Link>
+              . Alla våra designer hittar du på sidan{' '}
+              <Link
+                href="/cv-mallar"
+                className="text-orange-700 font-bold hover:text-orange-800 underline-offset-2 hover:underline"
+              >
+                CV-mallar
               </Link>
               .
             </p>
@@ -300,14 +309,14 @@ export default function MallarHubGuideSection() {
               href="/cv-exempel"
               className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-white text-orange-700 font-bold text-sm sm:text-base border-2 border-orange-200 hover:border-orange-300 transition-colors min-h-[48px]"
             >
-              Bläddra CV-mallar
+              Bläddra CV-exempel
               <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
             </Link>
             <Link
               href="/personligt-brev-exempel"
               className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-white text-orange-700 font-bold text-sm sm:text-base border-2 border-orange-200 hover:border-orange-300 transition-colors min-h-[48px]"
             >
-              Bläddra brev-mallar
+              Bläddra personligt brev-exempel
               <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
             </Link>
           </div>

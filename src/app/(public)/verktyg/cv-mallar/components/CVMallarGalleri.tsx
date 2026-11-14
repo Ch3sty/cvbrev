@@ -68,7 +68,11 @@ export default function CVMallarGalleri({ mallar, paket }: CVMallarGalleriProps)
       <h2 className="mt-2 text-h2-pub text-ink-1">Alla våra mallar. På ett ställe.</h2>
       <p className="mt-3 max-w-[60ch] text-base leading-[27px] text-ink-2">
         Bläddra bland alla mallar och filtrera på stil. Du kan byta mall efter att du fyllt i ditt CV utan att förlora
-        något av innehållet.
+        något av innehållet. Vill du se vilken mall som passar ditt yrke har vi{' '}
+        <Link href="/cv-mallar" className="text-ink-1 underline decoration-kant-stark underline-offset-[3px]">
+          CV-mallar per yrke
+        </Link>{' '}
+        med rekryterarens tips.
       </p>
 
       <Segment

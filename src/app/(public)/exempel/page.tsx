@@ -6,6 +6,7 @@
  * SEO: WebPage + BreadcrumbList + FAQPage + ItemList JSON-LD.
  */
 import Breadcrumb from '@/components/Breadcrumb'
+import { TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import ExempelHero from './components/ExempelHero'
 import ExempelKategoriPaneler from './components/ExempelKategoriPaneler'
 import ExempelPopulara from './components/ExempelPopulara'
@@ -28,8 +29,8 @@ export default function ExempelPage() {
   const webPageSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    name: 'CV-exempel, brev-exempel och CV-mallar | Jobbcoach.ai',
-    description: `${TOTAL_CV_YRKEN} CV-exempel och ${TOTAL_BREV_YRKEN} exempel på personligt brev fördelade över tio kategorier, plus 25 färdiga CV-mallar att välja design från. Allt gratis.`,
+    name: 'Exempel för jobbansökan: CV, personligt brev och mallar',
+    description: `Vi har ${TOTAL_CV_YRKEN} CV-exempel, ${TOTAL_BREV_YRKEN} exempel på personligt brev och ${TEMPLATE_COUNT} CV-mallar. Börja med ditt yrke och gå vidare till exemplet, brevet eller mallen du behöver.`,
     url: 'https://www.jobbcoach.ai/exempel',
     publisher: {
       '@type': 'Organization',

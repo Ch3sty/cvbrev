@@ -1,16 +1,19 @@
 import { Metadata } from 'next'
+import { TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { TOTAL_BREV_YRKEN, TOTAL_CV_YRKEN } from './components/exempel-data'
+
+// /exempel är hubben, inte målsida för huvudorden (huvudordsplanen steg 4,
+// SEO-förslaget K4 c, 2026-11-14). Talen ur konstanterna.
+const TITEL = 'Exempel för jobbansökan: CV, personligt brev och mallar'
+const BESKRIVNING = `Vi har ${TOTAL_CV_YRKEN} CV-exempel, ${TOTAL_BREV_YRKEN} exempel på personligt brev och ${TEMPLATE_COUNT} CV-mallar. Börja med ditt yrke och gå vidare till exemplet, brevet eller mallen du behöver.`
 
 export const metadata: Metadata = {
-  title:
-    'CV-exempel, brev-exempel och CV-mallar för svenska yrken | Jobbcoach.ai',
-  description:
-    'Vi har 89 CV-exempel, 89 exempel på personligt brev och 25 färdiga CV-mallar. Hitta ett exempel som passar ditt yrke eller välj en mall-design som matchar din bransch.',
-  keywords:
-    'cv exempel, exempel cv, bra cv exempel, personligt brev exempel, exempel på personligt brev, spontanansökan exempel, cv mall, cv mallar, jobbansökan',
+  title: TITEL,
+  description: BESKRIVNING,
+  keywords: 'exempel på personligt brev, spontanansökan exempel, jobbansökan, exempel jobbansökan',
   openGraph: {
-    title: 'CV-exempel, brev-exempel och CV-mallar | Jobbcoach.ai',
-    description:
-      'Vi har 175 färdiga exempel och mallar för svenska yrken. Helt gratis att använda.',
+    title: TITEL,
+    description: BESKRIVNING,
     type: 'website',
     locale: 'sv_SE',
     url: 'https://www.jobbcoach.ai/exempel',
@@ -18,9 +21,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'CV-exempel, brev-exempel och CV-mallar | Jobbcoach.ai',
-    description:
-      'CV-exempel, exempel på personligt brev och färdiga mall-designer. Helt gratis.',
+    title: TITEL,
+    description: BESKRIVNING,
   },
   alternates: {
     canonical: 'https://www.jobbcoach.ai/exempel',
