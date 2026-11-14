@@ -340,7 +340,8 @@ export function SlutKort({ paket, cluster, slug }: { paket: Exclude<ArtikelPaket
         pris
         knapp={
           <Link href={copy.href} data-cta={`article-final-${cluster}`} data-cta-klick={copy.href} className="pub-knapp">
-            {copy.knapp}
+            {/* Knappen säger samma pris som raden ovanför (slutgranskningen 14 nov). */}
+            <KampanjVarianter ord={copy.knapp} kampanj={(k) => k.copy.prisKnapp} />
           </Link>
         }
         lank={copy.sekundar}

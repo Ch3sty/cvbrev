@@ -170,7 +170,10 @@ async function artikel(p, lage) {
   await ga(p, '/artiklar/i-prov', 'load')
   await vanta(1500)
   const tvaPriser = await p.evaluate(() => {
-    const t = document.querySelector('main')?.innerText.replace(/\s+/g, ' ') ?? ''
+    // Artikelns innehåll, utan headerns paketmeny (ramen, egen omgång efter kampanjen).
+    const main = document.querySelector('main')
+    const ram = main ? [...main.querySelectorAll('header, nav')].map((e) => e.innerText).join(' ') : ''
+    const t = (main?.innerText ?? '').replace(ram, '').replace(/\s+/g, ' ')
     const traffar = [...t.matchAll(/(.{0,12})149 kr i månaden/g)].map((m) => m[1])
     return { antal: traffar.length, utanSedan: traffar.filter((f) => !/sedan\s*$/.test(f)).length }
   })
