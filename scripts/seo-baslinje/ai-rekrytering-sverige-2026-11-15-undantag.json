@@ -1,0 +1,451 @@
+{
+ "_om": "Omskrivningen av /artiklar/ai-rekrytering-sverige 2026-11-15. Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/).",
+ "META_BYTT": [
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "falt": "title",
+   "datum": "2026-11-15",
+   "skal": "seoTitle utan ATS i titeln (ATS-frågorna ägs av ats-vanligt-cv): AI-rekrytering i Sverige 2026: så kommer du vidare"
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "falt": "description",
+   "datum": "2026-11-15",
+   "skal": "Ny description efter omskrivningen, 140 tecken."
+  }
+ ],
+ "H1_BYTT": [
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "fore": "AI-rekrytering i Sverige: Så tar du dig förbi robotarna (Sveriges Radio)",
+   "efter": "AI-rekrytering i Sverige: så används AI i urvalet och så kommer du vidare",
+   "datum": "2026-11-15",
+   "skal": "Titeln utan \"(Sveriges Radio)\" och utan robot-vinkeln. Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  }
+ ],
+ "RUBRIK_NY": [
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h2#sveriges-radio-avslojar-ai-tar-over-rekryteringen Sveriges Radio avslöjar: AI tar över rekryteringen",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen i omskrivningen (påhittade fall, SR-citatet och ATS-formatdelen som ägs av ats-vanligt-cv). Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h3#vad-betyder-det-har-i-praktiken Vad betyder det här i praktiken?",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen i omskrivningen (påhittade fall, SR-citatet och ATS-formatdelen som ägs av ats-vanligt-cv). Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h2#vad-ar-ats-och-hur-fungerar-det Vad är ATS och hur fungerar det?",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen i omskrivningen (påhittade fall, SR-citatet och ATS-formatdelen som ägs av ats-vanligt-cv). Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h3#sa-fungerar-ats-screening-i-praktiken Så fungerar ATS-screening i praktiken",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen i omskrivningen (påhittade fall, SR-citatet och ATS-formatdelen som ägs av ats-vanligt-cv). Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h3#vanliga-ats-system-i-sverige Vanliga ATS-system i Sverige",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen i omskrivningen (påhittade fall, SR-citatet och ATS-formatdelen som ägs av ats-vanligt-cv). Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h2#nya-regler-eu-ai-act-och-din-rattighet-att-bli-rattvist-bedomd Nya regler: EU AI Act och din rättighet att bli rättvist bedömd",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen i omskrivningen (påhittade fall, SR-citatet och ATS-formatdelen som ägs av ats-vanligt-cv). Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h2#problemet-kvalificerade-kandidater-sorteras-bort Problemet: Kvalificerade kandidater sorteras bort",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen i omskrivningen (påhittade fall, SR-citatet och ATS-formatdelen som ägs av ats-vanligt-cv). Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h3#exempel-fran-verkligheten Exempel från verkligheten",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen i omskrivningen (påhittade fall, SR-citatet och ATS-formatdelen som ägs av ats-vanligt-cv). Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h2#5-konkreta-tips-sa-optimerar-du-dina-ansokningshandlingar-for-ats 5 konkreta tips: Så optimerar du dina ansökningshandlingar för ATS",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen i omskrivningen (påhittade fall, SR-citatet och ATS-formatdelen som ägs av ats-vanligt-cv). Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h3#1-anvand-exakta-nyckelord-fran-jobbannonsen 1. Använd exakta nyckelord från jobbannonsen",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen i omskrivningen (påhittade fall, SR-citatet och ATS-formatdelen som ägs av ats-vanligt-cv). Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h3#2-anvand-en-enkel-ats-vanlig-formatering 2. Använd en enkel, ATS-vänlig formatering",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen i omskrivningen (påhittade fall, SR-citatet och ATS-formatdelen som ägs av ats-vanligt-cv). Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h3#3-kvantifiera-dina-resultat-och-prestationer 3. Kvantifiera dina resultat och prestationer",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen i omskrivningen (påhittade fall, SR-citatet och ATS-formatdelen som ägs av ats-vanligt-cv). Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h3#4-anpassa-varje-ansokan 4. Anpassa varje ansökan",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen i omskrivningen (påhittade fall, SR-citatet och ATS-formatdelen som ägs av ats-vanligt-cv). Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h3#5-optimera-aven-din-linkedin-profil 5. Optimera även din LinkedIn-profil",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen i omskrivningen (påhittade fall, SR-citatet och ATS-formatdelen som ägs av ats-vanligt-cv). Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h2#case-study-sa-okade-sara-sina-chanser-med-340 Case study: Så ökade Sara sina chanser med 340%",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen i omskrivningen (påhittade fall, SR-citatet och ATS-formatdelen som ägs av ats-vanligt-cv). Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h2#vad-forandras-harnast-och-vad-bor-du-gora Vad förändras härnäst, och vad bör du göra?",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen i omskrivningen (påhittade fall, SR-citatet och ATS-formatdelen som ägs av ats-vanligt-cv). Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h2#spela-spelet-smart Spela spelet smart",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen i omskrivningen (påhittade fall, SR-citatet och ATS-formatdelen som ägs av ats-vanligt-cv). Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h2#var-i-rekryteringen-anvands-ai Var i rekryteringen används AI?",
+   "datum": "2026-11-15",
+   "skal": "Ny frågeformad rubrik i omskrivningen. Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h2#hur-manga-arbetsgivare-anvander-ai-i-rekryteringen Hur många arbetsgivare använder AI i rekryteringen?",
+   "datum": "2026-11-15",
+   "skal": "Ny frågeformad rubrik i omskrivningen. Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h2#sorterar-ai-bort-ditt-cv-innan-en-manniska-ser-det Sorterar AI bort ditt CV innan en människa ser det?",
+   "datum": "2026-11-15",
+   "skal": "Ny frågeformad rubrik i omskrivningen. Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h2#vilka-rekryteringssystem-med-ai-anvands-i-sverige Vilka rekryteringssystem med AI används i Sverige?",
+   "datum": "2026-11-15",
+   "skal": "Ny frågeformad rubrik i omskrivningen. Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h2#vilka-fordelar-och-risker-har-ai-i-rekrytering Vilka fördelar och risker har AI i rekrytering?",
+   "datum": "2026-11-15",
+   "skal": "Ny frågeformad rubrik i omskrivningen. Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h2#vilka-regler-galler-for-ai-i-rekrytering Vilka regler gäller för AI i rekrytering?",
+   "datum": "2026-11-15",
+   "skal": "Ny frågeformad rubrik i omskrivningen. Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h3#ai-forordningen-rekrytering-ar-hogrisk AI-förordningen: rekrytering är högrisk",
+   "datum": "2026-11-15",
+   "skal": "Ny frågeformad rubrik i omskrivningen. Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h3#gdpr-ett-nej-far-inte-vara-helt-automatiskt GDPR: ett nej får inte vara helt automatiskt",
+   "datum": "2026-11-15",
+   "skal": "Ny frågeformad rubrik i omskrivningen. Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h3#diskrimineringslagen-ansvaret-ligger-kvar-hos-arbetsgivaren Diskrimineringslagen: ansvaret ligger kvar hos arbetsgivaren",
+   "datum": "2026-11-15",
+   "skal": "Ny frågeformad rubrik i omskrivningen. Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h2#hur-kommer-du-vidare-nar-ai-laser-ditt-cv-forst Hur kommer du vidare när AI läser ditt CV först?",
+   "datum": "2026-11-15",
+   "skal": "Ny frågeformad rubrik i omskrivningen. Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h3#1-anvand-annonsens-egna-ord 1. Använd annonsens egna ord",
+   "datum": "2026-11-15",
+   "skal": "Ny frågeformad rubrik i omskrivningen. Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h3#2-hall-layouten-enkel 2. Håll layouten enkel",
+   "datum": "2026-11-15",
+   "skal": "Ny frågeformad rubrik i omskrivningen. Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h3#3-var-konkret 3. Var konkret",
+   "datum": "2026-11-15",
+   "skal": "Ny frågeformad rubrik i omskrivningen. Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h3#4-svara-noggrant-pa-urvalsfragorna 4. Svara noggrant på urvalsfrågorna",
+   "datum": "2026-11-15",
+   "skal": "Ny frågeformad rubrik i omskrivningen. Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h3#5-anpassa-varje-ansokan 5. Anpassa varje ansökan",
+   "datum": "2026-11-15",
+   "skal": "Ny frågeformad rubrik i omskrivningen. Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h3#6-hall-profilerna-uppdaterade 6. Håll profilerna uppdaterade",
+   "datum": "2026-11-15",
+   "skal": "Ny frågeformad rubrik i omskrivningen. Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h2#marker-rekryteraren-om-du-har-anvant-ai-i-ansokan Märker rekryteraren om du har använt AI i ansökan?",
+   "datum": "2026-11-15",
+   "skal": "Ny frågeformad rubrik i omskrivningen. Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "rubrik": "h2#vad-gor-du-om-du-tror-att-ai-sorterade-bort-dig Vad gör du om du tror att AI sorterade bort dig?",
+   "datum": "2026-11-15",
+   "skal": "Ny frågeformad rubrik i omskrivningen. Artikeln omskriven till dagens artikelstandard (ägarens uppdrag 2026-11-15): källgranskning strök ett påhittat SR-citat, felaktiga siffror och system, titeln utan \"(Sveriges Radio)\", frågeformade rubriker, ny FAQ. Granskad av SEO-strateg, copywriter och faktagranskare (docs/qa/ai-rekrytering-sverige/)."
+  }
+ ],
+ "FAQ_BYTT": [
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "fore": "Vad är ATS och hur påverkar det min jobbansökan?",
+   "efter": "Hur används AI i rekrytering i Sverige?",
+   "datum": "2026-11-15",
+   "skal": "FAQ omskriven till källbelagda svar, samma sak i frontmatter och synlig FAQ"
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "fore": "Hur vet jag om ett företag använder ATS?",
+   "efter": "Är det lagligt för arbetsgivare att använda AI i rekrytering?",
+   "datum": "2026-11-15",
+   "skal": "FAQ omskriven till källbelagda svar, samma sak i frontmatter och synlig FAQ"
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "fore": "Kan AI verkligen avgöra om jag är lämplig för ett jobb?",
+   "efter": "Får ett AI-system ensamt avgöra att jag får nej?",
+   "datum": "2026-11-15",
+   "skal": "FAQ omskriven till källbelagda svar, samma sak i frontmatter och synlig FAQ"
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "fore": "Vilka är de vanligaste felen som gör att ATS sorterar bort mitt CV?",
+   "efter": "Sorterar AI bort mitt CV innan en människa ser det?",
+   "datum": "2026-11-15",
+   "skal": "FAQ omskriven till källbelagda svar, samma sak i frontmatter och synlig FAQ"
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "fore": "Gäller samma ATS-regler för LinkedIn-profilen?",
+   "efter": "Märker rekryteraren om jag har skrivit ansökan med AI?",
+   "datum": "2026-11-15",
+   "skal": "FAQ omskriven till källbelagda svar, samma sak i frontmatter och synlig FAQ"
+  }
+ ],
+ "LANK_BORTA": [
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "#5-konkreta-tips-sa-optimerar-du-dina-ansokningshandlingar-for-ats",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer de nya rubrikerna."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "#5-konkreta-tips-sa-optimerar-du-dina-ansokningshandlingar-for-ats",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer de nya rubrikerna."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "#case-study-sa-okade-sara-sina-chanser-med-340",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer de nya rubrikerna."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "#case-study-sa-okade-sara-sina-chanser-med-340",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer de nya rubrikerna."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "#nya-regler-eu-ai-act-och-din-rattighet-att-bli-rattvist-bedomd",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer de nya rubrikerna."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "#nya-regler-eu-ai-act-och-din-rattighet-att-bli-rattvist-bedomd",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer de nya rubrikerna."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "#problemet-kvalificerade-kandidater-sorteras-bort",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer de nya rubrikerna."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "#problemet-kvalificerade-kandidater-sorteras-bort",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer de nya rubrikerna."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "#spela-spelet-smart",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer de nya rubrikerna."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "#spela-spelet-smart",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer de nya rubrikerna."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "#sveriges-radio-avslojar-ai-tar-over-rekryteringen",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer de nya rubrikerna."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "#sveriges-radio-avslojar-ai-tar-over-rekryteringen",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer de nya rubrikerna."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "#sveriges-radio-avslojar-ai-tar-over-rekryteringen",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer de nya rubrikerna."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "#vad-ar-ats-och-hur-fungerar-det",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer de nya rubrikerna."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "#vad-ar-ats-och-hur-fungerar-det",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer de nya rubrikerna."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "#vad-forandras-harnast-och-vad-bor-du-gora",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer de nya rubrikerna."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "#vad-forandras-harnast-och-vad-bor-du-gora",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer de nya rubrikerna."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "/artiklar/jobbcoach-online",
+   "datum": "2026-11-15",
+   "skal": "Läs vidare-korten är automatiska och följer de nya taggarna; ingen länk i brödtexten är borttagen."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "/artiklar/vad-ar-en-jobbcoach",
+   "datum": "2026-11-15",
+   "skal": "Läs vidare-korten är automatiska och följer de nya taggarna; ingen länk i brödtexten är borttagen."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "/artiklar/vad-ar-en-jobbcoach",
+   "datum": "2026-11-15",
+   "skal": "Läs vidare-korten är automatiska och följer de nya taggarna; ingen länk i brödtexten är borttagen."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "/artiklar?tag=AI-rekrytering",
+   "datum": "2026-11-15",
+   "skal": "Taggarna bytta till sökorden ur Search Console; taggsidorna är automatiska."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "/artiklar?tag=ATS",
+   "datum": "2026-11-15",
+   "skal": "Taggarna bytta till sökorden ur Search Console; taggsidorna är automatiska."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "/artiklar?tag=CV-tips",
+   "datum": "2026-11-15",
+   "skal": "Taggarna bytta till sökorden ur Search Console; taggsidorna är automatiska."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "/artiklar?tag=karriärtips",
+   "datum": "2026-11-15",
+   "skal": "Taggarna bytta till sökorden ur Search Console; taggsidorna är automatiska."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "/artiklar?tag=personligt brev",
+   "datum": "2026-11-15",
+   "skal": "Taggarna bytta till sökorden ur Search Console; taggsidorna är automatiska."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "/artiklar?tag=rekrytering",
+   "datum": "2026-11-15",
+   "skal": "Taggarna bytta till sökorden ur Search Console; taggsidorna är automatiska."
+  },
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "lank": "/artiklar?tag=svenska arbetsmarknaden",
+   "datum": "2026-11-15",
+   "skal": "Taggarna bytta till sökorden ur Search Console; taggsidorna är automatiska."
+  }
+ ],
+ "LD_UNDANTAG": [
+  {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "datum": "2026-11-15",
+   "skal": "BlogPosting (headline, description, keywords, dateModified via updated), FAQPage och BreadcrumbList (namn = title) följer omskrivningen.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage",
+    "BreadcrumbList"
+   ]
+  }
+ ]
+}

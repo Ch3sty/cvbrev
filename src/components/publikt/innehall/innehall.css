@@ -221,6 +221,20 @@
 .pub-sida .artikel-prose :where(.bg-blue-50) { background: var(--rum-ton, var(--insunken)); }
 .pub-sida .artikel-prose :where(.text-blue-800, .text-blue-900) { color: var(--rum-ink, var(--ink-1)); }
 .pub-sida .artikel-prose :where(.border-blue-200, .border-blue-300) { border-color: var(--kant-stark); }
+.pub-sida .artikel-prose :where(.bg-orange-50) { background: var(--koppar-mjuk); }
+.pub-sida .artikel-prose :where(.border-orange-200) { border-color: var(--kant-stark); }
+/* CVExample (95 artiklar): den inre .prose-slate satte Tailwinds grå
+   textfärger, som blev mörkt på mörkt i mörkt läge (2026-11-15). */
+.pub-sida .artikel-prose .not-prose .prose-slate {
+  --tw-prose-body: var(--ink-2);
+  --tw-prose-headings: var(--ink-1);
+  --tw-prose-bold: var(--ink-1);
+  --tw-prose-links: var(--ink-1);
+  --tw-prose-bullets: var(--kant-stark);
+  --tw-prose-counters: var(--ink-3);
+  --tw-prose-hr: var(--kant);
+  color: var(--ink-2);
+}
 
 /* Snabbsvaret: MDX-diven med bg-slate-50 och en h2 först (137 av 139). */
 .pub-sida .artikel-prose div.bg-slate-50.rounded-lg:has(> h2:first-child) {

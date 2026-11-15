@@ -1,0 +1,296 @@
+[
+  {
+    "path": "/artiklar/ai-rekrytering-sverige",
+    "status": 200,
+    "h1": [
+      "AI-rekrytering i Sverige: så används AI i urvalet och så kommer du vidare"
+    ],
+    "title": "AI-rekrytering i Sverige 2026: så kommer du vidare",
+    "description": "AI-rekrytering i Sverige: var arbetsgivarna använder AI i urvalet, vilka regler som skyddar dig och hur du skriver ett CV som kommer vidare.",
+    "canonical": "https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige",
+    "ogImage": "https://www.jobbcoach.ai/images/artiklar/ai-rekrytering-sverige-v2.webp",
+    "robots": "index, follow, max-image-preview:large",
+    "rubriker": [
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Linda Eriksson"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Snabbsvar: hur används AI i rekrytering i Sverige?"
+      },
+      {
+        "tag": "h2",
+        "id": "var-i-rekryteringen-anvands-ai",
+        "text": "Var i rekryteringen används AI?"
+      },
+      {
+        "tag": "h2",
+        "id": "hur-manga-arbetsgivare-anvander-ai-i-rekryteringen",
+        "text": "Hur många arbetsgivare använder AI i rekryteringen?"
+      },
+      {
+        "tag": "h2",
+        "id": "sorterar-ai-bort-ditt-cv-innan-en-manniska-ser-det",
+        "text": "Sorterar AI bort ditt CV innan en människa ser det?"
+      },
+      {
+        "tag": "h2",
+        "id": "vilka-rekryteringssystem-med-ai-anvands-i-sverige",
+        "text": "Vilka rekryteringssystem med AI används i Sverige?"
+      },
+      {
+        "tag": "h2",
+        "id": "vilka-fordelar-och-risker-har-ai-i-rekrytering",
+        "text": "Vilka fördelar och risker har AI i rekrytering?"
+      },
+      {
+        "tag": "h2",
+        "id": "vilka-regler-galler-for-ai-i-rekrytering",
+        "text": "Vilka regler gäller för AI i rekrytering?"
+      },
+      {
+        "tag": "h3",
+        "id": "ai-forordningen-rekrytering-ar-hogrisk",
+        "text": "AI-förordningen: rekrytering är högrisk"
+      },
+      {
+        "tag": "h3",
+        "id": "gdpr-ett-nej-far-inte-vara-helt-automatiskt",
+        "text": "GDPR: ett nej får inte vara helt automatiskt"
+      },
+      {
+        "tag": "h3",
+        "id": "diskrimineringslagen-ansvaret-ligger-kvar-hos-arbetsgivaren",
+        "text": "Diskrimineringslagen: ansvaret ligger kvar hos arbetsgivaren"
+      },
+      {
+        "tag": "h2",
+        "id": "hur-kommer-du-vidare-nar-ai-laser-ditt-cv-forst",
+        "text": "Hur kommer du vidare när AI läser ditt CV först?"
+      },
+      {
+        "tag": "h3",
+        "id": "1-anvand-annonsens-egna-ord",
+        "text": "1. Använd annonsens egna ord"
+      },
+      {
+        "tag": "h3",
+        "id": "2-hall-layouten-enkel",
+        "text": "2. Håll layouten enkel"
+      },
+      {
+        "tag": "h3",
+        "id": "3-var-konkret",
+        "text": "3. Var konkret"
+      },
+      {
+        "tag": "h3",
+        "id": "4-svara-noggrant-pa-urvalsfragorna",
+        "text": "4. Svara noggrant på urvalsfrågorna"
+      },
+      {
+        "tag": "h3",
+        "id": "5-anpassa-varje-ansokan",
+        "text": "5. Anpassa varje ansökan"
+      },
+      {
+        "tag": "h3",
+        "id": "6-hall-profilerna-uppdaterade",
+        "text": "6. Håll profilerna uppdaterade"
+      },
+      {
+        "tag": "h2",
+        "id": "marker-rekryteraren-om-du-har-anvant-ai-i-ansokan",
+        "text": "Märker rekryteraren om du har använt AI i ansökan?"
+      },
+      {
+        "tag": "h2",
+        "id": "vad-gor-du-om-du-tror-att-ai-sorterade-bort-dig",
+        "text": "Vad gör du om du tror att AI sorterade bort dig?"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga Frågor (FAQ)"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Är du rekryterare?"
+      }
+    ],
+    "lankar": [
+      "#hur-kommer-du-vidare-nar-ai-laser-ditt-cv-forst",
+      "#hur-kommer-du-vidare-nar-ai-laser-ditt-cv-forst",
+      "#hur-manga-arbetsgivare-anvander-ai-i-rekryteringen",
+      "#hur-manga-arbetsgivare-anvander-ai-i-rekryteringen",
+      "#marker-rekryteraren-om-du-har-anvant-ai-i-ansokan",
+      "#marker-rekryteraren-om-du-har-anvant-ai-i-ansokan",
+      "#sorterar-ai-bort-ditt-cv-innan-en-manniska-ser-det",
+      "#sorterar-ai-bort-ditt-cv-innan-en-manniska-ser-det",
+      "#vad-gor-du-om-du-tror-att-ai-sorterade-bort-dig",
+      "#vad-gor-du-om-du-tror-att-ai-sorterade-bort-dig",
+      "#var-i-rekryteringen-anvands-ai",
+      "#var-i-rekryteringen-anvands-ai",
+      "#var-i-rekryteringen-anvands-ai",
+      "#vilka-fordelar-och-risker-har-ai-i-rekrytering",
+      "#vilka-fordelar-och-risker-har-ai-i-rekrytering",
+      "#vilka-regler-galler-for-ai-i-rekrytering",
+      "#vilka-regler-galler-for-ai-i-rekrytering",
+      "#vilka-rekryteringssystem-med-ai-anvands-i-sverige",
+      "#vilka-rekryteringssystem-med-ai-anvands-i-sverige",
+      "/",
+      "/artiklar",
+      "/artiklar",
+      "/artiklar/ai-jobbmatchning",
+      "/artiklar/arbetspsykologiska-tester",
+      "/artiklar/ats-vanligt-cv",
+      "/artiklar/ats-vanligt-cv",
+      "/artiklar/ats-vanligt-cv",
+      "/artiklar/ats-vanligt-cv",
+      "/artiklar/bild-i-cv-ja-eller-nej",
+      "/artiklar/hur-langt-ska-personligt-brev-vara",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
+      "/artiklar/nyckelord-i-cv",
+      "/artiklar/optimera-linkedin-profil",
+      "/artiklar/personligt-brev-innehall-checklista",
+      "/artiklar/personligt-brev-pa-engelska",
+      "/artiklar/skapa-cv-med-ai",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/skriva-personligt-brev-med-ai",
+      "/artiklar/styrkor-svagheter-intervju",
+      "/artiklar?tag=ai i rekrytering",
+      "/artiklar?tag=ai-förordningen",
+      "/artiklar?tag=ai-rekrytering",
+      "/artiklar?tag=ats",
+      "/artiklar?tag=digital rekrytering",
+      "/artiklar?tag=jobbansökan",
+      "/artiklar?tag=jobbsökning",
+      "/artiklar?tag=rekrytering ai",
+      "/artiklar?tag=rekryteringssystem",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/for-rekryterare/insikter/ai-forordningen-rekrytering",
+      "/for-rekryterare/insikter/diskrimineringslagen-rekrytering",
+      "/for-rekryterare/insikter/gdpr-rekrytering",
+      "/integritetspolicy#cookies",
+      "/priser",
+      "/priser",
+      "/priser",
+      "/priser",
+      "/skapa-brev/start",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/cv-mallar",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/rekryteringstester"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BlogPosting\",\"articleSection\":\"Career Advice\",\"author\":{\"@id\":\"https://www.jobbcoach.ai/authors/linda\",\"@type\":\"Person\",\"description\":\"Senior rekryteringskonsult med omfattande erfarenhet från executive search och talangförvärv. Inriktad på kompetensbaserad rekrytering och strategisk employer branding inom den svenska marknaden.\",\"image\":{\"@type\":\"ImageObject\",\"height\":200,\"url\":\"https://www.jobbcoach.ai/images/jobbcoach/Linda.webp\",\"width\":200},\"jobTitle\":\"Chefsrekryterare & Employer Branding Expert\",\"knowsAbout\":[\"Executive Search\",\"Kompetensbaserad rekrytering\",\"Förhandlingsstrategier\",\"Employer Branding\"],\"name\":\"Linda Eriksson\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\",\"worksFor\":{\"@type\":\"Organization\",\"name\":\"jobbcoach.ai\",\"sameAs\":[\"https://www.linkedin.com/company/jobbcoach-ai\",\"https://twitter.com/jobbcoach_ai\"],\"url\":\"https://www.jobbcoach.ai\"}},\"datePublished\":\"2025-01-20T00:00:00.000Z\",\"description\":\"AI-rekrytering i Sverige: var arbetsgivarna använder AI i urvalet, vilka regler som skyddar dig och hur du skriver ett CV som kommer vidare.\",\"hasPart\":[{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\"},\"name\":\"Var i rekryteringen används AI?\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige#var-i-rekryteringen-anvands-ai\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\"},\"name\":\"Hur många arbetsgivare använder AI i rekryteringen?\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige#hur-manga-arbetsgivare-anvander-ai-i-rekryteringen\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\"},\"name\":\"Sorterar AI bort ditt CV innan en människa ser det?\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige#sorterar-ai-bort-ditt-cv-innan-en-manniska-ser-det\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\"},\"name\":\"Vilka rekryteringssystem med AI används i Sverige?\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige#vilka-rekryteringssystem-med-ai-anvands-i-sverige\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\"},\"name\":\"Vilka fördelar och risker har AI i rekrytering?\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige#vilka-fordelar-och-risker-har-ai-i-rekrytering\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\"},\"name\":\"Vilka regler gäller för AI i rekrytering?\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige#vilka-regler-galler-for-ai-i-rekrytering\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\"},\"name\":\"Hur kommer du vidare när AI läser ditt CV först?\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige#hur-kommer-du-vidare-nar-ai-laser-ditt-cv-forst\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\"},\"name\":\"Märker rekryteraren om du har använt AI i ansökan?\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige#marker-rekryteraren-om-du-har-anvant-ai-i-ansokan\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\"},\"name\":\"Vad gör du om du tror att AI sorterade bort dig?\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige#vad-gor-du-om-du-tror-att-ai-sorterade-bort-dig\"}],\"headline\":\"AI-rekrytering i Sverige: så används AI i urvalet och så kommer du vidare\",\"image\":{\"@type\":\"ImageObject\",\"height\":1024,\"url\":\"https://www.jobbcoach.ai/images/artiklar/ai-rekrytering-sverige-v2.webp\",\"width\":1536},\"inLanguage\":\"sv-SE\",\"keywords\":\"ai-rekrytering, ai i rekrytering, rekrytering ai, ats, rekryteringssystem, digital rekrytering, ai-förordningen, jobbansökan, jobbsökning\",\"mainEntityOfPage\":{\"@id\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\",\"@type\":\"WebPage\"},\"publisher\":{\"@type\":\"Organization\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"https://www.jobbcoach.ai/images/logo-cvbrev-600x60.png\"},\"name\":\"jobbcoach.ai\",\"sameAs\":[\"https://www.linkedin.com/company/jobbcoach-ai\",\"https://twitter.com/jobbcoach_ai\"]},\"speakable\":{\"@type\":\"SpeakableSpecification\",\"cssSelector\":[\"h1\",\"h2\",\".article-content\"]},\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\",\"wordCount\":4151}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai\",\"name\":\"Hem\",\"position\":1},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/artiklar\",\"name\":\"Artiklar\",\"position\":2},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\",\"name\":\"AI-rekrytering i Sverige: så används AI i urvalet och så kommer du vidare\",\"position\":3}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Mest i rekryteringssystemen (ATS) som tar emot ansökningarna. De läser in CV:t, jämför det med kravprofilen och rangordnar de sökande efter kriterier som rekryteraren har ställt in. AI används också för att skriva annonser, söka fram kandidater i arbetsgivarens databas, boka intervjuer och skicka besked. I en undersökning från Experis 2023 uppgav 28 procent av svenska arbetsgivare att de redan använde AI i rekryteringen och 37 procent att de planerade att göra det inom tre år.\"},\"name\":\"Hur används AI i rekrytering i Sverige?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Sällan i den meningen att en algoritm trycker på en nej-knapp. Systemet rangordnar och sorterar efter arbetsgivarens kriterier, och en människa ska fatta beslutet. Men ett CV som systemet läser dåligt eller matchar svagt hamnar långt ner i listan, och vid populära tjänster läser rekryteraren uppifrån. Den ofta citerade siffran att 75 procent av alla CV:n sorteras bort av robotar saknar belägg och kommer från en säljpresentation 2012.\"},\"name\":\"Sorterar AI bort mitt CV innan en människa ser det?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Enligt EU:s AI-förordning ska den som använder ett högrisksystem för beslut om enskilda personer informera dem om det, och AI i rekrytering och urval räknas som högrisk. Kraven för den sortens system gäller från den 2 december 2027 efter att EU sköt upp starten. Redan i dag gäller dataskyddsförordningen: fattas beslut helt automatiskt ska arbetsgivaren berätta det redan när ansökan tas emot, och du kan alltid begära ut dina uppgifter och fråga om automatiserat beslutsfattande har förekommit.\"},\"name\":\"Måste arbetsgivaren berätta att AI används i rekryteringen?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Som huvudregel nej. Enligt dataskyddsförordningens artikel 22 har du rätt att inte bli föremål för beslut som enbart grundas på automatiserad behandling och som påverkar dig i betydande grad. IMY nämner just ett nekande besked från e-rekrytering utan personlig kontakt som exempel. När undantag gäller har du rätt till mänsklig granskning och rätt att bestrida beslutet.\"},\"name\":\"Får ett AI-system ensamt avgöra att jag får nej?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ofta, när texten är generisk. I en Kantar Sifo-undersökning för Jobbland 2024 svarade 44 procent av de tillfrågade arbetsgivarna att de får en sämre bild av en kandidat om de vet att hen har använt AI i ansökan. Det som avslöjar är sällan verktyget utan bristen på egna exempel. Använd gärna hjälp för ett första utkast, men fyll det med dina egna resultat, siffror och formuleringar.\"},\"name\":\"Märker rekryteraren om jag har skrivit ansökan med AI?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Ja, men med gränser. AI som tolkar känslor på arbetsplatsen är förbjudet sedan februari 2025. AI som filtrerar ansökningar eller bedömer kandidater räknas som högrisk enligt EU:s AI-förordning och får skärpta krav på information, mänsklig tillsyn och förklaring från den 2 december 2027. Dataskyddsförordningen gäller redan i dag: ett nej får som huvudregel inte bygga enbart på automatiserad behandling, och diskrimineringslagen gäller oavsett om en människa eller ett system gör urvalet.\"},\"name\":\"Är det lagligt för arbetsgivare att använda AI i rekrytering?\"}]}"
+    ],
+    "forstaBild": {
+      "src": "/images/jobbcoach/Linda.webp",
+      "alt": "Linda Eriksson - Chefsrekryterare & Employer Branding Expert"
+    },
+    "bilder": [
+      {
+        "src": "/images/jobbcoach/Linda.webp",
+        "alt": "Linda Eriksson - Chefsrekryterare & Employer Branding Expert"
+      },
+      {
+        "src": "/images/artiklar/ai-rekrytering-sverige-v2.webp",
+        "alt": "Så sorterar rekryteringssystemet ansökningar vid AI-rekrytering, med tre råd för att komma vidare"
+      },
+      {
+        "src": "/mallar/norrsken.svg",
+        "alt": "Mallen Norrsken"
+      },
+      {
+        "src": "/mallar/sidebar-icons.svg",
+        "alt": "Mallen Sidopanel"
+      },
+      {
+        "src": "/mallar/student-startup.svg",
+        "alt": "Mallen Student"
+      },
+      {
+        "src": "/mallar/aurora.svg",
+        "alt": "Mallen Aurora"
+      },
+      {
+        "src": "/images/jobbcoach/Linda.webp",
+        "alt": ""
+      },
+      {
+        "src": "/images/artiklar/ats-vanligt-cv-v2.webp",
+        "alt": ""
+      },
+      {
+        "src": "/images/artiklar/hur-langt-ska-personligt-brev-vara-v2.webp",
+        "alt": ""
+      },
+      {
+        "src": "/images/artiklar/personligt-brev-innehall-checklista-v2.webp",
+        "alt": ""
+      }
+    ],
+    "faq": [
+      "Innehåll i guiden",
+      "Hur används AI i rekrytering i Sverige?",
+      "Sorterar AI bort mitt CV innan en människa ser det?",
+      "Måste arbetsgivaren berätta att AI används i rekryteringen?",
+      "Får ett AI-system ensamt avgöra att jag får nej?",
+      "Märker rekryteraren om jag har skrivit ansökan med AI?",
+      "Är det lagligt för arbetsgivare att använda AI i rekrytering?",
+      "ld: Hur används AI i rekrytering i Sverige?",
+      "ld: Sorterar AI bort mitt CV innan en människa ser det?",
+      "ld: Måste arbetsgivaren berätta att AI används i rekryteringen?",
+      "ld: Får ett AI-system ensamt avgöra att jag får nej?",
+      "ld: Märker rekryteraren om jag har skrivit ansökan med AI?",
+      "ld: Är det lagligt för arbetsgivare att använda AI i rekrytering?"
+    ],
+    "ord": 4156
+  }
+]

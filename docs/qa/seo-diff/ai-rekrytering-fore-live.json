@@ -1,0 +1,262 @@
+[
+  {
+    "path": "/artiklar/ai-rekrytering-sverige",
+    "status": 200,
+    "h1": [
+      "AI-rekrytering i Sverige: Så tar du dig förbi robotarna (Sveriges Radio)"
+    ],
+    "title": "AI-rekrytering i Sverige 2026: så klarar du ATS",
+    "description": "AI-rekrytering i Sverige växer snabbt. Så fungerar ATS-systemen som sorterar ditt CV, vilka företag använder dem och 5 tips som tar dig förbi roboten.",
+    "canonical": "https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige",
+    "ogImage": "https://www.jobbcoach.ai/images/artiklar/ai-rekrytering-sverige-v2.webp",
+    "robots": "index, follow, max-image-preview:large",
+    "rubriker": [
+      {
+        "tag": "h3",
+        "id": "",
+        "text": "Linda Eriksson"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Snabbsvar: hur används AI i rekrytering i Sverige?"
+      },
+      {
+        "tag": "h2",
+        "id": "sveriges-radio-avslojar-ai-tar-over-rekryteringen",
+        "text": "Sveriges Radio avslöjar: AI tar över rekryteringen"
+      },
+      {
+        "tag": "h3",
+        "id": "vad-betyder-det-har-i-praktiken",
+        "text": "Vad betyder det här i praktiken?"
+      },
+      {
+        "tag": "h2",
+        "id": "vad-ar-ats-och-hur-fungerar-det",
+        "text": "Vad är ATS och hur fungerar det?"
+      },
+      {
+        "tag": "h3",
+        "id": "sa-fungerar-ats-screening-i-praktiken",
+        "text": "Så fungerar ATS-screening i praktiken"
+      },
+      {
+        "tag": "h3",
+        "id": "vanliga-ats-system-i-sverige",
+        "text": "Vanliga ATS-system i Sverige"
+      },
+      {
+        "tag": "h2",
+        "id": "nya-regler-eu-ai-act-och-din-rattighet-att-bli-rattvist-bedomd",
+        "text": "Nya regler: EU AI Act och din rättighet att bli rättvist bedömd"
+      },
+      {
+        "tag": "h2",
+        "id": "problemet-kvalificerade-kandidater-sorteras-bort",
+        "text": "Problemet: Kvalificerade kandidater sorteras bort"
+      },
+      {
+        "tag": "h3",
+        "id": "exempel-fran-verkligheten",
+        "text": "Exempel från verkligheten"
+      },
+      {
+        "tag": "h2",
+        "id": "5-konkreta-tips-sa-optimerar-du-dina-ansokningshandlingar-for-ats",
+        "text": "5 konkreta tips: Så optimerar du dina ansökningshandlingar för ATS"
+      },
+      {
+        "tag": "h3",
+        "id": "1-anvand-exakta-nyckelord-fran-jobbannonsen",
+        "text": "1. Använd exakta nyckelord från jobbannonsen"
+      },
+      {
+        "tag": "h3",
+        "id": "2-anvand-en-enkel-ats-vanlig-formatering",
+        "text": "2. Använd en enkel, ATS-vänlig formatering"
+      },
+      {
+        "tag": "h3",
+        "id": "3-kvantifiera-dina-resultat-och-prestationer",
+        "text": "3. Kvantifiera dina resultat och prestationer"
+      },
+      {
+        "tag": "h3",
+        "id": "4-anpassa-varje-ansokan",
+        "text": "4. Anpassa varje ansökan"
+      },
+      {
+        "tag": "h3",
+        "id": "5-optimera-aven-din-linkedin-profil",
+        "text": "5. Optimera även din LinkedIn-profil"
+      },
+      {
+        "tag": "h2",
+        "id": "case-study-sa-okade-sara-sina-chanser-med-340",
+        "text": "Case study: Så ökade Sara sina chanser med 340%"
+      },
+      {
+        "tag": "h2",
+        "id": "vad-forandras-harnast-och-vad-bor-du-gora",
+        "text": "Vad förändras härnäst, och vad bör du göra?"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Vanliga Frågor (FAQ)"
+      },
+      {
+        "tag": "h2",
+        "id": "spela-spelet-smart",
+        "text": "Spela spelet smart"
+      },
+      {
+        "tag": "h2",
+        "id": "",
+        "text": "Är du rekryterare?"
+      }
+    ],
+    "lankar": [
+      "#5-konkreta-tips-sa-optimerar-du-dina-ansokningshandlingar-for-ats",
+      "#5-konkreta-tips-sa-optimerar-du-dina-ansokningshandlingar-for-ats",
+      "#case-study-sa-okade-sara-sina-chanser-med-340",
+      "#case-study-sa-okade-sara-sina-chanser-med-340",
+      "#nya-regler-eu-ai-act-och-din-rattighet-att-bli-rattvist-bedomd",
+      "#nya-regler-eu-ai-act-och-din-rattighet-att-bli-rattvist-bedomd",
+      "#problemet-kvalificerade-kandidater-sorteras-bort",
+      "#problemet-kvalificerade-kandidater-sorteras-bort",
+      "#spela-spelet-smart",
+      "#spela-spelet-smart",
+      "#sveriges-radio-avslojar-ai-tar-over-rekryteringen",
+      "#sveriges-radio-avslojar-ai-tar-over-rekryteringen",
+      "#sveriges-radio-avslojar-ai-tar-over-rekryteringen",
+      "#vad-ar-ats-och-hur-fungerar-det",
+      "#vad-ar-ats-och-hur-fungerar-det",
+      "#vad-forandras-harnast-och-vad-bor-du-gora",
+      "#vad-forandras-harnast-och-vad-bor-du-gora",
+      "/",
+      "/artiklar",
+      "/artiklar",
+      "/artiklar/ats-vanligt-cv",
+      "/artiklar/bild-i-cv-ja-eller-nej",
+      "/artiklar/hur-langt-ska-personligt-brev-vara",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/hur-ska-ett-cv-se-ut",
+      "/artiklar/jobbcoach-online",
+      "/artiklar/kompetensbaserad-intervju-star-metoden",
+      "/artiklar/personligt-brev-pa-engelska",
+      "/artiklar/skriva-personligt-brev-guide",
+      "/artiklar/styrkor-svagheter-intervju",
+      "/artiklar/vad-ar-en-jobbcoach",
+      "/artiklar/vad-ar-en-jobbcoach",
+      "/artiklar?tag=AI-rekrytering",
+      "/artiklar?tag=ATS",
+      "/artiklar?tag=CV-tips",
+      "/artiklar?tag=jobbsökning",
+      "/artiklar?tag=karriärtips",
+      "/artiklar?tag=personligt brev",
+      "/artiklar?tag=rekrytering",
+      "/artiklar?tag=svenska arbetsmarknaden",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/integritetspolicy#cookies",
+      "/priser",
+      "/priser",
+      "/priser",
+      "/priser",
+      "/skapa-brev/start",
+      "/skapa-brev/start",
+      "/skapa-brev/start",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/cv-mallar",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbmatchning",
+      "/verktyg/personligt-brev",
+      "/verktyg/personligt-brev",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester"
+    ],
+    "ramLankar": [
+      "/",
+      "/anvandarvillkor",
+      "/artiklar",
+      "/cv-exempel",
+      "/cv-mallar",
+      "/exempel",
+      "/for-rekryterare",
+      "/for-rekryterare/insikter",
+      "/funktioner",
+      "/hjalpcenter",
+      "/integritetspolicy",
+      "/integritetspolicy#cookies",
+      "/jobbkartan",
+      "/kontakt",
+      "/om-oss",
+      "/personligt-brev-exempel",
+      "/priser",
+      "/rakna-ut",
+      "/verktyg/bli-upptackt",
+      "/verktyg/cv-analys",
+      "/verktyg/cv-mallar",
+      "/verktyg/jobbcoachen",
+      "/verktyg/jobbmatchning",
+      "/verktyg/linkedin-optimering",
+      "/verktyg/personligt-brev",
+      "/verktyg/rekryteringstester",
+      "/verktyg/skapa-cv"
+    ],
+    "jsonLd": [
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BlogPosting\",\"articleSection\":\"Career Advice\",\"author\":{\"@id\":\"https://www.jobbcoach.ai/authors/linda\",\"@type\":\"Person\",\"description\":\"Senior rekryteringskonsult med omfattande erfarenhet från executive search och talangförvärv. Inriktad på kompetensbaserad rekrytering och strategisk employer branding inom den svenska marknaden.\",\"image\":{\"@type\":\"ImageObject\",\"height\":200,\"url\":\"https://www.jobbcoach.ai/images/jobbcoach/Linda.webp\",\"width\":200},\"jobTitle\":\"Chefsrekryterare & Employer Branding Expert\",\"knowsAbout\":[\"Executive Search\",\"Kompetensbaserad rekrytering\",\"Förhandlingsstrategier\",\"Employer Branding\"],\"name\":\"Linda Eriksson\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\",\"worksFor\":{\"@type\":\"Organization\",\"name\":\"jobbcoach.ai\",\"sameAs\":[\"https://www.linkedin.com/company/jobbcoach-ai\",\"https://twitter.com/jobbcoach_ai\"],\"url\":\"https://www.jobbcoach.ai\"}},\"datePublished\":\"2025-01-20T00:00:00.000Z\",\"description\":\"AI-rekrytering i Sverige växer snabbt. Så fungerar ATS-systemen som sorterar ditt CV, vilka företag använder dem och 5 tips som tar dig förbi roboten.\",\"hasPart\":[{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\"},\"name\":\"Sveriges Radio avslöjar: AI tar över rekryteringen\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige#sveriges-radio-avslojar-ai-tar-over-rekryteringen\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\"},\"name\":\"Vad är ATS och hur fungerar det?\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige#vad-ar-ats-och-hur-fungerar-det\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\"},\"name\":\"Nya regler: EU AI Act och din rättighet att bli rättvist bedömd\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige#nya-regler-eu-ai-act-och-din-rattighet-att-bli-rattvist-bedomd\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\"},\"name\":\"Problemet: Kvalificerade kandidater sorteras bort\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige#problemet-kvalificerade-kandidater-sorteras-bort\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\"},\"name\":\"5 konkreta tips: Så optimerar du dina ansökningshandlingar för ATS\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige#5-konkreta-tips-sa-optimerar-du-dina-ansokningshandlingar-for-ats\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\"},\"name\":\"Case study: Så ökade Sara sina chanser med 340%\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige#case-study-sa-okade-sara-sina-chanser-med-340\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\"},\"name\":\"Vad förändras härnäst, och vad bör du göra?\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige#vad-forandras-harnast-och-vad-bor-du-gora\"},{\"@type\":\"WebPageElement\",\"isPartOf\":{\"@type\":\"Article\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\"},\"name\":\"Spela spelet smart\",\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige#spela-spelet-smart\"}],\"headline\":\"AI-rekrytering i Sverige: Så tar du dig förbi robotarna (Sveriges Radio)\",\"image\":{\"@type\":\"ImageObject\",\"height\":1024,\"url\":\"https://www.jobbcoach.ai/images/artiklar/ai-rekrytering-sverige-v2.webp\",\"width\":1536},\"inLanguage\":\"sv-SE\",\"keywords\":\"AI-rekrytering, ATS, CV-tips, personligt brev, jobbsökning, rekrytering, svenska arbetsmarknaden, karriärtips\",\"mainEntityOfPage\":{\"@id\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\",\"@type\":\"WebPage\"},\"publisher\":{\"@type\":\"Organization\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"https://www.jobbcoach.ai/images/logo-cvbrev-600x60.png\"},\"name\":\"jobbcoach.ai\",\"sameAs\":[\"https://www.linkedin.com/company/jobbcoach-ai\",\"https://twitter.com/jobbcoach_ai\"]},\"speakable\":{\"@type\":\"SpeakableSpecification\",\"cssSelector\":[\"h1\",\"h2\",\".article-content\"]},\"url\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\",\"wordCount\":2862}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai\",\"name\":\"Hem\",\"position\":1},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/artiklar\",\"name\":\"Artiklar\",\"position\":2},{\"@type\":\"ListItem\",\"item\":\"https://www.jobbcoach.ai/artiklar/ai-rekrytering-sverige\",\"name\":\"AI-rekrytering i Sverige: Så tar du dig förbi robotarna (Sveriges Radio)\",\"position\":3}]}",
+      "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"ATS (Applicant Tracking System) är programvaror som automatiskt skannar och rangordnar jobbansökningar baserat på nyckelord, erfarenhet och format. En stor majoritet av svenska företag med fler anställda använder ATS, vilket betyder att ditt CV kan sorteras bort automatiskt innan en rekryterare ser det, även om du är perfekt för jobbet.\"},\"name\":\"Vad är ATS och hur påverkar det min jobbansökan?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"De flesta större företag (50+ anställda) och nästan alla börsnoterade företag använder ATS. Tecken inkluderar: ansökan via företagets karriärsida (inte mejl), formulär där du fyller i data separat från CV:t, och automatiska bekräftelsemail. I praktiken bör du anta att ATS används och alltid optimera dina handlingar därefter.\"},\"name\":\"Hur vet jag om ett företag använder ATS?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"AI/ATS-system är bra på att matcha nyckelord och hitta kandidater som uppfyller grundkraven, men de kan missa nyanserad kompetens, transferable skills och potential. Därför är det viktigt att 'tala AI:s språk' genom att inkludera rätt nyckelord, samtidigt som du skriver ett personligt brev som visar din unika värde för mänskliga rekryterare.\"},\"name\":\"Kan AI verkligen avgöra om jag är lämplig för ett jobb?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"De vanligaste felen är: (1) Saknar viktiga nyckelord från jobbannonsen, (2) Använder kreativ formattering (tabeller, textrutor, kolumner) som ATS inte kan läsa, (3) Sparar CV:t i fel format (JPG/PNG istället för PDF/DOCX), (4) Använder ovanliga rubriker istället för standard (t.ex. 'Min resa' istället för 'Arbetslivserfarenhet'), (5) Stavfel i viktiga kompetenser.\"},\"name\":\"Vilka är de vanligaste felen som gör att ATS sorterar bort mitt CV?\"},{\"@type\":\"Question\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Delvis. LinkedIn har sitt eget sökalgoritm som rekryterare använder för att hitta kandidater. Principerna är liknande: använd relevanta nyckelord, ha en tydlig headline, fyll i alla sektioner, och var aktiv på plattformen. Många rekryterare använder LinkedIn Recruiter som fungerar som ett ATS specifikt för LinkedIn-profiler.\"},\"name\":\"Gäller samma ATS-regler för LinkedIn-profilen?\"}]}"
+    ],
+    "forstaBild": {
+      "src": "/images/jobbcoach/Linda.webp",
+      "alt": "Linda Eriksson - Chefsrekryterare & Employer Branding Expert"
+    },
+    "bilder": [
+      {
+        "src": "/images/jobbcoach/Linda.webp",
+        "alt": "Linda Eriksson - Chefsrekryterare & Employer Branding Expert"
+      },
+      {
+        "src": "/images/artiklar/ai-rekrytering-sverige-v2.webp",
+        "alt": "Så sorterar ATS-systemet ansökningar vid AI-rekrytering, med tre råd för att komma förbi"
+      },
+      {
+        "src": "/images/jobbcoach/Linda.webp",
+        "alt": ""
+      },
+      {
+        "src": "/images/artiklar/vad-ar-en-jobbcoach-v2.webp",
+        "alt": ""
+      },
+      {
+        "src": "/images/artiklar/jobbcoach-online-v2.webp",
+        "alt": ""
+      },
+      {
+        "src": "/images/artiklar/hur-langt-ska-personligt-brev-vara-v2.webp",
+        "alt": ""
+      }
+    ],
+    "faq": [
+      "Innehåll i guiden",
+      "Vad är ATS och hur påverkar det min jobbansökan?",
+      "Hur vet jag om ett företag använder ATS?",
+      "Kan AI verkligen avgöra om jag är lämplig för ett jobb?",
+      "Vilka är de vanligaste felen som gör att ATS sorterar bort mitt CV?",
+      "Gäller samma ATS-regler för LinkedIn-profilen?",
+      "ld: Vad är ATS och hur påverkar det min jobbansökan?",
+      "ld: Hur vet jag om ett företag använder ATS?",
+      "ld: Kan AI verkligen avgöra om jag är lämplig för ett jobb?",
+      "ld: Vilka är de vanligaste felen som gör att ATS sorterar bort mitt CV?",
+      "ld: Gäller samma ATS-regler för LinkedIn-profilen?"
+    ],
+    "ord": 3213
+  }
+]

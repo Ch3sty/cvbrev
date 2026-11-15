@@ -1,8 +1,8 @@
 {
  "slug": "ai-rekrytering-sverige",
- "mall": "brev",
- "kluster": "letter",
- "kB": 41,
+ "mall": "cv",
+ "kluster": "cv",
+ "kB": 38,
  "minstaMarginal": 33,
  "tightast": "PDF eller DOCX som filformat",
  "uppgift": null
