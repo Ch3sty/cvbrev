@@ -26,7 +26,7 @@
  * 23.58 hinner betala det pris hen såg.
  */
 
-import { PLAN_BY_KEY, SALD_PLAN, prisPeriod } from '@/lib/plans/plans'
+import { PLAN_BY_KEY, SALD_PLAN, kopKnapp, paketNamn, prisPeriod } from '@/lib/plans/plans'
 
 export type KampanjNyckel = 'black-week-2026' | 'cyber-monday-2026'
 
@@ -125,6 +125,24 @@ export const ORDINARIE_PRIS = ORDINARIE
  */
 export function kampanjPrisPeriod(k: Pick<Kampanj, 'pris'>): string {
   return `${k.pris} kr första månaden, sedan ${prisPeriod(SALD_PLAN)}`
+}
+
+/** Det prisraderna behöver av en kampanj: priset och köpknappens text. */
+export type KampanjPrisInfo = Pick<Kampanj, 'pris'> & { copy: Pick<Kampanj['copy'], 'prisKnapp'> }
+
+/**
+ * Prisraden på betalväggarna i inloggat (K1, K4, beslut 2026-11-15):
+ * "Jobbcoach Premium, 149 kr i månaden. Säg upp när du vill." och under en
+ * kampanj "Jobbcoach Premium, 99 kr första månaden, sedan 149 kr i månaden.
+ * Säg upp när du vill." Null eller utelämnad kampanj ger ordinarie pris.
+ */
+export function premiumPrisrad(k?: KampanjPrisInfo | null): string {
+  return `${paketNamn(SALD_PLAN)}, ${k ? kampanjPrisPeriod(k) : prisPeriod(SALD_PLAN)}. Säg upp när du vill.`
+}
+
+/** Köpknappen: "Köp Premium, 149 kr i månaden", under kampanj kampanjens egen knapptext. */
+export function premiumKnapp(k?: KampanjPrisInfo | null): string {
+  return k ? k.copy.prisKnapp : kopKnapp(SALD_PLAN)
 }
 
 const ms = (iso: string) => Date.parse(iso)

@@ -12,6 +12,7 @@ import type { CtaCluster } from '@/lib/cta/clusters'
 import type { InstallTrigger, InstallPlatform } from '@/lib/pwa/installPrompt'
 import type { PaywallVariant } from '@/components/paywall/paywall-copy'
 import type { PlanKey, PlanLength } from '@/lib/plans/plans'
+import type { KampanjNyckel } from '@/lib/kampanj/kampanj'
 import type { FragaId } from '@/components/artiklar/intervjuprov/fragor'
 import type { SignupEntry, SignupIntent } from '@/components/registrering/intent'
 import { lasKontokallaKlient } from '@/lib/analytics/provkalla'
@@ -269,6 +270,8 @@ export interface AnalyticsEvents {
     suggestedPlan?: PlanKey
     /** Sant från 2026-09-24: kortet visar pris i knappen och en prisrad. */
     price_shown?: boolean
+    /** Kampanjen vars pris kortet visade, null utan kampanj (K6, 2026-11-15). */
+    kampanj?: KampanjNyckel | null
   }
   paywall_cta_clicked: {
     variant: PaywallVariant | 'onboarding_paket' | 'fel-spar'
@@ -278,6 +281,8 @@ export interface AnalyticsEvents {
     cta: 'primary' | 'secondary'
     /** Exponeringen knappen satt i, samma värde som i betalvagg_visad. */
     plats?: BetalvaggPlats
+    /** Kampanjen vars pris knappen visade, null utan kampanj (K6, 2026-11-15). */
+    kampanj?: KampanjNyckel | null
     /** Kontots källa och val (jc_kontokalla), läggs på av capture(). */
     konto_kalla?: string
     mitt_test?: string

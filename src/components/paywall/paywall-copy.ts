@@ -15,6 +15,7 @@
 
 import { suggestPlan, type Feature, type Scope } from '@/lib/access/features'
 import type { BetalvaggPlats } from '@/lib/analytics/events'
+import { kampanjPrisPeriod, type KampanjPrisInfo } from '@/lib/kampanj/kampanj'
 import { PASS_COPY } from '@/lib/traning/pass-copy'
 import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, PREMIUM_TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import {
@@ -79,6 +80,11 @@ export interface PaywallCopyOpts {
    * namnger det låsta efter platsen (art-director 24.2 fråga 1).
    */
   plats?: BetalvaggPlats
+  /**
+   * Pågående kampanj när kontot aldrig haft Premium (K1, beslut 2026-11-15).
+   * Prisraden och knappen får då kampanjpriset; null ger ordinarie.
+   */
+  kampanj?: KampanjPrisInfo | null
 }
 
 /** Kortformen, en gång här så att ingen rad hårdkodar ordet. */
@@ -115,11 +121,11 @@ export function skaffaKnapp(plan: PlanKey = SALD_PLAN): string {
  * Prisraden under brödtexten, med fulla namnet (copy-premium 3 och 8):
  * "Jobbcoach Premium, 149 kr i månaden. Säg upp när du vill."
  */
-export function paywallPrisrad(plan: PlanKey = SALD_PLAN): string {
+export function paywallPrisrad(plan: PlanKey = SALD_PLAN, kampanj?: KampanjPrisInfo | null): string {
   const p = saljbarPlan(plan)
-  return PLAN_BY_KEY[p].mode === 'payment'
-    ? `${paketNamn(p)}, ${prisPeriod(p)}. Förnyas inte.`
-    : `${paketNamn(p)}, ${prisPeriod(p)}. Säg upp när du vill.`
+  if (PLAN_BY_KEY[p].mode === 'payment') return `${paketNamn(p)}, ${prisPeriod(p)}. Förnyas inte.`
+  const pris = kampanj && p === SALD_PLAN ? kampanjPrisPeriod(kampanj) : prisPeriod(p)
+  return `${paketNamn(p)}, ${pris}. Säg upp när du vill.`
 }
 
 /**
@@ -127,11 +133,11 @@ export function paywallPrisrad(plan: PlanKey = SALD_PLAN): string {
  * (LinkedIn-väggen, prissidans kort, köpsteget): "149 kr i månaden, säg upp
  * när du vill."
  */
-export function paywallPrisradKort(plan: PlanKey = SALD_PLAN): string {
+export function paywallPrisradKort(plan: PlanKey = SALD_PLAN, kampanj?: KampanjPrisInfo | null): string {
   const p = saljbarPlan(plan)
-  return PLAN_BY_KEY[p].mode === 'payment'
-    ? `${prisPeriod(p)}, förnyas inte.`
-    : `${prisPeriod(p)}, säg upp när du vill.`
+  if (PLAN_BY_KEY[p].mode === 'payment') return `${prisPeriod(p)}, förnyas inte.`
+  const pris = kampanj && p === SALD_PLAN ? kampanjPrisPeriod(kampanj) : prisPeriod(p)
+  return `${pris}, säg upp när du vill.`
 }
 
 /** Det som ingår utöver funktionen väggen gäller (ersätter "allt i de andra paketen"). */
@@ -243,8 +249,11 @@ export function getPaywallCopy(
   const copy = testrum ? { ...bygg, title: testrum, secondary: PAKETRADER.jamfor } : bygg
   // LinkedIn-väggen bär fulla namnet i rubriken, så prisraden tar den korta
   // formen och namnet står en gång på kortet (copy-premium 3 och 8).
-  const prisrad = variant === 'linkedin' ? paywallPrisradKort(plan) : paywallPrisrad(plan)
-  return { ...copy, plan, prisrad }
+  const kampanj = opts?.kampanj && plan === SALD_PLAN ? opts.kampanj : null
+  const prisrad = variant === 'linkedin' ? paywallPrisradKort(plan, kampanj) : paywallPrisrad(plan, kampanj)
+  // Under en kampanj säger knappen kampanjpriset (K1), samma ord som köpsteget.
+  const primary = kampanj && copy.primary === skaffaKnapp(plan) ? kampanj.copy.prisKnapp : copy.primary
+  return { ...copy, primary, plan, prisrad }
 }
 
 function byggCopy(variant: PaywallVariant, plan: PlanKey, opts?: PaywallCopyOpts): PaywallCopy {

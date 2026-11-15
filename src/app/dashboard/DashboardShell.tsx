@@ -28,6 +28,7 @@ import dynamic from 'next/dynamic';
 import type { User } from '@supabase/supabase-js';
 import EmailVerificationBanner from '@/components/dashboard/email-verification-banner';
 import KampanjRadInloggad from '@/components/kampanj/KampanjRadInloggad';
+import { KampanjPrisProvider } from '@/components/kampanj/KampanjPrisKontext';
 import { KAMPANJ_EJ_COOKIE, type KampanjVisning } from '@/lib/kampanj/kampanj';
 import NavigationProgress from '@/components/ui/NavigationProgress';
 import { KomIgangProvider } from '@/components/dashboard/KomIgangContext';
@@ -105,6 +106,7 @@ export default function DashboardShell({
   visaEpostbanner,
   kampanjRad = null,
   kampanjBehorig = null,
+  kampanjPris = null,
 }: {
   children: React.ReactNode;
   user: User;
@@ -120,6 +122,8 @@ export default function DashboardShell({
   kampanjRad?: KampanjVisning | null;
   /** Under en kampanj: kan kontot få priset? Null utanför kampanjerna. */
   kampanjBehorig?: boolean | null;
+  /** Kampanjen betalväggarna visar priset för, bara för behöriga konton (K1, K4). */
+  kampanjPris?: KampanjVisning | null;
 }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -268,6 +272,7 @@ export default function DashboardShell({
     <DashboardDataProvider initialSummary={initialSummary}>
       <OnboardingProvider>
       <KomIgangProvider>
+      <KampanjPrisProvider kampanj={kampanjPris}>
       <RumKontextProvider rum={rum} user={user}>
       {/* Tråden längs skärmens överkant vid sidbyten. */}
       <Suspense fallback={null}>
@@ -339,6 +344,7 @@ export default function DashboardShell({
         <Dorrnav />
       </div>
       </RumKontextProvider>
+      </KampanjPrisProvider>
       </KomIgangProvider>
       </OnboardingProvider>
     </DashboardDataProvider>

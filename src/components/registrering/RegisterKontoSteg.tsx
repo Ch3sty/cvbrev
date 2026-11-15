@@ -43,6 +43,7 @@ import type { ProvResultat } from '@/lib/tests/prov-resultat.server'
 import { VALKOMMEN_PATH, TRACK_CHOICE_PATH } from '@/lib/onboarding/steps'
 import type { PlanKey } from '@/lib/plans/plans'
 import PubliktFlodesskal, { TEXTLANK } from './PubliktFlodesskal'
+import { MedKampanjPris } from '@/components/kampanj/Kampanj'
 import IntentIkon from './IntentIkon'
 import {
   skrivSignupCookie,
@@ -473,7 +474,8 @@ function PremiumRad({ text }: { text: string }) {
   return (
     <p className="pub-konto-premium">
       <b>{KONTO_PANEL.premiumRad.namn}</b>
-      {text}
+      {/* Priset följer kampanjen (K2, K3): KampanjHuvud väljer variant före första målningen. */}
+      <MedKampanjPris text={text} />
     </p>
   )
 }

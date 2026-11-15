@@ -33,7 +33,8 @@ import { capture } from '@/lib/analytics/events'
 import { familjNamn } from '@/lib/logicTestV7/familjer'
 import { KNAPP_PRIMAR, KNAPPRAD, LANK } from '@/components/shell/knappar'
 import { kopstegHref } from '@/lib/onboarding/steps'
-import { SALD_PLAN, kopKnapp, paketKort, paketNamn, prisPeriod } from '@/lib/plans/plans'
+import { SALD_PLAN, paketKort } from '@/lib/plans/plans'
+import { PremiumKnappText, PremiumPrisradText } from '@/components/kampanj/KampanjPrisKontext'
 import type { BetalvaggPlats } from '@/lib/analytics/events'
 import {
   fetchPassApi,
@@ -540,7 +541,7 @@ export default function PassFlode({
           <section aria-label={`${vad} ${paketKort()}`} className="rounded-2xl border border-kant bg-papper p-4">
             <h2 className="text-kort-t text-ink-1">{`${vad} ${paketKort()}.`}</h2>
             <p className="mt-1.5 text-sm leading-[21px] text-ink-2">{B.text}</p>
-            <p className="mt-2 text-sm font-medium text-ink-1">{`${paketNamn(SALD_PLAN)}, ${prisPeriod(SALD_PLAN)}. Säg upp när du vill.`}</p>
+            <p className="mt-2 text-sm font-medium text-ink-1"><PremiumPrisradText /></p>
             <div className={KNAPPRAD}>
               <Link
                 href={kopstegHref(SALD_PLAN, betalvaggPlats(t))}
@@ -549,7 +550,7 @@ export default function PassFlode({
                   capture('paywall_cta_clicked', { variant: 'testniva', plan: SALD_PLAN, surface: 'pass', cta: 'primary', plats: betalvaggPlats(t) })
                 }
               >
-                {kopKnapp(SALD_PLAN)}
+                <PremiumKnappText />
               </Link>
               <Link href={TRANING_HREF} className={`${LANK} inline-flex min-h-9 items-center justify-center`}>
                 {PASS_COPY.knapp.tillbaka}

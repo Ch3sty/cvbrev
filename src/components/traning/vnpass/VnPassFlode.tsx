@@ -21,7 +21,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { KNAPP_PRIMAR, KNAPPRAD, LANK } from '@/components/shell/knappar'
 import { kopstegHref } from '@/lib/onboarding/steps'
-import { SALD_PLAN, kopKnapp, paketNamn, prisPeriod } from '@/lib/plans/plans'
+import { SALD_PLAN } from '@/lib/plans/plans'
+import { PremiumKnappText, PremiumPrisradText } from '@/components/kampanj/KampanjPrisKontext'
 import { hemEfterHref, sessionHref, TRANING_HREF, vnPassHref } from '@/lib/traning/rutter'
 import { fetchVnPassApi, type VnPassApi } from '@/lib/tester/pass-klient'
 import { VN_PASS_COPY } from '@/lib/tester/pass-copy'
@@ -224,10 +225,10 @@ export default function VnPassFlode({ api = fetchVnPassApi, start, vy: initialVy
           <section aria-label={C.fel.betalvagg(kind)} className="rounded-2xl border border-kant bg-papper p-4">
             <h2 className="text-kort-t text-ink-1">{C.fel.betalvagg(kind)}</h2>
             <p className="mt-1.5 text-sm leading-[21px] text-ink-2">{C.fel.betalvaggRad}</p>
-            <p className="mt-2 text-sm font-medium text-ink-1">{`${paketNamn(SALD_PLAN)}, ${prisPeriod(SALD_PLAN)}. Säg upp när du vill.`}</p>
+            <p className="mt-2 text-sm font-medium text-ink-1"><PremiumPrisradText /></p>
             <div className={KNAPPRAD}>
               <Link href={kopstegHref(SALD_PLAN, 'dag2')} className={KNAPP_PRIMAR}>
-                {kopKnapp(SALD_PLAN)}
+                <PremiumKnappText />
               </Link>
               <Link href={TRANING_HREF} className={`${LANK} inline-flex min-h-9 items-center justify-center`}>
                 {C.knapp.tillbaka}

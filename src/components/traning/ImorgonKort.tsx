@@ -18,7 +18,9 @@ import { capture } from '@/lib/analytics/events'
 import { IkonLas } from '@/components/illustrations/RumSymboler'
 import { KNAPP_PRIMAR, KNAPPRAD, LANK } from '@/components/shell/knappar'
 import { kopstegHref } from '@/lib/onboarding/steps'
-import { SALD_PLAN, kopKnapp, paketNamn, prisPeriod } from '@/lib/plans/plans'
+import { SALD_PLAN } from '@/lib/plans/plans'
+import { premiumKnapp, premiumPrisrad } from '@/lib/kampanj/kampanj'
+import { useKampanjPris } from '@/components/kampanj/KampanjPrisKontext'
 import { PASS_COPY } from '@/lib/traning/pass-copy'
 import type { PassTid } from '@/lib/traning/testplan'
 
@@ -73,6 +75,8 @@ export default function ImorgonKort({
   const [vald, setVald] = useState<PassTid | null>(passTid)
   const [sparar, setSparar] = useState(false)
   const [fel, setFel] = useState(false)
+  // Kampanjpriset (K4) när servern sett att kontot aldrig haft Premium.
+  const kampanj = useKampanjPris()
 
   const valj = async (tid: PassTid) => {
     const fore = vald
@@ -117,14 +121,14 @@ export default function ImorgonKort({
             <p className="mt-1.5 text-sm leading-[21px] text-ink-2">
               {format ? K.provText(format, dagarKvar) : K.utanDatumText}
             </p>
-            <p className="mt-2 text-sm font-medium text-ink-1">{`${paketNamn(SALD_PLAN)}, ${prisPeriod(SALD_PLAN)}. Säg upp när du vill.`}</p>
+            <p className="mt-2 text-sm font-medium text-ink-1">{premiumPrisrad(kampanj)}</p>
             <div className={KNAPPRAD}>
               <Link
                 href={kopstegHref(SALD_PLAN, 'matning')}
                 className={KNAPP_PRIMAR}
-                onClick={() => capture('paywall_cta_clicked', { variant: 'testniva', plan: SALD_PLAN, surface: 'imorgon', cta: 'primary', plats: 'matning' })}
+                onClick={() => capture('paywall_cta_clicked', { variant: 'testniva', plan: SALD_PLAN, surface: 'imorgon', cta: 'primary', plats: 'matning', kampanj: kampanj?.nyckel ?? null })}
               >
-                {kopKnapp(SALD_PLAN)}
+                {premiumKnapp(kampanj)}
               </Link>
               {lank ? (
                 lank.href ? (

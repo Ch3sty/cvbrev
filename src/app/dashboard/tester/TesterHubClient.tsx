@@ -38,6 +38,8 @@ import { HjalpPanel, HjalpProvider, HjalpRad } from '@/components/hjalp';
 import type { Feature, Scope } from '@/lib/access/features';
 import { scopeHasFeature } from '@/lib/access/features';
 import { SALD_PLAN, paketKort, paketNamn, prisPeriod, type PlanKey } from '@/lib/plans/plans';
+import { kampanjPrisPeriod, type KampanjVisning } from '@/lib/kampanj/kampanj';
+import { useKampanjPris } from '@/components/kampanj/KampanjPrisKontext';
 import { testHuvud } from '@/lib/onboarding/paket-rader';
 import TesterTabs, { type TesterTab } from './components/TesterTabs';
 import TestKategori, { BILD } from './components/TestKategori';
@@ -102,7 +104,8 @@ function UtvecklingLaddar({ flikar }: { flikar: ReactNode }) {
  * Gratisraden (spec-rummen 23.3): Nivåkollen en gång med genomgång och ett
  * första träningspass samma dag; resten ingår i Premium, priset ur PLANS.
  */
-const GRATIS_RAD = `Gratis att prova: nivåkollen en gång med genomgång och ett första träningspass samma dag. Resten ingår i ${paketNamn(SALD_PLAN)}, ${prisPeriod(SALD_PLAN)}.`;
+const gratisRad = (kampanj: KampanjVisning | null) =>
+  `Gratis att prova: nivåkollen en gång med genomgång och ett första träningspass samma dag. Resten ingår i ${paketNamn(SALD_PLAN)}, ${kampanj ? kampanjPrisPeriod(kampanj) : prisPeriod(SALD_PLAN)}.`;
 
 /**
  * Katalogen slutar aldrig i sig själv (riktlinjerna 4.5, skiss 1): raden
@@ -158,6 +161,8 @@ export default function TesterHubClient({
 }) {
   const [tab, setTab] = useState<TesterTab>(startflik);
   const [sparr, setSparr] = useState<Feature | null>(null);
+  // Priset i gratisraden följer kampanjen för behöriga konton (K4).
+  const kampanj = useKampanjPris();
 
   const { perTest, aggregate, personality, plan, harNivakoll, isPremium, scope } = data;
 
@@ -300,7 +305,7 @@ export default function TesterHubClient({
                 {huvud.rubrik ? <p className="text-kort text-ink-1">{huvud.rubrik}</p> : null}
                 {!isPremium && !huvud.ingress ? (
                   <StatusRow tone="neutral" showDot>
-                    {GRATIS_RAD}
+                    {gratisRad(kampanj)}
                   </StatusRow>
                 ) : null}
 

@@ -78,6 +78,8 @@ export default async function DashboardLayout({
   const { kampanj, behorig } = await kampanjForVisning(user.id, kampanjNu());
   const kampanjStangd = kampanj && cookieStore.get(KAMPANJ_STANGD_COOKIE)?.value === kampanj.nyckel;
   const kampanjRad = kampanj && behorig && !kampanjStangd ? visning(kampanj) : null;
+  // Betalväggarna i rummen visar kampanjpriset oavsett om raden stängts (K1, K4).
+  const kampanjPris = kampanj && behorig ? visning(kampanj) : null;
 
   return (
     <>
@@ -92,6 +94,7 @@ export default async function DashboardLayout({
         visaEpostbanner={visaEpostbanner}
         kampanjRad={kampanjRad}
         kampanjBehorig={behorig}
+        kampanjPris={kampanjPris}
       >
         {children}
       </DashboardShell>

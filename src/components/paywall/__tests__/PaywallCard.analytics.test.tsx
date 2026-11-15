@@ -84,6 +84,7 @@ describe('PaywallCard, mätning', () => {
       cta: 'primary',
       plan: 'all_month',
       plats: 'nedladdning',
+      kampanj: null,
     })
     expect(window.location.href).toBe('/dashboard/valj-spar?paket=all_month&steg=kop&plats=nedladdning')
   })
@@ -102,6 +103,7 @@ describe('PaywallCard, mätning', () => {
       cta: 'secondary',
       plan: 'all_month',
       plats: 'mall',
+      kampanj: null,
     })
   })
 

@@ -28,6 +28,7 @@ import { lasSparatProv, sparaProv, type ProvaResultat, type Rutnat } from '@/lib
 import PubliktFlodesskal from '@/components/registrering/PubliktFlodesskal'
 import { loggaInHref } from '@/components/registrering/RegisterKontoSteg'
 import { KONTO_PANEL, PROVA, SKAL } from '@/components/registrering/registrering-copy'
+import { MedKampanjPris } from '@/components/kampanj/Kampanj'
 import ProvBrickor from '@/components/publikt/ProvBrickor'
 import { MATRIS_EXPERT_ALTERNATIV, MATRIS_EXPERT_RUTOR, MatrisFigur, MatrisLucka } from '@/components/publikt/MatrisExpert'
 import TypUppgiftVy from '@/components/publikt/prov/TypUppgiftVy'
@@ -633,7 +634,10 @@ function ResultGate({ result, token, rutnat, typ }: { result: ProvaResultat; tok
           <PremiumIkon />
           <span>
             <b className="pub-gradord">{KONTO_PANEL.premiumRad.namn}</b>
-            <span>{ny ? PROV_TYP_PANEL.premium(ny) : KONTO_PANEL.premiumRad.text}</span>
+            <span>
+              {/* Priset följer kampanjen (K2); sidan CDN-cachas, så båda varianterna står i HTML:en. */}
+              <MedKampanjPris text={ny ? PROV_TYP_PANEL.premium(ny) : KONTO_PANEL.premiumRad.text} />
+            </span>
           </span>
         </p>
       </section>

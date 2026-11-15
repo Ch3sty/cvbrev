@@ -34,6 +34,7 @@ import { SALD_PLAN, saljbarPlan, type PlanKey } from '@/lib/plans/plans'
 import { kopstegHref, PRISER_HREF } from '@/lib/onboarding/steps'
 import { PREMIUM_HREF } from '@/lib/premium/premiumEntry'
 import { KNAPP_PRIMAR, KNAPPRAD, LANK } from '@/components/shell/knappar'
+import { useKampanjPris } from '@/components/kampanj/KampanjPrisKontext'
 
 export { PRISER_HREF }
 
@@ -123,6 +124,9 @@ export default function PaywallCard({
   const [copied, setCopied] = useState(false)
   const pathname = usePathname()
   const surface = pathname ?? ''
+  // Kampanjpriset (K1): bara när servern sett att kontot aldrig haft Premium.
+  const kampanj = useKampanjPris()
+  const kampanjNyckel = kampanj?.nyckel ?? null
 
   const sparradFeature = feature ?? VARIANT_FEATURE[variant] ?? null
   const suggestedPlan = planForPaywall(variant, { feature: sparradFeature ?? undefined, track })
@@ -149,16 +153,17 @@ export default function PaywallCard({
       ...(sparradFeature ? { feature: sparradFeature } : {}),
       suggestedPlan: knappPlan,
       price_shown: true,
+      kampanj: kampanjNyckel,
     })
     capture('betalvagg_visad', { plats: platsen, dagar_kvar: dagarKvar })
     // Var fel spår tar i taket. Skjuts en gång per montering, samma som ovan.
     if (sparradFeature) {
       capture('feature_blocked', { feature: sparradFeature, scope, surface })
     }
-  }, [isPremium, variant, surface, sparradFeature, knappPlan, scope, platsen, dagarKvar])
+  }, [isPremium, variant, surface, sparradFeature, knappPlan, scope, platsen, dagarKvar, kampanjNyckel])
 
   const ctaClicked = (cta: 'primary' | 'secondary') =>
-    capture('paywall_cta_clicked', { variant, surface, cta, plan: knappPlan, plats: platsen })
+    capture('paywall_cta_clicked', { variant, surface, cta, plan: knappPlan, plats: platsen, kampanj: kampanjNyckel })
 
   // Kontot har redan funktionen. Ingen betalvägg.
   if (isPremium) return null
@@ -171,6 +176,9 @@ export default function PaywallCard({
     track,
     plan: knappPlan,
     plats: platsen,
+    // En spårkund har redan en prenumeration och får ingen ny kassa, alltså
+    // inget kampanjpris heller.
+    kampanj: sparKund ? null : kampanj,
   })
 
   const remind = async () => {
