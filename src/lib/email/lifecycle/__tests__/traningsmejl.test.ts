@@ -397,9 +397,9 @@ describe('dagen_fore_provet', () => {
     const db = grund({ provdatum: IMORGON });
     const r = await dagenForeProvetMejl.render(ctx(db, 'u1', { dag: IDAG }));
     expect(betalvaggText(ovningsformat('logik', 'matrigma', null))).toBe(
-      'Övningsprovet i samma format som Matrigma, cirka 35 uppgifter på 40 minuter. Månaden täcker hela vägen.'
+      'Övningsprovet i samma format som Matrigma, cirka 35 uppgifter på 40 minuter. Premium täcker hela vägen.'
     );
-    expect(r.html).toContain('Övningsprovet i samma format som Matrigma, cirka 35 uppgifter på 40 minuter. Månaden täcker hela vägen.');
+    expect(r.html).toContain('Övningsprovet i samma format som Matrigma, cirka 35 uppgifter på 40 minuter. Premium täcker hela vägen.');
     expect(r.html).toContain('Köp Jobbcoach Premium, 149 kr i månaden');
     expect(r.html).toContain('/dashboard/valj-spar?paket=all_month&steg=kop&plats=mejl_dagen_fore_provet');
     expect(r.html).not.toContain('ovningsprov/logik');

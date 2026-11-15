@@ -631,7 +631,7 @@ export default function RekryteringstesterSida() {
                 <div className="pub-kort">
                   <Objekt typ="prova" />
                   <h3 className="pub-h4">Gratis att prova</h3>
-                  <p>Fem frågor med facit här, utan konto. Med kontot Nivåkollen och ett första träningspass. Ingen kortuppgift.</p>
+                  <p>Fem frågor med facit här, utan konto. Med kontot gör du {GRUNDNIVAN_ALLA} gratis. Ingen kortuppgift.</p>
                 </div>
                 <div className="pub-kort">
                   <Objekt typ="rapport" />

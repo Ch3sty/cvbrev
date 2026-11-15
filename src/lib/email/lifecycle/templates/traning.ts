@@ -320,7 +320,7 @@ export function provtypForPlan(testtyper: readonly string[] | null | undefined):
 /** Betalväggens budskap ur riktlinjerna 1.7, utan dagarna (provet är i morgon). */
 export function betalvaggText(f: Ovningsformat): string {
   const format = f.namn ? `i samma format som ${f.namn}` : 'i vårt format';
-  return `Övningsprovet ${format}, ${antalTid(f)}. Månaden täcker hela vägen.`;
+  return `Övningsprovet ${format}, ${antalTid(f)}. Premium täcker hela vägen.`;
 }
 
 export const dagenForeProvetMejl: LifecycleEmail = {

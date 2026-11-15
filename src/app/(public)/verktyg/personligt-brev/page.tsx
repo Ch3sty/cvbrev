@@ -385,7 +385,7 @@ export default function PersonligtBrevSida() {
               </>
             }
             rubrik="Ditt nästa brev tar tre minuter, inte tre timmar."
-            text={`Första brevet är gratis och kräver ingen kortuppgift, sedan skriver du ett nytt i veckan. Personliga brev utan tak, alla mallar och nedladdning som PDF och Word ingår i ${PREMIUM}.`}
+            text={`Första brevet är gratis och kräver ingen kortuppgift, sedan ett var sjunde dag. Personliga brev utan tak, alla mallar och nedladdning som PDF och Word ingår i ${PREMIUM}.`}
             knapp={{ text: 'Skapa ditt brev gratis', href: REGISTRERA }}
             lank={{ text: `Se vad som ingår i ${PREMIUM}`, href: '/priser' }}
           />

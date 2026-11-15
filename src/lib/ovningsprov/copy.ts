@@ -63,7 +63,7 @@ export const START = {
       [
         `Övningsprovet i ${f.namn ? `samma format som ${f.namn}` : 'vårt format'}, ${antalTid(f)}.`,
         dagarKvar != null && dagarKvar > 0 ? `${dagarKvar === 1 ? 'En dag' : `${dagarKvar} dagar`} till provet.` : null,
-        'Månaden täcker hela vägen.',
+        'Premium täcker hela vägen.',
       ]
         .filter(Boolean)
         .join(' '),
