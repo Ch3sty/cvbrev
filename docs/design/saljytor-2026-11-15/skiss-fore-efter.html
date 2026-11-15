@@ -1,0 +1,1348 @@
+<title>Säljytorna före och efter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..900&family=Inter:wght@400..800&display=swap">
+<style>
+/* ------------------------------------------------------------------
+   Sidans egna tokens (chrome). Korten inuti ramarna har egna, fasta
+   ljusa tokens på .spec, så FÖRE ser ut som i dag även i mörkt läge.
+   ------------------------------------------------------------------ */
+:root {
+  --bg: #F1F2F5;
+  --yta: #FFFFFF;
+  --text: #17191D;
+  --mut: #5B6068;
+  --linje: #D9DCE2;
+  --acc: #1B2246;
+  --acc-2: #3B4790;
+  --acc-mjuk: #DFE3F6;
+  --fore: #6B7079;
+  --fore-mjuk: #E6E8EC;
+  --display: 'Schibsted Grotesk', Inter, system-ui, sans-serif;
+  --body: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #15171C; --yta: #1E2027; --text: #ECEDF0; --mut: #9EA3AD; --linje: #2E3139;
+    --acc: #AEB4DA; --acc-2: #93A0EC; --acc-mjuk: #232A4A; --fore: #9EA3AD; --fore-mjuk: #2A2D34;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #15171C; --yta: #1E2027; --text: #ECEDF0; --mut: #9EA3AD; --linje: #2E3139;
+  --acc: #AEB4DA; --acc-2: #93A0EC; --acc-mjuk: #232A4A; --fore: #9EA3AD; --fore-mjuk: #2A2D34;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--body); font-size: 15px; line-height: 1.55;
+  padding-inline: 16px; padding-block: 0 64px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+.wrap { max-width: 1240px; margin: 0 auto; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--acc-2); outline-offset: 3px; }
+
+/* Sidhuvud */
+.topp { padding-block: 40px 28px; border-bottom: 1px solid var(--linje); }
+.topp .ey { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--mut); }
+.topp h1 { font-family: var(--display); font-weight: 800; font-size: clamp(32px, 5vw, 52px); line-height: 1.02; letter-spacing: -.025em; margin: 10px 0 0; text-wrap: balance; max-width: 18ch; }
+.topp .ing { max-width: 66ch; font-size: 16px; color: var(--text); margin-top: 18px; }
+.topp .ing + .ing { margin-top: 10px; }
+.fakta { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 24px; max-width: 760px; }
+.fakta li { list-style: none; background: var(--yta); border: 1px solid var(--linje); border-radius: 12px; padding: 14px 16px; }
+.fakta b { display: block; font-family: var(--display); font-weight: 800; font-size: 28px; letter-spacing: -.02em; line-height: 1; color: var(--acc); font-variant-numeric: tabular-nums; }
+.fakta span { display: block; font-size: 13px; color: var(--mut); margin-top: 6px; line-height: 1.4; }
+.gor { margin-top: 22px; padding: 14px 16px; border-left: 3px solid var(--acc-2); background: var(--yta); border-radius: 0 12px 12px 0; max-width: 760px; font-size: 15px; }
+.gor b { font-weight: 600; }
+
+/* Innehållsförteckning */
+.toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 0; padding: 0; list-style: none; }
+.toc a { display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--linje); background: var(--yta); text-decoration: none; font-size: 13px; font-weight: 500; color: var(--text); }
+.toc a b { color: var(--acc-2); margin-right: 6px; font-weight: 700; }
+
+/* Avsnitt */
+.del { padding-block: 40px 8px; }
+.del > h2 { font-family: var(--display); font-weight: 800; font-size: clamp(24px, 3vw, 32px); letter-spacing: -.02em; line-height: 1.1; margin: 0; }
+.del > .ing { color: var(--mut); max-width: 66ch; margin-top: 8px; }
+
+.yta { padding-block: 36px; border-top: 1px solid var(--linje); scroll-margin-top: 16px; }
+.yta-huvud { display: grid; gap: 8px; grid-template-columns: auto 1fr; align-items: baseline; }
+.yta-huvud .id { font-family: var(--display); font-weight: 800; font-size: 14px; letter-spacing: .04em; color: var(--acc-2); background: var(--acc-mjuk); border-radius: 8px; padding: 4px 8px; line-height: 1; align-self: center; }
+.yta-huvud h3 { font-family: var(--display); font-weight: 800; font-size: clamp(22px, 2.6vw, 28px); letter-spacing: -.02em; line-height: 1.1; margin: 0; }
+.yta-huvud .var { grid-column: 1 / -1; color: var(--mut); font-size: 14px; max-width: 80ch; }
+.yta-huvud .var b { color: var(--text); font-weight: 600; }
+
+.par { display: grid; gap: 20px; margin-top: 22px; }
+@media (min-width: 1000px) { .par:not(.stapla) { grid-template-columns: 1fr 1fr; } }
+.sida { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.lbl { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.lbl::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--fore); }
+.lbl.fore { color: var(--fore); }
+.lbl.efter { color: var(--acc-2); }
+.lbl.efter::before { background: var(--acc-2); }
+.lbl small { font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--mut); font-size: 12px; }
+.frame { container-type: inline-size; background: #EDE8DF; border-radius: 14px; padding: 20px; display: grid; justify-items: center; border: 1px solid var(--linje); min-width: 0; overflow: hidden; }
+.frame.inl { background: #F4F3F0; }
+.frame.vagg { padding: clamp(24px, 4vw, 40px); background: radial-gradient(120% 90% at 85% 0%, #2B3470 0%, #1B2246 60%); }
+.frame.smal { max-width: 375px; padding: 16px; }
+.frame.ram-m { padding: 16px; }
+.andring { margin-top: 18px; padding: 14px 16px; background: var(--yta); border: 1px solid var(--linje); border-radius: 12px; font-size: 14px; max-width: 100%; }
+.andring b { font-weight: 600; }
+.andring p + p { margin-top: 6px; }
+.andring p { margin: 0; }
+
+/* Legend för Nio */
+.nio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #DBD2C4; border: 1px solid #DBD2C4; border-radius: 14px; overflow: hidden; max-width: 540px; margin-top: 16px; }
+.nio li { list-style: none; background: #FFFFFF; color: #57534E; display: grid; grid-template-columns: 40px 1fr; gap: 10px; align-items: center; padding: 12px 14px; --ia: currentColor; }
+.nio li svg { width: 40px; height: 40px; }
+.nio li span { font-size: 13px; line-height: 1.3; color: #1C1917; }
+.nio li small { display: block; font-size: 11px; color: #A8491A; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; margin-top: 2px; }
+.nio li[data-markerad] { color: #1C1917; --ia: #E07A2F; }
+@media (max-width: 480px) { .nio li { grid-template-columns: 32px 1fr; padding: 10px; } .nio li svg { width: 32px; height: 32px; } .nio li span { font-size: 12px; } }
+.nio-rad { display: grid; gap: 14px; grid-template-columns: 1fr; margin-top: 16px; align-items: start; }
+@media (min-width: 760px) { .nio-rad { grid-template-columns: 1fr 1fr; } }
+.nio-ex { background: #FFFFFF; border: 1px solid #DBD2C4; border-radius: 14px; padding: 16px; color: #1C1917; container-type: inline-size; }
+.nio-ex p { margin: 0 0 10px; font-size: 13px; color: #6B645E; }
+.nio-ex.pa-vagg { background: #1B2246; border-color: #1B2246; color: #F5F6FC; }
+.nio-ex.pa-vagg p { color: rgba(255,255,255,.74); }
+
+/* Tabeller */
+.tab-ram { overflow-x: auto; margin-top: 18px; border: 1px solid var(--linje); border-radius: 12px; background: var(--yta); }
+table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: 13.5px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--linje); }
+th { font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--mut); font-weight: 600; }
+tr:last-child td { border-bottom: 0; }
+td.id { font-family: var(--display); font-weight: 800; color: var(--acc-2); white-space: nowrap; }
+td.fore-t { color: var(--mut); }
+td .fil { display: block; font-size: 12px; color: var(--mut); margin-top: 2px; }
+
+/* Byggordning */
+.steg { counter-reset: s; margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; max-width: 820px; }
+.steg li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 12px; padding: 12px 14px; background: var(--yta); border: 1px solid var(--linje); border-radius: 12px; }
+.steg li::before { content: counter(s); font-family: var(--display); font-weight: 800; font-size: 18px; color: var(--acc-2); line-height: 1.2; }
+.steg b { font-weight: 600; }
+.steg .dl { display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 999px; background: var(--acc-mjuk); color: var(--acc); font-size: 12px; font-weight: 600; }
+.tid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); margin: 18px 0 0; padding: 0; list-style: none; max-width: 820px; }
+.tid li { background: var(--yta); border: 1px solid var(--linje); border-radius: 12px; padding: 12px 14px; }
+.tid b { display: block; font-family: var(--display); font-weight: 800; font-size: 18px; letter-spacing: -.01em; }
+.tid span { font-size: 13px; color: var(--mut); }
+
+/* ------------------------------------------------------------------
+   Korten: sajtens ljusa tokens, fasta, ur granskning-art-director.md §3.
+   ------------------------------------------------------------------ */
+.spec {
+  color-scheme: light;
+  --mark: #EDE8DF; --panel: #FFFFFF; --insunken: #E4DED3; --kant: #DBD2C4; --kant-stark: #C4B9A8;
+  --ink-1: #1C1917; --ink-2: #57534E; --ink-3: #6B645E;
+  --koppar: #E07A2F; --koppar-djup: #C4621F; --koppar-ink: #A8491A; --koppar-ljus: #F4B98A; --koppar-text: #1A1206; --koppar-mjuk: #FBE3D0;
+  --premium: #0F0E12; --premium-2: #1A191F; --premium-kant: rgba(255,255,255,.12);
+  --vagg-ink: #F5F6FC; --vagg-mjuk: rgba(255,255,255,.74); --vagg-kant: rgba(255,255,255,.14);
+  --papper-skarm: #FFFFFF; --kant-skarm: #E3E1DC; --golv-skarm: #F3F1EC;
+  --lyft: 0 1px 2px rgba(28,25,23,.06), 0 12px 32px -12px rgba(28,25,23,.22);
+  --r-stor: 24px; --positiv: #2F7A4D;
+  font-family: var(--body); font-size: 16px; line-height: 1.55; color: var(--ink-1);
+  width: 100%; max-width: var(--w, 680px); container-type: inline-size; text-align: left; min-width: 0;
+}
+.spec.inl {
+  --papper: #FFFFFF; --papper-2: #F4F3F0; --kant: #E3E1DC; --kant-stark: #C9C6BF;
+  --ink-1: #1A1A1F; --ink-2: #4A4A55; --ink-3: #65656E;
+  --lyft: 0 1px 2px rgba(20,20,40,.05), 0 10px 24px -14px rgba(20,20,40,.18);
+}
+.spec p, .spec ul, .spec ol, .spec h1, .spec h2, .spec h3, .spec figure { margin: 0; padding: 0; }
+.spec ul, .spec ol { list-style: none; }
+.spec a { text-decoration: none; }
+.pub-rum-tran { --rum-vagg: #1B2246; --rum-vagg-2: #2B3470; --rum-ljus: #93A0EC; --rum-ton: #DFE3F6; --rum-ink: #3B4790; }
+.pub-rum-jobb { --rum-vagg: #1B3324; --rum-vagg-2: #2A4C37; --rum-ljus: #8FD3A0; --rum-ton: #DCEBDD; --rum-ink: #245C37; }
+
+.pub-kick { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--koppar-ink); margin-bottom: 14px; }
+.pub-knapp {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 24px; border-radius: 999px;
+  background: linear-gradient(180deg, var(--koppar), var(--koppar-djup)); color: var(--koppar-text);
+  font-family: var(--body); font-weight: 700; font-size: 16px; line-height: 1.2; text-align: center;
+  box-shadow: 0 1px 0 rgba(255,255,255,.25) inset, 0 6px 18px -6px rgba(196,98,31,.6);
+}
+.pub-lank { font-weight: 600; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1.5px; color: inherit; }
+.pub-liten { font-size: 14px; color: var(--ink-3); }
+.pub-handling { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+@container (max-width: 480px) {
+  .pub-handling { flex-direction: column; align-items: stretch; gap: 16px; }
+  .pub-handling .pub-knapp { width: 100%; }
+  .pub-handling .pub-lank { text-align: center; }
+}
+.pub-bock { display: grid; gap: 12px; }
+.pub-bock li { display: flex; gap: 12px; align-items: flex-start; line-height: 1.45; }
+.pub-bock li::before {
+  content: ''; flex: none; width: 22px; height: 22px; border-radius: 50%; margin-top: 1px;
+  background: var(--koppar) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231A1206' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 14px no-repeat;
+}
+.pub-h3 { font-family: var(--display); font-weight: 800; font-size: clamp(22px, 5cqw, 28px); letter-spacing: -.015em; line-height: 1.1; text-wrap: balance; }
+.pub-brod { color: var(--ink-2); max-width: 62ch; }
+.pub-brod b { color: var(--ink-1); font-weight: 600; }
+.ib-rub { font-family: var(--display); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; text-wrap: balance; color: var(--ink-1); }
+
+/* InlineKort, ProvKort, TypProvKort */
+.ib-prova { display: grid; gap: 20px; padding: 24px; border-radius: 24px; background: var(--rum-ton, var(--panel)); border-left: 6px solid var(--rum-ink, var(--koppar)); box-shadow: var(--lyft); }
+@container (min-width: 520px) { .ib-prova { grid-template-columns: minmax(0, 1fr) 210px; gap: 28px; align-items: center; padding: 28px; } }
+.ib-prova .pub-kick { color: var(--rum-ink, var(--koppar-ink)); margin-bottom: 8px; }
+.ib-prova .ib-rub { font-size: clamp(20px, 4cqw, 24px); line-height: 1.2; }
+.ib-prova .ib-prova-text { margin-top: 8px; font-size: 15px; color: var(--ink-2); line-height: 1.55; }
+.ib-prova .pub-handling { margin-top: 18px; }
+.ib-prova .pub-liten { margin-top: 12px; max-width: 46ch; }
+.ib-prova .tb { margin-top: 14px; }
+.ib-prova-sida { display: grid; justify-items: center; color: var(--rum-ink, var(--ink-1)); min-width: 0; }
+@container (max-width: 519px) { .ib-prova-sida { order: -1; } .ib-prova-sida .ib-prova-matris { max-width: 200px; } }
+.ib-prova-matris { width: 100%; max-width: 230px; }
+.ib-prova-matris svg { display: block; width: 100%; height: auto; }
+.ib-pm-g { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--papper-skarm); border-radius: 16px; padding: 8px; box-shadow: var(--lyft); }
+.ib-pm-g > div { aspect-ratio: 1; padding: 6px; border-right: 1px solid var(--kant-skarm); border-bottom: 1px solid var(--kant-skarm); }
+.ib-pm-g > div:nth-child(3n) { border-right: 0; }
+.ib-pm-g > div:nth-child(n + 7) { border-bottom: 0; }
+.ib-pm-alt { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 8px; }
+.ib-pm-alt > div { position: relative; height: 44px; border-radius: 12px; background: var(--papper-skarm); border: 1px solid var(--kant-skarm); display: grid; place-items: center; }
+.ib-pm-alt b { position: absolute; left: 6px; top: 3px; font-size: 10px; color: var(--ink-3); }
+.ib-pm-alt svg { width: 30px; height: 30px; }
+.pub-obj { width: 64px; height: 64px; flex: none; color: var(--rum-ink, var(--ink-1)); }
+.pub-obj svg { display: block; width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.pub-obj-40 { width: 40px; height: 40px; }
+.ib-typbild { width: 100%; max-width: 230px; background: var(--papper-skarm); border-radius: 16px; padding: 14px; box-shadow: var(--lyft); color: var(--ink-1); }
+.ib-typbild-fig { max-width: 170px; padding: 8px; }
+.ib-typbild-fig svg { display: block; width: 100%; height: auto; }
+.ib-typpremiss { font-size: 13px; line-height: 1.45; color: var(--ink-2); }
+.ib-typpastaende { font-size: 14px; line-height: 1.4; font-weight: 700; margin-top: 8px; }
+.spec .ib-typlista { list-style: upper-alpha; padding-left: 20px; font-size: 13px; line-height: 1.4; color: var(--ink-2); margin-top: 6px; display: grid; gap: 3px; }
+.ib-typdelar { counter-reset: del; display: grid; gap: 6px; }
+.ib-typdelar li { counter-increment: del; display: flex; gap: 8px; align-items: center; font-size: 13px; }
+.ib-typdelar li::before { content: counter(del); display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 999px; background: var(--rum-ton, var(--insunken)); color: var(--rum-ink, var(--ink-1)); font-weight: 700; font-size: 12px; flex: none; }
+.ib-typbild .tb { justify-items: center; }
+.ib-typbild .tb-text { text-align: center; max-width: none; }
+.ib-ded { display: grid; gap: 10px; justify-items: center; }
+.ib-ded svg { display: block; width: 100%; max-width: 170px; height: auto; }
+.ib-ded p { font-size: 14px; font-weight: 700; }
+
+/* GratisKort */
+.ib-gratis { display: grid; gap: 20px; padding: 24px; border-radius: 20px; background: var(--insunken); border: 1px dashed var(--kant-stark); }
+.ib-gratis .pub-bock { gap: 8px; font-size: 14px; }
+.ib-gratis .pub-bock li .pub-lank { font-weight: 500; }
+.ib-gratis .pub-handling { margin-top: 18px; }
+.ib-gratis .tb { margin-top: 18px; }
+@container (min-width: 560px) {
+  .ib-gratis-bred { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); align-items: center; gap: 20px 48px; padding: 32px; }
+  .ib-gratis-bred.efter { grid-template-areas: "text lista" "tb lista" "handling lista"; gap: 0 48px; align-items: start; }
+  .ib-gratis-bred.efter .ig-text { grid-area: text; }
+  .ib-gratis-bred.efter .tb { grid-area: tb; }
+  .ib-gratis-bred.efter .pub-bock { grid-area: lista; align-self: center; }
+  .ib-gratis-bred.efter .pub-handling { grid-area: handling; }
+}
+
+/* KONTO_PANEL och KONTO_GRATIS */
+.pub-konto-panel { border-radius: var(--r-stor); padding: 14px 16px; color: var(--vagg-ink); background: radial-gradient(120% 90% at 85% 0%, var(--rum-vagg-2) 0%, var(--rum-vagg) 60%); display: grid; gap: 10px; align-content: start; position: relative; overflow: hidden; }
+.pub-konto-panel .pub-kick { color: var(--rum-ljus); margin: 0; }
+.pub-konto-panel h2 { font-family: var(--display); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; font-size: clamp(19px, 5.5cqw, 30px); color: #fff; text-wrap: balance; }
+.pub-konto-prov-rad { display: flex; align-items: center; gap: 14px; padding: 4px 6px 2px 0; }
+.pub-konto-tal { font-family: var(--display); font-weight: 800; font-size: 40px; letter-spacing: -.03em; line-height: 1; color: #fff; white-space: nowrap; }
+.pub-konto-tal small { font-family: var(--body); font-size: 14px; font-weight: 600; letter-spacing: 0; color: var(--vagg-mjuk); margin-left: 4px; }
+.pub-brickor { display: grid; grid-template-columns: repeat(5, minmax(0, 40px)); gap: 6px; flex: 0 1 auto; min-width: 0; }
+.brk { position: relative; aspect-ratio: 1; border-radius: 9px; border: 1.5px solid rgba(255,255,255,.55); background: rgba(255,255,255,.08) linear-gradient(rgba(255,255,255,.35), rgba(255,255,255,.35)) center / 100% 1px no-repeat; }
+.brk::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(255,255,255,.35), rgba(255,255,255,.35)) center / 1px 100% no-repeat; border-radius: inherit; }
+.brk.fel::after { content: ''; position: absolute; width: 16px; height: 16px; right: -4px; top: -4px; border-radius: 50%; background: var(--koppar-ljus) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231A1206' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M7 7l10 10M17 7L7 17'/%3E%3C/svg%3E") center / 9px no-repeat; }
+.pub-prov-bock { display: grid; gap: 8px; font-size: 14px; color: var(--vagg-mjuk); }
+.pub-prov-bock li { display: flex; gap: 12px; align-items: flex-start; line-height: 1.4; }
+.pub-prov-bock li b { font-weight: 600; color: #fff; }
+.pub-prov-bock li::before {
+  content: ''; flex: none; width: 22px; height: 22px; border-radius: 50%; margin-top: 1px;
+  background-color: rgba(255,255,255,.14);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F4B98A' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='11' width='14' height='10' rx='2'/%3E%3Cpath d='M8 11V8a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E");
+  background-position: center; background-size: 13px; background-repeat: no-repeat;
+}
+.pub-konto-premium { color: var(--vagg-mjuk); font-size: 13px; line-height: 1.45; padding-top: 10px; border-top: 1px solid var(--vagg-kant); }
+.pub-konto-premium b { color: var(--koppar-ljus); font-weight: 700; }
+@container (min-width: 420px) {
+  .pub-konto-panel { padding: 32px; gap: 18px; }
+  .pub-konto-tal { font-size: 56px; }
+  .pub-brickor { grid-template-columns: repeat(5, minmax(0, 52px)); }
+  .pub-prov-bock { font-size: 15px; gap: 12px; }
+}
+.pub-konto-ger { display: grid; gap: 6px; }
+.pub-konto-ger > li { display: grid; grid-template-columns: 36px 1fr; gap: 10px; align-items: center; padding: 8px 10px; border-radius: 14px; background: rgba(255,255,255,.08); border: 1px solid var(--vagg-kant); }
+.pub-konto-ger > li.glyfrad { grid-template-columns: 1fr; gap: 8px; }
+.pub-konto-obj { width: 36px; height: 36px; color: #fff; }
+.pub-konto-obj svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.pub-konto-ger > li > div > b { display: block; font-family: var(--display); font-weight: 800; font-size: 15px; letter-spacing: -.01em; color: #fff; }
+.pub-konto-ger > li > div > span { display: block; font-size: 12.5px; line-height: 1.35; color: var(--vagg-mjuk); }
+@container (min-width: 420px) {
+  .pub-konto-ger > li { padding: 14px 16px; }
+  .pub-konto-ger > li > div > b { font-size: 17px; }
+  .pub-konto-ger > li > div > span { font-size: 14px; }
+}
+
+/* Testelementet Nio */
+.tb { display: grid; gap: 8px; justify-items: start; }
+.tb-glyfer { margin: 0; padding: 0; list-style: none; color: var(--ink-2); --ia: currentColor; }
+.tb-glyfer li { display: grid; place-items: center; }
+.tb-glyfer li[data-markerad] { color: var(--ink-1); --ia: var(--koppar); }
+.tb-glyfer[data-nagon-markerad] li:not([data-markerad]) { color: var(--ink-3); }
+.tb-glyfer svg { display: block; fill: none; }
+.tb-text { font-size: 13px; line-height: 1.4; color: var(--ink-3); max-width: 36ch; }
+.tb-rutnat .tb-glyfer { display: grid; grid-template-columns: repeat(3, 48px); background: var(--kant); gap: 1px; border: 1px solid var(--kant); border-radius: 14px; overflow: hidden; }
+.tb-rutnat .tb-glyfer li { width: 48px; height: 48px; background: var(--papper-skarm); }
+.tb-rutnat .tb-glyfer svg { width: 32px; height: 32px; }
+@container (min-width: 560px) {
+  .tb-rutnat .tb-glyfer { grid-template-columns: repeat(3, 56px); }
+  .tb-rutnat .tb-glyfer li { width: 56px; height: 56px; }
+  .tb-rutnat .tb-glyfer svg { width: 36px; height: 36px; }
+}
+.tb-rad { width: 100%; max-width: 280px; }
+.tb-rad .tb-glyfer { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 6px; width: 100%; }
+.tb-rad .tb-glyfer svg { width: 100%; max-width: 24px; height: auto; aspect-ratio: 1; }
+.tb-rad .tb-text { font-size: 12px; }
+.tb-vagg .tb-glyfer { color: var(--vagg-mjuk); }
+.tb-vagg .tb-glyfer li[data-markerad] { color: var(--vagg-ink); --ia: var(--koppar-ljus); }
+.tb-vagg.tb-rutnat .tb-glyfer { background: var(--vagg-kant); border-color: var(--vagg-kant); }
+.tb-vagg.tb-rutnat .tb-glyfer li { background: rgba(255,255,255,.06); }
+.tb-vagg .tb-text { color: var(--vagg-mjuk); }
+
+/* PaywallCard (inloggat) */
+.pw { border-radius: 16px; border: 1px solid var(--kant); background: var(--papper); padding: 16px; }
+.pw h3 { font-family: var(--display); font-weight: 700; font-size: 22px; line-height: 27px; letter-spacing: -.02em; color: var(--ink-1); }
+.pw .body { margin-top: 4px; font-size: 14px; line-height: 22px; color: var(--ink-2); }
+.pw .tb { margin-top: 12px; }
+.pw .pris { margin-top: 8px; font-size: 14px; font-weight: 500; color: var(--ink-1); }
+.knapprad { margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+.knapp-primar { display: inline-flex; align-items: center; justify-content: center; height: 48px; width: 100%; border-radius: 12px; padding: 0 18px; font-size: 15px; font-weight: 600; letter-spacing: -.005em; color: #1A1206; background: linear-gradient(180deg, #E8863B, #E07A2F 50%, #C4621F); border: 0; font-family: var(--body); }
+.lank-inl { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; align-self: center; font-size: 14px; font-weight: 500; color: var(--ink-1); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--kant-stark); }
+
+/* Registreringen (inloggat-skal) */
+.text-steg { font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+.flow h2 { margin-top: 4px; font-family: var(--display); font-size: 26px; font-weight: 700; line-height: 31px; letter-spacing: -.025em; color: var(--ink-1); }
+.flow .under { margin-top: 4px; font-size: 14px; line-height: 22px; color: var(--ink-2); }
+.val { display: flex; gap: 12px; align-items: flex-start; border-radius: 12px; border: 1px solid var(--kant); background: var(--papper); padding: 14px 16px; }
+.val.vald { border-color: var(--ink-1); box-shadow: 0 0 0 1px var(--ink-1) inset; }
+.val svg { width: 24px; height: 24px; flex: none; margin-top: 1px; color: var(--ink-2); fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.val .t { font-size: 15px; font-weight: 600; color: var(--ink-1); line-height: 22px; }
+.val .d { display: block; margin-top: 2px; font-size: 14px; line-height: 22px; color: var(--ink-2); }
+.gr { margin-top: 12px; border-radius: 12px; border: 1px solid var(--kant); background: var(--papper); padding: 12px 16px; }
+.gr ul { margin-top: 6px; display: grid; gap: 4px; font-size: 13px; line-height: 18px; color: var(--ink-2); }
+.gr li { display: flex; gap: 8px; }
+.gr li::before { content: ''; flex: none; width: 16px; height: 16px; margin-top: 1px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%234A4A55' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 10.5l4 4 8-9'/%3E%3C/svg%3E") center / 16px no-repeat; }
+.spar { margin-top: 8px; border-radius: 16px; border: 1px solid var(--kant); background: var(--papper); padding: 16px; }
+.spar .namn { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #A8491A; }
+.spar .rub { margin-top: 4px; font-family: var(--display); font-weight: 700; font-size: 18px; line-height: 24px; letter-spacing: -.015em; color: var(--ink-1); }
+.spar ul { margin-top: 10px; display: grid; gap: 6px; font-size: 14px; line-height: 20px; color: var(--ink-2); }
+.spar li { display: flex; gap: 8px; }
+.spar li::before { content: ''; flex: none; width: 16px; height: 16px; margin-top: 2px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%231A1A1F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 10.5l4 4 8-9'/%3E%3C/svg%3E") center / 16px no-repeat; }
+.spar li b { color: var(--ink-1); font-weight: 600; }
+.spar .pris { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--kant); font-size: 14px; color: var(--ink-1); }
+.spar .pris b { font-family: var(--display); font-weight: 800; font-size: 20px; letter-spacing: -.02em; margin-right: 6px; }
+.flow .fot { margin-top: 16px; display: grid; gap: 10px; }
+
+/* Hjälte och Station på vägg */
+.vagg-text { color: var(--vagg-ink); max-width: 560px; }
+.vagg-text .smula { font-size: 13px; color: var(--vagg-mjuk); }
+.vagg-text .pub-kick { color: var(--rum-ljus); margin-top: 14px; }
+.vagg-text h1 { margin-top: 10px; font-family: var(--display); font-weight: 800; font-size: clamp(30px, 7cqw, 46px); line-height: 1.04; letter-spacing: -.025em; text-wrap: balance; color: #fff; }
+.vagg-text .pub-h2 { font-family: var(--display); font-weight: 800; font-size: clamp(28px, 6.4cqw, 42px); line-height: 1.05; letter-spacing: -.02em; color: #fff; }
+.vagg-text .pub-ingress { margin-top: 20px; font-size: clamp(17px, 3cqw, 20px); line-height: 1.5; color: var(--vagg-mjuk); max-width: 56ch; }
+.vagg-text .pub-ingress b, .vagg-text .pub-brod b { color: #fff; font-weight: 600; }
+.vagg-text .pub-brod { color: var(--vagg-mjuk); margin-top: 14px; }
+.vagg-text .pub-handling { margin-top: 28px; }
+.vagg-text .pub-lank { color: #fff; }
+.vagg-text .pub-liten { color: var(--vagg-mjuk); }
+.vagg-text .pub-obj { color: #fff; }
+.spec .pub-tal { display: flex; gap: clamp(24px, 5cqw, 44px); flex-wrap: wrap; margin-top: 36px; }
+.pub-tal li { display: grid; gap: 2px; min-width: 0; }
+.pub-tal b { font-family: var(--display); font-weight: 800; font-size: clamp(24px, 4cqw, 30px); letter-spacing: -.02em; line-height: 1; color: #fff; }
+.pub-tal span { font-size: 13px; color: var(--vagg-mjuk); }
+
+/* ProvaKort och /priser-gratiskortet */
+.pub-kort { background: var(--panel); border: 1px solid var(--kant); border-radius: var(--r-stor); padding: 28px; box-shadow: var(--lyft); }
+.pub-prova-kort { display: grid; gap: 24px; border-left: 6px solid var(--rum-vagg); }
+@container (min-width: 600px) { .pub-prova-kort { grid-template-columns: 1fr 280px; } }
+.pub-prova-kort .pub-brod { margin-top: 10px; }
+.pub-prova-kort .pub-bock { margin-top: 16px; }
+.pub-prova-handling { display: grid; gap: 12px; align-content: center; }
+.pub-prova-handling .pub-knapp { width: 100%; }
+.pub-prova-handling .pub-liten { text-align: center; }
+.pub-gratis-kort { display: grid; gap: 32px; background: var(--insunken); border-style: dashed; box-shadow: none; }
+@container (min-width: 700px) { .pub-gratis-kort { grid-template-columns: 1.2fr 1fr; align-items: center; } }
+.pub-gratis-kort .pub-brod { margin-top: 12px; }
+.pub-gratis-kort .pub-handling { margin-top: 20px; }
+.pub-gratis-rad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.pub-gratis-rad li { display: grid; justify-items: center; align-content: center; text-align: center; gap: 2px; padding: 14px 6px; background: var(--panel); border-radius: 16px; border: 1px solid var(--kant); min-width: 0; }
+.pub-gratis-rad .pub-obj { width: 40px; height: 40px; color: var(--ink-3); margin-bottom: 6px; }
+.pub-gratis-rad b { font-family: var(--display); font-weight: 800; font-size: 24px; letter-spacing: -.02em; line-height: 1; }
+.pub-gratis-rad span { font-size: 12px; color: var(--ink-3); line-height: 1.3; }
+.pub-gratis-rad li.tb-platta { grid-column: span 2; grid-row: span 2; padding: 14px 10px; }
+.pub-gratis-rad li.tb-platta .tb { justify-items: center; }
+.pub-gratis-rad li.tb-platta .tb-glyfer { border: 0; border-radius: 10px; }
+.pub-gratis-rad li.tb-platta .tb-text { font-size: 12px; text-align: center; }
+@container (max-width: 430px) { .pub-gratis-rad li.tb-platta .tb-glyfer { grid-template-columns: repeat(3, 44px); } .pub-gratis-rad li.tb-platta .tb-glyfer li { width: 44px; height: 44px; } }
+
+/* StickyMobileCTA */
+.sticky { width: 100%; height: 72px; background: var(--panel); border-top: 1px solid var(--kant); box-shadow: 0 -4px 16px -8px rgba(0,0,0,.12); display: flex; align-items: center; gap: 10px; padding: 0 12px; border-radius: 0 0 14px 14px; }
+.sticky .pub-knapp { flex: 1; min-height: 48px; font-size: 15px; }
+.sticky .x { width: 44px; height: 44px; border-radius: 999px; display: grid; place-items: center; color: var(--ink-3); flex: none; }
+.sticky .x svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; }
+.tel { width: 100%; max-width: 343px; border-radius: 14px; overflow: hidden; border: 1px solid var(--kant); background: var(--panel); }
+.tel .skarm { height: 110px; background: var(--mark); position: relative; }
+.tel .skarm::before { content: ''; position: absolute; left: 16px; right: 16px; top: 18px; height: 10px; border-radius: 5px; background: var(--kant); }
+.tel .skarm::after { content: ''; position: absolute; left: 16px; right: 80px; top: 40px; height: 10px; border-radius: 5px; background: var(--kant); box-shadow: 0 22px 0 var(--kant), 0 44px 0 var(--kant); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+</style>
+
+<!-- Nio glyfer, 48-box. Sex kopieras ur RumSymboler.tsx, tre nya enligt granskning-art-director.md §2. Kopparytan läser --ia. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="g-matris" viewBox="0 0 48 48">
+      <rect x="6" y="6" width="36" height="36" rx="5" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M18 6v36M30 6v36M6 18h36M6 30h36" stroke="currentColor" stroke-width="1.5" opacity=".5"/>
+      <circle cx="12" cy="12" r="2.6" fill="currentColor"/>
+      <rect x="21.5" y="9.5" width="5" height="5" rx="1" fill="currentColor"/>
+      <path d="M36 9.4l3 5.2h-6z" fill="currentColor"/>
+      <rect x="9.5" y="21.5" width="5" height="5" rx="1" fill="currentColor"/>
+      <path d="M24 21.4l3 5.2h-6z" fill="currentColor"/>
+      <circle cx="36" cy="24" r="2.6" fill="currentColor"/>
+      <path d="M12 33.4l3 5.2h-6z" fill="currentColor"/>
+      <circle cx="24" cy="36" r="2.6" fill="currentColor"/>
+      <rect x="31.5" y="31.5" width="9" height="9" rx="2" fill="none" stroke="var(--ia)" stroke-width="2" stroke-dasharray="3 2.5"/>
+    </symbol>
+    <symbol id="g-figurer" viewBox="0 0 48 48">
+      <rect x="4" y="15" width="40" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M17.3 15v18M30.6 15v18" stroke="currentColor" stroke-width="1.5" opacity=".5"/>
+      <path d="M10.7 19.5l3.6 6.2h-7.2z" fill="currentColor"/>
+      <rect x="21.6" y="21.6" width="4.8" height="4.8" rx="1" fill="currentColor"/>
+      <rect x="33.6" y="19.6" width="8" height="8" rx="2" fill="none" stroke="var(--ia)" stroke-width="2" stroke-dasharray="3 2.5"/>
+    </symbol>
+    <symbol id="g-deduktiv" viewBox="0 0 48 48">
+      <path d="M8 11h22M8 18h15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>
+      <rect x="4" y="25" width="40" height="15" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M14 25v15M24 25v15M34 25v15" stroke="currentColor" stroke-width="1.5" opacity=".5"/>
+      <rect x="7" y="30" width="4" height="5" rx="1" fill="currentColor"/>
+      <rect x="17" y="30" width="4" height="5" rx="1" fill="currentColor"/>
+      <rect x="27" y="29" width="6" height="7" rx="1.5" fill="var(--ia)"/>
+      <rect x="37" y="30" width="4" height="5" rx="1" fill="currentColor"/>
+    </symbol>
+    <symbol id="g-talserier" viewBox="0 0 48 48">
+      <rect x="4" y="16" width="40" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M14 16v16M24 16v16M34 16v16" stroke="currentColor" stroke-width="1.5" opacity=".5"/>
+      <circle cx="9" cy="24" r="2" fill="currentColor"/>
+      <circle cx="17" cy="24" r="2" fill="currentColor"/><circle cx="21" cy="24" r="2" fill="currentColor"/>
+      <circle cx="26" cy="24" r="1.6" fill="currentColor"/><circle cx="29" cy="24" r="1.6" fill="currentColor"/><circle cx="32" cy="24" r="1.6" fill="currentColor"/>
+      <rect x="36.5" y="19.5" width="5" height="9" rx="1.5" fill="none" stroke="var(--ia)" stroke-width="2" stroke-dasharray="3 2.5"/>
+    </symbol>
+    <symbol id="g-spatial" viewBox="0 0 48 48">
+      <path d="M24 9 L38 17 L38 33 L24 41 L10 33 L10 17 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M24 25 L24 41 M24 25 L10 17 M24 25 L38 17" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M24 9 L38 17 L24 25 L10 17 Z" fill="var(--ia)"/>
+    </symbol>
+    <symbol id="g-ordforrad" viewBox="0 0 48 48">
+      <rect x="6" y="7" width="36" height="34" rx="5" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M12 16h24M12 23h9M12 30h24M12 37h16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>
+      <rect x="23" y="20" width="14" height="6" rx="3" fill="var(--ia)"/>
+    </symbol>
+    <symbol id="g-verbalt" viewBox="0 0 48 48">
+      <rect x="6" y="7" width="36" height="34" rx="5" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M12 15h24M12 21h18M12 27h24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>
+      <path d="M12 35.5l3 3 5.5-6" fill="none" stroke="var(--ia)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M29 33l6 6M35 33l-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+    </symbol>
+    <symbol id="g-numeriskt" viewBox="0 0 48 48">
+      <rect x="5" y="8" width="22" height="30" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M5 16h22M5 24h22M5 32h22M14 8v30" stroke="currentColor" stroke-width="1.5" opacity=".5"/>
+      <rect x="31" y="26" width="5" height="12" rx="1.5" fill="currentColor" opacity=".55"/>
+      <rect x="38" y="14" width="5" height="24" rx="1.5" fill="var(--ia)"/>
+      <path d="M29 40h15" stroke="currentColor" stroke-width="2"/>
+    </symbol>
+    <symbol id="g-personlighet" viewBox="0 0 48 48">
+      <path d="M8 30a16 16 0 0 1 32 0" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M8 30h32" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M12 21l3 2M24 14v4M36 21l-3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+      <circle cx="29" cy="22" r="3.5" fill="var(--ia)"/>
+      <path d="M24 30l5-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <path d="M10 38h28" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".5"/>
+    </symbol>
+    <!-- Objekt 64 ur Objekt.tsx och GratisIkon ur RegisterKontoSteg.tsx -->
+    <symbol id="o-matris" viewBox="0 0 64 64">
+      <rect x="6" y="6" width="52" height="52" rx="8"/><path d="M23 6v52M41 6v52M6 23h52M6 41h52" opacity=".45"/><circle cx="14.5" cy="14.5" r="3.5"/><path d="M28 18h8v-7"/><path d="M49.5 11l4 7h-8z"/><path d="M49.5 29l4 7h-8z"/><circle cx="32" cy="32" r="3.5"/><rect x="44" y="44" width="10" height="10" rx="2" fill="#E07A2F" stroke="none"/>
+    </symbol>
+    <symbol id="o-matris-reg" viewBox="0 0 64 64">
+      <rect x="6" y="6" width="52" height="52" rx="8"/><path d="M23 6v52M41 6v52M6 23h52M6 41h52" opacity=".45"/><circle cx="14.5" cy="14.5" r="3.5"/><path d="M28 18h8v-7"/><circle cx="32" cy="32" r="3.5"/><rect x="44" y="44" width="10" height="10" rx="2" fill="#E07A2F" stroke="none"/>
+    </symbol>
+    <symbol id="o-cv" viewBox="0 0 64 64">
+      <rect x="10" y="6" width="40" height="52" rx="6"/><circle cx="22" cy="19" r="4"/><path d="M31 17h12M18 31h28M18 39h28M18 47h18"/><circle cx="50" cy="12" r="9" fill="var(--bg-obj, #FFFFFF)"/><path d="M50 4a8 8 0 1 1-7 4" stroke="#E07A2F" stroke-width="3"/>
+    </symbol>
+    <symbol id="o-brev" viewBox="0 0 64 64">
+      <path d="M12 6h26l14 14v36a2 2 0 0 1-2 2H12a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/><path d="M38 6v14h14M18 30h24M18 38h28M18 46h28"/><rect x="18" y="51" width="18" height="4" rx="2" fill="#E07A2F" stroke="none"/>
+    </symbol>
+    <symbol id="o-chat" viewBox="0 0 64 64">
+      <path d="M8 12a6 6 0 0 1 6-6h26a6 6 0 0 1 6 6v14a6 6 0 0 1-6 6H24l-10 8V32h0a6 6 0 0 1-6-6z"/><path d="M56 34a6 6 0 0 0-6-6H30a6 6 0 0 0-6 6v12a6 6 0 0 0 6 6h18l8 7V52a6 6 0 0 0 0 0z" fill="currentColor" stroke="none" opacity=".9"/><path d="M32 38h16M32 44h10" stroke="#E07A2F"/>
+    </symbol>
+    <symbol id="o-person" viewBox="0 0 64 64">
+      <circle cx="20" cy="18" r="8"/><path d="M8 40c2-8 7-12 12-12s10 4 12 12"/><path d="M40 14h16M40 24h12M40 34h16M40 44h8"/><rect x="40" y="52" width="14" height="4" rx="2" fill="#E07A2F" stroke="none"/>
+    </symbol>
+    <symbol id="o-mallar" viewBox="0 0 64 64">
+      <rect x="6" y="12" width="34" height="44" rx="5"/><rect x="24" y="6" width="34" height="44" rx="5" fill="#FFFFFF"/><path d="M32 18h18M32 26h18M32 34h12"/><rect x="32" y="40" width="10" height="4" rx="2" fill="#E07A2F" stroke="none"/>
+    </symbol>
+    <symbol id="o-match" viewBox="0 0 64 64">
+      <rect x="6" y="10" width="52" height="18" rx="6"/><rect x="6" y="36" width="52" height="18" rx="6"/><path d="M14 19h20M14 45h14"/><circle cx="48" cy="19" r="4" fill="#E07A2F" stroke="none"/><circle cx="48" cy="45" r="4"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+
+<header class="topp">
+  <p class="ey">Godkännandeartefakt, säljytorna, 15 november 2026</p>
+  <h1>Säljytorna före och efter</h1>
+  <p class="ing">Du såg det själv: korten säljer Nivåkollen, ett namn som inte säger någon vad det är, och de visar aldrig att vi har åtta testtyper och ett personlighetstest. Granskningarna från testansvarig, copywriter, art-director och saas-lead är sammanvägda i <b>beslut.md</b>. Det här är de tolv ytor där du ska se före och efter innan något byggs.</p>
+  <p class="ing">Grundtanken: ordet <b>grundnivån</b> ersätter Nivåkollen i all publik reklam, texten säger "åtta testtyperna och personlighetstestet", och bilden visar nio. Testerna får för första gången en egen bild, elementet <b>Nio</b>, på de ytor som bär trafiken och köpen.</p>
+  <ul class="fakta" aria-label="Underlag ur mätningen, 28 dagar">
+    <li><b>7 av 9</b><span>köp med känd väg kom via testvägen: artiklar om Alva, Matrigma eller verbalt test, provet, kontot.</span></li>
+    <li><b>321</b><span>spärrar på /prova, 189 vidareklick. Kontopanelen efter provet är sajtens största konverteringsyta.</span></li>
+    <li><b>0</b><span>klick på GratisKortet från 23 visningar. Kortet du pekade på ändras för principens skull; effekten kommer från S1 till S6.</span></li>
+  </ul>
+  <p class="gor"><b>Det du gör:</b> gå igenom S1 till S12 och godkänn eller kommentera per kort. Felrättningarna F1 till F22 och Black Week-raderna K1 till K6 byggs utan skiss, de står här för att du ska se dem. Priser och kampanjdatum är dina och rörs inte.</p>
+  <ul class="toc" aria-label="Hoppa till">
+    <li><a href="#nio"><b>Nio</b>testelementet</a></li>
+    <li><a href="#s1"><b>S1</b>Kontopanelen /prova</a></li>
+    <li><a href="#s2"><b>S2</b>ProvKort</a></li>
+    <li><a href="#s3"><b>S3</b>/register</a></li>
+    <li><a href="#s4"><b>S4</b>Betalvägg testnivå</a></li>
+    <li><a href="#s5"><b>S5</b>Betalvägg dagstak</a></li>
+    <li><a href="#s6"><b>S6</b>Intervjuklustret</a></li>
+    <li><a href="#s7"><b>S7</b>GratisKort</a></li>
+    <li><a href="#s8"><b>S8</b>Testsidan</a></li>
+    <li><a href="#s9"><b>S9</b>Registreringen</a></li>
+    <li><a href="#s10"><b>S10</b>/priser</a></li>
+    <li><a href="#s11"><b>S11</b>Startsidan</a></li>
+    <li><a href="#s12"><b>S12</b>TypProvKort</a></li>
+    <li><a href="#fel"><b>F</b>Felrättningar</a></li>
+    <li><a href="#bw"><b>K</b>Black Week</a></li>
+    <li><a href="#bygg"><b>Plan</b>byggordning</a></li>
+  </ul>
+</header>
+
+<!-- ================================================================ NIO -->
+<section class="del" id="nio">
+  <h2>Testelementet Nio, läs det en gång</h2>
+  <p class="ing">Nio testtyper som nio glyfer i Rummens hand: kontur, en enda kopparyta per symbol, ingen ruta eller cirkel bakom. Sex finns redan i inloggat läge, tre ritas nya (talserier, spatial, verbalt). Två former: <b>rutnätet</b> 3×3 där elementet är kortets bild, <b>raden</b> 24 px där kortet redan har en bild. Glyferna står i en färg; den typ kortet handlar om markeras med mörkare bläck och koppar, aldrig med en färgad platta. Ordningen: de tre bildlogiska först, de tre I-provsnära i mitten, språk, siffror och person sist, med personligheten i hörnet där matrisens lucka brukar vara.</p>
+  <ul class="nio" aria-label="De nio glyferna">
+    <li data-markerad><svg viewBox="0 0 48 48" fill="none"><use href="#g-matris"/></svg><span>Matrislogik<small>Markerad: den här av nio</small></span></li>
+    <li><svg viewBox="0 0 48 48" fill="none"><use href="#g-figurer"/></svg><span>Figurserier</span></li>
+    <li><svg viewBox="0 0 48 48" fill="none"><use href="#g-deduktiv"/></svg><span>Deduktiv slutledning</span></li>
+    <li><svg viewBox="0 0 48 48" fill="none"><use href="#g-talserier"/></svg><span>Talserier<small>Ny</small></span></li>
+    <li><svg viewBox="0 0 48 48" fill="none"><use href="#g-spatial"/></svg><span>Spatial förmåga<small>Ny</small></span></li>
+    <li><svg viewBox="0 0 48 48" fill="none"><use href="#g-ordforrad"/></svg><span>Ordförråd</span></li>
+    <li><svg viewBox="0 0 48 48" fill="none"><use href="#g-verbalt"/></svg><span>Verbalt resonemang<small>Ny</small></span></li>
+    <li><svg viewBox="0 0 48 48" fill="none"><use href="#g-numeriskt"/></svg><span>Numeriskt resonemang</span></li>
+    <li><svg viewBox="0 0 48 48" fill="none"><use href="#g-personlighet"/></svg><span>Personlighetstest</span></li>
+  </ul>
+  <div class="nio-rad">
+    <div class="nio-ex spec" style="--w: 100%">
+      <p>Raden på ljus yta, matrislogik markerad. 24 px, 280 px bred, ryms på 375.</p>
+      <figure data-tb data-form="rad" data-markerad="matris" data-label="Nio testtyper, matrislogik markerad"></figure>
+      <p style="margin-top:16px">Rutnätet på ljus yta, tre markerade för I-provet, med caption.</p>
+      <figure data-tb data-form="rutnat" data-markerade="ordforrad,spatial,talserier" data-text="Sex deltester, tre testtyper" data-label="Nio testtyper, tre markerade för I-provet"></figure>
+    </div>
+    <div class="nio-ex pa-vagg spec" style="--w: 100%">
+      <p>Raden på vägg, ingen markerad: alla nio i samma vikt.</p>
+      <figure data-tb data-form="rad" data-yta="vagg" data-label="Nio testtyper"></figure>
+      <p style="margin-top:16px">Raden på vägg med matrislogik markerad i koppar-ljus.</p>
+      <figure data-tb data-form="rad" data-yta="vagg" data-markerad="matris" data-label="Nio testtyper, matrislogik markerad"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ YTORNA -->
+<section class="del">
+  <h2>Ytorna S1 till S12</h2>
+  <p class="ing">Ordningen är prioritet: trafik gånger avstånd till köpet. FÖRE är ordagrant ur koden på main be2c78a1. EFTER är slutcopy ur beslut.md. Korten är ritade i verklig storlek med sajtens tokens; en kort rad under varje par säger vad som ändras och varför.</p>
+</section>
+
+<!-- S1 -->
+<article class="yta" id="s1">
+  <div class="yta-huvud">
+    <span class="id">S1</span>
+    <h3>Kontopanelen efter provet</h3>
+    <p class="var"><b>Syns på</b> /verktyg/rekryteringstester/prova efter fem frågor, och i ArtikelProv i 16 artiklar. 321 spärrar, 189 vidareklick på 28 dagar. Visas här i datorbredd, där premiumraden syns; på mobil döljs den i dag.</p>
+  </div>
+  <div class="par">
+    <div class="sida">
+      <span class="lbl fore">Före</span>
+      <div class="frame"><aside class="spec pub-rum-tran pub-konto-panel" style="--w: 460px">
+        <p class="pub-kick">Ditt prov, sparat i sju dagar</p>
+        <div class="pub-konto-prov-rad">
+          <p class="pub-konto-tal">3<small>av 5 rätt</small></p>
+          <div class="pub-brickor" aria-hidden="true"><i class="brk"></i><i class="brk fel"></i><i class="brk"></i><i class="brk fel"></i><i class="brk"></i></div>
+        </div>
+        <h2>Kontot visar fråga 2 och 4 och reglerna bakom</h2>
+        <ul class="pub-prov-bock">
+          <li><span><b>Fråga 2 och 4</b> med rätt svar och reglerna bakom</span></li>
+          <li><span><b>Genomgång</b> av alla fem frågor</span></li>
+          <li><span><b>Nivåkollen</b>, 5 minuter, räknar in de här svaren</span></li>
+        </ul>
+        <p class="pub-konto-premium"><b>Premium</b>, 149 kr i månaden, när du sedan vill träna på din nivå varje dag. Först Nivåkollen, gratis.</p>
+      </aside></div>
+    </div>
+    <div class="sida">
+      <span class="lbl efter">Efter</span>
+      <div class="frame"><aside class="spec pub-rum-tran pub-konto-panel" style="--w: 460px">
+        <p class="pub-kick">Ditt prov, sparat i sju dagar</p>
+        <div class="pub-konto-prov-rad">
+          <p class="pub-konto-tal">3<small>av 5 rätt</small></p>
+          <div class="pub-brickor" aria-hidden="true"><i class="brk"></i><i class="brk fel"></i><i class="brk"></i><i class="brk fel"></i><i class="brk"></i></div>
+        </div>
+        <h2>Kontot visar fråga 2 och 4 och reglerna bakom</h2>
+        <ul class="pub-prov-bock">
+          <li><span><b>Fråga 2 och 4</b> med rätt svar och reglerna bakom</span></li>
+          <li><span><b>Genomgång</b> av alla fem frågor</span></li>
+          <li><span><b>Nivåkollen</b>, 5 minuter: visar var du står och räknar in de här svaren</span></li>
+        </ul>
+        <figure data-tb data-form="rad" data-yta="vagg" data-markerad="matris" data-label="Grundnivån i alla åtta testtyperna, matrislogik markerad"></figure>
+        <p class="pub-konto-premium"><b>Premium</b>, 149 kr i månaden, när du sedan vill träna på din nivå varje dag. Först grundnivån i alla åtta testtyperna, gratis.</p>
+      </aside></div>
+    </div>
+  </div>
+  <div class="andring">
+    <p><b>Vad ändras:</b> rad 3 får förklaringen "visar var du står" (det här är en av tre publika ställen där namnet Nivåkollen får stå, eftersom det introduceras med förklaring i samma mening). Premiumraden byter "Först Nivåkollen, gratis" mot "Först grundnivån i alla åtta testtyperna, gratis". Nio-raden läggs under de tre raderna, matrisen markerad, eftersom besökaren just gjort matrisfrågor.</p>
+    <p><b>Varför:</b> det är sajtens största konverteringsyta och hela din poäng: bredden måste synas just här. Under Black Week följer priset kampanjen (K2).</p>
+  </div>
+</article>
+
+<!-- S2 -->
+<article class="yta" id="s2">
+  <div class="yta-huvud">
+    <span class="id">S2</span>
+    <h3>ProvKort i testartiklarna</h3>
+    <p class="var"><b>Syns</b> efter andra stycket i testklustrets artiklar. 327 visningar, 25 procent klick. Matar S1.</p>
+  </div>
+  <div class="par">
+    <div class="sida">
+      <span class="lbl fore">Före</span>
+      <div class="frame"><aside class="spec ib-prova pub-rum-tran">
+        <div>
+          <p class="pub-kick">Prova på riktigt</p>
+          <p class="ib-rub">Vilken figur hör hemma i den tomma rutan?</p>
+          <p class="ib-prova-text">Det här är en av våra expertfrågor: tre regler samtidigt, form, tecken och fyllning. Fem frågor gratis här, rätt och fel direkt. Nivåkollen och första passet gratis med konto.</p>
+          <div class="pub-handling"><a class="pub-knapp" href="#s2">Prova fem frågor</a><a class="pub-lank" href="#s2">Se alla tester och nivåer</a></div>
+          <p class="pub-liten">Alla nivåer, övningsprov mot klockan och fördjupade personlighetstestet ingår i Premium, 149 kr i månaden.</p>
+        </div>
+        <div class="ib-prova-sida"><div class="ib-prova-matris" data-provmatris aria-hidden="true"></div></div>
+      </aside></div>
+    </div>
+    <div class="sida">
+      <span class="lbl efter">Efter</span>
+      <div class="frame"><aside class="spec ib-prova pub-rum-tran">
+        <div>
+          <p class="pub-kick">Prova på riktigt</p>
+          <p class="ib-rub">Vilken figur hör hemma i den tomma rutan?</p>
+          <p class="ib-prova-text">Det här är en av våra expertfrågor: tre regler samtidigt, form, tecken och fyllning. Fem frågor gratis här, rätt och fel direkt. Facit och grundnivån i alla åtta testtyperna gratis med konto.</p>
+          <figure data-tb data-form="rad" data-markerad="matris" data-label="En av nio testtyper, matrislogik"></figure>
+          <div class="pub-handling"><a class="pub-knapp" href="#s2">Prova fem frågor</a><a class="pub-lank" href="#s2">Se alla tester och nivåer</a></div>
+          <p class="pub-liten">Avancerad och expertnivå, övningsprov mot klockan i samma format som Matrigma, Alva, SHL och Aon, och det fördjupade personlighetstestet ingår i Premium, 149 kr i månaden.</p>
+        </div>
+        <div class="ib-prova-sida"><div class="ib-prova-matris" data-provmatris aria-hidden="true"></div></div>
+      </aside></div>
+    </div>
+  </div>
+  <div class="andring">
+    <p><b>Vad ändras:</b> sista meningen i texten, paketraden (avancerad och expertnivå i stället för "alla nivåer", leverantörsnamnen tillbaka, "det fördjupade"), och Nio-raden under texten med matrisen markerad. Eyebrow, rubrik, knapp, länk och matrisbilden behålls.</p>
+    <p><b>Varför:</b> sju av nio köp landade på artiklar om Alva, Matrigma eller verbalt test. Namnen är det läsaren sökte på, alltid "i samma format som", aldrig "samma test". Under kampanjveckan blir paketraden fem rader i stället för fyra, det accepteras.</p>
+  </div>
+</article>
+
+<!-- S3 -->
+<article class="yta" id="s3">
+  <div class="yta-huvud">
+    <span class="id">S3</span>
+    <h3>Gratispanelen på /register</h3>
+    <p class="var"><b>Syns</b> bredvid formuläret på bar /register. 309 sidvisningar, 263 personer.</p>
+  </div>
+  <div class="par">
+    <div class="sida">
+      <span class="lbl fore">Före</span>
+      <div class="frame"><aside class="spec pub-rum-tran pub-konto-panel" style="--w: 460px">
+        <p class="pub-kick">Det här ingår gratis</p>
+        <h2>Börja med det som avgör urvalet</h2>
+        <ul class="pub-konto-ger">
+          <li><span class="pub-konto-obj" aria-hidden="true"><svg viewBox="0 0 64 64" style="--bg-obj:#1B2246"><use href="#o-matris-reg"/></svg></span><div><b>Nivåkollen</b><span>Var du står i rekryteringstesterna, med genomgång av varje fråga.</span></div></li>
+          <li><span class="pub-konto-obj" aria-hidden="true"><svg viewBox="0 0 64 64" style="--bg-obj:#1B2246"><use href="#o-cv"/></svg></span><div><b>CV-analysen</b><span>Poängen och det tyngsta fyndet i ditt CV.</span></div></li>
+          <li><span class="pub-konto-obj" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#o-brev"/></svg></span><div><b>Ett personligt brev</b><span>Skrivet på annonsen utifrån ditt CV.</span></div></li>
+        </ul>
+        <p class="pub-konto-premium"><b>Premium</b>, 149 kr i månaden, när du vill ha allt utan tak. Säg upp när du vill.</p>
+      </aside></div>
+    </div>
+    <div class="sida">
+      <span class="lbl efter">Efter</span>
+      <div class="frame"><aside class="spec pub-rum-tran pub-konto-panel" style="--w: 460px">
+        <p class="pub-kick">Det här ingår gratis</p>
+        <h2>Börja med det som avgör urvalet</h2>
+        <ul class="pub-konto-ger">
+          <li class="glyfrad">
+            <figure data-tb data-form="rad" data-yta="vagg" data-label="Nio testtyper"></figure>
+            <div><b>Rekryteringstesterna</b><span>Grundnivån i alla åtta typerna, med genomgång av varje fråga.</span></div>
+          </li>
+          <li><span class="pub-konto-obj" aria-hidden="true"><svg viewBox="0 0 64 64" style="--bg-obj:#1B2246"><use href="#o-cv"/></svg></span><div><b>CV-analysen</b><span>Poängen och det tyngsta fyndet i ditt CV.</span></div></li>
+          <li><span class="pub-konto-obj" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#o-brev"/></svg></span><div><b>Ett personligt brev</b><span>Skrivet på annonsen utifrån ditt CV.</span></div></li>
+        </ul>
+        <p class="pub-konto-premium"><b>Premium</b>, 149 kr i månaden, när du vill ha allt utan tak. Säg upp när du vill.</p>
+      </aside></div>
+    </div>
+  </div>
+  <div class="andring">
+    <p><b>Vad ändras:</b> första raden byter namn från Nivåkollen till Rekryteringstesterna, texten säger grundnivån i alla åtta typerna, och den ensamma matrisikonen byts mot Nio-raden på vägg så att bredden syns innan hon skapar kontot. Raderna CV-analysen och Ett personligt brev är orörda.</p>
+    <p><b>Varför:</b> en ikon för nio typer var exakt det du såg. Premiumraden följer kampanjen under Black Week (K3).</p>
+  </div>
+</article>
+
+<!-- S4 -->
+<article class="yta" id="s4">
+  <div class="yta-huvud">
+    <span class="id">S4</span>
+    <h3>Betalväggen när hon vill upp en nivå</h3>
+    <p class="var"><b>Syns</b> i testrummet när gratisanvändaren klickar på avancerad nivå (PaywallCard testniva). 27 visningar, 33 procent klick, 1 köp. Den betalvägg som konverterar.</p>
+  </div>
+  <div class="par">
+    <div class="sida">
+      <span class="lbl fore">Före</span>
+      <div class="frame inl"><section class="spec inl pw" style="--w: 420px">
+        <h3>Avancerad nivå ingår i Premium</h3>
+        <p class="body">Premium ger alla 19 tester, alla nivåer, övningsprov mot klockan, det fördjupade personlighetstestet och förklaring till varje fråga.</p>
+        <p class="pris">Jobbcoach Premium, 149 kr i månaden. Säg upp när du vill.</p>
+        <div class="knapprad"><span class="knapp-primar">Köp Premium, 149 kr i månaden</span><a class="lank-inl" href="#s4">Kör grundnivån igen</a></div>
+      </section></div>
+    </div>
+    <div class="sida">
+      <span class="lbl efter">Efter</span>
+      <div class="frame inl"><section class="spec inl pw" style="--w: 420px">
+        <h3>Avancerad nivå ingår i Premium</h3>
+        <p class="body">Premium ger alla åtta testtyperna på alla nivåer, pass varje dag, övningsprov mot klockan och det fördjupade personlighetstestet.</p>
+        <figure data-tb data-form="rad" data-markerad="matris" data-label="Nio testtyper, matrislogik låst"></figure>
+        <p class="pris">Jobbcoach Premium, 149 kr i månaden.<br>Säg upp när du vill.</p>
+        <div class="knapprad"><span class="knapp-primar">Köp Premium, 149 kr i månaden</span><a class="lank-inl" href="#s4">Kör grundnivån igen</a></div>
+      </section></div>
+    </div>
+    <div class="sida">
+      <span class="lbl efter">Efter, under Black Week <small>23 till 29 november, bara för konton som aldrig haft Premium</small></span>
+      <div class="frame inl"><section class="spec inl pw" style="--w: 420px">
+        <h3>Avancerad nivå ingår i Premium</h3>
+        <p class="body">Premium ger alla åtta testtyperna på alla nivåer, pass varje dag, övningsprov mot klockan och det fördjupade personlighetstestet.</p>
+        <figure data-tb data-form="rad" data-markerad="matris" data-label="Nio testtyper, matrislogik låst"></figure>
+        <p class="pris">Jobbcoach Premium, 99 kr första månaden, sedan 149 kr i månaden.<br>Säg upp när du vill.</p>
+        <div class="knapprad"><span class="knapp-primar">Köp Premium, 99 kr första månaden</span><a class="lank-inl" href="#s4">Kör grundnivån igen</a></div>
+      </section></div>
+    </div>
+    <div class="sida">
+      <span class="lbl efter">Efter, rubrikvarianten från kurvan <small>samma kort, bara rubriken skiljer</small></span>
+      <div class="frame inl"><section class="spec inl pw" style="--w: 420px">
+        <h3>Hela din utveckling ingår i Premium</h3>
+        <p class="body">Premium ger alla åtta testtyperna på alla nivåer, pass varje dag, övningsprov mot klockan och det fördjupade personlighetstestet.</p>
+        <figure data-tb data-form="rad" data-markerad="matris" data-label="Nio testtyper, matrislogik låst"></figure>
+        <p class="pris">Jobbcoach Premium, 149 kr i månaden.<br>Säg upp när du vill.</p>
+        <div class="knapprad"><span class="knapp-primar">Köp Premium, 149 kr i månaden</span><a class="lank-inl" href="#s4">Se vad som ingår</a></div>
+      </section></div>
+    </div>
+  </div>
+  <div class="andring">
+    <p><b>Vad ändras:</b> brödtexten: "19 tester" var fel (vi har 29 i 9 typer) och "förklaring till varje fråga" är gratis och ska inte säljas. Nio-raden med den låsta typen markerad läggs mellan brödtext och prisrad, så att talet står i bilden och copyn slutar räkna. Rubriken "Hela kurvan ingår i Premium" blir "Hela din utveckling ingår i Premium". Under kampanjen får prisrad och knapp kampanjpriset (K1), ingen tredje mening; Cyber Monday samma mönster med 49 kr.</p>
+    <p><b>Varför:</b> sanningskravet före stil. Och i dag säger betalväggen 149 medan köpsteget ett klick senare säger 99.</p>
+  </div>
+</article>
+
+<!-- S5 -->
+<article class="yta" id="s5">
+  <div class="yta-huvud">
+    <span class="id">S5</span>
+    <h3>Betalväggen när dagens pass är gjort</h3>
+    <p class="var"><b>Syns</b> i testrummet när gratisanvändaren slår i dagstaket (PaywallCard test-tak). 43 visningar, 0 klick. Den vägg flest gratisanvändare möter.</p>
+  </div>
+  <div class="par">
+    <div class="sida">
+      <span class="lbl fore">Före</span>
+      <div class="frame inl"><section class="spec inl pw" style="--w: 420px">
+        <h3>Dagens omgång är gjord</h3>
+        <p class="body">Premium ger alla nivåer, övningsprov och obegränsat antal försök.</p>
+        <p class="pris">Jobbcoach Premium, 149 kr i månaden. Säg upp när du vill.</p>
+        <div class="knapprad"><span class="knapp-primar">Köp Premium, 149 kr i månaden</span><span class="lank-inl">Kom tillbaka i morgon</span></div>
+      </section></div>
+    </div>
+    <div class="sida">
+      <span class="lbl efter">Efter</span>
+      <div class="frame inl"><section class="spec inl pw" style="--w: 420px">
+        <h3>Dagens omgång är gjord</h3>
+        <p class="body">Premium ger alla nivåer, övningsprov mot klockan och pass utan tak, varje dag.</p>
+        <figure data-tb data-form="rad" data-markerad="numeriskt" data-label="Nio testtyper, numeriskt resonemang låst"></figure>
+        <p class="pris">Jobbcoach Premium, 149 kr i månaden.<br>Säg upp när du vill.</p>
+        <div class="knapprad"><span class="knapp-primar">Köp Premium, 149 kr i månaden</span><span class="lank-inl">Kom tillbaka i morgon</span></div>
+      </section></div>
+    </div>
+  </div>
+  <div class="andring">
+    <p><b>Vad ändras:</b> "obegränsat" är förbjudet hos oss och dessutom osant (kvoten är per dag); raden blir "pass utan tak, varje dag", sann mot checkDailyTestQuota. Nio-raden med den typ hon just körde markerad. Rubrik och "Kom tillbaka i morgon" behålls. Kampanjpris som S4.</p>
+  </div>
+</article>
+
+<!-- S6 -->
+<article class="yta" id="s6">
+  <div class="yta-huvud">
+    <span class="id">S6</span>
+    <h3>Intervjuklustrets inline-kort och sticky</h3>
+    <p class="var"><b>Syns</b> i intervjuartiklarna, 35 procent av trafiken. Inline coach-kortet: 323 visningar, 4 procent klick. Sticky på mobil: 215 visningar, 0 klick. 1 konto, 0 köp.</p>
+  </div>
+  <div class="par">
+    <div class="sida">
+      <span class="lbl fore">Före <small>coach-kortet</small></span>
+      <div class="frame"><aside class="spec ib-prova pub-rum-jobb">
+        <div>
+          <p class="pub-kick">Verktyget</p>
+          <p class="ib-rub">Träna svaret innan du sitter i rummet</p>
+          <p class="ib-prova-text">Bolla dina svar med Jobbcoachen och få följdfrågorna en rekryterare hade ställt. Tio frågor utan att betala.</p>
+          <div class="pub-handling"><a class="pub-knapp" href="#s6">Träna intervjufrågor</a></div>
+          <p class="pub-liten">Jobbcoachen, så mycket du vill, ingår i Premium, 149 kr i månaden.</p>
+        </div>
+        <div class="ib-prova-sida" aria-hidden="true"><div class="pub-obj"><svg viewBox="0 0 64 64"><use href="#o-chat"/></svg></div></div>
+      </aside></div>
+    </div>
+    <div class="sida">
+      <span class="lbl efter">Efter <small>ProvKort med intervjutexten</small></span>
+      <div class="frame"><aside class="spec ib-prova pub-rum-jobb">
+        <div>
+          <p class="pub-kick">Inför intervjun</p>
+          <p class="ib-rub">Intervjun kommer sällan ensam</p>
+          <p class="ib-prova-text">Logiktest och personlighetstest ingår ofta i samma process, före eller efter intervjun. Prova fem matrisfrågor gratis, rätt och fel direkt, eller se alla tester och nivåer.</p>
+          <figure data-tb data-form="rad" data-markerad="matris" data-label="En av nio testtyper, matrislogik"></figure>
+          <div class="pub-handling"><a class="pub-knapp" href="#s6">Prova fem frågor</a><a class="pub-lank" href="#s6">Se alla tester och nivåer</a></div>
+          <p class="pub-liten">Avancerad och expertnivå, övningsprov mot klockan i samma format som Matrigma, Alva, SHL och Aon, och det fördjupade personlighetstestet ingår i Premium, 149 kr i månaden.</p>
+        </div>
+        <div class="ib-prova-sida"><div class="ib-prova-matris" data-provmatris aria-hidden="true"></div></div>
+      </aside></div>
+    </div>
+    <div class="sida">
+      <span class="lbl fore">Före <small>sticky på mobil, 375 px</small></span>
+      <div class="frame smal"><div class="spec tel"><div class="skarm" aria-hidden="true"></div><div class="sticky"><a class="pub-knapp" href="#s6">Träna intervjufrågor</a><span class="x" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span></div></div></div>
+    </div>
+    <div class="sida">
+      <span class="lbl efter">Efter <small>sticky på mobil, 375 px</small></span>
+      <div class="frame smal"><div class="spec tel"><div class="skarm" aria-hidden="true"></div><div class="sticky"><a class="pub-knapp" href="#s6">Prova fem frågor gratis</a><span class="x" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span></div></div></div>
+    </div>
+  </div>
+  <div class="andring">
+    <p><b>Vad ändras:</b> inline-kortet byter från coach-kortet till ProvKort med den redan godkända intervjutexten, paketrad som S2, Nio-raden med matrisen markerad. Sticky på mobil leder till provet i stället för Jobbcoachen. Hjälteknappen och sidokortet lämnas, en ändring i taget så att mätningen går att läsa.</p>
+    <p><b>Varför:</b> en tredjedel av trafiken har aldrig gett ett köp. Mäts fyra veckor mot coach-kortets 4 procent klick.</p>
+  </div>
+</article>
+
+<!-- S7 -->
+<article class="yta" id="s7">
+  <div class="yta-huvud">
+    <span class="id">S7</span>
+    <h3>GratisKort, kortet du pekade på</h3>
+    <p class="var"><b>Syns</b> som slutkort i generic-artiklar och på plats 7 i artikellistan. 23 visningar, 0 klick. Ändras för principens skull; effekten kommer från S1 till S6.</p>
+  </div>
+  <div class="par stapla">
+    <div class="sida">
+      <span class="lbl fore">Före <small>datorbredd</small></span>
+      <div class="frame"><aside class="spec ib-gratis ib-gratis-bred" style="--w: 760px">
+        <div>
+          <p class="pub-kick">Utan att betala</p>
+          <p class="pub-h3 ib-rub">Vill du prova innan du läser vidare?</p>
+          <div class="pub-handling"><a class="pub-knapp" href="#s7">Skapa konto gratis</a><a class="pub-lank" href="#s7">Se vad som ingår i Premium</a></div>
+        </div>
+        <ul class="pub-bock">
+          <li><a class="pub-lank" href="#s7">Tre CV-mallar och en nedladdning</a></li>
+          <li><span>En CV-analys med poäng och tyngsta fyndet</span></li>
+          <li><span>Ett personligt brev var sjunde dag, att läsa på skärmen</span></li>
+          <li><span>Tre matchade jobb och tio frågor till Jobbcoachen</span></li>
+          <li><span>Nivåkollen i testerna med genomgång, och ett första träningspass</span></li>
+        </ul>
+      </aside></div>
+    </div>
+    <div class="sida">
+      <span class="lbl efter">Efter <small>datorbredd</small></span>
+      <div class="frame"><aside class="spec ib-gratis ib-gratis-bred efter" style="--w: 760px">
+        <div class="ig-text">
+          <p class="pub-kick">Utan att betala</p>
+          <p class="pub-h3 ib-rub">Vill du prova innan du läser vidare?</p>
+        </div>
+        <figure data-tb data-form="rutnat" data-label="Nio testtyper, grundnivån gratis i alla"></figure>
+        <ul class="pub-bock">
+          <li><span>Grundnivån i alla åtta testtyperna och personlighetstestet, med förklaring efter varje fråga</span></li>
+          <li><a class="pub-lank" href="#s7">Tre CV-mallar och en nedladdning</a></li>
+          <li><span>En CV-analys med poängen och det tyngsta fyndet</span></li>
+          <li><span>Ett personligt brev var sjunde dag, att läsa på skärmen</span></li>
+          <li><span>Tre matchade jobb och tio frågor till Jobbcoachen</span></li>
+        </ul>
+        <div class="pub-handling"><a class="pub-knapp" href="#s7">Skapa konto gratis</a><a class="pub-lank" href="#s7">Se vad som ingår i Premium</a></div>
+      </aside></div>
+    </div>
+  </div>
+  <div class="par">
+    <div class="sida">
+      <span class="lbl fore">Före <small>375 px: knappen står före skälen</small></span>
+      <div class="frame smal"><aside class="spec ib-gratis ib-gratis-bred" style="--w: 343px">
+        <div>
+          <p class="pub-kick">Utan att betala</p>
+          <p class="pub-h3 ib-rub">Vill du prova innan du läser vidare?</p>
+          <div class="pub-handling"><a class="pub-knapp" href="#s7">Skapa konto gratis</a><a class="pub-lank" href="#s7">Se vad som ingår i Premium</a></div>
+        </div>
+        <ul class="pub-bock">
+          <li><a class="pub-lank" href="#s7">Tre CV-mallar och en nedladdning</a></li>
+          <li><span>En CV-analys med poäng och tyngsta fyndet</span></li>
+          <li><span>Ett personligt brev var sjunde dag, att läsa på skärmen</span></li>
+          <li><span>Tre matchade jobb och tio frågor till Jobbcoachen</span></li>
+          <li><span>Nivåkollen i testerna med genomgång, och ett första träningspass</span></li>
+        </ul>
+      </aside></div>
+    </div>
+    <div class="sida">
+      <span class="lbl efter">Efter <small>375 px: rubrik, bild, skäl, knapp</small></span>
+      <div class="frame smal"><aside class="spec ib-gratis ib-gratis-bred efter" style="--w: 343px">
+        <div class="ig-text">
+          <p class="pub-kick">Utan att betala</p>
+          <p class="pub-h3 ib-rub">Vill du prova innan du läser vidare?</p>
+        </div>
+        <figure data-tb data-form="rutnat" data-label="Nio testtyper, grundnivån gratis i alla"></figure>
+        <ul class="pub-bock">
+          <li><span>Grundnivån i alla åtta testtyperna och personlighetstestet, med förklaring efter varje fråga</span></li>
+          <li><a class="pub-lank" href="#s7">Tre CV-mallar och en nedladdning</a></li>
+          <li><span>En CV-analys med poängen och det tyngsta fyndet</span></li>
+          <li><span>Ett personligt brev var sjunde dag, att läsa på skärmen</span></li>
+          <li><span>Tre matchade jobb och tio frågor till Jobbcoachen</span></li>
+        </ul>
+        <div class="pub-handling"><a class="pub-knapp" href="#s7">Skapa konto gratis</a><a class="pub-lank" href="#s7">Se vad som ingår i Premium</a></div>
+      </aside></div>
+    </div>
+  </div>
+  <div class="andring">
+    <p><b>Vad ändras:</b> testraden flyttar först och säger bredden ("åtta testtyperna och personlighetstestet, med förklaring efter varje fråga"), mallraden med sin länk följer med till rad 2, och "poäng och tyngsta fyndet" blir "poängen och det tyngsta fyndet" (F21). Nio-rutnätet blir kortets bild, utan caption: listans första rad står intill och säger redan bredden. Mobilordningen rättas: i dag står knappen före skälen.</p>
+    <p><b>Varför:</b> det här är det enda stället i erbjudandet som aldrig fått bild. CV-sidan har mallar, telefoner och poäng överallt; blicken har lärt sig att vi är en CV-tjänst med tester som bisats. Sidokolumnvarianten får samma lista (tre första raderna), Nio-raden och captionen "Grundnivån gratis i alla nio".</p>
+  </div>
+</article>
+
+<!-- S8 -->
+<article class="yta" id="s8">
+  <div class="yta-huvud">
+    <span class="id">S8</span>
+    <h3>Testsidan /verktyg/rekryteringstester</h3>
+    <p class="var"><b>Syns</b> när sekundärlänken i S2 och S6 klickas. 71 sidvisningar nu, 41 konton under P1. Bara text ändras: sidan är redan bilden med åtta typkort. H1, H2 och ordmängd oförändrade, seo-diff som grind.</p>
+  </div>
+  <div class="par">
+    <div class="sida">
+      <span class="lbl fore">Före <small>hjälten, textspalten</small></span>
+      <div class="frame vagg"><div class="spec pub-rum-tran vagg-text" style="--w: 560px">
+        <p class="smula">Hem / Verktyg / Rekryteringstester</p>
+        <p class="pub-kick">Rekryteringstester, kom förberedd till provet</p>
+        <h1>Träna på rekryteringstester innan arbetsgivaren testar dig</h1>
+        <p class="pub-ingress">Matrislogik, verbalt och numeriskt resonemang i samma format som SHL, Cut-e och Assessio använder, och talserier, spatial förmåga och ordförråd inför I-provet. <b>Fem frågor gratis här och Nivåkollen gratis med konto. Ingen kortuppgift, och du ser rätt och fel direkt efter varje pass.</b></p>
+        <div class="pub-handling"><a class="pub-knapp" href="#s8">Starta gratis test</a><a class="pub-lank" href="#s8">Se alla tester</a></div>
+        <ul class="pub-tal"><li><b>Nivåkollen</b><span>och första passet gratis med konto</span></li><li><b>20 min</b><span>per pass</span></li><li><b>5 frågor</b><span>att prova utan konto</span></li></ul>
+      </div></div>
+    </div>
+    <div class="sida">
+      <span class="lbl efter">Efter <small>hjälten, textspalten</small></span>
+      <div class="frame vagg"><div class="spec pub-rum-tran vagg-text" style="--w: 560px">
+        <p class="smula">Hem / Verktyg / Rekryteringstester</p>
+        <p class="pub-kick">Rekryteringstester, kom förberedd till provet</p>
+        <h1>Träna på rekryteringstester innan arbetsgivaren testar dig</h1>
+        <p class="pub-ingress">Matrislogik, figurserier, deduktiv slutledning, verbalt och numeriskt resonemang i samma format som SHL, Aon och Assessio använder, och talserier, spatial förmåga och ordförråd inför I-provet. <b>Fem frågor gratis här, grundnivån i alla åtta testtyperna gratis med konto. Ingen kortuppgift, och du ser rätt och fel direkt efter varje test.</b></p>
+        <div class="pub-handling"><a class="pub-knapp" href="#s8">Starta gratis test</a><a class="pub-lank" href="#s8">Se alla tester</a></div>
+        <ul class="pub-tal"><li><b>8 testtyper</b><span>gratis på grundnivå med konto</span></li><li><b>20 min</b><span>per pass</span></li><li><b>5 frågor</b><span>att prova utan konto</span></li></ul>
+      </div></div>
+    </div>
+    <div class="sida">
+      <span class="lbl fore">Före <small>ProvaKortet under hjälten</small></span>
+      <div class="frame"><div class="spec pub-rum-tran pub-kort pub-prova-kort" style="--w: 680px">
+        <div>
+          <p class="pub-h3">Gör ett prov direkt, utan konto</p>
+          <p class="pub-brod">Du behöver inte registrera dig för att se var du står. Fem frågor tar ett par minuter.</p>
+          <ul class="pub-bock"><li>Fem matrislogikfrågor</li><li>Samma frågebank som i det skarpa testet</li><li>Resultat direkt, ingen tidtagning</li></ul>
+        </div>
+        <div class="pub-prova-handling"><a class="pub-knapp" href="#s8">Prova fem frågor</a><p class="pub-liten">Ingen inloggning, inget kort</p></div>
+      </div></div>
+    </div>
+    <div class="sida">
+      <span class="lbl efter">Efter <small>ProvaKortet under hjälten</small></span>
+      <div class="frame"><div class="spec pub-rum-tran pub-kort pub-prova-kort" style="--w: 680px">
+        <div>
+          <p class="pub-h3">Gör ett prov direkt, utan konto</p>
+          <p class="pub-brod">Du behöver inte registrera dig för att se var du står. Fem frågor tar ett par minuter.</p>
+          <ul class="pub-bock"><li>Fem matrislogikfrågor</li><li>Samma typ av frågor som i de skarpa testen</li><li>Resultat direkt, ingen tidtagning</li></ul>
+        </div>
+        <div class="pub-prova-handling"><a class="pub-knapp" href="#s8">Prova fem frågor</a><p class="pub-liten">Ingen inloggning, inget kort</p></div>
+      </div></div>
+    </div>
+  </div>
+  <div class="andring">
+    <p><b>Vad ändras:</b> ingressen räknar alla fem kognitiva typer och byter Cut-e mot Aon (dagens namn), den feta meningen säger grundnivån i alla åtta, talrad 1 blir "8 testtyper / gratis på grundnivå med konto", och "Samma frågebank som i det skarpa testet" blir "Samma typ av frågor som i de skarpa testen" (vi har inte deras frågebank, påståendet är osant).</p>
+    <p><b>Resten av sidan, bara text:</b> steg 1 "Välj test" (även HowTo-schemat), ingressen till testtyperna (där Nivåkollen introduceras en gång med förklaring: "tolv uppgifter som anpassar sig efter dina svar och på cirka åtta minuter visar var du står"), PremiumBlock, schema-offers, featureList ("träning utan tak" i stället för "obegränsat") och FAQ. Lydelserna står i beslut.md S8.</p>
+  </div>
+</article>
+
+<!-- S9 -->
+<article class="yta" id="s9">
+  <div class="yta-huvud">
+    <span class="id">S9</span>
+    <h3>Registreringens val och förslag</h3>
+    <p class="var"><b>Syns</b> i steg 1 (valet) och steg 3 (förslaget efter kontot) för den som väljer tester. Bara text. Återgivningen av steg 3 är förenklad: samma ord, Rummens tokens, inte pixelexakt.</p>
+  </div>
+  <div class="par">
+    <div class="sida">
+      <span class="lbl fore">Före <small>steg 1, kortet Tester</small></span>
+      <div class="frame inl"><div class="spec inl val vald" style="--w: 420px">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M9.2 3.5v17M14.8 3.5v17M3.5 9.2h17M3.5 14.8h17" opacity=".55"/><path d="M15.4 15.4h4.1v4.1h-4.1z" fill="currentColor" stroke="none" opacity=".9"/></svg>
+        <span><span class="t">Klara rekryteringstesterna</span><span class="d">Matrislogik, verbalt, numeriskt och personlighet, med förklaring efter varje fråga.</span></span>
+      </div></div>
+    </div>
+    <div class="sida">
+      <span class="lbl efter">Efter <small>steg 1, kortet Tester</small></span>
+      <div class="frame inl"><div class="spec inl val vald" style="--w: 420px">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M9.2 3.5v17M14.8 3.5v17M3.5 9.2h17M3.5 14.8h17" opacity=".55"/><path d="M15.4 15.4h4.1v4.1h-4.1z" fill="currentColor" stroke="none" opacity=".9"/></svg>
+        <span><span class="t">Klara rekryteringstesterna</span><span class="d">Åtta testtyper och personlighetstestet, med förklaring efter varje fråga.</span></span>
+      </div></div>
+    </div>
+    <div class="sida">
+      <span class="lbl fore">Före <small>steg 3 för tester</small></span>
+      <div class="frame inl"><div class="spec inl flow" style="--w: 420px">
+        <p class="text-steg">Steg 3 av 3</p>
+        <h2>Klart. Först kollar vi var du står</h2>
+        <p class="under">Du väljer test och provdatum, sedan gör du Nivåkollen. Den tar cirka 8 minuter och visar din nivå, med genomgång av varje fråga.</p>
+        <section class="gr"><p class="text-steg">Gratis, utan kort</p><ul><li>Nivåkollen med genomgång av varje fråga</li><li>Ett grundpass samma dag som Nivåkollen</li><li>Personlighetstestet med 50 påståenden</li></ul></section>
+        <section style="margin-top:24px"><p class="text-steg">När du vill träna varje dag</p>
+          <div class="spar"><p class="namn">Jobbcoach Premium</p><p class="rub">Var förberedd på testdagen</p>
+            <ul><li><span><b>Alla nivåer</b> i matrislogik, verbalt och numeriskt.</span></li><li><span><b>Övningsprov mot klockan</b>, 25 till 40 minuter.</span></li><li><span><b>Fördjupade personlighetstestet</b>, 120 påståenden.</span></li></ul>
+            <p class="pris"><b>149 kr</b>i månaden. Säg upp när du vill.</p></div>
+          <a class="lank-inl" href="#s9" style="margin-top:4px">Köp Premium, 149 kr i månaden</a>
+        </section>
+        <div class="fot"><span class="knapp-primar">Kolla min nivå, 8 min</span></div>
+      </div></div>
+    </div>
+    <div class="sida">
+      <span class="lbl efter">Efter <small>steg 3 för tester</small></span>
+      <div class="frame inl"><div class="spec inl flow" style="--w: 420px">
+        <p class="text-steg">Steg 3 av 3</p>
+        <h2>Klart. Först kollar vi var du står</h2>
+        <p class="under">Du väljer test och provdatum, sedan gör du Nivåkollen: ett kort test på cirka 8 minuter som visar din nivå, med genomgång av varje fråga.</p>
+        <section class="gr"><p class="text-steg">Gratis, utan kort</p><ul><li>Grundnivån i alla åtta testtyperna</li><li>Genomgång av varje fråga</li><li>Personlighetstestet med 50 påståenden</li></ul></section>
+        <section style="margin-top:24px"><p class="text-steg">När du vill träna varje dag</p>
+          <div class="spar"><p class="namn">Jobbcoach Premium</p><p class="rub">Var förberedd på testdagen</p>
+            <ul><li><span><b>Alla nivåer</b> i alla åtta testtyperna.</span></li><li><span><b>Övningsprov mot klockan</b> i samma format som ditt test.</span></li><li><span><b>Fördjupade personlighetstestet</b>, 120 påståenden.</span></li></ul>
+            <p class="pris"><b>149 kr</b>i månaden. Säg upp när du vill.</p></div>
+          <a class="lank-inl" href="#s9" style="margin-top:4px">Köp Premium, 149 kr i månaden</a>
+        </section>
+        <div class="fot"><span class="knapp-primar">Kolla min nivå, 8 min</span></div>
+      </div></div>
+    </div>
+  </div>
+  <div class="andring">
+    <p><b>Vad ändras:</b> steg 1 räknar typer i stället för fyra namn. Steg 3: Nivåkollen introduceras med förklaring ("ett kort test på cirka 8 minuter"), gratislistan säger grundnivån i alla åtta och "Genomgång av varje fråga" i stället för "ett grundpass samma dag", Premiumraderna säger "alla åtta testtyperna" och "i samma format som ditt test" (25 till 40 minuter täcker bara tre provformat).</p>
+    <p><b>Dessutom, utan skiss:</b> förslagets underrad för tester (visas i andra lägen) blir "Grundnivån i alla testtyper är gratis med kontot. Träningspass på din nivå varje dag ingår i Premium." och intervjuförslagets kortrubrik "Var förberedd på testdagen" blir "Var förberedd på intervjun" (den var fel kort).</p>
+  </div>
+</article>
+
+<!-- S10 -->
+<article class="yta" id="s10">
+  <div class="yta-huvud">
+    <span class="id">S10</span>
+    <h3>Gratiskortet på /priser</h3>
+    <p class="var"><b>Syns</b> under Premium-hjälten på /priser. 23 sidvisningar men 2 av 7 köp med känd plats.</p>
+  </div>
+  <div class="par stapla">
+    <div class="sida">
+      <span class="lbl fore">Före</span>
+      <div class="frame"><div class="spec pub-kort pub-gratis-kort" style="--w: 960px">
+        <div>
+          <h2 class="pub-h3">Vill du se först?</h2>
+          <p class="pub-brod">Utan att betala får du <b>Nivåkollen i testerna</b> med full genomgång och ett första träningspass samma dag, <b>personlighetstestet</b> med 50 påståenden, <b>3 CV-mallar</b> och en nedladdning, <b>en CV-analys</b> som visar din poäng och det tyngsta fyndet, <b>ett personligt brev</b> skrivet på en annons och sedan ett i veckan (att läsa, inte ladda ner), <b>3 matchade jobb</b> och <b>10 frågor</b> till Jobbcoachen.</p>
+          <div class="pub-handling"><a class="pub-knapp" href="#s10">Skapa konto gratis</a><span class="pub-liten">Inget kort. Ligger kvar så länge du vill.</span></div>
+        </div>
+        <ul class="pub-gratis-rad" aria-label="Gratisnivån i siffror">
+          <li><span class="pub-obj pub-obj-40" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#o-matris"/></svg></span><b>1</b><span>Nivåkollen</span></li>
+          <li><span class="pub-obj pub-obj-40" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#o-person"/></svg></span><b>50</b><span>påståenden</span></li>
+          <li><span class="pub-obj pub-obj-40" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#o-mallar"/></svg></span><b>3</b><span>CV-mallar</span></li>
+          <li><span class="pub-obj pub-obj-40" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#o-cv"/></svg></span><b>1</b><span>CV-analys</span></li>
+          <li><span class="pub-obj pub-obj-40" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#o-brev"/></svg></span><b>1</b><span>brev, sedan ett i veckan</span></li>
+          <li><span class="pub-obj pub-obj-40" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#o-match"/></svg></span><b>3</b><span>matchade jobb</span></li>
+        </ul>
+      </div></div>
+    </div>
+    <div class="sida">
+      <span class="lbl efter">Efter</span>
+      <div class="frame"><div class="spec pub-kort pub-gratis-kort" style="--w: 960px">
+        <div>
+          <h2 class="pub-h3">Vill du se först?</h2>
+          <p class="pub-brod">Utan att betala gör du <b>grundnivån i alla åtta testtyperna</b> och <b>personlighetstestet</b> med 50 påståenden, får <b>tre CV-mallar</b> och en nedladdning, <b>en CV-analys</b> med poängen och det tyngsta fyndet, <b>ett personligt brev</b> var sjunde dag att läsa på skärmen, <b>tre matchade jobb</b> och <b>tio frågor</b> till Jobbcoachen. Inget kort behövs.</p>
+          <div class="pub-handling"><a class="pub-knapp" href="#s10">Skapa konto gratis</a><span class="pub-liten">Inget kort. Ligger kvar så länge du vill.</span></div>
+        </div>
+        <ul class="pub-gratis-rad" aria-label="Gratisnivån i siffror">
+          <li class="tb-platta"><figure data-tb data-form="rutnat" data-text="Grundnivån i alla nio" data-label="Nio testtyper, grundnivån i alla"></figure></li>
+          <li><span class="pub-obj pub-obj-40" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#o-person"/></svg></span><b>50</b><span>påståenden</span></li>
+          <li><span class="pub-obj pub-obj-40" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#o-mallar"/></svg></span><b>3</b><span>CV-mallar</span></li>
+          <li><span class="pub-obj pub-obj-40" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#o-cv"/></svg></span><b>1</b><span>CV-analys</span></li>
+          <li><span class="pub-obj pub-obj-40" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#o-brev"/></svg></span><b>1</b><span>brev, sedan ett i veckan</span></li>
+          <li><span class="pub-obj pub-obj-40" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#o-match"/></svg></span><b>3</b><span>matchade jobb</span></li>
+        </ul>
+      </div></div>
+    </div>
+  </div>
+  <div class="andring">
+    <p><b>Vad ändras:</b> brödtexten blir den kanoniska gratismeningen ur en enda källa (gratis-copy.ts), så att gratisnivån aldrig mer beskrivs på sex sätt. Plattan "1 Nivåkollen" (en etta säljer inget) blir Nio-rutnätet med etiketten "Grundnivån i alla nio"; plattan är ramen, rutnätet har ingen egen. Övriga plattor behålls.</p>
+    <p><b>Layoutval från art-director:</b> beslut.md säger att plattan spänner två kolumner. Med sex plattor ger det en ensam platta på sista raden, så rutnätsplattan spänner två kolumner <em>och två rader</em>: nio celler blir tre hela rader, och rutnätet får sina 148 px utan att grannarna sträcks. Fetningarna i meningen följer mönstret i dagens text; copywriterns A5 avgör exakt vilka ord.</p>
+    <p><b>Resten av sidan, bara text:</b> testraden under Tester, stegen ("Grundnivån visar var du står i varje typ", "Följ din utveckling, pass för pass"), tabellens rad 1 ("Grundnivån / alla åtta testtyperna och personlighetstestet / Ingår, med genomgång / Ingår, plus ett pass om dagen på din nivå"), FAQ, GRATIS_RAD och FREE_HIGHLIGHTS ur den kanoniska listan. Lydelserna i beslut.md S10.</p>
+  </div>
+</article>
+
+<!-- S11 -->
+<article class="yta" id="s11">
+  <div class="yta-huvud">
+    <span class="id">S11</span>
+    <h3>Startsidan, stationen Tester</h3>
+    <p class="var"><b>Syns</b> som det största blocket på startsidan. 108 sidvisningar, 3 konton, 1 köp. Bara text; telefonerna till höger är bilden och visas inte här.</p>
+  </div>
+  <div class="par">
+    <div class="sida">
+      <span class="lbl fore">Före</span>
+      <div class="frame vagg"><div class="spec pub-rum-tran vagg-text" style="--w: 560px">
+        <div class="pub-obj" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#o-matris"/></svg></div>
+        <p class="pub-kick" style="margin-top:20px">Inför urvalstestet</p>
+        <p class="pub-h2">Rekryteringstester</p>
+        <p class="pub-ingress" style="margin-top:16px"><b>Känn igen uppgiften innan provdagen.</b> Logik, verbalt och numeriskt i tre nivåer med förklaring efter varje fråga, och personlighetstestet som visar vad rekryteraren läser ut av dig.</p>
+        <p class="pub-brod">Samma format som de stora testleverantörerna använder. Nivåkollen visar var du står, dagens pass tränar det du tappar, och övningsprovet går mot klockan som det skarpa testet. Personlighetstestet ger din profil, hur den läses mot vanliga kravprofiler och frågorna du lär få på intervjun, med förslag på svar. Fem frågor provar du utan konto.</p>
+        <div class="pub-handling"><a class="pub-knapp" href="#s11">Så fungerar det</a><span class="pub-liten">Nivåkollen, första passet och personlighetstestet gratis</span></div>
+      </div></div>
+    </div>
+    <div class="sida">
+      <span class="lbl efter">Efter</span>
+      <div class="frame vagg"><div class="spec pub-rum-tran vagg-text" style="--w: 560px">
+        <div class="pub-obj" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#o-matris"/></svg></div>
+        <p class="pub-kick" style="margin-top:20px">Inför urvalstestet</p>
+        <p class="pub-h2">Rekryteringstester</p>
+        <p class="pub-ingress" style="margin-top:16px"><b>Känn igen uppgiften innan provdagen.</b> Logik, verbalt och numeriskt i tre nivåer med förklaring efter varje fråga, och personlighetstestet som visar vad rekryteraren läser ut av dig.</p>
+        <p class="pub-brod">Åtta testtyper i tre nivåer, från matrislogik till talserier, i samma format som de stora testleverantörerna använder. Ett nivåtest visar var du står, ett kort pass om dagen tränar det du tappar, och övningsprovet går mot klockan som det skarpa testet. Personlighetstestet ger din profil, hur den läses mot vanliga kravprofiler och frågorna du lär få på intervjun, med förslag på svar. Fem frågor provar du utan konto.</p>
+        <div class="pub-handling"><a class="pub-knapp" href="#s11">Så fungerar det</a><span class="pub-liten">Grundnivån i alla åtta testtyperna och personlighetstestet gratis</span></div>
+      </div></div>
+    </div>
+  </div>
+  <div class="andring">
+    <p><b>Vad ändras:</b> brödtextens första mening säger bredden ("Åtta testtyper i tre nivåer, från matrislogik till talserier"), Nivåkollen blir "ett nivåtest", "dagens pass" blir "ett kort pass om dagen", och raden vid knappen säger grundnivån i alla åtta. Ingressen behålls enligt beslutet. Stationen Brev får "Första personliga brevet gratis, sedan ett var sjunde dag", och FAQ-svaret om gratisnivån läses ur den kanoniska källan.</p>
+  </div>
+</article>
+
+<!-- S12 -->
+<article class="yta" id="s12">
+  <div class="yta-huvud">
+    <span class="id">S12</span>
+    <h3>TypProvKort i fem testartiklar</h3>
+    <p class="var"><b>Syns</b> i artiklarna om I-provet, deduktivt, talserier, spatial förmåga och ordförråd. 69 visningar, 5 klick till /register. Här I-provet och deduktivt; talserier, spatial och ordförråd följer samma mönster (bilden behålls, Nio-raden under texten med typen markerad, paketraden omskriven).</p>
+  </div>
+  <div class="par">
+    <div class="sida">
+      <span class="lbl fore">Före <small>I-provet</small></span>
+      <div class="frame"><aside class="spec ib-prova pub-rum-tran">
+        <div>
+          <p class="pub-kick">Öva inför I-provet</p>
+          <p class="ib-rub">Alla sex deltester, i provets ordning</p>
+          <p class="ib-prova-text">Grundnivån i synonymer och motsatsord, talserier och spatial förmåga är gratis med konto. Övningsprovet med tid per deltest ingår i Premium.</p>
+          <div class="pub-handling"><a class="pub-knapp" href="#s12">Börja med grundnivån gratis</a><a class="pub-lank" href="#s12">Se I-provet, övningsprov</a></div>
+          <p class="pub-liten">Halva och hela I-provets övningsprov, alla nivåer och pass varje dag ingår i Premium, 149 kr i månaden.</p>
+        </div>
+        <div class="ib-prova-sida"><div class="ib-typbild" aria-hidden="true"><ol class="ib-typdelar"><li>Synonymer</li><li>Pappersvikning</li><li>Talserier</li><li>Motsatsord</li><li>Tärningar</li><li>Vikning med klipp</li></ol></div></div>
+      </aside></div>
+    </div>
+    <div class="sida">
+      <span class="lbl efter">Efter <small>I-provet</small></span>
+      <div class="frame"><aside class="spec ib-prova pub-rum-tran">
+        <div>
+          <p class="pub-kick">Öva inför I-provet</p>
+          <p class="ib-rub">Alla sex deltester, i provets ordning</p>
+          <p class="ib-prova-text">Grundnivån i synonymer och motsatsord, talserier och spatial förmåga är gratis med konto. Övningsprovet med tid per deltest ingår i Premium.</p>
+          <div class="pub-handling"><a class="pub-knapp" href="#s12">Börja med grundnivån gratis</a><a class="pub-lank" href="#s12">Se I-provet, övningsprov</a></div>
+          <p class="pub-liten">Halva och hela I-provets övningsprov, avancerad och expertnivå och ett träningspass om dagen ingår i Premium, 149 kr i månaden.</p>
+        </div>
+        <div class="ib-prova-sida"><div class="ib-typbild"><figure data-tb data-form="rutnat" data-markerade="ordforrad,spatial,talserier" data-text="Sex deltester, tre testtyper" data-label="Nio testtyper, I-provets tre markerade"></figure></div></div>
+      </aside></div>
+    </div>
+    <div class="sida">
+      <span class="lbl fore">Före <small>deduktivt</small></span>
+      <div class="frame"><aside class="spec ib-prova pub-rum-tran">
+        <div>
+          <p class="pub-kick">Öva deduktivt</p>
+          <p class="ib-rub">Deduktivt test med lösningen efter varje svar</p>
+          <p class="ib-prova-text">Börja med Nivåkollen i deduktivt. Den är gratis med konto, visar var du ligger och går igenom varje uppgift efteråt.</p>
+          <div class="pub-handling"><a class="pub-knapp" href="#s12">Gör Nivåkollen i deduktivt</a><a class="pub-lank" href="#s12">Övningsprovet mot klockan</a></div>
+          <p class="pub-liten">Pass varje dag, avancerad och expert och övningsprovet mot klockan ingår i Premium, 149 kr i månaden.</p>
+        </div>
+        <div class="ib-prova-sida"><div class="ib-typbild" aria-hidden="true">
+          <p class="ib-typpremiss">Alla som gått kursen får ett intyg. Omar har inget intyg.</p>
+          <p class="ib-typpastaende">Vad måste gälla?</p>
+          <ol class="ib-typlista"><li>Omar har inte gått kursen.</li><li>Alla med intyg har gått kursen.</li><li>Omar har gått kursen.</li><li>Någon utan intyg har gått kursen.</li></ol>
+        </div></div>
+      </aside></div>
+    </div>
+    <div class="sida">
+      <span class="lbl efter">Efter <small>deduktivt</small></span>
+      <div class="frame"><aside class="spec ib-prova pub-rum-tran">
+        <div>
+          <p class="pub-kick">Öva deduktivt</p>
+          <p class="ib-rub">Deduktivt test med lösningen efter varje svar</p>
+          <p class="ib-prova-text">Börja med nivåtestet i deduktivt. Det är gratis med konto, visar var du ligger och går igenom varje uppgift efteråt.</p>
+          <figure data-tb data-form="rad" data-markerad="deduktiv" data-label="En av nio testtyper, deduktiv slutledning"></figure>
+          <div class="pub-handling"><a class="pub-knapp" href="#s12">Gör nivåtestet i deduktivt</a><a class="pub-lank" href="#s12">Övningsprovet mot klockan</a></div>
+          <p class="pub-liten">Avancerad och expertnivå, ett träningspass om dagen och övningsprovet mot klockan ingår i Premium, 149 kr i månaden.</p>
+        </div>
+        <div class="ib-prova-sida"><div class="ib-typbild ib-ded" aria-hidden="true">
+          <svg viewBox="0 0 170 120" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 18h92M14 36h62" stroke-width="5" opacity=".7"/>
+            <rect x="10" y="60" width="150" height="46" rx="10" stroke-width="4"/>
+            <path d="M47.5 60v46M85 60v46M122.5 60v46" stroke-width="3" opacity=".5"/>
+            <rect x="21.75" y="76" width="14" height="14" rx="3" fill="currentColor" stroke="none"/>
+            <rect x="59.25" y="76" width="14" height="14" rx="3" fill="currentColor" stroke="none"/>
+            <rect x="93.75" y="72" width="20" height="22" rx="5" fill="#E07A2F" stroke="none"/>
+            <rect x="134.25" y="76" width="14" height="14" rx="3" fill="currentColor" stroke="none"/>
+          </svg>
+          <p>Vad måste gälla?</p>
+        </div></div>
+      </aside></div>
+    </div>
+  </div>
+  <div class="andring">
+    <p><b>Vad ändras, I-provet:</b> den numrerade listan med sex rumsfärgade cirklar (data som text, och mönstret "ikoner i färgade rutor på rad") byts mot Nio-rutnätet med ordförråd, spatial och talserier markerade och captionen "Sex deltester, tre testtyper": ordförråd täcker synonymer och motsatsord, spatial täcker pappersvikning, tärningar och vikning med klipp, talserier det sjätte. Paketraden: "avancerad och expertnivå och ett träningspass om dagen" i stället för "alla nivåer och pass varje dag". I-provet får ingen rad under texten utöver rutnätet; två Nio-element i ett kort blir klotter.</p>
+    <p><b>Deduktivt:</b> "Nivåkollen" blir "nivåtestet" i text och knapp. Bilden var ett textblock i en vit låda och läste som brödtext; den görs om till det deduktiva motivet i bild, två villkorsrader som streck och en remsa med fyra platser där svaret fylls i koppar, med "Vad måste gälla?" som enda textrad. Nio-raden under texten med deduktivt markerat.</p>
+  </div>
+</article>
+
+<!-- ================================================================ FEL -->
+<section class="del" id="fel">
+  <h2>Felrättningar F1 till F22, byggs utan skiss</h2>
+  <p class="ing">Sanningskravet går före stil. Allt här är osant, regelvidrigt ("obegränsat", mittpunkter, "jobbcoachen" med litet j) eller en rak bugg. Byggs i ett svep efter Black Week-luckan.</p>
+  <div class="tab-ram"><table>
+    <thead><tr><th>Id</th><th>Var</th><th>Före</th><th>Efter</th></tr></thead>
+    <tbody>
+      <tr><td class="id">F1</td><td>Listans slutkort<span class="fil">reklam-copy.ts, ArtikelReklam.tsx</span></td><td class="fore-t">"Läs klart, gör sedan." som replace gör till "Läs klart. gör sedan."</td><td>"Läs klart. Gör sedan." i copyn, replace-anropet bort</td></tr>
+      <tr><td class="id">F2</td><td>SlutKort test, rad 1</td><td class="fore-t">Logik, verbalt och numeriskt i grund, avancerad och expert, med förklaring till varje svar</td><td>Alla åtta testtyperna i grund, avancerad och expert, med förklaring till varje svar</td></tr>
+      <tr><td class="id">F3</td><td>SlutKort test, rad 2</td><td class="fore-t">Övningsprov på 25 till 40 minuter och automatisk inlämning, samma tidspress som hos rekryteraren</td><td>Övningsprov mot klockan i samma format som Matrigma, Alva, SHL, Aon och I-provet, med automatisk inlämning när tiden är ute</td></tr>
+      <tr><td class="id">F4</td><td>SlutKort test, rad 3</td><td class="fore-t">Fördjupade personlighetstestet, 120 påståenden</td><td>Det fördjupade personlighetstestet, 120 påståenden</td></tr>
+      <tr><td class="id">F5</td><td>HELA_PAKETET_RADER rad 1<span class="fil">plans.ts, läses av startsidan, slutkorten, köpsteget</span></td><td class="fore-t">Alla rekryteringstester, övningsprov och det fördjupade personlighetstestet</td><td>Åtta testtyper i tre nivåer, övningsprov mot klockan och det fördjupade personlighetstestet</td></tr>
+      <tr><td class="id">F6</td><td>Paketbeskrivningen<span class="fil">plans.ts</span></td><td class="fore-t">CV, personliga brev, tester, jobbmatchning och Jobbcoachen</td><td>Tester, CV, personliga brev, jobbmatchning och Jobbcoachen</td></tr>
+      <tr><td class="id">F7</td><td>ExempelCTABand</td><td class="fore-t">Ett brev om dagen och en CV-analys var tredje dag, helt gratis.</td><td>Tre CV-mallar, en CV-analys och ett personligt brev var sjunde dag, utan att betala.</td></tr>
+      <tr><td class="id">F8</td><td>ExempelCTABand, knapp och rad</td><td class="fore-t">Skapa brev gratis / Ingen kortuppgift · Ingen bindningstid · GDPR, data i EU</td><td>Skapa personligt brev gratis / Ingen kortuppgift. Ingen bindningstid. Data i EU.</td></tr>
+      <tr><td class="id">F9</td><td>Tio API-rutter session/route.ts</td><td class="fore-t">... eller köp Premium för obegränsat.</td><td>... eller köp Premium och träna utan tak. Flyttas till en konstant.</td></tr>
+      <tr><td class="id">F10</td><td>plans.ts, introduktion, opengraph-image</td><td class="fore-t">obegränsat antal omkörningar / försök / CV, Träna obegränsat</td><td>omkörningar utan tak / försök utan tak / CV utan tak / Träna utan tak</td></tr>
+      <tr><td class="id">F11</td><td>Intervjuprov, personlighetsprov, StartMallval, StartFlow</td><td class="fore-t">Inget kreditkort · Avsluta när du vill</td><td>Inget kreditkort. Avsluta när du vill.</td></tr>
+      <tr><td class="id">F12</td><td>Kalkylatorer, räkna ut, useUnusedFeatures, komigång-mejl</td><td class="fore-t">Fråga jobbcoachen</td><td>Fråga Jobbcoachen</td></tr>
+      <tr><td class="id">F13</td><td>KalkylatorSida</td><td class="fore-t">... Jobbcoachen, så mycket du vill, ingår i Premium, 149 kr i månaden.</td><td>... Jobbcoachen, så mycket du vill, ingår i Premium. (priset står redan i eyebrow)</td></tr>
+      <tr><td class="id">F14</td><td>StickyMobileCTA letter, exempelsidornas sticky</td><td class="fore-t">Skapa mitt brev / Skapa mitt brev som {yrke}</td><td>Skriv mitt personliga brev / Skriv personligt brev som {yrke}</td></tr>
+      <tr><td class="id">F15</td><td>/personligt-brev, sidan och schemat</td><td class="fore-t">Första brevet gratis, sedan ett nytt i veckan</td><td>Första personliga brevet gratis, sedan ett var sjunde dag</td></tr>
+      <tr><td class="id">F16</td><td>/personligt-brev layout, metadata</td><td class="fore-t">Första brevet gratis</td><td>Första personliga brevet gratis, bara om description håller 110 till 158 tecken efteråt</td></tr>
+      <tr><td class="id">F17</td><td>paket-copy test_week (osålt)</td><td class="fore-t">Fyra testtyper, grundnivå till expert</td><td>Alla testtyper, grundnivå till expert</td></tr>
+      <tr><td class="id">F18</td><td>hem-copy.ts</td><td class="fore-t">Börja med Nivåkollen. Vet du när provet är, så lägger vi upp planen fram till dagen.</td><td>Börja med Nivåkollen, åtta minuter som visar var du står. Vet du när provet är, så lägger vi upp planen fram till dagen.</td></tr>
+      <tr><td class="id">F19</td><td>pass-copy.ts, tre ställen</td><td class="fore-t">Månaden täcker hela vägen / Månaden täcker ...</td><td>Premium täcker hela vägen / Premium täcker ...</td></tr>
+      <tr><td class="id">F20</td><td>Mejlet campaign-gratisniva.ts</td><td class="fore-t">Rekryteringstester: en nivåkoll med genomgång och ett första träningspass</td><td>Kanoniska testraden ur gratis-copy.ts</td></tr>
+      <tr><td class="id">F21</td><td>GratisKort rad (ingår i S7)</td><td class="fore-t">En CV-analys med poäng och tyngsta fyndet</td><td>En CV-analys med poängen och det tyngsta fyndet</td></tr>
+      <tr><td class="id">F22</td><td>reklam-copy.test.ts</td><td class="fore-t">Fångar "obegränsat" i reklamkorten</td><td>Utökas med "Nivåkollen" i publika copykällor, mittpunkten "·" och "19 tester", så att regeln håller</td></tr>
+    </tbody>
+  </table></div>
+  <p class="ing" style="margin-top:14px">Formhygien från art-director, utan skiss: StickyMobileCTA använder husets IkonX, klassen pub-knapp och --lyft i stället för egna inline-värden; solfjädern med telefoner sänks från 650 till 540 px på mobil; ImorgonKorts rubrik tar klassen text-kort-t.</p>
+</section>
+
+<!-- ================================================================ BLACK WEEK -->
+<section class="del" id="bw">
+  <h2>Black Week och Cyber Monday: kampanjpriset där köpen sker</h2>
+  <p class="ing">Kampanjen är live i kod sedan 13 november på banner, PremiumBlock, SidoPaketKort, ProvKort, /priser, köpsteget och förslaget. Den saknas på ytorna som fyra av sju mätta köp kom från. Byggs först av allt, behöver inget godkännande, bara QA. Ett konto som haft Premium ser aldrig kampanjpris.</p>
+  <div class="tab-ram"><table>
+    <thead><tr><th>Id</th><th>Yta</th><th>Före, under kampanj</th><th>Efter, under kampanj</th></tr></thead>
+    <tbody>
+      <tr><td class="id">K1</td><td>PaywallCard, alla varianter</td><td class="fore-t">Prisrad "Jobbcoach Premium, 149 kr i månaden. Säg upp när du vill." Knapp "Köp Premium, 149 kr i månaden". Ett klick senare säger köpsteget 99 kr.</td><td>Prisrad "Jobbcoach Premium, 99 kr första månaden, sedan 149 kr i månaden. Säg upp när du vill." Knapp "Köp Premium, 99 kr första månaden". Cyber Monday samma mönster med 49. Ingen tredje mening. Se S4.</td></tr>
+      <tr><td class="id">K2</td><td>Kontopanelens premiumrad på /prova och i ArtikelProv</td><td class="fore-t">, 149 kr i månaden, när du sedan vill ...</td><td>, 99 kr första månaden, sedan 149 kr i månaden, när du sedan vill ... Båda varianterna renderas, KampanjVarianter väljer (sidorna CDN-cachas ett dygn).</td></tr>
+      <tr><td class="id">K3</td><td>Gratispanelens premiumrad på /register</td><td class="fore-t">, 149 kr i månaden, när du vill ha allt utan tak.</td><td>, 99 kr första månaden, sedan 149 kr i månaden, när du vill ha allt utan tak. Samma mekanik som K2.</td></tr>
+      <tr><td class="id">K4</td><td>Testrummet: ImorgonKort, planens betalvägg, gratisraden i TesterHub</td><td class="fore-t">149 kr i månaden</td><td>Kampanjpriset via serverläst kampanj, som K1</td></tr>
+      <tr><td class="id">K5</td><td>kampanj.ts copy.kortText</td><td class="fore-t">Renderas aldrig</td><td>Raderas i städsteget. Inget kampanjkort byggs: ett kort till konkurrerar med ProvKort som fungerar.</td></tr>
+      <tr><td class="id">K6</td><td>Mätning</td><td class="fore-t">paywall_shown och paywall_cta_clicked utan kampanjinformation</td><td>Egenskapen kampanj (nyckel eller null) på båda, så att veckan kan läsas för sig. Avläsning 1 december: köp per betalvägg under kampanjen mot fyra veckor före.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="ing" style="margin-top:14px">Mejlen för kampanjen och gratisnivån läses av copywritern senast 19 november med samma krav: bredd, inte Nivåkollen, inga talstreck, "utan tak". De skickas av morgonkörningen 23 respektive 30 november och går inte att ta tillbaka efteråt.</p>
+</section>
+
+<!-- ================================================================ BYGGORDNING -->
+<section class="del" id="bygg">
+  <h2>Byggordning och tidsplan</h2>
+  <p class="ing">Allt mekaniskt byggs på Opus. Per fix: tsc och berörda tester. En gång på allt ändrat före push: full build, perf och klickmatris. Riktig webbläsare (Pixel 7 och desktop, skärmdump per steg) innan något kallas klart.</p>
+  <ul class="tid" aria-label="Datum">
+    <li><b>20 nov</b><span>Black Week-luckan live och klicktestad, fredag</span></li>
+    <li><b>23 nov 00.00</b><span>Kampanjen börjar, 99 kr första månaden</span></li>
+    <li><b>30 nov</b><span>Cyber Monday, 49 kr, samma mönster</span></li>
+    <li><b>1 dec</b><span>Avläsning Black Week per betalvägg (K6)</span></li>
+    <li><b>Tidigast 20 dec</b><span>Avläsning intervjuklustret och korten, fyra veckor efter deploy</span></li>
+  </ul>
+  <ol class="steg">
+    <li><span><b>Black Week-luckan K1 till K4 och K6.</b><span class="dl">live 20 nov</span><br>Klicktest i Stripes testläge med kampanjdatumet satt, mot en betalvägg, kontopanelen på /prova och /register. Verifiera att ett konto som betalat aldrig ser 99 kr.</span></li>
+    <li><span><b>Kanonisk källa.</b> gratis-copy.ts med listan och tre meningar, läst av GratisKort, FREE_HIGHLIGHTS, /priser, registreringens gratislistor, /register-panelen och startsidans FAQ. Konstanten ANTAL_TESTTYPER ur testkonfigurationen. Testutökningen F22.</span></li>
+    <li><span><b>Felrättningarna F1 till F21.</b> Kan pushas med steg 1 om tiden räcker.</span></li>
+    <li><span><b>Ditt godkännande av den här artefakten.</b> Före och efter för S1 till S12. Kommentera per kort; godkänt betyder att texten byggs ordagrant.</span></li>
+    <li><span><b>Copyytorna S1 till S14 i text</b>, i nummerordning. Alla publika ändringar med seo-diff mot före-avtryck; H1, H2 och ordmängd i artiklarna orörda, korten är p, aldrig rubriker.</span></li>
+    <li><span><b>Testelementet Nio.</b> De nio glyferna (tre nya), TestBredd-komponenten och CSS. Placering på S1, S2, S3, S4, S5, S7, S10, S12, S13 och formhygienen. Perf publikt en gång efter: inget kort får lägga JavaScript på sidan, CLS noll.</span></li>
+    <li><span><b>QA i riktig webbläsare:</b> /prova med spärr, /register, en testartikel, en intervjuartikel, GratisKort i en generic-artikel, /priser, startsidan, testrummet med båda betalväggarna. Skärmdumpar i docs/qa, aldrig i git.</span></li>
+    <li><span><b>Städsteget D3</b> som egen commit efter att allt är mergat: tretton verifierat oimporterade komponenter och döda copynycklar, med listan i commit-meddelandet så att den går att backa.</span></li>
+    <li><span><b>Avläsning.</b> Black Week 1 december. Korten och intervjuklustret fyra veckor efter deploy, i samma rapport, med kampanjveckan som egen period. Mätpunkter: article_cta_clicked per variant och kluster, signup_started från /prova, signup_completed, paywall_cta_clicked per variant, köp per plats.</span></li>
+  </ol>
+</section>
+
+</div>
+
+<script>
+(function () {
+  // Testelementet Nio: TestBredd renderad ur data-attribut, samma markup som komponenten ska ge.
+  var TYPER = ['matris','figurer','deduktiv','talserier','spatial','ordforrad','verbalt','numeriskt','personlighet'];
+  var els = document.querySelectorAll('[data-tb]');
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    var form = el.getAttribute('data-form') || 'rad';
+    var yta = el.getAttribute('data-yta') || 'ljus';
+    var mark = {};
+    var m1 = el.getAttribute('data-markerad'); if (m1) mark[m1] = true;
+    var m2 = el.getAttribute('data-markerade'); if (m2) m2.split(',').forEach(function (k) { mark[k.trim()] = true; });
+    var nagon = Object.keys(mark).length > 0;
+    el.className = ('tb tb-' + form + ' tb-' + yta + ' ' + (el.className || '')).trim();
+    el.setAttribute('role', 'img');
+    el.setAttribute('aria-label', el.getAttribute('data-label') || 'Nio testtyper');
+    var html = '<ol class="tb-glyfer"' + (nagon ? ' data-nagon-markerad' : '') + '>';
+    for (var j = 0; j < TYPER.length; j++) {
+      var k = TYPER[j];
+      html += '<li data-typ="' + k + '"' + (mark[k] ? ' data-markerad' : '') + '><svg viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false"><use href="#g-' + k + '"/></svg></li>';
+    }
+    html += '</ol>';
+    var text = el.getAttribute('data-text');
+    if (text) html += '<figcaption class="tb-text">' + text + '</figcaption>';
+    el.innerHTML = html;
+  }
+
+  // ProvMatris: expertfrågan v7e-plus-p2-17 ur MatrisExpert.tsx, facit C.
+  var RUTOR = [['triangel','ljus','plus'],['cirkel','mork','minus'],['kvadrat','ljus','prick'],['cirkel','mork','prick'],['kvadrat','ljus','plus'],['triangel','mork','minus'],['kvadrat','ljus','minus'],['triangel','mork','prick']];
+  var ALT = [['A','cirkel','ljus','minus'],['B','kvadrat','mork','plus'],['C','cirkel','ljus','plus'],['D','kvadrat','mork','minus'],['E','cirkel','ljus','prick'],['F','kvadrat','mork','prick']];
+  function fig(form, fyll, marke, streck) {
+    var dy = form === 'triangel' ? 9 : 0;
+    var f = fyll === 'ljus' ? 'var(--papper-skarm)' : 'var(--kant-stark)';
+    var s = '<g stroke="var(--ink-1)" stroke-width="' + streck + '" stroke-linecap="round" stroke-linejoin="round" fill="none">';
+    if (form === 'triangel') s += '<path d="M50 18 L82 80 L18 80 Z" fill="' + f + '"/>';
+    if (form === 'cirkel') s += '<circle cx="50" cy="50" r="30" fill="' + f + '"/>';
+    if (form === 'kvadrat') s += '<rect x="20" y="20" width="60" height="60" rx="4" fill="' + f + '"/>';
+    if (marke === 'plus') s += '<path d="M40 ' + (50 + dy) + 'H60M50 ' + (40 + dy) + 'V' + (60 + dy) + '"/>';
+    if (marke === 'minus') s += '<path d="M40 ' + (50 + dy) + 'H60"/>';
+    if (marke === 'prick') s += '<circle cx="50" cy="' + (50 + dy) + '" r="5" fill="var(--ink-1)" stroke="none"/>';
+    return s + '</g>';
+  }
+  function lucka(s) {
+    return '<g fill="none" stroke="var(--ink-3)" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="16" width="68" height="68" rx="8" stroke-width="' + (s * 0.72).toFixed(2) + '" stroke-dasharray="5 4"/><path d="M38 40 A12 12 0 1 1 55 51 Q50 55 50 62" stroke-width="' + (s * 1.4).toFixed(2) + '"/><circle cx="50" cy="73" r="3.2" fill="var(--ink-3)" stroke="none"/></g>';
+  }
+  var pm = document.querySelectorAll('[data-provmatris]');
+  for (var p = 0; p < pm.length; p++) {
+    var g = '<div class="ib-pm-g">';
+    for (var r = 0; r < RUTOR.length; r++) g += '<div><svg viewBox="0 0 100 100" focusable="false">' + fig(RUTOR[r][0], RUTOR[r][1], RUTOR[r][2], 3.6) + '</svg></div>';
+    g += '<div><svg viewBox="0 0 100 100" focusable="false">' + lucka(3.6) + '</svg></div></div><div class="ib-pm-alt">';
+    for (var a = 0; a < ALT.length; a++) g += '<div><b>' + ALT[a][0] + '</b><svg viewBox="0 0 100 100" focusable="false">' + fig(ALT[a][1], ALT[a][2], ALT[a][3], 4.2) + '</svg></div>';
+    g += '</div>';
+    pm[p].innerHTML = g;
+  }
+})();
+</script>
