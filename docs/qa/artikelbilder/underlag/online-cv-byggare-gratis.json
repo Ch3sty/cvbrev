@@ -1,18 +1,11 @@
 {
- "alt": "CV skapat i en online CV-byggare, med resultatrad för en säljare och tre steg",
+ "alt": "CV i en CV-byggare online med en resultatrad för en butikssäljare och tre kontroller",
  "fyll": {
   "etikett": "CV-byggare online",
-  "namn": "Emma Svensson",
-  "yrke": {
-   "text": "Säljare",
-   "kalla": "ansvarade för försäljning"
-  },
-  "profil": "Ökade försäljningen med 18 procent på ett år",
-  "grepp": [
-   "Välj en ATS-säker mall",
-   "Beskriv resultat, inte uppgifter",
-   "Ladda ner som PDF"
-  ],
+  "namn": "Emma Karlsson",
+  "yrke": "Butikssäljare",
+  "profil": "Ökade merförsäljningen i kassan med 15 procent under 2025",
+  "grepp": ["Testa nedladdningen först", "Välj en mall i en kolumn", "Beskriv resultat med siffror"],
   "sektion": "ERFARENHET"
  }
 }

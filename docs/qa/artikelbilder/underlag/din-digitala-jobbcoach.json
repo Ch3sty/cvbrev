@@ -1,9 +1,21 @@
 {
- "alt": "Utkast från en digital jobbcoach till en säljroll, inledningen inringad, med tre av coachens uppgifter",
+ "alt": "Fråga till en digital jobbcoach om intervjuövning, svarets fyra delar enligt STAR och tre frågor",
  "fyll": {
   "etikett": "Digital jobbcoach",
-  "mottagare": { "text": "Ansökan: säljare", "kalla": "säljare" },
-  "stycke": { "text": "Med tre år som säljare inom SaaS känner jag igen de utmaningar ni beskriver i annonsen.", "kalla": "Med tre år som säljare inom SaaS och ett dokumenterat snitt på 118% av kvoten känner jag igen de utmaningar ni beskriver i annonsen." },
-  "grepp": ["Förstår din bakgrund", "Tolkar arbetsgivarens behov", "Formulerar ditt värde"]
+  "fraga": "Kan jag öva intervju med AI?",
+  "chip": "DIN FRÅGA",
+  "delar": [
+   ["S", "Situation", 0.5, false],
+   ["T", "Uppgift", 0.5, false],
+   ["A", "Handling", 0.5, false],
+   ["R", "Resultat", 0.5, false]
+  ],
+  "delarKalla": "be om återkoppling enligt STAR: situation, uppgift, handling, resultat",
+  "vanster": {
+   "typ": "ring",
+   "tal": { "text": "3", "kalla": "de tre frågor en rekryterare troligen ställer" },
+   "enhet": "frågor",
+   "text": "en rekryterare troligen ställer"
+  }
  }
 }

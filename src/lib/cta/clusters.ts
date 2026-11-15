@@ -194,9 +194,12 @@ export function inlineVerktygForKluster(
     case 'letter':
       return 'brev'
     // Intervjuklustret får provkortet med intervjutexten (S6, beslut
-    // 2026-11-15). INLINE.coach står kvar för räknarartiklarna.
+    // 2026-11-15). INLINE.coach står kvar för räknarartiklarna. Artiklar
+    // om själva jobbcoachen (taggen jobbcoach, i dag bara
+    // din-digitala-jobbcoach) får coachkortet: läsaren kom för coachen
+    // (säljgranskningen i svepet 2026-11-15).
     case 'interview':
-      return 'test'
+      return harTagg(tags, ['jobbcoach']) ? 'coach' : 'test'
     case 'career':
       return arKarriarLon(tags) ? 'raknare' : 'lankrad'
     case 'generic':

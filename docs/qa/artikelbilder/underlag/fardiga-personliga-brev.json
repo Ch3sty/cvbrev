@@ -1,9 +1,9 @@
 {
- "alt": "Färdigt personligt brev anpassat för en ekonomiassistent, första meningen inringad, med tre steg",
+ "alt": "Färdigt personligt brev för en ekonomiassistent där inledningen som ska skrivas om är inringad",
  "fyll": {
-  "etikett": "Anpassa mallen",
+  "etikett": "Färdiga personliga brev",
   "mottagare": { "text": "Ansökan: ekonomiassistent", "kalla": "ekonomiassistent" },
-  "stycke": { "text": "I tre år har jag skött leverantörsreskontra och månadsavstämningar för ett bolag med 200 anställda.", "kalla": "I tre år har jag skött leverantörsreskontra och månadsavstämningar för ett bolag med 200 anställda, det senaste året i Fortnox." },
-  "grepp": ["Byt ut all generisk text", "Matcha brevet mot jobbannonsen", "Skriv om inledningen"]
+  "stycke": "Jag söker tjänsten som ekonomiassistent hos Lundqvist Redovisning AB.",
+  "grepp": ["Skriv de fasta delarna en gång", "Markera annonsens krav och välj stycken", "Skriv inledningen ny och korrekturläs"]
  }
 }

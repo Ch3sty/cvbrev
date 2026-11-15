@@ -985,8 +985,11 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
         // Del B 4.3 punkt 7: där bilden stod först är src och alt desamma (bilden
         // flyttar till hjälten). Övriga får frontmatter.image som första bild.
         const fm = artikelBild(f.path);
-        if (bildBytt && f.forstaBild?.src === bildBytt.gammal && e.forstaBild?.src === bildBytt.ny) {
-          info(`första bilden bytt (${bildBytt.datum}): ${JSON.stringify(f.forstaBild)} → ${JSON.stringify(e.forstaBild)}`);
+        // Flera byten per sida kan finnas (artikelbilden och, vid en omskrivning, författarens
+        // porträtt när taggarna ger en annan författare): något av dem ska stämma.
+        const forstaByte = BILD_BYTT.find((b) => b.path === f.path && f.forstaBild?.src === b.gammal && e.forstaBild?.src === b.ny);
+        if (forstaByte) {
+          info(`första bilden bytt (${forstaByte.datum}): ${JSON.stringify(f.forstaBild)} → ${JSON.stringify(e.forstaBild)}. ${forstaByte.skal}`);
         } else if (!bildBytt && fm && e.forstaBild?.src === fm && f.forstaBild?.src !== fm) {
           // Inte för bildbytta sidor: frontmatter.image är där redan den nya bilden.
           info(`första bilden blir artikelbilden (2026-10-12, del B 4.4): ${JSON.stringify(f.forstaBild)} → ${JSON.stringify(e.forstaBild)}`);

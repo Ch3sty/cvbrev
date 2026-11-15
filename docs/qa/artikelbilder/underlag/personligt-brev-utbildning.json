@@ -1,12 +1,12 @@
 {
- "alt": "Personligt brev till en utbildning med inledningen inringad och tre tips inför antagningen",
+ "alt": "Personligt brev till en utbildning där inledningen om masterprogrammet är inringad bredvid tre tips",
  "fyll": {
   "etikett": "Brev till utbildning",
   "mottagare": {
-   "text": "Ansökan: kandidatprogrammet",
-   "kalla": "kandidatprogrammet"
+   "text": "Ansökan: masterprogrammet",
+   "kalla": "masterprogrammet"
   },
-  "stycke": "Jag söker kandidatprogrammet i miljövetenskap vid Norrviks högskola.",
+  "stycke": "Jag söker masterprogrammet i interaktionsdesign vid Norrviks högskola.",
   "grepp": [
    "Var specifik om programmet",
    "Koppla till egna erfarenheter",

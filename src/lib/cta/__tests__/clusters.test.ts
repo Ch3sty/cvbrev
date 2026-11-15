@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { arLonArtikel, getCtaVariantForTags, normalizeTag } from '../clusters'
+import { arLonArtikel, getCtaVariantForTags, inlineVerktygForKluster, normalizeTag } from '../clusters'
 
 /**
  * Taggarna nedan är kopierade ur frontmatter i content/artiklar/<slug>.mdx.
@@ -147,5 +147,17 @@ describe('arLonArtikel (artikelbildens Lön-mall)', () => {
     expect(arLonArtikel(['uppsägning'])).toBe(false)
     expect(arLonArtikel(['salong', 'kolon'])).toBe(false)
     expect(arLonArtikel(undefined)).toBe(false)
+  })
+})
+
+describe('inlineVerktygForKluster, intervjuklustret', () => {
+  it('ger provkortet till intervjuartiklar (S6)', () => {
+    expect(inlineVerktygForKluster('interview', ['jobbintervju', 'STAR-metoden'])).toBe('test')
+  })
+
+  it('ger coachkortet till artiklar om själva jobbcoachen', () => {
+    const tags = ['AI-jobbcoach', 'digital jobbcoach', 'söka jobb med AI', 'intervjuförberedelse']
+    expect(getCtaVariantForTags(tags)).toBe('interview')
+    expect(inlineVerktygForKluster('interview', tags)).toBe('coach')
   })
 })
