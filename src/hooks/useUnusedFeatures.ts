@@ -64,7 +64,7 @@ const FEATURES: FeatureSpotlightItem[] = [
     eyebrow: 'Prova nu',
     title: 'Fråga Jobbcoachen',
     description:
-      'Få personliga råd om karriär, intervjuer och löneförhandling — när du behöver det.',
+      'Få personliga råd om karriär, intervjuer och löneförhandling, när du behöver det.',
     cta: 'Starta samtal',
   },
   {
@@ -73,7 +73,7 @@ const FEATURES: FeatureSpotlightItem[] = [
     eyebrow: 'Prova nu',
     title: 'Träna på rekryteringstester',
     description:
-      'Logiktest, verbal förmåga, numerisk analys — allt du möter på riktiga tester.',
+      'Logiktest, verbal förmåga, numerisk analys, allt du möter på riktiga tester.',
     cta: 'Börja träna',
   },
 ];
