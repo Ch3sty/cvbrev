@@ -24,7 +24,7 @@
  * ligger i src/lib/stripe/planPrices.ts.
  */
 
-import { TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { TEMPLATE_COUNT, WORD_TEMPLATE_COUNT_ORD } from '@/lib/cv/template-antal'
 
 export type PlanKey = 'cv_week' | 'test_week' | 'all_day' | 'all_week' | 'all_month' | 'all_quarter'
 
@@ -114,7 +114,7 @@ export const PLANS: readonly Plan[] = [
     highlights: [
       `Alla ${TEMPLATE_COUNT} CV-mallar`,
       'Full CV-analys, omkörningar utan tak',
-      'Ladda ner CV och personliga brev i Word och PDF',
+      `Ladda ner CV och personliga brev som PDF, breven och ${WORD_TEMPLATE_COUNT_ORD} CV-mallar också som Word`,
       'Säg upp när du vill',
     ],
   },

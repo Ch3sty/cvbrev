@@ -19,6 +19,7 @@
 
 import { useCallback, useEffect, useId, useState } from 'react'
 import Link from 'next/link'
+import { harWordVersion } from '@/lib/cv/template-antal'
 import { useRouter } from 'next/navigation'
 
 export interface DemoMall {
@@ -123,14 +124,14 @@ export default function CVMallarLiveDemo({ mallar, typsnitt, paketGrupp, paketRa
               <optgroup label="Gratis">
                 {gratis.map((m) => (
                   <option key={m.id} value={m.id}>
-                    {m.name}
+                    {harWordVersion(m.id) ? `${m.name} · PDF och Word` : m.name}
                   </option>
                 ))}
               </optgroup>
               <optgroup label={paketGrupp}>
                 {betalda.map((m) => (
                   <option key={m.id} value={m.id}>
-                    {m.name}
+                    {harWordVersion(m.id) ? `${m.name} · PDF och Word` : m.name}
                   </option>
                 ))}
               </optgroup>
@@ -171,6 +172,7 @@ export default function CVMallarLiveDemo({ mallar, typsnitt, paketGrupp, paketRa
         <p className="text-sm font-semibold text-ink-1">
           {vald.name}
           <span className="ml-2 font-normal text-ink-3">{vald.tier === 'premium' ? paketRad : 'Gratis'}</span>
+          {harWordVersion(vald.id) ? <span className="ml-2 font-normal text-ink-3">Finns också som Word</span> : null}
         </p>
         <p className="mt-1 text-sm leading-[22px] text-ink-2">{vald.description}</p>
       </div>

@@ -574,6 +574,7 @@ export const D_PRENUMERATION = {
 export const FEATURE_ETIKETT: Record<Feature, string> = {
   cv_templates_all: 'Fler CV-mallar',
   cv_export: 'Fler CV-nedladdningar',
+  cv_export_word: 'CV som Word-fil',
   cv_analysis_full: 'Hela CV-analysen',
   letter_download: 'Brevnedladdning',
   tests_above_base: 'Testnivå över grundnivån',

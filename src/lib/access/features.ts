@@ -18,6 +18,8 @@ export type Scope = 'cv' | 'tester' | 'allt'
 export type Feature =
   | 'cv_templates_all'
   | 'cv_export'
+  /** CV:t som Word-fil, sex mallar (docs/plan-cv-word-2026-11-15.md, B2). */
+  | 'cv_export_word'
   | 'cv_analysis_full'
   | 'letter_download'
   | 'tests_above_base'
@@ -41,6 +43,9 @@ export type Feature =
 export const FEATURES: Record<Feature, readonly Scope[]> = {
   cv_templates_all: ['cv', 'allt'],
   cv_export: ['cv', 'allt'],
+  // Word-filen ingår alltid i Premium; den enda gratisexporten är en PDF
+  // (planen för CV som Word, beslut B2).
+  cv_export_word: ['cv', 'allt'],
   cv_analysis_full: ['cv', 'allt'],
   letter_download: ['cv', 'allt'],
   tests_above_base: ['tester', 'allt'],

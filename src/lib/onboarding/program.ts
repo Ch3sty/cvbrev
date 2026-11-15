@@ -8,7 +8,7 @@
 // hitta i koden och tvärtom. Inga talstreck, inga engelska gränssnittsord.
 
 import { PLAN_BY_KEY, paketKort, type PlanKey } from '@/lib/plans/plans'
-import { TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { TEMPLATE_COUNT, WORD_TEMPLATE_COUNT_ORD } from '@/lib/cv/template-antal'
 import { JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 
 const ALLA_TRAFFAR = `Alla ${JOB_MATCHES_PER_RUN} jobbträffar med skälen`
@@ -70,7 +70,7 @@ export const PAKET: Record<PlanKeyPaket, PaketInfo> = {
       `Alla ${TEMPLATE_COUNT} CV-mallar`,
       'Full CV-analys, alla fynd och poängen',
       'Personliga brev, skrivna och nedladdade',
-      'CV-export utan tak, PDF och Word',
+      `CV-export utan tak, PDF och Word i ${WORD_TEMPLATE_COUNT_ORD} av mallarna`,
     ],
     ingarInte: `Ingår i ${PREMIUM}: testnivåer över grundnivån, Jobbcoachen, Bli upptäckt.`,
   }),

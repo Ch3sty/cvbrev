@@ -49,6 +49,8 @@ export type BetalvaggPlats =
   | 'analys'
   | 'nedladdning'
   | 'cv_export'
+  /** Låst Word-val i CV-mallarnas exportsteg (2026-11-15). */
+  | 'cv_export_word'
   | 'jobbtraffar'
   | 'chatt'
   | 'historik'

@@ -5,6 +5,7 @@
  */
 
 import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
+import { WORD_TEMPLATE_COUNT_ORD, wordMallarSomText } from '@/lib/cv/template-antal'
 
 export interface FaqItem {
   q: string
@@ -18,7 +19,11 @@ export const CV_MALLAR_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Kan jag ladda ner mitt CV som PDF eller Word?',
-    a: 'Ja, både PDF och Word (.docx). PDF är vanligast och fungerar perfekt med ATS-system. Word är användbart om du vill göra egna ändringar i Office, eller om annonsen specifikt frågar efter ett editerbart format.',
+    a: `Alla mallar laddas ner som PDF, och ${WORD_TEMPLATE_COUNT_ORD} av dem finns också som Word-fil (.docx). PDF är vanligast och läses rätt av rekryteringssystemen. Word väljer du när du vill ändra i filen själv efteråt, eller när annonsen ber om ett redigerbart format. Word-filen ingår i ${paketKort()}.`,
+  },
+  {
+    q: 'Vilka mallar finns som Word?',
+    a: `${wordMallarSomText()}. Alla ${WORD_TEMPLATE_COUNT_ORD} är enspaltiga och läses rätt av rekryteringssystemen, och de är märkta Word i mallväljaren. Övriga mallar laddas ner som PDF.`,
   },
   {
     q: 'Vilken mall passar bäst för mitt yrke?',

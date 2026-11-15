@@ -429,7 +429,7 @@ export default function CVCreatorWizard({
   }, []);
 
   const handleComplete = useCallback(
-    async (action: 'save' | 'download' | 'both') => {
+    async (action: 'save' | 'download' | 'both', format: 'pdf' | 'docx' = 'pdf') => {
       setIsSaving(true);
       setNamnKravs(false);
 
@@ -480,7 +480,7 @@ export default function CVCreatorWizard({
             body: JSON.stringify({
               structuredData: metadata,
               template: selectedTemplate,
-              format: 'pdf',
+              format,
             }),
           });
 
@@ -494,7 +494,7 @@ export default function CVCreatorWizard({
           const url = window.URL.createObjectURL(blob);
           const a = document.createElement('a');
           a.href = url;
-          a.download = `CV-${cvData.personalInfo.fullName?.replace(/\s+/g, '-') || 'mitt-cv'}.pdf`;
+          a.download = `CV-${cvData.personalInfo.fullName?.replace(/\s+/g, '-') || 'mitt-cv'}.${format === 'docx' ? 'docx' : 'pdf'}`;
           document.body.appendChild(a);
           a.click();
           window.URL.revokeObjectURL(url);

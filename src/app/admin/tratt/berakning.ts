@@ -266,6 +266,7 @@ export function veckaInfo(mandag: string, idag: string): VeckaInfo {
 export const FEATURE_NAMN: Record<Feature, string> = {
   cv_templates_all: 'Alla CV-mallar',
   cv_export: 'Ladda ned CV',
+  cv_export_word: 'CV som Word-fil',
   cv_analysis_full: 'Full CV-analys',
   letter_download: 'Ladda ned brev',
   tests_above_base: 'Tester över grundnivå',

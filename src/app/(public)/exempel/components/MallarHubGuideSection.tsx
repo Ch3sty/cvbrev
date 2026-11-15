@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT, WORD_TEMPLATE_COUNT_ORD } from '@/lib/cv/template-antal'
 import { TOTAL_EXEMPEL } from './exempel-data'
 import { motion } from 'framer-motion'
 import {
@@ -206,10 +206,12 @@ export default function MallarHubGuideSection() {
             </p>
             <p>
               <strong>Word</strong> fungerar fint som arbetsverktyg. Skriv
-              din mall i Word, anpassa innehållet, spara sen som PDF
-              innan du skickar. Word-filer kan se trasiga ut hos
-              mottagaren beroende på deras Word-version, så skicka aldrig
-              filen i .docx-format.
+              din mall i Word, anpassa innehållet och spara som PDF
+              innan du skickar. Skicka .docx-filen när annonsen ber om
+              det. Bemanningsföretag och offentlig sektor vill ofta ha
+              Word för att kunna klistra in CV:t i sina egna system. Av
+              våra mallar finns {WORD_TEMPLATE_COUNT_ORD} också som
+              Word-fil, för dig som vill ändra själv efteråt.
             </p>
             <p>
               <strong>Online-byggare</strong> är snabbast vägen från

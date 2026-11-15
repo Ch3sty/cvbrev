@@ -1,0 +1,799 @@
+<title>CV-mallar som Word</title>
+<meta name="description" content="Skiss för ägarens godkännande: sex CV-mallar som redigerbara Word-filer, formatvalet i exportsteget, märkningen i galleriet och gränsen mellan gratis och Premium.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* ------------------------------------------------------------------
+   Skissens färger. CV-rummet: petrol vägg, ljust golv, vita kort,
+   koppar som enda accent. Dokumenten (A4-arken) är alltid vitt papper.
+   ------------------------------------------------------------------ */
+:root{
+  --golv:#E6EFEF; --papper:#FFFFFF; --papper-2:#F4F3F0;
+  --kant:#E3E1DC; --kant-stark:#C9C6BF;
+  --ink-1:#1A1A1F; --ink-2:#4A4A55; --ink-3:#65656E;
+  --vagg:#113538; --vagg-2:#1D4D51; --vagg-ink:#F1F8F7; --vagg-mjuk:#A3C9C8; --vagg-kant:rgba(255,255,255,.12);
+  --ton:#D7ECEA; --ton-ink:#1E5F5F;
+  --koppar:#E07A2F; --koppar-djup:#C4621F; --koppar-ljus:#F4B98A; --koppar-text:#1A1206; --koppar-ink:#A8491A; --koppar-mjuk:#FBE3D0;
+  --positiv:#2F7D5B; --positiv-mjuk:#DCEFE5;
+  --fel:#B3382E; --fel-mjuk:#F8E1DE; --fel-kant:#F0C7C2;
+  --dimma:rgba(10,12,30,.55);
+  --lyft:0 1px 2px rgba(17,53,56,.08),0 12px 32px -12px rgba(17,53,56,.25);
+  --ram:#9FB7B6;
+  --display:"Schibsted Grotesk",ui-sans-serif,system-ui,sans-serif;
+  --text:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --golv:#0E1B1C; --papper:#152627; --papper-2:#1B3031;
+    --kant:#27403F; --kant-stark:#345352;
+    --ink-1:#F3F2F7; --ink-2:#C7C6D0; --ink-3:#9391A1;
+    --vagg:#0B2628; --vagg-2:#15393C;
+    --ton:#1E3F40; --ton-ink:#A3D7D3;
+    --koppar-ink:#F2A368; --koppar-mjuk:rgba(224,122,47,.18);
+    --positiv:#6CC79A; --positiv-mjuk:#1C3A2D;
+    --fel:#E57F74; --fel-mjuk:#3F1F1C; --fel-kant:#5A2D29;
+    --lyft:0 1px 2px rgba(0,0,0,.4),0 12px 32px -12px rgba(0,0,0,.6);
+    --ram:#3E5C5B;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --golv:#0E1B1C; --papper:#152627; --papper-2:#1B3031;
+  --kant:#27403F; --kant-stark:#345352;
+  --ink-1:#F3F2F7; --ink-2:#C7C6D0; --ink-3:#9391A1;
+  --vagg:#0B2628; --vagg-2:#15393C;
+  --ton:#1E3F40; --ton-ink:#A3D7D3;
+  --koppar-ink:#F2A368; --koppar-mjuk:rgba(224,122,47,.18);
+  --positiv:#6CC79A; --positiv-mjuk:#1C3A2D;
+  --fel:#E57F74; --fel-mjuk:#3F1F1C; --fel-kant:#5A2D29;
+  --lyft:0 1px 2px rgba(0,0,0,.4),0 12px 32px -12px rgba(0,0,0,.6);
+  --ram:#3E5C5B;
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--golv);color:var(--ink-1);font-family:var(--text);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:0 64px}
+@media (min-width:900px){.wrap{padding-inline:40px}}
+
+h1,h2,h3,h4{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-.02em}
+h2{font-size:26px;line-height:1.15;font-weight:800;margin-bottom:8px}
+h3{font-size:18px;line-height:1.3;font-weight:700}
+p{margin:0}
+a{color:inherit}
+.ey{font-family:var(--text);font-size:12px;line-height:16px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.meta{font-size:13px;line-height:18px;color:var(--ink-3)}
+.mono{font-variant-numeric:tabular-nums}
+
+/* Väggen */
+.vagg{background:linear-gradient(160deg,var(--vagg-2),var(--vagg) 55%);color:var(--vagg-ink);border-radius:0 0 28px 28px;padding:28px 16px 64px;margin:0 -16px 0}
+@media (min-width:900px){.vagg{padding:40px 40px 72px;margin:0 -40px 0}}
+.vagg .ey{color:var(--koppar-ljus)}
+.vagg h1{font-size:34px;line-height:1.06;font-weight:800;letter-spacing:-.025em;margin-top:10px;max-width:22ch}
+@media (min-width:900px){.vagg h1{font-size:44px}}
+.vagg .ingress{margin-top:16px;max-width:62ch;color:var(--vagg-mjuk);font-size:15px;line-height:22px}
+.vagg .ingress b{color:var(--vagg-ink);font-weight:600}
+.lyft{background:var(--papper);border:1px solid var(--kant);border-radius:16px;padding:20px;box-shadow:var(--lyft);margin-top:-30px;position:relative}
+.lyft ol{margin:10px 0 0;padding-left:22px;color:var(--ink-2);font-size:14px;line-height:21px}
+.lyft li{margin-top:4px}
+.lyft li b{color:var(--ink-1);font-weight:600}
+
+/* Sektioner */
+section.block{margin-top:56px}
+.sekt-huvud{display:flex;flex-direction:column;gap:6px;max-width:66ch;margin-bottom:22px}
+.sekt-huvud .ey{color:var(--ton-ink)}
+.sekt-huvud p.lede{color:var(--ink-2);font-size:15px;line-height:22px}
+.not{color:var(--ink-3);font-size:13px;line-height:19px}
+
+/* ------------------------------------------------------------------
+   A4-ark. Container-enheter: 1pt på arket = 100cqw/595.
+   Arket är alltid vitt, också i mörkt läge; det är ett dokument.
+   ------------------------------------------------------------------ */
+.ark-ram{background:var(--papper-2);border:1px solid var(--kant);border-radius:12px;padding:12px}
+.ark{container-type:inline-size;aspect-ratio:210/297;background:#fff;color:#1f2937;overflow:hidden;position:relative;box-shadow:0 1px 0 rgba(0,0,0,.06),0 8px 24px -14px rgba(0,0,0,.35);border:1px solid rgba(0,0,0,.06)}
+.ark .sida{--pt:calc(100cqw / 595);padding:calc(var(--pt)*48) calc(var(--pt)*54);font-size:calc(var(--pt)*11);line-height:1.38;height:100%}
+.ark .sida *{margin:0;padding:0}
+.ark .sida p,.ark .sida li,.ark .sida h1,.ark .sida h2,.ark .sida h3{font-family:inherit;letter-spacing:0;text-wrap:initial}
+.ark .sida ul{list-style:none}
+.ark .sida li{position:relative;padding-left:calc(var(--pt)*12);margin-top:calc(var(--pt)*1.5)}
+.ark .sida li::before{content:"•";position:absolute;left:0;top:0;color:var(--acc)}
+.ark .sida h1{font-weight:700;line-height:1.1}
+.ark .sida h2{font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:calc(var(--pt)*8.5);line-height:1.2;margin:calc(var(--pt)*14) 0 calc(var(--pt)*7)}
+.ark .sida .titel{margin-top:calc(var(--pt)*3)}
+.ark .sida .kontakt{font-size:calc(var(--pt)*9);color:#64748b;margin-top:calc(var(--pt)*5)}
+.ark .sida .kontakt span+span::before{content:"·";margin:0 calc(var(--pt)*5);color:#cbd5e1}
+.ark .sida .huvud{padding-bottom:calc(var(--pt)*10);margin-bottom:calc(var(--pt)*4)}
+.ark .sida .jobb{margin-top:calc(var(--pt)*8)}
+.ark .sida .jobb:first-of-type{margin-top:0}
+.ark .sida .rad{display:flex;justify-content:space-between;gap:calc(var(--pt)*8);align-items:baseline}
+.ark .sida .tjanst{font-weight:700;font-size:calc(var(--pt)*11)}
+.ark .sida .period{font-size:calc(var(--pt)*9);color:#64748b;white-space:nowrap}
+.ark .sida .ag{font-size:calc(var(--pt)*10);color:#475569;margin-bottom:calc(var(--pt)*2)}
+.ark .sida .komp b{font-weight:700}
+.ark .sida .komp p{margin-top:calc(var(--pt)*2)}
+.ark .sida .sprak span+span::before{content:"·";margin:0 calc(var(--pt)*5);color:#cbd5e1}
+
+/* Norrsken: Calibri, orange vänsterkant på rubrikerna */
+.t-norrsken{font-family:Calibri,"Carlito","Segoe UI",Arial,sans-serif;--acc:#F97316}
+.t-norrsken h1{font-size:calc(var(--pt)*22);color:#0f172a;letter-spacing:-.01em}
+.t-norrsken .titel{font-size:calc(var(--pt)*11.5);color:#475569}
+.t-norrsken .huvud{border-bottom:calc(var(--pt)*.75) solid #e5e7eb}
+.t-norrsken h2{color:#0f172a;border-left:calc(var(--pt)*2.25) solid var(--acc);padding-left:calc(var(--pt)*7)}
+.t-norrsken .jobb+.jobb{border-top:calc(var(--pt)*.75) solid #f1f5f9;padding-top:calc(var(--pt)*8)}
+
+/* Student: Calibri, cyan linje under huvudet, utbildning först */
+.t-student{font-family:Calibri,"Carlito","Segoe UI",Arial,sans-serif;--acc:#0891B2}
+.t-student h1{font-size:calc(var(--pt)*21);color:#0f172a}
+.t-student .titel{font-size:calc(var(--pt)*10.5);color:var(--acc);font-weight:600}
+.t-student .huvud{border-bottom:calc(var(--pt)*1.5) solid var(--acc)}
+.t-student h2{color:#0f172a;border-bottom:calc(var(--pt)*.75) solid #e5e7eb;padding-bottom:calc(var(--pt)*3)}
+.t-student .ag{color:var(--acc);font-weight:600}
+
+/* Myndighet: Arial, marinblått, § som punkt */
+.t-myndighet{font-family:Arial,"Liberation Sans",Helvetica,sans-serif;--acc:#1E3A8A}
+.t-myndighet h1{font-size:calc(var(--pt)*20);color:#0f172a}
+.t-myndighet .titel{font-size:calc(var(--pt)*10.5);color:var(--acc);font-weight:700}
+.t-myndighet .huvud{border-bottom:calc(var(--pt)*1.5) solid var(--acc)}
+.t-myndighet h2{color:#0f172a;letter-spacing:.18em;font-size:calc(var(--pt)*8);border-bottom:calc(var(--pt)*.75) solid var(--acc);padding-bottom:calc(var(--pt)*3)}
+.t-myndighet li::before{content:"§";font-weight:700;font-size:calc(var(--pt)*9)}
+.t-myndighet .ag{color:var(--acc);font-weight:600}
+
+/* Tidlös: Garamond, centrerat huvud, svart hårlinje */
+.t-tidlos{font-family:Garamond,"EB Garamond",Georgia,"Times New Roman",serif;--acc:#064E3B;font-size:calc(var(--pt)*11.5)}
+.t-tidlos .huvud{text-align:center;border-bottom:calc(var(--pt)*.75) solid #1f2937}
+.t-tidlos h1{font-size:calc(var(--pt)*24);font-weight:400;letter-spacing:.03em;color:#111827}
+.t-tidlos .titel{font-size:calc(var(--pt)*12);color:#4b5563;font-style:italic}
+.t-tidlos .kontakt{color:#1f2937;justify-content:center;display:flex}
+.t-tidlos .kontakt span+span::before{color:#9ca3af}
+.t-tidlos h2{text-align:center;color:#1f2937;letter-spacing:.16em;font-size:calc(var(--pt)*9);border-bottom:calc(var(--pt)*.75) solid #d1d5db;padding-bottom:calc(var(--pt)*4)}
+.t-tidlos .tjanst{font-weight:600;font-size:calc(var(--pt)*12)}
+.t-tidlos .ag{color:var(--acc);font-style:italic}
+.t-tidlos li::before{content:"–";color:#6b7280}
+.t-tidlos .period{color:#6b7280}
+
+/* Stack: Calibri + Consolas, teal */
+.t-stack{font-family:Calibri,"Carlito","Segoe UI",Arial,sans-serif;--acc:#0E7490;--mono:Consolas,"Courier New",monospace}
+.t-stack h1{font-size:calc(var(--pt)*22);color:#0f172a}
+.t-stack .titel{font-size:calc(var(--pt)*11.5);color:var(--acc);font-weight:600}
+.t-stack .kontakt{font-family:var(--mono);font-size:calc(var(--pt)*8.5);color:#475569}
+.t-stack .huvud{border-bottom:calc(var(--pt)*.75) solid #e5e7eb}
+.t-stack h2{color:#0f172a;border-bottom:calc(var(--pt)*.75) solid var(--acc);padding-bottom:calc(var(--pt)*3)}
+.t-stack .grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:calc(var(--pt)*10);padding:calc(var(--pt)*8) 0;border-top:calc(var(--pt)*.75) solid #e5e7eb;border-bottom:calc(var(--pt)*.75) solid #e5e7eb;margin-top:calc(var(--pt)*6)}
+.t-stack .grid h4{font-size:calc(var(--pt)*7.5);text-transform:uppercase;letter-spacing:.14em;color:var(--acc);margin-bottom:calc(var(--pt)*3)}
+.t-stack .grid p{font-family:var(--mono);font-size:calc(var(--pt)*8.5);line-height:1.5;color:#1f2937}
+.t-stack .period{font-family:var(--mono);color:var(--acc)}
+.t-stack .ag{color:#475569}
+
+/* Hantverkare: Calibri, tjock orange linje, tonat behörighetsblock */
+.t-bygg{font-family:Calibri,"Carlito","Segoe UI",Arial,sans-serif;--acc:#F97316;--acc-ink:#C2410C}
+.t-bygg h1{font-size:calc(var(--pt)*22);color:#0f172a}
+.t-bygg .titel{font-size:calc(var(--pt)*11.5);color:var(--acc-ink);font-weight:600}
+.t-bygg .huvud{border-bottom:calc(var(--pt)*2.25) solid var(--acc)}
+.t-bygg .block{background:#FEF3E8;border:calc(var(--pt)*.5) solid #FED7AA;padding:calc(var(--pt)*7) calc(var(--pt)*9);margin-top:calc(var(--pt)*10)}
+.t-bygg .block h4{font-size:calc(var(--pt)*8);text-transform:uppercase;letter-spacing:.16em;color:var(--acc-ink);margin-bottom:calc(var(--pt)*3)}
+.t-bygg .block p{font-size:calc(var(--pt)*10)}
+.t-bygg h2{color:#0f172a;border-bottom:calc(var(--pt)*1.5) solid var(--acc);padding-bottom:calc(var(--pt)*3)}
+.t-bygg .ag{color:var(--acc-ink);font-weight:600}
+
+/* Mallgalleriet i skissen */
+.mallar{display:grid;gap:20px;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (min-width:700px){.mallar{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.mall .huvudrad{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:2px 8px;margin-top:12px}
+.mall .namn{font-family:var(--display);font-weight:700;font-size:17px}
+.mall .niva{font-size:13px;color:var(--ink-3)}
+.mall dl{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;margin:8px 0 0;font-size:13px;line-height:18px}
+.mall dt{color:var(--ink-3)}
+.mall dd{margin:0;color:var(--ink-1)}
+.swatch{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:-1px;margin-right:6px;border:1px solid rgba(0,0,0,.12)}
+.mall .varfor{margin-top:10px;font-size:13px;line-height:19px;color:var(--ink-2)}
+
+/* Annoterat ark */
+.annot-wrap{display:grid;gap:24px;align-items:start}
+@media (min-width:900px){.annot-wrap{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}}
+.annot .ark{overflow:visible}
+.annot .mk{position:relative}
+.annot .mk::after{content:attr(data-n);position:absolute;left:calc(var(--pt)*-30);top:0;width:calc(var(--pt)*15);height:calc(var(--pt)*15);border-radius:50%;background:var(--koppar);color:var(--koppar-text);font:700 calc(var(--pt)*8.5)/calc(var(--pt)*15) var(--text);text-align:center;letter-spacing:0}
+.annot h2.mk::after{top:calc(var(--pt)*-2)}
+.annot-lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0;background:var(--papper);border:1px solid var(--kant);border-radius:16px;overflow:hidden}
+.annot-lista li{display:grid;grid-template-columns:28px 1fr;gap:12px;padding:14px 16px;border-top:1px solid var(--kant)}
+.annot-lista li:first-child{border-top:0}
+.annot-lista .n{width:24px;height:24px;border-radius:50%;background:var(--koppar);color:var(--koppar-text);font:700 12px/24px var(--text);text-align:center}
+.annot-lista b{display:block;font-weight:600;color:var(--ink-1);font-size:14px}
+.annot-lista span{display:block;color:var(--ink-2);font-size:13px;line-height:19px;margin-top:2px}
+.annot-lista code{font:12px/1 Consolas,ui-monospace,monospace;background:var(--papper-2);padding:2px 5px;border-radius:4px;color:var(--ink-1)}
+
+/* ------------------------------------------------------------------
+   Gränssnittsskisser i inloggat läge: telefon 375 och dator
+   ------------------------------------------------------------------ */
+.skarmar{display:grid;gap:24px;align-items:start}
+@media (min-width:1000px){.skarmar{grid-template-columns:375px minmax(0,1fr)}}
+.telefon{width:100%;max-width:375px;margin:0 auto;border:1px solid var(--ram);border-radius:28px;background:var(--golv);padding:14px 12px 20px;box-shadow:var(--lyft)}
+.telefon .status{display:flex;justify-content:space-between;color:var(--ink-3);font-size:12px;padding:0 10px 10px}
+.dator{border:1px solid var(--ram);border-radius:16px;background:var(--golv);padding:20px;box-shadow:var(--lyft)}
+.dator .topp{display:flex;gap:6px;margin-bottom:14px}
+.dator .topp i{width:9px;height:9px;border-radius:50%;background:var(--kant-stark);display:block}
+.skarm-rubrik{font-size:13px;color:var(--ink-3);margin:0 0 10px;text-align:center}
+
+.kort{background:var(--papper);border:1px solid var(--kant);border-radius:16px;padding:16px}
+.kort+.kort{margin-top:12px}
+.kort .ey{color:var(--ink-3)}
+.steg{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.01em;margin-top:2px}
+.steg-text{color:var(--ink-2);font-size:13px;line-height:19px;margin-top:2px}
+
+.forhand{margin-top:12px;background:var(--papper-2);border:1px solid var(--kant);border-radius:12px;padding:10px;display:flex;justify-content:center}
+.forhand .ark{width:120px;box-shadow:0 1px 0 rgba(0,0,0,.08)}
+
+.verktyg{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{height:40px;display:inline-flex;align-items:center;gap:8px;padding:0 12px;border:1px solid var(--kant-stark);border-radius:8px;background:var(--papper);font-size:13px;font-weight:500;color:var(--ink-1)}
+.chip svg{width:16px;height:16px;color:var(--ink-2)}
+.chip .pil{width:14px;height:14px;color:var(--ink-3)}
+
+.format{margin-top:16px}
+.format-ety{font-size:13px;font-weight:600;color:var(--ink-1);display:flex;justify-content:space-between;align-items:baseline}
+.format-ety span{font-weight:400;color:var(--ink-3)}
+.segment{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px;padding:4px;border-radius:12px;background:var(--papper-2);border:1px solid var(--kant)}
+.seg{position:relative;border-radius:9px;border:1px solid transparent;padding:10px 12px 10px 12px;background:transparent;text-align:left;min-height:44px;cursor:pointer;color:var(--ink-2);font-family:inherit}
+.seg b{display:block;font-weight:600;font-size:14px;color:var(--ink-1)}
+.seg small{display:block;font-size:12px;line-height:16px;color:var(--ink-3);margin-top:1px}
+.seg.vald{background:var(--papper);border-color:var(--ink-1)}
+.seg.vald::after{content:"";position:absolute;right:12px;top:12px;width:14px;height:8px;border-left:2px solid var(--ink-1);border-bottom:2px solid var(--ink-1);transform:rotate(-45deg)}
+.seg.last b{color:var(--ink-2)}
+.seg.last::after{content:none}
+.seg.last .las-ikon{position:absolute;right:12px;top:11px;width:14px;height:14px;color:var(--ink-3)}
+.seg.last.vald{border-color:var(--kant-stark);background:var(--papper)}
+.tre{display:grid;gap:24px;align-items:start}
+@media (min-width:1000px){.tre{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.dimma{background:var(--dimma);border-radius:16px;padding:48px 8px 0;min-height:360px;display:flex;align-items:flex-end}
+.ark-sheet{background:var(--papper);border-radius:24px 24px 0 0;padding:22px 16px 20px;width:100%}
+.ark-sheet .steg{font-size:20px;letter-spacing:-.02em}
+.format-not{margin-top:8px;font-size:13px;line-height:18px;color:var(--ink-3)}
+.format-not.varning{color:var(--ink-2)}
+
+.knapp-primar{display:flex;align-items:center;justify-content:center;gap:8px;height:48px;width:100%;border:0;border-radius:12px;background:linear-gradient(180deg,#E8863B,var(--koppar) 55%,var(--koppar-djup));color:var(--koppar-text);font:600 15px/1 var(--text);margin-top:14px;cursor:pointer}
+.knapp-primar svg{width:16px;height:16px}
+.lank{display:inline-block;margin-top:12px;font-size:14px;font-weight:500;color:var(--ink-1);text-decoration:underline;text-decoration-color:var(--kant-stark);text-underline-offset:4px}
+.rad-kontakt{margin-top:14px;padding-top:12px;border-top:1px solid var(--kant);font-size:13px;color:var(--ink-2);display:flex;justify-content:space-between;gap:8px}
+.rad-kontakt a{color:var(--ink-1);font-weight:500}
+
+/* Dator: toolbar och knapp på en rad */
+.dator .rad-export{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:end;margin-top:16px}
+.dator .rad-export .segment{margin-top:8px}
+.dator .tva-spalt{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
+.dator .forhand .ark{width:220px;max-width:100%}
+.dator .forhand{min-height:340px;align-items:flex-start}
+@media (min-width:1000px){
+  .dator .rad-export{grid-template-columns:minmax(0,1fr) 300px}
+  .dator .knapp-primar{margin-top:0}
+  .dator .tva-spalt{grid-template-columns:minmax(0,1fr) 320px}
+}
+.jamfor .tabell-svep{overflow-x:auto;max-width:100%}
+.jamfor table{min-width:0;table-layout:fixed}
+.jamfor td:first-child,.jamfor thead th:first-child{width:34%;min-width:112px}
+
+/* Mallgalleri-miniatyrer med Word-märkning */
+.mini-rad{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+@media (min-width:700px){.mini-rad{grid-template-columns:repeat(6,minmax(0,1fr))}}
+.mini{min-width:0}
+.mini .bild{aspect-ratio:3/4;border:1px solid var(--kant);border-radius:8px;background:var(--papper);overflow:hidden;position:relative}
+.mini .bild .ark{box-shadow:none;border:0}
+.mini.vald .bild{border-color:var(--ink-1);box-shadow:0 0 0 1px var(--ink-1)}
+.mini.last .bild{background:var(--papper-2)}
+.mini.last .bild .ark{opacity:.5}
+.mini .las{position:absolute;right:6px;top:6px;width:26px;height:26px;border-radius:6px;background:var(--papper);display:flex;align-items:center;justify-content:center;color:var(--ink-2)}
+.mini .las svg{width:14px;height:14px}
+.mini figcaption{margin-top:6px}
+.mini .n{display:block;font-size:13px;font-weight:600;color:var(--ink-1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini .u{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:4px 6px;font-size:12px;color:var(--ink-3);line-height:16px;min-width:0}
+.brickor{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.bricka{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border:1px solid var(--kant);border-radius:6px;background:var(--papper-2);font-size:13px;font-weight:500;color:var(--ink-2)}
+.bricka svg{width:15px;height:15px;color:var(--ink-3)}
+.tag-word{display:inline-flex;align-items:center;height:18px;padding:0 6px;border:1px solid var(--kant-stark);border-radius:5px;font-size:11px;font-weight:600;letter-spacing:.02em;color:var(--ink-2);background:var(--papper);white-space:nowrap}
+
+/* Gratis / Premium */
+.jamfor{background:var(--papper);border:1px solid var(--kant);border-radius:16px;overflow:hidden}
+.jamfor table{width:100%;border-collapse:collapse;font-size:14px;line-height:20px}
+.jamfor th,.jamfor td{padding:12px 14px;text-align:left;vertical-align:top;border-top:1px solid var(--kant)}
+.jamfor thead th{border-top:0;background:var(--papper-2);font-family:var(--display);font-size:15px}
+.jamfor thead th small{display:block;font-family:var(--text);font-weight:400;font-size:12px;color:var(--ink-3);margin-top:2px}
+.jamfor td:first-child{color:var(--ink-3)}
+.jamfor td{color:var(--ink-1)}
+.jamfor tfoot td{padding:16px 14px 18px;border-top:1px solid var(--kant)}
+.jamfor .knapp-primar{margin-top:0;width:100%;max-width:min(360px,100%)}
+.jamfor .prisrad{font-size:14px;font-weight:500;color:var(--ink-1);margin-bottom:10px}
+.jamfor .lank{margin:10px 0 0 0}
+
+
+/* Bekräftelse och fel */
+.tillstand{display:grid;gap:16px}
+@media (min-width:900px){.tillstand{grid-template-columns:1fr 1fr}}
+.statusrad{display:flex;gap:12px;align-items:flex-start;background:var(--papper);border:1px solid var(--kant);border-radius:12px;padding:14px 16px}
+.statusrad .punkt{width:10px;height:10px;border-radius:50%;margin-top:6px;flex:none}
+.statusrad.ok .punkt{background:var(--positiv)}
+.statusrad.fel{border-color:var(--fel-kant);background:var(--fel-mjuk)}
+.statusrad.fel .punkt{background:var(--fel)}
+.statusrad b{display:block;font-weight:600;font-size:14px;color:var(--ink-1)}
+.statusrad span{display:block;font-size:13px;line-height:19px;color:var(--ink-2);margin-top:2px}
+.statusrad .handling{margin-top:10px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.knapp-sek{height:40px;padding:0 14px;border-radius:10px;border:1px solid var(--kant-stark);background:var(--papper);font:500 14px/1 var(--text);color:var(--ink-1);cursor:pointer}
+.tillstand .knapp-primar{margin-top:0;height:40px;width:auto;padding:0 16px;font-size:14px}
+
+/* Publik vy, publika sidornas linje */
+.trad{--mark:#EDE8DF;--panel:#FFFFFF;--t-ink1:#1C1917;--t-ink2:#57534E;--t-ink3:#6B645E;--t-kant:#DBD2C4;--t-kant-stark:#C4B9A8;--t-insunken:#ECE6DC;--t-accent:#D9480F}
+.trad .pub{background:var(--mark);border:1px solid var(--ram);border-radius:16px;padding:16px;color:var(--t-ink1);font-family:var(--text)}
+.trad .panel{background:var(--panel);border:1px solid var(--t-kant);border-radius:12px;padding:16px}
+.trad .falt{height:44px;border:1px solid var(--t-kant);background:var(--t-insunken);border-radius:8px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:14px;color:var(--t-ink1);margin-top:6px}
+.trad .ety{font-size:13px;font-weight:500;color:var(--t-ink2)}
+.trad .lista{margin-top:8px;border:1px solid var(--t-kant);border-radius:8px;background:var(--panel);font-size:14px;overflow:hidden}
+.trad .lista .grupp{padding:6px 12px 2px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--t-ink3);font-weight:600}
+.trad .lista .alt{display:flex;justify-content:space-between;padding:8px 12px;color:var(--t-ink1)}
+.trad .lista .alt.v{background:var(--t-insunken)}
+.trad .lista .alt small{color:var(--t-ink3);font-size:12px}
+.trad .under{margin-top:12px;font-size:14px}
+.trad .under b{font-weight:600}
+.trad .under span{color:var(--t-ink3);margin-left:8px}
+.trad .under p{color:var(--t-ink2);margin-top:4px;font-size:14px;line-height:22px}
+.trad .knapp-ink{margin-top:14px;height:44px;border-radius:8px;background:var(--t-ink1);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600}
+.trad .tag-word{border-color:var(--t-kant-stark);color:var(--t-ink2);background:var(--panel)}
+.pub-grid{display:grid;gap:20px;align-items:start}
+@media (min-width:900px){.pub-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+
+/* Beslutslistan */
+.beslut{background:var(--papper);border:1px solid var(--kant);border-radius:16px;padding:20px}
+.beslut ol{margin:12px 0 0;padding-left:0;list-style:none;counter-reset:b}
+.beslut li{counter-increment:b;display:grid;grid-template-columns:32px 1fr;gap:12px;padding:14px 0;border-top:1px solid var(--kant)}
+.beslut li:first-child{border-top:0;padding-top:4px}
+.beslut li::before{content:counter(b);width:28px;height:28px;border-radius:8px;background:var(--ton);color:var(--ton-ink);font:700 13px/28px var(--display);text-align:center}
+.beslut b{display:block;font-weight:600;font-size:15px}
+.beslut span{display:block;font-size:14px;line-height:21px;color:var(--ink-2);margin-top:3px}
+
+/* Två kolumner för stödtext bredvid skärm */
+.sida-vid{display:grid;gap:20px}
+@media (min-width:900px){.sida-vid{grid-template-columns:minmax(0,1fr) 320px}}
+.regel{background:var(--papper);border:1px solid var(--kant);border-radius:16px;padding:18px}
+.regel h4{font-size:15px;margin-bottom:8px}
+.regel ul{margin:0;padding-left:18px;color:var(--ink-2);font-size:14px;line-height:21px}
+.regel li{margin-top:5px}
+
+:focus-visible{outline:2px solid var(--koppar-ink);outline-offset:2px}
+@media (prefers-reduced-motion:no-preference){.seg{transition:background .15s,border-color .15s}}
+</style>
+
+<div class="wrap">
+
+<header class="vagg">
+  <p class="ey">CV · Word-nedladdning · Skiss 15 november 2026</p>
+  <h1>Sex CV-mallar som riktiga Word-filer</h1>
+  <p class="ingress">I dag laddar man bara ner CV:t som PDF. Nu lägger vi till Word (.docx) på sex mallar: en fil som öppnas i Word, Google Docs eller LibreOffice, med <b>riktiga rubrikstilar, riktiga punktlistor och en accentfärg</b>, så att man kan skriva om fritt efteråt. Tvåspaltiga mallar som Sidopanel kommer i en andra omgång.</p>
+</header>
+
+<div class="lyft" aria-label="Vad ägaren godkänner">
+  <p class="ey" style="color:var(--koppar-ink)">Det här godkänner du</p>
+  <ol>
+    <li><b>Mallurvalet:</b> Norrsken och Student (gratis) samt Tidlös, Myndighet, Stack och Hantverkare (Premium).</li>
+    <li><b>Formatvalet i exportsteget:</b> två segment PDF | Word ovanför en enda knapp som säger vad den gör. Word är synligt men låst utan Premium. Mallar utan Word-version visar inget val.</li>
+    <li><b>Märkningen:</b> etiketten "Word" på mallkortet i galleriet och raden "Finns också som Word" i mallinfon, ingen stapling.</li>
+    <li><b>Gränsen gratis/Premium:</b> den enda gratisnedladdningen är PDF. Word ingår i Premium, med obegränsade nedladdningar och alla 41 mallar.</li>
+  </ol>
+</div>
+
+<!-- ============================================================ 1 -->
+<section class="block" id="mallar">
+  <div class="sekt-huvud">
+    <p class="ey">1 · Mallarna</p>
+    <h2>Så ser de ut i Word</h2>
+    <p class="lede">Första sidan av Erik Lindbergs CV i varje mall, ritad med den typografi och accent som Word-filen får. Webbtypsnitt byts till det närmaste som finns i Word på både Windows och Mac. Allt är Normal 11 pt, Rubrik 1 för namnet och Rubrik 2 för sektionerna.</p>
+  </div>
+
+  <div class="mallar">
+    <article class="mall">
+      <div class="ark-ram"><div class="ark"><div class="sida t-norrsken" data-cv="norrsken"></div></div></div>
+      <div class="huvudrad"><span class="namn">Norrsken</span><span class="niva">Gratis</span></div>
+      <dl><dt>I Word</dt><dd>Calibri (Inter på webben)</dd><dt>Accent</dt><dd><i class="swatch" style="background:#F97316"></i>Orange, vänsterkant på rubrikerna</dd><dt>Passar</dt><dd>Alla yrken, tjänstemän</dd></dl>
+    </article>
+
+    <article class="mall">
+      <div class="ark-ram"><div class="ark"><div class="sida t-student" data-cv="student"></div></div></div>
+      <div class="huvudrad"><span class="namn">Student</span><span class="niva">Gratis</span></div>
+      <dl><dt>I Word</dt><dd>Calibri (Inter på webben)</dd><dt>Accent</dt><dd><i class="swatch" style="background:#0891B2"></i>Cyan, linje under huvudet</dd><dt>Passar</dt><dd>Studenter, nyexaminerade</dd></dl>
+    </article>
+
+    <article class="mall">
+      <div class="ark-ram"><div class="ark"><div class="sida t-tidlos" data-cv="tidlos"></div></div></div>
+      <div class="huvudrad"><span class="namn">Tidlös</span><span class="niva">Ingår i Premium</span></div>
+      <dl><dt>I Word</dt><dd>Garamond (samma som webben)</dd><dt>Accent</dt><dd><i class="swatch" style="background:#064E3B"></i>Mörkgrön på arbetsgivare, svart hårlinje</dd><dt>Passar</dt><dd>Juridik, bank, akademi</dd></dl>
+      <p class="varfor">Den mall som vinner mest på att bli Word: en serif i Garamond ser hemma ut i ett dokument, och det är så ett juridiskt eller akademiskt CV faktiskt skickas. Den består bara av centrerad text, en hårlinje och rubriker, så Word-versionen blir identisk med PDF:en. Täcker den formella gruppen som annars hade saknat ett alternativ.</p>
+    </article>
+
+    <article class="mall">
+      <div class="ark-ram"><div class="ark"><div class="sida t-myndighet" data-cv="myndighet"></div></div></div>
+      <div class="huvudrad"><span class="namn">Myndighet</span><span class="niva">Ingår i Premium</span></div>
+      <dl><dt>I Word</dt><dd>Arial (Source Sans på webben)</dd><dt>Accent</dt><dd><i class="swatch" style="background:#1E3A8A"></i>Marinblått, § som punkttecken</dd><dt>Passar</dt><dd>Offentlig sektor, handläggare</dd></dl>
+      <p class="varfor">Offentlig sektor är Sveriges största arbetsgivare och efterfrågar nästan alltid Word. Mallen är rakt igenom Word-medel: två marinblå styckekanter, Arial och en punktlista där punkten är ett paragraftecken, vilket Word gör utan konst. Den ser ut som ett dokument från en förvaltning, och det är poängen.</p>
+    </article>
+
+    <article class="mall">
+      <div class="ark-ram"><div class="ark"><div class="sida t-stack" data-cv="stack"></div></div></div>
+      <div class="huvudrad"><span class="namn">Stack</span><span class="niva">Ingår i Premium</span></div>
+      <dl><dt>I Word</dt><dd>Calibri + Consolas (Inter + JetBrains Mono)</dd><dt>Accent</dt><dd><i class="swatch" style="background:#0E7490"></i>Teal, linje under rubrikerna, datum i Consolas</dd><dt>Passar</dt><dd>Utvecklare, data, tech</dd></dl>
+      <p class="varfor">Den moderna tech-mallen i urvalet, med kompetenserna först i tre spalter. Spalterna blir en tabell utan kantlinjer, samma grepp som brevmallarna redan använder, och Consolas finns i Word på båda plattformarna. Rekryterare i tech klistrar ofta in CV:t i egna system, och då är Word det format som fungerar.</p>
+    </article>
+
+    <article class="mall">
+      <div class="ark-ram"><div class="ark"><div class="sida t-bygg" data-cv="bygg"></div></div></div>
+      <div class="huvudrad"><span class="namn">Hantverkare</span><span class="niva">Ingår i Premium</span></div>
+      <dl><dt>I Word</dt><dd>Calibri (Source Sans på webben)</dd><dt>Accent</dt><dd><i class="swatch" style="background:#F97316"></i>Orange, tjock linje under huvudet, tonat block</dd><dt>Passar</dt><dd>Bygg, el, VVS, praktiska yrken</dd></dl>
+      <p class="varfor">Praktiska yrken är en stor grupp som sällan får en egen mall, och här är behörigheter och körkort det rekryteraren söker först. Blocket är ett stycke med ljus bakgrundston och tunn kant, vilket Word kan, och den tjocka orange linjen är en styckekant. Pillerna med arbetsplatser blir en vanlig rad, resten är oförändrat.</p>
+    </article>
+  </div>
+  <p class="not" style="margin-top:14px">Bortvalda: Atlas (den korta dubbellinjen under namnet går inte att göra med styckekanter), Konto (tabell-layouten blir stel i Word), Linje (tvådelat huvud kräver tabell och vinner inget på Word), samt Kvist, Skymning, Avtryck, Karta, Aspekt, Bold och Galleri (helfärgade band, foto, tidslinjer eller ramar runt sidan). Disk, Logistik och Verkstad överlappar Myndighet och Hantverkare i uppbyggnad; de kan komma i våg 2 utan nytt tänk.</p>
+</section>
+
+<!-- ============================================================ 2 -->
+<section class="block" id="word">
+  <div class="sekt-huvud">
+    <p class="ey">2 · Redigerbart på riktigt</p>
+    <h2>Så är Word-filen byggd</h2>
+    <p class="lede">Norrsken i större format. Varje del är en vanlig Word-stil, inte en textruta eller en bild. Byter man typsnitt i Word följer hela dokumentet med, och Googles och LibreOffices import läser samma stilar.</p>
+  </div>
+  <div class="annot-wrap">
+    <div class="ark-ram annot" style="padding:12px 12px 12px 40px"><div class="ark"><div class="sida t-norrsken" data-cv="norrsken" data-annot="1"></div></div></div>
+    <ol class="annot-lista">
+      <li><i class="n">1</i><div><b>Rubrik 1: namnet</b><span>Word-stilen <code>Heading1</code>, Calibri 22 pt fet, färg nästan svart. Står i navigeringsfönstret i Word.</span></div></li>
+      <li><i class="n">2</i><div><b>Hårlinje: styckekant</b><span>En nedre styckekant på kontaktraden, 0,75 pt grå. Ingen linje som ritats för hand, så den följer med om raden flyttas.</span></div></li>
+      <li><i class="n">3</i><div><b>Normal 11 pt: profilen</b><span>Brödtexten är stilen Normal i Calibri 11 pt med 1,15 radavstånd och 6 pt efter stycke. Den som byter Normal byter allt.</span></div></li>
+      <li><i class="n">4</i><div><b>Rubrik 2: sektionerna</b><span><code>Heading2</code>, versaler 8,5 pt med spärrning, och mallens accent som vänster styckekant 2,25 pt. Profil, Arbetslivserfarenhet, Utbildning, Kompetenser, Språk, Certifieringar.</span></div></li>
+      <li><i class="n">5</i><div><b>Punktlista: riktig lista</b><span>En numreringsdefinition med punkt i accentfärgen. Enter ger en ny punkt, Tab ger undernivå, precis som i Word.</span></div></li>
+      <li><i class="n">6</i><div><b>Tjänst och period på en rad</b><span>Tjänsten fet till vänster, perioden högerställd via en tabulator vid högermarginalen. Inga tabeller för vanliga rader; en tabell utan kantlinjer övervägs bara för Stacks tre spalter, och bara om vår egen Word-läsning läser den rätt.</span></div></li>
+    </ol>
+  </div>
+  <div class="regel" style="margin-top:20px">
+    <h4>Typsnitt per mall i Word</h4>
+    <ul>
+      <li><b>Norrsken, Student, Hantverkare:</b> Calibri (webbens Inter och Source Sans Pro). Standard i Word på Windows och Mac.</li>
+      <li><b>Myndighet:</b> Arial. Sobert och vad förvaltningar själva skriver i.</li>
+      <li><b>Tidlös:</b> Garamond, samma som webben. Finns med Office på båda plattformarna; Georgia är reservtypsnitt.</li>
+      <li><b>Stack:</b> Calibri för text, Consolas för datum, kontakt och kompetenslistan (webbens JetBrains Mono). De tre spalterna blir en tabell utan kantlinjer bara om vår egen Word-läsning i CV-analysen läser spalterna i rätt ordning; annars blir kompetenserna en vanlig lista.</li>
+      <li>Typsnittsvalet i steget (Lato, Poppins, Roboto) gäller PDF:en. I Word-läget visas bara de sex som finns i Word, så filen aldrig lovar ett typsnitt den inte har.</li>
+      <li>Svenska tecken och kort tankstreck i perioder (2021 – Pågående) är vanlig Unicode-text. Filen testas i Word och Google Docs före lansering; LibreOffice saknas på byggmaskinen och körs i efterhand.</li>
+      <li>Filen innehåller bara CV:t. Ingen sidfot, ingen länk och inget om Jobbcoach; den är användarens dokument.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================ 3 -->
+<section class="block" id="export">
+  <div class="sekt-huvud">
+    <p class="ey">3 · Exportsteget på /dashboard/cv-mallar</p>
+    <h2>Formatvalet: två segment, en knapp</h2>
+    <p class="lede">Steg 3 behåller förhandsvisning, mallinfo och verktygsraden. Nytt är formatvalet direkt ovanför knappen, och knappen säger vad den gör. PDF är förvalt. Utan Premium är Word synligt men låst: ett tryck öppnar betalväggen, inte ett fel. Valet markeras med mörk kant och bock, aldrig med koppar, så kopparn förblir knappen.</p>
+  </div>
+
+  <div class="skarmar">
+    <div>
+      <p class="skarm-rubrik">Telefon 375 px · Gratis, före första nedladdningen (Norrsken)</p>
+      <div class="telefon">
+        <div class="status"><span>09:41</span><span>CV · Mallar</span></div>
+        <div class="kort">
+          <p class="ey">Steg 3 av 3</p>
+          <p class="steg">Granska och ladda ner</p>
+          <p class="steg-text">Så här kommer ditt CV se ut. Anpassa typsnitt och format innan du laddar ner.</p>
+          <div class="forhand"><div class="ark"><div class="sida t-norrsken" data-cv="norrsken" data-kort="1"></div></div></div>
+          <div class="verktyg">
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></svg>Calibri<svg class="pil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </div>
+          <div class="format">
+            <p class="format-ety">Format</p>
+            <div class="segment" role="radiogroup" aria-label="Format">
+              <button type="button" class="seg vald" role="radio" aria-checked="true"><b>PDF</b><small>Klar att skicka</small></button>
+              <button type="button" class="seg last" role="radio" aria-checked="false"><b>Word</b><small>Ingår i Premium</small><svg class="las-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><rect x="6" y="11" width="12" height="9" rx="2"/><path d="M9 11V8a3 3 0 0 1 6 0v3"/></svg></button>
+            </div>
+            <p class="format-not">PDF är gratis första gången. Word, för att ändra i filen själv, ingår i Premium.</p>
+          </div>
+          <button type="button" class="knapp-primar">Ladda ner som PDF<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></button>
+          <div class="rad-kontakt"><span>Kontakt: erik.lindberg@email.se · 073-456 78 90</span><a href="#export">Ändra</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p class="skarm-rubrik">Dator · Premium, Word valt på Tidlös</p>
+      <div class="dator">
+        <div class="topp"><i></i><i></i><i></i></div>
+        <div class="kort">
+          <p class="ey">Steg 3 av 3</p>
+          <p class="steg">Granska och ladda ner</p>
+          <div class="tva-spalt" style="margin-top:12px">
+            <div class="forhand" style="margin-top:0"><div class="ark"><div class="sida t-tidlos" data-cv="tidlos" data-kort="1"></div></div></div>
+            <div>
+              <p class="ey" style="color:var(--ink-3)">Tidlös</p>
+              <p class="meta" style="margin-top:2px">Ingår i Premium · ATS-säker · Finns också som Word</p>
+              <p style="font-size:13px;line-height:19px;color:var(--ink-2);margin-top:10px">Passar juridik, bank, försäkring, offentlig sektor och akademi. Garamond ger tradition och tyngd, centrerad symmetri signalerar formalitet.</p>
+              <div class="verktyg">
+                <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></svg>Typsnitt: Garamond<svg class="pil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+              </div>
+            </div>
+          </div>
+          <div class="rad-export">
+            <div class="format" style="margin-top:0">
+              <p class="format-ety">Format <span>Typsnitt i Word-filen: Garamond</span></p>
+              <div class="segment" role="radiogroup" aria-label="Format">
+                <button type="button" class="seg" role="radio" aria-checked="false"><b>PDF</b><small>Klar att skicka</small></button>
+                <button type="button" class="seg vald" role="radio" aria-checked="true"><b>Word</b><small>Går att redigera</small></button>
+              </div>
+            </div>
+            <button type="button" class="knapp-primar">Ladda ner som Word<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></button>
+          </div>
+          <div class="rad-kontakt"><span>Kontaktuppgifter i filen: erik.lindberg@email.se · 073-456 78 90 · Stockholm</span><a href="#export">Ändra</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tre" style="margin-top:24px">
+    <div>
+      <p class="skarm-rubrik">Gratis trycker på Word: betalväggen</p>
+      <div class="telefon">
+        <div class="status"><span>09:42</span><span>CV · Mallar</span></div>
+        <div class="dimma">
+          <div class="ark-sheet">
+            <p class="steg">Word-filen ingår i Premium</p>
+            <p class="steg-text" style="margin-top:6px">Word-filen ingår i Premium, med obegränsade nedladdningar och alla 41 mallar. Du kan ändra i CV:t själv efteråt, i Word, Google Docs eller LibreOffice.</p>
+            <p class="prisrad" style="margin-top:14px;font-size:14px;font-weight:500">Jobbcoach Premium, 149 kr i månaden. Säg upp när du vill.</p>
+            <button type="button" class="knapp-primar" style="margin-top:12px">Köp Premium, 149 kr i månaden</button>
+            <a class="lank" href="#gratis-premium">Se vad som ingår</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p class="skarm-rubrik">Gratisnedladdningen är använd</p>
+      <div class="telefon">
+        <div class="status"><span>09:43</span><span>CV · Mallar</span></div>
+        <div class="kort">
+          <div class="format" style="margin-top:0">
+            <p class="format-ety">Format</p>
+            <div class="segment" role="radiogroup" aria-label="Format">
+              <button type="button" class="seg last vald" role="radio" aria-checked="true"><b>PDF</b><small>Ingår i Premium</small><svg class="las-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><rect x="6" y="11" width="12" height="9" rx="2"/><path d="M9 11V8a3 3 0 0 1 6 0v3"/></svg></button>
+              <button type="button" class="seg last" role="radio" aria-checked="false"><b>Word</b><small>Ingår i Premium</small><svg class="las-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><rect x="6" y="11" width="12" height="9" rx="2"/><path d="M9 11V8a3 3 0 0 1 6 0v3"/></svg></button>
+            </div>
+            <p class="format-not">Din gratisnedladdning är använd. Fler nedladdningar, i PDF och Word, ingår i Premium.</p>
+          </div>
+          <button type="button" class="knapp-primar">Köp Premium, 149 kr i månaden</button>
+          <a class="lank" href="#gratis-premium">Se vad som ingår</a>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p class="skarm-rubrik">Mall utan Word-version (Sidopanel)</p>
+      <div class="telefon">
+        <div class="status"><span>09:44</span><span>CV · Mallar</span></div>
+        <div class="kort">
+          <div class="verktyg" style="margin-top:0">
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></svg>Calibri<svg class="pil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </div>
+          <p class="format-not" style="margin-top:14px">Sidopanel laddas ner som PDF.</p>
+          <button type="button" class="knapp-primar">Ladda ner som PDF<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></button>
+          <div class="rad-kontakt"><span>Kontakt: erik.lindberg@email.se · 073-456 78 90</span><a href="#export">Ändra</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="regel" style="margin-top:20px">
+    <h4>Reglerna för steget</h4>
+    <ul>
+      <li>Exakt en kopparknapp. Dess text följer valet: "Ladda ner som PDF" eller "Ladda ner som Word". När valet är låst blir knappen köpknappen, "Köp Premium, 149 kr i månaden".</li>
+      <li>Ett låst segment är synligt, går att trycka på och visar ett lås i stället för bock. Trycket öppnar betalväggen som ark; inget felmeddelande.</li>
+      <li>Segmentet ligger alltid ovanför knappen, i telefon och på dator, så ögat läser format och sedan handling.</li>
+      <li>Mallar utan Word-version visar inget formatval alls, bara raden "Sidopanel laddas ner som PDF". Upptäckten av Word sker i galleriet och mallinfon (3b), inte här.</li>
+      <li>Under laddning byter knappen till "Skapar Word-fil" med snurra, som PDF:en i dag.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================ 3b -->
+<section class="block" id="galleri">
+  <div class="sekt-huvud">
+    <p class="ey">3b · Mallkortet i galleriet</p>
+    <h2>Upptäckten sker här, inte i exportsteget</h2>
+    <p class="lede">Eftersom mallar utan Word-version inte visar något formatval måste galleriet och mallinfon bära upptäckten. Två ställen, samma ord. I galleriet: raden under namnet har i dag "Gratis" eller "Premium", och Word får plats på samma rad, högerställt, som en liten konturetikett. I mallinfon under förhandsvisningen: raden "Finns också som Word" i den befintliga raden med ATS-säker och Premium. Låset på en låst mall sitter kvar på bilden som förut.</p>
+  </div>
+  <div class="kort">
+    <p class="ey" style="color:var(--ink-3)">Steg 2 av 3</p>
+    <p class="steg">Välj mall</p>
+    <p class="steg-text">Sex av 41 syns här. Alla klarar rekryteringssystemens läsning. Sex av dem finns också som Word, för dig som vill ändra i filen själv.</p>
+    <div class="mini-rad" role="radiogroup" aria-label="Välj mall">
+      <figure class="mini vald"><div class="bild"><div class="ark"><div class="sida t-norrsken" data-cv="norrsken" data-kort="1"></div></div></div><figcaption><span class="n">Norrsken</span><span class="u">Gratis <i class="tag-word">Word</i></span></figcaption></figure>
+      <figure class="mini"><div class="bild"><div class="ark"><div class="sida t-student" data-cv="student" data-kort="1"></div></div></div><figcaption><span class="n">Student</span><span class="u">Gratis <i class="tag-word">Word</i></span></figcaption></figure>
+      <figure class="mini last"><div class="bild"><div class="ark"><div class="sida t-tidlos" data-cv="tidlos" data-kort="1"></div></div><span class="las" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="6" y="11" width="12" height="9" rx="2"/><path d="M9 11V8a3 3 0 0 1 6 0v3"/></svg></span></div><figcaption><span class="n">Tidlös</span><span class="u">Premium <i class="tag-word">Word</i></span></figcaption></figure>
+      <figure class="mini last"><div class="bild"><div class="ark"><div class="sida t-myndighet" data-cv="myndighet" data-kort="1"></div></div><span class="las" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="6" y="11" width="12" height="9" rx="2"/><path d="M9 11V8a3 3 0 0 1 6 0v3"/></svg></span></div><figcaption><span class="n">Myndighet</span><span class="u">Premium <i class="tag-word">Word</i></span></figcaption></figure>
+      <figure class="mini last"><div class="bild"><div class="ark"><div class="sida t-stack" data-cv="stack" data-kort="1"></div></div><span class="las" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="6" y="11" width="12" height="9" rx="2"/><path d="M9 11V8a3 3 0 0 1 6 0v3"/></svg></span></div><figcaption><span class="n">Stack</span><span class="u">Premium <i class="tag-word">Word</i></span></figcaption></figure>
+      <figure class="mini"><div class="bild"><div class="ark"><div class="sida t-norrsken" data-cv="sidopanel" data-kort="1"></div></div></div><figcaption><span class="n">Sidopanel</span><span class="u">Gratis</span></figcaption></figure>
+    </div>
+    <a class="lank" href="#galleri">Alla 41 mallar</a>
+  </div>
+  <div class="kort" style="margin-top:16px;max-width:560px">
+    <p class="ey" style="color:var(--ink-3)">Mallinfon under förhandsvisningen</p>
+    <div class="brickor">
+      <span class="bricka"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color:var(--positiv)"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>ATS-säker</span>
+      <span class="bricka"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M8 13h8M8 17h5"/></svg>Finns också som Word</span>
+      <span class="bricka"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l2-10 4 5 2-7 2 7 4-5 2 10z"/></svg>Premium</span>
+    </div>
+    <p class="ey" style="color:var(--ink-3);margin-top:16px">Passar för</p>
+    <div class="brickor" style="margin-top:8px"><span class="bricka">Juridik</span><span class="bricka">Bank</span><span class="bricka">Försäkring</span><span class="bricka">Offentlig sektor</span><span class="bricka">Akademi</span></div>
+    <p class="not" style="margin-top:14px">Samma rad som i dag, med en bricka till. Tre brickor på rad är gränsen; fler blir stapling, och då får "Stöd för foto" vika på mallar som har Word (ingen av de sex har foto, så krocken uppstår inte i våg 1).</p>
+  </div>
+</section>
+
+<!-- ============================================================ 4 -->
+<section class="block" id="gratis-premium">
+  <div class="sekt-huvud">
+    <p class="ey">4 · Gränsen</p>
+    <h2>Vad gratis och Premium får</h2>
+    <p class="lede">Word är ett Premiumformat. Den enda gratisnedladdningen per konto är en PDF, på Norrsken, Student eller Sidopanel. Allt annat, Word inräknat, ingår i Jobbcoach Premium. Rutan är innehållet i betalväggen när någon utan paket trycker på Word eller på en låst mall.</p>
+  </div>
+  <div class="jamfor"><div class="tabell-svep">
+    <table>
+      <thead>
+        <tr><th scope="col"></th><th scope="col">Gratis<small>0 kr</small></th><th scope="col">Jobbcoach Premium<small>149 kr i månaden</small></th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Mallar att ladda ner</td><td>Norrsken, Student och Sidopanel</td><td>Alla 41</td></tr>
+        <tr><td>Format</td><td>PDF</td><td>PDF och Word (sex mallar som Word, fler i våg 2)</td></tr>
+        <tr><td>Antal</td><td>En nedladdning per konto</td><td>Utan tak</td></tr>
+        <tr><td>Ändra i filen själv</td><td>Nej, PDF är låst</td><td>Ja, i Word, Google Docs eller LibreOffice</td></tr>
+        <tr><td>Förhandsvisa</td><td>Alla 41 mallar</td><td>Alla 41 mallar</td></tr>
+      </tbody>
+      <tfoot>
+        <tr><td colspan="3">
+          <p style="font-size:14px;line-height:21px;color:var(--ink-2);margin-bottom:10px">Word-filen ingår i Premium, med obegränsade nedladdningar och alla 41 mallar.</p>
+          <p class="prisrad">Jobbcoach Premium, 149 kr i månaden. Säg upp när du vill.</p>
+          <button type="button" class="knapp-primar">Köp Premium, 149 kr i månaden</button>
+          <a class="lank" href="#gratis-premium">Se vad som ingår</a>
+        </td></tr>
+      </tfoot>
+    </table>
+  </div></div>
+  <p class="not" style="margin-top:12px">Knappen säger alltid handling, paket och pris, som koden gör i dag. Aldrig "Lås upp". Bara ett paket nämns; inga dagspass eller andra namn.</p>
+</section>
+
+<!-- ============================================================ 5 -->
+<section class="block" id="bekraftelse">
+  <div class="sekt-huvud">
+    <p class="ey">5 · Efter nedladdningen</p>
+    <h2>Bekräftelse och fel</h2>
+    <p class="lede">Samma statusrad som PDF:en har i dag, men den säger vad som faktiskt skapades och vad man kan göra med det. Filnamnet följer PDF:ens mönster: mallens namn och CV:ts namn, små bokstäver och bindestreck.</p>
+  </div>
+  <div class="tillstand">
+    <div class="statusrad ok" role="status">
+      <i class="punkt"></i>
+      <div>
+        <b>Ditt CV är klart som Word-fil: cv-norrsken-erik-lindberg.docx</b>
+        <span>Den ligger i din nedladdningsmapp. Öppna den i Word, Google Docs eller LibreOffice och ändra fritt. Rubriker och punktlistor är riktiga Word-stilar.</span>
+        <span style="margin-top:8px">Ändrar du i Word? <a href="#bekraftelse" style="color:var(--ink-1);font-weight:500">Ladda upp den nya versionen i CV-analysen</a>, så ser du om poängen går upp.</span>
+      </div>
+    </div>
+    <div class="statusrad fel" role="alert">
+      <i class="punkt"></i>
+      <div>
+        <b>Word-filen kunde inte skapas</b>
+        <span>Ditt CV och dina val finns kvar. Prova igen, eller ladda ner som PDF så länge. Händer det igen, skriv till oss så tittar vi på just din fil.</span>
+        <div class="handling"><button type="button" class="knapp-primar">Försök igen</button><a class="lank" href="#bekraftelse" style="margin:0">Ladda ner som PDF i stället</a></div>
+      </div>
+    </div>
+  </div>
+  <p class="not" style="margin-top:12px">Felläget visas i samma ruta som PDF-felet i dag (överlägget vid generering). Knappen "Försök igen" är då vyns primärknapp eftersom överlägget täcker steget; länken tar tillbaka till PDF utan att byta mall eller typsnitt. Raden om CV-analysen står bara i bekräftelsen, aldrig i själva Word-filen.</p>
+</section>
+
+<!-- ============================================================ 6 -->
+<section class="block" id="publikt">
+  <div class="sekt-huvud">
+    <p class="ey">6 · Publika sidan /verktyg/cv-mallar</p>
+    <h2>Mallväljaren visar var Word finns</h2>
+    <p class="lede">Den publika sidan följer sin egen linje (papper på bordet, svart knapp). Word syns på två ställen: som tillägg i rullistans alternativ och på raden under dokumentet. Inget nytt element, ingen ny färg.</p>
+  </div>
+  <div class="pub-grid trad">
+    <div class="pub">
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="ety" style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--t-ink3)">Välj din mall</span><span style="font-size:13px;color:var(--t-ink3)">3 av 41</span></div>
+        <p class="ety" style="margin-top:12px">Mall</p>
+        <div class="falt"><span>Tidlös · Word</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></div>
+        <div class="lista" aria-label="Öppnad rullista">
+          <div class="grupp">Gratis</div>
+          <div class="alt"><span>Norrsken</span><small>PDF och Word</small></div>
+          <div class="alt"><span>Student</span><small>PDF och Word</small></div>
+          <div class="alt"><span>Sidopanel</span><small>PDF</small></div>
+          <div class="grupp">I Premium</div>
+          <div class="alt v"><span>Tidlös</span><small>PDF och Word</small></div>
+          <div class="alt"><span>Myndighet</span><small>PDF och Word</small></div>
+          <div class="alt"><span>Atlas</span><small>PDF</small></div>
+        </div>
+      </div>
+    </div>
+    <div class="pub">
+      <div class="panel">
+        <div class="ark-ram" style="background:var(--t-insunken);border-color:var(--t-kant);padding:10px"><div class="ark" style="max-width:220px;margin:0 auto"><div class="sida t-tidlos" data-cv="tidlos" data-kort="1"></div></div></div>
+        <div class="under">
+          <b>Tidlös</b><span>Ingår i Premium, 149 kr i månaden</span> <i class="tag-word" style="margin-left:8px;vertical-align:1px">Finns också som Word</i>
+          <p>Klassisk formell mall för juridik, bank och offentlig sektor. Ladda ner som PDF eller som redigerbar Word-fil.</p>
+        </div>
+        <div class="knapp-ink">Använd mallen Tidlös</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 7 -->
+<section class="block" id="beslut">
+  <div class="sekt-huvud">
+    <p class="ey">7 · Beslut</p>
+    <h2>Beslut som ägaren godkänner</h2>
+  </div>
+  <div class="beslut">
+    <ol>
+      <li><div><b>Mallurvalet för våg 1</b><span>Norrsken och Student (gratis), Tidlös, Myndighet, Stack och Hantverkare (Premium). Sex enspaltiga mallar som går att bygga med Words egna medel. Sidopanel och övriga tvåspaltiga väntar till våg 2.</span></div></li>
+      <li><div><b>Formatvalets form</b><span>Två segment PDF | Word ovanför en enda kopparknapp som säger "Ladda ner som PDF" eller "Ladda ner som Word". PDF förvalt. Utan Premium är Word synligt men låst, och trycket öppnar betalväggen. När gratisnedladdningen är använd är båda låsta. Mallar utan Word-version visar inget formatval, bara "laddas ner som PDF".</span></div></li>
+      <li><div><b>Märkningen i galleriet, mallinfon och publikt</b><span>Etiketten "Word" på raden under mallnamnet i galleriet, brickan "Finns också som Word" i mallinfon, och publikt "PDF och Word" som tillägg i rullistan. Ingen badge-stapling, ingen ny färg.</span></div></li>
+      <li><div><b>Gratis och Premium</b><span>Den enda gratisnedladdningen är en PDF. Word, fler nedladdningar och premiummallar ingår i Jobbcoach Premium, 149 kr i månaden. Betalväggen säger "Word-filen ingår i Premium, med obegränsade nedladdningar och alla 41 mallar" och knappen "Köp Premium, 149 kr i månaden".</span></div></li>
+      <li><div><b>Typsnitt i Word-filen</b><span>Mallens Word-typsnitt enligt listan i avsnitt 2. I Word-läget visar typsnittsvalet bara Calibri, Arial, Verdana, Georgia, Garamond och Times New Roman.</span></div></li>
+      <li><div><b>Bekräftelse och filnamn</b><span>"Ditt CV är klart som Word-fil: cv-norrsken-erik-lindberg.docx", samma mönster som PDF:en, med raden som leder tillbaka till CV-analysen. Felläget erbjuder Försök igen och PDF som reserv. Word-filen själv innehåller inget om Jobbcoach.</span></div></li>
+    </ol>
+  </div>
+</section>
+
+</div>
+
+<script>
+(function(){
+  var CV = {
+    namn:'Erik Lindberg', titel:'Projektledare inom IT',
+    kontakt:['erik.lindberg@email.se','073-456 78 90','Stockholm','linkedin.com/in/eriklindberg'],
+    profil:'Erfaren projektledare med 6+ års erfarenhet av att leda digitala transformationsprojekt inom bank och fintech. Certifierad i både agila metoder (Scrum, SAFe) och traditionell projektledning (PMP). Levererat 15+ projekt med en genomsnittlig budget på 8 MSEK. Stark kommunikatör som bygger högpresterande team och håller intressenterna samlade.',
+    jobb:[
+      {t:'Senior Projektledare',a:'Nordea Bank',p:'2021 – Pågående',b:['Leder ett tvärfunktionellt team på 12 personer i införandet av en ny mobilbanksplattform','Ansvarig för budget på 15 MSEK och rapportering till styrgrupp med IT-direktör','Införde agilt arbetssätt som ökade leveranstakten med 35 %','Samordnar externa leverantörer och säkerställer efterlevnad av finansiella regelverk']},
+      {t:'Projektledare',a:'Klarna',p:'2018 – 2021',b:['Ledde 8 produktutvecklingsprojekt inom checkout och betalningslösningar','Införde Scrum och kortade tiden till lansering med 40 %','Handledde 3 juniora projektledare och byggde upp ett projektledarprogram','Samordnade releaseplaneringen för 5 utvecklingsteam (50+ utvecklare)']}
+    ],
+    utb:{t:'Civilingenjör Industriell Ekonomi',s:'Kungliga Tekniska Högskolan',p:'2013 – 2018',b:'Inriktning mot projektledning och verksamhetsstyrning'},
+    tek:['Projektledningsmetodik: Scrum, Kanban, SAFe, vattenfall','Verktyg: Jira, Confluence, MS Project, Miro','Budget- och resursplanering','Riskhantering och kvalitetssäkring','Intressenthantering','Agil förändring'],
+    pers:['Ledarskap och teamutveckling','Kommunikation och presentation','Problemlösning och beslutsfattande','Förhandling och konflikthantering','Strategiskt tänkande'],
+    cert:['PMP, Project Management Professional (2022)','SAFe 5.0 Agilist (2021)','Professional Scrum Master I (2019)','PRINCE2 Foundation (2018)'],
+    sprak:[['Svenska','Modersmål'],['Engelska','Flytande']]
+  };
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+  function huvud(a){
+    return '<div class="huvud"><h1'+(a?' class="mk" data-n="1"':'')+'>'+esc(CV.namn)+'</h1><p class="titel">'+esc(CV.titel)+'</p><p class="kontakt'+(a?' mk" data-n="2':'')+'">'+CV.kontakt.map(function(k){return '<span>'+esc(k)+'</span>'}).join('')+'</p></div>';
+  }
+  function h2(t,a,n){return '<h2'+(a?' class="mk" data-n="'+n+'"':'')+'>'+esc(t)+'</h2>';}
+  function profil(a){return '<p'+(a?' class="mk" data-n="3"':'')+'>'+esc(CV.profil)+'</p>';}
+  function jobb(a){
+    return CV.jobb.map(function(j,i){
+      return '<div class="jobb"><div class="rad'+(a&&i===0?' mk" data-n="6':'')+'"><span class="tjanst">'+esc(j.t)+'</span><span class="period">'+esc(j.p)+'</span></div><p class="ag">'+esc(j.a)+'</p><ul'+(a&&i===0?' class="mk" data-n="5"':'')+'>'+j.b.map(function(b){return '<li>'+esc(b)+'</li>'}).join('')+'</ul></div>';
+    }).join('');
+  }
+  function utb(){return '<div class="jobb"><div class="rad"><span class="tjanst">'+esc(CV.utb.t)+'</span><span class="period">'+esc(CV.utb.p)+'</span></div><p class="ag">'+esc(CV.utb.s)+'</p><p>'+esc(CV.utb.b)+'</p></div>';}
+  function komp(){return '<div class="komp"><p><b>Tekniska:</b> '+CV.tek.map(esc).join(', ')+'</p><p><b>Personliga:</b> '+CV.pers.map(esc).join(', ')+'</p></div>';}
+  function kompLista(){return '<ul>'+CV.tek.concat(CV.pers).map(function(b){return '<li>'+esc(b)+'</li>'}).join('')+'</ul>';}
+  function sprak(){return '<p class="sprak">'+CV.sprak.map(function(s){return '<span><b>'+esc(s[0])+'</b> '+esc(s[1])+'</span>'}).join('')+'</p>';}
+  function cert(){return '<ul>'+CV.cert.map(function(c){return '<li>'+esc(c)+'</li>'}).join('')+'</ul>';}
+
+  var MALLAR = {
+    norrsken:function(a){return huvud(a)+h2('Profil',a,4)+profil(a)+h2('Arbetslivserfarenhet')+jobb(a)+h2('Utbildning')+utb()+h2('Kompetenser')+komp()+h2('Språk')+sprak()+h2('Certifieringar')+cert();},
+    sidopanel:function(){return huvud()+h2('Profil')+profil()+h2('Arbetslivserfarenhet')+jobb()+h2('Utbildning')+utb();},
+    student:function(){return huvud()+h2('Profil')+profil()+h2('Utbildning')+utb()+h2('Praktik & arbetslivserfarenhet')+jobb()+h2('Kompetenser')+komp()+h2('Språk')+sprak()+h2('Certifieringar')+cert();},
+    myndighet:function(){return huvud()+h2('Profil')+profil()+h2('Arbetslivserfarenhet')+jobb()+h2('Utbildning')+utb()+h2('Kompetenser')+komp()+h2('Språk')+sprak()+h2('Certifieringar')+cert();},
+    tidlos:function(){return huvud()+h2('Profil')+profil()+h2('Arbetslivserfarenhet')+jobb()+h2('Utbildning')+utb()+h2('Kompetenser')+komp()+h2('Språkkunskaper')+sprak()+h2('Certifieringar')+cert();},
+    stack:function(){
+      var g='<div class="grid"><div><h4>Metodik</h4><p>Scrum<br>Kanban<br>SAFe<br>Vattenfall</p></div><div><h4>Verktyg</h4><p>Jira<br>Confluence<br>MS Project<br>Miro</p></div><div><h4>Ledning</h4><p>Budget &amp; resurs<br>Riskhantering<br>Intressenter<br>Agil förändring</p></div></div>';
+      return huvud()+h2('Profil')+profil()+h2('Kompetenser')+g+h2('Arbetslivserfarenhet')+jobb()+h2('Utbildning')+utb()+h2('Språk')+sprak()+h2('Certifieringar')+cert();
+    },
+    bygg:function(){
+      var blk='<div class="block"><h4>Behörigheter &amp; körkort</h4><p>B-körkort · PMP (2022) · SAFe 5.0 Agilist (2021) · Professional Scrum Master I (2019) · PRINCE2 Foundation (2018)</p></div>';
+      return huvud()+h2('Profil')+profil()+blk+h2('Yrkeserfarenhet')+jobb()+h2('Utbildning')+utb()+h2('Kompetenser')+komp()+h2('Språk')+sprak();
+    }
+  };
+  var noder=document.querySelectorAll('[data-cv]');
+  for(var i=0;i<noder.length;i++){
+    var n=noder[i], id=n.getAttribute('data-cv'), a=n.getAttribute('data-annot')==='1';
+    n.innerHTML=(MALLAR[id]||MALLAR.norrsken)(a);
+  }
+})();
+</script>

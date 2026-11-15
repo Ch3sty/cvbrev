@@ -11,47 +11,7 @@ import { LetterMetadata } from '@/lib/pdf/letter-templates';
 import { getDocxTemplate, type DocxTemplateId } from '@/lib/letters/docx-templates';
 import { ProfileDataForLetter, JobInfo } from '@/lib/letters/template-merger';
 import { Packer } from 'docx';
-import { type FontId } from '@/app/dashboard/skapa-brev/components/FontSelector';
-
-/**
- * Konverterar FontId till CSS font-family string för HTML/PDF
- */
-function getFontFamilyForHTML(fontId: FontId = 'calibri'): string {
-  const fontMap: Record<FontId, string> = {
-    'calibri': 'Calibri, Arial, sans-serif',
-    'arial': 'Arial, Helvetica, sans-serif',
-    'verdana': 'Verdana, Geneva, sans-serif',
-    'lato': "'Lato', Arial, sans-serif",
-    'open-sans': "'Open Sans', Arial, sans-serif",
-    'roboto': "'Roboto', Arial, sans-serif",
-    'poppins': "'Poppins', Arial, sans-serif",
-    'georgia': 'Georgia, Times, serif',
-    'garamond': 'Garamond, Georgia, serif',
-    'times': "'Times New Roman', Times, serif",
-    'helvetica': 'Helvetica, Arial, sans-serif'
-  };
-  return fontMap[fontId] || fontMap.calibri;
-}
-
-/**
- * Konverterar FontId till DOCX font name (primary font endast, utan fallbacks)
- */
-function getFontNameForDocx(fontId: FontId = 'calibri'): string {
-  const fontMap: Record<FontId, string> = {
-    'calibri': 'Calibri',
-    'arial': 'Arial',
-    'verdana': 'Verdana',
-    'lato': 'Lato',
-    'open-sans': 'Open Sans',
-    'roboto': 'Roboto',
-    'poppins': 'Poppins',
-    'georgia': 'Georgia',
-    'garamond': 'Garamond',
-    'times': 'Times New Roman',
-    'helvetica': 'Helvetica'
-  };
-  return fontMap[fontId] || fontMap.calibri;
-}
+import { getFontFamilyForHTML, getFontNameForDocx } from '@/lib/documents/typsnitt';
 
 /**
  * Genererar PDF med Puppeteer från redan genererad HTML
@@ -313,8 +273,8 @@ export async function POST(request: Request) {
     }
 
     // Konvertera font till rätt format för PDF och DOCX
-    const fontFamily = font ? getFontFamilyForHTML(font as FontId) : undefined;
-    const fontName = font ? getFontNameForDocx(font as FontId) : undefined;
+    const fontFamily = font ? getFontFamilyForHTML(String(font)) : undefined;
+    const fontName = font ? getFontNameForDocx(String(font)) : undefined;
 
     // Hämta användarens profil för att lägga till namn m.m.
     const { data: profileData } = await supabase

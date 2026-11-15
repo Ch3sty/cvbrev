@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Type, Image as ImageIcon, Linkedin, ChevronDown, Check, X } from '@/components/illustrations/RumIkoner';
 import { FONTS, getFontsGroupedByCategory, type FontOption } from '@/lib/cv/preview-utils';
 import type { SimpleTemplate } from '@/lib/cv/simple-templates';
+import { arWordTypsnitt } from '@/lib/documents/typsnitt';
 
 /**
  * Typsnittsgruppens rubrik. preview-utils kallar premiumgruppen "Premium",
@@ -61,6 +62,12 @@ interface MallToolbarProps {
   includeLinkedIn: boolean;
   onToggleLinkedIn: () => void;
   isPremium: boolean;
+  /**
+   * Word är valt: listan visar bara typsnitten som finns i Word på både
+   * Windows och Mac (planens B6), så filen aldrig lovar ett typsnitt den
+   * inte har.
+   */
+  endastWord?: boolean;
 }
 
 /**
@@ -81,6 +88,7 @@ export default function MallToolbar({
   includeLinkedIn,
   onToggleLinkedIn,
   isPremium,
+  endastWord = false,
 }: MallToolbarProps) {
   const [isFontOpen, setIsFontOpen] = useState(false);
   const fontDropdownRef = useRef<HTMLDivElement>(null);
@@ -125,7 +133,11 @@ export default function MallToolbar({
   }, [isFontOpen]);
 
   const currentFont = FONTS.find(f => f.id === selectedFont) || FONTS[0];
-  const fontGroups = getFontsGroupedByCategory();
+  const fontGroups = Object.fromEntries(
+    Object.entries(getFontsGroupedByCategory())
+      .map(([kategori, lista]) => [kategori, endastWord ? lista.filter((f) => arWordTypsnitt(f.id)) : lista] as const)
+      .filter(([, lista]) => lista.length > 0)
+  );
   const supportsPhoto = !!template?.features?.supportsPhoto;
   const supportsLinkedIn = !!template?.features?.supportsLinkedIn;
 

@@ -9,6 +9,7 @@
 // anropar rutten i dag.
 
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
+import { WORD_TEMPLATE_COUNT_ORD } from '@/lib/cv/template-antal'
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { createServerClient } from '@/lib/supabase/server'
@@ -53,7 +54,11 @@ const DEFAULT_ORDER: Array<{ feature: PremiumFeature; item: PremiumLossItem }> =
   },
   {
     feature: 'cv_export',
-    item: { label: 'Export PDF och Word', free: PAKETRADER.exportGratis, premium: 'Obegränsat' },
+    item: {
+      label: `Export som PDF, Word i ${WORD_TEMPLATE_COUNT_ORD} av mallarna`,
+      free: PAKETRADER.exportGratis,
+      premium: 'Obegränsat, PDF och Word',
+    },
   },
   {
     feature: 'cv_analysis_full',

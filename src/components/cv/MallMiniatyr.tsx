@@ -18,11 +18,17 @@ export interface MallMiniatyrProps {
   vald?: boolean
   /** Mallen ingår inte i paketet: insunken med lås. */
   last?: boolean
+  /**
+   * Liten konturetikett högerställd på raden under namnet, samma rad som
+   * "Gratis" och "Premium": "Word" på mallarna som också finns som Word-fil
+   * (docs/design/skiss-cv-word-2026-11-15.html, avsnitt 3b).
+   */
+  etikett?: string
   className?: string
 }
 
 /** En miniatyr: arket i 3:4 på panel, namnet under. */
-export function MallMiniatyr({ mall, under, vald, last, className }: MallMiniatyrProps) {
+export function MallMiniatyr({ mall, under, vald, last, etikett, className }: MallMiniatyrProps) {
   return (
     <figure className={`min-w-0 ${className ?? ''}`}>
       <div
@@ -53,7 +59,16 @@ export function MallMiniatyr({ mall, under, vald, last, className }: MallMiniaty
       </div>
       <figcaption className="mt-2">
         <span className="block truncate text-sm font-semibold text-ink-1">{mall.name}</span>
-        {under ? <span className="block truncate text-meta text-ink-3">{under}</span> : null}
+        {etikett ? (
+          <span className="flex items-center justify-between gap-1.5">
+            <span className="min-w-0 truncate text-meta text-ink-3">{under}</span>
+            <span className="flex-shrink-0 rounded border border-kant-stark px-1.5 text-[12px] font-medium leading-[18px] text-ink-2">
+              {etikett}
+            </span>
+          </span>
+        ) : under ? (
+          <span className="block truncate text-meta text-ink-3">{under}</span>
+        ) : null}
       </figcaption>
     </figure>
   )

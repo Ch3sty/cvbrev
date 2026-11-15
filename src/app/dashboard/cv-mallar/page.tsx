@@ -25,6 +25,7 @@ import { scopeHasFeature, type Scope } from '@/lib/access/features';
 import { harPaket } from '@/lib/plans/harPaket';
 import type { PlanKey } from '@/lib/plans/plans';
 import { hamtaVerifieradAnvandare } from '@/lib/supabase/verifierad-anvandare';
+import { FREE_CV_EXPORTS } from '@/lib/cv/template-antal';
 
 export default async function CVMallarPage({
   searchParams,
@@ -48,6 +49,8 @@ export default async function CVMallarPage({
 
   let cvRows: InitialCv[] = [];
   let isPremium = false;
+  let harWord = false;
+  let gratisAnvand = false;
   let scope: Scope | null = null;
   let track: Scope | null = null;
   let planKey: PlanKey | null = null;
@@ -61,7 +64,7 @@ export default async function CVMallarPage({
         .order('created_at', { ascending: false }),
       supabase
         .from('profiles')
-        .select('premium_until, onboarding_track, price_id, subscription_status')
+        .select('premium_until, onboarding_track, price_id, subscription_status, free_cv_exports_used')
         .eq('id', user.id)
         .maybeSingle(),
       getUserScope(supabase, user.id),
@@ -80,9 +83,15 @@ export default async function CVMallarPage({
       onboarding_track?: string | null;
       price_id?: string | null;
       subscription_status?: string | null;
+      free_cv_exports_used?: number | null;
     } | null;
     scope = scopeRes;
     isPremium = scopeHasFeature(scope, 'cv_templates_all');
+    // Formatvalet i steg 3 (planen för CV som Word): Word ingår i Premium,
+    // och när gratisnedladdningen är använd är båda formaten låsta.
+    harWord = scopeHasFeature(scope, 'cv_export_word');
+    gratisAnvand =
+      !scopeHasFeature(scope, 'cv_export') && (profile?.free_cv_exports_used ?? 0) >= FREE_CV_EXPORTS;
     const t = profile?.onboarding_track;
     track = t === 'cv' || t === 'tester' || t === 'allt' ? t : null;
     planKey = harPaket(scope, profile?.premium_until ? new Date(profile.premium_until) : null, new Date(), {
@@ -106,6 +115,8 @@ export default async function CVMallarPage({
       initialCvs={cvRows}
       initialIsPremium={isPremium}
       initialSelectedCvId={initialSelectedCvId}
+      harWord={harWord}
+      gratisAnvand={gratisAnvand}
       scope={scope}
       track={track}
       planKey={planKey}

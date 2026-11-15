@@ -17,7 +17,9 @@ import { getTemplateById } from '@/lib/cv/simple-templates';
 import { requestInstallPrompt } from '@/lib/pwa/installPrompt';
 import StatusRow from '@/components/shell/StatusRow';
 import GraValSheet from '@/components/paywall/GraValSheet';
-import type { Scope } from '@/lib/access/features';
+import type { Feature, Scope } from '@/lib/access/features';
+import type { PaywallVariant } from '@/components/paywall/paywall-copy';
+import type { BetalvaggPlats } from '@/lib/analytics/events';
 import type { PlanKey } from '@/lib/plans/plans';
 import { mallHuvud } from '@/lib/onboarding/paket-rader';
 import { arNamnKravs, kastaOmNamnKravs } from '@/lib/cv/namnKravs';
@@ -25,7 +27,7 @@ import NameRequiredNotice from '@/components/shared/NameRequiredNotice';
 
 import CvMallarLayout from './components/CvMallarLayout';
 import CvMallarHero from './components/CvMallarHero';
-import MallarLivePreview from './components/MallarLivePreview';
+import MallarLivePreview, { type GenereraParams } from './components/MallarLivePreview';
 import CompactCvPicker from './components/CompactCvPicker';
 import StepHeader from './components/StepHeader';
 
@@ -45,11 +47,41 @@ const CvGenerationOverlay = dynamic(
   { ssr: false }
 );
 
+/** Betalväggarna i CV-mallarna: varianten, featuren den spärrar och platsen. */
+type Sparr = 'mall' | 'cv-export-word' | 'cv-export';
+const SPARR: Record<Sparr, { feature: Feature; plats: BetalvaggPlats }> = {
+  mall: { feature: 'cv_templates_all', plats: 'mall' },
+  'cv-export-word': { feature: 'cv_export_word', plats: 'cv_export_word' },
+  'cv-export': { feature: 'cv_export', plats: 'cv_export' },
+};
+/** 402-svarets feature till väggen, om servern spärrar fast klienten inte gjorde det. */
+const SPARR_FOR_FEATURE: Partial<Record<string, Sparr>> = {
+  cv_templates_all: 'mall',
+  cv_export_word: 'cv-export-word',
+  cv_export: 'cv-export',
+};
+
+/**
+ * Filnamnet: mallens namn och CV:ts namn, små bokstäver och bindestreck
+ * (skissen, avsnitt 5): cv-norrsken-erik-lindberg.docx.
+ */
+function filnamnsdel(s: string): string {
+  return s
+    .toLowerCase()
+    .replace(/[åä]/g, 'a')
+    .replace(/ö/g, 'o')
+    .replace(/é/g, 'e')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 
 export default function CvMallarClient({
   initialCvs,
   initialIsPremium,
   initialSelectedCvId,
+  harWord = false,
+  gratisAnvand = false,
   scope = null,
   track = null,
   planKey = null,
@@ -57,6 +89,10 @@ export default function CvMallarClient({
   initialCvs: InitialCv[];
   initialIsPremium: boolean;
   initialSelectedCvId: string | null;
+  /** Kontot har Word-filen (cv_export_word). */
+  harWord?: boolean;
+  /** Gratisnedladdningen är använd och kontot saknar cv_export. */
+  gratisAnvand?: boolean;
   scope?: Scope | null;
   track?: Scope | null;
   planKey?: PlanKey | null;
@@ -75,7 +111,11 @@ export default function CvMallarClient({
 
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationError, setGenerationError] = useState<string | null>(null);
-  const [sparrOppen, setSparrOppen] = useState(false);
+  const [sparr, setSparr] = useState<Sparr | null>(null);
+  // Filnamnet på den senaste Word-filen, för bekräftelsen under knappen.
+  const [wordKlar, setWordKlar] = useState<string | null>(null);
+  // Det senaste valet, så att felläget kan försöka igen eller byta till PDF.
+  const [senaste, setSenaste] = useState<GenereraParams | null>(null);
   const [bytCv, setBytCv] = useState(false);
   // 422 name_required: valet sparas så att nedladdningen fortsätter när
   // namnet är sparat (NameRequiredNotice).
@@ -86,28 +126,34 @@ export default function CvMallarClient({
 
   // Betalväggen för Premium. En befintlig spårkund får samma vägg; knappen
   // går då till prenumerationssidan (spec-rummen 17.5).
-  const handleUpgradeClick = () => setSparrOppen(true);
+  const handleUpgradeClick = () => setSparr('mall');
 
-  const handleGenerateCV = async (params: {
-    templateId: string;
-    fontFamily: string;
-    fontId: string;
-    includePhoto: boolean;
-    includeLinkedIn: boolean;
-  }) => {
+  const handleGenerateCV = async (params: GenereraParams) => {
     if (!selectedCV) return;
 
     const template = getTemplateById(params.templateId);
+    const somWord = params.format === 'docx';
+    // Spärrarna i samma ordning som servern: Word, mallen, gratisnedladdningen.
+    if (somWord && !harWord) {
+      setSparr('cv-export-word');
+      return;
+    }
     if (template?.tier === 'premium' && !isPremium) {
       handleUpgradeClick();
       return;
     }
+    if (gratisAnvand) {
+      setSparr('cv-export');
+      return;
+    }
 
     setGenerationError(null);
+    setWordKlar(null);
+    setSenaste(params);
     setIsGenerating(true);
 
     try {
-      const fileName = `cv-${template?.name.toLowerCase().replace(/\s+/g, '-')}-${selectedCV.file_name.replace(/\.[^/.]+$/, '')}.pdf`;
+      const fileName = `cv-${filnamnsdel(template?.name ?? params.templateId)}-${filnamnsdel(selectedCV.file_name.replace(/\.[^/.]+$/, ''))}.${somWord ? 'docx' : 'pdf'}`;
 
       const supportsPhoto = template?.features?.supportsPhoto === true;
       const supportsLinkedIn = template?.features?.supportsLinkedIn === true;
@@ -123,13 +169,23 @@ export default function CvMallarClient({
           template: params.templateId,
           structuredData: (selectedCV as any).structured_data || undefined,
           cvText: selectedCV.cv_text,
-          format: 'pdf',
+          format: somWord ? 'docx' : 'pdf',
           templateOptions,
           fontFamily: params.fontFamily,
+          // Word-filen tar typsnittet som id; servern godtar bara Word-typsnitt.
+          fontId: somWord ? params.wordFontId : params.fontId,
         }),
       });
 
       await kastaOmNamnKravs(response);
+      // Servern spärrade fast klienten inte gjorde det (gammalt läge i
+      // fliken): visa betalväggen, aldrig ett fel.
+      if (response.status === 402) {
+        const sparrBody = await response.json().catch(() => ({}));
+        setIsGenerating(false);
+        setSparr(SPARR_FOR_FEATURE[sparrBody?.feature] ?? 'cv-export');
+        return;
+      }
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Kunde inte generera CV');
@@ -146,15 +202,19 @@ export default function CvMallarClient({
       window.URL.revokeObjectURL(url);
 
       setIsGenerating(false);
+      if (somWord) setWordKlar(fileName);
 
       successWithMascotAndActivity(
-        'Vi har gjort en PDF av ditt CV. Den är nedladdad till din enhet.',
+        somWord
+          ? 'Vi har gjort en Word-fil av ditt CV. Den är nedladdad till din enhet.'
+          : 'Vi har gjort en PDF av ditt CV. Den är nedladdad till din enhet.',
         'cv-template-generated',
         'cv_generated',
         'skapade ett professionellt CV',
         {
           template: params.templateId,
-          font: params.fontId,
+          font: somWord ? params.wordFontId : params.fontId,
+          format: somWord ? 'docx' : 'pdf',
           cv_id: selectedCV.id,
           file_name: fileName,
         },
@@ -229,9 +289,14 @@ export default function CvMallarClient({
         <MallarLivePreview
           selectedCV={selectedCV}
           isPremium={isPremium}
+          harWord={harWord}
+          gratisAnvand={gratisAnvand}
           isGenerating={isGenerating}
           onGenerate={handleGenerateCV}
           onUpgrade={handleUpgradeClick}
+          onWordLast={() => setSparr('cv-export-word')}
+          onExportLast={() => setSparr('cv-export')}
+          wordKlar={wordKlar}
           onCvKontaktSparad={(cv) => setNyStrukturerad((prev) => ({ ...prev, [cv.id]: cv.structured_data }))}
         />
         {namnFor ? (
@@ -246,17 +311,17 @@ export default function CvMallarClient({
         ) : null}
       </section>
 
-      {sparrOppen ? (
+      {sparr ? (
         <GraValSheet
           open
-          onClose={() => setSparrOppen(false)}
-          feature="cv_templates_all"
-          variant="mall"
+          onClose={() => setSparr(null)}
+          feature={SPARR[sparr].feature}
+          variant={sparr as PaywallVariant}
           scope={scope}
           track={track}
           planKey={planKey}
           surface="/dashboard/cv-mallar"
-          plats="mall"
+          plats={SPARR[sparr].plats}
         />
       ) : null}
 
@@ -265,10 +330,27 @@ export default function CvMallarClient({
           isOpen
           isError={!!generationError}
           errorMessage={generationError || undefined}
+          format={senaste?.format ?? 'pdf'}
           onClose={() => {
             setIsGenerating(false);
             setGenerationError(null);
           }}
+          onRetry={
+            senaste
+              ? () => {
+                  setGenerationError(null);
+                  void handleGenerateCV(senaste);
+                }
+              : undefined
+          }
+          onPdfIstallet={
+            senaste
+              ? () => {
+                  setGenerationError(null);
+                  void handleGenerateCV({ ...senaste, format: 'pdf' });
+                }
+              : undefined
+          }
         />
       )}
     </CvMallarLayout>

@@ -18,6 +18,9 @@ import { IkonKrona } from '@/components/illustrations/Ikoner';
 import { FIELD, FIELD_OK, LABEL } from '../inputs/SkapaCvInput';
 import type { CVDraft } from '../CVCreatorWizard';
 import type { CVMetadata, CVTemplateType } from '@/lib/cv/cv-metadata';
+import FormatVal, { type CvFormat } from '@/app/dashboard/cv-mallar/components/FormatVal';
+import { harWordVersion, WORD_MALL_TYPSNITT } from '@/lib/cv/template-antal';
+import { getFontById } from '@/lib/cv/preview-utils';
 
 /** Primärhandlingen registreras hos wizarden, som ritar den i FlowShell-foten. */
 export interface ReviewPrimary {
@@ -32,7 +35,7 @@ interface Step7ReviewProps {
   updateCVData: (updates: Partial<CVDraft>) => void;
   selectedTemplate: string;
   setSelectedTemplate: (template: string) => void;
-  onComplete: (action: 'save' | 'download' | 'both') => Promise<void>;
+  onComplete: (action: 'save' | 'download' | 'both', format?: CvFormat) => Promise<void>;
   isSaving: boolean;
   buildCVMetadata: () => CVMetadata;
   /**
@@ -118,6 +121,9 @@ export default function Step7Review({
   const [previewHTML, setPreviewHTML] = useState<string>('');
   const [isGeneratingPreview, setIsGeneratingPreview] = useState(false);
   const [quotaError, setQuotaError] = useState<string | null>(null);
+  // Formatvalet, samma som i CV-mallarna (docs/design/skiss-cv-word-2026-11-15.html).
+  const [format, setFormat] = useState<CvFormat>('pdf');
+  const [visaWordVagg, setVisaWordVagg] = useState(false);
 
   /* Mallgeneratorerna ligger i en barrel som drar in samtliga 43 mallar.
      Statiskt importerad hamnade hela den vikten i samma chunk som granskningen
@@ -213,6 +219,10 @@ export default function Step7Review({
 
   const selectedTemplateData = getTemplateById(selectedTemplate);
   const isTemplateLocked = selectedTemplateData?.tier === 'premium' && !isPremium;
+  const mallHarWord = harWordVersion(selectedTemplate);
+  const aktivtFormat: CvFormat = mallHarWord ? format : 'pdf';
+  // Word ingår alltid i Premium (planens B2); samma scope som mallarna.
+  const wordLast = !isPremium;
   // Den låsta raden med köplänken är en betalvägg (spec-rummen 7).
   useBetalvaggVisad('mall', isTemplateLocked);
 
@@ -225,7 +235,7 @@ export default function Step7Review({
     async (action: 'save' | 'download' | 'both') => {
       setQuotaError(null);
       try {
-        await onComplete(action);
+        await onComplete(action, aktivtFormat);
         setCompletionStatus({
           wasDownloaded: action === 'download' || action === 'both',
           wasSaved: action === 'save' || action === 'both',
@@ -244,7 +254,7 @@ export default function Step7Review({
         }
       }
     },
-    [onComplete]
+    [onComplete, aktivtFormat]
   );
 
   /* Primärknappen ligger i skalets fot. Vad som saknas sägs i klartext, så
@@ -255,18 +265,21 @@ export default function Step7Review({
       registerPrimary(null);
       return;
     }
+    const somWord = aktivtFormat === 'docx';
     const blockedReason = !isValid
       ? 'Fyll i namn, e-post och telefon samt minst en erfarenhet eller utbildning.'
       : isTemplateLocked
         ? PAKETRADER.mallSparr
-        : undefined;
+        : somWord && wordLast
+          ? `Word-filen ingår i ${PAKETRADER.bricka}.`
+          : undefined;
     registerPrimary({
-      label: 'Spara och ladda ner PDF',
+      label: somWord ? 'Spara och ladda ner Word' : 'Spara och ladda ner PDF',
       onClick: () => handleAction('both'),
-      disabled: !isValid || isTemplateLocked,
+      disabled: !isValid || isTemplateLocked || (somWord && wordLast),
       blockedReason,
     });
-  }, [registerPrimary, viewMode, isValid, isTemplateLocked, handleAction]);
+  }, [registerPrimary, viewMode, isValid, isTemplateLocked, handleAction, aktivtFormat, wordLast]);
 
   useEffect(() => {
     return () => registerPrimary?.(null);
@@ -424,6 +437,21 @@ export default function Step7Review({
             {PAKETRADER.ingar}
           </StatusRow>
         )}
+
+        <FormatVal
+          mallNamn={selectedTemplateData?.name ?? 'Mallen'}
+          harWordVersion={mallHarWord}
+          format={aktivtFormat}
+          pdfLast={isTemplateLocked}
+          wordLast={wordLast}
+          rad={null}
+          wordTypsnitt={mallHarWord ? getFontById(WORD_MALL_TYPSNITT[selectedTemplate as keyof typeof WORD_MALL_TYPSNITT]).name : ''}
+          onValj={(f) => {
+            setFormat(f);
+            setVisaWordVagg(f === 'docx' && wordLast);
+          }}
+        />
+        {visaWordVagg && aktivtFormat === 'docx' ? <PaywallCard variant="cv-export-word" /> : null}
       </section>
 
       {/* Innehåll och förhandsvisning */}

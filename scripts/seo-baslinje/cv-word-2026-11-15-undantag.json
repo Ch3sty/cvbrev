@@ -1,0 +1,17 @@
+{
+  "_om": "CV som Word-fil (docs/plan-cv-word-2026-11-15.md avsnitt 8.3, beslut B8): sajten lovade 'PDF och Word' för alla CV-mallar fast Word inte fanns. Efter lanseringen finns Word i sex mallar och ingår i Premium; texterna rättas till sanningen. Avsiktliga ändringar, formulerade av svensk-ux-copywriter.",
+  "RUBRIK_BYTT": [
+    { "path": "/verktyg/cv-mallar", "fore": "h3 Ladda ner som PDF eller Word", "efter": "h3 Ladda ner som PDF, eller Word i sex av mallarna", "datum": "2026-11-15", "skal": "Sanningskravet: Word finns i sex mallar (STEG, matar HowTo)." },
+    { "path": "/verktyg/cv-mallar", "fore": "h3 PDF och Word", "efter": "h3 PDF, och Word i utvalda mallar", "datum": "2026-11-15", "skal": "Sanningskravet: Word finns i sex mallar." },
+    { "path": "/verktyg/skapa-cv", "fore": "h3 Ladda ner som PDF eller Word (×2)", "efter": "h3 Ladda ner som PDF, eller Word i sex av mallarna", "datum": "2026-11-15", "skal": "Sanningskravet: Word finns i sex mallar (funktionslistan och HowTo)." }
+  ],
+  "META_BYTT": [
+    { "path": "/verktyg/skapa-cv", "falt": "description", "datum": "2026-11-15", "skal": "Sanningskravet: 'PDF eller Word' blir 'PDF, eller Word i utvalda mallar' (157 tecken)." },
+    { "path": "/verktyg/cv-mallar", "falt": "description", "datum": "2026-11-15", "skal": "Sanningskravet: 'PDF eller Word' blir 'PDF, eller Word i utvalda mallar'." }
+  ],
+  "LD_UNDANTAG": [
+    { "path": "/verktyg/cv-analys", "datum": "2026-11-15", "skal": "FAQ-svaret om vad som händer efter analysen sa 'PDF eller Word'; det förbättrade CV:t laddas ner som PDF. Frågorna oförändrade.", "andrade": ["FAQPage", "HowTo"] },
+    { "path": "/verktyg/cv-mallar", "datum": "2026-11-15", "skal": "FAQ och HowTo följer de rättade Word-texterna; ny FAQ 'Vilka mallar finns som Word?'.", "andrade": ["FAQPage", "HowTo"] },
+    { "path": "/verktyg/skapa-cv", "datum": "2026-11-15", "skal": "FAQ, HowTo och WebApplication (featureList, description) följer de rättade Word-texterna.", "andrade": ["FAQPage", "HowTo", "WebApplication"] }
+  ]
+}

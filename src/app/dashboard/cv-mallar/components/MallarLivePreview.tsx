@@ -1,7 +1,8 @@
 'use client';
 
-import { KNAPP_PRIMAR } from '@/components/shell/knappar'
+import { KNAPP_PRIMAR, LANK } from '@/components/shell/knappar'
 import { useState, useEffect, useMemo, useRef } from 'react';
+import Link from 'next/link';
 import { ArrowRight, Eye } from '@/components/illustrations/RumIkoner';
 
 import { getTemplateById, TEMPLATE_COUNT } from '@/lib/cv/simple-templates';
@@ -17,8 +18,15 @@ import MallGrid from './MallGrid';
 import MallToolbar from './MallToolbar';
 import MallInfoCard from './MallInfoCard';
 import StepHeader from './StepHeader';
-import { paketKort } from '@/lib/plans/plans';
 import KontaktuppgifterRad from '@/components/shell/KontaktuppgifterRad';
+import StatusRow from '@/components/shell/StatusRow';
+import { PAKETRADER } from '@/components/paywall/paywall-copy';
+import { useKampanjPris } from '@/components/kampanj/KampanjPrisKontext';
+import { premiumKnapp } from '@/lib/kampanj/kampanj';
+import { PRISER_HREF } from '@/lib/onboarding/steps';
+import { harWordVersion, WORD_MALL_TYPSNITT, WORD_TEMPLATE_COUNT_ORD } from '@/lib/cv/template-antal';
+import { arWordTypsnitt } from '@/lib/documents/typsnitt';
+import FormatVal, { type CvFormat } from './FormatVal';
 
 interface CV {
   id: string;
@@ -31,15 +39,19 @@ interface CV {
 interface MallarLivePreviewProps {
   selectedCV: CV | null;
   isPremium: boolean;
+  /** Kontot har Word-filen (featuren cv_export_word). */
+  harWord?: boolean;
+  /** Gratisnedladdningen är använd och kontot saknar cv_export. */
+  gratisAnvand?: boolean;
   isGenerating: boolean;
-  onGenerate: (params: {
-    templateId: string;
-    fontFamily: string;
-    fontId: string;
-    includePhoto: boolean;
-    includeLinkedIn: boolean;
-  }) => void;
+  onGenerate: (params: GenereraParams) => void;
   onUpgrade?: () => void;
+  /** Låst Word: betalväggen cv-export-word. */
+  onWordLast?: () => void;
+  /** Gratisnedladdningen använd: betalväggen cv-export. */
+  onExportLast?: () => void;
+  /** Filnamnet på Word-filen som just laddats ner, för bekräftelsen. */
+  wordKlar?: string | null;
   initialTemplate?: string;
   /**
    * Kontaktuppgifterna sparades i raden och servern bytte dem i CV:ts
@@ -49,7 +61,21 @@ interface MallarLivePreviewProps {
   onCvKontaktSparad?: (cv: { id: string; structured_data: unknown }) => void;
 }
 
+export interface GenereraParams {
+  templateId: string;
+  fontFamily: string;
+  fontId: string;
+  includePhoto: boolean;
+  includeLinkedIn: boolean;
+  format: CvFormat;
+  /** Typsnittet Word-filen ska få (id i typsnittslistan). */
+  wordFontId: string;
+}
+
 const DEFAULT_TEMPLATE_ID = 'norrsken';
+
+/** "sex" blir "Sex" i början av en mening. */
+const stor = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 const PREVIEW_DEBOUNCE_MS = 250;
 
 /**
@@ -64,12 +90,24 @@ const PREVIEW_DEBOUNCE_MS = 250;
 export default function MallarLivePreview({
   selectedCV,
   isPremium,
+  harWord = false,
+  gratisAnvand = false,
   isGenerating,
   onGenerate,
   onUpgrade,
+  onWordLast,
+  onExportLast,
+  wordKlar = null,
   initialTemplate,
   onCvKontaktSparad,
 }: MallarLivePreviewProps) {
+  const kampanj = useKampanjPris();
+  // PDF är förvalt (skissen, avsnitt 3). Valet ligger kvar när mallen byts,
+  // men en mall utan Word-version laddas alltid ner som PDF.
+  const [format, setFormat] = useState<CvFormat>('pdf');
+  // Har användaren själv valt typsnitt? Annars får Word-filen mallens eget
+  // (Garamond i Tidlös), inte verktygsradens förval.
+  const [fontAndrad, setFontAndrad] = useState(false);
   // Kontaktuppgifterna kan ändras utan att CV:t byts: profilen fyller tomma
   // fält, så förhandsvisningen hämtas om efter varje sparning i raden.
   const [kontaktVersion, setKontaktVersion] = useState(0);
@@ -171,6 +209,15 @@ export default function MallarLivePreview({
     setSelectedTemplate(templateId);
   };
 
+  const mallHarWord = harWordVersion(selectedTemplate);
+  const aktivtFormat: CvFormat = mallHarWord ? format : 'pdf';
+  const wordFontId =
+    fontAndrad && arWordTypsnitt(selectedFont)
+      ? selectedFont
+      : mallHarWord
+        ? WORD_MALL_TYPSNITT[selectedTemplate]
+        : 'calibri';
+
   const handleGenerate = () => {
     const font = getFontById(selectedFont);
     onGenerate({
@@ -179,11 +226,30 @@ export default function MallarLivePreview({
       fontId: font.id,
       includePhoto,
       includeLinkedIn,
+      format: aktivtFormat,
+      wordFontId,
     });
   };
 
   const isLockedPremium = template?.tier === 'premium' && !isPremium;
-  const canGenerate = !!selectedCV && !!selectedTemplate && !isGenerating && !isLockedPremium;
+  // Låsen i formatvalet: PDF när mallen eller gratisnedladdningen är låst,
+  // Word alltid utan Premium (planens B2).
+  const pdfLast = isLockedPremium || gratisAnvand;
+  const wordLast = !harWord;
+  const valtLast = aktivtFormat === 'docx' ? wordLast : pdfLast;
+  const oppnaSparr = (f: CvFormat) => {
+    if (f === 'docx') onWordLast?.();
+    else if (isLockedPremium) onUpgrade?.();
+    else onExportLast?.();
+  };
+  const formatRad = gratisAnvand
+    ? `Din gratisnedladdning är använd. Fler nedladdningar, i PDF och Word, ingår i ${PAKETRADER.bricka}.`
+    : isLockedPremium
+      ? PAKETRADER.mallIngar
+      : wordLast
+        ? `PDF är gratis första gången. Word, för att ändra i filen själv, ingår i ${PAKETRADER.bricka}.`
+        : null;
+  const canGenerate = !!selectedCV && !!selectedTemplate && !isGenerating && !valtLast;
 
   return (
     <div>
@@ -193,7 +259,7 @@ export default function MallarLivePreview({
           <StepHeader
             number={2}
             title="Välj mall"
-            description={`Sex av ${TEMPLATE_COUNT} syns här. Alla klarar rekryteringssystemens läsning.`}
+            description={`Sex av ${TEMPLATE_COUNT} syns här. Alla klarar rekryteringssystemens läsning. ${stor(WORD_TEMPLATE_COUNT_ORD)} av dem finns också som Word, för dig som vill ändra i filen själv.`}
           />
           <MallGrid
             selectedTemplate={selectedTemplate}
@@ -207,7 +273,7 @@ export default function MallarLivePreview({
           <StepHeader
             number={3}
             title="Granska och ladda ner"
-            description="Så här kommer ditt CV se ut. Anpassa typsnitt och alternativ innan du laddar ner."
+            description="Så här kommer ditt CV se ut. Anpassa typsnitt och format innan du laddar ner."
           />
           <div className="flex flex-col gap-5">
             {/* Live-preview */}
@@ -228,8 +294,12 @@ export default function MallarLivePreview({
                 anvandaren ser senaste anpassning innan generering */}
             <MallToolbar
               template={template}
-              selectedFont={selectedFont}
-              onFontChange={setSelectedFont}
+              selectedFont={aktivtFormat === 'docx' ? wordFontId : selectedFont}
+              onFontChange={(id) => {
+                setSelectedFont(id);
+                setFontAndrad(true);
+              }}
+              endastWord={aktivtFormat === 'docx'}
               includePhoto={includePhoto}
               onTogglePhoto={() => setIncludePhoto(v => !v)}
               includeLinkedIn={includeLinkedIn}
@@ -237,14 +307,39 @@ export default function MallarLivePreview({
               isPremium={isPremium}
             />
 
+            {/* Formatet direkt ovanför knappen, så ögat läser format och
+                sedan handling (skissen, avsnitt 3). */}
+            <FormatVal
+              mallNamn={template?.name ?? 'Mallen'}
+              harWordVersion={mallHarWord}
+              format={aktivtFormat}
+              pdfLast={pdfLast}
+              wordLast={wordLast}
+              rad={mallHarWord ? formatRad : null}
+              wordTypsnitt={getFontById(wordFontId).name}
+              onValj={(f) => {
+                setFormat(f);
+                if (f === 'docx' ? wordLast : pdfLast) oppnaSparr(f);
+              }}
+            />
+
             {/* CTA */}
             <GenerateButton
               canGenerate={canGenerate}
               isGenerating={isGenerating}
-              isLockedPremium={isLockedPremium}
+              last={valtLast}
+              format={aktivtFormat}
+              kopText={premiumKnapp(kampanj)}
               onGenerate={handleGenerate}
-              onUpgrade={onUpgrade}
+              onUpgrade={() => oppnaSparr(aktivtFormat)}
             />
+            {gratisAnvand ? (
+              <Link href={PRISER_HREF} className={`${LANK} -mt-2 inline-flex min-h-11 items-center self-center`}>
+                {PAKETRADER.jamfor}
+              </Link>
+            ) : null}
+
+            {wordKlar ? <WordBekraftelse filnamn={wordKlar} /> : null}
 
             {/* Vilka kontaktuppgifter PDF:en får, med Ändra på plats. */}
             {selectedCV && !isLockedPremium ? (
@@ -447,24 +542,29 @@ function PreviewError({ message }: { message: string }) {
 function GenerateButton({
   canGenerate,
   isGenerating,
-  isLockedPremium,
+  last,
+  format,
+  kopText,
   onGenerate,
   onUpgrade,
 }: {
   canGenerate: boolean;
   isGenerating: boolean;
-  isLockedPremium: boolean;
+  /** Det valda formatet är låst: knappen blir köpknappen. */
+  last: boolean;
+  format: CvFormat;
+  kopText: string;
   onGenerate: () => void;
   onUpgrade?: () => void;
 }) {
-  if (isLockedPremium) {
+  if (last) {
     return (
       <button
         type="button"
         onClick={onUpgrade}
         className={KNAPP_PRIMAR}
       >
-        {`Ladda ner med ${paketKort()}`}
+        {kopText}
       </button>
     );
   }
@@ -482,14 +582,42 @@ function GenerateButton({
             aria-hidden="true"
             className="h-4 w-4 animate-spin rounded-full border-2 border-koppar-text/30 border-t-koppar-text"
           />
-          Skapar PDF
+          {format === 'docx' ? 'Skapar Word-fil' : 'Skapar PDF'}
         </>
       ) : (
         <>
-          Skapa CV-PDF
+          {format === 'docx' ? 'Ladda ner som Word' : 'Ladda ner som PDF'}
           <ArrowRight className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
         </>
       )}
     </button>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  WordBekraftelse                                                           */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Bekräftelsen efter en Word-nedladdning (skissen, avsnitt 5). Raden om
+ * CV-analysen står bara här, aldrig i själva Word-filen.
+ */
+function WordBekraftelse({ filnamn }: { filnamn: string }) {
+  return (
+    <section role="status" className="rounded-xl border border-kant bg-papper p-4">
+      <StatusRow tone="positive" showDot wrap>
+        {`Ditt CV är klart som Word-fil: ${filnamn}`}
+      </StatusRow>
+      <p className="mt-2 text-sm leading-relaxed text-ink-2">
+        Den ligger i din nedladdningsmapp. Öppna den i Word, Google Docs eller LibreOffice och ändra fritt. Rubriker och punktlistor är riktiga Word-stilar.
+      </p>
+      <p className="mt-2 text-sm leading-relaxed text-ink-2">
+        Ändrar du i Word?{' '}
+        <Link href="/dashboard/cv-analys" className={LANK}>
+          Ladda upp den nya versionen i CV-analysen
+        </Link>
+        , så ser du om poängen går upp.
+      </p>
+    </section>
   );
 }

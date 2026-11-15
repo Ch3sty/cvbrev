@@ -1,8 +1,9 @@
 'use client';
 
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
-import { ShieldCheck, Image as ImageIcon, Linkedin, Crown, AlertCircle } from '@/components/illustrations/RumIkoner';
+import { ShieldCheck, Image as ImageIcon, Linkedin, Crown, AlertCircle, FileText } from '@/components/illustrations/RumIkoner';
 import type { SimpleTemplate } from '@/lib/cv/simple-templates';
+import { harWordVersion } from '@/lib/cv/template-antal';
 
 interface MallInfoCardProps {
   template: SimpleTemplate | undefined;
@@ -20,6 +21,9 @@ export default function MallInfoCard({ template }: MallInfoCardProps) {
   const isAtsSafe = template.features?.atsSafe === true;
   const supportsPhoto = template.features?.supportsPhoto === true;
   const supportsLinkedIn = template.features?.supportsLinkedIn === true;
+  // Högst tre brickor på rad (skissen, avsnitt 3b): på en Word-mall viker
+  // foto och LinkedIn. Ingen av de sex har foto i våg 1.
+  const harWord = harWordVersion(template.id);
   const suitableFor = template.metadata?.suitableFor ?? [];
   const strengths = template.metadata?.strengths ?? [];
 
@@ -37,13 +41,19 @@ export default function MallInfoCard({ template }: MallInfoCardProps) {
           </Badge>
         )}
 
-        {supportsPhoto && (
+        {harWord && (
+          <Badge tone="neutral" icon={<FileText className="h-4 w-4" strokeWidth={1.75} />}>
+            Finns också som Word
+          </Badge>
+        )}
+
+        {supportsPhoto && !harWord && (
           <Badge tone="neutral" icon={<ImageIcon className="h-4 w-4" strokeWidth={1.75} />}>
             Stöd för foto
           </Badge>
         )}
 
-        {supportsLinkedIn && (
+        {supportsLinkedIn && !harWord && (
           <Badge tone="neutral" icon={<Linkedin className="h-4 w-4" strokeWidth={1.75} />}>
             LinkedIn-badge
           </Badge>

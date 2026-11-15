@@ -48,6 +48,7 @@ export const PLATS_FOR_VARIANT: Record<PaywallVariant, BetalvaggPlats> = {
   'analys-omkorning': 'analys',
   nedladdning: 'nedladdning',
   'cv-export': 'cv_export',
+  'cv-export-word': 'cv_export_word',
   jobbtraffar: 'jobbtraffar',
   chatt: 'chatt',
   historik: 'historik',

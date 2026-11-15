@@ -11,6 +11,7 @@ import { SKAPA_CV_FAQ_ITEMS } from './components/skapa-cv-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 import { SALD_PLAN, paketKort, paketMedPris } from '@/lib/plans/plans'
 import { SIMPLE_TEMPLATES, TEMPLATE_COUNT, FREE_TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
+import { WORD_TEMPLATE_COUNT_ORD } from '@/lib/cv/template-antal'
 
 const FUNKTIONER = [
   {
@@ -26,8 +27,8 @@ const FUNKTIONER = [
     text: 'Allt du fyller i sparas i bakgrunden. Stäng fliken mitt i ett steg och fortsätt där du slutade när du kommer tillbaka.',
   },
   {
-    rubrik: 'Ladda ner som PDF eller Word',
-    text: 'Välj PDF för de flesta ansökningar och Word när annonsen ber om ett format som går att redigera.',
+    rubrik: `Ladda ner som PDF, eller Word i ${WORD_TEMPLATE_COUNT_ORD} av mallarna`,
+    text: `Alla mallar laddas ner som PDF. Välj en av de ${WORD_TEMPLATE_COUNT_ORD} Word-mallarna när du vill ändra i filen själv, eller när annonsen ber om ett format som går att redigera. Word-filen ingår i ${paketKort()}.`,
   },
   {
     rubrik: 'Hämta uppgifterna från LinkedIn',
@@ -58,7 +59,7 @@ export default function SkapaCvSida() {
     name: 'Jobbcoach.ai CV-byggare',
     url: 'https://www.jobbcoach.ai/verktyg/skapa-cv',
     description:
-      'Skapa CV gratis online med vår CV-byggare. Sju enkla steg, förhandsvisning, ATS-säkra mallar och export till PDF eller Word. Helt på svenska.',
+      `Skapa CV gratis online med vår CV-byggare. Sju enkla steg, förhandsvisning, ATS-säkra mallar och nedladdning som PDF, eller Word i ${WORD_TEMPLATE_COUNT_ORD} av mallarna. Helt på svenska.`,
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web browser',
     offers: {
@@ -68,7 +69,7 @@ export default function SkapaCvSida() {
       description: 'Skapa CV helt gratis, ingen kortuppgift',
     },
     featureList:
-      'Sju-stegs CV-byggare, förhandsvisning, ATS-säkra mallar, sparar automatiskt, PDF- och Word-export, LinkedIn-import, mobilanpassad',
+      `Sju-stegs CV-byggare, förhandsvisning, ATS-säkra mallar, sparar automatiskt, PDF-nedladdning, Word i ${WORD_TEMPLATE_COUNT_ORD} av mallarna, LinkedIn-import, mobilanpassad`,
   }
 
   const howToSchema = {
@@ -108,9 +109,9 @@ export default function SkapaCvSida() {
       {
         '@type': 'HowToStep',
         position: 4,
-        name: 'Ladda ner som PDF eller Word',
+        name: `Ladda ner som PDF, eller Word i ${WORD_TEMPLATE_COUNT_ORD} av mallarna`,
         text:
-          'När du är nöjd exporterar du ditt CV. Sparas i ditt konto för senare redigering.',
+          'När du är nöjd laddar du ner ditt CV. Det sparas i ditt konto för senare redigering.',
       },
     ],
   }
@@ -155,7 +156,7 @@ export default function SkapaCvSida() {
         ]}
         eyebrow="Skapa CV, färdigt på tio minuter"
         h1="Skapa ditt CV gratis på minuter"
-        ingress="Vår CV-byggare tar dig genom sju enkla steg och visar CV:t medan du skriver. Du fyller i, vi sätter ihop och du laddar ner som PDF eller Word."
+        ingress={`Vår CV-byggare tar dig genom sju enkla steg och visar CV:t medan du skriver. Du fyller i, vi sätter ihop och du laddar ner som PDF, eller Word i ${WORD_TEMPLATE_COUNT_ORD} av mallarna.`}
         fet="Gratis att börja och helt på svenska."
         primar={{ text: 'Bygg mitt CV gratis', href: '/register?borja=cv' }}
         sekundar={{ text: 'Se mallarna', href: '/verktyg/cv-mallar' }}

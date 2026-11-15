@@ -5,7 +5,7 @@
  *  - "cv mall gratis", "cv mall ladda ner", "cv mall pdf",
  *  - "professionell cv-mall", "modern cv mall", "ats-säker cv-mall"
  */
-import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, PREMIUM_TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, PREMIUM_TEMPLATE_COUNT, WORD_TEMPLATE_COUNT_ORD } from '@/lib/cv/template-antal'
 import { paketKort } from '@/lib/plans/plans'
 
 export const CV_MALLAR_FAQ = [
@@ -27,7 +27,7 @@ export const CV_MALLAR_FAQ = [
   },
   {
     q: 'Kan jag ladda ner CV-mallen som PDF eller Word?',
-    a: 'Du laddar ner som PDF direkt från vår mallväljare. Word-export finns inte. Vi rekommenderar PDF eftersom det säkerställer att layouten ser exakt likadan ut hos rekryteraren. Word-filer förändras ofta beroende på mottagarens version.',
+    a: `Alla mallar laddas ner som PDF direkt från vår mallväljare, och ${WORD_TEMPLATE_COUNT_ORD} av dem finns också som Word-fil i ${paketKort()}. Vi rekommenderar PDF när du skickar, eftersom layouten då ser likadan ut hos rekryteraren. Word passar när du vill ändra i filen själv, eller när annonsen ber om ett redigerbart format.`,
   },
   {
     q: 'Hur väljer jag rätt CV-mall för mitt yrke?',

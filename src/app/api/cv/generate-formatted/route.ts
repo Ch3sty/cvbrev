@@ -12,7 +12,9 @@ import { arPlatshallareNamn, arPlatshallareTitel, kontaktForCv } from '@/lib/pro
 import { userHasAccess } from '@/lib/supabase/premiumAccess';
 import { suggestPlan, type Scope } from '@/lib/access/features';
 import { featureRequiredBody } from '@/lib/quota/quotaService';
-import { FREE_CV_EXPORTS } from '@/lib/cv/template-antal';
+import { FREE_CV_EXPORTS, harWordVersion } from '@/lib/cv/template-antal';
+import { byggWordCv, DOCX_MIME } from '@/lib/cv/word';
+import { wordTypsnittForCv } from '@/lib/documents/typsnitt';
 import { logPremiumUsage } from '@/lib/premium/logPremiumUsage';
 
 // Svensk kommun-till-region mapping för CV-vänliga adresser
@@ -2208,7 +2210,10 @@ async function extractCVContentOldFallback(rawText: string): Promise<CVMetadata>
 
 export async function POST(request: NextRequest) {
   try {
-    const { template, cvText, structuredData, format = 'pdf', colorScheme = 'blue', templateOptions = {}, fontFamily } = await request.json();
+    const { template, cvText, structuredData, format = 'pdf', colorScheme = 'blue', templateOptions = {}, fontFamily, fontId } = await request.json();
+    // Word-filen (docs/plan-cv-word-2026-11-15.md, B4): samma rutt, samma
+    // spärrar i samma ordning, ett annat format i svaret.
+    const somWord = format === 'docx';
 
     // DEBUG: Log what the API receives
     console.log('🔍 DEBUG - generate-formatted API: Mottagen data:', {
@@ -2301,6 +2306,34 @@ export async function POST(request: NextRequest) {
       onboardingTrack = varde === 'cv' || varde === 'tester' || varde === 'allt' ? varde : null;
     }
 
+    // Word finns i sex mallar och ingår alltid i Premium (planens B1 och B2).
+    // Mallen utan Word-version är ett fel i anropet, inte en betalvägg.
+    if (somWord) {
+      if (!harWordVersion(selectedTemplate.id)) {
+        return NextResponse.json(
+          { error: 'Mallen finns inte som Word-fil' },
+          { status: 400 }
+        );
+      }
+      if (!authedUserId) {
+        return NextResponse.json(
+          { error: 'Logga in för att ladda ner Word-filen.' },
+          { status: 401 }
+        );
+      }
+      const harWord = await userHasAccess(supabase, authedUserId, 'cv_export_word');
+      if (!harWord) {
+        return NextResponse.json(
+          featureRequiredBody(
+            'cv_export_word',
+            suggestPlan('cv_export_word', onboardingTrack),
+            { templateId: selectedTemplate.id }
+          ),
+          { status: 402 }
+        );
+      }
+    }
+
     // Serverside-gating: premiummallar kräver featuren cv_templates_all.
     // Tre mallar ingår i gratisnivån, resten förhandsvisas i full storlek
     // men exporteras inte (avsnitt 4).
@@ -2328,7 +2361,9 @@ export async function POST(request: NextRequest) {
     // Featurekontrollen går först, så admin och paketkunder rör aldrig
     // räknaren.
     let shouldCountFreeExport = false;
-    if (authedUserId) {
+    // Word-filen räknas aldrig mot gratisnedladdningen: den kräver Premium
+    // och har redan passerat spärren ovan.
+    if (authedUserId && !somWord) {
       const harExport = await userHasAccess(supabase, authedUserId, 'cv_export');
       if (!harExport) {
         const { data: exportProfile } = await supabase
@@ -2428,6 +2463,24 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'name_required' }, { status: 422 });
     }
     
+    // Sanitera filnamn (ta bort svenska tecken för att undvika header-fel)
+    const sanitizedTemplate = template
+      .replace(/ö/g, 'o')
+      .replace(/ä/g, 'a')
+      .replace(/å/g, 'a')
+      .replace(/[^a-zA-Z0-9-]/g, '-');
+
+    let filData: Buffer;
+    let filTyp: string;
+    let filename: string;
+    if (somWord) {
+      // Word-filen byggs ur samma CV-data som PDF:en, med Words egna medel
+      // (src/lib/cv/word). Typsnittet är användarens val om det finns i
+      // Word, annars mallens eget.
+      filData = await byggWordCv(extractedCVData, selectedTemplate.id as Parameters<typeof byggWordCv>[1], wordTypsnittForCv(fontId));
+      filTyp = DOCX_MIME;
+      filename = `cv-${sanitizedTemplate}.docx`;
+    } else {
     // Generera template-specifik HTML baserat på vald mall
     let html = generateTemplateHTML(extractedCVData, template as CVTemplateType, templateOptions);
 
@@ -2443,16 +2496,10 @@ export async function POST(request: NextRequest) {
     
     // Generera PDF med svenska premium-kvalitet
     console.log('Genererar svenskt premium-CV PDF...');
-    const pdfBuffer = await createSwedishCVPDF(html, extractedCVData, template as CVTemplateType);
-    
-    // Sanitera filnamn (ta bort svenska tecken för att undvika header-fel)
-    const sanitizedTemplate = template
-      .replace(/ö/g, 'o')
-      .replace(/ä/g, 'a')
-      .replace(/å/g, 'a')
-      .replace(/[^a-zA-Z0-9-]/g, '-');
-    
-    const filename = `cv-${sanitizedTemplate}.pdf`;
+    filData = await createSwedishCVPDF(html, extractedCVData, template as CVTemplateType);
+    filTyp = 'application/pdf';
+    filename = `cv-${sanitizedTemplate}.pdf`;
+    }
 
     console.log('CV genererat framgångsrikt:', filename);
 
@@ -2474,12 +2521,21 @@ export async function POST(request: NextRequest) {
 
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
-        // Record download in formatted_cv_downloads table
-        await supabase.from('formatted_cv_downloads').insert({
+        // Record download in formatted_cv_downloads table. Kolumnen format
+        // kom med Word-filen (migreringen 20261115170000_cv_downloads_format).
+        // Finns den inte än loggas raden utan, så nedladdningen aldrig fälls.
+        const rad = {
           user_id: user.id,
           template_id: template,
-          downloaded_at: new Date().toISOString()
-        });
+          downloaded_at: new Date().toISOString(),
+        };
+        const { error: loggFel } = await supabase
+          .from('formatted_cv_downloads')
+          .insert({ ...rad, format: somWord ? 'docx' : 'pdf' });
+        if (loggFel) {
+          console.error('formatted_cv_downloads med format:', loggFel.message);
+          await supabase.from('formatted_cv_downloads').insert(rad);
+        }
         // Hjälpredan Kom igång: mallen är nedladdad.
         void markeraBricka(user.id, 'mall');
 
@@ -2505,6 +2561,7 @@ export async function POST(request: NextRequest) {
     // använt mallåtkomsten.
     logPremiumUsage(authedUserId, 'cv_export', {
       template,
+      format: somWord ? 'docx' : 'pdf',
       premiumTemplate: selectedTemplate.tier === 'premium',
     });
 
@@ -2520,9 +2577,9 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    return new NextResponse(pdfBuffer, {
+    return new NextResponse(new Uint8Array(filData), {
       headers: {
-        'Content-Type': 'application/pdf',
+        'Content-Type': filTyp,
         'Content-Disposition': `attachment; filename="${filename}"`,
         'Cache-Control': 'no-cache',
       },

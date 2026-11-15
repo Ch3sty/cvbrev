@@ -37,6 +37,8 @@ export type PaywallVariant =
   | 'analys-omkorning'
   | 'nedladdning'
   | 'cv-export'
+  /** Word-filen på en av de sex Word-mallarna (docs/plan-cv-word-2026-11-15.md). */
+  | 'cv-export-word'
   | 'jobbtraffar'
   | 'chatt'
   | 'historik'
@@ -201,6 +203,7 @@ export const VARIANT_FEATURE: Partial<Record<PaywallVariant, Feature>> = {
   'analys-omkorning': 'cv_analysis_full',
   nedladdning: 'letter_download',
   'cv-export': 'cv_export',
+  'cv-export-word': 'cv_export_word',
   jobbtraffar: 'job_matches_all',
   chatt: 'chat_unlimited',
   historik: 'test_history',
@@ -300,6 +303,17 @@ function byggCopy(variant: PaywallVariant, plan: PlanKey, opts?: PaywallCopyOpts
         body: `Du har laddat ner ett CV. Fler nedladdningar, alla mallar och hela CV-analysen ingår i ${PREMIUM}.`,
         primary: knapp,
         secondary: 'Se priset',
+      }
+
+    // Word-filen (skissen docs/design/skiss-cv-word-2026-11-15.html, avsnitt
+    // 3 och 4). Rubriken namnger det låsta, brödtexten vad mer som ingår och
+    // vad Word ger: att ändra i CV:t själv.
+    case 'cv-export-word':
+      return {
+        title: `Word-filen ingår i ${PREMIUM}`,
+        body: `Word-filen ingår i ${PREMIUM}, med obegränsade nedladdningar och alla ${TEMPLATE_COUNT} mallar. Du kan ändra i CV:t själv efteråt, i Word, Google Docs eller LibreOffice.`,
+        primary: knapp,
+        secondary: 'Se vad som ingår',
       }
 
     // PW6, alternativ B.

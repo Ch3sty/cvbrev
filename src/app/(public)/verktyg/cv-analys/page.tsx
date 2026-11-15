@@ -91,7 +91,7 @@ export default function CVAnalysSida() {
         position: 4,
         name: 'Spara den förbättrade versionen',
         text:
-          'Välj vilka förslag du vill applicera, granska före och efter och ladda ner som PDF eller Word.',
+          'Välj vilka förslag du vill applicera, granska före och efter och ladda ner som PDF.',
       },
     ],
   }

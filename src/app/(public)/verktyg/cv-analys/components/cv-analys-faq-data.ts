@@ -41,6 +41,6 @@ export const CV_ANALYS_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Vad händer efter analysen?',
-    a: 'Du får upp resultatet direkt och kan välja vilka förslag du vill applicera. Klickar du i en förbättring uppdateras potentialpoängen i realtid så du ser exakt hur mycket bättre CV:t blir. När du är nöjd kan du spara den förbättrade versionen och ladda ner den som PDF eller Word.',
+    a: 'Du får upp resultatet direkt och kan välja vilka förslag du vill applicera. Klickar du i en förbättring uppdateras potentialpoängen i realtid så du ser exakt hur mycket bättre CV:t blir. När du är nöjd kan du spara den förbättrade versionen och ladda ner den som PDF.',
   },
 ]

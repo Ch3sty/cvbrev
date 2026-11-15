@@ -12,6 +12,7 @@
  */
 
 import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
+import { WORD_TEMPLATE_COUNT_ORD } from '@/lib/cv/template-antal'
 
 export interface FaqItem {
   q: string
@@ -21,7 +22,7 @@ export interface FaqItem {
 export const SKAPA_CV_FAQ_ITEMS: FaqItem[] = [
   {
     q: 'Hur skapar jag ett professionellt CV?',
-    a: 'Med vår CV-byggare gör du det i sju enkla steg. Du börjar med kontaktuppgifter, fyller på med en kort sammanfattning, dina arbetslivserfarenheter, utbildningar, kompetenser och språk, och granskar slutligen resultatet. Hela tiden ser du en förhandsvisning av CV:t som uppdateras medan du skriver. När du är nöjd väljer du en mall och laddar ner som PDF eller Word.',
+    a: `Med vår CV-byggare gör du det i sju enkla steg. Du börjar med kontaktuppgifter, fyller på med en kort sammanfattning, dina arbetslivserfarenheter, utbildningar, kompetenser och språk, och granskar slutligen resultatet. Hela tiden ser du en förhandsvisning av CV:t som uppdateras medan du skriver. När du är nöjd väljer du en mall och laddar ner som PDF, eller som Word i ${WORD_TEMPLATE_COUNT_ORD} av mallarna.`,
   },
   {
     q: 'Är det gratis att skapa CV online hos er?',
@@ -45,7 +46,7 @@ export const SKAPA_CV_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Vilka format kan jag ladda ner CV:t i?',
-    a: 'Både PDF och Word (.docx) ingår alltid. PDF är det vanligaste och fungerar perfekt med ATS-system och rekryterares verktyg. Word är användbart om du vill göra egna ändringar i Office, eller om annonsen specifikt frågar efter ett editerbart format.',
+    a: `Alla mallar laddas ner som PDF, och ${WORD_TEMPLATE_COUNT_ORD} av dem finns också som Word-fil (.docx). PDF är det vanligaste och läses rätt av rekryteringssystem och rekryterares verktyg. Word väljer du när du vill ändra i filen själv efteråt, eller när annonsen ber om ett redigerbart format. Word-filen ingår i ${paketKort()}.`,
   },
   {
     q: 'Funkar CV-byggaren på mobilen?',

@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Skapa CV gratis online | Jobbcoach.ai',
   description:
-    'Bygg ditt CV i sju steg med direkt förhandsvisning och mallar som läses rätt av rekryteringssystem. Ladda ner som PDF eller Word, allt på svenska.',
+    'Bygg ditt CV i sju steg med förhandsvisning och mallar som läses rätt av rekryteringssystem. Ladda ner som PDF, eller Word i utvalda mallar. Allt på svenska.',
   keywords: [
     'skapa cv',
     'skapa cv gratis',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Skapa CV gratis online: bygg ditt CV på minuter | Jobbcoach.ai',
     description:
-      'Sju enkla steg, förhandsvisning, ATS-säkra mallar och export till PDF eller Word. Helt gratis.',
+      'Gratis att börja. Sju enkla steg, förhandsvisning, ATS-säkra mallar och nedladdning som PDF, eller Word i utvalda mallar.',
     url: 'https://www.jobbcoach.ai/verktyg/skapa-cv',
     siteName: 'Jobbcoach.ai',
     type: 'website',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Skapa CV gratis online: bygg ditt CV på minuter | Jobbcoach.ai',
     description:
-      'Sju enkla steg, förhandsvisning, ATS-säkra mallar och export till PDF eller Word. Helt gratis.',
+      'Gratis att börja. Sju enkla steg, förhandsvisning, ATS-säkra mallar och nedladdning som PDF, eller Word i utvalda mallar.',
   },
   alternates: {
     canonical: 'https://www.jobbcoach.ai/verktyg/skapa-cv',
