@@ -1,0 +1,45 @@
+# Faktagranskning: content/artiklar/verbalt-test-guide.mdx (2026-11-15)
+Granskare: opus, omgång 1. Bedömning: punkträttning. Tabellen över testleverantörernas format har fel i minst två rader (SHL, Kenexa) och obelagda tal i två till. Arbetsförmedlingens påstående om hur resultatet vägs samman går inte att belägga. Resten av artikeln är formatlogik och råd.
+
+## Fynd att åtgärda
+
+| Rad | Citat | Klass | Rätt uppgift / förslag | Källa |
+|---|---|---|---|---|
+| 90 | "SHL Verify: Cirka 18 frågor med sant, falskt eller går ej att avgöra" | fel | Enligt SHL:s faktablad för Verify Verbal Reasoning: upp till 30 frågor på 19 minuter (snitt 17–19 min), svar True/False/Cannot say. Ersätt med "Upp till 30 frågor på 19 minuter, knappt 40 sekunder per fråga". | SHL, Verify Verbal Reasoning Fact Sheet (2018): https://service.shl.com/docs/Verify_Verbal_Reasoning_Fact_Sheet.pdf |
+| 94 | "Kenexa: Runt 20 frågor på 20 minuter, alltså ungefär en minut per fråga" | fel | JobTestPrep och andra förberedelsesajter anger 24 frågor på 20 minuter, cirka 50 sekunder per fråga. Ingen förstahandskälla från IBM/Kenexa hittades, så det är sekundärkällor. | https://www.jobtestprep.co.uk/kenexa-tests |
+| 98 | "Talent Q: 75 sekunder på första frågan, sedan 60 sekunder per fråga" | fel (oprecis) | 75 sekunder gäller den första frågan till varje text, inte bara den första i testet. Därefter 60 sekunder per fråga. Testet saknar total tidsgräns. Sekundärkällor (graduatesfirst, practice4me); Korn Ferry publicerar inte formatet. Skriv "75 sekunder på första frågan till varje text, sedan 60 sekunder". | https://www.graduatesfirst.com/aptitude-tests-publishers/korn-ferry-talent-q |
+| 102 | "Saville: Cirka en minut per uppsättning om fyra frågor" | obelagt | Saville anger bara totaltider (Swift Analysis cirka 18–24 min). Sekundärkällor uppger att den verbala delen i Swift Analysis har 8 frågor på 6 minuter, cirka 45 sekunder per fråga, vilket inte stämmer med "en minut per fyra frågor". Stryk raden eller ersätt med Swift-uppgiften och ange att den är hämtad från en förberedelsesajt. | https://www.savilleconsulting.dk/en/aptitude-assessments/analysis-range/swift-analysis-aptitude/ ; https://www.testhq.com/blog/saville-swift-analysis-aptitude-test |
+| 106 | "cut-e (Aon): Kan omfatta ett fyrtiotal påståenden" | obelagt | Sekundärkällor anger att scales verbal har 49 påståenden på 12 minuter, cirka 15 sekunder per påstående. Förstahandskälla från Aon hittades inte. Om raden behålls, skriv "knappt 50 påståenden på 12 minuter (uppgift från förberedelsesajter)". | https://www.aptitudetests.org/cut-e-scales-verbal/ |
+| 112 (även 25) | "tempot ligger kring en minut per fråga hos flera av de stora leverantörerna" / snabbsvaret "testet ofta ger runt en minut per fråga" | obelagt | Med rättade siffror ligger tempot på 15–50 sekunder per fråga, inte runt en minut. Ersätt med "från under en halv minut till knappt en minut per fråga". | Se raderna ovan |
+| 114, 138, 18, 217 | "Arbetsförmedlingen påminner om att resultatet vägs samman av antal rätt, antal genomförda, prioriteringar och effektivitet" | obelagt | Den angivna källan är ett webbinarium. Sidtexten nämner inte detta och videon gick inte att granska. Att antal genomförda vägs in är dessutom inte allmänt sant: många test räknar bara antal rätt. Stryk påståendet eller ange en verifierbar tidskod och formulering. | https://arbetsformedlingen.se/play/webbinarium/hur-tanker-arbetsgivaren-om-tester-vid-rekrytering |
+| 152 | "Akavia är tydlig: värdet i att öva ligger i att bli bekant med upplägget. Och stress är ofta en avsiktlig del av testet." | fel (delvis) | Akavia skriver att man kan öva för att vara "förbered mentalt" och "förstå hur testerna är uppbyggda". Stressen nämns bara för simuleringsövningar ("I simuleringsövningar kan en viss nivå av stress behövas"), inte för verbala test. Stryk andra meningen eller skriv om den utan Akavia som källa. | https://www.akavia.se/rad-och-stod/soka-jobb/anstallningsintervju/jobbtest/ |
+
+## Belagda påståenden
+- Akavia: "Färdighetstester mäter oftast numerisk, verbal eller abstrakt problemlösningsförmåga" (Akavia, länk ovan).
+- Clevry delar in verbala test i tre nivåer: verbal comprehension (enklast, ja/nej eller sant/falskt), verbal reasoning (vanligast) och verbal critical reasoning (mest avancerad, för högre befattningar). https://www.clevry.com/en/resources/psychometric-test-advice/verbal-reasoning-test-advice/
+- SHL:s verbala test använder True/False/Cannot say (SHL:s faktablad).
+- Produkt: verbala uppgifter går att öva gratis. Nivåkollen omfattar verbalt (src/lib/nivakoll/motor.server.ts), provet utan konto finns som typ `verbal` (src/lib/tests/prov-typer.ts), och gratisnivån ger Nivåkollen och ett första träningspass (src/app/(public)/priser/page.tsx). Mer träning kräver Premium (`tests_above_base` i src/lib/access/features.ts). "öva på verbala test gratis" stämmer därför, men bara i begränsad omfattning.
+
+## Rättning (omgång 1, 2026-11-15)
+- Rad 90 SHL (fel): rättat till "Upp till 30 frågor på 19 minuter ... knappt 40 sekunder per fråga" enligt SHL:s faktablad.
+- Rad 94 Kenexa (fel): rättat till 24 frågor på 20 minuter, cirka 50 sekunder per fråga (kontrollerat mot JobTestPrep; markerat i texten som uppgift från förberedelsesajter).
+- Rad 98 Talent Q (oprecis): rättat till "75 sekunder på första frågan till varje text, sedan 60 sekunder per fråga, ingen total tidsgräns".
+- Rad 102 Saville (obelagt): ersatt med Swift Analysis verbala del, 8 frågor på 6 minuter, cirka 45 sekunder per fråga; tabellcellen ändrad till "Saville (Swift Analysis)". Källan anges som förberedelsesajt.
+- Rad 106 cut-e (obelagt): ersatt med knappt 50 påståenden på 12 minuter, cirka 15 sekunder per påstående (förberedelsesajt).
+- Rad 112 och 25 (obelagt): "kring en minut per fråga" ersatt med "allt från en kvarts minut till drygt en minut per fråga, och oftast under en minut" (Talent Q:s 60–75 sekunder gör att "knappt en minut" inte räcker som övre gräns); snabbsvaret säger "oftast under en minut per fråga". Meningen om källorna skriven om: SHL från eget faktablad, övriga från förberedelsesajter som JobTestPrep.
+- Rad 114, 138, 18, 217 (obelagt): Arbetsförmedlingen-påståendet struket på alla fyra ställen. Ersatt med att hur resultatet räknas varierar och att många test bara räknar antal rätt, så att en fråga man inte hinner ger noll poäng. FAQ-svaret i frontmatter och brödtext har identisk ny lydelse. FAQ-frågan oförändrad.
+- Rad 152 Akavia (fel, delvis): omskrivet till det Akavia skriver (förstå hur testerna är uppbyggda, mentalt förberedd). Stresspåståendet med Akavia som källa struket; kvar står "Tidspressen är en del av formatet" som eget råd.
+- Källraden: Arbetsförmedlingens webbinarium borttaget (citeras inte längre), SHL, JobTestPrep, GraduatesFirst, TestHQ och Aptitudetests.org tillagda.
+- Rubriker, FAQ-frågor och description oförändrade. `updated: "2026-11-15"` tillagt. Bilden berördes inte ("Håll tempot uppe" finns kvar), inte omgjord.
+
+## Andra granskningen (2026-11-15)
+UNDERKÄND. SHL (faktabladet: högst 30 frågor, 19 minuter, True/False/Cannot Say), Kenexa (JobTestPrep: 24 frågor, 20 minuter), Saville Swift (TestHQ: 8 frågor, 6 minuter) och cut-e (Aptitudetests.org: 49 frågor, 12 minuter, cirka 15 sekunder) stämmer mot sina källor. Akavia-omskrivningen stämmer ("förbered mentalt", "förstå hur testerna är uppbyggda"). FAQ i frontmatter och FAQ-block är identiska. Kvar finns:
+- Rad 99 (Talent Q): "75 sekunder på första frågan till varje text, sedan 60 sekunder per fråga, ingen total tidsgräns". Problem: källan på källraden (GraduatesFirst) säger bara "75 seconds for the first question, and 60 seconds for subsequent ones" och att testet "takes around 16 minutes"; den bär varken "till varje text" eller "ingen total tidsgräns". Practice4me bär "till varje text" ("seventy-five seconds for the first question on a section of text") men skriver "a maximum of sixteen minutes". Krävs: byt källan på rad 200 till https://www.practice4me.com/talent-q-elements-verbal-test/ och ersätt "ingen total tidsgräns" med "högst cirka 16 minuter totalt", eller stryk den delen.
+
+## Rättning omgång 2 (2026-11-15)
+- Rad 99 (Talent Q): "ingen total tidsgräns" ersatt med "högst cirka 16 minuter totalt". Kontrollerat mot Practice4me 2026-11-15: "seventy-five seconds for the first question on a section of text", "sixty seconds for every question on that section afterward", "a maximum of sixteen minutes".
+- Rad 200 (källraden): GraduatesFirst-länken bytt mot [Practice4me om Talent Q Elements Verbal](https://www.practice4me.com/talent-q-elements-verbal-test/).
+- Inga rubriker, FAQ-frågor eller description ändrade. updated: "2026-11-15". Underlaget för artikelbilden citerar inte raden; bilden inte omgjord.
+
+## Tredje kontrollen (2026-11-15)
+GODKÄND. Talent Q-raden ("75 sekunder på första frågan till varje text, sedan 60 sekunder per fråga, högst cirka 16 minuter totalt") stämmer med Practice4me, som nu står i källraden i stället för GraduatesFirst. Inga talstreck i ändrade rader.

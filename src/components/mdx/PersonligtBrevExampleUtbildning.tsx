@@ -6,19 +6,19 @@ import { Download, Copy } from 'lucide-react';
 const EXEMPEL_BREV = `Stockholm, 15 januari 2026
 
 Antagningsansvarig
-Stockholms Musikpedagogiska Institut
-Box 6677
-114 56 Stockholm
+Norrviks musikpedagogiska institut
+[Gatuadress]
+[Postnummer och ort]
 
 Ansökan till utbildningen Musiklärare, inriktning piano
 
 Hej,
 
-Jag ansöker till utbildningen Musiklärare med inriktning piano vid Stockholms Musikpedagogiska Institut. Med 12 års pianoundervisning, gymnasieexamen från estetiska programmet och ett brinnande intresse för musikpedagogik, ser jag fram emot att utveckla min förmåga att inspirera nästa generation musiker.
+Jag ansöker till utbildningen Musiklärare med inriktning piano vid Norrviks musikpedagogiska institut. Med 12 års pianoundervisning, gymnasieexamen från estetiska programmet och ett brinnande intresse för musikpedagogik, ser jag fram emot att utveckla min förmåga att inspirera nästa generation musiker.
 
 Musik har alltid varit min största passion. Jag spelar piano sedan jag var sex år, har klarat grade 8 i ABRSM-systemet och undervisar sedan tre år tillbaka privatelevar i åldrarna 8-16 år. Denna erfarenhet har lärt mig vikten av att anpassa undervisning till olika inlärningsstilar och att skapa en trygg miljö där elever vågar prova och misslyckas.
 
-Vad som driver mig är att se hur musik kan förändra liv. Att se en elev som tidigare kämpat med notläsning plötsligt "förstå" harmonin, eller en blyg tolvåring växa i självförtroende genom att spela inför publik – det är därför jag vill bli musiklärare.
+Vad som driver mig är att se hur musik kan förändra liv. Att se en elev som tidigare kämpat med notläsning plötsligt "förstå" harmonin, eller en blyg tolvåring växa i självförtroende genom att spela inför publik. Det är därför jag vill bli musiklärare.
 
 Er utbildnings fokus på både instrumentalkunskap och pedagogisk metodik, samt möjligheten att praktisera i verkliga klassrumsmiljöer, matchar perfekt vad jag söker. Jag ser fram emot att fördjupa mig i musikpedagogikens teori och praktik tillsammans med er.
 

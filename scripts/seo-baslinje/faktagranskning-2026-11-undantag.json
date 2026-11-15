@@ -1,0 +1,1982 @@
+{
+ "_om": "Faktagranskningen av alla publicerade artiklar och insikter 2026-11-15 (ägarens uppdrag \"Ja, undersök och rätta nu\"). Avsiktliga ändringar av text, FAQ-svar, enstaka rubriker och metadata efter rättning av felaktiga, obelagda och påhittade uppgifter. Underlag per sida i docs/qa/faktagranskning-2026-11/.",
+ "LD_UNDANTAG": [
+  {
+   "path": "/artiklar/ai-jobbmatchning",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/ai-jobbmatchning.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/alva-labs-logiktest",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/alva-labs-logiktest.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/angest-infor-nytt-jobb",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/angest-infor-nytt-jobb.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/angest-jobbet-dags-att-byta",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/angest-jobbet-dags-att-byta.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/aon-cut-e-test",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/aon-cut-e-test.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/arbetsgivarintyg-tjanstgoringsbetyg",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/arbetsgivarintyg-tjanstgoringsbetyg.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/arbetsintervju-guide",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/arbetsintervju-guide.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/arbetslivserfarenhet-cv",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/arbetslivserfarenhet-cv.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/ats-vanligt-cv",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/ats-vanligt-cv.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/bakgrundskontroll-vid-anstallning",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/bakgrundskontroll-vid-anstallning.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/beratta-om-dig-sjalv-intervju",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/beratta-om-dig-sjalv-intervju.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/bild-i-cv-ja-eller-nej",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/bild-i-cv-ja-eller-nej.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/bild-i-personligt-brev",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/bild-i-personligt-brev.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/bli-hittad-av-rekryterare",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/bli-hittad-av-rekryterare.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/bra-cv-guide",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/bra-cv-guide.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/bra-personligt-brev",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/bra-personligt-brev.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/byta-jobb-praktiska-tips",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/byta-jobb-praktiska-tips.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/byta-karriar-jobbsokande-guide",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/byta-karriar-jobbsokande-guide.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/cover-letter-sverige",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/cover-letter-sverige.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-bild-guide",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/cv-bild-guide.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage",
+    "HowTo"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-exempel-student-nyexaminerad",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/cv-exempel-student-nyexaminerad.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-exempel-yrken",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/cv-exempel-yrken.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-format-kronologiskt-funktionellt",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/cv-format-kronologiskt-funktionellt.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-innehall-struktur",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/cv-innehall-struktur.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-mall-gratis-guide",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/cv-mall-gratis-guide.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-mall-pdf-gratis",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/cv-mall-pdf-gratis.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-mall-word-gratis",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/cv-mall-word-gratis.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-och-personligt-brev",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/cv-och-personligt-brev.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-pa-engelska-resume",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/cv-pa-engelska-resume.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-profil-sammanfattning",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/cv-profil-sammanfattning.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/cv-utan-erfarenhet",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/cv-utan-erfarenhet.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/datorkunskaper-cv",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/datorkunskaper-cv.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/deduktivt-induktivt-test",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/deduktivt-induktivt-test.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/din-digitala-jobbcoach",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/din-digitala-jobbcoach.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage",
+    "HowTo"
+   ]
+  },
+  {
+   "path": "/artiklar/europass-cv",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/europass-cv.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/exempel-pa-cv-guide",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/exempel-pa-cv-guide.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/exempel-pa-kompetenser-lista",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/exempel-pa-kompetenser-lista.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/fardiga-personliga-brev",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/fardiga-personliga-brev.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/fardigheter-cv-exempel",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/fardigheter-cv-exempel.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/fardigheter-kompetenser-cv",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/fardigheter-kompetenser-cv.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/fragor-att-stalla-pa-intervjun",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/fragor-att-stalla-pa-intervjun.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/handlingsord-cv",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/handlingsord-cv.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/hitta-ratt-karriarvag",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/hitta-ratt-karriarvag.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage",
+    "HowTo"
+   ]
+  },
+  {
+   "path": "/artiklar/hobbyer-intressen-cv",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/hobbyer-intressen-cv.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/hur-langt-ska-ett-cv-vara",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/hur-langt-ska-ett-cv-vara.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/hur-langt-ska-personligt-brev-vara",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/hur-langt-ska-personligt-brev-vara.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/hur-ofta-byta-jobb",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/hur-ofta-byta-jobb.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/hur-ska-ett-cv-se-ut",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/hur-ska-ett-cv-se-ut.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/hur-skriver-man-cv",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/hur-skriver-man-cv.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/hur-skriver-man-ett-personligt-brev",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/hur-skriver-man-ett-personligt-brev.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/i-prov",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/i-prov.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/inleda-personligt-brev",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/inleda-personligt-brev.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/intervjufragor-sjukskoterska",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/intervjufragor-sjukskoterska.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/jobbcoach-online",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/jobbcoach-online.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/karriarbyte-olika-aldrar",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/karriarbyte-olika-aldrar.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/klassiska-intervjufragor-lista",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/klassiska-intervjufragor-lista.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/kompetensbaserad-intervju-star-metoden",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/kompetensbaserad-intervju-star-metoden.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/kompetensbaserade-intervjufragor",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/kompetensbaserade-intervjufragor.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/kompetenser-cv-guide",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/kompetenser-cv-guide.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/korrekturlasa-cv",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/korrekturlasa-cv.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/kroppssprak-intervju",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/kroppssprak-intervju.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/ladda-upp-cv-linkedin",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/ladda-upp-cv-linkedin.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/ledarskapsformagor-cv",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/ledarskapsformagor-cv.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/ljuga-i-cv",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/ljuga-i-cv.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/logiska-tester",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/logiska-tester.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/loneansprak-intervju",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/loneansprak-intervju.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/map-test-personlighetstest",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/map-test-personlighetstest.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/matrigma-test",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/matrigma-test.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/matrislogik-test-guide",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/matrislogik-test-guide.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/meritforteckning-eller-cv",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/meritforteckning-eller-cv.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/mjuka-harda-kompetenser",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/mjuka-harda-kompetenser.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/motivationsbrev-exempel",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/motivationsbrev-exempel.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/nervos-infor-intervju-tips",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/nervos-infor-intervju-tips.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/numeriskt-test-guide",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/numeriskt-test-guide.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/ny-pa-jobbet",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/ny-pa-jobbet.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/nyckelord-i-cv",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/nyckelord-i-cv.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/olika-intervjutyper-tekniker",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/olika-intervjutyper-tekniker.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/olika-intervjutyper-tips",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/olika-intervjutyper-tips.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/olika-kompetenser-typer",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/olika-kompetenser-typer.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/online-cv-byggare-gratis",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/online-cv-byggare-gratis.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/optimera-linkedin-profil",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/optimera-linkedin-profil.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/ordforstaelse-test",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/ordforstaelse-test.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/panikangest-pa-jobbet",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/panikangest-pa-jobbet.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/personliga-egenskaper-intervju",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personliga-egenskaper-intervju.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/personlighetstest-jobb-guide",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personlighetstest-jobb-guide.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/personligt-brev-avslutning-exempel",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-avslutning-exempel.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/personligt-brev-butik",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-butik.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/personligt-brev-exempel-generella",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-exempel-generella.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/personligt-brev-exempel-situationer",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-exempel-situationer.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/personligt-brev-folkhogskola",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-folkhogskola.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/personligt-brev-format-guide",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-format-guide.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/personligt-brev-jobbansokan",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-jobbansokan.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/personligt-brev-kompetenser-egenskaper",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-kompetenser-egenskaper.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/personligt-brev-langd-regler",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-langd-regler.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/personligt-brev-layout",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-layout.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/personligt-brev-mall-gratis",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-mall-gratis.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/personligt-brev-mall-word",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-mall-word.md.",
+   "andrade": [
+    "BlogPosting",
+    "BreadcrumbList"
+   ]
+  },
+  {
+   "path": "/artiklar/personligt-brev-pa-engelska",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-pa-engelska.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/personligt-brev-spontanansokan",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-spontanansokan.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/personligt-brev-struktur-innehall",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-struktur-innehall.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/personligt-brev-utan-erfarenhet",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-utan-erfarenhet.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/personligt-brev-utbildning",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-utbildning.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/prestationer-utmarkelser-cv",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/prestationer-utmarkelser-cv.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/provanstallning",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/provanstallning.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/referenser-cv",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/referenser-cv.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/rekommendationsbrev-exempel-mall",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekommendationsbrev-exempel-mall.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/rotation-test-guide",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rotation-test-guide.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/rubrik-for-personligt-brev",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rubrik-for-personligt-brev.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/saga-upp-sig",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/saga-upp-sig.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/skapa-cv-med-ai",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/skapa-cv-med-ai.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/skillnad-cv-personligt-brev",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/skillnad-cv-personligt-brev.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/skriva-cv-guide",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/skriva-cv-guide.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/skriva-personligt-brev-guide",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/skriva-personligt-brev-guide.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/skriva-personligt-brev-med-ai",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/skriva-personligt-brev-med-ai.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/sociala-kompetenser",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/sociala-kompetenser.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/soka-jobb-via-mail",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/soka-jobb-via-mail.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/soka-sommarjobb",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/soka-sommarjobb.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/sprak-i-cv",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/sprak-i-cv.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/stanine-testresultat",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/stanine-testresultat.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/strukturerad-intervju",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/strukturerad-intervju.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/styrkor-svagheter-intervju",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/styrkor-svagheter-intervju.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/tidshantering-cv",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/tidshantering-cv.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/tips-pa-personligt-brev",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/tips-pa-personligt-brev.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/uppfoljning-efter-intervju",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/uppfoljning-efter-intervju.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/uppsagningsbrev-mall",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/uppsagningsbrev-mall.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/utbildning-omskolning-karriarbyte",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/utbildning-omskolning-karriarbyte.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/vad-ar-ett-cv",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-ett-cv.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/vad-ar-ett-personligt-brev",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-ett-personligt-brev.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/vad-ar-kompetenser-guide",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-kompetenser-guide.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/vad-motiverar-dig-svar",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-motiverar-dig-svar.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/vad-ska-finnas-med-i-personligt-brev",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ska-finnas-med-i-personligt-brev.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/vaga-byta-jobb",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vaga-byta-jobb.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/vanliga-cv-misstag",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vanliga-cv-misstag.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/vanliga-intervjufragor-svar",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vanliga-intervjufragor-svar.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/vanliga-misstag-personligt-brev",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vanliga-misstag-personligt-brev.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/varfor-ska-vi-anstalla-dig-svar",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/varfor-ska-vi-anstalla-dig-svar.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/varfor-soker-du-jobbet-svar",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/varfor-soker-du-jobbet-svar.md.",
+   "andrade": [
+    "BlogPosting"
+   ]
+  },
+  {
+   "path": "/artiklar/verbalt-test-guide",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/verbalt-test-guide.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/artiklar/verifierade-testresultat-vs-cv",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/verifierade-testresultat-vs-cv.md.",
+   "andrade": [
+    "BlogPosting",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare/insikter/ai-forordningen-rekrytering",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-ai-forordningen-rekrytering.md.",
+   "andrade": [
+    "Article",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare/insikter/anonymiserad-rekrytering",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-anonymiserad-rekrytering.md.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare/insikter/bias-rekrytering",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-bias-rekrytering.md.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare/insikter/bygga-kandidatpool",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-bygga-kandidatpool.md.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare/insikter/diskrimineringslagen-rekrytering",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-diskrimineringslagen-rekrytering.md.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare/insikter/forsta-testforsoket-raknas",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-forsta-testforsoket-raknas.md.",
+   "andrade": [
+    "Article",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare/insikter/gdpr-rekrytering",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-gdpr-rekrytering.md.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare/insikter/hitta-kandidater-sourcing",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-hitta-kandidater-sourcing.md.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare/insikter/kandidatdatabas",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-kandidatdatabas.md.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare/insikter/lonehistorik",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-lonehistorik.md.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare/insikter/lonekartlaggning",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-lonekartlaggning.md.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare/insikter/lonerapportering",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-lonerapportering.md.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare/insikter/lonespann-i-jobbannonsen",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-lonespann-i-jobbannonsen.md.",
+   "andrade": [
+    "Article",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare/insikter/lonetransparensdirektivet-rekrytering",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-lonetransparensdirektivet-rekrytering.md.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare/insikter/medarbetartips",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-medarbetartips.md.",
+   "andrade": [
+    "Article",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare/insikter/personlighet-i-urval",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-personlighet-i-urval.md.",
+   "andrade": [
+    "Article",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare/insikter/referenstagning",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-referenstagning.md.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare/insikter/skriva-jobbannons",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-skriva-jobbannons.md.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare/insikter/strukturerad-intervju-och-test",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-strukturerad-intervju-och-test.md.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare/insikter/time-to-hire",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-time-to-hire.md.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare/insikter/uppsokande-rekrytering",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-uppsokande-rekrytering.md.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare/insikter/vad-kostar-en-felrekrytering",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-vad-kostar-en-felrekrytering.md.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare/insikter/vad-kostar-en-rekrytering",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-vad-kostar-en-rekrytering.md.",
+   "andrade": [
+    "Article",
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare/insikter/vakanskostnad",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-vakanskostnad.md.",
+   "andrade": [
+    "FAQPage"
+   ]
+  }
+ ],
+ "META_BYTT": [
+  {
+   "path": "/artiklar/jobbcoach-online",
+   "falt": "title",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/jobbcoach-online.md. Före: \"Jobbcoach online gratis: AI-hjälp på 60 sek (vs 1500 kr/h)\"."
+  },
+  {
+   "path": "/artiklar/jobbcoach-online",
+   "falt": "description",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/jobbcoach-online.md. Före: \"Jobbcoach online ger dig CV-feedback, personliga brev och ATS-analys på 60 sekunder, gratis att testa. Slipp 1500 kr/h och veckors väntan på en coach.\"."
+  },
+  {
+   "path": "/artiklar/matrislogik-test-guide",
+   "falt": "description",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/matrislogik-test-guide.md. Före: \"Matrislogik är det vanligaste logiska testet vid rekrytering. Lär dig regeltyperna, se exempel lösta steg för steg och öva gratis inför ditt skarpa test.\"."
+  },
+  {
+   "path": "/artiklar/personligt-brev-langd-regler",
+   "falt": "description",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-langd-regler.md. Före: \"Personligt brev längd: 200-400 ord, 1500-3000 tecken, en A4-sida. Se de exakta reglerna för ord, tecken och format, med källor från Akavia och Indeed.\"."
+  },
+  {
+   "path": "/artiklar/personligt-brev-mall-word",
+   "falt": "title",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-mall-word.md. Före: \"Personligt brev mall Word (gratis) | jobbcoach.ai\"."
+  },
+  {
+   "path": "/artiklar/personligt-brev-mall-word",
+   "falt": "description",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-mall-word.md. Före: \"Ladda ner gratis personligt brev-mallar för Word. Färdiga och professionella mallar redo att använda direkt, plus tips på hur du anpassar dem rätt för jobbet.\"."
+  },
+  {
+   "path": "/artiklar/tidshantering-cv",
+   "falt": "description",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/tidshantering-cv.md. Före: \"Strukturerad och van vid deadlines står i varannan annons. Vi visar vad tidshantering konkret är och hur du bevisar den i CV, brev och intervju.\"."
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "falt": "description",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md. Före: \"Vad är en jobbcoach, vad gör den och vad kostar det? Vi reder ut rollen, priserna (gratis till 15 000 kr) och när du faktiskt behöver coachning.\"."
+  },
+  {
+   "path": "/artiklar/vad-motiverar-dig-svar",
+   "falt": "description",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-motiverar-dig-svar.md. Före: \"Vad motiverar dig är en av intervjuns vanligaste frågor. Vi visar vad den egentligen testar, metoden för ett äkta svar och fem färdiga exempel.\"."
+  },
+  {
+   "path": "/for-rekryterare/insikter/ai-forordningen-rekrytering",
+   "falt": "title",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-ai-forordningen-rekrytering.md. Före: \"AI-förordningen i rekrytering: kraven från 2 aug 2026\"."
+  },
+  {
+   "path": "/for-rekryterare/insikter/ai-forordningen-rekrytering",
+   "falt": "description",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-ai-forordningen-rekrytering.md. Före: \"Rekryterings-AI är högriskklassad och huvudkraven börjar gälla 2 augusti 2026. Vad som redan är förbjudet, vad ni ansvarar för och frågorna till leverantören.\"."
+  },
+  {
+   "path": "/for-rekryterare/insikter/forsta-testforsoket-raknas",
+   "falt": "description",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-forsta-testforsoket-raknas.md. Före: \"Omtag höjer testpoäng en tredjedels standardavvikelse utan att förmågan ändrats. Forskningen bakom, och varför verifierade förstagångsresultat bör vara krav.\"."
+  },
+  {
+   "path": "/for-rekryterare/insikter/lonespann-i-jobbannonsen",
+   "falt": "description",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-lonespann-i-jobbannonsen.md. Före: \"57 procent av kandidaterna vill se lönen i annonsen, bara 31 procent av rekryterarna vill visa den. Så sätter ni ett lönespann som breddar fältet.\"."
+  },
+  {
+   "path": "/for-rekryterare/insikter/medarbetartips",
+   "falt": "description",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-medarbetartips.md. Före: \"Tipsade medarbetare stannar 10-30 procent oftare enligt QJE-studien. Så designas ett tipsprogram som levererar, och så hanteras kanalens inbyggda slagsida.\"."
+  },
+  {
+   "path": "/for-rekryterare/insikter/personlighet-i-urval",
+   "falt": "description",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-personlighet-i-urval.md. Före: \"Personlighetstest förutsäger arbetsprestation svagt men beskriver arbetssätt väl. Forskningsläget, fakingproblemet och gränsen mot sorteringsfilter.\"."
+  },
+  {
+   "path": "/for-rekryterare/insikter/vad-kostar-en-rekrytering",
+   "falt": "description",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-vad-kostar-en-rekrytering.md. Före: \"Byråarvode på 15-30 procent av årslönen, annonsvägen med 50-150 timmar intern tid, eller egen sourcing. Verkliga prisspann och när varje väg är rätt val.\"."
+  }
+ ],
+ "H1_BYTT": [
+  {
+   "path": "/artiklar/personligt-brev-mall-word",
+   "fore": "Personligt brev mall Word: Gratis mallar 2026",
+   "efter": "Personligt brev mall Word: så väljer och fyller du i rätt mall (2026)",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-mall-word.md."
+  },
+  {
+   "path": "/for-rekryterare/insikter/ai-forordningen-rekrytering",
+   "fore": "AI-förordningen för rekryterare: kraven som gäller från 2 augusti",
+   "efter": "AI-förordningen för rekryterare: kraven som gäller från 2 december 2027",
+   "datum": "2026-11-15",
+   "skal": "Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-ai-forordningen-rekrytering.md."
+  }
+ ],
+ "RUBRIK_NY": [
+  {
+   "path": "/artiklar/aon-cut-e-test",
+   "rubrik": "h2#aon-testet-for-lokforare Aon-testet för lokförare",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/aon-cut-e-test.md."
+  },
+  {
+   "path": "/artiklar/aon-cut-e-test",
+   "rubrik": "h2#testet-for-lokforare Testet för lokförare",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/aon-cut-e-test.md."
+  },
+  {
+   "path": "/artiklar/cv-profil-sammanfattning",
+   "rubrik": "h2#testa-din-profil-mot-annonsen Testa din profil mot annonsen",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/cv-profil-sammanfattning.md."
+  },
+  {
+   "path": "/artiklar/cv-profil-sammanfattning",
+   "rubrik": "h2#testa-din-profil-innan-du-skickar Testa din profil innan du skickar",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/cv-profil-sammanfattning.md."
+  },
+  {
+   "path": "/artiklar/fardigheter-cv-exempel",
+   "rubrik": "h2#50-exempel-pa-mjuka-fardigheter-personliga 50 exempel på mjuka färdigheter (personliga)",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/fardigheter-cv-exempel.md."
+  },
+  {
+   "path": "/artiklar/fardigheter-cv-exempel",
+   "rubrik": "h2#40-exempel-pa-mjuka-fardigheter-personliga 40 exempel på mjuka färdigheter (personliga)",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/fardigheter-cv-exempel.md."
+  },
+  {
+   "path": "/artiklar/jobbcoach-online",
+   "rubrik": "h2#varfor-online-jobbcoach-har-blivit-standard-2026 Varför online jobbcoach har blivit standard 2026",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/jobbcoach-online.md."
+  },
+  {
+   "path": "/artiklar/jobbcoach-online",
+   "rubrik": "h3#2-kostnad-5000-kr-vs-0-149-kr 2. Kostnad: 5000 kr vs 0-149 kr",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/jobbcoach-online.md."
+  },
+  {
+   "path": "/artiklar/jobbcoach-online",
+   "rubrik": "h3#3-snabbhet-60-sekunder-vs-3-veckor 3. Snabbhet: 60 sekunder vs 3 veckor",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/jobbcoach-online.md."
+  },
+  {
+   "path": "/artiklar/jobbcoach-online",
+   "rubrik": "h3#4-objektivitet-och-datadrivenhet 4. Objektivitet och datadrivenhet",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/jobbcoach-online.md."
+  },
+  {
+   "path": "/artiklar/jobbcoach-online",
+   "rubrik": "h3#2-personliga-brev-pa-30-sekunder 2. Personliga brev på 30 sekunder",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/jobbcoach-online.md."
+  },
+  {
+   "path": "/artiklar/jobbcoach-online",
+   "rubrik": "h2#fem-skal-att-valja-en-jobbcoach-online Fem skäl att välja en jobbcoach online",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/jobbcoach-online.md."
+  },
+  {
+   "path": "/artiklar/jobbcoach-online",
+   "rubrik": "h3#2-kostnad-timpris-mot-0-eller-149-kr-i-manaden 2. Kostnad: timpris mot 0 eller 149 kr i månaden",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/jobbcoach-online.md."
+  },
+  {
+   "path": "/artiklar/jobbcoach-online",
+   "rubrik": "h3#3-snabbhet-en-minut-i-stallet-for-en-bokad-tid 3. Snabbhet: en minut i stället för en bokad tid",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/jobbcoach-online.md."
+  },
+  {
+   "path": "/artiklar/jobbcoach-online",
+   "rubrik": "h3#4-samma-kriterier-varje-gang 4. Samma kriterier varje gång",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/jobbcoach-online.md."
+  },
+  {
+   "path": "/artiklar/jobbcoach-online",
+   "rubrik": "h3#2-personliga-brev-pa-nagra-sekunder 2. Personliga brev på några sekunder",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/jobbcoach-online.md."
+  },
+  {
+   "path": "/artiklar/jobbcoach-online",
+   "rubrik": "h3#5-rekryteringstester-och-jobbmatchning 5. Rekryteringstester och jobbmatchning",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/jobbcoach-online.md."
+  },
+  {
+   "path": "/artiklar/olika-intervjutyper-tips",
+   "rubrik": "h2#semistrukturerad-intervju-det-vanligaste-formatet Semistrukturerad intervju: det vanligaste formatet",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/olika-intervjutyper-tips.md."
+  },
+  {
+   "path": "/artiklar/olika-intervjutyper-tips",
+   "rubrik": "h2#semistrukturerad-intervju-ett-av-de-vanligaste-formaten Semistrukturerad intervju: ett av de vanligaste formaten",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/olika-intervjutyper-tips.md."
+  },
+  {
+   "path": "/artiklar/personligt-brev-exempel-generella",
+   "rubrik": "h2#se-kompletta-exempel-for-30-yrken Se kompletta exempel för 30+ yrken",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-exempel-generella.md."
+  },
+  {
+   "path": "/artiklar/personligt-brev-exempel-generella",
+   "rubrik": "h2#se-kompletta-exempel-for-89-yrken Se kompletta exempel för 89 yrken",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-exempel-generella.md."
+  },
+  {
+   "path": "/artiklar/personligt-brev-jobbansokan",
+   "rubrik": "h2#personligt-brev-vs-cv-i-jobbansokan-skillnaden Personligt brev vs. CV i jobbansökan – Skillnaden",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-jobbansokan.md."
+  },
+  {
+   "path": "/artiklar/personligt-brev-jobbansokan",
+   "rubrik": "h2#personligt-brev-vs-cv-i-jobbansokan-skillnaden Personligt brev vs. CV i jobbansökan: skillnaden",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-jobbansokan.md."
+  },
+  {
+   "path": "/artiklar/personligt-brev-utbildning",
+   "rubrik": "h2#varfor-ar-det-personliga-brevet-avgorande-for-utbildningsansokningar Varför är det personliga brevet avgörande för utbildningsansökningar?",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-utbildning.md."
+  },
+  {
+   "path": "/artiklar/personligt-brev-utbildning",
+   "rubrik": "h2#nar-spelar-det-personliga-brevet-roll-for-utbildningsansokningar När spelar det personliga brevet roll för utbildningsansökningar?",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-utbildning.md."
+  },
+  {
+   "path": "/artiklar/styrkor-svagheter-intervju",
+   "rubrik": "h2#vilka-ar-dina-styrkor-8-exempel-med-fardiga-svar \"Vilka är dina styrkor?\" 8 exempel med färdiga svar",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/styrkor-svagheter-intervju.md."
+  },
+  {
+   "path": "/artiklar/styrkor-svagheter-intervju",
+   "rubrik": "h2#vilka-ar-dina-svagheter-8-exempel-med-fardiga-svar \"Vilka är dina svagheter?\" 8 exempel med färdiga svar",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/styrkor-svagheter-intervju.md."
+  },
+  {
+   "path": "/artiklar/styrkor-svagheter-intervju",
+   "rubrik": "h2#vilka-ar-dina-styrkor-10-exempel-med-fardiga-svar \"Vilka är dina styrkor?\" 10 exempel med färdiga svar",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/styrkor-svagheter-intervju.md."
+  },
+  {
+   "path": "/artiklar/styrkor-svagheter-intervju",
+   "rubrik": "h3#kundfokus-och-servicekansla Kundfokus och servicekänsla",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/styrkor-svagheter-intervju.md."
+  },
+  {
+   "path": "/artiklar/styrkor-svagheter-intervju",
+   "rubrik": "h3#stresstalighet Stresstålighet",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/styrkor-svagheter-intervju.md."
+  },
+  {
+   "path": "/artiklar/styrkor-svagheter-intervju",
+   "rubrik": "h2#vilka-ar-dina-svagheter-10-exempel-med-fardiga-svar \"Vilka är dina svagheter?\" 10 exempel med färdiga svar",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/styrkor-svagheter-intervju.md."
+  },
+  {
+   "path": "/artiklar/styrkor-svagheter-intervju",
+   "rubrik": "h3#svart-att-be-om-hjalp Svårt att be om hjälp",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/styrkor-svagheter-intervju.md."
+  },
+  {
+   "path": "/artiklar/styrkor-svagheter-intervju",
+   "rubrik": "h3#skriver-for-langa-mejl Skriver för långa mejl",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/styrkor-svagheter-intervju.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "rubrik": "h3#innan-generiskt-brev-sorteras-bort-automatiskt INNAN: Generiskt brev (sorteras bort automatiskt)",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "rubrik": "h3#efter-skraddarsytt-och-vardefokuserat-far-intervju EFTER: Skräddarsytt och värdefokuserat (får intervju)",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "rubrik": "h3#verktyg-1-cv-analys-60-sekunder Verktyg 1: CV-analys (60 sekunder)",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "rubrik": "h3#verktyg-2-personligt-brev-generator-90-sekunder Verktyg 2: Personligt brev-generator (90 sekunder)",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "rubrik": "h3#verktyg-4-cv-mallar-ats-optimerade Verktyg 4: CV-mallar (ATS-optimerade)",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "rubrik": "h3#verktyg-5-jobb-matchning Verktyg 5: Jobb-matchning",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "rubrik": "h2#case-study-sa-hjalpte-jobbcoachai-emma-fa-5-intervjuer-pa-2-veckor Case study: Så hjälpte Jobbcoach.ai Emma få 5 intervjuer på 2 veckor",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "rubrik": "h3#steg-1-cv-analys-dag-1 Steg 1: CV-analys (dag 1)",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "rubrik": "h3#steg-2-cv-omarbetning-dag-1-2 Steg 2: CV-omarbetning (dag 1-2)",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "rubrik": "h3#steg-3-personliga-brev-for-15-ansokningar-dag-3-5 Steg 3: Personliga brev för 15 ansökningar (dag 3-5)",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "rubrik": "h3#steg-4-linkedin-optimering-dag-6 Steg 4: LinkedIn-optimering (dag 6)",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "rubrik": "h3#resultat-efter-2-veckor Resultat efter 2 veckor",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "rubrik": "h3#innan-generiskt-brev INNAN: Generiskt brev",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "rubrik": "h3#efter-skraddarsytt-och-vardefokuserat EFTER: Skräddarsytt och värdefokuserat",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "rubrik": "h3#verktyg-1-cv-analys Verktyg 1: CV-analys",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "rubrik": "h3#verktyg-2-personliga-brev Verktyg 2: Personliga brev",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "rubrik": "h3#verktyg-4-cv-mallar Verktyg 4: CV-mallar",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "rubrik": "h3#verktyg-5-jobbmatchning Verktyg 5: Jobbmatchning",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "rubrik": "h3#verktyg-6-rekryteringstester-och-intervjutraning Verktyg 6: Rekryteringstester och intervjuträning",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "rubrik": "h3#verktyg-7-jobbcoachen Verktyg 7: Jobbcoachen",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "rubrik": "h2#ett-konstruerat-exempel-samma-erfarenhet-nya-ord Ett konstruerat exempel: samma erfarenhet, nya ord",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-ett-cv",
+   "rubrik": "h2#syftet-med-ett-cv-varfor-behovs-det Syftet med ett CV – varför behövs det?",
+   "datum": "2026-11-15",
+   "skal": "Gammal rubrik borttagen/omskriven. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-ett-cv.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-ett-cv",
+   "rubrik": "h2#syftet-med-ett-cv-varfor-behovs-det Syftet med ett CV: varför behövs det?",
+   "datum": "2026-11-15",
+   "skal": "Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-ett-cv.md."
+  }
+ ],
+ "LANK_BORTA": [
+  {
+   "path": "/artiklar/aon-cut-e-test",
+   "lank": "#aon-testet-for-lokforare",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/aon-cut-e-test.md."
+  },
+  {
+   "path": "/artiklar/cv-profil-sammanfattning",
+   "lank": "#testa-din-profil-mot-annonsen",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/cv-profil-sammanfattning.md."
+  },
+  {
+   "path": "/artiklar/fardigheter-cv-exempel",
+   "lank": "#50-exempel-pa-mjuka-fardigheter-personliga",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/fardigheter-cv-exempel.md."
+  },
+  {
+   "path": "/artiklar/hitta-ratt-karriarvag",
+   "lank": "/angest-jobbet-dags-att-byta",
+   "datum": "2026-11-15",
+   "skal": "Trasig adress utan /artiklar/ ersatt med /artiklar/angest-jobbet-dags-att-byta (samma mål). Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/hitta-ratt-karriarvag.md."
+  },
+  {
+   "path": "/artiklar/hitta-ratt-karriarvag",
+   "lank": "/byta-karriar-jobbsokande-guide",
+   "datum": "2026-11-15",
+   "skal": "Trasig adress utan /artiklar/ ersatt med /artiklar/byta-karriar-jobbsokande-guide (samma mål). Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/hitta-ratt-karriarvag.md."
+  },
+  {
+   "path": "/artiklar/hitta-ratt-karriarvag",
+   "lank": "/utbildning-omskolning-karriarbyte",
+   "datum": "2026-11-15",
+   "skal": "Trasig adress utan /artiklar/ ersatt med /artiklar/utbildning-omskolning-karriarbyte (samma mål). Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/hitta-ratt-karriarvag.md."
+  },
+  {
+   "path": "/artiklar/jobbcoach-online",
+   "lank": "#varfor-online-jobbcoach-har-blivit-standard-2026",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/jobbcoach-online.md."
+  },
+  {
+   "path": "/artiklar/olika-intervjutyper-tips",
+   "lank": "#semistrukturerad-intervju-det-vanligaste-formatet",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/olika-intervjutyper-tips.md."
+  },
+  {
+   "path": "/artiklar/personligt-brev-exempel-generella",
+   "lank": "#se-kompletta-exempel-for-30-yrken",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-exempel-generella.md."
+  },
+  {
+   "path": "/artiklar/personligt-brev-utbildning",
+   "lank": "#varfor-ar-det-personliga-brevet-avgorande-for-utbildningsansokningar",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/personligt-brev-utbildning.md."
+  },
+  {
+   "path": "/artiklar/styrkor-svagheter-intervju",
+   "lank": "#vilka-ar-dina-styrkor-8-exempel-med-fardiga-svar",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/styrkor-svagheter-intervju.md."
+  },
+  {
+   "path": "/artiklar/styrkor-svagheter-intervju",
+   "lank": "#vilka-ar-dina-svagheter-8-exempel-med-fardiga-svar",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/styrkor-svagheter-intervju.md."
+  },
+  {
+   "path": "/artiklar/utbildning-omskolning-karriarbyte",
+   "lank": "/byta-karriar-jobbsokande-guide",
+   "datum": "2026-11-15",
+   "skal": "Trasig adress utan /artiklar/ ersatt med /artiklar/byta-karriar-jobbsokande-guide (samma mål). Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/utbildning-omskolning-karriarbyte.md."
+  },
+  {
+   "path": "/artiklar/utbildning-omskolning-karriarbyte",
+   "lank": "/hitta-ratt-karriarvag",
+   "datum": "2026-11-15",
+   "skal": "Trasig adress utan /artiklar/ ersatt med /artiklar/hitta-ratt-karriarvag (samma mål). Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/utbildning-omskolning-karriarbyte.md."
+  },
+  {
+   "path": "/artiklar/utbildning-omskolning-karriarbyte",
+   "lank": "/karriarbyte-olika-aldrar",
+   "datum": "2026-11-15",
+   "skal": "Trasig adress utan /artiklar/ ersatt med /artiklar/karriarbyte-olika-aldrar (samma mål). Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/utbildning-omskolning-karriarbyte.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "lank": "#case-study-sa-hjalpte-jobbcoachai-emma-fa-5-intervjuer-pa-2-veckor",
+   "datum": "2026-11-15",
+   "skal": "Innehållsförteckningens ankare följer omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md."
+  },
+  {
+   "path": "/artiklar/vad-ar-en-jobbcoach",
+   "lank": "/api/download-exempel?type=personligt-brev-content-manager",
+   "datum": "2026-11-15",
+   "skal": "Länken var död (routen finns inte) och togs bort i omskrivningen. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md."
+  }
+ ],
+ "FAQ_BYTT": [
+  {
+   "path": "/for-rekryterare/insikter/ai-forordningen-rekrytering",
+   "fore": "Vad blir vi som arbetsgivare skyldiga att göra från 2 augusti 2026?",
+   "efter": "Vad blir vi som arbetsgivare skyldiga att göra från 2 december 2027?",
+   "datum": "2026-11-15",
+   "skal": "Datumet var fel: högriskkraven gäller från 2 december 2027 enligt förordning (EU) 2026/1744. Underlag: docs/qa/faktagranskning-2026-11/rekryterare-ai-forordningen-rekrytering.md."
+  }
+ ],
+ "BILD_BYTT": [],
+ "LANK_BYTT": [
+  {
+   "path": "/verktyg/rekryteringstester",
+   "fore": "/artiklar/aon-cut-e-test#aon-testet-for-lokforare",
+   "efter": "/artiklar/aon-cut-e-test#testet-for-lokforare",
+   "datum": "2026-11-15",
+   "skal": "Rubriken i aon-cut-e-test bytte namn (Aon-kopplingen för lokförartestet var obelagd), länken följer det nya ankaret. Underlag: docs/qa/faktagranskning-2026-11/aon-cut-e-test.md."
+  }
+ ]
+}

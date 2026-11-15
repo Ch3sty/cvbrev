@@ -1,11 +1,11 @@
 {
- "alt": "Lönekort om hur ofta man ska byta jobb: tre procentenheter högre löneutveckling vid byte",
+ "alt": "Lönekort om hur ofta man ska byta jobb: nästan tre procentenheter högre löneutveckling vid byte",
  "fyll": {
   "etikett": "Hur ofta byta jobb",
   "chip": "LÖNEUTVECKLING",
   "talRubrik": { "text": "Snitt på samma jobb", "kalla": "Svenskar stannar i snitt kring fem år" },
   "lonIdag": { "text": "5 år", "kalla": "kring fem år" },
-  "summa": { "text": "+3", "kalla": "omkring tre procentenheter högre löneutveckling" },
-  "summaText": "procentenheter högre löneutveckling än de som stannar kvar"
+  "summa": { "text": "≈ 3", "kalla": "nästan tre procentenheter högre löneinkomstutveckling" },
+  "summaText": "procentenheter högre löneinkomstutveckling än de som stannade kvar"
  }
 }
