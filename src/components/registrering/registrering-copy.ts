@@ -460,7 +460,7 @@ export const PROV_TYP_PANEL = {
         ? { fet: 'Rätt svar', text: ` och ${c.forklaring} bakom varje uppgift` }
         : { fet: versalFraga(uppgifterText(fel)), text: ` med rätt svar och ${c.forklaring} bakom` }
     const tredje: PanelRad = c.nivakollMinuter
-      ? { fet: 'Nivåkollen', text: `, cirka ${c.nivakollMinuter} minuter, räknar in de här svaren` }
+      ? { fet: 'Nivåkollen', text: `, cirka ${c.nivakollMinuter} minuter: visar var du står och räknar in de här svaren` }
       : typ === 'iprov'
         ? { fet: 'Grundnivån', text: ' i alla deltester, gratis med kontot' }
         : { fet: 'Grundtestet', text: ` i ${c.namn}, gratis med kontot` }
