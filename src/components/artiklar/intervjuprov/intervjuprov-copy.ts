@@ -79,7 +79,7 @@ export const COPY = {
         ? 'Skapa ett gratiskonto så får du återkopplingen del för del och ett omskrivet svar byggt på ditt eget exempel. Vi sparar det åt dig till intervjun.'
         : 'Skapa ett gratiskonto så får du återkopplingen punkt för punkt och ett omskrivet svar byggt på ditt eget exempel. Vi sparar det åt dig till intervjun.',
     knapp: 'Skapa konto gratis',
-    villkor: 'Inget kreditkort · Avsluta när du vill',
+    villkor: 'Inget kreditkort. Avsluta när du vill.',
     igen: 'Skriv om och bedöm igen',
   },
   fel: {

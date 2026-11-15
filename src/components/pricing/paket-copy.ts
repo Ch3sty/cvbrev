@@ -549,7 +549,7 @@ export const PAKET_PUNKTER: Record<PlanKey, readonly string[]> = {
     'Personliga brev, skrivna och nedladdade',
   ],
   test_week: [
-    'Fyra testtyper, grundnivå till expert',
+    'Alla testtyper, grundnivå till expert',
     'Övningsprov mot klockan och fördjupade personlighetstestet',
     'Förklaring per fråga och din utveckling',
   ],

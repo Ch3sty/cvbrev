@@ -90,7 +90,7 @@ const PREMIUM_KORT = 'Premium'
  * prissidans Premiumblock läser listan härifrån.
  */
 export const HELA_PAKETET_RADER = [
-  'Alla rekryteringstester, övningsprov och det fördjupade personlighetstestet',
+  'Åtta testtyper i tre nivåer, övningsprov mot klockan och det fördjupade personlighetstestet',
   'Alla CV-mallar, CV-analysen, personliga brev och LinkedIn',
   'Jobbmatchning varje natt, alla träffar med skälen',
   'Jobbcoachen, fråga så mycket du vill',
@@ -113,7 +113,7 @@ export const PLANS: readonly Plan[] = [
     ctaLabel: `Köp ${CV_PAKETET}, 79 kr i veckan`,
     highlights: [
       `Alla ${TEMPLATE_COUNT} CV-mallar`,
-      'Full CV-analys, obegränsat antal omkörningar',
+      'Full CV-analys, omkörningar utan tak',
       'Ladda ner CV och personliga brev i Word och PDF',
       'Säg upp när du vill',
     ],
@@ -132,7 +132,7 @@ export const PLANS: readonly Plan[] = [
     body: '79 kr i veckan. Alla testnivåer, övningsprov, det fördjupade personlighetstestet och hela din resultathistorik. Dras varje vecka tills du säger upp.',
     ctaLabel: `Köp ${TRANINGSPAKETET}, 79 kr i veckan`,
     highlights: [
-      'Alla testnivåer, obegränsat antal försök',
+      'Alla testnivåer, försök utan tak',
       'Övningsprov med tidsgräns',
       'Fördjupade personlighetstestet, 120 påståenden (grundtestet är gratis)',
       'Resultathistorik och utveckling över tid',
@@ -165,7 +165,7 @@ export const PLANS: readonly Plan[] = [
     key: 'all_week',
     saljs: false,
     name: HELA_PAKETET,
-    beskrivning: 'CV, personliga brev, tester, jobbmatchning och Jobbcoachen',
+    beskrivning: 'Tester, CV, personliga brev, jobbmatchning och Jobbcoachen',
     amount: 99,
     scope: 'allt',
     length: 'vecka',
@@ -180,7 +180,7 @@ export const PLANS: readonly Plan[] = [
     key: 'all_month',
     saljs: true,
     name: HELA_PAKETET,
-    beskrivning: 'CV, personliga brev, tester, jobbmatchning och Jobbcoachen',
+    beskrivning: 'Tester, CV, personliga brev, jobbmatchning och Jobbcoachen',
     amount: 149,
     scope: 'allt',
     length: 'månad',
@@ -195,7 +195,7 @@ export const PLANS: readonly Plan[] = [
     key: 'all_quarter',
     saljs: false,
     name: HELA_PAKETET,
-    beskrivning: 'CV, personliga brev, tester, jobbmatchning och Jobbcoachen',
+    beskrivning: 'Tester, CV, personliga brev, jobbmatchning och Jobbcoachen',
     amount: 299,
     scope: 'allt',
     length: 'kvartal',

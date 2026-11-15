@@ -42,7 +42,7 @@ export const COPY = {
     rubrik: 'Spara profilen och se hela tolkningen',
     text: 'Skapa ett gratiskonto så får du profilen läst mot sex vanliga kravprofiler, vad du kan säga på intervjun och vilka påståenden som var omvända. Vi sparar den inför intervjun, och hela testet med 50 påståenden ingår.',
     knapp: 'Skapa konto gratis',
-    villkor: 'Inget kreditkort · Avsluta när du vill',
+    villkor: 'Inget kreditkort. Avsluta när du vill.',
     igen: 'Gör om provet',
   },
   inloggad: {

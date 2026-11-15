@@ -95,11 +95,11 @@ function Jobbcoachen({ slug }: { slug: Slug }) {
           <p className="pub-ingress" style={{ marginTop: 16 }}>
             Jobbcoachen tar fram marknadslön och argument ur SCB och fackens statistik, med källa till varje svar, och
             hjälper dig lägga upp samtalet. {FREE_CHAT_MESSAGES_PER_ACCOUNT} meddelanden är gratis på ditt konto.
-            Jobbcoachen, så mycket du vill, ingår i {paketKort()}, {prisPeriod(SALD_PLAN)}.
+            Jobbcoachen, så mycket du vill, ingår i {paketKort()}.
           </p>
           <div className="pub-handling">
             <Link className="pub-knapp" href="/verktyg/jobbcoachen" data-cta-klick="/verktyg/jobbcoachen">
-              Fråga jobbcoachen
+              Fråga Jobbcoachen
             </Link>
             <Link className="pub-lank" href="/priser" data-cta-klick="/priser">
               Se vad som ingår

@@ -300,7 +300,7 @@ export function brickaText(
     case 'coach':
       return {
         key,
-        titel: 'Fråga jobbcoachen',
+        titel: 'Fråga Jobbcoachen',
         text: 'Lön, intervju, avtal',
         klarText: 'Första frågan ställd',
         kort: 'fråga coachen',

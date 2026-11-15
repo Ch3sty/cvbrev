@@ -176,7 +176,7 @@ describe('M1: nivåmätningen med betalväggen', () => {
     expect(r.betalvagg!.knapp).toBe('Köp Premium, 149 kr i månaden')
     expect(r.betalvagg!.prisrad).toBe('Jobbcoach Premium, 149 kr i månaden. Säg upp när du vill.')
     expect(r.betalvagg!.eyebrow).toBe('Premium')
-    expect(r.betalvagg!.rubrik).toBe('18 dagar kvar. Månaden täcker hela vägen.')
+    expect(r.betalvagg!.rubrik).toBe('18 dagar kvar. Premium täcker hela vägen.')
     // 19.4 punkt 1: "samma format som" när leverantören är känd.
     expect(r.betalvagg!.text).toContain('övningsprov i samma format som Matrigma. Plus')
     expect(r.betalvagg!.lank).toBe('Gör dagens grundpass gratis')

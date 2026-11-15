@@ -20,7 +20,7 @@ import { capture } from '@/lib/analytics/events'
 const CLUSTER_CTA: Record<Exclude<CtaCluster, 'career'>, { label: string; href: string }> = {
   interview: { label: 'Träna intervjufrågor', href: '/verktyg/jobbcoachen' },
   test: { label: 'Prova fem frågor gratis', href: '/verktyg/rekryteringstester/prova' },
-  letter: { label: 'Skapa mitt brev', href: '/skapa-brev/start' },
+  letter: { label: 'Skriv mitt personliga brev', href: '/skapa-brev/start' },
   cv: { label: 'Välj en mall', href: '/verktyg/cv-mallar' },
   generic: { label: 'Välj en mall', href: '/verktyg/cv-mallar' },
 }

@@ -163,7 +163,7 @@ describe('namnen ur PLANS', () => {
       expect(p.beskrivning.length, `${p.key}: ${p.beskrivning}`).toBeLessThanOrEqual(60)
       expect(p.beskrivning, p.key).not.toMatch(/—/)
     }
-    expect(PLAN_BY_KEY.all_month.beskrivning).toBe('CV, personliga brev, tester, jobbmatchning och Jobbcoachen')
+    expect(PLAN_BY_KEY.all_month.beskrivning).toBe('Tester, CV, personliga brev, jobbmatchning och Jobbcoachen')
     expect(PLAN_BY_KEY.all_day.beskrivning).toBe('Jobbcoach Premium i 24 timmar. Engångsköp, förnyas inte.')
     expect(PLAN_BY_KEY.all_day.body).toBe('24 timmar med Jobbcoach Premium. Ett engångsköp, inget dras igen.')
   })
@@ -174,7 +174,7 @@ describe('namnen ur PLANS', () => {
     expect(m.ctaLabel).toBe('Köp Premium, 149 kr i månaden')
     // Raden som hänvisade till de andra paketen är två egna rader (copy-premium 3).
     expect(m.highlights).toContain('Alla CV-mallar, CV-analysen, personliga brev och LinkedIn')
-    expect(m.highlights).toContain('Alla rekryteringstester, övningsprov och det fördjupade personlighetstestet')
+    expect(m.highlights).toContain('Åtta testtyper i tre nivåer, övningsprov mot klockan och det fördjupade personlighetstestet')
     expect(m.highlights.join(' ')).toMatch(/Jobbmatchning/)
     expect(m.highlights.join(' ')).toMatch(/Jobbcoachen/)
     expect(m.highlights.join(' ')).toMatch(/Bli upptäckt/)

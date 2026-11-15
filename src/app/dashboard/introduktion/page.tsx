@@ -44,7 +44,7 @@ const features: Feature[] = [
       'Vi läser av arbetslivserfarenhet och roller',
       'Identifierar dina kompetenser och färdigheter',
       'Sparar kontaktuppgifter till dina brev',
-      `Med ${paketKort()}: obegränsat antal CV`,
+      `Med ${paketKort()}: CV utan tak`,
     ],
     href: '/dashboard/profil/cv',
     cta: 'Ladda upp CV',

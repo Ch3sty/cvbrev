@@ -7,16 +7,16 @@
 // tests_above_base (testConfig.requiresFeature).
 // =============================================================================
 import { NextResponse } from 'next/server';
+import { TEST_KVOT_MEDDELANDE } from '@/lib/quota/kvotmeddelanden';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { testSkrivKlient } from '@/lib/tests/skrivKlient';
 import { checkTestSessionAccess } from '@/lib/tests/sessionGate';
 import { checkDailyTestQuota, quotaExceededBody } from '@/lib/quota/quotaService';
 import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
-import { paketKort } from '@/lib/plans/plans';
 import { arSerieTestTyp, serieInnehall, SERIE_META } from '@/lib/figurserierV1/fragor.server';
 
-const QUOTA_MESSAGE = `Du har redan gjort det här testet i dag. Ny chans i morgon, eller köp ${paketKort()} för obegränsat.`;
+const QUOTA_MESSAGE = TEST_KVOT_MEDDELANDE;
 
 export async function POST(request: Request) {
   try {

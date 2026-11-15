@@ -154,7 +154,7 @@ describe('tillstånden med konceptets exempeltal', () => {
   it('T1, 1a, 1p och X1', () => {
     const t = modell('T1')
     expect(t.vagg.rubrik).toBe('Träna inför ditt rekryteringstest')
-    expect(t.vagg.rad).toBe('Börja med Nivåkollen. Vet du när provet är, så lägger vi upp planen fram till dagen.')
+    expect(t.vagg.rad).toBe('Börja med Nivåkollen, åtta minuter som visar var du står. Vet du när provet är, så lägger vi upp planen fram till dagen.')
     expect(t.lyft.handling).toMatchObject({ text: 'Kolla min nivå, 8 min' })
     const a = modell('1a')
     expect(a.vagg.planbild).toBeTruthy()

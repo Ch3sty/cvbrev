@@ -319,7 +319,7 @@ export default function ExempelMall({
             </p>
             <div className="pub-handling">
               <Link className="pub-knapp" href={slutHref}>
-                {cv ? `Använd denna mall som ${yrkeLitet}` : `Skapa mitt brev som ${yrkeLitet}`}
+                {cv ? `Använd denna mall som ${yrkeLitet}` : `Skriv personligt brev som ${yrkeLitet}`}
               </Link>
               <p className="pub-liten">Inga kortuppgifter krävs</p>
             </div>
@@ -338,7 +338,7 @@ export default function ExempelMall({
       <StickyMobileCTA
         cluster={cv ? 'cv' : 'letter'}
         slug={slug}
-        label={cv ? `Använd denna mall som ${yrkeLitet}` : `Skapa mitt brev som ${yrkeLitet}`}
+        label={cv ? `Använd denna mall som ${yrkeLitet}` : `Skriv personligt brev som ${yrkeLitet}`}
         href={slutHref}
       />
     </PubliktSida>

@@ -335,7 +335,7 @@ export const PASS_COPY = {
     },
     betalvagg: {
       rubrik: (dagar: number | null) =>
-        dagar != null && dagar > 0 ? `${dagar} dagar kvar. Månaden täcker hela vägen.` : 'Passen på din nivå, varje dag.',
+        dagar != null && dagar > 0 ? `${dagar} dagar kvar. Premium täcker hela vägen.` : 'Passen på din nivå, varje dag.',
       /** 19.4 punkt 1: "samma format som" när leverantören är känd. */
       text: (formatNamn: string | null) =>
         `Ett pass om dagen på din nivå, extrapass på det du tappar, ny nivåkoll varje vecka, hela kurvan och övningsprov ${
@@ -418,9 +418,9 @@ export const PASS_COPY = {
     last: 'Ingår i Premium',
     provRubrik: (datum: string) => `Till provet den ${datum}`,
     provText: (format: string, dagar: number | null) =>
-      `Övningsprovet i ${format}.${dagar != null && dagar > 0 ? ` ${dagar === 1 ? 'En dag' : `${dagar} dagar`} till provet.` : ''} Månaden täcker hela vägen: passen, nivåkollerna och övningsproven de sista dagarna.`,
+      `Övningsprovet i ${format}.${dagar != null && dagar > 0 ? ` ${dagar === 1 ? 'En dag' : `${dagar} dagar`} till provet.` : ''} Premium täcker hela vägen: passen, nivåkollerna och övningsproven de sista dagarna.`,
     utanDatumText:
-      'Månaden täcker passen varje dag, nya nivåkoller och övningsproven i samma format som ditt test.',
+      'Premium täcker passen varje dag, nya nivåkoller och övningsproven i samma format som ditt test.',
     vadIngar: 'Vad ingår?',
   },
   /** Raden sist efter Nivåkollen (skiss 5). */

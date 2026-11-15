@@ -113,7 +113,7 @@ export default function StartMallval({
           <ArrowRight className="h-4 w-4" aria-hidden="true" />
         </Link>
         <p className="text-xs text-neutral-500">
-          Inget kreditkort · Avsluta när du vill
+          Inget kreditkort. Avsluta när du vill.
         </p>
       </div>
     </div>

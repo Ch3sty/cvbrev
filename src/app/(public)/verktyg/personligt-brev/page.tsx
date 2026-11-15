@@ -104,7 +104,7 @@ export default function PersonligtBrevSida() {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'SEK',
-      description: 'Första brevet gratis, sedan ett i veckan. Ingen kortuppgift',
+      description: 'Första personliga brevet gratis, sedan ett var sjunde dag. Ingen kortuppgift',
     },
     featureList:
       '7 brevmallar, 6 tonaliteter, ATS-optimerat, PDF- och Word-export, sparade brev, jobbannons-matchning, svensk- och engelskspråkigt',
@@ -218,7 +218,7 @@ export default function PersonligtBrevSida() {
                 text={`Klistra in annonsen och berätta kort om dig. ${PREVIEW_PARAGRAPHS === 1 ? 'Första stycket' : `De ${talOrd(PREVIEW_PARAGRAPHS, true)} första styckena`} ser du direkt, hela brevet när du skapat ett gratiskonto.`}
                 punkter={[
                   'Ingen registrering innan du ser hur brevet börjar',
-                  'Första brevet gratis, sedan ett nytt i veckan',
+                  'Första personliga brevet gratis, sedan ett var sjunde dag',
                   `Nedladdning som PDF och Word ingår i ${PREMIUM}`,
                 ]}
                 knapp={{ text: 'Skriv ett brev nu', href: '/skapa-brev/start' }}

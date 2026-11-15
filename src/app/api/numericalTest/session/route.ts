@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { TEST_KVOT_MEDDELANDE } from '@/lib/quota/kvotmeddelanden';
 import { UNDERLAG_VERSION } from '@/lib/tester/underlagVersion';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
@@ -6,13 +7,11 @@ import { testSkrivKlient } from '@/lib/tests/skrivKlient';
 import { checkTestSessionAccess } from '@/lib/tests/sessionGate';
 import { checkDailyTestQuota, quotaExceededBody } from '@/lib/quota/quotaService';
 import { signalQuotaWall } from '@/lib/quota/quotaWallSignal';
-import { paketKort } from '@/lib/plans/plans';
 // meta.antal: sessionens antal frågor, så att procenten räknas rätt när testet kortas (testConfig.totalForSession).
 import { TOTAL_QUESTIONS as ANTAL } from '@/lib/numericalTest/selectPassages';
 
 const TEST_TYPE = 'numerical-reasoning';
-const QUOTA_MESSAGE =
-  `Du har redan gjort det här testet i dag. Ny chans i morgon, eller köp ${paketKort()} för obegränsat.`;
+const QUOTA_MESSAGE = TEST_KVOT_MEDDELANDE;
 
 export async function POST() {
   try {

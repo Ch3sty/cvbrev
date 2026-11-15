@@ -70,7 +70,7 @@ describe('ett paket säljs', () => {
   it('kortet bär fulla namnet, förklaringsraden och det som ingår ur PLANS', () => {
     const kort = PAKET_KORT.allt
     expect(kort.namn).toBe('Jobbcoach Premium')
-    expect(kort.beskrivning).toBe('CV, personliga brev, tester, jobbmatchning och Jobbcoachen')
+    expect(kort.beskrivning).toBe('Tester, CV, personliga brev, jobbmatchning och Jobbcoachen')
     expect(kort.ingar.length).toBeGreaterThanOrEqual(4)
     for (const rad of kort.ingar) expect(PLAN_BY_KEY.all_month.highlights).toContain(rad)
     expect(kort.prisrad).toBe('149 kr i månaden, säg upp när du vill.')
@@ -102,7 +102,7 @@ describe('prissidan', () => {
   it('H1, förklaringsraden och ingressen enligt copy-premium', () => {
     expect(HERO.h1).toBe('Jobbcoach Premium, 149 kr i månaden')
     expect(PR_H1).toBe(HERO.h1)
-    expect(HERO.rad).toBe('CV, personliga brev, tester, jobbmatchning och Jobbcoachen')
+    expect(HERO.rad).toBe('Tester, CV, personliga brev, jobbmatchning och Jobbcoachen')
     expect(HERO.ingress).toBe(
       'Allt är öppet från första minuten. Ingen bindningstid, du säger upp med ett klick.'
     )

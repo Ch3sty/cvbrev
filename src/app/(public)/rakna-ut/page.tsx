@@ -269,7 +269,7 @@ export default function Page() {
               </p>
               <div className="pub-handling">
                 <Link className="pub-knapp" href="/verktyg/jobbcoachen" data-cta-klick="/verktyg/jobbcoachen">
-                  Fråga jobbcoachen
+                  Fråga Jobbcoachen
                 </Link>
                 <Link className="pub-lank" href="/rakna-ut/loneforhandling" data-cta-klick="/rakna-ut/loneforhandling">
                   Räkna på din egen höjning

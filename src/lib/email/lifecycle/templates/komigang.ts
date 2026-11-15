@@ -207,7 +207,7 @@ function brickmejl(key: BrickaKey, lage: KomIgangLage, ctx: LifecycleContext, fa
       };
     case 'coach':
       return {
-        subject: 'Fråga jobbcoachen om lön, intervju eller avtal.',
+        subject: 'Fråga Jobbcoachen om lön, intervju eller avtal.',
         preheader: `Utan tak i ${paketKort()}.`,
         body: `${hej} Jobbcoachen känner ditt CV och din målroll. Fråga om löneanspråk, om vad du ska säga på intervjun eller om ett avtal du fått, så svarar den utifrån det.`,
         cta: 'Ställ en fråga',

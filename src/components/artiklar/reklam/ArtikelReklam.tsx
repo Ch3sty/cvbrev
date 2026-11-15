@@ -410,7 +410,7 @@ export function ListaSlutKort() {
       <PremiumBlock
         id="premium-arkiv"
         kick={LISTA_SLUT.etikett}
-        rubrik={gradientSlut(LISTA_SLUT.rubrik.replace(', ', '. '))}
+        rubrik={gradientSlut(LISTA_SLUT.rubrik)}
         rubrikNiva="p"
         text={<MedKampanjPris text={LISTA_SLUT.text} />}
         punkter={LISTA_SLUT.rader}

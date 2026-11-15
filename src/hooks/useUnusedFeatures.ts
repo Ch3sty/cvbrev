@@ -62,7 +62,7 @@ const FEATURES: FeatureSpotlightItem[] = [
     slug: 'jobbcoachen',
     href: '/dashboard/jobbcoachen',
     eyebrow: 'Prova nu',
-    title: 'Fråga jobbcoachen',
+    title: 'Fråga Jobbcoachen',
     description:
       'Få personliga råd om karriär, intervjuer och löneförhandling — när du behöver det.',
     cta: 'Starta samtal',

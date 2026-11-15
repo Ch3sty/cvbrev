@@ -49,7 +49,7 @@ export const HEM = {
   rubrikUtanDatum: 'Träna inför ditt rekryteringstest',
   rubrikUtanDatumPass: 'Ett pass om dagen',
   tomt: {
-    rad: 'Börja med Nivåkollen. Vet du när provet är, så lägger vi upp planen fram till dagen.',
+    rad: 'Börja med Nivåkollen, åtta minuter som visar var du står. Vet du när provet är, så lägger vi upp planen fram till dagen.',
     boxTitel: 'Din första punkt på kurvan kommer med Nivåkollen.',
     boxText: 'Sedan ett pass om dagen, och var sjunde dag en ny nivåkoll.',
     status: 'Inget datum än. Går att sätta när som helst.',

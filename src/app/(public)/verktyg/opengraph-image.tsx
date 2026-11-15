@@ -16,7 +16,7 @@ export default async function Image() {
     { emoji: '✉️', name: 'Personligt brev', desc: 'ATS-anpassat på 60 sek', color: siteMetadata.brandColors.blue },
     { emoji: '🎯', name: 'Jobbmatchning', desc: 'Hitta rätt tjänster', color: siteMetadata.brandColors.purple },
     { emoji: '💼', name: 'LinkedIn', desc: 'Optimera din profil', color: siteMetadata.brandColors.indigo },
-    { emoji: '🧠', name: 'Rekryteringstester', desc: 'Träna obegränsat', color: siteMetadata.brandColors.pink },
+    { emoji: '🧠', name: 'Rekryteringstester', desc: 'Träna utan tak', color: siteMetadata.brandColors.pink },
   ];
 
   return new ImageResponse(

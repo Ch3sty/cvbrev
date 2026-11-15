@@ -208,9 +208,9 @@ export const SLUT: Record<'cv' | 'test' | 'allt', SlutCopy> = {
     etikett: NAMN,
     rubrik: 'Alla nivåer. Klockan på.',
     rader: [
-      'Logik, verbalt och numeriskt i grund, avancerad och expert, med förklaring till varje svar',
-      'Övningsprov på 25 till 40 minuter och automatisk inlämning, samma tidspress som hos rekryteraren',
-      'Fördjupade personlighetstestet, 120 påståenden',
+      'Alla åtta testtyperna i grund, avancerad och expert, med förklaring till varje svar',
+      'Övningsprov mot klockan i samma format som Matrigma, Alva, SHL, Aon och I-provet, med automatisk inlämning när tiden är ute',
+      'Det fördjupade personlighetstestet, 120 påståenden',
       'Dessutom CV-analysen, alla mallar, personliga brev, jobbmatchning och Jobbcoachen',
     ],
     prisrad: PRISRAD,
@@ -266,7 +266,7 @@ export const GRATIS_KORT = {
 /** Listans slutkort i bläck: Premium och det som ingår. */
 export const LISTA_SLUT = {
   etikett: NAMN,
-  rubrik: 'Läs klart, gör sedan.',
+  rubrik: 'Läs klart. Gör sedan.',
   text: `Allt i en prenumeration, ${PRIS}. Ingen bindningstid, säg upp med ett klick.`,
   rader: PLAN.highlights.filter((r) => r !== 'Säg upp när du vill'),
   knapp: 'Se vad som ingår',

@@ -38,8 +38,8 @@ export default function ExempelCTABand() {
               </h2>
               <p className="text-base sm:text-lg text-white/85 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
                 Använd exemplen som inspiration och bygg ditt eget med våra
-                verktyg. Ett brev om dagen och en CV-analys var tredje dag,
-                helt gratis.
+                verktyg. Tre CV-mallar, en CV-analys och ett personligt brev
+                var sjunde dag, utan att betala.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 items-center lg:items-start lg:justify-start justify-center">
@@ -63,16 +63,14 @@ export default function ExempelCTABand() {
                   className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl border-2 border-white/40 text-white font-bold text-base sm:text-lg w-full sm:w-auto min-h-[56px] hover:border-white/70 transition-colors"
                 >
                   <Mail className="w-5 h-5" strokeWidth={2.5} />
-                  Skapa brev gratis
+                  Skapa personligt brev gratis
                 </Link>
               </div>
 
               <div className="mt-5 flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-1.5 text-sm text-white/85">
-                <span>Ingen kortuppgift</span>
-                <span className="hidden sm:inline text-white/40">·</span>
-                <span>Ingen bindningstid</span>
-                <span className="hidden sm:inline text-white/40">·</span>
-                <span>GDPR, data i EU</span>
+                <span>Ingen kortuppgift.</span>
+                <span>Ingen bindningstid.</span>
+                <span>Data i EU.</span>
               </div>
             </div>
 

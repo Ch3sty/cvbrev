@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title:
       'Personligt brev som matchar annonsen | Jobbcoach.ai',
     description:
-      'Vi läser jobbannonsen och ditt CV och skriver ett brev som faktiskt låter som dig. Sju mallar, sex toner, PDF och Word. Första brevet gratis.',
+      'Vi läser jobbannonsen och ditt CV och skriver ett brev som faktiskt låter som dig. Sju mallar, sex toner, PDF och Word. Första personliga brevet gratis.',
     type: 'website',
     locale: 'sv_SE',
     url: 'https://www.jobbcoach.ai/verktyg/personligt-brev',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Skräddarsy ditt personliga brev till varje annons | Jobbcoach.ai',
     description:
-      'Sju mallar, sex toner, klart på minuter. Första brevet gratis. PDF eller Word, du väljer.',
+      'Sju mallar, sex toner, klart på minuter. Första personliga brevet gratis. PDF eller Word, du väljer.',
   },
   alternates: {
     canonical: 'https://www.jobbcoach.ai/verktyg/personligt-brev',
