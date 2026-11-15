@@ -24,6 +24,17 @@ Bilden lägger det man får efter klicket på bordet: en riktig uppgift ur teste
 | career med lönetagg (`arLonArtikel`) | Lön | Lönekortet: två staplar och skillnaden i stort | Ett tal med rubrik |
 | career övriga, generic | Karriär | Jobbcoachen: en FAQ-fråga och första meningen i svaret | Tre citat med bock |
 
+### När artikeln saknar materialet till huvudkortet
+
+Fyra varianter (art-director 2026-11-15, godkända av ägaren i `docs/design/skiss-artikelbilder-sex-2026-11-15.html`) för artiklar i CV, Personligt brev och Karriär som inte har någon riktig CV- eller brevrad att ringa in. De väljs i underlaget med `huvud.variant` och får bara användas när det vanliga kortet inte går; `huvud.chip` är artikelns egen rubrik och kontrolleras mot texten som allt annat.
+
+| `variant` | Huvudkort | Fält |
+|---|---|---|
+| `svar` | Artikelns korta svar i stort (ja eller nej) i orange, en rad under, valfritt undantagen som punkter | `svar`, `rad`, `rubrik?`, `punkter?` (högst 3) |
+| `steg` | Tre till fem numrerade steg eller sätt, ett i orange, valfri liten etikett över varje steg | `steg`, `etiketter?`, `orange` (numret) |
+| `listor` | Två rubriker med två eller tre punkter under, en rubrik i orange | `listor: [{ rubrik, punkter, orange? }]` |
+| `par` | Två dokument bredvid varandra (CV och brev), ett med orange kant | `vanster: { rubrik, rad }`, `hoger: { rubrik, rad }`, `orange: "vanster" \| "hoger"` |
+
 ## Fasta regler (skriptet stoppar annars)
 
 - 1536 × 1024, webp kvalitet 82 med `smartSubsample`, högst 120 kB. Inga gradienter, filter eller inbäddade bilder.

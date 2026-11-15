@@ -1,0 +1,14 @@
+{
+ "alt": "CV och personligt brev sida vid sida: faktabasen och argumentationen i samma ansökan",
+ "fyll": {
+  "etikett": "CV och brev ihop",
+  "huvud": {
+   "variant": "par",
+   "chip": "Samma ansökan",
+   "vanster": { "rubrik": "CV:t är din faktabas", "rad": "svarar på vad du har gjort" },
+   "hoger": { "rubrik": "Personliga brevet är din argumentation", "rad": "svarar på varför just du" },
+   "orange": "hoger"
+  },
+  "grepp": ["Komplettera varandra", "Inte upprepa varandra", "Anpassa båda till samma jobbannons"]
+ }
+}

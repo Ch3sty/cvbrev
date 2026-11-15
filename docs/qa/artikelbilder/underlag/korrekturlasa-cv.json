@@ -1,0 +1,13 @@
+{
+ "alt": "Checklistan för att korrekturläsa CV:t i fyra steg, från fakta till ett par främmande ögon",
+ "fyll": {
+  "etikett": "Korrekturläsa CV:t",
+  "huvud": {
+   "variant": "steg",
+   "chip": "Checklista",
+   "steg": ["Fakta, innan språket", "Språket, med knep som biter", "Formatet och filen", "Ett par främmande ögon"],
+   "orange": 4
+  },
+  "grepp": ["Läs högt", "Läsa på papper eller baklänges", "Låta CV:t vila en dag"]
+ }
+}

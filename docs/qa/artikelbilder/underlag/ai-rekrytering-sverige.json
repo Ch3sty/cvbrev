@@ -1,0 +1,13 @@
+{
+ "alt": "Så sorterar ATS-systemet ansökningar vid AI-rekrytering, med tre råd för att komma förbi",
+ "fyll": {
+  "etikett": "AI i rekryteringen",
+  "huvud": {
+   "variant": "steg",
+   "chip": "ATS-screening",
+   "steg": ["Läser", "Rangordnar", "Sorterar", "En människa ser bara de högst rankade"],
+   "orange": 4
+  },
+  "grepp": ["Exakta nyckelord från annonsen", "Ren formatering utan kolumner och grafik", "PDF eller DOCX som filformat"]
+ }
+}

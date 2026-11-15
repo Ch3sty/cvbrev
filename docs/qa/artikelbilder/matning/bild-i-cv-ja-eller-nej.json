@@ -1,0 +1,9 @@
+{
+ "slug": "bild-i-cv-ja-eller-nej",
+ "mall": "cv",
+ "kluster": "cv",
+ "kB": 39,
+ "minstaMarginal": 33,
+ "tightast": "Nedsidan kan vara påtaglig",
+ "uppgift": null
+}

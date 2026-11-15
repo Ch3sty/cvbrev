@@ -1,0 +1,14 @@
+{
+ "alt": "De tre sätten att ladda upp CV:t på LinkedIn: för ansökningar, profilen och räckvidd",
+ "fyll": {
+  "etikett": { "text": "CV på LinkedIn", "undantag": { "av": "seo-strategen", "datum": "2026-11-15", "skal": "Plattformen är artikelns ämne och står i title. Ingen testleverantör eller myndighet, ingen logotyp." } },
+  "huvud": {
+   "variant": "steg",
+   "chip": "De tre sätten",
+   "steg": ["Spara CV:t under jobbsökarinställningarna", "Lägg filen i utvalda sektionen", "Dela CV:t som dokument i ett inlägg"],
+   "etiketter": ["För jobbansökningar", "För synlighet på profilen", "För räckvidd"],
+   "orange": 1
+  },
+  "grepp": ["Använd alltid PDF", "Professionellt filnamn", "Håll CV och profil konsekventa"]
+ }
+}

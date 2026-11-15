@@ -1,0 +1,15 @@
+{
+ "alt": "Europass CV eller vanligt CV: lägena där EU-formatet är rätt val",
+ "fyll": {
+  "etikett": { "text": "Europass CV", "undantag": { "av": "seo-strategen", "datum": "2026-11-15", "skal": "Formatet är artikelns ämne och står i title. Ingen testleverantör eller myndighet, ingen logotyp. Europass står också på huvudkortet." } },
+  "huvud": {
+   "variant": "listor",
+   "chip": "När Europass är rätt val",
+   "listor": [
+    { "rubrik": "Europass", "orange": true, "punkter": ["EU-institutioner", "EU-program som Erasmus", "Vissa stipendier"] },
+    { "rubrik": "Vanligt CV", "punkter": ["Jobb i Sverige", "Internationella företag"] }
+   ]
+  },
+  "grepp": ["Gör som mottagaren vill", "Erkänt i hela Europa", "Skapas på EU:s officiella plattform"]
+ }
+}

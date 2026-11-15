@@ -9,6 +9,13 @@
    "skal": "Artikelbilden \"På bordet\" (ägarbeslut 2026-11-15, alla bilder i ett svep). Första CustomImage pekar på den nya bilden med ny alt."
   },
   {
+   "path": "/artiklar/ai-rekrytering-sverige",
+   "gammal": "/images/artiklar/ai-rekrytering-sverige-header.webp",
+   "ny": "/images/artiklar/ai-rekrytering-sverige-v2.webp",
+   "datum": "2026-11-15",
+   "skal": "Artikelbilden \"På bordet\" (ägarbeslut 2026-11-15, alla bilder i ett svep). Bilden står bara i frontmatter."
+  },
+  {
    "path": "/artiklar/alva-labs-logiktest",
    "gammal": "/images/artiklar/alva-labs-logiktest.webp",
    "ny": "/images/artiklar/alva-labs-logiktest-v2.webp",
@@ -89,6 +96,13 @@
    "path": "/artiklar/beskriva-sig-sjalv-intervju-egenskaper",
    "gammal": "/images/artiklar/beskriva-sig-sjalv-intervju-egenskaper.webp",
    "ny": "/images/artiklar/beskriva-sig-sjalv-intervju-egenskaper-v2.webp",
+   "datum": "2026-11-15",
+   "skal": "Artikelbilden \"På bordet\" (ägarbeslut 2026-11-15, alla bilder i ett svep). Första CustomImage pekar på den nya bilden med ny alt."
+  },
+  {
+   "path": "/artiklar/bild-i-cv-ja-eller-nej",
+   "gammal": "/images/artiklar/bild-i-cv-ja-eller-nej.webp",
+   "ny": "/images/artiklar/bild-i-cv-ja-eller-nej-v2.webp",
    "datum": "2026-11-15",
    "skal": "Artikelbilden \"På bordet\" (ägarbeslut 2026-11-15, alla bilder i ett svep). Första CustomImage pekar på den nya bilden med ny alt."
   },
@@ -205,6 +219,13 @@
    "skal": "Artikelbilden \"På bordet\" (ägarbeslut 2026-11-15, alla bilder i ett svep). Första CustomImage pekar på den nya bilden med ny alt."
   },
   {
+   "path": "/artiklar/cv-och-personligt-brev",
+   "gammal": "/images/artiklar/cv-personligt-brev-med-ai.png",
+   "ny": "/images/artiklar/cv-och-personligt-brev-v2.webp",
+   "datum": "2026-11-15",
+   "skal": "Artikelbilden \"På bordet\" (ägarbeslut 2026-11-15, alla bilder i ett svep). Första CustomImage pekar på den nya bilden med ny alt."
+  },
+  {
    "path": "/artiklar/cv-pa-engelska-resume",
    "gammal": "/images/artiklar/cv-pa-engelska-resume.webp",
    "ny": "/images/artiklar/cv-pa-engelska-resume-v2.webp",
@@ -243,6 +264,13 @@
    "path": "/artiklar/din-digitala-jobbcoach",
    "gammal": "/images/artiklar/din-digitala-jobbcoach.webp",
    "ny": "/images/artiklar/din-digitala-jobbcoach-v2.webp",
+   "datum": "2026-11-15",
+   "skal": "Artikelbilden \"På bordet\" (ägarbeslut 2026-11-15, alla bilder i ett svep). Första CustomImage pekar på den nya bilden med ny alt."
+  },
+  {
+   "path": "/artiklar/europass-cv",
+   "gammal": "/images/artiklar/europass-cv.webp",
+   "ny": "/images/artiklar/europass-cv-v2.webp",
    "datum": "2026-11-15",
    "skal": "Artikelbilden \"På bordet\" (ägarbeslut 2026-11-15, alla bilder i ett svep). Första CustomImage pekar på den nya bilden med ny alt."
   },
@@ -422,9 +450,23 @@
    "skal": "Artikelbilden \"På bordet\" (ägarbeslut 2026-11-15, alla bilder i ett svep). Bilden står bara i frontmatter."
   },
   {
+   "path": "/artiklar/korrekturlasa-cv",
+   "gammal": "/images/artiklar/korrekturlasa-cv.webp",
+   "ny": "/images/artiklar/korrekturlasa-cv-v2.webp",
+   "datum": "2026-11-15",
+   "skal": "Artikelbilden \"På bordet\" (ägarbeslut 2026-11-15, alla bilder i ett svep). Första CustomImage pekar på den nya bilden med ny alt."
+  },
+  {
    "path": "/artiklar/kroppssprak-intervju",
    "gammal": "/images/artiklar/kroppssprak-intervju.webp",
    "ny": "/images/artiklar/kroppssprak-intervju-v2.webp",
+   "datum": "2026-11-15",
+   "skal": "Artikelbilden \"På bordet\" (ägarbeslut 2026-11-15, alla bilder i ett svep). Första CustomImage pekar på den nya bilden med ny alt."
+  },
+  {
+   "path": "/artiklar/ladda-upp-cv-linkedin",
+   "gammal": "/images/artiklar/ladda-upp-cv-linkedin.webp",
+   "ny": "/images/artiklar/ladda-upp-cv-linkedin-v2.webp",
    "datum": "2026-11-15",
    "skal": "Artikelbilden \"På bordet\" (ägarbeslut 2026-11-15, alla bilder i ett svep). Första CustomImage pekar på den nya bilden med ny alt."
   },

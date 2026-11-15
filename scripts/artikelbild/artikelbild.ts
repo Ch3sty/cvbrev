@@ -104,12 +104,12 @@ function helaRegistret(): Map<string, string[]> {
 type Varde = { nyckel: string; text: string; kalla?: string; beraknat?: string }
 /** Samlar varje ifyllt värde. Mallens fasta ord och fiktiva namn hoppas över. */
 function varden(v: any, ut: Varde[] = [], nyckel = ''): Varde[] {
-  const HOPPA = ['typ', 'skala', 'lyft', 'accent', 'uppgift', 'undantag', 'lyftKalla', 'delarKalla', 'staplarKalla', 'staplar_andel', 'sektion', 'lage']
+  const HOPPA = ['typ', 'skala', 'lyft', 'accent', 'uppgift', 'undantag', 'lyftKalla', 'delarKalla', 'staplarKalla', 'staplar_andel', 'sektion', 'lage', 'variant', 'orange']
   if (typeof v === 'string') ut.push({ nyckel, text: v })
   else if (typeof v === 'number' || typeof v === 'boolean' || v == null) return ut
   else if (Array.isArray(v)) {
-    // Handbrutna rader (profil, inledning, fråga, svar, uppgift) är en text; listor (citat, alternativ) är flera.
-    if (v.every((x) => typeof x === 'string') && !['rader', 'grepp', 'alternativ'].includes(nyckel)) ut.push({ nyckel, text: v.join(' ') })
+    // Handbrutna rader (profil, inledning, fråga, svar, uppgift) är en text; listor (citat, alternativ, punkter, steg, etiketter) är flera.
+    if (v.every((x) => typeof x === 'string') && !['rader', 'grepp', 'alternativ', 'punkter', 'steg', 'etiketter', 'listor'].includes(nyckel)) ut.push({ nyckel, text: v.join(' ') })
     else v.forEach((x) => varden(x, ut, nyckel))
   } else if ('text' in v) ut.push({ nyckel, text: v.text, kalla: v.kalla, beraknat: v.beraknat })
   else for (const [k, x] of Object.entries(v)) if (!HOPPA.includes(k)) varden(x, ut, k)
@@ -267,7 +267,7 @@ async function enBild(page: any, slug: string, under: any, uppgifter: Map<string
     if (!a.mdx.includes(sok)) fel.push(`"${v.text}" (${v.nyckel || 'värde'}) finns inte i artikeln${v.kalla ? ` (kalla "${v.kalla}")` : ''}`)
     if (v.beraknat !== undefined && !/\d/.test(v.beraknat)) fel.push(`beräknat värde "${v.text}" saknar uttryck med siffror`)
   }
-  if (a.mall === 'cv' && !namn.has(fyll.namn)) fel.push(`personen "${fyll.namn}" finns inte i exempelsidornas eller mallens lista`)
+  if (a.mall === 'cv' && !fyll.huvud?.variant && !namn.has(fyll.namn)) fel.push(`personen "${fyll.namn}" finns inte i exempelsidornas eller mallens lista`)
   const kallaKrav = (k: string | undefined, vad: string) => { if (!k || !a.mdx.includes(norm(k))) fel.push(`${vad} saknar källa i artikeln${k ? ` ("${k}")` : ''}`) }
   if (fyll.vanster?.typ === 'tidskala') kallaKrav(fyll.vanster.lyftKalla, 'skalans markering')
   if (fyll.huvud?.typ === 'skala') { kallaKrav(fyll.huvud.lyftKalla, 'skalans markering'); kallaKrav(fyll.huvud.staplarKalla, 'staplarnas höjder') }

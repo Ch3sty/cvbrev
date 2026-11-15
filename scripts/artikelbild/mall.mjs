@@ -463,6 +463,118 @@ function chattKort(ctx, fragaVarde, svarVarde, rum) {
   return arkBakom(HX, HY, w, h, rum) + kort({ x: HX, y: HY, w, h, rum, inner: s, huvud: true });
 }
 
+/* ---------------------------------------------------- artikelns egna kort */
+/**
+ * Varianter för artiklar som saknar en riktig CV- eller brevrad (art-director
+ * 2026-11-15, de sex väntande). Samma system: rakt huvudkort till höger med
+ * chip, orange på exakt en sak, varje ord ur artikeln. Väljs i underlaget med
+ * huvud.variant och är bara tillåtna i mallarna cv, brev och karriar.
+ *   svar:   ett kort svar i stort (ja eller nej) med en rad och undantagen
+ *   steg:   numrerade steg eller sätt, ett i orange, valfri liten etikett per steg
+ *   listor: två rubriker med punkter under, en rubrik i orange
+ *   par:    två dokument bredvid varandra (CV och brev), ett med orange kant
+ */
+export const VARIANTER = ['svar', 'steg', 'listor', 'par'];
+const punkt = (x, y, fill = F.ink) => `<circle cx="${x}" cy="${y}" r="6" fill="${fill}"/>`;
+
+function svarKort(ctx, h, rum) {
+  let s = chip(ctx, t(h.chip), rum);
+  const svar = t(h.svar);
+  s += `<text x="40" y="214" font-family="${DISPLAY}" font-size="112" font-weight="800" letter-spacing="-4" fill="${F.kopparInk}">${esc(svar)}</text>`;
+  if (ctx.mat(svar, 112, 800, DISPLAY) > 520) ctx.fel.push(`svaret "${svar}" ryms inte`);
+  const rad = bryt(ctx, h.rad, { size: 28, weight: 600, maxW: 520, maxRader: 2, namn: 'svarets rad' });
+  s += rader(rad, 40, 266, 38, 28, 600, F.ink);
+  let y = 266 + (rad.length - 1) * 38 + 60;
+  if (h.rubrik) {
+    s += `<text data-liten="1" x="40" y="${y}" font-family="${BROD}" font-size="20" font-weight="700" letter-spacing="2" fill="${F.ink3}">${esc(t(h.rubrik).toUpperCase())}</text>`;
+    y += 24;
+  }
+  for (const p of h.punkter ?? []) {
+    const l = bryt(ctx, p, { size: 28, weight: 500, maxW: 520 - 32, maxRader: 2, namn: 'punkt' });
+    s += punkt(46, y + 26) + rader(l, 72, y + 36, 38, 28, 500, F.ink);
+    y += 48 + (l.length - 1) * 38;
+  }
+  if ((h.punkter ?? []).length > 3) ctx.fel.push('svarskortet tar högst tre punkter');
+  const hh = Math.max(440, y + 44);
+  return arkBakom(HX, HY, 600, hh, rum) + kort({ x: HX, y: HY, w: 600, h: hh, rum, inner: s, huvud: true });
+}
+
+function stegKort(ctx, h, rum) {
+  let s = chip(ctx, t(h.chip), rum);
+  const steg = h.steg ?? [], etiketter = h.etiketter ?? [];
+  if (steg.length < 3 || steg.length > 5) ctx.fel.push(`stegkortet tar tre till fem steg (${steg.length})`);
+  if (typeof h.orange !== 'number' || h.orange < 1 || h.orange > steg.length) ctx.fel.push('stegkortet behöver orange: numret på det steg som är orange');
+  let y = 128;
+  steg.forEach((st, i) => {
+    const a = h.orange === i + 1;
+    const et = etiketter[i];
+    const l = bryt(ctx, st, { size: 28, weight: 600, maxW: 600 - 112 - MARGINAL, maxRader: 2, namn: `steg ${i + 1}` });
+    const topp = et ? 26 : 0;
+    s += `<circle cx="66" cy="${y + topp + 22}" r="26" fill="${a ? F.koppar : F.ink}"/><text x="66" y="${y + topp + 32}" text-anchor="middle" font-family="${DISPLAY}" font-size="28" font-weight="800" fill="${F.papper}">${i + 1}</text>`;
+    if (et) s += `<text data-liten="1" x="112" y="${y + 16}" font-family="${BROD}" font-size="20" font-weight="700" letter-spacing="1.5" fill="${a ? F.kopparInk : F.ink3}">${esc(t(et).toUpperCase())}</text>`;
+    s += rader(l, 112, y + topp + 32, 38, 28, 600, a ? F.kopparInk : F.ink);
+    y += 70 + topp + (l.length - 1) * 38;
+  });
+  const hh = Math.max(440, y + 30);
+  return arkBakom(HX, HY, 600, hh, rum) + kort({ x: HX, y: HY, w: 600, h: hh, rum, inner: s, huvud: true });
+}
+
+function listorKort(ctx, h, rum) {
+  let s = chip(ctx, t(h.chip), rum);
+  const listor = h.listor ?? [];
+  if (listor.length !== 2) ctx.fel.push('listkortet har två listor');
+  if (listor.filter((l) => l.orange).length !== 1) ctx.fel.push('listkortet ska ha exakt en rubrik i orange');
+  let y = 136;
+  for (const l of listor) {
+    const r = bryt(ctx, l.rubrik, { size: 32, weight: 700, fam: DISPLAY, maxW: 520 - 36, maxRader: 1, namn: 'listans rubrik' });
+    s += `<rect x="40" y="${y - 2}" width="12" height="30" rx="4" fill="${l.orange ? F.koppar : F.kantStark}"/>`;
+    s += rader(r, 68, y + 24, 40, 32, 700, l.orange ? F.kopparInk : F.ink, DISPLAY);
+    y += 60;
+    for (const p of l.punkter ?? []) {
+      const pl = bryt(ctx, p, { size: 28, weight: 500, maxW: 520 - 32, maxRader: 2, namn: 'punkt' });
+      s += punkt(46, y + 8) + rader(pl, 72, y + 18, 38, 28, 500, F.ink);
+      y += 46 + (pl.length - 1) * 38;
+    }
+    if ((l.punkter ?? []).length < 2 || (l.punkter ?? []).length > 3) ctx.fel.push('varje lista har två eller tre punkter');
+    y += 26;
+  }
+  const hh = Math.max(440, y + 18);
+  return arkBakom(HX, HY, 600, hh, rum) + kort({ x: HX, y: HY, w: 600, h: hh, rum, inner: s, huvud: true });
+}
+
+function parKort(ctx, h, rum) {
+  // Två dokument i samma kort: varje dokument är en egen ruta som texten mäts mot.
+  // Två dokument om 268 px med 8 px emellan från x 32: 32 + 268 + 8 + 268 = 576, alltså 24 px till kortets kanter.
+  // Textens luft i dokumentet är 26 px, eftersom bokstäver som j och Å har negativ bearing som äter en pixel.
+  const W = 600, dw = 268, dh = 420, top = 112, pad = 26;
+  let s = chip(ctx, t(h.chip), rum);
+  const sidor = [h.vanster, h.hoger];
+  if (!['vanster', 'hoger'].includes(h.orange)) ctx.fel.push('parkortet behöver orange: vanster eller hoger');
+  sidor.forEach((d, i) => {
+    const x = 32 + i * (dw + 8), orange = (i === 0 ? 'vanster' : 'hoger') === h.orange;
+    const r = bryt(ctx, d.rubrik, { size: 28, weight: 700, fam: DISPLAY, maxW: dw - 2 * pad, maxRader: 3, namn: 'dokumentets rubrik' });
+    const l = bryt(ctx, d.rad, { size: 28, weight: 500, maxW: dw - 2 * pad, maxRader: 3, namn: 'dokumentets rad' });
+    let inner = rader(r, x + pad, top + 58, 36, 28, 700, orange ? F.kopparInk : F.ink, DISPLAY);
+    let y = top + 58 + r.length * 36 + 8;
+    inner += rader(l, x + pad, y + 20, 36, 28, 500, F.ink2);
+    y += l.length * 36 + 24;
+    for (const bw of [dw - 2 * pad, dw - 90, dw - 70, 0, dw - 2 * pad, dw - 110]) {
+      if (y + 12 > top + dh - MARGINAL) break;
+      if (bw) inner += `<rect x="${x + pad}" y="${y}" width="${bw}" height="12" rx="6" fill="${F.kant}"/>`;
+      y += 24;
+    }
+    s += ruta(x, top, dw, dh, `rx="18" fill="${F.papper}" stroke="${orange ? F.koppar : F.kantStark}" stroke-width="${orange ? 5 : 3}"`, inner);
+  });
+  const hh = top + dh + 40;
+  return arkBakom(HX, HY, W, hh, rum) + kort({ x: HX, y: HY, w: W, h: hh, rum, inner: s, huvud: true });
+}
+
+function variantKort(ctx, h, rum) {
+  if (!VARIANTER.includes(h.variant)) { ctx.fel.push(`okänd variant ${h.variant} (${VARIANTER.join(', ')})`); return ''; }
+  if (!h.chip) ctx.fel.push('varianten behöver en chip med artikelns egen rubrik');
+  return { svar: svarKort, steg: stegKort, listor: listorKort, par: parKort }[h.variant](ctx, h, rum);
+}
+
 /* ------------------------------------------------------------------ mallar */
 /**
  * ctx: { mat(text, size, weight, fam) → px, fel: [], uppgift(id) → förritad uppgift }.
@@ -486,8 +598,14 @@ export const MALLAR = {
     }
     return ram(rum, etikett(f.etikett, rum) + vanster + huvud);
   },
-  cv(ctx, f, rum) { return ram(rum, etikett(f.etikett, rum) + bockKort(ctx, rum, f.grepp) + ARK(cvArk(ctx, f.namn, f.yrke, f.profil, f.sektion), rum)); },
-  brev(ctx, f, rum) { return ram(rum, etikett(f.etikett, rum) + bockKort(ctx, rum, f.grepp) + ARK(brevArk(ctx, f.mottagare, f.stycke, f.halsning, f.lage), rum)); },
+  cv(ctx, f, rum) {
+    if (f.huvud?.variant) return ram(rum, etikett(f.etikett, rum) + bockKort(ctx, rum, f.grepp) + variantKort(ctx, f.huvud, rum));
+    return ram(rum, etikett(f.etikett, rum) + bockKort(ctx, rum, f.grepp) + ARK(cvArk(ctx, f.namn, f.yrke, f.profil, f.sektion), rum));
+  },
+  brev(ctx, f, rum) {
+    if (f.huvud?.variant) return ram(rum, etikett(f.etikett, rum) + bockKort(ctx, rum, f.grepp) + variantKort(ctx, f.huvud, rum));
+    return ram(rum, etikett(f.etikett, rum) + bockKort(ctx, rum, f.grepp) + ARK(brevArk(ctx, f.mottagare, f.stycke, f.halsning, f.lage), rum));
+  },
   intervju(ctx, f, rum) {
     const v = f.vanster ?? { typ: 'ring', tal: f.tal };
     const vanster = v.typ === 'ring' ? ringKort(ctx, rum, v) : bockKort(ctx, rum, v.rader);
@@ -496,5 +614,8 @@ export const MALLAR = {
   lon(ctx, f, rum) {
     return ram(rum, etikett(f.etikett, rum) + talKort(ctx, rum, f.talRubrik ?? 'Lön i dag', f.lonIdag) + stapelKort(ctx, f.staplar ?? [], f.summa, f.summaText ?? 'skillnaden om året', rum, f.chip ?? 'LÖNESAMTALET'));
   },
-  karriar(ctx, f, rum) { return ram(rum, etikett(f.etikett, rum) + bockKort(ctx, rum, f.grepp) + chattKort(ctx, f.fraga, f.svar, rum)); },
+  karriar(ctx, f, rum) {
+    if (f.huvud?.variant) return ram(rum, etikett(f.etikett, rum) + bockKort(ctx, rum, f.grepp) + variantKort(ctx, f.huvud, rum));
+    return ram(rum, etikett(f.etikett, rum) + bockKort(ctx, rum, f.grepp) + chattKort(ctx, f.fraga, f.svar, rum));
+  },
 };

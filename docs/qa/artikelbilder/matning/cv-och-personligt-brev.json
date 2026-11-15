@@ -1,0 +1,9 @@
+{
+ "slug": "cv-och-personligt-brev",
+ "mall": "brev",
+ "kluster": "letter",
+ "kB": 43,
+ "minstaMarginal": 24,
+ "tightast": "rect 268×420",
+ "uppgift": null
+}

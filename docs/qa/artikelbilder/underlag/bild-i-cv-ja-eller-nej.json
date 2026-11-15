@@ -1,0 +1,15 @@
+{
+ "alt": "Svaret nej på bild på CV i Sverige, med undantagen och skälen bredvid",
+ "fyll": {
+  "etikett": "Bild på CV:t",
+  "huvud": {
+   "variant": "svar",
+   "chip": "Bild på CV",
+   "svar": "Nej",
+   "rad": "inte som standard i Sverige",
+   "rubrik": "Undantaget",
+   "punkter": ["kundnära yrken", "arbetsgivaren uttryckligen ber om foto"]
+  },
+  "grepp": ["Ett CV utan bild är aldrig fel", "Uppsidan är liten", "Nedsidan kan vara påtaglig"]
+ }
+}
