@@ -173,9 +173,6 @@ describe('gratisnivåns rader, GR1 till GR7', () => {
     expect(GRATISRADER.mallar).toBe('3 mallar ingår i gratisnivån')
   })
 
-  it('chattraden säger per konto, eftersom det är den ändrade gränsen', () => {
-    expect(GRATISRADER.chatt).toMatch(/per konto/)
-  })
 })
 
 describe('nycklarna', () => {

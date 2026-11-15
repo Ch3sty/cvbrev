@@ -53,7 +53,6 @@ export interface Kampanj {
     bannerText: string
     bannerLank: string
     kortRubrik: string
-    kortText: string
     kortKnapp: string
     kortStang: string
     prisKnapp: string
@@ -78,7 +77,6 @@ export const KAMPANJER: readonly Kampanj[] = [
       bannerText: 'Första månaden Premium för 99 kr, till och med söndag.',
       bannerLank: 'Se erbjudandet',
       kortRubrik: 'Black Week: första månaden Premium för 99 kr',
-      kortText: 'Övningsprov med tid och ett pass om dagen fram till provet. Sedan 149 kr i månaden. Till och med söndag.',
       kortKnapp: 'Köp Premium, 99 kr',
       kortStang: 'Nej tack',
       prisKnapp: 'Köp Premium, 99 kr första månaden',
@@ -99,7 +97,6 @@ export const KAMPANJER: readonly Kampanj[] = [
       bannerText: 'Första månaden Premium för 49 kr. Bara i dag till 23.59.',
       bannerLank: 'Se erbjudandet',
       kortRubrik: 'Cyber Monday: första månaden för 49 kr',
-      kortText: 'Övningsprov med tid, CV och personliga brev, allt i Premium. Sedan 149 kr i månaden. Bara i dag, till 23.59.',
       kortKnapp: 'Köp Premium, 49 kr',
       kortStang: 'Nej tack',
       prisKnapp: 'Köp Premium, 49 kr första månaden',

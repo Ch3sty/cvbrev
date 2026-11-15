@@ -99,18 +99,8 @@ const PREMIUM = paketKort()
 export const GRATISRADER = {
   /** GR1, mallgalleriet, över listan. */
   mallar: `${FREE_TEMPLATE_COUNT} mallar ingår i gratisnivån`,
-  /** GR2, testhubben. Sant i båda gaterna (spec-rummen 23.3). */
-  tester: 'Nivåkollen och ett grundpass samma dag ingår',
   /** GR3, CV-analysen, under poängen. */
   analys: 'Poängen och det tyngsta fyndet ingår',
-  /** GR4, brevflödet. */
-  brev: 'Ett personligt brev per konto, sedan ett i veckan',
-  /** GR5, CV-export. */
-  export: 'En nedladdning ingår i gratisnivån',
-  /** GR6, jobbcoachen. */
-  chatt: 'Tio meddelanden per konto ingår',
-  /** GR7, jobbmatchningen. */
-  jobbtraffar: 'De tre bästa träffarna ingår',
 } as const
 
 /** Betalväggens knapp: "Köp Premium, 149 kr i månaden" (copy-premium 8). */

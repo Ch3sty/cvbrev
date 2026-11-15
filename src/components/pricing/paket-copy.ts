@@ -56,16 +56,6 @@ export type PaketId = 'allt'
 
 export const PAKET_IDS: readonly PaketId[] = ['allt']
 
-/** Paketet ett kort leder till: alltid det som säljs. */
-export const PAKET_PLAN: Record<PaketId, PlanKey> = {
-  allt: SALD_PLAN,
-}
-
-/** Kortet för ett paket. Alla nycklar, sålda och osålda, hör till Premiumkortet. */
-export function paketForPlan(_plan: PlanKey): PaketId {
-  return 'allt'
-}
-
 export interface PaketRad {
   ikon: RadIkonNamn
   rubrik: string
@@ -161,15 +151,6 @@ export const HERO = {
   rad: PLAN_BY_KEY[SALD_PLAN].beskrivning,
   ingress: 'Allt är öppet från första minuten. Ingen bindningstid, du säger upp med ett klick.',
   scenAlt: 'Ett CV med poäng, ett personligt brev och ett matristest på skrivbordet',
-} as const
-
-/** Kortet på prissidan, ankarraden under det på mobil. */
-export const VALJARE = {
-  ankare: [
-    { text: 'Gratisnivån', href: '#gratis' },
-    { text: 'Så fungerar det', href: '#funktioner' },
-    { text: 'Så guidar vi dig', href: '#guide' },
-  ],
 } as const
 
 /* ------------------------------------------------------------ gratis */
@@ -322,9 +303,6 @@ export const FORTROENDE = [
     text: 'Det du ser är det som dras. Inga tillägg.',
   },
 ] as const
-
-/** Bakåtkompatibel form av förtroenderaden. */
-export const FORTROENDE_RADER = FORTROENDE.map((f) => ({ key: f.key, text: f.rubrik }))
 
 /* ----------------------------------------------------------- spårvalet */
 
@@ -580,10 +558,6 @@ export function knappText(plan: PlanKey = SALD_PLAN): string {
 /** H1 på prissidan. */
 export const PR_H1 = HERO.h1
 
-export const PR_INGRESS = HERO.ingress
-
-export const D_GRATIS_LANK = GRATIS.knapp
-
 export const D_PRENUMERATION = {
   statusGratis: KONTO.statusGratis,
   stoppRubrik: KONTO.stoppRubrik,
@@ -662,15 +636,6 @@ export function forslagSkal(input: {
   }
 
   return `Vi vet inte vad du behöver än. ${PREMIUM} rymmer allt, så du behöver inte välja.`
-}
-
-/** Raden om bytet för en kund med ett spår. */
-export function uppgraderingSkal(antal: number): string {
-  if (antal <= 0) {
-    return `${PREMIUM} lägger jobbmatchningen, Jobbcoachen och Bli upptäckt ovanpå det du redan har.`
-  }
-  const gang = antal === 1 ? 'en gång' : `${antalOrd(antal)} gånger`
-  return `Du har stoppats ${gang} av något du inte har i dag. ${PREMIUM} öppnar det, och du behåller allt du har.`
 }
 
 /** Prisraden för en längd. Dagen bär prepositionen "för". */
