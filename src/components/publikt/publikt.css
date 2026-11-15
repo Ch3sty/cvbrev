@@ -725,14 +725,17 @@
 .pub-solfjader > .pub-telefon:nth-child(1) { transform: translateX(-170px) rotate(-9deg) translateY(36px); z-index: 1; }
 .pub-solfjader > .pub-telefon:nth-child(2) { transform: scale(1.06); transform-origin: 50% 100%; z-index: 3; }
 .pub-solfjader > .pub-telefon:nth-child(3) { transform: translateX(170px) rotate(9deg) translateY(36px); z-index: 2; }
+/* Mobil: en telefon, 540 i stället för 650 (art-director A2, beslut
+   2026-11-15). Telefonen är 590 hög; den skjuts ner 50 px in i sektionens
+   bottenpadding i stället för att gå upp i texten. Fast höjd, ingen CLS. */
 @media (max-width: 899px) {
-  .pub-solfjader { min-height: 650px; margin-top: 28px; }
+  .pub-solfjader { min-height: 540px; margin-top: 28px; }
   .pub-solfjader > .pub-telefon:nth-child(1),
   .pub-solfjader > .pub-telefon:nth-child(3) { display: none; }
+  .pub-solfjader > .pub-telefon:nth-child(2) { bottom: -50px; }
 }
 @media (max-width: 400px) {
   .pub-solfjader > .pub-telefon:nth-child(2) { transform: none; }
-  .pub-solfjader { min-height: 610px; }
 }
 
 /* Fast knapprad på mobil efter hjälten (FastKnapprad) */

@@ -12,7 +12,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { X } from 'lucide-react'
+import { IkonX } from '@/components/illustrations/RumSymboler'
 import type { CtaCluster } from '@/lib/cta/clusters'
 import { capture } from '@/lib/analytics/events'
 
@@ -130,7 +130,8 @@ export default function StickyMobileCTA({
         paddingBottom: 'env(safe-area-inset-bottom)',
         transform: visible ? 'translateY(0)' : 'translateY(100%)',
         transition: reducedMotion ? 'none' : 'transform 200ms ease-out',
-        boxShadow: '0 -4px 16px -8px rgba(0,0,0,0.12)',
+        // Husets lyft i stället för en egen skugga (art-director A2).
+        boxShadow: 'var(--lyft)',
       }}
       aria-hidden={!visible}
     >
@@ -147,8 +148,9 @@ export default function StickyMobileCTA({
               target: ctaHref,
             })
           }
-          className="flex h-12 flex-1 items-center justify-center rounded-full px-4 text-[15px] font-bold"
-          style={{ background: 'linear-gradient(180deg, var(--koppar), var(--koppar-djup))', color: 'var(--koppar-text)' }}
+          // Husets pillerknapp (publikt.css), 48 px hög i baren.
+          className="pub-knapp flex-1 px-4 text-[15px]"
+          style={{ minHeight: 48 }}
         >
           {ctaLabel}
         </Link>
@@ -159,7 +161,7 @@ export default function StickyMobileCTA({
           aria-label="Dölj"
           className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full text-ink-3 hover:bg-insunken"
         >
-          <X className="h-5 w-5" aria-hidden="true" />
+          <IkonX size={20} />
         </button>
       </div>
     </div>

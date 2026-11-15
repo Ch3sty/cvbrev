@@ -104,7 +104,7 @@ export default function ImorgonKort({
   return (
     <section aria-label={forsta ? K.eyebrowForsta : K.eyebrow} className={`rounded-2xl border bg-papper p-4 ${yta} ${className ?? ''}`} data-imorgon>
       <p className={`text-ey uppercase ${last ? 'text-ink-3' : 'text-koppar-ink'}`}>{forsta ? K.eyebrowForsta : K.eyebrow}</p>
-      <h2 className={`mt-1 font-display text-[22px] font-bold leading-[27px] tracking-[-.02em] ${last ? 'text-ink-2' : 'text-ink-1'}`}>
+      <h2 className={`mt-1 text-kort-t ${last ? 'text-ink-2' : 'text-ink-1'}`}>
         {tema ?? K.temaSaknas}
       </h2>
       <p className="mt-1.5 text-sm leading-[21px] text-ink-2">{K.form}</p>
