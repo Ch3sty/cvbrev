@@ -1361,7 +1361,7 @@ faq:
 ```
 
 ### UNDVIK manuella SEO-element:
-- ❌ INGEN `imageAlt` i frontmatter (genereras automatiskt)
+- `imageAlt` i frontmatter krävs sedan 2026-11-15 (se scripts/design-standard.md)
 - ❌ INGEN `canonical` i frontmatter (genereras automatiskt från slug)
 - ❌ INGA `<script type="application/ld+json">` block i artikelinnehåll
 - ❌ INGA manuella meta tags

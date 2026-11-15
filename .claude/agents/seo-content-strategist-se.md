@@ -51,7 +51,7 @@ All SEO elements are handled automatically in `src/app/artiklar/[slug]/page.tsx`
    - Automatic og:image and twitter:image from frontmatter.image
 
 ### ❌ NEVER Add These Manually:
-- `imageAlt` field in frontmatter (not used by system, auto-generated)
+- (`imageAlt` is NOT on this list: since 2026-11-15 it is required in frontmatter. The hero reads it, see the article image standard in scripts/design-standard.md.)
 - `canonical` field in frontmatter (overridden by automatic generation)
 - `<script type="application/ld+json">` blocks for Article schema (duplicates automatic)
 - `<script type="application/ld+json">` blocks for FAQPage schema (duplicates automatic)
@@ -88,7 +88,7 @@ faq:
 
 ### If You See Manual SEO Elements:
 - **Flag them immediately** - They create duplicate markup (bad for SEO)
-- **Remove imageAlt and canonical** from frontmatter
+- **Remove canonical** from frontmatter (keep `imageAlt`, it is required)
 - **Remove all `<script type="application/ld+json">` blocks** from article content
 - The central system handles everything better than manual additions
 
