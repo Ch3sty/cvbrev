@@ -149,7 +149,7 @@ export const HERO = {
   h1: paketMedPris(SALD_PLAN),
   /** Förklaringsraden under H1, samma rad som PLANS.beskrivning. */
   rad: PLAN_BY_KEY[SALD_PLAN].beskrivning,
-  ingress: 'Allt är öppet från första minuten. Ingen bindningstid, du säger upp med ett klick.',
+  ingress: 'Allt är öppet från första minuten. Ingen bindningstid, du säger upp när du vill.',
   scenAlt: 'Ett CV med poäng, ett personligt brev och ett matristest på skrivbordet',
 } as const
 
@@ -193,10 +193,10 @@ export const FUNKTIONER = {
       scenAlt: 'CV-analysens rapport',
       rubrik: 'CV-analysen',
       sub: ingarGratis('poängen och det tyngsta fyndet.'),
-      text: 'De flesta CV:n sållas bort innan en människa läst dem. Analysen visar varför ditt gör det, och vad du ändrar. Ladda upp som PDF eller Word, och inom en minut får du poäng 1 till 10 på tydlighet och struktur, innehåll, resultat och nyckelord, plus en lista med fynd där varje fynd har en åtgärd.',
+      text: 'De flesta CV:n sållas bort innan en människa läst dem. Analysen visar varför ditt gör det, och vad du ändrar. Ladda upp som PDF eller Word, och inom en minut får du en läsbarhetspoäng från 0 till 100, vad den kan bli när du följt förslagen, och förslagen i fyra delar: personbeskrivning, roller, kompetenser och automatiska förbättringar av struktur, formatering, innehåll och nyckelord. Varje fynd har en åtgärd.',
       steg: [
         'Ladda upp, vi läser som en rekryterare gör på sex sekunder.',
-        'Poäng per område och de fynd som drar ned mest.',
+        'Poängen i dag, poängen med förslagen och de fynd som drar ned mest.',
         'Nyckelorden rekryteringssystem (ATS) letar efter i din bransch.',
         'Rätta, kör om, se poängen röra sig.',
       ],
@@ -242,7 +242,7 @@ export const FUNKTIONER = {
       scenAlt: 'Tre jobbträffar med matchningsgrad',
       rubrik: 'Matchade jobb',
       sub: ingarGratis('tre träffar.'),
-      text: `Den som söker på sin vanliga yrkestitel missar jobben som efterfrågar samma kompetens under ett annat namn, i en annan bransch. Vi utgår i stället från dina kompetenser, erfarenheter och utbildningar och matchar dem mot alla annonser i Platsbanken. Kör när du vill, och varje natt får du de ${JOB_MATCHES_PER_RUN} bästa träffarna med skälen utskrivna: vilka krav du täcker och vad som saknas. Från en träff skriver du det personliga brevet med ett klick.`,
+      text: `Den som söker på sin vanliga yrkestitel missar jobben som efterfrågar samma kompetens under ett annat namn, i en annan bransch. Vi utgår i stället från dina kompetenser, erfarenheter och utbildningar och matchar dem mot alla annonser i Platsbanken, som fylls på tre gånger per dygn. Varje gång du öppnar sidan får du de ${JOB_MATCHES_PER_RUN} bästa träffarna med skälen utskrivna: vilka krav du täcker och vad som saknas. Från en träff skriver du det personliga brevet med ett klick.`,
       ingar: ['allt'],
     },
     {
@@ -263,7 +263,7 @@ export const FUNKTIONER = {
 export const GUIDE = {
   h2: 'Hjälpredan Kom igång tar dig igenom allt i rätt ordning',
   ingress:
-    'Du gör vad du vill, när du vill. Hjälpredan Kom igång är en vägvisare som ser till att du hittar allt: fyller i profilen, provar varje funktion och inte missar det som ger mest. Gör du hela listan första kvällen är det lika bra. Dagen innan månaden förnyas mejlar vi vad du gjort, så att du kan säga upp med ett klick om du är klar.',
+    'Du gör vad du vill, när du vill. Hjälpredan Kom igång är en vägvisare som ser till att du hittar allt: fyller i profilen, provar varje funktion och inte missar det som ger mest. Gör du hela listan första kvällen är det lika bra. Dagen innan månaden förnyas mejlar vi vad du gjort, så att du kan säga upp innan nästa dragning om du är klar.',
   listor: {
     allt: {
       etikett: `${11} steg`,
@@ -289,8 +289,8 @@ export const GUIDE = {
 export const FORTROENDE = [
   {
     key: 'uppsagning',
-    rubrik: 'Säg upp med ett klick',
-    text: 'I ditt konto, utan skäl. Månaden du betalat gäller ut.',
+    rubrik: 'Säg upp när du vill',
+    text: 'Under Profil och Prenumeration, ingen bindningstid. Månaden du betalat gäller ut.',
   },
   {
     key: 'stripe',
@@ -477,10 +477,10 @@ export const KONTO = {
   bytText: (fran: PlanKey) => {
     const scope = PLAN_BY_KEY[fran].scope
     if (scope === 'cv') {
-      return `${PREMIUM} ger allt du har i dag och dessutom alla rekryteringstester, övningsprov, jobbmatchningen, Jobbcoachen och Bli upptäckt.`
+      return `${PREMIUM} ger allt du har i dag och dessutom alla rekryteringstester, övningsprov, jobbmatchningen och Jobbcoachen.`
     }
     if (scope === 'tester') {
-      return `${PREMIUM} ger allt du har i dag och dessutom alla CV-mallar, CV-analysen, personliga brev, jobbmatchningen, Jobbcoachen och Bli upptäckt.`
+      return `${PREMIUM} ger allt du har i dag och dessutom alla CV-mallar, CV-analysen, personliga brev, jobbmatchningen och Jobbcoachen.`
     }
     return `${PREMIUM} ger allt.`
   },
@@ -532,9 +532,9 @@ export const PAKET_PUNKTER: Record<PlanKey, readonly string[]> = {
     'Förklaring per fråga och din utveckling',
   ],
   all_day: [`Allt i ${PREMIUM}, i 24 timmar`, 'Engångsköp, ingen prenumeration', 'Tiden räknas från köpet'],
-  all_week: [`Allt i ${PREMIUM}, en vecka i taget`, 'Förnyas var sjunde dag', 'Säg upp när som helst, ett klick'],
-  all_month: [`Allt i ${PREMIUM}, en månad i taget`, 'Dras samma datum varje månad', 'Säg upp när som helst, ett klick'],
-  all_quarter: [`Allt i ${PREMIUM}, i tre månader`, 'Förnyas var tredje månad', 'Säg upp när som helst, ett klick'],
+  all_week: [`Allt i ${PREMIUM}, en vecka i taget`, 'Förnyas var sjunde dag', 'Säg upp när du vill, ingen bindningstid'],
+  all_month: [`Allt i ${PREMIUM}, en månad i taget`, 'Dras samma datum varje månad', 'Säg upp när du vill, ingen bindningstid'],
+  all_quarter: [`Allt i ${PREMIUM}, i tre månader`, 'Förnyas var tredje månad', 'Säg upp när du vill, ingen bindningstid'],
 }
 
 /** Intervallraden under beloppet. Dagen förnyas inte. */
@@ -584,7 +584,6 @@ export const FEATURE_ETIKETT: Record<Feature, string> = {
   chat_unlimited: 'Fler meddelanden i chatten',
   interview_unlimited: 'Fler intervjuprov',
   job_matches_all: 'Fler jobbträffar',
-  bli_upptackt: 'Bli upptäckt',
   linkedin: 'LinkedIn-profilen',
 }
 

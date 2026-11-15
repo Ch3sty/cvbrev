@@ -497,7 +497,7 @@ export function valkommen(paket: Exclude<Paket, null>, dagspass = false): Valkom
       topp: paketNamn(SALD_PLAN),
       rubrik: `Du har ${paketKort()}. Hela jobbsöket är öppet i ett dygn.`,
       ingress:
-        'CV, personliga brev, alla tester, jobbmatchning, Jobbcoachen och Bli upptäckt, i 24 timmar. Vi föreslår att du börjar med CV:t och analysen, så hinner du använda resten på ett uppdaterat CV.',
+        'CV, personliga brev, alla tester, jobbmatchning och Jobbcoachen, i 24 timmar. Vi föreslår att du börjar med CV:t och analysen, så hinner du använda resten på ett uppdaterat CV.',
       steg: [
         'Ladda upp CV:t och kör CV-analysen. Uppdatera efter fynden.',
         'Kör jobbmatchningen på det uppdaterade CV:t och skriv personliga brev från träffarna.',
@@ -529,7 +529,7 @@ export function valkommen(paket: Exclude<Paket, null>, dagspass = false): Valkom
       topp: paketNamn(SALD_PLAN),
       rubrik: `Du har ${paketKort()}. Hela jobbsöket är öppet.`,
       ingress:
-        'CV, personliga brev, alla tester, jobbmatchning, Jobbcoachen och Bli upptäckt. Vi föreslår att du börjar med CV:t och analysen: ett uppdaterat CV ger bättre matchningar och en bättre profil för rekryterarna.',
+        'CV, personliga brev, alla tester, jobbmatchning och Jobbcoachen. Vi föreslår att du börjar med CV:t och analysen: ett uppdaterat CV ger bättre matchningar och en bättre profil för rekryterarna.',
       steg: [
         'Ladda upp CV:t och kör CV-analysen. Uppdatera efter fynden.',
         'Kör jobbmatchningen på det uppdaterade CV:t och se jobb du inte hittat själv.',

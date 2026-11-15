@@ -53,7 +53,6 @@ export const PLATS_FOR_VARIANT: Record<PaywallVariant, BetalvaggPlats> = {
   chatt: 'chatt',
   historik: 'historik',
   linkedin: 'linkedin',
-  'bli-upptackt': 'bli_upptackt',
   kvot: 'kvot',
   'test-tak': 'test_tak',
   nedgraderad: 'nedgraderad',

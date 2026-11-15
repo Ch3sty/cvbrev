@@ -104,7 +104,7 @@ export default function PriserSida() {
                   <b>Rekryteringstester, CV, personliga brev, jobbmatchning och Jobbcoachen</b>
                 </p>
                 <p className="pub-brod" style={{ marginTop: 10 }}>
-                  Allt är öppet från första minuten. Ingen bindningstid, du säger upp med ett klick. Mindre än en lunch i
+                  Allt är öppet från första minuten. Ingen bindningstid, du säger upp när du vill. Mindre än en lunch i
                   månaden.
                 </p>
                 <PrisRad style={{ marginTop: 28 }} />

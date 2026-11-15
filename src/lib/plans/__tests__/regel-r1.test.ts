@@ -141,7 +141,6 @@ describe('R1 i betalväggarna', () => {
     'chatt',
     'historik',
     'linkedin',
-    'bli-upptackt',
     'kvot',
     'test-tak',
     'nedgraderad',

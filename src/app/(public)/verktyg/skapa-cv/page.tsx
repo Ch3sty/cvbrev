@@ -23,20 +23,20 @@ const FUNKTIONER = [
     text: 'Du ser CV:t ta form direkt. Skriv en rad och se var den landar i mallen, långt innan du laddar ner.',
   },
   {
-    rubrik: 'Sparas automatiskt',
-    text: 'Allt du fyller i sparas i bakgrunden. Stäng fliken mitt i ett steg och fortsätt där du slutade när du kommer tillbaka.',
+    rubrik: 'Utkastet väntar på dig',
+    text: 'Det du fyller i ligger kvar i webbläsaren medan du bygger, så du kan stänga fliken och fortsätta i samma webbläsare. I sista steget sparar du CV:t i ditt konto, och då finns det på alla dina enheter.',
   },
   {
     rubrik: `Ladda ner som PDF, eller Word i ${WORD_TEMPLATE_COUNT_ORD} av mallarna`,
     text: `Alla mallar laddas ner som PDF. Välj en av de ${WORD_TEMPLATE_COUNT_ORD} Word-mallarna när du vill ändra i filen själv, eller när annonsen ber om ett format som går att redigera. Word-filen ingår i ${paketKort()}.`,
   },
   {
-    rubrik: 'Hämta uppgifterna från LinkedIn',
-    text: 'Har du en uppdaterad LinkedIn-profil? Importera profil, erfarenhet och kompetenser direkt, så slipper du skriva allt en gång till.',
+    rubrik: 'Börja från ett CV du redan har',
+    text: 'Ladda upp ditt gamla CV, eller en PDF av din LinkedIn-profil, så läser vi ut roller, utbildning och kompetenser åt dig. Du slipper skriva allt en gång till.',
   },
   {
     rubrik: 'Fungerar lika bra i mobilen',
-    text: 'Hela byggaren är gjord för mobilen först. Börja på bussen och fortsätt vid datorn hemma.',
+    text: 'Hela byggaren är gjord för mobilen först. Bygg hela CV:t i telefonen, och när du sparat det öppnar du det på datorn för att ladda ner.',
   },
 ]
 
@@ -69,7 +69,7 @@ export default function SkapaCvSida() {
       description: 'Skapa CV helt gratis, ingen kortuppgift',
     },
     featureList:
-      `Sju-stegs CV-byggare, förhandsvisning, ATS-säkra mallar, sparar automatiskt, PDF-nedladdning, Word i ${WORD_TEMPLATE_COUNT_ORD} av mallarna, LinkedIn-import, mobilanpassad`,
+      `Sju-stegs CV-byggare, förhandsvisning, ATS-säkra mallar, utkast i webbläsaren, PDF-nedladdning, Word i ${WORD_TEMPLATE_COUNT_ORD} av mallarna, uppladdning av befintligt CV, mobilanpassad`,
   }
 
   const howToSchema = {
@@ -97,7 +97,7 @@ export default function SkapaCvSida() {
         position: 2,
         name: 'Fyll i sju enkla steg',
         text:
-          'Kontaktuppgifter, om dig, erfarenhet, utbildning, kompetenser och språk. Allt sparas automatiskt.',
+          'Kontaktuppgifter, om dig, erfarenhet, utbildning, kompetenser och språk. Utkastet ligger kvar i webbläsaren tills du sparar.',
       },
       {
         '@type': 'HowToStep',
@@ -162,7 +162,7 @@ export default function SkapaCvSida() {
         sekundar={{ text: 'Se mallarna', href: '/verktyg/cv-mallar' }}
         loften={[
           { tal: '10 min', text: 'från start till färdigt CV' },
-          { tal: '7 steg', text: 'ett i taget, sparas automatiskt' },
+          { tal: '7 steg', text: 'ett i taget, förhandsvisning hela vägen' },
           { tal: String(TEMPLATE_COUNT), text: `mallar, ${FREE_TEMPLATE_COUNT} gratis` },
         ]}
         handling={<SkapaCvLiveDemo />}

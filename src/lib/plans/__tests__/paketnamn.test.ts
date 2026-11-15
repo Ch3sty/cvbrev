@@ -177,7 +177,9 @@ describe('namnen ur PLANS', () => {
     expect(m.highlights).toContain('Åtta testtyper i tre nivåer, övningsprov mot klockan och det fördjupade personlighetstestet')
     expect(m.highlights.join(' ')).toMatch(/Jobbmatchning/)
     expect(m.highlights.join(' ')).toMatch(/Jobbcoachen/)
-    expect(m.highlights.join(' ')).toMatch(/Bli upptäckt/)
+    // Bli upptäckt är gratis sedan 2026-11-15 (saas-lead); raden blev intervjuprovet.
+    expect(m.highlights.join(' ')).not.toMatch(/Bli upptäckt/)
+    expect(m.highlights).toContain('Intervjuprovet utan dagsgräns och hela din testhistorik')
   })
 
   it('ingen ctaLabel säger Välj eller fulla namnet i knappen (copy-premium 2 och 8)', () => {

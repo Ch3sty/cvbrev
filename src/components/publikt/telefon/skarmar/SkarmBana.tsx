@@ -14,7 +14,7 @@ const STEG: { namn: string; text: string; lage: 'nu' | 'klar' | 'kvar' }[] = [
     lage: 'nu',
   },
   { namn: 'CV-analysen', text: 'Poäng 74 av 100, två fynd åtgärdade', lage: 'klar' },
-  { namn: 'Matchade jobb', text: `${JOB_MATCHES_PER_RUN} träffar i natt, bästa 92 procent`, lage: 'klar' },
+  { namn: 'Matchade jobb', text: `${JOB_MATCHES_PER_RUN} träffar med skälen, bästa 92 procent`, lage: 'klar' },
   { namn: 'Personligt brev', text: 'Skrivet på annonsen, nedladdat som PDF', lage: 'klar' },
   { namn: 'Jobbcoachen', text: 'Lönefrågan inför intervjun', lage: 'kvar' },
 ]

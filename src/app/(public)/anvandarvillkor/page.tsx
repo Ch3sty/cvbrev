@@ -77,7 +77,7 @@ const RUBRIKER = [
 ];
 
 export default function TermsOfServicePage() {
-  const lastUpdatedDate = "2026-10-11"; // *** UPPDATERA detta datum när villkoren ändras ***
+  const lastUpdatedDate = "2026-11-15"; // *** UPPDATERA detta datum när villkoren ändras ***
 
   return (
     <PubliktSida>
@@ -121,7 +121,7 @@ export default function TermsOfServicePage() {
             <li>Omedelbart meddela oss om du misstänker obehörig åtkomst till ditt konto via <a href="mailto:support@jobbcoach.ai">support@jobbcoach.ai</a>.</li>
           </ul>
           <p>
-             Vi förbehåller oss rätten att stänga av eller avsluta konton som bryter mot dessa Villkor eller som vi anser vara inaktiva under en längre period [Specificera eventuell tidsram].
+             Vi förbehåller oss rätten att stänga av eller avsluta konton som bryter mot dessa Villkor.
           </p>
         </section>
 
@@ -132,7 +132,7 @@ export default function TermsOfServicePage() {
             Du är ensam ansvarig för all information, text (inklusive CV-innehåll och jobbannonser) och filer som du laddar upp, klistrar in, genererar, sparar eller på annat sätt gör tillgänglig via Tjänsten ("Användarinnehåll").
           </p>
            <p>
-            <strong>Viktigt om Personuppgifter i CV:</strong> Som beskrivet i vår Integritetspolicy använder Tjänsten Google (Gemini API) för att skapa personliga brev, analysera CV:n och matcha jobb. Detta innebär att textinnehållet från ditt CV (den redigerbara versionen) skickas till Google (Gemini API). För personliga brev och CV-analysen byter vi först ut namn, e-postadress, telefonnummer, personnummer, gatuadress och postnummer mot platshållare. För att skydda din integritet och undvika att oavsiktligt skicka känsliga personuppgifter till tredje part, <strong>kräver vi att du, innan du laddar upp ditt CV, noggrant granskar och tar bort alla känsliga personuppgifter (såsom personnummer, fullständig adress, etniskt ursprung, hälsodata etc.). Du måste intyga att du har gjort detta vid uppladdning.</strong> Du ansvarar fullt ut för det innehåll du lämnar kvar i den textversion av ditt CV som används för generering och skickas till Google (Gemini API). Vi tar inget ansvar för personuppgifter som du själv väljer att inkludera i ditt Användarinnehåll som behandlas av AI-tjänsten.
+            <strong>Viktigt om Personuppgifter i CV:</strong> Som beskrivet i vår Integritetspolicy använder Tjänsten Google (Gemini API) för att skapa personliga brev, analysera CV:n och matcha jobb. Detta innebär att textinnehållet från ditt CV (den redigerbara versionen) skickas till Google (Gemini API). För personliga brev och CV-analysen byter vi först ut namn, e-postadress, telefonnummer, personnummer, gatuadress och postnummer mot platshållare. För att skydda din integritet och undvika att oavsiktligt skicka känsliga personuppgifter till tredje part, <strong>ber vi dig att, innan du laddar upp ditt CV, noggrant granska och ta bort alla känsliga personuppgifter (såsom personnummer, fullständig adress, etniskt ursprung, hälsodata etc.). Vid uppladdningen godkänner du behandlingen med en kryssruta.</strong> Du ansvarar fullt ut för det innehåll du lämnar kvar i den textversion av ditt CV som används för generering och skickas till Google (Gemini API). Vi tar inget ansvar för personuppgifter som du själv väljer att inkludera i ditt Användarinnehåll som behandlas av AI-tjänsten.
           </p>
           <p>
             Genom att tillhandahålla Användarinnehåll ger du oss en begränsad, global, icke-exklusiv, royaltyfri licens att använda, lagra, reproducera och bearbeta ditt Användarinnehåll (inklusive att skicka det till AI-tjänster som Googles Gemini API) <strong>uteslutande i syfte att tillhandahålla och förbättra Tjänsten åt dig.</strong> Du behåller äganderätten till ditt ursprungliga CV och de brev som genereras baserat på din input.
@@ -223,9 +223,6 @@ export default function TermsOfServicePage() {
                <li>Något innehåll som erhållits från Tjänsten.</li>
                <li>Obehörig åtkomst, användning eller ändring av dina överföringar eller ditt innehåll.</li>
            </ul>
-           <p>
-             [Eventuellt: Vårt totala ansvar gentemot dig för alla anspråk som uppstår ur eller relaterar till dessa Villkor eller din användning av Tjänsten ska inte överstiga det belopp du har betalat till oss för Tjänsten under de [t.ex. sex] månader som föregår händelsen som gav upphov till anspråket, eller 500 SEK, beroende på vilket som är högst.]
-          </p>
         </section>
 
          {/* 10. Skadeslöshållande (Indemnification) */}
@@ -243,7 +240,10 @@ export default function TermsOfServicePage() {
              Vi kan säga upp eller stänga av ditt konto och din åtkomst till Tjänsten omedelbart, utan föregående meddelande eller ansvar, enligt eget gottfinnande, av vilken anledning som helst och utan begränsning, inklusive men inte begränsat till, om du bryter mot Villkoren.
            </p>
            <p>
-             Om du vill avsluta ditt konto kan du göra det genom att [Beskriv hur man avslutar kontot, t.ex. "använda funktionen för kontoborttagning i dina inställningar" eller "kontakta support"].
+             Vill du avsluta ditt konto gör du det själv under Inställningar, Radera mitt konto, genom att skriva en bekräftelse. Då tas kontot och all data som hör till det bort: din profil, CV-texter, personliga brev, testresultat och samtal med Jobbcoachen i databasen samt uppladdade CV-filer och profilfoto i vår lagring. Kvar blir kvitton och betalningsunderlag hos Stripe i sju år, eftersom bokföringslagen kräver det, samt tekniska säkerhetsloggar som inte går att koppla till dig. Läs mer i vår <Link href="/integritetspolicy">Integritetspolicy</Link>.
+           </p>
+           <p>
+             Raderingen är inte detsamma som att säga upp {PREMIUM}. Vill du behålla kontot men sluta betala säger du upp prenumerationen under Profil och Prenumeration, utan bindningstid, och den period du redan betalat gäller ut. Raderar du kontot medan prenumerationen löper avslutas den i samma stund, och inget mer dras.
            </p>
            <p>
              Vid uppsägning upphör din rätt att använda Tjänsten omedelbart. Alla bestämmelser i Villkoren som till sin natur bör överleva uppsägning ska överleva uppsägning, inklusive, utan begränsning, äganderättsbestämmelser, garantifriskrivningar, skadeslöshållande och ansvarsbegränsningar.
@@ -257,7 +257,7 @@ export default function TermsOfServicePage() {
             Dessa Villkor ska regleras och tolkas i enlighet med svensk rätt, utan hänsyn till dess lagvalsprinciper.
           </p>
            <p>
-            Eventuella tvister som uppstår i samband med dessa Villkor eller Tjänsten ska i första hand försöka lösas genom förhandlingar mellan parterna. Om en överenskommelse inte kan nås ska tvisten avgöras av allmän svensk domstol, med [Ange tingsrätt, t.ex. Stockholms tingsrätt] som första instans.
+            Eventuella tvister som uppstår i samband med dessa Villkor eller Tjänsten ska i första hand försöka lösas genom förhandlingar mellan parterna. Om en överenskommelse inte kan nås ska tvisten avgöras av allmän svensk domstol.
           </p>
         </section>
 
@@ -265,7 +265,7 @@ export default function TermsOfServicePage() {
         <section>
           <h2 id="andringar-av-villkoren">13. Ändringar av Villkoren</h2>
           <p>
-            Vi förbehåller oss rätten att, efter eget gottfinnande, ändra eller ersätta dessa Villkor när som helst. Om en ändring är väsentlig kommer vi att försöka meddela [Ange tidsram, t.ex. minst 30 dagar] i förväg innan de nya villkoren träder i kraft [Ange hur ni meddelar, t.ex. "genom att publicera de uppdaterade villkoren på denna sida" eller "via e-post"]. Vad som utgör en väsentlig ändring avgörs efter vårt eget gottfinnande.
+            Vi förbehåller oss rätten att, efter eget gottfinnande, ändra eller ersätta dessa Villkor när som helst. Om en ändring är väsentlig meddelar vi det i förväg, på den här sidan och via e-post till registrerade användare, innan de nya villkoren träder i kraft. Vad som utgör en väsentlig ändring avgörs efter vårt eget gottfinnande.
           </p>
           <p>
             Genom att fortsätta att använda Tjänsten efter att eventuella ändringar har trätt i kraft, godkänner du att vara bunden av de reviderade villkoren. Om du inte godkänner de nya villkoren måste du sluta använda Tjänsten.

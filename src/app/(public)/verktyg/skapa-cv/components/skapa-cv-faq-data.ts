@@ -30,7 +30,7 @@ export const SKAPA_CV_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Hur lång tid tar det att skapa ett CV?',
-    a: 'Tio till femton minuter om du har dina uppgifter framför dig. Vi guidar dig genom sju steg och alla fält är optionella efter de viktigaste. Vill du gå snabbare kan du importera från LinkedIn eller ladda upp ett befintligt CV som vi extraherar datan från åt dig.',
+    a: 'Tio till femton minuter om du har dina uppgifter framför dig. Vi guidar dig genom sju steg och alla fält är optionella efter de viktigaste. Vill du gå snabbare laddar du upp ett befintligt CV, eller en PDF av din LinkedIn-profil, så läser vi ut uppgifterna åt dig.',
   },
   {
     q: 'Behöver jag ladda upp ett befintligt CV?',
@@ -38,11 +38,11 @@ export const SKAPA_CV_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Kan jag importera mina uppgifter från LinkedIn?',
-    a: 'Ja. Vi har stöd för LinkedIn-import som hämtar din profil, erfarenhet, utbildning och kompetenser direkt. Det är ett snabbt sätt att komma igång om din LinkedIn redan är uppdaterad.',
+    a: 'Inte direkt från LinkedIn, men nästan. Spara din LinkedIn-profil som PDF (knappen Mer, Spara som PDF på din profilsida) och ladda upp den som vilket CV som helst, så läser vi ut roller, utbildning och kompetenser. Har du ' + paketKort() + ' kan LinkedIn-optimeringen dessutom spara sitt resultat som ett nytt CV.',
   },
   {
     q: 'Hur sparas mitt CV medan jag bygger det?',
-    a: 'Vi sparar automatiskt allt du fyller i medan du jobbar. Du kan stänga fliken mitt i ett steg och fortsätta senare där du slutade. När du är klar och har laddat ner CV:t finns det också kvar i ditt konto för framtida redigering.',
+    a: 'Medan du bygger ligger utkastet i din webbläsare. Du kan stänga fliken mitt i ett steg och fortsätta där du slutade, så länge du använder samma webbläsare. I sista steget sparar du CV:t i ditt konto, och då finns det kvar för redigering och nedladdning från vilken enhet du vill.',
   },
   {
     q: 'Vilka format kan jag ladda ner CV:t i?',
@@ -50,6 +50,6 @@ export const SKAPA_CV_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Funkar CV-byggaren på mobilen?',
-    a: 'Ja. Hela byggprocessen är mobile-first och fungerar lika smidigt på telefonen som på datorn. Du kan börja på telefonen i bussen och fortsätta hemma framför datorn, allt syncas mellan enheter.',
+    a: 'Ja. Hela byggaren är gjord för mobilen först och fungerar lika smidigt på telefonen som på datorn. Bygg klart och spara i telefonen, så ligger CV:t i ditt konto och går att öppna, redigera och ladda ner från datorn.',
   },
 ]

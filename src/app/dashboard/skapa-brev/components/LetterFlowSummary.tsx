@@ -57,7 +57,7 @@ interface LetterFlowSummaryProps {
   canGenerate: boolean;
   isGenerating: boolean;
   onGenerate: () => void;
-  /** Antal brev kvar idag (dagskvot, 1/dag för gratisanvändare) */
+  /** Antal brev kvar i fönstret (gratis: första brevet, sedan ett per rullande sju dygn) */
   remainingLetters?: number | null;
   /**
    * Döljer kortets egen knapp. I FlowShell ligger den primära handlingen i
@@ -135,7 +135,7 @@ export default function LetterFlowSummary({
 
       <p className="mt-3 text-meta text-ink-3">
         Tar 10 till 15 sekunder.
-        {typeof remainingLetters === 'number' ? ` Du har ${remainingLetters} brev kvar idag.` : ''}
+        {typeof remainingLetters === 'number' ? ` Du har ${remainingLetters} brev kvar den här veckan.` : ''}
       </p>
     </section>
   );

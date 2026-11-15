@@ -1,5 +1,5 @@
 /**
- * Dina matchningar efter natten. Antalet träffar läses ur
+ * Dina matchningar, körda när sidan öppnas. Antalet träffar läses ur
  * JOB_MATCHES_PER_RUN, så skärmen och löptexten säger samma tal.
  */
 
@@ -12,7 +12,7 @@ export default function SkarmMatchning({ glid, className }: { glid?: boolean; cl
     <Telefon rum="jobb" glid={glid} className={className}>
       <SkarmVagg
         kick="Dina matchningar"
-        rubrik={`${JOB_MATCHES_PER_RUN} nya i natt`}
+        rubrik={`Dina ${JOB_MATCHES_PER_RUN} bästa träffar`}
         sub="Kompetens mot alla annonser i Platsbanken. Skälen står under varje träff."
       />
       <SkarmGolv>

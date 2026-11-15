@@ -30,7 +30,6 @@ export type Feature =
   | 'chat_unlimited'
   | 'interview_unlimited'
   | 'job_matches_all'
-  | 'bli_upptackt'
   | 'linkedin'
 
 /**
@@ -57,7 +56,8 @@ export const FEATURES: Record<Feature, readonly Scope[]> = {
   // (ägarens beslut 5, 2026-09-23). Gratiskonton får ett prov per dygn.
   interview_unlimited: ['tester', 'allt'],
   job_matches_all: ['allt'],
-  bli_upptackt: ['allt'],
+  // Bli upptäckt är gratis för alla sedan 2026-11-15 (saas-lead): ingen spärr fanns
+  // i rekryterarpoolen, och poolen behöver volym. Därför ingen feature här.
   // LinkedIn-profilen följer CV-spåret (spec-onboarding sektion 3 och 5).
   linkedin: ['cv', 'allt'],
 } as const

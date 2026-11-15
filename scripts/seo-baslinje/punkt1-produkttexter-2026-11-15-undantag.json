@@ -1,0 +1,98 @@
+{
+ "_om": "Punkt 1 i svepet 2026-11-15: produkttexter som inte stämde med koden rättade (docs/qa/produkttexter-2026-11-15.md). Bli upptäckt är gratis (saas-lead), jobbmatchningen körs när sidan öppnas, CV-analysen ger en poäng och förslag i fyra delar, fem toner i brevet, inga EU-löften (databasen ligger i USA), ingen radering \"med ett klick\". Copy av svensk-ux-copywriter.",
+ "LD_UNDANTAG": [
+  {
+   "path": "/",
+   "datum": "2026-11-15",
+   "skal": "Punkt 1 i svepet 2026-11-15: produkttexter som inte stämde med koden rättade (docs/qa/produkttexter-2026-11-15.md). FAQ-svaret om dataskydd lovade EU-lagring och radering med ett klick, och jobbmatchningen \"varje natt\". Frågorna oförändrade.",
+   "andrade": [
+    "Organization+WebSite+FAQPage"
+   ]
+  },
+  {
+   "path": "/funktioner",
+   "datum": "2026-11-15",
+   "skal": "Punkt 1 i svepet 2026-11-15: produkttexter som inte stämde med koden rättade (docs/qa/produkttexter-2026-11-15.md). FAQ-svaren om dataskydd (EU-lagring) och jobbmatchningen (varje natt) rättade. Frågorna oförändrade.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/for-rekryterare",
+   "datum": "2026-11-15",
+   "skal": "Punkt 1 i svepet 2026-11-15: produkttexter som inte stämde med koden rättade (docs/qa/produkttexter-2026-11-15.md). FAQ-svaret lovade \"All data lagras i EU\"; databasen ligger i USA. Frågorna oförändrade.",
+   "andrade": [
+    "FAQPage"
+   ]
+  },
+  {
+   "path": "/verktyg/bli-upptackt",
+   "datum": "2026-11-15",
+   "skal": "Punkt 1 i svepet 2026-11-15: produkttexter som inte stämde med koden rättade (docs/qa/produkttexter-2026-11-15.md). Bli upptäckt är gratis för alla (saas-lead): kostnadssvaret och Service-beskrivningen sa att synligheten ingår i Premium, och Service hade ett Offer på 149 kr som tas bort. Frågorna oförändrade.",
+   "andrade": [
+    "FAQPage",
+    "Service"
+   ]
+  },
+  {
+   "path": "/verktyg/personligt-brev",
+   "datum": "2026-11-15",
+   "skal": "Punkt 1 i svepet 2026-11-15: produkttexter som inte stämde med koden rättade (docs/qa/produkttexter-2026-11-15.md). FAQ-svaret om dataskydd lovade EU-lagring; WebApplication sa sex tonaliteter (det är fem toner plus automatiskt tonval i Premium). Frågorna oförändrade.",
+   "andrade": [
+    "FAQPage",
+    "WebApplication"
+   ]
+  }
+ ],
+ "META_BYTT": [
+  {
+   "path": "/om-oss",
+   "falt": "description",
+   "datum": "2026-11-15",
+   "skal": "Punkt 1 i svepet 2026-11-15: produkttexter som inte stämde med koden rättade (docs/qa/produkttexter-2026-11-15.md). \"Data i EU\" stämde inte: databasen ligger i USA. Resten av beskrivningen oförändrad."
+  },
+  {
+   "path": "/verktyg/bli-upptackt",
+   "falt": "description",
+   "datum": "2026-11-15",
+   "skal": "Punkt 1 i svepet 2026-11-15: produkttexter som inte stämde med koden rättade (docs/qa/produkttexter-2026-11-15.md). Bli upptäckt är gratis för alla (saas-lead): \"Ingår i Jobbcoach Premium, 149 kr i månaden\" blir \"Kostar inget, ingen kortuppgift.\""
+  },
+  {
+   "path": "/verktyg/cv-analys",
+   "falt": "description",
+   "datum": "2026-11-15",
+   "skal": "Punkt 1 i svepet 2026-11-15: produkttexter som inte stämde med koden rättade (docs/qa/produkttexter-2026-11-15.md). Analysen ger inga betyg i sex kategorier, utan poängen nu och poängen med förslagen."
+  },
+  {
+   "path": "/verktyg/personligt-brev",
+   "falt": "description",
+   "datum": "2026-11-15",
+   "skal": "Punkt 1 i svepet 2026-11-15: produkttexter som inte stämde med koden rättade (docs/qa/produkttexter-2026-11-15.md). Fem toner, inte sex tonaliteter."
+  }
+ ],
+ "FAQ_BYTT": [
+  {
+   "path": "/verktyg/cv-analys",
+   "fore": "Kan jag jämföra olika versioner av mitt CV?",
+   "efter": "Kan jag köra analysen igen när jag ändrat i CV:t?",
+   "datum": "2026-11-15",
+   "skal": "Punkt 1 i svepet 2026-11-15: produkttexter som inte stämde med koden rättade (docs/qa/produkttexter-2026-11-15.md). Det finns ingen jämförelse av versioner sida vid sida; frågan säger nu det som finns (köra om analysen)."
+  }
+ ],
+ "RUBRIK_BYTT": [
+  {
+   "path": "/verktyg/skapa-cv",
+   "fore": "h3 Hämta uppgifterna från LinkedIn",
+   "efter": "h3 Börja från ett CV du redan har",
+   "datum": "2026-11-15",
+   "skal": "Punkt 1 i svepet 2026-11-15: produkttexter som inte stämde med koden rättade (docs/qa/produkttexter-2026-11-15.md). Det finns ingen LinkedIn-import."
+  },
+  {
+   "path": "/verktyg/skapa-cv",
+   "fore": "h3 Sparas automatiskt",
+   "efter": "h3 Utkastet väntar på dig",
+   "datum": "2026-11-15",
+   "skal": "Punkt 1 i svepet 2026-11-15: produkttexter som inte stämde med koden rättade (docs/qa/produkttexter-2026-11-15.md). Utkastet sparas bara i webbläsaren tills du sparar i sista steget."
+  }
+ ]
+}

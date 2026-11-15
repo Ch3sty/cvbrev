@@ -475,5 +475,5 @@ export const BREV_RUM = {
   sparar: 'Sparar',
   laggTill: (krav: string) => `Lägg till ${krav}`,
   laggTillMeta: 'Står i annonsen men inte i brevet. En mening med ett exempel ur ditt CV räcker.',
-  gratis: 'Ett personligt brev om dagen ingår gratis. Nästa i morgon.',
+  gratis: 'Ett personligt brev var sjunde dag ingår gratis. Nästa när veckan har gått.',
 } as const

@@ -63,7 +63,7 @@ export default function CVAnalysisIntro({
     <>
     <RumHuvud
       title={RUBRIK.analyseraCv}
-      description="Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV likadant, på 30 sekunder."
+      description="Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV likadant, på under en minut."
       tat={false}
     />
     <Golv lyft>
@@ -106,7 +106,7 @@ export default function CVAnalysisIntro({
             ? PAKETRADER.analysUtanTak
             : `${remainingAnalyses} ${
                 remainingAnalyses === 1 ? 'analys' : 'analyser'
-              } kvar. Som gratisanvändare får du en ny var tredje dygn.`}
+              } kvar. En analys ingår gratis per konto. Att köra om efter en rättning ingår i ${PAKETRADER.bricka}.`}
         </StatusRow>
       )}
 

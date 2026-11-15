@@ -12,7 +12,7 @@
 
 import { scopeHasFeature, type Feature, type Scope } from '@/lib/access/features'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
-import { FREE_TIER_JOB_LIMIT } from '@/lib/jobmatching/freeLimit'
+import { FREE_TIER_JOB_LIMIT, JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import { PLAN_BY_KEY, SALD_PLAN, paketKort, paketNamn as planNamn, prisPeriod, type PlanKey } from '@/lib/plans/plans'
 import type { PaywallVariant } from '@/components/paywall/paywall-copy'
 
@@ -171,8 +171,8 @@ export function menyRad(val: MenyVal, p: PaketLage): MenyRad {
       }
     case 'matchning':
       return scopeHasFeature(s, 'job_matches_all')
-        ? { text: 'Alla träffar per natt, med skälen', ingar: true }
-        : { text: `${storForst(talOrd(FREE_TIER_JOB_LIMIT))} träffar per natt`, ingar: true }
+        ? { text: `De ${JOB_MATCHES_PER_RUN} bästa träffarna, med skälen`, ingar: true }
+        : { text: `${storForst(talOrd(FREE_TIER_JOB_LIMIT))} träffar, med skälen`, ingar: true }
     case 'coach': {
       if (scopeHasFeature(s, 'chat_unlimited') || p.chatLimit === null) return { text: 'Utan tak', ingar: true }
       const kvar = Math.max(0, p.chatLimit - p.chatUsed)
@@ -186,9 +186,8 @@ export function menyRad(val: MenyVal, p: PaketLage): MenyRad {
         ? { text: 'Profil som rekryterare hittar', ingar: true }
         : { text: ingarI('linkedin'), ingar: false, feature: 'linkedin', variant: 'linkedin' }
     case 'bli_upptackt':
-      return scopeHasFeature(s, 'bli_upptackt')
-        ? { text: 'Rekryterare hittar dig, anonymt', ingar: true }
-        : { text: ingarI('annat'), ingar: false, feature: 'bli_upptackt', variant: 'bli-upptackt' }
+      // Gratis för alla sedan 2026-11-15 (saas-lead), ingen spärr.
+      return { text: 'Rekryterare hittar dig, anonymt', ingar: true }
     case 'sokta':
       return { text: 'Alltid gratis', ingar: true }
   }

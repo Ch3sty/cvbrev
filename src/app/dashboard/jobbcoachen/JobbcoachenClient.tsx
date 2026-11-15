@@ -212,7 +212,7 @@ export default function JobbcoachenClient({
             disabled={isLoading || !!quotaLock}
             placeholder={
               quotaLock
-                ? 'Chatten öppnar igen efter midnatt'
+                ? 'Dina tio gratis meddelanden är använda'
                 : 'Fråga vad du vill veta om jobb, lön, intervju eller arbetsrätt…'
             }
             conversationId={conversationId}
@@ -222,7 +222,7 @@ export default function JobbcoachenClient({
           />
           {!quotaLock && remainingToday !== null && (
             <p className="pb-2 text-center text-meta text-ink-3">
-              {remainingToday} {remainingToday === 1 ? 'meddelande' : 'meddelanden'} kvar idag
+              {remainingToday} {remainingToday === 1 ? 'gratis meddelande' : 'gratis meddelanden'} kvar på kontot
             </p>
           )}
         </div>

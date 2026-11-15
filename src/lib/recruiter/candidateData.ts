@@ -122,11 +122,8 @@ export interface TestBadge {
   label: string;
   /** Nivån badgen avser = HÖGSTA slutförda nivån i familjen. */
   level: Level | null;
-  /**
-   * Verifierat resultat: score från FÖRSTA slutförda sessionen på nivån
-   * (aldrig best-of-N). Fältnamnet behålls för bakåtkompatibilitet.
-   */
-  bestScore: number | null;
+  // Ingen råpoäng (andel rätt) mot rekryterare, saas-lead 2026-11-15: bara
+  // placering vid minst 25 testade, annars bara nivån.
   percentile: number | null;
   /** Antal testade i underlaget ("topp 12 % av 340 testade"). */
   sampleSize: number | null;
@@ -195,11 +192,8 @@ export interface EducationEntry {
 export interface TestResultEntry {
   family: FamilyKey;
   level: Level;
-  /**
-   * Verifierat resultat = FÖRSTA slutförda sessionen på nivån (aldrig
-   * best-of-N). Fältnamnet behålls för bakåtkompatibilitet.
-   */
-  bestScore: number;
+  // Ingen råpoäng mot rekryterare (saas-lead 2026-11-15). Verifierat resultat
+  // = FÖRSTA slutförda sessionen på nivån, aldrig best-of-N.
   percentile: number | null;
   /** Antal testade i underlaget ("topp X % av N testade"). */
   sampleSize: number | null;
@@ -347,17 +341,11 @@ async function fetchSessions(admin: Admin, userId: string): Promise<SessionRow[]
   return data ?? [];
 }
 
-function badgeLabel(
-  family: FamilyKey,
-  level: Level,
-  percentile: number | null,
-  score: number | null
-): string {
+export function badgeLabel(family: FamilyKey, level: Level, percentile: number | null): string {
   // Nivån ingår alltid i etiketten: "Matrislogik · Expertnivå · topp 8 %".
+  // Under 25 testade visas bara nivån, aldrig andel rätt (saas-lead 2026-11-15).
   const base = `${FAMILY_LABELS[family]} · ${LEVEL_LABELS[level]}`;
-  return percentile !== null
-    ? `${base} · topp ${Math.max(1, 100 - percentile)} %`
-    : `${base} · ${score}% rätt`;
+  return percentile !== null ? `${base} · topp ${Math.max(1, 100 - percentile)} %` : base;
 }
 
 /**
@@ -402,11 +390,10 @@ async function buildTestBadges(
       const badge: TestBadge = {
         family,
         level,
-        bestScore: verified.score,
         percentile,
         sampleSize,
         testDate: verified.completed_at,
-        label: badgeLabel(family, level, percentile, verified.score),
+        label: badgeLabel(family, level, percentile),
       };
       return badge;
     })
@@ -965,7 +952,6 @@ async function buildAllTestResults(
         ctx.getStats(testType, verified.score ?? 0, verified.meta).then(({ percentile, sampleSize }) => ({
           family,
           level: LEVELS[levelIndex],
-          bestScore: verified.score ?? 0,
           percentile,
           sampleSize,
           completedAt: verified.completed_at,

@@ -18,6 +18,7 @@ import { FUNKTIONER } from '@/components/pricing/paket-copy'
 import { SALD_PLAN, paketKort, paketNamn, prisPeriod } from '@/lib/plans/plans'
 import { FREE_CV_EXPORTS, FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { GRUNDNIVAN_ALLA } from '@/lib/plans/gratis-copy'
+import { FREE_TIER_JOB_LIMIT, JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import { SLUGGAR as RAKNA_UT_SLUGGAR } from '@/lib/rakna/delning'
 import Rum from '@/components/publikt/Rum'
 import Station from '@/components/publikt/Station'
@@ -77,11 +78,11 @@ export const FUNKTIONER_FAQ = [
   },
   {
     q: 'Är det säkert att lämna mitt CV till er?',
-    a: 'Ja. Vi följer GDPR, all data lagras i EU och vi säljer aldrig din information vidare. Du kan radera ditt konto med ett klick, och då försvinner allt, även våra kopior. Vi använder inte ditt CV för att träna någon modell.',
+    a: 'Ja. Vi följer GDPR, säljer aldrig dina uppgifter vidare och tränar inga egna modeller på ditt CV. Du raderar kontot själv under Inställningar, och då tas allt ditt bort: profil, CV, brev, testresultat och uppladdade filer. Det enda som blir kvar är kvitton hos Stripe, som bokföringslagen kräver.',
   },
   {
     q: 'Hur ofta uppdateras jobbmatchningen?',
-    a: 'Vi hämtar annonserna från Arbetsförmedlingen och JobTech. Nya annonser kommer med inom timmar efter att de publicerats, och i ' + PREMIUM + ' får du de bästa träffarna varje natt.',
+    a: `Vi hämtar annonserna från Arbetsförmedlingen och JobTech tre gånger per dygn, så nya annonser kommer med inom några timmar. Matchningen körs när du öppnar sidan. Gratis ser du dina ${FREE_TIER_JOB_LIMIT} bästa träffar, i ${PREMIUM} de ${JOB_MATCHES_PER_RUN} bästa, med skälen utskrivna.`,
   },
   {
     q: 'Vad händer om jag säger upp prenumerationen?',
@@ -243,8 +244,8 @@ export default function FunktionerSida() {
               </p>
               <h2 className="pub-h2">Jobben hittar dig, och du går förberedd in i intervjun.</h2>
               <p className="pub-ingress" style={{ marginTop: 16 }}>
-                Jobbmatchning, Jobbcoachen så mycket du vill och Bli upptäckt, plus alla rekryteringstester, alla CV-mallar,
-                CV-analysen och personliga brev.
+                Jobbmatchning, Jobbcoachen så mycket du vill och intervjuprovet utan dagsgräns, plus alla rekryteringstester,
+                alla CV-mallar, CV-analysen och personliga brev.
               </p>
             </div>
             <div className="pub-duo-premium">
@@ -270,9 +271,6 @@ export default function FunktionerSida() {
             <div className="pub-handling" style={{ marginTop: 40 }}>
               <Link className="pub-knapp" href="/priser">
                 Se vad som ingår
-              </Link>
-              <Link className="pub-lank" href="/verktyg/bli-upptackt">
-                Om Bli upptäckt
               </Link>
             </div>
           </div>

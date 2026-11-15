@@ -23,7 +23,7 @@ const STEPS = [
     Icon: IconSkapa,
     title: 'Skapa ditt eget',
     body:
-      'Använd exemplet som inspiration, inte mall. Bygg ditt eget innehåll med våra verktyg. Du får ett brev om dagen och en CV-analys var tredje dag helt gratis.',
+      'Använd exemplet som inspiration, inte mall. Bygg ditt eget innehåll med våra verktyg. Första brevet är gratis, sedan ett var sjunde dag, och en CV-analys ingår per konto.',
   },
 ]
 

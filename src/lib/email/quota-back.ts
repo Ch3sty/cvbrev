@@ -72,12 +72,12 @@ function copyFor(feature: string): FeatureCopy {
 
 // "Också tillbaka": påminn om det andra som öppnat igen, utan att upprepa den
 // funktion mailet redan handlar om. Bara testernas grundnivå återkommer varje
-// dygn; brev och jobbcoachen räknas per konto respektive per vecka, så de
-// står utan dagsord. Ändras gränserna i quotaService ändras raderna här.
+// dygn och brevet varje vecka. Jobbcoachens tio meddelanden räknas per konto
+// och kommer aldrig tillbaka, så de står inte här (rättat 2026-11-15).
+// Ändras gränserna i quotaService ändras raderna här.
 const DAILY_ITEMS: Array<{ key: string; label: string }> = [
   { key: 'letter_generation', label: 'veckans personliga brev' },
   { key: 'test', label: 'grundnivån i varje testtyp' },
-  { key: 'chat_message', label: 'dina meddelanden till jobbcoachen' },
 ];
 
 function otherDailyItems(feature: string): string[] {

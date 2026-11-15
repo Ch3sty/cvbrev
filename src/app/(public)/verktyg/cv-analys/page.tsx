@@ -39,7 +39,7 @@ export default function CVAnalysSida() {
     name: 'Jobbcoach.ai CV-analys',
     url: 'https://www.jobbcoach.ai/verktyg/cv-analys',
     description:
-      'CV-analys som ger ATS-poäng från 0 till 100, sex kategori-betyg och konkreta förbättringsförslag på 60 sekunder. Anpassad för svenska arbetsgivare.',
+      'CV-analys som ger ATS-poäng från 0 till 100, poängen du kan nå med förslagen och konkreta förbättringsförslag på 60 sekunder. Anpassad för svenska arbetsgivare.',
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web browser',
     offers: {
@@ -49,7 +49,7 @@ export default function CVAnalysSida() {
       description: '1 CV-analys gratis per konto, ingen kortuppgift',
     },
     featureList:
-      'ATS-poäng 0-100, sex kategorier (ATS, struktur, språk, nyckelord, kvantifiering, profil), före och efter-text, konkreta förbättringsförslag, svenska och engelska CV',
+      'ATS-poäng 0-100, poängen du kan nå med förslagen, förslag i fyra delar (personbeskrivning, roller, kompetenser, automatiska förbättringar), före och efter-text, byggd för svenska CV',
   }
 
   const howToSchema = {
@@ -70,7 +70,7 @@ export default function CVAnalysSida() {
         position: 1,
         name: 'Ladda upp ditt CV',
         text:
-          'Ladda upp ett befintligt CV som PDF eller välj ett du redan sparat. Vi accepterar både svenska och engelska.',
+          'Ladda upp ett befintligt CV som PDF eller välj ett du redan sparat. Analysen är byggd för svenska CV.',
       },
       {
         '@type': 'HowToStep',
@@ -84,7 +84,7 @@ export default function CVAnalysSida() {
         position: 3,
         name: 'Få ATS-poäng och förslag',
         text:
-          'Du får en ATS-poäng från 0 till 100 plus förslag i sex kategorier med exakt vad som bör ändras.',
+          'Du får en ATS-poäng från 0 till 100, poängen du kan nå med förslagen och förslag i fyra delar med exakt vad som bör ändras.',
       },
       {
         '@type': 'HowToStep',
@@ -136,13 +136,13 @@ export default function CVAnalysSida() {
         eyebrow="CV-analys, vet varför CV:t inte får svar"
         h1="Få konkret feedback på ditt CV på 60 sekunder"
         ingress="Vi läser ditt CV som ett rekryteringssystem gör och kontrollerar struktur, språk, nyckelord och kvantifiering."
-        fet="Du får en poäng från 0 till 100, betyg i sex kategorier och åtgärder du kan göra direkt."
+        fet="Du får en poäng från 0 till 100, poängen du kan nå med förslagen och åtgärder du kan göra direkt."
         primar={{ text: 'Analysera mitt CV', href: '#mini-analys' }}
         sekundar={{ text: 'Så fungerar det', href: '#sa-funkar-det' }}
         loften={[
           { tal: `${CV_ANALYSIS_LIMIT} analys`, text: 'gratis per konto' },
           { tal: '60 sek', text: 'till poängen' },
-          { tal: '6', text: 'kategorier med betyg' },
+          { tal: '4', text: 'delar med förslag' },
         ]}
         handling={<CVAnalysMini />}
         handlingId="mini-analys"

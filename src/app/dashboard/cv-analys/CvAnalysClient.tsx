@@ -176,7 +176,7 @@ export default function CvAnalysClient({
       <>
         <RumHuvud
           title={RUBRIK.analyseraCv}
-          description="Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV likadant, på 30 sekunder."
+          description="Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV likadant, på under en minut."
         />
         <Golv>
           {/* Analysen är en kontokvot, inte ett dygnsfönster: ingen

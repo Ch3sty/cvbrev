@@ -91,7 +91,7 @@ export default function ExempelMall({
         yrke={yrke}
         intro={intro}
         primar={{ text: 'Använd som mall', href: primarHref }}
-        bevis={cv ? ['ATS-optimerat', 'Branschspecifika nyckelord', 'Kvantifierade resultat'] : ['Komplett brev', 'Sex mallar', 'Kopiera direkt']}
+        bevis={cv ? ['ATS-optimerat', 'Branschspecifika nyckelord', 'Kvantifierade resultat'] : ['Komplett brev', 'Sju mallar', 'Kopiera direkt']}
         utdrag={cv ? <CvUtdrag cv={data.exempelCV} /> : <BrevUtdrag brev={data.exempelBrev} />}
         lappar={lappar}
       />

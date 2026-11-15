@@ -9,7 +9,6 @@ import SkarmBliUpptackt from '@/components/publikt/telefon/skarmar/SkarmBliUppta
 import BliUpptacktMatchning from './components/BliUpptacktMatchning'
 import BliUpptacktExempel from './components/BliUpptacktExempel'
 import { BLI_UPPTACKT_FAQ_ITEMS } from './components/bli-upptackt-faq-data'
-import { PLAN_BY_KEY, SALD_PLAN, paketKort, paketMedPris } from '@/lib/plans/plans'
 
 const STEG = [
   { rubrik: 'Skapa din profil', text: 'Lägg in ditt CV, så fyller vi i yrkesroll, kompetenser och erfarenhet åt dig. Du kan ändra allt själv.' },
@@ -36,7 +35,7 @@ const ARBETSSTIL = [
 ]
 
 const TRYGGHET = [
-  { rubrik: 'Du är anonym tills du säger ja', text: 'Rekryteraren ser din roll, region, kompetenser och testresultat, men inte ditt namn eller dina kontaktuppgifter förrän du tackat ja till en förfrågan.' },
+  { rubrik: 'Du är anonym tills du säger ja', text: 'Rekryteraren ser din roll, dina kompetenser, dina villkor (tillträde, arbetsplats, omfattning och län), dina verifierade testresultat med nivå och placering, och om du valt det dina två främsta styrkor i ord. Aldrig ditt CV som fil, och aldrig namn eller kontaktuppgifter förrän du tackat ja till en förfrågan.' },
   { rubrik: 'Din nuvarande chef kan inte hitta dig', text: 'Vi döljer vilket företag du jobbar på i dag, så din arbetsgivare kan inte känna igen dig i kandidatpoolen.' },
   { rubrik: 'Bara riktiga företag får söka', text: 'Vi kontrollerar att varje rekryterare hör till ett verkligt företag innan de släpps in, så du slipper oseriösa förfrågningar.' },
   { rubrik: 'Ditt lönespann stannar hos dig', text: 'Rekryteraren ser aldrig ditt löneanspråk. Lön pratar ni om själva, om och när ni börjar chatta.' },
@@ -49,19 +48,13 @@ export default function BliUpptacktSida() {
     name: 'Bli upptäckt av rekryterare på Jobbcoach.ai',
     url: 'https://www.jobbcoach.ai/verktyg/bli-upptackt',
     description:
-      `Skapa en anonym kandidatprofil så kan verifierade rekryterare som söker din kompetens hitta dig. Verifierade testresultat och arbetsstil matchar dig mot rätt jobb. Anonym tills du säger ja. Synligheten ingår i ${paketMedPris(SALD_PLAN)}.`,
+      'Skapa en anonym kandidatprofil så kan verifierade rekryterare som söker din kompetens hitta dig. Verifierade testresultat och arbetsstil matchar dig mot rätt jobb. Anonym tills du säger ja. Kostar inget.',
     serviceType: 'Karriärtjänst',
     areaServed: { '@type': 'Country', name: 'Sverige' },
     provider: {
       '@type': 'Organization',
       name: 'Jobbcoach.ai',
       url: 'https://www.jobbcoach.ai',
-    },
-    offers: {
-      '@type': 'Offer',
-      price: String(PLAN_BY_KEY[SALD_PLAN].amount),
-      priceCurrency: 'SEK',
-      description: `Ingår i ${paketMedPris(SALD_PLAN)}. Profil och tester utan kostnad, synligheten kräver ${paketKort()}.`,
     },
   }
 
@@ -140,9 +133,9 @@ export default function BliUpptacktSida() {
           </div>
         }
         slut={{
-          eyebrow: paketMedPris(SALD_PLAN),
+          eyebrow: 'Gratis, utan kortuppgift',
           rubrik: 'Redo att bli hittad i stället för att leta?',
-          text: `Profilen och testerna gör du utan att betala. Synligheten för rekryterare ingår i ${paketKort()}, säg upp när du vill. Utan ${paketKort()} visas profilen inte i rekryterarnas sökningar. Du är anonym tills du tackar ja och stänger av synligheten med ett klick.`,
+          text: 'Profilen, synligheten och testerna kostar inget. Rekryteraren ser dina kompetenser, dina villkor och dina verifierade testresultat, men inte vem du är. Du är anonym tills du själv tackar ja till en förfrågan, och du stänger av synligheten när du vill med reglaget på sidan.',
           knapp: { text: 'Skapa min profil', href: '/register' },
           sekundar: { text: 'Se hur det fungerar', href: '#sa-funkar-det' },
         }}

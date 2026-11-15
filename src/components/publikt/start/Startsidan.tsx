@@ -120,7 +120,7 @@ export const START_FAQ = [
   },
   {
     q: 'Är mina uppgifter säkra?',
-    a: 'Ja. Vi följer GDPR och all data lagras i EU. Vi säljer aldrig din information vidare, och du kan radera ditt konto med ett klick. Då försvinner allt, även våra kopior.',
+    a: 'Ja. Vi följer GDPR, säljer aldrig dina uppgifter vidare och tränar inga egna modeller på ditt CV. Du raderar kontot själv under Inställningar, och då tas allt ditt bort. Det enda som blir kvar är kvitton hos Stripe, som bokföringslagen kräver.',
   },
   {
     q: 'Vad kostar det, och vad får jag utan att betala?',
@@ -271,7 +271,7 @@ export default function Startsidan({ konton }: { konton: number | null }) {
               <b>Jobben du annars hade missat.</b> Din kompetens matchad mot alla annonser i Platsbanken, med skälen utskrivna.
             </>
           }
-          text={`Den som söker på sin vanliga yrkestitel missar jobben som efterfrågar samma kompetens under ett annat namn. Vi utgår från det du kan och varje natt får du de ${JOB_MATCHES_PER_RUN} bästa träffarna: vilka krav du täcker och vad som saknas. Från en träff skriver du brevet med ett klick.`}
+          text={`Den som söker på sin vanliga yrkestitel missar jobben som efterfrågar samma kompetens under ett annat namn. Vi utgår från det du kan och visar de ${JOB_MATCHES_PER_RUN} bästa träffarna varje gång du öppnar sidan: vilka krav du täcker och vad som saknas. Från en träff skriver du brevet med ett klick.`}
           knapp={{ text: 'Så fungerar det', href: '/verktyg/jobbmatchning' }}
           knappNot={`${storForst(talOrd(FREE_TIER_JOB_LIMIT))} träffar gratis`}
           telefon={<SkarmMatchning />}
@@ -358,7 +358,7 @@ export default function Startsidan({ konton }: { konton: number | null }) {
               Allt i <PremiumOrd />
             </>
           }
-          text="Alla verktyg utan tak. Mindre än en lunch i månaden, säg upp med ett klick."
+          text="Alla verktyg utan tak. Mindre än en lunch i månaden, säg upp när du vill."
           punkter={HELA_PAKETET_RADER}
           pris
           knapp={{ text: kopKnapp(), href: '/priser' }}

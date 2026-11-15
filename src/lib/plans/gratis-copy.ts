@@ -50,7 +50,7 @@ export const GRATIS_LISTA = [
   `${Ord(FREE_TEMPLATE_COUNT)} CV-mallar och en nedladdning`,
   'En CV-analys med poängen och det tyngsta fyndet',
   `Ett personligt brev ${GRATIS_BREVFONSTER}, att läsa på skärmen`,
-  `${Ord(FREE_TIER_JOB_LIMIT)} matchade jobb och ${ord(GRATIS_CHATTFRAGOR)} frågor till Jobbcoachen`,
+  `${Ord(FREE_TIER_JOB_LIMIT)} matchade jobb och ${ord(GRATIS_CHATTFRAGOR)} meddelanden till Jobbcoachen`,
 ] as const
 
 /** Index i GRATIS_LISTA för mallraden, som länkar till /verktyg/cv-mallar. */
@@ -61,7 +61,7 @@ export const GRATIS_MENING_LANG =
   `Utan att betala gör du ${GRUNDNIVAN_ALLA} och personlighetstestet med ${GRATIS_PASTAENDEN} påståenden, ` +
   `får ${ord(FREE_TEMPLATE_COUNT)} CV-mallar och en nedladdning, en CV-analys med poängen och det tyngsta fyndet, ` +
   `ett personligt brev ${GRATIS_BREVFONSTER} att läsa på skärmen, ${ord(FREE_TIER_JOB_LIMIT)} matchade jobb och ` +
-  `${ord(GRATIS_CHATTFRAGOR)} frågor till Jobbcoachen. Inget kort behövs.`
+  `${ord(GRATIS_CHATTFRAGOR)} meddelanden till Jobbcoachen. Inget kort behövs.`
 
 /**
  * Den långa meningen i delar, för /priser där vissa ord står i fetstil
@@ -81,26 +81,26 @@ export const GRATIS_MENING_LANG_DELAR: readonly { text: string; fet?: boolean }[
   { text: ` ${GRATIS_BREVFONSTER} att läsa på skärmen, ` },
   { text: `${ord(FREE_TIER_JOB_LIMIT)} matchade jobb`, fet: true },
   { text: ' och ' },
-  { text: `${ord(GRATIS_CHATTFRAGOR)} frågor`, fet: true },
+  { text: `${ord(GRATIS_CHATTFRAGOR)} meddelanden`, fet: true },
   { text: ' till Jobbcoachen. Inget kort behövs.' },
 ]
 
 /** Meningen, kort form (fotnoter, en rad). */
 export const GRATIS_MENING_KORT =
   `Grundnivån i alla tester, ${ord(FREE_TEMPLATE_COUNT)} CV-mallar, en CV-analys, ett personligt brev ${GRATIS_BREVFONSTER}, ` +
-  `${ord(FREE_TIER_JOB_LIMIT)} matchade jobb och ${ord(GRATIS_CHATTFRAGOR)} frågor till Jobbcoachen ingår utan att betala.`
+  `${ord(FREE_TIER_JOB_LIMIT)} matchade jobb och ${ord(GRATIS_CHATTFRAGOR)} meddelanden till Jobbcoachen ingår utan att betala.`
 
 /** Testraden: provkort, testsidan, sidokolumnen. */
 export const GRATIS_TESTRAD_PROV = `Fem frågor gratis här. Grundnivån i alla ${TESTTYPER_ORD} testtyperna gratis med konto.`
 
 /**
  * Startsidans FAQ-svar om gratisnivån (S11): siffror som i dag, tester först.
- * "3 CV-mallar" och "10 frågor" står som siffror i FAQ-svaret.
+ * "3 CV-mallar" och "10 meddelanden" står som siffror i FAQ-svaret.
  */
 export const GRATIS_FAQ =
   `Gratisnivån kräver inget kort: ${GRUNDNIVAN_ALLA} och personlighetstestet, ${FREE_TEMPLATE_COUNT} CV-mallar och en nedladdning, ` +
   `en CV-analys med poängen och det tyngsta fyndet, ett personligt brev ${GRATIS_BREVFONSTER}, ${FREE_TIER_JOB_LIMIT} matchade jobb ` +
-  `och ${GRATIS_CHATTFRAGOR} frågor till Jobbcoachen.`
+  `och ${GRATIS_CHATTFRAGOR} meddelanden till Jobbcoachen.`
 
 /** "Grundnivån i alla åtta testtyperna", som egen rad i en lista. */
 export const GRUNDNIVAN_RAD = `Grundnivån i alla ${TESTTYPER_ORD} testtyperna`

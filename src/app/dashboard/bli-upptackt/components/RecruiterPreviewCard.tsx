@@ -6,6 +6,7 @@ import CardWorkStyleStrip from '@/components/candidate/CardWorkStyleStrip';
 import {
   AVAILABILITY_OPTIONS,
   FAMILY_LABELS,
+  LEVEL_LABELS,
   WORKPLACE_OPTIONS,
   EXTENT_OPTIONS,
   labelFor,
@@ -56,7 +57,9 @@ export default function RecruiterPreviewCard({
       label:
         result.percentile !== null
           ? `${FAMILY_LABELS[key]} · topp ${Math.max(1, 100 - result.percentile)} %`
-          : `${FAMILY_LABELS[key]} · ${result.bestScore}% rätt`,
+          : result.level
+            ? `${FAMILY_LABELS[key]} · ${LEVEL_LABELS[result.level]}`
+            : FAMILY_LABELS[key],
     };
   });
 

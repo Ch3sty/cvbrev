@@ -11,7 +11,7 @@ import { PLAN_BY_KEY, paketKort, type PlanKey } from '@/lib/plans/plans'
 import { TEMPLATE_COUNT, WORD_TEMPLATE_COUNT_ORD } from '@/lib/cv/template-antal'
 import { JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 
-const ALLA_TRAFFAR = `Alla ${JOB_MATCHES_PER_RUN} jobbträffar med skälen`
+const ALLA_TRAFFAR = `De ${JOB_MATCHES_PER_RUN} bästa jobbträffarna med skälen`
 
 /** Kortformen ur PLANS (copy-premium avsnitt 1), aldrig som fast sträng. */
 const PREMIUM = paketKort()
@@ -72,7 +72,7 @@ export const PAKET: Record<PlanKeyPaket, PaketInfo> = {
       'Personliga brev, skrivna och nedladdade',
       `CV-export utan tak, PDF och Word i ${WORD_TEMPLATE_COUNT_ORD} av mallarna`,
     ],
-    ingarInte: `Ingår i ${PREMIUM}: testnivåer över grundnivån, Jobbcoachen, Bli upptäckt.`,
+    ingarInte: `Ingår i ${PREMIUM}: testnivåer över grundnivån, Jobbcoachen, jobbmatchningen.`,
   }),
   test_week: paket('test_week', {
     intervall: 'Förnyas var sjunde dag tills du säger upp',
@@ -100,7 +100,7 @@ export const PAKET: Record<PlanKeyPaket, PaketInfo> = {
     ingar: [
       ALLA_TRAFFAR,
       'Jobbcoachen, så mycket du vill',
-      'Bli upptäckt och LinkedIn-optimering',
+      'LinkedIn-optimering',
       ALLT_I_PREMIUM,
     ],
   }),
@@ -109,17 +109,17 @@ export const PAKET: Record<PlanKeyPaket, PaketInfo> = {
     ingar: [
       'Alla CV-mallar, CV-analysen, personliga brev och LinkedIn',
       'Alla rekryteringstester, övningsprov och personlighetstestet',
-      'Jobbmatchning, Jobbcoachen och Bli upptäckt',
-      'Säg upp när som helst, ett klick',
+      'Jobbmatchning och Jobbcoachen',
+      'Säg upp när du vill, ingen bindningstid',
     ],
   }),
   all_quarter: paket('all_quarter', {
     intervall: 'Dras var tredje månad på samma datum tills du säger upp',
     ingar: [
-      'Jobbmatchning, Jobbcoachen och Bli upptäckt, i tre månader',
+      'Jobbmatchning och Jobbcoachen, i tre månader',
       ALLA_TRAFFAR,
       ALLT_I_PREMIUM,
-      'Säg upp när som helst, ett klick',
+      'Säg upp när du vill, ingen bindningstid',
     ],
   }),
 }

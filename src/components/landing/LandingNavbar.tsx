@@ -198,7 +198,7 @@ export default function LandingNavbar() {
                     </div>
                     <p className="mt-3 text-varde text-ink-1">{paketMedPris(SALD_PLAN)}</p>
                     <p className="mt-2 text-sm leading-[22px] text-ink-2">
-                      {PLAN_BY_KEY[SALD_PLAN].beskrivning}. Säg upp med ett klick.
+                      {PLAN_BY_KEY[SALD_PLAN].beskrivning}. Säg upp när du vill.
                     </p>
                     <Link
                       href="/priser"

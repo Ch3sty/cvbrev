@@ -142,14 +142,14 @@ function brickmejl(key: BrickaKey, lage: KomIgangLage, ctx: LifecycleContext, fa
             ? `Ditt CV fick ${fakta.poang}. Här är de två fynden som drar ned mest.`
             : 'Här är de två fynden som drar ned ditt CV mest.',
         preheader: 'Rätta dem, kör om, se poängen stiga. Tar tio minuter.',
-        body: `${hej} Analysen hittade fynd i ditt CV. Två av dem väger tyngre än resten: resultaten saknar siffror, och nyckelorden för rollen du söker finns inte med. Båda går att rätta i kväll.`,
+        body: `${hej} Analysen hittade fynd i ditt CV. Två av dem väger tyngre än resten: resultaten saknar siffror, och nyckelorden för rollerna i ditt CV finns inte med. Båda går att rätta i kväll.`,
         cta: 'Öppna fynden',
       };
     case 'profil':
       return {
         subject: 'Två uppgifter, så vet vi vad vi letar efter.',
         preheader: 'Önskad roll och ort. Under en minut.',
-        body: `${hej} Analysen, matchningen och brevet utgår från vilken roll du söker och var. Fyll i de två raderna i profilen, så blir allt annat träffsäkrare.`,
+        body: `${hej} Matchningen och brevet utgår från vilken roll du söker och var. Fyll i de två raderna i profilen, så blir träffarna och breven träffsäkrare.`,
         cta: 'Fyll i profilen',
       };
     case 'cv_upp':
@@ -164,7 +164,7 @@ function brickmejl(key: BrickaKey, lage: KomIgangLage, ctx: LifecycleContext, fa
       return {
         subject: 'Kör CV-analysen. Poäng, fynd, nyckelord.',
         preheader: 'Så läser ett rekryteringssystem ditt CV. Två minuter.',
-        body: `${hej} Ditt CV ligger uppe. Analysen visar poängen, fynden i tyngdordning och vilka nyckelord som saknas för rollen du söker.`,
+        body: `${hej} Ditt CV ligger uppe. Analysen visar poängen, fynden i tyngdordning och vilka nyckelord som saknas för rollerna i ditt CV.`,
         cta: 'Kör analysen',
       };
     case 'mall':
@@ -374,7 +374,7 @@ export const paketFornyasMejl: LifecycleEmail = {
     // R1: namnet och beloppet i samma ämnesrad (copy-premium avsnitt 3:
     // "Jobbcoach Premium förnyas i morgon, 149 kr. Så här gick månaden.").
     const subject = `${namn} förnyas i morgon, ${belopp} kr. Så här gick ${period}.`;
-    const preheader = `${storForst(summering)} Fortsätt eller avsluta, ett klick.`;
+    const preheader = `${storForst(summering)} Fortsätt eller säg upp, du väljer.`;
 
     const provatRad = lage.klar
       ? 'Du har provat allt som ingår, och det du byggt finns kvar oavsett vad du väljer.'

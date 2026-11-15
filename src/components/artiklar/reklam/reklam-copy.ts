@@ -92,7 +92,7 @@ export const INLINE: Record<Exclude<InlineVerktyg, 'raknare' | 'lankrad' | 'test
   },
   coach: {
     rubrik: 'Träna svaret innan du sitter i rummet',
-    text: `Bolla dina svar med Jobbcoachen och få följdfrågorna en rekryterare hade ställt. ${Ord(FREE_CHAT_MESSAGES_PER_ACCOUNT)} frågor utan att betala.`,
+    text: `Bolla dina svar med Jobbcoachen och få följdfrågorna en rekryterare hade ställt. ${Ord(FREE_CHAT_MESSAGES_PER_ACCOUNT)} meddelanden utan att betala.`,
     knapp: 'Träna intervjufrågor',
     href: '/verktyg/jobbcoachen',
     paketrad: `Jobbcoachen, så mycket du vill, ingår i ${KORT_PRIS}.`,
@@ -235,9 +235,9 @@ export const SLUT: Record<'cv' | 'test' | 'allt', SlutCopy> = {
     etikett: NAMN,
     rubrik: 'Allt ingår. Från första annonsen till löneförhandlingen.',
     rader: [
-      'Jobbmatchning varje natt, med skälen utskrivna',
+      'Jobbmatchning, de bästa träffarna med skälen utskrivna',
       'Jobbcoachen, så mycket du vill',
-      'Bli upptäckt av rekryterare',
+      'Intervjuprov utan dagsgräns och historik',
       CV_RAD,
       TEST_RAD,
     ],
@@ -267,7 +267,7 @@ export const GRATIS_KORT = {
 export const LISTA_SLUT = {
   etikett: NAMN,
   rubrik: 'Läs klart. Gör sedan.',
-  text: `Allt i en prenumeration, ${PRIS}. Ingen bindningstid, säg upp med ett klick.`,
+  text: `Allt i en prenumeration, ${PRIS}. Ingen bindningstid, säg upp när du vill.`,
   rader: PLAN.highlights.filter((r) => r !== 'Säg upp när du vill'),
   knapp: 'Se vad som ingår',
   href: '/priser',

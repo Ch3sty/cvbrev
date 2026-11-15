@@ -12,19 +12,17 @@ import { LINKEDIN_OPTIMERING_FAQ_ITEMS } from '@/app/(public)/verktyg/linkedin-o
 const allt = (items: { q: string; a: string }[]) => items.map((i) => `${i.q} ${i.a}`).join('\n')
 const antal = (text: string, del: string) => text.split(del).length - 1
 
-describe('Bli upptäckt: synligheten ingår i Jobbcoach Premium', () => {
+describe('Bli upptäckt: gratis för alla sedan 2026-11-15 (saas-lead)', () => {
   const text = allt(BLI_UPPTACKT_FAQ_ITEMS)
-  it('kostnadsfrågan säger Jobbcoach Premium med priset ur PLANS, en gång', () => {
+  it('kostnadsfrågan säger att det inte kostar något, utan pris', () => {
     const kostnad = BLI_UPPTACKT_FAQ_ITEMS.find((i) => /kostar/i.test(i.q))
     expect(kostnad).toBeDefined()
-    expect(paketMedPris(SALD_PLAN)).toBe('Jobbcoach Premium, 149 kr i månaden')
-    expect(antal(kostnad!.a, paketMedPris(SALD_PLAN))).toBe(1)
-    expect(kostnad!.a).not.toContain(`${PLAN_BY_KEY.all_week.amount} kr`)
-    expect(kostnad!.a).not.toContain('Hela paketet')
-    expect(kostnad!.a).not.toMatch(/paketen/)
+    expect(kostnad!.a).toMatch(/^Ingenting./)
+    expect(kostnad!.a).not.toMatch(/d+ kr/)
   })
-  it('ingenting säger att det är gratis att synas', () => {
-    expect(text).not.toMatch(/gratis att synas|kostar ingenting|synas gratis/i)
+  it('ingenting säger att synligheten ingår i Premium', () => {
+    expect(text).not.toMatch(/synligheten ingår|ingår i Jobbcoach Premium, 149/i)
+    expect(text).not.toContain(paketMedPris(SALD_PLAN))
   })
 })
 

@@ -308,6 +308,23 @@ const META_TILLAGD: Array<{ path: string; falt: 'canonical'; datum: string; skal
  */
 const BILD_BYTT: Array<{ path: string; gammal: string; ny: string; datum: string; skal: string }> = [];
 
+/**
+ * Författarens porträtt bytt, när en omskrivning ger nya taggar och därmed en
+ * annan författare ur src/lib/authors.ts. Ett undantag per sida med exakt
+ * gammal och ny src; gäller bara första bilden. Laddas ur nyckeln
+ * FORFATTARE_BYTT i *-undantag.json. Artikelbildens byte (BILD_BYTT) är
+ * strikt: första bilden får bara bli /images/artiklar/<samma slug>-v<n>.webp
+ * med frontmatterns imageAlt.
+ */
+const FORFATTARE_BYTT: Array<{ path: string; gammal: string; ny: string; datum: string; skal: string }> = [];
+
+/** Är src artikelbilden i version n för sidans egen slug? */
+function arArtikelbildV(sida: string, src: string | undefined): boolean {
+  if (!src) return false;
+  const prefix = `/images/artiklar/${sida.replace(/^\/artiklar\//, '')}-v`;
+  return src.startsWith(prefix) && /^\d+\.webp$/.test(src.slice(prefix.length));
+}
+
 /** robots som bara fått max-image-preview:large (och index, follow) är samma sida för sök. */
 function robotsBaraBildstorlek(fore: string, efter: string): boolean {
   const delar = (v: string) => new Set(v.split(',').map((x) => x.trim()).filter(Boolean));
@@ -360,6 +377,7 @@ function lasUndantagsfiler() {
     lagg(LANK_BYTT, 'LANK_BYTT')
     lagg(BASLINJE_OMTAGEN, 'BASLINJE_OMTAGEN')
     lagg(BILD_BYTT, 'BILD_BYTT')
+    lagg(FORFATTARE_BYTT, 'FORFATTARE_BYTT')
   }
 }
 lasUndantagsfiler()
@@ -985,11 +1003,21 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
         // Del B 4.3 punkt 7: där bilden stod först är src och alt desamma (bilden
         // flyttar till hjälten). Övriga får frontmatter.image som första bild.
         const fm = artikelBild(f.path);
-        // Flera byten per sida kan finnas (artikelbilden och, vid en omskrivning, författarens
-        // porträtt när taggarna ger en annan författare): något av dem ska stämma.
-        const forstaByte = BILD_BYTT.find((b) => b.path === f.path && f.forstaBild?.src === b.gammal && e.forstaBild?.src === b.ny);
-        if (forstaByte) {
-          info(`första bilden bytt (${forstaByte.datum}): ${JSON.stringify(f.forstaBild)} → ${JSON.stringify(e.forstaBild)}. ${forstaByte.skal}`);
+        // Artikelbildens byte är strikt: bara till /images/artiklar/<samma slug>-v<n>.webp
+        // med frontmatterns imageAlt. Författarens porträtt har ett eget undantag per sida.
+        const forfattare = FORFATTARE_BYTT.find((b) => b.path === f.path && f.forstaBild?.src === b.gammal && e.forstaBild?.src === b.ny);
+        const imageAlt = artikelBildAlt(f.path);
+        if (
+          bildBytt &&
+          f.forstaBild?.src === bildBytt.gammal &&
+          e.forstaBild?.src === bildBytt.ny &&
+          arArtikelbildV(f.path, e.forstaBild?.src) &&
+          imageAlt !== null &&
+          e.forstaBild?.alt === imageAlt
+        ) {
+          info(`första bilden bytt (${bildBytt.datum}): ${JSON.stringify(f.forstaBild)} → ${JSON.stringify(e.forstaBild)}`);
+        } else if (forfattare) {
+          info(`första bilden, författarens porträtt bytt (${forfattare.datum}): ${JSON.stringify(f.forstaBild)} → ${JSON.stringify(e.forstaBild)}. ${forfattare.skal}`);
         } else if (!bildBytt && fm && e.forstaBild?.src === fm && f.forstaBild?.src !== fm) {
           // Inte för bildbytta sidor: frontmatter.image är där redan den nya bilden.
           info(`första bilden blir artikelbilden (2026-10-12, del B 4.4): ${JSON.stringify(f.forstaBild)} → ${JSON.stringify(e.forstaBild)}`);

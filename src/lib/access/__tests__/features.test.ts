@@ -11,8 +11,8 @@ import {
 const SCOPES: Scope[] = ['cv', 'tester', 'allt']
 
 describe('FEATURES', () => {
-  it('har de tio funktionerna ur avsnitt 5 plus LinkedIn-profilen, intervjuprovet, text- och sifferpassen och CV:t som Word-fil', () => {
-    expect(ALLA_FEATURES).toHaveLength(14)
+  it('har nio funktioner ur avsnitt 5 plus LinkedIn-profilen, intervjuprovet, text- och sifferpassen och CV:t som Word-fil (Bli upptäckt gratis sedan 2026-11-15)', () => {
+    expect(ALLA_FEATURES).toHaveLength(13)
   })
 
   it('ger Allt varje funktion', () => {
@@ -53,13 +53,12 @@ describe('scopeHasFeature', () => {
     expect(scopeHasFeature('cv', 'linkedin')).toBe(true)
   })
 
-  it('nekar CV-spåret testen, chatten, matchningen och Bli upptäckt', () => {
+  it('nekar CV-spåret testen, chatten och matchningen', () => {
     expect(scopeHasFeature('cv', 'tests_above_base')).toBe(false)
     expect(scopeHasFeature('cv', 'test_exam_mode')).toBe(false)
     expect(scopeHasFeature('cv', 'test_history')).toBe(false)
     expect(scopeHasFeature('cv', 'chat_unlimited')).toBe(false)
     expect(scopeHasFeature('cv', 'job_matches_all')).toBe(false)
-    expect(scopeHasFeature('cv', 'bli_upptackt')).toBe(false)
   })
 
   it('ger Testspåret alla nivåer, provläge och historik men inget CV-uttag', () => {

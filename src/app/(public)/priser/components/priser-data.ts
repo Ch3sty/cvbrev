@@ -169,10 +169,10 @@ export const COMPARISON: ComparisonGroup[] = [
         premium: ja('Utan tak'),
       },
       {
-        label: 'Bli upptäckt',
-        sub: 'rekryterare hittar dig, anonymt',
-        free: NEJ,
-        premium: ja('Ingår'),
+        label: 'Intervjuprovet',
+        sub: 'svara på en intervjufråga, få återkoppling som från en rekryterare',
+        free: g('1 om dagen'),
+        premium: ja('Utan tak'),
       },
     ],
   },
@@ -191,12 +191,12 @@ export const PRISER_FAQ_ITEMS = [
     // Fulla namnet: frågan blir FAQPage-schema och visas fristående i
     // Google, där "Premium" utan varumärke är vem som helst (copy-vag5 6.1).
     q: `Vad ingår i ${HELA}?`,
-    a: `Allt vi gör: alla CV-mallar, CV-analysen, personliga brev och LinkedIn, alla rekryteringstester med övningsprov och personlighetstestet, jobbmatchning varje natt, Jobbcoachen och Bli upptäckt. ${PRIS}, och inget av det kostar extra.`,
+    a: `Allt vi gör: alla CV-mallar, CV-analysen, personliga brev och LinkedIn, alla rekryteringstester med övningsprov, intervjuprovet utan dagsgräns och personlighetstestet, jobbmatchning med de ${JOB_MATCHES_PER_RUN} bästa träffarna och Jobbcoachen. ${PRIS}, och inget av det kostar extra.`,
   },
   {
     id: 'nar-manaden-ar-slut',
     q: 'Vad händer när månaden är slut?',
-    a: 'Den förnyas på samma datum varje månad tills du säger upp, med samma pris. Dagen innan visar vi vad du gjort och vad som är kvar, och där kan du avsluta med ett klick. Ingen förnyelse i smyg.',
+    a: 'Den förnyas på samma datum varje månad tills du säger upp, med samma pris. Dagen innan mejlar vi vad du gjort och vad som är kvar, så att du kan säga upp innan nästa dragning om du är klar. Ingen förnyelse i smyg.',
   },
   {
     id: 'borja-gratis',
@@ -206,7 +206,7 @@ export const PRISER_FAQ_ITEMS = [
   {
     id: 'saga-upp',
     q: 'Hur säger jag upp?',
-    a: 'I ditt konto, under Profil och Prenumeration, ett klick. Lika enkelt som att köpa. Månaden du redan betalat gäller ut.',
+    a: 'I ditt konto, under Profil och Prenumeration, när du vill. Ingen bindningstid, inget att skriva eller ringa om. Månaden du redan betalat gäller ut.',
   },
 ] as const
 

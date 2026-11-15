@@ -70,7 +70,7 @@ export default function ExempelCTABand() {
               <div className="mt-5 flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-1.5 text-sm text-white/85">
                 <span>Ingen kortuppgift.</span>
                 <span>Ingen bindningstid.</span>
-                <span>Data i EU.</span>
+                <span>Vi säljer aldrig dina uppgifter.</span>
               </div>
             </div>
 

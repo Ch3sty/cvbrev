@@ -44,7 +44,6 @@ export type PaywallVariant =
   | 'historik'
   // Menyns gråa val (spec-onboarding 2026-09-22, sektion 3 och 5).
   | 'linkedin'
-  | 'bli-upptackt'
   // Kvarvarande varianter som inte hör till paketspärrarna.
   | 'kvot'
   | 'test-tak'
@@ -209,7 +208,6 @@ export const VARIANT_FEATURE: Partial<Record<PaywallVariant, Feature>> = {
   historik: 'test_history',
   'test-tak': 'tests_above_base',
   linkedin: 'linkedin',
-  'bli-upptackt': 'bli_upptackt',
 }
 
 /**
@@ -334,14 +332,6 @@ function byggCopy(variant: PaywallVariant, plan: PlanKey, opts?: PaywallCopyOpts
       return {
         title: `LinkedIn-optimeringen ingår i ${fullt}`,
         body: 'Ny rubrik, ny om mig-text och kompetenserna överst, skrivna mot ditt CV så rekryterare hittar dig.',
-        primary: knapp,
-        secondary: 'Inte nu',
-      }
-
-    case 'bli-upptackt':
-      return {
-        title: `Bli upptäckt ingår i ${PREMIUM}`,
-        body: 'Din profil visas för rekryterare utan namn tills du själv svarar, och du stänger av när du vill.',
         primary: knapp,
         secondary: 'Inte nu',
       }

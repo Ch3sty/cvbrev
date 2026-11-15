@@ -13,7 +13,7 @@ import { FREE_CHAT_MESSAGES_PER_ACCOUNT } from '@/lib/quota/quotaService'
 
 const AMNEN = [
   { rubrik: 'CV och personligt brev', text: 'Få feedback på en formulering, hjälp att skriva om en mening så att den landar, eller förslag på vad som saknas. Dela ditt sparade CV direkt i samtalet. Till exempel: "Hur skriver jag min sammanfattning?"' },
-  { rubrik: 'Marknadslön och löneförhandling', text: 'Vi hämtar SCB:s officiella lönestatistik per yrke, region och erfarenhet. Du får siffror som stämmer och argument att luta dig mot i samtalet. Till exempel: "Vad tjänar en projektledare i Göteborg?"' },
+  { rubrik: 'Marknadslön och löneförhandling', text: 'Svaren bygger på SCB:s lönestatistik och fackförbundens underlag i vår kunskapsbas, med källan angiven. Du får en siffra att utgå från och argument att luta dig mot i samtalet. Till exempel: "Vad tjänar en projektledare i Göteborg?"' },
   { rubrik: 'Intervjuförberedelse', text: 'Öva svar på vanliga intervjufrågor, packa din erfarenhet i en berättelse och få tips på vad du själv ska fråga. Till exempel: "Hur svarar jag på frågan om svagheter?"' },
   { rubrik: 'Arbetsrätt och LAS', text: 'Vi förklarar uppsägningstider, anställningsformer, semester, övertid och vad LAS säger om saklig grund, med källa så att du ser vad lagen säger. Till exempel: "Hur lång uppsägningstid har jag?"' },
   { rubrik: 'Karriärbyte och utveckling', text: 'Byta bransch, ta nästa kliv eller plugga vidare? Vi visar vilka roller som ligger nära din erfarenhet och vilka kompetenser du behöver bygga. Till exempel: "Vilka roller passar min bakgrund?"' },

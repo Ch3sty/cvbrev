@@ -71,7 +71,7 @@ const WORD_RADER = [
 
 const STEG = [
   { rubrik: 'Välj en mall', text: 'Bläddra bland modern, traditionell och kreativ stil. Klicka på den som passar din bransch och din stil bäst.' },
-  { rubrik: 'Fyll i dina uppgifter', text: 'Formuläret leder dig genom varje avsnitt. Du kan hämta uppgifter från LinkedIn eller utgå från ett befintligt CV.' },
+  { rubrik: 'Fyll i dina uppgifter', text: 'Formuläret leder dig genom varje avsnitt. Du kan utgå från ett befintligt CV, eller en PDF av din LinkedIn-profil, så läser vi ut uppgifterna åt dig.' },
   { rubrik: 'Vi flyttar in innehållet', text: 'Allt du fyller i hamnar automatiskt på rätt plats i mallen. Byter du mall efteråt följer innehållet med, utan att du fyller i något på nytt.' },
   { rubrik: `Ladda ner som PDF, eller Word i ${WORD_TEMPLATE_COUNT_ORD} av mallarna`, text: 'Ladda ner ditt CV när du är nöjd. Det sparas i ditt konto, så du kan komma tillbaka och redigera när som helst.' },
 ]
@@ -82,7 +82,7 @@ const FUNKTIONER = [
   { rubrik: 'Profilbild där det passar', text: 'Vissa av mallarna i Premium har plats för profilbild. Det passar i branscher där det personliga intrycket räknas, som vård, utbildning och service.' },
   { rubrik: 'LinkedIn synligt i sidhuvudet', text: 'I flera av mallarna i Jobbcoach Premium syns din LinkedIn-profil tydligt. Då kan rekryteraren enkelt kontrollera dina meriter.' },
   { rubrik: 'Redigera när du vill', text: 'Allt sparas i ditt konto. Kom tillbaka, lägg till ett nytt jobb eller byt mall utan att börja om.' },
-  { rubrik: 'Fungerar i mobilen', text: 'Hela CV-byggaren fungerar lika bra i telefonen som på datorn. Börja på bussen och fortsätt hemma vid skrivbordet.' },
+  { rubrik: 'Fungerar i mobilen', text: 'Hela CV-byggaren fungerar lika bra i telefonen som på datorn. Bygg och spara i telefonen, så ligger CV:t i ditt konto när du sätter dig vid skrivbordet.' },
 ]
 
 export default function CVMallarSida() {

@@ -10,6 +10,7 @@
 import { PROV_COPY, type NyProvTyp } from '@/lib/tests/prov-typer'
 import { SALD_PLAN, kopKnapp, paketKort, prisPeriod, type PlanKey } from '@/lib/plans/plans'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import { ANTAL_TESTTYPER, GRATIS_LISTA, GRATIS_PASTAENDEN, GRUNDNIVAN_ALLA, GRUNDNIVAN_RAD, Ord, TESTTYPER_ORD } from '@/lib/plans/gratis-copy'
 import type { SignupIntent, SmakprovTyp } from './intent'
 
@@ -53,7 +54,7 @@ export const STEG1 = {
     },
     jobb: {
       titel: 'Hitta jobb att söka',
-      text: 'Vi matchar ditt CV mot lediga jobb varje natt och skriver varför de passar.',
+      text: 'Vi matchar ditt CV mot lediga jobb i Platsbanken och skriver varför de passar.',
     },
   } satisfies Record<SignupIntent, { titel: string; text: string }>,
 } as const
@@ -257,15 +258,15 @@ export const STEG3 = {
       under: 'Matchningen läser ditt CV, så första steget är att lägga in det. Tre träffar ingår gratis.',
       kortRubrik: 'Allt ingår, plus jobb som hittar dig',
       rader: [
-        { fet: 'Jobbmatchning:', text: ' 25 jobb per natt, med skälen utskrivna.' },
-        { fet: 'Bli upptäckt:', text: ' rekryterare hittar dig, anonymt tills du svarar.' },
+        { fet: 'Jobbmatchning:', text: ` de ${JOB_MATCHES_PER_RUN} bästa träffarna, med skälen utskrivna.` },
+        { fet: 'Intervjuprovet:', text: ' utan dagsgräns, med återkoppling på varje svar.' },
         {
           fet: 'Jobbcoachen',
           text: ', alla CV-mallar, CV-analysen, personliga brev och alla rekryteringstester.',
         },
       ],
       prisText: FORNYAS,
-      gratis: ['Tre matchade jobb', 'Tio frågor till Jobbcoachen'],
+      gratis: ['Tre matchade jobb', 'Tio meddelanden till Jobbcoachen'],
     },
   } satisfies Record<SignupIntent, ForslagCopy>,
   /** "149 kr i månaden" i kortets prisrad, ur PLANS. */

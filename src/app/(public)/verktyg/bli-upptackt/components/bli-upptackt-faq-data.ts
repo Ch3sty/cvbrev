@@ -1,4 +1,4 @@
-import { SALD_PLAN, paketKort, paketMedPris } from '@/lib/plans/plans'
+import { paketKort } from '@/lib/plans/plans'
 
 export type FaqItem = { q: string; a: string }
 
@@ -23,7 +23,7 @@ export const BLI_UPPTACKT_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Vad kostar det att synas för rekryterare?',
-    a: `Synligheten ingår i ${paketMedPris(SALD_PLAN)}, och du säger upp när du vill. Utan ${PREMIUM} kan du skapa din profil och göra testerna, men profilen visas inte i rekryterarnas sökningar. Med ${PREMIUM} får du dessutom jobbmatchning varje natt, Jobbcoachen så mycket du vill, alla CV-mallar, CV-analysen, personliga brev och alla rekryteringstester.`,
+    a: `Ingenting. Profilen, synligheten och grundnivån i testerna är gratis, utan kortuppgift. Vill du göra profilen starkare öppnar ${PREMIUM} alla testnivåer, så att du kan visa verifierade resultat på avancerad och expertnivå i stället för bara grundnivån.`,
   },
   {
     q: 'Syns min lön eller mitt löneanspråk för rekryterare?',
@@ -31,6 +31,6 @@ export const BLI_UPPTACKT_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Kan jag ångra mig och sluta synas?',
-    a: 'Ja, när som helst. Du stänger av synligheten med ett klick, och din profil slutar då dyka upp i rekryterares sökningar direkt.',
+    a: 'Ja, när som helst. Du stänger av synligheten med reglaget på sidan, och din profil slutar då dyka upp i rekryterares sökningar direkt.',
   },
 ]

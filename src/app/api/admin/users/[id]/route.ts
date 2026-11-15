@@ -26,6 +26,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { requireSuperAdmin } from '@/lib/admin/requireSuperAdmin'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
+import { raderaKontotsFiler, rensaLosaRader } from '@/lib/konto/raderaKonto.server'
 import { grantPremiumDays } from '@/lib/stripe/grantPremiumDays'
 
 export const dynamic = 'force-dynamic'
@@ -193,6 +194,14 @@ export async function DELETE(
         { error: 'Du kan inte ta bort ditt eget konto härifrån' },
         { status: 400 }
       )
+    }
+    // Filerna och de lösa raderna kaskaderar inte med kontot (lib/konto/raderaKonto.server.ts).
+    try {
+      await raderaKontotsFiler(adminClient, targetUserId)
+      await rensaLosaRader(adminClient, targetUserId)
+    } catch (e) {
+      console.error('Error deleting user files/rows:', e)
+      return NextResponse.json({ error: 'Kunde inte ta bort användarens filer och loggrader' }, { status: 500 })
     }
 
     const { error: deleteError } = await adminClient.auth.admin.deleteUser(

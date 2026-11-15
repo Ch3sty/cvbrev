@@ -65,8 +65,8 @@ describe('lasBlockeringar', () => {
   })
 
   it('släpper igenom ett featurenamn oförändrat', async () => {
-    const res = await lasBlockeringar(klient([rad('bli_upptackt')]), 'u1')
-    expect(res.rader[0].feature).toBe('bli_upptackt')
+    const res = await lasBlockeringar(klient([rad('linkedin')]), 'u1')
+    expect(res.rader[0].feature).toBe('linkedin')
   })
 
   it('hoppar över okända namn i stället för att rita en tom rad', async () => {

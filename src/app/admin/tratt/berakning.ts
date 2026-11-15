@@ -276,7 +276,6 @@ export const FEATURE_NAMN: Record<Feature, string> = {
   chat_unlimited: 'Jobbcoachen, fler meddelanden',
   interview_unlimited: 'Intervjuprovet utan tak',
   job_matches_all: 'Alla jobbmatchningar',
-  bli_upptackt: 'Bli upptäckt',
   linkedin: 'LinkedIn-profilen',
 };
 

@@ -197,8 +197,8 @@ export default function JobbmatchningSida() {
                 text={`Aktivera ditt CV, så ser du dina ${TRAFFAR} bästa träffar och exakt varför de passar. Inget kort, ingen bindning.`}
                 punkter={[
                   'Vilka krav du täcker och vad som saknas, per träff',
-                  'Nya annonser in varje dag, tillsatta ut',
-                  `Alla ${JOB_MATCHES_PER_RUN} träffar varje natt ingår i ${PREMIUM}`,
+                  'Nya annonser in tre gånger per dygn, tillsatta ut',
+                  `De ${JOB_MATCHES_PER_RUN} bästa träffarna ingår i ${PREMIUM}`,
                 ]}
                 knapp={{ text: 'Hitta jobb gratis', href: REGISTRERA }}
                 not={
@@ -316,7 +316,7 @@ export default function JobbmatchningSida() {
               </>
             }
             rubrik="Hitta ditt nästa jobb automatiskt."
-            text={`Aktivera ditt CV och se dina ${FREE_TIER_JOB_LIMIT} bästa träffar med skälen utskrivna, utan kortuppgift. Alla träffar, varje dag, ingår i ${PREMIUM}, utan bindningstid.`}
+            text={`Aktivera ditt CV och se dina ${FREE_TIER_JOB_LIMIT} bästa träffar med skälen utskrivna, utan kortuppgift. De ${JOB_MATCHES_PER_RUN} bästa träffarna, varje gång du öppnar sidan, ingår i ${PREMIUM}, utan bindningstid.`}
             knapp={{ text: 'Hitta jobb gratis', href: REGISTRERA }}
             lank={{ text: 'Se CV-exempel först', href: '/cv-exempel' }}
           />

@@ -137,9 +137,9 @@ export default function AnalysisOverviewStep({
           </div>
 
           <p className="mt-4 border-t border-kant pt-4 text-sm leading-relaxed text-ink-2">
-            Tillämpar du förslagen lyfter poängen {improvement} steg, vilket
-            ökar chansen att passera urvalssystemen med ungefär{' '}
-            {Math.round(improvement * 1.5)} procent.
+            Tillämpar du förslagen lyfter poängen {improvement} steg. Det är
+            skillnaden mellan CV:t som det ser ut nu och hur det kan läsas av
+            urvalssystemen när fynden är rättade.
           </p>
         </section>
 

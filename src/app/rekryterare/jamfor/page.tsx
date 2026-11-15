@@ -225,7 +225,7 @@ function CompareTable({ entries }: { entries: CompareEntry[] }) {
                       <span className="font-bold text-orange-800">
                         {badge.percentile !== null
                           ? `Topp ${Math.max(1, 100 - badge.percentile)} %`
-                          : `${badge.bestScore ?? '?'}% rätt`}
+                          : 'Placering väntar'}
                       </span>
                       {badge.level && (
                         <span className="block text-[11.5px] text-slate-500">

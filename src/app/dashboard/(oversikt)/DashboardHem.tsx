@@ -301,7 +301,7 @@ export default function DashboardHem() {
         ? {
             title: stats.firstName ? `Börja med ditt CV, ${stats.firstName}` : 'Börja med ditt CV',
             description:
-              'Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV likadant, på 30 sekunder.',
+              'Rekryterare letar först efter senaste rollen och vad du uppnådde. Vi läser ditt CV likadant, på under en minut.',
             handling: loggaSoktJobb,
           }
         : state === 'B'

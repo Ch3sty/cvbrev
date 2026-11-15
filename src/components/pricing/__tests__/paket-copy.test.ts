@@ -104,7 +104,7 @@ describe('prissidan', () => {
     expect(PR_H1).toBe(HERO.h1)
     expect(HERO.rad).toBe('Tester, CV, personliga brev, jobbmatchning och Jobbcoachen')
     expect(HERO.ingress).toBe(
-      'Allt är öppet från första minuten. Ingen bindningstid, du säger upp med ett klick.'
+      'Allt är öppet från första minuten. Ingen bindningstid, du säger upp när du vill.'
     )
   })
 
@@ -143,7 +143,7 @@ describe('prissidan', () => {
     // alla testtyper, aldrig Nivåkollen publikt.
     expect(FREE_HIGHLIGHTS).toContain('Grundnivån i alla åtta testtyperna och personlighetstestet, med förklaring efter varje fråga')
     expect(GRATIS_RAD).toBe(
-      'Grundnivån i alla tester, tre CV-mallar, en CV-analys, ett personligt brev var sjunde dag, tre matchade jobb och tio frågor till Jobbcoachen ingår utan att betala.'
+      'Grundnivån i alla tester, tre CV-mallar, en CV-analys, ett personligt brev var sjunde dag, tre matchade jobb och tio meddelanden till Jobbcoachen ingår utan att betala.'
     )
     const tester = COMPARISON.find((g) => g.title === 'Rekryteringstester')!
     const grund = tester.rows.find((r) => r.label === 'Grundnivån')!
@@ -175,7 +175,7 @@ describe('prissidan', () => {
     expect(PRISER_FAQ_ITEMS.find((f) => f.id === 'nar-manaden-ar-slut')!.a).toMatch(/Ingen förnyelse i smyg\.$/)
     expect(GUIDE.h2).toBe('Hjälpredan Kom igång tar dig igenom allt i rätt ordning')
     expect(GUIDE.ingress).toMatch(
-      /Dagen innan månaden förnyas mejlar vi vad du gjort, så att du kan säga upp med ett klick om du är klar\.$/
+      /Dagen innan månaden förnyas mejlar vi vad du gjort, så att du kan säga upp innan nästa dragning om du är klar\.$/
     )
   })
 

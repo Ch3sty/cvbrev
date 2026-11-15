@@ -120,7 +120,6 @@ describe('betalväggarnas copy per spärr', () => {
       'cv-antal',
       'af-rapport',
       'linkedin',
-      'bli-upptackt',
       'historik',
     ] as const
 

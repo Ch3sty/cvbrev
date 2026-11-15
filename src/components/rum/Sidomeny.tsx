@@ -151,7 +151,7 @@ export default function Sidomeny() {
     }
   }, [userId, refresh])
 
-  const lasFor = (val: 'linkedin' | 'bli_upptackt'): Undersida['last'] => {
+  const lasFor = (val: 'linkedin'): Undersida['last'] => {
     const r = menyRad(val, paket)
     if (r.ingar || !r.feature || !r.variant) return undefined
     return { feature: r.feature, variant: r.variant, text: r.text }
@@ -202,7 +202,6 @@ export default function Sidomeny() {
       {
         href: '/dashboard/bli-upptackt',
         etikett: UNDERSIDA.bliUpptackt,
-        last: lasFor('bli_upptackt'),
         chip: intressenLaddade && pending > 0 ? <Chip liten ton>{CHIP.vantar(pending)}</Chip> : undefined,
       },
     ],

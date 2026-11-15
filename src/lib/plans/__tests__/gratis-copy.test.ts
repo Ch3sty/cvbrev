@@ -50,20 +50,20 @@ describe('gratisnivån, en källa', () => {
     expect(GRATIS_LISTA[GRATIS_MALLRAD]).toBe('Tre CV-mallar och en nedladdning')
     expect(GRATIS_LISTA[2]).toBe('En CV-analys med poängen och det tyngsta fyndet')
     expect(GRATIS_LISTA[3]).toBe('Ett personligt brev var sjunde dag, att läsa på skärmen')
-    expect(GRATIS_LISTA[4]).toBe('Tre matchade jobb och tio frågor till Jobbcoachen')
+    expect(GRATIS_LISTA[4]).toBe('Tre matchade jobb och tio meddelanden till Jobbcoachen')
   })
 
   it('meningarna ordagrant enligt beslutet', () => {
     expect(GRATIS_MENING_LANG).toBe(
-      'Utan att betala gör du grundnivån i alla åtta testtyperna och personlighetstestet med 50 påståenden, får tre CV-mallar och en nedladdning, en CV-analys med poängen och det tyngsta fyndet, ett personligt brev var sjunde dag att läsa på skärmen, tre matchade jobb och tio frågor till Jobbcoachen. Inget kort behövs.'
+      'Utan att betala gör du grundnivån i alla åtta testtyperna och personlighetstestet med 50 påståenden, får tre CV-mallar och en nedladdning, en CV-analys med poängen och det tyngsta fyndet, ett personligt brev var sjunde dag att läsa på skärmen, tre matchade jobb och tio meddelanden till Jobbcoachen. Inget kort behövs.'
     )
     expect(GRATIS_MENING_LANG_DELAR.map((d) => d.text).join('')).toBe(GRATIS_MENING_LANG)
     expect(GRATIS_MENING_KORT).toBe(
-      'Grundnivån i alla tester, tre CV-mallar, en CV-analys, ett personligt brev var sjunde dag, tre matchade jobb och tio frågor till Jobbcoachen ingår utan att betala.'
+      'Grundnivån i alla tester, tre CV-mallar, en CV-analys, ett personligt brev var sjunde dag, tre matchade jobb och tio meddelanden till Jobbcoachen ingår utan att betala.'
     )
     expect(GRATIS_TESTRAD_PROV).toBe('Fem frågor gratis här. Grundnivån i alla åtta testtyperna gratis med konto.')
     expect(GRATIS_FAQ).toBe(
-      'Gratisnivån kräver inget kort: grundnivån i alla åtta testtyperna och personlighetstestet, 3 CV-mallar och en nedladdning, en CV-analys med poängen och det tyngsta fyndet, ett personligt brev var sjunde dag, 3 matchade jobb och 10 frågor till Jobbcoachen.'
+      'Gratisnivån kräver inget kort: grundnivån i alla åtta testtyperna och personlighetstestet, 3 CV-mallar och en nedladdning, en CV-analys med poängen och det tyngsta fyndet, ett personligt brev var sjunde dag, 3 matchade jobb och 10 meddelanden till Jobbcoachen.'
     )
   })
 

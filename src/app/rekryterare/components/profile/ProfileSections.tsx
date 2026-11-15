@@ -390,9 +390,7 @@ function VerifiedResults({ candidate }: { candidate: CandidateDetail }) {
             <span className="text-[12.5px] font-bold text-orange-800 flex-shrink-0">
               {result.percentile !== null
                 ? `Topp ${Math.max(1, 100 - result.percentile)} % av ${result.sampleSize ?? '?'} testade`
-                : `${result.bestScore}% rätt${
-                    result.sampleSize ? ` · ${result.sampleSize} testade hittills` : ''
-                  }`}
+                : 'Placering visas vid 25 testade'}
             </span>
           </div>
         ))}

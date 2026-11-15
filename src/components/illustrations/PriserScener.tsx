@@ -518,7 +518,7 @@ export function IkonPrisLas(props: ScenProps) {
   )
 }
 
-/** Pekare: säg upp med ett klick. */
+/** Pekare: säg upp när du vill, under Profil och Prenumeration. */
 export function IkonPrisKlick(props: ScenProps) {
   return (
     <Ikon40 {...props}>

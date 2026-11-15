@@ -18,6 +18,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { requireSuperAdmin } from '@/lib/admin/requireSuperAdmin'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
+import { raderaKontotsFiler, rensaLosaRader } from '@/lib/konto/raderaKonto.server'
 import { grantPremiumDays } from '@/lib/stripe/grantPremiumDays'
 
 export const dynamic = 'force-dynamic'
@@ -72,6 +73,13 @@ export async function POST(request: NextRequest) {
       const failed: { id: string; error: string }[] = []
 
       for (const id of userIds) {
+        try {
+          await raderaKontotsFiler(adminClient, id)
+          await rensaLosaRader(adminClient, id)
+        } catch (e) {
+          failed.push({ id, error: e instanceof Error ? e.message : 'filer och rader' })
+          continue
+        }
         const { error } = await adminClient.auth.admin.deleteUser(id)
         if (error) {
           failed.push({ id, error: error.message })

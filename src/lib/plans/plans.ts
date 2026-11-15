@@ -25,6 +25,7 @@
  */
 
 import { TEMPLATE_COUNT, WORD_TEMPLATE_COUNT_ORD } from '@/lib/cv/template-antal'
+import { JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 
 export type PlanKey = 'cv_week' | 'test_week' | 'all_day' | 'all_week' | 'all_month' | 'all_quarter'
 
@@ -92,9 +93,9 @@ const PREMIUM_KORT = 'Premium'
 export const HELA_PAKETET_RADER = [
   'Åtta testtyper i tre nivåer, övningsprov mot klockan och det fördjupade personlighetstestet',
   'Alla CV-mallar, CV-analysen, personliga brev och LinkedIn',
-  'Jobbmatchning varje natt, alla träffar med skälen',
+  `Jobbmatchning, de ${JOB_MATCHES_PER_RUN} bästa träffarna med skälen`,
   'Jobbcoachen, fråga så mycket du vill',
-  'Bli upptäckt av rekryterare, anonymt',
+  'Intervjuprovet utan dagsgräns och hela din testhistorik',
 ] as const
 
 export const PLANS: readonly Plan[] = [

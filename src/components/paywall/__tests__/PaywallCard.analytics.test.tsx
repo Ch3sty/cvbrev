@@ -148,7 +148,7 @@ describe('PaywallCard, texten', () => {
   it('inga gamla paketord och inget Dagspass i någon variant', () => {
     const varianter = [
       'mall', 'testniva', 'analys', 'nedladdning', 'cv-export', 'jobbtraffar', 'chatt',
-      'historik', 'linkedin', 'bli-upptackt', 'test-tak', 'cv-antal', 'af-rapport', 'nedgraderad',
+      'historik', 'linkedin', 'test-tak', 'cv-antal', 'af-rapport', 'nedgraderad',
     ] as const
     for (const v of varianter) {
       const { container, unmount } = render(<PaywallCard variant={v} />)

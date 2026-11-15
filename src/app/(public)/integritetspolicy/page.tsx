@@ -59,7 +59,7 @@ const RUBRIKER = [
 ];
 
 export default function PrivacyPolicyPage() {
-  const lastUpdatedDate = "2026-10-11"; // *** UPPDATERA detta datum när policyn ändras ***
+  const lastUpdatedDate = "2026-11-15"; // *** UPPDATERA detta datum när policyn ändras ***
 
   return (
     <PubliktSida>
@@ -90,16 +90,16 @@ export default function PrivacyPolicyPage() {
               <strong>Betalningsrelaterad Information (för {PREMIUM}):</strong> Vi använder den externa och pålitliga betalningstjänsten Stripe.com för att hantera prenumerationer. Vi samlar <strong>inte</strong> in eller lagrar dina kortuppgifter. När en betalning är genomförd via Stripe sparar vi det kund-ID och den prenumerationsstatus (t.ex. aktiv period, om medlemskapet är avslutat) som Stripe tillhandahåller. Detta gör vi för att kunna hantera din tillgång till {PREMIUM}.
             </li>
             <li>
-              <strong>CV-filer och Innehåll:</strong> När du laddar upp ett CV sparas den oredigerade originalfilen samt en textversion (som du kan redigera i tjänsten) i vår säkra databas hos Supabase.
+              <strong>CV-filer och Innehåll:</strong> När du laddar upp ett CV sparas den oredigerade originalfilen i en privat lagringshink och en textversion (som du kan redigera i tjänsten) i vår databas hos Supabase. Både databasen och fillagringen ligger i USA, se avsnitt 4.
             </li>
              <li>
               <strong>Jobbannonser och Genererade Brev:</strong> Texten från jobbannonser du klistrar in samt de personliga brev som genereras och eventuellt sparas av dig via Tjänsten.
             </li>
              <li>
-              <strong>Viktigt om CV-innehåll och Personuppgifter:</strong> Vi har <strong>ingen avsikt</strong> att samla in eller behandla känsliga personuppgifter (såsom personnummer, fullständig adress, etc.) som finns i ditt CV. <strong>Innan du laddar upp ditt CV måste du intyga att du har tagit bort sådana personuppgifter.</strong> Även om du tekniskt kan redigera bort uppgifter i textversionen senare, uppmanar vi dig starkt att göra detta <em>innan</em> uppladdning. Se avsnitt 3 för mer information om varför detta är viktigt.
+              <strong>Viktigt om CV-innehåll och Personuppgifter:</strong> Vi har <strong>ingen avsikt</strong> att samla in eller behandla känsliga personuppgifter (såsom personnummer, fullständig adress, etc.) som finns i ditt CV. <strong>Innan du laddar upp ditt CV ber vi dig ta bort sådana personuppgifter.</strong> Vid uppladdningen godkänner du behandlingen med en kryssruta. Även om du tekniskt kan redigera bort uppgifter i textversionen senare, uppmanar vi dig starkt att göra detta <em>innan</em> uppladdning. Se avsnitt 3 för mer information om varför detta är viktigt.
             </li>
             <li>
-              <strong>Användningsdata (Exempel):</strong> Vi kan samla in information om hur du använder Tjänsten, t.ex. IP-adress, webbläsartyp, vilka sidor du besöker, för att förbättra tjänsten. Användningsstatistiken samlas in med PostHog (EU). Själva tjänsten drivs hos Vercel.
+              <strong>Användningsdata:</strong> Vi kan samla in information om hur du använder Tjänsten, t.ex. IP-adress, webbläsartyp, vilka sidor du besöker, för att förbättra tjänsten. Användningsstatistiken samlas in med PostHog, som lagrar i EU. Själva tjänsten drivs hos Vercel.
             </li>
             <li>
               <strong>Kommunikation:</strong> Om du kontaktar oss (t.ex. via e-post) kan vi spara korrespondensen för att kunna hjälpa dig.
@@ -124,13 +124,13 @@ export default function PrivacyPolicyPage() {
               <strong>För att tillhandahålla Tjänstens kärnfunktion:</strong> Lagra dina CV-filer (original och textversion) och sparade brev. Framför allt använder vi <strong>textinnehållet från ditt (redigerade) CV och texten från jobbannonsen för att skapa personliga brev, analysera CV:t och matcha jobb via Google (Gemini API).</strong>
             </li>
             <li>
-              <strong>Viktig information om AI och CV-innehåll:</strong> För att AI:n ska kunna skapa ett relevant och användbart personligt brev, skickas textinnehållet från ditt CV (den redigerbara textversionen) samt texten från jobbannonsen du angett till Google (Gemini API). För personliga brev och CV-analysen byter vi först ut namn, e-postadress, telefonnummer, personnummer, gatuadress och postnummer mot platshållare, så att de uppgifterna inte följer med. När du låter oss skriva om CV:t, matcha jobb, optimera LinkedIn-profilen eller bifogar CV:t till Jobbcoachen skickas texten utan den maskeringen, och en inskannad PDF utan textlager läses av med samma tjänst innan något kan maskas. Eftersom vi inte har för avsikt att behandla eller skicka vidare känsliga personuppgifter som du kan ha i ditt CV, är det <strong>avgörande att du följer vår uppmaning och intygar vid uppladdning att du har tagit bort sådana uppgifter.</strong> Vi ansvarar inte för personuppgifter som du själv väljer att lämna kvar i den text som skickas till Google (Gemini API) för generering.
+              <strong>Viktig information om AI och CV-innehåll:</strong> För att AI:n ska kunna skapa ett relevant och användbart personligt brev, skickas textinnehållet från ditt CV (den redigerbara textversionen) samt texten från jobbannonsen du angett till Google (Gemini API). För personliga brev och CV-analysen byter vi först ut namn, e-postadress, telefonnummer, personnummer, gatuadress och postnummer mot platshållare, så att de uppgifterna inte följer med. När du låter oss skriva om CV:t, matcha jobb, optimera LinkedIn-profilen eller bifogar CV:t till Jobbcoachen skickas texten utan den maskeringen, och en inskannad PDF utan textlager läses av med samma tjänst innan något kan maskas. Eftersom vi inte har för avsikt att behandla eller skicka vidare känsliga personuppgifter som du kan ha i ditt CV, är det <strong>avgörande att du följer vår uppmaning och tar bort sådana uppgifter innan du laddar upp.</strong> Vi ansvarar inte för personuppgifter som du själv väljer att lämna kvar i den text som skickas till Google (Gemini API) för generering.
             </li>
             <li>För att hantera ditt konto och din eventuella prenumeration (baserat på information från Stripe).</li>
             <li>För att förbättra och optimera Tjänsten (genom analys av t.ex. användningsdata).</li>
             <li>För att kommunicera med dig (t.ex. svara på supportärenden).</li>
             <li>För att uppfylla legala krav och förhindra missbruk av Tjänsten.</li>
-            {/* Ta bort punkt om träning av AI-modeller om ni inte gör det internt */}
+            <li>Vi tränar inga egna AI-modeller på ditt CV, dina brev eller dina svar.</li>
           </ul>
         </section>
 
@@ -145,7 +145,10 @@ export default function PrivacyPolicyPage() {
               <strong>Tjänsteleverantörer:</strong>
               <ul>
                   <li>
-                    <strong>Supabase:</strong> Används för säker hosting av vår databas där din kontoinformation, CV-filer (original och text), sparade brev och annan nödvändig data lagras.
+                    <strong>Supabase:</strong> Vår databas och fillagring, där din kontoinformation, CV-filer (original och text), sparade brev, testresultat och annan nödvändig data lagras. Servrarna ligger i USA (AWS, region us-east-2), så dina uppgifter behandlas där.
+                  </li>
+                  <li>
+                    <strong>Vercel:</strong> Driften av själva webbplatsen och webbappen.
                   </li>
                   <li>
                     <strong>Stripe.com:</strong> Vår betalningspartner som säkert hanterar alla betalningstransaktioner för {PREMIUM}. Vi delar endast information som är nödvändig för att identifiera och hantera din prenumeration (t.ex. kund-ID från Stripe).
@@ -153,8 +156,14 @@ export default function PrivacyPolicyPage() {
                   <li>
                     <strong>Google (Gemini API):</strong> Textinnehållet från ditt redigerade CV och jobbannonsen skickas till Googles Gemini API för att skapa personliga brev, CV-analysen och jobbmatchningen. Före personliga brev och CV-analysen byts namn, e-postadress, telefonnummer, personnummer, gatuadress och postnummer ut mot platshållare.
                   </li>
+                  <li>
+                    <strong>Resend:</strong> Skickar våra mejl, till exempel kvitton, påminnelser och svar från supporten. Resend får din e-postadress och mejlets innehåll.
+                  </li>
+                  <li>
+                    <strong>PostHog:</strong> Användningsstatistik, se avsnitt 5. Lagringen sker i EU.
+                  </li>
               </ul>
-               <p>Dessa tjänsteleverantörer har endast tillgång till den information som krävs för att utföra sina uppgifter åt oss och är kontraktsmässigt bundna att skydda din information och inte använda den för andra ändamål.</p>
+               <p>Dessa tjänsteleverantörer har endast tillgång till den information som krävs för att utföra sina uppgifter åt oss och är bundna av sina respektive dataskyddsvillkor att skydda din information och inte använda den för andra ändamål.</p>
             </li>
              <li>
               <strong>Legala krav:</strong> Om det krävs enligt lag eller som svar på giltiga förfrågningar från myndigheter.
@@ -195,8 +204,15 @@ export default function PrivacyPolicyPage() {
         <section>
           <h2 id="datasakerhet">6. Datasäkerhet</h2>
           <p>
-            Säkerheten för dina uppgifter är viktig för oss. Vi använder etablerade tjänsteleverantörer som Supabase och Stripe som vidtar omfattande säkerhetsåtgärder. Vi använder även tekniska åtgärder som [Exempel: SSL/TLS-kryptering, hashade lösenord].
+            Säkerheten för dina uppgifter är viktig för oss. Vi använder etablerade tjänsteleverantörer som Supabase och Stripe som vidtar omfattande säkerhetsåtgärder. Så här skyddar vi dina uppgifter i praktiken:
           </p>
+          <ul>
+            <li>All trafik mellan din webbläsare och Tjänsten går över HTTPS (TLS).</li>
+            <li>Lösenord hanteras av Supabase Auth och lagras hashade. Vi ser dem aldrig i klartext.</li>
+            <li>Åtkomsten till data styrs per användare med radnivåsäkerhet (Row Level Security) i databasen, så att du bara kommer åt dina egna uppgifter.</li>
+            <li>Dina uppladdade CV-filer ligger i en privat lagringshink som inte går att nå utan inloggning.</li>
+            <li>Betalningar hanteras av Stripe. Vi ser aldrig ditt kortnummer.</li>
+          </ul>
           <p>
             Dock är ingen metod för dataöverföring eller lagring 100% säker. Vi uppmanar dig också att skydda ditt konto med ett starkt lösenord och att följa vår rekommendation om att inte inkludera känsliga personuppgifter i dina uppladdade CV-filer.
           </p>
@@ -209,7 +225,10 @@ export default function PrivacyPolicyPage() {
              Vi lagrar din kontoinformation och prenumerationsstatus (via Stripe kund-ID) så länge ditt konto är aktivt hos oss, och en rimlig tid därefter för administrativa ändamål eller om det krävs enligt lag.
           </p>
           <p>
-            Dina uppladdade CV-filer (original och textversion) samt dina sparade personliga brev lagras i vår databas (Supabase) och är kopplade till ditt konto. Du kan när som helst radera dessa filer och brev via ditt konto. Om du raderar ditt konto kommer även denna data att raderas [Specificera eventuell fördröjning eller backup-policy om relevant].
+            Dina uppladdade CV-filer (original och textversion) samt dina sparade personliga brev lagras hos Supabase och är kopplade till ditt konto. Du kan när som helst radera enskilda filer och brev via ditt konto.
+          </p>
+          <p>
+            När du raderar ditt konto under Inställningar tar vi bort kontot och all data som hör till det: profilen, CV-texter, personliga brev, testresultat, samtal med Jobbcoachen, sparade intervju- och personlighetssvar och mejlloggen i databasen, samt uppladdade CV-filer, bilagor och profilfoto i vår lagring. Har du en pågående prenumeration avslutas den i samma stund. Två saker blir kvar. Kvitton och betalningsunderlag finns hos vår betalleverantör Stripe i sju år, eftersom bokföringslagen kräver det. Dessutom sparar vi tekniska säkerhetsloggar som inte går att koppla till dig: de innehåller varken e-postadress, namn eller IP-adress.
           </p>
           <p>
             Svar du skriver i intervjuprovet i våra artiklar sparas i sju dagar tillsammans med bedömningen, så att du kan hämta hela återkopplingen. Det gäller också när du skapat ett konto och svaret kopplats till det. Efter sju dagar raderas svaret automatiskt. Vi sparar inte din IP-adress, bara en envägskodad version som används för att begränsa antalet prov per dygn.

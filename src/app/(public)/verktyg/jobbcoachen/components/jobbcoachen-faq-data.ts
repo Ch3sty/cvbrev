@@ -22,7 +22,7 @@ export const JOBBCOACHEN_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Var hittar jag tillförlitlig löneinformation i Sverige?',
-    a: 'Jobbcoachen hämtar lönedata direkt från SCB:s officiella lönestrukturstatistik och från fackförbundens publicerade kollektivavtal. Det innebär att du får marknadslön per yrke, region och erfarenhetsnivå utan att behöva läsa rapporter på 80 sidor själv. Allt är källhänvisat så du vet exakt var siffrorna kommer ifrån.',
+    a: 'Jobbcoachen svarar utifrån en kunskapsbas om svensk arbetsmarknad där SCB:s lönestrukturstatistik och fackförbundens publicerade underlag ingår. Du får en bild av marknadslönen per yrke utan att behöva läsa rapporter på 80 sidor själv. Varje svar anger källa, så du vet var siffrorna kommer ifrån och kan kontrollera dem själv.',
   },
   {
     q: 'Kan jag få juridisk rådgivning här?',
@@ -34,11 +34,11 @@ export const JOBBCOACHEN_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Hur ofta uppdateras informationen?',
-    a: 'Vår kunskapsbas uppdateras löpande när källmaterialet ändras. När SCB släpper ny lönestatistik eller när Arbetsförmedlingen uppdaterar regler för till exempel etableringsstöd så reflekteras det i svaren inom kort. Du ser också svarsdatum för varje konversation så du vet hur färsk informationen är.',
+    a: 'Kunskapsbasen är ett femtiotal dokument om svensk arbetsmarknad från Arbetsförmedlingen, SCB, fackförbund och myndigheter. Den uppdateras när vi gör en ny genomgång, inte automatiskt när en källa ändras. Därför anger varje svar sin källa, så att du kan kontrollera att siffran eller regeln fortfarande gäller innan du lutar dig mot den.',
   },
   {
     q: 'Är det gratis att använda Jobbcoachen?',
-    a: `Ja. Du får tio meddelanden gratis på ditt konto, utan att lämna kortuppgifter. Vill du ställa fler frågor, spara dina samtal eller bifoga ditt CV ingår Jobbcoachen utan tak i ${PREMIUM_PRIS}.`,
+    a: `Ja. Du får tio meddelanden gratis på ditt konto, utan att lämna kortuppgifter, och de kommer inte tillbaka nästa dag. Vill du skriva fler än tio ingår Jobbcoachen utan tak i ${PREMIUM_PRIS}.`,
   },
   {
     q: 'Kan jag dela mitt CV med Jobbcoachen?',

@@ -97,7 +97,7 @@ export default function PersonligtBrevSida() {
     name: 'Jobbcoach.ai Personligt brev-verktyg',
     url: 'https://www.jobbcoach.ai/verktyg/personligt-brev',
     description:
-      'Skräddarsy personliga brev som matchar jobbannonsen. Sju mallar, sex tonaliteter, ATS-optimerat. Export som PDF eller Word.',
+      'Skräddarsy personliga brev som matchar jobbannonsen. Sju mallar, fem toner plus automatiskt tonval, ATS-optimerat. Export som PDF eller Word.',
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web browser',
     offers: {
@@ -107,7 +107,7 @@ export default function PersonligtBrevSida() {
       description: 'Första personliga brevet gratis, sedan ett var sjunde dag. Ingen kortuppgift',
     },
     featureList:
-      '7 brevmallar, 6 tonaliteter, ATS-optimerat, PDF- och Word-export, sparade brev, jobbannons-matchning, svensk- och engelskspråkigt',
+      '7 brevmallar, 5 toner plus automatiskt tonval, ATS-optimerat, PDF- och Word-export, sparade brev, jobbannons-matchning, svensk- och engelskspråkigt',
   }
 
   const howToSchema = {
@@ -142,7 +142,7 @@ export default function PersonligtBrevSida() {
         position: 3,
         name: 'Välj mall och ton',
         text:
-          'Sju mallar och sex tonlägen, från professionellt till entusiastiskt.',
+          'Sju mallar och fem toner, från professionellt till entusiastiskt. I Premium kan vi också välja tonen åt dig utifrån annonsen.',
       },
       {
         '@type': 'HowToStep',

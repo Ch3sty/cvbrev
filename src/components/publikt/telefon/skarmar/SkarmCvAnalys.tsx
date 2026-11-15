@@ -1,7 +1,9 @@
 /**
  * CV-analysens resultat: poängringen 74 (räknar upp i CSS, talet står i
- * HTML från start), poäng per område och det tyngsta fyndet. Områdena är
- * desamma som i analysens resultat.
+ * HTML från start), antal förslag per del och det tyngsta fyndet. Delarna
+ * är desamma som i analysens resultat: personbeskrivning, roller,
+ * kompetenser och automatiska förbättringar. Mätaren visar andelen av alla
+ * förslag som ligger i delen.
  */
 
 import type { CSSProperties } from 'react'
@@ -10,12 +12,13 @@ import { SkarmFot, SkarmGolv, SkarmMatare, SkarmVagg } from '../delar'
 
 const POANG = 74
 
-const OMRADEN = [
-  { namn: 'Tydlighet och struktur', poang: 8 },
-  { namn: 'Innehåll', poang: 7 },
-  { namn: 'Resultat', poang: 5 },
-  { namn: 'Nyckelord', poang: 9 },
+const DELAR = [
+  { namn: 'Personbeskrivning', antal: 1 },
+  { namn: 'Roller', antal: 3 },
+  { namn: 'Kompetenser', antal: 2 },
+  { namn: 'Automatiska förbättringar', antal: 4 },
 ]
+const ANTAL_FORSLAG = DELAR.reduce((summa, d) => summa + d.antal, 0)
 
 export default function SkarmCvAnalys({ glid, className }: { glid?: boolean; className?: string }) {
   const ringStil = { '--mal-p': POANG / 100, '--mal-n': POANG } as CSSProperties
@@ -37,15 +40,21 @@ export default function SkarmCvAnalys({ glid, className }: { glid?: boolean; cla
             <div className="s-rub" style={{ fontSize: 17 }}>
               Läsbart för systemen
             </div>
-            <div className="s-sub">Tre fynd drar ned poängen. Det tyngsta står först.</div>
+            <div className="s-sub">{ANTAL_FORSLAG} förslag, 86 med dem. Det tyngsta står först.</div>
           </div>
         </div>
       </SkarmVagg>
       <SkarmGolv>
         <div className="s-kort">
-          <div className="s-kick2">Poäng per område</div>
-          {OMRADEN.map((o, i) => (
-            <SkarmMatare key={o.namn} etikett={o.namn} varde={<b>{o.poang}</b>} andel={o.poang / 10} forsta={i === 0} />
+          <div className="s-kick2">Förslag per del</div>
+          {DELAR.map((d, i) => (
+            <SkarmMatare
+              key={d.namn}
+              etikett={d.namn}
+              varde={<b>{d.antal}</b>}
+              andel={d.antal / ANTAL_FORSLAG}
+              forsta={i === 0}
+            />
           ))}
         </div>
         <div className="s-kort">

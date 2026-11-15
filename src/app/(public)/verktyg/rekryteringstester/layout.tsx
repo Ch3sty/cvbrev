@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { GRUNDNIVAN_ALLA } from '@/lib/plans/gratis-copy'
 
 export const metadata: Metadata = {
   title:
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
     title:
       'Rekryteringstester gratis: matrislogik, verbalt och numeriskt resonemang',
     description:
-      'Träna på rekryteringstester i samma format som SHL och Cut-e. Tre tester gratis, rapport direkt efter varje pass.',
+      `Träna på rekryteringstester i samma format som SHL och Cut-e. Gratis: ${GRUNDNIVAN_ALLA}, rapport direkt efter varje pass.`,
     url: 'https://www.jobbcoach.ai/verktyg/rekryteringstester',
     siteName: 'Jobbcoach.ai',
     type: 'website',
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
     title:
       'Rekryteringstester gratis: matrislogik, verbalt och numeriskt resonemang',
     description:
-      'Träna på rekryteringstester i samma format som SHL och Cut-e. Tre tester gratis.',
+      `Träna på rekryteringstester i samma format som SHL och Cut-e. Gratis: ${GRUNDNIVAN_ALLA}.`,
   },
   robots: {
     index: true,

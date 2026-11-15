@@ -2,8 +2,8 @@
 
 /**
  * Logga ut och Radera kontot i appens konto (konceptets kontoVy och arket
- * radera). CV och brev först, som webbens Inställningar, sedan kontot via
- * /api/app/konto, som raderar med service role på servern.
+ * radera). Kontot raderas via /api/app/konto, som raderar allt med service
+ * role på servern, samma väg som webbens Inställningar.
  *
  * Webbens väg (useKontoHandlingar.ts) anropar auth.admin.deleteUser från
  * webbläsaren, vilket alltid nekas med användarens nyckel, och reserven
@@ -25,8 +25,9 @@ async function raderaKonto(userId: string, epost: string | null): Promise<void> 
     }).catch(() => {}),
     new Promise<void>((r) => setTimeout(r, 3000)),
   ]);
-  await fetch('/api/cv', { method: 'DELETE' }).catch(() => {});
-  await fetch('/api/letters', { method: 'DELETE' }).catch(() => {});
+  // Servern raderar allt (lib/konto/raderaKonto.server.ts). De tidigare
+  // anropen till /api/cv och /api/letters med DELETE är borta 2026-11-15:
+  // brevens rutt saknar DELETE, och CV:na försvann även om raderingen avbröts.
   const res = await fetch('/api/app/konto', { method: 'DELETE' });
   if (!res.ok) throw new Error(`radera ${res.status}`);
   // Sessionen pekar på ett konto som inte finns; rensa den lokalt.

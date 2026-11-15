@@ -195,11 +195,12 @@ describe('menyn', () => {
     const tester = { ...bas, scope: 'tester' as const, planKey: 'test_week' as const }
     expect(menyRad('mallar', tester).text).toBe('3 mallar, en nedladdning')
     expect(menyRad('brev', tester).text).toBe('Ett personligt brev i veckan att läsa')
-    expect(menyRad('matchning', tester).text).toBe('Tre träffar per natt')
+    expect(menyRad('matchning', tester).text).toBe('Tre träffar, med skälen')
     expect(menyRad('coach', tester).text).toBe('7 av 10 meddelanden kvar')
     // copy-premium avsnitt 3 och krock 2: LinkedIn-raden skriver fulla namnet.
     expect(menyRad('linkedin', tester)).toMatchObject({ ingar: false, text: 'LinkedIn-optimeringen ingår i Jobbcoach Premium' })
-    expect(menyRad('bli_upptackt', tester)).toMatchObject({ ingar: false, text: 'Ingår i Premium' })
+    // Bli upptäckt är gratis för alla sedan 2026-11-15 (saas-lead).
+    expect(menyRad('bli_upptackt', tester)).toMatchObject({ ingar: true })
     expect(menyRad('sokta', tester).text).toBe('Alltid gratis')
 
     const allt = { ...bas, scope: 'allt' as const, planKey: 'all_week' as const, chatLimit: null }

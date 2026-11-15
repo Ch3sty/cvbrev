@@ -30,7 +30,7 @@ const tonalityDescriptions: { [key: string]: { sv: string, en: string } } = {
   }
 };
 
-/** Tonerna brevet kan skrivas i, för sidornas text ("sex toner"). */
+/** Tonerna brevet kan skrivas i: fem valbara plus 'auto', det automatiska tonvalet i Premium. Sidornas text säger "fem toner". */
 export const BREV_TONER: readonly string[] = Object.keys(tonalityDescriptions);
 
 /** Antalet toner, räknat ur listan. */
