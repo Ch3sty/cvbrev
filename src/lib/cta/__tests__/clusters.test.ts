@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getCtaVariantForTags, normalizeTag } from '../clusters'
+import { arLonArtikel, getCtaVariantForTags, normalizeTag } from '../clusters'
 
 /**
  * Taggarna nedan är kopierade ur frontmatter i content/artiklar/<slug>.mdx.
@@ -132,5 +132,20 @@ describe('getCtaVariantForTags', () => {
   it('normaliserar bindestreck, versaler och extra mellanslag', () => {
     expect(normalizeTag('  STAR-Metoden  ')).toBe('star metoden')
     expect(getCtaVariantForTags(['STAR-Metoden'])).toBe('interview')
+  })
+})
+
+describe('arLonArtikel (artikelbildens Lön-mall)', () => {
+  it('matchar lönetaggar på ordgräns', () => {
+    expect(arLonArtikel(['löneförhandling'])).toBe(true)
+    expect(arLonArtikel(['lön efter skatt'])).toBe(true)
+    expect(arLonArtikel(['lönesamtal tips'])).toBe(true)
+    expect(arLonArtikel(['byta jobb lon'])).toBe(true)
+  })
+  it('träffar inte jobbyte, uppsägning eller ord som bara innehåller "lon"', () => {
+    expect(arLonArtikel(['byta jobb nervös'])).toBe(false)
+    expect(arLonArtikel(['uppsägning'])).toBe(false)
+    expect(arLonArtikel(['salong', 'kolon'])).toBe(false)
+    expect(arLonArtikel(undefined)).toBe(false)
   })
 })

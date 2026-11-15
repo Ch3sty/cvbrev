@@ -1,0 +1,212 @@
+[
+ {
+  "id": "bild-s-01",
+  "niva": "grund",
+  "family": "vridning",
+  "recept": "F1",
+  "variant": "sektor-steg",
+  "difficulty": 1,
+  "p_prior": 0.78,
+  "title": "Sektorhjulet, en regel",
+  "rule": "De svarta sektorerna vrids 135 grader moturs i varje steg. Antalet svarta sektorer är tre i hela raden.",
+  "rad": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     3,
+     4
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     4,
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     1,
+     2,
+     3
+    ]
+   }
+  ],
+  "options": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     3,
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     2
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     3
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     1,
+     2
+    ]
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "De svarta sektorerna har vridits ett steg för långt.",
+   "De svarta sektorerna är vridna till fel läge.",
+   "",
+   "De svarta sektorerna är vridna till fel läge. Antalet svarta sektorer ska vara tre, som i hela raden.",
+   "De svarta sektorerna är vridna till fel läge. Antalet svarta sektorer ska vara tre, som i hela raden.",
+   "De svarta sektorerna står kvar som i den femte figuren. Antalet svarta sektorer ska vara tre, som i hela raden."
+  ],
+  "regler": {
+   "prim": "sektor",
+   "dims": {
+    "start": {
+     "regel": "steg",
+     "s0": 5,
+     "k": 5
+    },
+    "antal": {
+     "regel": "konstant",
+     "v": 3
+    }
+   }
+  },
+  "fran_version": 1
+ },
+ {
+  "id": "bild-s-02",
+  "niva": "grund",
+  "family": "antal",
+  "recept": "F2",
+  "variant": "block-antal",
+  "difficulty": 1,
+  "p_prior": 0.72,
+  "title": "Rutorna längs kanten, en regel",
+  "rule": "Den sista svarta rutan medurs blir vit i varje steg.",
+  "rad": [
+   {
+    "kind": "tile",
+    "pattern": 494
+   },
+   {
+    "kind": "tile",
+    "pattern": 486
+   },
+   {
+    "kind": "tile",
+    "pattern": 422
+   },
+   {
+    "kind": "tile",
+    "pattern": 294
+   },
+   {
+    "kind": "tile",
+    "pattern": 38
+   }
+  ],
+  "options": [
+   {
+    "kind": "tile",
+    "pattern": 2
+   },
+   {
+    "kind": "tile",
+    "pattern": 456
+   },
+   {
+    "kind": "tile",
+    "pattern": 6
+   },
+   {
+    "kind": "tile",
+    "pattern": 200
+   },
+   {
+    "kind": "tile",
+    "pattern": 463
+   },
+   {
+    "kind": "tile",
+    "pattern": 207
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "En svart ruta för få.",
+   "De svarta rutorna har flyttat sig, men i raden står de still. Antalet ska vara två, inte fyra.",
+   "",
+   "De svarta rutorna har flyttat sig, men i raden står de still. Antalet svarta rutor har inte minskat. Luckan ska ha en färre än den femte figuren.",
+   "De svarta rutorna har flyttat sig, men i raden står de still. Antalet ska vara två, inte sju.",
+   "De svarta rutorna har flyttat sig, men i raden står de still. Antalet ska vara två, inte sex."
+  ],
+  "regler": {
+   "prim": "block",
+   "dims": {
+    "start": {
+     "regel": "konstant",
+     "v": 1
+    },
+    "antal": {
+     "regel": "steg",
+     "s0": 7,
+     "k": -1
+    }
+   }
+  },
+  "fran_version": 1
+ }
+]

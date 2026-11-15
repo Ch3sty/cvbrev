@@ -5,7 +5,7 @@
  *
  * Knappen läser inline-kortets mål ur reklam-copy.ts, så att hjälten och
  * provkortet pekar på samma verktyg. Testklustret går direkt till provet
- * utan konto. Karriär utan produkt får ingen knapp, bara "Läs guiden".
+ * utan konto. Karriär (räknare eller länkrad) får "Fråga Jobbcoachen" (2026-11-15).
  */
 
 import type { CtaCluster, InlineVerktyg } from '@/lib/cta/clusters'
@@ -32,9 +32,17 @@ export const KLUSTER_ETIKETT: Record<CtaCluster, string> = {
   generic: 'Jobbsökning',
 }
 
+/**
+ * Karriärartiklarna har inget eget verktyg i hjälten, men artikelbilden visar
+ * Jobbcoachen ("På bordet", docs/design/koncept-artikelbilder-2026-11-14.md,
+ * avsnitt 8 punkt 1; saas-leads förslag). Knappen gör att bilden och sidan
+ * säger samma sak. Räknarna står kvar i inline-kortet.
+ */
+export const FRAGA_COACHEN = { text: 'Fråga Jobbcoachen', href: '/verktyg/jobbcoachen' } as const
+
 export function hjalteKnapp(cluster: CtaCluster, verktyg: InlineVerktyg): { text: string; href: string } | null {
   if (cluster === 'test') return { text: 'Prova fem frågor gratis', href: PROVA_HREF }
-  if (verktyg === 'raknare' || verktyg === 'lankrad') return null
+  if (verktyg === 'raknare' || verktyg === 'lankrad') return { ...FRAGA_COACHEN }
   const c = INLINE[verktyg]
   return { text: c.knapp, href: c.href }
 }

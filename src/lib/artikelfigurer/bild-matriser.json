@@ -1,0 +1,1270 @@
+[
+ {
+  "id": "bild-m-01",
+  "title": "Antal hörn i rader och kolumner",
+  "rule": "Alla figurer är svarta. Varje rad och varje kolumn har exakt en femhörning, en sexhörning och en åttahörning.",
+  "difficulty": 1,
+  "family": "latin-form",
+  "grid": [
+   [
+    {
+     "kind": "poly",
+     "sides": 6,
+     "rotation": 0,
+     "fill": "black"
+    },
+    {
+     "kind": "poly",
+     "sides": 8,
+     "rotation": 0,
+     "fill": "black"
+    },
+    {
+     "kind": "poly",
+     "sides": 5,
+     "rotation": 0,
+     "fill": "black"
+    }
+   ],
+   [
+    {
+     "kind": "poly",
+     "sides": 8,
+     "rotation": 0,
+     "fill": "black"
+    },
+    {
+     "kind": "poly",
+     "sides": 5,
+     "rotation": 0,
+     "fill": "black"
+    },
+    {
+     "kind": "poly",
+     "sides": 6,
+     "rotation": 0,
+     "fill": "black"
+    }
+   ],
+   [
+    {
+     "kind": "poly",
+     "sides": 5,
+     "rotation": 0,
+     "fill": "black"
+    },
+    {
+     "kind": "poly",
+     "sides": 6,
+     "rotation": 0,
+     "fill": "black"
+    },
+    null
+   ]
+  ],
+  "options": [
+   {
+    "kind": "poly",
+    "sides": 8,
+    "rotation": 0,
+    "fill": "black"
+   },
+   {
+    "kind": "poly",
+    "sides": 5,
+    "rotation": 0,
+    "fill": "black"
+   },
+   {
+    "kind": "poly",
+    "sides": 6,
+    "rotation": 0,
+    "fill": "black"
+   },
+   {
+    "kind": "poly",
+    "sides": 8,
+    "rotation": 0,
+    "fill": "gray"
+   },
+   {
+    "kind": "poly",
+    "sides": 5,
+    "rotation": 0,
+    "fill": "gray"
+   },
+   {
+    "kind": "poly",
+    "sides": 6,
+    "rotation": 0,
+    "fill": "gray"
+   }
+  ],
+  "correctAnswer": 0,
+  "misstag": [
+   "",
+   "Tredje raden och tredje kolumnen har redan en femhörning.",
+   "Tredje raden och tredje kolumnen har redan en sexhörning.",
+   "Formen stämmer, men alla figurer är svarta.",
+   "Tredje raden och tredje kolumnen har redan en femhörning. Alla figurer är svarta.",
+   "Tredje raden och tredje kolumnen har redan en sexhörning. Alla figurer är svarta."
+  ],
+  "recept": "v7g-3c-lform-01"
+ },
+ {
+  "id": "bild-m-02",
+  "title": "Bara det som skiljer",
+  "rule": "Den tredje rutan i varje rad visar det som finns i bara en av den första och den andra. Det som finns i båda försvinner.",
+  "difficulty": 3,
+  "family": "overlagring",
+  "grid": [
+   [
+    {
+     "kind": "tile",
+     "pattern": 6
+    },
+    {
+     "kind": "tile",
+     "pattern": 293
+    },
+    {
+     "kind": "tile",
+     "pattern": 291
+    }
+   ],
+   [
+    {
+     "kind": "tile",
+     "pattern": 416
+    },
+    {
+     "kind": "tile",
+     "pattern": 328
+    },
+    {
+     "kind": "tile",
+     "pattern": 232
+    }
+   ],
+   [
+    {
+     "kind": "tile",
+     "pattern": 278
+    },
+    {
+     "kind": "tile",
+     "pattern": 298
+    },
+    null
+   ]
+  ],
+  "options": [
+   {
+    "kind": "tile",
+    "pattern": 318
+   },
+   {
+    "kind": "tile",
+    "pattern": 258
+   },
+   {
+    "kind": "tile",
+    "pattern": 278
+   },
+   {
+    "kind": "tile",
+    "pattern": 298
+   },
+   {
+    "kind": "tile",
+    "pattern": 60
+   },
+   {
+    "kind": "tile",
+    "pattern": 61
+   }
+  ],
+  "correctAnswer": 4,
+  "misstag": [
+   "Tar med det som finns i båda. Det gemensamma ska bort.",
+   "Visar bara det gemensamma. Det ska bort, resten ska med.",
+   "Kopierar den första rutan i raden.",
+   "Kopierar den andra rutan i raden.",
+   "",
+   "Rutan uppe till vänster är fylld fast den inte ska vara det."
+  ],
+  "recept": "v7a-3c-over-01"
+ },
+ {
+  "id": "bild-m-03",
+  "title": "Antal streck i rader och kolumner",
+  "rule": "Strecken står alltid upprätt. Varje rad och varje kolumn har exakt en figur med ett, en med två och en med tre streck.",
+  "difficulty": 1,
+  "family": "latin-antal",
+  "grid": [
+   [
+    {
+     "kind": "tally",
+     "count": 2,
+     "orientation": "vertical"
+    },
+    {
+     "kind": "tally",
+     "count": 1,
+     "orientation": "vertical"
+    },
+    {
+     "kind": "tally",
+     "count": 3,
+     "orientation": "vertical"
+    }
+   ],
+   [
+    {
+     "kind": "tally",
+     "count": 3,
+     "orientation": "vertical"
+    },
+    {
+     "kind": "tally",
+     "count": 2,
+     "orientation": "vertical"
+    },
+    {
+     "kind": "tally",
+     "count": 1,
+     "orientation": "vertical"
+    }
+   ],
+   [
+    {
+     "kind": "tally",
+     "count": 1,
+     "orientation": "vertical"
+    },
+    {
+     "kind": "tally",
+     "count": 3,
+     "orientation": "vertical"
+    },
+    null
+   ]
+  ],
+  "options": [
+   {
+    "kind": "tally",
+    "count": 1,
+    "orientation": "vertical"
+   },
+   {
+    "kind": "tally",
+    "count": 3,
+    "orientation": "vertical"
+   },
+   {
+    "kind": "tally",
+    "count": 4,
+    "orientation": "vertical"
+   },
+   {
+    "kind": "tally",
+    "count": 2,
+    "orientation": "vertical"
+   },
+   {
+    "kind": "tally",
+    "count": 2,
+    "orientation": "horizontal"
+   },
+   {
+    "kind": "tally",
+    "count": 1,
+    "orientation": "horizontal"
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Tredje raden och tredje kolumnen har redan en med ett streck.",
+   "Tredje raden och tredje kolumnen har redan en med tre streck.",
+   "Matrisen har ingen med fyra streck.",
+   "",
+   "Antalet streck stämmer, men strecken står alltid upprätt.",
+   "Tredje raden och tredje kolumnen har redan en med ett streck. Strecken står alltid upprätt."
+  ],
+  "recept": "v7g-3c-lant-01"
+ },
+ {
+  "id": "bild-m-04",
+  "title": "Två speglingar i rad",
+  "rule": "Den andra rutan i varje rad är den första speglad i en lodrät linje (vänster och höger byter plats). Den tredje är den andra speglad i en vågrät linje (upp och ner byter plats).",
+  "difficulty": 3,
+  "family": "spegling",
+  "grid": [
+   [
+    {
+     "kind": "tile",
+     "pattern": 242
+    },
+    {
+     "kind": "tile",
+     "pattern": 410
+    },
+    {
+     "kind": "tile",
+     "pattern": 158
+    }
+   ],
+   [
+    {
+     "kind": "tile",
+     "pattern": 480
+    },
+    {
+     "kind": "tile",
+     "pattern": 456
+    },
+    {
+     "kind": "tile",
+     "pattern": 15
+    }
+   ],
+   [
+    {
+     "kind": "tile",
+     "pattern": 275
+    },
+    {
+     "kind": "tile",
+     "pattern": 86
+    },
+    null
+   ]
+  ],
+  "options": [
+   {
+    "kind": "tile",
+    "pattern": 86
+   },
+   {
+    "kind": "tile",
+    "pattern": 275
+   },
+   {
+    "kind": "tile",
+    "pattern": 401
+   },
+   {
+    "kind": "tile",
+    "pattern": 92
+   },
+   {
+    "kind": "tile",
+    "pattern": 305
+   },
+   {
+    "kind": "tile",
+    "pattern": 400
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Samma som rutan till vänster. Den andra speglingen saknas.",
+   "Kopierar den första rutan i raden.",
+   "",
+   "Speglar i fel linje.",
+   "Vrider i stället för att spegla.",
+   "Rutan uppe till vänster saknas."
+  ],
+  "recept": "v7a-3c-speg-01"
+ },
+ {
+  "id": "bild-m-05",
+  "title": "Form och fyllning i rader och kolumner",
+  "rule": "Varje rad och varje kolumn har exakt en femhörning, en sexhörning och en åttahörning. Varje rad och varje kolumn har också exakt en ofylld, en grå och en svart figur. Formen och fyllningen följer var sin ordning.",
+  "difficulty": 3,
+  "family": "latin-flera",
+  "grid": [
+   [
+    {
+     "kind": "poly",
+     "sides": 8,
+     "rotation": 0,
+     "fill": "gray"
+    },
+    {
+     "kind": "poly",
+     "sides": 6,
+     "rotation": 0,
+     "fill": "black"
+    },
+    {
+     "kind": "poly",
+     "sides": 5,
+     "rotation": 0,
+     "fill": "none"
+    }
+   ],
+   [
+    {
+     "kind": "poly",
+     "sides": 5,
+     "rotation": 0,
+     "fill": "black"
+    },
+    {
+     "kind": "poly",
+     "sides": 8,
+     "rotation": 0,
+     "fill": "none"
+    },
+    {
+     "kind": "poly",
+     "sides": 6,
+     "rotation": 0,
+     "fill": "gray"
+    }
+   ],
+   [
+    {
+     "kind": "poly",
+     "sides": 6,
+     "rotation": 0,
+     "fill": "none"
+    },
+    {
+     "kind": "poly",
+     "sides": 5,
+     "rotation": 0,
+     "fill": "gray"
+    },
+    null
+   ]
+  ],
+  "options": [
+   {
+    "kind": "poly",
+    "sides": 5,
+    "rotation": 0,
+    "fill": "black"
+   },
+   {
+    "kind": "poly",
+    "sides": 6,
+    "rotation": 0,
+    "fill": "black"
+   },
+   {
+    "kind": "poly",
+    "sides": 8,
+    "rotation": 0,
+    "fill": "none"
+   },
+   {
+    "kind": "poly",
+    "sides": 8,
+    "rotation": 0,
+    "fill": "black"
+   },
+   {
+    "kind": "poly",
+    "sides": 8,
+    "rotation": 0,
+    "fill": "gray"
+   },
+   {
+    "kind": "poly",
+    "sides": 5,
+    "rotation": 0,
+    "fill": "none"
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Fyllningen stämmer, men tredje raden och tredje kolumnen har redan en femhörning.",
+   "Fyllningen stämmer, men tredje raden och tredje kolumnen har redan en sexhörning.",
+   "Formen stämmer, men tredje raden och tredje kolumnen har redan en ofylld.",
+   "",
+   "Formen stämmer, men tredje raden och tredje kolumnen har redan en grå.",
+   "Tredje raden och tredje kolumnen har redan en femhörning och en ofylld."
+  ],
+  "recept": "v7a-3c-lfler-01"
+ },
+ {
+  "id": "bild-m-06",
+  "title": "Symbolen i rader och kolumner",
+  "rule": "Alla figurer har en cirkel som grundform. Varje rad och varje kolumn har exakt en med plus, en med minus och en med prick.",
+  "difficulty": 1,
+  "family": "latin-form",
+  "grid": [
+   [
+    {
+     "kind": "stack",
+     "base": "circle",
+     "symbol": "minus",
+     "baseFill": "none"
+    },
+    {
+     "kind": "stack",
+     "base": "circle",
+     "symbol": "dot",
+     "baseFill": "none"
+    },
+    {
+     "kind": "stack",
+     "base": "circle",
+     "symbol": "plus",
+     "baseFill": "none"
+    }
+   ],
+   [
+    {
+     "kind": "stack",
+     "base": "circle",
+     "symbol": "plus",
+     "baseFill": "none"
+    },
+    {
+     "kind": "stack",
+     "base": "circle",
+     "symbol": "minus",
+     "baseFill": "none"
+    },
+    {
+     "kind": "stack",
+     "base": "circle",
+     "symbol": "dot",
+     "baseFill": "none"
+    }
+   ],
+   [
+    {
+     "kind": "stack",
+     "base": "circle",
+     "symbol": "dot",
+     "baseFill": "none"
+    },
+    {
+     "kind": "stack",
+     "base": "circle",
+     "symbol": "plus",
+     "baseFill": "none"
+    },
+    null
+   ]
+  ],
+  "options": [
+   {
+    "kind": "stack",
+    "base": "circle",
+    "symbol": "plus",
+    "baseFill": "none"
+   },
+   {
+    "kind": "stack",
+    "base": "circle",
+    "symbol": "dot",
+    "baseFill": "none"
+   },
+   {
+    "kind": "stack",
+    "base": "circle",
+    "symbol": "cross",
+    "baseFill": "none"
+   },
+   {
+    "kind": "stack",
+    "base": "square",
+    "symbol": "minus",
+    "baseFill": "none"
+   },
+   {
+    "kind": "stack",
+    "base": "circle",
+    "symbol": "minus",
+    "baseFill": "black"
+   },
+   {
+    "kind": "stack",
+    "base": "circle",
+    "symbol": "minus",
+    "baseFill": "none"
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Tredje raden och tredje kolumnen har redan ett plus.",
+   "Tredje raden och tredje kolumnen har redan en prick.",
+   "Matrisen har inget kryss.",
+   "Symbolen stämmer, men grundformen är alltid en cirkel.",
+   "Symbolen stämmer, men alla figurer är ofyllda.",
+   ""
+  ],
+  "recept": "v7g-3c-lform-05"
+ },
+ {
+  "id": "bild-m-07",
+  "title": "Former kring linjen",
+  "rule": "Kvadraten flyttar ett steg åt höger och byter sida om linjen för varje ruta. Cirkeln flyttar ett steg åt vänster och stannar på samma sida om linjen. Kommer en form till kanten fortsätter den från andra sidan. Varje rad börjar förskjuten mot raden ovanför. Sidbytet följer läsordningen, uppifrån och ner.",
+  "difficulty": 3,
+  "family": "tva-rorelser",
+  "grid": [
+   [
+    {
+     "kind": "balanceline",
+     "items": [
+      {
+       "posX": 1,
+       "side": "above",
+       "shape": "square"
+      },
+      {
+       "posX": 2,
+       "side": "below",
+       "shape": "circle",
+       "fill": "gray"
+      }
+     ]
+    },
+    {
+     "kind": "balanceline",
+     "items": [
+      {
+       "posX": 2,
+       "side": "below",
+       "shape": "square"
+      },
+      {
+       "posX": 1,
+       "side": "below",
+       "shape": "circle",
+       "fill": "gray"
+      }
+     ]
+    },
+    {
+     "kind": "balanceline",
+     "items": [
+      {
+       "posX": 0,
+       "side": "above",
+       "shape": "square"
+      },
+      {
+       "posX": 0,
+       "side": "below",
+       "shape": "circle",
+       "fill": "gray"
+      }
+     ]
+    }
+   ],
+   [
+    {
+     "kind": "balanceline",
+     "items": [
+      {
+       "posX": 2,
+       "side": "below",
+       "shape": "square"
+      },
+      {
+       "posX": 1,
+       "side": "below",
+       "shape": "circle",
+       "fill": "gray"
+      }
+     ]
+    },
+    {
+     "kind": "balanceline",
+     "items": [
+      {
+       "posX": 0,
+       "side": "above",
+       "shape": "square"
+      },
+      {
+       "posX": 0,
+       "side": "below",
+       "shape": "circle",
+       "fill": "gray"
+      }
+     ]
+    },
+    {
+     "kind": "balanceline",
+     "items": [
+      {
+       "posX": 1,
+       "side": "below",
+       "shape": "square"
+      },
+      {
+       "posX": 2,
+       "side": "below",
+       "shape": "circle",
+       "fill": "gray"
+      }
+     ]
+    }
+   ],
+   [
+    {
+     "kind": "balanceline",
+     "items": [
+      {
+       "posX": 0,
+       "side": "above",
+       "shape": "square"
+      },
+      {
+       "posX": 0,
+       "side": "below",
+       "shape": "circle",
+       "fill": "gray"
+      }
+     ]
+    },
+    {
+     "kind": "balanceline",
+     "items": [
+      {
+       "posX": 1,
+       "side": "below",
+       "shape": "square"
+      },
+      {
+       "posX": 2,
+       "side": "below",
+       "shape": "circle",
+       "fill": "gray"
+      }
+     ]
+    },
+    null
+   ]
+  ],
+  "options": [
+   {
+    "kind": "balanceline",
+    "items": [
+     {
+      "posX": 1,
+      "side": "above",
+      "shape": "square"
+     },
+     {
+      "posX": 1,
+      "side": "below",
+      "shape": "circle",
+      "fill": "gray"
+     }
+    ]
+   },
+   {
+    "kind": "balanceline",
+    "items": [
+     {
+      "posX": 0,
+      "side": "above",
+      "shape": "square"
+     },
+     {
+      "posX": 1,
+      "side": "below",
+      "shape": "circle",
+      "fill": "gray"
+     }
+    ]
+   },
+   {
+    "kind": "balanceline",
+    "items": [
+     {
+      "posX": 2,
+      "side": "above",
+      "shape": "square"
+     },
+     {
+      "posX": 1,
+      "side": "below",
+      "shape": "circle",
+      "fill": "gray"
+     }
+    ]
+   },
+   {
+    "kind": "balanceline",
+    "items": [
+     {
+      "posX": 2,
+      "side": "below",
+      "shape": "square"
+     },
+     {
+      "posX": 1,
+      "side": "below",
+      "shape": "circle",
+      "fill": "gray"
+     }
+    ]
+   },
+   {
+    "kind": "balanceline",
+    "items": [
+     {
+      "posX": 2,
+      "side": "above",
+      "shape": "square"
+     },
+     {
+      "posX": 2,
+      "side": "below",
+      "shape": "circle",
+      "fill": "gray"
+     }
+    ]
+   },
+   {
+    "kind": "balanceline",
+    "items": [
+     {
+      "posX": 2,
+      "side": "above",
+      "shape": "square"
+     },
+     {
+      "posX": 0,
+      "side": "below",
+      "shape": "circle",
+      "fill": "gray"
+     }
+    ]
+   }
+  ],
+  "correctAnswer": 2,
+  "misstag": [
+   "Cirkeln står rätt, men kvadraten har inte flyttat.",
+   "Cirkeln står rätt, men kvadraten har flyttat åt fel håll.",
+   "",
+   "Cirkeln står rätt, men kvadraten har inte bytt sida om linjen.",
+   "Kvadraten står rätt, men cirkeln har inte flyttat.",
+   "Kvadraten står rätt, men cirkeln har flyttat åt fel håll."
+  ],
+  "recept": "v7a-3c-tva-03"
+ },
+ {
+  "id": "bild-m-08",
+  "title": "Allt tillsammans",
+  "rule": "Den nedersta rutan i varje kolumn visar allt som finns i den översta och den mittersta tillsammans.",
+  "difficulty": 2,
+  "family": "overlagring",
+  "grid": [
+   [
+    {
+     "kind": "sectorwheel",
+     "filled": [
+      2,
+      5,
+      7
+     ]
+    },
+    {
+     "kind": "sectorwheel",
+     "filled": [
+      2,
+      5,
+      6
+     ]
+    },
+    {
+     "kind": "sectorwheel",
+     "filled": [
+      6,
+      7
+     ]
+    }
+   ],
+   [
+    {
+     "kind": "sectorwheel",
+     "filled": [
+      3,
+      5,
+      6
+     ]
+    },
+    {
+     "kind": "sectorwheel",
+     "filled": [
+      1,
+      3,
+      4
+     ]
+    },
+    {
+     "kind": "sectorwheel",
+     "filled": [
+      2,
+      4,
+      6
+     ]
+    }
+   ],
+   [
+    {
+     "kind": "sectorwheel",
+     "filled": [
+      2,
+      3,
+      5,
+      6,
+      7
+     ]
+    },
+    {
+     "kind": "sectorwheel",
+     "filled": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ]
+    },
+    null
+   ]
+  ],
+  "options": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     4,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     4,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     6
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     4,
+     6
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     2,
+     4,
+     6,
+     7
+    ]
+   }
+  ],
+  "correctAnswer": 1,
+  "misstag": [
+   "Tar bort det som finns i båda. Allt ska med.",
+   "",
+   "Visar bara det gemensamma. Allt ska med.",
+   "Kopierar den översta rutan i kolumnen.",
+   "Kopierar den mittersta rutan i kolumnen.",
+   "En svart sektor för mycket."
+  ],
+  "recept": "v7g-3c-over-03"
+ },
+ {
+  "id": "bild-m-09",
+  "title": "Två speglingar i rad",
+  "rule": "Den andra rutan i varje rad är den första speglad i en lodrät linje (vänster och höger byter plats). Den tredje är den andra speglad i en vågrät linje (upp och ner byter plats).",
+  "difficulty": 2,
+  "family": "spegling",
+  "grid": [
+   [
+    {
+     "kind": "sectorwheel",
+     "filled": [
+      0,
+      1,
+      3
+     ]
+    },
+    {
+     "kind": "sectorwheel",
+     "filled": [
+      4,
+      6,
+      7
+     ]
+    },
+    {
+     "kind": "sectorwheel",
+     "filled": [
+      4,
+      5,
+      7
+     ]
+    }
+   ],
+   [
+    {
+     "kind": "sectorwheel",
+     "filled": [
+      0,
+      2,
+      3
+     ]
+    },
+    {
+     "kind": "sectorwheel",
+     "filled": [
+      4,
+      5,
+      7
+     ]
+    },
+    {
+     "kind": "sectorwheel",
+     "filled": [
+      4,
+      6,
+      7
+     ]
+    }
+   ],
+   [
+    {
+     "kind": "sectorwheel",
+     "filled": [
+      0,
+      1,
+      5
+     ]
+    },
+    {
+     "kind": "sectorwheel",
+     "filled": [
+      2,
+      6,
+      7
+     ]
+    },
+    null
+   ]
+  ],
+  "options": [
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     0,
+     1,
+     5
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     2,
+     5,
+     6
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     4,
+     5
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     3,
+     6,
+     7
+    ]
+   },
+   {
+    "kind": "sectorwheel",
+    "filled": [
+     1,
+     4,
+     5
+    ]
+   }
+  ],
+  "correctAnswer": 5,
+  "misstag": [
+   "Samma som rutan till vänster. Den andra speglingen saknas.",
+   "Kopierar den första rutan i raden.",
+   "Vrider i stället för att spegla.",
+   "En svart sektor saknas.",
+   "Vrider i stället för att spegla.",
+   ""
+  ],
+  "recept": "v7g-3c-speg-02"
+ },
+ {
+  "id": "bild-m-10",
+  "title": "Antal streck från mitten",
+  "rule": "Strecken går ut från mitten och sitter alltid på samma platser. Varje rad och varje kolumn har exakt en figur med ett, en med två och en med tre streck.",
+  "difficulty": 2,
+  "family": "latin-antal",
+  "grid": [
+   [
+    {
+     "kind": "ray",
+     "rays": [
+      0
+     ]
+    },
+    {
+     "kind": "ray",
+     "rays": [
+      0,
+      4
+     ]
+    },
+    {
+     "kind": "ray",
+     "rays": [
+      0,
+      2,
+      4
+     ]
+    }
+   ],
+   [
+    {
+     "kind": "ray",
+     "rays": [
+      0,
+      4
+     ]
+    },
+    {
+     "kind": "ray",
+     "rays": [
+      0,
+      2,
+      4
+     ]
+    },
+    {
+     "kind": "ray",
+     "rays": [
+      0
+     ]
+    }
+   ],
+   [
+    {
+     "kind": "ray",
+     "rays": [
+      0,
+      2,
+      4
+     ]
+    },
+    {
+     "kind": "ray",
+     "rays": [
+      0
+     ]
+    },
+    null
+   ]
+  ],
+  "options": [
+   {
+    "kind": "ray",
+    "rays": [
+     0
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     2,
+     4
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     2,
+     4,
+     6
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     4
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     0,
+     1,
+     2,
+     4,
+     6
+    ]
+   },
+   {
+    "kind": "ray",
+    "rays": [
+     1,
+     5
+    ]
+   }
+  ],
+  "correctAnswer": 3,
+  "misstag": [
+   "Tredje raden och tredje kolumnen har redan en med ett streck.",
+   "Tredje raden och tredje kolumnen har redan en med tre streck.",
+   "Matrisen har ingen med fyra streck.",
+   "",
+   "Matrisen har ingen med fem streck.",
+   "Strecken sitter på andra platser än i matrisen."
+  ],
+  "recept": "v7a-3c-lant-02"
+ }
+]

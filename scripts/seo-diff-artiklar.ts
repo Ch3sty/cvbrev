@@ -50,6 +50,8 @@ interface Avtryck {
   ramLankar: string[];
   jsonLd: string[];
   forstaBild: { src: string; alt: string } | null;
+  /** Alla bilder i innehållet utom ramen (src och alt), för BILD_BYTT. Saknas i äldre avtryck. */
+  bilder?: Array<{ src: string; alt: string }>;
   /** FAQ-frågorna: summary-texterna i innehållet och FAQPage.mainEntity[].name (publikt v2, del A 8.2). */
   faq?: string[];
   /** Antal ord i main utom ramen, efter att skript, stil och aria-hidden tagits bort (del B 4.2). */
@@ -298,6 +300,24 @@ const META_TILLAGD: Array<{ path: string; falt: 'canonical'; datum: string; skal
 ];
 
 /**
+ * Artikelbilden bytt till en ny fil (docs/design/koncept-artikelbilder-2026-11-14.md,
+ * avsnitt 6): bara og:image från gammal till ny src, samma byte inne i JSON-LD,
+ * och första bildens src och alt får ändras. robots får få max-image-preview:large
+ * (samma omgång). Allt annat jämförs som vanligt. Laddas ur
+ * scripts/seo-baslinje/artikelbilder-v2-<datum>-undantag.json, nyckeln BILD_BYTT.
+ */
+const BILD_BYTT: Array<{ path: string; gammal: string; ny: string; datum: string; skal: string }> = [];
+
+/** robots som bara fått max-image-preview:large (och index, follow) är samma sida för sök. */
+function robotsBaraBildstorlek(fore: string, efter: string): boolean {
+  const delar = (v: string) => new Set(v.split(',').map((x) => x.trim()).filter(Boolean));
+  const f = delar(fore);
+  const e = delar(efter);
+  if (![...f].every((x) => e.has(x))) return false;
+  return [...e].filter((x) => !f.has(x)).every((x) => ['index', 'follow', 'max-image-preview:large'].includes(x));
+}
+
+/**
  * Sidor vars baslinje tagits om, med skälet. Allt annat i fore.json är
  * avtrycket från orört läge 23 september.
  */
@@ -339,6 +359,7 @@ function lasUndantagsfiler() {
     lagg(FAQ_BYTT, 'FAQ_BYTT')
     lagg(LANK_BYTT, 'LANK_BYTT')
     lagg(BASLINJE_OMTAGEN, 'BASLINJE_OMTAGEN')
+    lagg(BILD_BYTT, 'BILD_BYTT')
   }
 }
 lasUndantagsfiler()
@@ -527,6 +548,14 @@ function artikelBild(sida: string): string | null {
   return fm.image ?? null;
 }
 
+function artikelBildAlt(sida: string): string | null {
+  const slug = sida.replace(/^\/artiklar\//, '');
+  const fil = path.join('content/artiklar', `${slug}.mdx`);
+  if (!fs.existsSync(fil)) return null;
+  const fm = matter(fs.readFileSync(fil, 'utf8')).data as { imageAlt?: string };
+  return fm.imageAlt ?? null;
+}
+
 function sidor(): string[] {
   const urvalFil = 'scripts/.publikt-urval.json';
   let artiklar = FAST_TOPP20;
@@ -657,6 +686,15 @@ async function ta(bas: string, sida: string): Promise<Avtryck> {
     forstaBild = { src: normBild(src), alt: img.getAttribute('alt') ?? '' };
     break;
   }
+  // Alla bilder utanför ramen, för bildbytets kontroll (BILD_BYTT): den nya
+  // artikelbilden ska synas med rätt alt och den gamla vara borta.
+  const bilder: Array<{ src: string; alt: string }> = [];
+  for (const img of Array.from(doc.querySelectorAll('img'))) {
+    if (iRam(img)) continue;
+    const src = img.getAttribute('src') ?? '';
+    if (!src || src.startsWith('data:')) continue;
+    bilder.push({ src: normBild(src), alt: img.getAttribute('alt') ?? '' });
+  }
 
   const faq: string[] = [];
   doc.querySelectorAll('summary').forEach((sm) => {
@@ -697,6 +735,7 @@ async function ta(bas: string, sida: string): Promise<Avtryck> {
     ramLankar: [...new Set(ramLankar)].sort(),
     jsonLd: jsonLd.sort(),
     forstaBild,
+    bilder,
     faq,
     ord,
   };
@@ -759,12 +798,22 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
       brott('sidan saknas i efter-avtrycket');
     } else {
       if (f.status !== e.status) brott(`status ${f.status} → ${e.status}`);
+      const bildBytt = BILD_BYTT.find((b) => b.path === f.path);
       for (const falt of ['title', 'description', 'canonical', 'ogImage', 'robots'] as const) {
         // OG-bildens frågesträng är byggets hash och byts vid varje bygge.
         const norm = (v: string) => (falt === 'ogImage' ? v.split('?')[0].replace(/^https?:\/\/[^/]+/, '') : v);
         const tillagd = META_TILLAGD.find((m) => m.path === f.path && m.falt === falt);
         if (tillagd && f[falt] === '' && e[falt]) {
           info(`${falt} tillagd (${tillagd.datum}): "${e[falt]}"`);
+          continue;
+        }
+        if (bildBytt && falt === 'ogImage' && norm(f.ogImage) === bildBytt.gammal && norm(e.ogImage) === bildBytt.ny) {
+          info(`og:image bytt (${bildBytt.datum}): ${bildBytt.gammal} → ${bildBytt.ny}. ${bildBytt.skal}`);
+          continue;
+        }
+        // max-image-preview:large gäller alla artiklar (generateMetadata, 2026-11-15), också de vars bild inte byts.
+        if (f.path.startsWith('/artiklar/') && falt === 'robots' && f.robots !== e.robots && robotsBaraBildstorlek(f.robots, e.robots)) {
+          info(`robots: "${f.robots}" → "${e.robots}" (max-image-preview:large, 2026-11-15)`);
           continue;
         }
         const bytt = META_BYTT.find((m) => m.path === f.path && m.falt === falt);
@@ -887,7 +936,21 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
       if (dr.borta.length || dr.nya.length) {
         info(`ramen (header och footer, omritad enligt analysen): borta ${JSON.stringify(dr.borta)}, nya ${JSON.stringify(dr.nya)}`);
       }
-      const dj = multisetSkillnad(f.jsonLd, e.jsonLd);
+      // Bildbytet: den nya bildens adress i JSON-LD räknas som den gamla, inget annat.
+      let ldFore = bildBytt ? f.jsonLd.map((b) => b.split(bildBytt.gammal).join(bildBytt.ny)) : f.jsonLd;
+      if (bildBytt && ldFore.join() !== f.jsonLd.join()) info(`JSON-LD: bildens adress ${bildBytt.gammal} → ${bildBytt.ny}`);
+      // BlogPostings wordCount räknar texten i MDX, där den första CustomImage
+      // bär alt-texten. Ny alt ger några ord hit eller dit; högst 40 ord godtas.
+      if (bildBytt) {
+        const wc = (s: string) => Number(/"wordCount":(\d+)/.exec(s)?.[1] ?? NaN);
+        const fb = ldFore.find((b) => b.includes('"BlogPosting"'));
+        const eb = e.jsonLd.find((b) => b.includes('"BlogPosting"'));
+        if (fb && eb && wc(fb) !== wc(eb) && Math.abs(wc(fb) - wc(eb)) <= 40) {
+          info(`BlogPosting wordCount ${wc(fb)} → ${wc(eb)} (alt-texten i första CustomImage)`);
+          ldFore = ldFore.map((b) => (b === fb ? b.replace(/"wordCount":\d+/, `"wordCount":${wc(eb)}`) : b));
+        }
+      }
+      const dj = multisetSkillnad(ldFore, e.jsonLd);
       const und = ldUndantag(f.path);
       const typ = (block: string) => {
         try {
@@ -922,10 +985,25 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
         // Del B 4.3 punkt 7: där bilden stod först är src och alt desamma (bilden
         // flyttar till hjälten). Övriga får frontmatter.image som första bild.
         const fm = artikelBild(f.path);
-        if (fm && e.forstaBild?.src === fm && f.forstaBild?.src !== fm) {
+        if (bildBytt && f.forstaBild?.src === bildBytt.gammal && e.forstaBild?.src === bildBytt.ny) {
+          info(`första bilden bytt (${bildBytt.datum}): ${JSON.stringify(f.forstaBild)} → ${JSON.stringify(e.forstaBild)}`);
+        } else if (!bildBytt && fm && e.forstaBild?.src === fm && f.forstaBild?.src !== fm) {
+          // Inte för bildbytta sidor: frontmatter.image är där redan den nya bilden.
           info(`första bilden blir artikelbilden (2026-10-12, del B 4.4): ${JSON.stringify(f.forstaBild)} → ${JSON.stringify(e.forstaBild)}`);
         } else {
           brott(`första bilden: ${JSON.stringify(f.forstaBild)} → ${JSON.stringify(e.forstaBild)}`);
+        }
+      }
+      // Bildbytet syns på sidan: den nya bilden med frontmatterns imageAlt, den gamla borta.
+      if (bildBytt) {
+        if (!e.bilder) brott('efter-avtrycket saknar bilder; ta det om med det här skriptet');
+        else {
+          const alt = artikelBildAlt(f.path);
+          const ny = e.bilder.find((b) => b.src === bildBytt.ny);
+          if (!ny) brott(`artikelbilden ${bildBytt.ny} syns inte på sidan`);
+          else if (alt !== null && ny.alt !== alt) brott(`artikelbildens alt "${ny.alt}" är inte imageAlt "${alt}"`);
+          else info(`artikelbilden syns med imageAlt: ${bildBytt.ny}`);
+          if (e.bilder.some((b) => b.src === bildBytt.gammal)) brott(`gamla bilden ${bildBytt.gammal} syns kvar på sidan`);
         }
       }
     }

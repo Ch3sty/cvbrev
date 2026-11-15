@@ -144,6 +144,22 @@ export function arKarriarLon(tags: string[] | undefined | null): boolean {
   return harTagg(tags, CAREER_ALLT)
 }
 
+/** Taggar som gör en karriärartikel till en lönartikel (artikelbildens Lön-mall). */
+const LON_TAGGAR: readonly string[] = ['lön', 'lon', 'lönesamtal', 'löneförhandling', 'loneforhandling']
+
+/**
+ * Artikel om lön, för artikelbildens Lön-mall
+ * (docs/design/koncept-artikelbilder-2026-11-14.md, avsnitt 2). Snävare än
+ * arKarriarLon, som också träffar byta jobb, uppsägning och arbetsgivarintyg.
+ * Matchar på ordgräns, inte substräng: "lon" ska inte träffa "salong".
+ */
+export function arLonArtikel(tags: string[] | undefined | null): boolean {
+  if (!tags) return false
+  return tags.map(normalizeTag).some((t) =>
+    LON_TAGGAR.some((kw) => new RegExp(`(^|[^a-zåäö0-9])${kw}($|[^a-zåäö0-9])`).test(t))
+  )
+}
+
 export function paketForKluster(
   cluster: CtaCluster,
   tags: string[] | undefined | null
