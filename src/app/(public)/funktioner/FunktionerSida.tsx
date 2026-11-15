@@ -17,6 +17,7 @@ import Link from 'next/link'
 import { FUNKTIONER } from '@/components/pricing/paket-copy'
 import { SALD_PLAN, paketKort, paketNamn, prisPeriod } from '@/lib/plans/plans'
 import { FREE_CV_EXPORTS, FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { GRUNDNIVAN_ALLA } from '@/lib/plans/gratis-copy'
 import { SLUGGAR as RAKNA_UT_SLUGGAR } from '@/lib/rakna/delning'
 import Rum from '@/components/publikt/Rum'
 import Station from '@/components/publikt/Station'
@@ -88,7 +89,7 @@ export const FUNKTIONER_FAQ = [
   },
   {
     q: 'Hur kommer jag igång gratis?',
-    a: `Skapa konto, så är gratisnivån igång direkt: ${FREE_TEMPLATE_COUNT} CV-mallar och ${talOrd(FREE_CV_EXPORTS)} nedladdning, en CV-analys med poäng och det tyngsta fyndet, första personliga brevet och sedan ett i veckan, och i testerna Nivåkollen och ett första träningspass. Vill du ha mer ingår allt i ${PREMIUM}, ${prisPeriod(SALD_PLAN)}.`,
+    a: `Skapa konto, så är gratisnivån igång direkt: ${FREE_TEMPLATE_COUNT} CV-mallar och ${talOrd(FREE_CV_EXPORTS)} nedladdning, en CV-analys med poäng och det tyngsta fyndet, första personliga brevet och sedan ett var sjunde dag, och i testerna ${GRUNDNIVAN_ALLA}. Vill du ha mer ingår allt i ${PREMIUM}, ${prisPeriod(SALD_PLAN)}.`,
   },
 ] as const
 
