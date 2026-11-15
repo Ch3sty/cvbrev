@@ -217,13 +217,9 @@ export function testHuvud(scope: Scope | null): { statusrad: string | null; rubr
       ingress: null,
     }
   }
-  if (!scope) {
-    return {
-      statusrad: null,
-      rubrik: null,
-      ingress: `En nivåkoll med genomgång och ett första träningspass ingår gratis. Att träna vidare, övningsprov och det fördjupade personlighetstestet ingår i ${paketKort()}.`,
-    }
-  }
+  // Gratis: ingen egen ingress. Gratisraden i Alla tester (S14, med
+  // kampanjpriset) säger vad som ingår. Ingressen här sa "en nivåkoll och ett
+  // första träningspass" och dolde den raden (QA säljytorna 2026-11-15).
   return { statusrad: null, rubrik: null, ingress: null }
 }
 

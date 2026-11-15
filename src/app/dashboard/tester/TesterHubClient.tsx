@@ -41,6 +41,7 @@ import { SALD_PLAN, paketKort, paketNamn, prisPeriod, type PlanKey } from '@/lib
 import { kampanjPrisPeriod, type KampanjVisning } from '@/lib/kampanj/kampanj';
 import { useKampanjPris } from '@/components/kampanj/KampanjPrisKontext';
 import { testHuvud } from '@/lib/onboarding/paket-rader';
+import { ANTAL_TESTTYPER, Ord } from '@/lib/plans/gratis-copy';
 import TesterTabs, { type TesterTab } from './components/TesterTabs';
 import TestKategori, { BILD } from './components/TestKategori';
 import PersonlighetKort, { PERSONLIGHET_KORT } from './components/PersonlighetKort';
@@ -230,7 +231,7 @@ export default function TesterHubClient({
 
   const beskrivning = `${TRAN_RAD} ${
     huvud.ingress ??
-    `Logik, verbalt, numeriskt och personlighet, i samma format som Assessio, cut-e och SHL.${
+    `${Ord(ANTAL_TESTTYPER)} testtyper och personlighetstestet, i samma format som Assessio, cut-e och SHL.${
       harAllaNivaer ? '' : ` Alla nivåer ingår i ${paketKort()}.`
     }`
   }`;
