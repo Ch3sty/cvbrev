@@ -232,93 +232,10 @@ export function IkonMane(p: IkonProps24) {
 
 /* ------------------------------------------------------------ 48 px */
 
-/** Matrislogik (#s-matris): rutnät med figurer, kopparfältet är den tomma rutan. */
-export function SymMatris(p: IlluProps) {
-  return (
-    <IlluSvg box={48} {...p}>
-      <rect x="6" y="6" width="36" height="36" rx="5" fill="none" stroke="currentColor" strokeWidth="2" />
-      <path d="M18 6v36M30 6v36M6 18h36M6 30h36" stroke="currentColor" strokeWidth="1.5" opacity=".5" />
-      <circle cx="12" cy="12" r="2.6" fill="currentColor" />
-      <rect x="21.5" y="9.5" width="5" height="5" rx="1" fill="currentColor" />
-      <path d="M36 9.4l3 5.2h-6z" fill="currentColor" />
-      <rect x="9.5" y="21.5" width="5" height="5" rx="1" fill="currentColor" />
-      <path d="M24 21.4l3 5.2h-6z" fill="currentColor" />
-      <circle cx="36" cy="24" r="2.6" fill="currentColor" />
-      <path d="M12 33.4l3 5.2h-6z" fill="currentColor" />
-      <circle cx="24" cy="36" r="2.6" fill="currentColor" />
-      <rect x="31.5" y="31.5" width="9" height="9" rx="2" fill="none" stroke={K} strokeWidth="2" strokeDasharray="3 2.5" />
-    </IlluSvg>
-  )
-}
-
-/** Figurer (#s-figurer, spec 15.3): en remsa med tre rutor, triangel och kvadrat, luckan sist i koppar. */
-export function SymFigurer(p: IlluProps) {
-  return (
-    <IlluSvg box={48} {...p}>
-      <rect x="4" y="15" width="40" height="18" rx="5" fill="none" stroke="currentColor" strokeWidth="2" />
-      <path d="M17.3 15v18M30.6 15v18" stroke="currentColor" strokeWidth="1.5" opacity=".5" />
-      <path d="M10.7 19.5l3.6 6.2h-7.2z" fill="currentColor" />
-      <rect x="21.6" y="21.6" width="4.8" height="4.8" rx="1" fill="currentColor" />
-      <rect x="33.6" y="19.6" width="8" height="8" rx="2" fill="none" stroke={K} strokeWidth="2" strokeDasharray="3 2.5" />
-    </IlluSvg>
-  )
-}
-
-/**
- * Deduktivt (testplanen steg 1): IlluDeduktivs motiv i 48 px. Två
- * villkorsrader och en remsa med fyra platser, platsen svaret fyller i koppar.
- */
-export function SymDeduktiv(p: IlluProps) {
-  return (
-    <IlluSvg box={48} {...p}>
-      <path d="M8 11h22M8 18h15" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" opacity=".7" />
-      <rect x="4" y="25" width="40" height="15" rx="4" fill="none" stroke="currentColor" strokeWidth="2" />
-      <path d="M14 25v15M24 25v15M34 25v15" stroke="currentColor" strokeWidth="1.5" opacity=".5" />
-      <rect x="7" y="30" width="4" height="5" rx="1" fill="currentColor" />
-      <rect x="17" y="30" width="4" height="5" rx="1" fill="currentColor" />
-      <rect x="27" y="29" width="6" height="7" rx="1.5" fill={K} />
-      <rect x="37" y="30" width="4" height="5" rx="1" fill="currentColor" />
-    </IlluSvg>
-  )
-}
-
-/** Siffror (#s-siffror): tabell och staplar, den höga stapeln i koppar. */
-export function SymSiffror(p: IlluProps) {
-  return (
-    <IlluSvg box={48} {...p}>
-      <rect x="5" y="8" width="22" height="30" rx="4" fill="none" stroke="currentColor" strokeWidth="2" />
-      <path d="M5 16h22M5 24h22M5 32h22M14 8v30" stroke="currentColor" strokeWidth="1.5" opacity=".5" />
-      <rect x="31" y="26" width="5" height="12" rx="1.5" fill="currentColor" opacity=".55" />
-      <rect x="38" y="14" width="5" height="24" rx="1.5" fill={K} />
-      <path d="M29 40h15" stroke="currentColor" strokeWidth="2" />
-    </IlluSvg>
-  )
-}
-
-/** Ord (#s-ord): textrader, ett ord markerat i koppar. */
-export function SymOrd(p: IlluProps) {
-  return (
-    <IlluSvg box={48} {...p}>
-      <rect x="6" y="7" width="36" height="34" rx="5" fill="none" stroke="currentColor" strokeWidth="2" />
-      <path d="M12 16h24M12 23h9M12 30h24M12 37h16" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" opacity=".7" />
-      <rect x="23" y="20" width="14" height="6" rx="3" fill={K} />
-    </IlluSvg>
-  )
-}
-
-/** Personlighet (#s-person): skala med visare, nålens fäste i koppar. */
-export function SymPerson(p: IlluProps) {
-  return (
-    <IlluSvg box={48} {...p}>
-      <path d="M8 30a16 16 0 0 1 32 0" fill="none" stroke="currentColor" strokeWidth="2" />
-      <path d="M8 30h32" stroke="currentColor" strokeWidth="2" />
-      <path d="M12 21l3 2M24 14v4M36 21l-3 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity=".6" />
-      <circle cx="29" cy="22" r="3.5" fill={K} />
-      <path d="M24 30l5-8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <path d="M10 38h28" stroke="currentColor" strokeWidth="1.5" opacity=".5" />
-    </IlluSvg>
-  )
-}
+// Testtypernas sex symboler (matris, figurer, deduktiv, siffror, ord, person)
+// bor i TestGlyfer.tsx utan 'use client', bredvid de tre nya, så att publika
+// serverkomponenter kan rita dem (TestBredd, beslut om säljytorna 2026-11-15).
+export { SymDeduktiv, SymFigurer, SymMatris, SymOrd, SymPerson, SymSiffror } from './TestGlyfer'
 
 /** Vet inte (#s-vetinte): streckad ruta med frågetecken, punkten i koppar. */
 export function SymVetInte(p: IlluProps) {

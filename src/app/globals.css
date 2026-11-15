@@ -2055,3 +2055,47 @@ html {
   :root:not([data-theme="light"]) { --motsats: #E8B8D8; }
 }
 :root[data-theme="dark"] { --motsats: #E8B8D8; }
+
+/* ------------------------------------------------------------------
+   Testelementet Nio (TestBredd.tsx, beslut om säljytorna 2026-11-15,
+   granskning-art-director.md avsnitt 2 och skiss-fore-efter.html).
+   Nio glyfer i en färg; den markerade får ink-1 och kopparn. Rutnätet
+   hålls ihop av hårlinjer, inga plattor. Raden skalar till spaltens
+   bredd: högst 280 px, nio lika kolumner, glyf högst 24 px. Här och inte
+   i publikt.css, eftersom betalväggen i inloggat också ritar raden.
+   Placeringen (marginaler) sätts av kortet som bär elementet.
+   ------------------------------------------------------------------ */
+.tb { display: grid; gap: 8px; justify-items: start; align-content: start; margin: 0; min-width: 0; }
+.tb-glyfer { margin: 0; padding: 0; list-style: none; color: var(--ink-2); --illu-accent: currentColor; }
+.tb-glyfer li { display: grid; place-items: center; min-width: 0; }
+.tb-glyfer li[data-markerad] { color: var(--ink-1); --illu-accent: var(--koppar); }
+.tb-glyfer[data-nagon-markerad] li:not([data-markerad]) { color: var(--ink-3); }
+.tb-glyfer svg { display: block; }
+.tb-text { font-size: 13px; line-height: 1.4; color: var(--ink-3); max-width: 36ch; }
+
+/* Rutnät: 3×3, 148 px på mobil, 172 på dator. */
+.tb-rutnat .tb-glyfer {
+  display: grid; grid-template-columns: repeat(3, 48px); gap: 1px;
+  background: var(--kant); border: 1px solid var(--kant); border-radius: 14px; overflow: hidden;
+}
+.tb-rutnat .tb-glyfer li { width: 48px; height: 48px; background: var(--papper-skarm, var(--papper, #FFFFFF)); }
+.tb-rutnat .tb-glyfer svg { width: 32px; height: 32px; }
+@media (min-width: 700px) {
+  .tb-rutnat .tb-glyfer { grid-template-columns: repeat(3, 56px); }
+  .tb-rutnat .tb-glyfer li { width: 56px; height: 56px; }
+  .tb-rutnat .tb-glyfer svg { width: 36px; height: 36px; }
+}
+
+/* Rad: nio lika kolumner i högst 280 px, glyfen högst 24 px. */
+.tb-rad { width: 100%; max-width: 280px; }
+.tb-rad .tb-glyfer { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 6px; width: 100%; }
+.tb-rad .tb-glyfer svg { width: 100%; max-width: 24px; height: auto; aspect-ratio: 1; }
+.tb-rad .tb-text { font-size: 12px; }
+
+/* På vägg och bläck: markeringen i koppar-ljus. */
+.tb-vagg .tb-glyfer { color: var(--vagg-mjuk); }
+.tb-vagg .tb-glyfer li[data-markerad] { color: var(--vagg-ink); --illu-accent: var(--koppar-ljus); }
+.tb-vagg .tb-glyfer[data-nagon-markerad] li:not([data-markerad]) { color: var(--vagg-mjuk); }
+.tb-vagg.tb-rutnat .tb-glyfer { background: var(--vagg-kant); border-color: var(--vagg-kant); }
+.tb-vagg.tb-rutnat .tb-glyfer li { background: rgba(255, 255, 255, .06); }
+.tb-vagg .tb-text { color: var(--vagg-mjuk); }

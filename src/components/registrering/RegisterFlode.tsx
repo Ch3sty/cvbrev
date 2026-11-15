@@ -22,7 +22,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { capture } from '@/lib/analytics/events'
 import { getSignupAnalyticsContext } from '@/lib/analytics/attribution'
 import { sparaProvkallaUrAdress } from '@/lib/analytics/provkalla'
-import RegisterKontoSteg, { loggaInHref } from './RegisterKontoSteg'
+import RegisterKontoSteg, { loggaInHref, type NioRader } from './RegisterKontoSteg'
 import type { ProvResultat } from '@/lib/tests/prov-resultat.server'
 import ValSteg from './ValSteg'
 import {
@@ -58,10 +58,13 @@ type Steg = 'val' | 'konto'
 export default function RegisterFlode({
   ingang,
   provResultat = null,
+  nio,
 }: {
   ingang: RegisterIngang
   /** Provets resultat ur servern (bara antal rätt, totalt och felens positioner). */
   provResultat?: ProvResultat | null
+  /** Nio-raderna för panelerna, ritade på servern (S1, S3). */
+  nio?: NioRader
 }) {
   // Bara ?borja= har ett val att ändra. Bar /register går direkt till
   // kontot och frågan ställs efteråt i spårvalet.
@@ -148,6 +151,7 @@ export default function RegisterFlode({
       visaSteg={harVal}
       onAndraVal={harVal ? () => setSteg('val') : undefined}
       provResultat={provResultat}
+      nio={nio}
       onPanelRenderad={panelRenderad}
     />
   )

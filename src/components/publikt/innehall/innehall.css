@@ -735,3 +735,26 @@
 .art-prov-sparr { font-weight: 700; color: var(--ink-1); margin: 0; }
 .art-prov-resultat .pub-handling { margin-top: 16px; }
 .art-prov-resultat .pub-liten { margin-top: 8px; }
+
+/* ------------------------------------------------------------------
+   Testelementet Nio i korten (beslut om säljytorna 2026-11-15,
+   skiss-fore-efter.html). Grundstilen bor i globals.css (.tb).
+   ------------------------------------------------------------------ */
+.ib-prova .tb { margin-top: 14px; }
+.ib-gratis .tb { margin-top: 18px; }
+.ib-gratis .tb.ib-tb-sido { margin-top: 14px; }
+/* GratisKortet: barnen står i mobilens ordning (rubrik, rutnät, skäl,
+   knapp); på dator hamnar listan till höger om de tre andra. */
+@media (min-width: 900px) {
+  .ib-gratis-bred { grid-template-areas: "text lista" "tb lista" "handling lista"; gap: 0 48px; align-items: start; }
+  .ib-gratis-bred > .ig-text { grid-area: text; }
+  .ib-gratis-bred > .tb { grid-area: tb; }
+  .ib-gratis-bred > .pub-bock { grid-area: lista; align-self: center; }
+  .ib-gratis-bred > .pub-handling { grid-area: handling; }
+}
+/* I-provets rutnät och deduktivas motiv i typbilden. */
+.ib-typbild .tb { justify-items: center; }
+.ib-typbild .tb-text { text-align: center; max-width: none; }
+.ib-ded { display: grid; gap: 10px; justify-items: center; }
+.ib-ded svg { display: block; width: 100%; max-width: 170px; height: auto; }
+.ib-ded p { font-size: 14px; font-weight: 700; margin: 0; }

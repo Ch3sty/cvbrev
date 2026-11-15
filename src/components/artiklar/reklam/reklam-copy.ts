@@ -256,6 +256,8 @@ export const GRATIS_KORT = {
   rader: GRATIS_LISTA,
   /** Raden som länkar till /verktyg/cv-mallar (SEO-spärrlistan punkt 4). */
   mallrad: GRATIS_MALLRAD,
+  /** Captionen under Nio-raden i sidokolumnen (S7, copy 2026-11-15). */
+  nioCaption: 'Grundnivån gratis i alla nio',
   knapp: 'Skapa konto gratis',
   href: '/register',
   sekundar: { text: 'Se vad som ingår i Premium', href: '/priser' },

@@ -22,6 +22,31 @@ import PubliktSida from '@/components/publikt/PubliktSida'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { getClientIp } from '@/lib/rate-limit/ip'
 import { hamtaProvResultat } from '@/lib/tests/prov-resultat.server'
+import TestBredd from '@/components/publikt/TestBredd'
+import { TEST_TYP_NAMN, testTypForKind } from '@/components/illustrations/TestGlyfer'
+
+/**
+ * Nio-raderna i panelerna (S1 och S3, beslut 2026-11-15), ritade här på
+ * servern och skickade som färdiga element, så att testelementet inte lägger
+ * någon JavaScript i registreringens klientkod. Efter provet markeras
+ * provets typ (I-provet: dess tre typer); på bar /register ingen.
+ */
+function nioRader(provTyp: string | null) {
+  const typ = testTypForKind(provTyp ?? 'matris')
+  const iprov = provTyp === 'iprov'
+  return {
+    prov: (
+      <TestBredd
+        form="rad"
+        yta="vagg"
+        markerad={iprov ? undefined : typ}
+        markerade={iprov ? ['ordforrad', 'spatial', 'talserier'] : undefined}
+        label={`Grundnivån i alla åtta testtyperna${typ && !iprov ? `, ${TEST_TYP_NAMN[typ]} markerad` : ''}`}
+      />
+    ),
+    gratis: <TestBredd form="rad" yta="vagg" label="Nio testtyper" />,
+  }
+}
 
 export default async function RegisterPage({
   searchParams,
@@ -52,7 +77,7 @@ export default async function RegisterPage({
 
   return (
     <PubliktSida>
-      <RegisterFlode ingang={ingang} provResultat={provResultat} />
+      <RegisterFlode ingang={ingang} provResultat={provResultat} nio={nioRader(provResultat?.typ ?? null)} />
     </PubliktSida>
   )
 }

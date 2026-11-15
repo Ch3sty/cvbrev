@@ -21,6 +21,7 @@ import type { ArtikelPaket, CtaCluster, InlineVerktyg } from '@/lib/cta/clusters
 import PremiumBlock, { PremiumOrd } from '@/components/publikt/PremiumBlock'
 import Objekt, { type ObjektTyp } from '@/components/publikt/Objekt'
 import ProvMatris from '@/components/publikt/innehall/ProvMatris'
+import TestBredd from '@/components/publikt/TestBredd'
 import { KLUSTER_RUM } from '@/components/publikt/innehall/artikel-kluster'
 import SkarmPersonlighet from '@/components/publikt/telefon/skarmar/SkarmPersonlighet'
 import SkarmMatris from '@/components/publikt/telefon/skarmar/SkarmMatris'
@@ -213,6 +214,8 @@ export function ProvKort({
         <p className="pub-kick">{etikett}</p>
         <p className="ib-rub">{rubrik}</p>
         <p className="ib-prova-text">{text}</p>
+        {/* Nio-raden: "en av nio", matrisen markerad (S2, S6). */}
+        <TestBredd form="rad" markerad="matris" label="En av nio testtyper, matrislogik" />
         <div className="pub-handling">
           <Link
             href={INLINE_PROVA.href}
@@ -258,6 +261,8 @@ export function SidoPaketKort({ paket, cluster, slug }: { paket: ArtikelPaket; c
               <li key={r}>{r}</li>
             ))}
           </ul>
+          {/* Sidokolumnen har ingen listrad intill rutnätet, så raden får caption (S7, S13). */}
+          <TestBredd form="rad" text={GRATIS_KORT.nioCaption} label="Nio testtyper, grundnivån gratis i alla" className="ib-tb-sido" />
           <Link href={GRATIS_KORT.href} data-cta-klick={GRATIS_KORT.href} className="pub-knapp" style={{ width: '100%', marginTop: 16 }}>
             {GRATIS_KORT.knapp}
           </Link>
@@ -385,18 +390,14 @@ export function GratisKort({
       {...matning(position, cluster, 'gratis')}
       data-cta-slug={slug}
     >
-      <div>
+      {/* Ordningen är mobilens: rubrik, rutnät, skäl, knapp (S7). På dator
+          lägger grid-areas listan till höger (innehall.css, ib-gratis-bred). */}
+      <div className="ig-text">
         <p className="pub-kick">{GRATIS_KORT.etikett}</p>
         <p className="pub-h3 ib-rub">{GRATIS_KORT.rubrik}</p>
-        <div className="pub-handling">
-          <Link href={GRATIS_KORT.href} data-cta-klick={GRATIS_KORT.href} className="pub-knapp">
-            {GRATIS_KORT.knapp}
-          </Link>
-          <Link href={GRATIS_KORT.sekundar.href} data-cta-klick={GRATIS_KORT.sekundar.href} className="pub-lank">
-            {GRATIS_KORT.sekundar.text}
-          </Link>
-        </div>
       </div>
+      {/* Ingen caption: listans första rad står intill och säger bredden. */}
+      <TestBredd form="rutnat" label="Nio testtyper, grundnivån gratis i alla" />
       <ul className="pub-bock">
         {GRATIS_KORT.rader.map((r, i) => (
           <li key={r}>
@@ -412,6 +413,14 @@ export function GratisKort({
           </li>
         ))}
       </ul>
+      <div className="pub-handling">
+        <Link href={GRATIS_KORT.href} data-cta-klick={GRATIS_KORT.href} className="pub-knapp">
+          {GRATIS_KORT.knapp}
+        </Link>
+        <Link href={GRATIS_KORT.sekundar.href} data-cta-klick={GRATIS_KORT.sekundar.href} className="pub-lank">
+          {GRATIS_KORT.sekundar.text}
+        </Link>
+      </div>
     </aside>
   )
 }

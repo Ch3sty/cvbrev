@@ -179,6 +179,7 @@ export default function PersonalityHubPage({ config }: { config: TestConfig }) {
           <>
             <PaywallCard
             variant="testniva"
+            testTyp="personlighet"
             feature={requiredFeature ?? undefined}
             scope={scope}
             track={track}

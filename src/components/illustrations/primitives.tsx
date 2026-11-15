@@ -22,58 +22,15 @@
  */
 
 import { useId } from 'react'
+import { ILLU, IlluSvg, type IlluBox, type IlluProps } from './primitives-bas'
 
-export interface IlluProps {
-  className?: string
-  /** Renderad storlek i px. viewBox styrs av illustrationen. */
-  size?: number
-  title?: string
-}
-
-export const ILLU = {
-  stroke: { 24: 1.75, 48: 2, 96: 3, 120: 3, 240: 6 } as const,
-  radius: { 24: 2, 48: 4, 96: 8, 120: 10, 240: 20 } as const,
-  fill: 'var(--illu-fill, #FFFFFF)',
-  accent: 'var(--illu-accent, #D9480F)',
-  soft: 'var(--illu-soft, #FBE7D3)',
-  muted: 'var(--illu-muted, #C4B9A8)',
-  /** Knockout ovanpå accentytan. Används i stället för hårdkodat vitt. */
-  onAccent: 'var(--illu-on-accent, #FFFFFF)',
-} as const
-
-export type IlluBox = keyof typeof ILLU.stroke
+// IlluSvg och ILLU bor i primitives-bas.tsx utan 'use client', så att
+// serverkomponenter (TestGlyfer, TestBredd) kan rita symbolerna utan klient-JS.
+export { ILLU, IlluSvg, type IlluBox, type IlluProps }
 
 /** Unikt id-prefix för gradienter och clip-paths inuti en illustration. */
 export function useIlluId(): string {
   return useId().replace(/[:]/g, '')
-}
-
-interface SvgProps extends IlluProps {
-  box: IlluBox
-  children: React.ReactNode
-}
-
-/** Gemensam SVG-wrapper: viewBox, aria, storlek. */
-export function IlluSvg({ box, size, className, title, children }: SvgProps) {
-  const px = size ?? box
-  return (
-    <svg
-      viewBox={`0 0 ${box} ${box}`}
-      width={px}
-      height={px}
-      className={className}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden={title ? undefined : true}
-      role={title ? 'img' : undefined}
-      focusable="false"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      {title ? <title>{title}</title> : null}
-      {children}
-    </svg>
-  )
 }
 
 /**

@@ -35,6 +35,8 @@ import { kopstegHref, PRISER_HREF } from '@/lib/onboarding/steps'
 import { PREMIUM_HREF } from '@/lib/premium/premiumEntry'
 import { KNAPP_PRIMAR, KNAPPRAD, LANK } from '@/components/shell/knappar'
 import { useKampanjPris } from '@/components/kampanj/KampanjPrisKontext'
+import TestBredd from '@/components/publikt/TestBredd'
+import { TEST_TYP_NAMN, type TestTyp } from '@/components/illustrations/TestGlyfer'
 
 export { PRISER_HREF }
 
@@ -119,6 +121,12 @@ export interface PaywallCardProps {
   plats?: BetalvaggPlats
   /** Dagar kvar till provdatum, för mätningen. null där det saknas. */
   dagarKvar?: number | null
+  /**
+   * Testtypen väggen gäller, variant testniva och test-tak: markeras i
+   * Nio-raden mellan brödtext och prisrad (S4, S5). Utan typ står alla nio
+   * i samma vikt.
+   */
+  testTyp?: TestTyp
   className?: string
 }
 
@@ -137,6 +145,7 @@ export default function PaywallCard({
   bare,
   plats,
   dagarKvar = null,
+  testTyp,
   className,
 }: PaywallCardProps) {
   const [reminder, setReminder] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle')
@@ -314,6 +323,15 @@ export default function PaywallCard({
     <>
       <h3 className="text-kort-t text-ink-1">{copy.title}</h3>
       <p className="mt-1 text-sm leading-[22px] text-ink-2">{copy.body}</p>
+      {variant === 'testniva' || variant === 'test-tak' ? (
+        <div className="mt-3">
+          <TestBredd
+            form="rad"
+            markerad={testTyp}
+            label={testTyp ? `Nio testtyper, ${TEST_TYP_NAMN[testTyp]} låst` : 'Nio testtyper'}
+          />
+        </div>
+      ) : null}
       {copy.prisrad ? <p className="mt-2 text-sm font-medium text-ink-1">{prisradPaTvaRader(copy.prisrad)}</p> : null}
       <div className={KNAPPRAD}>
         <button type="button" onClick={primarHandling} className={KNAPP_PRIMAR}>

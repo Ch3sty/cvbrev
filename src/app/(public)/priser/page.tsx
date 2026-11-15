@@ -21,6 +21,7 @@ import PubliktSida from '@/components/publikt/PubliktSida'
 import Rum from '@/components/publikt/Rum'
 import Station from '@/components/publikt/Station'
 import Objekt, { type ObjektTyp } from '@/components/publikt/Objekt'
+import TestBredd from '@/components/publikt/TestBredd'
 import PrisTabell from '@/components/publikt/PrisTabell'
 import Faq from '@/components/publikt/Faq'
 import FastKnapprad from '@/components/publikt/FastKnapprad'
@@ -67,7 +68,6 @@ const funktion = (id: string) => {
 }
 
 const GRATIS_RAD: { objekt: ObjektTyp; rum: 'tran' | 'cv' | 'brev' | 'jobb'; tal: number; text: string }[] = [
-  { objekt: 'matris', rum: 'tran', tal: 1, text: 'Nivåkollen' },
   { objekt: 'person', rum: 'tran', tal: T.personlighetGrund.fragor, text: 'påståenden' },
   { objekt: 'mallar', rum: 'cv', tal: FREE_TEMPLATE_COUNT, text: 'CV-mallar' },
   { objekt: 'cv', rum: 'cv', tal: CV_ANALYSIS_LIMIT, text: 'CV-analys' },
@@ -166,6 +166,10 @@ export default function PriserSida() {
                   </div>
                 </div>
                 <ul className="pub-gratis-rad" aria-label="Gratisnivån i siffror">
+                  {/* Testplattan har bild i stället för tal: Nio-rutnätet (S10). */}
+                  <li className="pub-rum-tran tb-platta">
+                    <TestBredd form="rutnat" text="Grundnivån i alla nio" label="Nio testtyper, grundnivån i alla" />
+                  </li>
                   {GRATIS_RAD.map((g) => (
                     <li key={g.text} className={`pub-rum-${g.rum}`}>
                       <Objekt typ={g.objekt} storlek={40} />

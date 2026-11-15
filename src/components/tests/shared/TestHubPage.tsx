@@ -42,6 +42,7 @@ import { FORMATRAD, NIVA_NAMN, NIVA_TAL, PROVETS_FRAGA, TESTETS_FRAGA, TESTSIDA,
 import { dagSthlm } from '@/lib/traning/datum'
 import BastaKort from '@/components/tests/testsida/BastaKort'
 import ForsokKort, { type ForsokRad } from '@/components/tests/testsida/ForsokKort'
+import { testTypForKind } from '@/components/illustrations/TestGlyfer'
 
 interface QuotaLock {
   feature: string
@@ -280,6 +281,7 @@ export default function TestHubPage({ config, forsok }: { config: TestConfig; fo
           {tak && !isLocked ? (
             <PaywallCard
               variant="test-tak"
+              testTyp={testTypForKind(config.kind)}
               scope={scope}
               track={track}
               quota={{ feature: tak.feature, nextResetAt: tak.nextResetAt }}
@@ -289,6 +291,7 @@ export default function TestHubPage({ config, forsok }: { config: TestConfig; fo
           {isLocked ? (
             <PaywallCard
               variant="testniva"
+              testTyp={testTypForKind(config.kind)}
               feature={requiredFeature ?? undefined}
               scope={scope}
               track={track}

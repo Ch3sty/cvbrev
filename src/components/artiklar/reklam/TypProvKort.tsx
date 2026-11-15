@@ -20,6 +20,16 @@ import { SpatialSvg } from '@/lib/spatialV1/ritare'
 import type { KubFigur } from '@/lib/spatialV1/types'
 import { nivakollHref, ovningsprovHref } from '@/lib/traning/rutter'
 import { MedKampanjPris } from '@/components/kampanj/Kampanj'
+import TestBredd, { type TestTyp } from '@/components/publikt/TestBredd'
+import { TEST_TYP_NAMN } from '@/components/illustrations/TestGlyfer'
+
+/** Kortets typ i Nio-raden (S12): "ett av åtta". I-provet har rutnätet som bild i stället. */
+const NIO_TYP: Record<Exclude<ProvKortTyp, 'iprov'>, TestTyp> = {
+  deduktiv: 'deduktiv',
+  talserie: 'talserier',
+  spatial: 'spatial',
+  ordforrad: 'ordforrad',
+}
 
 export type ProvKortTyp = 'deduktiv' | 'talserie' | 'spatial' | 'ordforrad' | 'iprov'
 
@@ -131,25 +141,34 @@ function Bild({ typ }: { typ: ProvKortTyp }) {
     )
   }
   if (typ === 'deduktiv') {
+    // Det deduktiva motivet i bild (S12, art-director A2): två villkorsrader
+    // som streck och en remsa med fyra platser, svaret i koppar.
     return (
-      <div className="ib-typbild" aria-hidden="true">
-        <p className="ib-typpremiss">Alla som gått kursen får ett intyg. Omar har inget intyg.</p>
-        <p className="ib-typpastaende">Vad måste gälla?</p>
-        <ol className="ib-typlista">
-          {['Omar har inte gått kursen.', 'Alla med intyg har gått kursen.', 'Omar har gått kursen.', 'Någon utan intyg har gått kursen.'].map((o) => (
-            <li key={o}>{o}</li>
-          ))}
-        </ol>
+      <div className="ib-typbild ib-ded" aria-hidden="true">
+        <svg viewBox="0 0 170 120" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M14 18h92M14 36h62" strokeWidth="5" opacity=".7" />
+          <rect x="10" y="60" width="150" height="46" rx="10" strokeWidth="4" />
+          <path d="M47.5 60v46M85 60v46M122.5 60v46" strokeWidth="3" opacity=".5" />
+          <rect x="21.75" y="76" width="14" height="14" rx="3" fill="currentColor" stroke="none" />
+          <rect x="59.25" y="76" width="14" height="14" rx="3" fill="currentColor" stroke="none" />
+          <rect x="93.75" y="72" width="20" height="22" rx="5" fill="var(--koppar)" stroke="none" />
+          <rect x="134.25" y="76" width="14" height="14" rx="3" fill="currentColor" stroke="none" />
+        </svg>
+        <p>Vad måste gälla?</p>
       </div>
     )
   }
+  // I-provet: Nio-rutnätet med provets tre typer markerade (S12). Ordförråd
+  // täcker synonymer och motsatsord, spatial pappersvikning, tärningar och
+  // vikning med klipp, talserier det sjätte; captionen bär talet.
   return (
-    <div className="ib-typbild" aria-hidden="true">
-      <ol className="ib-typdelar">
-        {['Synonymer', 'Pappersvikning', 'Talserier', 'Motsatsord', 'Tärningar', 'Vikning med klipp'].map((d) => (
-          <li key={d}>{d}</li>
-        ))}
-      </ol>
+    <div className="ib-typbild">
+      <TestBredd
+        form="rutnat"
+        markerade={['ordforrad', 'spatial', 'talserier']}
+        text="Sex deltester, tre testtyper"
+        label="Nio testtyper, I-provets tre markerade: ordförråd, spatial förmåga och talserier"
+      />
     </div>
   )
 }
@@ -169,6 +188,9 @@ export default function TypProvKort({ typ, cluster, slug }: { typ: ProvKortTyp; 
         <p className="pub-kick">{c.etikett}</p>
         <p className="ib-rub">{c.rubrik}</p>
         <p className="ib-prova-text">{c.text}</p>
+        {typ !== 'iprov' ? (
+          <TestBredd form="rad" markerad={NIO_TYP[typ]} label={`En av nio testtyper, ${TEST_TYP_NAMN[NIO_TYP[typ]]}`} />
+        ) : null}
         <div className="pub-handling">
           <Link href={c.href} data-cta={`article-inline-${cluster}`} data-cta-klick={c.href} className="pub-knapp">
             {c.knapp}

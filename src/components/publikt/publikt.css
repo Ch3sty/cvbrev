@@ -502,7 +502,7 @@
   .pub-gratis-kort { grid-template-columns: 1.2fr 1fr; align-items: center; }
 }
 .pub-gratis-rad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-.pub-gratis-rad li {
+.pub-gratis-rad > li {
   display: grid;
   justify-items: center;
   text-align: center;
@@ -1561,7 +1561,7 @@ a.pub-mall-mer {
   }
 }
 .pub-konto-ger { display: grid; gap: 6px; }
-.pub-konto-ger li {
+.pub-konto-ger > li {
   display: grid; grid-template-columns: 36px 1fr; gap: 10px; align-items: center; padding: 8px 10px; border-radius: 14px;
   background: rgba(255, 255, 255, 0.08); border: 1px solid var(--vagg-kant);
 }
@@ -1570,7 +1570,7 @@ a.pub-mall-mer {
 .pub-konto-ger b { display: block; font-family: var(--display); font-weight: 800; font-size: 15px; letter-spacing: -0.01em; color: #fff; }
 .pub-konto-ger span { display: block; font-size: 12.5px; line-height: 1.35; color: var(--vagg-mjuk); }
 @media (min-width: 900px) {
-  .pub-konto-ger li { padding: 14px 16px; }
+  .pub-konto-ger > li { padding: 14px 16px; }
   .pub-konto-ger b { font-size: 17px; }
   .pub-konto-ger span { font-size: 14px; }
 }
@@ -1609,3 +1609,15 @@ a.pub-mall-mer {
 /* Figurernas vita yta följer papperet i båda lägena (matrisyta i globals.css). */
 .pub-sida .pub-prov .matrisyta { --m-vit: var(--papper-skarm); }
 .pub-sida .pub-bricka-g.matrisyta { --m-vit: var(--panel); }
+
+/* Testelementet Nio på /priser och /register (beslut 2026-11-15). */
+.pub-gratis-rad > li.tb-platta { grid-column: span 2; grid-row: span 2; padding: 14px 10px; }
+.pub-gratis-rad > li.tb-platta .tb { justify-items: center; align-content: center; }
+.pub-gratis-rad > li.tb-platta .tb-glyfer { border: 0; border-radius: 10px; }
+.pub-gratis-rad > li.tb-platta .tb-text { font-size: 12px; text-align: center; }
+@media (max-width: 430px) {
+  .pub-gratis-rad > li.tb-platta .tb-glyfer { grid-template-columns: repeat(3, 44px); }
+  .pub-gratis-rad > li.tb-platta .tb-glyfer li { width: 44px; height: 44px; }
+  .pub-gratis-rad > li.tb-platta .tb-glyfer svg { width: 30px; height: 30px; }
+}
+.pub-konto-ger > li.glyfrad { grid-template-columns: 1fr; gap: 8px; }

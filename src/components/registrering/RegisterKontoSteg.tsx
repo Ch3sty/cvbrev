@@ -21,7 +21,7 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useEffect, useId, useState } from 'react'
+import { useEffect, useId, useState, type ReactNode } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { logUserActivity } from '@/lib/activity-logger'
 import { capture, identifyUser } from '@/lib/analytics/events'
@@ -94,6 +94,14 @@ export interface RegisterKontoStegProps {
   provResultat?: ProvResultat | null
   /** Anropas när panelen är renderad, för signup_flow_viewed. */
   onPanelRenderad?: () => void
+  /** Nio-raderna för panelerna, ritade på servern (S1, S3). */
+  nio?: NioRader
+}
+
+/** Testelementet Nio som färdiga serverelement, ett per panel. */
+export interface NioRader {
+  prov: ReactNode
+  gratis: ReactNode
 }
 
 export function smakprovTillSession(s: Smakprov | null | undefined): void {
@@ -134,6 +142,7 @@ export default function RegisterKontoSteg({
   visaSteg = false,
   provResultat = null,
   onPanelRenderad,
+  nio,
 }: RegisterKontoStegProps) {
   const router = useRouter()
   const formId = useId()
@@ -329,8 +338,8 @@ export default function RegisterKontoSteg({
     >
       <div className={`pub-konto${panel ? ' pub-konto-med-panel' : ''}`}>
         <div className="pub-konto-g">
-          {panel === 'prov' ? <ProvPanel resultat={provResultat} rutnat={rutnat} /> : null}
-          {panel === 'gratis' ? <GratisPanel /> : null}
+          {panel === 'prov' ? <ProvPanel resultat={provResultat} rutnat={rutnat} nio={nio?.prov} /> : null}
+          {panel === 'gratis' ? <GratisPanel nio={nio?.gratis} /> : null}
 
           <div className="pub-konto-form">
             {eyebrow ? <p className="pub-konto-eyebrow">{eyebrow}</p> : null}
@@ -485,7 +494,7 @@ function PremiumRad({ text }: { text: string }) {
  * kontot öppnar. Utan resultat (provet hämtat, utgånget eller över
  * gränsen) samma löfte utan tal, aldrig ett påhittat resultat.
  */
-function ProvPanel({ resultat, rutnat }: { resultat: ProvResultat | null; rutnat: Rutnat[] }) {
+function ProvPanel({ resultat, rutnat, nio }: { resultat: ProvResultat | null; rutnat: Rutnat[]; nio?: ReactNode }) {
   const totalt = resultat?.totalt ?? 5
   // Typerna utöver matrisen (spec-prov-fler-typer avsnitt 4): samma panel, egna rader.
   const ny = resultat?.typ && arNyProvTyp(resultat.typ) ? resultat.typ : null
@@ -506,6 +515,8 @@ function ProvPanel({ resultat, rutnat }: { resultat: ProvResultat | null; rutnat
       ) : null}
       <h2>{ny && resultat ? PROV_TYP_PANEL.rubrik(ny, resultat.fel, resultat.totalt) : resultat ? KONTO_PANEL.rubrik(resultat.fel, resultat.totalt) : KONTO_PANEL.rubrikUtan}</h2>
       <PanelRader rader={ny ? PROV_TYP_PANEL.rader(ny, resultat?.fel ?? null, totalt) : KONTO_PANEL.rader(resultat?.fel ?? null, totalt)} />
+      {/* Nio-raden under de tre raderna, ovanför premiumraden (S1). */}
+      {nio}
       <div className="pub-konto-dator">
         <PremiumRad text={ny ? PROV_TYP_PANEL.premium(ny) : KONTO_PANEL.premiumRad.text} />
       </div>
@@ -515,17 +526,23 @@ function ProvPanel({ resultat, rutnat }: { resultat: ProvResultat | null; rutnat
 }
 
 /** Bar /register: vad som ingår gratis, samma panel. */
-function GratisPanel() {
+function GratisPanel({ nio }: { nio?: ReactNode }) {
   return (
     <aside className="pub-rum-tran pub-konto-panel">
       <p className="pub-kick">{KONTO_GRATIS.kick}</p>
       <h2>{KONTO_GRATIS.rubrik}</h2>
       <ul className="pub-konto-ger">
         {KONTO_GRATIS.rader.map((r) => (
-          <li key={r.namn}>
-            <span className="pub-konto-obj" aria-hidden="true">
-              <GratisIkon typ={r.ikon} />
-            </span>
+          // Testraden: Nio-raden i stället för 64-ikonen, så att bredden syns
+          // innan kontot skapas (S3). Raden blir glyfrad, namn, text.
+          <li key={r.namn} className={r.ikon === 'matris' && nio ? 'glyfrad' : undefined}>
+            {r.ikon === 'matris' && nio ? (
+              nio
+            ) : (
+              <span className="pub-konto-obj" aria-hidden="true">
+                <GratisIkon typ={r.ikon} />
+              </span>
+            )}
             <div>
               <b>{r.namn}</b>
               <span>{r.text}</span>
