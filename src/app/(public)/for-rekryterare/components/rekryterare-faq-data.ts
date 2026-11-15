@@ -13,7 +13,7 @@ export const REKRYTERARE_FAQ_ITEMS = [
   },
   {
     q: 'Hur funkar det med GDPR?',
-    a: 'Varje kandidat i poolen har själv valt att synas, med ett uttryckligt samtycke som kan dras tillbaka när som helst. Vi visar bara strukturerade uppgifter som kandidaten godkänt, aldrig råa dokument. Vi säljer aldrig uppgifter vidare, och kandidaten kan radera sitt konto själv när som helst.',
+    a: 'Varje kandidat i poolen har själv valt att synas, med ett uttryckligt samtycke som kan dras tillbaka när som helst. Vi visar bara strukturerade uppgifter som kandidaten godkänt, aldrig råa dokument. All data lagras i EU och vi säljer aldrig uppgifter vidare, och kandidaten kan radera sitt konto själv när som helst.',
   },
   {
     q: 'När låses kandidatens kontaktuppgifter upp?',

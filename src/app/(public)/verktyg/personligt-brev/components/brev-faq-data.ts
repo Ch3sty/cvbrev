@@ -23,7 +23,7 @@ export const BREV_FAQ_ITEMS = [
   },
   {
     q: 'Är det säkert att lämna mitt CV och era brev?',
-    a: 'Ja. Vi följer GDPR, säljer aldrig dina uppgifter vidare och tränar inga egna modeller på ditt CV eller dina brev. Du raderar kontot själv under Inställningar, och då tas allt ditt bort. Det enda som blir kvar är kvitton hos Stripe, som bokföringslagen kräver.',
+    a: 'Ja. Vi följer GDPR, all data lagras i EU, vi säljer aldrig dina uppgifter vidare och tränar inga egna modeller på ditt CV eller dina brev. Du raderar kontot själv under Inställningar, och då tas allt ditt bort. Det enda som blir kvar är kvitton hos Stripe, som bokföringslagen kräver.',
   },
   {
     q: 'Vilken mall ska jag välja?',

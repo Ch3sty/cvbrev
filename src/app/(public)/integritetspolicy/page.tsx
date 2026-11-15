@@ -90,7 +90,7 @@ export default function PrivacyPolicyPage() {
               <strong>Betalningsrelaterad Information (för {PREMIUM}):</strong> Vi använder den externa och pålitliga betalningstjänsten Stripe.com för att hantera prenumerationer. Vi samlar <strong>inte</strong> in eller lagrar dina kortuppgifter. När en betalning är genomförd via Stripe sparar vi det kund-ID och den prenumerationsstatus (t.ex. aktiv period, om medlemskapet är avslutat) som Stripe tillhandahåller. Detta gör vi för att kunna hantera din tillgång till {PREMIUM}.
             </li>
             <li>
-              <strong>CV-filer och Innehåll:</strong> När du laddar upp ett CV sparas den oredigerade originalfilen i en privat lagringshink och en textversion (som du kan redigera i tjänsten) i vår databas hos Supabase. Både databasen och fillagringen ligger i USA, se avsnitt 4.
+              <strong>CV-filer och Innehåll:</strong> När du laddar upp ett CV sparas den oredigerade originalfilen i en privat lagringshink och en textversion (som du kan redigera i tjänsten) i vår databas hos Supabase. Både databasen och fillagringen ligger i EU, se avsnitt 4.
             </li>
              <li>
               <strong>Jobbannonser och Genererade Brev:</strong> Texten från jobbannonser du klistrar in samt de personliga brev som genereras och eventuellt sparas av dig via Tjänsten.
@@ -145,7 +145,7 @@ export default function PrivacyPolicyPage() {
               <strong>Tjänsteleverantörer:</strong>
               <ul>
                   <li>
-                    <strong>Supabase:</strong> Vår databas och fillagring, där din kontoinformation, CV-filer (original och text), sparade brev, testresultat och annan nödvändig data lagras. Servrarna ligger i USA (AWS, region us-east-2), så dina uppgifter behandlas där.
+                    <strong>Supabase:</strong> Vår databas och fillagring, där din kontoinformation, CV-filer (original och text), sparade brev, testresultat och annan nödvändig data lagras. Servrarna ligger i EU.
                   </li>
                   <li>
                     <strong>Vercel:</strong> Driften av själva webbplatsen och webbappen.

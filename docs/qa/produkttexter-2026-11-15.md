@@ -13,7 +13,7 @@ Arbetslista för copywritern (punkt 1 i svepet). Underlag: produktsvep mot koden
 - **CV-byggaren**: ingen LinkedIn-import (bara ett fält för LinkedIn-adressen; en LinkedIn-PDF kan laddas upp som vilket CV som helst; LinkedIn-optimeringen i Premium kan spara resultatet som CV). Utkastet sparas bara i webbläsaren tills man sparar i sista steget.
 - **Uppsägning** är inte "ett klick": man väljer en anledning, får ett erbjudande och säger upp i Stripes portal. Säg i stället "Säg upp när du vill under Profil och Prenumeration, ingen bindningstid."
 - **Radering av konto**: man skriver en bekräftelse under Inställningar. Sedan 2026-11-15 tar raderingen bort kontot, all data i databasen och de uppladdade CV-filerna (kod ändrad i src/lib/konto/raderaKonto.server.ts). Kvitton finns kvar hos Stripe (bokföringskrav).
-- **Var data ligger**: databasen hos Supabase ligger i **USA (region us-east-2)**, inte i EU. PostHog lagrar i EU. Hosting hos Vercel, mejl via Resend, AI-behandling hos Google (Gemini API). Påstå ALDRIG "all data lagras i EU". Vi tränar inga egna modeller på CV:t (det får stå); säg inget om vad Google gör.
+- **Var data ligger**: all data lagras i EU (ägarens besked 2026-11-15). Uppgiften om USA i en tidigare version av listan var fel och är struken. Ändra aldrig texter om datalagring utan ägaren.
 - **Säkerhet som stämmer**: all trafik går över HTTPS (TLS), lösenord hanteras av Supabase Auth och lagras hashade, åtkomst till data styrs per användare med radnivåsäkerhet (Row Level Security) i databasen, CV-filerna ligger i en privat lagringshink, betalningar hanteras av Stripe och vi ser aldrig kortnummer.
 - Vid uppladdning finns en samtyckesruta för behandling, inget särskilt intygande om känsliga uppgifter.
 
@@ -59,7 +59,7 @@ Word-mallar och Word-export av CV eller brev: RÖR INTE (eget spår). Lämna all
 29. src/app/(public)/integritetspolicy/page.tsx:198 platshållaren "[Exempel: SSL/TLS-kryptering, hashade lösenord]" -> verklig text enligt "Säkerhet som stämmer" ovan.
 30. integritetspolicy/page.tsx:212 platshållaren "[Specificera eventuell fördröjning eller backup-policy om relevant]" -> vad som raderas (kontot, databasen, CV-filerna), att kvitton finns kvar hos Stripe. Påstå inget om säkerhetskopior.
 31. integritetspolicy/page.tsx:102 "(Exempel)" i rubriken "Användningsdata (Exempel):" stryks.
-32. integritetspolicy/page.tsx:144-156 leverantörslistan: lägg till Vercel (drift), Resend (mejl), PostHog (analys, EU) och ange att Supabase-databasen ligger i USA.
+32. integritetspolicy/page.tsx:144-156 leverantörslistan: lägg till Vercel (drift), Resend (mejl), PostHog (analys, EU) (datalagringen anges som EU, ägarens besked).
 33. integritetspolicy/page.tsx:127 och src/app/(public)/anvandarvillkor/page.tsx:135 "intygar vid uppladdning" -> det finns bara en samtyckesruta; skriv att vi ber dig ta bort känsliga uppgifter innan du laddar upp.
 34. EU-löften och "radera med ett klick, även våra kopior": cv-analys-faq-data.ts:40, src/app/(public)/funktioner/FunktionerSida.tsx:79, src/components/publikt/start/Startsidan.tsx:122. Sök efter fler ("lagras i EU", "inom EU", "ett klick") i src/app/(public) och src/components.
 

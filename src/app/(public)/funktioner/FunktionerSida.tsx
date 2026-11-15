@@ -78,7 +78,7 @@ export const FUNKTIONER_FAQ = [
   },
   {
     q: 'Är det säkert att lämna mitt CV till er?',
-    a: 'Ja. Vi följer GDPR, säljer aldrig dina uppgifter vidare och tränar inga egna modeller på ditt CV. Du raderar kontot själv under Inställningar, och då tas allt ditt bort: profil, CV, brev, testresultat och uppladdade filer. Det enda som blir kvar är kvitton hos Stripe, som bokföringslagen kräver.',
+    a: 'Ja. Vi följer GDPR, all data lagras i EU, vi säljer aldrig dina uppgifter vidare och tränar inga egna modeller på ditt CV. Du raderar kontot själv under Inställningar, och då tas allt ditt bort: profil, CV, brev, testresultat och uppladdade filer. Det enda som blir kvar är kvitton hos Stripe, som bokföringslagen kräver.',
   },
   {
     q: 'Hur ofta uppdateras jobbmatchningen?',
