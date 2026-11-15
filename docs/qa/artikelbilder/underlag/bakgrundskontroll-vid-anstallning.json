@@ -1,0 +1,31 @@
+{
+ "alt": "Svar inför en bakgrundskontroll vid anställning, kort om bakgrunden och mest om nuet",
+ "fyll": {
+  "etikett": "Bakgrundskontrollen",
+  "fraga": "Vad händer om något gammalt dyker upp?",
+  "delar": [
+   [
+    "B",
+    "Bakgrunden",
+    0.5,
+    false
+   ],
+   [
+    "N",
+    "Nuet",
+    1,
+    true
+   ]
+  ],
+  "delarKalla": "En mening om bakgrunden och två om nuet räcker oftast.",
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Kort, sakligt och framåt",
+    "Stäm av ditt CV mot verkligheten",
+    "Välj och förvarna dina referenser"
+   ]
+  },
+  "chip": "DIN FRÅGA"
+ }
+}

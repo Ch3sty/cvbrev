@@ -1,0 +1,23 @@
+{
+ "alt": "Deduktiv uppgift om truckkort med tre svarsalternativ, bredvid skillnaden mot induktiv logik",
+ "fyll": {
+  "etikett": "Deduktiv logik",
+  "huvud": {
+   "typ": "fraga",
+   "chip": "UPPGIFT",
+   "uppgiftText": "Alla som arbetar på lagret har truckkort. Ahmed har truckkort. Arbetar Ahmed på lagret?",
+   "alternativ": [
+    "Måste vara sant",
+    "Kan inte vara sant",
+    "Går inte att avgöra"
+   ]
+  },
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Deduktion går från regel till slutsats",
+    "Induktion från exempel till regel"
+   ]
+  }
+ }
+}

@@ -1,0 +1,9 @@
+{
+ "slug": "rubrik-for-personligt-brev",
+ "mall": "brev",
+ "kluster": "letter",
+ "kB": 35,
+ "minstaMarginal": 27,
+ "tightast": "Ärende: Ansökan till tjänsten",
+ "uppgift": null
+}

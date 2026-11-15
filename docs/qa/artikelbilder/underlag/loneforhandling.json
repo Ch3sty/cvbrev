@@ -1,0 +1,42 @@
+{
+ "alt": "Löneförhandling där två och fyra procents ökning på 35 000 kronor jämförs per år",
+ "fyll": {
+  "etikett": "Löneförhandling",
+  "lonIdag": {
+   "text": "35 000 kr",
+   "kalla": "35 000 kronor"
+  },
+  "staplar": [
+   {
+    "namn": {
+     "text": "2 procent mer",
+     "kalla": "2 och 4 procents ökning"
+    },
+    "varde": {
+     "text": "+700 kr",
+     "kalla": "2 och 4 procents ökning",
+     "beraknat": "2 procent av 35 000"
+    },
+    "tal": 700,
+    "accent": false
+   },
+   {
+    "namn": {
+     "text": "4 procent mer",
+     "kalla": "2 och 4 procents ökning"
+    },
+    "varde": {
+     "text": "+1 400 kr",
+     "kalla": "2 och 4 procents ökning",
+     "beraknat": "4 procent av 35 000"
+    },
+    "tal": 1400,
+    "accent": true
+   }
+  ],
+  "summa": {
+   "text": "8 400 kr",
+   "kalla": "8 400 kronor om året"
+  }
+ }
+}

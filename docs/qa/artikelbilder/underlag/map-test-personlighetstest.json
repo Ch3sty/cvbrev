@@ -1,0 +1,20 @@
+{
+ "alt": "Påstående i ett personlighetstest med skala 1 till 5, bredvid hur MAP-testet görs",
+ "fyll": {
+  "etikett": "Personlighetstest",
+  "huvud": {
+   "typ": "fraga",
+   "chip": "PÅSTÅENDE",
+   "uppgiftText": "Jag tycker om att pröva nya arbetssätt även när de gamla fungerar.",
+   "skala": true
+  },
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "200 påståenden",
+    "Utan tidsgräns",
+    "Det finns inga rätta svar"
+   ]
+  }
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "alt": "Svaret på var ser du dig själv om fem år i tre delar, kopplingen markerad",
+ "fyll": {
+  "etikett": "Om fem år",
+  "fraga": "Var ser du dig själv om fem år?",
+  "delar": [
+   [
+    "R",
+    "Riktningen",
+    0.6,
+    false
+   ],
+   [
+    "K",
+    "Kopplingen till dem",
+    1,
+    true
+   ],
+   [
+    "S",
+    "Steget hit",
+    0.4,
+    false
+   ]
+  ],
+  "delarKalla": "Den tredje, och viktigaste, är passform",
+  "vanster": {
+   "typ": "ring",
+   "tal": {
+    "text": "45",
+    "kalla": "runt 30 till 45 sekunder"
+   }
+  }
+ }
+}

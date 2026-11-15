@@ -1,0 +1,15 @@
+{
+ "alt": "Erfarenhetsrad för en ekonomiassistent som speglar annonsens nyckelord i CV:t, med tre regler",
+ "fyll": {
+  "etikett": "Nyckelord i CV:t",
+  "namn": "Anna Bergström",
+  "yrke": "Ekonomiassistent",
+  "profil": "Skötte löpande bokföring och kundreskontra för cirka 120 kunder i Fortnox",
+  "grepp": [
+   "Annonsens ord vinner alltid",
+   "Skriv ut förkortningar",
+   "Hårda, exakta begrepp"
+  ],
+  "sektion": "ERFARENHET"
+ }
+}

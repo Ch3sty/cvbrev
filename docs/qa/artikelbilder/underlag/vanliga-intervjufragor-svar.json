@@ -1,0 +1,43 @@
+{
+ "alt": "Vanliga intervjufrågor och svar, en konfliktfråga besvarad med STAR och handlingen markerad",
+ "fyll": {
+  "etikett": "Vanliga intervjufrågor",
+  "fraga": "Berätta om en gång du löste en konflikt",
+  "delar": [
+   [
+    "S",
+    "Situation",
+    0.3,
+    false
+   ],
+   [
+    "T",
+    "Uppgift",
+    0.25,
+    false
+   ],
+   [
+    "A",
+    "Handling",
+    1,
+    true
+   ],
+   [
+    "R",
+    "Resultat",
+    0.6,
+    false
+   ]
+  ],
+  "delarKalla": "Skillnaden är att det starka svaret lägger tyngdpunkten på vad *du* gjorde och vad det ledde till.",
+  "vanster": {
+   "typ": "ring",
+   "tal": {
+    "text": "10",
+    "kalla": "de tio frågor som återkommer i nästan varje intervju"
+   },
+   "enhet": "frågor",
+   "text": "återkommer i nästan varje intervju"
+  }
+ }
+}

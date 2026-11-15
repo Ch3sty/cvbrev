@@ -1,0 +1,13 @@
+{
+ "alt": "Jobbcoachen svarar om arbetsgivarintyg efter de nya a-kassereglerna, med tre råd inför att du slutar",
+ "fyll": {
+  "etikett": "Arbetsgivarintyg",
+  "fraga": "Behövs arbetsgivarintyg fortfarande efter de nya a-kassereglerna?",
+  "svar": "Ja, men det har blivit enklare.",
+  "grepp": [
+   "Arbetsgivarintyget behövs för a-kassan",
+   "Begär allt skriftligt",
+   "Gör det innan du slutar"
+  ]
+ }
+}

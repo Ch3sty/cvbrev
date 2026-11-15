@@ -1,0 +1,15 @@
+{
+ "alt": "Kompetenssektion för en systemutvecklare inringad i CV:t, med tre råd om färdigheter i CV",
+ "fyll": {
+  "etikett": "Kompetenser i CV:t",
+  "namn": "Johan Eriksson",
+  "yrke": "Systemutvecklare",
+  "profil": "Python, SQL, Git, CI/CD, molntjänster",
+  "grepp": [
+   "Annonsen är din facit",
+   "Var specifik med nivå",
+   "Visa de mjuka färdigheterna"
+  ],
+  "sektion": "KOMPETENSER"
+ }
+}

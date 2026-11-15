@@ -1,0 +1,19 @@
+{
+ "alt": "Personligt brev för en spontanansökan med inledningen inringad och tre steg som gör brevet läst",
+ "fyll": {
+  "etikett": "Brev för spontanansökan",
+  "mottagare": {
+   "text": "Ansökan: digital marknadsförare",
+   "kalla": "digital marknadsförare"
+  },
+  "stycke": {
+   "text": "Jag har följt Nordlys arbete med hållbara förpackningar sedan ni lanserade er återvinningsbara serie förra året.",
+   "kalla": "jag har följt Nordlys arbete med hållbara förpackningar sedan ni lanserade er återvinningsbara serie förra året"
+  },
+  "grepp": [
+   "Researcha företaget",
+   "En namngiven mottagare",
+   "Ett kort, förutsättningslöst möte"
+  ]
+ }
+}

@@ -1,0 +1,18 @@
+{
+ "alt": "Figurserie med rutblock och tom ruta, bredvid vad logiska tester mäter",
+ "fyll": {
+  "etikett": "Logiska tester",
+  "huvud": {
+   "typ": "serie",
+   "uppgift": "logiska-u3"
+  },
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Se mönster",
+    "Dra slutsatser",
+    "Lösa nya problem"
+   ]
+  }
+ }
+}

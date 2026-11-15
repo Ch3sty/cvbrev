@@ -1,0 +1,19 @@
+{
+ "alt": "Datorkunskaper i CV:t visade i en erfarenhetsrad för en administratör, med formeln för systemrader",
+ "fyll": {
+  "etikett": "Datorkunskaper i CV:t",
+  "namn": "Anna Bergström",
+  "yrke": "Administratör",
+  "profil": [
+   "Byggde månadsrapporteringen",
+   "i Excel med pivottabeller mot",
+   "affärssystemet"
+  ],
+  "grepp": [
+   "Systemets exakta namn",
+   "Vad du gör i det",
+   "Frekvens eller tid"
+  ],
+  "sektion": "ERFARENHET"
+ }
+}

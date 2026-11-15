@@ -1,0 +1,9 @@
+{
+ "slug": "logiktest-exempel-med-losningar",
+ "mall": "tester",
+ "kluster": "test",
+ "kB": 50,
+ "minstaMarginal": 33,
+ "tightast": "Jämför tankegången",
+ "uppgift": "logik-u8"
+}

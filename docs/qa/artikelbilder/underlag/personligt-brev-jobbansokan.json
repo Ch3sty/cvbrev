@@ -1,0 +1,9 @@
+{
+ "alt": "Personligt brev till en jobbansökan som säljare, inledningen inringad, med tre steg",
+ "fyll": {
+  "etikett": "Brev till jobbansökan",
+  "mottagare": { "text": "Ansökan: säljare", "kalla": "säljare" },
+  "stycke": "Med fem års erfarenhet av B2B-försäljning i techbranschen vet jag exakt vilka utmaningar era säljare möter dagligen.",
+  "grepp": ["Analysera jobbannonsen noggrant", "Skriv en stark inledning", "Avsluta professionellt"]
+ }
+}

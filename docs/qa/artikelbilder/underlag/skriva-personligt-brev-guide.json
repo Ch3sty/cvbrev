@@ -1,0 +1,16 @@
+{
+ "alt": "Personligt brev med en konkret inledning inringad och tre grepp för hur du skriver det",
+ "fyll": {
+  "etikett": "Skriva personligt brev",
+  "mottagare": {
+   "text": "Ansökan: ekonomiassistent",
+   "kalla": "ekonomiassistent"
+  },
+  "stycke": "Det som fick mig att söka rollen som ekonomiassistent hos er var att ni jobbar med klientredovisning för småföretag.",
+  "grepp": [
+   "Lägg det starkaste först",
+   "Ett mätbart exempel",
+   "Research som syns"
+  ]
+ }
+}

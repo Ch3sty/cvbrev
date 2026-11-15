@@ -1,0 +1,9 @@
+{
+ "alt": "Personligt brev från en jobbcoach online, den starka öppningen inringad, med tre delar i brevet",
+ "fyll": {
+  "etikett": "Jobbcoach online",
+  "mottagare": { "text": "Ansökan: Content Manager", "kalla": "Content Manager" },
+  "stycke": "Ni söker någon som kan öka er organiska trafik med datadrivet content.",
+  "grepp": ["Stark öppning", "Nyckelord från jobbannonsen", "Konkreta exempel från ditt CV"]
+ }
+}

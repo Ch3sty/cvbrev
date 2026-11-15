@@ -1,0 +1,16 @@
+{
+ "alt": "Personligt brev med inledningen inringad och tre delar som ger brevet rätt struktur",
+ "fyll": {
+  "etikett": "Brevets struktur",
+  "mottagare": {
+   "text": "Ansökan: ekonomiassistent",
+   "kalla": "ekonomiassistent"
+  },
+  "stycke": "Med stort intresse läste jag er annons om tjänsten som ekonomiassistent hos Nordic Consulting.",
+  "grepp": [
+   "Inledningen namnger tjänsten",
+   "Konkreta exempel",
+   "Max en A4-sida"
+  ]
+ }
+}

@@ -1,0 +1,18 @@
+{
+ "alt": "Logiktest exempel med en matris och tom ruta, bredvid tre råd för att lösa uppgifterna",
+ "fyll": {
+  "etikett": "Exempel på logiktest",
+  "huvud": {
+   "typ": "matris",
+   "uppgift": "logik-u8"
+  },
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "20 lösta exempel",
+    "Skriv regeln i ord",
+    "Jämför tankegången"
+   ]
+  }
+ }
+}

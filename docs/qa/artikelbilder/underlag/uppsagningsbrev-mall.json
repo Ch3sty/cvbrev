@@ -1,0 +1,16 @@
+{
+ "alt": "Jobbcoachen om vad ett uppsägningsbrev ska innehålla, med tre punkter ur mallen",
+ "fyll": {
+  "etikett": "Uppsägningsbrev",
+  "fraga": [
+   "Måste jag ange skäl",
+   "i uppsägningsbrevet?"
+  ],
+  "svar": "Nej.",
+  "grepp": [
+   "Din sista anställningsdag",
+   "Ber om skriftlig bekräftelse",
+   "Spara bekräftelsen"
+  ]
+ }
+}

@@ -1,0 +1,18 @@
+{
+ "alt": "Figurserie att öva på inför Aon test, bredvid tre förmågor som modulerna mäter",
+ "fyll": {
+  "etikett": "Figurserier",
+  "huvud": {
+   "typ": "serie",
+   "uppgift": "bild-s-01"
+  },
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Numerisk förmåga",
+    "Deduktiv logik",
+    "Induktiv logik"
+   ]
+  }
+ }
+}

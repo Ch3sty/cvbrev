@@ -1,0 +1,9 @@
+{
+ "slug": "personligt-brev-layout",
+ "mall": "brev",
+ "kluster": "letter",
+ "kB": 31,
+ "minstaMarginal": 27,
+ "tightast": "Med vänlig hälsning,",
+ "uppgift": null
+}

@@ -1,0 +1,36 @@
+{
+ "alt": "Beskriv dig själv med tre ord på intervjun, med motivering och exemplet markerat",
+ "fyll": {
+  "etikett": "Beskriva sig själv",
+  "fraga": "Beskriv dig själv med tre ord",
+  "delar": [
+   [
+    "T",
+    "Tre ord",
+    0.3,
+    false
+   ],
+   [
+    "M",
+    "Motivering",
+    0.5,
+    false
+   ],
+   [
+    "E",
+    "Exempel",
+    1,
+    true
+   ]
+  ],
+  "delarKalla": "visa dina egenskaper genom exempel i stället för att bara nämna ord.",
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Engagerad",
+    "Analytisk",
+    "Samarbetsvillig"
+   ]
+  }
+ }
+}

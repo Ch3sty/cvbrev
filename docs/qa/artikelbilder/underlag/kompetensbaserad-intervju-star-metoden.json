@@ -1,0 +1,42 @@
+{
+ "alt": "Intervjufråga besvarad med STAR-metoden: situation, uppgift, handling och resultat, handlingen markerad",
+ "fyll": {
+  "etikett": "STAR-metoden",
+  "fraga": [
+   "Berätta om en gång då du tog",
+   "initiativ till att lösa ett",
+   "problem som ingen bett dig om."
+  ],
+  "delar": [
+   [
+    "S",
+    "Situation",
+    0.3,
+    false
+   ],
+   [
+    "T",
+    "Uppgift",
+    0.25,
+    false
+   ],
+   [
+    "A",
+    "Handling",
+    1,
+    true
+   ],
+   [
+    "R",
+    "Resultat",
+    0.5,
+    false
+   ]
+  ],
+  "delarKalla": "Handlingen är den längsta delen",
+  "tal": {
+   "text": "90",
+   "kalla": "runt nittio sekunder"
+  }
+ }
+}

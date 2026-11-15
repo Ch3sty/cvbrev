@@ -1,0 +1,43 @@
+{
+ "alt": "Fråga att ställa på intervjun om hur framgång mäts, med frågeområden där rollen väger tyngst",
+ "fyll": {
+  "etikett": "Dina frågor på intervjun",
+  "fraga": "Hur mäts framgång i den här rollen?",
+  "delar": [
+   [
+    "R",
+    "Rollen",
+    1,
+    true
+   ],
+   [
+    "T",
+    "Teamet",
+    0.5,
+    false
+   ],
+   [
+    "F",
+    "Företaget",
+    0.6,
+    false
+   ],
+   [
+    "U",
+    "Utveckling",
+    0.3,
+    false
+   ]
+  ],
+  "delarKalla": "Här fungerar frågor om rollen, det dagliga arbetet och företagskulturen bäst.",
+  "vanster": {
+   "typ": "ring",
+   "tal": {
+    "text": "5–7",
+    "kalla": "Förbered 5 till 7 frågor"
+   },
+   "enhet": "frågor",
+   "text": "och ställ 2 till 4 av dem"
+  }
+ }
+}

@@ -1,0 +1,18 @@
+{
+ "alt": "Matrisuppgift med tom ruta bredvid tre typer av arbetspsykologiska tester vid rekrytering",
+ "fyll": {
+  "etikett": "Arbetspsykologiska tester",
+  "huvud": {
+   "typ": "matris",
+   "uppgift": "bild-m-08"
+  },
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Begåvningstest",
+    "Personlighetstest",
+    "Situationsbedömning"
+   ]
+  }
+ }
+}

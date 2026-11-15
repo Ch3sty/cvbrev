@@ -1,0 +1,16 @@
+{
+ "alt": "Personligt brev utan erfarenhet där inledningen är inringad, med tre råd som lyfter din potential",
+ "fyll": {
+  "etikett": "Brev utan erfarenhet",
+  "mottagare": {
+   "text": "Ansökan: marknadspraktikant",
+   "kalla": "marknadspraktikant"
+  },
+  "stycke": "Jag söker praktikplats som marknadspraktikant på Nordic Consulting Group.",
+  "grepp": [
+   "Visa lärvilja konkret",
+   "Kvantifiera när det går",
+   "Visa professionell attityd"
+  ]
+ }
+}

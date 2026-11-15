@@ -1,0 +1,16 @@
+{
+ "alt": "Personligt brev med en bättre inledning inringad och tre vanliga misstag att undvika",
+ "fyll": {
+  "etikett": "Misstag i brevet",
+  "mottagare": {
+   "text": "Ansökan: projektledare",
+   "kalla": "projektledare"
+  },
+  "stycke": "När jag läste att ni söker en projektledare till ert hållbarhetsteam blev jag genast intresserad.",
+  "grepp": [
+   "Stavfel och särskrivningar",
+   "Klyschor utan exempel",
+   "Fel företagsnamn"
+  ]
+ }
+}

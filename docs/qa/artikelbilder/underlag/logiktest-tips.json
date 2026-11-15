@@ -1,0 +1,18 @@
+{
+ "alt": "Matrisuppgift med tom ruta bredvid tre tips inför logiktest om format och tid",
+ "fyll": {
+  "etikett": "Tips inför logiktest",
+  "huvud": {
+   "typ": "matris",
+   "uppgift": "bild-m-04"
+  },
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Ta reda på vilket test det är",
+    "Lär dig regeltyperna utan klocka",
+    "Öva sedan med testets tid"
+   ]
+  }
+ }
+}

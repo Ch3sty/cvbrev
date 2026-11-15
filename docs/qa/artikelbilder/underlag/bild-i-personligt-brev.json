@@ -1,0 +1,19 @@
+{
+ "alt": "Personligt brev utan bild, en rad om videopresentation inringad, med tre råd om foto",
+ "fyll": {
+  "etikett": "Foto i brevet",
+  "mottagare": {
+   "text": "Ansökan: grafisk designer",
+   "kalla": "Grafisk designer"
+  },
+  "stycke": {
+   "text": "Jag har förberett en kort videopresentation (2 min) som visar min entusiasm för rollen.",
+   "kalla": "Jag har förberett en kort videopresentation (2 min) som visar min entusiasm för rollen"
+  },
+  "grepp": [
+   "Hoppa fotot",
+   "Länka till din LinkedIn-profil",
+   "Fokusera på innehållet istället"
+  ]
+ }
+}

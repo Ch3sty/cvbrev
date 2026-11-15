@@ -1,0 +1,13 @@
+{
+ "alt": "Samtal med Jobbcoachen om att skicka CV via mail, med tre råd för jobbansökan",
+ "fyll": {
+  "etikett": "Söka jobb via mejl",
+  "fraga": "Hur långt ska mejlet vara om personligt brev bifogas?",
+  "svar": "Kort: fyra till sex meningar.",
+  "grepp": [
+   "Ansökan + tjänst + ditt namn",
+   "CV och personligt brev som PDF",
+   "Följ upp med ett kort mejl"
+  ]
+ }
+}

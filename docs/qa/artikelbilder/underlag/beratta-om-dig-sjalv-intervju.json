@@ -1,0 +1,35 @@
+{
+ "alt": "Svaret på berätta om dig själv i tre delar, nutid, dåtid och framtid markerad",
+ "fyll": {
+  "etikett": "Berätta om dig själv",
+  "fraga": "Berätta om dig själv",
+  "delar": [
+   [
+    "N",
+    "Nutid",
+    0.5,
+    false
+   ],
+   [
+    "D",
+    "Dåtid",
+    0.5,
+    false
+   ],
+   [
+    "F",
+    "Framtid",
+    1,
+    true
+   ]
+  ],
+  "delarKalla": "Det här är den del de flesta ägnar minst tid åt att förbereda, och det märks.",
+  "vanster": {
+   "typ": "ring",
+   "tal": {
+    "text": "90",
+    "kalla": "Håller du dig under 90 sekunder?"
+   }
+  }
+ }
+}

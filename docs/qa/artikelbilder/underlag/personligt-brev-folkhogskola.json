@@ -1,0 +1,9 @@
+{
+ "alt": "Personligt brev till folkhögskola för allmän kurs, inledningen inringad, med tre av skolans frågor",
+ "fyll": {
+  "etikett": "Brev till folkhögskola",
+  "mottagare": { "text": "Ansökan: allmän kurs", "kalla": "allmän kurs" },
+  "stycke": "Jag heter Jonathan, är 21 år och arbetar just nu extra på ett lager i Sundsvall.",
+  "grepp": ["Vem är du, just nu i livet?", "Vad har du gjort tidigare?", "Vad vill du?"]
+ }
+}

@@ -1,0 +1,19 @@
+{
+ "alt": "CV-profil för en ekonomiassistent inringad i CV:t, med tre regler för en stark profiltext",
+ "fyll": {
+  "etikett": "CV-profilen",
+  "namn": "Maria Nilsson",
+  "yrke": "Ekonomiassistent",
+  "profil": [
+   "Ekonomiassistent med fyra",
+   "års erfarenhet av löpande",
+   "bokföring och",
+   "leverantörsreskontra."
+  ],
+  "grepp": [
+   "Yrket i första ordet",
+   "Har en siffra",
+   "Säger vilken roll du söker"
+  ]
+ }
+}

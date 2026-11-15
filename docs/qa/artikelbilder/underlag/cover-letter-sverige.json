@@ -1,0 +1,9 @@
+{
+ "alt": "Cover letter på svenska till en logistikkoordinator, inledningen inringad, med tre steg ur mallen",
+ "fyll": {
+  "etikett": "Brevet på svenska",
+  "mottagare": { "text": "Ansökan: logistikkoordinator", "kalla": "logistikkoordinator" },
+  "stycke": "När jag läste att ni ska samla era tre lager i Torsvik under ett tak kände jag igen utmaningen direkt.",
+  "grepp": ["Hälsa med namn", "Bevisa med ett konkret resultat", "Högst en A4-sida"]
+ }
+}

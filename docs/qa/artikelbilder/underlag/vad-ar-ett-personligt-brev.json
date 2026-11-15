@@ -1,0 +1,16 @@
+{
+ "alt": "Personligt brev till en försäljningschef med inledningen inringad och tre fakta om vad brevet är",
+ "fyll": {
+  "etikett": "Det personliga brevet",
+  "mottagare": {
+   "text": "Ansökan: försäljningschef",
+   "kalla": "försäljningschef"
+  },
+  "stycke": "Ni söker en försäljningschef som kan leda teamet mot nya marknader.",
+  "grepp": [
+   "Följer med ditt CV",
+   "Max en A4-sida",
+   "250 till 400 ord"
+  ]
+ }
+}

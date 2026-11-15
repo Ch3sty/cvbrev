@@ -1,0 +1,35 @@
+{
+ "alt": "Svaret på varför ska vi anställa dig med matchning, bevis och motivation, beviset markerat",
+ "fyll": {
+  "etikett": "Varför anställa dig",
+  "fraga": "Varför ska vi anställa dig?",
+  "delar": [
+   [
+    "M",
+    "Matchningen",
+    0.5,
+    false
+   ],
+   [
+    "B",
+    "Beviset",
+    1,
+    true
+   ],
+   [
+    "M",
+    "Motivationen",
+    0.5,
+    false
+   ]
+  ],
+  "delarKalla": "Det är beviset som skiljer dig från alla som bara *säger* att de är bra.",
+  "vanster": {
+   "typ": "ring",
+   "tal": {
+    "text": "60",
+    "kalla": "Runt 45 till 60 sekunder."
+   }
+  }
+ }
+}

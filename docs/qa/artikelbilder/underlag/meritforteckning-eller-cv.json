@@ -1,0 +1,15 @@
+{
+ "alt": "CV för en butikssäljare där resultatraden skiljer det från en meritförteckning, med tre formregler",
+ "fyll": {
+  "etikett": "Meritförteckning eller CV",
+  "namn": "Emma Karlsson",
+  "yrke": "Butikssäljare",
+  "profil": "Överträffade säljmålen 8 av 12 månader 2025 och hade butikens högsta snitt på tilläggsförsäljning.",
+  "grepp": [
+   "Lista mot berättelse",
+   "Omvänd kronologi utan luckor",
+   "Ingen värderande text"
+  ],
+  "sektion": "ERFARENHET"
+ }
+}

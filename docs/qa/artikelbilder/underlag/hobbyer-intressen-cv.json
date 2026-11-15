@@ -1,0 +1,18 @@
+{
+ "alt": "CV med ett intresse inringat, tränare i fotboll, och tre regler för intressen i CV",
+ "fyll": {
+  "etikett": "Intressen i CV:t",
+  "namn": "Erik Lindqvist",
+  "yrke": {
+   "text": "Ekonom",
+   "kalla": "Ekonomen som leder en scoutkår"
+  },
+  "profil": "Tränare för P10-lag i fotboll sedan 2023.",
+  "grepp": [
+   "Bevis eller bort",
+   "Max tre eller fyra",
+   "Skriv dem sist i CV:t"
+  ],
+  "sektion": "INTRESSEN"
+ }
+}

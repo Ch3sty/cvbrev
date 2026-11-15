@@ -1,0 +1,9 @@
+{
+ "slug": "personligt-brev-exempel-generella",
+ "mall": "brev",
+ "kluster": "letter",
+ "kB": 36,
+ "minstaMarginal": 26,
+ "tightast": "rect 220×12",
+ "uppgift": null
+}

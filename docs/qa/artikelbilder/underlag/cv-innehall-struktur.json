@@ -1,0 +1,18 @@
+{
+ "alt": "CV med profilen inringad för en marknadskoordinator, och vad ett CV ska innehålla",
+ "fyll": {
+  "etikett": "CV:ts innehåll",
+  "namn": "Erik Lindberg",
+  "yrke": "Marknadskoordinator",
+  "profil": [
+   "Marknadskoordinator med",
+   "fem års erfarenhet av digitala",
+   "kampanjer inom e-handel."
+  ],
+  "grepp": [
+   "Det senaste först",
+   "En till två sidor",
+   "Tydliga rubriker"
+  ]
+ }
+}

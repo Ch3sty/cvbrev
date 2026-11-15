@@ -1,0 +1,36 @@
+{
+ "alt": "Svaret på vad motiverar dig med drivkraft, exempel och koppling, exemplet markerat",
+ "fyll": {
+  "etikett": "Vad motiverar dig",
+  "fraga": "Vad motiverar dig?",
+  "delar": [
+   [
+    "D",
+    "Drivkraften",
+    0.4,
+    false
+   ],
+   [
+    "E",
+    "Exemplet",
+    1,
+    true
+   ],
+   [
+    "K",
+    "Kopplingen",
+    0.5,
+    false
+   ]
+  ],
+  "delarKalla": "Motivation utan bevis är en åsikt.",
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Inventera dina verkliga drivkrafter",
+    "Välj drivkraften som matchar rollen",
+    "Belägg med ett exempel"
+   ]
+  }
+ }
+}

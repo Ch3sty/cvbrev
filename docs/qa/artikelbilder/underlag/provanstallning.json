@@ -1,0 +1,13 @@
+{
+ "alt": "Samtal med Jobbcoachen om provanställning och vad som händer efter sex månader",
+ "fyll": {
+  "etikett": "Provanställning",
+  "fraga": "Vad händer om provanställningen inte avbryts före sex månader?",
+  "svar": "Då blir du tillsvidareanställd automatiskt.",
+  "grepp": [
+   "Högst sex månader",
+   "Minst två veckor i förväg",
+   "Samma lön och villkor"
+  ]
+ }
+}

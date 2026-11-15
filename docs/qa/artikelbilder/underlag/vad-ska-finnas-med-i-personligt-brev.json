@@ -1,0 +1,16 @@
+{
+ "alt": "Personligt brev med en specifik inledning inringad och tre delar som ska finnas med",
+ "fyll": {
+  "etikett": "Brevets innehåll",
+  "mottagare": {
+   "text": "Ansökan: marknadsförare",
+   "kalla": "marknadsförare"
+  },
+  "stycke": "Era tre senaste kampanjer för hållbara produkter landade mitt i det jag jobbat med de senaste fyra åren.",
+  "grepp": [
+   "Mottagarens namn",
+   "Konkreta resultat",
+   "Ber om intervjun"
+  ]
+ }
+}

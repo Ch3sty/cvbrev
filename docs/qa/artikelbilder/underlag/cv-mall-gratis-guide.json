@@ -1,0 +1,18 @@
+{
+ "alt": "CV-mall i en kolumn för en redovisningskonsult, med tre råd för att välja mall",
+ "fyll": {
+  "etikett": "Välja CV-mall",
+  "namn": "Ali Hassan",
+  "yrke": "Redovisningskonsult",
+  "profil": [
+   "Hanterade redovisning",
+   "för 35 bolag"
+  ],
+  "grepp": [
+   "Välj en linjär enkolumns-mall",
+   "Använd standardrubriker",
+   "Lyft fram konkreta siffror"
+  ],
+  "sektion": "ERFARENHET"
+ }
+}

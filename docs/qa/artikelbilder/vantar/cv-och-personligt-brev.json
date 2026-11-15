@@ -1,0 +1,9 @@
+{
+ "alt": "Personligt brev som kompletterar CV:t, med brevets uppgift inringad och tre råd för ansökan",
+ "fyll": {
+  "etikett": "CV och brev ihop",
+  "mottagare": { "text": "Ansökan: CV och personligt brev", "kalla": "CV och personligt brev" },
+  "stycke": { "text": "Brevet är argumentationen som svarar på varför just du.", "kalla": "brevet är argumentationen som svarar på varför just du." },
+  "grepp": ["Komplettera varandra", "Samma jobbannons", "Ger dem sammanhang"]
+ }
+}

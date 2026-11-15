@@ -1,0 +1,23 @@
+{
+ "alt": "Numerisk uppgift om procentuell ökning att öva på inför Cubiks test, bredvid testets tre delar",
+ "fyll": {
+  "etikett": "Kapacitetstest",
+  "huvud": {
+   "typ": "fraga",
+   "chip": "UPPGIFT",
+   "uppgiftText": "En butik sålde 240 jackor i oktober och 300 i november. Med hur många procent ökade försäljningen?",
+   "alternativ": [
+    "20 procent",
+    "25 procent"
+   ]
+  },
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "24 verbala",
+    "16 numeriska",
+    "10 abstrakta"
+   ]
+  }
+ }
+}

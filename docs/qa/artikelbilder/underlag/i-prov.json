@@ -1,0 +1,18 @@
+{
+ "alt": "Pappersvikning steg för steg att öva på inför I-provet, bredvid deltester, tid och skala",
+ "fyll": {
+  "etikett": "Inför I-provet",
+  "huvud": {
+   "typ": "spatial",
+   "uppgift": "sp-art-iprov-ihop"
+  },
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Sex deltester",
+    "Cirka 70 minuter",
+    "Niogradig skala"
+   ]
+  }
+ }
+}

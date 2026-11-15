@@ -1,0 +1,13 @@
+{
+ "alt": "Samtal med Jobbcoachen om olika kompetenser, med hårda, sociala och överförbara som exempel",
+ "fyll": {
+  "etikett": "Olika kompetenser",
+  "fraga": "Vilken typ av kompetens är viktigast?",
+  "svar": "Det beror på rollen, men de flesta arbetsgivare vill ha en kombination.",
+  "grepp": [
+   "Hårda kompetenser",
+   "Sociala kompetenser",
+   "Överförbara kompetenser"
+  ]
+ }
+}

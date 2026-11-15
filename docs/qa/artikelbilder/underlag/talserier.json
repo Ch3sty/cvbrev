@@ -1,0 +1,18 @@
+{
+ "alt": "Talserier med sex tal och en tom ruta, bredvid tre sätt att hitta regeln",
+ "fyll": {
+  "etikett": "Talserier",
+  "huvud": {
+   "typ": "talserie",
+   "uppgift": "ts-art-04"
+  },
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Kvoten",
+    "Varannat tal",
+    "De två föregående"
+   ]
+  }
+ }
+}

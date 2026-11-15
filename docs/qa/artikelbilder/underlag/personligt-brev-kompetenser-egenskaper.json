@@ -1,0 +1,44 @@
+{
+ "alt": "Egenskaper i personligt brev visade med STAR, handlingen får mest plats på fyra meningar",
+ "fyll": {
+  "etikett": "Egenskaper i brevet",
+  "fraga": "Vad gjorde just du?",
+  "delar": [
+   [
+    "S",
+    "Situation",
+    0.3,
+    false
+   ],
+   [
+    "T",
+    "Uppgift",
+    0.3,
+    false
+   ],
+   [
+    "A",
+    "Handling",
+    1,
+    true
+   ],
+   [
+    "R",
+    "Resultat",
+    0.5,
+    false
+   ]
+  ],
+  "delarKalla": "Håll S och T till en mening var, ge A mest plats och avsluta alltid med ett R.",
+  "vanster": {
+   "typ": "ring",
+   "tal": {
+    "text": "4",
+    "kalla": "fyra korta meningar räcker långt"
+   },
+   "enhet": "meningar",
+   "text": "räcker långt"
+  },
+  "chip": "STAR"
+ }
+}

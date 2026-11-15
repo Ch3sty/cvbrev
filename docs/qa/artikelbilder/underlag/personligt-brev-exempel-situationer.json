@@ -1,0 +1,21 @@
+{
+ "alt": "Personligt brev exempel för en situation, junior analytiker utan erfarenhet, inledningen inringad",
+ "fyll": {
+  "etikett": "Brev per situation",
+  "mottagare": {
+   "text": "Ansökan: junior analytiker",
+   "kalla": "junior analytiker"
+  },
+  "stycke": [
+   "Som nyexaminerad systemvetare",
+   "med ett särskilt intresse för",
+   "dataanalys blev jag glad över er",
+   "utlysning för junior analytiker."
+  ],
+  "grepp": [
+   "Lyft potential",
+   "Visa research",
+   "Repetera inte, fördjupa"
+  ]
+ }
+}

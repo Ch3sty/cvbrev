@@ -1,0 +1,9 @@
+{
+ "alt": "Ansökan som först läses av rekryteringssystemet, med tre råd för att komma förbi AI-rekrytering",
+ "fyll": {
+  "etikett": "AI i rekryteringen",
+  "mottagare": { "text": "Ansökan via ATS-system", "kalla": "ATS-system" },
+  "stycke": "När du söker ett populärt jobb läser roboten ditt CV först och en människa ser bara de högst rankade.",
+  "grepp": ["Exakta nyckelord från annonsen", "Ren formatering", "PDF eller DOCX"]
+ }
+}

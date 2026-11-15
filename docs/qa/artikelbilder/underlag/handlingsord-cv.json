@@ -1,0 +1,19 @@
+{
+ "alt": "Erfarenhetsrad som börjar med ett handlingsord inringad i CV:t, med tre regler för verben",
+ "fyll": {
+  "etikett": "Handlingsord i CV:t",
+  "namn": "Emma Karlsson",
+  "yrke": "Butikssäljare",
+  "profil": [
+   "Byggde upp butikens Instagram",
+   "från noll till 4 000 följare",
+   "på ett år."
+  ],
+  "grepp": [
+   "Verb slår substantiv",
+   "Preteritum för avslutade roller",
+   "Presens för nuvarande roll"
+  ],
+  "sektion": "ERFARENHET"
+ }
+}

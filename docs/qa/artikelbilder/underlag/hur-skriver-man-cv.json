@@ -1,0 +1,15 @@
+{
+ "alt": "CV-profil för en nyexaminerad systemvetare med resultat, och tre råd om hur man skriver CV",
+ "fyll": {
+  "etikett": "Skriva ett CV",
+  "namn": "Ali Hassan",
+  "yrke": "Systemvetare",
+  "profil": "Byggde under examensarbetet en prognosmodell i Python som kortade en kommuns budgetprocess med två veckor.",
+  "grepp": [
+   "Börja i jobbannonsen",
+   "Enkelt slår avancerat",
+   "Skriv resultat, inte arbetsuppgifter"
+  ],
+  "sektion": "ERFARENHET"
+ }
+}

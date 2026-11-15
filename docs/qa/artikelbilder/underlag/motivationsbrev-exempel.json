@@ -1,0 +1,9 @@
+{
+ "alt": "Motivationsbrev till en teamledarroll där öppningen i drivkraften är inringad, med tre steg",
+ "fyll": {
+  "etikett": "Motivationsbrevet",
+  "mottagare": { "text": "Ansökan: teamledare", "kalla": "teamledare" },
+  "stycke": { "text": "När vi införde det nya ärendesystemet i fjol var jag den som frivilligt tog rollen att lära upp kollegorna.", "kalla": "När vi införde det nya ärendesystemet i fjol var jag den som frivilligt tog rollen att lära upp kollegorna" },
+  "grepp": ["Öppna i drivkraften", "Skriv unikt för varje mottagare", "Vart det ska leda"]
+ }
+}

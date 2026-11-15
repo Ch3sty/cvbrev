@@ -1,0 +1,43 @@
+{
+ "alt": "Personliga egenskaper på intervjun visade med STAR, handlingen markerad, tre till fem egenskaper",
+ "fyll": {
+  "etikett": "Personliga egenskaper",
+  "fraga": "Vilka är dina tre främsta egenskaper?",
+  "delar": [
+   [
+    "S",
+    "Situation",
+    0.3,
+    false
+   ],
+   [
+    "T",
+    "Uppgift",
+    0.25,
+    false
+   ],
+   [
+    "A",
+    "Handling",
+    1,
+    true
+   ],
+   [
+    "R",
+    "Resultat",
+    0.6,
+    false
+   ]
+  ],
+  "delarKalla": "Lägg tyngdpunkten på vad just du gjorde och vad det ledde till.",
+  "vanster": {
+   "typ": "ring",
+   "tal": {
+    "text": "3–5",
+    "kalla": "Välj tre till fem egenskaper"
+   },
+   "enhet": "egenskaper",
+   "text": "relevanta för rollen"
+  }
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "alt": "Rubrik för personligt brev inringad i brevhuvudet, med tre råd för ämnesraden i mejlet",
+ "fyll": {
+  "etikett": "Rubriken i brevet",
+  "mottagare": {
+   "text": "Till: Byggföretaget AB",
+   "kalla": "Till: Rekryteringsansvarig, Byggföretaget AB"
+  },
+  "stycke": "Ärende: Ansökan till tjänsten som Projektledare Bygg",
+  "grepp": [
+   "Den exakta jobbtiteln",
+   "Ditt fullständiga namn",
+   "Runt 50-60 tecken"
+  ]
+ }
+}

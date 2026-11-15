@@ -1,0 +1,41 @@
+{
+ "alt": "Intervjufråga för sjuksköterska om prioritering besvarad med STAR, handlingen markerad",
+ "fyll": {
+  "etikett": "Intervju som sjuksköterska",
+  "fraga": "Berätta om ett pass då du behövde prioritera hårt",
+  "delar": [
+   [
+    "S",
+    "Situation",
+    0.3,
+    false
+   ],
+   [
+    "T",
+    "Uppgift",
+    0.25,
+    false
+   ],
+   [
+    "A",
+    "Handling",
+    1,
+    true
+   ],
+   [
+    "R",
+    "Resultat",
+    0.5,
+    false
+   ]
+  ],
+  "delarKalla": "Handlingen är längst och handlar om vad du själv bedömde och gjorde.",
+  "vanster": {
+   "typ": "ring",
+   "tal": {
+    "text": "90",
+    "kalla": "Ungefär en och en halv minut per svar."
+   }
+  }
+ }
+}

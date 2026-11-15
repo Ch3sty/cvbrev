@@ -1,0 +1,13 @@
+{
+ "alt": "Samtal med Jobbcoachen om panikångest på jobbet, med tre saker att göra i stunden",
+ "fyll": {
+  "etikett": "Panikångest på jobbet",
+  "fraga": "Är det normalt att få ångest bara av att gå till jobbet?",
+  "svar": "Att då och då känna olust inför en jobbig dag är vanligt.",
+  "grepp": [
+   "Sätt dig ner",
+   "Andas långsamt",
+   "Dra dig undan en stund"
+  ]
+ }
+}

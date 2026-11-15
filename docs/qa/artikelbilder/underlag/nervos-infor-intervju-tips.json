@@ -1,0 +1,31 @@
+{
+ "alt": "Nervös inför intervju, lugn utandning dubbelt så lång som inandningen och tre råd vid blackout",
+ "fyll": {
+  "etikett": "Nervös inför intervjun",
+  "fraga": "Vad gör jag vid blackout under intervjun?",
+  "delar": [
+   [
+    "I",
+    "Inandning",
+    0.5,
+    false
+   ],
+   [
+    "U",
+    "Utandning",
+    1,
+    true
+   ]
+  ],
+  "delarKalla": "dubbelt så länge som inandningen",
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Andas ut först",
+    "Pausa öppet",
+    "Be om förtydligande"
+   ]
+  },
+  "chip": "DIN FRÅGA"
+ }
+}

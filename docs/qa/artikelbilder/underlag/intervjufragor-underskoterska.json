@@ -1,0 +1,43 @@
+{
+ "alt": "Intervjufråga för undersköterska om en patient som blev sämre, besvarad med STAR",
+ "fyll": {
+  "etikett": "Undersköterskans intervju",
+  "fraga": "Berätta om en gång du upptäckte att en patient blev sämre",
+  "delar": [
+   [
+    "S",
+    "Situation",
+    0.3,
+    false
+   ],
+   [
+    "T",
+    "Uppgift",
+    0.25,
+    false
+   ],
+   [
+    "A",
+    "Handling",
+    1,
+    true
+   ],
+   [
+    "R",
+    "Resultat",
+    0.5,
+    false
+   ]
+  ],
+  "delarKalla": "Handlingen är längst och full av vad du själv gjorde.",
+  "vanster": {
+   "typ": "ring",
+   "tal": {
+    "text": "30",
+    "kalla": "oftast en inledande digital intervju på cirka 30 minuter"
+   },
+   "enhet": "minuter",
+   "text": "inledande digital intervju"
+  }
+ }
+}

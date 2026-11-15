@@ -1,0 +1,18 @@
+{
+ "alt": "Konkret erfarenhetsrad inringad i ett ATS-vänligt CV, med tre formatregler för rekryteringssystem",
+ "fyll": {
+  "etikett": "ATS-vänligt CV",
+  "namn": "Lina Karlsson",
+  "yrke": {
+   "text": "Redovisningsassistent",
+   "kalla": "Fakturerade och gjorde månadsavstämningar i Fortnox för cirka 80 kundföretag"
+  },
+  "profil": "Fakturerade och gjorde månadsavstämningar i Fortnox för cirka 80 kundföretag",
+  "grepp": [
+   "En spalt, uppifrån och ner",
+   "Standardrubriker",
+   "Skriv ut förkortningar"
+  ],
+  "sektion": "ERFARENHET"
+ }
+}

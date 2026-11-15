@@ -1,0 +1,25 @@
+{
+ "alt": "Numeriskt test med fråga om procentuell ökning och fyra svar, bredvid tre råd",
+ "fyll": {
+  "etikett": "Numeriskt test",
+  "huvud": {
+   "typ": "fraga",
+   "chip": "UPPGIFT",
+   "uppgiftText": "Med hur många procent ökade region Syd från Q1 till Q3?",
+   "alternativ": [
+    "5 procent",
+    "20 procent",
+    "25 procent",
+    "80 procent"
+   ]
+  },
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Läs frågan före tabellen",
+    "Gör ett snabbt överslag",
+    "Håll tempot"
+   ]
+  }
+ }
+}

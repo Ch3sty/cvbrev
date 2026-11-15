@@ -1,0 +1,9 @@
+{
+ "alt": "Kort personligt brev till en kundansvarig, inledningen inringad, med lagom längd i ord och sidor",
+ "fyll": {
+  "etikett": "Brevets längd",
+  "mottagare": { "text": "Ansökan: kundansvarig", "kalla": "kundansvarig" },
+  "stycke": "Ni söker en kundansvarig som kan bygga långsiktiga relationer och växa befintliga konton.",
+  "grepp": ["Max en A4-sida", "250-400 ord", "Färre ord, mer bevis"]
+ }
+}

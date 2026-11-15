@@ -1,0 +1,18 @@
+{
+ "alt": "Exempel på CV för en säljare med resultatraden inringad och tre kännetecken",
+ "fyll": {
+  "etikett": "Lära av CV-exempel",
+  "namn": "Erik Andersson",
+  "yrke": "Säljare",
+  "profil": [
+   "Ökade försäljningen",
+   "med 25 procent"
+  ],
+  "grepp": [
+   "Yrkesspecifikt innehåll",
+   "Konkreta arbetsuppgifter",
+   "Resultat och siffror"
+  ],
+  "sektion": "ERFARENHET"
+ }
+}

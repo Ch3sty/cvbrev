@@ -1,0 +1,15 @@
+{
+ "alt": "CV som avslutas med referenser lämnas på begäran, och tre råd om referenser i CV",
+ "fyll": {
+  "etikett": "Referenser i CV:t",
+  "namn": "Nora Eriksson",
+  "yrke": "Projektkoordinator",
+  "profil": "Referenser lämnas på begäran.",
+  "grepp": [
+   "Fråga om lov tydligt",
+   "Sikta på 2-3 personer",
+   "Skicka inte listan i förväg"
+  ],
+  "sektion": "REFERENSER"
+ }
+}

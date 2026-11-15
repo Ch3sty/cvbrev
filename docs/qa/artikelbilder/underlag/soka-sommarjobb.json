@@ -1,0 +1,16 @@
+{
+ "alt": "Personligt brev när du ska söka sommarjobb, en stark mening inringad och tre råd",
+ "fyll": {
+  "etikett": "Söka sommarjobb",
+  "mottagare": {
+   "text": "Ansökan: sommarjobb i butik",
+   "kalla": "sommarjobb i butik"
+  },
+  "stycke": "I två säsonger har jag skött kassan i fotbollsklubbens kiosk på hemmamatcherna, och vi har aldrig haft en kassadifferens.",
+  "grepp": [
+   "Börja söka i december",
+   "Exakta datum",
+   "Ett kort personligt brev"
+  ]
+ }
+}

@@ -1,0 +1,13 @@
+{
+ "alt": "Samtal med Jobbcoachen om första steget när du vill byta karriär, med tre råd",
+ "fyll": {
+  "etikett": "Byta karriär",
+  "fraga": "Vad är första steget när man vill byta karriär?",
+  "svar": "Första steget är självinsikt.",
+  "grepp": [
+   "Bygg nätverk",
+   "Vinkla CV och personligt brev",
+   "Betona dina överförbara färdigheter"
+  ]
+ }
+}

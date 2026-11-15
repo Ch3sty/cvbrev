@@ -1,0 +1,16 @@
+{
+ "alt": "Personligt brev till en utbildning med inledningen inringad och tre tips inför antagningen",
+ "fyll": {
+  "etikett": "Brev till utbildning",
+  "mottagare": {
+   "text": "Ansökan: kandidatprogrammet",
+   "kalla": "kandidatprogrammet"
+  },
+  "stycke": "Jag söker kandidatprogrammet i miljövetenskap vid Lunds universitet.",
+  "grepp": [
+   "Var specifik om programmet",
+   "Koppla till egna erfarenheter",
+   "Visa långsiktig ambition"
+  ]
+ }
+}

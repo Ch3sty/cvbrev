@@ -1,0 +1,9 @@
+{
+ "alt": "Personligt brev i rätt format till en säljchef, ett stycke inringat, med tre formatregler",
+ "fyll": {
+  "etikett": "Brevets format",
+  "mottagare": { "text": "Ansökan: säljchef", "kalla": "Under mina tre år som säljchef har jag:" },
+  "stycke": { "text": "Under mina tre år som säljchef har jag ökat försäljningen med 40% genom strukturerad kundbearbetning.", "kalla": "Ökat försäljningen med 40% genom strukturerad kundbearbetning" },
+  "grepp": ["11-12 punkter för brödtext", "2,5 cm på alla sidor", "Vänsterjusterad text"]
+ }
+}

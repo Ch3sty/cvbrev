@@ -1,0 +1,18 @@
+{
+ "alt": "Matrisuppgift ur ett logiktest bredvid varför verifierade testresultat väger tyngre än CV:t",
+ "fyll": {
+  "etikett": "Verifierade testresultat",
+  "huvud": {
+   "typ": "matris",
+   "uppgift": "bild-m-05"
+  },
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Ett test vet inget om ditt namn",
+    "Gör testet när du är utvilad",
+    "Öva innan, i övningsläge"
+   ]
+  }
+ }
+}

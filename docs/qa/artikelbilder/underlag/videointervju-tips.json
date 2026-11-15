@@ -1,0 +1,43 @@
+{
+ "alt": "Videointervju med en kompetensfråga besvarad enligt STAR, handlingen markerad, två minuter per svar",
+ "fyll": {
+  "etikett": "Videointervjun",
+  "fraga": "Berätta om en gång när du löste ett problem",
+  "delar": [
+   [
+    "S",
+    "Situation",
+    0.3,
+    false
+   ],
+   [
+    "T",
+    "Uppgift",
+    0.25,
+    false
+   ],
+   [
+    "A",
+    "Handling",
+    1,
+    true
+   ],
+   [
+    "R",
+    "Resultat",
+    0.5,
+    false
+   ]
+  ],
+  "delarKalla": "Jag löste det genom att införa en gemensam lista för alla skift",
+  "vanster": {
+   "typ": "ring",
+   "tal": {
+    "text": "2",
+    "kalla": "Två minuter räcker för de flesta svar."
+   },
+   "enhet": "minuter",
+   "text": "räcker för de flesta svar"
+  }
+ }
+}

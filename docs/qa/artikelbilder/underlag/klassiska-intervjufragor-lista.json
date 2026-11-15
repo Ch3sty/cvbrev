@@ -1,0 +1,42 @@
+{
+ "alt": "Klassiska intervjufrågor att förbereda, en beteendefråga besvarad med STAR och handlingen markerad",
+ "fyll": {
+  "etikett": "Klassiska intervjufrågor",
+  "fraga": "Berätta om en gång du löste ett problem.",
+  "delar": [
+   [
+    "S",
+    "Situation",
+    0.3,
+    false
+   ],
+   [
+    "T",
+    "Uppgift",
+    0.25,
+    false
+   ],
+   [
+    "A",
+    "Handling",
+    1,
+    true
+   ],
+   [
+    "R",
+    "Resultat",
+    0.6,
+    false
+   ]
+  ],
+  "delarKalla": "Lägg tyngdpunkten på vad *du* gjorde och vad det ledde till.",
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Berätta om dig själv.",
+    "Varför ska vi anställa dig?",
+    "Var ser du dig själv om fem år?"
+   ]
+  }
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "alt": "Personligt brev som en jobbcoach har vässat, inledningen inringad och tre kännetecken",
+ "fyll": {
+  "etikett": "Hjälp av jobbcoach",
+  "mottagare": {
+   "text": "Ansökan: Content Manager",
+   "kalla": "Content Manager"
+  },
+  "stycke": "Ni söker någon som kan öka er organiska trafik med datadrivet content.",
+  "grepp": [
+   "Börjar med värde",
+   "Kvantifierade resultat",
+   "Företagsspecifik"
+  ]
+ }
+}

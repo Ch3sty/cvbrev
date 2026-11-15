@@ -1,0 +1,9 @@
+{
+ "alt": "Personligt brev till butik för en butiksmedarbetare, inledningen inringad, med tre råd",
+ "fyll": {
+  "etikett": "Brev till butik",
+  "mottagare": { "text": "Ansökan: butiksmedarbetare", "kalla": "butiksmedarbetare" },
+  "stycke": "Jag såg att ni söker butiksmedarbetare till kvällar och helger, och jag vill gärna arbeta i just er butik.",
+  "grepp": ["Varför just den här butiken", "Skriv dagar och tider", "200 till 300 ord räcker"]
+ }
+}

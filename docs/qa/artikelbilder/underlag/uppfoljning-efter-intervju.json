@@ -1,0 +1,41 @@
+{
+ "alt": "Uppföljning efter intervju med tackmejl inom 24 timmar, referensen till samtalet markerad",
+ "fyll": {
+  "etikett": "Tackmejlet",
+  "fraga": "Vad ska tackmejlet innehålla?",
+  "delar": [
+   [
+    "T",
+    "Tack",
+    0.4,
+    false
+   ],
+   [
+    "Å",
+    "Återupprepa intresse",
+    0.5,
+    false
+   ],
+   [
+    "R",
+    "Referera till samtalet",
+    1,
+    true
+   ],
+   [
+    "A",
+    "Avslutning",
+    0.3,
+    false
+   ]
+  ],
+  "delarKalla": "Referera till Samtalet (Viktigt!)",
+  "vanster": {
+   "typ": "ring",
+   "tal": "24",
+   "enhet": "timmar",
+   "text": "tackmejl efter intervju"
+  },
+  "chip": "DIN FRÅGA"
+ }
+}

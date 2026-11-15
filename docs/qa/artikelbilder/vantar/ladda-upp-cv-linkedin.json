@@ -1,0 +1,17 @@
+{
+ "alt": "CV för en konsult redo att laddas upp på LinkedIn, med tre regler för filen",
+ "fyll": {
+  "etikett": "CV på LinkedIn",
+  "namn": "Johan Berg",
+  "yrke": {
+   "text": "Konsult",
+   "kalla": "konsulter och frilansare"
+  },
+  "profil": "Välj väg efter syfte.",
+  "grepp": [
+   "Spara CV:t för ansökningar",
+   "PDF, alltid",
+   "Professionellt filnamn"
+  ]
+ }
+}

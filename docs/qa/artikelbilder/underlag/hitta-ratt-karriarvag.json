@@ -1,0 +1,20 @@
+{
+ "alt": "Påstående i ett karriärtest med skala 1 till 5 för att hitta rätt karriärväg",
+ "fyll": {
+  "etikett": "Rätt karriärväg",
+  "huvud": {
+   "typ": "fraga",
+   "chip": "DRIVKRAFT",
+   "uppgiftText": "Hjälpa, lära ut, ta hand om andra",
+   "skala": true
+  },
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Intressen",
+    "Värderingar",
+    "Styrkor"
+   ]
+  }
+ }
+}

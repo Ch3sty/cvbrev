@@ -1,0 +1,43 @@
+{
+ "alt": "Olika intervjutyper och tekniker, en beteendefråga besvarad med STAR och handlingen markerad",
+ "fyll": {
+  "etikett": "Intervjutyper",
+  "fraga": "Berätta om en gång då du hanterade en svår kund.",
+  "delar": [
+   [
+    "S",
+    "Situation",
+    0.3,
+    false
+   ],
+   [
+    "T",
+    "Uppgift",
+    0.25,
+    false
+   ],
+   [
+    "A",
+    "Handling",
+    1,
+    true
+   ],
+   [
+    "R",
+    "Resultat",
+    0.5,
+    false
+   ]
+  ],
+  "delarKalla": "Fokusera på *dina* handlingar och *ditt* bidrag",
+  "vanster": {
+   "typ": "ring",
+   "tal": {
+    "text": "7",
+    "kalla": "de sju vanligaste formaten"
+   },
+   "enhet": "intervjutyper",
+   "text": "i översikt"
+  }
+ }
+}

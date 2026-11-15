@@ -1,0 +1,9 @@
+{
+ "alt": "Personligt brev där avslutningen med en aktiv uppmaning är inringad, med avslutningens tre delar",
+ "fyll": {
+  "etikett": "Avslutningen i brevet",
+  "mottagare": { "text": "Ansökan: säljare", "kalla": "Säljare, efter: värde och uppmaning" },
+  "stycke": "Jag ser fram emot att diskutera hur jag kan bidra till ert säljteam, kontakta mig gärna för en intervju.",
+  "grepp": ["Bekräftat intresse", "En påminnelse om ditt värde", "En aktiv uppmaning"]
+ }
+}

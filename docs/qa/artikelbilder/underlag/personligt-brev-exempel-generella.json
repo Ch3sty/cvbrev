@@ -1,0 +1,9 @@
+{
+ "alt": "Personligt brev exempel med en stark inledning inringad, och tre steg för att använda exempel",
+ "fyll": {
+  "etikett": "Lär av exemplen",
+  "mottagare": { "text": "Ansökan: Sustainability Manager", "kalla": "Sustainability Manager" },
+  "stycke": "Jag har följt er lansering av hållbara förpackningar sedan 2023.",
+  "grepp": ["Bryt ner exemplet", "Låna struktur, inte text", "Korrekturläs"]
+ }
+}

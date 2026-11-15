@@ -1,0 +1,36 @@
+{
+ "alt": "Svaret på varför söker du jobbet med roll, företag och riktning, företaget markerat",
+ "fyll": {
+  "etikett": "Varför söker du jobbet",
+  "fraga": "Varför söker du den här tjänsten?",
+  "delar": [
+   [
+    "R",
+    "Rollen",
+    0.6,
+    false
+   ],
+   [
+    "F",
+    "Företaget",
+    1,
+    true
+   ],
+   [
+    "D",
+    "Din riktning",
+    0.5,
+    false
+   ]
+  ],
+  "delarKalla": "Det här är beviset på att du gjort din research.",
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Var konkret.",
+    "Nämn något specifikt i ditt svar",
+    "Undvik generiska svar"
+   ]
+  }
+ }
+}

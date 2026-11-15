@@ -1,0 +1,16 @@
+{
+ "alt": "Mall för personligt brev med en stark inledning inringad och tre grepp för strukturen",
+ "fyll": {
+  "etikett": "Mallen för brevet",
+  "mottagare": {
+   "text": "Ansökan: projektledare",
+   "kalla": "projektledare"
+  },
+  "stycke": "Det som fick mig att söka projektledartjänsten hos er var ert nyligen vunna tunnelbanekontrakt.",
+  "grepp": [
+   "En kort inledning",
+   "Ett krav per stycke",
+   "Ett exempel per krav"
+  ]
+ }
+}

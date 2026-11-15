@@ -1,0 +1,36 @@
+{
+ "alt": "Löneanspråk på intervjun som ett motiverat intervall, med tre råd inför lönefrågan",
+ "fyll": {
+  "etikett": "Löneanspråket",
+  "fraga": "Vilka löneanspråk har du?",
+  "delar": [
+   [
+    "L",
+    "Lönestatistiken",
+    0.5,
+    false
+   ],
+   [
+    "I",
+    "Intervallet",
+    1,
+    true
+   ],
+   [
+    "H",
+    "Helheten",
+    0.4,
+    false
+   ]
+  ],
+  "delarKalla": "Ett intervall är oftast bättre.",
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Svara inte för tidigt",
+    "Utgå aldrig från din nuvarande lön",
+    "Sätt intervallet rätt"
+   ]
+  }
+ }
+}

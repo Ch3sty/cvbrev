@@ -1,0 +1,9 @@
+{
+ "slug": "inleda-personligt-brev",
+ "mall": "brev",
+ "kluster": "letter",
+ "kB": 42,
+ "minstaMarginal": 27,
+ "tightast": "När ni skriver att ni söker",
+ "uppgift": null
+}

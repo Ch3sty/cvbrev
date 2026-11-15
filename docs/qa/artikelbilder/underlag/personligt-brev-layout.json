@@ -1,0 +1,17 @@
+{
+ "alt": "Personligt brev med rätt layout för en ekonomiassistent, avslutningsfrasen inringad bredvid marginaler, typsnitt och sidlängd",
+ "fyll": {
+  "etikett": "Layout för brevet",
+  "mottagare": {
+   "text": "Ansökan: ekonomiassistent",
+   "kalla": "ekonomiassistent"
+  },
+  "stycke": "Med vänlig hälsning,",
+  "grepp": [
+   "2,5 cm marginaler",
+   "Calibri eller Arial i 11-12pt",
+   "Max 1 A4-sida"
+  ],
+  "lage": "avslut"
+ }
+}

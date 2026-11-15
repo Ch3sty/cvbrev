@@ -1,0 +1,36 @@
+{
+ "alt": "Kompetensbaserade intervjufrågor besvarade med situation, beteende och resultat, beteendet markerat",
+ "fyll": {
+  "etikett": "Kompetensbaserade frågor",
+  "fraga": "Berätta om en gång när du var tvungen att samarbeta med någon du tyckte var svår.",
+  "delar": [
+   [
+    "S",
+    "Situation",
+    0.3,
+    false
+   ],
+   [
+    "B",
+    "Beteende",
+    1,
+    true
+   ],
+   [
+    "R",
+    "Resultat",
+    0.6,
+    false
+   ]
+  ],
+  "delarKalla": "Det metoden mäter är ditt beteende, inte var det ägde rum.",
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Säg \"jag\", inte \"vi\"",
+    "Ha alltid ett slut på berättelsen",
+    "Välj verkliga situationer"
+   ]
+  }
+ }
+}

@@ -1,0 +1,19 @@
+{
+ "alt": "Samtal med Jobbcoachen om ångest inför nytt jobb och första tiden på arbetsplatsen",
+ "fyll": {
+  "etikett": "Ångest inför nytt jobb",
+  "fraga": [
+   "Är det normalt att känna",
+   "ångest inför ett nytt jobb?"
+  ],
+  "svar": [
+   "Ja, det är både normalt",
+   "och vanligt."
+  ],
+  "grepp": [
+   "Skydda din sömn",
+   "Ställa frågor",
+   "Låta det få ta tid"
+  ]
+ }
+}

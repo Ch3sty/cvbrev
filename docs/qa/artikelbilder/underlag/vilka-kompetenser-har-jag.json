@@ -1,0 +1,13 @@
+{
+ "alt": "Samtal med Jobbcoachen om vilka kompetenser du har och hur du kartlägger dem",
+ "fyll": {
+  "etikett": "Kartlägga kompetenser",
+  "fraga": "Hur skiljer jag en kompetens från en personlig egenskap?",
+  "svar": "En egenskap är något du är, en kompetens är något du kan göra med den.",
+  "grepp": [
+   "Skriv ner allt",
+   "Vilka problem löste jag",
+   "Matcha sedan listan mot jobbannonser"
+  ]
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "alt": "Brev med en inledning som visar research inringad, bredvid tre tips på personligt brev",
+ "fyll": {
+  "etikett": "Tips för brevet",
+  "mottagare": {
+   "text": "Ansökan: projektledare",
+   "kalla": "projektledare"
+  },
+  "stycke": "Jag har följt er expansion till den nordiska marknaden med stort intresse.",
+  "grepp": [
+   "Skräddarsy, varje gång",
+   "Bevisa med siffror, inte adjektiv",
+   "Tala annonsens språk"
+  ]
+ }
+}

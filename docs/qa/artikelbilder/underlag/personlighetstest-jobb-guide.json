@@ -1,0 +1,20 @@
+{
+ "alt": "Påstående i ett personlighetstest för jobb med skala 1 till 5, bredvid vad testet mäter",
+ "fyll": {
+  "etikett": "Personlighetstest i jobbet",
+  "huvud": {
+   "typ": "fraga",
+   "chip": "PÅSTÅENDE",
+   "uppgiftText": "Jag dubbelkollar siffrorna innan jag skickar iväg en rapport.",
+   "skala": true
+  },
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Hur du samarbetar",
+    "Hanterar stress",
+    "Fattar beslut"
+   ]
+  }
+ }
+}

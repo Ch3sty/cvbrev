@@ -1,0 +1,9 @@
+{
+ "alt": "Personligt brev till en projektledare med öppningen inringad, och tre delar som innehållet behöver",
+ "fyll": {
+  "etikett": "Brevets innehåll",
+  "mottagare": { "text": "Ansökan: projektledare", "kalla": "projektledare" },
+  "stycke": "Ni söker en projektledare som kan hantera komplexa IT-implementeringar i stora organisationer.",
+  "grepp": ["Varför du passar", "Vad du kan bidra med", "Varför just detta företag?"]
+ }
+}

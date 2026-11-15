@@ -1,0 +1,18 @@
+{
+ "alt": "Matrisuppgift med tom ruta bredvid tre punkter om arbetspsykologiska tester hos myndigheter",
+ "fyll": {
+  "etikett": "Tester hos myndigheter",
+  "huvud": {
+   "typ": "matris",
+   "uppgift": "bild-m-02"
+  },
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Problemlösningsförmåga",
+    "Personliga egenskaper",
+    "Testet hemma vid datorn"
+   ]
+  }
+ }
+}

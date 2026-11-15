@@ -1,0 +1,42 @@
+{
+ "alt": "Beteendefråga på arbetsintervju besvarad med STAR, handlingen markerad, bredvid tre förberedelsesteg",
+ "fyll": {
+  "etikett": "Arbetsintervjun",
+  "fraga": "Berätta om en gång då du...",
+  "delar": [
+   [
+    "S",
+    "Situation",
+    0.3,
+    false
+   ],
+   [
+    "T",
+    "Uppgift",
+    0.25,
+    false
+   ],
+   [
+    "A",
+    "Handling",
+    1,
+    true
+   ],
+   [
+    "R",
+    "Resultat",
+    0.5,
+    false
+   ]
+  ],
+  "delarKalla": "prioriterade jag om mina uppgifter, delegerade de delar som inte krävde min specifika kompetens och kommunicerade tydligt med teamet",
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Researcha företaget och rollen",
+    "Analysera jobbannonsen igen",
+    "Öva svaren högt"
+   ]
+  }
+ }
+}

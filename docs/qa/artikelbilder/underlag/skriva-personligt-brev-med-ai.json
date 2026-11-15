@@ -1,0 +1,16 @@
+{
+ "alt": "Personligt brev skrivet med AI och redigerat, inledningen inringad bredvid tre råd för utkastet",
+ "fyll": {
+  "etikett": "Brevet med AI",
+  "mottagare": {
+   "text": "Ansökan: ekonomiassistent",
+   "kalla": "ekonomiassistent"
+  },
+  "stycke": "Ni söker en ekonomiassistent med erfarenhet av löpande bokföring.",
+  "grepp": [
+   "Ett utkast, inte ett färdigt brev",
+   "Faktagranska varje mening",
+   "Konkreta exempel med siffror"
+  ]
+ }
+}

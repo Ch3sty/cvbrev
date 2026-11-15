@@ -1,0 +1,18 @@
+{
+ "alt": "Uppgift i spatial förmåga steg för steg med tom ruta, bredvid tre tekniker för rotationstest",
+ "fyll": {
+  "etikett": "Spatial förmåga",
+  "huvud": {
+   "typ": "spatial",
+   "uppgift": "sp-art-u1-vik"
+  },
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Hitta ankarpunkten först",
+    "Rotera originalet",
+    "Eliminera distraktorerna"
+   ]
+  }
+ }
+}

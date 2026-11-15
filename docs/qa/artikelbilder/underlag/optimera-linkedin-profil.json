@@ -1,0 +1,16 @@
+{
+ "alt": "Samtal med Jobbcoachen om att optimera LinkedIn-profilen, med tre råd för rubrik och om-text",
+ "fyll": {
+  "etikett": "LinkedIn-profilen",
+  "fraga": [
+   "Vad ska jag skriva",
+   "i LinkedIn-rubriken?"
+  ],
+  "svar": "Mer än bara din titel.",
+  "grepp": [
+   "Skriv för rekryterarens sökning",
+   "Tre till fem meningar",
+   "Lägg till ett professionellt foto"
+  ]
+ }
+}

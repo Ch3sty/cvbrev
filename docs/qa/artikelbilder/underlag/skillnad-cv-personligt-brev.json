@@ -1,0 +1,16 @@
+{
+ "alt": "Personligt brev med motivationen inringad och tre råd om hur det skiljer sig från CV:t",
+ "fyll": {
+  "etikett": "CV eller brev",
+  "mottagare": {
+   "text": "Ansökan: kundserviceansvarig",
+   "kalla": "kundserviceansvarig"
+  },
+  "stycke": "Jag söker tjänsten som kundserviceansvarig hos er eftersom jag vill ta nästa steg i min karriär inom kundservice.",
+  "grepp": [
+   "Komplettera varandra",
+   "Skriv CV:t först",
+   "Sätt dem i sammanhang"
+  ]
+ }
+}

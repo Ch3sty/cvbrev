@@ -1,0 +1,9 @@
+{
+ "slug": "personligt-brev-pa-engelska",
+ "mall": "brev",
+ "kluster": "letter",
+ "kB": 40,
+ "minstaMarginal": 26,
+ "tightast": "rect 220×12",
+ "uppgift": null
+}

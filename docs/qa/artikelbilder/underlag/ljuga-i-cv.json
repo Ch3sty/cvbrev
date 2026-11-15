@@ -1,0 +1,18 @@
+{
+ "alt": "Ljuga i CV:t eller inte: en ärlig erfarenhetsrad för en projektledare, med tre ärliga alternativ",
+ "fyll": {
+  "etikett": "Ljuga i CV:t",
+  "namn": "Anna Bergström",
+  "yrke": {
+   "text": "Projektledare",
+   "kalla": "drev projektet"
+  },
+  "profil": "Drev projektet",
+  "grepp": [
+   "En förklarad lucka",
+   "Ärlig poänguppgift",
+   "Sanna verb för saker du gjort"
+  ],
+  "sektion": "ERFARENHET"
+ }
+}

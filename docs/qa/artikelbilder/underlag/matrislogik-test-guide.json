@@ -1,0 +1,18 @@
+{
+ "alt": "Matrislogik med former kring en linje i ett rutnät, bredvid tre råd för testet",
+ "fyll": {
+  "etikett": "Matrislogik",
+  "huvud": {
+   "typ": "matris",
+   "uppgift": "bild-m-07"
+  },
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Lös en egenskap i taget",
+    "Kontrollera ditt svar",
+    "Öva med klocka"
+   ]
+  }
+ }
+}

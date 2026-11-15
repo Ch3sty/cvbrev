@@ -1,0 +1,19 @@
+{
+ "alt": "Profiltext för en ekonomistudent inringad i CV:t, med tre råd för student och nyexaminerad",
+ "fyll": {
+  "etikett": "CV som student",
+  "namn": "Emma Andersson",
+  "yrke": "Ekonomistudent",
+  "profil": [
+   "Serviceinriktad ekonomistudent",
+   "med erfarenhet av",
+   "kundbemötande från",
+   "extrajobb i butik."
+  ],
+  "grepp": [
+   "Utbildningen högst upp",
+   "Lyft relevanta kurser",
+   "Skriv en stark profil"
+  ]
+ }
+}

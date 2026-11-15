@@ -1,0 +1,9 @@
+{
+ "slug": "numeriskt-test-guide",
+ "mall": "tester",
+ "kluster": "test",
+ "kB": 41,
+ "minstaMarginal": 25,
+ "tightast": "5 procent",
+ "uppgift": null
+}

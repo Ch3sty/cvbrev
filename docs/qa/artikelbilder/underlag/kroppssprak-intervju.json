@@ -1,0 +1,30 @@
+{
+ "alt": "Kroppsspråk på intervjun som förstärker orden, med tre råd om hållning och blick",
+ "fyll": {
+  "etikett": "Kroppsspråket",
+  "fraga": "Berätta om dig själv",
+  "delar": [
+   [
+    "O",
+    "Orden",
+    1,
+    true
+   ],
+   [
+    "K",
+    "Kroppsspråket",
+    0.5,
+    false
+   ]
+  ],
+  "delarKalla": "Orden bär huvudbudskapet, kroppsspråket förstärker eller försvagar det.",
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Sitt rakt men avslappnat",
+    "Sök ögonkontakt direkt",
+    "Korsa inte armarna"
+   ]
+  }
+ }
+}

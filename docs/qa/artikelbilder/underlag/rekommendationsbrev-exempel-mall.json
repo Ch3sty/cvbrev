@@ -1,0 +1,13 @@
+{
+ "alt": "Samtal med Jobbcoachen om hur långt ett rekommendationsbrev ska vara, med tre råd",
+ "fyll": {
+  "etikett": "Rekommendationsbrev",
+  "fraga": "Hur långt ska ett rekommendationsbrev vara?",
+  "svar": "En halv till en A4-sida, ungefär 250 till 400 ord.",
+  "grepp": [
+   "Alltid frivilligt",
+   "Konkreta exempel",
+   "Inte allmänna lovord"
+  ]
+ }
+}

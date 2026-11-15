@@ -1,0 +1,9 @@
+{
+ "alt": "Utkast från en digital jobbcoach till en säljroll, inledningen inringad, med tre av coachens uppgifter",
+ "fyll": {
+  "etikett": "Digital jobbcoach",
+  "mottagare": { "text": "Ansökan: säljare", "kalla": "säljare" },
+  "stycke": { "text": "Med tre år som säljare inom SaaS känner jag igen de utmaningar ni beskriver i annonsen.", "kalla": "Med tre år som säljare inom SaaS och ett dokumenterat snitt på 118% av kvoten känner jag igen de utmaningar ni beskriver i annonsen." },
+  "grepp": ["Förstår din bakgrund", "Tolkar arbetsgivarens behov", "Formulerar ditt värde"]
+ }
+}

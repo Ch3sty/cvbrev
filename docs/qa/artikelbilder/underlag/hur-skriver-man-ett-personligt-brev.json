@@ -1,0 +1,19 @@
+{
+ "alt": "Personligt brev till en projektingenjör med inledningen inringad, och tre steg för hur man skriver",
+ "fyll": {
+  "etikett": "Brevet steg för steg",
+  "mottagare": {
+   "text": "Ansökan: projektingenjör",
+   "kalla": "projektingenjör"
+  },
+  "stycke": {
+   "text": "Det som fick mig att söka projektingenjörsrollen var ert vunna tunnelbanekontrakt.",
+   "kalla": "Det som fick mig att söka projektingenjörsrollen hos Skanska var ert vunna tunnelbanekontrakt."
+  },
+  "grepp": [
+   "Läs annonsen två gånger",
+   "Tio minuter på företagets sida",
+   "Ett krav per stycke"
+  ]
+ }
+}

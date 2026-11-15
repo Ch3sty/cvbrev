@@ -1,0 +1,21 @@
+{
+ "alt": "Personligt brev där inledningen är inringad, med tre grepp som fångar läsaren",
+ "fyll": {
+  "etikett": "Inledningen i brevet",
+  "mottagare": {
+   "text": "Ansökan: administratör",
+   "kalla": "administratör"
+  },
+  "stycke": [
+   "När ni skriver att ni söker",
+   "någon som kan strukturera",
+   "upp en växande administration",
+   "kände jag direkt igen mig."
+  ],
+  "grepp": [
+   "Speglar annonsen",
+   "Ger ett konkret resultat",
+   "Kopplar det till rollen"
+  ]
+ }
+}

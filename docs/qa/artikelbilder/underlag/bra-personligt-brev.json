@@ -1,0 +1,9 @@
+{
+ "alt": "Bra personligt brev där en specifik inledning är inringad, med tre kännetecken bredvid",
+ "fyll": {
+  "etikett": "Ett riktigt bra brev",
+  "mottagare": { "text": "Ansökan: marknadskommunikatör", "kalla": "marknadskommunikatör" },
+  "stycke": "Jag söker tjänsten som marknadskommunikatör på Innovate Tech.",
+  "grepp": ["Specifikt, inte generiskt", "Kvantifierade resultat", "Anpassat till arbetsgivaren"]
+ }
+}

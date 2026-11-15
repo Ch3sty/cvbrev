@@ -1,0 +1,48 @@
+{
+ "alt": "Frågekort om olika intervjutyper: telefonintervju, videointervju, panelintervju och strukturerad intervju",
+ "fyll": {
+  "etikett": "Olika intervjutyper",
+  "fraga": {
+   "text": "Vilka olika intervjutyper finns det?",
+   "kalla": "vilka olika intervjutyper finns det?"
+  },
+  "delar": [
+   [
+    "T",
+    "Telefonintervjun",
+    0.7,
+    false
+   ],
+   [
+    "V",
+    "Videointervjun",
+    0.7,
+    false
+   ],
+   [
+    "P",
+    "Panelintervjun",
+    0.7,
+    false
+   ],
+   [
+    "S",
+    "Strukturerade intervjun",
+    0.7,
+    false
+   ]
+  ],
+  "delarKalla": "Grunden är densamma för alla",
+  "vanster": {
+   "typ": "ring",
+   "tal": {
+    "text": "4",
+    "kalla": "De vanligaste är telefonintervjun",
+    "beraknat": "fyra typer uppräknade i snabbsvaret"
+   },
+   "enhet": "intervjutyper",
+   "text": "de vanligaste"
+  },
+  "chip": "DIN FRÅGA"
+ }
+}

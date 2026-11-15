@@ -1,0 +1,13 @@
+{
+ "alt": "Samtal med Jobbcoachen om att säga upp sig och arbetsplikten under uppsägningstiden",
+ "fyll": {
+  "etikett": "Säga upp sig",
+  "fraga": "Måste jag jobba under uppsägningstiden?",
+  "svar": "Ja, som huvudregel gäller arbetsplikt.",
+  "grepp": [
+   "Kontrollera först din uppsägningstid",
+   "En kort skriftlig uppsägning",
+   "Begär tjänstgöringsbetyg innan du slutar"
+  ]
+ }
+}

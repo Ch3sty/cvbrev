@@ -1,0 +1,18 @@
+{
+ "alt": "Matrisuppgift att öva på inför Matrigma test, åtta figurer och tom ruta, med tider",
+ "fyll": {
+  "etikett": "Matristest",
+  "huvud": {
+   "typ": "matris",
+   "uppgift": "matrigma-e1"
+  },
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "12 minuter i adaptiv version",
+    "Högst 40 i klassisk",
+    "C-skalan 0 till 10"
+   ]
+  }
+ }
+}

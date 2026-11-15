@@ -1,0 +1,49 @@
+{
+ "alt": "Matrisuppgift att öva på inför Alva logiktest, två minuter och skala 1 till 10",
+ "fyll": {
+  "etikett": {
+   "text": "Alva logiktest",
+   "undantag": {
+    "av": "seo-strategen",
+    "datum": "2026-11-14",
+    "skal": "artikelns huvudsökord, står i titeln, ren text utan leverantörens form"
+   }
+  },
+  "huvud": {
+   "typ": "matris",
+   "uppgift": "bild-m-06"
+  },
+  "vanster": {
+   "typ": "tidskala",
+   "tid": {
+    "text": "2:00",
+    "kalla": "högst två minuter"
+   },
+   "tidText": {
+    "text": "per uppgift",
+    "kalla": "två minuter på dig per uppgift"
+   },
+   "rubrik": {
+    "text": "Resultat 1 till 10",
+    "kalla": "skala från 1 till 10"
+   },
+   "skala": [
+    0.08,
+    0.16,
+    0.3,
+    0.55,
+    0.9,
+    1,
+    0.65,
+    0.34,
+    0.16,
+    0.08
+   ],
+   "lyft": [
+    5,
+    6
+   ],
+   "lyftKalla": "5 och 6 är vanligast"
+  }
+ }
+}

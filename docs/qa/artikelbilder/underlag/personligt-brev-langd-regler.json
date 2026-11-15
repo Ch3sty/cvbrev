@@ -1,0 +1,16 @@
+{
+ "alt": "Personligt brev med inringad inledning och tre regler för brevets längd i ord och sidor",
+ "fyll": {
+  "etikett": "Brevets längd",
+  "mottagare": {
+   "text": "Ansökan: projektledare",
+   "kalla": "projektledare"
+  },
+  "stycke": "Ni söker en projektledare med erfarenhet av att leda komplexa IT-implementeringar.",
+  "grepp": [
+   "200-400 ord",
+   "Max en A4-sida",
+   "Korta texten i stället"
+  ]
+ }
+}

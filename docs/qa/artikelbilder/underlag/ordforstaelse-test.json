@@ -1,0 +1,18 @@
+{
+ "alt": "Ordförståelse test med ett ord i versaler och fem alternativ, bredvid de tre fällorna",
+ "fyll": {
+  "etikett": "Ordförståelsetest",
+  "huvud": {
+   "typ": "ord",
+   "uppgift": "of-art-03"
+  },
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Motsatsen",
+    "Ett ord ur samma ämnesfält",
+    "Ett ord som ser likadant ut"
+   ]
+  }
+ }
+}

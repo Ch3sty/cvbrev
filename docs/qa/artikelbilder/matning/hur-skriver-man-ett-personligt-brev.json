@@ -1,0 +1,9 @@
+{
+ "slug": "hur-skriver-man-ett-personligt-brev",
+ "mall": "brev",
+ "kluster": "letter",
+ "kB": 42,
+ "minstaMarginal": 26,
+ "tightast": "rect 220×12",
+ "uppgift": null
+}

@@ -1,0 +1,10 @@
+{
+ "alt": "Word-mall för personligt brev med platshållartext inringad och tre steg för att fylla i mallen",
+ "fyll": {
+  "etikett": "Brevmall i Word",
+  "mottagare": { "text": "Ditt namn, telefon och e-post", "kalla": "ditt namn, telefon och e-post" },
+  "halsning": "Hej Maria,",
+  "stycke": "Skriv eget innehåll i de tre till fyra styckena: öppning, matchning och avslutning.",
+  "grepp": ["Byt ut all platshållartext", "Väv in nyckelord från annonsen", "Spara som PDF"]
+ }
+}

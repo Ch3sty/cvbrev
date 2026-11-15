@@ -1,0 +1,17 @@
+{
+ "alt": "Personligt brev på engelska till en brittisk arbetsgivare, motiveringen inringad bredvid tre råd",
+ "fyll": {
+  "etikett": "Brev på engelska",
+  "mottagare": {
+   "text": "Application: Supply Chain Analyst",
+   "kalla": "Supply Chain Analyst"
+  },
+  "halsning": "Dear Ms Patel,",
+  "stycke": "What draws me to Harwell is your commitment to cutting food waste.",
+  "grepp": [
+   "Högst en A4-sida",
+   "250 till 400 ord",
+   "Bevisa din starkaste merit"
+  ]
+ }
+}

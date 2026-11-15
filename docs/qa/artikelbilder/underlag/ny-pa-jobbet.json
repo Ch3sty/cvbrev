@@ -1,0 +1,16 @@
+{
+ "alt": "Samtal med Jobbcoachen om att vara ny på jobbet och de första 90 dagarna",
+ "fyll": {
+  "etikett": "Ny på jobbet",
+  "fraga": [
+   "Hur lång tid tar det att komma",
+   "in i ett nytt jobb?"
+  ],
+  "svar": "Räkna med månader, inte veckor.",
+  "grepp": [
+   "Ställ många frågor",
+   "Anteckna svaren",
+   "Lär dig de sociala koderna"
+  ]
+ }
+}

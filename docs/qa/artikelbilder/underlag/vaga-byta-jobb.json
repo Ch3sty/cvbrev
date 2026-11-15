@@ -1,0 +1,16 @@
+{
+ "alt": "Samtal med Jobbcoachen om att våga byta jobb genom att dela upp beslutet i steg",
+ "fyll": {
+  "etikett": "Våga byta jobb",
+  "fraga": "Hur tar jag steget utan att det känns så stort?",
+  "svar": "Genom att dela upp det.",
+  "grepp": [
+   "Bestäm ett datum",
+   [
+    "Uppdatera CV:t",
+    "medan du är kvar"
+   ],
+   "Prata med någon som gjort ett liknande byte"
+  ]
+ }
+}

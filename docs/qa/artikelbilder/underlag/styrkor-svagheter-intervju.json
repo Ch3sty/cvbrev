@@ -1,0 +1,36 @@
+{
+ "alt": "Svar om styrkor och svagheter på intervjun i tre delar, riktningen markerad",
+ "fyll": {
+  "etikett": "Styrkor och svagheter",
+  "fraga": "Vilka är dina utvecklingsområden?",
+  "delar": [
+   [
+    "S",
+    "Sidan i sig",
+    0.35,
+    false
+   ],
+   [
+    "E",
+    "Ett kort exempel",
+    0.5,
+    false
+   ],
+   [
+    "R",
+    "Riktningen",
+    1,
+    true
+   ]
+  ],
+  "delarKalla": "Sist, och viktigast, riktningen",
+  "vanster": {
+   "typ": "ring",
+   "tal": {
+    "text": "90",
+    "kalla": "Håll varje del till 60-90 sekunder"
+   },
+   "text": "varje del"
+  }
+ }
+}

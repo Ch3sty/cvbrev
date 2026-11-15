@@ -1,0 +1,24 @@
+{
+ "alt": "Verbalt test med ett påstående och svaren sant, falskt eller går ej att avgöra",
+ "fyll": {
+  "etikett": "Verbalt test",
+  "huvud": {
+   "typ": "fraga",
+   "chip": "PÅSTÅENDE",
+   "uppgiftText": "Företaget är branschledande inom hållbarhet.",
+   "alternativ": [
+    "Sant",
+    "Falskt",
+    "Går ej att avgöra"
+   ]
+  },
+  "vanster": {
+   "typ": "bockar",
+   "rader": [
+    "Läs påståendet först",
+    "Var vaksam på starka ord",
+    "Håll tempot uppe"
+   ]
+  }
+ }
+}
