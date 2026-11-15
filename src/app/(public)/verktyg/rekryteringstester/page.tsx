@@ -383,6 +383,9 @@ export default function RekryteringstesterSida() {
             rum="tran"
             yta="vagg"
             vag="mark"
+            // Ingressen blev en rad längre med bredden (S8); utan den här
+            // toppen hamnade knappen under 800 px på datorn (QA 2026-11-15).
+            style={{ paddingTop: 24 }}
             brodsmulor={[
               { name: 'Hem', href: '/' },
               { name: 'Verktyg', href: '/funktioner' },
