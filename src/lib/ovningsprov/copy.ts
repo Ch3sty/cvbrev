@@ -29,9 +29,9 @@ export const START = {
   rubrik: 'Övningsprov mot klockan',
   eyebrow: (typ: Provtyp, dagarKvar: number | null) =>
     dagarKvar === 1
-      ? `${TYP_NAMN[typ]} · dagen före provet`
+      ? `${TYP_NAMN[typ]}, dagen före provet`
       : dagarKvar === 2
-        ? `${TYP_NAMN[typ]} · två dagar före provet`
+        ? `${TYP_NAMN[typ]}, två dagar före provet`
         : TYP_NAMN[typ],
   formatTitel: (f: Ovningsformat) => formatTitel(f),
   regler: [
