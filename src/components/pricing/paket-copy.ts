@@ -34,6 +34,7 @@ import {
   type PlanLength,
 } from '@/lib/plans/plans'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { GRATIS_MENING_LANG_DELAR } from '@/lib/plans/gratis-copy'
 import { JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import type { Feature } from '@/lib/access/features'
 import type { RadIkonNamn } from '@/components/illustrations/PriserScener'
@@ -176,21 +177,8 @@ export const VALJARE = {
 /** Gratisraden. Fetade delar ritas av komponenten. */
 export const GRATIS = {
   rubrik: 'Vill du se först?',
-  delar: <readonly { text: string; fet?: boolean }[]>[
-    { text: 'Utan att betala får du ' },
-    { text: `${FREE_TEMPLATE_COUNT} CV-mallar`, fet: true },
-    { text: ' och en nedladdning, ' },
-    { text: 'en CV-analys', fet: true },
-    { text: ' som visar din poäng och det tyngsta fyndet, ' },
-    { text: 'ett personligt brev', fet: true },
-    { text: ' skrivet på en annons (att läsa, inte ladda ner), ' },
-    { text: 'tre matchade jobb', fet: true },
-    { text: ', ' },
-    { text: 'tio frågor', fet: true },
-    { text: ' till Jobbcoachen, och ' },
-    { text: 'Nivåkollen i testerna', fet: true },
-    { text: ' med full genomgång och ett första träningspass samma dag.' },
-  ],
+  /** Den kanoniska meningen, lång form, ur gratis-copy.ts. */
+  delar: GRATIS_MENING_LANG_DELAR,
   knapp: 'Skapa konto gratis',
 } as const
 

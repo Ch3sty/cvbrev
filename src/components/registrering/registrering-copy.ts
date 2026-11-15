@@ -10,6 +10,7 @@
 import { PROV_COPY, type NyProvTyp } from '@/lib/tests/prov-typer'
 import { SALD_PLAN, kopKnapp, paketKort, prisPeriod, type PlanKey } from '@/lib/plans/plans'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { GRATIS_LISTA, GRATIS_PASTAENDEN, GRUNDNIVAN_RAD, TESTTYPER_ORD } from '@/lib/plans/gratis-copy'
 import type { SignupIntent, SmakprovTyp } from './intent'
 
 /* ------------------------------------------------------------ skalet */
@@ -217,7 +218,7 @@ export const STEG3 = {
       kortRubrik: 'Få CV:t genom och skriv personliga brev',
       rader: CV_RADER,
       prisText: FORNYAS,
-      gratis: [`${FREE_TEMPLATE_COUNT} CV-mallar och en nedladdning`, 'En CV-analys med poängen och det tyngsta fyndet'],
+      gratis: [GRATIS_LISTA[1], GRATIS_LISTA[2]],
     },
     brev: {
       rubrik: (f) => klart(f, 'Så skriver du brev som svarar på annonsen'),
@@ -225,7 +226,7 @@ export const STEG3 = {
       kortRubrik: 'Få CV:t genom och skriv personliga brev',
       rader: CV_RADER,
       prisText: FORNYAS,
-      gratis: ['Ett personligt brev att läsa, sedan ett i veckan', 'En CV-analys med poängen och det tyngsta fyndet'],
+      gratis: [GRATIS_LISTA[3], GRATIS_LISTA[2]],
     },
     tester: {
       rubrik: (f) => klart(f, 'Så går du in förberedd på testdagen'),
@@ -237,7 +238,7 @@ export const STEG3 = {
         { fet: 'Fördjupade personlighetstestet', text: ', 120 påståenden.' },
       ],
       prisText: FORNYAS,
-      gratis: ['Nivåkollen med genomgång av varje fråga', 'Ett grundpass samma dag som Nivåkollen', 'Personlighetstestet med 50 påståenden'],
+      gratis: [GRUNDNIVAN_RAD, 'Genomgång av varje fråga', `Personlighetstestet med ${GRATIS_PASTAENDEN} påståenden`],
     },
     intervju: {
       rubrik: (f) => klart(f, 'Så övar du inför intervjun'),
@@ -348,7 +349,7 @@ export const KONTO_GRATIS = {
   kick: 'Det här ingår gratis',
   rubrik: 'Börja med det som avgör urvalet',
   rader: [
-    { ikon: 'matris', namn: 'Nivåkollen', text: 'Var du står i rekryteringstesterna, med genomgång av varje fråga.' },
+    { ikon: 'matris', namn: 'Rekryteringstesterna', text: `Grundnivån i alla ${TESTTYPER_ORD} typerna, med genomgång av varje fråga.` },
     { ikon: 'cv', namn: 'CV-analysen', text: 'Poängen och det tyngsta fyndet i ditt CV.' },
     { ikon: 'brev', namn: 'Ett personligt brev', text: 'Skrivet på annonsen utifrån ditt CV.' },
   ] as const satisfies readonly { ikon: 'matris' | 'cv' | 'brev'; namn: string; text: string }[],

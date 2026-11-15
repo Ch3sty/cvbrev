@@ -139,9 +139,11 @@ describe('prissidan', () => {
   })
 
   it('gratisnivån lovar bara det som är sant i båda gaterna (spec-rummen 23.3, 23.7 b)', () => {
-    expect(FREE_HIGHLIGHTS).toContain('Nivåkollen i testerna med genomgång, och ett första träningspass')
+    // Den kanoniska källan (gratis-copy.ts, beslut 2026-11-15): grundnivån i
+    // alla testtyper, aldrig Nivåkollen publikt.
+    expect(FREE_HIGHLIGHTS).toContain('Grundnivån i alla åtta testtyperna och personlighetstestet, med förklaring efter varje fråga')
     expect(GRATIS_RAD).toBe(
-      '3 mallar, en CV-analys, ett personligt brev och Nivåkollen i testerna ingår utan att betala.'
+      'Grundnivån i alla tester, tre CV-mallar, en CV-analys, ett personligt brev var sjunde dag, tre matchade jobb och tio frågor till Jobbcoachen ingår utan att betala.'
     )
     const tester = COMPARISON.find((g) => g.title === 'Rekryteringstester')!
     const matning = tester.rows.find((r) => r.label === 'Nivåkollen och första passet')!

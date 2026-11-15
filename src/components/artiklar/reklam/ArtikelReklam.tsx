@@ -388,7 +388,7 @@ export function GratisKort({
           <li key={r}>
             {/* Mallraden leder till verktygssidan: intern länkkraft som kortet
                 hade förut och inte får tappa (SEO-spärrlistan punkt 4). */}
-            {i === 0 ? (
+            {i === GRATIS_KORT.mallrad ? (
               <Link href="/verktyg/cv-mallar" data-cta-klick="/verktyg/cv-mallar" className="pub-lank" style={{ fontWeight: 500 }}>
                 {r}
               </Link>

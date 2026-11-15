@@ -15,6 +15,7 @@
  * FAQPage ur priser-schema.ts, oförändrade. Baslinjens h2 och h3 står kvar.
  */
 
+import { Fragment } from 'react'
 import Link from 'next/link'
 import PubliktSida from '@/components/publikt/PubliktSida'
 import Rum from '@/components/publikt/Rum'
@@ -44,7 +45,7 @@ import {
   PRISER_FAQ_RUBRIK,
 } from './components/priser-data'
 import { faqSchema, prisSchema } from './components/priser-schema'
-import { FORTROENDE, FUNKTIONER, GUIDE, PAKET_KORT } from '@/components/pricing/paket-copy'
+import { FORTROENDE, FUNKTIONER, GRATIS, GUIDE, PAKET_KORT } from '@/components/pricing/paket-copy'
 import { SALD_PLAN, paketNamn, prisPeriod } from '@/lib/plans/plans'
 import { FREE_CV_EXPORTS, FREE_TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { FREE_TIER_JOB_LIMIT } from '@/lib/jobmatching/freeLimit'
@@ -152,13 +153,9 @@ export default function PriserSida() {
               <div className="pub-kort pub-gratis-kort">
                 <div>
                   <h2 className="pub-h3">Vill du se först?</h2>
+                  {/* Den kanoniska meningen ur gratis-copy.ts, en källa (S10). */}
                   <p className="pub-brod" style={{ marginTop: 12 }}>
-                    Utan att betala får du <b>Nivåkollen i testerna</b> med full genomgång och ett första träningspass samma
-                    dag, <b>personlighetstestet</b> med {T.personlighetGrund.fragor} påståenden, <b>{FREE_TEMPLATE_COUNT} CV-mallar</b>{' '}
-                    och {talOrd(FREE_CV_EXPORTS)} nedladdning, <b>en CV-analys</b> som visar din poäng och det tyngsta fyndet,{' '}
-                    <b>ett personligt brev</b> skrivet på en annons och sedan ett i veckan (att läsa, inte ladda ner),{' '}
-                    <b>{talOrd(FREE_TIER_JOB_LIMIT)} matchade jobb</b> och <b>{talOrd(FREE_CHAT_MESSAGES_PER_ACCOUNT)} frågor</b>{' '}
-                    till Jobbcoachen.
+                    {GRATIS.delar.map((d, i) => (d.fet ? <b key={i}>{d.text}</b> : <Fragment key={i}>{d.text}</Fragment>))}
                   </p>
                   <div className="pub-handling">
                     <Link className="pub-knapp" href="/register">

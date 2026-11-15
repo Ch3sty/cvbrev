@@ -16,6 +16,7 @@
 import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { FREE_TIER_JOB_LIMIT, JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import { TESTTAL } from '@/components/publikt/testtal'
+import { GRATIS_LISTA, GRATIS_MENING_KORT } from '@/lib/plans/gratis-copy'
 import { PLAN_BY_KEY, SALD_PLAN, paketKort, paketMedPris, paketNamn, prisPeriod } from '@/lib/plans/plans'
 
 export const PREMIUM_CURRENCY = 'SEK'
@@ -28,17 +29,10 @@ const HELA = paketNamn(SALD_PLAN)
 // === Gratisnivån ===
 
 /** Gratisnivån i listform, för kontosidan. */
-export const FREE_HIGHLIGHTS = [
-  `${FREE_TEMPLATE_COUNT} CV-mallar och en nedladdning`,
-  'En CV-analys med poängen och det tyngsta fyndet',
-  'Ett personligt brev att läsa, sedan ett i veckan',
-  'Tre matchade jobb',
-  'Tio frågor till Jobbcoachen',
-  'Nivåkollen i testerna med genomgång, och ett första träningspass',
-] as const
+export const FREE_HIGHLIGHTS = GRATIS_LISTA
 
-/** Gratisnivån i en mening, för startsidan. */
-export const GRATIS_RAD = `${FREE_TEMPLATE_COUNT} mallar, en CV-analys, ett personligt brev och Nivåkollen i testerna ingår utan att betala.`
+/** Gratisnivån i en mening, kort form ur gratis-copy.ts. */
+export const GRATIS_RAD = GRATIS_MENING_KORT
 
 // === Jämförelsetabellen ===
 

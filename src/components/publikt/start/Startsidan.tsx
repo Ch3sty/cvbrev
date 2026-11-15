@@ -38,6 +38,7 @@ import { HELA_PAKETET_RADER, SALD_PLAN, kopKnapp, paketMedPris } from '@/lib/pla
 import { FREE_CV_EXPORTS, FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { FREE_TIER_JOB_LIMIT, JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import { FREE_CHAT_MESSAGES_PER_ACCOUNT, FREE_LETTERS_PER_ACCOUNT } from '@/lib/quota/quotaService'
+import { GRATIS_FAQ } from '@/lib/plans/gratis-copy'
 
 /** Gratisbrevet enligt koden (spec avsnitt 7, ägarens beslut 2). */
 const GRATISBREV = 'Första brevet gratis, sedan ett i veckan'
@@ -123,7 +124,7 @@ export const START_FAQ = [
   },
   {
     q: 'Vad kostar det, och vad får jag utan att betala?',
-    a: `Gratisnivån kräver inget kort: grundnivån i varje testtyp och personlighetstestet, ${FREE_TEMPLATE_COUNT} CV-mallar och ${talOrd(FREE_CV_EXPORTS)} nedladdning, en CV-analys med poäng och tyngsta fyndet, första personliga brevet och sedan ett i veckan, ${FREE_TIER_JOB_LIMIT} matchade jobb och ${FREE_CHAT_MESSAGES_PER_ACCOUNT} frågor till Jobbcoachen. Söker du på allvar ingår allt i ${paketMedPris(SALD_PLAN)}. Ingen bindningstid, och du säger upp i ditt konto.`,
+    a: `${GRATIS_FAQ} Söker du på allvar ingår allt i ${paketMedPris(SALD_PLAN)}. Ingen bindningstid, och du säger upp i ditt konto.`,
   },
 ] as const
 

@@ -25,6 +25,7 @@ import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { FREE_TIER_JOB_LIMIT } from '@/lib/jobmatching/freeLimit'
 import { FREE_CHAT_MESSAGES_PER_ACCOUNT, LETTER_WINDOW_DAYS } from '@/lib/quota/quotaService'
 import type { InlineVerktyg } from '@/lib/cta/clusters'
+import { GRATIS_LISTA, GRATIS_MALLRAD } from '@/lib/plans/gratis-copy'
 
 const PLAN = PLAN_BY_KEY[SALD_PLAN]
 /** "Jobbcoach Premium" */
@@ -253,13 +254,10 @@ export const SLUT: Record<'cv' | 'test' | 'allt', SlutCopy> = {
 export const GRATIS_KORT = {
   etikett: 'Utan att betala',
   rubrik: 'Vill du prova innan du läser vidare?',
-  rader: [
-    `${Ord(FREE_TEMPLATE_COUNT)} CV-mallar och en nedladdning`,
-    'En CV-analys med poäng och tyngsta fyndet',
-    `Ett personligt brev ${BREVFONSTER}, att läsa på skärmen`,
-    `${Ord(FREE_TIER_JOB_LIMIT)} matchade jobb och ${ord(FREE_CHAT_MESSAGES_PER_ACCOUNT)} frågor till Jobbcoachen`,
-    'Nivåkollen i testerna med genomgång, och ett första träningspass',
-  ],
+  /** Den kanoniska listan ur gratis-copy.ts: tester, mallar, analys, brev, jobb. */
+  rader: GRATIS_LISTA,
+  /** Raden som länkar till /verktyg/cv-mallar (SEO-spärrlistan punkt 4). */
+  mallrad: GRATIS_MALLRAD,
   knapp: 'Skapa konto gratis',
   href: '/register',
   sekundar: { text: 'Se vad som ingår i Premium', href: '/priser' },
