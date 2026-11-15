@@ -44,7 +44,7 @@ describe('panelens text', () => {
   })
 
   it('Nivåkollen räknas till fem minuter med fem svar, som på hemvyn', () => {
-    expect(KONTO_PANEL.rader([2], 5)[2].text).toBe(', 5 minuter, räknar in de här svaren')
+    expect(KONTO_PANEL.rader([2], 5)[2].text).toBe(', 5 minuter: visar var du står och räknar in de här svaren')
   })
 
   it('priset kommer ur PLANS och Premium står som text', () => {

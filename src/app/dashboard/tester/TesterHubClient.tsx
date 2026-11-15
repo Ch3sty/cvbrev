@@ -105,7 +105,7 @@ function UtvecklingLaddar({ flikar }: { flikar: ReactNode }) {
  * första träningspass samma dag; resten ingår i Premium, priset ur PLANS.
  */
 const gratisRad = (kampanj: KampanjVisning | null) =>
-  `Gratis att prova: nivåkollen en gång med genomgång och ett första träningspass samma dag. Resten ingår i ${paketNamn(SALD_PLAN)}, ${kampanj ? kampanjPrisPeriod(kampanj) : prisPeriod(SALD_PLAN)}.`;
+  `Gratis: grundnivån i alla testtyper med genomgång, och Nivåkollen som visar var du står. Resten ingår i ${paketNamn(SALD_PLAN)}, ${kampanj ? kampanjPrisPeriod(kampanj) : prisPeriod(SALD_PLAN)}.`;
 
 /**
  * Katalogen slutar aldrig i sig själv (riktlinjerna 4.5, skiss 1): raden

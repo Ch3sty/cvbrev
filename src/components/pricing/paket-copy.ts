@@ -34,7 +34,7 @@ import {
   type PlanLength,
 } from '@/lib/plans/plans'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
-import { GRATIS_MENING_LANG_DELAR } from '@/lib/plans/gratis-copy'
+import { GRATIS_MENING_LANG_DELAR, GRUNDNIVAN_ALLA } from '@/lib/plans/gratis-copy'
 import { JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import type { Feature } from '@/lib/access/features'
 import type { RadIkonNamn } from '@/components/illustrations/PriserScener'
@@ -241,13 +241,13 @@ export const FUNKTIONER = {
       scen: 'matris',
       scenAlt: 'Matrislogik under tidspress',
       rubrik: 'Rekryteringstester',
-      sub: ingarGratis('Nivåkollen med genomgång och ett första träningspass.'),
-      text: 'Den som känner igen uppgiftstypen på testdagen tävlar på lika villkor. Här lär du dig mönstren i samma fyra typer som de stora urvalstesten använder: matrislogik, verbalt resonemang, numeriskt och personlighet, i tre nivåer från grund till expert. I övningsprovet går klockan på riktigt, 25 till 40 minuter, och provet lämnas in automatiskt när tiden är ute. Efter varje fråga får du förklaringen, inte bara facit, och kurvan visar när du är redo.',
+      sub: ingarGratis(`${GRUNDNIVAN_ALLA}, med genomgång.`),
+      text: 'Den som känner igen uppgiftstypen på testdagen tävlar på lika villkor. Här lär du dig mönstren i de typer de stora urvalstesten använder: matrislogik, figurserier, deduktiv slutledning, verbalt och numeriskt resonemang, talserier, spatial förmåga och ordförråd, i tre nivåer från grund till expert, plus personlighetstestet. I övningsprovet går klockan på riktigt i samma format som Matrigma, Alva, SHL, Aon och I-provet, och provet lämnas in automatiskt när tiden är ute. Efter varje fråga får du förklaringen, inte bara facit, och din utveckling dag för dag visar när du är redo.',
       steg: [
-        'Nivåkollen på grundnivå visar var du står per typ.',
+        'Grundnivån visar var du står i varje typ.',
         'Träna på avancerad och expertnivå i din svagaste typ, med förklaring på varje fråga.',
         'Kör övningsprovet mot klockan när du är redo. Automatisk inlämning, resultat direkt.',
-        'Följ kurvan, session för session.',
+        'Följ din utveckling, pass för pass.',
       ],
       ingar: ['allt'],
       bred: true,
@@ -335,7 +335,7 @@ export const FORTROENDE_RADER = FORTROENDE.map((f) => ({ key: f.key, text: f.rub
 export const SPARVAL = {
   primar: (_paket?: PaketId, _plan?: PlanKey) => kopKnapp(),
   sekundar: 'Börja gratis i stället',
-  fotnot: `Gratis: ${FREE_TEMPLATE_COUNT} mallar, en analys, ett personligt brev, Nivåkollen i testerna`,
+  fotnot: `Gratis: ${FREE_TEMPLATE_COUNT} mallar, en analys, ett personligt brev, grundnivån i testerna`,
 } as const
 
 /* ----------------------------------------------------------- köpsteget */

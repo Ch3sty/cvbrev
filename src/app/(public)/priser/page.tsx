@@ -46,6 +46,7 @@ import {
 } from './components/priser-data'
 import { faqSchema, prisSchema } from './components/priser-schema'
 import { FORTROENDE, FUNKTIONER, GRATIS, GUIDE, PAKET_KORT } from '@/components/pricing/paket-copy'
+import { GRUNDNIVAN_ALLA } from '@/lib/plans/gratis-copy'
 import { SALD_PLAN, paketNamn, prisPeriod } from '@/lib/plans/plans'
 import { FREE_CV_EXPORTS, FREE_TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { FREE_TIER_JOB_LIMIT } from '@/lib/jobmatching/freeLimit'
@@ -194,7 +195,7 @@ export default function PriserSida() {
             objekt="matris"
             rubrik={tester.rubrik}
             rubrikNiva="h3"
-            gratisRad={`Ingår i Premium. Gratis: Nivåkollen med genomgång, ett första träningspass och personlighetstestet med ${T.personlighetGrund.fragor} påståenden.`}
+            gratisRad={`Ingår i Premium. Gratis: ${GRUNDNIVAN_ALLA} med genomgång, och personlighetstestet med ${T.personlighetGrund.fragor} påståenden.`}
             text={
               <>
                 {tester.text.replace(/\d+ till \d+ minuter/, `${PROV_MINUTER.min} till ${PROV_MINUTER.max} minuter`)}{' '}
@@ -203,7 +204,7 @@ export default function PriserSida() {
               </>
             }
             steg={[
-              { rubrik: 'Nivåkollen på grundnivå', text: 'Visar var du står per typ.' },
+              { rubrik: 'Grundnivån', text: 'Visar var du står i varje typ.' },
               { rubrik: 'Träna på avancerad och expertnivå', text: 'I din svagaste typ, med förklaring på varje fråga.' },
               { rubrik: 'Kör övningsprovet när du är redo', text: 'Automatisk inlämning, resultat direkt.' },
               {

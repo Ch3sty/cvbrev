@@ -42,11 +42,11 @@ export const TYP_PROVKORT: Record<ProvKortTyp, TypCopy> = {
   deduktiv: {
     etikett: 'Öva deduktivt',
     rubrik: 'Deduktivt test med lösningen efter varje svar',
-    text: 'Börja med Nivåkollen i deduktivt. Den är gratis med konto, visar var du ligger och går igenom varje uppgift efteråt.',
-    knapp: 'Gör Nivåkollen i deduktivt',
+    text: 'Börja med nivåtestet i deduktivt. Det är gratis med konto, visar var du ligger och går igenom varje uppgift efteråt.',
+    knapp: 'Gör nivåtestet i deduktivt',
     href: viaKonto(nivakollHref('deduktiv')),
     sekundar: { text: 'Övningsprovet mot klockan', href: viaKonto(ovningsprovHref('deduktiv')) },
-    paketrad: `Pass varje dag, avancerad och expert och övningsprovet mot klockan ingår i ${KORT_PRIS}.`,
+    paketrad: `Avancerad och expertnivå, ett träningspass om dagen och övningsprovet mot klockan ingår i ${KORT_PRIS}.`,
   },
   talserie: {
     etikett: 'Öva talserier',
@@ -55,7 +55,7 @@ export const TYP_PROVKORT: Record<ProvKortTyp, TypCopy> = {
     knapp: 'Gör nivåtestet i talserier',
     href: viaKonto('/dashboard/tester/talserier-grund'),
     sekundar: { text: 'I-provet, övningsprov', href: viaKonto('/dashboard/tester/iprov') },
-    paketrad: `Avancerad och expert, pass varje dag och I-provets övningsprov ingår i ${KORT_PRIS}.`,
+    paketrad: `Avancerad och expertnivå, ett träningspass om dagen och I-provets övningsprov ingår i ${KORT_PRIS}.`,
   },
   spatial: {
     etikett: 'Öva spatial förmåga',
@@ -64,7 +64,7 @@ export const TYP_PROVKORT: Record<ProvKortTyp, TypCopy> = {
     knapp: 'Gör nivåtestet i spatial förmåga',
     href: viaKonto('/dashboard/tester/spatial-grund'),
     sekundar: { text: 'I-provet, övningsprov', href: viaKonto('/dashboard/tester/iprov') },
-    paketrad: `Avancerad och expert, pass varje dag och I-provets övningsprov ingår i ${KORT_PRIS}.`,
+    paketrad: `Avancerad och expertnivå, ett träningspass om dagen och I-provets övningsprov ingår i ${KORT_PRIS}.`,
   },
   ordforrad: {
     etikett: 'Öva ordförståelse',
@@ -73,7 +73,7 @@ export const TYP_PROVKORT: Record<ProvKortTyp, TypCopy> = {
     knapp: 'Gör nivåtestet i ordförråd',
     href: viaKonto('/dashboard/tester/ordforrad-grund'),
     sekundar: { text: 'I-provet, övningsprov', href: viaKonto('/dashboard/tester/iprov') },
-    paketrad: `Avancerad och expert, pass varje dag och I-provets övningsprov ingår i ${KORT_PRIS}.`,
+    paketrad: `Avancerad och expertnivå, ett träningspass om dagen och I-provets övningsprov ingår i ${KORT_PRIS}.`,
   },
   iprov: {
     etikett: 'Öva inför I-provet',
@@ -82,7 +82,7 @@ export const TYP_PROVKORT: Record<ProvKortTyp, TypCopy> = {
     knapp: 'Börja med grundnivån gratis',
     href: viaKonto('/dashboard/tester'),
     sekundar: { text: 'Se I-provet, övningsprov', href: viaKonto('/dashboard/tester/iprov') },
-    paketrad: `Halva och hela I-provets övningsprov, alla nivåer och pass varje dag ingår i ${KORT_PRIS}.`,
+    paketrad: `Halva och hela I-provets övningsprov, avancerad och expertnivå och ett träningspass om dagen ingår i ${KORT_PRIS}.`,
   },
 }
 

@@ -86,3 +86,21 @@ describe('betalväggen under kampanjen', () => {
     expect(premiumKnapp(CM)).toBe('Köp Premium, 49 kr första månaden')
   })
 })
+
+describe('betalväggens copy efter beslutet 2026-11-15 (S4, S5)', () => {
+  it('testniva och test-tak säger typerna och "utan tak", aldrig 19 tester eller obegränsat', async () => {
+    const { getPaywallCopy } = await import('../paywall-copy')
+    expect(getPaywallCopy('testniva').body).toBe(
+      'Premium ger alla åtta testtyperna på alla nivåer, pass varje dag, övningsprov mot klockan och det fördjupade personlighetstestet.'
+    )
+    expect(getPaywallCopy('test-tak').body).toBe('Premium ger alla nivåer, övningsprov mot klockan och pass utan tak, varje dag.')
+    expect(getPaywallCopy('testniva', { plats: 'kurva' }).title).toBe('Hela din utveckling ingår i Premium')
+  })
+
+  it('prisraden står på två rader, "Säg upp när du vill." för sig', () => {
+    const { container } = render(<PaywallCard variant="testniva" />)
+    const rad = Array.from(container.querySelectorAll('p')).find((p) => p.textContent?.includes('Jobbcoach Premium'))!
+    expect(rad.querySelector('br')).toBeTruthy()
+    expect(rad.firstChild?.textContent).toBe('Jobbcoach Premium, 149 kr i månaden.')
+  })
+})

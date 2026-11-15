@@ -10,7 +10,7 @@
 import { PROV_COPY, type NyProvTyp } from '@/lib/tests/prov-typer'
 import { SALD_PLAN, kopKnapp, paketKort, prisPeriod, type PlanKey } from '@/lib/plans/plans'
 import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
-import { GRATIS_LISTA, GRATIS_PASTAENDEN, GRUNDNIVAN_RAD, TESTTYPER_ORD } from '@/lib/plans/gratis-copy'
+import { ANTAL_TESTTYPER, GRATIS_LISTA, GRATIS_PASTAENDEN, GRUNDNIVAN_ALLA, GRUNDNIVAN_RAD, Ord, TESTTYPER_ORD } from '@/lib/plans/gratis-copy'
 import type { SignupIntent, SmakprovTyp } from './intent'
 
 /* ------------------------------------------------------------ skalet */
@@ -45,7 +45,7 @@ export const STEG1 = {
     },
     tester: {
       titel: 'Klara rekryteringstesterna',
-      text: 'Matrislogik, verbalt, numeriskt och personlighet, med förklaring efter varje fråga.',
+      text: `${Ord(ANTAL_TESTTYPER)} testtyper och personlighetstestet, med förklaring efter varje fråga.`,
     },
     intervju: {
       titel: 'Förbereda intervjun',
@@ -230,11 +230,11 @@ export const STEG3 = {
     },
     tester: {
       rubrik: (f) => klart(f, 'Så går du in förberedd på testdagen'),
-      under: `Nivåkollen och ett grundpass samma dag är gratis med kontot. Passen på din nivå varje dag ingår i ${PREMIUM}.`,
+      under: `Grundnivån i alla testtyper är gratis med kontot. Träningspass på din nivå varje dag ingår i ${PREMIUM}.`,
       kortRubrik: 'Var förberedd på testdagen',
       rader: [
-        { fet: 'Alla nivåer', text: ' i matrislogik, verbalt och numeriskt.' },
-        { fet: 'Övningsprov mot klockan', text: ', 25 till 40 minuter.' },
+        { fet: 'Alla nivåer', text: ` i alla ${TESTTYPER_ORD} testtyperna.` },
+        { fet: 'Övningsprov mot klockan', text: ' i samma format som ditt test.' },
         { fet: 'Fördjupade personlighetstestet', text: ', 120 påståenden.' },
       ],
       prisText: FORNYAS,
@@ -243,7 +243,7 @@ export const STEG3 = {
     intervju: {
       rubrik: (f) => klart(f, 'Så övar du inför intervjun'),
       under: `Ett intervjuprov om dagen ingår gratis. Att öva utan tak ingår i ${PREMIUM}.`,
-      kortRubrik: 'Var förberedd på testdagen',
+      kortRubrik: 'Var förberedd på intervjun',
       rader: [
         { fet: 'Intervjuprov utan tak', text: ', med återkoppling på varje svar.' },
         { fet: 'Fördjupade personlighetstestet', text: ', 120 påståenden.' },
@@ -281,7 +281,7 @@ export const STEG3 = {
 export const STEG3_TESTER = {
   rubrik: (f: string | null) => klart(f, 'Först kollar vi var du står'),
   under:
-    'Du väljer test och provdatum, sedan gör du Nivåkollen. Den tar cirka 8 minuter och visar din nivå, med genomgång av varje fråga.',
+    'Du väljer test och provdatum, sedan gör du Nivåkollen: ett kort test på cirka 8 minuter som visar din nivå, med genomgång av varje fråga.',
   knapp: 'Kolla min nivå, 8 min',
   gratisEtikett: 'Gratis, utan kort',
   gratis: STEG3.forslag.tester.gratis,
@@ -334,13 +334,13 @@ export const KONTO_PANEL = {
     return [
       forsta,
       { fet: 'Genomgång', text: ` av alla ${talordProv(totalt)} frågor` },
-      { fet: 'Nivåkollen', text: `, ${nivakollMinuter(totalt)} minuter, räknar in de här svaren` },
+      { fet: 'Nivåkollen', text: `, ${nivakollMinuter(totalt)} minuter: visar var du står och räknar in de här svaren` },
     ]
   },
   /** Premium som text, aldrig knapp (ägarens beslut 2026-11-09). Pris ur PLANS. */
   premiumRad: {
     namn: paketKort(),
-    text: `, ${prisPeriod(SALD_PLAN)}, när du sedan vill träna på din nivå varje dag. Först Nivåkollen, gratis.`,
+    text: `, ${prisPeriod(SALD_PLAN)}, när du sedan vill träna på din nivå varje dag. Först ${GRUNDNIVAN_ALLA}, gratis.`,
   },
 } as const
 

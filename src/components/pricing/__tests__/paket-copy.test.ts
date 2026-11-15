@@ -146,16 +146,16 @@ describe('prissidan', () => {
       'Grundnivån i alla tester, tre CV-mallar, en CV-analys, ett personligt brev var sjunde dag, tre matchade jobb och tio frågor till Jobbcoachen ingår utan att betala.'
     )
     const tester = COMPARISON.find((g) => g.title === 'Rekryteringstester')!
-    const matning = tester.rows.find((r) => r.label === 'Nivåkollen och första passet')!
-    expect(matning.sub).toBe('matrislogik, verbalt, numeriskt')
-    expect(matning.free.text).toBe('En gång, med genomgång')
-    expect(matning.premium.text).toBe('Pass varje dag, utan tak')
+    const grund = tester.rows.find((r) => r.label === 'Grundnivån')!
+    expect(grund.sub).toBe('alla åtta testtyperna och personlighetstestet')
+    expect(grund.free.text).toBe('Ingår, med genomgång')
+    expect(grund.premium.text).toBe('Ingår, plus ett pass om dagen på din nivå')
     expect(tester.rows.find((r) => r.label === 'Förklaring efter varje fråga')!.free.text).toBe('Det du har gjort')
     const sist = tester.rows[tester.rows.length - 1]
     expect(sist.label).toBe('Extrapass och övningsprov')
     expect(sist.free.ton).toBe('nej')
     expect(sist.premium.text).toBe('Ingår')
-    expect(PRISER_FAQ_ITEMS.find((f) => f.id === 'borja-gratis')!.a).toContain('och Nivåkollen i testerna fungerar')
+    expect(PRISER_FAQ_ITEMS.find((f) => f.id === 'borja-gratis')!.a).toContain('och grundnivån i testerna fungerar')
     const texter = [
       ...FREE_HIGHLIGHTS,
       GRATIS_RAD,

@@ -32,6 +32,7 @@ import MattLank from '@/components/publikt/MattLank'
 import SvavandeObjekt from '@/components/publikt/SvavandeObjekt'
 import { MatrisBricka } from '@/components/publikt/MatrisExpert'
 import { TESTTAL } from '@/components/publikt/testtal'
+import { ANTAL_TESTTYPER, GRATIS_TESTRAD_PROV, GRUNDNIVAN_ALLA, TESTTYPER_ORD } from '@/lib/plans/gratis-copy'
 import SkarmMatris from '@/components/publikt/telefon/skarmar/SkarmMatris'
 import Produktfilm from '@/components/publikt/Produktfilm'
 import SkarmPersonlighet from '@/components/publikt/telefon/skarmar/SkarmPersonlighet'
@@ -46,7 +47,7 @@ const PRIS = prisPeriod(SALD_PLAN)
 const T = TESTTAL
 
 const STEG = [
-  { rubrik: 'Välj test', text: 'Plocka matrislogik, verbalt eller numeriskt. Med ett gratiskonto gör du Nivåkollen med genomgång och ett första träningspass.' },
+  { rubrik: 'Välj test', text: `Välj bland ${TESTTYPER_ORD} testtyper, från matrislogik till talserier. Grundnivån i varje typ är gratis med konto, med genomgång efteråt.` },
   { rubrik: 'Lös frågorna i din takt', text: 'Timern räknar uppåt så att du ser tempot, men ingenting bryter mitt i en fråga. Markera ditt svar och gå vidare.' },
   { rubrik: 'Se resultat och tid direkt', text: 'När du svarat klart ser du andel rätt, antal korrekta svar, total tid och snittid per fråga. Du väntar inte på något.' },
   { rubrik: 'Se vad du missade', text: 'Fråga för fråga jämför du ditt svar med facit. Du ser vilka mönster du missade och vet vad du ska träna mer på.' },
@@ -307,10 +308,10 @@ export default function RekryteringstesterSida() {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'SEK',
-      description: 'Fem frågor utan konto, Nivåkollen och ett första träningspass med gratiskonto, utan kortuppgift',
+      description: 'Fem frågor utan konto, grundnivån i alla testtyper med gratiskonto, utan kortuppgift',
     },
     featureList:
-      `Matrislogik i rutnät om tre gånger tre, figurserier, deduktiv slutledning med övningsprov i SHL:s antal uppgifter och tid, verbalt resonemang med sant, falskt eller går inte att avgöra, numeriskt resonemang med tabeller och procent, talserier med en eller två luckor, spatial förmåga med vridna figurer, pappersvikning och tärningar, ordförråd med synonymer och motsatsord, övningsprov inför I-provet med de sex deltesterna i provets ordning, personlighetsprofil enligt Big Five med ${T.personlighetGrund.fragor} eller ${T.personlighetFordjupad.fragor} påståenden, resultat och tid direkt efter varje pass, genomgång fråga för fråga med rätt svar, obegränsat antal försök med ${paketNamn(SALD_PLAN)}`,
+      `Matrislogik i rutnät om tre gånger tre, figurserier, deduktiv slutledning med övningsprov i SHL:s antal uppgifter och tid, verbalt resonemang med sant, falskt eller går inte att avgöra, numeriskt resonemang med tabeller och procent, talserier med en eller två luckor, spatial förmåga med vridna figurer, pappersvikning och tärningar, ordförråd med synonymer och motsatsord, övningsprov inför I-provet med de sex deltesterna i provets ordning, personlighetsprofil enligt Big Five med ${T.personlighetGrund.fragor} eller ${T.personlighetFordjupad.fragor} påståenden, resultat och tid direkt efter varje pass, genomgång fråga för fråga med rätt svar, träning utan tak med ${paketNamn(SALD_PLAN)}`,
   }
 
   // Stegens namn är de synliga h3:orna och texten deras brödtext, så att
@@ -389,12 +390,12 @@ export default function RekryteringstesterSida() {
             ]}
             kick="Rekryteringstester, kom förberedd till provet"
             h1="Träna på rekryteringstester innan arbetsgivaren testar dig"
-            ingress="Matrislogik, verbalt och numeriskt resonemang i samma format som SHL, Cut-e och Assessio använder, och talserier, spatial förmåga och ordförråd inför I-provet."
-            fet="Fem frågor gratis här och Nivåkollen gratis med konto. Ingen kortuppgift, och du ser rätt och fel direkt efter varje pass."
+            ingress="Matrislogik, figurserier, deduktiv slutledning, verbalt och numeriskt resonemang i samma format som SHL, Aon och Assessio använder, och talserier, spatial förmåga och ordförråd inför I-provet."
+            fet={`Fem frågor gratis här, ${GRUNDNIVAN_ALLA} gratis med konto. Ingen kortuppgift, och du ser rätt och fel direkt efter varje test.`}
             primar={{ text: 'Starta gratis test', href: PROVA, dataCta: 'hero-primary' }}
             sekundar={{ text: 'Se alla tester', href: '#testtyper' }}
             tal={[
-              { tal: 'Nivåkollen', text: 'och första passet gratis med konto' },
+              { tal: `${ANTAL_TESTTYPER} testtyper`, text: 'gratis på grundnivå med konto' },
               { tal: `${T.matrisGrund.minuter} min`, text: 'per pass' },
               { tal: '5 frågor', text: 'att prova utan konto' },
             ]}
@@ -416,7 +417,7 @@ export default function RekryteringstesterSida() {
                 rum="tran"
                 rubrik="Gör ett prov direkt, utan konto"
                 text="Du behöver inte registrera dig för att se var du står. Fem frågor tar ett par minuter."
-                punkter={['Fem matrislogikfrågor', 'Samma frågebank som i det skarpa testet', 'Resultat direkt, ingen tidtagning']}
+                punkter={['Fem matrislogikfrågor', 'Samma typ av frågor som i de skarpa testen', 'Resultat direkt, ingen tidtagning']}
                 knapp={{ text: 'Prova fem frågor', href: PROVA }}
                 not="Ingen inloggning, inget kort"
                 knappElement={
@@ -483,8 +484,9 @@ export default function RekryteringstesterSida() {
               <p className="pub-kick">Kognitiva tester</p>
               <h2 className="pub-h2">Åtta testtyper, alla gratis att börja</h2>
               <p className="pub-ingress" style={{ margin: '16px 0 36px' }}>
-                Med ett gratiskonto gör du grundnivån i varje testtyp, Nivåkollen med full genomgång och ett första träningspass
-                samma dag, och resultatet är ditt. Att träna vidare, med avancerad nivå, expertnivå och övningsprov mot klockan, ingår i {PREMIUM}, {PRIS}. Säg
+                Med ett gratiskonto gör du grundnivån i varje testtyp, med full genomgång efteråt, och resultatet är ditt. Börja
+                gärna med Nivåkollen: tolv uppgifter som anpassar sig efter dina svar och på cirka åtta minuter visar var du står.
+                Att träna vidare, med avancerad nivå, expertnivå och övningsprov mot klockan, ingår i {PREMIUM}, {PRIS}. Säg
                 upp när du vill.
               </p>
               <div className="pub-raster pub-raster-3 pub-rum-tran">
@@ -727,7 +729,7 @@ export default function RekryteringstesterSida() {
               </>
             }
             rubrik="Träna nu. Kom förberedd sen."
-            text={`Fem frågor gratis här. Nivåkollen och första passet gratis med konto. Alla nivåer, övningsprov och din historik ingår i ${PREMIUM}.`}
+            text={`${GRATIS_TESTRAD_PROV} Avancerad och expertnivå, övningsprov mot klockan och din utveckling över tid ingår i ${PREMIUM}.`}
             knapp={{ text: 'Starta gratis test', href: PROVA }}
             lank={{ text: 'Se hur det fungerar', href: '#sa-funkar-det' }}
           />

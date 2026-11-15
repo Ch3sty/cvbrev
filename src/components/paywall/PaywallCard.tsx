@@ -58,6 +58,25 @@ export const PLATS_FOR_VARIANT: Record<PaywallVariant, BetalvaggPlats> = {
   'af-rapport': 'af_rapport',
 }
 
+/**
+ * Prisraden på två rader (ägarens granskning 2026-11-15): priset först,
+ * "Säg upp när du vill." på egen rad, också med kampanjpriset. Mellanslaget
+ * efter radbrytningen syns inte men håller texten hel för skärmläsare och
+ * sökning. En rad utan andra mening (LinkedIn-väggens korta form) står kvar.
+ */
+function prisradPaTvaRader(prisrad: string): React.ReactNode {
+  const i = prisrad.indexOf('. ')
+  if (i < 0) return prisrad
+  return (
+    <>
+      {prisrad.slice(0, i + 1)}
+      <br />
+      {' '}
+      {prisrad.slice(i + 2)}
+    </>
+  )
+}
+
 /** Sekundära texter som betyder prissidan, inte en handling i vyn. */
 function arPrisText(text: string): boolean {
   return text === PAKETRADER.jamfor || text === 'Se priset'
@@ -295,7 +314,7 @@ export default function PaywallCard({
     <>
       <h3 className="text-kort-t text-ink-1">{copy.title}</h3>
       <p className="mt-1 text-sm leading-[22px] text-ink-2">{copy.body}</p>
-      {copy.prisrad ? <p className="mt-2 text-sm font-medium text-ink-1">{copy.prisrad}</p> : null}
+      {copy.prisrad ? <p className="mt-2 text-sm font-medium text-ink-1">{prisradPaTvaRader(copy.prisrad)}</p> : null}
       <div className={KNAPPRAD}>
         <button type="button" onClick={primarHandling} className={KNAPP_PRIMAR}>
           {copy.primary}

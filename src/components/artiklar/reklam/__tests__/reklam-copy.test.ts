@@ -7,6 +7,8 @@
  * gratisgränserna ur kvottjänsten. Ett prisbyte eller ett ändrat brevfönster
  * ska bryta här, inte ljuga tyst i fjorton kort.
  */
+import fs from 'node:fs'
+import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 import { PLAN_BY_KEY, SALD_PLAN, paketNamn, prisPeriod } from '@/lib/plans/plans'
@@ -23,6 +25,9 @@ import {
   SIDO,
   SLUT,
 } from '../reklam-copy'
+import * as PAKET_COPY from '@/components/pricing/paket-copy'
+import * as PRISER_DATA from '@/app/(public)/priser/components/priser-data'
+import { KONTO_GRATIS } from '@/components/registrering/registrering-copy'
 
 const ALLA = { GRATIS_KORT, INLINE, INLINE_PROVA, TESTKORT_INTERVJU, INLINE_RAKNARE, LANKRAD, LISTA_SLUT, SIDO, SLUT }
 
@@ -49,7 +54,8 @@ describe('reklamkortens texter', () => {
 
   it('den strukna rubriken är borta (ägarens justering 2026-09-23)', () => {
     expect(TEXTER).not.toContain('Gör provet innan rekryteraren gör det')
-    expect(INLINE.test.rubrik).toBe('Öva på frågorna innan de räknas')
+    // INLINE.test är borttaget sedan S2 (2026-11-15): testklustret får ProvKort.
+    expect('test' in INLINE).toBe(false)
   })
 
   it('priserna kommer ur PLANS, och bara det sålda priset står', () => {
@@ -62,7 +68,7 @@ describe('reklamkortens texter', () => {
     expect(LISTA_SLUT.text).toContain(prisPeriod(SALD_PLAN))
     // Inga andra belopp än det sålda får stå i texterna.
     for (const t of TEXTER) {
-      for (const m of t.matchAll(/(d+) kr/g)) expect(m[1], t).toBe(String(plan.amount))
+      for (const m of t.matchAll(/(\d+) kr/g)) expect(m[1], t).toBe(String(plan.amount))
     }
   })
 
@@ -115,7 +121,7 @@ describe('reklamkortens texter', () => {
     for (const t of TEXTER) {
       expect(t, t).not.toMatch(/dygn|varje dag gratis|alltid gratis|Grundnivån är gratis/)
     }
-    expect(SIDO.test.gratisrad).toBe('Fem frågor gratis här. Nivåkollen och första passet gratis med konto. Resten ingår i Premium.')
+    expect(SIDO.test.gratisrad).toBe('Fem frågor gratis här. Grundnivån i alla åtta testtyperna gratis med konto. Resten ingår i Premium.')
   })
 
   it('gratisbrevet är ett per brevfönster, aldrig ett om dagen', () => {
@@ -130,5 +136,46 @@ describe('reklamkortens texter', () => {
   it('provkortet länkar både till provet och till testsidan (analysen 2026-11-08)', () => {
     expect(INLINE_PROVA.href).toBe('/verktyg/rekryteringstester/prova')
     expect(INLINE_PROVA.sekundar.href).toBe('/verktyg/rekryteringstester')
+  })
+})
+
+/**
+ * F22 (beslut om säljytorna 2026-11-15): regeln ska hålla framåt. Nivåkollen
+ * står aldrig i publika copykällor före kontot (grundnivån är substantivet),
+ * mittpunkten används inte som avdelare och "19 tester" var fel tal.
+ * Nivåkollen får stå publikt på tre ställen där namnet förklaras i samma
+ * mening (STEG3_TESTER.under, KONTO_PANEL rad 3 och testsidans ingress);
+ * de ligger utanför källorna som läses här.
+ */
+describe('F22: publika copykällor', () => {
+  const lasFil = (p: string) => fs.readFileSync(path.join(process.cwd(), p), 'utf8')
+  const kallor: Record<string, string[]> = {
+    'reklam-copy': TEXTER,
+    'paket-copy': strangar(PAKET_COPY),
+    'priser-data': strangar(PRISER_DATA),
+    KONTO_GRATIS: strangar(KONTO_GRATIS),
+    // Startsidan är en komponent; texten läses ur källfilen utan kommentarer.
+    Startsidan: [lasFil('src/components/publikt/start/Startsidan.tsx').replace(/\/\*[\s\S]*?\*\/|^\s*\/\/.*$/gm, '')],
+  }
+
+  it('inget Nivåkollen, ingen mittpunkt och inget "19 tester"', () => {
+    for (const [kalla, texter] of Object.entries(kallor)) {
+      for (const t of texter) {
+        expect(t, `${kalla}: ${t.slice(0, 80)}`).not.toMatch(/Nivåkoll/i)
+        expect(t, `${kalla}: ${t.slice(0, 80)}`).not.toMatch(/·/)
+        expect(t, `${kalla}: ${t.slice(0, 80)}`).not.toMatch(/19 tester/)
+        expect(t, `${kalla}: ${t.slice(0, 80)}`).not.toMatch(/obegränsat/i)
+      }
+    }
+  })
+
+  it('provkortets text och paketrad enligt S2', () => {
+    expect(INLINE_PROVA.text).toBe(
+      'Det här är en av våra expertfrågor: tre regler samtidigt, form, tecken och fyllning. Fem frågor gratis här, rätt och fel direkt. Facit och grundnivån i alla åtta testtyperna gratis med konto.'
+    )
+    expect(INLINE_PROVA.paketrad).toBe(
+      'Avancerad och expertnivå, övningsprov mot klockan i samma format som Matrigma, Alva, SHL och Aon, och det fördjupade personlighetstestet ingår i Premium, 149 kr i månaden.'
+    )
+    expect(LISTA_SLUT.rubrik).toBe('Läs klart. Gör sedan.')
   })
 })

@@ -16,6 +16,7 @@
 import { suggestPlan, type Feature, type Scope } from '@/lib/access/features'
 import type { BetalvaggPlats } from '@/lib/analytics/events'
 import { kampanjPrisPeriod, type KampanjPrisInfo } from '@/lib/kampanj/kampanj'
+import { TESTTYPER_ORD } from '@/lib/plans/gratis-copy'
 import { PASS_COPY } from '@/lib/traning/pass-copy'
 import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, PREMIUM_TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import {
@@ -196,7 +197,7 @@ export function testrumRubrik(plats: BetalvaggPlats | undefined): string | null 
     case 'dag2':
       return `${PASS_COPY.betalvagg.pass} ${PREMIUM}`
     case 'kurva':
-      return `Hela kurvan ingår i ${PREMIUM}`
+      return `Hela din utveckling ingår i ${PREMIUM}`
     default:
       return null
   }
@@ -275,7 +276,7 @@ function byggCopy(variant: PaywallVariant, plan: PlanKey, opts?: PaywallCopyOpts
     case 'testniva':
       return {
         title: `Avancerad nivå ingår i ${PREMIUM}`,
-        body: `${PREMIUM} ger alla 19 tester, alla nivåer, övningsprov mot klockan, det fördjupade personlighetstestet och förklaring till varje fråga.`,
+        body: `${PREMIUM} ger alla ${TESTTYPER_ORD} testtyperna på alla nivåer, pass varje dag, övningsprov mot klockan och det fördjupade personlighetstestet.`,
         primary: knapp,
         secondary: 'Kör grundnivån igen',
       }
@@ -367,7 +368,7 @@ function byggCopy(variant: PaywallVariant, plan: PlanKey, opts?: PaywallCopyOpts
     case 'test-tak':
       return {
         title: 'Dagens omgång är gjord',
-        body: `${PREMIUM} ger alla nivåer, övningsprov och obegränsat antal försök.`,
+        body: `${PREMIUM} ger alla nivåer, övningsprov mot klockan och pass utan tak, varje dag.`,
         primary: knapp,
         secondary: 'Kom tillbaka i morgon',
       }

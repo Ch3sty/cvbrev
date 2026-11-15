@@ -41,6 +41,7 @@ import {
   LISTA_SLUT,
   SIDO,
   SLUT,
+  TESTKORT_INTERVJU,
 } from './reklam-copy'
 
 /** Datat som ArtikelKlient läser för visnings- och klickmätningen. */
@@ -135,6 +136,19 @@ export function InlineKort({
   }
 
   if (verktyg === 'test') {
+    // Utanför testklustret (intervjuartiklarna, S6) bär kortet intervjutexten
+    // och mäts som testkort, samma som <TestKort /> i MDX.
+    if (cluster !== 'test')
+      return (
+        <ProvKort
+          cluster={cluster}
+          slug={slug}
+          etikett={TESTKORT_INTERVJU.etikett}
+          rubrik={TESTKORT_INTERVJU.rubrik}
+          text={TESTKORT_INTERVJU.text}
+          variant="testkort"
+        />
+      )
     return <ProvKort cluster={cluster} slug={slug} />
   }
 

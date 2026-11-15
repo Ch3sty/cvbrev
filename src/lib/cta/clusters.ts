@@ -193,8 +193,10 @@ export function inlineVerktygForKluster(
       return harTagg(tags, ['ats', 'analys']) ? 'analys' : 'mallar'
     case 'letter':
       return 'brev'
+    // Intervjuklustret får provkortet med intervjutexten (S6, beslut
+    // 2026-11-15). INLINE.coach står kvar för räknarartiklarna.
     case 'interview':
-      return 'coach'
+      return 'test'
     case 'career':
       return arKarriarLon(tags) ? 'raknare' : 'lankrad'
     case 'generic':

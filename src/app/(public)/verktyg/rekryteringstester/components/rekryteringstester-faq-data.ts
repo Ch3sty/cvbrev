@@ -6,6 +6,7 @@
 
 import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
 import { TESTTAL } from '@/components/publikt/testtal'
+import { GRUNDNIVAN_ALLA } from '@/lib/plans/gratis-copy'
 
 // Talen läses ur testConfig (spec-publikt-v2 del A avsnitt 6, ägarens beslut 1
 // 2026-10-12): träningspassens antal, övningsprovet nämnt separat.
@@ -99,7 +100,7 @@ export const REKRYTERINGSTESTER_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Är testerna gratis?',
-    a: 'Att börja är gratis. Fem frågor med facit provar du direkt här, utan konto. Med ett gratiskonto gör du Nivåkollen med full genomgång och ett första träningspass, utan att lämna kortuppgifter, och resultatet är ditt. Att träna vidare, med avancerad nivå och expertnivå, övningsprov mot klockan och din utveckling över tid, ingår i ' + paketKort() + ', ' + prisPeriod(SALD_PLAN) + '. Där ingår också det fördjupade personlighetstestet med ' + T.personlighetFordjupad.fragor + ' påståenden; grundtestet är gratis.',
+    a: 'Att börja är gratis. Fem frågor med facit provar du direkt här, utan konto. Med ett gratiskonto gör du ' + GRUNDNIVAN_ALLA + ' med full genomgång, utan att lämna kortuppgifter, och resultatet är ditt. Att träna vidare, med avancerad nivå och expertnivå, övningsprov mot klockan och din utveckling över tid, ingår i ' + paketKort() + ', ' + prisPeriod(SALD_PLAN) + '. Där ingår också det fördjupade personlighetstestet med ' + T.personlighetFordjupad.fragor + ' påståenden; grundtestet är gratis.',
   },
   {
     q: 'Vad är ett personlighetstest i rekrytering?',

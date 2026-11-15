@@ -18,7 +18,8 @@ import { capture } from '@/lib/analytics/events'
 
 /** Label och mål per kluster. Career saknas med flit. */
 const CLUSTER_CTA: Record<Exclude<CtaCluster, 'career'>, { label: string; href: string }> = {
-  interview: { label: 'Träna intervjufrågor', href: '/verktyg/jobbcoachen' },
+  // Intervjuklustret leder till provet (S6, beslut 2026-11-15).
+  interview: { label: 'Prova fem frågor gratis', href: '/verktyg/rekryteringstester/prova' },
   test: { label: 'Prova fem frågor gratis', href: '/verktyg/rekryteringstester/prova' },
   letter: { label: 'Skriv mitt personliga brev', href: '/skapa-brev/start' },
   cv: { label: 'Välj en mall', href: '/verktyg/cv-mallar' },

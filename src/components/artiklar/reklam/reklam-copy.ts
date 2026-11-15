@@ -25,7 +25,7 @@ import { FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { FREE_TIER_JOB_LIMIT } from '@/lib/jobmatching/freeLimit'
 import { FREE_CHAT_MESSAGES_PER_ACCOUNT, LETTER_WINDOW_DAYS } from '@/lib/quota/quotaService'
 import type { InlineVerktyg } from '@/lib/cta/clusters'
-import { GRATIS_LISTA, GRATIS_MALLRAD } from '@/lib/plans/gratis-copy'
+import { GRATIS_LISTA, GRATIS_MALLRAD, GRATIS_TESTRAD_PROV, GRUNDNIVAN_ALLA } from '@/lib/plans/gratis-copy'
 
 const PLAN = PLAN_BY_KEY[SALD_PLAN]
 /** "Jobbcoach Premium" */
@@ -64,14 +64,11 @@ export interface InlineCopy {
 }
 
 /** Inline-kortet efter andra stycket: verktyget, gratis först. */
-export const INLINE: Record<Exclude<InlineVerktyg, 'raknare' | 'lankrad'>, InlineCopy> = {
-  test: {
-    rubrik: 'Öva på frågorna innan de räknas',
-    text: 'Matrislogik, verbalt och numeriskt med facit och förklaring till varje fråga. Fem frågor gratis här. Nivåkollen och första passet gratis med konto.',
-    knapp: 'Gör ett övningstest',
-    href: '/verktyg/rekryteringstester',
-    paketrad: `Alla nivåer, övningsprov mot klockan och fördjupade personlighetstestet ingår i ${KORT_PRIS}.`,
-  },
+/**
+ * Testklustret och intervjuklustret får ProvKort (INLINE_PROVA), inte ett
+ * verktygskort; INLINE.test är borttaget (S2, beslut 2026-11-15).
+ */
+export const INLINE: Record<Exclude<InlineVerktyg, 'raknare' | 'lankrad' | 'test'>, InlineCopy> = {
   mallar: {
     rubrik: 'Bygg CV:t på en mall som rekryteringssystem läser',
     text: `${Ord(FREE_TEMPLATE_COUNT)} mallar och en nedladdning utan att betala, byggda så att rekryteringssystem läser dem rätt. Du fyller i, vi formaterar.`,
@@ -109,10 +106,11 @@ export const INLINE: Record<Exclude<InlineVerktyg, 'raknare' | 'lankrad'>, Inlin
 export const INLINE_PROVA = {
   etikett: 'Prova på riktigt',
   rubrik: 'Vilken figur hör hemma i den tomma rutan?',
-  text: 'Det här är en av våra expertfrågor: tre regler samtidigt, form, tecken och fyllning. Fem frågor gratis här, rätt och fel direkt. Nivåkollen och första passet gratis med konto.',
+  text: `Det här är en av våra expertfrågor: tre regler samtidigt, form, tecken och fyllning. Fem frågor gratis här, rätt och fel direkt. Facit och ${GRUNDNIVAN_ALLA} gratis med konto.`,
   knapp: 'Prova fem frågor',
   href: '/verktyg/rekryteringstester/prova',
-  paketrad: INLINE.test.paketrad,
+  /** Paketraden (S2): leverantörsnamnen, alltid "i samma format som". */
+  paketrad: `Avancerad och expertnivå, övningsprov mot klockan i samma format som Matrigma, Alva, SHL och Aon, och det fördjupade personlighetstestet ingår i ${KORT_PRIS}.`,
   /**
    * Länken till testsidan bredvid provknappen (analysen 2026-11-08, punkt 9):
    * testsidan gav 41 konton i P1 och 5 i P2 när korten bara pekade på provet.
@@ -168,7 +166,7 @@ export const SIDO: Record<'cv' | 'test' | 'allt', SidoCopy> = {
     text: PLAN.beskrivning,
     belopp: `${PLAN.amount} kr`,
     under: `${PLAN.suffix}, ingen bindningstid`,
-    gratisrad: `Fem frågor gratis här. Nivåkollen och första passet gratis med konto. Resten ingår i ${KORT}.`,
+    gratisrad: `${GRATIS_TESTRAD_PROV} Resten ingår i ${KORT}.`,
   },
   cv: {
     etikett: NAMN,

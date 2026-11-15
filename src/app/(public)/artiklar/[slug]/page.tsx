@@ -295,6 +295,11 @@ function injectClusterCta(content: string, verktyg: InlineVerktyg): string {
         return content;
     }
 
+    // Artikeln har redan provkortet som <TestKort /> i texten: inget andra.
+    if (verktyg === 'test' && content.includes('<TestKort')) {
+        return content;
+    }
+
     // Dela upp innehållet i stycken
     const paragraphs = content.split('\n\n');
 

@@ -16,7 +16,7 @@
 import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { FREE_TIER_JOB_LIMIT, JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import { TESTTAL } from '@/components/publikt/testtal'
-import { GRATIS_LISTA, GRATIS_MENING_KORT } from '@/lib/plans/gratis-copy'
+import { GRATIS_LISTA, GRATIS_MENING_KORT, TESTTYPER_ORD } from '@/lib/plans/gratis-copy'
 import { PLAN_BY_KEY, SALD_PLAN, paketKort, paketMedPris, paketNamn, prisPeriod } from '@/lib/plans/plans'
 
 export const PREMIUM_CURRENCY = 'SEK'
@@ -73,10 +73,10 @@ const TESTER: ComparisonGroup = {
   title: 'Rekryteringstester',
   rows: [
     {
-      label: 'Nivåkollen och första passet',
-      sub: 'matrislogik, verbalt, numeriskt',
-      free: g('En gång, med genomgång'),
-      premium: ja('Pass varje dag, utan tak'),
+      label: 'Grundnivån',
+      sub: `alla ${TESTTYPER_ORD} testtyperna och personlighetstestet`,
+      free: g('Ingår, med genomgång'),
+      premium: ja('Ingår, plus ett pass om dagen på din nivå'),
     },
     {
       label: 'Avancerad och expertnivå',
@@ -102,7 +102,7 @@ const TESTER: ComparisonGroup = {
     },
     {
       label: 'Din utveckling',
-      sub: 'alla sessioner i en kurva',
+      sub: 'alla pass i en kurva',
       free: g('Senaste sessionen'),
       premium: ja('Hela historiken'),
     },
@@ -201,7 +201,7 @@ export const PRISER_FAQ_ITEMS = [
   {
     id: 'borja-gratis',
     q: 'Kan jag börja gratis?',
-    a: `Ja. Gratisnivån kräver inget kort och ligger kvar så länge du vill. Där ser du hur CV-analysen, de personliga breven och Nivåkollen i testerna fungerar, och köper ${PREMIUM} först när du vill ha resten.`,
+    a: `Ja. Gratisnivån kräver inget kort och ligger kvar så länge du vill. Där ser du hur CV-analysen, de personliga breven och grundnivån i testerna fungerar, och köper ${PREMIUM} först när du vill ha resten.`,
   },
   {
     id: 'saga-upp',

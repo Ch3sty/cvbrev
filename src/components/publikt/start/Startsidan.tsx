@@ -38,10 +38,10 @@ import { HELA_PAKETET_RADER, SALD_PLAN, kopKnapp, paketMedPris } from '@/lib/pla
 import { FREE_CV_EXPORTS, FREE_TEMPLATE_COUNT, TEMPLATE_COUNT } from '@/lib/cv/template-antal'
 import { FREE_TIER_JOB_LIMIT, JOB_MATCHES_PER_RUN } from '@/lib/jobmatching/freeLimit'
 import { FREE_CHAT_MESSAGES_PER_ACCOUNT, FREE_LETTERS_PER_ACCOUNT } from '@/lib/quota/quotaService'
-import { GRATIS_FAQ } from '@/lib/plans/gratis-copy'
+import { GRATIS_FAQ, GRUNDNIVAN_ALLA, TESTTYPER_ORD } from '@/lib/plans/gratis-copy'
 
 /** Gratisbrevet enligt koden (spec avsnitt 7, ägarens beslut 2). */
-const GRATISBREV = 'Första brevet gratis, sedan ett i veckan'
+const GRATISBREV = 'Första personliga brevet gratis, sedan ett var sjunde dag'
 
 const MEDIER = [
   {
@@ -228,9 +228,9 @@ export default function Startsidan({ konton }: { konton: number | null }) {
               fråga, och personlighetstestet som visar vad rekryteraren läser ut av dig.
             </>
           }
-          text="Samma format som de stora testleverantörerna använder. Nivåkollen visar var du står, dagens pass tränar det du tappar, och övningsprovet går mot klockan som det skarpa testet. Personlighetstestet ger din profil, hur den läses mot vanliga kravprofiler och frågorna du lär få på intervjun, med förslag på svar. Fem frågor provar du utan konto."
+          text={`${storForst(TESTTYPER_ORD)} testtyper i tre nivåer, från matrislogik till talserier, i samma format som de stora testleverantörerna använder. Ett nivåtest visar var du står, ett kort pass om dagen tränar det du tappar, och övningsprovet går mot klockan som det skarpa testet. Personlighetstestet ger din profil, hur den läses mot vanliga kravprofiler och frågorna du lär få på intervjun, med förslag på svar. Fem frågor provar du utan konto.`}
           knapp={{ text: 'Så fungerar det', href: '/verktyg/rekryteringstester' }}
-          knappNot="Nivåkollen, första passet och personlighetstestet gratis"
+          knappNot={`${storForst(GRUNDNIVAN_ALLA)} och personlighetstestet gratis`}
           telefon={
             <div className="pub-duo">
               <SkarmMatris />
