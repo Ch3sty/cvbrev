@@ -1,0 +1,38 @@
+# Faktagranskning: content/rekryterare/lonetransparensdirektivet-rekrytering.mdx (2026-11-15)
+Granskare: opus, omgång 1. Bedömning: punkträttning. Huvudbudskapet (ingen svensk lag, ingen proposition, direktivet kvarstår) stämmer. Tidslinjen saknar dock ett steg, DO-uppdraget har fel datum och en av källorna säger motsatsen till det den används för.
+
+## Fynd att åtgärda
+
+| Rad | Citat | Klass | Rätt uppgift / förslag | Källa |
+|---|---|---|---|---|
+| 85 | Källan "Regeringens besked i mars 2026 om att lagstiftningsarbetet pausas" (länk till "Mer tid för förberedelser...") | fel (källa) | Pressmeddelandet från 11 mars 2026 säger inte att arbetet pausas. Där skjuter regeringen fram ikraftträdandet till 1 januari 2027 och första lönerapporteringen till 20 maj 2028, och skjuter till 25 mkr (2026) och 34 mkr (från 2027) till DO. Beskedet om att ingen proposition läggs fram kom 26 mars 2026. Byt länk till "Regeringen vill omförhandla lönetransparensdirektivet". | https://www.regeringen.se/pressmeddelanden/2026/03/mer-tid-for-forberedelser-infor-genomforandet-av-lonetransparensdirektivet/ och https://www.regeringen.se/pressmeddelanden/2026/03/regeringen-vill-omforhandla-lonetransparensdirektivet/ |
+| 44–47, 13 | Tidslinjen jan 2026 → "Mars 2026: vändningen" | obelagt (ofullständig) | Ett steg saknas: 11 mars 2026 sköts ikraftträdandet upp till 1 januari 2027, och 26 mars 2026 meddelades att ingen proposition läggs fram för närvarande. Regeringen vill dessutom att genomförandetiden skjuts upp och att direktivet omförhandlas i förenklande riktning på EU-nivå. Det är kärnan i beskedet och bör stå i tidslinjen. | Samma två pressmeddelanden; Delphi 27 mars 2026: https://www.delphi.se/sv/insights/delphi-insights-genomforandet-av-lonetransparensdirektivet-skjuts-upp/ |
+| 47 | "Samtidigt får Diskrimineringsombudsmannen i uppdrag att fortsätta förbereda ett genomförande" | fel | Uppdraget kom inte i mars utan genom regeringsbeslut 4 juni 2026 (A2026/00595), presenterat 8 juni. Det gäller främjandeinsatser kring arbetsgivares lönekartläggning och ska redovisas senast 1 november 2027. Ersätt "Samtidigt" med "I juni 2026". | https://www.regeringen.se/pressmeddelanden/2026/06/fortsatta-forberedelser-av-lonetransparensdirektivet-genom-framjandeinsatser/ och DO: https://www.do.se/for-arbetsgivare-och-utbildningsanordnare/lonetransparens-och-jamstallda-loner/vad-ar-lonetransparensdirektivet |
+| 55 | "Överträdelseförfarande är EU:s nästa drag" | obelagt (komplettera) | Kommissionen kan inleda förfarande, så påståendet stämmer i princip. Men 22 maj 2026 meddelade kommissionen att direktivet inte ska ingå i något förenklingspaket eller "stop-the-clock", och i paketet 8 juli 2026 fanns ännu inget ärende om direktivet. Lägg till att EU avvisat uppskjutning, och skriv inte att ett förfarande är inlett. | Ius Laboris: https://iuslaboris.com/insights/eu-pay-transparency-no-delay/ (sekundärkälla, kommissionens eget uttalande nåddes inte) |
+| 79 | "rekryterare bara möter kandidater inom rimligt spann" | obelagt (produkt, nyans) | Budgetfiltret släpper även igenom kandidater som inte angett löneanspråk. Skriv "filtrerar bort kandidater vars förväntan ligger över ert spann". Att lönen aldrig exponeras stämmer. | src/lib/recruiter/poolSearch.ts rad 49, 253–255 |
+
+## Belagda påståenden
+- Direktiv (EU) 2023/970 antogs i maj 2023, och genomförandefristen är 7 juni 2026. Källa: SOU 2024:40-sidan.
+- SOU 2024:40 "Genomförande av lönetransparensdirektivet" lämnades 29 maj 2024. Källa: https://www.regeringen.se/rattsliga-dokument/statens-offentliga-utredningar/2024/05/sou-202440/
+- Lagrådsremissen kom 15 januari 2026 med föreslaget ikraftträdande 1 juli 2026. Källa: https://www.regeringen.se/rattsliga-dokument/lagradsremiss/2026/01/genomforande-av-lonetransparensdirektivet/
+- "I mars 2026 meddelade regeringen att den för närvarande inte kommer att lägga fram någon proposition." Källa: DO, länken ovan.
+- DO har fått regeringens uppdrag att fortsätta förberedelserna (FAQ rad 21, utan datum). Källa: regeringen juni 2026.
+- Rekryteringsreglerna, alltså löneinformation i annonsen eller före intervjun och förbud mot frågan om lönehistorik, finns i art. 5. Källa: DO "de kommande reglerna" och eur-lex 2023/970.
+- Unionen driver frågan och kritiserar pausen. Källa: https://www.unionen.se/rad-och-stod/lonetransparensdirektivet
+- Lönen exponeras aldrig utåt i kandidatpoolen. Källa: src/lib/recruiter/candidateData.ts rad 15, 116, 991.
+
+## Rättning (omgång 1, 2026-11-15)
+- Rad 85 (fel, källa): länken till pressmeddelandet 11 mars beskrivs nu som beskedet om senarelagt ikraftträdande. Pressmeddelandet 26 mars ("Regeringen vill omförhandla lönetransparensdirektivet") tillagt som källa för att ingen proposition läggs fram. Båda kontrollerade 2026-11-15.
+- Rad 44–47 och 13 (obelagt, ofullständig): tidslinjen kompletterad med 11 mars (ikraftträdande 1 januari 2027, första lönerapportering 20 maj 2028, mer pengar till DO), 26 mars (ingen proposition, regeringen vill skjuta upp och omförhandla på EU-nivå), maj 2026 (kommissionen avvisar uppskjutning) och juni 2026. FAQ-svaret "Gäller lönetransparensdirektivet i Sverige nu?" rättat på samma sätt; "lagstiftningsarbetet stoppas" ersatt med det regeringen faktiskt sa.
+- Rad 47 (fel): DO-uppdraget flyttat från mars till juni 2026 (beslut 4 juni, presenterat 8 juni), beskrivet som främjandeinsatser kring lönekartläggning med redovisning senast 1 november 2027. Källan (regeringen 8 juni) tillagd i källraden. FAQ-svaret "Vad bör vi göra i väntan..." har fått "i juni 2026" och samma beskrivning.
+- Rad 55 (obelagt, komplettera): rubriken i fetstil "Överträdelseförfarande är EU:s nästa drag" ändrad till "... nästa möjliga drag" (fetstilad inledning i stycket, inte H2/H3). Tillagt att kommissionen sagt nej till uppskjutning (Ius Laboris, sekundärkälla, tillagd i källraden) och att inget förfarande mot Sverige är inlett.
+- Rad 79 (produkt, nyans): "så att rekryterare bara möter kandidater inom rimligt spann" ändrat till "som sållar bort kandidater vars förväntan ligger över rekryterarens spann".
+- `updated: "2026-11-15"` tillagd. Inga H2/H3, FAQ-frågor eller description ändrade. Ingen bild. Inga interna länkar försvann.
+
+## Andra granskningen (2026-11-15)
+GODKÄND. Kontrollerat mot källorna: pressmeddelandet 11 mars 2026 (ikraftträdande 1 januari 2027, första lönerapportering 20 maj 2028, 25 mkr 2026 och 34 mkr från 2027 till DO); pressmeddelandet 26 mars 2026 (ingen proposition för närvarande, genomförandetiden ska skjutas upp och direktivet omförhandlas "i regelförenklande riktning"); uppdraget till DO presenterat 8 juni 2026, främjandeinsatser kring lönekartläggning, redovisning senast 1 november 2027 ("dagen efter" 7 juni stämmer); Ius Laboris 22 maj 2026 (kommissionen "does not envisage" att ta med direktivet i förenklingspaket eller stop-the-clock, eftersom det är "essential for the full realisation of the right to equal pay"). "Något förfarande mot Sverige är inte inlett när detta skrivs" stämmer: kommissionens överträdelsepaket 15 juli, 25 september och 1 oktober 2026 innehöll inga formella underrättelser om direktiv 2023/970 (Egalis, oktober 2026). Budgetfiltret: salary_min ≤ budget, kandidater utan anspråk släpps igenom, lönen SELECT:as aldrig (poolSearch.ts rad 253–255), så "sållar bort kandidater vars förväntan ligger över rekryterarens spann" stämmer. Inga tankstreck i ändrade rader.
+
+Anmärkning, ej underkännande: kommissionens besked återges via Ius Laboris (sekundärkälla). Hittas kommissionens eget svar (parlamentsfråga eller presskonferens 22 maj 2026) bör det ersätta Ius Laboris.
+
+## Svar till samordnaren
+lonetransparensdirektivet-rekrytering, GODKÄND, inga brister.

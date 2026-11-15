@@ -1,13 +1,13 @@
 {
- "alt": "Lönekort som jämför löneökningen när du byter jobb med när du stannar kvar",
+ "alt": "Lönekort som jämför löneökningen för ingenjörer som bytte jobb med dem som stannade",
  "fyll": {
   "etikett": "Byta jobb",
-  "chip": "LÖNEUTVECKLING",
-  "talRubrik": { "text": "Den som stannar", "kalla": "för den som stannar" },
-  "lonIdag": { "text": "4,9 procent", "kalla": "mot 4,9 procent för den som stannar" },
+  "chip": "INGENJÖRER",
+  "talRubrik": { "text": "Den som stannar", "kalla": "för den som stannade kvar" },
+  "lonIdag": { "text": "4,9 procent", "kalla": "mot 4,9 procent för den som stannade kvar" },
   "staplar": [
    { "namn": { "text": "Stannar kvar", "kalla": "den som stannade kvar" }, "varde": { "text": "4,9 %", "kalla": "4,9 procent" }, "tal": 4.9, "accent": false },
-   { "namn": { "text": "Byter jobb", "kalla": "Den som byter jobb" }, "varde": { "text": "11 %", "kalla": "11 procent mer i lön" }, "tal": 11, "accent": true }
+   { "namn": { "text": "Byter jobb", "kalla": "den som bytte arbetsgivare" }, "varde": { "text": "11 %", "kalla": "11 procent mer i lön" }, "tal": 11, "accent": true }
   ],
   "summa": { "text": "+6,1", "kalla": "11 procent mer i lön, mot 4,9 procent", "beraknat": "11 - 4,9" },
   "summaText": { "text": "procentenheter mer i lön", "kalla": "mer i lön" }
