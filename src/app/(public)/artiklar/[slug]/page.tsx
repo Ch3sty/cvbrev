@@ -125,6 +125,13 @@ export async function generateMetadata(
         title: metaTitle,
         description: post.frontmatter.description,
         alternates: { canonical: `${siteBaseUrl}/artiklar/${slug}` },
+        // Stora bilder i Discover och bildsök (koncept-artikelbilder-2026-11-14, avsnitt 6).
+        robots: {
+            index: true,
+            follow: true,
+            'max-image-preview': 'large',
+            googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
+        },
         openGraph: {
             title: pageTitle,
             description: post.frontmatter.description,
