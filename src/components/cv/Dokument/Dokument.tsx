@@ -159,6 +159,18 @@ export default function Dokument({
     }
   }, [onMatt])
 
+  // Serverns HTML (byggarens första målning) kan ha laddat före hydreringen,
+  // och då kom onLoad aldrig fram: mät det som redan står i iframen.
+  useEffect(() => {
+    const doc = iframeRef.current?.contentDocument
+    if (doc?.readyState === 'complete' && doc.body?.childElementCount) {
+      const t = window.setTimeout(mat, 60)
+      return () => window.clearTimeout(t)
+    }
+    // Bara vid första målningen.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   // Ny källa: gamla träffytor bort tills den nya mätningen finns.
   useEffect(() => {
     setMatning(null)
@@ -379,8 +391,8 @@ export default function Dokument({
                     {spok && onAvsnitt ? (
                       <span
                         aria-hidden
-                        className="pointer-events-none absolute inline-flex h-7 items-center whitespace-nowrap rounded-full border-[1.5px] border-dashed border-[#C9C6BF] bg-white px-2.5 text-[12px] font-semibold leading-none text-[#4A4A55] min-[480px]:h-[30px] min-[480px]:text-[13px]"
-                        style={{ right: Math.max(4, bredd - px(r.x + r.b) - 2), top: px(r.y + r.h / 2) - 15 }}
+                        className="pointer-events-none absolute inline-flex h-[22px] items-center whitespace-nowrap rounded-full border border-dashed border-[#C9C6BF] bg-white px-2 text-[10.5px] font-semibold leading-none text-[#4A4A55] min-[900px]:h-7 min-[900px]:border-[1.5px] min-[900px]:px-2.5 min-[900px]:text-[12.5px]"
+                        style={{ right: Math.max(4, bredd - px(r.x + r.b) - 2), top: px(r.y + r.h / 2) - (bredd >= 500 ? 14 : 11) }}
                         data-lagg-till={r.sektion}
                       >
                         {AVSNITT.tomma[r.sektion]}

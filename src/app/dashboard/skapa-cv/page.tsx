@@ -185,6 +185,7 @@ export default async function SkapaCVPage({ searchParams }: { searchParams: Prom
       initialRubriker={rubriker}
       initialHtml={initialHtml}
       uppladdad={forsta(params.upp) === '1'}
+      uppTitel={(forsta(params.titel) ?? '').slice(0, 80)}
       sparr={!cvId && antal >= maxCvs}
       entry={entry}
       isAdmin={isAdmin}

@@ -147,6 +147,8 @@ export interface ByggareProps {
   initialRubriker: Partial<Record<Sektion, string>>
   initialHtml: string | null
   uppladdad: boolean
+  /** Titeln från startbladet när hon laddade upp (?titel=). */
+  uppTitel: string
   sparr: boolean
   entry: Entry
   isAdmin: boolean
@@ -352,7 +354,7 @@ export default function ByggareClient(p: ByggareProps) {
   // Ett uppladdat CV: sparas genast i CVMetadata-form, märkt som utkast.
   useEffect(() => {
     if (!p.uppladdad || !p.initialCvId) return
-    const t = new URLSearchParams(window.location.search).get('titel')?.trim()
+    const t = p.uppTitel.trim()
     const bas = cvRef.current
     const ny: ByggCv = {
       ...bas,

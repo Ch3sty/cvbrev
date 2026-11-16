@@ -116,7 +116,13 @@ export function matDokument(doc: Document): Matning {
     falt.push({ falt: f, x: (r.left - rr.left) / bredd, y: (r.top - rr.top) / bredd, b: r.width / bredd, h: r.height / bredd })
   }
 
-  return { sidor, hojd, rubriker: med, falt, botten: (botten - rr.top) / bredd }
+  // Sista innehållet: avsnitten och huvudet, inte arkets minsta höjd (.cv är 297 mm).
+  let sist = 0
+  for (const el of Array.from(doc.querySelectorAll<HTMLElement>('[data-avsnitt], header'))) {
+    const r = el.getBoundingClientRect()
+    if (r.height > 0 && r.bottom > sist) sist = r.bottom
+  }
+  return { sidor, hojd, rubriker: med, falt, botten: ((sist || botten) - rr.top) / bredd }
 }
 
 /** Texten i iframen gör sig själv lika bred som arket (samma knep som exempel-API:t). */
