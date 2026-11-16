@@ -55,6 +55,20 @@ const RADER: Rad[] = [
   ['horisont', 'Horisont', 'premium', 'konstnarlig', false, false, 'open-sans', 'Tidsaxel under huvudet med en punkt per anställning', 'Tidsaxel under huvudet', ['#1B5E8A', '#1E5A3C', '#8A4B2A', '#5B2A4E']],
 ]
 
+/**
+ * Merförsäljningens kort utan foto (utbudsspecen avsnitt 6): Kalksten och
+ * Granit med specens ord, övriga fotomallar med fotoledet struket. Siluett
+ * saknas: hela kortet handlar om fotot.
+ */
+const KORT_UTAN_FOTO: Record<string, string> = {
+  bjork: 'Centrerad',
+  koppar: 'Färgat huvud',
+  kalksten: 'Ljus sidospalt',
+  granit: 'Mörk sidospalt, vit text',
+  fasad: 'Stort namn',
+  morkrum: 'Mörkt huvud',
+}
+
 /** Katalogen i visningsordning. */
 export const MALL_KATALOG: readonly MallKort[] = RADER.map(([id, namn, niva, familj, word, foto, typsnitt, stil, kort, accenter]) => ({
   id,
@@ -63,6 +77,7 @@ export const MALL_KATALOG: readonly MallKort[] = RADER.map(([id, namn, niva, fam
   familj,
   stil,
   kort,
+  ...(KORT_UTAN_FOTO[id] ? { kortUtanFoto: KORT_UTAN_FOTO[id] } : {}),
   word,
   foto,
   accenter,

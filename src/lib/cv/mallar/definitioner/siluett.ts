@@ -31,5 +31,5 @@ export const siluett: MallDef = {
   ordning: STANDARD_ORDNING,
   enSida: EN_SIDA,
   extraCss: `
-.typ-kompetenser .grupp-mitt,.sprakrad,.avsnitt-profil .text,.avsnitt-intressen .rad{text-align:center}`,
+.typ-kompetenser .grupp-mitt,.sprakrad,.avsnitt-profil .text,.avsnitt-intressen .rad,.avsnitt-referenser .text{text-align:center}`,
 }

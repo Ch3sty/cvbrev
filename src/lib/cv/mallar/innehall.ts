@@ -43,6 +43,9 @@ export function rensa(text: unknown): string {
     .replace(/\u00A0/g, ' ')
     .replace(/\s+/g, ' ')
     .trim()
+    // Fast mellanslag mellan tal och %, kr och procent, så att enheten aldrig
+    // står ensam på en rad (UX).
+    .replace(/(\d) (%|kr\b|procent\b)/g, '$1\u00A0$2')
     .normalize('NFC')
 }
 

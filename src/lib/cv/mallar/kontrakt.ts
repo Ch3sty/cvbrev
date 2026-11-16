@@ -67,7 +67,7 @@ export interface MallVal {
    * sida" (src/lib/cv/mallar/farg.ts, matt). Sätts av servern när PDF-kedjan
    * har provat sig fram; komponenterna skickar bara enSida.
    */
-  enSidaSteg?: 1 | 2 | 3 | 4
+  enSidaSteg?: 1 | 2 | 3 | 4 | 5
   /** Index 0 till 3 i mallens fyra accentfärger. */
   farg?: number
   /** Ersätter brödtextens typsnitt (namn och rubriker behåller mallens om mallen säger så). */
@@ -90,6 +90,8 @@ export interface MallKort {
   stil: string
   /** Vad som skiljer, högst fyra ord ("Färgad sidopanel"), för merförsäljningen. */
   kort: string
+  /** Kortet när CV:t saknar foto, för fotomallarna (utbudsspecen avsnitt 6). Saknas: använd kort. */
+  kortUtanFoto?: string
   /** Finns som Word-fil. */
   word: boolean
   /** Har fotoplats (fotoknappen syns bara då). */

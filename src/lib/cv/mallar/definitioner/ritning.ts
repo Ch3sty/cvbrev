@@ -41,6 +41,7 @@ export const ritning: MallDef = {
       kontakt: true,
       sektioner: ['kompetenser', 'sprak', 'intressen'],
       huvudISpalten: true,
+      helSida: true,
     },
   },
   post: { arbetsgivare: { farg: '#555555' }, luftMellan: 3.8 },

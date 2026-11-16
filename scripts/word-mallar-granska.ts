@@ -24,7 +24,7 @@ import { execFileSync } from 'child_process'
 import mammoth from 'mammoth'
 import type { CVMetadata } from '../src/lib/cv/cv-metadata'
 import { CV_LANGDER } from '../src/lib/cv/word/__tests__/fixtures'
-import { ritaPdfSidor } from './lib/pdf-verktyg'
+import { lasPdfGeometri, norm, ritaPdfSidor, sidaForRubrik } from './lib/pdf-verktyg'
 import { antalSidor } from '../src/lib/cv/mallar/pdf'
 
 const ut = path.resolve(process.argv[2] ?? 'word-qa')
@@ -37,6 +37,41 @@ const FOTO =
   Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect width="200" height="200" fill="#9aa4ae"/><circle cx="100" cy="80" r="40" fill="#cfd5db"/><rect x="45" y="130" width="110" height="70" rx="50" fill="#cfd5db"/></svg>').toString('base64')
 
 const CHROME_SIDOR = new Map<string, number>()
+/** Rubrikerna per fil och profilens rubrik, för jämförelsen i R8. */
+const RUBRIKER = new Map<string, { alla: string[]; profil: string }>()
+
+/**
+ * R8 (andra granskningen): samma avsnitt på samma sida i Chrome och Word,
+ * och avståndet från profilens rubrik till sista rubriken på sida 1 inom
+ * 3 procent.
+ */
+async function jamforSidor(namn: string): Promise<string[]> {
+  const rub = RUBRIKER.get(namn)
+  if (!rub) return []
+  const c = await lasPdfGeometri(readFileSync(path.join(ut, `${namn}-chrome.pdf`)))
+  const w = await lasPdfGeometri(readFileSync(path.join(ut, `${namn}.pdf`)))
+  const fel: string[] = []
+  for (const h of rub.alla) {
+    const a = sidaForRubrik(c, h)
+    const b = sidaForRubrik(w, h)
+    if (a > 0 && b > 0 && a !== b) fel.push(`"${h}" på sida ${a} i Chrome men ${b} i Word`)
+  }
+  const y = (g: typeof c, h: string) => g.rader.find((x) => x.sida === 1 && norm(x.text) === norm(h))?.y
+  const sista = (g: typeof c) => {
+    // Bara rubriker som står på sida 1 i båda formaten, annars mäter kvoten sidbrytningen och inte radhöjden.
+    const ys = rub.alla.filter((h) => sidaForRubrik(c, h) === 1 && sidaForRubrik(w, h) === 1).map((h) => y(g, h)).filter((v): v is number => v !== undefined)
+    return ys.length ? Math.max(...ys) : undefined
+  }
+  const [pc, pw, sc, sw] = [y(c, rub.profil), y(w, rub.profil), sista(c), sista(w)]
+  // Kolumn och Folio: PDF:en har EB Garamond, Word riktiga Garamond. Raderna bryts
+  // olika (specen avsnitt 2, U7), så här gäller bara sidbrytningen ovan, inte kvoten.
+  const garamond = /^(kolumn|folio)-/.test(namn)
+  if (!garamond && pc !== undefined && pw !== undefined && sc !== undefined && sw !== undefined && sc - pc > 20) {
+    const kvot = (sw - pw) / (sc - pc)
+    if (Math.abs(kvot - 1) > 0.03) fel.push(`Profil till sista rubriken på sida 1: Word ${Math.round(kvot * 100)} procent av Chrome`)
+  }
+  return fel
+}
 
 async function bygg(): Promise<{ filer: string[]; fel: string[] }> {
   const { MALLAR } = await import('../src/lib/cv/mallar/register')
@@ -62,6 +97,7 @@ async function bygg(): Promise<{ filer: string[]; fel: string[] }> {
       const wordHtml = (await mammoth.convertToHtml({ buffer: buf })).value
       const wRubriker = [...wordHtml.matchAll(/<h2>(.*?)<\/h2>/g)].map((m) => m[1].replace(/<[^>]+>/g, '').replace(/&amp;/g, '&'))
       const hRubriker = [...html.matchAll(/<h2[^>]*>(.*?)<\/h2>/g)].map((m) => m[1].replace(/&amp;/g, '&'))
+      RUBRIKER.set(namn, { alla: hRubriker, profil: html.match(/data-sektion="profil">(.*?)<\/h2>/)?.[1] ?? '' })
       const problem: string[] = []
       const kalla = JSON.stringify(cv)
       for (const t of ['å', 'ä', 'ö', 'Å', 'Ä', 'Ö']) if (kalla.includes(t) && !value.includes(t)) problem.push(`saknar ${t}`)
@@ -116,6 +152,7 @@ async function main() {
     // G6: Word får inte skjuta ett avsnitt till en egen sida som Chrome fick plats med.
     const chrome = CHROME_SIDOR.get(String(r.fil).replace(/.docx$/, ''))
     if (chrome && r.sidor > chrome) anm.push(`Word har ${r.sidor} sidor, Chrome ${chrome}`)
+    anm.push(...(await jamforSidor(String(r.fil).replace(/\.docx$/, ''))))
     if (anm.length) comFel.push(r.fil)
     console.log(`${anm.length ? 'FEL' : 'ok '} ${r.fil}: ${r.sidor} s, ${r.tabeller} tabeller, ${r.listpunkter} listpunkter${anm.length ? ' | ' + anm.join(' | ') : ''}`)
   }

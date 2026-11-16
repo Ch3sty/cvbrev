@@ -165,6 +165,12 @@ export interface MallSidospalt {
   intygsfalt?: { kant: Linje; bakgrund?: Farg; luft: number }
   /** Namn och titel överst i spalten i stället för ovanför spalterna (Ritning). */
   huvudISpalten?: boolean
+  /**
+   * Spalten från papperskant till papperskant på varje sida (Ritning, bara
+   * PDF): sidmarginalen är 0 och topp- och bottenmarginalen är tabellens
+   * thead- och tfoot-rader, som Chrome upprepar på varje sida.
+   */
+  helSida?: boolean
 }
 
 export type Layout =

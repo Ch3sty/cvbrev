@@ -137,15 +137,18 @@ function post(p: Post, c: Ctx, sektion: string): string {
     return `<div class="post post-${sektion} post-marginal" data-post>${marg}<div class="post-innehall">${titel}${under}${text}${punkter}</div></div>`
   }
   const period = p.period ? `${MELLAN}<span class="period">${esc(p.period)}</span>` : ''
-  // En lång post (fler än fem punkter) i en smal spalt får brytas mellan
-  // punkterna: hel blir den ofta högre än halva sidan och lämnar stora tomma
-  // ytor. Titeln och de två första punkterna hålls ihop, liksom de två sista.
+  // En post i en smal spalt får brytas mellan punkterna (UX U6): hel blir den
+  // ofta så hög att den lämnar ett stort tomrum i botten av sidan. Titeln och
+  // de två första punkterna hålls ihop. Sista punkten får stå ensam överst på
+  // nästa sida bara när den är minst två rader (cirka 70 tecken i spalten),
+  // annars följer den med punkten före.
   const smal = l.typ === 'sidospalt' || l.typ === 'tvaspalt'
-  if (smal && p.punkter.length > 5) {
+  const sista = p.punkter[p.punkter.length - 1] ?? ''
+  if (smal && (p.punkter.length >= 4 || (p.punkter.length === 3 && sista.length >= 70))) {
     const li = p.punkter.map((t) => `<li>${esc(t)}</li>`)
     return `<div class="post post-${sektion} post-lang" data-post data-lang><div class="hall"><div class="postrad">${titel}${period}</div>${under}${text}<ul class="punkter">${li
       .slice(0, 2)
-      .join('')}</ul></div><ul class="punkter fortsatt">${li.slice(2).join('')}</ul></div>`
+      .join('')}</ul></div><ul class="punkter fortsatt${sista.length < 70 ? ' sista-kort' : ''}">${li.slice(2).join('')}</ul></div>`
   }
   return `<div class="post post-${sektion}" data-post><div class="postrad">${titel}${period}</div>${under}${text}${punkter}</div>`
 }
@@ -248,11 +251,14 @@ function avsnitt(a: Avsnitt, c: Ctx, iSpalt: boolean): string {
     const langd = a.innehall.stycken.join(' ').length
     delar = [`<div class="${langd >= 280 ? 'profilspalter' : 'profilanfang'}">${delar.join('')}</div>`]
   }
-  const forsta = `<div class="start">${rubrik}${delar[0] ?? ''}</div>`
-  // Korta kompetensblock (färre än fyra grupper) hålls ihop i sin helhet (G2).
-  const hall = a.innehall.typ === 'kompetenser' && a.innehall.grupper.length < 4
-  const klass = `avsnitt avsnitt-${a.sektion} typ-${a.innehall.typ}${intygsfalt ? ' intygsfalt' : ''}${hall ? ' hall' : ''}`
-  return `<section class="${klass}" data-avsnitt="${a.sektion}">${forsta}${delar.slice(1).join('')}</section>`
+  // Kompetensblock med högst sex grupper hålls ihop i sin helhet (G2, R6):
+  // alla grupper står i .start med rubriken. (Avoid på hela avsnittet fick
+  // Chrome att flytta blocket fast det rymdes, R7.)
+  const hall = a.innehall.typ === 'kompetenser' && a.innehall.grupper.length <= 6
+  const iStart = hall ? delar.length : 1
+  const forsta = `<div class="start">${rubrik}${delar.slice(0, iStart).join('')}</div>`
+  const klass = `avsnitt avsnitt-${a.sektion} typ-${a.innehall.typ}${intygsfalt ? ' intygsfalt' : ''}`
+  return `<section class="${klass}" data-avsnitt="${a.sektion}">${forsta}${delar.slice(iStart).join('')}</section>`
 }
 
 function kontaktAvsnitt(dok: Dokument): string {
@@ -345,7 +351,7 @@ function css(c: Ctx): string {
 --grad:${g(def.grad.brod)};--grad-namn:${g(def.grad.namn)};--grad-titel:${g(def.grad.titel)};--grad-kontakt:${g(def.grad.kontakt)};
 --grad-rubrik:${g(def.grad.rubrik)};--grad-post:${g(def.grad.posttitel)};--grad-period:${g(def.grad.period)};--grad-spalt:${g(def.grad.sidospalt ?? def.grad.brod)};
 --sida-topp:${m.sida.topp}mm;--sida-botten:${m.sida.botten}mm;--sida-vanster:${m.sida.vanster}mm;--sida-hoger:${m.sida.hoger}mm;
---radavstand:${m.radavstand};--marginal:${mb ?? 0}mm;--punkt-indrag:${def.punkt.indrag}mm}`)
+--radavstand:${m.radavstand};--marginal:${((mb ?? 0) * (l.typ === 'marginalperiod' && l.stortAr ? m.marginalSkala : 1)).toFixed(2)}mm;--punkt-indrag:${def.punkt.indrag}mm}`)
   ut.push(`*{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:var(--sida)}
 body{background:var(--sida);color:var(--text);font-family:var(--typsnitt);font-size:var(--grad);line-height:var(--radavstand);font-kerning:normal;hyphens:none;-webkit-hyphens:none;overflow-wrap:normal}
@@ -385,7 +391,7 @@ strong{font-weight:700}`)
   if (h.stapel) ut.push(`.huvud-text{border-left:${linjeCss(h.stapel, c, p.accent)};padding-left:${h.stapel.indrag}mm}`)
   if (band) {
     ut.push(`.huvud-band{background:${f(band.bakgrund, p.accent)};margin:0 calc(-1 * var(--sida-hoger)) ${m.luftUnderHuvud}mm calc(-1 * var(--sida-vanster));
-padding:${band.luft.topp}mm ${band.luft.sidor}mm ${band.luft.botten}mm;${band.minHojd ? `min-height:${band.minHojd}mm;` : ''}align-items:center}
+padding:${band.luft.topp}mm ${band.luft.sidor}mm ${band.luft.botten}mm;${band.minHojd ? `min-height:${m.bandHojd(band.minHojd)}mm;` : ''}align-items:center}
 .huvud-band .namn,.huvud-band .titel,.huvud-band .kontakt,.huvud-band .prick{color:${f(band.text, p.vit)}}
 .huvud-band.foto-huvud-hoger{align-items:center}
 @media screen{.huvud-band{margin-top:calc(-1 * var(--sida-topp))}}`)
@@ -424,7 +430,7 @@ padding:${band.luft.topp}mm ${band.luft.sidor}mm ${band.luft.botten}mm;${band.mi
     r.justering === 'centrerad' ? 'text-align:center;' : ''
   }${r.indrag ? `padding-left:${r.indrag}mm;` : ''}break-after:avoid}`)
   if (rl?.langd) ut.push(`.rubrik::after{content:"";display:block;width:${rl.langd}mm;margin-top:${rl.luft}mm;border-top:${linjeCss(rl, c, p.accent)}}`)
-  if (r.band) ut.push(`.rubrik{background:${f(r.band.bakgrund, p.ton)};padding:${r.band.lodratt}mm ${r.band.sidor}mm}`)
+  if (r.band) ut.push(`.rubrik{background:${f(r.band.bakgrund, p.ton)};padding:${(r.band.lodratt * m.bandLuftSkala).toFixed(2)}mm ${r.band.sidor}mm}`)
   if (r.kvadrat) ut.push(`.rubrik::before{content:"";display:inline-block;width:${r.kvadrat.mm}mm;height:${r.kvadrat.mm}mm;background:${f(r.kvadrat.farg, p.accent)};margin-right:${r.kvadrat.luft}mm;vertical-align:0.05em}`)
 
   // Layouten
@@ -456,7 +462,7 @@ padding:${band.luft.topp}mm ${band.luft.sidor}mm ${band.luft.botten}mm;${band.mi
   ut.push(`.post{break-inside:avoid;margin-top:${m.luftMellan}mm}
 .post.post-lang{break-inside:auto}
 .punkter.fortsatt{margin-top:0}
-.punkter.fortsatt li:nth-last-child(2){break-after:avoid}
+.punkter.fortsatt.sista-kort li:nth-last-child(2){break-after:avoid}
 .slutgrupp{break-inside:avoid}
 .start>.post{margin-top:0}
 .postrad{display:flex;align-items:baseline}
@@ -468,12 +474,13 @@ padding:${band.luft.topp}mm ${band.luft.sidor}mm ${band.luft.botten}mm;${band.mi
 .punkter,.lista{margin-top:1mm;padding-left:var(--punkt-indrag);list-style:"${def.punkt.tecken.replace(/"/g, '')}  " outside}
 .punkter li,.lista li{margin-top:0.6mm;break-inside:avoid}
 .punkter li::marker,.lista li::marker{color:${f(def.punkt.farg, p.text)}}
-.text+.text{margin-top:1.5mm}`)
+.text+.text,.start+.text{margin-top:1.5mm}`)
   if (def.post.linjeMellan) ut.push(`.start+.post,.post+.post{border-top:${linjeCss(def.post.linjeMellan, c, p.linje)};padding-top:${m.luftMellan}mm}`)
 
   // Kompetenser, intyg, språk
   ut.push(`.grupp+.grupp,.grupp-mitt+.grupp-mitt,.grupp-lista+.grupp-lista,.grupp-brickor+.grupp-brickor,.start+.grupp,.start+.grupp-mitt,.start+.grupp-lista,.start+.grupp-brickor{margin-top:1.4mm}
 .spalt-sido .mittpunkt{font-size:9pt}
+.spalt-sido .prick{color:inherit;opacity:0.7}
 .spalt-sido .gruppnamn{margin-top:0.6mm}
 .grupp strong,.gruppnamn{font-weight:700}
 .gruppnamn{margin-bottom:0.4mm}
@@ -492,6 +499,7 @@ padding:${band.luft.topp}mm ${band.luft.sidor}mm ${band.luft.botten}mm;${band.mi
 .spraklista .sprak{font-weight:400}
 .spraklista .niva{font-weight:700;color:inherit;font-size:inherit}
 .avsnitt-referenser,.cv-kropp>.avsnitt-sprak,.cv-kropp>.avsnitt-intressen{break-before:avoid}
+.slutgrupp .avsnitt{break-before:auto}
 .avsnitt-referenser .text{color:${f('dampad', p.dampad)}}`)
 
   // Spalter
@@ -500,7 +508,11 @@ padding:${band.luft.topp}mm ${band.luft.sidor}mm ${band.luft.botten}mm;${band.mi
     const yttre = s.sida === 'vanster' ? 'var(--sida-vanster)' : 'var(--sida-hoger)'
     ut.push(`.spalter{width:calc(100% + var(--sida-vanster) + var(--sida-hoger));margin:0 calc(-1 * var(--sida-hoger)) 0 calc(-1 * var(--sida-vanster));border-collapse:collapse;table-layout:fixed}
 .spalter>tbody>tr>td{direction:ltr;vertical-align:top;text-align:left}
-${s.bakgrund ? `.spalter{height:calc(297mm - ${band ? '0mm' : 'var(--sida-topp)'} - var(--sida-botten) - 1.5mm)}` : ''}
+${s.helSida ? `.spalter{height:calc(297mm - 1.5mm)}
+.marg td{height:var(--sida-topp);padding:0}
+.marg.fot td{height:var(--sida-botten)}
+.cv{padding-top:0;padding-bottom:0}
+@page{margin:0}` : s.bakgrund ? `.spalter{height:calc(297mm - ${band ? '0mm' : 'var(--sida-topp)'} - var(--sida-botten) - 1.5mm)}` : ''}
 .huvudrad{height:1px}
 .huvudcell{padding:0 var(--sida-hoger) 0 var(--sida-vanster)}
 .huvudcell .huvud-band{margin-left:calc(-1 * var(--sida-vanster));margin-right:calc(-1 * var(--sida-hoger))}
@@ -535,33 +547,45 @@ ${s.bakgrund ? `.spalter{height:calc(297mm - ${band ? '0mm' : 'var(--sida-topp)'
 
   // Profil i spalter (Tidning) och tidsaxeln (Horisont)
   if (def.profilSpalter) {
-    ut.push(`.profilspalter{column-count:2;column-gap:7mm;text-align:justify}
+    ut.push(`.profilspalter{column-count:2;column-gap:7mm;text-align:left}
 .profilanfang .text:first-child::first-letter{float:left;font-family:var(--typsnitt-rubrik);font-size:28pt;line-height:0.85;color:var(--accent);padding:1mm 1.5mm 0 0}
 .profilspalter .text:first-child::first-letter{float:left;font-family:var(--typsnitt-rubrik);font-size:28pt;line-height:0.85;color:var(--accent);padding:1mm 1.5mm 0 0}`)
   }
   if (def.tidsaxel) {
+    // "Få plats på en sida" krymper axelns rader först (UX U5).
+    const k = m.steg >= 1 ? 0.75 : 1
+    const mmk = (v: number) => `${(v * k).toFixed(2)}mm`
     ut.push(`.tidsaxel{position:relative;height:18mm;margin:0 0 ${m.luftOver}mm;border-top:1pt solid #B9C2CC;top:4mm}
 .axelpunkt{position:absolute;top:-1.9mm;transform:translateX(-1.4mm)}
 .axelprick{display:block;width:2.8mm;height:2.8mm;border-radius:50%;background:var(--accent);border:1pt solid var(--accent)}
 .axel-utbildning .axelprick{background:#fff}
 .axeletikett{display:block;font-size:7.5pt;white-space:nowrap;margin-top:1mm;color:#555}
 .axeletikett strong{color:#222}
-.axel-rad1 .axeletikett{margin-top:11mm}
-.axel-rad2 .axeletikett{margin-top:22mm}
+.axel-rad1 .axeletikett{margin-top:${mmk(11)}}
+.axel-rad2 .axeletikett{margin-top:${mmk(22)}}
 .axel-rad1::after,.axel-rad2::after{content:"";position:absolute;left:1.4mm;top:2.8mm;border-left:0.5pt solid #B9C2CC}
-.axel-rad1::after{height:9mm}
-.axel-rad2::after{height:20mm}
-.tidsaxel.axel-rader1{height:9mm}
-.tidsaxel.axel-rader2{height:20mm}
-.tidsaxel.axel-rader3{height:31mm}`)
+.axel-rad1::after{height:${mmk(9)}}
+.axel-rad2::after{height:${mmk(20)}}
+.tidsaxel.axel-rader1{height:${mmk(9)}}
+.tidsaxel.axel-rader2{height:${mmk(20)}}
+.tidsaxel.axel-rader3{height:${mmk(31)}}`)
   }
 
   // Sidan
-  ut.push(`@page{size:A4;margin:var(--sida-topp) 0 var(--sida-botten) 0}
+  // Hel sida: Ritnings spalt och Terrakottas sidfärg från kant till kant (R5).
+  const helSida = (l.typ === 'sidospalt' && Boolean(l.spalt.helSida)) || (l.typ === 'enspalt' && Boolean(def.farger.sida))
+  ut.push(`@page{size:A4;margin:${helSida ? '0' : 'var(--sida-topp) 0 var(--sida-botten) 0'}}
 ${band ? '@page:first{margin-top:0}' : ''}
 @media print{
   .cv{width:auto;min-height:0;margin:0;padding:0 var(--sida-hoger) 0 var(--sida-vanster)}
 }`)
+  if (helSida) {
+    ut.push(`.cv{padding-top:0;padding-bottom:0}
+.helsida{width:100%;border-collapse:collapse}
+.helsida>tbody>tr>td{padding:0;vertical-align:top}
+.marg td{height:var(--sida-topp);padding:0}
+.marg.fot td{height:var(--sida-botten)}`)
+  }
   if (!def.word && def.extraCss) ut.push(def.extraCss)
   return ut.join('\n')
 }
@@ -604,11 +628,23 @@ export function renderDokumentHtml(dok: Dokument, def: MallDef, val: MallVal = {
     const iTabell = !s.huvudISpalten && Boolean(s.bakgrund)
     const huvudrad = iTabell ? `<tr class="huvudrad"><td class="huvudcell" colspan="2">${huvud(dok, c)}${axel}</td></tr>` : ''
     const fore = !s.huvudISpalten && !iTabell ? `${huvud(dok, c)}${axel}` : ''
-    kropp = `${fore}<table class="spalter" role="presentation" style="direction:${s.sida === 'vanster' ? 'ltr' : 'rtl'}"><tbody>${huvudrad}<tr class="spaltrad">${celler}</tr></tbody></table>`
+    // Kolumnbredderna ur colgroup: med fast tabellayout läses de ur första
+    // raden, och huvudraden har colspan (granskningen R1).
+    const kolumner = `<colgroup><col style="width:${s.bredd}mm"><col></colgroup>`
+    // Hel sida (Ritning): topp- och bottenmarginalen som rader som upprepas på varje sida (R5).
+    const marg = s.helSida ? `<thead><tr class="marg"><td></td><td></td></tr></thead><tfoot><tr class="marg fot"><td></td><td></td></tr></tfoot>` : ''
+    kropp = `${fore}<table class="spalter" role="presentation" style="direction:${s.sida === 'vanster' ? 'ltr' : 'rtl'}">${kolumner}${marg}<tbody>${huvudrad}<tr class="spaltrad">${celler}</tr></tbody></table>`
   } else if (l.typ === 'tvaspalt') {
     const full = dok.fullBredd.map((a) => avsnitt(a, c, false)).join('')
     const hoger = dok.sidospalt.map((a) => avsnitt(a, c, true)).join('')
     kropp = `${huvud(dok, c)}${axel}<div class="full-bredd cv-kropp">${full}</div><table class="spalter" role="presentation" style="direction:rtl"><tbody><tr><td class="spalt spalt-sido">${hoger}</td><td class="spalt spalt-huvud cv-kropp">${huvudspalt}</td></tr></tbody></table>`
+  } else if (def.farger.sida) {
+    // Sidfärg från kant till kant (Terrakotta): sidmarginalen 0 och topp- och
+    // bottenmarginalen som tabellrader som upprepas på varje sida.
+    kropp = `<table class="helsida" role="presentation"><thead><tr class="marg"><td></td></tr></thead><tfoot><tr class="marg fot"><td></td></tr></tfoot><tbody><tr><td>${huvud(
+      dok,
+      c
+    )}${axel}<main class="spalt cv-kropp">${huvudspalt}</main></td></tr></tbody></table>`
   } else {
     kropp = `${huvud(dok, c)}${axel}<main class="spalt cv-kropp">${huvudspalt}</main>`
   }

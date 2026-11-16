@@ -492,7 +492,7 @@ export async function POST(request: NextRequest) {
       let wordVal = val;
       if (val.enSida) {
         const prov = await renderaMallPdf(extractedCVData, mallId, val, (html) => createSwedishCVPDF(html, extractedCVData!, mallId));
-        if (prov?.steg) wordVal = { ...val, enSidaSteg: prov.steg };
+        wordVal = prov?.steg ? { ...val, enSidaSteg: prov.steg } : { ...val, enSida: false };
       }
       filData = await byggWordCv(extractedCVData, mallId, wordVal);
       filTyp = DOCX_MIME;

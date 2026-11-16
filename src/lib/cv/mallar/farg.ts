@@ -82,21 +82,35 @@ export interface Matt {
   luftUnderRubrik: number
   /** Fotots storlek, mm (tre fjärdedelar i steg 4). */
   fotoMm: number
+  /** Steget i "Få plats på en sida", 0 utan valet. */
+  steg: number
+  /** Bandets minsta höjd efter krympningen (Mörkrum). */
+  bandHojd: (h: number | undefined) => number | undefined
+  /** Skala på en marginalkolumn med stora årtal (Tusch). */
+  marginalSkala: number
+  /** Skala på luften i tonade rubrikband (Raster). */
+  bandLuftSkala: number
 }
 
-/** Antalet steg i "Få plats på en sida" (granskningen G7). */
-export const EN_SIDA_STEG = 4
+/** Antalet steg i "Få plats på en sida" (granskningen G7 och R9, UX U5). */
+export const EN_SIDA_STEG = 5
 
 /**
  * Stegen i "Få plats på en sida", i tur och ordning tills CV:t ryms
- * (PDF-kedjan provar steg 1 till 4, Word får samma steg):
- *   1. mallens enSida (marginal minus 4 mm, grad minus 0,5 pt, luft ovanför avsnitt 4 mm),
+ * (PDF-kedjan provar steg 1 till 5, Word får samma steg). Ryms CV:t redan på
+ * en sida gör valet ingenting (src/lib/cv/mallar/pdf.ts).
+ *   1. mallens egna element krymper först (Mörkrums block 72 till 50 mm,
+ *      Tuschs årtalskolumn 34 till 28 mm, Horisonts axel, Rasters band),
+ *      och mallens enSida (marginal minus 4 mm, grad minus 0,5 pt, luft
+ *      ovanför avsnitt 4 mm),
  *   2. grad minus ytterligare 0,5 pt och radavstånd minus 0,06,
  *   3. luft ovanför avsnitt 3 mm och mellan poster 2,5 mm,
- *   4. marginalerna minus ytterligare 2 mm, och (utöver granskningens
- *      förslag, för att alla 20 ska nå en sida) luft 2,5 och 2 mm, radavstånd
+ *   4. marginalerna minus ytterligare 2 mm, luft 2,5 och 2 mm, radavstånd
  *      minus 0,1, halva luften under huvudet, 1,5 mm under rubrikerna och
- *      fotot tre fjärdedelar.
+ *      fotot tre fjärdedelar,
+ *   5. som 4 men med art-directors lägre golv.
+ * Golven: brödtext 9,0 pt och sekundär text 8,0 pt i steg 1 till 4 (UX), 8,5
+ * och 7,5 pt i steg 5 (art-director R9); radavståndet aldrig under 1,15.
  * Sidospaltens bredd ändras inte.
  */
 export function matt(def: MallDef, val?: MallVal): Matt {
@@ -110,17 +124,22 @@ export function matt(def: MallDef, val?: MallVal): Matt {
     botten: Math.max(8, def.sida.botten - minus),
     vanster: Math.max(8, def.sida.vanster - minus),
   }
-  // Steg 4 tar dessutom luften under huvudet och rubrikerna och ytterligare
-  // lite radavstånd: med bara marginalerna nådde nio av tjugo mallar inte en
-  // sida med NORMALT_CV (granskningens grind för G7).
+  const golv = steg >= 5 ? { brod: 8.5, sekundar: 7.5 } : { brod: 9, sekundar: 8 }
   return {
-    grad: (pt: number) => Math.max(6, pt + grad),
+    steg,
+    // En grad krymper aldrig under sitt golv och växer aldrig: brödtext och
+    // större (från 8,5 pt) har brödgolvet, mindre text det sekundära.
+    grad: (pt: number) => (grad === 0 ? pt : Math.min(pt, Math.max(pt >= 8.5 ? golv.brod : golv.sekundar, pt + grad))),
     sida,
     luftOver: steg >= 4 ? Math.min(def.rubrik.luftOver, 2.5) : steg >= 3 ? Math.min(def.rubrik.luftOver, 3) : steg >= 1 ? Math.min(def.rubrik.luftOver, en.luftOver) : def.rubrik.luftOver,
     luftMellan: steg >= 4 ? Math.min(def.post.luftMellan, 2) : steg >= 3 ? Math.min(def.post.luftMellan, 2.5) : def.post.luftMellan,
-    radavstand: steg >= 4 ? def.radavstand - 0.1 : steg >= 2 ? def.radavstand - 0.06 : def.radavstand,
+    radavstand: Math.max(Math.min(def.radavstand, 1.15), steg >= 4 ? def.radavstand - 0.1 : steg >= 2 ? def.radavstand - 0.06 : def.radavstand),
     luftUnderHuvud: steg >= 4 ? def.huvud.luftUnder / 2 : def.huvud.luftUnder,
     luftUnderRubrik: steg >= 4 ? Math.min(def.rubrik.luftUnder, 1.5) : def.rubrik.luftUnder,
     fotoMm: (def.foto?.storlek ?? 30) * (steg >= 4 ? 0.75 : 1),
+    // Mallens egna element (steg 1 och framåt).
+    bandHojd: (h: number | undefined) => (h === undefined ? undefined : steg >= 1 ? Math.min(h, Math.max(50, h * 0.7)) : h),
+    marginalSkala: steg >= 1 ? 14 / 17 : 1,
+    bandLuftSkala: steg >= 1 ? 0.6 : 1,
   }
 }

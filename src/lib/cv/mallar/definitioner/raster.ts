@@ -9,7 +9,7 @@ export const raster: MallDef = {
   grad: { brod: 9.5, namn: 24, titel: 11, kontakt: 8.5, rubrik: 10, posttitel: 9.5, period: 8.5 },
   radavstand: 1.36,
   sida: { topp: 18, hoger: 18, botten: 18, vanster: 18 },
-  farger: { text: '#1F2328', dampad: '#555555', linje: '#D5D9DE', arbetsgivare: '#444444', tonAndel: 0.8 },
+  farger: { text: '#1F2328', dampad: '#555555', linje: '#D5D9DE', arbetsgivare: '#444444', tonAndel: 0.82 },
   huvud: {
     form: 'vanster',
     namn: { vikt: 700, farg: '#111111' },
