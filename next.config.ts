@@ -49,12 +49,16 @@ const nextConfig: NextConfig = {
     // CV-PDF:en bäddar in mallarnas typsnitt från disk (src/lib/cv/mallar/typsnitt-inbaddning.ts),
     // så att lambdan ger samma PDF som lokalt och aldrig hämtar typsnitt över nätet.
     '/api/cv/generate-formatted': ['./node_modules/@sparticuz/chromium/**/*', './public/fonts/cv/**/*'],
-    '/api/cv/upload': ['./node_modules/@napi-rs/canvas/**/*'],
+    // pdf.js laddar sin arbetsfil (pdf.worker.mjs) med en dynamisk import som
+    // spårningen inte ser; utan den faller sidbilderna och vision-reserven.
+    '/api/jobbcoachen/upload': ['./node_modules/@napi-rs/canvas/**/*', './node_modules/pdfjs-dist/legacy/build/**/*'],
+    '/api/public/quick-score': ['./node_modules/@napi-rs/canvas/**/*', './node_modules/pdfjs-dist/legacy/build/**/*'],
+    '/api/cv/upload': ['./node_modules/@napi-rs/canvas/**/*', './node_modules/pdfjs-dist/legacy/build/**/*'],
     // Helskärmens sidor (src/lib/cv/mallar/sidbilder.ts): nedladdningens PDF-kedja
     // och pdf.js med @napi-rs/canvas som ritar sidorna.
-    '/api/cv/sidor': ['./node_modules/@sparticuz/chromium/**/*', './public/fonts/cv/**/*', './node_modules/@napi-rs/canvas/**/*'],
-    '/api/public/cv/sidor': ['./node_modules/@sparticuz/chromium/**/*', './public/fonts/cv/**/*', './node_modules/@napi-rs/canvas/**/*'],
-    '/api/public/exempel/cv/sidor': ['./node_modules/@sparticuz/chromium/**/*', './public/fonts/cv/**/*', './node_modules/@napi-rs/canvas/**/*'],
+    '/api/cv/sidor': ['./node_modules/@sparticuz/chromium/**/*', './public/fonts/cv/**/*', './node_modules/@napi-rs/canvas/**/*', './node_modules/pdfjs-dist/legacy/build/**/*'],
+    '/api/public/cv/sidor': ['./node_modules/@sparticuz/chromium/**/*', './public/fonts/cv/**/*', './node_modules/@napi-rs/canvas/**/*', './node_modules/pdfjs-dist/legacy/build/**/*'],
+    '/api/public/exempel/cv/sidor': ['./node_modules/@sparticuz/chromium/**/*', './public/fonts/cv/**/*', './node_modules/@napi-rs/canvas/**/*', './node_modules/pdfjs-dist/legacy/build/**/*'],
     // Delningsbilden för Räkna ut läser Schibsted Grotesk från disk (TTF).
     // Webbsidans woff2 i samma mapp bakas in av next/font och behövs inte här.
     '/api/og/rakna-ut/[slug]': ['./src/assets/fonts/**/*.ttf'],
