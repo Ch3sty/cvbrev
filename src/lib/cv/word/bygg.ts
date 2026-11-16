@@ -625,7 +625,21 @@ function spaltRader(lista: { a: Avsnitt | null; rubrik?: Paragraph; block: (Para
     x.block.forEach((del, i) => {
       const innehall = i === 0 && x.rubrik ? [x.rubrik, ...del] : del
       const luft = i > 0 && poster ? luftMellan : 0
-      rader.push(new TableRow({ cantSplit: true, children: [tabellCell(innehall, bredd, luft ? { margins: { top: luft, bottom: 0, left: 0, right: 0 } } : {})] }))
+      const marg = luft ? { margins: { top: luft, bottom: 0, left: 0, right: 0 } } : {}
+      // Samma brytregel som html.ts (UX U6): titeln och två punkter i en rad, sedan
+      // en rad per punkt; en kort sista punkt följer med punkten före.
+      const post = poster && x.a?.innehall.typ === 'poster' ? x.a.innehall.poster[i] : undefined
+      const n = post?.punkter.length ?? 0
+      const sista = post?.punkter[n - 1] ?? ''
+      if (post && (n >= 4 || (n === 3 && sista.length >= 70)) && innehall.length > n) {
+        const resten = innehall.slice(innehall.length - n + 2)
+        const grupper = resten.map((x) => [x])
+        if (sista.length < 70 && grupper.length >= 2) grupper.splice(-2, 2, [...grupper[grupper.length - 2], ...grupper[grupper.length - 1]])
+        rader.push(new TableRow({ cantSplit: true, children: [tabellCell(innehall.slice(0, innehall.length - n + 2), bredd, marg)] }))
+        for (const g of grupper) rader.push(new TableRow({ cantSplit: true, children: [tabellCell(g, bredd)] }))
+        return
+      }
+      rader.push(new TableRow({ cantSplit: true, children: [tabellCell(innehall, bredd, marg)] }))
     })
     if (!x.block.length && x.rubrik) rader.push(new TableRow({ cantSplit: true, children: [tabellCell([x.rubrik], bredd)] }))
   }
@@ -979,16 +993,18 @@ export async function byggWordDokument(cv: CVMetadata, def: MallDef, val: MallVa
       const hb = textbredd - vb
       const mitten = mm(l.mellanrum / 2)
       const rH: Ruta = { bredd: hb - mitten, iSpalt: true, grad: m.grad(def.grad.sidospalt ?? def.grad.brod) }
-      const vanster = spaltInnehall(dok.huvudspalt, b, { bredd: vb - mitten, iSpalt: false, grad }, 0)
-      const hoger = spaltInnehall(dok.sidospalt, b, rH, 0)
+      // Luften över spalterna som luft före första rubriken, inte som cellmarginal:
+      // Word upprepar cellmarginalen överst på varje sida som raden fortsätter på.
+      const vanster = spaltInnehall(dok.huvudspalt, b, { bredd: vb - mitten, iSpalt: false, grad }, mm(m.luftOver))
+      const hoger = spaltInnehall(dok.sidospalt, b, rH, mm(m.luftOver))
       barn.push(
         tabell(
           [
             new TableRow({
               cantSplit: false,
               children: [
-                tabellCell(vanster, vb, { margins: { top: mm(m.luftOver), bottom: 0, left: 0, right: mitten } }),
-                tabellCell(hoger, hb, { margins: { top: mm(m.luftOver), bottom: 0, left: mitten, right: 0 } }),
+                tabellCell(vanster, vb, { margins: { top: 0, bottom: 0, left: 0, right: mitten } }),
+                tabellCell(hoger, hb, { margins: { top: 0, bottom: 0, left: mitten, right: 0 } }),
               ],
             }),
           ],
