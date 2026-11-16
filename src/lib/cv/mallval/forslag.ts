@@ -3,8 +3,9 @@
  * innehållet, aldrig ur yrket. Tre eller fler intyg föreslår paneler och
  * intyg först, erfarenhet under två år utbildning först, många system och
  * verktyg kompetenser först, lång karriär allt på en sida. Första platsen är
- * alltid en gratismall. Mallarna väljs på katalogens fält (familj, kort,
- * foto), aldrig på namn eller id, så förslagen följer med när mallarna görs om.
+ * alltid en gratismall. Sedan utbud 2 (40 mallar) är urvalet handplockade
+ * id-tabeller (FORESLAGNA, MERFORSALJNING_URVAL); poängreglerna på
+ * katalogens fält finns kvar som reserv.
  *
  * Klientsäker: tar korten som argument.
  */
@@ -53,9 +54,14 @@ export function signalerUrCv(cv: CVMetadata | null | undefined, sidor = 1): CvSi
   return { intyg: cv.certifications?.length ?? 0, erfarenhetAr, system, sidor }
 }
 
-export function skalFor(s: CvSignaler, harErfarenhet: boolean): ForslagSkal {
+/**
+ * Skälet ur signalerna. `harUtbildning`: ett CV utan jobb men med utbildning
+ * (studenten) får också kort, alltså utbildning först (saas-lead 2026-11-16).
+ */
+export function skalFor(s: CvSignaler, harErfarenhet: boolean, harUtbildning = false): ForslagSkal {
   if (s.intyg >= 3) return 'intyg'
   if (harErfarenhet && s.erfarenhetAr < 2) return 'kort'
+  if (!harErfarenhet && harUtbildning) return 'kort'
   if (s.system >= 10) return 'system'
   if (s.sidor > 1) return 'lang'
   return 'ingen'
@@ -79,20 +85,61 @@ function poang(m: MallKort, skal: ForslagSkal): number {
 }
 
 /**
- * Tre förslag: en gratismall först (den som passar skälet bäst), sedan de
- * två mallar som passar bäst bland resten. Lika poäng behåller katalogens
- * ordning, så samma CV alltid får samma förslag.
+ * Föreslagna för dig, handplockat per skäl och foto (docs/design/
+ * mallar-2-forslag-saas-lead.md avsnitt 3): gratismallen först, sedan två
+ * Premiummallar med Word. Ändras för hand efter avläsningen; testet fäller
+ * om ett id saknas i katalogen.
  */
-export function foreslagna(katalog: readonly MallKort[], cv: CVMetadata | null | undefined, sidor = 1, antal = 3): Forslag {
+export const FORESLAGNA: Record<ForslagSkal, { utanFoto: readonly string[]; medFoto: readonly string[] }> = {
+  intyg: { utanFoto: ['linne', 'kalksten', 'granit'], medFoto: ['bjork', 'kalksten', 'granit'] },
+  kort: { utanFoto: ['bjork', 'loft', 'kalksten'], medFoto: ['bjork', 'loft', 'kalksten'] },
+  system: { utanFoto: ['linne', 'raster', 'stal'], medFoto: ['bjork', 'raster', 'granit'] },
+  lang: { utanFoto: ['linne', 'not', 'arsring'], medFoto: ['bjork', 'not', 'alm'] },
+  ingen: { utanFoto: ['linne', 'kalksten', 'arsring'], medFoto: ['bjork', 'kalksten', 'loft'] },
+}
+
+/**
+ * Merförsäljningens tre kort, handplockade (samma dokument avsnitt 2). Den når
+ * bara den som har en gratismall, så tabellen skiljer på foto och på Björk.
+ * `enSida` ersätter tredje kortet när CV:t är längre än en sida; `reserv`
+ * fyller platser som inte går att använda.
+ */
+export const MERFORSALJNING_URVAL: {
+  utanFoto: readonly string[]
+  medFotoLinne: readonly string[]
+  medFotoBjork: readonly string[]
+  enSida: string
+  reserv: { utanFoto: readonly string[]; medFoto: readonly string[] }
+} = {
+  utanFoto: ['kalksten', 'koppar', 'skylt'],
+  medFotoLinne: ['kalksten', 'koppar', 'alm'],
+  medFotoBjork: ['sand', 'koppar', 'alm'],
+  enSida: 'not',
+  reserv: { utanFoto: ['spar', 'index', 'stal'], medFoto: ['loft', 'betong', 'ek'] },
+}
+
+/** Premium, finns som Word och inte konstnärlig: får stå i merförsäljningen och på Föreslagnas plats 2 och 3. */
+export const arSaljbar = (m: MallKort) => m.niva === 'premium' && m.word && m.familj !== 'konstnarlig'
+
+/**
+ * Tre förslag: en gratismall först, sedan två Premiummallar med Word, ur
+ * tabellen för skälet och fotot. Saknas ett id i katalogen fyller
+ * poängregeln (lika poäng behåller katalogens ordning), så samma CV alltid
+ * får samma förslag.
+ */
+export function foreslagna(katalog: readonly MallKort[], cv: CVMetadata | null | undefined, sidor = 1, antal = 3, harFoto = false): Forslag {
   const s = signalerUrCv(cv, sidor)
-  const skal = skalFor(s, (cv?.experience?.length ?? 0) > 0)
+  const skal = skalFor(s, (cv?.experience?.length ?? 0) > 0, (cv?.education?.length ?? 0) > 0)
+  const perId = new Map(katalog.map((m) => [m.id, m]))
+  const tabell = (harFoto ? FORESLAGNA[skal].medFoto : FORESLAGNA[skal].utanFoto).map((id) => perId.get(id)).filter((m): m is MallKort => Boolean(m))
   const rangordnade = katalog
     .map((m, i) => ({ m, i, p: poang(m, skal) }))
     .sort((a, b) => b.p - a.p || a.i - b.i)
     .map((x) => x.m)
-  const gratis = rangordnade.find((m) => m.niva === 'gratis')
+  const gratis = tabell.find((m) => m.niva === 'gratis') ?? rangordnade.find((m) => m.niva === 'gratis')
   const ids: string[] = gratis ? [gratis.id] : []
-  for (const m of rangordnade) {
+  // Platserna efter gratismallen: Premium med Word, aldrig konstnärlig, aldrig en andra gratismall.
+  for (const m of [...tabell.filter(arSaljbar), ...rangordnade.filter(arSaljbar)]) {
     if (ids.length >= antal) break
     if (!ids.includes(m.id)) ids.push(m.id)
   }

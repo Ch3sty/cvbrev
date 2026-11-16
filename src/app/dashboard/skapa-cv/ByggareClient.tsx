@@ -425,7 +425,7 @@ export default function ByggareClient(p: ByggareProps) {
   }
 
   const ren = useMemo(() => utanBygge(cv), [cv])
-  const forslag = useMemo(() => raknaForslag(p.katalog, ren, matning?.sidor ?? 1), [p.katalog, ren, matning?.sidor])
+  const forslag = useMemo(() => raknaForslag(p.katalog, ren, matning?.sidor ?? 1, 3, Boolean(fotoUrl)), [p.katalog, ren, matning?.sidor, fotoUrl])
   const gratis = p.katalog.find((m) => m.niva === 'gratis' && m.id === forslag.ids[0]) ?? p.katalog.find((m) => m.niva === 'gratis')!
   const forvald = useMemo(() => forvalFor(ren), [ren])
   const spok = useMemo(() => spokAvsnitt(ren), [ren])

@@ -153,7 +153,7 @@ export default function CvMallarClient(p: {
     : { typ: 'exempel', mall: mall.id, val }
   const fv = useForhandsvisning(kalla)
 
-  const forslag = useMemo(() => raknaForslag(p.katalog, cvData, matning?.sidor ?? 1), [p.katalog, cvData, matning?.sidor])
+  const forslag = useMemo(() => raknaForslag(p.katalog, cvData, matning?.sidor ?? 1, 3, Boolean(fotoUrl)), [p.katalog, cvData, matning?.sidor, fotoUrl])
   const gratis = p.katalog.find((m) => m.niva === 'gratis' && m.id === forslag.ids[0]) ?? p.katalog.find((m) => m.niva === 'gratis')!
   const forvald = useMemo(() => (cvData ? forvalFor(cvData) : undefined), [cvData])
 

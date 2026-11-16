@@ -60,7 +60,7 @@ export default function ProvaArbetsyta() {
     : { typ: 'exempel', mall: p.mall.id, val: p.val, yrke: p.yrke }
   const fv = useForhandsvisning(kalla)
 
-  const forslag = useMemo(() => raknaForslag(p.katalog, p.cv, matning?.sidor ?? 1), [p.katalog, p.cv, matning?.sidor])
+  const forslag = useMemo(() => raknaForslag(p.katalog, p.cv, matning?.sidor ?? 1, 3, Boolean(p.cv?.personalInfo.profilePhotoUrl)), [p.katalog, p.cv, matning?.sidor])
   const gratis = p.katalog.find((m) => m.id === forslag.ids[0] && m.niva === 'gratis') ?? p.katalog.find((m) => m.niva === 'gratis')!
   const premium = p.mall.niva === 'premium'
   const tier = p.mall.niva === 'premium' ? 'premium' : 'free'

@@ -363,7 +363,8 @@ export const MERFORSALJNING = {
   under: (filnamn: string, mall: string, antal: number) =>
     `Du har ${filnamn} i ${mall}. Så här ser samma CV ut i ${antalOrd(antal)} andra. Tryck på den du vill ha.`,
   kampanj: (pris: string, ordinarie: string) => `Just nu ${pris}. Ordinarie ${ordinarie}.`,
-  allaPaEnSida: 'Allt på en sida',
+  /** Mallnamnet under kortets beskrivning, märkt som mallnamn (Not, Ek, Alm är också vanliga ord). */
+  mallnamn: (namn: string) => `Mallen ${namn}`,
   wordRad: 'I Premium laddar du ner på nytt varje gång CV:t ändras, som PDF eller Word.',
   knapp: (mall: string, pris: string) => `Ladda ner i ${mall}, Premium ${pris}`,
   nejTack: (mall: string) => `Nej tack, behåll ${mall}`,

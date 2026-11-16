@@ -5,11 +5,12 @@
  * beslut om punkt 14): tre kort med bild av hennes eget CV i andra mallar,
  * vad som skiljer i högst fyra ord (MallKort.kort), mallnamnet i liten text.
  * Tryck väljer kort, en knapp under, "Nej tack" som väg ut. Hennes nuvarande
- * mall visas aldrig; "Allt på en sida" bara om CV:t är längre än en sida.
+ * mall visas aldrig; den kompakta mallen som tredje kort bara om CV:t är längre än en sida.
  *
- * Urvalet läser katalogens fält, aldrig namn: Premium, finns som Word (inga
- * konstnärliga, Word-köparen blir besviken), olika formfamiljer, fotomallar
- * först när CV:t har foto (utbudets avsnitt 6).
+ * Urvalet är handplockat (docs/design/mallar-2-forslag-saas-lead.md):
+ * Premium med Word (inga konstnärliga, Word-köparen blir besviken), bara
+ * fotomallar när CV:t har foto. Mallnamnet står som "Mallen Not", eftersom
+ * flera namn är vanliga ord.
  */
 import { useEffect, useMemo, useState } from 'react'
 import { capture } from '@/lib/analytics/events'
@@ -18,8 +19,38 @@ import { medSkala } from './matning'
 import { forhandsvisningHtml, type Kalla } from './hooks'
 import Ark from './Ark'
 import { MERFORSALJNING } from './texter'
+import { MERFORSALJNING_URVAL, arSaljbar } from '@/lib/cv/mallval/forslag'
 
+/**
+ * Urvalet: den handplockade tabellen (MERFORSALJNING_URVAL i forslag.ts) för
+ * foto och nuvarande mall, Not som tredje kort när CV:t är längre än en
+ * sida, sedan reservlistan och sist poängregeln. Fasta regler som filter:
+ * aldrig nuvarande mall, bara Premium med Word, aldrig konstnärlig, och med
+ * foto bara mallar med fotoplats.
+ */
 export function merforsaljningsUrval(katalog: readonly MallKort[], nuvarande: string, sidor: number, harFoto: boolean): MallKort[] {
+  const T = MERFORSALJNING_URVAL
+  // Det kompakta kortet (Not) gäller alla fall, också med foto (beslutets avsnitt 2).
+  const ok = (m: MallKort | undefined): m is MallKort =>
+    Boolean(m) && m!.id !== nuvarande && arSaljbar(m!) && (!harFoto || m!.foto || (sidor > 1 && m!.id === T.enSida))
+  const perId = new Map(katalog.map((m) => [m.id, m]))
+  const bas = harFoto ? (nuvarande === 'bjork' ? T.medFotoBjork : T.medFotoLinne) : T.utanFoto
+  const lista = bas.map((id) => perId.get(id))
+  if (sidor > 1) lista[2] = perId.get(T.enSida)
+  const ut: MallKort[] = []
+  const lagg = (m: MallKort | undefined) => {
+    if (ut.length < 3 && ok(m) && !ut.includes(m)) ut.push(m)
+  }
+  lista.forEach(lagg)
+  ;(harFoto ? T.reserv.medFoto : T.reserv.utanFoto).forEach((id) => lagg(perId.get(id)))
+  if (ut.length < 3) for (const m of merforsaljningsPoang(katalog, nuvarande, sidor, harFoto)) lagg(m)
+  // Det kompakta kortet (Not) står sist, som tredje kortet.
+  const enSida = sidor > 1 ? ut.find((m) => m.id === T.enSida) : undefined
+  return enSida ? [...ut.filter((m) => m !== enSida), enSida] : ut
+}
+
+/** Poängregeln före utbud 2, nu reserv när tabellen inte räcker. */
+function merforsaljningsPoang(katalog: readonly MallKort[], nuvarande: string, sidor: number, harFoto: boolean): MallKort[] {
   const kandidater = katalog.filter((m) => m.id !== nuvarande && m.niva === 'premium' && m.familj !== 'konstnarlig')
   const enSida = sidor > 1 ? kandidater.find((m) => /en sida|kompakt|tät/i.test(`${m.kort} ${m.stil}`)) : undefined
   // Sidospalter säljer bäst (utbudets avsnitt 6); med foto väger fotoplatsen in.
@@ -142,6 +173,7 @@ export default function Merforsaljning({ open, onClose, katalog, nuvarande, filn
             type="button"
             role="radio"
             aria-checked={vald === i}
+            aria-label={`${kortText(m, harFoto)}. ${MERFORSALJNING.mallnamn(m.namn)}`}
             onClick={() => {
               setVald(i)
               capture('merforsaljning_klick', { template: m.id, position: i, val: 'kort', surface })
@@ -158,7 +190,7 @@ export default function Merforsaljning({ open, onClose, katalog, nuvarande, filn
             </span>
             <span className="min-w-0">
               <span className="block text-[13px] font-semibold leading-tight text-ink-1">{kortText(m, harFoto)}</span>
-              <span className="block text-meta text-ink-3">{m.namn}</span>
+              <span className="block text-meta text-ink-3">{MERFORSALJNING.mallnamn(m.namn)}</span>
             </span>
           </button>
         ))}
