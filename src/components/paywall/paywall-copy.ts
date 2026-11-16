@@ -159,6 +159,14 @@ export function kvotCopy(quotaFeature: string | undefined, plan?: PlanKey | null
         primary: skaffaKnapp(p),
         plan: p,
       }
+    case 'cv_bygg':
+      // CV-byggaren: Jobbcoachens förslag i bladen (quotaService, checkCvByggAiQuota).
+      return {
+        title: 'Dagens förslag från Jobbcoachen är använda',
+        body: `I morgon skriver Jobbcoachen förslag igen, och du kan alltid skriva själv direkt. Med ${PREMIUM} får du fler förslag varje dag, alla mallar och hela CV-analysen.`,
+        primary: skaffaKnapp(p),
+        plan: p,
+      }
     default:
       return {
         title: 'Ditt personliga brev för veckan är skrivet',

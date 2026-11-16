@@ -17,6 +17,7 @@ import { renderaMallHtml } from '@/lib/cv/rendera-mall-html';
 import { losMallId } from '@/lib/cv/mallar/alias';
 import { tolkaVal, typsnittIdForFamilj } from '@/lib/cv/mallar/val';
 import { forberedInloggatCv } from '@/lib/cv/forbered-inloggat-cv';
+import { medSpok } from '@/lib/cv/bygg/spok';
 
 interface PreviewRequest {
   template: string;
@@ -37,6 +38,11 @@ interface PreviewRequest {
   val?: unknown;
   /** CV:ts id i cv_texts, så att sparade rubriker (section_titles) följer med. */
   cvId?: string;
+  /**
+   * CV-byggaren: tomma avsnitt visas med grå spöktext ur titeln
+   * (src/lib/cv/bygg/spok.ts). Bara förhandsvisningen; filen får aldrig spöken.
+   */
+  spok?: boolean;
 }
 
 export async function POST(request: NextRequest) {
@@ -68,13 +74,14 @@ export async function POST(request: NextRequest) {
     if (!forberett.ok) {
       return NextResponse.json({ error: forberett.error }, { status: forberett.status });
     }
-    const cvData = forberett.cv;
+    const spok = body.spok === true ? medSpok(forberett.cv) : null;
+    const cvData = spok ? spok.cv : forberett.cv;
 
     // Samma renderare som PDF:en (src/lib/cv/rendera-mall-html.ts). Gamla
     // mall-id löses med alias; förhandsvisningen visar initialen i en tom
     // fotoplats.
     const mallId = losMallId(template);
-    const html = mallId ? renderaMallHtml(cvData, mallId, val, { forhandsvisning: true }) : null;
+    const html = mallId ? renderaMallHtml(cvData, mallId, val, { forhandsvisning: true, spok: spok?.markering }) : null;
     if (!mallId || !html) {
       return NextResponse.json(
         { error: 'Okand mall: ' + template },

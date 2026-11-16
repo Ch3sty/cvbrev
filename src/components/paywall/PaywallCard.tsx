@@ -282,7 +282,8 @@ export default function PaywallCard({
         )
       case 'kvot':
       case 'test-tak':
-        if (!quota) return prisLank
+        // Byggarens förslag har inget påminnelsemejl (det skulle säga fel sak).
+        if (!quota || quota.feature === 'cv_bygg') return prisLank
         if (reminder === 'saved')
           return (
             <span className="inline-flex min-h-11 items-center justify-center gap-1.5 text-sm font-medium text-positiv">

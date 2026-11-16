@@ -447,7 +447,15 @@ export interface AnalyticsEvents {
   cv_eget_misslyckad: { method: 'pdf' | 'docx' | 'okand'; reason: string; surface: string }
   beloning_visad: { template: string; tier: 'free' | 'premium'; format: 'pdf' | 'docx'; nasta: 'jobb' | 'brev'; surface: string }
   fil_delad: { template: string; format: 'pdf' | 'docx'; metod: 'dela' | 'oppna'; surface: string }
-  nasta_steg_klickad: { target: 'jobb' | 'fler_jobb' | 'brev'; template: string; surface: string }
+  nasta_steg_klickad: { target: 'jobb' | 'fler_jobb' | 'brev' | 'analys' | 'mina_cv'; template: string; surface: string }
+  /* CV-byggaren "Direkt på arket" (saas-lead-briefen 2026-11-16, beslut 8).
+     Tratt: cv_bygg_start, cv_bygg_avsnitt_sparat, mall_bytt, nedladdning_klickad,
+     cv_nedladdad (server, entry byggare), nasta_steg_klickad. */
+  cv_bygg_start: { entry: 'mina_cv' | 'hemskarm' | 'sidomeny' | 'registrering' | 'mall' | 'ateruppta' | 'annan'; sparr: boolean }
+  cv_start_val: { val: 'upp' | 'skriv'; titel: boolean }
+  cv_bygg_avsnitt_sparat: { sektion: string; method: 'manuell' | 'jobbcoach' | 'uppladdat'; forsta: boolean }
+  cv_bygg_ai_anvand: { typ: 'punkter' | 'profil' | 'kompetenser'; accepterad: boolean }
+  cv_bygg_sparat: { cv_nytt: boolean; avsnitt_klara: number; miniminiva: boolean }
   merforsaljning_visad: { template: string; templates: string; surface: string }
   merforsaljning_klick: { template: string; position: number; val: 'kort' | 'kop' | 'nej'; surface: string }
   namn_ifyllt: { surface: 'artikel' | 'yrkessida' | 'mallsida'; slug?: string; yrke_slug?: string; falt: 'namn' | 'titel' }

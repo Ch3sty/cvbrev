@@ -357,6 +357,47 @@ export async function checkLetterQuota(
   };
 }
 
+/**
+ * Jobbcoachen i CV-byggaren (skissen 2026-11-16, beslut 6): punkter till ett
+ * jobb, profilförslaget och kompetensförslagen. Ny kvottyp 2026-11-16.
+ * Räknar byggarens rader i ai_usage_costs (feature_name cv_bygg_*) sedan
+ * midnatt svensk tid; varje lyckat förslag skrivs dit av
+ * /api/cv/bygg/forslag. Ett misslyckat eller avbrutet anrop räknas inte.
+ *
+ * Gratis: tolv förslag per dygn, nog för ett helt CV med omtag. CV-spåret
+ * (cv_analysis_full) får ett högre tak som skydd mot missbruk, inte som
+ * säljargument.
+ */
+export const FREE_CV_BYGG_AI_PER_DAY = 12;
+export const PAID_CV_BYGG_AI_PER_DAY = 100;
+/** Featurenamnen i ai_usage_costs som räknas. */
+export const CV_BYGG_AI_FEATURES = ['cv_bygg_punkter', 'cv_bygg_profil', 'cv_bygg_kompetenser'] as const;
+
+export async function checkCvByggAiQuota(
+  supabase: AnySupabase,
+  userId: string,
+  now: Date = new Date()
+): Promise<QuotaResult> {
+  const betald = await userHasAccess(supabase, userId, 'cv_analysis_full');
+  const limit = betald ? PAID_CV_BYGG_AI_PER_DAY : FREE_CV_BYGG_AI_PER_DAY;
+  const since = startOfTodayStockholm(now).toISOString();
+  const { count } = await supabase
+    .from('ai_usage_costs')
+    .select('id', { count: 'exact', head: true })
+    .eq('user_id', userId)
+    .in('feature_name', [...CV_BYGG_AI_FEATURES])
+    .gte('created_at', since);
+
+  const used = count ?? 0;
+  return {
+    allowed: used < limit,
+    isPremium: betald,
+    used,
+    limit,
+    nextResetAt: nextMidnightStockholm(now).toISOString(),
+  };
+}
+
 /* ------------------------- Standardiserat 429-svar ------------------------- */
 
 /**

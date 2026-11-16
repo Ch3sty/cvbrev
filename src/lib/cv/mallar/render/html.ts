@@ -37,10 +37,17 @@ import {
 } from '../innehall'
 import type { Farg, Linje, MallDef, TextStil } from '../typer'
 import { getMall, getMallMedAlias, losMallIdEllerForval } from '../register'
+import type { Spokmarkering } from '../../bygg/spok'
 
 export interface RenderaHtmlVal {
   /** Förhandsvisning: en tom fotoplats visar initialen. Aldrig i PDF:en. */
   forhandsvisning?: boolean
+  /**
+   * CV-byggarens spöktext (src/lib/cv/bygg/spok.ts): avsnitt med bara
+   * exempel står i grått, namn och titel likaså, och profilens rad med
+   * pennan under exemplet. Bara i förhandsvisningen, aldrig i en fil.
+   */
+  spok?: Spokmarkering
 }
 
 /* ----------------------------------------------------------- hjälpare */
@@ -257,8 +264,13 @@ function avsnitt(a: Avsnitt, c: Ctx, iSpalt: boolean): string {
   const hall = a.innehall.typ === 'kompetenser' && a.innehall.grupper.length <= 6
   const iStart = hall ? delar.length : 1
   const forsta = `<div class="start">${rubrik}${delar.slice(0, iStart).join('')}</div>`
-  const klass = `avsnitt avsnitt-${a.sektion} typ-${a.innehall.typ}${intygsfalt ? ' intygsfalt' : ''}`
-  return `<section class="${klass}" data-avsnitt="${a.sektion}">${forsta}${delar.slice(iStart).join('')}</section>`
+  const spok = Boolean(c.opt.spok?.sektioner.includes(a.sektion))
+  const klass = `avsnitt avsnitt-${a.sektion} typ-${a.innehall.typ}${intygsfalt ? ' intygsfalt' : ''}${spok ? ' spok' : ''}`
+  const rad =
+    spok && a.sektion === 'profil' && c.opt.spok?.profilRad
+      ? `<p class="spok-rad">${PENNA_SVG}<span>${esc(c.opt.spok.profilRad)}</span></p>`
+      : ''
+  return `<section class="${klass}" data-avsnitt="${a.sektion}"${spok ? ' data-spok="1"' : ''}>${forsta}${delar.slice(iStart).join('')}${rad}</section>`
 }
 
 function kontaktAvsnitt(dok: Dokument): string {
@@ -595,6 +607,20 @@ ${band ? '@page:first{margin-top:0}' : ''}
   return ut.join('\n')
 }
 
+/* ------------------------------------------------------------ spöktext */
+
+/** Pennan (MallIkoner, IkonPenna) i profilens rad. */
+const PENNA_SVG =
+  '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M13 8l3 3"/></svg>'
+
+/** Grått som i skissen; rubrikerna behåller mallens färg och linjer. */
+const SPOK_CSS = `.avsnitt[data-spok] :not(.rubrik):not(.rubrik *){color:#A6A6AE!important}
+.avsnitt[data-spok] li::marker{color:#A6A6AE!important}
+.avsnitt[data-spok] p.spok-rad.spok-rad,.avsnitt[data-spok] p.spok-rad.spok-rad *{color:#4A4A55!important}
+p.spok-rad{display:flex;align-items:center;gap:1.5mm;margin-top:2mm;font-size:8.5pt;line-height:1.35;font-weight:500}
+p.spok-rad svg{flex:0 0 auto;color:#65656E!important}
+.spok-namn [data-falt="namn"],.spok-titel [data-falt="titel"]{color:#A6A6AE!important}`
+
 /* ------------------------------------------------------------- dokument */
 
 /** HTML för ett Dokument (används av renderMallHtml och testerna). */
@@ -666,9 +692,9 @@ export function renderDokumentHtml(dok: Dokument, def: MallDef, val: MallVal = {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(dok.namn ? `CV ${dok.namn}` : 'CV')}</title>
 <style>${typsnitt}</style>
-<style>${css(c)}</style>
+<style>${css(c)}</style>${opt.spok ? `<style>${SPOK_CSS}</style>` : ''}
 </head>
-<body><div class="cv mall-${esc(def.id)} familj-${def.familj}">${kropp}</div></body>
+<body><div class="cv mall-${esc(def.id)} familj-${def.familj}${opt.spok?.namn ? ' spok-namn' : ''}${opt.spok?.titel ? ' spok-titel' : ''}">${kropp}</div></body>
 </html>`
 }
 
