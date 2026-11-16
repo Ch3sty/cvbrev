@@ -104,3 +104,18 @@ describe('merförsäljningen', () => {
     expect(u.every((m) => m.niva === 'premium')).toBe(true)
   })
 })
+
+import { UPPSATTNING_IDS, uppsattningForTitel as fullTitel } from '@/lib/cv/rubriker'
+
+describe('artikelns korta ordlista mot rubrikmodellen', () => {
+  it.each(['Undersköterska', 'Förskollärare', 'Systemutvecklare', 'Snickare', 'Butikssäljare', 'Redovisningsekonom', 'Handläggare', 'Lagerarbetare', 'Kock', 'Kundtjänst'])(
+    '%s ger samma uppsättning som rubrikmodellen eller ingen',
+    (t) => {
+      const kort = uppsattningForTitel(t)
+      if (kort) {
+        expect(UPPSATTNING_IDS as readonly string[]).toContain(kort)
+        expect(kort).toBe(fullTitel(t))
+      }
+    }
+  )
+})

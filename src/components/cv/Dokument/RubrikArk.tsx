@@ -11,7 +11,7 @@
 import { useEffect, useState } from 'react'
 import type { Sektion } from '@/lib/cv/mallar/kontrakt'
 import Ark from './Ark'
-import { RUBRIKBIBLIOTEK } from './rubrikbibliotek'
+import { BIBLIOTEK, RUBRIK_MAX } from '@/lib/cv/rubriker'
 import { RUBRIK_ARK } from './texter'
 
 export interface RubrikArkProps {
@@ -25,7 +25,7 @@ export interface RubrikArkProps {
 }
 
 export default function RubrikArk({ sektion, nuvarande, egenVald, onVal, onClose }: RubrikArkProps) {
-  const alternativ = sektion ? RUBRIKBIBLIOTEK[sektion] : []
+  const alternativ = sektion ? BIBLIOTEK[sektion] : []
   const iListan = alternativ.some((a) => a.toLowerCase() === nuvarande.toLowerCase())
   const [egen, setEgen] = useState(!iListan && nuvarande ? nuvarande : '')
   const [skriver, setSkriver] = useState(!iListan && Boolean(nuvarande))
@@ -106,12 +106,12 @@ export default function RubrikArk({ sektion, nuvarande, egenVald, onVal, onClose
           <input
             autoFocus
             value={egen}
-            maxLength={40}
+            maxLength={RUBRIK_MAX}
             placeholder={RUBRIK_ARK.egenPlats}
             onChange={(e) => {
               setEgen(e.target.value)
               const t = e.target.value.trim()
-              if (t) onVal(sektion, t.slice(0, 40), 'egen')
+              if (t) onVal(sektion, t.slice(0, RUBRIK_MAX), 'egen')
             }}
             className="mt-1 h-12 w-full rounded-[10px] border border-kant-stark bg-papper px-3 text-[15px] text-ink-1 outline-none focus:border-ink-1"
           />

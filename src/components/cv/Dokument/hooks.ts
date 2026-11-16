@@ -16,8 +16,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { CVMetadata } from '@/lib/cv/cv-metadata'
 import type { Format, MallVal } from '@/lib/cv/mallar/kontrakt'
-import { valTillJson } from '@/lib/cv/mallval/val'
-import { getFontById } from '@/lib/cv/preview-utils'
 import { nedladdningsFelForStatus, nedladdningsFelForUndantag } from '@/lib/cv/nedladdningsFel'
 
 export type Kalla =
@@ -25,13 +23,17 @@ export type Kalla =
   | { typ: 'publik'; cv: CVMetadata; mall: string; val: MallVal }
   | { typ: 'inloggad'; cvId?: string; structuredData: unknown; cvText?: string; mall: string; val: MallVal }
 
+/** Exempel-API:ts query (docs/qa/mallsystemet-2026-11-16.md avsnitt 2). */
 export function exempelSrc(mall: string, val: MallVal, yrke?: string): string {
   const q = new URLSearchParams({ mall })
   if (val.typsnitt) q.set('typsnitt', val.typsnitt)
-  if (val.uppsattning) q.set('uppsattning', val.uppsattning)
+  if (typeof val.farg === 'number' && val.farg > 0) q.set('farg', String(val.farg))
+  if (val.ordning && val.ordning !== 'standard') q.set('ordning', val.ordning)
+  if (val.foto) q.set('foto', '1')
+  if (val.enSida) q.set('ensida', '1')
+  if (val.rubriker && Object.keys(val.rubriker).length) q.set('rubriker', JSON.stringify(val.rubriker))
+  else if (val.uppsattning) q.set('uppsattning', val.uppsattning)
   if (yrke) q.set('yrke', yrke)
-  const v = valTillJson(val)
-  if (v !== '{}') q.set('val', v)
   return `/api/public/exempel/cv?${q.toString()}`
 }
 
@@ -63,9 +65,6 @@ async function hamta(k: Exclude<Kalla, { typ: 'exempel' }>, signal: AbortSignal)
       structuredData: k.structuredData || undefined,
       cvText: k.cvText,
       val: k.val,
-      templateOptions: { includePhoto: k.val.foto === true, includeLinkedIn: true },
-      // Dagens rutt tar typsnittet som familj; A:s rutt läser val.typsnitt.
-      fontFamily: k.val.typsnitt ? getFontById(k.val.typsnitt).family : undefined,
     }),
     signal,
   })
@@ -176,9 +175,6 @@ export function useNedladdning() {
           cvText: b.cvText && b.cvText.trim().length >= 50 ? b.cvText : undefined,
           format: b.format,
           val: b.val,
-          templateOptions: { includePhoto: b.val.foto === true, includeLinkedIn: true },
-          fontFamily: b.val.typsnitt ? getFontById(b.val.typsnitt).family : undefined,
-          fontId: b.val.typsnitt,
         }),
       })
       if (res.status === 402) {

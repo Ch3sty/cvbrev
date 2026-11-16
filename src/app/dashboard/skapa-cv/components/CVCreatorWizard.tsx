@@ -151,7 +151,7 @@ export default function CVCreatorWizard({
 }: {
   /** Server-läst adminflagga. Styr enbart knappen "Fyll i testdata". */
   initialIsAdmin?: boolean;
-  /** Mallen ur ?mall=, vald på mallsidan eller i /cv-mallar/start. Validerad på servern. */
+  /** Mallen ur ?mall=, vald på mallsidan eller på /cv-mallar/prova. Validerad på servern. */
   initialTemplate?: string;
 }) {
   const { successWithMascotAndActivity } = useNotification();

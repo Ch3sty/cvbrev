@@ -135,6 +135,9 @@ const nextConfig: NextConfig = {
       { source: '/trial-signup/:path*', destination: '/priser', permanent: true },
       { source: '/dashboard/gastinbjudningar', destination: '/priser', permanent: true },
       { source: '/dashboard/invite-friends', destination: '/priser', permanent: true },
+      // Mallsatsningen (plan-mallar avsnitt 5): den gamla mallstarten går till
+      // provsidan, 308 med samma frågesträng (mall, typsnitt, yrke).
+      { source: '/cv-mallar/start', destination: '/cv-mallar/prova', permanent: true },
       // Gamla prefix-lösa artikel-URL:er (externa backlinks Google minns) → /artiklar/<slug>.
       // Åtgärdar "Not found (404)" i Search Console.
       ...[

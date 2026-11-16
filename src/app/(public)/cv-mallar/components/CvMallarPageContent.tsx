@@ -1,47 +1,28 @@
-'use client'
-
-import { PAKETRADER } from '@/components/paywall/paywall-copy'
+/**
+ * /cv-mallar på publikt v2 (plan-mallar 3.2): serverkomponent utan
+ * framer-motion och lucide, mallregistret stannar på servern.
+ *
+ * Ägarens punkt 9: uppladdningen högst upp, utan konto, och resultatet på
+ * samma sida (arbetsytan direkt under hjälten). Rubrikerna, guiden, frågorna
+ * och länkarna står kvar ordagrant (SEO-grinden, avsnitt 5); talen och
+ * gratismallarnas namn läses ur katalogen.
+ */
 import Link from 'next/link'
-import Image from 'next/image'
-import { motion } from 'framer-motion'
-import { ChevronRight, Search, ShieldCheck, Crown, FileText, ArrowRight } from 'lucide-react'
-import { useState, useMemo } from 'react'
-
-import Breadcrumb from '@/components/Breadcrumb'
-import FaqAccordion from '@/components/exempel-shared/FaqAccordion'
-import { SIMPLE_TEMPLATES, FREE_TEMPLATE_IDS, getTemplateById } from '@/lib/cv/simple-templates'
+import PubliktSida from '@/components/publikt/PubliktSida'
+import Hjalte from '@/components/publikt/Hjalte'
+import Rum from '@/components/publikt/Rum'
+import Faq from '@/components/publikt/Faq'
+import ProvaProvider from '@/components/cv/Dokument/prova/ProvaKontext'
+import Uppladdning from '@/components/cv/Dokument/prova/Uppladdning'
+import ProvaArbetsyta from '@/components/cv/Dokument/prova/ProvaArbetsyta'
+import Miniatyr from '@/components/cv/Dokument/Miniatyr'
+import { MALL_KATALOG, MALL_ANTAL, GRATIS_ANTAL } from '@/lib/cv/mallval/katalog'
+import { prisInfo } from '@/lib/cv/mallval/pris.server'
+import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import { CV_GALLERI } from '@/app/(public)/exempel/components/galleri-data'
-import {
-  IconVard,
-  IconTech,
-  IconEkonomi,
-  IconService,
-  IconUtbildning,
-  IconOffentlig,
-  IconHantverk,
-  IconIndustri,
-  IconLogistik,
-  IconStudent,
-} from '@/app/(public)/exempel/components/illustrations/ExempelIcons'
 import type { Yrkesmall } from '../yrkesmall-data'
 
-const KATEGORI_ICON: Record<Yrkesmall['kategori'], ({ className }: { className?: string }) => React.ReactElement> = {
-  'vard': IconVard,
-  'utbildning': IconUtbildning,
-  'service': IconService,
-  'teknik': IconTech,
-  'ekonomi': IconEkonomi,
-  'offentlig-sektor': IconOffentlig,
-  'hantverk': IconHantverk,
-  'industri': IconIndustri,
-  'logistik': IconLogistik,
-  'student': IconStudent,
-}
-
-/** Gratismallarnas namn ur registret och antalet ATS-märkta (SEO-förslaget F3 och K6). */
-const GRATIS_NAMN = FREE_TEMPLATE_IDS.map((id) => getTemplateById(id)?.name).filter(Boolean) as string[]
-const ATS_ANTAL = SIMPLE_TEMPLATES.filter((t) => t.features?.atsSafe).length
-const GRATIS_ATS = FREE_TEMPLATE_IDS.every((id) => getTemplateById(id)?.features?.atsSafe)
+const GRATIS_NAMN = MALL_KATALOG.filter((m) => m.niva === 'gratis').map((m) => m.namn)
 
 function uppraknat(namn: string[]): string {
   return namn.length < 2 ? namn.join('') : `${namn.slice(0, -1).join(', ')} och ${namn[namn.length - 1]}`
@@ -55,19 +36,17 @@ const SITUATION = [
   { text: 'Chef', href: '/cv-mallar/chef' },
 ] as const
 
-type FilterType = 'all' | 'free' | 'premium' | 'yrkesmallar' | 'modern' | 'traditional' | 'creative'
-
 const KATEGORI_LABEL: Record<Yrkesmall['kategori'], string> = {
-  'vard': 'Vård',
-  'utbildning': 'Utbildning',
-  'service': 'Service',
-  'teknik': 'Tech',
-  'ekonomi': 'Ekonomi',
+  vard: 'Vård',
+  utbildning: 'Utbildning',
+  service: 'Service',
+  teknik: 'Tech',
+  ekonomi: 'Ekonomi',
   'offentlig-sektor': 'Offentlig sektor',
-  'hantverk': 'Hantverk',
-  'industri': 'Teknik',
-  'logistik': 'Logistik',
-  'student': 'Student',
+  hantverk: 'Hantverk',
+  industri: 'Teknik',
+  logistik: 'Logistik',
+  student: 'Student',
 }
 
 interface CvMallarPageContentProps {
@@ -75,395 +54,206 @@ interface CvMallarPageContentProps {
   faqItems: { q: string; a: string }[]
 }
 
-export default function CvMallarPageContent({
-  yrkesmallar,
-  faqItems,
-}: CvMallarPageContentProps) {
-  const [activeFilter, setActiveFilter] = useState<FilterType>('all')
-  const [searchQuery, setSearchQuery] = useState('')
-
-  const yrkesmallSlugSet = useMemo(
-    () => new Set(yrkesmallar.flatMap(y => [y.freeMallId, y.premiumMallId])),
-    [yrkesmallar]
-  )
-
-  const filteredTemplates = useMemo(() => {
-    let list = SIMPLE_TEMPLATES
-    if (activeFilter === 'free') list = list.filter(t => t.tier === 'free')
-    if (activeFilter === 'premium') list = list.filter(t => t.tier === 'premium')
-    if (activeFilter === 'yrkesmallar') list = list.filter(t => yrkesmallSlugSet.has(t.id))
-    if (activeFilter === 'modern' || activeFilter === 'traditional' || activeFilter === 'creative') {
-      list = list.filter(t => t.category === activeFilter)
-    }
-    if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase()
-      list = list.filter(t =>
-        t.name.toLowerCase().includes(q) ||
-        t.description.toLowerCase().includes(q) ||
-        (t.metadata?.suitableFor || []).some(s => s.toLowerCase().includes(q))
-      )
-    }
-    return list
-  }, [activeFilter, searchQuery, yrkesmallSlugSet])
-
-  const FILTERS: { id: FilterType; label: string }[] = [
-    { id: 'all', label: 'Alla mallar' },
-    { id: 'free', label: 'Gratis' },
-    { id: 'premium', label: PAKETRADER.bricka },
-    { id: 'yrkesmallar', label: 'Yrkesmallar' },
-    { id: 'modern', label: 'Modern' },
-    { id: 'traditional', label: 'Traditionell' },
-    { id: 'creative', label: 'Kreativ' },
-  ]
-
+function GuideBlock({ eyebrow, title, children }: { eyebrow: string; title: string; children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-orange-50/30 via-white to-orange-50/40">
-      <Breadcrumb
-        items={[
-          { name: 'Hem', href: '/' },
-          { name: 'Exempel', href: '/exempel' },
-          { name: 'CV-mallar', href: '/cv-mallar' },
-        ]}
-      />
-
-      {/* Hero */}
-      <section className="container mx-auto px-3 sm:px-4 pt-6 pb-12 sm:pt-10 sm:pb-16 max-w-6xl">
-        <div className="text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-orange-50 text-orange-700 border border-orange-200 mb-5">
-            {SIMPLE_TEMPLATES.length} CV-mallar
-          </div>
-
-          {/* Huvudordsplanen steg 1 och 2 (SEO-förslaget K4 a och K6, 2026-11-14). */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.05] tracking-tight mb-5">
-            CV-mallar att fylla i och ladda ner.{' '}
-            <span
-              style={{
-                background: 'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              {SIMPLE_TEMPLATES.length} mallar, {GRATIS_NAMN.length} gratis.
-            </span>
-          </h1>
-
-          <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-8 max-w-2xl mx-auto">
-            En CV-mall är en färdig layout som du fyller med dina egna uppgifter. Vi har {SIMPLE_TEMPLATES.length} mallar, och{' '}
-            {GRATIS_NAMN.length} av dem är gratis: {uppraknat(GRATIS_NAMN)}.{' '}
-            {GRATIS_ATS ? 'De är alla märkta ATS-säkra, alltså byggda så att rekryteringssystemen läser texten i rätt ordning. ' : ''}
-            Med ett gratiskonto fyller du i en av dem och laddar ner ditt CV som PDF.
-          </p>
-
-          {/* Sok */}
-          <div className="relative max-w-md mx-auto mb-6">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" strokeWidth={2.5} />
-            <input
-              type="search"
-              placeholder="Sök yrke eller stil..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-11 pr-4 py-3 bg-white border border-orange-200 rounded-2xl focus:outline-none focus:border-orange-400 text-slate-900 placeholder-slate-400"
-            />
-          </div>
-
-          <nav aria-label="Välj efter situation" className="flex flex-wrap items-center justify-center gap-2">
-            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500 mr-1">Börja från din situation</span>
-            {SITUATION.map((s) => (
-              <Link
-                key={s.href}
-                href={s.href}
-                className="inline-flex min-h-10 items-center px-4 rounded-full bg-white border border-orange-200 text-sm font-bold text-slate-700 hover:border-orange-400"
-              >
-                {s.text}
-              </Link>
-            ))}
-          </nav>
-        </div>
-      </section>
-
-      {/* Yrkesmallar - prioriterat snabblanksomrade for SEO och sokintent */}
-      <section className="container mx-auto px-3 sm:px-4 pb-12 sm:pb-16 max-w-6xl">
-        <div className="bg-white rounded-3xl border border-orange-100 p-6 sm:p-8" style={{ boxShadow: '0 8px 32px -12px rgba(249, 115, 22, 0.15)' }}>
-          <div className="flex items-center gap-3 mb-5">
-            <span
-              className="w-1 h-8 rounded-sm"
-              style={{ background: 'linear-gradient(180deg, #F97316 0%, #DC2626 100%)' }}
-              aria-hidden
-            />
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-              Yrkesmallar för ditt specifika yrke
-            </h2>
-          </div>
-          <p className="text-base text-slate-600 leading-relaxed mb-6 max-w-3xl">
-            Mallar designade för specifika yrken med sektioner som lyfter rätt meriter: legitimationer, behörigheter och kompetensområden. Klicka för att se varför mallen passar yrket och vad rekryterare letar efter.
-          </p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
-            {yrkesmallar.map((y, idx) => {
-              const Icon = KATEGORI_ICON[y.kategori]
-              return (
-                <motion.div
-                  key={y.slug}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.25, delay: Math.min(idx * 0.015, 0.4) }}
-                >
-                  <Link
-                    href={`/cv-mallar/${y.slug}`}
-                    className="group block bg-white rounded-3xl border border-orange-100 p-5 hover:border-orange-200 transition-colors h-full"
-                    style={{ boxShadow: '0 6px 24px -14px rgba(249, 115, 22, 0.16)' }}
-                    aria-label={`Se CV-mall för ${y.namn}`}
-                  >
-                    <Icon className="w-12 h-12 sm:w-14 sm:h-14 mb-3" />
-
-                    <div className="text-[10px] font-bold uppercase tracking-wide text-orange-700 mb-1">
-                      {KATEGORI_LABEL[y.kategori]}
-                    </div>
-                    <h3 className="text-base sm:text-lg font-black text-slate-900 mb-2 leading-tight">
-                      {y.namn}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-3 line-clamp-3">
-                      {y.intro}
-                    </p>
-
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="text-[10px] font-bold uppercase tracking-wide text-slate-500 whitespace-nowrap">
-                        {PAKETRADER.mallarGratisOchPaket}
-                      </span>
-                      <span className="inline-flex items-center gap-1.5 text-orange-700 font-bold text-sm group-hover:gap-2.5 transition-all whitespace-nowrap">
-                        <FileText className="w-4 h-4 flex-shrink-0" strokeWidth={2.5} />
-                        Se mall
-                        <ArrowRight className="w-3.5 h-3.5 flex-shrink-0" strokeWidth={2.5} />
-                      </span>
-                    </div>
-                  </Link>
-                </motion.div>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Filter + alla mallar */}
-      <section className="container mx-auto px-3 sm:px-4 pb-12 sm:pb-16 max-w-6xl">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mb-2">
-            Alla våra CV-mallar
-          </h2>
-          <p className="text-base text-slate-600 max-w-2xl mx-auto mb-2">
-            Välj rätt design för din ansökan. {ATS_ANTAL} av mallarna är märkta ATS-säkra och anpassade för svenska arbetsgivare. Yrkesmallarna hjälper dig välja det som passar din bransch.
-          </p>
-          <p className="text-base text-slate-600">
-            Filtrera efter typ, stil eller gratis och Premium. Klicka på en mall för att se den i aktion.
-          </p>
-        </div>
-
-        {/* Filter-pills */}
-        <div className="flex flex-wrap gap-2 justify-center mb-8">
-          {FILTERS.map((f) => (
-            <button
-              key={f.id}
-              onClick={() => setActiveFilter(f.id)}
-              className={`px-4 py-2 rounded-full text-sm font-bold transition-all ${
-                activeFilter === f.id
-                  ? 'text-white shadow-md'
-                  : 'bg-white border border-orange-100 text-slate-700 hover:border-orange-300'
-              }`}
-              style={
-                activeFilter === f.id
-                  ? {
-                      background: 'linear-gradient(135deg, #F97316, #DC2626)',
-                      boxShadow: '0 4px 12px -4px rgba(220, 38, 38, 0.4)',
-                    }
-                  : undefined
-              }
-            >
-              {f.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Mall-grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {filteredTemplates.map((t) => (
-            <motion.div
-              key={t.id}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.25 }}
-              className="group bg-white border border-slate-200 hover:border-orange-200 rounded-2xl overflow-hidden transition-all"
-              style={{ boxShadow: '0 4px 16px -10px rgba(0, 0, 0, 0.08)' }}
-            >
-              <div className="relative aspect-[3/4] bg-slate-50 border-b border-slate-100">
-                <Image
-                  src={t.imagePath}
-                  alt={`${t.name} CV-mall`}
-                  fill
-                  className="object-cover object-top"
-                  sizes="(min-width: 1024px) 220px, (min-width: 640px) 240px, 160px"
-                />
-                {t.tier === 'premium' && (
-                  <span className="absolute top-2 right-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-bold">
-                    <Crown className="w-2.5 h-2.5" strokeWidth={2.5} />
-                    {PAKETRADER.bricka}
-                  </span>
-                )}
-                {t.features?.atsSafe && (
-                  <span className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500 text-white text-[10px] font-bold">
-                    <ShieldCheck className="w-2.5 h-2.5" strokeWidth={2.5} />
-                    ATS
-                  </span>
-                )}
-              </div>
-              <div className="p-3">
-                <div className="text-base font-black text-slate-900 leading-tight">
-                  {t.name}
-                </div>
-                <div className="text-xs text-slate-600 leading-snug mt-1 line-clamp-2">
-                  {t.description}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* Designguide-sektion - long-form content for topical authority */}
-      <section className="bg-white py-14 sm:py-20 border-t border-orange-100/60">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
-          <div className="text-center mb-10 sm:mb-14">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-orange-50 text-orange-700 border border-orange-200 mb-4">
-              Guide
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 leading-[1.1] tracking-tight mb-3">
-              Vad gör en bra CV-mall för svenska arbetsgivare?
-            </h2>
-            <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-              Det handlar inte bara om hur det ser ut. Här är fyra saker som avgör.
-            </p>
-          </div>
-
-          <div className="space-y-10 sm:space-y-12">
-            <GuideBlock
-              eyebrow="ATS-säkerhet"
-              title="Mallen måste passera rekryteringssystemet"
-            >
-              <p>
-                Innan en människa läser ditt CV passerar det ofta ett ATS, ett Applicant Tracking System. Det är mjukvara som indexerar texten, sorterar in kandidater på sökord och rangordnar matchningar. ATS-system har problem med vissa designval: clip-paths, absolutpositionerade textfält, ovanliga typsnitt, och kolumner där läsordningen blir fel.
-              </p>
-              <p>
-                Våra ATS-säkra mallar (märkta med grön ATS-badge) använder vanlig flödeslayout, standardrubriker som "Arbetslivserfarenhet" och "Utbildning", och typsnitt som finns i alla operativsystem. Du får designkänslan utan att riskera att rekryteringssystemet sorterar bort dig innan en människa ens ser ditt CV.
-              </p>
-            </GuideBlock>
-
-            <GuideBlock
-              eyebrow="Branschmatchning"
-              title="Olika yrken kräver olika upplägg"
-            >
-              <p>
-                En läkare, en barnskötare och en säljare har helt olika meriter att lyfta: legitimationer, pedagogiska metoder, säljsiffror. En generisk mall sätter alla i samma form, vilket sällan fungerar. Yrkesspecifika mallar har sektioner och rubriker anpassade till branschen: "Klinisk tjänstgöring" i stället för "Arbetslivserfarenhet" för läkare. "Pedagogisk erfarenhet" för lärare.
-              </p>
-              <p>
-                Det handlar också om visuell kod. Vården och offentlig sektor förväntar sig dämpade färger och tydlig struktur. Marknadsföring och kreativa yrken har utrymme för djärvare grepp. Välj en mall vars visuella språk matchar branschen du söker dig till.
-              </p>
-            </GuideBlock>
-
-            <GuideBlock
-              eyebrow="Erfarenhetsnivå"
-              title="Mallen ska passa hur långt du kommit i karriären"
-            >
-              <p>
-                Som student utan jobberfarenhet är fokus utbildning, projekt och praktik. Student-mallen flippar sektionsordningen och ger plats för det. Som senior konsult med mer än 15 års erfarenhet behöver du kompakt typografi som ryms. Konsulten-mallen har en mindre brödtext för att få plats med fler jobb utan att verka trång.
-              </p>
-              <p>
-                Generella mallar (Norrsken, Aspekt) fungerar bra i mitten av karriären. Mallar för högsta ledningen (Atlas) signalerar prestige och passar för ledningsgrupp eller styrelseroller där tradition väger tungt.
-              </p>
-            </GuideBlock>
-
-            <GuideBlock
-              eyebrow="Mall eller exempel"
-              title="Använd båda, de kompletterar varandra"
-            >
-              <p>
-                En CV-mall är designen: typsnitt, sektionsordning, färger och layout. Ett{' '}
-                <Link href="/cv-exempel" className="text-orange-700 font-bold underline underline-offset-2">
-                  CV-exempel
-                </Link>{' '}
-                är ett färdigt CV med någon annans innehåll som du kan låta dig inspireras av. När du skriver ditt eget, börja med exempel-sidan för ditt yrke (för att få bra formuleringar) och välj sedan en mall för designen.
-              </p>
-              <p>
-                För varje yrkesmall här länkar vi till motsvarande CV-exempel, så att du både kan se ett färdigt CV och välja den mall som passar bäst. Använd mallväljaren i appen för att testa hur ditt CV ser ut i olika designer.
-              </p>
-            </GuideBlock>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="container mx-auto px-3 sm:px-4 py-12 sm:py-16 max-w-3xl">
-        <div className="text-center mb-8 sm:mb-10">
-          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-2">
-            Vanliga frågor om CV-mallar
-          </h2>
-          <p className="text-base text-slate-600">
-            Allt du behöver veta innan du väljer.
-          </p>
-        </div>
-        <FaqAccordion variant="cv" yrke="CV-mallar" items={faqItems} />
-      </section>
-
-      {/* Cross-link CTA till cv-exempel */}
-      <section className="container mx-auto px-3 sm:px-4 py-8 sm:py-12 max-w-4xl">
-        <div className="bg-gradient-to-br from-orange-50 to-white border border-orange-200 rounded-3xl p-6 sm:p-10 text-center">
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mb-3">
-            Letar du efter ett färdigt CV-exempel i stället?
-          </h2>
-          <p className="text-base text-slate-600 mb-5 max-w-xl mx-auto">
-            Vi har {CV_GALLERI.length} färdiga CV-exempel för specifika yrken. Använd dem som inspiration när du skriver ditt eget innehåll.
-          </p>
-          <Link
-            href="/cv-exempel"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-bold text-sm transition-all hover:shadow-xl"
-            style={{
-              background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-              boxShadow: '0 8px 24px -8px rgba(220, 38, 38, 0.4)',
-            }}
-          >
-            Se CV-exempel
-            <ChevronRight className="w-4 h-4" strokeWidth={2.5} />
-          </Link>
-        </div>
-      </section>
+    <div>
+      <p className="pub-kick">{eyebrow}</p>
+      <h3 className="pub-h3">{title}</h3>
+      <div className="pub-brod" style={{ marginTop: 14, display: 'grid', gap: 12 }}>
+        {children}
+      </div>
     </div>
   )
 }
 
-function GuideBlock({
-  eyebrow,
-  title,
-  children,
-}: {
-  eyebrow: string
-  title: string
-  children: React.ReactNode
-}) {
+export default function CvMallarPageContent({ yrkesmallar, faqItems }: CvMallarPageContentProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.35 }}
-    >
-      <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-orange-700 mb-2">
-        {eyebrow}
-      </div>
-      <h3 className="text-xl sm:text-2xl font-black text-slate-900 leading-tight mb-4">
-        {title}
-      </h3>
-      <div className="prose prose-slate max-w-none text-base text-slate-700 leading-relaxed space-y-3">
-        {children}
-      </div>
-    </motion.div>
+    <PubliktSida>
+      <ProvaProvider katalog={MALL_KATALOG} surface="mallsida" pris={prisInfo()}>
+        <div id="innehall">
+          <Hjalte
+            id="hjalte"
+            rum="cv"
+            yta="vagg"
+            vag="mark"
+            brodsmulor={[
+              { name: 'Hem', href: '/' },
+              { name: 'Exempel', href: '/exempel' },
+              { name: 'CV-mallar', href: '/cv-mallar' },
+            ]}
+            kick={`${MALL_ANTAL} CV-mallar`}
+            h1={
+              <>
+                CV-mallar att fylla i och ladda ner. <span>{MALL_ANTAL} mallar, {GRATIS_ANTAL} gratis.</span>
+              </>
+            }
+            ingress={
+              <>
+                En CV-mall är en färdig layout som du fyller med dina egna uppgifter. Vi har {MALL_ANTAL} mallar, och {GRATIS_ANTAL} av dem är
+                gratis: {uppraknat(GRATIS_NAMN)}. Med ett gratiskonto fyller du i en av dem och laddar ner ditt CV som PDF.
+              </>
+            }
+            primar={null}
+            bildLag
+            bild={<Uppladdning />}
+            efterHandling={
+              <nav aria-label="Välj efter situation" className="mt-6 flex flex-wrap items-center gap-2">
+                <span className="mr-1 text-[11px] font-bold uppercase tracking-[0.18em] text-vagg-mjuk">Börja från din situation</span>
+                {SITUATION.map((s) => (
+                  <Link
+                    key={s.href}
+                    href={s.href}
+                    className="inline-flex min-h-10 items-center rounded-full border border-vagg-kant bg-white/10 px-4 text-sm font-semibold text-vagg-ink hover:bg-white/15"
+                  >
+                    {s.text}
+                  </Link>
+                ))}
+              </nav>
+            }
+          />
+
+          {/* Resultatet på samma sida: arbetsytan direkt under uppladdningen. */}
+          <Rum rum="cv" yta="mark" storlek="tat" id="valj-mall">
+            <div className="pub-wrap">
+              <ProvaArbetsyta />
+            </div>
+          </Rum>
+
+          {/* Yrkesmallar: snabblänkarna för "cv mall {yrke}". */}
+          <Rum rum="cv" yta="panel">
+            <div className="pub-wrap">
+              <h2 className="pub-h2">Yrkesmallar för ditt specifika yrke</h2>
+              <p className="pub-ingress" style={{ marginTop: 16 }}>
+                Mallar designade för specifika yrken med sektioner som lyfter rätt meriter: legitimationer, behörigheter och kompetensområden.
+                Klicka för att se varför mallen passar yrket och vad rekryterare letar efter.
+              </p>
+              <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {yrkesmallar.map((y) => (
+                  <Link
+                    key={y.slug}
+                    href={`/cv-mallar/${y.slug}`}
+                    className="pub-kort block h-full hover:border-ink-1"
+                    aria-label={`Se CV-mall för ${y.namn}`}
+                  >
+                    <p className="text-[10px] font-bold uppercase tracking-wide text-ton-ink">{KATEGORI_LABEL[y.kategori]}</p>
+                    <h3 className="pub-h4" style={{ marginTop: 4 }}>
+                      {y.namn}
+                    </h3>
+                    <p className="mt-2 line-clamp-3 text-sm text-ink-2">{y.intro}</p>
+                    <p className="mt-3 flex items-center justify-between gap-2 text-[12px]">
+                      <span className="font-semibold uppercase tracking-wide text-ink-3">{PAKETRADER.mallarGratisOchPaket}</span>
+                      <span className="font-semibold text-ink-1 underline decoration-kant-stark underline-offset-4">Se mall</span>
+                    </p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </Rum>
+
+          {/* Alla mallar: riktiga miniatyrer, var och en till provsidan. */}
+          <Rum rum="cv" yta="mark" id="mall-galleri">
+            <div className="pub-wrap">
+              <h2 className="pub-h2">Alla våra CV-mallar</h2>
+              <p className="pub-ingress" style={{ marginTop: 16 }}>
+                Välj rätt design för din ansökan. {MALL_ANTAL} av mallarna är märkta ATS-säkra och anpassade för svenska arbetsgivare.
+                Yrkesmallarna hjälper dig välja det som passar din bransch.
+              </p>
+              <p className="pub-brod" style={{ marginTop: 8 }}>Klicka på en mall för att se den i aktion.</p>
+              <div className="mt-8 grid max-w-[744px] grid-cols-3 gap-3 sm:grid-cols-4">
+                {MALL_KATALOG.map((m) => (
+                  <Miniatyr key={m.id} mall={m} storlek="rutnat" href={`/cv-mallar/prova?mall=${encodeURIComponent(m.id)}`} />
+                ))}
+              </div>
+            </div>
+          </Rum>
+
+          {/* Guiden, långformen. */}
+          <Rum rum="cv" yta="panel">
+            <div className="pub-wrap" style={{ maxWidth: 760 }}>
+              <p className="pub-kick">Guide</p>
+              <h2 className="pub-h2">Vad gör en bra CV-mall för svenska arbetsgivare?</h2>
+              <p className="pub-ingress" style={{ marginTop: 16 }}>
+                Det handlar inte bara om hur det ser ut. Här är fyra saker som avgör.
+              </p>
+              <div className="mt-10 grid gap-10">
+                <GuideBlock eyebrow="ATS-säkerhet" title="Mallen måste passera rekryteringssystemet">
+                  <p>
+                    Innan en människa läser ditt CV passerar det ofta ett ATS, ett Applicant Tracking System. Det är mjukvara som indexerar
+                    texten, sorterar in kandidater på sökord och rangordnar matchningar. ATS-system har problem med vissa designval:
+                    clip-paths, absolutpositionerade textfält, ovanliga typsnitt, och kolumner där läsordningen blir fel.
+                  </p>
+                  <p>
+                    Våra ATS-säkra mallar (märkta med grön ATS-badge) använder vanlig flödeslayout, standardrubriker som
+                    &quot;Arbetslivserfarenhet&quot; och &quot;Utbildning&quot;, och typsnitt som finns i alla operativsystem. Du får designkänslan
+                    utan att riskera att rekryteringssystemet sorterar bort dig innan en människa ens ser ditt CV.
+                  </p>
+                </GuideBlock>
+                <GuideBlock eyebrow="Branschmatchning" title="Olika yrken kräver olika upplägg">
+                  <p>
+                    En läkare, en barnskötare och en säljare har helt olika meriter att lyfta: legitimationer, pedagogiska metoder,
+                    säljsiffror. En generisk mall sätter alla i samma form, vilket sällan fungerar. Yrkesspecifika mallar har sektioner och
+                    rubriker anpassade till branschen: &quot;Klinisk tjänstgöring&quot; i stället för &quot;Arbetslivserfarenhet&quot; för läkare.
+                    &quot;Pedagogisk erfarenhet&quot; för lärare.
+                  </p>
+                  <p>
+                    Det handlar också om visuell kod. Vården och offentlig sektor förväntar sig dämpade färger och tydlig struktur.
+                    Marknadsföring och kreativa yrken har utrymme för djärvare grepp. Välj en mall vars visuella språk matchar branschen du
+                    söker dig till.
+                  </p>
+                </GuideBlock>
+                <GuideBlock eyebrow="Erfarenhetsnivå" title="Mallen ska passa hur långt du kommit i karriären">
+                  <p>
+                    Som student utan jobberfarenhet är fokus utbildning, projekt och praktik. Student-mallen flippar sektionsordningen och
+                    ger plats för det. Som senior konsult med mer än 15 års erfarenhet behöver du kompakt typografi som ryms.
+                    Konsulten-mallen har en mindre brödtext för att få plats med fler jobb utan att verka trång.
+                  </p>
+                  <p>
+                    Generella mallar (Norrsken, Aspekt) fungerar bra i mitten av karriären. Mallar för högsta ledningen (Atlas) signalerar
+                    prestige och passar för ledningsgrupp eller styrelseroller där tradition väger tungt.
+                  </p>
+                </GuideBlock>
+                <GuideBlock eyebrow="Mall eller exempel" title="Använd båda, de kompletterar varandra">
+                  <p>
+                    En CV-mall är designen: typsnitt, sektionsordning, färger och layout. Ett{' '}
+                    <Link href="/cv-exempel" className="pub-lank">
+                      CV-exempel
+                    </Link>{' '}
+                    är ett färdigt CV med någon annans innehåll som du kan låta dig inspireras av. När du skriver ditt eget, börja med
+                    exempel-sidan för ditt yrke (för att få bra formuleringar) och välj sedan en mall för designen.
+                  </p>
+                  <p>
+                    För varje yrkesmall här länkar vi till motsvarande CV-exempel, så att du både kan se ett färdigt CV och välja den mall som
+                    passar bäst. Använd mallväljaren i appen för att testa hur ditt CV ser ut i olika designer.
+                  </p>
+                </GuideBlock>
+              </div>
+            </div>
+          </Rum>
+
+          <Rum rum="cv" yta="mark" id="fragor">
+            <div className="pub-wrap" style={{ maxWidth: 820 }}>
+              <Faq rubrik="Vanliga frågor om CV-mallar" ingress="Allt du behöver veta innan du väljer." fragor={faqItems} />
+            </div>
+          </Rum>
+
+          <Rum rum="cv" yta="panel" storlek="tat">
+            <div className="pub-wrap" style={{ maxWidth: 820 }}>
+              <div className="pub-kort text-center">
+                <h2 className="pub-h3">Letar du efter ett färdigt CV-exempel i stället?</h2>
+                <p className="pub-brod mx-auto" style={{ marginTop: 12 }}>
+                  Vi har {CV_GALLERI.length} färdiga CV-exempel för specifika yrken. Använd dem som inspiration när du skriver ditt eget
+                  innehåll.
+                </p>
+                <div className="pub-handling" style={{ justifyContent: 'center' }}>
+                  <Link href="/cv-exempel" className="pub-knapp">
+                    Se CV-exempel
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </Rum>
+        </div>
+      </ProvaProvider>
+    </PubliktSida>
   )
 }

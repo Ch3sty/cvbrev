@@ -166,6 +166,7 @@ export const UPPLADDNING = {
   ellerNamnKort: 'eller skriv ditt namn',
   namn: 'Ditt namn',
   titel: 'Din titel',
+  namnSaknas: 'Skriv ditt namn högst upp, så kommer det med i filen.',
   laddar: 'Läser ditt CV',
   laddarLangsamt: 'Det tar lite längre än vanligt, några sekunder till.',
   forStor: 'Filen är över 5 MB. Spara om den som en mindre PDF och försök igen, eller skriv ditt namn och fyll i direkt.',

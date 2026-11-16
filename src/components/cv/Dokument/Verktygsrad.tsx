@@ -12,8 +12,8 @@ import type { MallKort, MallVal, Ordning, TypsnittId } from '@/lib/cv/mallar/kon
 import { FONTS } from '@/lib/cv/preview-utils'
 import { IkonFarg, IkonFoto, IkonOrdning } from '@/components/illustrations/MallIkoner'
 import Ark from './Ark'
-import { UPPSATTNINGAR_TILLFALLIGA } from './uppsattningar'
-import { VAL_ARK, VERKTYG } from './texter'
+import { UPPSATTNING_IDS, UPPSATTNING_NAMN } from '@/lib/cv/rubriker'
+import { UPPSATTNING_ARK, VAL_ARK, VERKTYG } from './texter'
 
 export type Valhandelse =
   | { typ: 'typsnitt'; font: TypsnittId }
@@ -30,6 +30,8 @@ export interface VerktygsradProps {
   onFoto?: () => void
   fotoPa?: boolean
   last?: boolean
+  /** Uppsättningen rubrikmodellen valt för CV:t, markerad när inget är valt. */
+  forvaldUppsattning?: string
 }
 
 const GRUPPER: { namn: string; ids: readonly string[] }[] = [
@@ -60,9 +62,9 @@ function Radio({ vald, onClick, children, stil }: { vald: boolean; onClick: () =
   )
 }
 
-export default function Verktygsrad({ mall, val, onVal, onFoto, fotoPa, last }: VerktygsradProps) {
+export default function Verktygsrad({ mall, val, onVal, onFoto, fotoPa, last, forvaldUppsattning }: VerktygsradProps) {
   const [ark, setArk] = useState<'typsnitt' | 'ordning' | 'uppsattning' | null>(null)
-  const font = FONTS.find((f) => f.id === (val.typsnitt ?? 'calibri')) ?? FONTS[0]
+  const font = FONTS.find((f) => f.id === (val.typsnitt ?? mall.typsnitt ?? 'calibri')) ?? FONTS[0]
   const farg = val.farg ?? 0
   const ordning = val.ordning ?? 'standard'
 
@@ -195,17 +197,17 @@ export default function Verktygsrad({ mall, val, onVal, onFoto, fotoPa, last }: 
         open={ark === 'uppsattning'}
         onClose={() => setArk(null)}
         rubrik={VAL_ARK.rubriker.namn}
-        under="Välj det yrkesområde som ligger närmast, så byts alla rubriker på en gång. Varje rubrik går att ändra för sig efteråt."
+        under={UPPSATTNING_ARK.under}
         utanDimma
       >
         <div role="radiogroup" aria-label={VAL_ARK.rubriker.namn}>
-          {UPPSATTNINGAR_TILLFALLIGA.map((u) => (
+          {UPPSATTNING_IDS.map((id) => (
             <Radio
-              key={u.id}
-              vald={(val.uppsattning ?? 'standard') === u.id}
-              onClick={() => onVal({ ...val, uppsattning: u.id, rubriker: undefined }, { typ: 'uppsattning', uppsattning: u.id })}
+              key={id}
+              vald={(val.uppsattning ?? forvaldUppsattning ?? 'allman') === id}
+              onClick={() => onVal({ ...val, uppsattning: id, rubriker: undefined }, { typ: 'uppsattning', uppsattning: id })}
             >
-              {u.namn}
+              {UPPSATTNING_NAMN[id]}
             </Radio>
           ))}
         </div>

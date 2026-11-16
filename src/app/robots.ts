@@ -15,7 +15,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/', // Tillåt genomsökning av allt som standard
         // Konverteringsflödena är ingångar till produkten, inte innehåll att
         // ranka på. De pekar canonical till exempel- respektive mallsidan.
-        disallow: ['/skapa-brev/start', '/cv-mallar/start'],
+        disallow: ['/skapa-brev/start', '/cv-mallar/start', '/cv-mallar/prova'],
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`, // Peka på din sitemap

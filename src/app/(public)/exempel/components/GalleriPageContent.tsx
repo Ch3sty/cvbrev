@@ -210,7 +210,7 @@ export default function GalleriPageContent({ type, yrken, faqItems }: GalleriPag
         rum={rum}
         rubrik={`Klar att skriva ditt eget ${typeShort}?`}
         text="Använd exemplen som inspiration och bygg ditt eget med våra verktyg. Det är gratis att börja."
-        knapp={{ text: `Skapa ${typeShort} gratis`, href: isCV ? '/cv-mallar/start' : '/skapa-brev/start' }}
+        knapp={{ text: `Skapa ${typeShort} gratis`, href: isCV ? '/cv-mallar/prova' : '/skapa-brev/start' }}
         lank={{ text: 'Tillbaka till hubben', href: '/exempel' }}
       />
     </PubliktSida>

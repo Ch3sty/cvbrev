@@ -45,7 +45,8 @@ export interface VerktygsMallProps {
   h1: ReactNode
   ingress: ReactNode
   fet?: ReactNode
-  primar: VerktygsLank & { dataCta?: string }
+  /** Utelämnad: hjälten har ingen knapp och ingen fast knapprad (mallsidan har uppladdningen och sin egen rad). */
+  primar?: VerktygsLank & { dataCta?: string }
   sekundar?: VerktygsLank
   loften?: { tal: string; text: string }[]
   handling?: ReactNode
@@ -123,7 +124,7 @@ export default function VerktygsMall(p: VerktygsMallProps) {
           h1={p.h1}
           ingress={p.ingress}
           fet={p.fet}
-          primar={{ text: p.primar.text, href: p.primar.href, dataCta: p.primar.dataCta }}
+          primar={p.primar ? { text: p.primar.text, href: p.primar.href, dataCta: p.primar.dataCta } : null}
           sekundar={p.sekundar}
           tal={p.loften}
           bildLag
@@ -244,7 +245,7 @@ export default function VerktygsMall(p: VerktygsMallProps) {
           </div>
         </Rum>
       </div>
-      <FastKnapprad text={p.primar.text} href={p.primar.href} observera="hjalte" />
+      {p.primar ? <FastKnapprad text={p.primar.text} href={p.primar.href} observera="hjalte" /> : null}
     </PubliktSida>
   )
 }

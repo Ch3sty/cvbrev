@@ -24,11 +24,15 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 }
 import VerktygsMall from '@/components/publikt/VerktygsMall'
-import SkarmMallar from '@/components/publikt/telefon/skarmar/SkarmMallar'
-import CVMallarLiveDemo from './components/CVMallarLiveDemo'
 import CVMallarGalleri from './components/CVMallarGalleri'
+import ProvaProvider from '@/components/cv/Dokument/prova/ProvaKontext'
+import Uppladdning from '@/components/cv/Dokument/prova/Uppladdning'
+import ProvaArbetsyta from '@/components/cv/Dokument/prova/ProvaArbetsyta'
+import { MALL_KATALOG, MALL_ANTAL, GRATIS_ANTAL, WORD_ANTAL } from '@/lib/cv/mallval/katalog'
+import { prisInfo } from '@/lib/cv/mallval/pris.server'
 import { CV_MALLAR_FAQ_ITEMS } from './components/cv-mallar-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
+<<<<<<< HEAD
 import { PLAN_BY_KEY, SALD_PLAN, paketKort, paketMedPris, paketNamn, prisPeriod } from '@/lib/plans/plans'
 import { isValidTemplateId } from '@/lib/cv/mallar/kompat'
 import { FONTS } from '@/lib/cv/preview-utils'
@@ -54,6 +58,9 @@ const GALLERI_MALLAR = SIMPLE_TEMPLATES.map((t) => ({
   tier: t.tier,
   features: t.features,
 }))
+=======
+import { PLAN_BY_KEY, SALD_PLAN, paketKort, paketMedPris, paketNamn } from '@/lib/plans/plans'
+>>>>>>> 580c7173 (feat(mallar): mallsidorna och provsidan med uppladdning utan konto)
 
 /**
  * Avsnittet "CV-mallar för Word" med ankaret #word (docs/plan-cv-word-2026-11-15.md
@@ -176,9 +183,13 @@ export default function CVMallarSida() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
+      {/* Ägarens punkt 9 och skissens yta 1: uppladdningen utan konto högst
+          upp i hjälten, resultatet på samma sida direkt under (UX:s
+          datorlayout: arket 600 px, mallkolumnen 336 px, fast rad 64 px). */}
+      <ProvaProvider katalog={MALL_KATALOG} surface="mallsida" pris={prisInfo()}>
       <VerktygsMall
         rum="cv"
-        telefon={<SkarmMallar />}
+        telefon={<Uppladdning />}
         brodsmulor={[
           { name: 'Hem', href: '/' },
           { name: 'Verktyg', href: '/funktioner' },
@@ -186,24 +197,14 @@ export default function CVMallarSida() {
         ]}
         eyebrow="CV-mallar, välj, fyll i, ladda ner"
         h1="Professionella CV-mallar för svenska arbetsgivare"
-        ingress="Välj mellan modern, traditionell och kreativ stil. Alla mallar läses rätt av rekryteringssystemen och är redo att fyllas i."
-        fet="Du behöver inte börja från ett tomt papper."
-        // Mallväljaren i heron byter adressen till vald mall och typsnitt.
-        primar={{ text: 'Bygg ditt CV gratis', href: '/cv-mallar/start?mall=norrsken&typsnitt=calibri', dataCta: 'cv-mallar-bygg' }}
+        ingress={`Ladda upp ditt CV så ser du det i alla mallar direkt, utan konto. Alla ${MALL_ANTAL} har gått genom vår egen CV-läsare, och kontaktuppgifter, rubriker och ordning kom ut rätt i varje mall.`}
         sekundar={{ text: 'Se alla mallar', href: '#mall-galleri' }}
         loften={[
-          { tal: `${TEMPLATE_COUNT}`, text: 'mallar i tre stilar' },
-          { tal: `${FREE_TEMPLATE_COUNT}`, text: 'helt gratis' },
-          { tal: `${WORD_TEMPLATE_COUNT}`, text: 'mallar även i Word' },
+          { tal: `${MALL_ANTAL}`, text: 'ATS-säkra mallar, testade för rekryteringssystem' },
+          { tal: `${GRATIS_ANTAL}`, text: 'gratis' },
+          { tal: `${WORD_ANTAL}`, text: 'även som Word' },
         ]}
-        handling={
-          <CVMallarLiveDemo
-            mallar={DEMO_MALLAR}
-            typsnitt={DEMO_TYPSNITT}
-            paketGrupp={`I ${paketKort()}`}
-            paketRad={`Ingår i ${paketKort()}, ${prisPeriod(SALD_PLAN)}`}
-          />
-        }
+        handling={<ProvaArbetsyta />}
         handlingId="valj-mall"
         steg={{
           id: 'sa-funkar-det',
@@ -227,7 +228,7 @@ export default function CVMallarSida() {
             rader: WORD_RADER,
           },
         ]}
-        fritt={<CVMallarGalleri mallar={GALLERI_MALLAR} paket={paketKort()} />}
+        fritt={<CVMallarGalleri mallar={MALL_KATALOG} />}
         slut={{
           eyebrow: paketMedPris(SALD_PLAN),
           rubrik: 'Välj din mall och bygg ditt CV.',
@@ -249,6 +250,7 @@ export default function CVMallarSida() {
           fragor: CV_MALLAR_FAQ_ITEMS,
         }}
       />
+      </ProvaProvider>
     </>
   )
 }

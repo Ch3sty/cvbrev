@@ -63,6 +63,8 @@ export interface MallytaProps {
   avsnitt?: { cv: CVMetadata; onSpara: (cv: CVMetadata) => void; tomma?: readonly Sektion[] }
   onFoto?: () => void
   fotoPa?: boolean
+  /** Rubrikuppsättningen rubrikmodellen valt för CV:t (forvalFor). */
+  forvaldUppsattning?: string
   ovanNav?: boolean
   last?: boolean
   lyft?: boolean
@@ -126,7 +128,7 @@ export default function Mallyta(p: MallytaProps) {
   }
 
   const verktyg = (
-    <Verktygsrad mall={p.mall} val={p.val} onVal={onVal} onFoto={p.onFoto} fotoPa={p.fotoPa} last={p.last} />
+    <Verktygsrad mall={p.mall} val={p.val} onVal={onVal} onFoto={p.onFoto} fotoPa={p.fotoPa} last={p.last} forvaldUppsattning={p.forvaldUppsattning} />
   )
   const formatVal = (
     <FormatVal format={p.format} onFormat={p.onFormat} mallHarWord={p.mall.word} kanWord={p.kanWord} last={p.last} />

@@ -63,8 +63,8 @@ export default function ExempelMall({
   const intro: string | undefined = data.intro ?? data.heroSubtitle
 
   // "Använd som mall": CV:t öppnar mallväljaren med exemplets mall vald.
-  const primarHref = cv ? `/cv-mallar/start?yrke=${slug}&mall=norrsken` : `/skapa-brev/start?yrke=${slug}`
-  const slutHref = cv ? `/cv-mallar/start?yrke=${slug}` : `/skapa-brev/start?yrke=${slug}`
+  const primarHref = cv ? `/cv-mallar/prova?yrke=${slug}` : `/skapa-brev/start?yrke=${slug}`
+  const slutHref = cv ? `/cv-mallar/prova?yrke=${slug}` : `/skapa-brev/start?yrke=${slug}`
 
   // Lapparna i hjälten: notens rubrik, och raden bara om den är kort.
   const lappar: Not[] = varfor.noter.slice(0, 2).map((n) => ({ ...n, text: n.text && n.text.length <= 60 ? n.text : undefined }))
