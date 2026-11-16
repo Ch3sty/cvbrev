@@ -51,7 +51,7 @@ async function main() {
 
   const rapport: { mall: string; langd: string; sidor: number; fel: string[] }[] = []
   const pdfer: string[] = []
-  for (const def of MALLAR.filter((m) => !BARA || m.id === BARA)) {
+  for (const def of MALLAR.filter((m) => !BARA || BARA.split(",").includes(m.id))) {
     // Tre längder, plus NORMALT_CV med "Få plats på en sida" som ska ge en sida (G7).
     const fall: [string, CVMetadata, MallVal][] = [
       ...Object.entries(CV_LANGDER).map(([l, c]) => [l, c, {}] as [string, CVMetadata, MallVal]),

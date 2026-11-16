@@ -38,8 +38,8 @@ export interface VerktygsradProps {
 
 const GRUPPER: { namn: string; ids: readonly string[] }[] = [
   { namn: 'ATS-säkra', ids: ['calibri', 'arial', 'verdana', 'helvetica'] },
-  { namn: 'Moderna', ids: ['lato', 'open-sans', 'roboto', 'poppins'] },
-  { namn: 'Formella', ids: ['georgia', 'garamond', 'times'] },
+  { namn: 'Moderna', ids: ['lato', 'open-sans', 'roboto', 'poppins', 'montserrat', 'ibm-plex-sans'] },
+  { namn: 'Formella', ids: ['georgia', 'garamond', 'times', 'lora'] },
 ]
 
 const CHIP =

@@ -80,7 +80,7 @@ async function bygg(): Promise<{ filer: string[]; fel: string[] }> {
   const { generateSwedishCVPDF, closeSwedishCVPDFGenerator } = await import('../src/lib/cv/swedish-cv-pdf-generator')
   const fel: string[] = []
   const filer: string[] = []
-  for (const def of MALLAR.filter((m) => m.word && (!BARA || m.id === BARA))) {
+  for (const def of MALLAR.filter((m) => m.word && (!BARA || BARA.split(",").includes(m.id)))) {
     for (const [langd, bas] of Object.entries(CV_LANGDER)) {
       const cv: CVMetadata = structuredClone(bas)
       if (def.foto && langd !== 'kort') cv.personalInfo.profilePhotoUrl = FOTO
@@ -95,7 +95,7 @@ async function bygg(): Promise<{ filer: string[]; fel: string[] }> {
 
       const { value } = await mammoth.extractRawText({ buffer: buf })
       const wordHtml = (await mammoth.convertToHtml({ buffer: buf })).value
-      const wRubriker = [...wordHtml.matchAll(/<h2>(.*?)<\/h2>/g)].map((m) => m[1].replace(/<[^>]+>/g, '').replace(/&amp;/g, '&'))
+      const wRubriker = [...wordHtml.matchAll(/<h2>(.*?)<\/h2>/g)].map((m) => m[1].replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/^\d{2}\s+/, '').trim())
       const hRubriker = [...html.matchAll(/<h2[^>]*>(.*?)<\/h2>/g)].map((m) => m[1].replace(/&amp;/g, '&'))
       RUBRIKER.set(namn, { alla: hRubriker, profil: html.match(/data-sektion="profil">(.*?)<\/h2>/)?.[1] ?? '' })
       const problem: string[] = []

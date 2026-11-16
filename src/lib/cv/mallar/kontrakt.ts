@@ -53,6 +53,10 @@ export type TypsnittId =
   | 'roboto'
   | 'poppins'
   | 'helvetica'
+  /** Utbud 2 (2026-11-16), bara PDF. */
+  | 'montserrat'
+  | 'lora'
+  | 'ibm-plex-sans'
 
 /**
  * Valen som gäller i alla mallar. Tomt fält betyder mallens förval (eller

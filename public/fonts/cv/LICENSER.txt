@@ -11,5 +11,8 @@ Lato                         SIL Open Font License 1.1   https://www.latofonts.c
 Open Sans                    SIL Open Font License 1.1   https://github.com/googlefonts/opensans
 Roboto                       SIL Open Font License 1.1   https://github.com/googlefonts/roboto-3-classic
 Poppins                      SIL Open Font License 1.1   https://github.com/itfoundry/Poppins
+Montserrat                   SIL Open Font License 1.1   https://github.com/JulietaUla/Montserrat
+Lora                         SIL Open Font License 1.1   https://github.com/cyrealtype/Lora-Cyrillic
+IBM Plex Sans                SIL Open Font License 1.1   https://github.com/IBM/plex
 
 OFL 1.1: https://openfontlicense.org  Apache 2.0: https://www.apache.org/licenses/LICENSE-2.0

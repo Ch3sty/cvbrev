@@ -35,7 +35,7 @@ async function main() {
   const browser = await puppeteer.launch({ headless: true })
   const sida = await browser.newPage()
   await sida.setViewport({ width: 794, height: 1123, deviceScaleFactor: 2 })
-  for (const def of MALLAR.filter((m) => !BARA || m.id === BARA)) {
+  for (const def of MALLAR.filter((m) => !BARA || BARA.split(",").includes(m.id))) {
     const cv = structuredClone(NORMALT_CV)
     if (def.foto) cv.personalInfo.profilePhotoUrl = FOTO
     // Typsnitten inbäddade som i PDF:en, så att miniatyren visar samma typsnitt.

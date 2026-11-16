@@ -20,6 +20,9 @@ export const TYPSNITT_IDS: readonly TypsnittId[] = [
   'roboto',
   'poppins',
   'helvetica',
+  'montserrat',
+  'lora',
+  'ibm-plex-sans',
 ]
 
 export function arTypsnitt(id: unknown): id is TypsnittId {

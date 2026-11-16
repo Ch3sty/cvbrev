@@ -63,8 +63,25 @@ export const WORD_TYPSNITT: readonly TypsnittId[] = ['calibri', 'arial', 'verdan
  * Brödtextens och namnets/rubrikernas typsnitt efter valet. Användarens val
  * ersätter bara brödtexten (spec avsnitt 4 punkt 12).
  */
-export function typsnittFor(def: MallDef, val?: MallVal): { brod: TypsnittId; rubrik: TypsnittId } {
-  return { brod: val?.typsnitt ?? def.typsnitt.brod, rubrik: def.typsnitt.rubrik ?? def.typsnitt.brod }
+export function typsnittFor(
+  def: MallDef,
+  val?: MallVal
+): { brod: TypsnittId; rubrik: TypsnittId; namn: TypsnittId; titel: TypsnittId; kontakt: TypsnittId } {
+  const brod = val?.typsnitt ?? def.typsnitt.brod
+  const rubrik = def.typsnitt.rubrik ?? def.typsnitt.brod
+  return {
+    brod,
+    rubrik,
+    namn: def.typsnitt.namn ?? rubrik,
+    titel: def.typsnitt.titel ?? brod,
+    kontakt: def.typsnitt.kontakt ?? brod,
+  }
+}
+
+/** Alla typsnitt en mall använder med ett val (för @font-face). */
+export function allaTypsnitt(def: MallDef, val?: MallVal): TypsnittId[] {
+  const t = typsnittFor(def, val)
+  return [...new Set([t.brod, t.rubrik, t.namn, t.titel, t.kontakt, ...(def.rubrik.nummer ? [def.rubrik.nummer.typsnitt] : [])])]
 }
 
 /** Mått och grader efter "Få plats på en sida". */
@@ -82,6 +99,8 @@ export interface Matt {
   luftUnderRubrik: number
   /** Fotots storlek, mm (tre fjärdedelar i steg 4). */
   fotoMm: number
+  /** Fotots höjd, mm (samma som fotoMm utom för stående foto). */
+  fotoHojdMm: number
   /** Steget i "Få plats på en sida", 0 utan valet. */
   steg: number
   /** Bandets minsta höjd efter krympningen (Mörkrum). */
@@ -137,6 +156,8 @@ export function matt(def: MallDef, val?: MallVal): Matt {
     luftUnderHuvud: steg >= 4 ? def.huvud.luftUnder / 2 : def.huvud.luftUnder,
     luftUnderRubrik: steg >= 4 ? Math.min(def.rubrik.luftUnder, 1.5) : def.rubrik.luftUnder,
     fotoMm: (def.foto?.storlek ?? 30) * (steg >= 4 ? 0.75 : 1),
+    fotoHojdMm:
+      (def.foto?.form === 'staende' ? def.foto.hojd ?? (def.foto.storlek * 4) / 3 : def.foto?.storlek ?? 30) * (steg >= 4 ? 0.75 : 1),
     // Mallens egna element (steg 1 och framåt).
     bandHojd: (h: number | undefined) => (h === undefined ? undefined : steg >= 1 ? Math.min(h, Math.max(50, h * 0.7)) : h),
     marginalSkala: steg >= 1 ? 14 / 17 : 1,

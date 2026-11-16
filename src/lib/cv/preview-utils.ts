@@ -25,11 +25,14 @@ export const FONTS: FontOption[] = [
   { id: 'open-sans', name: 'Open Sans', family: "'Open Sans', Arial, sans-serif", category: 'Moderna', tier: 'free' },
   { id: 'roboto', name: 'Roboto', family: "'Roboto', Arial, sans-serif", category: 'Moderna', tier: 'free' },
   { id: 'poppins', name: 'Poppins', family: "'Poppins', Arial, sans-serif", category: 'Moderna', tier: 'free' },
+  { id: 'montserrat', name: 'Montserrat', family: "'Montserrat', Arial, sans-serif", category: 'Moderna', tier: 'free' },
+  { id: 'ibm-plex-sans', name: 'IBM Plex Sans', family: "'IBM Plex Sans', Arial, sans-serif", category: 'Moderna', tier: 'free' },
 
   // Formella (serif, klassisk)
   { id: 'georgia', name: 'Georgia', family: 'Georgia, Times, serif', category: 'Formella', tier: 'free' },
   { id: 'garamond', name: 'Garamond', family: 'Garamond, Georgia, serif', category: 'Formella', tier: 'free' },
   { id: 'times', name: 'Times New Roman', family: "'Times New Roman', Times, serif", category: 'Formella', tier: 'free' },
+  { id: 'lora', name: 'Lora', family: "'Lora', Georgia, serif", category: 'Formella', tier: 'free' },
 
   // Premium
   { id: 'helvetica', name: 'Helvetica', family: 'Helvetica, Arial, sans-serif', category: 'Premium', tier: 'premium' },

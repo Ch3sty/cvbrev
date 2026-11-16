@@ -404,11 +404,31 @@ export function kompetensForm(def: MallDef, iSidospalt: boolean): KompetensForm 
   return iSidospalt ? def.kompetenserISpalt ?? 'lista' : def.kompetenser
 }
 
+/**
+ * Antalet korta avsnitt sist i huvudspalten (intyg, språk, intressen,
+ * referenser, högst tre) som hålls ihop som en grupp, så att sista sidan
+ * aldrig bara får en ensam rad eller två (granskningen G2). 0 eller 1 betyder
+ * ingen grupp. Samma regel i PDF:en och Word-filen.
+ */
+export function slutgruppAntal(sektioner: readonly string[]): number {
+  let slut = 0
+  while (slut < 3 && slut < sektioner.length - 1 && ['intyg', 'sprak', 'intressen', 'referenser'].includes(sektioner[sektioner.length - 1 - slut])) slut++
+  return slut
+}
+
+/** Spalterna i kompetenser: 'spalter' för ett antal grupper (Not: tre, men två grupper fyller två). */
+export function spaltAntal(def: MallDef, grupper: number): number {
+  const max = def.kompetensSpalter ?? 2
+  return max === 3 && grupper <= 2 ? 2 : max
+}
+
 /** Spaltens avsnitt ur layouten: sidospalt eller tvåspaltens högerspalt. */
 export function spaltSektioner(def: MallDef): { fullBredd: Sektion[]; spalt: Sektion[]; vanster: Sektion[] | null } {
   const l = def.layout
   if (l.typ === 'sidospalt') return { fullBredd: [], spalt: l.spalt.sektioner, vanster: null }
   if (l.typ === 'tvaspalt') return { fullBredd: l.fullBredd, spalt: l.hoger, vanster: l.vanster }
+  // Sockelns avsnitt (Sockel) står i sidospalten: renderaren ritar dem i sockeln.
+  if (def.sockel) return { fullBredd: [], spalt: def.sockel.sektioner, vanster: null }
   return { fullBredd: [], spalt: [], vanster: null }
 }
 

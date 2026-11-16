@@ -15,6 +15,7 @@
  *   Garamond         EB Garamond (inte metrisk; närmaste fria Garamond)
  *   Verdana          DejaVu Sans (ingen fri metrisk tvilling finns; något smalare)
  *   Lato, Open Sans, Roboto, Poppins  sig själva
+ *   Montserrat, Lora, IBM Plex Sans   sig själva (utbud 2, bara PDF)
  *
  * Word-filen behåller Word-namnen: mottagaren har Calibri.
  *
@@ -96,6 +97,38 @@ export const TYPSNITT_FILER: Readonly<Record<TypsnittId, TypsnittFil>> = {
     fil: 'poppins',
     varianter: [
       { vikt: 300, stil: 'normal' },
+      { vikt: 400, stil: 'normal' },
+      { vikt: 500, stil: 'normal' },
+      { vikt: 600, stil: 'normal' },
+      { vikt: 400, stil: 'italic' },
+    ],
+    latinExt: true,
+  },
+  montserrat: {
+    familj: 'Montserrat',
+    fil: 'montserrat',
+    varianter: [
+      { vikt: 500, stil: 'normal' },
+      { vikt: 600, stil: 'normal' },
+      { vikt: 700, stil: 'normal' },
+    ],
+    latinExt: true,
+  },
+  lora: {
+    familj: 'Lora',
+    fil: 'lora',
+    varianter: [
+      { vikt: 400, stil: 'normal' },
+      { vikt: 500, stil: 'normal' },
+      { vikt: 600, stil: 'normal' },
+      { vikt: 400, stil: 'italic' },
+    ],
+    latinExt: true,
+  },
+  'ibm-plex-sans': {
+    familj: 'IBM Plex Sans',
+    fil: 'ibm-plex-sans',
+    varianter: [
       { vikt: 400, stil: 'normal' },
       { vikt: 500, stil: 'normal' },
       { vikt: 600, stil: 'normal' },

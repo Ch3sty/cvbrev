@@ -22,6 +22,9 @@ const CSS_STACK: Record<string, string> = {
   garamond: 'Garamond, Georgia, serif',
   times: "'Times New Roman', Times, serif",
   helvetica: 'Helvetica, Arial, sans-serif',
+  montserrat: "'Montserrat', Arial, sans-serif",
+  lora: "'Lora', Georgia, serif",
+  'ibm-plex-sans': "'IBM Plex Sans', Arial, sans-serif",
 }
 
 /** Namnet i en .docx, utan reservtypsnitt (Word tar bara ett namn). */
@@ -37,6 +40,9 @@ const DOCX_NAMN: Record<string, string> = {
   garamond: 'Garamond',
   times: 'Times New Roman',
   helvetica: 'Helvetica',
+  montserrat: 'Montserrat',
+  lora: 'Lora',
+  'ibm-plex-sans': 'IBM Plex Sans',
 }
 
 /**

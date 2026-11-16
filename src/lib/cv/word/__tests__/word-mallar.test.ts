@@ -86,7 +86,8 @@ for (const def of WORD) {
         // Namnet är Rubrik 1, en gång, och första stycket med text.
         const alla = allaStycken(doc)
         expect(alla.filter((s) => stil(s) === 'Heading1')).toHaveLength(1)
-        const forstaText = alla.find((s) => text(s).trim())!
+        // Remsan (Skylt) står överst med kontakten; namnet är första stycket efter den.
+        const forstaText = alla.find((s) => text(s).trim() && !(def.huvud.form === 'remsa' && stil(s) !== 'Heading1' && alla.indexOf(s) < 2))!
         expect(stil(forstaText)).toBe('Heading1')
         expect(text(forstaText)).toBe(cv.personalInfo.fullName)
 
@@ -114,12 +115,13 @@ for (const def of WORD) {
         for (const t of ['å', 'ä', 'ö', 'Å', 'Ä', 'Ö']) if (kalla.includes(t)) expect(value, t).toContain(t)
         expect(value).not.toMatch(/&amp;|&nbsp;|<\/?[a-z]+>/)
         const html = (await mammoth.convertToHtml({ buffer: buf })).value
-        const wordRubriker = [...html.matchAll(/<h2>(.*?)<\/h2>/g)].map((m) => m[1].replace(/<[^>]+>/g, '').replace(/&amp;/g, '&'))
+        const wordRubriker = [...html.matchAll(/<h2>(.*?)<\/h2>/g)].map((m) => m[1].replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/^\d{2}\s+/, '').trim())
         expect([...wordRubriker].sort()).toEqual([...htmlRubriker(cv, def, val)].sort())
 
         // Fotot är en inbäddad bild när mallen har fotoplats och CV:t ett foto.
-        if (def.foto && cv.personalInfo.profilePhotoUrl) expect(doc).toMatch(/<w:drawing/)
-        else expect(doc).not.toMatch(/<w:drawing/)
+        // (Korta linjer och tidslinjens punkter är också bilder, med andra namn.)
+        if (def.foto && cv.personalInfo.profilePhotoUrl) expect(doc).toMatch(/<wp:docPr[^>]*name="Foto"/)
+        else expect(doc).not.toMatch(/<wp:docPr[^>]*name="Foto"/)
       })
     }
 
@@ -139,7 +141,10 @@ for (const def of WORD) {
       }
       const { doc } = await packa(minsta, def.id)
       for (const s of styckenUtanforTabeller(doc)) if (!harBild(s)) expect(text(s).trim()).not.toBe('')
-      const h2 = allaStycken(doc).filter((s) => stil(s) === 'Heading2').map(text)
+      // Avsnittets nummer (Index) står i rubrikens stycke men hör inte till rubriken.
+      const h2 = allaStycken(doc)
+        .filter((s) => stil(s) === 'Heading2')
+        .map((s) => text(s).replace(/^\d{2}\s+/, '').trim())
       expect([...h2].sort()).toEqual([...htmlRubriker(minsta, def, {})].sort())
     })
   })

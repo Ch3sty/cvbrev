@@ -149,7 +149,7 @@ async function main() {
   const chrome = await chromeSokvag()
   const browser = await puppeteer.launch({ headless: true, executablePath: chrome })
   const resultat: Resultat[] = []
-  const mallar = MALLAR.filter((m) => !BARA || m.id === BARA)
+  const mallar = MALLAR.filter((m) => !BARA || BARA.split(",").includes(m.id))
 
   // Tre längder i standardordning, plus normalt CV med intyg och utbildning först.
   const fall: { namn: string; cv: CVMetadata; val: MallVal }[] = [
@@ -202,7 +202,7 @@ async function main() {
         if (UT) fs.writeFileSync(path.join(UT, `${def.id}-${f.namn}.docx`), buf)
         const { value } = await mammoth.extractRawText({ buffer: buf })
         const wordHtml = (await mammoth.convertToHtml({ buffer: buf })).value
-        const wRubriker = [...wordHtml.matchAll(/<h2>(.*?)<\/h2>/g)].map((m) => m[1].replace(/<[^>]+>/g, '').replace(/&amp;/g, '&'))
+        const wRubriker = [...wordHtml.matchAll(/<h2>(.*?)<\/h2>/g)].map((m) => m[1].replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/^\d{2}\s+/, '').trim())
         const fel = kontrollera(value, [wRubriker.filter((r) => spalter.huvud.includes(r)), wRubriker.filter((r) => !spalter.huvud.includes(r))], cv)
         // Word-rubrikerna är samma som HTML:ens (samma CV, samma val).
         const a = [...wRubriker].sort().join(' | ')
