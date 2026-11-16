@@ -119,3 +119,19 @@ describe('artikelns korta ordlista mot rubrikmodellen', () => {
     }
   )
 })
+
+import { MALL_KATALOG } from '@/lib/cv/mallar/katalog'
+
+describe('merförsäljningen mot utbudet (utbudets avsnitt 6)', () => {
+  it('utan foto: tre sidospalter', () => {
+    const u = merforsaljningsUrval(MALL_KATALOG, MALL_KATALOG[0].id, 1, false)
+    expect(u).toHaveLength(3)
+    expect(u.every((m) => m.familj === 'sidospalt' && m.niva === 'premium')).toBe(true)
+  })
+  it('med foto: olika former, sidospalt med foto först', () => {
+    const u = merforsaljningsUrval(MALL_KATALOG, MALL_KATALOG[0].id, 1, true)
+    expect(u[0].familj).toBe('sidospalt')
+    expect(u[0].foto).toBe(true)
+    expect(new Set(u.map((m) => `${m.familj}:${m.foto}`)).size).toBe(3)
+  })
+})

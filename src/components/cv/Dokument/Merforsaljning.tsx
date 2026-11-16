@@ -22,20 +22,25 @@ import { MERFORSALJNING } from './texter'
 export function merforsaljningsUrval(katalog: readonly MallKort[], nuvarande: string, sidor: number, harFoto: boolean): MallKort[] {
   const kandidater = katalog.filter((m) => m.id !== nuvarande && m.niva === 'premium' && m.familj !== 'konstnarlig')
   const enSida = sidor > 1 ? kandidater.find((m) => /en sida|kompakt|tät/i.test(`${m.kort} ${m.stil}`)) : undefined
-  const ordnade = [...kandidater].sort((a, b) => {
-    const p = (m: MallKort) => (m.word ? 2 : 0) + (harFoto && m.foto ? 1 : 0) + (!harFoto && !m.foto ? 1 : 0)
-    return p(b) - p(a)
-  })
+  // Sidospalter säljer bäst (utbudets avsnitt 6); med foto väger fotoplatsen in.
+  const poang = (m: MallKort) => (m.familj === 'sidospalt' ? 3 : 0) + (harFoto && m.foto ? 2 : 0) + (m.word ? 1 : 0)
+  const ordnade = kandidater
+    .map((m, i) => ({ m, i }))
+    .sort((a, b) => poang(b.m) - poang(a.m) || a.i - b.i)
+    .map((x) => x.m)
+  // Med foto: olika form (familj och fotoplats) i varje kort, så att valen skiljer sig.
+  const nyckel = (m: MallKort) => (harFoto ? `${m.familj}:${m.foto}` : m.id)
+  const antal = enSida ? 2 : 3
   const ut: MallKort[] = []
-  const familjer = new Set<string>()
+  const sedda = new Set<string>()
   for (const m of ordnade) {
-    if (ut.length >= (enSida ? 2 : 3)) break
-    if (m.id === enSida?.id || familjer.has(m.familj)) continue
+    if (ut.length >= antal) break
+    if (m.id === enSida?.id || sedda.has(nyckel(m))) continue
     ut.push(m)
-    familjer.add(m.familj)
+    sedda.add(nyckel(m))
   }
   for (const m of ordnade) {
-    if (ut.length >= (enSida ? 2 : 3)) break
+    if (ut.length >= antal) break
     if (!ut.includes(m) && m.id !== enSida?.id) ut.push(m)
   }
   if (enSida) ut.push(enSida)
