@@ -28,12 +28,34 @@ import { ritning } from './definitioner/ritning'
 import { tidning } from './definitioner/tidning'
 import { tusch } from './definitioner/tusch'
 import { horisont } from './definitioner/horisont'
+import { lind } from './definitioner/lind'
+import { alm } from './definitioner/alm'
+import { valv } from './definitioner/valv'
+import { sand } from './definitioner/sand'
+import { furu } from './definitioner/furu'
+import { ramverk } from './definitioner/ramverk'
+import { index } from './definitioner/index'
+import { skylt } from './definitioner/skylt'
+import { loft } from './definitioner/loft'
+import { pergament } from './definitioner/pergament'
+import { betong } from './definitioner/betong'
+import { not } from './definitioner/not'
+import { spar } from './definitioner/spar'
+import { ek } from './definitioner/ek'
+import { sockel } from './definitioner/sockel'
+import { panorama } from './definitioner/panorama'
+import { sigill } from './definitioner/sigill'
+import { kakel } from './definitioner/kakel'
+import { kant } from './definitioner/kant'
+import { affisch } from './definitioner/affisch'
 
 export { MALL_ALIAS, losMallId, losMallIdEllerForval }
 
 const DEFINITIONER: readonly MallDef[] = [
   linne, bjork, koppar, kalksten, granit, kolumn, arsring, antikva, fasad, raster, folio, stal,
   morkrum, terrakotta, kvadrat, siluett, ritning, tidning, tusch, horisont,
+  lind, alm, valv, sand, furu, ramverk, index, skylt, loft, pergament, betong, not, spar, ek,
+  sockel, panorama, sigill, kakel, kant, affisch,
 ]
 
 const PER_ID = new Map(DEFINITIONER.map((d) => [d.id, d]))

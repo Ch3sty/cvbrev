@@ -53,6 +53,27 @@ const RADER: Rad[] = [
   ['tidning', 'Tidning', 'premium', 'konstnarlig', false, false, 'georgia', 'Namnet som tidningshuvud, profilen i två spalter', 'Tidningshuvud', ['#9B1B1B', '#1F3A5F', '#1A1A1A', '#1E5A3C']],
   ['tusch', 'Tusch', 'premium', 'konstnarlig', false, false, 'roboto', 'Monokrom, startåren stora och ljusgrå i marginalen', 'Stora årtal', ['#1A1A1A', '#1F3A5F', '#7A1F2B', '#1E5A3C']],
   ['horisont', 'Horisont', 'premium', 'konstnarlig', false, false, 'open-sans', 'Tidsaxel under huvudet med en punkt per anställning', 'Tidsaxel under huvudet', ['#1B5E8A', '#1E5A3C', '#8A4B2A', '#5B2A4E']],
+  // Utbud 2 (docs/design/mallar-utbud-2-2026-11-16.md): 21 till 34 i PDF och Word, 35 till 40 bara PDF.
+  ['lind', 'Lind', 'premium', 'en-spalt', true, false, 'georgia', 'Georgia-brödtext, små versala rubriker utan linjer, linje ovanför namnet', 'Serif, utan linjer', ['#3E5C3A', '#1F3A5F', '#7A1F2B', '#3A3A3A']],
+  ['alm', 'Alm', 'premium', 'en-spalt', true, true, 'calibri', 'Delat huvud med rundat foto, kontakten till höger, understrukna rubriker', 'Delat huvud, foto', ['#1A5A80', '#1E5A3C', '#8A4B2A', '#2B2F36']],
+  ['valv', 'Valv', 'premium', 'en-spalt', true, false, 'georgia', 'Georgia, centrerat huvud med kort accentlinje, rubriker med linje efter', 'Centrerad serif, rubriklinjer', ['#5B2A4E', '#1F3A5F', '#1E5A3C', '#3A3A3A']],
+  ['sand', 'Sand', 'premium', 'sidospalt', true, true, 'calibri', 'Sandfärgad högerpanel med runt foto överst, hårlinje mellan posterna', 'Ljus högerpanel, foto', ['#7A4A1F', '#1F3A5F', '#1E5A3C', '#4A5561']],
+  ['furu', 'Furu', 'premium', 'marginal', true, false, 'arial', 'Arial, årtalen i en högerkolumn, rubriker med linje i full bredd', 'Årtalen till höger', ['#355E3B', '#1F3A5F', '#8A4B2A', '#2B2F36']],
+  ['ramverk', 'Ramverk', 'premium', 'en-spalt', true, false, 'garamond', 'Garamond, tunn ram runt sidan, centrerat namn, spärrade versala rubriker', 'Ram runt sidan', ['#4B3F72', '#7A1F2B', '#1E5A3C', '#1F3A5F']],
+  ['index', 'Index', 'premium', 'en-spalt', true, false, 'calibri', 'Numrerade avsnitt med Georgia-siffra, Georgia-namn med linje under', 'Numrerade avsnitt', ['#0B525B', '#1F3A5F', '#7A1F2B', '#3A3A3A']],
+  ['skylt', 'Skylt', 'premium', 'en-spalt', true, false, 'arial', 'Smal färgremsa med kontakten, stort namn, rubriker som fyllda band', 'Färgremsa och fyllda rubriker', ['#2F4858', '#7A1F2B', '#1F3A5F', '#1E5A3C']],
+  ['loft', 'Loft', 'premium', 'en-spalt', true, true, 'calibri', 'Breda marginaler, stort namn, runt foto till höger, grå rubriker', 'Luftig, stort namn, foto', ['#704214', '#1F3A5F', '#3A3A3A', '#1E5A3C']],
+  ['pergament', 'Pergament', 'premium', 'en-spalt', true, false, 'times', 'Times New Roman, huvudet i dubbel ram, högerställda rubriker', 'Inramat huvud, serif', ['#6B5B2E', '#1F3A5F', '#3A3A3A', '#5B2A4E']],
+  ['betong', 'Betong', 'premium', 'en-spalt', true, true, 'verdana', 'Verdana, ljusgrått band med foto till vänster, kort linje över rubrikerna', 'Grått band, foto vänster', ['#4A5561', '#1F3A5F', '#556B2F', '#8A4B2A']],
+  ['not', 'Not', 'premium', 'en-spalt', true, false, 'calibri', 'Kompakt, namn och kontakt på samma rad, kompetenser i tre spalter', 'Kompakt, rymmer mer', ['#1A4D6E', '#1E5A3C', '#7A1F2B', '#2B2F36']],
+  ['spar', 'Spår', 'premium', 'marginal', true, false, 'calibri', 'Prickad tidslinje med en punkt vid varje anställning och utbildning', 'Prickad tidslinje', ['#1B6478', '#1F3A5F', '#3A3A3A', '#1E5A3C']],
+  ['ek', 'Ek', 'premium', 'sidospalt', true, true, 'arial', 'Vänsterspalt utan bakgrund med accentlinje, stort foto överst', 'Spaltlinje och stort foto', ['#2E5A4A', '#1F3A5F', '#7A1F2B', '#2B2F36']],
+  ['sockel', 'Sockel', 'premium', 'konstnarlig', false, false, 'lato', 'Montserrat-namn och mörk sockel nederst med kontakt och språk', 'Mörk sockel nederst', ['#1C2B3A', '#123B6D', '#1E5A3C', '#5B2A4E']],
+  ['panorama', 'Panorama', 'premium', 'konstnarlig', false, true, 'open-sans', 'Tonat band med stående foto i kanten, Lora-namn, understrukna rubriker', 'Stående foto i bandet', ['#8C2F39', '#1F3A5F', '#1E5A3C', '#4B3F72']],
+  ['sigill', 'Sigill', 'premium', 'konstnarlig', false, false, 'lora', 'Lora, monogram med initialerna, spärrade versala rubriker', 'Monogram, serif', ['#8A2F4A', '#1F3A5F', '#1E5A3C', '#3A3A3A']],
+  ['kakel', 'Kakel', 'premium', 'konstnarlig', false, true, 'ibm-plex-sans', 'IBM Plex Sans, profil och kompetenser i tonade rutor', 'Tonade rutor', ['#556B2F', '#1F3A5F', '#7A1F2B', '#2B2F36']],
+  ['kant', 'Kant', 'premium', 'konstnarlig', false, true, 'open-sans', 'Färgad remsa längs vänsterkanten, runt foto ovanför namnet', 'Färgkant, foto över namnet', ['#6B4A1F', '#1F3A5F', '#5B2A4E', '#2B2F36']],
+  ['affisch', 'Affisch', 'premium', 'konstnarlig', false, false, 'lato', 'Namnet i stora versaler på två rader, rubrikerna i en vänsterkolumn', 'Namnet som affisch', ['#6E2C00', '#1F3A5F', '#1E5A3C', '#2B2F36']],
 ]
 
 /**
@@ -67,6 +88,14 @@ const KORT_UTAN_FOTO: Record<string, string> = {
   granit: 'Mörk sidospalt, vit text',
   fasad: 'Stort namn',
   morkrum: 'Mörkt huvud',
+  // Utbud 2 avsnitt 4 punkt 8. Panorama saknas: kortet handlar om fotot.
+  alm: 'Delat huvud',
+  sand: 'Ljus högerpanel',
+  loft: 'Luftig, stort namn',
+  betong: 'Grått band',
+  ek: 'Spalt med linje',
+  kakel: 'Tonade rutor',
+  kant: 'Färgkant',
 }
 
 /** Katalogen i visningsordning. */

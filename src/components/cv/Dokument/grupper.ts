@@ -2,7 +2,7 @@
  * Mallarna i grupper, i Alla-listans ordning: Föreslagna, Gratis och sedan
  * formfamiljerna. Samma ordning i Alla-arket, i mallkolumnen på datorn och
  * i helskärmens remsa på datorn. Varje mall står i högst en grupp och en
- * grupp utan mallar visas aldrig (ägaren 2026-11-16: "EN SPALT" utan mallar).
+ * grupp utan mallar visas aldrig (ägarens påpekande om "EN SPALT" utan mallar, 2026-11-16).
  *
  * Ren funktion, ingen 'use client'.
  */
