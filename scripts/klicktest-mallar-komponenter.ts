@@ -569,50 +569,11 @@ async function inloggad(browser: Browser, k: Konto, vy: Vy, tema: 'ljus' | 'mork
     })
     const docx = await vantaFil(nedMapp, '.docx', 90000)
     kontroll(Boolean(docx), `${steg}: Word laddas ner (${docx ? path.basename(docx) : 'ingen'})`)
-    await steg7(page, steg)
+    // Byggarens gamla steg 7 (granskningen V8) finns inte längre: CV-byggaren
+    // Direkt på arket (f039f965) testas i scripts/klicktest-cv-byggare.ts.
   }
   kontroll(fel.length === 0, `${steg}: inga JS-fel eller 5xx (${fel.slice(0, 3).join(' | ')})`)
   await ctx.close()
-}
-
-/** Byggarens steg 7 med ifyllt CV (granskningen V8). */
-async function steg7(page: Page, steg: string) {
-  const utkast = {
-    data: {
-      personalInfo: { fullName: 'Erik Lindberg', email: 'erik@example.com', phone: '070-123 45 67', address: 'Stockholm', title: 'Projektledare' },
-      summary: 'Projektledare med sex års erfarenhet av digitala projekt inom bank och fintech.',
-      experience: [{ position: 'Projektledare', company: 'Nordea', startDate: '2021', description: ['Ledde ett team på tolv personer'] }],
-      education: [{ degree: 'Civilingenjör', institution: 'KTH', startDate: '2013', endDate: '2018' }],
-      skills: [{ category: 'Metodik', skills: ['Scrum', 'Kanban', 'SAFe'] }],
-      languages: [{ language: 'Svenska', proficiency: 'Modersmål' }],
-      certifications: [],
-    },
-    timestamp: Date.now(),
-    expiresAt: Date.now() + 86400000,
-  }
-  await page.evaluate((u) => localStorage.setItem('jobbcoach_cv_draft', JSON.stringify(u)), utkast)
-  await page.goto(`${BAS}/dashboard/skapa-cv?steg=7`, { waitUntil: 'networkidle2' })
-  await vila(1500)
-  await page.evaluate(() => (document.querySelector('section[aria-label="Påbörjat utkast"] button') as HTMLButtonElement | null)?.click())
-  await vila(4000)
-  await bild(page, `${steg}-08-steg7`, true)
-  const har = await page.evaluate(() => ({
-    remsa: document.body.textContent!.includes('Föreslagna för dig'),
-    ark: Boolean(document.querySelector('.dok-ark-yta')),
-    knapp: [...document.querySelectorAll('button')].some((b) => b.innerText.includes('Spara och ladda ner')),
-  }))
-  kontroll(har.remsa && har.ark && har.knapp, `${steg}: steg 7 med ifyllt CV, remsan, arket och Spara och ladda ner (${JSON.stringify(har)})`)
-  // Tryck på ett avsnitt går till steget och tillbaka.
-  const avsnitt = await page.evaluate(() => {
-    const b = [...document.querySelectorAll<HTMLButtonElement>('.dok-ark-yta button[aria-label^="Erfarenhet"]')][0]
-    b?.click()
-    return Boolean(b)
-  })
-  await vila(2000)
-  const pa3 = page.url().includes('steg=3')
-  await klickaText(page, 'Granska CV').catch(() => undefined)
-  await vila(3000)
-  kontroll(avsnitt && pa3 && page.url().includes('steg=7'), `${steg}: tryck på avsnittet går till steget och Granska CV tillbaka (${page.url().replace(BAS, '')})`)
 }
 
 async function artikelOchYrke(browser: Browser, vy: Vy, tema: 'ljus' | 'mork') {
