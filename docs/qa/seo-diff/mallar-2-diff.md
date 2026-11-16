@@ -3,7 +3,7 @@
 Före: docs/qa/seo-diff/mallar-2-fore-live.json  
 Efter: docs/qa/seo-diff/mallar-2-efter.json  
 Sidor: 17  
-Fel: 3
+Fel: 0
 
 ### /artiklar/online-cv-byggare-gratis
 - tillåten JSON-LD-skillnad 2026-11-15 och 2026-11-15: 2026-11-15: Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/online-cv-byggare-gratis.md. 2026-11-15: BlogPosting, FAQPage, HowTo och BreadcrumbList följer omskrivningen.
@@ -98,22 +98,19 @@ Fel: 3
 - ok: artikelbilden syns med imageAlt: /images/artiklar/vad-ar-en-jobbcoach-v2.webp
 
 ### /cv-mallar
-- tillåten JSON-LD-skillnad 2026-11-14 och 2026-11-16: 2026-11-16: Nya block från /verktyg/cv-mallar: ItemList med en Product per mall (url till #mall-<id> på /cv-mallar) och HowTo ur de synliga stegen; FAQPage har fått de fem frågorna som flyttade med. 2026-11-14: Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: "CV-mall" först, 41 mallar och 3 gratis ur konstanterna; ItemList description utan påståendet att alla är ATS-säkra; FAQ tvättad och tre frågor om chef, karriärbyte och byte av mall (K6).
+- tillåten JSON-LD-skillnad 2026-11-14 och 2026-11-16 och 2026-11-16: 2026-11-16: Nya block från /verktyg/cv-mallar: ItemList med en Product per mall (url till #mall-<id> på /cv-mallar) och HowTo ur de synliga stegen; FAQPage har fått de fem frågorna som flyttade med. 2026-11-14: Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: "CV-mall" först, 41 mallar och 3 gratis ur konstanterna; ItemList description utan påståendet att alla är ATS-säkra; FAQ tvättad och tre frågor om chef, karriärbyte och byte av mall (K6). 2026-11-16: Mallutbud 2: steg 4 i HowTo, "Word i tolv av mallarna" blir "Word i 26 av mallarna" i namn och text (WORD_TEMPLATE_COUNT_ORD ur katalogen). Övriga steg, namn och beskrivning oförändrade; stegen läses ur samma data som de synliga stegen.
 - ok: title bytt (2026-11-14): "CV-mall: 20 mallar att fylla i och ladda ner, 2 gratis" → "CV-mall: 40 mallar att fylla i och ladda ner, 2 gratis". Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 a: "CV-mall" först, 41 mallar och 3 gratis ur konstanterna; ItemList description utan påståendet att alla är ATS-säkra; FAQ tvättad och tre frågor om chef, karriärbyte och byte av mall (K6).
 - ok: description bytt (2026-11-16): "CV-mallar för svenska jobb: 20 mallar att fylla i och ladda ner som PDF eller Word, 2 av dem gratis. Se vilken mall som passar ditt yrke och din erfarenhet." → "CV-mallar för svenska jobb: 40 mallar att fylla i och ladda ner som PDF eller Word, 2 av dem gratis. Se vilken mall som passar ditt yrke och din erfarenhet.". SEO-strategen: Word nämns i beskrivningen när Word-avsnittet flyttat hit ("som PDF eller Word"), 156 tecken.
-- FEL: h1: ["CV-mallar att fylla i och ladda ner. 20 mallar, 2 gratis."] → ["CV-mallar att fylla i och ladda ner. 40 mallar, 2 gratis."]
+- ok: h1 bytt (2026-11-16): "CV-mallar att fylla i och ladda ner. 20 mallar, 2 gratis." → "CV-mallar att fylla i och ladda ner. 40 mallar, 2 gratis.". Mallutbud 2: 40 mallar i katalogen (MALL_ANTAL). Samma h1 i övrigt, huvudordet först, talet stämmer nu med title och beskrivning som redan säger 40.
 - ok: sektionsrubriker ändrade (omritad yta, tillåtet): borta 1, nya 15
 - ok: ord i main 3893 → 4043 (+3.9 %)
 - ok: nya interna länkar i innehållet: ["/cv-mallar/prova?mall=affisch","/cv-mallar/prova?mall=alm","/cv-mallar/prova?mall=betong","/cv-mallar/prova?mall=ek","/cv-mallar/prova?mall=furu","/cv-mallar/prova?mall=index","/cv-mallar/prova?mall=kakel","/cv-mallar/prova?mall=kant","/cv-mallar/prova?mall=lind","/cv-mallar/prova?mall=loft","/cv-mallar/prova?mall=not","/cv-mallar/prova?mall=panorama","/cv-mallar/prova?mall=pergament","/cv-mallar/prova?mall=ramverk","/cv-mallar/prova?mall=sand","/cv-mallar/prova?mall=sigill","/cv-mallar/prova?mall=skylt","/cv-mallar/prova?mall=sockel","/cv-mallar/prova?mall=spar","/cv-mallar/prova?mall=valv"]
-- ok: JSON-LD ändrad i tillåten typ (2026-11-14 och 2026-11-16): FAQPage, ItemList
-- FEL: JSON-LD borta: {"@context":"https://schema.org","@type":"HowTo","description":"Fyra steg från val till färdig PDF: välj mall, fyll i, vi flyttar in innehållet, ladda ner.","estimatedCost":{"@type":"MonetaryAmount","currency":"SEK","value":"0"},"name":"Så bygger du ett CV med Jobbcoach.ai","step":[{"@type":"HowToSt
-- ok: nya JSON-LD-block (2026-11-14 och 2026-11-16): HowTo
+- ok: JSON-LD ändrad i tillåten typ (2026-11-14 och 2026-11-16 och 2026-11-16): FAQPage, HowTo, ItemList
 
 ### /cv-mallar/prova
-- FEL: description: "Ladda upp ditt CV så ser du det i 20 ATS-säkra mallar. Två är gratis." → "Ladda upp ditt CV så ser du det i 40 ATS-säkra mallar. Två är gratis."
+- ok: description bytt (2026-11-16): "Ladda upp ditt CV så ser du det i 20 ATS-säkra mallar. Två är gratis." → "Ladda upp ditt CV så ser du det i 40 ATS-säkra mallar. Två är gratis.". Mallutbud 2: "20 ATS-säkra mallar" blir "40" ur katalogen (MALL_ANTAL). Bara talet byts, längden oförändrad. Sidan har canonical till /cv-mallar, så beskrivningen är inte ett sökmål i sig.
 - ok: ord i main 95 → 95 (+0.0 %)
 
 ### /cv-mallar/underskoterska
 - tillåten JSON-LD-skillnad 2026-11-16: Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). FAQ-svar som nämnde gamla mallar eller deras design omskrivna till yrkets nya mallpar; frågorna oförändrade. Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.
 - ok: ord i main 1934 → 1934 (+0.0 %)
-

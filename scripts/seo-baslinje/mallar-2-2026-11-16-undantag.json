@@ -1,0 +1,28 @@
+{
+  "_om": "Mallutbud 2 (2026-11-16): utbudet går från 20 till 40 CV-mallar, 26 av dem med Word. Talen läses ur katalogen (MALL_ANTAL, WORD_TEMPLATE_COUNT_ORD), så h1, metabeskrivning och HowTo-steg följer med. SEO-strategen granskade: talen stämmer med katalogen (40 mallar, 2 gratis, 26 med Word), titel och beskrivning byter bara tal och behåller längd, 26 skrivs med siffror enligt Språkrådets regel (ord till och med tolv, siffror därefter).",
+  "H1_BYTT": [
+    {
+      "path": "/cv-mallar",
+      "fore": "CV-mallar att fylla i och ladda ner. 20 mallar, 2 gratis.",
+      "efter": "CV-mallar att fylla i och ladda ner. 40 mallar, 2 gratis.",
+      "datum": "2026-11-16",
+      "skal": "Mallutbud 2: 40 mallar i katalogen (MALL_ANTAL). Samma h1 i övrigt, huvudordet först, talet stämmer nu med title och beskrivning som redan säger 40."
+    }
+  ],
+  "META_BYTT": [
+    {
+      "path": "/cv-mallar/prova",
+      "falt": "description",
+      "datum": "2026-11-16",
+      "skal": "Mallutbud 2: \"20 ATS-säkra mallar\" blir \"40\" ur katalogen (MALL_ANTAL). Bara talet byts, längden oförändrad. Sidan har canonical till /cv-mallar, så beskrivningen är inte ett sökmål i sig."
+    }
+  ],
+  "LD_UNDANTAG": [
+    {
+      "path": "/cv-mallar",
+      "datum": "2026-11-16",
+      "andrade": ["HowTo"],
+      "skal": "Mallutbud 2: steg 4 i HowTo, \"Word i tolv av mallarna\" blir \"Word i 26 av mallarna\" i namn och text (WORD_TEMPLATE_COUNT_ORD ur katalogen). Övriga steg, namn och beskrivning oförändrade; stegen läses ur samma data som de synliga stegen."
+    }
+  ]
+}
