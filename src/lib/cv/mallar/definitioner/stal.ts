@@ -38,7 +38,7 @@ export const stal: MallDef = {
   post: { arbetsgivare: { farg: '#444444' }, luftMellan: 3.8 },
   punkt: PUNKT,
   kompetenser: 'grupp',
-  kompetenserISpalt: 'lista',
+  kompetenserISpalt: 'mittpunkt',
   intyg: 'lista',
   sprak: 'lista',
   ordning: HUVUDSPALT,

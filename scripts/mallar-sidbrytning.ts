@@ -7,7 +7,9 @@
  *   - en post (jobb, utbildning, projekt) delas mellan två sidor,
  *   - en rubrik står sist på en sida utan början av sitt innehåll,
  *   - en sida har en eller två rader,
- *   - sidantalet ligger utanför förväntan (kort 1, normalt 1 till 2, långt 2 till 3).
+ *   - sidantalet ligger utanför förväntan (kort 1, normalt 1 till 2, långt 2 till 3,
+ *     normalt med "Få plats på en sida" 1),
+ *   - en sida efter den första i en sidospaltsmall bara har spaltens innehåll.
  *
  * Kör: npx tsx scripts/mallar-sidbrytning.ts [--mall <id>] [--ut <mapp>] [--png]
  * PDF:er och bilder sparas bara med --ut, och då utanför git.
@@ -15,6 +17,7 @@
 import fs from 'fs'
 import path from 'path'
 import type { CVMetadata } from '../src/lib/cv/cv-metadata'
+import type { MallVal } from '../src/lib/cv/mallar/kontrakt'
 import { CV_LANGDER } from '../src/lib/cv/word/__tests__/fixtures'
 import { lasPdfGeometri, norm, ritaPdfSidor, sidaFor, sidaForRubrik, sidaForSlut } from './lib/pdf-verktyg'
 
@@ -31,16 +34,17 @@ const FOTO =
   'data:image/svg+xml;base64,' +
   Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect width="200" height="200" fill="#9aa4ae"/></svg>').toString('base64')
 
-const FORVANTAT: Record<string, [number, number]> = { kort: [1, 1], normalt: [1, 2], langt: [2, 3] }
+const FORVANTAT: Record<string, [number, number]> = { kort: [1, 1], normalt: [1, 2], langt: [2, 3], ensida: [1, 1] }
 
 interface Struktur {
-  poster: { forsta: string; sista: string }[]
+  poster: { forsta: string; sista: string; lang: boolean }[]
   rubriker: { rubrik: string; nasta: string }[]
 }
 
 async function main() {
   const { MALLAR } = await import('../src/lib/cv/mallar/register')
   const { renderaMallHtml } = await import('../src/lib/cv/rendera-mall-html')
+  const { renderaMallPdf } = await import('../src/lib/cv/mallar/pdf')
   const { generateSwedishCVPDF, closeSwedishCVPDFGenerator } = await import('../src/lib/cv/swedish-cv-pdf-generator')
   const puppeteer = (await import('puppeteer')).default
   const browser = await puppeteer.launch({ headless: true })
@@ -48,10 +52,17 @@ async function main() {
   const rapport: { mall: string; langd: string; sidor: number; fel: string[] }[] = []
   const pdfer: string[] = []
   for (const def of MALLAR.filter((m) => !BARA || m.id === BARA)) {
-    for (const [langd, bas] of Object.entries(CV_LANGDER)) {
+    // Tre längder, plus NORMALT_CV med "Få plats på en sida" som ska ge en sida (G7).
+    const fall: [string, CVMetadata, MallVal][] = [
+      ...Object.entries(CV_LANGDER).map(([l, c]) => [l, c, {}] as [string, CVMetadata, MallVal]),
+      ['ensida', CV_LANGDER.normalt, { enSida: true }],
+    ]
+    for (const [langd, bas, val] of fall) {
       const cv: CVMetadata = structuredClone(bas)
       if (def.foto && langd !== 'kort') cv.personalInfo.profilePhotoUrl = FOTO
-      const html = renderaMallHtml(cv, def.id, {})!
+      const skriv = (h: string) => generateSwedishCVPDF(h, cv, { template: def.id, format: 'A4', swedishSettings: { pageLimit: 4 } } as Parameters<typeof generateSwedishCVPDF>[2])
+      const resultat = (await renderaMallPdf(cv, def.id, val, skriv))!
+      const html = renderaMallHtml(cv, def.id, { ...val, ...(resultat.steg ? { enSidaSteg: resultat.steg } : {}) })!
 
       // Posternas första och sista text, och texten efter varje rubrik, ur DOM:en.
       const sida = await browser.newPage()
@@ -61,7 +72,7 @@ async function main() {
         const txt = (el: Element | null | undefined) => (el?.textContent ?? '').replace(/\s+/g, ' ').trim()
         const poster = Array.from(document.querySelectorAll('[data-post]')).map((p) => {
           const delar = Array.from(p.querySelectorAll('h3, .under, .posttext, li')).filter((e) => txt(e))
-          return { forsta: txt(p.querySelector('h3')), sista: txt(delar[delar.length - 1]) }
+          return { forsta: txt(p.querySelector('h3')), sista: txt(delar[delar.length - 1]), lang: p.hasAttribute('data-lang') }
         })
         const rubriker = Array.from(document.querySelectorAll('h2')).map((h) => {
           const efter = Array.from(h.closest('.start')?.querySelectorAll('h3, p, li') ?? []).find((e) => txt(e) && !h.contains(e))
@@ -71,12 +82,14 @@ async function main() {
       })
       await sida.close()
 
-      const pdf = await generateSwedishCVPDF(html, cv, { template: def.id, format: 'A4', swedishSettings: { pageLimit: 4 } } as Parameters<typeof generateSwedishCVPDF>[2])
+      const pdf = resultat.pdf
       const g = await lasPdfGeometri(pdf)
       const fel: string[] = []
 
       for (const p of s.poster) {
-        const a = sidaFor(g, p.forsta)
+        // Långa poster i smala spalter får brytas mellan punkterna (html.ts, post).
+        if (p.lang) continue
+        const a = sidaForRubrik(g, p.forsta)
         const b = sidaForSlut(g, p.sista, Math.max(1, a))
         if (a < 0 || b < 0) fel.push(`posten "${p.forsta.slice(0, 30)}" hittas inte i PDF:en`)
         else if (a !== b) fel.push(`posten "${p.forsta.slice(0, 30)}" delas mellan sida ${a} och ${b}`)
@@ -90,6 +103,14 @@ async function main() {
       for (let sidnr = 1; sidnr <= g.sidor; sidnr++) {
         const rader = new Set(g.rader.filter((r) => r.sida === sidnr).map((r) => Math.round(r.y)))
         if (rader.size <= 2) fel.push(`sida ${sidnr} har bara ${rader.size} rad(er): ${g.rader.filter((r) => r.sida === sidnr).map((r) => norm(r.text)).join(' | ').slice(0, 80)}`)
+      }
+      // Sidospalter (G1): varje sida har huvudspaltens innehåll, aldrig bara spaltens.
+      if (def.layout.typ === 'sidospalt' && !def.layout.spalt.huvudISpalten) {
+        const grans = def.layout.spalt.bredd * 2.835
+        const iHuvud = (x: number) => (def.layout.typ === 'sidospalt' && def.layout.spalt.sida === 'vanster' ? x > grans : x < 595 - grans)
+        for (let sidnr = 2; sidnr <= g.sidor; sidnr++) {
+          if (!g.rader.some((r) => r.sida === sidnr && iHuvud(r.x))) fel.push(`sida ${sidnr} har bara spaltens innehåll`)
+        }
       }
       const [min, max] = FORVANTAT[langd]
       if (g.sidor < min || g.sidor > max) fel.push(`${g.sidor} sidor, förväntat ${min === max ? min : `${min} till ${max}`}`)

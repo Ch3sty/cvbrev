@@ -28,7 +28,7 @@ export const tusch: MallDef = {
     luftOver: 6.5,
     luftUnder: 3,
   },
-  layout: { typ: 'marginalperiod', bredd: 34, stortAr: { pt: 22, farg: '#B5B5B5', vikt: 300 }, indragAvsnitt: true },
+  layout: { typ: 'marginalperiod', bredd: 34, stortAr: { pt: 22, farg: '#8A8A8A', vikt: 300 }, indragAvsnitt: true },
   post: { arbetsgivare: { farg: '#555555' }, luftMellan: 4 },
   punkt: { tecken: '•', farg: 'text', indrag: 4.5 },
   kompetenser: 'grupp',

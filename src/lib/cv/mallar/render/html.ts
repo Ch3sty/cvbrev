@@ -51,7 +51,9 @@ const esc = (s: string) =>
 /** Ett riktigt mellanslag som Chrome skriver ut i PDF:ens text, också mellan flexceller. */
 const MELLAN = '<span class="mellan"> </span>'
 /** " · " mellan uppgifter på en rad; varje uppgift är ett eget element. */
-const PRICK = '<span class="prick"> · </span>'
+const PRICK = '<span class="prick">&nbsp;·</span> '
+// Punkten sitter fast vid föregående uppgift med ett fast mellanslag, så att
+// en rad aldrig börjar med punkten (G3).
 
 interface Ctx {
   def: MallDef
@@ -71,8 +73,15 @@ function marginalBredd(def: MallDef): number | null {
 
 function kontaktLista(rader: KontaktRad[], form: 'rad' | 'lista'): string {
   if (!rader.length) return ''
-  const li = rader.map((r) => `<li data-falt="${r.typ}">${esc(r.text)}</li>`)
-  return `<ul class="kontakt kontakt-${form}" data-falt="kontakt">${form === 'rad' ? li.join(`<li class="prick" aria-hidden="true"> · </li>`) : li.join('')}</ul>`
+  // En lång e-postadress bryts efter @ i en smal spalt.
+  // I raden sitter punkten kvar på föregående uppgift, så att en rad aldrig börjar med den.
+  const li = rader.map(
+    (r, i) =>
+      `<li data-falt="${r.typ}">${r.typ === 'epost' ? esc(r.text).replace('@', '@<wbr>') : esc(r.text)}${
+        form === 'rad' && i < rader.length - 1 ? '<span class="prick" aria-hidden="true">&nbsp;·&nbsp;</span>' : ''
+      }</li>`
+  )
+  return `<ul class="kontakt kontakt-${form}" data-falt="kontakt">${li.join('')}</ul>`
 }
 
 function foto(dok: Dokument, c: Ctx): string {
@@ -128,6 +137,16 @@ function post(p: Post, c: Ctx, sektion: string): string {
     return `<div class="post post-${sektion} post-marginal" data-post>${marg}<div class="post-innehall">${titel}${under}${text}${punkter}</div></div>`
   }
   const period = p.period ? `${MELLAN}<span class="period">${esc(p.period)}</span>` : ''
+  // En lång post (fler än fem punkter) i en smal spalt får brytas mellan
+  // punkterna: hel blir den ofta högre än halva sidan och lämnar stora tomma
+  // ytor. Titeln och de två första punkterna hålls ihop, liksom de två sista.
+  const smal = l.typ === 'sidospalt' || l.typ === 'tvaspalt'
+  if (smal && p.punkter.length > 5) {
+    const li = p.punkter.map((t) => `<li>${esc(t)}</li>`)
+    return `<div class="post post-${sektion} post-lang" data-post data-lang><div class="hall"><div class="postrad">${titel}${period}</div>${under}${text}<ul class="punkter">${li
+      .slice(0, 2)
+      .join('')}</ul></div><ul class="punkter fortsatt">${li.slice(2).join('')}</ul></div>`
+  }
   return `<div class="post post-${sektion}" data-post><div class="postrad">${titel}${period}</div>${under}${text}${punkter}</div>`
 }
 
@@ -200,9 +219,12 @@ function block(a: Avsnitt, c: Ctx, iSpalt: boolean): string[] {
         )
         return [`<ul class="intyglista">${rader.join('')}</ul>`]
       }
-      return inn.rader.map(
+      const rader = inn.rader.map(
         (r) => `<div class="intygrad"><span class="intyg-namn">${esc(r.namn)}</span>${intygDetalj(r) ? `${MELLAN}<span class="intyg-detalj">${esc(intygDetalj(r))}</span>` : ''}</div>`
       )
+      // Högst sex rader hålls ihop; längre listor bryts aldrig före tredje raden (G2).
+      if (rader.length <= 6) return [`<div class="hall">${rader.join('')}</div>`]
+      return [`<div class="hall">${rader.slice(0, 2).join('')}</div>`, ...rader.slice(2)]
     }
     case 'sprak': {
       if (formSprak === 'marginal') return inn.rader.map((r) => marginalRad(esc(r.sprak), `<p>${esc(r.niva)}</p>`))
@@ -220,9 +242,16 @@ function avsnitt(a: Avsnitt, c: Ctx, iSpalt: boolean): string {
   // Certifieringarna i ett fält i spalten (Kalksten, Granit): rubriken och raderna i en ruta.
   const intygsfalt = iSpalt && a.sektion === 'intyg' && c.def.layout.typ === 'sidospalt' && c.def.layout.spalt.intygsfalt
   const rubrik = `<h2 class="rubrik" data-sektion="${a.sektion}">${esc(a.rubrik)}</h2>`
-  if (c.def.profilSpalter && a.sektion === 'profil' && !iSpalt) delar = [`<div class="profilspalter">${delar.join('')}</div>`]
+  // Profilen i två spalter (Tidning) bara när den är minst 280 tecken; en
+  // kortare profil ger gluggar i marginaljusteringen och står i en spalt.
+  if (c.def.profilSpalter && a.sektion === 'profil' && !iSpalt && a.innehall.typ === 'text') {
+    const langd = a.innehall.stycken.join(' ').length
+    delar = [`<div class="${langd >= 280 ? 'profilspalter' : 'profilanfang'}">${delar.join('')}</div>`]
+  }
   const forsta = `<div class="start">${rubrik}${delar[0] ?? ''}</div>`
-  const klass = `avsnitt avsnitt-${a.sektion} typ-${a.innehall.typ}${intygsfalt ? ' intygsfalt' : ''}`
+  // Korta kompetensblock (färre än fyra grupper) hålls ihop i sin helhet (G2).
+  const hall = a.innehall.typ === 'kompetenser' && a.innehall.grupper.length < 4
+  const klass = `avsnitt avsnitt-${a.sektion} typ-${a.innehall.typ}${intygsfalt ? ' intygsfalt' : ''}${hall ? ' hall' : ''}`
   return `<section class="${klass}" data-avsnitt="${a.sektion}">${forsta}${delar.slice(1).join('')}</section>`
 }
 
@@ -238,20 +267,46 @@ function kontaktAvsnitt(dok: Dokument): string {
 function tidsaxel(dok: Dokument): string {
   const punkter = dok.tidsaxel
   if (punkter.length < 2) return ''
+  return tidsaxelHtml(punkter, AXEL_BREDD_MM).html
+}
+
+/** Textbredden tidsaxeln ritas i, mm (A4 minus Horisonts marginaler). */
+const AXEL_BREDD_MM = 170
+
+/**
+ * Tidsaxelns layout (granskningen 3.20): varje etikett läggs på första raden
+ * av tre (0, 11, 22 mm) där den inte överlappar föregående etikett på samma
+ * rad med minst 2 mm. Bredden räknas som 0,55 x grad x antal tecken (mm vid
+ * 7,5 pt). Fler än sex punkter: bara årtal. Arbetsgivaren kortas till 18
+ * tecken. Exporteras för testet som mäter att inget överlappar.
+ */
+export function tidsaxelHtml(punkter: Dokument['tidsaxel'], breddMm: number): { html: string; rader: number; lagen: { rad: number; fran: number; till: number }[] } {
   const forsta = punkter[0].ar
   const sista = new Date().getFullYear() + 1
   const pos = (ar: number) => 5 + ((ar - forsta) / Math.max(1, sista - forsta)) * 90
-  let senast = -Infinity
-  let nere = false
+  const baraAr = punkter.length > 6
+  const PT = 7.5
+  const teckenMm = 0.55 * PT * 0.3528
+  const slutPaRad = [-Infinity, -Infinity, -Infinity]
+  const lagen: { rad: number; fran: number; till: number }[] = []
   const delar = punkter.map((p) => {
-    // Etiketter närmare än tre år växlar till nedre raden.
-    nere = p.ar - senast < 3 ? !nere : false
-    senast = p.ar
-    return `<div class="axelpunkt axel-${p.typ}${nere ? ' axel-nere' : ''}" style="left:${pos(p.ar).toFixed(2)}%"><span class="axelprick"></span><span class="axeletikett"><strong>${p.ar}</strong>${MELLAN}${esc(
-      p.etikett
-    )}</span></div>`
+    const etikett = baraAr ? '' : p.etikett.length > 18 ? `${p.etikett.slice(0, 17).trimEnd()}…` : p.etikett
+    const text = baraAr ? String(p.ar) : `${p.ar} ${etikett}`
+    const x = (pos(p.ar) / 100) * breddMm
+    const bredd = text.length * teckenMm
+    // Etiketten börjar vid punkten men får inte gå utanför axelns högra kant.
+    const fran = Math.min(x - 1.4, breddMm - bredd)
+    let rad = slutPaRad.findIndex((slut) => fran >= slut + 2)
+    if (rad < 0) rad = slutPaRad.indexOf(Math.min(...slutPaRad))
+    slutPaRad[rad] = fran + bredd
+    lagen.push({ rad, fran, till: fran + bredd })
+    const forskjutning = (fran - (x - 1.4)).toFixed(2)
+    return `<div class="axelpunkt axel-${p.typ} axel-rad${rad}" style="left:${pos(p.ar).toFixed(2)}%"><span class="axelprick"></span><span class="axeletikett" style="margin-left:${forskjutning}mm"><strong>${p.ar}</strong>${
+      etikett ? `${MELLAN}${esc(etikett)}` : ''
+    }</span></div>`
   })
-  return `<div class="tidsaxel" aria-hidden="true">${delar.join('')}</div>`
+  const rader = Math.max(...lagen.map((l) => l.rad)) + 1
+  return { html: `<div class="tidsaxel axel-rader${rader}" aria-hidden="true">${delar.join('')}</div>`, rader, lagen }
 }
 
 /* ---------------------------------------------------------------- CSS */
@@ -281,7 +336,7 @@ function css(c: Ctx): string {
   const l = def.layout
   const mb = marginalBredd(def)
   const band = h.form === 'band' ? h.band : undefined
-  const fotoMm = def.foto?.storlek ?? 30
+  const fotoMm = m.fotoMm
   const sidfarg = def.farger.sida ?? '#ffffff'
 
   const ut: string[] = []
@@ -290,10 +345,10 @@ function css(c: Ctx): string {
 --grad:${g(def.grad.brod)};--grad-namn:${g(def.grad.namn)};--grad-titel:${g(def.grad.titel)};--grad-kontakt:${g(def.grad.kontakt)};
 --grad-rubrik:${g(def.grad.rubrik)};--grad-post:${g(def.grad.posttitel)};--grad-period:${g(def.grad.period)};--grad-spalt:${g(def.grad.sidospalt ?? def.grad.brod)};
 --sida-topp:${m.sida.topp}mm;--sida-botten:${m.sida.botten}mm;--sida-vanster:${m.sida.vanster}mm;--sida-hoger:${m.sida.hoger}mm;
---radavstand:${def.radavstand};--marginal:${mb ?? 0}mm;--punkt-indrag:${def.punkt.indrag}mm}`)
+--radavstand:${m.radavstand};--marginal:${mb ?? 0}mm;--punkt-indrag:${def.punkt.indrag}mm}`)
   ut.push(`*{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:var(--sida)}
-body{background:var(--sida);color:var(--text);font-family:var(--typsnitt);font-size:var(--grad);line-height:var(--radavstand);font-kerning:normal;hyphens:none;-webkit-hyphens:none;overflow-wrap:break-word}
+body{background:var(--sida);color:var(--text);font-family:var(--typsnitt);font-size:var(--grad);line-height:var(--radavstand);font-kerning:normal;hyphens:none;-webkit-hyphens:none;overflow-wrap:normal}
 .cv{background:var(--sida);width:210mm;min-height:297mm;margin:0 auto;padding:var(--sida-topp) var(--sida-hoger) var(--sida-botten) var(--sida-vanster)}
 .mellan{white-space:pre}
 .prick{white-space:pre;color:${f('dampad', p.dampad)}}
@@ -304,7 +359,7 @@ ul{list-style:none}
 strong{font-weight:700}`)
 
   // Huvudet
-  ut.push(`.huvud{display:flex;gap:7mm;align-items:center;margin-bottom:${h.luftUnder}mm;break-inside:avoid;break-after:avoid}
+  ut.push(`.huvud{display:flex;gap:7mm;align-items:center;margin-bottom:${m.luftUnderHuvud}mm;break-inside:avoid;break-after:avoid}
 .huvud-text{flex:1;min-width:0}
 .namn{font-size:var(--grad-namn);line-height:${h.namn.radavstand ?? 1.1};${textStil({ vikt: 700, ...h.namn }, c, p.text)}}
 .titel{font-size:var(--grad-titel);margin-top:${h.luftTitel}mm;${textStil(h.titel, c, p.accent)}}
@@ -329,7 +384,7 @@ strong{font-weight:700}`)
   }
   if (h.stapel) ut.push(`.huvud-text{border-left:${linjeCss(h.stapel, c, p.accent)};padding-left:${h.stapel.indrag}mm}`)
   if (band) {
-    ut.push(`.huvud-band{background:${f(band.bakgrund, p.accent)};margin:0 calc(-1 * var(--sida-hoger)) ${h.luftUnder}mm calc(-1 * var(--sida-vanster));
+    ut.push(`.huvud-band{background:${f(band.bakgrund, p.accent)};margin:0 calc(-1 * var(--sida-hoger)) ${m.luftUnderHuvud}mm calc(-1 * var(--sida-vanster));
 padding:${band.luft.topp}mm ${band.luft.sidor}mm ${band.luft.botten}mm;${band.minHojd ? `min-height:${band.minHojd}mm;` : ''}align-items:center}
 .huvud-band .namn,.huvud-band .titel,.huvud-band .kontakt,.huvud-band .prick{color:${f(band.text, p.vit)}}
 .huvud-band.foto-huvud-hoger{align-items:center}
@@ -362,8 +417,10 @@ padding:${band.luft.topp}mm ${band.luft.sidor}mm ${band.luft.botten}mm;${band.mi
   else if (rl && !rl.langd) rubrikLinje = `border-${rl.var === 'under' ? 'bottom' : 'top'}:${linjeCss(rl, c, p.linje)};padding-${rl.var === 'under' ? 'bottom' : 'top'}:${rl.luft}mm;`
   ut.push(`.avsnitt{margin-top:${m.luftOver}mm}
 .cv-kropp>.avsnitt:first-child,.spalt>.avsnitt:first-child{margin-top:0}
-.start{break-inside:avoid}
-.rubrik{font-size:var(--grad-rubrik);line-height:1.25;margin-bottom:${r.luftUnder}mm;${textStil({ vikt: 700, ...r }, c, p.accent)};${rubrikLinje}${
+.start,.hall,.avsnitt.hall{break-inside:avoid}
+.grupp,.grupp-mitt,.grupp-lista,.grupp-brickor,.spraklista,.intyglista{break-inside:avoid}
+.gruppnamn{break-after:avoid}
+.rubrik{font-size:var(--grad-rubrik);line-height:1.25;margin-bottom:${m.luftUnderRubrik}mm;${textStil({ vikt: 700, ...r }, c, p.accent)};${rubrikLinje}${
     r.justering === 'centrerad' ? 'text-align:center;' : ''
   }${r.indrag ? `padding-left:${r.indrag}mm;` : ''}break-after:avoid}`)
   if (rl?.langd) ut.push(`.rubrik::after{content:"";display:block;width:${rl.langd}mm;margin-top:${rl.luft}mm;border-top:${linjeCss(rl, c, p.accent)}}`)
@@ -375,12 +432,13 @@ padding:${band.luft.topp}mm ${band.luft.sidor}mm ${band.luft.botten}mm;${band.mi
     ut.push(`.cv-kropp .avsnitt{padding-left:var(--marginal)}
 .cv-kropp .avsnitt::after{content:"";display:block;clear:both}
 .cv-kropp .rubrik{float:left;width:calc(var(--marginal) - 4mm);margin-left:calc(-1 * var(--marginal));margin-bottom:0}`)
-    if (l.linjeOver) ut.push(`.cv-kropp .avsnitt+.avsnitt{border-top:${linjeCss(l.linjeOver, c, p.linje)};padding-top:${l.linjeOver.luft}mm}`)
+    if (l.linjeOver) ut.push(`.cv-kropp .avsnitt+.avsnitt,.cv-kropp .avsnitt+.slutgrupp>.avsnitt:first-child{border-top:${linjeCss(l.linjeOver, c, p.linje)};padding-top:${l.linjeOver.luft}mm}`)
   }
   if (l.typ === 'marginalperiod') {
     ut.push(`.post-marginal{display:flex;break-inside:avoid}
 .period-marginal{flex:none;width:var(--marginal);padding-right:3mm}
-.post-innehall{flex:1;min-width:0;padding-bottom:${def.post.luftMellan}mm}
+.post-innehall{flex:1;min-width:0;padding-bottom:${m.luftMellan}mm}
+.start+.post-marginal,.post+.post-marginal{margin-top:0}
 .post-marginal+.post-marginal,.start>.post-marginal{margin-top:0}
 .mrad{display:flex;break-inside:avoid}
 .metikett{flex:none;width:var(--marginal);padding-right:3mm;font-weight:700}
@@ -395,7 +453,11 @@ padding:${band.luft.topp}mm ${band.luft.sidor}mm ${band.luft.botten}mm;${band.mi
   }
 
   // Poster
-  ut.push(`.post{break-inside:avoid;margin-top:${def.post.luftMellan}mm}
+  ut.push(`.post{break-inside:avoid;margin-top:${m.luftMellan}mm}
+.post.post-lang{break-inside:auto}
+.punkter.fortsatt{margin-top:0}
+.punkter.fortsatt li:nth-last-child(2){break-after:avoid}
+.slutgrupp{break-inside:avoid}
 .start>.post{margin-top:0}
 .postrad{display:flex;align-items:baseline}
 .posttitel{flex:1;min-width:0;font-size:var(--grad-post);font-weight:700;line-height:1.3;color:${f(def.farger.posttitel, p.text)}}
@@ -407,10 +469,12 @@ padding:${band.luft.topp}mm ${band.luft.sidor}mm ${band.luft.botten}mm;${band.mi
 .punkter li,.lista li{margin-top:0.6mm;break-inside:avoid}
 .punkter li::marker,.lista li::marker{color:${f(def.punkt.farg, p.text)}}
 .text+.text{margin-top:1.5mm}`)
-  if (def.post.linjeMellan) ut.push(`.start+.post,.post+.post{border-top:${linjeCss(def.post.linjeMellan, c, p.linje)};padding-top:${def.post.luftMellan}mm}`)
+  if (def.post.linjeMellan) ut.push(`.start+.post,.post+.post{border-top:${linjeCss(def.post.linjeMellan, c, p.linje)};padding-top:${m.luftMellan}mm}`)
 
   // Kompetenser, intyg, språk
-  ut.push(`.grupp+.grupp,.grupp-mitt+.grupp-mitt,.grupp-lista+.grupp-lista,.grupp-brickor+.grupp-brickor{margin-top:1.4mm}
+  ut.push(`.grupp+.grupp,.grupp-mitt+.grupp-mitt,.grupp-lista+.grupp-lista,.grupp-brickor+.grupp-brickor,.start+.grupp,.start+.grupp-mitt,.start+.grupp-lista,.start+.grupp-brickor{margin-top:1.4mm}
+.spalt-sido .mittpunkt{font-size:9pt}
+.spalt-sido .gruppnamn{margin-top:0.6mm}
 .grupp strong,.gruppnamn{font-weight:700}
 .gruppnamn{margin-bottom:0.4mm}
 .grupp-lista .lista{margin-top:0.4mm}
@@ -427,7 +491,7 @@ padding:${band.luft.topp}mm ${band.luft.sidor}mm ${band.luft.botten}mm;${band.mi
 .intyglista .intyg-detalj{text-align:left}
 .spraklista .sprak{font-weight:400}
 .spraklista .niva{font-weight:700;color:inherit;font-size:inherit}
-.avsnitt-referenser{break-before:avoid}
+.avsnitt-referenser,.cv-kropp>.avsnitt-sprak,.cv-kropp>.avsnitt-intressen{break-before:avoid}
 .avsnitt-referenser .text{color:${f('dampad', p.dampad)}}`)
 
   // Spalter
@@ -436,6 +500,10 @@ padding:${band.luft.topp}mm ${band.luft.sidor}mm ${band.luft.botten}mm;${band.mi
     const yttre = s.sida === 'vanster' ? 'var(--sida-vanster)' : 'var(--sida-hoger)'
     ut.push(`.spalter{width:calc(100% + var(--sida-vanster) + var(--sida-hoger));margin:0 calc(-1 * var(--sida-hoger)) 0 calc(-1 * var(--sida-vanster));border-collapse:collapse;table-layout:fixed}
 .spalter>tbody>tr>td{direction:ltr;vertical-align:top;text-align:left}
+${s.bakgrund ? `.spalter{height:calc(297mm - ${band ? '0mm' : 'var(--sida-topp)'} - var(--sida-botten) - 1.5mm)}` : ''}
+.huvudrad{height:1px}
+.huvudcell{padding:0 var(--sida-hoger) 0 var(--sida-vanster)}
+.huvudcell .huvud-band{margin-left:calc(-1 * var(--sida-vanster));margin-right:calc(-1 * var(--sida-hoger))}
 .spalt-sido{width:${s.bredd}mm;padding:${s.luft.topp}mm ${s.sida === 'vanster' ? `${s.luft.inre}mm 0 ${yttre}` : `${yttre} 0 ${s.luft.inre}mm`};${
       s.bakgrund ? `background:${f(s.bakgrund, p.ton)};` : ''
     }color:${f(s.text, p.text)};font-size:var(--grad-spalt)}
@@ -468,6 +536,7 @@ padding:${band.luft.topp}mm ${band.luft.sidor}mm ${band.luft.botten}mm;${band.mi
   // Profil i spalter (Tidning) och tidsaxeln (Horisont)
   if (def.profilSpalter) {
     ut.push(`.profilspalter{column-count:2;column-gap:7mm;text-align:justify}
+.profilanfang .text:first-child::first-letter{float:left;font-family:var(--typsnitt-rubrik);font-size:28pt;line-height:0.85;color:var(--accent);padding:1mm 1.5mm 0 0}
 .profilspalter .text:first-child::first-letter{float:left;font-family:var(--typsnitt-rubrik);font-size:28pt;line-height:0.85;color:var(--accent);padding:1mm 1.5mm 0 0}`)
   }
   if (def.tidsaxel) {
@@ -477,7 +546,14 @@ padding:${band.luft.topp}mm ${band.luft.sidor}mm ${band.luft.botten}mm;${band.mi
 .axel-utbildning .axelprick{background:#fff}
 .axeletikett{display:block;font-size:7.5pt;white-space:nowrap;margin-top:1mm;color:#555}
 .axeletikett strong{color:#222}
-.axel-nere .axeletikett{margin-top:5mm;padding-top:1mm;border-left:0.5pt solid #B9C2CC;padding-left:1mm}`)
+.axel-rad1 .axeletikett{margin-top:11mm}
+.axel-rad2 .axeletikett{margin-top:22mm}
+.axel-rad1::after,.axel-rad2::after{content:"";position:absolute;left:1.4mm;top:2.8mm;border-left:0.5pt solid #B9C2CC}
+.axel-rad1::after{height:9mm}
+.axel-rad2::after{height:20mm}
+.tidsaxel.axel-rader1{height:9mm}
+.tidsaxel.axel-rader2{height:20mm}
+.tidsaxel.axel-rader3{height:31mm}`)
   }
 
   // Sidan
@@ -497,7 +573,13 @@ export function renderDokumentHtml(dok: Dokument, def: MallDef, val: MallVal = {
   const p = palett(def, val)
   const c: Ctx = { def, val, p, opt, f: (x, reserv) => los(x, p, reserv) }
   const l = def.layout
-  const huvudspalt = dok.huvudspalt.map((a) => avsnitt(a, c, false)).join('')
+  // De korta avsnitten sist i huvudspalten (intyg, språk, intressen,
+  // referenser, högst tre) hålls ihop, så att sista sidan aldrig bara får en
+  // ensam rad eller två (granskningen G2).
+  const delar = dok.huvudspalt.map((a) => avsnitt(a, c, false))
+  let slut = 0
+  while (slut < 3 && slut < delar.length - 1 && ['intyg', 'sprak', 'intressen', 'referenser'].includes(dok.huvudspalt[delar.length - 1 - slut].sektion)) slut++
+  const huvudspalt = slut > 1 ? `${delar.slice(0, -slut).join('')}<div class="slutgrupp">${delar.slice(-slut).join('')}</div>` : delar.join('')
   const axel = def.tidsaxel ? tidsaxel(dok) : ''
 
   let kropp: string
@@ -515,7 +597,14 @@ export function renderDokumentHtml(dok: Dokument, def: MallDef, val: MallVal = {
     // läses den hel före huvudspalten i stället för mitt emellan sida 1 och
     // 2 av erfarenheten. direction: rtl lägger en högerspalt till höger.
     const celler = `<td class="spalt spalt-sido">${sido}</td><td class="spalt spalt-huvud cv-kropp">${huvudspalt}</td>`
-    kropp = `${s.huvudISpalten ? '' : huvud(dok, c)}${axel}<table class="spalter" role="presentation" style="direction:${s.sida === 'vanster' ? 'ltr' : 'rtl'}"><tbody><tr>${celler}</tr></tbody></table>`
+    // Huvudet är tabellens första rad och tabellen minst en sida hög, så att
+    // panelen alltid når nederkanten på sida 1 (granskningen G1, som Word).
+    // Bara en panel med bakgrund behöver det; utan bakgrund står huvudet ovanför
+    // tabellen (Chrome delar en tabell med en rad bättre över sidor).
+    const iTabell = !s.huvudISpalten && Boolean(s.bakgrund)
+    const huvudrad = iTabell ? `<tr class="huvudrad"><td class="huvudcell" colspan="2">${huvud(dok, c)}${axel}</td></tr>` : ''
+    const fore = !s.huvudISpalten && !iTabell ? `${huvud(dok, c)}${axel}` : ''
+    kropp = `${fore}<table class="spalter" role="presentation" style="direction:${s.sida === 'vanster' ? 'ltr' : 'rtl'}"><tbody>${huvudrad}<tr class="spaltrad">${celler}</tr></tbody></table>`
   } else if (l.typ === 'tvaspalt') {
     const full = dok.fullBredd.map((a) => avsnitt(a, c, false)).join('')
     const hoger = dok.sidospalt.map((a) => avsnitt(a, c, true)).join('')

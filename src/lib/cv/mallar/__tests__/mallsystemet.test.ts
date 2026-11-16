@@ -9,7 +9,7 @@ import path from 'path'
 import { MALL_KATALOG, getMallKort, FORVALD_MALL_ID, GRATIS_MALL_IDS } from '../katalog'
 import { MALL_ALIAS, losMallId, losMallIdEllerForval } from '../alias'
 import { MALLAR, getMall } from '../register'
-import { renderDefHtml, renderMallHtml } from '../render/html'
+import { renderDefHtml, renderMallHtml, tidsaxelHtml } from '../render/html'
 import { byggDokument, ordna, periodErfarenhet, periodUtbildning, datum } from '../innehall'
 import { tolkaVal, tolkaValUrQuery, typsnittIdForFamilj } from '../val'
 import { YRKE_TILL_MALLAR } from '@/app/(public)/cv-mallar/yrkesmall-data'
@@ -245,5 +245,35 @@ describe('valen', () => {
     expect(typsnittIdForFamilj("'Open Sans', Arial, sans-serif")).toBe('open-sans')
     expect(typsnittIdForFamilj("'Times New Roman', Times, serif")).toBe('times')
     expect(typsnittIdForFamilj('Comic Sans')).toBeUndefined()
+  })
+})
+
+describe('foto av', () => {
+  it('fotomallar utan foto i CV:t ger ingen bild i PDF:ens HTML', () => {
+    for (const def of MALLAR.filter((m) => m.foto)) {
+      const cv = structuredClone(NORMALT_CV)
+      delete cv.personalInfo.profilePhotoUrl
+      const html = renderDefHtml(cv, def, {})
+      expect(html, def.id).not.toMatch(/<img/)
+      expect(html, def.id).not.toMatch(/class="[^"]*foto-tom/)
+    }
+  })
+})
+
+describe('Horisonts tidsaxel', () => {
+  it('inga etiketter överlappar på samma rad, också i långt CV', () => {
+    const def = getMall('horisont')!
+    for (const cv of Object.values(CV_LANGDER)) {
+      const punkter = byggDokument(cv, def).tidsaxel
+      if (punkter.length < 2) continue
+      const { lagen } = tidsaxelHtml(punkter, 170)
+      for (let i = 0; i < lagen.length; i++) {
+        for (let j = i + 1; j < lagen.length; j++) {
+          if (lagen[i].rad !== lagen[j].rad) continue
+          const overlapp = lagen[i].fran < lagen[j].till + 2 && lagen[j].fran < lagen[i].till + 2
+          expect(overlapp, `${cv.personalInfo.fullName}: etikett ${i} och ${j}`).toBe(false)
+        }
+      }
+    }
   })
 })

@@ -18,7 +18,8 @@ import { byggWordCv, DOCX_MIME } from '@/lib/cv/word';
 import { logPremiumUsage } from '@/lib/premium/logPremiumUsage';
 import { captureServer } from '@/lib/analytics/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
-import { renderaMallHtml } from '@/lib/cv/rendera-mall-html';
+import { renderaMallPdf } from '@/lib/cv/mallar/pdf';
+import { baddaInTypsnitt } from '@/lib/cv/mallar/typsnitt-inbaddning';
 
 import { parseSwedishCVContent } from '@/lib/cv/swedish-cv-content-parser';
 import { generateSwedishCVPDF, SwedishCVPDFOptions } from '@/lib/cv/swedish-cv-pdf-generator';
@@ -99,7 +100,7 @@ async function createBasicCVPDF(html: string): Promise<Buffer> {
     
     try {
       await page.setViewport({ width: 794, height: 1123 }); // A4
-      await page.setContent(html, { waitUntil: 'networkidle0', timeout: 30000 });
+      await page.setContent(baddaInTypsnitt(html), { waitUntil: 'networkidle0', timeout: 30000 });
       await page.evaluateHandle('document.fonts.ready').catch(() => {});
 
       // Mallsystemets HTML (data-mall) äger sina marginaler, brytningar och
@@ -487,17 +488,24 @@ export async function POST(request: NextRequest) {
       // Word-filen byggs ur samma definition och samma CV-data som PDF:en,
       // med Words egna medel (src/lib/cv/word). Typsnittet är användarens
       // val om det finns i Word, annars mallens eget.
-      filData = await byggWordCv(extractedCVData, mallId, val);
+      // "Få plats på en sida": samma steg som PDF:en landar på (mallar/pdf.ts).
+      let wordVal = val;
+      if (val.enSida) {
+        const prov = await renderaMallPdf(extractedCVData, mallId, val, (html) => createSwedishCVPDF(html, extractedCVData!, mallId));
+        if (prov?.steg) wordVal = { ...val, enSidaSteg: prov.steg };
+      }
+      filData = await byggWordCv(extractedCVData, mallId, wordVal);
       filTyp = DOCX_MIME;
       filename = `cv-${sanitizedTemplate}.docx`;
     } else {
       // Samma HTML som förhandsvisningen (src/lib/cv/rendera-mall-html.ts),
-      // med valen som CSS-variabler i mallen.
-      const html = renderaMallHtml(extractedCVData, mallId, val);
-      if (!html) {
+      // med valen som CSS-variabler i mallen; "Få plats på en sida" provar
+      // stegen tills CV:t ryms (src/lib/cv/mallar/pdf.ts).
+      const resultat = await renderaMallPdf(extractedCVData, mallId, val, (html) => createSwedishCVPDF(html, extractedCVData!, mallId));
+      if (!resultat) {
         return NextResponse.json({ error: 'Mall hittades inte' }, { status: 400 });
       }
-      filData = await createSwedishCVPDF(html, extractedCVData, mallId);
+      filData = resultat.pdf;
       filTyp = 'application/pdf';
       filename = `cv-${sanitizedTemplate}.pdf`;
     }

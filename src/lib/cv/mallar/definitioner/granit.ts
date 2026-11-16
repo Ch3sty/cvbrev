@@ -46,7 +46,7 @@ export const granit: MallDef = {
   post: { arbetsgivare: { farg: '#333333' }, luftMellan: 3.8 },
   punkt: PUNKT,
   kompetenser: 'grupp',
-  kompetenserISpalt: 'lista',
+  kompetenserISpalt: 'mittpunkt',
   intyg: 'rad',
   sprak: 'rad',
   foto: { form: 'rund', storlek: 30, plats: 'huvud-hoger', forval: true },

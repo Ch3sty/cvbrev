@@ -46,7 +46,7 @@ export const ritning: MallDef = {
   post: { arbetsgivare: { farg: '#555555' }, luftMellan: 3.8 },
   punkt: { tecken: '•', farg: 'accent', indrag: 4.5 },
   kompetenser: 'grupp',
-  kompetenserISpalt: 'lista',
+  kompetenserISpalt: 'mittpunkt',
   intyg: 'rad',
   sprak: 'rad',
   ordning: ['profil', 'erfarenhet', 'utbildning', 'intyg', 'projekt', 'referenser'],
@@ -59,5 +59,9 @@ export const ritning: MallDef = {
 .spalt-sido .lista li::marker{color:rgba(255,255,255,0.7)}
 .posttitel{font-weight:500}
 @media screen{.cv{background:linear-gradient(to right,var(--accent) 66mm,var(--sida) 66mm)}}
-@media print{.cv::before{content:"";position:fixed;left:0;top:-30mm;bottom:-30mm;width:66mm;background:var(--accent);z-index:-1}}`,
+@media print{
+  html{background:linear-gradient(to right,var(--accent) 66mm,var(--sida) 66mm)}
+  body,.cv{background:transparent}
+  .spalt-sido{background:transparent}
+}`,
 }

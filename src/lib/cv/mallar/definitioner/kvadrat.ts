@@ -35,7 +35,7 @@ export const kvadrat: MallDef = {
   post: { arbetsgivare: { farg: '#555555' }, luftMellan: 3.8 },
   punkt: { tecken: '•', farg: 'accent', indrag: 4 },
   kompetenser: 'grupp',
-  kompetenserISpalt: 'lista',
+  kompetenserISpalt: 'mittpunkt',
   intyg: 'rad',
   sprak: 'rad',
   ordning: HUVUDSPALT,

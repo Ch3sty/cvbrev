@@ -9,6 +9,7 @@
  *     (Chrome), `<mall>-<längd>-chrome.pdf`.
  *  3. Öppnar varje .docx i Word via COM (scripts/word-mallar-render.ps1):
  *     ensamma rubriker, delade poster, tomma stycken, en sida med en rad,
+ *     fler sidor i Word än i Chrome (granskningen G6),
  *     PDF-export `<mall>-<längd>.pdf`.
  *  4. Ritar båda PDF:erna som png och lägger dem sida vid sida,
  *     `<mall>-<längd>-jamforelse.png`: Chrome till vänster, Word till höger,
@@ -24,6 +25,7 @@ import mammoth from 'mammoth'
 import type { CVMetadata } from '../src/lib/cv/cv-metadata'
 import { CV_LANGDER } from '../src/lib/cv/word/__tests__/fixtures'
 import { ritaPdfSidor } from './lib/pdf-verktyg'
+import { antalSidor } from '../src/lib/cv/mallar/pdf'
 
 const ut = path.resolve(process.argv[2] ?? 'word-qa')
 const i = process.argv.indexOf('--mall')
@@ -33,6 +35,8 @@ mkdirSync(ut, { recursive: true })
 const FOTO =
   'data:image/svg+xml;base64,' +
   Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect width="200" height="200" fill="#9aa4ae"/><circle cx="100" cy="80" r="40" fill="#cfd5db"/><rect x="45" y="130" width="110" height="70" rx="50" fill="#cfd5db"/></svg>').toString('base64')
+
+const CHROME_SIDOR = new Map<string, number>()
 
 async function bygg(): Promise<{ filer: string[]; fel: string[] }> {
   const { MALLAR } = await import('../src/lib/cv/mallar/register')
@@ -51,6 +55,7 @@ async function bygg(): Promise<{ filer: string[]; fel: string[] }> {
       const html = renderaMallHtml(cv, def.id)!
       const pdf = await generateSwedishCVPDF(html, cv, { template: def.id, format: 'A4', swedishSettings: { pageLimit: 4 } } as Parameters<typeof generateSwedishCVPDF>[2])
       writeFileSync(path.join(ut, `${namn}-chrome.pdf`), pdf)
+      CHROME_SIDOR.set(namn, antalSidor(pdf))
       filer.push(namn)
 
       const { value } = await mammoth.extractRawText({ buffer: buf })
@@ -108,6 +113,9 @@ async function main() {
     if (r.tommaStycken?.length) anm.push(`tomma stycken: ${r.tommaStycken.length}`)
     if (r.sidor > 1 && r.raderSistaSidan < 3) anm.push(`sista sidan har ${r.raderSistaSidan} rad(er)`)
     if (r.ejSvenska?.length) anm.push(`stycken som inte är svenska: ${r.ejSvenska.length}`)
+    // G6: Word får inte skjuta ett avsnitt till en egen sida som Chrome fick plats med.
+    const chrome = CHROME_SIDOR.get(String(r.fil).replace(/.docx$/, ''))
+    if (chrome && r.sidor > chrome) anm.push(`Word har ${r.sidor} sidor, Chrome ${chrome}`)
     if (anm.length) comFel.push(r.fil)
     console.log(`${anm.length ? 'FEL' : 'ok '} ${r.fil}: ${r.sidor} s, ${r.tabeller} tabeller, ${r.listpunkter} listpunkter${anm.length ? ' | ' + anm.join(' | ') : ''}`)
   }

@@ -62,6 +62,12 @@ export interface MallVal {
   ordning?: Ordning
   /** Tätare marginaler och mindre grad i samma mall. */
   enSida?: boolean
+  /**
+   * Tillägg 2026-11-16 (byggagent A): steget 1 till 4 i "Få plats på en
+   * sida" (src/lib/cv/mallar/farg.ts, matt). Sätts av servern när PDF-kedjan
+   * har provat sig fram; komponenterna skickar bara enSida.
+   */
+  enSidaSteg?: 1 | 2 | 3 | 4
   /** Index 0 till 3 i mallens fyra accentfärger. */
   farg?: number
   /** Ersätter brödtextens typsnitt (namn och rubriker behåller mallens om mallen säger så). */

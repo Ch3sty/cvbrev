@@ -67,6 +67,13 @@ const INGEN: IBorderOptions = { style: BorderStyle.NONE, size: 0, color: 'auto' 
 const INGA_KANTER = { top: INGEN, bottom: INGEN, left: INGEN, right: INGEN }
 const INGA_TABELLKANTER = { ...INGA_KANTER, insideHorizontal: INGEN, insideVertical: INGEN }
 
+/**
+ * Words radhöjd mot CSS:ens, kalibrerad en gång mot Chrome-PDF:en (spec
+ * avsnitt 2, Grader): med samma värde blev Word-sidorna några procent längre
+ * än Chromes i spaltmallarna.
+ */
+const WORD_RADFAKTOR = 0.96
+
 /** Hex utan # och utan genomskinlighet, som Word vill ha den. */
 const ord = (h: string) => h.replace('#', '').slice(0, 6).toUpperCase()
 
@@ -107,7 +114,24 @@ interface Ruta {
 
 /** Varje stycke: änke- och horungekontroll alltid på. */
 function stycke(opts: IParagraphOptions): Paragraph {
-  return new Paragraph({ widowControl: true, ...opts, ...(I_SPALTCELL ? { keepNext: false } : {}) })
+  const radhojd = RADHOJD && !opts.heading ? { spacing: { line: RADHOJD, lineRule: 'atLeast' as const, ...(opts.spacing ?? {}) } } : {}
+  return new Paragraph({ widowControl: true, ...opts, ...radhojd, ...(I_SPALTCELL ? { keepNext: false } : {}) })
+}
+
+/** Radhöjden (tjugondels pt) i den cell som byggs, eller null: dokumentets. */
+let RADHOJD: number | null = null
+/** Sant i tabellceller där varje post står i en egen rad: posttiteln får inget avstånd före. */
+let I_CELL = false
+function iCell<T>(radhojd: number | null, f: () => T): T {
+  const [r0, c0] = [RADHOJD, I_CELL]
+  RADHOJD = radhojd
+  I_CELL = true
+  try {
+    return f()
+  } finally {
+    RADHOJD = r0
+    I_CELL = c0
+  }
 }
 
 /**
@@ -187,7 +211,7 @@ function rubrik2(a: Avsnitt | { rubrik: string }, b: B, r: Ruta, fore: number): 
     keepNext: true,
     keepLines: true,
     alignment: !r.iSpalt && R.justering === 'centrerad' ? AlignmentType.CENTER : AlignmentType.LEFT,
-    spacing: { before: fore, after: mm(R.luftUnder) },
+    spacing: { before: fore, after: mm(b.m.luftUnderRubrik) },
     ...(Object.keys(border).length ? { border } : {}),
     ...(band
       ? {
@@ -220,6 +244,7 @@ function posttitel(p: Post, b: B, r: Ruta, hallIhop: boolean): Paragraph {
     style: 'Posttitel',
     keepNext: hallIhop,
     keepLines: true,
+    ...(I_CELL ? { spacing: { before: 0, after: pt(1) } } : {}),
     tabStops: [{ type: TabStopType.RIGHT, position: r.bredd }],
     children: [
       textRun(p.titel, r, { color: r.text ?? b.f(d.farger.posttitel, ord(b.p.text)), size: hp(b.m.grad(d.grad.posttitel)) }),
@@ -244,6 +269,7 @@ function punkt(text: string, r: Ruta, hallIhop: boolean, ref = 'punkter'): Parag
     keepLines: true,
     keepNext: hallIhop,
     spacing: { after: mm(0.6) },
+    contextualSpacing: true,
     children: [textRun(text, r, { size: hp(r.grad) })],
   })
 }
@@ -385,16 +411,27 @@ function block(a: Avsnitt, b: B, r: Ruta): (Paragraph | Table)[][] {
           stycke({
             keepLines: true,
             keepNext: hallIhopRad(i, grupper.length),
-            spacing: { after: pt(4) },
+            spacing: { before: i ? mm(1.4) : 0, after: 0 },
             children: [...(g.namn ? [textRun(`${g.namn}: `, r, { bold: true, size: hp(r.grad) })] : []), textRun(g.lista.join(', '), r, { size: hp(r.grad) })],
           }),
         ])
       if (form === 'mittpunkt')
-        return grupper.map((g) => [
-          ...(g.namn ? [stycke({ keepNext: true, keepLines: true, spacing: { after: pt(1) }, children: [textRun(g.namn, r, { bold: true, size: hp(r.grad) })] })] : []),
-          // Varje kompetens är en egen run, så att läsaren får dem som egna ord.
-          stycke({ keepLines: true, spacing: { after: pt(4) }, children: g.lista.flatMap((s, i) => [...(i ? [textRun(' · ', r, { color: dampad })] : []), textRun(s, r, { size: hp(r.grad) })]) }),
-        ])
+        return grupper.map((g, gi) => {
+          const storlek = hp(r.iSpalt ? Math.min(9, r.grad) : r.grad)
+          return [
+            ...(g.namn ? [stycke({ keepNext: true, keepLines: true, spacing: { before: gi ? mm(1.4) : 0, after: pt(1) }, children: [textRun(g.namn, r, { bold: true, size: hp(r.grad) })] })] : []),
+            // Varje kompetens är en egen run, så att läsaren får dem som egna ord;
+            // punkten sitter fast vid föregående kompetens med ett fast mellanslag.
+            stycke({
+              keepLines: true,
+              spacing: { before: g.namn || !gi ? 0 : mm(1.4), after: 0 },
+              children: g.lista.flatMap((s, i) => [
+                textRun(s, r, { size: storlek }),
+                ...(i < g.lista.length - 1 ? [textRun('\u00A0·', r, { color: r.text ?? dampad, size: storlek }), textRun(' ', r, { size: storlek })] : []),
+              ]),
+            }),
+          ]
+        })
       if (form === 'lista')
         return grupper.map((g) => [
           ...(g.namn ? [stycke({ keepNext: true, keepLines: true, spacing: { before: pt(3), after: pt(1) }, children: [textRun(g.namn, r, { bold: true, size: hp(r.grad) })] })] : []),
@@ -464,6 +501,10 @@ function avsnitt(a: Avsnitt, b: B, r: Ruta, fore: number): (Paragraph | Table)[]
  * emellan smälter ihop i Word.
  */
 function marginalrubrikTabell(lista: Avsnitt[], b: B, bredd: number, foreForsta: number): Table {
+  return iCell(null, () => marginalrubrikTabellInre(lista, b, bredd, foreForsta))
+}
+
+function marginalrubrikTabellInre(lista: Avsnitt[], b: B, bredd: number, foreForsta: number): Table {
   const d = b.def
   const l = d.layout as Extract<MallDef['layout'], { typ: 'marginalrubrik' }>
   const mb = mm(l.bredd)
@@ -479,7 +520,7 @@ function marginalrubrikTabell(lista: Avsnitt[], b: B, bredd: number, foreForsta:
         ? ai === 0
           ? foreForsta
           : mm(b.m.luftOver) + (l.linjeOver ? mm(l.linjeOver.luft) : 0)
-        : mm(d.post.luftMellan)
+        : mm(b.m.luftMellan)
       // Rubrikens rad följer med nästa rad, så att rubriken aldrig blir ensam.
       const innehall = forstaRad && delar.length > 1 ? del.map((x) => (x instanceof Paragraph ? x : x)) : del
       rader.push(
@@ -498,6 +539,10 @@ function marginalrubrikTabell(lista: Avsnitt[], b: B, bredd: number, foreForsta:
 
 /** Perioden i marginalen (Årsring): rubriken som stycke, posterna som tabellrader. */
 function marginalperiodAvsnitt(a: Avsnitt, b: B, bredd: number, fore: number): (Paragraph | Table)[] {
+  return iCell(null, () => marginalperiodAvsnittInre(a, b, bredd, fore))
+}
+
+function marginalperiodAvsnittInre(a: Avsnitt, b: B, bredd: number, fore: number): (Paragraph | Table)[] {
   const d = b.def
   const l = d.layout as Extract<MallDef['layout'], { typ: 'marginalperiod' }>
   const mb = mm(l.bredd)
@@ -506,26 +551,28 @@ function marginalperiodAvsnitt(a: Avsnitt, b: B, bredd: number, fore: number): (
   const inn = a.innehall
   const rubrik = rubrik2(a, b, { ...r, bredd }, fore)
   const lodrat = l.lodrat ? kant(l.lodrat, b, ord(b.p.accent), 0) : undefined
-  const rad = (etikett: Paragraph[], innehall: (Paragraph | Table)[], medLinje: boolean) =>
+  const rad = (etikett: Paragraph[], innehall: (Paragraph | Table)[], medLinje: boolean, fore = 0) =>
     new TableRow({
       cantSplit: true,
       children: [
-        tabellCell(etikett, mb, { margins: { top: 0, bottom: 0, left: 0, right: mm(3) } }),
+        tabellCell(etikett, mb, { margins: { top: fore, bottom: 0, left: 0, right: mm(3) } }),
         tabellCell(innehall, bredd - mb, {
           borders: medLinje && lodrat ? { ...INGA_KANTER, left: lodrat } : INGA_KANTER,
-          // Luften mellan posterna ligger i posttitelns avstånd före, inne i
-          // cellen, så att den lodräta linjen är obruten.
-          margins: { top: 0, bottom: medLinje ? 0 : pt(3), left: medLinje ? lodratLuft : 0, right: 0 },
+          // Luften mellan posterna är cellmarginal upptill, inne i cellen, så
+          // att den lodräta linjen (cellkanten) är obruten och perioden står
+          // på samma höjd som titeln.
+          margins: { top: fore, bottom: medLinje ? 0 : pt(3), left: medLinje ? lodratLuft : 0, right: 0 },
         }),
       ],
     })
   const etikettStycke = (text: string, opts: IRunOptions = {}) => [stycke({ keepLines: true, spacing: { after: 0 }, children: [new TextRun({ text, size: hp(r.grad), ...opts })] })]
   if (inn.typ === 'poster') {
-    const rader = inn.poster.map((p) =>
+    const rader = inn.poster.map((p, i) =>
       rad(
         p.period ? etikettStycke(p.period, { bold: Boolean(d.post.periodFet), size: hp(b.m.grad(d.grad.period)), color: b.f(d.farger.period, ord(b.p.dampad)) }) : [],
         postStycken({ ...p, period: '' }, b, r),
-        true
+        true,
+        i ? mm(b.m.luftMellan) : 0
       )
     )
     return [rubrik, tabell(rader, [mb, bredd - mb])]
@@ -549,12 +596,14 @@ function marginalperiodAvsnitt(a: Avsnitt, b: B, bredd: number, fore: number): (
  * blocket i en rad, varje följande block (post, rad) i en egen rad. Raderna
  * bryts aldrig, så en post delas aldrig och en rubrik står aldrig ensam.
  */
-function spaltRader(lista: { a: Avsnitt | null; rubrik?: Paragraph; block: (Paragraph | Table)[][] }[], bredd: number): Table | null {
+function spaltRader(lista: { a: Avsnitt | null; rubrik?: Paragraph; block: (Paragraph | Table)[][] }[], bredd: number, luftMellan = 0): Table | null {
   const rader: TableRow[] = []
   for (const x of lista) {
+    const poster = x.a?.innehall.typ === 'poster'
     x.block.forEach((del, i) => {
       const innehall = i === 0 && x.rubrik ? [x.rubrik, ...del] : del
-      rader.push(new TableRow({ cantSplit: true, children: [tabellCell(innehall, bredd)] }))
+      const luft = i > 0 && poster ? luftMellan : 0
+      rader.push(new TableRow({ cantSplit: true, children: [tabellCell(innehall, bredd, luft ? { margins: { top: luft, bottom: 0, left: 0, right: 0 } } : {})] }))
     })
     if (!x.block.length && x.rubrik) rader.push(new TableRow({ cantSplit: true, children: [tabellCell([x.rubrik], bredd)] }))
   }
@@ -563,15 +612,17 @@ function spaltRader(lista: { a: Avsnitt | null; rubrik?: Paragraph; block: (Para
 
 /** Avsnitten i en spaltcell (sidospalt, tvåspalt) som spaltrader. */
 function spaltInnehall(lista: Avsnitt[], b: B, r: Ruta, foreForsta: number, fore: (Paragraph | Table)[][] = []): (Paragraph | Table)[] {
-  return iSpaltcell(() => {
-    const delar = lista.map((a, i) => {
-      const f = i === 0 && !fore.length ? foreForsta : mm(b.m.luftOver)
-      const allt = avsnitt(a, b, r, f)
-      return { a, rubrik: allt[0] as Paragraph, block: block(a, b, r) }
+  return iSpaltcell(() =>
+    iCell(pt(r.grad * b.m.radavstand * WORD_RADFAKTOR), () => {
+      const delar = lista.map((a, i) => {
+        const f = i === 0 && !fore.length ? foreForsta : mm(b.m.luftOver)
+        const allt = avsnitt(a, b, r, f)
+        return { a, rubrik: allt[0] as Paragraph, block: block(a, b, r) }
+      })
+      const t = spaltRader([...fore.map((block) => ({ a: null, block: [block] })), ...delar], r.bredd, mm(b.m.luftMellan))
+      return t ? [t] : []
     })
-    const t = spaltRader([...fore.map((block) => ({ a: null, block: [block] })), ...delar], r.bredd)
-    return t ? [t] : []
-  })
+  )
 }
 
 /** Huvudspaltens avsnitt i layoutens form. */
@@ -596,7 +647,7 @@ function kontaktRun(dok: Dokument, b: B, farg: string): TextRun[] {
 type Just = (typeof AlignmentType)[keyof typeof AlignmentType]
 
 function bild(b: B): ImageRun {
-  const s = px(b.def.foto!.storlek)
+  const s = px(b.m.fotoMm)
   return new ImageRun({ type: 'png', data: b.foto!, transformation: { width: s, height: s }, altText: { name: 'Foto', description: 'Foto', title: 'Foto' } })
 }
 
@@ -668,9 +719,9 @@ function huvudInnehall(dok: Dokument, b: B, bredd: number, textFarg?: string): (
   const foto = d.foto && b.foto ? d.foto : undefined
   const just: Just = h.form === 'centrerad' ? AlignmentType.CENTER : h.form === 'hoger' ? AlignmentType.RIGHT : AlignmentType.LEFT
   if (foto && foto.plats !== 'huvud-topp' && foto.plats !== 'sidospalt') {
-    const fb = mm(foto.storlek + (foto.plats === 'huvud-vanster' ? 8 : 6))
+    const fb = mm(b.m.fotoMm + (foto.plats === 'huvud-vanster' ? 8 : 6))
     const text = tabellCell(huvudStycken(dok, b, AlignmentType.LEFT, textFarg, medKontakt, false), bredd - fb, {
-      verticalAlign: h.form === 'band' || foto.plats === 'huvud-vanster' ? VerticalAlign.CENTER : VerticalAlign.TOP,
+      verticalAlign: foto.plats === 'huvud-vanster' ? VerticalAlign.CENTER : VerticalAlign.TOP,
     })
     const bildCell = tabellCell(
       [stycke({ alignment: foto.plats === 'huvud-hoger' ? AlignmentType.RIGHT : AlignmentType.LEFT, keepNext: !b.huvudITabell, spacing: { after: 0, line: 240 }, children: [bild(b)] })],
@@ -690,9 +741,18 @@ function bandCell(dok: Dokument, b: B, helBredd: number, span = 1): TableCell {
   return tabellCell(huvudInnehall(dok, b, helBredd - mm(band.luft.sidor) * 2, b.f(band.text, 'FFFFFF')), helBredd, {
     columnSpan: span,
     shading: { type: ShadingType.CLEAR, color: 'auto', fill },
-    verticalAlign: VerticalAlign.CENTER,
+    verticalAlign: VerticalAlign.TOP,
     margins: { top: mm(band.luft.topp), bottom: mm(band.luft.botten), left: mm(band.luft.sidor), right: mm(band.luft.sidor) },
   })
+}
+
+/** Huvudets höjd i mm, ungefär, för spaltradens minsta höjd. */
+function huvudHojdMm(dok: Dokument, def: MallDef): number {
+  const h = def.huvud
+  const PT = 0.3528
+  const text = def.grad.namn * 1.15 * PT + (dok.titel ? h.luftTitel + def.grad.titel * 1.3 * PT : 0)
+  if (h.form === 'band' && h.band) return Math.max(h.band.minHojd ?? 0, h.band.luft.topp + text + h.band.luft.botten) + h.luftUnder
+  return Math.max(def.foto && dok.foto ? def.foto.storlek : 0, text) + h.luftUnder
 }
 
 /* ------------------------------------------------------------------ stilar */
@@ -701,7 +761,7 @@ function stilar(b: B) {
   const d = b.def
   // Radavståndet som minsta höjd i punkter, samma som CSS:ens line-height
   // (Words multipel räknas på typsnittets egen radhöjd och blir olika per typsnitt).
-  const line = pt(b.m.grad(d.grad.brod) * d.radavstand)
+  const line = pt(b.m.grad(d.grad.brod) * b.m.radavstand * WORD_RADFAKTOR)
   return {
     default: {
       document: {
@@ -722,7 +782,7 @@ function stilar(b: B) {
         next: 'Normal',
         quickFormat: true,
         run: { font: b.rubrik, size: hp(b.m.grad(d.grad.rubrik)), color: ord(b.p.accent) },
-        paragraph: { spacing: { before: mm(b.m.luftOver), after: mm(d.rubrik.luftUnder), line: 240 }, keepLines: true, outlineLevel: 1 },
+        paragraph: { spacing: { before: mm(b.m.luftOver), after: mm(b.m.luftUnderRubrik), line: 240 }, keepLines: true, outlineLevel: 1 },
       },
     },
     paragraphStyles: [
@@ -735,7 +795,7 @@ function stilar(b: B) {
         next: 'Arbetsgivare',
         quickFormat: true,
         run: { bold: true, size: hp(b.m.grad(d.grad.posttitel)) },
-        paragraph: { spacing: { before: mm(d.post.luftMellan), after: pt(1) }, keepLines: true },
+        paragraph: { spacing: { before: mm(b.m.luftMellan), after: pt(1) }, keepLines: true },
       },
       { id: 'Arbetsgivare', name: 'Arbetsgivare', basedOn: 'Normal', next: 'Normal', quickFormat: true, run: { color: ord(b.p.dampad) }, paragraph: { spacing: { after: pt(2) }, keepLines: true } },
     ],
@@ -755,7 +815,7 @@ function numrering(b: B) {
             format: LevelFormat.BULLET,
             text: d.punkt.tecken,
             alignment: AlignmentType.LEFT,
-            style: { paragraph: { indent: { left: indrag, hanging: indrag } }, run: { color: b.f(d.punkt.farg, ord(b.p.text)) } },
+            style: { paragraph: { indent: { left: indrag, hanging: indrag } }, run: { color: b.f(d.punkt.farg, ord(b.p.text)), font: b.brod } },
           },
         ],
       },
@@ -809,7 +869,7 @@ export async function byggWordDokument(cv: CVMetadata, def: MallDef, val: MallVa
   const l = def.layout
   const h = def.huvud
   const band = h.form === 'band' && h.band
-  const luftUnder = mm(h.luftUnder)
+  const luftUnder = mm(m.luftUnderHuvud)
   const barn: (Paragraph | Table)[] = []
 
   if (l.typ === 'sidospalt') {
@@ -857,8 +917,16 @@ export async function byggWordDokument(cv: CVMetadata, def: MallDef, val: MallVa
     barn.push(
       tabell(
         [
-          new TableRow({ cantSplit: true, children: [huvudRad] }),
-          new TableRow({ cantSplit: false, children: s.sida === 'vanster' ? [sidoCell, huvudCell] : [huvudCell, sidoCell] }),
+          new TableRow({
+            cantSplit: true,
+            ...(band && h.band!.minHojd ? { height: { value: mm(Math.max(0, h.band!.minHojd - h.band!.luft.topp - h.band!.luft.botten)), rule: 'atLeast' as const } } : {}),
+            children: [huvudRad],
+          }),
+          new TableRow({
+            cantSplit: false,
+            height: { value: Math.max(0, A4.hojd - (band ? 0 : marg.top) - marg.bottom - mm(huvudHojdMm(dok, def) + 10 + s.luft.topp + 4)), rule: 'atLeast' as const },
+            children: s.sida === 'vanster' ? [sidoCell, huvudCell] : [huvudCell, sidoCell],
+          }),
         ],
         kol,
         -marg.left
@@ -866,7 +934,7 @@ export async function byggWordDokument(cv: CVMetadata, def: MallDef, val: MallVa
     )
   } else {
     if (band) {
-      barn.push(tabell([new TableRow({ cantSplit: true, ...(h.band!.minHojd ? { height: { value: mm(h.band!.minHojd), rule: 'atLeast' as const } } : {}), children: [bandCell(dok, b, A4.bredd)] })], [A4.bredd], -marg.left))
+      barn.push(tabell([new TableRow({ cantSplit: true, ...(h.band!.minHojd ? { height: { value: mm(Math.max(0, h.band!.minHojd - h.band!.luft.topp - h.band!.luft.botten)), rule: 'atLeast' as const } } : {}), children: [bandCell(dok, b, A4.bredd)] })], [A4.bredd], -marg.left))
     } else {
       barn.push(...huvudInnehall(dok, b, textbredd))
     }
