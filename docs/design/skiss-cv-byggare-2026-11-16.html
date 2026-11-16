@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Direkt på arket</title>
+<meta name="description" content="Skiss av nya CV-byggaren: arket i vald mall är byggaren från första sekunden, fälten är ett blad över dokumentet, Jobbcoachen hjälper i fältet, nedladdningen är finalen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{
+  --golv:#E6EFEF; --papper:#FFFFFF; --papper-2:#F4F3F0;
+  --kant:#E3E1DC; --kant-stark:#C9C6BF;
+  --ink-1:#1A1A1F; --ink-2:#4A4A55; --ink-3:#65656E;
+  --vagg:#113538; --vagg-2:#1D4D51; --vagg-3:#0B2628; --vagg-ink:#F1F8F7; --vagg-mjuk:#A3C9C8; --vagg-kant:rgba(255,255,255,.12);
+  --ton:#D7ECEA; --ton-ink:#1E5F5F;
+  --koppar:#E07A2F; --koppar-djup:#C4621F; --koppar-ljus:#F4B98A; --koppar-text:#1A1206; --koppar-ink:#A8491A; --koppar-mjuk:#FBE3D0;
+  --positiv:#2F7D5B; --positiv-mjuk:#DCEFE5;
+  --varning:#985A08; --varning-mjuk:#F7E8CF;
+  --fel:#B3382E; --fel-mjuk:#F8E1DE;
+  --dimma:rgba(10,12,30,.55);
+  --lyft:0 1px 2px rgba(17,53,56,.08),0 12px 32px -12px rgba(17,53,56,.25);
+  --display:"Schibsted Grotesk",ui-sans-serif,system-ui,sans-serif;
+  --text:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --golv:#0B1516; --papper:#13201F; --papper-2:#182827; --kant:#223634; --kant-stark:#2F4A48;
+    --ink-1:#F3F2F7; --ink-2:#C7C6D0; --ink-3:#9391A1; --vagg:#0B2628; --vagg-2:#15393C; --vagg-3:#071A1B;
+    --ton:#163A3A; --ton-ink:#A9DAD6; --koppar-ink:#F2A368; --koppar-mjuk:rgba(224,122,47,.18);
+    --positiv:#6CC79A; --positiv-mjuk:#1C3A2D; --varning:#E3A85A; --varning-mjuk:#3A2B14; --fel:#E57F74; --fel-mjuk:#3F1F1C;
+    --lyft:0 1px 2px rgba(0,0,0,.4),0 12px 32px -12px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --golv:#0B1516; --papper:#13201F; --papper-2:#182827; --kant:#223634; --kant-stark:#2F4A48;
+  --ink-1:#F3F2F7; --ink-2:#C7C6D0; --ink-3:#9391A1; --vagg:#0B2628; --vagg-2:#15393C; --vagg-3:#071A1B;
+  --ton:#163A3A; --ton-ink:#A9DAD6; --koppar-ink:#F2A368; --koppar-mjuk:rgba(224,122,47,.18);
+  --positiv:#6CC79A; --positiv-mjuk:#1C3A2D; --varning:#E3A85A; --varning-mjuk:#3A2B14; --fel:#E57F74; --fel-mjuk:#3F1F1C;
+  --lyft:0 1px 2px rgba(0,0,0,.4),0 12px 32px -12px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--golv);color:var(--ink-1);font-family:var(--text);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:0 72px}
+@media (min-width:900px){.wrap{padding-inline:40px}}
+h1,h2,h3,h4{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-.02em}
+h2{font-size:30px;line-height:1.1;font-weight:800}
+h3{font-size:20px;line-height:1.3;font-weight:700}
+p{margin:0}
+ul,ol{margin:0;padding-left:20px}
+.ey{font-size:12px;line-height:16px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ton-ink)}
+.meta{font-size:13px;line-height:18px;color:var(--ink-3)}
+.lede{color:var(--ink-2);font-size:15px;line-height:23px;max-width:66ch}
+section.block{margin-top:72px}
+.huvud{display:grid;gap:8px;margin-bottom:24px;max-width:70ch}
+.not{color:var(--ink-3);font-size:13px;line-height:19px}
+svg.ik{width:18px;height:18px;flex:0 0 auto;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle}
+svg.ik.s{width:14px;height:14px}
+svg.ik.l{width:22px;height:22px}
+
+/* Toppen */
+.topp{background:linear-gradient(168deg,var(--vagg-2) 0%,var(--vagg) 48%,var(--vagg-3) 100%);color:var(--vagg-ink);border-radius:0 0 28px 28px;padding:24px 16px 48px;margin:0 -16px}
+@media (min-width:900px){.topp{padding:36px 40px 64px;margin:0 -40px}}
+.topp .ey{color:var(--koppar-ljus)}
+.topp h1{font-size:40px;line-height:1.02;font-weight:800;letter-spacing:-.03em;margin-top:12px;max-width:16ch}
+@media (min-width:900px){.topp h1{font-size:60px}}
+.topp .ingress{margin-top:18px;max-width:58ch;color:var(--vagg-mjuk);font-size:16px;line-height:24px}
+.topp .ingress b{color:var(--vagg-ink);font-weight:600}
+.topprad{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.tema{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 14px;border-radius:10px;border:1px solid var(--vagg-kant);background:rgba(255,255,255,.08);color:var(--vagg-ink);font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.tema:focus-visible{outline:2px solid var(--koppar-ljus);outline-offset:2px}
+.topp .tre{display:grid;gap:14px;margin-top:26px}
+@media (min-width:900px){.topp .tre{grid-template-columns:1fr 1fr 1fr;gap:24px}}
+.topp .tre>div{display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:start}
+.topp .tre b{display:block;color:var(--vagg-ink);font-family:var(--display);font-size:16px}
+.topp .tre p{color:var(--vagg-mjuk);font-size:14px;line-height:20px}
+.bokstav{width:32px;height:32px;border-radius:9px;background:var(--ton);color:var(--ton-ink);display:inline-flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:14px;flex:0 0 auto}
+.topp .tre .bokstav{background:rgba(255,255,255,.1);color:var(--koppar-ljus)}
+
+/* Beslut */
+.lyft{background:var(--papper);border:1px solid var(--kant);border-radius:16px;padding:22px;box-shadow:var(--lyft);margin-top:-32px;position:relative}
+.beslut{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+@media (min-width:900px){.beslut{grid-template-columns:1fr 1fr}}
+.beslut li{display:grid;grid-template-columns:32px 1fr;gap:12px;background:var(--papper);border:1px solid var(--kant);border-radius:12px;padding:14px;min-width:0}
+.beslut li b{display:block;font-family:var(--display);font-size:15px;margin-bottom:2px}
+.beslut li p{font-size:13px;line-height:19px;color:var(--ink-2)}
+.beslut li .vem{display:block;margin-top:6px;font-size:12px;color:var(--ink-3)}
+.tvakol{display:grid;gap:14px;margin-top:18px}
+@media (min-width:900px){.tvakol{grid-template-columns:1fr 1fr;gap:24px}}
+.tvakol p{font-size:13px;line-height:19px;color:var(--ink-2)}
+.tvakol ul{font-size:13px;line-height:19px;color:var(--ink-2);margin-top:4px}
+
+/* Ytorna sida vid sida */
+.ytor{display:grid;gap:28px;align-items:start}
+.ytor>*{min-width:0}
+@media (min-width:900px){.ytor{grid-template-columns:412px 412px;column-gap:40px}.ytor>.bred{grid-column:1/-1}}
+.bildtext{margin-top:10px;font-size:13px;line-height:19px;color:var(--ink-3)}
+.bildtext b{color:var(--ink-1);font-weight:600}
+
+/* Telefon */
+.tel{width:412px;max-width:100%;margin:0 auto;border:1px solid var(--kant-stark);border-radius:30px;background:var(--golv);overflow:hidden;box-shadow:var(--lyft);position:relative}
+.tel .status{height:34px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;font-size:12px;font-weight:600;color:var(--ink-2)}
+.skarm{position:relative;height:778px;overflow:hidden;display:flex;flex-direction:column}
+.fsk{background:var(--papper);flex:0 0 auto}
+.fsk .rad{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 6px;font-size:15px;font-weight:600;gap:6px;font-family:var(--display)}
+.fsk .k{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:10px;color:var(--ink-1)}
+.fsk .sparat{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--positiv);padding:0 10px;font-family:var(--text)}
+.fsk .linje{height:3px;background:var(--kant)}
+.fsk .linje i{display:block;height:3px;background:var(--koppar)}
+.inner{flex:1 1 auto;padding:12px 14px 14px;overflow:hidden;position:relative}
+.fast{border-top:1px solid var(--kant);background:var(--papper);padding:10px 14px 18px;flex:0 0 auto}
+.fast .rad{display:flex;align-items:center;gap:10px}
+.fast .lucka{flex:1 1 auto;min-width:0}
+.fast .lucka .ey{color:var(--ink-3);font-size:11px;line-height:14px}
+.fast .lucka p{font-size:13px;line-height:18px;font-weight:500;color:var(--ink-1)}
+.forslag{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:12px;background:var(--ton);color:var(--ton-ink);font-size:13px;line-height:18px;font-weight:500}
+.forslag span{flex:1}
+.forslag a{color:var(--ton-ink);font-weight:600;white-space:nowrap;text-decoration:underline;text-underline-offset:3px}
+
+/* Dator */
+.dator{width:100%;min-width:0;border:1px solid var(--kant-stark);border-radius:14px;background:var(--golv);overflow:hidden;box-shadow:var(--lyft)}
+.dator .adress{height:34px;display:flex;align-items:center;gap:8px;padding:0 12px;background:var(--papper);border-bottom:1px solid var(--kant);font-size:12px;color:var(--ink-3)}
+.dator .adress i{width:10px;height:10px;border-radius:50%;background:var(--kant-stark);display:inline-block}
+.dator .adress span{margin-left:8px;background:var(--papper-2);border-radius:6px;padding:3px 10px;flex:1;max-width:420px}
+.skala{position:relative;overflow:hidden;min-width:0;width:100%}
+.skala>.fastb{width:1440px;transform-origin:top left;display:flex;height:900px;background:var(--golv)}
+.sidomeny{width:248px;flex:0 0 248px;background:var(--papper);border-right:1px solid var(--kant);padding:20px 16px;display:grid;align-content:start;gap:6px;font-size:14px;color:var(--ink-3)}
+.sidomeny .logo{font-family:var(--display);font-weight:800;font-size:18px;color:var(--ink-1);margin-bottom:14px}
+.sidomeny .aktiv{color:var(--ink-1);font-weight:600;box-shadow:inset 3px 0 0 var(--koppar);padding-left:10px;margin-left:-13px}
+.sidomeny div{padding:8px 0}
+.flode{flex:1 1 auto;display:flex;flex-direction:column;min-width:0;position:relative}
+.flode .fsk .rad{padding:0 20px 0 12px}
+.flode .fsk .rad .titel{flex:1;text-align:center}
+.flode .mitt{flex:1 1 auto;position:relative;overflow:hidden}
+.flode .mitt .layt{width:1120px;margin:0 auto;display:grid;grid-template-columns:744px 336px;gap:40px;padding-top:24px;align-items:start}
+.flode .mitt .zon{display:flex;justify-content:center}
+.flode .mitt .zon .arkw{width:600px}
+.kol{display:grid;gap:10px;align-content:start}
+.kol .rub{display:flex;justify-content:space-between;align-items:baseline}
+.kol .rub b{font-family:var(--display);font-size:15px}
+.kol .rub a{font-size:13px;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px}
+.kol .skal{font-size:13px;color:var(--ink-3);margin-top:-6px}
+.rutnat{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.flode .fastd{height:64px;border-top:1px solid var(--kant);background:var(--papper);display:flex;align-items:center;flex:0 0 auto}
+.flode .fastd .in{width:1120px;margin:0 auto;display:flex;align-items:center;gap:14px}
+.flode .fastd .verktyg{flex:1 1 auto}
+.flode .fastd .knapp{width:320px}
+.flode .fastd .segm{width:132px;height:48px;padding:4px;border-radius:10px;background:var(--papper-2);display:flex;gap:2px}
+.flode .fastd .segm div{flex:1;height:auto;border:0;border-radius:8px;justify-content:center;padding:0 4px;gap:4px;background:transparent}
+.flode .fastd .segm div.vald{background:var(--papper);box-shadow:0 0 0 1px var(--ink-1)}
+.dock{position:absolute;right:calc((1192px - 1120px)/2);top:0;bottom:0;width:400px;background:var(--papper);border-left:1px solid var(--kant);box-shadow:-12px 0 32px -16px rgba(0,0,0,.25);display:flex;flex-direction:column}
+.dock .sheet-h{padding:18px 20px 8px}
+.dock .sheet-b{padding:0 20px 12px;flex:1 1 auto;overflow:hidden;grid-template-columns:minmax(0,1fr);gap:10px}
+.dock .sheet-b .falt.yta{min-height:84px}
+.dock .sheet-f{padding:12px 20px 18px;border-top:1px solid var(--kant)}
+.centr{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:520px;background:var(--papper);border-radius:24px 24px 0 0;border:1px solid var(--kant);border-bottom:0;box-shadow:0 -12px 40px rgba(0,0,0,.25)}
+.centr::before{content:"";display:block;width:36px;height:4px;border-radius:2px;background:var(--kant-stark);margin:10px auto 6px}
+
+/* Gränssnittsbitar */
+.ui-h{font-family:var(--display);font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.falt{height:44px;border:1px solid var(--kant-stark);border-radius:10px;background:var(--papper);display:flex;align-items:center;padding:0 12px;font-size:15px;color:var(--ink-1);gap:8px}
+.falt.tom{color:var(--ink-3)}
+.falt.fokus{border-color:var(--ink-1);box-shadow:0 0 0 2px var(--papper),0 0 0 4px var(--koppar-ink)}
+.falt.last{background:var(--papper-2);color:var(--ink-3)}
+.falt.yta{height:auto;min-height:96px;align-items:flex-start;padding:10px 12px;line-height:22px;display:block;white-space:pre-line}
+.falt.sel::after{content:"";width:8px;height:8px;border-right:1.75px solid var(--ink-3);border-bottom:1.75px solid var(--ink-3);transform:rotate(45deg);margin-left:auto;margin-bottom:3px}
+.etik{display:grid;gap:5px;min-width:0}
+.etik>*{min-width:0}
+.falt.yta{overflow-wrap:anywhere}
+.dock .sheet-b>*{min-width:0}
+.tips{display:flex;align-items:center;gap:8px;height:36px;padding:0 12px;border-radius:12px;background:var(--ton);color:var(--ton-ink);font-size:13px;font-weight:500;margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tips svg.ik{color:var(--ton-ink);width:16px;height:16px}
+.etik>span{font-size:13px;font-weight:500;color:var(--ink-2)}
+.etik>span small{font-weight:400;color:var(--ink-3)}
+.hint{font-size:13px;line-height:18px;color:var(--ink-3)}
+.par{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tre3{display:grid;grid-template-columns:1.3fr 1fr;gap:8px}
+.kryss{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--ink-1);min-height:32px}
+.kryss i{width:20px;height:20px;border:1.5px solid var(--kant-stark);border-radius:6px;display:inline-block}
+.kryss i.pa{background:var(--ink-1);border-color:var(--ink-1);position:relative}
+.kryss i.pa::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border-right:2px solid var(--papper);border-bottom:2px solid var(--papper);transform:rotate(45deg)}
+.knapp{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 18px;border-radius:12px;background:linear-gradient(180deg,#E8863B,var(--koppar) 60%,var(--koppar-djup));color:var(--koppar-text);font-weight:600;font-size:15px;width:100%;border:0;font-family:inherit;position:relative;overflow:hidden;white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 1px 2px rgba(120,60,10,.25)}
+.knapp.auto{width:auto}
+.knapp.sek{background:var(--papper);color:var(--ink-1);border:1px solid var(--kant-stark);box-shadow:none;font-size:14px}
+.knapp.sek.lag{height:40px}
+.knapp.tva{flex-direction:column;gap:0;line-height:1.15}
+.knapp.tva small{font-size:12px;font-weight:500;opacity:.85}
+.knapp .fyll{position:absolute;left:0;top:0;bottom:0;width:58%;background:rgba(0,0,0,.14)}
+.knapp .fyll+span{position:relative}
+.lank{font-size:14px;font-weight:500;color:var(--ink-1);text-decoration:underline;text-decoration-color:var(--kant-stark);text-underline-offset:4px}
+.lank.fel{color:var(--fel);text-decoration-color:rgba(179,56,46,.4)}
+.segm{display:flex;height:48px;width:132px;padding:4px;border-radius:10px;background:var(--papper-2);gap:2px;flex:0 0 auto}
+.segm div{flex:1;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:4px;font-size:13px;font-weight:600;color:var(--ink-2)}
+.segm div.vald{background:var(--papper);color:var(--ink-1);box-shadow:0 0 0 1px var(--ink-1)}
+.segm div svg.ik{width:18px;height:18px}
+.segm div svg.ik.s{width:14px;height:14px;color:var(--ink-3)}
+.verktyg{display:flex;gap:8px;flex-wrap:wrap;align-items:center;min-height:44px}
+.chip40{height:40px;padding:0 10px 0 8px;border:1px solid var(--kant-stark);border-radius:10px;display:inline-flex;align-items:center;gap:6px;font-size:13px;background:var(--papper);color:var(--ink-1);font-weight:500}
+.chip40 .aa{font-size:15px;font-weight:700;line-height:1;font-family:Georgia,serif}
+.chip40 .et{font-size:11px;color:var(--ink-3);font-weight:500}
+.prickar{display:inline-flex;gap:4px;align-items:center}
+.prickar b{width:22px;height:22px;border-radius:50%;display:inline-flex;border:2px solid transparent;box-sizing:border-box}
+.prickar b.vald{box-shadow:0 0 0 2px var(--papper),0 0 0 4px var(--ink-1)}
+.chip{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 8px;border-radius:6px;font-size:12px;font-weight:600;border:1px solid var(--kant-stark);color:var(--ink-2);background:var(--papper);white-space:nowrap}
+.chip.ton{background:var(--ton);border-color:transparent;color:var(--ton-ink)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips .c{height:32px;padding:0 6px 0 10px;border:1px solid var(--kant);border-radius:8px;background:var(--papper-2);display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:500}
+.chips .c svg.ik{width:14px;height:14px;color:var(--ink-3)}
+.chips .c.f{background:var(--papper);border-style:dashed;color:var(--ink-2)}
+.rader{display:grid}
+.rader div{display:flex;align-items:center;gap:10px;min-height:48px;border-top:1px solid var(--kant);font-size:14px}
+.rader div:first-child{border-top:0}
+.rader div b{font-weight:600;display:block}
+.rader div small{color:var(--ink-3);font-size:12px;display:block}
+.rader div .t{flex:1;min-width:0}
+.rader div svg.ik{color:var(--ink-3)}
+.streck{min-height:44px;border:1.5px dashed var(--kant-stark);border-radius:10px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:14px;font-weight:600;color:var(--ink-1);background:var(--papper)}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:var(--papper);border-radius:24px 24px 0 0;box-shadow:0 -12px 40px rgba(0,0,0,.25);border-top:1px solid var(--kant);display:flex;flex-direction:column}
+.sheet::before{content:"";display:block;width:36px;height:4px;border-radius:2px;background:var(--kant-stark);margin:10px auto 0}
+.sheet-h{padding:8px 16px 8px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.sheet-h h4{font-size:20px;font-weight:700;letter-spacing:-.02em}
+.sheet-h .meta{margin-top:2px}
+.sheet-h .k{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:10px;color:var(--ink-1);margin:-8px -8px 0 0}
+.sheet-b{padding:0 16px 12px;display:grid;grid-template-columns:minmax(0,1fr);gap:12px;flex:1 1 auto;overflow:hidden;min-width:0}
+.sheet-b>*{min-width:0}
+.par>*{min-width:0}
+.par .falt{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:42px}
+.par .falt.sel{display:flex;line-height:normal}
+.sheet-f{padding:10px 16px 18px;border-top:1px solid var(--kant);display:grid;gap:10px}
+.sheet-f .rad{display:flex;justify-content:space-between;align-items:center}
+.dimma{position:absolute;inset:0;background:var(--dimma)}
+.dimma.ljus{background:rgba(10,12,30,.3)}
+.upp{min-height:64px;border:1.5px dashed var(--kant-stark);border-radius:12px;display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--papper-2)}
+.upp .t{flex:1}
+.upp b{display:block;font-size:14px;font-weight:600}
+.upp small{display:block;font-size:12px;color:var(--ink-3);line-height:16px}
+.paywall{border:1px solid var(--kant);border-radius:14px;padding:14px;display:grid;gap:8px;background:var(--papper)}
+.paywall b{font-family:var(--display);font-size:17px}
+.paywall p{font-size:13px;line-height:19px;color:var(--ink-2)}
+.skriv{display:grid;gap:6px;padding:10px 12px;border-radius:10px;background:var(--ton);color:var(--ton-ink);font-size:13px;line-height:18px}
+.skriv .rad{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.skriv a{color:var(--ton-ink);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.linjer{display:grid;gap:8px;padding:4px 0}
+.linjer i{display:block;height:8px;border-radius:4px;background:var(--ton-ink);opacity:.25}
+.linjer i:nth-child(2){width:86%}
+.linjer i:nth-child(3){width:62%}
+.gratisvag{display:flex;align-items:center;gap:12px;border:1px solid var(--kant);border-radius:12px;padding:8px 10px;background:var(--papper)}
+.gratisvag .m{width:40px;flex:0 0 40px;aspect-ratio:210/297;border:1px solid var(--kant);border-radius:3px;background:#fff;position:relative;overflow:hidden}
+.gratisvag b{display:block;font-size:14px;font-weight:600}
+.gratisvag small{display:block;font-size:12px;color:var(--ink-3)}
+.mallrad{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;margin-top:8px}
+.mallrad b{font-weight:600;display:inline-flex;align-items:center;gap:4px}
+.mallrad .fmt{display:inline-flex;gap:8px;align-items:center;font-size:11px;font-weight:700;letter-spacing:.02em;color:var(--ink-2)}
+.mallrad .fmt span{display:inline-flex;align-items:center;gap:3px}
+.mallrad .fmt span svg.ik{width:16px;height:16px}
+.mallrad .fmt .dim{color:var(--ink-3);opacity:.7}
+.remsa{display:flex;gap:8px;overflow:hidden;padding:4px 2px 2px;align-items:flex-start}
+.remsa .mini{flex:0 0 64px}
+.remsa .grupp{flex:0 0 auto;align-self:stretch;display:flex;align-items:center;color:var(--ink-3);font-size:11px;padding:0 4px;border-left:1px solid var(--kant);margin-left:4px;font-weight:600}
+.mini{min-width:0}
+.mini .ram{aspect-ratio:210/297;border-radius:6px;border:1px solid var(--kant);overflow:hidden;background:#fff;position:relative}
+.mini.vald .ram{border:2px solid var(--koppar)}
+.mini .bock{position:absolute;right:3px;top:3px;width:16px;height:16px;border-radius:50%;background:var(--ink-1);color:var(--papper);display:flex;align-items:center;justify-content:center}
+.mini .bock svg{width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.mini .w{position:absolute;right:3px;bottom:3px;width:16px;height:16px;font-size:10px;line-height:16px;text-align:center;font-weight:800;background:#fff;border:1px solid #C9C6BF;border-radius:3px;color:#1E3A8A}
+.mini .namn{margin-top:4px;font-size:12px;font-weight:600;color:var(--ink-1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini .under{font-size:11px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini.alla .ram{display:flex;align-items:center;justify-content:center;background:var(--papper-2);border:1px dashed var(--kant-stark);font-family:var(--display);font-weight:800;font-size:15px;color:var(--ink-1)}
+/* Miniatyrernas skisser */
+.mt{position:absolute;inset:0;padding:9% 10%;display:grid;gap:4%;align-content:start}
+.mt i{display:block;height:3px;background:#D9D5CE;border-radius:1px}
+.mt i.n{height:6px;width:60%;background:#2B2F36}
+.mt i.r{width:35%;background:#8A8F99;margin-top:4%}
+.mt.koppar::before{content:"";position:absolute;left:0;right:0;top:0;height:22%;background:#8A4B2A}
+.mt.koppar i.n{background:#fff;margin-top:5%}
+.mt.bjork i.n{margin:10% auto 0}
+.mt.bjork::before{content:"";width:24%;aspect-ratio:1;border-radius:50%;background:#D9D5CE;margin:0 auto}
+.mt.sido::before{content:"";position:absolute;left:0;top:0;bottom:0;width:32%;background:#ECEAE4}
+.mt.sido i{margin-left:36%}
+.mt.sido i.n{width:50%}
+.mt.granit::before{content:"";position:absolute;right:0;top:0;bottom:0;width:34%;background:#2B2F36}
+.mt.granit i{width:58%}
+.mt.granit i.n{width:50%}
+
+/* Dokumentet (arket) ritat i 600 px och skalat */
+.arkw{position:relative;width:100%;aspect-ratio:210/297;overflow:hidden;border-radius:4px;background:#fff;box-shadow:0 1px 0 rgba(0,0,0,.08),0 10px 24px -14px rgba(0,0,0,.45)}
+.arkw.lyft{transform:translateY(-8px);box-shadow:0 2px 0 rgba(0,0,0,.08),0 24px 40px -16px rgba(0,0,0,.55)}
+.cv{position:absolute;left:0;top:0;width:600px;height:849px;transform-origin:top left;background:#fff;color:#1A1A1F;font-family:Calibri,Carlito,"Segoe UI",Arial,sans-serif;padding:52px 56px;font-size:13px;line-height:1.4}
+.cv .namn{font-family:Georgia,"Times New Roman",serif;font-size:32px;line-height:1.05;font-weight:400;letter-spacing:-.01em}
+.cv .titel{font-size:14px;color:#4A4A55;margin-top:6px}
+.cv .titel.tom{color:#9A9AA3;font-style:italic}
+.cv .kontakt{font-size:11.5px;color:#4A4A55;margin-top:8px;display:flex;gap:10px;flex-wrap:wrap}
+.cv .sek{margin-top:22px;position:relative}
+.cv .sek h5{margin:0;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#1A1A1F;padding-bottom:4px;border-bottom:1px solid #1A1A1F;display:flex;justify-content:space-between;align-items:flex-end;gap:8px}
+/* Tomt avsnitt: mallens rubrik, exempel i grått (följer inte med i filen) och en diskret träffyta. Hela avsnittet är träffytan, minst 44 px. */
+.cv .lagg{font-family:var(--text);font-size:13px;line-height:1;font-weight:600;letter-spacing:0;text-transform:none;color:#4A4A55;border:1.5px dashed #C9C6BF;border-radius:999px;padding:7px 11px;margin-bottom:-3px;white-space:nowrap}
+.cv .spok,.cv .spok b,.cv .spok .u,.cv .spok li{color:#A6A6AE}
+.cv .spok .u{color:#B6B6BD}
+.cv .hintrad{margin-top:7px;display:flex;align-items:center;gap:6px;font-family:var(--text);font-size:12px;line-height:16px;font-weight:500;color:#4A4A55}
+.cv .hintrad svg.ik{width:14px;height:14px;color:#65656E}
+.cv .post{margin-top:10px}
+.cv .post b{font-size:13.5px;font-weight:700}
+.cv .post .u{font-size:12px;color:#4A4A55}
+.cv .post ul{margin:4px 0 0;padding-left:16px}
+.cv .post li{margin-top:2px}
+.cv .komp{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:8px}
+.cv .fler{margin-top:22px;font-size:13px;color:#65656E;text-align:center;font-family:var(--text)}
+.cv .valt{position:relative}
+.cv .valt::before{content:"";position:absolute;left:-14px;right:-14px;top:-10px;bottom:-8px;border:3px solid var(--koppar);border-radius:6px;pointer-events:none}
+.cv .valt::after{content:attr(data-namn);position:absolute;left:-14px;top:-24px;font-size:14px;font-weight:700;background:var(--koppar);color:var(--koppar-text);padding:3px 10px;border-radius:999px;font-family:var(--text)}
+.cv .nyss{position:relative}
+.cv .nyss::before{content:"";position:absolute;left:-14px;right:-14px;top:-10px;bottom:-8px;border:3px solid var(--koppar);border-radius:6px;opacity:.5;pointer-events:none}
+/* Koppar: färgat huvudband med rund fotoplats */
+.cv.koppar{padding:0}
+.cv.koppar .huvud{background:#8A4B2A;color:#fff;padding:40px 56px 30px;display:flex;align-items:center;gap:22px}
+.cv.koppar .foto{width:76px;height:76px;border-radius:50%;background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:30px;flex:0 0 auto}
+.cv.koppar .namn{font-family:Calibri,Carlito,"Segoe UI",Arial,sans-serif;font-weight:700;font-size:30px;color:#fff}
+.cv.koppar .titel{color:rgba(255,255,255,.85)}
+.cv.koppar .kontakt{color:rgba(255,255,255,.85)}
+.cv.koppar .kropp{padding:12px 56px 40px}
+.cv.koppar .sek h5{border-bottom-color:#8A4B2A;color:#8A4B2A}
+.sidbricka{position:absolute;right:8px;bottom:8px;display:inline-flex;align-items:center;gap:5px;background:#1A1A1F;color:#fff;font-size:12px;font-weight:600;padding:4px 8px;border-radius:7px}
+.sidbricka svg.ik{width:14px;height:14px}
+.final-bock{width:64px;height:64px;border-radius:50%;background:var(--positiv-mjuk);color:var(--positiv);display:flex;align-items:center;justify-content:center;margin:4px auto 0}
+.final-bock svg{width:34px;height:34px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.traff{border:1px solid var(--kant);border-radius:12px;padding:12px;text-align:left;display:grid;gap:4px}
+.traff b{font-size:15px;font-family:var(--display)}
+.traff small{font-size:13px;color:var(--ink-3)}
+.nasta{display:grid;gap:8px}
+.mat{margin-top:18px;padding-top:14px;border-top:1px solid var(--kant);font-size:13px;line-height:19px;color:var(--ink-2)}
+.mat code{font-size:12px;background:var(--papper-2);padding:1px 5px;border-radius:4px;color:var(--ink-1)}
+.motiv{margin-top:14px;font-size:13px;line-height:19px;color:var(--ink-2);background:var(--papper);border:1px solid var(--kant);border-radius:12px;padding:12px 14px}
+.motiv b{color:var(--ink-1)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="topp">
+    <div class="topprad">
+      <p class="ey">Skiss av nya CV-byggaren, 16 november 2026</p>
+      <button type="button" class="tema" id="temaknapp" aria-pressed="false">Visa i mörkt läge</button>
+    </div>
+    <h1>Direkt på arket</h1>
+    <p class="ingress">Byggaren är inte ett formulär med en förhandsvisning bredvid. <b>Den är hennes CV i vald mall</b>, från första sekunden, och fälten är ett blad som glider upp över dokumentet. Hon ser sitt namn, sitt jobb och sina punkter sättas i mallen, inte i ett kort. Jobbcoachen skriver punkterna när hon ber om det. Nedladdningen är finalen.</p>
+    <div class="tre">
+      <div><span class="bokstav">1</span><div><b>Arket är byggaren</b><p>Samma Mallyta som provsidan och mallrummet. Arket ser ut som ett CV i Linne från första sekunden: mallens rubriker, exempel i grått där hennes text saknas, fälten som ett blad. Inga sju steg, ingen attrapp.</p></div></div>
+      <div><span class="bokstav">2</span><div><b>Hjälpen bor i fältet</b><p>"Skriv punkter åt mig" i jobbet, profiltexten ur jobben, kompetenser som förslag. Pennan är symbolen, resultatet är hennes att ändra.</p></div></div>
+      <div><span class="bokstav">3</span><div><b>Premium syns, stoppar aldrig</b><p>Premiummallen får väljas och ses. Priset står i knappen, gratisvägen som bild av hennes eget CV. Finalen säljer ingenting första gången.</p></div></div>
+    </div>
+  </header>
+
+  <div class="lyft">
+    <p class="ey">Besluten, med motivering</p>
+    <p class="meta" style="margin:4px 0 12px">Tre underlag (saas-lead, UX-designern, art-director) är eniga om grunden. Där de skiljde sig har art-director avgjort; det står vid varje beslut.</p>
+    <ul class="beslut">
+      <li><span class="bokstav">1</span><div><b>Arket i vald mall är byggaren från första sekunden</b><p>Samma Dokument, AvsnittArk, Remsa och FastRad som provsidan. Steg 1 till 6 som sidor försvinner, och med dem den handritade förhandsvisningen. Det hon skriver landar i mallens egen typografi.</p><span class="vem">Alla tre. Dagens fel är två världar i samma flöde: formulär utan mall, sedan mall.</span></div></li>
+      <li><span class="bokstav">2</span><div><b>Starten är ett blad över det tomma arket, inte en egen sida</b><p>Titeln (styr rubriker och förslag), sedan två ingångar: "Ladda upp ett CV du har" och "Skriv från början". Namn, e-post, telefon och ort står redan på arket ur profilen. Spärren för antal CV visas här, inte efter tjugo minuters skrivande.</p><span class="vem">UX och saas-lead satte innehållet. Art-director: ett blad, så dokumentet är sidan även på skärm ett.</span></div></li>
+      <li><span class="bokstav">3</span><div><b>Ingen avsnittslista bredvid arket</b><p>De tomma avsnitten står på arket där mallen placerar dem, med rubrik och exempel i grått, och den fasta raden säger vad som är nästa. En lista med bockar vore en stegindikator i förklädnad och en andra sanning om samma sak.</p><span class="vem">Art-director mot saas-leads "synlig lista". Mätningen (avsnitt sparat per sektion) behövs ingen lista för.</span></div></li>
+      <li><span class="bokstav">4</span><div><b>Bladet dockas till höger på dator, 400 px, där mallkolumnen står</b><p>Hela A4-arket förblir synligt medan hon skriver, och ändringen syns bakom vid Spara med kopparramen. Ett blad centrerat nederst täcker exakt den del av arket där jobb och utbildning landar. Samma dialog, samma fokusregler, Esc stänger, fokus tillbaka till träffytan. Startbladet (ett vägval, inte arbete) är centrerat.</p><span class="vem">Art-director mot UX:s centrerade blad. UX:s krav att ändringen syns och att tangentbordet håller uppfylls.</span></div></li>
+      <li><span class="bokstav">5</span><div><b>Två ordningar: mallens på arket, den guidade i Nästa-raden</b><p>På arket står avsnitten där mallen placerar dem: profilen överst under huvudet, sedan erfarenhet, utbildning, kompetenser och språk, som i alla riktiga CV. Den guidade ordningen i den fasta raden föreslår jobb först och profilen sist, så Jobbcoachen kan skriva den ur det som står. Språk förifyllt med svenska. Intyg, projekt, intressen och referenser via "+ Fler avsnitt", aldrig i den guidade ordningen.</p><span class="vem">Ägaren såg att v1 blandade ihop de två. "Om dig" som steg 2 utan ett enda jobb var det svåraste fältet utan hjälp.</span></div></li>
+      <li><span class="bokstav">6</span><div><b>Jobbcoachen hjälper i fältet, aldrig i flödet</b><p>Sekundär knapp med pennan under fältet: "Skriv punkter åt mig" (kräver titel och arbetsgivare), profilförslaget, kompetensförslag. Väntan: knappen byter till "Skriver" och fylls, fältet låses, högst åtta sekunder. Resultatet är hennes att ändra; "Ångra" tar tillbaka hennes text. Aldrig gnistikonen, aldrig ordet AI i gränssnittet.</p><span class="vem">saas-lead satte handlingarna och kvoten, UX formen, art-director symbolen.</span></div></li>
+      <li><span class="bokstav">7</span><div><b>Dokumentet ritas om vid Spara, inte per tangenttryck</b><p>En rendering per sparning. Efter Spara rullar dokumentet så att avsnittet står i vyn och får kopparramen i en sekund. "Sparat" i toppraden i två sekunder. CV-raden skapas på servern vid första sparade bladet och syns i Mina CV som utkast.</p><span class="vem">UX. Art-director släppte 300 ms-liverenderingen: en iframe per tangenttryck håller inte prestandabudgeten.</span></div></li>
+      <li><span class="bokstav">8</span><div><b>Den fasta raden bär luckan, sedan filen</b><p>Under miniminivån (namn, e-post, ett jobb eller en utbildning): "Nästa" till vänster, knappen som öppnar rätt blad till höger. Sedan: PDF | Word och "Spara och ladda ner PDF". Premiummall vald ger pris i knappen och gratisvägen som bild av hennes eget CV i Linne. Ett förslag i taget ovanför raden, med Hoppa över.</p><span class="vem">UX formen, saas-lead och sälj regeln att Premium aldrig stoppar.</span></div></li>
+      <li><span class="bokstav">9</span><div><b>Final som på provsidan, sedan analysen och brevet</b><p>Bocken ritas, filnamnet, Öppna och Dela lika stora, därefter "Analysera ditt CV" som första nästa steg och brevet som andra. Mina CV som länk. Merförsäljningen vid andra nedladdningen. Brevscenen och "Ditt CV är klart"-kortet utgår.</p><span class="vem">saas-lead ordningen på nästa steg, UX och art-director formen.</span></div></li>
+      <li><span class="bokstav">10</span><div><b>Kopparbudget per skärm: linjen, ramen, knappen</b><p>Framstegslinjen under toppraden står kvar (avsnitt av fem), räknaren "3/7" utgår. Det aktiva eller nyss sparade avsnittet får kopparram. En kopparknapp: i bladets fot när bladet är öppet, annars i den fasta raden. Rubrikernas prickade linjer är av under ifyllandet.</p><span class="vem">Art-director. Mer koppar än så gör att ingenting leder blicken.</span></div></li>
+    </ul>
+    <p class="motiv"><b>Ändrat efter ägarens granskning, 16 november:</b> (1) profilen står överst på arket, under huvudet, som i mallen; den guidade ordningen i Nästa-raden är oförändrad. (2) Arket ser ut som ett riktigt CV i Linne redan tomt: mallens rubriker och linjer, och under varje rubrik ett exempel i grå spöktext som visar formen, med en diskret "+ Lägg till"-träffyta vid rubriken (hela avsnittet är träffytan, minst 44 px). Spöktexten följer titeln från startbladet (Kundtjänstmedarbetare ger exempel ur yrket, ur samma ordlista som rubrikuppsättningarna) och är generisk tills titeln finns. Raden ovanför arket säger första gången att grå text är exempel som inte följer med i filen. Ett ifyllt avsnitt har hennes text i svart och ingen träffyta vid rubriken; i Koppar står rubrikerna i mallens färg och spöktexten i samma grå. (3) Profilen skrivs helst sist: i det tomma profilavsnittet, och i profilbladet om hon öppnar det före jobben, står en vänlig rad med pennan: "Fyll gärna i jobben först, så kan Jobbcoachen skriva profilen utifrån dem. Eller skriv själv direkt." När minst ett jobb finns byter raden till erbjudandet "Jobbcoachen kan skriva ett förslag utifrån dina jobb" (yta 4). En textrad, ingen ruta.</p>
+    <div class="tvakol">
+      <div><p class="ey" style="color:var(--ink-3)">Utgår ur dagens byggare</p><ul><li>Steg 1 till 6 som sidor, "Steg N av 7", skelettet som blinkar per steg</li><li>SkapaCvPreview (attrappen), SkapaCvLayout, SkapaCvStepHeader, SkapaCvCardList, korten runt fälten</li><li>"Visa förhandsvisning" på mobil, ordräknare, tipslistor, kompetenskategorier före första kompetensen</li><li>Telefon som spärr, papperskorg i varje listrad, återkomstens helskärm "Fortsätt eller Börja om"</li><li>ConfirmationView med brevscenen. "Fyll i testdata" står kvar som adminlänk.</li></ul></div>
+      <div><p class="ey" style="color:var(--ink-3)">Behålls</p><ul><li>FlowShell: toppraden, X ut ur flödet, framstegslinjen, foten utan position fixed (tangentbordet)</li><li>Steget i URL:en; ett öppet blad skriver <code>?ark=erfarenhet:0</code> så bakåtgesten stänger bladet</li><li>Namnkravet, maskningen, kvoterna, betalväggen på uttag, ingångarna från Mina CV, hemskärmen, sidomenyn och registreringen</li><li>Dokumentets helskärm, svep (av när ett blad är öppet), Alla-arket, rubrikarket</li></ul></div>
+    </div>
+    <p class="mat"><b>saas-lead mäter:</b> <code>cv_bygg_start</code> (entry), <code>cv_start_val</code> (upp, skriv), <code>cv_bygg_avsnitt_sparat</code> (sektion, method manuell, jobbcoach, uppladdat), <code>cv_bygg_ai_anvand</code> (typ, accepterad), <code>mall_bytt</code>, <code>nedladdning_klickad</code>, <code>cv_nedladdad</code> (server, entry byggare), <code>nasta_steg_klickad</code>. Mål: start till nedladdad fil minst 25 procent, nya konton med byggt CV från 3 till 8 procent. Avläsning tidigast sex veckor efter deploy och minst 60 starter.</p>
+  </div>
+
+  <!-- 1 Starten -->
+  <section class="block" id="start">
+    <div class="huvud">
+      <p class="ey">Yta 1 av 5</p>
+      <h2>Starten: titeln, två ingångar, och arket redan där</h2>
+      <p class="lede">Det tomma arket står i Linne bakom bladet med namnet och kontakten ur profilen. Hon ser var hon hamnar innan hon skrivit ett ord. Titeln styr rubrikerna, mallförslagen och Jobbcoachens förslag. Den som har ett CV laddar upp det och hoppar över allt skrivande.</p>
+    </div>
+    <div class="ytor tre">
+      <div>
+        <div class="tel">
+          <div class="status"><span>14:05</span><span>jobbcoach.ai</span></div>
+          <div class="skarm">
+            <div class="fsk"><div class="rad"><span class="k">×</span><span>Bygg ditt CV</span><span class="k"></span></div><div class="linje"><i style="width:0"></i></div></div>
+            <div class="inner"><div class="arkw" data-cv="tom"></div></div>
+            <div class="dimma ljus"></div>
+            <div class="sheet">
+              <div class="sheet-h"><div><h4>Vilket jobb söker du?</h4><p class="meta">Rubrikerna och förslagen följer titeln.</p></div></div>
+              <div class="sheet-b">
+                <label class="etik"><span>Yrkestitel</span><div class="falt fokus">Kundtjänstmedarbetare</div></label>
+                <div class="upp"><svg class="ik l"><use href="#i-upp"/></svg><div class="t"><b>Ladda upp ett CV du har</b><small>PDF eller Word, även din LinkedIn-PDF. Vi fyller i avsnitten åt dig.</small></div></div>
+              </div>
+              <div class="sheet-f"><div class="knapp">Skriv från början</div></div>
+            </div>
+          </div>
+        </div>
+        <p class="bildtext"><b>Mobil 412 px.</b> Bladet över det tomma arket. Titeln är förifylld ur profilens senaste titel när den finns. Uppladdningen är en rad, inte en andra knapp: en kopparknapp per skärm.</p>
+      </div>
+      <div>
+        <div class="tel">
+          <div class="status"><span>14:05</span><span>jobbcoach.ai</span></div>
+          <div class="skarm">
+            <div class="fsk"><div class="rad"><span class="k">×</span><span>Bygg ditt CV</span><span class="k"></span></div><div class="linje"><i style="width:0"></i></div></div>
+            <div class="inner"><div class="arkw" data-cv="tom"></div></div>
+            <div class="dimma ljus"></div>
+            <div class="sheet">
+              <div class="sheet-h"><div><h4>Vilket jobb söker du?</h4><p class="meta">Rubrikerna och förslagen följer titeln.</p></div></div>
+              <div class="sheet-b">
+                <div class="paywall"><b>Du har två sparade CV</b><p>Gratisnivån sparar två CV åt gången. Med Jobbcoach Premium sparar du så många du vill, med alla mallar och hela CV-analysen.</p><div class="knapp" style="margin-top:4px">Skaffa Premium, 149 kr i månaden</div><a class="lank" style="justify-self:center">Ta bort ett gammalt CV</a></div>
+              </div>
+              <div class="sheet-f"><div class="rad"><a class="lank">Tillbaka till Mina CV</a></div></div>
+            </div>
+          </div>
+        </div>
+        <p class="bildtext"><b>Varianten: gratis med två CV.</b> Samma PaywallCard cv-antal som i dag, men här i starten. Ingen får fylla i tjugo minuter och sedan mötas av spärren.</p>
+      </div>
+      <div class="bred">
+        <div class="dator">
+          <div class="adress"><i></i><i></i><i></i><span>jobbcoach.ai/dashboard/skapa-cv</span></div>
+          <div class="skala"><div class="fastb">
+            <div class="sidomeny"><div class="logo">Jobbcoach</div><div>Hem</div><div class="aktiv">CV</div><div>Personliga brev</div><div>Tester</div><div>Jobbsöket</div><div>Konto</div></div>
+            <div class="flode">
+              <div class="fsk"><div class="rad"><span class="k">×</span><span class="titel">Bygg ditt CV</span><span class="k"></span></div><div class="linje"><i style="width:0"></i></div></div>
+              <div class="mitt">
+                <div class="layt">
+                  <div class="zon"><div class="arkw" data-cv="tom"></div></div>
+                  <div class="kol"><div class="rub"><b>Föreslagna för dig</b><a>Alla 20</a></div><p class="skal">Gratismallen först. Räknas om när innehållet finns.</p><div class="rutnat" data-remsa="linne" data-antal="6"></div></div>
+                </div>
+                <div class="dimma ljus"></div>
+                <div class="centr">
+                  <div class="sheet-h"><div><h4>Vilket jobb söker du?</h4><p class="meta">Rubrikerna och förslagen följer titeln.</p></div></div>
+                  <div class="sheet-b" style="padding:0 20px 14px">
+                    <label class="etik"><span>Yrkestitel</span><div class="falt fokus">Kundtjänstmedarbetare</div></label>
+                    <div class="upp"><svg class="ik l"><use href="#i-upp"/></svg><div class="t"><b>Ladda upp ett CV du har</b><small>Dra hit filen eller välj den. PDF eller Word, även din LinkedIn-PDF.</small></div></div>
+                  </div>
+                  <div class="sheet-f" style="padding:12px 20px 20px"><div class="knapp">Skriv från början</div></div>
+                </div>
+              </div>
+              <div class="fastd"><div class="in"><div class="verktyg"><span class="chip40"><span class="aa">Aa</span> Calibri</span><span class="chip40"><span class="et">Färg</span><span class="prickar"><b class="vald" style="background:#1F3A5F"></b><b style="background:#1E5A3C"></b><b style="background:#7A1F2B"></b><b style="background:#3A3A3A"></b></span></span><span class="chip40"><svg class="ik"><use href="#i-ordning"/></svg> Erfarenhet först</span></div><div class="knapp" style="opacity:.5">Spara och ladda ner PDF</div></div></div>
+            </div>
+          </div></div>
+        </div>
+        <p class="bildtext"><b>Dator 1440 px.</b> Startbladet centrerat över arket (ett vägval, inte arbete). Mallkolumnen står till höger som på mallsidan, verktygsraden och knappen i den fasta raden om 64 px.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 Arket med tomma avsnitt -->
+  <section class="block" id="arket">
+    <div class="huvud">
+      <p class="ey">Yta 2 av 5</p>
+      <h2>Arket: ett CV i Linne som bara saknar hennes text</h2>
+      <p class="lede">Efter "Skriv från början" är bladet borta och arket är sidan. Huvudet är ifyllt ur profilen och titeln. Avsnitten står där mallen placerar dem, med mallens rubriker och linjer, och under varje rubrik ett exempel i grått som visar formen: titel och arbetsgivare, ort och period, två punktrader. Grå text följer aldrig med i filen, och raden ovanför arket säger det första gången. Den fasta raden säger vad som är nästa och öppnar rätt blad.</p>
+    </div>
+    <div class="ytor">
+      <div>
+        <div class="tel">
+          <div class="status"><span>14:06</span><span>jobbcoach.ai</span></div>
+          <div class="skarm">
+            <div class="fsk"><div class="rad"><span class="k">×</span><span>Bygg ditt CV</span><span class="k"></span></div><div class="linje"><i style="width:16%"></i></div></div>
+            <div class="inner">
+              <p class="tips"><svg class="ik"><use href="#i-penna"/></svg>Grå text är exempel och följer inte med i filen</p>
+              <div class="arkw" data-cv="rader"></div>
+              <div class="mallrad"><b>Linne <svg class="ik s" style="color:var(--ink-3)"><use href="#i-info"/></svg></b><span class="fmt"><span><svg class="ik"><use href="#i-pdf"/></svg>PDF</span><span><svg class="ik"><use href="#i-word"/></svg>WORD</span></span></div>
+              <p class="meta">Gratis. Klassisk och luftig.</p>
+              <div class="remsa" style="margin-top:8px" data-remsa="linne" data-antal="4"></div>
+            </div>
+            <div class="fast"><div class="rad"><div class="lucka"><p class="ey">Nästa</p><p>Ett jobb, eller en utbildning</p></div><div class="knapp auto">Lägg till ett jobb</div></div></div>
+          </div>
+        </div>
+        <p class="bildtext"><b>Mobil.</b> Arket 384 px brett med A4-höjd. Varje tomt avsnitt är en träffyta (minst 44 px) som öppnar bladet; "+ Lägg till" vid rubriken är bara pekaren. Språk är redan ifyllt i svart: så ser skillnaden mellan ifyllt och tomt ut. Remsan byter mall redan nu. Linjen under toppraden: ett av fem avsnitt.</p>
+      </div>
+      <div class="bred">
+        <div class="dator">
+          <div class="adress"><i></i><i></i><i></i><span>jobbcoach.ai/dashboard/skapa-cv?cv=8f2a</span></div>
+          <div class="skala"><div class="fastb">
+            <div class="sidomeny"><div class="logo">Jobbcoach</div><div>Hem</div><div class="aktiv">CV</div><div>Personliga brev</div><div>Tester</div><div>Jobbsöket</div><div>Konto</div></div>
+            <div class="flode">
+              <div class="fsk"><div class="rad"><span class="k">×</span><span class="titel">Bygg ditt CV</span><span class="k"></span></div><div class="linje"><i style="width:16%"></i></div></div>
+              <div class="mitt">
+                <div class="layt">
+                  <div class="zon"><div style="width:600px"><p class="tips"><svg class="ik"><use href="#i-penna"/></svg>Grå text är exempel och följer inte med i filen. Tryck på ett avsnitt för att fylla i.</p><div class="arkw" data-cv="rader"></div></div></div>
+                  <div class="kol"><div class="rub"><b>Föreslagna för dig</b><a>Alla 20</a></div><p class="skal">Gratismallen först. Räknas om när innehållet finns.</p><div class="rutnat" data-remsa="linne" data-antal="6"></div><div class="mallrad" style="margin-top:4px"><b>Linne <svg class="ik s" style="color:var(--ink-3)"><use href="#i-info"/></svg></b><span class="fmt"><span><svg class="ik"><use href="#i-pdf"/></svg>PDF</span><span><svg class="ik"><use href="#i-word"/></svg>WORD</span></span></div><p class="meta">Gratis. Georgia-namn, Calibri-text, tunn linje under rubrikerna.</p></div>
+                </div>
+              </div>
+              <div class="fastd"><div class="in"><div class="verktyg"><span class="chip40"><span class="aa">Aa</span> Calibri</span><span class="chip40"><span class="et">Färg</span><span class="prickar"><b class="vald" style="background:#1F3A5F"></b><b style="background:#1E5A3C"></b><b style="background:#7A1F2B"></b><b style="background:#3A3A3A"></b></span></span><span class="chip40"><svg class="ik"><use href="#i-ordning"/></svg> Erfarenhet först</span></div><div class="lucka" style="text-align:right"><p class="ey" style="color:var(--ink-3);font-size:11px">Nästa</p><p style="font-size:13px;font-weight:500">Ett jobb, eller en utbildning</p></div><div class="knapp" style="width:280px">Lägg till ett jobb</div></div></div>
+            </div>
+          </div></div>
+        </div>
+        <p class="bildtext"><b>Dator.</b> Mallytans layout: arket 600 px i zonen om 744, mallkolumnen 336 px med tre per rad, verktygsraden till vänster i den fasta raden och luckan med knappen till höger. Spöktexten följer titeln: Kundtjänstmedarbetare ger exempel ur yrket. Raden ovanför arket visas första gången, i sex sekunder som på mallsidan.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 Erfarenhetsbladet -->
+  <section class="block" id="bladet">
+    <div class="huvud">
+      <p class="ey">Yta 3 av 5</p>
+      <h2>Erfarenhetsbladet, och Jobbcoachen som skriver punkterna</h2>
+      <p class="lede">Bladet är en dialog: fokus på första fältet, Esc stänger, bakåtgesten stänger bladet och inte byggaren. Från och Till är månad plus år, aldrig fritext. Under punkterna står "Skriv punkter åt mig" med pennan. Det hon får är text i fältet, hennes att ändra, med Ångra.</p>
+    </div>
+    <div class="ytor tre">
+      <div>
+        <div class="tel">
+          <div class="status"><span>14:07</span><span>jobbcoach.ai</span></div>
+          <div class="skarm">
+            <div class="fsk"><div class="rad"><span class="k">×</span><span>Bygg ditt CV</span><span class="k"></span></div><div class="linje"><i style="width:16%"></i></div></div>
+            <div class="inner"><div class="arkw" data-cv="rader" data-valt="erfarenhet"></div></div>
+            <div class="dimma ljus"></div>
+            <div class="sheet" style="height:600px">
+              <div class="sheet-h"><div><h4>Erfarenhet</h4><p class="meta">Avsnitt 1 av 5</p></div><span class="k"><svg class="ik l"><use href="#i-stang"/></svg></span></div>
+              <div class="sheet-b">
+                <div class="par"><label class="etik"><span>Titel</span><div class="falt">Kundtjänstmedarbetare</div></label><label class="etik"><span>Arbetsgivare</span><div class="falt">Nordvik Service AB</div></label></div>
+                <div class="par"><label class="etik"><span>Från</span><div class="tre3"><div class="falt sel">Aug</div><div class="falt">2022</div></div></label><label class="etik"><span>Till</span><div class="tre3"><div class="falt last sel">Månad</div><div class="falt last">År</div></div></label></div>
+                <div class="kryss"><i class="pa"></i>Pågående</div>
+                <label class="etik"><span>Punkter <small>(en per rad)</small></span><div class="falt yta last"><div class="linjer"><i></i><i></i><i></i></div></div></label>
+                <div class="knapp sek lag"><div class="fyll"></div><span style="display:inline-flex;align-items:center;gap:8px"><svg class="ik"><use href="#i-penna"/></svg> Skriver</span></div>
+              </div>
+              <div class="sheet-f"><div class="knapp" style="opacity:.5">Spara</div></div>
+            </div>
+          </div>
+        </div>
+        <p class="bildtext"><b>I väntan.</b> Knappen byter till "Skriver" och fylls, fältet är låst med tre rader, bladets Spara väntar. Högst åtta sekunder, sedan "Det tog för lång tid, försök igen". Bakom bladet: avsnittet på arket med kopparram och namnchip.</p>
+      </div>
+      <div>
+        <div class="tel">
+          <div class="status"><span>14:07</span><span>jobbcoach.ai</span></div>
+          <div class="skarm">
+            <div class="fsk"><div class="rad"><span class="k">×</span><span>Bygg ditt CV</span><span class="k"></span></div><div class="linje"><i style="width:16%"></i></div></div>
+            <div class="inner"><div class="arkw" data-cv="rader" data-valt="erfarenhet"></div></div>
+            <div class="dimma ljus"></div>
+            <div class="sheet" style="height:600px">
+              <div class="sheet-h"><div><h4>Erfarenhet</h4><p class="meta">Avsnitt 1 av 5</p></div><span class="k"><svg class="ik l"><use href="#i-stang"/></svg></span></div>
+              <div class="sheet-b">
+                <div class="par"><label class="etik"><span>Titel</span><div class="falt">Kundtjänstmedarbetare</div></label><label class="etik"><span>Arbetsgivare</span><div class="falt">Nordvik Service AB</div></label></div>
+                <label class="etik"><span>Punkter <small>(en per rad)</small></span><div class="falt yta" style="font-size:14px;line-height:21px">Tog emot ärenden via telefon, chatt och e-post, runt 60 om dagen
+Löste frakt- och faktureringsfrågor direkt i Zendesk
+Lärde upp två nya kollegor i kundsystemet</div></label>
+                <div class="skriv"><div class="rad"><span><svg class="ik s"><use href="#i-penna"/></svg> Jobbcoachen skrev tre punkter. Ändra fritt.</span><a>Ångra</a></div></div>
+                <div class="knapp sek lag"><svg class="ik"><use href="#i-penna"/></svg> Skriv om punkterna</div>
+              </div>
+              <div class="sheet-f"><div class="rad"><a class="lank fel">Ta bort jobbet</a></div><div class="knapp">Spara</div></div>
+            </div>
+          </div>
+        </div>
+        <p class="bildtext"><b>Klart.</b> Punkterna står i fältet som vanlig text. Tonraden säger vad som hände och ger Ångra; "Skriv om punkterna" ger ett nytt förslag. Ta bort är en textlänk sist i bladet, aldrig en papperskorg i listan.</p>
+      </div>
+      <div class="bred">
+        <div class="dator">
+          <div class="adress"><i></i><i></i><i></i><span>jobbcoach.ai/dashboard/skapa-cv?cv=8f2a&amp;ark=erfarenhet:0</span></div>
+          <div class="skala"><div class="fastb">
+            <div class="sidomeny"><div class="logo">Jobbcoach</div><div>Hem</div><div class="aktiv">CV</div><div>Personliga brev</div><div>Tester</div><div>Jobbsöket</div><div>Konto</div></div>
+            <div class="flode">
+              <div class="fsk"><div class="rad"><span class="k">×</span><span class="titel">Bygg ditt CV</span><span class="k"></span></div><div class="linje"><i style="width:16%"></i></div></div>
+              <div class="mitt">
+                <div class="layt">
+                  <div class="zon"><div class="arkw" data-cv="rader" data-valt="erfarenhet"></div></div>
+                  <div class="kol"></div>
+                </div>
+                <div class="dock">
+                  <div class="sheet-h"><div><h4 class="ui-h" style="font-size:20px">Erfarenhet</h4><p class="meta">Avsnitt 1 av 5</p></div><span class="k" style="margin:0"><svg class="ik l"><use href="#i-stang"/></svg></span></div>
+                  <div class="sheet-b" style="display:grid;align-content:start">
+                    <div class="par"><label class="etik"><span>Titel</span><div class="falt">Kundtjänstmedarbetare</div></label><label class="etik"><span>Arbetsgivare</span><div class="falt">Nordvik Service AB</div></label></div>
+                    <label class="etik"><span>Ort <small>(valfritt)</small></span><div class="falt">Göteborg</div></label>
+                    <div class="par"><label class="etik"><span>Från</span><div class="tre3"><div class="falt sel">Aug</div><div class="falt">2022</div></div></label><label class="etik"><span>Till</span><div class="tre3"><div class="falt last sel">Månad</div><div class="falt last">År</div></div></label></div>
+                    <div class="kryss"><i class="pa"></i>Pågående</div>
+                    <label class="etik"><span>Punkter <small>(en per rad)</small></span><div class="falt yta" style="font-size:14px;line-height:21px">Tog emot ärenden via telefon, chatt och e-post, runt 60 om dagen
+Löste frakt- och faktureringsfrågor direkt i Zendesk
+Lärde upp två nya kollegor i kundsystemet</div></label>
+                    <div class="skriv"><div class="rad"><span><svg class="ik s"><use href="#i-penna"/></svg> Jobbcoachen skrev tre punkter. Ändra fritt.</span><a>Ångra</a></div></div>
+                    <div class="knapp sek lag"><svg class="ik"><use href="#i-penna"/></svg> Skriv om punkterna</div>
+                  </div>
+                  <div class="sheet-f" style="display:grid;gap:10px"><div class="rad" style="display:flex;justify-content:space-between"><a class="lank fel">Ta bort jobbet</a></div><div class="knapp">Spara</div></div>
+                </div>
+              </div>
+              <div class="fastd"><div class="in"><div class="verktyg" style="opacity:.5"><span class="chip40"><span class="aa">Aa</span> Calibri</span><span class="chip40"><span class="et">Färg</span><span class="prickar"><b class="vald" style="background:#1F3A5F"></b><b style="background:#1E5A3C"></b><b style="background:#7A1F2B"></b><b style="background:#3A3A3A"></b></span></span><span class="chip40"><svg class="ik"><use href="#i-ordning"/></svg> Erfarenhet först</span></div></div></div>
+            </div>
+          </div></div>
+        </div>
+        <p class="bildtext"><b>Dator, bladet dockat.</b> 400 px på mallkolumnens plats, hela arket synligt med kopparramen runt avsnittet. Vid Spara ritas arket om och ramen tonar bort efter en sekund. Den fasta radens knapp är borta medan bladet äger kopparknappen.</p>
+      </div>
+    </div>
+    <p class="motiv"><b>Varför dockat och inte centrerat nederst:</b> ett blad på 520 px nederst täcker den nedre halvan av arket, där erfarenhet, utbildning och kompetenser landar; hon ser då aldrig ändringen förrän bladet stängts. Dockat till höger ser hon avsnittet med ram medan hon skriver och ritas om i samma blickfält vid Spara. Dialogsemantiken är densamma (role dialog, fokus in, Esc, fokus tillbaka), och bladet rullar själv under tangentbordet. Mobilen har bottenbladet som UX ritade; där är skärmen för smal för två kolumner.</p>
+  </section>
+
+  <!-- 4 Miniminivå, Premiummall -->
+  <section class="block" id="minimi">
+    <div class="huvud">
+      <p class="ey">Yta 4 av 5</p>
+      <h2>Miniminivån nådd: filen i den fasta raden, Premiummallen vald</h2>
+      <p class="lede">Ett jobb, en utbildning, kompetenser och språk står på arket. Hon har valt Koppar i remsan, en premiummall med färgat huvud. Ingenting stoppar: hon ser sitt CV i mallen, priset står i knappen, och gratisvägen är en bild av samma CV i Linne. Ett enda förslag ovanför raden, med Hoppa över.</p>
+    </div>
+    <div class="ytor">
+      <div>
+        <div class="tel">
+          <div class="status"><span>14:19</span><span>jobbcoach.ai</span></div>
+          <div class="skarm">
+            <div class="fsk"><div class="rad"><span class="k">×</span><span>Bygg ditt CV</span><span class="sparat"><svg class="ik s"><use href="#i-bock"/></svg>Sparat</span></div><div class="linje"><i style="width:80%"></i></div></div>
+            <div class="inner">
+              <div class="arkw" data-cv="fylld" data-mall="koppar" data-nyss="kompetenser"></div>
+              <div class="mallrad"><b>Koppar <svg class="ik s" style="color:var(--ink-3)"><use href="#i-info"/></svg></b><span class="fmt"><span><svg class="ik"><use href="#i-pdf"/></svg>PDF</span><span class="dim"><svg class="ik"><use href="#i-word"/></svg>WORD INGÅR I PREMIUM</span></span></div>
+              <p class="meta">Premium, 149 kr i månaden. Färgat huvudband, rund fotoplats.</p>
+              <div class="gratisvag" style="margin-top:8px"><div class="m"><div class="mt"><i class="n"></i><i class="r"></i><i></i><i></i><i class="r"></i><i></i></div></div><div><b>Ladda ner gratis i Linne</b><small>Samma CV, samma rubriker</small></div></div>
+            </div>
+            <div style="padding:0 14px 8px;background:var(--golv)"><div class="forslag"><span>Skriv några rader om dig, det är det första rekryteraren läser.</span><a>Hoppa över</a></div></div>
+            <div class="fast"><div class="rad"><div class="segm"><div class="vald"><svg class="ik"><use href="#i-pdf"/></svg>PDF</div><div><svg class="ik"><use href="#i-word"/></svg>Word<svg class="ik s"><use href="#i-las"/></svg></div></div><div class="knapp tva">Ladda ner PDF i Koppar<small>Premium 149 kr i månaden</small></div></div></div>
+        </div>
+        </div>
+        <p class="bildtext"><b>Mobil.</b> "Sparat" i toppraden i två sekunder efter bladet. Kompetenser nyss sparade: ramen tonar bort. Profilen är fortfarande tom: rubriken i Koppars färg, exemplet i grått och träffytan vid rubriken, mitt i ett annars ifyllt CV. Word låst i premiummallen tills kontot har Premium. Knappen i två avsiktliga rader: handlingen och priset.</p>
+      </div>
+      <div class="bred">
+        <div class="dator">
+          <div class="adress"><i></i><i></i><i></i><span>jobbcoach.ai/dashboard/skapa-cv?cv=8f2a&amp;mall=koppar</span></div>
+          <div class="skala"><div class="fastb">
+            <div class="sidomeny"><div class="logo">Jobbcoach</div><div>Hem</div><div class="aktiv">CV</div><div>Personliga brev</div><div>Tester</div><div>Jobbsöket</div><div>Konto</div></div>
+            <div class="flode">
+              <div class="fsk"><div class="rad"><span class="k">×</span><span class="titel">Bygg ditt CV</span><span class="sparat"><svg class="ik s"><use href="#i-bock"/></svg>Sparat</span></div><div class="linje"><i style="width:80%"></i></div></div>
+              <div class="mitt">
+                <div class="layt">
+                  <div class="zon"><div class="arkw" data-cv="fylld" data-mall="koppar" data-nyss="kompetenser"></div></div>
+                  <div class="kol"><div class="rub"><b>Föreslagna för dig</b><a>Alla 20</a></div><p class="skal">Du har kort erfarenhet, så mallar med tydligt huvud först.</p><div class="rutnat" data-remsa="koppar" data-antal="6"></div><div class="mallrad" style="margin-top:4px"><b>Koppar <svg class="ik s" style="color:var(--ink-3)"><use href="#i-info"/></svg></b><span class="fmt"><span><svg class="ik"><use href="#i-pdf"/></svg>PDF</span><span class="dim"><svg class="ik"><use href="#i-word"/></svg>WORD INGÅR I PREMIUM</span></span></div><p class="meta">Premium, 149 kr i månaden. Färgat huvudband med vit text och rund fotoplats.</p><div class="gratisvag"><div class="m"><div class="mt"><i class="n"></i><i class="r"></i><i></i><i></i><i class="r"></i><i></i></div></div><div><b>Ladda ner gratis i Linne</b><small>Samma CV, samma rubriker</small></div></div><div class="forslag"><span>Skriv några rader om dig, det är det första rekryteraren läser.</span><a>Hoppa över</a></div></div>
+                </div>
+              </div>
+              <div class="fastd"><div class="in"><div class="verktyg"><span class="chip40"><span class="aa">Aa</span> Calibri</span><span class="chip40"><span class="et">Färg</span><span class="prickar"><b class="vald" style="background:#8A4B2A"></b><b style="background:#1F3A5F"></b><b style="background:#1E5A3C"></b><b style="background:#2B2F36"></b></span></span><span class="chip40"><svg class="ik"><use href="#i-ordning"/></svg> Erfarenhet först</span><span class="chip40"><svg class="ik"><use href="#i-foto"/></svg> Foto</span></div><div class="segm"><div class="vald"><svg class="ik"><use href="#i-pdf"/></svg>PDF</div><div><svg class="ik"><use href="#i-word"/></svg>Word<svg class="ik s"><use href="#i-las"/></svg></div></div><div class="knapp tva">Ladda ner PDF i Koppar<small>Premium 149 kr i månaden</small></div></div></div>
+            </div>
+          </div></div>
+        </div>
+        <p class="bildtext"><b>Dator.</b> Fotoknappen syns bara i mallar med fotoplats. Skälet under "Föreslagna för dig" räknas om när innehållet finns. Gratisvägen och förslaget i mallkolumnen, aldrig över arket.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 Final -->
+  <section class="block" id="final">
+    <div class="huvud">
+      <p class="ey">Yta 5 av 5</p>
+      <h2>Finalen: bocken, filen, Öppna och Dela, sedan analysen</h2>
+      <p class="lede">Samma Final som på provsidan. Arket lyfts medan filen skapas och knappen fylls. Sedan: bocken ritas på 450 ms, filnamnet med formatikonen, Öppna och Dela lika stora. Första nästa steg är analysen av CV:t, andra är brevet. Ingen försäljning första gången, ingen konfetti.</p>
+    </div>
+    <div class="ytor">
+      <div>
+        <div class="tel">
+          <div class="status"><span>14:21</span><span>jobbcoach.ai</span></div>
+          <div class="skarm">
+            <div class="fsk"><div class="rad"><span class="k">×</span><span>Bygg ditt CV</span><span class="k"></span></div><div class="linje"><i style="width:100%"></i></div></div>
+            <div class="inner"><div class="arkw lyft" data-cv="fylld" data-mall="linne"></div></div>
+            <div class="dimma"></div>
+            <div class="sheet">
+              <div class="sheet-b" style="text-align:center;padding-top:8px">
+                <div class="final-bock"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+                <p class="ui-h" style="font-size:22px">Klart. Ditt CV är nedladdat.</p>
+                <p class="meta" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;color:var(--ink-2)"><svg class="ik"><use href="#i-pdf"/></svg>Sara-Holm-CV.pdf, Linne, 1 sida</p>
+                <div class="par"><div class="knapp"><svg class="ik"><use href="#i-oppna"/></svg> Öppna</div><div class="knapp sek"><svg class="ik"><use href="#i-dela"/></svg> Dela</div></div>
+                <div class="traff"><p class="ey" style="color:var(--ink-3)">Nästa steg</p><b>Analysera ditt CV</b><small>De flesta arbetsgivare låter ett rekryteringssystem sortera först. Vi visar vad du ska ändra.</small><div class="knapp sek lag" style="margin-top:4px">Analysera ditt CV</div></div>
+                <div class="nasta"><a class="lank">Skriv ett personligt brev</a><a class="lank">Gå till Mina CV</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="bildtext"><b>Mobil.</b> Hon valde gratisvägen: filen i Linne. Dela via Web Share när webbläsaren kan, annars står Öppna ensam. Efter finalen är CV:t märkt klart, bakåtgesten går till CV-rummet.</p>
+      </div>
+      <div class="bred">
+        <div class="dator">
+          <div class="adress"><i></i><i></i><i></i><span>jobbcoach.ai/dashboard/skapa-cv?cv=8f2a</span></div>
+          <div class="skala"><div class="fastb">
+            <div class="sidomeny"><div class="logo">Jobbcoach</div><div>Hem</div><div class="aktiv">CV</div><div>Personliga brev</div><div>Tester</div><div>Jobbsöket</div><div>Konto</div></div>
+            <div class="flode">
+              <div class="fsk"><div class="rad"><span class="k">×</span><span class="titel">Bygg ditt CV</span><span class="k"></span></div><div class="linje"><i style="width:100%"></i></div></div>
+              <div class="mitt">
+                <div class="layt">
+                  <div class="zon"><div class="arkw lyft" data-cv="fylld" data-mall="linne"></div></div>
+                  <div class="kol"><div class="rub"><b>Föreslagna för dig</b><a>Alla 20</a></div><div class="rutnat" data-remsa="linne" data-antal="6"></div></div>
+                </div>
+                <div class="dimma"></div>
+                <div class="centr">
+                  <div class="sheet-b" style="text-align:center;padding:4px 24px 24px;display:grid;gap:12px">
+                    <div class="final-bock"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+                    <p class="ui-h" style="font-size:24px">Klart. Ditt CV är nedladdat.</p>
+                    <p class="meta" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;color:var(--ink-2)"><svg class="ik"><use href="#i-pdf"/></svg>Sara-Holm-CV.pdf, Linne, 1 sida</p>
+                    <div class="par"><div class="knapp"><svg class="ik"><use href="#i-oppna"/></svg> Öppna</div><div class="knapp sek"><svg class="ik"><use href="#i-dela"/></svg> Dela</div></div>
+                    <div class="traff"><p class="ey" style="color:var(--ink-3)">Nästa steg</p><b>Analysera ditt CV</b><small>De flesta arbetsgivare låter ett rekryteringssystem sortera först. Vi visar vad du ska ändra.</small><div class="knapp sek lag" style="margin-top:4px">Analysera ditt CV</div></div>
+                    <div class="nasta" style="grid-template-columns:1fr 1fr"><a class="lank">Skriv ett personligt brev</a><a class="lank">Gå till Mina CV</a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="fastd"><div class="in"><div class="verktyg" style="opacity:.5"><span class="chip40"><span class="aa">Aa</span> Calibri</span></div></div></div>
+            </div>
+          </div></div>
+        </div>
+        <p class="bildtext"><b>Dator.</b> Finalen som ark centrerat över det lyfta dokumentet, 520 px. Samma komponent som provsidan: ett ställe att rätta, en belöning som ser likadan ut överallt.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-stang" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-penna" viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M13 8l3 3"/></symbol>
+    <symbol id="i-upp" viewBox="0 0 24 24"><path d="M12 15.5V4M7.5 8.5L12 4l4.5 4.5"/><path d="M4 15.5v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></symbol>
+    <symbol id="i-dela" viewBox="0 0 24 24"><path d="M12 15V4M8 8l4-4 4 4"/><path d="M5 13v5.5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V13"/></symbol>
+    <symbol id="i-oppna" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M19 13v5.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 18.5v-11A1.5 1.5 0 0 1 6.5 6H12"/></symbol>
+    <symbol id="i-bock" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-las" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-pdf" viewBox="0 0 24 24"><path d="M14 3.5H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5z"/><path d="M14 3.5v5h5"/><path d="M8 17v-5h1.6a1.5 1.5 0 0 1 0 3H8M12.2 17v-5h1.3a2.5 2.5 0 0 1 0 5h-1.3M16.3 17v-5h2.4M16.3 14.5h2"/></symbol>
+    <symbol id="i-word" viewBox="0 0 24 24"><path d="M14 3.5H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5z"/><path d="M14 3.5v5h5"/><path d="M8 12l1.4 5 1.6-4 1.6 4 1.4-5"/></symbol>
+    <symbol id="i-foto" viewBox="0 0 24 24"><rect x="3.5" y="6.5" width="17" height="13" rx="2"/><path d="M8.5 6.5l1.5-2.5h4l1.5 2.5"/><circle cx="12" cy="13" r="3.5"/></symbol>
+    <symbol id="i-ordning" viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h7"/><path d="M18 11v9M15 17l3 3 3-3"/></symbol>
+    <symbol id="i-sida" viewBox="0 0 24 24"><path d="M14 3.5H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5z"/><path d="M14 3.5v5h5"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8h.01"/></symbol>
+  </defs>
+</svg>
+
+<script>
+(function(){
+  /* Tema */
+  var knapp=document.getElementById('temaknapp');var root=document.documentElement;
+  function uppdatera(){var m=root.getAttribute('data-theme')==='dark';knapp.textContent=m?'Visa i ljust läge':'Visa i mörkt läge';knapp.setAttribute('aria-pressed',m?'true':'false');}
+  try{var sp=localStorage.getItem('byggskiss-tema');if(sp==='dark'||sp==='light')root.setAttribute('data-theme',sp);}catch(e){}
+  if(/[?&]tema=dark/.test(location.search))root.setAttribute('data-theme','dark');
+  if(/[?&]tema=light/.test(location.search))root.setAttribute('data-theme','light');
+  uppdatera();
+  knapp.addEventListener('click',function(){var m=root.getAttribute('data-theme')==='dark';var nytt=m?'light':'dark';if(!m&&!root.getAttribute('data-theme')&&window.matchMedia('(prefers-color-scheme: dark)').matches)nytt='light';root.setAttribute('data-theme',nytt);try{localStorage.setItem('byggskiss-tema',nytt);}catch(e){}uppdatera();});
+
+  /* Exempelpersonen (påhittad) */
+  var P={namn:'Sara Holm',titel:'Kundtjänstmedarbetare',kontakt:['sara.holm@example.com','070 123 45 67','Göteborg']};
+  var SEK={
+    erfarenhet:'<div class="sek" data-s="erfarenhet"><h5>Erfarenhet</h5><div class="post"><b>Kundtjänstmedarbetare</b>, Nordvik Service AB<div class="u">Göteborg, augusti 2022 till nu</div><ul><li>Tog emot ärenden via telefon, chatt och e-post, runt 60 om dagen</li><li>Löste frakt- och faktureringsfrågor direkt i Zendesk</li><li>Lärde upp två nya kollegor i kundsystemet</li></ul></div></div>',
+    utbildning:'<div class="sek" data-s="utbildning"><h5>Utbildning</h5><div class="post"><b>Samhällsvetenskapsprogrammet</b>, Polhemsgymnasiet<div class="u">2019 till 2022</div></div></div>',
+    kompetenser:'<div class="sek" data-s="kompetenser"><h5>Kompetenser</h5><div class="komp"><span>Kundbemötande</span><span>Zendesk</span><span>Excel</span><span>Reklamationer</span><span>Engelska i tal och skrift</span></div></div>',
+    sprak:'<div class="sek" data-s="sprak"><h5>Språk</h5><div class="komp"><span>Svenska, modersmål</span><span>Engelska, flytande</span></div></div>',
+    sprakStart:'<div class="sek" data-s="sprak"><h5><span>Språk</span><span class="lagg">+ Lägg till språk</span></h5><div class="komp"><span>Svenska, modersmål</span></div></div>'
+  };
+  /* Spöktexten: generisk när titeln saknas (startbladet), annars ur titelns yrkesområde (samma ordlista som rubrikuppsättningarna). Grå, följer aldrig med i filen. */
+  var SPOK_GEN={
+    profil:'<div class="post spok">En eller två meningar om vem du är och vad du söker.</div>',
+    erfarenhet:'<div class="post spok"><b>Yrkestitel</b>, Arbetsgivare<div class="u">Ort, månad år till nu</div><ul><li>Vad du gjorde, gärna med en siffra</li><li>Ett ansvar eller ett resultat</li></ul></div>',
+    utbildning:'<div class="post spok"><b>Utbildning eller program</b>, Skola<div class="u">År till år</div></div>',
+    kompetenser:'<div class="komp spok"><span>Verktyg</span><span>Metoder</span><span>Språk</span><span>Sådant som syns i jobbet</span></div>'
+  };
+  var SPOK_TITEL={
+    profil:'<div class="post spok">Kundtjänstmedarbetare med vana vid telefon och chatt, som söker en roll med mer ansvar.</div>',
+    erfarenhet:'<div class="post spok"><b>Kundtjänstmedarbetare</b>, Företaget AB<div class="u">Ort, månad år till nu</div><ul><li>Hur många ärenden du tog emot per dag, och i vilka kanaler</li><li>Ett problem du löste eller ett system du lärde dig</li></ul></div>',
+    utbildning:SPOK_GEN.utbildning,
+    kompetenser:'<div class="komp spok"><span>Kundbemötande</span><span>Ärendesystem</span><span>Excel</span><span>Engelska</span></div>'
+  };
+  var LAGG={erfarenhet:'+ Lägg till ett jobb',utbildning:'+ Lägg till utbildning',kompetenser:'+ Lägg till kompetenser',profil:'+ Skriv några rader om dig',sprak:'+ Lägg till språk'};
+  var NAMN={erfarenhet:'Erfarenhet',utbildning:'Utbildning',kompetenser:'Kompetenser',profil:'Profil',sprak:'Språk'};
+  /* Ordningen på arket är mallens: profilen överst under huvudet, som i alla riktiga CV. Den guidade ordningen (Nästa-raden) är en annan sak: jobb först, profilen sist. */
+  var ORDN=['profil','erfarenhet','utbildning','kompetenser','sprak'];
+
+  function huvud(mall,titelTom){
+    var t=titelTom?'<div class="titel tom">Din titel</div>':'<div class="titel">'+P.titel+'</div>';
+    var k='<div class="kontakt"><span>'+P.kontakt.join('</span><span>')+'</span></div>';
+    if(mall==='koppar')return '<div class="huvud"><div class="foto">S</div><div><div class="namn">'+P.namn+'</div>'+t+k+'</div></div>';
+    return '<div class="namn">'+P.namn+'</div>'+t+k;
+  }
+  function cvHtml(el){
+    var typ=el.getAttribute('data-cv'),mall=el.getAttribute('data-mall')||'linne',valt=el.getAttribute('data-valt'),nyss=el.getAttribute('data-nyss');
+    var h='';
+    var spok=typ==='tom'?SPOK_GEN:SPOK_TITEL;
+    ORDN.forEach(function(s){
+      var inner;
+      if(s==='sprak')inner=typ==='fylld'?SEK.sprak:SEK.sprakStart;
+      else if(typ==='fylld'&&SEK[s])inner=SEK[s];
+      else {
+        /* Profilen skrivs helst sist: före jobben en vänlig uppmaning, efter minst ett jobb erbjudandet. Hon får skriva själv när som helst. */
+        var rad=s==='profil'?'<div class="hintrad"><svg class="ik"><use href="#i-penna"/></svg>'+(typ==='fylld'?'Jobbcoachen kan skriva ett förslag utifrån dina jobb.':'Fyll gärna i jobben först, så kan Jobbcoachen skriva profilen utifrån dem. Eller skriv själv direkt.')+'</div>':'';
+        inner='<div class="sek" data-s="'+s+'"><h5><span>'+NAMN[s]+'</span><span class="lagg">'+LAGG[s]+'</span></h5>'+spok[s]+rad+'</div>';
+      }
+      var kl=s===valt?' class="valt" data-namn="'+NAMN[s]+'"':(s===nyss?' class="nyss"':'');
+      h+='<div'+kl+'>'+inner+'</div>';
+    });
+    h+='<div class="fler">+ Fler avsnitt: intyg, projekt, intressen, referenser</div>';
+    var kropp=mall==='koppar'?'<div class="kropp">'+h+'</div>':h;
+    el.innerHTML='<div class="cv '+mall+'">'+huvud(mall,typ==='tom')+kropp+'</div><span class="sidbricka"><svg class="ik"><use href="#i-sida"/></svg>1 sida</span>';
+  }
+  document.querySelectorAll('.arkw[data-cv]').forEach(cvHtml);
+
+  /* Remsa och rutnät av miniatyrer */
+  var MALLAR=[['linne','Linne','Gratis','',true],['bjork','Björk','Gratis','bjork',true],['koppar','Koppar','Premium','koppar',true],['kalksten','Kalksten','Premium','sido',true],['granit','Granit','Premium','granit',true],['antikva','Antikva','Premium','',true]];
+  function mini(m,vald){
+    var bars='<i class="n"></i><i class="r"></i><i></i><i></i><i></i><i class="r"></i><i></i><i></i>';
+    return '<div class="mini'+(vald?' vald':'')+'"><div class="ram"><div class="mt '+m[3]+'">'+bars+'</div>'+(vald?'<span class="bock"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>':'')+(m[4]?'<span class="w">W</span>':'')+'</div><div class="namn">'+m[1]+'</div><div class="under">'+m[2]+'</div></div>';
+  }
+  document.querySelectorAll('[data-remsa]').forEach(function(el){
+    var vald=el.getAttribute('data-remsa'),n=parseInt(el.getAttribute('data-antal')||'4',10);
+    var h='';MALLAR.slice(0,n).forEach(function(m){h+=mini(m,m[0]===vald);});
+    if(el.classList.contains('remsa'))h+='<div class="mini alla"><div class="ram">Alla 20</div><div class="namn">&nbsp;</div></div>';
+    el.innerHTML=h;
+  });
+
+  /* Skalning: arket ritas i 600 px, datorn i 1440 px */
+  function skala(){
+    document.querySelectorAll('.arkw').forEach(function(a){var cv=a.querySelector('.cv');if(!cv)return;cv.style.transform='scale('+(a.clientWidth/600)+')';});
+    document.querySelectorAll('.skala').forEach(function(s){var f=s.querySelector('.fastb');var w=1440;var k=Math.min(1,s.clientWidth/w);f.style.transform='scale('+k+')';s.style.height=(f.offsetHeight*k)+'px';});
+  }
+  skala();if(window.ResizeObserver){new ResizeObserver(skala).observe(document.body);}else{window.addEventListener('resize',skala);}
+  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(skala);}setTimeout(skala,600);
+})();
+</script>
+</body>
+</html>

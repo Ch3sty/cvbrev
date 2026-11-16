@@ -1,0 +1,37 @@
+# Brief: ny CV-byggare (/dashboard/skapa-cv)
+
+saas-lead 2026-11-16. Underlag till art-director tillsammans med mobile-ux-designerns och art-directorns egna underlag. Ägaren godkänner skissen före bygge. Prio: konvertering > användare > besökare.
+
+## Läget i kod och data
+
+Byggaren är sju sidor i FlowShell (Kontakt, Om dig, Erfarenhet, Utbildning, Kompetenser, Språk, Granska). Utkastet ligger i localStorage sju dagar, steget i `?steg=`. Steg 7 är redan Dokument mellan (Remsa, FastRad, rubrikark, Final) sedan mallsatsningen; steg 1 till 6 är formulär med en egen handritad förhandsvisning som inte liknar någon mall. Ingen AI någonstans i stegen. Sparning går till `cv_texts` via `/api/cv/save-improved` (403 vid två CV gratis, `CV_GRANS_GRATIS`), nedladdning via `/api/cv/generate-formatted` med `entry: 'byggare'` (402 efter en gratisexport, premiummall spärrar knappen i klienten). Mall förväljs ur `?mall=`. Ingångar: Mina CV ("Skapa nytt CV"), hemskärmens lyftkort, sidomenyn, registreringens val cv (landning `/dashboard/skapa-cv`).
+
+Data senaste 60 dagarna, ägare och testkonton borträknade (`admin_undantagna_konton`): 177 nya konton, 27 laddade upp ett CV, 5 byggde ett, 6 laddade ner en formaterad fil. Av de 20 som valde "CV" i registreringen laddade 8 upp, 3 byggde, 0 laddade ner (nedladdningen var trasig till 16 nov, beslut 0 i plan-mallar). I PostHog öppnade 23 personer byggaren, 2 nådde steg 7. 90 dagar: 11 byggda CV från 7 konton, alla gratis, 4 av 11 följdes av en nedladdning; snitt 3,7 erfarenheter, 2 av 11 utan kompetenser, ingen med egna rubriker. Var i stegen folk faller av: okänt (steget syns inte i PostHogs URL förrän man navigerat).
+
+## Besluten
+
+**1. Vem byggaren är till för.** Den som saknar ett CV i filform: första jobbet, lång tid sedan, bara LinkedIn, eller ett gammalt CV som ska skrivas om från grunden. Den som har en fil ska aldrig skriva av den: byggaren får uppladdning som första val ("Har du ett CV? Ladda upp det så fyller vi i"), samma tolkning som provsidan (`parseCVStructure`, maskad via `pii.ts`, inloggad via `/api/cv/upload`). Motiv: fem gånger fler nya konton laddar upp än bygger, och den gruppen ska mötas där den är. Byggaren konkurrerar inte med provsidan: provsidan är för utloggade, byggaren för konton.
+
+**2. Målet.** En nedladdad PDF i en riktig mall under första besöket, sparad i Mina CV och därmed tillgänglig för brev, analys och matchning. Måltal: start till `cv_nedladdad` minst 25 procent (provsidans mål är 15 utan konto; här finns kontot redan), nya konton med byggt CV från 3 till 8 procent. Premium mäts som `paywall_cta_clicked` med surface byggare till `subscription_paid` inom 24 timmar.
+
+**3. Dokumentet är sidan, inte sju steg.** Byggaren blir samma Mallyta som provsidan och /dashboard/cv-mallar: namnet först, sedan arket i vald mall med tomma avsnitt som "+ Lägg till", avsnittsarket (AvsnittArk) för inmatning, Remsa och FastRad. Steg 1 till 6 som sidor försvinner, och med dem SkapaCvPreview. Ordningen styrs av en synlig lista bredvid eller under arket (Huvud, Erfarenhet, Utbildning, Kompetenser, Profiltext, Språk) som bockas av och föreslår nästa avsnitt; hon kan hoppa fritt. Motiv: mallsatsningens komponenter finns, är ägarens godkända standard och byggarens steg 7 kör dem redan. Två världar i samma flöde (formulär utan mall, sedan mall) är dagens fel.
+
+**4. Fält bort eller ihop.** Kontakt och titel blir ett huvud: namn, titel, e-post, telefon, ort, LinkedIn, med e-post, telefon och ort förifyllda ur profilen. Titeln frågas direkt efter namnet eftersom den styr rubrikuppsättning och mallförslag. "Om dig" flyttar sist och byts till Profiltext som föreslås ur erfarenheterna (beslut 5). Kompetensernas kategorier tas bort: en lista med brickor, mallen grupperar. Språk förifyllt "Svenska, modersmål", valfritt. Intyg finns i datan men saknar steg i dag: blir ett avsnitt via rubrikmodellen. Krav för nedladdning: namn (422 `name_required` på servern står kvar) plus minst en erfarenhet eller utbildning; telefon slutar vara spärr men får en rad om att rekryterare ringer. Ordräknare, tipslistor och "Steg N av 7" bort; hjälpen ligger i arket som platshållare.
+
+**5. AI hjälper i fält, aldrig i flödet.** Tre insatser, alla gratis och räknade i quotaService (kvot bestäms i byggnoterna): uppladdat CV fyller avsnitten; "Skriv punkter åt mig" i erfarenhetsarket ur titel, arbetsgivare och några stickord; profiltexten föreslås när minst en erfarenhet finns. All text maskas före modellen, personuppgifter går aldrig med (sanningskravet). Ingen AI i rubrikförvalet (plan-mallar 10), ingen poäng eller analys inne i byggaren: analysen är nästa steg efter filen, inte en spärr före.
+
+**6. Premiumvärdet syns på arket, stoppar aldrig.** Premiummall får väljas och ses i förhandsvisning och helskärm; knappen bär handling och pris ("Ladda ner i Skiffer med Premium, 149 kr i månaden") och gratisvägen visas som bild av hennes eget CV i närmaste gratismall, som i provsidan. Word är gratis i gratismallarna, Premium i övriga. Spärren på antal CV (två gratis) visas när hon öppnar byggaren, inte efter tjugo minuters skrivande; samma PaywallCard cv-antal. Merförsäljningen vid andra nedladdningen (plan-mallar punkt 14) gäller även här. Inga nya priser, ingen ändring av gratisnivån.
+
+**7. Kopplingar.** `?mall=` förväljs som i dag. Finalen är samma Final som provsidan: Öppna, Dela, sedan "Analysera ditt CV" som första nästa steg och "Skriv personligt brev" som andra; Mina CV som länk. Sparat CV skrivs med `structured_data` i CVMetadata-format och `section_titles` så /dashboard/cv-mallar kan byta mall senare utan omparsning. Ett CV byggt här ska gå att öppna i Mina CV och redigeras i samma avsnittsark (ingen separat redigeringsvy). Registreringens val cv landar fortsatt här.
+
+**8. Mätning.** Nya: `cv_bygg_start` (entry: mina_cv, hemskarm, sidomeny, registrering, mall), `cv_bygg_avsnitt_sparat` (sektion, method: manuell, ai, uppladdat), `cv_bygg_ai_anvand` (typ, accepterad), `cv_bygg_sparat`. Befintliga med surface byggare: `cv_eget_start`/`cv_eget_inlast`, `mall_bytt`, `rubrik_bytt`, `nedladdning_klickad`, `paywall_shown` (variant mall, cv-antal, cv-export), `cv_nedladdad` (server, entry byggare), `nasta_steg_klickad`. Tratt: start, första avsnitt sparat, minst ett mall_bytt, nedladdning_klickad, cv_nedladdad, nasta_steg_klickad. Avläsning tidigast sex veckor efter deploy och minst 60 starter.
+
+**9. Får inte försämras.** Namnkravet och PII-maskningen; kvotmodellen och betalväggen på uttag; URL-steg och bakåtgesten (useFlowStep), utkast som överlever omladdning och återkomstvalet Fortsätt eller Börja om; X ut ur flödet; prestandabudget 2,0 s LCP och CLS 0 på Pixel 7; ingångarna från Mina CV, hemskärmen, sidomenyn och registreringen; adminknappen Fyll i testdata; att ett byggt CV fungerar i brev, analys och matchning. Texter om datalagring, integritet och villkor ändras inte.
+
+## Ordning och insats
+
+Byggs på Dokument-komponenterna efter lansering 1 (1 till 5 dec), gren `feat/cv-byggare`, Opus 5.5 efter godkänd skiss, L. Merge med lansering 2 (ca 5 jan) så januaritoppen får den nya byggaren. Inget rörs på main under frysen 23 till 30 nov.
+
+## Fråga till ägaren
+
+Byggaren får en uppladdningsingång. Texten om vad som händer med filen återanvänds ordagrant från dagens uppladdningsyta (integritetslöftet vid uppladdning), ingen ny formulering. Säg till om det ska stå något annat.
