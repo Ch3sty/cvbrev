@@ -1,0 +1,15 @@
+Typsnitten i CV-mallarna (src/lib/cv/mallar/typsnitt-filer.ts), som woff2 ur
+Fontsource (https://fontsource.org), latin och latin-ext.
+
+Carlito (Calibri)            SIL Open Font License 1.1   https://github.com/googlefonts/carlito
+Arimo (Arial, Helvetica)     Apache License 2.0           https://github.com/googlefonts/Arimo
+Tinos (Times New Roman)      Apache License 2.0           https://github.com/googlefonts/tinos
+Gelasio (Georgia)            SIL Open Font License 1.1   https://github.com/SorkinType/Gelasio
+EB Garamond (Garamond)       SIL Open Font License 1.1   https://github.com/georgd/EB-Garamond
+DejaVu Sans (Verdana)        Bitstream Vera / DejaVu-licensen (fri)  https://dejavu-fonts.github.io/License.html
+Lato                         SIL Open Font License 1.1   https://www.latofonts.com
+Open Sans                    SIL Open Font License 1.1   https://github.com/googlefonts/opensans
+Roboto                       SIL Open Font License 1.1   https://github.com/googlefonts/roboto-3-classic
+Poppins                      SIL Open Font License 1.1   https://github.com/itfoundry/Poppins
+
+OFL 1.1: https://openfontlicense.org  Apache 2.0: https://www.apache.org/licenses/LICENSE-2.0

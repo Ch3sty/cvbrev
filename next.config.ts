@@ -46,7 +46,9 @@ const nextConfig: NextConfig = {
   // Turbopack (Next.js 16 standard) inkluderar inte binärfiler automatiskt
   outputFileTracingIncludes: {
     '/api/letters/download': ['./node_modules/@sparticuz/chromium/**/*'],
-    '/api/cv/generate-formatted': ['./node_modules/@sparticuz/chromium/**/*'],
+    // CV-PDF:en bäddar in mallarnas typsnitt från disk (src/lib/cv/mallar/typsnitt-inbaddning.ts),
+    // så att lambdan ger samma PDF som lokalt och aldrig hämtar typsnitt över nätet.
+    '/api/cv/generate-formatted': ['./node_modules/@sparticuz/chromium/**/*', './public/fonts/cv/**/*'],
     '/api/cv/upload': ['./node_modules/@napi-rs/canvas/**/*'],
     // Delningsbilden för Räkna ut läser Schibsted Grotesk från disk (TTF).
     // Webbsidans woff2 i samma mapp bakas in av next/font och behövs inte här.

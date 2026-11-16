@@ -23,7 +23,8 @@
 import { getFontFamilyForHTML } from '@/lib/documents/typsnitt'
 import type { CVMetadata } from '../../cv-metadata'
 import type { MallVal } from '../kontrakt'
-import { los, matt, palett, typsnittFor, WEBBTYPSNITT, type Hex, type Palett } from '../farg'
+import { los, matt, palett, typsnittFor, type Hex, type Palett } from '../farg'
+import { fontFace } from '../typsnitt-filer'
 import {
   byggDokument,
   intygDetalj,
@@ -523,13 +524,10 @@ export function renderDokumentHtml(dok: Dokument, def: MallDef, val: MallVal = {
     kropp = `${huvud(dok, c)}${axel}<main class="spalt cv-kropp">${huvudspalt}</main>`
   }
 
+  // Typsnitten som egna filer under Word-namnen (typsnitt-filer.ts): samma
+  // typsnitt lokalt, i förhandsvisningen och i lambdan. PDF-kedjan bäddar in dem.
   const typ = typsnittFor(def, val)
-  const webb = [...new Set([typ.brod, typ.rubrik].map((t) => WEBBTYPSNITT[t]).filter(Boolean))]
-  const lank = webb.length
-    ? `<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?${webb
-        .map((w) => `family=${w}`)
-        .join('&')}&display=swap">`
-    : ''
+  const typsnitt = fontFace([typ.brod, typ.rubrik])
 
   return `<!DOCTYPE html>
 <html lang="sv" data-mall="${esc(def.id)}">
@@ -537,7 +535,7 @@ export function renderDokumentHtml(dok: Dokument, def: MallDef, val: MallVal = {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(dok.namn ? `CV ${dok.namn}` : 'CV')}</title>
-${lank}
+<style>${typsnitt}</style>
 <style>${css(c)}</style>
 </head>
 <body><div class="cv mall-${esc(def.id)} familj-${def.familj}">${kropp}</div></body>

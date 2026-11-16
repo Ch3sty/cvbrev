@@ -3,6 +3,7 @@
 
 import { CVMetadata, CVGenerationOptions, CVTemplateType } from './cv-metadata';
 import { ordnaTextForATS } from './ats-ordning';
+import { baddaInTypsnitt } from './mallar/typsnitt-inbaddning';
 
 // Dynamisk import av Puppeteer för att undvika byggfel
 let puppeteer: any = null;
@@ -132,11 +133,12 @@ export class SwedishCVPDFGenerator {
           deviceScaleFactor: 2 // Högre kvalitet för PDF
         });
         
-        // Ladda svenska typsnitt
-        await this.loadSwedishFonts(page);
-        
+        // Mallsystemets typsnitt inbäddade (src/lib/cv/mallar/typsnitt-inbaddning.ts):
+        // samma typsnitt lokalt och i lambdan, inget hämtas över nätet.
+        html = baddaInTypsnitt(html);
+
         // Sätt HTML innehåll med svenska specifika optimeringar
-        await page.setContent(html, { 
+        await page.setContent(html, {
           waitUntil: 'networkidle0',
           timeout: 30000 
         });
@@ -204,40 +206,6 @@ export class SwedishCVPDFGenerator {
       console.error('Swedish CV PDF generation error:', error);
       throw new Error(`Svenskt CV PDF-generering misslyckades: ${error instanceof Error ? error.message : 'Okänt fel'}`);
     }
-  }
-  
-  /**
-   * Laddar svenska typsnitt för optimal läsbarhet
-   */
-  private async loadSwedishFonts(page: any): Promise<void> {
-    await page.addStyleTag({
-      content: `
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        
-        /* Fallback för svenska tecken */
-        * {
-          font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-        }
-        
-        /* Svenska CV-specifika typografi */
-        .swedish-cv-text {
-          font-feature-settings: "kern" 1, "liga" 1;
-          text-rendering: optimizeLegibility;
-        }
-        
-        /* Förbättrad läsbarhet för svenska tecken */
-        h1, h2, h3, .name, .section-title {
-          letter-spacing: -0.025em;
-        }
-        
-        body, p, li, .body-text {
-          letter-spacing: -0.01em;
-          line-height: 1.4;
-        }
-      `
-    });
   }
   
   /**
@@ -631,8 +599,7 @@ export class SwedishCVPDFGenerator {
       // Sätt viewport för preview (lägre upplösning för snabbhet)
       await page.setViewport({ width: 794, height: 1123 });
       
-      await this.loadSwedishFonts(page);
-      await page.setContent(html, { 
+      await page.setContent(baddaInTypsnitt(html), { 
         waitUntil: 'networkidle0',
         timeout: 15000 
       });

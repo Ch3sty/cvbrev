@@ -59,14 +59,6 @@ export function los(f: Farg | undefined, p: Palett, reserv: Hex): Hex {
 /** Typsnitten Word har på både Windows och Mac; mallar med Word håller sig till dem. */
 export const WORD_TYPSNITT: readonly TypsnittId[] = ['calibri', 'arial', 'verdana', 'georgia', 'garamond', 'times']
 
-/** Typsnitt som laddas från Google Fonts i PDF:en och förhandsvisningen. */
-export const WEBBTYPSNITT: Readonly<Partial<Record<TypsnittId, string>>> = {
-  lato: 'Lato:ital,wght@0,300;0,400;0,700;1,400',
-  'open-sans': 'Open+Sans:ital,wght@0,400;0,600;0,700;1,400',
-  roboto: 'Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400',
-  poppins: 'Poppins:ital,wght@0,300;0,400;0,500;0,600;1,400',
-}
-
 /**
  * Brödtextens och namnets/rubrikernas typsnitt efter valet. Användarens val
  * ersätter bara brödtexten (spec avsnitt 4 punkt 12).
