@@ -174,3 +174,131 @@ Hon läste alla 40 ark, miniatyrerna och facit (egna utsnitt i `S\horisont-etike
 ## 6. Svar till samordnaren om sidospalterna
 
 Risken "spalten längre än huvudspalten" finns i Kalksten, Granit (båda formaten), Stål (högerspalten), Kvadrat och Ritning (bara PDF). Mörkrum har ingen spalt. Orsaken är kompetenser som lodrät punktlista i 33 till 40 mm textbredd. Den generella regeln är G1: kompetenser i spalt som mittpunktsrad, panel som fyller raden i båda formaten, och grinden att sida 2 aldrig börjar med spaltinnehåll. Att flytta avsnitt till huvudspalten när spalten är längre vill jag inte göra: det ändrar mallens form per CV och gör Word och PDF olika. Om G1 inte räcker för ett CV med 30 kompetenser är nästa steg att spaltens kompetenser visar högst 16 och resten går till huvudspalten under rubriken "Fler kompetenser", lika i båda formaten.
+
+---
+
+# Andra granskningen, 2026-11-16
+
+Art-director, efter byggagent A:s rättelser G1 till G7 och per mall (9950f226), typsnittsinbäddningen (54fb4627) och miniatyrerna (f9dabaaf). Samma facit och spec som i första granskningen. Ägarens krav står kvar: kärnmallarna likadana i Word och PDF, de konstnärliga sådana att någon vill använda dem, fritt att ta bort det som felar.
+
+## Underlag
+
+- `S\word-qa\<mall>-<längd>-jamforelse.png` (Chrome vänster, Word höger, 36 par) och sidorna var för sig som `-chrome-s<n>.png` och `-s<n>.png`.
+- `S\sidbrytning\<mall>-<kort|normalt|langt|ensida>-s<n>.png` (alla 20, PDF) och `sidbrytning.json`: 80 av 80 utan fel, alla 20 `-ensida` ger en sida.
+- `S\ats\ats-resultat.json`: 160 av 160 utan fel.
+- Egna renderingar i `S\ad2\` (skripten `prova.ts`, `prova2.ts`, `prova3.ts`, körs från cvbrev-qa-b med `npx tsx`, patchar HTML:en i minnet och rör ingen kod): `pdf\kalksten-normalt-ref` (orörd), `pdf\kalksten-normalt-col`, `kalksten-kort-col`, `granit-normalt-col`, `granit-langt-col` (med `<colgroup>`), `pdf\siluett-kort-foto` (KORT_CV med foto, som sidbrytningsskriptet inte renderar), `pdf\ritning-langt-ref`, `-fixed`, `-fixed2`, `-html100` (fyra CSS-varianter som inte hjälper), `pdf\ritning-*-thead` och `ritning-*-grad` (varianten som fungerar), `ritning-grad-trio.png`, `miniatyrer-stor.png`, urklipp `*-botten.png`, `granit-spalt.png`, `ritning-spalt.png`, `ritning-topp-idag.png`.
+- Mått i mm är mätta i pixlar på sidbilderna (595 x 841 px per A4-sida), inte uppskattade.
+
+## 1. Sammanfattning
+
+| Nr | Mall | Status | Kärnan |
+|---|---|---|---|
+| 1 | Linne | GODKÄND | Lika sida för sida i alla tre längder. |
+| 2 | Björk | RÄTTAS (litet) | NORMALT_CV: Chrome flyttar Tekniska kompetenser (35 mm) till sida 2 fast 75 mm är ledigt på sida 1; Word har det på sida 1. R7. |
+| 3 | Koppar | GODKÄND | Bandet nu 56 mm i båda, namnet på samma höjd. LANGT_CV skiljer sig på sida 2 och 3 (R8, Word kortare). |
+| 4 | Kalksten | RÄTTAS | PDF-spalten har blivit 105 mm bred (halva sidan) i stället för 58 mm, i alla längder och i miniatyren. Orsaken är hittad och rättelsen bevisad (R1). Word-panelen slutar 7 till 10 mm högre än Chromes (R3). |
+| 5 | Granit | RÄTTAS | Samma spaltbredd i PDF (R1). Word: sida 1 i NORMALT_CV och LANGT_CV innehåller bara bandet, allt innehåll börjar på sida 2 (R2). Mittpunkterna syns inte på den mörka panelen i PDF (R4). |
+| 6 | Kolumn | GODKÄND | Första posten i höjd med rubriken i Word, luften mellan poster lika. EB Garamond bryter rader något annorlunda än Monotype Garamond men sidorna är desamma. |
+| 7 | Årsring | GODKÄND | Linjen obruten i PDF, perioden i höjd med titeln i Word. LANGT_CV: kompetensgruppen ensam på sida 3 i båda (R6). |
+| 8 | Antikva | GODKÄND | Lika i kort och normalt. LANGT_CV: Ledarskap-gruppen ensam på sida 3 i Chrome (R6). |
+| 9 | Fasad | GODKÄND | Lika i alla tre längder. |
+| 10 | Raster | GODKÄND | DejaVu Sans duger som Verdana (se avsnitt 2). Tonen 80 procent skiljer accenterna. LANGT_CV: Word en post längre per sida (R8). |
+| 11 | Folio | GODKÄND | Lika i kort och normalt. LANGT_CV: Kunskaper och verktyg delas 1 + 3 i Chrome (R6). |
+| 12 | Stål | GODKÄND | NORMALT_CV en sida i båda (G5 löst), runda punkter. LANGT_CV sida 2 skiljer sig (R8). |
+| 13 | Mörkrum | GODKÄND | Oförändrad, som facit. |
+| 14 | Terrakotta | GODKÄND | Oförändrad, som facit. |
+| 15 | Kvadrat | GODKÄND | Mittpunkt i spalten läsbar, sida 2 med Utbildning och Referenser som förut (anmärkning, inte fel). |
+| 16 | Siluett | GODKÄND | KORT_CV med foto på en sida (`S\ad2\pdf\siluett-kort-foto-s1.png`), NORMALT_CV två. |
+| 17 | Ritning | RÄTTAS | Spalten slutar fortfarande 18 mm över nederkanten och börjar 18 mm under överkanten på varje sida (det är @page-marginalerna). A:s CSS kan inte lösa det; den väg som fungerar är bevisad (R5). |
+| 18 | Tidning | GODKÄND | Kort profil i en spalt med anfang, lång i två. |
+| 19 | Tusch | GODKÄND | Årtalen i #8A8A8A, läsbara. |
+| 20 | Horisont | GODKÄND | Axeln ren i LANGT_CV (bara årtal, två rader) och i NORMALT_CV (etiketter kortade, kollisionsrad). Mallen står kvar. |
+
+Ingen mall stryks. Tre mallar är RÄTTAS på riktigt (Kalksten, Granit, Ritning), en har ett litet fel (Björk), och två generella rättelser (R6, R8) gäller de långa CV:na i kärnmallarna.
+
+## 2. Typsnitten i PDF:en
+
+Bedömning av de inbäddade typsnitten mot Word-sidorna (riktiga Word-typsnitt) i de 36 paren:
+
+- Carlito som Calibri (Linne, Koppar, Kalksten, Årsring, Stål): metrisk tvilling, radbrytningarna är identiska i alla par jag jämfört rad för rad. Godkänt.
+- Arimo som Arial (Björk, Fasad, Granit): identiska radbrytningar. Godkänt.
+- Tinos som Times New Roman (Antikva): identiska. Godkänt.
+- Gelasio som Georgia (Linne och Kalksten rubriker, Tidning): rubrikerna ser likadana ut, Tidning är bara PDF. Godkänt.
+- EB Garamond som Garamond (Kolumn, Folio): inte metrisk. EB Garamond är något bredare och mörkare än Monotype Garamond, så profilen i Kolumn blir fem rader i PDF mot fyra i Word (`S\word-qa\kolumn-normalt-jamforelse.png`) och Folio får enstaka rader till. Sidbrytningarna är ändå desamma i kort och normalt. Godkänt, med noteringen att EB Garamond är den bättre läsbara av de två.
+- DejaVu Sans som Verdana (Raster): DejaVu är lite smalare än Verdana, inte bredare, och ser i Raster ut som ett släktskap, inte som ett byte. Banden, kompetensspalterna och kontrasten är desamma. Godkänt. Verdana finns inte som fri tvilling, så det här är den enda kärnmallen där rader kan brytas olika; R8:s grind mäter det.
+- Lato, Open Sans, Roboto, Poppins (de konstnärliga): sig själva, som i första granskningen.
+
+Miniatyrerna är omgjorda med samma typsnitt; `S\ad2\miniatyrer-stor.png` visar att Kalksten och Granit ärvt spaltfelet (R1), de andra är rätt.
+
+## 3. A:s avvikelser, avgöranden
+
+**Word-panelen slutar ca 10 mm före nederkanten.** Mätt: Kalksten Word 275,5 mm (normalt) och 272,6 mm (kort) från överkanten, Chrome 282,2 och 280,4 mm, alltså Word 7 till 10 mm högre. Chrome slutar vid bottenmarginalen (15 mm), vilket är rätt. Det är inte "likadant" men orsaken är känd (R3) och enkel. Rättas tillsammans med R1 och R2.
+
+**Kalksten normalt: en sida i Word mot två i Chrome.** Det är inte en skillnad mellan formaten utan spaltfelet: Chromes huvudspalt är 90 mm bred i stället för 137 och texten spiller. Med rätt spaltbredd ger NORMALT_CV en sida i Chrome också (`S\ad2\pdf\kalksten-normalt-col-s1.png`, identisk med Word-sidan). Duger alltså, när R1 är gjord.
+
+**"En sida" steg 4 tar mer luft än föreslaget.** Steg 4 är sista utvägen och används bara när steg 1 till 3 inte räckt. Jag godkänner steg 4 som det är byggt, med ett golv: brödtexten får aldrig gå under 8,5 pt och radavståndet aldrig under 1,15 (`matt` i farg.ts har golvet 6 pt, det är för lågt). Mallarna med 9,5 pt brödtext (Horisont, Kvadrat, Mörkrum, Raster, Ritning, Tusch) når 8,5 pt redan i steg 2 och ska inte gå lägre. Se UX-designerns bedömning i avsnitt 6 för vilka `-ensida` som är täta.
+
+**Långa poster i smala spalter får brytas mellan punkterna.** Godkänt. Regeln (titeln och två punkter ihop, de två sista ihop, bara över fem punkter) är rätt avvägd; en hel post på halva sidan i en 60-procentsspalt ger värre hål. I underlaget slog den inte till någonstans, så den är orörd i praktiken.
+
+## 4. Per mall, fynd med fil
+
+### Kalksten och Granit: spaltbredden (R1)
+`S\word-qa\kalksten-normalt-jamforelse.png`, `kalksten-kort`, `kalksten-langt`, `granit-normalt`, `granit-kort`, `granit-langt`, samt alla `S\sidbrytning\kalksten-*` och `granit-*`: panelen är 105,2 mm bred i Chrome (uppmätt) mot 57,9 mm i Word. Huvudspalten blir 90 mm och allt bryts tidigare: Kalksten normalt två sidor, Granit normalt tre sidor i Chrome mot två i Word. Orsak: G1 gjorde huvudet till tabellens första rad (`<tr class="huvudrad"><td colspan="2">`, html.ts rad 605) i en tabell med `table-layout: fixed` (rad 501). Med fast tabellayout tas kolumnbredderna från första raden, och en cell med colspan ger ingen bredd, så Chrome delar lika. `width: 58mm` på `.spalt-sido` i andra raden ignoreras. Bevis: `S\ad2\pdf\kalksten-normalt-col-s1.png` och `granit-normalt-col-s1.png` är renderade från samma HTML med `<colgroup><col style="width:58mm"><col></colgroup>` insatt direkt efter `<table class="spalter" ...>`: spalten 58,2 mm, panelen till 280,4 mm, Kalksten normalt en sida (som Word), Granit normalt en sida, Granit långt tre sidor med panelen till 282 mm på sida 2 och så långt raden går på sida 3 (48,7 mm), vilket är regeln vi satte i G1.
+
+### Granit: tom sida 1 i Word (R2)
+`S\word-qa\granit-normalt-jamforelse.png` höger och `granit-langt-jamforelse.png` höger: sida 1 innehåller bara bandet (färg till 54,0 mm, sedan vitt), hela innehållet börjar på sida 2 med panelen. `granit-kort` är rätt. Orsak: spaltradens minsta höjd (bygg.ts rad 927) räknas på `huvudHojdMm`, som för ett band tar `max(minHojd, luft.topp + text + luft.botten)` = 42 mm, men bandet är 54 mm när fotot (30 mm plus 15 + 9 mm luft) bestämmer höjden. Raden blir då 12 mm för hög för att få plats under bandet och Word flyttar hela raden till nästa sida. I kort CV räddas det av att innehållet är kort.
+
+### Granit och Ritning: mittpunkterna syns inte (R4)
+`S\ad2\granit-spalt.png` (urklipp ur Chrome-sidan): "Scrum  Kanban  SAFe" utan synlig punkt, för `.prick` har färgen `dampad` (#666666) på panelen #2B2F36. `S\ad2\ritning-spalt.png`: punkterna svagt synliga på blått. I Word syns de (vit text). Kvadrat och Kalksten (ljus panel) är rätt.
+
+### Björk (R7)
+`S\word-qa\bjork-normalt-jamforelse.png`: Chrome sida 1 slutar efter Utbildning vid 72 procent av sidan (75 mm ledigt), Tekniska kompetenser (två grupper, 35 mm) står på sida 2; Word har den på sida 1 och sida 2 börjar med Certifieringar. Blocket ryms. Troligen kedjan av `break-inside: avoid` på `.avsnitt.hall` följt av `.slutgrupp` (Certifieringar, Språk, Referenser) med `break-before: avoid` på Språk och Referenser inuti; Chrome backar då till närmaste tillåtna brytpunkt före hela kedjan. Byggagenten hittar den exakta orsaken; grinden i R7 avgör.
+
+### Ritning (R5)
+`S\sidbrytning\ritning-langt-s1.png` till `s3`, mätt vid x = 7 mm: blått från 17,9 till 278,8 mm på varje sida, aldrig från 0 till 297. `S\ad2\ritning-topp-idag.png` visar överkanten. Orsaken är inte A:s CSS: Chromium målar aldrig rotbakgrunden eller ett `position: fixed`-element i @page-marginalen, och Ritning har `@page{margin:18mm 0}`. Jag provade fyra varianter (`.cv::before` fixed 0 till 297 mm, fixed från -20 mm till 340 mm, `html{height:100%}` och A:s gradient): alla slutar vid 278,8 eller 279,1 mm. Det som fungerar (`S\ad2\pdf\ritning-langt-grad-s1.png` till `s3`, `ritning-kort-grad-s1.png`, `ritning-normalt-grad-s1.png`, montage `S\ad2\ritning-grad-trio.png`): sidmarginalen 0 och topp- och bottenmarginalen som repeterande `<thead>`- och `<tfoot>`-rader i spalttabellen (Chromium upprepar dem på varje sida). Mätt: blått 0,0 till 296,7 mm på alla sidor utan avbrott, också sista sidan och kort CV; texten börjar 18 mm ner på varje sida.
+
+### Siluett
+`S\ad2\pdf\siluett-kort-foto-s1.png`: KORT_CV med foto (36 mm) på en sida med 25 mm över. Sidbrytningsskriptet ger KORT_CV inget foto (`langd !== 'kort'`), så grinden från första granskningen testades inte där; den är nu verifierad. Lägg fotot på också i kort i `scripts/mallar-sidbrytning.ts` så att grinden står kvar.
+
+### Horisont
+`S\sidbrytning\horisont-langt-s1.png`: tio punkter, bara årtal, två rader, 2011 står en gång per rad och inget överlappar. `horisont-normalt-s1.png`: fyra punkter med etiketter, "Kungliga Tekniska..." kortad, "2018 Klarna" på rad två. Rent. Mallen står kvar.
+
+### Koppar, Kolumn, Årsring, Stål, Raster, Antikva, Folio, Linne, Fasad
+Koppar: bandet 56 mm i båda (`koppar-normalt`), 50 mm i kort, namnet på 14 mm. Kolumn: `kolumn-normalt`, första postens titel i höjd med Arbetslivserfarenhet i Word. Årsring: `arsring-normalt`, linjen obruten genom Arbetslivserfarenhet i Chrome, perioden i nivå med titeln i Word. Stål: `stal-normalt`, en sida i båda, runda punkter, mittpunkt i högerspalten. Raster: `raster-normalt`, banden och kompetensspalterna lika, samma sidbrytning. Antikva, Folio, Linne, Fasad: lika i kort och normalt. De långa CV:na: se R6 och R8.
+
+## 5. Rättelser i byggbar form
+
+**R1. Spaltbredden i PDF (Kalksten, Granit, och allt som har `huvudrad`).** I html.ts, sidospaltsgrenen (rad 605 till 607): sätt `<colgroup><col style="width:${s.bredd}mm"><col></colgroup>` direkt efter `<table class="spalter" ...>`, före `<tbody>`. Kolumnordningen är cellordningen (sido först) oavsett `direction`, så samma colgroup gäller vänster- och högerspalt. Behåll `table-layout: fixed`. Generera om miniatyrerna (`scripts/mallbilder.ts`). Grind: i `sidbrytning` är panelens bredd 58 mm ±1 i Kalksten och Granit (mät första vita pixeln vid 55 procent av sidhöjden, eller rendera `S\ad2\prova.ts` och jämför); Kalksten NORMALT_CV en sida i Chrome och Word; Granit NORMALT_CV en sida i Chrome; Kvadrat (66 mm) och Ritning (66 mm) oförändrade.
+
+**R2. Granit i Word: bandets höjd i spaltradens minsta höjd.** bygg.ts `huvudHojdMm`: för band `max(minHojd, luft.topp + max(text, fotoMm om foto) + luft.botten) + luftUnder`, där fotoMm är `m.fotoMm` (30 mm i Granit, det värde `bild()` använder); bandet blir då 15 + 30 + 9 = 54 mm, vilket är det uppmätta. Grind: Granit NORMALT_CV och LANGT_CV i Word har text på sida 1 (word-mallar-granska fäller när sida 1 saknar brödtext), och Granit NORMALT_CV ger samma sidantal i Word som i Chrome.
+
+**R3. Word-panelens nederkant lika med Chromes.** Samma rad (bygg.ts 927): minska påslaget `+ 10 + s.luft.topp + 4` tills panelen slutar vid bottenmarginalen. Mätt mål: Chrome 282,2 mm (normalt) och 280,4 mm (kort) i Kalksten, Word ligger på 275,5 och 272,6. Grind: panelens sista färgade rad i Word inom 3 mm från Chromes i Kalksten och Granit, kort och normalt, och R2:s grind håller samtidigt (ett för stort värde ger tom sida 1 igen).
+
+**R4. Mittpunkten i mörk panel.** html.ts: `.spalt-sido .prick{color:inherit;opacity:.6}` (provat i `S\ad2\pdf\ritning-langt-grad-s1.png`: synlig, inte skrikig). Word är redan rätt (`r.text ?? dampad`). Grind: skärmdump av Granit och Ritning spalt.
+
+**R5. Ritning: spalten från papperskant till papperskant.** Bara Ritning (PDF-mall, `def.word` falskt), i `extraCss` eller som en flagga på layouten (`spalt.helSida: true`) som renderaren tolkar:
+1. `@page{margin:0}` för mallen och `.cv{padding-top:0;padding-bottom:0}` i utskrift (sidomarginalerna står kvar som padding).
+2. I spalttabellen: `<thead><tr class="marg"><td></td><td></td></tr></thead>` och `<tfoot>` likadant, med `.marg td{height:18mm;padding:0}` (värdet är `sida.topp` respektive `sida.botten`). Chromium upprepar thead och tfoot överst och underst på varje sida, så texten får sina marginaler på alla sidor.
+3. Behåll A:s `html{background:linear-gradient(...)}` i utskrift (den täcker nu hela arket eftersom marginalen är 0) och `.spalter{height:calc(297mm - 1.5mm)}` så att ett kort CV också får panel till nederkanten.
+4. `<colgroup>` från R1 (66 mm).
+Bevis: `S\ad2\prova3.ts` gör exakt detta i minnet; resultatet i `ritning-grad-trio.png`. Grind: i `sidbrytning` har Ritning blått från 0 till 297 mm (±0,5) vid x = 7 mm på varje sida i kort, normalt och långt, och huvudspaltens första textrad ligger 18 mm ±1 från överkanten på sida 2 och 3.
+
+**R6. Kompetensblock hålls ihop upp till sex grupper, i båda formaten.** Fynd: `antikva-langt` (Ledarskap ensam på sida 3 i Chrome), `folio-langt` (Redovisning ensam på sida 2), `arsring-langt` (Ledarskap ensam på sida 3 i Word, Redovisning ensam på sida 2 i Chrome). G2:s gräns "färre än fyra grupper" är för snäv: fyra grupper om en till två rader är 25 mm. html.ts: `hall` när `grupper.length <= 6`. bygg.ts: `keepNext: true` på alla gruppstycken utom det sista när grupperna är högst sex (i dag `hallIhopRad`). Grind: i `antikva-langt`, `folio-langt`, `arsring-langt` står Kunskaper och verktyg helt på en sida i Chrome och Word.
+
+**R7. Björk: Tekniska kompetenser stannar på sida 1.** Hitta vad som flyttar blocket (se avsnitt 4). Om det är kedjan av avoid: ta bort `break-before: avoid` på `.cv-kropp>.avsnitt-sprak` och `.avsnitt-referenser` när de ligger i `.slutgrupp` (gruppen är redan odelbar). Grind: `bjork-normalt` har samma avsnitt på samma sida i Chrome och Word.
+
+**R8. Word är 4 till 7 procent kortare än Chrome i brödtext.** Mätt från Profil-rubriken till sista rubriken på sida 1: Björk 0,93, Koppar 0,94, Raster 0,94, Linne 0,96 (Word delat med Chrome). Följd: `koppar-langt` sida 2 och 3, `stal-langt` sida 2, `raster-langt` sida 1 och 2, `antikva-langt` sida 2 får olika avsnitt i de två formaten. `WORD_RADFAKTOR = 0.96` (bygg.ts rad 76) ligger på hela dokumentets radhöjd, men första granskningens fynd (G5) gällde bara listorna i spaltceller. Rättelse: faktorn 1,0 i `stilar` (dokumentet), kvar i `spaltInnehall` bara om mätningen kräver det, och i stället `contextualSpacing` och `after: 0,6 mm` på punkterna som G5 sade. Grind (ersätter G6): i `word-mallar-granska`, för alla 36 par, samma avsnitt på samma sida i Chrome och Word, och avståndet Profil till sista rubrik på sida 1 inom 3 procent. Den grinden är ägarens "likadant" i mätbar form.
+
+**R9. Golv för "en sida".** farg.ts `matt`: `grad: (pt) => Math.max(8.5, pt + grad)` för brödtext (periodens och kontaktens grad får gå till 7,5), och `radavstand` aldrig under 1,15. Grind: alla 20 `-ensida` ger fortfarande en sida; de som inte gör det efter golvet får två sidor utan varning, som G7 säger.
+
+**R10. Sidbrytningsskriptet ger foto också i KORT_CV** (`scripts/mallar-sidbrytning.ts` rad 62), så att Siluetts grind ligger i skriptet.
+
+## 6. UX-designerns bedömning av läsbarheten
+
+UX-designern (mobile-ux-designer) fick samma underlag och sex frågor: täthet i alla 20 `-ensida`, mittpunkt i 9 pt i sidospalterna, Raster med DejaVu Sans, radbrytningar PDF mot Word med de inbäddade typsnitten, långa poster brutna mellan punkter, och Kalksten en sida mot två. Hennes rapport hade inte kommit när den här granskningen lämnades; samordnaren tar in den när den kommer. Mina egna avgöranden i avsnitt 3 (steg 4 godkänt med golvet i R9) och avsnitt 2 (typsnitten) står oavsett; det hon kan ändra är listan över vilka `-ensida` som är för täta, och då justeras R9:s golv, inte stegen.
+
+## 7. Beslut: vad som får levereras till ägaren
+
+Levereras nu (16): Linne, Koppar, Kolumn, Årsring, Antikva, Fasad, Raster, Folio, Stål, Mörkrum, Terrakotta, Kvadrat, Siluett, Tidning, Tusch, Horisont. I kort och normalt CV är kärnmallarna bland dessa lika i Word och PDF; i långt CV skiljer sig sidbrytningen i Koppar, Stål, Raster, Antikva, Folio och Årsring (R6, R8), vilket rättas i samma omgång som nedan men inte hindrar leverans.
+
+Hålls tillbaka tills rättade: Kalksten (R1, R3, R4), Granit (R1, R2, R3, R4), Ritning (R4, R5), Björk (R7). Efter R1 till R8 vill jag se de nya `jamforelse`-bilderna för Kalksten, Granit och Björk i alla tre längder samt Ritning i `sidbrytning`, inte hela omgången igen.
