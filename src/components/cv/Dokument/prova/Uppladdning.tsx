@@ -67,7 +67,7 @@ export default function Uppladdning({ ton = 'vagg' }: { ton?: 'vagg' | 'papper' 
           over ? 'border-koppar bg-koppar-mjuk' : 'border-kant-stark bg-papper'
         } ${markerad ? 'outline outline-[3px] outline-offset-2 outline-koppar' : ''}`}
       >
-        <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-ton text-ton-ink">
+        <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#D7ECEA] text-[#1E5F5F]">
           {inlasning.lage === 'klar' ? <IkonBock size={22} /> : <IkonUppladdning size={22} />}
         </span>
         {laddar ? (
