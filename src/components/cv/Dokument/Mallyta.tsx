@@ -309,9 +309,9 @@ export default function Mallyta(p: MallytaProps) {
         </aside>
       </div>
 
-      {p.ovanRad ? <div className="mx-auto mt-3 max-w-[600px]">{p.ovanRad}</div> : null}
       <FastRad
         ersattning={p.lucka}
+        ovan={p.ovanRad}
         utanKnapp={p.utanKnapp}
         ovanNav={p.ovanNav}
         formatKompakt={formatKompakt}

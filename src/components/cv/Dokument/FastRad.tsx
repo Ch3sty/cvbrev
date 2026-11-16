@@ -155,6 +155,8 @@ export interface FastRadProps {
   ersattning?: ReactNode
   /** Format och knapp göms (ett öppet blad äger kopparknappen). */
   utanKnapp?: boolean
+  /** En rad ovanför raden, i samma fasta lager (byggarens förslag, Ångra). */
+  ovan?: ReactNode
 }
 
 /**
@@ -204,7 +206,7 @@ function useTrang() {
   return { ref, steg }
 }
 
-export default function FastRad({ formatKompakt, knapp, dator, fel, ovanNav, ersattning, utanKnapp }: FastRadProps) {
+export default function FastRad({ formatKompakt, knapp, dator, fel, ovanNav, ersattning, utanKnapp, ovan }: FastRadProps) {
   const trang = useTrang()
   return (
     <>
@@ -217,6 +219,7 @@ export default function FastRad({ formatKompakt, knapp, dator, fel, ovanNav, ers
         style={{ bottom: ovanNav ? 'var(--bottom-nav-h, 0px)' : 0 }}
         data-fast-rad
       >
+        {ovan ? <div className="px-3 pt-2 lg:px-4">{ovan}</div> : null}
         <div className="flex items-center gap-2 px-3 pb-[max(8px,env(safe-area-inset-bottom))] pt-2 lg:h-16 lg:gap-4 lg:px-4 lg:py-0">
           {dator ? (
             <div

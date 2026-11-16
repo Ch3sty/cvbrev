@@ -3,7 +3,7 @@
  * (docs/design/skiss-cv-byggare-2026-11-16.html), i riktig Chrome.
  *
  *   npx tsx scripts/klicktest-cv-byggare.ts skapa  --ut <mapp>
- *   npx tsx scripts/klicktest-cv-byggare.ts klicka --ut <mapp> [--bas URL] [--bara gratis|premium|full|upp]
+ *   npx tsx scripts/klicktest-cv-byggare.ts klicka --ut <mapp> [--bas URL] [--bara gratis|premium|full|upp|kvot]
  *   npx tsx scripts/klicktest-cv-byggare.ts radera --ut <mapp>
  *
  * Tre konton med adresser *@jobbcoach-qa.test, unika per körning:
@@ -478,7 +478,10 @@ async function premiumFlode(browser: Browser, k: Konto) {
   await bild(page, `${steg}-miniminiva`)
 
   // Premiummall i kolumnen, Word.
-  await klickaText(page, 'Koppar')
+  await page.evaluate(() => {
+    const b = [...document.querySelectorAll<HTMLButtonElement>('aside button')].find((x) => x.innerText.includes('Koppar') && x.getBoundingClientRect().width > 0)
+    b?.click()
+  })
   await vila(3000)
   await bild(page, `${steg}-premiummall`)
   await page.evaluate(() => {
