@@ -260,6 +260,7 @@ export default function Step7Review({
       <Dokument
         storlek="mellan"
         html={fv.html}
+        kalla={fv.kalla}
         laddar={fv.laddar}
         titel={`Ditt CV i mallen ${mall.namn}`}
         mall={mall}

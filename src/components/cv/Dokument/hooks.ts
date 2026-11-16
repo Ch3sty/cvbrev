@@ -74,7 +74,16 @@ async function hamta(k: Exclude<Kalla, { typ: 'exempel' }>, signal: AbortSignal)
   return json.html
 }
 
-export function useForhandsvisning(kalla: Kalla | null): { html: string | null; src: string | null; laddar: boolean; fel: boolean } {
+export interface Forhandsvisning {
+  html: string | null
+  src: string | null
+  laddar: boolean
+  fel: boolean
+  /** Källan, så att helskärmen kan hämta samma CV:s sidor (useSidbilder). */
+  kalla: Kalla | null
+}
+
+export function useForhandsvisning(kalla: Kalla | null): Forhandsvisning {
   const nyckel = kalla ? JSON.stringify(kalla) : ''
   const [html, setHtml] = useState<string | null>(() => (nyckel && CACHE.get(nyckel)) || null)
   const [laddar, setLaddar] = useState(false)
@@ -112,8 +121,82 @@ export function useForhandsvisning(kalla: Kalla | null): { html: string | null; 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nyckel])
 
-  if (kalla?.typ === 'exempel') return { html: null, src: exempelSrc(kalla.mall, kalla.val, kalla.yrke), laddar: false, fel: false }
-  return { html, src: null, laddar, fel }
+  if (kalla?.typ === 'exempel') return { html: null, src: exempelSrc(kalla.mall, kalla.val, kalla.yrke), laddar: false, fel: false, kalla }
+  return { html, src: null, laddar, fel, kalla }
+}
+
+/** Helskärmens sidor: en bild per sida ur PDF:en (src/lib/cv/mallar/sidbilder.ts). */
+export interface Sidbilder {
+  sidor: number
+  bilder: string[]
+  kvot: number
+}
+
+const SIDCACHE = new Map<string, Sidbilder>()
+const SIDCACHE_TAK = 8
+
+async function hamtaSidbilder(k: Kalla, signal: AbortSignal): Promise<Sidbilder> {
+  let res: Response
+  if (k.typ === 'exempel') {
+    res = await fetch(exempelSrc(k.mall, k.val, k.yrke).replace('/api/public/exempel/cv?', '/api/public/exempel/cv/sidor?'), { signal })
+  } else if (k.typ === 'publik') {
+    res = await fetch('/api/public/cv/sidor', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cv: k.cv, mall: k.mall, val: k.val }),
+      signal,
+    })
+  } else {
+    res = await fetch('/api/cv/sidor', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ template: k.mall, cvId: k.cvId, structuredData: k.structuredData || undefined, cvText: k.cvText, val: k.val }),
+      signal,
+    })
+  }
+  if (!res.ok) throw new Error(String(res.status))
+  const j = (await res.json()) as Partial<Sidbilder>
+  if (!Array.isArray(j.bilder) || !j.bilder.length) throw new Error('tom')
+  return { sidor: j.sidor ?? j.bilder.length, bilder: j.bilder, kvot: j.kvot ?? 297 / 210 }
+}
+
+/**
+ * Sidorna för källan medan helskärmen är öppen. Hämtas först när den öppnas
+ * (Chrome på servern, några sekunder), cachas i fliken per källa.
+ */
+export function useSidbilder(kalla: Kalla | null | undefined, aktiv: boolean): { sidbilder: Sidbilder | null; laddar: boolean; fel: boolean } {
+  const nyckel = kalla ? JSON.stringify(kalla) : ''
+  const [svar, setSvar] = useState<{ nyckel: string; s: Sidbilder | null; fel: boolean }>({ nyckel: '', s: null, fel: false })
+
+  useEffect(() => {
+    if (!aktiv || !kalla || SIDCACHE.has(nyckel)) return
+    const ac = new AbortController()
+    // Snabba mallbyten i helskärmen: vänta en kort stund innan Chrome startas.
+    const t = window.setTimeout(() => {
+      hamtaSidbilder(kalla, ac.signal)
+        .then((s) => {
+          SIDCACHE.set(nyckel, s)
+          if (SIDCACHE.size > SIDCACHE_TAK) SIDCACHE.delete(SIDCACHE.keys().next().value as string)
+          setSvar({ nyckel, s, fel: false })
+        })
+        .catch((e) => {
+          if ((e as Error)?.name === 'AbortError') return
+          setSvar({ nyckel, s: null, fel: true })
+        })
+    }, 200)
+    return () => {
+      window.clearTimeout(t)
+      ac.abort()
+    }
+    // nyckel bär hela källan.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nyckel, aktiv])
+
+  const cachad = nyckel ? SIDCACHE.get(nyckel) ?? null : null
+  if (!kalla) return { sidbilder: null, laddar: false, fel: false }
+  if (cachad) return { sidbilder: cachad, laddar: false, fel: false }
+  const fel = svar.nyckel === nyckel && svar.fel
+  return { sidbilder: null, laddar: aktiv && !fel, fel }
 }
 
 /** Förhandsvisning utan hook, för merförsäljningens bilder. */

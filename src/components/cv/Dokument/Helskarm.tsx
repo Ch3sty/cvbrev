@@ -1,11 +1,20 @@
 'use client'
 
 /**
- * Helskärmen är läsläget (skissen yta 3, ägarens punkt 1): ingen granne,
- * sidorna staplade med 12 px glipa och sidnummer, nyp för att zooma (eller
- * zoomknappen), remsan nederst byter mall. Topprad 56 px, arket med 12 px
- * marginal. En egen iframe med samma källa; srcdoc laddas utan nätet och
- * exempel-API:t ur cachen.
+ * Helskärmen är läsläget (skissen yta 3, V4b, ägarens punkt 1): ingen granne,
+ * sidorna som egna A4-ark staplade med 12 px glipa och sidnummer, nyp för att
+ * zooma (eller zoomknappen), remsan nederst byter mall. Topprad 56 px, arket
+ * med 12 px marginal.
+ *
+ * Sidorna är den riktiga PDF:en (src/lib/cv/mallar/sidbilder.ts): samma kedja
+ * som nedladdningen ritar filen och varje sida kommer tillbaka som bild, så
+ * att sida 1 slutar exakt där den gör i filen, också i tvåspaltiga mallar där
+ * spalterna bryts var för sig. Ingen egen uppskattning i webbläsaren.
+ *
+ * Medan sidorna hämtas (några sekunder första gången, sedan ur fliken) visas
+ * hela CV:t i ett stycke ur förhandsvisningens iframe, utan brytlinjer, och
+ * en rad säger att sidorna läggs upp. Går hämtningen inte visas stycket kvar
+ * med en rad om det.
  */
 
 import { useEffect, useRef, useState, type ReactNode } from 'react'
@@ -13,23 +22,28 @@ import { createPortal } from 'react-dom'
 import { IkonStang, IkonZoom } from '@/components/illustrations/MallIkoner'
 import { A4_KVOT } from './matning'
 import { DOK } from './texter'
+import { useSidbilder, type Kalla } from './hooks'
 
 interface HelskarmProps {
   html?: string
   src?: string
   titel: string
   rubrik: string
-  /** Dokumentets höjd i bredder (ur mätningen). */
+  /** Dokumentets höjd i bredder (ur mätningen), för stycket medan sidorna hämtas. */
   hojd?: number
-  sidor: number
+  /** Källan för sidorna ur PDF:en. Utan källa visas bara stycket. */
+  kalla?: Kalla | null
   remsa?: ReactNode
   onClose: () => void
 }
 
-export default function Helskarm({ html, src, titel, rubrik, hojd, sidor, remsa, onClose }: HelskarmProps) {
+const ARK = 'relative overflow-hidden rounded-[4px] bg-white shadow-[0_1px_0_rgba(0,0,0,.08),0_10px_24px_-14px_rgba(0,0,0,.45)]'
+
+export default function Helskarm({ html, src, titel, rubrik, hojd, kalla, remsa, onClose }: HelskarmProps) {
   const [zoom, setZoom] = useState(1)
   const [bredd, setBredd] = useState(0)
   const ytaRef = useRef<HTMLDivElement>(null)
+  const { sidbilder, laddar, fel } = useSidbilder(kalla, true)
 
   useEffect(() => {
     const tangent = (e: KeyboardEvent) => e.key === 'Escape' && onClose()
@@ -51,9 +65,7 @@ export default function Helskarm({ html, src, titel, rubrik, hojd, sidor, remsa,
   }, [])
 
   const arkBredd = Math.max(0, bredd * zoom)
-  const sidHojd = arkBredd * A4_KVOT
-  const antal = Math.max(1, sidor)
-  const totalHojd = Math.max(sidHojd, (hojd ?? A4_KVOT) * arkBredd)
+  const stycketsHojd = Math.max(A4_KVOT, hojd ?? A4_KVOT) * arkBredd
 
   if (typeof document === 'undefined') return null
 
@@ -80,41 +92,62 @@ export default function Helskarm({ html, src, titel, rubrik, hojd, sidor, remsa,
         </button>
       </div>
 
+      <div className="relative flex min-h-0 flex-1 flex-col">
       <div ref={ytaRef} className="min-h-0 flex-1 overflow-auto overscroll-contain" style={{ touchAction: 'pan-x pan-y pinch-zoom' }}>
         {arkBredd > 0 ? (
           <div className="mx-auto py-3" style={{ width: arkBredd }}>
-            {/* Ett sammanhängande ark med en streckad linje vid varje A4-höjd
-                (granskningen V4 a). Förhandsvisningens HTML har inga
-                sidbrytningar, så ett klipp per sida skar mitt i en rad och
-                stämde inte med PDF:en. */}
-            <div
-              className="relative overflow-hidden rounded-[4px] bg-white shadow-[0_1px_0_rgba(0,0,0,.08),0_10px_24px_-14px_rgba(0,0,0,.45)]"
-              style={{ height: Math.max(sidHojd, totalHojd) }}
-            >
-              <iframe
-                srcDoc={html}
-                src={html ? undefined : src}
-                title={titel}
-                scrolling="no"
-                tabIndex={-1}
-                className="pointer-events-none absolute inset-0 block h-full w-full border-0 bg-white"
-              />
-              {Array.from({ length: antal - 1 }, (_, i) => (
-                <div
-                  key={i}
-                  aria-hidden
-                  className="pointer-events-none absolute inset-x-0 border-t-[1.5px] border-dashed border-koppar"
-                  style={{ top: (i + 1) * sidHojd }}
-                >
-                  <span className="absolute -top-[18px] left-1.5 rounded bg-white px-1.5 py-px text-[10px] text-[#A8491A]">
-                    {DOK.sidanBorjar(i + 2)}
-                  </span>
+            {sidbilder ? (
+              // Sidorna ur PDF:en, ett ark per sida med glipa och sidnummer.
+              <ol aria-label={DOK.sidor(sidbilder.sidor)} className="grid gap-3" data-sidor={sidbilder.sidor}>
+                {sidbilder.bilder.map((bild, i) => (
+                  <li key={i} className="grid gap-1.5">
+                    <div className={ARK} style={{ height: arkBredd * sidbilder.kvot }}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={bild}
+                        alt={`${titel}, ${DOK.sidaAv(i + 1, sidbilder.sidor).toLowerCase()}`}
+                        data-sida={i + 1}
+                        draggable={false}
+                        className="absolute inset-0 block h-full w-full select-none"
+                      />
+                    </div>
+                    <p className="text-center text-meta text-ink-3">{DOK.sidaAv(i + 1, sidbilder.sidor)}</p>
+                  </li>
+                ))}
+              </ol>
+            ) : (
+              <div>
+                {/* Hela CV:t i ett stycke ur förhandsvisningen, utan brytlinjer:
+                    var sidorna bryts vet bara PDF:en. Tonat till 80 % (UX:
+                    brödtexten håller AA också på mörkt golv). */}
+                <div className={`${ARK} ${laddar ? 'opacity-80' : ''}`} style={{ height: stycketsHojd }} data-stycke>
+                  <iframe
+                    srcDoc={html}
+                    src={html ? undefined : src}
+                    title={titel}
+                    scrolling="no"
+                    tabIndex={-1}
+                    className="pointer-events-none absolute inset-0 block h-full w-full border-0 bg-white"
+                  />
                 </div>
-              ))}
-            </div>
-            <p className="mt-1 text-center text-meta text-ink-3">{DOK.sidor(antal)}</p>
+              </div>
+            )}
           </div>
         ) : null}
+      </div>
+      {/* Brickan som snackbar nederst i bläddringsytan (UX 2026-11-16): utanför
+          flödet, så arket står still när sidorna kommer (CLS 0), och aldrig
+          över namnet. Syskon till ytan, så den följer inte med skrollen. */}
+      {!sidbilder && (laddar || fel) ? (
+        <p
+          role="status"
+          className="pointer-events-none absolute bottom-3 left-1/2 flex max-w-[calc(100%-24px)] -translate-x-1/2 items-center gap-2 rounded-[14px] border border-kant bg-papper px-3 py-1.5 text-center text-meta text-ink-2 shadow-[0_1px_0_rgba(0,0,0,.08),0_6px_16px_-8px_rgba(0,0,0,.35)]"
+          style={{ width: 'max-content' }}
+        >
+          {laddar ? <span aria-hidden className="h-3 w-3 shrink-0 animate-spin rounded-full border-[1.5px] border-kant-stark border-t-ink-1 motion-reduce:animate-none" /> : null}
+          {laddar ? DOK.sidorLaddar : DOK.sidorFel}
+        </p>
+      ) : null}
       </div>
 
       {remsa ? (

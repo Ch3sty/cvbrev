@@ -26,6 +26,7 @@ import RubrikArk from './RubrikArk'
 import AvsnittArk from './AvsnittArk'
 import FastRad, { FormatVal, LaddaKnapp } from './FastRad'
 import type { Matning } from './matning'
+import type { Kalla } from './hooks'
 import { KNAPP, KOLUMN, REMSA } from './texter'
 
 export type Bytesmetod = 'svep' | 'tryck' | 'lista'
@@ -39,7 +40,7 @@ export interface MallytaProps {
   onVal: (v: MallVal, h: Valhandelse) => void
   format: Format
   onFormat: (f: Format) => void
-  forhandsvisning: { html: string | null; src: string | null; laddar: boolean }
+  forhandsvisning: { html: string | null; src: string | null; laddar: boolean; kalla?: Kalla | null }
   titel: string
   foreslagna: readonly string[]
   skal?: string
@@ -200,6 +201,7 @@ export default function Mallyta(p: MallytaProps) {
             className="min-[900px]:max-w-[520px] xl:max-w-[600px]"
             html={p.forhandsvisning.html}
             src={p.forhandsvisning.src}
+            kalla={p.forhandsvisning.kalla}
             laddar={p.forhandsvisning.laddar}
             titel={p.titel}
             mall={p.mall}

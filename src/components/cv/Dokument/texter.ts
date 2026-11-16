@@ -40,6 +40,10 @@ export const DOK = {
   sidan2: 'Sidan 2 börjar här',
   sidanBorjar: (n: number) => `Sidan ${n} börjar här`,
   sidaAv: (i: number, n: number) => `Sida ${i} av ${n}`,
+  /** Helskärmen medan sidorna ur PDF:en hämtas (skissen V4b). */
+  sidorLaddar: 'Delar upp i sidor, precis som i PDF:en',
+  /** Helskärmen när sidorna inte gick att hämta: hela CV:t i ett stycke. */
+  sidorFel: 'Sidorna gick inte att visa just nu. Här är hela CV:t i ett stycke.',
   nypZoom: 'Nyp för att zooma. Svep på miniatyrerna för nästa mall.',
   mallAv: (namn: string, i: number, n: number) => `${namn}, ${i} av ${n}`,
   svep: 'svep för nästa mall',

@@ -27,6 +27,7 @@ import { IkonPenna, IkonSida, IkonZoom } from '@/components/illustrations/MallIk
 import { matDokument, medSkala, type Matning } from './matning'
 import { AVSNITT, DOK } from './texter'
 import Helskarm from './Helskarm'
+import type { Kalla } from './hooks'
 
 const TIPS_NYCKEL = 'jc_mall_tips_sett'
 
@@ -36,6 +37,8 @@ export interface DokumentProps {
   html?: string | null
   /** Eller en adress på samma ursprung (exempel-API:t). */
   src?: string | null
+  /** Källan, för helskärmens sidor ur PDF:en (useSidbilder). */
+  kalla?: Kalla | null
   /** Iframens titel för skärmläsare. */
   titel: string
   /** Mallen som visas; namnet i helskärmens topprad. */
@@ -79,6 +82,7 @@ export default function Dokument({
   storlek,
   html,
   src,
+  kalla,
   titel,
   mall,
   ordning,
@@ -438,7 +442,7 @@ export default function Dokument({
           titel={titel}
           rubrik={mall && ordning && index >= 0 ? DOK.mallAv(mall.namn, index + 1, ordning.length) : titel}
           hojd={matning?.hojd}
-          sidor={sidor}
+          kalla={kalla}
           remsa={helskarmRemsa}
           onClose={() => setHelskarm(false)}
         />

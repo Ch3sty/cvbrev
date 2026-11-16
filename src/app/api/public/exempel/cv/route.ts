@@ -14,33 +14,17 @@
  * iframen kan byta text direkt i contentDocument (samma ursprung).
  *
  * Svaret är detsamma för alla besökare och cachas ett dygn i CDN:et.
+ * Helskärmens sidor för samma adress: ./sidor.
  */
-import { convertToCVMetadata } from '@/lib/cv/cv-metadata-converter'
-import { SHOWCASE_CV, SKALA_SKRIPT } from '@/lib/cv/showcase-exempel'
-import { losMallId } from '@/lib/cv/mallar/alias'
-import { FORVALD_MALL_ID } from '@/lib/cv/mallar/katalog'
-import { tolkaValUrQuery } from '@/lib/cv/mallar/val'
+import { SKALA_SKRIPT } from '@/lib/cv/showcase-exempel'
 import { renderMallHtml } from '@/lib/cv/mallar/render/html'
-import { uppsattningForTitel } from '@/lib/cv/rubriker'
-import { YRKESMALL_LIST } from '@/app/(public)/cv-mallar/yrkesmall-data'
-import { buildYrkesmallExempelCV } from '@/app/(public)/cv-mallar/[yrke]/YrkesmallExempelData'
+import { exempelUrAdress } from './exempel-cv'
 
 export async function GET(request: Request) {
-  const url = new URL(request.url)
-  const mall = losMallId(url.searchParams.get('mall') ?? FORVALD_MALL_ID)
-  if (!mall) return new Response('Okänd mall', { status: 404 })
+  const e = exempelUrAdress(new URL(request.url).searchParams)
+  if (!e.ok) return new Response(e.text, { status: e.status })
 
-  const val = tolkaValUrQuery(url.searchParams)
-  const slug = url.searchParams.get('yrke')
-  let exempel = SHOWCASE_CV as Parameters<typeof convertToCVMetadata>[0]
-  if (slug) {
-    const yrke = YRKESMALL_LIST.find((y) => y.slug === slug)
-    if (!yrke) return new Response('Okänt yrke', { status: 404 })
-    exempel = buildYrkesmallExempelCV(yrke.namn, yrke.kompetenser)
-    if (!val.uppsattning && !val.rubriker) val.uppsattning = uppsattningForTitel(yrke.namn)
-  }
-
-  const html = renderMallHtml(convertToCVMetadata(exempel), mall, val, { forhandsvisning: true })
+  const html = renderMallHtml(e.cv, e.mall, e.val, { forhandsvisning: true })
   const medSkala = html.includes('</body>') ? html.replace('</body>', `${SKALA_SKRIPT}</body>`) : html + SKALA_SKRIPT
   return new Response(medSkala, {
     headers: {
