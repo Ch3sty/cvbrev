@@ -18,7 +18,7 @@ Fel: 0
 - ok: FAQ-fråga bytt (2026-11-16, ägarkrav korrekta termer: gement premium i frågan (skrivregeln för Jobbcoach Premium), SEO-strategens beslut): "Vad är skillnaden på gratis och premium-mallarna?" → "Vad är skillnaden mellan gratismallarna och mallarna i Premium?"
 - ok: FAQ-fråga bytt (2026-11-16, ägarkrav korrekta termer: gement premium i frågan (skrivregeln för Jobbcoach Premium), SEO-strategens beslut): "ld: Vad är skillnaden på gratis och premium-mallarna?" → "Vad är skillnaden mellan gratismallarna och mallarna i Premium?"
 - ok: nya FAQ-frågor: ["Vad är skillnaden mellan gratismallarna och mallarna i Premium?","ld: Vad är skillnaden mellan gratismallarna och mallarna i Premium?"]
-- ok: ord i main 1599 → 1773 (+10.9 %)
+- ok: ord i main 1599 → 1852 (+15.8 %)
 - ok: länk bytt (2026-11-16): /cv-mallar/start?mall=aspekt → /cv-mallar/prova?mall=raster. Galleriet länkar till provsidan med mallens nya id (aliaset aspekt → raster); /cv-mallar/start 308:ar till /cv-mallar/prova.
 - ok: länk bytt (2026-11-16): /cv-mallar/start?mall=atlas → /cv-mallar/prova?mall=kolumn. Galleriet länkar till provsidan med mallens nya id (aliaset atlas → kolumn); /cv-mallar/start 308:ar till /cv-mallar/prova.
 - ok: länk bytt (2026-11-16): /cv-mallar/start?mall=aurora → /cv-mallar/prova?mall=koppar. Galleriet länkar till provsidan med mallens nya id (aliaset aurora → koppar); /cv-mallar/start 308:ar till /cv-mallar/prova.
@@ -72,7 +72,7 @@ Fel: 0
 - ok: h1 bytt (2026-11-16): "CV-mallar att fylla i och ladda ner. 41 mallar, 3 gratis." → "CV-mallar att fylla i och ladda ner. 20 mallar, 2 gratis.". Bara talen, ur katalogen (MALL_ANTAL, GRATIS_ANTAL). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.
 - ok: sektionsrubriker ändrade (omritad yta, tillåtet): borta 2, nya 6
 - ok: nya FAQ-frågor: ["Är CV-mallarna gratis att ladda ner?","Vilken CV-mall är bäst för svenska arbetsgivare 2026?","Vad är skillnaden mellan en CV-mall och ett CV-exempel?","Är mallarna ATS-säkra?","Kan jag ladda ner CV-mallen som PDF eller Word?","Hur väljer jag rätt CV-mall för mitt yrke?","Vilken CV-mall passar en chef?","Vilken CV-mall passar vid karriärbyte?","Kan jag byta CV-mall efter att jag fyllt i mitt CV?","Behöver jag foto på CV:t?","Kan jag använda samma mall för olika ansökningar?","Vilken mall ska jag välja som student utan jobberfarenhet?","Hur lång ska mitt CV vara?"]
-- ok: ord i main 2144 → 2847 (+32.8 %)
+- ok: ord i main 2144 → 2856 (+33.2 %)
 - ok: nya interna länkar i innehållet: ["/cv-mallar/prova?mall=antikva","/cv-mallar/prova?mall=arsring","/cv-mallar/prova?mall=bjork","/cv-mallar/prova?mall=fasad","/cv-mallar/prova?mall=folio","/cv-mallar/prova?mall=granit","/cv-mallar/prova?mall=horisont","/cv-mallar/prova?mall=kalksten","/cv-mallar/prova?mall=kolumn","/cv-mallar/prova?mall=koppar","/cv-mallar/prova?mall=kvadrat","/cv-mallar/prova?mall=linne","/cv-mallar/prova?mall=morkrum","/cv-mallar/prova?mall=raster","/cv-mallar/prova?mall=ritning","/cv-mallar/prova?mall=siluett","/cv-mallar/prova?mall=stal","/cv-mallar/prova?mall=terrakotta","/cv-mallar/prova?mall=tidning","/cv-mallar/prova?mall=tusch"]
 - ok: JSON-LD ändrad i tillåten typ (2026-11-14): FAQPage
 
@@ -86,7 +86,7 @@ Fel: 0
 - ok: rubrik bytt (2026-11-16): "h3 Aurora" → "h3 Björk". "Mallar som passar din bransch" visar katalogens tre första mallar; Aurora finns inte längre. Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.
 - ok: rubrik bytt (2026-11-16): "h3 Atlas" → "h3 Koppar". "Mallar som passar din bransch" visar katalogens tre första mallar; Atlas finns inte längre. Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.
 - ok: nya rubriker: ["h3 Ladda ner som PDF, eller Word i tolv av mallarna (×2)","h3 Linne","h3 Björk","h3 Koppar"]
-- ok: ord i main 983 → 1004 (+2.1 %)
+- ok: ord i main 983 → 1027 (+4.5 %)
 - ok: JSON-LD ändrad i tillåten typ (2026-10-12): FAQPage, HowTo, WebApplication
 
 ### /priser
@@ -626,9 +626,9 @@ Fel: 0
 
 ### /artiklar/bra-cv-guide
 - tillåten JSON-LD-skillnad 2026-11-15: Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/bra-cv-guide.md.
-- ok: ord i main 3229 → 3267 (+1.2 %)
+- ok: ord i main 3229 → 3271 (+1.3 %)
 - ok: nya interna länkar i innehållet: ["/cv-mallar#ladda-upp","/cv-mallar/prova?mall=linne"]
-- ok: BlogPosting wordCount 2977 → 2982 (alt-texten i första CustomImage)
+- ok: BlogPosting wordCount 2977 → 2986 (alt-texten i första CustomImage)
 - ok: artikelbilden syns med imageAlt: /images/artiklar/bra-cv-guide-v2.webp
 
 ### /artiklar/cv-exempel-yrken
@@ -645,24 +645,24 @@ Fel: 0
 
 ### /artiklar/cv-mall-gratis-guide
 - tillåten JSON-LD-skillnad 2026-11-14 och 2026-11-15: 2026-11-15: Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/cv-mall-gratis-guide.md. 2026-11-14: Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: stödsidan slutar konkurrera om "cv mall", länk till /cv-mallar högt upp, 74 blir 89 i text och FAQ-svar.
-- ok: ord i main 3595 → 3727 (+3.7 %)
+- ok: ord i main 3595 → 3741 (+4.1 %)
 - ok: nya interna länkar i innehållet: ["/cv-mallar#ladda-upp","/cv-mallar/prova?mall=linne"]
 - ok: JSON-LD ändrad i tillåten typ (2026-11-14 och 2026-11-15): BlogPosting, FAQPage
 - ok: artikelbilden syns med imageAlt: /images/artiklar/cv-mall-gratis-guide-v2.webp
 
 ### /artiklar/cv-mall-pdf-gratis
 - tillåten JSON-LD-skillnad 2026-11-14 och 2026-11-15: 2026-11-15: Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/cv-mall-pdf-gratis.md. 2026-11-14: Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: en mening med länk till målsidan och huvudordet i ankartexten högt upp, gamla antal rättade; BlogPostings wordCount följer texten.
-- ok: ord i main 2904 → 2961 (+2.0 %)
+- ok: ord i main 2904 → 2971 (+2.3 %)
 - ok: nya interna länkar i innehållet: ["/cv-mallar#ladda-upp","/cv-mallar/prova?mall=linne"]
-- ok: BlogPosting wordCount 2628 → 2652 (alt-texten i första CustomImage)
+- ok: BlogPosting wordCount 2628 → 2662 (alt-texten i första CustomImage)
 - ok: JSON-LD ändrad i tillåten typ (2026-11-14 och 2026-11-15): FAQPage
 - ok: artikelbilden syns med imageAlt: /images/artiklar/cv-mall-pdf-gratis-v2.webp
 
 ### /artiklar/cv-mall-word-gratis
-- tillåten JSON-LD-skillnad 2026-11-14 och 2026-11-15: 2026-11-15: Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/cv-mall-word-gratis.md. 2026-11-14: Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: en mening med länk till målsidan och huvudordet i ankartexten högt upp, gamla antal rättade; BlogPostings wordCount följer texten.
-- ok: ord i main 3656 → 3737 (+2.2 %)
+- tillåten JSON-LD-skillnad 2026-11-14 och 2026-11-15 och 2026-11-16: 2026-11-15: Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/cv-mall-word-gratis.md. 2026-11-14: Huvudordsplanen steg 1 till 4 (docs/plan-huvudord-2026-12.md) och SEO-förslaget K4 till K6 (docs/qa/seo-tester-omgang2/seo-forslag-k4-k6.md). K4 b: en mening med länk till målsidan och huvudordet i ankartexten högt upp, gamla antal rättade; BlogPostings wordCount följer texten. 2026-11-16: Ägarens besked 2026-11-16: gratismallarna Linne och Björk laddas ner gratis som PDF eller Word. FAQ-svaret "Var kan jag hitta gratis CV-mallar för Word?" nämner nu våra gratis Word-mallar efter Microsofts råd (copywriter, SEO-strategen granskade). Frågorna oförändrade.
+- ok: ord i main 3656 → 3855 (+5.4 %)
 - ok: nya interna länkar i innehållet: ["/cv-mallar#ladda-upp","/cv-mallar/prova?mall=linne","/verktyg/cv-mallar#word"]
-- ok: JSON-LD ändrad i tillåten typ (2026-11-14 och 2026-11-15): BlogPosting
+- ok: JSON-LD ändrad i tillåten typ (2026-11-14 och 2026-11-15 och 2026-11-16): BlogPosting, FAQPage
 - ok: artikelbilden syns med imageAlt: /images/artiklar/cv-mall-word-gratis-v2.webp
 
 ### /artiklar/cv-och-personligt-brev
@@ -702,10 +702,9 @@ Fel: 0
 - ok: ny rubrik (2026-11-15): "h2#kan-du-borja-fran-linkedin-eller-ett-gammalt-cv Kan du börja från LinkedIn eller ett gammalt CV?". Rubrikträdet följer omskrivningen. Omskriven som ny artikel till dagens artikelstandard (ägarens uppdrag 2026-11-15, svepet punkt 2): påhittade och felaktiga uppgifter om produkten borta, källbelagd, frågeformade rubriker, ny FAQ. Granskad och godkänd av SEO-strateg, copywriter, säljansvarig, faktagranskare och art-director (docs/qa/svep-2026-11-15/).
 - ok: ny rubrik (2026-11-15): "h2#sa-fungerar-var-cv-byggare Så fungerar vår CV-byggare". Rubrikträdet följer omskrivningen. Omskriven som ny artikel till dagens artikelstandard (ägarens uppdrag 2026-11-15, svepet punkt 2): påhittade och felaktiga uppgifter om produkten borta, källbelagd, frågeformade rubriker, ny FAQ. Granskad och godkänd av SEO-strateg, copywriter, säljansvarig, faktagranskare och art-director (docs/qa/svep-2026-11-15/).
 - ok: ny rubrik (2026-11-15): "h2#byggaren-gor-layouten-du-gor-innehallet Byggaren gör layouten, du gör innehållet". Rubrikträdet följer omskrivningen. Omskriven som ny artikel till dagens artikelstandard (ägarens uppdrag 2026-11-15, svepet punkt 2): påhittade och felaktiga uppgifter om produkten borta, källbelagd, frågeformade rubriker, ny FAQ. Granskad och godkänd av SEO-strateg, copywriter, säljansvarig, faktagranskare och art-director (docs/qa/svep-2026-11-15/).
-- ok: ord i main 3658 → 3730 (+2.0 %)
+- ok: ord i main 3658 → 3746 (+2.4 %)
 - ok: nya interna länkar i innehållet: ["/cv-mallar#ladda-upp","/cv-mallar/prova?mall=linne"]
-- ok: BlogPosting wordCount 3604 → 3643 (alt-texten i första CustomImage)
-- ok: JSON-LD ändrad i tillåten typ (2026-11-15 och 2026-11-15): FAQPage
+- ok: JSON-LD ändrad i tillåten typ (2026-11-15 och 2026-11-15): BlogPosting, FAQPage
 - ok: artikelbilden syns med imageAlt: /images/artiklar/online-cv-byggare-gratis-v2.webp
 
 ### /artiklar/skillnad-cv-personligt-brev
@@ -731,8 +730,8 @@ Fel: 0
 - ok: ny rubrik (2026-11-15): "h3#verktyg-6-rekryteringstester-och-intervjutraning Verktyg 6: Rekryteringstester och intervjuträning". Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md.
 - ok: ny rubrik (2026-11-15): "h3#verktyg-7-jobbcoachen Verktyg 7: Jobbcoachen". Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md.
 - ok: ny rubrik (2026-11-15): "h2#ett-konstruerat-exempel-samma-erfarenhet-nya-ord Ett konstruerat exempel: samma erfarenhet, nya ord". Ny eller omskriven rubrik. Faktagranskningen 2026-11-15 (ägarens uppdrag): felaktiga, obelagda och påhittade uppgifter rättade eller strukna, granskade i tre led. Underlag: docs/qa/faktagranskning-2026-11/vad-ar-en-jobbcoach.md.
-- ok: ord i main 5665 → 5687 (+0.4 %)
-- ok: BlogPosting wordCount 6540 → 6562 (alt-texten i första CustomImage)
+- ok: ord i main 5665 → 5695 (+0.5 %)
+- ok: BlogPosting wordCount 6540 → 6570 (alt-texten i första CustomImage)
 - ok: JSON-LD ändrad i tillåten typ (2026-11-15): FAQPage
 - ok: artikelbilden syns med imageAlt: /images/artiklar/vad-ar-en-jobbcoach-v2.webp
 

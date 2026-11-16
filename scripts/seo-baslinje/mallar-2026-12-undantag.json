@@ -431,6 +431,14 @@
       ]
     },
     {
+      "path": "/artiklar/cv-mall-word-gratis",
+      "datum": "2026-11-16",
+      "skal": "Ägarens besked 2026-11-16: gratismallarna Linne och Björk laddas ner gratis som PDF eller Word. FAQ-svaret \"Var kan jag hitta gratis CV-mallar för Word?\" nämner nu våra gratis Word-mallar efter Microsofts råd (copywriter, SEO-strategen granskade). Frågorna oförändrade.",
+      "andrade": [
+        "FAQPage"
+      ]
+    },
+    {
       "path": "/cv-mallar/lakare",
       "datum": "2026-11-16",
       "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
