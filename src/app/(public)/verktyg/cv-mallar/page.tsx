@@ -32,35 +32,7 @@ import { MALL_KATALOG, MALL_ANTAL, GRATIS_ANTAL, WORD_ANTAL } from '@/lib/cv/mal
 import { prisInfo } from '@/lib/cv/mallval/pris.server'
 import { CV_MALLAR_FAQ_ITEMS } from './components/cv-mallar-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
-<<<<<<< HEAD
-import { PLAN_BY_KEY, SALD_PLAN, paketKort, paketMedPris, paketNamn, prisPeriod } from '@/lib/plans/plans'
-import { isValidTemplateId } from '@/lib/cv/mallar/kompat'
-import { FONTS } from '@/lib/cv/preview-utils'
-
-/** Registrets beskrivningar har tankstreck; i löptexten blir de komma. Schemat läser registret orört. */
-const lopText = (t: string) => t.replace(/\s+—\s+/g, ', ')
-
-/**
- * Listorna till heroväljaren och galleriet, i sin minsta form. Hela
- * mallregistret och mallmotorn stannar på servern. Gratismallarna först i
- * väljaren: det är dem besökaren kan använda utan att betala.
- */
-const DEMO_MALLAR = SIMPLE_TEMPLATES.filter((t) => isValidTemplateId(t.id))
-  .map((t) => ({ id: t.id, name: t.name, description: lopText(t.description), tier: t.tier }))
-  .sort((a, b) => (a.tier === b.tier ? 0 : a.tier === 'free' ? -1 : 1))
-const DEMO_TYPSNITT = FONTS.map((f) => ({ id: f.id, name: f.name }))
-const GALLERI_MALLAR = SIMPLE_TEMPLATES.map((t) => ({
-  id: t.id,
-  name: t.name,
-  description: lopText(t.description),
-  imagePath: t.imagePath,
-  category: t.category,
-  tier: t.tier,
-  features: t.features,
-}))
-=======
 import { PLAN_BY_KEY, SALD_PLAN, paketKort, paketMedPris, paketNamn } from '@/lib/plans/plans'
->>>>>>> 580c7173 (feat(mallar): mallsidorna och provsidan med uppladdning utan konto)
 
 /**
  * Avsnittet "CV-mallar för Word" med ankaret #word (docs/plan-cv-word-2026-11-15.md
