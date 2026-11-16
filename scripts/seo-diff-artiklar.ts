@@ -318,6 +318,15 @@ const BILD_BYTT: Array<{ path: string; gammal: string; ny: string; datum: string
  */
 const FORFATTARE_BYTT: Array<{ path: string; gammal: string; ny: string; datum: string; skal: string }> = [];
 
+/**
+ * En sida som avsiktligt blivit en permanent omdirigering (mallsatsningen
+ * 2026-11-16: /cv-mallar/start 308:ar till /cv-mallar/prova). Undantaget
+ * kräver att efter-avtrycket har exakt den nya statusen; resten av sidans
+ * jämförelse hoppas över eftersom en omdirigering inte har något innehåll.
+ * Nyckeln STATUS_BYTT i *-undantag.json.
+ */
+const STATUS_BYTT: Array<{ path: string; fore: number; efter: number; mal: string; datum: string; skal: string }> = [];
+
 /** Är src artikelbilden i version n för sidans egen slug? */
 function arArtikelbildV(sida: string, src: string | undefined): boolean {
   if (!src) return false;
@@ -378,6 +387,7 @@ function lasUndantagsfiler() {
     lagg(BASLINJE_OMTAGEN, 'BASLINJE_OMTAGEN')
     lagg(BILD_BYTT, 'BILD_BYTT')
     lagg(FORFATTARE_BYTT, 'FORFATTARE_BYTT')
+    lagg(STATUS_BYTT, 'STATUS_BYTT')
   }
 }
 lasUndantagsfiler()
@@ -815,6 +825,12 @@ function jamfor(foreRa: Avtryck[], efterRa: Avtryck[]): { rapport: string; fel: 
     if (!e) {
       brott('sidan saknas i efter-avtrycket');
     } else {
+      const statusBytt = STATUS_BYTT.find((b) => b.path === f.path && b.fore === f.status && b.efter === e.status);
+      if (statusBytt) {
+        info(`status bytt (${statusBytt.datum}): ${f.status} → ${e.status}, omdirigering till ${statusBytt.mal}. ${statusBytt.skal}`);
+        rader.push(`### ${f.path}`, sidrader.join('\n'), '');
+        continue;
+      }
       if (f.status !== e.status) brott(`status ${f.status} → ${e.status}`);
       const bildBytt = BILD_BYTT.find((b) => b.path === f.path);
       for (const falt of ['title', 'description', 'canonical', 'ogImage', 'robots'] as const) {

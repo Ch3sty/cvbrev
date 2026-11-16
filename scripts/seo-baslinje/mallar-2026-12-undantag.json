@@ -1,0 +1,1042 @@
+{
+  "_om": "Mallsatsningen 2026-11-16, byggagent D: texterna om mallarna överallt (talet 41 och alla mallantal, gamla mallnamn och yrkesmallar) byts i samma push som utbudet. Copy av svensk-ux-copywriter, beslut om h1, rubriker, #word och ItemList av SEO-strategen (seo-content-strategist-se). Alla avsiktliga skillnader nedan; ordmängden sjunker inte på någon sida.",
+  "RUBRIK_BYTT": [
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "h3 Ladda ner som PDF, eller Word i sex av mallarna",
+      "efter": "h3 Ladda ner som PDF, eller Word i tolv av mallarna",
+      "datum": "2026-11-16",
+      "skal": "Talet ur katalogen: Word finns nu i tolv mallar (STEG, matar HowTo)."
+    },
+    {
+      "path": "/funktioner",
+      "fore": "h3 41 mallar, 3 gratis",
+      "efter": "h3 20 mallar, 2 gratis",
+      "datum": "2026-11-16",
+      "skal": "Talen ur katalogen (TEMPLATE_COUNT, FREE_TEMPLATE_COUNT). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen."
+    },
+    {
+      "path": "/verktyg/skapa-cv",
+      "fore": "h3 Ladda ner som PDF, eller Word i sex av mallarna (×2)",
+      "efter": "h3 Ladda ner som PDF, eller Word i tolv av mallarna",
+      "datum": "2026-11-16",
+      "skal": "Talet ur katalogen: Word finns nu i tolv mallar. Rubriken står två gånger (funktionsraden och HowTo-steget), därav (×2) i jämförelsen."
+    },
+    {
+      "path": "/verktyg/skapa-cv",
+      "fore": "h3 Norrsken",
+      "efter": "h3 Linne",
+      "datum": "2026-11-16",
+      "skal": "\"Mallar som passar din bransch\" visar katalogens tre första mallar; Norrsken finns inte längre. Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen."
+    },
+    {
+      "path": "/verktyg/skapa-cv",
+      "fore": "h3 Aurora",
+      "efter": "h3 Björk",
+      "datum": "2026-11-16",
+      "skal": "\"Mallar som passar din bransch\" visar katalogens tre första mallar; Aurora finns inte längre. Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen."
+    },
+    {
+      "path": "/verktyg/skapa-cv",
+      "fore": "h3 Atlas",
+      "efter": "h3 Koppar",
+      "datum": "2026-11-16",
+      "skal": "\"Mallar som passar din bransch\" visar katalogens tre första mallar; Atlas finns inte längre. Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen."
+    }
+  ],
+  "RUBRIK_BORTA": [
+    {
+      "path": "/verktyg/cv-mallar",
+      "rubrik": "h3 Norrsken",
+      "datum": "2026-11-16",
+      "skal": "#word: den gamla Word-mallen Norrsken finns inte längre; avsnittet har en rad per Word-mall ur katalogen (tolv h3 med de nya namnen). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "rubrik": "h3 Student",
+      "datum": "2026-11-16",
+      "skal": "#word: den gamla Word-mallen Student finns inte längre; avsnittet har en rad per Word-mall ur katalogen (tolv h3 med de nya namnen). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "rubrik": "h3 Tidlös",
+      "datum": "2026-11-16",
+      "skal": "#word: den gamla Word-mallen Tidlös finns inte längre; avsnittet har en rad per Word-mall ur katalogen (tolv h3 med de nya namnen). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "rubrik": "h3 Myndighet",
+      "datum": "2026-11-16",
+      "skal": "#word: den gamla Word-mallen Myndighet finns inte längre; avsnittet har en rad per Word-mall ur katalogen (tolv h3 med de nya namnen). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "rubrik": "h3 Stack",
+      "datum": "2026-11-16",
+      "skal": "#word: den gamla Word-mallen Stack finns inte längre; avsnittet har en rad per Word-mall ur katalogen (tolv h3 med de nya namnen). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "rubrik": "h3 Hantverkare",
+      "datum": "2026-11-16",
+      "skal": "#word: den gamla Word-mallen Hantverkare finns inte längre; avsnittet har en rad per Word-mall ur katalogen (tolv h3 med de nya namnen). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen."
+    }
+  ],
+  "FAQ_BYTT": [
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "Vad är skillnaden på gratis och premium-mallarna?",
+      "efter": "Vad är skillnaden mellan gratismallarna och mallarna i Premium?",
+      "datum": "2026-11-16",
+      "skal": "ägarkrav korrekta termer: gement premium i frågan (skrivregeln för Jobbcoach Premium), SEO-strategens beslut"
+    }
+  ],
+  "LANK_BYTT": [
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=aspekt",
+      "efter": "/cv-mallar/prova?mall=raster",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset aspekt → raster); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=atlas",
+      "efter": "/cv-mallar/prova?mall=kolumn",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset atlas → kolumn); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=aurora",
+      "efter": "/cv-mallar/prova?mall=koppar",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset aurora → koppar); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=avtryck",
+      "efter": "/cv-mallar/prova?mall=tusch",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset avtryck → tusch); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=bold-modern",
+      "efter": "/cv-mallar/prova?mall=fasad",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset bold-modern → fasad); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=bygg",
+      "efter": "/cv-mallar/prova?mall=fasad",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset bygg → fasad); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=disk",
+      "efter": "/cv-mallar/prova?mall=raster",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset disk → raster); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=disk-plus",
+      "efter": "/cv-mallar/prova?mall=raster",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset disk-plus → raster); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=editorial-magazine",
+      "efter": "/cv-mallar/prova?mall=tidning",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset editorial-magazine → tidning); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=forskare",
+      "efter": "/cv-mallar/prova?mall=folio",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset forskare → folio); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=galleri",
+      "efter": "/cv-mallar/prova?mall=siluett",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset galleri → siluett); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=hantverkare-plus",
+      "efter": "/cv-mallar/prova?mall=fasad",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset hantverkare-plus → fasad); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=karta",
+      "efter": "/cv-mallar/prova?mall=ritning",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset karta → ritning); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=klinik",
+      "efter": "/cv-mallar/prova?mall=kalksten",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset klinik → kalksten); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=konsult-kompakt",
+      "efter": "/cv-mallar/prova?mall=stal",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset konsult-kompakt → stal); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=konto",
+      "efter": "/cv-mallar/prova?mall=arsring",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset konto → arsring); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=konto-plus",
+      "efter": "/cv-mallar/prova?mall=arsring",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset konto-plus → arsring); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=kvist",
+      "efter": "/cv-mallar/prova?mall=terrakotta",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset kvist → terrakotta); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=linje",
+      "efter": "/cv-mallar/prova?mall=stal",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset linje → stal); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=logistik",
+      "efter": "/cv-mallar/prova?mall=granit",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset logistik → granit); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=logistik-plus",
+      "efter": "/cv-mallar/prova?mall=granit",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset logistik-plus → granit); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=magasin",
+      "efter": "/cv-mallar/prova?mall=tidning",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset magasin → tidning); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=myndighet",
+      "efter": "/cv-mallar/prova?mall=antikva",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset myndighet → antikva); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=myndighet-plus",
+      "efter": "/cv-mallar/prova?mall=antikva",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset myndighet-plus → antikva); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=norrsken",
+      "efter": "/cv-mallar/prova?mall=linne",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset norrsken → linne); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=norrsken&typsnitt=calibri",
+      "efter": "/cv-mallar/prova?mall=linne",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset norrsken → linne); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=norrsken&typsnitt=calibri",
+      "efter": "/cv-mallar/prova?mall=linne",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset norrsken → linne); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=norrsken-plus",
+      "efter": "/cv-mallar/prova?mall=koppar",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset norrsken-plus → koppar); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=pedagog",
+      "efter": "/cv-mallar/prova?mall=kalksten",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset pedagog → kalksten); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=servering",
+      "efter": "/cv-mallar/prova?mall=terrakotta",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset servering → terrakotta); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=sidebar-icons",
+      "efter": "/cv-mallar/prova?mall=bjork",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset sidebar-icons → bjork); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=sidopanel-plus",
+      "efter": "/cv-mallar/prova?mall=kalksten",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset sidopanel-plus → kalksten); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=skymning",
+      "efter": "/cv-mallar/prova?mall=morkrum",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset skymning → morkrum); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=spektrum",
+      "efter": "/cv-mallar/prova?mall=horisont",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset spektrum → horisont); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=stack-developer",
+      "efter": "/cv-mallar/prova?mall=stal",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset stack-developer → stal); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=stack-plus",
+      "efter": "/cv-mallar/prova?mall=stal",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset stack-plus → stal); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=student-plus",
+      "efter": "/cv-mallar/prova?mall=bjork",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset student-plus → bjork); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=student-startup",
+      "efter": "/cv-mallar/prova?mall=bjork",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset student-startup → bjork); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=tidlos-formell",
+      "efter": "/cv-mallar/prova?mall=antikva",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset tidlos-formell → antikva); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=tidlos-plus",
+      "efter": "/cv-mallar/prova?mall=antikva",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset tidlos-plus → antikva); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=varden-omsorg",
+      "efter": "/cv-mallar/prova?mall=kalksten",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset varden-omsorg → kalksten); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=verkstad",
+      "efter": "/cv-mallar/prova?mall=fasad",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset verkstad → fasad); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    },
+    {
+      "path": "/verktyg/cv-mallar",
+      "fore": "/cv-mallar/start?mall=verkstad-plus",
+      "efter": "/cv-mallar/prova?mall=fasad",
+      "datum": "2026-11-16",
+      "skal": "Galleriet länkar till provsidan med mallens nya id (aliaset verkstad-plus → fasad); /cv-mallar/start 308:ar till /cv-mallar/prova."
+    }
+  ],
+  "H1_BYTT": [
+    {
+      "path": "/cv-mallar",
+      "fore": "CV-mallar att fylla i och ladda ner. 41 mallar, 3 gratis.",
+      "efter": "CV-mallar att fylla i och ladda ner. 20 mallar, 2 gratis.",
+      "datum": "2026-11-16",
+      "skal": "Bara talen, ur katalogen (MALL_ANTAL, GRATIS_ANTAL). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen."
+    }
+  ],
+  "LD_UNDANTAG": [
+    {
+      "path": "/verktyg/cv-mallar",
+      "datum": "2026-11-16",
+      "skal": "ItemList ur MALL_KATALOG: en Product per mall i det nya utbudet (namn \"CV-mall <namn>\", svensk kategori per formfamilj, url till ankaret #mall-<id> på /cv-mallar, bild /mallar/v2/<id>-stor.webp), FAQ-svaren sanna om Word och foto. SEO-strategens beslut 2026-11-16. Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "ItemList",
+        "FAQPage",
+        "HowTo"
+      ]
+    },
+    {
+      "path": "/verktyg/skapa-cv",
+      "datum": "2026-11-16",
+      "skal": "FAQ-svaret \"Är det gratis att skapa CV online hos er?\" sa tre fria mallar; nu gratismallarna ur katalogen. Frågorna oförändrade.",
+      "andrade": [
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/verktyg/jobbcoachen",
+      "datum": "2026-11-16",
+      "skal": "FAQ-svaret om gratisnivån sa tre CV-mallar; nu antalet ur katalogen. Frågorna oförändrade.",
+      "andrade": [
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/cv-mallar/lakare",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/specialistsjukskoterska",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/barnmorska",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/fysioterapeut",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/sjukskoterska",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/underskoterska",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). FAQ-svar som nämnde gamla mallar eller deras design omskrivna till yrkets nya mallpar; frågorna oförändrade. Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product",
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/cv-mallar/vardbitrade",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). FAQ-svar som nämnde gamla mallar eller deras design omskrivna till yrkets nya mallpar; frågorna oförändrade. Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product",
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/cv-mallar/hemtjanst",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/hemtjanstpersonal",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/personlig-assistent",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/psykolog",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/kurator",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/boendestod",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/vardadministrator",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/forskollarare",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/larare",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/grundskollarare",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). FAQ-svar som nämnde gamla mallar eller deras design omskrivna till yrkets nya mallpar; frågorna oförändrade. Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product",
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/cv-mallar/specialpedagog",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/barnskotare",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/elevassistent",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/fritidspedagog",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/fritidsledare",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/student",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/butiksbitrade",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). FAQ-svar som nämnde gamla mallar eller deras design omskrivna till yrkets nya mallpar; frågorna oförändrade. Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product",
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/cv-mallar/butikssaljare",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/butikschef",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/kassorska",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/kundtjanstmedarbetare",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/kundtjanst",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/hotellvard",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/receptionist",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/kundradgivare",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/lagerarbetare",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/truckforare",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/logistiker",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/lagerchef",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/terminalarbetare",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/logistikassistent",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/fastighetsskotare",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/servicemedarbetare",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/lokalvardare",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/kock",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/bartender",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/konditor",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/barista",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/servitris-restaurangbitrade",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/koksbitrade",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/saljare",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/account-manager",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/sommarjobb",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/systemutvecklare",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/devops-engineer",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/it-konsult",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). FAQ-svar som nämnde gamla mallar eller deras design omskrivna till yrkets nya mallpar; frågorna oförändrade. Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product",
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/cv-mallar/projektledare-it",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/scrum-master",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/produktchef",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/ingenjor",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/automationsingenior",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/konstruktor",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/ekonomiassistent",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/administrativ-assistent",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/redovisningsekonom",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/controller",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/ekonom",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/hr-specialist",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/administrator",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/handlaggare",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/lss-handlaggare",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/socialsekreterare",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/kontorsassistent",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/chef",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). FAQ-svar som nämnde gamla mallar eller deras design omskrivna till yrkets nya mallpar; frågorna oförändrade. Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product",
+        "FAQPage"
+      ]
+    },
+    {
+      "path": "/cv-mallar/enhetschef",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/projektledare",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    },
+    {
+      "path": "/cv-mallar/teamledare",
+      "datum": "2026-11-16",
+      "skal": "Product-schemats bild är yrkets gratismall i det nya utbudet (/mallar/v2/<id>-stor.webp i stället för den gamla mallens svg). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen.",
+      "andrade": [
+        "Product"
+      ]
+    }
+  ],
+  "STATUS_BYTT": [
+    {
+      "path": "/cv-mallar/start",
+      "fore": 200,
+      "efter": 308,
+      "mal": "/cv-mallar/prova",
+      "datum": "2026-11-16",
+      "skal": "Provsidan /cv-mallar/prova ersätter /cv-mallar/start (byggagent C, plan-mallar 3.1); permanent omdirigering i next.config.ts. Båda var och är noindex och spärrade i robots.ts."
+    }
+  ]
+}
