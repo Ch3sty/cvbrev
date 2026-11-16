@@ -72,13 +72,13 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
   // ============================================================================
   'lakare': {
     seoIntro:
-      'Som läkare i Sverige söker du tjänster där varje merit har sitt eget värde. Legitimation från Socialstyrelsen, AT- och ST-tjänstgöringar, specialistbevis och publikationer bedöms separat av verksamhetschefer som ofta skannar 30 ansökningar på en eftermiddag. Ett generiskt CV-format döljer dina starkaste meriter mitt i en löpande text.\n\nVår mall för läkare är byggd för att lyfta legitimationsstatus och specialistutbildning som första visuella element. Klinisk tjänstgöring lägger vi i kronologisk ordning med diagnosspektra, volymer och dokumentationssystem (Cosmic, TakeCare, Melior, NCS Cross) i klartext. Publikationer får eget block med tidskrift, år och författarordning, vilket gör dem läsbara både för rekryteraren och för Heroma och Visma Recruits ATS-system.\n\nKonkret innehåll vi rekommenderar i ett läkar-CV: legitimationsdatum från Socialstyrelsen, AT-block med klinik och längd, ST-tjänstgöringar uppdelade per delspecialitet, specialistbevis och eventuella subspecialiseringar, publikationer i Vancouver-format, konferensbidrag och forskningsbidrag. Lägg till CME-poäng, handledarutbildningar och tjänsteresor om du söker överläkar- eller verksamhetschefroller.\n\nNedan hittar du två CV-mallar designade för läkar-rollen, ett färdigt CV-exempel för internmedicin du kan utgå från, och konkreta tips på vad rekryterare på sjukhus och privata kliniker faktiskt letar efter. Ladda ner mallen gratis och anpassa den efter den tjänst du söker.',
+      'Som läkare i Sverige söker du tjänster där varje merit har sitt eget värde. Legitimation från Socialstyrelsen, AT- och ST-tjänstgöringar, specialistbevis och publikationer bedöms separat av verksamhetschefer som ofta skannar 30 ansökningar på en eftermiddag. Ett generiskt CV-format döljer dina starkaste meriter mitt i en löpande text.\n\nVåra mallar låter dig lyfta legitimation och specialistutbildning som första visuella element, i Kalkstens intygsfält eller med ordningen Intyg först i Linne. Klinisk tjänstgöring lägger du i kronologisk ordning med diagnosspektra, volymer och dokumentationssystem (Cosmic, TakeCare, Melior, NCS Cross) i klartext. Publikationer får ett eget avsnitt, Projekt och publikationer, med tidskrift, år och författarordning, vilket gör dem läsbara både för rekryteraren och för Heroma och Visma Recruits ATS-system.\n\nKonkret innehåll vi rekommenderar i ett läkar-CV: legitimationsdatum från Socialstyrelsen, AT-block med klinik och längd, ST-tjänstgöringar uppdelade per delspecialitet, specialistbevis och eventuella subspecialiseringar, publikationer i Vancouver-format, konferensbidrag och forskningsbidrag. Lägg till CME-poäng, handledarutbildningar och tjänsteresor om du söker överläkar- eller verksamhetschefroller.\n\nNedan hittar du två CV-mallar som passar läkarens meriter, ett färdigt CV-exempel för internmedicin du kan utgå från, och konkreta tips på vad rekryterare på sjukhus och privata kliniker faktiskt letar efter. Ladda ner gratismallen Linne och anpassa den efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
         icon: 'Award',
         title: 'Legitimation och specialistbevis först',
-        description: 'Verksamhetschefer kollar först om du är legitimerad och inom vilken specialitet. Ange Socialstyrelsens registreringsdatum och eventuella subspecialiseringar i sidopanelen så de syns inom de första fem sekunderna.',
+        description: 'Verksamhetschefer kollar först om du är legitimerad och inom vilken specialitet. Ange Socialstyrelsens registreringsdatum och eventuella subspecialiseringar i intygsavsnittet så de syns inom de första fem sekunderna.',
       },
       {
         icon: 'TrendingUp',
@@ -109,28 +109,28 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
     varforVarMallPassar: [
       {
-        title: 'Legitimation lyfts överst i sidopanelen',
-        description: 'Verksamhetschefer skannar först efter Socialstyrelsens registrering. Vi har gjort det till första visuella elementet i sidopanelen så det syns på fem sekunder utan att du behöver scrolla.',
+        title: 'Legitimationen i intygsfältet överst i sidospalten',
+        description: 'Verksamhetschefer skannar först efter Socialstyrelsens registrering. I Kalksten ligger intygsfältet högst upp i den ljusgrå vänsterspalten, direkt under kontaktuppgifterna, så det syns på fem sekunder utan att någon behöver scrolla. I Linne väljer du Intyg först och får samma effekt.',
       },
       {
-        title: 'AT, ST och specialiseringar har egen sektion',
-        description: 'Tre olika typer av tjänstgöring som chefer värderar olika. Mallen separerar dem så ingen merit drunknar i en generisk arbetslivshistorik. ST-tjänstgöringar grupperas dessutom efter delspecialitet.',
+        title: 'AT, ST och specialiseringar som egna poster',
+        description: 'Tre olika typer av tjänstgöring som chefer värderar olika. Lägg dem som egna poster under rubriken Klinisk erfarenhet, som följer med rubrikuppsättningen Vård och omsorg, så drunknar ingen merit i en generisk arbetslivshistorik. ST-tjänstgöringar grupperar du dessutom efter delspecialitet.',
       },
       {
-        title: 'Tabellär layout för publikationer',
-        description: 'Forskande läkare har ofta 10-30 publikationer. Vår tabellära struktur ger plats utan att ta över första sidan. Författarordning syns visuellt med din position fetad.',
+        title: 'Publikationerna i ett eget avsnitt',
+        description: 'Forskande läkare har ofta 10-30 publikationer. Avsnittet Projekt och publikationer ligger efter tjänstgöringen och ger plats utan att ta över första sidan. Skriv ut författarordningen i varje rad så rekryteraren ser din position direkt.',
       },
       {
-        title: 'Diagnosspektra som taggrad',
-        description: 'Olika sjukhus letar efter olika kompetensprofiler. Vi har en taggrad där du listar diagnosspektra och utredningstyper du behärskar i klartext, vilket både rekryterare och ATS kan parsa.',
+        title: 'Diagnosspektra som egen kompetensgrupp',
+        description: 'Olika sjukhus letar efter olika kompetensprofiler. Kompetenserna skrivs som grupper med fet rubrik och kommaseparerad lista, så du kan lista diagnosspektra och utredningstyper du behärskar i klartext, vilket både rekryterare och ATS kan läsa.',
       },
       {
-        title: 'Klinik med CME-block ingår i Premium',
-        description: 'För specialist- och överläkarroller väger vidareutbildning tungt. Mallen i Premium har ett dedikerat block för CME-poäng, kongressbidrag och fortbildning som inte tar plats från klinisk tjänstgöring.',
+        title: 'Kalksten med foto ingår i Premium',
+        description: 'För specialist- och överläkarroller väger vidareutbildning tungt. I Kalksten, som ingår i Premium, får CME-poäng, kongressbidrag och fortbildning plats i intygsfältet i sidospalten, så de inte tar plats från den kliniska tjänstgöringen i huvudspalten. Mallen finns också som Word-fil.',
       },
       {
         title: 'Sober färgsättning för tradition',
-        description: 'Vården värderar tradition och saklighet. Vi använder dämpad serif på rubriker och svartvit grund med subtila accenter. Inget som distraherar från meritbilden eller signalerar oprofessionell.',
+        description: 'Vården värderar tradition och saklighet. Båda mallarna har Georgia i namn och rubriker, Calibri i brödtexten och fyra dämpade färger att välja mellan: stålblå eller marinblå som förval, mörkgrön, vinröd och grå. Inget som distraherar från meritbilden.',
       },
     ],
 
@@ -333,7 +333,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     rekryterarTipsen: [
       {
         rubrik: 'Specialistbevis och legitimation tydligt placerade',
-        text: 'Verksamhetschefer skannar först efter legitimationsstatus och specialistbevis. Ange utfärdande myndighet (Socialstyrelsen), datum och eventuella subspecialiseringar i en egen sidopanel.',
+        text: 'Verksamhetschefer skannar först efter legitimationsstatus och specialistbevis. Ange utfärdande myndighet (Socialstyrelsen), datum och eventuella subspecialiseringar i intygsavsnittet, i Kalksten ligger det i sidospalten.',
       },
       {
         rubrik: 'Publikationer i Vancouver-format',
@@ -380,7 +380,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Tidlös och Klinik, som ingår i Premium, läser rekryteringssystemen rätt. Region- och privata sjukhus använder oftast Heroma, Visma Recruit eller eRecruiter, alla läser standardrubriker som "Arbetslivserfarenhet" och "Utbildning" korrekt. Använd vanlig listformatering för publikationer så systemet kan parsa författare, titel och år. Skriv ut systemnamnen (Cosmic, TakeCare, Melior) i klartext eftersom rekryterare ofta filtrerar exakta termer från jobbannonsen.',
+      'Både vår gratismall Linne och Kalksten, som ingår i Premium, läser rekryteringssystemen rätt. Region- och privata sjukhus använder oftast Heroma, Visma Recruit eller eRecruiter, alla läser standardrubriker som "Arbetslivserfarenhet" och "Utbildning" korrekt. Använd vanlig listformatering för publikationer så systemet kan parsa författare, titel och år. Skriv ut systemnamnen (Cosmic, TakeCare, Melior) i klartext eftersom rekryterare ofta filtrerar exakta termer från jobbannonsen.',
 
     faqItems: [
       {
@@ -428,7 +428,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'sjukskoterska': {
     seoIntro:
-      'Som sjuksköterska tillhör du Sveriges mest efterfrågade yrkesgrupp. Region- och kommunala arbetsgivare har nästan alltid öppna tjänster och konkurrensen sker inte om jobben i sig, utan om vilken klinik och vilket schema du får. Ett bra CV avgör om du blir kallad till första intervju på din drömavdelning eller hamnar i en avdelnings-bemanningspool.\n\nVår mall för sjuksköterskor lyfter legitimation från Socialstyrelsen, eventuella specialistutbildningar och vårdtyngd som första visuella element. Kliniska metoder, dokumentationssystem och delegeringar (PVK, EKG-tolkning, A-HLR, ATLS) får eget block i klartext. Det betyder att Heroma och Visma Recruit kan filtrera in dig på exakta termer från jobbannonsen.\n\nKonkret innehåll vi rekommenderar: legitimationsdatum, sjuksköterskeprogrammet med lärosäte och år, eventuella specialistutbildningar (anestesi, akutsjukvård, IVA, distrikt, psykiatri), klinisk erfarenhet uppdelad per avdelning med vårdtyngd (1-2 patienter på IVA, 6-8 på vårdavdelning), kompetenser i dokumentationssystem (Cosmic, TakeCare, Melior, NPÖ), och vidareutbildningar med utgångsdatum.\n\nNedan hittar du två CV-mallar designade för sjuksköterske-rollen, ett färdigt exempel-CV att utgå från, och konkreta tips på vad rekryterare på sjukhus, vårdcentraler och kommunal hemsjukvård letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som sjuksköterska tillhör du Sveriges mest efterfrågade yrkesgrupp. Region- och kommunala arbetsgivare har nästan alltid öppna tjänster och konkurrensen sker inte om jobben i sig, utan om vilken klinik och vilket schema du får. Ett bra CV avgör om du blir kallad till första intervju på din drömavdelning eller hamnar i en avdelnings-bemanningspool.\n\nVåra mallar lyfter legitimation från Socialstyrelsen, eventuella specialistutbildningar och vårdtyngd som första visuella element, i Kalkstens intygsfält eller med ordningen Intyg först i Linne. Kliniska metoder, dokumentationssystem och delegeringar (PVK, EKG-tolkning, A-HLR, ATLS) får egna kompetensgrupper i klartext. Det betyder att Heroma och Visma Recruit kan filtrera in dig på exakta termer från jobbannonsen.\n\nKonkret innehåll vi rekommenderar: legitimationsdatum, sjuksköterskeprogrammet med lärosäte och år, eventuella specialistutbildningar (anestesi, akutsjukvård, IVA, distrikt, psykiatri), klinisk erfarenhet uppdelad per avdelning med vårdtyngd (1-2 patienter på IVA, 6-8 på vårdavdelning), kompetenser i dokumentationssystem (Cosmic, TakeCare, Melior, NPÖ), och vidareutbildningar med utgångsdatum.\n\nNedan hittar du två CV-mallar som passar sjuksköterskans meriter, ett färdigt exempel-CV att utgå från, och konkreta tips på vad rekryterare på sjukhus, vårdcentraler och kommunal hemsjukvård letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -465,24 +465,24 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
     varforVarMallPassar: [
       {
-        title: 'Legitimation överst i sidopanelen',
-        description: 'Vi har gjort Socialstyrelsens registrering till första visuella element så vårdchefer kan bekräfta status på fem sekunder. Specialistutbildningar lyfts i samma block, inte gömda i en utbildningssektion.',
+        title: 'Legitimationen överst i sidospalten',
+        description: 'I Kalksten lägger du Socialstyrelsens registrering i intygsfältet överst i sidospalten så vårdchefer kan bekräfta status på fem sekunder. Specialistutbildningar lyfts i samma fält, inte gömda i utbildningsavsnittet. I Linne väljer du Intyg först.',
       },
       {
         title: 'Klinisk tjänstgöring per avdelning',
-        description: 'Mallen separerar avdelningar (akut, vårdavdelning, IVA, mottagning) så vårdtyngd och patientgrupper syns. Du kan visa bredd utan att olika erfarenheter konkurrerar om samma yta.',
+        description: 'Varje avdelning (akut, vårdavdelning, IVA, mottagning) blir en egen post under Klinisk erfarenhet så vårdtyngd och patientgrupper syns. Du kan visa bredd utan att olika erfarenheter konkurrerar om samma yta.',
       },
       {
-        title: 'Eget block för delegeringar och certifikat',
-        description: 'A-HLR, ATLS, CMP, sterilteknik och förskrivningsrätt har egen sektion. Vi har sett att vårdchefer letar specifikt efter aktuella certifikat innan de tittar på erfarenhet.',
+        title: 'Delegeringar och certifikat i intygsavsnittet',
+        description: 'A-HLR, ATLS, CMP, sterilteknik och förskrivningsrätt listar du rad för rad i intygsavsnittet, med utgivare och år. Vi har sett att vårdchefer letar specifikt efter aktuella certifikat innan de tittar på erfarenhet.',
       },
       {
-        title: 'Vården med foto ingår i Premium',
-        description: 'För distrikt, hemsjukvård och primärvård där relationer värderas, lägger mallen i Premium till foto och LinkedIn. Det skapar ett mer personligt intryck utan att kompromissa med ATS-läsbarhet.',
+        title: 'Kalksten med foto ingår i Premium',
+        description: 'För distrikt, hemsjukvård och primärvård där relationer värderas har Kalksten, som ingår i Premium, en kvadratisk fotoplats bredvid namnet. LinkedIn får plats i kontaktraden i båda mallarna. Det skapar ett mer personligt intryck utan att kompromissa med ATS-läsbarheten.',
       },
       {
         title: 'Sober färgsättning för vårdsektorn',
-        description: 'Vården värderar saklighet. Vi har valt dämpade emerald- och navy-toner som signalerar trygghet utan att bli sterila. Inget i mallen drar fokus från meritbilden.',
+        description: 'Vården värderar saklighet. Kalksten har stålblå som förval och Linne marinblå, med mörkgrön, vinröd och grå som alternativ. Dämpade toner som signalerar trygghet utan att bli sterila. Inget i mallarna drar fokus från meritbilden.',
       },
       {
         title: 'Plats för fackliga och utvecklingsuppdrag',
@@ -724,7 +724,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och Vården, som ingår i Premium, läser rekryteringssystemen rätt. Region- och kommunala arbetsgivare använder oftast Heroma eller Visma Recruit, båda läser standardrubriker som "Arbetslivserfarenhet" och "Utbildning" korrekt. Lista vidareutbildningar med utgångsdatum så filtersystem kan flagga aktiva certifieringar. Skriv ut systemnamnen (Cosmic, TakeCare, Melior) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Kalksten, som ingår i Premium, läser rekryteringssystemen rätt. Region- och kommunala arbetsgivare använder oftast Heroma eller Visma Recruit, båda läser standardrubriker som "Arbetslivserfarenhet" och "Utbildning" korrekt. Lista vidareutbildningar med utgångsdatum så filtersystem kan flagga aktiva certifieringar. Skriv ut systemnamnen (Cosmic, TakeCare, Melior) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -772,7 +772,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'underskoterska': {
     seoIntro:
-      'Som undersköterska är du ryggraden i svensk vård. Region- och kommunala arbetsgivare har tusentals öppna tjänster varje månad, och konkurrensen sker inte om jobben utan om vilken arbetsplats och vilket schema du får. Ett välskrivet CV avgör om du blir kallad till intervju på den avdelning du vill jobba på, eller hamnar i en bemanningspool för långtidsvikariat.\n\nVår mall för undersköterskor lyfter aktiva medicinska delegeringar, specialiseringar och dokumentationssystem som första visuella element. Vi har strukturerat erfarenhetssektionen så att arbetsplats, tidsperiod och patientvolym syns direkt. Det betyder att enhetschefer i hemtjänsten eller på äldreboendet kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: vård- och omsorgsprogrammet eller motsvarande vuxenutbildning, aktiva delegeringar (insulin, PEG, subkutana injektioner, blodtrycksmätning) med datum, klinisk erfarenhet uppdelad per arbetsplats, dokumentationssystem (Cosmic, Procapita, Pascal, NPÖ), specialiseringar (demens-BPSD, palliativ, geriatrik), och certifikat (HLR, Akta Ryggen, basala hygienrutiner) med utgångsdatum.\n\nNedan hittar du två CV-mallar designade för undersköterskerollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer i kommunal hemtjänst, äldreomsorg och slutenvård faktiskt letar efter. Ladda ner mallen gratis och anpassa den efter den tjänst du söker.',
+      'Som undersköterska är du ryggraden i svensk vård. Region- och kommunala arbetsgivare har tusentals öppna tjänster varje månad, och konkurrensen sker inte om jobben utan om vilken arbetsplats och vilket schema du får. Ett välskrivet CV avgör om du blir kallad till intervju på den avdelning du vill jobba på, eller hamnar i en bemanningspool för långtidsvikariat.\n\nVåra mallar lyfter aktiva medicinska delegeringar, specialiseringar och dokumentationssystem som första visuella element, i Kalkstens intygsfält eller med ordningen Intyg först i Linne. Erfarenhetsavsnittet är byggt så att arbetsplats, tidsperiod och patientvolym syns direkt. Det betyder att enhetschefer i hemtjänsten eller på äldreboendet kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: vård- och omsorgsprogrammet eller motsvarande vuxenutbildning, aktiva delegeringar (insulin, PEG, subkutana injektioner, blodtrycksmätning) med datum, klinisk erfarenhet uppdelad per arbetsplats, dokumentationssystem (Cosmic, Procapita, Pascal, NPÖ), specialiseringar (demens-BPSD, palliativ, geriatrik), och certifikat (HLR, Akta Ryggen, basala hygienrutiner) med utgångsdatum.\n\nNedan hittar du två CV-mallar som passar undersköterskans meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer i kommunal hemtjänst, äldreomsorg och slutenvård faktiskt letar efter. Ladda ner gratismallen Linne och anpassa den efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -809,28 +809,28 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
     varforVarMallPassar: [
       {
-        title: 'Delegeringar lyfts överst i sidopanelen',
-        description: 'Vi har gjort medicinska delegeringar till första visuella element så enhetschefer kan bekräfta dem direkt. Insulin, PEG och subkutana är de tyngsta och de syns utan att man behöver scrolla.',
+        title: 'Delegeringarna överst i sidospalten',
+        description: 'I Kalksten lägger du medicinska delegeringar i intygsfältet överst i sidospalten så enhetschefer kan bekräfta dem direkt. Insulin, PEG och subkutana är de tyngsta och de syns utan att någon behöver scrolla. I Linne väljer du Intyg först.',
       },
       {
         title: 'Klinisk erfarenhet per arbetsplats',
-        description: 'Mallen separerar arbetsplatser (hemtjänst, äldreboende, sjukhus, LSS) så patientgrupper och vårdtyngd syns. Du kan visa bredd utan att olika erfarenheter konkurrerar om samma yta.',
+        description: 'Varje arbetsplats (hemtjänst, äldreboende, sjukhus, LSS) blir en egen post så patientgrupper och vårdtyngd syns. Du kan visa bredd utan att olika erfarenheter konkurrerar om samma yta.',
       },
       {
-        title: 'Eget block för certifikat',
-        description: 'HLR, Akta Ryggen, basala hygienrutiner, BPSD och nutrition har egen sektion med utgångsdatum. Vi har sett att enhetschefer letar specifikt efter aktuella certifikat innan de tittar på erfarenhet.',
+        title: 'Certifikaten i intygsavsnittet',
+        description: 'HLR, Akta Ryggen, basala hygienrutiner, BPSD och nutrition listar du rad för rad i intygsavsnittet med utgivare och år. Vi har sett att enhetschefer letar specifikt efter aktuella certifikat innan de tittar på erfarenhet.',
       },
       {
-        title: 'Vården med foto ingår i Premium',
-        description: 'För hemtjänst och kundnära roller där relationer värderas, lägger mallen i Premium till foto och språkkunskaper i sidopanelen. Det skapar ett mer personligt intryck utan att kompromissa med ATS-läsbarhet.',
+        title: 'Kalksten med foto ingår i Premium',
+        description: 'För hemtjänst och kundnära roller där relationer värderas har Kalksten, som ingår i Premium, en kvadratisk fotoplats bredvid namnet och språkkunskaperna i sidospalten. Det skapar ett mer personligt intryck utan att kompromissa med ATS-läsbarheten.',
       },
       {
         title: 'Sober färgsättning för vårdsektorn',
-        description: 'Vården värderar saklighet. Vi har valt dämpade emerald- och navy-toner som signalerar trygghet. Inget i mallen drar fokus från meritbilden eller signalerar oprofessionellt.',
+        description: 'Vården värderar saklighet. Kalksten har stålblå som förval och Linne marinblå, med mörkgrön, vinröd och grå som alternativ. Dämpade toner som signalerar trygghet. Inget i mallarna drar fokus från meritbilden eller ser oprofessionellt ut.',
       },
       {
-        title: 'Plats för språkkunskaper i sidopanelen',
-        description: 'I Sverige möter du patienter med olika språkbakgrund. Mallen har dedikerat språkblock i sidopanelen där arabiska, persiska, somaliska, tigrinja och andra efterfrågade språk syns direkt för rekryterare.',
+        title: 'Plats för språkkunskaper i sidospalten',
+        description: 'I Sverige möter du patienter med olika språkbakgrund. Kalksten har språkavsnittet i sidospalten, med nivån till höger om varje språk, så arabiska, persiska, somaliska, tigrinja och andra efterfrågade språk syns direkt för rekryteraren. I Linne är Språk ett eget avsnitt.',
       },
     ],
 
@@ -1038,7 +1038,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       },
       {
         rubrik: 'Språkkunskaper är värdefulla',
-        text: 'Arabiska, persiska, somaliska, tigrinja, finska, polska. Språkkunskap öppnar tjänster där brukargruppen inte talar svenska som modersmål. Lägg dem synligt i sidopanelen.',
+        text: 'Arabiska, persiska, somaliska, tigrinja, finska, polska. Språkkunskap öppnar tjänster där brukargruppen inte talar svenska som modersmål. Lägg dem synligt i språkavsnittet, i Kalksten ligger det i sidospalten.',
       },
       {
         rubrik: 'Vidareutbildning visar engagemang',
@@ -1069,7 +1069,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och Vården, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala arbetsgivare använder oftast Visma Recruit och Heroma. Skriv utbildning och delegeringar som listor med tydliga radbrytningar så systemet kan parsa varje punkt. Inkludera systemnamnen (Cosmic, Procapita) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Kalksten, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala arbetsgivare använder oftast Visma Recruit och Heroma. Skriv utbildning och delegeringar som listor med tydliga radbrytningar så systemet kan parsa varje punkt. Inkludera systemnamnen (Cosmic, Procapita) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -1090,11 +1090,11 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       },
       {
         q: 'Ska jag ha med foto på undersköterska-CV?',
-        a: 'Inte obligatoriskt men vanligt i Sverige inom vården. Vården, som ingår i Premium, har stöd för foto i sidopanelen. Använd ett professionellt bröstbild om du har en. ATS-system läser ditt CV ändå eftersom mallen är ATS-säker.',
+        a: 'Inte obligatoriskt men vanligt i Sverige inom vården. Kalksten, som ingår i Premium, har en kvadratisk fotoplats bredvid namnet och du kan slå av den med ett klick. Använd en professionell bröstbild om du har en. ATS-system läser ditt CV ändå eftersom mallen är ATS-säker.',
       },
       {
         q: 'Hur lyfter jag mina språkkunskaper på CV:t?',
-        a: 'Språk är värdefullt i vården eftersom du möter patienter med olika bakgrund. Lista dem i sidopanelen med nivå (modersmål, flytande, konversation). Arabiska, persiska, somaliska, tigrinja, finska och polska är efterfrågade i många regioner och kommuner.',
+        a: 'Språk är värdefullt i vården eftersom du möter patienter med olika bakgrund. Lista dem i språkavsnittet med nivå (modersmål, flytande, konversation), i Kalksten ligger det i sidospalten. Arabiska, persiska, somaliska, tigrinja, finska och polska är efterfrågade i många regioner och kommuner.',
       },
       {
         q: 'Vilka nyckelord ska CV:t ha för att passera ATS?',
@@ -1120,7 +1120,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
   // ============================================================================
   'saljare': {
     seoIntro:
-      'Som säljare bedöms du på en sak framför andra: dina siffror. Säljchefer på SaaS-bolag, traditionell B2B och konsumentvarubranschen läser CV:n med ögonen på pipeline-storlek, måluppfyllelse och tillväxt. Ett välskrivet CV avgör om du blir kallad till intervju på ett bolag där du kan dubbla din lön, eller fastnar i samma mid-market-segment du försökt lämna i flera år.\n\nVår mall för säljare lyfter kvantifierade resultat (ARR-tillväxt, måluppfyllelse, snitt-affärsstorlek) som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, segment och din specifika ansvarsbudget syns direkt med konkreta procentsiffror. Det betyder att säljchefer kan bedöma din kapacitet utan att behöva läsa hela CV:t.\n\nKonkret innehåll vi rekommenderar: säljroll och senioritet (BDR, AE, KAM, Sales Manager), branscher du sålt till (SaaS, fintech, industri, healthtech), CRM-system (Salesforce, HubSpot, Pipedrive, Lime), säljmetodiker (MEDDIC, BANT, Challenger, SPIN), måluppfyllelse i procent per år, snitt-affärsstorlek och säljcykellängd, samt eventuella säljstack-verktyg (Apollo, Outreach, Gong, ZoomInfo).\n\nNedan hittar du två CV-mallar designade för säljarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad säljchefer på SaaS-bolag, traditionella B2B-bolag och account-management-tunga organisationer faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som säljare bedöms du på en sak framför andra: dina siffror. Säljchefer på SaaS-bolag, traditionell B2B och konsumentvarubranschen läser CV:n med ögonen på pipeline-storlek, måluppfyllelse och tillväxt. Ett välskrivet CV avgör om du blir kallad till intervju på ett bolag där du kan dubbla din lön, eller fastnar i samma mid-market-segment du försökt lämna i flera år.\n\nVåra mallar lyfter kvantifierade resultat (ARR-tillväxt, måluppfyllelse, snittaffärsstorlek) som första visuella element, i profilen och som egen kompetensgrupp direkt under den. Erfarenhetsavsnittet är byggt så att bolag, segment och din specifika ansvarsbudget syns direkt med konkreta procentsiffror. Det betyder att säljchefer kan bedöma din kapacitet utan att behöva läsa hela CV:t.\n\nKonkret innehåll vi rekommenderar: säljroll och senioritet (BDR, AE, KAM, Sales Manager), branscher du sålt till (SaaS, fintech, industri, healthtech), CRM-system (Salesforce, HubSpot, Pipedrive, Lime), säljmetodiker (MEDDIC, BANT, Challenger, SPIN), måluppfyllelse i procent per år, snitt-affärsstorlek och säljcykellängd, samt eventuella säljstack-verktyg (Apollo, Outreach, Gong, ZoomInfo).\n\nNedan hittar du två CV-mallar som passar säljarens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad säljchefer på SaaS-bolag, traditionella B2B-bolag och account-management-tunga organisationer faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -1157,28 +1157,28 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
     varforVarMallPassar: [
       {
-        title: 'Nyckelresultat överst i sidopanelen',
-        description: 'Aurora, som ingår i Premium, har en dedikerad "Nyckelresultat"-panel där tre kvantifierade siffror lyfts visuellt. Säljchefer kan bedöma din kapacitet på fem sekunder utan att läsa hela CV:t.',
+        title: 'Nyckelresultaten överst med Kompetenser först',
+        description: 'Lägg tre kvantifierade siffror som en egen kompetensgrupp med rubriken Nyckelresultat och välj ordningen Kompetenser först, så står de direkt under profilen i både Linne och Koppar. Säljchefer kan bedöma din kapacitet på fem sekunder utan att läsa hela CV:t.',
       },
       {
         title: 'Erfarenhet med procent-fokus',
-        description: 'Mallen separerar bolag, roll och måluppfyllelse så procentsiffror syns direkt. Du kan visa flera års konsekvent prestation utan att meriter konkurrerar om samma yta.',
+        description: 'Varje bolag blir en egen post med roll, period och måluppfyllelse som punkter så procentsiffrorna syns direkt. Du kan visa flera års konsekvent prestation utan att meriter konkurrerar om samma yta.',
       },
       {
-        title: 'Eget block för CRM och säljstack',
-        description: 'Salesforce, HubSpot, Lime, Apollo, Outreach. Säljstack-block separerar systemen från generiska kompetenser. Säljchefer letar specifikt efter system de redan kör i sin organisation.',
+        title: 'CRM och säljstack som egen kompetensgrupp',
+        description: 'Salesforce, HubSpot, Lime, Apollo, Outreach. En egen kompetensgrupp för säljstacken skiljer systemen från generiska kompetenser. Säljchefer letar specifikt efter system de redan kör i sin organisation.',
       },
       {
-        title: 'Emerald-orange gradient signalerar tillväxt',
-        description: 'Vi har valt en gradient som visuellt kopplar till säljbranschen utan att bli aggressiv. Subtila accenter på siffror och resultat-block utan att kompromissa med ATS-läsbarhet.',
+        title: 'Kopparbrunt huvudband signalerar energi',
+        description: 'Koppar har ett kopparbrunt huvudband som förval, med marinblå, mörkgrön och antracit som alternativ, en varm ton som kopplar till säljbranschen utan att bli aggressiv. Vit text på bandet och accenten i rubrikerna, utan att kompromissa med ATS-läsbarheten.',
       },
       {
         title: 'Plats för säljmetodik och certifieringar',
-        description: 'MEDDIC-certifiering, Challenger Academy, Salesforce Trailhead. Eget block för metoder och certifikat så bevisad kompetens syns direkt utan att blanda med generisk utbildning.',
+        description: 'MEDDIC-certifiering, Challenger Academy, Salesforce Trailhead. Intygsavsnittet listar metoder och certifikat rad för rad så bevisad kompetens syns direkt utan att blandas med generisk utbildning.',
       },
       {
-        title: 'Kompakt typografi för senior-roller',
-        description: 'Seniora säljare har ofta 8-15 års erfarenhet att rymma. Vi använder kompakt typografi för att få plats med fler bolag och resultat utan att verka cramped.',
+        title: 'Plats för seniora meritlistor',
+        description: 'Seniora säljare har ofta 8-15 års erfarenhet att rymma. Valet Få plats på en sida drar ihop luften i båda mallarna så fler bolag och resultat får plats utan att det ser trångt ut.',
       },
     ],
 
@@ -1370,7 +1370,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
     rekryterarTipsen: [
       {
-        rubrik: 'Säljsiffror är allt — kvantifiera allt',
+        rubrik: 'Säljsiffror är allt: kvantifiera allt',
         text: 'Skriv inte "ansvarig för försäljning till storkunder". Skriv "ökade ARR 24% från 8M till 9,9M under 18 månader genom upselling till 12 nyckelkunder". Säljchefer slänger CV:n utan siffror.',
       },
       {
@@ -1401,7 +1401,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       { sektion: 'Utbildning', tips: 'Akademisk bakgrund, säljutbildningar och certifieringar (SwedSec, MEDDIC-cert, Challenger Academy).' },
       { sektion: 'Kompetenser', tips: 'CRM-system, säljmetoder, vertikaler du sålt till. Var specifik om dealsstorlekar och cykler.' },
       { sektion: 'Vidareutbildning', tips: 'Säljmetodik-certifieringar, ledarskapsutbildningar, eventuell MBA. Kontinuerlig utveckling visar engagemang.' },
-      { sektion: 'Övrigt', tips: 'Eventuell föreningserfarenhet, mentor-roller, talanger på industri-konferenser. Säljnätverk är värdefullt och kan lyftas i sidopanelen.' },
+      { sektion: 'Övrigt', tips: 'Eventuell föreningserfarenhet, mentor-roller, talanger på industri-konferenser. Säljnätverk är värdefullt och kan lyftas under Intressen.' },
     ],
 
     checklista: [
@@ -1418,7 +1418,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och Aurora, som ingår i Premium, läser rekryteringssystemen rätt. Aurora har en "Nyckelresultat"-panel där dina kvantifierade siffror lyfts visuellt. Säljbolag använder ofta moderna ATS som Teamtailor, Workday eller Manatal, alla läser Aurora korrekt. Skriv ut systemnamn (Salesforce, HubSpot) och säljmetoder (MEDDIC) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Koppar, som ingår i Premium, läser rekryteringssystemen rätt. Lägg dina kvantifierade siffror som en egen kompetensgrupp så läses de som text, inte som grafik. Säljbolag använder ofta moderna ATS som Teamtailor, Workday eller Manatal, alla läser Koppar korrekt. Skriv ut systemnamn (Salesforce, HubSpot) och säljmetoder (MEDDIC) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -1466,7 +1466,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'butiksbitrade': {
     seoIntro:
-      'Som butiksbiträde söker du tjänster i en bransch där konkurrensen om jobben är stor men personalomsättningen ännu större. ICA, Coop, H&M, Lindex, Stadium och tusentals mindre butiker rekryterar konstant, men butikschefer slänger CV:n som inte visar konkret kassasystem-erfarenhet eller serviceanda. Ett välskrivet CV avgör om du blir kallad till intervju på den butik du faktiskt vill jobba på.\n\nVår mall för butiksbiträden lyfter kassasystem, försäljningsresultat och flexibilitet kring schema som första visuella element. Vi har strukturerat erfarenhetssektionen så att butikskedja, varugrupp och tidsperiod syns direkt med eventuella säljprestationer. Det betyder att butikschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet av specifika kassasystem (Sitoo, Iiko, NCR, Bizpoint), butikskedjor och varugrupper du sålt, eventuella säljresultat (snittnota, mersälj, kundnöjdhet), kassansvar och kontanthantering, varuplockning och inventering, returhantering, visuell merchandising, samt språkkunskaper för internationell kundkrets.\n\nNedan hittar du två CV-mallar designade för butiksrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad butikschefer på dagligvaruhandel, mode- och elektronikbutiker faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som butiksbiträde söker du tjänster i en bransch där konkurrensen om jobben är stor men personalomsättningen ännu större. ICA, Coop, H&M, Lindex, Stadium och tusentals mindre butiker rekryterar konstant, men butikschefer slänger CV:n som inte visar konkret kassasystem-erfarenhet eller serviceanda. Ett välskrivet CV avgör om du blir kallad till intervju på den butik du faktiskt vill jobba på.\n\nVåra mallar lyfter kassasystem, försäljningsresultat och flexibilitet kring schema som första visuella element när du väljer ordningen Kompetenser först. Erfarenhetsavsnittet är byggt så att butikskedja, varugrupp och tidsperiod syns direkt med eventuella säljprestationer. Det betyder att butikschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet av specifika kassasystem (Sitoo, Iiko, NCR, Bizpoint), butikskedjor och varugrupper du sålt, eventuella säljresultat (snittnota, mersälj, kundnöjdhet), kassansvar och kontanthantering, varuplockning och inventering, returhantering, visuell merchandising, samt språkkunskaper för internationell kundkrets.\n\nNedan hittar du två CV-mallar som passar butiksbiträdets meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad butikschefer på dagligvaruhandel, mode- och elektronikbutiker faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -1504,27 +1504,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Kassasystem och resultat överst',
-        description: 'Vår mall Disk har en "Försäljningsresultat"-banner överst där siffror och kassasystem-erfarenhet lyfts visuellt. Butikschefer ser dina meriter på fem sekunder utan att behöva scrolla.',
+        description: 'Lägg försäljningsresultat och kassasystem som egna kompetensgrupper och välj ordningen Kompetenser först, så hamnar siffrorna direkt under profilen i båda mallarna. Butikschefer ser dina meriter på fem sekunder utan att behöva scrolla.',
       },
       {
         title: 'Erfarenhet per butikskedja',
-        description: 'Mallen separerar butiker, varugrupp och tidsperiod så bredd och djup syns. Du kan visa erfarenhet från flera kedjor utan att meriter konkurrerar om samma yta.',
+        description: 'Varje butik blir en egen post med varugrupp och tidsperiod så bredd och djup syns. Du kan visa erfarenhet från flera kedjor utan att meriter konkurrerar om samma yta.',
       },
       {
-        title: 'Eget block för kompetens och certifikat',
-        description: 'Säljutbildningar (intern eller extern), kassansvar-certifikat och kundbemötande-utbildningar har egen rad. Visar att du har strukturerad utveckling utöver bara "tid i butik".',
+        title: 'Utbildningar och certifikat i intygsavsnittet',
+        description: 'Säljutbildningar (intern eller extern), kassansvarscertifikat och kundbemötandeutbildningar får egen rad i intygsavsnittet. Visar att du har strukturerad utveckling utöver bara "tid i butik".',
       },
       {
-        title: 'Disk Plus med foto ingår i Premium',
-        description: 'För senior-roller (butikschef, avdelningschef, flagship-butiker) lägger Disk Plus till foto och citat från kunder. Skapar tidningskänsla utan att kompromissa med ATS-läsbarhet.',
+        title: 'Raster med tonade rubrikband ingår i Premium',
+        description: 'För seniora roller (butikschef, avdelningschef, flaggskeppsbutiker) ger Raster, som ingår i Premium, rubriker som tonade färgband, Verdana i texten och kompetenserna i två spalter. Det ger karaktär utan att kompromissa med ATS-läsbarheten.',
       },
       {
-        title: 'Energisk emerald-accent för handel',
-        description: 'Vi har valt en emerald-accent som signalerar handel utan att bli aggressiv. Dragna från ICA, Coop och dagligvaruhandelns visuella språk men anpassade för individuell ansökan.',
+        title: 'Fyra accentfärger för handel',
+        description: 'Raster har teal som förval, med marinblå, plommon och olivgrön som alternativ, Linne marinblå, mörkgrön, vinröd och grå. Välj den ton som ligger närmast kedjan du söker till, utan att bli aggressiv.',
       },
       {
         title: 'Kompakt layout för flexibilitet',
-        description: 'Butiksbiträden har ofta varierande arbetstid (heltid, deltid, säsong). Mallen är kompakt nog för att rymma flera samtidiga anställningar utan att verka rörig.',
+        description: 'Butiksbiträden har ofta varierande arbetstid (heltid, deltid, säsong). Båda mallarna rymmer flera samtidiga anställningar utan att verka röriga, och valet Få plats på en sida håller ihop CV:t.',
       },
     ],
 
@@ -1745,7 +1745,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       { sektion: 'Erfarenhet', tips: 'Butik, bransch, tidsperiod och kärnuppgifter. Konkretisera med kassasystem och försäljningsresultat (snittnota, mersälj).' },
       { sektion: 'Utbildning', tips: 'Gymnasium, YH-utbildning eller motsvarande. Eventuella säljutbildningar (interna kedjeutbildningar som IKEA Academy räknas).' },
       { sektion: 'Kompetenser', tips: 'Kassasystem i klartext, varugrupper du har erfarenhet av, språk för internationell kundkrets.' },
-      { sektion: 'Kassansvar', tips: 'Eget block om du haft kassansvar eller varit huvudkassör. Stort plus för senior-roller och chefspositioner.' },
+      { sektion: 'Kassansvar', tips: 'Egen kompetensgrupp om du haft kassansvar eller varit huvudkassör. Stort plus för senior-roller och chefspositioner.' },
       { sektion: 'Övrigt', tips: 'Tillgänglighet (heltid, deltid, kvällar, helger, säsong), körkort om du söker storbutik med varuintag.' },
     ],
 
@@ -1763,7 +1763,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Disk och Disk Plus, som ingår i Premium, läser rekryteringssystemen rätt. Större kedjor som ICA, Coop, H&M använder Teamtailor eller egna ATS. Kassasystem som "Sitoo" eller "NCR" är typiska sökord rekryterare filtrerar på, så använd exakta produktnamn istället för "kassasystem". Skriv också ut varugrupper och butikskedjor i klartext.',
+      'Både vår gratismall Linne och Raster, som ingår i Premium, läser rekryteringssystemen rätt. Större kedjor som ICA, Coop, H&M använder Teamtailor eller egna ATS. Kassasystem som "Sitoo" eller "NCR" är typiska sökord rekryterare filtrerar på, så använd exakta produktnamn istället för "kassasystem". Skriv också ut varugrupper och butikskedjor i klartext.',
 
     faqItems: [
       {
@@ -1792,7 +1792,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       },
       {
         q: 'Ska jag ha med foto på butiksbiträde-CV?',
-        a: 'Inte obligatoriskt men vanligt i Sverige inom detaljhandel. Disk Plus, som ingår i Premium, har stöd för foto. Använd ett professionellt bröstbild om du har en. ATS-system läser ditt CV ändå eftersom mallen är ATS-säker. För flagship-butiker och premium-segment är foto ett plus.',
+        a: 'Inte obligatoriskt men vanligt i Sverige inom detaljhandel. Linne och Raster är utan foto, men vill du ha med en bild väljer du en mall med fotoplats, till exempel gratismallen Björk eller Koppar, som ingår i Premium. Använd en professionell bröstbild om du har en. ATS-system läser ditt CV ändå eftersom alla mallar är ATS-säkra. För flagship-butiker och premium-segment är foto ett plus.',
       },
       {
         q: 'Behöver jag personligt brev till butiks-tjänster?',
@@ -1818,7 +1818,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
   // ============================================================================
   'lagerarbetare': {
     seoIntro:
-      'Som lagerarbetare jobbar du i en bransch där behörigheter och plockhastighet avgör mer än personlig profil. DB Schenker, PostNord, DHL, Klarna Logistics, Mathem och tusentals tredjepartslogistiker har tusentals öppna roller varje månad, men lagerchefer slänger CV:n som inte tydligt visar truckbehörigheter och WMS-erfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på det lager du faktiskt vill jobba på.\n\nVår mall för lagerarbetare lyfter truckbehörigheter och WMS-system som första visuella element. Vi har strukturerat erfarenhetssektionen så att lager, branschtyp och tidsperiod syns direkt med plockhastighet, felfri-procent och specifika system. Det betyder att lagerchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: alla aktiva truckbehörigheter (A1-A4, B1-B5, C, D, E) med utgångsdatum, WMS-system du arbetat i (SAP WMS, Manhattan, Pyramid, Astro), plockhastighet i rader per timme och felfri-procent, eventuella ADR-bevis för farligt gods, säkerhetsutbildningar (Akta Ryggen, brandskydd, fallskydd), körkort B (ofta krav), och tillgänglighet för 2- eller 3-skift och helger.\n\nNedan hittar du två CV-mallar designade för lagerrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad lagerchefer på e-handelsterminal, industrilager, transport och tredjepartslogistik faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som lagerarbetare jobbar du i en bransch där behörigheter och plockhastighet avgör mer än personlig profil. DB Schenker, PostNord, DHL, Klarna Logistics, Mathem och tusentals tredjepartslogistiker har tusentals öppna roller varje månad, men lagerchefer slänger CV:n som inte tydligt visar truckbehörigheter och WMS-erfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på det lager du faktiskt vill jobba på.\n\nVåra mallar lyfter truckbehörigheter och WMS-system som första visuella element, i Granits intygsfält eller med ordningen Intyg först i Linne. Erfarenhetsavsnittet är byggt så att lager, branschtyp och tidsperiod syns direkt med plockhastighet, felfri-procent och specifika system. Det betyder att lagerchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: alla aktiva truckbehörigheter (A1-A4, B1-B5, C, D, E) med utgångsdatum, WMS-system du arbetat i (SAP WMS, Manhattan, Pyramid, Astro), plockhastighet i rader per timme och felfri-procent, eventuella ADR-bevis för farligt gods, säkerhetsutbildningar (Akta Ryggen, brandskydd, fallskydd), körkort B (ofta krav), och tillgänglighet för 2- eller 3-skift och helger.\n\nNedan hittar du två CV-mallar som passar lagerarbetarens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad lagerchefer på e-handelsterminal, industrilager, transport och tredjepartslogistik faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -1856,27 +1856,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Behörigheter och körkort överst',
-        description: 'Vår mall Logistik har "Behörigheter och körkort" som första block direkt efter rubriken. Lagerchefer ser dina truckkort, ADR och B-körkort på fem sekunder utan att behöva scrolla.',
+        description: 'Rubrikuppsättningen Lager och logistik ger intygsavsnittet rubriken Behörigheter och körkort. I Granit ligger det överst i den mörka högerspalten, i Linne väljer du Intyg först. Lagerchefer ser dina truckkort, ADR och B-körkort på fem sekunder utan att behöva scrolla.',
       },
       {
-        title: 'WMS-system som eget block',
-        description: 'SAP WMS, Manhattan, Pyramid, Astro. Mallen separerar systemen från generiska kompetenser så lagerchefer letar specifikt efter system de redan kör i sin organisation.',
+        title: 'WMS-system som egen kompetensgrupp',
+        description: 'SAP WMS, Manhattan, Pyramid, Astro. Lägg systemen som en egen grupp under Kompetenser, skild från de generiska, så lagerchefer direkt hittar system de redan kör i sin organisation.',
       },
       {
-        title: 'Industriell typografi för branschen',
-        description: 'Vi har valt Roboto Condensed med cyan-accent och kondenserad layout som signalerar industri och produktion. Ingen klick-baitig design som drar fokus från meriterna.',
+        title: 'Rak typografi för branschen',
+        description: 'Granit har Arial och ett antracitgrått huvudband som förval, Linne Georgia i rubrikerna och Calibri i texten. Rakt och tydligt, utan design som drar fokus från meriterna. Marinblå och mörkgrön finns som alternativ i båda.',
       },
       {
-        title: 'Logistik Plus med foto ingår i Premium',
-        description: 'För senior-roller (lagerchef, terminalansvarig) lägger Logistik Plus till foto, mörkt grafit-band och tabellär arbetslivshistorik. Skapar en mer professionell first impression utan att kompromissa med ATS.',
+        title: 'Granit med foto ingår i Premium',
+        description: 'För seniora roller (lagerchef, terminalansvarig) ger Granit, som ingår i Premium, rund fotoplats i ett mörkt huvudband som fortsätter i en mörk högerspalt med intyg, kompetenser och språk. Det skapar ett mer professionellt första intryck utan att kompromissa med ATS.',
       },
       {
         title: 'Plats för plockstatistik',
-        description: 'Mallen har dedikerade rader för rader per timme, felfri-procent och plocktyper (pick-by-voice, pick-by-light, RF-scanner). Så dina prestationssiffror syns synligt utan att blandas in i löpande text.',
+        description: 'Rader per timme, felfriprocent och plocktyper (pick-by-voice, pick-by-light, RF-scanner) får egna punkter under varje anställning. Så syns dina prestationssiffror utan att blandas in i löpande text.',
       },
       {
-        title: 'Skiftarbete-tillgänglighet i sidopanelen',
-        description: 'Lagerchefer behöver veta om du kan rotation, helger, högsäsong. Mallen har ett synligt block i sidopanelen för tillgänglighet, vilket sätter dig i rätt urvalslista.',
+        title: 'Tillgänglighet för skift som egen kompetensgrupp',
+        description: 'Lagerchefer behöver veta om du kan rotation, helger, högsäsong. Lägg tillgängligheten som en egen grupp under Kompetenser, i Granit syns den i högerspalten, vilket sätter dig i rätt urvalslista.',
       },
     ],
 
@@ -2098,7 +2098,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       { sektion: 'Sammanfattning', tips: 'År av erfarenhet, branscher du arbetat i, dina behörigheter och plockhastighet på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Företag, lager, tidsperiod. Kärnuppgifter med WMS-system, plockmetod och volym (rader per timme, felfri-procent).' },
       { sektion: 'Utbildning', tips: 'Gymnasium plus truckutbildning (TYA, Lager- och Terminal). Datum för truckkort och eventuella YH-utbildningar.' },
-      { sektion: 'Behörigheter', tips: 'Eget block med truckkort (A1-B5), körkort B, ADR och säkerhetscertifikat. Skriv utgångsdatum för varje.' },
+      { sektion: 'Behörigheter', tips: 'Intygsavsnittet med truckkort (A1-B5), körkort B, ADR och säkerhetscertifikat. Skriv utgångsdatum för varje.' },
       { sektion: 'Kompetenser', tips: 'WMS-system i klartext, plocktyper (pick-by-voice, RF-scanner), produktkunskap. Skiftarbete-tillgänglighet.' },
       { sektion: 'Övrigt', tips: 'Tillgänglighet för 2- eller 3-skift, helger, högsäsong. Eventuella språkkunskaper för internationella terminaler.' },
     ],
@@ -2117,7 +2117,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Logistik och Logistik Plus, som ingår i Premium, läser rekryteringssystemen rätt. Logistikföretag som DB Schenker, PostNord och DHL använder oftast SAP SuccessFactors eller Workday. Truckbehörigheter ska skrivas exakt som "A1, A2, A3, B1" eftersom det är typiska sökord rekryterare filtrerar på. Skriv också ut WMS-systemnamn (SAP WMS, Manhattan) i klartext.',
+      'Både vår gratismall Linne och Granit, som ingår i Premium, läser rekryteringssystemen rätt. Logistikföretag som DB Schenker, PostNord och DHL använder oftast SAP SuccessFactors eller Workday. Truckbehörigheter ska skrivas exakt som "A1, A2, A3, B1" eftersom det är typiska sökord rekryterare filtrerar på. Skriv också ut WMS-systemnamn (SAP WMS, Manhattan) i klartext.',
 
     faqItems: [
       {
@@ -2168,7 +2168,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
   // ============================================================================
   'larare': {
     seoIntro:
-      'Som lärare bedöms du på lärarlegitimation, ämnesbehörigheter och din pedagogiska skicklighet i klassrummet. Sveriges 290 kommuner och tusentals fristående skolor söker hela tiden behöriga lärare, och konkurrensen sker oftast om vilken skola och vilka kollegor du får. Ett välskrivet CV avgör om du blir kallad till intervju på din drömskola eller hamnar långt ner i högen.\n\nVår mall för lärare lyfter lärarlegitimation från Skolverket, ämnesbehörigheter och åldersgrupper som första visuella element. Vi har strukturerat erfarenhetssektionen så att skola, huvudman och årskurs syns direkt med konkreta uppdrag som mentorskap eller ämneslagsledare. Det betyder att rektorer kan bedöma din behörighetsmatchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: lärarexamen med lärosäte och ämnesinriktning, lärarlegitimation från Skolverket med exakta behörigheter (åldersgrupp + ämnen), klinisk erfarenhet uppdelad per skola och årskurs, klassrumsledning och elevresultat med konkreta siffror, pedagogiska metoder du behärskar (Bornholm, Singapore-matematik, formativ bedömning), IKT-verktyg (Google Classroom, Teams, Schoolsoft), och specialiseringar för elever med särskilda behov.\n\nNedan hittar du två CV-mallar designade för lärarrollen, ett färdigt exempel-CV att utgå från, och konkreta tips på vad rektorer i kommunal och fristående grundskola, gymnasium och vuxenutbildning faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som lärare bedöms du på lärarlegitimation, ämnesbehörigheter och din pedagogiska skicklighet i klassrummet. Sveriges 290 kommuner och tusentals fristående skolor söker hela tiden behöriga lärare, och konkurrensen sker oftast om vilken skola och vilka kollegor du får. Ett välskrivet CV avgör om du blir kallad till intervju på din drömskola eller hamnar långt ner i högen.\n\nVåra mallar lyfter lärarlegitimation från Skolverket, ämnesbehörigheter och åldersgrupper som första visuella element, i Kalkstens intygsfält eller med ordningen Intyg först i Linne. Erfarenhetsavsnittet är byggt så att skola, huvudman och årskurs syns direkt med konkreta uppdrag som mentorskap eller ämneslagsledare. Det betyder att rektorer kan bedöma din behörighetsmatchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: lärarexamen med lärosäte och ämnesinriktning, lärarlegitimation från Skolverket med exakta behörigheter (åldersgrupp + ämnen), klinisk erfarenhet uppdelad per skola och årskurs, klassrumsledning och elevresultat med konkreta siffror, pedagogiska metoder du behärskar (Bornholm, Singapore-matematik, formativ bedömning), IKT-verktyg (Google Classroom, Teams, Schoolsoft), och specialiseringar för elever med särskilda behov.\n\nNedan hittar du två CV-mallar som passar lärarens meriter, ett färdigt exempel-CV att utgå från, och konkreta tips på vad rektorer i kommunal och fristående grundskola, gymnasium och vuxenutbildning faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -2206,23 +2206,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Behörigheter lyfts överst',
-        description: 'Vi har gjort lärarlegitimationen och dina exakta behörigheter (åldersgrupp + ämnen) till första visuella element. Rektorer skannar först efter behörighetsmatchning och vår mall ger den synlig på fem sekunder.',
+        description: 'Lägg lärarlegitimationen och dina exakta behörigheter (åldersgrupp + ämnen) i intygsavsnittet, i Kalksten ligger det överst i sidospalten och i Linne väljer du Intyg först. Rektorer skannar först efter behörighetsmatchning och får den synlig på fem sekunder.',
       },
       {
         title: 'Pedagogisk erfarenhet per skola',
-        description: 'Mallen separerar arbetsplatser (kommunal grundskola, fristående gymnasium, vuxenutbildning) så huvudman och årskurs syns. Du kan visa bredd över olika skolformer utan att meriter konkurrerar om samma yta.',
+        description: 'Varje arbetsplats (kommunal grundskola, fristående gymnasium, vuxenutbildning) blir en egen post så huvudman och årskurs syns. Du kan visa bredd över olika skolformer utan att meriter konkurrerar om samma yta.',
       },
       {
-        title: 'Eget block för pedagogiska metoder',
-        description: 'Bornholm, Singapore-matte, IKT-verktyg och specialpedagogiska metoder har egen sektion. Vi har sett att rektorer letar specifikt efter metoder de redan använder på skolan.',
+        title: 'Pedagogiska metoder som egen kompetensgrupp',
+        description: 'Bornholm, Singapore-matte, IKT-verktyg och specialpedagogiska metoder lägger du som en egen grupp under Kompetenser, med fet rubrik. Vi har sett att rektorer letar specifikt efter metoder de redan använder på skolan.',
       },
       {
-        title: 'Pedagog med foto ingår i Premium',
-        description: 'I lärarrollen där relationer värderas, lägger mallen i Premium till foto och språkkunskaper. Skapar ett mer personligt intryck inför rektorer som väljer mellan flera kvalificerade kandidater.',
+        title: 'Kalksten med foto ingår i Premium',
+        description: 'I lärarrollen där relationer värderas har Kalksten, som ingår i Premium, en kvadratisk fotoplats bredvid namnet och språkkunskaperna i sidospalten. Det skapar ett mer personligt intryck inför rektorer som väljer mellan flera kvalificerade kandidater.',
       },
       {
-        title: 'Salviegrön ton för pedagogisk identitet',
-        description: 'Vi har valt dämpade salviegröna och navy-toner som signalerar lugn, struktur och pedagogisk medvetenhet. Dragna från Skolverkets visuella språk men anpassade för individuell ansökan.',
+        title: 'Mörkgrön ton för pedagogisk identitet',
+        description: 'Båda mallarna har en dämpad mörkgrön accent att välja, vid sidan av stålblå eller marinblå, vinröd och grå. Den signalerar lugn, struktur och pedagogisk medvetenhet, nära skolans visuella språk men anpassad för en individuell ansökan.',
       },
       {
         title: 'Plats för utvecklingsprojekt',
@@ -2465,7 +2465,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och Pedagog, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala skolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Behörigheter ska skrivas precis som de står på din lärarlegitimation, inklusive åldersgrupper och ämnen, eftersom det är exakta sökord rekryterare filtrerar på. Skriv ut systemnamn (Schoolsoft, Vklass, Unikum) så ATS kan parsa dem.',
+      'Både vår gratismall Linne och Kalksten, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala skolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Behörigheter ska skrivas precis som de står på din lärarlegitimation, inklusive åldersgrupper och ämnen, eftersom det är exakta sökord rekryterare filtrerar på. Skriv ut systemnamn (Schoolsoft, Vklass, Unikum) så ATS kan parsa dem.',
 
     faqItems: [
       {
@@ -2513,13 +2513,13 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'forskollarare': {
     seoIntro:
-      'Som förskollärare i Sverige bedöms du på lärarlegitimation, pedagogisk skicklighet och förmåga att tolka Lpfö 18 i praktiken. Sveriges 290 kommuner och tusentals fristående förskolor har konstant brist på behöriga förskollärare, men rektorer slänger CV:n som inte tydligt visar legitimation och pedagogisk identitet. Ett välskrivet CV avgör om du blir kallad till intervju på den förskola du faktiskt vill jobba på.\n\nVår mall för förskollärare lyfter lärarlegitimation från Skolverket, Lpfö 18-kompetens och pedagogiska metoder som första visuella element. Vi har strukturerat erfarenhetssektionen så att förskola, huvudman och åldersgrupp syns direkt med konkreta uppdrag som mentorskap eller utvecklingsuppdrag. Det betyder att rektorer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: förskollärarexamen med lärosäte och år, lärarlegitimation från Skolverket, pedagogisk inriktning (Reggio Emilia, Montessori, Waldorf, traditionell), åldersgrupper du arbetat med (1-3 år, 3-5 år), erfarenhet av barn med särskilda behov (NPF, språkstöd, integration), digital pedagogik (lärplattor, dokumentation), samverkan med vårdnadshavare, samt eventuella språkkunskaper för flerspråkiga förskolor.\n\nNedan hittar du två CV-mallar designade för förskollärarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad rektorer i kommunal och fristående förskola faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som förskollärare i Sverige bedöms du på lärarlegitimation, pedagogisk skicklighet och förmåga att tolka Lpfö 18 i praktiken. Sveriges 290 kommuner och tusentals fristående förskolor har konstant brist på behöriga förskollärare, men rektorer slänger CV:n som inte tydligt visar legitimation och pedagogisk identitet. Ett välskrivet CV avgör om du blir kallad till intervju på den förskola du faktiskt vill jobba på.\n\nVåra mallar lyfter lärarlegitimation från Skolverket, Lpfö 18-kompetens och pedagogiska metoder som första visuella element, i Kalkstens intygsfält eller med ordningen Intyg först i Linne. Erfarenhetsavsnittet är byggt så att förskola, huvudman och åldersgrupp syns direkt med konkreta uppdrag som mentorskap eller utvecklingsuppdrag. Det betyder att rektorer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: förskollärarexamen med lärosäte och år, lärarlegitimation från Skolverket, pedagogisk inriktning (Reggio Emilia, Montessori, Waldorf, traditionell), åldersgrupper du arbetat med (1-3 år, 3-5 år), erfarenhet av barn med särskilda behov (NPF, språkstöd, integration), digital pedagogik (lärplattor, dokumentation), samverkan med vårdnadshavare, samt eventuella språkkunskaper för flerspråkiga förskolor.\n\nNedan hittar du två CV-mallar som passar förskollärarens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad rektorer i kommunal och fristående förskola faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
         icon: 'Award',
         title: 'Lärarlegitimation och behörighet först',
-        description: 'Skriv ut Skolverkets registrering med datum. Förskollärarlegitimation är krav i kommunala förskolor och allt vanligare i fristående. Lyft den i sidopanelen så rektorer kan bekräfta status på fem sekunder.',
+        description: 'Skriv ut Skolverkets registrering med datum. Förskollärarlegitimation är krav i kommunala förskolor och allt vanligare i fristående. Lyft den i intygsavsnittet så rektorer kan bekräfta status på fem sekunder.',
       },
       {
         icon: 'Target',
@@ -2551,23 +2551,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Legitimation och behörighet överst',
-        description: 'Vi har gjort Skolverkets legitimation till första visuella element så rektorer kan bekräfta status på fem sekunder. Inriktning och åldersgrupp lyfts i samma block utan att gömmas i en utbildningssektion.',
+        description: 'I Kalksten lägger du Skolverkets legitimation i intygsfältet överst i sidospalten så rektorer kan bekräfta status på fem sekunder, i Linne väljer du Intyg först. Inriktning och åldersgrupp lyfts i samma avsnitt utan att gömmas under Utbildning.',
       },
       {
         title: 'Pedagogisk erfarenhet per förskola',
-        description: 'Mallen separerar förskolor, huvudman (kommunal eller fristående) och åldersgrupp. Du kan visa bredd över olika pedagogiska inriktningar utan att meriter konkurrerar om samma yta.',
+        description: 'Varje förskola blir en egen post med huvudman (kommunal eller fristående) och åldersgrupp. Du kan visa bredd över olika pedagogiska inriktningar utan att meriter konkurrerar om samma yta.',
       },
       {
-        title: 'Eget block för pedagogiska metoder',
-        description: 'Reggio Emilia, Montessori, NPF-kompetens, språkstöd, TAKK. Mallen lyfter metoder som eget block så rektorer letar specifikt efter pedagogik som matchar deras förskola.',
+        title: 'Pedagogiska metoder som egen kompetensgrupp',
+        description: 'Reggio Emilia, Montessori, NPF-kompetens, språkstöd, TAKK. Lägg metoderna som en egen grupp under Kompetenser, med fet rubrik, så rektorer direkt hittar den pedagogik som matchar deras förskola.',
       },
       {
-        title: 'Pedagog med foto ingår i Premium',
-        description: 'I förskollärarrollen där relationer värderas, lägger mallen i Premium till foto och språkkunskaper. Skapar ett mer personligt intryck som passar pedagogiskt yrke utan att kompromissa med ATS.',
+        title: 'Kalksten med foto ingår i Premium',
+        description: 'I förskollärarrollen där relationer värderas har Kalksten, som ingår i Premium, en kvadratisk fotoplats bredvid namnet och språkkunskaperna i sidospalten. Det skapar ett mer personligt intryck som passar ett pedagogiskt yrke utan att kompromissa med ATS.',
       },
       {
-        title: 'Salviegrön ton för pedagogisk identitet',
-        description: 'Vi har valt dämpade salviegröna och navy-toner som signalerar lugn och pedagogisk medvetenhet. Dragna från Skolverkets visuella språk men anpassade för individuell ansökan.',
+        title: 'Mörkgrön ton för pedagogisk identitet',
+        description: 'Båda mallarna har en dämpad mörkgrön accent att välja, vid sidan av stålblå eller marinblå, vinröd och grå. Den signalerar lugn och pedagogisk medvetenhet, nära skolans visuella språk men anpassad för en individuell ansökan.',
       },
       {
         title: 'Plats för utvecklingsprojekt',
@@ -2810,7 +2810,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och Pedagog, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala förskolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Skriv ut "förskollärarlegitimation" och "Lpfö 18" i klartext eftersom rekryterare filtrerar exakta termer. Pedagogisk inriktning (Reggio Emilia, Montessori) ska också skrivas ut.',
+      'Både vår gratismall Linne och Kalksten, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala förskolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Skriv ut "förskollärarlegitimation" och "Lpfö 18" i klartext eftersom rekryterare filtrerar exakta termer. Pedagogisk inriktning (Reggio Emilia, Montessori) ska också skrivas ut.',
 
     faqItems: [
       {
@@ -2858,7 +2858,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'personlig-assistent': {
     seoIntro:
-      'Som personlig assistent jobbar du nära en brukare med funktionsvariation där kontinuitet, lyhördhet och personkemi avgör mer än formella meriter. Frösunda, Humana, Nytida och Olivia är de stora privata assistansanordnarna i Sverige. Tillsammans med kommunerna och brukarkooperativen finns tusentals öppna tjänster. Ett välskrivet CV avgör om du blir kallad till första intervju med brukare och anhöriga.\n\nVår mall för personliga assistenter lyfter erfarenhet med olika funktionsvariationer, schemaflexibilitet och språkkunskaper som första visuella element. Vi har strukturerat erfarenhetssektionen så att brukargrupper, arbetsplats och tidsperiod syns direkt med eventuella specialkompetenser. Det betyder att assistenter, anhöriga och anordnare snabbt kan bedöma om ni matchar.\n\nKonkret innehåll vi rekommenderar: erfarenhet av specifika funktionsvariationer (autism, NPF, fysiska funktionsnedsättningar, förvärvad hjärnskada), hjälpmedel och tekniker (lyft, kommunikationshjälpmedel, AKK), körkort B (ofta krav), eventuella språkkunskaper (för brukare med flerspråkig bakgrund), schemaflexibilitet (jour, helger, nätter), och eventuella delegeringar (insulin, sondmat, medicin).\n\nNedan hittar du två CV-mallar designade för rollen som personlig assistent, ett färdigt CV-exempel att utgå från, och konkreta tips på vad assistansanordnare och brukare faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som personlig assistent jobbar du nära en brukare med funktionsvariation där kontinuitet, lyhördhet och personkemi avgör mer än formella meriter. Frösunda, Humana, Nytida och Olivia är de stora privata assistansanordnarna i Sverige. Tillsammans med kommunerna och brukarkooperativen finns tusentals öppna tjänster. Ett välskrivet CV avgör om du blir kallad till första intervju med brukare och anhöriga.\n\nVåra mallar lyfter erfarenhet med olika funktionsvariationer, schemaflexibilitet och språkkunskaper som första visuella element, i Kalkstens sidospalt eller med ordningen Kompetenser först i Linne. Erfarenhetsavsnittet är byggt så att brukargrupper, arbetsplats och tidsperiod syns direkt med eventuella specialkompetenser. Det betyder att assistenter, anhöriga och anordnare snabbt kan bedöma om ni matchar.\n\nKonkret innehåll vi rekommenderar: erfarenhet av specifika funktionsvariationer (autism, NPF, fysiska funktionsnedsättningar, förvärvad hjärnskada), hjälpmedel och tekniker (lyft, kommunikationshjälpmedel, AKK), körkort B (ofta krav), eventuella språkkunskaper (för brukare med flerspråkig bakgrund), schemaflexibilitet (jour, helger, nätter), och eventuella delegeringar (insulin, sondmat, medicin).\n\nNedan hittar du två CV-mallar som passar den personliga assistentens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad assistansanordnare och brukare faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -2884,7 +2884,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       {
         icon: 'Target',
         title: 'Språkkunskaper är värdefullt',
-        description: 'Brukare med utländsk bakgrund eller anhöriga som inte talar svenska kräver assistenter med rätt språk. Arabiska, persiska, somaliska, finska, polska. Lägg språk synligt i sidopanelen.',
+        description: 'Brukare med utländsk bakgrund eller anhöriga som inte talar svenska kräver assistenter med rätt språk. Arabiska, persiska, somaliska, finska, polska. Lägg språk synligt i språkavsnittet.',
       },
       {
         icon: 'FileText',
@@ -2896,27 +2896,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Brukargrupper och funktionsvariationer överst',
-        description: 'Vår mall lyfter dina erfarenheter med specifika funktionsvariationer i sidopanelen. Anordnare ser direkt om du matchar brukarens behov utan att behöva scrolla genom hela CV:t.',
+        description: 'I Kalksten lägger du erfarenhet med specifika funktionsvariationer som en kompetensgrupp i sidospalten. Anordnare ser direkt om du matchar brukarens behov utan att behöva scrolla genom hela CV:t.',
       },
       {
         title: 'Plats för långa relationer',
-        description: 'Mallen separerar brukare och tidsperiod så kontinuitet syns visuellt. "Personlig assistent åt samma brukare 4 år" är hård valuta inom assistansbranschen och vi lyfter det medvetet.',
+        description: 'Varje uppdrag blir en egen post med tidsperioden till höger så kontinuiteten syns direkt. "Personlig assistent åt samma brukare 4 år" är hård valuta inom assistansbranschen och vi lyfter det medvetet.',
       },
       {
-        title: 'Eget block för körkort och hjälpmedel',
-        description: 'Körkort B, anpassade fordon, lyfthjälpmedel och AKK har egen rad. Många brukare behöver specifika kompetenser och vår mall låter dem syns utan att blanda in i generisk text.',
+        title: 'Körkort och hjälpmedel i intygsavsnittet',
+        description: 'Körkort B, anpassade fordon, lyfthjälpmedel och AKK får egna rader i intygsavsnittet. Många brukare behöver specifika kompetenser och båda mallarna låter dem synas utan att blandas in i generisk text.',
       },
       {
-        title: 'Vården med foto ingår i Premium',
-        description: 'I assistansrollen där relationer värderas mest, lägger mallen i Premium till foto och språkkunskaper i sidopanelen. Skapar ett mer personligt intryck för brukare och anhöriga som väljer kandidater.',
+        title: 'Kalksten med foto ingår i Premium',
+        description: 'I assistansrollen där relationer värderas mest har Kalksten, som ingår i Premium, en kvadratisk fotoplats bredvid namnet och språkkunskaperna i sidospalten. Det skapar ett mer personligt intryck för brukare och anhöriga som väljer kandidater.',
       },
       {
         title: 'Sober färgsättning för omsorgssektorn',
-        description: 'Omsorgssektorn värderar saklighet och respekt. Vi har valt dämpade emerald- och navy-toner som signalerar trygghet utan att bli sterila. Inget i mallen drar fokus från meritbilden.',
+        description: 'Omsorgssektorn värderar saklighet och respekt. Kalksten har stålblå som förval och Linne marinblå, med mörkgrön, vinröd och grå som alternativ. Dämpade toner som signalerar trygghet utan att bli sterila. Inget i mallarna drar fokus från meritbilden.',
       },
       {
         title: 'Plats för språk och kulturell kompetens',
-        description: 'Brukare med utländsk bakgrund söker assistenter med rätt språk och kulturella förståelse. Mallen har dedikerat block för språkkunskaper utöver svenska och engelska.',
+        description: 'Brukare med utländsk bakgrund söker assistenter med rätt språk och kulturella förståelse. Språkavsnittet listar varje språk med nivå, i Kalksten i sidospalten, så språk utöver svenska och engelska syns direkt.',
       },
     ],
 
@@ -3124,7 +3124,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       },
       {
         rubrik: 'Språkkunskaper är värdefullt',
-        text: 'Brukare med utländsk bakgrund eller anhöriga som inte talar svenska kräver assistenter med rätt språk. Arabiska, persiska, somaliska, finska, polska. Lägg språk synligt i sidopanelen.',
+        text: 'Brukare med utländsk bakgrund eller anhöriga som inte talar svenska kräver assistenter med rätt språk. Arabiska, persiska, somaliska, finska, polska. Lägg språk synligt i språkavsnittet.',
       },
       {
         rubrik: 'Sjukvårdsdelegeringar',
@@ -3137,7 +3137,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       { sektion: 'Erfarenhet', tips: 'Anordnare eller brukarens namn (med medgivande), tidsperiod, brukarens funktionsvariation och vilka uppgifter du haft. Konkretisera hjälpmedel och rutiner.' },
       { sektion: 'Utbildning', tips: 'Vård- och omsorgsutbildning eller annan relevant utbildning. Internutbildningar från anordnaren räknas (Frösunda Academy, Humana Skola).' },
       { sektion: 'Kompetenser', tips: 'Hjälpmedel, kommunikationstekniker, delegeringar och språk. Var konkret om vilken AKK eller specifika hjälpmedel du behärskar.' },
-      { sektion: 'Körkort', tips: 'Eget block med körkort B (eller BE, B96), eventuell rutin på anpassade fordon. Skriv utgångsdatum för körkortet.' },
+      { sektion: 'Körkort', tips: 'Egen rad i intygsavsnittet med körkort B (eller BE, B96), eventuell rutin på anpassade fordon. Skriv utgångsdatum för körkortet.' },
       { sektion: 'Övrigt', tips: 'Schemaflexibilitet (jour, beredskap, helger), språk utöver svenska, eventuella personliga referenser från anhöriga med medgivande.' },
     ],
 
@@ -3155,7 +3155,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och Vården, som ingår i Premium, läser rekryteringssystemen rätt. Anordnare som Frösunda, Humana och Nytida använder oftast Visma Recruit eller Workday. Skriv ut funktionsvariationer (autism, ALS, CP, NPF), hjälpmedel (personlift, AKK) och delegeringar i klartext eftersom rekryterare filtrerar exakta termer från jobbannonsen.',
+      'Både vår gratismall Linne och Kalksten, som ingår i Premium, läser rekryteringssystemen rätt. Anordnare som Frösunda, Humana och Nytida använder oftast Visma Recruit eller Workday. Skriv ut funktionsvariationer (autism, ALS, CP, NPF), hjälpmedel (personlift, AKK) och delegeringar i klartext eftersom rekryterare filtrerar exakta termer från jobbannonsen.',
 
     faqItems: [
       {
@@ -3203,7 +3203,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'kock': {
     seoIntro:
-      'Som kock i Sverige bedöms du på matlagningskunnande, kökens hierarki och förmåga att leverera under press. Restaurangbranschen från Michelin-stjärnigt till lunchrestaurang har konstant öppna roller, men kökschefer slänger CV:n som inte tydligt visar specialisering och ansvar. Ett välskrivet CV avgör om du blir kallad till provlagning på den restaurang du faktiskt vill jobba på.\n\nVår mall för kockar lyfter restaurangtyper, kökspositioner och eventuella specialiseringar som första visuella element. Vi har strukturerat erfarenhetssektionen så att restaurang, ägare eller köksmästare och tidsperiod syns direkt med konkreta ansvarsområden. Det betyder att kökschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: kockutbildning (gymnasium eller YH), restauranger du arbetat på med stjärnstatus eller kategori, kökspositioner (köksbiträde, kallskänka, kock, sous chef, köksmästare), specialiseringar (kallskänka, varmkök, bakery, garde manger, sushi), HACCP-utbildning och livsmedelshygien, eventuella tävlingar eller utmärkelser, samt språk för internationellt kök.\n\nNedan hittar du två CV-mallar designade för kockrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad köksmästare och restaurangägare faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som kock i Sverige bedöms du på matlagningskunnande, kökens hierarki och förmåga att leverera under press. Restaurangbranschen från Michelin-stjärnigt till lunchrestaurang har konstant öppna roller, men kökschefer slänger CV:n som inte tydligt visar specialisering och ansvar. Ett välskrivet CV avgör om du blir kallad till provlagning på den restaurang du faktiskt vill jobba på.\n\nVåra mallar lyfter restaurangtyper, kökspositioner och eventuella specialiseringar som första visuella element, i profilen och som egna kompetensgrupper. Erfarenhetsavsnittet är byggt så att restaurang, ägare eller köksmästare och tidsperiod syns direkt med konkreta ansvarsområden. Det betyder att kökschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: kockutbildning (gymnasium eller YH), restauranger du arbetat på med stjärnstatus eller kategori, kökspositioner (köksbiträde, kallskänka, kock, sous chef, köksmästare), specialiseringar (kallskänka, varmkök, bakery, garde manger, sushi), HACCP-utbildning och livsmedelshygien, eventuella tävlingar eller utmärkelser, samt språk för internationellt kök.\n\nNedan hittar du två CV-mallar som passar kockens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad köksmästare och restaurangägare faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -3241,27 +3241,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Restauranger och positioner överst',
-        description: 'Vår mall lyfter restauranger, kökspositioner och eventuella stjärnstatus i sidopanelen. Köksmästare ser direkt vilka kök du arbetat i utan att behöva läsa hela CV:t.',
+        description: 'Lägg restauranger, kökspositioner och eventuell stjärnstatus i profilen och som egna poster under erfarenheten, med restaurangen på egen rad. Köksmästare ser direkt vilka kök du arbetat i utan att behöva läsa hela CV:t.',
       },
       {
         title: 'Plats för signature dishes och stilar',
-        description: 'Mallen separerar restauranger och dina specialiseringar (garde manger, varmkök, bakery) så bredd och djup syns. Du kan visa olika stilar utan att meriter konkurrerar om samma yta.',
+        description: 'Varje restaurang blir en egen post och dina specialiseringar (garde manger, varmkök, bakery) en egen kompetensgrupp så bredd och djup syns. Du kan visa olika stilar utan att meriter konkurrerar om samma yta.',
       },
       {
-        title: 'Eget block för certifikat och utmärkelser',
-        description: 'HACCP, livsmedelshygien, eventuella tävlingsdeltaganden eller utmärkelser har egen rad. Mallen lyfter formell kompetens utan att blanda in i generisk text.',
+        title: 'Certifikat och utmärkelser i intygsavsnittet',
+        description: 'HACCP, livsmedelshygien, eventuella tävlingsdeltaganden eller utmärkelser får egen rad i intygsavsnittet med utgivare och år. Så lyfts formell kompetens utan att blandas in i generisk text.',
       },
       {
-        title: 'Servering med foto ingår i Premium',
-        description: 'För senior-roller (sous chef, köksmästare, executive chef) lägger Servering till foto och tidningskänsla. Skapar en professionell first impression som passar premium-restauranger.',
+        title: 'Terrakotta med kompetensbrickor ingår i Premium',
+        description: 'För seniora roller (sous chef, köksmästare, executive chef) ger Terrakotta, som ingår i Premium, en krämfärgad sida med roströda rubriker och kompetenserna som brickor. Det skapar ett första intryck med karaktär som passar restauranger med profil.',
       },
       {
         title: 'Plats för stilar och referenser',
-        description: 'Klassisk fransk, nordisk, italiensk, asiatisk fusion, vegan. Mallen har dedikerat block för dina kulinariska stilar och eventuella mentorer eller referenser från branschen.',
+        description: 'Klassisk fransk, nordisk, italiensk, asiatisk fusion, vegan. Lägg dina kulinariska stilar som en egen kompetensgrupp, i Terrakotta blir varje stil en bricka, och mentorer eller referenser från branschen under Referenser.',
       },
       {
-        title: 'Kompakt typografi för flera år',
-        description: 'Kockar har ofta varierande anställningar (sommarsäsong, vinterstation, fasta tjänster). Mallen är kompakt nog för att rymma 6-8 anställningar utan att verka rörig.',
+        title: 'Plats för flera år på en sida',
+        description: 'Kockar har ofta varierande anställningar (sommarsäsong, vinterstation, fasta tjänster). Valet Få plats på en sida gör att båda mallarna rymmer 6-8 anställningar utan att verka röriga.',
       },
     ],
 
@@ -3500,7 +3500,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Stack-developer och Servering, som ingår i Premium, läser rekryteringssystemen rätt. Restauranger använder oftast Teamtailor, Workday eller egna ATS. Skriv ut köksposition (chef de partie, sous chef), specialisering (garde manger, saucier) och hygien-certifikat (HACCP) i klartext eftersom rekryterare filtrerar exakta termer från jobbannonsen.',
+      'Både vår gratismall Linne och Terrakotta, som ingår i Premium, läser rekryteringssystemen rätt. Restauranger använder oftast Teamtailor, Workday eller egna ATS. Skriv ut köksposition (chef de partie, sous chef), specialisering (garde manger, saucier) och hygien-certifikat (HACCP) i klartext eftersom rekryterare filtrerar exakta termer från jobbannonsen.',
 
     faqItems: [
       {
@@ -3548,7 +3548,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'truckforare': {
     seoIntro:
-      'Som truckförare bedöms du framför allt på dina behörigheter och din rutin med olika trucktyper. Logistik- och industribolag som DB Schenker, PostNord, DHL, IKEA och Volvo har konstant öppna roller, men lagerchefer slänger CV:n som inte tydligt visar exakta truckkort med utgångsdatum. Ett välskrivet CV avgör om du blir kallad till intervju på det lager du faktiskt vill jobba på.\n\nVår mall för truckförare lyfter alla aktiva truckbehörigheter, körkort och eventuella ADR-bevis som första visuella element. Vi har strukturerat erfarenhetssektionen så att lager, branschtyp och truck-typ syns direkt med eventuella prestandasiffror. Det betyder att lagerchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: alla aktiva truckbehörigheter (A1-A4, B1-B5, C, D, E) med utgångsdatum, körkort B (oftast krav), eventuella tunga körkort (BE, C, CE, D), ADR-bevis för farligt gods, säkerhetsutbildningar (Akta Ryggen, fallskydd, brandskydd), erfarenhet av specifika trucktyper (skjutstativtruck, sidlastare, motviktstruck), branschvana (e-handel, industri, terminal), och tillgänglighet för 2- eller 3-skift.\n\nNedan hittar du två CV-mallar designade för truckförarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad lagerchefer på e-handelsterminal, industrilager och transport faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som truckförare bedöms du framför allt på dina behörigheter och din rutin med olika trucktyper. Logistik- och industribolag som DB Schenker, PostNord, DHL, IKEA och Volvo har konstant öppna roller, men lagerchefer slänger CV:n som inte tydligt visar exakta truckkort med utgångsdatum. Ett välskrivet CV avgör om du blir kallad till intervju på det lager du faktiskt vill jobba på.\n\nVåra mallar lyfter alla aktiva truckbehörigheter, körkort och eventuella ADR-bevis som första visuella element, i Granits intygsfält eller med ordningen Intyg först i Linne. Erfarenhetsavsnittet är byggt så att lager, branschtyp och trucktyp syns direkt med eventuella prestandasiffror. Det betyder att lagerchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: alla aktiva truckbehörigheter (A1-A4, B1-B5, C, D, E) med utgångsdatum, körkort B (oftast krav), eventuella tunga körkort (BE, C, CE, D), ADR-bevis för farligt gods, säkerhetsutbildningar (Akta Ryggen, fallskydd, brandskydd), erfarenhet av specifika trucktyper (skjutstativtruck, sidlastare, motviktstruck), branschvana (e-handel, industri, terminal), och tillgänglighet för 2- eller 3-skift.\n\nNedan hittar du två CV-mallar som passar truckförarens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad lagerchefer på e-handelsterminal, industrilager och transport faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -3586,27 +3586,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Behörigheter och körkort överst',
-        description: 'Vår mall Logistik har "Behörigheter och körkort"-block direkt efter rubriken. Lagerchefer ser dina truckkort, ADR och körkort på fem sekunder utan att behöva scrolla.',
+        description: 'Rubrikuppsättningen Lager och logistik ger intygsavsnittet rubriken Behörigheter och körkort. I Granit ligger det överst i den mörka högerspalten, i Linne väljer du Intyg först. Lagerchefer ser dina truckkort, ADR och körkort på fem sekunder utan att behöva scrolla.',
       },
       {
         title: 'Plats för trucktyp och bransch',
-        description: 'Mallen separerar truckar och lagertyp så branschvana syns. Du kan visa erfarenhet från flera lager utan att meriter konkurrerar om samma yta.',
+        description: 'Varje lager blir en egen post med trucktyper och lagertyp så branschvanan syns. Du kan visa erfarenhet från flera lager utan att meriter konkurrerar om samma yta.',
       },
       {
-        title: 'Eget block för säkerhetsutbildningar',
-        description: 'ADR, Akta Ryggen, fallskydd, brandskydd, BAM. Mallen lyfter säkerhetsutbildningar som eget block så lagerchefer ser komplett certifieringsbild.',
+        title: 'Säkerhetsutbildningar i intygsavsnittet',
+        description: 'ADR, Akta Ryggen, fallskydd, brandskydd, BAM. Lista säkerhetsutbildningarna rad för rad i intygsavsnittet med utgivare och år, så lagerchefer ser en komplett certifieringsbild.',
       },
       {
-        title: 'Industriell typografi för branschen',
-        description: 'Vi har valt Roboto Condensed med cyan-accent som signalerar logistik och industri. Ingen klick-baitig design som drar fokus från behörigheter och meriter.',
+        title: 'Rak typografi för branschen',
+        description: 'Granit har Arial och ett antracitgrått huvudband som förval, Linne Georgia i rubrikerna och Calibri i texten. Rakt och tydligt, utan design som drar fokus från behörigheter och meriter. Marinblå och mörkgrön finns som alternativ i båda.',
       },
       {
-        title: 'Logistik Plus med foto ingår i Premium',
-        description: 'För senior-roller (truckchef, lagerförman) lägger Logistik Plus till foto och dark header. Skapar en mer professionell first impression utan att kompromissa med ATS-läsbarhet.',
+        title: 'Granit med foto ingår i Premium',
+        description: 'För seniora roller (truckchef, lagerförman) ger Granit, som ingår i Premium, rund fotoplats i ett mörkt huvudband och en mörk högerspalt för intyg och kompetenser. Det skapar ett mer professionellt första intryck utan att kompromissa med ATS-läsbarheten.',
       },
       {
-        title: 'Tillgänglighet i sidopanelen',
-        description: 'Mallen har dedikerat block för schemaflexibilitet (dag, kväll, natt, helger). Lagerchefer behöver veta rotationsmöjligheter och vår mall sätter dig i rätt urvalslista direkt.',
+        title: 'Tillgänglighet som egen kompetensgrupp',
+        description: 'Lägg schemaflexibilitet (dag, kväll, natt, helger) som en egen grupp under Kompetenser, i Granit syns den i högerspalten. Lagerchefer behöver veta rotationsmöjligheterna, och då hamnar du i rätt urvalslista direkt.',
       },
     ],
 
@@ -3826,7 +3826,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'Antal år, branscher du arbetat i, dina behörigheter och tillgänglighet på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Företag, lager, tidsperiod. Konkretisera trucktyp, lagertyp och eventuell höjd. Branschvana lyfts.' },
-      { sektion: 'Behörigheter', tips: 'Eget block med truckkort (A1-B5), körkort (B, BE, C), ADR och säkerhetscertifikat. Skriv utgångsdatum för varje.' },
+      { sektion: 'Behörigheter', tips: 'Intygsavsnittet med truckkort (A1-B5), körkort (B, BE, C), ADR och säkerhetscertifikat. Skriv utgångsdatum för varje.' },
       { sektion: 'Utbildning', tips: 'Gymnasium plus truckutbildning (TYA). Datum för truckkort och eventuella YH-utbildningar.' },
       { sektion: 'Säkerhet', tips: 'Akta Ryggen, fallskydd, brandskydd, BAM. Lyft alla aktuella säkerhetsutbildningar.' },
       { sektion: 'Övrigt', tips: 'Tillgänglighet för 2- eller 3-skift, helger, högsäsong. Eventuella språkkunskaper för internationella terminaler.' },
@@ -3846,7 +3846,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Logistik och Logistik Plus, som ingår i Premium, läser rekryteringssystemen rätt. Logistikföretag som DB Schenker, PostNord och DHL använder oftast SAP SuccessFactors eller Workday. Truckbehörigheter ska skrivas exakt som "A1, A2, A3, B1, B2" eftersom det är typiska sökord rekryterare filtrerar på. Skriv också ut körkort (B, BE, C) och ADR i klartext.',
+      'Både vår gratismall Linne och Granit, som ingår i Premium, läser rekryteringssystemen rätt. Logistikföretag som DB Schenker, PostNord och DHL använder oftast SAP SuccessFactors eller Workday. Truckbehörigheter ska skrivas exakt som "A1, A2, A3, B1, B2" eftersom det är typiska sökord rekryterare filtrerar på. Skriv också ut körkort (B, BE, C) och ADR i klartext.',
 
     faqItems: [
       {
@@ -3894,7 +3894,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'ekonomiassistent': {
     seoIntro:
-      'Som ekonomiassistent är du ofta första kontakten med ekonomi-yrket. Bolag inom alla branscher rekryterar ekonomiassistenter konstant, och det är oftast en ingång till mer seniora roller (controller, redovisningsekonom, ekonomichef). Ett välskrivet CV avgör om du blir kallad till intervju på den byrå eller det bolag du faktiskt vill jobba på.\n\nVår mall för ekonomiassistenter lyfter system (Visma, Fortnox, SAP), Excel-färdigheter och eventuella delar av redovisningsprocessen som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, ansvarsområden och systemvana syns direkt. Det betyder att ekonomichefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: ekonomi- eller redovisningsutbildning från gymnasium eller YH, redovisningssystem du behärskar (Visma, Fortnox, SAP, Hogia, BL Administration), Excel-färdigheter (PivotTable, VLOOKUP, makron), löpande bokföringserfarenhet (kund- och leverantörsreskontra, avstämningar, periodiseringar), eventuell lönehantering, vana med kvitto- och utläggshantering, samt eventuell fakturering eller inkasso-erfarenhet.\n\nNedan hittar du två CV-mallar designade för ekonomiassistent-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad ekonomichefer på byråer, industribolag och tjänsteföretag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som ekonomiassistent är du ofta första kontakten med ekonomi-yrket. Bolag inom alla branscher rekryterar ekonomiassistenter konstant, och det är oftast en ingång till mer seniora roller (controller, redovisningsekonom, ekonomichef). Ett välskrivet CV avgör om du blir kallad till intervju på den byrå eller det bolag du faktiskt vill jobba på.\n\nVåra mallar lyfter system (Visma, Fortnox, SAP), Excel-färdigheter och eventuella delar av redovisningsprocessen som första visuella element när du väljer ordningen Kompetenser först. Erfarenhetsavsnittet är byggt så att bolag, ansvarsområden och systemvana syns direkt, i Årsring med årtalen i en egen kolumn. Det betyder att ekonomichefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: ekonomi- eller redovisningsutbildning från gymnasium eller YH, redovisningssystem du behärskar (Visma, Fortnox, SAP, Hogia, BL Administration), Excel-färdigheter (PivotTable, VLOOKUP, makron), löpande bokföringserfarenhet (kund- och leverantörsreskontra, avstämningar, periodiseringar), eventuell lönehantering, vana med kvitto- och utläggshantering, samt eventuell fakturering eller inkasso-erfarenhet.\n\nNedan hittar du två CV-mallar som passar ekonomiassistentens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad ekonomichefer på byråer, industribolag och tjänsteföretag faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -3932,27 +3932,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'System och certifieringar överst',
-        description: 'Vår mall Konto har dedikerad sidopanel för redovisningssystem och eventuella certifieringar. Ekonomichefer ser systemvana på fem sekunder utan att behöva scrolla.',
+        description: 'Välj ordningen Kompetenser först så ligger redovisningssystemen direkt under profilen i båda mallarna, med eventuella certifieringar i intygsavsnittet strax under. Ekonomichefer ser systemvanan på fem sekunder utan att behöva scrolla.',
       },
       {
-        title: 'Tabellär layout med tabular-nums',
-        description: 'Vi använder tabular-nums för att siffror och datum stämmer exakt. Volymsiffror (antal fakturor, kontering, avstämningar) lyfts visuellt utan att rymma i löpande prosa.',
+        title: 'Årtalen i en egen kolumn',
+        description: 'I Årsring står perioden för varje anställning i en egen vänsterkolumn längs en lodrät accentlinje, så tidslinjen läses exakt. Volymsiffror (antal fakturor, kontering, avstämningar) lyfter du som punkter i stället för att gömma dem i löpande prosa.',
       },
       {
-        title: 'Eget block för Excel-färdigheter',
-        description: 'PivotTable, VLOOKUP, makron, Power Query. Mallen separerar Excel-funktioner från generiska kompetenser så ekonomichefer ser specifik nivå direkt.',
+        title: 'Excel-färdigheter som egen kompetensgrupp',
+        description: 'PivotTable, VLOOKUP, makron, Power Query. Lägg Excel-funktionerna som en egen grupp under Kompetenser, skild från de generiska, så ekonomichefer ser specifik nivå direkt.',
       },
       {
-        title: 'Mörkblå navy signalerar finans',
-        description: 'Vi har valt #1e3a8a som signalerar bank, finans och seriositet. Ingen distraherande design som drar fokus från siffrorna och systemen.',
+        title: 'Mörkgrönt eller marinblått signalerar finans',
+        description: 'Årsring har mörkgrön som förval och Linne marinblå, båda med dämpade toner som signalerar bank, finans och seriositet. Ingen distraherande design som drar fokus från siffrorna och systemen.',
       },
       {
-        title: 'Konto Plus med snabbfakta ingår i Premium',
-        description: 'För senior-roller (senior ekonomiassistent, redovisningsassistent) lägger Konto Plus till tre-kolumns header med snabbfakta och navy-emerald gradient. Skapar en mer professionell first impression.',
+        title: 'Årsring med tidslinje ingår i Premium',
+        description: 'För seniora roller (senior ekonomiassistent, redovisningsassistent) ger Årsring, som ingår i Premium, en tidslinje med årtalen i vänsterkolumnen och kompetensgruppernas namn i marginalen. Det skapar ett mer professionellt första intryck.',
       },
       {
         title: 'Plats för bransch och processdjup',
-        description: 'Mallen har dedikerade rader för branschvana och vilka delar av redovisningsprocessen du behärskar. Visar djup utan att blanda med generisk kompetens.',
+        description: 'Branschvana och vilka delar av redovisningsprocessen du behärskar får egna kompetensgrupper. Visar djup utan att blanda med generisk kompetens.',
       },
     ],
 
@@ -4191,7 +4191,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Konto och Konto Plus, som ingår i Premium, läser rekryteringssystemen rätt. Ekonomi- och redovisningsbolag använder oftast Workday eller egna ATS. Skriv ut system-namn (Fortnox, Visma, SAP, Hogia) i klartext eftersom rekryterare filtrerar exakta termer. Excel-funktioner (PivotTable, VLOOKUP) ska också skrivas ut.',
+      'Både vår gratismall Linne och Årsring, som ingår i Premium, läser rekryteringssystemen rätt. Ekonomi- och redovisningsbolag använder oftast Workday eller egna ATS. Skriv ut system-namn (Fortnox, Visma, SAP, Hogia) i klartext eftersom rekryterare filtrerar exakta termer. Excel-funktioner (PivotTable, VLOOKUP) ska också skrivas ut.',
 
     faqItems: [
       {
@@ -4239,7 +4239,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'vardbitrade': {
     seoIntro:
-      'Som vårdbiträde är du grunden i svensk äldreomsorg och hemtjänst. Sveriges 290 kommuner har ständig brist på vårdbiträden, både för fast tjänst och vikariat, men enhetschefer slänger CV:n som inte tydligt visar erfarenhet av specifika brukargrupper, körkort och språkkunskaper. Ett välskrivet CV avgör om du blir kallad till intervju på det boende eller den hemtjänstgrupp du faktiskt vill jobba på.\n\nVår mall för vårdbiträden lyfter erfarenhet, körkort och språkkunskaper som första visuella element. Vi har strukturerat erfarenhetssektionen så att arbetsplats, brukargrupp och tidsperiod syns direkt med eventuella specialiseringar. Det betyder att enhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet inom äldreomsorg, hemtjänst eller LSS-boende, eventuell vårdutbildning (vård- och omsorgsprogrammet, integrationsutbildning), körkort B (krav i hemtjänst), HLR-certifikat med utgångsdatum, basala hygienrutiner, eventuell delegeringsbehörighet, språkkunskaper (arabiska, persiska, somaliska, finska är efterfrågade), och tillgänglighet för rotationsschema.\n\nNedan hittar du två CV-mallar designade för vårdbiträdesrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer i kommunal äldreomsorg och privata utförare faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som vårdbiträde är du grunden i svensk äldreomsorg och hemtjänst. Sveriges 290 kommuner har ständig brist på vårdbiträden, både för fast tjänst och vikariat, men enhetschefer slänger CV:n som inte tydligt visar erfarenhet av specifika brukargrupper, körkort och språkkunskaper. Ett välskrivet CV avgör om du blir kallad till intervju på det boende eller den hemtjänstgrupp du faktiskt vill jobba på.\n\nVåra mallar lyfter erfarenhet, körkort och språkkunskaper som första visuella element, i Kalkstens sidospalt eller med ordningen Intyg först i Linne. Erfarenhetsavsnittet är byggt så att arbetsplats, brukargrupp och tidsperiod syns direkt med eventuella specialiseringar. Det betyder att enhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet inom äldreomsorg, hemtjänst eller LSS-boende, eventuell vårdutbildning (vård- och omsorgsprogrammet, integrationsutbildning), körkort B (krav i hemtjänst), HLR-certifikat med utgångsdatum, basala hygienrutiner, eventuell delegeringsbehörighet, språkkunskaper (arabiska, persiska, somaliska, finska är efterfrågade), och tillgänglighet för rotationsschema.\n\nNedan hittar du två CV-mallar som passar vårdbiträdets meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer i kommunal äldreomsorg och privata utförare faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -4277,23 +4277,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Brukargrupp och språk överst',
-        description: 'Vår mall lyfter erfarenhet av specifika brukargrupper och språkkunskaper i sidopanelen. Enhetschefer ser matchningen på fem sekunder utan att behöva scrolla genom hela CV:t.',
+        description: 'I Kalksten lägger du brukargrupper som en kompetensgrupp och språken i språkavsnittet, båda i sidospalten. Enhetschefer ser matchningen på fem sekunder utan att behöva scrolla genom hela CV:t.',
       },
       {
         title: 'Erfarenhet per arbetsplats',
-        description: 'Mallen separerar arbetsplatser (hemtjänst, äldreboende, LSS-boende, korttid) så bredd och djup syns. Du kan visa olika typer av omsorg utan att meriter konkurrerar om samma yta.',
+        description: 'Varje arbetsplats (hemtjänst, äldreboende, LSS-boende, korttid) blir en egen post så bredd och djup syns. Du kan visa olika typer av omsorg utan att meriter konkurrerar om samma yta.',
       },
       {
-        title: 'Eget block för certifikat',
-        description: 'HLR, basala hygienrutiner, Akta Ryggen, BPSD-utbildning, eventuella delegeringar. Mallen lyfter formell kompetens som eget block med utgångsdatum.',
+        title: 'Certifikaten i intygsavsnittet',
+        description: 'HLR, basala hygienrutiner, Akta Ryggen, BPSD-utbildning, eventuella delegeringar. Intygsavsnittet listar formell kompetens rad för rad med utgivare och år, i Kalksten i ett eget fält i sidospalten.',
       },
       {
-        title: 'Vården med foto ingår i Premium',
-        description: 'I omsorgssektorn där relationer värderas, lägger Vården, som ingår i Premium, till foto och språkblock i sidopanelen. Skapar ett mer personligt intryck för enhetschefer som väljer mellan kandidater.',
+        title: 'Kalksten med foto ingår i Premium',
+        description: 'I omsorgssektorn där relationer värderas har Kalksten, som ingår i Premium, en kvadratisk fotoplats bredvid namnet och språkavsnittet i sidospalten. Det skapar ett mer personligt intryck för enhetschefer som väljer mellan kandidater.',
       },
       {
         title: 'Sober färgsättning för omsorgssektorn',
-        description: 'Vården värderar saklighet och respekt. Vi har valt dämpade emerald- och navy-toner som signalerar trygghet utan att bli sterila. Inget i mallen drar fokus från meriterna.',
+        description: 'Vården värderar saklighet och respekt. Kalksten har stålblå som förval och Linne marinblå, med mörkgrön, vinröd och grå som alternativ. Dämpade toner som signalerar trygghet utan att bli sterila. Inget i mallarna drar fokus från meriterna.',
       },
       {
         title: 'Plats för delegeringar',
@@ -4518,7 +4518,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       { sektion: 'Erfarenhet', tips: 'Arbetsplats, brukargrupp, tidsperiod. Konkretisera arbetsuppgifter och eventuella specialiseringar (demens, palliativ).' },
       { sektion: 'Utbildning', tips: 'Vård- och omsorgsprogrammet, integrationsutbildning eller motsvarande. Eventuella vidareutbildningar (BPSD, demens).' },
       { sektion: 'Kompetenser', tips: 'Specifika kompetenser och certifikat. Var konkret om vilka delegeringar du har eller vilka hjälpmedel du behärskar.' },
-      { sektion: 'Certifikat', tips: 'Eget block med HLR, basala hygienrutiner, Akta Ryggen, BPSD. Skriv utgångsdatum för varje.' },
+      { sektion: 'Certifikat', tips: 'Intygsavsnittet med HLR, basala hygienrutiner, Akta Ryggen, BPSD. Skriv utgångsdatum för varje.' },
       { sektion: 'Övrigt', tips: 'Körkort B, språk utöver svenska, tillgänglighet för rotationsschema.' },
     ],
 
@@ -4536,7 +4536,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och Vården, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala arbetsgivare använder oftast Visma Recruit och Heroma. Privata utförare som Attendo och Humana använder Workday eller Teamtailor. Skriv ut systemnamn (Procapita, Lifecare), brukargrupper (demens, LSS) och certifikat (HLR, BPSD) i klartext.',
+      'Både vår gratismall Linne och Kalksten, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala arbetsgivare använder oftast Visma Recruit och Heroma. Privata utförare som Attendo och Humana använder Workday eller Teamtailor. Skriv ut systemnamn (Procapita, Lifecare), brukargrupper (demens, LSS) och certifikat (HLR, BPSD) i klartext.',
 
     faqItems: [
       {
@@ -4553,7 +4553,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       },
       {
         q: 'Hur lyfter jag språkkunskaper på CV:t?',
-        a: 'Lista språk i sidopanelen med nivå (modersmål, flytande, konversation). Arabiska, persiska, somaliska, finska, polska, tigrinja är särskilt efterfrågade i många kommuner med flerspråkiga brukare. Eventuell tolkutbildning eller validering är meriterande.',
+        a: 'Lista språk i språkavsnittet med nivå (modersmål, flytande, konversation), i Kalksten ligger det i sidospalten. Arabiska, persiska, somaliska, finska, polska, tigrinja är särskilt efterfrågade i många kommuner med flerspråkiga brukare. Eventuell tolkutbildning eller validering är meriterande.',
       },
       {
         q: 'Hur viktigt är körkort?',
@@ -4584,7 +4584,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'hemtjanst': {
     seoIntro:
-      'Som personal i hemtjänsten möter du varje dag äldre och funktionsnedsatta personer som vill bo kvar hemma. Sveriges 290 kommuner har konstant brist på hemtjänstpersonal, både i kommunal regi och hos privata utförare som Attendo, Vardaga och Humana. Ett välskrivet CV avgör om du blir kallad till intervju på den hemtjänstgrupp eller geografiska område du faktiskt vill jobba på.\n\nVår mall för hemtjänstpersonal lyfter körkort B, språk och tillgänglighet som första visuella element. Vi har strukturerat erfarenhetssektionen så att hemtjänstgrupp, brukartyp och tidsperiod syns direkt med eventuella delegeringar. Det betyder att enhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: körkort B (absolut krav), erfarenhet av äldre, demens eller funktionsstöd, HLR-certifikat med utgångsdatum, basala hygienrutiner, eventuella medicindelegeringar (insulin, ögondroppar, kompressionsstrumpor), språkkunskaper för flerspråkiga brukare, mobil dokumentation (Tunstall Mobiltjänster, Phoniro Care, Lifecare Mobil), samt tillgänglighet för delade turer morgon och kväll.\n\nNedan hittar du två CV-mallar designade för hemtjänstrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer i kommunal hemtjänst och privata utförare faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som personal i hemtjänsten möter du varje dag äldre och funktionsnedsatta personer som vill bo kvar hemma. Sveriges 290 kommuner har konstant brist på hemtjänstpersonal, både i kommunal regi och hos privata utförare som Attendo, Vardaga och Humana. Ett välskrivet CV avgör om du blir kallad till intervju på den hemtjänstgrupp eller geografiska område du faktiskt vill jobba på.\n\nVåra mallar lyfter körkort B, språk och delegeringar som första visuella element, i Kalkstens sidospalt eller med ordningen Intyg först i Linne. Erfarenhetsavsnittet är byggt så att hemtjänstgrupp, brukartyp och tidsperiod syns direkt med eventuella delegeringar. Det betyder att enhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: körkort B (absolut krav), erfarenhet av äldre, demens eller funktionsstöd, HLR-certifikat med utgångsdatum, basala hygienrutiner, eventuella medicindelegeringar (insulin, ögondroppar, kompressionsstrumpor), språkkunskaper för flerspråkiga brukare, mobil dokumentation (Tunstall Mobiltjänster, Phoniro Care, Lifecare Mobil), samt tillgänglighet för delade turer morgon och kväll.\n\nNedan hittar du två CV-mallar som passar hemtjänstens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer i kommunal hemtjänst och privata utförare faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -4622,27 +4622,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Körkort och språk överst',
-        description: 'Vår mall Vården lyfter körkort B och språkkunskaper i sidopanelen så enhetschefer ser baskraven på fem sekunder. Båda är hård valuta i hemtjänstbranschen.',
+        description: 'Vår mall Kalksten lyfter körkort B i intygsfältet och språkkunskaperna i språkavsnittet, båda i sidospalten, så enhetschefer ser baskraven på fem sekunder. Båda är hård valuta i hemtjänstbranschen.',
       },
       {
         title: 'Erfarenhet per hemtjänstgrupp',
-        description: 'Mallen separerar hemtjänstgrupper, geografiska områden och brukartyper. Du kan visa lokal kännedom utan att meriter konkurrerar om samma yta.',
+        description: 'Varje hemtjänstgrupp blir en egen post med område och brukartyp. Du kan visa lokal kännedom utan att meriter konkurrerar om samma yta.',
       },
       {
         title: 'Plats för delegeringar och certifikat',
-        description: 'HLR, basala hygienrutiner, Akta Ryggen, eventuella medicindelegeringar har egen rad med utgångsdatum. Mallen lyfter formell kompetens utan att blanda med löpande text.',
+        description: 'HLR, basala hygienrutiner, Akta Ryggen, eventuella medicindelegeringar får egen rad i intygsavsnittet med utgivare och år. Så lyfts formell kompetens utan att blandas med löpande text.',
       },
       {
-        title: 'Vården med foto ingår i Premium',
-        description: 'I hemtjänsten där relationer värderas, lägger Vården, som ingår i Premium, till foto. Många brukare vill se vem som ska besöka deras hem och foto ger trygghet.',
+        title: 'Kalksten med foto ingår i Premium',
+        description: 'I hemtjänsten där relationer värderas har Kalksten, som ingår i Premium, en kvadratisk fotoplats bredvid namnet. Många brukare vill se vem som ska besöka deras hem och foto ger trygghet.',
       },
       {
-        title: 'Schema-block i sidopanelen',
-        description: 'Mallen har dedikerat block för tillgänglighet (delade turer, helger, jour). Enhetschefer behöver veta direkt vilka pass du kan ta.',
+        title: 'Tillgängligheten som egen kompetensgrupp',
+        description: 'Lägg tillgänglighet (delade turer, helger, jour) som en egen grupp under Kompetenser, i Kalksten hamnar den i sidospalten. Enhetschefer behöver veta direkt vilka pass du kan ta.',
       },
       {
         title: 'Sober färgsättning för hemvistelse',
-        description: 'Hemtjänsten värderar trygghet och respekt. Vi har valt dämpade emerald- och navy-toner som signalerar professionell omsorg utan att bli sterila.',
+        description: 'Hemtjänsten värderar trygghet och respekt. Kalksten har stålblå som förval och Linne marinblå, med mörkgrön, vinröd och grå som alternativ. Dämpade toner som signalerar professionell omsorg utan att bli sterila.',
       },
     ],
 
@@ -4863,7 +4863,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       { sektion: 'Erfarenhet', tips: 'Hemtjänstgrupp, geografiskt område, tidsperiod, brukartyper. Konkretisera besöksvolym och eventuella specialiseringar.' },
       { sektion: 'Utbildning', tips: 'Vård- och omsorgsutbildning eller integrationsutbildning. Eventuella vidareutbildningar (BPSD, demens, palliativ).' },
       { sektion: 'Kompetenser', tips: 'Mobila system, hjälpmedel, delegeringar och certifikat. Var konkret om vilka system du arbetat i.' },
-      { sektion: 'Certifikat', tips: 'Eget block med HLR, basala hygienrutiner, Akta Ryggen, eventuella delegeringar med utgångsdatum.' },
+      { sektion: 'Certifikat', tips: 'Intygsavsnittet med HLR, basala hygienrutiner, Akta Ryggen, eventuella delegeringar med utgångsdatum.' },
       { sektion: 'Övrigt', tips: 'Körkort B med datum, språk utöver svenska, tillgänglighet för delade turer och helger.' },
     ],
 
@@ -4881,7 +4881,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och Vården, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala arbetsgivare använder oftast Visma Recruit. Privata utförare som Attendo, Vardaga och Humana använder Workday eller Teamtailor. Skriv ut körkort B, system (Tunstall, Phoniro), brukargrupper (demens, palliativ) och certifikat (HLR) i klartext.',
+      'Både vår gratismall Linne och Kalksten, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala arbetsgivare använder oftast Visma Recruit. Privata utförare som Attendo, Vardaga och Humana använder Workday eller Teamtailor. Skriv ut körkort B, system (Tunstall, Phoniro), brukargrupper (demens, palliativ) och certifikat (HLR) i klartext.',
 
     faqItems: [
       {
@@ -4929,13 +4929,13 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'fysioterapeut': {
     seoIntro:
-      'Som fysioterapeut bedöms du på legitimation, specialiseringar och din förmåga att leverera evidensbaserad rehabilitering. Region- och kommunala arbetsgivare har konstant öppna tjänster, både inom slutenvård, primärvård och kommunal hemrehabilitering. Privata kliniker som Curera, Aleris, Capio och mindre praktiker konkurrerar om samma kandidater. Ett välskrivet CV avgör om du blir kallad till intervju på den klinik eller mottagning du faktiskt vill jobba på.\n\nVår mall för fysioterapeuter lyfter legitimation från Socialstyrelsen, behandlingsmetoder och specialistutbildningar som första visuella element. Vi har strukturerat erfarenhetssektionen så att klinik, patientgrupp och tidsperiod syns direkt med eventuella forskningsmeriter eller vidareutbildningar. Det betyder att verksamhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: fysioterapeutexamen med lärosäte och år, legitimation från Socialstyrelsen med datum, eventuell specialistutbildning (OMT, ortopedisk medicin, idrottsmedicin, neurologi), behandlingsmetoder du behärskar (McKenzie, akupunktur, manuell terapi, MTT), patientgrupper (ortopedi, neurologi, geriatrik, idrott), journalsystem (TakeCare, Cosmic, Medicus), forskningsmeriter, samt eventuell egen praktik eller mottagning.\n\nNedan hittar du två CV-mallar designade för fysioterapeutrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad verksamhetschefer på sjukhus, primärvård och privata kliniker faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som fysioterapeut bedöms du på legitimation, specialiseringar och din förmåga att leverera evidensbaserad rehabilitering. Region- och kommunala arbetsgivare har konstant öppna tjänster, både inom slutenvård, primärvård och kommunal hemrehabilitering. Privata kliniker som Curera, Aleris, Capio och mindre praktiker konkurrerar om samma kandidater. Ett välskrivet CV avgör om du blir kallad till intervju på den klinik eller mottagning du faktiskt vill jobba på.\n\nVåra mallar lyfter legitimation från Socialstyrelsen, behandlingsmetoder och specialistutbildningar som första visuella element, i Kalkstens intygsfält eller med ordningen Intyg först i Linne. Erfarenhetsavsnittet är byggt så att klinik, patientgrupp och tidsperiod syns direkt med eventuella forskningsmeriter eller vidareutbildningar. Det betyder att verksamhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: fysioterapeutexamen med lärosäte och år, legitimation från Socialstyrelsen med datum, eventuell specialistutbildning (OMT, ortopedisk medicin, idrottsmedicin, neurologi), behandlingsmetoder du behärskar (McKenzie, akupunktur, manuell terapi, MTT), patientgrupper (ortopedi, neurologi, geriatrik, idrott), journalsystem (TakeCare, Cosmic, Medicus), forskningsmeriter, samt eventuell egen praktik eller mottagning.\n\nNedan hittar du två CV-mallar som passar fysioterapeutens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad verksamhetschefer på sjukhus, primärvård och privata kliniker faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
         icon: 'Award',
         title: 'Legitimation och specialistbevis först',
-        description: 'Skriv ut Socialstyrelsens registrering med datum. Eventuell specialistutbildning (OMT, ortopedisk medicin, idrottsmedicin, neurologi) lyfts i samma block. Verksamhetschefer skannar först efter behörighet.',
+        description: 'Skriv ut Socialstyrelsens registrering med datum. Eventuell specialistutbildning (OMT, ortopedisk medicin, idrottsmedicin, neurologi) lyfts i samma avsnitt. Verksamhetschefer skannar först efter behörighet.',
       },
       {
         icon: 'CheckCircle',
@@ -4967,27 +4967,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Legitimation och specialistbevis överst',
-        description: 'Vår mall Klinik har sidopanel för Socialstyrelsens legitimation och eventuell specialistutbildning. Verksamhetschefer ser dina meriter på fem sekunder utan att behöva scrolla.',
+        description: 'Vår mall Kalksten har ett intygsfält överst i sidospalten för Socialstyrelsens legitimation och eventuell specialistutbildning. Verksamhetschefer ser dina meriter på fem sekunder utan att behöva scrolla. I Linne väljer du Intyg först.',
       },
       {
         title: 'Klinisk erfarenhet uppdelad per område',
-        description: 'Mallen separerar slutenvård, primärvård, hemrehab och privatpraktik så patientgrupper syns. Du kan visa bredd över olika vårdformer utan att meriter konkurrerar om samma yta.',
+        description: 'Slutenvård, primärvård, hemrehab och privatpraktik blir egna poster så patientgrupper syns. Du kan visa bredd över olika vårdformer utan att meriter konkurrerar om samma yta.',
       },
       {
-        title: 'Eget block för behandlingsmetoder',
-        description: 'McKenzie, OMT, Mulligan, akupunktur, MTT. Mallen lyfter behandlingsmetoder som eget block så verksamhetschefer letar specifikt efter metoder de redan använder på kliniken.',
+        title: 'Behandlingsmetoder som egen kompetensgrupp',
+        description: 'McKenzie, OMT, Mulligan, akupunktur, MTT. Lägg behandlingsmetoderna som en egen grupp under Kompetenser, med fet rubrik, så verksamhetschefer direkt hittar de metoder de redan använder på kliniken.',
       },
       {
         title: 'Plats för forskningsmeriter',
-        description: 'Mallen har dedikerat block för publikationer, forskningsbidrag och eventuell licentiat eller disputation. Centralt för universitetssjukhus och regionalanknutna specialistkliniker.',
+        description: 'Avsnittet Projekt och publikationer rymmer publikationer, forskningsbidrag och eventuell licentiat eller disputation. Centralt för universitetssjukhus och regionanknutna specialistkliniker.',
       },
       {
-        title: 'Tidlös serif för formell prestige',
-        description: 'Vi har valt formell serif-typografi som signalerar akademisk grund och evidensbaserad praxis. Vården och Region Sverige värderar formell uttryckssätt på CV:t.',
+        title: 'Georgia i rubrikerna för formell tyngd',
+        description: 'Båda mallarna har Georgia i namn och rubriker och Calibri i brödtexten, en kombination som signalerar akademisk grund och evidensbaserad praxis. Vården och regionerna värderar ett formellt uttryck på CV:t.',
       },
       {
-        title: 'Klinik med foto ingår i Premium',
-        description: 'För senior-roller och privatpraktik lägger Klinik-mallen till foto och LinkedIn. Skapar en mer personlig first impression utan att kompromissa med ATS-läsbarhet.',
+        title: 'Kalksten med foto ingår i Premium',
+        description: 'För seniora roller och privatpraktik har Kalksten, som ingår i Premium, en kvadratisk fotoplats bredvid namnet. LinkedIn får plats i kontaktraden i båda mallarna. Det ger ett mer personligt första intryck utan att kompromissa med ATS-läsbarheten.',
       },
     ],
 
@@ -5179,7 +5179,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     rekryterarTipsen: [
       {
         rubrik: 'Legitimation och specialistbevis',
-        text: 'Skriv ut Socialstyrelsens registrering med datum. Specialistutbildning (OMT, idrottsmedicin, neurologi) lyfts i samma block. Verksamhetschefer skannar först efter behörighet.',
+        text: 'Skriv ut Socialstyrelsens registrering med datum. Specialistutbildning (OMT, idrottsmedicin, neurologi) lyfts i samma avsnitt. Verksamhetschefer skannar först efter behörighet.',
       },
       {
         rubrik: 'Behandlingsmetoder du behärskar',
@@ -5226,7 +5226,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Tidlös och Klinik, som ingår i Premium, läser rekryteringssystemen rätt. Region- och privata sjukhus använder oftast Heroma, Visma Recruit eller eRecruiter. Skriv ut behandlingsmetoder (OMT, McKenzie, Mulligan), specialistutbildningar och journalsystem (TakeCare, Cosmic) i klartext eftersom rekryterare filtrerar exakta termer från jobbannonsen.',
+      'Både vår gratismall Linne och Kalksten, som ingår i Premium, läser rekryteringssystemen rätt. Region- och privata sjukhus använder oftast Heroma, Visma Recruit eller eRecruiter. Skriv ut behandlingsmetoder (OMT, McKenzie, Mulligan), specialistutbildningar och journalsystem (TakeCare, Cosmic) i klartext eftersom rekryterare filtrerar exakta termer från jobbannonsen.',
 
     faqItems: [
       {
@@ -5274,7 +5274,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'barnskotare': {
     seoIntro:
-      'Som barnskötare arbetar du nära förskollärare i Sveriges 290 kommuner och tusentals fristående förskolor. Yrket har ständig efterfrågan, både för fast tjänst och vikariat, men rektorer slänger CV:n som inte tydligt visar erfarenhet, eventuell utbildning och tillgänglighet. Ett välskrivet CV avgör om du blir kallad till intervju på den förskola du faktiskt vill jobba på.\n\nVår mall för barnskötare lyfter eventuell barnskötarutbildning, åldersgrupper du arbetat med och språkkunskaper som första visuella element. Vi har strukturerat erfarenhetssektionen så att förskola, huvudman och åldersgrupp syns direkt med eventuella ansvarsområden. Det betyder att rektorer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: barnskötarutbildning från gymnasium eller komvux, åldersgrupper du arbetat med (1-3 år, 3-5 år), erfarenhet av barn med särskilda behov (NPF, språkstöd), digital pedagogik (Tyra, Snitch, Pluttra), pedagogisk inriktning (Reggio Emilia, Montessori, traditionell), HLR-certifikat med utgångsdatum, basala hygienrutiner, samt språkkunskaper för flerspråkiga förskolor.\n\nNedan hittar du två CV-mallar designade för barnskötarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad rektorer i kommunal och fristående förskola faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som barnskötare arbetar du nära förskollärare i Sveriges 290 kommuner och tusentals fristående förskolor. Yrket har ständig efterfrågan, både för fast tjänst och vikariat, men rektorer slänger CV:n som inte tydligt visar erfarenhet, eventuell utbildning och tillgänglighet. Ett välskrivet CV avgör om du blir kallad till intervju på den förskola du faktiskt vill jobba på.\n\nVåra mallar lyfter eventuell barnskötarutbildning, åldersgrupper du arbetat med och språkkunskaper som första visuella element, i Kalkstens sidospalt eller med ordningen Utbildning först i Linne. Erfarenhetsavsnittet är byggt så att förskola, huvudman och åldersgrupp syns direkt med eventuella ansvarsområden. Det betyder att rektorer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: barnskötarutbildning från gymnasium eller komvux, åldersgrupper du arbetat med (1-3 år, 3-5 år), erfarenhet av barn med särskilda behov (NPF, språkstöd), digital pedagogik (Tyra, Snitch, Pluttra), pedagogisk inriktning (Reggio Emilia, Montessori, traditionell), HLR-certifikat med utgångsdatum, basala hygienrutiner, samt språkkunskaper för flerspråkiga förskolor.\n\nNedan hittar du två CV-mallar som passar barnskötarens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad rektorer i kommunal och fristående förskola faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -5312,23 +5312,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Erfarenhet och språk överst',
-        description: 'Vår mall lyfter åldersgrupper, pedagogisk inriktning och språk i sidopanelen. Rektorer ser matchningen på fem sekunder utan att behöva scrolla genom hela CV:t.',
+        description: 'I Kalksten lägger du åldersgrupper och pedagogisk inriktning som kompetensgrupper och språken i språkavsnittet, allt i sidospalten. Rektorer ser matchningen på fem sekunder utan att behöva scrolla genom hela CV:t.',
       },
       {
-        title: 'Eget block för certifikat',
-        description: 'HLR, basala hygienrutiner, eventuell AKK- eller TAKK-utbildning har egen rad med utgångsdatum. Visar formell kompetens utan att blanda med generisk text.',
+        title: 'Certifikaten i intygsavsnittet',
+        description: 'HLR, basala hygienrutiner, eventuell AKK- eller TAKK-utbildning får egen rad i intygsavsnittet med utgivare och år. Visar formell kompetens utan att blandas med generisk text.',
       },
       {
         title: 'Pedagogisk erfarenhet per förskola',
-        description: 'Mallen separerar förskolor, huvudman (kommunal eller fristående) och åldersgrupp. Du kan visa bredd över olika pedagogiska inriktningar utan att meriter konkurrerar.',
+        description: 'Varje förskola blir en egen post med huvudman (kommunal eller fristående) och åldersgrupp. Du kan visa bredd över olika pedagogiska inriktningar utan att meriter konkurrerar.',
       },
       {
-        title: 'Pedagog med foto ingår i Premium',
-        description: 'I förskolan där relationer värderas, lägger Pedagog-mallen till foto och språkkunskaper. Skapar ett mer personligt intryck för rektorer som väljer mellan kvalificerade kandidater.',
+        title: 'Kalksten med foto ingår i Premium',
+        description: 'I förskolan där relationer värderas har Kalksten, som ingår i Premium, en kvadratisk fotoplats bredvid namnet och språkkunskaperna i sidospalten. Det skapar ett mer personligt intryck för rektorer som väljer mellan kvalificerade kandidater.',
       },
       {
-        title: 'Salviegrön ton för pedagogisk identitet',
-        description: 'Vi har valt dämpade salviegröna och navy-toner som signalerar lugn och pedagogisk medvetenhet. Dragna från Skolverkets visuella språk men anpassade för individuell ansökan.',
+        title: 'Mörkgrön ton för pedagogisk identitet',
+        description: 'Båda mallarna har en dämpad mörkgrön accent att välja, vid sidan av stålblå eller marinblå, vinröd och grå. Den signalerar lugn och pedagogisk medvetenhet, nära skolans visuella språk men anpassad för en individuell ansökan.',
       },
       {
         title: 'Plats för utvecklingsuppdrag',
@@ -5571,7 +5571,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och Pedagog, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala förskolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Skriv ut "barnskötarutbildning" och "Lpfö 18" i klartext eftersom rekryterare filtrerar exakta termer. Pedagogisk inriktning (Reggio Emilia, Montessori) ska också skrivas ut.',
+      'Både vår gratismall Linne och Kalksten, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala förskolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Skriv ut "barnskötarutbildning" och "Lpfö 18" i klartext eftersom rekryterare filtrerar exakta termer. Pedagogisk inriktning (Reggio Emilia, Montessori) ska också skrivas ut.',
 
     faqItems: [
       {
@@ -5619,7 +5619,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'elevassistent': {
     seoIntro:
-      'Som elevassistent stöttar du elever med särskilda behov i grundskola, gymnasium eller särskola. Yrket har stor efterfrågan i Sveriges 290 kommuner och fristående skolor, men rektorer slänger CV:n som inte tydligt visar erfarenhet av specifika diagnoser eller pedagogiska metoder. Ett välskrivet CV avgör om du blir kallad till intervju på den skola du faktiskt vill jobba på.\n\nVår mall för elevassistenter lyfter erfarenhet av specifika diagnoser, pedagogiska metoder och tillgänglighet som första visuella element. Vi har strukturerat erfarenhetssektionen så att skola, åldersgrupp och elevprofil syns direkt med eventuella anpassningar du varit del av. Det betyder att rektorer och specialpedagoger kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet av specifika diagnoser (autism, ADHD, ADD, dyslexi, intellektuell funktionsnedsättning, språkstörning), pedagogiska metoder (lågaffektivt bemötande, TEACCH, bildstöd, AKK), åldersgrupper (lågstadium, mellanstadium, högstadium, gymnasium, särskola), eventuell utbildning (Barn- och fritidsprogrammet, integrationsutbildning, validering), HLR-certifikat, samt språkkunskaper för flerspråkiga elever.\n\nNedan hittar du två CV-mallar designade för elevassistentrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad rektorer och specialpedagoger faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som elevassistent stöttar du elever med särskilda behov i grundskola, gymnasium eller särskola. Yrket har stor efterfrågan i Sveriges 290 kommuner och fristående skolor, men rektorer slänger CV:n som inte tydligt visar erfarenhet av specifika diagnoser eller pedagogiska metoder. Ett välskrivet CV avgör om du blir kallad till intervju på den skola du faktiskt vill jobba på.\n\nVåra mallar lyfter erfarenhet av specifika diagnoser, pedagogiska metoder och tillgänglighet som första visuella element, i Kalkstens sidospalt eller med ordningen Kompetenser först i Linne. Erfarenhetsavsnittet är byggt så att skola, åldersgrupp och elevprofil syns direkt med eventuella anpassningar du varit del av. Det betyder att rektorer och specialpedagoger kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet av specifika diagnoser (autism, ADHD, ADD, dyslexi, intellektuell funktionsnedsättning, språkstörning), pedagogiska metoder (lågaffektivt bemötande, TEACCH, bildstöd, AKK), åldersgrupper (lågstadium, mellanstadium, högstadium, gymnasium, särskola), eventuell utbildning (Barn- och fritidsprogrammet, integrationsutbildning, validering), HLR-certifikat, samt språkkunskaper för flerspråkiga elever.\n\nNedan hittar du två CV-mallar som passar elevassistentens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad rektorer och specialpedagoger faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -5657,27 +5657,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Diagnoser och metoder överst',
-        description: 'Vår mall lyfter erfarenhet av specifika diagnoser och pedagogiska metoder i sidopanelen. Rektorer och specialpedagoger ser matchningen på fem sekunder utan att behöva scrolla.',
+        description: 'I Kalksten lägger du erfarenhet av specifika diagnoser och pedagogiska metoder som kompetensgrupper i sidospalten. Rektorer och specialpedagoger ser matchningen på fem sekunder utan att behöva scrolla.',
       },
       {
         title: 'Erfarenhet per skola och elevprofil',
-        description: 'Mallen separerar skolor, åldersgrupp och elevprofil. Du kan visa bredd över olika diagnoser och stadium utan att meriter konkurrerar om samma yta.',
+        description: 'Varje skola blir en egen post med åldersgrupp och elevprofil. Du kan visa bredd över olika diagnoser och stadium utan att meriter konkurrerar om samma yta.',
       },
       {
-        title: 'Eget block för pedagogiska metoder',
-        description: 'Lågaffektivt bemötande, TEACCH, bildstöd, AKK. Mallen lyfter metoder som eget block så rektorer letar specifikt efter metoder de redan använder på skolan.',
+        title: 'Pedagogiska metoder som egen kompetensgrupp',
+        description: 'Lågaffektivt bemötande, TEACCH, bildstöd, AKK. Lägg metoderna som en egen grupp under Kompetenser, med fet rubrik, så rektorer direkt hittar metoder de redan använder på skolan.',
       },
       {
         title: 'Plats för samverkan med EHT',
-        description: 'Mallen har dedikerade rader för samverkan med specialpedagog, kurator och elevhälsoteam. Visar att du tar ansvar bortom enskild eleven och kan arbeta strukturerat.',
+        description: 'Samverkan med specialpedagog, kurator och elevhälsoteam får egna punkter under varje anställning. Visar att du tar ansvar bortom enskild eleven och kan arbeta strukturerat.',
       },
       {
-        title: 'Pedagog med foto ingår i Premium',
-        description: 'I skolan där relationer värderas, lägger Pedagog-mallen till foto och språkkunskaper. Skapar ett personligt intryck för rektorer som väljer mellan kvalificerade kandidater.',
+        title: 'Kalksten med foto ingår i Premium',
+        description: 'I skolan där relationer värderas har Kalksten, som ingår i Premium, en kvadratisk fotoplats bredvid namnet och språkkunskaperna i sidospalten. Det skapar ett personligt intryck för rektorer som väljer mellan kvalificerade kandidater.',
       },
       {
-        title: 'Salviegrön ton för pedagogisk identitet',
-        description: 'Vi har valt dämpade salviegröna och navy-toner som signalerar lugn och pedagogisk medvetenhet. Inget i mallen drar fokus från meritbilden.',
+        title: 'Mörkgrön ton för pedagogisk identitet',
+        description: 'Båda mallarna har en dämpad mörkgrön accent att välja, vid sidan av stålblå eller marinblå, vinröd och grå. Den signalerar lugn och pedagogisk medvetenhet. Inget i mallarna drar fokus från meritbilden.',
       },
     ],
 
@@ -5916,7 +5916,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och Pedagog, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala skolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Skriv ut diagnoser (autism, ADHD), pedagogiska metoder (lågaffektivt bemötande, TEACCH) och digitala system (Schoolsoft) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Kalksten, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala skolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Skriv ut diagnoser (autism, ADHD), pedagogiska metoder (lågaffektivt bemötande, TEACCH) och digitala system (Schoolsoft) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -5964,7 +5964,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'kassorska': {
     seoIntro:
-      'Som kassörska arbetar du i frontlinjen för svenska butikskedjor. ICA, Coop, Hemköp, Willys, Lidl, Apoteket och tusentals mindre butiker har konstant öppna kassörsketjänster, men butikschefer slänger CV:n som inte tydligt visar kassasystem-vana och servicekänsla. Ett välskrivet CV avgör om du blir kallad till intervju på den butik du faktiskt vill jobba på.\n\nVår mall för kassörskor lyfter kassasystem, servicekompetens och tillgänglighet som första visuella element. Vi har strukturerat erfarenhetssektionen så att butikskedja, varugrupp och tidsperiod syns direkt med eventuella säljresultat. Det betyder att butikschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet av specifika kassasystem (Sitoo, Iiko, NCR, Bizpoint, ICA-kassan), butikskedjor du arbetat på, kontanthantering och dagsavstämning, mertid- och säljresultat (snittnota, kampanjvinster), varugrupper och produktkunskap, eventuell ålderkontrollsutbildning för åldersgränspliktiga produkter (alkohol, tobak, snus, lotter), schema-flexibilitet och språkkunskaper.\n\nNedan hittar du två CV-mallar designade för kassörskerollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad butikschefer på dagligvaruhandel och specialbutiker faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som kassörska arbetar du i frontlinjen för svenska butikskedjor. ICA, Coop, Hemköp, Willys, Lidl, Apoteket och tusentals mindre butiker har konstant öppna kassörsketjänster, men butikschefer slänger CV:n som inte tydligt visar kassasystem-vana och servicekänsla. Ett välskrivet CV avgör om du blir kallad till intervju på den butik du faktiskt vill jobba på.\n\nVåra mallar lyfter kassasystem, servicekompetens och tillgänglighet som första visuella element när du väljer ordningen Kompetenser först. Erfarenhetsavsnittet är byggt så att butikskedja, varugrupp och tidsperiod syns direkt med eventuella säljresultat. Det betyder att butikschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet av specifika kassasystem (Sitoo, Iiko, NCR, Bizpoint, ICA-kassan), butikskedjor du arbetat på, kontanthantering och dagsavstämning, mertid- och säljresultat (snittnota, kampanjvinster), varugrupper och produktkunskap, eventuell ålderkontrollsutbildning för åldersgränspliktiga produkter (alkohol, tobak, snus, lotter), schema-flexibilitet och språkkunskaper.\n\nNedan hittar du två CV-mallar som passar kassörskans meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad butikschefer på dagligvaruhandel och specialbutiker faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -6002,23 +6002,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Kassasystem och säljresultat överst',
-        description: 'Vår mall Disk lyfter kassasystem och eventuella säljresultat i en banner överst. Butikschefer ser dina meriter på fem sekunder utan att behöva scrolla.',
+        description: 'Välj ordningen Kompetenser först så ligger kassasystem och eventuella säljresultat direkt under profilen i båda mallarna, i Raster i två spalter. Butikschefer ser dina meriter på fem sekunder utan att behöva scrolla.',
       },
       {
         title: 'Erfarenhet per butikskedja',
-        description: 'Mallen separerar butikskedjor och varugrupper så bredd syns. Du kan visa erfarenhet från flera kedjor utan att meriter konkurrerar om samma yta.',
+        description: 'Varje butikskedja blir en egen post med varugrupp så bredden syns. Du kan visa erfarenhet från flera kedjor utan att meriter konkurrerar om samma yta.',
       },
       {
-        title: 'Eget block för utbildningar',
-        description: 'Ansvarsfull försäljning, säljutbildningar (intern eller extern), HLR-certifikat. Mallen lyfter formell kompetens som eget block med datum.',
+        title: 'Utbildningar i intygsavsnittet',
+        description: 'Ansvarsfull försäljning, säljutbildningar (intern eller extern), HLR-certifikat. Intygsavsnittet listar formell kompetens rad för rad med utgivare och år.',
       },
       {
-        title: 'Energisk emerald-accent för handel',
-        description: 'Vi har valt en emerald-accent som signalerar handel utan att bli aggressiv. Dragna från ICA, Coop och dagligvaruhandelns visuella språk men anpassade för individuell ansökan.',
+        title: 'Fyra accentfärger för handel',
+        description: 'Raster har teal som förval, med marinblå, plommon och olivgrön som alternativ, Linne marinblå, mörkgrön, vinröd och grå. Välj den ton som ligger närmast kedjan du söker till, utan att bli aggressiv.',
       },
       {
-        title: 'Disk Plus med foto ingår i Premium',
-        description: 'För senior-roller (huvudkassör, kassansvarig, supervisor) lägger Disk Plus till foto och citat från kunder. Skapar tidningskänsla som passar premium-retail.',
+        title: 'Raster med tonade rubrikband ingår i Premium',
+        description: 'För seniora roller (huvudkassör, kassansvarig, supervisor) ger Raster, som ingår i Premium, rubriker som tonade färgband, Verdana i texten och kompetenserna i två spalter. Det ger karaktär som passar större kedjor.',
       },
       {
         title: 'Plats för säljkampanjer',
@@ -6261,7 +6261,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Disk och Disk Plus, som ingår i Premium, läser rekryteringssystemen rätt. Större kedjor som ICA, Coop, H&M använder Teamtailor eller egna ATS. Skriv ut kassasystem ("ICA-kassan", "NCR", "Sitoo") i klartext eftersom rekryterare filtrerar exakta termer. Butikskedjor och varugrupper ska också skrivas ut.',
+      'Både vår gratismall Linne och Raster, som ingår i Premium, läser rekryteringssystemen rätt. Större kedjor som ICA, Coop, H&M använder Teamtailor eller egna ATS. Skriv ut kassasystem ("ICA-kassan", "NCR", "Sitoo") i klartext eftersom rekryterare filtrerar exakta termer. Butikskedjor och varugrupper ska också skrivas ut.',
 
     faqItems: [
       {
@@ -6309,13 +6309,13 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'receptionist': {
     seoIntro:
-      'Som receptionist är du ansiktet utåt för bolaget eller hotellet. Hotellkedjor som Scandic, Elite, Nordic Choice, Radisson, Clarion och tusentals mindre hotell, advokatbyråer, läkarhus och tech-bolag har konstant öppna tjänster, men chefer slänger CV:n som inte tydligt visar språk, system-vana och representativ förmåga. Ett välskrivet CV avgör om du blir kallad till intervju på den arbetsplats du faktiskt vill jobba på.\n\nVår mall för receptionister lyfter språkkunskaper, system-vana och representativ erfarenhet som första visuella element. Vi har strukturerat erfarenhetssektionen så att arbetsgivare, bransch och tidsperiod syns direkt med eventuella ansvarsområden. Det betyder att hotellchefer och kontorschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet inom hotell, kontor, advokatbyrå, läkarhus eller tech, system du behärskar (Opera PMS, Mews, MicroPos, Visma Reception, Cosmic), språkkunskaper med nivå, telefonväxel-vana, multitasking-förmåga, eventuell utbildning (Hotell- och restaurangprogrammet, hotellutbildning), samt tillgänglighet för rotationsschema.\n\nNedan hittar du två CV-mallar designade för receptionistrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad hotellchefer, kontorsadministratörer och receptions-managers faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som receptionist är du ansiktet utåt för bolaget eller hotellet. Hotellkedjor som Scandic, Elite, Nordic Choice, Radisson, Clarion och tusentals mindre hotell, advokatbyråer, läkarhus och tech-bolag har konstant öppna tjänster, men chefer slänger CV:n som inte tydligt visar språk, system-vana och representativ förmåga. Ett välskrivet CV avgör om du blir kallad till intervju på den arbetsplats du faktiskt vill jobba på.\n\nVåra mallar lyfter språkkunskaper, systemvana och representativ erfarenhet som första visuella element när du väljer ordningen Kompetenser först. Erfarenhetsavsnittet är byggt så att arbetsgivare, bransch och tidsperiod syns direkt med eventuella ansvarsområden. Det betyder att hotellchefer och kontorschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet inom hotell, kontor, advokatbyrå, läkarhus eller tech, system du behärskar (Opera PMS, Mews, MicroPos, Visma Reception, Cosmic), språkkunskaper med nivå, telefonväxel-vana, multitasking-förmåga, eventuell utbildning (Hotell- och restaurangprogrammet, hotellutbildning), samt tillgänglighet för rotationsschema.\n\nNedan hittar du två CV-mallar som passar receptionistens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad hotellchefer, kontorsadministratörer och receptions-managers faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
         icon: 'Target',
         title: 'Språkkunskaper är hård valuta',
-        description: 'Engelska är förmodat på alla receptioner. Tyska, franska, spanska, ryska, kinesiska, japanska eller arabiska är meriterande för internationella hotell och bolag. Ange nivå (modersmål, flytande, konversation) i sidopanelen.',
+        description: 'Engelska är förmodat på alla receptioner. Tyska, franska, spanska, ryska, kinesiska, japanska eller arabiska är meriterande för internationella hotell och bolag. Ange nivå (modersmål, flytande, konversation) i språkavsnittet.',
       },
       {
         icon: 'Briefcase',
@@ -6347,19 +6347,19 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Språk och system överst',
-        description: 'Vår mall lyfter språkkunskaper och system-vana i sidopanelen. Hotellchefer och kontorschefer ser dina baskrav på fem sekunder utan att behöva scrolla.',
+        description: 'Lägg systemen som en egen kompetensgrupp och välj Kompetenser först, så ligger system och språk direkt under profilen i båda mallarna. Hotellchefer och kontorschefer ser dina baskrav på fem sekunder utan att behöva scrolla.',
       },
       {
         title: 'Erfarenhet per arbetsgivare och bransch',
-        description: 'Mallen separerar hotell, kontor, advokatbyrå och tech-bolag så bredd syns. Du kan visa erfarenhet från flera branscher utan att meriter konkurrerar om samma yta.',
+        description: 'Hotell, kontor, advokatbyrå och techbolag blir egna poster så bredden syns. Du kan visa erfarenhet från flera branscher utan att meriter konkurrerar om samma yta.',
       },
       {
-        title: 'Eget block för system och certifikat',
-        description: 'Opera PMS, Mews, Visma Reception, eventuella språkcertifikat. Mallen lyfter formell kompetens som eget block med utgångsdatum.',
+        title: 'System och certifikat i intygsavsnittet',
+        description: 'Opera PMS, Mews, Visma Reception, eventuella språkcertifikat. Intygsavsnittet listar formell kompetens rad för rad med utgivare och år.',
       },
       {
-        title: 'Disk Plus med foto ingår i Premium',
-        description: 'För senior-roller eller premium-segment lägger Disk Plus till foto. För hotellbranschen där förstaintrycket räknas är det en stark fördel utan att kompromissa med ATS-läsbarhet.',
+        title: 'Raster med tonade rubrikband ingår i Premium',
+        description: 'För seniora roller ger Raster, som ingår i Premium, rubriker som tonade färgband och kompetenserna i två spalter. Vill du ha foto, som ofta väntas i hotellbranschen, väljer du Koppar i stället. Båda klarar ATS-läsningen.',
       },
       {
         title: 'Plats för representativa meriter',
@@ -6367,7 +6367,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       },
       {
         title: 'Energisk men professionell färgsättning',
-        description: 'Vi har valt emerald-accent som signalerar service och professionalism. Lagom modern utan att bli flashig för kontorsbranschen.',
+        description: 'Raster har teal som förval, med marinblå, plommon och olivgrön som alternativ, Linne marinblå, mörkgrön, vinröd och grå. Lagom modernt utan att bli flashigt för kontorsbranschen.',
       },
     ],
 
@@ -6588,7 +6588,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       { sektion: 'Erfarenhet', tips: 'Hotell eller kontor, tidsperiod, system. Konkretisera volymer och eventuella ansvarsområden (VIP, revenue management).' },
       { sektion: 'Utbildning', tips: 'Hotell- och restaurangprogrammet, YH eller internutbildningar (Scandic Academy, Elite Academy).' },
       { sektion: 'Kompetenser', tips: 'PMS-system, bokningssystem, Office-paketet. Var konkret om vilka system du behärskar.' },
-      { sektion: 'Språk', tips: 'Eget block i sidopanelen med språk och nivå. Lyft alla språk även om du bara har konversationsnivå.' },
+      { sektion: 'Språk', tips: 'Eget avsnitt med språk och nivå på varje rad. Lyft alla språk även om du bara har konversationsnivå.' },
       { sektion: 'Övrigt', tips: 'Tillgänglighet (rotation, kvällar, natt, helger), eventuell körkortsbehörighet.' },
     ],
 
@@ -6606,7 +6606,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Disk och Disk Plus, som ingår i Premium, läser rekryteringssystemen rätt. Hotellkedjor som Scandic och Elite använder oftast Workday eller Teamtailor. Kontorsbolag och advokatbyråer använder egna ATS. Skriv ut PMS-system (Opera, Mews), bokningssystem (Booking.com, Expedia) och språk i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Raster, som ingår i Premium, läser rekryteringssystemen rätt. Hotellkedjor som Scandic och Elite använder oftast Workday eller Teamtailor. Kontorsbolag och advokatbyråer använder egna ATS. Skriv ut PMS-system (Opera, Mews), bokningssystem (Booking.com, Expedia) och språk i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -6654,7 +6654,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'devops-engineer': {
     seoIntro:
-      'Som DevOps-engineer eller SRE (Site Reliability Engineer) bedöms du på din infrastruktur-stack, automationsförmåga och cloud-kompetens. Konsultbolag, scale-ups och tech-bolag har konstant brist på erfarna DevOps-engineers, men tekniska rekryterare slänger CV:n som inte tydligt visar Kubernetes, Terraform och CI/CD-erfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på de bolag du faktiskt vill jobba på.\n\nVår mall för DevOps-engineers lyfter cloud-plattform, infrastructure-as-code och CI/CD-pipelines som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, roll, period och tech-stack syns direkt med dina automationsbidrag och prestandavinster. Det betyder att tekniska rekryterare och CTO:er kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: cloud-plattform (AWS, GCP, Azure med specifika tjänster), Kubernetes och container orchestration, Infrastructure as Code (Terraform, Pulumi, CloudFormation), CI/CD-pipelines (GitHub Actions, GitLab CI, Jenkins, ArgoCD), monitoring och observability (Datadog, Grafana, Prometheus, New Relic), incident-erfarenhet och SLO/SLA-arbete, eventuella certifieringar (AWS Certified, CKA, HashiCorp Certified), samt programmeringsspråk (Python, Go, Bash).\n\nNedan hittar du två CV-mallar designade för DevOps-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad tekniska rekryterare och plattformschefer på konsultbolag, scale-ups och produktbolag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som DevOps-engineer eller SRE (Site Reliability Engineer) bedöms du på din infrastruktur-stack, automationsförmåga och cloud-kompetens. Konsultbolag, scale-ups och tech-bolag har konstant brist på erfarna DevOps-engineers, men tekniska rekryterare slänger CV:n som inte tydligt visar Kubernetes, Terraform och CI/CD-erfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på de bolag du faktiskt vill jobba på.\n\nVåra mallar lyfter cloud-plattform, infrastructure-as-code och CI/CD-pipelines som första visuella element, i Ståls högerspalt eller med ordningen Kompetenser först i Linne. Erfarenhetsavsnittet är byggt så att bolag, roll, period och tech-stack syns direkt med dina automationsbidrag och prestandavinster. Det betyder att tekniska rekryterare och CTO:er kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: cloud-plattform (AWS, GCP, Azure med specifika tjänster), Kubernetes och container orchestration, Infrastructure as Code (Terraform, Pulumi, CloudFormation), CI/CD-pipelines (GitHub Actions, GitLab CI, Jenkins, ArgoCD), monitoring och observability (Datadog, Grafana, Prometheus, New Relic), incident-erfarenhet och SLO/SLA-arbete, eventuella certifieringar (AWS Certified, CKA, HashiCorp Certified), samt programmeringsspråk (Python, Go, Bash).\n\nNedan hittar du två CV-mallar som passar DevOps-ingenjörens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad tekniska rekryterare och plattformschefer på konsultbolag, scale-ups och produktbolag faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -6692,23 +6692,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Cloud-stack och certifikat överst',
-        description: 'Vår mall Stack-developer lyfter cloud-plattform och certifieringar (AWS Certified, CKA) i sidopanelen. Plattformschefer ser dina baskompetenser på fem sekunder.',
+        description: 'Vår mall Stål lyfter cloud-plattform och certifieringar (AWS Certified, CKA) i högerspalten bredvid erfarenheten, Linne med ordningen Kompetenser först. Plattformschefer ser dina baskompetenser på fem sekunder.',
       },
       {
         title: 'Erfarenhet med arkitekturresultat',
-        description: 'Mallen separerar bolag och tekniska bidrag (architecture decisions, automationer, kostnadsoptimeringar). Du kan visa både stack-bredd och djup utan att meriter konkurrerar.',
+        description: 'Varje bolag blir en egen post med tekniska bidrag (arkitekturbeslut, automationer, kostnadsoptimeringar) som punkter. Du kan visa både stack-bredd och djup utan att meriter konkurrerar.',
       },
       {
-        title: 'Eget block för IaC och pipelines',
-        description: 'Terraform-moduler, Helm-charts, GitHub Actions-workflows har egen rad. Mallen visar bevisad kompetens (kod, certifikat, projekt) som tech-rekryterare värderar.',
+        title: 'IaC och pipelines som egen kompetensgrupp',
+        description: 'Terraform-moduler, Helm-charts och GitHub Actions-workflows lägger du som en egen grupp under Kompetenser. Så visar båda mallarna bevisad kompetens (kod, certifikat, projekt) som tech-rekryterare värderar.',
       },
       {
-        title: 'Stack-developer-mallen för tech-DNA',
-        description: 'Stack-developer, som ingår i Premium, har monospace-kod-stil, gradient-accent och tabellär layout som signalerar tech utan att bli avantgardistisk för konsultsegmentet.',
+        title: 'Stål med två spalter ingår i Premium',
+        description: 'Stål, som ingår i Premium, har Calibri, 2 pt accentlinjer över rubrikerna och två spalter utan bakgrundsfärg, en stram layout som signalerar tech utan att bli avantgardistisk för konsultsegmentet. Finns som PDF och Word.',
       },
       {
-        title: 'Kompakt typografi för senior-roller',
-        description: 'Senior DevOps har ofta 8-15 års erfarenhet. Vi använder kompakt typografi för att rymma fler bolag och certifieringar utan att verka cramped.',
+        title: 'Plats för seniora meritlistor',
+        description: 'Senior DevOps har ofta 8-15 års erfarenhet. Valet Få plats på en sida drar ihop luften i båda mallarna så fler bolag och certifieringar ryms utan att det ser trångt ut.',
       },
       {
         title: 'Plats för open source och community',
@@ -6951,7 +6951,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Vår mall Stack-developer är ATS-säker och optimerad för tekniska screeners. Konsultbolag som CGI, Sopra Steria och Knowit använder Workday eller Teamtailor. Specifika tech-keywords (Kubernetes, Terraform, AWS Lambda, GitHub Actions) är CV-kritiska. Skriv ut dem i kompetens-listan, inte i löpande text.',
+      'Både vår gratismall Linne och Stål, som ingår i Premium, läser rekryteringssystemen rätt och klarar tekniska screeners. Konsultbolag som CGI, Sopra Steria och Knowit använder Workday eller Teamtailor. Specifika tech-keywords (Kubernetes, Terraform, AWS Lambda, GitHub Actions) är CV-kritiska. Skriv ut dem i kompetens-listan, inte i löpande text.',
 
     faqItems: [
       {
@@ -6999,7 +6999,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'controller': {
     seoIntro:
-      'Som controller är du den interna ekonomen som styr bolagets riktning genom prognoser, rapportering och analys. Storbolag, scale-ups, konsultbyråer och industriföretag har konstant öppna controller-roller, men ekonomi- och CFO-chefer slänger CV:n som inte tydligt visar BI-vana, modelleringsförmåga och affärsförståelse. Ett välskrivet CV avgör om du blir kallad till intervju på den verksamhet du faktiskt vill jobba på.\n\nVår mall för controllers lyfter BI-system, Excel-djup och konkreta affärsresultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, roll, omfattning och rapporterings-frekvens syns direkt med dina analytiska bidrag. Det betyder att CFO:er och ekonomichefer kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: civilekonom eller magister i finans/redovisning, BI-system du behärskar (Power BI, Tableau, Cognos, Qlik), affärssystem (SAP, Microsoft Dynamics, Oracle, Workday Adaptive), Excel-djup (PowerQuery, makron, Power Pivot, finansiella modeller), prognos- och budget-arbete, månads-, kvartals- och årsbokslut, IFRS eller K3-vana, eventuell auktorisation (CMA, ACCA), samt branschvana (industri, tech, retail, fintech).\n\nNedan hittar du två CV-mallar designade för controller-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad CFO:er, ekonomichefer och plattformschefer på industri-, scale-up- och konsultbolag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som controller är du den interna ekonomen som styr bolagets riktning genom prognoser, rapportering och analys. Storbolag, scale-ups, konsultbyråer och industriföretag har konstant öppna controller-roller, men ekonomi- och CFO-chefer slänger CV:n som inte tydligt visar BI-vana, modelleringsförmåga och affärsförståelse. Ett välskrivet CV avgör om du blir kallad till intervju på den verksamhet du faktiskt vill jobba på.\n\nVåra mallar lyfter BI-system, Excel-djup och konkreta affärsresultat som första visuella element när du väljer ordningen Kompetenser först. Erfarenhetsavsnittet är byggt så att bolag, roll, omfattning och rapporteringsfrekvens syns direkt med dina analytiska bidrag. Det betyder att CFO:er och ekonomichefer kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: civilekonom eller magister i finans/redovisning, BI-system du behärskar (Power BI, Tableau, Cognos, Qlik), affärssystem (SAP, Microsoft Dynamics, Oracle, Workday Adaptive), Excel-djup (PowerQuery, makron, Power Pivot, finansiella modeller), prognos- och budget-arbete, månads-, kvartals- och årsbokslut, IFRS eller K3-vana, eventuell auktorisation (CMA, ACCA), samt branschvana (industri, tech, retail, fintech).\n\nNedan hittar du två CV-mallar som passar controllerns meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad CFO:er, ekonomichefer och plattformschefer på industri-, scale-up- och konsultbolag faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -7037,27 +7037,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'BI och regelverk överst',
-        description: 'Vår mall Konto har dedikerad sidopanel för BI-system och regelverk. CFO:er och ekonomichefer ser systemvana på fem sekunder utan att behöva scrolla.',
+        description: 'Välj ordningen Kompetenser först så ligger BI-system och regelverk som egna grupper direkt under profilen i båda mallarna. CFO:er och ekonomichefer ser systemvanan på fem sekunder utan att behöva scrolla.',
       },
       {
-        title: 'Tabellär layout med tabular-nums',
-        description: 'Vi använder tabular-nums för att siffror och datum stämmer exakt. Volymsiffror (omsättning, kundantal, personalantal) lyfts visuellt utan att rymma i löpande prosa.',
+        title: 'Årtalen i en egen kolumn',
+        description: 'I Årsring står perioden för varje anställning i en egen vänsterkolumn längs en lodrät accentlinje, så tidslinjen läses exakt. Volymsiffror (omsättning, kundantal, personalantal) lyfter du som punkter i stället för att gömma dem i löpande prosa.',
       },
       {
-        title: 'Eget block för Excel- och BI-färdigheter',
-        description: 'Power BI, Tableau, PowerQuery, Power Pivot, finansiella modeller. Mallen separerar systemen från generiska kompetenser så CFO:er ser specifik nivå direkt.',
+        title: 'Excel och BI som egen kompetensgrupp',
+        description: 'Power BI, Tableau, PowerQuery, Power Pivot, finansiella modeller. Lägg systemen som en egen grupp under Kompetenser, skild från de generiska, så CFO:er ser specifik nivå direkt.',
       },
       {
-        title: 'Mörkblå navy signalerar finans',
-        description: 'Vi har valt #1e3a8a som signalerar bank, finans och seriositet. Ingen distraherande design som drar fokus från siffrorna och systemen.',
+        title: 'Mörkgrönt eller marinblått signalerar finans',
+        description: 'Årsring har mörkgrön som förval och Linne marinblå, båda med dämpade toner som signalerar bank, finans och seriositet. Ingen distraherande design som drar fokus från siffrorna och systemen.',
       },
       {
-        title: 'Konto Plus med snabbfakta ingår i Premium',
-        description: 'För senior-roller (group controller, head of FP&A) lägger Konto Plus till tre-kolumns header med snabbfakta-rad och navy-emerald gradient. Skapar professionell first impression.',
+        title: 'Årsring med tidslinje ingår i Premium',
+        description: 'För seniora roller (group controller, head of FP&A) ger Årsring, som ingår i Premium, en tidslinje med årtalen i vänsterkolumnen och kompetensgruppernas namn i marginalen. Det skapar ett professionellt första intryck.',
       },
       {
         title: 'Plats för bransch och regelverk',
-        description: 'Mallen har dedikerade rader för branschvana (SaaS, industri, retail) och regelverk (IFRS, K3, US GAAP). Visar djup utan att blanda med generisk kompetens.',
+        description: 'Branschvana (SaaS, industri, retail) och regelverk (IFRS, K3, US GAAP) får egna kompetensgrupper. Visar djup utan att blanda med generisk kompetens.',
       },
     ],
 
@@ -7278,7 +7278,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       { sektion: 'Erfarenhet', tips: 'Bolag, roll, omfattning (kund-/koncern-volym), rapporteringsfrekvens. Konkreta affärsresultat.' },
       { sektion: 'Utbildning', tips: 'Civilekonom eller magister, lärosäte, år. Auktorisation eller certifiering (CMA, ACCA, CFA, FAR).' },
       { sektion: 'Kompetenser', tips: 'BI-system, affärssystem, regelverk i tydliga grupper. Var konkret om Excel-nivå.' },
-      { sektion: 'System', tips: 'Eget block för Power BI, Tableau, SAP, Workday Adaptive med erfarenhetsår.' },
+      { sektion: 'System', tips: 'Egen kompetensgrupp för Power BI, Tableau, SAP, Workday Adaptive med erfarenhetsår.' },
       { sektion: 'Övrigt', tips: 'Branschvana, ledarskap, eventuell M&A-erfarenhet, internationella stints.' },
     ],
 
@@ -7296,7 +7296,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Konto och Konto Plus, som ingår i Premium, läser rekryteringssystemen rätt. Storbolag och scale-ups använder oftast Workday eller egna ATS. Konsultbyråer (PwC, EY, KPMG) använder Workday eller Oracle Recruiting. Skriv ut system-namn (Power BI, Tableau, SAP S/4HANA) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Årsring, som ingår i Premium, läser rekryteringssystemen rätt. Storbolag och scale-ups använder oftast Workday eller egna ATS. Konsultbyråer (PwC, EY, KPMG) använder Workday eller Oracle Recruiting. Skriv ut system-namn (Power BI, Tableau, SAP S/4HANA) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -7344,7 +7344,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'socialsekreterare': {
     seoIntro:
-      'Som socialsekreterare arbetar du i kommunal socialtjänst med utredning, beslut och stöd till människor i utsatta situationer. Sveriges 290 kommuner har konstant brist på socialsekreterare, men enhetschefer slänger CV:n som inte tydligt visar examen, lagstiftningsområde och systemvana. Ett välskrivet CV avgör om du blir kallad till intervju på den förvaltning du faktiskt vill jobba på.\n\nVår mall för socialsekreterare lyfter socionomexamen, lagstiftningsområde och utredningsmetodik som första visuella element. Vi har strukturerat erfarenhetssektionen så att förvaltning, ärendetyp och tidsperiod syns direkt med konkreta utredningsuppdrag och eventuella specialiseringar. Det betyder att enhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: socionomexamen från svenskt lärosäte, lagstiftning du arbetat efter (SoL, LVU, LVM, LSS), ärendetyper (barn och unga, vuxna, missbruk, försörjningsstöd, boendebistånd), utredningsmetodik (BBIC för barn, IBIC för vuxna, ASI för missbruk, FREDA för våld), ärendehanteringssystem (Treserva, Procapita, Combine, Lifecare), volym och komplexitet, samt eventuella specialuppdrag (omprövningar, överklaganden, lex Sarah).\n\nNedan hittar du två CV-mallar designade för socialsekreterarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer i kommunal socialtjänst, statliga myndigheter och privata utförare faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som socialsekreterare arbetar du i kommunal socialtjänst med utredning, beslut och stöd till människor i utsatta situationer. Sveriges 290 kommuner har konstant brist på socialsekreterare, men enhetschefer slänger CV:n som inte tydligt visar examen, lagstiftningsområde och systemvana. Ett välskrivet CV avgör om du blir kallad till intervju på den förvaltning du faktiskt vill jobba på.\n\nVåra mallar lyfter socionomexamen, lagstiftningsområde och utredningsmetodik som första visuella element när du väljer ordningen Utbildning först. Erfarenhetsavsnittet är byggt så att förvaltning, ärendetyp och tidsperiod syns direkt med konkreta utredningsuppdrag och eventuella specialiseringar. Det betyder att enhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: socionomexamen från svenskt lärosäte, lagstiftning du arbetat efter (SoL, LVU, LVM, LSS), ärendetyper (barn och unga, vuxna, missbruk, försörjningsstöd, boendebistånd), utredningsmetodik (BBIC för barn, IBIC för vuxna, ASI för missbruk, FREDA för våld), ärendehanteringssystem (Treserva, Procapita, Combine, Lifecare), volym och komplexitet, samt eventuella specialuppdrag (omprövningar, överklaganden, lex Sarah).\n\nNedan hittar du två CV-mallar som passar socialsekreterarens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer i kommunal socialtjänst, statliga myndigheter och privata utförare faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -7382,23 +7382,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Examen och lagstiftning överst',
-        description: 'Vår mall Myndighet har dedikerad sidopanel för socionomexamen, lagstiftningsområde och utredningsmetodik. Enhetschefer ser dina behörigheter på fem sekunder utan att scrolla.',
+        description: 'Välj ordningen Utbildning först så ligger socionomexamen direkt under profilen i båda mallarna, med lagstiftningsområde och utredningsmetodik som egna kompetensgrupper strax under. Enhetschefer ser dina behörigheter på fem sekunder utan att scrolla.',
       },
       {
-        title: 'Konservativ navy och svartvit',
-        description: 'Offentlig sektor värderar saklighet. Vi har valt navy + svartvit grundpalett som signalerar formell prestige. Inga distraherande färger.',
+        title: 'Konservativt vinrött eller marinblått',
+        description: 'Offentlig sektor värderar saklighet. Antikva har vinröd accent som förval och Linne marinblå, båda på svartvit grund, vilket signalerar formell tyngd. Inga distraherande färger.',
       },
       {
-        title: '§-symboler i bullets',
-        description: 'Vi använder §-symboler i listpunkter för att påminna om förvaltningsrätten. Subtil designdetalj som signalerar att du förstår branschens visuella språk.',
+        title: 'Times New Roman och dubbel linje',
+        description: 'Antikva har Times New Roman rakt igenom och en dubbel linje under det centrerade huvudet, som i ett formellt beslut. Subtila designdetaljer som signalerar att du förstår förvaltningens visuella språk.',
       },
       {
-        title: 'Myndighet Plus med guldaccent ingår i Premium',
-        description: 'För senior-roller (förstesocialsekreterare, enhetschef) lägger Myndighet Plus till centrerad serif-header och guld-accent-band. Skapar prestige-känsla.',
+        title: 'Antikva med centrerat huvud ingår i Premium',
+        description: 'För seniora roller (förstesocialsekreterare, enhetschef) ger Antikva, som ingår i Premium, ett centrerat huvud i serif med dubbel linje i accentfärgen och centrerade rubriker i versaler. Det skapar tyngd.',
       },
       {
         title: 'Plats för volymsstatistik',
-        description: 'Mallen har dedikerade rader för ärendevolym, utredningar per år och eventuella beslutsantal. Konkreta siffror lyfts visuellt utan att blandas med löpande text.',
+        description: 'Ärendevolym, utredningar per år och eventuella beslutsantal får egna punkter under varje anställning. Konkreta siffror står för sig utan att blandas med löpande text.',
       },
       {
         title: 'Plats för specialuppdrag',
@@ -7623,7 +7623,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       { sektion: 'Erfarenhet', tips: 'Förvaltning, tidsperiod, ärendetyp och volym. Konkretisera komplexitet (BBIC, omprövningar, LVU).' },
       { sektion: 'Utbildning', tips: 'Socionomexamen, lärosäte och år. Vidareutbildningar (BBIC-cert, MI, ASI).' },
       { sektion: 'Kompetenser', tips: 'Lagstiftning, system, utredningsmetodik. Var konkret om vilka delar av FL eller SoL du arbetat efter.' },
-      { sektion: 'Specialuppdrag', tips: 'Eget block för omprövningar, överklaganden, samverkansuppdrag, lex Sarah-utredningar.' },
+      { sektion: 'Specialuppdrag', tips: 'Eget avsnitt, Projekt, för omprövningar, överklaganden, samverkansuppdrag, lex Sarah-utredningar.' },
       { sektion: 'Övrigt', tips: 'Språkkunskaper utöver svenska, eventuell handledarutbildning, tillgänglighet för olika kommuner.' },
     ],
 
@@ -7641,7 +7641,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Myndighet och Myndighet Plus, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala arbetsgivare använder Visma Recruit eller egna system. Statliga myndigheter använder ofta Workday eller egna ATS. Lagrum (SoL, LVU, LVM, BBIC) och systemnamn (Treserva, Procapita) är typiska sökord. Skriv ut dem exakt eftersom rekryterare filtrerar mot jobbannonsens språk.',
+      'Både vår gratismall Linne och Antikva, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala arbetsgivare använder Visma Recruit eller egna system. Statliga myndigheter använder ofta Workday eller egna ATS. Lagrum (SoL, LVU, LVM, BBIC) och systemnamn (Treserva, Procapita) är typiska sökord. Skriv ut dem exakt eftersom rekryterare filtrerar mot jobbannonsens språk.',
 
     faqItems: [
       {
@@ -7689,7 +7689,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'projektledare': {
     seoIntro:
-      'Som projektledare bedöms du på din leveransförmåga, metodikvana och hur du driver tvärfunktionella team mot resultat. Konsultbolag, scale-ups, industri och offentlig sektor har konstant brist på erfarna projektledare, men rekryterande chefer slänger CV:n som inte tydligt visar projektomfattning, certifieringar och konkret affärsresultat. Ett välskrivet CV avgör om du blir kallad till intervju på de bolag du faktiskt vill jobba på.\n\nVår mall för projektledare lyfter projektmetodik, certifieringar och konkreta leveransresultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att uppdragsgivare, projektomfattning, budget och teamstorlek syns direkt med dina nyckelresultat. Det betyder att rekryterande chefer kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: certifieringar (PMP, PRINCE2, IPMA, Scrum Master, SAFe), projekttyper (IT-implementation, byggprojekt, organisationsförändring), branschvana (industri, tech, offentlig sektor, fastighet), verktyg (Microsoft Project, Jira, Asana, Monday, Smartsheet), budget och teamstorlek du ansvarat för, projektmetodik (agil, vattenfall, hybrid), eventuell ledarskap-utbildning, samt konkreta leveransresultat (tid, budget, kvalitet).\n\nNedan hittar du två CV-mallar designade för projektledarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad rekryterande chefer på konsultbolag, industri och scale-ups faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som projektledare bedöms du på din leveransförmåga, metodikvana och hur du driver tvärfunktionella team mot resultat. Konsultbolag, scale-ups, industri och offentlig sektor har konstant brist på erfarna projektledare, men rekryterande chefer slänger CV:n som inte tydligt visar projektomfattning, certifieringar och konkret affärsresultat. Ett välskrivet CV avgör om du blir kallad till intervju på de bolag du faktiskt vill jobba på.\n\nVåra mallar lyfter projektmetodik, certifieringar och konkreta leveransresultat som första visuella element när du väljer ordningen Intyg först. Erfarenhetsavsnittet är byggt så att uppdragsgivare, projektomfattning, budget och teamstorlek syns direkt med dina nyckelresultat. Det betyder att rekryterande chefer kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: certifieringar (PMP, PRINCE2, IPMA, Scrum Master, SAFe), projekttyper (IT-implementation, byggprojekt, organisationsförändring), branschvana (industri, tech, offentlig sektor, fastighet), verktyg (Microsoft Project, Jira, Asana, Monday, Smartsheet), budget och teamstorlek du ansvarat för, projektmetodik (agil, vattenfall, hybrid), eventuell ledarskap-utbildning, samt konkreta leveransresultat (tid, budget, kvalitet).\n\nNedan hittar du två CV-mallar som passar projektledarens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad rekryterande chefer på konsultbolag, industri och scale-ups faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -7727,27 +7727,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Certifieringar och projekt-metodik överst',
-        description: 'Vår mall lyfter PMP, PRINCE2, IPMA och Scrum-certifieringar i sidopanelen. Rekryterande chefer ser dina baskompetenser på fem sekunder utan att behöva scrolla.',
+        description: 'Välj ordningen Intyg först så ligger PMP, PRINCE2, IPMA och Scrum-certifieringarna direkt under profilen i båda mallarna. Rekryterande chefer ser dina baskompetenser på fem sekunder utan att behöva scrolla.',
       },
       {
         title: 'Projekterfarenhet med omfattning',
-        description: 'Mallen separerar projekt med budget, teamstorlek och leveransresultat. Du kan visa både bredd och djup utan att meriter konkurrerar om samma yta.',
+        description: 'Varje projekt blir en egen post med budget, teamstorlek och leveransresultat som punkter. Du kan visa både bredd och djup utan att meriter konkurrerar om samma yta.',
       },
       {
-        title: 'Eget block för verktyg och system',
-        description: 'Microsoft Project, Jira, Asana, Monday, Smartsheet, Confluence. Mallen separerar verktygen från generiska kompetenser så rekryterare ser specifik systemvana direkt.',
+        title: 'Verktyg och system som egen kompetensgrupp',
+        description: 'Microsoft Project, Jira, Asana, Monday, Smartsheet, Confluence. Lägg verktygen som en egen grupp under Kompetenser, skild från de generiska, så rekryterare ser specifik systemvana direkt.',
       },
       {
-        title: 'Aspekt med fokusområden ingår i Premium',
-        description: 'För senior projektledare och program manager lägger Aspekt till "Fokusområden"-pills och slate-blå accent. Skapar professionell first impression utan att bli flashig för konsultsegmentet.',
+        title: 'Koppar med foto ingår i Premium',
+        description: 'För senior projektledare och program manager ger Koppar, som ingår i Premium, ett färgat huvudband med vit text och rund fotoplats. Välj marinblått eller antracit i stället för kopparbrunt så blir det professionellt utan att bli flashigt för konsultsegmentet.',
       },
       {
         title: 'Plats för stakeholder och samverkan',
-        description: 'Mallen har dedikerade rader för intern samverkan, externa leverantörer och eventuell program-koordinering. Visar att du tar ansvar bortom enskilda projekt.',
+        description: 'Intern samverkan, externa leverantörer och eventuell programkoordinering får egna punkter under varje projekt. Visar att du tar ansvar bortom enskilda projekt.',
       },
       {
         title: 'Sober färgsättning för konsultsegmentet',
-        description: 'Vi har valt slate-blå och navy-toner som signalerar professionalism utan att bli flashig. Passar både konsultbolag och industribolag.',
+        description: 'Koppar har kopparbrun som förval, med marinblå, mörkgrön och antracit som alternativ, Linne marinblå med mörkgrön, vinröd och grå. Dämpade färger som signalerar professionalism utan att bli flashiga. Passar både konsultbolag och industribolag.',
       },
     ],
 
@@ -7966,9 +7966,9 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'Senioritet, primär projekttyp, bransch och certifieringar på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Bolag, roll, period, projekttyp. Konkretisera budget, teamstorlek och leveransresultat.' },
-      { sektion: 'Utbildning', tips: 'Akademisk examen, lärosäte, år. Certifieringar (PMP, PRINCE2, IPMA, SAFe) i eget block.' },
+      { sektion: 'Utbildning', tips: 'Akademisk examen, lärosäte, år. Certifieringar (PMP, PRINCE2, IPMA, SAFe) som egna rader under Intyg.' },
       { sektion: 'Kompetenser', tips: 'Verktyg, metodiker, branschsystem i tydliga grupper. Var konkret om systemvana.' },
-      { sektion: 'Certifieringar', tips: 'Eget block med PMP, PRINCE2, IPMA, Scrum Master och utgångsdatum.' },
+      { sektion: 'Certifieringar', tips: 'Intygsavsnittet med PMP, PRINCE2, IPMA, Scrum Master och år.' },
       { sektion: 'Övrigt', tips: 'Branschvana, ledarskapsutbildning, eventuell talangs- eller mentorroll.' },
     ],
 
@@ -7986,7 +7986,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och Aspekt, som ingår i Premium, läser rekryteringssystemen rätt. Konsultbolag och scale-ups använder Workday eller Teamtailor. Storbolag och offentlig sektor använder egna ATS. Skriv ut certifieringar (PMP, PRINCE2, IPMA), verktyg (Microsoft Project, Jira) och metodiker (Scrum, SAFe) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Koppar, som ingår i Premium, läser rekryteringssystemen rätt. Konsultbolag och scale-ups använder Workday eller Teamtailor. Storbolag och offentlig sektor använder egna ATS. Skriv ut certifieringar (PMP, PRINCE2, IPMA), verktyg (Microsoft Project, Jira) och metodiker (Scrum, SAFe) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -8034,7 +8034,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'hr-specialist': {
     seoIntro:
-      'Som HR-specialist i Sverige bedöms du på din specialisering, systemkunskap och förståelse för svensk arbetsrätt. Storbolag, scale-ups, konsultbolag och offentlig sektor har konstant öppna HR-roller, men HR-chefer slänger CV:n som inte tydligt visar specialiserings-område, HRIS-vana och konkreta affärsresultat. Ett välskrivet CV avgör om du blir kallad till intervju på den HR-funktion du faktiskt vill jobba på.\n\nVår mall för HR-specialister lyfter specialisering (rekrytering, talent, comp&ben, organisation, arbetsrätt), HRIS-system och konkreta resultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, roll, omfattning och nyckelresultat syns direkt. Det betyder att HR-chefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: HR-utbildning eller PA-program, specialisering (rekrytering, talent management, comp&ben, organisationsutveckling, arbetsrätt), HRIS-system (Workday, SuccessFactors, BambooHR, Heroma, Visma Lön), arbetsrätt och kollektivavtal, eventuell certifiering (CIPD, SHRM-CP, IPMA), konkreta resultat (rekryteringsvolym, retention, employee NPS), samt branschvana (industri, tech, retail, vård).\n\nNedan hittar du två CV-mallar designade för HR-specialistrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad HR-chefer på storbolag, scale-ups och offentlig sektor faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som HR-specialist i Sverige bedöms du på din specialisering, systemkunskap och förståelse för svensk arbetsrätt. Storbolag, scale-ups, konsultbolag och offentlig sektor har konstant öppna HR-roller, men HR-chefer slänger CV:n som inte tydligt visar specialiserings-område, HRIS-vana och konkreta affärsresultat. Ett välskrivet CV avgör om du blir kallad till intervju på den HR-funktion du faktiskt vill jobba på.\n\nVåra mallar lyfter specialisering (rekrytering, talent, comp&ben, organisation, arbetsrätt), HRIS-system och konkreta resultat som första visuella element när du väljer ordningen Kompetenser först. Erfarenhetsavsnittet är byggt så att bolag, roll, omfattning och nyckelresultat syns direkt. Det betyder att HR-chefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: HR-utbildning eller PA-program, specialisering (rekrytering, talent management, comp&ben, organisationsutveckling, arbetsrätt), HRIS-system (Workday, SuccessFactors, BambooHR, Heroma, Visma Lön), arbetsrätt och kollektivavtal, eventuell certifiering (CIPD, SHRM-CP, IPMA), konkreta resultat (rekryteringsvolym, retention, employee NPS), samt branschvana (industri, tech, retail, vård).\n\nNedan hittar du två CV-mallar som passar HR-specialistens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad HR-chefer på storbolag, scale-ups och offentlig sektor faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -8072,27 +8072,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Specialisering och HRIS överst',
-        description: 'Vår mall lyfter specialiserings-område och HRIS-system i sidopanelen. HR-chefer ser dina baskompetenser på fem sekunder utan att behöva scrolla.',
+        description: 'Lägg specialiseringsområde och HRIS-system som egna kompetensgrupper och välj Kompetenser först, så står de direkt under profilen i båda mallarna. HR-chefer ser dina baskompetenser på fem sekunder utan att behöva scrolla.',
       },
       {
         title: 'Erfarenhet med affärsresultat',
-        description: 'Mallen separerar bolag och dina HR-bidrag (rekryteringsvolym, retention, employee NPS, organisationsförändringar). Du kan visa både bredd och djup utan att meriter konkurrerar.',
+        description: 'Varje bolag blir en egen post med dina HR-bidrag (rekryteringsvolym, retention, employee NPS, organisationsförändringar) som punkter. Du kan visa både bredd och djup utan att meriter konkurrerar.',
       },
       {
-        title: 'Eget block för system och certifieringar',
-        description: 'Workday, SuccessFactors, BambooHR, CIPD-cert. Mallen lyfter formell kompetens som eget block med utgångsdatum.',
+        title: 'System och certifieringar i egna avsnitt',
+        description: 'Workday, SuccessFactors och BambooHR som egen kompetensgrupp, CIPD-cert rad för rad i intygsavsnittet med utgivare och år.',
       },
       {
-        title: 'Aspekt med fokusområden ingår i Premium',
-        description: 'För senior HR-roller och HRBP lägger Aspekt till "Fokusområden"-pills och slate-blå accent. Skapar professionell first impression som passar HR-chefer.',
+        title: 'Årsring med tidslinje ingår i Premium',
+        description: 'För seniora HR-roller och HRBP ger Årsring, som ingår i Premium, en tidslinje med årtalen i vänsterkolumnen och kompetensgruppernas namn i marginalen. Det skapar ett professionellt första intryck som passar HR-chefer.',
       },
       {
         title: 'Plats för förändringsledning',
-        description: 'Mallen har dedikerade rader för organisationsförändringar, omstruktureringar och transformationsprojekt. Visar att du arbetar strategiskt utöver operativ HR.',
+        description: 'Organisationsförändringar, omstruktureringar och transformationsprojekt får egna poster i avsnittet Projekt. Visar att du arbetar strategiskt utöver operativ HR.',
       },
       {
         title: 'Sober färgsättning för HR',
-        description: 'Vi har valt slate-blå och navy-toner som signalerar professionalism och förtroende. Passar både HR-konsultroller och interna HR-funktioner.',
+        description: 'Årsring har mörkgrön som förval och Linne marinblå, med dämpade alternativ som signalerar professionalism och förtroende. Passar både HR-konsultroller och interna HR-funktioner.',
       },
     ],
 
@@ -8311,9 +8311,9 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'Senioritet, specialisering, bransch och primära system på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Bolag, roll, period, omfattning. Konkretisera HR-resultat och projektledningsroller.' },
-      { sektion: 'Utbildning', tips: 'PA-program, civilekonom, YH eller motsvarande. Certifieringar (CIPD, SHRM, IPMA-HR) i eget block.' },
+      { sektion: 'Utbildning', tips: 'PA-program, civilekonom, YH eller motsvarande. Certifieringar (CIPD, SHRM, IPMA-HR) som egna rader under Intyg.' },
       { sektion: 'Kompetenser', tips: 'HRIS, arbetsrätt, specialisering. Var konkret om systemvana och regelverk.' },
-      { sektion: 'Certifieringar', tips: 'Eget block med CIPD, SHRM, kompetensbaserad intervju och utgångsdatum.' },
+      { sektion: 'Certifieringar', tips: 'Intygsavsnittet med CIPD, SHRM, kompetensbaserad intervju och år.' },
       { sektion: 'Övrigt', tips: 'Branschvana, ledarskapsutbildning, eventuell facklig samverkan eller Lex Sarah-erfarenhet.' },
     ],
 
@@ -8331,7 +8331,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Konto och Aspekt, som ingår i Premium, läser rekryteringssystemen rätt. Storbolag och scale-ups använder Workday eller egna ATS. Konsultbolag använder Workday eller Oracle Recruiting. Skriv ut HRIS-system (Workday, SuccessFactors), specialiseringar (talent acquisition, comp&ben) och certifieringar (CIPD, SHRM) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Årsring, som ingår i Premium, läser rekryteringssystemen rätt. Storbolag och scale-ups använder Workday eller egna ATS. Konsultbolag använder Workday eller Oracle Recruiting. Skriv ut HRIS-system (Workday, SuccessFactors), specialiseringar (talent acquisition, comp&ben) och certifieringar (CIPD, SHRM) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -8379,7 +8379,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'ingenjor': {
     seoIntro:
-      'Som ingenjör i Sverige bedöms du på din specialisering, certifieringar och konkreta projektresultat. Industri, bygg, tech och konsultbolag har konstant brist på erfarna ingenjörer, men rekryterande chefer slänger CV:n som inte tydligt visar tekniskt djup, branschkompetens och leveransresultat. Ett välskrivet CV avgör om du blir kallad till intervju på de bolag du faktiskt vill jobba på.\n\nVår mall för ingenjörer lyfter teknisk specialisering, system-/CAD-vana och projektresultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, roll, projekttyp och teknisk omfattning syns direkt med dina nyckelresultat. Det betyder att teknikchefer och rekryterande chefer kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: civilingenjörs- eller högskoleingenjörsexamen, specialisering (mekanik, elektronik, byggteknik, kemi, energi, automation), CAD- och simuleringssystem (SolidWorks, Catia, AutoCAD, ANSYS, Matlab), branschvana (fordon, energi, telecom, bygg, life science), konkreta projektresultat (kostnadsbesparing, ledtid, kvalitet), eventuella certifieringar (CE, ISO 9001, Six Sigma), samt programmeringsspråk eller verktyg.\n\nNedan hittar du två CV-mallar designade för ingenjörsrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad teknikchefer på industri, bygg och tech faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som ingenjör i Sverige bedöms du på din specialisering, certifieringar och konkreta projektresultat. Industri, bygg, tech och konsultbolag har konstant brist på erfarna ingenjörer, men rekryterande chefer slänger CV:n som inte tydligt visar tekniskt djup, branschkompetens och leveransresultat. Ett välskrivet CV avgör om du blir kallad till intervju på de bolag du faktiskt vill jobba på.\n\nVåra mallar lyfter teknisk specialisering, system-/CAD-vana och projektresultat som första visuella element när du väljer ordningen Kompetenser först. Erfarenhetsavsnittet är byggt så att bolag, roll, projekttyp och teknisk omfattning syns direkt med dina nyckelresultat. Det betyder att teknikchefer och rekryterande chefer kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: civilingenjörs- eller högskoleingenjörsexamen, specialisering (mekanik, elektronik, byggteknik, kemi, energi, automation), CAD- och simuleringssystem (SolidWorks, Catia, AutoCAD, ANSYS, Matlab), branschvana (fordon, energi, telecom, bygg, life science), konkreta projektresultat (kostnadsbesparing, ledtid, kvalitet), eventuella certifieringar (CE, ISO 9001, Six Sigma), samt programmeringsspråk eller verktyg.\n\nNedan hittar du två CV-mallar som passar ingenjörens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad teknikchefer på industri, bygg och tech faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -8417,27 +8417,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Specialisering och CAD överst',
-        description: 'Vår mall Verkstad lyfter teknisk specialisering, CAD-system och eventuella certifieringar (CE, ISO) i sidopanelen. Teknikchefer ser dina baskompetenser på fem sekunder.',
+        description: 'Välj ordningen Kompetenser först så ligger teknisk specialisering och CAD-system direkt under profilen i båda mallarna, med certifieringar (CE, ISO) i intygsavsnittet strax under. Teknikchefer ser dina baskompetenser på fem sekunder.',
       },
       {
         title: 'Erfarenhet med tekniska resultat',
-        description: 'Mallen separerar bolag och dina ingenjörsbidrag (designval, kostnadsbesparingar, prestandaförbättringar). Du kan visa både bredd och djup utan att meriter konkurrerar.',
+        description: 'Varje bolag blir en egen post med dina ingenjörsbidrag (designval, kostnadsbesparingar, prestandaförbättringar) som punkter. Du kan visa både bredd och djup utan att meriter konkurrerar.',
       },
       {
-        title: 'Eget block för CAD och simulering',
-        description: 'SolidWorks, Catia, AutoCAD, ANSYS, Matlab. Mallen separerar systemen från generiska kompetenser så teknikchefer letar specifikt efter system de redan kör.',
+        title: 'CAD och simulering som egen kompetensgrupp',
+        description: 'SolidWorks, Catia, AutoCAD, ANSYS, Matlab. Lägg systemen som en egen grupp under Kompetenser, skild från de generiska, så teknikchefer direkt hittar system de redan kör.',
       },
       {
-        title: 'Verkstad Plus med ritningsraster ingår i Premium',
-        description: 'För senior- och chefroller lägger Verkstad Plus till blueprint-grid CSS-bakgrund och rektangulärt foto. Skapar en designresonemang som passar konstruktörer och senior-ingenjörer.',
+        title: 'Fasad med foto ingår i Premium',
+        description: 'För seniora roller och chefsroller ger Fasad, som ingår i Premium, kvadratisk fotoplats och ett stort namn i versaler bakom en 4 pt accentkant. En rak, teknisk form som passar konstruktörer och seniora ingenjörer.',
       },
       {
         title: 'Strukturerad teknisk färgpalett',
-        description: 'Vi har valt grafit och steel-blue accent som signalerar industri och precision. Inga distraherande färger som drar fokus från tekniska meriter.',
+        description: 'Fasad har marinblå som förval, med kopparbrun, mörkgrön och antracit som alternativ, Linne marinblå, mörkgrön, vinröd och grå. Toner som signalerar industri och precision, inga distraherande färger som drar fokus från tekniska meriter.',
       },
       {
         title: 'Plats för standarder och certifieringar',
-        description: 'CE, ISO 9001, ISO 14001, Six Sigma har egen rad med utgångsdatum. Mallen lyfter formell kompetens som industri och regulatoriska branscher specifikt letar efter.',
+        description: 'CE, ISO 9001, ISO 14001, Six Sigma får egen rad i intygsavsnittet med utgivare och år. Så lyfts formell kompetens som industri och regulatoriska branscher specifikt letar efter.',
       },
     ],
 
@@ -8658,7 +8658,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       { sektion: 'Erfarenhet', tips: 'Bolag, roll, period, projekttyp. Konkretisera tekniska bidrag och resultat.' },
       { sektion: 'Utbildning', tips: 'Civilingenjör eller högskoleingenjör med specialisering. Examensår och lärosäte.' },
       { sektion: 'Kompetenser', tips: 'CAD, simulering, programmering, standarder. Var konkret om versioner och nivå.' },
-      { sektion: 'Certifieringar', tips: 'Eget block med Six Sigma, ISO-certifikat, CAD-certifikat och utgångsdatum.' },
+      { sektion: 'Certifieringar', tips: 'Intygsavsnittet med Six Sigma, ISO-certifikat, CAD-certifikat och år.' },
       { sektion: 'Övrigt', tips: 'Branschvana, ledarskapsutbildning, eventuell talangs- eller mentorroll, tekniska publikationer.' },
     ],
 
@@ -8676,7 +8676,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Verkstad och Verkstad Plus, som ingår i Premium, läser rekryteringssystemen rätt. Storbolag och industri använder Workday eller egna ATS. Konsultbolag använder Workday eller Teamtailor. Skriv ut CAD-system (SolidWorks, Catia), standarder (ISO 9001, CE) och specialiseringar (mekanikkonstruktion, automation) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Fasad, som ingår i Premium, läser rekryteringssystemen rätt. Storbolag och industri använder Workday eller egna ATS. Konsultbolag använder Workday eller Teamtailor. Skriv ut CAD-system (SolidWorks, Catia), standarder (ISO 9001, CE) och specialiseringar (mekanikkonstruktion, automation) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -8724,7 +8724,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'teamledare': {
     seoIntro:
-      'Som teamledare bedöms du på din ledarförmåga, operativa leverans och hur du driver mindre team mot resultat. Det är ofta första chefroll och avgörande för fortsatt karriär. Industri, retail, tech, vård och offentlig sektor har konstant öppna teamledar-roller, men HR- och avdelningschefer slänger CV:n som inte tydligt visar konkret personalansvar och leveransresultat. Ett välskrivet CV avgör om du blir kallad till intervju på den verksamhet du faktiskt vill jobba på.\n\nVår mall för teamledare lyfter teamstorlek, ansvarsområden och konkreta resultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, roll, teamomfattning och nyckelresultat syns direkt. Det betyder att HR-chefer kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: ledarskap-utbildning eller examen, teamstorlek du lett (2-15 personer), bransch och funktion (säljteam, lagerteam, kundtjänst, produktion), konkreta resultat (KPI-uppfyllelse, retention, NPS), eventuella certifieringar (UGL, IFL, Mind-Lab), arbetsrätt-grund (LAS, MBL), samt branschspecifik systemkompetens.\n\nNedan hittar du två CV-mallar designade för teamledarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad HR- och avdelningschefer i industri, retail, tech och vård faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som teamledare bedöms du på din ledarförmåga, operativa leverans och hur du driver mindre team mot resultat. Det är ofta första chefroll och avgörande för fortsatt karriär. Industri, retail, tech, vård och offentlig sektor har konstant öppna teamledar-roller, men HR- och avdelningschefer slänger CV:n som inte tydligt visar konkret personalansvar och leveransresultat. Ett välskrivet CV avgör om du blir kallad till intervju på den verksamhet du faktiskt vill jobba på.\n\nVåra mallar lyfter teamstorlek, ansvarsområden och konkreta resultat som första visuella element, i profilen och som egna kompetensgrupper. Erfarenhetsavsnittet är byggt så att bolag, roll, teamomfattning och nyckelresultat syns direkt. Det betyder att HR-chefer kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: ledarskap-utbildning eller examen, teamstorlek du lett (2-15 personer), bransch och funktion (säljteam, lagerteam, kundtjänst, produktion), konkreta resultat (KPI-uppfyllelse, retention, NPS), eventuella certifieringar (UGL, IFL, Mind-Lab), arbetsrätt-grund (LAS, MBL), samt branschspecifik systemkompetens.\n\nNedan hittar du två CV-mallar som passar teamledarens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad HR- och avdelningschefer i industri, retail, tech och vård faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -8762,27 +8762,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Teamstorlek och resultat överst',
-        description: 'Vår mall lyfter teamstorlek, ansvarsområden och konkreta resultat i sidopanelen. HR-chefer ser dina baskompetenser på fem sekunder utan att behöva scrolla.',
+        description: 'Lägg teamstorlek, ansvarsområden och konkreta resultat i profilen och som en egen kompetensgrupp direkt under den i båda mallarna. HR-chefer ser dina baskompetenser på fem sekunder utan att behöva scrolla.',
       },
       {
         title: 'Erfarenhet med ledarbidrag',
-        description: 'Mallen separerar bolag och dina ledarbidrag (KPI-resultat, retention, kompetensutveckling). Du kan visa både operativ och strategisk förmåga utan att meriter konkurrerar.',
+        description: 'Varje bolag blir en egen post med dina ledarbidrag (KPI-resultat, retention, kompetensutveckling) som punkter. Du kan visa både operativ och strategisk förmåga utan att meriter konkurrerar.',
       },
       {
-        title: 'Eget block för utbildningar',
-        description: 'UGL, IFL, Mind-Lab, eventuella certifieringar. Mallen lyfter ledarskaps-utveckling som eget block med datum.',
+        title: 'Ledarskapsutbildningar i intygsavsnittet',
+        description: 'UGL, IFL, Mind-Lab, eventuella certifieringar. Intygsavsnittet listar ledarskapsutvecklingen rad för rad med utgivare och år.',
       },
       {
-        title: 'Aspekt med fokusområden ingår i Premium',
-        description: 'För avancemang till avdelningschef lägger Aspekt till "Fokusområden"-pills. Skapar professionell first impression som passar nästa karriärsteg.',
+        title: 'Koppar med foto ingår i Premium',
+        description: 'För avancemang till avdelningschef ger Koppar, som ingår i Premium, ett färgat huvudband med vit text och rund fotoplats. Det skapar ett professionellt första intryck som passar nästa karriärsteg.',
       },
       {
         title: 'Plats för operativ kompetens',
-        description: 'Mallen har dedikerade rader för både ledarskap och teamets operativa område (säljvana, system, processer). Visar att du behärskar både att leda och göra.',
+        description: 'Ledarskap och teamets operativa område (säljvana, system, processer) får egna kompetensgrupper. Visar att du behärskar både att leda och göra.',
       },
       {
         title: 'Sober färgsättning för ledarroll',
-        description: 'Vi har valt slate-blå och navy-toner som signalerar professionalism och förtroende. Passar både industri- och tjänsteledare.',
+        description: 'Koppar har kopparbrun som förval, med marinblå, mörkgrön och antracit som alternativ, Linne marinblå med mörkgrön, vinröd och grå. Dämpade färger som signalerar professionalism och förtroende. Passar både industri- och tjänsteledare.',
       },
     ],
 
@@ -9001,9 +9001,9 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'År som ledare, teamtyp, bransch och nyckelresultat på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Bolag, roll, period, teamstorlek. Konkretisera ledar-resultat och operativa bidrag.' },
-      { sektion: 'Utbildning', tips: 'Akademisk examen, lärosäte, år. Ledarskaps-utbildningar (UGL, IFL) i eget block.' },
+      { sektion: 'Utbildning', tips: 'Akademisk examen, lärosäte, år. Ledarskapsutbildningar (UGL, IFL) som egna rader under Intyg.' },
       { sektion: 'Kompetenser', tips: 'Personalansvar, arbetsrätt, KPI-uppföljning, operativ vana. Var konkret om regelverk.' },
-      { sektion: 'Ledarskap', tips: 'Eget block med UGL, IFL, coaching-utbildning, eventuell mentor-roll.' },
+      { sektion: 'Ledarskap', tips: 'Egen kompetensgrupp med UGL, IFL, coachingutbildning, eventuell mentorsroll.' },
       { sektion: 'Övrigt', tips: 'Branschvana, ambition (avdelningschef-mål), eventuell facklig erfarenhet.' },
     ],
 
@@ -9021,7 +9021,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och Aspekt, som ingår i Premium, läser rekryteringssystemen rätt. Storbolag och scale-ups använder Workday eller Teamtailor. Konsultbolag använder egna ATS. Skriv ut ledarskaps-utbildning (UGL, IFL), arbetsrätt (LAS, MBL) och teamomfattning i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Koppar, som ingår i Premium, läser rekryteringssystemen rätt. Storbolag och scale-ups använder Workday eller Teamtailor. Konsultbolag använder egna ATS. Skriv ut ledarskaps-utbildning (UGL, IFL), arbetsrätt (LAS, MBL) och teamomfattning i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -9069,7 +9069,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'chef': {
     seoIntro:
-      'Som chef bedöms du på din ledarförmåga, strategiska förmåga och konkreta affärsresultat. Storbolag, scale-ups, offentlig sektor och konsultbolag har konstant öppna chef-roller, men styrelser och VD:ar slänger CV:n som inte tydligt visar omfattning, P&L-ansvar och leveransresultat. Ett välskrivet CV avgör om du blir kallad till intervju på de positioner du faktiskt vill kvalificera dig för.\n\nVår mall för chefer lyfter ledarroll-omfattning, P&L-ansvar och konkreta affärsresultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, roll, omfattning och nyckelresultat syns direkt. Det betyder att styrelser, VD:ar och executive search-rekryterare kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: akademisk examen (oftast civilekonom, civilingenjör eller MBA), ledarroll med totalt antal underställda och organisations-omfattning, P&L-ansvar (omsättning, EBITDA, resultatansvar), konkreta affärsresultat (tillväxt, lönsamhet, transformation), eventuell styrelseerfarenhet, MBA eller motsvarande, samt branschvana och eventuell internationell erfarenhet.\n\nNedan hittar du två CV-mallar designade för chefrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad styrelser, VD:ar och executive search-rekryterare faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som chef bedöms du på din ledarförmåga, strategiska förmåga och konkreta affärsresultat. Storbolag, scale-ups, offentlig sektor och konsultbolag har konstant öppna chef-roller, men styrelser och VD:ar slänger CV:n som inte tydligt visar omfattning, P&L-ansvar och leveransresultat. Ett välskrivet CV avgör om du blir kallad till intervju på de positioner du faktiskt vill kvalificera dig för.\n\nVåra mallar lyfter ledarrollens omfattning, P&L-ansvar och konkreta affärsresultat som första visuella element, i profilen och som egna kompetensgrupper. Erfarenhetsavsnittet är byggt så att bolag, roll, omfattning och nyckelresultat syns direkt. Det betyder att styrelser, VD:ar och executive search-rekryterare kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: akademisk examen (oftast civilekonom, civilingenjör eller MBA), ledarroll med totalt antal underställda och organisations-omfattning, P&L-ansvar (omsättning, EBITDA, resultatansvar), konkreta affärsresultat (tillväxt, lönsamhet, transformation), eventuell styrelseerfarenhet, MBA eller motsvarande, samt branschvana och eventuell internationell erfarenhet.\n\nNedan hittar du två CV-mallar som passar chefens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad styrelser, VD:ar och executive search-rekryterare faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -9085,7 +9085,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       {
         icon: 'Briefcase',
         title: 'Styrelseerfarenhet och representation',
-        description: 'Styrelseledamot, ordförande, advisory board, branschorganisationer. Sådana uppdrag signalerar bredd och nätverk för senior chefroller. Lyft i eget block.',
+        description: 'Styrelseledamot, ordförande, advisory board, branschorganisationer. Sådana uppdrag signalerar bredd och nätverk för senior chefroller. Lyft dem som egna poster.',
       },
       {
         icon: 'CheckCircle',
@@ -9107,27 +9107,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'P&L och omfattning överst',
-        description: 'Vår mall Tidlös har dedikerad sidopanel för P&L-ansvar, organisations-omfattning och styrelseerfarenhet. Styrelser och VD:ar ser dina baskompetenser på fem sekunder.',
+        description: 'Lägg P&L-ansvar, organisationens omfattning och styrelseerfarenhet i profilen och som en egen kompetensgrupp direkt under den i båda mallarna. Styrelser och VD:ar ser dina baskompetenser på fem sekunder.',
       },
       {
         title: 'Erfarenhet med affärsresultat',
-        description: 'Mallen separerar bolag och dina chef-bidrag (tillväxt, lönsamhet, transformation, M&A). Du kan visa både operativa och strategiska resultat utan att meriter konkurrerar.',
+        description: 'Varje bolag blir en egen post med dina chefsbidrag (tillväxt, lönsamhet, transformation, M&A) som punkter. Du kan visa både operativa och strategiska resultat utan att meriter konkurrerar.',
       },
       {
-        title: 'Eget block för MBA och executive education',
-        description: 'MBA från Handels, INSEAD, IESE. Executive Education från SSE, Harvard. Mallen lyfter formell utbildning som eget block med datum.',
+        title: 'MBA och executive education som egna poster',
+        description: 'MBA från Handels, INSEAD, IESE. Executive Education från SSE, Harvard. Utbildningsavsnittet listar varje program som egen post med lärosäte och år.',
       },
       {
-        title: 'Atlas eller Tidlös Plus ingår i Premium',
-        description: 'För C-suite och senior chef-roller lägger Atlas till centrerad serif-header med Playfair Display och guld-accent. Tidlös Plus har Garamond serif och burgundy-accent. Båda signalerar prestige.',
+        title: 'Antikva med centrerat huvud ingår i Premium',
+        description: 'För C-suite och seniora chefsroller ger Antikva, som ingår i Premium, ett centrerat huvud i Times New Roman med dubbel linje i accentfärgen och titeln i kursiv. Vinröd som förval, marinblå, grafit och mörkgrön som alternativ. Allt signalerar tyngd.',
       },
       {
         title: 'Plats för styrelseuppdrag',
-        description: 'Mallen har dedikerade rader för styrelseledamot-uppdrag, advisory board och branschorganisationer. Visar att du tar ansvar bortom egen exekutivt-roll.',
+        description: 'Styrelseledamotsuppdrag, advisory board och branschorganisationer får egna poster under Erfarenhet eller i avsnittet Projekt. Visar att du tar ansvar bortom egen exekutivt-roll.',
       },
       {
         title: 'Formell typografi för senior chef',
-        description: 'Vi har valt klassisk serif-typografi som signalerar tradition, prestige och affärsmognad. Inga distraherande designval som kan upplevas oseriösa för senior-segmentet.',
+        description: 'Antikva har Times New Roman och Linne Georgia i rubrikerna, klassiska serifer som signalerar tradition, tyngd och affärsmognad. Inga distraherande designval som kan upplevas oseriösa i seniorsegmentet.',
       },
     ],
 
@@ -9346,8 +9346,8 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'Senioritet, bransch, primär rolltyp och nyckelresultat på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Bolag, roll, period, omfattning. Konkretisera P&L-ansvar och affärsresultat.' },
-      { sektion: 'Utbildning', tips: 'Civilekonom eller civilingenjör, MBA, Executive Education i eget block.' },
-      { sektion: 'Styrelseuppdrag', tips: 'Eget block med styrelseledamot, ordförande, advisory board och branschorganisationer.' },
+      { sektion: 'Utbildning', tips: 'Civilekonom eller civilingenjör, MBA, Executive Education som egna poster.' },
+      { sektion: 'Styrelseuppdrag', tips: 'Egna poster med styrelseledamot, ordförande, advisory board och branschorganisationer.' },
       { sektion: 'Kompetenser', tips: 'Strategi, P&L, M&A, transformation. Var konkret om vilka områden.' },
       { sektion: 'Övrigt', tips: 'Internationell vana, språk, eventuella publikationer eller offentliga framträdanden.' },
     ],
@@ -9366,7 +9366,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Tidlös och Atlas, som ingår i Premium, läser rekryteringssystemen rätt. Executive search-bolag (Egon Zehnder, Korn Ferry, Heidrick & Struggles) använder oftast egna ATS. Storbolag använder Workday. Skriv ut ledarroll-titlar (CEO, CFO, COO), affärsmått (P&L, EBITDA, ROCE) och utbildning (MBA, EMBA) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Antikva, som ingår i Premium, läser rekryteringssystemen rätt. Executive search-bolag (Egon Zehnder, Korn Ferry, Heidrick & Struggles) använder oftast egna ATS. Storbolag använder Workday. Skriv ut ledarroll-titlar (CEO, CFO, COO), affärsmått (P&L, EBITDA, ROCE) och utbildning (MBA, EMBA) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -9383,7 +9383,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       },
       {
         q: 'Hur viktig är styrelseerfarenhet?',
-        a: 'Mycket viktig för C-suite och senior chefroller. Visar bredd, nätverk och förmåga att tänka strategiskt. Styrelseledamot eller ordförande i mindre bolag, advisory board i scale-ups, eller branschorganisationer räknas. Lyft i eget block.',
+        a: 'Mycket viktig för C-suite och senior chefroller. Visar bredd, nätverk och förmåga att tänka strategiskt. Styrelseledamot eller ordförande i mindre bolag, advisory board i scale-ups, eller branschorganisationer räknas. Lyft dem som egna poster.',
       },
       {
         q: 'Hur visar jag transformation-erfarenhet?',
@@ -9414,7 +9414,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'specialistsjukskoterska': {
     seoIntro:
-      'Som specialistsjuksköterska bedöms du på din specialistutbildning, klinisk djup och förmåga att arbeta självständigt i komplexa vårdsituationer. Region- och universitetssjukhus har konstant brist på specialister inom IVA, anestesi, akut, distrikt och psykiatri, men verksamhetschefer slänger CV:n som inte tydligt visar specialistexamen, vårdtyngd och förskrivningsrätt. Ett välskrivet CV avgör om du blir kallad till intervju på den klinik du faktiskt vill jobba på.\n\nVår mall för specialistsjuksköterskor lyfter specialistexamen, klinisk inriktning och eventuell förskrivningsrätt som första visuella element. Vi har strukturerat erfarenhetssektionen så att klinik, specialitet och tidsperiod syns direkt med vårdtyngd och eventuella forskningsmeriter. Det betyder att verksamhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: sjuksköterskeexamen och magisterexamen i specialistutbildning (anestesi, intensivvård, akutsjukvård, distrikt, psykiatri, operation, onkologi, barn), legitimation från Socialstyrelsen, eventuell förskrivningsrätt, journalsystem (Cosmic, TakeCare, Melior), avancerade kliniska metoder, kvalitetsregister-arbete, eventuell forskning, samt handledar-meriter för ST-sjuksköterskor.\n\nNedan hittar du två CV-mallar designade för specialistsjuksköterskerollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad verksamhetschefer på universitetssjukhus, region-sjukhus och privata kliniker faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som specialistsjuksköterska bedöms du på din specialistutbildning, klinisk djup och förmåga att arbeta självständigt i komplexa vårdsituationer. Region- och universitetssjukhus har konstant brist på specialister inom IVA, anestesi, akut, distrikt och psykiatri, men verksamhetschefer slänger CV:n som inte tydligt visar specialistexamen, vårdtyngd och förskrivningsrätt. Ett välskrivet CV avgör om du blir kallad till intervju på den klinik du faktiskt vill jobba på.\n\nVåra mallar lyfter specialistexamen, klinisk inriktning och eventuell förskrivningsrätt som första visuella element, i Kalkstens intygsfält eller med ordningen Intyg först i Linne. Erfarenhetsavsnittet är byggt så att klinik, specialitet och tidsperiod syns direkt med vårdtyngd och eventuella forskningsmeriter. Det betyder att verksamhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: sjuksköterskeexamen och magisterexamen i specialistutbildning (anestesi, intensivvård, akutsjukvård, distrikt, psykiatri, operation, onkologi, barn), legitimation från Socialstyrelsen, eventuell förskrivningsrätt, journalsystem (Cosmic, TakeCare, Melior), avancerade kliniska metoder, kvalitetsregister-arbete, eventuell forskning, samt handledar-meriter för ST-sjuksköterskor.\n\nNedan hittar du två CV-mallar som passar specialistsjuksköterskans meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad verksamhetschefer på universitetssjukhus, region-sjukhus och privata kliniker faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -9452,27 +9452,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Specialistexamen och certifikat överst',
-        description: 'Vår mall Klinik har dedikerad sidopanel för specialistexamen, legitimation och avancerade certifikat (A-HLR, ATLS). Verksamhetschefer ser dina baskompetenser på fem sekunder.',
+        description: 'Vår mall Kalksten har ett intygsfält överst i sidospalten för specialistexamen, legitimation och avancerade certifikat (A-HLR, ATLS). Verksamhetschefer ser dina baskompetenser på fem sekunder. I Linne väljer du Intyg först.',
       },
       {
         title: 'Klinisk tjänstgöring per specialitet',
-        description: 'Mallen separerar avdelningar (IVA, anestesi, akut, distrikt) så vårdtyngd och patientgrupper syns. Du kan visa bredd över olika kliniker utan att meriter konkurrerar.',
+        description: 'Varje avdelning (IVA, anestesi, akut, distrikt) blir en egen post så vårdtyngd och patientgrupper syns. Du kan visa bredd över olika kliniker utan att meriter konkurrerar.',
       },
       {
-        title: 'Eget block för forskningsmeriter',
-        description: 'Publikationer i Vancouver-format, forskningsbidrag, eventuell licentiat eller disputation. Mallen har dedikerat block som passar regionalanknutna och universitetstjänster.',
+        title: 'Eget avsnitt för forskningsmeriter',
+        description: 'Publikationer i Vancouver-format, forskningsbidrag, eventuell licentiat eller disputation. Avsnittet Projekt och publikationer finns i båda mallarna och passar regionanknutna och universitetstjänster.',
       },
       {
-        title: 'Klinik med sidopanel för meriter ingår i Premium',
-        description: 'Klinik-mallen har specialistuppdelning, kompetensområden och publikationer i högerpanel. Skapar formell prestige som passar specialistroller och senior-tjänster.',
+        title: 'Kalksten med sidospalt för meriter ingår i Premium',
+        description: 'Kalksten, som ingår i Premium, samlar kontakt, intyg, kompetensområden och språk i en ljusgrå vänsterspalt medan tjänstgöring och publikationer får huvudspalten. Det skapar en formell tyngd som passar specialistroller och seniora tjänster.',
       },
       {
-        title: 'Burgundy-accent för akademisk kontext',
-        description: 'Vi har valt burgundy-accent som signalerar akademisk grund och evidensbaserad praxis utan att bli kall. Vården och Region Sverige värderar formell uttryckssätt.',
+        title: 'Vinröd accent för akademisk kontext',
+        description: 'Välj den vinröda accenten, som finns i båda mallarna, om du vill signalera akademisk grund och evidensbaserad praxis utan att bli kall. Stålblå och mörkgrön finns också. Vården och regionerna värderar ett formellt uttryck.',
       },
       {
         title: 'Plats för förskrivningsrätt',
-        description: 'Mallen har dedikerad rad för förskrivningsrätt och eventuella delegeringar bortom standard. Visar att du arbetar självständigt på senior-nivå.',
+        description: 'Förskrivningsrätt och eventuella delegeringar bortom standard får egna rader i intygsavsnittet. Visar att du arbetar självständigt på seniornivå.',
       },
     ],
 
@@ -9711,7 +9711,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Tidlös och Klinik, som ingår i Premium, läser rekryteringssystemen rätt. Region- och privata sjukhus använder oftast Heroma, Visma Recruit eller eRecruiter. Skriv ut specialistinriktning (anestesi, IVA, akut), certifikat (A-HLR, ATLS, ALS) och journalsystem (Cosmic, TakeCare) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Kalksten, som ingår i Premium, läser rekryteringssystemen rätt. Region- och privata sjukhus använder oftast Heroma, Visma Recruit eller eRecruiter. Skriv ut specialistinriktning (anestesi, IVA, akut), certifikat (A-HLR, ATLS, ALS) och journalsystem (Cosmic, TakeCare) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -9759,7 +9759,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'grundskollarare': {
     seoIntro:
-      'Som grundskollärare bedöms du på din lärarlegitimation, ämnesbehörigheter och förmåga att leda klassrum med stort spann av elever. Sveriges 290 kommuner och tusentals fristående skolor har konstant brist på behöriga grundskollärare, men rektorer slänger CV:n som inte tydligt visar exakta behörigheter och pedagogiska metoder. Ett välskrivet CV avgör om du blir kallad till intervju på den skola du faktiskt vill jobba på.\n\nVår mall för grundskollärare lyfter lärarlegitimation från Skolverket, ämnesbehörigheter och stadium (F-3, 4-6 eller 7-9) som första visuella element. Vi har strukturerat erfarenhetssektionen så att skola, huvudman och årskurs syns direkt med konkreta uppdrag som mentorskap eller ämneslagsledare. Det betyder att rektorer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: lärarexamen och lärarlegitimation från Skolverket med exakta behörigheter (åldersgrupp + ämnen), klinisk erfarenhet uppdelad per skola och årskurs, klassrumsledning och elevresultat, pedagogiska metoder (Bornholmsmodellen, Singapore-matematik, formativ bedömning), IKT-verktyg (Schoolsoft, Vklass, Unikum), eventuella specialiseringar (NPF, läs- och skrivutveckling, programmering), samt kollegiala uppdrag.\n\nNedan hittar du två CV-mallar designade för grundskollärarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad rektorer i kommunal och fristående grundskola faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som grundskollärare bedöms du på din lärarlegitimation, ämnesbehörigheter och förmåga att leda klassrum med stort spann av elever. Sveriges 290 kommuner och tusentals fristående skolor har konstant brist på behöriga grundskollärare, men rektorer slänger CV:n som inte tydligt visar exakta behörigheter och pedagogiska metoder. Ett välskrivet CV avgör om du blir kallad till intervju på den skola du faktiskt vill jobba på.\n\nVåra mallar lyfter lärarlegitimation från Skolverket, ämnesbehörigheter och stadium (F-3, 4-6 eller 7-9) som första visuella element, i Kalkstens intygsfält eller med ordningen Intyg först i Linne. Erfarenhetsavsnittet är byggt så att skola, huvudman och årskurs syns direkt med konkreta uppdrag som mentorskap eller ämneslagsledare. Det betyder att rektorer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: lärarexamen och lärarlegitimation från Skolverket med exakta behörigheter (åldersgrupp + ämnen), klinisk erfarenhet uppdelad per skola och årskurs, klassrumsledning och elevresultat, pedagogiska metoder (Bornholmsmodellen, Singapore-matematik, formativ bedömning), IKT-verktyg (Schoolsoft, Vklass, Unikum), eventuella specialiseringar (NPF, läs- och skrivutveckling, programmering), samt kollegiala uppdrag.\n\nNedan hittar du två CV-mallar som passar grundskollärarens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad rektorer i kommunal och fristående grundskola faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -9797,23 +9797,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Behörighet och ämnen överst',
-        description: 'Vår mall lyfter lärarlegitimation och dina exakta behörigheter (åldersgrupp + ämnen) som första visuella element. Rektorer skannar först efter behörighetsmatchning.',
+        description: 'Kalksten lyfter lärarlegitimation och dina exakta behörigheter (åldersgrupp + ämnen) i intygsfältet överst i sidospalten, Linne med ordningen Intyg först. Rektorer skannar först efter behörighetsmatchning.',
       },
       {
         title: 'Pedagogisk erfarenhet per skola',
-        description: 'Mallen separerar arbetsplatser (kommunal grundskola, fristående) så huvudman och årskurs syns. Du kan visa bredd över olika skolformer.',
+        description: 'Varje arbetsplats (kommunal grundskola, fristående) blir en egen post så huvudman och årskurs syns. Du kan visa bredd över olika skolformer.',
       },
       {
-        title: 'Eget block för pedagogiska metoder',
-        description: 'Bornholm, Singapore-matte, IKT-verktyg och specialpedagogiska metoder har egen sektion. Rektorer letar specifikt efter metoder de redan använder.',
+        title: 'Pedagogiska metoder som egen kompetensgrupp',
+        description: 'Bornholm, Singapore-matte, IKT-verktyg och specialpedagogiska metoder lägger du som en egen grupp under Kompetenser, med fet rubrik. Rektorer letar specifikt efter metoder de redan använder.',
       },
       {
-        title: 'Pedagog med foto ingår i Premium',
-        description: 'I lärarrollen där relationer värderas, lägger Pedagog-mallen till foto och språkkunskaper. Skapar personligt intryck för rektorer som väljer mellan kvalificerade kandidater.',
+        title: 'Kalksten med foto ingår i Premium',
+        description: 'I lärarrollen där relationer värderas har Kalksten, som ingår i Premium, en kvadratisk fotoplats bredvid namnet och språkkunskaperna i sidospalten. Det skapar ett personligt intryck för rektorer som väljer mellan kvalificerade kandidater.',
       },
       {
-        title: 'Salviegrön ton för pedagogisk identitet',
-        description: 'Vi har valt dämpade salviegröna och navy-toner som signalerar lugn och pedagogisk medvetenhet. Inget i mallen drar fokus från meritbilden.',
+        title: 'Mörkgrön ton för pedagogisk identitet',
+        description: 'Båda mallarna har en dämpad mörkgrön accent att välja, vid sidan av stålblå eller marinblå, vinröd och grå. Den signalerar lugn och pedagogisk medvetenhet. Inget i mallarna drar fokus från meritbilden.',
       },
       {
         title: 'Plats för utvecklingsprojekt',
@@ -10056,7 +10056,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och Pedagog, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala skolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Behörigheter ska skrivas precis som de står på din lärarlegitimation. Skriv ut systemnamn (Schoolsoft, Vklass, Unikum) i klartext.',
+      'Både vår gratismall Linne och Kalksten, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala skolor använder oftast Visma Recruit, fristående koncerner använder Workday eller Teamtailor. Behörigheter ska skrivas precis som de står på din lärarlegitimation. Skriv ut systemnamn (Schoolsoft, Vklass, Unikum) i klartext.',
 
     faqItems: [
       {
@@ -10077,7 +10077,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       },
       {
         q: 'Hur viktigt är NPF-kompetens?',
-        a: 'Mycket. Cirka 5-10% av eleverna har NPF-diagnos. Erfarenhet av autism, ADHD eller språkstörning är meriterande. Beskriv konkreta anpassningar du gjort och samverkan med specialpedagog. NPF-utbildning är värt att lyfta i eget block.',
+        a: 'Mycket. Cirka 5-10% av eleverna har NPF-diagnos. Erfarenhet av autism, ADHD eller språkstörning är meriterande. Beskriv konkreta anpassningar du gjort och samverkan med specialpedagog. NPF-utbildning är värd att lyfta som egen rad under Intyg.',
       },
       {
         q: 'Vilka digitala verktyg ska jag kunna 2026?',
@@ -10104,7 +10104,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'lokalvardare': {
     seoIntro:
-      'Som lokalvårdare arbetar du i en bransch med mycket stark efterfrågan i Sverige, både inom kommunal sektor och privata utförare. Yrket är ofta ingång för nyanlända och har låg tröskel utan att kräva formell utbildning. Stora utförare som ISS, Sodexo, Compass och Förenade Service tillsammans med tusentals mindre städbolag har konstant öppna roller, men arbetsledare slänger CV:n som inte tydligt visar erfarenhet, körkort och språk. Ett välskrivet CV avgör om du blir kallad till intervju.\n\nVår mall för lokalvårdare lyfter erfarenhet, körkort och språkkunskaper som första visuella element. Vi har strukturerat erfarenhetssektionen så att arbetsplats, lokaltyp och tidsperiod syns direkt med eventuella specialiseringar. Det betyder att arbetsledare kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet av specifika lokaltyper (kontor, skola, vård, industri), körkort B (ofta krav vid områdesservice), kemi- och hygienutbildning, eventuell specialisering (storstädning, fönsterputsning, golvskötsel, vårdhygien), schemaflexibilitet (kvällar, helger, tidiga morgnar), samt språkkunskaper.\n\nNedan hittar du två CV-mallar designade för lokalvårdarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad arbetsledare på städbolag och kommunal sektor faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som lokalvårdare arbetar du i en bransch med mycket stark efterfrågan i Sverige, både inom kommunal sektor och privata utförare. Yrket är ofta ingång för nyanlända och har låg tröskel utan att kräva formell utbildning. Stora utförare som ISS, Sodexo, Compass och Förenade Service tillsammans med tusentals mindre städbolag har konstant öppna roller, men arbetsledare slänger CV:n som inte tydligt visar erfarenhet, körkort och språk. Ett välskrivet CV avgör om du blir kallad till intervju.\n\nVåra mallar lyfter erfarenhet, körkort och språkkunskaper som första visuella element, i Granits högerspalt eller med ordningen Intyg först i Linne. Erfarenhetsavsnittet är byggt så att arbetsplats, lokaltyp och tidsperiod syns direkt med eventuella specialiseringar. Det betyder att arbetsledare kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet av specifika lokaltyper (kontor, skola, vård, industri), körkort B (ofta krav vid områdesservice), kemi- och hygienutbildning, eventuell specialisering (storstädning, fönsterputsning, golvskötsel, vårdhygien), schemaflexibilitet (kvällar, helger, tidiga morgnar), samt språkkunskaper.\n\nNedan hittar du två CV-mallar som passar lokalvårdarens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad arbetsledare på städbolag och kommunal sektor faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -10142,27 +10142,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Lokaltyp och körkort överst',
-        description: 'Vår mall lyfter erfarenhet av lokaltyper, körkort och språk i sidopanelen. Arbetsledare ser dina baskrav på fem sekunder utan att behöva scrolla.',
+        description: 'I Granit lägger du lokaltyper som kompetensgrupp, körkortet i intygsfältet och språken i språkavsnittet, allt i den mörka högerspalten. Arbetsledare ser dina baskrav på fem sekunder utan att behöva scrolla.',
       },
       {
         title: 'Erfarenhet per arbetsplats',
-        description: 'Mallen separerar arbetsplatser, lokaltyp och tidsperiod så bredd syns. Du kan visa erfarenhet från flera kunder utan att meriter konkurrerar om samma yta.',
+        description: 'Varje arbetsplats blir en egen post med lokaltyp och tidsperiod så bredden syns. Du kan visa erfarenhet från flera kunder utan att meriter konkurrerar om samma yta.',
       },
       {
-        title: 'Eget block för utbildningar och certifikat',
-        description: 'Kemikaliehantering, vårdhygien, fönsterputs, golvbehandling. Mallen lyfter formell kompetens som eget block med utgångsdatum.',
+        title: 'Utbildningar och certifikat i intygsavsnittet',
+        description: 'Kemikaliehantering, vårdhygien, fönsterputs, golvbehandling. Intygsavsnittet listar formell kompetens rad för rad med utgivare och år.',
       },
       {
-        title: 'Logistik-mallens industriella DNA',
-        description: 'För senior-roller som arbetsledare lägger Logistik-mallen till industriell typografi och tabellär layout. Skapar professionell first impression utan att kompromissa med ATS-läsbarhet.',
+        title: 'Granit med foto ingår i Premium',
+        description: 'För seniora roller som arbetsledare ger Granit, som ingår i Premium, rund fotoplats i ett mörkt huvudband och en mörk högerspalt med intyg och kompetenser. Det skapar ett professionellt första intryck utan att kompromissa med ATS-läsbarheten.',
       },
       {
         title: 'Plats för språk och kulturell kompetens',
-        description: 'Mallen har dedikerat block för språkkunskaper utöver svenska och engelska, vilket är värdefullt i internationella team.',
+        description: 'Språkavsnittet listar varje språk med nivå, i Granit i högerspalten, så språk utöver svenska och engelska syns direkt, vilket är värdefullt i internationella team.',
       },
       {
-        title: 'Schema-block i sidopanelen',
-        description: 'Mallen har dedikerat block för tillgänglighet (tidiga morgnar, kvällar, helger). Arbetsledare behöver veta direkt vilka pass du kan ta.',
+        title: 'Tillgängligheten som egen kompetensgrupp',
+        description: 'Lägg tillgänglighet (tidiga morgnar, kvällar, helger) som en egen grupp under Kompetenser, i Granit hamnar den i högerspalten. Arbetsledare behöver veta direkt vilka pass du kan ta.',
       },
     ],
 
@@ -10383,7 +10383,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       { sektion: 'Erfarenhet', tips: 'Arbetsgivare, lokaltyp, period. Konkretisera specialiseringar och certifikat.' },
       { sektion: 'Utbildning', tips: 'Eventuell utbildning, integrationsutbildning eller YH. Internutbildningar räknas.' },
       { sektion: 'Kompetenser', tips: 'Specialiseringar, kemikalievana, säkerhetsutbildning. Var konkret.' },
-      { sektion: 'Certifikat', tips: 'Eget block med vårdhygien, fönsterputs, sanering, kemikaliehantering med datum.' },
+      { sektion: 'Certifikat', tips: 'Intygsavsnittet med vårdhygien, fönsterputs, sanering, kemikaliehantering med år.' },
       { sektion: 'Övrigt', tips: 'Körkort B, språk, tillgänglighet för specifika tider.' },
     ],
 
@@ -10401,7 +10401,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Logistik och Disk, som ingår i Premium, läser rekryteringssystemen rätt. Stora städbolag som ISS, Sodexo och Förenade Service använder oftast Workday eller Teamtailor. Skriv ut lokaltyper (vårdstädning, kontorsstädning), specialiseringar (vårdhygien, fönsterputs) och certifikat i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Granit, som ingår i Premium, läser rekryteringssystemen rätt. Stora städbolag som ISS, Sodexo och Förenade Service använder oftast Workday eller Teamtailor. Skriv ut lokaltyper (vårdstädning, kontorsstädning), specialiseringar (vårdhygien, fönsterputs) och certifikat i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -10449,7 +10449,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'logistiker': {
     seoIntro:
-      'Som logistiker bedöms du på din kompetens inom planering, supply chain och affärssystem-vana. Sverige har stark logistiksektor med både svenska bolag som DB Schenker, PostNord, DSV och internationella som Maersk, DHL. Industrin behöver också kvalificerade logistiker. Ett välskrivet CV avgör om du blir kallad till intervju på de bolag du faktiskt vill jobba på.\n\nVår mall för logistiker lyfter examen, affärssystem och konkreta logistik-resultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, roll och typ av logistik (3PL, in-house, e-handel, industri) syns direkt med dina nyckelresultat. Det betyder att logistikchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: civilekonom eller civilingenjör med inriktning logistik, eller YH-utbildning, affärssystem (SAP, Microsoft Dynamics, Oracle, Manhattan, Pyramid), Excel- och BI-färdigheter (Power BI, Power Query), supply chain-metodik (Lean, Six Sigma, JIT, Kanban), branschvana (e-handel, industri, dagligvaruhandel, fordon), incoterms och tullkunskap, eventuella certifieringar, samt konkreta resultat (kostnadsbesparing, ledtid, leveransprecision).\n\nNedan hittar du två CV-mallar designade för logistikrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad logistikchefer på industri, e-handel och 3PL-bolag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som logistiker bedöms du på din kompetens inom planering, supply chain och affärssystem-vana. Sverige har stark logistiksektor med både svenska bolag som DB Schenker, PostNord, DSV och internationella som Maersk, DHL. Industrin behöver också kvalificerade logistiker. Ett välskrivet CV avgör om du blir kallad till intervju på de bolag du faktiskt vill jobba på.\n\nVåra mallar lyfter examen, affärssystem och konkreta logistikresultat som första visuella element, i Granits högerspalt eller med ordningen Kompetenser först i Linne. Erfarenhetsavsnittet är byggt så att bolag, roll och typ av logistik (3PL, in-house, e-handel, industri) syns direkt med dina nyckelresultat. Det betyder att logistikchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: civilekonom eller civilingenjör med inriktning logistik, eller YH-utbildning, affärssystem (SAP, Microsoft Dynamics, Oracle, Manhattan, Pyramid), Excel- och BI-färdigheter (Power BI, Power Query), supply chain-metodik (Lean, Six Sigma, JIT, Kanban), branschvana (e-handel, industri, dagligvaruhandel, fordon), incoterms och tullkunskap, eventuella certifieringar, samt konkreta resultat (kostnadsbesparing, ledtid, leveransprecision).\n\nNedan hittar du två CV-mallar som passar logistikerns meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad logistikchefer på industri, e-handel och 3PL-bolag faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -10487,27 +10487,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Examen och affärssystem överst',
-        description: 'Vår mall lyfter examen, affärssystem och eventuella certifieringar i sidopanelen. Logistikchefer ser dina baskompetenser på fem sekunder.',
+        description: 'Granit lyfter affärssystem och certifieringar i den mörka högerspalten, med examen överst i huvudspalten om du väljer Utbildning först. Logistikchefer ser dina baskompetenser på fem sekunder.',
       },
       {
         title: 'Erfarenhet med logistik-resultat',
-        description: 'Mallen separerar bolag och dina logistik-bidrag (kostnadsbesparingar, ledtid, leveransprecision). Du kan visa både bredd och djup utan att meriter konkurrerar.',
+        description: 'Varje bolag blir en egen post med dina logistikbidrag (kostnadsbesparingar, ledtid, leveransprecision) som punkter. Du kan visa både bredd och djup utan att meriter konkurrerar.',
       },
       {
-        title: 'Eget block för system och metodik',
-        description: 'SAP, Manhattan, Lean, Six Sigma. Mallen separerar system och metodik från generiska kompetenser så logistikchefer ser specifik nivå direkt.',
+        title: 'System och metodik som egna kompetensgrupper',
+        description: 'SAP, Manhattan, Lean, Six Sigma. Lägg system och metodik som egna grupper under Kompetenser, skilda från de generiska, så logistikchefer ser specifik nivå direkt.',
       },
       {
-        title: 'Aspekt med fokusområden ingår i Premium',
-        description: 'För senior logistik-roller och supply chain manager lägger Aspekt till "Fokusområden"-pills och slate-blå accent. Skapar professionell first impression.',
+        title: 'Granit med foto ingår i Premium',
+        description: 'För seniora logistikroller och supply chain manager ger Granit, som ingår i Premium, rund fotoplats i ett mörkt huvudband och en mörk högerspalt med kompetenser och intyg. Det skapar ett professionellt första intryck.',
       },
       {
         title: 'Plats för bransch och processdjup',
-        description: 'Mallen har dedikerade rader för branschvana (e-handel, industri, 3PL) och processdjup (S&OP, demand planning, inköp). Visar djup utan att blanda med generisk kompetens.',
+        description: 'Branschvana (e-handel, industri, 3PL) och processdjup (S&OP, demand planning, inköp) får egna kompetensgrupper. Visar djup utan att blanda med generisk kompetens.',
       },
       {
         title: 'Sober färgsättning för logistikbranschen',
-        description: 'Vi har valt slate-blå och navy-toner som signalerar professionalism och pålitlighet. Passar både konsultbolag och industribolag.',
+        description: 'Granit har antracit som förval och Linne marinblå, båda med mörkgrön och ytterligare en ton som alternativ. Dämpade färger som signalerar professionalism och pålitlighet. Passar både konsultbolag och industribolag.',
       },
     ],
 
@@ -10726,9 +10726,9 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'Senioritet, bransch, examen och primära system på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Bolag, roll, period, omfattning. Konkretisera affärsresultat och processförbättringar.' },
-      { sektion: 'Utbildning', tips: 'Civilekonom eller civilingenjör med inriktning, lärosäte, år. APICS, Six Sigma i eget block.' },
+      { sektion: 'Utbildning', tips: 'Civilekonom eller civilingenjör med inriktning, lärosäte, år. APICS, Six Sigma som egna rader under Intyg.' },
       { sektion: 'Kompetenser', tips: 'System, metodik, branschdjup. Var konkret om Excel-nivå.' },
-      { sektion: 'Certifieringar', tips: 'Eget block med APICS CPIM/CSCP, Six Sigma, Lean och datum.' },
+      { sektion: 'Certifieringar', tips: 'Intygsavsnittet med APICS CPIM/CSCP, Six Sigma, Lean och år.' },
       { sektion: 'Övrigt', tips: 'Branschvana, internationell erfarenhet, eventuella språk för global logistik.' },
     ],
 
@@ -10746,7 +10746,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Logistik och Logistik Plus, som ingår i Premium, läser rekryteringssystemen rätt. Storbolag som DB Schenker och PostNord använder oftast Workday eller egna ATS. Industribolag använder Workday eller SuccessFactors. Skriv ut affärssystem (SAP, Microsoft Dynamics), WMS (Manhattan, Pyramid) och metodik (Lean, Six Sigma, S&OP) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Granit, som ingår i Premium, läser rekryteringssystemen rätt. Storbolag som DB Schenker och PostNord använder oftast Workday eller egna ATS. Industribolag använder Workday eller SuccessFactors. Skriv ut affärssystem (SAP, Microsoft Dynamics), WMS (Manhattan, Pyramid) och metodik (Lean, Six Sigma, S&OP) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -10794,13 +10794,13 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'hotellvard': {
     seoIntro:
-      'Som hotellvärd är du ansiktet utåt för hotellet och avgör gästens första intryck. Hotellkedjor som Scandic, Elite, Nordic Choice, Radisson, Clarion samt boutique- och designhotell har konstant öppna roller, men hotellchefer slänger CV:n som inte tydligt visar språk, system och representativ erfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på det hotell du faktiskt vill jobba på.\n\nVår mall för hotellvärdar lyfter språkkunskaper, PMS-vana och representativ erfarenhet som första visuella element. Vi har strukturerat erfarenhetssektionen så att hotell, kategori (kedja, boutique, premium) och tidsperiod syns direkt med eventuella ansvarsområden. Det betyder att hotellchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet inom hotell- eller serviceverksamhet, PMS-system (Opera, Mews, Cloudbeds, Hotsoft), bokningssystem (Booking.com, Expedia, kanalmanager), språkkunskaper med nivå, telefonväxel-vana, multitasking-förmåga, eventuell utbildning (Hotell- och restaurangprogrammet, hotellutbildning), samt schemaflexibilitet för rotation, kvällar, helger och nätter.\n\nNedan hittar du två CV-mallar designade för hotellvärdrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad hotellchefer på kedjor, boutique- och premium-hotell faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som hotellvärd är du ansiktet utåt för hotellet och avgör gästens första intryck. Hotellkedjor som Scandic, Elite, Nordic Choice, Radisson, Clarion samt boutique- och designhotell har konstant öppna roller, men hotellchefer slänger CV:n som inte tydligt visar språk, system och representativ erfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på det hotell du faktiskt vill jobba på.\n\nVåra mallar lyfter språkkunskaper, PMS-vana och representativ erfarenhet som första visuella element när du väljer ordningen Kompetenser först. Erfarenhetsavsnittet är byggt så att hotell, kategori (kedja, boutique, premium) och tidsperiod syns direkt med eventuella ansvarsområden. Det betyder att hotellchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet inom hotell- eller serviceverksamhet, PMS-system (Opera, Mews, Cloudbeds, Hotsoft), bokningssystem (Booking.com, Expedia, kanalmanager), språkkunskaper med nivå, telefonväxel-vana, multitasking-förmåga, eventuell utbildning (Hotell- och restaurangprogrammet, hotellutbildning), samt schemaflexibilitet för rotation, kvällar, helger och nätter.\n\nNedan hittar du två CV-mallar som passar hotellvärdens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad hotellchefer på kedjor, boutique- och premium-hotell faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
         icon: 'Target',
         title: 'Språkkunskaper är hård valuta',
-        description: 'Engelska är förmodat. Tyska, franska, spanska, ryska, kinesiska, japanska eller arabiska är meriterande för internationella hotell. Ange nivå (modersmål, flytande, konversation) i sidopanelen.',
+        description: 'Engelska är förmodat. Tyska, franska, spanska, ryska, kinesiska, japanska eller arabiska är meriterande för internationella hotell. Ange nivå (modersmål, flytande, konversation) i språkavsnittet.',
       },
       {
         icon: 'Briefcase',
@@ -10832,19 +10832,19 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Språk och PMS överst',
-        description: 'Vår mall lyfter språkkunskaper och PMS-system i sidopanelen. Hotellchefer ser dina baskrav på fem sekunder utan att behöva scrolla.',
+        description: 'Lägg PMS-systemen som en egen kompetensgrupp och välj Kompetenser först, så ligger system och språk direkt under profilen i båda mallarna. Hotellchefer ser dina baskrav på fem sekunder utan att behöva scrolla.',
       },
       {
         title: 'Erfarenhet per hotell och kategori',
-        description: 'Mallen separerar hotellkategorier (boutique, kedja, premium) så bredd syns. Du kan visa erfarenhet från flera segment utan att meriter konkurrerar.',
+        description: 'Varje hotell blir en egen post där kategorin (boutique, kedja, premium) står på egen rad så bredden syns. Du kan visa erfarenhet från flera segment utan att meriter konkurrerar.',
       },
       {
-        title: 'Eget block för system och certifikat',
-        description: 'Opera PMS, Mews, eventuella språkcertifikat. Mallen lyfter formell kompetens som eget block med utgångsdatum.',
+        title: 'System och certifikat i intygsavsnittet',
+        description: 'Opera PMS, Mews, eventuella språkcertifikat. Intygsavsnittet listar formell kompetens rad för rad med utgivare och år.',
       },
       {
-        title: 'Disk Plus med foto ingår i Premium',
-        description: 'För premium-hotell där förstaintrycket räknas, lägger Disk Plus till foto. För hotellbranschen är det en stark fördel utan att kompromissa med ATS-läsbarhet.',
+        title: 'Raster med tonade rubrikband ingår i Premium',
+        description: 'För hotell där förstaintrycket räknas ger Raster, som ingår i Premium, rubriker som tonade färgband och kompetenserna i två spalter. Vill du ha foto väljer du Koppar i stället, som också ingår i Premium. Båda klarar ATS-läsningen.',
       },
       {
         title: 'Plats för representativa meriter',
@@ -10852,7 +10852,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       },
       {
         title: 'Energisk men professionell färgsättning',
-        description: 'Vi har valt emerald-accent som signalerar service och professionalism. Lagom modern utan att bli flashig för hotellbranschen.',
+        description: 'Raster har teal som förval, med marinblå, plommon och olivgrön som alternativ, Linne marinblå, mörkgrön, vinröd och grå. Lagom modernt utan att bli flashigt för hotellbranschen.',
       },
     ],
 
@@ -11073,7 +11073,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       { sektion: 'Erfarenhet', tips: 'Hotell, position, period, system. Konkretisera volymer och eventuella ansvarsområden.' },
       { sektion: 'Utbildning', tips: 'Hotell- och restaurangprogrammet, YH eller internutbildningar (Scandic Academy, Elite Academy).' },
       { sektion: 'Kompetenser', tips: 'PMS-system, bokningssystem, Office-paketet. Var konkret om vilka system du behärskar.' },
-      { sektion: 'Språk', tips: 'Eget block i sidopanelen med språk och nivå. Lyft alla språk även konversationsnivå.' },
+      { sektion: 'Språk', tips: 'Eget avsnitt med språk och nivå på varje rad. Lyft alla språk även konversationsnivå.' },
       { sektion: 'Övrigt', tips: 'Tillgänglighet (rotation, kvällar, natt, helger), eventuell körkortsbehörighet.' },
     ],
 
@@ -11091,7 +11091,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Disk och Disk Plus, som ingår i Premium, läser rekryteringssystemen rätt. Hotellkedjor som Scandic och Elite använder oftast Workday eller Teamtailor. Internationella kedjor (Marriott, Hilton) använder egna ATS. Skriv ut PMS-system (Opera, Mews), bokningssystem (Booking.com, Expedia) och språk i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Raster, som ingår i Premium, läser rekryteringssystemen rätt. Hotellkedjor som Scandic och Elite använder oftast Workday eller Teamtailor. Internationella kedjor (Marriott, Hilton) använder egna ATS. Skriv ut PMS-system (Opera, Mews), bokningssystem (Booking.com, Expedia) och språk i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -11139,7 +11139,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'psykolog': {
     seoIntro:
-      'Som psykolog bedöms du på din legitimation, terapeutiska metoder och din förmåga att arbeta evidensbaserat med klienter. Region, kommun, privata mottagningar och företagshälsa har växande efterfrågan på legitimerade psykologer i Sverige, men verksamhetschefer slänger CV:n som inte tydligt visar PTP-status, terapeutisk inriktning och klientgrupper. Ett välskrivet CV avgör om du blir kallad till intervju på den verksamhet du faktiskt vill jobba på.\n\nVår mall för psykologer lyfter legitimation från Socialstyrelsen, terapeutisk inriktning och klientgrupper som första visuella element. Vi har strukturerat erfarenhetssektionen så att arbetsplats, klientgrupp och tidsperiod syns direkt med eventuella forskningsmeriter eller specialistutbildningar. Det betyder att verksamhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: psykologprogrammet med examen, PTP-tjänstgöring, legitimation från Socialstyrelsen, terapeutisk inriktning (KBT, PDT, ACT, EMDR, IPT, schematerapi), klientgrupper (vuxen, barn, par, neuropsykiatri, missbruk), eventuell specialistexamen (klinisk vuxen, klinisk barn, neuropsykologi, organisationspsykologi), bedömnings- och testmetoder, journalsystem (TakeCare, Cosmic, Kaddio), samt eventuell forskning eller publikationer.\n\nNedan hittar du två CV-mallar designade för psykologrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad verksamhetschefer på regional sjukvård, primärvård, kommunal verksamhet och privata mottagningar faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som psykolog bedöms du på din legitimation, terapeutiska metoder och din förmåga att arbeta evidensbaserat med klienter. Region, kommun, privata mottagningar och företagshälsa har växande efterfrågan på legitimerade psykologer i Sverige, men verksamhetschefer slänger CV:n som inte tydligt visar PTP-status, terapeutisk inriktning och klientgrupper. Ett välskrivet CV avgör om du blir kallad till intervju på den verksamhet du faktiskt vill jobba på.\n\nVåra mallar lyfter legitimation från Socialstyrelsen, terapeutisk inriktning och klientgrupper som första visuella element, i Kalkstens intygsfält eller med ordningen Intyg först i Linne. Erfarenhetsavsnittet är byggt så att arbetsplats, klientgrupp och tidsperiod syns direkt med eventuella forskningsmeriter eller specialistutbildningar. Det betyder att verksamhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: psykologprogrammet med examen, PTP-tjänstgöring, legitimation från Socialstyrelsen, terapeutisk inriktning (KBT, PDT, ACT, EMDR, IPT, schematerapi), klientgrupper (vuxen, barn, par, neuropsykiatri, missbruk), eventuell specialistexamen (klinisk vuxen, klinisk barn, neuropsykologi, organisationspsykologi), bedömnings- och testmetoder, journalsystem (TakeCare, Cosmic, Kaddio), samt eventuell forskning eller publikationer.\n\nNedan hittar du två CV-mallar som passar psykologens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad verksamhetschefer på regional sjukvård, primärvård, kommunal verksamhet och privata mottagningar faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -11177,27 +11177,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Legitimation och inriktning överst',
-        description: 'Vår mall Klinik har dedikerad sidopanel för Socialstyrelsens legitimation, terapeutisk inriktning och eventuell specialistexamen. Verksamhetschefer ser dina meriter på fem sekunder.',
+        description: 'Vår mall Kalksten har ett intygsfält överst i sidospalten för Socialstyrelsens legitimation, terapeutisk inriktning och eventuell specialistexamen. Verksamhetschefer ser dina meriter på fem sekunder. I Linne väljer du Intyg först.',
       },
       {
         title: 'Klinisk erfarenhet uppdelad per område',
-        description: 'Mallen separerar slutenvård, primärvård, kommunal verksamhet och privatpraktik så klientgrupper syns. Du kan visa bredd över olika vårdformer utan att meriter konkurrerar.',
+        description: 'Slutenvård, primärvård, kommunal verksamhet och privatpraktik blir egna poster så klientgrupper syns. Du kan visa bredd över olika vårdformer utan att meriter konkurrerar.',
       },
       {
-        title: 'Eget block för terapeutiska metoder',
-        description: 'KBT, PDT, ACT, EMDR. Mallen lyfter terapimetoder som eget block så verksamhetschefer letar specifikt efter metoder de redan använder på mottagningen.',
+        title: 'Terapeutiska metoder som egen kompetensgrupp',
+        description: 'KBT, PDT, ACT, EMDR. Lägg terapimetoderna som en egen grupp under Kompetenser, med fet rubrik, så verksamhetschefer direkt hittar de metoder de redan använder på mottagningen.',
       },
       {
         title: 'Plats för forskningsmeriter',
-        description: 'Mallen har dedikerat block för publikationer, forskningsbidrag och eventuell licentiat eller disputation. Centralt för universitetssjukhus och regionalanknutna specialistkliniker.',
+        description: 'Avsnittet Projekt och publikationer rymmer publikationer, forskningsbidrag och eventuell licentiat eller disputation. Centralt för universitetssjukhus och regionanknutna specialistkliniker.',
       },
       {
-        title: 'Tidlös serif för formell prestige',
-        description: 'Vi har valt formell serif-typografi som signalerar akademisk grund och evidensbaserad praxis. Vården och Region Sverige värderar formell uttryckssätt på CV:t.',
+        title: 'Georgia i rubrikerna för formell tyngd',
+        description: 'Båda mallarna har Georgia i namn och rubriker och Calibri i brödtexten, en kombination som signalerar akademisk grund och evidensbaserad praxis. Vården och regionerna värderar ett formellt uttryck på CV:t.',
       },
       {
-        title: 'Klinik med foto ingår i Premium',
-        description: 'För senior-roller och privatpraktik lägger Klinik-mallen till foto och LinkedIn. Skapar mer personlig first impression utan att kompromissa med ATS-läsbarhet.',
+        title: 'Kalksten med foto ingår i Premium',
+        description: 'För seniora roller och privatpraktik har Kalksten, som ingår i Premium, en kvadratisk fotoplats bredvid namnet. LinkedIn får plats i kontaktraden i båda mallarna. Det ger ett mer personligt första intryck utan att kompromissa med ATS-läsbarheten.',
       },
     ],
 
@@ -11436,7 +11436,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Tidlös och Klinik, som ingår i Premium, läser rekryteringssystemen rätt. Region- och privata sjukhus använder oftast Heroma, Visma Recruit eller eRecruiter. Skriv ut terapeutiska metoder (KBT, PDT, ACT, EMDR), specialistutbildningar och journalsystem (TakeCare, Cosmic) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Kalksten, som ingår i Premium, läser rekryteringssystemen rätt. Region- och privata sjukhus använder oftast Heroma, Visma Recruit eller eRecruiter. Skriv ut terapeutiska metoder (KBT, PDT, ACT, EMDR), specialistutbildningar och journalsystem (TakeCare, Cosmic) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -11484,7 +11484,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'lss-handlaggare': {
     seoIntro:
-      'Som LSS-handläggare bedöms du på din socionomexamen, lagstiftningskunskap och förmåga att fatta rättssäkra biståndsbeslut. Sveriges 290 kommuner har konstant brist på LSS-handläggare, men enhetschefer slänger CV:n som inte tydligt visar SoL/LSS-vana, ärendevolym och systemerfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på den förvaltning du faktiskt vill jobba på.\n\nVår mall för LSS-handläggare lyfter socionomexamen, lagstiftningsområde och utredningsmetodik som första visuella element. Vi har strukturerat erfarenhetssektionen så att förvaltning, ärendetyp och tidsperiod syns direkt med konkreta utredningsuppdrag och eventuella specialiseringar (NPF, autism, intellektuell funktionsnedsättning). Det betyder att enhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: socionomexamen från svenskt lärosäte, LSS och SoL-kunskap (specifikt §§ 9-10 LSS), utredningsmetodik (BBIC för barn, IBIC för vuxna, ASI), ärendehanteringssystem (Treserva, Procapita, Lifecare), målgruppskunskap (NPF, autism, intellektuell funktionsnedsättning, fysisk funktionsnedsättning), eventuella specialuppdrag (omprövningar, överklaganden, förvaltningsdomstol), samt kollektivavtal-erfarenhet med Vision eller SSR.\n\nNedan hittar du två CV-mallar designade för LSS-handläggarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer i kommunal socialtjänst och funktionsstöd faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som LSS-handläggare bedöms du på din socionomexamen, lagstiftningskunskap och förmåga att fatta rättssäkra biståndsbeslut. Sveriges 290 kommuner har konstant brist på LSS-handläggare, men enhetschefer slänger CV:n som inte tydligt visar SoL/LSS-vana, ärendevolym och systemerfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på den förvaltning du faktiskt vill jobba på.\n\nVåra mallar lyfter socionomexamen, lagstiftningsområde och utredningsmetodik som första visuella element när du väljer ordningen Utbildning först. Erfarenhetsavsnittet är byggt så att förvaltning, ärendetyp och tidsperiod syns direkt med konkreta utredningsuppdrag och eventuella specialiseringar (NPF, autism, intellektuell funktionsnedsättning). Det betyder att enhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: socionomexamen från svenskt lärosäte, LSS och SoL-kunskap (specifikt §§ 9-10 LSS), utredningsmetodik (BBIC för barn, IBIC för vuxna, ASI), ärendehanteringssystem (Treserva, Procapita, Lifecare), målgruppskunskap (NPF, autism, intellektuell funktionsnedsättning, fysisk funktionsnedsättning), eventuella specialuppdrag (omprövningar, överklaganden, förvaltningsdomstol), samt kollektivavtal-erfarenhet med Vision eller SSR.\n\nNedan hittar du två CV-mallar som passar LSS-handläggarens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer i kommunal socialtjänst och funktionsstöd faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -11522,23 +11522,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Examen och lagstiftning överst',
-        description: 'Vår mall Myndighet har dedikerad sidopanel för socionomexamen, LSS-vana och utredningsmetodik. Enhetschefer ser dina behörigheter på fem sekunder utan att scrolla.',
+        description: 'Välj ordningen Utbildning först så ligger socionomexamen direkt under profilen i båda mallarna, med LSS-vana och utredningsmetodik som egna kompetensgrupper strax under. Enhetschefer ser dina behörigheter på fem sekunder utan att scrolla.',
       },
       {
-        title: 'Konservativ navy och svartvit',
-        description: 'Offentlig sektor värderar saklighet. Vi har valt navy + svartvit grundpalett som signalerar formell prestige. Inga distraherande färger som drar fokus från ärendevolym och rättskunskap.',
+        title: 'Konservativt vinrött eller marinblått',
+        description: 'Offentlig sektor värderar saklighet. Antikva har vinröd accent som förval och Linne marinblå, båda på svartvit grund, vilket signalerar formell tyngd. Inga distraherande färger som drar fokus från ärendevolym och rättskunskap.',
       },
       {
-        title: '§-symboler i bullets',
-        description: 'Vi använder §-symboler i listpunkter för att påminna om förvaltningsrätten. Subtil designdetalj som signalerar att du förstår branschens visuella språk.',
+        title: 'Times New Roman och dubbel linje',
+        description: 'Antikva har Times New Roman rakt igenom och en dubbel linje under det centrerade huvudet, som i ett formellt beslut. Subtila designdetaljer som signalerar att du förstår förvaltningens visuella språk.',
       },
       {
-        title: 'Myndighet Plus med guldaccent ingår i Premium',
-        description: 'För senior-roller (1:e-handläggare, enhetschef) lägger Myndighet Plus till centrerad serif-header och guld-accent-band. Skapar prestige-känsla utan att kompromissa med ATS-läsbarhet.',
+        title: 'Antikva med centrerat huvud ingår i Premium',
+        description: 'För seniora roller (1:e-handläggare, enhetschef) ger Antikva, som ingår i Premium, ett centrerat huvud i serif med dubbel linje i accentfärgen och centrerade rubriker i versaler. Det skapar tyngd utan att kompromissa med ATS-läsbarheten.',
       },
       {
         title: 'Plats för volymsstatistik',
-        description: 'Mallen har dedikerade rader för ärendevolym, utredningar per år och eventuella beslutsantal. Konkreta siffror lyfts visuellt utan att blandas med löpande text.',
+        description: 'Ärendevolym, utredningar per år och eventuella beslutsantal får egna punkter under varje anställning. Konkreta siffror står för sig utan att blandas med löpande text.',
       },
       {
         title: 'Plats för specialuppdrag',
@@ -11761,9 +11761,9 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'Examen, år av erfarenhet, LSS-vana, system och målgrupp på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Förvaltning, tidsperiod, ärendetyp, volym. Konkretisera personkrets och insatstyper.' },
-      { sektion: 'Utbildning', tips: 'Socionomexamen, lärosäte, år. Vidareutbildningar (IBIC-cert, MI, fördjupning LSS) i eget block.' },
+      { sektion: 'Utbildning', tips: 'Socionomexamen, lärosäte, år. Vidareutbildningar (IBIC-cert, MI, fördjupning LSS) som egna rader under Intyg.' },
       { sektion: 'Kompetenser', tips: 'Lagstiftning, system, utredningsmetodik. Var konkret om vilka delar av LSS du arbetat med.' },
-      { sektion: 'Specialuppdrag', tips: 'Eget block för omprövningar, överklaganden, förvaltningsdomstol.' },
+      { sektion: 'Specialuppdrag', tips: 'Eget avsnitt, Projekt, för omprövningar, överklaganden, förvaltningsdomstol.' },
       { sektion: 'Övrigt', tips: 'Språkkunskaper utöver svenska, eventuell handledarutbildning, tillgänglighet.' },
     ],
 
@@ -11781,7 +11781,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Myndighet och Myndighet Plus, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala arbetsgivare använder Visma Recruit eller egna system. Lagrum (LSS, SoL, OSL) och systemnamn (Treserva, Procapita) är typiska sökord. Skriv ut dem exakt eftersom rekryterare filtrerar mot jobbannonsens språk.',
+      'Både vår gratismall Linne och Antikva, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala arbetsgivare använder Visma Recruit eller egna system. Lagrum (LSS, SoL, OSL) och systemnamn (Treserva, Procapita) är typiska sökord. Skriv ut dem exakt eftersom rekryterare filtrerar mot jobbannonsens språk.',
 
     faqItems: [
       {
@@ -11829,7 +11829,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'specialpedagog': {
     seoIntro:
-      'Som specialpedagog bedöms du på din specialpedagogexamen, lärarlegitimation och förmåga att stödja elever i behov av särskilt stöd. Sveriges kommunala och fristående skolor har konstant brist på specialpedagoger, men rektorer och elevhälsoteam slänger CV:n som inte tydligt visar specialisering, åtgärdsprogram-vana och samverkan med EHT. Ett välskrivet CV avgör om du blir kallad till intervju på den skola du faktiskt vill jobba på.\n\nVår mall för specialpedagoger lyfter specialpedagogexamen, lärarlegitimation och elevgruppsspecialisering som första visuella element. Vi har strukturerat erfarenhetssektionen så att skola, åldersgrupp och insatser syns direkt med eventuella forskningsmeriter eller utvecklingsuppdrag. Det betyder att rektorer och elevhälsochefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: lärarexamen plus specialpedagogexamen (magisterexamen 90 hp), lärarlegitimation från Skolverket, specialisering (NPF, läs- och skrivsvårigheter, dövhet, intellektuell funktionsnedsättning, ESS), åtgärdsprogram-arbete, IUP och anpassningar, samverkan med elevhälsoteam, system (Schoolsoft, Vklass, Unikum), eventuell handledning av lärare, samt forskningsmeriter eller publikationer.\n\nNedan hittar du två CV-mallar designade för specialpedagogrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad rektorer och elevhälsochefer i kommunal och fristående grundskola, gymnasium och anpassad skola faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som specialpedagog bedöms du på din specialpedagogexamen, lärarlegitimation och förmåga att stödja elever i behov av särskilt stöd. Sveriges kommunala och fristående skolor har konstant brist på specialpedagoger, men rektorer och elevhälsoteam slänger CV:n som inte tydligt visar specialisering, åtgärdsprogram-vana och samverkan med EHT. Ett välskrivet CV avgör om du blir kallad till intervju på den skola du faktiskt vill jobba på.\n\nVåra mallar lyfter specialpedagogexamen, lärarlegitimation och elevgruppsspecialisering som första visuella element, i Kalkstens sidospalt eller med ordningen Utbildning först i Linne. Erfarenhetsavsnittet är byggt så att skola, åldersgrupp och insatser syns direkt med eventuella forskningsmeriter eller utvecklingsuppdrag. Det betyder att rektorer och elevhälsochefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: lärarexamen plus specialpedagogexamen (magisterexamen 90 hp), lärarlegitimation från Skolverket, specialisering (NPF, läs- och skrivsvårigheter, dövhet, intellektuell funktionsnedsättning, ESS), åtgärdsprogram-arbete, IUP och anpassningar, samverkan med elevhälsoteam, system (Schoolsoft, Vklass, Unikum), eventuell handledning av lärare, samt forskningsmeriter eller publikationer.\n\nNedan hittar du två CV-mallar som passar specialpedagogens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad rektorer och elevhälsochefer i kommunal och fristående grundskola, gymnasium och anpassad skola faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -11867,23 +11867,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Examen och specialisering överst',
-        description: 'Vår mall lyfter specialpedagogexamen, lärarlegitimation och elevgruppsspecialisering i sidopanelen. Rektorer och elevhälsochefer ser dina behörigheter på fem sekunder.',
+        description: 'Kalksten lyfter lärarlegitimationen i intygsfältet och elevgruppsspecialiseringen som kompetensgrupp, båda i sidospalten, medan examen ligger överst i huvudspalten med ordningen Utbildning först. Rektorer och elevhälsochefer ser dina behörigheter på fem sekunder.',
       },
       {
         title: 'Pedagogisk erfarenhet per skola',
-        description: 'Mallen separerar arbetsplatser (kommunal grundskola, fristående gymnasium, anpassad grundskola) så huvudman och åldersgrupp syns. Du kan visa bredd över olika skolformer.',
+        description: 'Varje arbetsplats (kommunal grundskola, fristående gymnasium, anpassad grundskola) blir en egen post så huvudman och åldersgrupp syns. Du kan visa bredd över olika skolformer.',
       },
       {
-        title: 'Eget block för specialiseringar',
-        description: 'TEACCH, AKK, bildstöd, Bornholm, lågaffektivt bemötande. Mallen lyfter pedagogiska metoder som eget block så rektorer letar specifikt efter metoder de redan använder.',
+        title: 'Specialiseringar som egen kompetensgrupp',
+        description: 'TEACCH, AKK, bildstöd, Bornholm, lågaffektivt bemötande. Lägg de pedagogiska metoderna som en egen grupp under Kompetenser, med fet rubrik, så rektorer direkt hittar metoder de redan använder.',
       },
       {
-        title: 'Pedagog med foto ingår i Premium',
-        description: 'I specialpedagogrollen där relationer värderas, lägger Pedagog-mallen till foto och språkkunskaper. Skapar mer personligt intryck för elevhälsochefer.',
+        title: 'Kalksten med foto ingår i Premium',
+        description: 'I specialpedagogrollen där relationer värderas har Kalksten, som ingår i Premium, en kvadratisk fotoplats bredvid namnet och språkkunskaperna i sidospalten. Det skapar ett mer personligt intryck för elevhälsochefer.',
       },
       {
-        title: 'Salviegrön ton för pedagogisk identitet',
-        description: 'Vi har valt dämpade salviegröna och navy-toner som signalerar lugn och pedagogisk medvetenhet. Inget i mallen drar fokus från meritbilden.',
+        title: 'Mörkgrön ton för pedagogisk identitet',
+        description: 'Båda mallarna har en dämpad mörkgrön accent att välja, vid sidan av stålblå eller marinblå, vinröd och grå. Den signalerar lugn och pedagogisk medvetenhet. Inget i mallarna drar fokus från meritbilden.',
       },
       {
         title: 'Plats för utvecklingsuppdrag',
@@ -12106,9 +12106,9 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'Examen, år av erfarenhet, specialisering och pedagogiska metoder på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Skola, åldersgrupp, period. Konkretisera målgrupp, åtgärdsprogram-volym och handledning.' },
-      { sektion: 'Utbildning', tips: 'Lärarexamen plus specialpedagogexamen, lärosäte och år. Vidareutbildningar (TEACCH, NPF) i eget block.' },
+      { sektion: 'Utbildning', tips: 'Lärarexamen plus specialpedagogexamen, lärosäte och år. Vidareutbildningar (TEACCH, NPF) som egna rader under Intyg.' },
       { sektion: 'Kompetenser', tips: 'Pedagogiska metoder, system, anpassningar. Var konkret om certifieringar.' },
-      { sektion: 'Specialiseringar', tips: 'Eget block med målgrupp (NPF, dyslexi, ESS) och konkreta metoder.' },
+      { sektion: 'Specialiseringar', tips: 'Egen kompetensgrupp med målgrupp (NPF, dyslexi, ESS) och konkreta metoder.' },
       { sektion: 'Övrigt', tips: 'Forskningsmeriter, eventuell handledar-utbildning, språkkunskaper.' },
     ],
 
@@ -12126,7 +12126,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och Pedagog, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala skolor använder Visma Recruit, fristående koncerner Workday eller Teamtailor. Skriv ut examen (specialpedagogexamen), pedagogiska metoder (TEACCH, lågaffektivt bemötande) och målgrupp (NPF, autism, ADHD) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Kalksten, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala skolor använder Visma Recruit, fristående koncerner Workday eller Teamtailor. Skriv ut examen (specialpedagogexamen), pedagogiska metoder (TEACCH, lågaffektivt bemötande) och målgrupp (NPF, autism, ADHD) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -12174,7 +12174,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'account-manager': {
     seoIntro:
-      'Som account manager bedöms du på din B2B-säljförmåga, kundkontakt och konkreta resultat på pipeline och retention. SaaS-bolag, scale-ups, traditionell B2B och konsultbolag har konstant öppna account manager-roller, men säljchefer slänger CV:n som inte tydligt visar måluppfyllelse, branschvana och CRM-erfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på de bolag du faktiskt vill jobba på.\n\nVår mall för account managers lyfter måluppfyllelse, CRM-system och branschvana som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, segment, säljansvar och nyckelresultat syns direkt med konkreta procentsiffror. Det betyder att säljchefer kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: rolltyp (KAM, AE, Strategic AM), branscher du sålt till (SaaS, fintech, industri, medtech), CRM-system (Salesforce, HubSpot, Pipedrive, Lime), säljmetodiker (MEDDIC, Challenger, BANT, Solution Selling), måluppfyllelse i procent per år, snitt-affärsstorlek och säljcykellängd, retention och upselling-resultat, samt eventuella säljstack-verktyg (Apollo, Outreach, Gong).\n\nNedan hittar du två CV-mallar designade för account manager-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad säljchefer på SaaS-bolag, traditionella B2B-bolag och konsultsegmentet faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som account manager bedöms du på din B2B-säljförmåga, kundkontakt och konkreta resultat på pipeline och retention. SaaS-bolag, scale-ups, traditionell B2B och konsultbolag har konstant öppna account manager-roller, men säljchefer slänger CV:n som inte tydligt visar måluppfyllelse, branschvana och CRM-erfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på de bolag du faktiskt vill jobba på.\n\nVåra mallar lyfter måluppfyllelse, CRM-system och branschvana som första visuella element när du väljer ordningen Kompetenser först. Erfarenhetsavsnittet är byggt så att bolag, segment, säljansvar och nyckelresultat syns direkt med konkreta procentsiffror. Det betyder att säljchefer kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: rolltyp (KAM, AE, Strategic AM), branscher du sålt till (SaaS, fintech, industri, medtech), CRM-system (Salesforce, HubSpot, Pipedrive, Lime), säljmetodiker (MEDDIC, Challenger, BANT, Solution Selling), måluppfyllelse i procent per år, snitt-affärsstorlek och säljcykellängd, retention och upselling-resultat, samt eventuella säljstack-verktyg (Apollo, Outreach, Gong).\n\nNedan hittar du två CV-mallar som passar account managerns meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad säljchefer på SaaS-bolag, traditionella B2B-bolag och konsultsegmentet faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -12211,28 +12211,28 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
     varforVarMallPassar: [
       {
-        title: 'Nyckelresultat överst i sidopanelen',
-        description: 'Aurora, som ingår i Premium, har dedikerad "Nyckelresultat"-panel där tre kvantifierade siffror lyfts visuellt. Säljchefer kan bedöma din kapacitet på fem sekunder.',
+        title: 'Nyckelresultaten överst med Kompetenser först',
+        description: 'Lägg tre kvantifierade siffror som en egen kompetensgrupp med rubriken Nyckelresultat och välj Kompetenser först, så står de direkt under profilen i både Linne och Koppar. Säljchefer kan bedöma din kapacitet på fem sekunder.',
       },
       {
         title: 'Erfarenhet med procent-fokus',
-        description: 'Mallen separerar bolag, roll och måluppfyllelse så procentsiffror syns direkt. Du kan visa flera års konsekvent prestation utan att meriter konkurrerar.',
+        description: 'Varje bolag blir en egen post med roll, period och måluppfyllelse som punkter så procentsiffrorna syns direkt. Du kan visa flera års konsekvent prestation utan att meriter konkurrerar.',
       },
       {
-        title: 'Eget block för CRM och säljstack',
-        description: 'Salesforce, HubSpot, Pipedrive, Apollo, Outreach. Säljstack-block separerar systemen från generiska kompetenser så säljchefer letar specifikt efter system de redan kör.',
+        title: 'CRM och säljstack som egen kompetensgrupp',
+        description: 'Salesforce, HubSpot, Pipedrive, Apollo, Outreach. En egen kompetensgrupp för säljstacken skiljer systemen från generiska kompetenser så säljchefer direkt hittar system de redan kör.',
       },
       {
-        title: 'Emerald-orange gradient signalerar tillväxt',
-        description: 'Vi har valt en gradient som visuellt kopplar till säljbranschen utan att bli aggressiv. Subtila accenter på siffror och resultat-block utan att kompromissa med ATS.',
+        title: 'Kopparbrunt huvudband signalerar energi',
+        description: 'Koppar har ett kopparbrunt huvudband som förval, med marinblå, mörkgrön och antracit som alternativ, en varm ton som kopplar till säljbranschen utan att bli aggressiv. Vit text på bandet och accenten i rubrikerna, utan att kompromissa med ATS.',
       },
       {
         title: 'Plats för säljmetodik och certifieringar',
-        description: 'MEDDIC-cert, Challenger Academy, Salesforce Trailhead. Eget block för metoder och certifikat så bevisad kompetens syns direkt utan att blanda med generisk utbildning.',
+        description: 'MEDDIC-cert, Challenger Academy, Salesforce Trailhead. Intygsavsnittet listar metoder och certifikat rad för rad så bevisad kompetens syns direkt utan att blandas med generisk utbildning.',
       },
       {
         title: 'Plats för retention och upselling',
-        description: 'Mallen har dedikerade rader för både ny försäljning och förvaltning av befintliga konton. Account managers bedöms på båda dimensionerna.',
+        description: 'Ny försäljning och förvaltning av befintliga konton får egna punkter under varje anställning. Account managers bedöms på båda dimensionerna.',
       },
     ],
 
@@ -12453,7 +12453,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       { sektion: 'Erfarenhet', tips: 'Bolag, roll, period, ansvar. Konkretisera måluppfyllelse, ARR-tillväxt och NRR.' },
       { sektion: 'Utbildning', tips: 'Akademisk bakgrund, säljutbildningar och certifieringar (MEDDIC, Salesforce Trailhead).' },
       { sektion: 'Kompetenser', tips: 'CRM, säljmetoder, vertikaler. Var konkret om dealsstorlekar och cykler.' },
-      { sektion: 'Säljstack', tips: 'Eget block för Salesforce, HubSpot, Apollo, Outreach, Gong med erfarenhetsår.' },
+      { sektion: 'Säljstack', tips: 'Egen kompetensgrupp för Salesforce, HubSpot, Apollo, Outreach, Gong med erfarenhetsår.' },
       { sektion: 'Övrigt', tips: 'Eventuell föreningserfarenhet, mentor-roller, branschnätverk.' },
     ],
 
@@ -12471,7 +12471,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och Aurora, som ingår i Premium, läser rekryteringssystemen rätt. Aurora har "Nyckelresultat"-panel där dina kvantifierade siffror lyfts visuellt. Säljbolag använder ofta moderna ATS som Teamtailor, Workday eller Manatal. Skriv ut systemnamn (Salesforce, HubSpot) och säljmetoder (MEDDIC) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Koppar, som ingår i Premium, läser rekryteringssystemen rätt. Lägg dina kvantifierade siffror som en egen kompetensgrupp så läses de som text, inte som grafik. Säljbolag använder ofta moderna ATS som Teamtailor, Workday eller Manatal. Skriv ut systemnamn (Salesforce, HubSpot) och säljmetoder (MEDDIC) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -12519,7 +12519,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'produktchef': {
     seoIntro:
-      'Som produktchef bedöms du på din förmåga att driva produktstrategi, samverka med tvärfunktionella team och leverera mätbara affärsresultat. Tech-bolag, scale-ups och konsultbolag har konstant brist på erfarna produktchefer, men VD:ar och CTO:er slänger CV:n som inte tydligt visor produkterfarenhet, metodik och konkreta resultat. Ett välskrivet CV avgör om du blir kallad till intervju på de bolag du faktiskt vill jobba på.\n\nVår mall för produktchefer lyfter produktansvar, agila metodiker och konkreta produktresultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, produkt, omfattning och nyckelresultat syns direkt med dina strategiska bidrag. Det betyder att VD:ar och CTO:er kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: civilingenjör eller civilekonom med inriktning produkt, agila metodiker (Scrum, Kanban, SAFe), produktstrategi och roadmap, OKR och KPI-arbete, eventuella certifieringar (CSPO, SAFe POPM), system (Jira, Confluence, Productboard, Aha!), bransch (SaaS, fintech, e-handel, healthtech), användarforskning och customer development, samt konkreta produktresultat (DAU, MAU, retention, NPS, ARR-bidrag).\n\nNedan hittar du två CV-mallar designade för produktchefrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad VD:ar och CTO:er på SaaS-bolag, scale-ups och tech-segmentet faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som produktchef bedöms du på din förmåga att driva produktstrategi, samverka med tvärfunktionella team och leverera mätbara affärsresultat. Tech-bolag, scale-ups och konsultbolag har konstant brist på erfarna produktchefer, men VD:ar och CTO:er slänger CV:n som inte tydligt visor produkterfarenhet, metodik och konkreta resultat. Ett välskrivet CV avgör om du blir kallad till intervju på de bolag du faktiskt vill jobba på.\n\nVåra mallar lyfter produktansvar, agila metodiker och konkreta produktresultat som första visuella element, i profilen och som egna kompetensgrupper. Erfarenhetsavsnittet är byggt så att bolag, produkt, omfattning och nyckelresultat syns direkt med dina strategiska bidrag. Det betyder att VD:ar och CTO:er kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: civilingenjör eller civilekonom med inriktning produkt, agila metodiker (Scrum, Kanban, SAFe), produktstrategi och roadmap, OKR och KPI-arbete, eventuella certifieringar (CSPO, SAFe POPM), system (Jira, Confluence, Productboard, Aha!), bransch (SaaS, fintech, e-handel, healthtech), användarforskning och customer development, samt konkreta produktresultat (DAU, MAU, retention, NPS, ARR-bidrag).\n\nNedan hittar du två CV-mallar som passar produktchefens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad VD:ar och CTO:er på SaaS-bolag, scale-ups och tech-segmentet faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -12557,27 +12557,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Produkt och resultat överst',
-        description: 'Vår mall lyfter produkt, bransch och konkreta resultat i sidopanelen. VD:ar och CTO:er ser dina baskompetenser på fem sekunder.',
+        description: 'Lägg produkt, bransch och konkreta resultat i profilen, i Tidning löper den i två spalter med anfang direkt under tidningshuvudet. VD:ar och CTO:er ser dina baskompetenser på fem sekunder.',
       },
       {
         title: 'Erfarenhet med produktbidrag',
-        description: 'Mallen separerar bolag och dina produktbidrag (DAU-tillväxt, ARR-impact, retention-förbättring). Du kan visa både bredd och djup utan att meriter konkurrerar.',
+        description: 'Varje bolag blir en egen post med dina produktbidrag (DAU-tillväxt, ARR-impact, retentionförbättring) som punkter. Du kan visa både bredd och djup utan att meriter konkurrerar.',
       },
       {
-        title: 'Eget block för verktyg och certifieringar',
-        description: 'Jira, Productboard, CSPO-cert, SAFe POPM. Mallen lyfter formell kompetens som eget block med datum.',
+        title: 'Verktyg och certifieringar i egna avsnitt',
+        description: 'Jira och Productboard som egen kompetensgrupp, CSPO-cert och SAFe POPM rad för rad i intygsavsnittet med utgivare och år.',
       },
       {
-        title: 'Magasin med tidningskänsla ingår i Premium',
-        description: 'För senior produktchefer och chief product officer lägger Magasin till asymmetrisk grid och plats för "tankeledare-citat". Skapar visuell tyngd som passar SaaS- och fintech-bolag.',
+        title: 'Tidning med tidningshuvud ingår i Premium',
+        description: 'För seniora produktchefer och chief product officer ger Tidning, som ingår i Premium, namnet som tidningshuvud mellan två linjer och profilen i två spalter med anfang i accentfärg. Det skapar visuell tyngd som passar SaaS- och fintechbolag.',
       },
       {
         title: 'Plats för OKR och KPI:er',
-        description: 'Mallen har dedikerade rader för OKR-arbete och konkreta KPI:er. Visar att du tänker affärsmässigt och inte bara feature-utvecklande.',
+        description: 'OKR-arbete och konkreta KPI:er får egna punkter under varje anställning. Visar att du tänker affärsmässigt och inte bara feature-utvecklande.',
       },
       {
-        title: 'Modern typografi för tech-segmentet',
-        description: 'Vi har valt modern serif-typografi som signalerar professionalism och tankegrundighet. Passar både SaaS-scale-ups och konsultsegmentet.',
+        title: 'Georgia för tech-segmentet',
+        description: 'Båda mallarna har Georgia i rubrikerna, en serif som signalerar professionalism och eftertanke. Tidning har tidningsröd accent som förval, med marinblå, svart och mörkgrön som alternativ. Passar både SaaS-scale-ups och konsultsegmentet.',
       },
     ],
 
@@ -12796,9 +12796,9 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'Senioritet, bransch, primär produkt och nyckelresultat på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Bolag, roll, period, produkt. Konkretisera produktbidrag (DAU, ARR, NPS).' },
-      { sektion: 'Utbildning', tips: 'Civilingenjör eller civilekonom, lärosäte, år. CSPO, SAFe POPM, Reforge i eget block.' },
+      { sektion: 'Utbildning', tips: 'Civilingenjör eller civilekonom, lärosäte, år. CSPO, SAFe POPM, Reforge som egna rader under Intyg.' },
       { sektion: 'Kompetenser', tips: 'Metodiker, verktyg, KPI:er. Var konkret om systemvana.' },
-      { sektion: 'Certifieringar', tips: 'Eget block med CSPO, SAFe POPM, Reforge med datum.' },
+      { sektion: 'Certifieringar', tips: 'Intygsavsnittet med CSPO, SAFe POPM, Reforge med år.' },
       { sektion: 'Övrigt', tips: 'Branschvana, eventuell talangs- eller mentorroll, tech-talks och konferensbidrag.' },
     ],
 
@@ -12816,7 +12816,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Linje och Magasin, som ingår i Premium, läser rekryteringssystemen rätt. Tech-bolag och scale-ups använder Workday eller Teamtailor. Konsultbolag använder egna ATS. Skriv ut metodiker (Scrum, SAFe), verktyg (Jira, Productboard) och KPI:er (DAU, ARR, NPS) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Tidning, som ingår i Premium, läser rekryteringssystemen rätt. Tech-bolag och scale-ups använder Workday eller Teamtailor. Konsultbolag använder egna ATS. Skriv ut metodiker (Scrum, SAFe), verktyg (Jira, Productboard) och KPI:er (DAU, ARR, NPS) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -12864,7 +12864,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'butikschef': {
     seoIntro:
-      'Som butikschef bedöms du på din ledarförmåga, P&L-ansvar och konkreta säljresultat. ICA, Coop, H&M, Lindex, Stadium, Apoteket och tusentals mindre butiker har konstant öppna butikschef-roller, men distriktschefer slänger CV:n som inte tydligt visar omsättning, personalansvar och säljresultat. Ett välskrivet CV avgör om du blir kallad till intervju på den butik du faktiskt vill jobba på.\n\nVår mall för butikschefer lyfter omsättning, personalansvar och konkreta säljresultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att butikskedja, omsättning, teamstorlek och nyckelresultat syns direkt. Det betyder att distriktschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: butikschef-erfarenhet med omsättning och teamstorlek, säljresultat (snittnota, mersälj, kampanjvinster), P&L-ansvar och budgetstyrning, personalansvar (rekrytering, schemaläggning, arbetsmiljö), kassasystem (ICA-kassan, NCR, Sitoo), eventuell ledarskap-utbildning (UGL, IFL), arbetsrätt-erfarenhet (LAS, MBL), samt branschvana (dagligvaror, mode, sport, elektronik).\n\nNedan hittar du två CV-mallar designade för butikschefrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad distriktschefer och regionchefer på butikskedjor faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som butikschef bedöms du på din ledarförmåga, P&L-ansvar och konkreta säljresultat. ICA, Coop, H&M, Lindex, Stadium, Apoteket och tusentals mindre butiker har konstant öppna butikschef-roller, men distriktschefer slänger CV:n som inte tydligt visar omsättning, personalansvar och säljresultat. Ett välskrivet CV avgör om du blir kallad till intervju på den butik du faktiskt vill jobba på.\n\nVåra mallar lyfter omsättning, personalansvar och konkreta säljresultat som första visuella element, i profilen och som egna kompetensgrupper. Erfarenhetsavsnittet är byggt så att butikskedja, omsättning, teamstorlek och nyckelresultat syns direkt. Det betyder att distriktschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: butikschef-erfarenhet med omsättning och teamstorlek, säljresultat (snittnota, mersälj, kampanjvinster), P&L-ansvar och budgetstyrning, personalansvar (rekrytering, schemaläggning, arbetsmiljö), kassasystem (ICA-kassan, NCR, Sitoo), eventuell ledarskap-utbildning (UGL, IFL), arbetsrätt-erfarenhet (LAS, MBL), samt branschvana (dagligvaror, mode, sport, elektronik).\n\nNedan hittar du två CV-mallar som passar butikschefens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad distriktschefer och regionchefer på butikskedjor faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -12902,27 +12902,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Omsättning och team överst',
-        description: 'Vår mall lyfter butiksomsättning, teamstorlek och konkreta resultat i sidopanelen. Distriktschefer ser dina baskompetenser på fem sekunder utan att scrolla.',
+        description: 'Lägg butiksomsättning, teamstorlek och konkreta resultat som en egen kompetensgrupp och välj Kompetenser först, så står de direkt under profilen i båda mallarna. Distriktschefer ser dina baskompetenser på fem sekunder utan att scrolla.',
       },
       {
         title: 'Erfarenhet med ledar-bidrag',
-        description: 'Mallen separerar bolag och dina ledar-bidrag (säljtillväxt, retention, marginal-förbättring). Du kan visa både operativ och strategisk förmåga utan att meriter konkurrerar.',
+        description: 'Varje bolag blir en egen post med dina ledarbidrag (säljtillväxt, retention, marginalförbättring) som punkter. Du kan visa både operativ och strategisk förmåga utan att meriter konkurrerar.',
       },
       {
-        title: 'Eget block för utbildningar',
-        description: 'UGL, IFL, kedje-specifika program. Mallen lyfter ledarskap-utveckling som eget block med datum.',
+        title: 'Ledarskapsutbildningar i intygsavsnittet',
+        description: 'UGL, IFL, kedjespecifika program. Intygsavsnittet listar ledarskapsutvecklingen rad för rad med utgivare och år.',
       },
       {
-        title: 'Disk Plus med foto ingår i Premium',
-        description: 'För senior butikschefer och regional manager lägger Disk Plus till foto och tidningskänsla. Skapar professionell first impression som passar premium-retail.',
+        title: 'Raster med tonade rubrikband ingår i Premium',
+        description: 'För seniora butikschefer och regionchefer ger Raster, som ingår i Premium, rubriker som tonade färgband och kompetenserna i två spalter. Det skapar ett professionellt första intryck som passar större kedjor.',
       },
       {
         title: 'Plats för P&L och KPI:er',
-        description: 'Mallen har dedikerade rader för omsättning, EBITDA-bidrag och konkreta KPI:er (snittnota, UPT, retention). Visar att du tänker affärsmässigt.',
+        description: 'Omsättning, EBITDA-bidrag och konkreta KPI:er (snittnota, UPT, retention) får egna punkter under varje anställning. Visar att du tänker affärsmässigt.',
       },
       {
         title: 'Plats för operativ och strategisk',
-        description: 'Mallen har dedikerade rader för både operativt arbete (kassa, kundservice) och strategiskt (sälj, marketing, personal). Butikschefer behärskar både.',
+        description: 'Kompetensgrupperna låter dig skilja operativt arbete (kassa, kundservice) från strategiskt (sälj, marketing, personal) med egna rubriker. Butikschefer behärskar både.',
       },
     ],
 
@@ -13141,9 +13141,9 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'Antal år som butikschef, butikskedja, omsättning och teamstorlek på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Butik, kedja, period, omsättning. Konkretisera teamstorlek och säljresultat.' },
-      { sektion: 'Utbildning', tips: 'Eventuell akademisk bakgrund. Ledarskap-utbildningar (UGL, IFL, kedje-program) i eget block.' },
+      { sektion: 'Utbildning', tips: 'Eventuell akademisk bakgrund. Ledarskapsutbildningar (UGL, IFL, kedjeprogram) som egna rader under Intyg.' },
       { sektion: 'Kompetenser', tips: 'Kassasystem, P&L-styrning, personalansvar. Var konkret om svensk arbetsrätt.' },
-      { sektion: 'Ledarskap', tips: 'Eget block med UGL, IFL, kedje-program och eventuella mentor-roller.' },
+      { sektion: 'Ledarskap', tips: 'Egen kompetensgrupp med UGL, IFL, kedjeprogram och eventuella mentorsroller.' },
       { sektion: 'Övrigt', tips: 'Branschvana, ambition (distriktschef-mål), eventuell facklig samverkan.' },
     ],
 
@@ -13161,7 +13161,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Disk och Disk Plus, som ingår i Premium, läser rekryteringssystemen rätt. Stora kedjor som ICA, Coop, H&M använder Teamtailor eller egna ATS. Skriv ut kassasystem (ICA-kassan, NCR, Sitoo), butikskedjor och KPI:er (snittnota, UPT) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Raster, som ingår i Premium, läser rekryteringssystemen rätt. Stora kedjor som ICA, Coop, H&M använder Teamtailor eller egna ATS. Skriv ut kassasystem (ICA-kassan, NCR, Sitoo), butikskedjor och KPI:er (snittnota, UPT) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -13209,7 +13209,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'kundtjanstmedarbetare': {
     seoIntro:
-      'Som kundtjänstmedarbetare bedöms du på din serviceförmåga, system-vana och språkkunskaper. Stora bolag som Telia, Klarna, Tre, ICA, banker och scale-ups har konstant öppna kundtjänst-tjänster, men team leaders slänger CV:n som inte tydligt visar serviceresultat, system och språk. Ett välskrivet CV avgör om du blir kallad till intervju på det bolag du faktiskt vill jobba på.\n\nVår mall för kundtjänstmedarbetare lyfter system, språk och serviceresultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, kanal (telefon, mejl, chat), tidsperiod och nyckelresultat syns direkt. Det betyder att team leaders kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet av kundtjänst i specifik bransch (telecom, bank, e-handel, försäkring), kanaler (telefon, mejl, chat, sociala medier), system (Zendesk, Salesforce Service Cloud, Freshdesk, Intercom), språkkunskaper med nivå, KPI:er (NPS, FCR-First Call Resolution, AHT, lösningsgrad), eventuell utbildning, samt schemaflexibilitet.\n\nNedan hittar du två CV-mallar designade för kundtjänstrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad team leaders och customer service managers på telecom-, bank- och scale-up-bolag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som kundtjänstmedarbetare bedöms du på din serviceförmåga, system-vana och språkkunskaper. Stora bolag som Telia, Klarna, Tre, ICA, banker och scale-ups har konstant öppna kundtjänst-tjänster, men team leaders slänger CV:n som inte tydligt visar serviceresultat, system och språk. Ett välskrivet CV avgör om du blir kallad till intervju på det bolag du faktiskt vill jobba på.\n\nVåra mallar lyfter system, språk och serviceresultat som första visuella element när du väljer ordningen Kompetenser först. Erfarenhetsavsnittet är byggt så att bolag, kanal (telefon, mejl, chat), tidsperiod och nyckelresultat syns direkt. Det betyder att team leaders kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet av kundtjänst i specifik bransch (telecom, bank, e-handel, försäkring), kanaler (telefon, mejl, chat, sociala medier), system (Zendesk, Salesforce Service Cloud, Freshdesk, Intercom), språkkunskaper med nivå, KPI:er (NPS, FCR-First Call Resolution, AHT, lösningsgrad), eventuell utbildning, samt schemaflexibilitet.\n\nNedan hittar du två CV-mallar som passar kundtjänstmedarbetarens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad team leaders och customer service managers på telecom-, bank- och scale-up-bolag faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -13247,27 +13247,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'System och språk överst',
-        description: 'Vår mall lyfter kundtjänstsystem och språk i sidopanelen. Team leaders ser dina baskompetenser på fem sekunder utan att behöva scrolla.',
+        description: 'Lägg kundtjänstsystemen som en egen kompetensgrupp och välj Kompetenser först, så ligger system och språk direkt under profilen i båda mallarna. Team leaders ser dina baskompetenser på fem sekunder utan att behöva scrolla.',
       },
       {
         title: 'Erfarenhet med serviceresultat',
-        description: 'Mallen separerar bolag och dina serviceresultat (NPS, FCR, AHT). Du kan visa både bredd och djup utan att meriter konkurrerar om samma yta.',
+        description: 'Varje bolag blir en egen post med dina serviceresultat (NPS, FCR, AHT) som punkter. Du kan visa både bredd och djup utan att meriter konkurrerar om samma yta.',
       },
       {
-        title: 'Eget block för kanaler och system',
-        description: 'Telefon, mejl, chat, system. Mallen lyfter kanaler och system som eget block så team leaders ser specifik kompetens direkt.',
+        title: 'Kanaler och system som egna kompetensgrupper',
+        description: 'Telefon, mejl, chat, system. Lägg kanaler och system som egna grupper under Kompetenser, i Raster står grupperna i två spalter, så team leaders ser specifik kompetens direkt.',
       },
       {
-        title: 'Disk Plus med foto ingår i Premium',
-        description: 'För senior kundtjänst-roller och team leader lägger Disk Plus till foto. Skapar mer personligt intryck utan att kompromissa med ATS-läsbarhet.',
+        title: 'Raster med tonade rubrikband ingår i Premium',
+        description: 'För seniora kundtjänstroller och team leader ger Raster, som ingår i Premium, rubriker som tonade färgband och kompetenserna i två spalter. Det ger ett mer genomarbetat intryck utan att kompromissa med ATS-läsbarheten.',
       },
       {
         title: 'Plats för KPI:er',
-        description: 'Mallen har dedikerade rader för KPI:er (NPS, FCR, AHT, lösningsgrad). Visar att du tänker prestationsmässigt och inte bara reaktivt.',
+        description: 'KPI:er (NPS, FCR, AHT, lösningsgrad) får egna punkter under varje anställning. Visar att du tänker prestationsmässigt och inte bara reaktivt.',
       },
       {
         title: 'Energisk men professionell färgsättning',
-        description: 'Vi har valt emerald-accent som signalerar service och professionalism. Lagom modern utan att bli flashig för kundtjänstbranschen.',
+        description: 'Raster har teal som förval, med marinblå, plommon och olivgrön som alternativ, Linne marinblå, mörkgrön, vinröd och grå. Lagom modernt utan att bli flashigt för kundtjänstbranschen.',
       },
     ],
 
@@ -13488,7 +13488,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       { sektion: 'Erfarenhet', tips: 'Bolag, kanal, period, system. Konkretisera serviceresultat (NPS, FCR, AHT).' },
       { sektion: 'Utbildning', tips: 'Eventuell utbildning eller intern certifiering. Branschspecifika cert (SwedSec).' },
       { sektion: 'Kompetenser', tips: 'System, kanaler, branschvana. Var konkret om KPI-mätningar.' },
-      { sektion: 'Språk', tips: 'Eget block i sidopanelen med språk och nivå.' },
+      { sektion: 'Språk', tips: 'Eget avsnitt med språk och nivå på varje rad.' },
       { sektion: 'Övrigt', tips: 'Schema-flexibilitet, eventuell körkort, internationella stints.' },
     ],
 
@@ -13506,7 +13506,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Disk och Disk Plus, som ingår i Premium, läser rekryteringssystemen rätt. Stora bolag använder Workday eller Teamtailor. BPO-bolag har ofta egna ATS. Skriv ut kundtjänstsystem (Zendesk, Salesforce), KPI:er (NPS, FCR, AHT) och språk i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Raster, som ingår i Premium, läser rekryteringssystemen rätt. Stora bolag använder Workday eller Teamtailor. BPO-bolag har ofta egna ATS. Skriv ut kundtjänstsystem (Zendesk, Salesforce), KPI:er (NPS, FCR, AHT) och språk i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -13554,7 +13554,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'bartender': {
     seoIntro:
-      'Som bartender bedöms du på din drink-portfölj, gästkontakt och förmåga att hålla tempo i serviceläge. Restauranger, hotellbarer, cocktail-barer och nattklubbar har konstant öppna roller, men barchefer slänger CV:n som inte tydligt visar barerfarenhet, drink-bredd och säljförmåga. Ett välskrivet CV avgör om du blir kallad till provdag på den bar du faktiskt vill jobba på.\n\nVår mall för bartenders lyfter barerfarenhet, drink-portfölj och eventuella certifieringar som första visuella element. Vi har strukturerat erfarenhetssektionen så att bar, koncept och tidsperiod syns direkt med eventuella signature drinks eller resultat. Det betyder att barchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: barerfarenhet med koncept (cocktail-bar, hotellbar, restaurangbar, nattklubb), drink-portfölj (klassiska cocktails, signature drinks, beer-/vinkunskap), kassasystem (POS, IIko, Sitoo), HACCP- och alkohollagsutbildning (ansvarsfull alkoholservering), eventuella tävlingsdeltaganden (Nordic Bartender of the Year, World Class), gästkontakt och säljförmåga, samt språkkunskaper.\n\nNedan hittar du två CV-mallar designade för bartenderrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad barchefer på cocktail-, hotell- och restaurangbarer faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som bartender bedöms du på din drink-portfölj, gästkontakt och förmåga att hålla tempo i serviceläge. Restauranger, hotellbarer, cocktail-barer och nattklubbar har konstant öppna roller, men barchefer slänger CV:n som inte tydligt visar barerfarenhet, drink-bredd och säljförmåga. Ett välskrivet CV avgör om du blir kallad till provdag på den bar du faktiskt vill jobba på.\n\nVåra mallar lyfter barerfarenhet, drinkportfölj och eventuella certifieringar som första visuella element, i profilen och som egna kompetensgrupper. Erfarenhetsavsnittet är byggt så att bar, koncept och tidsperiod syns direkt med eventuella signature drinks eller resultat. Det betyder att barchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: barerfarenhet med koncept (cocktail-bar, hotellbar, restaurangbar, nattklubb), drink-portfölj (klassiska cocktails, signature drinks, beer-/vinkunskap), kassasystem (POS, IIko, Sitoo), HACCP- och alkohollagsutbildning (ansvarsfull alkoholservering), eventuella tävlingsdeltaganden (Nordic Bartender of the Year, World Class), gästkontakt och säljförmåga, samt språkkunskaper.\n\nNedan hittar du två CV-mallar som passar bartenderns meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad barchefer på cocktail-, hotell- och restaurangbarer faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -13592,27 +13592,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Bar-koncept och drink-portfölj överst',
-        description: 'Vår mall lyfter barer du arbetat på, koncept och eventuell stjärnstatus i sidopanelen. Barchefer ser vilka kök du arbetat i utan att behöva läsa hela CV:t.',
+        description: 'Lägg barer du arbetat på, koncept och eventuell stjärnstatus i profilen och som egna poster under erfarenheten. Barchefer ser vilka barer du stått i utan att behöva läsa hela CV:t.',
       },
       {
         title: 'Plats för signature drinks och stilar',
-        description: 'Mallen separerar barer och dina specialiseringar (klassisk mixology, beer-cocktails, vin) så bredd och djup syns. Du kan visa olika stilar utan att meriter konkurrerar.',
+        description: 'Varje bar blir en egen post och dina specialiseringar (klassisk mixology, beer-cocktails, vin) en egen kompetensgrupp så bredd och djup syns. Du kan visa olika stilar utan att meriter konkurrerar.',
       },
       {
-        title: 'Eget block för certifikat och tävlingar',
-        description: 'HACCP, alkohollagen, eventuella tävlingsdeltaganden eller utmärkelser har egen rad. Mallen lyfter formell kompetens utan att blanda in i generisk text.',
+        title: 'Certifikat och tävlingar i intygsavsnittet',
+        description: 'HACCP, alkohollagen, eventuella tävlingsdeltaganden eller utmärkelser får egen rad i intygsavsnittet med utgivare och år. Så lyfts formell kompetens utan att blandas in i generisk text.',
       },
       {
-        title: 'Servering med foto ingår i Premium',
-        description: 'För senior-roller (bar manager, bar chef, executive bartender) lägger Servering till foto och tidningskänsla. Skapar professionell first impression som passar premium-barer.',
+        title: 'Terrakotta med kompetensbrickor ingår i Premium',
+        description: 'För seniora roller (bar manager, bar chef, executive bartender) ger Terrakotta, som ingår i Premium, en krämfärgad sida med roströda rubriker och kompetenserna som brickor. Det skapar ett första intryck med karaktär som passar barer med profil.',
       },
       {
         title: 'Plats för stilar och referenser',
-        description: 'Klassisk fransk mixology, modern, japansk, italiensk. Mallen har dedikerat block för dina kulinariska stilar och eventuella mentorer från branschen.',
+        description: 'Klassisk fransk mixology, modern, japansk, italiensk. Lägg dina stilar som en egen kompetensgrupp, i Terrakotta blir varje stil en bricka, och mentorer från branschen under Referenser.',
       },
       {
-        title: 'Kompakt typografi för flera år',
-        description: 'Bartenders har ofta varierande anställningar (sommarsäsong, vinterstation, fasta tjänster). Mallen är kompakt nog för att rymma 6-8 anställningar utan att verka rörig.',
+        title: 'Plats för flera år på en sida',
+        description: 'Bartenders har ofta varierande anställningar (sommarsäsong, vinterstation, fasta tjänster). Valet Få plats på en sida gör att båda mallarna rymmer 6-8 anställningar utan att verka röriga.',
       },
     ],
 
@@ -13851,7 +13851,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Stack-developer och Servering, som ingår i Premium, läser rekryteringssystemen rätt. Restauranger använder oftast Teamtailor, Workday eller egna ATS. Skriv ut bar-koncept (cocktail-bar, hotellbar), drink-kategorier (klassisk mixology, modern) och hygien-certifikat (HACCP, ansvarsfull alkoholservering) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Terrakotta, som ingår i Premium, läser rekryteringssystemen rätt. Restauranger använder oftast Teamtailor, Workday eller egna ATS. Skriv ut bar-koncept (cocktail-bar, hotellbar), drink-kategorier (klassisk mixology, modern) och hygien-certifikat (HACCP, ansvarsfull alkoholservering) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -13899,7 +13899,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'konstruktor': {
     seoIntro:
-      'Som konstruktör bedöms du på din tekniska skicklighet, CAD-vana och förmåga att omsätta krav till färdiga produktritningar. Industri-, bygg- och tillverkningsbolag har konstant brist på erfarna konstruktörer, men teknikchefer slänger CV:n som inte tydligt visar specialisering, system-vana och projektresultat. Ett välskrivet CV avgör om du blir kallad till intervju på de bolag du faktiskt vill jobba på.\n\nVår mall för konstruktörer lyfter teknisk specialisering, CAD-system och eventuella standarder som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, roll, projekttyp och teknisk omfattning syns direkt med dina nyckelresultat. Det betyder att teknikchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: civilingenjör eller högskoleingenjör med inriktning konstruktion, specialisering (mekanik, elektronik, plastdetaljer, plåtkonstruktion, byggkonstruktion), CAD-system (SolidWorks, Catia, Inventor, NX, AutoCAD), simuleringsverktyg (ANSYS, Abaqus), branschvana (fordon, energi, telecom, bygg), standarder (CE, ISO, ASME), eventuella certifieringar (Six Sigma, CSWP), samt konkreta projektresultat.\n\nNedan hittar du två CV-mallar designade för konstruktörrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad teknikchefer på industri-, bygg- och tillverkningsbolag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som konstruktör bedöms du på din tekniska skicklighet, CAD-vana och förmåga att omsätta krav till färdiga produktritningar. Industri-, bygg- och tillverkningsbolag har konstant brist på erfarna konstruktörer, men teknikchefer slänger CV:n som inte tydligt visar specialisering, system-vana och projektresultat. Ett välskrivet CV avgör om du blir kallad till intervju på de bolag du faktiskt vill jobba på.\n\nVåra mallar lyfter teknisk specialisering, CAD-system och eventuella standarder som första visuella element när du väljer ordningen Kompetenser först. Erfarenhetsavsnittet är byggt så att bolag, roll, projekttyp och teknisk omfattning syns direkt med dina nyckelresultat. Det betyder att teknikchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: civilingenjör eller högskoleingenjör med inriktning konstruktion, specialisering (mekanik, elektronik, plastdetaljer, plåtkonstruktion, byggkonstruktion), CAD-system (SolidWorks, Catia, Inventor, NX, AutoCAD), simuleringsverktyg (ANSYS, Abaqus), branschvana (fordon, energi, telecom, bygg), standarder (CE, ISO, ASME), eventuella certifieringar (Six Sigma, CSWP), samt konkreta projektresultat.\n\nNedan hittar du två CV-mallar som passar konstruktörens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad teknikchefer på industri-, bygg- och tillverkningsbolag faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -13937,27 +13937,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Specialisering och CAD överst',
-        description: 'Vår mall Verkstad lyfter teknisk specialisering, CAD-system och certifieringar i sidopanelen. Teknikchefer ser dina baskompetenser på fem sekunder.',
+        description: 'Välj ordningen Kompetenser först så ligger teknisk specialisering och CAD-system direkt under profilen i båda mallarna, med certifieringarna i intygsavsnittet strax under. Teknikchefer ser dina baskompetenser på fem sekunder.',
       },
       {
         title: 'Erfarenhet med tekniska resultat',
-        description: 'Mallen separerar bolag och dina konstruktörsbidrag (designval, kostnadsbesparingar, prestandaförbättringar). Du kan visa både bredd och djup utan att meriter konkurrerar.',
+        description: 'Varje bolag blir en egen post med dina konstruktörsbidrag (designval, kostnadsbesparingar, prestandaförbättringar) som punkter. Du kan visa både bredd och djup utan att meriter konkurrerar.',
       },
       {
-        title: 'Eget block för CAD och simulering',
-        description: 'SolidWorks, Catia, Inventor, NX, ANSYS, Matlab. Mallen separerar systemen från generiska kompetenser så teknikchefer letar specifikt efter system de redan kör.',
+        title: 'CAD och simulering som egen kompetensgrupp',
+        description: 'SolidWorks, Catia, Inventor, NX, ANSYS, Matlab. Lägg systemen som en egen grupp under Kompetenser, skild från de generiska, så teknikchefer direkt hittar system de redan kör.',
       },
       {
-        title: 'Verkstad Plus med ritningsraster ingår i Premium',
-        description: 'För senior- och chefroller lägger Verkstad Plus till blueprint-grid CSS-bakgrund och rektangulärt foto. Skapar designresonemang som passar konstruktörer.',
+        title: 'Fasad med foto ingår i Premium',
+        description: 'För seniora roller och chefsroller ger Fasad, som ingår i Premium, kvadratisk fotoplats och ett stort namn i versaler bakom en 4 pt accentkant. En rak, teknisk form som passar konstruktörer.',
       },
       {
         title: 'Strukturerad teknisk färgpalett',
-        description: 'Vi har valt grafit och steel-blue accent som signalerar industri och precision. Inga distraherande färger som drar fokus från tekniska meriter.',
+        description: 'Fasad har marinblå som förval, med kopparbrun, mörkgrön och antracit som alternativ, Linne marinblå, mörkgrön, vinröd och grå. Toner som signalerar industri och precision, inga distraherande färger som drar fokus från tekniska meriter.',
       },
       {
         title: 'Plats för standarder och certifieringar',
-        description: 'CE, ISO 9001, ISO 14001, Six Sigma har egen rad med utgångsdatum. Mallen lyfter formell kompetens som industri och regulatoriska branscher specifikt letar efter.',
+        description: 'CE, ISO 9001, ISO 14001, Six Sigma får egen rad i intygsavsnittet med utgivare och år. Så lyfts formell kompetens som industri och regulatoriska branscher specifikt letar efter.',
       },
     ],
 
@@ -14178,7 +14178,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       { sektion: 'Erfarenhet', tips: 'Bolag, roll, period, projekttyp. Konkretisera tekniska bidrag och resultat.' },
       { sektion: 'Utbildning', tips: 'Civilingenjör eller högskoleingenjör med specialisering. Examensår och lärosäte.' },
       { sektion: 'Kompetenser', tips: 'CAD, simulering, PDM, standarder. Var konkret om versioner och nivå.' },
-      { sektion: 'Certifieringar', tips: 'Eget block med CSWP, Six Sigma, ISO-certifikat med datum.' },
+      { sektion: 'Certifieringar', tips: 'Intygsavsnittet med CSWP, Six Sigma, ISO-certifikat med år.' },
       { sektion: 'Övrigt', tips: 'Branschvana, internationell erfarenhet, eventuella tekniska publikationer.' },
     ],
 
@@ -14196,7 +14196,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Verkstad och Verkstad Plus, som ingår i Premium, läser rekryteringssystemen rätt. Storbolag och industri använder Workday eller egna ATS. Konsultbolag använder Workday eller Teamtailor. Skriv ut CAD-system (SolidWorks, Catia, NX), standarder (ISO 9001, CE, ASME) och specialiseringar (mekanikkonstruktion, plastdetaljer) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Fasad, som ingår i Premium, läser rekryteringssystemen rätt. Storbolag och industri använder Workday eller egna ATS. Konsultbolag använder Workday eller Teamtailor. Skriv ut CAD-system (SolidWorks, Catia, NX), standarder (ISO 9001, CE, ASME) och specialiseringar (mekanikkonstruktion, plastdetaljer) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -14244,7 +14244,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'lagerchef': {
     seoIntro:
-      'Som lagerchef bedöms du på din ledarförmåga, P&L-ansvar och förmåga att driva lager mot KPI:er. Storbolag som DB Schenker, PostNord, DHL, IKEA, e-handelsterminaler och 3PL-bolag har konstant öppna lagerchef-roller, men distriktschefer slänger CV:n som inte tydligt visar omfattning, personalansvar och prestandaresultat. Ett välskrivet CV avgör om du blir kallad till intervju på de bolag du faktiskt vill jobba på.\n\nVår mall för lagerchefer lyfter omfattning, personalansvar och konkreta lagerresultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, lagerstorlek, teamstorlek och nyckelresultat syns direkt. Det betyder att distriktschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: lagerchef-erfarenhet med omfattning (m², antal kollin, antal anställda), KPI-resultat (OTIF, plockhastighet, säkerhetsincidenter), WMS-system (SAP WMS, Manhattan, Pyramid, Astro), Lean och Six Sigma-metodik, eventuell ledarskap-utbildning, arbetsrätt-erfarenhet, samt branschvana (e-handel, industri, 3PL, livsmedel).\n\nNedan hittar du två CV-mallar designade för lagerchefrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad distriktschefer och regionchefer på logistikbolag och industri faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som lagerchef bedöms du på din ledarförmåga, P&L-ansvar och förmåga att driva lager mot KPI:er. Storbolag som DB Schenker, PostNord, DHL, IKEA, e-handelsterminaler och 3PL-bolag har konstant öppna lagerchef-roller, men distriktschefer slänger CV:n som inte tydligt visar omfattning, personalansvar och prestandaresultat. Ett välskrivet CV avgör om du blir kallad till intervju på de bolag du faktiskt vill jobba på.\n\nVåra mallar lyfter omfattning, personalansvar och konkreta lagerresultat som första visuella element, i profilen och som egna kompetensgrupper. Erfarenhetsavsnittet är byggt så att bolag, lagerstorlek, teamstorlek och nyckelresultat syns direkt. Det betyder att distriktschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: lagerchef-erfarenhet med omfattning (m², antal kollin, antal anställda), KPI-resultat (OTIF, plockhastighet, säkerhetsincidenter), WMS-system (SAP WMS, Manhattan, Pyramid, Astro), Lean och Six Sigma-metodik, eventuell ledarskap-utbildning, arbetsrätt-erfarenhet, samt branschvana (e-handel, industri, 3PL, livsmedel).\n\nNedan hittar du två CV-mallar som passar lagerchefens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad distriktschefer och regionchefer på logistikbolag och industri faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -14282,27 +14282,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Omfattning och team överst',
-        description: 'Vår mall lyfter lagerstorlek, teamstorlek och konkreta resultat i sidopanelen. Distriktschefer ser dina baskompetenser på fem sekunder utan att scrolla.',
+        description: 'Lägg lagerstorlek, teamstorlek och konkreta resultat som en egen kompetensgrupp, i Granit syns den i den mörka högerspalten bredvid profilen. Distriktschefer ser dina baskompetenser på fem sekunder utan att scrolla.',
       },
       {
         title: 'Erfarenhet med ledar-bidrag',
-        description: 'Mallen separerar bolag och dina ledar-bidrag (KPI-resultat, kostnadsbesparingar, säkerhetsförbättringar). Du kan visa både operativ och strategisk förmåga.',
+        description: 'Varje bolag blir en egen post med dina ledarbidrag (KPI-resultat, kostnadsbesparingar, säkerhetsförbättringar) som punkter. Du kan visa både operativ och strategisk förmåga.',
       },
       {
-        title: 'Eget block för WMS och metodik',
-        description: 'SAP WMS, Manhattan, Lean, Six Sigma. Mallen lyfter system och metodik som eget block så distriktschefer ser specifik nivå direkt.',
+        title: 'WMS och metodik som egna kompetensgrupper',
+        description: 'SAP WMS, Manhattan, Lean, Six Sigma. Lägg system och metodik som egna grupper under Kompetenser, med fet rubrik, så distriktschefer ser specifik nivå direkt.',
       },
       {
-        title: 'Logistik Plus med foto ingår i Premium',
-        description: 'För senior lagerchef-roller och regional manager lägger Logistik Plus till foto, dark header och tabellär layout. Skapar professionell first impression.',
+        title: 'Granit med foto ingår i Premium',
+        description: 'För seniora lagerchefsroller och regionchefer ger Granit, som ingår i Premium, rund fotoplats i ett mörkt huvudband och en mörk högerspalt med intyg och kompetenser. Det skapar ett professionellt första intryck.',
       },
       {
         title: 'Plats för P&L och KPI:er',
-        description: 'Mallen har dedikerade rader för OPEX, kostnad per order och konkreta KPI:er. Visar att du tänker affärsmässigt och inte bara operativt.',
+        description: 'OPEX, kostnad per order och konkreta KPI:er får egna punkter under varje anställning. Visar att du tänker affärsmässigt och inte bara operativt.',
       },
       {
-        title: 'Industriell typografi',
-        description: 'Vi har valt Roboto Condensed med cyan-accent som signalerar logistik och industri. Inga distraherande färger som drar fokus från meriter.',
+        title: 'Rak typografi',
+        description: 'Granit har Arial och ett antracitgrått huvudband som förval, Linne Georgia i rubrikerna och Calibri i texten. Inga distraherande färger som drar fokus från meriterna, marinblå och mörkgrön finns som alternativ.',
       },
     ],
 
@@ -14521,9 +14521,9 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'Antal år som lagerchef, omfattning, bransch och nyckelresultat på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Bolag, lagertyp, period, omfattning. Konkretisera teamstorlek och KPI-resultat.' },
-      { sektion: 'Utbildning', tips: 'Akademisk bakgrund eller YH. Lean/Six Sigma och ledarskap-utbildningar i eget block.' },
+      { sektion: 'Utbildning', tips: 'Akademisk bakgrund eller YH. Lean/Six Sigma och ledarskapsutbildningar som egna rader under Intyg.' },
       { sektion: 'Kompetenser', tips: 'WMS, Lean, P&L, personalansvar. Var konkret om systemvana.' },
-      { sektion: 'Certifieringar', tips: 'Eget block med Six Sigma, UGL, ADR och utgångsdatum.' },
+      { sektion: 'Certifieringar', tips: 'Intygsavsnittet med Six Sigma, UGL, ADR och år.' },
       { sektion: 'Övrigt', tips: 'Branschvana, ambition (site manager-mål), eventuell internationell erfarenhet.' },
     ],
 
@@ -14541,7 +14541,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Logistik och Logistik Plus, som ingår i Premium, läser rekryteringssystemen rätt. Storbolag som DB Schenker och PostNord använder Workday eller egna ATS. Industribolag använder Workday eller SuccessFactors. Skriv ut WMS-system (SAP WMS, Manhattan), metodik (Lean, Six Sigma) och KPI:er (OTIF, plockhastighet) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Granit, som ingår i Premium, läser rekryteringssystemen rätt. Storbolag som DB Schenker och PostNord använder Workday eller egna ATS. Industribolag använder Workday eller SuccessFactors. Skriv ut WMS-system (SAP WMS, Manhattan), metodik (Lean, Six Sigma) och KPI:er (OTIF, plockhastighet) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -14589,7 +14589,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'kurator': {
     seoIntro:
-      'Som kurator bedöms du på din samtalsmetodik, juridiska vana och systemkunskap. Skolor, vårdcentraler, sjukhus, socialtjänst och privata aktörer har konstant öppna kuratorstjänster, men chefer slänger CV:n som inte tydligt visar legitimation, behörighet och målgruppsvana. Ett välskrivet CV avgör om du blir kallad till intervju på den arbetsplats du faktiskt vill jobba på.\n\nVår mall för kuratorer lyfter socionomexamen, eventuell vidareutbildning (KBT, MI, traumafokuserad terapi) och målgrupp som första visuella element. Vi har strukturerat erfarenhetssektionen så att arbetsplats, målgrupp (barn, ungdomar, vuxna, äldre) och samtalsmetodik syns direkt. Det betyder att enhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: socionomexamen, vidareutbildningar (steg 1 i KBT, MI, ACT, traumafokuserad samtalsterapi), målgrupp och inriktning (skolkurator, sjukvårdskurator, socialtjänst), juridisk vana (SoL, LSS, OSL, HSL), system (Procapita, Treserva, Take Care, Cosmic, IST Lärande), samverkansvana (skola, hem, BUP, polis), samt eventuell handledningskompetens.\n\nNedan hittar du två CV-mallar designade för kuratorsrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer inom skola, vård och socialtjänst faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som kurator bedöms du på din samtalsmetodik, juridiska vana och systemkunskap. Skolor, vårdcentraler, sjukhus, socialtjänst och privata aktörer har konstant öppna kuratorstjänster, men chefer slänger CV:n som inte tydligt visar legitimation, behörighet och målgruppsvana. Ett välskrivet CV avgör om du blir kallad till intervju på den arbetsplats du faktiskt vill jobba på.\n\nVåra mallar lyfter socionomexamen, eventuell vidareutbildning (KBT, MI, traumafokuserad terapi) och målgrupp som första visuella element, i Kalkstens sidospalt eller med ordningen Utbildning först i Linne. Erfarenhetsavsnittet är byggt så att arbetsplats, målgrupp (barn, ungdomar, vuxna, äldre) och samtalsmetodik syns direkt. Det betyder att enhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: socionomexamen, vidareutbildningar (steg 1 i KBT, MI, ACT, traumafokuserad samtalsterapi), målgrupp och inriktning (skolkurator, sjukvårdskurator, socialtjänst), juridisk vana (SoL, LSS, OSL, HSL), system (Procapita, Treserva, Take Care, Cosmic, IST Lärande), samverkansvana (skola, hem, BUP, polis), samt eventuell handledningskompetens.\n\nNedan hittar du två CV-mallar som passar kuratorns meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer inom skola, vård och socialtjänst faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -14627,23 +14627,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Examen och behörighet överst',
-        description: 'Vår mall lyfter socionomexamen och vidareutbildningar i sidopanelen. Enhetschefer ser din formella behörighet på fem sekunder utan att scrolla.',
+        description: 'I Kalksten lägger du vidareutbildningarna i intygsfältet i sidospalten och examen överst i huvudspalten med ordningen Utbildning först. Enhetschefer ser din formella behörighet på fem sekunder utan att scrolla.',
       },
       {
-        title: 'Eget block för samtalsmetodik',
-        description: 'KBT, MI, ACT och annan terapeutisk metod ligger i eget kompetensblock. Differentierar dig från kuratorer som bara har grundexamen.',
+        title: 'Samtalsmetodik som egen kompetensgrupp',
+        description: 'KBT, MI, ACT och annan terapeutisk metod lägger du som en egen grupp under Kompetenser, med fet rubrik. Det skiljer dig från kuratorer som bara har grundexamen.',
       },
       {
         title: 'Tydlig målgrupp per arbetsplats',
-        description: 'Mallen lyfter målgrupp (barn, ungdom, vuxna) per uppdragsgivare. Skolkurator-erfarenhet och sjukvårdskurator-erfarenhet konkurrerar inte.',
+        description: 'Varje uppdragsgivare blir en egen post där du anger målgrupp (barn, ungdom, vuxna). Skolkurator-erfarenhet och sjukvårdskurator-erfarenhet konkurrerar inte.',
       },
       {
-        title: 'Pedagog med foto ingår i Premium',
-        description: 'För senior kurator inom skola eller habilitering lägger Pedagog till foto och varm färgton. Skapar trygghet och passar verksamheter där personlig kontakt är central.',
+        title: 'Kalksten med foto ingår i Premium',
+        description: 'För senior kurator inom skola eller habilitering har Kalksten, som ingår i Premium, en kvadratisk fotoplats bredvid namnet och fyra lugna färger att välja mellan. Det skapar trygghet och passar verksamheter där personlig kontakt är central.',
       },
       {
         title: 'Plats för juridisk erfarenhet',
-        description: 'Mallen har dedikerade rader för lagstiftning du arbetat med (SoL, LSS, OSL, HSL). Visar att du behärskar både samtal och myndighetsutövning.',
+        description: 'Lagstiftning du arbetat med (SoL, LSS, OSL, HSL) får en egen kompetensgrupp. Visar att du behärskar både samtal och myndighetsutövning.',
       },
       {
         title: 'Plats för handledning och uppdrag',
@@ -14839,7 +14839,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     rekryterarTipsen: [
       {
         rubrik: 'Examen och behörighet i klartext',
-        text: 'Socionomexamen, lärosäte, år. Steg 1 i KBT eller psykodynamisk grundutbildning lyfts som eget block. Enhetschefer söker exakta termer i ATS.',
+        text: 'Socionomexamen, lärosäte, år. Steg 1 i KBT eller psykodynamisk grundutbildning lyfts som egen post under Utbildning. Enhetschefer söker exakta termer i ATS.',
       },
       {
         rubrik: 'Målgrupp differentierar',
@@ -14866,7 +14866,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'År som kurator, målgrupp, utbildning och fördjupningsområde på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Arbetsplats, period, målgrupp. Konkretisera samtalsmetodik, samverkansparter och dokumentationssystem.' },
-      { sektion: 'Utbildning', tips: 'Socionomexamen + lärosäte. Steg 1 i KBT eller psykodynamisk terapi i eget block.' },
+      { sektion: 'Utbildning', tips: 'Socionomexamen + lärosäte. Steg 1 i KBT eller psykodynamisk terapi som egen post.' },
       { sektion: 'Vidareutbildning', tips: 'MI, ACT, trauma, handledarutbildning. Datum och timmar där relevant.' },
       { sektion: 'Kompetenser', tips: 'Samtalsmetodik, lagstiftning, system. Skilj på tekniska och personliga.' },
       { sektion: 'Övrigt', tips: 'Auktorisation, eventuell privat verksamhet, handledning, språk.' },
@@ -14886,7 +14886,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och Pedagog, som ingår i Premium, läser rekryteringssystemen rätt. Kommuner och regioner använder Visma Recruit, Heroma och egna ATS. Skriv ut socionomexamen, steg 1, samtalsmetodik (KBT, MI, ACT), system (Procapita, Take Care) och lagstiftning (SoL, OSL) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Kalksten, som ingår i Premium, läser rekryteringssystemen rätt. Kommuner och regioner använder Visma Recruit, Heroma och egna ATS. Skriv ut socionomexamen, steg 1, samtalsmetodik (KBT, MI, ACT), system (Procapita, Take Care) och lagstiftning (SoL, OSL) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -14934,7 +14934,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'vardadministrator': {
     seoIntro:
-      'Som vårdadministratör bedöms du på din journalsystemskunskap, medicinska terminologi och administrativa precision. Sjukhus, vårdcentraler, privata vårdgivare och regioner som Region Stockholm, Västra Götaland och Skåne har konstant öppna vårdadministratörstjänster, men verksamhetschefer slänger CV:n som inte tydligt visar journalsystem, medicinsk dokumentation och kassakunskap. Ett välskrivet CV avgör om du blir kallad till intervju på den klinik du faktiskt vill jobba på.\n\nVår mall för vårdadministratörer lyfter journalsystem (Take Care, Cosmic, Melior, Cambio), medicinsk terminologi och kassasystem som första visuella element. Vi har strukturerat erfarenhetssektionen så att verksamhet, system och nyckelresultat syns direkt. Det betyder att verksamhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning till vårdadministratör eller medicinsk sekreterare, journalsystem du behärskar (Take Care, Cosmic, Melior, Profdoc, ProSang), medicinsk terminologi och latinkunskap, ICD-10 och KVÅ-kodning, kassasystem (Pasiva, Webbtidbok 1177), GDPR och PUL inom vård, telefonkommunikation, samt eventuell vana av remisser och DRG.\n\nNedan hittar du två CV-mallar designade för vårdadministratörsrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad verksamhetschefer på sjukhus, vårdcentraler och privata kliniker faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som vårdadministratör bedöms du på din journalsystemskunskap, medicinska terminologi och administrativa precision. Sjukhus, vårdcentraler, privata vårdgivare och regioner som Region Stockholm, Västra Götaland och Skåne har konstant öppna vårdadministratörstjänster, men verksamhetschefer slänger CV:n som inte tydligt visar journalsystem, medicinsk dokumentation och kassakunskap. Ett välskrivet CV avgör om du blir kallad till intervju på den klinik du faktiskt vill jobba på.\n\nVåra mallar lyfter journalsystem (Take Care, Cosmic, Melior, Cambio), medicinsk terminologi och kassasystem som första visuella element när du väljer ordningen Kompetenser först. Erfarenhetsavsnittet är byggt så att verksamhet, system och nyckelresultat syns direkt, i Årsring med årtalen i en egen kolumn. Det betyder att verksamhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning till vårdadministratör eller medicinsk sekreterare, journalsystem du behärskar (Take Care, Cosmic, Melior, Profdoc, ProSang), medicinsk terminologi och latinkunskap, ICD-10 och KVÅ-kodning, kassasystem (Pasiva, Webbtidbok 1177), GDPR och PUL inom vård, telefonkommunikation, samt eventuell vana av remisser och DRG.\n\nNedan hittar du två CV-mallar som passar vårdadministratörens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad verksamhetschefer på sjukhus, vårdcentraler och privata kliniker faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -14971,24 +14971,24 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
     varforVarMallPassar: [
       {
-        title: 'Journalsystem överst i sidopanel',
-        description: 'Vår mall lyfter Take Care, Cosmic, Melior och övriga journalsystem i sidopanelen. Verksamhetschefer ser systemvana på fem sekunder utan att scrolla.',
+        title: 'Journalsystemen överst med Kompetenser först',
+        description: 'Välj ordningen Kompetenser först så hamnar Take Care, Cosmic, Melior och övriga journalsystem direkt under profilen i båda mallarna. Verksamhetschefer ser systemvanan på fem sekunder utan att scrolla.',
       },
       {
         title: 'Plats för utbildning och kursintyg',
-        description: 'Vårdadministratörsutbildning, latinkurs, ICD-10-kurs lyfts som separata block. Differentierar dig från medicinska sekreterare med bara grundutbildning.',
+        description: 'Vårdadministratörsutbildning, latinkurs och ICD-10-kurs lyfts som egna poster under Utbildning och Intyg. Differentierar dig från medicinska sekreterare med bara grundutbildning.',
       },
       {
         title: 'Tydlig verksamhetsangivelse',
-        description: 'Mallen har dedikerade rader för verksamhetsområde (kirurgi, ortopedi, primärvård, BUP). Specialisering är CV-kritisk inom vård.',
+        description: 'Varje anställning blir en egen post där verksamhetsområdet (kirurgi, ortopedi, primärvård, BUP) står på egen rad. Specialisering är CV-kritisk inom vård.',
       },
       {
-        title: 'Konto Plus med foto ingår i Premium',
-        description: 'För senior vårdadministratör eller koordinator lägger Konto Plus till foto och ren design. Skapar trygghet vilket passar verksamheter där noggrannhet värderas.',
+        title: 'Årsring med tidslinje ingår i Premium',
+        description: 'För senior vårdadministratör eller koordinator ger Årsring, som ingår i Premium, en tidslinje där årtalen står i vänsterkolumnen längs en lodrät accentlinje. Ren och exakt, vilket passar verksamheter där noggrannhet värderas. Finns som PDF och Word.',
       },
       {
         title: 'Plats för administrativ bredd',
-        description: 'Mallen har dedikerade rader för kassa, remisser, statistik, DRG-vana. Vårdadministratörer hanterar bred administration utöver journalskrivande.',
+        description: 'Kassa, remisser, statistik och DRG-vana får en egen kompetensgrupp med fet rubrik. Vårdadministratörer hanterar bred administration utöver journalskrivande.',
       },
       {
         title: 'Plats för språk och terminologi',
@@ -15188,7 +15188,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       },
       {
         rubrik: 'Utbildning och latinkunskap',
-        text: 'YH-utbildning till vårdadministratör eller medicinsk sekreterare. Latinkurs och medicinsk terminologi i eget block. Verksamhetschefer söker exakta termer.',
+        text: 'YH-utbildning till vårdadministratör eller medicinsk sekreterare. Latinkurs och medicinsk terminologi som egna poster. Verksamhetschefer söker exakta termer.',
       },
       {
         rubrik: 'Kodningsvana är CV-kritisk',
@@ -15211,7 +15211,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'År som vårdadministratör, journalsystem, verksamhetsområde på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Verksamhet, period, journalsystem. Konkretisera diktatvolym, kodningsvana och eventuell koordinatorroll.' },
-      { sektion: 'Utbildning', tips: 'YH-utbildning + ort + år. Latinkurs och eventuella vidareutbildningar i eget block.' },
+      { sektion: 'Utbildning', tips: 'YH-utbildning + ort + år. Latinkurs och eventuella vidareutbildningar som egna poster.' },
       { sektion: 'Kompetenser', tips: 'Journalsystem, kodning, lagstiftning. Skilj på tekniska och personliga.' },
       { sektion: 'System', tips: 'Lista alla journalsystem och övriga verktyg. Var konkret med versioner där relevant.' },
       { sektion: 'Övrigt', tips: 'Specialisering, eventuell vidareutbildning, språk.' },
@@ -15231,7 +15231,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Konto och Konto Plus, som ingår i Premium, läser rekryteringssystemen rätt. Sjukhus och regioner använder Visma Recruit, Heroma och Talent Recruiter. Skriv ut journalsystem (Take Care, Cosmic, Melior), kodningssystem (ICD-10, KVÅ) och lagstiftning (PDL, OSL) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Årsring, som ingår i Premium, läser rekryteringssystemen rätt. Sjukhus och regioner använder Visma Recruit, Heroma och Talent Recruiter. Skriv ut journalsystem (Take Care, Cosmic, Melior), kodningssystem (ICD-10, KVÅ) och lagstiftning (PDL, OSL) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -15279,7 +15279,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'fritidspedagog': {
     seoIntro:
-      'Som fritidspedagog bedöms du på din pedagogiska grund, gruppledning och förmåga att driva meningsfull fritid. Kommuner, friskolor och privata aktörer som AcadeMedia, Internationella Engelska Skolan och Kunskapsskolan har konstant öppna fritidspedagogtjänster, men rektorer slänger CV:n som inte tydligt visar lärarexamen mot fritidshem, åldersgrupp och pedagogiskt fokus. Ett välskrivet CV avgör om du blir kallad till intervju på den skola du faktiskt vill jobba på.\n\nVår mall för fritidspedagoger lyfter lärarexamen mot fritidshem, åldersgrupp och pedagogisk inriktning som första visuella element. Vi har strukturerat erfarenhetssektionen så att skola, åldersgrupp och konkreta projekt syns direkt. Det betyder att rektorer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: lärarexamen mot fritidshem eller motsvarande YH-utbildning, åldersgrupp (förskoleklass, F-3, 4-6), pedagogisk inriktning (skapande verksamhet, idrott, natur, språk), läroplanskännedom (Lgr22 kapitel 4 om fritidshem), system (Schoolsoft, Vklass, IST Lärande), samverkan med klasslärare, samt eventuell specialpedagogik och NPF-vana.\n\nNedan hittar du två CV-mallar designade för fritidspedagogrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad rektorer på kommunala och fristående skolor faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som fritidspedagog bedöms du på din pedagogiska grund, gruppledning och förmåga att driva meningsfull fritid. Kommuner, friskolor och privata aktörer som AcadeMedia, Internationella Engelska Skolan och Kunskapsskolan har konstant öppna fritidspedagogtjänster, men rektorer slänger CV:n som inte tydligt visar lärarexamen mot fritidshem, åldersgrupp och pedagogiskt fokus. Ett välskrivet CV avgör om du blir kallad till intervju på den skola du faktiskt vill jobba på.\n\nVåra mallar lyfter lärarexamen mot fritidshem, åldersgrupp och pedagogisk inriktning som första visuella element, i Kalkstens sidospalt eller med ordningen Utbildning först i Linne. Erfarenhetsavsnittet är byggt så att skola, åldersgrupp och konkreta projekt syns direkt. Det betyder att rektorer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: lärarexamen mot fritidshem eller motsvarande YH-utbildning, åldersgrupp (förskoleklass, F-3, 4-6), pedagogisk inriktning (skapande verksamhet, idrott, natur, språk), läroplanskännedom (Lgr22 kapitel 4 om fritidshem), system (Schoolsoft, Vklass, IST Lärande), samverkan med klasslärare, samt eventuell specialpedagogik och NPF-vana.\n\nNedan hittar du två CV-mallar som passar fritidspedagogens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad rektorer på kommunala och fristående skolor faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -15317,23 +15317,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Examen och legitimation överst',
-        description: 'Vår mall lyfter lärarexamen mot fritidshem och eventuell legitimation i sidopanelen. Rektorer ser behörigheten direkt utan att scrolla.',
+        description: 'Kalksten lyfter legitimationen i intygsfältet i sidospalten och examen överst i huvudspalten med ordningen Utbildning först. Rektorer ser behörigheten direkt utan att scrolla.',
       },
       {
-        title: 'Eget block för pedagogisk inriktning',
-        description: 'Skapande verksamhet, idrott, natur, språk eller digital teknik lyfts som eget block. Differentierar dig från fritidspedagoger med bara generell behörighet.',
+        title: 'Pedagogisk inriktning som egen kompetensgrupp',
+        description: 'Skapande verksamhet, idrott, natur, språk eller digital teknik lyfter du som en egen grupp under Kompetenser, med fet rubrik. Det skiljer dig från fritidspedagoger med bara generell behörighet.',
       },
       {
         title: 'Tydlig åldersgrupp per skola',
-        description: 'Mallen har dedikerade rader för åldersgrupp per uppdragsgivare. Erfarenhet från F-klass och 4-6 konkurrerar inte om utrymme.',
+        description: 'Varje uppdragsgivare blir en egen post där åldersgruppen står på egen rad. Erfarenhet från F-klass och 4-6 konkurrerar inte om utrymme.',
       },
       {
-        title: 'Pedagog med foto ingår i Premium',
-        description: 'För senior fritidspedagog eller arbetslagsledare lägger Pedagog till foto och varm färgton. Skapar trygghet och passar skolverksamhet där personlig kontakt är central.',
+        title: 'Kalksten med foto ingår i Premium',
+        description: 'För senior fritidspedagog eller arbetslagsledare har Kalksten, som ingår i Premium, en kvadratisk fotoplats bredvid namnet och fyra lugna färger att välja mellan. Det skapar trygghet och passar skolverksamhet där personlig kontakt är central.',
       },
       {
         title: 'Plats för projekt och temaarbete',
-        description: 'Mallen har dedikerade rader för pedagogiska projekt, temaarbete och eventuella lov-program. Visar att du kan driva meningsfull fritid bortom passningsverksamhet.',
+        description: 'Pedagogiska projekt, temaarbete och eventuella lovprogram får ett eget avsnitt, Projekt. Visar att du kan driva meningsfull fritid bortom passningsverksamhet.',
       },
       {
         title: 'Plats för utbildning och fortbildning',
@@ -15529,7 +15529,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     rekryterarTipsen: [
       {
         rubrik: 'Examen och legitimation',
-        text: 'Lärarexamen mot fritidshem (180 hp), lärosäte och år. Legitimationsnummer i eget block. Rektorer söker exakta termer i ATS.',
+        text: 'Lärarexamen mot fritidshem (180 hp), lärosäte och år. Legitimationsnummer som egen rad under Intyg. Rektorer söker exakta termer i ATS.',
       },
       {
         rubrik: 'Åldersgrupp differentierar',
@@ -15556,7 +15556,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'År som fritidspedagog, åldersgrupp, pedagogisk inriktning på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Skola, period, åldersgrupp. Konkretisera projekt, temaarbete och eventuell förstelärartjänst.' },
-      { sektion: 'Utbildning', tips: 'Lärarexamen mot fritidshem + lärosäte. Eventuell magisterexamen i eget block.' },
+      { sektion: 'Utbildning', tips: 'Lärarexamen mot fritidshem + lärosäte. Eventuell magisterexamen som egen post.' },
       { sektion: 'Fortbildning', tips: 'NPF, lågaffektivt bemötande, rörelse, skapande. Datum och timmar där relevant.' },
       { sektion: 'Kompetenser', tips: 'Pedagogiska metoder, system, samverkan. Skilj på tekniska och personliga.' },
       { sektion: 'Övrigt', tips: 'Förstelärartjänst, eventuell magisterexamen, språk, eventuella idrotts- eller skapandeintressen.' },
@@ -15576,7 +15576,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och Pedagog, som ingår i Premium, läser rekryteringssystemen rätt. Kommuner och friskolor använder Visma Recruit, Workday och Talent Recruiter. Skriv ut lärarexamen mot fritidshem, Lgr22 kapitel 4, system (Schoolsoft, Vklass) och pedagogiska metoder (lågaffektivt bemötande, tydliggörande pedagogik) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Kalksten, som ingår i Premium, läser rekryteringssystemen rätt. Kommuner och friskolor använder Visma Recruit, Workday och Talent Recruiter. Skriv ut lärarexamen mot fritidshem, Lgr22 kapitel 4, system (Schoolsoft, Vklass) och pedagogiska metoder (lågaffektivt bemötande, tydliggörande pedagogik) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -15624,7 +15624,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'butikssaljare': {
     seoIntro:
-      'Som butikssäljare bedöms du på din serviceförmåga, säljresultat och kassavana. Stora kedjor som H&M, ICA, Lindex, Stadium, Apoteket och tusentals mindre butiker har konstant öppna butikssäljartjänster, men butikschefer slänger CV:n som inte tydligt visar säljresultat, kassasystem och produktområde. Ett välskrivet CV avgör om du blir kallad till intervju på den butik du faktiskt vill jobba på.\n\nVår mall för butikssäljare lyfter säljresultat, kassasystem och produktkunskap som första visuella element. Vi har strukturerat erfarenhetssektionen så att butik, kedja, period och säljresultat syns direkt. Det betyder att butikschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: butikserfarenhet med kedja och produktområde, kassasystem (ICA-kassan, NCR, Sitoo), KPI:er (snittnota, mersälj, UPT), produktkunskap (mode, sport, elektronik, dagligvaror), eventuell ansvarsfull försäljning (alkohol, tobak, lotter), språkkunskaper, samt schemaflexibilitet kvällar och helger.\n\nNedan hittar du två CV-mallar designade för butikssäljarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad butikschefer på dagligvaror, mode, sport och elektronik faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som butikssäljare bedöms du på din serviceförmåga, säljresultat och kassavana. Stora kedjor som H&M, ICA, Lindex, Stadium, Apoteket och tusentals mindre butiker har konstant öppna butikssäljartjänster, men butikschefer slänger CV:n som inte tydligt visar säljresultat, kassasystem och produktområde. Ett välskrivet CV avgör om du blir kallad till intervju på den butik du faktiskt vill jobba på.\n\nVåra mallar lyfter säljresultat, kassasystem och produktkunskap som första visuella element när du väljer ordningen Kompetenser först. Erfarenhetsavsnittet är byggt så att butik, kedja, period och säljresultat syns direkt. Det betyder att butikschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: butikserfarenhet med kedja och produktområde, kassasystem (ICA-kassan, NCR, Sitoo), KPI:er (snittnota, mersälj, UPT), produktkunskap (mode, sport, elektronik, dagligvaror), eventuell ansvarsfull försäljning (alkohol, tobak, lotter), språkkunskaper, samt schemaflexibilitet kvällar och helger.\n\nNedan hittar du två CV-mallar som passar butikssäljarens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad butikschefer på dagligvaror, mode, sport och elektronik faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -15662,23 +15662,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Säljresultat och kedja överst',
-        description: 'Vår mall lyfter säljresultat, kassasystem och butikskedja i sidopanelen. Butikschefer ser dina baskompetenser på fem sekunder utan att scrolla.',
+        description: 'Lägg säljresultat och kassasystem som egna kompetensgrupper och välj Kompetenser först, så står de direkt under profilen, i Raster i två spalter. Butikschefer ser dina baskompetenser på fem sekunder utan att scrolla.',
       },
       {
         title: 'Erfarenhet med produktområde',
-        description: 'Mallen separerar bolag och produktområde (mode, sport, dagligvaror). Du kan visa både bredd och djup utan att meriter konkurrerar.',
+        description: 'Varje bolag blir en egen post där produktområdet (mode, sport, dagligvaror) står på egen rad. Du kan visa både bredd och djup utan att meriter konkurrerar.',
       },
       {
-        title: 'Eget block för certifieringar',
-        description: 'Ansvarsfull försäljning, säljutbildningar (Mystery Shopper, NPS), kedje-specifika program lyfts som eget block.',
+        title: 'Certifieringar i intygsavsnittet',
+        description: 'Ansvarsfull försäljning, säljutbildningar (Mystery Shopper, NPS) och kedjespecifika program listar du rad för rad i intygsavsnittet med utgivare och år.',
       },
       {
-        title: 'Disk Plus med foto ingår i Premium',
-        description: 'För butikssäljare som söker premium-roller eller butikschefsambition lägger Disk Plus till foto och tidningskänsla. Skapar professionell first impression.',
+        title: 'Raster med tonade rubrikband ingår i Premium',
+        description: 'För butikssäljare som söker mer kvalificerade roller eller har butikschefsambition ger Raster, som ingår i Premium, rubriker som tonade färgband och kompetenserna i två spalter. Det skapar ett professionellt första intryck.',
       },
       {
         title: 'Plats för KPI:er och resultat',
-        description: 'Mallen har dedikerade rader för snittnota, UPT, mersälj och eventuell topp-placering i kedjan. Visar att du tänker resultatorienterat.',
+        description: 'Snittnota, UPT, mersälj och eventuell topplacering i kedjan får egna punkter under varje anställning. Visar att du tänker resultatorienterat.',
       },
       {
         title: 'Plats för språk och flexibilitet',
@@ -15882,7 +15882,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       },
       {
         rubrik: 'Ansvarsfull försäljning',
-        text: 'Certifiering i ansvarsfull försäljning är CV-kritisk för dagligvaror och bensinmackar. Lyft eventuell godkänd utbildning som eget block.',
+        text: 'Certifiering i ansvarsfull försäljning är CV-kritisk för dagligvaror och bensinmackar. Lyft eventuell godkänd utbildning som egen rad under Intyg.',
       },
       {
         rubrik: 'Schemaflexibilitet',
@@ -15901,7 +15901,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'År som butikssäljare, kedja, produktområde på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Butik, kedja, period. Konkretisera kassasystem, säljresultat och eventuell mentor- eller avdelningsroll.' },
-      { sektion: 'Utbildning', tips: 'Eventuellt gymnasium eller YH. Kedje-specifika utbildningar i eget block.' },
+      { sektion: 'Utbildning', tips: 'Eventuellt gymnasium eller YH. Kedjespecifika utbildningar som egna rader under Intyg.' },
       { sektion: 'Kompetenser', tips: 'Kassasystem, säljmetodik, produktområde. Skilj på tekniska och personliga.' },
       { sektion: 'Certifieringar', tips: 'Ansvarsfull försäljning, eventuella säljutbildningar, första hjälpen.' },
       { sektion: 'Övrigt', tips: 'Schemaflexibilitet, körkortsklass, språk, eventuell ambition mot avdelningschef.' },
@@ -15921,7 +15921,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Disk och Disk Plus, som ingår i Premium, läser rekryteringssystemen rätt. Stora kedjor som ICA, H&M, Stadium använder Teamtailor och Workday. Skriv ut kassasystem (ICA-kassan, Sitoo, NCR), kedjor och KPI:er (snittnota, UPT, mersälj) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Raster, som ingår i Premium, läser rekryteringssystemen rätt. Stora kedjor som ICA, H&M, Stadium använder Teamtailor och Workday. Skriv ut kassasystem (ICA-kassan, Sitoo, NCR), kedjor och KPI:er (snittnota, UPT, mersälj) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -15969,7 +15969,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'kundradgivare': {
     seoIntro:
-      'Som kundrådgivare bedöms du på din rådgivningsförmåga, regelverkskunskap och försäljningsresultat. Storbanker som Swedbank, SEB, Handelsbanken och Nordea, sparbanker och försäkringsbolag har konstant öppna kundrådgivartjänster, men chefer slänger CV:n som inte tydligt visar Swedsec-licens, IDD-licens och rådgivningsvolym. Ett välskrivet CV avgör om du blir kallad till intervju på den bank eller det bolag du faktiskt vill jobba på.\n\nVår mall för kundrådgivare lyfter Swedsec-licens, IDD-licens och rådgivningsvolym som första visuella element. Vi har strukturerat erfarenhetssektionen så att bank, kundsegment och affärsresultat syns direkt. Det betyder att teamledare och kontorschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: Swedsec-licens (rådgivnings- eller informationslicens), IDD-licens för försäkringsförmedling, eventuell InsureSec, kundsegment (privat, företag, premium), produktområde (bolån, sparande, pension, försäkring), KPI:er (säljvolym, NKI, retention), regelverk (MiFID II, IDD, penningtvättslagen, Konsumentkreditlagen) och system (ProCapita Bank, Trapets, BankID).\n\nNedan hittar du två CV-mallar designade för kundrådgivarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad teamledare och kontorschefer på banker, sparbanker och försäkringsbolag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som kundrådgivare bedöms du på din rådgivningsförmåga, regelverkskunskap och försäljningsresultat. Storbanker som Swedbank, SEB, Handelsbanken och Nordea, sparbanker och försäkringsbolag har konstant öppna kundrådgivartjänster, men chefer slänger CV:n som inte tydligt visar Swedsec-licens, IDD-licens och rådgivningsvolym. Ett välskrivet CV avgör om du blir kallad till intervju på den bank eller det bolag du faktiskt vill jobba på.\n\nVåra mallar lyfter Swedsec-licens, IDD-licens och rådgivningsvolym som första visuella element när du väljer ordningen Intyg först. Erfarenhetsavsnittet är byggt så att bank, kundsegment och affärsresultat syns direkt. Det betyder att teamledare och kontorschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: Swedsec-licens (rådgivnings- eller informationslicens), IDD-licens för försäkringsförmedling, eventuell InsureSec, kundsegment (privat, företag, premium), produktområde (bolån, sparande, pension, försäkring), KPI:er (säljvolym, NKI, retention), regelverk (MiFID II, IDD, penningtvättslagen, Konsumentkreditlagen) och system (ProCapita Bank, Trapets, BankID).\n\nNedan hittar du två CV-mallar som passar kundrådgivarens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad teamledare och kontorschefer på banker, sparbanker och försäkringsbolag faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -16006,24 +16006,24 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
     varforVarMallPassar: [
       {
-        title: 'Licenser överst i sidopanel',
-        description: 'Vår mall lyfter Swedsec-licens, IDD-licens och eventuell specialistlicens i sidopanelen. Teamledare ser din behörighet på fem sekunder utan att scrolla.',
+        title: 'Licenserna överst med Intyg först',
+        description: 'Välj ordningen Intyg först så ligger Swedsec-licens, IDD-licens och eventuell specialistlicens direkt under profilen i båda mallarna. Teamledare ser din behörighet på fem sekunder utan att scrolla.',
       },
       {
-        title: 'Eget block för regelverk',
-        description: 'MiFID II, IDD, PTL, KYC, Konsumentkreditlagen lyfts som eget kompetensblock. Differentierar dig från generella säljare i finansbranschen.',
+        title: 'Regelverk som egen kompetensgrupp',
+        description: 'MiFID II, IDD, PTL, KYC och konsumentkreditlagen lyfter du som en egen grupp under Kompetenser, med fet rubrik. Det skiljer dig från generella säljare i finansbranschen.',
       },
       {
         title: 'Tydligt kundsegment per arbetsgivare',
-        description: 'Mallen separerar bolag och kundsegment (privat, företag, premium). Erfarenhet inom olika segment konkurrerar inte om utrymme.',
+        description: 'Varje bolag blir en egen post där kundsegmentet (privat, företag, premium) står på egen rad. Erfarenhet inom olika segment konkurrerar inte om utrymme.',
       },
       {
-        title: 'Norrsken Plus med foto ingår i Premium',
-        description: 'Bank- och försäkringsbranschen värderar personlig kontakt. Norrsken Plus lägger till foto och varm färgton som passar relationsbyggande roller.',
+        title: 'Koppar med foto ingår i Premium',
+        description: 'Bank- och försäkringsbranschen värderar personlig kontakt. Koppar, som ingår i Premium, har rund fotoplats i ett färgat huvudband, med kopparbrun som förval och marinblå som ett lugnare alternativ för relationsbyggande roller.',
       },
       {
         title: 'Plats för affärsresultat',
-        description: 'Mallen har dedikerade rader för säljvolym, antal kunder, NKI och retention. Visar att du tänker både rådgivning och affär.',
+        description: 'Säljvolym, antal kunder, NKI och retention får egna punkter under varje anställning. Visar att du tänker både rådgivning och affär.',
       },
       {
         title: 'Plats för specialisering',
@@ -16246,7 +16246,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'År som kundrådgivare, bank, kundsegment och licenser på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Bank, kontor, period. Konkretisera AUM, antal kunder, NKI, retention och cross-sell.' },
-      { sektion: 'Utbildning', tips: 'Civilekonom + lärosäte. Eventuell magister i finans i eget block.' },
+      { sektion: 'Utbildning', tips: 'Civilekonom + lärosäte. Eventuell magister i finans som egen post.' },
       { sektion: 'Licenser', tips: 'Swedsec, IDD, EFPA, eventuell specialistlicens. Datum för senaste prov.' },
       { sektion: 'Kompetenser', tips: 'Regelverk, produktområde, system. Skilj på tekniska och personliga.' },
       { sektion: 'Övrigt', tips: 'Eventuella uppdrag (mentor, teamlead-vikariat), språk, eventuella sociala uppdrag.' },
@@ -16266,7 +16266,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och Norrsken Plus, som ingår i Premium, läser rekryteringssystemen rätt. Banker använder Workday, Teamtailor och egna ATS. Skriv ut licenser (Swedsec, IDD, EFPA), regelverk (MiFID II, PTL, IDD) och produktområde (bolån, pension, ISK) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Koppar, som ingår i Premium, läser rekryteringssystemen rätt. Banker använder Workday, Teamtailor och egna ATS. Skriv ut licenser (Swedsec, IDD, EFPA), regelverk (MiFID II, PTL, IDD) och produktområde (bolån, pension, ISK) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -16314,7 +16314,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'konditor': {
     seoIntro:
-      'Som konditor bedöms du på din hantverksskicklighet, produktbredd och hygienvana. Konditorier, hotell, bagerier som Sturebageriet, Vetekatten, Cajsa Warg och tusentals mindre verksamheter har konstant öppna konditortjänster, men kökschefer och bagerichefer slänger CV:n som inte tydligt visar gesäll- eller mästarbrev, produktionserfarenhet och hygiencertifiering. Ett välskrivet CV avgör om du blir kallad till intervju på det bageri eller konditori du faktiskt vill jobba på.\n\nVår mall för konditorer lyfter gesäll- eller mästarbrev, produktbredd och hygiencertifiering som första visuella element. Vi har strukturerat erfarenhetssektionen så att verksamhet, produktområde (bröllopstårtor, viennoiserie, choklad, bröd) och produktionsvolym syns direkt. Det betyder att kökschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: gesäll- eller mästarbrev från Sveriges Bagare och Konditorer (eller motsvarande internationell utbildning), produktområde (sockerkonst, choklad, viennoiserie, bröllopstårtor, fika), HACCP-utbildning, hygiencertifiering, produktionsvolym, eventuell tävlingserfarenhet (Konditor-SM, Coupe du Monde), samt kökssystem och kalkyl.\n\nNedan hittar du två CV-mallar designade för konditorrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad kökschefer och bagerichefer på premium-konditorier, hotell och kedjebagerier faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som konditor bedöms du på din hantverksskicklighet, produktbredd och hygienvana. Konditorier, hotell, bagerier som Sturebageriet, Vetekatten, Cajsa Warg och tusentals mindre verksamheter har konstant öppna konditortjänster, men kökschefer och bagerichefer slänger CV:n som inte tydligt visar gesäll- eller mästarbrev, produktionserfarenhet och hygiencertifiering. Ett välskrivet CV avgör om du blir kallad till intervju på det bageri eller konditori du faktiskt vill jobba på.\n\nVåra mallar lyfter gesäll- eller mästarbrev, produktbredd och hygiencertifiering som första visuella element när du väljer ordningen Intyg först. Erfarenhetsavsnittet är byggt så att verksamhet, produktområde (bröllopstårtor, viennoiserie, choklad, bröd) och produktionsvolym syns direkt. Det betyder att kökschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: gesäll- eller mästarbrev från Sveriges Bagare och Konditorer (eller motsvarande internationell utbildning), produktområde (sockerkonst, choklad, viennoiserie, bröllopstårtor, fika), HACCP-utbildning, hygiencertifiering, produktionsvolym, eventuell tävlingserfarenhet (Konditor-SM, Coupe du Monde), samt kökssystem och kalkyl.\n\nNedan hittar du två CV-mallar som passar konditorns meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad kökschefer och bagerichefer på premium-konditorier, hotell och kedjebagerier faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -16352,23 +16352,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Brev och tävlingar överst',
-        description: 'Vår mall lyfter gesäll- eller mästarbrev, hygiencertifiering och eventuella tävlingsplaceringar i sidopanelen. Kökschefer ser din behörighet på fem sekunder.',
+        description: 'Välj ordningen Intyg först så ligger gesäll- eller mästarbrev, hygiencertifiering och eventuella tävlingsplaceringar direkt under profilen i båda mallarna. Kökschefer ser din behörighet på fem sekunder.',
       },
       {
-        title: 'Eget block för specialisering',
-        description: 'Sockerkonst, choklad, viennoiserie, bröllopstårtor lyfts som eget block. Differentierar dig från konditorer med bara generell erfarenhet.',
+        title: 'Specialisering som egen kompetensgrupp',
+        description: 'Sockerkonst, choklad, viennoiserie och bröllopstårtor lyfter du som en egen grupp under Kompetenser, i Terrakotta som brickor. Det skiljer dig från konditorer med bara generell erfarenhet.',
       },
       {
         title: 'Tydlig produktbredd per arbetsgivare',
-        description: 'Mallen har dedikerade rader för produktområde per uppdragsgivare. Erfarenhet från premium-konditori och industri-bageri konkurrerar inte.',
+        description: 'Varje uppdragsgivare blir en egen post där produktområdet står på egen rad. Erfarenhet från premium-konditori och industri-bageri konkurrerar inte.',
       },
       {
-        title: 'Servering med foto ingår i Premium',
-        description: 'För senior konditor eller chefskonditor lägger Servering till foto och varm färgton. Skapar professionell first impression som passar premium-segment.',
+        title: 'Terrakotta med kompetensbrickor ingår i Premium',
+        description: 'För senior konditor eller chefskonditor ger Terrakotta, som ingår i Premium, en krämfärgad sida med roströda rubriker, en varm ton som skapar ett första intryck med karaktär och passar finare konditorier.',
       },
       {
         title: 'Plats för internationell erfarenhet',
-        description: 'Mallen har dedikerade rader för utlandspraktik eller internationella tävlingar. Visar bredd och premium-positionering.',
+        description: 'Utlandspraktik och internationella tävlingar får egna poster under Erfarenhet eller Intyg. Visar bredd och ambition.',
       },
       {
         title: 'Plats för affärsförståelse',
@@ -16564,7 +16564,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     rekryterarTipsen: [
       {
         rubrik: 'Brev och tävlingar',
-        text: 'Gesäll- eller mästarbrev, datum och utfärdare. Tävlingsplaceringar (Konditor-SM, Coupe du Monde) i eget block. Differentierar premium-konditorer.',
+        text: 'Gesäll- eller mästarbrev, datum och utfärdare. Tävlingsplaceringar (Konditor-SM, Coupe du Monde) som egna rader under Intyg. Differentierar premium-konditorer.',
       },
       {
         rubrik: 'Produktområde och specialisering',
@@ -16572,7 +16572,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       },
       {
         rubrik: 'HACCP och hygiencertifiering',
-        text: 'HACCP, EHEDG, livsmedelshygien. CV-kritiskt och krav på alla seriösa konditorier. Lyft som eget block.',
+        text: 'HACCP, EHEDG, livsmedelshygien. CV-kritiskt och krav på alla seriösa konditorier. Lyft dem i intygsavsnittet.',
       },
       {
         rubrik: 'Produktionsvolym och team',
@@ -16591,7 +16591,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'År som konditor, brev, produktområde och eventuella tävlingar på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Verksamhet, period, produktområde. Konkretisera produktionsvolym, specialiteter och team.' },
-      { sektion: 'Utbildning', tips: 'Restaurang- eller livsmedelsprogrammet + skola. Gesäll- eller mästarbrev i eget block.' },
+      { sektion: 'Utbildning', tips: 'Restaurang- eller livsmedelsprogrammet + skola. Gesäll- eller mästarbrev som egen rad under Intyg.' },
       { sektion: 'Tävlingar', tips: 'Konditor-SM, Coupe du Monde, internationella tävlingar. Datum och placering.' },
       { sektion: 'Kompetenser', tips: 'Produktområden, tekniker, hygien. Skilj på tekniska och personliga.' },
       { sektion: 'Övrigt', tips: 'Internationell erfarenhet, mentorskap, eventuella föreläsningar eller TV-medverkan.' },
@@ -16611,7 +16611,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Stack Developer och Servering, som ingår i Premium, läser rekryteringssystemen rätt. Hotellkedjor och industri-bagerier använder Workday och Teamtailor. Skriv ut gesäll- eller mästarbrev, hygiencertifiering (HACCP, EHEDG), produktområden (viennoiserie, sockerkonst, choklad) och eventuella tävlingsplaceringar i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Terrakotta, som ingår i Premium, läser rekryteringssystemen rätt. Hotellkedjor och industri-bagerier använder Workday och Teamtailor. Skriv ut gesäll- eller mästarbrev, hygiencertifiering (HACCP, EHEDG), produktområden (viennoiserie, sockerkonst, choklad) och eventuella tävlingsplaceringar i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -16659,7 +16659,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'it-konsult': {
     seoIntro:
-      'Som IT-konsult bedöms du på din tekniska bredd, kundleverans och förmåga att fakturera. Konsultbolag som Accenture, Capgemini, Sopra Steria, TietoEvry, Cygni och tusentals mindre boutique-konsulter har konstant öppna IT-konsult-tjänster, men account managers och tech leads slänger CV:n som inte tydligt visar uppdragshistorik, teknisk stack och kundfakturering. Ett välskrivet CV avgör om du blir kallad till intervju på det konsultbolag du faktiskt vill jobba på.\n\nVår mall för IT-konsulter lyfter teknisk stack, uppdragshistorik och fakturerbar tid som första visuella element. Vi har strukturerat erfarenhetssektionen så att kund, period, roll och leveransresultat syns direkt. Det betyder att account managers och tech leads kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning (civilingenjör, systemvetare eller motsvarande), uppdragshistorik (kund, period, teknisk stack, roll), teknisk bredd (.NET, Java, JavaScript, TypeScript, Python, React, Angular, Vue, AWS, Azure, GCP, Kubernetes), certifieringar (AWS, Azure, GCP, Scrum, ITIL), eventuell branschvana (bank, försäkring, retail, offentlig sektor) samt språk och fakturerbar tid om du driver eget.\n\nNedan hittar du två CV-mallar designade för IT-konsult-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad account managers och tech leads på konsultbolag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den uppdrag du söker.',
+      'Som IT-konsult bedöms du på din tekniska bredd, kundleverans och förmåga att fakturera. Konsultbolag som Accenture, Capgemini, Sopra Steria, TietoEvry, Cygni och tusentals mindre boutique-konsulter har konstant öppna IT-konsult-tjänster, men account managers och tech leads slänger CV:n som inte tydligt visar uppdragshistorik, teknisk stack och kundfakturering. Ett välskrivet CV avgör om du blir kallad till intervju på det konsultbolag du faktiskt vill jobba på.\n\nVåra mallar lyfter teknisk stack, uppdragshistorik och fakturerbar tid som första visuella element, i Ståls högerspalt eller med ordningen Kompetenser först i Linne. Erfarenhetsavsnittet är byggt så att kund, period, roll och leveransresultat syns direkt. Det betyder att account managers och tech leads kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning (civilingenjör, systemvetare eller motsvarande), uppdragshistorik (kund, period, teknisk stack, roll), teknisk bredd (.NET, Java, JavaScript, TypeScript, Python, React, Angular, Vue, AWS, Azure, GCP, Kubernetes), certifieringar (AWS, Azure, GCP, Scrum, ITIL), eventuell branschvana (bank, försäkring, retail, offentlig sektor) samt språk och fakturerbar tid om du driver eget.\n\nNedan hittar du två CV-mallar som passar IT-konsultens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad account managers och tech leads på konsultbolag faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter det uppdrag du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -16674,7 +16674,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       },
       {
         icon: 'Award',
-        title: 'Certifieringar i eget block',
+        title: 'Certifieringar i eget avsnitt',
         description: 'AWS Solutions Architect, Azure Solutions Architect, Google Cloud Professional, Scrum Master, ITIL, Microsoft MCSE. Konsultbolag fakturerar mer för certifierade konsulter, så lyft alla.',
       },
       {
@@ -16697,23 +16697,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Stack och certifieringar överst',
-        description: 'Vår mall lyfter teknisk stack och certifieringar i sidopanelen. Account managers och tech leads ser dina baskompetenser på fem sekunder utan att scrolla.',
+        description: 'Stål lyfter teknisk stack och certifieringar i högerspalten bredvid uppdragen, Linne med ordningen Kompetenser först. Account managers och tech leads ser dina baskompetenser på fem sekunder utan att scrolla.',
       },
       {
         title: 'Konsult-CV med uppdragshistorik',
-        description: 'Mallen är strukturerad för uppdrag (kund + period + roll + stack), inte bara anställningar. Standard-CV för IT-konsulter i Sverige.',
+        description: 'Varje post rymmer kund, period, roll och stack, så CV:t fungerar för uppdrag och inte bara anställningar. Standard-CV för IT-konsulter i Sverige.',
       },
       {
-        title: 'Eget block för branschvana',
-        description: 'Bank, försäkring, retail, offentlig sektor lyfts som eget kompetensblock. Differentierar dig från konsulter med bara teknisk bredd.',
+        title: 'Branschvana som egen kompetensgrupp',
+        description: 'Bank, försäkring, retail och offentlig sektor lyfter du som en egen grupp under Kompetenser, med fet rubrik. Det skiljer dig från konsulter med bara teknisk bredd.',
       },
       {
-        title: 'Stack Plus med foto ingår i Premium',
-        description: 'För senior IT-konsult eller tech lead lägger Stack Plus till foto och ren design. Skapar professionell first impression som passar konsultbranschen där relation värderas.',
+        title: 'Stål med två spalter ingår i Premium',
+        description: 'För senior IT-konsult eller tech lead ger Stål, som ingår i Premium, en stram tvåspaltslayout med accentlinjer över rubrikerna. Det skapar ett professionellt första intryck som passar konsultbranschen där förtroende värderas.',
       },
       {
         title: 'Plats för leveransresultat',
-        description: 'Mallen har dedikerade rader för konkreta leveransresultat per uppdrag. Visar att du tänker både teknik och affär.',
+        description: 'Konkreta leveransresultat får egna punkter under varje uppdrag. Visar att du tänker både teknik och affär.',
       },
       {
         title: 'Plats för fakturerbar tid och rate',
@@ -16916,7 +16916,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
         text: '.NET 8, Java 17, React 18, Kubernetes. Skriv ut versioner och specifika ramverk eftersom tech leads söker exakt match i ATS.',
       },
       {
-        rubrik: 'Certifieringar i eget block',
+        rubrik: 'Certifieringar i eget avsnitt',
         text: 'AWS Solutions Architect, Azure, Google Cloud, Scrum Master, ITIL. Konsultbolag fakturerar mer för certifierade, så lyft alla.',
       },
       {
@@ -16947,7 +16947,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       'Uppdragshistorik (kund + period + roll + stack)',
       'Teknisk stack med versioner',
       'Cloud-erfarenhet (AWS, Azure, GCP)',
-      'Certifieringar i eget block',
+      'Certifieringar i eget avsnitt',
       'Branschvana (bank, försäkring, offentlig)',
       'Konkreta leveransresultat',
       'Eventuell utnyttjandegrad',
@@ -16956,12 +16956,12 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Stack Developer och Stack Plus, som ingår i Premium, läser rekryteringssystemen rätt. Konsultbolag använder Workday, Teamtailor, Greenhouse och Cinode. Skriv ut teknisk stack med versioner (.NET 8, Java 17, React 18), cloud-plattformar (AWS, Azure, GCP) och certifieringar (AWS Solutions Architect, Azure Expert) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Stål, som ingår i Premium, läser rekryteringssystemen rätt. Konsultbolag använder Workday, Teamtailor, Greenhouse och Cinode. Skriv ut teknisk stack med versioner (.NET 8, Java 17, React 18), cloud-plattformar (AWS, Azure, GCP) och certifieringar (AWS Solutions Architect, Azure Expert) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
         q: 'Vad ska finnas med på ett IT-konsult-CV?',
-        a: 'Civilingenjör eller motsvarande utbildning, uppdragshistorik (kund + period + roll + stack), teknisk stack med versioner, cloud-erfarenhet (AWS, Azure, GCP), certifieringar i eget block, branschvana, konkreta leveransresultat samt eventuell utnyttjandegrad om över 85%.',
+        a: 'Civilingenjör eller motsvarande utbildning, uppdragshistorik (kund + period + roll + stack), teknisk stack med versioner, cloud-erfarenhet (AWS, Azure, GCP), certifieringar i intygsavsnittet, branschvana, konkreta leveransresultat samt eventuell utnyttjandegrad om över 85%.',
       },
       {
         q: 'Hur skriver jag CV som ny IT-konsult utan uppdragshistorik?',
@@ -17004,7 +17004,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'scrum-master': {
     seoIntro:
-      'Som Scrum Master bedöms du på din metodikförståelse, coaching-förmåga och teamleverans. Konsultbolag som Capgemini, Cygni, Sopra Steria, scale-ups som Klarna, Spotify, iZettle och stora bolag som Swedbank, Telia, IKEA har konstant öppna Scrum Master-tjänster, men engineering managers slänger CV:n som inte tydligt visar certifiering, teamtyp och konkreta resultat. Ett välskrivet CV avgör om du blir kallad till intervju på det bolag du faktiskt vill jobba på.\n\nVår mall för Scrum Masters lyfter certifiering (PSM, CSM, SAFe), teamtyp och konkreta facilitering-resultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, teamtyp och leveransresultat syns direkt. Det betyder att engineering managers kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: Scrum Master-certifiering (PSM I/II/III, CSM, A-CSM, CSP-SM), SAFe-certifiering (SA, RTE, SPC), eventuell PMP eller Kanban Management Professional, teamtyp och teknisk kontext, konkreta resultat (velocity-ökning, lead time-reduktion, retention), coaching-erfarenhet, samt verktygsvana (Jira, Azure DevOps, Confluence, Miro, Mural).\n\nNedan hittar du två CV-mallar designade för Scrum Master-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad engineering managers och agile coaches på konsultbolag, scale-ups och storbolag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som Scrum Master bedöms du på din metodikförståelse, coaching-förmåga och teamleverans. Konsultbolag som Capgemini, Cygni, Sopra Steria, scale-ups som Klarna, Spotify, iZettle och stora bolag som Swedbank, Telia, IKEA har konstant öppna Scrum Master-tjänster, men engineering managers slänger CV:n som inte tydligt visar certifiering, teamtyp och konkreta resultat. Ett välskrivet CV avgör om du blir kallad till intervju på det bolag du faktiskt vill jobba på.\n\nVåra mallar lyfter certifiering (PSM, CSM, SAFe), teamtyp och konkreta faciliteringsresultat som första visuella element när du väljer ordningen Intyg först. Erfarenhetsavsnittet är byggt så att bolag, teamtyp och leveransresultat syns direkt. Det betyder att engineering managers kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: Scrum Master-certifiering (PSM I/II/III, CSM, A-CSM, CSP-SM), SAFe-certifiering (SA, RTE, SPC), eventuell PMP eller Kanban Management Professional, teamtyp och teknisk kontext, konkreta resultat (velocity-ökning, lead time-reduktion, retention), coaching-erfarenhet, samt verktygsvana (Jira, Azure DevOps, Confluence, Miro, Mural).\n\nNedan hittar du två CV-mallar som passar Scrum Masterns meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad engineering managers och agile coaches på konsultbolag, scale-ups och storbolag faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -17042,23 +17042,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Certifieringar och metodik överst',
-        description: 'Vår mall lyfter Scrum Master- och SAFe-certifieringar i sidopanelen. Engineering managers ser din behörighet på fem sekunder utan att scrolla.',
+        description: 'Välj ordningen Intyg först så ligger Scrum Master- och SAFe-certifieringarna direkt under profilen i båda mallarna. Engineering managers ser din behörighet på fem sekunder utan att scrolla.',
       },
       {
-        title: 'Eget block för coaching',
-        description: 'Coaching-stilar, retros-format, facilitering-tekniker lyfts som eget kompetensblock. Differentierar dig från Scrum Masters med bara certifiering.',
+        title: 'Coaching som egen kompetensgrupp',
+        description: 'Coachingstilar, retroformat och faciliteringstekniker lyfter du som en egen grupp under Kompetenser, i Raster i två spalter. Det skiljer dig från Scrum Masters med bara certifiering.',
       },
       {
         title: 'Tydlig teamtyp per arbetsgivare',
-        description: 'Mallen har dedikerade rader för teamtyp och teknisk kontext per uppdragsgivare. Erfarenhet från frontend-team och plattformsteam konkurrerar inte.',
+        description: 'Varje uppdragsgivare blir en egen post med teamtyp och teknisk kontext på egna rader. Erfarenhet från frontend-team och plattformsteam konkurrerar inte.',
       },
       {
-        title: 'Aspekt med foto ingår i Premium',
-        description: 'För senior Scrum Master eller agile coach lägger Aspekt till foto och premium-känsla. Skapar professionell first impression som passar coaching-roller.',
+        title: 'Raster med tonade rubrikband ingår i Premium',
+        description: 'För senior Scrum Master eller agile coach ger Raster, som ingår i Premium, rubriker som tonade färgband och kompetenserna i två spalter. Det skapar ett professionellt första intryck som passar coachingroller.',
       },
       {
         title: 'Plats för konkreta resultat',
-        description: 'Mallen har dedikerade rader för velocity-ökning, lead time-reduktion, deployment frequency och DORA-mått per uppdrag. Visar mätbar effekt.',
+        description: 'Velocityökning, lead time-reduktion, deployment frequency och DORA-mått får egna punkter under varje uppdrag. Visar mätbar effekt.',
       },
       {
         title: 'Plats för coaching och utbildning',
@@ -17301,7 +17301,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Linje och Aspekt, som ingår i Premium, läser rekryteringssystemen rätt. Konsultbolag, scale-ups och storbolag använder Workday, Teamtailor, Greenhouse och Cinode. Skriv ut certifieringar (PSM I/II/III, CSM, A-CSM, SAFe SA/RTE/SPC), metodik (Scrum, Kanban, XP, Lean) och DORA-mått i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Raster, som ingår i Premium, läser rekryteringssystemen rätt. Konsultbolag, scale-ups och storbolag använder Workday, Teamtailor, Greenhouse och Cinode. Skriv ut certifieringar (PSM I/II/III, CSM, A-CSM, SAFe SA/RTE/SPC), metodik (Scrum, Kanban, XP, Lean) och DORA-mått i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -17349,7 +17349,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'ekonom': {
     seoIntro:
-      'Som ekonom bedöms du på din analytiska förmåga, regelverkskunskap och systemvana. Industribolag, e-handel, banker, försäkringsbolag, redovisningsbyråer och startups har konstant öppna ekonomtjänster, men ekonomichefer och CFO:er slänger CV:n som inte tydligt visar utbildning, regelverk och systemvana. Ett välskrivet CV avgör om du blir kallad till intervju på det bolag du faktiskt vill jobba på.\n\nVår mall för ekonomer lyfter civilekonom-examen, regelverkskunskap (K2/K3, IFRS) och systemvana som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, period, ansvarsområde och konkreta resultat syns direkt. Det betyder att ekonomichefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: civilekonom-examen från Handelshögskolan eller motsvarande, eventuell auktorisation (auktoriserad redovisningskonsult, revisor, EFPA), regelverk (K2, K3, IFRS, US GAAP), system (SAP, Visma, Fortnox, Hogia, Excel-modellering), specialistområde (redovisning, controlling, analys, treasury, M&A), branschvana, samt eventuell systemimplementering och projektledning.\n\nNedan hittar du två CV-mallar designade för ekonomrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad ekonomichefer och CFO:er på industribolag, e-handel och scale-ups faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som ekonom bedöms du på din analytiska förmåga, regelverkskunskap och systemvana. Industribolag, e-handel, banker, försäkringsbolag, redovisningsbyråer och startups har konstant öppna ekonomtjänster, men ekonomichefer och CFO:er slänger CV:n som inte tydligt visar utbildning, regelverk och systemvana. Ett välskrivet CV avgör om du blir kallad till intervju på det bolag du faktiskt vill jobba på.\n\nVåra mallar lyfter civilekonomexamen, regelverkskunskap (K2/K3, IFRS) och systemvana som första visuella element när du väljer ordningen Utbildning först. Erfarenhetsavsnittet är byggt så att bolag, period, ansvarsområde och konkreta resultat syns direkt, i Årsring med årtalen i en egen kolumn. Det betyder att ekonomichefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: civilekonom-examen från Handelshögskolan eller motsvarande, eventuell auktorisation (auktoriserad redovisningskonsult, revisor, EFPA), regelverk (K2, K3, IFRS, US GAAP), system (SAP, Visma, Fortnox, Hogia, Excel-modellering), specialistområde (redovisning, controlling, analys, treasury, M&A), branschvana, samt eventuell systemimplementering och projektledning.\n\nNedan hittar du två CV-mallar som passar ekonomens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad ekonomichefer och CFO:er på industribolag, e-handel och scale-ups faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -17387,23 +17387,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Examen och regelverk överst',
-        description: 'Vår mall lyfter civilekonom-examen, eventuell auktorisation och regelverkskunskap i sidopanelen. Ekonomichefer ser din behörighet på fem sekunder utan att scrolla.',
+        description: 'Välj ordningen Utbildning först så ligger civilekonomexamen direkt under profilen i båda mallarna, med eventuell auktorisation i intygsavsnittet och regelverkskunskap som kompetensgrupp. Ekonomichefer ser din behörighet på fem sekunder utan att scrolla.',
       },
       {
-        title: 'Eget block för specialisering',
-        description: 'Redovisning, controlling, FP&A, treasury lyfts som eget kompetensblock. Differentierar dig från generella ekonomer.',
+        title: 'Specialisering som egen kompetensgrupp',
+        description: 'Redovisning, controlling, FP&A och treasury lyfter du som en egen grupp under Kompetenser, i Årsring med gruppnamnet i marginalen. Det skiljer dig från generella ekonomer.',
       },
       {
         title: 'Tydlig branschvana per arbetsgivare',
-        description: 'Mallen har dedikerade rader för bransch och bolagsstorlek per uppdragsgivare. Erfarenhet från industri och e-handel konkurrerar inte om utrymme.',
+        description: 'Varje uppdragsgivare blir en egen post med bransch och bolagsstorlek på egna rader. Erfarenhet från industri och e-handel konkurrerar inte om utrymme.',
       },
       {
-        title: 'Konto Plus med foto ingår i Premium',
-        description: 'För senior ekonom eller controller lägger Konto Plus till foto och ren design. Skapar professionell first impression som passar ekonomi-branschen.',
+        title: 'Årsring med tidslinje ingår i Premium',
+        description: 'För senior ekonom eller controller ger Årsring, som ingår i Premium, en ren tidslinje med årtalen i vänsterkolumnen längs en lodrät accentlinje. Det skapar ett professionellt första intryck som passar ekonomibranschen.',
       },
       {
         title: 'Plats för konkreta resultat',
-        description: 'Mallen har dedikerade rader för leveranser per uppdrag (konsolidering, systemimplementering, processförbättring). Visar både teknisk och affärsmässig påverkan.',
+        description: 'Leveranser per uppdrag (konsolidering, systemimplementering, processförbättring) får egna punkter under varje anställning. Visar både teknisk och affärsmässig påverkan.',
       },
       {
         title: 'Plats för certifieringar och fortbildning',
@@ -17626,7 +17626,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'År som ekonom, specialisering, examen och eventuell auktorisation på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Bolag, period, ansvarsområde. Konkretisera regelverk, system och leveranser.' },
-      { sektion: 'Utbildning', tips: 'Civilekonom + lärosäte. Magister eller PhD i eget block.' },
+      { sektion: 'Utbildning', tips: 'Civilekonom + lärosäte. Magister eller PhD som egen post.' },
       { sektion: 'Certifieringar', tips: 'Auktorisation, EFPA, CIMA, CFA. Datum och utfärdare.' },
       { sektion: 'Kompetenser', tips: 'Regelverk, system, specialisering. Skilj på tekniska och personliga.' },
       { sektion: 'Övrigt', tips: 'Branschvana, eventuell projektledning, språk och styrelseuppdrag.' },
@@ -17646,7 +17646,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Konto och Konto Plus, som ingår i Premium, läser rekryteringssystemen rätt. Industri- och tech-bolag använder Workday, Teamtailor, SAP SuccessFactors och Oracle. Skriv ut regelverk (K2, K3, IFRS, US GAAP), system (SAP, Oracle, Visma, Fortnox) och specialisering (FP&A, treasury, M&A) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Årsring, som ingår i Premium, läser rekryteringssystemen rätt. Industri- och tech-bolag använder Workday, Teamtailor, SAP SuccessFactors och Oracle. Skriv ut regelverk (K2, K3, IFRS, US GAAP), system (SAP, Oracle, Visma, Fortnox) och specialisering (FP&A, treasury, M&A) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -17694,7 +17694,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'barnmorska': {
     seoIntro:
-      'Som barnmorska bedöms du på din legitimation, specialisering och förlossningsvolym. Förlossningsavdelningar, MVC, BVC, ungdomsmottagningar och privata aktörer som Sophiahemmet, Capio och BB Stockholm har konstant öppna barnmorsketjänster, men verksamhetschefer slänger CV:n som inte tydligt visar legitimation, specialisering och konkret klinisk erfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på den klinik du faktiskt vill jobba på.\n\nVår mall för barnmorskor lyfter legitimation, magisterexamen och kliniska volymer som första visuella element. Vi har strukturerat erfarenhetssektionen så att verksamhet, ansvarsområde och förlossningsvolym syns direkt. Det betyder att verksamhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: legitimation som sjuksköterska och barnmorska (Socialstyrelsen), magisterexamen i sexuell, reproduktiv och perinatal hälsa (90 hp), kliniska volymer (antal förlossningar, MVC-besök, p-piller-rådgivning), specialisering (förlossning, BB, MVC, ungdomsmottagning, abortvård), CTG-kompetens, lagstiftning (HSL, OSL, PDL, abortlagen) och journalsystem (Take Care, Cosmic, Obstetrix).\n\nNedan hittar du två CV-mallar designade för barnmorskerollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad verksamhetschefer på förlossningsavdelningar, MVC och BVC faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som barnmorska bedöms du på din legitimation, specialisering och förlossningsvolym. Förlossningsavdelningar, MVC, BVC, ungdomsmottagningar och privata aktörer som Sophiahemmet, Capio och BB Stockholm har konstant öppna barnmorsketjänster, men verksamhetschefer slänger CV:n som inte tydligt visar legitimation, specialisering och konkret klinisk erfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på den klinik du faktiskt vill jobba på.\n\nVåra mallar lyfter legitimation, magisterexamen och kliniska volymer som första visuella element, i Kalkstens intygsfält eller med ordningen Intyg först i Linne. Erfarenhetsavsnittet är byggt så att verksamhet, ansvarsområde och förlossningsvolym syns direkt. Det betyder att verksamhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: legitimation som sjuksköterska och barnmorska (Socialstyrelsen), magisterexamen i sexuell, reproduktiv och perinatal hälsa (90 hp), kliniska volymer (antal förlossningar, MVC-besök, p-piller-rådgivning), specialisering (förlossning, BB, MVC, ungdomsmottagning, abortvård), CTG-kompetens, lagstiftning (HSL, OSL, PDL, abortlagen) och journalsystem (Take Care, Cosmic, Obstetrix).\n\nNedan hittar du två CV-mallar som passar barnmorskans meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad verksamhetschefer på förlossningsavdelningar, MVC och BVC faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -17732,23 +17732,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Legitimation och specialisering överst',
-        description: 'Vår mall lyfter sjuksköterske- och barnmorskelegitimation samt magisterexamen i sidopanelen. Verksamhetschefer ser din behörighet på fem sekunder utan att scrolla.',
+        description: 'Kalksten lyfter sjuksköterske- och barnmorskelegitimation samt magisterexamen i intygsfältet i sidospalten, Linne med ordningen Intyg först. Verksamhetschefer ser din behörighet på fem sekunder utan att scrolla.',
       },
       {
-        title: 'Eget block för kliniska volymer',
-        description: 'Förlossningsvolym, MVC-besök, abortvolym lyfts som eget block. Differentierar dig från barnmorskor med bara generell erfarenhet.',
+        title: 'Kliniska volymer som egen kompetensgrupp',
+        description: 'Förlossningsvolym, MVC-besök och abortvolym lyfter du som en egen grupp under Kompetenser, med fet rubrik och siffrorna i klartext. Det skiljer dig från barnmorskor med bara generell erfarenhet.',
       },
       {
         title: 'Tydlig specialisering per arbetsgivare',
-        description: 'Mallen har dedikerade rader för verksamhet och specialisering per uppdragsgivare. Förlossning och MVC konkurrerar inte om utrymme.',
+        description: 'Varje uppdragsgivare blir en egen post med verksamhet och specialisering på egna rader. Förlossning och MVC konkurrerar inte om utrymme.',
       },
       {
-        title: 'Klinik med foto ingår i Premium',
-        description: 'Premium-segmentet (Sophiahemmet, BB Stockholm) värderar personlig kontakt. Klinik lägger till foto och formell färgton som passar barnmorskerollen.',
+        title: 'Kalksten med foto ingår i Premium',
+        description: 'Privata vårdgivare (Sophiahemmet, BB Stockholm) värderar personlig kontakt. Kalksten, som ingår i Premium, har en kvadratisk fotoplats bredvid namnet och en stålblå förvalsfärg som passar barnmorskerollen.',
       },
       {
         title: 'Plats för CTG och bedömningar',
-        description: 'Mallen har dedikerade rader för CTG-kompetens, FIGO-klassificering och eventuell ultraljudsutbildning. Visar djupare klinisk kompetens.',
+        description: 'CTG-kompetens, FIGO-klassificering och eventuell ultraljudsutbildning får egna rader i intygsavsnittet, med utgivare och år. Visar djupare klinisk kompetens.',
       },
       {
         title: 'Plats för forskning och fortbildning',
@@ -17971,7 +17971,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'År som barnmorska, specialisering, examen och kliniska volymer på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Verksamhet, period, volymer. Konkretisera CTG-vana, MVC-besök, eventuell forskning.' },
-      { sektion: 'Utbildning', tips: 'Sjuksköterskeexamen + magisterexamen 90 hp + lärosäten. Eventuell PhD i eget block.' },
+      { sektion: 'Utbildning', tips: 'Sjuksköterskeexamen + magisterexamen 90 hp + lärosäten. Eventuell PhD som egen post.' },
       { sektion: 'Legitimationer', tips: 'Sjuksköterska, barnmorska. Datum för utfärdande från Socialstyrelsen.' },
       { sektion: 'Kompetenser', tips: 'Klinisk bedömning, lagstiftning, system. Skilj på tekniska och personliga.' },
       { sektion: 'Övrigt', tips: 'Vidareutbildningar, forskning, eventuella föreläsningar eller publikationer.' },
@@ -17991,7 +17991,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Tidlös och Klinik, som ingår i Premium, läser rekryteringssystemen rätt. Sjukhus och regioner använder Visma Recruit, Heroma och Talent Recruiter. Skriv ut legitimationer, magisterexamen 90 hp, system (Take Care, Cosmic, Obstetrix) och lagstiftning (HSL, PDL, abortlagen) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Kalksten, som ingår i Premium, läser rekryteringssystemen rätt. Sjukhus och regioner använder Visma Recruit, Heroma och Talent Recruiter. Skriv ut legitimationer, magisterexamen 90 hp, system (Take Care, Cosmic, Obstetrix) och lagstiftning (HSL, PDL, abortlagen) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -18039,7 +18039,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'boendestod': {
     seoIntro:
-      'Som boendestöd bedöms du på din målgruppsvana, juridiska kunskap och förmåga att stötta i vardagen. Kommuner, LSS-bolag som Frösunda, Humana, Attendo och privata aktörer har konstant öppna boendestödstjänster, men enhetschefer slänger CV:n som inte tydligt visar målgrupp, lagstiftning och pedagogisk metodik. Ett välskrivet CV avgör om du blir kallad till intervju på den arbetsplats du faktiskt vill jobba på.\n\nVår mall för boendestöd lyfter målgrupp (psykisk ohälsa, NPF, missbruk, äldre), lagstiftning (SoL, LSS, OSL) och metodik som första visuella element. Vi har strukturerat erfarenhetssektionen så att verksamhet, brukargrupp och konkreta insatser syns direkt. Det betyder att enhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning (mentalskötare, behandlingspedagog, undersköterska eller motsvarande), målgrupp (psykisk ohälsa, NPF, missbruk, autism, äldre), pedagogisk metodik (lågaffektivt bemötande, MI, tydliggörande pedagogik), lagstiftning (SoL, LSS, OSL, anmälningsplikt), system (Procapita, Treserva, Lifecare) samt eventuell körkortsklass och vana av medicinhantering.\n\nNedan hittar du två CV-mallar designade för boendestödsrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer på kommunal verksamhet och LSS-bolag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som boendestöd bedöms du på din målgruppsvana, juridiska kunskap och förmåga att stötta i vardagen. Kommuner, LSS-bolag som Frösunda, Humana, Attendo och privata aktörer har konstant öppna boendestödstjänster, men enhetschefer slänger CV:n som inte tydligt visar målgrupp, lagstiftning och pedagogisk metodik. Ett välskrivet CV avgör om du blir kallad till intervju på den arbetsplats du faktiskt vill jobba på.\n\nVåra mallar lyfter målgrupp (psykisk ohälsa, NPF, missbruk, äldre), lagstiftning (SoL, LSS, OSL) och metodik som första visuella element, i Kalkstens sidospalt eller med ordningen Kompetenser först i Linne. Erfarenhetsavsnittet är byggt så att verksamhet, brukargrupp och konkreta insatser syns direkt. Det betyder att enhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning (mentalskötare, behandlingspedagog, undersköterska eller motsvarande), målgrupp (psykisk ohälsa, NPF, missbruk, autism, äldre), pedagogisk metodik (lågaffektivt bemötande, MI, tydliggörande pedagogik), lagstiftning (SoL, LSS, OSL, anmälningsplikt), system (Procapita, Treserva, Lifecare) samt eventuell körkortsklass och vana av medicinhantering.\n\nNedan hittar du två CV-mallar som passar boendestödjarens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer på kommunal verksamhet och LSS-bolag faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -18077,23 +18077,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Utbildning och målgrupp överst',
-        description: 'Vår mall lyfter utbildning, målgrupp och eventuell delegation i sidopanelen. Enhetschefer ser din profil på fem sekunder utan att scrolla.',
+        description: 'Kalksten lyfter delegation i intygsfältet och målgrupp som kompetensgrupp, båda i sidospalten, Linne med ordningen Intyg först. Enhetschefer ser din profil på fem sekunder utan att scrolla.',
       },
       {
-        title: 'Eget block för pedagogisk metodik',
-        description: 'Lågaffektivt bemötande, MI, tydliggörande pedagogik lyfts som eget kompetensblock. Differentierar dig från boendestöd med bara grundutbildning.',
+        title: 'Pedagogisk metodik som egen kompetensgrupp',
+        description: 'Lågaffektivt bemötande, MI och tydliggörande pedagogik lyfter du som en egen grupp under Kompetenser, med fet rubrik. Det skiljer dig från boendestöd med bara grundutbildning.',
       },
       {
         title: 'Tydlig brukargrupp per arbetsgivare',
-        description: 'Mallen har dedikerade rader för målgrupp och kontext per uppdragsgivare. Erfarenhet från psykisk ohälsa och autism konkurrerar inte.',
+        description: 'Varje uppdragsgivare blir en egen post med målgrupp och kontext på egna rader. Erfarenhet från psykisk ohälsa och autism konkurrerar inte.',
       },
       {
-        title: 'Vården & Omsorg med foto ingår i Premium',
-        description: 'För senior boendestöd eller samordnare lägger Vården & Omsorg till foto och varm färgton. Skapar trygghet som passar verksamheten.',
+        title: 'Kalksten med foto ingår i Premium',
+        description: 'För senior boendestöd eller samordnare har Kalksten, som ingår i Premium, en kvadratisk fotoplats bredvid namnet och fyra lugna färger att välja mellan. Det skapar trygghet som passar verksamheten.',
       },
       {
         title: 'Plats för delegation',
-        description: 'Mallen har dedikerade rader för delegerade arbetsuppgifter inom HSL. Visar att du behärskar både SoL-insatser och medicinsk delegation.',
+        description: 'Delegerade arbetsuppgifter inom HSL får egna rader i intygsavsnittet. Visar att du behärskar både SoL-insatser och medicinsk delegation.',
       },
       {
         title: 'Plats för körkort och flexibilitet',
@@ -18316,7 +18316,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'År som boendestöd, målgrupp, utbildning och delegation på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Verksamhet, period, målgrupp. Konkretisera pedagogisk metodik, antal brukare och delegation.' },
-      { sektion: 'Utbildning', tips: 'Vård- och omsorgsexamen + ort. Eventuell YH eller socionom i eget block.' },
+      { sektion: 'Utbildning', tips: 'Vård- och omsorgsexamen + ort. Eventuell YH eller socionom som egen post.' },
       { sektion: 'Vidareutbildning', tips: 'Lågaffektivt bemötande, MI, ESL, autism-utbildning. Datum och timmar där relevant.' },
       { sektion: 'Kompetenser', tips: 'Lagstiftning, metodik, system. Skilj på tekniska och personliga.' },
       { sektion: 'Övrigt', tips: 'Körkort, schemaflexibilitet, språk, eventuell jourvana.' },
@@ -18336,7 +18336,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och Vården & Omsorg, som ingår i Premium, läser rekryteringssystemen rätt. Kommuner och LSS-bolag använder Visma Recruit, Talent Recruiter och egna ATS. Skriv ut utbildning, målgrupp, lagstiftning (SoL, LSS, OSL), pedagogisk metodik (lågaffektivt bemötande, MI, ESL) och system (Procapita, Treserva) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Kalksten, som ingår i Premium, läser rekryteringssystemen rätt. Kommuner och LSS-bolag använder Visma Recruit, Talent Recruiter och egna ATS. Skriv ut utbildning, målgrupp, lagstiftning (SoL, LSS, OSL), pedagogisk metodik (lågaffektivt bemötande, MI, ESL) och system (Procapita, Treserva) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -18384,7 +18384,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'fritidsledare': {
     seoIntro:
-      'Som fritidsledare bedöms du på din målgruppsvana, programplanering och förmåga att driva meningsfull fritid. Kommuner driver tusentals fritidsgårdar, fritidsklubbar och lovverksamheter, och idrottsföreningar plus idéburen sektor anlitar fritidsledare för läger och projekt. Verksamhetschefer slänger CV:n som inte tydligt visar målgrupp, programansvar och pedagogisk inriktning. Ett välskrivet CV avgör om du blir kallad till intervju på den verksamhet du faktiskt vill jobba på.\n\nVår mall för fritidsledare lyfter YH-utbildning, målgrupp och programansvar som första visuella element. Vi har strukturerat erfarenhetssektionen så att verksamhet, ungdomsantal och konkreta projekt syns direkt. Det betyder att verksamhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: YH-utbildning till fritidsledare (1,5-2 år), målgrupp (mellan- och högstadium, gymnasium, lov-barn), programansvar (musik, dans, e-sport, friluftsliv, hantverk), pedagogisk metodik (lågaffektivt bemötande, ungdomscoachning), juridisk vana (skollagen, SoL, anmälningsplikt) samt eventuell vana av missbrukspreventivt arbete och föräldrasamverkan.\n\nNedan hittar du två CV-mallar designade för fritidsledarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad verksamhetschefer på fritidsgårdar, fritidsklubbar och idrottsföreningar faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som fritidsledare bedöms du på din målgruppsvana, programplanering och förmåga att driva meningsfull fritid. Kommuner driver tusentals fritidsgårdar, fritidsklubbar och lovverksamheter, och idrottsföreningar plus idéburen sektor anlitar fritidsledare för läger och projekt. Verksamhetschefer slänger CV:n som inte tydligt visar målgrupp, programansvar och pedagogisk inriktning. Ett välskrivet CV avgör om du blir kallad till intervju på den verksamhet du faktiskt vill jobba på.\n\nVåra mallar lyfter YH-utbildning, målgrupp och programansvar som första visuella element, i Kalkstens sidospalt eller med ordningen Utbildning först i Linne. Erfarenhetsavsnittet är byggt så att verksamhet, ungdomsantal och konkreta projekt syns direkt. Det betyder att verksamhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: YH-utbildning till fritidsledare (1,5-2 år), målgrupp (mellan- och högstadium, gymnasium, lov-barn), programansvar (musik, dans, e-sport, friluftsliv, hantverk), pedagogisk metodik (lågaffektivt bemötande, ungdomscoachning), juridisk vana (skollagen, SoL, anmälningsplikt) samt eventuell vana av missbrukspreventivt arbete och föräldrasamverkan.\n\nNedan hittar du två CV-mallar som passar fritidsledarens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad verksamhetschefer på fritidsgårdar, fritidsklubbar och idrottsföreningar faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -18422,23 +18422,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Utbildning och målgrupp överst',
-        description: 'Vår mall lyfter YH-utbildning och målgrupp i sidopanelen. Verksamhetschefer ser din profil på fem sekunder utan att scrolla.',
+        description: 'Kalksten lyfter målgruppen som kompetensgrupp i sidospalten och YH-utbildningen överst i huvudspalten med ordningen Utbildning först. Verksamhetschefer ser din profil på fem sekunder utan att scrolla.',
       },
       {
-        title: 'Eget block för programansvar',
-        description: 'Musik, dans, e-sport, friluftsliv lyfts som eget kompetensblock. Differentierar dig från fritidsledare med bara generell erfarenhet.',
+        title: 'Programansvar som egen kompetensgrupp',
+        description: 'Musik, dans, e-sport och friluftsliv lyfter du som en egen grupp under Kompetenser, med fet rubrik. Det skiljer dig från fritidsledare med bara generell erfarenhet.',
       },
       {
         title: 'Tydlig åldersgrupp per arbetsgivare',
-        description: 'Mallen har dedikerade rader för åldersgrupp och kontext per uppdragsgivare. Erfarenhet från mellanstadium och gymnasium konkurrerar inte.',
+        description: 'Varje uppdragsgivare blir en egen post med åldersgrupp och kontext på egna rader. Erfarenhet från mellanstadium och gymnasium konkurrerar inte.',
       },
       {
-        title: 'Pedagog med foto ingår i Premium',
-        description: 'För senior fritidsledare eller verksamhetsledare lägger Pedagog till foto och varm färgton. Skapar trygghet som passar ungdomsverksamhet.',
+        title: 'Kalksten med foto ingår i Premium',
+        description: 'För senior fritidsledare eller verksamhetsledare har Kalksten, som ingår i Premium, en kvadratisk fotoplats bredvid namnet och fyra lugna färger att välja mellan. Det skapar trygghet som passar ungdomsverksamhet.',
       },
       {
         title: 'Plats för förebyggande projekt',
-        description: 'Mallen har dedikerade rader för missbrukspreventivt arbete, ANDT, normmedvetet projektarbete. Visar att du driver meningsfullt utvecklingsarbete.',
+        description: 'Missbrukspreventivt arbete, ANDT och normmedvetet projektarbete får ett eget avsnitt, Projekt. Visar att du driver meningsfullt utvecklingsarbete.',
       },
       {
         title: 'Plats för utbildning och fortbildning',
@@ -18661,7 +18661,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'År som fritidsledare, målgrupp, programansvar på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Verksamhet, period, antal ungdomar. Konkretisera program, projekt och samverkan.' },
-      { sektion: 'Utbildning', tips: 'YH eller folkhögskola + skola. Eventuell socialpedagog i eget block.' },
+      { sektion: 'Utbildning', tips: 'YH eller folkhögskola + skola. Eventuell socialpedagog som egen post.' },
       { sektion: 'Vidareutbildning', tips: 'Lågaffektivt bemötande, MI, ANDT-utbildning. Datum och timmar där relevant.' },
       { sektion: 'Kompetenser', tips: 'Pedagogisk metodik, lagstiftning, programansvar. Skilj på tekniska och personliga.' },
       { sektion: 'Övrigt', tips: 'Körkort, eventuella förebyggande projekt, språk, eventuella ledaruppdrag i förening.' },
@@ -18681,7 +18681,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och Pedagog, som ingår i Premium, läser rekryteringssystemen rätt. Kommuner och idéburen sektor använder Visma Recruit, Workday och Talent Recruiter. Skriv ut YH-utbildning, målgrupp, pedagogisk metodik (lågaffektivt bemötande, ungdomscoachning, MI), lagstiftning (skollagen, SoL, OSL) och förebyggande arbete (ANDT) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Kalksten, som ingår i Premium, läser rekryteringssystemen rätt. Kommuner och idéburen sektor använder Visma Recruit, Workday och Talent Recruiter. Skriv ut YH-utbildning, målgrupp, pedagogisk metodik (lågaffektivt bemötande, ungdomscoachning, MI), lagstiftning (skollagen, SoL, OSL) och förebyggande arbete (ANDT) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -18729,7 +18729,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'kundtjanst': {
     seoIntro:
-      'Som kundtjänstmedarbetare bedöms du på din serviceförmåga, system-vana och språkkunskaper. Bolag som Telia, Klarna, Tre, ICA, banker och scale-ups har konstant öppna kundtjänst-tjänster, men team leaders slänger CV:n som inte tydligt visar serviceresultat, system och språk. Ett välskrivet CV avgör om du blir kallad till intervju på det bolag du faktiskt vill jobba på.\n\nVår mall för kundtjänst lyfter system, språk och serviceresultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, kanal (telefon, mejl, chat) och nyckelresultat syns direkt. Det betyder att team leaders kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet av kundtjänst i specifik bransch (telecom, bank, e-handel, försäkring), kanaler (telefon, mejl, chat, sociala medier), system (Zendesk, Salesforce Service Cloud, Freshdesk, Intercom, Puzzel), språkkunskaper med nivå, KPI:er (NPS, FCR-First Call Resolution, AHT, lösningsgrad), eventuell utbildning samt schemaflexibilitet.\n\nNedan hittar du två CV-mallar designade för kundtjänstrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad team leaders och customer service managers på telecom-, bank- och scale-up-bolag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som kundtjänstmedarbetare bedöms du på din serviceförmåga, system-vana och språkkunskaper. Bolag som Telia, Klarna, Tre, ICA, banker och scale-ups har konstant öppna kundtjänst-tjänster, men team leaders slänger CV:n som inte tydligt visar serviceresultat, system och språk. Ett välskrivet CV avgör om du blir kallad till intervju på det bolag du faktiskt vill jobba på.\n\nVåra mallar lyfter system, språk och serviceresultat som första visuella element när du väljer ordningen Kompetenser först. Erfarenhetsavsnittet är byggt så att bolag, kanal (telefon, mejl, chat) och nyckelresultat syns direkt. Det betyder att team leaders kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: erfarenhet av kundtjänst i specifik bransch (telecom, bank, e-handel, försäkring), kanaler (telefon, mejl, chat, sociala medier), system (Zendesk, Salesforce Service Cloud, Freshdesk, Intercom, Puzzel), språkkunskaper med nivå, KPI:er (NPS, FCR-First Call Resolution, AHT, lösningsgrad), eventuell utbildning samt schemaflexibilitet.\n\nNedan hittar du två CV-mallar som passar kundtjänstens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad team leaders och customer service managers på telecom-, bank- och scale-up-bolag faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -18767,23 +18767,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'System och kanaler överst',
-        description: 'Vår mall lyfter Zendesk, Salesforce och övriga system i sidopanelen. Team leaders ser dina baskompetenser på fem sekunder utan att scrolla.',
+        description: 'Lägg Zendesk, Salesforce och övriga system som en egen kompetensgrupp och välj Kompetenser först, så ligger de direkt under profilen i båda mallarna. Team leaders ser dina baskompetenser på fem sekunder utan att scrolla.',
       },
       {
-        title: 'Eget block för KPI:er',
-        description: 'NPS, FCR, AHT, lösningsgrad lyfts som eget kompetensblock. Differentierar dig från kundtjänstmedarbetare som bara skriver "kundbemötande".',
+        title: 'KPI:er som egen kompetensgrupp',
+        description: 'NPS, FCR, AHT och lösningsgrad lyfter du som en egen grupp under Kompetenser, med fet rubrik. Det skiljer dig från kundtjänstmedarbetare som bara skriver "kundbemötande".',
       },
       {
         title: 'Tydlig bransch per arbetsgivare',
-        description: 'Mallen har dedikerade rader för bransch och produkt per uppdragsgivare. Telecom-erfarenhet och bank-erfarenhet konkurrerar inte om utrymme.',
+        description: 'Varje uppdragsgivare blir en egen post med bransch och produkt på egna rader. Telecom-erfarenhet och bank-erfarenhet konkurrerar inte om utrymme.',
       },
       {
-        title: 'Disk Plus med foto ingår i Premium',
-        description: 'För senior kundtjänst eller team lead-ambition lägger Disk Plus till foto och tidningskänsla. Skapar professionell first impression.',
+        title: 'Raster med tonade rubrikband ingår i Premium',
+        description: 'För senior kundtjänst eller team lead-ambition ger Raster, som ingår i Premium, rubriker som tonade färgband och kompetenserna i två spalter. Det skapar ett professionellt första intryck.',
       },
       {
         title: 'Plats för språk och nivå',
-        description: 'Mallen har dedikerade rader för språkkunskaper med nivå. Kundtjänst söker ofta specifika språk för internationella team.',
+        description: 'Språkavsnittet listar varje språk med nivå på egen rad. Kundtjänst söker ofta specifika språk för internationella team.',
       },
       {
         title: 'Plats för flexibilitet',
@@ -19006,7 +19006,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'År som kundtjänst, bransch, kanaler och KPI:er på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Bolag, kanal, period. Konkretisera ärendetyp, system, KPI:er och eventuell mentor- eller team lead-roll.' },
-      { sektion: 'Utbildning', tips: 'Eventuell gymnasie- eller YH-utbildning. Universitetsutbildning i eget block.' },
+      { sektion: 'Utbildning', tips: 'Eventuell gymnasie- eller YH-utbildning. Universitetsutbildning som egen post.' },
       { sektion: 'Kompetenser', tips: 'System, KPI:er, kanaler, språk. Skilj på tekniska och personliga.' },
       { sektion: 'Språk', tips: 'Skriv ut språk med nivå (modersmål, flytande, kommunikativ).' },
       { sektion: 'Övrigt', tips: 'Schemaflexibilitet, eventuella certifieringar, körkort, mentor-roll.' },
@@ -19026,7 +19026,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Disk och Disk Plus, som ingår i Premium, läser rekryteringssystemen rätt. Telecom, bank och scale-ups använder Workday, Teamtailor, Greenhouse och egna ATS. Skriv ut system (Zendesk, Salesforce, Freshdesk, Puzzel, Genesys), KPI:er (NPS, FCR, AHT) och språk med nivå i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Raster, som ingår i Premium, läser rekryteringssystemen rätt. Telecom, bank och scale-ups använder Workday, Teamtailor, Greenhouse och egna ATS. Skriv ut system (Zendesk, Salesforce, Freshdesk, Puzzel, Genesys), KPI:er (NPS, FCR, AHT) och språk med nivå i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -19074,7 +19074,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'fastighetsskotare': {
     seoIntro:
-      'Som fastighetsskötare bedöms du på din tekniska bredd, säkerhetsvana och självständighet. Bostadsbolag som Stockholmshem, Familjebostäder, Riksbyggen, Wallenstam och tusentals BRF:er har konstant öppna fastighetsskötartjänster, men förvaltare slänger CV:n som inte tydligt visar teknisk bredd, certifieringar och systemvana. Ett välskrivet CV avgör om du blir kallad till intervju på det bostadsbolag du faktiskt vill jobba på.\n\nVår mall för fastighetsskötare lyfter teknisk bredd, certifieringar (heta arbeten, KMA-utbildning) och systemvana som första visuella element. Vi har strukturerat erfarenhetssektionen så att fastighetsbestånd, ansvarsområde och konkreta projekt syns direkt. Det betyder att förvaltare kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning eller branschvana, certifieringar (heta arbeten, fallskydd, ESA, asbest, KMA-utbildning), tekniska områden (VVS, el, ventilation, värme, mekanik), system (Vitec, Pondus, AdminControl, Real Estate Core), B-körkort, eventuell BE-behörighet, samt vana av OVK, energideklaration och systematiskt brandskyddsarbete (SBA).\n\nNedan hittar du två CV-mallar designade för fastighetsskötarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad förvaltare och driftsansvariga på bostadsbolag, BRF:er och kommersiella fastighetsägare faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som fastighetsskötare bedöms du på din tekniska bredd, säkerhetsvana och självständighet. Bostadsbolag som Stockholmshem, Familjebostäder, Riksbyggen, Wallenstam och tusentals BRF:er har konstant öppna fastighetsskötartjänster, men förvaltare slänger CV:n som inte tydligt visar teknisk bredd, certifieringar och systemvana. Ett välskrivet CV avgör om du blir kallad till intervju på det bostadsbolag du faktiskt vill jobba på.\n\nVåra mallar lyfter teknisk bredd, certifieringar (heta arbeten, KMA-utbildning) och systemvana som första visuella element när du väljer ordningen Intyg först. Erfarenhetsavsnittet är byggt så att fastighetsbestånd, ansvarsområde och konkreta projekt syns direkt. Det betyder att förvaltare kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning eller branschvana, certifieringar (heta arbeten, fallskydd, ESA, asbest, KMA-utbildning), tekniska områden (VVS, el, ventilation, värme, mekanik), system (Vitec, Pondus, AdminControl, Real Estate Core), B-körkort, eventuell BE-behörighet, samt vana av OVK, energideklaration och systematiskt brandskyddsarbete (SBA).\n\nNedan hittar du två CV-mallar som passar fastighetsskötarens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad förvaltare och driftsansvariga på bostadsbolag, BRF:er och kommersiella fastighetsägare faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -19112,23 +19112,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Certifieringar och behörigheter överst',
-        description: 'Vår mall lyfter heta arbeten, fallskydd, ESA, körkort i sidopanelen. Förvaltare ser dina behörigheter på fem sekunder utan att scrolla.',
+        description: 'Välj ordningen Intyg först så ligger heta arbeten, fallskydd, ESA och körkort direkt under profilen i båda mallarna, under rubriken Behörigheter och körkort. Förvaltare ser dina behörigheter på fem sekunder utan att scrolla.',
       },
       {
-        title: 'Eget block för teknisk bredd',
-        description: 'VVS, el, ventilation, värme, mekanik lyfts som eget kompetensblock. Differentierar dig från generella allt-i-allo-roller.',
+        title: 'Teknisk bredd som egen kompetensgrupp',
+        description: 'VVS, el, ventilation, värme och mekanik lyfter du som en egen grupp under Kompetenser, med fet rubrik. Det skiljer dig från generella allt-i-allo-roller.',
       },
       {
         title: 'Tydligt fastighetsbestånd per arbetsgivare',
-        description: 'Mallen har dedikerade rader för fastighetsbestånd och ansvarsområde per uppdragsgivare. Erfarenhet från bostadshus och kommersiella fastigheter konkurrerar inte.',
+        description: 'Varje uppdragsgivare blir en egen post med fastighetsbestånd och ansvarsområde på egna rader. Erfarenhet från bostadshus och kommersiella fastigheter konkurrerar inte.',
       },
       {
-        title: 'Hantverkare Plus med foto ingår i Premium',
-        description: 'För senior fastighetsskötare eller arbetsledare lägger Hantverkare Plus till foto och robust känsla. Skapar förtroende som passar branschen.',
+        title: 'Fasad med foto ingår i Premium',
+        description: 'För senior fastighetsskötare eller arbetsledare ger Fasad, som ingår i Premium, kvadratisk fotoplats och ett stort namn i versaler bakom en accentkant. Robust och tydligt, vilket skapar förtroende som passar branschen.',
       },
       {
         title: 'Plats för OVK och kontroller',
-        description: 'Mallen har dedikerade rader för OVK-vana, energideklaration och SBA. Visar att du behärskar både drift och kontrollarbete.',
+        description: 'OVK-vana, energideklaration och SBA får egna rader i intygsavsnittet. Visar att du behärskar både drift och kontrollarbete.',
       },
       {
         title: 'Plats för system och digital vana',
@@ -19371,7 +19371,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Bygg och Hantverkare Plus, som ingår i Premium, läser rekryteringssystemen rätt. Bostadsbolag och fastighetsbolag använder Workday, Visma Recruit, Teamtailor och egna ATS. Skriv ut certifieringar (heta arbeten, fallskydd, ESA, KMA), tekniska områden (VVS, el, ventilation), system (Vitec, Pondus, AdminControl) och kontroller (OVK, SBA, energideklaration) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Fasad, som ingår i Premium, läser rekryteringssystemen rätt. Bostadsbolag och fastighetsbolag använder Workday, Visma Recruit, Teamtailor och egna ATS. Skriv ut certifieringar (heta arbeten, fallskydd, ESA, KMA), tekniska områden (VVS, el, ventilation), system (Vitec, Pondus, AdminControl) och kontroller (OVK, SBA, energideklaration) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -19419,7 +19419,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'barista': {
     seoIntro:
-      'Som barista bedöms du på din kaffekunskap, maskinvana och serviceförmåga. Specialkaféer som Drop Coffee, Johan & Nyström, Snowflake och kedjor som Espresso House, Wayne\'s Coffee, Starbucks och tusentals mindre kaféer har konstant öppna barista-tjänster, men kafédriftansvariga slänger CV:n som inte tydligt visar maskinvana, latte art och produktkunskap. Ett välskrivet CV avgör om du blir kallad till intervju på det kafé du faktiskt vill jobba på.\n\nVår mall för baristor lyfter maskinvana, latte art och produktkunskap som första visuella element. Vi har strukturerat erfarenhetssektionen så att kafé, kedja eller specialty, period och konkreta resultat syns direkt. Det betyder att kafédriftansvariga kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: barista-erfarenhet med kafé eller kedja, espressomaskiner du behärskar (Marzocco, Synesso, Sanremo, Slayer), bryggmetoder (V60, Aeropress, Chemex, French press), latte art-nivå, smak- och sensorkunskap, eventuell SCA-certifiering (Specialty Coffee Association), kassasystem (Sitoo, Iiko, Caspeco), HACCP, allergenhantering, schemaflexibilitet och språkkunskaper.\n\nNedan hittar du två CV-mallar designade för barista-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad kafédriftansvariga på specialty-kaféer och kedjor faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som barista bedöms du på din kaffekunskap, maskinvana och serviceförmåga. Specialkaféer som Drop Coffee, Johan & Nyström, Snowflake och kedjor som Espresso House, Wayne\'s Coffee, Starbucks och tusentals mindre kaféer har konstant öppna barista-tjänster, men kafédriftansvariga slänger CV:n som inte tydligt visar maskinvana, latte art och produktkunskap. Ett välskrivet CV avgör om du blir kallad till intervju på det kafé du faktiskt vill jobba på.\n\nVåra mallar lyfter maskinvana, latte art och produktkunskap som första visuella element när du väljer ordningen Kompetenser först. Erfarenhetsavsnittet är byggt så att kafé, kedja eller specialty, period och konkreta resultat syns direkt. Det betyder att kafédriftansvariga kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: barista-erfarenhet med kafé eller kedja, espressomaskiner du behärskar (Marzocco, Synesso, Sanremo, Slayer), bryggmetoder (V60, Aeropress, Chemex, French press), latte art-nivå, smak- och sensorkunskap, eventuell SCA-certifiering (Specialty Coffee Association), kassasystem (Sitoo, Iiko, Caspeco), HACCP, allergenhantering, schemaflexibilitet och språkkunskaper.\n\nNedan hittar du två CV-mallar som passar baristans meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad kafédriftansvariga på specialty-kaféer och kedjor faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -19457,23 +19457,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Maskinvana och bryggmetoder överst',
-        description: 'Vår mall lyfter espressomaskiner, kvarnar och bryggmetoder i sidopanelen. Kafédriftansvariga ser ditt hantverk på fem sekunder utan att scrolla.',
+        description: 'Lägg espressomaskiner, kvarnar och bryggmetoder som en egen kompetensgrupp och välj Kompetenser först, i Terrakotta blir varje maskin en bricka. Kafédriftansvariga ser ditt hantverk på fem sekunder utan att scrolla.',
       },
       {
-        title: 'Eget block för SCA och certifieringar',
-        description: 'SCA Barista Skills, Brewing, Sensory lyfts som eget kompetensblock. Differentierar dig från baristor med bara generell kaféerfarenhet.',
+        title: 'SCA och certifieringar i intygsavsnittet',
+        description: 'SCA Barista Skills, Brewing och Sensory listar du rad för rad i intygsavsnittet med utgivare och år. Det skiljer dig från baristor med bara generell kaféerfarenhet.',
       },
       {
         title: 'Tydlig kafétyp per arbetsgivare',
-        description: 'Mallen har dedikerade rader för kafétyp (specialty, kedja, hotell, restaurang) per uppdragsgivare. Erfarenhet från specialty och kedja konkurrerar inte.',
+        description: 'Varje uppdragsgivare blir en egen post där kafétypen (specialty, kedja, hotell, restaurang) står på egen rad. Erfarenhet från specialty och kedja konkurrerar inte.',
       },
       {
-        title: 'Servering med foto ingår i Premium',
-        description: 'För senior barista eller chef-barista lägger Servering till foto och varm färgton. Skapar professionell first impression som passar specialty-segmentet.',
+        title: 'Terrakotta med kompetensbrickor ingår i Premium',
+        description: 'För senior barista eller chefsbarista ger Terrakotta, som ingår i Premium, en krämfärgad sida med roströda rubriker, en varm ton som skapar ett första intryck med karaktär och passar specialty-segmentet.',
       },
       {
         title: 'Plats för latte art-nivå',
-        description: 'Mallen har dedikerade rader för latte art och eventuella tävlingsplaceringar (Brewers Cup, Barista Championship). Visar både hantverk och ambition.',
+        description: 'Latte art-nivå och eventuella tävlingsplaceringar (Brewers Cup, Barista Championship) får egna rader i intygsavsnittet. Visar både hantverk och ambition.',
       },
       {
         title: 'Plats för produktkunskap',
@@ -19716,7 +19716,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Stack Developer och Servering, som ingår i Premium, läser rekryteringssystemen rätt. Kedjor som Espresso House och Starbucks använder Teamtailor och Workday. Skriv ut espressomaskiner (La Marzocco, Synesso, Sanremo), bryggmetoder (V60, Aeropress, Chemex), SCA-certifieringar och produktkunskap (arabica, washed, natural) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Terrakotta, som ingår i Premium, läser rekryteringssystemen rätt. Kedjor som Espresso House och Starbucks använder Teamtailor och Workday. Skriv ut espressomaskiner (La Marzocco, Synesso, Sanremo), bryggmetoder (V60, Aeropress, Chemex), SCA-certifieringar och produktkunskap (arabica, washed, natural) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -19764,7 +19764,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'projektledare-it': {
     seoIntro:
-      'Som projektledare inom IT bedöms du på din projektmetodik, teknisk förståelse och leveransresultat. Konsultbolag som Capgemini, Accenture, Sopra Steria, scale-ups och storbolag som Klarna, Spotify, Volvo, IKEA har konstant öppna IT-projektledar-tjänster, men program managers slänger CV:n som inte tydligt visar metodik, budgetstorlek och konkret leverans. Ett välskrivet CV avgör om du blir kallad till intervju på det bolag du faktiskt vill jobba på.\n\nVår mall för IT-projektledare lyfter metodik (PMP, PRINCE2, agile), budgetstorlek och leveransresultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, projekttyp, budget och teamstorlek syns direkt. Det betyder att program managers kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning (civilingenjör, systemvetare eller motsvarande), certifieringar (PMP, PRINCE2, Scrum Master, SAFe), projekttyp (utveckling, migration, integration, implementering), budgetstorlek per projekt, teamstorlek, teknisk stack-bredd, branschvana, samt verktyg (Jira, MS Project, Azure DevOps, Confluence, Power BI).\n\nNedan hittar du två CV-mallar designade för IT-projektledar-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad program managers och PMO på konsultbolag, scale-ups och storbolag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som projektledare inom IT bedöms du på din projektmetodik, teknisk förståelse och leveransresultat. Konsultbolag som Capgemini, Accenture, Sopra Steria, scale-ups och storbolag som Klarna, Spotify, Volvo, IKEA har konstant öppna IT-projektledar-tjänster, men program managers slänger CV:n som inte tydligt visar metodik, budgetstorlek och konkret leverans. Ett välskrivet CV avgör om du blir kallad till intervju på det bolag du faktiskt vill jobba på.\n\nVåra mallar lyfter metodik (PMP, PRINCE2, agile), budgetstorlek och leveransresultat som första visuella element när du väljer ordningen Intyg först. Erfarenhetsavsnittet är byggt så att bolag, projekttyp, budget och teamstorlek syns direkt. Det betyder att program managers kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning (civilingenjör, systemvetare eller motsvarande), certifieringar (PMP, PRINCE2, Scrum Master, SAFe), projekttyp (utveckling, migration, integration, implementering), budgetstorlek per projekt, teamstorlek, teknisk stack-bredd, branschvana, samt verktyg (Jira, MS Project, Azure DevOps, Confluence, Power BI).\n\nNedan hittar du två CV-mallar som passar IT-projektledarens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad program managers och PMO på konsultbolag, scale-ups och storbolag faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -19802,23 +19802,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Certifieringar och metodik överst',
-        description: 'Vår mall lyfter PMP, PRINCE2, SAFe och Scrum i sidopanelen. Program managers ser dina baskompetenser på fem sekunder utan att scrolla.',
+        description: 'Välj ordningen Intyg först så ligger PMP, PRINCE2, SAFe och Scrum direkt under profilen i båda mallarna. Program managers ser dina baskompetenser på fem sekunder utan att scrolla.',
       },
       {
-        title: 'Eget block för projektportfolio',
-        description: 'Budgetstorlek, teamstorlek, projekttyp lyfts som eget block per projekt. Differentierar dig från generella projektledare.',
+        title: 'Eget avsnitt för projektportfolio',
+        description: 'Budgetstorlek, teamstorlek och projekttyp lyfter du per projekt i avsnittet Projekt, med egen rubrik. Det skiljer dig från generella projektledare.',
       },
       {
         title: 'Tydlig bransch per arbetsgivare',
-        description: 'Mallen har dedikerade rader för bransch och projekttyp per uppdragsgivare. Erfarenhet från bank och e-handel konkurrerar inte om utrymme.',
+        description: 'Varje uppdragsgivare blir en egen post med bransch och projekttyp på egna rader. Erfarenhet från bank och e-handel konkurrerar inte om utrymme.',
       },
       {
-        title: 'Aspekt med foto ingår i Premium',
-        description: 'För senior IT-projektledare eller program manager lägger Aspekt till foto och premium-känsla. Skapar professionell first impression.',
+        title: 'Raster med tonade rubrikband ingår i Premium',
+        description: 'För senior IT-projektledare eller program manager ger Raster, som ingår i Premium, rubriker som tonade färgband, Verdana i texten och kompetenserna i två spalter. Det skapar ett professionellt första intryck.',
       },
       {
         title: 'Plats för leveransresultat',
-        description: 'Mallen har dedikerade rader för leveransresultat per projekt (budget-utfall, time-to-market, kundnöjdhet). Visar mätbar effekt.',
+        description: 'Leveransresultat per projekt (budgetutfall, time-to-market, kundnöjdhet) får egna punkter under varje post. Visar mätbar effekt.',
       },
       {
         title: 'Plats för teknisk bredd',
@@ -20041,7 +20041,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'År som IT-projektledare, certifieringar, primär bransch och budgetstorlek på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Bolag, projekt, period. Konkretisera budget, teamstorlek, scope och leveransresultat.' },
-      { sektion: 'Utbildning', tips: 'Civilingenjör eller motsvarande + lärosäte. Eventuell magister i eget block.' },
+      { sektion: 'Utbildning', tips: 'Civilingenjör eller motsvarande + lärosäte. Eventuell magister som egen post.' },
       { sektion: 'Certifieringar', tips: 'PMP, PRINCE2, SAFe, Scrum Master. Datum för senaste prov där relevant.' },
       { sektion: 'Kompetenser', tips: 'Metodik, verktyg, teknisk bredd. Skilj på tekniska och personliga.' },
       { sektion: 'Övrigt', tips: 'Branschvana, eventuell styrelseuppdrag, språk, eventuell program manager-erfarenhet.' },
@@ -20061,7 +20061,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Linje och Aspekt, som ingår i Premium, läser rekryteringssystemen rätt. Konsultbolag, banker och offentlig sektor använder Workday, Teamtailor, Greenhouse och egna ATS. Skriv ut certifieringar (PMP, PRINCE2, SAFe, Scrum Master), metodik (vattenfall, agile, SAFe), verktyg (Jira, MS Project, Azure DevOps) och teknisk stack (AWS, Azure, SAP, Salesforce) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Raster, som ingår i Premium, läser rekryteringssystemen rätt. Konsultbolag, banker och offentlig sektor använder Workday, Teamtailor, Greenhouse och egna ATS. Skriv ut certifieringar (PMP, PRINCE2, SAFe, Scrum Master), metodik (vattenfall, agile, SAFe), verktyg (Jira, MS Project, Azure DevOps) och teknisk stack (AWS, Azure, SAP, Salesforce) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -20109,7 +20109,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'administrativ-assistent': {
     seoIntro:
-      'Som administrativ assistent bedöms du på din strukturkänsla, systemvana och förmåga att stötta verksamheten i vardagen. Stora bolag, scale-ups, offentlig sektor och tusentals SME har konstant öppna administrativa assistent-tjänster, men HR-chefer slänger CV:n som inte tydligt visar systemvana, språk och konkreta arbetsuppgifter. Ett välskrivet CV avgör om du blir kallad till intervju på det bolag du faktiskt vill jobba på.\n\nVår mall för administrativ assistent lyfter systemvana, språk och konkret administrativ bredd som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, ansvarsområde och konkreta uppgifter syns direkt. Det betyder att HR-chefer och avdelningschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning eller gymnasium, system du behärskar (Office 365, Outlook, SharePoint, Visma, Fortnox, Hogia, Salesforce, Microsoft Dynamics), administrativ bredd (kalender, möten, resor, fakturering, ekonomi, HR-stöd), språkkunskaper med nivå, samt eventuell vana av styrelseadministration, sekretess och GDPR.\n\nNedan hittar du två CV-mallar designade för administrativ assistent-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad HR-chefer, kontorschefer och avdelningschefer faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som administrativ assistent bedöms du på din strukturkänsla, systemvana och förmåga att stötta verksamheten i vardagen. Stora bolag, scale-ups, offentlig sektor och tusentals SME har konstant öppna administrativa assistent-tjänster, men HR-chefer slänger CV:n som inte tydligt visar systemvana, språk och konkreta arbetsuppgifter. Ett välskrivet CV avgör om du blir kallad till intervju på det bolag du faktiskt vill jobba på.\n\nVåra mallar lyfter systemvana, språk och konkret administrativ bredd som första visuella element när du väljer ordningen Kompetenser först. Erfarenhetsavsnittet är byggt så att bolag, ansvarsområde och konkreta uppgifter syns direkt. Det betyder att HR-chefer och avdelningschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning eller gymnasium, system du behärskar (Office 365, Outlook, SharePoint, Visma, Fortnox, Hogia, Salesforce, Microsoft Dynamics), administrativ bredd (kalender, möten, resor, fakturering, ekonomi, HR-stöd), språkkunskaper med nivå, samt eventuell vana av styrelseadministration, sekretess och GDPR.\n\nNedan hittar du två CV-mallar som passar den administrativa assistentens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad HR-chefer, kontorschefer och avdelningschefer faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -20147,23 +20147,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'System och bredd överst',
-        description: 'Vår mall lyfter Office 365, ekonomisystem och kärnsystem i sidopanelen. HR-chefer ser dina baskompetenser på fem sekunder utan att scrolla.',
+        description: 'Lägg Office 365, ekonomisystem och kärnsystem som en egen kompetensgrupp och välj Kompetenser först, så står de direkt under profilen i båda mallarna. HR-chefer ser dina baskompetenser på fem sekunder utan att scrolla.',
       },
       {
-        title: 'Eget block för administrativa områden',
-        description: 'Kalender, möten, resor, fakturering, HR-stöd lyfts som eget kompetensblock. Differentierar dig från generella receptionister.',
+        title: 'Administrativa områden som egen kompetensgrupp',
+        description: 'Kalender, möten, resor, fakturering och HR-stöd lyfter du som en egen grupp under Kompetenser, i Årsring med gruppnamnet i marginalen. Det skiljer dig från generella receptionister.',
       },
       {
         title: 'Tydlig bransch per arbetsgivare',
-        description: 'Mallen har dedikerade rader för bransch och ansvarsområde per uppdragsgivare. Erfarenhet från industri och bank konkurrerar inte om utrymme.',
+        description: 'Varje uppdragsgivare blir en egen post med bransch och ansvarsområde på egna rader. Erfarenhet från industri och bank konkurrerar inte om utrymme.',
       },
       {
-        title: 'Konto Plus med foto ingår i Premium',
-        description: 'För senior administrativ assistent eller VD-assistent lägger Konto Plus till foto och ren design. Skapar professionell first impression.',
+        title: 'Årsring med tidslinje ingår i Premium',
+        description: 'För senior administrativ assistent eller VD-assistent ger Årsring, som ingår i Premium, en ren tidslinje med årtalen i vänsterkolumnen längs en lodrät accentlinje. Det skapar ett professionellt första intryck.',
       },
       {
         title: 'Plats för Excel-nivå',
-        description: 'Mallen har dedikerade rader för Excel-färdigheter (Power Query, makron, pivottabeller). Visar att du behärskar avancerad administration.',
+        description: 'Excel-färdigheter (Power Query, makron, pivottabeller) får en egen kompetensgrupp. Visar att du behärskar avancerad administration.',
       },
       {
         title: 'Plats för språk och kommunikation',
@@ -20386,7 +20386,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'År som administrativ assistent, bransch och kärnsystem på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Bolag, period, ansvarsområde. Konkretisera kalender, ekonomi, HR-stöd och systemvana.' },
-      { sektion: 'Utbildning', tips: 'Gymnasie- eller YH-utbildning + skola. Eventuell universitetsutbildning i eget block.' },
+      { sektion: 'Utbildning', tips: 'Gymnasie- eller YH-utbildning + skola. Eventuell universitetsutbildning som egen post.' },
       { sektion: 'Kompetenser', tips: 'System, administrativ bredd, lagstiftning. Skilj på tekniska och personliga.' },
       { sektion: 'Språk', tips: 'Skriv ut språk med nivå (modersmål, flytande, kommunikativ).' },
       { sektion: 'Övrigt', tips: 'Eventuella certifieringar, körkort, frivilligengagemang.' },
@@ -20406,7 +20406,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Konto och Konto Plus, som ingår i Premium, läser rekryteringssystemen rätt. Bolag och offentlig sektor använder Workday, Teamtailor, Visma Recruit och SAP SuccessFactors. Skriv ut system (Office 365, SharePoint, Visma, Fortnox, Salesforce, Dynamics), Excel-färdigheter (Power Query, pivot, makron) och språk med nivå i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Årsring, som ingår i Premium, läser rekryteringssystemen rätt. Bolag och offentlig sektor använder Workday, Teamtailor, Visma Recruit och SAP SuccessFactors. Skriv ut system (Office 365, SharePoint, Visma, Fortnox, Salesforce, Dynamics), Excel-färdigheter (Power Query, pivot, makron) och språk med nivå i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -20454,7 +20454,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'administrator': {
     seoIntro:
-      'Som administratör bedöms du på din juridiska vana, systemkunskap och förmåga att hantera ärendeflöden. Myndigheter som Skatteverket, Försäkringskassan, Arbetsförmedlingen, kommuner och regioner har konstant öppna administratörstjänster, men HR-handläggare slänger CV:n som inte tydligt visar offentlig vana, system och regelverkskunskap. Ett välskrivet CV avgör om du blir kallad till intervju på den myndighet du faktiskt vill jobba på.\n\nVår mall för administratörer lyfter offentlig vana, system och regelverkskunskap som första visuella element. Vi har strukturerat erfarenhetssektionen så att myndighet, ärendetyp och ansvarsområde syns direkt. Det betyder att HR-handläggare kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning eller relevant arbetslivserfarenhet, system (Public 360, Lex, W3D3, Ciceron, e-arkiv), regelverk (förvaltningslagen, OSL, GDPR, tryckfrihetsförordningen), ärendetyper (registrering, diarieföring, utlämnande, arkivering), språkkunskaper med nivå, samt eventuell vana av ekonomi eller HR-administration på myndighet.\n\nNedan hittar du två CV-mallar designade för administratörsrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad HR-handläggare och enhetschefer på myndigheter, kommuner och regioner faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som administratör bedöms du på din juridiska vana, systemkunskap och förmåga att hantera ärendeflöden. Myndigheter som Skatteverket, Försäkringskassan, Arbetsförmedlingen, kommuner och regioner har konstant öppna administratörstjänster, men HR-handläggare slänger CV:n som inte tydligt visar offentlig vana, system och regelverkskunskap. Ett välskrivet CV avgör om du blir kallad till intervju på den myndighet du faktiskt vill jobba på.\n\nVåra mallar lyfter offentlig vana, system och regelverkskunskap som första visuella element när du väljer ordningen Kompetenser först. Erfarenhetsavsnittet är byggt så att myndighet, ärendetyp och ansvarsområde syns direkt. Det betyder att HR-handläggare kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning eller relevant arbetslivserfarenhet, system (Public 360, Lex, W3D3, Ciceron, e-arkiv), regelverk (förvaltningslagen, OSL, GDPR, tryckfrihetsförordningen), ärendetyper (registrering, diarieföring, utlämnande, arkivering), språkkunskaper med nivå, samt eventuell vana av ekonomi eller HR-administration på myndighet.\n\nNedan hittar du två CV-mallar som passar administratörens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad HR-handläggare och enhetschefer på myndigheter, kommuner och regioner faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -20492,23 +20492,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'System och regelverk överst',
-        description: 'Vår mall lyfter Public 360, Lex, W3D3 och regelverk i sidopanelen. HR-handläggare ser dina baskompetenser på fem sekunder utan att scrolla.',
+        description: 'Lägg Public 360, Lex, W3D3 och regelverk som egna kompetensgrupper och välj Kompetenser först, så står de direkt under profilen i båda mallarna. HR-handläggare ser dina baskompetenser på fem sekunder utan att scrolla.',
       },
       {
-        title: 'Eget block för ärendetyper',
-        description: 'Registrering, diarieföring, utlämnande, arkivering lyfts som eget kompetensblock. Differentierar dig från generella receptionister.',
+        title: 'Ärendetyper som egen kompetensgrupp',
+        description: 'Registrering, diarieföring, utlämnande och arkivering lyfter du som en egen grupp under Kompetenser, med fet rubrik. Det skiljer dig från generella receptionister.',
       },
       {
         title: 'Tydlig myndighet per arbetsgivare',
-        description: 'Mallen har dedikerade rader för myndighet och ärendetyp per uppdragsgivare. Erfarenhet från Skatteverket och kommun konkurrerar inte om utrymme.',
+        description: 'Varje uppdragsgivare blir en egen post med myndighet och ärendetyp på egna rader. Erfarenhet från Skatteverket och kommun konkurrerar inte om utrymme.',
       },
       {
-        title: 'Myndighet Plus med foto ingår i Premium',
-        description: 'För senior administratör eller verksamhetsassistent lägger Myndighet Plus till foto och formell färgton. Skapar förtroende som passar offentlig sektor.',
+        title: 'Antikva med dubbel linje ingår i Premium',
+        description: 'För senior administratör eller verksamhetsassistent ger Antikva, som ingår i Premium, Times New Roman, centrerat huvud med dubbel linje och vinröd accent som förval. Det skapar förtroende som passar offentlig sektor.',
       },
       {
         title: 'Plats för juridisk vana',
-        description: 'Mallen har dedikerade rader för OSL, GDPR, förvaltningslagen och eventuell vana av utlämnande och menprövning. Visar både teknisk och juridisk kompetens.',
+        description: 'OSL, GDPR, förvaltningslagen och eventuell vana av utlämnande och menprövning får en egen kompetensgrupp. Visar både teknisk och juridisk kompetens.',
       },
       {
         title: 'Plats för Office och digital vana',
@@ -20731,7 +20731,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'År som administratör, myndigheter och kärnsystem på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Myndighet, period, ärendetyp. Konkretisera regelverk, systemvana och eventuell verksamhetsassistent-roll.' },
-      { sektion: 'Utbildning', tips: 'YH eller universitetsutbildning + skola. Eventuella vidareutbildningar i eget block.' },
+      { sektion: 'Utbildning', tips: 'YH eller universitetsutbildning + skola. Eventuella vidareutbildningar som egna poster.' },
       { sektion: 'Kompetenser', tips: 'System, regelverk, ärendetyper. Skilj på tekniska och personliga.' },
       { sektion: 'Certifieringar', tips: 'GDPR, OSL-utbildning, arkivvetenskap. Datum och utfärdare.' },
       { sektion: 'Övrigt', tips: 'Eventuella språk, körkort, frivilliguppdrag inom offentlig sektor.' },
@@ -20751,7 +20751,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Myndighet och Myndighet Plus, som ingår i Premium, läser rekryteringssystemen rätt. Myndigheter, kommuner och regioner använder Visma Recruit, Talent Recruiter och egna ATS. Skriv ut verksamhetssystem (Public 360, Lex, W3D3, Ciceron), regelverk (förvaltningslagen, OSL, GDPR, arkivlagen) och ärendetyper (registrering, diarieföring, utlämnande, menprövning) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Antikva, som ingår i Premium, läser rekryteringssystemen rätt. Myndigheter, kommuner och regioner använder Visma Recruit, Talent Recruiter och egna ATS. Skriv ut verksamhetssystem (Public 360, Lex, W3D3, Ciceron), regelverk (förvaltningslagen, OSL, GDPR, arkivlagen) och ärendetyper (registrering, diarieföring, utlämnande, menprövning) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -20799,7 +20799,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'enhetschef': {
     seoIntro:
-      'Som enhetschef bedöms du på din ledarförmåga, verksamhetsförståelse och förmåga att leverera resultat. Kommuner, regioner, statliga myndigheter, vård- och omsorgsbolag har konstant öppna enhetschef-tjänster, men förvaltningschefer slänger CV:n som inte tydligt visar ledarbakgrund, budgetansvar och personalstyrka. Ett välskrivet CV avgör om du blir kallad till intervju på den verksamhet du faktiskt vill jobba på.\n\nVår mall för enhetschefer lyfter ledarutbildning, budgetstorlek och personalansvar som första visuella element. Vi har strukturerat erfarenhetssektionen så att verksamhet, antal medarbetare, budget och konkreta resultat syns direkt. Det betyder att förvaltningschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning (akademisk examen, eventuell magister i ledarskap eller verksamhetsledning), ledarutbildningar (UGL, IFL, IHM, UL), budgetstorlek per uppdrag, antal medarbetare, verksamhetsområde, vana av arbetsmiljöansvar enligt AML, rehabilitering, kollektivavtal (Kommunal, Vårdförbundet, Vision), system (Heroma, Aditro, Personec) och eventuell vana av offentlig upphandling eller verksamhetsplanering.\n\nNedan hittar du två CV-mallar designade för enhetschef-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad förvaltningschefer på kommun, region och privata vårdgivare faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som enhetschef bedöms du på din ledarförmåga, verksamhetsförståelse och förmåga att leverera resultat. Kommuner, regioner, statliga myndigheter, vård- och omsorgsbolag har konstant öppna enhetschef-tjänster, men förvaltningschefer slänger CV:n som inte tydligt visar ledarbakgrund, budgetansvar och personalstyrka. Ett välskrivet CV avgör om du blir kallad till intervju på den verksamhet du faktiskt vill jobba på.\n\nVåra mallar lyfter ledarutbildning, budgetstorlek och personalansvar som första visuella element när du väljer ordningen Intyg först. Erfarenhetsavsnittet är byggt så att verksamhet, antal medarbetare, budget och konkreta resultat syns direkt. Det betyder att förvaltningschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning (akademisk examen, eventuell magister i ledarskap eller verksamhetsledning), ledarutbildningar (UGL, IFL, IHM, UL), budgetstorlek per uppdrag, antal medarbetare, verksamhetsområde, vana av arbetsmiljöansvar enligt AML, rehabilitering, kollektivavtal (Kommunal, Vårdförbundet, Vision), system (Heroma, Aditro, Personec) och eventuell vana av offentlig upphandling eller verksamhetsplanering.\n\nNedan hittar du två CV-mallar som passar enhetschefens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad förvaltningschefer på kommun, region och privata vårdgivare faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -20837,23 +20837,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Ledarutbildning och budget överst',
-        description: 'Vår mall lyfter UGL, IFL och budgetstorlek i sidopanelen. Förvaltningschefer ser dina baskompetenser på fem sekunder utan att scrolla.',
+        description: 'Välj ordningen Intyg först så ligger UGL och IFL direkt under profilen i båda mallarna, med budgetstorleken i profiltexten. Förvaltningschefer ser dina baskompetenser på fem sekunder utan att scrolla.',
       },
       {
-        title: 'Eget block för ledarstil och utbildning',
-        description: 'Utvecklande Ledarskap (UL), coachande ledarskap, situationsanpassat ledarskap lyfts som eget block. Differentierar dig från generella chefer.',
+        title: 'Ledarstil och utbildning som egen kompetensgrupp',
+        description: 'Utvecklande Ledarskap (UL), coachande ledarskap och situationsanpassat ledarskap lyfter du som en egen grupp under Kompetenser, med fet rubrik. Det skiljer dig från generella chefer.',
       },
       {
         title: 'Tydlig verksamhet per arbetsgivare',
-        description: 'Mallen har dedikerade rader för verksamhetsområde och teamstorlek per uppdragsgivare. Erfarenhet från vård och socialtjänst konkurrerar inte om utrymme.',
+        description: 'Varje uppdragsgivare blir en egen post med verksamhetsområde och teamstorlek på egna rader. Erfarenhet från vård och socialtjänst konkurrerar inte om utrymme.',
       },
       {
-        title: 'Tidlös Plus med foto ingår i Premium',
-        description: 'För senior enhetschef eller verksamhetschef lägger Tidlös Plus till foto och premium-känsla. Skapar förtroende som passar chefsroller.',
+        title: 'Antikva med dubbel linje ingår i Premium',
+        description: 'För senior enhetschef eller verksamhetschef ger Antikva, som ingår i Premium, ett centrerat huvud i Times New Roman med dubbel linje och vinröd accent. Det skapar förtroende som passar chefsroller.',
       },
       {
         title: 'Plats för arbetsmiljöansvar',
-        description: 'Mallen har dedikerade rader för SAM, rehabilitering och facklig samverkan. Visar både operativ och strategisk ledarbredd.',
+        description: 'SAM, rehabilitering och facklig samverkan får en egen kompetensgrupp. Visar både operativ och strategisk ledarbredd.',
       },
       {
         title: 'Plats för konkreta resultat',
@@ -21076,7 +21076,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'År som enhetschef, verksamhetsområde, personalstyrka och budget på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Verksamhet, period, teamstorlek och budget. Konkretisera resultat (sjukfrånvaro, NMI, kvalitet).' },
-      { sektion: 'Utbildning', tips: 'Akademisk examen + lärosäte. Eventuell magister i ledarskap i eget block.' },
+      { sektion: 'Utbildning', tips: 'Akademisk examen + lärosäte. Eventuell magister i ledarskap som egen post.' },
       { sektion: 'Ledarutbildning', tips: 'UGL, IFL, IHM, UL. Datum och utfärdare för alla.' },
       { sektion: 'Kompetenser', tips: 'Personalansvar, budget, arbetsrätt, system. Skilj på tekniska och personliga.' },
       { sektion: 'Övrigt', tips: 'Eventuella styrelseuppdrag, språk, frivilliguppdrag i ledningsroll.' },
@@ -21096,7 +21096,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Tidlös och Tidlös Plus, som ingår i Premium, läser rekryteringssystemen rätt. Kommuner, regioner och privata vårdgivare använder Visma Recruit, Heroma och Talent Recruiter. Skriv ut ledarutbildningar (UGL, IFL, IHM, UL), arbetsrätt (LAS, MBL, AML, SAM), system (Heroma, Aditro, Hypergene, Stratsys) och konkreta resultat (sjukfrånvaro, NMI) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Antikva, som ingår i Premium, läser rekryteringssystemen rätt. Kommuner, regioner och privata vårdgivare använder Visma Recruit, Heroma och Talent Recruiter. Skriv ut ledarutbildningar (UGL, IFL, IHM, UL), arbetsrätt (LAS, MBL, AML, SAM), system (Heroma, Aditro, Hypergene, Stratsys) och konkreta resultat (sjukfrånvaro, NMI) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -21144,7 +21144,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'hemtjanstpersonal': {
     seoIntro:
-      'Som hemtjänstpersonal bedöms du på din omvårdnadsvana, juridiska kunskap och förmåga att möta brukare med värdighet. Kommuner och privata utförare som Attendo, Humana, Ambea har konstant öppna hemtjänsttjänster, men enhetschefer slänger CV:n som inte tydligt visar utbildning, delegation och B-körkort. Ett välskrivet CV avgör om du blir kallad till intervju på den verksamhet du faktiskt vill jobba på.\n\nVår mall för hemtjänstpersonal lyfter utbildning, HSL-delegation och B-körkort som första visuella element. Vi har strukturerat erfarenhetssektionen så att verksamhet, period och konkreta insatser syns direkt. Det betyder att enhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: vård- och omsorgsexamen eller motsvarande, HSL-delegation (medicinhantering, blodsockermätning, sårvård), bemötandevana (demens, palliativ vård), system (Procapita, Treserva, Lifecare, Phoniro Care), juridisk grund (SoL, OSL, HSL, anmälningsplikt), B-körkort, eventuell vana av larm- och nattjänst samt språkkunskaper.\n\nNedan hittar du två CV-mallar designade för hemtjänstrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer på kommun och privata utförare faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som hemtjänstpersonal bedöms du på din omvårdnadsvana, juridiska kunskap och förmåga att möta brukare med värdighet. Kommuner och privata utförare som Attendo, Humana, Ambea har konstant öppna hemtjänsttjänster, men enhetschefer slänger CV:n som inte tydligt visar utbildning, delegation och B-körkort. Ett välskrivet CV avgör om du blir kallad till intervju på den verksamhet du faktiskt vill jobba på.\n\nVåra mallar lyfter utbildning, HSL-delegation och B-körkort som första visuella element, i Kalkstens intygsfält eller med ordningen Intyg först i Linne. Erfarenhetsavsnittet är byggt så att verksamhet, period och konkreta insatser syns direkt. Det betyder att enhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: vård- och omsorgsexamen eller motsvarande, HSL-delegation (medicinhantering, blodsockermätning, sårvård), bemötandevana (demens, palliativ vård), system (Procapita, Treserva, Lifecare, Phoniro Care), juridisk grund (SoL, OSL, HSL, anmälningsplikt), B-körkort, eventuell vana av larm- och nattjänst samt språkkunskaper.\n\nNedan hittar du två CV-mallar som passar hemtjänstpersonalens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer på kommun och privata utförare faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -21182,23 +21182,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Utbildning och delegation överst',
-        description: 'Vår mall lyfter vård- och omsorgsutbildning, HSL-delegation och B-körkort i sidopanelen. Enhetschefer ser dina baskompetenser på fem sekunder utan att scrolla.',
+        description: 'Kalksten lyfter vård- och omsorgsutbildning, HSL-delegation och B-körkort i intygsfältet i sidospalten, Linne med ordningen Intyg först. Enhetschefer ser dina baskompetenser på fem sekunder utan att scrolla.',
       },
       {
-        title: 'Eget block för bemötandevana',
-        description: 'Demens, palliativ vård, NPF lyfts som eget kompetensblock. Differentierar dig från hemtjänstpersonal med bara generell erfarenhet.',
+        title: 'Bemötandevana som egen kompetensgrupp',
+        description: 'Demens, palliativ vård och NPF lyfter du som en egen grupp under Kompetenser, med fet rubrik. Det skiljer dig från hemtjänstpersonal med bara generell erfarenhet.',
       },
       {
         title: 'Tydlig brukargrupp per arbetsgivare',
-        description: 'Mallen har dedikerade rader för brukargrupp och kontext per uppdragsgivare. Erfarenhet från demensvård och palliativ vård konkurrerar inte om utrymme.',
+        description: 'Varje uppdragsgivare blir en egen post med brukargrupp och kontext på egna rader. Erfarenhet från demensvård och palliativ vård konkurrerar inte om utrymme.',
       },
       {
-        title: 'Vården & Omsorg med foto ingår i Premium',
-        description: 'För senior hemtjänstpersonal eller kontaktperson lägger Vården & Omsorg till foto och varm färgton. Skapar trygghet som passar verksamheten.',
+        title: 'Kalksten med foto ingår i Premium',
+        description: 'För senior hemtjänstpersonal eller kontaktperson har Kalksten, som ingår i Premium, en kvadratisk fotoplats bredvid namnet och fyra lugna färger att välja mellan. Det skapar trygghet som passar verksamheten.',
       },
       {
         title: 'Plats för delegation',
-        description: 'Mallen har dedikerade rader för delegerade arbetsuppgifter inom HSL. Visar att du behärskar både SoL-insatser och medicinsk delegation.',
+        description: 'Delegerade arbetsuppgifter inom HSL får egna rader i intygsavsnittet. Visar att du behärskar både SoL-insatser och medicinsk delegation.',
       },
       {
         title: 'Plats för körkort och flexibilitet',
@@ -21421,7 +21421,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'År som hemtjänstpersonal, brukargrupp, utbildning och delegation på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Verksamhet, period, antal brukare. Konkretisera delegation, system och brukargrupp.' },
-      { sektion: 'Utbildning', tips: 'Vård- och omsorg + ort. Eventuell komvux eller vidareutbildning i eget block.' },
+      { sektion: 'Utbildning', tips: 'Vård- och omsorg + ort. Eventuell komvux eller vidareutbildning som egen post.' },
       { sektion: 'Vidareutbildning', tips: 'Demens, palliativ vård, lågaffektivt bemötande. Datum och timmar där relevant.' },
       { sektion: 'Kompetenser', tips: 'Lagstiftning, delegation, system. Skilj på tekniska och personliga.' },
       { sektion: 'Övrigt', tips: 'Körkort, schemaflexibilitet, språk, eventuell jourvana.' },
@@ -21441,7 +21441,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Norrsken och Vården & Omsorg, som ingår i Premium, läser rekryteringssystemen rätt. Kommuner och privata utförare använder Visma Recruit, Heroma och egna ATS. Skriv ut utbildning, HSL-delegation (medicin, insulin, blodsocker), system (Procapita, Treserva, Phoniro Care, TES) och B-körkort i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Kalksten, som ingår i Premium, läser rekryteringssystemen rätt. Kommuner och privata utförare använder Visma Recruit, Heroma och egna ATS. Skriv ut utbildning, HSL-delegation (medicin, insulin, blodsocker), system (Procapita, Treserva, Phoniro Care, TES) och B-körkort i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -21489,7 +21489,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'student': {
     seoIntro:
-      'Som student bedöms du på din potential, kursinriktning och engagemang utanför studierna. Sommarjobb, deltidsjobb, praktik och trainee-program konkurrerar du om mot tusentals andra studenter. Rekryterare slänger CV:n som inte tydligt visar utbildning, kursinriktning och konkreta erfarenheter från studietiden. Ett välskrivet CV avgör om du blir kallad till intervju på det företag du faktiskt vill jobba på.\n\nVår mall för studenter lyfter utbildning, kursinriktning och konkreta engagemang som första visuella element. Vi har strukturerat erfarenhetssektionen så att lärosäte, program och relevanta projekt syns direkt. Det betyder att rekryterare kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildningsprogram med lärosäte och förväntat examensdatum, relevanta kurser och fördjupningar, sommarjobb och deltidsjobb (även icke-relaterade visar arbetsmoral), studentengagemang (kåren, mentorskap, projekt), eventuella praktikplatser, språkkunskaper, datorvana, körkort samt eventuella tävlingar eller utmärkelser.\n\nNedan hittar du två CV-mallar designade för student-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad rekryterare på trainee-program, sommarjobb och deltidsjobb faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som student bedöms du på din potential, kursinriktning och engagemang utanför studierna. Sommarjobb, deltidsjobb, praktik och trainee-program konkurrerar du om mot tusentals andra studenter. Rekryterare slänger CV:n som inte tydligt visar utbildning, kursinriktning och konkreta erfarenheter från studietiden. Ett välskrivet CV avgör om du blir kallad till intervju på det företag du faktiskt vill jobba på.\n\nVåra mallar lyfter utbildning, kursinriktning och konkreta engagemang som första visuella element när du väljer ordningen Utbildning först, som finns i både Björk och Koppar. Utbildningsavsnittet är byggt så att lärosäte, program och relevanta projekt syns direkt. Det betyder att rekryterare kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildningsprogram med lärosäte och förväntat examensdatum, relevanta kurser och fördjupningar, sommarjobb och deltidsjobb (även icke-relaterade visar arbetsmoral), studentengagemang (kåren, mentorskap, projekt), eventuella praktikplatser, språkkunskaper, datorvana, körkort samt eventuella tävlingar eller utmärkelser.\n\nNedan hittar du två CV-mallar som passar studentens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad rekryterare på trainee-program, sommarjobb och deltidsjobb faktiskt letar efter. Ladda ner gratismallen Björk och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -21527,23 +21527,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Utbildning överst, inte erfarenhet',
-        description: 'Vår mall för studenter har utbildning i sidopanelen istället för anställningar. Rekryterare ser ditt program och lärosäte på fem sekunder.',
+        description: 'Välj ordningen Utbildning först i Björk eller Koppar så ligger utbildningen direkt under profilen, före anställningarna. Rekryterare ser ditt program och lärosäte på fem sekunder.',
       },
       {
-        title: 'Eget block för projekt',
-        description: 'Examensarbete, kandidatuppsats och större projektarbeten får eget block. Differentierar dig från studenter med bara kurslista.',
+        title: 'Eget avsnitt för projekt',
+        description: 'Examensarbete, kandidatuppsats och större projektarbeten får ett eget avsnitt, Projekt, i båda mallarna. Det skiljer dig från studenter med bara en kurslista.',
       },
       {
         title: 'Plats för alla typer av erfarenhet',
-        description: 'Mallen lyfter både relevant och icke-relevant arbete på samma sätt. Sommarjobb på café visar lika mycket arbetsmoral som relevant praktik.',
+        description: 'Båda mallarna visar relevant och mindre relevant arbete på samma sätt, som egna poster med perioden till höger. Sommarjobb på café visar lika mycket arbetsmoral som relevant praktik.',
       },
       {
-        title: 'Student Plus med foto ingår i Premium',
-        description: 'För trainee-program eller premium-praktik lägger Student Plus till foto och tidningskänsla. Skapar professionell first impression.',
+        title: 'Koppar med färgat huvudband ingår i Premium',
+        description: 'För traineeprogram eller eftertraktade praktikplatser ger Koppar, som ingår i Premium, ett färgat huvudband med vit text och rund fotoplats. Det skapar ett professionellt första intryck. Björk har också fotoplats, i ett centrerat huvud.',
       },
       {
         title: 'Plats för engagemang',
-        description: 'Mallen har dedikerade rader för kårarbete, ideell verksamhet, idrott. Visar att du har bredd och initiativ utöver studierna.',
+        description: 'Kårarbete, ideell verksamhet och idrott får plats under Intressen eller som egna poster under Erfarenhet. Visar att du har bredd och initiativ utöver studierna.',
       },
       {
         title: 'Plats för språk och datorvana',
@@ -21786,7 +21786,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Student Startup och Student Plus, som ingår i Premium, läser rekryteringssystemen rätt. Trainee-program och konsultbolag använder Workday, Teamtailor, Greenhouse och Cinode. Skriv ut program, lärosäte, relevanta kurser, programmeringsspråk (Python, R, SQL), Excel-nivå och språk i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Björk och Koppar, som ingår i Premium, läser rekryteringssystemen rätt. Trainee-program och konsultbolag använder Workday, Teamtailor, Greenhouse och Cinode. Skriv ut program, lärosäte, relevanta kurser, programmeringsspråk (Python, R, SQL), Excel-nivå och språk i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -21834,7 +21834,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'terminalarbetare': {
     seoIntro:
-      'Som terminalarbetare bedöms du på din truckvana, fysiska styrka och flexibilitet. Terminaler hos PostNord, DHL, Bring, Schenker, DSV och tusentals mindre logistikaktörer har konstant öppna terminaltjänster, men terminalchefer slänger CV:n som inte tydligt visar truckkort, fysisk lämplighet och skiftvillighet. Ett välskrivet CV avgör om du blir kallad till intervju på den terminal du faktiskt vill jobba på.\n\nVår mall för terminalarbetare lyfter truckkort, certifieringar och skiftvana som första visuella element. Vi har strukturerat erfarenhetssektionen så att terminal, period och konkret ansvar syns direkt. Det betyder att terminalchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: truckkort (A, B, C, D enligt TLP), eventuell traverskran-utbildning, ADR-utbildning för farligt gods, fysiska resultat (lyftvikt, uthållighet), skiftvana (3-skift, natt, helg), system (WMS, Astro, Movex), B-körkort, eventuell BE eller C-behörighet samt språkkunskaper.\n\nNedan hittar du två CV-mallar designade för terminalarbetar-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad terminalchefer på post-, logistik- och transportbolag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som terminalarbetare bedöms du på din truckvana, fysiska styrka och flexibilitet. Terminaler hos PostNord, DHL, Bring, Schenker, DSV och tusentals mindre logistikaktörer har konstant öppna terminaltjänster, men terminalchefer slänger CV:n som inte tydligt visar truckkort, fysisk lämplighet och skiftvillighet. Ett välskrivet CV avgör om du blir kallad till intervju på den terminal du faktiskt vill jobba på.\n\nVåra mallar lyfter truckkort, certifieringar och skiftvana som första visuella element, i Granits intygsfält eller med ordningen Intyg först i Linne. Erfarenhetsavsnittet är byggt så att terminal, period och konkret ansvar syns direkt. Det betyder att terminalchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: truckkort (A, B, C, D enligt TLP), eventuell traverskran-utbildning, ADR-utbildning för farligt gods, fysiska resultat (lyftvikt, uthållighet), skiftvana (3-skift, natt, helg), system (WMS, Astro, Movex), B-körkort, eventuell BE eller C-behörighet samt språkkunskaper.\n\nNedan hittar du två CV-mallar som passar terminalarbetarens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad terminalchefer på post-, logistik- och transportbolag faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -21872,23 +21872,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Truckkort och behörigheter överst',
-        description: 'Vår mall lyfter truckkort, ADR och körkort i sidopanelen. Terminalchefer ser dina behörigheter på fem sekunder utan att scrolla.',
+        description: 'Granit lyfter truckkort, ADR och körkort i intygsfältet överst i den mörka högerspalten, Linne med ordningen Intyg först. Terminalchefer ser dina behörigheter på fem sekunder utan att scrolla.',
       },
       {
-        title: 'Eget block för certifieringar',
-        description: 'Truckkort (A, B, C, D), ADR, traverskran lyfts som eget block. Differentierar dig från generella lagerarbetare.',
+        title: 'Certifieringar i intygsavsnittet',
+        description: 'Truckkort (A, B, C, D), ADR och traverskran listar du rad för rad i intygsavsnittet med utgivare och år. Det skiljer dig från generella lagerarbetare.',
       },
       {
         title: 'Tydlig terminal per arbetsgivare',
-        description: 'Mallen har dedikerade rader för terminaltyp och ansvarsområde per uppdragsgivare. Erfarenhet från pakettransport och industrilager konkurrerar inte.',
+        description: 'Varje uppdragsgivare blir en egen post med terminaltyp och ansvarsområde på egna rader. Erfarenhet från pakettransport och industrilager konkurrerar inte.',
       },
       {
-        title: 'Logistik Plus med foto ingår i Premium',
-        description: 'För senior terminalarbetare eller lagerförman lägger Logistik Plus till foto och robust känsla. Skapar förtroende som passar branschen.',
+        title: 'Granit med foto ingår i Premium',
+        description: 'För senior terminalarbetare eller lagerförman ger Granit, som ingår i Premium, rund fotoplats i ett mörkt huvudband och en robust mörk högerspalt. Det skapar förtroende som passar branschen.',
       },
       {
         title: 'Plats för skiftvana',
-        description: 'Mallen har dedikerade rader för 3-skift, natt, helg, jour. Konkret information som terminalchefer värderar för bemanningsplanering.',
+        description: '3-skift, natt, helg och jour får en egen kompetensgrupp. Konkret information som terminalchefer värderar för bemanningsplanering.',
       },
       {
         title: 'Plats för systemvana',
@@ -22131,7 +22131,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Logistik och Logistik Plus, som ingår i Premium, läser rekryteringssystemen rätt. Stora logistikbolag som PostNord och DHL använder Workday, Teamtailor och egna ATS. Skriv ut truckkort (TLP A, B, C, D), ADR, WMS-system (Astro, Movex, SAP EWM) och skiftvana i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Granit, som ingår i Premium, läser rekryteringssystemen rätt. Stora logistikbolag som PostNord och DHL använder Workday, Teamtailor och egna ATS. Skriv ut truckkort (TLP A, B, C, D), ADR, WMS-system (Astro, Movex, SAP EWM) och skiftvana i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -22179,7 +22179,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'logistikassistent': {
     seoIntro:
-      'Som logistikassistent bedöms du på din systemvana, planeringsförmåga och förmåga att stötta logistikflöden. Tredjepartslogistiker (3PL), industribolag, e-handlare och transportbolag har konstant öppna logistikassistent-tjänster, men logistikchefer slänger CV:n som inte tydligt visar systemvana, processförståelse och relevanta certifieringar. Ett välskrivet CV avgör om du blir kallad till intervju på det bolag du faktiskt vill jobba på.\n\nVår mall för logistikassistenter lyfter systemvana, processförståelse och eventuella certifieringar som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, ansvarsområde och konkreta processer syns direkt. Det betyder att logistikchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning (gymnasium med logistikinriktning, YH-utbildning), system (WMS, TMS, SAP, Movex, Astro, Excel), processförståelse (inköp, lagerstyrning, distribution, returer), nyckeltal (lead time, fyllnadsgrad, leveransprecision), eventuell vana av tull och Incoterms, språkkunskaper samt eventuell branschvana (e-handel, industri, livsmedel).\n\nNedan hittar du två CV-mallar designade för logistikassistent-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad logistikchefer på 3PL, industri och e-handel faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som logistikassistent bedöms du på din systemvana, planeringsförmåga och förmåga att stötta logistikflöden. Tredjepartslogistiker (3PL), industribolag, e-handlare och transportbolag har konstant öppna logistikassistent-tjänster, men logistikchefer slänger CV:n som inte tydligt visar systemvana, processförståelse och relevanta certifieringar. Ett välskrivet CV avgör om du blir kallad till intervju på det bolag du faktiskt vill jobba på.\n\nVåra mallar lyfter systemvana, processförståelse och eventuella certifieringar som första visuella element, i Granits högerspalt eller med ordningen Kompetenser först i Linne. Erfarenhetsavsnittet är byggt så att bolag, ansvarsområde och konkreta processer syns direkt. Det betyder att logistikchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning (gymnasium med logistikinriktning, YH-utbildning), system (WMS, TMS, SAP, Movex, Astro, Excel), processförståelse (inköp, lagerstyrning, distribution, returer), nyckeltal (lead time, fyllnadsgrad, leveransprecision), eventuell vana av tull och Incoterms, språkkunskaper samt eventuell branschvana (e-handel, industri, livsmedel).\n\nNedan hittar du två CV-mallar som passar logistikassistentens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad logistikchefer på 3PL, industri och e-handel faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -22217,23 +22217,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'System och processer överst',
-        description: 'Vår mall lyfter WMS, TMS och SAP i sidopanelen. Logistikchefer ser dina baskompetenser på fem sekunder utan att scrolla.',
+        description: 'Granit lyfter WMS, TMS och SAP som kompetensgrupp i den mörka högerspalten, Linne med ordningen Kompetenser först. Logistikchefer ser dina baskompetenser på fem sekunder utan att scrolla.',
       },
       {
-        title: 'Eget block för certifieringar',
-        description: 'PLAN, APICS, Lean, Six Sigma lyfts som eget kompetensblock. Differentierar dig från generella logistikassistenter.',
+        title: 'Certifieringar i intygsavsnittet',
+        description: 'PLAN, APICS, Lean och Six Sigma listar du rad för rad i intygsavsnittet med utgivare och år. Det skiljer dig från generella logistikassistenter.',
       },
       {
         title: 'Tydlig bransch per arbetsgivare',
-        description: 'Mallen har dedikerade rader för bransch och processområde per uppdragsgivare. Erfarenhet från 3PL och e-handel konkurrerar inte om utrymme.',
+        description: 'Varje uppdragsgivare blir en egen post med bransch och processområde på egna rader. Erfarenhet från 3PL och e-handel konkurrerar inte om utrymme.',
       },
       {
-        title: 'Logistik Plus med foto ingår i Premium',
-        description: 'För senior logistikassistent eller logistikkoordinator lägger Logistik Plus till foto och robust känsla. Skapar förtroende som passar branschen.',
+        title: 'Granit med foto ingår i Premium',
+        description: 'För senior logistikassistent eller logistikkoordinator ger Granit, som ingår i Premium, rund fotoplats i ett mörkt huvudband och en robust mörk högerspalt. Det skapar förtroende som passar branschen.',
       },
       {
         title: 'Plats för KPI:er',
-        description: 'Mallen har dedikerade rader för leveransprecision, lead time, fyllnadsgrad. Visar att du arbetar datadrivet med logistikens nyckeltal.',
+        description: 'Leveransprecision, lead time och fyllnadsgrad får egna punkter under varje anställning. Visar att du arbetar datadrivet med logistikens nyckeltal.',
       },
       {
         title: 'Plats för Excel-nivå',
@@ -22456,7 +22456,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'År som logistikassistent, bransch, kärnsystem och processområde på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Bolag, period, ansvarsområde. Konkretisera system, KPI-resultat och processer.' },
-      { sektion: 'Utbildning', tips: 'Gymnasium eller YH + skola. Eventuell magisterexamen i eget block.' },
+      { sektion: 'Utbildning', tips: 'Gymnasium eller YH + skola. Eventuell magisterexamen som egen post.' },
       { sektion: 'Certifieringar', tips: 'PLAN, APICS, CILT, Six Sigma, Lean. Datum och utfärdare.' },
       { sektion: 'Kompetenser', tips: 'System, KPI:er, processer. Skilj på tekniska och personliga.' },
       { sektion: 'Övrigt', tips: 'Språk, eventuella deltagande i förbättringsprojekt, körkort.' },
@@ -22476,7 +22476,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Logistik och Logistik Plus, som ingår i Premium, läser rekryteringssystemen rätt. 3PL, industri och e-handel använder Workday, Teamtailor, Greenhouse och egna ATS. Skriv ut system (WMS, TMS, SAP, Movex), processer (inköp, lagerstyrning, distribution, tull), KPI:er (OTIF, lead time, leveransprecision) och certifieringar (PLAN, APICS) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Granit, som ingår i Premium, läser rekryteringssystemen rätt. 3PL, industri och e-handel använder Workday, Teamtailor, Greenhouse och egna ATS. Skriv ut system (WMS, TMS, SAP, Movex), processer (inköp, lagerstyrning, distribution, tull), KPI:er (OTIF, lead time, leveransprecision) och certifieringar (PLAN, APICS) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -22524,7 +22524,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'servicemedarbetare': {
     seoIntro:
-      'Som servicemedarbetare bedöms du på din serviceförmåga, flexibilitet och förmåga att stötta verksamheten i vardagen. Hotell, konferenser, fastighetsbolag, offentlig sektor, idrottsanläggningar och kontor har konstant öppna servicemedarbetar-tjänster, men HR-chefer slänger CV:n som inte tydligt visar servicevana, flexibilitet och språk. Ett välskrivet CV avgör om du blir kallad till intervju på den verksamhet du faktiskt vill jobba på.\n\nVår mall för servicemedarbetare lyfter servicevana, flexibilitet och språkkunskaper som första visuella element. Vi har strukturerat erfarenhetssektionen så att verksamhet, ansvarsområde och konkreta resultat syns direkt. Det betyder att HR-chefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning eller gymnasium, branschvana (hotell, fastighet, kontor, konferens, idrott), konkreta arbetsuppgifter (städ, posthantering, reception, evenemangsstöd), eventuella certifieringar (HACCP, första hjälpen, brandskydd), språkkunskaper med nivå, schemaflexibilitet samt B-körkort om relevant.\n\nNedan hittar du två CV-mallar designade för servicemedarbetar-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad HR-chefer på hotell, fastighet, kontor och idrottsanläggningar faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som servicemedarbetare bedöms du på din serviceförmåga, flexibilitet och förmåga att stötta verksamheten i vardagen. Hotell, konferenser, fastighetsbolag, offentlig sektor, idrottsanläggningar och kontor har konstant öppna servicemedarbetar-tjänster, men HR-chefer slänger CV:n som inte tydligt visar servicevana, flexibilitet och språk. Ett välskrivet CV avgör om du blir kallad till intervju på den verksamhet du faktiskt vill jobba på.\n\nVåra mallar lyfter servicevana, flexibilitet och språkkunskaper som första visuella element, i Granits högerspalt eller med ordningen Kompetenser först i Linne. Erfarenhetsavsnittet är byggt så att verksamhet, ansvarsområde och konkreta resultat syns direkt. Det betyder att HR-chefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning eller gymnasium, branschvana (hotell, fastighet, kontor, konferens, idrott), konkreta arbetsuppgifter (städ, posthantering, reception, evenemangsstöd), eventuella certifieringar (HACCP, första hjälpen, brandskydd), språkkunskaper med nivå, schemaflexibilitet samt B-körkort om relevant.\n\nNedan hittar du två CV-mallar som passar servicemedarbetarens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad HR-chefer på hotell, fastighet, kontor och idrottsanläggningar faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -22562,23 +22562,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Branschvana och uppgifter överst',
-        description: 'Vår mall lyfter branschvana och konkreta arbetsuppgifter i sidopanelen. HR-chefer ser dina baskompetenser på fem sekunder utan att scrolla.',
+        description: 'Granit lyfter branschvana och konkreta arbetsuppgifter som kompetensgrupper i den mörka högerspalten, Linne med ordningen Kompetenser först. HR-chefer ser dina baskompetenser på fem sekunder utan att scrolla.',
       },
       {
-        title: 'Eget block för certifieringar',
-        description: 'HACCP, första hjälpen, brandskydd, heta arbeten lyfts som eget block. Differentierar dig från generella städ- eller städpersonal.',
+        title: 'Certifieringar i intygsavsnittet',
+        description: 'HACCP, första hjälpen, brandskydd och heta arbeten listar du rad för rad i intygsavsnittet med utgivare och år. Det skiljer dig från generell städ- eller servicepersonal.',
       },
       {
         title: 'Tydlig verksamhet per arbetsgivare',
-        description: 'Mallen har dedikerade rader för verksamhetstyp och kontext per uppdragsgivare. Erfarenhet från hotell och fastighet konkurrerar inte om utrymme.',
+        description: 'Varje uppdragsgivare blir en egen post med verksamhetstyp och kontext på egna rader. Erfarenhet från hotell och fastighet konkurrerar inte om utrymme.',
       },
       {
-        title: 'Logistik Plus med foto ingår i Premium',
-        description: 'För senior servicemedarbetare eller koordinator lägger Logistik Plus till foto och tidningskänsla. Skapar professionell first impression.',
+        title: 'Granit med foto ingår i Premium',
+        description: 'För senior servicemedarbetare eller koordinator ger Granit, som ingår i Premium, rund fotoplats i ett mörkt huvudband och en mörk högerspalt med intyg och kompetenser. Det skapar ett professionellt första intryck.',
       },
       {
         title: 'Plats för servicevana',
-        description: 'Mallen har dedikerade rader för bemötande och kundnöjdhet. Visar både teknisk och social kompetens.',
+        description: 'Bemötande och kundnöjdhet får egna punkter under varje anställning. Visar både teknisk och social kompetens.',
       },
       {
         title: 'Plats för språk',
@@ -22821,7 +22821,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Logistik och Logistik Plus, som ingår i Premium, läser rekryteringssystemen rätt. Hotell, fastighet och offentlig sektor använder Workday, Teamtailor, Visma Recruit och egna ATS. Skriv ut bransch (hotell, fastighet, kontor, konferens), certifieringar (HACCP, första hjälpen, brandskydd, heta arbeten) och system (Opera, Mews, Office 365) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Granit, som ingår i Premium, läser rekryteringssystemen rätt. Hotell, fastighet och offentlig sektor använder Workday, Teamtailor, Visma Recruit och egna ATS. Skriv ut bransch (hotell, fastighet, kontor, konferens), certifieringar (HACCP, första hjälpen, brandskydd, heta arbeten) och system (Opera, Mews, Office 365) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -22869,7 +22869,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'servitris-restaurangbitrade': {
     seoIntro:
-      'Som servitris eller restaurangbiträde bedöms du på din serviceförmåga, snabbhet och produktkunskap. Restauranger, kaféer, hotellrestauranger och kedjor som MAX, MAX Premium Burgers, McDonald\'s, O\'Learys har konstant öppna tjänster, men restaurangchefer slänger CV:n som inte tydligt visar service-erfarenhet, kassasystem och språk. Ett välskrivet CV avgör om du blir kallad till intervju på den restaurang du faktiskt vill jobba på.\n\nVår mall för servitriser och restaurangbiträden lyfter service-erfarenhet, kassasystem och språk som första visuella element. Vi har strukturerat erfarenhetssektionen så att restaurang, period och konkreta resultat syns direkt. Det betyder att restaurangchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: restaurangerfarenhet med koncept, kassasystem (Caspeco, Sitoo, Eat&Drink, Square), specialfunktioner (vinrådgivning, allergikunskap, bar), HACCP, allergenhantering, eventuell sommelier- eller barista-utbildning, språkkunskaper med nivå, schemaflexibilitet samt eventuell ansvarsfull alkoholservering.\n\nNedan hittar du två CV-mallar designade för servitris- och restaurangbiträdesrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad restaurangchefer på premium-restauranger och kedjor faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som servitris eller restaurangbiträde bedöms du på din serviceförmåga, snabbhet och produktkunskap. Restauranger, kaféer, hotellrestauranger och kedjor som MAX, MAX Premium Burgers, McDonald\'s, O\'Learys har konstant öppna tjänster, men restaurangchefer slänger CV:n som inte tydligt visar service-erfarenhet, kassasystem och språk. Ett välskrivet CV avgör om du blir kallad till intervju på den restaurang du faktiskt vill jobba på.\n\nVåra mallar lyfter serviceerfarenhet, kassasystem och språk som första visuella element när du väljer ordningen Kompetenser först. Erfarenhetsavsnittet är byggt så att restaurang, period och konkreta resultat syns direkt. Det betyder att restaurangchefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: restaurangerfarenhet med koncept, kassasystem (Caspeco, Sitoo, Eat&Drink, Square), specialfunktioner (vinrådgivning, allergikunskap, bar), HACCP, allergenhantering, eventuell sommelier- eller barista-utbildning, språkkunskaper med nivå, schemaflexibilitet samt eventuell ansvarsfull alkoholservering.\n\nNedan hittar du två CV-mallar som passar servitrisens och restaurangbiträdets meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad restaurangchefer på premium-restauranger och kedjor faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -22907,23 +22907,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Erfarenhet och kassa överst',
-        description: 'Vår mall lyfter restaurangerfarenhet, kassasystem och språk i sidopanelen. Restaurangchefer ser dina baskompetenser på fem sekunder utan att scrolla.',
+        description: 'Lägg kassasystem som en egen kompetensgrupp och välj Kompetenser först, så ligger system och språk direkt under profilen i båda mallarna. Restaurangchefer ser dina baskompetenser på fem sekunder utan att scrolla.',
       },
       {
-        title: 'Eget block för specialkunskaper',
-        description: 'Sommelier-utbildning, ölkunskap, mixology lyfts som eget block. Differentierar dig från servitriser med bara generell erfarenhet.',
+        title: 'Specialkunskaper som egen kompetensgrupp',
+        description: 'Sommelierutbildning, ölkunskap och mixology lyfter du som en egen grupp under Kompetenser, i Terrakotta som brickor. Det skiljer dig från servitriser med bara generell erfarenhet.',
       },
       {
         title: 'Tydlig restaurangtyp per arbetsgivare',
-        description: 'Mallen har dedikerade rader för restaurangkoncept per uppdragsgivare. Erfarenhet från fine dining och snabbmat konkurrerar inte om utrymme.',
+        description: 'Varje uppdragsgivare blir en egen post där restaurangkonceptet står på egen rad. Erfarenhet från fine dining och snabbmat konkurrerar inte om utrymme.',
       },
       {
-        title: 'Servering med foto ingår i Premium',
-        description: 'För senior servitris eller premium-restaurang lägger Servering till foto och varm färgton. Skapar professionell first impression.',
+        title: 'Terrakotta med kompetensbrickor ingår i Premium',
+        description: 'För senior servitris eller finare restaurang ger Terrakotta, som ingår i Premium, en krämfärgad sida med roströda rubriker. Det skapar ett första intryck med karaktär.',
       },
       {
         title: 'Plats för HACCP och allergener',
-        description: 'Mallen har dedikerade rader för HACCP, allergenhantering och ansvarsfull alkoholservering. CV-kritiskt på seriösa restauranger.',
+        description: 'HACCP, allergenhantering och ansvarsfull alkoholservering får egna rader i intygsavsnittet. CV-kritiskt på seriösa restauranger.',
       },
       {
         title: 'Plats för språk',
@@ -23166,7 +23166,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Stack Developer och Servering, som ingår i Premium, läser rekryteringssystemen rätt. Restauranger och hotell använder Workday, Teamtailor och egna ATS. Skriv ut kassasystem (Caspeco, Sitoo, Eat&Drink, Lightspeed), certifieringar (HACCP, ansvarsfull alkoholservering, WSET) och språk med nivå i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Terrakotta, som ingår i Premium, läser rekryteringssystemen rätt. Restauranger och hotell använder Workday, Teamtailor och egna ATS. Skriv ut kassasystem (Caspeco, Sitoo, Eat&Drink, Lightspeed), certifieringar (HACCP, ansvarsfull alkoholservering, WSET) och språk med nivå i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -23214,7 +23214,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'koksbitrade': {
     seoIntro:
-      'Som köksbiträde bedöms du på din kökserfarenhet, hygienvana och flexibilitet. Restauranger, kaféer, hotell, skolkök, sjukhuskök och kedjor som MAX, McDonald\'s, Compass Group, ISS Catering har konstant öppna köksbiträdestjänster, men kökschefer slänger CV:n som inte tydligt visar hygien, kökstyp och fysisk lämplighet. Ett välskrivet CV avgör om du blir kallad till intervju på det kök du faktiskt vill jobba på.\n\nVår mall för köksbiträden lyfter HACCP-utbildning, kökstyp och flexibilitet som första visuella element. Vi har strukturerat erfarenhetssektionen så att kök, period och konkreta arbetsuppgifter syns direkt. Det betyder att kökschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: kökstyp (restaurang, café, snabbmat, skolkök, sjukhuskök, äldreboende, catering), HACCP-utbildning, allergenhantering, eventuell kallskänka- eller varmkock-stöd, fysisk lämplighet och uthållighet, schemaflexibilitet (tidiga morgnar, helger), språkkunskaper samt eventuella vidareutbildningar (kokutbildning, dietistkunskap).\n\nNedan hittar du två CV-mallar designade för köksbiträdesrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad kökschefer på restauranger, skolkök och äldreboende faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som köksbiträde bedöms du på din kökserfarenhet, hygienvana och flexibilitet. Restauranger, kaféer, hotell, skolkök, sjukhuskök och kedjor som MAX, McDonald\'s, Compass Group, ISS Catering har konstant öppna köksbiträdestjänster, men kökschefer slänger CV:n som inte tydligt visar hygien, kökstyp och fysisk lämplighet. Ett välskrivet CV avgör om du blir kallad till intervju på det kök du faktiskt vill jobba på.\n\nVåra mallar lyfter HACCP-utbildning, kökstyp och flexibilitet som första visuella element när du väljer ordningen Intyg först. Erfarenhetsavsnittet är byggt så att kök, period och konkreta arbetsuppgifter syns direkt. Det betyder att kökschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: kökstyp (restaurang, café, snabbmat, skolkök, sjukhuskök, äldreboende, catering), HACCP-utbildning, allergenhantering, eventuell kallskänka- eller varmkock-stöd, fysisk lämplighet och uthållighet, schemaflexibilitet (tidiga morgnar, helger), språkkunskaper samt eventuella vidareutbildningar (kokutbildning, dietistkunskap).\n\nNedan hittar du två CV-mallar som passar köksbiträdets meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad kökschefer på restauranger, skolkök och äldreboende faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -23252,23 +23252,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'HACCP och kökstyp överst',
-        description: 'Vår mall lyfter HACCP, kökstyp och hygiencertifieringar i sidopanelen. Kökschefer ser dina baskompetenser på fem sekunder utan att scrolla.',
+        description: 'Välj ordningen Intyg först så ligger HACCP och hygiencertifieringar direkt under profilen i båda mallarna, med kökstyp som egen kompetensgrupp. Kökschefer ser dina baskompetenser på fem sekunder utan att scrolla.',
       },
       {
-        title: 'Eget block för arbetsuppgifter',
-        description: 'Diskning, mise en place, kallskänka, kock-stöd, packning lyfts som eget kompetensblock. Differentierar dig från generella städ-roller.',
+        title: 'Arbetsuppgifter som egen kompetensgrupp',
+        description: 'Diskning, mise en place, kallskänka, kockstöd och packning lyfter du som en egen grupp under Kompetenser, i Terrakotta som brickor. Det skiljer dig från generella städroller.',
       },
       {
         title: 'Tydlig kökstyp per arbetsgivare',
-        description: 'Mallen har dedikerade rader för kökstyp per uppdragsgivare. Erfarenhet från restaurang och skolkök konkurrerar inte om utrymme.',
+        description: 'Varje uppdragsgivare blir en egen post där kökstypen står på egen rad. Erfarenhet från restaurang och skolkök konkurrerar inte om utrymme.',
       },
       {
-        title: 'Servering med foto ingår i Premium',
-        description: 'För senior köksbiträde eller kock-aspirant lägger Servering till foto och varm färgton. Skapar professionell first impression.',
+        title: 'Terrakotta med kompetensbrickor ingår i Premium',
+        description: 'För senior köksbiträde eller kockaspirant ger Terrakotta, som ingår i Premium, en krämfärgad sida med roströda rubriker. Det skapar ett första intryck med karaktär.',
       },
       {
         title: 'Plats för certifieringar',
-        description: 'Mallen har dedikerade rader för HACCP, allergenutbildning, första hjälpen, brandskydd. CV-kritiskt på alla seriösa kök.',
+        description: 'HACCP, allergenutbildning, första hjälpen och brandskydd får egna rader i intygsavsnittet. CV-kritiskt på alla seriösa kök.',
       },
       {
         title: 'Plats för fysisk lämplighet',
@@ -23511,7 +23511,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Stack Developer och Servering, som ingår i Premium, läser rekryteringssystemen rätt. Restauranger, catering och offentliga kök använder Workday, Teamtailor, Visma Recruit och egna ATS. Skriv ut HACCP, allergenhantering, kökstekniker (mise en place, kallskänka) och kökstyp i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Terrakotta, som ingår i Premium, läser rekryteringssystemen rätt. Restauranger, catering och offentliga kök använder Workday, Teamtailor, Visma Recruit och egna ATS. Skriv ut HACCP, allergenhantering, kökstekniker (mise en place, kallskänka) och kökstyp i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -23559,7 +23559,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'sommarjobb': {
     seoIntro:
-      'Som sommarjobbare bedöms du på din potential, arbetsmoral och vilja att bidra till verksamheten under semesterperioden. Tusentals svenska bolag, kommuner och organisationer rekryterar sommarjobbare varje år, men HR-chefer slänger CV:n som inte tydligt visar arbetsförmåga, körkort och tillgänglighet. Ett välskrivet CV avgör om du blir kallad till intervju på det företag du faktiskt vill jobba på.\n\nVår mall för sommarjobb lyfter utbildning, tidigare erfarenhet och tillgänglighet som första visuella element. Vi har strukturerat erfarenhetssektionen så att skola, eventuella tidigare jobb och engagemang syns direkt. Det betyder att HR-chefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning (gymnasium eller högskola) med specialinriktning, tidigare arbetslivserfarenheter (även korta uppdrag), idrotts- eller frivilligengagemang, körkort (B), språkkunskaper, datorvana, tillgänglighet under sommarmånaderna samt eventuella certifieringar (truckkort, kassaerfarenhet, HACCP).\n\nNedan hittar du två CV-mallar designade för sommarjobb-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad HR-chefer på industri, vård, butik och kontor faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som sommarjobbare bedöms du på din potential, arbetsmoral och vilja att bidra till verksamheten under semesterperioden. Tusentals svenska bolag, kommuner och organisationer rekryterar sommarjobbare varje år, men HR-chefer slänger CV:n som inte tydligt visar arbetsförmåga, körkort och tillgänglighet. Ett välskrivet CV avgör om du blir kallad till intervju på det företag du faktiskt vill jobba på.\n\nVåra mallar lyfter utbildning, tidigare erfarenhet och tillgänglighet som första visuella element när du väljer ordningen Utbildning först. CV:t är byggt så att skola, eventuella tidigare jobb och engagemang syns direkt. Det betyder att HR-chefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning (gymnasium eller högskola) med specialinriktning, tidigare arbetslivserfarenheter (även korta uppdrag), idrotts- eller frivilligengagemang, körkort (B), språkkunskaper, datorvana, tillgänglighet under sommarmånaderna samt eventuella certifieringar (truckkort, kassaerfarenhet, HACCP).\n\nNedan hittar du två CV-mallar som passar sommarjobbarens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad HR-chefer på industri, vård, butik och kontor faktiskt letar efter. Ladda ner gratismallen Björk och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -23597,23 +23597,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Utbildning överst, inte erfarenhet',
-        description: 'Vår mall för sommarjobb har utbildning i sidopanelen istället för anställningar. HR-chefer ser ditt program och skola på fem sekunder.',
+        description: 'Välj ordningen Utbildning först i Björk eller Koppar så ligger utbildningen direkt under profilen, före anställningarna. HR-chefer ser ditt program och din skola på fem sekunder.',
       },
       {
-        title: 'Eget block för engagemang',
-        description: 'Idrott, scout, ideellt arbete, kören lyfts som eget block. Differentierar dig från andra sommarjobbare med liknande utbildning.',
+        title: 'Engagemang som eget avsnitt',
+        description: 'Idrott, scout, ideellt arbete och kören lyfter du under Intressen eller som egna poster under Erfarenhet. Det skiljer dig från andra sommarjobbare med liknande utbildning.',
       },
       {
         title: 'Plats för alla typer av jobb',
-        description: 'Mallen lyfter både relevant och icke-relevant arbete. Tidigare sommarjobb på café visar lika mycket arbetsmoral som relevant praktik.',
+        description: 'Båda mallarna visar relevant och mindre relevant arbete på samma sätt, som egna poster. Tidigare sommarjobb på café visar lika mycket arbetsmoral som relevant praktik.',
       },
       {
-        title: 'Student Plus med foto ingår i Premium',
-        description: 'För premium-sommarjobb eller trainee-program lägger Student Plus till foto och tidningskänsla. Skapar professionell first impression.',
+        title: 'Koppar med färgat huvudband ingår i Premium',
+        description: 'För eftertraktade sommarjobb eller traineeprogram ger Koppar, som ingår i Premium, ett färgat huvudband med vit text och rund fotoplats. Det skapar ett professionellt första intryck. Björk har också fotoplats.',
       },
       {
         title: 'Plats för certifieringar',
-        description: 'Mallen har dedikerade rader för B-körkort, truckkort, HACCP, kassaerfarenhet. Värdefulla för specifika sommarjobb-typer.',
+        description: 'B-körkort, truckkort, HACCP och kassaerfarenhet får egna rader i intygsavsnittet. Värdefulla för specifika sommarjobb-typer.',
       },
       {
         title: 'Plats för tillgänglighet',
@@ -23856,7 +23856,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Student Startup och Student Plus, som ingår i Premium, läser rekryteringssystemen rätt. Sommarjobb-givare som industri, vård, retail och offentlig sektor använder Workday, Teamtailor, Visma Recruit och egna ATS. Skriv ut körkort, certifieringar (HACCP, truckkort, första hjälpen), språk och tillgänglighetsdatum i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Björk och Koppar, som ingår i Premium, läser rekryteringssystemen rätt. Sommarjobb-givare som industri, vård, retail och offentlig sektor använder Workday, Teamtailor, Visma Recruit och egna ATS. Skriv ut körkort, certifieringar (HACCP, truckkort, första hjälpen), språk och tillgänglighetsdatum i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -23904,7 +23904,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'automationsingenior': {
     seoIntro:
-      'Som automationsingenjör bedöms du på din PLC-vana, robotprogrammering och industri-erfarenhet. Industribolag som Volvo, Scania, ABB, SKF, Sandvik, automationsbolag och konsultbolag har konstant öppna automationsingenjör-tjänster, men ingenjörschefer slänger CV:n som inte tydligt visar PLC-stack, robotmärken och bransch-erfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på det bolag du faktiskt vill jobba på.\n\nVår mall för automationsingenjörer lyfter PLC-stack, robotmärken och industri-erfarenhet som första visuella element. Vi har strukturerat erfarenhetssektionen så att projekt, anläggning och konkreta resultat syns direkt. Det betyder att ingenjörschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning (civilingenjör automation, högskoleingenjör, YH-utbildning), PLC-stack (Siemens S7/TIA Portal, Beckhoff TwinCAT, Allen-Bradley/Studio 5000, Mitsubishi GX Works), robotmärken (ABB RobotStudio, KUKA, Fanuc, Yaskawa), HMI/SCADA (WinCC, iX, Citect, Wonderware), kommunikationsprotokoll (Profinet, Profibus, EtherCAT, Modbus), maskinsäkerhet (CE, ISO 13849, Pilz, Sick), branschvana (fordon, livsmedel, läkemedel, processindustri) samt eventuell vana av Industry 4.0, OPC UA och AI inom produktion.\n\nNedan hittar du två CV-mallar designade för automationsingenjör-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad ingenjörschefer på industri och automationsbolag faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som automationsingenjör bedöms du på din PLC-vana, robotprogrammering och industri-erfarenhet. Industribolag som Volvo, Scania, ABB, SKF, Sandvik, automationsbolag och konsultbolag har konstant öppna automationsingenjör-tjänster, men ingenjörschefer slänger CV:n som inte tydligt visar PLC-stack, robotmärken och bransch-erfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på det bolag du faktiskt vill jobba på.\n\nVåra mallar lyfter PLC-stack, robotmärken och industrierfarenhet som första visuella element när du väljer ordningen Kompetenser först. Erfarenhetsavsnittet är byggt så att projekt, anläggning och konkreta resultat syns direkt. Det betyder att ingenjörschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning (civilingenjör automation, högskoleingenjör, YH-utbildning), PLC-stack (Siemens S7/TIA Portal, Beckhoff TwinCAT, Allen-Bradley/Studio 5000, Mitsubishi GX Works), robotmärken (ABB RobotStudio, KUKA, Fanuc, Yaskawa), HMI/SCADA (WinCC, iX, Citect, Wonderware), kommunikationsprotokoll (Profinet, Profibus, EtherCAT, Modbus), maskinsäkerhet (CE, ISO 13849, Pilz, Sick), branschvana (fordon, livsmedel, läkemedel, processindustri) samt eventuell vana av Industry 4.0, OPC UA och AI inom produktion.\n\nNedan hittar du två CV-mallar som passar automationsingenjörens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad ingenjörschefer på industri och automationsbolag faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -23942,23 +23942,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'PLC och robot överst',
-        description: 'Vår mall lyfter Siemens, Beckhoff, ABB och övriga märken i sidopanelen. Ingenjörschefer ser dina baskompetenser på fem sekunder utan att scrolla.',
+        description: 'Lägg Siemens, Beckhoff, ABB och övriga märken som en egen kompetensgrupp och välj Kompetenser först, så står de direkt under profilen i båda mallarna. Ingenjörschefer ser dina baskompetenser på fem sekunder utan att scrolla.',
       },
       {
-        title: 'Eget block för säkerhet',
-        description: 'Maskinsäkerhet, CE-märkning, EN ISO 13849, Pilz lyfts som eget kompetensblock. Differentierar dig från generella programmerare.',
+        title: 'Säkerhet som egen kompetensgrupp',
+        description: 'Maskinsäkerhet, CE-märkning, EN ISO 13849 och Pilz lyfter du som en egen grupp under Kompetenser, med fet rubrik. Det skiljer dig från generella programmerare.',
       },
       {
         title: 'Tydlig branschvana per arbetsgivare',
-        description: 'Mallen har dedikerade rader för bransch och projekttyp per uppdragsgivare. Erfarenhet från fordon och livsmedel konkurrerar inte om utrymme.',
+        description: 'Varje uppdragsgivare blir en egen post med bransch och projekttyp på egna rader. Erfarenhet från fordon och livsmedel konkurrerar inte om utrymme.',
       },
       {
-        title: 'Verkstad Plus med foto ingår i Premium',
-        description: 'För senior automationsingenjör eller systemansvarig lägger Verkstad Plus till foto och robust känsla. Skapar förtroende som passar branschen.',
+        title: 'Fasad med foto ingår i Premium',
+        description: 'För senior automationsingenjör eller systemansvarig ger Fasad, som ingår i Premium, kvadratisk fotoplats och ett stort namn i versaler bakom en accentkant. Robust och tydligt, vilket skapar förtroende som passar branschen.',
       },
       {
         title: 'Plats för konkreta projekt',
-        description: 'Mallen har dedikerade rader för konkreta automationsprojekt (linjeintegration, robotcell, OEE-förbättring). Visar mätbar effekt.',
+        description: 'Konkreta automationsprojekt (linjeintegration, robotcell, OEE-förbättring) får egna poster i avsnittet Projekt. Visar mätbar effekt.',
       },
       {
         title: 'Plats för Industry 4.0',
@@ -24181,7 +24181,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'År som automationsingenjör, PLC-stack och bransch på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Bolag, projekt, period. Konkretisera PLC, robotmärke, OEE-resultat och säkerhetsarbete.' },
-      { sektion: 'Utbildning', tips: 'Civilingenjör eller högskoleingenjör + lärosäte. Eventuell magister i eget block.' },
+      { sektion: 'Utbildning', tips: 'Civilingenjör eller högskoleingenjör + lärosäte. Eventuell magister som egen post.' },
       { sektion: 'Certifieringar', tips: 'Siemens, ABB, Pilz CMSE, TÜV FSE. Datum och utfärdare.' },
       { sektion: 'Kompetenser', tips: 'PLC, robot, HMI/SCADA, kommunikation. Skilj på tekniska och personliga.' },
       { sektion: 'Övrigt', tips: 'Bransch, eventuella öppna källkod-bidrag, språk.' },
@@ -24201,7 +24201,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Verkstad och Verkstad Plus, som ingår i Premium, läser rekryteringssystemen rätt. Industribolag, automationsbolag och konsultbolag använder Workday, Teamtailor, Cinode och egna ATS. Skriv ut PLC-stack (Siemens S7, TIA Portal, Beckhoff TwinCAT, Studio 5000), robotmärken (ABB, KUKA, Fanuc, Yaskawa), HMI/SCADA (WinCC, iX, Citect), kommunikation (Profinet, EtherCAT, OPC UA) och säkerhet (EN ISO 13849, CE) i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Fasad, som ingår i Premium, läser rekryteringssystemen rätt. Industribolag, automationsbolag och konsultbolag använder Workday, Teamtailor, Cinode och egna ATS. Skriv ut PLC-stack (Siemens S7, TIA Portal, Beckhoff TwinCAT, Studio 5000), robotmärken (ABB, KUKA, Fanuc, Yaskawa), HMI/SCADA (WinCC, iX, Citect), kommunikation (Profinet, EtherCAT, OPC UA) och säkerhet (EN ISO 13849, CE) i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -24249,7 +24249,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
 
   'kontorsassistent': {
     seoIntro:
-      'Som kontorsassistent bedöms du på din strukturkänsla, systemvana och förmåga att stötta verksamheten i vardagen. Stora bolag, scale-ups, offentlig sektor och tusentals SME har konstant öppna kontorsassistent-tjänster, men HR-chefer slänger CV:n som inte tydligt visar Office-färdigheter, språk och konkreta arbetsuppgifter. Ett välskrivet CV avgör om du blir kallad till intervju på det bolag du faktiskt vill jobba på.\n\nVår mall för kontorsassistenter lyfter Office-färdigheter, språk och administrativ bredd som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, ansvarsområde och konkreta uppgifter syns direkt. Det betyder att HR-chefer och kontorschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning eller gymnasium, system (Office 365, Outlook, SharePoint, Visma, Fortnox), administrativ bredd (kalender, möten, posthantering, reception, evenemang), språkkunskaper med nivå, samt eventuell vana av kundbemötande, leverantörskontakt och GDPR.\n\nNedan hittar du två CV-mallar designade för kontorsassistent-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad HR-chefer, kontorschefer och chefer faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som kontorsassistent bedöms du på din strukturkänsla, systemvana och förmåga att stötta verksamheten i vardagen. Stora bolag, scale-ups, offentlig sektor och tusentals SME har konstant öppna kontorsassistent-tjänster, men HR-chefer slänger CV:n som inte tydligt visar Office-färdigheter, språk och konkreta arbetsuppgifter. Ett välskrivet CV avgör om du blir kallad till intervju på det bolag du faktiskt vill jobba på.\n\nVåra mallar lyfter Office-färdigheter, språk och administrativ bredd som första visuella element när du väljer ordningen Kompetenser först. Erfarenhetsavsnittet är byggt så att bolag, ansvarsområde och konkreta uppgifter syns direkt. Det betyder att HR-chefer och kontorschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: utbildning eller gymnasium, system (Office 365, Outlook, SharePoint, Visma, Fortnox), administrativ bredd (kalender, möten, posthantering, reception, evenemang), språkkunskaper med nivå, samt eventuell vana av kundbemötande, leverantörskontakt och GDPR.\n\nNedan hittar du två CV-mallar som passar kontorsassistentens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad HR-chefer, kontorschefer och chefer faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -24287,23 +24287,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Office och språk överst',
-        description: 'Vår mall lyfter Office 365, språk och administrativ bredd i sidopanelen. HR-chefer ser dina baskompetenser på fem sekunder utan att scrolla.',
+        description: 'Lägg Office 365 och administrativ bredd som egna kompetensgrupper och välj Kompetenser först, så står de direkt under profilen i båda mallarna, med språken strax under. HR-chefer ser dina baskompetenser på fem sekunder utan att scrolla.',
       },
       {
-        title: 'Eget block för administrativa områden',
-        description: 'Kalender, möten, posthantering, reception, evenemang lyfts som eget kompetensblock. Differentierar dig från generella receptionister.',
+        title: 'Administrativa områden som egen kompetensgrupp',
+        description: 'Kalender, möten, posthantering, reception och evenemang lyfter du som en egen grupp under Kompetenser, med fet rubrik. Det skiljer dig från generella receptionister.',
       },
       {
         title: 'Tydlig bransch per arbetsgivare',
-        description: 'Mallen har dedikerade rader för bransch och ansvarsområde per uppdragsgivare. Erfarenhet från industri och bank konkurrerar inte om utrymme.',
+        description: 'Varje uppdragsgivare blir en egen post med bransch och ansvarsområde på egna rader. Erfarenhet från industri och bank konkurrerar inte om utrymme.',
       },
       {
-        title: 'Myndighet Plus med foto ingår i Premium',
-        description: 'För senior kontorsassistent eller office manager lägger Myndighet Plus till foto och formell färgton. Skapar professionell first impression.',
+        title: 'Antikva med dubbel linje ingår i Premium',
+        description: 'För senior kontorsassistent eller office manager ger Antikva, som ingår i Premium, Times New Roman, centrerat huvud med dubbel linje och vinröd accent som förval. Det skapar ett professionellt första intryck.',
       },
       {
         title: 'Plats för Excel-nivå',
-        description: 'Mallen har dedikerade rader för Excel-färdigheter (Power Query, makron, pivottabeller). Visar att du behärskar avancerad administration.',
+        description: 'Excel-färdigheter (Power Query, makron, pivottabeller) får en egen kompetensgrupp. Visar att du behärskar avancerad administration.',
       },
       {
         title: 'Plats för språk och kommunikation',
@@ -24526,7 +24526,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     sektionTips: [
       { sektion: 'Sammanfattning', tips: 'År som kontorsassistent, bransch och kärnsystem på 3-4 rader.' },
       { sektion: 'Erfarenhet', tips: 'Bolag, period, ansvarsområde. Konkretisera reception, kalender, evenemang och systemvana.' },
-      { sektion: 'Utbildning', tips: 'Gymnasium eller YH + skola. Eventuell universitetsutbildning i eget block.' },
+      { sektion: 'Utbildning', tips: 'Gymnasium eller YH + skola. Eventuell universitetsutbildning som egen post.' },
       { sektion: 'Kompetenser', tips: 'System, administrativ bredd, lagstiftning. Skilj på tekniska och personliga.' },
       { sektion: 'Språk', tips: 'Skriv ut språk med nivå (modersmål, flytande, kommunikativ).' },
       { sektion: 'Övrigt', tips: 'Eventuella certifieringar, körkort, frivilligengagemang.' },
@@ -24546,7 +24546,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Myndighet och Myndighet Plus, som ingår i Premium, läser rekryteringssystemen rätt. Bolag och offentlig sektor använder Workday, Teamtailor, Visma Recruit och SAP SuccessFactors. Skriv ut system (Office 365, SharePoint, Visma, Fortnox), Excel-färdigheter och språk med nivå i klartext eftersom rekryterare filtrerar exakta termer.',
+      'Både vår gratismall Linne och Antikva, som ingår i Premium, läser rekryteringssystemen rätt. Bolag och offentlig sektor använder Workday, Teamtailor, Visma Recruit och SAP SuccessFactors. Skriv ut system (Office 365, SharePoint, Visma, Fortnox), Excel-färdigheter och språk med nivå i klartext eftersom rekryterare filtrerar exakta termer.',
 
     faqItems: [
       {
@@ -24597,7 +24597,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
   // ============================================================================
   'redovisningsekonom': {
     seoIntro:
-      'Som redovisningsekonom bedöms du på en kombination av regelverkskunskap, systemvana och bransch-erfarenhet. Redovisningsbyråer som PwC, EY, KPMG och Grant Thornton tillsammans med tusentals mindre byråer och industribolag har konstant öppna roller, men ekonomichefer slänger CV:n som inte tydligt visar K2/K3-vana och systemerfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på den byrå eller det bolag du faktiskt vill jobba på.\n\nVår mall för redovisningsekonomer lyfter regelverk (K2/K3, IFRS), redovisningssystem (Visma, Fortnox, SAP, Hogia) och eventuell auktorisation som första visuella element. Vi har strukturerat erfarenhetssektionen så att byrå eller bolag, kundvolym och bokslutsvana syns direkt. Det betyder att ekonomichefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: ekonomiexamen från högskola eller YH, eventuell auktorisation (auktoriserad redovisningskonsult via FAR, revisor via Revisorsinspektionen), redovisningssystem du behärskar (Visma Administration, Fortnox, BL Administration, SAP, Hogia), regelverk (K2, K3, IFRS), bokslutsvana med volym, skatte- och momskunskap, lönehantering, samt Excel-färdigheter på rätt nivå.\n\nNedan hittar du två CV-mallar designade för redovisningsekonom-rollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad ekonomichefer på redovisningsbyråer, industribolag och e-handel faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som redovisningsekonom bedöms du på en kombination av regelverkskunskap, systemvana och bransch-erfarenhet. Redovisningsbyråer som PwC, EY, KPMG och Grant Thornton tillsammans med tusentals mindre byråer och industribolag har konstant öppna roller, men ekonomichefer slänger CV:n som inte tydligt visar K2/K3-vana och systemerfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på den byrå eller det bolag du faktiskt vill jobba på.\n\nVåra mallar lyfter regelverk (K2/K3, IFRS), redovisningssystem (Visma, Fortnox, SAP, Hogia) och eventuell auktorisation som första visuella element när du väljer ordningen Intyg först. Erfarenhetsavsnittet är byggt så att byrå eller bolag, kundvolym och bokslutsvana syns direkt. Det betyder att ekonomichefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: ekonomiexamen från högskola eller YH, eventuell auktorisation (auktoriserad redovisningskonsult via FAR, revisor via Revisorsinspektionen), redovisningssystem du behärskar (Visma Administration, Fortnox, BL Administration, SAP, Hogia), regelverk (K2, K3, IFRS), bokslutsvana med volym, skatte- och momskunskap, lönehantering, samt Excel-färdigheter på rätt nivå.\n\nNedan hittar du två CV-mallar som passar redovisningsekonomens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad ekonomichefer på redovisningsbyråer, industribolag och e-handel faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -24635,27 +24635,27 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Auktorisation och regelverk överst',
-        description: 'Vår mall Konto har dedikerad sidopanel för auktorisation, regelverk och systemvana. Ekonomichefer ser dina meriter på fem sekunder utan att behöva scrolla genom löpande text.',
+        description: 'Välj ordningen Intyg först så ligger auktorisationen direkt under profilen i båda mallarna, med regelverk och systemvana som egna kompetensgrupper strax under. Ekonomichefer ser dina meriter på fem sekunder utan att behöva scrolla genom löpande text.',
       },
       {
-        title: 'Tabellär layout med tabular-nums',
-        description: 'Vi använder tabular-nums för att siffror och datum stämmer exakt. Bokslutsvolym, omsättning och kundantal lyfts visuellt utan att rymma i löpande prosa.',
+        title: 'Årtalen i en egen kolumn',
+        description: 'I Årsring står perioden för varje anställning i en egen vänsterkolumn längs en lodrät accentlinje, så tidslinjen läses exakt. Bokslutsvolym, omsättning och kundantal lyfter du som punkter i stället för att gömma dem i löpande prosa.',
       },
       {
-        title: 'Eget block för system och certifieringar',
-        description: 'Visma, Fortnox, SAP, Hogia. Mallen separerar systemen från generiska kompetenser så ekonomichefer letar specifikt efter system de redan kör i sin organisation.',
+        title: 'System och certifieringar i egna avsnitt',
+        description: 'Visma, Fortnox, SAP, Hogia. Lägg systemen som en egen grupp under Kompetenser, skild från de generiska, så ekonomichefer direkt hittar system de redan kör i sin organisation.',
       },
       {
-        title: 'Mörkblå navy signalerar finans',
-        description: 'Vi har valt #1e3a8a som signalerar bank, finans och seriositet. Ingen distraherande design som drar fokus från siffrorna och regelverken.',
+        title: 'Mörkgrönt eller marinblått signalerar finans',
+        description: 'Årsring har mörkgrön som förval och Linne marinblå, båda med dämpade toner som signalerar bank, finans och seriositet. Ingen distraherande design som drar fokus från siffrorna och regelverken.',
       },
       {
-        title: 'Konto Plus med snabbfakta ingår i Premium',
-        description: 'För senior-roller (controller, redovisningschef) lägger Konto Plus till tre-kolumns header med snabbfakta-rad och navy-emerald gradient. Skapar en mer professionell first impression.',
+        title: 'Årsring med tidslinje ingår i Premium',
+        description: 'För seniora roller (controller, redovisningschef) ger Årsring, som ingår i Premium, en tidslinje med årtalen i vänsterkolumnen och kompetensgruppernas namn i marginalen. Det skapar ett mer professionellt första intryck.',
       },
       {
         title: 'Plats för bransch-specialisering',
-        description: 'Mallen har dedikerade rader för branschvana (e-handel, industri, fastighet, tjänsteföretag) och regelverk-fördjupning (K3, IFRS). Visar djup utan att blanda med generisk kompetens.',
+        description: 'Branschvana (e-handel, industri, fastighet, tjänsteföretag) och regelverksfördjupning (K3, IFRS) får egna kompetensgrupper. Visar djup utan att blanda med generisk kompetens.',
       },
     ],
 
@@ -24876,7 +24876,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       { sektion: 'Erfarenhet', tips: 'Bolag, tidsperiod, ansvarsområden. Konkretisera kund- eller bolagsantal, omsättning, regelverk (K2/K3).' },
       { sektion: 'Utbildning', tips: 'Ekonomi- eller redovisningsutbildning med lärosäte. FAR-cert, vidareutbildningar (skatterätt, IFRS-kurs, lönerådgivning).' },
       { sektion: 'Kompetenser', tips: 'System, regelverk, specialområden (moms, lön, koncern, IFRS). Excel-färdigheter på rätt nivå.' },
-      { sektion: 'Auktorisation', tips: 'Eget block om du är auktoriserad redovisningskonsult eller revisor. Datum för auktorisation och eventuell specialisering.' },
+      { sektion: 'Auktorisation', tips: 'Egen rad i intygsavsnittet om du är auktoriserad redovisningskonsult eller revisor. Datum för auktorisation och eventuell specialisering.' },
       { sektion: 'Övrigt', tips: 'Branschvana och eventuella ledarskapsuppdrag. Kompetensutveckling visar engagemang och uppdaterad kunskap.' },
     ],
 
@@ -24894,7 +24894,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Konto och Konto Plus, som ingår i Premium, läser rekryteringssystemen rätt. Stora redovisningsbyråer som EY, PwC, KPMG och Grant Thornton använder Workday eller egna ATS. Använd exakta system-namn som "Fortnox", "Visma" och "SAP" istället för "redovisningssystem" eftersom de filtreras på. Auktorisation (FAR) ska skrivas i klartext.',
+      'Både vår gratismall Linne och Årsring, som ingår i Premium, läser rekryteringssystemen rätt. Stora redovisningsbyråer som EY, PwC, KPMG och Grant Thornton använder Workday eller egna ATS. Använd exakta system-namn som "Fortnox", "Visma" och "SAP" istället för "redovisningssystem" eftersom de filtreras på. Auktorisation (FAR) ska skrivas i klartext.',
 
     faqItems: [
       {
@@ -24945,7 +24945,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
   // ============================================================================
   'systemutvecklare': {
     seoIntro:
-      'Som systemutvecklare i Sverige bedöms du på din tech-stack, dina projekt och hur du bidragit i kodbaser. Konsultbolag, scale-ups och tech-bolag har konstant öppna roller, men konkurrensen är hård bland senior- och staff-positioner. Ett välskrivet CV avgör om du fastnar i ett bemanningsbolags pool eller blir kallad till de bolag du faktiskt vill jobba på.\n\nVår mall för systemutvecklare lyfter primär tech-stack, senioritet och konkreta projektresultat som första visuella element. Vi har strukturerat erfarenhetssektionen så att bolag, roll, period och teknik-stack syns direkt med dina arkitekturbeslut, refaktoreringar och prestandavinster. Det betyder att tekniska rekryterare och CTO:er kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: programmeringsspråk och frameworks (TypeScript, React, Node.js, Python, Go), cloud-erfarenhet (AWS, GCP, Azure med specifika tjänster), CI/CD-pipelines (GitHub Actions, GitLab CI), containerization (Docker, Kubernetes), databaser (PostgreSQL, MongoDB, Redis), testningsmetoder (Jest, Playwright), versionshantering (Git med GitFlow eller trunk-based), och eventuella certifieringar (AWS Certified, CKA).\n\nNedan hittar du två CV-mallar designade för utvecklarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad tekniska rekryterare och CTO:er på konsultbolag, produktbolag och startups faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som systemutvecklare i Sverige bedöms du på din tech-stack, dina projekt och hur du bidragit i kodbaser. Konsultbolag, scale-ups och tech-bolag har konstant öppna roller, men konkurrensen är hård bland senior- och staff-positioner. Ett välskrivet CV avgör om du fastnar i ett bemanningsbolags pool eller blir kallad till de bolag du faktiskt vill jobba på.\n\nVåra mallar lyfter primär tech-stack, senioritet och konkreta projektresultat som första visuella element, i Ståls högerspalt eller med ordningen Kompetenser först i Linne. Erfarenhetsavsnittet är byggt så att bolag, roll, period och teknik-stack syns direkt med dina arkitekturbeslut, refaktoreringar och prestandavinster. Det betyder att tekniska rekryterare och CTO:er kan bedöma din kapacitet på fem sekunder.\n\nKonkret innehåll vi rekommenderar: programmeringsspråk och frameworks (TypeScript, React, Node.js, Python, Go), cloud-erfarenhet (AWS, GCP, Azure med specifika tjänster), CI/CD-pipelines (GitHub Actions, GitLab CI), containerization (Docker, Kubernetes), databaser (PostgreSQL, MongoDB, Redis), testningsmetoder (Jest, Playwright), versionshantering (Git med GitFlow eller trunk-based), och eventuella certifieringar (AWS Certified, CKA).\n\nNedan hittar du två CV-mallar som passar utvecklarens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad tekniska rekryterare och CTO:er på konsultbolag, produktbolag och startups faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -24983,23 +24983,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Tech-stack lyfts överst',
-        description: 'Vi har gjort din primära stack till första visuella element så CTO:er och tekniska rekryterare kan bekräfta matchning på fem sekunder. Frontend, backend, cloud och databaser har egna grupper för snabbare scanning.',
+        description: 'I Stål ligger kompetenserna i högerspalten direkt bredvid erfarenheten, i Linne väljer du Kompetenser först, så CTO:er och tekniska rekryterare kan bekräfta matchning på fem sekunder. Frontend, backend, cloud och databaser lägger du som egna grupper för snabbare skanning.',
       },
       {
         title: 'Projekterfarenhet med arkitekturresultat',
-        description: 'Mallen separerar bolag och tekniska bidrag (architecture decisions, refaktoreringar, prestandavinster). Du kan visa både stack-bredd och djup utan att meriter konkurrerar om samma yta.',
+        description: 'Varje bolag blir en egen post med tekniska bidrag (arkitekturbeslut, refaktoreringar, prestandavinster) som punkter. Du kan visa både stack-bredd och djup utan att meriter konkurrerar om samma yta.',
       },
       {
-        title: 'Eget block för open source och certifikat',
-        description: 'GitHub-länk, AWS Certified, CKA, talks och konferensbidrag har egen sektion. Vi har sett att tech-rekryterare värderar bevisad kompetens (commits, certifikat) över titlar.',
+        title: 'Open source och certifikat i intygsavsnittet',
+        description: 'GitHub-länk i kontaktraden, AWS Certified, CKA, talks och konferensbidrag rad för rad i intygsavsnittet. Vi har sett att tech-rekryterare värderar bevisad kompetens (commits, certifikat) över titlar.',
       },
       {
-        title: 'Stack-developer-mallen för tech-DNA',
-        description: 'Stack-developer, som ingår i Premium, har monospace-kod-stil, gradient-accent och tabellär layout som signalerar tech utan att bli för avantgardistisk för konsultsegmentet.',
+        title: 'Stål med två spalter ingår i Premium',
+        description: 'Stål, som ingår i Premium, har Calibri, 2 pt accentlinjer över rubrikerna och två spalter utan bakgrundsfärg, en stram layout som signalerar tech utan att bli för avantgardistisk för konsultsegmentet. Finns som PDF och Word.',
       },
       {
-        title: 'Kompakt typografi för senior-roller',
-        description: 'Seniora utvecklare har ofta 7-12 års erfarenhet att rymma. Vi använder 12.5px body-text för att få plats med fler projekt utan att verka cramped, vilket är vanligt vid senior-CV.',
+        title: 'Plats för seniora meritlistor',
+        description: 'Seniora utvecklare har ofta 7-12 års erfarenhet att rymma. Valet Få plats på en sida drar ihop luften i båda mallarna så fler projekt får plats utan att det ser trångt ut, vilket är vanligt vid seniora CV.',
       },
       {
         title: 'Plats för tekniska bidrag bortom kod',
@@ -25242,7 +25242,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Vår mall Stack-developer är ATS-säker och optimerad för tekniska screeners. Konsultbolag som CGI, Sopra Steria och Knowit använder oftast Workday eller Teamtailor. Specifika tech-keywords (TypeScript, React, AWS Lambda, PostgreSQL) är CV-kritiska. Skriv ut dem som listpunkter i kompetens-sektionen, inte i löpande text. ATS-system filtrerar exakta matchningar mot jobbannonsens språk.',
+      'Både vår gratismall Linne och Stål, som ingår i Premium, läser rekryteringssystemen rätt och klarar tekniska screeners. Konsultbolag som CGI, Sopra Steria och Knowit använder oftast Workday eller Teamtailor. Specifika tech-keywords (TypeScript, React, AWS Lambda, PostgreSQL) är CV-kritiska. Skriv ut dem som listpunkter i kompetens-sektionen, inte i löpande text. ATS-system filtrerar exakta matchningar mot jobbannonsens språk.',
 
     faqItems: [
       {
@@ -25293,7 +25293,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
   // ============================================================================
   'handlaggare': {
     seoIntro:
-      'Som handläggare i offentlig sektor jobbar du i en bransch där rättssäkerhet, lagstiftningskunskap och systemvana avgör mer än din personliga profil. Sveriges 290 kommuner, 21 regioner och statliga myndigheter har konstant öppna handläggartjänster, men enhetschefer slänger CV:n som inte tydligt visar lagstiftningsområde och systemerfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på den förvaltning du faktiskt vill jobba på.\n\nVår mall för handläggare lyfter examen, lagstiftningsområde (LSS, SoL, OSL, BBIC, IBIC) och ärendehanteringssystem som första visuella element. Vi har strukturerat erfarenhetssektionen så att förvaltning, ärendetyp och volym syns direkt med konkreta utredningsuppdrag. Det betyder att enhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: examen (socionom, jurist, förvaltningsekonom, eller motsvarande), lagstiftning du arbetat efter (SoL, LSS, OSL, BBIC, IBIC, VAB, Förvaltningslagen), ärendehanteringssystem (Treserva, Procapita, Lifecare), utredningsmetodik (BBIC, IBIC, MI), ärendevolym och komplexitet, eventuella specialuppdrag (omprövningar, överklaganden, juridiska beslut), samt vidareutbildningar och certifikat.\n\nNedan hittar du två CV-mallar designade för handläggarrollen, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer i kommunal socialtjänst, statliga myndigheter och regional förvaltning faktiskt letar efter. Ladda ner mallen gratis och anpassa efter den tjänst du söker.',
+      'Som handläggare i offentlig sektor jobbar du i en bransch där rättssäkerhet, lagstiftningskunskap och systemvana avgör mer än din personliga profil. Sveriges 290 kommuner, 21 regioner och statliga myndigheter har konstant öppna handläggartjänster, men enhetschefer slänger CV:n som inte tydligt visar lagstiftningsområde och systemerfarenhet. Ett välskrivet CV avgör om du blir kallad till intervju på den förvaltning du faktiskt vill jobba på.\n\nVåra mallar lyfter examen, lagstiftningsområde (LSS, SoL, OSL, BBIC, IBIC) och ärendehanteringssystem som första visuella element när du väljer ordningen Utbildning först. Erfarenhetsavsnittet är byggt så att förvaltning, ärendetyp och volym syns direkt med konkreta utredningsuppdrag. Det betyder att enhetschefer kan bedöma din matchning på fem sekunder.\n\nKonkret innehåll vi rekommenderar: examen (socionom, jurist, förvaltningsekonom, eller motsvarande), lagstiftning du arbetat efter (SoL, LSS, OSL, BBIC, IBIC, VAB, Förvaltningslagen), ärendehanteringssystem (Treserva, Procapita, Lifecare), utredningsmetodik (BBIC, IBIC, MI), ärendevolym och komplexitet, eventuella specialuppdrag (omprövningar, överklaganden, juridiska beslut), samt vidareutbildningar och certifikat.\n\nNedan hittar du två CV-mallar som passar handläggarens meriter, ett färdigt CV-exempel att utgå från, och konkreta tips på vad enhetschefer i kommunal socialtjänst, statliga myndigheter och regional förvaltning faktiskt letar efter. Ladda ner gratismallen Linne och anpassa efter den tjänst du söker.',
 
     viktigtAttTankaPa: [
       {
@@ -25331,23 +25331,23 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     varforVarMallPassar: [
       {
         title: 'Lagstiftning lyfts överst',
-        description: 'Vår mall Myndighet har dedikerad sidopanel för lagstiftningsområde och utredningsmetodik. Enhetschefer ser dina behörigheter på fem sekunder utan att behöva scrolla.',
+        description: 'Lägg lagstiftningsområde och utredningsmetodik som egna kompetensgrupper och välj Kompetenser först, så står de direkt under profilen i båda mallarna. Enhetschefer ser dina behörigheter på fem sekunder utan att behöva scrolla.',
       },
       {
-        title: 'Konservativ navy och svartvit',
-        description: 'Offentlig sektor värderar saklighet. Vi har valt navy + svartvit grundpalett som signalerar formell prestige. Inga distraherande färger som drar fokus från ärendevolym och rättskunskap.',
+        title: 'Konservativt vinrött eller marinblått',
+        description: 'Offentlig sektor värderar saklighet. Antikva har vinröd accent som förval och Linne marinblå, båda på svartvit grund, vilket signalerar formell tyngd. Inga distraherande färger som drar fokus från ärendevolym och rättskunskap.',
       },
       {
-        title: '§-symboler i bullets',
-        description: 'Vi använder §-symboler i listpunkter för att påminna om förvaltningsrätten. Subtil designdetalj som signalerar att du förstår branschens visuella språk.',
+        title: 'Times New Roman och dubbel linje',
+        description: 'Antikva har Times New Roman rakt igenom och en dubbel linje under det centrerade huvudet, som i ett formellt beslut. Subtila designdetaljer som signalerar att du förstår förvaltningens visuella språk.',
       },
       {
-        title: 'Myndighet Plus med guldaccent ingår i Premium',
-        description: 'För senior-roller (enhetschef, förvaltningschef) lägger Myndighet Plus till centrerad serif-header och guld-accent-band. Skapar prestige-känsla utan att kompromissa med ATS-läsbarhet.',
+        title: 'Antikva med centrerat huvud ingår i Premium',
+        description: 'För seniora roller (enhetschef, förvaltningschef) ger Antikva, som ingår i Premium, ett centrerat huvud i serif med dubbel linje i accentfärgen och centrerade rubriker i versaler. Det skapar tyngd utan att kompromissa med ATS-läsbarheten.',
       },
       {
         title: 'Plats för volymsstatistik',
-        description: 'Mallen har dedikerade rader för ärendevolym, utredningar per år och eventuella beslutsantal. Konkreta siffror lyfts visuellt utan att blandas med löpande text.',
+        description: 'Ärendevolym, utredningar per år och eventuella beslutsantal får egna punkter under varje anställning. Konkreta siffror står för sig utan att blandas med löpande text.',
       },
       {
         title: 'Plats för specialuppdrag',
@@ -25572,7 +25572,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
       { sektion: 'Erfarenhet', tips: 'Förvaltning, tidsperiod, ärendetyp och ärendevolym. Konkretisera komplexitet (BBIC-utredningar, omprövningar, överklaganden).' },
       { sektion: 'Utbildning', tips: 'Socionom, jurist eller förvaltningsexamen med lärosäte. Vidareutbildningar (BBIC-cert, IBIC, MI-kurs).' },
       { sektion: 'Kompetenser', tips: 'Lagstiftning, system, utredningsmetodik. Var konkret om vilka delar av FL, SoL eller LSS du arbetat efter.' },
-      { sektion: 'Specialuppdrag', tips: 'Eget block för omprövningar, överklaganden, samverkansuppdrag, lex Sarah-utredningar. Visar djup bortom standardärenden.' },
+      { sektion: 'Specialuppdrag', tips: 'Eget avsnitt, Projekt, för omprövningar, överklaganden, samverkansuppdrag, lex Sarah-utredningar. Visar djup bortom standardärenden.' },
       { sektion: 'Övrigt', tips: 'Språkkunskaper utöver svenska, eventuell handledarutbildning, tillgänglighet för olika kommuner eller verksamheter.' },
     ],
 
@@ -25590,7 +25590,7 @@ export const YRKES_CONTENT: Record<string, YrkesContent> = {
     ],
 
     atsInfo:
-      'Både vår mall Myndighet och Myndighet Plus, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala arbetsgivare använder Visma Recruit eller egna system. Statliga myndigheter använder ofta Workday eller egna ATS. Lagrum (LSS, SoL, BBIC, IBIC) och systemnamn (Treserva, Procapita) är typiska sökord. Skriv ut dem exakt eftersom rekryterare filtrerar mot jobbannonsens språk.',
+      'Både vår gratismall Linne och Antikva, som ingår i Premium, läser rekryteringssystemen rätt. Kommunala arbetsgivare använder Visma Recruit eller egna system. Statliga myndigheter använder ofta Workday eller egna ATS. Lagrum (LSS, SoL, BBIC, IBIC) och systemnamn (Treserva, Procapita) är typiska sökord. Skriv ut dem exakt eftersom rekryterare filtrerar mot jobbannonsens språk.',
 
     faqItems: [
       {
@@ -25761,172 +25761,172 @@ export const KATEGORI_DEFAULT_CONTENT: Record<string, Partial<YrkesContent>> = {
 export const HERO_INGRESS: Record<string, string> = {
   // ===================== VÅRD (14) =====================
   'lakare':
-    'Som läkare konkurrerar du om begränsade ST-tjänster där varje formulering räknas. Här hittar du två CV-mallar designade för läkarrollen: Tidlös ger en formell akademisk baseline med plats för publikationer och tjänstgöring, Klinik lyfter specialistkompetens och meritlista i en högerpanel. Båda klarar Heroma och Visma Recruit, och stödjer den struktur svenska sjukhus förväntar sig.',
+    'Som läkare konkurrerar du om begränsade ST-tjänster där varje formulering räknas. Här hittar du två CV-mallar som passar läkarens meriter: Linne ger en formell akademisk grund med plats för publikationer och tjänstgöring, Kalksten lyfter legitimation, specialistbevis och kompetenser i en ljusgrå sidospalt. Båda klarar Heroma och Visma Recruit och håller den struktur svenska sjukhus förväntar sig.',
   'specialistsjukskoterska':
-    'Specialistsjuksköterskor söker tjänster där rekryteraren letar efter specifik kompetens inom IVA, anestesi, onkologi eller psykiatri. Tidlös ger dig en sober formell mall för CV där behörigheter och utbildning väger tyngst, medan Klinik lyfter klinisk tjänstgöring och fortbildning i en överskådlig sidopanel. Mallarna passerar regionernas rekryteringssystem och håller den struktur kliniska chefer värderar.',
+    'Specialistsjuksköterskor söker tjänster där rekryteraren letar efter specifik kompetens inom IVA, anestesi, onkologi eller psykiatri. Linne ger dig en sober formell mall för CV där behörigheter och utbildning väger tyngst, medan Kalksten lyfter legitimation, specialistbevis och fortbildning i en överskådlig sidospalt. Mallarna passerar regionernas rekryteringssystem och håller den struktur kliniska chefer värderar.',
   'barnmorska':
-    'Som barnmorska söker du tjänster där förlossningskompetens, evidensbaserad vård och teamarbete bedöms snabbt. Tidlös ger dig en seriös, ren CV-mall som signalerar yrkeserfarenhet utan distraktioner. Klinik lyfter dina specialistkurser, instrumentbehörigheter och kliniska rotationer i en sidopanel som rekryterare på förlossnings- och kvinnokliniker skannar först.',
+    'Som barnmorska söker du tjänster där förlossningskompetens, evidensbaserad vård och teamarbete bedöms snabbt. Linne ger dig en seriös, ren CV-mall som signalerar yrkeserfarenhet utan distraktioner. Kalksten lyfter legitimation, specialistkurser och instrumentbehörigheter i en sidospalt som rekryterare på förlossnings- och kvinnokliniker skannar först.',
   'fysioterapeut':
-    'Fysioterapeuter söker ofta tjänster där bedömningskompetens, behandlingsmetoder och patientgrupper avgör matchningen. Tidlös är en lugn, formell CV-mall som funkar i både offentlig och privat sektor. Klinik passar dig som vill lyfta specialistkurser (OMT, idrottsmedicin, McKenzie) och kliniska timmar i en strukturerad sidopanel där fortbildning blir tydlig.',
+    'Fysioterapeuter söker ofta tjänster där bedömningskompetens, behandlingsmetoder och patientgrupper avgör matchningen. Linne är en lugn, formell CV-mall som fungerar i både offentlig och privat sektor. Kalksten passar dig som vill lyfta legitimation, specialistkurser (OMT, idrottsmedicin, McKenzie) och behandlingsmetoder i en strukturerad sidospalt där fortbildning blir tydlig.',
   'sjukskoterska':
-    'Sjuksköterskor är Sveriges mest efterfrågade yrkesgrupp och konkurrensen sker ofta på vilka kliniska kompetenser och journalsystem du behärskar. Norrsken är en ren ATS-säker CV-mall som passar både slutenvård och primärvård. Vården-mallen lyfter omvårdnadskompetens, delegeringar och förflyttningsteknik visuellt så rekryterare i Heroma och TakeCare ser dem direkt.',
+    'Sjuksköterskor är Sveriges mest efterfrågade yrkesgrupp och konkurrensen sker ofta på vilka kliniska kompetenser och journalsystem du behärskar. Linne är en ren ATS-säker CV-mall som passar både slutenvård och primärvård. Kalksten lyfter legitimation, delegeringar och omvårdnadskompetens i en ljusgrå sidospalt så rekryterare i Heroma och Visma Recruit ser dem direkt.',
   'underskoterska':
-    'Som undersköterska bedöms du på delegeringar, journalsystem och om du klarar geriatrik, demens eller palliativ vård. Norrsken ger dig en ren, ATS-säker CV-mall där meriter står i klartext för Heroma och Procapita. Vården-varianten lyfter omvårdnadsperspektivet och din arbetsplatshistorik i en sidopanel som visar att du orkar svensk vårds tunga vardag.',
+    'Som undersköterska bedöms du på delegeringar, journalsystem och om du klarar geriatrik, demens eller palliativ vård. Linne ger dig en ren, ATS-säker CV-mall där meriter står i klartext för Heroma och Visma Recruit. Kalksten lyfter delegeringar, språk och kompetenser i en ljusgrå sidospalt bredvid arbetsplatshistoriken, så chefen ser direkt att du orkar vårdens tunga vardag.',
   'vardbitrade':
-    'Vårdbiträden söker tjänster inom hemtjänst, gruppboenden och äldreomsorg där pålitlighet och flexibilitet väger tungt. Norrsken ger en enkel, ATS-säker CV-mall som matchar Heroma och Visma Recruit, medan Vården-mallen lyfter daglig livsföringsstöd, ADL och språkkunskaper visuellt så rekryterare snabbt ser att du klarar arbetet utan formell legitimation.',
+    'Vårdbiträden söker tjänster inom hemtjänst, gruppboenden och äldreomsorg där pålitlighet och flexibilitet väger tungt. Linne ger en enkel, ATS-säker CV-mall som matchar Heroma och Visma Recruit, medan Kalksten lyfter certifikat, ADL-kompetens och språkkunskaper i en ljusgrå sidospalt så rekryterare snabbt ser att du klarar arbetet utan formell legitimation.',
   'hemtjanst':
-    'Inom hemtjänsten är körkort, språkkunskap och flexibel arbetstid lika viktigt som omvårdnadskompetens. Norrsken är en ren CV-mall som funkar i alla kommuners ATS, medan Vården-varianten ger plats åt körkort, B-behörighet, ADL och kommunikationsförmåga i en sidopanel som matchar exakt det som chefer i hemtjänsten letar efter.',
+    'Inom hemtjänsten är körkort, språkkunskap och flexibel arbetstid lika viktigt som omvårdnadskompetens. Linne är en ren CV-mall som fungerar i alla kommuners ATS, medan Kalksten ger plats åt körkort, delegeringar, ADL och språk i en ljusgrå sidospalt som matchar exakt det chefer i hemtjänsten letar efter.',
   'hemtjanstpersonal':
-    'Hemtjänstpersonal söker arbetsgivare som värderar pålitlighet, lyhördhet och flexibel schemaläggning. Norrsken ger en strukturerad gratis-CV-mall där erfarenhet och språk syns klart för rekryterare i kommunala system. Vården-mallen lyfter brukar-perspektivet, ADL-stöd och egen körkortsbehörighet i en design som signalerar yrkesstolthet utan att bli pretentiös.',
+    'Hemtjänstpersonal söker arbetsgivare som värderar pålitlighet, lyhördhet och flexibel schemaläggning. Linne ger en strukturerad gratis CV-mall där erfarenhet och språk syns klart för rekryterare i kommunala system. Kalksten lyfter utbildning, delegeringar och körkort i en ljusgrå sidospalt som signalerar yrkesstolthet utan att bli pretentiös.',
   'personlig-assistent':
-    'Personlig assistent är ett yrke där brukarens behov, kontinuitet och ditt personliga engagemang avgör hur länge ni samarbetar. Norrsken ger en ren CV-mall som passar både privat och kommunal anordnare. Vården-varianten lyfter erfarenhet med olika funktionsvariationer och språkkunskap i en sidopanel där tidigare brukar-relationer och kontinuitet blir tydliga.',
+    'Personlig assistent är ett yrke där brukarens behov, kontinuitet och ditt personliga engagemang avgör hur länge ni samarbetar. Linne ger en ren CV-mall som passar både privat och kommunal anordnare. Kalksten lyfter erfarenhet med olika funktionsvariationer och språkkunskap i en ljusgrå sidospalt bredvid arbetshistoriken, där tidigare brukarrelationer och kontinuitet blir tydliga.',
   'psykolog':
-    'Som psykolog söker du tjänster där terapeutisk metod, klientgrupp och evidensbaserad praxis avgör matchning. Tidlös ger en lugn, akademiskt formell CV-mall som funkar för PTP-tjänster och leg-roller. Klinik passar dig som vill lyfta KBT, neuropsykiatriska utredningar eller specialistutbildningar i en sidopanel där handledning och certifieringar syns tydligt.',
+    'Som psykolog söker du tjänster där terapeutisk metod, klientgrupp och evidensbaserad praxis avgör matchning. Linne ger en lugn, akademiskt formell CV-mall som fungerar för PTP-tjänster och leg-roller. Kalksten passar dig som vill lyfta legitimation, KBT, neuropsykiatriska utredningar eller specialistutbildningar i en sidospalt där handledning och certifieringar syns tydligt.',
   'kurator':
-    'Kuratorer arbetar i skolan, vården eller socialtjänsten där samtalsmetoder och tvärprofessionellt samarbete väger tungt. Norrsken är en lugn ATS-säker CV-mall som funkar i alla anställningsformer. Pedagog-varianten lyfter samtalsmetodik, krisstöd och klientgrupper visuellt så rekryterare i skolan eller hälso- och sjukvården snabbt ser din psykosociala kompetens.',
+    'Kuratorer arbetar i skolan, vården eller socialtjänsten där samtalsmetoder och tvärprofessionellt samarbete väger tungt. Linne är en lugn ATS-säker CV-mall som fungerar i alla anställningsformer. Kalksten lyfter examen, samtalsmetodik och klientgrupper i en ljusgrå sidospalt så rekryterare i skolan eller hälso- och sjukvården snabbt ser din psykosociala kompetens.',
   'boendestod':
-    'Boendestöd kräver lyhördhet, struktur och förmåga att stötta personer med psykisk ohälsa eller funktionsvariationer i deras vardag. Norrsken ger en ren CV-mall som funkar i alla kommunala system. Vården-mallen lyfter ADL-stöd, motiverande samtal och daglig livsföring i en sidopanel där erfarenhet med olika brukargrupper blir tydlig för rekryterare.',
+    'Boendestöd kräver lyhördhet, struktur och förmåga att stötta personer med psykisk ohälsa eller funktionsvariationer i deras vardag. Linne ger en ren CV-mall som fungerar i alla kommunala system. Kalksten lyfter utbildning, metodik och delegation i en ljusgrå sidospalt där erfarenhet med olika brukargrupper blir tydlig för rekryterare.',
   'vardadministrator':
-    'Som vårdadministratör är journalsystem, medicinsk terminologi och din strukturerade förmåga avgörande. Konto är en ren tabular CV-mall som signalerar precision och stödjer mono-font på datum. Konto Plus lyfter dina system (Cosmic, Melior, Pascal), volymsstatistik och certifikat i en tre-kolumns header där rekryterare på regioner direkt ser din tekniska bredd.',
+    'Som vårdadministratör är journalsystem, medicinsk terminologi och din strukturerade förmåga avgörande. Linne är en ren CV-mall i en spalt som signalerar precision, med tunna linjer under rubrikerna. Årsring lägger årtalen i en egen vänsterkolumn med en lodrät accentlinje, så dina system (Cosmic, Melior, Pascal), volymer och certifikat läses som en tidslinje där rekryterare på regioner direkt ser din tekniska bredd.',
 
   // ===================== UTBILDNING (9) =====================
   'forskollarare':
-    'Förskollärare söker tjänster där pedagogiskt förhållningssätt, läroplanstolkning (Lpfö 18) och samarbete med vårdnadshavare bedöms snabbt. Norrsken är en lugn ATS-säker CV-mall som passar både kommunala och fristående förskolor. Pedagog-varianten lyfter behörigheter, legitimation och pedagogisk inriktning i en salviegrön sidopanel som signalerar yrkesstolthet och stabilitet.',
+    'Förskollärare söker tjänster där pedagogiskt förhållningssätt, läroplanstolkning (Lpfö 18) och samarbete med vårdnadshavare bedöms snabbt. Linne är en lugn ATS-säker CV-mall som passar både kommunala och fristående förskolor. Kalksten lyfter legitimation, behörigheter och pedagogisk inriktning i en ljusgrå sidospalt som signalerar yrkesstolthet och stabilitet.',
   'larare':
-    'Som lärare avgörs din ansökan av legitimation, ämnesbehörigheter och pedagogiskt ledarskap. Norrsken är en strukturerad gratis-CV-mall som funkar i Visma Recruit och Skolverkets system. Pedagog-mallen lyfter behörigheter, klassrumsledning och bedömningsmetoder i en sidopanel där dina ämnen och stadier blir överskådliga för rektorer som skannar 50 ansökningar.',
+    'Som lärare avgörs din ansökan av legitimation, ämnesbehörigheter och pedagogiskt ledarskap. Linne är en strukturerad gratis CV-mall som fungerar i Visma Recruit och kommunernas system. Kalksten lyfter legitimation, behörigheter och metoder i en ljusgrå sidospalt där dina ämnen och stadier blir överskådliga för rektorer som skannar 50 ansökningar.',
   'grundskollarare':
-    'Grundskollärare söker tjänster där behörighet i 1-3, 4-6 eller 7-9 är avgörande, och rektorer letar efter både pedagogisk skicklighet och lugn närvaro. Norrsken är en ren CV-mall som funkar i alla kommunala ATS. Pedagog-varianten lyfter ämnesbehörigheter, mentorskap och förmåga att skapa trygga klassrum i en sidopanel som matchar Skolverkets terminologi.',
+    'Grundskollärare söker tjänster där behörighet i 1-3, 4-6 eller 7-9 är avgörande, och rektorer letar efter både pedagogisk skicklighet och lugn närvaro. Linne är en ren CV-mall som fungerar i alla kommunala ATS. Kalksten lyfter legitimation, ämnesbehörigheter och metoder i en ljusgrå sidospalt, med rubriker som följer skolans terminologi.',
   'specialpedagog':
-    'Specialpedagoger söker tjänster där handledning, åtgärdsprogram och samarbete med EHT bedöms tungt. Norrsken är en strukturerad gratis-CV-mall som signalerar saklighet. Pedagog-varianten lyfter specialpedagogisk examen, NPF-kompetens och anpassningar i en sidopanel där dina certifieringar och handledningstimmar blir tydliga för rektorer och elevhälsa.',
+    'Specialpedagoger söker tjänster där handledning, åtgärdsprogram och samarbete med EHT bedöms tungt. Linne är en strukturerad gratis CV-mall som signalerar saklighet. Kalksten lyfter specialpedagogisk examen, NPF-kompetens och metoder i en ljusgrå sidospalt där dina certifieringar och handledningstimmar blir tydliga för rektorer och elevhälsa.',
   'barnskotare':
-    'Barnskötare arbetar nära förskollärare och behöver visa både omsorgskompetens och förståelse för läroplanen. Norrsken är en enkel ATS-säker CV-mall som passar både kommunala och fristående förskolor. Pedagog-mallen lyfter erfarenhet med olika åldersgrupper, värdegrundsarbete och språkutveckling i en lugn pedagogisk design.',
+    'Barnskötare arbetar nära förskollärare och behöver visa både omsorgskompetens och förståelse för läroplanen. Linne är en enkel ATS-säker CV-mall som passar både kommunala och fristående förskolor. Kalksten lyfter certifikat, kompetenser och språk i en lugn ljusgrå sidospalt bredvid erfarenheten från olika åldersgrupper.',
   'elevassistent':
-    'Som elevassistent stöttar du elever med särskilda behov och bedöms på erfarenhet, lyhördhet och din förmåga att samarbeta med lärare och elevhälsa. Norrsken är en ren CV-mall som matchar skolornas ATS. Pedagog-varianten lyfter NPF-kunskap, anpassningar och tidigare elev-möten i en sidopanel där din handlingskraft i klassrummet blir tydlig.',
+    'Som elevassistent stöttar du elever med särskilda behov och bedöms på erfarenhet, lyhördhet och din förmåga att samarbeta med lärare och elevhälsa. Linne är en ren CV-mall som matchar skolornas ATS. Kalksten lyfter NPF-kunskap, metoder och certifikat i en ljusgrå sidospalt bredvid erfarenheten, där din handlingskraft i klassrummet blir tydlig.',
   'fritidspedagog':
-    'Fritidspedagoger jobbar i skolans helhet och behöver visa både pedagogisk grund och förmåga att leda utomhuspedagogik och rastaktiviteter. Norrsken är en strukturerad gratis-mall som funkar i kommunala system. Pedagog-mallen lyfter fritidshemspedagogik, samarbete med lärare och planering av temaveckor i en lugn sidopanel som matchar skolans kultur.',
+    'Fritidspedagoger jobbar i skolans helhet och behöver visa både pedagogisk grund och förmåga att leda utomhuspedagogik och rastaktiviteter. Linne är en strukturerad gratismall som fungerar i kommunala system. Kalksten lyfter examen, legitimation och pedagogisk inriktning i en lugn ljusgrå sidospalt som matchar skolans kultur.',
   'fritidsledare':
-    'Fritidsledare arbetar med ungdomar i fritidsgårdar, fältarbete och förebyggande verksamhet där relationsbyggande väger tyngst. Norrsken ger en ren CV-mall som funkar i kommunala ATS. Pedagog-varianten lyfter erfarenhet med olika ungdomsgrupper, gruppdynamik och samarbete med skola och socialtjänst i en sidopanel som visar din pedagogiska bredd.',
+    'Fritidsledare arbetar med ungdomar i fritidsgårdar, fältarbete och förebyggande verksamhet där relationsbyggande väger tyngst. Linne ger en ren CV-mall som fungerar i kommunala ATS. Kalksten lyfter utbildning, programansvar och metodik i en ljusgrå sidospalt bredvid erfarenheten med olika ungdomsgrupper, så din pedagogiska bredd syns direkt.',
   'student':
-    'Som student söker du sommarjobb, traineeplats eller första anställningen där rekryterare ofta saknar konkret erfarenhet att gå på. Student är en optimerad CV-mall där utbildning ligger först, projekt och engagemang får plats. Student Plus lyfter drömjobbet i en eyebrow, ger plats för LinkedIn och har en serif-design som ger statement utan att verka för formellt.',
+    'Som student söker du sommarjobb, traineeplats eller första anställningen där rekryterare ofta saknar konkret erfarenhet att gå på. Björk är en gratis CV-mall med centrerat huvud och rund fotoplats där du väljer Utbildning först så projekt och engagemang får plats. Koppar, som ingår i Premium, lägger namn, titel och kontakt i ett färgat huvudband med vit text, vilket ger karaktär utan att verka för formellt.',
 
   // ===================== SERVICE — butik/frontline (8+1) =====================
   'butiksbitrade':
-    'Butiksbiträden söker tjänster där servicekänsla, kassasystem-vana och förmåga att jobba i tempo värderas högst. Disk är en energisk ATS-säker CV-mall som lyfter försäljningsresultat och kassasystem som Sitoo, Iiko och NCR. Disk Plus ger dig en tidningskänsla med foto-banner och citat från kunder som signalerar att du investerar i din ansökan.',
+    'Butiksbiträden söker tjänster där servicekänsla, kassasystem-vana och förmåga att jobba i tempo värderas högst. Linne är en ren ATS-säker CV-mall där försäljningsresultat och kassasystem som Sitoo, Iiko och NCR står i klartext. Raster ger dig rubriker som tonade band och kompetenserna i två spalter, en layout som signalerar att du investerar i din ansökan.',
   'butikssaljare':
-    'Som butikssäljare bedöms du på säljsiffror, kundbemötande och din förmåga att stänga affärer i butiksmiljö. Disk lyfter konkreta resultat (omsättning, snittnota, mersälj) i en banner överst på CV:t. Disk Plus passar dig som söker chefsroller eller flagship-butiker där visuell signal är värd något — foto-banner och customer-voice-block ger en helt annan tyngd.',
+    'Som butikssäljare bedöms du på säljsiffror, kundbemötande och din förmåga att stänga affärer i butiksmiljö. Linne lyfter konkreta resultat (omsättning, snittnota, mersälj) i klartext direkt under profilen när du väljer Kompetenser först. Raster passar dig som söker chefsroller eller flaggskeppsbutiker där den visuella signalen är värd något. Rubriker som tonade band och kompetenser i två spalter ger en helt annan tyngd.',
   'butikschef':
-    'Butikschefer söker roller där P&L-ansvar, personalledning och varumärkesvärden bedöms tillsammans. Disk ger en stark gratis-baseline för butiksprofilen. Disk Plus är gjord för dig som vill signalera ledarskap visuellt: foto-banner, magazine-rubriker och en sidopanel för customer-voice-citat ger en design som matchar premium-retail där förstaintrycket räknas.',
+    'Butikschefer söker roller där P&L-ansvar, personalledning och varumärkesvärden bedöms tillsammans. Linne ger en stark gratis grund för butikschefsprofilen. Raster är för dig som vill signalera struktur visuellt, med rubriker som tonade färgband, Verdana i texten och kompetenserna i två spalter, en design som passar kedjor där förstaintrycket räknas.',
   'kassorska':
-    'Som kassörska söker du tjänster där snabbhet, noggrannhet och kundbemötande är de tre stora bedömningspunkterna. Disk är en kompakt ATS-säker CV-mall där kassasystem-vana och servicekänsla lyfts överst. Disk Plus ger plats för foto och customer-voice som passar specialty-butiker, hotellreception eller premium-retail där personlig touch värderas mer än anonymitet.',
+    'Som kassörska söker du tjänster där snabbhet, noggrannhet och kundbemötande är de tre stora bedömningspunkterna. Linne är en ren ATS-säker CV-mall där kassasystemvana och servicekänsla lyfts överst med ordningen Kompetenser först. Raster ger rubriker som tonade band och kompetenserna i två spalter, vilket passar specialbutiker, hotellreception eller större kedjor där ett genomtänkt CV värderas mer än ett anonymt.',
   'kundtjanstmedarbetare':
-    'Kundtjänstmedarbetare bedöms på språk, ärendehanteringssystem (Zendesk, Salesforce) och förmågan att lösa problem i samtal eller chatt. Disk lyfter konkreta volymer (samtal per dag, NPS, lösningsgrad) i en kompakt ATS-säker design. Disk Plus passar dig som söker mer kvalificerade kundtjänstroller där foto och personlig touch ger förtroende.',
+    'Kundtjänstmedarbetare bedöms på språk, ärendehanteringssystem (Zendesk, Salesforce) och förmågan att lösa problem i samtal eller chatt. Linne lyfter konkreta volymer (samtal per dag, NPS, lösningsgrad) i en ren ATS-säker design i en spalt. Raster passar dig som söker mer kvalificerade kundtjänstroller, med rubriker som tonade band och kompetenserna i två spalter som ger överblick och förtroende.',
   'kundtjanst':
-    'Som kundtjänstmedarbetare avgörs din ansökan av språk, system och hur du hanterar arga kunder lugnt. Disk är en kompakt CV-mall där system och resultat lyfts i en banner överst. Disk Plus signalerar mer professionalism med foto-banner och customer-voice — passar dig som söker B2B-kundtjänst eller account-management-roller där relationsbyggande väger tungt.',
+    'Som kundtjänstmedarbetare avgörs din ansökan av språk, system och hur du hanterar arga kunder lugnt. Linne är en ren CV-mall där system och resultat lyfts direkt under profilen med ordningen Kompetenser först. Raster signalerar mer struktur med rubriker som tonade band och kompetenserna i två spalter. Den passar dig som söker B2B-kundtjänst eller account management-roller där relationsbyggande väger tungt.',
   'hotellvard':
-    'Hotellvärdar bedöms på språk, multitasking och hur du hanterar både check-in-rusning och svåra gäster utan att tappa charmen. Disk är en lugn gratis-CV-mall där PMS-system, språk och servicekänsla lyfts. Disk Plus är ofta starkare för hotellbranschen där foto är norm — tidningskänslan i designen matchar premium-hotell-segmentet och boutique-kedjor.',
+    'Hotellvärdar bedöms på språk, multitasking och hur du hanterar både check-in-rusning och svåra gäster utan att tappa charmen. Linne är en lugn gratis CV-mall där PMS-system, språk och servicekänsla lyfts i klartext. Raster ger rubriker som tonade band och kompetenserna i två spalter, vilket passar hotellkedjor och boutiquehotell. Vill du ha foto på CV:t, som är vanligt i branschen, väljer du i stället Björk eller Koppar.',
   'receptionist':
-    'Receptionister är ofta ansiktet utåt och bedöms på språk, system-vana och hur du hanterar både telefon, besökare och back-office samtidigt. Disk lyfter PBX-system, språk och multitasking i en kompakt CV-design. Disk Plus passar receptionsroller på advokat-, läkar- och tech-bolag där foto är förväntat och visuell signal blir en del av varumärket.',
+    'Receptionister är ofta ansiktet utåt och bedöms på språk, system-vana och hur du hanterar både telefon, besökare och back-office samtidigt. Linne lyfter PBX-system, språk och multitasking i en ren CV-design i en spalt. Raster passar receptionsroller på advokat-, läkar- och techbolag där ett strukturerat CV blir en del av varumärket, med rubriker som tonade band och kompetenserna i två spalter.',
   'kundradgivare':
-    'Som kundrådgivare på bank eller finansinstitut bedöms du på licenser (SwedSec), produktkunskap och din förmåga att bygga långa kundrelationer. Norrsken är en lugn formell CV-mall som matchar branschens stil. Norrsken Plus lyfter LinkedIn, en personlig profil-blockquote och foto-banner med gradient-ring som signalerar att du investerar i ditt personliga varumärke.',
+    'Som kundrådgivare på bank eller finansinstitut bedöms du på licenser (SwedSec), produktkunskap och din förmåga att bygga långa kundrelationer. Linne är en lugn formell CV-mall som matchar branschens stil. Koppar lägger namn, titel och kontakt med LinkedIn i ett färgat huvudband med vit text och rund fotoplats, vilket signalerar att du investerar i ditt personliga varumärke.',
 
   // ===================== SERVICE — lager/logistik (9) =====================
   'lagerarbetare':
-    'Lagerarbetare bedöms först på truck-behörigheter, körkort och vilka WMS-system du behärskar. Logistik är en industriell ATS-säker CV-mall där behörigheter och körkort ligger i ett block direkt efter rubriken. Logistik Plus ger dig ett mörkt grafit-band överst, cyan-ringat foto och tabellär arbetslivshistorik som passar dig som söker arbetsledar- eller chefroller på logistikcenter.',
+    'Lagerarbetare bedöms först på truck-behörigheter, körkort och vilka WMS-system du behärskar. Linne är en ren ATS-säker CV-mall där behörigheter och körkort ligger direkt under profilen när du väljer Intyg först. Granit ger dig ett mörkt huvudband med rund fotoplats och en mörk högerspalt för intyg och kompetenser, en layout som passar dig som söker arbetsledar- eller chefsroller på logistikcenter.',
   'truckforare':
-    'Som truckförare avgör behörigheter (A, B, C, D), TLP, ADR och dina år med olika trucktyper hela ansökan. Logistik lyfter alla certifikat i ett tydligt block där rekryterare ser dem på 5 sekunder. Logistik Plus ger en mer professionell layout med foto och dark header som signalerar att du söker en mer kvalificerad roll än standard-pickfunktion.',
+    'Som truckförare avgör behörigheter (A, B, C, D), TLP, ADR och dina år med olika trucktyper hela ansökan. Linne lyfter alla certifikat i ett tydligt intygsavsnitt direkt under profilen där rekryterare ser dem på 5 sekunder. Granit ger en mer påkostad layout med foto, mörkt huvudband och mörk högerspalt som signalerar att du söker en mer kvalificerad roll än standardplock.',
   'logistiker':
-    'Logistiker söker tjänster där SAP/Manhattan/Pyramid-vana, supply-chain-förståelse och förmåga att läsa data avgör. Logistik är en industriell CV-mall där system och processkunskap lyfts. Logistik Plus passar dig som söker senior-logistiker- eller logistikchef-roller där visuell tyngd och plats för LinkedIn ger en del av förtroendet.',
+    'Logistiker söker tjänster där SAP/Manhattan/Pyramid-vana, supply-chain-förståelse och förmåga att läsa data avgör. Linne är en ren CV-mall där system och processkunskap lyfts i klartext. Granit passar dig som söker seniora logistiker- eller logistikchefsroller där den visuella tyngden i ett mörkt huvudband och en mörk högerspalt ger en del av förtroendet.',
   'lagerchef':
-    'Lagerchefer söker roller där P&L, personal, säkerhetsarbete och processoptimering bedöms tillsammans. Logistik är en stark gratis-baseline med plats för KPI:er. Logistik Plus är designad för chefroller: dark header, cyan foto-ram och tabellär layout signalerar erfarenhet och ger samma respekt som ekonomi- och konto-mallar i CFO-segmentet.',
+    'Lagerchefer söker roller där P&L, personal, säkerhetsarbete och processoptimering bedöms tillsammans. Linne är en stark gratis grund med plats för KPI:er. Granit passar chefsroller, med mörkt huvudband, rund fotoplats och en mörk högerspalt för intyg och kompetenser som signalerar erfarenhet och ger samma tyngd som mallarna ekonomichefer väljer.',
   'terminalarbetare':
-    'Terminalarbetare bedöms på fysisk uthållighet, skiftarbete och förmåga att hantera press i högsäsong. Logistik är en kompakt CV-mall där behörigheter och skift-erfarenhet lyfts överst. Logistik Plus ger plats för LinkedIn och en mer professionell first impression om du söker arbetsledare- eller koordinator-roller på terminaler.',
+    'Terminalarbetare bedöms på fysisk uthållighet, skiftarbete och förmåga att hantera press i högsäsong. Linne är en ren CV-mall där behörigheter och skifterfarenhet lyfts överst med ordningen Intyg först. Granit ger ett mörkt huvudband med fotoplats och en mörk högerspalt för intyg, ett mer professionellt första intryck om du söker arbetsledar- eller koordinatorroller på terminaler.',
   'logistikassistent':
-    'Som logistikassistent bedöms du på förmåga att stötta logistiker eller chef i operativa uppgifter, datainmatning och kommunikation. Logistik är en lugn ATS-säker CV-mall som matchar branschen. Logistik Plus signalerar att du söker en utvecklingsroll mot logistiker eller koordinator där system-kunskap och proaktivitet värderas mer än volymplockning.',
+    'Som logistikassistent bedöms du på förmåga att stötta logistiker eller chef i operativa uppgifter, datainmatning och kommunikation. Linne är en lugn ATS-säker CV-mall som matchar branschen. Granit, med mörkt huvudband och en mörk högerspalt för kompetenser, signalerar att du söker en utvecklingsroll mot logistiker eller koordinator där systemkunskap och proaktivitet värderas mer än volymplockning.',
   'fastighetsskotare':
-    'Fastighetsskötare bedöms på allroundkunskap (VVS, el-grunder, snickeri), körkort och förmåga att lösa akuta problem hos hyresgäster. Hantverkare-mallen lyfter behörigheter, körkort och projektportfölj i en design med orange-grafit-accent. Hantverkare Plus ger plats för foto och passar dig som söker arbetsledar-roller hos bostadsbolag eller fastighetsförvaltare.',
+    'Fastighetsskötare bedöms på allroundkunskap (VVS, el-grunder, snickeri), körkort och förmåga att lösa akuta problem hos hyresgäster. Linne lyfter behörigheter, körkort och projekt i en ren design i en spalt. Fasad sätter ditt namn stort i versaler bakom en accentkant, med kvadratisk fotoplats, och passar dig som söker arbetsledarroller hos bostadsbolag eller fastighetsförvaltare.',
   'servicemedarbetare':
-    'Servicemedarbetare arbetar inom flera branscher där flexibilitet och servicekänsla väger tungt. Logistik är en lugn ATS-säker gratis-CV-mall som funkar för städ-, vakt- och allmänna service-roller. Logistik Plus ger en mer kvalificerad layout med foto och dark header som passar service-koordinator- eller arbetsledar-roller.',
+    'Servicemedarbetare arbetar inom flera branscher där flexibilitet och servicekänsla väger tungt. Linne är en lugn ATS-säker gratis CV-mall som fungerar för städ-, vakt- och allmänna serviceroller. Granit ger en mer påkostad layout med foto, mörkt huvudband och mörk högerspalt som passar servicekoordinator- eller arbetsledarroller.',
   'lokalvardare':
-    'Lokalvårdare bedöms på erfarenhet med olika lokaltyper (kontor, vård, skola), kemikaliekunskap och om du klarar storstädning eller specialarbete. Logistik är en kompakt ATS-säker CV-mall som funkar i alla städbolags ATS. Logistik Plus ger plats för LinkedIn och passar dig som söker arbetsledare-roll eller specialiserad lokalvård i vården.',
+    'Lokalvårdare bedöms på erfarenhet med olika lokaltyper (kontor, vård, skola), kemikaliekunskap och om du klarar storstädning eller specialarbete. Linne är en ren ATS-säker CV-mall som fungerar i alla städbolags ATS. Granit ger ett mörkt huvudband med fotoplats och en mörk högerspalt för certifikat och språk, och passar dig som söker arbetsledarroll eller specialiserad lokalvård i vården.',
 
   // ===================== SERVICE — gastro (6) =====================
   'kock':
-    'Kockar bedöms på kök-erfarenhet, certifikat (HACCP, livsmedelshygien) och förmåga att klara tempo i serviceläge. Stack-developer ger en oväntat ren ATS-säker CV-mall där meritlistor lyfts strukturerat. Servering är en visuellt rikare mall i Premium som passar dig som söker chefroller på fine-dining-restauranger där creativ profil och meriter behöver kommuniceras tydligt.',
+    'Kockar bedöms på kök-erfarenhet, certifikat (HACCP, livsmedelshygien) och förmåga att klara tempo i serviceläge. Linne ger en ren ATS-säker CV-mall där meritlistor lyfts strukturerat. Terrakotta är en visuellt rikare mall i Premium, med krämfärgad sida, roströda rubriker och kompetenserna som brickor, som passar dig som söker chefsroller på fine dining-restauranger där kreativ profil och meriter behöver kommuniceras tydligt.',
   'bartender':
-    'Bartenders bedöms på drink-portfölj, gästkontakt och förmåga att hålla huvudet kallt i fredagsrush. Stack-developer ger en strukturerad gratis-CV-mall som funkar i alla restaurangbolags ATS. Servering är en variant i Premium där foto, drink-portfölj och tidigare arbetsplatser blir visuellt tunga. Den passar dig som söker chefroller på cocktail-barer eller hotellbarer.',
+    'Bartenders bedöms på drink-portfölj, gästkontakt och förmåga att hålla huvudet kallt i fredagsrush. Linne ger en strukturerad gratis CV-mall som fungerar i alla restaurangbolags ATS. Terrakotta är en mall i Premium där drinkportföljen blir brickor på en krämfärgad sida med roströda rubriker. Den passar dig som söker chefsroller på cocktailbarer eller hotellbarer.',
   'konditor':
-    'Konditorer söker tjänster där bakteknik, dekoration och tidsplanering i produktion bedöms. Stack-developer ger en lugn ATS-säker CV-mall där utbildning och erfarenhet lyfts. Servering passar dig som söker roller på premium-bagerier eller hotell-konditorier där portfölj och visuell estetik är en del av meritbilden.',
+    'Konditorer söker tjänster där bakteknik, dekoration och tidsplanering i produktion bedöms. Linne ger en lugn ATS-säker CV-mall där utbildning och erfarenhet lyfts. Terrakotta, med krämfärgad sida, roströda rubriker och kompetenserna som brickor, passar dig som söker roller på finare bagerier eller hotellkonditorier där visuell estetik är en del av meritbilden.',
   'barista':
-    'Baristas söker tjänster där espresso-kunskap, latte-art och mjölkrutiner avgör. Stack-developer är en kompakt gratis-CV-mall som funkar i specialty-coffee-segmentet. Servering är en variant i Premium med foto och plats för portfölj. Den passar dig som söker chefroller på third-wave-coffee-shops eller hotellrestauranger där baristan är synlig.',
+    'Baristas söker tjänster där espresso-kunskap, latte-art och mjölkrutiner avgör. Linne är en ren gratis CV-mall som fungerar i specialty coffee-segmentet. Terrakotta är en mall i Premium med krämfärgad sida, roströda rubriker och kompetenserna som brickor. Den passar dig som söker chefsroller på third wave-kaféer eller hotellrestauranger där baristan är synlig.',
   'servitris-restaurangbitrade':
-    'Servitriser och restaurangbiträden bedöms på språk, kassasystem och om du klarar tempo i en hektisk service. Stack-developer ger en ren CV-mall där erfarenhet lyfts. Servering är en mall i Premium med foto och visuell tyngd som passar dig som söker positioner på finare restauranger där förstaintrycket räknas mer än bara CV-strukturen.',
+    'Servitriser och restaurangbiträden bedöms på språk, kassasystem och om du klarar tempo i en hektisk service. Linne ger en ren CV-mall där erfarenheten lyfts i klartext. Terrakotta är en mall i Premium med krämfärgad sida, roströda rubriker och kompetenserna som brickor, som passar dig som söker positioner på finare restauranger där förstaintrycket räknas mer än bara CV-strukturen.',
   'koksbitrade':
-    'Som köksbiträde stöttar du kockar i förberedelser, diskning och städning där pålitlighet och hygienarbete väger tungt. Stack-developer är en kompakt gratis-CV-mall som funkar i alla restaurangkedjors ATS. Servering ger en mer ambitiös first impression om du söker tjänster i finare restauranger eller har siktet inställt på att utvecklas till kock.',
+    'Som köksbiträde stöttar du kockar i förberedelser, diskning och städning där pålitlighet och hygienarbete väger tungt. Linne är en ren gratis CV-mall som fungerar i alla restaurangkedjors ATS. Terrakotta, med krämfärgad sida och roströda rubriker, ger ett mer ambitiöst första intryck om du söker tjänster i finare restauranger eller har siktet inställt på att utvecklas till kock.',
 
   // ===================== SERVICE — säljare/account (3) =====================
   'saljare':
-    'Som säljare bedöms du framför allt på kvantifierade resultat (omsättning, marginal, pipeline). Norrsken är en ren ATS-säker baseline där siffror får plats utan distraktion. Aurora är en premium CV-mall där en "Nyckelresultat"-panel överst lyfter dina kvantifierade siffror och en emerald-orange gradient signalerar tillväxt — passar dig som söker B2B-, key-account- eller nya marknad-roller.',
+    'Som säljare bedöms du framför allt på kvantifierade resultat (omsättning, marginal, pipeline). Linne är en ren ATS-säker grund där siffror får plats utan distraktion. Koppar är en CV-mall i Premium där ett färgat huvudband med vit text och rund fotoplats ger profilen tyngd, och kompetensgrupperna låter dig lyfta nyckelresultaten i klartext. Den passar dig som söker B2B-, key account- eller nya marknad-roller.',
   'account-manager':
-    'Account managers bedöms på portfolio, kund-renewal och förmåga att utveckla befintliga konton. Norrsken är en lugn gratis-CV-mall där kund-resultat lyfts klart. Aurora är en variant i Premium med "Nyckelresultat"-panel och foto-stöd som signalerar att du investerar i ditt personliga varumärke, vilket är viktigt i roller där relationsbyggande är hela jobbet.',
+    'Account managers bedöms på portfolio, kund-renewal och förmåga att utveckla befintliga konton. Linne är en lugn gratis CV-mall där kundresultat lyfts klart. Koppar är en mall i Premium med färgat huvudband och rund fotoplats som signalerar att du investerar i ditt personliga varumärke, vilket är viktigt i roller där relationsbyggande är hela jobbet.',
   'sommarjobb':
-    'Söker du ditt första sommarjobb behöver CV:t visa engagemang, lärande och pålitlighet — inte 10 års erfarenhet. Student-startup ger en ren CV-mall där utbildning, projekt och engagemang får plats. Student Plus lyfter drömjobbet i en eyebrow-pill, har plats för foto och en serif-design som ger ungdomlig statement utan att bli barnslig.',
+    'Söker du ditt första sommarjobb behöver CV:t visa engagemang, lärande och pålitlighet, inte 10 års erfarenhet. Björk ger en gratis CV-mall med centrerat huvud och rund fotoplats där utbildning, projekt och engagemang får plats. Koppar, som ingår i Premium, sätter namn och titel i ett färgat huvudband med vit text, vilket ger karaktär utan att bli barnsligt.',
 
   // ===================== TEKNIK — dev (3) =====================
   'systemutvecklare':
-    'Som systemutvecklare bedöms du på stack, kommitt-historik och förmåga att leverera i team. Stack-developer är en optimerad CV-mall där tech-stack lyfts visuellt med pill-grid och cyan-accent. Stack Plus ger en cyan-ringat fyrkantigt foto, "Stack //"-banner med teknik-tags i monospace och en sidopanel för "Verktyg & övrigt" — passar senior-utvecklarroller där tech-DNA är synligt.',
+    'Som systemutvecklare bedöms du på stack, kommitt-historik och förmåga att leverera i team. Linne är en ren CV-mall där din tech-stack lyfts i klartext som kompetensgrupper. Stål lägger profilen i full bredd och delar sedan sidan i två spalter, erfarenhet till vänster och kompetenser, certifieringar och språk till höger, med accentlinjer över rubrikerna. Den passar seniora utvecklarroller där stacken ska synas direkt.',
   'devops-engineer':
-    'DevOps-engineers söker roller där CI/CD, IaC, observability och cloud-vana avgör. Stack-developer är en ren gratis-CV-mall som lyfter teknik-stack tydligt. Stack Plus signalerar senior-status med foto, "Stack //"-pill-banner med Kubernetes, Terraform, Datadog och en sidopanel där on-call-erfarenhet och certifikat (AWS, GCP) blir visuellt tunga.',
+    'DevOps-engineers söker roller där CI/CD, IaC, observability och cloud-vana avgör. Linne är en ren gratis CV-mall som lyfter teknikstacken tydligt. Stål signalerar seniorstatus med profilen i full bredd och en högerspalt där Kubernetes, Terraform, Datadog, on call-erfarenhet och certifikat (AWS, GCP) står samlade bredvid erfarenheten.',
   'it-konsult':
-    'IT-konsulter bedöms på leveransbredd, kund-portfölj och hur snabbt du producerar värde i nya uppdrag. Stack-developer är en strukturerad gratis-CV-mall där projekt och stack lyfts. Stack Plus är en variant i Premium där foto, LinkedIn och en kompakt sidopanel med "Verktyg & övrigt" gör en starkare first impression i konsultsegmentet där förtroende ska byggas snabbt.',
+    'IT-konsulter bedöms på leveransbredd, kund-portfölj och hur snabbt du producerar värde i nya uppdrag. Linne är en strukturerad gratis CV-mall där projekt och stack lyfts. Stål är en mall i Premium där profilen ligger i full bredd och en högerspalt med kompetenser, certifieringar och språk gör ett starkare första intryck i konsultsegmentet där förtroende ska byggas snabbt.',
 
   // ===================== TEKNIK — produkt/strategi (3) =====================
   'projektledare-it':
-    'IT-projektledare bedöms på metodik (Scrum, SAFe, PRINCE2), leveransbredd och förmåga att hålla scope. Linje är en strukturerad CV-mall där projekt och resultat lyfts klart. Aspekt är en bredare mall i Premium med "Fokusområden"-pills där dina kärnkompetenser blir visuellt tunga och slate-blå accent signalerar trygghet — passar senior-PM-roller där tradition möter modernitet.',
+    'IT-projektledare bedöms på metodik (Scrum, SAFe, PRINCE2), leveransbredd och förmåga att hålla scope. Linne är en strukturerad CV-mall där projekt och resultat lyfts klart. Raster är en mall i Premium där rubrikerna blir tonade färgband och kompetenserna står i två spalter, så dina kärnkompetenser får visuell tyngd. Den passar seniora PM-roller där tradition möter modernitet.',
   'scrum-master':
-    'Scrum masters söker roller där teamfacilitering, hinder-borttagning och agile coaching bedöms. Linje är en ren gratis-CV-mall som funkar i alla tech-bolags ATS. Aspekt är en bredare variant i Premium där "Fokusområden"-pills lyfter dina coaching-områden och slate-blå accent ger lugn auktoritet. Den passar senior-Scrum master- eller agile coach-roller.',
+    'Scrum masters söker roller där teamfacilitering, hinder-borttagning och agile coaching bedöms. Linne är en ren gratis CV-mall som fungerar i alla techbolags ATS. Raster är en mall i Premium där rubrikerna blir tonade färgband och kompetenserna står i två spalter, så dina coachingområden får tyngd och den teala accenten ger lugn auktoritet. Den passar seniora Scrum master- eller agile coach-roller.',
   'produktchef':
-    'Som produktchef bedöms du på discovery, prioritering och hur du leder en roadmap mot tillväxt. Linje är en lugn ATS-säker CV-mall där kvantifierade resultat lyfts. Magasin är en variant i Premium där editorial-känslan, asymmetrisk grid och plats för "tankeledare-citat" ger en visuell tyngd som passar senior-PM-roller på SaaS- och fintech-bolag.',
+    'Som produktchef bedöms du på discovery, prioritering och hur du leder en roadmap mot tillväxt. Linne är en lugn ATS-säker CV-mall där kvantifierade resultat lyfts. Tidning är en mall i Premium där namnet sätts som ett tidningshuvud och profilen löper i två spalter med anfang, en redaktionell känsla som ger visuell tyngd och passar seniora PM-roller på SaaS- och fintechbolag.',
 
   // ===================== TEKNIK — industri (3) =====================
   'ingenjor':
-    'Som ingenjör bedöms du på CAD-vana (SolidWorks, Catia), standarder (ISO 9001, CE, ATEX) och projektrefenser. Verkstad är en industriell ATS-säker CV-mall med grafit-accent där standarder och system lyfts. Verkstad Plus ger en blueprint-grid header, rektangulärt foto med offset-skugga och två-kolumn med "Verktygs-stack"-sidopanel som passar konsult- och senior-positioner.',
+    'Som ingenjör bedöms du på CAD-vana (SolidWorks, Catia), standarder (ISO 9001, CE, ATEX) och projektrefenser. Linne är en ren ATS-säker CV-mall där standarder och system lyfts i klartext. Fasad sätter ditt namn stort i versaler bakom en accentkant, med kvadratisk fotoplats och rubriker i versaler, en rak layout som passar konsult- och seniorpositioner.',
   'automationsingenior':
-    'Automationsingenjörer bedöms på PLC-programmering (Siemens TIA, Beckhoff), SCADA, robotcell-integration och industristandarder. Verkstad är en lugn gratis-CV-mall där system och certifikat lyfts. Verkstad Plus signalerar en mer ambitiös ansökan med blueprint-header, foto och en strukturerad sidopanel där dina specifika system och projekt blir visuellt tydliga.',
+    'Automationsingenjörer bedöms på PLC-programmering (Siemens TIA, Beckhoff), SCADA, robotcell-integration och industristandarder. Linne är en lugn gratis CV-mall där system och certifikat lyfts. Fasad signalerar en mer ambitiös ansökan med namnet stort i versaler bakom en accentkant, kvadratisk fotoplats och rubriker i versaler som gör dina system och projekt visuellt tydliga.',
   'konstruktor':
-    'Konstruktörer söker tjänster där CAD-vana, ritningsläsning och materialkunskap avgör. Verkstad är en kompakt ATS-säker CV-mall med plats för standarder (CE, EN, ISO). Verkstad Plus är en variant i Premium med blueprint-grid-bakgrund i header, rektangulärt foto och en sidopanel för verktygsstack. Designvalen signalerar konstruktions-DNA utan att bli prålig.',
+    'Konstruktörer söker tjänster där CAD-vana, ritningsläsning och materialkunskap avgör. Linne är en ren ATS-säker CV-mall med plats för standarder (CE, EN, ISO). Fasad är en mall i Premium med namnet stort i versaler bakom en accentkant, kvadratisk fotoplats och rubriker i versaler utan linjer. Designvalen signalerar konstruktörens exakthet utan att bli pråliga.',
 
   // ===================== EKONOMI (6) =====================
   'ekonomiassistent':
-    'Som ekonomiassistent bedöms du på system (Visma, Fortnox, SAP), avstämningar och din förmåga att stötta redovisare i bokslut. Konto är en strukturerad ATS-säker CV-mall med tabular-nums och dubbel-divider. Konto Plus ger en tre-kolumns header med snabbfakta-rad och navy-emerald gradient som signalerar att du söker en utvecklingsroll mot redovisare eller controller.',
+    'Som ekonomiassistent bedöms du på system (Visma, Fortnox, SAP), avstämningar och din förmåga att stötta redovisare i bokslut. Linne är en strukturerad ATS-säker CV-mall i en spalt med tunna linjer under rubrikerna. Årsring lägger årtalen i en egen vänsterkolumn längs en lodrät accentlinje, en tidslinje som signalerar ordning och att du söker en utvecklingsroll mot redovisare eller controller.',
   'administrativ-assistent':
-    'Administrativa assistenter söker tjänster där system-bredd, struktur och förmåga att stötta chefer eller team avgör. Konto är en ren gratis-CV-mall där system och certifikat lyfts tabulärt. Konto Plus passar dig som söker mer kvalificerade administrativa roller (executive assistant, kontorschef) där snabbfakta-raden och visuell tyngd hjälper dig sticka ut.',
+    'Administrativa assistenter söker tjänster där system-bredd, struktur och förmåga att stötta chefer eller team avgör. Linne är en ren gratis CV-mall där system och certifikat lyfts i klartext. Årsring passar dig som söker mer kvalificerade administrativa roller (executive assistant, kontorschef) där tidslinjen med årtalen i en egen kolumn ger visuell tyngd och hjälper dig sticka ut.',
   'redovisningsekonom':
-    'Redovisningsekonomer bedöms på K2/K3, momshantering, bokslut och vana med Visma/Fortnox/SAP. Konto är en mörkblå ATS-säker CV-mall där system, certifieringar (auktoriserad redovisningskonsult) och bokslutserfarenhet lyfts tabulärt. Konto Plus ger en premium first impression med tre-kolumns header och nyckeltal — passar dig som söker chef-roller på redovisningsbyråer.',
+    'Redovisningsekonomer bedöms på K2/K3, momshantering, bokslut och vana med Visma/Fortnox/SAP. Linne är en ren ATS-säker CV-mall där system, certifieringar (auktoriserad redovisningskonsult) och bokslutserfarenhet lyfts i klartext. Årsring ger ett påkostat första intryck med årtalen i en egen vänsterkolumn längs en lodrät accentlinje. Den passar dig som söker chefsroller på redovisningsbyråer.',
   'controller':
-    'Controllers söker roller där analyskompetens, BI-vana (Power BI, Tableau, Cognos) och förmåga att översätta siffror till beslut bedöms. Konto är en mörkblå CV-mall som signalerar finans-DNA. Konto Plus ger en tre-kolumns header med nyckeltal-snabbfakta och navy-emerald gradient som passar senior-controller- eller business-controller-roller där visuell tyngd ger förtroende.',
+    'Controllers söker roller där analyskompetens, BI-vana (Power BI, Tableau, Cognos) och förmåga att översätta siffror till beslut bedöms. Linne är en ren CV-mall i en spalt som signalerar ordning och finansvana. Årsring lägger årtalen i en egen vänsterkolumn längs en lodrät accentlinje, en tidslinje som passar senior controller- eller business controller-roller där visuell tyngd ger förtroende.',
   'ekonom':
-    'Ekonomer söker tjänster där förståelse för helheten — bokföring, prognos, analys — väger tyngst. Konto är en strukturerad gratis-CV-mall med tabular-nums och mono-font på datum. Konto Plus är en variant i Premium där snabbfakta lyfts överst och en navy-emerald gradient ger growth-DNA. Den passar dig som söker tillväxtfas-roller på SaaS- eller fintech-bolag.',
+    'Ekonomer söker tjänster där förståelse för helheten, bokföring, prognos och analys, väger tyngst. Linne är en strukturerad gratis CV-mall i en spalt med tunna linjer under rubrikerna. Årsring är en mall i Premium där årtalen står i en egen vänsterkolumn längs en lodrät accentlinje, mörkgrön som förval. Den passar dig som söker tillväxtfasroller på SaaS- eller fintechbolag.',
   'hr-specialist':
-    'HR-specialister bedöms på arbetsrätt, kollektivavtal och vana med HRIS-system (Heroma, Visma Lön, Workday). Konto ger en ren ATS-säker CV-mall där system och utbildning lyfts. Konto Plus passar dig som söker senior-HR- eller HR-chef-roller där snabbfakta (HR-volym, organisation) blir visuellt tunga och first impression bär hela ansökan.',
+    'HR-specialister bedöms på arbetsrätt, kollektivavtal och vana med HRIS-system (Heroma, Visma Lön, Workday). Linne ger en ren ATS-säker CV-mall där system och utbildning lyfts. Årsring passar dig som söker seniora HR- eller HR-chefsroller där tidslinjen, med årtalen i en egen kolumn, gör karriärstegen visuellt tunga och det första intrycket bär hela ansökan.',
 
   // ===================== OFFENTLIG SEKTOR (7) =====================
   'administrator':
-    'Administratörer i offentlig sektor bedöms på diarieföring, ärendehantering och förvaltningsrätt. Myndighet är en konservativ navy-svartvit ATS-säker CV-mall där lagstiftning och metoder (LSS, SoL, OSL) lyfts. Myndighet Plus ger en centrerad Source Serif Pro-header med guld-accent som signalerar prestige — passar senior-administratör-roller på myndigheter.',
+    'Administratörer i offentlig sektor bedöms på diarieföring, ärendehantering och förvaltningsrätt. Linne är en konservativ ATS-säker CV-mall där lagstiftning och metoder (LSS, SoL, OSL) lyfts i klartext. Antikva ger ett centrerat huvud i Times New Roman med dubbel linje i accentfärgen, en formell form som signalerar tyngd och passar seniora administratörsroller på myndigheter.',
   'handlaggare':
-    'Handläggare bedöms på ärendetyper, lagrum och förmåga att fatta korrekta beslut enligt förvaltningsrätt. Myndighet är en lugn gratis-CV-mall där §-symboler i bullets påminner om förvaltningsrätten. Myndighet Plus lyfter volymsstatistik (antal ärenden, beslut) i en blockquote och har guld-accent som matchar prestige-känslan rekryterare på myndigheter förväntar sig.',
+    'Handläggare bedöms på ärendetyper, lagrum och förmåga att fatta korrekta beslut enligt förvaltningsrätt. Linne är en lugn gratis CV-mall där lagrum och ärendetyper står i klartext. Antikva sätter namnet i ett centrerat huvud med dubbel linje, Times New Roman och vinröd accent, en formell form som matchar den tyngd rekryterare på myndigheter förväntar sig.',
   'lss-handlaggare':
-    'LSS-handläggare arbetar med människor som har funktionsvariationer där rättssäkerhet och empati ska samexistera. Myndighet är en strukturerad gratis-CV-mall där LSS, SoL och IBIC lyfts. Myndighet Plus ger en formell prestige-känsla med Source Serif Pro-header och guld-accent — passar dig som söker mer kvalificerade ärendetyper eller chefroller inom socialförvaltning.',
+    'LSS-handläggare arbetar med människor som har funktionsvariationer där rättssäkerhet och empati ska samexistera. Linne är en strukturerad gratis CV-mall där LSS, SoL och IBIC lyfts i klartext. Antikva ger en formell tyngd med centrerat huvud i Times New Roman, dubbel linje och vinröd accent. Den passar dig som söker mer kvalificerade ärendetyper eller chefsroller inom socialförvaltning.',
   'socialsekreterare':
-    'Socialsekreterare bedöms på utredning, BBIC, IBIC och förmåga att hantera komplexa familjeärenden under press. Myndighet är en konservativ ATS-säker CV-mall där lagstiftning och metoder lyfts klart. Myndighet Plus signalerar mer erfarenhet med formell serif-header, guld-accent och plats för volymsstatistik — passar dig som söker enhetschef- eller specialist-roller.',
+    'Socialsekreterare bedöms på utredning, BBIC, IBIC och förmåga att hantera komplexa familjeärenden under press. Linne är en konservativ ATS-säker CV-mall där lagstiftning och metoder lyfts klart. Antikva signalerar mer erfarenhet med ett centrerat huvud i Times New Roman, dubbel linje och vinröd accent. Den passar dig som söker enhetschefs- eller specialistroller.',
   'kontorsassistent':
-    'Kontorsassistenter söker tjänster där struktur, system-bredd och förmåga att stötta hela kontoret bedöms. Myndighet är en ren gratis-CV-mall där system och rutiner lyfts klart. Myndighet Plus passar dig som söker executive-assistant- eller kontorschef-roller där visuell tyngd, plats för LinkedIn och formell serif-header ger en starkare first impression.',
+    'Kontorsassistenter söker tjänster där struktur, system-bredd och förmåga att stötta hela kontoret bedöms. Linne är en ren gratis CV-mall där system och rutiner lyfts klart. Antikva passar dig som söker executive assistant- eller kontorschefsroller där ett centrerat huvud i Times New Roman med dubbel linje ger visuell tyngd och ett starkare första intryck.',
   'chef':
-    'Som chef bedöms du på personalledning, P&L-ansvar och din förmåga att leda förändring. Tidlös är en formell ATS-säker CV-mall som signalerar tradition. Tidlös Plus ger en Garamond serif body, foto med burgundy-ram och "— § —"-ornament som signalerar prestige utan att bli prålig — passar senior-chef- eller styrelse-roller där förstaintrycket räknas mer än layout-trender.',
+    'Som chef bedöms du på personalledning, P&L-ansvar och din förmåga att leda förändring. Linne är en formell ATS-säker CV-mall som signalerar tradition. Antikva ger Times New Roman rakt igenom, ett centrerat huvud med dubbel linje och vinröd accent som signalerar tyngd utan att bli prålig. Den passar seniora chefs- eller styrelseroller där förstaintrycket räknas mer än layouttrender.',
   'enhetschef':
-    'Enhetschefer söker roller där personalledning, budget och kvalitetsarbete bedöms tillsammans. Tidlös är en lugn formell CV-mall som matchar offentlig sektors förväntningar. Tidlös Plus ger Garamond serif, burgundy-foto-ram och dubbel-linje under header som signalerar att du söker mer kvalificerade enhetschef- eller verksamhetschef-roller där prestige väger tungt.',
+    'Enhetschefer söker roller där personalledning, budget och kvalitetsarbete bedöms tillsammans. Linne är en lugn formell CV-mall som matchar offentlig sektors förväntningar. Antikva ger Times New Roman, vinröd accent och en dubbel linje under det centrerade huvudet, vilket signalerar att du söker mer kvalificerade enhetschefs- eller verksamhetschefsroller där formen väger tungt.',
   'projektledare':
-    'Projektledare bedöms på metodik, leveransbredd och förmåga att hålla scope och budget. Norrsken är en ren ATS-säker CV-mall där projekt och resultat lyfts klart. Norrsken Plus ger en gradient-ring runt foto, gradient-text-clip på namnet och en personlig profil-blockquote i orange tint — passar senior-PM-roller där visuell tyngd kompletterar substansen.',
+    'Projektledare bedöms på metodik, leveransbredd och förmåga att hålla scope och budget. Linne är en ren ATS-säker CV-mall där projekt och resultat lyfts klart. Koppar sätter namn, titel och kontakt i ett färgat huvudband med vit text och rund fotoplats, kopparbrunt som förval. Den passar seniora PM-roller där visuell tyngd kompletterar substansen.',
   'teamledare':
-    'Teamledare söker roller där personalledning, coachning och operativ leverans bedöms. Norrsken är en lugn gratis-CV-mall där erfarenhet och resultat lyfts. Norrsken Plus signalerar mer erfarenhet med gradient-text-clip på namnet, foto med orange-magenta gradient-ring och en personlig profil-blockquote som ger karaktär utan att bli oseriöst.',
+    'Teamledare söker roller där personalledning, coachning och operativ leverans bedöms. Linne är en lugn gratis CV-mall där erfarenhet och resultat lyfts. Koppar signalerar mer erfarenhet med namn och titel i ett färgat huvudband med vit text och rund fotoplats, vilket ger karaktär utan att bli oseriöst.',
 }
 
