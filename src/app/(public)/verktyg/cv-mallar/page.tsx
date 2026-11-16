@@ -57,6 +57,9 @@ const WORD_TEXT: Readonly<Record<string, string>> = {
 }
 const WORD_RADER = MALL_KATALOG.filter((m) => m.word).map((m) => ({ rubrik: m.namn, text: WORD_TEXT[m.id] ?? `${m.stil}.` }))
 
+/** Word-mallarna i Premium, ur katalogen. */
+const WORD_PREMIUM_ANTAL = MALL_KATALOG.filter((m) => m.word && m.niva === 'premium').length
+
 /** Mallarna med fotoplats, ur katalogen. */
 const FOTO_ANTAL = MALL_KATALOG.filter((m) => m.foto).length
 const FOTO_GRATIS = MALL_KATALOG.filter((m) => m.foto && m.niva === 'gratis').map((m) => m.namn)
@@ -231,7 +234,7 @@ export default function CVMallarSida() {
             id: 'word',
             eyebrow: 'Word',
             rubrik: 'CV-mallar för Word',
-            ingress: `Behöver du en gratis CV-mall i Word? ${versal(WORD_TEMPLATE_COUNT_ORD)} av våra mallar laddas också ner som Word-fil (.docx): ${wordMallarSomText()}. Gratismallarna ${GRATIS_NAMN} hämtar du som Word utan att betala något, en fil per konto i det format du väljer. Word i de övriga ingår i ${paketNamn(SALD_PLAN)}. Word vill du ha när du själv ska ändra i CV:t efteråt, eller när ett bemanningsföretag eller en arbetsgivare i offentlig sektor ber om ett redigerbart format för att klistra in CV:t i sina egna system. Word-filen har gått genom samma läsning som PDF:en, så rubriker och ordning håller också där. De konstnärliga mallarna laddas ner som PDF.`,
+            ingress: `Behöver du en gratis CV-mall i Word? ${versal(WORD_TEMPLATE_COUNT_ORD)} av våra mallar laddas också ner som Word-fil (.docx): ${wordMallarSomText()}. Gratismallarna ${GRATIS_NAMN} hämtar du som Word utan att betala något, en fil per konto i det format du väljer. Word i de övriga ${talSomOrd(WORD_PREMIUM_ANTAL)} Word-mallarna ingår i ${paketNamn(SALD_PLAN)}. Word vill du ha när du själv ska ändra i CV:t efteråt, eller när ett bemanningsföretag eller en arbetsgivare i offentlig sektor ber om ett redigerbart format för att klistra in CV:t i sina egna system. Word-filen har gått genom samma läsning som PDF:en, så rubriker och ordning håller också där. De konstnärliga mallarna laddas ner som PDF.`,
             rader: WORD_RADER,
           },
         ]}
