@@ -194,10 +194,11 @@ async function skriv(page: Page, sel: string, text: string) {
   await page.click(sel, { clickCount: 3 })
   await page.type(sel, text, { delay: 5 })
 }
-async function vantaFil(mapp: string, slut: string, ms = 90000) {
+/** Väntar på en fil med ändelsen; utom är filer som fanns före klicket (mappen lever mellan körningar). */
+async function vantaFil(mapp: string, slut: string, ms = 90000, utom: Set<string> = new Set()) {
   const start = Date.now()
   while (Date.now() - start < ms) {
-    const f = fs.readdirSync(mapp).find((x) => x.endsWith(slut))
+    const f = fs.readdirSync(mapp).find((x) => x.endsWith(slut) && !utom.has(x))
     if (f) return path.join(mapp, f)
     await vila(500)
   }
@@ -227,6 +228,8 @@ async function oppna(browser: Browser, k: Konto, vy: typeof PIXEL7 | typeof DATO
   for (const c of await sessionsCookie(k.epost)) await page.setCookie({ ...c, url: BAS, path: '/' })
   await page.setCookie({ name: 'cvBrevCookieConsent', value: 'true', url: BAS, path: '/' })
   const nedMapp = path.join(UT, `ned-${k.roll}-${vy.width}`)
+  // Tom mapp per körning: en fil från förra körningen fick vantaFil att svara direkt.
+  fs.rmSync(nedMapp, { recursive: true, force: true })
   fs.mkdirSync(nedMapp, { recursive: true })
   const cdp = await browser.target().createCDPSession()
   await cdp.send('Browser.setDownloadBehavior', { behavior: 'allow', downloadPath: nedMapp, browserContextId: (ctx as unknown as { id: string }).id })
@@ -490,11 +493,20 @@ async function premiumFlode(browser: Browser, k: Konto) {
   await fyllUtbildning(page, steg)
   await bild(page, `${steg}-miniminiva`)
 
-  // Premiummall i kolumnen, Word.
-  await page.evaluate(() => {
-    const b = [...document.querySelectorAll<HTMLButtonElement>('aside button')].find((x) => x.innerText.includes('Koppar') && x.getBoundingClientRect().width > 0)
-    b?.click()
-  })
+  // Premiummall i kolumnen, Word. Första synliga Premiummallen bland förslagen
+  // (urvalet är handplockat per CV sedan utbud 2, så namnet läses ur kortet).
+  // Kortet kan vara spärrat medan arket mäts; försök tills det inte är det.
+  let premiumMall = ''
+  for (let forsok = 0; forsok < 5 && !premiumMall; forsok++) {
+    premiumMall = await page.evaluate(() => {
+      const b = [...document.querySelectorAll<HTMLButtonElement>('aside[aria-label] button')].find(
+        (x) => /\nPremium\b/.test(x.innerText) && x.getBoundingClientRect().width > 0 && !x.disabled
+      )
+      b?.click()
+      return (b?.innerText.split('\n').map((s) => s.trim()).filter(Boolean).find((s) => !/^(PDF|W|Premium|Gratis)$/.test(s)) ?? '').toLowerCase()
+    })
+    if (!premiumMall) await vila(1500)
+  }
   await vila(3000)
   await bild(page, `${steg}-premiummall`)
   await page.evaluate(() => {
@@ -502,9 +514,10 @@ async function premiumFlode(browser: Browser, k: Konto) {
     w?.click()
   })
   await vila(500)
+  const fore = new Set(fs.readdirSync(nedMapp))
   await klickaText(page, 'Spara och ladda ner Word')
-  const docx = await vantaFil(nedMapp, '.docx')
-  kontroll(Boolean(docx) && fs.readFileSync(docx!).subarray(0, 2).toString() === 'PK' && docx!.includes('koppar'), `${steg}: Word i premiummallen laddas ner som Premium (${docx ? path.basename(docx) : 'ingen'})`)
+  const docx = await vantaFil(nedMapp, '.docx', 90000, fore)
+  kontroll(Boolean(docx) && fs.readFileSync(docx!).subarray(0, 2).toString() === 'PK' && Boolean(premiumMall) && path.basename(docx!).includes(premiumMall.normalize('NFD').replace(/[̀-ͯ]/g, '')), `${steg}: Word i premiummallen (${premiumMall}) laddas ner som Premium (${docx ? path.basename(docx) : 'ingen'})`)
   await vila(1500)
   await bild(page, `${steg}-final`)
   kontroll(fel.length === 0, `${steg}: inga konsolfel eller 5xx${fel.length ? ': ' + fel.slice(0, 5).join(' | ') : ''}`)
