@@ -1,0 +1,11 @@
+{
+  "_om": "Mallsatsningen steg 1 (docs/plan-mallar-2026-11-15.md fas 0): textfelet \"Tolv mallar är gratis\" i metabeskrivningen på /cv-mallar/start rättat till antalet gratismallar ur koden. Sidan är noindex.",
+  "META_BYTT": [
+    {
+      "path": "/cv-mallar/start",
+      "falt": "description",
+      "datum": "2026-11-16",
+      "skal": "Plan-mallar fas 0, textfel 1: metan sa att tolv mallar är gratis, koden har tre (FREE_TEMPLATE_COUNT). Talet läses nu ur koden. Sidan är noindex och disallowad."
+    }
+  ]
+}

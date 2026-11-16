@@ -8,6 +8,8 @@
 
 import type { Metadata } from 'next'
 import { SIMPLE_TEMPLATES } from '@/lib/cv/simple-templates'
+import { FREE_TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { talOrd, storForst } from '@/components/publikt/talord'
 import { YRKE_TILL_MALLAR, YRKESMALL_LIST } from '../yrkesmall-data'
 import StartMallval, { type StartTemplate } from './StartMallval'
 
@@ -36,7 +38,7 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
       ? `Välj CV-mall för ${label.toLowerCase()} | jobbcoach.ai`
       : 'Välj CV-mall | jobbcoach.ai',
     description:
-      'Välj en granskad CV-mall och börja fylla i. Tolv mallar är gratis och alla är testade mot svenska rekryteringssystem.',
+      `Välj en granskad CV-mall och börja fylla i. ${storForst(talOrd(FREE_TEMPLATE_COUNT))} mallar är gratis och alla är testade mot svenska rekryteringssystem.`,
     robots: { index: false, follow: true },
     alternates: { canonical },
   }

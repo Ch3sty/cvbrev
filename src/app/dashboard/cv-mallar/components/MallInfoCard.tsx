@@ -1,7 +1,7 @@
 'use client';
 
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
-import { ShieldCheck, Image as ImageIcon, Linkedin, Crown, AlertCircle, FileText } from '@/components/illustrations/RumIkoner';
+import { ShieldCheck, Image as ImageIcon, Linkedin, Crown, FileText } from '@/components/illustrations/RumIkoner';
 import type { SimpleTemplate } from '@/lib/cv/simple-templates';
 import { harWordVersion } from '@/lib/cv/template-antal';
 
@@ -18,7 +18,6 @@ export default function MallInfoCard({ template }: MallInfoCardProps) {
     return null;
   }
 
-  const isAtsSafe = template.features?.atsSafe === true;
   const supportsPhoto = template.features?.supportsPhoto === true;
   const supportsLinkedIn = template.features?.supportsLinkedIn === true;
   // Högst tre brickor på rad (skissen, avsnitt 3b): på en Word-mall viker
@@ -31,15 +30,10 @@ export default function MallInfoCard({ template }: MallInfoCardProps) {
     <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
       {/* Topp-rad: ATS + foto + LinkedIn-badges */}
       <div className="mb-4 flex flex-wrap items-center gap-2 border-b border-kant pb-4">
-        {isAtsSafe ? (
-          <Badge tone="positiv" icon={<ShieldCheck className="h-4 w-4" strokeWidth={1.75} />}>
-            ATS-säker
-          </Badge>
-        ) : (
-          <Badge tone="varning" icon={<AlertCircle className="h-4 w-4" strokeWidth={1.75} />}>
-            Mindre ATS-vänlig
-          </Badge>
-        )}
+        {/* Alla mallar läses rätt av rekryteringssystemen (npm run test:ats). */}
+        <Badge tone="positiv" icon={<ShieldCheck className="h-4 w-4" strokeWidth={1.75} />}>
+          ATS-säker
+        </Badge>
 
         {harWord && (
           <Badge tone="neutral" icon={<FileText className="h-4 w-4" strokeWidth={1.75} />}>

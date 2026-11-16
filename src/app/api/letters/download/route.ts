@@ -6,6 +6,7 @@ import { createServerClient } from '@/lib/supabase/server';
 import { userHasAccess } from '@/lib/supabase/premiumAccess';
 import { suggestPlan, type Scope } from '@/lib/access/features';
 import { featureRequiredBody } from '@/lib/quota/quotaService';
+import { captureServer } from '@/lib/analytics/server';
 import { logPremiumUsage } from '@/lib/premium/logPremiumUsage';
 import { LetterMetadata } from '@/lib/pdf/letter-templates';
 import { getDocxTemplate, type DocxTemplateId } from '@/lib/letters/docx-templates';
@@ -214,6 +215,7 @@ export async function POST(request: Request) {
     // kopiering av brevtexten är fortsatt gratis.
     const harNedladdning = await userHasAccess(supabase, user.id, 'letter_download');
     if (!harNedladdning) {
+      void captureServer('export_blockerad', user.id, { reason: 'brev' });
       const { data: trackProfil } = await supabase
         .from('profiles')
         .select('onboarding_track')
@@ -229,30 +231,8 @@ export async function POST(request: Request) {
       );
     }
 
-    // B1: bekräftad e-post krävs för export och permanent lagring. Admin
-    // undantas. Premiumkontrollen har redan passerat här, så den som saknar
-    // Premium ser betalväggen först och verifieringen därefter.
-    const { data: adminRow } = await supabase
-      .from('admin_users')
-      .select('role')
-      .eq('id', user.id)
-      .maybeSingle();
-    const isAdminUser = adminRow?.role === 'admin' || adminRow?.role === 'super_admin';
-
-    if (!isAdminUser) {
-      const { data: verifyProfile } = await supabase
-        .from('profiles')
-        .select('email_verified_at')
-        .eq('id', user.id)
-        .single();
-
-      if (!verifyProfile?.email_verified_at) {
-        return NextResponse.json(
-          { error: 'email_not_verified', email: user.email ?? null },
-          { status: 403 }
-        );
-      }
-    }
+    // Ingen kontroll av bekräftad e-post vid nedladdning (beslut 0,
+    // 2026-11-16). Spärren på sparade brev står kvar i letters/route.ts.
 
     // Läs begäransdata
     const body = await request.text();

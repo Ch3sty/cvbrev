@@ -16,6 +16,9 @@ import { FREE_CV_EXPORTS, harWordVersion } from '@/lib/cv/template-antal';
 import { byggWordCv, DOCX_MIME } from '@/lib/cv/word';
 import { wordTypsnittForCv } from '@/lib/documents/typsnitt';
 import { logPremiumUsage } from '@/lib/premium/logPremiumUsage';
+import { captureServer } from '@/lib/analytics/server';
+import { getSupabaseAdmin } from '@/lib/supabase/admin';
+import { renderaMallHtml } from '@/lib/cv/rendera-mall-html';
 
 // Svensk kommun-till-region mapping för CV-vänliga adresser
 const SWEDISH_MUNICIPALITY_MAPPING: { [key: string]: string } = {
@@ -133,20 +136,12 @@ import {
 
 // Generera template-specifik HTML baserat på vald mall
 function generateTemplateHTML(cvData: CVMetadata, templateId: CVTemplateType, options: any = {}): string {
-  // Se till att referenser alltid är standard svenska frasen
-  const standardizedCVData = {
-    ...cvData,
-    references: 'Referenser lämnas på begäran'
-  };
-
-  // Use the new modular template system
-  const templateGenerator = getTemplateGenerator(templateId);
-  if (templateGenerator) {
-    return templateGenerator.generate(standardizedCVData, options);
-  }
+  // Samma väg som ATS-testet (src/lib/cv/rendera-mall-html.ts).
+  const html = renderaMallHtml(cvData, templateId, options);
+  if (html) return html;
 
   // Fallback to default template if template not found
-  return generateDefaultHTML(standardizedCVData);
+  return generateDefaultHTML({ ...cvData, references: 'Referenser lämnas på begäran' });
 }
 
 // Creative Edge HTML-template som matchar SVG-förhandsgranskningen exakt
@@ -2323,6 +2318,7 @@ export async function POST(request: NextRequest) {
       }
       const harWord = await userHasAccess(supabase, authedUserId, 'cv_export_word');
       if (!harWord) {
+        void captureServer('export_blockerad', authedUserId, { reason: 'word', template: selectedTemplate.id });
         return NextResponse.json(
           featureRequiredBody(
             'cv_export_word',
@@ -2346,6 +2342,7 @@ export async function POST(request: NextRequest) {
       }
       const harMallarna = await userHasAccess(supabase, authedUserId, 'cv_templates_all');
       if (!harMallarna) {
+        void captureServer('export_blockerad', authedUserId, { reason: 'mall', template: selectedTemplate.id });
         return NextResponse.json(
           featureRequiredBody(
             'cv_templates_all',
@@ -2374,6 +2371,7 @@ export async function POST(request: NextRequest) {
 
         const used = (exportProfile as { free_cv_exports_used?: number } | null)?.free_cv_exports_used ?? 0;
         if (used >= FREE_CV_EXPORTS) {
+          void captureServer('export_blockerad', authedUserId, { reason: 'kvot', template: selectedTemplate.id });
           return NextResponse.json(
             featureRequiredBody('cv_export', suggestPlan('cv_export', onboardingTrack)),
             { status: 402 }
@@ -2383,34 +2381,8 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // B1: bekräftad e-post krävs för export och permanent lagring. Admin
-    // undantas. Ligger efter premium- och räknarkontrollen, så ordningen
-    // användaren möter spärrarna i är densamma som för brevnedladdningen.
-    if (authedUserId) {
-      const { data: cvAdminRow } = await supabase
-        .from('admin_users')
-        .select('role')
-        .eq('id', authedUserId)
-        .maybeSingle();
-      const isAdminUser =
-        cvAdminRow?.role === 'admin' || cvAdminRow?.role === 'super_admin';
-
-      if (!isAdminUser) {
-        const { data: verifyProfile } = await supabase
-          .from('profiles')
-          .select('email_verified_at')
-          .eq('id', authedUserId)
-          .single();
-
-        if (!(verifyProfile as { email_verified_at?: string | null } | null)?.email_verified_at) {
-          const { data: { user: authedUser } } = await supabase.auth.getUser();
-          return NextResponse.json(
-            { error: 'email_not_verified', email: authedUser?.email ?? null },
-            { status: 403 }
-          );
-        }
-      }
-    }
+    // Ingen kontroll av bekräftad e-post vid nedladdning (beslut 0,
+    // 2026-11-16). Spärren på permanent lagring står kvar i cv/upload.
 
     // Use structured data if available and valid, otherwise parse from text.
     // Aldre CV:n kan vara sparade i ParsedCV-format - normaliseraren
@@ -2536,6 +2508,12 @@ export async function POST(request: NextRequest) {
           console.error('formatted_cv_downloads med format:', loggFel.message);
           await supabase.from('formatted_cv_downloads').insert(rad);
         }
+        void captureServer('cv_nedladdad', user.id, {
+          template: selectedTemplate.id,
+          format: somWord ? 'docx' : 'pdf',
+          tier: selectedTemplate.tier === 'premium' ? 'premium' : 'free',
+          gratisexport: shouldCountFreeExport,
+        });
         // Hjälpredan Kom igång: mallen är nedladdad.
         void markeraBricka(user.id, 'mall');
 
@@ -2565,13 +2543,17 @@ export async function POST(request: NextRequest) {
       premiumTemplate: selectedTemplate.tier === 'premium',
     });
 
+    // Kolumnen är skyddad mot klientskrivning (20261010191000_profiles_
+    // skyddade_kolumner_steg2), så räknaren skrivs med adminklienten, som de
+    // andra kvoträknarna. Med användarens klient blockerades uppräkningen tyst.
     if (shouldCountFreeExport && authedUserId) {
       try {
-        await supabase
+        const { error: raknarFel } = await (getSupabaseAdmin() as any)
           .from('profiles')
           .update({ free_cv_exports_used: 1 })
           .eq('id', authedUserId)
           .eq('free_cv_exports_used', 0);
+        if (raknarFel) console.error('Kunde inte räkna upp free_cv_exports_used:', raknarFel.message);
       } catch (counterError) {
         console.error('Kunde inte räkna upp free_cv_exports_used:', counterError);
       }

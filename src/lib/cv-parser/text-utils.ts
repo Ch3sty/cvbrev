@@ -9,15 +9,19 @@ export function cleanExtractedText(text: string): string {
   }
   
   return text
-    // Basic cleaning
-    .replace(/\s+/g, ' ')              // Replace multiple spaces with a single space
-    .replace(/\n+/g, '\n')             // Replace multiple newlines with a single newline
-    
+    // Basic cleaning. Radbrytningar bevaras (plan-mallar 6b): de skiljer
+    // rubriker, poster och punkter åt för tolkningen.
+    .replace(/\r\n|\r/g, '\n')         // Normalize line endings
+    .replace(/[^\S\n]+/g, ' ')         // Replace runs of spaces/tabs with a single space
+    .replace(/ ?\n\s*/g, '\n')         // Trim around newlines, collapse blank lines
+
     // Specific handling for CV format
-    .replace(/(\w)-\s+(\w)/g, '$1$2')  // Handle incorrect hyphenation within a line
-    .replace(/(\w)\s+([,.:])/g, '$1$2') // Remove spaces before punctuation
-    .replace(/\b([A-Za-z])\s+(\d+)\b/g, '$1$2') // Fix split code names (e.g., "ABT 06" becomes "ABT06")
-    .replace(/(\w)\s+\-\s+(\w)/g, '$1-$2') // Fix split ranges (e.g., "2020 - 2024" becomes "2020-2024")
+    .replace(/(\w)-[^\S\n]+(\w)/g, '$1$2')  // Handle incorrect hyphenation within a line
+    .replace(/(\w)[^\S\n]+([,.:])/g, '$1$2') // Remove spaces before punctuation
+    // Fix split code names (e.g., "ABT 06" becomes "ABT06"). Å, ä och ö
+    // räknas som bokstäver, så "för 5" aldrig blir "för5".
+    .replace(/(?<![\p{L}\d])([A-Za-z])[^\S\n]+(\d+)\b/gu, '$1$2')
+    .replace(/(\w)[^\S\n]+\-[^\S\n]+(\w)/g, '$1-$2') // Fix split ranges (e.g., "2020 - 2024" becomes "2020-2024")
     
     // Format-specific corrections
     .replace(/([A-Z][a-z]+)\s+([A-Z][a-z]+)/g, (match, p1, p2) => {

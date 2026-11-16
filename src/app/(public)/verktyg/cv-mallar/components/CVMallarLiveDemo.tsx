@@ -124,7 +124,7 @@ export default function CVMallarLiveDemo({ mallar, typsnitt, paketGrupp, paketRa
               <optgroup label="Gratis">
                 {gratis.map((m) => (
                   <option key={m.id} value={m.id}>
-                    {harWordVersion(m.id) ? `${m.name} · PDF och Word` : m.name}
+                    {m.name}
                   </option>
                 ))}
               </optgroup>

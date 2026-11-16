@@ -5,6 +5,7 @@ import { kopstegHref } from '@/lib/onboarding/steps';
 import { PAKETRADER } from '@/components/paywall/paywall-copy';
 import { SALD_PLAN } from '@/lib/plans/plans';
 import { useBetalvaggVisad } from '@/hooks/useBetalvaggVisad';
+import { capture } from '@/lib/analytics/events';
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from '@/components/illustrations/RumIkoner';
@@ -12,6 +13,7 @@ import { useRouter } from 'next/navigation';
 import { useProfile } from '@/hooks/use-profile';
 import { SIMPLE_TEMPLATES, getTemplateById } from '@/lib/cv/simple-templates';
 import PaywallCard from '@/components/paywall/PaywallCard';
+import { nedladdningsFelForUndantag } from '@/lib/cv/nedladdningsFel';
 import Confirmation from '@/components/shell/Confirmation';
 import StatusRow from '@/components/shell/StatusRow';
 import { IkonKrona } from '@/components/illustrations/Ikoner';
@@ -28,6 +30,8 @@ export interface ReviewPrimary {
   onClick: () => void;
   disabled: boolean;
   blockedReason?: string;
+  /** Felet från senaste försöket, som rad under knappen. */
+  error?: string;
 }
 
 interface Step7ReviewProps {
@@ -121,6 +125,8 @@ export default function Step7Review({
   const [previewHTML, setPreviewHTML] = useState<string>('');
   const [isGeneratingPreview, setIsGeneratingPreview] = useState(false);
   const [quotaError, setQuotaError] = useState<string | null>(null);
+  const [nedladdningsFel, setNedladdningsFel] = useState<string | null>(null);
+  const [exportSparr, setExportSparr] = useState(false);
   // Formatvalet, samma som i CV-mallarna (docs/design/skiss-cv-word-2026-11-15.html).
   const [format, setFormat] = useState<CvFormat>('pdf');
   const [visaWordVagg, setVisaWordVagg] = useState(false);
@@ -229,11 +235,23 @@ export default function Step7Review({
   const handleTemplateSelect = (templateId: string) => {
     // Låsta mallar får väljas för förhandsvisning; nedladdningen spärras.
     setSelectedTemplate(templateId);
+    const tpl = getTemplateById(templateId);
+    capture('mall_bytt', {
+      template: templateId,
+      method: 'tryck',
+      tier: tpl?.tier === 'premium' ? 'premium' : 'free',
+      har_word: harWordVersion(templateId),
+      surface: 'byggare',
+    });
   };
 
   const handleAction = useCallback(
     async (action: 'save' | 'download' | 'both') => {
       setQuotaError(null);
+      setNedladdningsFel(null);
+      if (action !== 'save') {
+        capture('nedladdning_klickad', { mall: selectedTemplate, format: aktivtFormat, inloggad: true, surface: 'byggare' });
+      }
       try {
         await onComplete(action, aktivtFormat);
         setCompletionStatus({
@@ -246,15 +264,21 @@ export default function Step7Review({
         const isQuota =
           error instanceof Error &&
           (error as Error & { quotaExceeded?: boolean }).quotaExceeded === true;
+        const status = (error as { status?: number } | null)?.status;
         if (isQuota) {
           setQuotaError(error.message);
           if (typeof window !== 'undefined') {
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }
+        } else if (status === 402) {
+          // Gratisfilen är använd: betalväggen, aldrig ett fel.
+          setExportSparr(true);
+        } else if ((error as { name?: string } | null)?.name !== 'NamnKravsError') {
+          setNedladdningsFel(nedladdningsFelForUndantag(error));
         }
       }
     },
-    [onComplete, aktivtFormat]
+    [onComplete, aktivtFormat, selectedTemplate]
   );
 
   /* Primärknappen ligger i skalets fot. Vad som saknas sägs i klartext, så
@@ -278,8 +302,9 @@ export default function Step7Review({
       onClick: () => handleAction('both'),
       disabled: !isValid || isTemplateLocked || (somWord && wordLast),
       blockedReason,
+      error: nedladdningsFel ?? undefined,
     });
-  }, [registerPrimary, viewMode, isValid, isTemplateLocked, handleAction, aktivtFormat, wordLast]);
+  }, [registerPrimary, viewMode, isValid, isTemplateLocked, handleAction, aktivtFormat, wordLast, nedladdningsFel]);
 
   useEffect(() => {
     return () => registerPrimary?.(null);
@@ -321,6 +346,7 @@ export default function Step7Review({
 
       {/* Kvotgräns nådd */}
       {quotaError && <PaywallCard variant="cv-antal" />}
+      {exportSparr && <PaywallCard variant="cv-export" />}
 
       {!isValid && (
         <StatusRow tone="warm" showDot label="Ditt CV är inte komplett">

@@ -13,7 +13,8 @@
     "test:ui": "vitest --ui",
     "test:run": "vitest run",
     "perf:inloggat": "tsx scripts/perf-inloggat.ts",
-    "perf:publikt": "tsx scripts/perf-publikt.ts"
+    "perf:publikt": "tsx scripts/perf-publikt.ts",
+    "test:ats": "tsx scripts/ats-mallar.ts"
   },
   "dependencies": {
     "@google-analytics/data": "^5.2.0",

@@ -43,6 +43,9 @@ export type ServerEventName =
   /** Rapportknappen i frågevyn, /api/traning/fraga-rapport. */
   | 'fraga_rapporterad'
   | 'milstolpe_nadd'
+  /** Nedladdningsrutterna (plan-mallar avsnitt 8, fas 0). */
+  | 'export_blockerad'
+  | 'cv_nedladdad'
 
 export type ServerEventProperties<E extends ServerEventName> = AnalyticsEvents[E] & {
   /** Fria tilläggsfält, till exempel scope och amount_sek på betalningen. */

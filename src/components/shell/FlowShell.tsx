@@ -75,6 +75,8 @@ export interface FlowShellProps {
    * Visas ovanför knappen så att en disablad knapp aldrig är tyst.
    */
   primaryBlockedReason?: string
+  /** Fel från senaste försöket, som rad under knappen (aldrig rå felkod). */
+  primaryError?: string
   /** Väntläge: knappen byter text och spärras. */
   primaryBusy?: boolean
   busyLabel?: string
@@ -107,6 +109,7 @@ export default function FlowShell({
   onPrimary,
   primaryDisabled,
   primaryBlockedReason,
+  primaryError,
   primaryBusy,
   busyLabel = 'Vänta',
   footerSecondary,
@@ -272,6 +275,12 @@ export default function FlowShell({
               </button>
               {footerSecondarySameSize ? footerSecondary : null}
             </div>
+
+            {primaryError && !primaryBusy ? (
+              <p role="alert" className="mt-2 text-sm text-fel">
+                {primaryError}
+              </p>
+            ) : null}
 
             {footerSecondary && !footerSecondarySameSize ? <div className="mt-2">{footerSecondary}</div> : null}
           </div>

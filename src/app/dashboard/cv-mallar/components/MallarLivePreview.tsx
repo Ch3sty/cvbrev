@@ -27,6 +27,8 @@ import { PRISER_HREF } from '@/lib/onboarding/steps';
 import { harWordVersion, WORD_MALL_TYPSNITT, WORD_TEMPLATE_COUNT_ORD } from '@/lib/cv/template-antal';
 import { arWordTypsnitt } from '@/lib/documents/typsnitt';
 import FormatVal, { type CvFormat } from './FormatVal';
+import { capture } from '@/lib/analytics/events';
+import { useBetalvaggVisad } from '@/hooks/useBetalvaggVisad';
 
 interface CV {
   id: string;
@@ -207,6 +209,13 @@ export default function MallarLivePreview({
     if (tpl?.features?.supportsPhoto !== true) setIncludePhoto(true);
     if (tpl?.features?.supportsLinkedIn !== true) setIncludeLinkedIn(true);
     setSelectedTemplate(templateId);
+    capture('mall_bytt', {
+      template: templateId,
+      method: 'tryck',
+      tier: tpl?.tier === 'premium' ? 'premium' : 'free',
+      har_word: harWordVersion(templateId),
+      surface: 'galleri',
+    });
   };
 
   const mallHarWord = harWordVersion(selectedTemplate);
@@ -220,6 +229,7 @@ export default function MallarLivePreview({
 
   const handleGenerate = () => {
     const font = getFontById(selectedFont);
+    capture('nedladdning_klickad', { mall: selectedTemplate, format: aktivtFormat, inloggad: true, surface: 'galleri' });
     onGenerate({
       templateId: selectedTemplate,
       fontFamily: font.family,
@@ -232,6 +242,8 @@ export default function MallarLivePreview({
   };
 
   const isLockedPremium = template?.tier === 'premium' && !isPremium;
+  // Låst premiummall med köpraden är en betalvägg (plan-mallar avsnitt 8).
+  useBetalvaggVisad('mall', isLockedPremium);
   // Låsen i formatvalet: PDF när mallen eller gratisnedladdningen är låst,
   // Word alltid utan Premium (planens B2).
   const pdfLast = isLockedPremium || gratisAnvand;
@@ -298,6 +310,7 @@ export default function MallarLivePreview({
               onFontChange={(id) => {
                 setSelectedFont(id);
                 setFontAndrad(true);
+                capture('typsnitt_bytt', { font: id, surface: 'galleri' });
               }}
               endastWord={aktivtFormat === 'docx'}
               includePhoto={includePhoto}

@@ -10,6 +10,7 @@
  * spår och inga sidbyten. Talen kommer ur mallregistret och prislistan.
  */
 
+import { nedladdningsFelForStatus, nedladdningsFelForUndantag } from '@/lib/cv/nedladdningsFel';
 import { useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useNotification } from '@/context/notificationcontext';
@@ -187,8 +188,7 @@ export default function CvMallarClient({
         return;
       }
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Kunde inte generera CV');
+        throw new Error(nedladdningsFelForStatus(response.status));
       }
 
       const blob = await response.blob();
@@ -229,7 +229,7 @@ export default function CvMallarClient({
         return;
       }
       console.error('Fel vid CV-skapande:', error);
-      setGenerationError(error?.message || 'Något gick fel. Försök igen.');
+      setGenerationError(nedladdningsFelForUndantag(error));
     }
   };
 

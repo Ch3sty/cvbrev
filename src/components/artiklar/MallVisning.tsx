@@ -18,6 +18,9 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { paketKort } from '@/lib/plans/plans'
+import { capture } from '@/lib/analytics/events'
+
+const slug = () => (typeof window === 'undefined' ? '' : window.location.pathname)
 
 export interface MallVal {
   id: string
@@ -53,7 +56,14 @@ export default function MallVisning({ typ, mallar, typsnitt, fotrad, lank }: Mal
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         <label className="block">
           <span className="mb-1 block text-sm font-medium text-ink-2">Mall</span>
-          <select className={FALT} value={mall} onChange={(e) => setMall(e.target.value)}>
+          <select
+            className={FALT}
+            value={mall}
+            onChange={(e) => {
+              setMall(e.target.value)
+              capture('mallvisning_mall_bytt', { slug: slug(), template: e.target.value, typ })
+            }}
+          >
             <optgroup label="Gratis">
               {mallar
                 .filter((m) => m.tier === 'free')
@@ -101,6 +111,7 @@ export default function MallVisning({ typ, mallar, typsnitt, fotrad, lank }: Mal
         <Link
           href={lank.href}
           data-cta-klick={lank.href}
+          onClick={() => capture('mallvisning_klick', { slug: slug(), template: mall, typ })}
           className="text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
         >
           {lank.text}

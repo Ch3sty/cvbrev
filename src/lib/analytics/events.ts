@@ -415,6 +415,17 @@ export interface AnalyticsEvents {
   /** Rapportknappen "Något ser fel ut" (tillagg-variation 3.2). */
   fraga_rapporterad: { fraga_id: string; orsak: string; test_kind: string }
   milstolpe_nadd: { nyckel: string }
+  /* Mallsatsningen fas 0 (plan-mallar-2026-11-15 avsnitt 8): servern spärrade en
+     nedladdning, och sanningskällan för en lyckad CV-fil. */
+  export_blockerad: { reason: 'kvot' | 'mall' | 'word' | 'brev'; template?: string }
+  /* Fas 0 på dagens mallytor (baslinje före Black Week). surface: galleri,
+     byggare, artikel. */
+  mall_bytt: { template: string; method: 'tryck' | 'lista' | 'svep'; tier: 'free' | 'premium'; har_word: boolean; surface: string }
+  typsnitt_bytt: { font: string; surface: string }
+  nedladdning_klickad: { mall: string; format: 'pdf' | 'docx'; inloggad: boolean; surface: string }
+  mallvisning_mall_bytt: { slug: string; template: string; typ: 'cv' | 'brev' }
+  mallvisning_klick: { slug: string; template: string; typ: 'cv' | 'brev' }
+  cv_nedladdad: { template: string; format: 'pdf' | 'docx'; tier: 'free' | 'premium'; gratisexport: boolean }
   kom_igang_tile_clicked: { bricka: string; paket: 'cv' | 'tester' | 'allt' | null; intent: SignupIntent | null; outside_intent: boolean }
   /* ---------------------------------------------- Rummen, våg 1b
      spec-rummen-2026-10-10 avsnitt 7. rum_oppnat när rummet byts (eller

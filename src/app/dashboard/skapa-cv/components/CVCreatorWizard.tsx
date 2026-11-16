@@ -19,6 +19,7 @@ import SkapaCvLayout from './SkapaCvLayout';
 import { SKAPA_CV_STEPS } from './steps.config';
 import SkapaCvPreview, { type PreviewSection } from './SkapaCvPreview';
 import type { ReviewPrimary } from './steps/Step7Review';
+import { nedladdningsFelForStatus } from '@/lib/cv/nedladdningsFel';
 
 import { useAutoSave } from '../hooks/useAutoSave';
 import FlowShell from '@/components/shell/FlowShell';
@@ -486,8 +487,13 @@ export default function CVCreatorWizard({
 
           await kastaOmNamnKravs(response);
           if (!response.ok) {
-            const errorData = await response.json().catch(() => ({}));
-            throw new Error(errorData.error || 'Kunde inte generera PDF');
+            const fel = new Error(nedladdningsFelForStatus(response.status)) as Error & {
+              status?: number;
+              nedladdning?: boolean;
+            };
+            fel.status = response.status;
+            fel.nedladdning = true;
+            throw fel;
           }
 
           const blob = await response.blob();
@@ -595,6 +601,7 @@ export default function CVCreatorWizard({
     ? reviewPrimary?.disabled ?? true
     : !canProceedFromStep(currentStep);
   const primaryBlockedReason = isReviewStep ? reviewPrimary?.blockedReason : nextBlockedReason;
+  const primaryError = isReviewStep ? reviewPrimary?.error : undefined;
 
   const stepContent = (
     <Suspense fallback={<StepSkeleton />}>
@@ -625,6 +632,7 @@ export default function CVCreatorWizard({
       onPrimary={onPrimary}
       primaryDisabled={primaryDisabled}
       primaryBlockedReason={primaryBlockedReason}
+      primaryError={primaryError}
       primaryBusy={isReviewStep && isSaving}
       busyLabel="Sparar"
       footerSecondary={

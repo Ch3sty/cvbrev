@@ -114,23 +114,19 @@ export default function DownloadButton({
 
       if (!response.ok) {
         console.error(`Download failed with status: ${response.status}`);
-        let errorMessage = `Kunde inte ladda ner som ${format.toUpperCase()}`;
-        
-        try {
-          const errorData = await response.json();
-          errorMessage = errorData.error || errorMessage;
-        } catch (e) {
-          console.error('Failed to parse error response:', e);
-        }
-        
-        throw new Error(errorMessage);
+        // Aldrig rå felkod under knappen (plan-mallar beslut 0).
+        throw new Error(
+          response.status === 401
+            ? 'Du har blivit utloggad. Logga in igen och försök på nytt.'
+            : `Brevet kunde inte laddas ner som ${format === 'docx' ? 'Word' : 'PDF'} just nu. Försök igen om en stund.`
+        );
       }
 
       // Kontrollera att responsen innehåller data
       const blob = await response.blob();
       
       if (blob.size === 0) {
-        throw new Error(`Tomma data returnerades för ${format.toUpperCase()}`);
+        throw new Error("Filen blev tom. Försök igen om en stund.");
       }
       
       console.log(`Downloaded ${format} with size: ${blob.size} bytes`);
@@ -153,11 +149,15 @@ export default function DownloadButton({
       }
     } catch (error: any) {
       console.error(`${format.toUpperCase()} download error:`, error);
-      setError(error.message || `Kunde inte ladda ner som ${format.toUpperCase()}`);
+      const text =
+        error instanceof TypeError
+          ? 'Vi fick ingen kontakt med servern. Kontrollera uppkopplingen och försök igen.'
+          : error?.message || 'Brevet kunde inte laddas ner just nu. Försök igen om en stund.';
+      setError(text);
       
       // Notifiera parent om fel
       if (onLoadingChange) {
-        onLoadingChange(false, error.message || `Kunde inte ladda ner som ${format.toUpperCase()}`);
+        onLoadingChange(false, text);
       }
       
       // Visa felmeddelandet i 5 sekunder
@@ -358,7 +358,7 @@ export default function DownloadButton({
 
       {/* Error message */}
       {error && (
-        <div className="mt-2 text-sm text-red-500">
+        <div role="alert" className="mt-2 text-sm text-red-500">
           {error}
         </div>
       )}

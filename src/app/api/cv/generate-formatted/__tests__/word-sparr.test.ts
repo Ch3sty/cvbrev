@@ -58,6 +58,10 @@ vi.mock('@supabase/ssr', () => ({
     rpc: async () => ({ error: null }),
   }),
 }))
+// Kvoträknaren skrivs med adminklienten (skyddad kolumn).
+vi.mock('@/lib/supabase/admin', () => ({
+  getSupabaseAdmin: () => ({ from: (t: string) => kedja(t) }),
+}))
 vi.mock('@/lib/supabase/premiumAccess', () => ({
   userHasAccess: async (_s: unknown, _id: string, feature: string) => harAtkomst(feature),
 }))

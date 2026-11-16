@@ -2,6 +2,7 @@
 // Premium Puppeteer-baserad PDF-generering för svenska CV-mallar
 
 import { CVMetadata, CVGenerationOptions, CVTemplateType } from './cv-metadata';
+import { ordnaTextForATS } from './ats-ordning';
 
 // Dynamisk import av Puppeteer för att undvika byggfel
 let puppeteer: any = null;
@@ -149,6 +150,11 @@ export class SwedishCVPDFGenerator {
         // Gör tvåkolumns-body:n fragmenterbar (grid → table) med VARJE malls
         // faktiska geometri. Måste ske efter applySwedishCVStyling men före mätning.
         await this.convertGridsToTables(page);
+
+        // Texten i dokumentordning, så rekryteringssystemen läser jobbpunkterna
+        // vid sin arbetsgivare (plan-mallar avsnitt 6b). Utseendet ändras inte.
+        await page.evaluate('globalThis.__name = globalThis.__name || ((f) => f)');
+        await page.evaluate(ordnaTextForATS);
 
         // Konfigurera PDF-inställningar enligt svenska standarder
         const pdfOptions = this.getSwedishPDFOptions(options);
