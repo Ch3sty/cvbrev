@@ -360,13 +360,27 @@ async function utloggad(browser: Browser, vy: Vy, tema: 'ljus' | 'mork') {
   })
   kontroll(Boolean(knapp && knapp.text.includes('|') && knapp.text.includes('Premium')), `${steg}: premiumknappen i två rader (${knapp?.text}, ${knapp?.h} px)`)
 
-  if (vy === 'pixel7' && tema === 'ljus') {
-    // Gratisvägen i Linne-mallen: konto i arket, sedan filen direkt.
+  if (tema === 'ljus') {
+    const somWord = vy === 'dator'
+    // Gratisvägen i Linne-mallen: konto i arket, sedan filen direkt (datorn: Word, gratis i gratismallen).
     await page.evaluate(() => {
       const b = [...document.querySelectorAll<HTMLButtonElement>('.mallyta button')].find((x) => x.innerText.startsWith('Ladda ner gratis i'))
       b?.click()
     })
     await vila(2500)
+    // Färgen: andra pricken byter dokumentet.
+    const fore = await page.evaluate(() => (document.querySelector('.mallyta .dok-ark-yta iframe') as HTMLIFrameElement | null)?.srcdoc.length ?? 0)
+    await page.evaluate(() => (document.querySelector('.mallyta [role=radiogroup][aria-label="Färg"] [role=radio]:nth-of-type(2)') as HTMLButtonElement | null)?.click())
+    await vila(2500)
+    const farg = await page.evaluate(() => {
+      const f = document.querySelector('.mallyta .dok-ark-yta iframe') as HTMLIFrameElement | null
+      return getComputedStyle(f!.contentDocument!.documentElement).getPropertyValue('--accent').trim()
+    })
+    kontroll(Boolean(farg), `${steg}: färgbytet slår igenom i dokumentet (--accent ${farg}, srcdoc ${fore} tecken före)`)
+    if (somWord) {
+      await page.evaluate(() => ([...document.querySelectorAll<HTMLButtonElement>('[data-fast-rad] [role=radio]')].find((b) => b.innerText.includes('Word') && b.offsetParent !== null))?.click())
+      await vila(500)
+    }
     await page.evaluate(() => {
       const b = [...document.querySelectorAll<HTMLButtonElement>('[data-fast-rad] button')].find((x) => /^Ladda ner (PDF|Word)$/.test(x.innerText.trim()))
       b?.click()
@@ -391,8 +405,17 @@ async function utloggad(browser: Browser, vy: Vy, tema: 'ljus' | 'mork') {
     await vantaText(page, 'Klart. Ditt CV är nedladdat.', 90000).catch(() => undefined)
     await vila(2500)
     await bild(page, `${steg}-09-final`)
-    const pdf = await vantaFil(nedMapp, '.pdf', 10000)
-    kontroll(Boolean(pdf) && fs.readFileSync(pdf!).subarray(0, 4).toString() === '%PDF', `${steg}: PDF direkt efter kontot (${pdf ? path.basename(pdf) : 'ingen'})`)
+    if (somWord) {
+      const docx = await vantaFil(nedMapp, '.docx', 10000)
+      kontroll(Boolean(docx) && fs.readFileSync(docx!).subarray(0, 2).toString() === 'PK', `${steg}: Word gratis i gratismallen direkt efter kontot (${docx ? path.basename(docx) : 'ingen'})`)
+    } else {
+      const pdf = await vantaFil(nedMapp, '.pdf', 10000)
+      kontroll(Boolean(pdf) && fs.readFileSync(pdf!).subarray(0, 4).toString() === '%PDF', `${steg}: PDF direkt efter kontot (${pdf ? path.basename(pdf) : 'ingen'})`)
+      if (pdf) {
+        const typsnitt = [...new Set((fs.readFileSync(pdf).toString('latin1').match(/\/BaseFont\s*\/([A-Z]{6}\+)?[A-Za-z0-9-]+/g) ?? []).map((x) => x.replace(/\/BaseFont\s*\/([A-Z]{6}\+)?/, '')))]
+        kontroll(typsnitt.length > 0 && typsnitt.every((t) => !/^(Times|Helvetica|Arial|Liberation)/.test(t)), `${steg}: PDF:ens /BaseFont är inbäddade typsnitt (${typsnitt.join(', ')})`)
+      }
+    }
     const jobb = await page.evaluate(() => {
       const a = document.querySelector<HTMLAnchorElement>('[role=dialog] a[aria-label*="Öppna annonsen"], [role=dialog] a[aria-label*="Dina matchningar"]')
       return a ? a.getAttribute('href') : null
@@ -592,6 +615,34 @@ async function steg7(page: Page, steg: string) {
   kontroll(avsnitt && pa3 && page.url().includes('steg=7'), `${steg}: tryck på avsnittet går till steget och Granska CV tillbaka (${page.url().replace(BAS, '')})`)
 }
 
+async function artikelOchYrke(browser: Browser, vy: Vy, tema: 'ljus' | 'mork') {
+  const steg = `publik-${vy}-${tema}`
+  const { page, ctx, fel } = await nySida(browser, vy, steg, tema)
+  await page.goto(`${BAS}/artiklar/cv-mall-gratis-guide`, { waitUntil: 'networkidle2', timeout: 120000 })
+  const aside = await page.$('aside[aria-label="Så ser ditt CV ut i våra mallar"]')
+  if (aside) {
+    await aside.scrollIntoView()
+    await vila(2500)
+    await page.type('aside[aria-label="Så ser ditt CV ut i våra mallar"] input', 'Anna Berg')
+    await vila(1500)
+    const namn = await page.evaluate(() => (document.querySelector('aside iframe') as HTMLIFrameElement).contentDocument?.querySelector('[data-falt="namn"]')?.textContent)
+    await aside.screenshot({ path: path.join(UT, `${steg}-01-artikel.png`) as `${string}.png` })
+    const lank = await page.evaluate(() => document.querySelector('aside a[href^="/cv-mallar/prova"]')?.getAttribute('href'))
+    kontroll(namn === 'Anna Berg' && Boolean(lank?.includes('namn=Anna')), `${steg}: artikelkomponenten byter namnet i dokumentet och Fortsätt bär valet (${namn}, ${lank})`)
+  } else kontroll(false, `${steg}: artikelkomponenten saknas`)
+  await page.goto(`${BAS}/cv-mallar/underskoterska`, { waitUntil: 'networkidle2', timeout: 120000 })
+  await vila(2500)
+  await bild(page, `${steg}-02-yrkessida`)
+  const yrke = await page.evaluate(() => ({
+    h1: document.querySelector('h1')?.textContent?.trim(),
+    titel: (document.querySelectorAll('#preview input')[1] as HTMLInputElement | undefined)?.value,
+    rubrik: (document.querySelector('#preview iframe') as HTMLIFrameElement | null)?.contentDocument?.body.innerText.includes('Klinisk erfarenhet'),
+  }))
+  kontroll(yrke.h1 === 'CV-mall för Undersköterska' && yrke.titel === 'Undersköterska' && Boolean(yrke.rubrik), `${steg}: yrkessidan med dokumentet som hjälte, titeln förifylld och yrkets rubriker (${JSON.stringify(yrke)})`)
+  kontroll(fel.length === 0, `${steg}: inga JS-fel eller 5xx (${fel.slice(0, 3).join(' | ')})`)
+  await ctx.close()
+}
+
 async function anonymt(browser: Browser) {
   const p = await browser.newPage()
   await p.goto(`${BAS}/cv-mallar/prova`, { waitUntil: 'domcontentloaded' })
@@ -613,6 +664,10 @@ async function klicka() {
   const bara = arg('bara')
   try {
     if (!bara || bara === 'anonymt') await anonymt(browser)
+    if (!bara || bara === 'publik')
+      for (const vy of ['pixel7', 'dator'] as Vy[])
+        for (const tema of ['ljus', 'mork'] as const)
+          await artikelOchYrke(browser, vy, tema).catch((e) => kontroll(false, `publik-${vy}-${tema}: ${e.message}`))
     if (!bara || bara === 'utloggad')
       for (const vy of ['pixel7', 'dator'] as Vy[])
         for (const tema of ['ljus', 'mork'] as const)

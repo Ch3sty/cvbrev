@@ -80,6 +80,450 @@
       "rubrik": "h3 Hantverkare",
       "datum": "2026-11-16",
       "skal": "#word: den gamla Word-mallen Hantverkare finns inte längre; avsnittet har en rad per Word-mall ur katalogen (tolv h3 med de nya namnen). Mallutbudet 2026-11-16 (docs/design/mallar-utbud-2026-11-16.md): de 41 gamla mallarna ersatta av 20 som heter efter stil; tal och namn läses ur katalogen."
+    },
+    {
+      "path": "/cv-mallar/lakare",
+      "rubrik": "h2 Se ditt läkare-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/specialistsjukskoterska",
+      "rubrik": "h2 Se ditt specialistsjuksköterska-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/barnmorska",
+      "rubrik": "h2 Se ditt barnmorska-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/fysioterapeut",
+      "rubrik": "h2 Se ditt fysioterapeut-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/sjukskoterska",
+      "rubrik": "h2 Se ditt sjuksköterska-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/underskoterska",
+      "rubrik": "h2 Se ditt undersköterska-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/vardbitrade",
+      "rubrik": "h2 Se ditt vårdbiträde-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/hemtjanst",
+      "rubrik": "h2 Se ditt hemtjänst-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/hemtjanstpersonal",
+      "rubrik": "h2 Se ditt hemtjänstpersonal-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/personlig-assistent",
+      "rubrik": "h2 Se ditt personlig assistent-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/psykolog",
+      "rubrik": "h2 Se ditt psykolog-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/kurator",
+      "rubrik": "h2 Se ditt kurator-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/boendestod",
+      "rubrik": "h2 Se ditt boendestöd-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/vardadministrator",
+      "rubrik": "h2 Se ditt vårdadministratör-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/forskollarare",
+      "rubrik": "h2 Se ditt förskollärare-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/larare",
+      "rubrik": "h2 Se ditt lärare-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/grundskollarare",
+      "rubrik": "h2 Se ditt grundskollärare-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/specialpedagog",
+      "rubrik": "h2 Se ditt specialpedagog-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/barnskotare",
+      "rubrik": "h2 Se ditt barnskötare-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/elevassistent",
+      "rubrik": "h2 Se ditt elevassistent-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/fritidspedagog",
+      "rubrik": "h2 Se ditt fritidspedagog-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/fritidsledare",
+      "rubrik": "h2 Se ditt fritidsledare-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/student",
+      "rubrik": "h2 Se ditt student-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/butiksbitrade",
+      "rubrik": "h2 Se ditt butiksbiträde-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/butikssaljare",
+      "rubrik": "h2 Se ditt butikssäljare-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/butikschef",
+      "rubrik": "h2 Se ditt butikschef-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/kassorska",
+      "rubrik": "h2 Se ditt kassörska-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/kundtjanstmedarbetare",
+      "rubrik": "h2 Se ditt kundtjänstmedarbetare-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/kundtjanst",
+      "rubrik": "h2 Se ditt kundtjänst-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/hotellvard",
+      "rubrik": "h2 Se ditt hotellvärd-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/receptionist",
+      "rubrik": "h2 Se ditt receptionist-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/kundradgivare",
+      "rubrik": "h2 Se ditt kundrådgivare-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/lagerarbetare",
+      "rubrik": "h2 Se ditt lagerarbetare-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/truckforare",
+      "rubrik": "h2 Se ditt truckförare-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/logistiker",
+      "rubrik": "h2 Se ditt logistiker-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/lagerchef",
+      "rubrik": "h2 Se ditt lagerchef-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/terminalarbetare",
+      "rubrik": "h2 Se ditt terminalarbetare-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/logistikassistent",
+      "rubrik": "h2 Se ditt logistikassistent-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/fastighetsskotare",
+      "rubrik": "h2 Se ditt fastighetsskötare-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/servicemedarbetare",
+      "rubrik": "h2 Se ditt servicemedarbetare-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/lokalvardare",
+      "rubrik": "h2 Se ditt lokalvårdare-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/kock",
+      "rubrik": "h2 Se ditt kock-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/bartender",
+      "rubrik": "h2 Se ditt bartender-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/konditor",
+      "rubrik": "h2 Se ditt konditor-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/barista",
+      "rubrik": "h2 Se ditt barista-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/servitris-restaurangbitrade",
+      "rubrik": "h2 Se ditt servitris/restaurangbiträde-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/koksbitrade",
+      "rubrik": "h2 Se ditt köksbiträde-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/saljare",
+      "rubrik": "h2 Se ditt säljare-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/account-manager",
+      "rubrik": "h2 Se ditt account manager-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/sommarjobb",
+      "rubrik": "h2 Se ditt sommarjobb-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/systemutvecklare",
+      "rubrik": "h2 Se ditt systemutvecklare-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/devops-engineer",
+      "rubrik": "h2 Se ditt devops engineer-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/it-konsult",
+      "rubrik": "h2 Se ditt it-konsult-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/projektledare-it",
+      "rubrik": "h2 Se ditt projektledare it-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/scrum-master",
+      "rubrik": "h2 Se ditt scrum master-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/produktchef",
+      "rubrik": "h2 Se ditt produktchef-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/ingenjor",
+      "rubrik": "h2 Se ditt ingenjör-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/automationsingenior",
+      "rubrik": "h2 Se ditt automationsingenjör-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/konstruktor",
+      "rubrik": "h2 Se ditt konstruktör-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/ekonomiassistent",
+      "rubrik": "h2 Se ditt ekonomiassistent-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/administrativ-assistent",
+      "rubrik": "h2 Se ditt administrativ assistent-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/redovisningsekonom",
+      "rubrik": "h2 Se ditt redovisningsekonom-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/controller",
+      "rubrik": "h2 Se ditt controller-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/ekonom",
+      "rubrik": "h2 Se ditt ekonom-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/hr-specialist",
+      "rubrik": "h2 Se ditt hr-specialist-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/administrator",
+      "rubrik": "h2 Se ditt administratör-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/handlaggare",
+      "rubrik": "h2 Se ditt handläggare-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/lss-handlaggare",
+      "rubrik": "h2 Se ditt LSS-handläggare-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/socialsekreterare",
+      "rubrik": "h2 Se ditt socialsekreterare-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/kontorsassistent",
+      "rubrik": "h2 Se ditt kontorsassistent-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/chef",
+      "rubrik": "h2 Se ditt chef-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/enhetschef",
+      "rubrik": "h2 Se ditt enhetschef-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/projektledare",
+      "rubrik": "h2 Se ditt projektledare-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
+    },
+    {
+      "path": "/cv-mallar/teamledare",
+      "rubrik": "h2 Se ditt teamledare-CV i olika designer",
+      "datum": "2026-11-16",
+      "skal": "2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
     }
   ],
   "FAQ_BYTT": [
@@ -1046,5 +1490,10 @@
       "datum": "2026-11-16",
       "skal": "Provsidan /cv-mallar/prova ersätter /cv-mallar/start (byggagent C, plan-mallar 3.1); permanent omdirigering i next.config.ts. Båda var och är noindex och spärrade i robots.ts."
     }
+  ],
+  "_svepet_2026_11_16": [
+    "/verktyg/cv-mallar och /cv-mallar: 2026-11-16: Granskningen P5. Grupprubrikerna och 17 mallbilder ligger bakom Visa alla 20 mallar. De fanns aldrig live, ItemList och provlänkarna är oförändrade. SEO-strategens beslut 2026-11-16.",
+    "/cv-mallar och /verktyg/cv-mallar: 2026-11-16: Ingressens sista mening var redan godkänd. Chipraden och talraden har bara flyttats under arbetsytan, med samma länkar och rubriker, och ordmängden ligger kvar över live. SEO-strategens beslut 2026-11-16.",
+    "74 yrkessidor: 2026-11-16: Granskningen B5, dokumentet är hjälten. Förhandsvisningen med rubrik, ingress, ankaret #preview och mallkorten är borta. H1, ingress och SEO-text är oförändrade, ordmängden ligger över live. Yrkets gratismall står kvar som bild med alt-text, samma bild som Product-schemat. SEO-strategens beslut 2026-11-16."
   ]
 }

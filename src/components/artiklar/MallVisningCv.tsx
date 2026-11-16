@@ -36,11 +36,17 @@ interface Props {
   titelForval?: string
   /** Rad under knappen (yrkessidans rad om premiummallarna). */
   efter?: ReactNode
+  /**
+   * Bilden av första mallen med beskrivande alt-text, under iframen (syns tills
+   * den laddat). Yrkessidan: samma bild som Product-schemat, så att schemabilden
+   * finns synlig på sidan (SEO-strategen 2026-11-16).
+   */
+  affisch?: { src: string; alt: string }
 }
 
 const slug = () => window.location.pathname
 
-export default function MallVisningCv({ mallar, etiketter, uppladdning, yrke, titelForval = '', efter }: Props) {
+export default function MallVisningCv({ mallar, etiketter, uppladdning, yrke, titelForval = '', efter, affisch }: Props) {
   const yta = yrke ? 'yrkessida' : 'artikel'
   const [i, setI] = useState(0)
   const [namn, setNamn] = useState('')
@@ -107,7 +113,7 @@ export default function MallVisningCv({ mallar, etiketter, uppladdning, yrke, ti
       {uppladdning}
 
       <div
-        className="mx-auto mt-3 max-w-[560px] touch-pan-y overflow-hidden rounded-[4px] bg-white shadow-[0_1px_0_rgba(0,0,0,.08),0_10px_24px_-14px_rgba(0,0,0,.45)]"
+        className="relative mx-auto mt-3 max-w-[560px] touch-pan-y overflow-hidden rounded-[4px] bg-white shadow-[0_1px_0_rgba(0,0,0,.08),0_10px_24px_-14px_rgba(0,0,0,.45)]"
         onPointerDown={(e) => (x0.current = e.clientX)}
         onPointerUp={(e) => {
           const dx = x0.current === null ? 0 : e.clientX - x0.current
@@ -115,6 +121,10 @@ export default function MallVisningCv({ mallar, etiketter, uppladdning, yrke, ti
           if (Math.abs(dx) > 50) byt(i + (dx < 0 ? 1 : -1))
         }}
       >
+        {affisch && i === 0 ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={affisch.src} alt={affisch.alt} className="absolute inset-0 h-full w-full object-cover object-top" />
+        ) : null}
         <iframe
           ref={ram}
           key={src}
@@ -123,7 +133,7 @@ export default function MallVisningCv({ mallar, etiketter, uppladdning, yrke, ti
           loading="lazy"
           scrolling="no"
           onLoad={skriv}
-          className="pointer-events-none block aspect-[794/1123] w-full border-0"
+          className="pointer-events-none relative block aspect-[794/1123] w-full border-0"
         />
       </div>
       <p className="mt-1 text-center text-meta text-ink-3">{etiketter.svep}</p>

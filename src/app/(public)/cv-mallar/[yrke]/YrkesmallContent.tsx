@@ -20,7 +20,7 @@ import {
 } from '@/app/(public)/exempel/components/illustrations/ExempelIcons'
 import type { Yrkesmall } from '../yrkesmall-data'
 import MallVisningCv, { type ArtikelMall } from '@/components/artiklar/MallVisningCv'
-import { MALL_KATALOG } from '@/lib/cv/mallar/katalog'
+import { MALL_KATALOG, mallBild } from '@/lib/cv/mallar/katalog'
 import { ARTIKEL, DOK, KNAPP, UPPLADDNING } from '@/components/cv/Dokument/texter'
 import ViktigtPunkter from './components/ViktigtPunkter'
 import VarforVarMallPassar from './components/VarforVarMallPassar'
@@ -111,6 +111,7 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
               mallar={femFor(data.freeMallId)}
               yrke={data.slug}
               titelForval={data.namn}
+              affisch={{ src: mallBild(data.freeMallId).stor, alt: `${data.freeMallNamn} CV-mall för ${data.namnBestamd} (gratis)` }}
               etiketter={{ namn: UPPLADDNING.namn, titel: UPPLADDNING.titel, fortsatt: KNAPP.fortsatt, svep: DOK.svep }}
               uppladdning={
                 <div className="mt-2.5 flex items-center justify-between gap-3 rounded-xl border border-kant bg-papper px-3 py-2">
