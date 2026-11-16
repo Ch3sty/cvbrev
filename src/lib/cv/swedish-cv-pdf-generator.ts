@@ -144,12 +144,20 @@ export class SwedishCVPDFGenerator {
         // Vänta på att alla fonts och CSS laddas korrekt
         await page.evaluateHandle('document.fonts.ready');
         
-        // Svenska CV-specifika CSS-justeringar
-        await this.applySwedishCVStyling(page, options);
+        // Mallsystemet (src/lib/cv/mallar, sedan 2026-11-16) märker dokumentet
+        // med data-mall. Det äger sina sidmarginaler (@page), sina
+        // sidbrytningar och sina spalter (tabell), så den äldre styckningen,
+        // grid-omvandlingen och skalningen nedan körs bara för äldre HTML.
+        const mallsystemet: boolean = await page.evaluate(() => document.documentElement.hasAttribute('data-mall'));
 
-        // Gör tvåkolumns-body:n fragmenterbar (grid → table) med VARJE malls
-        // faktiska geometri. Måste ske efter applySwedishCVStyling men före mätning.
-        await this.convertGridsToTables(page);
+        if (!mallsystemet) {
+          // Svenska CV-specifika CSS-justeringar
+          await this.applySwedishCVStyling(page, options);
+
+          // Gör tvåkolumns-body:n fragmenterbar (grid → table) med VARJE malls
+          // faktiska geometri. Måste ske efter applySwedishCVStyling men före mätning.
+          await this.convertGridsToTables(page);
+        }
 
         // Texten i dokumentordning, så rekryteringssystemen läser jobbpunkterna
         // vid sin arbetsgivare (plan-mallar avsnitt 6b). Utseendet ändras inte.
@@ -166,14 +174,15 @@ export class SwedishCVPDFGenerator {
         // det ryms på en sida (löser buggen för alla mallar oavsett grid-struktur).
         // Är CV:t genuint långt (flersidigt) lämnar vi scale=1 och låter de
         // fragmenteringssäkra print-reglerna bryta i botten, aldrig efter headern.
-        const fitScale = await this.computeFitToPageScale(page);
+        // Mallsystemet skalar aldrig: "Få plats på en sida" är ett val i mallen.
+        const fitScale = mallsystemet ? 1 : await this.computeFitToPageScale(page);
         if (fitScale < 1) {
           (pdfOptions as any).scale = fitScale;
           console.log(`CV skalas till ${Math.round(fitScale * 1000) / 10}% för att rymmas på en sida`);
         }
 
         // Pre-flight validering för svenskt CV
-        await this.validateSwedishCVLayout(page, options);
+        if (!mallsystemet) await this.validateSwedishCVLayout(page, options);
 
         // Generera PDF
         const pdfBuffer = await page.pdf(pdfOptions);

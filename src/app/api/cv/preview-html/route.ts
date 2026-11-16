@@ -4,17 +4,23 @@
  * Lattvikts-endpoint som returnerar genererad HTML for live-preview pa
  * /dashboard/cv-mallar (utan Puppeteer/PDF-generering).
  *
- * Anvander samma server-parser och template-system som /api/cv/generate-formatted
+ * Anvander samma server-parser och mallrenderare som /api/cv/generate-formatted
  * for att garantera att preview matchar PDF-output exakt.
+ *
+ * Body: { template, structuredData | cvText, val?, cvId? }. Svar: { html, mall }
+ * dar mall ar mallens id efter alias (docs/qa/mallsystemet-2026-11-16.md).
  */
 import { cookies } from 'next/headers';
 import { arPlatshallareTitel, kontaktForCv } from '@/lib/profile/dokumentKontakt';
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
-import { getTemplateGenerator } from '@/lib/cv/templates';
+import { renderaMallHtml } from '@/lib/cv/rendera-mall-html';
+import { losMallId } from '@/lib/cv/mallar/alias';
+import { tolkaVal, typsnittIdForFamilj } from '@/lib/cv/mallar/val';
+import { lasSparadeRubriker } from '@/lib/cv/mallar/sparade-rubriker';
 import { parseSwedishCVContent } from '@/lib/cv/swedish-cv-content-parser';
 import { normalizeStructuredData } from '@/lib/cv/normalize-structured-data';
-import type { CVMetadata, CVTemplateType } from '@/lib/cv/cv-metadata';
+import type { CVMetadata } from '@/lib/cv/cv-metadata';
 
 interface PreviewRequest {
   template: string;
@@ -31,12 +37,20 @@ interface PreviewRequest {
     includeLinkedIn?: boolean;
   };
   fontFamily?: string;
+  /** Valen i alla mallar (MallVal i src/lib/cv/mallar/kontrakt.ts). */
+  val?: unknown;
+  /** CV:ts id i cv_texts, så att sparade rubriker (section_titles) följer med. */
+  cvId?: string;
 }
 
 export async function POST(request: NextRequest) {
   try {
     const body: PreviewRequest = await request.json();
-    const { template, cvText, structuredData, templateOptions = {}, fontFamily } = body;
+    const { template, cvText, structuredData, templateOptions = {}, fontFamily, cvId } = body;
+    const val = tolkaVal(body.val, {
+      includePhoto: (templateOptions as { includePhoto?: boolean }).includePhoto,
+      fontId: typsnittIdForFamilj(fontFamily),
+    });
 
     if (!template || (!cvText && !structuredData)) {
       return NextResponse.json(
@@ -106,26 +120,25 @@ export async function POST(request: NextRequest) {
       if (arPlatshallareTitel(cvData.personalInfo.title)) cvData.personalInfo.title = '';
     }
 
-    // Generera HTML med vald mall + options
-    const generator = getTemplateGenerator(template as CVTemplateType);
-    if (!generator) {
+    // Rubrikerna CV:t sparat (cv_texts.section_titles); valet i anropet går före.
+    if (cvId) {
+      const sparade = await lasSparadeRubriker(supabase, user.id, cvId);
+      if (sparade) cvData.sectionTitles = sparade;
+    }
+
+    // Samma renderare som PDF:en (src/lib/cv/rendera-mall-html.ts). Gamla
+    // mall-id löses med alias; förhandsvisningen visar initialen i en tom
+    // fotoplats.
+    const mallId = losMallId(template);
+    const html = mallId ? renderaMallHtml(cvData, mallId, val, { forhandsvisning: true }) : null;
+    if (!mallId || !html) {
       return NextResponse.json(
         { error: 'Okand mall: ' + template },
         { status: 400 }
       );
     }
 
-    let html = generator.generate(cvData, templateOptions);
-
-    // Applicera anvandarvalt typsnitt om sant - same teknik som PDF-flow
-    if (fontFamily && typeof fontFamily === 'string') {
-      html = html.replace(
-        /<style>/,
-        `<style>\n  body, body * { font-family: ${fontFamily} !important; }\n  `
-      );
-    }
-
-    return NextResponse.json({ html });
+    return NextResponse.json({ html, mall: mallId });
   } catch (error: any) {
     console.error('Fel i /api/cv/preview-html:', error);
     return NextResponse.json(

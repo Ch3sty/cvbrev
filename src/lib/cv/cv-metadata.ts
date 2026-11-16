@@ -1,5 +1,6 @@
 // src/lib/cv/cv-metadata.ts
 // Strukturer och typer för CV-data och metadata
+import type { Sektion } from './mallar/kontrakt';
 
 export interface CVPersonalInfo {
   fullName: string;
@@ -85,6 +86,12 @@ export interface CVMetadata {
   references?: string;
   targetIndustry?: string;
   targetRole?: string;
+  /**
+   * Rubrikerna CV:t valt, per avsnitt (src/lib/cv/rubriker.ts). Fylls vid
+   * läsning ur cv_texts.section_titles; saknade avsnitt får rubrikmodellens
+   * förval.
+   */
+  sectionTitles?: Partial<Record<Sektion, string>>;
 }
 
 export interface CVGenerationOptions {
@@ -96,7 +103,12 @@ export interface CVGenerationOptions {
   photoUrl?: string;
 }
 
-export type CVTemplateType = 'sidebar-icons' | 'editorial-magazine' | 'tidlos-formell' | 'konsult-kompakt' | 'stack-developer' | 'bold-modern' | 'student-startup' | 'varden-omsorg' | 'norrsken' | 'aurora' | 'atlas' | 'galleri' | 'pedagog' | 'aspekt' | 'klinik' | 'skymning' | 'bygg' | 'forskare' | 'servering' | 'linje' | 'spektrum' | 'kvist' | 'magasin' | 'karta' | 'avtryck' | 'disk' | 'logistik' | 'verkstad' | 'myndighet' | 'konto' | 'disk-plus' | 'logistik-plus' | 'verkstad-plus' | 'myndighet-plus' | 'konto-plus' | 'norrsken-plus' | 'tidlos-plus' | 'stack-plus' | 'hantverkare-plus' | 'student-plus' | 'sidopanel-plus';
+/**
+ * Ett mall-id. Sedan mallsystemet 2026-11-16 är det en sträng: id:n ur
+ * registret (src/lib/cv/mallar/register.ts) och gamla id som löses med
+ * losMallId till sin efterföljare.
+ */
+export type CVTemplateType = string;
 
 export interface CVTemplate {
   id: CVTemplateType;

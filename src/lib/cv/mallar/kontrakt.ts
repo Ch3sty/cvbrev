@@ -92,6 +92,12 @@ export interface MallKort {
   accenter: readonly [string, string, string, string]
   /** Miniatyrerna (webp) i två storlekar, renderade vid bygge ur definitionen. */
   bild: { liten: string; stor: string }
+  /**
+   * Tillägg 2026-11-16 (byggagent A): mallens brödtextstypsnitt, förvalt i
+   * verktygsraden (och i Word-filen när mallen har Word). Användarens val
+   * ersätter bara brödtexten; namn och rubriker behåller mallens typsnitt.
+   */
+  typsnitt?: TypsnittId
 }
 
 /** Formatet på filen. */

@@ -1,23 +1,30 @@
 /**
  * Mallantalen som tal, utan mallregistret.
  *
- * simple-templates.ts bär hela registret (namn, beskrivningar, layoutdata
- * för 41 mallar). Prisstegen i src/lib/plans/plans.ts behövde bara talet 41,
- * men importen drog in registret i varje publik sidas JavaScript via headerns
- * paketmeny: 14 kB komprimerat som ingen läste. Talen står därför här, och
- * simple-templates.ts exporterar dem vidare. Testet i
- * src/lib/cv/__tests__/template-count.test.ts fäller om registret och talen
- * glider isär.
+ * Talen räknas ur mallkatalogen (src/lib/cv/mallar/katalog.ts), som är
+ * liten och klientsäker, så att prisstegen, säljcopyn och de publika sidorna
+ * kan läsa dem utan att dra in renderaren eller definitionerna. Inga
+ * hårdkodade tal: en ny mall i katalogen ändrar talen överallt. Testet i
+ * src/lib/cv/__tests__/template-count.test.ts bevakar att copy som inte kan
+ * importera konstanterna säger samma sak.
  */
+import {
+  GRATIS_ANTAL,
+  MALL_ANTAL,
+  MALL_KATALOG,
+  PREMIUM_ANTAL,
+  WORD_MALL_IDS,
+  harWord,
+} from './mallar/katalog'
 
-/** Antalet CV-mallar i registret. */
-export const TEMPLATE_COUNT = 41
+/** Antalet CV-mallar i katalogen. */
+export const TEMPLATE_COUNT = MALL_ANTAL
 
 /** Antalet mallar som ingår på gratisnivån. */
-export const FREE_TEMPLATE_COUNT = 3
+export const FREE_TEMPLATE_COUNT = GRATIS_ANTAL
 
-/** Antalet mallar som kräver CV-paketet eller Hela paketet. */
-export const PREMIUM_TEMPLATE_COUNT = 38
+/** Antalet mallar som kräver Premium. */
+export const PREMIUM_TEMPLATE_COUNT = PREMIUM_ANTAL
 
 /**
  * Gratis CV-nedladdningar per konto. Spärren i
@@ -26,66 +33,46 @@ export const PREMIUM_TEMPLATE_COUNT = 38
  */
 export const FREE_CV_EXPORTS = 1
 
-/**
- * Mallarna som också laddas ner som Word-fil (docs/plan-cv-word-2026-11-15.md
- * avsnitt 3): de fria Norrsken och Student och fyra premiummallar, alla
- * enspaltiga. Id:na står här och inte i src/lib/cv/word/, så att galleriet
- * och de publika sidorna kan märka mallarna utan att dra in Word-byggaren.
- * Testet i src/lib/cv/__tests__/template-count.test.ts fäller om ett id
- * saknas i registret eller i WORD_MALLAR.
- */
-export const WORD_TEMPLATE_IDS = [
-  'norrsken',
-  'student-startup',
-  'tidlos-formell',
-  'myndighet',
-  'stack-developer',
-  'bygg',
-] as const
+/** Mallarna som också laddas ner som Word-fil, i katalogens ordning. */
+export const WORD_TEMPLATE_IDS: readonly string[] = WORD_MALL_IDS
 
-export type WordTemplateId = (typeof WORD_TEMPLATE_IDS)[number]
+export type WordTemplateId = string
 
 /** Antalet Word-mallar. Texter skriver talet härifrån, aldrig som siffra. */
-export const WORD_TEMPLATE_COUNT = WORD_TEMPLATE_IDS.length
+export const WORD_TEMPLATE_COUNT = WORD_MALL_IDS.length
 
-/** Har mallen en Word-version? Klientsäker. */
+/** Har mallen en Word-version? Klientsäker. Gamla id: lös dem först (losMallId). */
 export function harWordVersion(templateId: unknown): templateId is WordTemplateId {
-  return typeof templateId === 'string' && (WORD_TEMPLATE_IDS as readonly string[]).includes(templateId)
+  return harWord(templateId)
 }
 
-/**
- * Antalet Word-mallar som ord, för löptext ("sex av mallarna"). Testet i
- * template-count.test.ts fäller om ordet och talet glider isär.
- */
-export const WORD_TEMPLATE_COUNT_ORD = 'sex'
+const TALORD = ['inga', 'en', 'två', 'tre', 'fyra', 'fem', 'sex', 'sju', 'åtta', 'nio', 'tio', 'elva', 'tolv', 'tretton', 'fjorton', 'femton', 'sexton', 'sjutton', 'arton', 'nitton', 'tjugo']
 
-/** Word-mallarnas namn i registrets ordning för löptext: "Norrsken, Student ... och Hantverkare". */
-export const WORD_MALL_NAMN: Record<WordTemplateId, string> = {
-  norrsken: 'Norrsken',
-  'student-startup': 'Student',
-  'tidlos-formell': 'Tidlös',
-  myndighet: 'Myndighet',
-  'stack-developer': 'Stack',
-  bygg: 'Hantverkare',
+/** Ett antal som ord för löptext ("sex av mallarna"); över tjugo som siffror. */
+export function talSomOrd(n: number): string {
+  return TALORD[n] ?? String(n)
 }
 
+/** Antalet Word-mallar som ord, för löptext. */
+export const WORD_TEMPLATE_COUNT_ORD = talSomOrd(WORD_TEMPLATE_COUNT)
+
+/** Word-mallarnas namn per id. */
+export const WORD_MALL_NAMN: Record<WordTemplateId, string> = Object.fromEntries(
+  MALL_KATALOG.filter((m) => m.word).map((m) => [m.id, m.namn])
+)
+
+/** Word-mallarnas namn i katalogens ordning för löptext: "Linne, Björk ... och Stål". */
 export function wordMallarSomText(): string {
-  const namn = WORD_TEMPLATE_IDS.map((id) => WORD_MALL_NAMN[id])
+  const namn = WORD_MALL_IDS.map((id) => WORD_MALL_NAMN[id])
+  if (namn.length <= 1) return namn.join('')
   return `${namn.slice(0, -1).join(', ')} och ${namn[namn.length - 1]}`
 }
 
 /**
  * Typsnittet varje Word-mall har i Word-filen, som id i verktygsradens
- * typsnittslista (src/lib/cv/preview-utils.ts). Steg 3 visar det när Word är
- * valt och användaren inte själv bytt typsnitt. Testet i
- * src/lib/cv/word/__tests__/word-mallar.test.ts håller det lika med
- * WORD_MALLAR.
+ * typsnittslista. Steg 3 visar det när Word är valt och användaren inte
+ * själv bytt typsnitt.
  */
-export const WORD_MALL_TYPSNITT: Record<WordTemplateId, 'calibri' | 'arial' | 'garamond'> = {
-  norrsken: 'calibri',
-  'student-startup': 'calibri',
-  'tidlos-formell': 'garamond',
-  myndighet: 'arial',
-  'stack-developer': 'calibri',
-  bygg: 'calibri',
-}
+export const WORD_MALL_TYPSNITT: Record<WordTemplateId, string> = Object.fromEntries(
+  MALL_KATALOG.filter((m) => m.word).map((m) => [m.id, m.typsnitt ?? 'calibri'])
+)

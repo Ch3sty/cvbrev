@@ -79,6 +79,10 @@ function ensureValidCVMetadata(data: CVMetadata): CVMetadata | null {
     languages: Array.isArray(data.languages) ? data.languages : undefined,
     interests: Array.isArray(data.interests) ? data.interests : undefined,
     references: data.references,
+    targetIndustry: data.targetIndustry,
+    targetRole: data.targetRole,
+    // Rubrikerna CV:t valt (cv_texts.section_titles, src/lib/cv/rubriker.ts).
+    sectionTitles: data.sectionTitles,
   };
 }
 

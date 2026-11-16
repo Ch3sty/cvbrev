@@ -9,6 +9,8 @@ import {
   FREE_TEMPLATE_IDS,
   isTemplateFree,
 } from '../simple-templates'
+import { WORD_TEMPLATE_COUNT, WORD_TEMPLATE_IDS } from '../template-antal'
+import { MALL_KATALOG } from '../mallar/katalog'
 
 const SRC = path.resolve(__dirname, '../../..')
 
@@ -27,19 +29,23 @@ describe('mallantalet i copy speglar registret', () => {
     expect(FREE_TEMPLATE_COUNT + PREMIUM_TEMPLATE_COUNT).toBe(TEMPLATE_COUNT)
   })
 
-  it('antalen ar de vi tror: 41 totalt, 3 gratis, 38 premium', () => {
-    // Failar nar registret andras, sa att copyn nedan gas igenom samtidigt.
-    // Tre fria ar agarens beslut 6 (docs/plan-paket-och-onboarding.md).
-    expect(TEMPLATE_COUNT).toBe(41)
-    expect(FREE_TEMPLATE_COUNT).toBe(3)
-    expect(PREMIUM_TEMPLATE_COUNT).toBe(38)
+  it('talen raknas ur katalogen, inga hardkodade tal', () => {
+    // Mallsystemet: talen kommer ur src/lib/cv/mallar/katalog.ts.
+    expect(TEMPLATE_COUNT).toBe(MALL_KATALOG.length)
+    expect(FREE_TEMPLATE_COUNT).toBe(MALL_KATALOG.filter(m => m.niva === 'gratis').length)
+    expect(WORD_TEMPLATE_COUNT).toBe(MALL_KATALOG.filter(m => m.word).length)
+    expect([...WORD_TEMPLATE_IDS]).toEqual(MALL_KATALOG.filter(m => m.word).map(m => m.id))
+    expect(FREE_TEMPLATE_COUNT).toBeGreaterThan(0)
+    const kalla = readFileSync(path.join(SRC, 'lib/cv/template-antal.ts'), 'utf8')
+    expect(kalla).not.toMatch(/COUNT = \d/)
   })
 
-  it('de tre fria mallarna ar de som listan pekar ut', () => {
+  it('de fria mallarna ar de som listan pekar ut', () => {
     const fria = SIMPLE_TEMPLATES.filter(t => t.tier === 'free').map(t => t.id)
     expect(fria.sort()).toEqual([...FREE_TEMPLATE_IDS].sort())
     for (const id of FREE_TEMPLATE_IDS) expect(isTemplateFree(id)).toBe(true)
-    expect(isTemplateFree('aurora')).toBe(false)
+    const premium = MALL_KATALOG.find(m => m.niva === 'premium')
+    if (premium) expect(isTemplateFree(premium.id)).toBe(false)
     expect(isTemplateFree('finns-inte')).toBe(false)
   })
 

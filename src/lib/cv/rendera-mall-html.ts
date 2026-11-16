@@ -1,14 +1,20 @@
 /**
  * Mallens HTML för nedladdning och kontroller: samma väg som
- * generate-formatted, så ATS-testet (scripts/ats-mallar.ts) provar exakt den
- * HTML som blir PDF:en.
+ * generate-formatted, så ATS-testet (scripts/ats-mallar.ts) och
+ * sidbrytningstestet (scripts/mallar-sidbrytning.ts) provar exakt den HTML
+ * som blir PDF:en.
+ *
+ * Mallsystemet sedan 2026-11-16: en mall är en definition
+ * (src/lib/cv/mallar), gamla id löses med alias.
  */
-import type { CVMetadata, CVTemplateType } from './cv-metadata'
-import { getTemplateGenerator } from './templates'
+import type { CVMetadata } from './cv-metadata'
+import type { MallVal } from './mallar/kontrakt'
+import { losMallId } from './mallar/register'
+import { renderMallHtml, type RenderaHtmlVal } from './mallar/render/html'
 
-export function renderaMallHtml(cvData: CVMetadata, templateId: string, options: Record<string, unknown> = {}): string | null {
-  // Referenser står alltid som den svenska standardfrasen.
-  const standard = { ...cvData, references: 'Referenser lämnas på begäran' }
-  const generator = getTemplateGenerator(templateId as CVTemplateType)
-  return generator ? generator.generate(standard, options) : null
+/** HTML:en, eller null om mall-id:t är okänt också efter alias. */
+export function renderaMallHtml(cvData: CVMetadata, mallId: string, val: MallVal = {}, opt: RenderaHtmlVal = {}): string | null {
+  const id = losMallId(mallId)
+  if (!id) return null
+  return renderMallHtml(cvData, id, val, opt)
 }

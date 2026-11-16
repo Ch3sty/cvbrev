@@ -1,0 +1,1064 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mallutbudet 2026</title>
+<meta name="description" content="Skiss över det nya CV-mallutbudet för jobbcoach.ai: 20 mallar som A4-ark med exempel-CV:t, facit för bygget.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&family=Open+Sans:wght@400;600;700&family=Poppins:wght@300;400;500;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4F3EF;--panel:#fff;--kant:#DDD9D0;--text:#1F2328;--text2:#5B6068;--text3:#8A9099;--accent:#C8551E;--gratis:#1E5A3C;--gratisbg:#E4F1E9;--premium:#5B3B8C;--premiumbg:#EEE8F7}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15161A;--panel:#1E2026;--kant:#2E313A;--text:#ECEDF0;--text2:#B5B9C2;--text3:#7F8591;--gratisbg:#19352A;--gratis:#8BD4AE;--premiumbg:#2A2140;--premium:#C7B3F0}}
+:root[data-theme="dark"]{--bg:#15161A;--panel:#1E2026;--kant:#2E313A;--text:#ECEDF0;--text2:#B5B9C2;--text3:#7F8591;--gratisbg:#19352A;--gratis:#8BD4AE;--premiumbg:#2A2140;--premium:#C7B3F0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+.sida{max-width:1680px;margin:0 auto;padding:32px 16px 80px}
+h1{font-size:30px;line-height:1.15;margin:0 0 8px;letter-spacing:-0.01em}
+.ingress{color:var(--text2);max-width:72ch;margin:0 0 20px}
+.oversikt{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0 36px;background:var(--panel);border:1px solid var(--kant)}
+.oversikt th,.oversikt td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--kant);vertical-align:top}
+.oversikt th{color:var(--text2);font-weight:600}
+.oversikt a{color:var(--text);text-decoration:none;font-weight:600;border-bottom:1px solid var(--kant)}
+.regler{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:0 0 36px}
+.regel{background:var(--panel);border:1px solid var(--kant);padding:14px 16px;font-size:14px}
+.regel b{display:block;margin-bottom:4px}
+.grupp-rubrik{font-size:22px;margin:40px 0 6px;letter-spacing:-0.01em}
+.grupp-ingress{color:var(--text2);margin:0 0 20px;max-width:80ch}
+.galleri{display:flex;flex-wrap:wrap;gap:40px 28px}
+.mall{width:794px;max-width:100%}
+.etikett{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:0 0 10px}
+.etikett .nr{font-variant-numeric:tabular-nums;color:var(--text3);font-weight:600}
+.etikett h3{margin:0;font-size:22px;letter-spacing:-0.01em}
+.niva{font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px}
+.niva.gratis{background:var(--gratisbg);color:var(--gratis)}
+.niva.premium{background:var(--premiumbg);color:var(--premium)}
+.format{display:inline-flex;align-items:center;gap:4px;font-size:13px;color:var(--text2)}
+.familj{font-size:13px;color:var(--text3);margin-left:auto}
+.arkram{overflow:auto;border:1px solid var(--kant);background:#8E8A84;padding:16px}
+.ark{width:210mm;height:297mm;overflow:hidden;background:#fff;position:relative;box-shadow:0 1px 2px rgba(0,0,0,.25);margin:0 auto;-webkit-font-smoothing:antialiased}
+.ark h2{margin:0}
+.ark p{margin:0}
+.ark ul.punkter li{list-style:disc}
+.ark .foto{display:inline-flex;align-items:center;justify-content:center;background:#E3E6EA;color:#9AA3AD;flex:none}
+.ark .foto svg{width:70%;height:70%;fill:currentColor}
+.ark .foto-rund{border-radius:50%}
+.ark .postdetalj{color:#555;margin-top:0.5mm}
+.under{font-size:13.5px;color:var(--text2);margin-top:10px;background:var(--panel);border:1px solid var(--kant);padding:12px 14px}
+.under .stil{margin:0 0 8px;color:var(--text)}
+.under .rad{display:grid;grid-template-columns:120px 1fr;gap:8px;padding:3px 0;border-top:1px solid var(--kant)}
+.under .k{color:var(--text3)}
+.swatchar{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
+.swatch{width:14px;height:14px;border-radius:3px;display:inline-block;border:1px solid rgba(0,0,0,.15)}
+.swatchar code{font-size:12px}
+.swatchar em{font-size:12px;color:var(--text3);margin-right:6px}
+@media (max-width:860px){.arkram{padding:8px;overflow:hidden}.ark{transform:scale(var(--skala,1));transform-origin:top left;margin:0}.familj{margin-left:0}}
+/* ---- mallarnas egna stilar, en block per mall ---- */
+/* 1 Linne */
+    .m-linne{font-family:Calibri,'Carlito',sans-serif;font-size:10.5pt;line-height:1.32;color:#1F2328;padding:20mm 20mm 18mm 20mm}
+    .m-linne .namn{font-family:Georgia,serif;font-size:26pt;line-height:1.1;color:#111}
+    .m-linne .titel{font-size:12pt;color:var(--a);margin-top:1.5mm}
+    .m-linne .kontakt{font-size:9.5pt;color:#555;margin-top:2.5mm}
+    .m-linne .sektion{margin-top:6mm}
+    .m-linne .rubrik{font-family:Georgia,serif;font-size:13pt;font-weight:400;color:var(--a);border-bottom:0.75pt solid #C9CED6;padding-bottom:1mm;margin-bottom:2.5mm}
+    .m-linne .post{margin-bottom:4mm}
+    .m-linne .postrad{display:flex;justify-content:space-between;gap:4mm}
+    .m-linne .posttitel{font-weight:700}
+    .m-linne .period{color:#555;font-size:9.5pt;white-space:nowrap}
+    .m-linne .agrad{color:#444}
+    .m-linne .punkter{margin:1mm 0 0 4.5mm;padding:0}
+    .m-linne .punkters li,.m-linne .punkter li{margin:0 0 0.6mm 0}
+    .m-linne .grupp{margin-bottom:1.2mm}.m-linne .gruppnamn{font-weight:700}
+    .m-linne .cert{display:flex;justify-content:space-between;margin-bottom:0.8mm}.m-linne .certmeta{color:#555;font-size:9.5pt}
+  
+/* 2 Björk */
+    .m-bjork{font-family:Arial,Helvetica,sans-serif;font-size:10pt;line-height:1.34;color:#1F2328;padding:16mm 18mm 18mm 18mm}
+    .m-bjork .huvud{text-align:center;display:flex;flex-direction:column;align-items:center}
+    .m-bjork .foto{margin-bottom:4mm}
+    .m-bjork .namn{font-size:24pt;font-weight:700;line-height:1.1;color:#111}
+    .m-bjork .titel{font-size:11pt;color:var(--a);margin-top:1.5mm;font-weight:700}
+    .m-bjork .kontakt{font-size:9pt;color:#555;margin-top:2.5mm}
+    .m-bjork .huvud:after{content:'';display:block;width:100%;border-bottom:0.75pt solid #D5D9DE;margin-top:5mm}
+    .m-bjork .sektion{margin-top:5.5mm}
+    .m-bjork .rubrik{font-size:11pt;font-weight:700;text-transform:uppercase;color:#111;border-left:3pt solid var(--a);padding:0.3mm 0 0.3mm 3mm;margin-bottom:2.5mm;line-height:1.2}
+    .m-bjork .post{margin-bottom:3.8mm}
+    .m-bjork .postrad{display:flex;justify-content:space-between;gap:4mm}
+    .m-bjork .posttitel{font-weight:700}
+    .m-bjork .period{color:#555;font-size:9pt;white-space:nowrap}
+    .m-bjork .agrad{color:var(--a)}
+    .m-bjork .punkter{margin:1mm 0 0 4.5mm;padding:0}
+    .m-bjork .punkter li{margin:0 0 0.6mm 0}
+    .m-bjork .grupp{margin-bottom:1.5mm}.m-bjork .gruppnamn{font-weight:700;display:block}
+    .m-bjork .cert{display:flex;justify-content:space-between;margin-bottom:0.8mm}.m-bjork .certmeta{color:#555;font-size:9pt}
+  
+/* 3 Koppar */
+    .m-koppar{font-family:Calibri,'Carlito',sans-serif;font-size:10.5pt;line-height:1.32;color:#1F2328;padding:0}
+    .m-koppar .band{background:var(--a);color:#fff;padding:14mm 20mm 12mm 20mm;display:flex;justify-content:space-between;align-items:center;min-height:48mm}
+    .m-koppar .namn{font-size:28pt;font-weight:700;line-height:1.05;color:#fff}
+    .m-koppar .titel{font-size:12pt;color:#fff;opacity:.9;margin-top:1.5mm}
+    .m-koppar .kontakt{font-size:9.5pt;color:#fff;opacity:.9;margin-top:3mm}
+    .m-koppar .foto{background:rgba(255,255,255,.22);color:#fff}
+    .m-koppar .kropp{padding:8mm 20mm 18mm 20mm}
+    .m-koppar .sektion{margin-top:5.5mm}
+    .m-koppar .rubrik{font-size:10.5pt;font-weight:700;text-transform:uppercase;color:var(--a);border-bottom:0.75pt solid var(--a);padding-bottom:0.8mm;margin-bottom:2.5mm}
+    .m-koppar .post{margin-bottom:3.8mm}
+    .m-koppar .postrad{display:flex;justify-content:space-between;gap:4mm}
+    .m-koppar .posttitel{font-weight:700}
+    .m-koppar .period{color:#555;font-size:9.5pt;white-space:nowrap}
+    .m-koppar .agrad{color:#444}
+    .m-koppar .punkter{margin:1mm 0 0 4.5mm;padding:0}
+    .m-koppar .punkter li{margin:0 0 0.6mm 0}
+    .m-koppar .grupp{margin-bottom:1.2mm}.m-koppar .gruppnamn{font-weight:700}
+    .m-koppar .cert{display:flex;justify-content:space-between;margin-bottom:0.8mm}.m-koppar .certmeta{color:#555;font-size:9.5pt}
+  
+/* 4 Kalksten */
+    .m-kalksten{font-family:Calibri,'Carlito',sans-serif;font-size:10.5pt;line-height:1.32;color:#1F2328;padding:0;display:flex;flex-direction:column}
+    .m-kalksten .huvud{display:flex;gap:8mm;align-items:center;padding:15mm 15mm 7mm 15mm}
+    .m-kalksten .foto{flex:none}
+    .m-kalksten .namn{font-family:Georgia,serif;font-size:28pt;line-height:1.1;color:#111}
+    .m-kalksten .titel{font-size:11.5pt;color:var(--a);margin-top:1.5mm}
+    .m-kalksten .spalter{display:grid;grid-template-columns:58mm 1fr;flex:1}
+    .m-kalksten .sido{background:#EEF0F2;padding:7mm 6mm 10mm 15mm;font-size:9.5pt}
+    .m-kalksten .sido .rubrik{font-size:11pt}
+    .m-kalksten .main{padding:7mm 15mm 10mm 8mm}
+    .m-kalksten .falt{background:#fff;border:0.5pt solid #C9CED6;padding:2.5mm 3mm;margin:0 -1mm 5.5mm -1mm}
+    .m-kalksten .falt .rubrik{border-bottom:0;margin-bottom:1.5mm;font-size:10.5pt}
+    .m-kalksten .falt .sektion{margin-bottom:0}
+    .m-kalksten .sektion{margin-top:0;margin-bottom:5.5mm}
+    .m-kalksten .rubrik{font-family:Georgia,serif;font-size:13pt;font-weight:400;color:var(--a);border-bottom:0.5pt solid #BFC5CC;padding-bottom:1mm;margin-bottom:2.5mm}
+    .m-kalksten .post{margin-bottom:3.8mm}
+    .m-kalksten .postrad{display:flex;justify-content:space-between;gap:4mm}
+    .m-kalksten .posttitel{font-weight:700}
+    .m-kalksten .period{color:#555;font-size:9.5pt;white-space:nowrap}
+    .m-kalksten .agrad{color:#444}
+    .m-kalksten .punkter{margin:1mm 0 0 4.5mm;padding:0}
+    .m-kalksten .punkter li{margin:0 0 0.6mm 0}
+    .m-kalksten .kontaktlista,.m-kalksten .certlista,.m-kalksten .spraklista{list-style:none;margin:0;padding:0}
+    .m-kalksten .kontaktlista{font-size:8.5pt}.m-kalksten .kontaktlista li{margin-bottom:1mm;overflow-wrap:anywhere}
+    .m-kalksten .gruppnamn{font-weight:700;margin-top:1.5mm}
+    .m-kalksten .sido .punkter{margin-left:3.5mm}
+    .m-kalksten .certlista li{margin-bottom:1.5mm}.m-kalksten .certnamn{display:block}.m-kalksten .certmeta{color:#555;font-size:9pt}
+    .m-kalksten .spraklista li{display:flex;justify-content:space-between}
+  
+/* 5 Granit */
+    .m-granit{font-family:Arial,Helvetica,sans-serif;font-size:10pt;line-height:1.34;color:#1F2328;padding:0;display:flex;flex-direction:column}
+    .m-granit .band{background:var(--a);color:#fff;padding:15mm 15mm 9mm 15mm;min-height:42mm;display:flex;justify-content:space-between;align-items:center;gap:8mm}
+    .m-granit .namn{font-size:26pt;font-weight:700;line-height:1.1;color:#fff}
+    .m-granit .titel{font-size:11pt;color:#fff;opacity:.85;margin-top:1.5mm}
+    .m-granit .foto{background:rgba(255,255,255,.18);color:rgba(255,255,255,.7)}
+    .m-granit .spalter{display:grid;grid-template-columns:1fr 58mm;flex:1}
+    .m-granit .main{padding:7mm 8mm 10mm 15mm}
+    .m-granit .sido{background:var(--a);color:#fff;padding:7mm 15mm 10mm 6mm;font-size:9.5pt}
+    .m-granit .sido .rubrik{color:#fff;border-bottom:0.5pt solid rgba(255,255,255,.45)}
+    .m-granit .falt{border:0.5pt solid rgba(255,255,255,.5);padding:2.5mm 3mm;margin:0 -1mm 5.5mm -1mm}
+    .m-granit .falt .rubrik{border-bottom:0;margin-bottom:1.5mm;font-size:9.5pt}
+    .m-granit .falt .sektion{margin-bottom:0}
+    .m-granit .sektion{margin-bottom:5.5mm}
+    .m-granit .rubrik{font-size:10.5pt;font-weight:700;text-transform:uppercase;color:var(--a);border-bottom:0.75pt solid var(--a);padding-bottom:0.8mm;margin-bottom:2.5mm}
+    .m-granit .post{margin-bottom:3.8mm}
+    .m-granit .postrad{display:flex;justify-content:space-between;gap:4mm}
+    .m-granit .posttitel{font-weight:700}
+    .m-granit .period{color:#555;font-size:9pt;white-space:nowrap}
+    .m-granit .agrad{color:#444}
+    .m-granit .punkter{margin:1mm 0 0 4.5mm;padding:0}
+    .m-granit .punkter li{margin:0 0 0.6mm 0}
+    .m-granit .kontaktlista,.m-granit .certlista,.m-granit .spraklista{list-style:none;margin:0;padding:0}
+    .m-granit .kontaktlista{font-size:8.5pt}.m-granit .kontaktlista li{margin-bottom:1mm;overflow-wrap:anywhere}
+    .m-granit .sido .gruppnamn{font-weight:700;margin-top:1.5mm;display:block}
+    .m-granit .sido .punkter{margin-left:3.5mm}
+    .m-granit .certlista li{margin-bottom:1.5mm}.m-granit .certnamn{display:block}.m-granit .certmeta{opacity:.8;font-size:9pt}
+    .m-granit .spraklista li{display:flex;justify-content:space-between}
+  
+/* 6 Kolumn */
+    .m-kolumn{font-family:Garamond,'EB Garamond',Georgia,serif;font-size:11pt;line-height:1.3;color:#1F2328;padding:18mm 20mm 18mm 20mm}
+    .m-kolumn .namn{font-size:30pt;line-height:1.05;color:#111}
+    .m-kolumn .titel{font-size:13pt;font-style:italic;color:var(--a);margin-top:1.5mm}
+    .m-kolumn .kontakt{font-size:10pt;color:#555;margin-top:2.5mm}
+    .m-kolumn .huvud{padding-bottom:4mm;border-bottom:0.5pt solid #1F2328}
+    .m-kolumn .sektion{display:grid;grid-template-columns:42mm 1fr;border-top:0.5pt solid #C8C8C8;padding-top:2.5mm;margin-top:3.5mm}
+    .m-kolumn .sektion:first-of-type{border-top:0}
+    .m-kolumn .rubrik{font-size:12pt;font-weight:700;color:var(--a);margin:0;padding-right:4mm;line-height:1.3}
+    .m-kolumn .post{margin-bottom:3.5mm}
+    .m-kolumn .postrad{display:flex;justify-content:space-between;gap:4mm}
+    .m-kolumn .posttitel{font-weight:700}
+    .m-kolumn .period{color:#555;white-space:nowrap}
+    .m-kolumn .agrad{font-style:italic;color:#333}
+    .m-kolumn .punkter{margin:1mm 0 0 4.5mm;padding:0}
+    .m-kolumn .punkter li{margin:0 0 0.5mm 0}
+    .m-kolumn .grupp{margin-bottom:1.2mm}.m-kolumn .gruppnamn{font-weight:700}
+    .m-kolumn .cert{display:flex;justify-content:space-between;margin-bottom:0.8mm}.m-kolumn .certmeta{color:#555}
+  
+/* 7 Årsring */
+    .m-arsring{font-family:Calibri,'Carlito',sans-serif;font-size:10.5pt;line-height:1.32;color:#1F2328;padding:20mm 20mm 18mm 20mm}
+    .m-arsring .namn{font-size:28pt;line-height:1.1;color:#111}
+    .m-arsring .titel{font-size:12pt;color:var(--a);margin-top:1.5mm}
+    .m-arsring .kontakt{font-size:9.5pt;color:#555;margin-top:2.5mm}
+    .m-arsring .sektion{margin-top:6mm;border-top:0.75pt solid var(--a);padding-top:2mm}
+    .m-arsring .rubrik{font-size:11pt;font-weight:700;text-transform:uppercase;color:var(--a);margin:0 0 2.5mm 30mm}
+    .m-arsring .post{display:grid;grid-template-columns:30mm 1fr;margin:0}
+    .m-arsring .post .innehall{border-left:0.75pt solid var(--a);padding:0 0 3.5mm 4mm;margin-left:-4mm}
+    .m-arsring .post:last-child .innehall{padding-bottom:1mm}
+    .m-arsring .marg{color:var(--a);font-weight:700;font-size:9.5pt;padding-top:0.4mm}
+    .m-arsring .posttitel{font-weight:700}
+    .m-arsring .agrad{color:#444}
+    .m-arsring .punkter{margin:1mm 0 0 4.5mm;padding:0}
+    .m-arsring .punkter li{margin:0 0 0.6mm 0}
+    .m-arsring .profil{margin-left:30mm}
+    .m-arsring .gruppnamn{font-weight:700}
+    .m-arsring .marg.gruppnamn{color:#1F2328;font-size:10.5pt;font-weight:700}
+    .m-arsring .certnamn{display:block}.m-arsring .certmeta{color:#555;font-size:9.5pt}
+  
+/* 8 Antikva */
+    .m-antikva{font-family:'Times New Roman',Times,serif;font-size:11pt;line-height:1.3;color:#1F2328;padding:20mm 22mm 18mm 22mm}
+    .m-antikva .huvud{text-align:center;padding-bottom:3mm;border-bottom:0.75pt solid var(--a)}
+    .m-antikva .huvud+.dubbel{border-bottom:0.75pt solid var(--a);height:2pt}
+    .m-antikva .namn{font-size:26pt;line-height:1.1;color:#111}
+    .m-antikva .titel{font-size:12pt;font-style:italic;color:var(--a);margin-top:1.5mm}
+    .m-antikva .kontakt{font-size:10pt;color:#444;margin-top:2mm}
+    .m-antikva .sektion{margin-top:5.5mm}
+    .m-antikva .rubrik{text-align:center;font-size:12pt;font-weight:700;text-transform:uppercase;color:#111;border-bottom:0.5pt solid #999;padding-bottom:1mm;margin-bottom:2.5mm}
+    .m-antikva .post{margin-bottom:3.5mm}
+    .m-antikva .postrad{display:flex;justify-content:space-between;gap:4mm}
+    .m-antikva .posttitel{font-weight:700}
+    .m-antikva .period{color:#444;white-space:nowrap}
+    .m-antikva .agrad{font-style:italic;color:#333}
+    .m-antikva .punkter{margin:1mm 0 0 4.5mm;padding:0}
+    .m-antikva .punkter li{margin:0 0 0.5mm 0}
+    .m-antikva .grupp{margin-bottom:1.2mm}.m-antikva .gruppnamn{font-weight:700}
+    .m-antikva .cert{display:flex;justify-content:space-between;margin-bottom:0.8mm}.m-antikva .certmeta{color:#444}
+  
+/* 9 Fasad */
+    .m-fasad{font-family:Arial,Helvetica,sans-serif;font-size:10pt;line-height:1.34;color:#1F2328;padding:18mm 18mm 18mm 18mm}
+    .m-fasad .huvud{display:flex;justify-content:space-between;align-items:flex-start;gap:8mm}
+    .m-fasad .huvudtext{border-left:4pt solid var(--a);padding-left:5mm}
+    .m-fasad .namn{font-size:30pt;font-weight:700;text-transform:uppercase;line-height:1;color:#111}
+    .m-fasad .titel{font-size:11pt;font-weight:700;text-transform:uppercase;color:var(--a);margin-top:2.5mm}
+    .m-fasad .kontakt{font-size:9.5pt;color:#555;margin-top:2.5mm}
+    .m-fasad .sektion{margin-top:6.5mm}
+    .m-fasad .rubrik{font-size:11pt;font-weight:700;text-transform:uppercase;color:var(--a);margin-bottom:2.5mm}
+    .m-fasad .post{margin-bottom:3.8mm}
+    .m-fasad .postrad{display:flex;justify-content:space-between;gap:4mm}
+    .m-fasad .posttitel{font-weight:700}
+    .m-fasad .period{color:#555;font-size:9pt;white-space:nowrap}
+    .m-fasad .agrad{color:#444}
+    .m-fasad .punkter{margin:1mm 0 0 4.5mm;padding:0}
+    .m-fasad .punkter li{margin:0 0 0.6mm 0}
+    .m-fasad .grupp{margin-bottom:1.5mm}.m-fasad .gruppnamn{font-weight:700;display:block}
+    .m-fasad .cert{display:flex;justify-content:space-between;margin-bottom:0.8mm}.m-fasad .certmeta{color:#555;font-size:9pt}
+  
+/* 10 Raster */
+    .m-raster{font-family:Verdana,Geneva,sans-serif;font-size:9.5pt;line-height:1.3;color:#1F2328;padding:18mm 18mm 18mm 18mm}
+    .m-raster .namn{font-size:24pt;font-weight:700;line-height:1.1;color:#111}
+    .m-raster .titel{font-size:11pt;color:var(--a);margin-top:1.5mm}
+    .m-raster .kontakt{font-size:8.5pt;color:#555;margin-top:2.5mm}
+    .m-raster .sektion{margin-top:5.5mm}
+    .m-raster .rubrik{font-size:10pt;font-weight:700;color:var(--a);background:var(--ton);padding:1.3mm 3mm;margin-bottom:2.5mm}
+    .m-raster .post{margin-bottom:3.8mm}
+    .m-raster .postrad{display:flex;justify-content:space-between;gap:4mm}
+    .m-raster .posttitel{font-weight:700}
+    .m-raster .period{color:#555;font-size:8.5pt;white-space:nowrap}
+    .m-raster .agrad{color:#444}
+    .m-raster .punkter{margin:1mm 0 0 4.5mm;padding:0}
+    .m-raster .punkter li{margin:0 0 0.6mm 0}
+    .m-raster .kompspalter{display:grid;grid-template-columns:1fr 1fr;gap:6mm}
+    .m-raster .gruppnamn{font-weight:700;margin-bottom:0.5mm}
+    .m-raster .cert{display:flex;justify-content:space-between;margin-bottom:0.8mm}.m-raster .certmeta{color:#555;font-size:8.5pt}
+  
+/* 11 Folio */
+    .m-folio{font-family:Garamond,'EB Garamond',Georgia,serif;font-size:11.5pt;line-height:1.3;color:#1F2328;padding:22mm 22mm 20mm 22mm}
+    .m-folio .huvud{padding-bottom:4mm;border-bottom:0.5pt solid #B0B0B0;text-align:right}
+    .m-folio .namn{font-size:34pt;line-height:1.05;color:#111}
+    .m-folio .titel{font-size:14pt;font-style:italic;color:#555;margin-top:1mm}
+    .m-folio .kontakt{font-size:10pt;color:#555;margin-top:2.5mm}
+    .m-folio .sektion{margin-top:5.5mm}
+    .m-folio .rubrik{font-size:14pt;font-style:italic;font-weight:400;color:var(--a);border-bottom:0.5pt solid #B0B0B0;padding-bottom:0.8mm;margin-bottom:2.5mm}
+    .m-folio .post{margin-bottom:3.5mm}
+    .m-folio .postrad{display:flex;justify-content:space-between;gap:4mm}
+    .m-folio .posttitel{font-weight:700}
+    .m-folio .period{color:#555;font-style:italic;white-space:nowrap}
+    .m-folio .agrad{font-style:italic;color:#333}
+    .m-folio .punkter{margin:1mm 0 0 4.5mm;padding:0}
+    .m-folio .punkter li{margin:0 0 0.5mm 0}
+    .m-folio .grupp{margin-bottom:1.2mm}.m-folio .gruppnamn{font-weight:700}
+    .m-folio .cert{display:flex;justify-content:space-between;margin-bottom:0.8mm}.m-folio .certmeta{color:#555;font-style:italic}
+  
+/* 12 Stål */
+    .m-stal{font-family:Calibri,'Carlito',sans-serif;font-size:10.5pt;line-height:1.32;color:#1F2328;padding:18mm 18mm 18mm 18mm}
+    .m-stal .namn{font-size:28pt;font-weight:700;line-height:1.1;color:#111}
+    .m-stal .titel{font-size:12pt;color:var(--a);margin-top:1.5mm}
+    .m-stal .kontakt{font-size:9.5pt;color:#555;margin-top:2.5mm}
+    .m-stal .sektion{margin-top:6mm;border-top:2pt solid var(--a);padding-top:2mm}
+    .m-stal .rubrik{font-size:11pt;font-weight:700;text-transform:uppercase;color:#111;margin-bottom:2.5mm}
+    .m-stal .spalter{display:grid;grid-template-columns:3fr 2fr;gap:8mm}
+    .m-stal .post{margin-bottom:3.8mm}
+    .m-stal .postrad{display:flex;justify-content:space-between;gap:4mm}
+    .m-stal .posttitel{font-weight:700}
+    .m-stal .period{color:#555;font-size:9.5pt;white-space:nowrap}
+    .m-stal .agrad{color:#444}
+    .m-stal .punkter{margin:1mm 0 0 4.5mm;padding:0}
+    .m-stal .punkter li{margin:0 0 0.6mm 0}
+    .m-stal .hoger{font-size:10pt}
+    .m-stal .gruppnamn{font-weight:700;margin-top:1.5mm;display:block}
+    .m-stal .hoger .punkter{margin-left:3.5mm}
+    .m-stal .certlista,.m-stal .spraklista{list-style:none;margin:0;padding:0}
+    .m-stal .certlista li{margin-bottom:1.5mm}.m-stal .certnamn{display:block}.m-stal .certmeta{color:#555;font-size:9pt}
+    .m-stal .spraklista li{display:flex;justify-content:space-between}
+  
+/* 13 Mörkrum */
+    .m-morkrum{font-family:Poppins,sans-serif;font-size:9.5pt;line-height:1.4;color:#222;padding:0}
+    .m-morkrum .band{background:#141416;color:#fff;height:72mm;padding:18mm 20mm 0 20mm;display:flex;justify-content:space-between;align-items:flex-start}
+    .m-morkrum .namn{font-size:34pt;font-weight:600;line-height:1.05;color:#fff;letter-spacing:-0.01em}
+    .m-morkrum .titel{font-size:13pt;font-weight:300;color:var(--a);margin-top:2mm}
+    .m-morkrum .kontakt{font-size:9pt;color:rgba(255,255,255,.75);margin-top:4mm}
+    .m-morkrum .foto{background:#2A2A2E;color:#8A8A90;flex:none}
+    .m-morkrum .kropp{padding:8mm 20mm 18mm 20mm}
+    .m-morkrum .sektion{margin-top:5.5mm}
+    .m-morkrum .rubrik{font-size:10pt;font-weight:600;text-transform:uppercase;color:#141416;margin-bottom:2.5mm;display:flex;align-items:center;gap:2.5mm}
+    .m-morkrum .rubrik:before{content:'';width:2.2mm;height:2.2mm;background:var(--a);display:inline-block}
+    .m-morkrum .post{margin-bottom:3.8mm}
+    .m-morkrum .postrad{display:flex;justify-content:space-between;gap:4mm}
+    .m-morkrum .posttitel{font-weight:600}
+    .m-morkrum .period{color:#666;font-size:8.5pt;white-space:nowrap}
+    .m-morkrum .agrad{color:#555}
+    .m-morkrum .punkter{margin:1mm 0 0 4.5mm;padding:0}
+    .m-morkrum .punkter li{margin:0 0 0.6mm 0}
+    .m-morkrum .grupp{margin-bottom:1.2mm}.m-morkrum .gruppnamn{font-weight:600}
+    .m-morkrum .cert{display:flex;justify-content:space-between;margin-bottom:0.8mm}.m-morkrum .certmeta{color:#666;font-size:8.5pt}
+  
+/* 14 Terrakotta */
+    .m-terrakotta{font-family:Lato,sans-serif;font-size:10pt;line-height:1.4;color:#3B2A20;padding:20mm 20mm 18mm 20mm;background:#F6EFE6}
+    .m-terrakotta .namn{font-size:30pt;font-weight:700;line-height:1.1;color:#3B2A20}
+    .m-terrakotta .titel{font-size:12pt;color:var(--a);margin-top:1.5mm}
+    .m-terrakotta .kontakt{font-size:9.5pt;color:#6E5A4C;margin-top:2.5mm}
+    .m-terrakotta .sektion{margin-top:6mm}
+    .m-terrakotta .rubrik{font-size:10.5pt;font-weight:700;text-transform:uppercase;color:var(--a);margin-bottom:2.5mm}
+    .m-terrakotta .rubrik:after{content:'';display:block;width:18mm;border-bottom:1pt solid var(--a);margin-top:1mm}
+    .m-terrakotta .post{margin-bottom:3.8mm}
+    .m-terrakotta .postrad{display:flex;justify-content:space-between;gap:4mm}
+    .m-terrakotta .posttitel{font-weight:700}
+    .m-terrakotta .period{color:#6E5A4C;font-size:9pt;white-space:nowrap}
+    .m-terrakotta .agrad{color:#6E5A4C}
+    .m-terrakotta .punkter{margin:1mm 0 0 4.5mm;padding:0}
+    .m-terrakotta .punkter li{margin:0 0 0.6mm 0}
+    .m-terrakotta .grupp{margin-bottom:2mm}.m-terrakotta .gruppnamn{font-weight:700;margin-bottom:1mm}
+    .m-terrakotta .brickor{display:flex;flex-wrap:wrap;gap:1.5mm}
+    .m-terrakotta .bricka{border:0.75pt solid var(--a);color:var(--a);border-radius:3mm;padding:0.4mm 2.6mm;font-size:9pt}
+    .m-terrakotta .cert{display:flex;justify-content:space-between;margin-bottom:0.8mm}.m-terrakotta .certmeta{color:#6E5A4C;font-size:9pt}
+  
+/* 15 Kvadrat */
+    .m-kvadrat{font-family:Poppins,sans-serif;font-size:9.5pt;line-height:1.4;color:#222;padding:14mm 18mm 18mm 14mm}
+    .m-kvadrat .huvud{display:grid;grid-template-columns:56mm 1fr;gap:0 8mm;align-items:end}
+    .m-kvadrat .ruta{background:var(--a);color:#fff;width:56mm;height:56mm;padding:5mm;display:flex;align-items:flex-end}
+    .m-kvadrat .namn{font-size:20pt;font-weight:600;line-height:1.1;color:#fff}
+    .m-kvadrat .titel{font-size:13pt;font-weight:600;color:#222;margin-bottom:2mm}
+    .m-kvadrat .kontakt{font-size:9pt;color:#555}.m-kvadrat .kontakt .sep{display:block;height:0}
+    .m-kvadrat .huvudhoger{padding-bottom:5mm}
+    .m-kvadrat .spalter{display:grid;grid-template-columns:56mm 1fr;gap:0 8mm;margin-top:7mm}
+    .m-kvadrat .vanster{border-right:0.5pt solid #C8C8CC;padding-right:5mm;font-size:9pt}
+    .m-kvadrat .sektion{margin-bottom:5.5mm}
+    .m-kvadrat .rubrik{font-size:9.5pt;font-weight:600;text-transform:uppercase;color:var(--a);margin-bottom:2mm}
+    .m-kvadrat .post{margin-bottom:3.8mm}
+    .m-kvadrat .postrad{display:flex;justify-content:space-between;gap:4mm}
+    .m-kvadrat .posttitel{font-weight:600}
+    .m-kvadrat .period{color:#666;font-size:8.5pt;white-space:nowrap}
+    .m-kvadrat .agrad{color:#555}
+    .m-kvadrat .punkter{margin:1mm 0 0 4.5mm;padding:0}
+    .m-kvadrat .punkter li{margin:0 0 0.6mm 0}
+    .m-kvadrat .vanster .punkter{margin-left:3.5mm}
+    .m-kvadrat .gruppnamn{font-weight:600;margin-top:1.5mm;display:block}
+    .m-kvadrat .certlista,.m-kvadrat .spraklista{list-style:none;margin:0;padding:0}
+    .m-kvadrat .certlista li{margin-bottom:1.5mm}.m-kvadrat .certnamn{display:block}.m-kvadrat .certmeta{color:#666;font-size:8.5pt}
+    .m-kvadrat .spraklista li{display:flex;justify-content:space-between}
+  
+/* 16 Siluett */
+    .m-siluett{font-family:Lato,sans-serif;font-size:10pt;line-height:1.4;color:#2A2A2A;padding:14mm 22mm 18mm 22mm}
+    .m-siluett .huvud{text-align:center;display:flex;flex-direction:column;align-items:center;padding-bottom:5mm;border-bottom:0.5pt solid #D0D0D0}
+    .m-siluett .foto{margin-bottom:4mm}
+    .m-siluett .namn{font-size:30pt;font-weight:300;line-height:1.1;color:#1A1A1A}
+    .m-siluett .titel{font-size:10.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--a);margin-top:2mm}
+    .m-siluett .kontakt{font-size:9.5pt;color:#666;margin-top:2.5mm}
+    .m-siluett .sektion{margin-top:5.5mm;padding-bottom:1mm}
+    .m-siluett .rubrik{text-align:center;font-size:10pt;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--a);margin-bottom:2.5mm}
+    .m-siluett .post{margin-bottom:3.8mm}
+    .m-siluett .postrad{display:flex;justify-content:space-between;gap:4mm}
+    .m-siluett .posttitel{font-weight:700}
+    .m-siluett .period{color:#666;font-size:9pt;white-space:nowrap}
+    .m-siluett .agrad{color:#666}
+    .m-siluett .punkter{margin:1mm 0 0 4.5mm;padding:0}
+    .m-siluett .punkter li{margin:0 0 0.6mm 0}
+    .m-siluett .grupp{margin-bottom:1.5mm;text-align:center}.m-siluett .gruppnamn{font-weight:700;display:block}
+    .m-siluett .cert{display:flex;justify-content:space-between;margin-bottom:0.8mm}.m-siluett .certmeta{color:#666;font-size:9pt}
+    .m-siluett .sprakrad{text-align:center}
+  
+/* 17 Ritning */
+    .m-ritning{font-family:Roboto,sans-serif;font-size:9.5pt;line-height:1.4;color:#222;padding:0;display:grid;grid-template-columns:66mm 1fr}
+    .m-ritning .sido{background:var(--a);color:#fff;padding:18mm 7mm 18mm 14mm;font-size:9pt}
+    .m-ritning .namn{font-size:24pt;font-weight:500;line-height:1.1;color:#fff}
+    .m-ritning .titel{font-size:10.5pt;font-weight:300;color:rgba(255,255,255,.85);margin-top:1.5mm}
+    .m-ritning .sido .huvud{padding-bottom:5mm;border-bottom:0.5pt solid rgba(255,255,255,.5);margin-bottom:5mm}
+    .m-ritning .sido .rubrik{color:#fff;border-bottom:0.5pt solid rgba(255,255,255,.5);font-size:9pt;letter-spacing:0.08em}
+    .m-ritning .main{padding:18mm 18mm 18mm 9mm}
+    .m-ritning .sektion{margin-bottom:5.5mm}
+    .m-ritning .rubrik{font-size:10.5pt;font-weight:500;text-transform:uppercase;color:var(--a);border-bottom:0.5pt solid var(--a);padding-bottom:0.8mm;margin-bottom:2.5mm}
+    .m-ritning .post{margin-bottom:3.8mm}
+    .m-ritning .postrad{display:flex;justify-content:space-between;gap:4mm}
+    .m-ritning .posttitel{font-weight:500}
+    .m-ritning .period{color:#666;font-size:8.5pt;white-space:nowrap;font-variant-numeric:tabular-nums}
+    .m-ritning .agrad{color:#555}
+    .m-ritning .punkter{margin:1mm 0 0 4.5mm;padding:0}
+    .m-ritning .punkter li{margin:0 0 0.6mm 0}
+    .m-ritning .kontaktlista,.m-ritning .certlista,.m-ritning .spraklista{list-style:none;margin:0;padding:0}
+    .m-ritning .kontaktlista{font-size:8.5pt}.m-ritning .kontaktlista li{margin-bottom:1mm;overflow-wrap:anywhere}
+    .m-ritning .sido .gruppnamn{font-weight:500;margin-top:1.5mm;display:block}
+    .m-ritning .sido .punkter{margin-left:3.5mm}
+    .m-ritning .certlista li{margin-bottom:1.5mm}.m-ritning .certnamn{display:block}.m-ritning .certmeta{opacity:.8;font-size:8.5pt}
+    .m-ritning .spraklista li{display:flex;justify-content:space-between}
+  
+/* 18 Tidning */
+    .m-tidning{font-family:Georgia,serif;font-size:10.5pt;line-height:1.32;color:#1A1A1A;padding:16mm 20mm 18mm 20mm}
+    .m-tidning .huvud{text-align:center;border-top:2pt solid #1A1A1A;border-bottom:0.5pt solid #1A1A1A;padding:3mm 0 2.5mm}
+    .m-tidning .namn{font-size:36pt;line-height:1.05;color:#1A1A1A}
+    .m-tidning .daterad{display:flex;justify-content:space-between;border-bottom:0.5pt solid #1A1A1A;padding:1.5mm 0;font-size:9pt}
+    .m-tidning .titel{font-style:italic;color:var(--a);font-size:10pt}
+    .m-tidning .kontakt{font-size:9pt;color:#444}
+    .m-tidning .sektion{margin-top:5.5mm;border-top:0.5pt solid #1A1A1A;padding-top:2mm}
+    .m-tidning .rubrik{font-size:10pt;font-weight:700;text-transform:uppercase;color:#1A1A1A;margin-bottom:2.5mm}
+    .m-tidning .profil{column-count:2;column-gap:7mm;text-align:justify;hyphens:none}
+    .m-tidning .profil::first-letter{font-size:28pt;float:left;line-height:0.85;padding:1mm 1.5mm 0 0;color:var(--a)}
+    .m-tidning .post{margin-bottom:3.5mm}
+    .m-tidning .postrad{display:flex;justify-content:space-between;gap:4mm}
+    .m-tidning .posttitel{font-weight:700}
+    .m-tidning .period{color:#444;font-size:9.5pt;white-space:nowrap}
+    .m-tidning .agrad{font-style:italic;color:#333}
+    .m-tidning .punkter{margin:1mm 0 0 4.5mm;padding:0}
+    .m-tidning .punkter li{margin:0 0 0.5mm 0}
+    .m-tidning .grupp{margin-bottom:1.2mm}.m-tidning .gruppnamn{font-weight:700}
+    .m-tidning .cert{display:flex;justify-content:space-between;margin-bottom:0.8mm}.m-tidning .certmeta{color:#444}
+  
+/* 19 Tusch */
+    .m-tusch{font-family:Roboto,sans-serif;font-size:9.5pt;line-height:1.4;color:#222;padding:20mm 20mm 18mm 20mm}
+    .m-tusch .namn{font-size:32pt;font-weight:300;line-height:1.05;color:#1A1A1A}
+    .m-tusch .titel{font-size:11pt;color:var(--a);margin-top:1.5mm}
+    .m-tusch .kontakt{font-size:9pt;color:#666;margin-top:2.5mm}
+    .m-tusch .sektion{margin-top:6.5mm}
+    .m-tusch .rubrik{font-size:9pt;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:#6B6B6B;margin-bottom:3mm}
+    .m-tusch .rubrik:after{content:'';display:block;width:8mm;border-bottom:1pt solid var(--a);margin-top:1mm}
+    .m-tusch .post{display:grid;grid-template-columns:34mm 1fr;margin-bottom:4mm}
+    .m-tusch .marg{font-size:22pt;font-weight:300;color:#B5B5B5;line-height:1;font-variant-numeric:tabular-nums}
+    .m-tusch .marg.period{font-size:22pt}
+    .m-tusch .post .period{white-space:normal}
+    .m-tusch .posttitel{font-weight:500}
+    .m-tusch .agrad{color:#555}
+    .m-tusch .punkter{margin:1mm 0 0 4.5mm;padding:0}
+    .m-tusch .punkter li{margin:0 0 0.6mm 0}
+    .m-tusch .profil{margin-left:34mm}
+    .m-tusch .grupp{margin-bottom:1.2mm;margin-left:34mm}.m-tusch .gruppnamn{font-weight:500}
+    .m-tusch .cert{display:flex;justify-content:space-between;margin-bottom:0.8mm;margin-left:34mm}.m-tusch .certmeta{color:#666;font-size:8.5pt}
+    .m-tusch .cert .period{font-size:8.5pt}
+    .m-tusch .sprakrad{margin-left:34mm}
+  
+/* 20 Horisont */
+    .m-horisont{font-family:'Open Sans',sans-serif;font-size:9.5pt;line-height:1.4;color:#222;padding:18mm 20mm 18mm 20mm}
+    .m-horisont .namn{font-size:28pt;font-weight:600;line-height:1.1;color:#111}
+    .m-horisont .titel{font-size:11.5pt;color:var(--a);margin-top:1.5mm}
+    .m-horisont .kontakt{font-size:9pt;color:#555;margin-top:2.5mm}
+    .m-horisont .axel{position:relative;height:18mm;margin:7mm 0 0}
+    .m-horisont .axel .linje{position:absolute;left:0;right:0;top:3mm;border-top:1pt solid #B9C2CC}
+    .m-horisont .axel .punkt{position:absolute;top:1.6mm;width:2.8mm;height:2.8mm;border-radius:50%;background:var(--a);transform:translateX(-50%)}
+    .m-horisont .axel .punkt.utb{background:#fff;border:1pt solid var(--a)}
+    .m-horisont .axel .etikett{position:absolute;top:5.5mm;transform:translateX(-50%);font-size:7.5pt;color:#555;white-space:nowrap;text-align:center;line-height:1.25}
+    .m-horisont .axel .etikett.nedre{top:11mm}
+    .m-horisont .axel .etikett.nedre:before{content:'';position:absolute;left:50%;top:-5.5mm;height:5mm;border-left:0.5pt solid #B9C2CC}
+    .m-horisont .axel .etikett b{display:block;color:#222;font-weight:600}
+    .m-horisont .sektion{margin-top:5.5mm}
+    .m-horisont .rubrik{font-size:10.5pt;font-weight:700;color:var(--a);margin-bottom:2.5mm}
+    .m-horisont .post{margin-bottom:3.8mm}
+    .m-horisont .postrad{display:flex;justify-content:space-between;gap:4mm}
+    .m-horisont .posttitel{font-weight:700}
+    .m-horisont .period{color:#555;font-size:8.5pt;white-space:nowrap}
+    .m-horisont .agrad{color:#555}
+    .m-horisont .punkter{margin:1mm 0 0 4.5mm;padding:0}
+    .m-horisont .punkter li{margin:0 0 0.6mm 0}
+    .m-horisont .grupp{margin-bottom:1.2mm}.m-horisont .gruppnamn{font-weight:700}
+    .m-horisont .cert{display:flex;justify-content:space-between;margin-bottom:0.8mm}.m-horisont .certmeta{color:#555;font-size:8.5pt}
+  
+</style>
+</head>
+<body>
+<div class="sida">
+  <h1>Mallutbudet: 20 mallar, facit för bygget</h1>
+  <p class="ingress">Varje mall visas som sida 1 av exempel-CV:t (Erik Lindberg, NORMALT_CV) i 1:1 på A4, med mallens förvalda accent och rubrikmodellens standardrubriker. Måtten står i docs/design/mallar-utbud-2026-11-16.md. Fotoplatserna visar en neutral platshållare; fotot är valbart i varje mall som har en plats.</p>
+  <div class="regler">
+    <div class="regel"><b>12 kärnmallar, PDF och Word</b>Likadana i båda formaten. Bara Calibri, Arial, Verdana, Georgia, Garamond och Times New Roman. Sidospalter är tabellceller, linjer är styckekanter, perioden är tabbstopp.</div>
+    <div class="regel"><b>8 konstnärliga, bara PDF</b>Får Lato, Open Sans, Roboto och Poppins, sidfärg, rundade brickor och spalter i hela sidans höjd. Seriösa nog att skickas.</div>
+    <div class="regel"><b>Gäller alla mallar</b>Namnet först i läsordningen, inga rubriker med bokstavsavstånd över 0,16 em, poster delas inte vid sidbrytning, fyra accenter som klarar AA, foto på eller av, sektionsordning och rubriker ur rubrikmodellen.</div>
+  </div>
+  <table class="oversikt"><thead><tr><th>Nr</th><th>Mall</th><th>Nivå</th><th>Format</th><th>Formfamilj</th><th>Kort</th></tr></thead><tbody><tr><td>1</td><td><a href="#linne">Linne</a></td><td>Gratis</td><td>PDF + Word</td><td>Enspaltig klassisk</td><td>Klassisk och luftig</td></tr><tr><td>2</td><td><a href="#bjork">Björk</a></td><td>Gratis</td><td>PDF + Word</td><td>Enspaltig med karaktär</td><td>Centrerad, med foto</td></tr><tr><td>3</td><td><a href="#koppar">Koppar</a></td><td>Premium</td><td>PDF + Word</td><td>Färgat huvud</td><td>Färgat huvud, foto</td></tr><tr><td>4</td><td><a href="#kalksten">Kalksten</a></td><td>Premium</td><td>PDF + Word</td><td>Sidospalt</td><td>Sidospalt och foto</td></tr><tr><td>5</td><td><a href="#granit">Granit</a></td><td>Premium</td><td>PDF + Word</td><td>Sidospalt</td><td>Mörk sidospalt, foto</td></tr><tr><td>6</td><td><a href="#kolumn">Kolumn</a></td><td>Premium</td><td>PDF + Word</td><td>Marginalrubriker</td><td>Rubriker i marginalen</td></tr><tr><td>7</td><td><a href="#arsring">Årsring</a></td><td>Premium</td><td>PDF + Word</td><td>Tidslinje</td><td>Årtalen i marginalen</td></tr><tr><td>8</td><td><a href="#antikva">Antikva</a></td><td>Premium</td><td>PDF + Word</td><td>Serif formell</td><td>Formell serif</td></tr><tr><td>9</td><td><a href="#fasad">Fasad</a></td><td>Premium</td><td>PDF + Word</td><td>Enspaltig med karaktär</td><td>Stort namn, fotoplats</td></tr><tr><td>10</td><td><a href="#raster">Raster</a></td><td>Premium</td><td>PDF + Word</td><td>Enspaltig med karaktär</td><td>Kompetenser i spalter</td></tr><tr><td>11</td><td><a href="#folio">Folio</a></td><td>Premium</td><td>PDF + Word</td><td>Serif formell</td><td>Elegant serif</td></tr><tr><td>12</td><td><a href="#stal">Stål</a></td><td>Premium</td><td>PDF + Word</td><td>Tvåspaltig utan panel</td><td>Två spalter, mer plats</td></tr><tr><td>13</td><td><a href="#morkrum">Mörkrum</a></td><td>Premium</td><td>Bara PDF</td><td>Konstnärlig</td><td>Mörkt huvud, foto</td></tr><tr><td>14</td><td><a href="#terrakotta">Terrakotta</a></td><td>Premium</td><td>Bara PDF</td><td>Konstnärlig</td><td>Varm tonad sida</td></tr><tr><td>15</td><td><a href="#kvadrat">Kvadrat</a></td><td>Premium</td><td>Bara PDF</td><td>Konstnärlig</td><td>Rutnät och färgblock</td></tr><tr><td>16</td><td><a href="#siluett">Siluett</a></td><td>Premium</td><td>Bara PDF</td><td>Konstnärlig</td><td>Fotot i centrum</td></tr><tr><td>17</td><td><a href="#ritning">Ritning</a></td><td>Premium</td><td>Bara PDF</td><td>Konstnärlig</td><td>Djupblå sidospalt</td></tr><tr><td>18</td><td><a href="#tidning">Tidning</a></td><td>Premium</td><td>Bara PDF</td><td>Konstnärlig</td><td>Tidningshuvud</td></tr><tr><td>19</td><td><a href="#tusch">Tusch</a></td><td>Premium</td><td>Bara PDF</td><td>Konstnärlig</td><td>Stora årtal</td></tr><tr><td>20</td><td><a href="#horisont">Horisont</a></td><td>Premium</td><td>Bara PDF</td><td>Konstnärlig</td><td>Tidsaxel under huvudet</td></tr></tbody></table>
+
+  <h2 class="grupp-rubrik">Kärnmallar 1 till 12: PDF och Word</h2>
+  <p class="grupp-ingress">Två gratis (Linne och Björk), tio Premium. Huvudet varierar mellan vänsterställt, centrerat och färgat band; rubrikerna ligger ovanför, i marginalen eller som band; två har sidospalt, en har två spalter utan panel; fyra har fotoplats; fyra är serif.</p>
+  <div class="galleri">
+<article class="mall" id="linne">
+  <div class="etikett">
+    <span class="nr">01</span>
+    <h3>Linne</h3>
+    <span class="niva gratis">Gratis</span>
+    <span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span>
+    <span class="familj">Enspaltig klassisk</span>
+  </div>
+  <div class="arkram">
+    <div class="ark m-linne" style="--a:#1F3A5F;--ton:rgb(224,227,233)">
+    <header class="huvud"><div class="namn ">Erik Lindberg</div><div class="titel">Projektledare inom IT</div><div class="kontakt">erik.lindberg@email.se<span class="sep"> · </span>073-456 78 90<span class="sep"> · </span>Stockholm<span class="sep"> · </span>linkedin.com/in/eriklindberg</div></header>
+    <section class="sektion "><h2 class="rubrik ">Profil</h2><p class="profil">Erfaren projektledare med 6+ års erfarenhet av att leda digitala transformationsprojekt inom bank och fintech. Certifierad i både agila metoder (Scrum, SAFe) och traditionell projektledning (PMP). Levererat 15+ projekt med en genomsnittlig budget på 8 MSEK. Stark kommunikatör som bygger högpresterande team och håller intressenterna samlade.</p></section>
+    <section class="sektion "><h2 class="rubrik ">Arbetslivserfarenhet</h2><div class="post"><div class="postrad"><span class="posttitel">Senior Projektledare</span><span class="period">2021 – Pågående</span></div><div class="agrad"><span class="arbetsgivare">Nordea Bank</span></div><ul class="punkter"><li>Leder ett tvärfunktionellt team på 12 personer i införandet av en ny mobilbanksplattform</li><li>Ansvarig för budget på 15 MSEK och rapportering till styrgrupp med IT-direktör</li><li>Införde agilt arbetssätt som ökade leveranstakten med 35 %</li><li>Samordnar externa leverantörer och säkerställer efterlevnad av finansiella regelverk</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Projektledare</span><span class="period">2018 – 2021</span></div><div class="agrad"><span class="arbetsgivare">Klarna</span></div><ul class="punkter"><li>Ledde 8 produktutvecklingsprojekt inom checkout och betalningslösningar</li><li>Införde Scrum och kortade tiden till lansering med 40 %</li><li>Handledde 3 juniora projektledare och byggde upp ett projektledarprogram</li><li>Samordnade releaseplaneringen för 5 utvecklingsteam (50+ utvecklare)</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Biträdande projektledare</span><span class="period">2016 – 2018</span></div><div class="agrad"><span class="arbetsgivare">Tieto Sverige</span></div><ul class="punkter"><li>Planerade och följde upp leveranser i ett byte av ärendehanteringssystem för en kommun</li><li>Höll i användartester och utbildade 40 handläggare i det nya systemet</li></ul></div></section>
+    <section class="sektion "><h2 class="rubrik ">Utbildning</h2><div class="post"><div class="postrad"><span class="posttitel">Civilingenjör Industriell Ekonomi</span><span class="period">2011 – 2016</span></div><div class="agrad"><span class="arbetsgivare">Kungliga Tekniska Högskolan</span></div><p class="postdetalj">Inriktning mot projektledning och verksamhetsstyrning</p></div></section>
+    <section class="sektion "><h2 class="rubrik ">Kompetenser</h2><div class="grupp"><span class="gruppnamn">Metodik och verktyg: </span>Scrum, Kanban, SAFe, Vattenfall, Jira, Confluence, MS Project, Budget- och resursplanering, Riskhantering och kvalitetssäkring</div><div class="grupp"><span class="gruppnamn">Personliga: </span>Ledarskap och teamutveckling, Kommunikation och presentation, Förhandling och konflikthantering, Strategiskt tänkande</div></section>
+    <section class="sektion "><h2 class="rubrik ">Certifieringar</h2><div class="cert"><span class="certnamn">PMP, Project Management Professional</span><span class="certmeta">PMI<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">SAFe 5.0 Agilist</span><span class="certmeta">Scaled Agile<span class="period"> 2021</span></span></div><div class="cert"><span class="certnamn">Professional Scrum Master I</span><span class="certmeta">Scrum.org<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">PRINCE2 Foundation</span><span class="certmeta">Axelos<span class="period"> 2018</span></span></div></section>
+    <section class="sektion "><h2 class="rubrik ">Språk</h2><div class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span></div></section></div>
+  </div>
+  <div class="under">
+    <p class="stil">Georgia-namn, Calibri-text, tunn linje under rubrikerna, perioden till höger. Lugn, luftig, läses av alla.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Georgia (namn, rubriker) + Calibri (brödtext)</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><em>förval</em><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code><span class="swatch" style="background:#7A1F2B" title="#7A1F2B"></span><code>#7A1F2B</code><span class="swatch" style="background:#3A3A3A" title="#3A3A3A"></span><code>#3A3A3A</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Klassisk och luftig"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>alltid första gratisförslaget; passar alla längder</span></div>
+  </div>
+</article>
+<article class="mall" id="bjork">
+  <div class="etikett">
+    <span class="nr">02</span>
+    <h3>Björk</h3>
+    <span class="niva gratis">Gratis</span>
+    <span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span>
+    <span class="familj">Enspaltig med karaktär</span>
+  </div>
+  <div class="arkram">
+    <div class="ark m-bjork" style="--a:#1E5A3C;--ton:rgb(224,232,228)">
+    <header class="huvud"><div class="foto foto-rund" style="width:26mm;height:26mm" aria-label="Fotoplats"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="38" r="18"/><path d="M14 96c4-22 18-32 36-32s32 10 36 32z"/></svg></div><div class="namn ">Erik Lindberg</div><div class="titel">Projektledare inom IT</div><div class="kontakt">erik.lindberg@email.se<span class="sep"> · </span>073-456 78 90<span class="sep"> · </span>Stockholm<span class="sep"> · </span>linkedin.com/in/eriklindberg</div></header>
+    <section class="sektion "><h2 class="rubrik ">Profil</h2><p class="profil">Erfaren projektledare med 6+ års erfarenhet av att leda digitala transformationsprojekt inom bank och fintech. Certifierad i både agila metoder (Scrum, SAFe) och traditionell projektledning (PMP). Levererat 15+ projekt med en genomsnittlig budget på 8 MSEK. Stark kommunikatör som bygger högpresterande team och håller intressenterna samlade.</p></section>
+    <section class="sektion "><h2 class="rubrik ">Arbetslivserfarenhet</h2><div class="post"><div class="postrad"><span class="posttitel">Senior Projektledare</span><span class="period">2021 – Pågående</span></div><div class="agrad"><span class="arbetsgivare">Nordea Bank</span></div><ul class="punkter"><li>Leder ett tvärfunktionellt team på 12 personer i införandet av en ny mobilbanksplattform</li><li>Ansvarig för budget på 15 MSEK och rapportering till styrgrupp med IT-direktör</li><li>Införde agilt arbetssätt som ökade leveranstakten med 35 %</li><li>Samordnar externa leverantörer och säkerställer efterlevnad av finansiella regelverk</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Projektledare</span><span class="period">2018 – 2021</span></div><div class="agrad"><span class="arbetsgivare">Klarna</span></div><ul class="punkter"><li>Ledde 8 produktutvecklingsprojekt inom checkout och betalningslösningar</li><li>Införde Scrum och kortade tiden till lansering med 40 %</li><li>Handledde 3 juniora projektledare och byggde upp ett projektledarprogram</li><li>Samordnade releaseplaneringen för 5 utvecklingsteam (50+ utvecklare)</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Biträdande projektledare</span><span class="period">2016 – 2018</span></div><div class="agrad"><span class="arbetsgivare">Tieto Sverige</span></div><ul class="punkter"><li>Planerade och följde upp leveranser i ett byte av ärendehanteringssystem för en kommun</li><li>Höll i användartester och utbildade 40 handläggare i det nya systemet</li></ul></div></section>
+    <section class="sektion "><h2 class="rubrik ">Utbildning</h2><div class="post"><div class="postrad"><span class="posttitel">Civilingenjör Industriell Ekonomi</span><span class="period">2011 – 2016</span></div><div class="agrad"><span class="arbetsgivare">Kungliga Tekniska Högskolan</span></div><p class="postdetalj">Inriktning mot projektledning och verksamhetsstyrning</p></div></section>
+    <section class="sektion "><h2 class="rubrik ">Kompetenser</h2><div class="grupp"><span class="gruppnamn">Metodik och verktyg</span><span class="rad">Scrum<span class="mitt"> · </span>Kanban<span class="mitt"> · </span>SAFe<span class="mitt"> · </span>Vattenfall<span class="mitt"> · </span>Jira<span class="mitt"> · </span>Confluence<span class="mitt"> · </span>MS Project<span class="mitt"> · </span>Budget- och resursplanering<span class="mitt"> · </span>Riskhantering och kvalitetssäkring</span></div><div class="grupp"><span class="gruppnamn">Personliga</span><span class="rad">Ledarskap och teamutveckling<span class="mitt"> · </span>Kommunikation och presentation<span class="mitt"> · </span>Förhandling och konflikthantering<span class="mitt"> · </span>Strategiskt tänkande</span></div></section>
+    <section class="sektion "><h2 class="rubrik ">Certifieringar</h2><div class="cert"><span class="certnamn">PMP, Project Management Professional</span><span class="certmeta">PMI<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">SAFe 5.0 Agilist</span><span class="certmeta">Scaled Agile<span class="period"> 2021</span></span></div><div class="cert"><span class="certnamn">Professional Scrum Master I</span><span class="certmeta">Scrum.org<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">PRINCE2 Foundation</span><span class="certmeta">Axelos<span class="period"> 2018</span></span></div></section>
+    <section class="sektion "><h2 class="rubrik ">Språk</h2><div class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span></div></section></div>
+  </div>
+  <div class="under">
+    <p class="stil">Centrerat huvud med rund fotoplats, Arial, kort accentstapel till vänster om varje rubrik. Rak och vänlig.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Arial (allt)</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code><em>förval</em><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#8A4B2A" title="#8A4B2A"></span><code>#8A4B2A</code><span class="swatch" style="background:#5B2A4E" title="#5B2A4E"></span><code>#5B2A4E</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Centrerad, med foto"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>foto finns; kort eller normalt CV</span></div>
+  </div>
+</article>
+<article class="mall" id="koppar">
+  <div class="etikett">
+    <span class="nr">03</span>
+    <h3>Koppar</h3>
+    <span class="niva premium">Premium</span>
+    <span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span>
+    <span class="familj">Färgat huvud</span>
+  </div>
+  <div class="arkram">
+    <div class="ark m-koppar" style="--a:#8A4B2A;--ton:rgb(239,230,225)">
+    <header class="band"><div><div class="namn ">Erik Lindberg</div><div class="titel">Projektledare inom IT</div><div class="kontakt">erik.lindberg@email.se<span class="sep"> · </span>073-456 78 90<span class="sep"> · </span>Stockholm<span class="sep"> · </span>linkedin.com/in/eriklindberg</div></div><div class="foto foto-rund" style="width:30mm;height:30mm" aria-label="Fotoplats"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="38" r="18"/><path d="M14 96c4-22 18-32 36-32s32 10 36 32z"/></svg></div></header>
+    <div class="kropp">
+    <section class="sektion "><h2 class="rubrik ">Profil</h2><p class="profil">Erfaren projektledare med 6+ års erfarenhet av att leda digitala transformationsprojekt inom bank och fintech. Certifierad i både agila metoder (Scrum, SAFe) och traditionell projektledning (PMP). Levererat 15+ projekt med en genomsnittlig budget på 8 MSEK. Stark kommunikatör som bygger högpresterande team och håller intressenterna samlade.</p></section>
+    <section class="sektion "><h2 class="rubrik ">Arbetslivserfarenhet</h2><div class="post"><div class="postrad"><span class="posttitel">Senior Projektledare</span><span class="period">2021 – Pågående</span></div><div class="agrad"><span class="arbetsgivare">Nordea Bank</span></div><ul class="punkter"><li>Leder ett tvärfunktionellt team på 12 personer i införandet av en ny mobilbanksplattform</li><li>Ansvarig för budget på 15 MSEK och rapportering till styrgrupp med IT-direktör</li><li>Införde agilt arbetssätt som ökade leveranstakten med 35 %</li><li>Samordnar externa leverantörer och säkerställer efterlevnad av finansiella regelverk</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Projektledare</span><span class="period">2018 – 2021</span></div><div class="agrad"><span class="arbetsgivare">Klarna</span></div><ul class="punkter"><li>Ledde 8 produktutvecklingsprojekt inom checkout och betalningslösningar</li><li>Införde Scrum och kortade tiden till lansering med 40 %</li><li>Handledde 3 juniora projektledare och byggde upp ett projektledarprogram</li><li>Samordnade releaseplaneringen för 5 utvecklingsteam (50+ utvecklare)</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Biträdande projektledare</span><span class="period">2016 – 2018</span></div><div class="agrad"><span class="arbetsgivare">Tieto Sverige</span></div><ul class="punkter"><li>Planerade och följde upp leveranser i ett byte av ärendehanteringssystem för en kommun</li><li>Höll i användartester och utbildade 40 handläggare i det nya systemet</li></ul></div></section>
+    <section class="sektion "><h2 class="rubrik ">Utbildning</h2><div class="post"><div class="postrad"><span class="posttitel">Civilingenjör Industriell Ekonomi</span><span class="period">2011 – 2016</span></div><div class="agrad"><span class="arbetsgivare">Kungliga Tekniska Högskolan</span></div><p class="postdetalj">Inriktning mot projektledning och verksamhetsstyrning</p></div></section>
+    <section class="sektion "><h2 class="rubrik ">Kompetenser</h2><div class="grupp"><span class="gruppnamn">Metodik och verktyg: </span>Scrum, Kanban, SAFe, Vattenfall, Jira, Confluence, MS Project, Budget- och resursplanering, Riskhantering och kvalitetssäkring</div><div class="grupp"><span class="gruppnamn">Personliga: </span>Ledarskap och teamutveckling, Kommunikation och presentation, Förhandling och konflikthantering, Strategiskt tänkande</div></section>
+    <section class="sektion "><h2 class="rubrik ">Certifieringar</h2><div class="cert"><span class="certnamn">PMP, Project Management Professional</span><span class="certmeta">PMI<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">SAFe 5.0 Agilist</span><span class="certmeta">Scaled Agile<span class="period"> 2021</span></span></div><div class="cert"><span class="certnamn">Professional Scrum Master I</span><span class="certmeta">Scrum.org<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">PRINCE2 Foundation</span><span class="certmeta">Axelos<span class="period"> 2018</span></span></div></section>
+    <section class="sektion "><h2 class="rubrik ">Språk</h2><div class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span></div></section>
+    </div></div>
+  </div>
+  <div class="under">
+    <p class="stil">Färgat huvudband i full bredd med vit text och rund fotoplats till höger, Calibri, versala rubriker i accent med linje under.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Calibri (allt)</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#8A4B2A" title="#8A4B2A"></span><code>#8A4B2A</code><em>förval</em><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code><span class="swatch" style="background:#2B2F36" title="#2B2F36"></span><code>#2B2F36</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Färgat huvud, foto"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>foto finns och CV:t är normalt eller kort</span></div>
+  </div>
+</article>
+<article class="mall" id="kalksten">
+  <div class="etikett">
+    <span class="nr">04</span>
+    <h3>Kalksten</h3>
+    <span class="niva premium">Premium</span>
+    <span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span>
+    <span class="familj">Sidospalt</span>
+  </div>
+  <div class="arkram">
+    <div class="ark m-kalksten" style="--a:#3B5A78;--ton:rgb(228,232,236)">
+    <header class="huvud"><div class="foto foto-fyrkant" style="width:38mm;height:38mm" aria-label="Fotoplats"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="38" r="18"/><path d="M14 96c4-22 18-32 36-32s32 10 36 32z"/></svg></div><div><div class="namn ">Erik Lindberg</div><div class="titel">Projektledare inom IT</div></div></header>
+    <div class="spalter">
+      <aside class="sido">
+        <section class="sektion "><h2 class="rubrik ">Kontakt</h2><ul class="kontaktlista"><li>erik.lindberg@email.se</li><li>073-456 78 90</li><li>Stockholm</li><li>linkedin.com/in/eriklindberg</li></ul></section>
+        <div class="falt"><section class="sektion "><h2 class="rubrik ">Certifieringar</h2><ul class="certlista"><li><span class="certnamn">PMP, Project Management Professional</span><span class="certmeta">PMI, 2022</span></li><li><span class="certnamn">SAFe 5.0 Agilist</span><span class="certmeta">Scaled Agile, 2021</span></li><li><span class="certnamn">Professional Scrum Master I</span><span class="certmeta">Scrum.org, 2019</span></li><li><span class="certnamn">PRINCE2 Foundation</span><span class="certmeta">Axelos, 2018</span></li></ul></section></div>
+        <section class="sektion "><h2 class="rubrik ">Kompetenser</h2><div class="grupp"><div class="gruppnamn">Metodik och verktyg</div><ul class="punkter"><li>Scrum</li><li>Kanban</li><li>SAFe</li><li>Vattenfall</li><li>Jira</li><li>Confluence</li><li>MS Project</li><li>Budget- och resursplanering</li><li>Riskhantering och kvalitetssäkring</li></ul></div><div class="grupp"><div class="gruppnamn">Personliga</div><ul class="punkter"><li>Ledarskap och teamutveckling</li><li>Kommunikation och presentation</li><li>Förhandling och konflikthantering</li><li>Strategiskt tänkande</li></ul></div></section>
+        <section class="sektion "><h2 class="rubrik ">Språk</h2><ul class="spraklista"><li><span class="sprak">Svenska</span><span class="niva">Modersmål</span></li><li><span class="sprak">Engelska</span><span class="niva">Flytande</span></li></ul></section>
+      </aside>
+      <main class="main">
+        <section class="sektion "><h2 class="rubrik ">Profil</h2><p class="profil">Erfaren projektledare med 6+ års erfarenhet av att leda digitala transformationsprojekt inom bank och fintech. Certifierad i både agila metoder (Scrum, SAFe) och traditionell projektledning (PMP). Levererat 15+ projekt med en genomsnittlig budget på 8 MSEK. Stark kommunikatör som bygger högpresterande team och håller intressenterna samlade.</p></section>
+        <section class="sektion "><h2 class="rubrik ">Arbetslivserfarenhet</h2><div class="post"><div class="postrad"><span class="posttitel">Senior Projektledare</span><span class="period">2021 – Pågående</span></div><div class="agrad"><span class="arbetsgivare">Nordea Bank</span></div><ul class="punkter"><li>Leder ett tvärfunktionellt team på 12 personer i införandet av en ny mobilbanksplattform</li><li>Ansvarig för budget på 15 MSEK och rapportering till styrgrupp med IT-direktör</li><li>Införde agilt arbetssätt som ökade leveranstakten med 35 %</li><li>Samordnar externa leverantörer och säkerställer efterlevnad av finansiella regelverk</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Projektledare</span><span class="period">2018 – 2021</span></div><div class="agrad"><span class="arbetsgivare">Klarna</span></div><ul class="punkter"><li>Ledde 8 produktutvecklingsprojekt inom checkout och betalningslösningar</li><li>Införde Scrum och kortade tiden till lansering med 40 %</li><li>Handledde 3 juniora projektledare och byggde upp ett projektledarprogram</li><li>Samordnade releaseplaneringen för 5 utvecklingsteam (50+ utvecklare)</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Biträdande projektledare</span><span class="period">2016 – 2018</span></div><div class="agrad"><span class="arbetsgivare">Tieto Sverige</span></div><ul class="punkter"><li>Planerade och följde upp leveranser i ett byte av ärendehanteringssystem för en kommun</li><li>Höll i användartester och utbildade 40 handläggare i det nya systemet</li></ul></div></section>
+        <section class="sektion "><h2 class="rubrik ">Utbildning</h2><div class="post"><div class="postrad"><span class="posttitel">Civilingenjör Industriell Ekonomi</span><span class="period">2011 – 2016</span></div><div class="agrad"><span class="arbetsgivare">Kungliga Tekniska Högskolan</span></div><p class="postdetalj">Inriktning mot projektledning och verksamhetsstyrning</p></div></section>
+      </main>
+    </div></div>
+  </div>
+  <div class="under">
+    <p class="stil">Huvud i full bredd med kvadratiskt foto, sedan ljusgrå vänsterspalt (kontakt, kompetenser, certifieringar, språk) och Georgia-rubriker i huvudspalten.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Georgia (namn, rubriker) + Calibri (brödtext)</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#3B5A78" title="#3B5A78"></span><code>#3B5A78</code><em>förval</em><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code><span class="swatch" style="background:#7A1F2B" title="#7A1F2B"></span><code>#7A1F2B</code><span class="swatch" style="background:#4A5561" title="#4A5561"></span><code>#4A5561</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Sidospalt och foto"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>tre eller fler intyg, eller många kompetenser</span></div>
+  </div>
+</article>
+<article class="mall" id="granit">
+  <div class="etikett">
+    <span class="nr">05</span>
+    <h3>Granit</h3>
+    <span class="niva premium">Premium</span>
+    <span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span>
+    <span class="familj">Sidospalt</span>
+  </div>
+  <div class="arkram">
+    <div class="ark m-granit" style="--a:#2B2F36;--ton:rgb(225,226,227)">
+    <header class="band"><div><div class="namn ">Erik Lindberg</div><div class="titel">Projektledare inom IT</div></div><div class="foto foto-rund" style="width:30mm;height:30mm" aria-label="Fotoplats"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="38" r="18"/><path d="M14 96c4-22 18-32 36-32s32 10 36 32z"/></svg></div></header>
+    <div class="spalter">
+      <main class="main">
+        <section class="sektion "><h2 class="rubrik ">Profil</h2><p class="profil">Erfaren projektledare med 6+ års erfarenhet av att leda digitala transformationsprojekt inom bank och fintech. Certifierad i både agila metoder (Scrum, SAFe) och traditionell projektledning (PMP). Levererat 15+ projekt med en genomsnittlig budget på 8 MSEK. Stark kommunikatör som bygger högpresterande team och håller intressenterna samlade.</p></section>
+        <section class="sektion "><h2 class="rubrik ">Arbetslivserfarenhet</h2><div class="post"><div class="postrad"><span class="posttitel">Senior Projektledare</span><span class="period">2021 – Pågående</span></div><div class="agrad"><span class="arbetsgivare">Nordea Bank</span></div><ul class="punkter"><li>Leder ett tvärfunktionellt team på 12 personer i införandet av en ny mobilbanksplattform</li><li>Ansvarig för budget på 15 MSEK och rapportering till styrgrupp med IT-direktör</li><li>Införde agilt arbetssätt som ökade leveranstakten med 35 %</li><li>Samordnar externa leverantörer och säkerställer efterlevnad av finansiella regelverk</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Projektledare</span><span class="period">2018 – 2021</span></div><div class="agrad"><span class="arbetsgivare">Klarna</span></div><ul class="punkter"><li>Ledde 8 produktutvecklingsprojekt inom checkout och betalningslösningar</li><li>Införde Scrum och kortade tiden till lansering med 40 %</li><li>Handledde 3 juniora projektledare och byggde upp ett projektledarprogram</li><li>Samordnade releaseplaneringen för 5 utvecklingsteam (50+ utvecklare)</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Biträdande projektledare</span><span class="period">2016 – 2018</span></div><div class="agrad"><span class="arbetsgivare">Tieto Sverige</span></div><ul class="punkter"><li>Planerade och följde upp leveranser i ett byte av ärendehanteringssystem för en kommun</li><li>Höll i användartester och utbildade 40 handläggare i det nya systemet</li></ul></div></section>
+        <section class="sektion "><h2 class="rubrik ">Utbildning</h2><div class="post"><div class="postrad"><span class="posttitel">Civilingenjör Industriell Ekonomi</span><span class="period">2011 – 2016</span></div><div class="agrad"><span class="arbetsgivare">Kungliga Tekniska Högskolan</span></div><p class="postdetalj">Inriktning mot projektledning och verksamhetsstyrning</p></div></section>
+      </main>
+      <aside class="sido">
+        <section class="sektion "><h2 class="rubrik ">Kontakt</h2><ul class="kontaktlista"><li>erik.lindberg@email.se</li><li>073-456 78 90</li><li>Stockholm</li><li>linkedin.com/in/eriklindberg</li></ul></section>
+        <div class="falt"><section class="sektion "><h2 class="rubrik ">Certifieringar</h2><ul class="certlista"><li><span class="certnamn">PMP, Project Management Professional</span><span class="certmeta">PMI, 2022</span></li><li><span class="certnamn">SAFe 5.0 Agilist</span><span class="certmeta">Scaled Agile, 2021</span></li><li><span class="certnamn">Professional Scrum Master I</span><span class="certmeta">Scrum.org, 2019</span></li><li><span class="certnamn">PRINCE2 Foundation</span><span class="certmeta">Axelos, 2018</span></li></ul></section></div>
+        <section class="sektion "><h2 class="rubrik ">Kompetenser</h2><div class="grupp"><div class="gruppnamn">Metodik och verktyg</div><ul class="punkter"><li>Scrum</li><li>Kanban</li><li>SAFe</li><li>Vattenfall</li><li>Jira</li><li>Confluence</li><li>MS Project</li><li>Budget- och resursplanering</li><li>Riskhantering och kvalitetssäkring</li></ul></div><div class="grupp"><div class="gruppnamn">Personliga</div><ul class="punkter"><li>Ledarskap och teamutveckling</li><li>Kommunikation och presentation</li><li>Förhandling och konflikthantering</li><li>Strategiskt tänkande</li></ul></div></section>
+        <section class="sektion "><h2 class="rubrik ">Språk</h2><ul class="spraklista"><li><span class="sprak">Svenska</span><span class="niva">Modersmål</span></li><li><span class="sprak">Engelska</span><span class="niva">Flytande</span></li></ul></section>
+      </aside>
+    </div></div>
+  </div>
+  <div class="under">
+    <p class="stil">Mörkt huvudband med rund fotoplats som fortsätter ner i en mörk högerspalt med vit text (kontakt, intyg i markerat fält, kompetenser, språk). Arial.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Arial (allt)</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#2B2F36" title="#2B2F36"></span><code>#2B2F36</code><em>förval</em><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code><span class="swatch" style="background:#5B2A4E" title="#5B2A4E"></span><code>#5B2A4E</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Mörk sidospalt, foto"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>många system och verktyg; mörkt och bestämt uttryck</span></div>
+  </div>
+</article>
+<article class="mall" id="kolumn">
+  <div class="etikett">
+    <span class="nr">06</span>
+    <h3>Kolumn</h3>
+    <span class="niva premium">Premium</span>
+    <span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span>
+    <span class="familj">Marginalrubriker</span>
+  </div>
+  <div class="arkram">
+    <div class="ark m-kolumn" style="--a:#3A3A3A;--ton:rgb(227,227,227)">
+    <header class="huvud"><div class="namn ">Erik Lindberg</div><div class="titel">Projektledare inom IT</div><div class="kontakt">erik.lindberg@email.se<span class="sep"> · </span>073-456 78 90<span class="sep"> · </span>Stockholm<span class="sep"> · </span>linkedin.com/in/eriklindberg</div></header>
+    <section class="sektion "><h2 class="rubrik ">Profil</h2><div><p class="profil">Erfaren projektledare med 6+ års erfarenhet av att leda digitala transformationsprojekt inom bank och fintech. Certifierad i både agila metoder (Scrum, SAFe) och traditionell projektledning (PMP). Levererat 15+ projekt med en genomsnittlig budget på 8 MSEK. Stark kommunikatör som bygger högpresterande team och håller intressenterna samlade.</p></div></section>
+    <section class="sektion "><h2 class="rubrik ">Arbetslivserfarenhet</h2><div><div class="post"><div class="postrad"><span class="posttitel">Senior Projektledare</span><span class="period">2021 – Pågående</span></div><div class="agrad"><span class="arbetsgivare">Nordea Bank</span></div><ul class="punkter"><li>Leder ett tvärfunktionellt team på 12 personer i införandet av en ny mobilbanksplattform</li><li>Ansvarig för budget på 15 MSEK och rapportering till styrgrupp med IT-direktör</li><li>Införde agilt arbetssätt som ökade leveranstakten med 35 %</li><li>Samordnar externa leverantörer och säkerställer efterlevnad av finansiella regelverk</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Projektledare</span><span class="period">2018 – 2021</span></div><div class="agrad"><span class="arbetsgivare">Klarna</span></div><ul class="punkter"><li>Ledde 8 produktutvecklingsprojekt inom checkout och betalningslösningar</li><li>Införde Scrum och kortade tiden till lansering med 40 %</li><li>Handledde 3 juniora projektledare och byggde upp ett projektledarprogram</li><li>Samordnade releaseplaneringen för 5 utvecklingsteam (50+ utvecklare)</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Biträdande projektledare</span><span class="period">2016 – 2018</span></div><div class="agrad"><span class="arbetsgivare">Tieto Sverige</span></div><ul class="punkter"><li>Planerade och följde upp leveranser i ett byte av ärendehanteringssystem för en kommun</li><li>Höll i användartester och utbildade 40 handläggare i det nya systemet</li></ul></div></div></section>
+    <section class="sektion "><h2 class="rubrik ">Utbildning</h2><div><div class="post"><div class="postrad"><span class="posttitel">Civilingenjör Industriell Ekonomi</span><span class="period">2011 – 2016</span></div><div class="agrad"><span class="arbetsgivare">Kungliga Tekniska Högskolan</span></div><p class="postdetalj">Inriktning mot projektledning och verksamhetsstyrning</p></div></div></section>
+    <section class="sektion "><h2 class="rubrik ">Kompetenser</h2><div><div class="grupp"><span class="gruppnamn">Metodik och verktyg: </span>Scrum, Kanban, SAFe, Vattenfall, Jira, Confluence, MS Project, Budget- och resursplanering, Riskhantering och kvalitetssäkring</div><div class="grupp"><span class="gruppnamn">Personliga: </span>Ledarskap och teamutveckling, Kommunikation och presentation, Förhandling och konflikthantering, Strategiskt tänkande</div></div></section>
+    <section class="sektion "><h2 class="rubrik ">Certifieringar</h2><div><div class="cert"><span class="certnamn">PMP, Project Management Professional</span><span class="certmeta">PMI<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">SAFe 5.0 Agilist</span><span class="certmeta">Scaled Agile<span class="period"> 2021</span></span></div><div class="cert"><span class="certnamn">Professional Scrum Master I</span><span class="certmeta">Scrum.org<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">PRINCE2 Foundation</span><span class="certmeta">Axelos<span class="period"> 2018</span></span></div></div></section>
+    <section class="sektion "><h2 class="rubrik ">Språk</h2><div><div class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span></div></div></section></div>
+  </div>
+  <div class="under">
+    <p class="stil">Garamond. Rubrikerna står i en 42 mm vänsterkolumn, innehållet till höger, tunn linje över varje avsnitt i full bredd. Som ett välsatt register.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Garamond (allt)</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#3A3A3A" title="#3A3A3A"></span><code>#3A3A3A</code><em>förval</em><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#7A1F2B" title="#7A1F2B"></span><code>#7A1F2B</code><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Rubriker i marginalen"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>lång karriär eller mycket text; läsaren hittar avsnitten direkt</span></div>
+  </div>
+</article>
+<article class="mall" id="arsring">
+  <div class="etikett">
+    <span class="nr">07</span>
+    <h3>Årsring</h3>
+    <span class="niva premium">Premium</span>
+    <span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span>
+    <span class="familj">Tidslinje</span>
+  </div>
+  <div class="arkram">
+    <div class="ark m-arsring" style="--a:#1E5A3C;--ton:rgb(224,232,228)">
+    <header class="huvud"><div class="namn ">Erik Lindberg</div><div class="titel">Projektledare inom IT</div><div class="kontakt">erik.lindberg@email.se<span class="sep"> · </span>073-456 78 90<span class="sep"> · </span>Stockholm<span class="sep"> · </span>linkedin.com/in/eriklindberg</div></header>
+    <section class="sektion "><h2 class="rubrik ">Profil</h2><p class="profil">Erfaren projektledare med 6+ års erfarenhet av att leda digitala transformationsprojekt inom bank och fintech. Certifierad i både agila metoder (Scrum, SAFe) och traditionell projektledning (PMP). Levererat 15+ projekt med en genomsnittlig budget på 8 MSEK. Stark kommunikatör som bygger högpresterande team och håller intressenterna samlade.</p></section>
+    <section class="sektion "><h2 class="rubrik ">Arbetslivserfarenhet</h2><div class="post"><div class="marg"><span class="period">2021 – Pågående</span></div><div class="innehall"><div class="postrad"><span class="posttitel">Senior Projektledare</span></div><div class="agrad"><span class="arbetsgivare">Nordea Bank</span></div><ul class="punkter"><li>Leder ett tvärfunktionellt team på 12 personer i införandet av en ny mobilbanksplattform</li><li>Ansvarig för budget på 15 MSEK och rapportering till styrgrupp med IT-direktör</li><li>Införde agilt arbetssätt som ökade leveranstakten med 35 %</li><li>Samordnar externa leverantörer och säkerställer efterlevnad av finansiella regelverk</li></ul></div></div><div class="post"><div class="marg"><span class="period">2018 – 2021</span></div><div class="innehall"><div class="postrad"><span class="posttitel">Projektledare</span></div><div class="agrad"><span class="arbetsgivare">Klarna</span></div><ul class="punkter"><li>Ledde 8 produktutvecklingsprojekt inom checkout och betalningslösningar</li><li>Införde Scrum och kortade tiden till lansering med 40 %</li><li>Handledde 3 juniora projektledare och byggde upp ett projektledarprogram</li><li>Samordnade releaseplaneringen för 5 utvecklingsteam (50+ utvecklare)</li></ul></div></div><div class="post"><div class="marg"><span class="period">2016 – 2018</span></div><div class="innehall"><div class="postrad"><span class="posttitel">Biträdande projektledare</span></div><div class="agrad"><span class="arbetsgivare">Tieto Sverige</span></div><ul class="punkter"><li>Planerade och följde upp leveranser i ett byte av ärendehanteringssystem för en kommun</li><li>Höll i användartester och utbildade 40 handläggare i det nya systemet</li></ul></div></div></section>
+    <section class="sektion "><h2 class="rubrik ">Utbildning</h2><div class="post"><div class="marg"><span class="period">2011 – 2016</span></div><div class="innehall"><div class="postrad"><span class="posttitel">Civilingenjör Industriell Ekonomi</span></div><div class="agrad"><span class="arbetsgivare">Kungliga Tekniska Högskolan</span></div><p class="postdetalj">Inriktning mot projektledning och verksamhetsstyrning</p></div></div></section>
+    <section class="sektion "><h2 class="rubrik ">Kompetenser</h2><div class="post"><div class="marg gruppnamn">Metodik och verktyg</div><div class="innehall">Scrum, Kanban, SAFe, Vattenfall, Jira, Confluence, MS Project, Budget- och resursplanering, Riskhantering och kvalitetssäkring</div></div><div class="post"><div class="marg gruppnamn">Personliga</div><div class="innehall">Ledarskap och teamutveckling, Kommunikation och presentation, Förhandling och konflikthantering, Strategiskt tänkande</div></div></section>
+    <section class="sektion "><h2 class="rubrik ">Certifieringar</h2><div class="post"><div class="marg period">2022</div><div class="innehall"><span class="certnamn">PMP, Project Management Professional</span><span class="certmeta">PMI</span></div></div><div class="post"><div class="marg period">2021</div><div class="innehall"><span class="certnamn">SAFe 5.0 Agilist</span><span class="certmeta">Scaled Agile</span></div></div><div class="post"><div class="marg period">2019</div><div class="innehall"><span class="certnamn">Professional Scrum Master I</span><span class="certmeta">Scrum.org</span></div></div><div class="post"><div class="marg period">2018</div><div class="innehall"><span class="certnamn">PRINCE2 Foundation</span><span class="certmeta">Axelos</span></div></div></section>
+    <section class="sektion "><h2 class="rubrik ">Språk</h2><div class="post"><div class="marg gruppnamn">Svenska</div><div class="innehall">Modersmål</div></div><div class="post"><div class="marg gruppnamn">Engelska</div><div class="innehall">Flytande</div></div></section></div>
+  </div>
+  <div class="under">
+    <p class="stil">Calibri. Årtalen i en 30 mm vänsterkolumn i accent, titel och arbetsgivare till höger med hängande indrag; rubriker med linje över. Karriären läses som en tidslinje.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Calibri (allt)</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code><em>förval</em><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#8A4B2A" title="#8A4B2A"></span><code>#8A4B2A</code><span class="swatch" style="background:#2B2F36" title="#2B2F36"></span><code>#2B2F36</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Årtalen i marginalen"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>lång karriär med många år; tre sidor</span></div>
+  </div>
+</article>
+<article class="mall" id="antikva">
+  <div class="etikett">
+    <span class="nr">08</span>
+    <h3>Antikva</h3>
+    <span class="niva premium">Premium</span>
+    <span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span>
+    <span class="familj">Serif formell</span>
+  </div>
+  <div class="arkram">
+    <div class="ark m-antikva" style="--a:#7A1F2B;--ton:rgb(236,224,225)">
+    <header class="huvud"><div class="namn ">Erik Lindberg</div><div class="titel">Projektledare inom IT</div><div class="kontakt">erik.lindberg@email.se<span class="sep"> · </span>073-456 78 90<span class="sep"> · </span>Stockholm<span class="sep"> · </span>linkedin.com/in/eriklindberg</div></header><div class="dubbel"></div>
+    <section class="sektion "><h2 class="rubrik ">Profil</h2><p class="profil">Erfaren projektledare med 6+ års erfarenhet av att leda digitala transformationsprojekt inom bank och fintech. Certifierad i både agila metoder (Scrum, SAFe) och traditionell projektledning (PMP). Levererat 15+ projekt med en genomsnittlig budget på 8 MSEK. Stark kommunikatör som bygger högpresterande team och håller intressenterna samlade.</p></section>
+    <section class="sektion "><h2 class="rubrik ">Arbetslivserfarenhet</h2><div class="post"><div class="postrad"><span class="posttitel">Senior Projektledare</span><span class="period">2021 – Pågående</span></div><div class="agrad"><span class="arbetsgivare">Nordea Bank</span></div><ul class="punkter"><li>Leder ett tvärfunktionellt team på 12 personer i införandet av en ny mobilbanksplattform</li><li>Ansvarig för budget på 15 MSEK och rapportering till styrgrupp med IT-direktör</li><li>Införde agilt arbetssätt som ökade leveranstakten med 35 %</li><li>Samordnar externa leverantörer och säkerställer efterlevnad av finansiella regelverk</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Projektledare</span><span class="period">2018 – 2021</span></div><div class="agrad"><span class="arbetsgivare">Klarna</span></div><ul class="punkter"><li>Ledde 8 produktutvecklingsprojekt inom checkout och betalningslösningar</li><li>Införde Scrum och kortade tiden till lansering med 40 %</li><li>Handledde 3 juniora projektledare och byggde upp ett projektledarprogram</li><li>Samordnade releaseplaneringen för 5 utvecklingsteam (50+ utvecklare)</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Biträdande projektledare</span><span class="period">2016 – 2018</span></div><div class="agrad"><span class="arbetsgivare">Tieto Sverige</span></div><ul class="punkter"><li>Planerade och följde upp leveranser i ett byte av ärendehanteringssystem för en kommun</li><li>Höll i användartester och utbildade 40 handläggare i det nya systemet</li></ul></div></section>
+    <section class="sektion "><h2 class="rubrik ">Utbildning</h2><div class="post"><div class="postrad"><span class="posttitel">Civilingenjör Industriell Ekonomi</span><span class="period">2011 – 2016</span></div><div class="agrad"><span class="arbetsgivare">Kungliga Tekniska Högskolan</span></div><p class="postdetalj">Inriktning mot projektledning och verksamhetsstyrning</p></div></section>
+    <section class="sektion "><h2 class="rubrik ">Kompetenser</h2><div class="grupp"><span class="gruppnamn">Metodik och verktyg: </span>Scrum, Kanban, SAFe, Vattenfall, Jira, Confluence, MS Project, Budget- och resursplanering, Riskhantering och kvalitetssäkring</div><div class="grupp"><span class="gruppnamn">Personliga: </span>Ledarskap och teamutveckling, Kommunikation och presentation, Förhandling och konflikthantering, Strategiskt tänkande</div></section>
+    <section class="sektion "><h2 class="rubrik ">Certifieringar</h2><div class="cert"><span class="certnamn">PMP, Project Management Professional</span><span class="certmeta">PMI<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">SAFe 5.0 Agilist</span><span class="certmeta">Scaled Agile<span class="period"> 2021</span></span></div><div class="cert"><span class="certnamn">Professional Scrum Master I</span><span class="certmeta">Scrum.org<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">PRINCE2 Foundation</span><span class="certmeta">Axelos<span class="period"> 2018</span></span></div></section>
+    <section class="sektion "><h2 class="rubrik ">Språk</h2><div class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span></div></section></div>
+  </div>
+  <div class="under">
+    <p class="stil">Times New Roman. Centrerat huvud med dubbel linje under, centrerade rubriker med linje under, vinröd accent. Formellt och tidlöst utan att bli stelt.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Times New Roman (allt)</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#7A1F2B" title="#7A1F2B"></span><code>#7A1F2B</code><em>förval</em><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#3A3A3A" title="#3A3A3A"></span><code>#3A3A3A</code><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Formell serif"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>flera utbildningar eller akademisk examen; formellt sammanhang</span></div>
+  </div>
+</article>
+<article class="mall" id="fasad">
+  <div class="etikett">
+    <span class="nr">09</span>
+    <h3>Fasad</h3>
+    <span class="niva premium">Premium</span>
+    <span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span>
+    <span class="familj">Enspaltig med karaktär</span>
+  </div>
+  <div class="arkram">
+    <div class="ark m-fasad" style="--a:#1F3A5F;--ton:rgb(224,227,233)">
+    <header class="huvud"><div class="huvudtext"><div class="namn ">Erik Lindberg</div><div class="titel">Projektledare inom IT</div><div class="kontakt">erik.lindberg@email.se<span class="sep"> · </span>073-456 78 90<span class="sep"> · </span>Stockholm<span class="sep"> · </span>linkedin.com/in/eriklindberg</div></div><div class="foto foto-fyrkant" style="width:32mm;height:32mm" aria-label="Fotoplats"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="38" r="18"/><path d="M14 96c4-22 18-32 36-32s32 10 36 32z"/></svg></div></header>
+    <section class="sektion "><h2 class="rubrik ">Profil</h2><p class="profil">Erfaren projektledare med 6+ års erfarenhet av att leda digitala transformationsprojekt inom bank och fintech. Certifierad i både agila metoder (Scrum, SAFe) och traditionell projektledning (PMP). Levererat 15+ projekt med en genomsnittlig budget på 8 MSEK. Stark kommunikatör som bygger högpresterande team och håller intressenterna samlade.</p></section>
+    <section class="sektion "><h2 class="rubrik ">Arbetslivserfarenhet</h2><div class="post"><div class="postrad"><span class="posttitel">Senior Projektledare</span><span class="period">2021 – Pågående</span></div><div class="agrad"><span class="arbetsgivare">Nordea Bank</span></div><ul class="punkter"><li>Leder ett tvärfunktionellt team på 12 personer i införandet av en ny mobilbanksplattform</li><li>Ansvarig för budget på 15 MSEK och rapportering till styrgrupp med IT-direktör</li><li>Införde agilt arbetssätt som ökade leveranstakten med 35 %</li><li>Samordnar externa leverantörer och säkerställer efterlevnad av finansiella regelverk</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Projektledare</span><span class="period">2018 – 2021</span></div><div class="agrad"><span class="arbetsgivare">Klarna</span></div><ul class="punkter"><li>Ledde 8 produktutvecklingsprojekt inom checkout och betalningslösningar</li><li>Införde Scrum och kortade tiden till lansering med 40 %</li><li>Handledde 3 juniora projektledare och byggde upp ett projektledarprogram</li><li>Samordnade releaseplaneringen för 5 utvecklingsteam (50+ utvecklare)</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Biträdande projektledare</span><span class="period">2016 – 2018</span></div><div class="agrad"><span class="arbetsgivare">Tieto Sverige</span></div><ul class="punkter"><li>Planerade och följde upp leveranser i ett byte av ärendehanteringssystem för en kommun</li><li>Höll i användartester och utbildade 40 handläggare i det nya systemet</li></ul></div></section>
+    <section class="sektion "><h2 class="rubrik ">Utbildning</h2><div class="post"><div class="postrad"><span class="posttitel">Civilingenjör Industriell Ekonomi</span><span class="period">2011 – 2016</span></div><div class="agrad"><span class="arbetsgivare">Kungliga Tekniska Högskolan</span></div><p class="postdetalj">Inriktning mot projektledning och verksamhetsstyrning</p></div></section>
+    <section class="sektion "><h2 class="rubrik ">Kompetenser</h2><div class="grupp"><span class="gruppnamn">Metodik och verktyg</span><span class="rad">Scrum<span class="mitt"> · </span>Kanban<span class="mitt"> · </span>SAFe<span class="mitt"> · </span>Vattenfall<span class="mitt"> · </span>Jira<span class="mitt"> · </span>Confluence<span class="mitt"> · </span>MS Project<span class="mitt"> · </span>Budget- och resursplanering<span class="mitt"> · </span>Riskhantering och kvalitetssäkring</span></div><div class="grupp"><span class="gruppnamn">Personliga</span><span class="rad">Ledarskap och teamutveckling<span class="mitt"> · </span>Kommunikation och presentation<span class="mitt"> · </span>Förhandling och konflikthantering<span class="mitt"> · </span>Strategiskt tänkande</span></div></section>
+    <section class="sektion "><h2 class="rubrik ">Certifieringar</h2><div class="cert"><span class="certnamn">PMP, Project Management Professional</span><span class="certmeta">PMI<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">SAFe 5.0 Agilist</span><span class="certmeta">Scaled Agile<span class="period"> 2021</span></span></div><div class="cert"><span class="certnamn">Professional Scrum Master I</span><span class="certmeta">Scrum.org<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">PRINCE2 Foundation</span><span class="certmeta">Axelos<span class="period"> 2018</span></span></div></section>
+    <section class="sektion "><h2 class="rubrik ">Språk</h2><div class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span></div></section></div>
+  </div>
+  <div class="under">
+    <p class="stil">Namnet i versaler, Arial fet 30 pt, bakom en 4 pt accentkant till vänster om huvudet; kvadratiskt foto till höger; versala rubriker utan linje; kompetenser som rad med mittpunkter.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Arial (allt)</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><em>förval</em><span class="swatch" style="background:#8A4B2A" title="#8A4B2A"></span><code>#8A4B2A</code><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code><span class="swatch" style="background:#2B2F36" title="#2B2F36"></span><code>#2B2F36</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Stort namn, fotoplats"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>kort CV som behöver fylla sidan; foto finns</span></div>
+  </div>
+</article>
+<article class="mall" id="raster">
+  <div class="etikett">
+    <span class="nr">10</span>
+    <h3>Raster</h3>
+    <span class="niva premium">Premium</span>
+    <span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span>
+    <span class="familj">Enspaltig med karaktär</span>
+  </div>
+  <div class="arkram">
+    <div class="ark m-raster" style="--a:#0F6E6E;--ton:rgb(221,235,235)">
+    <header class="huvud"><div class="namn ">Erik Lindberg</div><div class="titel">Projektledare inom IT</div><div class="kontakt">erik.lindberg@email.se<span class="sep"> · </span>073-456 78 90<span class="sep"> · </span>Stockholm<span class="sep"> · </span>linkedin.com/in/eriklindberg</div></header>
+    <section class="sektion "><h2 class="rubrik ">Profil</h2><p class="profil">Erfaren projektledare med 6+ års erfarenhet av att leda digitala transformationsprojekt inom bank och fintech. Certifierad i både agila metoder (Scrum, SAFe) och traditionell projektledning (PMP). Levererat 15+ projekt med en genomsnittlig budget på 8 MSEK. Stark kommunikatör som bygger högpresterande team och håller intressenterna samlade.</p></section>
+    <section class="sektion "><h2 class="rubrik ">Arbetslivserfarenhet</h2><div class="post"><div class="postrad"><span class="posttitel">Senior Projektledare</span><span class="period">2021 – Pågående</span></div><div class="agrad"><span class="arbetsgivare">Nordea Bank</span></div><ul class="punkter"><li>Leder ett tvärfunktionellt team på 12 personer i införandet av en ny mobilbanksplattform</li><li>Ansvarig för budget på 15 MSEK och rapportering till styrgrupp med IT-direktör</li><li>Införde agilt arbetssätt som ökade leveranstakten med 35 %</li><li>Samordnar externa leverantörer och säkerställer efterlevnad av finansiella regelverk</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Projektledare</span><span class="period">2018 – 2021</span></div><div class="agrad"><span class="arbetsgivare">Klarna</span></div><ul class="punkter"><li>Ledde 8 produktutvecklingsprojekt inom checkout och betalningslösningar</li><li>Införde Scrum och kortade tiden till lansering med 40 %</li><li>Handledde 3 juniora projektledare och byggde upp ett projektledarprogram</li><li>Samordnade releaseplaneringen för 5 utvecklingsteam (50+ utvecklare)</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Biträdande projektledare</span><span class="period">2016 – 2018</span></div><div class="agrad"><span class="arbetsgivare">Tieto Sverige</span></div><ul class="punkter"><li>Planerade och följde upp leveranser i ett byte av ärendehanteringssystem för en kommun</li><li>Höll i användartester och utbildade 40 handläggare i det nya systemet</li></ul></div></section>
+    <section class="sektion "><h2 class="rubrik ">Kompetenser</h2><div class="kompspalter"><div class="grupp"><div class="gruppnamn">Metodik och verktyg</div><ul class="punkter"><li>Scrum</li><li>Kanban</li><li>SAFe</li><li>Vattenfall</li><li>Jira</li><li>Confluence</li><li>MS Project</li><li>Budget- och resursplanering</li><li>Riskhantering och kvalitetssäkring</li></ul></div><div class="grupp"><div class="gruppnamn">Personliga</div><ul class="punkter"><li>Ledarskap och teamutveckling</li><li>Kommunikation och presentation</li><li>Förhandling och konflikthantering</li><li>Strategiskt tänkande</li></ul></div></div></section>
+    <section class="sektion "><h2 class="rubrik ">Utbildning</h2><div class="post"><div class="postrad"><span class="posttitel">Civilingenjör Industriell Ekonomi</span><span class="period">2011 – 2016</span></div><div class="agrad"><span class="arbetsgivare">Kungliga Tekniska Högskolan</span></div><p class="postdetalj">Inriktning mot projektledning och verksamhetsstyrning</p></div></section>
+    <section class="sektion "><h2 class="rubrik ">Certifieringar</h2><div class="cert"><span class="certnamn">PMP, Project Management Professional</span><span class="certmeta">PMI<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">SAFe 5.0 Agilist</span><span class="certmeta">Scaled Agile<span class="period"> 2021</span></span></div><div class="cert"><span class="certnamn">Professional Scrum Master I</span><span class="certmeta">Scrum.org<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">PRINCE2 Foundation</span><span class="certmeta">Axelos<span class="period"> 2018</span></span></div></section>
+    <section class="sektion "><h2 class="rubrik ">Språk</h2><div class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span></div></section></div>
+  </div>
+  <div class="under">
+    <p class="stil">Verdana. Rubrikerna som tonade band i full bredd, kompetenserna i två spalter, perioden till höger. Ordnat och överskådligt.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Verdana (allt)</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#0F6E6E" title="#0F6E6E"></span><code>#0F6E6E</code><em>förval</em><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#5B2A4E" title="#5B2A4E"></span><code>#5B2A4E</code><span class="swatch" style="background:#556B2F" title="#556B2F"></span><code>#556B2F</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Kompetenser i spalter"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>många kompetenser eller verktyg</span></div>
+  </div>
+</article>
+<article class="mall" id="folio">
+  <div class="etikett">
+    <span class="nr">11</span>
+    <h3>Folio</h3>
+    <span class="niva premium">Premium</span>
+    <span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span>
+    <span class="familj">Serif formell</span>
+  </div>
+  <div class="arkram">
+    <div class="ark m-folio" style="--a:#2F3E4E;--ton:rgb(226,228,230)">
+    <header class="huvud"><div class="namn ">Erik Lindberg</div><div class="titel">Projektledare inom IT</div><div class="kontakt">erik.lindberg@email.se<span class="sep"> · </span>073-456 78 90<span class="sep"> · </span>Stockholm<span class="sep"> · </span>linkedin.com/in/eriklindberg</div></header>
+    <section class="sektion "><h2 class="rubrik ">Profil</h2><p class="profil">Erfaren projektledare med 6+ års erfarenhet av att leda digitala transformationsprojekt inom bank och fintech. Certifierad i både agila metoder (Scrum, SAFe) och traditionell projektledning (PMP). Levererat 15+ projekt med en genomsnittlig budget på 8 MSEK. Stark kommunikatör som bygger högpresterande team och håller intressenterna samlade.</p></section>
+    <section class="sektion "><h2 class="rubrik ">Arbetslivserfarenhet</h2><div class="post"><div class="postrad"><span class="posttitel">Senior Projektledare</span><span class="period">2021 – Pågående</span></div><div class="agrad"><span class="arbetsgivare">Nordea Bank</span></div><ul class="punkter"><li>Leder ett tvärfunktionellt team på 12 personer i införandet av en ny mobilbanksplattform</li><li>Ansvarig för budget på 15 MSEK och rapportering till styrgrupp med IT-direktör</li><li>Införde agilt arbetssätt som ökade leveranstakten med 35 %</li><li>Samordnar externa leverantörer och säkerställer efterlevnad av finansiella regelverk</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Projektledare</span><span class="period">2018 – 2021</span></div><div class="agrad"><span class="arbetsgivare">Klarna</span></div><ul class="punkter"><li>Ledde 8 produktutvecklingsprojekt inom checkout och betalningslösningar</li><li>Införde Scrum och kortade tiden till lansering med 40 %</li><li>Handledde 3 juniora projektledare och byggde upp ett projektledarprogram</li><li>Samordnade releaseplaneringen för 5 utvecklingsteam (50+ utvecklare)</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Biträdande projektledare</span><span class="period">2016 – 2018</span></div><div class="agrad"><span class="arbetsgivare">Tieto Sverige</span></div><ul class="punkter"><li>Planerade och följde upp leveranser i ett byte av ärendehanteringssystem för en kommun</li><li>Höll i användartester och utbildade 40 handläggare i det nya systemet</li></ul></div></section>
+    <section class="sektion "><h2 class="rubrik ">Utbildning</h2><div class="post"><div class="postrad"><span class="posttitel">Civilingenjör Industriell Ekonomi</span><span class="period">2011 – 2016</span></div><div class="agrad"><span class="arbetsgivare">Kungliga Tekniska Högskolan</span></div><p class="postdetalj">Inriktning mot projektledning och verksamhetsstyrning</p></div></section>
+    <section class="sektion "><h2 class="rubrik ">Kompetenser</h2><div class="grupp"><span class="gruppnamn">Metodik och verktyg: </span>Scrum, Kanban, SAFe, Vattenfall, Jira, Confluence, MS Project, Budget- och resursplanering, Riskhantering och kvalitetssäkring</div><div class="grupp"><span class="gruppnamn">Personliga: </span>Ledarskap och teamutveckling, Kommunikation och presentation, Förhandling och konflikthantering, Strategiskt tänkande</div></section>
+    <section class="sektion "><h2 class="rubrik ">Certifieringar</h2><div class="cert"><span class="certnamn">PMP, Project Management Professional</span><span class="certmeta">PMI<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">SAFe 5.0 Agilist</span><span class="certmeta">Scaled Agile<span class="period"> 2021</span></span></div><div class="cert"><span class="certnamn">Professional Scrum Master I</span><span class="certmeta">Scrum.org<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">PRINCE2 Foundation</span><span class="certmeta">Axelos<span class="period"> 2018</span></span></div></section>
+    <section class="sektion "><h2 class="rubrik ">Språk</h2><div class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span></div></section></div>
+  </div>
+  <div class="under">
+    <p class="stil">Garamond. Högerställt huvud med namn 34 pt, titel och arbetsgivare kursiva, rubriker kursiva med hårlinje under. Elegant, redaktionell, utan foto.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Garamond (allt)</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#2F3E4E" title="#2F3E4E"></span><code>#2F3E4E</code><em>förval</em><span class="swatch" style="background:#7A1F2B" title="#7A1F2B"></span><code>#7A1F2B</code><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code><span class="swatch" style="background:#8A4B2A" title="#8A4B2A"></span><code>#8A4B2A</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Elegant serif"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>lång profiltext; text som ska bäras av typografin</span></div>
+  </div>
+</article>
+<article class="mall" id="stal">
+  <div class="etikett">
+    <span class="nr">12</span>
+    <h3>Stål</h3>
+    <span class="niva premium">Premium</span>
+    <span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span>
+    <span class="familj">Tvåspaltig utan panel</span>
+  </div>
+  <div class="arkram">
+    <div class="ark m-stal" style="--a:#1F3A5F;--ton:rgb(224,227,233)">
+    <header class="huvud"><div class="namn ">Erik Lindberg</div><div class="titel">Projektledare inom IT</div><div class="kontakt">erik.lindberg@email.se<span class="sep"> · </span>073-456 78 90<span class="sep"> · </span>Stockholm<span class="sep"> · </span>linkedin.com/in/eriklindberg</div></header>
+    <section class="sektion "><h2 class="rubrik ">Profil</h2><p class="profil">Erfaren projektledare med 6+ års erfarenhet av att leda digitala transformationsprojekt inom bank och fintech. Certifierad i både agila metoder (Scrum, SAFe) och traditionell projektledning (PMP). Levererat 15+ projekt med en genomsnittlig budget på 8 MSEK. Stark kommunikatör som bygger högpresterande team och håller intressenterna samlade.</p></section>
+    <div class="spalter">
+      <div class="vanster"><section class="sektion "><h2 class="rubrik ">Arbetslivserfarenhet</h2><div class="post"><div class="postrad"><span class="posttitel">Senior Projektledare</span><span class="period">2021 – Pågående</span></div><div class="agrad"><span class="arbetsgivare">Nordea Bank</span></div><ul class="punkter"><li>Leder ett tvärfunktionellt team på 12 personer i införandet av en ny mobilbanksplattform</li><li>Ansvarig för budget på 15 MSEK och rapportering till styrgrupp med IT-direktör</li><li>Införde agilt arbetssätt som ökade leveranstakten med 35 %</li><li>Samordnar externa leverantörer och säkerställer efterlevnad av finansiella regelverk</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Projektledare</span><span class="period">2018 – 2021</span></div><div class="agrad"><span class="arbetsgivare">Klarna</span></div><ul class="punkter"><li>Ledde 8 produktutvecklingsprojekt inom checkout och betalningslösningar</li><li>Införde Scrum och kortade tiden till lansering med 40 %</li><li>Handledde 3 juniora projektledare och byggde upp ett projektledarprogram</li><li>Samordnade releaseplaneringen för 5 utvecklingsteam (50+ utvecklare)</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Biträdande projektledare</span><span class="period">2016 – 2018</span></div><div class="agrad"><span class="arbetsgivare">Tieto Sverige</span></div><ul class="punkter"><li>Planerade och följde upp leveranser i ett byte av ärendehanteringssystem för en kommun</li><li>Höll i användartester och utbildade 40 handläggare i det nya systemet</li></ul></div></section><section class="sektion "><h2 class="rubrik ">Utbildning</h2><div class="post"><div class="postrad"><span class="posttitel">Civilingenjör Industriell Ekonomi</span><span class="period">2011 – 2016</span></div><div class="agrad"><span class="arbetsgivare">Kungliga Tekniska Högskolan</span></div><p class="postdetalj">Inriktning mot projektledning och verksamhetsstyrning</p></div></section></div>
+      <div class="hoger"><section class="sektion "><h2 class="rubrik ">Kompetenser</h2><div class="grupp"><div class="gruppnamn">Metodik och verktyg</div><ul class="punkter"><li>Scrum</li><li>Kanban</li><li>SAFe</li><li>Vattenfall</li><li>Jira</li><li>Confluence</li><li>MS Project</li><li>Budget- och resursplanering</li><li>Riskhantering och kvalitetssäkring</li></ul></div><div class="grupp"><div class="gruppnamn">Personliga</div><ul class="punkter"><li>Ledarskap och teamutveckling</li><li>Kommunikation och presentation</li><li>Förhandling och konflikthantering</li><li>Strategiskt tänkande</li></ul></div></section><section class="sektion "><h2 class="rubrik ">Certifieringar</h2><ul class="certlista"><li><span class="certnamn">PMP, Project Management Professional</span><span class="certmeta">PMI, 2022</span></li><li><span class="certnamn">SAFe 5.0 Agilist</span><span class="certmeta">Scaled Agile, 2021</span></li><li><span class="certnamn">Professional Scrum Master I</span><span class="certmeta">Scrum.org, 2019</span></li><li><span class="certnamn">PRINCE2 Foundation</span><span class="certmeta">Axelos, 2018</span></li></ul></section><section class="sektion "><h2 class="rubrik ">Språk</h2><ul class="spraklista"><li><span class="sprak">Svenska</span><span class="niva">Modersmål</span></li><li><span class="sprak">Engelska</span><span class="niva">Flytande</span></li></ul></section></div>
+    </div></div>
+  </div>
+  <div class="under">
+    <p class="stil">Calibri. Huvud och profil i full bredd, sedan två spalter utan bakgrund: erfarenhet och utbildning till vänster (60 %), kompetenser, certifieringar och språk till höger. 2 pt accentlinje över varje rubrik, som en balk.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Calibri (allt)</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><em>förval</em><span class="swatch" style="background:#0F6E6E" title="#0F6E6E"></span><code>#0F6E6E</code><span class="swatch" style="background:#8A4B2A" title="#8A4B2A"></span><code>#8A4B2A</code><span class="swatch" style="background:#2B2F36" title="#2B2F36"></span><code>#2B2F36</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Två spalter, mer plats"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>många kompetenser och intyg utan att vilja ha en färgad panel</span></div>
+  </div>
+</article></div>
+
+  <h2 class="grupp-rubrik">Konstnärliga 13 till 20: bara PDF</h2>
+  <p class="grupp-ingress">Mer frihet i form och typsnitt, men fortfarande dokument en arbetsgivare tar på allvar. Ingen av dem lägger text på bild eller dekor bakom text.</p>
+  <div class="galleri">
+<article class="mall" id="morkrum">
+  <div class="etikett">
+    <span class="nr">13</span>
+    <h3>Mörkrum</h3>
+    <span class="niva premium">Premium</span>
+    <span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF</span>
+    <span class="familj">Konstnärlig</span>
+  </div>
+  <div class="arkram">
+    <div class="ark m-morkrum" style="--a:#E8B07A;--ton:rgb(252,244,236)">
+    <header class="band"><div><div class="namn ">Erik Lindberg</div><div class="titel">Projektledare inom IT</div><div class="kontakt">erik.lindberg@email.se<span class="sep"> · </span>073-456 78 90<span class="sep"> · </span>Stockholm<span class="sep"> · </span>linkedin.com/in/eriklindberg</div></div><div class="foto foto-rund" style="width:40mm;height:40mm" aria-label="Fotoplats"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="38" r="18"/><path d="M14 96c4-22 18-32 36-32s32 10 36 32z"/></svg></div></header>
+    <div class="kropp">
+    <section class="sektion "><h2 class="rubrik ">Profil</h2><p class="profil">Erfaren projektledare med 6+ års erfarenhet av att leda digitala transformationsprojekt inom bank och fintech. Certifierad i både agila metoder (Scrum, SAFe) och traditionell projektledning (PMP). Levererat 15+ projekt med en genomsnittlig budget på 8 MSEK. Stark kommunikatör som bygger högpresterande team och håller intressenterna samlade.</p></section>
+    <section class="sektion "><h2 class="rubrik ">Arbetslivserfarenhet</h2><div class="post"><div class="postrad"><span class="posttitel">Senior Projektledare</span><span class="period">2021 – Pågående</span></div><div class="agrad"><span class="arbetsgivare">Nordea Bank</span></div><ul class="punkter"><li>Leder ett tvärfunktionellt team på 12 personer i införandet av en ny mobilbanksplattform</li><li>Ansvarig för budget på 15 MSEK och rapportering till styrgrupp med IT-direktör</li><li>Införde agilt arbetssätt som ökade leveranstakten med 35 %</li><li>Samordnar externa leverantörer och säkerställer efterlevnad av finansiella regelverk</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Projektledare</span><span class="period">2018 – 2021</span></div><div class="agrad"><span class="arbetsgivare">Klarna</span></div><ul class="punkter"><li>Ledde 8 produktutvecklingsprojekt inom checkout och betalningslösningar</li><li>Införde Scrum och kortade tiden till lansering med 40 %</li><li>Handledde 3 juniora projektledare och byggde upp ett projektledarprogram</li><li>Samordnade releaseplaneringen för 5 utvecklingsteam (50+ utvecklare)</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Biträdande projektledare</span><span class="period">2016 – 2018</span></div><div class="agrad"><span class="arbetsgivare">Tieto Sverige</span></div><ul class="punkter"><li>Planerade och följde upp leveranser i ett byte av ärendehanteringssystem för en kommun</li><li>Höll i användartester och utbildade 40 handläggare i det nya systemet</li></ul></div></section>
+    <section class="sektion "><h2 class="rubrik ">Utbildning</h2><div class="post"><div class="postrad"><span class="posttitel">Civilingenjör Industriell Ekonomi</span><span class="period">2011 – 2016</span></div><div class="agrad"><span class="arbetsgivare">Kungliga Tekniska Högskolan</span></div><p class="postdetalj">Inriktning mot projektledning och verksamhetsstyrning</p></div></section>
+    <section class="sektion "><h2 class="rubrik ">Kompetenser</h2><div class="grupp"><span class="gruppnamn">Metodik och verktyg: </span>Scrum, Kanban, SAFe, Vattenfall, Jira, Confluence, MS Project, Budget- och resursplanering, Riskhantering och kvalitetssäkring</div><div class="grupp"><span class="gruppnamn">Personliga: </span>Ledarskap och teamutveckling, Kommunikation och presentation, Förhandling och konflikthantering, Strategiskt tänkande</div></section>
+    <section class="sektion "><h2 class="rubrik ">Certifieringar</h2><div class="cert"><span class="certnamn">PMP, Project Management Professional</span><span class="certmeta">PMI<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">SAFe 5.0 Agilist</span><span class="certmeta">Scaled Agile<span class="period"> 2021</span></span></div><div class="cert"><span class="certnamn">Professional Scrum Master I</span><span class="certmeta">Scrum.org<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">PRINCE2 Foundation</span><span class="certmeta">Axelos<span class="period"> 2018</span></span></div></section>
+    <section class="sektion "><h2 class="rubrik ">Språk</h2><div class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span></div></section>
+    </div></div>
+  </div>
+  <div class="under">
+    <p class="stil">Poppins. Nästan svart huvudblock på 72 mm med namnet i 34 pt, titel i ljus accent och rund fotoplats; vit kropp med små accentkvadrater före rubrikerna.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Poppins (allt)</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#E8B07A" title="#E8B07A"></span><code>#E8B07A</code><em>förval</em><span class="swatch" style="background:#9FD3C7" title="#9FD3C7"></span><code>#9FD3C7</code><span class="swatch" style="background:#F2A7A7" title="#F2A7A7"></span><code>#F2A7A7</code><span class="swatch" style="background:#C9C3F5" title="#C9C3F5"></span><code>#C9C3F5</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Mörkt huvud, foto"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>foto finns; vill sticka ut utan att bli lekfull</span></div>
+  </div>
+</article>
+<article class="mall" id="terrakotta">
+  <div class="etikett">
+    <span class="nr">14</span>
+    <h3>Terrakotta</h3>
+    <span class="niva premium">Premium</span>
+    <span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF</span>
+    <span class="familj">Konstnärlig</span>
+  </div>
+  <div class="arkram">
+    <div class="ark m-terrakotta" style="--a:#A24A2B;--ton:rgb(242,230,225)">
+    <header class="huvud"><div class="namn ">Erik Lindberg</div><div class="titel">Projektledare inom IT</div><div class="kontakt">erik.lindberg@email.se<span class="sep"> · </span>073-456 78 90<span class="sep"> · </span>Stockholm<span class="sep"> · </span>linkedin.com/in/eriklindberg</div></header>
+    <section class="sektion "><h2 class="rubrik ">Profil</h2><p class="profil">Erfaren projektledare med 6+ års erfarenhet av att leda digitala transformationsprojekt inom bank och fintech. Certifierad i både agila metoder (Scrum, SAFe) och traditionell projektledning (PMP). Levererat 15+ projekt med en genomsnittlig budget på 8 MSEK. Stark kommunikatör som bygger högpresterande team och håller intressenterna samlade.</p></section>
+    <section class="sektion "><h2 class="rubrik ">Arbetslivserfarenhet</h2><div class="post"><div class="postrad"><span class="posttitel">Senior Projektledare</span><span class="period">2021 – Pågående</span></div><div class="agrad"><span class="arbetsgivare">Nordea Bank</span></div><ul class="punkter"><li>Leder ett tvärfunktionellt team på 12 personer i införandet av en ny mobilbanksplattform</li><li>Ansvarig för budget på 15 MSEK och rapportering till styrgrupp med IT-direktör</li><li>Införde agilt arbetssätt som ökade leveranstakten med 35 %</li><li>Samordnar externa leverantörer och säkerställer efterlevnad av finansiella regelverk</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Projektledare</span><span class="period">2018 – 2021</span></div><div class="agrad"><span class="arbetsgivare">Klarna</span></div><ul class="punkter"><li>Ledde 8 produktutvecklingsprojekt inom checkout och betalningslösningar</li><li>Införde Scrum och kortade tiden till lansering med 40 %</li><li>Handledde 3 juniora projektledare och byggde upp ett projektledarprogram</li><li>Samordnade releaseplaneringen för 5 utvecklingsteam (50+ utvecklare)</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Biträdande projektledare</span><span class="period">2016 – 2018</span></div><div class="agrad"><span class="arbetsgivare">Tieto Sverige</span></div><ul class="punkter"><li>Planerade och följde upp leveranser i ett byte av ärendehanteringssystem för en kommun</li><li>Höll i användartester och utbildade 40 handläggare i det nya systemet</li></ul></div></section>
+    <section class="sektion "><h2 class="rubrik ">Kompetenser</h2><div class="grupp"><div class="gruppnamn">Metodik och verktyg</div><div class="brickor"><span class="bricka">Scrum</span><span class="bricka">Kanban</span><span class="bricka">SAFe</span><span class="bricka">Vattenfall</span><span class="bricka">Jira</span><span class="bricka">Confluence</span><span class="bricka">MS Project</span><span class="bricka">Budget- och resursplanering</span><span class="bricka">Riskhantering och kvalitetssäkring</span></div></div><div class="grupp"><div class="gruppnamn">Personliga</div><div class="brickor"><span class="bricka">Ledarskap och teamutveckling</span><span class="bricka">Kommunikation och presentation</span><span class="bricka">Förhandling och konflikthantering</span><span class="bricka">Strategiskt tänkande</span></div></div></section>
+    <section class="sektion "><h2 class="rubrik ">Utbildning</h2><div class="post"><div class="postrad"><span class="posttitel">Civilingenjör Industriell Ekonomi</span><span class="period">2011 – 2016</span></div><div class="agrad"><span class="arbetsgivare">Kungliga Tekniska Högskolan</span></div><p class="postdetalj">Inriktning mot projektledning och verksamhetsstyrning</p></div></section>
+    <section class="sektion "><h2 class="rubrik ">Certifieringar</h2><div class="cert"><span class="certnamn">PMP, Project Management Professional</span><span class="certmeta">PMI<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">SAFe 5.0 Agilist</span><span class="certmeta">Scaled Agile<span class="period"> 2021</span></span></div><div class="cert"><span class="certnamn">Professional Scrum Master I</span><span class="certmeta">Scrum.org<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">PRINCE2 Foundation</span><span class="certmeta">Axelos<span class="period"> 2018</span></span></div></section>
+    <section class="sektion "><h2 class="rubrik ">Språk</h2><div class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span></div></section></div>
+  </div>
+  <div class="under">
+    <p class="stil">Lato på krämfärgad sida. Roströda rubriker med kort linje, kompetenser som rundade brickor. Varmt, mjukt, fortfarande ett dokument.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Lato (allt)</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#A24A2B" title="#A24A2B"></span><code>#A24A2B</code><em>förval</em><span class="swatch" style="background:#6B5B2E" title="#6B5B2E"></span><code>#6B5B2E</code><span class="swatch" style="background:#4F6A3A" title="#4F6A3A"></span><code>#4F6A3A</code><span class="swatch" style="background:#5B2A4E" title="#5B2A4E"></span><code>#5B2A4E</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Varm tonad sida"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>vill ha värme utan foto</span></div>
+  </div>
+</article>
+<article class="mall" id="kvadrat">
+  <div class="etikett">
+    <span class="nr">15</span>
+    <h3>Kvadrat</h3>
+    <span class="niva premium">Premium</span>
+    <span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF</span>
+    <span class="familj">Konstnärlig</span>
+  </div>
+  <div class="arkram">
+    <div class="ark m-kvadrat" style="--a:#3B3F8F;--ton:rgb(228,228,239)">
+    <header class="huvud"><div class="ruta"><div class="namn ">Erik Lindberg</div></div><div class="huvudhoger"><div class="titel">Projektledare inom IT</div><div class="kontakt">erik.lindberg@email.se<span class="sep"></span>073-456 78 90<span class="sep"></span>Stockholm<span class="sep"></span>linkedin.com/in/eriklindberg</div></div></header>
+    <div class="spalter">
+      <div class="vanster"><section class="sektion "><h2 class="rubrik ">Kompetenser</h2><div class="grupp"><div class="gruppnamn">Metodik och verktyg</div><ul class="punkter"><li>Scrum</li><li>Kanban</li><li>SAFe</li><li>Vattenfall</li><li>Jira</li><li>Confluence</li><li>MS Project</li><li>Budget- och resursplanering</li><li>Riskhantering och kvalitetssäkring</li></ul></div><div class="grupp"><div class="gruppnamn">Personliga</div><ul class="punkter"><li>Ledarskap och teamutveckling</li><li>Kommunikation och presentation</li><li>Förhandling och konflikthantering</li><li>Strategiskt tänkande</li></ul></div></section><section class="sektion "><h2 class="rubrik ">Certifieringar</h2><ul class="certlista"><li><span class="certnamn">PMP, Project Management Professional</span><span class="certmeta">PMI, 2022</span></li><li><span class="certnamn">SAFe 5.0 Agilist</span><span class="certmeta">Scaled Agile, 2021</span></li><li><span class="certnamn">Professional Scrum Master I</span><span class="certmeta">Scrum.org, 2019</span></li><li><span class="certnamn">PRINCE2 Foundation</span><span class="certmeta">Axelos, 2018</span></li></ul></section><section class="sektion "><h2 class="rubrik ">Språk</h2><ul class="spraklista"><li><span class="sprak">Svenska</span><span class="niva">Modersmål</span></li><li><span class="sprak">Engelska</span><span class="niva">Flytande</span></li></ul></section></div>
+      <div class="hoger"><section class="sektion "><h2 class="rubrik ">Profil</h2><p class="profil">Erfaren projektledare med 6+ års erfarenhet av att leda digitala transformationsprojekt inom bank och fintech. Certifierad i både agila metoder (Scrum, SAFe) och traditionell projektledning (PMP). Levererat 15+ projekt med en genomsnittlig budget på 8 MSEK. Stark kommunikatör som bygger högpresterande team och håller intressenterna samlade.</p></section><section class="sektion "><h2 class="rubrik ">Arbetslivserfarenhet</h2><div class="post"><div class="postrad"><span class="posttitel">Senior Projektledare</span><span class="period">2021 – Pågående</span></div><div class="agrad"><span class="arbetsgivare">Nordea Bank</span></div><ul class="punkter"><li>Leder ett tvärfunktionellt team på 12 personer i införandet av en ny mobilbanksplattform</li><li>Ansvarig för budget på 15 MSEK och rapportering till styrgrupp med IT-direktör</li><li>Införde agilt arbetssätt som ökade leveranstakten med 35 %</li><li>Samordnar externa leverantörer och säkerställer efterlevnad av finansiella regelverk</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Projektledare</span><span class="period">2018 – 2021</span></div><div class="agrad"><span class="arbetsgivare">Klarna</span></div><ul class="punkter"><li>Ledde 8 produktutvecklingsprojekt inom checkout och betalningslösningar</li><li>Införde Scrum och kortade tiden till lansering med 40 %</li><li>Handledde 3 juniora projektledare och byggde upp ett projektledarprogram</li><li>Samordnade releaseplaneringen för 5 utvecklingsteam (50+ utvecklare)</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Biträdande projektledare</span><span class="period">2016 – 2018</span></div><div class="agrad"><span class="arbetsgivare">Tieto Sverige</span></div><ul class="punkter"><li>Planerade och följde upp leveranser i ett byte av ärendehanteringssystem för en kommun</li><li>Höll i användartester och utbildade 40 handläggare i det nya systemet</li></ul></div></section><section class="sektion "><h2 class="rubrik ">Utbildning</h2><div class="post"><div class="postrad"><span class="posttitel">Civilingenjör Industriell Ekonomi</span><span class="period">2011 – 2016</span></div><div class="agrad"><span class="arbetsgivare">Kungliga Tekniska Högskolan</span></div><p class="postdetalj">Inriktning mot projektledning och verksamhetsstyrning</p></div></section></div>
+    </div></div>
+  </div>
+  <div class="under">
+    <p class="stil">Poppins i ett rutnät. Namnet i en färgad kvadrat 56 x 56 mm uppe till vänster, titel och kontakt till höger, sedan en 56 mm vänsterkolumn med hårlinje mot huvudspalten.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Poppins (allt)</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#3B3F8F" title="#3B3F8F"></span><code>#3B3F8F</code><em>förval</em><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code><span class="swatch" style="background:#8A4B2A" title="#8A4B2A"></span><code>#8A4B2A</code><span class="swatch" style="background:#2B2F36" title="#2B2F36"></span><code>#2B2F36</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Rutnät och färgblock"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>kort eller normalt CV; grafiskt uttryck utan foto</span></div>
+  </div>
+</article>
+<article class="mall" id="siluett">
+  <div class="etikett">
+    <span class="nr">16</span>
+    <h3>Siluett</h3>
+    <span class="niva premium">Premium</span>
+    <span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF</span>
+    <span class="familj">Konstnärlig</span>
+  </div>
+  <div class="arkram">
+    <div class="ark m-siluett" style="--a:#8C4A5A;--ton:rgb(239,230,232)">
+    <header class="huvud"><div class="foto foto-rund" style="width:40mm;height:40mm" aria-label="Fotoplats"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="38" r="18"/><path d="M14 96c4-22 18-32 36-32s32 10 36 32z"/></svg></div><div class="namn ">Erik Lindberg</div><div class="titel">Projektledare inom IT</div><div class="kontakt">erik.lindberg@email.se<span class="sep"> · </span>073-456 78 90<span class="sep"> · </span>Stockholm<span class="sep"> · </span>linkedin.com/in/eriklindberg</div></header>
+    <section class="sektion "><h2 class="rubrik ">Profil</h2><p class="profil">Erfaren projektledare med 6+ års erfarenhet av att leda digitala transformationsprojekt inom bank och fintech. Certifierad i både agila metoder (Scrum, SAFe) och traditionell projektledning (PMP). Levererat 15+ projekt med en genomsnittlig budget på 8 MSEK. Stark kommunikatör som bygger högpresterande team och håller intressenterna samlade.</p></section>
+    <section class="sektion "><h2 class="rubrik ">Arbetslivserfarenhet</h2><div class="post"><div class="postrad"><span class="posttitel">Senior Projektledare</span><span class="period">2021 – Pågående</span></div><div class="agrad"><span class="arbetsgivare">Nordea Bank</span></div><ul class="punkter"><li>Leder ett tvärfunktionellt team på 12 personer i införandet av en ny mobilbanksplattform</li><li>Ansvarig för budget på 15 MSEK och rapportering till styrgrupp med IT-direktör</li><li>Införde agilt arbetssätt som ökade leveranstakten med 35 %</li><li>Samordnar externa leverantörer och säkerställer efterlevnad av finansiella regelverk</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Projektledare</span><span class="period">2018 – 2021</span></div><div class="agrad"><span class="arbetsgivare">Klarna</span></div><ul class="punkter"><li>Ledde 8 produktutvecklingsprojekt inom checkout och betalningslösningar</li><li>Införde Scrum och kortade tiden till lansering med 40 %</li><li>Handledde 3 juniora projektledare och byggde upp ett projektledarprogram</li><li>Samordnade releaseplaneringen för 5 utvecklingsteam (50+ utvecklare)</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Biträdande projektledare</span><span class="period">2016 – 2018</span></div><div class="agrad"><span class="arbetsgivare">Tieto Sverige</span></div><ul class="punkter"><li>Planerade och följde upp leveranser i ett byte av ärendehanteringssystem för en kommun</li><li>Höll i användartester och utbildade 40 handläggare i det nya systemet</li></ul></div></section>
+    <section class="sektion "><h2 class="rubrik ">Utbildning</h2><div class="post"><div class="postrad"><span class="posttitel">Civilingenjör Industriell Ekonomi</span><span class="period">2011 – 2016</span></div><div class="agrad"><span class="arbetsgivare">Kungliga Tekniska Högskolan</span></div><p class="postdetalj">Inriktning mot projektledning och verksamhetsstyrning</p></div></section>
+    <section class="sektion "><h2 class="rubrik ">Kompetenser</h2><div class="grupp"><span class="gruppnamn">Metodik och verktyg</span><span class="rad">Scrum<span class="mitt"> · </span>Kanban<span class="mitt"> · </span>SAFe<span class="mitt"> · </span>Vattenfall<span class="mitt"> · </span>Jira<span class="mitt"> · </span>Confluence<span class="mitt"> · </span>MS Project<span class="mitt"> · </span>Budget- och resursplanering<span class="mitt"> · </span>Riskhantering och kvalitetssäkring</span></div><div class="grupp"><span class="gruppnamn">Personliga</span><span class="rad">Ledarskap och teamutveckling<span class="mitt"> · </span>Kommunikation och presentation<span class="mitt"> · </span>Förhandling och konflikthantering<span class="mitt"> · </span>Strategiskt tänkande</span></div></section>
+    <section class="sektion "><h2 class="rubrik ">Certifieringar</h2><div class="cert"><span class="certnamn">PMP, Project Management Professional</span><span class="certmeta">PMI<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">SAFe 5.0 Agilist</span><span class="certmeta">Scaled Agile<span class="period"> 2021</span></span></div><div class="cert"><span class="certnamn">Professional Scrum Master I</span><span class="certmeta">Scrum.org<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">PRINCE2 Foundation</span><span class="certmeta">Axelos<span class="period"> 2018</span></span></div></section>
+    <section class="sektion "><h2 class="rubrik ">Språk</h2><div class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span></div></section></div>
+  </div>
+  <div class="under">
+    <p class="stil">Lato light. Stor rund fotoplats 40 mm centrerad överst, namnet i 30 pt light under, centrerade rubriker och hårlinjer. Fotot är dokumentets mittpunkt.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Lato (allt)</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#8C4A5A" title="#8C4A5A"></span><code>#8C4A5A</code><em>förval</em><span class="swatch" style="background:#3B5A78" title="#3B5A78"></span><code>#3B5A78</code><span class="swatch" style="background:#4F6A3A" title="#4F6A3A"></span><code>#4F6A3A</code><span class="swatch" style="background:#3A3A3A" title="#3A3A3A"></span><code>#3A3A3A</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Fotot i centrum"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>foto finns och är bra; yrken där man möter människor</span></div>
+  </div>
+</article>
+<article class="mall" id="ritning">
+  <div class="etikett">
+    <span class="nr">17</span>
+    <h3>Ritning</h3>
+    <span class="niva premium">Premium</span>
+    <span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF</span>
+    <span class="familj">Konstnärlig</span>
+  </div>
+  <div class="arkram">
+    <div class="ark m-ritning" style="--a:#123B6D;--ton:rgb(222,228,235)">
+    <aside class="sido">
+      <header class="huvud"><div class="namn ">Erik Lindberg</div><div class="titel">Projektledare inom IT</div></header>
+      <section class="sektion "><h2 class="rubrik ">Kontakt</h2><ul class="kontaktlista"><li>erik.lindberg@email.se</li><li>073-456 78 90</li><li>Stockholm</li><li>linkedin.com/in/eriklindberg</li></ul></section>
+      <section class="sektion "><h2 class="rubrik ">Kompetenser</h2><div class="grupp"><div class="gruppnamn">Metodik och verktyg</div><ul class="punkter"><li>Scrum</li><li>Kanban</li><li>SAFe</li><li>Vattenfall</li><li>Jira</li><li>Confluence</li><li>MS Project</li><li>Budget- och resursplanering</li><li>Riskhantering och kvalitetssäkring</li></ul></div><div class="grupp"><div class="gruppnamn">Personliga</div><ul class="punkter"><li>Ledarskap och teamutveckling</li><li>Kommunikation och presentation</li><li>Förhandling och konflikthantering</li><li>Strategiskt tänkande</li></ul></div></section>
+      <section class="sektion "><h2 class="rubrik ">Språk</h2><ul class="spraklista"><li><span class="sprak">Svenska</span><span class="niva">Modersmål</span></li><li><span class="sprak">Engelska</span><span class="niva">Flytande</span></li></ul></section>
+    </aside>
+    <main class="main">
+      <section class="sektion "><h2 class="rubrik ">Profil</h2><p class="profil">Erfaren projektledare med 6+ års erfarenhet av att leda digitala transformationsprojekt inom bank och fintech. Certifierad i både agila metoder (Scrum, SAFe) och traditionell projektledning (PMP). Levererat 15+ projekt med en genomsnittlig budget på 8 MSEK. Stark kommunikatör som bygger högpresterande team och håller intressenterna samlade.</p></section>
+      <section class="sektion "><h2 class="rubrik ">Arbetslivserfarenhet</h2><div class="post"><div class="postrad"><span class="posttitel">Senior Projektledare</span><span class="period">2021 – Pågående</span></div><div class="agrad"><span class="arbetsgivare">Nordea Bank</span></div><ul class="punkter"><li>Leder ett tvärfunktionellt team på 12 personer i införandet av en ny mobilbanksplattform</li><li>Ansvarig för budget på 15 MSEK och rapportering till styrgrupp med IT-direktör</li><li>Införde agilt arbetssätt som ökade leveranstakten med 35 %</li><li>Samordnar externa leverantörer och säkerställer efterlevnad av finansiella regelverk</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Projektledare</span><span class="period">2018 – 2021</span></div><div class="agrad"><span class="arbetsgivare">Klarna</span></div><ul class="punkter"><li>Ledde 8 produktutvecklingsprojekt inom checkout och betalningslösningar</li><li>Införde Scrum och kortade tiden till lansering med 40 %</li><li>Handledde 3 juniora projektledare och byggde upp ett projektledarprogram</li><li>Samordnade releaseplaneringen för 5 utvecklingsteam (50+ utvecklare)</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Biträdande projektledare</span><span class="period">2016 – 2018</span></div><div class="agrad"><span class="arbetsgivare">Tieto Sverige</span></div><ul class="punkter"><li>Planerade och följde upp leveranser i ett byte av ärendehanteringssystem för en kommun</li><li>Höll i användartester och utbildade 40 handläggare i det nya systemet</li></ul></div></section>
+      <section class="sektion "><h2 class="rubrik ">Utbildning</h2><div class="post"><div class="postrad"><span class="posttitel">Civilingenjör Industriell Ekonomi</span><span class="period">2011 – 2016</span></div><div class="agrad"><span class="arbetsgivare">Kungliga Tekniska Högskolan</span></div><p class="postdetalj">Inriktning mot projektledning och verksamhetsstyrning</p></div></section>
+      <section class="sektion "><h2 class="rubrik ">Certifieringar</h2><div class="cert"><span class="certnamn">PMP, Project Management Professional</span><span class="certmeta">PMI<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">SAFe 5.0 Agilist</span><span class="certmeta">Scaled Agile<span class="period"> 2021</span></span></div><div class="cert"><span class="certnamn">Professional Scrum Master I</span><span class="certmeta">Scrum.org<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">PRINCE2 Foundation</span><span class="certmeta">Axelos<span class="period"> 2018</span></span></div></section>
+    </main></div>
+  </div>
+  <div class="under">
+    <p class="stil">Roboto. Djupblå vänsterspalt 66 mm i hela sidans höjd med namn, kontakt, kompetenser och språk i vitt med tunna vita linjer; huvudspalten vit med blå rubriker.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Roboto (allt)</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#123B6D" title="#123B6D"></span><code>#123B6D</code><em>förval</em><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code><span class="swatch" style="background:#2B2F36" title="#2B2F36"></span><code>#2B2F36</code><span class="swatch" style="background:#5B2A4E" title="#5B2A4E"></span><code>#5B2A4E</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Djupblå sidospalt"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>många system och verktyg; tekniskt uttryck</span></div>
+  </div>
+</article>
+<article class="mall" id="tidning">
+  <div class="etikett">
+    <span class="nr">18</span>
+    <h3>Tidning</h3>
+    <span class="niva premium">Premium</span>
+    <span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF</span>
+    <span class="familj">Konstnärlig</span>
+  </div>
+  <div class="arkram">
+    <div class="ark m-tidning" style="--a:#9B1B1B;--ton:rgb(241,223,223)">
+    <header class="huvud"><div class="namn ">Erik Lindberg</div></header>
+    <div class="daterad"><div class="titel">Projektledare inom IT</div><div class="kontakt">erik.lindberg@email.se<span class="sep"> · </span>073-456 78 90<span class="sep"> · </span>Stockholm<span class="sep"> · </span>linkedin.com/in/eriklindberg</div></div>
+    <section class="sektion "><h2 class="rubrik ">Profil</h2><p class="profil">Erfaren projektledare med 6+ års erfarenhet av att leda digitala transformationsprojekt inom bank och fintech. Certifierad i både agila metoder (Scrum, SAFe) och traditionell projektledning (PMP). Levererat 15+ projekt med en genomsnittlig budget på 8 MSEK. Stark kommunikatör som bygger högpresterande team och håller intressenterna samlade.</p></section>
+    <section class="sektion "><h2 class="rubrik ">Arbetslivserfarenhet</h2><div class="post"><div class="postrad"><span class="posttitel">Senior Projektledare</span><span class="period">2021 – Pågående</span></div><div class="agrad"><span class="arbetsgivare">Nordea Bank</span></div><ul class="punkter"><li>Leder ett tvärfunktionellt team på 12 personer i införandet av en ny mobilbanksplattform</li><li>Ansvarig för budget på 15 MSEK och rapportering till styrgrupp med IT-direktör</li><li>Införde agilt arbetssätt som ökade leveranstakten med 35 %</li><li>Samordnar externa leverantörer och säkerställer efterlevnad av finansiella regelverk</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Projektledare</span><span class="period">2018 – 2021</span></div><div class="agrad"><span class="arbetsgivare">Klarna</span></div><ul class="punkter"><li>Ledde 8 produktutvecklingsprojekt inom checkout och betalningslösningar</li><li>Införde Scrum och kortade tiden till lansering med 40 %</li><li>Handledde 3 juniora projektledare och byggde upp ett projektledarprogram</li><li>Samordnade releaseplaneringen för 5 utvecklingsteam (50+ utvecklare)</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Biträdande projektledare</span><span class="period">2016 – 2018</span></div><div class="agrad"><span class="arbetsgivare">Tieto Sverige</span></div><ul class="punkter"><li>Planerade och följde upp leveranser i ett byte av ärendehanteringssystem för en kommun</li><li>Höll i användartester och utbildade 40 handläggare i det nya systemet</li></ul></div></section>
+    <section class="sektion "><h2 class="rubrik ">Utbildning</h2><div class="post"><div class="postrad"><span class="posttitel">Civilingenjör Industriell Ekonomi</span><span class="period">2011 – 2016</span></div><div class="agrad"><span class="arbetsgivare">Kungliga Tekniska Högskolan</span></div><p class="postdetalj">Inriktning mot projektledning och verksamhetsstyrning</p></div></section>
+    <section class="sektion "><h2 class="rubrik ">Kompetenser</h2><div class="grupp"><span class="gruppnamn">Metodik och verktyg: </span>Scrum, Kanban, SAFe, Vattenfall, Jira, Confluence, MS Project, Budget- och resursplanering, Riskhantering och kvalitetssäkring</div><div class="grupp"><span class="gruppnamn">Personliga: </span>Ledarskap och teamutveckling, Kommunikation och presentation, Förhandling och konflikthantering, Strategiskt tänkande</div></section>
+    <section class="sektion "><h2 class="rubrik ">Certifieringar</h2><div class="cert"><span class="certnamn">PMP, Project Management Professional</span><span class="certmeta">PMI<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">SAFe 5.0 Agilist</span><span class="certmeta">Scaled Agile<span class="period"> 2021</span></span></div><div class="cert"><span class="certnamn">Professional Scrum Master I</span><span class="certmeta">Scrum.org<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">PRINCE2 Foundation</span><span class="certmeta">Axelos<span class="period"> 2018</span></span></div></section>
+    <section class="sektion "><h2 class="rubrik ">Språk</h2><div class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span></div></section></div>
+  </div>
+  <div class="under">
+    <p class="stil">Georgia. Namnet som tidningshuvud mellan en 2 pt och en 0,5 pt linje, daterad rad med titel och kontakt under, profilen i två spalter, rubriker med linje över.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Georgia (allt)</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#9B1B1B" title="#9B1B1B"></span><code>#9B1B1B</code><em>förval</em><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#1A1A1A" title="#1A1A1A"></span><code>#1A1A1A</code><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Tidningshuvud"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>lång profiltext; redaktionellt eller kommunikativt uttryck</span></div>
+  </div>
+</article>
+<article class="mall" id="tusch">
+  <div class="etikett">
+    <span class="nr">19</span>
+    <h3>Tusch</h3>
+    <span class="niva premium">Premium</span>
+    <span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF</span>
+    <span class="familj">Konstnärlig</span>
+  </div>
+  <div class="arkram">
+    <div class="ark m-tusch" style="--a:#1A1A1A;--ton:rgb(223,223,223)">
+    <header class="huvud"><div class="namn ">Erik Lindberg</div><div class="titel">Projektledare inom IT</div><div class="kontakt">erik.lindberg@email.se<span class="sep"> · </span>073-456 78 90<span class="sep"> · </span>Stockholm<span class="sep"> · </span>linkedin.com/in/eriklindberg</div></header>
+    <section class="sektion "><h2 class="rubrik ">Profil</h2><p class="profil">Erfaren projektledare med 6+ års erfarenhet av att leda digitala transformationsprojekt inom bank och fintech. Certifierad i både agila metoder (Scrum, SAFe) och traditionell projektledning (PMP). Levererat 15+ projekt med en genomsnittlig budget på 8 MSEK. Stark kommunikatör som bygger högpresterande team och håller intressenterna samlade.</p></section>
+    <section class="sektion "><h2 class="rubrik ">Arbetslivserfarenhet</h2><div class="post"><div class="marg"><span class="period">2021<br><span style="font-size:9pt;color:#888">Pågående</span></span></div><div class="innehall"><div class="postrad"><span class="posttitel">Senior Projektledare</span></div><div class="agrad"><span class="arbetsgivare">Nordea Bank</span></div><ul class="punkter"><li>Leder ett tvärfunktionellt team på 12 personer i införandet av en ny mobilbanksplattform</li><li>Ansvarig för budget på 15 MSEK och rapportering till styrgrupp med IT-direktör</li><li>Införde agilt arbetssätt som ökade leveranstakten med 35 %</li><li>Samordnar externa leverantörer och säkerställer efterlevnad av finansiella regelverk</li></ul></div></div><div class="post"><div class="marg"><span class="period">2018<br><span style="font-size:9pt;color:#888">till 2021</span></span></div><div class="innehall"><div class="postrad"><span class="posttitel">Projektledare</span></div><div class="agrad"><span class="arbetsgivare">Klarna</span></div><ul class="punkter"><li>Ledde 8 produktutvecklingsprojekt inom checkout och betalningslösningar</li><li>Införde Scrum och kortade tiden till lansering med 40 %</li><li>Handledde 3 juniora projektledare och byggde upp ett projektledarprogram</li><li>Samordnade releaseplaneringen för 5 utvecklingsteam (50+ utvecklare)</li></ul></div></div><div class="post"><div class="marg"><span class="period">2016<br><span style="font-size:9pt;color:#888">till 2018</span></span></div><div class="innehall"><div class="postrad"><span class="posttitel">Biträdande projektledare</span></div><div class="agrad"><span class="arbetsgivare">Tieto Sverige</span></div><ul class="punkter"><li>Planerade och följde upp leveranser i ett byte av ärendehanteringssystem för en kommun</li><li>Höll i användartester och utbildade 40 handläggare i det nya systemet</li></ul></div></div></section>
+    <section class="sektion "><h2 class="rubrik ">Utbildning</h2><div class="post"><div class="marg"><span class="period">2011<br><span style="font-size:9pt;color:#888">till 2016</span></span></div><div class="innehall"><div class="postrad"><span class="posttitel">Civilingenjör Industriell Ekonomi</span></div><div class="agrad"><span class="arbetsgivare">Kungliga Tekniska Högskolan</span></div><p class="postdetalj">Inriktning mot projektledning och verksamhetsstyrning</p></div></div></section>
+    <section class="sektion "><h2 class="rubrik ">Kompetenser</h2><div class="grupp"><span class="gruppnamn">Metodik och verktyg: </span>Scrum, Kanban, SAFe, Vattenfall, Jira, Confluence, MS Project, Budget- och resursplanering, Riskhantering och kvalitetssäkring</div><div class="grupp"><span class="gruppnamn">Personliga: </span>Ledarskap och teamutveckling, Kommunikation och presentation, Förhandling och konflikthantering, Strategiskt tänkande</div></section>
+    <section class="sektion "><h2 class="rubrik ">Certifieringar</h2><div class="cert"><span class="certnamn">PMP, Project Management Professional</span><span class="certmeta">PMI<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">SAFe 5.0 Agilist</span><span class="certmeta">Scaled Agile<span class="period"> 2021</span></span></div><div class="cert"><span class="certnamn">Professional Scrum Master I</span><span class="certmeta">Scrum.org<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">PRINCE2 Foundation</span><span class="certmeta">Axelos<span class="period"> 2018</span></span></div></section>
+    <section class="sektion "><h2 class="rubrik ">Språk</h2><div class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span></div></section></div>
+  </div>
+  <div class="under">
+    <p class="stil">Roboto, monokrom. Årtalen som stora ljusgrå siffror (22 pt light) i en 34 mm vänsterkolumn, små grå rubriker med kort svart linje. Stramt och arkitektoniskt.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Roboto (allt)</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#1A1A1A" title="#1A1A1A"></span><code>#1A1A1A</code><em>förval</em><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#7A1F2B" title="#7A1F2B"></span><code>#7A1F2B</code><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Stora årtal"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>lång karriär; stramt uttryck utan färg</span></div>
+  </div>
+</article>
+<article class="mall" id="horisont">
+  <div class="etikett">
+    <span class="nr">20</span>
+    <h3>Horisont</h3>
+    <span class="niva premium">Premium</span>
+    <span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF</span>
+    <span class="familj">Konstnärlig</span>
+  </div>
+  <div class="arkram">
+    <div class="ark m-horisont" style="--a:#1B5E8A;--ton:rgb(223,232,239)">
+    <header class="huvud"><div class="namn ">Erik Lindberg</div><div class="titel">Projektledare inom IT</div><div class="kontakt">erik.lindberg@email.se<span class="sep"> · </span>073-456 78 90<span class="sep"> · </span>Stockholm<span class="sep"> · </span>linkedin.com/in/eriklindberg</div></header>
+    <div class="axel" aria-hidden="true"><div class="linje"></div><div class="punkt utb" style="left:5.0%"></div><div class="etikett" style="left:5.0%"><b>2011</b>Kungliga Tekniska Högskolan</div><div class="punkt" style="left:35.0%"></div><div class="etikett" style="left:35.0%"><b>2016</b>Tieto Sverige</div><div class="punkt" style="left:47.0%"></div><div class="etikett nedre" style="left:47.0%"><b>2018</b>Klarna</div><div class="punkt" style="left:65.0%"></div><div class="etikett" style="left:65.0%"><b>2021</b>Nordea Bank</div></div>
+    <section class="sektion "><h2 class="rubrik ">Profil</h2><p class="profil">Erfaren projektledare med 6+ års erfarenhet av att leda digitala transformationsprojekt inom bank och fintech. Certifierad i både agila metoder (Scrum, SAFe) och traditionell projektledning (PMP). Levererat 15+ projekt med en genomsnittlig budget på 8 MSEK. Stark kommunikatör som bygger högpresterande team och håller intressenterna samlade.</p></section>
+    <section class="sektion "><h2 class="rubrik ">Arbetslivserfarenhet</h2><div class="post"><div class="postrad"><span class="posttitel">Senior Projektledare</span><span class="period">2021 – Pågående</span></div><div class="agrad"><span class="arbetsgivare">Nordea Bank</span></div><ul class="punkter"><li>Leder ett tvärfunktionellt team på 12 personer i införandet av en ny mobilbanksplattform</li><li>Ansvarig för budget på 15 MSEK och rapportering till styrgrupp med IT-direktör</li><li>Införde agilt arbetssätt som ökade leveranstakten med 35 %</li><li>Samordnar externa leverantörer och säkerställer efterlevnad av finansiella regelverk</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Projektledare</span><span class="period">2018 – 2021</span></div><div class="agrad"><span class="arbetsgivare">Klarna</span></div><ul class="punkter"><li>Ledde 8 produktutvecklingsprojekt inom checkout och betalningslösningar</li><li>Införde Scrum och kortade tiden till lansering med 40 %</li><li>Handledde 3 juniora projektledare och byggde upp ett projektledarprogram</li><li>Samordnade releaseplaneringen för 5 utvecklingsteam (50+ utvecklare)</li></ul></div><div class="post"><div class="postrad"><span class="posttitel">Biträdande projektledare</span><span class="period">2016 – 2018</span></div><div class="agrad"><span class="arbetsgivare">Tieto Sverige</span></div><ul class="punkter"><li>Planerade och följde upp leveranser i ett byte av ärendehanteringssystem för en kommun</li><li>Höll i användartester och utbildade 40 handläggare i det nya systemet</li></ul></div></section>
+    <section class="sektion "><h2 class="rubrik ">Utbildning</h2><div class="post"><div class="postrad"><span class="posttitel">Civilingenjör Industriell Ekonomi</span><span class="period">2011 – 2016</span></div><div class="agrad"><span class="arbetsgivare">Kungliga Tekniska Högskolan</span></div><p class="postdetalj">Inriktning mot projektledning och verksamhetsstyrning</p></div></section>
+    <section class="sektion "><h2 class="rubrik ">Kompetenser</h2><div class="grupp"><span class="gruppnamn">Metodik och verktyg: </span>Scrum, Kanban, SAFe, Vattenfall, Jira, Confluence, MS Project, Budget- och resursplanering, Riskhantering och kvalitetssäkring</div><div class="grupp"><span class="gruppnamn">Personliga: </span>Ledarskap och teamutveckling, Kommunikation och presentation, Förhandling och konflikthantering, Strategiskt tänkande</div></section>
+    <section class="sektion "><h2 class="rubrik ">Certifieringar</h2><div class="cert"><span class="certnamn">PMP, Project Management Professional</span><span class="certmeta">PMI<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">SAFe 5.0 Agilist</span><span class="certmeta">Scaled Agile<span class="period"> 2021</span></span></div><div class="cert"><span class="certnamn">Professional Scrum Master I</span><span class="certmeta">Scrum.org<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">PRINCE2 Foundation</span><span class="certmeta">Axelos<span class="period"> 2018</span></span></div></section>
+    <section class="sektion "><h2 class="rubrik ">Språk</h2><div class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span></div></section></div>
+  </div>
+  <div class="under">
+    <p class="stil">Open Sans. Under huvudet en horisontell tidsaxel med en punkt per anställning och utbildning, årtal under; sedan vanliga avsnitt med accentrubriker. Karriären syns på en rad.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Open Sans (allt)</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#1B5E8A" title="#1B5E8A"></span><code>#1B5E8A</code><em>förval</em><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code><span class="swatch" style="background:#8A4B2A" title="#8A4B2A"></span><code>#8A4B2A</code><span class="swatch" style="background:#5B2A4E" title="#5B2A4E"></span><code>#5B2A4E</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Tidsaxel under huvudet"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>tre eller fler anställningar; vill visa en röd tråd</span></div>
+  </div>
+</article></div>
+</div>
+<script>
+(function(){
+  // På smala skärmar skalas arket ner till ramens bredd; ramen får arkets skalade höjd.
+  function skala(){
+    var smal=window.innerWidth<=860;
+    document.querySelectorAll('.arkram').forEach(function(ram){
+      var ark=ram.querySelector('.ark');
+      if(!smal){ark.style.removeProperty('--skala');ram.style.height='';return}
+      var bredd=ram.clientWidth-16;var s=bredd/ark.offsetWidth;
+      ark.style.setProperty('--skala',s);ram.style.height=(ark.offsetHeight*s+16)+'px';
+    });
+  }
+  skala();window.addEventListener('resize',skala);
+})();
+</script>
+</body>
+</html>

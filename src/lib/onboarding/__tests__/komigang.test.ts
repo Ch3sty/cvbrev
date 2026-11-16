@@ -193,7 +193,7 @@ describe('menyn', () => {
 
   it('underraderna följer scopet, aldrig hårdkodade tal', () => {
     const tester = { ...bas, scope: 'tester' as const, planKey: 'test_week' as const }
-    expect(menyRad('mallar', tester).text).toBe('3 mallar, en nedladdning')
+    expect(menyRad('mallar', tester).text).toBe('2 mallar, en nedladdning')
     expect(menyRad('brev', tester).text).toBe('Ett personligt brev i veckan att läsa')
     expect(menyRad('matchning', tester).text).toBe('Tre träffar, med skälen')
     expect(menyRad('coach', tester).text).toBe('7 av 10 meddelanden kvar')

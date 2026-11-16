@@ -100,8 +100,8 @@ describe('reklamkortens texter', () => {
     // Sidokortets text är förklaringsraden ur PLANS (R2).
     expect(SIDO.cv.text).toBe(PLAN_BY_KEY[SALD_PLAN].beskrivning)
     expect(SLUT.cv.rader.join(' ')).toContain(`${TEMPLATE_COUNT}`)
-    expect(FREE_TEMPLATE_COUNT).toBe(3)
-    expect(INLINE.mallar.text.startsWith('Tre mallar')).toBe(true)
+    expect(FREE_TEMPLATE_COUNT).toBe(2)
+    expect(INLINE.mallar.text.startsWith('Två mallar')).toBe(true)
   })
 
   it('listraderna och gratiskortets länk enligt copy-vag5 avsnitt 1', () => {
