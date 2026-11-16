@@ -278,8 +278,7 @@ export const FOTO_ARK = {
   fel: 'Fotot gick inte att ladda upp. Försök igen eller välj en annan bild.',
 } as const
 
-export const AVSNITT = {
-  tomma: {
+const AVSNITT_TOMMA = {
     profil: '+ Skriv några rader om dig',
     erfarenhet: '+ Lägg till ett jobb',
     utbildning: '+ Lägg till utbildning',
@@ -289,7 +288,10 @@ export const AVSNITT = {
     projekt: '+ Lägg till ett projekt',
     intressen: '+ Lägg till intressen',
     referenser: '+ Lägg till referenser',
-  } satisfies Record<Sektion, string>,
+} satisfies Record<Sektion, string>
+
+export const AVSNITT = {
+  tomma: AVSNITT_TOMMA,
   rubrik: {
     profil: 'Profil',
     erfarenhet: 'Erfarenhet',
@@ -306,6 +308,16 @@ export const AVSNITT = {
   laggTill: 'Lägg till',
   avbryt: 'Avbryt',
   taBortAvsnitt: 'Avsnittet tas bort från CV:t. Du kan lägga till det igen.',
+  /**
+   * "+ Lägg till" med avsnittets rubrik i vald mall och rubrikuppsättning
+   * (Färdigheter ger "+ Lägg till färdigheter"). Jobb och profil behåller sina
+   * egna ord, som läses bättre än rubriken.
+   */
+  laggTillFor: (sektion: Sektion, rubrik?: string | null) => {
+    const t = (rubrik ?? '').replace(/\s+/g, ' ').trim()
+    if (!t || sektion === 'erfarenhet' || sektion === 'profil') return AVSNITT_TOMMA[sektion]
+    return `+ Lägg till ${t.charAt(0).toLowerCase()}${t.slice(1)}`
+  },
   /** Ett tomt avsnitt i byggaren, för skärmläsare (UX-briefen avsnitt 3). */
   saknas: (namn: string) => `${namn} saknas, lägg till`,
 } as const

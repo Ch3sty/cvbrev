@@ -6,7 +6,7 @@
  * vid Spara, så dokumentet ritas om en gång per sparning, aldrig per tangent.
  * Laddas lat: inget av det här behövs för första målningen.
  */
-import { useMemo, useRef, useState, type ReactNode } from 'react'
+import { createContext, useContext, useMemo, useRef, useState, type ReactNode } from 'react'
 import type { CVEducation, CVExperience, CVLanguage } from '@/lib/cv/cv-metadata'
 import type { Sektion } from '@/lib/cv/mallar/kontrakt'
 import type { ArkVal, PostSektion } from '@/lib/cv/bygg/ark'
@@ -24,6 +24,13 @@ import { BLAD, COACH, ERF, FLER_BLAD, HUVUD_BLAD, KOMP, PROFIL_BLAD, SPRAK, UTB,
 
 export type Metod = 'manuell' | 'jobbcoach'
 
+/** Rubrikerna som arket visar (mallen och rubrikuppsättningen), så att bladet heter som avsnittet. */
+const Rubriker = createContext<Partial<Record<Sektion, string>>>({})
+function useNamn() {
+  const r = useContext(Rubriker)
+  return (s: Sektion) => r[s]?.trim() || sektionsnamn(s)
+}
+
 export interface BladProps {
   ark: ArkVal
   cv: ByggCv
@@ -32,6 +39,8 @@ export interface BladProps {
   onTaBort: (ny: ByggCv, sektion: Sektion, text: string) => void
   onOppna: (a: ArkVal) => void
   onStang: () => void
+  /** Rubrikerna på arket, ur mätningen av dokumentet. */
+  rubriker?: Partial<Record<Sektion, string>>
 }
 
 const FALT =
@@ -192,12 +201,13 @@ function HuvudBlad({ cv, dator, onSpara, onStang }: BladProps) {
 /* ------------------------------------------------------------------ listor */
 
 function ListaBlad({ cv, dator, onOppna, onStang, sektion }: BladProps & { sektion: PostSektion }) {
+  const namn = useNamn()
   const poster =
     sektion === 'erfarenhet'
       ? (cv.experience ?? []).map((e) => ({ titel: e.position || e.company, under: [e.position ? e.company : '', periodErfarenhet(e)].filter(Boolean).join(', ') }))
       : (cv.education ?? []).map((e) => ({ titel: e.degree || e.institution, under: [e.degree ? e.institution : '', periodUtbildning(e)].filter(Boolean).join(', ') }))
   return (
-    <Ram dator={dator} nyckel={`lista-${sektion}`} rubrik={sektionsnamn(sektion)} under={under(sektion)} onClose={onStang}>
+    <Ram dator={dator} nyckel={`lista-${sektion}`} rubrik={namn(sektion)} under={under(sektion)} onClose={onStang}>
       <p className="mb-2 text-sm text-ink-2">{BLAD.listaUnder}</p>
       <ul className="grid gap-2">
         {poster.map((p, i) => (
@@ -217,7 +227,7 @@ function ListaBlad({ cv, dator, onOppna, onStang, sektion }: BladProps & { sekti
         ))}
       </ul>
       <button type="button" onClick={() => onOppna({ typ: 'post', sektion, index: 'ny' })} className={`${STRECKAD} mt-2`}>
-        {AVSNITT.tomma[sektion]}
+        {AVSNITT.laggTillFor(sektion, namn(sektion))}
       </button>
     </Ram>
   )
@@ -226,6 +236,7 @@ function ListaBlad({ cv, dator, onOppna, onStang, sektion }: BladProps & { sekti
 /* ------------------------------------------------------------- erfarenhet */
 
 function ErfarenhetBlad({ cv, dator, onSpara, onTaBort, onStang, index }: BladProps & { index: number | 'ny' }) {
+  const namn = useNamn()
   const post: CVExperience | undefined = index === 'ny' ? undefined : cv.experience?.[index]
   const [titel, setTitel] = useState(post?.position ?? '')
   const [arbetsgivare, setArbetsgivare] = useState(post?.company ?? '')
@@ -276,7 +287,7 @@ function ErfarenhetBlad({ cv, dator, onSpara, onTaBort, onStang, index }: BladPr
     <Ram
       dator={dator}
       nyckel={`erfarenhet-${index}`}
-      rubrik={sektionsnamn('erfarenhet')}
+      rubrik={namn('erfarenhet')}
       under={under('erfarenhet')}
       onClose={onStang}
       fot={
@@ -350,6 +361,7 @@ function ErfarenhetBlad({ cv, dator, onSpara, onTaBort, onStang, index }: BladPr
 /* ------------------------------------------------------------- utbildning */
 
 function UtbildningBlad({ cv, dator, onSpara, onTaBort, onStang, index }: BladProps & { index: number | 'ny' }) {
+  const namn = useNamn()
   const post: CVEducation | undefined = index === 'ny' ? undefined : cv.education?.[index]
   const [utb, setUtb] = useState(post?.degree ?? '')
   const [skola, setSkola] = useState(post?.institution ?? '')
@@ -375,7 +387,7 @@ function UtbildningBlad({ cv, dator, onSpara, onTaBort, onStang, index }: BladPr
   }
   const ar = (v: string, s: (x: string) => void) => (e: React.ChangeEvent<HTMLInputElement>) => s(e.target.value.replace(/\D/g, '').slice(0, 4))
   return (
-    <Ram dator={dator} nyckel={`utbildning-${index}`} rubrik={sektionsnamn('utbildning')} under={under('utbildning')} onClose={onStang} fot={<button type="button" onClick={spara} className={SPARA}>{BLAD.spara}</button>}>
+    <Ram dator={dator} nyckel={`utbildning-${index}`} rubrik={namn('utbildning')} under={under('utbildning')} onClose={onStang} fot={<button type="button" onClick={spara} className={SPARA}>{BLAD.spara}</button>}>
       <div className="grid gap-3">
         <Falt id="u-utb" etikett={UTB.utbildning}>
           <input id="u-utb" className={FALT} value={utb} onChange={(e) => setUtb(e.target.value)} />
@@ -417,6 +429,7 @@ function UtbildningBlad({ cv, dator, onSpara, onTaBort, onStang, index }: BladPr
 /* ------------------------------------------------------------ kompetenser */
 
 function KompetenserBlad({ cv, dator, onSpara, onStang }: BladProps) {
+  const namn = useNamn()
   const [lista, setLista] = useState<string[]>(() => kompetenslista(cv))
   const [text, setText] = useState('')
   const [ai, setAi] = useState<string[]>([])
@@ -451,7 +464,7 @@ function KompetenserBlad({ cv, dator, onSpara, onStang }: BladProps) {
     onSpara({ ...cv, skills: medKompetenser(cv, slut) }, 'kompetenser', anvantAi ? 'jobbcoach' : 'manuell')
   }
   return (
-    <Ram dator={dator} nyckel="kompetenser" rubrik={sektionsnamn('kompetenser')} under={under('kompetenser')} onClose={onStang} fot={<button type="button" onClick={spara} className={SPARA}>{BLAD.spara}</button>}>
+    <Ram dator={dator} nyckel="kompetenser" rubrik={namn('kompetenser')} under={under('kompetenser')} onClose={onStang} fot={<button type="button" onClick={spara} className={SPARA}>{BLAD.spara}</button>}>
       <div className="grid gap-3">
         <div className="grid gap-1">
           <label htmlFor="k-falt" className="text-[13px] font-medium text-ink-2">
@@ -494,7 +507,7 @@ function KompetenserBlad({ cv, dator, onSpara, onStang }: BladProps) {
           </div>
         </div>
         {lista.length ? (
-          <ul className="flex flex-wrap gap-2" aria-label={sektionsnamn('kompetenser')}>
+          <ul className="flex flex-wrap gap-2" aria-label={namn('kompetenser')}>
             {lista.map((k) => (
               <li key={k} className="inline-flex h-11 items-center gap-0.5 rounded-full border border-kant-stark bg-papper pl-3.5 pr-1 text-sm font-medium text-ink-1">
                 {k}
@@ -540,6 +553,7 @@ function KompetenserBlad({ cv, dator, onSpara, onStang }: BladProps) {
 /* ----------------------------------------------------------------- profil */
 
 function ProfilBlad({ cv, dator, onSpara, onStang }: BladProps) {
+  const namn = useNamn()
   const [text, setText] = useState(cv.summary ?? '')
   const [fore, setFore] = useState<string | null>(null)
   const coach = useJobbcoach(cv.personalInfo.fullName ?? '')
@@ -561,7 +575,7 @@ function ProfilBlad({ cv, dator, onSpara, onStang }: BladProps) {
     onSpara({ ...cv, summary: text.trim() || undefined }, 'profil', fore !== null ? 'jobbcoach' : 'manuell')
   }
   return (
-    <Ram dator={dator} nyckel="profil" rubrik={sektionsnamn('profil')} under={under('profil')} onClose={onStang} fot={<button type="button" onClick={spara} disabled={coach.skriver} className={SPARA}>{BLAD.spara}</button>}>
+    <Ram dator={dator} nyckel="profil" rubrik={namn('profil')} under={under('profil')} onClose={onStang} fot={<button type="button" onClick={spara} disabled={coach.skriver} className={SPARA}>{BLAD.spara}</button>}>
       <div className="grid gap-3">
         <p className="flex items-start gap-2 text-sm text-ink-2">
           <IkonPenna size={16} className="mt-0.5 shrink-0 text-ink-3" />
@@ -594,11 +608,12 @@ function ProfilBlad({ cv, dator, onSpara, onStang }: BladProps) {
 const NIVAER: CVLanguage['proficiency'][] = ['Modersmål', 'Flytande', 'Konversation', 'Nybörjare', 'Tvåspråkig']
 
 function SprakBlad({ cv, dator, onSpara, onStang }: BladProps) {
+  const namn = useNamn()
   const [lista, setLista] = useState<CVLanguage[]>(() => (cv.languages?.length ? cv.languages.map((l) => ({ ...l })) : [{ language: '', proficiency: 'Flytande' }]))
   const satt = (i: number, d: Partial<CVLanguage>) => setLista((l) => l.map((x, j) => (j === i ? { ...x, ...d } : x)))
   const spara = () => onSpara({ ...cv, languages: lista.filter((l) => l.language.trim()).map((l) => ({ ...l, language: l.language.trim() })) }, 'sprak', 'manuell')
   return (
-    <Ram dator={dator} nyckel="sprak" rubrik={sektionsnamn('sprak')} under={under('sprak')} onClose={onStang} fot={<button type="button" onClick={spara} className={SPARA}>{BLAD.spara}</button>}>
+    <Ram dator={dator} nyckel="sprak" rubrik={namn('sprak')} under={under('sprak')} onClose={onStang} fot={<button type="button" onClick={spara} className={SPARA}>{BLAD.spara}</button>}>
       <div className="grid gap-3">
         {lista.map((l, i) => (
           <div key={i} className="grid grid-cols-[1fr_9.5rem] items-end gap-2">
@@ -741,6 +756,14 @@ function IntressenBlad({ cv, dator, onSpara, onStang }: BladProps) {
 /* ------------------------------------------------------------------ bladet */
 
 export default function Blad(p: BladProps) {
+  return (
+    <Rubriker.Provider value={p.rubriker ?? {}}>
+      <BladInnehall {...p} />
+    </Rubriker.Provider>
+  )
+}
+
+function BladInnehall(p: BladProps) {
   const a = p.ark
   switch (a.typ) {
     case 'huvud':

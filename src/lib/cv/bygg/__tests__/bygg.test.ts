@@ -23,6 +23,7 @@ import { arPagaende, skrivDatum, tolkaDatum } from '../datum'
 import { PROFILRAD, SPOK_GENERISK, medSpok, spokAvsnitt, spokFor } from '../spok'
 import { byggKalla, utanBygge, valFor } from '../kalla'
 import { arkForAvsnitt, arkNyckel, tolkaArk } from '../ark'
+import { AVSNITT } from '@/components/cv/Dokument/texter'
 
 const profil = { namn: 'Sara Holm', epost: 'sara@example.com', telefon: '070 123 45 67', ort: 'Göteborg', linkedin: '' }
 
@@ -188,6 +189,16 @@ describe('spöktexten per titel', () => {
     const fil = renderMallHtml(utanBygge(cv), 'linne', {})
     expect(fil).not.toContain('data-spok')
     expect(fil).not.toContain('Hur många ärenden')
+  })
+})
+
+describe('pillen vid rubriken', () => {
+  it('heter som rubriken i mallen, utom jobb och profil', () => {
+    expect(AVSNITT.laggTillFor('kompetenser', 'Färdigheter')).toBe('+ Lägg till färdigheter')
+    expect(AVSNITT.laggTillFor('utbildning', 'Utbildning och examina')).toBe('+ Lägg till utbildning och examina')
+    expect(AVSNITT.laggTillFor('profil', 'Om mig')).toBe('+ Skriv några rader om dig')
+    expect(AVSNITT.laggTillFor('erfarenhet', 'Arbetslivserfarenhet')).toBe('+ Lägg till ett jobb')
+    expect(AVSNITT.laggTillFor('kompetenser', '')).toBe('+ Lägg till kompetenser')
   })
 })
 

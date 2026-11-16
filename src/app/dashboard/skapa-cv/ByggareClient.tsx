@@ -608,8 +608,20 @@ export default function ByggareClient(p: ByggareProps) {
       </span>
     ) : null
 
+  // Bladet heter som avsnittet på arket (Färdigheter, Om mig).
+  const arkRubriker = useMemo(() => Object.fromEntries((matning?.rubriker ?? []).map((x) => [x.sektion, x.text])) as Partial<Record<Sektion, string>>, [matning])
+
   const blad = ark ? (
-    <Blad ark={ark} cv={cv} dator={dator} onSpara={sparaBlad} onTaBort={taBort} onOppna={oppnaArk} onStang={() => stangArk(false)} />
+    <Blad
+      ark={ark}
+      cv={cv}
+      dator={dator}
+      rubriker={arkRubriker}
+      onSpara={sparaBlad}
+      onTaBort={taBort}
+      onOppna={oppnaArk}
+      onStang={() => stangArk(false)}
+    />
   ) : null
 
   return (

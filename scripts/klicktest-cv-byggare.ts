@@ -288,6 +288,8 @@ async function fyllUtbildning(page: Page, steg: string) {
 async function fyllKompetenser(page: Page, steg: string) {
   await page.click('[data-avsnitt-knapp="kompetenser"]')
   kontroll(Boolean(await vantaPa(page, '#k-falt')), `${steg}: kompetensbladet öppnas`)
+  const bladRubrik = await page.$eval('[role=dialog] h2', (h) => (h as HTMLElement).innerText.trim()).catch(() => '')
+  kontroll(bladRubrik === 'Färdigheter', `${steg}: bladet heter som avsnittet på arket (${bladRubrik})`)
   await page.type('#k-falt', 'Zendesk')
   await page.keyboard.press('Enter')
   await page.type('#k-falt', 'Reklamationer, ')
@@ -332,6 +334,8 @@ async function gratisFlode(browser: Browser, k: Konto) {
   await vila(1500)
   const spok = await page.$$eval('[data-lagg-till]', (l) => l.map((x) => x.getAttribute('data-lagg-till')))
   kontroll(spok.includes('erfarenhet') && spok.includes('profil'), `${steg}: tomma avsnitt har Lägg till vid rubriken (${spok.join(', ')})`)
+  const pillar = await page.evaluate(() => [...document.querySelectorAll<HTMLElement>('[data-lagg-till]')].map((x) => x.innerText.trim()))
+  kontroll(pillar.includes('+ Lägg till färdigheter') && pillar.includes('+ Skriv några rader om dig') && pillar.includes('+ Lägg till ett jobb'), `${steg}: pillen heter som rubriken i mallen (${pillar.join(' | ')})`)
   const spokText = await page.evaluate(() => {
     const f = document.querySelector<HTMLIFrameElement>('.dok-ark-yta iframe')
     return f?.contentDocument?.body.innerText ?? ''
@@ -470,6 +474,15 @@ async function premiumFlode(browser: Browser, k: Konto) {
   await page.click('[data-avsnitt-knapp="utbildning"]')
   const dockad = await vantaPa(page, '[data-bygg-blad]')
   kontroll(Boolean(dockad), `${steg}: bladet dockas till höger på dator`)
+  // Vänta in ingångsanimationen innan skärmdumpen (opacitet 1).
+  await page.waitForFunction(() => getComputedStyle(document.querySelector('[data-bygg-blad]')!).opacity === '1', { timeout: 5000 }).catch(() => null)
+  const lage = await page.$eval('[data-bygg-blad]', (el) => {
+    const r = el.getBoundingClientRect()
+    const cs = getComputedStyle(el)
+    return { top: Math.round(r.top), botten: Math.round(window.innerHeight - r.bottom), hoger: Math.round(document.querySelector('header')!.getBoundingClientRect().right - r.right), bredd: Math.round(r.width), hojd: Math.round(r.height), opacitet: cs.opacity, radie: cs.borderTopLeftRadius, inert: el.closest('[inert],[aria-disabled=true]') !== null }
+  })
+  kontroll(lage.opacitet === '1' && !lage.inert, `${steg}: bladet är fullt opakt och inte inert (opacitet ${lage.opacitet})`)
+  kontroll(lage.hoger === 0 && lage.top <= 62 && lage.radie === '0px' && lage.hojd > 600 && lage.botten > 40 && lage.botten < 120, `${steg}: bladet dockat i full höjd mellan toppraden och den fasta raden (${JSON.stringify(lage)})`)
   await bild(page, `${steg}-dockat-blad`)
   await page.keyboard.press('Escape')
   await vila(800)

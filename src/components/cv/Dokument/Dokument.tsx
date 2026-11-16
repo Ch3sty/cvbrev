@@ -360,7 +360,7 @@ export default function Dokument({
                       <button
                         type="button"
                         disabled={last}
-                        aria-label={spok ? AVSNITT.saknas(AVSNITT.rubrik[r.sektion]) : `${AVSNITT.rubrik[r.sektion]}: ${r.text}`}
+                        aria-label={spok ? AVSNITT.saknas(r.text || AVSNITT.rubrik[r.sektion]) : `${AVSNITT.rubrik[r.sektion]}: ${r.text}`}
                         data-avsnitt-knapp={r.sektion}
                         onClick={() => onAvsnitt(r.sektion)}
                         className={`absolute rounded-[4px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-koppar ${
@@ -395,7 +395,7 @@ export default function Dokument({
                         style={{ right: Math.max(4, bredd - px(r.x + r.b) - 2), top: px(r.y + r.h / 2) - (bredd >= 500 ? 14 : 11) }}
                         data-lagg-till={r.sektion}
                       >
-                        {AVSNITT.tomma[r.sektion]}
+                        {AVSNITT.laggTillFor(r.sektion, r.text)}
                       </span>
                     ) : null}
                     {/* Den prickade linjen, heldragen med penna vid hover. */}
