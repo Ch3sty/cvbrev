@@ -19,6 +19,8 @@ import SkapaCvLayout from './SkapaCvLayout';
 import { SKAPA_CV_STEPS } from './steps.config';
 import SkapaCvPreview, { type PreviewSection } from './SkapaCvPreview';
 import type { ReviewPrimary } from './steps/Step7Review';
+import type { MallVal } from '@/lib/cv/mallar/kontrakt';
+import { losMallIdEllerForval } from '@/lib/cv/mallar/alias';
 import { nedladdningsFelForStatus } from '@/lib/cv/nedladdningsFel';
 
 import { useAutoSave } from '../hooks/useAutoSave';
@@ -185,7 +187,7 @@ export default function CVCreatorWizard({
   const [cvData, setCVData] = useState<CVDraft>(initialCVDraft);
 
   // Template selection state (for step 7)
-  const [selectedTemplate, setSelectedTemplate] = useState<string>(initialTemplate || 'norrsken');
+  const [selectedTemplate, setSelectedTemplate] = useState<string>(() => losMallIdEllerForval(initialTemplate));
 
   // Saving state
   const [isSaving, setIsSaving] = useState(false);
@@ -309,6 +311,18 @@ export default function CVCreatorWizard({
     [cvData, profile]
   );
 
+  /* Tryck på ett avsnitt i granskningens dokument: till steget, och
+     knappen i foten leder tillbaka till granskningen (plan-mallar 3.2). */
+  const [returTillGranskning, setReturTillGranskning] = useState(false);
+  const gaTillSteg = useCallback(
+    (steg: number) => {
+      setReturTillGranskning(true);
+      setCurrentStep(steg);
+      if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' });
+    },
+    [setCurrentStep]
+  );
+
   const goToNextStep = useCallback(() => {
     if (
       currentStep < SKAPA_CV_STEPS.length - 1 &&
@@ -317,13 +331,19 @@ export default function CVCreatorWizard({
       if (!completedSteps.includes(currentStep)) {
         setCompletedSteps((prev) => [...prev, currentStep]);
       }
+      if (returTillGranskning) {
+        setReturTillGranskning(false);
+        setCurrentStep(SKAPA_CV_STEPS.length - 1);
+        saveDraft();
+        return;
+      }
       setCurrentStep((prev) => prev + 1);
       saveDraft();
       if (typeof window !== 'undefined') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
-  }, [currentStep, canProceedFromStep, completedSteps, saveDraft, setCurrentStep]);
+  }, [currentStep, canProceedFromStep, completedSteps, saveDraft, setCurrentStep, returTillGranskning]);
 
   const goToPreviousStep = useCallback(() => {
     if (currentStep > 0) {
@@ -430,9 +450,14 @@ export default function CVCreatorWizard({
   }, []);
 
   const handleComplete = useCallback(
-    async (action: 'save' | 'download' | 'both', format: 'pdf' | 'docx' = 'pdf') => {
+    async (
+      action: 'save' | 'download' | 'both',
+      format: 'pdf' | 'docx' = 'pdf',
+      val?: MallVal
+    ): Promise<{ blob: Blob; url: string; filnamn: string } | null> => {
       setIsSaving(true);
       setNamnKravs(false);
+      let fil: { blob: Blob; url: string; filnamn: string } | null = null;
 
       try {
         const metadata = buildCVMetadata();
@@ -462,6 +487,15 @@ export default function CVCreatorWizard({
             throw error;
           }
 
+          // Rubrikerna hon valt på arket följer med CV:t (cv_texts.section_titles).
+          const sparad = (await response.json().catch(() => ({}))) as { cvId?: string };
+          if (sparad.cvId && val?.rubriker && Object.keys(val.rubriker).length) {
+            void fetch('/api/cv/section-titles', {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ cvId: sparad.cvId, rubriker: val.rubriker }),
+            }).catch(() => undefined);
+          }
           clearDraft();
           successWithMascotAndActivity?.(
             'Ditt CV har sparats!',
@@ -482,6 +516,7 @@ export default function CVCreatorWizard({
               structuredData: metadata,
               template: selectedTemplate,
               format,
+              val,
             }),
           });
 
@@ -503,10 +538,12 @@ export default function CVCreatorWizard({
           a.download = `CV-${cvData.personalInfo.fullName?.replace(/\s+/g, '-') || 'mitt-cv'}.${format === 'docx' ? 'docx' : 'pdf'}`;
           document.body.appendChild(a);
           a.click();
-          window.URL.revokeObjectURL(url);
           a.remove();
+          // Adressen lever kvar: finalens Öppna och Dela använder filen.
+          fil = { blob, url, filnamn: a.download };
         }
         setCvKlart(true);
+        return fil;
       } catch (error) {
         // Varken CV:t eller profilen har ett namn: rutan frågar efter det
         // och nedladdningen görs om när det är sparat.
@@ -553,6 +590,7 @@ export default function CVCreatorWizard({
             isSaving={isSaving}
             buildCVMetadata={buildCVMetadata}
             registerPrimary={setReviewPrimary}
+            onGaTillSteg={gaTillSteg}
           />
         );
       default:
@@ -593,7 +631,7 @@ export default function CVCreatorWizard({
 
   const primaryLabel = isReviewStep
     ? reviewPrimary?.label
-    : currentStep === 5
+    : currentStep === 5 || returTillGranskning
       ? 'Granska CV'
       : 'Fortsätt';
   const onPrimary = isReviewStep ? reviewPrimary?.onClick : goToNextStep;

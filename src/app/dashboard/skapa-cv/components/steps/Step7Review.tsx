@@ -1,28 +1,44 @@
 'use client';
 
-import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar'
-import { kopstegHref } from '@/lib/onboarding/steps';
+/**
+ * Byggarens steg 7 (plan-mallar 3.2, skissen yta 4): dokumentet först, i
+ * storleken mellan, i FlowShell. "Föreslagna för dig" i remsan, tryck på ett
+ * avsnitt går till steget med retur hit, rubrikerna byts på arket och
+ * knappen i flödesfoten heter "Spara och ladda ner PDF" (felraden
+ * primaryError från steg 1 står kvar). Karusellen och innehållslistan är
+ * borta. Nedladdningen slutar i finalen.
+ */
+import { KNAPP_PRIMAR_SMAL } from '@/components/shell/knappar';
 import { PAKETRADER } from '@/components/paywall/paywall-copy';
-import { SALD_PLAN } from '@/lib/plans/plans';
 import { useBetalvaggVisad } from '@/hooks/useBetalvaggVisad';
 import { capture } from '@/lib/analytics/events';
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight } from '@/components/illustrations/RumIkoner';
 import { useRouter } from 'next/navigation';
 import { useProfile } from '@/hooks/use-profile';
-import { SIMPLE_TEMPLATES, getTemplateById } from '@/lib/cv/simple-templates';
 import PaywallCard from '@/components/paywall/PaywallCard';
 import { nedladdningsFelForUndantag } from '@/lib/cv/nedladdningsFel';
 import Confirmation from '@/components/shell/Confirmation';
 import StatusRow from '@/components/shell/StatusRow';
-import { IkonKrona } from '@/components/illustrations/Ikoner';
 import { FIELD, FIELD_OK, LABEL } from '../inputs/SkapaCvInput';
 import type { CVDraft } from '../CVCreatorWizard';
-import type { CVMetadata, CVTemplateType } from '@/lib/cv/cv-metadata';
-import FormatVal, { type CvFormat } from '@/app/dashboard/cv-mallar/components/FormatVal';
-import { harWordVersion, WORD_MALL_TYPSNITT } from '@/lib/cv/template-antal';
-import { getFontById } from '@/lib/cv/preview-utils';
+import type { CVMetadata } from '@/lib/cv/cv-metadata';
+import type { Format, MallVal, Sektion } from '@/lib/cv/mallar/kontrakt';
+import { MALL_KATALOG } from '@/lib/cv/mallar/katalog';
+import { foreslagna as raknaForslag } from '@/lib/cv/mallval/forslag';
+import Dokument from '@/components/cv/Dokument/Dokument';
+import Remsa from '@/components/cv/Dokument/Remsa';
+import AllaArk from '@/components/cv/Dokument/AllaArk';
+import Verktygsrad from '@/components/cv/Dokument/Verktygsrad';
+import Mallrad from '@/components/cv/Dokument/MallArk';
+import RubrikArk from '@/components/cv/Dokument/RubrikArk';
+import Final from '@/components/cv/Dokument/Final';
+import { FormatVal } from '@/components/cv/Dokument/FastRad';
+import { useForhandsvisning } from '@/components/cv/Dokument/hooks';
+import type { Matning } from '@/components/cv/Dokument/matning';
+import { KNAPP, SKAL } from '@/components/cv/Dokument/texter';
+
+export type CvFormat = Format;
 
 /** Primärhandlingen registreras hos wizarden, som ritar den i FlowShell-foten. */
 export interface ReviewPrimary {
@@ -34,50 +50,44 @@ export interface ReviewPrimary {
   error?: string;
 }
 
+type Fil = { blob: Blob; url: string; filnamn: string };
+
 interface Step7ReviewProps {
   cvData: CVDraft;
   updateCVData: (updates: Partial<CVDraft>) => void;
   selectedTemplate: string;
   setSelectedTemplate: (template: string) => void;
-  onComplete: (action: 'save' | 'download' | 'both', format?: CvFormat) => Promise<void>;
+  onComplete: (action: 'save' | 'download' | 'both', format?: CvFormat, val?: MallVal) => Promise<Fil | null>;
   isSaving: boolean;
   buildCVMetadata: () => CVMetadata;
-  /**
-   * Primärknappen bor i FlowShell-foten, inom viewporten på mobil. Steget
-   * talar om vad den ska heta och göra; null döljer foten (bekräftelsen).
-   */
   registerPrimary?: (primary: ReviewPrimary | null) => void;
+  /** Tryck på ett avsnitt: till steget (0-baserat), med retur hit. */
+  onGaTillSteg?: (steg: number) => void;
 }
+
+const STEG_FOR: Record<Sektion, number> = {
+  profil: 1,
+  erfarenhet: 2,
+  utbildning: 3,
+  kompetenser: 4,
+  sprak: 5,
+  intyg: 4,
+  projekt: 2,
+  intressen: 5,
+  referenser: 5,
+};
 
 const LINK =
   'inline-flex min-h-11 items-center text-sm font-medium text-ink-2 underline decoration-kant-stark underline-offset-4 hover:text-ink-1';
 
-const BUTTON_PRIMARY =
-  KNAPP_PRIMAR_SMAL;
-
-// Bekräftelsevy efter spara/nedladdning
-interface ConfirmationViewProps {
-  wasDownloaded: boolean;
-  wasSaved: boolean;
-  onGoToATS: () => void;
-  onCreateNew: () => void;
-}
-
-function ConfirmationView({ wasDownloaded, wasSaved, onGoToATS, onCreateNew }: ConfirmationViewProps) {
-  const description =
-    wasDownloaded && wasSaved
-      ? 'Nedladdat och sparat under Mina CV. Nästa steg: se till att det passerar rekryteringssystemen.'
-      : wasDownloaded
-        ? 'Nedladdat till din enhet. Nästa steg: se till att det passerar rekryteringssystemen.'
-        : 'Sparat under Mina CV. Nästa steg: se till att det passerar rekryteringssystemen.';
-
+function ConfirmationView({ onGoToATS, onCreateNew }: { onGoToATS: () => void; onCreateNew: () => void }) {
   return (
     <div className="space-y-4">
       <Confirmation
         title="Ditt CV är klart"
-        description={description}
+        description="Sparat under Mina CV. Nästa steg: se till att det passerar rekryteringssystemen."
         action={
-          <button type="button" onClick={onGoToATS} className={BUTTON_PRIMARY}>
+          <button type="button" onClick={onGoToATS} className={KNAPP_PRIMAR_SMAL}>
             Analysera ditt CV
           </button>
         }
@@ -88,11 +98,9 @@ function ConfirmationView({ wasDownloaded, wasSaved, onGoToATS, onCreateNew }: C
         }
       >
         <p className="mx-auto max-w-sm text-meta text-ink-3">
-          De flesta arbetsgivare låter ett rekryteringssystem (ATS) sortera ansökningarna
-          först. Vi visar vad du ska ändra.
+          De flesta arbetsgivare låter ett rekryteringssystem (ATS) sortera ansökningarna först. Vi visar vad du ska ändra.
         </p>
       </Confirmation>
-
       <div className="text-center">
         <button type="button" onClick={onCreateNew} className={LINK}>
           Skapa ett nytt CV
@@ -110,137 +118,49 @@ export default function Step7Review({
   isSaving,
   buildCVMetadata,
   registerPrimary,
+  onGaTillSteg,
 }: Step7ReviewProps) {
   const router = useRouter();
   const { subscriptionTier } = useProfile();
   const isPremium = subscriptionTier === 'premium';
 
-  const [viewMode, setViewMode] = useState<'review' | 'confirmation'>('review');
-  const [completionStatus, setCompletionStatus] = useState<{
-    wasDownloaded: boolean;
-    wasSaved: boolean;
-  }>({ wasDownloaded: false, wasSaved: false });
-
+  const [sparad, setSparad] = useState(false);
+  const [fil, setFil] = useState<Fil | null>(null);
   const [cvName, setCvName] = useState(`CV - ${cvData.personalInfo.fullName || 'Nytt CV'}`);
-  const [previewHTML, setPreviewHTML] = useState<string>('');
-  const [isGeneratingPreview, setIsGeneratingPreview] = useState(false);
   const [quotaError, setQuotaError] = useState<string | null>(null);
   const [nedladdningsFel, setNedladdningsFel] = useState<string | null>(null);
   const [exportSparr, setExportSparr] = useState(false);
-  // Formatvalet, samma som i CV-mallarna (docs/design/skiss-cv-word-2026-11-15.html).
-  const [format, setFormat] = useState<CvFormat>('pdf');
-  const [visaWordVagg, setVisaWordVagg] = useState(false);
+  const [format, setFormat] = useState<Format>('pdf');
+  const [val, setVal] = useState<MallVal>({});
+  const [alla, setAlla] = useState(false);
+  const [rubrik, setRubrik] = useState<{ sektion: Sektion; text: string } | null>(null);
+  const [matning, setMatning] = useState<Matning | null>(null);
 
-  /* Mallgeneratorerna ligger i en barrel som drar in samtliga 43 mallar.
-     Statiskt importerad hamnade hela den vikten i samma chunk som granskningen
-     själv, alltså före första innehåll, trots att bara en enda mall används.
-     Nu hämtas den efter att steget ritats. Förhandsvisningsrutan har redan sin
-     höjd reserverad, så den sena inladdningen flyttar ingenting. */
-  useEffect(() => {
-    let avbruten = false;
-
-    const generatePreview = async () => {
-      setIsGeneratingPreview(true);
-      try {
-        const metadata = buildCVMetadata();
-        const { getTemplateGenerator } = await import('@/lib/cv/mallar/kompat-generator');
-        if (avbruten) return;
-        const generator = getTemplateGenerator(selectedTemplate as CVTemplateType);
-
-        if (generator) {
-          const html = generator.generate(metadata, {});
-          if (!avbruten) setPreviewHTML(html);
-        }
-      } catch (error) {
-        console.error('Error generating preview:', error);
-      } finally {
-        if (!avbruten) setIsGeneratingPreview(false);
-      }
-    };
-
-    generatePreview();
-
-    return () => {
-      avbruten = true;
-    };
-  }, [selectedTemplate, buildCVMetadata]);
-
-  const sections = useMemo(() => {
-    return [
-      {
-        id: 'personalInfo',
-        title: 'Kontaktuppgifter',
-        count: null,
-        summary: cvData.personalInfo.fullName || 'Ej ifyllt',
-        isComplete: !!(cvData.personalInfo.fullName && cvData.personalInfo.email && cvData.personalInfo.phone),
-      },
-      {
-        id: 'summary',
-        title: 'Om dig',
-        count: null,
-        summary: cvData.summary ? `${cvData.summary.slice(0, 50)}...` : 'Ej ifyllt',
-        isComplete: !!cvData.summary,
-      },
-      {
-        id: 'experience',
-        title: 'Erfarenhet',
-        count: cvData.experience.filter(e => e.position && e.company).length,
-        summary: cvData.experience.length > 0
-          ? cvData.experience.filter(e => e.position).map(e => e.position).join(', ')
-          : 'Ingen erfarenhet',
-        isComplete: cvData.experience.some(e => e.position && e.company),
-      },
-      {
-        id: 'education',
-        title: 'Utbildning',
-        count: cvData.education.filter(e => e.degree && e.institution).length,
-        summary: cvData.education.length > 0
-          ? cvData.education.filter(e => e.degree).map(e => e.degree).join(', ')
-          : 'Ingen utbildning',
-        isComplete: cvData.education.some(e => e.degree && e.institution),
-      },
-      {
-        id: 'skills',
-        title: 'Kompetenser',
-        count: cvData.skills.flatMap(s => s.skills).length,
-        summary: cvData.skills.flatMap(s => s.skills).slice(0, 3).join(', ') || 'Inga kompetenser',
-        isComplete: cvData.skills.some(s => s.skills.length > 0),
-      },
-      {
-        id: 'languages',
-        title: 'Språk',
-        count: cvData.languages.filter(l => l.language).length,
-        summary: cvData.languages.filter(l => l.language).map(l => l.language).join(', ') || 'Inga språk',
-        isComplete: cvData.languages.some(l => l.language),
-      },
-    ];
-  }, [cvData]);
+  const metadata = useMemo(() => buildCVMetadata(), [buildCVMetadata]);
+  const mall = MALL_KATALOG.find((m) => m.id === selectedTemplate) ?? MALL_KATALOG[0];
+  const fv = useForhandsvisning({ typ: 'inloggad', structuredData: metadata, mall: mall.id, val });
+  const forslag = useMemo(() => raknaForslag(MALL_KATALOG, metadata, matning?.sidor ?? 1), [metadata, matning?.sidor]);
 
   const isValid = useMemo(() => {
     const hasBasicInfo = !!(cvData.personalInfo.fullName && cvData.personalInfo.email && cvData.personalInfo.phone);
-    const hasContent = cvData.experience.some(e => e.position && e.company) ||
-                      cvData.education.some(e => e.degree && e.institution);
+    const hasContent =
+      cvData.experience.some((e) => e.position && e.company) || cvData.education.some((e) => e.degree && e.institution);
     return hasBasicInfo && hasContent;
   }, [cvData]);
 
-  const selectedTemplateData = getTemplateById(selectedTemplate);
-  const isTemplateLocked = selectedTemplateData?.tier === 'premium' && !isPremium;
-  const mallHarWord = harWordVersion(selectedTemplate);
-  const aktivtFormat: CvFormat = mallHarWord ? format : 'pdf';
-  // Word ingår alltid i Premium (planens B2); samma scope som mallarna.
+  const isTemplateLocked = mall.niva === 'premium' && !isPremium;
+  const aktivtFormat: Format = mall.word ? format : 'pdf';
   const wordLast = !isPremium;
-  // Den låsta raden med köplänken är en betalvägg (spec-rummen 7).
   useBetalvaggVisad('mall', isTemplateLocked);
 
-  const handleTemplateSelect = (templateId: string) => {
-    // Låsta mallar får väljas för förhandsvisning; nedladdningen spärras.
-    setSelectedTemplate(templateId);
-    const tpl = getTemplateById(templateId);
+  const valjMall = (id: string, metod: 'tryck' | 'lista' | 'svep') => {
+    setSelectedTemplate(id);
+    const m = MALL_KATALOG.find((k) => k.id === id);
     capture('mall_bytt', {
-      template: templateId,
-      method: 'tryck',
-      tier: tpl?.tier === 'premium' ? 'premium' : 'free',
-      har_word: harWordVersion(templateId),
+      template: id,
+      method: metod,
+      tier: m?.niva === 'premium' ? 'premium' : 'free',
+      har_word: Boolean(m?.word),
       surface: 'byggare',
     });
   };
@@ -250,42 +170,31 @@ export default function Step7Review({
       setQuotaError(null);
       setNedladdningsFel(null);
       if (action !== 'save') {
-        capture('nedladdning_klickad', { mall: selectedTemplate, format: aktivtFormat, inloggad: true, surface: 'byggare' });
+        capture('nedladdning_klickad', { mall: mall.id, format: aktivtFormat, inloggad: true, surface: 'byggare', tier: mall.niva === 'gratis' ? 'free' : 'premium' });
       }
       try {
-        await onComplete(action, aktivtFormat);
-        setCompletionStatus({
-          wasDownloaded: action === 'download' || action === 'both',
-          wasSaved: action === 'save' || action === 'both',
-        });
-        setViewMode('confirmation');
+        const ut = await onComplete(action, aktivtFormat, val);
+        if (ut) setFil(ut);
+        else setSparad(true);
       } catch (error) {
-        console.error('Error completing action:', error);
-        const isQuota =
-          error instanceof Error &&
-          (error as Error & { quotaExceeded?: boolean }).quotaExceeded === true;
+        const isQuota = error instanceof Error && (error as Error & { quotaExceeded?: boolean }).quotaExceeded === true;
         const status = (error as { status?: number } | null)?.status;
         if (isQuota) {
           setQuotaError(error.message);
-          if (typeof window !== 'undefined') {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         } else if (status === 402) {
-          // Gratisfilen är använd: betalväggen, aldrig ett fel.
           setExportSparr(true);
         } else if ((error as { name?: string } | null)?.name !== 'NamnKravsError') {
           setNedladdningsFel(nedladdningsFelForUndantag(error));
         }
       }
     },
-    [onComplete, aktivtFormat, selectedTemplate]
+    [onComplete, aktivtFormat, mall, val]
   );
 
-  /* Primärknappen ligger i skalets fot. Vad som saknas sägs i klartext, så
-     en spärrad knapp aldrig är tyst. */
   useEffect(() => {
     if (!registerPrimary) return;
-    if (viewMode === 'confirmation') {
+    if (sparad) {
       registerPrimary(null);
       return;
     }
@@ -298,288 +207,109 @@ export default function Step7Review({
           ? `Word-filen ingår i ${PAKETRADER.bricka}.`
           : undefined;
     registerPrimary({
-      label: somWord ? 'Spara och ladda ner Word' : 'Spara och ladda ner PDF',
+      label: somWord ? 'Spara och ladda ner Word' : KNAPP.sparaOchLaddaNer,
       onClick: () => handleAction('both'),
       disabled: !isValid || isTemplateLocked || (somWord && wordLast),
       blockedReason,
       error: nedladdningsFel ?? undefined,
     });
-  }, [registerPrimary, viewMode, isValid, isTemplateLocked, handleAction, aktivtFormat, wordLast, nedladdningsFel]);
+  }, [registerPrimary, sparad, isValid, isTemplateLocked, handleAction, aktivtFormat, wordLast, nedladdningsFel]);
 
-  useEffect(() => {
-    return () => registerPrimary?.(null);
-  }, [registerPrimary]);
+  useEffect(() => () => registerPrimary?.(null), [registerPrimary]);
 
-  const handleGoToATS = () => {
-    router.push('/dashboard/cv-analys');
-  };
-
-  const handleCreateNew = () => {
-    window.location.href = '/dashboard/skapa-cv';
-  };
-
-  // Mallkarusellen
-  const [templateScrollIndex, setTemplateScrollIndex] = useState(0);
-  const templatesPerView = 4;
-  const maxScrollIndex = Math.max(0, SIMPLE_TEMPLATES.length - templatesPerView);
-
-  if (viewMode === 'confirmation') {
+  if (sparad) {
     return (
       <ConfirmationView
-        wasDownloaded={completionStatus.wasDownloaded}
-        wasSaved={completionStatus.wasSaved}
-        onGoToATS={handleGoToATS}
-        onCreateNew={handleCreateNew}
+        onGoToATS={() => router.push('/dashboard/cv-analys')}
+        onCreateNew={() => {
+          window.location.href = '/dashboard/skapa-cv';
+        }}
       />
     );
   }
 
+  const gratis = MALL_KATALOG.find((m) => m.niva === 'gratis' && m.id === forslag.ids[0]) ?? MALL_KATALOG.find((m) => m.niva === 'gratis');
+
   return (
-    <div className="space-y-4 sm:space-y-6">
+    <div className="space-y-4">
       <header>
         <p className="text-steg uppercase text-ink-3">Steg 7 av 7</p>
         <h2 className="mt-1.5 text-fraga text-ink-1">Hur ska ditt CV se ut?</h2>
-        <p className="mt-1.5 text-sm leading-[22px] text-ink-2">
-          Välj en mall och se resultatet innan du laddar ner.
-        </p>
+        <p className="mt-1.5 text-sm leading-[22px] text-ink-2">Välj en mall och se resultatet innan du laddar ner.</p>
       </header>
 
-      {/* Kvotgräns nådd */}
       {quotaError && <PaywallCard variant="cv-antal" />}
       {exportSparr && <PaywallCard variant="cv-export" />}
-
       {!isValid && (
         <StatusRow tone="warm" showDot label="Ditt CV är inte komplett">
           Kontaktuppgifter och minst en erfarenhet eller utbildning saknas.
         </StatusRow>
       )}
 
-      {/* Mallval */}
-      <section className="space-y-3">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-medium text-ink-3">Mall</p>
-          <div className="flex gap-1">
-            <button
-              type="button"
-              onClick={() => setTemplateScrollIndex(Math.max(0, templateScrollIndex - 1))}
-              disabled={templateScrollIndex === 0}
-              aria-label="Föregående mallar"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-kant bg-papper text-ink-1 transition-colors hover:border-kant-stark disabled:opacity-40"
-            >
-              <ChevronLeft className="h-5 w-5" strokeWidth={1.75} />
-            </button>
-            <button
-              type="button"
-              onClick={() => setTemplateScrollIndex(Math.min(maxScrollIndex, templateScrollIndex + 1))}
-              disabled={templateScrollIndex >= maxScrollIndex}
-              aria-label="Nästa mallar"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-kant bg-papper text-ink-1 transition-colors hover:border-kant-stark disabled:opacity-40"
-            >
-              <ChevronRight className="h-5 w-5" strokeWidth={1.75} />
-            </button>
-          </div>
-        </div>
+      <Dokument
+        storlek="mellan"
+        html={fv.html}
+        laddar={fv.laddar}
+        titel={`Ditt CV i mallen ${mall.namn}`}
+        mall={mall}
+        ordning={MALL_KATALOG}
+        last={isSaving}
+        lyft={isSaving}
+        onSvep={(id) => valjMall(id, 'svep')}
+        onRubrik={(s, text) => setRubrik({ sektion: s, text })}
+        onAvsnitt={onGaTillSteg ? (s) => onGaTillSteg(STEG_FOR[s]) : undefined}
+        onMatt={setMatning}
+        visaHjalprad
+      />
 
-        <div className="overflow-hidden" role="radiogroup" aria-label="CV-mall">
-          <div
-            className="flex gap-3 transition-transform duration-[240ms] ease-out motion-reduce:transition-none"
-            style={{ transform: `translateX(${-templateScrollIndex * (140 + 12)}px)` }}
-          >
-            {SIMPLE_TEMPLATES.map((template, templateIndex) => {
-              const isLocked = template.tier === 'premium' && !isPremium;
-              const isSelected = selectedTemplate === template.id;
+      <Verktygsrad mall={mall} val={val} onVal={(v) => setVal(v)} last={isSaving} />
 
-              return (
-                <button
-                  key={template.id}
-                  type="button"
-                  role="radio"
-                  aria-checked={isSelected}
-                  onClick={() => handleTemplateSelect(template.id)}
-                  className={`relative w-[140px] flex-shrink-0 overflow-hidden rounded-xl border bg-papper text-left transition-[border-color] duration-[160ms] ${
-                    isSelected ? 'border-ink-1 shadow-val' : 'border-kant hover:border-kant-stark'
-                  }`}
-                >
-                  {/* Mallens förhandsbild. De fyra första laddas ivrigt eftersom
-                      de syns direkt, resten när de scrollas fram. Rutan har fast
-                      proportion, så inget hoppar när bilderna landar. */}
-                  <div className="relative aspect-[3/4] bg-papper-2">
-                    <img
-                      src={template.imagePath}
-                      alt={template.name}
-                      width={140}
-                      height={187}
-                      loading={templateIndex < templatesPerView ? 'eager' : 'lazy'}
-                      decoding="async"
-                      className={`h-full w-full object-cover object-top ${isLocked ? 'opacity-60' : ''}`}
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                      }}
-                    />
+      <Remsa
+        katalog={MALL_KATALOG}
+        vald={mall.id}
+        foreslagna={forslag.ids}
+        skal={SKAL[forslag.skal]}
+        onValj={(id) => valjMall(id, 'tryck')}
+        onAlla={() => setAlla(true)}
+        last={isSaving}
+      />
+      <Mallrad mall={mall} harWord={!wordLast} />
 
-                    {isSelected && (
-                      <span
-                        aria-hidden="true"
-                        className="absolute right-2 top-2 inline-flex h-[22px] w-[22px] items-center justify-center rounded-full bg-ink-1 text-papper"
-                      >
-                        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M4 10.5l4 4 8-9" />
-                        </svg>
-                      </span>
-                    )}
-                  </div>
+      {isTemplateLocked && gratis ? (
+        <button
+          type="button"
+          onClick={() => valjMall(gratis.id, 'tryck')}
+          className="flex w-full items-center gap-3 rounded-xl border border-kant bg-papper p-2.5 text-left hover:border-ink-1"
+        >
+          <span className="relative block aspect-[210/297] w-10 shrink-0 overflow-hidden rounded-[3px] border border-kant bg-white">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={gratis.bild.liten} alt="" className="absolute inset-0 h-full w-full object-cover object-top" />
+          </span>
+          <span className="min-w-0">
+            <span className="block text-sm font-semibold text-ink-1">{KNAPP.gratisI(gratis.namn)}</span>
+            <span className="block text-meta text-ink-3">{KNAPP.gratisUnder}</span>
+          </span>
+        </button>
+      ) : null}
 
-                  <div className="p-2">
-                    <p className="truncate text-meta font-medium text-ink-1">{template.name}</p>
-                    <p className="mt-0.5 flex items-center gap-1 text-meta text-ink-3">
-                      {template.tier === 'premium' ? (
-                        <>
-                          <IkonKrona size={14} />
-                          {PAKETRADER.bricka}
-                        </>
-                      ) : (
-                        'Gratis'
-                      )}
-                    </p>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-        </div>
+      <FormatVal format={aktivtFormat} onFormat={setFormat} mallHarWord={mall.word} kanWord={!wordLast} last={isSaving} />
+      {aktivtFormat === 'docx' && wordLast ? <PaywallCard variant="cv-export-word" /> : null}
 
-        {isTemplateLocked && (
-          <StatusRow
-            tone="warm"
-            showDot
-            wrap
-            label={PAKETRADER.mallIngar}
-            action={
-              <Link href={kopstegHref(SALD_PLAN, 'mall')} className="inline-flex min-h-11 items-center text-sm font-medium text-koppar-ink underline decoration-kant-stark underline-offset-4">
-                {PAKETRADER.kopCv}
-              </Link>
-            }
-          >
-            {PAKETRADER.ingar}
-          </StatusRow>
-        )}
-
-        <FormatVal
-          mallNamn={selectedTemplateData?.name ?? 'Mallen'}
-          harWordVersion={mallHarWord}
-          format={aktivtFormat}
-          pdfLast={isTemplateLocked}
-          wordLast={wordLast}
-          rad={null}
-          wordTypsnitt={mallHarWord ? getFontById(WORD_MALL_TYPSNITT[selectedTemplate as keyof typeof WORD_MALL_TYPSNITT]).name : ''}
-          onValj={(f) => {
-            setFormat(f);
-            setVisaWordVagg(f === 'docx' && wordLast);
-          }}
+      <section className="rounded-xl border border-kant bg-papper p-4">
+        <label htmlFor="cvName" className={LABEL}>
+          CV-namn
+        </label>
+        <input
+          id="cvName"
+          value={cvName}
+          onChange={(e) => setCvName(e.target.value)}
+          placeholder="Namnge ditt CV"
+          enterKeyHint="done"
+          className={`${FIELD} ${FIELD_OK}`}
         />
-        {visaWordVagg && aktivtFormat === 'docx' ? <PaywallCard variant="cv-export-word" /> : null}
+        <p className="mt-1.5 text-meta text-ink-3">Sparas under Mina CV, där du kan redigera och ladda ner det igen.</p>
       </section>
 
-      {/* Innehåll och förhandsvisning */}
-      <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-5">
-        <div className="space-y-4 lg:col-span-2">
-          <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
-            <p className="text-sm font-medium text-ink-3">Innehåll</p>
-            <ul className="mt-3 divide-y divide-kant">
-              {sections.map((section) => (
-                <li key={section.id} className="flex items-center gap-3 py-2.5">
-                  <span
-                    aria-hidden="true"
-                    className={`inline-flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full ${
-                      section.isComplete ? 'bg-positiv-mjuk text-positiv' : 'bg-papper-2 text-ink-3'
-                    }`}
-                  >
-                    {section.isComplete ? (
-                      <svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M4 10.5l4 4 8-9" />
-                      </svg>
-                    ) : (
-                      <span className="h-1.5 w-1.5 rounded-full bg-current" />
-                    )}
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block text-sm font-medium leading-5 text-ink-1">
-                      {section.title}
-                      {section.count !== null && section.count > 0 && (
-                        <span className="font-normal text-ink-3"> ({section.count})</span>
-                      )}
-                    </span>
-                    <span className="block truncate text-meta text-ink-3">{section.summary}</span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <section className="rounded-xl border border-kant bg-papper p-4 sm:p-5">
-            <label htmlFor="cvName" className={LABEL}>
-              CV-namn
-            </label>
-            <input
-              id="cvName"
-              value={cvName}
-              onChange={(e) => setCvName(e.target.value)}
-              placeholder="Namnge ditt CV"
-              enterKeyHint="done"
-              className={`${FIELD} ${FIELD_OK}`}
-            />
-            <p className="mt-1.5 text-meta text-ink-3">
-              Sparas under Mina CV, där du kan redigera och ladda ner det igen.
-            </p>
-          </section>
-        </div>
-
-        <section className="lg:col-span-3">
-          <div className="overflow-hidden rounded-xl border border-kant bg-papper">
-            <div className="flex items-center justify-between border-b border-kant bg-papper-2 px-4 py-2">
-              <span className="text-sm font-medium text-ink-1">
-                {selectedTemplateData?.name || 'Modern Minimal'}
-              </span>
-              <span className="text-meta text-ink-3">A4</span>
-            </div>
-
-            {/* Höjden är FAST, inte ett spann. minHeight 240 mot maxHeight
-                70dvh betydde att rutan stod på 240 px medan förhandsvisningen
-                ritades och sedan växte till drygt 590 px när HTML:en landade:
-                ett hopp på ett par hundra pixlar långt efter första målningen,
-                alltså stegets CLS på 0,052. Alla tre lägena delar nu samma
-                låda, som aldrig byter storlek, och innehållet scrollar i den. */}
-            <div
-              className={`relative overflow-auto ${isGeneratingPreview ? 'loading-thread' : ''}`}
-              style={{ height: '70dvh', maxHeight: 900 }}
-              aria-busy={isGeneratingPreview}
-            >
-              {isGeneratingPreview ? (
-                <div className="absolute inset-0 flex items-center justify-center bg-papper" role="status">
-                  <span className="text-sm text-ink-2">Ritar förhandsvisningen</span>
-                </div>
-              ) : previewHTML ? (
-                <div className="cv-preview-zoom">
-                  <div
-                    className="cv-preview-container"
-                    dangerouslySetInnerHTML={{ __html: previewHTML }}
-                  />
-                </div>
-              ) : (
-                <div className="flex h-full items-center justify-center p-6 text-center text-sm text-ink-3">
-                  Fyll i dina uppgifter så visas ditt CV här.
-                </div>
-              )}
-            </div>
-          </div>
-          <p className="mt-2 text-center text-meta text-ink-3">
-            PDF:en exporteras i full A4-kvalitet.
-          </p>
-        </section>
-      </div>
-
-      {/* Alternativa handlingar: textlänkar, aldrig en andra knapp. Den
-          primära ligger i skalets fot. */}
       <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1">
         <button
           type="button"
@@ -598,6 +328,43 @@ export default function Step7Review({
           Bara spara
         </button>
       </div>
+
+      <AllaArk open={alla} onClose={() => setAlla(false)} katalog={MALL_KATALOG} vald={mall.id} foreslagna={forslag.ids} onValj={(id) => valjMall(id, 'lista')} />
+
+      {rubrik ? (
+        <RubrikArk
+          sektion={rubrik.sektion}
+          nuvarande={val.rubriker?.[rubrik.sektion] ?? rubrik.text}
+          egenVald={Boolean(val.rubriker?.[rubrik.sektion])}
+          onVal={(s, r, kalla) => {
+            capture('rubrik_bytt', { template: mall.id, tier: mall.niva === 'gratis' ? 'free' : 'premium', sektion: s, val: r === null ? 'standard' : kalla, surface: 'byggare' });
+            setVal((v) => {
+              const rub = { ...(v.rubriker ?? {}) };
+              if (r === null) delete rub[s];
+              else rub[s] = r;
+              return { ...v, rubriker: rub };
+            });
+          }}
+          onClose={() => setRubrik(null)}
+        />
+      ) : null}
+
+      {fil ? (
+        <Final
+          open
+          onClose={() => {
+            setFil(null);
+            setSparad(true);
+          }}
+          fil={fil}
+          mall={mall}
+          format={aktivtFormat}
+          sidor={matning?.sidor ?? 1}
+          titel={metadata.personalInfo.title || metadata.experience[0]?.position}
+          ort={metadata.personalInfo.address}
+          surface="byggare"
+        />
+      ) : null}
     </div>
   );
 }
