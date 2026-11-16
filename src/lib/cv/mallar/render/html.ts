@@ -351,7 +351,7 @@ function avsnitt(a: Avsnitt, c: Ctx, iSpalt: boolean): string {
   const spok = Boolean(c.opt.spok?.sektioner.includes(a.sektion))
   const l = c.def.layout
   const prick = !iSpalt && l.typ === 'marginalprick' && l.sektioner.includes(a.sektion) && a.innehall.typ === 'poster'
-  const ruta = !iSpalt && Boolean(c.def.rutor && [...c.def.rutor.ruta, ...c.def.rutor.rutnat].includes(a.sektion))
+  const ruta = !iSpalt && Boolean(c.def.rutor && [...c.def.rutor.ruta, ...c.def.rutor.rutnat.flat()].includes(a.sektion))
   const klass = `avsnitt avsnitt-${a.sektion} typ-${a.innehall.typ}${intygsfalt ? ' intygsfalt' : ''}${prick ? ' tidslinje' : ''}${ruta ? ' ruta' : ''}${spok ? ' spok' : ''}`
   const rad =
     spok && a.sektion === 'profil' && c.opt.spok?.profilRad
@@ -568,6 +568,11 @@ ${
 .huvud.foto-huvud-topp-vanster{flex-direction:column;align-items:flex-start;gap:${def.foto?.luft ?? 5}mm}
 .foto-tom{display:flex;align-items:center;justify-content:center;font-family:var(--typsnitt-rubrik);font-size:${Math.round(fotoMm * 1.1)}pt;color:var(--accent)}`)
   if (def.foto?.luft !== undefined && fotoPlats !== 'huvud-topp-vanster' && fotoPlats !== 'sidospalt-topp') ut.push(`.huvud.med-foto{gap:${def.foto.luft}mm}`)
+  if (def.foto?.hanger && fotoPlats === 'huvud-hoger') {
+    // Fotot bidrar inte till huvudets höjd; texten är minst så hög att fotot slutar 2 mm ovanför första avsnittet.
+    ut.push(`.foto-huvud-hoger.med-foto .foto{margin-bottom:-${m.fotoHojdMm}mm}
+.foto-huvud-hoger.med-foto .huvud-text{min-height:${Math.max(0, m.fotoHojdMm - m.luftUnderHuvud + 2).toFixed(2)}mm}`)
+  }
   if (fotoPlats === 'sidospalt-topp') {
     ut.push(`.spalt-sido>.foto.foto{margin:0 ${def.foto?.justering === 'centrerad' ? 'auto' : '0'} 5mm}`)
   }
@@ -799,8 +804,9 @@ ${s.linje ? `.spalt-sido{border-${s.sida === 'vanster' ? 'right' : 'left'}:${lin
     const ru = def.rutor
     ut.push(`.ruta{background:${f(ru.bakgrund, p.ton)};padding:${ru.luft}mm;break-inside:avoid}
 .ruta .start{break-inside:avoid}
-.rutnat{display:flex;gap:${ru.mellanrum}mm;margin-top:${m.luftOver}mm;align-items:flex-start}
-.rutnat>div{flex:1;min-width:0;display:flex;flex-direction:column;gap:${ru.mellanrum}mm}
+.rutnat{width:calc(100% + ${2 * ru.mellanrum}mm);margin:${(m.luftOver - ru.mellanrum).toFixed(2)}mm -${ru.mellanrum}mm -${ru.mellanrum}mm;border-collapse:separate;border-spacing:${ru.mellanrum}mm;table-layout:fixed}
+.rutnat td{width:50%;vertical-align:top;padding:0}
+.rutnat tr{break-inside:avoid}
 .rutnat .avsnitt{margin-top:0}
 .rutnat .ruta{break-inside:avoid}`)
   }
@@ -860,11 +866,17 @@ export function renderDokumentHtml(dok: Dokument, def: MallDef, val: MallVal = {
   // Rutnätet (Kakel): avsnitten i rutnätet samlas där det första av dem står,
   // det första i vänster spalt och resten staplade i höger.
   if (def.rutor) {
-    const iNat = dok.huvudspalt.map((a) => def.rutor!.rutnat.includes(a.sektion))
+    const iRutnat = def.rutor.rutnat.flat()
+    const iNat = dok.huvudspalt.map((a) => iRutnat.includes(a.sektion))
     const forsta = iNat.indexOf(true)
     if (forsta >= 0) {
-      const nat = delar.filter((_, i) => iNat[i])
-      const rutnat = `<div class="rutnat"><div>${nat[0]}</div>${nat.length > 1 ? `<div>${nat.slice(1).join('')}</div>` : '<div></div>'}</div>`
+      // En tabellrad per rutrad: Chrome bryter sidan mellan raderna, aldrig inuti en ruta.
+      const per = new Map(dok.huvudspalt.map((a, i) => [a.sektion as string, delar[i]]))
+      const rader = def.rutor.rutnat
+        .map(([v, h]) => [per.get(v) ?? '', per.get(h) ?? ''])
+        .filter(([v, h]) => v || h)
+        .map(([v, h]) => `<tr><td>${v}</td><td>${h}</td></tr>`)
+      const rutnat = `<table class="rutnat" role="presentation"><tbody>${rader.join('')}</tbody></table>`
       const nya: string[] = []
       const nyaS: string[] = []
       delar.forEach((d, i) => {

@@ -1181,12 +1181,31 @@ function huvudInnehall(dok: Dokument, b: B, bredd: number, textFarg?: string): (
     const text = tabellCell(huvudStycken(dok, b, AlignmentType.LEFT, textFarg, medKontakt, false), bredd - fb, {
       verticalAlign: vanster ? VerticalAlign.CENTER : VerticalAlign.TOP,
     })
+    // Fotot som hänger ned i luften under huvudet (Loft) är förankrat i cellen och
+    // räknas inte in i radens höjd; raden är minst så hög att fotot slutar 2 mm ovanför första avsnittet.
+    const hanger = foto.hanger && foto.plats === 'huvud-hoger'
+    const bildRun = hanger
+      ? new ImageRun({
+          type: 'png',
+          data: b.foto!,
+          transformation: { width: px(b.m.fotoMm), height: px(b.m.fotoHojdMm) },
+          altText: { name: 'Foto', description: 'Foto', title: 'Foto' },
+          floating: {
+            horizontalPosition: { relative: HorizontalPositionRelativeFrom.COLUMN, offset: Math.round((fb / TWIP_PER_MM - b.m.fotoMm) * 36000) },
+            verticalPosition: { relative: VerticalPositionRelativeFrom.PARAGRAPH, offset: 0 },
+            wrap: { type: TextWrappingType.NONE },
+            allowOverlap: true,
+            layoutInCell: true,
+          },
+        })
+      : bild(b)
     const bildCell = tabellCell(
-      [stycke({ alignment: vanster ? AlignmentType.LEFT : AlignmentType.RIGHT, keepNext: !b.huvudITabell, spacing: { after: 0, line: 240 }, children: [bild(b)] })],
+      [stycke({ alignment: vanster ? AlignmentType.LEFT : AlignmentType.RIGHT, keepNext: !b.huvudITabell, spacing: { after: 0, line: 240 }, children: [bildRun] })],
       fb,
       { verticalAlign: h.form === 'band' ? VerticalAlign.CENTER : VerticalAlign.TOP }
     )
-    return [tabell([new TableRow({ cantSplit: true, children: vanster ? [bildCell, text] : [text, bildCell] })], vanster ? [fb, bredd - fb] : [bredd - fb, fb])]
+    const minHojd = hanger ? { height: { value: mm(Math.max(0, b.m.fotoHojdMm - b.m.luftUnderHuvud + 2)), rule: 'atLeast' as const } } : {}
+    return [tabell([new TableRow({ cantSplit: true, ...minHojd, children: vanster ? [bildCell, text] : [text, bildCell] })], vanster ? [fb, bredd - fb] : [bredd - fb, fb])]
   }
   return huvudStycken(dok, b, just, textFarg, medKontakt, Boolean(foto && foto.plats === 'huvud-topp'))
 }

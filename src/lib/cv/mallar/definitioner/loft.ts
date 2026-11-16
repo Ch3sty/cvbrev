@@ -26,7 +26,7 @@ export const loft: MallDef = {
   kompetenser: 'grupp',
   intyg: 'rad',
   sprak: 'rad',
-  foto: { form: 'rund', storlek: 32, plats: 'huvud-hoger', luft: 8, forval: true },
+  foto: { form: 'rund', storlek: 32, plats: 'huvud-hoger', luft: 8, hanger: true, forval: true },
   ordning: STANDARD_ORDNING,
   enSida: EN_SIDA,
 }

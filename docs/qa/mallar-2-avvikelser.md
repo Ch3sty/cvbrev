@@ -13,6 +13,11 @@ Bygget av mallarna 21 till 40 (docs/design/mallar-utbud-2-2026-11-16.md) följer
 | Not (32) | Kortet "Kompakt, tre sidor på två" | "Kompakt, rymmer mer" | Samma fyraordsgräns. |
 | Ek (34) | Kortet "Spalt med linje, stort foto" | "Spaltlinje och stort foto" | Samma fyraordsgräns. |
 
+## Rättelser efter granskningsvarv 1 (docs/qa/mallar-2-granskning-varv1.md)
+
+- **Loft: fotot hänger ned i luften under huvudet.** Kompetenser stod på sida 2 i NORMALT_CV med foto fast avsnittet nästan rymdes: det saknades 0,7 mm. Slutgruppen var inte orsaken (den är redan certifieringar, språk och referenser); orsaken var att det 32 mm höga fotot gjorde huvudet 4 mm högre än texten. Luften under huvudet (8 mm) mäts nu från texten och fotot får hänga ned i den, som mest till 2 mm ovanför Profil (nytt fält `hanger` i MallFoto). Word gör samma sak med fotot förankrat i huvudtabellens cell och radens minsta höjd. Luften 7 / 8 / 4,5 mm är oförändrad. Kompetenser står nu på sida 1 med och utan foto, Word följer PDF:en.
+- **Kakel: kompetenserna som grupper och rutnätet i rader.** Kompetensrutan har formen grupp (certifieringar och språk behåller lista). Rutnätet är en tabell utan kanter med en rad per rutrad (rad 1 Kompetenser och Certifieringar, rad 2 Intressen och Språk) och bryts bara mellan raderna. För att rad 1 ska rymmas på sida 1 i NORMALT_CV med foto behövdes 3 mm till: intygen i rutan har radavstånd 1,3 (mallen i övrigt 1,4) och 1 mm mellan intygen i stället för 1,5. Rad 1 slutar nu 1,5 mm ovanför bottenmarginalen.
+
 ## Teknik i Word
 
 - **Remsan i Skylt står före namnet i Word-filen.** Remsan är en tabellrad överst på sidan och bär kontakten, så kontaktraden är dokumentets första text och namnet (Rubrik 1) det första stycket efter den. Det finns inget sätt att lägga namnet först i dokumentordningen utan absolut placering. Testet word-mallar.test.ts godtar det för huvudformen remsa; ATS-kontrollen (namnet inom de första 700 tecknen) är grön.
@@ -31,5 +36,4 @@ Bygget av mallarna 21 till 40 (docs/design/mallar-utbud-2-2026-11-16.md) följer
 ## Kända begränsningar
 
 - I Sand och Ek fortsätter panelen respektive linjen på sida 2 i Word när innehållet går över två sidor, som Kalkstens panel i dag (Word lägger radens minsta höjd också på fortsättningen). I PDF:en slutar de med innehållet.
-- Kakels rutnät flyttas helt till sida 2 när det inte ryms, enligt specen; sida 1 kan då få luft i botten.
 - Sockel, Ramverk och Kant ritar sockeln, ramen och remsan som fasta element. I förhandsvisningen hamnar de mot fönstrets kant, i filen på varje sida.

@@ -322,6 +322,12 @@ export interface MallFoto {
   justering?: 'vanster' | 'centrerad'
   /** Luft mellan fotot och texten, mm. Förval 7 i PDF:en. */
   luft?: number
+  /**
+   * Fotot (huvud-hoger) räknas inte in i huvudets höjd: luften under huvudet
+   * mäts från texten och fotot får hänga ned i den, högst till 2 mm ovanför
+   * första avsnittet (Loft, granskningsvarv 1).
+   */
+  hanger?: boolean
   /** Fotot på från början när CV:t har ett foto. */
   forval: boolean
 }
@@ -385,10 +391,10 @@ export interface MallDef {
   sockel?: { hojd: number; bakgrund: Farg; text: Farg; luft: { lodratt: number; sidor: number }; sektioner: Sektion[] }
   /**
    * Tonade rutor (Kakel, bara PDF): `ruta` är avsnitten i egen ruta i full
-   * bredd, `rutnat` avsnitten i ett rutnät i två spalter (första i vänster
-   * spalt, resten staplade i höger) där det första av dem står.
+   * bredd, `rutnat` rutnätets rader, varje rad [vänster, höger]. Rutnätet
+   * står där dess första avsnitt står och bryts bara mellan raderna.
    */
-  rutor?: { ruta: Sektion[]; rutnat: Sektion[]; bakgrund: Farg; luft: number; mellanrum: number }
+  rutor?: { ruta: Sektion[]; rutnat: [Sektion, Sektion][]; bakgrund: Farg; luft: number; mellanrum: number }
   /** Egen CSS efter mallens, bara när word är falskt. */
   extraCss?: string
 }

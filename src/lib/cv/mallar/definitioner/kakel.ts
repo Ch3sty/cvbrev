@@ -23,12 +23,16 @@ export const kakel: MallDef = {
   layout: { typ: 'enspalt' },
   post: { arbetsgivare: { farg: '#555555' }, luftMellan: 3.8 },
   punkt: PUNKT,
-  kompetenser: 'lista',
+  // Kompetenserna i rutan som grupper (granskningsvarv 1); intyg och språk som listor.
+  kompetenser: 'grupp',
   intyg: 'lista',
   sprak: 'lista',
   foto: { form: 'kvadrat', storlek: 32, plats: 'huvud-vanster', luft: 7, forval: true },
   ordning: STANDARD_ORDNING,
   enSida: EN_SIDA,
-  rutor: { ruta: ['profil'], rutnat: ['kompetenser', 'intyg', 'sprak'], bakgrund: 'ton', luft: 5, mellanrum: 5 },
-  extraCss: `.posttitel{font-weight:600}`,
+  rutor: { ruta: ['profil'], rutnat: [['kompetenser', 'intyg'], ['intressen', 'sprak']], bakgrund: 'ton', luft: 5, mellanrum: 5 },
+  // Intygen i rutan tätare (radavstånd 1,3 och 1 mm mellan), så att första rutraden ryms på sida 1 (granskningsvarv 1).
+  extraCss: `.posttitel{font-weight:600}
+.ruta .intyglista li+li{margin-top:1mm}
+.ruta .intyglista li{line-height:1.3}`,
 }
