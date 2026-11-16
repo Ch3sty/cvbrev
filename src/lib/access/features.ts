@@ -18,7 +18,7 @@ export type Scope = 'cv' | 'tester' | 'allt'
 export type Feature =
   | 'cv_templates_all'
   | 'cv_export'
-  /** CV:t som Word-fil i katalogens Word-mallar (docs/plan-cv-word-2026-11-15.md, B2). */
+  /** CV:t som Word-fil i premiummallarna med Word (gratismallarnas Word är gratisfilen). */
   | 'cv_export_word'
   | 'cv_analysis_full'
   | 'letter_download'
@@ -42,8 +42,8 @@ export type Feature =
 export const FEATURES: Record<Feature, readonly Scope[]> = {
   cv_templates_all: ['cv', 'allt'],
   cv_export: ['cv', 'allt'],
-  // Word-filen ingår alltid i Premium; den enda gratisexporten är en PDF
-  // (planen för CV som Word, beslut B2).
+  // Word i en premiummall. Word i gratismallarna är gratisfilen och räknas
+  // mot FREE_CV_EXPORTS (ägarens besked 2026-11-16, generate-formatted).
   cv_export_word: ['cv', 'allt'],
   cv_analysis_full: ['cv', 'allt'],
   letter_download: ['cv', 'allt'],

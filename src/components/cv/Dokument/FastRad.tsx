@@ -7,7 +7,8 @@
  * verktygsraden till vänster (children) och knappen till höger.
  *
  * Knappen fylls i takt med att filen skapas (framsteg 0 till 1). Word visas
- * med lås tills kontot har Premium; trycket på det låsta Word-valet är ytans
+ * med lås i premiummallar tills kontot har Premium (i gratismallarna är Word
+ * gratisfilen, ägarens besked 2026-11-16); trycket på det låsta Word-valet är ytans
  * sak (betalväggen).
  */
 import type { ReactNode } from 'react'
@@ -20,7 +21,7 @@ export interface FormatValProps {
   onFormat: (f: Format) => void
   /** Mallen finns som Word. */
   mallHarWord: boolean
-  /** Kontot har Word (annars lås och "ingår i Premium"). */
+  /** Word är öppet för mallen: gratismall, eller kontot har Premium (annars lås och "ingår i Premium"). */
   kanWord: boolean
   last?: boolean
 }

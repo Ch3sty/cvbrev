@@ -15,7 +15,7 @@ export interface MallradProps {
   mall: MallKort
   /** "149 kr i månaden" (eller kampanjens), för premiummallar. */
   pris?: string
-  /** Kontot har Word (Premium). */
+  /** Word är öppet för mallen: gratismall, eller kontot har Premium. */
   harWord?: boolean
 }
 
