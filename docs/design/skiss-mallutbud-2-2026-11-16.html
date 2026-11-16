@@ -1,0 +1,1076 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mallutbud 2</title>
+<meta name="description" content="Skiss över de 20 nya CV-mallarna i utbud 2 för jobbcoach.ai, som A4-ark med exempel-CV:t, facit för bygget.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Lato:ital,wght@0,300;0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@500;600;700&family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4F3EF;--panel:#fff;--kant:#DDD9D0;--text:#1F2328;--text2:#5B6068;--text3:#8A9099;--premium:#5B3B8C;--premiumbg:#EEE8F7}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15161A;--panel:#1E2026;--kant:#2E313A;--text:#ECEDF0;--text2:#B5B9C2;--text3:#7F8591;--premiumbg:#2A2140;--premium:#C7B3F0}}
+:root[data-theme="dark"]{--bg:#15161A;--panel:#1E2026;--kant:#2E313A;--text:#ECEDF0;--text2:#B5B9C2;--text3:#7F8591;--premiumbg:#2A2140;--premium:#C7B3F0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+.sida{max-width:1680px;margin:0 auto;padding:32px 16px 80px}
+h1{font-size:30px;line-height:1.15;margin:0 0 8px;letter-spacing:-0.01em}
+.ingress{color:var(--text2);max-width:72ch;margin:0 0 20px}
+.oversikt{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0 36px;background:var(--panel);border:1px solid var(--kant)}
+.oversikt th,.oversikt td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--kant);vertical-align:top}
+.oversikt th{color:var(--text2);font-weight:600}
+.oversikt a{color:var(--text);text-decoration:none;font-weight:600;border-bottom:1px solid var(--kant)}
+.regler{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:0 0 36px}
+.regel{background:var(--panel);border:1px solid var(--kant);padding:14px 16px;font-size:14px}
+.regel b{display:block;margin-bottom:4px}
+.jamfor{background:var(--panel);border:1px solid var(--kant);padding:14px 16px;margin:0 0 36px}
+.jamfor img{max-width:100%;height:auto;display:block;margin-top:10px;border:1px solid var(--kant)}
+.grupp-rubrik{font-size:22px;margin:40px 0 6px;letter-spacing:-0.01em}
+.grupp-ingress{color:var(--text2);margin:0 0 20px;max-width:80ch}
+.galleri{display:flex;flex-wrap:wrap;gap:40px 28px}
+.mall{width:794px;max-width:100%}
+.etikett{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:0 0 10px}
+.etikett .nr{font-variant-numeric:tabular-nums;color:var(--text3);font-weight:600}
+.etikett h3{margin:0;font-size:22px;letter-spacing:-0.01em}
+.niva{font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px}
+.niva.premium{background:var(--premiumbg);color:var(--premium)}
+.format{display:inline-flex;align-items:center;gap:4px;font-size:13px;color:var(--text2)}
+.familj{font-size:13px;color:var(--text3);margin-left:auto}
+.arkram{overflow:auto;border:1px solid var(--kant);background:#8E8A84;padding:16px}
+.ark{width:210mm;height:297mm;overflow:hidden;background:#fff;position:relative;box-shadow:0 1px 2px rgba(0,0,0,.25);margin:0 auto;-webkit-font-smoothing:antialiased;hyphens:none}
+.ark h1,.ark h2,.ark h3,.ark p,.ark ul{margin:0}
+.ark .foto{display:inline-flex;align-items:center;justify-content:center;background:#E3E6EA;color:#9AA3AD;flex:none;overflow:hidden}
+.ark .foto svg{width:70%;height:70%;fill:currentColor}
+.ark .foto-rund{border-radius:50%}
+.ark .postdetalj{color:#555;margin-top:0.5mm}
+.ark ul.punkter li{list-style:disc}
+.ark ul.lista li{list-style:disc}
+.under{font-size:13.5px;color:var(--text2);margin-top:10px;background:var(--panel);border:1px solid var(--kant);padding:12px 14px}
+.under .stil{margin:0 0 8px;color:var(--text)}
+.under .rad{display:grid;grid-template-columns:120px 1fr;gap:8px;padding:3px 0;border-top:1px solid var(--kant)}
+.under .k{color:var(--text3)}
+.swatchar{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
+.swatch{width:14px;height:14px;border-radius:3px;display:inline-block;border:1px solid rgba(0,0,0,.15)}
+.swatchar code{font-size:12px}
+.swatchar em{font-size:12px;color:var(--text3);margin-right:6px}
+@media (max-width:860px){.arkram{padding:8px;overflow:hidden}.ark{transform:scale(var(--skala,1));transform-origin:top left;margin:0}.familj{margin-left:0}}
+/* ---- mallarnas egna stilar ---- */
+/* Lind */
+.m-lind{font-family:Georgia,'Gelasio',serif;font-size:10.5pt;line-height:1.32;color:#1F2328;padding:20mm 20mm 18mm 20mm}
+.m-lind .sektion{margin-top:6.5mm}
+.m-lind .post{margin-bottom:3.8mm}
+.m-lind .postrad{display:flex;justify-content:space-between;gap:4mm;align-items:baseline}
+.m-lind .posttitel{font-weight:700;font-size:10.5pt;margin:0}
+.m-lind .period{color:#555;font-size:9.5pt;white-space:nowrap}
+.m-lind .agrad{color:#444}
+.m-lind .punkter{margin:1mm 0 0 4.5mm;padding:0}
+.m-lind .punkter li{margin:0 0 0.6mm 0}
+.m-lind .lista{margin:0.5mm 0 0 3.5mm;padding:0}
+.m-lind .lista li{margin:0 0 0.4mm 0}
+.m-lind .grupp{margin-bottom:1.2mm}
+.m-lind .cert{display:flex;justify-content:space-between;gap:4mm;margin-bottom:0.8mm}
+.m-lind .certmeta{color:#555;font-size:9.5pt;white-space:nowrap}
+.m-lind .certlista{list-style:none;margin:0;padding:0}
+.m-lind .certlista li{display:flex;flex-direction:column;margin-bottom:1.4mm}
+.m-lind .certlista .certmeta{white-space:normal}
+.m-lind .spraklista{list-style:none;margin:0;padding:0}
+.m-lind .spraklista li{display:flex;justify-content:space-between;margin-bottom:0.6mm}
+.m-lind .spraklista .sprak{font-weight:700}
+.m-lind .kontaktlista{list-style:none;margin:0;padding:0}
+.m-lind .kontaktlista li{overflow-wrap:anywhere;margin-bottom:0.6mm}
+.m-lind .spalter{display:grid;gap:0 6mm}
+.m-lind .spalter-2{grid-template-columns:1fr 1fr}
+.m-lind .spalter-3{grid-template-columns:1fr 1fr 1fr}
+.m-lind .gruppnamn{font-weight:700}
+
+.m-lind .huvud{border-top:0.5pt solid #1F2328;padding-top:4mm}
+.m-lind .namn{font-size:24pt;font-weight:400;line-height:1.1;color:#111}
+.m-lind .titel{font-family:Calibri,'Carlito',sans-serif;font-size:10.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--a);margin-top:1.5mm}
+.m-lind .kontakt{font-family:Calibri,'Carlito',sans-serif;font-size:9.5pt;color:#555;margin-top:2mm}
+.m-lind .rubrik{font-family:Calibri,'Carlito',sans-serif;font-size:9.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.10em;color:var(--a);margin-bottom:2mm}
+.m-lind .agrad{color:#333}.m-lind .agrad .period{color:#555}
+
+/* Alm */
+.m-alm{font-family:Calibri,'Carlito',sans-serif;font-size:10.5pt;line-height:1.32;color:#1F2328;padding:18mm 18mm 18mm 18mm}
+.m-alm .sektion{margin-top:6mm}
+.m-alm .post{margin-bottom:3.8mm}
+.m-alm .postrad{display:flex;justify-content:space-between;gap:4mm;align-items:baseline}
+.m-alm .posttitel{font-weight:700;font-size:10.5pt;margin:0}
+.m-alm .period{color:#555;font-size:9.5pt;white-space:nowrap}
+.m-alm .agrad{color:#444}
+.m-alm .punkter{margin:1mm 0 0 4.5mm;padding:0}
+.m-alm .punkter li{margin:0 0 0.6mm 0}
+.m-alm .lista{margin:0.5mm 0 0 3.5mm;padding:0}
+.m-alm .lista li{margin:0 0 0.4mm 0}
+.m-alm .grupp{margin-bottom:1.2mm}
+.m-alm .cert{display:flex;justify-content:space-between;gap:4mm;margin-bottom:0.8mm}
+.m-alm .certmeta{color:#555;font-size:9.5pt;white-space:nowrap}
+.m-alm .certlista{list-style:none;margin:0;padding:0}
+.m-alm .certlista li{display:flex;flex-direction:column;margin-bottom:1.4mm}
+.m-alm .certlista .certmeta{white-space:normal}
+.m-alm .spraklista{list-style:none;margin:0;padding:0}
+.m-alm .spraklista li{display:flex;justify-content:space-between;margin-bottom:0.6mm}
+.m-alm .spraklista .sprak{font-weight:700}
+.m-alm .kontaktlista{list-style:none;margin:0;padding:0}
+.m-alm .kontaktlista li{overflow-wrap:anywhere;margin-bottom:0.6mm}
+.m-alm .spalter{display:grid;gap:0 6mm}
+.m-alm .spalter-2{grid-template-columns:1fr 1fr}
+.m-alm .spalter-3{grid-template-columns:1fr 1fr 1fr}
+.m-alm .gruppnamn{font-weight:700}
+
+.m-alm .huvud{display:flex;align-items:center;gap:6mm;padding-bottom:5mm;border-bottom:1.5pt solid var(--a)}
+.m-alm .huvud-text{flex:1}
+.m-alm .namn{font-size:26pt;font-weight:700;line-height:1.1;color:#111}
+.m-alm .titel{font-size:11.5pt;color:var(--a);margin-top:1mm}
+.m-alm .kontaktlista{text-align:right;font-size:9pt;color:#555}
+.m-alm .kontaktlista li{margin-bottom:0.4mm}
+.m-alm .foto-rundad{border-radius:3mm}
+.m-alm .rubrik{font-size:11pt;font-weight:700;color:#111;margin-bottom:2.5mm}
+.m-alm .rubrik .rtext{text-decoration:underline;text-decoration-color:var(--a);text-decoration-thickness:1pt;text-underline-offset:1.2mm}
+
+/* Valv */
+.m-valv{font-family:Georgia,'Gelasio',serif;font-size:10.5pt;line-height:1.32;color:#1F2328;padding:20mm 22mm 18mm 22mm}
+.m-valv .sektion{margin-top:6mm}
+.m-valv .post{margin-bottom:3.8mm}
+.m-valv .postrad{display:flex;justify-content:space-between;gap:4mm;align-items:baseline}
+.m-valv .posttitel{font-weight:700;font-size:10.5pt;margin:0}
+.m-valv .period{color:#555;font-size:9.5pt;white-space:nowrap}
+.m-valv .agrad{color:#444}
+.m-valv .punkter{margin:1mm 0 0 4.5mm;padding:0}
+.m-valv .punkter li{margin:0 0 0.6mm 0}
+.m-valv .lista{margin:0.5mm 0 0 3.5mm;padding:0}
+.m-valv .lista li{margin:0 0 0.4mm 0}
+.m-valv .grupp{margin-bottom:1.2mm}
+.m-valv .cert{display:flex;justify-content:space-between;gap:4mm;margin-bottom:0.8mm}
+.m-valv .certmeta{color:#555;font-size:9.5pt;white-space:nowrap}
+.m-valv .certlista{list-style:none;margin:0;padding:0}
+.m-valv .certlista li{display:flex;flex-direction:column;margin-bottom:1.4mm}
+.m-valv .certlista .certmeta{white-space:normal}
+.m-valv .spraklista{list-style:none;margin:0;padding:0}
+.m-valv .spraklista li{display:flex;justify-content:space-between;margin-bottom:0.6mm}
+.m-valv .spraklista .sprak{font-weight:700}
+.m-valv .kontaktlista{list-style:none;margin:0;padding:0}
+.m-valv .kontaktlista li{overflow-wrap:anywhere;margin-bottom:0.6mm}
+.m-valv .spalter{display:grid;gap:0 6mm}
+.m-valv .spalter-2{grid-template-columns:1fr 1fr}
+.m-valv .spalter-3{grid-template-columns:1fr 1fr 1fr}
+.m-valv .gruppnamn{font-weight:700}
+
+.m-valv .huvud{text-align:center;padding-bottom:7mm}
+.m-valv .namn{font-size:28pt;font-weight:400;line-height:1.1;color:#111}
+.m-valv .titel{font-size:11.5pt;font-style:italic;color:var(--a);margin-top:1.5mm}
+.m-valv .kontakt{font-size:9.5pt;color:#555;margin-top:2mm}
+.m-valv .huvud:after{content:'';display:block;width:18mm;border-bottom:1pt solid var(--a);margin:4mm auto 0}
+.m-valv .rubrik{display:flex;align-items:baseline;gap:3mm;font-size:12.5pt;font-weight:400;color:var(--a);margin-bottom:2.5mm}
+.m-valv .rubrik:after{content:'';flex:1;border-bottom:0.5pt solid #C9C4CC;transform:translateY(-1mm)}
+.m-valv .period{font-style:italic}.m-valv .agrad{color:#333}
+
+/* Sand */
+.m-sand{font-family:Calibri,'Carlito',sans-serif;font-size:10.5pt;line-height:1.32;color:#1F2328;padding:0}
+.m-sand .sektion{margin-top:5.5mm}
+.m-sand .post{margin-bottom:3.8mm}
+.m-sand .postrad{display:flex;justify-content:space-between;gap:4mm;align-items:baseline}
+.m-sand .posttitel{font-weight:700;font-size:10.5pt;margin:0}
+.m-sand .period{color:#555;font-size:9.5pt;white-space:nowrap}
+.m-sand .agrad{color:#444}
+.m-sand .punkter{margin:1mm 0 0 4.5mm;padding:0}
+.m-sand .punkter li{margin:0 0 0.6mm 0}
+.m-sand .lista{margin:0.5mm 0 0 3.5mm;padding:0}
+.m-sand .lista li{margin:0 0 0.4mm 0}
+.m-sand .grupp{margin-bottom:1.2mm}
+.m-sand .cert{display:flex;justify-content:space-between;gap:4mm;margin-bottom:0.8mm}
+.m-sand .certmeta{color:#555;font-size:9.5pt;white-space:nowrap}
+.m-sand .certlista{list-style:none;margin:0;padding:0}
+.m-sand .certlista li{display:flex;flex-direction:column;margin-bottom:1.4mm}
+.m-sand .certlista .certmeta{white-space:normal}
+.m-sand .spraklista{list-style:none;margin:0;padding:0}
+.m-sand .spraklista li{display:flex;justify-content:space-between;margin-bottom:0.6mm}
+.m-sand .spraklista .sprak{font-weight:700}
+.m-sand .kontaktlista{list-style:none;margin:0;padding:0}
+.m-sand .kontaktlista li{overflow-wrap:anywhere;margin-bottom:0.6mm}
+.m-sand .spalter{display:grid;gap:0 6mm}
+.m-sand .spalter-2{grid-template-columns:1fr 1fr}
+.m-sand .spalter-3{grid-template-columns:1fr 1fr 1fr}
+.m-sand .gruppnamn{font-weight:700}
+
+.m-sand .huvud{padding:15mm 15mm 7mm 15mm}
+.m-sand .namn{font-size:28pt;font-weight:400;line-height:1.1;color:#111}
+.m-sand .titel{font-size:11.5pt;color:var(--a);margin-top:1.5mm}
+.m-sand .spalter{display:grid;grid-template-columns:1fr 60mm;gap:0;flex:1;align-items:start;margin-top:0}
+.m-sand .huvudspalt{padding:0 8mm 15mm 15mm}
+.m-sand .spalt{background:#F2EDE4;padding:7mm 15mm 10mm 6mm;font-size:9.5pt;min-height:calc(297mm - 50mm)}
+.m-sand .spalt .foto{margin:0 auto 5mm;display:flex}
+.m-sand .spalt .sektion:first-of-type{margin-top:0}
+.m-sand .rubrik{font-size:10.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--a);margin-bottom:2.5mm}
+.m-sand .spalt .rubrik{font-size:9.5pt}
+.m-sand .post{padding-bottom:3.5mm;margin-bottom:3.5mm;border-bottom:0.5pt solid #DAD4C8}
+.m-sand .post:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0}
+.m-sand .kontaktlista{font-size:8.5pt}
+
+/* Furu */
+.m-furu{font-family:Arial,Helvetica,sans-serif;font-size:10pt;line-height:1.34;color:#1F2328;padding:18mm 18mm 18mm 18mm}
+.m-furu .sektion{margin-top:6mm}
+.m-furu .post{margin-bottom:3.8mm}
+.m-furu .postrad{display:flex;justify-content:space-between;gap:4mm;align-items:baseline}
+.m-furu .posttitel{font-weight:700;font-size:10pt;margin:0}
+.m-furu .period{color:#555;font-size:9pt;white-space:nowrap}
+.m-furu .agrad{color:#444}
+.m-furu .punkter{margin:1mm 0 0 4.5mm;padding:0}
+.m-furu .punkter li{margin:0 0 0.6mm 0}
+.m-furu .lista{margin:0.5mm 0 0 3.5mm;padding:0}
+.m-furu .lista li{margin:0 0 0.4mm 0}
+.m-furu .grupp{margin-bottom:1.2mm}
+.m-furu .cert{display:flex;justify-content:space-between;gap:4mm;margin-bottom:0.8mm}
+.m-furu .certmeta{color:#555;font-size:9pt;white-space:nowrap}
+.m-furu .certlista{list-style:none;margin:0;padding:0}
+.m-furu .certlista li{display:flex;flex-direction:column;margin-bottom:1.4mm}
+.m-furu .certlista .certmeta{white-space:normal}
+.m-furu .spraklista{list-style:none;margin:0;padding:0}
+.m-furu .spraklista li{display:flex;justify-content:space-between;margin-bottom:0.6mm}
+.m-furu .spraklista .sprak{font-weight:700}
+.m-furu .kontaktlista{list-style:none;margin:0;padding:0}
+.m-furu .kontaktlista li{overflow-wrap:anywhere;margin-bottom:0.6mm}
+.m-furu .spalter{display:grid;gap:0 6mm}
+.m-furu .spalter-2{grid-template-columns:1fr 1fr}
+.m-furu .spalter-3{grid-template-columns:1fr 1fr 1fr}
+.m-furu .gruppnamn{font-weight:700}
+
+.m-furu .namn{font-size:28pt;font-weight:700;line-height:1.1;color:#111}
+.m-furu .titel{font-size:11pt;color:var(--a);margin-top:1mm}
+.m-furu .kontakt{font-size:9pt;color:#555;margin-top:2mm}
+.m-furu .huvud{padding-bottom:1mm}
+.m-furu .rubrik{font-size:11pt;font-weight:700;color:var(--a);border-bottom:0.75pt solid var(--a);padding-bottom:1mm;margin-bottom:3mm}
+.m-furu .post-marg{display:grid;grid-template-columns:1fr 30mm;gap:0 4mm}
+.m-furu .post-marg .marg{order:2;text-align:right}
+.m-furu .cert .postinner{display:block}
+
+/* Ramverk */
+.m-ramverk{font-family:Garamond,'EB Garamond',serif;font-size:11pt;line-height:1.3;color:#1F2328;padding:20mm 22mm 18mm 22mm}
+.m-ramverk .sektion{margin-top:6.5mm}
+.m-ramverk .post{margin-bottom:3.5mm}
+.m-ramverk .postrad{display:flex;justify-content:space-between;gap:4mm;align-items:baseline}
+.m-ramverk .posttitel{font-weight:700;font-size:11pt;margin:0}
+.m-ramverk .period{color:#555;font-size:9.5pt;white-space:nowrap}
+.m-ramverk .agrad{color:#444}
+.m-ramverk .punkter{margin:1mm 0 0 4.5mm;padding:0}
+.m-ramverk .punkter li{margin:0 0 0.6mm 0}
+.m-ramverk .lista{margin:0.5mm 0 0 3.5mm;padding:0}
+.m-ramverk .lista li{margin:0 0 0.4mm 0}
+.m-ramverk .grupp{margin-bottom:1.2mm}
+.m-ramverk .cert{display:flex;justify-content:space-between;gap:4mm;margin-bottom:0.8mm}
+.m-ramverk .certmeta{color:#555;font-size:9.5pt;white-space:nowrap}
+.m-ramverk .certlista{list-style:none;margin:0;padding:0}
+.m-ramverk .certlista li{display:flex;flex-direction:column;margin-bottom:1.4mm}
+.m-ramverk .certlista .certmeta{white-space:normal}
+.m-ramverk .spraklista{list-style:none;margin:0;padding:0}
+.m-ramverk .spraklista li{display:flex;justify-content:space-between;margin-bottom:0.6mm}
+.m-ramverk .spraklista .sprak{font-weight:700}
+.m-ramverk .kontaktlista{list-style:none;margin:0;padding:0}
+.m-ramverk .kontaktlista li{overflow-wrap:anywhere;margin-bottom:0.6mm}
+.m-ramverk .spalter{display:grid;gap:0 6mm}
+.m-ramverk .spalter-2{grid-template-columns:1fr 1fr}
+.m-ramverk .spalter-3{grid-template-columns:1fr 1fr 1fr}
+.m-ramverk .gruppnamn{font-weight:700}
+
+.m-ramverk:before{content:'';position:absolute;inset:8mm;border:0.5pt solid var(--a);pointer-events:none}
+.m-ramverk .huvud{text-align:center;padding-bottom:3mm}
+.m-ramverk .namn{font-size:32pt;font-weight:400;line-height:1.1;color:#111}
+.m-ramverk .titel{font-size:13pt;font-style:italic;color:#555;margin-top:1mm}
+.m-ramverk .kontakt{font-size:10pt;color:#555;margin-top:2mm}
+.m-ramverk .rubrik{font-size:11.5pt;font-weight:400;text-transform:uppercase;letter-spacing:0.12em;color:var(--a);margin-bottom:2.5mm}
+.m-ramverk .agrad{font-style:italic;color:#333}
+
+/* Index */
+.m-index{font-family:Calibri,'Carlito',sans-serif;font-size:10.5pt;line-height:1.32;color:#1F2328;padding:20mm 20mm 18mm 20mm}
+.m-index .sektion{margin-top:6.5mm}
+.m-index .post{margin-bottom:3.8mm}
+.m-index .postrad{display:flex;justify-content:space-between;gap:4mm;align-items:baseline}
+.m-index .posttitel{font-weight:700;font-size:10.5pt;margin:0}
+.m-index .period{color:#555;font-size:9.5pt;white-space:nowrap}
+.m-index .agrad{color:#444}
+.m-index .punkter{margin:1mm 0 0 4.5mm;padding:0}
+.m-index .punkter li{margin:0 0 0.6mm 0}
+.m-index .lista{margin:0.5mm 0 0 3.5mm;padding:0}
+.m-index .lista li{margin:0 0 0.4mm 0}
+.m-index .grupp{margin-bottom:1.2mm}
+.m-index .cert{display:flex;justify-content:space-between;gap:4mm;margin-bottom:0.8mm}
+.m-index .certmeta{color:#555;font-size:9.5pt;white-space:nowrap}
+.m-index .certlista{list-style:none;margin:0;padding:0}
+.m-index .certlista li{display:flex;flex-direction:column;margin-bottom:1.4mm}
+.m-index .certlista .certmeta{white-space:normal}
+.m-index .spraklista{list-style:none;margin:0;padding:0}
+.m-index .spraklista li{display:flex;justify-content:space-between;margin-bottom:0.6mm}
+.m-index .spraklista .sprak{font-weight:700}
+.m-index .kontaktlista{list-style:none;margin:0;padding:0}
+.m-index .kontaktlista li{overflow-wrap:anywhere;margin-bottom:0.6mm}
+.m-index .spalter{display:grid;gap:0 6mm}
+.m-index .spalter-2{grid-template-columns:1fr 1fr}
+.m-index .spalter-3{grid-template-columns:1fr 1fr 1fr}
+.m-index .gruppnamn{font-weight:700}
+
+.m-index .huvud{border-bottom:0.5pt solid #1F2328;padding-bottom:4mm}
+.m-index .namn{font-family:Georgia,'Gelasio',serif;font-size:28pt;font-weight:400;line-height:1.1;color:#111}
+.m-index .titel{font-size:12pt;color:var(--a);margin-top:1mm}
+.m-index .kontakt{font-size:9.5pt;color:#555;margin-top:2mm}
+.m-index .rubrik{display:flex;align-items:baseline;gap:3mm;border-bottom:0.5pt solid #D5D9DE;padding-bottom:1.5mm;margin-bottom:3mm}
+.m-index .rubrik .nr{font-family:Georgia,'Gelasio',serif;font-size:18pt;font-weight:400;color:var(--a);line-height:1}
+.m-index .rubrik .rtext{font-size:10.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#111}
+
+/* Skylt */
+.m-skylt{font-family:Arial,Helvetica,sans-serif;font-size:10pt;line-height:1.34;color:#1F2328;padding:0 20mm 18mm 20mm}
+.m-skylt .sektion{margin-top:6mm}
+.m-skylt .post{margin-bottom:3.8mm}
+.m-skylt .postrad{display:flex;justify-content:space-between;gap:4mm;align-items:baseline}
+.m-skylt .posttitel{font-weight:700;font-size:10pt;margin:0}
+.m-skylt .period{color:#555;font-size:9pt;white-space:nowrap}
+.m-skylt .agrad{color:#444}
+.m-skylt .punkter{margin:1mm 0 0 4.5mm;padding:0}
+.m-skylt .punkter li{margin:0 0 0.6mm 0}
+.m-skylt .lista{margin:0.5mm 0 0 3.5mm;padding:0}
+.m-skylt .lista li{margin:0 0 0.4mm 0}
+.m-skylt .grupp{margin-bottom:1.2mm}
+.m-skylt .cert{display:flex;justify-content:space-between;gap:4mm;margin-bottom:0.8mm}
+.m-skylt .certmeta{color:#555;font-size:9pt;white-space:nowrap}
+.m-skylt .certlista{list-style:none;margin:0;padding:0}
+.m-skylt .certlista li{display:flex;flex-direction:column;margin-bottom:1.4mm}
+.m-skylt .certlista .certmeta{white-space:normal}
+.m-skylt .spraklista{list-style:none;margin:0;padding:0}
+.m-skylt .spraklista li{display:flex;justify-content:space-between;margin-bottom:0.6mm}
+.m-skylt .spraklista .sprak{font-weight:700}
+.m-skylt .kontaktlista{list-style:none;margin:0;padding:0}
+.m-skylt .kontaktlista li{overflow-wrap:anywhere;margin-bottom:0.6mm}
+.m-skylt .spalter{display:grid;gap:0 6mm}
+.m-skylt .spalter-2{grid-template-columns:1fr 1fr}
+.m-skylt .spalter-3{grid-template-columns:1fr 1fr 1fr}
+.m-skylt .gruppnamn{font-weight:700}
+
+.m-skylt .remsa{background:var(--a);color:#fff;margin:0 -20mm;padding:0 20mm;height:12mm;display:flex;align-items:center;font-size:9pt}
+.m-skylt .remsa .kontakt{color:#fff;margin:0}
+.m-skylt .huvud{padding:10mm 0 7mm}
+.m-skylt .namn{font-size:30pt;font-weight:700;line-height:1.05;color:#111}
+.m-skylt .titel{font-size:11.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--a);margin-top:2mm}
+.m-skylt .rubrik{background:var(--a);color:#fff;font-size:10pt;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding:1.2mm 3mm;margin-bottom:3mm}
+
+/* Loft */
+.m-loft{font-family:Calibri,'Carlito',sans-serif;font-size:11pt;line-height:1.34;color:#1F2328;padding:26mm 26mm 22mm 26mm}
+.m-loft .sektion{margin-top:9mm}
+.m-loft .post{margin-bottom:5mm}
+.m-loft .postrad{display:flex;justify-content:space-between;gap:4mm;align-items:baseline}
+.m-loft .posttitel{font-weight:700;font-size:11pt;margin:0}
+.m-loft .period{color:#555;font-size:9.5pt;white-space:nowrap}
+.m-loft .agrad{color:#444}
+.m-loft .punkter{margin:1mm 0 0 4.5mm;padding:0}
+.m-loft .punkter li{margin:0 0 0.6mm 0}
+.m-loft .lista{margin:0.5mm 0 0 3.5mm;padding:0}
+.m-loft .lista li{margin:0 0 0.4mm 0}
+.m-loft .grupp{margin-bottom:1.2mm}
+.m-loft .cert{display:flex;justify-content:space-between;gap:4mm;margin-bottom:0.8mm}
+.m-loft .certmeta{color:#555;font-size:9.5pt;white-space:nowrap}
+.m-loft .certlista{list-style:none;margin:0;padding:0}
+.m-loft .certlista li{display:flex;flex-direction:column;margin-bottom:1.4mm}
+.m-loft .certlista .certmeta{white-space:normal}
+.m-loft .spraklista{list-style:none;margin:0;padding:0}
+.m-loft .spraklista li{display:flex;justify-content:space-between;margin-bottom:0.6mm}
+.m-loft .spraklista .sprak{font-weight:700}
+.m-loft .kontaktlista{list-style:none;margin:0;padding:0}
+.m-loft .kontaktlista li{overflow-wrap:anywhere;margin-bottom:0.6mm}
+.m-loft .spalter{display:grid;gap:0 6mm}
+.m-loft .spalter-2{grid-template-columns:1fr 1fr}
+.m-loft .spalter-3{grid-template-columns:1fr 1fr 1fr}
+.m-loft .gruppnamn{font-weight:700}
+
+.m-loft .huvud{display:flex;justify-content:space-between;align-items:flex-start;gap:8mm;padding-bottom:1mm}
+.m-loft .namn{font-size:36pt;font-weight:400;line-height:1.05;color:#111;letter-spacing:-0.01em}
+.m-loft .titel{font-size:12pt;color:var(--a);margin-top:2mm}
+.m-loft .kontakt{font-size:9.5pt;color:#555;margin-top:2.5mm}
+.m-loft .rubrik{font-size:9.5pt;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:#777;margin-bottom:3mm}
+.m-loft .period{color:var(--a)}
+
+/* Pergament */
+.m-pergament{font-family:'Times New Roman','Tinos',serif;font-size:11pt;line-height:1.3;color:#1F2328;padding:20mm 22mm 18mm 22mm}
+.m-pergament .sektion{margin-top:6mm}
+.m-pergament .post{margin-bottom:3.5mm}
+.m-pergament .postrad{display:flex;justify-content:space-between;gap:4mm;align-items:baseline}
+.m-pergament .posttitel{font-weight:700;font-size:11pt;margin:0}
+.m-pergament .period{color:#444;font-size:9.5pt;white-space:nowrap}
+.m-pergament .agrad{color:#444}
+.m-pergament .punkter{margin:1mm 0 0 4.5mm;padding:0}
+.m-pergament .punkter li{margin:0 0 0.6mm 0}
+.m-pergament .lista{margin:0.5mm 0 0 3.5mm;padding:0}
+.m-pergament .lista li{margin:0 0 0.4mm 0}
+.m-pergament .grupp{margin-bottom:1.2mm}
+.m-pergament .cert{display:flex;justify-content:space-between;gap:4mm;margin-bottom:0.8mm}
+.m-pergament .certmeta{color:#444;font-size:9.5pt;white-space:nowrap}
+.m-pergament .certlista{list-style:none;margin:0;padding:0}
+.m-pergament .certlista li{display:flex;flex-direction:column;margin-bottom:1.4mm}
+.m-pergament .certlista .certmeta{white-space:normal}
+.m-pergament .spraklista{list-style:none;margin:0;padding:0}
+.m-pergament .spraklista li{display:flex;justify-content:space-between;margin-bottom:0.6mm}
+.m-pergament .spraklista .sprak{font-weight:700}
+.m-pergament .kontaktlista{list-style:none;margin:0;padding:0}
+.m-pergament .kontaktlista li{overflow-wrap:anywhere;margin-bottom:0.6mm}
+.m-pergament .spalter{display:grid;gap:0 6mm}
+.m-pergament .spalter-2{grid-template-columns:1fr 1fr}
+.m-pergament .spalter-3{grid-template-columns:1fr 1fr 1fr}
+.m-pergament .gruppnamn{font-weight:700}
+
+.m-pergament .huvud{text-align:center;border:0.75pt double var(--a);border-width:2.5pt;border-style:double;padding:5mm 6mm}
+.m-pergament .namn{font-size:26pt;font-weight:400;text-transform:uppercase;letter-spacing:0.08em;line-height:1.1;color:#111}
+.m-pergament .titel{font-size:11pt;font-style:italic;color:var(--a);margin-top:1.5mm}
+.m-pergament .kontakt{font-size:10pt;color:#444;margin-top:2mm}
+.m-pergament .rubrik{text-align:right;font-size:11.5pt;font-weight:700;color:#111;border-bottom:0.5pt solid #999;padding-bottom:0.8mm;margin-bottom:2.5mm}
+.m-pergament .agrad{font-style:italic;color:#333}
+
+/* Betong */
+.m-betong{font-family:Verdana,'DejaVu Sans',sans-serif;font-size:9.5pt;line-height:1.36;color:#1F2328;padding:0 20mm 18mm 20mm}
+.m-betong .sektion{margin-top:6mm}
+.m-betong .post{margin-bottom:3.8mm}
+.m-betong .postrad{display:flex;justify-content:space-between;gap:4mm;align-items:baseline}
+.m-betong .posttitel{font-weight:700;font-size:9.5pt;margin:0}
+.m-betong .period{color:#555;font-size:8.5pt;white-space:nowrap}
+.m-betong .agrad{color:#444}
+.m-betong .punkter{margin:1mm 0 0 4.5mm;padding:0}
+.m-betong .punkter li{margin:0 0 0.6mm 0}
+.m-betong .lista{margin:0.5mm 0 0 3.5mm;padding:0}
+.m-betong .lista li{margin:0 0 0.4mm 0}
+.m-betong .grupp{margin-bottom:1.2mm}
+.m-betong .cert{display:flex;justify-content:space-between;gap:4mm;margin-bottom:0.8mm}
+.m-betong .certmeta{color:#555;font-size:8.5pt;white-space:nowrap}
+.m-betong .certlista{list-style:none;margin:0;padding:0}
+.m-betong .certlista li{display:flex;flex-direction:column;margin-bottom:1.4mm}
+.m-betong .certlista .certmeta{white-space:normal}
+.m-betong .spraklista{list-style:none;margin:0;padding:0}
+.m-betong .spraklista li{display:flex;justify-content:space-between;margin-bottom:0.6mm}
+.m-betong .spraklista .sprak{font-weight:700}
+.m-betong .kontaktlista{list-style:none;margin:0;padding:0}
+.m-betong .kontaktlista li{overflow-wrap:anywhere;margin-bottom:0.6mm}
+.m-betong .spalter{display:grid;gap:0 6mm}
+.m-betong .spalter-2{grid-template-columns:1fr 1fr}
+.m-betong .spalter-3{grid-template-columns:1fr 1fr 1fr}
+.m-betong .gruppnamn{font-weight:700}
+
+.m-betong .band{background:#E6E6E3;margin:0 -20mm;padding:14mm 20mm 12mm;display:flex;align-items:center;gap:8mm;min-height:52mm}
+.m-betong .namn{font-size:24pt;font-weight:700;line-height:1.1;color:#111}
+.m-betong .titel{font-size:11pt;color:var(--a);margin-top:1.5mm}
+.m-betong .kontakt{font-size:8.5pt;color:#555;margin-top:2.5mm}
+.m-betong .kropp{padding-top:8mm}
+.m-betong .rubrik{font-size:10pt;font-weight:700;text-transform:uppercase;color:#222;margin-bottom:2.5mm}
+.m-betong .rubrik:before{content:'';display:block;width:12mm;border-top:1.5pt solid var(--a);margin-bottom:2mm}
+.m-betong .foto{background:#fff}
+
+/* Not */
+.m-not{font-family:Calibri,'Carlito',sans-serif;font-size:9.5pt;line-height:1.28;color:#1F2328;padding:14mm 16mm 14mm 16mm}
+.m-not .sektion{margin-top:4.5mm}
+.m-not .post{margin-bottom:2.5mm}
+.m-not .postrad{display:flex;justify-content:space-between;gap:4mm;align-items:baseline}
+.m-not .posttitel{font-weight:700;font-size:9.5pt;margin:0}
+.m-not .period{color:#555;font-size:8.5pt;white-space:nowrap}
+.m-not .agrad{color:#444}
+.m-not .punkter{margin:1mm 0 0 4.5mm;padding:0}
+.m-not .punkter li{margin:0 0 0.6mm 0}
+.m-not .lista{margin:0.5mm 0 0 3.5mm;padding:0}
+.m-not .lista li{margin:0 0 0.4mm 0}
+.m-not .grupp{margin-bottom:1.2mm}
+.m-not .cert{display:flex;justify-content:space-between;gap:4mm;margin-bottom:0.8mm}
+.m-not .certmeta{color:#555;font-size:8.5pt;white-space:nowrap}
+.m-not .certlista{list-style:none;margin:0;padding:0}
+.m-not .certlista li{display:flex;flex-direction:column;margin-bottom:1.4mm}
+.m-not .certlista .certmeta{white-space:normal}
+.m-not .spraklista{list-style:none;margin:0;padding:0}
+.m-not .spraklista li{display:flex;justify-content:space-between;margin-bottom:0.6mm}
+.m-not .spraklista .sprak{font-weight:700}
+.m-not .kontaktlista{list-style:none;margin:0;padding:0}
+.m-not .kontaktlista li{overflow-wrap:anywhere;margin-bottom:0.6mm}
+.m-not .spalter{display:grid;gap:0 6mm}
+.m-not .spalter-2{grid-template-columns:1fr 1fr}
+.m-not .spalter-3{grid-template-columns:1fr 1fr 1fr}
+.m-not .gruppnamn{font-weight:700}
+
+.m-not .huvud{display:flex;justify-content:space-between;align-items:flex-end;gap:8mm;border-bottom:0.5pt solid #1F2328;padding-bottom:3mm}
+.m-not .namn{font-size:20pt;font-weight:700;line-height:1.1;color:#111}
+.m-not .titel{font-size:10.5pt;color:var(--a);margin-top:0.8mm}
+.m-not .kontaktlista{text-align:right;font-size:9pt;color:#555;display:grid;grid-template-columns:auto auto;gap:0 3mm}
+.m-not .kontaktlista li{margin:0}
+.m-not .rubrik{font-size:9pt;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--a);border-bottom:0.5pt solid #D5D9DE;padding-bottom:0.8mm;margin-bottom:2mm}
+.m-not .punkter li{margin-bottom:0.4mm}
+.m-not .spalter{gap:0 5mm}
+
+/* Spår */
+.m-spar{font-family:Calibri,'Carlito',sans-serif;font-size:10.5pt;line-height:1.32;color:#1F2328;padding:20mm 20mm 18mm 20mm}
+.m-spar .sektion{margin-top:6mm}
+.m-spar .post{margin-bottom:4mm}
+.m-spar .postrad{display:flex;justify-content:space-between;gap:4mm;align-items:baseline}
+.m-spar .posttitel{font-weight:700;font-size:10.5pt;margin:0}
+.m-spar .period{color:#555;font-size:9.5pt;white-space:nowrap}
+.m-spar .agrad{color:#444}
+.m-spar .punkter{margin:1mm 0 0 4.5mm;padding:0}
+.m-spar .punkter li{margin:0 0 0.6mm 0}
+.m-spar .lista{margin:0.5mm 0 0 3.5mm;padding:0}
+.m-spar .lista li{margin:0 0 0.4mm 0}
+.m-spar .grupp{margin-bottom:1.2mm}
+.m-spar .cert{display:flex;justify-content:space-between;gap:4mm;margin-bottom:0.8mm}
+.m-spar .certmeta{color:#555;font-size:9.5pt;white-space:nowrap}
+.m-spar .certlista{list-style:none;margin:0;padding:0}
+.m-spar .certlista li{display:flex;flex-direction:column;margin-bottom:1.4mm}
+.m-spar .certlista .certmeta{white-space:normal}
+.m-spar .spraklista{list-style:none;margin:0;padding:0}
+.m-spar .spraklista li{display:flex;justify-content:space-between;margin-bottom:0.6mm}
+.m-spar .spraklista .sprak{font-weight:700}
+.m-spar .kontaktlista{list-style:none;margin:0;padding:0}
+.m-spar .kontaktlista li{overflow-wrap:anywhere;margin-bottom:0.6mm}
+.m-spar .spalter{display:grid;gap:0 6mm}
+.m-spar .spalter-2{grid-template-columns:1fr 1fr}
+.m-spar .spalter-3{grid-template-columns:1fr 1fr 1fr}
+.m-spar .gruppnamn{font-weight:700}
+
+.m-spar .namn{font-size:28pt;font-weight:700;line-height:1.1;color:#111}
+.m-spar .titel{font-size:12pt;color:var(--a);margin-top:1mm}
+.m-spar .kontakt{font-size:9.5pt;color:#555;margin-top:2mm}
+.m-spar .huvud{padding-bottom:1mm}
+.m-spar .sektion{padding-left:14mm}
+.m-spar .rubrik{font-size:11pt;font-weight:700;text-transform:uppercase;color:var(--a);margin-bottom:2.5mm}
+.m-spar .sek-erf .postlista,.m-spar .sek-utb .postlista{border-left:1pt dotted var(--a);margin-left:-5mm;padding-left:5mm}
+.m-spar .post-prick{position:relative}
+.m-spar .post-prick .prick{position:absolute;left:-6.3mm;top:1.6mm;width:2.6mm;height:2.6mm;border-radius:50%;background:var(--a)}
+.m-spar .post-prick:last-child{margin-bottom:0}
+
+/* Ek */
+.m-ek{font-family:Arial,Helvetica,sans-serif;font-size:10pt;line-height:1.34;color:#1F2328;padding:16mm 16mm 16mm 16mm}
+.m-ek .sektion{margin-top:5.5mm}
+.m-ek .post{margin-bottom:3.8mm}
+.m-ek .postrad{display:flex;justify-content:space-between;gap:4mm;align-items:baseline}
+.m-ek .posttitel{font-weight:700;font-size:10pt;margin:0}
+.m-ek .period{color:#555;font-size:9pt;white-space:nowrap}
+.m-ek .agrad{color:#444}
+.m-ek .punkter{margin:1mm 0 0 4.5mm;padding:0}
+.m-ek .punkter li{margin:0 0 0.6mm 0}
+.m-ek .lista{margin:0.5mm 0 0 3.5mm;padding:0}
+.m-ek .lista li{margin:0 0 0.4mm 0}
+.m-ek .grupp{margin-bottom:1.2mm}
+.m-ek .cert{display:flex;justify-content:space-between;gap:4mm;margin-bottom:0.8mm}
+.m-ek .certmeta{color:#555;font-size:9pt;white-space:nowrap}
+.m-ek .certlista{list-style:none;margin:0;padding:0}
+.m-ek .certlista li{display:flex;flex-direction:column;margin-bottom:1.4mm}
+.m-ek .certlista .certmeta{white-space:normal}
+.m-ek .spraklista{list-style:none;margin:0;padding:0}
+.m-ek .spraklista li{display:flex;justify-content:space-between;margin-bottom:0.6mm}
+.m-ek .spraklista .sprak{font-weight:700}
+.m-ek .kontaktlista{list-style:none;margin:0;padding:0}
+.m-ek .kontaktlista li{overflow-wrap:anywhere;margin-bottom:0.6mm}
+.m-ek .spalter{display:grid;gap:0 6mm}
+.m-ek .spalter-2{grid-template-columns:1fr 1fr}
+.m-ek .spalter-3{grid-template-columns:1fr 1fr 1fr}
+.m-ek .gruppnamn{font-weight:700}
+
+.m-ek .huvud{padding-bottom:7mm}
+.m-ek .namn{font-size:26pt;font-weight:700;line-height:1.1;color:#111}
+.m-ek .titel{font-size:11pt;color:var(--a);margin-top:1mm}
+.m-ek .spalter{display:grid;grid-template-columns:56mm 1fr;gap:0 8mm;align-items:start}
+.m-ek .spalt{border-right:0.75pt solid var(--a);padding-right:6mm;font-size:9.5pt;min-height:calc(297mm - 32mm - 30mm)}
+.m-ek .spalt .foto{margin-bottom:5mm}
+.m-ek .spalt .sektion:first-of-type{margin-top:0}
+.m-ek .huvudspalt .sektion:first-child{margin-top:0}
+.m-ek .rubrik{font-size:11pt;font-weight:700;color:var(--a);margin-bottom:2.5mm}
+.m-ek .spalt .rubrik{font-size:10pt}
+.m-ek .kontaktlista{font-size:8.5pt}
+
+/* Sockel */
+.m-sockel{font-family:Lato,sans-serif;font-size:10pt;line-height:1.4;color:#222;padding:22mm 20mm 44mm 20mm}
+.m-sockel .sektion{margin-top:6mm}
+.m-sockel .post{margin-bottom:3.8mm}
+.m-sockel .postrad{display:flex;justify-content:space-between;gap:4mm;align-items:baseline}
+.m-sockel .posttitel{font-weight:700;font-size:10pt;margin:0}
+.m-sockel .period{color:#555;font-size:9.5pt;white-space:nowrap}
+.m-sockel .agrad{color:#444}
+.m-sockel .punkter{margin:1mm 0 0 4.5mm;padding:0}
+.m-sockel .punkter li{margin:0 0 0.6mm 0}
+.m-sockel .lista{margin:0.5mm 0 0 3.5mm;padding:0}
+.m-sockel .lista li{margin:0 0 0.4mm 0}
+.m-sockel .grupp{margin-bottom:1.2mm}
+.m-sockel .cert{display:flex;justify-content:space-between;gap:4mm;margin-bottom:0.8mm}
+.m-sockel .certmeta{color:#555;font-size:9.5pt;white-space:nowrap}
+.m-sockel .certlista{list-style:none;margin:0;padding:0}
+.m-sockel .certlista li{display:flex;flex-direction:column;margin-bottom:1.4mm}
+.m-sockel .certlista .certmeta{white-space:normal}
+.m-sockel .spraklista{list-style:none;margin:0;padding:0}
+.m-sockel .spraklista li{display:flex;justify-content:space-between;margin-bottom:0.6mm}
+.m-sockel .spraklista .sprak{font-weight:700}
+.m-sockel .kontaktlista{list-style:none;margin:0;padding:0}
+.m-sockel .kontaktlista li{overflow-wrap:anywhere;margin-bottom:0.6mm}
+.m-sockel .spalter{display:grid;gap:0 6mm}
+.m-sockel .spalter-2{grid-template-columns:1fr 1fr}
+.m-sockel .spalter-3{grid-template-columns:1fr 1fr 1fr}
+.m-sockel .gruppnamn{font-weight:700}
+
+.m-sockel .namn{font-family:Montserrat,sans-serif;font-size:32pt;font-weight:600;letter-spacing:-0.01em;line-height:1.05;color:#111}
+.m-sockel .titel{font-size:12pt;color:var(--a);margin-top:2mm}
+.m-sockel .huvud{padding-bottom:2mm}
+.m-sockel .rubrik{font-family:Montserrat,sans-serif;font-size:9.5pt;font-weight:600;text-transform:uppercase;letter-spacing:0.10em;color:var(--a);border-bottom:0.75pt solid #D5D9DE;padding-bottom:1mm;margin-bottom:3mm}
+.m-sockel .sockel{position:absolute;left:0;right:0;bottom:0;height:26mm;background:var(--a);color:#fff;padding:5mm 20mm;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8mm;font-size:9pt}
+.m-sockel .sockel .rubrik{color:#fff;border-bottom:0.5pt solid rgba(255,255,255,.4);font-size:8pt;margin-bottom:1.5mm;padding-bottom:0.8mm}
+.m-sockel .sockel .sektion{margin:0}
+.m-sockel .sockel .kontaktlista{display:grid;grid-template-columns:1fr 1fr;gap:0 4mm}
+.m-sockel .sockel .spraklista li{justify-content:flex-start;gap:2mm}
+.m-sockel .sockel .spraklista .sprak{font-weight:700}
+
+/* Panorama */
+.m-panorama{font-family:'Open Sans',sans-serif;font-size:9.5pt;line-height:1.4;color:#222;padding:0 20mm 18mm 20mm}
+.m-panorama .sektion{margin-top:6mm}
+.m-panorama .post{margin-bottom:3.8mm}
+.m-panorama .postrad{display:flex;justify-content:space-between;gap:4mm;align-items:baseline}
+.m-panorama .posttitel{font-weight:700;font-size:9.5pt;margin:0}
+.m-panorama .period{color:#555;font-size:9pt;white-space:nowrap}
+.m-panorama .agrad{color:#444}
+.m-panorama .punkter{margin:1mm 0 0 4.5mm;padding:0}
+.m-panorama .punkter li{margin:0 0 0.6mm 0}
+.m-panorama .lista{margin:0.5mm 0 0 3.5mm;padding:0}
+.m-panorama .lista li{margin:0 0 0.4mm 0}
+.m-panorama .grupp{margin-bottom:1.2mm}
+.m-panorama .cert{display:flex;justify-content:space-between;gap:4mm;margin-bottom:0.8mm}
+.m-panorama .certmeta{color:#555;font-size:9pt;white-space:nowrap}
+.m-panorama .certlista{list-style:none;margin:0;padding:0}
+.m-panorama .certlista li{display:flex;flex-direction:column;margin-bottom:1.4mm}
+.m-panorama .certlista .certmeta{white-space:normal}
+.m-panorama .spraklista{list-style:none;margin:0;padding:0}
+.m-panorama .spraklista li{display:flex;justify-content:space-between;margin-bottom:0.6mm}
+.m-panorama .spraklista .sprak{font-weight:700}
+.m-panorama .kontaktlista{list-style:none;margin:0;padding:0}
+.m-panorama .kontaktlista li{overflow-wrap:anywhere;margin-bottom:0.6mm}
+.m-panorama .spalter{display:grid;gap:0 6mm}
+.m-panorama .spalter-2{grid-template-columns:1fr 1fr}
+.m-panorama .spalter-3{grid-template-columns:1fr 1fr 1fr}
+.m-panorama .gruppnamn{font-weight:700}
+
+.m-panorama .band{background:var(--ton);margin:0 -20mm;height:58mm;display:flex;align-items:center;gap:10mm}
+.m-panorama .band .foto{flex:none;background:#CFC9C4}
+.m-panorama .namn{font-family:Lora,serif;font-size:32pt;font-weight:500;line-height:1.08;color:#111}
+.m-panorama .titel{font-family:Lora,serif;font-size:13pt;font-style:italic;color:var(--a);margin-top:1.5mm}
+.m-panorama .kontakt{font-size:9pt;color:#555;margin-top:2.5mm}
+.m-panorama .kropp{padding-top:8mm}
+.m-panorama .rubrik{font-family:Lora,serif;font-size:11.5pt;font-weight:600;color:#111;margin-bottom:3mm}
+.m-panorama .rubrik .rtext{text-decoration:underline;text-decoration-color:var(--a);text-decoration-thickness:1pt;text-underline-offset:1.2mm}
+.m-panorama .arbetsgivare{color:var(--a)}
+
+/* Sigill */
+.m-sigill{font-family:Lora,serif;font-size:10.5pt;line-height:1.36;color:#222;padding:20mm 22mm 18mm 22mm}
+.m-sigill .sektion{margin-top:6mm}
+.m-sigill .post{margin-bottom:3.8mm}
+.m-sigill .postrad{display:flex;justify-content:space-between;gap:4mm;align-items:baseline}
+.m-sigill .posttitel{font-weight:700;font-size:10.5pt;margin:0}
+.m-sigill .period{color:#555;font-size:9.5pt;white-space:nowrap}
+.m-sigill .agrad{color:#444}
+.m-sigill .punkter{margin:1mm 0 0 4.5mm;padding:0}
+.m-sigill .punkter li{margin:0 0 0.6mm 0}
+.m-sigill .lista{margin:0.5mm 0 0 3.5mm;padding:0}
+.m-sigill .lista li{margin:0 0 0.4mm 0}
+.m-sigill .grupp{margin-bottom:1.2mm}
+.m-sigill .cert{display:flex;justify-content:space-between;gap:4mm;margin-bottom:0.8mm}
+.m-sigill .certmeta{color:#555;font-size:9.5pt;white-space:nowrap}
+.m-sigill .certlista{list-style:none;margin:0;padding:0}
+.m-sigill .certlista li{display:flex;flex-direction:column;margin-bottom:1.4mm}
+.m-sigill .certlista .certmeta{white-space:normal}
+.m-sigill .spraklista{list-style:none;margin:0;padding:0}
+.m-sigill .spraklista li{display:flex;justify-content:space-between;margin-bottom:0.6mm}
+.m-sigill .spraklista .sprak{font-weight:700}
+.m-sigill .kontaktlista{list-style:none;margin:0;padding:0}
+.m-sigill .kontaktlista li{overflow-wrap:anywhere;margin-bottom:0.6mm}
+.m-sigill .spalter{display:grid;gap:0 6mm}
+.m-sigill .spalter-2{grid-template-columns:1fr 1fr}
+.m-sigill .spalter-3{grid-template-columns:1fr 1fr 1fr}
+.m-sigill .gruppnamn{font-weight:700}
+
+.m-sigill .huvud{display:flex;align-items:center;gap:6mm;border-bottom:0.5pt solid #D8D3CC;padding-bottom:4mm}
+.m-sigill .monogram{flex:none;width:18mm;height:18mm;border-radius:50%;border:0.75pt solid var(--a);display:flex;align-items:center;justify-content:center;font-size:11pt;font-weight:600;letter-spacing:0.08em;color:var(--a)}
+.m-sigill .namn{font-size:28pt;font-weight:500;line-height:1.1;color:#111}
+.m-sigill .titel{font-size:11.5pt;font-style:italic;color:var(--a);margin-top:1mm}
+.m-sigill .kontakt{font-size:9.5pt;color:#555;margin-top:2mm}
+.m-sigill .rubrik{font-size:10pt;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--a);border-bottom:0.5pt solid #D8D3CC;padding-bottom:1mm;margin-bottom:2.5mm}
+.m-sigill .posttitel{font-weight:600}.m-sigill .period{font-style:italic}.m-sigill .agrad{color:#333}
+
+/* Kakel */
+.m-kakel{font-family:'IBM Plex Sans',sans-serif;font-size:9.5pt;line-height:1.4;color:#222;padding:16mm 16mm 16mm 16mm}
+.m-kakel .sektion{margin-top:5.5mm}
+.m-kakel .post{margin-bottom:3.8mm}
+.m-kakel .postrad{display:flex;justify-content:space-between;gap:4mm;align-items:baseline}
+.m-kakel .posttitel{font-weight:700;font-size:9.5pt;margin:0}
+.m-kakel .period{color:#555;font-size:8.5pt;white-space:nowrap}
+.m-kakel .agrad{color:#444}
+.m-kakel .punkter{margin:1mm 0 0 4.5mm;padding:0}
+.m-kakel .punkter li{margin:0 0 0.6mm 0}
+.m-kakel .lista{margin:0.5mm 0 0 3.5mm;padding:0}
+.m-kakel .lista li{margin:0 0 0.4mm 0}
+.m-kakel .grupp{margin-bottom:1.2mm}
+.m-kakel .cert{display:flex;justify-content:space-between;gap:4mm;margin-bottom:0.8mm}
+.m-kakel .certmeta{color:#555;font-size:8.5pt;white-space:nowrap}
+.m-kakel .certlista{list-style:none;margin:0;padding:0}
+.m-kakel .certlista li{display:flex;flex-direction:column;margin-bottom:1.4mm}
+.m-kakel .certlista .certmeta{white-space:normal}
+.m-kakel .spraklista{list-style:none;margin:0;padding:0}
+.m-kakel .spraklista li{display:flex;justify-content:space-between;margin-bottom:0.6mm}
+.m-kakel .spraklista .sprak{font-weight:700}
+.m-kakel .kontaktlista{list-style:none;margin:0;padding:0}
+.m-kakel .kontaktlista li{overflow-wrap:anywhere;margin-bottom:0.6mm}
+.m-kakel .spalter{display:grid;gap:0 6mm}
+.m-kakel .spalter-2{grid-template-columns:1fr 1fr}
+.m-kakel .spalter-3{grid-template-columns:1fr 1fr 1fr}
+.m-kakel .gruppnamn{font-weight:700}
+
+.m-kakel .huvud{display:flex;align-items:center;gap:7mm;padding-bottom:1mm}
+.m-kakel .namn{font-size:26pt;font-weight:600;line-height:1.1;color:#111}
+.m-kakel .titel{font-size:11pt;color:var(--a);margin-top:1mm}
+.m-kakel .kontakt{font-size:9pt;color:#555;margin-top:2mm}
+.m-kakel .rubrik{font-size:9.5pt;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--a);margin-bottom:2.5mm}
+.m-kakel .ruta{background:var(--ton);padding:5mm}
+.m-kakel .rutnat{display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin-top:5.5mm}
+.m-kakel .rutnat .sektion{margin:0}
+.m-kakel .posttitel{font-weight:600}
+.m-kakel .certlista li{margin-bottom:1mm}
+
+/* Kant */
+.m-kant{font-family:'Open Sans',sans-serif;font-size:9.5pt;line-height:1.4;color:#222;padding:18mm 20mm 18mm 24mm}
+.m-kant .sektion{margin-top:6mm}
+.m-kant .post{margin-bottom:3.8mm}
+.m-kant .postrad{display:flex;justify-content:space-between;gap:4mm;align-items:baseline}
+.m-kant .posttitel{font-weight:700;font-size:9.5pt;margin:0}
+.m-kant .period{color:#555;font-size:9pt;white-space:nowrap}
+.m-kant .agrad{color:#444}
+.m-kant .punkter{margin:1mm 0 0 4.5mm;padding:0}
+.m-kant .punkter li{margin:0 0 0.6mm 0}
+.m-kant .lista{margin:0.5mm 0 0 3.5mm;padding:0}
+.m-kant .lista li{margin:0 0 0.4mm 0}
+.m-kant .grupp{margin-bottom:1.2mm}
+.m-kant .cert{display:flex;justify-content:space-between;gap:4mm;margin-bottom:0.8mm}
+.m-kant .certmeta{color:#555;font-size:9pt;white-space:nowrap}
+.m-kant .certlista{list-style:none;margin:0;padding:0}
+.m-kant .certlista li{display:flex;flex-direction:column;margin-bottom:1.4mm}
+.m-kant .certlista .certmeta{white-space:normal}
+.m-kant .spraklista{list-style:none;margin:0;padding:0}
+.m-kant .spraklista li{display:flex;justify-content:space-between;margin-bottom:0.6mm}
+.m-kant .spraklista .sprak{font-weight:700}
+.m-kant .kontaktlista{list-style:none;margin:0;padding:0}
+.m-kant .kontaktlista li{overflow-wrap:anywhere;margin-bottom:0.6mm}
+.m-kant .spalter{display:grid;gap:0 6mm}
+.m-kant .spalter-2{grid-template-columns:1fr 1fr}
+.m-kant .spalter-3{grid-template-columns:1fr 1fr 1fr}
+.m-kant .gruppnamn{font-weight:700}
+
+.m-kant:before{content:'';position:absolute;left:0;top:0;bottom:0;width:10mm;background:var(--a)}
+.m-kant .huvud{padding-bottom:2mm}
+.m-kant .huvud .foto{margin-bottom:5mm}
+.m-kant .namn{font-size:28pt;font-weight:700;line-height:1.1;color:#111}
+.m-kant .titel{font-size:11.5pt;color:var(--a);margin-top:1mm}
+.m-kant .kontakt{font-size:9pt;color:#555;margin-top:2mm}
+.m-kant .rubrik{font-size:10.5pt;font-weight:700;color:var(--a);margin-bottom:2.5mm}
+
+/* Affisch */
+.m-affisch{font-family:Lato,sans-serif;font-size:9.5pt;line-height:1.4;color:#222;padding:18mm 20mm 18mm 20mm}
+.m-affisch .sektion{margin-top:7mm}
+.m-affisch .post{margin-bottom:3.8mm}
+.m-affisch .postrad{display:flex;justify-content:space-between;gap:4mm;align-items:baseline}
+.m-affisch .posttitel{font-weight:700;font-size:9.5pt;margin:0}
+.m-affisch .period{color:#555;font-size:9pt;white-space:nowrap}
+.m-affisch .agrad{color:#444}
+.m-affisch .punkter{margin:1mm 0 0 4.5mm;padding:0}
+.m-affisch .punkter li{margin:0 0 0.6mm 0}
+.m-affisch .lista{margin:0.5mm 0 0 3.5mm;padding:0}
+.m-affisch .lista li{margin:0 0 0.4mm 0}
+.m-affisch .grupp{margin-bottom:1.2mm}
+.m-affisch .cert{display:flex;justify-content:space-between;gap:4mm;margin-bottom:0.8mm}
+.m-affisch .certmeta{color:#555;font-size:9pt;white-space:nowrap}
+.m-affisch .certlista{list-style:none;margin:0;padding:0}
+.m-affisch .certlista li{display:flex;flex-direction:column;margin-bottom:1.4mm}
+.m-affisch .certlista .certmeta{white-space:normal}
+.m-affisch .spraklista{list-style:none;margin:0;padding:0}
+.m-affisch .spraklista li{display:flex;justify-content:space-between;margin-bottom:0.6mm}
+.m-affisch .spraklista .sprak{font-weight:700}
+.m-affisch .kontaktlista{list-style:none;margin:0;padding:0}
+.m-affisch .kontaktlista li{overflow-wrap:anywhere;margin-bottom:0.6mm}
+.m-affisch .spalter{display:grid;gap:0 6mm}
+.m-affisch .spalter-2{grid-template-columns:1fr 1fr}
+.m-affisch .spalter-3{grid-template-columns:1fr 1fr 1fr}
+.m-affisch .gruppnamn{font-weight:700}
+
+.m-affisch .namn{font-family:Montserrat,sans-serif;font-size:44pt;font-weight:700;text-transform:uppercase;letter-spacing:-0.02em;line-height:0.95;color:#111}
+.m-affisch .titel{font-size:12pt;text-transform:uppercase;letter-spacing:0.12em;color:var(--a);margin-top:4mm}
+.m-affisch .kontakt{font-size:9pt;color:#555;margin-top:2mm}
+.m-affisch .huvud{border-bottom:3pt solid var(--a);padding-bottom:5mm;margin-bottom:1mm}
+.m-affisch .sektion{display:grid;grid-template-columns:40mm 1fr;gap:0 6mm}
+.m-affisch .rubrik{font-family:Montserrat,sans-serif;font-size:8.5pt;font-weight:600;text-transform:uppercase;letter-spacing:0.14em;color:var(--a);padding-top:0.8mm}
+.m-affisch .sektion > *:not(.rubrik){grid-column:2}
+
+</style>
+</head>
+<body>
+<div class="sida">
+  <h1>Mallutbud 2: 20 nya mallar, facit för bygget</h1>
+  <p class="ingress">Varje mall visas som sida 1 av ett exempel-CV (Amanda Sjöberg, redovisningsekonom, påhittad) i 1:1 på A4 med mallens förvalda accent och rubrikmodellens standardrubriker. Måtten står i docs/design/mallar-utbud-2-2026-11-16.md. Fotoplatserna visar en neutral platshållare; fotot är valbart i varje mall som har en plats. Numreringen fortsätter efter de befintliga 20 (1 till 20 i skiss-mallutbud-2026-11-16.html).</p>
+  <div class="regler">
+    <div class="regel"><b>14 i PDF och Word</b>Likadana i båda formaten. Bara Calibri, Arial, Verdana, Georgia, Garamond och Times New Roman. Spalter och delade huvuden är tabeller, linjer är styckekanter, ramen är sidkant, foton är ImageRun.</div>
+    <div class="regel"><b>6 bara PDF</b>Får Montserrat, Lora och IBM Plex Sans (nya, fritt licensierade) samt Lato och Open Sans, färgytor till kant, rutor och en sockel. Seriösa nog att skickas.</div>
+    <div class="regel"><b>Gäller alla</b>Namnet först i läsordningen, spärrning högst 0,16 em, poster delas inte vid sidbrytning, fyra accenter som klarar 5,9:1 på vitt och 6,7:1 för vit text, foto på eller av utan hål, rubriker och ordning ur rubrikmodellen.</div>
+  </div>
+  <div class="jamfor"><b>Jämförelse med de befintliga 20.</b> Kontaktarket nedan är de 20 mallar som är live (1 Linne till 20 Horisont, Erik Lindberg). Ingen av de 20 nya får vara en omfärgning av någon av dem. Bilden ligger i granskningsmappen C:\Users\chris\OneDrive\Skrivbord\CV-mallar-granskning\kontaktark.png och visas här om filen finns bredvid skissen.<img src="kontaktark.png" alt="Kontaktark över de 20 befintliga mallarna" loading="lazy" onerror="this.style.display='none'"></div>
+  <table class="oversikt"><thead><tr><th>Nr</th><th>Mall</th><th>Format</th><th>Foto</th><th>Formfamilj</th><th>Kort</th></tr></thead><tbody><tr><td>21</td><td><a href="#lind">Lind</a></td><td>PDF + Word</td><td>Nej</td><td>Enspaltig klassisk</td><td>Serif, utan linjer</td></tr><tr><td>22</td><td><a href="#alm">Alm</a></td><td>PDF + Word</td><td>Ja</td><td>Enspaltig med karaktär</td><td>Delat huvud, foto</td></tr><tr><td>23</td><td><a href="#valv">Valv</a></td><td>PDF + Word</td><td>Nej</td><td>Serif formell</td><td>Centrerad serif, linje efter rubrik</td></tr><tr><td>24</td><td><a href="#sand">Sand</a></td><td>PDF + Word</td><td>Ja</td><td>Sidospalt</td><td>Ljus högerpanel, foto</td></tr><tr><td>25</td><td><a href="#furu">Furu</a></td><td>PDF + Word</td><td>Nej</td><td>Marginalperioder</td><td>Årtalen till höger</td></tr><tr><td>26</td><td><a href="#ramverk">Ramverk</a></td><td>PDF + Word</td><td>Nej</td><td>Serif formell</td><td>Ram runt sidan</td></tr><tr><td>27</td><td><a href="#index">Index</a></td><td>PDF + Word</td><td>Nej</td><td>Enspaltig med karaktär</td><td>Numrerade avsnitt</td></tr><tr><td>28</td><td><a href="#skylt">Skylt</a></td><td>PDF + Word</td><td>Nej</td><td>Färgat huvud</td><td>Färgremsa och fyllda rubriker</td></tr><tr><td>29</td><td><a href="#loft">Loft</a></td><td>PDF + Word</td><td>Ja</td><td>Enspaltig klassisk</td><td>Luftig, stort namn, foto</td></tr><tr><td>30</td><td><a href="#pergament">Pergament</a></td><td>PDF + Word</td><td>Nej</td><td>Serif formell</td><td>Inramat huvud, serif</td></tr><tr><td>31</td><td><a href="#betong">Betong</a></td><td>PDF + Word</td><td>Ja</td><td>Färgat huvud</td><td>Grått band, foto vänster</td></tr><tr><td>32</td><td><a href="#not">Not</a></td><td>PDF + Word</td><td>Nej</td><td>Enspaltig kompakt</td><td>Kompakt, tre sidor på två</td></tr><tr><td>33</td><td><a href="#spar">Spår</a></td><td>PDF + Word</td><td>Nej</td><td>Marginalperioder</td><td>Prickad tidslinje</td></tr><tr><td>34</td><td><a href="#ek">Ek</a></td><td>PDF + Word</td><td>Ja</td><td>Sidospalt</td><td>Spalt med linje, stort foto</td></tr><tr><td>35</td><td><a href="#sockel">Sockel</a></td><td>Bara PDF</td><td>Nej</td><td>Konstnärlig</td><td>Mörk sockel nederst</td></tr><tr><td>36</td><td><a href="#panorama">Panorama</a></td><td>Bara PDF</td><td>Ja</td><td>Konstnärlig</td><td>Stående foto i bandet</td></tr><tr><td>37</td><td><a href="#sigill">Sigill</a></td><td>Bara PDF</td><td>Nej</td><td>Konstnärlig</td><td>Monogram, serif</td></tr><tr><td>38</td><td><a href="#kakel">Kakel</a></td><td>Bara PDF</td><td>Ja</td><td>Konstnärlig</td><td>Tonade rutor</td></tr><tr><td>39</td><td><a href="#kant">Kant</a></td><td>Bara PDF</td><td>Ja</td><td>Konstnärlig</td><td>Färgkant, foto över namnet</td></tr><tr><td>40</td><td><a href="#affisch">Affisch</a></td><td>Bara PDF</td><td>Nej</td><td>Konstnärlig</td><td>Namnet som affisch</td></tr></tbody></table>
+
+  <h2 class="grupp-rubrik">21 till 34: PDF och Word</h2>
+  <p class="grupp-ingress">Fjorton mallar som ser likadana ut i båda formaten. Nya huvudformer (delat huvud, remsa, ram, inramat huvud, ljust band med foto vänster, namn och kontakt på en rad), nya rubrikformer (understrykning, linje efter texten, högerställd, numrerad, fylld), perioden till höger i marginal, prickad tidslinje, foto i panel och i spalt, sidram.</p>
+  <div class="galleri"><article class="mall" id="lind">
+  <div class="etikett"><span class="nr">21</span><h3>Lind</h3><span class="niva premium">Premium</span><span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span><span class="familj">Enspaltig klassisk</span></div>
+  <div class="arkram"><div class="ark m-lind" style="--a:#3E5C3A;--ton:rgb(228,232,227)"><header class="huvud"><h1 class="namn">Amanda Sjöberg</h1><p class="titel">Redovisningsekonom</p><p class="kontakt">amanda.sjoberg@email.se<span class="mitt"> · </span>070-234 56 78<span class="mitt"> · </span>Göteborg<span class="mitt"> · </span>linkedin.com/in/amandasjoberg</p></header><section class="sektion sek-profil"><h2 class="rubrik"><span class="rtext">Profil</span></h2><p class="profil">Redovisningsekonom med åtta års erfarenhet av löpande bokföring, bokslut och koncernrapportering i tillverkande bolag och på byrå. Van att äga månadsbokslutet från avstämning till rapport, bygga rutiner som håller när volymerna växer och förklara siffrorna för chefer som inte är ekonomer. Auktoriserad redovisningskonsult sedan 2022.</p></section><section class="sektion sek-erf"><h2 class="rubrik"><span class="rtext">Arbetslivserfarenhet</span></h2><div class="post"><h3 class="posttitel">Redovisningsekonom</h3><p class="agrad"><span class="arbetsgivare">SKF Sverige AB</span><span class="mitt"> · </span><span class="period">2021 – Pågående</span></p><ul class="punkter"><li>Ansvarar för månads- och årsbokslut i två svenska bolag med 1,2 miljarder i omsättning</li><li>Kortade bokslutstiden från tolv till sju arbetsdagar med nya avstämningsrutiner</li><li>Rapporterar i koncernens system och samordnar revisionen med EY</li><li>Handleder två ekonomiassistenter och håller i introduktionen av nya kollegor</li></ul></div><div class="post"><h3 class="posttitel">Redovisningskonsult</h3><p class="agrad"><span class="arbetsgivare">Aspia</span><span class="mitt"> · </span><span class="period">2018 – 2021</span></p><ul class="punkter"><li>Skötte löpande redovisning, moms och bokslut för ett tjugotal kunder inom handel och bygg</li><li>Införde digitala leverantörsflöden i Fortnox hos nio kunder</li><li>Upprättade årsredovisningar enligt K2 och K3 samt deklarationer för aktiebolag</li></ul></div><div class="post"><h3 class="posttitel">Ekonomiassistent</h3><p class="agrad"><span class="arbetsgivare">Stena Line</span><span class="mitt"> · </span><span class="period">2016 – 2018</span></p><ul class="punkter"><li>Hanterade leverantörsreskontran med omkring 2 000 fakturor i månaden</li><li>Stämde av bank- och balanskonton inför varje månadsbokslut</li></ul></div></section><section class="sektion sek-utb"><h2 class="rubrik"><span class="rtext">Utbildning</span></h2><div class="post"><h3 class="posttitel">Ekonomie kandidat, redovisning</h3><p class="agrad"><span class="arbetsgivare">Handelshögskolan vid Göteborgs universitet</span><span class="mitt"> · </span><span class="period">2013 – 2016</span></p><p class="postdetalj">Kandidatuppsats om övergången till K3 i medelstora bolag</p></div></section><section class="sektion sek-komp"><h2 class="rubrik"><span class="rtext">Kompetenser</span></h2><p class="grupp"><b class="gruppnamn">Redovisning: </b>Månads- och årsbokslut, Koncernredovisning, K2 och K3, Moms och skatt, Kassaflödesanalys</p><p class="grupp"><b class="gruppnamn">System: </b>Fortnox, Visma.net, SAP FI, Excel och Power Query, Hogia</p></section><section class="sektion sek-intyg"><h2 class="rubrik"><span class="rtext">Certifieringar</span></h2><div class="cert"><span class="certnamn">Auktoriserad redovisningskonsult</span><span class="certmeta">Srf konsulterna<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">Certifierad byråpartner</span><span class="certmeta">Fortnox<span class="period"> 2020</span></span></div><div class="cert"><span class="certnamn">Visma.net Financials</span><span class="certmeta">Visma<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">Excel för ekonomer, avancerad</span><span class="certmeta">Learnesy<span class="period"> 2018</span></span></div></section><section class="sektion sek-sprak"><h2 class="rubrik"><span class="rtext">Språk</span></h2><p class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span><span class="mitt"> · </span><span><b>Tyska</b> Grundläggande</span></p></section></div></div>
+  <div class="under">
+    <p class="stil">Georgia-brödtext, små versala sans-rubriker utan linjer, en linje ovanför namnet och perioden efter arbetsgivaren. Lugn och boklig.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Georgia (brödtext, namn) + Calibri (titel, rubriker)</span></div>
+    <div class="rad"><span class="k">Foto</span><span>Ingen fotoplats</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#3E5C3A" title="#3E5C3A"></span><code>#3E5C3A</code><em>förval</em><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#7A1F2B" title="#7A1F2B"></span><code>#7A1F2B</code><span class="swatch" style="background:#3A3A3A" title="#3A3A3A"></span><code>#3A3A3A</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Serif, utan linjer"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>lång profiltext; den som vill ha serif utan att se formell ut</span></div>
+  </div>
+</article>
+<article class="mall" id="alm">
+  <div class="etikett"><span class="nr">22</span><h3>Alm</h3><span class="niva premium">Premium</span><span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span><span class="format">Foto</span><span class="familj">Enspaltig med karaktär</span></div>
+  <div class="arkram"><div class="ark m-alm" style="--a:#1A5A80;--ton:rgb(223,232,237)"><header class="huvud"><div class="foto foto-rundad" style="width:30mm;height:30mm;"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="38" r="19"/><path d="M14 96c0-22 16-36 36-36s36 14 36 36z"/></svg></div><div class="huvud-text"><h1 class="namn">Amanda Sjöberg</h1><p class="titel">Redovisningsekonom</p></div><ul class="kontaktlista"><li>amanda.sjoberg@email.se</li><li>070-234 56 78</li><li>Göteborg</li><li>linkedin.com/in/amandasjoberg</li></ul></header><section class="sektion sek-profil"><h2 class="rubrik"><span class="rtext">Profil</span></h2><p class="profil">Redovisningsekonom med åtta års erfarenhet av löpande bokföring, bokslut och koncernrapportering i tillverkande bolag och på byrå. Van att äga månadsbokslutet från avstämning till rapport, bygga rutiner som håller när volymerna växer och förklara siffrorna för chefer som inte är ekonomer. Auktoriserad redovisningskonsult sedan 2022.</p></section><section class="sektion sek-erf"><h2 class="rubrik"><span class="rtext">Arbetslivserfarenhet</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningsekonom</h3><span class="period">2021 – Pågående</span></div><p class="agrad"><span class="arbetsgivare">SKF Sverige AB</span></p><ul class="punkter"><li>Ansvarar för månads- och årsbokslut i två svenska bolag med 1,2 miljarder i omsättning</li><li>Kortade bokslutstiden från tolv till sju arbetsdagar med nya avstämningsrutiner</li><li>Rapporterar i koncernens system och samordnar revisionen med EY</li><li>Handleder två ekonomiassistenter och håller i introduktionen av nya kollegor</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningskonsult</h3><span class="period">2018 – 2021</span></div><p class="agrad"><span class="arbetsgivare">Aspia</span></p><ul class="punkter"><li>Skötte löpande redovisning, moms och bokslut för ett tjugotal kunder inom handel och bygg</li><li>Införde digitala leverantörsflöden i Fortnox hos nio kunder</li><li>Upprättade årsredovisningar enligt K2 och K3 samt deklarationer för aktiebolag</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomiassistent</h3><span class="period">2016 – 2018</span></div><p class="agrad"><span class="arbetsgivare">Stena Line</span></p><ul class="punkter"><li>Hanterade leverantörsreskontran med omkring 2 000 fakturor i månaden</li><li>Stämde av bank- och balanskonton inför varje månadsbokslut</li></ul></div></section><section class="sektion sek-utb"><h2 class="rubrik"><span class="rtext">Utbildning</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomie kandidat, redovisning</h3><span class="period">2013 – 2016</span></div><p class="agrad"><span class="arbetsgivare">Handelshögskolan vid Göteborgs universitet</span></p><p class="postdetalj">Kandidatuppsats om övergången till K3 i medelstora bolag</p></div></section><section class="sektion sek-komp"><h2 class="rubrik"><span class="rtext">Kompetenser</span></h2><p class="grupp"><b class="gruppnamn">Redovisning: </b>Månads- och årsbokslut, Koncernredovisning, K2 och K3, Moms och skatt, Kassaflödesanalys</p><p class="grupp"><b class="gruppnamn">System: </b>Fortnox, Visma.net, SAP FI, Excel och Power Query, Hogia</p></section><section class="sektion sek-intyg"><h2 class="rubrik"><span class="rtext">Certifieringar</span></h2><div class="cert"><span class="certnamn">Auktoriserad redovisningskonsult</span><span class="certmeta">Srf konsulterna<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">Certifierad byråpartner</span><span class="certmeta">Fortnox<span class="period"> 2020</span></span></div><div class="cert"><span class="certnamn">Visma.net Financials</span><span class="certmeta">Visma<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">Excel för ekonomer, avancerad</span><span class="certmeta">Learnesy<span class="period"> 2018</span></span></div></section><section class="sektion sek-sprak"><h2 class="rubrik"><span class="rtext">Språk</span></h2><p class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span><span class="mitt"> · </span><span><b>Tyska</b> Grundläggande</span></p></section></div></div>
+  <div class="under">
+    <p class="stil">Delat huvud: rundat kvadratiskt foto och namn till vänster, kontakten som högerställd lista; 1,5 pt accentlinje under huvudet; rubriker med understrykning bara under texten.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Calibri (allt)</span></div>
+    <div class="rad"><span class="k">Foto</span><span>rundad kvadrat 30 mm, vänster i huvudet</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#1A5A80" title="#1A5A80"></span><code>#1A5A80</code><em>förval</em><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code><span class="swatch" style="background:#8A4B2A" title="#8A4B2A"></span><code>#8A4B2A</code><span class="swatch" style="background:#2B2F36" title="#2B2F36"></span><code>#2B2F36</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Delat huvud, foto"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>foto finns; kort eller normalt CV; vill ha luft i huvudet</span></div>
+  </div>
+</article>
+<article class="mall" id="valv">
+  <div class="etikett"><span class="nr">23</span><h3>Valv</h3><span class="niva premium">Premium</span><span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span><span class="familj">Serif formell</span></div>
+  <div class="arkram"><div class="ark m-valv" style="--a:#5B2A4E;--ton:rgb(232,225,230)"><header class="huvud"><h1 class="namn">Amanda Sjöberg</h1><p class="titel">Redovisningsekonom</p><p class="kontakt">amanda.sjoberg@email.se<span class="mitt"> · </span>070-234 56 78<span class="mitt"> · </span>Göteborg<span class="mitt"> · </span>linkedin.com/in/amandasjoberg</p></header><section class="sektion sek-profil"><h2 class="rubrik"><span class="rtext">Profil</span></h2><p class="profil">Redovisningsekonom med åtta års erfarenhet av löpande bokföring, bokslut och koncernrapportering i tillverkande bolag och på byrå. Van att äga månadsbokslutet från avstämning till rapport, bygga rutiner som håller när volymerna växer och förklara siffrorna för chefer som inte är ekonomer. Auktoriserad redovisningskonsult sedan 2022.</p></section><section class="sektion sek-erf"><h2 class="rubrik"><span class="rtext">Arbetslivserfarenhet</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningsekonom</h3><span class="period">2021 – Pågående</span></div><p class="agrad"><span class="arbetsgivare">SKF Sverige AB</span></p><ul class="punkter"><li>Ansvarar för månads- och årsbokslut i två svenska bolag med 1,2 miljarder i omsättning</li><li>Kortade bokslutstiden från tolv till sju arbetsdagar med nya avstämningsrutiner</li><li>Rapporterar i koncernens system och samordnar revisionen med EY</li><li>Handleder två ekonomiassistenter och håller i introduktionen av nya kollegor</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningskonsult</h3><span class="period">2018 – 2021</span></div><p class="agrad"><span class="arbetsgivare">Aspia</span></p><ul class="punkter"><li>Skötte löpande redovisning, moms och bokslut för ett tjugotal kunder inom handel och bygg</li><li>Införde digitala leverantörsflöden i Fortnox hos nio kunder</li><li>Upprättade årsredovisningar enligt K2 och K3 samt deklarationer för aktiebolag</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomiassistent</h3><span class="period">2016 – 2018</span></div><p class="agrad"><span class="arbetsgivare">Stena Line</span></p><ul class="punkter"><li>Hanterade leverantörsreskontran med omkring 2 000 fakturor i månaden</li><li>Stämde av bank- och balanskonton inför varje månadsbokslut</li></ul></div></section><section class="sektion sek-utb"><h2 class="rubrik"><span class="rtext">Utbildning</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomie kandidat, redovisning</h3><span class="period">2013 – 2016</span></div><p class="agrad"><span class="arbetsgivare">Handelshögskolan vid Göteborgs universitet</span></p><p class="postdetalj">Kandidatuppsats om övergången till K3 i medelstora bolag</p></div></section><section class="sektion sek-komp"><h2 class="rubrik"><span class="rtext">Kompetenser</span></h2><p class="grupp"><b class="gruppnamn">Redovisning: </b>Månads- och årsbokslut, Koncernredovisning, K2 och K3, Moms och skatt, Kassaflödesanalys</p><p class="grupp"><b class="gruppnamn">System: </b>Fortnox, Visma.net, SAP FI, Excel och Power Query, Hogia</p></section><section class="sektion sek-intyg"><h2 class="rubrik"><span class="rtext">Certifieringar</span></h2><div class="cert"><span class="certnamn">Auktoriserad redovisningskonsult</span><span class="certmeta">Srf konsulterna<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">Certifierad byråpartner</span><span class="certmeta">Fortnox<span class="period"> 2020</span></span></div><div class="cert"><span class="certnamn">Visma.net Financials</span><span class="certmeta">Visma<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">Excel för ekonomer, avancerad</span><span class="certmeta">Learnesy<span class="period"> 2018</span></span></div></section><section class="sektion sek-sprak"><h2 class="rubrik"><span class="rtext">Språk</span></h2><p class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span><span class="mitt"> · </span><span><b>Tyska</b> Grundläggande</span></p></section></div></div>
+  <div class="under">
+    <p class="stil">Centrerat huvud med en kort accentlinje under kontakten, rubriker i Georgia med en hårlinje som fortsätter efter texten till högermarginalen, perioden kursiv.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Georgia (allt)</span></div>
+    <div class="rad"><span class="k">Foto</span><span>Ingen fotoplats</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#5B2A4E" title="#5B2A4E"></span><code>#5B2A4E</code><em>förval</em><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code><span class="swatch" style="background:#3A3A3A" title="#3A3A3A"></span><code>#3A3A3A</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Centrerad serif, linje efter rubrik"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>formellt sammanhang utan att vara Times; flera utbildningar</span></div>
+  </div>
+</article>
+<article class="mall" id="sand">
+  <div class="etikett"><span class="nr">24</span><h3>Sand</h3><span class="niva premium">Premium</span><span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span><span class="format">Foto</span><span class="familj">Sidospalt</span></div>
+  <div class="arkram"><div class="ark m-sand" style="--a:#7A4A1F;--ton:rgb(236,230,224)"><header class="huvud"><h1 class="namn">Amanda Sjöberg</h1><p class="titel">Redovisningsekonom</p></header><div class="spalter"><div class="huvudspalt"><section class="sektion sek-profil"><h2 class="rubrik"><span class="rtext">Profil</span></h2><p class="profil">Redovisningsekonom med åtta års erfarenhet av löpande bokföring, bokslut och koncernrapportering i tillverkande bolag och på byrå. Van att äga månadsbokslutet från avstämning till rapport, bygga rutiner som håller när volymerna växer och förklara siffrorna för chefer som inte är ekonomer. Auktoriserad redovisningskonsult sedan 2022.</p></section><section class="sektion sek-erf"><h2 class="rubrik"><span class="rtext">Arbetslivserfarenhet</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningsekonom</h3><span class="period">2021 – Pågående</span></div><p class="agrad"><span class="arbetsgivare">SKF Sverige AB</span></p><ul class="punkter"><li>Ansvarar för månads- och årsbokslut i två svenska bolag med 1,2 miljarder i omsättning</li><li>Kortade bokslutstiden från tolv till sju arbetsdagar med nya avstämningsrutiner</li><li>Rapporterar i koncernens system och samordnar revisionen med EY</li><li>Handleder två ekonomiassistenter och håller i introduktionen av nya kollegor</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningskonsult</h3><span class="period">2018 – 2021</span></div><p class="agrad"><span class="arbetsgivare">Aspia</span></p><ul class="punkter"><li>Skötte löpande redovisning, moms och bokslut för ett tjugotal kunder inom handel och bygg</li><li>Införde digitala leverantörsflöden i Fortnox hos nio kunder</li><li>Upprättade årsredovisningar enligt K2 och K3 samt deklarationer för aktiebolag</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomiassistent</h3><span class="period">2016 – 2018</span></div><p class="agrad"><span class="arbetsgivare">Stena Line</span></p><ul class="punkter"><li>Hanterade leverantörsreskontran med omkring 2 000 fakturor i månaden</li><li>Stämde av bank- och balanskonton inför varje månadsbokslut</li></ul></div></section><section class="sektion sek-utb"><h2 class="rubrik"><span class="rtext">Utbildning</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomie kandidat, redovisning</h3><span class="period">2013 – 2016</span></div><p class="agrad"><span class="arbetsgivare">Handelshögskolan vid Göteborgs universitet</span></p><p class="postdetalj">Kandidatuppsats om övergången till K3 i medelstora bolag</p></div></section><section class="sektion sek-intyg"><h2 class="rubrik"><span class="rtext">Certifieringar</span></h2><div class="cert"><span class="certnamn">Auktoriserad redovisningskonsult</span><span class="certmeta">Srf konsulterna<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">Certifierad byråpartner</span><span class="certmeta">Fortnox<span class="period"> 2020</span></span></div><div class="cert"><span class="certnamn">Visma.net Financials</span><span class="certmeta">Visma<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">Excel för ekonomer, avancerad</span><span class="certmeta">Learnesy<span class="period"> 2018</span></span></div></section></div><aside class="spalt"><div class="foto foto-rund" style="width:34mm;height:34mm;"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="38" r="19"/><path d="M14 96c0-22 16-36 36-36s36 14 36 36z"/></svg></div><section class="sektion sek-kontakt"><h2 class="rubrik"><span class="rtext">Kontakt</span></h2><ul class="kontaktlista"><li>amanda.sjoberg@email.se</li><li>070-234 56 78</li><li>Göteborg</li><li>linkedin.com/in/amandasjoberg</li></ul></section><section class="sektion sek-komp"><h2 class="rubrik"><span class="rtext">Kompetenser</span></h2><div class="grupp"><b class="gruppnamn">Redovisning</b><ul class="lista"><li>Månads- och årsbokslut</li><li>Koncernredovisning</li><li>K2 och K3</li><li>Moms och skatt</li><li>Kassaflödesanalys</li></ul></div><div class="grupp"><b class="gruppnamn">System</b><ul class="lista"><li>Fortnox</li><li>Visma.net</li><li>SAP FI</li><li>Excel och Power Query</li><li>Hogia</li></ul></div></section><section class="sektion sek-sprak"><h2 class="rubrik"><span class="rtext">Språk</span></h2><ul class="spraklista"><li><span class="sprak">Svenska</span><span class="niva">Modersmål</span></li><li><span class="sprak">Engelska</span><span class="niva">Flytande</span></li><li><span class="sprak">Tyska</span><span class="niva">Grundläggande</span></li></ul></section></aside></div></div></div>
+  <div class="under">
+    <p class="stil">Sandfärgad högerpanel med runt foto överst, kontakt, kompetenser och språk; huvudspalten med versala accentrubriker utan linjer och hårlinjer mellan posterna.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Calibri (allt)</span></div>
+    <div class="rad"><span class="k">Foto</span><span>rund 34 mm, överst i panelen</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#7A4A1F" title="#7A4A1F"></span><code>#7A4A1F</code><em>förval</em><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code><span class="swatch" style="background:#4A5561" title="#4A5561"></span><code>#4A5561</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Ljus högerpanel, foto"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>foto finns; många kompetenser; vill ha panelen till höger</span></div>
+  </div>
+</article>
+<article class="mall" id="furu">
+  <div class="etikett"><span class="nr">25</span><h3>Furu</h3><span class="niva premium">Premium</span><span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span><span class="familj">Marginalperioder</span></div>
+  <div class="arkram"><div class="ark m-furu" style="--a:#355E3B;--ton:rgb(227,232,228)"><header class="huvud"><h1 class="namn">Amanda Sjöberg</h1><p class="titel">Redovisningsekonom</p><p class="kontakt">amanda.sjoberg@email.se<span class="mitt"> · </span>070-234 56 78<span class="mitt"> · </span>Göteborg<span class="mitt"> · </span>linkedin.com/in/amandasjoberg</p></header><section class="sektion sek-profil"><h2 class="rubrik"><span class="rtext">Profil</span></h2><p class="profil">Redovisningsekonom med åtta års erfarenhet av löpande bokföring, bokslut och koncernrapportering i tillverkande bolag och på byrå. Van att äga månadsbokslutet från avstämning till rapport, bygga rutiner som håller när volymerna växer och förklara siffrorna för chefer som inte är ekonomer. Auktoriserad redovisningskonsult sedan 2022.</p></section><section class="sektion sek-erf"><h2 class="rubrik"><span class="rtext">Arbetslivserfarenhet</span></h2><div class="post post-marg"><div class="marg"><span class="period">2021 – Pågående</span></div><div class="postinner"><h3 class="posttitel">Redovisningsekonom</h3><p class="agrad"><span class="arbetsgivare">SKF Sverige AB</span></p><ul class="punkter"><li>Ansvarar för månads- och årsbokslut i två svenska bolag med 1,2 miljarder i omsättning</li><li>Kortade bokslutstiden från tolv till sju arbetsdagar med nya avstämningsrutiner</li><li>Rapporterar i koncernens system och samordnar revisionen med EY</li><li>Handleder två ekonomiassistenter och håller i introduktionen av nya kollegor</li></ul></div></div><div class="post post-marg"><div class="marg"><span class="period">2018 – 2021</span></div><div class="postinner"><h3 class="posttitel">Redovisningskonsult</h3><p class="agrad"><span class="arbetsgivare">Aspia</span></p><ul class="punkter"><li>Skötte löpande redovisning, moms och bokslut för ett tjugotal kunder inom handel och bygg</li><li>Införde digitala leverantörsflöden i Fortnox hos nio kunder</li><li>Upprättade årsredovisningar enligt K2 och K3 samt deklarationer för aktiebolag</li></ul></div></div><div class="post post-marg"><div class="marg"><span class="period">2016 – 2018</span></div><div class="postinner"><h3 class="posttitel">Ekonomiassistent</h3><p class="agrad"><span class="arbetsgivare">Stena Line</span></p><ul class="punkter"><li>Hanterade leverantörsreskontran med omkring 2 000 fakturor i månaden</li><li>Stämde av bank- och balanskonton inför varje månadsbokslut</li></ul></div></div></section><section class="sektion sek-utb"><h2 class="rubrik"><span class="rtext">Utbildning</span></h2><div class="post post-marg"><div class="marg"><span class="period">2013 – 2016</span></div><div class="postinner"><h3 class="posttitel">Ekonomie kandidat, redovisning</h3><p class="agrad"><span class="arbetsgivare">Handelshögskolan vid Göteborgs universitet</span></p><p class="postdetalj">Kandidatuppsats om övergången till K3 i medelstora bolag</p></div></div></section><section class="sektion sek-komp"><h2 class="rubrik"><span class="rtext">Kompetenser</span></h2><p class="grupp"><b class="gruppnamn">Redovisning: </b>Månads- och årsbokslut, Koncernredovisning, K2 och K3, Moms och skatt, Kassaflödesanalys</p><p class="grupp"><b class="gruppnamn">System: </b>Fortnox, Visma.net, SAP FI, Excel och Power Query, Hogia</p></section><section class="sektion sek-intyg"><h2 class="rubrik"><span class="rtext">Certifieringar</span></h2><div class="post post-marg cert"><div class="marg"><span class="period">2022</span></div><div class="postinner"><span class="certnamn">Auktoriserad redovisningskonsult</span><span class="certmeta"> Srf konsulterna</span></div></div><div class="post post-marg cert"><div class="marg"><span class="period">2020</span></div><div class="postinner"><span class="certnamn">Certifierad byråpartner</span><span class="certmeta"> Fortnox</span></div></div><div class="post post-marg cert"><div class="marg"><span class="period">2019</span></div><div class="postinner"><span class="certnamn">Visma.net Financials</span><span class="certmeta"> Visma</span></div></div><div class="post post-marg cert"><div class="marg"><span class="period">2018</span></div><div class="postinner"><span class="certnamn">Excel för ekonomer, avancerad</span><span class="certmeta"> Learnesy</span></div></div></section><section class="sektion sek-sprak"><h2 class="rubrik"><span class="rtext">Språk</span></h2><p class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span><span class="mitt"> · </span><span><b>Tyska</b> Grundläggande</span></p></section></div></div>
+  <div class="under">
+    <p class="stil">Perioderna i en 30 mm högerkolumn, högerställda i grått; rubriker i accent med linje under över hela bredden. Årtalen står där ögat söker dem, utan tidslinje.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Arial (allt)</span></div>
+    <div class="rad"><span class="k">Foto</span><span>Ingen fotoplats</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#355E3B" title="#355E3B"></span><code>#355E3B</code><em>förval</em><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#8A4B2A" title="#8A4B2A"></span><code>#8A4B2A</code><span class="swatch" style="background:#2B2F36" title="#2B2F36"></span><code>#2B2F36</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Årtalen till höger"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>lång karriär; den som vill ha årtalen tydliga men ingen tidslinje</span></div>
+  </div>
+</article>
+<article class="mall" id="ramverk">
+  <div class="etikett"><span class="nr">26</span><h3>Ramverk</h3><span class="niva premium">Premium</span><span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span><span class="familj">Serif formell</span></div>
+  <div class="arkram"><div class="ark m-ramverk" style="--a:#4B3F72;--ton:rgb(230,228,235)"><header class="huvud"><h1 class="namn">Amanda Sjöberg</h1><p class="titel">Redovisningsekonom</p><p class="kontakt">amanda.sjoberg@email.se<span class="mitt"> · </span>070-234 56 78<span class="mitt"> · </span>Göteborg<span class="mitt"> · </span>linkedin.com/in/amandasjoberg</p></header><section class="sektion sek-profil"><h2 class="rubrik"><span class="rtext">Profil</span></h2><p class="profil">Redovisningsekonom med åtta års erfarenhet av löpande bokföring, bokslut och koncernrapportering i tillverkande bolag och på byrå. Van att äga månadsbokslutet från avstämning till rapport, bygga rutiner som håller när volymerna växer och förklara siffrorna för chefer som inte är ekonomer. Auktoriserad redovisningskonsult sedan 2022.</p></section><section class="sektion sek-erf"><h2 class="rubrik"><span class="rtext">Arbetslivserfarenhet</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningsekonom</h3><span class="period">2021 – Pågående</span></div><p class="agrad"><span class="arbetsgivare">SKF Sverige AB</span></p><ul class="punkter"><li>Ansvarar för månads- och årsbokslut i två svenska bolag med 1,2 miljarder i omsättning</li><li>Kortade bokslutstiden från tolv till sju arbetsdagar med nya avstämningsrutiner</li><li>Rapporterar i koncernens system och samordnar revisionen med EY</li><li>Handleder två ekonomiassistenter och håller i introduktionen av nya kollegor</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningskonsult</h3><span class="period">2018 – 2021</span></div><p class="agrad"><span class="arbetsgivare">Aspia</span></p><ul class="punkter"><li>Skötte löpande redovisning, moms och bokslut för ett tjugotal kunder inom handel och bygg</li><li>Införde digitala leverantörsflöden i Fortnox hos nio kunder</li><li>Upprättade årsredovisningar enligt K2 och K3 samt deklarationer för aktiebolag</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomiassistent</h3><span class="period">2016 – 2018</span></div><p class="agrad"><span class="arbetsgivare">Stena Line</span></p><ul class="punkter"><li>Hanterade leverantörsreskontran med omkring 2 000 fakturor i månaden</li><li>Stämde av bank- och balanskonton inför varje månadsbokslut</li></ul></div></section><section class="sektion sek-utb"><h2 class="rubrik"><span class="rtext">Utbildning</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomie kandidat, redovisning</h3><span class="period">2013 – 2016</span></div><p class="agrad"><span class="arbetsgivare">Handelshögskolan vid Göteborgs universitet</span></p><p class="postdetalj">Kandidatuppsats om övergången till K3 i medelstora bolag</p></div></section><section class="sektion sek-komp"><h2 class="rubrik"><span class="rtext">Kompetenser</span></h2><p class="grupp"><b class="gruppnamn">Redovisning: </b>Månads- och årsbokslut, Koncernredovisning, K2 och K3, Moms och skatt, Kassaflödesanalys</p><p class="grupp"><b class="gruppnamn">System: </b>Fortnox, Visma.net, SAP FI, Excel och Power Query, Hogia</p></section><section class="sektion sek-intyg"><h2 class="rubrik"><span class="rtext">Certifieringar</span></h2><div class="cert"><span class="certnamn">Auktoriserad redovisningskonsult</span><span class="certmeta">Srf konsulterna<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">Certifierad byråpartner</span><span class="certmeta">Fortnox<span class="period"> 2020</span></span></div><div class="cert"><span class="certnamn">Visma.net Financials</span><span class="certmeta">Visma<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">Excel för ekonomer, avancerad</span><span class="certmeta">Learnesy<span class="period"> 2018</span></span></div></section><section class="sektion sek-sprak"><h2 class="rubrik"><span class="rtext">Språk</span></h2><p class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span><span class="mitt"> · </span><span><b>Tyska</b> Grundläggande</span></p></section></div></div>
+  <div class="under">
+    <p class="stil">En 0,5 pt ram runt hela sidan 8 mm innanför kanten, på varje sida. Centrerat Garamond-namn, versala spärrade rubriker, inga andra linjer.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Garamond (allt)</span></div>
+    <div class="rad"><span class="k">Foto</span><span>Ingen fotoplats</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#4B3F72" title="#4B3F72"></span><code>#4B3F72</code><em>förval</em><span class="swatch" style="background:#7A1F2B" title="#7A1F2B"></span><code>#7A1F2B</code><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Ram runt sidan"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>formellt sammanhang; den som vill ha något klassiskt som ändå syns</span></div>
+  </div>
+</article>
+<article class="mall" id="index">
+  <div class="etikett"><span class="nr">27</span><h3>Index</h3><span class="niva premium">Premium</span><span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span><span class="familj">Enspaltig med karaktär</span></div>
+  <div class="arkram"><div class="ark m-index" style="--a:#0B525B;--ton:rgb(221,231,232)"><header class="huvud"><h1 class="namn">Amanda Sjöberg</h1><p class="titel">Redovisningsekonom</p><p class="kontakt">amanda.sjoberg@email.se<span class="mitt"> · </span>070-234 56 78<span class="mitt"> · </span>Göteborg<span class="mitt"> · </span>linkedin.com/in/amandasjoberg</p></header><section class="sektion sek-profil"><h2 class="rubrik"><span class="nr">01</span><span class="rtext">Profil</span></h2><p class="profil">Redovisningsekonom med åtta års erfarenhet av löpande bokföring, bokslut och koncernrapportering i tillverkande bolag och på byrå. Van att äga månadsbokslutet från avstämning till rapport, bygga rutiner som håller när volymerna växer och förklara siffrorna för chefer som inte är ekonomer. Auktoriserad redovisningskonsult sedan 2022.</p></section><section class="sektion sek-erf"><h2 class="rubrik"><span class="nr">02</span><span class="rtext">Arbetslivserfarenhet</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningsekonom</h3><span class="period">2021 – Pågående</span></div><p class="agrad"><span class="arbetsgivare">SKF Sverige AB</span></p><ul class="punkter"><li>Ansvarar för månads- och årsbokslut i två svenska bolag med 1,2 miljarder i omsättning</li><li>Kortade bokslutstiden från tolv till sju arbetsdagar med nya avstämningsrutiner</li><li>Rapporterar i koncernens system och samordnar revisionen med EY</li><li>Handleder två ekonomiassistenter och håller i introduktionen av nya kollegor</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningskonsult</h3><span class="period">2018 – 2021</span></div><p class="agrad"><span class="arbetsgivare">Aspia</span></p><ul class="punkter"><li>Skötte löpande redovisning, moms och bokslut för ett tjugotal kunder inom handel och bygg</li><li>Införde digitala leverantörsflöden i Fortnox hos nio kunder</li><li>Upprättade årsredovisningar enligt K2 och K3 samt deklarationer för aktiebolag</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomiassistent</h3><span class="period">2016 – 2018</span></div><p class="agrad"><span class="arbetsgivare">Stena Line</span></p><ul class="punkter"><li>Hanterade leverantörsreskontran med omkring 2 000 fakturor i månaden</li><li>Stämde av bank- och balanskonton inför varje månadsbokslut</li></ul></div></section><section class="sektion sek-utb"><h2 class="rubrik"><span class="nr">03</span><span class="rtext">Utbildning</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomie kandidat, redovisning</h3><span class="period">2013 – 2016</span></div><p class="agrad"><span class="arbetsgivare">Handelshögskolan vid Göteborgs universitet</span></p><p class="postdetalj">Kandidatuppsats om övergången till K3 i medelstora bolag</p></div></section><section class="sektion sek-komp"><h2 class="rubrik"><span class="nr">04</span><span class="rtext">Kompetenser</span></h2><p class="grupp"><b class="gruppnamn">Redovisning: </b>Månads- och årsbokslut, Koncernredovisning, K2 och K3, Moms och skatt, Kassaflödesanalys</p><p class="grupp"><b class="gruppnamn">System: </b>Fortnox, Visma.net, SAP FI, Excel och Power Query, Hogia</p></section><section class="sektion sek-intyg"><h2 class="rubrik"><span class="nr">05</span><span class="rtext">Certifieringar</span></h2><div class="cert"><span class="certnamn">Auktoriserad redovisningskonsult</span><span class="certmeta">Srf konsulterna<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">Certifierad byråpartner</span><span class="certmeta">Fortnox<span class="period"> 2020</span></span></div><div class="cert"><span class="certnamn">Visma.net Financials</span><span class="certmeta">Visma<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">Excel för ekonomer, avancerad</span><span class="certmeta">Learnesy<span class="period"> 2018</span></span></div></section><section class="sektion sek-sprak"><h2 class="rubrik"><span class="nr">06</span><span class="rtext">Språk</span></h2><p class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span><span class="mitt"> · </span><span><b>Tyska</b> Grundläggande</span></p></section></div></div>
+  <div class="under">
+    <p class="stil">Numrerade avsnitt: en Georgia-siffra i accent, 18 pt, före varje versal rubrik, hårlinje under. Georgia-namn med linje under huvudet.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Calibri (brödtext, rubriker) + Georgia (namn, siffror)</span></div>
+    <div class="rad"><span class="k">Foto</span><span>Ingen fotoplats</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#0B525B" title="#0B525B"></span><code>#0B525B</code><em>förval</em><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#7A1F2B" title="#7A1F2B"></span><code>#7A1F2B</code><span class="swatch" style="background:#3A3A3A" title="#3A3A3A"></span><code>#3A3A3A</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Numrerade avsnitt"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>många avsnitt; strukturerad känsla utan spalter</span></div>
+  </div>
+</article>
+<article class="mall" id="skylt">
+  <div class="etikett"><span class="nr">28</span><h3>Skylt</h3><span class="niva premium">Premium</span><span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span><span class="familj">Färgat huvud</span></div>
+  <div class="arkram"><div class="ark m-skylt" style="--a:#2F4858;--ton:rgb(226,229,232)"><div class="remsa"><p class="kontakt">amanda.sjoberg@email.se<span class="mitt"> · </span>070-234 56 78<span class="mitt"> · </span>Göteborg<span class="mitt"> · </span>linkedin.com/in/amandasjoberg</p></div><header class="huvud"><h1 class="namn">Amanda Sjöberg</h1><p class="titel">Redovisningsekonom</p></header><section class="sektion sek-profil"><h2 class="rubrik"><span class="rtext">Profil</span></h2><p class="profil">Redovisningsekonom med åtta års erfarenhet av löpande bokföring, bokslut och koncernrapportering i tillverkande bolag och på byrå. Van att äga månadsbokslutet från avstämning till rapport, bygga rutiner som håller när volymerna växer och förklara siffrorna för chefer som inte är ekonomer. Auktoriserad redovisningskonsult sedan 2022.</p></section><section class="sektion sek-erf"><h2 class="rubrik"><span class="rtext">Arbetslivserfarenhet</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningsekonom</h3><span class="period">2021 – Pågående</span></div><p class="agrad"><span class="arbetsgivare">SKF Sverige AB</span></p><ul class="punkter"><li>Ansvarar för månads- och årsbokslut i två svenska bolag med 1,2 miljarder i omsättning</li><li>Kortade bokslutstiden från tolv till sju arbetsdagar med nya avstämningsrutiner</li><li>Rapporterar i koncernens system och samordnar revisionen med EY</li><li>Handleder två ekonomiassistenter och håller i introduktionen av nya kollegor</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningskonsult</h3><span class="period">2018 – 2021</span></div><p class="agrad"><span class="arbetsgivare">Aspia</span></p><ul class="punkter"><li>Skötte löpande redovisning, moms och bokslut för ett tjugotal kunder inom handel och bygg</li><li>Införde digitala leverantörsflöden i Fortnox hos nio kunder</li><li>Upprättade årsredovisningar enligt K2 och K3 samt deklarationer för aktiebolag</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomiassistent</h3><span class="period">2016 – 2018</span></div><p class="agrad"><span class="arbetsgivare">Stena Line</span></p><ul class="punkter"><li>Hanterade leverantörsreskontran med omkring 2 000 fakturor i månaden</li><li>Stämde av bank- och balanskonton inför varje månadsbokslut</li></ul></div></section><section class="sektion sek-utb"><h2 class="rubrik"><span class="rtext">Utbildning</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomie kandidat, redovisning</h3><span class="period">2013 – 2016</span></div><p class="agrad"><span class="arbetsgivare">Handelshögskolan vid Göteborgs universitet</span></p><p class="postdetalj">Kandidatuppsats om övergången till K3 i medelstora bolag</p></div></section><section class="sektion sek-komp"><h2 class="rubrik"><span class="rtext">Kompetenser</span></h2><p class="grupp"><b class="gruppnamn">Redovisning: </b>Månads- och årsbokslut, Koncernredovisning, K2 och K3, Moms och skatt, Kassaflödesanalys</p><p class="grupp"><b class="gruppnamn">System: </b>Fortnox, Visma.net, SAP FI, Excel och Power Query, Hogia</p></section><section class="sektion sek-intyg"><h2 class="rubrik"><span class="rtext">Certifieringar</span></h2><div class="cert"><span class="certnamn">Auktoriserad redovisningskonsult</span><span class="certmeta">Srf konsulterna<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">Certifierad byråpartner</span><span class="certmeta">Fortnox<span class="period"> 2020</span></span></div><div class="cert"><span class="certnamn">Visma.net Financials</span><span class="certmeta">Visma<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">Excel för ekonomer, avancerad</span><span class="certmeta">Learnesy<span class="period"> 2018</span></span></div></section><section class="sektion sek-sprak"><h2 class="rubrik"><span class="rtext">Språk</span></h2><p class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span><span class="mitt"> · </span><span><b>Tyska</b> Grundläggande</span></p></section></div></div>
+  <div class="under">
+    <p class="stil">En smal accentremsa överst på sidan med kontakten i vitt, stort namn på vitt under, och rubrikerna som fyllda accentband med vit text.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Arial (allt)</span></div>
+    <div class="rad"><span class="k">Foto</span><span>Ingen fotoplats</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#2F4858" title="#2F4858"></span><code>#2F4858</code><em>förval</em><span class="swatch" style="background:#7A1F2B" title="#7A1F2B"></span><code>#7A1F2B</code><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Färgremsa och fyllda rubriker"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>vill synas utan foto; kort eller normalt CV</span></div>
+  </div>
+</article>
+<article class="mall" id="loft">
+  <div class="etikett"><span class="nr">29</span><h3>Loft</h3><span class="niva premium">Premium</span><span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span><span class="format">Foto</span><span class="familj">Enspaltig klassisk</span></div>
+  <div class="arkram"><div class="ark m-loft" style="--a:#704214;--ton:rgb(235,229,222)"><header class="huvud"><div class="huvud-text"><h1 class="namn">Amanda Sjöberg</h1><p class="titel">Redovisningsekonom</p><p class="kontakt">amanda.sjoberg@email.se<span class="mitt"> · </span>070-234 56 78<span class="mitt"> · </span>Göteborg<span class="mitt"> · </span>linkedin.com/in/amandasjoberg</p></div><div class="foto foto-rund" style="width:32mm;height:32mm;"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="38" r="19"/><path d="M14 96c0-22 16-36 36-36s36 14 36 36z"/></svg></div></header><section class="sektion sek-profil"><h2 class="rubrik"><span class="rtext">Profil</span></h2><p class="profil">Redovisningsekonom med åtta års erfarenhet av löpande bokföring, bokslut och koncernrapportering i tillverkande bolag och på byrå. Van att äga månadsbokslutet från avstämning till rapport, bygga rutiner som håller när volymerna växer och förklara siffrorna för chefer som inte är ekonomer. Auktoriserad redovisningskonsult sedan 2022.</p></section><section class="sektion sek-erf"><h2 class="rubrik"><span class="rtext">Arbetslivserfarenhet</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningsekonom</h3><span class="period">2021 – Pågående</span></div><p class="agrad"><span class="arbetsgivare">SKF Sverige AB</span></p><ul class="punkter"><li>Ansvarar för månads- och årsbokslut i två svenska bolag med 1,2 miljarder i omsättning</li><li>Kortade bokslutstiden från tolv till sju arbetsdagar med nya avstämningsrutiner</li><li>Rapporterar i koncernens system och samordnar revisionen med EY</li><li>Handleder två ekonomiassistenter och håller i introduktionen av nya kollegor</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningskonsult</h3><span class="period">2018 – 2021</span></div><p class="agrad"><span class="arbetsgivare">Aspia</span></p><ul class="punkter"><li>Skötte löpande redovisning, moms och bokslut för ett tjugotal kunder inom handel och bygg</li><li>Införde digitala leverantörsflöden i Fortnox hos nio kunder</li><li>Upprättade årsredovisningar enligt K2 och K3 samt deklarationer för aktiebolag</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomiassistent</h3><span class="period">2016 – 2018</span></div><p class="agrad"><span class="arbetsgivare">Stena Line</span></p><ul class="punkter"><li>Hanterade leverantörsreskontran med omkring 2 000 fakturor i månaden</li><li>Stämde av bank- och balanskonton inför varje månadsbokslut</li></ul></div></section><section class="sektion sek-utb"><h2 class="rubrik"><span class="rtext">Utbildning</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomie kandidat, redovisning</h3><span class="period">2013 – 2016</span></div><p class="agrad"><span class="arbetsgivare">Handelshögskolan vid Göteborgs universitet</span></p><p class="postdetalj">Kandidatuppsats om övergången till K3 i medelstora bolag</p></div></section><section class="sektion sek-komp"><h2 class="rubrik"><span class="rtext">Kompetenser</span></h2><p class="grupp"><b class="gruppnamn">Redovisning: </b>Månads- och årsbokslut, Koncernredovisning, K2 och K3, Moms och skatt, Kassaflödesanalys</p><p class="grupp"><b class="gruppnamn">System: </b>Fortnox, Visma.net, SAP FI, Excel och Power Query, Hogia</p></section><section class="sektion sek-intyg"><h2 class="rubrik"><span class="rtext">Certifieringar</span></h2><div class="cert"><span class="certnamn">Auktoriserad redovisningskonsult</span><span class="certmeta">Srf konsulterna<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">Certifierad byråpartner</span><span class="certmeta">Fortnox<span class="period"> 2020</span></span></div><div class="cert"><span class="certnamn">Visma.net Financials</span><span class="certmeta">Visma<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">Excel för ekonomer, avancerad</span><span class="certmeta">Learnesy<span class="period"> 2018</span></span></div></section><section class="sektion sek-sprak"><h2 class="rubrik"><span class="rtext">Språk</span></h2><p class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span><span class="mitt"> · </span><span><b>Tyska</b> Grundläggande</span></p></section></div></div>
+  <div class="under">
+    <p class="stil">Mycket luft: 26 mm marginaler, namn i 36 pt regular, runt foto till höger, rubriker som små grå versaler utan linjer, perioden i accent.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Calibri (allt)</span></div>
+    <div class="rad"><span class="k">Foto</span><span>rund 32 mm, höger i huvudet</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#704214" title="#704214"></span><code>#704214</code><em>förval</em><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#3A3A3A" title="#3A3A3A"></span><code>#3A3A3A</code><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Luftig, stort namn, foto"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>kort CV som får ta plats; foto finns; stark profil</span></div>
+  </div>
+</article>
+<article class="mall" id="pergament">
+  <div class="etikett"><span class="nr">30</span><h3>Pergament</h3><span class="niva premium">Premium</span><span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span><span class="familj">Serif formell</span></div>
+  <div class="arkram"><div class="ark m-pergament" style="--a:#6B5B2E;--ton:rgb(234,232,226)"><header class="huvud"><h1 class="namn">Amanda Sjöberg</h1><p class="titel">Redovisningsekonom</p><p class="kontakt">amanda.sjoberg@email.se<span class="mitt"> · </span>070-234 56 78<span class="mitt"> · </span>Göteborg<span class="mitt"> · </span>linkedin.com/in/amandasjoberg</p></header><section class="sektion sek-profil"><h2 class="rubrik"><span class="rtext">Profil</span></h2><p class="profil">Redovisningsekonom med åtta års erfarenhet av löpande bokföring, bokslut och koncernrapportering i tillverkande bolag och på byrå. Van att äga månadsbokslutet från avstämning till rapport, bygga rutiner som håller när volymerna växer och förklara siffrorna för chefer som inte är ekonomer. Auktoriserad redovisningskonsult sedan 2022.</p></section><section class="sektion sek-erf"><h2 class="rubrik"><span class="rtext">Arbetslivserfarenhet</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningsekonom</h3><span class="period">2021 – Pågående</span></div><p class="agrad"><span class="arbetsgivare">SKF Sverige AB</span></p><ul class="punkter"><li>Ansvarar för månads- och årsbokslut i två svenska bolag med 1,2 miljarder i omsättning</li><li>Kortade bokslutstiden från tolv till sju arbetsdagar med nya avstämningsrutiner</li><li>Rapporterar i koncernens system och samordnar revisionen med EY</li><li>Handleder två ekonomiassistenter och håller i introduktionen av nya kollegor</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningskonsult</h3><span class="period">2018 – 2021</span></div><p class="agrad"><span class="arbetsgivare">Aspia</span></p><ul class="punkter"><li>Skötte löpande redovisning, moms och bokslut för ett tjugotal kunder inom handel och bygg</li><li>Införde digitala leverantörsflöden i Fortnox hos nio kunder</li><li>Upprättade årsredovisningar enligt K2 och K3 samt deklarationer för aktiebolag</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomiassistent</h3><span class="period">2016 – 2018</span></div><p class="agrad"><span class="arbetsgivare">Stena Line</span></p><ul class="punkter"><li>Hanterade leverantörsreskontran med omkring 2 000 fakturor i månaden</li><li>Stämde av bank- och balanskonton inför varje månadsbokslut</li></ul></div></section><section class="sektion sek-utb"><h2 class="rubrik"><span class="rtext">Utbildning</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomie kandidat, redovisning</h3><span class="period">2013 – 2016</span></div><p class="agrad"><span class="arbetsgivare">Handelshögskolan vid Göteborgs universitet</span></p><p class="postdetalj">Kandidatuppsats om övergången till K3 i medelstora bolag</p></div></section><section class="sektion sek-komp"><h2 class="rubrik"><span class="rtext">Kompetenser</span></h2><p class="grupp"><b class="gruppnamn">Redovisning: </b>Månads- och årsbokslut, Koncernredovisning, K2 och K3, Moms och skatt, Kassaflödesanalys</p><p class="grupp"><b class="gruppnamn">System: </b>Fortnox, Visma.net, SAP FI, Excel och Power Query, Hogia</p></section><section class="sektion sek-intyg"><h2 class="rubrik"><span class="rtext">Certifieringar</span></h2><div class="cert"><span class="certnamn">Auktoriserad redovisningskonsult</span><span class="certmeta">Srf konsulterna<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">Certifierad byråpartner</span><span class="certmeta">Fortnox<span class="period"> 2020</span></span></div><div class="cert"><span class="certnamn">Visma.net Financials</span><span class="certmeta">Visma<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">Excel för ekonomer, avancerad</span><span class="certmeta">Learnesy<span class="period"> 2018</span></span></div></section><section class="sektion sek-sprak"><h2 class="rubrik"><span class="rtext">Språk</span></h2><p class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span><span class="mitt"> · </span><span><b>Tyska</b> Grundläggande</span></p></section></div></div>
+  <div class="under">
+    <p class="stil">Huvudet i en dubbel ram, namnet i versaler, rubrikerna högerställda med hårlinje under. Times New Roman med dokumentkänsla.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Times New Roman (allt)</span></div>
+    <div class="rad"><span class="k">Foto</span><span>Ingen fotoplats</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#6B5B2E" title="#6B5B2E"></span><code>#6B5B2E</code><em>förval</em><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#3A3A3A" title="#3A3A3A"></span><code>#3A3A3A</code><span class="swatch" style="background:#5B2A4E" title="#5B2A4E"></span><code>#5B2A4E</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Inramat huvud, serif"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>formell ansökan; myndighet, juridik, akademi</span></div>
+  </div>
+</article>
+<article class="mall" id="betong">
+  <div class="etikett"><span class="nr">31</span><h3>Betong</h3><span class="niva premium">Premium</span><span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span><span class="format">Foto</span><span class="familj">Färgat huvud</span></div>
+  <div class="arkram"><div class="ark m-betong" style="--a:#4A5561;--ton:rgb(230,231,233)"><header class="band"><div class="foto foto-kvadrat" style="width:34mm;height:34mm;"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="38" r="19"/><path d="M14 96c0-22 16-36 36-36s36 14 36 36z"/></svg></div><div class="huvud-text"><h1 class="namn">Amanda Sjöberg</h1><p class="titel">Redovisningsekonom</p><p class="kontakt">amanda.sjoberg@email.se<span class="mitt"> · </span>070-234 56 78<span class="mitt"> · </span>Göteborg<span class="mitt"> · </span>linkedin.com/in/amandasjoberg</p></div></header><div class="kropp"><section class="sektion sek-profil"><h2 class="rubrik"><span class="rtext">Profil</span></h2><p class="profil">Redovisningsekonom med åtta års erfarenhet av löpande bokföring, bokslut och koncernrapportering i tillverkande bolag och på byrå. Van att äga månadsbokslutet från avstämning till rapport, bygga rutiner som håller när volymerna växer och förklara siffrorna för chefer som inte är ekonomer. Auktoriserad redovisningskonsult sedan 2022.</p></section><section class="sektion sek-erf"><h2 class="rubrik"><span class="rtext">Arbetslivserfarenhet</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningsekonom</h3><span class="period">2021 – Pågående</span></div><p class="agrad"><span class="arbetsgivare">SKF Sverige AB</span></p><ul class="punkter"><li>Ansvarar för månads- och årsbokslut i två svenska bolag med 1,2 miljarder i omsättning</li><li>Kortade bokslutstiden från tolv till sju arbetsdagar med nya avstämningsrutiner</li><li>Rapporterar i koncernens system och samordnar revisionen med EY</li><li>Handleder två ekonomiassistenter och håller i introduktionen av nya kollegor</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningskonsult</h3><span class="period">2018 – 2021</span></div><p class="agrad"><span class="arbetsgivare">Aspia</span></p><ul class="punkter"><li>Skötte löpande redovisning, moms och bokslut för ett tjugotal kunder inom handel och bygg</li><li>Införde digitala leverantörsflöden i Fortnox hos nio kunder</li><li>Upprättade årsredovisningar enligt K2 och K3 samt deklarationer för aktiebolag</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomiassistent</h3><span class="period">2016 – 2018</span></div><p class="agrad"><span class="arbetsgivare">Stena Line</span></p><ul class="punkter"><li>Hanterade leverantörsreskontran med omkring 2 000 fakturor i månaden</li><li>Stämde av bank- och balanskonton inför varje månadsbokslut</li></ul></div></section><section class="sektion sek-utb"><h2 class="rubrik"><span class="rtext">Utbildning</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomie kandidat, redovisning</h3><span class="period">2013 – 2016</span></div><p class="agrad"><span class="arbetsgivare">Handelshögskolan vid Göteborgs universitet</span></p><p class="postdetalj">Kandidatuppsats om övergången till K3 i medelstora bolag</p></div></section><section class="sektion sek-komp"><h2 class="rubrik"><span class="rtext">Kompetenser</span></h2><p class="grupp"><b class="gruppnamn">Redovisning: </b>Månads- och årsbokslut, Koncernredovisning, K2 och K3, Moms och skatt, Kassaflödesanalys</p><p class="grupp"><b class="gruppnamn">System: </b>Fortnox, Visma.net, SAP FI, Excel och Power Query, Hogia</p></section><section class="sektion sek-intyg"><h2 class="rubrik"><span class="rtext">Certifieringar</span></h2><div class="cert"><span class="certnamn">Auktoriserad redovisningskonsult</span><span class="certmeta">Srf konsulterna<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">Certifierad byråpartner</span><span class="certmeta">Fortnox<span class="period"> 2020</span></span></div><div class="cert"><span class="certnamn">Visma.net Financials</span><span class="certmeta">Visma<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">Excel för ekonomer, avancerad</span><span class="certmeta">Learnesy<span class="period"> 2018</span></span></div></section><section class="sektion sek-sprak"><h2 class="rubrik"><span class="rtext">Språk</span></h2><p class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span><span class="mitt"> · </span><span><b>Tyska</b> Grundläggande</span></p></section></div></div></div>
+  <div class="under">
+    <p class="stil">Ljusgrått huvudband till kant med kvadratiskt foto till vänster och mörk text; rubriker med en kort accentlinje ovanför. Verdana, robust och tydlig.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Verdana (allt)</span></div>
+    <div class="rad"><span class="k">Foto</span><span>kvadrat 34 mm, vänster i bandet</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#4A5561" title="#4A5561"></span><code>#4A5561</code><em>förval</em><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#556B2F" title="#556B2F"></span><code>#556B2F</code><span class="swatch" style="background:#8A4B2A" title="#8A4B2A"></span><code>#8A4B2A</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Grått band, foto vänster"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>foto finns; vill ha band utan stark färg</span></div>
+  </div>
+</article>
+<article class="mall" id="not">
+  <div class="etikett"><span class="nr">32</span><h3>Not</h3><span class="niva premium">Premium</span><span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span><span class="familj">Enspaltig kompakt</span></div>
+  <div class="arkram"><div class="ark m-not" style="--a:#1A4D6E;--ton:rgb(223,230,235)"><header class="huvud"><div class="huvud-text"><h1 class="namn">Amanda Sjöberg</h1><p class="titel">Redovisningsekonom</p></div><ul class="kontaktlista"><li>amanda.sjoberg@email.se</li><li>070-234 56 78</li><li>Göteborg</li><li>linkedin.com/in/amandasjoberg</li></ul></header><section class="sektion sek-profil"><h2 class="rubrik"><span class="rtext">Profil</span></h2><p class="profil">Redovisningsekonom med åtta års erfarenhet av löpande bokföring, bokslut och koncernrapportering i tillverkande bolag och på byrå. Van att äga månadsbokslutet från avstämning till rapport, bygga rutiner som håller när volymerna växer och förklara siffrorna för chefer som inte är ekonomer. Auktoriserad redovisningskonsult sedan 2022.</p></section><section class="sektion sek-erf"><h2 class="rubrik"><span class="rtext">Arbetslivserfarenhet</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningsekonom</h3><span class="period">2021 – Pågående</span></div><p class="agrad"><span class="arbetsgivare">SKF Sverige AB</span></p><ul class="punkter"><li>Ansvarar för månads- och årsbokslut i två svenska bolag med 1,2 miljarder i omsättning</li><li>Kortade bokslutstiden från tolv till sju arbetsdagar med nya avstämningsrutiner</li><li>Rapporterar i koncernens system och samordnar revisionen med EY</li><li>Handleder två ekonomiassistenter och håller i introduktionen av nya kollegor</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningskonsult</h3><span class="period">2018 – 2021</span></div><p class="agrad"><span class="arbetsgivare">Aspia</span></p><ul class="punkter"><li>Skötte löpande redovisning, moms och bokslut för ett tjugotal kunder inom handel och bygg</li><li>Införde digitala leverantörsflöden i Fortnox hos nio kunder</li><li>Upprättade årsredovisningar enligt K2 och K3 samt deklarationer för aktiebolag</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomiassistent</h3><span class="period">2016 – 2018</span></div><p class="agrad"><span class="arbetsgivare">Stena Line</span></p><ul class="punkter"><li>Hanterade leverantörsreskontran med omkring 2 000 fakturor i månaden</li><li>Stämde av bank- och balanskonton inför varje månadsbokslut</li></ul></div></section><section class="sektion sek-komp"><h2 class="rubrik"><span class="rtext">Kompetenser</span></h2><div class="spalter spalter-3"><div class="grupp"><b class="gruppnamn">Redovisning</b><ul class="lista"><li>Månads- och årsbokslut</li><li>Koncernredovisning</li><li>K2 och K3</li><li>Moms och skatt</li><li>Kassaflödesanalys</li></ul></div><div class="grupp"><b class="gruppnamn">System</b><ul class="lista"><li>Fortnox</li><li>Visma.net</li><li>SAP FI</li><li>Excel och Power Query</li><li>Hogia</li></ul></div></div></section><section class="sektion sek-utb"><h2 class="rubrik"><span class="rtext">Utbildning</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomie kandidat, redovisning</h3><span class="period">2013 – 2016</span></div><p class="agrad"><span class="arbetsgivare">Handelshögskolan vid Göteborgs universitet</span></p><p class="postdetalj">Kandidatuppsats om övergången till K3 i medelstora bolag</p></div></section><section class="sektion sek-intyg"><h2 class="rubrik"><span class="rtext">Certifieringar</span></h2><div class="cert"><span class="certnamn">Auktoriserad redovisningskonsult</span><span class="certmeta">Srf konsulterna<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">Certifierad byråpartner</span><span class="certmeta">Fortnox<span class="period"> 2020</span></span></div><div class="cert"><span class="certnamn">Visma.net Financials</span><span class="certmeta">Visma<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">Excel för ekonomer, avancerad</span><span class="certmeta">Learnesy<span class="period"> 2018</span></span></div></section><section class="sektion sek-sprak"><h2 class="rubrik"><span class="rtext">Språk</span></h2><p class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span><span class="mitt"> · </span><span><b>Tyska</b> Grundläggande</span></p></section></div></div>
+  <div class="under">
+    <p class="stil">Kompakt: 9,5 pt, 14 mm marginaler, namnet och kontakten på samma rad, kompetenserna i tre spalter. Tre sidor blir två.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Calibri (allt)</span></div>
+    <div class="rad"><span class="k">Foto</span><span>Ingen fotoplats</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#1A4D6E" title="#1A4D6E"></span><code>#1A4D6E</code><em>förval</em><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code><span class="swatch" style="background:#7A1F2B" title="#7A1F2B"></span><code>#7A1F2B</code><span class="swatch" style="background:#2B2F36" title="#2B2F36"></span><code>#2B2F36</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Kompakt, tre sidor på två"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>lång karriär; många kompetenser; vill ha allt på två sidor</span></div>
+  </div>
+</article>
+<article class="mall" id="spar">
+  <div class="etikett"><span class="nr">33</span><h3>Spår</h3><span class="niva premium">Premium</span><span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span><span class="familj">Marginalperioder</span></div>
+  <div class="arkram"><div class="ark m-spar" style="--a:#1B6478;--ton:rgb(223,233,236)"><header class="huvud"><h1 class="namn">Amanda Sjöberg</h1><p class="titel">Redovisningsekonom</p><p class="kontakt">amanda.sjoberg@email.se<span class="mitt"> · </span>070-234 56 78<span class="mitt"> · </span>Göteborg<span class="mitt"> · </span>linkedin.com/in/amandasjoberg</p></header><section class="sektion sek-profil"><h2 class="rubrik"><span class="rtext">Profil</span></h2><p class="profil">Redovisningsekonom med åtta års erfarenhet av löpande bokföring, bokslut och koncernrapportering i tillverkande bolag och på byrå. Van att äga månadsbokslutet från avstämning till rapport, bygga rutiner som håller när volymerna växer och förklara siffrorna för chefer som inte är ekonomer. Auktoriserad redovisningskonsult sedan 2022.</p></section><section class="sektion sek-erf"><h2 class="rubrik"><span class="rtext">Arbetslivserfarenhet</span></h2><div class="postlista"><div class="post post-prick"><span class="prick" aria-hidden="true"></span><div class="postinner"><div class="postrad"><h3 class="posttitel">Redovisningsekonom</h3><span class="period">2021 – Pågående</span></div><p class="agrad"><span class="arbetsgivare">SKF Sverige AB</span></p><ul class="punkter"><li>Ansvarar för månads- och årsbokslut i två svenska bolag med 1,2 miljarder i omsättning</li><li>Kortade bokslutstiden från tolv till sju arbetsdagar med nya avstämningsrutiner</li><li>Rapporterar i koncernens system och samordnar revisionen med EY</li><li>Handleder två ekonomiassistenter och håller i introduktionen av nya kollegor</li></ul></div></div><div class="post post-prick"><span class="prick" aria-hidden="true"></span><div class="postinner"><div class="postrad"><h3 class="posttitel">Redovisningskonsult</h3><span class="period">2018 – 2021</span></div><p class="agrad"><span class="arbetsgivare">Aspia</span></p><ul class="punkter"><li>Skötte löpande redovisning, moms och bokslut för ett tjugotal kunder inom handel och bygg</li><li>Införde digitala leverantörsflöden i Fortnox hos nio kunder</li><li>Upprättade årsredovisningar enligt K2 och K3 samt deklarationer för aktiebolag</li></ul></div></div><div class="post post-prick"><span class="prick" aria-hidden="true"></span><div class="postinner"><div class="postrad"><h3 class="posttitel">Ekonomiassistent</h3><span class="period">2016 – 2018</span></div><p class="agrad"><span class="arbetsgivare">Stena Line</span></p><ul class="punkter"><li>Hanterade leverantörsreskontran med omkring 2 000 fakturor i månaden</li><li>Stämde av bank- och balanskonton inför varje månadsbokslut</li></ul></div></div></div></section><section class="sektion sek-utb"><h2 class="rubrik"><span class="rtext">Utbildning</span></h2><div class="postlista"><div class="post post-prick"><span class="prick" aria-hidden="true"></span><div class="postinner"><div class="postrad"><h3 class="posttitel">Ekonomie kandidat, redovisning</h3><span class="period">2013 – 2016</span></div><p class="agrad"><span class="arbetsgivare">Handelshögskolan vid Göteborgs universitet</span></p><p class="postdetalj">Kandidatuppsats om övergången till K3 i medelstora bolag</p></div></div></div></section><section class="sektion sek-komp"><h2 class="rubrik"><span class="rtext">Kompetenser</span></h2><p class="grupp"><b class="gruppnamn">Redovisning: </b>Månads- och årsbokslut, Koncernredovisning, K2 och K3, Moms och skatt, Kassaflödesanalys</p><p class="grupp"><b class="gruppnamn">System: </b>Fortnox, Visma.net, SAP FI, Excel och Power Query, Hogia</p></section><section class="sektion sek-intyg"><h2 class="rubrik"><span class="rtext">Certifieringar</span></h2><div class="cert"><span class="certnamn">Auktoriserad redovisningskonsult</span><span class="certmeta">Srf konsulterna<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">Certifierad byråpartner</span><span class="certmeta">Fortnox<span class="period"> 2020</span></span></div><div class="cert"><span class="certnamn">Visma.net Financials</span><span class="certmeta">Visma<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">Excel för ekonomer, avancerad</span><span class="certmeta">Learnesy<span class="period"> 2018</span></span></div></section><section class="sektion sek-sprak"><h2 class="rubrik"><span class="rtext">Språk</span></h2><p class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span><span class="mitt"> · </span><span><b>Tyska</b> Grundläggande</span></p></section></div></div>
+  <div class="under">
+    <p class="stil">En prickad accentlinje längs erfarenhet och utbildning med en fylld punkt på linjen vid varje post; perioden till höger som vanligt. Tidslinjens känsla utan årtalskolumn.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Calibri (allt)</span></div>
+    <div class="rad"><span class="k">Foto</span><span>Ingen fotoplats</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#1B6478" title="#1B6478"></span><code>#1B6478</code><em>förval</em><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#3A3A3A" title="#3A3A3A"></span><code>#3A3A3A</code><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Prickad tidslinje"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>tre eller fler anställningar; vill visa en röd tråd</span></div>
+  </div>
+</article>
+<article class="mall" id="ek">
+  <div class="etikett"><span class="nr">34</span><h3>Ek</h3><span class="niva premium">Premium</span><span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 6l1.2 4L8 6l1.8 4L11 6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg> Word</span><span class="format">Foto</span><span class="familj">Sidospalt</span></div>
+  <div class="arkram"><div class="ark m-ek" style="--a:#2E5A4A;--ton:rgb(226,232,230)"><header class="huvud"><h1 class="namn">Amanda Sjöberg</h1><p class="titel">Redovisningsekonom</p></header><div class="spalter"><aside class="spalt"><div class="foto foto-kvadrat" style="width:44mm;height:44mm;"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="38" r="19"/><path d="M14 96c0-22 16-36 36-36s36 14 36 36z"/></svg></div><section class="sektion sek-kontakt"><h2 class="rubrik"><span class="rtext">Kontakt</span></h2><ul class="kontaktlista"><li>amanda.sjoberg@email.se</li><li>070-234 56 78</li><li>Göteborg</li><li>linkedin.com/in/amandasjoberg</li></ul></section><section class="sektion sek-komp"><h2 class="rubrik"><span class="rtext">Kompetenser</span></h2><div class="grupp"><b class="gruppnamn">Redovisning</b><ul class="lista"><li>Månads- och årsbokslut</li><li>Koncernredovisning</li><li>K2 och K3</li><li>Moms och skatt</li><li>Kassaflödesanalys</li></ul></div><div class="grupp"><b class="gruppnamn">System</b><ul class="lista"><li>Fortnox</li><li>Visma.net</li><li>SAP FI</li><li>Excel och Power Query</li><li>Hogia</li></ul></div></section><section class="sektion sek-sprak"><h2 class="rubrik"><span class="rtext">Språk</span></h2><ul class="spraklista"><li><span class="sprak">Svenska</span><span class="niva">Modersmål</span></li><li><span class="sprak">Engelska</span><span class="niva">Flytande</span></li><li><span class="sprak">Tyska</span><span class="niva">Grundläggande</span></li></ul></section></aside><div class="huvudspalt"><section class="sektion sek-profil"><h2 class="rubrik"><span class="rtext">Profil</span></h2><p class="profil">Redovisningsekonom med åtta års erfarenhet av löpande bokföring, bokslut och koncernrapportering i tillverkande bolag och på byrå. Van att äga månadsbokslutet från avstämning till rapport, bygga rutiner som håller när volymerna växer och förklara siffrorna för chefer som inte är ekonomer. Auktoriserad redovisningskonsult sedan 2022.</p></section><section class="sektion sek-erf"><h2 class="rubrik"><span class="rtext">Arbetslivserfarenhet</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningsekonom</h3><span class="period">2021 – Pågående</span></div><p class="agrad"><span class="arbetsgivare">SKF Sverige AB</span></p><ul class="punkter"><li>Ansvarar för månads- och årsbokslut i två svenska bolag med 1,2 miljarder i omsättning</li><li>Kortade bokslutstiden från tolv till sju arbetsdagar med nya avstämningsrutiner</li><li>Rapporterar i koncernens system och samordnar revisionen med EY</li><li>Handleder två ekonomiassistenter och håller i introduktionen av nya kollegor</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningskonsult</h3><span class="period">2018 – 2021</span></div><p class="agrad"><span class="arbetsgivare">Aspia</span></p><ul class="punkter"><li>Skötte löpande redovisning, moms och bokslut för ett tjugotal kunder inom handel och bygg</li><li>Införde digitala leverantörsflöden i Fortnox hos nio kunder</li><li>Upprättade årsredovisningar enligt K2 och K3 samt deklarationer för aktiebolag</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomiassistent</h3><span class="period">2016 – 2018</span></div><p class="agrad"><span class="arbetsgivare">Stena Line</span></p><ul class="punkter"><li>Hanterade leverantörsreskontran med omkring 2 000 fakturor i månaden</li><li>Stämde av bank- och balanskonton inför varje månadsbokslut</li></ul></div></section><section class="sektion sek-utb"><h2 class="rubrik"><span class="rtext">Utbildning</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomie kandidat, redovisning</h3><span class="period">2013 – 2016</span></div><p class="agrad"><span class="arbetsgivare">Handelshögskolan vid Göteborgs universitet</span></p><p class="postdetalj">Kandidatuppsats om övergången till K3 i medelstora bolag</p></div></section><section class="sektion sek-intyg"><h2 class="rubrik"><span class="rtext">Certifieringar</span></h2><div class="cert"><span class="certnamn">Auktoriserad redovisningskonsult</span><span class="certmeta">Srf konsulterna<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">Certifierad byråpartner</span><span class="certmeta">Fortnox<span class="period"> 2020</span></span></div><div class="cert"><span class="certnamn">Visma.net Financials</span><span class="certmeta">Visma<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">Excel för ekonomer, avancerad</span><span class="certmeta">Learnesy<span class="period"> 2018</span></span></div></section></div></div></div></div>
+  <div class="under">
+    <p class="stil">Vänsterspalt utan bakgrund, skild från huvudspalten med en lodrät accentlinje; stort kvadratiskt foto överst i spalten. Arial, rakt och öppet.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Arial (allt)</span></div>
+    <div class="rad"><span class="k">Foto</span><span>kvadrat 44 mm, överst i spalten</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#2E5A4A" title="#2E5A4A"></span><code>#2E5A4A</code><em>förval</em><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#7A1F2B" title="#7A1F2B"></span><code>#7A1F2B</code><span class="swatch" style="background:#2B2F36" title="#2B2F36"></span><code>#2B2F36</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Spalt med linje, stort foto"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>foto finns; vill ha spalt utan färgad panel</span></div>
+  </div>
+</article></div>
+
+  <h2 class="grupp-rubrik">35 till 40: bara PDF</h2>
+  <p class="grupp-ingress">Sex konstnärliga med tre nya typsnitt. Sockel nederst på sidan, stående foto till kant, monogram, tonade rutor, färgkant och namn som affisch.</p>
+  <div class="galleri"><article class="mall" id="sockel">
+  <div class="etikett"><span class="nr">35</span><h3>Sockel</h3><span class="niva premium">Premium</span><span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF</span><span class="familj">Konstnärlig</span></div>
+  <div class="arkram"><div class="ark m-sockel" style="--a:#1C2B3A;--ton:rgb(223,225,227)"><header class="huvud"><h1 class="namn">Amanda Sjöberg</h1><p class="titel">Redovisningsekonom</p></header><section class="sektion sek-profil"><h2 class="rubrik"><span class="rtext">Profil</span></h2><p class="profil">Redovisningsekonom med åtta års erfarenhet av löpande bokföring, bokslut och koncernrapportering i tillverkande bolag och på byrå. Van att äga månadsbokslutet från avstämning till rapport, bygga rutiner som håller när volymerna växer och förklara siffrorna för chefer som inte är ekonomer. Auktoriserad redovisningskonsult sedan 2022.</p></section><section class="sektion sek-erf"><h2 class="rubrik"><span class="rtext">Arbetslivserfarenhet</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningsekonom</h3><span class="period">2021 – Pågående</span></div><p class="agrad"><span class="arbetsgivare">SKF Sverige AB</span></p><ul class="punkter"><li>Ansvarar för månads- och årsbokslut i två svenska bolag med 1,2 miljarder i omsättning</li><li>Kortade bokslutstiden från tolv till sju arbetsdagar med nya avstämningsrutiner</li><li>Rapporterar i koncernens system och samordnar revisionen med EY</li><li>Handleder två ekonomiassistenter och håller i introduktionen av nya kollegor</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningskonsult</h3><span class="period">2018 – 2021</span></div><p class="agrad"><span class="arbetsgivare">Aspia</span></p><ul class="punkter"><li>Skötte löpande redovisning, moms och bokslut för ett tjugotal kunder inom handel och bygg</li><li>Införde digitala leverantörsflöden i Fortnox hos nio kunder</li><li>Upprättade årsredovisningar enligt K2 och K3 samt deklarationer för aktiebolag</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomiassistent</h3><span class="period">2016 – 2018</span></div><p class="agrad"><span class="arbetsgivare">Stena Line</span></p><ul class="punkter"><li>Hanterade leverantörsreskontran med omkring 2 000 fakturor i månaden</li><li>Stämde av bank- och balanskonton inför varje månadsbokslut</li></ul></div></section><section class="sektion sek-utb"><h2 class="rubrik"><span class="rtext">Utbildning</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomie kandidat, redovisning</h3><span class="period">2013 – 2016</span></div><p class="agrad"><span class="arbetsgivare">Handelshögskolan vid Göteborgs universitet</span></p><p class="postdetalj">Kandidatuppsats om övergången till K3 i medelstora bolag</p></div></section><section class="sektion sek-komp"><h2 class="rubrik"><span class="rtext">Kompetenser</span></h2><p class="grupp"><b class="gruppnamn">Redovisning: </b>Månads- och årsbokslut, Koncernredovisning, K2 och K3, Moms och skatt, Kassaflödesanalys</p><p class="grupp"><b class="gruppnamn">System: </b>Fortnox, Visma.net, SAP FI, Excel och Power Query, Hogia</p></section><section class="sektion sek-intyg"><h2 class="rubrik"><span class="rtext">Certifieringar</span></h2><div class="cert"><span class="certnamn">Auktoriserad redovisningskonsult</span><span class="certmeta">Srf konsulterna<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">Certifierad byråpartner</span><span class="certmeta">Fortnox<span class="period"> 2020</span></span></div><div class="cert"><span class="certnamn">Visma.net Financials</span><span class="certmeta">Visma<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">Excel för ekonomer, avancerad</span><span class="certmeta">Learnesy<span class="period"> 2018</span></span></div></section><footer class="sockel"><div style="grid-column:span 2"><section class="sektion sek-kontakt"><h2 class="rubrik"><span class="rtext">Kontakt</span></h2><ul class="kontaktlista"><li>amanda.sjoberg@email.se</li><li>070-234 56 78</li><li>Göteborg</li><li>linkedin.com/in/amandasjoberg</li></ul></section></div><section class="sektion sek-sprak"><h2 class="rubrik"><span class="rtext">Språk</span></h2><ul class="spraklista"><li><span class="sprak">Svenska</span><span class="niva">Modersmål</span></li><li><span class="sprak">Engelska</span><span class="niva">Flytande</span></li><li><span class="sprak">Tyska</span><span class="niva">Grundläggande</span></li></ul></section></footer></div></div>
+  <div class="under">
+    <p class="stil">Vitt huvud med Montserrat-namn och en mörk sockel nederst på varje sida med kontakt och språk i vitt. Tyngden ligger i botten.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Montserrat (namn, rubriker; nytt) + Lato (brödtext)</span></div>
+    <div class="rad"><span class="k">Foto</span><span>Ingen fotoplats</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#1C2B3A" title="#1C2B3A"></span><code>#1C2B3A</code><em>förval</em><span class="swatch" style="background:#123B6D" title="#123B6D"></span><code>#123B6D</code><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code><span class="swatch" style="background:#5B2A4E" title="#5B2A4E"></span><code>#5B2A4E</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Mörk sockel nederst"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>vill sticka ut utan foto; kort eller normalt CV</span></div>
+  </div>
+</article>
+<article class="mall" id="panorama">
+  <div class="etikett"><span class="nr">36</span><h3>Panorama</h3><span class="niva premium">Premium</span><span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF</span><span class="format">Foto</span><span class="familj">Konstnärlig</span></div>
+  <div class="arkram"><div class="ark m-panorama" style="--a:#8C2F39;--ton:rgb(239,226,227)"><header class="band"><div class="foto foto-staende" style="width:44mm;height:58mm;"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="38" r="19"/><path d="M14 96c0-22 16-36 36-36s36 14 36 36z"/></svg></div><div class="huvud-text"><h1 class="namn">Amanda Sjöberg</h1><p class="titel">Redovisningsekonom</p><p class="kontakt">amanda.sjoberg@email.se<span class="mitt"> · </span>070-234 56 78<span class="mitt"> · </span>Göteborg<span class="mitt"> · </span>linkedin.com/in/amandasjoberg</p></div></header><div class="kropp"><section class="sektion sek-profil"><h2 class="rubrik"><span class="rtext">Profil</span></h2><p class="profil">Redovisningsekonom med åtta års erfarenhet av löpande bokföring, bokslut och koncernrapportering i tillverkande bolag och på byrå. Van att äga månadsbokslutet från avstämning till rapport, bygga rutiner som håller när volymerna växer och förklara siffrorna för chefer som inte är ekonomer. Auktoriserad redovisningskonsult sedan 2022.</p></section><section class="sektion sek-erf"><h2 class="rubrik"><span class="rtext">Arbetslivserfarenhet</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningsekonom</h3><span class="period">2021 – Pågående</span></div><p class="agrad"><span class="arbetsgivare">SKF Sverige AB</span></p><ul class="punkter"><li>Ansvarar för månads- och årsbokslut i två svenska bolag med 1,2 miljarder i omsättning</li><li>Kortade bokslutstiden från tolv till sju arbetsdagar med nya avstämningsrutiner</li><li>Rapporterar i koncernens system och samordnar revisionen med EY</li><li>Handleder två ekonomiassistenter och håller i introduktionen av nya kollegor</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningskonsult</h3><span class="period">2018 – 2021</span></div><p class="agrad"><span class="arbetsgivare">Aspia</span></p><ul class="punkter"><li>Skötte löpande redovisning, moms och bokslut för ett tjugotal kunder inom handel och bygg</li><li>Införde digitala leverantörsflöden i Fortnox hos nio kunder</li><li>Upprättade årsredovisningar enligt K2 och K3 samt deklarationer för aktiebolag</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomiassistent</h3><span class="period">2016 – 2018</span></div><p class="agrad"><span class="arbetsgivare">Stena Line</span></p><ul class="punkter"><li>Hanterade leverantörsreskontran med omkring 2 000 fakturor i månaden</li><li>Stämde av bank- och balanskonton inför varje månadsbokslut</li></ul></div></section><section class="sektion sek-utb"><h2 class="rubrik"><span class="rtext">Utbildning</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomie kandidat, redovisning</h3><span class="period">2013 – 2016</span></div><p class="agrad"><span class="arbetsgivare">Handelshögskolan vid Göteborgs universitet</span></p><p class="postdetalj">Kandidatuppsats om övergången till K3 i medelstora bolag</p></div></section><section class="sektion sek-komp"><h2 class="rubrik"><span class="rtext">Kompetenser</span></h2><p class="grupp"><b class="gruppnamn">Redovisning: </b>Månads- och årsbokslut, Koncernredovisning, K2 och K3, Moms och skatt, Kassaflödesanalys</p><p class="grupp"><b class="gruppnamn">System: </b>Fortnox, Visma.net, SAP FI, Excel och Power Query, Hogia</p></section><section class="sektion sek-intyg"><h2 class="rubrik"><span class="rtext">Certifieringar</span></h2><div class="cert"><span class="certnamn">Auktoriserad redovisningskonsult</span><span class="certmeta">Srf konsulterna<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">Certifierad byråpartner</span><span class="certmeta">Fortnox<span class="period"> 2020</span></span></div><div class="cert"><span class="certnamn">Visma.net Financials</span><span class="certmeta">Visma<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">Excel för ekonomer, avancerad</span><span class="certmeta">Learnesy<span class="period"> 2018</span></span></div></section><section class="sektion sek-sprak"><h2 class="rubrik"><span class="rtext">Språk</span></h2><p class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span><span class="mitt"> · </span><span><b>Tyska</b> Grundläggande</span></p></section></div></div></div>
+  <div class="under">
+    <p class="stil">Ett tonat huvudband 58 mm till kant med stående foto som går ut i vänsterkanten, Lora-namn och kursiv titel; rubriker i Lora med understrykning under texten.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Lora (namn, rubriker; nytt) + Open Sans (brödtext)</span></div>
+    <div class="rad"><span class="k">Foto</span><span>stående 44 x 58 mm, till kant i bandet</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#8C2F39" title="#8C2F39"></span><code>#8C2F39</code><em>förval</em><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code><span class="swatch" style="background:#4B3F72" title="#4B3F72"></span><code>#4B3F72</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Stående foto i bandet"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>bra foto finns; vill ha värme utan stark färg</span></div>
+  </div>
+</article>
+<article class="mall" id="sigill">
+  <div class="etikett"><span class="nr">37</span><h3>Sigill</h3><span class="niva premium">Premium</span><span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF</span><span class="familj">Konstnärlig</span></div>
+  <div class="arkram"><div class="ark m-sigill" style="--a:#8A2F4A;--ton:rgb(239,226,230)"><header class="huvud"><div class="monogram" aria-hidden="true">AS</div><div class="huvud-text"><h1 class="namn">Amanda Sjöberg</h1><p class="titel">Redovisningsekonom</p><p class="kontakt">amanda.sjoberg@email.se<span class="mitt"> · </span>070-234 56 78<span class="mitt"> · </span>Göteborg<span class="mitt"> · </span>linkedin.com/in/amandasjoberg</p></div></header><section class="sektion sek-profil"><h2 class="rubrik"><span class="rtext">Profil</span></h2><p class="profil">Redovisningsekonom med åtta års erfarenhet av löpande bokföring, bokslut och koncernrapportering i tillverkande bolag och på byrå. Van att äga månadsbokslutet från avstämning till rapport, bygga rutiner som håller när volymerna växer och förklara siffrorna för chefer som inte är ekonomer. Auktoriserad redovisningskonsult sedan 2022.</p></section><section class="sektion sek-erf"><h2 class="rubrik"><span class="rtext">Arbetslivserfarenhet</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningsekonom</h3><span class="period">2021 – Pågående</span></div><p class="agrad"><span class="arbetsgivare">SKF Sverige AB</span></p><ul class="punkter"><li>Ansvarar för månads- och årsbokslut i två svenska bolag med 1,2 miljarder i omsättning</li><li>Kortade bokslutstiden från tolv till sju arbetsdagar med nya avstämningsrutiner</li><li>Rapporterar i koncernens system och samordnar revisionen med EY</li><li>Handleder två ekonomiassistenter och håller i introduktionen av nya kollegor</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningskonsult</h3><span class="period">2018 – 2021</span></div><p class="agrad"><span class="arbetsgivare">Aspia</span></p><ul class="punkter"><li>Skötte löpande redovisning, moms och bokslut för ett tjugotal kunder inom handel och bygg</li><li>Införde digitala leverantörsflöden i Fortnox hos nio kunder</li><li>Upprättade årsredovisningar enligt K2 och K3 samt deklarationer för aktiebolag</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomiassistent</h3><span class="period">2016 – 2018</span></div><p class="agrad"><span class="arbetsgivare">Stena Line</span></p><ul class="punkter"><li>Hanterade leverantörsreskontran med omkring 2 000 fakturor i månaden</li><li>Stämde av bank- och balanskonton inför varje månadsbokslut</li></ul></div></section><section class="sektion sek-utb"><h2 class="rubrik"><span class="rtext">Utbildning</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomie kandidat, redovisning</h3><span class="period">2013 – 2016</span></div><p class="agrad"><span class="arbetsgivare">Handelshögskolan vid Göteborgs universitet</span></p><p class="postdetalj">Kandidatuppsats om övergången till K3 i medelstora bolag</p></div></section><section class="sektion sek-komp"><h2 class="rubrik"><span class="rtext">Kompetenser</span></h2><p class="grupp"><b class="gruppnamn">Redovisning: </b>Månads- och årsbokslut, Koncernredovisning, K2 och K3, Moms och skatt, Kassaflödesanalys</p><p class="grupp"><b class="gruppnamn">System: </b>Fortnox, Visma.net, SAP FI, Excel och Power Query, Hogia</p></section><section class="sektion sek-intyg"><h2 class="rubrik"><span class="rtext">Certifieringar</span></h2><div class="cert"><span class="certnamn">Auktoriserad redovisningskonsult</span><span class="certmeta">Srf konsulterna<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">Certifierad byråpartner</span><span class="certmeta">Fortnox<span class="period"> 2020</span></span></div><div class="cert"><span class="certnamn">Visma.net Financials</span><span class="certmeta">Visma<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">Excel för ekonomer, avancerad</span><span class="certmeta">Learnesy<span class="period"> 2018</span></span></div></section><section class="sektion sek-sprak"><h2 class="rubrik"><span class="rtext">Språk</span></h2><p class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span><span class="mitt"> · </span><span><b>Tyska</b> Grundläggande</span></p></section></div></div>
+  <div class="under">
+    <p class="stil">En monogramring med initialerna till vänster om namnet, ingen bild. Lora, hårlinje under huvudet, små versala accentrubriker med hårlinje.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Lora (allt; nytt)</span></div>
+    <div class="rad"><span class="k">Foto</span><span>Ingen fotoplats</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#8A2F4A" title="#8A2F4A"></span><code>#8A2F4A</code><em>förval</em><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code><span class="swatch" style="background:#3A3A3A" title="#3A3A3A"></span><code>#3A3A3A</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Monogram, serif"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>inget foto men vill ha ett personligt märke; rådgivning, juridik, kultur</span></div>
+  </div>
+</article>
+<article class="mall" id="kakel">
+  <div class="etikett"><span class="nr">38</span><h3>Kakel</h3><span class="niva premium">Premium</span><span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF</span><span class="format">Foto</span><span class="familj">Konstnärlig</span></div>
+  <div class="arkram"><div class="ark m-kakel" style="--a:#556B2F;--ton:rgb(231,234,226)"><header class="huvud"><div class="foto foto-kvadrat" style="width:32mm;height:32mm;"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="38" r="19"/><path d="M14 96c0-22 16-36 36-36s36 14 36 36z"/></svg></div><div class="huvud-text"><h1 class="namn">Amanda Sjöberg</h1><p class="titel">Redovisningsekonom</p><p class="kontakt">amanda.sjoberg@email.se<span class="mitt"> · </span>070-234 56 78<span class="mitt"> · </span>Göteborg<span class="mitt"> · </span>linkedin.com/in/amandasjoberg</p></div></header><section class="sektion ruta sek-profil"><h2 class="rubrik"><span class="rtext">Profil</span></h2><p class="profil">Redovisningsekonom med åtta års erfarenhet av löpande bokföring, bokslut och koncernrapportering i tillverkande bolag och på byrå. Van att äga månadsbokslutet från avstämning till rapport, bygga rutiner som håller när volymerna växer och förklara siffrorna för chefer som inte är ekonomer. Auktoriserad redovisningskonsult sedan 2022.</p></section><section class="sektion sek-erf"><h2 class="rubrik"><span class="rtext">Arbetslivserfarenhet</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningsekonom</h3><span class="period">2021 – Pågående</span></div><p class="agrad"><span class="arbetsgivare">SKF Sverige AB</span></p><ul class="punkter"><li>Ansvarar för månads- och årsbokslut i två svenska bolag med 1,2 miljarder i omsättning</li><li>Kortade bokslutstiden från tolv till sju arbetsdagar med nya avstämningsrutiner</li><li>Rapporterar i koncernens system och samordnar revisionen med EY</li><li>Handleder två ekonomiassistenter och håller i introduktionen av nya kollegor</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningskonsult</h3><span class="period">2018 – 2021</span></div><p class="agrad"><span class="arbetsgivare">Aspia</span></p><ul class="punkter"><li>Skötte löpande redovisning, moms och bokslut för ett tjugotal kunder inom handel och bygg</li><li>Införde digitala leverantörsflöden i Fortnox hos nio kunder</li><li>Upprättade årsredovisningar enligt K2 och K3 samt deklarationer för aktiebolag</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomiassistent</h3><span class="period">2016 – 2018</span></div><p class="agrad"><span class="arbetsgivare">Stena Line</span></p><ul class="punkter"><li>Hanterade leverantörsreskontran med omkring 2 000 fakturor i månaden</li><li>Stämde av bank- och balanskonton inför varje månadsbokslut</li></ul></div></section><section class="sektion sek-utb"><h2 class="rubrik"><span class="rtext">Utbildning</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomie kandidat, redovisning</h3><span class="period">2013 – 2016</span></div><p class="agrad"><span class="arbetsgivare">Handelshögskolan vid Göteborgs universitet</span></p><p class="postdetalj">Kandidatuppsats om övergången till K3 i medelstora bolag</p></div></section><div class="rutnat"><section class="sektion ruta sek-komp"><h2 class="rubrik"><span class="rtext">Kompetenser</span></h2><div class="grupp"><b class="gruppnamn">Redovisning</b><ul class="lista"><li>Månads- och årsbokslut</li><li>Koncernredovisning</li><li>K2 och K3</li><li>Moms och skatt</li><li>Kassaflödesanalys</li></ul></div><div class="grupp"><b class="gruppnamn">System</b><ul class="lista"><li>Fortnox</li><li>Visma.net</li><li>SAP FI</li><li>Excel och Power Query</li><li>Hogia</li></ul></div></section><div><section class="sektion ruta sek-intyg"><h2 class="rubrik"><span class="rtext">Certifieringar</span></h2><ul class="certlista"><li><span class="certnamn">Auktoriserad redovisningskonsult</span><span class="certmeta">Srf konsulterna, 2022</span></li><li><span class="certnamn">Certifierad byråpartner</span><span class="certmeta">Fortnox, 2020</span></li><li><span class="certnamn">Visma.net Financials</span><span class="certmeta">Visma, 2019</span></li><li><span class="certnamn">Excel för ekonomer, avancerad</span><span class="certmeta">Learnesy, 2018</span></li></ul></section><section style="margin-top:5mm" class="sektion ruta sek-sprak"><h2 class="rubrik"><span class="rtext">Språk</span></h2><ul class="spraklista"><li><span class="sprak">Svenska</span><span class="niva">Modersmål</span></li><li><span class="sprak">Engelska</span><span class="niva">Flytande</span></li><li><span class="sprak">Tyska</span><span class="niva">Grundläggande</span></li></ul></section></div></div></div></div>
+  <div class="under">
+    <p class="stil">Profilen och de korta avsnitten som tonade rutor, kompetenser, intyg och språk i ett tvåspaltigt rutnät under erfarenheten. IBM Plex Sans, kvadratiskt foto.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>IBM Plex Sans (allt; nytt)</span></div>
+    <div class="rad"><span class="k">Foto</span><span>kvadrat 32 mm, vänster i huvudet</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#556B2F" title="#556B2F"></span><code>#556B2F</code><em>förval</em><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#7A1F2B" title="#7A1F2B"></span><code>#7A1F2B</code><span class="swatch" style="background:#2B2F36" title="#2B2F36"></span><code>#2B2F36</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Tonade rutor"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>många korta avsnitt; vill ha struktur utan spalt</span></div>
+  </div>
+</article>
+<article class="mall" id="kant">
+  <div class="etikett"><span class="nr">39</span><h3>Kant</h3><span class="niva premium">Premium</span><span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF</span><span class="format">Foto</span><span class="familj">Konstnärlig</span></div>
+  <div class="arkram"><div class="ark m-kant" style="--a:#6B4A1F;--ton:rgb(234,230,224)"><header class="huvud"><div class="foto foto-rund" style="width:36mm;height:36mm;"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="38" r="19"/><path d="M14 96c0-22 16-36 36-36s36 14 36 36z"/></svg></div><h1 class="namn">Amanda Sjöberg</h1><p class="titel">Redovisningsekonom</p><p class="kontakt">amanda.sjoberg@email.se<span class="mitt"> · </span>070-234 56 78<span class="mitt"> · </span>Göteborg<span class="mitt"> · </span>linkedin.com/in/amandasjoberg</p></header><section class="sektion sek-profil"><h2 class="rubrik"><span class="rtext">Profil</span></h2><p class="profil">Redovisningsekonom med åtta års erfarenhet av löpande bokföring, bokslut och koncernrapportering i tillverkande bolag och på byrå. Van att äga månadsbokslutet från avstämning till rapport, bygga rutiner som håller när volymerna växer och förklara siffrorna för chefer som inte är ekonomer. Auktoriserad redovisningskonsult sedan 2022.</p></section><section class="sektion sek-erf"><h2 class="rubrik"><span class="rtext">Arbetslivserfarenhet</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningsekonom</h3><span class="period">2021 – Pågående</span></div><p class="agrad"><span class="arbetsgivare">SKF Sverige AB</span></p><ul class="punkter"><li>Ansvarar för månads- och årsbokslut i två svenska bolag med 1,2 miljarder i omsättning</li><li>Kortade bokslutstiden från tolv till sju arbetsdagar med nya avstämningsrutiner</li><li>Rapporterar i koncernens system och samordnar revisionen med EY</li><li>Handleder två ekonomiassistenter och håller i introduktionen av nya kollegor</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningskonsult</h3><span class="period">2018 – 2021</span></div><p class="agrad"><span class="arbetsgivare">Aspia</span></p><ul class="punkter"><li>Skötte löpande redovisning, moms och bokslut för ett tjugotal kunder inom handel och bygg</li><li>Införde digitala leverantörsflöden i Fortnox hos nio kunder</li><li>Upprättade årsredovisningar enligt K2 och K3 samt deklarationer för aktiebolag</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomiassistent</h3><span class="period">2016 – 2018</span></div><p class="agrad"><span class="arbetsgivare">Stena Line</span></p><ul class="punkter"><li>Hanterade leverantörsreskontran med omkring 2 000 fakturor i månaden</li><li>Stämde av bank- och balanskonton inför varje månadsbokslut</li></ul></div></section><section class="sektion sek-utb"><h2 class="rubrik"><span class="rtext">Utbildning</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomie kandidat, redovisning</h3><span class="period">2013 – 2016</span></div><p class="agrad"><span class="arbetsgivare">Handelshögskolan vid Göteborgs universitet</span></p><p class="postdetalj">Kandidatuppsats om övergången till K3 i medelstora bolag</p></div></section><section class="sektion sek-komp"><h2 class="rubrik"><span class="rtext">Kompetenser</span></h2><p class="grupp"><b class="gruppnamn">Redovisning: </b>Månads- och årsbokslut, Koncernredovisning, K2 och K3, Moms och skatt, Kassaflödesanalys</p><p class="grupp"><b class="gruppnamn">System: </b>Fortnox, Visma.net, SAP FI, Excel och Power Query, Hogia</p></section><section class="sektion sek-intyg"><h2 class="rubrik"><span class="rtext">Certifieringar</span></h2><div class="cert"><span class="certnamn">Auktoriserad redovisningskonsult</span><span class="certmeta">Srf konsulterna<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">Certifierad byråpartner</span><span class="certmeta">Fortnox<span class="period"> 2020</span></span></div><div class="cert"><span class="certnamn">Visma.net Financials</span><span class="certmeta">Visma<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">Excel för ekonomer, avancerad</span><span class="certmeta">Learnesy<span class="period"> 2018</span></span></div></section><section class="sektion sek-sprak"><h2 class="rubrik"><span class="rtext">Språk</span></h2><p class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span><span class="mitt"> · </span><span><b>Tyska</b> Grundläggande</span></p></section></div></div>
+  <div class="under">
+    <p class="stil">En 10 mm accentremsa längs sidans vänsterkant på varje sida, runt foto ovanför namnet, rubriker i accent utan linjer. Enkel kropp, tydlig kant.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Open Sans (allt)</span></div>
+    <div class="rad"><span class="k">Foto</span><span>rund 36 mm, ovanför namnet till vänster</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#6B4A1F" title="#6B4A1F"></span><code>#6B4A1F</code><em>förval</em><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#5B2A4E" title="#5B2A4E"></span><code>#5B2A4E</code><span class="swatch" style="background:#2B2F36" title="#2B2F36"></span><code>#2B2F36</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Färgkant, foto över namnet"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>foto finns; vill ha färg utan band eller panel</span></div>
+  </div>
+</article>
+<article class="mall" id="affisch">
+  <div class="etikett"><span class="nr">40</span><h3>Affisch</h3><span class="niva premium">Premium</span><span class="format"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1h7l3 3v11H3z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/></svg> PDF</span><span class="familj">Konstnärlig</span></div>
+  <div class="arkram"><div class="ark m-affisch" style="--a:#6E2C00;--ton:rgb(235,225,219)"><header class="huvud"><h1 class="namn">Amanda<br>Sjöberg</h1><p class="titel">Redovisningsekonom</p><p class="kontakt">amanda.sjoberg@email.se<span class="mitt"> · </span>070-234 56 78<span class="mitt"> · </span>Göteborg<span class="mitt"> · </span>linkedin.com/in/amandasjoberg</p></header><section class="sektion sek-profil"><h2 class="rubrik"><span class="rtext">Profil</span></h2><p class="profil">Redovisningsekonom med åtta års erfarenhet av löpande bokföring, bokslut och koncernrapportering i tillverkande bolag och på byrå. Van att äga månadsbokslutet från avstämning till rapport, bygga rutiner som håller när volymerna växer och förklara siffrorna för chefer som inte är ekonomer. Auktoriserad redovisningskonsult sedan 2022.</p></section><section class="sektion sek-erf"><h2 class="rubrik"><span class="rtext">Arbetslivserfarenhet</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningsekonom</h3><span class="period">2021 – Pågående</span></div><p class="agrad"><span class="arbetsgivare">SKF Sverige AB</span></p><ul class="punkter"><li>Ansvarar för månads- och årsbokslut i två svenska bolag med 1,2 miljarder i omsättning</li><li>Kortade bokslutstiden från tolv till sju arbetsdagar med nya avstämningsrutiner</li><li>Rapporterar i koncernens system och samordnar revisionen med EY</li><li>Handleder två ekonomiassistenter och håller i introduktionen av nya kollegor</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Redovisningskonsult</h3><span class="period">2018 – 2021</span></div><p class="agrad"><span class="arbetsgivare">Aspia</span></p><ul class="punkter"><li>Skötte löpande redovisning, moms och bokslut för ett tjugotal kunder inom handel och bygg</li><li>Införde digitala leverantörsflöden i Fortnox hos nio kunder</li><li>Upprättade årsredovisningar enligt K2 och K3 samt deklarationer för aktiebolag</li></ul></div><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomiassistent</h3><span class="period">2016 – 2018</span></div><p class="agrad"><span class="arbetsgivare">Stena Line</span></p><ul class="punkter"><li>Hanterade leverantörsreskontran med omkring 2 000 fakturor i månaden</li><li>Stämde av bank- och balanskonton inför varje månadsbokslut</li></ul></div></section><section class="sektion sek-utb"><h2 class="rubrik"><span class="rtext">Utbildning</span></h2><div class="post"><div class="postrad"><h3 class="posttitel">Ekonomie kandidat, redovisning</h3><span class="period">2013 – 2016</span></div><p class="agrad"><span class="arbetsgivare">Handelshögskolan vid Göteborgs universitet</span></p><p class="postdetalj">Kandidatuppsats om övergången till K3 i medelstora bolag</p></div></section><section class="sektion sek-komp"><h2 class="rubrik"><span class="rtext">Kompetenser</span></h2><p class="grupp"><b class="gruppnamn">Redovisning: </b>Månads- och årsbokslut, Koncernredovisning, K2 och K3, Moms och skatt, Kassaflödesanalys</p><p class="grupp"><b class="gruppnamn">System: </b>Fortnox, Visma.net, SAP FI, Excel och Power Query, Hogia</p></section><section class="sektion sek-intyg"><h2 class="rubrik"><span class="rtext">Certifieringar</span></h2><div class="cert"><span class="certnamn">Auktoriserad redovisningskonsult</span><span class="certmeta">Srf konsulterna<span class="period"> 2022</span></span></div><div class="cert"><span class="certnamn">Certifierad byråpartner</span><span class="certmeta">Fortnox<span class="period"> 2020</span></span></div><div class="cert"><span class="certnamn">Visma.net Financials</span><span class="certmeta">Visma<span class="period"> 2019</span></span></div><div class="cert"><span class="certnamn">Excel för ekonomer, avancerad</span><span class="certmeta">Learnesy<span class="period"> 2018</span></span></div></section><section class="sektion sek-sprak"><h2 class="rubrik"><span class="rtext">Språk</span></h2><p class="sprakrad"><span><b>Svenska</b> Modersmål</span><span class="mitt"> · </span><span><b>Engelska</b> Flytande</span><span class="mitt"> · </span><span><b>Tyska</b> Grundläggande</span></p></section></div></div>
+  <div class="under">
+    <p class="stil">Namnet i 44 pt versaler på två rader som en affisch, 3 pt accentlinje under huvudet, rubrikerna i en 40 mm vänsterkolumn i små spärrade versaler.</p>
+    <div class="rad"><span class="k">Typsnitt</span><span>Montserrat (namn, rubriker; nytt) + Lato (brödtext)</span></div>
+    <div class="rad"><span class="k">Foto</span><span>Ingen fotoplats</span></div>
+    <div class="rad"><span class="k">Accenter</span><span class="swatchar"><span class="swatch" style="background:#6E2C00" title="#6E2C00"></span><code>#6E2C00</code><em>förval</em><span class="swatch" style="background:#1F3A5F" title="#1F3A5F"></span><code>#1F3A5F</code><span class="swatch" style="background:#1E5A3C" title="#1E5A3C"></span><code>#1E5A3C</code><span class="swatch" style="background:#2B2F36" title="#2B2F36"></span><code>#2B2F36</code></span></div>
+    <div class="rad"><span class="k">Merförsäljning</span><span>"Namnet som affisch"</span></div>
+    <div class="rad"><span class="k">Föreslås när</span><span>kort CV som ska fylla sidan; kreativa och säljande roller</span></div>
+  </div>
+</article></div>
+</div>
+<script>
+(function(){
+  function skala(){
+    var smal=window.innerWidth<=860;
+    document.querySelectorAll('.arkram').forEach(function(ram){
+      var ark=ram.querySelector('.ark');
+      if(!smal){ark.style.removeProperty('--skala');ram.style.height='';return}
+      var bredd=ram.clientWidth-16;var s=bredd/ark.offsetWidth;
+      ark.style.setProperty('--skala',s);ram.style.height=(ark.offsetHeight*s+16)+'px';
+    });
+  }
+  skala();window.addEventListener('resize',skala);
+})();
+</script>
+</body>
+</html>
