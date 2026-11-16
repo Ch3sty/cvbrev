@@ -39,8 +39,8 @@ export function rensa(text: unknown): string {
       return c >= 32 && c < 0xd800 ? String.fromCharCode(c) : ''
     })
     // eslint-disable-next-line no-control-regex
-    .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F￾￿]/g, '')
-    .replace(/ /g, ' ')
+    .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\uFFFE\uFFFF]/g, '')
+    .replace(/\u00A0/g, ' ')
     .replace(/\s+/g, ' ')
     .trim()
     .normalize('NFC')
@@ -77,6 +77,11 @@ export function datum(s: unknown): string {
     return m >= 1 && m <= 12 ? `${MANADER[m - 1]} ${iso[1]}` : iso[1]
   }
   return t
+}
+
+/** Året ur ett datum ("2021-03" och "mar 2021" ger "2021"), annars tom. */
+export function ar(s: unknown): string {
+  return rensa(s).match(/(\d{4})/)?.[1] ?? ''
 }
 
 /** "2018 – 2021", "2021 – Pågående"; samma start och slut ger ett år. */
@@ -145,6 +150,16 @@ export interface Post {
   punkter: string[]
   /** Löptext under posten (utbildningens beskrivning, projektets text). */
   text: string[]
+  /** Startåret ("2021") och slutet ("Pågående", "2021"), för stora årtal och tidsaxeln. */
+  startAr: string
+  slut: string
+}
+
+/** En certifiering: namnet, och utgivare och år var för sig. */
+export interface IntygRad {
+  namn: string
+  utgivare: string
+  ar: string
 }
 
 export type AvsnittInnehall =
@@ -152,6 +167,7 @@ export type AvsnittInnehall =
   | { typ: 'poster'; poster: Post[] }
   | { typ: 'kompetenser'; grupper: { namn: string; lista: string[] }[] }
   | { typ: 'lista'; rader: string[] }
+  | { typ: 'intyg'; rader: IntygRad[] }
   | { typ: 'sprak'; rader: { sprak: string; niva: string }[] }
 
 export interface Avsnitt {
@@ -175,11 +191,15 @@ export interface Dokument {
   foto?: string
   /** Initialen i en tom fotoplats (bara förhandsvisning). */
   initial: string
+  /** Avsnitt i full bredd före spalterna (tvåspalt). */
+  fullBredd: Avsnitt[]
   /** Avsnitten i huvudspalten, i ordning, bara de med innehåll. */
   huvudspalt: Avsnitt[]
   /** Avsnitten i sidospalten, i ordning, bara de med innehåll. */
   sidospalt: Avsnitt[]
   rubriker: Record<Sektion, string>
+  /** Punkterna på tidsaxeln (Horisont): år, etikett och typ. */
+  tidsaxel: { ar: number; etikett: string; typ: 'jobb' | 'utbildning' }[]
 }
 
 /* ------------------------------------------------------------ avsnitten */
@@ -199,6 +219,8 @@ function erfarenhet(cv: CVMetadata): AvsnittInnehall | null {
       period: periodErfarenhet(e),
       punkter: [...beskrivning, ...prestationer].map(punkttext).filter(Boolean),
       text: [],
+      startAr: ar(e.startDate),
+      slut: e.endDate ? ar(e.endDate) || datum(e.endDate) : 'Pågående',
     }
   })
   return { typ: 'poster', poster }
@@ -223,6 +245,8 @@ function utbildning(cv: CVMetadata): AvsnittInnehall | null {
       period: periodUtbildning(e),
       punkter,
       text: stycken(e.description),
+      startAr: ar(e.startDate) || ar(e.graduationYear),
+      slut: ar(e.endDate) || ar(e.graduationYear),
     }
   })
   return { typ: 'poster', poster }
@@ -241,6 +265,8 @@ function projekt(cv: CVMetadata): AvsnittInnehall | null {
         period: periodProjekt(p),
         punkter: [...(p.achievements ?? []).map(punkttext).filter(Boolean), ...(teknik.length ? [`Verktyg: ${teknik.join(', ')}`] : [])],
         text: stycken(p.description),
+        startAr: ar(p.startDate),
+        slut: ar(p.endDate),
       }
     }),
   }
@@ -269,23 +295,26 @@ function kompetenser(cv: CVMetadata): AvsnittInnehall | null {
   return { typ: 'kompetenser', grupper: alla }
 }
 
-function certNamn(c: CVCertification | string): string {
-  if (typeof c === 'string') return rensa(c)
+function intygRad(c: CVCertification | string): IntygRad {
+  if (typeof c === 'string') return { namn: rensa(c), utgivare: '', ar: '' }
   const namn = rensa(c?.name)
-  if (!namn) return ''
-  const utfardare = rensa(c.issuer)
-  const ar = datum(c.issueDate || c.date)
-  return `${namn}${utfardare && !namn.includes(utfardare) ? `, ${utfardare}` : ''}${ar ? ` (${ar})` : ''}`
+  const utgivare = rensa(c?.issuer)
+  return { namn, utgivare: namn.includes(utgivare) ? '' : utgivare, ar: datum(c?.issueDate || c?.date) }
+}
+
+/** Utgivare och år som en text: "PMI 2022", eller med komma ("PMI, 2022"). */
+export function intygDetalj(r: IntygRad, sep = ' '): string {
+  return [r.utgivare, r.ar].filter(Boolean).join(sep)
 }
 
 function intyg(cv: CVMetadata): AvsnittInnehall | null {
-  const rader = ((cv.certifications ?? []) as (CVCertification | string)[]).map(certNamn).filter(Boolean)
-  return rader.length ? { typ: 'lista', rader } : null
+  const rader = ((cv.certifications ?? []) as (CVCertification | string)[]).map(intygRad).filter((r) => r.namn)
+  return rader.length ? { typ: 'intyg', rader } : null
 }
 
 function sprakAvsnitt(cv: CVMetadata): AvsnittInnehall | null {
   const rader = (cv.languages ?? [])
-    .map((l) => (typeof l === 'string' ? { sprak: rensa(l), niva: '' } : { sprak: rensa(l?.language), niva: rensa(l?.proficiency).toLowerCase() }))
+    .map((l) => (typeof l === 'string' ? { sprak: rensa(l), niva: '' } : { sprak: rensa(l?.language), niva: rensa(l?.proficiency) }))
     .filter((l) => l.sprak)
   return rader.length ? { typ: 'sprak', rader } : null
 }
@@ -369,7 +398,15 @@ export function visaFoto(def: MallDef, val: MallVal | undefined): boolean {
 
 /** Kompetensformen för ett avsnitt i huvud- eller sidospalten. */
 export function kompetensForm(def: MallDef, iSidospalt: boolean): KompetensForm {
-  return iSidospalt ? def.sidospalt?.kompetenser ?? 'lista' : def.kompetenser
+  return iSidospalt ? def.kompetenserISpalt ?? 'lista' : def.kompetenser
+}
+
+/** Spaltens avsnitt ur layouten: sidospalt eller tvåspaltens högerspalt. */
+export function spaltSektioner(def: MallDef): { fullBredd: Sektion[]; spalt: Sektion[]; vanster: Sektion[] | null } {
+  const l = def.layout
+  if (l.typ === 'sidospalt') return { fullBredd: [], spalt: l.spalt.sektioner, vanster: null }
+  if (l.typ === 'tvaspalt') return { fullBredd: l.fullBredd, spalt: l.hoger, vanster: l.vanster }
+  return { fullBredd: [], spalt: [], vanster: null }
 }
 
 /** CV:t som Dokument för en mall och ett val. */
@@ -379,11 +416,14 @@ export function byggDokument(cv: CVMetadata, def: MallDef, val: MallVal = {}): D
     const innehall = BYGGARE[s](cv)
     return innehall ? { sektion: s, rubrik: rub[s], innehall } : null
   }
-  const iSpalt = new Set(def.sidospalt?.sektioner ?? [])
-  // Huvudspaltens ordning: mallens, plus avsnitt som inte nämns någonstans
-  // (så att inget innehåll tappas), referenser sist.
-  const namnda = new Set<Sektion>([...def.ordning, ...iSpalt])
-  const huvud = [...def.ordning.filter((s) => !iSpalt.has(s)), ...SEKTIONER.filter((s) => !namnda.has(s) && s !== 'referenser')]
+  const delar = spaltSektioner(def)
+  const iSpalt = new Set([...delar.spalt, ...delar.fullBredd])
+  // Huvudspaltens ordning: mallens (eller tvåspaltens vänsterspalt), plus
+  // avsnitt som inte nämns någonstans (så att inget innehåll tappas),
+  // referenser sist.
+  const bas = delar.vanster ?? def.ordning
+  const namnda = new Set<Sektion>([...bas, ...iSpalt])
+  const huvud = [...bas.filter((s) => !iSpalt.has(s)), ...SEKTIONER.filter((s) => !namnda.has(s) && s !== 'referenser')]
   if (!namnda.has('referenser')) huvud.push('referenser')
   const ordning = val.ordning && (!def.ordningsval || def.ordningsval.includes(val.ordning)) ? val.ordning : 'standard'
 
@@ -396,15 +436,24 @@ export function byggDokument(cv: CVMetadata, def: MallDef, val: MallVal = {}): D
     kontakt: kontakt(cv),
     foto,
     initial: (namn.match(/\p{L}/u)?.[0] ?? '').toUpperCase(),
+    fullBredd: delar.fullBredd.map(bygg).filter((a): a is Avsnitt => a !== null),
     huvudspalt: ordna(huvud, ordning).map(bygg).filter((a): a is Avsnitt => a !== null),
-    sidospalt: ordna(def.sidospalt?.sektioner ?? [], ordning).map(bygg).filter((a): a is Avsnitt => a !== null),
+    sidospalt: ordna(delar.spalt, ordning).map(bygg).filter((a): a is Avsnitt => a !== null),
     rubriker: rub,
+    tidsaxel: tidsaxel(cv),
   }
 }
 
-/** Rubrikerna i dokumentordning (huvud, sedan spalter i läsordning), för testerna. */
-export function rubrikerIOrdning(dok: Dokument, sidospaltForst: boolean): string[] {
-  const a = dok.huvudspalt.map((x) => x.rubrik)
-  const b = dok.sidospalt.map((x) => x.rubrik)
-  return sidospaltForst ? [...b, ...a] : [...a, ...b]
+/** Tidsaxelns punkter: varje anställning och utbildning med startår. */
+function tidsaxel(cv: CVMetadata): Dokument['tidsaxel'] {
+  const ut: Dokument['tidsaxel'] = []
+  for (const e of cv.experience ?? []) {
+    const a = Number(ar(e?.startDate))
+    if (a && rensa(e.company || e.position)) ut.push({ ar: a, etikett: rensa(e.company) || rensa(e.position), typ: 'jobb' })
+  }
+  for (const e of cv.education ?? []) {
+    const a = Number(ar(e?.startDate) || ar(e?.graduationYear))
+    if (a && rensa(e.institution || e.degree)) ut.push({ ar: a, etikett: rensa(e.institution) || rensa(e.degree), typ: 'utbildning' })
+  }
+  return ut.sort((x, y) => x.ar - y.ar)
 }

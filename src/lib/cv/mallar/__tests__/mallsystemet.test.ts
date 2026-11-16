@@ -143,7 +143,7 @@ describe('innehållet', () => {
   it('inget innehåll tappas: varje avsnitt med innehåll finns i någon spalt', () => {
     for (const def of MALLAR) {
       const dok = byggDokument(NORMALT_CV, def)
-      const alla = [...dok.huvudspalt, ...dok.sidospalt].map((a) => a.sektion)
+      const alla = [...dok.fullBredd, ...dok.huvudspalt, ...dok.sidospalt].map((a) => a.sektion)
       for (const s of ['profil', 'erfarenhet', 'utbildning', 'kompetenser', 'intyg', 'sprak', 'referenser']) {
         expect(alla, `${def.id} ${s}`).toContain(s)
       }
@@ -179,8 +179,10 @@ describe('HTML:en', () => {
           expect(doc.querySelectorAll('[data-post]').length).toBe(
             cv.experience.length + cv.education.length + (cv.projects?.length ?? 0)
           )
-          // Inget absolut placerat, ingen gradienttext.
-          expect(doc.querySelector('style')!.textContent).not.toMatch(/position:\s*absolute|background-clip:\s*text/)
+          // Inget absolut placerat (utom tidsaxelns punkter), ingen gradienttext.
+          const css = doc.querySelector('style')!.textContent ?? ''
+          expect(css).not.toMatch(/background-clip:\s*text/)
+          if (!def.tidsaxel) expect(css).not.toMatch(/position:\s*absolute/)
         })
       }
 

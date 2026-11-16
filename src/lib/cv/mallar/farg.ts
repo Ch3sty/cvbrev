@@ -1,13 +1,13 @@
 /**
- * Färger och typsnitt ur en MallDef och ett val, som värden (hex och
- * typsnittsnamn). HTML-renderaren lägger dem i CSS-variabler, Word-byggaren
- * skriver dem i stilarna. En funktion för båda, så att PDF och Word får
- * samma färg.
+ * Färger, typsnitt och mått ur en MallDef och ett val, som värden (hex,
+ * typsnittsnamn, mm, pt). HTML-renderaren lägger dem i CSS-variabler,
+ * Word-byggaren skriver dem i stilarna. En funktion för båda, så att PDF och
+ * Word får samma färg och samma mått.
  */
 import type { MallVal, TypsnittId } from './kontrakt'
-import type { Farg, MallDef } from './typer'
+import type { Farg, Hex, MallDef } from './typer'
 
-export type Hex = `#${string}`
+export type { Hex }
 
 /** Två hexfärger blandade: andel 0 ger a, 1 ger b. */
 export function blanda(a: string, b: string, andel: number): Hex {
@@ -24,7 +24,7 @@ export function blanda(a: string, b: string, andel: number): Hex {
 /** Accenten för valet: index 0 till 3 i mallens fyra, annars mallens egen. */
 export function accent(def: MallDef, val?: MallVal): Hex {
   const i = val?.farg
-  return (typeof i === 'number' && i >= 0 && i < def.accenter.length ? def.accenter[i] : def.accenter[0]) as Hex
+  return typeof i === 'number' && i >= 0 && i < def.accenter.length ? def.accenter[i] : def.accenter[0]
 }
 
 /** Mallens färgpalett för ett val, som hex. */
@@ -41,7 +41,7 @@ export function palett(def: MallDef, val?: MallVal): Palett {
   const a = accent(def, val)
   return {
     accent: a,
-    ton: blanda(a, '#ffffff', 0.9),
+    ton: blanda(a, '#ffffff', def.farger.tonAndel ?? 0.86),
     text: def.farger.text,
     dampad: def.farger.dampad,
     linje: def.farger.linje,
@@ -61,16 +61,39 @@ export const WORD_TYPSNITT: readonly TypsnittId[] = ['calibri', 'arial', 'verdan
 
 /** Typsnitt som laddas från Google Fonts i PDF:en och förhandsvisningen. */
 export const WEBBTYPSNITT: Readonly<Partial<Record<TypsnittId, string>>> = {
-  lato: 'Lato:ital,wght@0,400;0,700;1,400',
+  lato: 'Lato:ital,wght@0,300;0,400;0,700;1,400',
   'open-sans': 'Open+Sans:ital,wght@0,400;0,600;0,700;1,400',
-  roboto: 'Roboto:ital,wght@0,400;0,500;0,700;1,400',
-  poppins: 'Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400',
+  roboto: 'Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400',
+  poppins: 'Poppins:ital,wght@0,300;0,400;0,500;0,600;1,400',
 }
 
-/** Brödtextens och rubrikernas typsnitt efter valet. */
+/**
+ * Brödtextens och namnets/rubrikernas typsnitt efter valet. Användarens val
+ * ersätter bara brödtexten (spec avsnitt 4 punkt 12).
+ */
 export function typsnittFor(def: MallDef, val?: MallVal): { brod: TypsnittId; rubrik: TypsnittId } {
-  const vald = val?.typsnitt
-  const brod = vald ?? def.typsnitt.brod
-  const rubrik = def.typsnitt.rubrikFast ? def.typsnitt.rubrik ?? def.typsnitt.brod : vald ?? def.typsnitt.rubrik ?? def.typsnitt.brod
-  return { brod, rubrik }
+  return { brod: val?.typsnitt ?? def.typsnitt.brod, rubrik: def.typsnitt.rubrik ?? def.typsnitt.brod }
+}
+
+/** Mått och grader efter "Få plats på en sida". */
+export interface Matt {
+  grad: (pt: number) => number
+  sida: { topp: number; hoger: number; botten: number; vanster: number }
+  luftOver: number
+}
+
+export function matt(def: MallDef, val?: MallVal): Matt {
+  const en = val?.enSida ? def.enSida : null
+  const minus = en?.marginal ?? 0
+  const sida = {
+    topp: Math.max(8, def.sida.topp - minus),
+    hoger: Math.max(8, def.sida.hoger - minus),
+    botten: Math.max(8, def.sida.botten - minus),
+    vanster: Math.max(8, def.sida.vanster - minus),
+  }
+  return {
+    grad: (pt: number) => Math.max(6, pt + (en?.grad ?? 0)),
+    sida,
+    luftOver: en ? Math.min(def.rubrik.luftOver, en.luftOver) : def.rubrik.luftOver,
+  }
 }

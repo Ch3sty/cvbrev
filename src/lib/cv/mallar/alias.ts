@@ -1,75 +1,72 @@
 /**
- * Gamla mall-id till sina efterföljare (plan avsnitt 4). Permanent: sparade
- * val i cv_texts och formatted_cv_downloads, länkar med ?mall= på
- * CDN-cachade sidor och yrkesdatan pekar på gamla id, och inget av det får
- * gå sönder när de gamla mallarna tas bort.
+ * Gamla mall-id till sina efterföljare (plan avsnitt 4, spec avsnitt 4
+ * punkt 16). Permanent: sparade val i cv_texts och formatted_cv_downloads,
+ * länkar med ?mall= på CDN-cachade sidor och yrkesdatan pekar på gamla id,
+ * och inget av det får gå sönder när de gamla mallarna är borta.
  *
  * Regeln: en gammal gratismall pekar alltid på en gratismall (ingen förlorar
- * det hon redan haft gratis), en premiummall på den nya mall som liknar den
- * mest i form.
+ * det hon redan haft gratis), övriga på den nya mall som liknar dem mest i
+ * form: enspaltiga på Linne, sidopaneler på Kalksten, serif på Antikva eller
+ * Folio. `linje` pekar på Stål, aldrig på Linne (saas-lead: namnlikheten
+ * förvirrar i support och loggar).
  *
  * Klientsäker och liten. Testet i __tests__/mallsystemet.test.ts fäller om
  * ett gammalt id saknas eller pekar på en mall som inte finns.
- *
- * PROVISORISK KARTA: tills art-directorns utbud är byggt pekar alla på de två
- * provmallarna. Den slutliga kartan sätts när utbudet finns.
  */
 import { FORVALD_MALL_ID, getMallKort } from './katalog'
 
-const ENSPALT = 'prov-enspalt'
-const SIDOSPALT = 'prov-sidospalt'
-
 export const MALL_ALIAS: Readonly<Record<string, string>> = {
-  // De 41 mallarna i registret före 2026-11-16.
-  norrsken: ENSPALT,
-  'student-startup': ENSPALT,
-  'sidebar-icons': ENSPALT,
-  aurora: SIDOSPALT,
-  atlas: SIDOSPALT,
-  galleri: SIDOSPALT,
-  pedagog: SIDOSPALT,
-  aspekt: SIDOSPALT,
-  klinik: SIDOSPALT,
-  skymning: SIDOSPALT,
-  disk: SIDOSPALT,
-  logistik: SIDOSPALT,
-  verkstad: SIDOSPALT,
-  myndighet: SIDOSPALT,
-  konto: SIDOSPALT,
-  'disk-plus': SIDOSPALT,
-  'logistik-plus': SIDOSPALT,
-  'verkstad-plus': SIDOSPALT,
-  'myndighet-plus': SIDOSPALT,
-  'konto-plus': SIDOSPALT,
-  'norrsken-plus': SIDOSPALT,
-  'tidlos-plus': SIDOSPALT,
-  'stack-plus': SIDOSPALT,
-  'hantverkare-plus': SIDOSPALT,
-  'student-plus': SIDOSPALT,
-  'sidopanel-plus': SIDOSPALT,
-  bygg: SIDOSPALT,
-  forskare: SIDOSPALT,
-  servering: SIDOSPALT,
-  linje: SIDOSPALT,
-  spektrum: SIDOSPALT,
-  kvist: SIDOSPALT,
-  magasin: SIDOSPALT,
-  karta: SIDOSPALT,
-  avtryck: SIDOSPALT,
-  'editorial-magazine': SIDOSPALT,
-  'tidlos-formell': SIDOSPALT,
-  'konsult-kompakt': SIDOSPALT,
-  'stack-developer': SIDOSPALT,
-  'bold-modern': SIDOSPALT,
-  'varden-omsorg': SIDOSPALT,
+  // De tre gamla gratismallarna: alltid till en gratismall.
+  norrsken: 'linne',
+  'student-startup': 'bjork',
+  'sidebar-icons': 'bjork',
+  // Övriga 38 i registret före 2026-11-16.
+  'norrsken-plus': 'koppar',
+  'student-plus': 'bjork',
+  aurora: 'koppar',
+  atlas: 'kolumn',
+  galleri: 'siluett',
+  pedagog: 'kalksten',
+  aspekt: 'raster',
+  klinik: 'kalksten',
+  skymning: 'morkrum',
+  disk: 'raster',
+  'disk-plus': 'raster',
+  logistik: 'granit',
+  'logistik-plus': 'granit',
+  verkstad: 'fasad',
+  'verkstad-plus': 'fasad',
+  myndighet: 'antikva',
+  'myndighet-plus': 'antikva',
+  konto: 'arsring',
+  'konto-plus': 'arsring',
+  'tidlos-formell': 'antikva',
+  'tidlos-plus': 'antikva',
+  'stack-developer': 'stal',
+  'stack-plus': 'stal',
+  'hantverkare-plus': 'fasad',
+  bygg: 'fasad',
+  'sidopanel-plus': 'kalksten',
+  'varden-omsorg': 'kalksten',
+  forskare: 'folio',
+  servering: 'terrakotta',
+  linje: 'stal',
+  spektrum: 'horisont',
+  kvist: 'terrakotta',
+  magasin: 'tidning',
+  karta: 'ritning',
+  avtryck: 'tusch',
+  'editorial-magazine': 'tidning',
+  'konsult-kompakt': 'stal',
+  'bold-modern': 'fasad',
   // Äldre id som finns i formatted_cv_downloads men inte i registret 2026-11-16.
-  'modern-minimal': ENSPALT,
-  'classic-professional': ENSPALT,
-  'clean-corporate': ENSPALT,
-  'creative-minimal': ENSPALT,
-  'creative-edge': ENSPALT,
-  'platinum-executive': ENSPALT,
-  'executive-premium': ENSPALT,
+  'modern-minimal': 'linne',
+  'classic-professional': 'antikva',
+  'clean-corporate': 'linne',
+  'creative-minimal': 'linne',
+  'creative-edge': 'kvadrat',
+  'platinum-executive': 'folio',
+  'executive-premium': 'folio',
 }
 
 /**
