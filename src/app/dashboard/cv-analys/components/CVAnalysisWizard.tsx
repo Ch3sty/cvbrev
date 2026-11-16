@@ -26,6 +26,7 @@ import { useFlowStep } from '@/lib/flow/useFlowStep';
 import type { Aterupptagning } from '../aterupptagning';
 import NameRequiredNotice from '@/components/shared/NameRequiredNotice';
 import { arNamnKravs, kastaOmNamnKravs } from '@/lib/cv/namnKravs';
+import { FORVALD_MALL_ID } from '@/lib/cv/mallar/katalog'
 
 /** Hämtar CV:ts PDF och laddar ned den. Kastar NamnKravsError vid 422 name_required. */
 async function laddaNerCvPdf(requestBody: Record<string, unknown>, pdfFileName: string): Promise<void> {
@@ -201,7 +202,7 @@ export default function CVAnalysisWizard({
   const [savedFileName, setSavedFileName] = useState('');
 
   const [saveChoice, setSaveChoice] = useState<'save-and-download' | 'download' | 'save' | null>(null);
-  const [selectedTemplate, setSelectedTemplate] = useState<string | null>('norrsken');
+  const [selectedTemplate, setSelectedTemplate] = useState<string | null>(FORVALD_MALL_ID);
   const [customCVName, setCustomCVName] = useState('');
 
   const [showSaveProgress, setShowSaveProgress] = useState(false);

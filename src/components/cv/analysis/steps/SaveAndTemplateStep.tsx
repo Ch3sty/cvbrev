@@ -10,6 +10,7 @@ import TemplateSelector from '../TemplateSelector';
 import { generateCVNameSuggestions } from '@/lib/cv/cvNameSuggestions';
 import { useCvQuota } from '@/hooks/useCvQuota';
 import { useDashboardData } from '@/contexts/DashboardDataContext';
+import { FORVALD_MALL_ID } from '@/lib/cv/mallar/katalog'
 
 interface SaveAndTemplateStepProps {
   improvedCV: string;
@@ -29,7 +30,7 @@ export default function SaveAndTemplateStep({
   const { summary } = useDashboardData();
   const [saveToLibrary, setSaveToLibrary] = useState(canSave);
   const [customName, setCustomName] = useState('');
-  const [selectedTemplate, setSelectedTemplate] = useState<string | null>('norrsken');
+  const [selectedTemplate, setSelectedTemplate] = useState<string | null>(FORVALD_MALL_ID);
   const [quotaRefreshKey, setQuotaRefreshKey] = useState(0);
 
   const nameSuggestions = generateCVNameSuggestions();

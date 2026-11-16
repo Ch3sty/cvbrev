@@ -62,8 +62,9 @@ export default function ProvaArbetsyta() {
   const gratis = p.katalog.find((m) => m.id === forslag.ids[0] && m.niva === 'gratis') ?? p.katalog.find((m) => m.niva === 'gratis')!
   const premium = p.mall.niva === 'premium'
   const tier = p.mall.niva === 'premium' ? 'premium' : 'free'
-  const wordKop = p.format === 'docx'
-  const kop = premium || wordKop
+  // Köpet är premiummallen. Word i en gratismall är gratisfilen (ägarens
+  // besked 2026-11-16), Word i en premiummall ingår i samma köp.
+  const kop = premium
   const knappText = kop
     ? KNAPP.laddaNerIPremium(p.format, p.mall.namn, p.prisNu)
     : KNAPP.laddaNer(p.format)
@@ -193,7 +194,7 @@ export default function ProvaArbetsyta() {
         skal={p.cv ? SKAL[forslag.skal] : undefined}
         topp={topp}
         status={status}
-        kanWord={false}
+        kanWord={!premium}
         pris={p.prisNu}
         knapp={{ text: knappText, onClick: () => void laddaNer(), framsteg }}
         gratisVag={premium ? { mall: gratis, onClick: () => p.setMall(gratis.id) } : null}

@@ -4,6 +4,9 @@
  * eftersom Confirm email är avstängt.
  *
  *   - gratiskonto utan kolumnen: första PDF:en 200, andra 402
+ *   - gratiskonto utan kolumnen: Word i gratismall 200 första gången och
+ *     räknad, andra gången 402 (en gratisfil, PDF eller Word); Word i
+ *     premiummall 402 cv_export_word
  *   - betalande utan kolumnen: PDF och Word 200
  */
 import { describe, it, expect, beforeEach, vi } from 'vitest'
@@ -121,6 +124,29 @@ describe('nedladdning utan bekräftad e-post', () => {
     harAtkomst.mockReturnValue(true)
     const svar = await pdf('tidlos-formell')
     expect(svar.status).toBe(200)
+    expect(updates).toHaveLength(0)
+  })
+
+  it('gratiskonto får sin första fil som Word i gratismall, och den räknas', async () => {
+    harAtkomst.mockReturnValue(false)
+    const svar = await anrop({ template: 'linne', structuredData: structuredClone(NORMALT_CV), format: 'docx' })
+    expect(svar.status).toBe(200)
+    expect(updates).toEqual([expect.objectContaining({ free_cv_exports_used: 1 })])
+  })
+
+  it('gratiskonto som använt sin fil får betalväggen också för Word i gratismall', async () => {
+    harAtkomst.mockReturnValue(false)
+    PROFIL.free_cv_exports_used = 1
+    const svar = await anrop({ template: 'bjork', structuredData: structuredClone(NORMALT_CV), format: 'docx' })
+    expect(svar.status).toBe(402)
+    expect((await svar.json()).feature).toBe('cv_export')
+  })
+
+  it('gratiskonto och Word i premiummall ger 402 cv_export_word', async () => {
+    harAtkomst.mockReturnValue(false)
+    const svar = await anrop({ template: 'koppar', structuredData: structuredClone(NORMALT_CV), format: 'docx' })
+    expect(svar.status).toBe(402)
+    expect((await svar.json()).feature).toBe('cv_export_word')
     expect(updates).toHaveLength(0)
   })
 

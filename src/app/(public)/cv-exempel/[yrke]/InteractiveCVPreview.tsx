@@ -7,6 +7,7 @@ import { Eye, Crown, ChevronDown, Check, Type, Palette } from 'lucide-react'
 import { SIMPLE_TEMPLATES } from '@/lib/cv/simple-templates'
 import { getTemplateGenerator } from '@/lib/cv/mallar/kompat-generator'
 import { convertToCVMetadata } from '@/lib/cv/cv-metadata-converter'
+import { FORVALD_MALL_ID } from '@/lib/cv/mallar/katalog'
 
 interface InteractiveCVPreviewProps {
   exempelCV: {
@@ -61,7 +62,7 @@ const FONTS = [
 ]
 
 export default function InteractiveCVPreview({ exempelCV, initialHTML }: InteractiveCVPreviewProps) {
-  const [selectedTemplate, setSelectedTemplate] = useState('norrsken')
+  const [selectedTemplate, setSelectedTemplate] = useState<string>(FORVALD_MALL_ID)
   const [selectedFont, setSelectedFont] = useState('calibri')
   const [isTemplateOpen, setIsTemplateOpen] = useState(false)
   const [isFontOpen, setIsFontOpen] = useState(false)

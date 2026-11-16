@@ -150,7 +150,9 @@ export default function Step7Review({
 
   const isTemplateLocked = mall.niva === 'premium' && !isPremium;
   const aktivtFormat: Format = mall.word ? format : 'pdf';
-  const wordLast = !isPremium;
+  // Word i en gratismall är en vanlig gratisexport (ägarens besked 2026-11-16);
+  // är gratisfilen använd svarar servern 402 cv_export som för PDF.
+  const wordLast = !isPremium && mall.niva === 'premium';
   useBetalvaggVisad('mall', isTemplateLocked);
 
   const valjMall = (id: string, metod: 'tryck' | 'lista' | 'svep') => {

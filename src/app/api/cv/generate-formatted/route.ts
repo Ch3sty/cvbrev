@@ -333,8 +333,11 @@ export async function POST(request: NextRequest) {
       onboardingTrack = varde === 'cv' || varde === 'tester' || varde === 'allt' ? varde : null;
     }
 
-    // Word finns i mallarna med word: true och ingår alltid i Premium (planens
-    // B1 och B2). Mallen utan Word-version är ett fel i anropet, inte en betalvägg.
+    // Word finns i mallarna med word: true. Ägarens besked 2026-11-16: de två
+    // gratismallarna laddas ner gratis som PDF eller Word, och Word i en
+    // gratismall är en vanlig gratisexport som räknas mot FREE_CV_EXPORTS
+    // nedan. Word i en premiummall kräver cv_export_word som förut. Mallen
+    // utan Word-version är ett fel i anropet, inte en betalvägg.
     if (somWord) {
       if (!mall.word) {
         return NextResponse.json(
@@ -348,7 +351,8 @@ export async function POST(request: NextRequest) {
           { status: 401 }
         );
       }
-      const harWord = await userHasAccess(supabase, authedUserId, 'cv_export_word');
+      const harWord =
+        selectedTemplate.tier !== 'premium' || (await userHasAccess(supabase, authedUserId, 'cv_export_word'));
       if (!harWord) {
         void captureServer('export_blockerad', authedUserId, { reason: 'word', template: selectedTemplate.id });
         return NextResponse.json(
@@ -390,9 +394,8 @@ export async function POST(request: NextRequest) {
     // Featurekontrollen går först, så admin och paketkunder rör aldrig
     // räknaren.
     let shouldCountFreeExport = false;
-    // Word-filen räknas aldrig mot gratisnedladdningen: den kräver Premium
-    // och har redan passerat spärren ovan.
-    if (authedUserId && !somWord) {
+    // Gäller PDF och Word lika: en gratisfil per konto, i vilket format som helst.
+    if (authedUserId) {
       const harExport = await userHasAccess(supabase, authedUserId, 'cv_export');
       if (!harExport) {
         const { data: exportProfile } = await supabase

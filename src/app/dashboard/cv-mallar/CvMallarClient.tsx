@@ -125,7 +125,7 @@ export default function CvMallarClient(p: {
   useEffect(() => {
     if (!p.kop) return
     if (premiumMall && !p.initialIsPremium) setSparr('mall')
-    else if (p.initialFormat === 'docx' && !p.harWord) setSparr('cv-export-word')
+    else if (p.initialFormat === 'docx' && premiumMall && !p.harWord) setSparr('cv-export-word')
     // Bara vid första målningen.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -139,7 +139,9 @@ export default function CvMallarClient(p: {
   const gratis = p.katalog.find((m) => m.niva === 'gratis' && m.id === forslag.ids[0]) ?? p.katalog.find((m) => m.niva === 'gratis')!
   const forvald = useMemo(() => (cvData ? forvalFor(cvData) : undefined), [cvData])
 
-  const behoverKop = (premiumMall && !p.initialIsPremium) || (format === 'docx' && !p.harWord)
+  // Word i en gratismall är en vanlig gratisexport (ägarens besked 2026-11-16);
+  // Word i en premiummall kräver cv_export_word.
+  const behoverKop = (premiumMall && !p.initialIsPremium) || (format === 'docx' && premiumMall && !p.harWord)
   const knappText = behoverKop ? KNAPP.laddaNerIPremiumInloggad(format, mall.namn, p.pris) : KNAPP.laddaNer(format)
 
   /** Merförsäljningen när det finns andra mallar att visa, annars betalväggen. */
@@ -154,7 +156,7 @@ export default function CvMallarClient(p: {
       const tier = m.niva === 'gratis' ? 'free' : 'premium'
       capture('nedladdning_klickad', { mall: m.id, format: f, inloggad: true, surface: SURFACE, tier })
       setFel(null)
-      if (f === 'docx' && !p.harWord) return setSparr('cv-export-word')
+      if (f === 'docx' && m.niva === 'premium' && !p.harWord) return setSparr('cv-export-word')
       if (m.niva === 'premium' && !p.initialIsPremium) return setSparr('mall')
       if (p.gratisAnvand) return saljEllerVagg()
       const namn = cvData?.personalInfo.fullName || cv.file_name.replace(/\.[^/.]+$/, '')
@@ -247,7 +249,7 @@ export default function CvMallarClient(p: {
         onVal={(v) => setVal(v)}
         format={format}
         onFormat={(f) => {
-          if (f === 'docx' && !p.harWord) setSparr('cv-export-word')
+          if (f === 'docx' && premiumMall && !p.harWord) setSparr('cv-export-word')
           setFormat(f)
         }}
         forhandsvisning={fv}
@@ -255,7 +257,7 @@ export default function CvMallarClient(p: {
         foreslagna={forslag.ids}
         skal={SKAL[forslag.skal]}
         topp={topp}
-        kanWord={Boolean(p.harWord)}
+        kanWord={Boolean(p.harWord) || !premiumMall}
         pris={p.pris}
         knapp={{ text: knappText, onClick: () => void laddaNer(), framsteg, disabled: !cv }}
         gratisVag={premiumMall && !p.initialIsPremium ? { mall: gratis, onClick: () => setMallId(gratis.id) } : null}

@@ -1,8 +1,10 @@
 /**
  * Spärrarna för CV:t som Word-fil (docs/plan-cv-word-2026-11-15.md avsnitt 7):
  *
- *   1. Gratis och Word ger 402 med featuren cv_export_word, aldrig en fil,
- *      och gratisnedladdningen räknas inte.
+ *   1. Ägarens besked 2026-11-16: Word i en gratismall är en vanlig
+ *      gratisexport. Gratiskontot får filen första gången och den räknas
+ *      mot FREE_CV_EXPORTS; andra gången 402 cv_export. Word i en
+ *      premiummall ger 402 cv_export_word utan fil och utan räkning.
  *   2. Premium och en mall utan Word-version ger 400.
  *   3. Premium och en Word-mall ger en .docx med rätt innehållstyp, loggar
  *      formatet och rör aldrig gratisräknaren.
@@ -14,6 +16,8 @@ import { MALL_KATALOG } from '@/lib/cv/mallar/katalog'
 
 // Mallarna ur katalogen, så att testet följer utbudet.
 const WORD_MALL = MALL_KATALOG.find((m) => m.word)!
+const GRATIS_WORD = MALL_KATALOG.find((m) => m.word && m.niva === 'gratis')!
+const PREMIUM_WORD = MALL_KATALOG.find((m) => m.word && m.niva === 'premium')!
 const UTAN_WORD = MALL_KATALOG.find((m) => !m.word)
 
 const ANVANDARE = { id: 'user-1', email: 'kund@example.com' }
@@ -98,12 +102,32 @@ beforeEach(() => {
   updates.length = 0
   loggat.mockReset()
   insertFel = []
+  PROFIL.free_cv_exports_used = 0
 })
 
 describe('CV som Word-fil, spärrarna i generate-formatted', () => {
-  it('gratis och Word ger 402 cv_export_word, ingen fil och ingen räkning', async () => {
+  it('gratis och Word i en gratismall ger filen första gången och räknar gratisfilen', async () => {
     harAtkomst.mockReturnValue(false)
-    const svar = await word(WORD_MALL.id)
+    const svar = await word(GRATIS_WORD.id)
+    expect(svar.status).toBe(200)
+    expect(svar.headers.get('Content-Disposition')).toContain('cv-' + GRATIS_WORD.id + '.docx')
+    expect(updates).toEqual([{ free_cv_exports_used: 1 }])
+    expect(inserts).toEqual([expect.objectContaining({ template_id: GRATIS_WORD.id, format: 'docx' })])
+  })
+
+  it('gratis och Word i en gratismall ger 402 cv_export när gratisfilen är använd', async () => {
+    harAtkomst.mockReturnValue(false)
+    PROFIL.free_cv_exports_used = 1
+    const svar = await word(GRATIS_WORD.id)
+    expect(svar.status).toBe(402)
+    expect((await svar.json()).feature).toBe('cv_export')
+    expect(updates).toHaveLength(0)
+    expect(inserts).toHaveLength(0)
+  })
+
+  it('gratis och Word i en premiummall ger 402 cv_export_word, ingen fil och ingen räkning', async () => {
+    harAtkomst.mockReturnValue(false)
+    const svar = await word(PREMIUM_WORD.id)
     expect(svar.status).toBe(402)
     const body = await svar.json()
     expect(body.feature).toBe('cv_export_word')
