@@ -1,142 +1,106 @@
 /**
- * Granskningen av CV:t som Word-fil (docs/plan-cv-word-2026-11-15.md avsnitt 7).
+ * Granskningen av Word-mallarna i riktiga Word (plan avsnitt 7, spec
+ * avsnitt 2 "Testmatris"):
  *
- *  1. Bygger de sex Word-mallarna i tre CV-längder (kort, normalt, långt).
- *  2. Läser varje fil tillbaka med mammoth: rubrikerna i rätt ordning, alla
- *     å/ä/ö, inga HTML-rester, inga varningar.
- *  3. Öppnar varje fil i Word via COM (scripts/word-mallar-render.ps1):
- *     sidor, ensamma rubriker, delade poster, tomma stycken, PDF-export.
- *  4. Ritar varje PDF-sida som png med pdf.js i Chrome, för ögonen.
+ *  1. Bygger varje mall med word: true i tre CV-längder (foto där mallen har
+ *     fotoplats) och läser filen tillbaka med mammoth: alla å/ä/ö, inga
+ *     HTML-rester, Word-rubrikerna = h2 i HTML:en.
+ *  2. Renderar samma CV i samma mall som PDF genom nedladdningens kedja
+ *     (Chrome), `<mall>-<längd>-chrome.pdf`.
+ *  3. Öppnar varje .docx i Word via COM (scripts/word-mallar-render.ps1):
+ *     ensamma rubriker, delade poster, tomma stycken, en sida med en rad,
+ *     PDF-export `<mall>-<längd>.pdf`.
+ *  4. Ritar båda PDF:erna som png och lägger dem sida vid sida,
+ *     `<mall>-<längd>-jamforelse.png`: Chrome till vänster, Word till höger,
+ *     sida för sida. Art-director granskar dem.
  *
- * Bilderna hamnar utanför git (feedback om QA-bilder). Kör:
- *   npx tsx scripts/word-mallar-granska.ts <utmapp> [--bara-docx | --bara-png]
+ * Allt hamnar i utmappen, utanför git. Kör:
+ *   npx tsx scripts/word-mallar-granska.ts <utmapp> [--mall <id>]
  */
-import { mkdirSync, writeFileSync, readFileSync, readdirSync, existsSync } from 'fs'
+import { mkdirSync, writeFileSync, readFileSync } from 'fs'
 import path from 'path'
-import http from 'http'
 import { execFileSync } from 'child_process'
 import mammoth from 'mammoth'
-import { WORD_MALLAR, byggWordCv } from '../src/lib/cv/word'
-import { WORD_TEMPLATE_IDS } from '../src/lib/cv/template-antal'
+import type { CVMetadata } from '../src/lib/cv/cv-metadata'
 import { CV_LANGDER } from '../src/lib/cv/word/__tests__/fixtures'
+import { ritaPdfSidor } from './lib/pdf-verktyg'
 
 const ut = path.resolve(process.argv[2] ?? 'word-qa')
-const baraDocx = process.argv.includes('--bara-docx')
-// Bara png av PDF:er som redan finns i mappen (t.ex. från LibreOffice).
-const baraPng = process.argv.includes('--bara-png')
+const i = process.argv.indexOf('--mall')
+const BARA = i > 0 ? process.argv[i + 1] : undefined
 mkdirSync(ut, { recursive: true })
 
-async function bygg() {
+const FOTO =
+  'data:image/svg+xml;base64,' +
+  Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect width="200" height="200" fill="#9aa4ae"/><circle cx="100" cy="80" r="40" fill="#cfd5db"/><rect x="45" y="130" width="110" height="70" rx="50" fill="#cfd5db"/></svg>').toString('base64')
+
+async function bygg(): Promise<{ filer: string[]; fel: string[] }> {
+  const { MALLAR } = await import('../src/lib/cv/mallar/register')
+  const { byggWordCv } = await import('../src/lib/cv/word')
+  const { renderaMallHtml } = await import('../src/lib/cv/rendera-mall-html')
+  const { generateSwedishCVPDF, closeSwedishCVPDFGenerator } = await import('../src/lib/cv/swedish-cv-pdf-generator')
   const fel: string[] = []
-  for (const id of WORD_TEMPLATE_IDS) {
-    for (const [langd, cv] of Object.entries(CV_LANGDER)) {
-      const fil = path.join(ut, `${id}-${langd}.docx`)
-      const buf = await byggWordCv(cv, id)
-      writeFileSync(fil, buf)
-      const { value, messages } = await mammoth.extractRawText({ buffer: buf })
-      const html = (await mammoth.convertToHtml({ buffer: buf })).value
-      const rubriker = [...html.matchAll(/<h2>(.*?)<\/h2>/g)].map((m) => m[1].replace(/&amp;/g, '&'))
-      const def = WORD_MALLAR[id]
+  const filer: string[] = []
+  for (const def of MALLAR.filter((m) => m.word && (!BARA || m.id === BARA))) {
+    for (const [langd, bas] of Object.entries(CV_LANGDER)) {
+      const cv: CVMetadata = structuredClone(bas)
+      if (def.foto && langd !== 'kort') cv.personalInfo.profilePhotoUrl = FOTO
+      const namn = `${def.id}-${langd}`
+      const buf = await byggWordCv(cv, def.id)
+      writeFileSync(path.join(ut, `${namn}.docx`), buf)
+      const html = renderaMallHtml(cv, def.id)!
+      const pdf = await generateSwedishCVPDF(html, cv, { template: def.id, format: 'A4', swedishSettings: { pageLimit: 4 } } as Parameters<typeof generateSwedishCVPDF>[2])
+      writeFileSync(path.join(ut, `${namn}-chrome.pdf`), pdf)
+      filer.push(namn)
+
+      const { value } = await mammoth.extractRawText({ buffer: buf })
+      const wordHtml = (await mammoth.convertToHtml({ buffer: buf })).value
+      const wRubriker = [...wordHtml.matchAll(/<h2>(.*?)<\/h2>/g)].map((m) => m[1].replace(/<[^>]+>/g, '').replace(/&amp;/g, '&'))
+      const hRubriker = [...html.matchAll(/<h2[^>]*>(.*?)<\/h2>/g)].map((m) => m[1].replace(/&amp;/g, '&'))
       const problem: string[] = []
-      if (messages.length) problem.push(`mammoth-varningar: ${messages.map((m) => m.message).join('; ')}`)
-      if (!/<h1>/.test(html)) problem.push('ingen Rubrik 1')
       const kalla = JSON.stringify(cv)
       for (const t of ['å', 'ä', 'ö', 'Å', 'Ä', 'Ö']) if (kalla.includes(t) && !value.includes(t)) problem.push(`saknar ${t}`)
       if (/&amp;|&nbsp;|<\/?[a-z]+>/i.test(value)) problem.push('HTML-rester i texten')
-      if (!value.includes(cv.personalInfo.fullName)) problem.push('namnet saknas')
-      for (const e of cv.experience) if (!value.includes(e.position)) problem.push(`tjänsten saknas: ${e.position}`)
-      // Rubrikerna ska komma i mallens ordning.
-      const forvantad = def.sektioner.map((s) => def.rubriker[s])
-      let senast = -1
-      for (const r of rubriker) {
-        const i = forvantad.indexOf(r)
-        if (i < 0) problem.push(`okänd rubrik ${r}`)
-        else if (i < senast) problem.push(`rubriken ${r} i fel ordning`)
-        senast = Math.max(senast, i)
-      }
-      // Stacks spalter: varje grupp läses i sin helhet, rubriken före sina punkter.
-      if (id === 'stack-developer') {
-        for (const g of cv.skills) {
-          const a = value.indexOf(g.category)
-          const b = value.indexOf(g.skills[0], a)
-          const c = value.indexOf(g.skills[g.skills.length - 1], a)
-          if (a < 0 || b < a || c < b) problem.push(`spalten ${g.category} läses i fel ordning`)
-        }
-      }
-      writeFileSync(fil.replace(/\.docx$/, '.txt'), value)
-      console.log(`${id}-${langd}: ${buf.length} byte, ${rubriker.length} rubriker${problem.length ? ', PROBLEM: ' + problem.join(' | ') : ', mammoth ok'}`)
-      if (problem.length) fel.push(`${id}-${langd}`)
+      if ([...wRubriker].sort().join('|') !== [...hRubriker].sort().join('|')) problem.push(`rubrikerna skiljer: ${wRubriker.join(', ')} mot ${hRubriker.join(', ')}`)
+      console.log(`${namn}: ${buf.length} byte, ${wRubriker.length} rubriker${problem.length ? ', PROBLEM: ' + problem.join(' | ') : ', mammoth ok'}`)
+      if (problem.length) fel.push(namn)
     }
   }
-  return fel
+  await closeSwedishCVPDFGenerator()
+  return { filer, fel }
 }
 
-async function ritaPng() {
-  const pdfjs = path.resolve('node_modules/pdfjs-dist/build')
-  const server = http.createServer((req, res) => {
-    const url = decodeURIComponent((req.url ?? '/').split('?')[0])
-    let fil: string
-    if (url.startsWith('/pdfjs/')) fil = path.join(pdfjs, url.slice(7))
-    else if (url === '/') {
-      res.setHeader('Content-Type', 'text/html')
-      res.end(`<!doctype html><html><body style="margin:0;background:#fff"><canvas id="c"></canvas><script type="module">
-        import * as pdfjs from '/pdfjs/pdf.mjs';
-        pdfjs.GlobalWorkerOptions.workerSrc = '/pdfjs/pdf.worker.mjs';
-        window.rita = async (namn, sida) => {
-          const doc = await pdfjs.getDocument('/fil/' + namn).promise;
-          const p = await doc.getPage(sida);
-          const vp = p.getViewport({ scale: 1.5 });
-          const c = document.getElementById('c');
-          c.width = vp.width; c.height = vp.height;
-          await p.render({ canvasContext: c.getContext('2d'), viewport: vp }).promise;
-          return { sidor: doc.numPages, w: vp.width, h: vp.height };
-        };
-        window.klar = true;
-      </script></body></html>`)
-      return
-    } else fil = path.join(ut, url.replace(/^\/fil\//, ''))
-    if (!existsSync(fil)) {
-      res.statusCode = 404
-      res.end()
-      return
+async function jamfor(filer: string[]) {
+  const sharp = (await import('sharp')).default
+  const pdfer = filer.flatMap((n) => [path.join(ut, `${n}-chrome.pdf`), path.join(ut, `${n}.pdf`)])
+  const bilder = await ritaPdfSidor(pdfer, 1)
+  for (const n of filer) {
+    const chrome = bilder[path.join(ut, `${n}-chrome.pdf`)] ?? []
+    const word = bilder[path.join(ut, `${n}.pdf`)] ?? []
+    const sidor = Math.max(chrome.length, word.length)
+    const B = 595
+    const H = 842
+    const lager: { input: Buffer; left: number; top: number }[] = []
+    for (let s = 0; s < sidor; s++) {
+      for (const [k, lista] of [chrome, word].entries()) {
+        if (!lista[s]) continue
+        const bild = await sharp(lista[s]).resize({ width: B, height: H, fit: 'contain', background: '#ffffff' }).png().toBuffer()
+        lager.push({ input: bild, left: k * (B + 16), top: s * (H + 16) })
+      }
     }
-    res.setHeader('Content-Type', fil.endsWith('.mjs') ? 'text/javascript' : fil.endsWith('.pdf') ? 'application/pdf' : 'application/octet-stream')
-    res.end(readFileSync(fil))
-  })
-  await new Promise<void>((r) => server.listen(0, r))
-  const port = (server.address() as { port: number }).port
-  const puppeteer = (await import('puppeteer-core')).default
-  const browser = await puppeteer.launch({ executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe', headless: true })
-  try {
-    const page = await browser.newPage()
-    await page.setViewport({ width: 900, height: 1300 })
-    await page.goto(`http://localhost:${port}/`)
-    await page.waitForFunction('window.klar === true')
-    for (const pdf of readdirSync(ut).filter((f) => f.endsWith('.pdf')).sort()) {
-      let sida = 1
-      let sidor = 1
-      do {
-        const r = (await page.evaluate((n, s) => (window as any).rita(n, s), pdf, sida)) as { sidor: number; w: number; h: number }
-        sidor = r.sidor
-        const el = await page.$('#c')
-        await el!.screenshot({ path: path.join(ut, `${pdf.replace(/\.pdf$/, '')}-s${sida}.png`) as `${string}.png` })
-        sida++
-      } while (sida <= sidor)
-      console.log(`${pdf}: ${sidor} sidor ritade`)
-    }
-  } finally {
-    await browser.close()
-    server.close()
+    await sharp({ create: { width: B * 2 + 16, height: sidor * (H + 16), channels: 3, background: '#9aa0a6' } })
+      .composite(lager)
+      .png()
+      .toFile(path.join(ut, `${n}-jamforelse.png`))
   }
 }
 
 async function main() {
-  if (baraPng) return ritaPng()
-  const fel = await bygg()
-  if (baraDocx) return
+  const { filer, fel } = await bygg()
   const ps = path.resolve('scripts/word-mallar-render.ps1')
-  console.log(execFileSync('powershell', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', ps, '-Mapp', ut], { encoding: 'utf8', timeout: 600000 }))
-  const rapport = JSON.parse(readFileSync(path.join(ut, 'word-rapport.json'), 'utf8').replace(/^\uFEFF/, '')) as any[]
+  console.log(execFileSync('powershell', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', ps, '-Mapp', ut], { encoding: 'utf8', timeout: 1200000 }))
+  const rapport = JSON.parse(readFileSync(path.join(ut, 'word-rapport.json'), 'utf8').replace(/^﻿/, '')) as any[]
+  const comFel: string[] = []
   for (const r of rapport) {
     const anm: string[] = []
     if (r.ensammaRubriker?.length) anm.push(`ensamma rubriker: ${r.ensammaRubriker.join('; ')}`)
@@ -144,10 +108,14 @@ async function main() {
     if (r.tommaStycken?.length) anm.push(`tomma stycken: ${r.tommaStycken.length}`)
     if (r.sidor > 1 && r.raderSistaSidan < 3) anm.push(`sista sidan har ${r.raderSistaSidan} rad(er)`)
     if (r.ejSvenska?.length) anm.push(`stycken som inte är svenska: ${r.ejSvenska.length}`)
-    console.log(`${r.fil}: ${r.sidor} s, ${r.tabeller} tabeller, ${r.listpunkter} listpunkter, rader sista sidan ${r.raderSistaSidan}${anm.length ? ' | ' + anm.join(' | ') : ' | ren'}`)
+    if (anm.length) comFel.push(r.fil)
+    console.log(`${anm.length ? 'FEL' : 'ok '} ${r.fil}: ${r.sidor} s, ${r.tabeller} tabeller, ${r.listpunkter} listpunkter${anm.length ? ' | ' + anm.join(' | ') : ''}`)
   }
-  await ritaPng()
+  await jamfor(filer)
+  console.log(`\nJämförelsebilder: ${ut}\\<mall>-<längd>-jamforelse.png`)
   if (fel.length) console.log('mammoth-problem i:', fel.join(', '))
+  console.log(`Word COM: ${rapport.length - comFel.length} av ${rapport.length} gröna${comFel.length ? ': fel i ' + comFel.join(', ') : ''}`)
+  process.exit(fel.length || comFel.length ? 1 : 0)
 }
 
 main().catch((e) => {

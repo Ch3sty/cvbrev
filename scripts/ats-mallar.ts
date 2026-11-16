@@ -1,8 +1,9 @@
 /**
  * ATS-spärren för CV-mallarna (docs/plan-mallar-2026-11-15.md avsnitt 6b).
  *
- * Varje mall i registret renderas med tre CV-längder (kort, normalt, långt
- * med foto) genom samma PDF-kedja som nedladdningen (generateSwedishCVPDF:
+ * Varje mall i registret (src/lib/cv/mallar) renderas med tre CV-längder
+ * (kort, normalt och långt, med foto i mallar med fotoplats) och med
+ * ordningsvalen intyg och utbildning först, genom samma PDF-kedja som nedladdningen (generateSwedishCVPDF:
  * A4, printBackground, marginal 0) och läses tillbaka med pdf-parse, samma
  * läsare som CV-uppladdningen. Word-mallarna byggs med byggWordCv och läses
  * med mammoth. Skriptet fallerar om
@@ -22,6 +23,7 @@ import path from 'path'
 import { createRequire } from 'module'
 import mammoth from 'mammoth'
 import type { CVMetadata } from '../src/lib/cv/cv-metadata'
+import type { MallVal } from '../src/lib/cv/mallar/kontrakt'
 import { CV_LANGDER } from '../src/lib/cv/word/__tests__/fixtures'
 
 const require_ = createRequire(import.meta.url)
@@ -54,21 +56,26 @@ interface Resultat {
 
 /**
  * Kontrollerna på utläst text. `rubriker` är rubrikerna i den ordning de
- * står i dokumentet (DOM eller Word), `cv` CV:t som renderades.
+ * står i dokumentet (DOM eller Word), en lista per spalt: i en tvåspaltig
+ * mall läses spalterna var för sig, och ordningen gäller inom spalten.
+ * `cv` är CV:t som renderades.
  */
-export function kontrollera(text: string, rubriker: string[], cv: CVMetadata): string[] {
+export function kontrollera(text: string, rubriker: string[] | string[][], cv: CVMetadata): string[] {
   const fel: string[] = []
   const t = n(text)
 
-  // (a) rubrikerna finns och står i ordning
-  let pos = -1
-  for (const r of rubriker) {
-    const i = t.indexOf(n(r), pos + 1)
-    if (i < 0) {
-      fel.push(t.includes(n(r)) ? `rubriken "${r}" står i fel ordning` : `rubriken "${r}" saknas`)
-      continue
+  // (a) rubrikerna finns och står i ordning inom sin spalt
+  const grupper = (Array.isArray(rubriker[0]) ? rubriker : [rubriker]) as string[][]
+  for (const grupp of grupper) {
+    let pos = -1
+    for (const r of grupp) {
+      const i = t.indexOf(n(r), pos + 1)
+      if (i < 0) {
+        fel.push(t.includes(n(r)) ? `rubriken "${r}" står i fel ordning` : `rubriken "${r}" saknas`)
+        continue
+      }
+      pos = i
     }
-    pos = i
   }
 
   // (b) tecknen
@@ -133,61 +140,75 @@ async function chromeSokvag(): Promise<string | undefined> {
 }
 
 async function main() {
-  const { SIMPLE_TEMPLATES } = await import('../src/lib/cv/simple-templates')
+  const { MALLAR } = await import('../src/lib/cv/mallar/register')
   const { renderaMallHtml } = await import('../src/lib/cv/rendera-mall-html')
   const { generateSwedishCVPDF, closeSwedishCVPDFGenerator } = await import('../src/lib/cv/swedish-cv-pdf-generator')
   const { byggWordCv } = await import('../src/lib/cv/word')
-  const { harWordVersion } = await import('../src/lib/cv/template-antal')
   const puppeteer = (await import('puppeteer')).default
 
   const chrome = await chromeSokvag()
   const browser = await puppeteer.launch({ headless: true, executablePath: chrome })
   const resultat: Resultat[] = []
-  const mallar = SIMPLE_TEMPLATES.map((m) => m.id).filter((id) => !BARA || id === BARA)
+  const mallar = MALLAR.filter((m) => !BARA || m.id === BARA)
 
-  for (const id of mallar) {
-    const mall = SIMPLE_TEMPLATES.find((m) => m.id === id)!
-    for (const [langd, bas] of Object.entries(CV_LANGDER)) {
-      const cv: CVMetadata = structuredClone(bas)
-      const medFoto = langd === 'langt' && mall.features?.supportsPhoto === true
-      if (medFoto) cv.personalInfo.profilePhotoUrl = FOTO
-      const html = renderaMallHtml(cv, id, { includePhoto: medFoto })
+  // Tre längder i standardordning, plus normalt CV med intyg och utbildning först.
+  const fall: { namn: string; cv: CVMetadata; val: MallVal }[] = [
+    { namn: 'kort', cv: CV_LANGDER.kort, val: {} },
+    { namn: 'normalt', cv: CV_LANGDER.normalt, val: {} },
+    { namn: 'langt', cv: CV_LANGDER.langt, val: {} },
+    { namn: 'intyg', cv: CV_LANGDER.normalt, val: { ordning: 'intyg' } },
+    { namn: 'utbildning', cv: CV_LANGDER.langt, val: { ordning: 'utbildning' } },
+  ]
+
+  for (const def of mallar) {
+    for (const f of fall) {
+      const cv: CVMetadata = structuredClone(f.cv)
+      if (def.foto && f.namn !== 'kort') cv.personalInfo.profilePhotoUrl = FOTO
+      const html = renderaMallHtml(cv, def.id, f.val)
       if (!html) {
-        resultat.push({ mall: id, format: 'pdf', langd, fel: ['mallen saknar generator'] })
+        resultat.push({ mall: def.id, format: 'pdf', langd: f.namn, fel: ['mallen renderas inte'] })
         continue
       }
 
-      // Rubrikerna i dokumentordning ur DOM:en (h2 eller [data-sektion]).
+      // Rubrikerna i dokumentordning ur DOM:en.
       const sida = await browser.newPage()
       await sida.setContent(html, { waitUntil: 'load' })
-      const rubriker: string[] = await sida.evaluate(() => {
-        const noder = Array.from(document.querySelectorAll<HTMLElement>('[data-sektion-rubrik], h2'))
-        const sedda = new Set<string>()
-        return noder
-          .map((el) => (el.innerText || '').trim())
-          .filter((s) => s && s.length < 60 && !sedda.has(s.toLowerCase()) && sedda.add(s.toLowerCase()))
+      // Rubrikerna per spalt i dokumentordning (huvud och full bredd räknas till huvudspalten).
+      const spalter: { huvud: string[]; sido: string[] } = await sida.evaluate(() => {
+        const ut = { huvud: [] as string[], sido: [] as string[] }
+        for (const el of Array.from(document.querySelectorAll<HTMLElement>('h2'))) {
+          const sido = Boolean(el.closest('.spalt-sido'))
+          ;(sido ? ut.sido : ut.huvud).push((el.textContent || '').trim())
+        }
+        return ut
       })
+      const rubriker = [...spalter.huvud, ...spalter.sido]
       await sida.close()
 
       const pdf = await generateSwedishCVPDF(html, cv, {
-        template: id,
+        template: def.id,
         format: 'A4',
         margins: { top: '0', right: '0', bottom: '0', left: '0' },
         colorScheme: 'navy',
-        swedishSettings: { dateFormat: 'YYYY-MM', phoneFormat: 'international', pageLimit: 4, includePhoto: medFoto },
+        swedishSettings: { dateFormat: 'YYYY-MM', phoneFormat: 'international', pageLimit: 4, includePhoto: Boolean(def.foto) },
       } as Parameters<typeof generateSwedishCVPDF>[2])
-      if (UT) fs.writeFileSync(path.join(UT, `${id}-${langd}.pdf`), pdf)
+      if (UT) fs.writeFileSync(path.join(UT, `${def.id}-${f.namn}.pdf`), pdf)
       const las = await pdfParse(Buffer.from(pdf), { max: 0 })
-      if (UT) fs.writeFileSync(path.join(UT, `${id}-${langd}.txt`), las.text)
-      resultat.push({ mall: id, format: 'pdf', langd, fel: kontrollera(las.text, rubriker, cv), sidor: las.numpages })
+      if (UT) fs.writeFileSync(path.join(UT, `${def.id}-${f.namn}.txt`), las.text)
+      resultat.push({ mall: def.id, format: 'pdf', langd: f.namn, fel: kontrollera(las.text, [spalter.huvud, spalter.sido], cv), sidor: las.numpages })
 
-      if (harWordVersion(id)) {
-        const buf = await byggWordCv(cv, id as Parameters<typeof byggWordCv>[1])
-        if (UT) fs.writeFileSync(path.join(UT, `${id}-${langd}.docx`), buf)
+      if (def.word) {
+        const buf = await byggWordCv(cv, def.id, f.val)
+        if (UT) fs.writeFileSync(path.join(UT, `${def.id}-${f.namn}.docx`), buf)
         const { value } = await mammoth.extractRawText({ buffer: buf })
         const wordHtml = (await mammoth.convertToHtml({ buffer: buf })).value
-        const wRubriker = [...wordHtml.matchAll(/<h2>(.*?)<\/h2>/g)].map((m) => m[1].replace(/&amp;/g, '&'))
-        resultat.push({ mall: id, format: 'docx', langd, fel: kontrollera(value, wRubriker, cv) })
+        const wRubriker = [...wordHtml.matchAll(/<h2>(.*?)<\/h2>/g)].map((m) => m[1].replace(/<[^>]+>/g, '').replace(/&amp;/g, '&'))
+        const fel = kontrollera(value, [wRubriker.filter((r) => spalter.huvud.includes(r)), wRubriker.filter((r) => !spalter.huvud.includes(r))], cv)
+        // Word-rubrikerna är samma som HTML:ens (samma CV, samma val).
+        const a = [...wRubriker].sort().join(' | ')
+        const b = [...rubriker].sort().join(' | ')
+        if (a !== b) fel.push(`Word-rubrikerna skiljer från HTML: ${a} mot ${b}`)
+        resultat.push({ mall: def.id, format: 'docx', langd: f.namn, fel })
       }
     }
   }
@@ -197,7 +218,7 @@ async function main() {
   const fallerade = resultat.filter((r) => r.fel.length)
   for (const r of resultat) {
     const status = r.fel.length ? 'FEL' : 'ok '
-    console.log(`${status} ${r.mall.padEnd(20)} ${r.format.padEnd(4)} ${r.langd.padEnd(8)} ${r.sidor ? r.sidor + ' s' : ''}${r.fel.length ? '\n      ' + r.fel.join('\n      ') : ''}`)
+    console.log(`${status} ${r.mall.padEnd(12)} ${r.format.padEnd(4)} ${r.langd.padEnd(10)} ${r.sidor ? r.sidor + ' s' : ''}${r.fel.length ? '\n      ' + r.fel.join('\n      ') : ''}`)
   }
   const mallarMedFel = [...new Set(fallerade.map((r) => r.mall))]
   console.log(`\n${resultat.length - fallerade.length} av ${resultat.length} gröna. Mallar med fel: ${mallarMedFel.length ? mallarMedFel.join(', ') : 'inga'}`)

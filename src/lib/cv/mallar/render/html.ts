@@ -7,9 +7,10 @@
  *    titeln har data-falt="titel" (exempel-iframens textbyte, planens villkor c),
  *  - varje avsnitt är <section data-avsnitt> med <h2 data-sektion>, varje post
  *    har data-post,
- *  - två spalter är en tabell utan kanter (Chrome delar den över sidor); i
- *    läsordningen kommer huvudspalten före sidospalten (direction: rtl lägger
- *    spalten till vänster), utom när namnet står i spalten,
+ *  - två spalter är en tabell utan kanter (Chrome delar den över sidor);
+ *    huvudet ligger ovanför, och den korta spalten står först i DOM:en så att
+ *    den läses hel före huvudspalten (direction: rtl lägger en högerspalt
+ *    till höger),
  *  - inget absolut placerat utom tidsaxelns punkter, ingen gradienttext,
  *    spärrning högst 0,16 em, ingen avstavning.
  *
@@ -425,6 +426,7 @@ padding:${band.luft.topp}mm ${band.luft.sidor}mm ${band.luft.botten}mm;${band.mi
 .intyglista .intyg-detalj{text-align:left}
 .spraklista .sprak{font-weight:400}
 .spraklista .niva{font-weight:700;color:inherit;font-size:inherit}
+.avsnitt-referenser{break-before:avoid}
 .avsnitt-referenser .text{color:${f('dampad', p.dampad)}}`)
 
   // Spalter
@@ -456,7 +458,7 @@ padding:${band.luft.topp}mm ${band.luft.sidor}mm ${band.luft.botten}mm;${band.mi
   }
   if (l.typ === 'tvaspalt') {
     ut.push(`.spalter{width:100%;border-collapse:collapse;table-layout:fixed}
-.spalter>tbody>tr>td{vertical-align:top}
+.spalter>tbody>tr>td{vertical-align:top;direction:ltr;text-align:left}
 .spalt-huvud{width:${(l.vansterAndel * 100).toFixed(2)}%;padding-right:${l.mellanrum / 2}mm}
 .spalt-sido{padding-left:${l.mellanrum / 2}mm;font-size:var(--grad-spalt)}
 .full-bredd{margin-bottom:${m.luftOver}mm}`)
@@ -507,17 +509,16 @@ export function renderDokumentHtml(dok: Dokument, def: MallDef, val: MallVal = {
       s.kontakt ? kontaktAvsnitt(dok) : '',
       ...dok.sidospalt.map((a) => avsnitt(a, c, true)),
     ].join('')
-    // Huvudspalten först i läsordningen, utom när namnet står i spalten.
-    const spaltForst = Boolean(s.huvudISpalten)
-    const celler = spaltForst
-      ? `<td class="spalt spalt-sido">${sido}</td><td class="spalt spalt-huvud cv-kropp">${huvudspalt}</td>`
-      : `<td class="spalt spalt-huvud cv-kropp">${huvudspalt}</td><td class="spalt spalt-sido">${sido}</td>`
-    const vansterForst = spaltForst ? s.sida === 'vanster' : s.sida === 'hoger'
-    kropp = `${spaltForst ? '' : huvud(dok, c)}${axel}<table class="spalter" role="presentation" style="direction:${vansterForst ? 'ltr' : 'rtl'}"><tbody><tr>${celler}</tr></tbody></table>`
+    // Spalten först i DOM:en. Chrome skriver PDF:ens text sida för sida i
+    // DOM-ordning; den korta spalten ryms nästan alltid på sida 1, och då
+    // läses den hel före huvudspalten i stället för mitt emellan sida 1 och
+    // 2 av erfarenheten. direction: rtl lägger en högerspalt till höger.
+    const celler = `<td class="spalt spalt-sido">${sido}</td><td class="spalt spalt-huvud cv-kropp">${huvudspalt}</td>`
+    kropp = `${s.huvudISpalten ? '' : huvud(dok, c)}${axel}<table class="spalter" role="presentation" style="direction:${s.sida === 'vanster' ? 'ltr' : 'rtl'}"><tbody><tr>${celler}</tr></tbody></table>`
   } else if (l.typ === 'tvaspalt') {
     const full = dok.fullBredd.map((a) => avsnitt(a, c, false)).join('')
     const hoger = dok.sidospalt.map((a) => avsnitt(a, c, true)).join('')
-    kropp = `${huvud(dok, c)}${axel}<div class="full-bredd cv-kropp">${full}</div><table class="spalter" role="presentation"><tbody><tr><td class="spalt spalt-huvud cv-kropp">${huvudspalt}</td><td class="spalt spalt-sido">${hoger}</td></tr></tbody></table>`
+    kropp = `${huvud(dok, c)}${axel}<div class="full-bredd cv-kropp">${full}</div><table class="spalter" role="presentation" style="direction:rtl"><tbody><tr><td class="spalt spalt-sido">${hoger}</td><td class="spalt spalt-huvud cv-kropp">${huvudspalt}</td></tr></tbody></table>`
   } else {
     kropp = `${huvud(dok, c)}${axel}<main class="spalt cv-kropp">${huvudspalt}</main>`
   }

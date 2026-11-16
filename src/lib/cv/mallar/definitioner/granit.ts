@@ -35,7 +35,7 @@ export const granit: MallDef = {
       bredd: 58,
       bakgrund: 'accent',
       text: 'vit',
-      rubrik: { vikt: 700, versaler: true, farg: 'vit', pt: 10, linje: { pt: 0.5, farg: '#8A8D93', luft: 1 } },
+      rubrik: { vikt: 700, versaler: true, farg: 'vit', pt: 9, linje: { pt: 0.5, farg: '#8A8D93', luft: 1 } },
       luft: { topp: 7, inre: 6 },
       mellanrum: 8,
       kontakt: true,

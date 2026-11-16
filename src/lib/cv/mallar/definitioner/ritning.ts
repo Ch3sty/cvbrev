@@ -58,5 +58,6 @@ export const ritning: MallDef = {
 .spalt-sido .huvud .namn{overflow-wrap:normal;word-break:normal}
 .spalt-sido .lista li::marker{color:rgba(255,255,255,0.7)}
 .posttitel{font-weight:500}
+@media screen{.cv{background:linear-gradient(to right,var(--accent) 66mm,var(--sida) 66mm)}}
 @media print{.cv::before{content:"";position:fixed;left:0;top:-30mm;bottom:-30mm;width:66mm;background:var(--accent);z-index:-1}}`,
 }

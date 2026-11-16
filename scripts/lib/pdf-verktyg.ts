@@ -41,20 +41,23 @@ export async function lasPdfGeometri(buf: Buffer | Uint8Array): Promise<PdfGeome
     const vp = sida.getViewport({ scale: 1 })
     hojd = vp.height
     const inn = await sida.getTextContent()
-    const bitar = (inn.items as { str: string; transform: number[] }[])
+    const bitar = (inn.items as { str: string; transform: number[]; width: number }[])
       .filter((i) => typeof i.str === 'string' && i.str.trim())
-      .map((i) => ({ x: i.transform[4], y: vp.height - i.transform[5], text: i.str }))
+      .map((i) => ({ x: i.transform[4], y: vp.height - i.transform[5], text: i.str, slut: i.transform[4] + (i.width || 0) }))
     bitar.sort((a, b) => a.y - b.y || a.x - b.x)
-    const pa: PdfRad[] = []
+    // Bitar på samma höjd slås ihop till en rad, men bara när de står nära
+    // varandra: två spalter på samma höjd blir två rader.
+    const pa: (PdfRad & { slut: number })[] = []
     for (const b of bitar) {
-      const sista = pa[pa.length - 1]
-      if (sista && Math.abs(sista.y - b.y) < 2) {
-        sista.text += (b.x > sista.x ? ' ' : '') + b.text
+      const sista = [...pa].reverse().find((r) => Math.abs(r.y - b.y) < 2 && b.x >= r.slut - 2 && b.x - r.slut < 18)
+      if (sista) {
+        sista.text += (b.x - sista.slut > 1 ? ' ' : '') + b.text
+        sista.slut = b.slut
       } else {
-        pa.push({ sida: s, y: b.y, x: b.x, text: b.text })
+        pa.push({ sida: s, y: b.y, x: b.x, text: b.text, slut: b.slut })
       }
     }
-    rader.push(...pa)
+    rader.push(...pa.map(({ slut: _s, ...r }) => r))
   }
   return { sidor: doc.numPages, hojd, rader }
 }
@@ -68,14 +71,23 @@ export const norm = (s: string) => s.normalize('NFC').replace(/-\s+/g, '-').repl
  */
 export function sidaFor(g: PdfGeometri, text: string, franSida = 1): number {
   const nyckel = norm(text).slice(0, 24)
-  const rad = g.rader.find((r) => r.sida >= franSida && norm(r.text).includes(nyckel))
+  const rad =
+    g.rader.find((r) => r.sida >= franSida && norm(r.text).startsWith(nyckel)) ??
+    g.rader.find((r) => r.sida >= franSida && norm(r.text).includes(nyckel))
   return rad?.sida ?? -1
 }
 
 /** Sidan där en text slutar (sista 24 tecknen). */
 export function sidaForSlut(g: PdfGeometri, text: string, franSida = 1): number {
-  const nyckel = norm(text).slice(-24)
-  const rad = g.rader.find((r) => r.sida >= franSida && norm(r.text).includes(nyckel))
+  // Texten kan vara radbruten: prova de sista 24 tecknen, sedan de sista 12,
+  // sedan en rad som slutar med sista ordet.
+  const t = norm(text)
+  for (const nyckel of [t.slice(-24), t.slice(-12)]) {
+    const rad = g.rader.find((r) => r.sida >= franSida && norm(r.text).includes(nyckel))
+    if (rad) return rad.sida
+  }
+  const ord = t.split(" ").pop() ?? ""
+  const rad = ord ? g.rader.find((r) => r.sida >= franSida && norm(r.text).endsWith(ord)) : undefined
   return rad?.sida ?? -1
 }
 
@@ -146,4 +158,11 @@ export async function ritaPdfSidor(filer: string[], skala = 1.5): Promise<Record
     server.close()
   }
   return ut
+}
+
+/** Sidan där en rubrik står: helt lika rad först, sedan början av en rad. */
+export function sidaForRubrik(g: PdfGeometri, text: string, franSida = 1): number {
+  const nyckel = norm(text)
+  const rad = g.rader.find((r) => r.sida >= franSida && norm(r.text) === nyckel) ?? g.rader.find((r) => r.sida >= franSida && norm(r.text).startsWith(nyckel + ' '))
+  return rad?.sida ?? sidaFor(g, text, franSida)
 }
