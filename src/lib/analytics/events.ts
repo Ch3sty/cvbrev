@@ -274,6 +274,9 @@ export interface AnalyticsEvents {
     price_shown?: boolean
     /** Kampanjen vars pris kortet visade, null utan kampanj (K6, 2026-11-15). */
     kampanj?: KampanjNyckel | null
+    /** Mallen väggen gäller (mallflödet, utbudets avsnitt 6), och dess nivå. */
+    template?: string
+    tier?: 'free' | 'premium'
   }
   paywall_cta_clicked: {
     variant: PaywallVariant | 'onboarding_paket' | 'fel-spar'
@@ -285,6 +288,9 @@ export interface AnalyticsEvents {
     plats?: BetalvaggPlats
     /** Kampanjen vars pris knappen visade, null utan kampanj (K6, 2026-11-15). */
     kampanj?: KampanjNyckel | null
+    /** Mallen knappen gällde (mallflödet), och dess nivå. */
+    template?: string
+    tier?: 'free' | 'premium'
     /** Kontots källa och val (jc_kontokalla), läggs på av capture(). */
     konto_kalla?: string
     mitt_test?: string
@@ -422,7 +428,7 @@ export interface AnalyticsEvents {
      byggare, artikel. */
   mall_bytt: { template: string; method: 'tryck' | 'lista' | 'svep'; tier: 'free' | 'premium'; har_word: boolean; surface: string; index?: number }
   typsnitt_bytt: { font: string; surface: string; template?: string; tier?: 'free' | 'premium' }
-  nedladdning_klickad: { mall: string; format: 'pdf' | 'docx'; inloggad: boolean; surface: string; tier?: 'free' | 'premium' }
+  nedladdning_klickad: { template: string; format: 'pdf' | 'docx'; inloggad: boolean; surface: string; tier?: 'free' | 'premium' }
   mallvisning_mall_bytt: { slug: string; template: string; typ: 'cv' | 'brev' }
   mallvisning_klick: { slug: string; template: string; typ: 'cv' | 'brev' }
   /* Mallsatsningen fas 2 (plan-mallar avsnitt 8, utbudets avsnitt 6): de nya
@@ -435,11 +441,11 @@ export interface AnalyticsEvents {
   sidantal_visat: { template: string; tier: 'free' | 'premium'; sidor: number; surface: string }
   forslag_visad: { grupp: string; templates: string; surface: string }
   forslag_vald: { grupp: string; position: number; template: string; tier: 'free' | 'premium'; surface: string }
-  konto_ark_visat: { mall: string; tier: 'free' | 'premium'; format: 'pdf' | 'docx'; inloggad: false; surface: string; orsak: 'nedladdning' | 'foto' | 'bild_pdf' }
+  konto_ark_visat: { template: string; tier: 'free' | 'premium'; format: 'pdf' | 'docx'; inloggad: false; surface: string; orsak: 'nedladdning' | 'foto' | 'bild_pdf' }
   cv_eget_start: { method: 'pdf' | 'docx' | 'namn'; surface: string }
   cv_eget_inlast: { method: 'pdf' | 'docx'; ok: boolean; sektioner_hittade: number; surface: string }
   cv_eget_misslyckad: { method: 'pdf' | 'docx' | 'okand'; reason: string; surface: string }
-  'belöning_visad': { template: string; tier: 'free' | 'premium'; format: 'pdf' | 'docx'; nasta: 'jobb' | 'brev'; surface: string }
+  beloning_visad: { template: string; tier: 'free' | 'premium'; format: 'pdf' | 'docx'; nasta: 'jobb' | 'brev'; surface: string }
   fil_delad: { template: string; format: 'pdf' | 'docx'; metod: 'dela' | 'oppna'; surface: string }
   nasta_steg_klickad: { target: 'jobb' | 'fler_jobb' | 'brev'; template: string; surface: string }
   merforsaljning_visad: { template: string; templates: string; surface: string }
@@ -448,7 +454,7 @@ export interface AnalyticsEvents {
   fortsatt_klickad: { surface: 'artikel' | 'yrkessida' | 'mallsida'; slug?: string; yrke_slug?: string; template: string }
   mallvisning_visad: { slug: string; template: string }
   mallvisning_uppladdning_klick: { slug: string }
-  cv_nedladdad: { template: string; format: 'pdf' | 'docx'; tier: 'free' | 'premium'; gratisexport: boolean }
+  cv_nedladdad: { template: string; format: 'pdf' | 'docx'; tier: 'free' | 'premium'; gratisexport: boolean; entry?: string | null; foto_pa?: boolean; sidor?: number | null }
   kom_igang_tile_clicked: { bricka: string; paket: 'cv' | 'tester' | 'allt' | null; intent: SignupIntent | null; outside_intent: boolean }
   /* ---------------------------------------------- Rummen, våg 1b
      spec-rummen-2026-10-10 avsnitt 7. rum_oppnat när rummet byts (eller

@@ -127,6 +127,12 @@ export interface PaywallCardProps {
    * i samma vikt.
    */
   testTyp?: TestTyp
+  /**
+   * Mallen väggen gäller (mallflödet, affärsgranskningen L1): med i
+   * paywall_shown och paywall_cta_clicked, och köpknappen bär den och
+   * köpreturen till kassan.
+   */
+  mall?: { id: string; tier: 'free' | 'premium'; retur?: string | null } | null
   className?: string
 }
 
@@ -146,6 +152,7 @@ export default function PaywallCard({
   plats,
   dagarKvar = null,
   testTyp,
+  mall = null,
   className,
 }: PaywallCardProps) {
   const [reminder, setReminder] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle')
@@ -182,6 +189,7 @@ export default function PaywallCard({
       suggestedPlan: knappPlan,
       price_shown: true,
       kampanj: kampanjNyckel,
+      ...(mall ? { template: mall.id, tier: mall.tier } : {}),
     })
     capture('betalvagg_visad', { plats: platsen, dagar_kvar: dagarKvar })
     // Var fel spår tar i taket. Skjuts en gång per montering, samma som ovan.
@@ -191,7 +199,15 @@ export default function PaywallCard({
   }, [isPremium, variant, surface, sparradFeature, knappPlan, scope, platsen, dagarKvar, kampanjNyckel])
 
   const ctaClicked = (cta: 'primary' | 'secondary') =>
-    capture('paywall_cta_clicked', { variant, surface, cta, plan: knappPlan, plats: platsen, kampanj: kampanjNyckel })
+    capture('paywall_cta_clicked', {
+      variant,
+      surface,
+      cta,
+      plan: knappPlan,
+      plats: platsen,
+      kampanj: kampanjNyckel,
+      ...(mall ? { template: mall.id, tier: mall.tier } : {}),
+    })
 
   // Kontot har redan funktionen. Ingen betalvägg.
   if (isPremium) return null
@@ -231,7 +247,9 @@ export default function PaywallCard({
    */
   const primarHandling = () => {
     ctaClicked('primary')
-    window.location.href = sparKund ? PREMIUM_HREF : kopstegHref(copy.plan ?? knappPlan, platsen)
+    window.location.href = sparKund
+      ? PREMIUM_HREF
+      : kopstegHref(copy.plan ?? knappPlan, platsen, mall ? { mall: mall.id, retur: mall.retur ?? null } : undefined)
   }
 
   const lank = `${LANK} inline-flex min-h-11 items-center justify-center self-center`

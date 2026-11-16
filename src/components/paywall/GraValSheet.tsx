@@ -45,6 +45,8 @@ export interface GraValSheetProps {
   plats?: BetalvaggPlats
   /** Dagar kvar till provdatum, för mätningen. */
   dagarKvar?: number | null
+  /** Mallen väggen gäller (mallflödet): mätningen och köpreturen. */
+  mall?: { id: string; tier: 'free' | 'premium'; retur?: string | null } | null
 }
 
 export default function GraValSheet({
@@ -57,6 +59,7 @@ export default function GraValSheet({
   surface,
   plats,
   dagarKvar = null,
+  mall = null,
 }: GraValSheetProps) {
   // gray_option_tapped en gång per öppning.
   const mattRef = useRef(false)
@@ -82,6 +85,7 @@ export default function GraValSheet({
             onSecondary={onClose}
             plats={plats}
             dagarKvar={dagarKvar}
+            mall={mall}
             bare
           />
         </div>

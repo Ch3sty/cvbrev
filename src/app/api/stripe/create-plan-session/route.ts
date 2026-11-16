@@ -24,6 +24,11 @@ import { kopKallaMetadata } from '@/lib/stripe/kopKalla.server'
 import { isKampanjNyckel, kampanjNu, visning } from '@/lib/kampanj/kampanj'
 import { kampanjForKop } from '@/lib/kampanj/kampanj.server'
 
+/** Köpreturen ur mallflödet: bara galleriet, kort och utan konstiga tecken. */
+function arMallRetur(v: unknown): v is string {
+  return typeof v === 'string' && v.startsWith('/dashboard/cv-mallar?') && v.length < 300 && !/[\s<>"\\]/.test(v)
+}
+
 export async function POST(request: NextRequest) {
   try {
     const cookieStore = await cookies()
@@ -35,9 +40,11 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json().catch(() => ({}))
-    const { plan, source, consent, kampanj: visadKampanj } = body as {
+    const { plan, source, consent, kampanj: visadKampanj, retur } = body as {
       plan?: unknown
       source?: unknown
+      /** Mallflödet: galleriet med CV och mall, dit köpet går tillbaka. */
+      retur?: unknown
       consent?: unknown
       /** Kampanjen köpsteget visade, eller null för ordinarie pris. */
       kampanj?: unknown
@@ -198,8 +205,13 @@ export async function POST(request: NextRequest) {
         : {}),
       // Köpreturen går till veckans start, inte till hemskärmen. Det är där
       // det första steget i paketet ligger.
-      success_url: `${baseUrl}${VECKA_START_PATH}?premium_activated=true&plan=${selected.key}`,
-      cancel_url: `${baseUrl}/priser`,
+      // Köpet ur mallflödet går tillbaka till filen (affärsgranskningen B2):
+      // galleriet med CV och mall valda, ?ladda=1 startar nedladdningen.
+      // Bara /dashboard/cv-mallar? godtas; allt annat ger den vanliga returen.
+      success_url: arMallRetur(retur)
+        ? `${baseUrl}${retur}&ladda=1&premium_activated=true`
+        : `${baseUrl}${VECKA_START_PATH}?premium_activated=true&plan=${selected.key}`,
+      cancel_url: arMallRetur(retur) ? `${baseUrl}${retur}` : `${baseUrl}/priser`,
       metadata,
       ...(selected.mode === 'payment'
         ? { payment_intent_data: { metadata } }

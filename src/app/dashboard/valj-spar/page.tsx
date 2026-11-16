@@ -30,6 +30,11 @@ function lasPlats(v: unknown): string | null {
   return typeof v === 'string' && /^[a-z0-9_-]{1,40}$/.test(v) ? v : null
 }
 
+/** Köpreturen ur mallflödet: bara galleriet, aldrig en annan adress. */
+function lasRetur(v: unknown): string | null {
+  return typeof v === 'string' && v.startsWith('/dashboard/cv-mallar?') && v.length < 300 && !/[\s<>"]/.test(v) ? v : null
+}
+
 export default async function ValjSparPage({
   searchParams,
 }: {
@@ -69,6 +74,8 @@ export default async function ValjSparPage({
       initialTrack={initialTrack}
       plan={plan}
       plats={lasPlats(params.plats)}
+      mall={lasPlats(params.mall)}
+      retur={lasRetur(params.retur)}
       // Frågan i steg 1 hoppades över: Börja gratis ställer den inte igen.
       utanGratisfraga={params[HOPPAT_PARAM] === '1'}
     />

@@ -227,7 +227,9 @@ async function extractSwedishCVContent(rawText: string): Promise<CVMetadata> {
 
 export async function POST(request: NextRequest) {
   try {
-    const { template, cvText, structuredData, format = 'pdf', templateOptions = {}, fontFamily, fontId, val: valIndata, cvId } = await request.json();
+    const { template, cvText, structuredData, format = 'pdf', templateOptions = {}, fontFamily, fontId, val: valIndata, cvId, entry: entryIndata } = await request.json();
+    // Ytan nedladdningen startade på, för cv_nedladdad (affärsgranskningen L2).
+    const entry = typeof entryIndata === 'string' && /^[a-z_]{1,30}$/.test(entryIndata) ? entryIndata : null;
     // Valen i alla mallar (src/lib/cv/mallar/kontrakt.ts, MallVal). Äldre
     // klienter skickar typsnittet som fontId (eller bara fontFamily) och
     // fotot som templateOptions.includePhoto; de tas med som reserv.
@@ -394,6 +396,12 @@ export async function POST(request: NextRequest) {
     // Featurekontrollen går först, så admin och paketkunder rör aldrig
     // räknaren.
     let shouldCountFreeExport = false;
+    // Varje fil kräver konto (affärsgranskningen R3): annars gick en gratismall
+    // att ladda ner utan räknare och utan mätning. Inget publikt flöde laddar
+    // ner anonymt; provsidan skapar kontot först.
+    if (!authedUserId) {
+      return NextResponse.json({ error: 'Logga in för att ladda ner.' }, { status: 401 });
+    }
     // Gäller PDF och Word lika: en gratisfil per konto, i vilket format som helst.
     if (authedUserId) {
       const harExport = await userHasAccess(supabase, authedUserId, 'cv_export');
@@ -553,6 +561,10 @@ export async function POST(request: NextRequest) {
           format: somWord ? 'docx' : 'pdf',
           tier: selectedTemplate.tier === 'premium' ? 'premium' : 'free',
           gratisexport: shouldCountFreeExport,
+          entry,
+          foto_pa: Boolean(val.foto && userProfile?.profile_photo_url),
+          // Sidorna i den färdiga PDF:en (sidobjekten i filen), null för Word.
+          sidor: somWord ? null : (Buffer.from(filData).toString('latin1').match(/\/Type\s*\/Page[^s]/g)?.length ?? null),
         });
         // Hjälpredan Kom igång: mallen är nedladdad.
         void markeraBricka(user.id, 'mall');

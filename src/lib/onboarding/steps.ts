@@ -37,14 +37,25 @@ export const PRISER_HREF = '/priser'
  * redan namngett paket och pris går hit direkt, aldrig via produktvalet eller
  * spårvalet. Samtycket och Till betalning står på köpsteget.
  */
-export function kopstegHref(plan: string, plats?: string | null): string {
+export function kopstegHref(
+  plan: string,
+  plats?: string | null,
+  /**
+   * Mallflödet (affärsgranskningen B2, L1): adressen köpet ska tillbaka till
+   * (bara /dashboard/cv-mallar?..., kassan prövar det igen) och mallen köpet
+   * gäller, som följer med till sessionens source.
+   */
+  extra?: { retur?: string | null; mall?: string | null }
+): string {
   // Bara Jobbcoach Premium säljs (spec-rummen 17.3). Ett osålt paket i en
   // gammal knapp eller länk leder ändå till det som säljs.
   const p = saljbarPlan(plan)
   // Platsen följer med till kassans metadata, så att köp kan räknas per
   // betalväggsexponering (avsnitt 7, betalvagg_visad och subscription_paid).
   const platsDel = plats ? `&plats=${encodeURIComponent(plats)}` : ''
-  return `${TRACK_CHOICE_PATH}?paket=${encodeURIComponent(p)}&steg=kop${platsDel}`
+  const returDel = extra?.retur ? `&retur=${encodeURIComponent(extra.retur)}` : ''
+  const mallDel = extra?.mall ? `&mall=${encodeURIComponent(extra.mall)}` : ''
+  return `${TRACK_CHOICE_PATH}?paket=${encodeURIComponent(p)}&steg=kop${platsDel}${returDel}${mallDel}`
 }
 
 /**

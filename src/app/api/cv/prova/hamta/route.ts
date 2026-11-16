@@ -39,9 +39,25 @@ export async function POST(request: Request) {
   } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ kod: 'utloggad' }, { status: 401 })
 
-  const { maxCvs } = await getCvGrans(supabase, user.id)
-  const { count } = await supabase.from('cv_texts').select('id', { count: 'exact', head: true }).eq('user_id', user.id)
-  if ((count ?? 0) >= maxCvs) return NextResponse.json({ kod: 'grans' }, { status: 403 })
+  // En gång per konto och utkast (affärsgranskningen R4): har kontot fått en
+  // rad från provsidan det senaste dygnet uppdateras den i stället för att en
+  // ny skapas, så att två anspråk (dubbelklick, Google-returen, ny flik) inte
+  // ger två CV.
+  const { data: tidigare } = await supabase
+    .from('cv_texts')
+    .select('id')
+    .eq('user_id', user.id)
+    .like('original_file_path', `prova/${user.id}/%`)
+    .gte('created_at', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString())
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .maybeSingle()
+
+  if (!tidigare) {
+    const { maxCvs } = await getCvGrans(supabase, user.id)
+    const { count } = await supabase.from('cv_texts').select('id', { count: 'exact', head: true }).eq('user_id', user.id)
+    if ((count ?? 0) >= maxCvs) return NextResponse.json({ kod: 'grans' }, { status: 403 })
+  }
 
   // Platshållare sparas aldrig (samma regel som LinkedIn-importen).
   const pi = cv.personalInfo
@@ -73,15 +89,28 @@ export async function POST(request: Request) {
   }
   if (Object.keys(rubriker).length > 0) rad.section_titles = rubriker
 
-  let { data, error } = await supabase.from('cv_texts').insert(rad).select('id').single()
+  const tidigareId = (tidigare as { id: string } | null)?.id ?? null
+  const spara = (r: Record<string, unknown>) =>
+    tidigareId
+      ? supabase
+          .from('cv_texts')
+          .update({ cv_text: r.cv_text, structured_data: r.structured_data, ...('section_titles' in r ? { section_titles: r.section_titles } : {}) })
+          .eq('id', tidigareId)
+          .eq('user_id', user.id)
+          .select('id')
+          .single()
+      : supabase.from('cv_texts').insert(r).select('id').single()
+
+  let { data, error } = await spara(rad)
   // Kolumnen section_titles saknas i en miljö där migreringen inte körts: spara utan.
   if (error && 'section_titles' in rad && /section_titles/.test(error.message ?? '')) {
     delete rad.section_titles
-    ;({ data, error } = await supabase.from('cv_texts').insert(rad).select('id').single())
+    ;({ data, error } = await spara(rad))
   }
   if (error || !data) {
     console.error('[cv/prova/hamta] kunde inte spara:', error)
     return NextResponse.json({ kod: 'fel' }, { status: 500 })
   }
-  return NextResponse.json({ cvId: (data as { id: string }).id })
+  // ny: false när raden fanns, så att draft_claimed bara skjuts en gång.
+  return NextResponse.json({ cvId: (data as { id: string }).id, ny: !tidigareId })
 }

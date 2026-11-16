@@ -63,6 +63,10 @@ export interface ValjSparClientProps {
   plan?: PlanKey
   /** ?plats=, betalväggen eller ytan köpet startade på. */
   plats?: string | null
+  /** ?mall=, mallen köpet gäller (mallflödet), med i source. */
+  mall?: string | null
+  /** ?retur=, galleriet med CV och mall valda, dit kassan skickar tillbaka. */
+  retur?: string | null
   /**
    * Hon hoppade över "Vad vill du börja med?" i registreringen. Börja gratis
    * utan sparat spår går då direkt till hemskärmen: frågan ställs högst en
@@ -77,6 +81,8 @@ export default function ValjSparClient({
   initialTrack,
   plan = SALD_PLAN,
   plats = null,
+  mall = null,
+  retur = null,
   utanGratisfraga = false,
   kampanj: kampanjFranServern = null,
 }: ValjSparClientProps) {
@@ -201,7 +207,13 @@ export default function ValjSparClient({
         // rutten svarar 400 utan det, och kryssrutan spärrar redan knappen,
         // så fältet är alltid true här. Det är beviskedjan: kryssrutan blir
         // ett fält i kroppen som blir metadata på sessionen.
-        body: JSON.stringify({ plan, source: kopSource(plats), consent: samtycke, kampanj: kampanj?.nyckel ?? null }),
+        body: JSON.stringify({
+          plan,
+          source: mall ? `${kopSource(plats)}:${mall}` : kopSource(plats),
+          consent: samtycke,
+          kampanj: kampanj?.nyckel ?? null,
+          ...(retur ? { retur } : {}),
+        }),
       })
       const json = await res.json().catch(() => ({}))
       if (res.status === 409 && json?.prisAndrat) {
@@ -231,7 +243,7 @@ export default function ValjSparClient({
       setBusy(false)
       setFel(error?.message || KOPSTEG.felKassa)
     }
-  }, [samtycke, busy, plan, plats, initialTrack, sparaSpar, kampanj])
+  }, [samtycke, busy, plan, plats, mall, retur, initialTrack, sparaSpar, kampanj])
 
   const felBanner = fel ? (
     tillByte ? (
