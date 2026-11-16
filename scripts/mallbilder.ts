@@ -29,6 +29,7 @@ const FOTO =
 async function main() {
   const { MALLAR } = await import('../src/lib/cv/mallar/register')
   const { renderDefHtml } = await import('../src/lib/cv/mallar/render/html')
+  const { baddaInTypsnitt } = await import('../src/lib/cv/mallar/typsnitt-inbaddning')
   const puppeteer = (await import('puppeteer')).default
   fs.mkdirSync(UT, { recursive: true })
   const browser = await puppeteer.launch({ headless: true })
@@ -37,7 +38,8 @@ async function main() {
   for (const def of MALLAR.filter((m) => !BARA || m.id === BARA)) {
     const cv = structuredClone(NORMALT_CV)
     if (def.foto) cv.personalInfo.profilePhotoUrl = FOTO
-    await sida.setContent(renderDefHtml(cv, def, {}), { waitUntil: 'load', timeout: 60000 })
+    // Typsnitten inbäddade som i PDF:en, så att miniatyren visar samma typsnitt.
+    await sida.setContent(baddaInTypsnitt(renderDefHtml(cv, def, {})), { waitUntil: 'load', timeout: 60000 })
     await sida.evaluate('document.fonts.ready')
     const png = await sida.screenshot({ clip: { x: 0, y: 0, width: 794, height: 1123 }, type: 'png' })
     for (const [namn, b, h] of [['liten', 112, 158], ['stor', 300, 424]] as const) {
