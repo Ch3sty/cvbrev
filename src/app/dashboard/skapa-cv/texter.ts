@@ -149,6 +149,10 @@ export const COACH = {
   skriver: 'Skriver',
   tid: 'Det tog för lång tid, försök igen.',
   fel: 'Jobbcoachen kunde inte skriva just nu. Försök igen.',
+  /** Gratis: förslag kvar på kontot (tre per konto). */
+  kvar: (n: number) => `${n === 1 ? 'Ett förslag' : `${antalOrd(n, true)} förslag`} kvar i gratisnivån.`,
+  /** Premiums dygnstak. */
+  tak: 'Dagens förslag är använda. I morgon skriver Jobbcoachen igen, och du kan skriva själv direkt.',
 } as const
 
 export const FLER_BLAD = {

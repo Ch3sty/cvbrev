@@ -5,8 +5,9 @@
  * pennan under fältet, bara på tryck. Väntan: knappen byter till "Skriver"
  * och fylls, fältet låses med tre rader, högst åtta sekunder, sedan felraden.
  * Resultatet är hennes att ändra; tonraden säger vad som hände och ger Ångra.
- * När dagens förslag är använda står PaywallCard i bladet och knappen kvar
- * som spärrad. Aldrig gnistikonen, aldrig ordet AI.
+ * När gratisförslagen är använda står PaywallCard i bladet och knappen kvar
+ * som spärrad. Premiums dygnstak (ett missbruksskydd) ger bara en textrad,
+ * aldrig en köpvägg mot någon som redan betalar. Aldrig gnistikonen, aldrig ordet AI.
  */
 import { useCallback, useEffect, useRef, useState } from 'react'
 import PaywallCard from '@/components/paywall/PaywallCard'
@@ -15,7 +16,7 @@ import { capture } from '@/lib/analytics/events'
 import { BLAD, COACH } from '../texter'
 
 export type CoachTyp = 'punkter' | 'profil' | 'kompetenser'
-type Lage = 'vila' | 'skriver' | 'tid' | 'fel' | 'kvot'
+type Lage = 'vila' | 'skriver' | 'tid' | 'fel' | 'kvot' | 'tak'
 
 const GRANS_MS = 8000
 
@@ -23,6 +24,8 @@ export function useJobbcoach(namn: string) {
   const [lage, setLage] = useState<Lage>('vila')
   const [framsteg, setFramsteg] = useState(0)
   const [kvot, setKvot] = useState<string | null>(null)
+  /** Gratisförslag kvar efter senaste förslaget; null för Premium eller före första. */
+  const [kvar, setKvar] = useState<number | null>(null)
   const timer = useRef<number | null>(null)
   const ac = useRef<AbortController | null>(null)
 
@@ -55,8 +58,13 @@ export function useJobbcoach(namn: string) {
           signal: kontroll.signal,
         })
         if (res.status === 429) {
-          const j = (await res.json().catch(() => ({}))) as { nextResetAt?: string }
+          const j = (await res.json().catch(() => ({}))) as { nextResetAt?: string; isPremium?: boolean }
+          if (j.isPremium) {
+            setLage('tak')
+            return null
+          }
           setKvot(j.nextResetAt ?? new Date().toISOString())
+          setKvar(0)
           setLage('kvot')
           return null
         }
@@ -68,7 +76,8 @@ export function useJobbcoach(namn: string) {
           setLage('fel')
           return null
         }
-        const j = (await res.json()) as T
+        const j = (await res.json()) as T & { kvar?: number | null }
+        setKvar(typeof j.kvar === 'number' ? j.kvar : null)
         setFramsteg(1)
         setLage('vila')
         return j
@@ -84,7 +93,7 @@ export function useJobbcoach(namn: string) {
     [lage, namn]
   )
 
-  return { lage, framsteg, kvot, kor, skriver: lage === 'skriver' }
+  return { lage, framsteg, kvot, kvar, kor, skriver: lage === 'skriver' }
 }
 
 export function CoachKnapp({
@@ -99,7 +108,12 @@ export function CoachKnapp({
   /** Orsaken när knappen inte går att använda än, annars null. */
   kraver: string | null
 }) {
-  const stangd = Boolean(kraver) || coach.lage === 'kvot'
+  const stangd = Boolean(kraver) || coach.lage === 'kvot' || coach.lage === 'tak'
+  // Väggen hamnar under knappen i bladets rullyta: rulla fram den när kvoten tar slut.
+  const vagg = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (coach.lage === 'kvot') vagg.current?.scrollIntoView({ block: 'end' })
+  }, [coach.lage])
   return (
     <div className="grid gap-1.5">
       <button
@@ -126,9 +140,15 @@ export function CoachKnapp({
       <div aria-live="polite">
         {coach.lage === 'tid' ? <p className="text-sm text-fel">{COACH.tid}</p> : null}
         {coach.lage === 'fel' ? <p className="text-sm text-fel">{COACH.fel}</p> : null}
+        {coach.lage === 'tak' ? <p className="text-meta text-ink-3">{COACH.tak}</p> : null}
+        {coach.lage !== 'kvot' && coach.kvar !== null && coach.kvar > 0 ? (
+          <p className="text-meta text-ink-3">{COACH.kvar(coach.kvar)}</p>
+        ) : null}
       </div>
       {coach.lage === 'kvot' && coach.kvot ? (
-        <PaywallCard variant="kvot" quota={{ feature: 'cv_bygg', nextResetAt: coach.kvot }} className="mt-1" />
+        <div ref={vagg}>
+          <PaywallCard variant="kvot" quota={{ feature: 'cv_bygg', nextResetAt: coach.kvot }} className="mt-1" />
+        </div>
       ) : null}
     </div>
   )

@@ -528,7 +528,7 @@ async function fullFlode(browser: Browser, k: Konto) {
 async function kvotFlode(browser: Browser, k: Konto) {
   const fel: string[] = []
   const steg = 'gratis-pixel7-kvot'
-  const rader = Array.from({ length: 12 }, () => ({
+  const rader = Array.from({ length: 3 }, () => ({
     user_id: k.id,
     feature_name: 'cv_bygg_punkter',
     endpoint: '/api/cv/bygg/forslag',
@@ -541,16 +541,16 @@ async function kvotFlode(browser: Browser, k: Konto) {
     metadata: { qa: true },
   }))
   const { error } = await sb.from('ai_usage_costs').insert(rader)
-  kontroll(!error, `${steg}: dagens tolv förslag förbrukade (${error?.message ?? 'ok'})`)
+  kontroll(!error, `${steg}: kontots tre gratisförslag förbrukade (${error?.message ?? 'ok'})`)
   const cv = (await cvRader(k.id)).find((r) => (r.structured_data as { experience?: unknown[] })?.experience?.length)
   const { ctx, page } = await oppna(browser, k, PIXEL7, fel)
   await page.goto(`${BAS}/dashboard/skapa-cv?cv=${cv?.id}&ark=erfarenhet:0`, { waitUntil: 'networkidle2', timeout: 120000 })
   await vantaPa(page, '[data-coach-knapp]')
   await page.click('[data-coach-knapp]')
-  await page.waitForFunction(() => document.body.innerText.includes('Dagens förslag från Jobbcoachen är använda'), { timeout: 15000 }).catch(() => null)
+  await page.waitForFunction(() => document.body.innerText.includes('Låt Jobbcoachen skriva resten av ditt CV'), { timeout: 15000 }).catch(() => null)
   const text = await page.evaluate(() => document.body.innerText)
   const sparrad = await page.$eval('[data-coach-knapp]', (b) => (b as HTMLButtonElement).disabled).catch(() => false)
-  kontroll(text.includes('Dagens förslag från Jobbcoachen är använda') && sparrad, `${steg}: PaywallCard i bladet och knappen spärrad`)
+  kontroll(text.includes('Låt Jobbcoachen skriva resten av ditt CV') && sparrad, `${steg}: PaywallCard i bladet och knappen spärrad`)
   await bild(page, `${steg}-paywall`)
   kontroll(fel.length === 0, `${steg}: inga konsolfel eller 5xx${fel.length ? ': ' + fel.slice(0, 5).join(' | ') : ''}`)
   await ctx.close()

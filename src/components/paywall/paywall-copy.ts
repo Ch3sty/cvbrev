@@ -162,8 +162,10 @@ export function kvotCopy(quotaFeature: string | undefined, plan?: PlanKey | null
     case 'cv_bygg':
       // CV-byggaren: Jobbcoachens förslag i bladen (quotaService, checkCvByggAiQuota).
       return {
-        title: 'Dagens förslag från Jobbcoachen är använda',
-        body: `I morgon skriver Jobbcoachen förslag igen, och du kan alltid skriva själv direkt. Med ${PREMIUM} får du fler förslag varje dag, alla mallar och hela CV-analysen.`,
+        // Tre per konto (saas-lead och sälj 2026-11-16), ingen återställning:
+        // inget löfte om i morgon. Fältet står kvar öppet, hon kan skriva själv.
+        title: 'Låt Jobbcoachen skriva resten av ditt CV',
+        body: `Dina tre förslag är använda. Med ${PREMIUM} skriver Jobbcoachen punkter till alla dina jobb, profilen och kompetenserna, och du kan skräddarsy CV:t för varje ansökan. Du kan också skriva själv direkt.`,
         primary: skaffaKnapp(p),
         plan: p,
       }

@@ -167,7 +167,7 @@ export async function POST(request: Request) {
 
   const kvot = await checkCvByggAiQuota(supabase, user.id)
   if (!kvot.allowed) {
-    return NextResponse.json(quotaExceededBody('cv_bygg', kvot, 'Dagens förslag från Jobbcoachen är använda.'), { status: 429 })
+    return NextResponse.json({ ...quotaExceededBody('cv_bygg', kvot, kvot.isPremium ? 'Dagens förslag från Jobbcoachen är använda.' : 'Gratisförslagen från Jobbcoachen är använda.'), isPremium: kvot.isPremium }, { status: 429 })
   }
 
   // Namnheuristiken är av: korta fält som "Nordvik Service AB" ser ut som namn.
@@ -230,7 +230,9 @@ export async function POST(request: Request) {
       generationTimeMs: Date.now() - start,
       metadata: { typ },
     })
-    return NextResponse.json(ut)
+    // Gratis: hur många förslag som är kvar, så att hon lägger det sista rätt.
+    const kvar = kvot.isPremium ? null : Math.max(0, kvot.limit - kvot.used - 1)
+    return NextResponse.json({ ...ut, kvar })
   } catch (e) {
     const tid = (e as Error)?.message === 'tidsgrans'
     if (!tid) console.error('[cv/bygg/forslag] fel:', e)

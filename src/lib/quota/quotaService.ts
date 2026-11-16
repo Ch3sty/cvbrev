@@ -360,16 +360,18 @@ export async function checkLetterQuota(
 /**
  * Jobbcoachen i CV-byggaren (skissen 2026-11-16, beslut 6): punkter till ett
  * jobb, profilförslaget och kompetensförslagen. Ny kvottyp 2026-11-16.
- * Räknar byggarens rader i ai_usage_costs (feature_name cv_bygg_*) sedan
- * midnatt svensk tid; varje lyckat förslag skrivs dit av
+ * Räknar byggarens rader i ai_usage_costs (feature_name cv_bygg_*), gratis
+ * per konto och Premium sedan midnatt svensk tid; varje lyckat förslag skrivs dit av
  * /api/cv/bygg/forslag. Ett misslyckat eller avbrutet anrop räknas inte.
  *
- * Gratis: tolv förslag per dygn, nog för ett helt CV med omtag. CV-spåret
- * (cv_analysis_full) får ett högre tak som skydd mot missbruk, inte som
- * säljargument.
+ * Gratis: tre förslag per konto, ingen återställning (saas-lead och sälj
+ * 2026-11-16 efter ägarens invändning mot tolv per dygn): nog för att se
+ * värdet på punkter, profil och kompetenser, medan resten av CV:t står kvar
+ * att skriva. Premium (cv_analysis_full): trettio per dygn, ett skydd mot
+ * missbruk som en riktig jobbsökare aldrig når, inte ett säljargument.
  */
-export const FREE_CV_BYGG_AI_PER_DAY = 12;
-export const PAID_CV_BYGG_AI_PER_DAY = 100;
+export const FREE_CV_BYGG_AI_PER_ACCOUNT = 3;
+export const PAID_CV_BYGG_AI_PER_DAY = 30;
 /** Featurenamnen i ai_usage_costs som räknas. */
 export const CV_BYGG_AI_FEATURES = ['cv_bygg_punkter', 'cv_bygg_profil', 'cv_bygg_kompetenser'] as const;
 
@@ -379,14 +381,15 @@ export async function checkCvByggAiQuota(
   now: Date = new Date()
 ): Promise<QuotaResult> {
   const betald = await userHasAccess(supabase, userId, 'cv_analysis_full');
-  const limit = betald ? PAID_CV_BYGG_AI_PER_DAY : FREE_CV_BYGG_AI_PER_DAY;
-  const since = startOfTodayStockholm(now).toISOString();
-  const { count } = await supabase
+  const limit = betald ? PAID_CV_BYGG_AI_PER_DAY : FREE_CV_BYGG_AI_PER_ACCOUNT;
+  let q = supabase
     .from('ai_usage_costs')
     .select('id', { count: 'exact', head: true })
     .eq('user_id', userId)
-    .in('feature_name', [...CV_BYGG_AI_FEATURES])
-    .gte('created_at', since);
+    .in('feature_name', [...CV_BYGG_AI_FEATURES]);
+  // Gratis räknas över hela kontots livstid, Premium sedan midnatt svensk tid.
+  if (betald) q = q.gte('created_at', startOfTodayStockholm(now).toISOString());
+  const { count } = await q;
 
   const used = count ?? 0;
   return {
@@ -394,7 +397,9 @@ export async function checkCvByggAiQuota(
     isPremium: betald,
     used,
     limit,
-    nextResetAt: nextMidnightStockholm(now).toISOString(),
+    // Kontokvot: den öppnar inte igen i morgon, så ingen påminnelse.
+    nextResetAt: betald ? nextMidnightStockholm(now).toISOString() : now.toISOString(),
+    perAccount: !betald,
   };
 }
 
