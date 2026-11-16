@@ -61,6 +61,7 @@ export default function ProvaArbetsyta() {
   const forslag = useMemo(() => raknaForslag(p.katalog, p.cv, matning?.sidor ?? 1), [p.katalog, p.cv, matning?.sidor])
   const gratis = p.katalog.find((m) => m.id === forslag.ids[0] && m.niva === 'gratis') ?? p.katalog.find((m) => m.niva === 'gratis')!
   const premium = p.mall.niva === 'premium'
+  const tier = p.mall.niva === 'premium' ? 'premium' : 'free'
   const wordKop = p.format === 'docx'
   const kop = premium || wordKop
   const knappText = kop
@@ -125,7 +126,7 @@ export default function ProvaArbetsyta() {
   }, [p.cv, hamtaHem])
 
   const laddaNer = async () => {
-    capture('nedladdning_klickad', { mall: p.mall.id, format: p.format, inloggad: false, surface: p.surface, tier: premium ? 'premium' : 'free' })
+    capture('nedladdning_klickad', { mall: p.mall.id, format: p.format, inloggad: false, surface: p.surface, tier })
     if (!p.cv) {
       document.getElementById('ladda-upp')?.scrollIntoView({ behavior: 'smooth', block: 'center' })
       return
@@ -140,7 +141,7 @@ export default function ProvaArbetsyta() {
     if (inloggad) return void hamtaHem(kop)
     const u = lasUtkast()
     if (u) sparaUtkast({ ...u, vantar: { format: p.format, kop } })
-    capture('konto_ark_visat', { mall: p.mall.id, tier: premium ? 'premium' : 'free', format: p.format, inloggad: false, surface: p.surface, orsak: 'nedladdning' })
+    capture('konto_ark_visat', { mall: p.mall.id, tier, format: p.format, inloggad: false, surface: p.surface, orsak: 'nedladdning' })
     setKonto('nedladdning')
   }
 
@@ -232,7 +233,7 @@ export default function ProvaArbetsyta() {
           onClose={() => setFoto(false)}
           onKonto={() => {
             setFoto(false)
-            capture('konto_ark_visat', { mall: p.mall.id, tier: premium ? 'premium' : 'free', format: p.format, inloggad: false, surface: p.surface, orsak: 'foto' })
+            capture('konto_ark_visat', { mall: p.mall.id, tier, format: p.format, inloggad: false, surface: p.surface, orsak: 'foto' })
             setKonto('foto')
           }}
         />

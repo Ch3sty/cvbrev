@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import PaywallCard from '@/components/paywall/PaywallCard'
 import { getPaywallCopy, GRATISRADER, planForPaywall } from '@/components/paywall/paywall-copy'
+import { GRATIS_ANTAL } from '@/lib/cv/mallar/katalog'
 
 /**
  * Betalväggarnas copy, PW1 till PW7 ur docs/plan-paket-och-onboarding.md
@@ -168,8 +169,8 @@ describe('gratisnivåns rader, GR1 till GR7', () => {
     }
   })
 
-  it('mallraden säger tre, samma siffra som spärrtexten', () => {
-    expect(GRATISRADER.mallar).toBe('3 mallar ingår i gratisnivån')
+  it('mallraden säger gratisantalet ur katalogen, samma siffra som spärrtexten', () => {
+    expect(GRATISRADER.mallar).toBe(`${GRATIS_ANTAL} mallar ingår i gratisnivån`)
   })
 
 })

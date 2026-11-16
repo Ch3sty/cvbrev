@@ -27,6 +27,7 @@ import {
 import { featureOrdning, featureUtanforVal } from '@/hooks/useUnusedFeatures'
 import { traningsHandling } from '@/lib/intervju/nasta'
 import { INTENT_ORDNING, type SignupIntent } from '../intent'
+import { GRATIS_ANTAL } from '@/lib/cv/mallar/katalog'
 
 const SRC = path.resolve(__dirname, '../../..')
 
@@ -203,7 +204,7 @@ describe('kriterium 16: Kom igång per val för gratiskonton', () => {
   })
 
   it('undertexterna säger vad som ingår gratis', () => {
-    expect(brickaText('mall', null, {}, true)).toMatchObject({ titel: 'Välj en CV-mall', text: '3 mallar och en nedladdning ingår gratis' })
+    expect(brickaText('mall', null, {}, true)).toMatchObject({ titel: 'Välj en CV-mall', text: `${GRATIS_ANTAL} mallar och en nedladdning ingår gratis` })
     expect(brickaText('personlighet', null, {}, true).text).toBe('50 påståenden, se vad rekryteraren läser ut')
     expect(brickaText('intervjuprov', null, {}, true).text).toBe('En fråga, återkoppling på svaret')
     expect(brickaText('jobbmatchning', null, {}, true).text).toBe('Jobb du inte hittat själv, med skälen')

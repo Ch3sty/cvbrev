@@ -10,6 +10,8 @@
  */
 
 import { describe, expect, it } from 'vitest'
+import { GRATIS_ANTAL } from '@/lib/cv/mallar/katalog'
+import { talSomOrd } from '@/lib/cv/template-antal'
 
 import { PLANS, PLAN_BY_KEY, SALD_PLAN, kopKnapp, type PlanKey } from '@/lib/plans/plans'
 import { ALLA_FEATURES } from '@/lib/access/features'
@@ -143,7 +145,7 @@ describe('prissidan', () => {
     // alla testtyper, aldrig Nivåkollen publikt.
     expect(FREE_HIGHLIGHTS).toContain('Grundnivån i alla åtta testtyperna och personlighetstestet, med förklaring efter varje fråga')
     expect(GRATIS_RAD).toBe(
-      'Grundnivån i alla tester, tre CV-mallar, en CV-analys, ett personligt brev var sjunde dag, tre matchade jobb och tio meddelanden till Jobbcoachen ingår utan att betala.'
+      `Grundnivån i alla tester, ${talSomOrd(GRATIS_ANTAL)} CV-mallar, en CV-analys, ett personligt brev var sjunde dag, tre matchade jobb och tio meddelanden till Jobbcoachen ingår utan att betala.`
     )
     const tester = COMPARISON.find((g) => g.title === 'Rekryteringstester')!
     const grund = tester.rows.find((r) => r.label === 'Grundnivån')!
