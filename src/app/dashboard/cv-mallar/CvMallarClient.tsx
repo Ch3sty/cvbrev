@@ -13,7 +13,7 @@
  * Gratisnedladdningen använd: merförsäljningen med hennes CV i tre andra
  * mallar i stället för en tom vägg (trions beslut om punkt 14).
  */
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNotification } from '@/context/notificationcontext'
 import GraValSheet from '@/components/paywall/GraValSheet'
 import NameRequiredNotice from '@/components/shared/NameRequiredNotice'
@@ -21,7 +21,8 @@ import type { Feature, Scope } from '@/lib/access/features'
 import type { PaywallVariant } from '@/components/paywall/paywall-copy'
 import type { BetalvaggPlats } from '@/lib/analytics/events'
 import { capture } from '@/lib/analytics/events'
-import type { PlanKey } from '@/lib/plans/plans'
+import { SALD_PLAN, type PlanKey } from '@/lib/plans/plans'
+import { kopstegHref } from '@/lib/onboarding/steps'
 import type { Format, MallKort, MallVal, Sektion } from '@/lib/cv/mallar/kontrakt'
 import type { CVMetadata } from '@/lib/cv/cv-metadata'
 import { normalizeStructuredData } from '@/lib/cv/normalize-structured-data'
@@ -35,8 +36,8 @@ import Merforsaljning, { merforsaljningsUrval } from '@/components/cv/Dokument/M
 import { FotoArkInloggad, useFotoInloggad } from '@/components/cv/Dokument/FotoArk'
 import { useForhandsvisning, useNedladdning, type Kalla } from '@/components/cv/Dokument/hooks'
 import type { Matning } from '@/components/cv/Dokument/matning'
-import { BYT_CV, KNAPP, SKAL } from '@/components/cv/Dokument/texter'
-import { IkonLas, IkonSida } from '@/components/illustrations/MallIkoner'
+import { BYT_CV, FOTO_ARK, KNAPP, SKAL } from '@/components/cv/Dokument/texter'
+import { IkonFoto, IkonLas, IkonSida } from '@/components/illustrations/MallIkoner'
 
 export interface InitialCv {
   id: string
@@ -79,7 +80,13 @@ export default function CvMallarClient(p: {
   planKey?: PlanKey | null
   fotoUrl: string | null
   pris: string
+  /** Lång form ("..., sedan 149 kr i månaden" under kampanjen) för mallraden (R1). */
+  prisLang: string
   kampanj: { pris: string; ordinarie: string } | null
+  /** ?ladda=1: tillbaka från kassan, nedladdningen startar (affärsgranskningen B2). */
+  ladda: boolean
+  /** ?foto=1: kontot skapades via fotoarket (B4). */
+  foto: boolean
 }) {
   const { logActivity } = useNotification()
   const [cvs, setCvs] = useState(p.initialCvs)
@@ -96,9 +103,11 @@ export default function CvMallarClient(p: {
   const [merforsaljning, setMerforsaljning] = useState(false)
   const [fotoUrl, setFotoUrl] = useState(p.fotoUrl)
   const [fotoArk, setFotoArk] = useState(false)
+  const [fotoRad, setFotoRad] = useState(p.foto)
   const { framsteg, ladda } = useNedladdning()
   const foto = useFotoInloggad((url) => {
     setFotoUrl(url)
+    setFotoRad(false)
     setVal((v) => ({ ...v, foto: Boolean(url) }))
     setFotoArk(false)
   })
@@ -116,16 +125,25 @@ export default function CvMallarClient(p: {
     if (cvId) q.set('cv', cvId)
     q.set('mall', mallId)
     q.delete('kop')
+    q.delete('ladda')
+    q.delete('foto')
+    q.delete('premium_activated')
     if (format === 'docx') q.set('format', 'docx')
     else q.delete('format')
     window.history.replaceState(null, '', `${window.location.pathname}?${q.toString()}`)
   }, [cvId, mallId, format])
 
-  // Köpet som väntar från provsidan eller merförsäljningen (?kop=1).
+  /** Köpreturen: galleriet med CV, mall och format, dit kassan skickar tillbaka. */
+  const returFor = (mallId: string, f: Format = format) =>
+    `/dashboard/cv-mallar?${new URLSearchParams({ ...(cvId ? { cv: cvId } : {}), mall: mallId, format: f }).toString()}`
+  /** Direkt till köpsteget med mallen, ingen extra vägg efter ett ja (affärsgranskningen B3). */
+  const tillKopet = (mallId: string, f: Format = format) =>
+    window.location.assign(kopstegHref(SALD_PLAN, 'mall', { mall: mallId, retur: returFor(mallId, f) }))
+
+  // Köpet som väntar från en äldre länk (?kop=1): direkt till köpsteget.
   useEffect(() => {
     if (!p.kop) return
-    if (premiumMall && !p.initialIsPremium) setSparr('mall')
-    else if (p.initialFormat === 'docx' && premiumMall && !p.harWord) setSparr('cv-export-word')
+    if ((premiumMall && !p.initialIsPremium) || (p.initialFormat === 'docx' && premiumMall && !p.harWord)) tillKopet(mall.id, p.initialFormat)
     // Bara vid första målningen.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -142,7 +160,20 @@ export default function CvMallarClient(p: {
   // Word i en gratismall är en vanlig gratisexport (ägarens besked 2026-11-16);
   // Word i en premiummall kräver cv_export_word.
   const behoverKop = (premiumMall && !p.initialIsPremium) || (format === 'docx' && premiumMall && !p.harWord)
-  const knappText = behoverKop ? KNAPP.laddaNerIPremiumInloggad(format, mall.namn, p.pris) : KNAPP.laddaNer(format)
+  // Premiumknappen i två avsiktliga rader (granskningen V3): handlingen och priset.
+  const knappText = behoverKop ? KNAPP.laddaNerIMall(format, mall.namn) : KNAPP.laddaNer(format)
+  const knappUnder = behoverKop ? KNAPP.premiumPris(p.pris) : undefined
+
+  // Tillbaka från kassan (?ladda=1): nedladdningen startar en gång, när
+  // dokumentet är mätt och kontot har mallen (affärsgranskningen B2).
+  const laddaStartad = useRef(false)
+  useEffect(() => {
+    if (!p.ladda || laddaStartad.current || !matning || !cv) return
+    if (premiumMall && !p.initialIsPremium) return
+    laddaStartad.current = true
+    void laddaNer()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [matning, cv])
 
   /** Merförsäljningen när det finns andra mallar att visa, annars betalväggen. */
   const saljEllerVagg = () => {
@@ -154,7 +185,7 @@ export default function CvMallarClient(p: {
     async (m: MallKort = mall, f: Format = format) => {
       if (!cv) return
       const tier = m.niva === 'gratis' ? 'free' : 'premium'
-      capture('nedladdning_klickad', { mall: m.id, format: f, inloggad: true, surface: SURFACE, tier })
+      capture('nedladdning_klickad', { template: m.id, format: f, inloggad: true, surface: SURFACE, tier })
       setFel(null)
       if (f === 'docx' && m.niva === 'premium' && !p.harWord) return setSparr('cv-export-word')
       if (m.niva === 'premium' && !p.initialIsPremium) return setSparr('mall')
@@ -168,6 +199,7 @@ export default function CvMallarClient(p: {
         structuredData: cv.structured_data,
         cvText: cv.cv_text,
         filnamn: gorFilnamn(m.namn, namn, f),
+        entry: SURFACE,
       })
       if (ut.typ === 'klar') {
         setFil(ut)
@@ -175,7 +207,7 @@ export default function CvMallarClient(p: {
       } else if (ut.typ === 'sparr') {
         const s = ut.feature ? SPARR_FOR_FEATURE[ut.feature] : null
         if (s === 'cv-export' || !s) saljEllerVagg()
-        else setSparr(s)
+        else tillKopet(m.id, f)
       } else if (ut.typ === 'namn') {
         setNamnKravs(true)
       } else {
@@ -224,6 +256,20 @@ export default function CvMallarClient(p: {
   const namnPaCv = (c: InitialCv) => c.file_name.replace(/\.[^/.]+$/, '')
 
   const topp = (
+    <>
+    {fotoRad ? (
+      <div className="mb-2 flex items-center justify-between gap-3 rounded-xl bg-ton px-3 py-2 text-[13px] font-medium text-ton-ink">
+        <span>{FOTO_ARK.nu}</span>
+        <button
+          type="button"
+          onClick={foto.valj}
+          className="inline-flex h-11 shrink-0 items-center gap-1.5 rounded-xl bg-ink-1 px-4 text-sm font-semibold text-papper"
+        >
+          <IkonFoto size={16} />
+          {FOTO_ARK.valj}
+        </button>
+      </div>
+    ) : null}
     <div className="flex items-center justify-between gap-2">
       <button
         type="button"
@@ -236,6 +282,7 @@ export default function CvMallarClient(p: {
       </button>
       <span className="hidden text-meta text-ink-3 min-[900px]:inline">{mall.namn}</span>
     </div>
+    </>
   )
 
   return (
@@ -245,7 +292,7 @@ export default function CvMallarClient(p: {
         katalog={p.katalog}
         mall={mall}
         onMall={(id) => setMallId(id)}
-        val={val}
+        val={valMedRubriker}
         onVal={(v) => setVal(v)}
         format={format}
         onFormat={(f) => {
@@ -258,8 +305,8 @@ export default function CvMallarClient(p: {
         skal={SKAL[forslag.skal]}
         topp={topp}
         kanWord={Boolean(p.harWord) || !premiumMall}
-        pris={p.pris}
-        knapp={{ text: knappText, onClick: () => void laddaNer(), framsteg, disabled: !cv }}
+        pris={p.prisLang}
+        knapp={{ text: knappText, under: knappUnder, onClick: () => void laddaNer(), framsteg, disabled: !cv }}
         gratisVag={premiumMall && !p.initialIsPremium ? { mall: gratis, onClick: () => setMallId(gratis.id) } : null}
         fel={
           fel ? (
@@ -345,6 +392,7 @@ export default function CvMallarClient(p: {
             planKey={p.planKey ?? null}
             surface="/dashboard/cv-mallar"
             plats={SPARR[sparr].plats}
+            mall={{ id: mall.id, tier: premiumMall ? 'premium' : 'free', retur: returFor(mall.id) }}
           />
         ) : null}
 
@@ -378,7 +426,7 @@ export default function CvMallarClient(p: {
             onKop={(m) => {
               setMerforsaljning(false)
               setMallId(m.id)
-              setSparr('cv-export')
+              tillKopet(m.id)
             }}
             surface={SURFACE}
           />

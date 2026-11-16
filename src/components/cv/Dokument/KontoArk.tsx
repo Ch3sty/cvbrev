@@ -30,7 +30,10 @@ export interface KontoArkProps {
   /** Dit Google ska tillbaka (provsidan med ?hamta=1). */
   nasta: string
   /** Vägen hon valde: gratis i en mall, eller köpet. */
-  vag: { typ: 'gratis'; mall: string } | { typ: 'kop'; mall: string; pris: string }
+  /** null: arket öppnades för något annat än filen (fotot), ingen rad om vägen. */
+  vag: { typ: 'gratis'; mall: string } | { typ: 'kop'; mall: string; pris: string; fotnot?: string } | null
+  /** Knapptexten när arket öppnats för något annat (fotot). */
+  knapp?: string
   /** Kontot finns och sessionen är satt i fliken. */
   onKlar: (userId: string) => void
   /** Rubriken och raden under, om arket öppnas för något annat (fotot). */
@@ -40,7 +43,7 @@ export interface KontoArkProps {
 
 const MIN_LOSEN = 8
 
-export default function KontoArk({ open, onClose, nasta, vag, onKlar, rubrik, under }: KontoArkProps) {
+export default function KontoArk({ open, onClose, nasta, vag, onKlar, rubrik, under, knapp }: KontoArkProps) {
   const [epost, setEpost] = useState('')
   const [losen, setLosen] = useState('')
   const [busy, setBusy] = useState(false)
@@ -114,9 +117,12 @@ export default function KontoArk({ open, onClose, nasta, vag, onKlar, rubrik, un
 
   return (
     <Ark open={open} onClose={onClose} rubrik={rubrik ?? KONTO_ARK.rubrik} under={under ?? KONTO_ARK.under}>
-      <p className="mb-3 rounded-[10px] bg-papper-2 px-3 py-2 text-[13px] leading-5 text-ink-2">
-        {vag.typ === 'gratis' ? KONTO_ARK.vagGratis(vag.mall) : KONTO_ARK.vagKop(vag.mall, vag.pris)}
-      </p>
+      {vag ? (
+        <p className="mb-3 rounded-[10px] bg-papper-2 px-3 py-2 text-[13px] leading-5 text-ink-2">
+          {vag.typ === 'gratis' ? KONTO_ARK.vagGratis(vag.mall) : KONTO_ARK.vagKop(vag.mall, vag.pris)}
+          {vag.typ === 'kop' && vag.fotnot ? ` ${vag.fotnot}` : null}
+        </p>
+      ) : null}
       <GoogleSignInButton
         next={nasta}
         label={KONTO_ARK.google}
@@ -170,7 +176,7 @@ export default function KontoArk({ open, onClose, nasta, vag, onKlar, rubrik, un
           disabled={busy}
           className="inline-flex h-12 items-center justify-center rounded-xl bg-ink-1 px-4 text-sm font-semibold text-papper disabled:opacity-70"
         >
-          {busy ? KONTO_ARK.sparar : vag.typ === 'kop' ? KONTO_ARK.knappKop : KONTO_ARK.knapp}
+          {busy ? KONTO_ARK.sparar : knapp ?? (vag?.typ === 'kop' ? KONTO_ARK.knappKop : KONTO_ARK.knapp)}
         </button>
       </form>
       <p className="mt-3 text-center text-[13px] text-ink-2">

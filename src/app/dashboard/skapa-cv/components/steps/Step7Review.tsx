@@ -172,7 +172,7 @@ export default function Step7Review({
       setQuotaError(null);
       setNedladdningsFel(null);
       if (action !== 'save') {
-        capture('nedladdning_klickad', { mall: mall.id, format: aktivtFormat, inloggad: true, surface: 'byggare', tier: mall.niva === 'gratis' ? 'free' : 'premium' });
+        capture('nedladdning_klickad', { template: mall.id, format: aktivtFormat, inloggad: true, surface: 'byggare', tier: mall.niva === 'gratis' ? 'free' : 'premium' });
       }
       try {
         const ut = await onComplete(action, aktivtFormat, val);
@@ -248,6 +248,15 @@ export default function Step7Review({
         </StatusRow>
       )}
 
+      <Remsa
+        katalog={MALL_KATALOG}
+        vald={mall.id}
+        foreslagna={forslag.ids}
+        skal={SKAL[forslag.skal]}
+        onValj={(id) => valjMall(id, 'tryck')}
+        onAlla={() => setAlla(true)}
+        last={isSaving}
+      />
       <Dokument
         storlek="mellan"
         html={fv.html}
@@ -261,20 +270,10 @@ export default function Step7Review({
         onRubrik={(s, text) => setRubrik({ sektion: s, text })}
         onAvsnitt={onGaTillSteg ? (s) => onGaTillSteg(STEG_FOR[s]) : undefined}
         onMatt={setMatning}
-        visaHjalprad
       />
 
       <Verktygsrad mall={mall} val={val} onVal={(v) => setVal(v)} last={isSaving} />
 
-      <Remsa
-        katalog={MALL_KATALOG}
-        vald={mall.id}
-        foreslagna={forslag.ids}
-        skal={SKAL[forslag.skal]}
-        onValj={(id) => valjMall(id, 'tryck')}
-        onAlla={() => setAlla(true)}
-        last={isSaving}
-      />
       <Mallrad mall={mall} harWord={!wordLast} />
 
       {isTemplateLocked && gratis ? (

@@ -215,6 +215,7 @@ export default function CVMallarSida() {
           { tal: `${WORD_ANTAL}`, text: 'även som Word' },
         ]}
         handling={<ProvaArbetsyta />}
+        talEfterHandling
         handlingId="valj-mall"
         steg={{
           id: 'sa-funkar-det',

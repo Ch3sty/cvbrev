@@ -33,7 +33,7 @@ export function remsansMallar(katalog: readonly MallKort[], foreslagna: readonly
 export default function Remsa({ katalog, vald, foreslagna, skal, onValj, onAlla, last, kompakt }: RemsaProps) {
   const grupper = remsansMallar(katalog, foreslagna)
   return (
-    <div>
+    <div className="min-w-0 max-w-full">
       {!kompakt ? (
         <div className="mb-1.5">
           <p className="text-ey uppercase text-ink-3">{REMSA.foreslagna}</p>

@@ -90,32 +90,33 @@ export default function CvMallarPageContent({ yrkesmallar, faqItems }: CvMallarP
             ingress={
               <>
                 En CV-mall är en färdig layout som du fyller med dina egna uppgifter. Vi har {MALL_ANTAL} mallar, och {GRATIS_ANTAL} av dem är
-                gratis: {uppraknat(GRATIS_NAMN)}. Med ett gratiskonto fyller du i en av dem och laddar ner ditt CV som PDF.
+                gratis: {uppraknat(GRATIS_NAMN)}. Ladda upp ditt CV och se det i alla mallar direkt. Kontot behövs först när du laddar
+                ner gratismallarna som PDF eller Word.
               </>
             }
             primar={null}
             bildLag
             bild={<Uppladdning />}
-            efterHandling={
-              <nav aria-label="Välj efter situation" className="mt-6 flex flex-wrap items-center gap-2">
-                <span className="mr-1 text-[11px] font-bold uppercase tracking-[0.18em] text-vagg-mjuk">Börja från din situation</span>
-                {SITUATION.map((s) => (
-                  <Link
-                    key={s.href}
-                    href={s.href}
-                    className="inline-flex min-h-10 items-center rounded-full border border-vagg-kant bg-white/10 px-4 text-sm font-semibold text-vagg-ink hover:bg-white/15"
-                  >
-                    {s.text}
-                  </Link>
-                ))}
-              </nav>
-            }
           />
 
           {/* Resultatet på samma sida: arbetsytan direkt under uppladdningen. */}
           <Rum rum="cv" yta="mark" storlek="tat" id="valj-mall">
             <div className="pub-wrap">
               <ProvaArbetsyta />
+              {/* Situationsraden under arbetsytan (granskningen V5), så att
+                  uppladdningen kommer direkt efter ingressen. */}
+              <nav aria-label="Välj efter situation" className="mt-8 flex flex-wrap items-center gap-2">
+                <span className="mr-1 text-[11px] font-bold uppercase tracking-[0.18em] text-ink-3">Börja från din situation</span>
+                {SITUATION.map((s) => (
+                  <Link
+                    key={s.href}
+                    href={s.href}
+                    className="inline-flex min-h-10 items-center rounded-full border border-kant-stark bg-papper px-4 text-sm font-semibold text-ink-1 hover:border-ink-1"
+                  >
+                    {s.text}
+                  </Link>
+                ))}
+              </nav>
             </div>
           </Rum>
 

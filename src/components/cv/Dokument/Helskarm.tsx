@@ -83,26 +83,36 @@ export default function Helskarm({ html, src, titel, rubrik, hojd, sidor, remsa,
       <div ref={ytaRef} className="min-h-0 flex-1 overflow-auto overscroll-contain" style={{ touchAction: 'pan-x pan-y pinch-zoom' }}>
         {arkBredd > 0 ? (
           <div className="mx-auto py-3" style={{ width: arkBredd }}>
-            {/* Sidorna: samma dokument, klippt per sida, staplade med glipa. */}
-            {Array.from({ length: antal }, (_, i) => (
-              <div key={i} className="mb-3">
+            {/* Ett sammanhängande ark med en streckad linje vid varje A4-höjd
+                (granskningen V4 a). Förhandsvisningens HTML har inga
+                sidbrytningar, så ett klipp per sida skar mitt i en rad och
+                stämde inte med PDF:en. */}
+            <div
+              className="relative overflow-hidden rounded-[4px] bg-white shadow-[0_1px_0_rgba(0,0,0,.08),0_10px_24px_-14px_rgba(0,0,0,.45)]"
+              style={{ height: Math.max(sidHojd, totalHojd) }}
+            >
+              <iframe
+                srcDoc={html}
+                src={html ? undefined : src}
+                title={titel}
+                scrolling="no"
+                tabIndex={-1}
+                className="pointer-events-none absolute inset-0 block h-full w-full border-0 bg-white"
+              />
+              {Array.from({ length: antal - 1 }, (_, i) => (
                 <div
-                  className="relative overflow-hidden rounded-[4px] bg-white shadow-[0_1px_0_rgba(0,0,0,.08),0_10px_24px_-14px_rgba(0,0,0,.45)]"
-                  style={{ height: sidHojd }}
+                  key={i}
+                  aria-hidden
+                  className="pointer-events-none absolute inset-x-0 border-t-[1.5px] border-dashed border-koppar"
+                  style={{ top: (i + 1) * sidHojd }}
                 >
-                  <iframe
-                    srcDoc={html}
-                    src={html ? undefined : src}
-                    title={`${titel}, ${DOK.sidaAv(i + 1, antal)}`}
-                    scrolling="no"
-                    tabIndex={-1}
-                    className="pointer-events-none absolute left-0 block w-full border-0 bg-white"
-                    style={{ top: -i * sidHojd, height: totalHojd }}
-                  />
+                  <span className="absolute -top-[18px] left-1.5 rounded bg-white px-1.5 py-px text-[10px] text-[#A8491A]">
+                    {DOK.sidanBorjar(i + 2)}
+                  </span>
                 </div>
-                <p className="mt-1 text-center text-meta text-ink-3">{DOK.sidaAv(i + 1, antal)}</p>
-              </div>
-            ))}
+              ))}
+            </div>
+            <p className="mt-1 text-center text-meta text-ink-3">{DOK.sidor(antal)}</p>
           </div>
         ) : null}
       </div>

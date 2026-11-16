@@ -26,6 +26,14 @@ export interface Traff {
   beskrivning: string
 }
 
+/** Första meningen ur annonsen, högst 80 tecken (granskningen P4). */
+function skalrad(text: string): string {
+  const t = (text ?? '').replace(/\s+/g, ' ').trim()
+  if (!t) return ''
+  const mening = t.split(/(?<=[.!?])\s/)[0] ?? t
+  return mening.length <= 80 ? mening : `${mening.slice(0, 77).replace(/\s+\S*$/, '')}...`
+}
+
 export interface FinalProps {
   open: boolean
   onClose: () => void
@@ -72,7 +80,7 @@ export default function Final({ open, onClose, fil, mall, format, sidor, cvId, t
 
   useEffect(() => {
     if (!open || traff === 'vantar') return
-    capture('belöning_visad', { template: mall.id, tier, format, nasta: traff ? 'jobb' : 'brev', surface })
+    capture('beloning_visad', { template: mall.id, tier, format, nasta: traff ? 'jobb' : 'brev', surface })
     // En gång per final.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, traff === 'vantar'])
@@ -148,10 +156,20 @@ export default function Final({ open, onClose, fil, mall, format, sidor, cvId, t
         ) : harTraff ? (
           <div className="grid gap-2.5">
             <p className="text-ey uppercase text-ink-3">{FINAL.forstaJobbet}</p>
-            <div className="grid gap-1 rounded-xl border border-kant p-3 text-left">
-              <p className="text-[15px] font-semibold text-ink-1">{traff.rubrik}</p>
-              <p className="text-[13px] text-ink-2">{[traff.arbetsgivare, traff.ort].filter(Boolean).join(', ')}</p>
-            </div>
+            {/* Kortet är nästa steg (affärsgranskningen R5): annonsen i ny flik,
+                annars Dina matchningar. En rad ur annonsen (P4). */}
+            <a
+              href={traff.url ?? '/dashboard/jobbmatchning'}
+              target={traff.url ? '_blank' : undefined}
+              rel={traff.url ? 'noopener noreferrer' : undefined}
+              aria-label={FINAL.jobbEtikett(traff.rubrik, [traff.arbetsgivare, traff.ort].filter(Boolean).join(', '), Boolean(traff.url))}
+              onClick={() => capture('nasta_steg_klickad', { target: 'jobb', template: mall.id, surface })}
+              className="grid gap-1 rounded-xl border border-kant p-3 text-left hover:border-ink-1"
+            >
+              <span className="text-[15px] font-semibold text-ink-1">{traff.rubrik}</span>
+              <span className="text-[13px] text-ink-2">{[traff.arbetsgivare, traff.ort].filter(Boolean).join(', ')}</span>
+              {skalrad(traff.beskrivning) ? <span className="text-[13px] text-ink-3">{skalrad(traff.beskrivning)}</span> : null}
+            </a>
             <button
               type="button"
               onClick={() => {

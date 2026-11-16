@@ -517,6 +517,7 @@ export default function CVCreatorWizard({
               template: selectedTemplate,
               format,
               val,
+              entry: 'byggare',
             }),
           });
 

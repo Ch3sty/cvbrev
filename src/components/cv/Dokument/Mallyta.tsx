@@ -26,7 +26,7 @@ import RubrikArk from './RubrikArk'
 import AvsnittArk from './AvsnittArk'
 import FastRad, { FormatVal, LaddaKnapp } from './FastRad'
 import type { Matning } from './matning'
-import { KNAPP, REMSA } from './texter'
+import { KNAPP, KOLUMN, REMSA } from './texter'
 
 export type Bytesmetod = 'svep' | 'tryck' | 'lista'
 
@@ -50,7 +50,8 @@ export interface MallytaProps {
   kanWord: boolean
   /** Premiumpriset som text, för mallraden. */
   pris?: string
-  knapp: { text: string; onClick: () => void; framsteg: number | null; disabled?: boolean }
+  /** under: andra raden (priset) i en premiumknapp (granskningen V3). */
+  knapp: { text: string; under?: string; onClick: () => void; framsteg: number | null; disabled?: boolean }
   /** Gratisvägen som bild, när vald mall är Premium och kontot saknar den. */
   gratisVag?: { mall: MallKort; onClick: () => void } | null
   fel?: ReactNode
@@ -78,6 +79,8 @@ export default function Mallyta(p: MallytaProps) {
   const [rubrik, setRubrik] = useState<{ sektion: Sektion; text: string } | null>(null)
   const [avsnitt, setAvsnitt] = useState<Sektion | null>(null)
   const [matning, setMatning] = useState<Matning | null>(null)
+  const [allaKolumn, setAllaKolumn] = useState(false)
+  const rotRef = useRef<HTMLDivElement>(null)
   const visad = useRef<string | null>(null)
   const forslagSett = useRef(false)
   const tier = p.mall.niva === 'gratis' ? 'free' : 'premium'
@@ -128,14 +131,34 @@ export default function Mallyta(p: MallytaProps) {
   }
 
   const verktyg = (
-    <Verktygsrad mall={p.mall} val={p.val} onVal={onVal} onFoto={p.onFoto} fotoPa={p.fotoPa} last={p.last} forvaldUppsattning={p.forvaldUppsattning} />
+    <Verktygsrad
+      mall={p.mall}
+      val={p.val}
+      onVal={onVal}
+      onFoto={p.onFoto}
+      fotoPa={p.fotoPa}
+      last={p.last}
+      forvaldUppsattning={p.forvaldUppsattning}
+      onOppnaArk={() => {
+        // Arket står kvar så hon kan jämföra (granskningen V1): dokumentets
+        // överkant mot vyns topp innan typsnitts- eller ordningsarket öppnas.
+        const el = rotRef.current?.querySelector<HTMLElement>('.dok-ark-yta')
+        if (!el) return
+        el.style.scrollMarginTop = '8px'
+        el.scrollIntoView({ block: 'start' })
+      }}
+    />
   )
   const formatVal = (
     <FormatVal format={p.format} onFormat={p.onFormat} mallHarWord={p.mall.word} kanWord={p.kanWord} last={p.last} />
   )
+  const formatKompakt = (
+    <FormatVal format={p.format} onFormat={p.onFormat} mallHarWord={p.mall.word} kanWord={p.kanWord} last={p.last} kompakt />
+  )
   const knapp = (
     <LaddaKnapp
       text={p.knapp.framsteg !== null ? (p.format === 'docx' ? KNAPP.skaparWord : KNAPP.skaparPdf) : p.knapp.text}
+      under={p.knapp.under}
       format={p.format}
       onClick={p.knapp.onClick}
       framsteg={p.knapp.framsteg}
@@ -166,11 +189,12 @@ export default function Mallyta(p: MallytaProps) {
   )
 
   return (
-    <div className="mallyta">
+    <div className="mallyta overflow-x-clip" ref={rotRef}>
       <div className="grid gap-4 min-[900px]:grid-cols-[minmax(0,1fr)_296px] min-[900px]:gap-6 xl:grid-cols-[minmax(0,744px)_336px] xl:justify-center">
         {/* Arbetsytan med arket. */}
-        <div className="min-w-0">
+        <div className="min-w-0 scroll-mt-[72px]" data-arbetsyta>
           {p.topp ? <div className="mb-2.5">{p.topp}</div> : null}
+          {p.status ? <div className="mx-auto mb-2 max-w-[600px]">{p.status}</div> : null}
           <Dokument
             storlek="stor"
             className="min-[900px]:max-w-[520px] xl:max-w-[600px]"
@@ -189,12 +213,10 @@ export default function Mallyta(p: MallytaProps) {
             valtAvsnitt={avsnitt}
             onMatt={onMatt}
             helskarmRemsa={helskarmRemsa}
-            visaHjalprad
           />
-          {p.status ? <div className="mx-auto mt-3 max-w-[600px]">{p.status}</div> : null}
 
           {/* Mobil: raden under arket, remsan, mallraden, gratisvägen. */}
-          <div className="mx-auto mt-3 grid max-w-[600px] gap-3 min-[900px]:hidden">
+          <div className="mx-auto mt-3 grid w-full min-w-0 max-w-[600px] gap-3 min-[900px]:hidden">
             {verktyg}
             <Remsa
               katalog={p.katalog}
@@ -221,9 +243,21 @@ export default function Mallyta(p: MallytaProps) {
               ))}
             </div>
             {gratisVag ? <div className="mt-3">{gratisVag}</div> : null}
-            <div className="mt-4">
-              <AllaInnehall katalog={p.katalog} vald={p.mall.id} foreslagna={p.foreslagna} onValj={(id) => valjMall(id, 'lista')} utanForeslagna last={p.last} />
-            </div>
+            {/* Kolumnen ryms i vyn och klistrar (granskningen P5): resten av
+                mallarna bakom en rad. */}
+            {allaKolumn ? (
+              <div className="mt-4 max-h-[calc(100dvh-220px)] overflow-y-auto pr-1">
+                <AllaInnehall katalog={p.katalog} vald={p.mall.id} foreslagna={p.foreslagna} onValj={(id) => valjMall(id, 'lista')} utanForeslagna last={p.last} />
+              </div>
+            ) : null}
+            <button
+              type="button"
+              onClick={() => setAllaKolumn((v) => !v)}
+              aria-expanded={allaKolumn}
+              className="mt-3 inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 hover:decoration-ink-1"
+            >
+              {allaKolumn ? KOLUMN.visaFarre : KOLUMN.visaAlla(p.katalog.length)}
+            </button>
           </div>
         </aside>
       </div>
@@ -231,12 +265,13 @@ export default function Mallyta(p: MallytaProps) {
       <FastRad
         ovanNav={p.ovanNav}
         format={formatVal}
+        formatKompakt={formatKompakt}
         knapp={knapp}
         fel={p.fel}
         dator={
           <>
             <div className="min-w-0 shrink">{verktyg}</div>
-            <div className="ml-auto hidden shrink-0 items-center gap-2 text-[13px] xl:flex">
+            <div className="ml-auto hidden shrink-0 items-center gap-2 text-[13px] min-[1400px]:flex">
               <b className="font-semibold text-ink-1">{p.mall.namn}</b>
               <span className="text-ink-3">{REMSA.niva[p.mall.niva]}</span>
             </div>

@@ -25,7 +25,7 @@ const FELTEXT: Record<Extract<Inlasning, { lage: 'fel' }>['kod'], { rubrik?: str
 }
 
 export default function Uppladdning({ ton = 'vagg' }: { ton?: 'vagg' | 'papper' }) {
-  const { laddaUpp, inlasning, skrivNamn, namn, titel, behoverRobot, setRobotToken } = useProva()
+  const { laddaUpp, inlasning, skrivNamn, namn, titel, behoverRobot, setRobotToken, registreraFilval } = useProva()
   const input = useRef<HTMLInputElement>(null)
   const namnRef = useRef<HTMLInputElement>(null)
   const [over, setOver] = useState(false)
@@ -44,14 +44,30 @@ export default function Uppladdning({ ton = 'vagg' }: { ton?: 'vagg' | 'papper' 
     return () => window.removeEventListener('hashchange', kolla)
   }, [])
 
+  // "Byt fil" ovanför arket öppnar samma filväljare.
+  useEffect(() => {
+    registreraFilval(() => input.current?.click())
+    return () => registreraFilval(null)
+  }, [registreraFilval])
+
   const laddar = inlasning.lage === 'laddar'
+  // Efter uppladdningen fälls ytan ihop till en rad (granskningen B1):
+  // hennes CV i arket är det som syns, namnet ändras i dokumentet.
+  const ihop = inlasning.lage === 'klar' && Boolean(inlasning.filnamn)
   const fel = inlasning.lage === 'fel' ? FELTEXT[inlasning.kod] : null
   const morkt = ton === 'vagg'
 
   return (
     <div id="ladda-upp" className="scroll-mt-24">
       <style>{"@keyframes dokLaddar{0%{transform:translateX(-100%)}100%{transform:translateX(300%)}}"}</style>
+      {ihop && inlasning.lage === 'klar' ? (
+        <div className="flex h-12 items-center gap-2 rounded-xl border border-kant-stark bg-papper px-3 text-sm font-semibold text-ink-1">
+          <IkonBock size={18} className="shrink-0 text-positiv" />
+          <span className="truncate">{inlasning.filnamn}</span>
+        </div>
+      ) : null}
       <div
+        hidden={ihop}
         onDragOver={(e) => {
           e.preventDefault()
           setOver(true)
@@ -152,6 +168,7 @@ export default function Uppladdning({ ton = 'vagg' }: { ton?: 'vagg' | 'papper' 
         </div>
       ) : null}
 
+      {ihop ? null : <>
       <div className={`my-2.5 flex items-center gap-2.5 text-xs ${morkt ? 'text-vagg-mjuk' : 'text-ink-3'} before:flex-1 before:border-t before:border-current before:opacity-30 after:flex-1 after:border-t after:border-current after:opacity-30`}>
         <span className="min-[900px]:hidden">{UPPLADDNING.ellerNamn}</span>
         <span className="hidden min-[900px]:inline">{UPPLADDNING.ellerNamnKort}</span>
@@ -179,6 +196,7 @@ export default function Uppladdning({ ton = 'vagg' }: { ton?: 'vagg' | 'papper' 
           />
         </label>
       </div>
+      </>}
     </div>
   )
 }

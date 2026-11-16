@@ -47,6 +47,19 @@ export function merforsaljningsUrval(katalog: readonly MallKort[], nuvarande: st
   return ut
 }
 
+/**
+ * Vad som skiljer, i högst fyra ord. Saknar CV:t foto lovar kortet inget foto
+ * (affärsgranskningen R2): katalogens kortUtanFoto om mallsystemet har det,
+ * annars stryks fotoledet ur texten.
+ */
+export function kortText(m: MallKort, harFoto: boolean): string {
+  if (harFoto || !m.foto) return m.kort
+  const utan = (m as MallKort & { kortUtanFoto?: string }).kortUtanFoto
+  if (utan) return utan
+  const t = m.kort.replace(/,?\s*(och|med ditt |med |rund )?(foto|fotoplats|rund bild|bild)$/i, '').trim()
+  return t || m.kort
+}
+
 export interface MerforsaljningProps {
   open: boolean
   onClose: () => void
@@ -122,7 +135,7 @@ export default function Merforsaljning({ open, onClose, katalog, nuvarande, filn
         </div>
       }
     >
-      <div className="grid gap-2.5" role="radiogroup" aria-label={MERFORSALJNING.rubrik}>
+      <div className="grid grid-cols-3 gap-2" role="radiogroup" aria-label={MERFORSALJNING.rubrik}>
         {urval.map((m, i) => (
           <button
             key={m.id}
@@ -133,9 +146,9 @@ export default function Merforsaljning({ open, onClose, katalog, nuvarande, filn
               setVald(i)
               capture('merforsaljning_klick', { template: m.id, position: i, val: 'kort', surface })
             }}
-            className={`flex items-center gap-3 rounded-xl bg-papper p-2.5 text-left ${vald === i ? 'border-2 border-koppar' : 'border border-kant'}`}
+            className={`flex min-w-0 flex-col items-center gap-2 rounded-xl bg-papper p-1.5 text-center ${vald === i ? 'border-2 border-koppar' : 'border border-kant'}`}
           >
-            <span className="relative block aspect-[210/297] w-16 shrink-0 overflow-hidden rounded-[3px] border border-kant bg-white">
+            <span className="relative block aspect-[210/297] w-full max-w-[112px] shrink-0 overflow-hidden rounded-[3px] border border-kant bg-white">
               {bilder[m.id] ? (
                 <iframe srcDoc={bilder[m.id]} title={m.namn} tabIndex={-1} scrolling="no" className="pointer-events-none absolute inset-0 h-full w-full border-0" />
               ) : (
@@ -144,7 +157,7 @@ export default function Merforsaljning({ open, onClose, katalog, nuvarande, filn
               )}
             </span>
             <span className="min-w-0">
-              <span className="block text-sm font-semibold text-ink-1">{m.kort}</span>
+              <span className="block text-[13px] font-semibold leading-tight text-ink-1">{kortText(m, harFoto)}</span>
               <span className="block text-meta text-ink-3">{m.namn}</span>
             </span>
           </button>

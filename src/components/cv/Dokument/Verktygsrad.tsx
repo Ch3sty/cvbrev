@@ -32,6 +32,8 @@ export interface VerktygsradProps {
   last?: boolean
   /** Uppsättningen rubrikmodellen valt för CV:t, markerad när inget är valt. */
   forvaldUppsattning?: string
+  /** Innan ett ark utan dimma öppnas: ytan lägger dokumentet i vyn (V1). */
+  onOppnaArk?: () => void
 }
 
 const GRUPPER: { namn: string; ids: readonly string[] }[] = [
@@ -62,8 +64,12 @@ function Radio({ vald, onClick, children, stil }: { vald: boolean; onClick: () =
   )
 }
 
-export default function Verktygsrad({ mall, val, onVal, onFoto, fotoPa, last, forvaldUppsattning }: VerktygsradProps) {
-  const [ark, setArk] = useState<'typsnitt' | 'ordning' | 'uppsattning' | null>(null)
+export default function Verktygsrad({ mall, val, onVal, onFoto, fotoPa, last, forvaldUppsattning, onOppnaArk }: VerktygsradProps) {
+  const [ark, setArkState] = useState<'typsnitt' | 'ordning' | 'uppsattning' | null>(null)
+  const setArk = (a: 'typsnitt' | 'ordning' | 'uppsattning' | null) => {
+    if (a && !ark) onOppnaArk?.()
+    setArkState(a)
+  }
   const font = FONTS.find((f) => f.id === (val.typsnitt ?? mall.typsnitt ?? 'calibri')) ?? FONTS[0]
   const farg = val.farg ?? 0
   const ordning = val.ordning ?? 'standard'

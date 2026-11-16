@@ -38,14 +38,23 @@ export const DOK = {
   tips: 'Tryck på en rubrik för att byta den',
   klickaHelskarm: 'Klicka på arket för att läsa i helskärm',
   sidan2: 'Sidan 2 börjar här',
+  sidanBorjar: (n: number) => `Sidan ${n} börjar här`,
   sidaAv: (i: number, n: number) => `Sida ${i} av ${n}`,
   nypZoom: 'Nyp för att zooma. Svep på miniatyrerna för nästa mall.',
   mallAv: (namn: string, i: number, n: number) => `${namn}, ${i} av ${n}`,
   svep: 'svep för nästa mall',
+  /** Raden under arket (granskningen B3): mobil med svep, dator utan. */
+  radMobil: (namn: string, i: number, n: number) => `${namn}, ${i} av ${n} · svep för nästa mall`,
+  radDator: (namn: string, i: number, n: number) => `${namn}, ${i} av ${n}`,
   stang: 'Stäng',
   zooma: 'Zooma',
   helskarm: 'Läs i helskärm',
   sidor: (n: number) => (n === 1 ? '1 sida' : `${n} sidor`),
+} as const
+
+export const KOLUMN = {
+  visaAlla: (n: number) => `Visa alla ${n} mallar`,
+  visaFarre: 'Visa färre',
 } as const
 
 export const REMSA = {
@@ -154,6 +163,9 @@ export const KNAPP = {
   laddaNer: (format: 'pdf' | 'docx') => (format === 'docx' ? 'Ladda ner Word' : 'Ladda ner PDF'),
   laddaNerIPremium: (format: 'pdf' | 'docx', mall: string, pris: string) =>
     `Ladda ner ${format === 'docx' ? 'Word' : 'PDF'} i ${mall}, Premium ${pris}`,
+  /** Premiumknappen i två avsiktliga rader (granskningen V3): handlingen, sedan priset. */
+  laddaNerIMall: (format: 'pdf' | 'docx', mall: string) => `Ladda ner ${format === 'docx' ? 'Word' : 'PDF'} i ${mall}`,
+  premiumPris: (pris: string) => `Premium ${pris}`,
   laddaNerIPremiumInloggad: (format: 'pdf' | 'docx', mall: string, pris: string) =>
     `Ladda ner ${format === 'docx' ? 'Word' : 'PDF'} i ${mall} med Premium, ${pris}`,
   gratisI: (mall: string) => `Ladda ner gratis i ${mall}`,
@@ -196,7 +208,7 @@ export const UPPLADDNING = {
   natfel: 'Filen kom inte fram. Försök igen, eller skriv ditt namn och fyll i direkt.',
   forsokIgen: 'Försök igen',
   robot: 'Robotkontrollen gick inte igenom. Ladda om sidan och försök igen, eller skriv ditt namn och fyll i direkt.',
-  klar: (hittade: string) => `Vi hittade ${hittade}. Tryck på dokumentet för att läsa i helskärm.`,
+  klar: (hittade: string) => `Vi hittade ${hittade}.`,
   /** Delarna i "Vi hittade ...", i dokumentets ordning. */
   delar: {
     kontakt: 'kontaktuppgifter',
@@ -224,7 +236,9 @@ export const KONTO_ARK = {
   loggaIn: 'Logga in',
   vagGratis: (mall: string) => `Ditt CV i ${mall}, gratis. Filen kommer direkt när kontot är klart.`,
   vagKop: (mall: string, pris: string) =>
-    `När kontot är klart går du till kassan. Premium kostar ${pris} och ger dig ${mall} och alla andra mallar.`,
+    `När kontot är klart går du till kassan. Premium ger dig ${mall} och alla andra mallar för ${pris}.`,
+  /** Under kampanjen (affärsgranskningen R6). */
+  kampanjFotnot: 'Kampanjpriset gäller konton som inte haft Premium tidigare.',
   sparar: 'Sparar ditt CV och skapar filen',
   fel: {
     epost: 'Skriv en e-postadress, till exempel namn@exempel.se.',
@@ -239,7 +253,8 @@ export const FOTO_ARK = {
   text: 'Lägg till foto när du skapat konto. Du kan ladda ner utan foto nu.',
   konto: 'Skapa konto och lägg till foto',
   utan: 'Fortsätt utan foto',
-  nu: 'Nu kan du lägga till foto',
+  nu: 'Kontot är klart. Nu kan du lägga till foto.',
+  valj: 'Välj foto',
   byt: 'Byt foto',
   taBort: 'Ta bort',
   fel: 'Fotot gick inte att ladda upp. Försök igen eller välj en annan bild.',
@@ -286,6 +301,8 @@ export const FINAL = {
   brevRubrik: 'Ditt CV är klart. Nu brevet.',
   brevRad: 'Klistra in annonsen, så matchar vi brevet mot ditt CV.',
   brevKnapp: 'Skriv ett personligt brev',
+  jobbEtikett: (titel: string, var_: string, lank: boolean) =>
+    `${[titel, var_].filter(Boolean).join(', ')}. ${lank ? 'Öppna annonsen i ny flik' : 'Se jobbet i Dina matchningar'}`,
 } as const
 
 export const MERFORSALJNING = {

@@ -30,7 +30,7 @@ export type Inlasning =
 
 export interface PrisInfo {
   ordinarie: string
-  kampanjer: { nyckel: string; text: string; ordinarieText: string }[]
+  kampanjer: { nyckel: string; text: string; lang: string; ordinarieText: string }[]
 }
 
 interface Kontext {
@@ -55,8 +55,15 @@ interface Kontext {
   pris: PrisInfo
   /** Yrkessidans slug ur adressen: exempel-CV:t i yrkets tappning. */
   yrke?: string
-  /** Pris att visa just nu (kampanj om html[data-kampanj] säger det). */
+  /** Pris att visa just nu (kampanj om html[data-kampanj] säger det), kort form för knappen. */
   prisNu: string
+  /** Samma pris i lång form (kampanj: "..., sedan 149 kr i månaden"), för raderna och kontoarket. */
+  prisLang: string
+  /** Kampanjen pågår för besökaren (kontoarkets fotnot). */
+  arKampanj: boolean
+  /** Filväljaren i uppladdningsytan, för "Byt fil" ovanför arket. */
+  oppnaFilval: () => void
+  registreraFilval: (f: (() => void) | null) => void
   kampanjNu: { pris: string; ordinarie: string } | null
 }
 
@@ -102,6 +109,7 @@ export default function ProvaProvider({
   const tokenVantare = useRef<((t: string | null) => void) | null>(null)
   const [kampanjNyckel, setKampanjNyckel] = useState<string | null>(null)
   const [yrke, setYrke] = useState<string | undefined>(undefined)
+  const filval = useRef<(() => void) | null>(null)
 
   // Utkastet och adressen vid första målningen efter hydrering.
   useEffect(() => {
@@ -272,6 +280,12 @@ export default function ProvaProvider({
       pris,
       yrke,
       prisNu: kampanj?.text ?? pris.ordinarie,
+      prisLang: kampanj?.lang ?? pris.ordinarie,
+      arKampanj: Boolean(kampanj),
+      oppnaFilval: () => filval.current?.(),
+      registreraFilval: (f) => {
+        filval.current = f
+      },
       kampanjNu: kampanj ? { pris: kampanj.text, ordinarie: kampanj.ordinarieText } : null,
     }),
     [katalog, surface, cv, mall, val, format, inlasning, laddaUpp, skrivNamn, namn, titel, behoverRobot, setRobotToken, pris, kampanj, yrke]

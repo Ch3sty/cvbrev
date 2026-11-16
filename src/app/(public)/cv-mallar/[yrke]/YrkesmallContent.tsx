@@ -1,14 +1,11 @@
 'use client'
 
-import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import Link from 'next/link'
-import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { ChevronRight, ShieldCheck, Crown, FileText, ArrowRight, CheckCircle2, Eye, Star, BookOpen, Layers } from 'lucide-react'
+import { ChevronRight, ShieldCheck, FileText, ArrowRight, CheckCircle2, Star, Layers } from 'lucide-react'
 
 import Breadcrumb from '@/components/Breadcrumb'
 import FaqAccordion from '@/components/exempel-shared/FaqAccordion'
-import { getTemplateById, isTemplateFree } from '@/lib/cv/simple-templates'
 import {
   IconVard,
   IconTech,
@@ -23,7 +20,7 @@ import {
 } from '@/app/(public)/exempel/components/illustrations/ExempelIcons'
 import type { Yrkesmall } from '../yrkesmall-data'
 import MallVisningCv, { type ArtikelMall } from '@/components/artiklar/MallVisningCv'
-import { MALL_KATALOG, getMallKort } from '@/lib/cv/mallar/katalog'
+import { MALL_KATALOG } from '@/lib/cv/mallar/katalog'
 import { ARTIKEL, DOK, KNAPP, UPPLADDNING } from '@/components/cv/Dokument/texter'
 import ViktigtPunkter from './components/ViktigtPunkter'
 import VarforVarMallPassar from './components/VarforVarMallPassar'
@@ -80,12 +77,6 @@ interface YrkesmallContentProps {
 }
 
 export default function YrkesmallContent({ data, relaterade }: YrkesmallContentProps) {
-  const freeTemplate = getTemplateById(data.freeMallId)
-  // Den första mallen är inte alltid en gratismall (YRKE_TILL_MALLAR pekar
-  // för många yrken på en mall i Premium). Märkningen följer registret, så
-  // att sidan aldrig kallar en Premium-mall gratis (SEO-förslaget F8, 2026-11-14).
-  const forstaGratis = isTemplateFree(data.freeMallId)
-  const premiumTemplate = getTemplateById(data.premiumMallId)
 
 
   return (
@@ -101,136 +92,51 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
         />
       </div>
 
-      {/* Hero — vänsterställd, med längre ingress + 3 CTA + två mallkort */}
-      <section className="container mx-auto px-3 sm:px-4 pb-10 sm:pb-14 max-w-6xl">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(360px,420px)] gap-8 lg:gap-12 items-start">
-          {/* Vänster: text */}
+      {/* Hjälten är dokumentet (skissen yta 2, granskningen B5): H1 och första
+          ingresstycket som förut (SEO), sedan yrkets exempel-CV i
+          gratismallen med titeln förifylld, uppladdningsraden och raden om
+          premiummallarna. Samma mönster på alla yrkessidor. */}
+      <section id="preview" className="container mx-auto max-w-6xl scroll-mt-6 px-3 pb-10 sm:px-4 sm:pb-14">
+        <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[1fr_minmax(360px,560px)] lg:gap-12">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-orange-50 text-orange-700 border border-orange-200 mb-5">
-              <FileText className="w-3.5 h-3.5" strokeWidth={2.5} />
-              CV-mall för {KATEGORI_LABEL[data.kategori]}
-            </div>
-
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.05] tracking-tight mb-5">
-              CV-mall för{' '}
-              <span
-                style={{
-                  background: 'linear-gradient(135deg, #F97316 0%, #DC2626 50%, #BE185D 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-              >
-                {data.namn}
-              </span>
+            <p className="text-ey uppercase text-ton-ink">CV-mall för {KATEGORI_LABEL[data.kategori]}</p>
+            <h1 className="mt-3 font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-ink-1 sm:text-5xl lg:text-6xl">
+              CV-mall för {data.namn}
             </h1>
-
-            <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed mb-5 max-w-xl">
-              {data.heroIngress || data.intro}
-            </p>
-
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm text-slate-600 mb-7">
-              <span className="inline-flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-emerald-600" strokeWidth={2.5} />
-                <span className="font-semibold text-slate-700">ATS-säkra</span>
-              </span>
-              <span className="text-slate-300">·</span>
-              <span className="font-semibold text-slate-700">Uppdaterade 2026</span>
-              <span className="text-slate-300">·</span>
-              <span className="font-semibold text-slate-700">Svenska arbetsgivare</span>
-            </div>
-
-            <div className="flex flex-wrap gap-3">
-              <a
-                href="#preview"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-white font-bold text-sm transition-all hover:shadow-lg"
-                style={{
-                  background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-                  boxShadow: '0 8px 24px -8px rgba(220, 38, 38, 0.35)',
-                }}
-              >
-                <Eye className="w-4 h-4" strokeWidth={2.4} />
-                Testa mallen live
-              </a>
-              <Link
-                href={`/cv-exempel/${data.slug}`}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-orange-200 text-slate-800 font-bold text-sm hover:border-orange-300 transition-all"
-              >
-                <FileText className="w-4 h-4" strokeWidth={2.4} />
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-2 sm:text-lg lg:text-xl">{data.heroIngress || data.intro}</p>
+            <p className="mt-4 text-sm text-ink-3">ATS-säkra · Uppdaterade 2026 · Svenska arbetsgivare</p>
+          </div>
+          <div className="w-full rounded-xl border border-kant bg-panel p-4 sm:p-6">
+            <MallVisningCv
+              mallar={femFor(data.freeMallId)}
+              yrke={data.slug}
+              titelForval={data.namn}
+              etiketter={{ namn: UPPLADDNING.namn, titel: UPPLADDNING.titel, fortsatt: KNAPP.fortsatt, svep: DOK.svep }}
+              uppladdning={
+                <div className="mt-2.5 flex items-center justify-between gap-3 rounded-xl border border-kant bg-papper px-3 py-2">
+                  <p className="text-[13px] leading-5 text-ink-2">{ARTIKEL.uppladdning}</p>
+                  <a
+                    href="/cv-mallar#ladda-upp"
+                    data-cta-klick="/cv-mallar#ladda-upp"
+                    className="inline-flex h-11 shrink-0 items-center rounded-xl border border-kant-stark bg-papper px-4 text-sm font-semibold text-ink-1"
+                  >
+                    {ARTIKEL.laddaUpp}
+                  </a>
+                </div>
+              }
+              efter={<p className="mt-3 text-[13px] text-ink-2">{ARTIKEL.yrkesrad('yrket')}</p>}
+            />
+            <p className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-sm">
+              <Link href={`/cv-exempel/${data.slug}`} className="inline-flex min-h-11 items-center font-medium text-ink-1 underline decoration-kant-stark underline-offset-4">
                 Se CV-exempel
               </Link>
               <Link
                 href={`/personligt-brev-exempel/${data.slug}`}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-orange-200 text-slate-800 font-bold text-sm hover:border-orange-300 transition-all"
+                className="inline-flex min-h-11 items-center font-medium text-ink-1 underline decoration-kant-stark underline-offset-4"
               >
-                <BookOpen className="w-4 h-4" strokeWidth={2.4} />
                 Personligt brev
               </Link>
-            </div>
-          </div>
-
-          {/* Höger: två mallkort kompaktare */}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="flex flex-col bg-white rounded-2xl border-2 border-emerald-200 overflow-hidden" style={{ boxShadow: '0 12px 36px -12px rgba(16, 185, 129, 0.25)' }}>
-              <div className="relative aspect-[3/4] bg-slate-50">
-                {freeTemplate && (
-                  <Image
-                    src={freeTemplate.imagePath}
-                    alt={`${freeTemplate.name} CV-mall för ${data.namnBestamd}${forstaGratis ? ' (gratis)' : ''}`}
-                    fill
-                    className="object-cover object-top"
-                    sizes="(min-width: 1024px) 200px, 50vw"
-                    priority
-                  />
-                )}
-                <span className={`absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-white text-[10px] font-bold ${forstaGratis ? 'bg-emerald-600' : 'bg-amber-500'}`}>
-                  {forstaGratis ? 'Gratis' : `Ingår i ${PAKETRADER.bricka}`}
-                </span>
-              </div>
-              <div className="p-3 flex-1 flex flex-col">
-                <div className="font-black text-sm text-slate-900">{data.freeMallNamn}</div>
-                <div className="text-[11px] text-slate-600 mb-2">ATS-säker, ren design</div>
-                <Link
-                  href="/verktyg/cv-mallar"
-                  className="mt-auto inline-flex items-center justify-center gap-1 px-3 py-2 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition-colors"
-                >
-                  {forstaGratis ? 'Använd gratis' : 'Använd mallen'}
-                  <ArrowRight className="w-3 h-3" strokeWidth={2.5} />
-                </Link>
-              </div>
-            </div>
-
-            <div className="flex flex-col bg-white rounded-2xl border-2 border-orange-300 overflow-hidden" style={{ boxShadow: '0 12px 36px -12px rgba(249, 115, 22, 0.32)' }}>
-              <div className="relative aspect-[3/4] bg-slate-50">
-                {premiumTemplate && (
-                  <Image
-                    src={premiumTemplate.imagePath}
-                    alt={`${premiumTemplate.name} CV-mall för ${data.namnBestamd} (ingår i Premium)`}
-                    fill
-                    className="object-cover object-top"
-                    sizes="(min-width: 1024px) 200px, 50vw"
-                  />
-                )}
-                <span className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-bold">
-                  <Crown className="w-2.5 h-2.5" strokeWidth={2.5} />
-                  {PAKETRADER.bricka}
-                </span>
-              </div>
-              <div className="p-3 flex-1 flex flex-col">
-                <div className="font-black text-sm text-slate-900">{data.premiumMallNamn}</div>
-                <div className="text-[11px] text-slate-600 mb-2">{getMallKort(data.premiumMallId)?.kort ?? 'Visuellt rikare'}</div>
-                <Link
-                  href="/verktyg/cv-mallar"
-                  className="mt-auto inline-flex items-center justify-center gap-1 px-3 py-2 rounded-full text-white font-bold text-xs transition-all hover:shadow-lg"
-                  style={{
-                    background: 'linear-gradient(135deg, #F97316 0%, #DC2626 100%)',
-                  }}
-                >
-                  Se hela mallen
-                  <ArrowRight className="w-3 h-3" strokeWidth={2.5} />
-                </Link>
-              </div>
-            </div>
+            </p>
           </div>
         </div>
       </section>
@@ -250,50 +156,6 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
           </div>
         </section>
       )}
-
-      {/* Interaktiv mall-preview — yrkets mallar prio */}
-      <section id="preview" className="container mx-auto px-3 sm:px-4 pb-12 sm:pb-16 max-w-5xl scroll-mt-6">
-        <div className="text-center mb-6 sm:mb-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] bg-orange-50 text-orange-700 border border-orange-200 mb-3">
-            <Eye className="w-3.5 h-3.5" strokeWidth={2.5} />
-            Live preview
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mb-2">
-            Se ditt {data.namnBestamd}-CV i olika designer
-          </h2>
-          <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
-            Förhandsgranska ditt CV i{' '}
-            {forstaGratis
-              ? `vår gratismall ${data.freeMallNamn} eller i ${data.premiumMallNamn}, som ingår i Premium`
-              : `${data.freeMallNamn} eller ${data.premiumMallNamn}. Båda ingår i Premium`}
-            . Byt mall och typsnitt och se skillnaderna direkt.
-          </p>
-        </div>
-        {/* Dokument liten med yrkets exempel-CV ur exempel-API:t (serverrenderat
-            i mallsystemet, cachat), gratismallen först med yrkets rubriker,
-            titeln förifylld, uppladdningsraden och raden om premiummallarna. */}
-        <div className="mx-auto max-w-[560px] rounded-xl border border-kant bg-panel p-4 sm:p-6">
-          <MallVisningCv
-            mallar={femFor(data.freeMallId)}
-            yrke={data.slug}
-            titelForval={data.namn}
-            etiketter={{ namn: UPPLADDNING.namn, titel: UPPLADDNING.titel, fortsatt: KNAPP.fortsatt, svep: DOK.svep }}
-            uppladdning={
-              <div className="mt-2.5 flex items-center justify-between gap-3 rounded-xl border border-kant bg-papper px-3 py-2">
-                <p className="text-[13px] leading-5 text-ink-2">{ARTIKEL.uppladdning}</p>
-                <a
-                  href="/cv-mallar#ladda-upp"
-                  data-cta-klick="/cv-mallar#ladda-upp"
-                  className="inline-flex h-11 shrink-0 items-center rounded-xl border border-kant-stark bg-papper px-4 text-sm font-semibold text-ink-1"
-                >
-                  {ARTIKEL.laddaUpp}
-                </a>
-              </div>
-            }
-            efter={<p className="mt-3 text-[13px] text-ink-2">{ARTIKEL.yrkesrad('yrket')}</p>}
-          />
-        </div>
-      </section>
 
       {/* Viktigt att tanka pa (NY djup-content) — fallback till varforDennaMall om saknas */}
       {data.viktigtAttTankaPa && data.viktigtAttTankaPa.length > 0 ? (

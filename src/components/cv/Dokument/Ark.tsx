@@ -69,7 +69,7 @@ export default function Ark({ open, onClose, rubrik, under, children, fot, bred,
         aria-modal="true"
         aria-labelledby={`${id}-r`}
         tabIndex={-1}
-        className={`dok-ark relative flex max-h-[88dvh] w-full flex-col rounded-t-3xl border-t border-kant bg-papper shadow-[0_-12px_40px_rgba(0,0,0,.25)] outline-none ${bred ? 'sm:max-w-[640px]' : 'sm:max-w-[520px]'}`}
+        className={`dok-ark relative flex ${utanDimma ? 'max-h-[52dvh] sm:max-h-[88dvh]' : 'max-h-[88dvh]'} w-full flex-col rounded-t-3xl border-t border-kant bg-papper shadow-[0_-12px_40px_rgba(0,0,0,.25)] outline-none ${bred ? 'sm:max-w-[640px]' : 'sm:max-w-[520px]'}`}
       >
         <div aria-hidden className="mx-auto mt-2.5 h-1 w-9 shrink-0 rounded-full bg-kant-stark" />
         <div className="flex shrink-0 items-start gap-3 px-4 pb-2 pt-3">

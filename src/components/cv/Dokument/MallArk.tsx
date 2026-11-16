@@ -25,7 +25,7 @@ export default function Mallrad({ mall, pris, harWord }: MallradProps) {
     mall.niva === 'premium' && pris ? `${REMSA.niva.premium}, ${pris}. ${mall.stil}` : `${REMSA.niva[mall.niva]}. ${mall.stil}`
   return (
     <div className="mt-1.5">
-      <div className="flex items-center justify-between gap-2 text-[13px]">
+      <div className="flex flex-wrap items-center justify-between gap-x-2 text-[13px]">
         <button
           type="button"
           onClick={() => setOpen(true)}
@@ -35,7 +35,7 @@ export default function Mallrad({ mall, pris, harWord }: MallradProps) {
           {mall.namn}
           <IkonInfo size={15} className="text-ink-3" />
         </button>
-        <span className="inline-flex items-center gap-2">
+        <span className="inline-flex flex-wrap items-center gap-x-2">
           <span className="inline-flex items-center gap-1 text-[11px] font-bold tracking-[.02em] text-ink-2">
             <IkonPdf size={16} />
             {FORMAT.pdf}

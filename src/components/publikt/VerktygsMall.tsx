@@ -17,6 +17,7 @@
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 import Hjalte from './Hjalte'
+import TalRad from './TalRad'
 import Rum from './Rum'
 import Faq from './Faq'
 import PremiumBlock from './PremiumBlock'
@@ -49,6 +50,11 @@ export interface VerktygsMallProps {
   primar?: VerktygsLank & { dataCta?: string }
   sekundar?: VerktygsLank
   loften?: { tal: string; text: string }[]
+  /**
+   * Talen under handlingen i stället för i hjälten (mallsidan, granskningen
+   * V5): uppladdningen ska komma direkt efter ingressen på mobilen.
+   */
+  talEfterHandling?: boolean
   handling?: ReactNode
   handlingId?: string
   steg: { id?: string; rubrik: string; ingress?: string; rader: VerktygsRad[]; lank?: VerktygsLank }
@@ -126,7 +132,7 @@ export default function VerktygsMall(p: VerktygsMallProps) {
           fet={p.fet}
           primar={p.primar ? { text: p.primar.text, href: p.primar.href, dataCta: p.primar.dataCta } : null}
           sekundar={p.sekundar}
-          tal={p.loften}
+          tal={p.talEfterHandling ? undefined : p.loften}
           bildLag
           bild={p.telefon}
         />
@@ -137,6 +143,7 @@ export default function VerktygsMall(p: VerktygsMallProps) {
             <div className="pub-wrap">
               {/* Handlingen bär sitt eget kort (CV-analysen, provet, demon). */}
               {p.handling}
+              {p.talEfterHandling && p.loften?.length ? <TalRad tal={p.loften} /> : null}
             </div>
           </Rum>
         ) : null}

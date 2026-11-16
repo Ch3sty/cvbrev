@@ -136,25 +136,40 @@ export default function Dokument({
     setMatning(null)
   }, [srcdoc, src])
 
-  // Första besöket: raden om rubrikerna i sex sekunder, en gång.
+  // Första besöket: raden om rubrikerna i sex sekunder, en gång. Klockan
+  // startar först när arket syns till minst hälften (granskningen B2), så
+  // raden inte hinner slockna medan hon står kvar i hjälten.
+  const harRubriker = Boolean(matning && matning.rubriker.length > 0)
   useEffect(() => {
-    if (!interaktiv || !matning || matning.rubriker.length === 0) return
+    if (!interaktiv || !harRubriker) return
     let sett = true
     try {
       sett = window.localStorage.getItem(TIPS_NYCKEL) === '1'
     } catch {
       sett = true
     }
-    if (sett) return
-    setTips(true)
-    try {
-      window.localStorage.setItem(TIPS_NYCKEL, '1')
-    } catch {
-      // Lagringen är avstängd: raden visas igen nästa gång, det är allt.
+    if (sett || !ramRef.current) return
+    let t: number | undefined
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting || t !== undefined) return
+        setTips(true)
+        try {
+          window.localStorage.setItem(TIPS_NYCKEL, '1')
+        } catch {
+          // Lagringen är avstängd: raden visas igen nästa gång, det är allt.
+        }
+        t = window.setTimeout(() => setTips(false), 6000)
+        io.disconnect()
+      },
+      { threshold: 0.5 }
+    )
+    io.observe(ramRef.current)
+    return () => {
+      io.disconnect()
+      if (t !== undefined) window.clearTimeout(t)
     }
-    const t = window.setTimeout(() => setTips(false), 6000)
-    return () => window.clearTimeout(t)
-  }, [interaktiv, matning])
+  }, [interaktiv, harRubriker])
 
   const index = mall && ordning ? ordning.findIndex((m) => m.id === mall.id) : -1
   const granne = (riktning: 1 | -1): MallKort | null => {
@@ -200,6 +215,18 @@ export default function Dokument({
 
   return (
     <div className={`mx-auto w-full ${BREDD[storlek]} ${className}`.trim()}>
+      {/* Första besöket: raden ovanför arket, i ett spår med reserverad höjd
+          (CLS 0), så att den aldrig täcker namnet. */}
+      {interaktiv ? (
+        <div className="mb-1.5 h-9" aria-live="polite">
+          {tips ? (
+            <p className="flex h-9 items-center gap-2 rounded-xl bg-ton px-3 text-[13px] font-medium text-ton-ink">
+              <IkonPenna size={16} />
+              {DOK.tips}
+            </p>
+          ) : null}
+        </div>
+      ) : null}
       <div
         className="relative touch-pan-y select-none"
         onPointerDown={onPointerDown}
@@ -291,7 +318,7 @@ export default function Dokument({
                         }}
                       >
                         {valt ? (
-                          <span className="absolute -top-3 left-[-2px] whitespace-nowrap rounded-full bg-koppar px-2 py-0.5 text-[10px] font-bold text-koppar-text">
+                          <span className="absolute -top-[22px] left-[-2px] whitespace-nowrap rounded-full bg-koppar px-2 py-0.5 text-[10px] font-bold text-koppar-text">
                             {r.text}
                           </span>
                         ) : null}
@@ -310,7 +337,13 @@ export default function Dokument({
                         type="button"
                         disabled={last}
                         aria-label={`Byt rubrik: ${r.text}`}
-                        onClick={() => onRubrik(r.sektion, r.text)}
+                        onClick={(e) => {
+                          // Rubriken till en femtedel av vyn, så att den syns ovanför arket (granskningen V1).
+                          const el = e.currentTarget
+                          el.style.scrollMarginTop = '20vh'
+                          el.scrollIntoView({ block: 'start', behavior: minsRorelse() ? 'auto' : 'smooth' })
+                          onRubrik(r.sektion, r.text)
+                        }}
                         onPointerEnter={() => setHover(i)}
                         onPointerLeave={() => setHover((h) => (h === i ? null : h))}
                         onFocus={() => setHover(i)}
@@ -350,21 +383,10 @@ export default function Dokument({
             </div>
           ) : null}
 
-          {/* Första besöket. */}
-          {tips ? (
-            <div
-              role="status"
-              className="pointer-events-none absolute inset-x-3 top-3 flex items-center gap-2 rounded-xl bg-ton px-3 py-2 text-[13px] font-medium text-ton-ink shadow-sm"
-            >
-              <IkonPenna size={16} />
-              {DOK.tips}
-            </div>
-          ) : null}
-
           {/* Brytlinjen när CV:t fortsätter på sida 2. */}
           {sidor > 1 ? (
             <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-[3px] border-t-[1.5px] border-dashed border-koppar">
-              <span className="absolute -top-[18px] right-1.5 rounded bg-white px-1.5 py-px text-[10px] text-koppar-ink">
+              <span className="absolute -top-[18px] left-1.5 rounded bg-white px-1.5 py-px text-[10px] text-[#A8491A]">
                 {DOK.sidan2}
               </span>
             </div>
@@ -384,21 +406,30 @@ export default function Dokument({
             </button>
           ) : null}
 
-          {storlek === 'stor' ? (
+          {storlek !== 'liten' ? (
             <button
               type="button"
               onClick={() => setHelskarm(true)}
               disabled={last}
               aria-label={DOK.helskarm}
-              className="absolute right-2 top-2 hidden h-9 w-9 items-center justify-center rounded-lg bg-white/90 text-[#1A1A1F] shadow-sm sm:inline-flex"
+              className="absolute right-2 top-2 z-[2] inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white/90 text-[#1A1A1F] shadow-[0_1px_4px_rgba(0,0,0,.18)]"
             >
-              <IkonZoom size={18} />
+              <IkonZoom size={20} />
             </button>
           ) : null}
         </div>
       </div>
 
-      {visaHjalprad ? <p className="mt-2 text-center text-meta text-ink-3">{DOK.klickaHelskarm}</p> : null}
+      {/* Raden under arket säger var hon är och att svep finns (granskningen
+          B3); på datorn bara var hon är. */}
+      {interaktiv && mall && ordning && index >= 0 ? (
+        <p className="mt-2 text-center text-[13px] text-ink-3">
+          <span className="min-[900px]:hidden">{DOK.radMobil(mall.namn, index + 1, ordning.length)}</span>
+          <span className="hidden min-[900px]:inline">{DOK.radDator(mall.namn, index + 1, ordning.length)}</span>
+        </p>
+      ) : visaHjalprad ? (
+        <p className="mt-2 text-center text-meta text-ink-3">{DOK.klickaHelskarm}</p>
+      ) : null}
 
       {helskarm ? (
         <Helskarm

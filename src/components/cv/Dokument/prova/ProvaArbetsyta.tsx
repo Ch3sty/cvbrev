@@ -18,6 +18,8 @@ import { foreslagna as raknaForslag } from '@/lib/cv/mallval/forslag'
 import { lasUtkast, rensaUtkast, sparaUtkast } from '@/lib/cv/mallval/utkast'
 import { filnamn as gorFilnamn } from '@/lib/cv/mallval/val'
 import { IkonBock } from '@/components/illustrations/MallIkoner'
+import { kopstegHref } from '@/lib/onboarding/steps'
+import { SALD_PLAN } from '@/lib/plans/plans'
 import Mallyta from '../Mallyta'
 import KontoArk from '../KontoArk'
 import Final from '../Final'
@@ -25,7 +27,7 @@ import Merforsaljning, { merforsaljningsUrval } from '../Merforsaljning'
 import { FotoArkUtloggad } from '../FotoArk'
 import { useForhandsvisning, useNedladdning, type Kalla } from '../hooks'
 import type { Matning } from '../matning'
-import { FOTO_ARK, KNAPP, SKAL, UPPLADDNING } from '../texter'
+import { FOTO_ARK, KNAPP, KONTO_ARK, SKAL, UPPLADDNING } from '../texter'
 import { hittadeText, useProva } from './ProvaKontext'
 
 const PROVA = '/cv-mallar/prova?hamta=1'
@@ -65,9 +67,37 @@ export default function ProvaArbetsyta() {
   // Köpet är premiummallen. Word i en gratismall är gratisfilen (ägarens
   // besked 2026-11-16), Word i en premiummall ingår i samma köp.
   const kop = premium
-  const knappText = kop
-    ? KNAPP.laddaNerIPremium(p.format, p.mall.namn, p.prisNu)
-    : KNAPP.laddaNer(p.format)
+  // Premiumknappen i två avsiktliga rader (granskningen V3): handlingen och priset.
+  const knappText = kop ? KNAPP.laddaNerIMall(p.format, p.mall.namn) : KNAPP.laddaNer(p.format)
+  const knappUnder = kop ? KNAPP.premiumPris(p.prisNu) : undefined
+
+  /**
+   * Till köpsteget med mallen och köpreturen (affärsgranskningen B2, B3):
+   * efter betalningen tillbaka till galleriet med CV:t och mallen, och
+   * nedladdningen startar. Ingen extra vägg efter ett ja.
+   */
+  const tillKopet = (mallId: string, id: string | null, format: 'pdf' | 'docx') => {
+    const q = new URLSearchParams({ ...(id ? { cv: id } : {}), mall: mallId, format })
+    window.location.assign(kopstegHref(SALD_PLAN, 'mall', { mall: mallId, retur: `/dashboard/cv-mallar?${q.toString()}` }))
+  }
+
+  /** Utkastet till kontot, en gång per konto och utkast (servern återanvänder raden). */
+  const hamtaUtkast = useCallback(async (): Promise<string | null> => {
+    if (cvId) return cvId
+    const u = lasUtkast()
+    const cv = p.cv ?? u?.cv
+    if (!cv) return null
+    const res = await fetch('/api/cv/prova/hamta', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cv, rubriker: p.val.rubriker, filnamn: u?.filnamn ?? undefined }),
+    }).catch(() => null)
+    const j = res ? ((await res.json().catch(() => ({}))) as { cvId?: string; ny?: boolean }) : {}
+    if (!j.cvId) return null
+    setCvId(j.cvId)
+    if (j.ny !== false) capture('draft_claimed', { kind: 'cv_prova' })
+    return j.cvId
+  }, [cvId, p.cv, p.val.rubriker])
   const filnamnet = gorFilnamn(p.mall.namn, p.cv?.personalInfo.fullName || 'cv', p.format)
 
   /** Utkastet till kontot och sedan filen (eller kassan). */
@@ -77,43 +107,30 @@ export default function ProvaArbetsyta() {
       const cv = p.cv ?? u?.cv
       if (!cv) return
       setFel(null)
-      let id: string | null = cvId
-      if (!id) {
-        const res = await fetch('/api/cv/prova/hamta', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ cv, rubriker: p.val.rubriker, filnamn: u?.filnamn ?? undefined }),
-        }).catch(() => null)
-        const j = res ? ((await res.json().catch(() => ({}))) as { cvId?: string }) : {}
-        if (j.cvId) {
-          id = j.cvId
-          setCvId(id)
-          capture('draft_claimed', { kind: 'cv_prova' })
-        }
-      }
+      const id = await hamtaUtkast()
       if (viaKop) {
         rensaUtkast()
-        const q = new URLSearchParams({ mall: p.mall.id, kop: '1' })
-        if (id) q.set('cv', id)
-        if (format === 'docx') q.set('format', 'docx')
-        router.push(`/dashboard/cv-mallar?${q.toString()}`)
+        tillKopet(p.mall.id, id, format)
         return
       }
-      const ut = await ladda({ mall: p.mall.id, format, val: p.val, structuredData: cv, cvId: id ?? undefined, filnamn: gorFilnamn(p.mall.namn, cv.personalInfo.fullName || 'cv', format) })
+      const ut = await ladda({ mall: p.mall.id, format, val: p.val, structuredData: cv, cvId: id ?? undefined, entry: p.surface, filnamn: gorFilnamn(p.mall.namn, cv.personalInfo.fullName || 'cv', format) })
       if (ut.typ === 'klar') {
         rensaUtkast()
         setFil(ut)
       } else if (ut.typ === 'sparr') {
-        // Inga andra mallar att visa: till kassan i galleriet med CV:t valt.
-        if (merforsaljningsUrval(p.katalog, p.mall.id, 1, false).length) setMerforsaljning(true)
-        else router.push(`/dashboard/cv-mallar?${new URLSearchParams({ mall: p.mall.id, kop: '1', ...(id ? { cv: id } : {}) }).toString()}`)
+        // Merförsäljningen bara när gratisfilen är använd (cv_export) och det
+        // finns mallar att visa; mallen eller Word i Premium går till köpet.
+        if (ut.feature === 'cv_export' && merforsaljningsUrval(p.katalog, p.mall.id, 1, false).length) setMerforsaljning(true)
+        else tillKopet(p.mall.id, id, format)
       } else if (ut.typ === 'namn') {
         setFel(UPPLADDNING.namnSaknas)
       } else {
         setFel(ut.text)
       }
     },
-    [p.cv, p.val, p.mall, p.format, cvId, ladda, router]
+    // tillKopet läser bara argument och konstanter.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [p.cv, p.val, p.mall, p.format, hamtaUtkast, ladda]
   )
 
   // Tillbaka från Google: utkastet väntar på att hämtas hem.
@@ -127,7 +144,7 @@ export default function ProvaArbetsyta() {
   }, [p.cv, hamtaHem])
 
   const laddaNer = async () => {
-    capture('nedladdning_klickad', { mall: p.mall.id, format: p.format, inloggad: false, surface: p.surface, tier })
+    capture('nedladdning_klickad', { template: p.mall.id, format: p.format, inloggad: false, surface: p.surface, tier })
     if (!p.cv) {
       document.getElementById('ladda-upp')?.scrollIntoView({ behavior: 'smooth', block: 'center' })
       return
@@ -142,9 +159,27 @@ export default function ProvaArbetsyta() {
     if (inloggad) return void hamtaHem(kop)
     const u = lasUtkast()
     if (u) sparaUtkast({ ...u, vantar: { format: p.format, kop } })
-    capture('konto_ark_visat', { mall: p.mall.id, tier, format: p.format, inloggad: false, surface: p.surface, orsak: 'nedladdning' })
+    capture('konto_ark_visat', { template: p.mall.id, tier, format: p.format, inloggad: false, surface: p.surface, orsak: 'nedladdning' })
     setKonto('nedladdning')
   }
+
+  // Efter uppladdningen: till arket (granskningen B1). Arkets överkant
+  // hamnar under sidhuvudet (scroll-margin 72 px på arbetsytan).
+  const forraLage = useRef(p.inlasning.lage)
+  useEffect(() => {
+    const forra = forraLage.current
+    forraLage.current = p.inlasning.lage
+    if (forra !== 'laddar' || p.inlasning.lage !== 'klar') return
+    const el = document.querySelector<HTMLElement>('.mallyta [data-arbetsyta]')
+    if (!el) return
+    let reducera = false
+    try {
+      reducera = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    } catch {
+      reducera = false
+    }
+    window.setTimeout(() => el.scrollIntoView({ block: 'start', behavior: reducera ? 'auto' : 'smooth' }), 50)
+  }, [p.inlasning.lage])
 
   const status =
     p.inlasning.lage === 'klar' && p.cv ? (
@@ -155,9 +190,9 @@ export default function ProvaArbetsyta() {
             ? UPPLADDNING.klar(hittadeText(p.inlasning.hittade))
             : null}{' '}
         {p.inlasning.saknas.length ? (
-          <a href="#ladda-upp" className="font-medium text-ink-1 underline decoration-kant-stark underline-offset-4">
+          <button type="button" onClick={p.oppnaFilval} className="font-medium text-ink-1 underline decoration-kant-stark underline-offset-4">
             {UPPLADDNING.annanFil}
-          </a>
+          </button>
         ) : null}
       </p>
     ) : null
@@ -169,9 +204,13 @@ export default function ProvaArbetsyta() {
           <IkonBock size={14} className="shrink-0 text-positiv" />
           <span className="truncate">{p.inlasning.filnamn}</span>
         </span>
-        <a href="#ladda-upp" className="inline-flex min-h-11 items-center text-[13px] font-medium text-ink-1 underline decoration-kant-stark underline-offset-4">
+        <button
+          type="button"
+          onClick={p.oppnaFilval}
+          className="inline-flex min-h-11 items-center text-[13px] font-medium text-ink-1 underline decoration-kant-stark underline-offset-4"
+        >
           {UPPLADDNING.bytFil}
-        </a>
+        </button>
       </div>
     ) : null
 
@@ -195,8 +234,8 @@ export default function ProvaArbetsyta() {
         topp={topp}
         status={status}
         kanWord={!premium}
-        pris={p.prisNu}
-        knapp={{ text: knappText, onClick: () => void laddaNer(), framsteg }}
+        pris={p.prisLang}
+        knapp={{ text: knappText, under: knappUnder, onClick: () => void laddaNer(), framsteg }}
         gratisVag={premium ? { mall: gratis, onClick: () => p.setMall(gratis.id) } : null}
         fel={fel ? <p role="alert" className="text-sm text-fel">{fel}</p> : null}
         rubriker={
@@ -222,11 +261,26 @@ export default function ProvaArbetsyta() {
           open={konto !== null}
           onClose={() => setKonto(null)}
           nasta={PROVA}
-          vag={kop ? { typ: 'kop', mall: p.mall.namn, pris: p.prisNu } : { typ: 'gratis', mall: p.mall.namn }}
-          rubrik={konto === 'foto' ? FOTO_ARK.konto : undefined}
+          vag={
+            konto === 'foto'
+              ? null
+              : kop
+                ? { typ: 'kop', mall: p.mall.namn, pris: p.prisLang, fotnot: p.arKampanj ? KONTO_ARK.kampanjFotnot : undefined }
+                : { typ: 'gratis', mall: p.mall.namn }
+          }
+          knapp={konto === 'foto' ? FOTO_ARK.konto : undefined}
           onKlar={() => {
+            const viaFoto = konto === 'foto'
             setKonto(null)
-            void hamtaHem(konto === 'foto' ? false : kop)
+            if (!viaFoto) return void hamtaHem(kop)
+            // Konto via fotoarket (affärsgranskningen B4): ingen nedladdning,
+            // gratisfilen sparas. Utkastet hämtas hem och fotot läggs till i galleriet.
+            void (async () => {
+              const id = await hamtaUtkast()
+              rensaUtkast()
+              const q = new URLSearchParams({ ...(id ? { cv: id } : {}), mall: p.mall.id, foto: '1' })
+              router.push(`/dashboard/cv-mallar?${q.toString()}`)
+            })()
           }}
         />
         <FotoArkUtloggad
@@ -234,7 +288,7 @@ export default function ProvaArbetsyta() {
           onClose={() => setFoto(false)}
           onKonto={() => {
             setFoto(false)
-            capture('konto_ark_visat', { mall: p.mall.id, tier, format: p.format, inloggad: false, surface: p.surface, orsak: 'foto' })
+            capture('konto_ark_visat', { template: p.mall.id, tier, format: p.format, inloggad: false, surface: p.surface, orsak: 'foto' })
             setKonto('foto')
           }}
         />
@@ -266,9 +320,7 @@ export default function ProvaArbetsyta() {
             kampanj={p.kampanjNu}
             onKop={(m: MallKort) => {
               p.setMall(m.id)
-              const q = new URLSearchParams({ mall: m.id, kop: '1' })
-              if (cvId) q.set('cv', cvId)
-              router.push(`/dashboard/cv-mallar?${q.toString()}`)
+              tillKopet(m.id, cvId, p.format)
             }}
             surface={p.surface}
           />

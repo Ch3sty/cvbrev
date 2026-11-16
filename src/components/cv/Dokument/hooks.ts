@@ -138,6 +138,8 @@ export interface NedladdningsBegaran {
   cvText?: string
   cvId?: string
   filnamn: string
+  /** Ytan nedladdningen startade på, till cv_nedladdad (affärsgranskningen L2). */
+  entry?: string
 }
 
 export type NedladdningsUtfall =
@@ -175,6 +177,7 @@ export function useNedladdning() {
           cvText: b.cvText && b.cvText.trim().length >= 50 ? b.cvText : undefined,
           format: b.format,
           val: b.val,
+          entry: b.entry,
         }),
       })
       if (res.status === 402) {

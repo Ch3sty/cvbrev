@@ -22,9 +22,16 @@ import { FREE_CV_EXPORTS } from '@/lib/cv/template-antal'
 import { getActiveCvIds } from '@/lib/cv/cv-quota'
 import { MALL_KATALOG, losMallId } from '@/lib/cv/mallval/katalog'
 import { kampanjForVisning } from '@/lib/kampanj/kampanj.server'
-import { kampanjNu } from '@/lib/kampanj/kampanj'
+import { kampanjNu, kampanjPrisPeriod } from '@/lib/kampanj/kampanj'
 
-type Sok = { cv?: string | string[]; mall?: string | string[]; format?: string | string[]; kop?: string | string[] }
+type Sok = {
+  cv?: string | string[]
+  mall?: string | string[]
+  format?: string | string[]
+  kop?: string | string[]
+  ladda?: string | string[]
+  foto?: string | string[]
+}
 const forsta = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v) ?? null
 
 export default async function CVMallarPage({ searchParams }: { searchParams: Promise<Sok> }) {
@@ -46,6 +53,7 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
   let fotoUrl: string | null = null
   let aktiva: string[] = []
   let pris = prisPeriod(SALD_PLAN)
+  let prisLang = pris
   let kampanj: { pris: string; ordinarie: string } | null = null
 
   try {
@@ -85,6 +93,7 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
     if (kamp.kampanj && kamp.behorig) {
       kampanj = { pris: `${kamp.kampanj.pris} kr första månaden`, ordinarie: pris }
       pris = kampanj.pris
+      prisLang = kampanjPrisPeriod(kamp.kampanj)
     }
   } catch (error) {
     console.error('Fel vid server-hämtning av CV-mallar:', error)
@@ -111,7 +120,10 @@ export default async function CVMallarPage({ searchParams }: { searchParams: Pro
       planKey={planKey}
       fotoUrl={fotoUrl}
       pris={pris}
+      prisLang={prisLang}
       kampanj={kampanj}
+      ladda={forsta(params.ladda) === '1'}
+      foto={forsta(params.foto) === '1'}
     />
   )
 }
