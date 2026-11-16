@@ -4,6 +4,10 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight, FileText, Mail } from 'lucide-react'
 import { ExempelHeroIcon } from './illustrations/ExempelIcons'
+import { FREE_TEMPLATE_COUNT, talSomOrd } from '@/lib/cv/template-antal'
+
+/** Antalet gratismallar ur katalogen, som ord med versal. */
+const GRATIS_MALLAR = talSomOrd(FREE_TEMPLATE_COUNT).replace(/^./, (c) => c.toUpperCase())
 
 export default function ExempelCTABand() {
   return (
@@ -38,7 +42,7 @@ export default function ExempelCTABand() {
               </h2>
               <p className="text-base sm:text-lg text-white/85 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
                 Använd exemplen som inspiration och bygg ditt eget med våra
-                verktyg. Tre CV-mallar, en CV-analys och ett personligt brev
+                verktyg. {GRATIS_MALLAR} CV-mallar, en CV-analys och ett personligt brev
                 var sjunde dag, utan att betala.
               </p>
 

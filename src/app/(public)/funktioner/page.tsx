@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import AuthRedirect from '@/components/landing/AuthRedirect';
 import PubliktSida from '@/components/publikt/PubliktSida';
 import FunktionerSida from './FunktionerSida';
+import { TEMPLATE_COUNT } from '@/lib/cv/template-antal';
 
 export const metadata: Metadata = {
   title: 'Funktioner: alla verktyg för jobbsöket | Jobbcoach.ai',
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Våra funktioner: alla verktyg du behöver | Jobbcoach.ai',
     description:
-      'Åtta verktyg på en plattform: personliga brev, CV-analys, jobbmatchning, jobbcoach, rekryteringstester, LinkedIn-optimering, CV-skapande och åtta professionella mallar.',
+      `Åtta verktyg på en plattform: personliga brev, CV-analys, jobbmatchning, jobbcoach, rekryteringstester, LinkedIn-optimering, CV-skapande och ${TEMPLATE_COUNT} CV-mallar.`,
     url: 'https://www.jobbcoach.ai/funktioner',
     type: 'website',
   },

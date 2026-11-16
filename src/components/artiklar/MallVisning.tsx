@@ -8,7 +8,7 @@
  * Farten: dokumentet renderas på servern av /api/public/exempel/{cv,brev}
  * och visas i en iframe, så varken mallregistret eller mallmotorn följer
  * med till klienten. Den här komponenten är två inbyggda select-fält och
- * en iframe-adress, några hundra byte. Första vyn (Norrsken respektive
+ * en iframe-adress, några hundra byte. Första vyn (förvalsmallen respektive
  * Klassisk i Calibri) står i HTML och går att se utan JavaScript.
  *
  * MDX-aliasen InteractiveCVShowcase och InteractiveLetterShowcase pekar hit,

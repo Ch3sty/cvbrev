@@ -178,7 +178,7 @@ export interface BrickaText {
 /**
  * Brickornas texter, ordagrant ur specen där den skriver dem. Undertexten
  * varierar med paketet på två ställen: matrislogiken i CV-listan säger
- * "Ingår gratis", och mallen i gratislistan säger "3 mallar, en nedladdning".
+ * "Ingår gratis", och mallen i gratislistan säger "2 mallar, en nedladdning" (talet ur katalogen).
  */
 export function brickaText(
   key: BrickaKey,

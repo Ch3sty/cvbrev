@@ -103,19 +103,19 @@ export default function MallarHubGuideSection() {
             <p>
               Sök på din exakta yrkestitel i något av våra två gallerier.
               Hittar du inte din titel: välj ett närliggande yrke i samma
-              bransch. En distriktssköterska kan utgå från sjuksköterska-
-              mallen, en account manager från säljare-mallen.
+              bransch. En distriktssköterska kan utgå från exemplet för
+              sjuksköterska, en account manager från exemplet för säljare.
             </p>
             <p>
-              Det som faktiskt skiljer en bra mall från en dålig är hur
-              den hanterar yrkesspecifika detaljer. En lärarmall lyfter
-              ämneskompetens, behörigheter och pedagogisk approach. En
-              säljarmall lyfter resultat, säljmål och kundrelationer.
-              Generiska mallar utan yrkesperspektiv ger sällan starka
-              ansökningar.
+              Det som skiljer ett starkt exempel från ett svagt är hur det
+              hanterar yrkets detaljer. Lärarexemplet lyfter ämneskompetens,
+              behörigheter och pedagogiskt arbetssätt. Säljarexemplet lyfter
+              resultat, säljmål och kundrelationer. Själva CV-mallen är
+              formen, och alla våra mallar passar alla yrken. Yrket lägger
+              du i rubrikerna och innehållet, och där är exemplen din förlaga.
             </p>
             <p>
-              Du kan också browsa direkt på bransch:{' '}
+              Du kan också bläddra direkt på bransch:{' '}
               <Link
                 href="/cv-exempel/kategori/vard"
                 className="text-orange-700 font-bold hover:text-orange-800 underline-offset-2 hover:underline"

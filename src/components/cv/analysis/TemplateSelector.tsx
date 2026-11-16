@@ -4,7 +4,7 @@
 /**
  * Mallvalet (docs/plan-paket-och-onboarding.md avsnitt 4).
  *
- * Tre mallar ingår i gratisnivån. Resten förhandsvisas i full storlek, inte
+ * Gratismallarna (katalogens nivå gratis) ingår i gratisnivån. Resten förhandsvisas i full storlek, inte
  * suddade: användaren ska se hela mallen som den blir, och först när hon
  * väljer en låst mall möta betalväggen. Suddade förhandsvisningar säljer
  * ingenting, de får mallen att se sämre ut än den är.

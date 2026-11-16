@@ -10,7 +10,8 @@ import SkapaCvLiveDemo from './components/SkapaCvLiveDemo'
 import { SKAPA_CV_FAQ_ITEMS } from './components/skapa-cv-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 import { SALD_PLAN, paketKort, paketMedPris } from '@/lib/plans/plans'
-import { SIMPLE_TEMPLATES, TEMPLATE_COUNT, FREE_TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
+import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT } from '@/lib/cv/template-antal'
+import { MALL_KATALOG } from '@/lib/cv/mallar/katalog'
 import { WORD_TEMPLATE_COUNT_ORD } from '@/lib/cv/template-antal'
 
 const FUNKTIONER = [
@@ -40,13 +41,8 @@ const FUNKTIONER = [
   },
 ]
 
-const KATEGORI: Record<string, string> = {
-  modern: 'Modern',
-  traditional: 'Traditionell',
-  creative: 'Kreativ',
-}
-
-const UTVALDA = SIMPLE_TEMPLATES.slice(0, 3)
+/** De tre första i katalogen (gratismallarna först), med mallens korta rad och stil. */
+const UTVALDA = MALL_KATALOG.slice(0, 3)
 
 export default function SkapaCvSida() {
   // Inloggade hör hemma i verktyget, inte på säljsidan (C2).
@@ -184,12 +180,12 @@ export default function SkapaCvSida() {
           {
             eyebrow: 'Mallar att välja på',
             rubrik: 'Mallar som passar din bransch',
-            ingress: `${TEMPLATE_COUNT} mallar i modern, traditionell och kreativ stil, ${FREE_TEMPLATE_COUNT} av dem gratis. Byt mall efteråt utan att förlora det du fyllt i.`,
-            rader: UTVALDA.map((t) => ({
-              rubrik: t.name,
+            ingress: `${TEMPLATE_COUNT} mallar som passar alla yrken, med rubriker för din bransch, ${FREE_TEMPLATE_COUNT} av dem gratis. Byt mall efteråt utan att förlora det du fyllt i.`,
+            rader: UTVALDA.map((m) => ({
+              rubrik: m.namn,
               text: (
                 <>
-                  <span className="text-ink-3">{KATEGORI[t.category] ?? t.category}.</span> {t.description}.
+                  <span className="text-ink-3">{m.kort}.</span> {m.stil}.
                 </>
               ),
             })),

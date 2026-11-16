@@ -8,7 +8,7 @@ import Telefon from '../Telefon'
 import { SkarmBock, SkarmFot, SkarmGolv, SkarmMatare, SkarmVagg } from '../delar'
 
 export default function SkarmSkapaCv({ glid, className }: { glid?: boolean; className?: string }) {
-  const mall = SIMPLE_TEMPLATES.find((t) => t.tier === 'free')?.name ?? 'Norrsken'
+  const mall = SIMPLE_TEMPLATES.find((t) => t.tier === 'free')?.name ?? 'Linne'
   return (
     <Telefon rum="cv" glid={glid} className={className}>
       <SkarmVagg kick="Skapa CV, steg 3 av 7" rubrik="Erfarenhet" sub={`Mall: ${mall}. Sparas medan du skriver.`} />

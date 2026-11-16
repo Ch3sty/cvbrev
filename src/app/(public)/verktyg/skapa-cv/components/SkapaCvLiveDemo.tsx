@@ -40,7 +40,7 @@ const SCENARIOS: Scenario[] = [
       { label: 'Företag', value: 'Spotify', startAtMs: 5400 },
     ],
     steg5Skills: ['Figma', 'Design Systems', 'Användartester', 'A/B-testning'],
-    template: 'Norrsken',
+    template: 'Linne',
   },
   {
     yrkeChip: 'Systemutvecklare',
@@ -54,7 +54,7 @@ const SCENARIOS: Scenario[] = [
       { label: 'Företag', value: 'Klarna', startAtMs: 5400 },
     ],
     steg5Skills: ['TypeScript', 'Node.js', 'PostgreSQL', 'AWS'],
-    template: 'Stack',
+    template: 'Stål',
   },
   {
     yrkeChip: 'Sjuksköterska',
@@ -68,7 +68,7 @@ const SCENARIOS: Scenario[] = [
       { label: 'Företag', value: 'Karolinska', startAtMs: 5400 },
     ],
     steg5Skills: ['Triage RETTS', 'Patientvård', 'Mentor', 'Akutsjukvård'],
-    template: 'Myndighet',
+    template: 'Kalksten',
   },
 ]
 

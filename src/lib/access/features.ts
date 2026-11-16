@@ -18,7 +18,7 @@ export type Scope = 'cv' | 'tester' | 'allt'
 export type Feature =
   | 'cv_templates_all'
   | 'cv_export'
-  /** CV:t som Word-fil, sex mallar (docs/plan-cv-word-2026-11-15.md, B2). */
+  /** CV:t som Word-fil i katalogens Word-mallar (docs/plan-cv-word-2026-11-15.md, B2). */
   | 'cv_export_word'
   | 'cv_analysis_full'
   | 'letter_download'

@@ -122,10 +122,11 @@ export default function CvMallarPageContent({ yrkesmallar, faqItems }: CvMallarP
           {/* Yrkesmallar: snabblänkarna för "cv mall {yrke}". */}
           <Rum rum="cv" yta="panel">
             <div className="pub-wrap">
-              <h2 className="pub-h2">Yrkesmallar för ditt specifika yrke</h2>
+              <h2 className="pub-h2">CV-mallar för ditt yrke</h2>
               <p className="pub-ingress" style={{ marginTop: 16 }}>
-                Mallar designade för specifika yrken med sektioner som lyfter rätt meriter: legitimationer, behörigheter och kompetensområden.
-                Klicka för att se varför mallen passar yrket och vad rekryterare letar efter.
+                Alla våra mallar passar alla yrken, men rubrikerna, exemplet och råden skiljer sig. På varje yrkessida ser du ditt yrkes CV i
+                mallarna, med rubriker som rekryterare i branschen känner igen, till exempel &quot;Klinisk erfarenhet&quot; eller &quot;Behörigheter
+                och körkort&quot;. Klicka på ditt yrke för att se vad rekryteraren letar efter och hur du får fram det i mallen.
               </p>
               <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {yrkesmallar.map((y) => (
@@ -155,13 +156,16 @@ export default function CvMallarPageContent({ yrkesmallar, faqItems }: CvMallarP
             <div className="pub-wrap">
               <h2 className="pub-h2">Alla våra CV-mallar</h2>
               <p className="pub-ingress" style={{ marginTop: 16 }}>
-                Välj rätt design för din ansökan. {MALL_ANTAL} av mallarna är märkta ATS-säkra och anpassade för svenska arbetsgivare.
-                Yrkesmallarna hjälper dig välja det som passar din bransch.
+                Välj formen för din ansökan: en spalt, sidospalt, rubriker i marginalen eller en konstnärlig layout. Alla {MALL_ANTAL} mallar är
+                testade mot rekryteringssystem och byggda för svenska arbetsgivare, och varje mall finns i fyra färger. {GRATIS_ANTAL} är gratis:{' '}
+                {uppraknat(GRATIS_NAMN)}. Yrkessidorna hjälper dig med rubrikerna och innehållet för din bransch.
               </p>
-              <p className="pub-brod" style={{ marginTop: 8 }}>Klicka på en mall för att se den i aktion.</p>
+              <p className="pub-brod" style={{ marginTop: 8 }}>Klicka på en mall så ser du den med ett färdigt CV, eller ladda upp ditt eget.</p>
               <div className="mt-8 grid max-w-[744px] grid-cols-3 gap-3 sm:grid-cols-4">
                 {MALL_KATALOG.map((m) => (
-                  <Miniatyr key={m.id} mall={m} storlek="rutnat" href={`/cv-mallar/prova?mall=${encodeURIComponent(m.id)}`} />
+                  <div key={m.id} id={`mall-${m.id}`} className="scroll-mt-24">
+                    <Miniatyr mall={m} storlek="rutnat" href={`/cv-mallar/prova?mall=${encodeURIComponent(m.id)}`} />
+                  </div>
                 ))}
               </div>
             </div>
@@ -183,33 +187,36 @@ export default function CvMallarPageContent({ yrkesmallar, faqItems }: CvMallarP
                     clip-paths, absolutpositionerade textfält, ovanliga typsnitt, och kolumner där läsordningen blir fel.
                   </p>
                   <p>
-                    Våra ATS-säkra mallar (märkta med grön ATS-badge) använder vanlig flödeslayout, standardrubriker som
-                    &quot;Arbetslivserfarenhet&quot; och &quot;Utbildning&quot;, och typsnitt som finns i alla operativsystem. Du får designkänslan
-                    utan att riskera att rekryteringssystemet sorterar bort dig innan en människa ens ser ditt CV.
+                    Våra mallar använder vanlig flödeslayout, standardrubriker som &quot;Arbetslivserfarenhet&quot; och &quot;Utbildning&quot; i
+                    grundläget, och typsnitt som finns i alla operativsystem. Varje mall har dessutom gått genom vår egen CV-läsare med korta och
+                    långa CV och olika ordning på avsnitten innan den kom med i utbudet, också mallarna med sidospalt. Du får designkänslan utan
+                    att riskera att rekryteringssystemet sorterar bort dig innan en människa ens ser ditt CV.
                   </p>
                 </GuideBlock>
                 <GuideBlock eyebrow="Branschmatchning" title="Olika yrken kräver olika upplägg">
                   <p>
                     En läkare, en barnskötare och en säljare har helt olika meriter att lyfta: legitimationer, pedagogiska metoder,
-                    säljsiffror. En generisk mall sätter alla i samma form, vilket sällan fungerar. Yrkesspecifika mallar har sektioner och
-                    rubriker anpassade till branschen: &quot;Klinisk tjänstgöring&quot; i stället för &quot;Arbetslivserfarenhet&quot; för läkare.
-                    &quot;Pedagogisk erfarenhet&quot; för lärare.
+                    säljsiffror. En mall med samma rubriker för alla sätter dem i samma form, vilket sällan fungerar. Därför har varje mall tolv
+                    rubrikuppsättningar att välja mellan, en per bransch: &quot;Klinisk erfarenhet&quot; i stället för &quot;Arbetslivserfarenhet&quot;
+                    för vården, &quot;Pedagogisk erfarenhet&quot; för skolan, och &quot;Legitimation och behörigheter&quot; eller &quot;Behörigheter
+                    och körkort&quot; som eget avsnitt där intygen avgör. Passar ingen av dem skriver du en egen rubrik.
                   </p>
                   <p>
                     Det handlar också om visuell kod. Vården och offentlig sektor förväntar sig dämpade färger och tydlig struktur.
-                    Marknadsföring och kreativa yrken har utrymme för djärvare grepp. Välj en mall vars visuella språk matchar branschen du
-                    söker dig till.
+                    Marknadsföring och kreativa yrken har utrymme för djärvare grepp. Välj en form som matchar branschen du söker dig till,
+                    och en av mallens fyra färger som passar tonen: dämpad till vården, varmare till service och kreativa yrken.
                   </p>
                 </GuideBlock>
                 <GuideBlock eyebrow="Erfarenhetsnivå" title="Mallen ska passa hur långt du kommit i karriären">
                   <p>
-                    Som student utan jobberfarenhet är fokus utbildning, projekt och praktik. Student-mallen flippar sektionsordningen och
-                    ger plats för det. Som senior konsult med mer än 15 års erfarenhet behöver du kompakt typografi som ryms.
-                    Konsulten-mallen har en mindre brödtext för att få plats med fler jobb utan att verka trång.
+                    Som student utan jobberfarenhet är fokus utbildning, projekt och praktik. Välj ordningen utbildning först och
+                    rubrikuppsättningen Student, så får avsnitten plats i den ordning rekryteraren vill läsa dem. Som senior konsult med mer än
+                    15 års erfarenhet behöver du i stället rymma mycket: en sidospalt som Kalksten eller Granit, eller Stål med två spalter, får
+                    plats med fler uppdrag utan att sidan känns trång, och valet Få plats på en sida hjälper när du ligger strax över.
                   </p>
                   <p>
-                    Generella mallar (Norrsken, Aspekt) fungerar bra i mitten av karriären. Mallar för högsta ledningen (Atlas) signalerar
-                    prestige och passar för ledningsgrupp eller styrelseroller där tradition väger tungt.
+                    Mallarna i en spalt, som Linne, Björk och Koppar, fungerar bra i mitten av karriären. Antikva och Folio, i serif med formellt
+                    huvud, signalerar tradition och passar ledningsgrupp eller styrelseroller där det väger tungt.
                   </p>
                 </GuideBlock>
                 <GuideBlock eyebrow="Mall eller exempel" title="Använd båda, de kompletterar varandra">
@@ -222,8 +229,8 @@ export default function CvMallarPageContent({ yrkesmallar, faqItems }: CvMallarP
                     exempel-sidan för ditt yrke (för att få bra formuleringar) och välj sedan en mall för designen.
                   </p>
                   <p>
-                    För varje yrkesmall här länkar vi till motsvarande CV-exempel, så att du både kan se ett färdigt CV och välja den mall som
-                    passar bäst. Använd mallväljaren i appen för att testa hur ditt CV ser ut i olika designer.
+                    För varje yrkessida här länkar vi till motsvarande CV-exempel, så att du både kan se ett färdigt CV och välja den form som
+                    passar bäst. Ladda upp ditt eget CV högst upp på sidan för att se hur det ser ut i alla mallar.
                   </p>
                 </GuideBlock>
               </div>

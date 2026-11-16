@@ -83,100 +83,100 @@ export interface Yrkesmall {
  */
 export const YRKE_TILL_MALLAR: Record<string, { free: string; premium: string }> = {
   // Vård (14)
-  'lakare':                   { free: 'tidlos-formell', premium: 'klinik' },
-  'specialistsjukskoterska':  { free: 'tidlos-formell', premium: 'klinik' },
-  'barnmorska':               { free: 'tidlos-formell', premium: 'klinik' },
-  'fysioterapeut':            { free: 'tidlos-formell', premium: 'klinik' },
-  'sjukskoterska':            { free: 'norrsken',       premium: 'varden-omsorg' },
-  'underskoterska':           { free: 'norrsken',       premium: 'varden-omsorg' },
-  'vardbitrade':              { free: 'norrsken',       premium: 'varden-omsorg' },
-  'hemtjanst':                { free: 'norrsken',       premium: 'varden-omsorg' },
-  'hemtjanstpersonal':        { free: 'norrsken',       premium: 'varden-omsorg' },
-  'personlig-assistent':      { free: 'norrsken',       premium: 'varden-omsorg' },
-  'psykolog':                 { free: 'tidlos-formell', premium: 'klinik' },
-  'kurator':                  { free: 'norrsken',       premium: 'pedagog' },
-  'boendestod':               { free: 'norrsken',       premium: 'varden-omsorg' },
-  'vardadministrator':        { free: 'konto',          premium: 'konto-plus' },
+  'lakare':                   { free: 'linne',   premium: 'kalksten' },
+  'specialistsjukskoterska':  { free: 'linne',   premium: 'kalksten' },
+  'barnmorska':               { free: 'linne',   premium: 'kalksten' },
+  'fysioterapeut':            { free: 'linne',   premium: 'kalksten' },
+  'sjukskoterska':            { free: 'linne',   premium: 'kalksten' },
+  'underskoterska':           { free: 'linne',   premium: 'kalksten' },
+  'vardbitrade':              { free: 'linne',   premium: 'kalksten' },
+  'hemtjanst':                { free: 'linne',   premium: 'kalksten' },
+  'hemtjanstpersonal':        { free: 'linne',   premium: 'kalksten' },
+  'personlig-assistent':      { free: 'linne',   premium: 'kalksten' },
+  'psykolog':                 { free: 'linne',   premium: 'kalksten' },
+  'kurator':                  { free: 'linne',   premium: 'kalksten' },
+  'boendestod':               { free: 'linne',   premium: 'kalksten' },
+  'vardadministrator':        { free: 'linne',   premium: 'arsring' },
 
   // Utbildning (9)
-  'forskollarare':            { free: 'norrsken',       premium: 'pedagog' },
-  'larare':                   { free: 'norrsken',       premium: 'pedagog' },
-  'grundskollarare':          { free: 'norrsken',       premium: 'pedagog' },
-  'specialpedagog':           { free: 'norrsken',       premium: 'pedagog' },
-  'barnskotare':              { free: 'norrsken',       premium: 'pedagog' },
-  'elevassistent':            { free: 'norrsken',       premium: 'pedagog' },
-  'fritidspedagog':           { free: 'norrsken',       premium: 'pedagog' },
-  'fritidsledare':            { free: 'norrsken',       premium: 'pedagog' },
-  'student':                  { free: 'student-startup', premium: 'student-plus' },
+  'forskollarare':            { free: 'linne',   premium: 'kalksten' },
+  'larare':                   { free: 'linne',   premium: 'kalksten' },
+  'grundskollarare':          { free: 'linne',   premium: 'kalksten' },
+  'specialpedagog':           { free: 'linne',   premium: 'kalksten' },
+  'barnskotare':              { free: 'linne',   premium: 'kalksten' },
+  'elevassistent':            { free: 'linne',   premium: 'kalksten' },
+  'fritidspedagog':           { free: 'linne',   premium: 'kalksten' },
+  'fritidsledare':            { free: 'linne',   premium: 'kalksten' },
+  'student':                  { free: 'bjork',   premium: 'koppar' },
 
-  // Service - butik/frontline (8) - Disk + Disk Plus
-  'butiksbitrade':            { free: 'disk',           premium: 'disk-plus' },
-  'butikssaljare':            { free: 'disk',           premium: 'disk-plus' },
-  'butikschef':               { free: 'disk',           premium: 'disk-plus' },
-  'kassorska':                { free: 'disk',           premium: 'disk-plus' },
-  'kundtjanstmedarbetare':    { free: 'disk',           premium: 'disk-plus' },
-  'kundtjanst':               { free: 'disk',           premium: 'disk-plus' },
-  'hotellvard':               { free: 'disk',           premium: 'disk-plus' },
-  'receptionist':             { free: 'disk',           premium: 'disk-plus' },
-  'kundradgivare':            { free: 'norrsken',       premium: 'norrsken-plus' },
+  // Service - butik/frontline (8)
+  'butiksbitrade':            { free: 'linne',   premium: 'raster' },
+  'butikssaljare':            { free: 'linne',   premium: 'raster' },
+  'butikschef':               { free: 'linne',   premium: 'raster' },
+  'kassorska':                { free: 'linne',   premium: 'raster' },
+  'kundtjanstmedarbetare':    { free: 'linne',   premium: 'raster' },
+  'kundtjanst':               { free: 'linne',   premium: 'raster' },
+  'hotellvard':               { free: 'linne',   premium: 'raster' },
+  'receptionist':             { free: 'linne',   premium: 'raster' },
+  'kundradgivare':            { free: 'linne',   premium: 'koppar' },
 
-  // Service - lager/logistik (9) - Logistik + Logistik Plus
-  'lagerarbetare':            { free: 'logistik',       premium: 'logistik-plus' },
-  'truckforare':              { free: 'logistik',       premium: 'logistik-plus' },
-  'logistiker':               { free: 'logistik',       premium: 'logistik-plus' },
-  'lagerchef':                { free: 'logistik',       premium: 'logistik-plus' },
-  'terminalarbetare':         { free: 'logistik',       premium: 'logistik-plus' },
-  'logistikassistent':        { free: 'logistik',       premium: 'logistik-plus' },
-  'fastighetsskotare':        { free: 'bygg',           premium: 'hantverkare-plus' },
-  'servicemedarbetare':       { free: 'logistik',       premium: 'logistik-plus' },
-  'lokalvardare':             { free: 'logistik',       premium: 'logistik-plus' },
+  // Service - lager/logistik (9)
+  'lagerarbetare':            { free: 'linne',   premium: 'granit' },
+  'truckforare':              { free: 'linne',   premium: 'granit' },
+  'logistiker':               { free: 'linne',   premium: 'granit' },
+  'lagerchef':                { free: 'linne',   premium: 'granit' },
+  'terminalarbetare':         { free: 'linne',   premium: 'granit' },
+  'logistikassistent':        { free: 'linne',   premium: 'granit' },
+  'fastighetsskotare':        { free: 'linne',   premium: 'fasad' },
+  'servicemedarbetare':       { free: 'linne',   premium: 'granit' },
+  'lokalvardare':             { free: 'linne',   premium: 'granit' },
 
   // Service - gastro (6)
-  'kock':                     { free: 'stack-developer', premium: 'servering' },
-  'bartender':                { free: 'stack-developer', premium: 'servering' },
-  'konditor':                 { free: 'stack-developer', premium: 'servering' },
-  'barista':                  { free: 'stack-developer', premium: 'servering' },
-  'servitris-restaurangbitrade': { free: 'stack-developer', premium: 'servering' },
-  'koksbitrade':              { free: 'stack-developer', premium: 'servering' },
+  'kock':                     { free: 'linne',   premium: 'terrakotta' },
+  'bartender':                { free: 'linne',   premium: 'terrakotta' },
+  'konditor':                 { free: 'linne',   premium: 'terrakotta' },
+  'barista':                  { free: 'linne',   premium: 'terrakotta' },
+  'servitris-restaurangbitrade': { free: 'linne',   premium: 'terrakotta' },
+  'koksbitrade':              { free: 'linne',   premium: 'terrakotta' },
 
   // Service - säljare/account (3)
-  'saljare':                  { free: 'norrsken',       premium: 'aurora' },
-  'account-manager':          { free: 'norrsken',       premium: 'aurora' },
-  'sommarjobb':               { free: 'student-startup', premium: 'student-plus' },
+  'saljare':                  { free: 'linne',   premium: 'koppar' },
+  'account-manager':          { free: 'linne',   premium: 'koppar' },
+  'sommarjobb':               { free: 'bjork',   premium: 'koppar' },
 
-  // Teknik - dev (3) - Stack + Stack Plus
-  'systemutvecklare':         { free: 'stack-developer', premium: 'stack-plus' },
-  'devops-engineer':          { free: 'stack-developer', premium: 'stack-plus' },
-  'it-konsult':               { free: 'stack-developer', premium: 'stack-plus' },
+  // Teknik - dev (3)
+  'systemutvecklare':         { free: 'linne',   premium: 'stal' },
+  'devops-engineer':          { free: 'linne',   premium: 'stal' },
+  'it-konsult':               { free: 'linne',   premium: 'stal' },
 
   // Teknik - produkt/strategi (3)
-  'projektledare-it':         { free: 'linje',          premium: 'aspekt' },
-  'scrum-master':             { free: 'linje',          premium: 'aspekt' },
-  'produktchef':              { free: 'linje',          premium: 'magasin' },
+  'projektledare-it':         { free: 'linne',   premium: 'raster' },
+  'scrum-master':             { free: 'linne',   premium: 'raster' },
+  'produktchef':              { free: 'linne',   premium: 'tidning' },
 
-  // Teknik - industri (3) - Verkstad + Verkstad Plus
-  'ingenjor':                 { free: 'verkstad',       premium: 'verkstad-plus' },
-  'automationsingenior':      { free: 'verkstad',       premium: 'verkstad-plus' },
-  'konstruktor':              { free: 'verkstad',       premium: 'verkstad-plus' },
+  // Teknik - industri (3)
+  'ingenjor':                 { free: 'linne',   premium: 'fasad' },
+  'automationsingenior':      { free: 'linne',   premium: 'fasad' },
+  'konstruktor':              { free: 'linne',   premium: 'fasad' },
 
-  // Ekonomi (7) - Konto + Konto Plus
-  'ekonomiassistent':         { free: 'konto',          premium: 'konto-plus' },
-  'administrativ-assistent':  { free: 'konto',          premium: 'konto-plus' },
-  'redovisningsekonom':       { free: 'konto',          premium: 'konto-plus' },
-  'controller':               { free: 'konto',          premium: 'konto-plus' },
-  'ekonom':                   { free: 'konto',          premium: 'konto-plus' },
-  'hr-specialist':            { free: 'konto',          premium: 'konto-plus' },
+  // Ekonomi (7)
+  'ekonomiassistent':         { free: 'linne',   premium: 'arsring' },
+  'administrativ-assistent':  { free: 'linne',   premium: 'arsring' },
+  'redovisningsekonom':       { free: 'linne',   premium: 'arsring' },
+  'controller':               { free: 'linne',   premium: 'arsring' },
+  'ekonom':                   { free: 'linne',   premium: 'arsring' },
+  'hr-specialist':            { free: 'linne',   premium: 'arsring' },
 
-  // Offentlig sektor (7) - Myndighet + Myndighet Plus
-  'administrator':            { free: 'myndighet',      premium: 'myndighet-plus' },
-  'handlaggare':              { free: 'myndighet',      premium: 'myndighet-plus' },
-  'lss-handlaggare':          { free: 'myndighet',      premium: 'myndighet-plus' },
-  'socialsekreterare':        { free: 'myndighet',      premium: 'myndighet-plus' },
-  'kontorsassistent':         { free: 'myndighet',      premium: 'myndighet-plus' },
-  'chef':                     { free: 'tidlos-formell', premium: 'tidlos-plus' },
-  'enhetschef':               { free: 'tidlos-formell', premium: 'tidlos-plus' },
-  'projektledare':            { free: 'norrsken',       premium: 'norrsken-plus' },
-  'teamledare':               { free: 'norrsken',       premium: 'norrsken-plus' },
+  // Offentlig sektor (7)
+  'administrator':            { free: 'linne',   premium: 'antikva' },
+  'handlaggare':              { free: 'linne',   premium: 'antikva' },
+  'lss-handlaggare':          { free: 'linne',   premium: 'antikva' },
+  'socialsekreterare':        { free: 'linne',   premium: 'antikva' },
+  'kontorsassistent':         { free: 'linne',   premium: 'antikva' },
+  'chef':                     { free: 'linne',   premium: 'antikva' },
+  'enhetschef':               { free: 'linne',   premium: 'antikva' },
+  'projektledare':            { free: 'linne',   premium: 'koppar' },
+  'teamledare':               { free: 'linne',   premium: 'koppar' },
 }
 
 /** Lista over alla yrkesmall-slugs (anvands av sitemap, generateStaticParams etc) */
@@ -188,6 +188,11 @@ export const YRKESMALL_SLUGS = Object.keys(YRKE_TILL_MALLAR)
 
 import { CV_GALLERI } from '@/app/(public)/exempel/components/galleri-data'
 import { FORVALD_MALL_ID, MALL_KATALOG, getMallKort } from '@/lib/cv/mallar/katalog'
+import { talSomOrd } from '@/lib/cv/template-antal'
+
+/** Mallarna med fotoplats, ur katalogen: talet och gratismallarna bland dem. */
+const FOTO_MALLAR = MALL_KATALOG.filter((m) => m.foto)
+const FOTO_GRATIS = FOTO_MALLAR.filter((m) => m.niva === 'gratis').map((m) => m.namn)
 import { losMallId } from '@/lib/cv/mallar/alias'
 import { YRKES_CONTENT, KATEGORI_DEFAULT_CONTENT, HERO_INGRESS, type YrkesContent } from './yrkesmall-content'
 
@@ -234,8 +239,8 @@ function getMallNamn(mallId: string): string {
 }
 
 /**
- * Yrkets mallar i det nya utbudet (plan-mallar 3.3): de gamla id:na i
- * YRKE_TILL_MALLAR löses med alias. Gratismallen är alltid en gratismall
+ * Yrkets mallar i det nya utbudet (plan-mallar 3.3). YRKE_TILL_MALLAR har
+ * katalogens id sedan 2026-11-16; aliasen finns kvar som skydd. Gratismallen är alltid en gratismall
  * (fältet free rättat), premiummallen alltid en premiummall när en finns.
  */
 function losYrkesMallar(m: { free: string; premium: string }): { free: string; premium: string } {
@@ -304,11 +309,11 @@ function buildYrkesContent(slug: string, namn: string, kategori: string): YrkesC
       },
       {
         q: 'Behövs foto på CV:t?',
-        a: 'Inte obligatoriskt i Sverige men vanligt. Mallen i Premium har stöd för foto medan gratis-versionen är ren. Båda är ATS-säkra. Välj utifrån branschen: vissa branscher förväntar sig foto, andra ser det som onödigt.',
+        a: `Inte obligatoriskt i Sverige men vanligt. ${talSomOrd(FOTO_MALLAR.length).replace(/^./, (c) => c.toUpperCase())} av våra mallar har plats för foto${FOTO_GRATIS.length ? `, bland dem gratismallen ${FOTO_GRATIS.join(' och ')}` : ''}, och fotot slår du av eller på. Alla är ATS-säkra. Välj utifrån branschen: vissa branscher förväntar sig foto, andra ser det som onödigt.`,
       },
       {
         q: 'Vilken är bäst, gratismallen eller mallen i Premium?',
-        a: `Beror på dig. Gratis-mallen är ren, ATS-vänlig och funkar i de flesta rekryteringssituationer. Mallen i Jobbcoach Premium har plats för foto, LinkedIn och har visuellt rikare design som signalerar att du investerat i din ansökan. För roller där personlig branding är viktigt (sälj, kundkontakt, ledning) lutar mallen i Premium mer.`,
+        a: `Beror på dig. Gratismallen är ren, ATS-vänlig och funkar i de flesta rekryteringssituationer. Mallarna i Jobbcoach Premium har fler former, som sidospalt, färgat huvud och fotoplats, och en rikare design som signalerar att du investerat i din ansökan. För roller där personlig branding är viktigt (sälj, kundkontakt, ledning) lutar mallen i Premium mer.`,
       },
     ],
   }
@@ -344,8 +349,10 @@ function buildYrkesmallList(): Yrkesmall[] {
         typiskaArbetsgivare: content.typiskaArbetsgivare,
         utbildningsvagar: content.utbildningsvagar,
         varforDennaMall: [
-          `${freeMallNamn}-mallen ger en ATS-säker baseline för ${galleri.namn.toLowerCase()} med tydlig struktur och rätt sektionsordning.`,
-          `${premiumMallNamn}-varianten har plats för foto och LinkedIn, vilket lyfter personlig touch i ansökningar där det värderas.`,
+          `Gratismallen ${freeMallNamn} ger en ATS-säker grund för ${galleri.namn.toLowerCase()} med tydlig struktur och rätt sektionsordning.`,
+          getMallKort(mallar.premium)?.foto
+            ? `${premiumMallNamn}, som ingår i Premium, har plats för foto, vilket lyfter det personliga intrycket i ansökningar där det värderas.`
+            : `${premiumMallNamn}, som ingår i Premium, ger CV:t en egen form (${(getMallKort(mallar.premium)?.kort ?? '').toLowerCase()}) utan att ta fokus från meriterna.`,
           `Båda mallarna är optimerade för svenska arbetsgivare och passerar de vanligaste rekryteringssystemen som ${galleri.kategori === 'offentlig-sektor' ? 'Visma Recruit' : galleri.kategori === 'vard' ? 'Heroma och Visma Recruit' : 'Workday och Teamtailor'} använder.`,
           `Vi har anpassat sektionsordning och rubriker så att de matchar vad rekryterare i ${galleri.kategori === 'vard' ? 'vården' : galleri.kategori === 'utbildning' ? 'skolan' : galleri.kategori === 'teknik' ? 'tech-branschen' : galleri.kategori === 'ekonomi' ? 'ekonomi-branschen' : galleri.kategori === 'offentlig-sektor' ? 'offentlig sektor' : 'din bransch'} faktiskt letar efter.`,
         ],

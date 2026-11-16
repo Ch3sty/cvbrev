@@ -8,7 +8,7 @@
  * eget: gratisnivån i listform, jämförelsetabellen och frågorna.
  *
  * Tabellen har två kolumner, gratis och Premium, och skriver ord i stället
- * för prickar: "Alla 41", "Utan tak", "Ingår inte". Ändras en gräns i
+ * för prickar: "Alla 20", "Utan tak", "Ingår inte" (talet ur katalogen). Ändras en gräns i
  * quotaService måste raderna ändras i samma omgång, annars säger sidan en
  * sak och spärren en annan.
  */

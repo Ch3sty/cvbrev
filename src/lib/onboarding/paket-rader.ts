@@ -3,7 +3,7 @@
 // Menyhuvudet och underraderna (docs/design/spec-onboarding-2026-09-22.html,
 // sektion 3 och 5, med ägarens beslut 2026-10-11: bara Jobbcoach Premium
 // säljs). Menyn säger vad man har, och varje val bär en kort mening om vad
-// som ingår ("3 mallar, en nedladdning") eller "Ingår i Premium". Inga spår
+// som ingår ("2 mallar, en nedladdning", talet ur katalogen) eller "Ingår i Premium". Inga spår
 // visas för gratiskonton. Befintliga kunder med
 // CV-paketet eller Träningspaketet ser sitt paket tills det löpt ut. Talen
 // kommer ur scopet och kvottjänsten, aldrig hårdkodade.

@@ -7,7 +7,7 @@
  * Ingen 'use client': används i server- och klientkomponenter.
  */
 import type { MallKort } from '@/lib/cv/mallar/kontrakt'
-import { REMSA } from './texter'
+import { REMSA, wordTillagg } from './texter'
 
 export interface MiniatyrProps {
   mall: MallKort
@@ -61,7 +61,7 @@ export default function Miniatyr({ mall, vald, under, onValj, href, lat = true, 
   const klass = `block min-w-0 text-left ${storlek === 'remsa' ? 'w-16 shrink-0 snap-start' : 'w-full'} ${
     disabled ? 'pointer-events-none opacity-60' : ''
   }`
-  const etikett = `${mall.namn}, ${REMSA.niva[mall.niva]}${mall.word ? ', även som Word' : ''}`
+  const etikett = `${mall.namn}, ${REMSA.niva[mall.niva]}${wordTillagg(mall.niva === 'gratis', mall.word)}`
   if (href) {
     return (
       <a href={href} className={klass} aria-label={etikett} aria-current={vald ? 'true' : undefined}>

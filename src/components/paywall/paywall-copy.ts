@@ -37,7 +37,7 @@ export type PaywallVariant =
   | 'analys-omkorning'
   | 'nedladdning'
   | 'cv-export'
-  /** Word-filen på en av de sex Word-mallarna (docs/plan-cv-word-2026-11-15.md). */
+  /** Word-filen i en av Word-mallarna (katalogens word, docs/plan-cv-word-2026-11-15.md). */
   | 'cv-export-word'
   | 'jobbtraffar'
   | 'chatt'

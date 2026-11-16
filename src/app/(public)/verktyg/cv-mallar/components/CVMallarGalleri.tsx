@@ -6,7 +6,7 @@
  */
 import Link from 'next/link'
 import type { MallKort } from '@/lib/cv/mallar/kontrakt'
-import { REMSA } from '@/components/cv/Dokument/texter'
+import { REMSA, wordTillagg } from '@/components/cv/Dokument/texter'
 
 interface CVMallarGalleriProps {
   mallar: readonly MallKort[]
@@ -42,7 +42,7 @@ export default function CVMallarGalleri({ mallar }: CVMallarGalleriProps) {
               <p className="mt-2 text-sm font-semibold text-ink-1">{m.namn}</p>
               <p className="text-meta text-ink-3">
                 {REMSA.niva[m.niva]}
-                {m.word ? ', även som Word' : ''}
+                {wordTillagg(m.niva === 'gratis', m.word)}
               </p>
               <p className="mt-1 line-clamp-2 text-sm leading-[22px] text-ink-2">{m.stil}</p>
               <span className="mt-2 inline-flex min-h-11 items-center text-sm font-medium text-ink-1 underline decoration-kant-stark underline-offset-4 group-hover:decoration-ink-1">

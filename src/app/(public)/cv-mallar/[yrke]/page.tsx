@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     keywords: `cv mall ${data.namnBestamd}, ${data.namnBestamd} cv mall, mall cv ${data.namnBestamd}, gratis cv mall ${data.namnBestamd}, ${data.namnBestamd} cv exempel, ats-säker cv mall`,
     openGraph: {
       title: `CV-mall för ${data.namn} | Jobbcoach.ai`,
-      description: `ATS-säker CV-mall för ${data.namnBestamd}. Gratis och premium-version. Anpassad för svenska arbetsgivare.`,
+      description: `ATS-säker CV-mall för ${data.namnBestamd}. Gratis i ${data.freeMallNamn}, fler mallar i Jobbcoach Premium.`,
       type: 'article',
       locale: 'sv_SE',
       url: `https://www.jobbcoach.ai/cv-mallar/${data.slug}`,

@@ -12,7 +12,15 @@
  */
 
 import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
-import { WORD_TEMPLATE_COUNT_ORD } from '@/lib/cv/template-antal'
+import { TEMPLATE_COUNT, WORD_TEMPLATE_COUNT_ORD, talSomOrd } from '@/lib/cv/template-antal'
+import { GRATIS_MALL_IDS, getMallKort } from '@/lib/cv/mallar/katalog'
+
+/** Gratismallarnas namn ur katalogen: "Linne och Björk". */
+const GRATIS_NAMN = (() => {
+  const n = GRATIS_MALL_IDS.map((id) => getMallKort(id)?.namn ?? id)
+  return n.length <= 1 ? n.join('') : `${n.slice(0, -1).join(', ')} och ${n[n.length - 1]}`
+})()
+const GRATIS_ORD = talSomOrd(GRATIS_MALL_IDS.length)
 
 export interface FaqItem {
   q: string
@@ -26,7 +34,7 @@ export const SKAPA_CV_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Är det gratis att skapa CV online hos er?',
-    a: 'Ja. Du kan skapa ditt CV och ladda ner det en gång utan att lämna kortuppgifter. Tre CV-mallar är fria, och de räcker långt för de flesta ansökningar. Vill du ha alla mallar och ladda ner utan tak ingår det i ' + paketKort() + ', ' + prisPeriod(SALD_PLAN) + '.',
+    a: `Ja. Du bygger ditt CV och laddar ner det som PDF en gång utan att lämna kortuppgifter. ${GRATIS_ORD.charAt(0).toUpperCase() + GRATIS_ORD.slice(1)} av mallarna, ${GRATIS_NAMN}, är gratis, och de räcker långt för de flesta ansökningar. Vill du ha alla ${TEMPLATE_COUNT} mallar, ladda ner utan tak och hämta Word-filen i ${WORD_TEMPLATE_COUNT_ORD} av mallarna ingår det i ${paketKort()}, ${prisPeriod(SALD_PLAN)}.`,
   },
   {
     q: 'Hur lång tid tar det att skapa ett CV?',

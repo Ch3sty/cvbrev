@@ -17,6 +17,15 @@ export function antalOrd(n: number, versal = false): string {
   return versal ? o.charAt(0).toUpperCase() + o.slice(1) : o
 }
 
+/**
+ * Tillägget om Word efter nivån. Word-filen kräver Premium i alla mallar
+ * (spärren cv_export_word), så en gratismall får aldrig "även som Word".
+ */
+export function wordTillagg(gratis: boolean, word: boolean): string {
+  if (!word) return ''
+  return gratis ? ', Word i Premium' : ', även som Word'
+}
+
 /** "a, b och c" */
 export function lista(delar: readonly string[]): string {
   if (delar.length <= 1) return delar[0] ?? ''
@@ -112,7 +121,7 @@ export const UPPSATTNING_ARK = {
 export const MALL_ARK = {
   passar: 'Passar bäst för',
   word: 'Finns som PDF och Word. Word ingår i Premium.',
-  baraPdf: 'Finns som PDF. Word finns bara i enspaltiga mallar utan foto.',
+  baraPdf: 'Finns som PDF. De konstnärliga mallarna finns bara som PDF, de övriga också som Word.',
   valj: 'Välj mallen',
 } as const
 
@@ -306,7 +315,7 @@ export const ARTIKEL = {
   laddaUpp: 'Ladda upp',
   fotrad: (gratis: number) => `${antalOrd(gratis, true)} ${gratis === 1 ? 'mall är' : 'mallar är'} gratis. Alla ingår i Premium.`,
   mallrad: (gratis: boolean, word: boolean) =>
-    `${gratis ? 'Gratis' : 'Ingår i Premium'}${word ? ', även som Word' : ''}`,
+    `${gratis ? 'Gratis' : 'Ingår i Premium'}${wordTillagg(gratis, word)}`,
   yrkesrad: (yrke: string) =>
     `Rubrikerna för ${yrke} följer med i alla mallar, även de som ingår i Premium. Svep för att se fler.`,
 } as const

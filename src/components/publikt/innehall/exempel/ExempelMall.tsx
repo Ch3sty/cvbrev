@@ -19,6 +19,7 @@ import SkarmCvAnalys from '../../telefon/skarmar/SkarmCvAnalys'
 import StickyMobileCTA from '@/components/shared/StickyMobileCTA'
 import ExempelKlient from '@/components/exempel-shared/ExempelKlient'
 import { YRKESMALL_SLUGS } from '@/app/(public)/cv-mallar/yrkesmall-data'
+import { FORVALD_MALL_ID, getMallKort } from '@/lib/cv/mallar/katalog'
 import { CV_GALLERI, BREV_GALLERI } from '@/app/(public)/exempel/components/galleri-data'
 import { KATEGORIER } from '@/app/(public)/exempel/components/exempel-data'
 import ExempelHjalte from './ExempelHjalte'
@@ -33,6 +34,9 @@ import { punkter, fragor, numrera, ankarNummer, brevStycken, type ExempelTyp, ty
 import { brevFalt } from './Papper'
 import { getAllPostsMeta } from '@/lib/blog'
 import './exempel.css'
+
+/** Exempelarket är enspaltigt som förvalsmallen; namnet ur katalogen. */
+const FORVALD_MALL_NAMN = getMallKort(FORVALD_MALL_ID)?.namn ?? ''
 
 function kategoriNamn(kategori: string | undefined): string | undefined {
   const slug = kategori === 'teknik' ? 'tech' : kategori
@@ -118,7 +122,7 @@ export default function ExempelMall({
                 <p className="ib-ark-fot">
                   {cv ? (
                     <>
-                      <span>Mallen Norrsken</span>
+                      <span>Mallen {FORVALD_MALL_NAMN}</span>
                       <span>A4</span>
                       <span>Läsbart för rekryteringssystem</span>
                     </>

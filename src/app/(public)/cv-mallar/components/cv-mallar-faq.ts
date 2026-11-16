@@ -4,18 +4,26 @@
  * Riktade mot "cv mall"-keywords:
  *  - "cv mall gratis", "cv mall ladda ner", "cv mall pdf",
  *  - "professionell cv-mall", "modern cv mall", "ats-säker cv-mall"
+ *
+ * Svaren skrivna om for mallutbudet 2026-11-16 (svensk-ux-copywriter,
+ * SEO-strategen); fragorna ordagrant som tidigare. Tal ur katalogen,
+ * mallnamn som text.
  */
-import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, PREMIUM_TEMPLATE_COUNT, WORD_TEMPLATE_COUNT_ORD } from '@/lib/cv/template-antal'
+import { TEMPLATE_COUNT, FREE_TEMPLATE_COUNT, PREMIUM_TEMPLATE_COUNT, WORD_TEMPLATE_COUNT_ORD, talSomOrd } from '@/lib/cv/template-antal'
+import { MALL_KATALOG } from '@/lib/cv/mallar/katalog'
 import { paketKort } from '@/lib/plans/plans'
+
+const versal = (t: string) => t.charAt(0).toUpperCase() + t.slice(1)
+const FOTO_ANTAL = MALL_KATALOG.filter((m) => m.foto).length
 
 export const CV_MALLAR_FAQ = [
   {
     q: 'Är CV-mallarna gratis att ladda ner?',
-    a: `Ja, ${FREE_TEMPLATE_COUNT} av våra ${TEMPLATE_COUNT} CV-mallar är gratis att ladda ner. De övriga ${PREMIUM_TEMPLATE_COUNT} ingår i ${paketKort()}. Alla gratismallar är ATS-säkra och fungerar i de flesta svenska rekryteringssystem. De mallar som ingår i ${paketKort()} har mer designfrihet: stöd för foto, färgade paneler och specialiserade yrkesvarianter.`,
+    a: `Ja, ${FREE_TEMPLATE_COUNT} av våra ${TEMPLATE_COUNT} CV-mallar är gratis att ladda ner som PDF, en nedladdning per konto utan kortuppgift. De övriga ${PREMIUM_TEMPLATE_COUNT} ingår i ${paketKort()}. Alla ${TEMPLATE_COUNT} är testade mot rekryteringssystem, också gratismallarna, och alla har fyra färger, rubriker för din bransch och plats för LinkedIn. Mallarna i ${paketKort()} ger mer form att välja på: sidospalter, rubriker i marginalen, konstnärliga layouter och fler fotoplatser. ${versal(WORD_TEMPLATE_COUNT_ORD)} av mallarna finns dessutom som Word-fil i ${paketKort()}.`,
   },
   {
     q: 'Vilken CV-mall är bäst för svenska arbetsgivare 2026?',
-    a: 'Det beror på branschen. För traditionella tjänsteyrken passar Norrsken, Atlas eller Tidlös. För tech används Stack-mallen. För vård och pedagogik finns specialiserade mallar (Vården, Klinik, Pedagog) som lyfter rätt meriter: legitimationer, behörigheter och kompetensområden.',
+    a: 'Den som läses rätt av rekryteringssystemet och känns rätt hos arbetsgivaren. För offentlig sektor, vård, bank och juridik väljer många en lugn mall i en spalt, som Linne, Antikva eller Kolumn. För tech, konsult och försäljning fungerar en mall med sidospalt, som Kalksten eller Stål, som rymmer mer på en sida. Yrket lägger du i rubrikerna, inte i mallen: välj rubrikuppsättningen för din bransch så blir "Arbetslivserfarenhet" till "Klinisk erfarenhet" eller "Pedagogisk erfarenhet", och legitimationer och behörigheter får ett eget avsnitt.',
   },
   {
     q: 'Vad är skillnaden mellan en CV-mall och ett CV-exempel?',
@@ -23,32 +31,32 @@ export const CV_MALLAR_FAQ = [
   },
   {
     q: 'Är mallarna ATS-säkra?',
-    a: 'Alla våra ATS-märkta mallar är. Det betyder ingen clip-path, inga absolutpositionerade textelement, standardrubriker (Arbetslivserfarenhet, Utbildning, Kompetenser) och vanlig HTML-struktur som rekryteringssystem som Heroma, Visma och Workday kan läsa korrekt.',
+    a: 'Ja, alla. Varje mall i utbudet har gått genom vår egen CV-läsare med korta, normala och långa CV, och med intyg först och utbildning först. Namnet läses alltid först, och kontaktuppgifter, rubriker och ordning kommer ut rätt. En mall som inte klarar det testet tar vi inte med. Grundrubrikerna är standardrubrikerna (Arbetslivserfarenhet, Utbildning, Kompetenser) och texten är vanlig text utan textrutor eller absolutpositionerade element, samma slags text som rekryteringssystem som Heroma, Visma och Workday hämtar sina uppgifter ur.',
   },
   {
     q: 'Kan jag ladda ner CV-mallen som PDF eller Word?',
-    a: `Alla mallar laddas ner som PDF direkt från vår mallväljare, och ${WORD_TEMPLATE_COUNT_ORD} av dem finns också som Word-fil i ${paketKort()}. Vi rekommenderar PDF när du skickar, eftersom layouten då ser likadan ut hos rekryteraren. Word passar när du vill ändra i filen själv, eller när annonsen ber om ett redigerbart format.`,
+    a: `Alla mallar laddas ner som PDF direkt från vår mallväljare, och ${WORD_TEMPLATE_COUNT_ORD} av dem finns också som Word-fil i ${paketKort()}, gratismallarna inräknade. Vi rekommenderar PDF när du skickar, eftersom layouten då ser likadan ut hos rekryteraren. Word passar när du vill ändra i filen själv, eller när annonsen ber om ett redigerbart format.`,
   },
   {
     q: 'Hur väljer jag rätt CV-mall för mitt yrke?',
-    a: 'Tre frågor: Vilken bransch? Hur konservativ är arbetsgivaren? Hur mycket erfarenhet har du? Vård, juridik och offentlig sektor: en traditionell mall (Tidlös, Klinik, Atlas). Tech, marknadsföring och kreativa yrken: en modern eller kreativ mall (Stack, Aurora, Galleri). Stor erfarenhet: en kompakt mall (Konsulten). Begränsad erfarenhet: en enkel mall (Student, Norrsken).',
+    a: 'Tre frågor: Hur konservativ är arbetsgivaren? Hur mycket ska få plats? Vill du ha foto? Vård, juridik och offentlig sektor: en lugn mall i en spalt, som Linne, Antikva eller Folio. Tech, marknadsföring och kreativa yrken: en mall med mer form, som Stål, Raster eller någon av de konstnärliga, till exempel Terrakotta eller Horisont. Mycket erfarenhet: en sidospalt som Kalksten eller Granit, som rymmer mer på en sida. Begränsad erfarenhet: Björk eller Linne, med utbildningen först i ordningen. Yrket lägger du i rubrikerna med rubrikuppsättningen för din bransch. Alla mallar passar alla yrken.',
   },
   // Situationerna (SEO-förslaget K6, 2026-11-14).
   {
     q: 'Vilken CV-mall passar en chef?',
-    a: 'Det beror på nivån. Atlas är gjord för vd, ledningsgrupp och styrelseuppdrag. Tidlös Plus passar seniora chefer i traditionella branscher, Norrsken Plus chefer på mellannivå och Myndighet Plus enhetschefer i offentlig sektor. Har du många uppdrag att redovisa rymmer Konsulten mer på samma yta. Alla fem ingår i Premium.',
+    a: 'Det beror på nivån och på hur mycket du har att redovisa. För vd, ledningsgrupp och styrelseuppdrag passar en formell mall i en spalt, som Antikva med centrerat huvud och dubbel linje, eller Folio i Garamond. Chefer på mellannivå och enhetschefer i offentlig sektor väljer ofta Linne, eller Kolumn där rubrikerna står i marginalen och texten får luft. Har du många uppdrag att få med rymmer Stål eller Kalksten mer på samma yta. Välj rubrikuppsättningen Chef och ledning, så är avsnittsrubrikerna skrivna för ledarroller, och sätt ordningen så att det viktigaste kommer först. Linne är gratis, de övriga ingår i Premium.',
   },
   {
     q: 'Vilken CV-mall passar vid karriärbyte?',
-    a: 'En mall i en kolumn med plats för en profiltext högst upp, till exempel gratismallen Norrsken. Profilen förklarar bytet innan rekryteraren läser din erfarenhet, och de kompetenser du tar med dig till det nya yrket hamnar högt. Undvik mallar där tidigare titlar tar mest plats.',
+    a: 'En mall i en spalt med profiltexten högst upp, till exempel gratismallen Linne eller Björk. Profilen förklarar bytet innan rekryteraren läser din erfarenhet. Välj sedan ordningen kompetenser först, så hamnar det du tar med dig till det nya yrket direkt under profilen, före titlarna från det gamla. Undvik mallar där årtalen är själva poängen, som Årsring, Tusch eller Horisont, eftersom de drar blicken till hur länge du gjorde det förra.',
   },
   {
     q: 'Kan jag byta CV-mall efter att jag fyllt i mitt CV?',
-    a: 'Ja. Du fyller i dina uppgifter en gång och kan sedan byta mall och typsnitt utan att något av innehållet försvinner. Då är det lätt att pröva en traditionell och en modern mall mot varandra innan du laddar ner.',
+    a: 'Ja. Du fyller i dina uppgifter en gång och kan sedan byta mall, färg och typsnitt utan att något av innehållet försvinner. Då är det lätt att pröva en mall i en spalt mot en med sidospalt innan du laddar ner, och att se om ditt CV får plats på en sida i båda.',
   },
   {
     q: 'Behöver jag foto på CV:t?',
-    a: 'Inte obligatoriskt i Sverige men vanligt. Foto är framträdande i serviceyrken, sälj och pedagogik. Mindre vanligt i juridik, akademi och executive search. Våra mallar har stöd för foto där det passar, och du kan slå av eller på fotot efter vad du föredrar.',
+    a: `Inte obligatoriskt i Sverige men vanligt. Foto är framträdande i serviceyrken, sälj och pedagogik. Mindre vanligt i juridik, akademi och executive search. ${versal(talSomOrd(FOTO_ANTAL))} av våra mallar har en fotoplats, bland dem gratismallen Björk, och du slår fotot på eller av efter vad arbetsgivaren väntar sig. Rekryteringssystemet läser texten lika bra med som utan.`,
   },
   {
     q: 'Kan jag använda samma mall för olika ansökningar?',
@@ -56,10 +64,10 @@ export const CV_MALLAR_FAQ = [
   },
   {
     q: 'Vilken mall ska jag välja som student utan jobberfarenhet?',
-    a: 'Student-mallen lyfter utbildning först och ger plats för projekt och praktik. Den passar sommarjobb och första jobbet.',
+    a: 'Välj Björk eller Linne och sätt ordningen utbildning först, så kommer examen, kurser och projekt före jobberfarenheten. Rubrikuppsättningen Student ger avsnitten rubriker som passar när praktik, extrajobb och projekt är det du har. Båda mallarna är gratis att ladda ner som PDF, och de håller lika bra för första jobbet som för sommarjobbet.',
   },
   {
     q: 'Hur lång ska mitt CV vara?',
-    a: 'Som regel 1 sida för 0-5 års erfarenhet, 1.5-2 sidor för 5-10 år, max 2 sidor för seniora positioner. Undantag: läkare, akademiker och konsulter med många meritlistor kan motivera 2-3 sidor. Mallarna är designade för att hålla typografisk balans oavsett längd.',
+    a: 'Som regel 1 sida för 0-5 års erfarenhet, 1.5-2 sidor för 5-10 år, max 2 sidor för seniora positioner. Undantag: läkare, akademiker och konsulter med många meritlistor kan motivera 2-3 sidor. Mallarna håller typografin oavsett längd, och ligger du strax över en sida finns valet Få plats på en sida i mallväljaren, som drar ihop CV:t utan att du behöver stryka något.',
   },
 ]

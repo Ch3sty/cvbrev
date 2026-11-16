@@ -23,7 +23,7 @@ import {
 } from '@/app/(public)/exempel/components/illustrations/ExempelIcons'
 import type { Yrkesmall } from '../yrkesmall-data'
 import MallVisningCv, { type ArtikelMall } from '@/components/artiklar/MallVisningCv'
-import { MALL_KATALOG } from '@/lib/cv/mallar/katalog'
+import { MALL_KATALOG, getMallKort } from '@/lib/cv/mallar/katalog'
 import { ARTIKEL, DOK, KNAPP, UPPLADDNING } from '@/components/cv/Dokument/texter'
 import ViktigtPunkter from './components/ViktigtPunkter'
 import VarforVarMallPassar from './components/VarforVarMallPassar'
@@ -205,7 +205,7 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
                 {premiumTemplate && (
                   <Image
                     src={premiumTemplate.imagePath}
-                    alt={`${premiumTemplate.name} CV-mall för ${data.namnBestamd} (premium)`}
+                    alt={`${premiumTemplate.name} CV-mall för ${data.namnBestamd} (ingår i Premium)`}
                     fill
                     className="object-cover object-top"
                     sizes="(min-width: 1024px) 200px, 50vw"
@@ -218,7 +218,7 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
               </div>
               <div className="p-3 flex-1 flex flex-col">
                 <div className="font-black text-sm text-slate-900">{data.premiumMallNamn}</div>
-                <div className="text-[11px] text-slate-600 mb-2">Foto och LinkedIn, visuellt rikare</div>
+                <div className="text-[11px] text-slate-600 mb-2">{getMallKort(data.premiumMallId)?.kort ?? 'Visuellt rikare'}</div>
                 <Link
                   href="/verktyg/cv-mallar"
                   className="mt-auto inline-flex items-center justify-center gap-1 px-3 py-2 rounded-full text-white font-bold text-xs transition-all hover:shadow-lg"

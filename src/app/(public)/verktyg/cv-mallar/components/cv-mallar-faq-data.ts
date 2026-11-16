@@ -1,37 +1,46 @@
 /**
  * FAQ-data for /verktyg/cv-mallar.
- * 8 fragor for stark FAQPage-rich-snippet i Google.
- * INGA hardcodade antal mallar - mallarna ar dynamiska.
+ * 9 fragor for stark FAQPage-rich-snippet i Google.
+ * INGA hardcodade antal mallar eller mallnamn: allt laser katalogen
+ * (src/lib/cv/mallar/katalog.ts). Texterna skrivna om for mallutbudet
+ * 2026-11-16 (svensk-ux-copywriter, SEO-strategen).
  */
 
 import { SALD_PLAN, paketKort, prisPeriod } from '@/lib/plans/plans'
-import { WORD_TEMPLATE_COUNT_ORD, wordMallarSomText } from '@/lib/cv/template-antal'
+import { WORD_TEMPLATE_COUNT_ORD, talSomOrd, wordMallarSomText } from '@/lib/cv/template-antal'
+import { MALL_ANTAL, MALL_KATALOG } from '@/lib/cv/mallar/katalog'
 
 export interface FaqItem {
   q: string
   a: string
 }
 
+const versal = (t: string) => t.charAt(0).toUpperCase() + t.slice(1)
+const uppraknat = (n: string[]) => (n.length <= 1 ? n.join('') : `${n.slice(0, -1).join(', ')} och ${n[n.length - 1]}`)
+const GRATIS_NAMN = uppraknat(MALL_KATALOG.filter((m) => m.niva === 'gratis').map((m) => m.namn))
+const FOTO_ANTAL = MALL_KATALOG.filter((m) => m.foto).length
+const FOTO_GRATIS = MALL_KATALOG.filter((m) => m.foto && m.niva === 'gratis').length
+
 export const CV_MALLAR_FAQ_ITEMS: FaqItem[] = [
   {
     q: 'Är CV-mallarna ATS-säkra?',
-    a: 'Ja. Alla våra mallar är skrivna med svenska Applicant Tracking Systems i åtanke. Vi använder rena rubriker, vanlig text utan komplicerad formattering och ett strukturerat upplägg som ATS-systemen läser utan problem. Det betyder att din ansökan kommer fram till rekryteraren och inte filtreras bort på vägen.',
+    a: 'Ja, och vi har testat det i stället för att bara lova det. Varje mall går genom vår egen CV-läsare, samma slags läsning som rekryteringssystemen (ATS, Applicant Tracking Systems) gör, med korta och långa CV och olika ordning på avsnitten. Namn, kontaktuppgifter, rubriker och ordning ska komma ut rätt, annars tar vi inte med mallen. Det gäller också mallarna med sidospalt. Grundrubrikerna är de svenska standardrubrikerna, och texten är vanlig text utan tabeller eller textrutor, så det du skrev är det rekryteraren ser.',
   },
   {
     q: 'Kan jag ladda ner mitt CV som PDF eller Word?',
-    a: `Alla mallar laddas ner som PDF, och ${WORD_TEMPLATE_COUNT_ORD} av dem finns också som Word-fil (.docx). PDF är vanligast och läses rätt av rekryteringssystemen. Word väljer du när du vill ändra i filen själv efteråt, eller när annonsen ber om ett redigerbart format. Word-filen ingår i ${paketKort()}.`,
+    a: `Alla mallar laddas ner som PDF. ${versal(WORD_TEMPLATE_COUNT_ORD)} av dem finns också som Word-fil (.docx), och Word-filen ingår i ${paketKort()}, också för gratismallarna ${GRATIS_NAMN}. PDF är vanligast och läses rätt av rekryteringssystemen. Word väljer du när du vill ändra i filen själv efteråt, eller när annonsen ber om ett redigerbart format.`,
   },
   {
     q: 'Vilka mallar finns som Word?',
-    a: `${wordMallarSomText()}. Alla ${WORD_TEMPLATE_COUNT_ORD} är enspaltiga och läses rätt av rekryteringssystemen, och de är märkta Word i mallväljaren. Övriga mallar laddas ner som PDF.`,
+    a: `${wordMallarSomText()}. De är märkta Word i mallväljaren. Bland dem finns mallar i en spalt, mallar med sidospalt och mallar med rubrikerna eller årtalen i marginalen, och alla ${WORD_TEMPLATE_COUNT_ORD} har gått genom vår läsning av själva Word-filen innan de kom med. Word-filen ingår i ${paketKort()}. Övriga mallar laddas ner som PDF.`,
   },
   {
     q: 'Vilken mall passar bäst för mitt yrke?',
-    a: 'Modern stil passar tech, design, marknadsföring och konsultroller. Traditionell stil passar bank, juridik, vård och offentlig sektor. Kreativ stil passar reklam, media och kreativa yrken. Du kan också byta mall efteråt utan att behöva fylla i din data igen, vi flyttar allt åt dig.',
+    a: 'Alla. Mallarna heter efter stil, inte efter yrke, och var och en passar vilket yrke som helst. Det som skiljer dem är formen: en spalt, sidospalt, rubriker i marginalen eller en konstnärlig layout. Yrket lägger du i rubrikerna i stället. Välj en rubrikuppsättning för din bransch, som vård och omsorg, bygg och hantverk eller skola och förskola, så får avsnitten namn som "Klinisk erfarenhet" eller "Behörigheter och körkort", och legitimationer får ett eget avsnitt. Du kan också skriva egna rubriker. Byt mall när du vill, innehållet följer med.',
   },
   {
-    q: 'Vad är skillnaden på gratis och premium-mallarna?',
-    a: `De fria mallarna räcker långt för de flesta ansökningar och innehåller alla grundfunktioner. Övriga mallar har mer genomarbetad design, stöd för foto och LinkedIn, och tvåspaltig layout för CV:n med mer innehåll. Alla mallar ingår i ${paketKort()}, ${prisPeriod(SALD_PLAN)}.`,
+    q: 'Vad är skillnaden mellan gratismallarna och mallarna i Premium?',
+    a: `Gratismallarna ${GRATIS_NAMN} laddar du ner som PDF, en gång per konto, utan kortuppgift. De är fullständiga mallar med samma färger, typsnitt och rubrikuppsättningar som de övriga${FOTO_GRATIS ? `, och ${talSomOrd(FOTO_GRATIS)} av dem har plats för foto` : ''}. I ${paketKort()} får du alla ${MALL_ANTAL} mallar, bland dem sidospalterna och de konstnärliga, nedladdning utan tak och Word-filen i ${WORD_TEMPLATE_COUNT_ORD} av mallarna. Priset är ${prisPeriod(SALD_PLAN)}.`,
   },
   {
     q: 'Kan jag redigera CV:t senare?',
@@ -39,7 +48,7 @@ export const CV_MALLAR_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Stödjer mallarna profilbild?',
-    a: 'Vissa premium-mallar stödjer foto. Det är en designfråga snarare än något ATS-systemet bryr sig om. I Sverige värderas innehållet alltid mer än utseendet, men en professionell bild kan ge en mänsklig touch i mallar där det är inbyggt.',
+    a: `Ja, ${talSomOrd(FOTO_ANTAL)} av mallarna har en fotoplats${FOTO_GRATIS ? `, och ${talSomOrd(FOTO_GRATIS)} av dem är gratis` : ''}. Du slår på eller av fotot i mallväljaren, så du kan skicka samma CV med bild till en arbetsgivare och utan till en annan. Rekryteringssystemet läser texten oavsett. I Sverige väger innehållet alltid tyngre än bilden, men i service, vård och pedagogik är ett foto vanligt, i juridik och akademi ovanligt.`,
   },
   {
     q: 'Kan jag använda mallen för internationella ansökningar?',
@@ -47,6 +56,6 @@ export const CV_MALLAR_FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'Är mallarna mobilanpassade när jag bygger CV:t?',
-    a: 'Ja. Hela byggprocessen funkar lika bra på mobil som på dator. Du kan börja på telefonen i bussen och fortsätta hemma framför datorn. Den färdiga PDF:en är formaterad för utskrift och digital läsning oavsett enhet.',
+    a: 'Ja. Hela byggprocessen fungerar lika bra på mobil som på dator. Du kan börja på telefonen i bussen och fortsätta hemma framför datorn. Den färdiga PDF:en är formaterad för utskrift och digital läsning oavsett enhet.',
   },
 ]

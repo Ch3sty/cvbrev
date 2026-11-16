@@ -95,7 +95,7 @@ export const GRATIS_TESTRAD_PROV = `Fem frågor gratis här. Grundnivån i alla 
 
 /**
  * Startsidans FAQ-svar om gratisnivån (S11): siffror som i dag, tester först.
- * "3 CV-mallar" och "10 meddelanden" står som siffror i FAQ-svaret.
+ * Antalet CV-mallar (ur katalogen) och "10 meddelanden" står som siffror i FAQ-svaret.
  */
 export const GRATIS_FAQ =
   `Gratisnivån kräver inget kort: ${GRUNDNIVAN_ALLA} och personlighetstestet, ${FREE_TEMPLATE_COUNT} CV-mallar och en nedladdning, ` +

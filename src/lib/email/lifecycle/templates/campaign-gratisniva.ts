@@ -8,6 +8,7 @@
 import { SALD_PLAN, paketKort, paketMedPris } from '@/lib/plans/plans';
 import type { LifecycleEmail } from '../types';
 import { GRATIS_TESTRAD } from '@/lib/plans/gratis-copy';
+import { FREE_TEMPLATE_COUNT, talSomOrd } from '@/lib/cv/template-antal';
 import { renderLayout, heading, paragraph, list, firstName } from './layout';
 import { hasPremiumNow, swedishDate } from './helpers';
 
@@ -44,7 +45,7 @@ export const gratisnivaAndras: LifecycleEmail = {
           paragraph('Det här ändras:'),
         note:
           list([
-            'CV-mallar: tre fria mallar, resten förhandsvisas i full storlek',
+            `CV-mallar: ${talSomOrd(FREE_TEMPLATE_COUNT)} fria mallar, resten förhandsvisas i full storlek`,
             'CV-analys: en analys per konto, med poängen, antalet fynd och det tyngsta fyndet i klartext',
             `Personliga brev: ett personligt brev per konto, sedan ett i veckan. Nedladdningen ingår i ${paketKort()}`,
             `Rekryteringstester: ${GRATIS_TESTRAD.charAt(0).toLowerCase()}${GRATIS_TESTRAD.slice(1)}`,
