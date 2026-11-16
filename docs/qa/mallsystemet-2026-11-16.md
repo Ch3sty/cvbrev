@@ -46,11 +46,23 @@ Svar: HTML med skalskriptet för iframen.
 ## 3. HTML:en (för textbytet i exempel-iframen)
 
 - `<html lang="sv" data-mall="<id>">`, en `.cv` på 210 mm.
-- `h1[data-falt="namn"]`, `p[data-falt="titel"]` (alltid med, tom om titel saknas; reserverad höjd i förhandsvisningen), `ul[data-falt="kontakt"] > li[data-falt="epost|telefon|ort|linkedin|webb"]`, `[data-falt="foto"]`.
+- `h1[data-falt="namn"]`, `p[data-falt="titel"]` (alltid med; dold med `:empty` när titeln saknas, så exempel-iframen kan fylla den), `ul[data-falt="kontakt"] > li[data-falt="epost|telefon|ort|linkedin|webb"]`, `[data-falt="foto"]`.
 - Varje avsnitt: `section[data-avsnitt="<sektion>"] > .start > h2[data-sektion="<sektion>"]`. Kontakten i en sidospalt är `section[data-avsnitt="kontakt"]`.
 - Varje post: `[data-post]`.
 - Tokens som CSS-variabler på `:root`: `--accent`, `--ton`, `--text`, `--dampad`, `--linje`, `--typsnitt`, `--typsnitt-rubrik`, `--grad*`, `--sida-*`.
 
 ## 4. Det som inte ska importeras i klienten
 
-`src/lib/cv/mallar/register.ts`, `definitioner/*`, `render/*`, `innehall.ts`, `src/lib/cv/word/*`, `src/lib/cv/rendera-mall-html.ts`. Kompatibilitetslagret `src/lib/cv/simple-templates.ts` (SIMPLE_TEMPLATES, getTemplateById med alias, isTemplateFree, FREE_TEMPLATE_IDS) finns kvar tills komponenterna läser katalogen.
+`src/lib/cv/mallar/register.ts`, `definitioner/*`, `render/*`, `innehall.ts`, `src/lib/cv/word/*`, `src/lib/cv/rendera-mall-html.ts`. Kompatibilitetslagren finns kvar tills komponenterna läser katalogen och rutterna: `src/lib/cv/simple-templates.ts` (SIMPLE_TEMPLATES, getTemplateById med alias, isTemplateFree, FREE_TEMPLATE_IDS), `src/lib/cv/mallar/kompat.ts` (isValidTemplateId, liten) och `src/lib/cv/mallar/kompat-generator.ts` (getTemplateGenerator, drar in renderaren: används i dag av cv-exempel, yrkessidans förhandsvisning och CV-byggarens steg 7; byt dem mot exempel-API:t och preview-html).
+
+## 5. Utbudet (2026-11-16)
+
+20 mallar i katalogen, i visningsordning: linne, bjork (gratis, PDF och Word); koppar, kalksten, granit, kolumn, arsring, antikva, fasad, raster, folio, stal (Premium, PDF och Word); morkrum, terrakotta, kvadrat, siluett, ritning, tidning, tusch, horisont (Premium, bara PDF). Fotoplats: bjork, koppar, kalksten, granit, fasad, morkrum, siluett. Alla 41 gamla id och 7 äldre id ur `formatted_cv_downloads` har alias (`src/lib/cv/mallar/alias.ts`); gamla gratismallar pekar på gratismallar, `linje` på Stål.
+
+## 6. Grindarna
+
+- `npm run test:ats` (scripts/ats-mallar.ts): 20 mallar x kort, normalt, långt, intyg först, utbildning först; PDF och Word.
+- `npx tsx scripts/mallar-sidbrytning.ts [--ut <mapp> --png]`: delade poster, ensamma rubriker, sidor med en eller två rader, sidantal.
+- `npx tsx scripts/word-mallar-granska.ts <mapp>`: Word via COM, Chrome-PDF mot Word-PDF sida vid sida (`<mall>-<längd>-jamforelse.png`).
+- `npx tsx scripts/mallbilder.ts`: miniatyrerna; vitest fäller om en saknas.
+- Vitest: `src/lib/cv/__tests__/rubriker.test.ts`, `src/lib/cv/mallar/__tests__/*`, `src/lib/cv/word/__tests__/word-mallar.test.ts`, `src/lib/cv/__tests__/template-count.test.ts`.
