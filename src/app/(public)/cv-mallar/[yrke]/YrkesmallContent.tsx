@@ -3,7 +3,6 @@
 import { PAKETRADER } from '@/components/paywall/paywall-copy'
 import Link from 'next/link'
 import Image from 'next/image'
-import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
 import { ChevronRight, ShieldCheck, Crown, FileText, ArrowRight, CheckCircle2, Eye, Star, BookOpen, Layers } from 'lucide-react'
 
@@ -23,7 +22,9 @@ import {
   IconStudent,
 } from '@/app/(public)/exempel/components/illustrations/ExempelIcons'
 import type { Yrkesmall } from '../yrkesmall-data'
-import { buildYrkesmallExempelCV } from './YrkesmallExempelData'
+import MallVisningCv, { type ArtikelMall } from '@/components/artiklar/MallVisningCv'
+import { MALL_KATALOG } from '@/lib/cv/mallar/katalog'
+import { ARTIKEL, DOK, KNAPP, UPPLADDNING } from '@/components/cv/Dokument/texter'
 import ViktigtPunkter from './components/ViktigtPunkter'
 import VarforVarMallPassar from './components/VarforVarMallPassar'
 import ArbetsuppgifterList from './components/ArbetsuppgifterList'
@@ -45,26 +46,20 @@ const KATEGORI_ICON: Record<Yrkesmall['kategori'], ({ className }: { className?:
   'student': IconStudent,
 }
 
-// Lazy-load interaktiv preview fOr bundle-size
-const YrkesmallInteractivePreview = dynamic(
-  () => import('./YrkesmallInteractivePreview'),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="bg-white rounded-2xl border-2 border-slate-200 shadow-xl overflow-hidden">
-        <div className="bg-orange-50/50 px-5 py-4 border-b border-orange-100">
-          <div className="h-6 bg-slate-200 rounded w-1/3 animate-pulse" />
-        </div>
-        <div className="p-12 space-y-6 animate-pulse" style={{ minHeight: '800px' }}>
-          <div className="h-8 bg-slate-200 rounded w-3/4" />
-          <div className="h-4 bg-slate-200 rounded w-1/2" />
-          <div className="h-4 bg-slate-200 rounded w-full" />
-          <div className="h-4 bg-slate-200 rounded w-5/6" />
-        </div>
-      </div>
-    ),
-  }
-)
+/**
+ * Fem mallar för yrkets dokument (plan-mallar 3.2, yrkessidorna): yrkets
+ * gratismall först, sedan katalogens ordning. Inga namn hårdkodade.
+ */
+function femFor(gratisId: string): ArtikelMall[] {
+  const forst = MALL_KATALOG.find((m) => m.id === gratisId)
+  const ovriga = MALL_KATALOG.filter((m) => m.id !== gratisId)
+  return [...(forst ? [forst] : []), ...ovriga].slice(0, 5).map((m) => ({
+    id: m.id,
+    namn: m.namn,
+    rad: ARTIKEL.mallrad(m.niva === 'gratis', m.word),
+    bild: m.bild.liten,
+  }))
+}
 
 const KATEGORI_LABEL: Record<Yrkesmall['kategori'], string> = {
   'vard': 'Vård',
@@ -92,8 +87,6 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
   const forstaGratis = isTemplateFree(data.freeMallId)
   const premiumTemplate = getTemplateById(data.premiumMallId)
 
-  // Bygger generisk exempel-CV fOr den interaktiva preview-komponenten
-  const previewExempelCV = buildYrkesmallExempelCV(data.namn, data.kompetenser)
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-50/30 via-white to-orange-50/40">
@@ -276,13 +269,30 @@ export default function YrkesmallContent({ data, relaterade }: YrkesmallContentP
             . Byt mall och typsnitt och se skillnaderna direkt.
           </p>
         </div>
-        <YrkesmallInteractivePreview
-          exempelCV={previewExempelCV}
-          yrkesNamn={data.namn}
-          freeMallId={data.freeMallId}
-          premiumMallId={data.premiumMallId}
-          defaultMallId={data.premiumMallId}
-        />
+        {/* Dokument liten med yrkets exempel-CV ur exempel-API:t (serverrenderat
+            i mallsystemet, cachat), gratismallen först med yrkets rubriker,
+            titeln förifylld, uppladdningsraden och raden om premiummallarna. */}
+        <div className="mx-auto max-w-[560px] rounded-xl border border-kant bg-panel p-4 sm:p-6">
+          <MallVisningCv
+            mallar={femFor(data.freeMallId)}
+            yrke={data.slug}
+            titelForval={data.namn}
+            etiketter={{ namn: UPPLADDNING.namn, titel: UPPLADDNING.titel, fortsatt: KNAPP.fortsatt, svep: DOK.svep }}
+            uppladdning={
+              <div className="mt-2.5 flex items-center justify-between gap-3 rounded-xl border border-kant bg-papper px-3 py-2">
+                <p className="text-[13px] leading-5 text-ink-2">{ARTIKEL.uppladdning}</p>
+                <a
+                  href="/cv-mallar#ladda-upp"
+                  data-cta-klick="/cv-mallar#ladda-upp"
+                  className="inline-flex h-11 shrink-0 items-center rounded-xl border border-kant-stark bg-papper px-4 text-sm font-semibold text-ink-1"
+                >
+                  {ARTIKEL.laddaUpp}
+                </a>
+              </div>
+            }
+            efter={<p className="mt-3 text-[13px] text-ink-2">{ARTIKEL.yrkesrad('yrket')}</p>}
+          />
+        </div>
       </section>
 
       {/* Viktigt att tanka pa (NY djup-content) — fallback till varforDennaMall om saknas */}

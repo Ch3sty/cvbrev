@@ -187,7 +187,8 @@ export const YRKESMALL_SLUGS = Object.keys(YRKE_TILL_MALLAR)
 // ============================================================================
 
 import { CV_GALLERI } from '@/app/(public)/exempel/components/galleri-data'
-import { SIMPLE_TEMPLATES } from '@/lib/cv/simple-templates'
+import { FORVALD_MALL_ID, MALL_KATALOG, getMallKort } from '@/lib/cv/mallar/katalog'
+import { losMallId } from '@/lib/cv/mallar/alias'
 import { YRKES_CONTENT, KATEGORI_DEFAULT_CONTENT, HERO_INGRESS, type YrkesContent } from './yrkesmall-content'
 
 /** Bestamd-form-mappning fOr yrkesnamn (for naturligt sprak: "CV-mall fOr lakare") */
@@ -229,8 +230,23 @@ function getNamnBestamd(slug: string, namn: string): string {
 }
 
 function getMallNamn(mallId: string): string {
-  const tpl = SIMPLE_TEMPLATES.find(t => t.id === mallId)
-  return tpl?.name || mallId
+  return getMallKort(mallId)?.namn || mallId
+}
+
+/**
+ * Yrkets mallar i det nya utbudet (plan-mallar 3.3): de gamla id:na i
+ * YRKE_TILL_MALLAR löses med alias. Gratismallen är alltid en gratismall
+ * (fältet free rättat), premiummallen alltid en premiummall när en finns.
+ */
+function losYrkesMallar(m: { free: string; premium: string }): { free: string; premium: string } {
+  const fri = losMallId(m.free)
+  const free = fri && getMallKort(fri)?.niva === 'gratis' ? fri : FORVALD_MALL_ID
+  const pre = losMallId(m.premium)
+  const premium =
+    pre && getMallKort(pre)?.niva === 'premium'
+      ? pre
+      : (MALL_KATALOG.find((k) => k.niva === 'premium')?.id ?? pre ?? free)
+  return { free, premium }
 }
 
 function getDefaultRekryterarTips(namn: string, kategori: string): { rubrik: string; text: string }[] {
@@ -300,7 +316,8 @@ function buildYrkesContent(slug: string, namn: string, kategori: string): YrkesC
 
 function buildYrkesmallList(): Yrkesmall[] {
   return Object.entries(YRKE_TILL_MALLAR)
-    .map(([slug, mallar]) => {
+    .map(([slug, gamla]) => {
+      const mallar = losYrkesMallar(gamla)
       const galleri = CV_GALLERI.find(y => y.slug === slug)
       if (!galleri) return null
 
