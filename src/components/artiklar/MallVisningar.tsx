@@ -25,6 +25,7 @@ const FEM: ArtikelMall[] = MALL_KATALOG.slice(0, 5).map((m) => ({
   namn: m.namn,
   rad: ARTIKEL.mallrad(m.niva === 'gratis', m.word),
   bild: m.bild.liten,
+  word: m.word,
 }))
 
 export function CvMallVisning() {

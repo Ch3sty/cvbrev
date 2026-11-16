@@ -24,12 +24,14 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import type { MallKort, Sektion } from '@/lib/cv/mallar/kontrakt'
 import { IkonPenna, IkonSida, IkonZoom } from '@/components/illustrations/MallIkoner'
-import { matDokument, medSkala, type Matning } from './matning'
-import { AVSNITT, DOK } from './texter'
+import { matDokument, medSkala, type HuvudFalt, type Matning } from './matning'
+import { AVSNITT, DOK, HUVUD, REMSA } from './texter'
 import Helskarm from './Helskarm'
 import type { Kalla } from './hooks'
 
 const TIPS_NYCKEL = 'jc_mall_tips_sett'
+/** Pennans plats till höger om texten, inne i träffytan: 4 px luft, 22 px penna, 4 px. */
+const PENNA = 30
 
 export interface DokumentProps {
   storlek: 'liten' | 'mellan' | 'stor'
@@ -52,6 +54,8 @@ export interface DokumentProps {
   last?: boolean
   onRubrik?: (sektion: Sektion, text: string) => void
   onAvsnitt?: (sektion: Sektion) => void
+  /** Namnet, titeln eller kontaktraden trycktes (redigeras som avsnitten). */
+  onHuvud?: (falt: HuvudFalt) => void
   /** Avsnitt som saknas i CV:t, som "+ Lägg till"-rader längst ner på arket. */
   tommaAvsnitt?: readonly Sektion[]
   valtAvsnitt?: Sektion | null
@@ -91,6 +95,7 @@ export default function Dokument({
   last,
   onRubrik,
   onAvsnitt,
+  onHuvud,
   tommaAvsnitt,
   valtAvsnitt,
   onSvep,
@@ -103,7 +108,7 @@ export default function Dokument({
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const [bredd, setBredd] = useState(0)
   const [matning, setMatning] = useState<Matning | null>(null)
-  const [hover, setHover] = useState<number | null>(null)
+  const [hover, setHover] = useState<number | string | null>(null)
   const [tips, setTips] = useState(false)
   const [helskarm, setHelskarm] = useState(false)
   const [drag, setDrag] = useState(0)
@@ -111,7 +116,7 @@ export default function Dokument({
   const startY = useRef(0)
   const dragit = useRef(false)
 
-  const interaktiv = storlek !== 'liten' && Boolean(onRubrik || onAvsnitt)
+  const interaktiv = storlek !== 'liten' && Boolean(onRubrik || onAvsnitt || onHuvud)
   const srcdoc = useMemo(() => (html ? medSkala(html) : undefined), [html])
 
   // Arkets bredd, för träffytorna.
@@ -212,6 +217,12 @@ export default function Dokument({
   const sidor = matning?.sidor ?? 1
   const visadGranne = drag !== 0 ? granne(drag < 0 ? 1 : -1) : null
   const rorelse = !minsRorelse()
+
+  const grannKallor = useMemo(() => {
+    if (kalla?.typ !== 'exempel' || !ordning || index < 0 || ordning.length < 2) return undefined
+    const n = ordning.length
+    return [ordning[(index + 1) % n], ordning[(index - 1 + n) % n]].map((m) => ({ ...kalla, mall: m.id }))
+  }, [kalla, ordning, index])
 
   const oppnaHelskarm = () => {
     if (!dragit.current) setHelskarm(true)
@@ -353,18 +364,81 @@ export default function Dokument({
                         onFocus={() => setHover(i)}
                         onBlur={() => setHover((h) => (h === i ? null : h))}
                         className="absolute rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-koppar"
-                        style={{ left: px(r.x) - 6, top: traffTopp, width: Math.max(px(r.b), 120) + 12, height: traffHojd }}
+                        // Pennan ligger inne i träffytan (ägaren 2026-11-16): musen kan
+                        // gå från rubriken till pennan utan att hovringen släpper.
+                        style={{ left: px(r.x) - 6, top: traffTopp, width: Math.max(px(r.b) + PENNA, 120) + 12, height: traffHojd }}
                       >
                         {hover === i ? (
                           <span
                             aria-hidden
-                            className="absolute right-[-26px] top-1/2 inline-flex h-[22px] w-[22px] -translate-y-1/2 items-center justify-center rounded-full bg-koppar text-koppar-text"
+                            className="absolute top-1/2 inline-flex h-[22px] w-[22px] -translate-y-1/2 items-center justify-center rounded-full bg-koppar text-koppar-text"
+                            style={{ left: px(r.b) + 10 }}
                           >
                             <IkonPenna size={13} />
                           </span>
                         ) : null}
                       </button>
                     ) : null}
+                  </div>
+                )
+              })
+            : null}
+
+          {/* Namnet, titeln och kontaktraden: samma signaler som rubrikerna. */}
+          {interaktiv && onHuvud && bredd > 0
+            ? (matning?.falt ?? []).map((f, i, alla) => {
+                const nyckel = `falt-${f.falt}`
+                // Minst 44 px hög träffyta, men aldrig in över grannfältet
+                // ovanför eller under (titeln ligger tätt mellan namn och
+                // kontakt) eller över en rubrik (första rubriken under huvudet).
+                const ideal = Math.max(44, px(f.h) + 8)
+                let topp = px(f.y + f.h / 2) - ideal / 2
+                let botten = topp + ideal
+                for (const g of [...alla, ...rubriker]) {
+                  if (g === f || g.x + g.b <= f.x || g.x >= f.x + f.b) continue
+                  if (g.y + g.h <= f.y) topp = Math.max(topp, px((g.y + g.h + f.y) / 2))
+                  else if (g.y >= f.y + f.h) botten = Math.min(botten, px((f.y + f.h + g.y) / 2))
+                }
+                const traffHojd = botten - topp
+                const traffTopp = topp
+                const pennaVanster = Math.min(px(f.b) + 10, bredd - px(f.x) - 22)
+                return (
+                  <div key={nyckel}>
+                    <span
+                      aria-hidden
+                      className={`pointer-events-none absolute border-t-[1.5px] border-koppar ${
+                        hover === nyckel ? 'border-solid opacity-100' : 'border-dotted opacity-60'
+                      }`}
+                      style={{ left: px(f.x), top: px(f.y + f.h) + 2, width: Math.max(px(f.b), 40) }}
+                    />
+                    <button
+                      type="button"
+                      disabled={last}
+                      aria-label={HUVUD.andra[f.falt]}
+                      data-huvud={f.falt}
+                      onClick={() => onHuvud(f.falt)}
+                      onPointerEnter={() => setHover(nyckel)}
+                      onPointerLeave={() => setHover((h) => (h === nyckel ? null : h))}
+                      onFocus={() => setHover(nyckel)}
+                      onBlur={() => setHover((h) => (h === nyckel ? null : h))}
+                      className="absolute rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-koppar"
+                      style={{
+                        left: px(f.x) - 6,
+                        top: traffTopp,
+                        width: Math.min(px(f.b) + PENNA + 12, bredd - px(f.x) + 6),
+                        height: traffHojd,
+                      }}
+                    >
+                      {hover === nyckel ? (
+                        <span
+                          aria-hidden
+                          className="absolute top-1/2 inline-flex h-[22px] w-[22px] -translate-y-1/2 items-center justify-center rounded-full bg-koppar text-koppar-text"
+                          style={{ left: pennaVanster }}
+                        >
+                          <IkonPenna size={13} />
+                        </span>
+                      ) : null}
+                    </button>
                   </div>
                 )
               })
@@ -387,13 +461,11 @@ export default function Dokument({
             </div>
           ) : null}
 
-          {/* Brytlinjen när CV:t fortsätter på sida 2. */}
+          {/* Brytlinjen när CV:t fortsätter på sida 2: vid arkets nederkant,
+              utan text i arket. Etiketten hänger som en flik under arket
+              (ägaren 2026-11-16: den täckte CV:ts text). */}
           {sidor > 1 ? (
-            <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-[3px] border-t-[1.5px] border-dashed border-koppar">
-              <span className="absolute -top-[18px] left-1.5 rounded bg-white px-1.5 py-px text-[10px] text-[#A8491A]">
-                {DOK.sidan2}
-              </span>
-            </div>
+            <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 border-t-[1.5px] border-dashed border-koppar" data-brytlinje />
           ) : null}
 
           {/* Sidbrickan, öppnar helskärmen. */}
@@ -403,7 +475,7 @@ export default function Dokument({
               onClick={() => setHelskarm(true)}
               disabled={last}
               aria-label={`${DOK.sidor(sidor)}. ${DOK.helskarm}`}
-              className="absolute bottom-2 right-2 inline-flex h-7 items-center gap-1 rounded-[7px] bg-ink-1 px-2 text-xs font-semibold text-papper"
+              className="absolute bottom-3 right-3 inline-flex h-7 items-center gap-1 rounded-[7px] bg-ink-1 px-2 text-xs font-semibold text-papper"
             >
               <IkonSida size={13} />
               {sidor}
@@ -422,18 +494,30 @@ export default function Dokument({
             </button>
           ) : null}
         </div>
+        {/* Fliken under arket, utanför arkets klippning. */}
+        {sidor > 1 ? (
+          <span
+            aria-hidden
+            className="pointer-events-none absolute left-3 top-full z-[1] whitespace-nowrap rounded-b-md bg-koppar-mjuk px-2 py-0.5 text-[11px] font-semibold text-koppar-ink"
+            data-sidan2
+          >
+            {DOK.sidan2}
+          </span>
+        ) : null}
       </div>
 
-      {/* Raden under arket säger var hon är och att svep finns (granskningen
-          B3); på datorn bara var hon är. */}
-      {interaktiv && mall && ordning && index >= 0 ? (
-        <p className="mt-2 text-center text-[13px] text-ink-3">
-          <span className="min-[900px]:hidden">{DOK.radMobil(mall.namn, index + 1, ordning.length)}</span>
-          <span className="hidden min-[900px]:inline">{DOK.radDator(mall.namn, index + 1, ordning.length)}</span>
-        </p>
-      ) : visaHjalprad ? (
-        <p className="mt-2 text-center text-meta text-ink-3">{DOK.klickaHelskarm}</p>
-      ) : null}
+      {/* Bandet under arket, alltid reserverat (CLS 0): fliken till vänster,
+          raden om var hon är högerställd (granskningen B3; på mobil med svep). */}
+      <div className={`flex min-h-7 items-start justify-end pt-1 ${sidor > 1 ? 'pl-[136px]' : ''}`} data-band>
+        {interaktiv && mall && ordning && index >= 0 ? (
+          <p className="min-w-0 truncate text-[13px] text-ink-3">
+            <span className="min-[900px]:hidden">{DOK.radMobil(mall.namn, index + 1, ordning.length)}</span>
+            <span className="hidden min-[900px]:inline">{DOK.radDator(mall.namn, index + 1, ordning.length)}</span>
+          </p>
+        ) : visaHjalprad ? (
+          <p className="min-w-0 truncate text-meta text-ink-3">{DOK.klickaHelskarm}</p>
+        ) : null}
+      </div>
 
       {helskarm ? (
         <Helskarm
@@ -441,9 +525,19 @@ export default function Dokument({
           src={srcdoc ? undefined : src ?? undefined}
           titel={titel}
           rubrik={mall && ordning && index >= 0 ? DOK.mallAv(mall.namn, index + 1, ordning.length) : titel}
+          rubrikTillagg={mall && ordning && index >= 0 ? REMSA.niva[mall.niva] : undefined}
           hojd={matning?.hojd}
           kalla={kalla}
           remsa={helskarmRemsa}
+          onByt={
+            kanSvepa
+              ? (riktning) => {
+                  const ny = granne(riktning)
+                  if (ny) onSvep?.(ny.id)
+                }
+              : undefined
+          }
+          grannar={grannKallor}
           onClose={() => setHelskarm(false)}
         />
       ) : null}

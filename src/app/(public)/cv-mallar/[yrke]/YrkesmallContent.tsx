@@ -55,6 +55,7 @@ function femFor(gratisId: string): ArtikelMall[] {
     namn: m.namn,
     rad: ARTIKEL.mallrad(m.niva === 'gratis', m.word),
     bild: m.bild.liten,
+    word: m.word,
   }))
 }
 

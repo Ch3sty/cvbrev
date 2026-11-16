@@ -44,14 +44,24 @@ export const DOK = {
   sidorLaddar: 'Delar upp i sidor, precis som i PDF:en',
   /** Helskärmen när sidorna inte gick att hämta: hela CV:t i ett stycke. */
   sidorFel: 'Sidorna gick inte att visa just nu. Här är hela CV:t i ett stycke.',
-  nypZoom: 'Nyp för att zooma. Svep på miniatyrerna för nästa mall.',
+  /** Raden under helskärmens remsa, efter enheten (ägaren 2026-11-16). */
+  hjalpPeka: 'Tryck på en mall för att byta, svep för fler. Nyp för att zooma.',
   mallAv: (namn: string, i: number, n: number) => `${namn}, ${i} av ${n}`,
   svep: 'svep för nästa mall',
   /** Raden under arket (granskningen B3): mobil med svep, dator utan. */
   radMobil: (namn: string, i: number, n: number) => `${namn}, ${i} av ${n} · svep för nästa mall`,
   radDator: (namn: string, i: number, n: number) => `${namn}, ${i} av ${n}`,
   stang: 'Stäng',
+  stangEsc: 'Stäng (Esc)',
   zooma: 'Zooma',
+  zoomaIn: 'Zooma in',
+  zoomaUt: 'Zooma ut',
+  /** Helskärmens tangentrad på datorn (UX: bara det som fungerar). */
+  tangenter: [
+    { typ: 'byt', tangenter: ['←', '→'], text: 'byter mall' },
+    { typ: 'zoom', tangenter: ['+', '−'], text: 'zoomar' },
+    { typ: 'stang', tangenter: ['Esc'], text: 'stänger' },
+  ],
   helskarm: 'Läs i helskärm',
   sidor: (n: number) => (n === 1 ? '1 sida' : `${n} sidor`),
 } as const
@@ -65,6 +75,10 @@ export const REMSA = {
   foreslagna: 'Föreslagna för dig',
   gratis: 'Gratis',
   alla: (n: number) => `Alla ${n}`,
+  /** Helskärmens remsa på datorn: hela katalogen och pilarna när den inte ryms. */
+  allaMallar: 'Alla mallar',
+  flerVanster: 'Fler mallar åt vänster',
+  flerHoger: 'Fler mallar åt höger',
   niva: { gratis: 'Gratis', premium: 'Premium' },
 } as const
 
@@ -292,6 +306,20 @@ export const AVSNITT = {
   laggTill: 'Lägg till',
   avbryt: 'Avbryt',
   taBortAvsnitt: 'Avsnittet tas bort från CV:t. Du kan lägga till det igen.',
+} as const
+
+/** Namnet, titeln och kontaktraden, redigerade från arket (ägaren 2026-11-16). */
+export const HUVUD = {
+  rubrik: 'Namn, titel och kontakt',
+  namn: 'Namn',
+  titel: 'Yrkestitel',
+  titelUnder: 'Rubrikerna i CV:t följer titeln, utom de du valt själv.',
+  epost: 'E-post',
+  telefon: 'Telefon',
+  ort: 'Ort',
+  linkedin: 'LinkedIn',
+  /** Träffytorna på arket, för skärmläsare. */
+  andra: { namn: 'Ändra namn', titel: 'Ändra titel', kontakt: 'Ändra kontaktuppgifter' },
 } as const
 
 export const FINAL = {

@@ -270,6 +270,7 @@ export default function Step7Review({
         onSvep={(id) => valjMall(id, 'svep')}
         onRubrik={(s, text) => setRubrik({ sektion: s, text })}
         onAvsnitt={onGaTillSteg ? (s) => onGaTillSteg(STEG_FOR[s]) : undefined}
+        onHuvud={onGaTillSteg ? () => onGaTillSteg(0) : undefined}
         onMatt={setMatning}
       />
 

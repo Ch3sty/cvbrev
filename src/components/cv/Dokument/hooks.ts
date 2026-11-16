@@ -199,6 +199,27 @@ export function useSidbilder(kalla: Kalla | null | undefined, aktiv: boolean): {
   return { sidbilder: null, laddar: aktiv && !fel, fel }
 }
 
+const PAGAENDE = new Set<string>()
+
+/**
+ * Förhämtar grannmallarnas sidor i helskärmen på datorn, så att
+ * piltangenterna känns direkt (UX 2026-11-16). Bara exemplen: de är
+ * CDN-cachade och räknas inte mot besökarens kvot.
+ */
+export function forhamtaSidbilder(k: Kalla): void {
+  if (k.typ !== 'exempel') return
+  const nyckel = JSON.stringify(k)
+  if (SIDCACHE.has(nyckel) || PAGAENDE.has(nyckel)) return
+  PAGAENDE.add(nyckel)
+  hamtaSidbilder(k, new AbortController().signal)
+    .then((s) => {
+      SIDCACHE.set(nyckel, s)
+      if (SIDCACHE.size > SIDCACHE_TAK) SIDCACHE.delete(SIDCACHE.keys().next().value as string)
+    })
+    .catch(() => undefined)
+    .finally(() => PAGAENDE.delete(nyckel))
+}
+
 /** Förhandsvisning utan hook, för merförsäljningens bilder. */
 export async function forhandsvisningHtml(k: Exclude<Kalla, { typ: 'exempel' }>): Promise<string | null> {
   const nyckel = JSON.stringify(k)

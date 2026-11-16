@@ -10,15 +10,15 @@
  * AllaInnehall är samma innehåll utan blad, som mallkolumnen på datorn.
  */
 import { useMemo, useState } from 'react'
-import type { Familj, MallKort } from '@/lib/cv/mallar/kontrakt'
+import type { MallKort } from '@/lib/cv/mallar/kontrakt'
 import { IkonFoto, IkonSok, IkonWord } from '@/components/illustrations/MallIkoner'
 import Ark from './Ark'
 import Miniatyr from './Miniatyr'
-import { ALLA_ARK, REMSA } from './texter'
+import { grupperaMallar } from './grupper'
+import { ALLA_ARK } from './texter'
 
 export type Filter = 'alla' | 'gratis' | 'word' | 'foto' | 'tva' | 'enSida'
 
-const FAMILJER: readonly Familj[] = ['en-spalt', 'marginal', 'sidospalt', 'konstnarlig']
 
 export function passarFilter(m: MallKort, f: Filter): boolean {
   switch (f) {
@@ -57,6 +57,11 @@ interface InnehallProps {
   /** Föreslagna visas redan ovanför (datorns kolumn). */
   utanForeslagna?: boolean
   last?: boolean
+  /**
+   * Ytan bakom listan, för de klistrade grupprubrikernas band: papper i
+   * arket, golv i datorns kolumn (ägaren 2026-11-16: inget vitt band).
+   */
+  yta?: 'papper' | 'golv'
 }
 
 export function FilterRad({ filter, setFilter, antal }: { filter: Filter; setFilter: (f: Filter) => void; antal: number }) {
@@ -88,30 +93,19 @@ export function FilterRad({ filter, setFilter, antal }: { filter: Filter; setFil
   )
 }
 
-export function AllaInnehall({ katalog, vald, foreslagna, onValj, medSok, utanForeslagna, last }: InnehallProps) {
+export function AllaInnehall({ katalog, vald, foreslagna, onValj, medSok, utanForeslagna, last, yta = 'papper' }: InnehallProps) {
   const [q, setQ] = useState('')
   const [filter, setFilter] = useState<Filter>('alla')
 
   const traffar = useMemo(() => katalog.filter((m) => passarFilter(m, filter) && passarSok(m, q.trim())), [katalog, filter, q])
-  const grupper = useMemo(() => {
-    const ut: { namn: string; mallar: MallKort[] }[] = []
-    const visade = new Set<string>()
-    if (!q && filter === 'alla') {
-      if (!utanForeslagna) {
-        const f = foreslagna.map((id) => katalog.find((m) => m.id === id)).filter((m): m is MallKort => Boolean(m))
-        if (f.length) ut.push({ namn: REMSA.foreslagna, mallar: f })
-        f.forEach((m) => visade.add(m.id))
-      }
-      const g = katalog.filter((m) => m.niva === 'gratis' && !visade.has(m.id))
-      if (g.length) ut.push({ namn: REMSA.gratis, mallar: g })
-      g.forEach((m) => visade.add(m.id))
-    }
-    for (const fam of FAMILJER) {
-      const m = traffar.filter((x) => x.familj === fam && !visade.has(x.id))
-      if (m.length) ut.push({ namn: ALLA_ARK.familj[fam], mallar: m })
-    }
-    return ut
-  }, [katalog, foreslagna, traffar, q, filter, utanForeslagna])
+  const grupper = useMemo(
+    () => grupperaMallar({ katalog, foreslagna, traffar, utanSok: !q && filter === 'alla', utanForeslagna }),
+    [katalog, foreslagna, traffar, q, filter, utanForeslagna]
+  )
+  const band =
+    yta === 'golv'
+      ? 'bg-golv after:from-golv'
+      : 'bg-papper after:from-papper'
 
   return (
     <div>
@@ -124,7 +118,7 @@ export function AllaInnehall({ katalog, vald, foreslagna, onValj, medSok, utanFo
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder={ALLA_ARK.sok}
-            className="h-full min-w-0 flex-1 bg-transparent text-[15px] text-ink-1 outline-none placeholder:text-ink-3"
+            className="h-full min-w-0 flex-1 bg-transparent text-[15px] text-ink-1 outline-none placeholder:text-ink-3 focus-visible:outline-none"
           />
         </label>
       ) : null}
@@ -149,7 +143,13 @@ export function AllaInnehall({ katalog, vald, foreslagna, onValj, medSok, utanFo
       ) : (
         grupper.map((g) => (
           <section key={g.namn} aria-label={g.namn} className="mt-2">
-            <h3 className="sticky top-0 z-[1] bg-papper pb-1.5 pt-2 text-ey uppercase text-ink-3">{g.namn}</h3>
+            {/* Klistrad rubrik i ytans egen färg, med en mjuk kant under så
+                att miniatyrerna som rullar in under inte ser avhuggna ut. */}
+            <h3
+              className={`sticky top-0 z-[1] pb-1.5 pt-2 text-ey uppercase text-ink-3 after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-2 after:bg-gradient-to-b after:to-transparent ${band}`}
+            >
+              {g.namn}
+            </h3>
             <div className="grid grid-cols-3 gap-2.5">
               {g.mallar.map((m) => (
                 <Miniatyr key={m.id} mall={m} vald={m.id === vald} onValj={onValj} storlek="rutnat" disabled={last} />

@@ -652,6 +652,13 @@ html[data-flow-active='true'] .cookie-banner-container {
   bottom: var(--flow-footer-h, 76px) !important;
 }
 
+/* Mallarnas helskärm och ark (src/components/cv/Dokument/dialoglager.ts):
+   bannern låg över remsan och arken. Den väntar medan dialogen är öppen och
+   kommer tillbaka när den stängs. */
+html[data-dialog='open'] .cookie-banner-container {
+  display: none !important;
+}
+
 /* Bannern står i server-HTML:en från första bilden, men foten i ett
    inloggat flöde mäts först vid hydreringen. På en flödessida (DashboardShell
    sätter data-flode-sida ur rutten, redan på servern) väntar bannern därför

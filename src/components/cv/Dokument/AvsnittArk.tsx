@@ -6,15 +6,25 @@
  * punkter). Spara lägger ändringen i CV:t; ytan sparar vidare (utkastet på
  * provsidan, structured_data inloggat). Enskilda rader redigeras i helskärm
  * i nästa våg.
+ *
+ * "huvud" är namnet, titeln och kontaktraden överst på arket (ägaren
+ * 2026-11-16). En ny titel följer med till PDF och Word, och rubrikerna
+ * följer titelns yrkesområde (rubrikmodellen) utom där hon valt egna.
  */
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Sektion } from '@/lib/cv/mallar/kontrakt'
 import type { CVLanguage, CVMetadata } from '@/lib/cv/cv-metadata'
 import Ark from './Ark'
-import { AVSNITT } from './texter'
+import type { HuvudFalt } from './matning'
+import { AVSNITT, HUVUD } from './texter'
+
+/** Det som går att redigera från arket: ett avsnitt eller huvudet. */
+export type Redigerbart = Sektion | 'huvud'
 
 export interface AvsnittArkProps {
-  sektion: Sektion | null
+  sektion: Redigerbart | null
+  /** Fältet i huvudet som trycktes; får fokus när arket öppnas. */
+  fokus?: HuvudFalt
   /** Rubriken avsnittet har på arket ("Klinisk erfarenhet"), annars standardnamnet. */
   rubrik?: string
   cv: CVMetadata
@@ -48,8 +58,15 @@ const lista = (t: string) =>
 
 const NIVAER: CVLanguage['proficiency'][] = ['Modersmål', 'Flytande', 'Konversation', 'Nybörjare', 'Tvåspråkig']
 
-export default function AvsnittArk({ sektion, rubrik, cv, onSpara, onClose }: AvsnittArkProps) {
+export default function AvsnittArk({ sektion, fokus, rubrik, cv, onSpara, onClose }: AvsnittArkProps) {
   const [utkast, setUtkast] = useState<CVMetadata>(cv)
+  const huvudRef = useRef<HTMLDivElement>(null)
+  // Fältet hon tryckte på får fokus (efter arkets eget fokus på första fältet).
+  useEffect(() => {
+    if (sektion !== 'huvud' || !fokus) return
+    const t = window.setTimeout(() => huvudRef.current?.querySelector<HTMLInputElement>(`[data-falt="${fokus}"]`)?.focus(), 60)
+    return () => window.clearTimeout(t)
+  }, [sektion, fokus])
   useEffect(() => {
     if (sektion) setUtkast(structuredClone(cv))
     // Bara när arket öppnas.
@@ -64,7 +81,7 @@ export default function AvsnittArk({ sektion, rubrik, cv, onSpara, onClose }: Av
       return ny
     })
 
-  const knappRad = (onLagg: () => void) => (
+  const knappRad = (onLagg: () => void) => sektion === 'huvud' ? null : (
     <button
       type="button"
       onClick={onLagg}
@@ -81,6 +98,55 @@ export default function AvsnittArk({ sektion, rubrik, cv, onSpara, onClose }: Av
 
   let innehall: React.ReactNode = null
   switch (sektion) {
+    case 'huvud': {
+      const pi = utkast.personalInfo
+      innehall = (
+        <div ref={huvudRef} className="grid gap-3">
+          <Falt etikett={HUVUD.namn}>
+            <input className={FALT} data-falt="namn" autoComplete="name" value={pi.fullName ?? ''} onChange={(e) => satt((c) => void (c.personalInfo.fullName = e.target.value))} />
+          </Falt>
+          <Falt etikett={HUVUD.titel}>
+            <input className={FALT} data-falt="titel" value={pi.title ?? ''} onChange={(e) => satt((c) => void (c.personalInfo.title = e.target.value))} />
+          </Falt>
+          <p className="-mt-1.5 text-meta text-ink-3">{HUVUD.titelUnder}</p>
+          <div className="grid gap-3 min-[480px]:grid-cols-2">
+            <Falt etikett={HUVUD.epost}>
+              <input className={FALT} data-falt="kontakt" type="email" autoComplete="email" value={pi.email ?? ''} onChange={(e) => satt((c) => void (c.personalInfo.email = e.target.value))} />
+            </Falt>
+            <Falt etikett={HUVUD.telefon}>
+              <input className={FALT} type="tel" autoComplete="tel" value={pi.phone ?? ''} onChange={(e) => satt((c) => void (c.personalInfo.phone = e.target.value))} />
+            </Falt>
+            <Falt etikett={HUVUD.ort}>
+              <input
+                className={FALT}
+                autoComplete="address-level2"
+                value={pi.address || pi.location || ''}
+                onChange={(e) =>
+                  satt((c) => {
+                    c.personalInfo.address = e.target.value
+                    c.personalInfo.location = e.target.value
+                  })
+                }
+              />
+            </Falt>
+            <Falt etikett={HUVUD.linkedin}>
+              <input
+                className={FALT}
+                inputMode="url"
+                value={pi.linkedin || pi.linkedIn || ''}
+                onChange={(e) =>
+                  satt((c) => {
+                    c.personalInfo.linkedin = e.target.value
+                    c.personalInfo.linkedIn = e.target.value
+                  })
+                }
+              />
+            </Falt>
+          </div>
+        </div>
+      )
+      break
+    }
     case 'profil':
       innehall = (
         <Falt etikett={AVSNITT.rubrik.profil}>
@@ -266,7 +332,7 @@ export default function AvsnittArk({ sektion, rubrik, cv, onSpara, onClose }: Av
     <Ark
       open
       onClose={onClose}
-      rubrik={rubrik || AVSNITT.rubrik[sektion]}
+      rubrik={sektion === 'huvud' ? HUVUD.rubrik : rubrik || AVSNITT.rubrik[sektion]}
       fot={
         <div className="flex justify-end gap-2">
           <button type="button" onClick={onClose} className="inline-flex h-11 items-center rounded-xl border border-kant-stark px-4 text-sm font-semibold text-ink-1">

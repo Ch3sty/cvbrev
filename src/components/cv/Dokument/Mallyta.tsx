@@ -23,9 +23,9 @@ import Miniatyr from './Miniatyr'
 import Verktygsrad, { type Valhandelse } from './Verktygsrad'
 import Mallrad from './MallArk'
 import RubrikArk from './RubrikArk'
-import AvsnittArk from './AvsnittArk'
+import AvsnittArk, { type Redigerbart } from './AvsnittArk'
 import FastRad, { FormatVal, LaddaKnapp } from './FastRad'
-import type { Matning } from './matning'
+import type { HuvudFalt, Matning } from './matning'
 import type { Kalla } from './hooks'
 import { KNAPP, KOLUMN, REMSA } from './texter'
 
@@ -78,7 +78,8 @@ export interface MallytaProps {
 export default function Mallyta(p: MallytaProps) {
   const [alla, setAlla] = useState(false)
   const [rubrik, setRubrik] = useState<{ sektion: Sektion; text: string } | null>(null)
-  const [avsnitt, setAvsnitt] = useState<Sektion | null>(null)
+  const [avsnitt, setAvsnitt] = useState<Redigerbart | null>(null)
+  const [huvudFokus, setHuvudFokus] = useState<HuvudFalt | undefined>(undefined)
   const [matning, setMatning] = useState<Matning | null>(null)
   const [allaKolumn, setAllaKolumn] = useState(false)
   const rotRef = useRef<HTMLDivElement>(null)
@@ -150,9 +151,6 @@ export default function Mallyta(p: MallytaProps) {
       }}
     />
   )
-  const formatVal = (
-    <FormatVal format={p.format} onFormat={p.onFormat} mallHarWord={p.mall.word} kanWord={p.kanWord} last={p.last} />
-  )
   const formatKompakt = (
     <FormatVal format={p.format} onFormat={p.onFormat} mallHarWord={p.mall.word} kanWord={p.kanWord} last={p.last} kompakt />
   )
@@ -211,8 +209,16 @@ export default function Mallyta(p: MallytaProps) {
             onSvep={(id) => valjMall(id, 'svep')}
             onRubrik={p.rubriker ? (s, text) => setRubrik({ sektion: s, text }) : undefined}
             onAvsnitt={p.avsnitt ? (s) => setAvsnitt(s) : undefined}
+            onHuvud={
+              p.avsnitt
+                ? (f) => {
+                    setHuvudFokus(f)
+                    setAvsnitt('huvud')
+                  }
+                : undefined
+            }
             tommaAvsnitt={p.avsnitt?.tomma}
-            valtAvsnitt={avsnitt}
+            valtAvsnitt={avsnitt === 'huvud' ? null : avsnitt}
             onMatt={onMatt}
             helskarmRemsa={helskarmRemsa}
           />
@@ -248,8 +254,8 @@ export default function Mallyta(p: MallytaProps) {
             {/* Kolumnen ryms i vyn och klistrar (granskningen P5): resten av
                 mallarna bakom en rad. */}
             {allaKolumn ? (
-              <div className="mt-4 max-h-[calc(100dvh-220px)] overflow-y-auto pr-1">
-                <AllaInnehall katalog={p.katalog} vald={p.mall.id} foreslagna={p.foreslagna} onValj={(id) => valjMall(id, 'lista')} utanForeslagna last={p.last} />
+              <div className="mt-4 max-h-[calc(100dvh-220px)] overflow-y-auto bg-golv pr-1">
+                <AllaInnehall katalog={p.katalog} vald={p.mall.id} foreslagna={p.foreslagna} onValj={(id) => valjMall(id, 'lista')} utanForeslagna last={p.last} yta="golv" />
               </div>
             ) : null}
             <button
@@ -266,19 +272,10 @@ export default function Mallyta(p: MallytaProps) {
 
       <FastRad
         ovanNav={p.ovanNav}
-        format={formatVal}
         formatKompakt={formatKompakt}
         knapp={knapp}
         fel={p.fel}
-        dator={
-          <>
-            <div className="min-w-0 shrink">{verktyg}</div>
-            <div className="ml-auto hidden shrink-0 items-center gap-2 text-[13px] min-[1400px]:flex">
-              <b className="font-semibold text-ink-1">{p.mall.namn}</b>
-              <span className="text-ink-3">{REMSA.niva[p.mall.niva]}</span>
-            </div>
-          </>
-        }
+        dator={<div className="min-w-0 shrink">{verktyg}</div>}
       />
 
       <AllaArk
@@ -306,6 +303,7 @@ export default function Mallyta(p: MallytaProps) {
       {p.avsnitt && avsnitt ? (
         <AvsnittArk
           sektion={avsnitt}
+          fokus={avsnitt === 'huvud' ? huvudFokus : undefined}
           rubrik={matning?.rubriker.find((r) => r.sektion === avsnitt)?.text}
           cv={p.avsnitt.cv}
           onSpara={p.avsnitt.onSpara}

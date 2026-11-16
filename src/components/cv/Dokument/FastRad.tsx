@@ -6,16 +6,18 @@
  *
  * Mobil (granskningen B4): en rad, högst 76 px plus säker yta. Formatet som
  * ett segment PDF | Word till vänster, knappen till höger. Inloggat ligger
- * raden mot bottennavet (--bottom-nav-h) utan glapp. Dator (V7): en rad om
- * 64 px med verktygsraden till vänster (rullar i sidled i stället för att
- * klippas), formatparet utan småtext och knappen 320 px.
+ * raden mot bottennavet (--bottom-nav-h) utan glapp. Dator (V7, UX
+ * 2026-11-16): en rad om 64 px med verktygsraden till vänster, samma
+ * kompakta formatsegment som mobilen (132 px; de trunkerade småtexterna och
+ * mallnamnet klipptes och täckte fotoknappen) och knappen 280 px vid 1024
+ * till 1279, 320 px därefter. Raden ryms hel från 1024 till 2560 px.
  *
  * Knappen fylls i takt med att filen skapas (framsteg 0 till 1). En
  * premiumknapp har två avsiktliga rader (V3): handlingen och priset. Word
  * visas med lås i premiummallar tills kontot har Premium (i gratismallarna
  * är Word gratisfilen, ägarens besked 2026-11-16).
  */
-import type { ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { IkonLas, IkonPdf, IkonWord } from '@/components/illustrations/MallIkoner'
 import type { Format } from '@/lib/cv/mallar/kontrakt'
 import { FORMAT } from './texter'
@@ -140,8 +142,7 @@ export function LaddaKnapp({ text, under, format, onClick, framsteg, disabled }:
 }
 
 export interface FastRadProps {
-  /** Formatvalet i två former: kompakt (mobil) och par (dator). */
-  format: ReactNode
+  /** Formatvalet som segment (samma på mobil och dator). */
   formatKompakt: ReactNode
   knapp: ReactNode
   /** Verktygsraden och mallraden till vänster på datorn. */
@@ -152,7 +153,55 @@ export interface FastRadProps {
   ovanNav?: boolean
 }
 
-export default function FastRad({ format, formatKompakt, knapp, dator, fel, ovanNav }: FastRadProps) {
+/**
+ * Verktygsraden mäts i sin plats (inloggat är ytan smalare än skärmen, så
+ * skärmbredden räcker inte): rullar den, kortas chippen i två steg
+ * (rad-trang-1: "Standard" bara som ikon, typsnittsnamnet kortat;
+ * rad-trang-2: bara ikoner). Tillbaka när platsen vuxit igen.
+ */
+function useTrang() {
+  const ref = useRef<HTMLDivElement>(null)
+  const [steg, setSteg] = useState(0)
+  const vid = useRef<number[]>([])
+  // Raden eller verktygsraden inuti den (egen rullning) får inte rulla.
+  const rullar = (el: HTMLElement) =>
+    [el, ...Array.from(el.querySelectorAll<HTMLElement>('.overflow-x-auto'))].some((x) => x.scrollWidth > x.clientWidth + 1)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const mat = () => {
+      if (el.offsetParent === null) return
+      setSteg((s) => {
+        if (rullar(el) && s < 2) {
+          vid.current[s + 1] = el.clientWidth
+          return s + 1
+        }
+        if (s > 0 && el.clientWidth > (vid.current[s] ?? 0) + 48) return s - 1
+        return s
+      })
+    }
+    mat()
+    const ro = new ResizeObserver(mat)
+    ro.observe(el)
+    for (const barn of Array.from(el.querySelectorAll('.overflow-x-auto'))) ro.observe(barn)
+    return () => ro.disconnect()
+    // rullar är ren.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  // Ett nytt steg kan behöva ett till (mallbyte med fotoknapp).
+  useEffect(() => {
+    const el = ref.current
+    if (!el || steg >= 2) return
+    if (el.offsetParent !== null && rullar(el)) {
+      vid.current[steg + 1] = el.clientWidth
+      setSteg(steg + 1)
+    }
+  })
+  return { ref, steg }
+}
+
+export default function FastRad({ formatKompakt, knapp, dator, fel, ovanNav }: FastRadProps) {
+  const trang = useTrang()
   return (
     <>
       {/* Inloggat räknar rullytan sin luft under innehållet (padding-bottom
@@ -166,13 +215,18 @@ export default function FastRad({ format, formatKompakt, knapp, dator, fel, ovan
       >
         <div className="flex items-center gap-2 px-3 pb-[max(8px,env(safe-area-inset-bottom))] pt-2 lg:h-16 lg:gap-4 lg:px-4 lg:py-0">
           {dator ? (
-            <div className="hidden min-w-0 flex-1 items-center gap-3 overflow-x-auto [scrollbar-width:none] lg:flex [&::-webkit-scrollbar]:hidden">
+            <div
+              ref={trang.ref}
+              className={`hidden min-w-0 flex-1 items-center gap-3 overflow-x-auto [scrollbar-width:none] lg:flex [&::-webkit-scrollbar]:hidden ${
+                trang.steg >= 1 ? 'rad-trang-1' : ''
+              } ${trang.steg >= 2 ? 'rad-trang-2' : ''}`}
+              data-trang={trang.steg}
+            >
               {dator}
             </div>
           ) : null}
-          <div className="lg:hidden">{formatKompakt}</div>
-          <div className="hidden w-[220px] shrink-0 lg:block">{format}</div>
-          <div className="min-w-0 flex-1 lg:w-[320px] lg:flex-none">{knapp}</div>
+          <div className="shrink-0">{formatKompakt}</div>
+          <div className="min-w-0 flex-1 lg:w-[280px] lg:flex-none xl:w-[320px]">{knapp}</div>
         </div>
         {fel ? <div className="px-3 pb-2 lg:px-4">{fel}</div> : null}
       </div>

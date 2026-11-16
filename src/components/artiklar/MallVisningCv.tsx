@@ -17,6 +17,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { capture } from '@/lib/analytics/events'
 import { uppsattningForTitel } from '@/lib/cv/mallval/uppsattning'
+import { Formatbrickor, formatTillagg } from '@/components/cv/Dokument/Formatbrickor'
 
 export interface ArtikelMall {
   id: string
@@ -24,6 +25,8 @@ export interface ArtikelMall {
   /** "Gratis, även som Word" osv., färdig text från servern. */
   rad: string
   bild: string
+  /** Finns som Word: W-brickan bredvid PDF-brickan (ägaren 2026-11-16). */
+  word: boolean
 }
 
 interface Props {
@@ -136,14 +139,16 @@ export default function MallVisningCv({ mallar, etiketter, uppladdning, yrke, ti
           className="pointer-events-none relative block aspect-[794/1123] w-full border-0"
         />
       </div>
-      <p className="mt-1 text-center text-meta text-ink-3">{etiketter.svep}</p>
+      {/* Svepet är pekskärmens; med mus byts mallen med miniatyrerna under. */}
+      <p className="mt-1 text-center text-meta text-ink-3 [@media(hover:hover)_and_(pointer:fine)]:invisible">{etiketter.svep}</p>
 
       <div className="mt-2 grid grid-cols-5 gap-2">
         {mallar.map((m, k) => (
-          <button key={m.id} type="button" onClick={() => byt(k)} aria-pressed={k === i} aria-label={m.namn} className="min-w-0 text-left">
-            <span className={`relative block aspect-[210/297] overflow-hidden rounded-md bg-white ${k === i ? 'border-2 border-koppar' : 'border border-kant'}`}>
+          <button key={m.id} type="button" onClick={() => byt(k)} aria-pressed={k === i} aria-label={`${m.namn}${formatTillagg(m.word)}`} className="group min-w-0 text-left">
+            <span className={`relative block aspect-[210/297] overflow-hidden rounded-md bg-white ${k === i ? 'border-2 border-koppar' : 'border border-kant group-hover:border-ink-1'}`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={m.bild} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover object-top" />
+              <Formatbrickor word={m.word} />
             </span>
             <span className="mt-1 block truncate text-xs font-semibold text-ink-1">{m.namn}</span>
           </button>

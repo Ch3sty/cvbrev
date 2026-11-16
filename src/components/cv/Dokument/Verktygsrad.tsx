@@ -81,7 +81,9 @@ export default function Verktygsrad({ mall, val, onVal, onFoto, fotoPa, last, fo
           <span className="text-[15px] font-bold leading-none" style={{ fontFamily: font.family }}>
             Aa
           </span>
-          <span style={{ fontFamily: font.family }}>{font.name}</span>
+          <span className="[.rad-trang-1_&]:max-w-[88px] [.rad-trang-1_&]:truncate [.rad-trang-2_&]:hidden" style={{ fontFamily: font.family }}>
+            {font.name}
+          </span>
         </button>
 
         <div className="inline-flex h-10 shrink-0 items-center gap-0.5 rounded-[10px] border border-kant-stark bg-papper pl-2 pr-0.5" role="radiogroup" aria-label={VERKTYG.farg}>
@@ -105,9 +107,18 @@ export default function Verktygsrad({ mall, val, onVal, onFoto, fotoPa, last, fo
           ))}
         </div>
 
-        <button type="button" className={CHIP} onClick={() => setArk('ordning')} disabled={last} aria-haspopup="dialog">
+        {/* Trång fast rad (FastRad mäter): "Standard" säger inget, bara ikonen;
+            ännu trängre: bara ikonen oavsett val (UX 2026-11-16). */}
+        <button
+          type="button"
+          className={CHIP}
+          onClick={() => setArk('ordning')}
+          disabled={last}
+          aria-haspopup="dialog"
+          aria-label={`${VAL_ARK.rubrik}: ${VERKTYG.ordning[ordning]}`}
+        >
           <IkonOrdning size={18} />
-          {VERKTYG.ordning[ordning]}
+          <span className={ordning === 'standard' ? '[.rad-trang-1_&]:hidden [.rad-trang-2_&]:hidden' : '[.rad-trang-2_&]:hidden'}>{VERKTYG.ordning[ordning]}</span>
         </button>
 
         {mall.foto && onFoto ? (

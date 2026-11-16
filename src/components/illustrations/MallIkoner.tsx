@@ -82,6 +82,12 @@ export const IkonZoom = (p: MallIkonProps) => (
     <path d="M16 16l4.5 4.5M11 8.5v5M8.5 11h5" />
   </Ikon>
 )
+export const IkonZoomUt = (p: MallIkonProps) => (
+  <Ikon {...p}>
+    <circle cx="11" cy="11" r="6.5" />
+    <path d="M16 16l4.5 4.5M8.5 11h5" />
+  </Ikon>
+)
 export const IkonSok = (p: MallIkonProps) => (
   <Ikon {...p}>
     <circle cx="11" cy="11" r="6.5" />

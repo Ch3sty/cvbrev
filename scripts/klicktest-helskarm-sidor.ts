@@ -298,7 +298,8 @@ async function helskarm(page: Page, steg: string, forvantat?: number): Promise<n
   kontroll(m.etiketter.every((t, i) => t === `Sida ${i + 1} av ${m.sidor}`), `${steg}: sidnummer under varje ark (${m.etiketter.join(', ')})`)
   kontroll(m.glipor.every((g) => g >= 30 && g <= 44), `${steg}: arken åtskilda (avstånd ark till ark ${m.glipor.join(', ') || 'ett ark'} px: 6 px, etiketten, 12 px glipa)`)
   kontroll(m.sidled <= 0, `${steg}: ingen sidled i helskärmen (${m.sidled})`)
-  kontroll(m.bredd <= Math.min(794, m.vy - 24) + 1, `${steg}: arket ${m.bredd} px brett med 12 px marginal`)
+  // Mobil: högst 794 med 12 px marginal. Dator (2026-11-16): så hög att sidan ryms i höjd, 540 till 1200.
+  kontroll(m.vy < 900 ? m.bredd <= Math.min(794, m.vy - 24) + 1 : m.bredd >= 539 && m.bredd <= 1201, `${steg}: arket ${m.bredd} px brett`)
   // Zoomen och tillbaka.
   await page.click('[role=dialog] button[aria-label="Zooma"]')
   await vila(500)

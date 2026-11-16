@@ -5,12 +5,14 @@
  * Mobil: nederst, full bredd, rundat överst med handtag. Dator: samma blad,
  * högst 520 px brett, centrerat nederst, så dokumentet bakom syns och byts
  * live. Esc och tryck på dimman stänger. Fokus flyttas in och tillbaka.
+ * Arket ligger över helskärmen (z 90 mot 80), så Alla-arket kan öppnas där.
  */
 
 import { useEffect, useId, useRef, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import { IkonStang } from '@/components/illustrations/MallIkoner'
 import { DOK } from './texter'
+import { oppnaDialog } from './dialoglager'
 
 export interface ArkProps {
   open: boolean
@@ -31,6 +33,10 @@ export interface ArkProps {
 export default function Ark({ open, onClose, rubrik, under, children, fot, bred, utanDimma, tillagg }: ArkProps) {
   const id = useId()
   const ref = useRef<HTMLDivElement>(null)
+  // onClose skapas på nytt vid varje rendering hos ytan; i en ref så att
+  // fokus inte flyttas tillbaka till första fältet vid varje rendering.
+  const stang = useRef(onClose)
+  stang.current = onClose
 
   useEffect(() => {
     if (!open) return
@@ -41,21 +47,27 @@ export default function Ark({ open, onClose, rubrik, under, children, fot, bred,
       )
       ;(forsta ?? ref.current)?.focus()
     }, 30)
+    // Fångstfasen på window: arket ligger överst (också ovanpå helskärmen),
+    // så Esc stänger bara arket och når aldrig helskärmens lyssnare.
     const tangent = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
+      if (e.key !== 'Escape') return
+      e.stopPropagation()
+      stang.current()
     }
-    document.addEventListener('keydown', tangent)
+    window.addEventListener('keydown', tangent, true)
+    const slapp = oppnaDialog()
     return () => {
+      slapp()
       window.clearTimeout(t)
-      document.removeEventListener('keydown', tangent)
+      window.removeEventListener('keydown', tangent, true)
       forra?.focus?.()
     }
-  }, [open, onClose])
+  }, [open])
 
   if (!open || typeof document === 'undefined') return null
 
   return createPortal(
-    <div className="fixed inset-0 z-[70] flex items-end justify-center">
+    <div className="fixed inset-0 z-[90] flex items-end justify-center">
       <button
         type="button"
         aria-label={DOK.stang}

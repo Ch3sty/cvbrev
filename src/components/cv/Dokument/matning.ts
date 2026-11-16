@@ -24,11 +24,24 @@ export interface Rubrikruta {
   avsnitt: { x: number; y: number; b: number; h: number }
 }
 
+/** Huvudets fält (namn, titel, kontaktraden), för redigering på arket. */
+export type HuvudFalt = 'namn' | 'titel' | 'kontakt'
+
+export interface Faltruta {
+  falt: HuvudFalt
+  x: number
+  y: number
+  b: number
+  h: number
+}
+
 export interface Matning {
   sidor: number
   /** Dokumentets höjd i bredder. */
   hojd: number
   rubriker: Rubrikruta[]
+  /** Namn, titel och kontaktrad (data-falt), de som syns. */
+  falt: Faltruta[]
 }
 
 export function matDokument(doc: Document): Matning {
@@ -80,7 +93,28 @@ export function matDokument(doc: Document): Matning {
     }
   })
 
-  return { sidor, hojd, rubriker: med }
+  // Huvudets fält: mallsystemet märker dem med data-falt. En tom titel är
+  // dold (display: none) och har ingen ruta; den läggs till via namnet.
+  const falt: Faltruta[] = []
+  for (const f of ['namn', 'titel', 'kontakt'] as const) {
+    const el = doc.querySelector<HTMLElement>(`[data-falt="${f}"]`)
+    if (!el) continue
+    // Textens egen ruta (inte blockets), så att linjen och pennan hamnar
+    // vid texten också i centrerade huvuden.
+    let r = el.getBoundingClientRect()
+    if (r.width === 0 || r.height === 0) continue
+    try {
+      const omf = doc.createRange()
+      omf.selectNodeContents(el)
+      const t = omf.getBoundingClientRect()
+      if (t.width > 0 && t.height > 0) r = t
+    } catch {
+      // Blockets ruta duger.
+    }
+    falt.push({ falt: f, x: (r.left - rr.left) / bredd, y: (r.top - rr.top) / bredd, b: r.width / bredd, h: r.height / bredd })
+  }
+
+  return { sidor, hojd, rubriker: med, falt }
 }
 
 /** Texten i iframen gör sig själv lika bred som arket (samma knep som exempel-API:t). */
