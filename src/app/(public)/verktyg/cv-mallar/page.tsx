@@ -30,7 +30,7 @@ import CVMallarGalleri from './components/CVMallarGalleri'
 import { CV_MALLAR_FAQ_ITEMS } from './components/cv-mallar-faq-data'
 import RedirectLoggedIn from '@/components/auth/RedirectLoggedIn'
 import { PLAN_BY_KEY, SALD_PLAN, paketKort, paketMedPris, paketNamn, prisPeriod } from '@/lib/plans/plans'
-import { isValidTemplateId } from '@/lib/cv/templates'
+import { isValidTemplateId } from '@/lib/cv/mallar/kompat'
 import { FONTS } from '@/lib/cv/preview-utils'
 
 /** Registrets beskrivningar har tankstreck; i löptexten blir de komma. Schemat läser registret orört. */

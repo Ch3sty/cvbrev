@@ -143,7 +143,7 @@ export default function Step7Review({
       setIsGeneratingPreview(true);
       try {
         const metadata = buildCVMetadata();
-        const { getTemplateGenerator } = await import('@/lib/cv/templates');
+        const { getTemplateGenerator } = await import('@/lib/cv/mallar/kompat-generator');
         if (avbruten) return;
         const generator = getTemplateGenerator(selectedTemplate as CVTemplateType);
 

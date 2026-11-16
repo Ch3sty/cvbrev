@@ -4,7 +4,7 @@
  */
 import MallVisning from './MallVisning'
 import { FREE_TEMPLATE_COUNT, SIMPLE_TEMPLATES, TEMPLATE_COUNT } from '@/lib/cv/simple-templates'
-import { isValidTemplateId } from '@/lib/cv/templates'
+import { isValidTemplateId } from '@/lib/cv/mallar/kompat'
 import { FONTS } from '@/lib/cv/preview-utils'
 import { BREV_MALLAR } from '@/lib/cv/showcase-exempel'
 

@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Eye, Crown, ChevronDown, Check, Type, Palette } from 'lucide-react'
 import { SIMPLE_TEMPLATES } from '@/lib/cv/simple-templates'
-import { getTemplateGenerator } from '@/lib/cv/templates'
+import { getTemplateGenerator } from '@/lib/cv/mallar/kompat-generator'
 import { convertToCVMetadata } from '@/lib/cv/cv-metadata-converter'
 
 interface InteractiveCVPreviewProps {

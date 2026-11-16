@@ -13,6 +13,8 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { YRKESMALL_LIST, YRKESMALL_SLUGS } from '../yrkesmall-data'
 import YrkesmallContent from './YrkesmallContent'
+import { getMallKort } from '@/lib/cv/mallar/katalog'
+import { losMallIdEllerForval } from '@/lib/cv/mallar/alias'
 
 interface Props {
   params: Promise<{ yrke: string }>
@@ -80,7 +82,7 @@ export default async function YrkesmallPage({ params }: Props) {
       availability: 'https://schema.org/InStock',
       url: `https://www.jobbcoach.ai/cv-mallar/${data.slug}`,
     },
-    image: `https://www.jobbcoach.ai/mallar/${data.freeMallId}.svg`,
+    image: `https://www.jobbcoach.ai${getMallKort(losMallIdEllerForval(data.freeMallId))!.bild.stor}`,
   }
 
   const breadcrumbSchema = {
