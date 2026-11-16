@@ -112,13 +112,13 @@ async function radera() {
     const { error } = await sb.from(tabell).delete().in('user_id', ids)
     console.log(`${tabell}: ${count} rader${error ? ' FEL ' + error.message : ' raderade'}`)
   }
-  // Uppladdade filer ligger i cvs/<user_id>/.
+  // Uppladdade filer ligger i cvs/users/<user_id>/.
   for (const id of ids) {
-    const { data: filer } = await sb.storage.from('cvs').list(id)
-    const vagar = (filer ?? []).map((f) => `${id}/${f.name}`)
+    const { data: filer } = await sb.storage.from('cvs').list(`users/${id}`)
+    const vagar = (filer ?? []).map((f) => `users/${id}/${f.name}`)
     if (vagar.length) {
       const { error } = await sb.storage.from('cvs').remove(vagar)
-      console.log(`cvs/${id}: ${vagar.length} filer${error ? ' FEL ' + error.message : ' raderade'}`)
+      console.log(`cvs/users/${id}: ${vagar.length} filer${error ? ' FEL ' + error.message : ' raderade'}`)
     }
   }
   for (const k of konton) {
@@ -508,6 +508,38 @@ async function fullFlode(browser: Browser, k: Konto) {
   await ctx.close()
 }
 
+/** Jobbcoachens kvot slut: PaywallCard i bladet, knappen kvar som spärrad. */
+async function kvotFlode(browser: Browser, k: Konto) {
+  const fel: string[] = []
+  const steg = 'gratis-pixel7-kvot'
+  const rader = Array.from({ length: 12 }, () => ({
+    user_id: k.id,
+    feature_name: 'cv_bygg_punkter',
+    endpoint: '/api/cv/bygg/forslag',
+    ai_model: 'qa',
+    prompt_tokens: 0,
+    completion_tokens: 0,
+    total_tokens: 0,
+    cost_usd: 0,
+    cost_sek: 0,
+    metadata: { qa: true },
+  }))
+  const { error } = await sb.from('ai_usage_costs').insert(rader)
+  kontroll(!error, `${steg}: dagens tolv förslag förbrukade (${error?.message ?? 'ok'})`)
+  const cv = (await cvRader(k.id)).find((r) => (r.structured_data as { experience?: unknown[] })?.experience?.length)
+  const { ctx, page } = await oppna(browser, k, PIXEL7, fel)
+  await page.goto(`${BAS}/dashboard/skapa-cv?cv=${cv?.id}&ark=erfarenhet:0`, { waitUntil: 'networkidle2', timeout: 120000 })
+  await vantaPa(page, '[data-coach-knapp]')
+  await page.click('[data-coach-knapp]')
+  await page.waitForFunction(() => document.body.innerText.includes('Dagens förslag från Jobbcoachen är använda'), { timeout: 15000 }).catch(() => null)
+  const text = await page.evaluate(() => document.body.innerText)
+  const sparrad = await page.$eval('[data-coach-knapp]', (b) => (b as HTMLButtonElement).disabled).catch(() => false)
+  kontroll(text.includes('Dagens förslag från Jobbcoachen är använda') && sparrad, `${steg}: PaywallCard i bladet och knappen spärrad`)
+  await bild(page, `${steg}-paywall`)
+  kontroll(fel.length === 0, `${steg}: inga konsolfel eller 5xx${fel.length ? ': ' + fel.slice(0, 5).join(' | ') : ''}`)
+  await ctx.close()
+}
+
 async function klicka() {
   const konton = JSON.parse(fs.readFileSync(KONTOFIL, 'utf8')) as Konto[]
   const k = (r: Roll) => konton.find((x) => x.roll === r)!
@@ -517,6 +549,7 @@ async function klicka() {
     if (!BARA || BARA === 'gratis') await gratisFlode(browser, k('gratis'))
     if (!BARA || BARA === 'upp') await uppladdning(browser, k('gratis'))
     if (!BARA || BARA === 'premium') await premiumFlode(browser, k('premium'))
+    if (!BARA || BARA === 'kvot') await kvotFlode(browser, k('gratis'))
   } catch (e) {
     kontroll(false, `avbrutet: ${(e as Error).message}`)
   } finally {

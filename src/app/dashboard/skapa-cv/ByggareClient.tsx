@@ -729,7 +729,7 @@ export default function ByggareClient(p: ByggareProps) {
               filnamn={gorFilnamn(mall.namn, ren.personalInfo.fullName || 'mitt-cv', format)}
               sidor={matning?.sidor ?? 1}
               harFoto={Boolean(fotoUrl)}
-              kalla={(m) => ({ ...kalla, mall: m })}
+              kalla={(m) => ({ ...kalla, mall: m, spok: undefined })}
               pris={p.pris}
               kampanj={p.kampanj}
               onKop={(m) => {

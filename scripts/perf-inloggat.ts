@@ -140,9 +140,8 @@ const ROUTES: RouteDef[] = [
   { path: '/dashboard/skapa-brev?steg=5', namn: 'skapa-brev steg 5', budget: 'flode' },
   { path: '/dashboard/skapa-brev?steg=6', namn: 'skapa-brev steg 6', budget: 'flode' },
   { path: '/dashboard/skapa-cv', namn: 'skapa-cv', budget: 'flode' },
-  { path: '/dashboard/skapa-cv?steg=2', namn: 'skapa-cv steg 2', budget: 'flode' },
-  { path: '/dashboard/skapa-cv?steg=4', namn: 'skapa-cv steg 4', budget: 'flode' },
-  { path: '/dashboard/skapa-cv?steg=7', namn: 'skapa-cv steg 7', budget: 'flode' },
+  // CV-byggaren 'Direkt på arket' (2026-11-16): startbladet över arket, och en annan mall ur ?mall=.
+  { path: '/dashboard/skapa-cv?mall=bjork', namn: 'skapa-cv mall', budget: 'flode' },
   { path: '/dashboard/cv-analys', namn: 'cv-analys', budget: 'flode' },
   { path: '/dashboard/cv-analys?steg=2', namn: 'cv-analys steg 2', budget: 'flode' },
   { path: '/dashboard/cv-analys?steg=3', namn: 'cv-analys steg 3', budget: 'flode' },
