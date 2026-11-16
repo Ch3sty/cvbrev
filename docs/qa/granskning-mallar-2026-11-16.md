@@ -302,3 +302,35 @@ UX-designern (mobile-ux-designer) fick samma underlag och sex frågor: täthet i
 Levereras nu (16): Linne, Koppar, Kolumn, Årsring, Antikva, Fasad, Raster, Folio, Stål, Mörkrum, Terrakotta, Kvadrat, Siluett, Tidning, Tusch, Horisont. I kort och normalt CV är kärnmallarna bland dessa lika i Word och PDF; i långt CV skiljer sig sidbrytningen i Koppar, Stål, Raster, Antikva, Folio och Årsring (R6, R8), vilket rättas i samma omgång som nedan men inte hindrar leverans.
 
 Hålls tillbaka tills rättade: Kalksten (R1, R3, R4), Granit (R1, R2, R3, R4), Ritning (R4, R5), Björk (R7). Efter R1 till R8 vill jag se de nya `jamforelse`-bilderna för Kalksten, Granit och Björk i alla tre längder samt Ritning i `sidbrytning`, inte hela omgången igen.
+
+---
+
+# Slutkontroll, 2026-11-16
+
+Art-director, efter byggagent A:s R1 till R10 och UX-designerns U4 till U7 (ddadbada, bf29adbe på feat/mallar). Underlag: `S\word-qa\{kalksten,granit,bjork}-{kort,normalt,langt}-jamforelse.png` med sidorna var för sig, `S\sidbrytning\ritning-*-s*.png`, A:s `sidbrytning.json` (80 av 80) och `ats-resultat.json` (160 av 160). Egna mått och urklipp i `S\ad3\` (`matt.mts`, `skarv.mts`, `klipp*.mts`, `diff.mts`, körs från cvbrev-qa-b med `npx tsx`; mått i mm räknade ur pixlar på 595 x 841-sidorna). Ingen kod rörd.
+
+## 1. De fyra som hölls tillbaka
+
+| Mall | Beslut | Mätt |
+|---|---|---|
+| Kalksten | GODKÄND | Spalten 57,9 mm i Chrome och Word (R1). Panelen slutar 280,4 mm (Chrome) mot 279,3 mm (Word) i kort och normalt, 1,1 mm (R3, grind 3 mm). KORT_CV och NORMALT_CV en sida i båda formaten med samma avsnitt i samma ordning; spaltens mittpunktsrader bryts på samma ställen rad för rad (`S\ad3\zoom-kalksten-spalt-*.png`). LANGT_CV: sida 1 lika, sida 2 och 3 skiljer sig i panelens längd (Chrome fyller sida 2, Word slutar med innehållet vid 253 mm; sida 3 omvänt). Det är A:s avvikelse och Word-tabellens natur; jag godtar den, se avsnitt 3. |
+| Granit | GODKÄND i kort och normalt | Spalten 58,3 mm i båda. Panelen från bandets underkant (54,0 mm med foto, 42,4 mm utan) till 280,4 mot 279,3 mm. Word har text på sida 1 i alla längder (R2 löst). Mittpunkterna syns på den mörka panelen i Chrome, som i Word (`S\ad3\zoom-granit-spalt-chrome.png` och `-word.png`, R4). KORT_CV och NORMALT_CV en sida i båda formaten med samma innehåll. LANGT_CV bedöms när A:s rättning av sida 2 och 3 är klar (Chrome delar Projekt över sida 2 och 3, Word håller ihop det på sida 3); grinden är R8:s, samma avsnitt på samma sida. |
+| Björk | GODKÄND | Samma avsnitt på samma sida i kort, normalt och långt. I NORMALT_CV står Tekniska kompetenser överst på sida 2 i både Chrome och Word: blocket (rubrik plus två grupper, cirka 46 mm med avsnittsluften) ryms inte i de 46 mm som är kvar ovanför bottenmarginalen när det hålls ihop (R6), och R7:s grind var att formaten är lika, inte att blocket står på sida 1. Godtaget. Mittpunktsraderna börjar aldrig med punkten (G3). |
+| Ritning | GODKÄND | Blått från 0,0 till 296,6 mm vid x = 7 mm på alla sidor i kort, normalt, långt och en sida, 0 avvikande rader i färgen (ingen skarv, `S\ad3\skarv.mts`). Spalten 66,4 mm. Huvudspaltens första textrad 18 mm från överkanten på sida 2 och 3 (`S\ad3\zoom-ritning-s2-topp.png`). Mittpunkterna syns på blått (`S\ad3\zoom-ritning-spalt.png`). "En sida" ger en sida, tät men läsbar. |
+
+## 2. De 16 redan godkända
+
+Kört själv på bf29adbe från cvbrev-qa-b: `npm run test:ats -- --ut S\ad3\ats` ger 160 av 160 gröna (alla 20 mallar, PDF och Word, kort, normalt, långt, intyg först, utbildning först). `scripts/mallar-sidbrytning.ts --png` för Linne, Koppar, Stål, Raster, Horisont, Mörkrum, Kvadrat och Siluett ger 32 av 32 gröna, och de 55 sidbilderna är identiska pixel för pixel med A:s i `S\sidbrytning\` (`S\ad3\diff.mts`, 0 avvikande pixlar i varje). Stål normalt på en sida med runda punkter och mittpunkt i högerspalten, Siluett kort med foto på en sida, Horisonts axel ren i långt CV: som vid andra granskningen. Inget har försämrats.
+
+## 3. A:s avvikelser, avgöranden
+
+- **Word-panelen på sida 2 och 3 i långt CV slutar med innehållet.** Godtaget. En Word-tabellrad kan inte skuggas längre än den går, och Chrome gör samma sak på sista sidan. Skillnaden syns bara i LANGT_CV i Kalksten och Granit på sidor efter den första, och sida 1 är lika i båda. Specens rad om sidbrytningar får lydelsen: panelen når nederkanten på sida 1 i båda formaten; på följande sidor går den så långt innehållet går i Word och så långt tabellraden går i Chrome.
+- **Björks Tekniska kompetenser på sida 2 i båda.** Godtaget, se tabellen.
+- **Rasters ton 82 procent.** Godtaget; accent 2 och 4 skiljer sig i `S\ad3\sb\raster-*`.
+- **Golvet 9,0/8,0 pt räckte för alla "en sida".** Godtaget; alla 20 `-ensida` ger en sida i A:s `sidbrytning.json` och i mina åtta.
+
+En reservation som inte ändrar besluten: Word-bilderna i `S\word-qa\` är stämplade 06:49 till 06:52 och bf29adbe är committad 07:00:55. Hunken "tvåspaltens luft" ligger i tvåspaltsgrenen (Stål), inte i sidospaltsgrenen, och hunken om långa poster slår bara in när en post med minst fyra punkter korsar en sidbrytning, så Kalksten, Granit och Björk i kort och normalt är opåverkade. A bekräftar i sin rapport att `word-mallar-granska` är körd på bf29adbe för Stål och de långa CV:na, annars körs den om innan leveransen.
+
+## 4. Levereras till ägaren
+
+Alla 20: Linne, Björk, Koppar, Kalksten, Granit, Kolumn, Årsring, Antikva, Fasad, Raster, Folio, Stål, Mörkrum, Terrakotta, Kvadrat, Siluett, Ritning, Tidning, Tusch, Horisont. Granit med förbehållet att LANGT_CV i Word ska ha samma avsnitt på samma sida som i Chrome när A:s pågående rättning är klar (R8:s grind), vilket A verifierar med `granit-langt-jamforelse.png`; ingen ny granskning behövs för det.

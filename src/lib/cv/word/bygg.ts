@@ -250,7 +250,7 @@ function rubrik2(a: Avsnitt | { rubrik: string }, b: B, r: Ruta, fore: number): 
 }
 
 /** Posttiteln: titeln och perioden högerställd med tabbstopp vid containerns kant. */
-function posttitel(p: Post, b: B, r: Ruta, hallIhop: boolean, forst = false): Paragraph {
+function posttitel(p: Post, b: B, r: Ruta, hallIhop: boolean, forst = false, efter = 0): Paragraph {
   const d = b.def
   return stycke({
     style: 'Posttitel',
@@ -258,7 +258,7 @@ function posttitel(p: Post, b: B, r: Ruta, hallIhop: boolean, forst = false): Pa
     keepLines: true,
     // Första posten under rubriken utan luft ovanför, som .start>.post i CSS:en;
     // Word tar det största av rubrikens luft under och postens luft över.
-    ...(I_CELL || forst ? { spacing: { before: 0, after: pt(1) } } : {}),
+    ...(I_CELL || forst ? { spacing: { before: 0, after: pt(1) + efter } } : {}),
     tabStops: [{ type: TabStopType.RIGHT, position: r.bredd }],
     children: [
       textRun(p.titel, r, { color: r.text ?? b.f(d.farger.posttitel, ord(b.p.text)), size: hp(b.m.grad(d.grad.posttitel)) }),
@@ -277,28 +277,34 @@ function posttitel(p: Post, b: B, r: Ruta, hallIhop: boolean, forst = false): Pa
   })
 }
 
-function punkt(text: string, r: Ruta, hallIhop: boolean, ref = 'punkter', fore = 0): Paragraph {
+function punkt(text: string, r: Ruta, hallIhop: boolean, ref = 'punkter', fore = 0, efter = 0): Paragraph {
   return stycke({
     numbering: { reference: ref, level: 0 },
     keepLines: true,
     keepNext: hallIhop,
-    spacing: { before: fore, after: mm(0.6) },
+    spacing: { before: fore, after: mm(0.6) + efter },
     children: [textRun(text, r, { size: hp(r.grad) })],
   })
 }
 
 /** En post: titel, arbetsgivare, text och punkter, hållna ihop. */
-function postStycken(p: Post, b: B, r: Ruta, medTitel = true, forst = false): Paragraph[] {
+/**
+ * `efter` är luften till nästa post i en spaltcell, som avstånd efter postens
+ * sista stycke. Word låter det hänga ut i bottenmarginalen, så sidan får samma
+ * plats som i Chrome, som kapar marginalen vid en sidbrytning (Granit långt).
+ */
+function postStycken(p: Post, b: B, r: Ruta, medTitel = true, forst = false, efter = 0): Paragraph[] {
   const d = b.def
   const ut: Paragraph[] = []
   const efterTitel = Boolean(p.under) || p.text.length > 0 || p.punkter.length > 0
-  if (medTitel) ut.push(posttitel(p, b, r, efterTitel, forst))
+  if (medTitel) ut.push(posttitel(p, b, r, efterTitel, forst, efterTitel ? 0 : efter))
   if (p.under)
     ut.push(
       stycke({
         style: 'Arbetsgivare',
         keepNext: p.text.length > 0 || p.punkter.length > 0,
         keepLines: true,
+        ...(efter && !p.text.length && !p.punkter.length ? { spacing: { after: pt(2) + efter } } : {}),
         children: [textRun(p.under, r, { ...stilRun(d.post.arbetsgivare, b, ord(b.p.dampad)), ...(r.text ? { color: r.text } : {}), size: hp(r.grad) })],
       })
     )
@@ -307,14 +313,14 @@ function postStycken(p: Post, b: B, r: Ruta, medTitel = true, forst = false): Pa
       stycke({
         keepNext: i < p.text.length - 1 || p.punkter.length > 0,
         keepLines: true,
-        spacing: { before: mm(0.8), after: 0 },
+        spacing: { before: mm(0.8), after: i === p.text.length - 1 && !p.punkter.length ? efter : 0 },
         children: [textRun(t, r, { color: r.text ?? ord(b.p.dampad), size: hp(r.grad) })],
       })
     )
   )
   // En post hålls ihop i sin helhet (som break-inside: avoid i PDF:en).
   // Första punkten 1,1 mm under arbetsgivaren, som listans marginal i CSS:en (kalibrerat).
-  p.punkter.forEach((t, i) => ut.push(punkt(t, r, i < p.punkter.length - 1, 'punkter', i === 0 && !I_CELL ? mm(1.1) : 0)))
+  p.punkter.forEach((t, i) => ut.push(punkt(t, r, i < p.punkter.length - 1, 'punkter', i === 0 && !I_CELL ? mm(1.1) : 0, i === p.punkter.length - 1 ? efter : 0)))
   return ut
 }
 
@@ -372,7 +378,7 @@ function block(a: Avsnitt, b: B, r: Ruta): (Paragraph | Table)[][] {
       // tabellcellerna (Kolumn, Årsring) annars till den ovanpå radens luft.
       return inn.stycken.map((t, i) => [stycke({ keepLines: true, spacing: { after: i < inn.stycken.length - 1 ? pt(4) : 0 }, children: [textRun(t, r, { size: hp(r.grad), ...(a.sektion === 'referenser' ? { color: dampad } : {}) })] })])
     case 'poster':
-      return inn.poster.map((p, i) => postStycken(p, b, r, true, i === 0))
+      return inn.poster.map((p, i) => postStycken(p, b, r, true, i === 0, I_CELL && i < inn.poster.length - 1 ? mm(b.m.luftMellan) : 0))
     case 'lista':
       if (r.iSpalt) return [inn.rader.map((t, i) => punkt(t, r, hallIhopRad(i, inn.rader.length)))]
       return [[stycke({ keepLines: true, children: inn.rader.flatMap((t, i) => [...(i ? [textRun(' · ', r, { color: dampad })] : []), textRun(t, r, { size: hp(r.grad) })]) })]]
@@ -619,13 +625,20 @@ function marginalperiodAvsnittInre(a: Avsnitt, b: B, bredd: number, fore: number
  * bryts aldrig, så en post delas aldrig och en rubrik står aldrig ensam.
  */
 function spaltRader(lista: { a: Avsnitt | null; rubrik?: Paragraph; block: (Paragraph | Table)[][] }[], bredd: number, luftMellan = 0): Table | null {
-  const rader: TableRow[] = []
+  // Raderna samlas först: luften mellan två poster läggs som nedre marginal på
+  // raden före, inte som övre på nästa. Word upprepar annars luften överst på en
+  // ny sida, där Chrome kapar den, och sidan fick 3,8 mm mindre plats (Granit långt).
+  const celler: { innehall: (Paragraph | Table)[]; under: number }[] = []
+  const lagg = (innehall: (Paragraph | Table)[], fore = 0) => {
+    if (fore && celler.length) celler[celler.length - 1].under += fore
+    celler.push({ innehall, under: 0 })
+  }
   for (const x of lista) {
     const poster = x.a?.innehall.typ === 'poster'
     x.block.forEach((del, i) => {
       const innehall = i === 0 && x.rubrik ? [x.rubrik, ...del] : del
-      const luft = i > 0 && poster ? luftMellan : 0
-      const marg = luft ? { margins: { top: luft, bottom: 0, left: 0, right: 0 } } : {}
+      // Luften mellan posterna ligger som avstånd efter postens sista stycke (postStycken).
+      const luft = 0
       // Samma brytregel som html.ts (UX U6): titeln och två punkter i en rad, sedan
       // en rad per punkt; en kort sista punkt följer med punkten före.
       const post = poster && x.a?.innehall.typ === 'poster' ? x.a.innehall.poster[i] : undefined
@@ -635,14 +648,17 @@ function spaltRader(lista: { a: Avsnitt | null; rubrik?: Paragraph; block: (Para
         const resten = innehall.slice(innehall.length - n + 2)
         const grupper = resten.map((x) => [x])
         if (sista.length < 70 && grupper.length >= 2) grupper.splice(-2, 2, [...grupper[grupper.length - 2], ...grupper[grupper.length - 1]])
-        rader.push(new TableRow({ cantSplit: true, children: [tabellCell(innehall.slice(0, innehall.length - n + 2), bredd, marg)] }))
-        for (const g of grupper) rader.push(new TableRow({ cantSplit: true, children: [tabellCell(g, bredd)] }))
+        lagg(innehall.slice(0, innehall.length - n + 2), luft)
+        for (const g of grupper) lagg(g)
         return
       }
-      rader.push(new TableRow({ cantSplit: true, children: [tabellCell(innehall, bredd, marg)] }))
+      lagg(innehall, luft)
     })
-    if (!x.block.length && x.rubrik) rader.push(new TableRow({ cantSplit: true, children: [tabellCell([x.rubrik], bredd)] }))
+    if (!x.block.length && x.rubrik) lagg([x.rubrik])
   }
+  const rader = celler.map(
+    (c) => new TableRow({ cantSplit: true, children: [tabellCell(c.innehall, bredd, c.under ? { margins: { top: 0, bottom: c.under, left: 0, right: 0 } } : {})] })
+  )
   return rader.length ? tabell(rader, [bredd]) : null
 }
 
@@ -944,7 +960,10 @@ export async function byggWordDokument(cv: CVMetadata, def: MallDef, val: MallVa
     const fill = s.bakgrund ? b.f(s.bakgrund, ord(p.ton)) : undefined
     const sidoCell = tabellCell(sido, spaltBredd, {
       ...(fill ? { shading: { type: ShadingType.CLEAR, color: 'auto', fill } } : {}),
-      margins: { top: mm(s.luft.topp), bottom: mm(4), left: s.sida === 'vanster' ? ytter : inre, right: s.sida === 'vanster' ? inre : ytter },
+      // Ingen nedre cellmarginal: Word håller den fri i botten av varje sida som raden
+      // fortsätter över, också i huvudspalten bredvid (Granit långt). Panelens höjd
+      // kommer från radens minsta höjd.
+      margins: { top: mm(s.luft.topp), bottom: 0, left: s.sida === 'vanster' ? ytter : inre, right: s.sida === 'vanster' ? inre : ytter },
     })
     const huvudCell = tabellCell(spaltInnehall(dok.huvudspalt, b, { bredd: huvudBredd, iSpalt: false, grad }, 0), helBredd - spaltBredd, {
       margins: {

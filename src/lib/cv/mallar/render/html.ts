@@ -475,6 +475,11 @@ padding:${band.luft.topp}mm ${band.luft.sidor}mm ${band.luft.botten}mm;${band.mi
 .punkter li,.lista li{margin-top:0.6mm;break-inside:avoid}
 .punkter li::marker,.lista li::marker{color:${f(def.punkt.farg, p.text)}}
 .text+.text,.start+.text{margin-top:1.5mm}`)
+  // I spalterna (sidospalt, tvåspalt) ligger luften mellan posterna under posten,
+  // inom dess odelbara ruta, som avståndet efter postens sista stycke i Word.
+  // Båda formaten behöver då samma plats för en post i botten av sidan.
+  if (l.typ === 'sidospalt' || l.typ === 'tvaspalt')
+    ut.push(`.post{margin-top:0}.post::after{content:"";display:block;height:${m.luftMellan}mm}.avsnitt>.post:last-child::after,.avsnitt>.start:last-child>.post::after{display:none}`)
   if (def.post.linjeMellan) ut.push(`.start+.post,.post+.post{border-top:${linjeCss(def.post.linjeMellan, c, p.linje)};padding-top:${m.luftMellan}mm}`)
 
   // Kompetenser, intyg, språk
