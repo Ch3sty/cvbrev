@@ -54,7 +54,17 @@ export async function textUrFil(fil: File): Promise<{ text: string; metod: 'pdf'
   if (!metod) throw new TolkaFel('fel_typ')
   let text = ''
   try {
-    text = await lasFil(fil)
+    if (metod === 'docx') {
+      // mammoth direkt, med radbrytningarna kvar: den gemensamma läsaren
+      // plattar ut texten, och då hittar regelparsern varken namn, intyg
+      // eller språk.
+      const m = await import('mammoth')
+      const mammoth = (m as unknown as { default?: typeof m }).default ?? m
+      const r = await mammoth.extractRawText({ buffer: Buffer.from(await fil.arrayBuffer()) })
+      text = r.value.replace(/\n{3,}/g, '\n\n').trim()
+    } else {
+      text = await lasFil(fil)
+    }
   } catch (err) {
     if (err instanceof ImageBasedPdfError) throw new TolkaFel('bild_pdf')
     throw new TolkaFel(metod === 'pdf' ? 'bild_pdf' : 'tom')
@@ -85,9 +95,11 @@ export async function tolkaText(text: string, metod: 'pdf' | 'docx'): Promise<To
     console.error('[cv/tolka] lokal tolkning misslyckades:', err)
   }
 
-  const { text: maskad, detectedName } = maskForModel(text, {
-    fullName: lokal?.personalInfo?.fullName || undefined,
-  })
+  // Namnet: regelparsern, annars de första orden med versal i texten (de
+  // flesta CV börjar med namnet). Maskas före Gemini som allt annat.
+  const forsta = text.trim().match(/^([A-ZÅÄÖ][a-zåäöéü]+(?:[ -][A-ZÅÄÖ][a-zåäöéü]+){1,2})(?=\s|$)/)
+  const lokaltNamn = lokal?.personalInfo?.fullName || forsta?.[1] || undefined
+  const { text: maskad, detectedName } = maskForModel(text, { fullName: lokaltNamn })
 
   let ai: CVMetadata | null = null
   try {
@@ -97,7 +109,7 @@ export async function tolkaText(text: string, metod: 'pdf' | 'docx'): Promise<To
   }
 
   const kalla = ai ?? lokal
-  const namn = rensa(detectedName ?? lokal?.personalInfo?.fullName ?? '')
+  const namn = rensa(detectedName || lokaltNamn || '')
   const pi = lokal?.personalInfo
   const cv: CVMetadata = {
     personalInfo: {
@@ -135,7 +147,15 @@ export async function tolkaText(text: string, metod: 'pdf' | 'docx'): Promise<To
           }))
           .filter((c) => c.name)
       : undefined,
-    languages: lokal?.languages?.length ? lokal.languages : undefined,
+    // Regelparsern tar ibland med ordfragment och nästa rubrik ("ande",
+    // "REFERENSER"): bara språknamn med versal och gemener följer med.
+    languages: (() => {
+      const l = (lokal?.languages ?? []).filter((x) => {
+        const s = (x.language ?? '').trim()
+        return /^[A-ZÅÄÖ][a-zåäöéü]{2,}(?: [a-zåäöéü]+)?$/.test(s) && !/begäran|referens/i.test(s)
+      })
+      return l.length ? l : undefined
+    })(),
   }
 
   const har: Record<Del, boolean> = {

@@ -108,6 +108,7 @@ export default function Final({ open, onClose, fil, mall, format, sidor, cvId, t
 
   return (
     <Ark open={open} onClose={onClose} rubrik={<span className="sr-only">{FINAL.klar}</span>}>
+      <style>{".dok-bock{stroke-dasharray:24;stroke-dashoffset:24;animation:dokBock .45s ease-out .15s forwards}@keyframes dokBock{to{stroke-dashoffset:0}}@media (prefers-reduced-motion:reduce){.dok-bock{animation:none;stroke-dashoffset:0}}"}</style>
       <div className="grid gap-3 pb-1 text-center">
         <div className="mx-auto mt-1 flex h-16 w-16 items-center justify-center rounded-full bg-positiv-mjuk text-positiv">
           <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>

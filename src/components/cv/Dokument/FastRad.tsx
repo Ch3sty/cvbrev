@@ -107,10 +107,10 @@ export interface FastRadProps {
 export default function FastRad({ format, knapp, dator, fel, ovanNav }: FastRadProps) {
   return (
     <>
-      {/* Platsen raden tar, så att innehållet går att rulla förbi den. */}
-      <div aria-hidden className="h-[132px] lg:h-[72px]" />
+      {/* Klistrad mot vyns botten så länge arbetsytan syns: följer kolumnens
+          bredd (inloggat bredvid sidomenyn) och släpper när sidan rullat förbi. */}
       <div
-        className="fixed inset-x-0 z-40 border-t border-kant bg-papper/95 backdrop-blur supports-[backdrop-filter]:bg-papper/85"
+        className="sticky z-40 -mx-3.5 mt-4 border-t border-kant bg-papper/95 backdrop-blur supports-[backdrop-filter]:bg-papper/85 lg:mx-0 lg:rounded-t-xl lg:border-x"
         style={{ bottom: ovanNav ? 'var(--bottom-nav-h, 0px)' : 0 }}
       >
         <div className="mx-auto max-w-[1180px] px-3.5 pb-[max(14px,env(safe-area-inset-bottom))] pt-2.5 lg:flex lg:h-16 lg:items-center lg:gap-4 lg:px-6 lg:py-0">

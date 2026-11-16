@@ -50,6 +50,7 @@ export default function Uppladdning({ ton = 'vagg' }: { ton?: 'vagg' | 'papper' 
 
   return (
     <div id="ladda-upp" className="scroll-mt-24">
+      <style>{"@keyframes dokLaddar{0%{transform:translateX(-100%)}100%{transform:translateX(300%)}}"}</style>
       <div
         onDragOver={(e) => {
           e.preventDefault()
