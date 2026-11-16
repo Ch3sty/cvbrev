@@ -2000,7 +2000,7 @@ html {
     --ink-1: #F3F2F7; --ink-2: #C7C6D0; --ink-3: #9391A1; --ink-hover: #E4E3EC;
     --koppar-ink: #F2A368; --koppar-mjuk: rgba(224, 122, 47, 0.18);
     --accent-ink: #F2A368; --accent-mjuk: rgba(224, 122, 47, 0.18);
-    --positiv: #6CC79A; --positiv-mjuk: #1C3A2D; --varning: #E3A85A; --fel: #E57F74;
+    --positiv: #6CC79A; --positiv-mjuk: #1C3A2D; --varning: #E3A85A; --varning-mjuk: #3A2B14; --fel: #E57F74; --fel-mjuk: #3F1F1C; --fel-kant: #5A2D29; --fel-morker: #F3B3AB;
     --premium: #09090C; --premium-2: #121116;
     --golv-skarm: #17171B; --papper-skarm: #232227; --kant-skarm: #34333A;
     --lyft: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -12px rgba(0, 0, 0, 0.6);
@@ -2014,7 +2014,7 @@ html {
   --ink-1: #F3F2F7; --ink-2: #C7C6D0; --ink-3: #9391A1; --ink-hover: #E4E3EC;
   --koppar-ink: #F2A368; --koppar-mjuk: rgba(224, 122, 47, 0.18);
   --accent-ink: #F2A368; --accent-mjuk: rgba(224, 122, 47, 0.18);
-  --positiv: #6CC79A; --positiv-mjuk: #1C3A2D; --varning: #E3A85A; --fel: #E57F74;
+  --positiv: #6CC79A; --positiv-mjuk: #1C3A2D; --varning: #E3A85A; --varning-mjuk: #3A2B14; --fel: #E57F74; --fel-mjuk: #3F1F1C; --fel-kant: #5A2D29; --fel-morker: #F3B3AB;
   --premium: #09090C; --premium-2: #121116;
   --golv-skarm: #17171B; --papper-skarm: #232227; --kant-skarm: #34333A;
   --lyft: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -12px rgba(0, 0, 0, 0.6);
